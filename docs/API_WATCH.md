@@ -529,6 +529,58 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     binnen het venster dat over de API gaat, en **geen enkele `community-manager`-post in de
     categorie binnen 7 dagen**: de laatste post in *UI Add-On Development Policy* is onveranderd
     **2026-08-28T19:54:53Z** van Atheren (trust_level 2).
+
+- [2026-09-05] ✅ **Tweede run van vandaag — verificatiepas, niets nieuws sinds de drie 05-sep-regels
+  hierboven.** De substantie van vandaag (de `GetItemCooldown`-`[MOET GEFIKST]`, de 12.1.0-bump naar
+  build 69587, hotfixes t/m 4 sep + forum) stond er al; deze pas heeft die claims onafhankelijk
+  hertoetst tegen de live bronnen en de code i.p.v. ze uit de eigen aantekening over te schrijven.
+  Alles klopt en er is niets nieuwers. **0 × nieuw [MOET GEFIKST].**
+  - **GEMETEN — geen cache-val.** Alle Exa-fetches mét `?nocache=20260905b/c/d`. `Patch 12.1.5/API
+    changes` (pageid 705933): nieuwste revisie nog steeds **6860177, 2026-09-05T01:16:17Z**
+    (`/* Deprecated API */`, Ketho) — identiek aan wat de eerste run vanochtend zag, dus geen oudere
+    kopie teruggekregen. `Patch 12.1.0/API changes` (679840): nog steeds **6860164,
+    2026-09-05T00:39:06Z** (`12.1.0 (69587)`). Hotfix-artikel 24296142: nieuwste sectie **4 sep 2026**
+    (Druid/Shaman, Venomous Abyss, Housing, Items) — géén Lua-API-/secure-/taint-/addon-sectie; nog
+    geen 5-sep-lijst. Deze drie zijn de nieuwste die de bron heeft, niet ouder dan het logboek gisteren
+    — dus geen cache.
+  - **GEMETEN — `list=recentchanges` (ns 0, cache-busted).** De 30 nieuwste ns-0-bewerkingen (t/m
+    2026-09-05T05:52Z) raken **uitsluitend content**: items (PvP-insignia's), quests, NPC's,
+    hotfix-archief. **Geen `/API changes`-, `Structure `- of `Enum.`-pagina** binnen de batch; het
+    eerder deze week gemelde Structure-template-migratiepatroon (RAAKT ONS NIET) is niet verdergegaan.
+  - **[MOET GEFIKST — carry-over, ONAFHANKELIJK HERMETEN, niet uit de aantekening geciteerd]**
+    `GetItemCooldown` verdwijnt in 12.1.5 (Deprecated-API-sectie, migratie *gecitéérd*
+    `GetItemCooldown = C_Item.GetItemCooldown`). Grep in de code vandaag: drie kale aanroepen zonder
+    guard/fallback/pcall — `Modules/Delves.lua:1518`, `Modules/Delves.lua:1686` (`GetItemCooldown(6948)`)
+    en `Modules/DelveItemsPopup.lua:275` (`local start, duration, enabled = GetItemCooldown(itemID)`,
+    context :270-281 zelf gelezen: geen guard vóór de call). ⚠️ **12.1.5 is PTR; de addon draait op
+    12.1.0 (`## Interface: 120007, 120100`), dus dit breekt vandaag niets bij Rob** — het is het punt
+    om vóór 12.1.5-live langs te lopen. `C_Item.GetItemCooldown` is één `/dump` waard vóór er iets
+    verandert; niet blind fixen.
+  - **Forum, GEMETEN uit de topic-list.** Kaivax (`community-manager`) dook op in de deelnemerslijst,
+    maar hij is enkel **OP van de vastgezette** topics (*UI Add-On Development Policy*, *Welcome*,
+    *FAQ*); de laatste post in de Policy-thread is onveranderd **2026-08-28T19:54:53Z (Atheren,
+    trust_level 2)**. Nieuwste niet-vastgezette topic is nog steeds *Cast bar addon?* (4 sep). **Geen
+    blue post en geen nieuw API-topic binnen 7 dagen.** (Bijna-val ontweken: de eerste — op activiteit
+    gesorteerde — respons zette een CM in de users-array; de op *created* gesorteerde respons deed dat
+    niet, wat bevestigt dat het om een gebumpte oude thread ging, niet een nieuwe post.)
+  - **Positieve controle in dezelfde run.** `grep GetItemCooldown` gaf de drie treffers hierboven
+    (patroon vindt dus wél wat er is); de recentchanges-scan op `API changes`/`Structure`/`Enum.` gaf
+    binnen het venster 0 — echt leeg, geen kapotte query.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`) deze
+    run niet opnieuw getoetst; ongewijzigd afgedekt zoals op 2 sep gemeten. Bron:
+    warcraft.wiki.gg/api.php (revisions + recentchanges); news.blizzard.com/article/24296142;
+    us.forums.blizzard.com UI-and-Macro.
+  - ✅ **[NAGEKOMEN, door de sessie i.p.v. door de wachter] Het `GetItemCooldown`-punt hierboven is
+    diezelfde dag opgelost** (`0de3443`), ná de meting van deze run. Alle drie de plekken die de
+    wachter noemt gaan nu door `ns.GetItemCooldownSafe` (`Delves.lua:341`): `C_Item.GetItemCooldown`
+    eerst, dan de kale global, allebei in een `pcall`, en `nil` als geen van beide bestaat.
+    ⚠️ **`C_Item.GetItemCooldown` is nog steeds NIET in een client gezien** — de migratie is
+    geciteerd, niet gemeten. `C_Item` staat in `WATCH_TABLES` van `/mh ptr`, dus één run op de
+    12.1.5-PTR settelt het.
+    📌 Deze regel staat hier omdat de wachter zijn eigen bevinding niet kan afsluiten: hij meet de
+    wereld, niet onze commits. Zonder deze aanvulling leest de ochtendronde morgen een openstaand
+    `[MOET GEFIKST]` dat al af is — precies de val die CLAUDE.md beschrijft.
   - **NIET GEMETEN:** `bluetracker.gg` gaf `CRAWL_LIVECRAWL_TIMEOUT` en `wowhead.com/blue-tracker`
     kwam leeg terug. De hotfixes zijn daarom rechtstreeks van `news.blizzard.com` gelezen (mét
     `?nocache=20260905`), niet via een spiegel.
