@@ -428,7 +428,35 @@ staat, dus 2413 → 2576 omrekenen via wereldcoördinaten. `C_Map.GetMapPosFromW
 kandidaat en is **NIET gemeten** — en 2576 is een gedeelde canvas, dus of die überhaupt een eigen
 wereldruimte heeft is de eerste vraag. Meten met `/mh ptr` vóór er code komt.
 
-🔴 **En dit is de vierde 2576-vondst op één dag** (doel-regio 4 sep, `GetBaseZoneName`, de
+### ✅ 5 sep — de 2576-sweep, en hij was de moeite waard
+
+Alle 2576-gebruiken nagelopen in plaats van te wachten op de volgende melding. **Twee echte bugs, de
+rest schoon.**
+
+🔴 **1. De rare-alerts keken naar de verkeerde lijst.** `Rares.lua` had
+`MAP_TO_ZONE_KEY[2576] = "harandar"` — één antwoord voor drie gebieden. Die sleutel bepaalt **tegen
+welke rare-lijst** de vignettes in de buurt gematcht worden, dus wie op het Silvermoon- of
+Voidstorm-derde van de canvas stond vergeleek met Harandars rares en matchte niets. **Geen alert,
+geen fout, van buiten niet te zien.** Precies de stille fout waar CLAUDE.md voor waarschuwt.
+✅ `ZoneKeyForMap()` snijdt nu op x, en alleen voor de kaart waar de speler zélf op staat — voor
+elke andere kaart blijft de tabel gelden. Is de positie onleesbaar, dan valt hij terug op de tabel
+en niet op `nil`: een verouderde standaard scant nog een echte lijst, `nil` zou de alerts uitzetten.
+
+🔴 **2. De Hearthstone-knop dacht dat heel 2576 Silvermoon was.** `isHub = (currentMap == 2393 or
+currentMap == 2576)`, in **beide** kopieën van de Travel Assistant. Sta je in Harandar of Voidstorm
+op diezelfde canvas, dan telde je als "al thuis" en werd de HS-knop weggelaten precies wanneer hij
+wat waard was. ✅ Nu `PlayerIsInSilvermoonHub()`, die de gesneden regio vraagt.
+
+✅ **Schoon bevonden, met reden:** de scan-lijsten (`DelveBossShowcase`, `EncounterCapture`,
+`WorldBoss`, `WorldBossProbe`) lopen kaarten af zonder te vragen wáár op de kaart — daar is geen x
+nodig. `MIDNIGHT_OVERWORLD_MAPS[2576]` beantwoordt alleen "is dit Midnight-buitenwereld".
+`PrintPortalAccess` sneed al. En de enige overgebleven kale `GetRegionGroupID`-aanroep zit ín
+`GetEffectiveRegionGroupID` zelf, waar hij hoort.
+
+📌 **De sweep kostte minder dan de vier losse meldingen samen.** Waard om te onthouden voor de
+volgende keer dat één fout zich drie keer herhaalt.
+
+🔴 **De vierde 2576-vondst op één dag was** (doel-regio 4 sep, `GetBaseZoneName`, de
 mage-knoppen, nu TomTom zelf). Het patroon is inmiddels duidelijk genoeg om vooruit te kijken in
 plaats van achteraf: **elke plek die een positie of een kaart-id op 2576 gebruikt is verdacht tot
 hij de x kent.** Een gerichte zoektocht daarnaar is waarschijnlijk goedkoper dan de volgende drie

@@ -12,6 +12,9 @@ local MAP_TO_ZONE_KEY = {
 	[2393] = "eversong",
 	[2437] = "zulaman",
 	[2413] = "harandar",
+	--- ⚠️ 2576 IS THREE ZONES ON ONE CANVAS and this row can only name one of them. It is
+	--- the last-resort answer for when the player's position cannot be read; `ZoneKeyForMap`
+	--- below slices it properly. See the 5 Sep sweep note in NEXT_SESSION.md.
 	[2576] = "harandar",
 	[2405] = "voidstorm",
 	[2444] = "voidstorm",
@@ -19,6 +22,46 @@ local MAP_TO_ZONE_KEY = {
 	[2600] = "naigtal", -- Showdown-zone (12.0.7)
 	[2646] = "naigtal", -- The Vacant Vigilant (Auredar's Chassis-gebouw), in-game bevestigd Rob 2026-07-07
 }
+
+--- 🔴 SLICE CANVAS 2576 BEFORE PICKING A RARE LIST — 5 Sep 2026, found in the sweep after
+--- the fourth 2576 bug of the day.
+---
+--- `MAP_TO_ZONE_KEY[2576]` says "harandar", because a table keyed on map id can only give
+--- one answer and that canvas carries Silvermoon, Voidstorm and Harandar side by side. The
+--- rare-alert scanner uses that key to decide WHICH RARE LIST to match nearby vignettes
+--- against — so standing on the Voidstorm or Silvermoon third of the canvas, it compared
+--- against Harandar's rares and matched nothing. No alert, no error, no way to tell from
+--- outside that anything was wrong. Exactly the silent failure CLAUDE.md warns about.
+---
+--- ⚠️ ONLY FOR THE PLAYER'S OWN MAP. `GetPlayerHubContext` reads where the PLAYER stands,
+--- so asking it about some other map would answer a different question than the one asked.
+--- For any other map we fall back to the table, which is right for every id except this one.
+local HUB_TO_ZONE_KEY = {
+	Silvermoon = "eversong", -- the table above files Silvermoon City under eversong too
+	Harandar = "harandar",
+	Voidstorm = "voidstorm",
+}
+
+--- @param mapID number|nil
+--- @return string|nil zoneKey
+local function ZoneKeyForMap(mapID)
+	mapID = tonumber(mapID)
+	if not mapID then
+		return nil
+	end
+	if mapID == 2576 and ns.GetPlayerHubContext and C_Map and C_Map.GetBestMapForUnit then
+		local okHere, here = pcall(C_Map.GetBestMapForUnit, "player")
+		if okHere and tonumber(here) == 2576 then
+			local okHub, hub = pcall(ns.GetPlayerHubContext, mapID)
+			if okHub and hub and HUB_TO_ZONE_KEY[hub] then
+				return HUB_TO_ZONE_KEY[hub]
+			end
+		end
+		-- Unreadable position: fall through to the table rather than to nil. A stale
+		-- default still scans a real rare list; nil would switch the alerts off entirely.
+	end
+	return MAP_TO_ZONE_KEY[mapID]
+end
 
 -- { questId, mapID, x, y, displayName[, npcId] }
 -- npcId (optioneel, veld 6): exacte vignette-match via objectGUID — vul in
@@ -503,7 +546,7 @@ function ns.IsZoneCovered(mapID)
 	if not mapID then
 		return false, nil
 	end
-	local key = MAP_TO_ZONE_KEY[mapID]
+	local key = ZoneKeyForMap(mapID)
 	return key ~= nil, key
 end
 
@@ -766,7 +809,7 @@ local function GetCurrentZoneKey()
 		return nil
 	end
 	local mapID = C_Map.GetBestMapForUnit("player")
-	return mapID and MAP_TO_ZONE_KEY[mapID] or nil
+	return mapID and ZoneKeyForMap(mapID) or nil
 end
 
 local function GetSelectedZoneKey()
@@ -2438,7 +2481,7 @@ local function ScanForRareAlerts()
 	if not playerMap then
 		return
 	end
-	local zoneKey = MAP_TO_ZONE_KEY[playerMap]
+	local zoneKey = ZoneKeyForMap(playerMap)
 	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
 	if not zone then
 		return
@@ -2503,7 +2546,7 @@ ns.ScanRareAlerts = ScanForRareAlerts
 -- /mh raretest — fire the alert output path (toast + sound) on demand.
 function ns.TestRareAlert()
 	local playerMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-	local zoneKey = playerMap and MAP_TO_ZONE_KEY[playerMap]
+	local zoneKey = playerMap and ZoneKeyForMap(playerMap)
 	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
 	local rare = (zone and zone.rares and zone.rares[1]) or (ZONES[1] and ZONES[1].rares[1])
 	if rare then
@@ -2531,7 +2574,7 @@ function ns.DebugRareScan()
 		return
 	end
 	local playerMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-	local zoneKey = playerMap and MAP_TO_ZONE_KEY[playerMap]
+	local zoneKey = playerMap and ZoneKeyForMap(playerMap)
 	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
 	p(("playerMap=%s zoneKey=%s zone=%s"):format(tostring(playerMap), tostring(zoneKey), zone and "ok" or "NIL"))
 	local okList, vignettes = pcall(C_VignetteInfo.GetVignettes)

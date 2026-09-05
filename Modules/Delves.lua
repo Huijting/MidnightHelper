@@ -1119,6 +1119,32 @@ local MIDNIGHT_OVERWORLD_MAPS = {
 	[2512] = true, -- The Coiled Isle (12.1)
 }
 
+--- Is the player standing in the Silvermoon hub itself?
+---
+--- 🔴 Written 5 Sep 2026 in the 2576 sweep, replacing `currentMap == 2393 or currentMap ==
+--- 2576` in the two Travel Assistant copies. That test called the WHOLE canvas the hub, so
+--- standing in Harandar or Voidstorm — same canvas, different third — counted as "already
+--- home" and the Hearthstone button was withheld at the moment it was worth offering.
+---
+--- 📌 Asks the sliced region, the same pair every other travel check uses, so this cannot
+--- drift away from them again. Region 1 IS the Silvermoon group.
+--- @param currentMap number|nil
+--- @return boolean
+local function PlayerIsInSilvermoonHub(currentMap)
+	if not currentMap then
+		return false
+	end
+	if tonumber(currentMap) == 2393 then
+		return true
+	end
+	if not (ns.GetEffectiveRegionGroupID and ns.GetPlayerHubContext) then
+		return false
+	end
+	local okHub, hub = pcall(ns.GetPlayerHubContext, currentMap)
+	local okReg, reg = pcall(ns.GetEffectiveRegionGroupID, currentMap, okHub and hub or nil)
+	return (okReg and reg == 1) and true or false
+end
+
 local TRAVEL_ARRIVAL_YARDS = 400
 
 function ns.ResolveHubOnMap2576(pxPercent)
@@ -1678,7 +1704,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		hsBtn:ClearAllPoints()
 		travelPopup.portalBtn:ClearAllPoints()
 		local isNearPortal = (bestDist < 300)
-		local isHub = (tonumber(currentMap) == 2393 or tonumber(currentMap) == 2576)
+		local isHub = PlayerIsInSilvermoonHub(currentMap)
 		-- ...and only if the Hearthstone actually lands at the target. Both copies of this
 		-- line get the gate: the comment thirty lines up already warns that a gate applied
 		-- to one of two identical loops shows the wrong answer half the time.
@@ -1830,7 +1856,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		hsBtn:ClearAllPoints()
 		travelPopup.portalBtn:ClearAllPoints()
 		local isNearPortal = (bestDist < 300)
-		local isHub = (tonumber(currentMap) == 2393 or tonumber(currentMap) == 2576)
+		local isHub = PlayerIsInSilvermoonHub(currentMap)
 		-- ...and only if the Hearthstone actually lands at the target. Both copies of this
 		-- line get the gate: the comment thirty lines up already warns that a gate applied
 		-- to one of two identical loops shows the wrong answer half the time.
