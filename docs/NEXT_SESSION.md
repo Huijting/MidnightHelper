@@ -80,6 +80,33 @@ van 2.6.0 — een historisch verslag, geen lopende garantie. **Niet aanpassen.**
 `/mh zonegate` toont per regio wat deze character zou krijgen, ook op max level waar hij nooit
 vuurt.
 
+### ✅ 5 sep, na Robs test op zijn 69: geluid + een schakelaar voor optie B
+
+Twee dingen kwamen terug uit de test, en allebei zijn ze gebouwd:
+
+1. **Geluid** (`7ea1388`). *"Kan de toast ook een duidelijk geluid spelen??"* — `SOUNDKIT.READY_CHECK`,
+   dezelfde die `ShardCapAlert` gebruikt. Hergebruikt in plaats van een nieuwe keuze: die is gemeten
+   hoorbaar op het Master-kanaal bij laag SFX-volume, en "Midnight Helper wil je iets zeggen" één
+   geluid houden is meer waard dan een eigen deuntje per functie.
+2. **Schakelaar voor optie B.** *"Maak die schakelaar maar en zet hem standaard op uit zodat mensen
+   bewust kiezen om hem wel te krijgen."* → `SET_ZONEGATE_BLOCK_TITLE`, Instellingen → Route-pijl,
+   **standaard uit**. Uit = wat iedereen nu al heeft (waarschuwen én routeren), dus een update
+   verandert niets onder iemands handen. Aan = de route wordt geweigerd.
+
+⚠️ **Twee dingen die de bouw stuurden, en die bij een volgende wijziging blijven gelden:**
+* **De 120-seconden-throttle geldt NIET bij weigeren.** Een klik die geen route zet én niets zegt is
+  van buiten precies hetzelfde als kapot — de fout die CLAUDE.md van 3 sep beschrijft. Weigeren is
+  het geval dat altíjd moet spreken.
+* **Bij weigeren keert `AddSmartTomTomWay` terug vóór `ns.lastTarget`.** Een route die we afwijzen
+  mag geen doelwit achterlaten voor de pijl, de reisassistent of een latere refresh.
+
+📌 **De waarschuwing zelf is niet uit te zetten.** Die is er juist gekomen omdat ze ontbrak; alleen
+wat erna gebeurt is een keuze.
+
+⚠️ **Nog te doen:** `ZONEGATE_BLOCKED`, `SET_ZONEGATE_BLOCK_TITLE` en `_DESC` staan alleen in enUS +
+nlNL. Samen met de drie oudere `ZONEGATE_*`-sleutels wachten ze op de/fr/es/pt/it via
+`Translations2026.lua`. Tot dan valt `ns:L` terug op Engels — zichtbaar, niet kapot.
+
 ## 🗄️ AFGEHANDELD 5 sep — MH stuurt lage levels naar dingen die ze niet kunnen doen
 
 Rob, 4 sep laat, expliciet gevraagd om te onthouden: *"ik kan met lagere levels in mh toch routes

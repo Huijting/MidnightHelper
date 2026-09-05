@@ -100,6 +100,28 @@ function ns.GetZoneLevelWarning(mapID, xPct)
 	return { level = lvl, need = need, region = region, band = REGION_BAND[region] }
 end
 
+--- Should the warning also REFUSE to set the route?
+---
+--- 🔴 Rob, 5 Sep, after seeing the warning fire and the arrow appear anyway: "Maak die
+--- schakelaar maar en zet hem standaard op uit zodat mensen bewust kiezen om hem wel te
+--- krijgen." So OFF is what everyone already has -- warn, still route -- and no one's addon
+--- changes behaviour under them on update. ON is the stricter reading for players who want
+--- the addon to hold them back.
+---
+--- ⚠️ Deliberately NOT a per-character setting. The character it matters for is the low one,
+--- and that is exactly the character on which nobody opens the settings panel.
+--- @return boolean
+function ns.IsZoneGateBlockEnabled()
+	return not not (ns.db and ns.db.zoneGate and ns.db.zoneGate.blockRoute)
+end
+
+--- @param v boolean
+function ns.SetZoneGateBlockEnabled(v)
+	ns.db = ns.db or {}
+	ns.db.zoneGate = ns.db.zoneGate or {}
+	ns.db.zoneGate.blockRoute = v and true or false
+end
+
 --- 🔴 SAID LOUDLY, ON REQUEST. Rob: "maar opvallend waarschuwen !!"
 ---
 --- Chat alone is what he has objected to three times, and he is right: a route arrow
@@ -115,17 +137,26 @@ local warnedFor = {}
 --- @param mapID number
 --- @param xPct number|nil
 --- @param targetName string|nil
+--- @return boolean blocked -- true when the caller must NOT set the route after all
 function ns.WarnZoneLevelIfNeeded(mapID, xPct, targetName)
 	local w = ns.GetZoneLevelWarning(mapID, xPct)
 	if not w then
 		return false
 	end
+	local blocking = ns.IsZoneGateBlockEnabled()
 	local key = tostring(mapID) .. ":" .. tostring(w.need)
 	local now = (GetTime and GetTime()) or 0
-	if warnedFor[key] and (now - warnedFor[key]) < 120 then
-		return false
+	-- ⚠️ The throttle must NOT apply while blocking. It exists so a bulk route cannot fire
+	-- a dozen toasts for the same zone; but a click that sets no route AND says nothing is,
+	-- from outside, indistinguishable from broken -- the exact failure CLAUDE.md records
+	-- from 3 Sep ("een klik die stil niets doet"). Refusing is the case that must always
+	-- speak.
+	if not blocking then
+		if warnedFor[key] and (now - warnedFor[key]) < 120 then
+			return false
+		end
+		warnedFor[key] = now
 	end
-	warnedFor[key] = now
 
 	local zone = (ns.GetBaseZoneName and ns.GetBaseZoneName(mapID)) or ""
 	if zone == "" then
@@ -133,11 +164,15 @@ function ns.WarnZoneLevelIfNeeded(mapID, xPct, targetName)
 	end
 
 	local body = ns:L("ZONEGATE_BODY_FMT"):format(zone, w.band or tostring(w.need), w.level)
+	local tail = ns:L(blocking and "ZONEGATE_BLOCKED" or "ZONEGATE_STILL_ROUTED")
 	if ns.QueueMidnightToast then
 		pcall(ns.QueueMidnightToast, {
 			id = "zonegate_" .. key,
 			title = ns:L("ZONEGATE_TITLE_FMT"):format(w.need),
-			body = body,
+			-- "did the route get set or not" belongs ON SCREEN, not only in chat: whether
+			-- an arrow you were expecting is missing on purpose is the one thing the
+			-- player needs at that moment, and chat is a record rather than an answer.
+			body = body .. "|n|n" .. tail,
 			icon = 134400, -- the padlock; this is a "not yet", not an error
 			displaySec = 20,
 			-- Rob, 5 Sep, after seeing it fire: "kan de toast ook een duidelijk geluid
@@ -149,8 +184,8 @@ function ns.WarnZoneLevelIfNeeded(mapID, xPct, targetName)
 		})
 	end
 	print(("%s |cffff8844%s|r"):format(PREFIX, body))
-	print("  " .. ns:L("ZONEGATE_STILL_ROUTED"))
-	return true
+	print("  " .. ns:L(blocking and "ZONEGATE_BLOCKED" or "ZONEGATE_STILL_ROUTED"))
+	return blocking
 end
 
 --- `/mh zonegate` — what would this character be warned about, and why?
@@ -175,6 +210,11 @@ function ns.PrintZoneLevelGate()
 			verdict = ("|cffffcc00warns: needs %d, you are %d|r"):format(need, lvl)
 		end
 		print(("   region %d  %-42s %s"):format(region, names[region] or "?", verdict))
+	end
+	if ns.IsZoneGateBlockEnabled() then
+		print("  route below level: |cffff4444REFUSED|r (Settings -> Route arrow)")
+	else
+		print("  route below level: |cff44ff44still set|r — warn only (Settings -> Route arrow)")
 	end
 	print("  Bands come from guides (Icy Veins, read in full); the level-80 floor is")
 	print("  Blizzard's own announcement. Whether the game physically stops you is NOT")

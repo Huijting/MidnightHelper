@@ -394,6 +394,16 @@ function ns.RegisterNativeSettings()
 			if ns.SetNativeArrowMeters then ns.SetNativeArrowMeters(v) end
 			if ns.PreviewNativeArrow then ns.PreviewNativeArrow(3) end
 		end, false) -- expliciete default (yards); niet de toevallige login-waarde (F4.6)
+		--- Rob, 5 sep: "zet hem standaard op uit zodat mensen bewust kiezen om hem wel te
+		--- krijgen." Uit = wat iedereen nu al heeft (waarschuwen én toch de route zetten),
+		--- dus een update verandert niets onder iemands handen; aan = de addon houdt je
+		--- tegen. De waarschuwing zelf staat er los van en is niet uit te zetten — die is
+		--- er juist gekomen omdat hij ontbrak.
+		AddToggle("mh_zoneGateBlock", "SET_ZONEGATE_BLOCK_TITLE", "SET_ZONEGATE_BLOCK_DESC", function()
+			return ns.IsZoneGateBlockEnabled and ns.IsZoneGateBlockEnabled()
+		end, function(v)
+			if ns.SetZoneGateBlockEnabled then ns.SetZoneGateBlockEnabled(v) end
+		end, false) -- expliciete default (uit); niet de toevallige login-waarde (F4.6)
 
 		----------------------------------------------------------------
 		-- Venster & weergave

@@ -140,7 +140,10 @@ local function SetQMWaypoint(qm)
 	--- cannot use yet" consistent across the addon instead of covering 24 modules and
 	--- quietly missing these.
 	if ns.WarnZoneLevelIfNeeded then
-		pcall(ns.WarnZoneLevelIfNeeded, qm.map, qm.x, qm.who)
+		local okGate, blocked = pcall(ns.WarnZoneLevelIfNeeded, qm.map, qm.x, qm.who)
+		if okGate and blocked then
+			return
+		end
 	end
 	local slashWay = SlashCmdList and SlashCmdList["TOMTOM_WAY"]
 	if type(slashWay) == "function" then

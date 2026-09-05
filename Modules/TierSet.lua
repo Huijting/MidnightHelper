@@ -252,7 +252,10 @@ local function SetCatalystWaypoint()
 	-- ⚠️ Own waypoint, so ns.AddSmartTomTomWay's level warning never sees this one. See
 	-- the note in CurrencyGuide: six places bypass that door and each needs the call.
 	if ns.WarnZoneLevelIfNeeded then
-		pcall(ns.WarnZoneLevelIfNeeded, CATALYST.map, CATALYST.x, name)
+		local okGate, blocked = pcall(ns.WarnZoneLevelIfNeeded, CATALYST.map, CATALYST.x, name)
+		if okGate and blocked then
+			return
+		end
 	end
 	local slashWay = SlashCmdList and SlashCmdList["TOMTOM_WAY"]
 	if type(slashWay) == "function" then

@@ -2114,6 +2114,9 @@ ns._mhLocales.nlNL = {
 	ZONEGATE_TITLE_FMT = "Dat gebied begint op level %d",
 	ZONEGATE_BODY_FMT = "%s is afgestemd op level %s en jij bent %d. Kijken kan gewoon, maar de vijanden daar zijn ver boven je.",
 	ZONEGATE_STILL_ROUTED = "De route staat er toch — de plek opzoeken is op elk level nuttig.",
+	ZONEGATE_BLOCKED = "Geen route gezet — je hebt Midnight Helper gevraagd je onder dit level tegen te houden. Instellingen -> Route-pijl om dat te wijzigen.",
+	SET_ZONEGATE_BLOCK_TITLE = "Geen route naar gebieden boven mijn level",
+	SET_ZONEGATE_BLOCK_DESC = "Standaard uit: je krijgt de waarschuwing én de route. Zet je hem aan, dan weigert Midnight Helper de route ook, en zegt dat erbij. De waarschuwing zelf zie je altijd.",
 
 	DUNDUN_PANEL_TITLE = "Bountiful delves — Dundun",
 	DUNDUN_PANEL_BODY = "In een Bountiful delve verstopt Dundun zich als een houten nepboom — planken en schroeven, geschilderde bladeren, getimmerd in plaats van gegroeid. Hem vinden en aanspreken is gratis en levert extra beloning op aan het eind. Die extra kist ópenen kan een tweede Restored Coffer Key kosten.",
