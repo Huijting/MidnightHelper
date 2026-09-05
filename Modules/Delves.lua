@@ -159,11 +159,34 @@ local MIDNIGHT_PORTALS = {
 	{ name = "Portal to Voidstorm",  mapID = 2576, toID = 2405, x = 35.25, y = 65.85, zone = "Silvermoon" },
 	{ name = "Portal to Harandar",   mapID = 2576, toID = 2413, x = 36.76, y = 68.52, zone = "Silvermoon" },
 
-	-- HARANDAR HUB
-	{ name = "Portal to Silvermoon", mapID = 2413, toID = 2393, x = 64.15, y = 70.82 },
-	{ name = "Portal to Voidstorm",  mapID = 2413, toID = 2405, x = 61.80, y = 72.16 },
-	{ name = "Portal to Silvermoon", mapID = 2576, toID = 2393, x = 64.15, y = 70.82, zone = "Harandar" },
-	{ name = "Portal to Voidstorm",  mapID = 2576, toID = 2405, x = 61.80, y = 72.16, zone = "Harandar" },
+	--- HARANDAR HUB — 🔴 THE PORTALS ARE INSIDE THE DEN, and until 5 Sep 2026 the 2413 rows
+	--- did not know it.
+	---
+	--- Rob, flying out of Harandar towards "Portal to Silvermoon 370 m", ended up hovering
+	--- over open water while the addon told him "You are at Portal to Silvermoon — go
+	--- through". The 2413 rows carried the SAME x/y as the 2576 rows, and the two maps have
+	--- different coordinate spaces, so one of the pair had to be wrong.
+	---
+	--- ✅ MEASURED BY ROB the same afternoon, standing at each portal: both report map
+	--- **2576**, at 64.33/70.63 and 61.75/73.01 — within a fifth of a point of the canvas
+	--- rows, which settles which half was the copy. And it explains the map id: standing at
+	--- these portals you are inside The Den, and The Den reports the shared canvas.
+	---
+	--- 📌 So a player out in open Harandar (2413) cannot be given the portal's own position
+	--- at all — it does not exist in that map's space. What they need first is THE DEN'S
+	--- MOUTH, which Rob measured an hour earlier at 2413 54.72/53.10. Once through it the
+	--- client switches them to 2576 and the rows below take over. Two hops that fall out of
+	--- the map ids by themselves, with no new mechanism.
+	---
+	--- ⚠️ Named for what it is. Calling this row "Portal to Silvermoon" would put "You are at
+	--- Portal to Silvermoon" on screen at a cave entrance, which is the same lie one level
+	--- up.
+	--- ⚠️ The old numbers were never measured: `git log -S"64.15"` finds one bulk commit from
+	--- 15 May 2026 and nothing since. They were inherited, not verified.
+	{ name = "The Den (portals are inside)", mapID = 2413, toID = 2393, x = 54.72, y = 53.10 },
+	{ name = "The Den (portals are inside)", mapID = 2413, toID = 2405, x = 54.72, y = 53.10 },
+	{ name = "Portal to Silvermoon", mapID = 2576, toID = 2393, x = 64.33, y = 70.63, zone = "Harandar" },
+	{ name = "Portal to Voidstorm",  mapID = 2576, toID = 2405, x = 61.75, y = 73.01, zone = "Harandar" },
 
 	-- VOIDSTORM HUB
 	{ name = "Portal to Silvermoon", mapID = 2405, toID = 2393, x = 51.61, y = 70.22 },

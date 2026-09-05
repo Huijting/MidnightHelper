@@ -511,6 +511,40 @@ afpakken om iets anders te repareren is precies het soort collateral waar deze d
 De assistent is exact de ontbrekende helft, en hij verbergt zichzelf als het doel dichtbij of in
 dezelfde regio ligt.
 
+### 🔴 5 sep — de Harandar-portalen wezen naar open zee, en niemand had ze ooit gemeten
+
+Rob vloog in Harandar richting *"Portal to Silvermoon 370 m"* en hing boven **water**, terwijl de
+addon zei *"You are at Portal to Silvermoon — go through"*.
+
+📌 **Oorzaak:** de rijen voor 2413 en 2576 droegen **exact dezelfde x/y**. Twee kaarten, twee
+coördinatenruimtes — dus één van de twee moest fout zijn.
+
+✅ **Rob mat ze allebei ter plekke:** Portal to Silvermoon **2576 64.33/70.63**, Portal to Voidstorm
+**2576 61.75/73.01**. Binnen een vijfde punt van de canvas-rijen, dus die waren goed en de
+2413-rijen waren de kopie.
+
+🔴 **En het kaart-id is het echte nieuws: beide portalen staan ÍN The Den**, dat de gedeelde canvas
+meldt. Een speler buiten in open Harandar (2413) kan de portaalpositie dus helemaal niet krijgen —
+die bestaat niet in die ruimte. Wat hij eerst nodig heeft is **de ingang van The Den**, en die had
+Rob een uur eerder al gemeten: 2413 **54.72/53.10**.
+
+✅ **Gerepareerd zonder nieuw mechanisme:** de 2413-rijen wijzen nu naar The Den, de 2576-rijen naar
+de portalen zelf. De speler stapt naar binnen, de client zet hem op 2576, en de tweede rij neemt het
+over. Twee etappes die vanzelf uit de kaart-id's rollen.
+⚠️ Ook hernoemd naar *"The Den (portals are inside)"* — anders zegt het scherm "You are at Portal to
+Silvermoon" bij een grotingang, dezelfde leugen een niveau hoger.
+
+🔴 **Herkomst nagelopen op Robs vraag "hadden we dat niet al?":** `git log -S"64.15"` geeft **één**
+commit, een bulk-import van **15 mei 2026**, en niets daarna. Nooit gemeten, nooit aangeraakt. Zijn
+gevoel dat we hier al mee bezig waren klopte wel — Orgrimmar, de Coiled Isle-ingang en The Den zijn
+alle drie deze week gemeten — maar juist deze was overgeslagen. **Vier portalen aangeraakt, de
+vijfde vergeten**, en hij viel pas op nu dit pad een uur geleden zijn reishulp kreeg.
+
+⚠️ **De andere duplicaten in `MIDNIGHT_PORTALS` zijn NIET nagemeten.** Silvermoon (2393 ↔ 2576) en
+Voidstorm (2405 ↔ 2576) dragen dezelfde verdachte vorm: identieke x/y op twee kaarten. Bij Silvermoon
+werkt het in de praktijk, dus daar is 2393 vermoedelijk wél de goede — maar vermoedelijk is niet
+gemeten. Twee `/mh coord`-metingen per hub sluiten dit af.
+
 #### 💡 BANK — "eerst The Den uit" als eerste etappe (gemeten, niet gebouwd)
 
 Rob: *"je moet eerst de den uitvliegen, kunnen we de route dan in 2 dingen opsplitsen?"* Kan, en het
