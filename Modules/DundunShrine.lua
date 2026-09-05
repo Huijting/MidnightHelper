@@ -10,8 +10,18 @@ local _, ns = ...
 	of Memory and the entrance screen said "Dundun will hide within this Delve." The
 	handoff then recorded him as a delve MODIFIER, which is wrong: the wiki's
 	`Category:Delve affixes` lists seventeen and he is not among them. He is an NPC
-	(wiki NPC id 266751) disguised as a prop -- a fake tree -- and he appears in
-	**Bountiful** delves of any tier once the player has reached Delver's Journey rank 3.
+	(wiki NPC id 266751) disguised as a prop, and he appears in **Bountiful** delves of any
+	tier once the player has reached Delver's Journey rank 3.
+
+	🔴 THE DISGUISE IS NOT ALWAYS A TREE — 5 Sep 2026. Every string here said "a wooden fake
+	tree", in seven languages, on the strength of one wiki description. Carola then found him
+	in her own delve as a **fake pole**. One tester's eyes beat a wiki line, and it also makes
+	sense: a prop that blends in cannot be the same prop in a cave and in a wood.
+
+	📌 So the text now describes the TELL instead of the shape -- planks and screws, paint
+	instead of bark, "someone built that" -- and names both sightings as examples. That is
+	the more useful instruction anyway: a player hunting one silhouette walks straight past
+	the other.
 
 	That correction is what makes this small. We do not need to read delve affixes at all
 	(we never could): Bountiful already comes from the client, the Journey rank already
@@ -730,7 +740,8 @@ function ns.PrintDundunStatus()
 	end
 	print(("  verdict         : |cff88ccff%s|r — %s"):format(
 		tostring(s.verdict), tostring(s.reason)))
-	print("  What he is: an NPC disguised as a wooden fake tree, not a delve affix.")
+	print("  What he is: an NPC disguised as a built wooden prop (a fake tree, a fake pole),")
+	print("  not a delve affix. Go by 'someone made that', not by one shape.")
 	print("  First find after his strength returns: the extra Bountiful Coffer (costs a key).")
 	print("  Finding him again before then: a free choice of Undercoin / Voidlight Marl /")
 	print("    Valeera XP / housing decor. No key, no cost.")

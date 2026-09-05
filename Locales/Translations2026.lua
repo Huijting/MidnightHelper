@@ -7803,7 +7803,7 @@ fill("itIT", {
 
 fill("deDE", {
 	DUNDUN_CHAT_HEADER = "Diese Tiefe ist Bountiful, also versteckt sich |cff00ffffDundun|r darin.",
-	DUNDUN_CHAT_WHAT = "Such einen hölzernen Fake-Baum — Bretter und Schrauben, aufgemalte Blätter, offensichtlich gezimmert statt gewachsen. Ihn zu finden und anzusprechen kostet nichts und bringt am Ende eine Extra-Belohnung.",
+	DUNDUN_CHAT_WHAT = "Such etwas aus Holz, das gezimmert statt gewachsen ist — Bretter und Schrauben, Farbe statt Rinde. Er wurde als Fake-Baum und als Fake-Pfahl gefunden, also achte auf \"das hat jemand gebaut\" und nicht auf eine bestimmte Form. Ihn zu finden und anzusprechen kostet nichts und bringt am Ende eine Extra-Belohnung.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Nur wenn deine Delver's Journey Rang %d oder höher ist — ich konnte deinen Rang nicht lesen, sieh also selbst nach.",
 	DUNDUN_CHAT_COST_FMT = "|cffffff00Achtung:|r die zusätzliche Truhe kann einen |cffffff00zweiten|r Restored Coffer Key kosten. Du hast %d.",
 	DUNDUN_CHAT_COST_SHORT_FMT = "Achtung: die zusätzliche Truhe zu öffnen kann einen zweiten Restored Coffer Key kosten, und du hast %d. Ihn zu finden ist trotzdem gratis — du lässt die Truhe dann einfach zu.",
@@ -7811,7 +7811,7 @@ fill("deDE", {
 	DUNDUN_CHAT_MACRO = "Findest du ihn nicht? Mach ein Makro mit |cffffff00/cleartarget|r und dann |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "Du hast %d Coffer Key Shards — noch %d, und das Spiel macht beim Betreten von selbst einen Key daraus.",
 	DUNDUN_PANEL_TITLE = "Bountiful-Tiefen — Dundun",
-	DUNDUN_PANEL_BODY = "In einer Bountiful-Tiefe versteckt sich Dundun als hölzerner Fake-Baum — Bretter und Schrauben, aufgemalte Blätter, gezimmert statt gewachsen. Ihn zu finden und anzusprechen kostet nichts und bringt am Ende eine Extra-Belohnung. Die zusätzliche Truhe zu öffnen kann einen zweiten Restored Coffer Key kosten.",
+	DUNDUN_PANEL_BODY = "In einer Bountiful-Tiefe versteckt sich Dundun als etwas aus Holz, das gezimmert statt gewachsen ist — Bretter und Schrauben, Farbe statt Rinde. Er wurde als Fake-Baum und als Fake-Pfahl gefunden, achte also auf \"das hat jemand gebaut\" und nicht auf eine bestimmte Form. Ihn zu finden und anzusprechen kostet nichts und bringt am Ende eine Extra-Belohnung. Die zusätzliche Truhe zu öffnen kann einen zweiten Restored Coffer Key kosten.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "Du hast %d Restored Coffer Keys und %d Shards — genug für die zusätzliche Truhe.",
 	DUNDUN_PANEL_KEYS_SHORT_FMT = "Du hast %d Restored Coffer Keys und %d Shards — noch %d Shards bis zum nächsten Key. Du kannst ihn trotzdem suchen; du lässt die zusätzliche Truhe dann einfach zu.",
 	DUNDUN_PANEL_KEYS_UNKNOWN = "Konnte deine Restored Coffer Keys gerade nicht lesen.",
@@ -7823,7 +7823,7 @@ fill("deDE", {
 
 fill("frFR", {
 	DUNDUN_CHAT_HEADER = "Ce gouffre est Bountiful, donc |cff00ffffDundun|r s'y cache.",
-	DUNDUN_CHAT_WHAT = "Cherche un faux arbre en bois — des planches et des vis, des feuilles peintes, clairement fabriqué et non poussé. Le trouver et lui parler est gratuit et donne une récompense en plus à la fin.",
+	DUNDUN_CHAT_WHAT = "Cherche quelque chose en bois qui a été fabriqué et non poussé — des planches et des vis, de la peinture au lieu de l'écorce. On l'a trouvé en faux arbre et en faux poteau, alors fie-toi à \"quelqu'un a construit ça\" plutôt qu'à une forme précise. Le trouver et lui parler est gratuit et donne une récompense en plus à la fin.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Seulement si ta Delver's Journey est au rang %d ou plus — je n'ai pas pu lire ton rang, alors vérifie toi-même.",
 	DUNDUN_CHAT_COST_FMT = "|cffffff00Attention :|r le coffre supplémentaire peut coûter une |cffffff00deuxième|r Restored Coffer Key. Tu en as %d.",
 	DUNDUN_CHAT_COST_SHORT_FMT = "Attention : ouvrir le coffre supplémentaire peut coûter une deuxième Restored Coffer Key, et tu en as %d. Le trouver reste gratuit — tu laisserais simplement ce coffre fermé.",
@@ -7831,7 +7831,7 @@ fill("frFR", {
 	DUNDUN_CHAT_MACRO = "Tu ne le trouves pas ? Fais une macro avec |cffffff00/cleartarget|r puis |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "Tu as %d Coffer Key Shards — encore %d et le jeu en fait une key tout seul à l'entrée.",
 	DUNDUN_PANEL_TITLE = "Gouffres Bountiful — Dundun",
-	DUNDUN_PANEL_BODY = "Dans un gouffre Bountiful, Dundun se cache en faux arbre en bois — des planches et des vis, des feuilles peintes, fabriqué et non poussé. Le trouver et lui parler est gratuit et ajoute une récompense à la fin. Ouvrir le coffre supplémentaire peut coûter une deuxième Restored Coffer Key.",
+	DUNDUN_PANEL_BODY = "Dans un gouffre Bountiful, Dundun se cache en quelque chose de bois qui a été fabriqué et non poussé — des planches et des vis, de la peinture au lieu de l'écorce. On l'a trouvé en faux arbre et en faux poteau, alors cherche \"quelqu'un a construit ça\" plutôt qu'une forme précise. Le trouver et lui parler est gratuit et ajoute une récompense à la fin. Ouvrir le coffre supplémentaire peut coûter une deuxième Restored Coffer Key.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "Tu as %d Restored Coffer Keys et %d shards — assez pour le coffre supplémentaire.",
 	DUNDUN_PANEL_KEYS_SHORT_FMT = "Tu as %d Restored Coffer Keys et %d shards — il te manque %d shards pour la prochaine key. Tu peux quand même le chercher ; tu laisserais juste le coffre supplémentaire fermé.",
 	DUNDUN_PANEL_KEYS_UNKNOWN = "Impossible de lire tes Restored Coffer Keys pour l'instant.",
@@ -7843,7 +7843,7 @@ fill("frFR", {
 
 fill("esES", {
 	DUNDUN_CHAT_HEADER = "Esta profundidad es Bountiful, así que |cff00ffffDundun|r se esconde en ella.",
-	DUNDUN_CHAT_WHAT = "Busca un árbol falso de madera — tablas y tornillos, hojas pintadas, claramente construido y no crecido. Encontrarlo y hablar con él es gratis y da una recompensa extra al final.",
+	DUNDUN_CHAT_WHAT = "Busca algo de madera que esté construido y no crecido — tablas y tornillos, pintura en vez de corteza. Se le ha encontrado como árbol falso y como poste falso, así que fíjate en \"esto lo ha hecho alguien\" y no en una forma concreta. Encontrarlo y hablar con él es gratis y da una recompensa extra al final.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Solo si tu Delver's Journey está en rango %d o superior — no pude leer tu rango, así que compruébalo tú mismo.",
 	DUNDUN_CHAT_COST_FMT = "|cffffff00Atención:|r el cofre extra puede costar una |cffffff00segunda|r Restored Coffer Key. Tienes %d.",
 	DUNDUN_CHAT_COST_SHORT_FMT = "Atención: abrir el cofre extra puede costar una segunda Restored Coffer Key, y tienes %d. Encontrarlo sigue siendo gratis — simplemente dejarías ese cofre cerrado.",
@@ -7851,7 +7851,7 @@ fill("esES", {
 	DUNDUN_CHAT_MACRO = "¿No lo encuentras? Haz una macro con |cffffff00/cleartarget|r y luego |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "Tienes %d Coffer Key Shards — %d más y el juego los convierte solo en una key al entrar.",
 	DUNDUN_PANEL_TITLE = "Profundidades Bountiful — Dundun",
-	DUNDUN_PANEL_BODY = "En una profundidad Bountiful, Dundun se esconde como un árbol falso de madera — tablas y tornillos, hojas pintadas, construido y no crecido. Encontrarlo y hablar con él es gratis y añade una recompensa extra al final. Abrir el cofre extra puede costar una segunda Restored Coffer Key.",
+	DUNDUN_PANEL_BODY = "En una profundidad Bountiful, Dundun se esconde como algo de madera construido y no crecido — tablas y tornillos, pintura en vez de corteza. Se le ha encontrado como árbol falso y como poste falso, así que busca \"esto lo ha hecho alguien\" y no una forma concreta. Encontrarlo y hablar con él es gratis y añade una recompensa extra al final. Abrir el cofre extra puede costar una segunda Restored Coffer Key.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "Tienes %d Restored Coffer Keys y %d shards — suficiente para el cofre extra.",
 	DUNDUN_PANEL_KEYS_SHORT_FMT = "Tienes %d Restored Coffer Keys y %d shards — te faltan %d shards para la siguiente key. Puedes buscarlo igualmente; solo dejarías el cofre extra cerrado.",
 	DUNDUN_PANEL_KEYS_UNKNOWN = "No pude leer tus Restored Coffer Keys ahora mismo.",
@@ -7863,7 +7863,7 @@ fill("esES", {
 
 fill("ptBR", {
 	DUNDUN_CHAT_HEADER = "Este delve é Bountiful, então |cff00ffffDundun|r está escondido nele.",
-	DUNDUN_CHAT_WHAT = "Procure uma árvore falsa de madeira — tábuas e parafusos, folhas pintadas, claramente construída e não crescida. Encontrá-lo e falar com ele é de graça e dá uma recompensa extra no final.",
+	DUNDUN_CHAT_WHAT = "Procure algo de madeira que foi construído e não cresceu — tábuas e parafusos, tinta em vez de casca. Ele já foi encontrado como árvore falsa e como poste falso, então guie-se por \"alguém fez isso\" e não por uma forma específica. Encontrá-lo e falar com ele é de graça e dá uma recompensa extra no final.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Só se a sua Delver's Journey estiver no rank %d ou acima — não consegui ler o seu rank, então confira você mesmo.",
 	DUNDUN_CHAT_COST_FMT = "|cffffff00Atenção:|r o baú extra pode custar uma |cffffff00segunda|r Restored Coffer Key. Você tem %d.",
 	DUNDUN_CHAT_COST_SHORT_FMT = "Atenção: abrir o baú extra pode custar uma segunda Restored Coffer Key, e você tem %d. Encontrá-lo continua de graça — você só deixaria esse baú fechado.",
@@ -7871,7 +7871,7 @@ fill("ptBR", {
 	DUNDUN_CHAT_MACRO = "Não está achando ele? Faça uma macro com |cffffff00/cleartarget|r e depois |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "Você tem %d Coffer Key Shards — mais %d e o jogo transforma tudo em uma key sozinho quando você entra.",
 	DUNDUN_PANEL_TITLE = "Delves Bountiful — Dundun",
-	DUNDUN_PANEL_BODY = "Em um delve Bountiful, Dundun se esconde como uma árvore falsa de madeira — tábuas e parafusos, folhas pintadas, construída e não crescida. Encontrá-lo e falar com ele é de graça e adiciona uma recompensa extra no final. Abrir o baú extra pode custar uma segunda Restored Coffer Key.",
+	DUNDUN_PANEL_BODY = "Em um delve Bountiful, Dundun se esconde como algo de madeira que foi construído e não cresceu — tábuas e parafusos, tinta em vez de casca. Ele já foi encontrado como árvore falsa e como poste falso, então procure \"alguém fez isso\" e não uma forma específica. Encontrá-lo e falar com ele é de graça e adiciona uma recompensa extra no final. Abrir o baú extra pode custar uma segunda Restored Coffer Key.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "Você tem %d Restored Coffer Keys e %d shards — o bastante para o baú extra.",
 	DUNDUN_PANEL_KEYS_SHORT_FMT = "Você tem %d Restored Coffer Keys e %d shards — faltam %d shards para a próxima key. Dá para procurá-lo mesmo assim; você só deixaria o baú extra fechado.",
 	DUNDUN_PANEL_KEYS_UNKNOWN = "Não consegui ler as suas Restored Coffer Keys agora.",
@@ -7883,7 +7883,7 @@ fill("ptBR", {
 
 fill("itIT", {
 	DUNDUN_CHAT_HEADER = "Questa delve è Bountiful, quindi |cff00ffffDundun|r ci si nasconde dentro.",
-	DUNDUN_CHAT_WHAT = "Cerca un albero finto di legno — assi e viti, foglie dipinte, chiaramente costruito e non cresciuto. Trovarlo e parlargli è gratis e dà una ricompensa extra alla fine.",
+	DUNDUN_CHAT_WHAT = "Cerca qualcosa di legno che è stato costruito e non cresciuto — assi e viti, vernice al posto della corteccia. È stato trovato come albero finto e come palo finto, quindi vai a \"qualcuno l'ha fatto\" e non a una forma precisa. Trovarlo e parlargli è gratis e dà una ricompensa extra alla fine.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Solo se la tua Delver's Journey è di rango %d o superiore — non sono riuscito a leggere il tuo rango, quindi controlla tu.",
 	DUNDUN_CHAT_COST_FMT = "|cffffff00Attenzione:|r il forziere extra può costare una |cffffff00seconda|r Restored Coffer Key. Ne hai %d.",
 	DUNDUN_CHAT_COST_SHORT_FMT = "Attenzione: aprire il forziere extra può costare una seconda Restored Coffer Key, e ne hai %d. Trovarlo resta gratis — lasceresti solo quel forziere chiuso.",
@@ -7891,7 +7891,7 @@ fill("itIT", {
 	DUNDUN_CHAT_MACRO = "Non lo trovi? Fai una macro con |cffffff00/cleartarget|r e poi |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "Hai %d Coffer Key Shards — ancora %d e il gioco ne fa una key da solo quando entri.",
 	DUNDUN_PANEL_TITLE = "Delve Bountiful — Dundun",
-	DUNDUN_PANEL_BODY = "In una delve Bountiful, Dundun si nasconde come albero finto di legno — assi e viti, foglie dipinte, costruito e non cresciuto. Trovarlo e parlargli è gratis e aggiunge una ricompensa extra alla fine. Aprire il forziere extra può costare una seconda Restored Coffer Key.",
+	DUNDUN_PANEL_BODY = "In una delve Bountiful, Dundun si nasconde come qualcosa di legno costruito e non cresciuto — assi e viti, vernice al posto della corteccia. È stato trovato come albero finto e come palo finto, quindi cerca \"qualcuno l'ha fatto\" e non una forma precisa. Trovarlo e parlargli è gratis e aggiunge una ricompensa extra alla fine. Aprire il forziere extra può costare una seconda Restored Coffer Key.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "Hai %d Restored Coffer Keys e %d shards — abbastanza per il forziere extra.",
 	DUNDUN_PANEL_KEYS_SHORT_FMT = "Hai %d Restored Coffer Keys e %d shards — ti mancano %d shards per la prossima key. Puoi comunque cercarlo; lasceresti solo il forziere extra chiuso.",
 	DUNDUN_PANEL_KEYS_UNKNOWN = "Non sono riuscito a leggere le tue Restored Coffer Keys in questo momento.",

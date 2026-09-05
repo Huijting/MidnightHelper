@@ -599,6 +599,24 @@ spawn (`RARE_ALERT_TTL`). "Er toevallig overheen vliegen" op hoogte kan makkelij
 yard vallen. Dat is een afweging, geen bug — maar als Rob vaker meldt dat hij er langs vloog zonder
 ping, is die 500 het getal om te bespreken en niet de matcher.
 
+### 🔴 5 sep — Dundun is niet altijd een boom, en dat stond in zeven talen fout
+
+Carola, via Rob: *"de DUNDUN in haar delve was niet een boom maar een Paal."* Geen screenshot, wel
+een eigen waarneming in het spel.
+
+📌 **Onze tekst zei "een houten nepboom", in alle zeven de talen, op gezag van één wiki-regel.** Eén
+tester die het zélf ziet weegt zwaarder dan dat — en het is bovendien logisch: een prop die opgaat
+in zijn omgeving kán niet in een grot hetzelfde ding zijn als in een bos.
+
+✅ **Herschreven naar het KENMERK in plaats van de vorm:** planken en schroeven, verf in plaats van
+bast, "dat heeft iemand gemaakt" — met beide waarnemingen als voorbeeld. Dat is sowieso de betere
+instructie: wie op één silhouet jaagt loopt het andere straal voorbij.
+Aangepast in `DUNDUN_CHAT_WHAT` en `DUNDUN_PANEL_BODY` (7 talen), plus de `/mh dundun`-uitvoer en de
+module-header. `check_drift.py`: 0 gedrift.
+
+⚠️ **Wat we NIET weten:** of de vermomming per delve verschilt, per zone, of willekeurig is. Twee
+waarnemingen (Rob, Carola) is geen patroon. De tekst claimt daarom niets over waarom.
+
 #### 🟡 OPEN, klein — de pijl draait om bij aankomst op de Coiled Isle
 
 Rob vroeg de route naar het Coiled Isle-portaal, kreeg hem netjes, en bij aankomst óp het eiland
