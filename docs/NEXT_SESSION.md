@@ -312,6 +312,24 @@ zonder nieuwe data:
 Faliekant misgaan kan niet: lukt de lookup niet, dan komt er **geen** stap — zwijgen is wat dit
 bestand sowieso verkiest boven een geraden hop.
 
+#### ✅ 5 sep — de zwarte pijl die altijd omhoog wees
+
+Rob, meteen na de reparatie hierboven: *"het is een statische pijl die altijd naar boven wijst, is
+dat niet fout??"* Ja, en het was een echte bug — niet de weigering om een richting te tekenen, maar
+wat er bleef staan.
+
+🔴 **Onze pijl bestaat uit DRIE texturen** (`f.tex` gekleurd, plus `f.texOutline` en `f.texGlow`,
+alle drie `MinimapArrow`), en de "ander continent"-tak verstopte er **één**. De outline bleef dus
+staan op de rotatie die hij toevallig had — recht omhoog als er nooit een richting was.
+
+📌 **Een pijl is een bewering over richting.** Niet berekenen over continenten heen is bewust en
+juist; een vorm laten staan die er tóch uitziet als het antwoord haalt precies die zorgvuldigheid
+weer onderuit, en leest voor de speler als "naar het noorden".
+
+⚠️ **Zelfde vorm als de waarschuwing die al in `Delves.lua` staat**: een gate op één van meerdere
+identieke broertjes geeft een deel van de tijd het verkeerde antwoord. Komt er ooit een vierde
+textuur bij deze pijl, dan moet die hier óók verborgen worden — dat staat nu bij de code.
+
 ⚠️ **Alleen 84 en 85 staan in `FactionCapitalMap()`.** 85 (Orgrimmar) is gemeten uit Robs eigen
 `/mh coord`; 84 (Stormwind City) is het bekende partner-id en **niet** los gemeten — daarom leest de
 aanroeper de naam terug en laat de stap vallen als die leeg is. Een fout id kost dan een ontbrekende

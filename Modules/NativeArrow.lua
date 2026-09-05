@@ -402,7 +402,25 @@ local function UpdateArrow()
 	end
 
 	if unreachable then
+		--- 🔴 THREE TEXTURES MAKE THIS ARROW, AND ONLY ONE WAS BEING HIDDEN. Rob, 5 Sep 2026,
+		--- standing in Dornogal: *"het is een statische pijl die altijd naar boven wijst, is
+		--- dat niet fout??"* Yes, and he is pointing at the outline.
+		---
+		--- `f.tex` is the coloured arrow; `f.texOutline` and `f.texGlow` are two more
+		--- MinimapArrow textures stacked under it (created at :622 and :629, shown together
+		--- at :507 and :511). Hiding only `f.tex` leaves a dark arrow behind at whatever
+		--- rotation it last held -- straight up when there never was one.
+		---
+		--- 📌 An arrow is a CLAIM ABOUT DIRECTION. Refusing to compute one across continents
+		--- is right and deliberate (see below); leaving a shape on screen that looks like the
+		--- answer anyway undoes exactly that care, and reads as "north" to the player.
+		---
+		--- ⚠️ Same shape as the gate this codebase already warns about in Delves.lua: a
+		--- condition applied to one of several identical siblings shows the wrong answer part
+		--- of the time. Any texture added to this arrow must be hidden here too.
 		f.tex:Hide()
+		if f.texOutline then f.texOutline:Hide() end
+		if f.texGlow then f.texGlow:Hide() end
 		if f.icon then f.icon:Hide() end
 		local other = ns:L("ARROW_OTHER_CONTINENT")
 		if not other or other == "ARROW_OTHER_CONTINENT" then
