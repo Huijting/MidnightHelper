@@ -400,8 +400,39 @@ Bijgewerkt op drie plekken: `ShouldSuppressTravelPopup` (heeft `targetX` in zijn
 `ZoneLevelGate` (heeft `xPct`) en de `/mh arrow`-diagnose zelf, zodat die zichzelf niet meer kan
 tegenspreken.
 
-⚠️ **Nog te bevestigen door Rob:** de eigenlijke klacht — route vanuit The Den naar een SMC-delve.
-Dit verklaart hem, maar dat is niet hetzelfde als hem gemeten hebben.
+✅ **BEVESTIGD door Rob na de reload:** `basiszone volgens ons: Harandar`, en de route hervat nu wél
+door het portaal heen (*"You are there — the arrow is now on Rhazul"*, pijl op 477 m in The Den).
+Was daarvoor `doel: GEEN`.
+
+### 🔴 OPEN, maar nu GEMETEN — TomTom verliest zijn pijl in The Den, wij niet
+
+Twee `/mh arrow`-metingen, dezelfde character, één minuut uit elkaar:
+
+| | in The Den | buiten The Den |
+|---|---|---|
+| `jij: map` | **2576** (canvas) | **2413** (Harandar) |
+| TomTom-pijl | ❌ onzichtbaar | ✅ *Rhazul 423m* |
+| onze pijl | ✅ *Rhazul 477 m* | wij wijken (by design) |
+| Blizzard map pin | ✅ 522 yds | ✅ 464 yds |
+
+📌 **De oorzaak staat vast:** binnen meldt de client je op de gedeelde canvas **2576**, terwijl de
+rare-waypoints op **2413** staan. TomTom rekent tussen die twee niet om en verbergt dan zijn pijl.
+Buiten sta je op 2413 en klopt alles.
+
+✅ **Niet dringend:** onze eigen pijl én de Blizzard-pin dekken het gat al, met het juiste doel en de
+juiste afstand. De speler staat nooit zonder pijl. Alleen TomTom-gebruikers zien binnen een andere
+pijl dan buiten.
+
+⚠️ **Als iemand dit ooit repareert:** het waypoint moet worden gezet op de kaart waar de SPELER op
+staat, dus 2413 → 2576 omrekenen via wereldcoördinaten. `C_Map.GetMapPosFromWorldPos` is daarvoor de
+kandidaat en is **NIET gemeten** — en 2576 is een gedeelde canvas, dus of die überhaupt een eigen
+wereldruimte heeft is de eerste vraag. Meten met `/mh ptr` vóór er code komt.
+
+🔴 **En dit is de vierde 2576-vondst op één dag** (doel-regio 4 sep, `GetBaseZoneName`, de
+mage-knoppen, nu TomTom zelf). Het patroon is inmiddels duidelijk genoeg om vooruit te kijken in
+plaats van achteraf: **elke plek die een positie of een kaart-id op 2576 gebruikt is verdacht tot
+hij de x kent.** Een gerichte zoektocht daarnaar is waarschijnlijk goedkoper dan de volgende drie
+losse meldingen.
 
 ### 🗄️ De oude hypothese (5 sep, ingetrokken) — The Den als sub-map
 
