@@ -181,9 +181,46 @@ te zien krijgt.
 📌 **Rob stelde deze vraag al op 3 sep, vanaf dezelfde plek**: *"kan die daar al heen dan, en hoe
 dan?"* (zie `ResetRoutine.lua:304`). Toen is de weekly-kop gerepareerd, niet de reisvraag.
 
-⚠️ **NIET GEMETEN en dus niet verzinnen:** waar het portaal/de questlijn naar Quel'Thalas begint in
-Stormwind/Orgrimmar/Dornogal. Dat moet uit de client of uit Zygors questketen komen vóór er ook maar
-één coördinaat in de tabel gaat.
+#### ✅ 5 sep — uitgezocht, en het is géén portaal maar een quest
+
+Rob: *"zoek maar uit waar de portals zijn via Zygor denk ik, en anders moet er online wel een list
+zijn toch?"* Beide gedaan. Wat er nu vaststaat, met de bron erbij:
+
+| wat | waar | bron | hard? |
+|---|---|---|---|
+| Start van de campagne | **Stormwind 53.26, 54.32** (A) · **Orgrimmar 53.43, 77.32** (H) | `ZygorLevelingCommonMID.lua:8-44` | ✅ GEMETEN in bestand |
+| De NPC | Image of Lady Liadrin (241677), quest **Midnight ##91281** → **A Voice from the Light ##88719** | idem | ✅ |
+| Hoe je er kómt | item **Light's Summon ##239151** — "Travel to Quel'Danas" | `:46-47` | ✅ |
+| Intro overslaan | gossip 138201, alleen met achievement **42045** | `:23, :42` | ✅ |
+| Silvermoon → hoofdstad | SMC **53.33, 66.24** (portaalkamer rechts van Wayfarer's Rest) | method.gg | ✅ extern |
+| Hoofdstad → Silvermoon | *"in the capital's portal room"* — **coördinaat ONBEKEND** | idem, zonder cijfers | 🔴 NIET GEMETEN |
+
+🔴 **DE BELANGRIJKSTE VONDST: de weg naar binnen is geen portaal.** Het is een questlijn die
+automatisch start in je hoofdstad, met een summon-item. Voor precies de speler waar de rode balk op
+mikt — onder 78, ergens in oude content — is *"loop naar Lady Liadrin in Stormwind"* het juiste
+antwoord, en een portaal-coördinaat zou dat niet eens zijn.
+📌 Dat betekent ook dat `MIDNIGHT_PORTALS` waarschijnlijk de verkeerde tabel is voor dit probleem:
+de eerste stap is een quest-gever, geen portaal.
+
+⚠️ **Nog te meten door Rob (één `/mh coord`):** het Silvermoon-portaal in de portaalkamer van
+Stormwind én van Orgrimmar. Method noemt alleen dát het er is, geen cijfers, en een coördinaat
+raden is precies wat hier niet mag. Zijn eerdere zoektocht (`Silvermoon portal in Stormwind`) laat
+zien dat het ding in 12.x verplaatst is, dus oude fansite-cijfers zijn ook niet te vertrouwen.
+
+### 🔴 OPEN — The Den: de pijl raakt van slag zolang je binnen bent
+
+Rob, 5 sep, opnieuw: *"The Den is nog een drama, alleen als ik eruit vlieg gaat de pijl weer terug
+komen, en als ik in The Den een delve in SMC wil doen raakt ie weer van slag."*
+
+📌 **Hypothese, NIET gemeten:** The Den is een sub-area op **verdieping 2 van Harandar**
+(`FlightPointsData.lua:977` — `fpath The Den |goto Harandar/2 70.74,53.23`). `MHResolveWaypointMap`
+in `Core.lua:646` klimt al omhoog wanneer het **DOEL** op zo'n sub-map ligt, maar er is niets dat
+hetzelfde doet wanneer **DE SPELER** erop staat: `currentMap` wordt dan de sub-area, en daar hangen
+regiodetectie, reispopup-onderdrukking en de pijl allemaal vanaf.
+
+⚠️ **Eén `/mh arrow` vanuit The Den settelt dit.** De keten-regels laten meteen zien welk mapID
+`currentMap` is en of hij als "ander continent" gelezen wordt — precies zoals de Azure
+Span-meting vandaag de TomTom-vraag in vier regels afdeed. Niet gaan bouwen vóór die regel er is.
 
 ## 🗄️ AFGEHANDELD 5 sep — MH stuurt lage levels naar dingen die ze niet kunnen doen
 
