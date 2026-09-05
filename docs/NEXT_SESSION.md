@@ -330,6 +330,30 @@ weer onderuit, en leest voor de speler als "naar het noorden".
 identieke broertjes geeft een deel van de tijd het verkeerde antwoord. Komt er ooit een vierde
 textuur bij deze pijl, dan moet die hier óók verborgen worden — dat staat nu bij de code.
 
+#### 🔴 OPEN — Alliance komt één stap tekort, en dat is te meten
+
+Robs vraag: *"en wat als ik een alliance ben?"* Eerlijk antwoord, per stap:
+
+| waar | Horde | Alliance |
+|---|---|---|
+| Buiten Midnight (bv. Dornogal) | *"Go to: Orgrimmar"* ✅ | *"Go to: Stormwind City"* ✅ (naam uit de client) |
+| In de hoofdstad zelf | portaal-stap + pijl, 105 yd ✅ | **niets** — geen rij in `MIDNIGHT_PORTALS` 🔴 |
+
+✅ **Het portaal bestáát**: Wowhead kent `object=584668` *Portal to Silvermoon City* met Stormwind
+City in de vindplaatsenlijst. **Maar geen enkele bron geeft een coördinaat**, en Method noemt alleen
+*"the capital's portal room"*. Dus geen rij tot iemand het meet — één `/mh coord` van een
+Alliance-character.
+
+⚠️ **En let op de tweede helft:** Stormwind en Silvermoon zitten allebei op Eastern Kingdoms
+(continent 0), dus daar is `crossContinent` **false** en valt de planner terug op de vlieg-tip —
+precies de "Sanctum of Light"-onzin die we vandaag elders juist hebben afgevangen. Bij Orgrimmar
+speelt dat niet (Kalimdor vs EK). **Niet blind repareren:** of je van Stormwind naar Quel'Thalas kán
+vliegen is ongemeten, en dat bepaalt of die tip daar fout is of juist goed.
+
+✅ **Wel meteen afgedekt:** de hoofdstad-stap vuurt niet meer als je er al staat
+(`capitalMap == here`). Zelfde fout als 3 sep, toen iemand in Harandar naar het Portal to Harandar
+werd gestuurd.
+
 ⚠️ **Alleen 84 en 85 staan in `FactionCapitalMap()`.** 85 (Orgrimmar) is gemeten uit Robs eigen
 `/mh coord`; 84 (Stormwind City) is het bekende partner-id en **niet** los gemeten — daarom leest de
 aanroeper de naam terug en laat de stap vallen als die leeg is. Een fout id kost dan een ontbrekende

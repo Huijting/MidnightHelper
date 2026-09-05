@@ -392,7 +392,13 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		if #steps == 0 and crossContinent and ns.GetTargetRegionGroupID then
 			local okR, region = pcall(ns.GetTargetRegionGroupID, targetMap, x)
 			if okR and region and region ~= 0 then
+				--- ⚠️ NEVER TELL SOMEONE TO GO WHERE THEY ARE STANDING. Same fault as the
+				--- 3 Sep one where a player in Harandar was told to head for the Portal to
+				--- Harandar; cheap to guard, and embarrassing exactly once.
 				local capitalMap = FactionCapitalMap()
+				if capitalMap == here then
+					capitalMap = nil
+				end
 				local info = capitalMap and C_Map and C_Map.GetMapInfo
 					and C_Map.GetMapInfo(capitalMap) or nil
 				if info and info.name and info.name ~= "" then
