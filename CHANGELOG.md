@@ -2,6 +2,68 @@
 
 All notable changes to this project are documented in this file.
 
+## 3.8.0
+
+📌 **A minor, and this one is not a close call.** 3.7.3 was a correction release and took a patch
+number on Rob's judgement. This has genuinely new content (Dundun, the level gate, the public
+Codex), a source change that rewrites four bosses' worth of advice, and a routing overhaul.
+
+### Changed — the boss advice now has a source that must be right
+
+- **Every spell ID in the raid, dungeon, delve and ritual tips was held against DBM's own boss
+  mods.** 21 named abilities DBM never warns on; those bullets are **deleted, not reworded** —
+  a tip about a spell that does not fire is worse than no tip. The Venomous Abyss, Rotmire,
+  Taz'Rah and Nalorakk rewritten from DBM's warning lists; four thin raid tips refilled.
+- **Lint check [19]** holds every tip ID against DBM, with a baseline rather than a wall, so the
+  33 known gaps stay visible as gaps instead of being carried quietly.
+  ⚠️ The check needs DBM present on the runner; when it was absent it reported all 412 ids as
+  missing and mailed Rob about a crisis that did not exist. A positive control now guards it.
+- **13 role gaps filled, 91 lines**, found by reading Zygor's dungeon guides beside our own.
+  Deliberately kept OUT of `tip_audit`: a second source is for deciding what to look at, not for
+  automatically overwriting the first.
+
+### Added
+
+- **Dundun, the Shrine of Abundance** in Bountiful delves — when he is worth finding, and what
+  the extra chest costs. 🔴 He is not always a fake tree; a tester found him as a pole, so the
+  text names the tell (built rather than grown) instead of one silhouette.
+- **The level gate.** A toast with a sound plus a chat line when a route leads into a zone built
+  well above you, a red bar across the window below level 78, and a setting for players who want
+  the route refused outright (off by default).
+  ✅ **MEASURED: the game does not physically stop you** — a level 70 took the Orgrimmar portal
+  and walked into Silvermoon. Open since 3 Sep, and it is why the wording says "built for" and
+  never "you cannot go there".
+- **`/mh report`, `/mh zonegate`, `/mh travelwhy`**, and a "who set this route" line in
+  `/mh arrow`. All four exist because a quiet addon and a broken one look identical from outside.
+- **The Codex on the web**, generated from the text the addon already ships.
+
+### Fixed — routing, most of it failing silently
+
+- **The Harandar portal advice pointed at open water.** The coordinate was inherited from a bulk
+  import on 15 May and never measured; the portals are inside The Den, on a different map.
+- **A portal on a rare or treasure route left TomTom with no arrow at all.** Those routes clear
+  `ns.lastTarget` by design and the restore only knew about that field — so for every TomTom user
+  the route ended at the door.
+- **An arrow was drawn pointing straight up when there was no direction.** Three textures make
+  that arrow and only one was being hidden.
+- **No answer at all to "how do I get to Midnight" from outside it.** Now names the player's own
+  capital — no per-capital coordinates, so nothing to re-measure when a portal moves.
+- **A portal route did not end when you went through the portal**, so the addon turned you around
+  and planned the journey home.
+- 🔴 **Canvas 2576 carries Silvermoon, Voidstorm and Harandar side by side, and six places read it
+  without the x** — answering "Silvermoon" while the player stood in Harandar. The worst decided
+  which rare list to watch: on two thirds of that map, nearby rares matched nothing, with no alert
+  and no error. Found by sweeping every use of that map id after the fourth separate report.
+
+### Fixed — smaller
+
+- `GetItemCooldown` is removed in 12.1.5 and was called bare three times; guarded, with a fallback
+  that is now actually reachable (it sat *below* the line that would have thrown).
+- The CI mailed Rob about 378 findings that did not exist, and the first fix triggered no run at
+  all because the workflow did not watch the file it had just changed.
+- The level warning's upper bound is gone: "80-88" is the levelling band, and a player at 90 is
+  still there every week.
+
 ## 3.7.3
 
 📌 **A patch, not a minor — Rob's call again, 31 aug 2026.** I put the choice to him as 3.7.3
