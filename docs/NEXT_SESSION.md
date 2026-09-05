@@ -469,6 +469,28 @@ een etappe daartussen zou "aangekomen" heten vóór je een stap zet). De test vr
 ik op de canvas, in het derde dat de bestemmingskaart ís?* Nieuwe gedeelde tabel
 `ns.MIDNIGHT_HUB_MAP_BY_NAME` — de inverse van `ResolveHubOnMap2576`.
 
+#### 💡 BANK — "eerst The Den uit" als eerste etappe (gemeten, niet gebouwd)
+
+Rob: *"je moet eerst de den uitvliegen, kunnen we de route dan in 2 dingen opsplitsen?"* Kan, en het
+mechanisme ligt er al: `point.entrance` + `ns.StartSmcTwoStepRoute`, gebouwd op 3 sep voor precies
+het spiegelbeeld (eerst naar de ingang van een gebouw).
+
+✅ **Gemeten door Rob, 5 sep, allebei bevestigd:**
+* uitgang van The Den: **map 2413, 54.72 / 53.10** — vlak bij de flight master die
+  `FlightPointsData` al kent (`The Den`, 54.10 / 53.23), twee onafhankelijke metingen die elkaar
+  dekken;
+* de detector: **binnen = 2576, buiten = 2413**, ook pal bij de uitgang én van bovenaf. Rob heeft er
+  expliciet omheen gevlogen om te kijken of 2576 ergens buiten opdook. Nee.
+
+🔴 **DE ADDER, en waarom dit niet zomaar winst is:** de uitgang ligt op **2413** terwijl de speler op
+**2576** staat. Een waypoint daarheen heeft dus exact het probleem dat we vandaag gemeten hebben —
+**TomTom tekent niks over die twee ids heen**. Voor TomTom-gebruikers zou de eerste etappe dus
+onzichtbaar zijn, en dat is precies de fout uit de rare-hints van 19 aug in een nieuw jasje.
+
+📌 **Dus als dit gebouwd wordt, is de CHATREGEL het product** ("ga eerst The Den uit") en de pijl een
+bonus voor wie geen TomTom draait. Niet andersom. Rob zei zelf "niet noodzakelijk hoor" — dit staat
+hier als afgemeten voorstel, niet als taak.
+
 📌 **De sweep kostte minder dan de vier losse meldingen samen.** Waard om te onthouden voor de
 volgende keer dat één fout zich drie keer herhaalt.
 
