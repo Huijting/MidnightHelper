@@ -103,10 +103,19 @@ Twee dingen kwamen terug uit de test, en allebei zijn ze gebouwd:
 📌 **De waarschuwing zelf is niet uit te zetten.** Die is er juist gekomen omdat ze ontbrak; alleen
 wat erna gebeurt is een keuze.
 
-⚠️ **Nog te doen:** `ZONEGATE_BLOCKED`, `SET_ZONEGATE_BLOCK_TITLE`, `_DESC` en
-`LEVELBAR_BELOW_ENTRY_FMT` staan alleen in enUS + nlNL. Samen met de drie oudere
-`ZONEGATE_*`-sleutels wachten ze op de/fr/es/pt/it via `Translations2026.lua`. Tot dan valt `ns:L`
-terug op Engels — zichtbaar, niet kapot.
+✅ **VERTAALD 5 sep — alle acht sleutels in zeven talen.** `ZONEGATE_TITLE_FMT`, `_BODY_FMT`,
+`_STILL_ROUTED`, `_BLOCKED`, `SET_ZONEGATE_BLOCK_TITLE`, `_DESC`, `LEVELBAR_BELOW_ENTRY_FMT` en
+`PLAN_DETAIL_CAPITAL_PORTAL` staan nu in `Translations2026.lua` voor de/fr/es/pt/it.
+`check_drift.py`: **0 gedrift**, alle zes de talen.
+
+📌 **Het menupad in `ZONEGATE_BLOCKED` is niet verzonnen maar opgezocht.** Er bestond geen precedent
+in de vijf packs (alleen changelog-regels, en die blijven Engels), dus het woord voor "Instellingen"
+komt uit `TOUR_SETTINGS_TITLE` per taal en de sectienaam uit het al vertaalde `SET_SEC_ARROW` —
+zodat het pad klopt met wat de speler daadwerkelijk op zijn scherm ziet.
+
+⚠️ **Deze vertalingen zijn van ONS**, niet van een moedertaalspreker nagekeken. Verschijnt er ooit
+iemand voor een taalronde, dan is dit een van de plekken om te laten kijken. `Silvermoon` en
+`Midnight Helper` blijven Engels (eigennamen).
 
 ### 🔴 5 sep, tweede testronde: één echte bug, één open meting, één nieuwe balk
 
