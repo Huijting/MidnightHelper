@@ -876,7 +876,10 @@ local SMC_CATEGORIES = {
 			--- "bijna vier punten mis" is weggeschreven. Twee onafhankelijke metingen van
 			--- dezelfde deur, vijf weken uit elkaar. Op 19 aug hebben we hem vervángen door
 			--- de bestemming; hij hoorde ernáást te staan.
-			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30, entrance = { x = 54.99, y = 63.30 }, requiresQuest = 96004 },
+			--- `arrivesOn = 2512`: stepping onto the Coiled Isle IS arriving. Without it the
+			--- addon kept planning from "your destination is in Silvermoon" the moment Rob
+			--- came out the far side. See the note above ns.lastTarget in RouteSmcPoint.
+			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30, entrance = { x = 54.99, y = 63.30 }, arrivesOn = 2512, requiresQuest = 96004 },
 			{ id = "timeways", label = "Timeways (Lindormi)", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
 			{ id = "mplus_teleports", label = "M+ Teleports", atlas = "flightmaster", x = 42.03, y = 58.30 },
 		},
@@ -1184,8 +1187,21 @@ local function SetSMCWaypoint(point)
 	-- Drive MidnightHelper's own on-screen arrow too (SMC sets its waypoint directly,
 	-- so it wasn't engaging NativeArrow). Give it a lead + generic ownership, resetting
 	-- a stale single-dest route so the arrow points here.
+	--- 🔴 `arrivesOn` — A PORTAL ROUTE IS DONE WHEN YOU ARE THROUGH IT. Measured 5 Sep 2026,
+	--- and only after the arrival message was built could anyone see it.
+	---
+	--- Rob routed to "Portal to The Coiled Isle", stepped through, and the addon promptly
+	--- sent him back: on the isle it still believed his destination was a spot in SILVERMOON
+	--- (which is where that portal stands), found the return portal two metres away, routed
+	--- to that, and then declared him arrived at it. Every step was locally correct and the
+	--- sum walked him backwards.
+	---
+	--- 📌 The flaw is what a portal route MEANS. "Route to the portal to X" is stored as the
+	--- portal's own position, so the moment the player uses it we lose the thread and start
+	--- planning the journey home. `arrivesOn` says where the far side is, so arriving there
+	--- ends the route instead of starting a new one.
 	ns.lastTarget = { mapID = mapID, x = tonumber(target.x) or 0, y = tonumber(target.y) or 0,
-		name = target.label, via = "Silvermoon pin" }
+		name = target.label, via = "Silvermoon pin", arrivesOn = point.arrivesOn }
 	local o = ns._mhRouteOwner
 	if o == nil or o == "waypoint" or o == "delve" then
 		ns._mhRouteOwner = "waypoint"

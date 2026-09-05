@@ -664,6 +664,21 @@ legRetry:SetScript("OnEvent", function()
 				return
 			end
 			local here = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+			--- 🔴 A PORTAL ROUTE IS FINISHED THE MOMENT YOU ARE THROUGH IT — 5 Sep 2026.
+			---
+			--- This re-planner is what sent Rob home. He routed to "Portal to The Coiled
+			--- Isle", stepped through, and 0.7 s later this fired with a target that is
+			--- physically in SILVERMOON, found the return portal two metres from his feet,
+			--- and routed him to it. The arrival check then declared him arrived at THAT,
+			--- and the route he actually asked for was gone. Every step locally right; the
+			--- sum walked him backwards through the door he had just used.
+			---
+			--- 📌 `arrivesOn` is set by the pin that knows where its portal comes out. It is
+			--- checked HERE rather than only in the arrival check because this runs first
+			--- (0.7 s against 1 s) and the damage is done by the time the other looks.
+			if here and t.arrivesOn and tonumber(t.arrivesOn) == tonumber(here) then
+				return
+			end
 			if here then
 				pcall(ns.RouteFirstToFlightPoint, t.mapID, t.x, t.y, t.name, here)
 			end

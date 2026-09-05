@@ -662,6 +662,30 @@ en de Coiled Isle melden allebei continent 0 terwijl ze elk hun eigen coördinat
 het spel zien, dan pas daar kijken.
 ⚠️ **`ROUTE_FINISHED_FMT` staat alleen in enUS + nlNL** — de/fr/es/pt/it volgen zodra hij bewezen is.
 
+#### ✅ 5 sep — en de nieuwe regel wees de dader aan in één woord
+
+Rob deed de reis opnieuw en las: *"reads you as arrived at **Portal to Silvermoon**"*. **Niet** het
+Coiled Isle-portaal waar hij om vroeg. Daarmee lag de volgorde open:
+
+1. klik → route naar *Portal to The Coiled Isle*, een plek **in Silvermoon**
+2. hij stapt erdoor en staat op het eiland
+3. `legRetry` (`DelveTipMarkup:649`) draait **0,7 s** na het laadscherm, ziet een doel dat in
+   Silvermoon ligt, vindt het terugportaal twee meter verderop en routeert hem daarheen
+4. `runZoneNavCheck` draait op **1 s**, ziet hem er bovenop staan en meldt "aangekomen"
+
+🔴 **Elke stap is lokaal correct en de som loopt achteruit door de deur die hij net gebruikte.** De
+fout zit in wat een portaal-route BETEKENT: hij wordt bewaard als de positie van het portaal, dus
+zodra je hem gebruikt zijn we de draad kwijt en beginnen we aan de thuisreis.
+
+✅ **`arrivesOn` toegevoegd.** De pin die het portaal kent zegt nu waar het uitkomt (2512), en
+aankomen daar beëindigt de route in plaats van er een nieuwe te beginnen. Gecontroleerd op **twee**
+plekken, en de volgorde is de reden: in `legRetry` (0,7 s) omdat die het eerst draait en anders de
+schade al is aangericht, én in `runZoneNavCheck` (1 s) zodat de route netjes wordt afgesloten met
+de nieuwe melding.
+
+📌 **Alleen deze ene pin heeft `arrivesOn`.** Andere portaal-pins krijgen hem zodra iemand meet
+waar ze uitkomen — geen raadwerk, zoals de rest van vandaag.
+
 📌 **De sweep kostte minder dan de vier losse meldingen samen.** Waard om te onthouden voor de
 volgende keer dat één fout zich drie keer herhaalt.
 

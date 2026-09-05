@@ -3521,7 +3521,13 @@ local function CreateEventBridge()
 				local currentMap = C_Map.GetBestMapForUnit("player")
 				local lt = RouteLead()
 				if lt and currentMap then
-					if ns.IsMidnightTravelComplete(currentMap, lt.mapID, lt.x, lt.y, lt.name) then
+					--- Stepping out of a portal ends the route that pointed AT that portal.
+					--- `arrivesOn` carries the far side; without it "route to the portal to X"
+					--- stays a route to a spot in the city you just left. See the note beside
+					--- the re-planner in DelveTipMarkup.
+					local throughPortal = lt.arrivesOn
+						and tonumber(lt.arrivesOn) == tonumber(currentMap)
+					if throughPortal or ns.IsMidnightTravelComplete(currentMap, lt.mapID, lt.x, lt.y, lt.name) then
 						--- 🔴 SAY THAT THE ROUTE ENDED — 5 Sep 2026, and this one line is why
 						--- today's last hunt took an hour.
 						---
