@@ -2112,7 +2112,8 @@ ns._mhLocales.nlNL = {
 	DUNDUN_CHAT_SHARDS_FMT = "Je hebt %d Coffer Key Shards — nog %d en het spel maakt er bij binnenkomst vanzelf een key van.",
 
 	-- Zone level gate. "Midnight" is Blizzards uitbreidingsnaam en blijft Engels.
-	ZONEGATE_TITLE_FMT = "Dat gebied begint op level %d",
+	ROUTE_FINISHED_FMT = "Route klaar — Midnight Helper leest je als aangekomen bij %s, dus de pijl is weer vrij. Ben je er niet, zeg het: dat oordeel is van ons en het kan fout zijn.",
+	ZONEGATE_TITLE_FMT ="Dat gebied begint op level %d",
 	ZONEGATE_BODY_FMT = "%s is gemaakt voor level %d en hoger, en jij bent %d. Niets houdt je tegen om er in te lopen — maar de vijanden daar zijn ver boven je.",
 	ZONEGATE_STILL_ROUTED = "De route staat er toch — de plek opzoeken is op elk level nuttig.",
 	LEVELBAR_BELOW_ENTRY_FMT = "Midnight Helper is gemaakt voor level %d en hoger — jij bent %d. Alles blijft open; het meeste is een kaart voor later.",

@@ -3522,7 +3522,23 @@ local function CreateEventBridge()
 				local lt = RouteLead()
 				if lt and currentMap then
 					if ns.IsMidnightTravelComplete(currentMap, lt.mapID, lt.x, lt.y, lt.name) then
+						--- 🔴 SAY THAT THE ROUTE ENDED — 5 Sep 2026, and this one line is why
+						--- today's last hunt took an hour.
+						---
+						--- Rob arrived on the Coiled Isle WITH an active route and `/mh arrow`
+						--- read `doel: GEEN`. Something had decided he was there and thrown the
+						--- route away in complete silence, and from outside that is
+						--- indistinguishable from the arrow breaking. I then produced four
+						--- explanations looking in the wrong places -- a Codex link, a missing
+						--- portal row, a second door -- because the one event that mattered
+						--- left no trace whatsoever.
+						---
+						--- ⚠️ It prints even when the verdict is WRONG, and that is the point.
+						--- A false "you have arrived" becomes a visible claim the player can
+						--- report, instead of an arrow that quietly vanishes.
 						SafeHideTravelPopup()
+						print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"),
+							(ns:L("ROUTE_FINISHED_FMT")):format(tostring(lt.name or "?"))))
 						ns.lastTarget = nil
 					else
 						-- After portal / zone: restore delve arrow (TomTom only, no travel popup).

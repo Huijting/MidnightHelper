@@ -639,6 +639,29 @@ een achtste plek, of iets zet het doel buiten die zeven om.
 📌 Zelfde patroon als `/mh travelwhy` een half uur eerder: als lezen het niet oplost, meet dan wie
 het deed. Dat kostte vandaag drie keer minder dan de gok.
 
+🔴 **CORRECTIE, en het was mijn vierde misser in dit ene spoor: `MIDNIGHT_PORTALS` HÉÉFT een rij op
+2512.** `Delves.lua:285` — *"The way back, from Tokka's Landing"*, `x = 58.25, y = 48.46`, precies de
+coördinaat uit Robs TomTom-regel. Ik had ernaar gegrept, kreeg een lijst die op de limiet afkapte
+vóór die regel, en concludeerde "geen rij". **Een afgekapt zoekresultaat is geen leeg
+zoekresultaat** — dezelfde val als [[silence-is-not-absence]], nu met een `head_limit` als oorzaak.
+Zet een limiet nooit op een zoektocht waarvan de conclusie "hij bestaat niet" kan zijn.
+
+🔴 **EN DE ECHTE VONDST, uit Robs "dit was met een actieve route":** bij aankomst op het eiland staat
+er `doel: GEEN`. De aankomstcontrole besluit dus dat hij ER IS en gooit de route weg — **volledig
+stil**. Daarna doet de reishulp gewoon zijn werk en wijst naar de terugweg, wat er van buiten
+uitziet als "de pijl draait om".
+
+✅ **Gebouwd: die beslissing praat nu.** `ROUTE_FINISHED_FMT` in enUS + nlNL, geprint op het moment
+dat de route wordt opgeruimd, mét de naam van het doel én de uitnodiging om het te melden als het
+niet klopt. Hij verschijnt óók als het oordeel fout is — dat is juist de bedoeling: een onterechte
+"je bent er" is dan een zichtbare claim in plaats van een pijl die zomaar verdwijnt.
+
+⚠️ **Waaróm hij "aangekomen" zegt is NIET gemeten.** Vermoeden (niet meer dan dat): Silvermoon City
+en de Coiled Isle melden allebei continent 0 terwijl ze elk hun eigen coördinatenruimte hebben, dus
+`GetYardsToMapWaypoint` kan een klein getal opleveren dat niets betekent. Eerst de nieuwe regel in
+het spel zien, dan pas daar kijken.
+⚠️ **`ROUTE_FINISHED_FMT` staat alleen in enUS + nlNL** — de/fr/es/pt/it volgen zodra hij bewezen is.
+
 📌 **De sweep kostte minder dan de vier losse meldingen samen.** Waard om te onthouden voor de
 volgende keer dat één fout zich drie keer herhaalt.
 
