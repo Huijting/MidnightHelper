@@ -136,6 +136,23 @@ function ns.IsKnownDelveName(name)
 end
 
 local MIDNIGHT_PORTALS = {
+	--- 🔴 THE WAY IN FROM OUTSIDE MIDNIGHT — the first entry in this table that is not
+	--- already inside it, and the gap Rob found on 5 Sep 2026: standing in the Azure Span on
+	--- a low character, the addon had no answer at all to "how do I get there", because every
+	--- portal it knew about was one you can only reach once you have arrived.
+	---
+	--- ✅ MEASURED BY ROB, `/mh coord` at the portal itself: map 85 (Orgrimmar), 56.25, 88.57.
+	--- Not a fansite number -- his own client, that afternoon. Method's guide names the
+	--- Silvermoon-side counterpart but gives no coordinate for this direction, and a Blizzard
+	--- forum thread says the portal moved during 12.x, so older numbers are worth less than
+	--- nothing here.
+	---
+	--- ⚠️ HORDE SIDE ONLY. The Stormwind portal is NOT measured and gets no entry until it is.
+	--- An Alliance character standing on map 85 cannot use this one, but they also cannot be
+	--- there in any ordinary way, and inventing the other coordinate to make the pair look
+	--- tidy is exactly the mistake this file keeps a comment about.
+	{ name = "Portal to Silvermoon", mapID = 85, toID = 2393, x = 56.25, y = 88.57 },
+
 	-- SILVERMOON HUB
 	{ name = "Portal to Voidstorm",  mapID = 2393, toID = 2405, x = 35.25, y = 65.85 },
 	{ name = "Portal to Harandar",   mapID = 2393, toID = 2413, x = 36.76, y = 68.52 },

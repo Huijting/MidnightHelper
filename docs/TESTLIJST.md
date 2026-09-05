@@ -174,8 +174,12 @@ maar een route naar een zone waar je niet komt is verkeerd advies.
 - [x] ✅ **Kan je 69 in Silvermoon komen? — BEANTWOORD, online.** Blizzards eigen aankondiging plus
       twee gidsen: **Eversong Woods gaat open op level 80**, Midnight loopt 80→90 met Silvermoon als
       hub. Derde bron naast onze eigen tabtitel *"Leveling (80-90)"*. De grens van 80 staat.
-      ⚠️ Wat nog steeds niet gemeten is: of het spel je fysiek tegenhoudt bij het portaal. Voor onze
-      filter maakt dat niet uit — wij bevelen het toch niet aan — maar het is geen bewezen feit.
+      ✅ **EN NU OOK IN DE CLIENT GEMETEN — 5 sep 2026: het spel houdt je NIET tegen.** Rob nam op
+      een level-**70** paladin het portaal in Orgrimmar (85, 56.25/88.57) en liep Silvermoon
+      binnen. De 80 is dus een aanbeveling, geen deur. Dat maakt onze formulering *"afgestemd op
+      level X"* — nooit *"je kunt daar niet heen"* — achteraf de enige die stand had gehouden.
+      📌 Wat wél gelevelgated is: de **campagne**. Dezelfde character kreeg bij Image of Lady
+      Liadrin (85, 53.37/77.35) alleen een filmpje en geen quest. Grond open, verhaal dicht.
       📌 De regel *"Cuzoth — Item Upgrades (other continent — travel back)"* die je zag is **geen
       bug**: dat is een pin uit het Silvermoon-tabblad waar je zelf op klikte. Een stadsgids
       raadplegen is iets anders dan advies krijgen.

@@ -22,10 +22,20 @@ local _, ns = ...
 	Blizzard's own launch announcement gates Eversong/Silvermoon at 80 -- that one is
 	measured and already drives MIDNIGHT_FLOOR_LEVEL in ResetRoutine.
 
-	🔴 NOBODY HAS MEASURED WHETHER THE GAME PHYSICALLY REFUSES YOU. `docs/TESTLIJST.md` has
-	said so since 3 Sep. So the wording is "this area is tuned for level X and you are Y" --
-	never "you cannot go there", which would be a claim we cannot support and which the
-	player might immediately disprove by walking in.
+	✅ SETTLED 5 SEP 2026, AND THE CAUTIOUS WORDING TURNS OUT TO BE THE CORRECT ONE. Open since
+	3 Sep: does the game physically refuse you? Rob measured it on a level-70 Paladin -- he
+	took the Orgrimmar portal to Silvermoon and walked in. THE GAME DOES NOT STOP YOU. So
+	"this area is tuned for level X and you are Y" is not merely the careful phrasing, it is
+	the true one, and "you cannot go there" would have been a claim the player disproves by
+	walking through a portal. Never change it back.
+
+	📌 What IS gated is the CAMPAIGN, not the ground. The same character found the Image of
+	Lady Liadrin in Orgrimmar (53.37, 77.35, npc 241677) offering only a cutscene and no
+	quest. So the intro opens somewhere above 70 -- 78 per the guides, not measured to the
+	level -- while the zones themselves are open to anyone who can reach them.
+
+	⚠️ Two different gates, and this module only speaks about the second one. Do not let a
+	future "the intro needs 78" fact leak into a sentence about walking into a zone.
 
 	📌 The threshold is per REGION, not per zone, and deliberately the LOWEST of the region.
 	`ns.GetTargetRegionGroupID` already resolves which region a target sits in, including
@@ -310,6 +320,6 @@ function ns.PrintZoneLevelGate()
 		print("  route below level: |cff44ff44still set|r — warn only (Settings -> Route arrow)")
 	end
 	print("  Bands come from guides (Icy Veins, read in full); the level-80 floor is")
-	print("  Blizzard's own announcement. Whether the game physically stops you is NOT")
-	print("  measured — so we say 'tuned for' and never 'you cannot go there'.")
+	print("  Blizzard's own announcement. |cff44ff44MEASURED 5 Sep: the game does NOT stop you|r —")
+	print("  a level 70 walked into Silvermoon — so we say 'tuned for', never 'you cannot go'.")
 end

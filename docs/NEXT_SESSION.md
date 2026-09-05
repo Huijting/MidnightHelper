@@ -202,10 +202,35 @@ antwoord, en een portaal-coördinaat zou dat niet eens zijn.
 📌 Dat betekent ook dat `MIDNIGHT_PORTALS` waarschijnlijk de verkeerde tabel is voor dit probleem:
 de eerste stap is een quest-gever, geen portaal.
 
-⚠️ **Nog te meten door Rob (één `/mh coord`):** het Silvermoon-portaal in de portaalkamer van
-Stormwind én van Orgrimmar. Method noemt alleen dát het er is, geen cijfers, en een coördinaat
-raden is precies wat hier niet mag. Zijn eerdere zoektocht (`Silvermoon portal in Stormwind`) laat
-zien dat het ding in 12.x verplaatst is, dus oude fansite-cijfers zijn ook niet te vertrouwen.
+#### ✅ 5 sep, een uur later: Rob heeft het gemeten, en het beantwoordt óók de vraag van 3 sep
+
+Drie metingen van zijn eigen client, op een **level-70** Horde-paladin:
+
+| meting | uitkomst |
+|---|---|
+| `/mh coord` bij het portaal | **map 85 (Orgrimmar) 56.25, 88.57 → Silvermoon** |
+| Image of Lady Liadrin | **map 85, 53.37, 77.35**, npc **241677** — bevestigt Zygors 53.43/77.32 |
+| Biedt zij de campagne aan op 70? | **NEE** — alleen een filmpje, geen quest |
+| Kon hij door het portaal? | 🔴 **JA. Hij liep Silvermoon binnen op level 70.** |
+
+🔴 **DAARMEE IS DE VRAAG VAN 3 SEP BEANTWOORD: het spel houdt je NIET tegen.** Die stond als
+"NIET GEMETEN" in `ZoneLevelGate.lua`, in `TESTLIJST.md` en in twee van mijn eigen antwoorden.
+De voorzichtige formulering — *"dit gebied is afgestemd op level X en jij bent Y"* en nooit *"je
+kunt daar niet heen"* — blijkt dus niet alleen netjes maar ook **waar**. Was het andersom
+geschreven, dan had Rob het vanmiddag met één portaalsprong onderuit gehaald.
+⚠️ **Nooit terugdraaien.** De comment in `ZoneLevelGate.lua` legt uit waarom.
+
+📌 **Twee verschillende poorten, en dat verschil moet zo blijven.** De GROND is open voor iedereen
+die er kan komen; de CAMPAGNE is gelevelgated (op 70 geen quest). Laat een toekomstig "de intro
+vraagt 78" nooit weglekken in een zin over een zone binnenlopen.
+
+✅ **Portaal toegevoegd** aan `MIDNIGHT_PORTALS` (`Delves.lua`), het eerste item in die tabel dat
+niet zélf al in Midnight ligt. Vanuit Orgrimmar krijgt een speler nu wél reishulp naar elk
+Midnight-doel — als hub-portaal ook naar Harandar en Voidstorm.
+
+⚠️ **Nog te meten: de Stormwind-kant.** Rob is Horde, dus die coördinaat heeft niemand. Geen entry
+tot iemand hem meet; het paar "netjes" maken door de Alliance-kant te raden is precies de fout waar
+dit bestand vol commentaar over staat.
 
 ### 🔴 OPEN — The Den: de pijl raakt van slag zolang je binnen bent
 
