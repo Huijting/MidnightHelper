@@ -253,6 +253,24 @@ van waar Midnight ligt.
 ⚠️ **Dit is dezelfde vorm als de fout van vanmiddag**: twee implementaties van één vraag, waarvan de
 kortste het slechtere antwoord uitstuurt. Staat als waarschuwing al in `DelveTipMarkup.lua:274`.
 
+#### ✅ 5 sep — de bovengrens uit de waarschuwing gehaald, op Robs vraag
+
+Rob las zijn eigen toast: *"waarom tot lvl 88, terwijl je die ook kunt doen als je lvl 90 bent? En
+82 is advies denk ik en geen harde eis toch?"* Twee keer raak.
+
+🔴 **"80-88" is de LEVEL-band** — het bereik waarin de zone meeschaalt terwijl je omhoog gaat — en
+op 90 speel je er nog elke week. Een zin die op 88 eindigt leest als een houdbaarheidsdatum op
+content die er geen heeft. **`REGION_BAND` is verwijderd, niet gecorrigeerd:** alleen de ondergrens
+was ooit dragend (de beslissing gebruikte altijd al `REGION_MIN_LEVEL`), de band was decoratie op de
+tekst en precies de helft die verkeerd te lezen was.
+
+✅ **En het "geen harde eis" staat er nu ronduit**, want dat is sinds vanmiddag gemeten in plaats
+van vermoed: *"Niets houdt je tegen om er in te lopen — maar de vijanden daar zijn ver boven je."*
+Dat verving *"Kijken kan gewoon"*, dat het alleen suggereerde.
+
+⚠️ `ZONEGATE_BODY_FMT` wisselde van `%s / %s / %d` naar `%s / %d / %d` — bij een vertaling naar
+de/fr/es/pt/it moet dat middelste veld een **getal** blijven, geen bereik.
+
 ### 🔴 OPEN — The Den: de pijl raakt van slag zolang je binnen bent
 
 Rob, 5 sep, opnieuw: *"The Den is nog een drama, alleen als ik eruit vlieg gaat de pijl weer terug

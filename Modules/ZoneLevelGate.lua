@@ -60,15 +60,21 @@ local REGION_MIN_LEVEL = {
 	[3] = 88, -- Voidstorm
 }
 
---- Zone bands as the guides give them, for the sentence only. Not used for the decision --
---- the decision uses the region floor above, because a per-zone table would need map ids
---- we have NOT settled (`GetBaseZoneName(2395)` still answers "Zul'Aman" for what looks
---- like Eversong, an open item since August).
-local REGION_BAND = {
-	[1] = "80-88",
-	[2] = "82-88",
-	[3] = "88-90",
-}
+--- 🔴 THE UPPER BOUND IS GONE, AND IT SHOULD NEVER HAVE BEEN IN THE SENTENCE. Rob, 5 Sep,
+--- reading his own toast: *"waarom tot lvl 88, terwijl je die ook kunt doen als je lvl 90
+--- bent?"* Exactly right. "80-88" is the LEVELLING band -- the range over which the zone
+--- scales while you are on the way up -- and a player at 90 is still there every week. A
+--- sentence that ends at 88 reads as an expiry date on content that has none.
+---
+--- 📌 Only the floor was ever load-bearing. The decision has always used REGION_MIN_LEVEL
+--- alone; the band was decoration on the message, and it was the half that could be
+--- misread. So `REGION_BAND` is deleted rather than corrected -- there is no second number
+--- that belongs in this sentence.
+---
+--- ⚠️ And the same conversation settled the other half. "82 is advies denk ik en geen harde
+--- eis toch?" -- yes, and as of today that is MEASURED, not assumed: he walked a level-70
+--- into Silvermoon through the Orgrimmar portal. The wording says so outright now instead of
+--- hinting at it with "you can still go and look".
 
 --- Where Midnight itself starts, as opposed to where a region is tuned.
 ---
@@ -99,7 +105,7 @@ end
 --- game) and must never produce a warning, or every route outside Midnight would carry one.
 --- @param mapID number|nil
 --- @param xPct number|nil target x, so the 2576 canvas can be sliced
---- @return table|nil { level, need, region, band }
+--- @return table|nil { level, need, region }
 function ns.GetZoneLevelWarning(mapID, xPct)
 	if not mapID or not ns.GetTargetRegionGroupID then
 		return nil
@@ -116,7 +122,7 @@ function ns.GetZoneLevelWarning(mapID, xPct)
 	if not lvl or lvl >= need then
 		return nil
 	end
-	return { level = lvl, need = need, region = region, band = REGION_BAND[region] }
+	return { level = lvl, need = need, region = region }
 end
 
 --- Should the warning also REFUSE to set the route?
@@ -182,7 +188,7 @@ function ns.WarnZoneLevelIfNeeded(mapID, xPct, targetName)
 		zone = targetName and tostring(targetName) or "?"
 	end
 
-	local body = ns:L("ZONEGATE_BODY_FMT"):format(zone, w.band or tostring(w.need), w.level)
+	local body = ns:L("ZONEGATE_BODY_FMT"):format(zone, w.need, w.level)
 	local tail = ns:L(blocking and "ZONEGATE_BLOCKED" or "ZONEGATE_STILL_ROUTED")
 	if ns.QueueMidnightToast then
 		pcall(ns.QueueMidnightToast, {
@@ -319,7 +325,7 @@ function ns.PrintZoneLevelGate()
 	else
 		print("  route below level: |cff44ff44still set|r — warn only (Settings -> Route arrow)")
 	end
-	print("  Bands come from guides (Icy Veins, read in full); the level-80 floor is")
+	print("  Floors come from guides (Icy Veins, read in full); the level-80 one is")
 	print("  Blizzard's own announcement. |cff44ff44MEASURED 5 Sep: the game does NOT stop you|r —")
 	print("  a level 70 walked into Silvermoon — so we say 'tuned for', never 'you cannot go'.")
 end
