@@ -453,6 +453,22 @@ nodig. `MIDNIGHT_OVERWORLD_MAPS[2576]` beantwoordt alleen "is dit Midnight-buite
 `PrintPortalAccess` sneed al. En de enige overgebleven kale `GetRegionGroupID`-aanroep zit ín
 `GetEffectiveRegionGroupID` zelf, waar hij hoort.
 
+🔴 **3. En meteen daarna de zesde, door Rob gemeten: de reis-overdracht kwam niet af in The Den.**
+Route vanuit Silvermoon naar **The Gulf of Memory** (map 2413), keurig via het Portal to Harandar,
+en dan in The Den **helemaal geen pijl** — `/mh arrow` zei `doel: GEEN`. Vloog hij The Den uit, dan
+verscheen hij meteen mét *"You are there — the arrow is now on The Gulf of Memory"*.
+
+📌 **Oorzaak:** `ArrivedOnTargetMap()` vergelijkt met 2413, maar de client meldt je binnen op
+**2576**. Beide tests faalden daardoor — de id-test, én de flight-point-test, want
+`GetNearestFlightPoint(2576)` heeft geen rijen (de vliegdata kent 2413, niet de canvas). De etappe
+werd dus nooit "af" en het doel nooit teruggegeven, tot hij eruit vloog.
+
+✅ **Bewust smal gerepareerd:** vergelijken op REGIO zou de voor de hand liggende fix zijn en zou de
+Vaults-bug terugbrengen die daar in het commentaar staat (Silvermoon en Eversong delen regio 1, dus
+een etappe daartussen zou "aangekomen" heten vóór je een stap zet). De test vraagt nu alleen: *sta
+ik op de canvas, in het derde dat de bestemmingskaart ís?* Nieuwe gedeelde tabel
+`ns.MIDNIGHT_HUB_MAP_BY_NAME` — de inverse van `ResolveHubOnMap2576`.
+
 📌 **De sweep kostte minder dan de vier losse meldingen samen.** Waard om te onthouden voor de
 volgende keer dat één fout zich drie keer herhaalt.
 

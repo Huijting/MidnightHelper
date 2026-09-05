@@ -391,6 +391,30 @@ local function ArrivedOnTargetMap()
 		return true
 	end
 
+	--- 🔴 THE CANVAS AND THE ZONE ARE THE SAME PLACE WITH TWO IDS — 5 Sep 2026, measured.
+	---
+	--- Rob routed from Silvermoon to The Gulf of Memory (map 2413), was correctly sent
+	--- through the Portal to Harandar, and arrived in The Den with NO arrow at all --
+	--- `/mh arrow` read `doel: GEEN`. He flew out of The Den and it appeared instantly,
+	--- with "You are there — the arrow is now on The Gulf of Memory".
+	---
+	--- 📌 Inside The Den the client reports the player on the shared canvas **2576**;
+	--- outside, on **2413**. Both tests here compare against 2413: the id test fails, and
+	--- the flight-point test asks `GetNearestFlightPoint(2576)`, a map the flight data has
+	--- no rows for. So the leg simply never completed and the destination was never handed
+	--- back -- until he left, when `here` became 2413 and both tests passed at once.
+	---
+	--- ⚠️ NARROW ON PURPOSE. Comparing REGIONS instead would be the obvious fix and would
+	--- reintroduce the Vaults bug the comment below records: Silvermoon and Eversong share
+	--- region 1, so a leg between them would count as arrived before the player moved. This
+	--- asks only "am I on the canvas, in the slice that IS the leg's destination map".
+	if tonumber(here) == 2576 and ns.GetPlayerHubContext and ns.MIDNIGHT_HUB_MAP_BY_NAME then
+		local okHub, hub = pcall(ns.GetPlayerHubContext, here)
+		if okHub and hub and ns.MIDNIGHT_HUB_MAP_BY_NAME[hub] == tonumber(pendingLeg.mapID) then
+			return true
+		end
+	end
+
 	--- ⚠️ THE SAME SUB-ZONE MISTAKE, ONE LAYER DOWN — and I fixed the other one and
 	--- left this. Rob, 18 aug: the arrow reached "Flight master: Amani Foothold, 33m
 	--- away" and flipped back to the destination about two seconds later. That is this

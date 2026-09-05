@@ -1147,6 +1147,17 @@ end
 
 local TRAVEL_ARRIVAL_YARDS = 400
 
+--- The real zone map behind each slice of canvas 2576 — the inverse of the function below.
+---
+--- 🔴 Shared rather than re-derived, because the 5 Sep sweep found place after place that
+--- needed to relate "the canvas plus an x" back to a genuine zone id, and each did it its
+--- own way or not at all. One table, one answer.
+ns.MIDNIGHT_HUB_MAP_BY_NAME = {
+	Silvermoon = 2393,
+	Harandar = 2413,
+	Voidstorm = 2405,
+}
+
 function ns.ResolveHubOnMap2576(pxPercent)
 	local px = tonumber(pxPercent)
 	if not px then
