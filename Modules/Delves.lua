@@ -3699,6 +3699,20 @@ pIcon:SetAllPoints()
 pIcon:SetTexture(132369)
 portalBtn.icon = pIcon
 
+--- ⚠️ THIS BUTTON DELIBERATELY DOES NOT GO THROUGH ns.AddSmartTomTomWay, and that is why it
+--- never carries a level warning. Rob asked on 5 Sep 2026 which warning he was supposed to be
+--- watching for when testing the portal button; the answer is none, and the reason is here
+--- rather than in the guarded door.
+---
+--- 🔴 I HAD RECORDED THE WRONG REASON. The 5 Sep commit that closed the warning's bypass gaps
+--- said this site was "excluded via _mhTravelLegBusy". It is not -- that flag is only ever
+--- set in DelveTipMarkup. This button calls TomTom directly, so the door it would have to be
+--- excluded from is one it never reaches. Same outcome, wrong mechanism, and a wrong
+--- mechanism is what a later change trips over.
+---
+--- 📌 Correct outcome either way: a portal is an INTERMEDIATE HOP the player was told to
+--- take, not the place they asked to go. Warning about it would be noise about a step they
+--- did not choose, and refusing it would strand a journey they are allowed to make.
 portalBtn:SetScript("OnClick", function(self)
 	if self.mapID and self.x and self.y then
 		if ns.IsTomTomReady() then

@@ -271,6 +271,24 @@ Dat verving *"Kijken kan gewoon"*, dat het alleen suggereerde.
 ⚠️ `ZONEGATE_BODY_FMT` wisselde van `%s / %s / %d` naar `%s / %d / %d` — bij een vertaling naar
 de/fr/es/pt/it moet dat middelste veld een **getal** blijven, geen bereik.
 
+#### ✅ 5 sep — de portaalknop-test klopt, maar mijn verklaring ervoor was fout
+
+Rob, bij stap 5: *"welke waarschuwing bedoel je?"* Terechte vraag: hij krijgt géén nieuwe
+waarschuwing van de portaalknop, en dat is precies goed.
+
+🔴 **Maar de reden die ik op 5 sep in de commit `e707298` opschreef klopt niet.** Daar stond dat
+`Delves:3682` (de portaalknop) *"deliberately excluded via `_mhTravelLegBusy`"* was. Nagemeten:
+die vlag wordt **uitsluitend** in `DelveTipMarkup` gezet. De knop roept `TomTom:AddWaypoint`
+**rechtstreeks** aan en komt dus nooit bij de bewaakte deur — hij hoeft er niet van uitgezonderd te
+worden, hij bereikt hem niet. Zelfde uitkomst, verkeerd mechanisme.
+📌 En een verkeerd mechanisme is waar een latere wijziging over struikelt: wie `_mhTravelLegBusy`
+ooit opruimt zou denken dat hij hiermee de portaalknop raakt. De juiste reden staat nu bij de knop
+zelf (`Delves.lua`, boven `portalBtn:SetScript("OnClick", …)`).
+
+⚠️ **Voor de test betekent dit:** de toast die Rob zag hoort bij de **delve** waarop hij klikte,
+niet bij de knop. Wil je het zuiver zien, wacht dan >2 minuten (de throttle) na die klik en druk
+dán pas op de portaalknop — er hoort niets te komen.
+
 ### 🔴 OPEN — The Den: de pijl raakt van slag zolang je binnen bent
 
 Rob, 5 sep, opnieuw: *"The Den is nog een drama, alleen als ik eruit vlieg gaat de pijl weer terug
