@@ -323,3 +323,62 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   [RAAKT ONS] na (Sparks-of-War/Coiled-Isle, hierboven) die geen bestaande claim tegenspreekt maar
   wel een al openstaande vraag in `Showdowns.lua` raakt. Geen actiepunt dat ík kan oppakken — ik
   rapporteer, een mens beslist.
+
+- [2026-09-05] ✅ **Hotfixes van 4 sep gelezen (nieuw sinds gisteren) — geen tegenspraak, één
+  onbeslisbare op ID-niveau.** `news.blizzard.com` gaf op WebFetch weer `EGRESS_BLOCKED`; via Exa
+  `web_fetch_exa` met `?nocache=20260905` op de doorlopende hotfix-URL **volledige artikeltekst
+  zelf gelezen** — sectie "September 4, 2026" bovenaan, dus nieuwer dan de "September 3"-sectie
+  die gisteren als nieuwste gold (geen cache-probleem; ook de API- en data-wachter zagen vandaag
+  dezelfde 4-sep-sectie als nieuwste). Delves, Professions en Quests: **leeg** in de 4-sep-sectie
+  — niets om te vergelijken. Classes, Dungeons and Raid, Housing, Items: volledig gelezen.
+
+  📌 **Positieve controle, zelfde repo-brede scope als de claims hieronder:** `grep -rin "Wondrous
+  Synergist"` geeft een treffer in `Locales/enUS.lua:948` (en de vertaalde varianten) — een echte
+  item-naam wordt op deze schaal gevonden. De 0-treffers hieronder zijn dus gemeten afwezigheid,
+  niet een grep die niets kan vinden.
+
+  **Bevindingen:**
+  - **Dungeons and Raids — The Venomous Abyss → Ula'tek: "Fixed an issue where applications of
+    Ingested Venom could apply on a target affected by Serpent's Bite."** ⚠️ **Dit is niet met
+    een naam-grep te beslissen.** `RAID_BOSS_ULATEK_STEPS` (`Locales/RaidTips.lua:51`, zeven
+    taalvarianten) noemt uitsluitend kale `{SPELL:id}`-links ("Soak {SPELL:1300530} en
+    {SPELL:1299757} — maar niet terwijl je {SPELL:1300685} draagt") — geen van die ID's staat
+    ergens anders in de repo met een naam erbij (`grep` op alle vijf ID's: 0 treffers buiten
+    `RaidTips.lua` zelf), dus ik kan niet vaststellen of Ingested Venom/Serpent's Bite een van
+    deze soak-mechanieken IS. Geen ID gegokt. MEASURED dat de vraag onbeslisbaar is met wat in de
+    repo staat; INFERRED dat het toch waarschijnlijk geen tekst-wijziging vereist, want (a) dit is
+    een bugfix op een overlap-edge-case, geen mechaniek-herontwerp, en (b) `Modules/RaidCoachData.lua:117`
+    zegt al expliciet "NOBODY HERE HAS DONE THESE FIGHTS" en `RAID_PRERELEASE_NOTE`
+    (`Locales/RaidTips.lua:31`, nog steeds ongated aanwezig, `Modules/RaidGuide.lua:67`) toont bij
+    Ula'tek al de waarschuwing "written before the raid opened … verify against the fight" — deze
+    hotfix valt dus binnen een risico dat we al hardop benoemen, niet een nieuw gat. **[RAAKT ONS
+    NIET]** als actiepunt vandaag, maar geen bevestigde non-match — wie deze fight ooit natoetst
+    kan deze twee soak-ID's meteen meenemen.
+  - **Housing — Endeavors → Vacation Season: Secret Souvenir-verzamelen kon achievement-credit
+    missen; retroactief hersteld.** 0 treffers op "Secret Souvenir" of "Vacation Season" repo-breed;
+    de enige "housing"-treffers in `Locales/enUS.lua`/`nlNL.lua` gaan over housing-decor als
+    beloning (Ritual-renown, profession-goud-gids) — geen enkele over achievement-tracking. Ook al
+    los bevestigd door de data-wachter (`docs/PTR_12.0.7_DATA.md`, entry [2026-09-05]) vanuit zijn
+    eigen lane; dit is mijn onafhankelijke contradictie-check, geen doublure van zijn feit.
+    MEASURED. **[RAAKT ONS NIET]**
+  - **Items — vijfde catalyst-fix (spiegelrichting): niet-set class-armor leek ten onrechte wél
+    (opnieuw) catalyseerbaar.** Ook al gelogd als feit door de data-wachter. Voor mijn lane:
+    `TierSet.lua`/`OmniumFolio.lua`/`AccountWeeklyChecklist.lua` (alle drie gegrept op "catalyst")
+    hardcoden geen eigen lijst van welke items catalyseerbaar zijn — ze wijzen naar de
+    Catalyst-locatie en laten de client zelf tonen wat in aanmerking komt. Een UI-bug in die
+    lijst raakt dus geen bewering die wíj doen. MEASURED. **[RAAKT ONS NIET]**
+  - **Items — Preternatural Antivenom trinket: absorb-cap en genezingspercentage voor healers
+    waren te laag, nu gecorrigeerd.** 0 treffers op "Preternatural" of "Antivenom" repo-breed.
+    MEASURED. **[RAAKT ONS NIET]**
+  - **Classes — Druid Balance (Stellar Amplification, Twin Moons-range) en Shaman Enhancement
+    (Venomous Abyss 4-set/Crash Lightning) fixes.** Pure spec-balans, gevestigd patroon dat MH
+    niet volgt. **[RAAKT ONS NIET]**
+
+  Bron: Exa `web_fetch_exa` met cache-buster op news.blizzard.com's doorlopende hotfix-artikel,
+  sectie "September 4, 2026" volledig gelezen. Codebase-kant: `grep` case-insensitive over de hele
+  repo op alle hierboven genoemde namen en spell-ID's, plus gerichte reads van
+  `Modules/RaidCoachData.lua`, `Locales/RaidTips.lua`, `Modules/RaidGuide.lua`,
+  `Modules/TierSet.lua`, `Modules/OmniumFolio.lua`, `Modules/AccountWeeklyChecklist.lua` —
+  allemaal vandaag gelezen. **[RAAKT ONS NIET]** op alle vijf bevindingen, met één expliciete
+  kanttekening (Ula'tek soak-ID's) die onbeslisbaar blijft zolang niemand de fight loopt. Geen
+  actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
