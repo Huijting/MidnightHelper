@@ -1203,6 +1203,27 @@ local function SetSMCWaypoint(point)
 		print(("   |cffffff78%s|r"):format(
 			(ns:L("SMC_ENTRANCE_THEN_FMT")):format(point.label or "?", point.x or 0, point.y or 0)))
 	end
+
+	--- 🔴 …AND THEN SAY HOW TO GET THERE. Rob, 5 Sep 2026, standing in Harandar and asking
+	--- for the Coiled Isle portal: arrow, chat line, and no Travel Assistant — so no portal
+	--- button and, on a mage, no teleport either. `/mh travelwhy` showed every gate green
+	--- and both Harandar portals usable, which is what located it: the decision was fine,
+	--- the popup was simply never asked for.
+	---
+	--- 📌 This route sets its own waypoint (SetUserWaypoint + the TomTom slash, above) and
+	--- never touches `ns.AddSmartTomTomWay`, where the Travel Assistant lives. It is a
+	--- SEVENTH bypass of that door — the 5 Sep audit found six and missed this one, because
+	--- it grepped for the waypoint calls and this path hides its own behind
+	--- `TriggerTomTomWaySlash`.
+	---
+	--- ⚠️ `ShowTravelAssistFor`, not a switch to `AddSmartTomTomWay`. This path deliberately
+	--- owns its waypoint (the two-step door hand-off in TwoStepRoute.lua drives it), and
+	--- rerouting it through the shared door would take that away to fix something else. The
+	--- assistant is exactly the missing half and nothing more; it hides itself when the
+	--- target is near or in the same region.
+	if ns.ShowTravelAssistFor then
+		pcall(ns.ShowTravelAssistFor, mapID, target.x, target.y, target.label)
+	end
 end
 
 --- Route to a pin WITHOUT its two-step detour.

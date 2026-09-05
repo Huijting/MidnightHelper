@@ -490,9 +490,26 @@ waarvoor CLAUDE.md die regel heeft.
 de code meet is het eens met zichzelf en liegt over de code — de fout die `/mh arrow` op 4 sep
 maakte toen hij de kale regiofunctie aanriep en de routering de schuld gaf.
 
-📌 **Volgende stap:** Rob draait `/mh travelwhy` op precies die plek. Staat er één rood kruis, dan is
-dat het antwoord; staat alles groen en is er tóch geen venster, dan is het een bug in het tonen zelf
-en niet in het besluit.
+✅ **OPGELOST, en het instrument wees het aan.** Robs `/mh travelwhy` in Harandar: **alle zes poorten
+groen**, beide Harandar-portalen bruikbaar. Het besluit klopte dus — de popup werd nooit *gevraagd*.
+
+📌 **De Silvermoon-pins hebben hun eigen routepad** (`UI.lua`, `RouteSmcPoint`): `SetUserWaypoint`
+plus de TomTom-slash, `ns.lastTarget` met de hand, en **nooit** `ns.AddSmartTomTomWay` — waar de
+reishulp woont. Dat is de **zevende** omweg om die deur; de audit van vanochtend vond er zes en
+miste deze, omdat ik op de waypoint-aanroepen greppte en dit pad de zijne achter
+`TriggerTomTomWaySlash` verstopt.
+
+🔴 **En ik ben hier twee keer van mening gewisseld.** Eerst zei ik "die route gaat door een andere
+deur" (juist), toen trok ik dat in als onwaar (fout — ik keek naar `ns:SetMapWaypoint` in
+`DelveTipMarkup`, een ánder pad met dezelfde soort naam), en nu blijkt de eerste versie te kloppen.
+📌 **De les is niet "vertrouw je eerste ingeving".** Beide keren was het een greep zonder meting.
+Wat het besliste was `/mh travelwhy` — en dat had ik ook meteen kunnen bouwen.
+
+✅ **Reparatie:** `ns.ShowTravelAssistFor` erachteraan, niet omschakelen naar `AddSmartTomTomWay`.
+Dit pad bezit zijn waypoint bewust (de deur-overdracht in `TwoStepRoute.lua` stuurt hem), en dat
+afpakken om iets anders te repareren is precies het soort collateral waar deze dag al vol van staat.
+De assistent is exact de ontbrekende helft, en hij verbergt zichzelf als het doel dichtbij of in
+dezelfde regio ligt.
 
 #### 💡 BANK — "eerst The Den uit" als eerste etappe (gemeten, niet gebouwd)
 
