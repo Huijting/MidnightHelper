@@ -103,6 +103,34 @@ against t…"* — afgekapt met een ellips — en de slot-tekst erboven is volle
 `/mh report` bevatte alles zonder één navraag. Dat mag hij horen — het is precies het gedrag dat je
 bij een tweede melding terug wilt zien.
 
+#### 🔴 6 sep, de eigenlijke oorzaak — `GetStringHeight` ONDERRAPPORTEERT een wrappende FontString
+
+De vorige "bevestiging" hield geen stand: Rob vond een tussenmaat waar hij tóch overlapte. Zijn
+screenshot droeg het beslissende detail — de **slot-tekst** werd correct afgekapt op de scrollrand,
+dus die kant klopte; het was de **voet** die eroverheen groeide.
+
+✅ **GEMETEN met `/mh curios fit`** op precies die maat:
+
+```
+venster 287 hoog, scrollruimte 247
+voet vraagt: 39 px   gereserveerd: 61 px   plafond: 124 px
+regelhoogte: 9.85   max regels: 10   begrensd: ja
+```
+
+🔴 **39 ÷ 9,85 = vier regels. Er stonden er zeven op het scherm.** `GetStringHeight()` rapporteert
+dus minder dan de FontString tekent, en daar kon niets stroomafwaarts van herstellen — het plafond
+(124) kwam er niet eens aan te pas.
+
+✅ **Nu telt hij de REGELS** (`GetNumLines() × GetLineHeight()`) en houdt de **grootste** van de twee
+maten aan. Te weinig reserveren geeft een overlap; te veel kost alleen wat scrollruimte — dus bij
+onenigheid is de grootste het veilige antwoord. Beide getallen blijven apart in `_fit` staan en
+worden allebei geprint, want ze samenvatten tot één winnaar zou precies deze vondst hebben verborgen.
+
+📌 **Dit was de derde poging, en de eerste twee waren niet fout — ze waren gebouwd op een getal dat
+loog.** Meten, live hermeten en regels begrenzen zijn alle drie juist; ze deelden alleen dezelfde
+kapotte invoer. Het instrument (`/mh curios fit`) vond in één ronde wat drie redeneringen niet
+vonden.
+
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 
 De API-wachter vond het enige punt uit de hele 12.1.5-reeks dat op live een **echte Lua-fout**

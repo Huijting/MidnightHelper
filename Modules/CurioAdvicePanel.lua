@@ -249,7 +249,26 @@ function FitFoot(f)
 		end
 	end
 
-	local h = f._foot:GetStringHeight() or 0
+	--- 🔴 `GetStringHeight` UNDER-REPORTS A WRAPPED FONTSTRING — MEASURED 6 Sep 2026, and it
+	--- is why two correct-looking fixes still overlapped.
+	---
+	--- `/mh curios fit` on the failing size, from Rob: *voet vraagt 39 px, regelhoogte 9.85,
+	--- max regels 10*. 39 / 9.85 is **four lines**. Seven were on screen. So the reservation
+	--- was built on a height the text does not have, and nothing downstream could recover
+	--- from that — the ceiling was 124 and never came near being the constraint.
+	---
+	--- 📌 So ask for the LINE COUNT, which is what actually gets painted, and keep whichever
+	--- of the two measures is larger. Under-reserving is the failure mode that overlaps;
+	--- over-reserving only costs a little scroll room, so when they disagree the bigger one
+	--- is the safe answer.
+	---
+	--- ⚠️ Both are recorded in `_fit` rather than collapsed, so the next time these disagree
+	--- there is a number to look at instead of a theory.
+	local hStr = f._foot:GetStringHeight() or 0
+	local nLines = (f._foot.GetNumLines and f._foot:GetNumLines()) or 0
+	local lhNow = (f._foot.GetLineHeight and f._foot:GetLineHeight()) or 12
+	local hLines = nLines * lhNow
+	local h = math.max(hStr, hLines)
 	if h <= 0 then
 		-- Empty foot (the "nothing to show" branch): give the scroll the space back
 		-- rather than leaving a 44px hole under a one-line message.
@@ -273,8 +292,8 @@ function FitFoot(f)
 	--- wrong explanation rather than the fourth.
 	f._fit = {
 		frameH = f:GetHeight(), avail = avail, budget = budget,
-		lineH = (f._foot.GetLineHeight and f._foot:GetLineHeight()) or nil,
-		maxLines = clipped and math.max(1, math.floor((budget - 22) / ((f._foot.GetLineHeight and f._foot:GetLineHeight()) or 12))) or nil,
+		lineH = lhNow, lines = nLines, hStr = hStr, hLines = hLines,
+		maxLines = clipped and math.max(1, math.floor((budget - 22) / lhNow)) or nil,
 		h = h, want = want, clipped = clipped,
 	}
 
@@ -312,14 +331,18 @@ function ns.PrintCurioFit()
 	end
 	print(("|cffffcc00Midnight Helper|r curio fit — venster %s hoog, scrollruimte %s"):format(
 		tostring(math.floor((d.frameH or 0) + 0.5)), tostring(math.floor((d.avail or 0) + 0.5))))
-	print(("   voet vraagt: %s px   gereserveerd: %s px   plafond: %s px"):format(
-		tostring(math.floor((d.h or 0) + 0.5)), tostring(math.floor((d.want or 0) + 0.5)),
-		tostring(math.floor((d.budget or 0) + 0.5))))
-	print(("   regelhoogte: %s   max regels: %s   begrensd: %s"):format(
-		tostring(d.lineH or "?"), tostring(d.maxLines or "-"),
+	print(("   voet vraagt: %d px   gereserveerd: %d px   plafond: %d px"):format(
+		math.floor((d.h or 0) + 0.5), math.floor((d.want or 0) + 0.5),
+		math.floor((d.budget or 0) + 0.5)))
+	--- 🔎 BOTH MEASURES, SIDE BY SIDE. On 6 Sep `GetStringHeight` said 39 while the text
+	--- painted seven lines; printing only the winner would have hidden exactly that.
+	print(("   GetStringHeight: %d px   regels x regelhoogte: %d x %.1f = %d px"):format(
+		math.floor((d.hStr or 0) + 0.5), d.lines or 0, d.lineH or 0,
+		math.floor((d.hLines or 0) + 0.5)))
+	print(("   max regels: %s   begrensd: %s"):format(
+		tostring(d.maxLines or "-"),
 		d.clipped and "|cff44ff44ja|r" or "|cffff8844nee — SetMaxLines ontbreekt|r"))
-	print("   |cff8a8f98Overlapt het terwijl 'gereserveerd' groter is dan wat je ziet, dan meet|r")
-	print("   |cff8a8f98de voet zichzelf te laag. Is 'gereserveerd' juist klein: dan het plafond.|r")
+	print("   |cff8a8f98Lopen die twee ver uiteen, dan liegt GetStringHeight en wint de regeltelling.|r")
 end
 
 --- Redraw from the tree. Returns false when there is nothing honest to show.
