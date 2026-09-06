@@ -13,6 +13,69 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 🔴 6 sep — rares: een PERMANENT vinkje wordt gelezen als "deze week gedaan"
+
+Rob stond op de Coiled Isle **letterlijk naast Hisstara** en kreeg geen alert, en de route wilde
+hem er niet heen sturen. `/mh rarescan` ter plekke, met de rare springlevend op 100%:
+
+```
+[6] Hisstara the Raiser · npc=265262 · match=Hisstara · done=true
+```
+
+📌 **Oorzaak, gemeten:** vier Coiled Isle-rares (Garsecg, Destra, Hisstara, Kari'zah) hebben
+**questID 0** en zijn op 15 aug aan een **achievement-criterium** gekoppeld om ze überhaupt
+afvinkbaar te maken (`Rares.lua:881`, `IsRareDoneThisWeek`). Maar een achievement-criterium is
+**permanent** — het reset nooit. Eén keer gedood is dus voorgoed "deze week al gedaan".
+
+⚠️ **De reparatie van 15 aug was goed bedoeld en heeft een nieuwe fout gemaakt.** Toen konden die
+vier zichzelf nooit afvinken; nu vinken ze zichzelf voor altijd af. De functie beantwoordt een
+andere vraag dan zijn naam belooft.
+
+🔴 **NOG NIET GEREPAREERD.** Elf plekken roepen `IsRareDoneThisWeek` aan, en een echte oplossing
+splitst *"deze week gedaan"* van *"ooit gedood"* — dat raakt ook de kaart, de checklist en de teller
+onder het tabblad. Niet iets om tussendoor te doen; zie de farm-schakelaar hieronder, die Robs
+directe probleem oplost zonder die elf plekken aan te raken.
+
+✅ **GEREPAREERD**: het criterium beantwoordt deze vraag niet meer. Voor die vier is er geen
+weeksignaal, en "onbekend" hoort hier **false** te zijn — liever een rare aanbieden die al af is dan
+er één verzwijgen die openstaat.
+⚠️ **De prijs, hardop:** die vier vinken zichzelf niet meer af in de lijst. Dat was precies de klacht
+die op 15 aug tot deze code leidde. We ruilen dus de ene onvolkomenheid voor de andere — **maar de
+nieuwe is zichtbaar en de oude niet.**
+
+🔴 **NOG OP TE LOSSEN: hun échte quest-id vinden**, dan werken beide eigenschappen. `PrintRareQuestProbe`
+vergelijkt alleen bekende id's en kan er geen ontdekken. Wat het wél zou doen: een **voor/na-scan**
+rond een kill — snapshot van `IsQuestFlaggedCompleted` over een kandidaatbereik, rare doden, opnieuw
+scannen, verschil pakken. Rob heeft nog drie ongedode isle-rares deze week (Garsecg, Destra,
+Kari'zah), dus dat is nu meetbaar.
+
+### ❌ 6 sep — farm-modus voor rares: GEBOUWD EN WEGGEGOOID vóór de commit
+
+Rob wilde 600 Coffer Key Shards uit rares halen en vroeg om een schakelaar die ook al-gedane rares
+aanbiedt. Gebouwd (`RareAvailable` + instelling + teksten), en toen ingetrokken.
+
+🔴 **De premisse klopte niet, en Rob heeft hem zelf omvergeworpen.** Ik schreef "herhaalde kills
+betalen" op grond van zijn *"net gekilled en de shard gekregen"*. Hij onderbrak: **het was zijn
+eerste kill van een nieuwe week** — dus dat was gewoon de weekly. Daarna maat hij het echte geval:
+**tweede kill in dezelfde week → geen shard.**
+
+📌 **De functie zou dus actief schade doen:** een route naar rares die niets meer opleveren, verkocht
+als farm-hulp. Weggegooid vóór de commit, niet achteraf gerepareerd.
+
+📌 **Wat dit wél opleverde:** de vraag "waarom kreeg ik geen alert" bracht de permanente-vinkje-bug
+hierboven aan het licht, die veel erger is. En het is de tweede keer op één dag dat ik een claim uit
+Robs woorden afleidde in plaats van uit een meting — zie ook de Prey-catch-up hieronder.
+
+🗄️ **Hoe hij eruitzag, mocht de spelregel ooit veranderen:** een `RareAvailable(rare)` die
+`IsRareDoneThisWeek` overslaat als de schakelaar aanstaat, gebruikt in `FindNearestIncompleteRare`,
+`NearestOpenRareRespectingSkips`, `BuildGreedyRareRoute` en de alert-scan — bewust **alleen aan de
+aanbod-kant**. De voltooiings-kant (`IsRareHuntActive`, het doorschuiven van de pijl na een kill, de
+"x gedaan"-teller) moest het echte weekvinkje blijven lezen, anders krijg je een route die nooit
+doorschuift en een hunt die nooit eindigt.
+
+⚠️ **Zou iemand dit terugwillen, dan eerst opnieuw meten of een herhaalde kill iets oplevert.** Dat
+is de enige vraag die telt, en het antwoord was op 6 sep 2026 **nee**.
+
 ## 🗄️ 6 sep — de Prey-catch-up raakt Dundun NIET (ingetrokken vóór er iets gebouwd werd)
 
 In het ochtendverslag noemde ik de 12.1.5-catch-up (*"onder rank 3: 4000 Journey progress per hunt;

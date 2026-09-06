@@ -878,20 +878,39 @@ end
 --- Neemt een rare-rij OF een kaal questID, zodat de aanroepplekken die alleen
 --- een getal hebben blijven werken. Een rij zonder `crit` valt gewoon terug op
 --- zijn quest, precies zoals eerst.
+---
+--- 🔴 EN DIE OPLOSSING VAN 15 AUG WAS FOUT — GEMETEN 6 sep 2026, door Rob.
+---
+--- Hij stond op de Coiled Isle **naast een levende Hisstara** en kreeg geen alert en geen
+--- route. `/mh rarescan` ter plekke: `match=Hisstara done=true`. En het beslissende detail
+--- kwam van hemzelf: **het was een nieuwe week**, dus de weekly stond open.
+---
+--- 📌 Een achievement-criterium is PERMANENT. Het antwoordt op "heb je hem ooit gedood", niet
+--- op "heb je hem deze week gedaan". Eén kill sloot die vier rares dus voorgoed uit van élke
+--- route en élke melding — stil, en juist in de weken dat ze wél lonen.
+---
+--- ⚠️ HET CRITERIUM MAG DEZE VRAAG DUS NIET BEANTWOORDEN. Voor die vier is er géén
+--- weeksignaal, en "onbekend" hoort hier `false` te zijn: liever een rare aanbieden die al af
+--- is dan er één verzwijgen die openstaat. Dat is dezelfde keuze als overal in deze addon —
+--- een zichtbare onvolkomenheid is beter dan een stille.
+---
+--- 📌 DE PRIJS, hardop: die vier vinken zichzelf niet meer af in de lijst. Dat was precies
+--- de klacht die op 15 aug tot deze code leidde, dus dit ruilt de ene onvolkomenheid voor de
+--- andere — maar de nieuwe is te zien en de oude niet.
+---
+--- 🔴 DE ECHTE OPLOSSING is hun werkelijke quest-id vinden; dan werken beide eigenschappen.
+--- `PrintRareQuestProbe` vergelijkt alleen bekende id's en kan er geen ontdekken, dus dat
+--- vraagt een voor/na-scan rond een kill. Staat als open punt in NEXT_SESSION.
+---
+--- ⚠️ EN NIET VERWARREN MET DE ANDERE VONDST VAN DIE MIDDAG: een TWEEDE kill in dezelfde week
+--- geeft **geen** shard — ook door Rob gemeten, en het is de reden dat er géén "farm-modus"
+--- gebouwd is. Deze fix gaat over weken waarin de rare wél loont.
 local function IsRareDoneThisWeek(rareOrQuest)
-	local questId, ach, crit
+	local questId
 	if type(rareOrQuest) == "table" then
-		questId, ach, crit = rareOrQuest[1], rareOrQuest.ach, rareOrQuest.crit
+		questId = rareOrQuest[1]
 	else
 		questId = tonumber(rareOrQuest)
-	end
-
-	-- Het criterium eerst: gezaghebbend, en het bestaat waar de quest ontbreekt.
-	if ach and crit and GetAchievementCriteriaInfoByID then
-		local ok, _, _, completed = pcall(GetAchievementCriteriaInfoByID, ach, crit)
-		if ok and completed ~= nil then
-			return completed and true or false
-		end
 	end
 
 	if not questId or questId == 0 then
