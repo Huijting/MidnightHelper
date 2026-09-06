@@ -1303,6 +1303,25 @@ de helft; de as is niet *eerste ooit* maar *eerste per character per week*.
 Dundun van de week dit is — hij vertelt de regel en laat de speler zelf bepalen waar hij staat. Dat
 is beter dan een sleutelwaarschuwing die op de tweede delve van de week gewoon onjuist is.
 
+### 🟡 OPEN, goed afgebakend — de banner zou dat "altijd" kunnen wegnemen
+
+Robs bewijs-screenshot toont de spelmelding *"Additional Bountiful Rewards Will Manifest Upon Delve
+Completion"* bij de **eerste** Dundun van de week. Kán de addon die lezen, dan hoeft hij de regel
+niet meer op te dreunen maar kan hij zeggen wélk geval dít is.
+
+Twee dingen ontbreken, en geen van beide is te bedenken:
+1. **Welk event de banner draagt.** `/mh events` helpt niet — dat controleert alleen of de client
+   onze eigen events kent, het snuffelt niet. Er is een klein sniffertje voor nodig dat de
+   kandidaten registreert (`RAID_BOSS_EMOTE`, `RAID_BOSS_WHISPER`, `UI_INFO_MESSAGE`,
+   `CHAT_MSG_MONSTER_EMOTE`, scenario-updates) en print wat er binnenkomt tijdens een Dundun.
+2. **Of hij ook bij de tweede+ Dundun verschijnt.** Zo ja, dan onderscheidt hij niets en is de hele
+   route dood. Eén Dundun later in dezelfde week op hetzelfde character beantwoordt dat.
+
+🔴 **En de voor de hand liggende kortsluiting is een val: NIET op de Engelse tekst matchen.** Deze
+banner is gelokaliseerd, dus een string-vergelijking werkt op zes van de zeven clients niet — en
+faalt daar stil, wat precies het soort bug is dat alleen niet-Engelse spelers treft en dat wij nooit
+zien. Alleen een event + payload, of een GlobalString-sleutel die de client zelf vertaalt, is bruikbaar.
+
 ## 🔑 4 sep — de aura-regel op 12.1.5 is GEMETEN: opsommen mag niet, gericht vragen wel
 
 Zeven runs op **12.1.5.69594**, de beslissende gevangen door `/mh ptr watch` (sweep 8, 10:26:18, in
@@ -1449,6 +1468,9 @@ van 8. **Dat is het niet.** Zijn vijf screenshots, van begin tot eind:
 1. Dundun **vermomt zich als een decorstuk** — een prop die er net iets te vreemd uitziet
 2. Aanspreken geeft gossip: *"Would you like to revel in abundance?"* → **"Make my delve Abundantly Bountiful!"**
 3. Melding: *"Additional Bountiful Rewards Will Manifest Upon Delve Completion"*
+   📸 **6 sep opnieuw vastgelegd, en nu mét context die hij op 4 sep niet had:** Rob schoot deze
+   banner op een **vers character bij zijn eerste Dundun van de week**. Daarmee hangt stap 3 aan
+   de kist-kant van de as die hij diezelfde dag mat (eerste = kist, daarna = keuzescherm).
 4. De prop verandert in een gouden wezen
 5. Aan het eind staat er **een tweede Bountiful Coffer**
 
