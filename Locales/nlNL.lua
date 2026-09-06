@@ -2108,6 +2108,7 @@ ns._mhLocales.nlNL = {
 	DUNDUN_CHAT_COST_FMT = "|cffffff00Let op:|r die extra kist kan een |cffffff00tweede|r Restored Coffer Key kosten. Je hebt er %d.",
 	DUNDUN_CHAT_COST_SHORT_FMT = "Let op: die extra kist ÓPENEN kan een tweede Restored Coffer Key kosten, en je hebt er %d. Hem zoeken is nog steeds gratis — je laat die kist dan alleen dicht.",
 	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Let op:|r die extra kist kan een |cffffff00tweede|r Restored Coffer Key kosten. Ik kon niet lezen hoeveel je er hebt.",
+	DUNDUN_CHAT_AFTER_FIRST = "Alleen je |cffffff00eerste|r Dundun van de week op dit character geeft die kist. Elke volgende geeft in plaats daarvan een keuzescherm — Valeera-ervaring zit erbij — zonder kist, dus zonder key.",
 	DUNDUN_CHAT_MACRO = "Kun je hem niet vinden? Maak een macro met |cffffff00/cleartarget|r en dan |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "Je hebt %d Coffer Key Shards — nog %d en het spel maakt er bij binnenkomst vanzelf een key van.",
 
@@ -2122,7 +2123,7 @@ ns._mhLocales.nlNL = {
 	SET_ZONEGATE_BLOCK_DESC = "Standaard uit: je krijgt de waarschuwing én de route. Zet je hem aan, dan weigert Midnight Helper de route ook, en zegt dat erbij. De waarschuwing zelf zie je altijd.",
 
 	DUNDUN_PANEL_TITLE = "Bountiful delves — Dundun",
-	DUNDUN_PANEL_BODY = "In een Bountiful delve verstopt Dundun zich als iets houtens dat getimmerd is in plaats van gegroeid — planken en schroeven, verf in plaats van bast. Hij is gevonden als nepboom én als neppaal, dus zoek naar 'dat heeft iemand gemaakt' en niet naar één vorm. Hem vinden en aanspreken is gratis en levert extra beloning op aan het eind. Die extra kist ópenen kan een tweede Restored Coffer Key kosten.",
+	DUNDUN_PANEL_BODY = "In een Bountiful delve verstopt Dundun zich als iets houtens dat getimmerd is in plaats van gegroeid — planken en schroeven, verf in plaats van bast. Hij is gevonden als nepboom én als neppaal, dus zoek naar 'dat heeft iemand gemaakt' en niet naar één vorm. Hem vinden en aanspreken is gratis en levert extra beloning op aan het eind. Die extra kist ópenen kan een tweede Restored Coffer Key kosten — maar alleen je eerste Dundun van de week op dit character geeft die kist. Elke volgende geeft een keuzescherm, met Valeera-ervaring erbij, zonder kist en zonder key.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "Je hebt %d Restored Coffer Keys en %d shards — genoeg voor de extra kist.",
 	DUNDUN_PANEL_KEYS_SHORT_FMT = "Je hebt %d Restored Coffer Keys en %d shards — nog %d shards tot de volgende key. Zoeken kan gewoon; je laat die extra kist dan alleen dicht.",
 	DUNDUN_PANEL_KEYS_UNKNOWN = "Kon je Restored Coffer Keys nu niet uitlezen.",

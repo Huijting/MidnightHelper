@@ -285,6 +285,15 @@ function ns.AnnounceDundunIfRelevant()
 		end
 	end
 
+	-- ✅ GEMETEN door Rob, 6 sep 2026, en het besliste een vraag die de wiki en
+	-- masterofwarcraft.net tegengesteld beantwoordden: de as is PER CHARACTER PER WEEK.
+	-- De eerste Dundun geeft de extra kist; elke volgende geeft het keuzescherm en géén
+	-- Bountiful-koffer meer. Rob kiest zelf steeds de Valeera-XP.
+	--
+	-- ⚠️ Deze regel staat er ALTIJD, want wij kunnen niet zien de hoeveelste van de week
+	-- dit is. Hij vertelt de regel; de speler weet zelf waar hij staat. Dat is beter dan
+	-- een sleutelwaarschuwing die op de tweede delve van de week gewoon onjuist is.
+	print("  " .. ns:L("DUNDUN_CHAT_AFTER_FIRST"))
 	print("  " .. ns:L("DUNDUN_CHAT_MACRO"))
 	ns._mhLastDundun = s
 	return true

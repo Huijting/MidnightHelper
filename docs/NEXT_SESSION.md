@@ -1241,7 +1241,7 @@ moet hoe dan ook opgelost — repareren of intrekken — ook als de rest wacht.
 - **B** — route weigeren met de reden op de knop, zoals de Silvermoon-pins nu.
 - **C** — niets doen en alleen de changelog-belofte intrekken (tien minuten).
 
-## ⏭️ DUNDUN-WAARSCHUWING — stap 1 is af (4 sep), de rest staat open
+## ✅ DUNDUN-WAARSCHUWING — AF (4 sep gebouwd, 6 sep beslecht en in 7 talen)
 
 Rob, 3 sep laat: *"zet maar op de lijst voor morgen."*
 
@@ -1283,14 +1283,25 @@ spell **430253** (Bountiful, uit het entree-scherm) is **geen speler-aura** ·
 automatisch een Restored Coffer Key worden. "Je hebt 0 keys" was dus waar én nutteloos toen Rob er
 84 had — de regel oordeelt op keys plus shards en zegt hoeveel shards er nog nodig zijn.
 
-❓ **Nog te vertalen:** de zeven `DUNDUN_*`-keys staan in enUS en nlNL. de/fr/es/pt/it vallen nu
-terug op Engels (dat is geen fout, wel onaf) — hoort via `Locales/Translations2026.lua`.
+🗄️ **"Nog te vertalen" — DAT WAS AL AF en de regel stond hier te verouderen.** Gemeten 6 sep:
+`Translations2026.lua` bevat alle 15 `DUNDUN_*`-keys in de/fr/es/pt/it, inclusief de herschreven
+"gezimmert statt gewachsen"-tekst van 5 sep. Rob vroeg om die vertaling; het antwoord was dat er
+niets te doen was. Vierde verouderde eigen aantekening op één dag — zie de regel bovenaan dit
+bestand over kopregels en bodies.
 
-❓ **Nog onbeslist, en het raakt de tekst van de waarschuwing.** De wiki zegt dat de eerste vondst
-van de wéék een *Abundantly Bountiful Heavy Trunk* met keuze-opties geeft (Undercoin / Voidlight
-Marl / Valeera-XP / housing decor); Robs eigen meting en masterofwarcraft.net zeggen dat de eerste
-vondst de **tweede koffer** geeft en dat latere vondsten de keuze geven. Wat de as is — eerste ooit
-of eerste per week — is niet vastgesteld. De zin mag dus nog niet beweren wélke van de twee je krijgt.
+✅ **BESLECHT 6 sep — Rob heeft het gemeten, en de as is PER CHARACTER PER WEEK.**
+
+> *"de eerste DUNDUN per character per week geeft een extra kist, elke andere daarna dat scherm met
+> die opties, maar geen Bountiful koffer meer (ik kies tot nu toe dan voor extra xp voor Valeera)"*
+
+Daarmee valt de tegenspraak weg die deze regel maandenlang openhield: de wiki zei "eerste van de
+week geeft de keuze-trunk", masterofwarcraft.net zei "eerste geeft de tweede koffer". Beide hadden
+de helft; de as is niet *eerste ooit* maar *eerste per character per week*.
+
+📌 **Verwerkt in de tekst, 7 talen.** Nieuwe key `DUNDUN_CHAT_AFTER_FIRST` plus een aangevulde
+`DUNDUN_PANEL_BODY`. ⚠️ **De chatregel staat er ALTIJD**, want de addon kan niet zien de hoeveelste
+Dundun van de week dit is — hij vertelt de regel en laat de speler zelf bepalen waar hij staat. Dat
+is beter dan een sleutelwaarschuwing die op de tweede delve van de week gewoon onjuist is.
 
 ## 🔑 4 sep — de aura-regel op 12.1.5 is GEMETEN: opsommen mag niet, gericht vragen wel
 
