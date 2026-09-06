@@ -13,6 +13,36 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 🔴 6 sep — DE EERSTE BUG UIT DISCORD, en het is dezelfde fout voor de derde keer
+
+**Yberamos** meldde hem via `/mh report` — de eerste melding van buiten Rob en Cisca. Het rapport
+bevatte alles zonder navragen: **3.8.0 · client 12.1.0 (69587) · locale enUS · Devourer Demon
+Hunter 90 · party of 2 · Atal'Aman (scenario, Delves)**, plus een screenshot. Die functie is één dag
+oud en heeft zich meteen terugbetaald.
+
+**De bug:** in *"Valeera — what to pick"* loopt de voettekst dwars door de laatste slot-regels heen.
+
+📌 **Oorzaak, gemeten:** `FOOT_H = 44` is een **constante**, en de onderkant van het scrollgebied was
+eraan vastgepind (`CurioAdvicePanel.lua:135`). Maar de LENGTE van de voet wordt pas bij het tekenen
+bepaald: draagt een slot een `>>`-notitie, dan komt `CURIO_NOTE_DISCLAIMER` erbij — samen ~250
+tekens, op deze breedte zes à zeven regels. Alles voorbij 44 pixels groeit omhoog het scrollgebied in.
+
+🔴 **DERDE KEER, DEZELFDE FOUT.** Professions → Overview tekende twee alinea's over elkaar om precies
+deze reden (gerepareerd 30 aug, meegegaan in 3.7.3), en het changelog-venster reserveerde 100px voor
+een voet die het nooit had opgemeten (`2d37151`). **Het patroon is een vast getal dat de plaats
+inneemt van tekst die nog niemand heeft laten uitvloeien** — en het blijft onzichtbaar tot er een
+langere zin of een langere taal langskomt.
+
+✅ **Gerepareerd met `FitFoot(f)`**: vraagt de FontString hoe hoog hij écht geworden is, ná het zetten
+van de tekst, en verschuift de onderrand van het scrollgebied mee. De lege-voet-tak geeft de ruimte
+terug in plaats van een gat van 44px onder een regel tekst. Het venster is schaalbaar en de grip
+draait de layout opnieuw bij loslaten, dus smaller maken hermeet vanzelf.
+
+⚠️ **Niet gerepareerd, wel het overwegen waard:** dit zal in de vijf vertaalde talen erger zijn dan
+in het Engels — Duits en Frans lopen makkelijk 30% langer. Yberamos zag hem op **enUS**, dus de
+Engelse tekst alleen al is te lang voor 44px. Een zoektocht naar andere vaste `*_H`-constanten die
+een tekstvoet dragen is waarschijnlijk goedkoper dan de vierde melding.
+
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 
 De API-wachter vond het enige punt uit de hele 12.1.5-reeks dat op live een **echte Lua-fout**

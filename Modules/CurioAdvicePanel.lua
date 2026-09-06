@@ -183,6 +183,42 @@ local function LineAt(f, index)
 	return fs
 end
 
+--- 🔴 MEASURE THE FOOT, DO NOT RESERVE A NUMBER FOR IT — 6 Sep 2026, and it is the third
+--- time this exact fault has shipped.
+---
+--- Yberamos, our first bug report from Discord, sent a screenshot through `/mh report`: the
+--- foot text of this panel drawn straight through the last slot's lines. `FOOT_H = 44` is a
+--- constant, and the scroll frame's bottom edge was pinned to it — but the foot's LENGTH is
+--- decided at draw time. When any slot carries a `>>` note the foot gains
+--- `CURIO_NOTE_DISCLAIMER`, roughly 250 characters together, which at this width wraps to six
+--- or seven lines. Everything past 44 pixels grows up into the scrolling area.
+---
+--- 📌 SAME FAULT, THIRD PANEL. Professions → Overview drew two paragraphs over each other for
+--- exactly this reason (fixed 30 Aug, shipped in 3.7.3), and the changelog window reserved
+--- 100px for a footer it had never measured (`2d37151`). The pattern is a fixed height
+--- standing in for text nobody has laid out yet, and it stays invisible until a longer
+--- sentence — or a longer language — arrives.
+---
+--- ⚠️ So this asks the FontString how tall it actually became, after the text is set. The
+--- panel is resizable and the grip re-runs the layout on mouse-up, so a narrower window
+--- rewraps and re-measures on its own.
+--- @param f table the panel frame
+local function FitFoot(f)
+	if not (f and f._foot and f._scroll) then
+		return
+	end
+	local h = f._foot:GetStringHeight() or 0
+	if h <= 0 then
+		-- Empty foot (the "nothing to show" branch): give the scroll the space back
+		-- rather than leaving a 44px hole under a one-line message.
+		f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), PAD)
+		return
+	end
+	-- 14 is the foot's own bottom offset; the rest is breathing room between the last
+	-- scrolled line and the first wrapped foot line.
+	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), math.max(FOOT_H, h + 22))
+end
+
 --- Redraw from the tree. Returns false when there is nothing honest to show.
 function ns.RefreshCurioAdvicePanel()
 	if not panel or not panel:IsShown() then
@@ -217,6 +253,7 @@ function ns.RefreshCurioAdvicePanel()
 		fs:SetText(L(why or "CURIO_NO_CHOICES"))
 		fs:Show()
 		f._foot:SetText("")
+		FitFoot(f)
 		f._content:SetHeight(60)
 		return true
 	end
@@ -312,6 +349,7 @@ function ns.RefreshCurioAdvicePanel()
 		footText = footText .. " " .. L("CURIO_NOTE_DISCLAIMER")
 	end
 	f._foot:SetText(footText)
+	FitFoot(f)
 	f._content:SetHeight(math.max(10, math.abs(y)))
 	return true
 end
