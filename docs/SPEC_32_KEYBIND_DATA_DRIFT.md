@@ -29,6 +29,55 @@ uitzoeken — terwijl de coach zijn 1-2-3 keurig invult.
 
 ---
 
+## 1b. 📊 GEMETEN op Robs Guardian, 6 sep 2026
+
+`/mhautomap` + `/reload`, daarna `ns.db.autoMapDump` uit
+`WTF/Account/JOEYWHATEVER/SavedVariables/MidnightHelper.lua` gelezen.
+
+```
+DRUID — Guardian: 27 placed, 0 did not fit, 16 unclassified.
+```
+
+**Alle ID's hieronder komen uit Robs eigen spellbook** (`dump.scannedIds`), niet van het web —
+precies zoals §4 voorschrijft.
+
+### Echt ontbrekend — toevoegen
+
+| Spell | ID | Waarom het een toets verdient |
+|---|---|---|
+| 🔴 **Lunar Beam** | **204066** | regel 1 van de prioriteitslijst in de aanbevolen build |
+| 🔴 **Heart of the Wild** | **1261867** | staat in Icy Veins' ST **én** AoE-lijst (*"Cast Heart of the Wild in Cat Form"*) |
+| **Ursol's Vortex** | **102793** | CC/utility. 📌 Staat in het commentaar van dit bestand op regel 32, maar is nooit als entry toegevoegd |
+| **Mark of the Wild** | **1126** | de klassenbuff |
+| **Revive** | **50769** | out-of-combat rez |
+
+⚠️ **`Raze` staat NIET in Robs spellbook** — hij heeft het talent niet. De omissie uit §1 blijft
+dus staan als datagat, maar er is **geen ID uit de client** en die mag niet van het web komen.
+Voeg hem toe zodra iemand hem getalenteerd heeft, of laat hem staan tot dan.
+
+### ✅ Bevestigd géén defect
+
+| Waarneming | Uitkomst |
+|---|---|
+| `Rage of the Sleeper` en `Renewal` | **NOT KNOWN in de spellbook** — daarmee is §2 geen redenering meer maar een meting. Ze matchen nooit |
+| `Regrowth` (8936) staat als unclassified | **Met opzet.** De entry bestaat wél, maar op `specs = { 105 }` als `click_cast` (`:146`). Voor Guardian dus bewust geen toets |
+| `Rake`, `Shred`, `Ferocious Bite`, `Wrath` | Feral/Balance-spells die een Guardian kent maar niet gebruikt |
+| `Auto Attack`, `Revive Battle Pets`, `Teleport: Moonglade`, `Anomaly Detection Mark I`, `Find High-Value Beasts`, `Mechanism Bypass` | ruis: beroepen, speeltjes, Warband |
+
+### 🔴 Losse vondst: toets `1` is leeg
+
+In de 27 geplaatste spells zit **geen `1`**. De volgorde is `Shift+1` Swipe, `2` Mangle,
+`3` Thrash, `4` Maul, `5` Moonfire — terwijl `Mangle` in de data op `main_rotation` **priority 1**
+staat en dus de eerste builder-toets hoort te krijgen.
+
+⚠️ **Dit is een waarneming, geen diagnose.** Er zijn twee onschuldige verklaringen (slot 1
+gereserveerd voor Assisted Combat, of de allocator begint bewust op 2) en één vervelende (een
+off-by-one in de builder-toewijzing). `0 did not fit`, dus er is niets weggevallen. **Uitzoeken
+vóór je aan de tabel begint** — als de allocator een slot overslaat, verschuift het toevoegen van
+Lunar Beam alleen maar meer.
+
+---
+
 ## 2. ⛔ Wat GEEN defect is — niet repareren wat niet stuk is
 
 In hetzelfde bestand staan twee spells die **in 12.0.0 (20 jan 2026) uit het spel zijn
