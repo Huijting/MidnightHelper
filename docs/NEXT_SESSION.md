@@ -107,11 +107,45 @@ twee dagen oud, precies het te-korte-historie-bezwaar dat diezelfde aantekening 
 zeven in één (`RARE_QUEST_PAIRS`), en de drie plekken die de ingetrokken conclusie als bewijs
 citeerden (`Rares.lua` 2×, `AtalUtekProbe.lua` 1×) zijn gecorrigeerd in dezelfde commit.
 
-🔴 **NIET GEDAAN, met opzet: de vier nullen zijn niet ingevuld.** De reeks 98344..98355 is
-opeenvolgend en onze acht zitten er precies in, wat de vier gaten *zeker* laat lijken — en dat is
-exact de vorm van een afleiding in de kleren van een meting. Eerst `/mh rarequests` draaien op een
-character met kills achter de rug: als die kills wél op band A staan en niet op B, spreken de twee
-elkaar tegen en is geen van beide te vertrouwen.
+### ✅ 6 sep — OPGELOST met één kill: band A loopt achter, en de vijf nullen zijn ingevuld
+
+Garsecg was de perfecte proef: hij stond op **beide** banden op `--`, dus een schone eerste kill
+zonder iets dat al waar was. Rob nam een snapshot, killde hem, en de twee banden vuurden op
+verschillende momenten:
+
+```
+/mh questsnap diff, seconden na de kill:   94856  Garsecg      (band B, alléén)
+/mh rarequests, een paar minuten later:    A 98350 done · B 94856 done
+```
+
+📌 **Band A loopt achter.** Daarmee valt alles op zijn plek: Destra's band A leek 's ochtends "niet
+te vuren" omdat hij al aan stond van een eerdere kill, en augustus' *"band B vuurt nooit"* was een
+meting in een zone van twee dagen oud, vóór Season 2.
+
+⚠️ **Blinde vlek in ons eigen gereedschap, en die zat er bijna in gebleven:** een `questsnap diff`
+direct na de kill ziet band B en mist band A. De tool die een afleiding moest beëindigen had er
+zelf bijna een gemaakt. De diff-uitvoer zegt nu zelf dat je hem een paar minuten later nóg een keer
+moet draaien.
+
+✅ **INGEVULD** in de datarijen, met per rare erbij hoe hard het is — dat staat in `Rares.lua`, niet
+hier, want "ze zitten allemaal in één nette reeks" is geen bewijs over één ervan:
+
+| rare | id | hardheid |
+|---|---|---|
+| Garsecg | 98350 | **GEMETEN** — `--` vóór de kill, `done` erna |
+| Destra | 98355 | leest done, kill bekend. Consistent, niet gezien |
+| Hisstara | 98348 | idem |
+| Kari'zah | 98346 | idem |
+| Szarith | 98349 | **ONGETEST** — nooit gekilld, alleen HandyNotes + de reeks |
+
+⚠️ Venom Lancer en Malformed Leviathan blijven **0**: hun band A (96969/96970) valt buiten de
+gevalideerde reeks, ze hebben geen achievement-criterium, en onze eigen aantekening noemt de
+Leviathan een *event zonder eigen kill-quest*.
+
+🔴 **Openstaand, niet gemeten en groter dan het lijkt: is band A per character of accountwide?**
+Elke rij van `/mh rarequests` past óók op "band A = warband, band B = dit character". Klopt dat,
+dan liegt de subtitel *"done on this character"* al sinds augustus voor alle veertien. Te meten met
+één alt die nooit op de Coiled Isle is geweest: leest die 12/14 op band A, dan is het accountwide.
 
 ### ❌ 6 sep — farm-modus voor rares: GEBOUWD EN WEGGEGOOID vóór de commit
 

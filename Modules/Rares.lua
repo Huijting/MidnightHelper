@@ -308,33 +308,49 @@ local COILED_ISLE = {
 		--- reset); "their numbers did not fire" rested on two kills in a two-day-old zone.
 		--- See the REOPENED block above `RARE_QUEST_PAIRS` for the three open readings.
 		---
-		--- So these four keep their coordinates, which is what HandyNotes is trusted for,
-		--- and carry `0` for the quest — the same honest zero as the two Curse Surge
-		--- bosses below. ⚠️ The zero is now a WEAKER position than it was: HandyNotes'
-		--- 98346/98348/98349/98350 for these four complete a consecutive 98344..98355 run
-		--- that our own eight sit inside. Tempting, and still unmeasured. `/mh rarequests`
-		--- covers all fourteen in both bands — settle it there before filling these in.
+		--- ✅ FILLED IN 6 Sep 2026, and the zero is gone. Rob snapshotted, killed **Garsecg**
+		--- — clean, unkilled on both bands — and watched it happen: 94856 (band B) flipped at
+		--- the kill, and **98350 (band A) a few minutes later**, after the diff had already
+		--- been taken. So band A does fire; it simply LAGS behind the kill, which is why the
+		--- Destra measurement earlier that day looked like it contradicted August.
+		---
+		--- That is one previously-unknown member of the 98344..98355 run, confirmed by
+		--- watching it turn. The other four come from the same source and the same run, at
+		--- different strengths — say which is which, because they are not equal:
+		---   98350 Garsecg   WATCHED: `--` before the kill, `done` after. Measured.
+		---   98355 Destra    reads done, and Rob has killed her. Consistent, not watched.
+		---   98348 Hisstara  same.
+		---   98346 Kari'zah  same.
+		---   98349 Szarith   reads `--`, and nobody has killed him. UNTESTED — the only one
+		---                   here resting on HandyNotes plus the sequence alone. If Szarith
+		---                   ever refuses to tick off, this is the line to suspect first.
+		---
+		--- ⚠️ Venom Lancer and Malformed Leviathan stay at `0` on purpose. HandyNotes files
+		--- their band A as 96969/96970, outside the run that was just validated, they carry
+		--- no achievement criterion, and our own note calls the Leviathan an EVENT with no
+		--- kill quest of its own. Three reasons to leave them; none of them measured either.
 		---
 		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
 		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
 		--- that says 10/10 says nothing.
-		{ 0, 2512, 70.17, 45.29, "Garsecg", 258916, ach = 63358, crit = 110172 },
-		{ 0, 2512, 52.05, 32.29, "Destra", 261142, ach = 63358, crit = 115288 },
-		{ 0, 2512, 43.85, 50.86, "Hisstara", 265262, ach = 63358, crit = 115281 },
-		{ 0, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090, ach = 63358, crit = 115784 },
+		{ 98350, 2512, 70.17, 45.29, "Garsecg", 258916, ach = 63358, crit = 110172 }, -- WATCHED
+		{ 98355, 2512, 52.05, 32.29, "Destra", 261142, ach = 63358, crit = 115288 },
+		{ 98348, 2512, 43.85, 50.86, "Hisstara", 265262, ach = 63358, crit = 115281 },
+		{ 98346, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090, ach = 63358, crit = 115784 },
 		--- The Underbelly (map 2613), the level below the Vaults of Atal'Utek. One rare
 		--- there, from HandyNotes_Midnight 150 — coordinates taken, quest id not.
-		--- HandyNotes gives 96030 — and on 6 Sep 2026 the claim that made this a zero fell
-		--- over (Destra's kill fired that very band), so the zero now stands on nothing
-		--- but caution. HandyNotes also lists 98349 for him, which fits the consecutive
-		--- run the other eleven sit in. Two candidates, neither measured. An id that looks
-		--- like progress and never fires is still worse than a blank, so it stays blank
-		--- until `/mh rarequests` says which band this isle actually uses.
+		--- HandyNotes gives him two ids, 96030 and 98349. He now carries **98349**, the band
+		--- A one, because Garsecg's kill that same day showed band A is the flag that fires
+		--- (with a lag) and band A is what the other eleven use.
+		---
+		--- ⚠️ He is the WEAKEST entry in this table and the only isle rare nobody has ever
+		--- killed, so nothing about him has been watched — not the id, not even that the
+		--- coordinates lead to a real spawn. Everything here is HandyNotes plus a sequence.
 		-- ⚠️ 15 aug: gevonden in Robs screenshot toen de andere vier gekoppeld waren.
 		-- Stond op questID 0 én zonder NPC-id, dus kon zichzelf net zomin afvinken.
 		-- Hij telt voor twee achievements; 63358 is degene die deze tab bijhoudt.
 		-- Zijn Soft Underbelly-criterium (62601 / 113661) hoort bij die andere hunt.
-		{ 0, 2613, 38.40, 17.69, "Szarith the Fanged", 263456, ach = 63358, crit = 115282 },
+		{ 98349, 2613, 38.40, 17.69, "Szarith the Fanged", 263456, ach = 63358, crit = 115282 },
 	},
 }
 --- 2509 = Vaults of Atal'Utek, 2613 = the Underbelly beneath it. Both are children of
@@ -400,11 +416,26 @@ local RARE_QUEST_PAIRS = {
 ---      Leviathan's "band A" as 96969/96970 rather than 98xxx, so the tidy 98344..98355
 ---      run may be a coincidence of ordering rather than a category.
 ---
---- ⚠️ Do NOT fill the four questID-0 data rows from the table above until this is settled.
---- The 98344..98355 sequence is consecutive and our eight sit in it exactly, which makes
---- the four gaps look certain — and that is precisely the shape of an inference wearing a
---- measurement's clothes. `/mh rarequests` now covers all fourteen isle rares in both bands;
---- run it on a character with kills behind it and the answer is one screen away.
+--- ✅ SETTLED the same evening, by reading 1. Rob snapshotted, killed **Garsecg** — the one
+--- rare that was `--` on BOTH bands, so a clean first kill with nothing already true to
+--- confuse it — and the two bands fired at different times:
+---
+---     `/mh questsnap diff`, seconds after the kill:  94856 Garsecg   (band B, alone)
+---     `/mh rarequests`, a few minutes later:         A 98350 done · B 94856 done
+---
+--- Band A was still `--` at diff time and `done` shortly after. **Band A lags.** Every
+--- earlier reading falls into place: Destra's band A looked like it "failed to fire" that
+--- morning because it had fired on an earlier kill, and August's "band B never fires" was
+--- a two-day-old zone measured before Season 2.
+---
+--- ⚠️ So the snapshot tool has a blind spot worth remembering: `/mh questsnap diff` taken
+--- immediately after a kill sees band B and misses band A. Wait, or diff twice. The tool
+--- that was built to end an inference nearly created one.
+---
+--- 📌 The four questID-0 rows are filled in above. Which of them is measured and which
+--- rides on the sequence is written there per rare, not summarised here — the whole point
+--- of this block is that "they all sit in one tidy run" is not evidence about any one of
+--- them.
 ---
 --- ⚠️ SUPERSEDED — the 13 Aug reading, kept because it is real data, not because it holds.
 ---
@@ -531,6 +562,10 @@ function ns.RareQuestSnapshotDiff()
 	print(("%s %d quest id(s) flipped since the snapshot."):format(prefix, found))
 	print("   |cff8a8f98Eén daarvan is de rare. Andere regels kunnen een quest zijn die je|r")
 	print("   |cff8a8f98onderweg toevallig afmaakte — dus kijk naar de naam, niet alleen het getal.|r")
+	-- 6 sep 2026: Garsecg's kill zette 94856 meteen en 98350 pas een paar minuten later.
+	-- Wie hier één keer kijkt, ziet dus maar de helft.
+	print("   |cff8a8f98⚠️ Niet elke vlag komt meteen. Draai dit over een paar minuten NOG een|r")
+	print("   |cff8a8f98keer — dezelfde snapshot blijft staan, dus dat kost je niets.|r")
 end
 
 function ns.PrintRareQuestProbe()
