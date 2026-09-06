@@ -100,6 +100,73 @@ die we niet kunnen waarmaken; "wij hebben hier geen plek voor" wel.** Apart uitz
 
 ---
 
+## 1c. 🔴 Shadow Priest — een ECHTE regressie, en het bewijs voor de ID-migratie
+
+`/mhautomap` + `/reload` op Robs shadow priest, 6 sep, **met Methods eigen Voidweaver
+Delves-build geïmporteerd**:
+
+```
+PRIEST — Shadow: 19 placed, 0 did not fit, 17 unclassified.
+```
+
+### De regressie
+
+```lua
+-- KeybindRoles_Priest.lua:140
+["Void Eruption"] = { role = "cooldown_bar", priority = 1, specs = { 258 } },
+-- F1: burst-CD (castbare knop = Void Eruption 228260; "Voidform" 194249 is de
+-- resulterende buff, dus naam-match faalde)
+```
+
+**Die aantekening van 7 aug heeft het omgedraaid.** GEMETEN, twee kanten:
+
+1. Robs spellbook kent **`Voidform` = 228260** en kent **geen** `Void Eruption`.
+2. Warcraft Wiki: *"Void Eruption was renamed to Voidform in Patch 12.0.0 to reduce confusion
+   between the ability name and active effect."*
+
+Het **ID in het commentaar klopt** (228260). Alleen de naam is hernoemd, en de lookup gaat op
+naam. De entry matcht dus nooit meer.
+
+🔴 **En het faalt stil.** Het slot bleef niet leeg: `Power Infusion` staat op `cooldown_bar`
+**priority 2** en is stilletjes naar `F1` gepromoveerd. Het scherm ziet er dus correct uit
+terwijl de grootste burst-knop van de spec nergens staat. Zie [[silence-is-not-absence]].
+
+📌 **Dit is het argument voor §5a, en het is geen theorie meer.** Had die entry
+`id = 228260` gedragen — een getal dat al in het commentaar op dezelfde regel stond — dan had
+de hernoeming niets gebroken. De priester-entries hebben geen `id`, net als de druide.
+
+**Fix:** `["Void Eruption"]` → `["Voidform"]`, mét `id = 228260`. En controleer meteen of
+`Void Volley` (`:137`) hetzelfde probleem heeft.
+
+### Verder ontbrekend — ID's uit Robs client
+
+| Spell | ID | Opmerking |
+|---|---|---|
+| 🔴 **Tentacle Slam** | **1227280** | de AoE-motor: Method gebruikt hem om Vampiric Touch op 6-12 doelen te krijgen |
+| **Vampiric Embrace** | **15286** | groepsheal-CD |
+| **Shadowform** | **232698** | de stance zelf |
+| **Dispel Magic** | **528** | ⚠️ we hebben wél `Mass Dispel` op X, maar de gewone dispel niet |
+| **Purify Disease** | **213634** | idem |
+| **Power Word: Fortitude** | **21562** | klassenbuff |
+| **Shackle Horror** | **9484** | 📌 staat in het commentaar op `:25`, nooit als entry toegevoegd — zelfde patroon als Ursol's Vortex bij de druide |
+| **Cantrips** | **255661** | onbekend wat dit in 12.1 doet; **niet blind toevoegen** |
+
+### ✅ Wat GEEN gat is
+
+`Void Volley`, `Void Blast`, `Halo` en `Void Eruption` staan als NOT KNOWN. Dat is **correct**:
+Voidform verleent Void Volley pas tijdens Voidform (*"Voidform now grants 3 uses of Void
+Volley"*, 12.1), en Halo hoort bij Archon terwijl Rob Voidweaver speelt.
+
+⚠️ Een eerdere versie van deze meting concludeerde dat Rob "de build niet geïmporteerd had".
+**Dat was fout** — hij had Methods Delves-build wél staan. De les: een spell die door een andere
+spell verleend wordt, staat buiten gevecht niet in je spellbook, en dat lijkt op een ontbrekend
+talent.
+
+`Flash Heal`, `Resurrection`, `Mind Soothe`, `Mind Vision`, `Dominate Mind`: off-spec en
+out-of-combat; ruis is `Auto Attack`, `Shoot`, `Revive Battle Pets`.
+
+---
+
 ## 2. ⛔ Wat GEEN defect is — niet repareren wat niet stuk is
 
 In hetzelfde bestand staan twee spells die **in 12.0.0 (20 jan 2026) uit het spel zijn
@@ -197,6 +264,21 @@ Uit [[keybind-cheatsheet]]: `tools/keybind_sheet/` bouwt het per-spec overzicht 
 allocator en **moet opnieuw draaien na elke wijziging in `KeybindRoles_*`**. Anders staat er een
 sheet online die de twee nieuwe knoppen niet toont — precies het probleem dat deze spec oplost,
 één laag verderop.
+
+---
+
+## 5c. 🔴 De prioriteit is omgedraaid sinds §1c
+
+De ID-migratie uit §5a stond hier als "meeliften". **Dat klopt niet meer.** De Voidform-regressie
+is er de eerste gemeten schade van: een hernoeming brak een lookup terwijl het juiste ID al op
+dezelfde regel in het commentaar stond.
+
+Blizzard hernoemt elke uitbreiding spells. Zolang de tabellen op naam matchen, breekt elke
+hernoeming stil — en stil, want een lagere prioriteit schuift ongemerkt in het vrijgekomen slot.
+
+**Voorstel:** doe de migratie voor de entries die je toch aanraakt (Druid 5, Priest 8), en
+overweeg daarna een linter-regel: *elke entry met een spell-ID in het commentaar moet dat ID als
+`id`-veld dragen.* Dat is machinaal te controleren en had dit geval gevangen.
 
 ---
 
