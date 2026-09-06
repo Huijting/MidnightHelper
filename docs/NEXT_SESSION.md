@@ -13,6 +13,27 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 🗄️ 6 sep — de Prey-catch-up raakt Dundun NIET (ingetrokken vóór er iets gebouwd werd)
+
+In het ochtendverslag noemde ik de 12.1.5-catch-up (*"onder rank 3: 4000 Journey progress per hunt;
+rank 3-8: 2000 voor je eerste vier hunts per week"*) als iets dat **onze Dundun-tekst raakt**, omdat
+die op Journey rank 3 hangt. Rob vroeg wat ik daarmee bedoelde. Nagemeten: **niets.**
+
+* De enige rank-tekst is `DUNDUN_CHAT_RANK_UNKNOWN` — *"alleen als je Delver's Journey rank %d of
+  hoger is"*. Dat is de **eis**, en de catch-up verandert alleen het **tempo** waarmee je die haalt.
+* `ns.GetDelverJourneyStatus()` (`Delves.lua:2595`) leest de rank **live uit het spel**. Er staat
+  nergens een rekensom over hoeveel runs een rank kost.
+* Geen enkele geshipte string wordt onwaar.
+
+📌 **De PTR-wachter was voorzichtiger dan ik**: die schreef dat de cijfers "de rekensom voor een
+**eventuele** weekly-planner-regel" veranderen — een functie die niet bestaat. Ik maakte daar in het
+mondelinge verslag "raakt onze Dundun-tekst" van. Zelfde fout als de regeltelling van vanochtend: de
+bron zorgvuldig lezen en er dan een stelliger zin van maken.
+
+⚠️ **Wat er wél overblijft, als aandachtspunt en niet als taak:** haalt iedereen straks veel sneller
+rank 3, dan wordt de Dundun-uitleg *vaker* relevant en de "je bent er nog niet"-tak zeldzamer. Dat is
+een reden om die uitleg goed te houden, geen reden om hem te wijzigen.
+
 ## 🔴 6 sep — DE EERSTE BUG UIT DISCORD, en het is dezelfde fout voor de derde keer
 
 **Yberamos** meldde hem via `/mh report` — de eerste melding van buiten Rob en Cisca. Het rapport
