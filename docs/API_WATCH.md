@@ -587,3 +587,68 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   - **De staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
     AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`)
     zijn deze run niet opnieuw getoetst en blijven staan zoals op 2 sep gemeten.
+
+- [2026-09-06] ✅ **Geen relevante API-wijzigingen. De twee wiki-bewerkingen sinds gisteren zijn
+  puur cosmetisch, en de open vraag van gisteren is dicht.** 0 × nieuw [MOET GEFIKST].
+  - **GEMETEN uit de diffs zelf** (warcraft.wiki.gg/api.php `action=compare`, cache-busted), niet
+    uit een samenvatting. `Patch 12.1.5/API changes` kreeg na wat de run van gisteren zag
+    (revid 6860177) nog twee bewerkingen, allebei van Ketho:
+    - **revid 6862510, 2026-09-05T13:08:59Z, `/* Deprecated API */`** — zet in de
+      deprecated-tabel de tien addon-namen **vet** (`''' … '''`). **Geen enkele functienaam
+      toegevoegd, verwijderd of gewijzigd**; de diff is regel voor regel dezelfde tekst met
+      apostrofs eromheen.
+    - **revid 6862562, 2026-09-05T15:10:35Z, `/* Blue posts */`** — repareert één kapotte link:
+      `Blizzard_DeprecatedWorldElapsedTimerTypes` wees naar het **pad van
+      `Blizzard_DeprecatedCurrencyScript`** en wijst nu naar
+      `.../Blizzard_DeprecatedWorldElapsedTimerTypes/Deprecated_WorldElapsedTimerTypes.lua`.
+      Ook hier geen inhoudelijke wijziging.
+  - ✅ **AFGESLOTEN — de open vraag van gisteren over `Blizzard_DeprecatedWorldElapsedTimerTypes`.**
+    Gisteren stond hier letterlijk *"Ik weet niet of dat betekent 'bevat geen globals' of 'nog niet
+    ingevuld'; niet aannemen dat het leeg is."* Nu **GEMETEN** door het bestand zélf te lezen
+    (`raw.githubusercontent.com/Gethe/wow-ui-source`, branch `12.1.0`, cache-busted): het bevat
+    **nul functies**. Alleen drie constanten, achter
+    `if not GetCVarBool("loadDeprecationFallbacks") then return end`:
+    `LE_WORLD_ELAPSED_TIMER_TYPE_NONE`, `_CHALLENGE_MODE` en `_PROVING_GROUND`, gelijkgesteld aan
+    `Enum.WorldElapsedTimerTypes.None/.ChallengeMode/.ProvingGround`.
+    **[RAAKT ONS NIET]** — 0 treffers op die drie namen in de addon. Onze enige treffer op dit
+    onderwerp is de **string** `"Blizzard_DeprecatedWorldElapsedTimerTypes"` in
+    `Modules/PtrProbe.lua:120`, een lijst met addon-namen die de probe opsomt — geen aanroep.
+    **Positieve controle in dezelfde run:** dezelfde alternatie mét `InCombatLockdown` erbij gaf
+    **186** treffers, zonder die term **0**. De lege uitkomst is dus echt leeg.
+  - **`Patch 12.1.0/API changes` onveranderd** — nieuwste revisie nog steeds **6860164,
+    2026-09-05T00:39:06Z** (`12.1.0 (69587)`), dezelfde die gisteren gemeld is.
+  - **Geen nieuwe `/API changes`-pagina.** Wiki-zoekopdracht `intitle:"API changes"` gesorteerd op
+    aanmaakdatum: de nieuwste is nog steeds **12.1.5**; er bestaat nog geen 12.2.0-pagina.
+  - **Hotfixes: nieuwste sectie nog steeds 4 september 2026** — er is nog geen 5- of 6-sep-lijst.
+    Volledig gelezen: Classes (Druid Balance, Shaman Enhancement), Dungeons and Raid (The Venomous
+    Abyss), Housing, Items. **Geen Lua-API-, secure-frame-, taint- of addon-sectie.**
+    ⚠️ **Dit is even oud als wat hier gisteren stond, niet ouder** — dus geen cache-val, maar het
+    bewijst niets op zichzelf, en daarom **onafhankelijk bevestigd via WebSearch**: die kent
+    artikelen voor 1, 2, 3 en 4 sep en géén voor 5 sep.
+  - **Blizzard US UI-and-Macro-forum: geen nieuw topic sinds 4 sep en geen blue post binnen 7
+    dagen.** Op `order=created` opgehaald is *Cast bar addon?* (**2026-09-04T23:37:25Z**) nog steeds
+    het nieuwste topic, en er staat **geen `community-manager`** in de deelnemerslijst van de
+    categorie. Wel activiteit in *Addons api restrictions* (aangemaakt 2026-09-02, laatste post
+    **2026-09-05T17:29:55Z**, 10 posts) — de titel is precies ons terrein, dus **de thread is
+    gelezen**: het is een spelersdiscussie over performance-tracking (antwoorden verwijzen naar
+    `/combatlog`, Warcraftlogs en WoWAnalyzer). **Geen dev-antwoord, geen API-feit, niets te
+    melden.**
+  - ✅ **HET `GetItemCooldown`-[MOET GEFIKST] VAN 5 SEP IS DICHT — hier hermeten, niet uit de
+    aantekening geciteerd.** `grep GetItemCooldown` over de addon geeft vandaag **geen enkele kale
+    aanroep** meer: `Modules/Delves.lua:1767`, `Modules/Delves.lua:1935` en
+    `Modules/DelveItemsPopup.lua:278` gaan alle drie door `ns.GetItemCooldownSafe`
+    (`Modules/Delves.lua:341`, `C_Item.GetItemCooldown` eerst, dan `rawget(_G,…)`, beide in een
+    `pcall`). De overige treffers zijn commentaar (`Delves.lua:319-332`, `DelveItemsPopup.lua:275`,
+    `PtrProbe.lua:131-137`) en de naam-string op `PtrProbe.lua:137`.
+    ⚠️ **Wat hier open blijft:** `C_Item.GetItemCooldown` is nog steeds **niet in een client
+    gezien** — de migratie is geciteerd, niet gemeten. Eén run van `/mh ptr` op de 12.1.5-PTR
+    settelt het.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`)
+    zijn ook deze run niet opnieuw getoetst en blijven staan zoals op 2 sep gemeten.
+  - **Bronnen, alle met cache-buster opgehaald:** `warcraft.wiki.gg/api.php` (`prop=revisions`,
+    `action=compare`, `list=search`, `list=recentchanges`);
+    `raw.githubusercontent.com/Gethe/wow-ui-source` @ `12.1.0`;
+    `news.blizzard.com/en-us/article/24296142`; `us.forums.blizzard.com` categorie-JSON 35 op
+    `order=created` + topic 2343904. **NIET GEPROBEERD:** de bluetracker-spiegel — niet nodig,
+    news.blizzard.com kwam vers binnen en is bovendien via WebSearch tegengelezen.
