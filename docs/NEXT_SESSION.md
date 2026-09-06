@@ -175,10 +175,30 @@ hier, want "ze zitten allemaal in één nette reeks" is geen bewijs over één e
 gevalideerde reeks, ze hebben geen achievement-criterium, en onze eigen aantekening noemt de
 Leviathan een *event zonder eigen kill-quest*.
 
-🔴 **Openstaand, niet gemeten en groter dan het lijkt: is band A per character of accountwide?**
-Elke rij van `/mh rarequests` past óók op "band A = warband, band B = dit character". Klopt dat,
-dan liegt de subtitel *"done on this character"* al sinds augustus voor alle veertien. Te meten met
-één alt die nooit op de Coiled Isle is geweest: leest die 12/14 op band A, dan is het accountwide.
+### ✅ 6 sep — en band A blijkt ACCOUNTWIDE. Onze tekst loog, in zeven talen
+
+Rob logde in op een alt die **nooit op de Coiled Isle is geweest**. Die leest **11/14 done**,
+identiek aan zijn main — inclusief **Garsecg**, waarvan de vlag pas diezelfde middag aanging na een
+kill op de main. Een per-character vinkje kan dat niet.
+
+📌 **Geen cache-artefact:** `IsRareDoneThisWeek` (`Rares.lua:1099`) leest uitsluitend
+`C_QuestLog.IsQuestFlaggedCompleted` — geen `ns.db`, geen opgeslagen main-data. Wat de alt toont ís
+dus het antwoord van de client voor dat character.
+
+🔴 **Dus stond er een onwaarheid op het scherm, en niet sinds vandaag.** `RARES_SUBTITLE_FMT` zei
+*"done on this character"*, `RARES_TIP_DONE` zei *"Done this week on this character"* en de
+Info-lade zei *"green = done on this character"*. Alle drie zijn in **alle zeven talen** herschreven
+naar de accountwide-formulering, en de drie keys zijn met `check_drift --mark` vastgelegd (stand
+weer 0 gedrift).
+
+⚠️ **Wat hiermee NIET gemeten is:** of de *beloning* ook accountwide is. Dat een tweede kill op
+hetzelfde character niets geeft is gemeten (5 sep); of een verse alt wél een shard krijgt van een
+rare die de main al deed, is dat niet. Zolang dat open staat is "af" de veilige weergave — maar wie
+ooit shard-farmen over alts wil adviseren, moet dit eerst meten.
+
+📌 **En het herschrijft de vraag van vanochtend.** *"Waarom pikt de scanner die rare niet op"* had
+twee oorzaken die op elkaar leken: het permanente achievement-criterium (opgelost) én dit. Beide
+lieten een openstaande rare als gedaan zien; alleen de eerste was een bug in onze code.
 
 ### ❌ 6 sep — farm-modus voor rares: GEBOUWD EN WEGGEGOOID vóór de commit
 

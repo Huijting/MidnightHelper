@@ -1096,6 +1096,21 @@ end
 --- ⚠️ EN NIET VERWARREN MET DE ANDERE VONDST VAN DIE MIDDAG: een TWEEDE kill in dezelfde week
 --- geeft **geen** shard — ook door Rob gemeten, en het is de reden dat er géén "farm-modus"
 --- gebouwd is. Deze fix gaat over weken waarin de rare wél loont.
+--- ⚠️ "THIS WEEK" IS RIGHT, "THIS CHARACTER" IS NOT — MEASURED 6 Sep 2026.
+---
+--- Rob logged in on an alt that has never set foot on the Coiled Isle. It read the same
+--- 11/14 as his main, **Garsecg included** — and Garsecg's flag had only come on that
+--- afternoon, after a kill on the other character. A per-character flag cannot do that.
+---
+--- Nothing here caches: this function asks `C_QuestLog.IsQuestFlaggedCompleted` and nothing
+--- else, so what the alt showed was the client's own answer for the alt. The 98344..98355
+--- band is therefore weekly (six zones cleared at the 13 Aug reset) AND account-wide.
+---
+--- The three strings that claimed otherwise are rewritten in all seven locales. Keep the
+--- distinction if you touch them: **weekly is measured, account-wide is measured, but
+--- whether the REWARD is account-wide is not.** A second kill on the same character gives
+--- no shard (5 Sep, measured); whether a fresh alt gets one from a rare the main already
+--- did has never been tried.
 local function IsRareDoneThisWeek(rareOrQuest)
 	local questId
 	if type(rareOrQuest) == "table" then
