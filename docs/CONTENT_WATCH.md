@@ -382,3 +382,26 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   allemaal vandaag gelezen. **[RAAKT ONS NIET]** op alle vijf bevindingen, met één expliciete
   kanttekening (Ula'tek soak-ID's) die onbeslisbaar blijft zolang niemand de fight loopt. Geen
   actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+- [2026-09-06] 🔁 **Niets nieuws sinds 4 sep — zelf opnieuw gemeten, niet uit een andere log
+  overgenomen.** Vorige entry (5 sep) dekte de hotfixes van 4 sep volledig (Classes, Dungeons and
+  Raid, Housing, Items gelezen; Delves/Professions/Quests waren toen al leeg). Vandaag: `Exa
+  web_fetch_exa` op `news.blizzard.com/en-us/article/24296142?nocache=20260906`, **volledige
+  artikeltekst zelf gelezen** — "September 4, 2026" staat nog steeds bovenaan als nieuwste sectie,
+  byte-voor-byte dezelfde vier categorieën als op 5 sep gelogd. Onafhankelijk gecontroleerd met
+  `web_search_exa` op "hotfixes September 5/6 2026": geen artikel met die datum bestaat, het
+  nieuwste gevonden hotfix-artikel is en blijft "Hotfixes: September 4, 2026"
+  (news.blizzard.com/.../hotfixes-september-4-2026, secundair bevestigd door een mmos.com-stuk
+  gedateerd 5 sep dat dezelfde 4-sep-lijst samenvat). **Positieve controle op de cache-val
+  zelf:** dezelfde zoekmethode vindt zonder moeite de aparte artikelen voor 1, 2, 3 én 4 september
+  — dus de zoekopdracht kan wél nieuwe datums vinden, en het ontbreken van 5/6 sep is een echte
+  afwezigheid, geen kapotte query. Dit dekt zich bovendien met wat de API-, PTR- en data-wachter
+  vandaag onafhankelijk van elkaar en van mij vonden (allen: nieuwste hotfixsectie nog steeds 4
+  sep) — geconvergeerde metingen, geen citaat van hun log.
+  Extra zoekpogingen op blue posts over Delves/beroepen/quests sinds 4 sep leverden alleen ruis op
+  (oude forumthreads uit eerdere patches, en het 12.1.5-PTR-overzicht — dat laatste is expliciet
+  `docs/PTR_12.1_WATCH.md`'s terrein, niet het mijne, dus niet meegenomen). MEASURED: geen nieuwe
+  hotfix-sectie. MEASURED: Delves/Professions/Quests waren en zijn leeg in de nieuwste sectie, dus
+  niets om tegen de repo te toetsen. Geen enkele bevinding vandaag. **[RAAKT ONS NIET]** —
+  bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260906 (volledig gelezen via
+  Exa) · web_search_exa "hotfixes September 5/6 2026" (geen resultaat nieuwer dan 4 sep).
