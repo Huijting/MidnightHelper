@@ -2575,6 +2575,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	--- krijgen, want die curios zijn trait-entries en geen items — zie DelveCuriosData.
 	--- Dus: heeft de adviseur iets te zeggen, dan de adviseur; anders de uitlegger, die
 	--- live uit de tree leest en de sterren draagt.
+	-- /mh curios fit — the foot-height numbers behind the 6 sep overlap. A screenshot
+	-- cannot say whether the reservation was too small or the paint too tall.
+	if msg == "curios fit" or msg == "curio fit" then
+		if ns.PrintCurioFit then
+			ns.PrintCurioFit()
+		end
+		return
+	end
+
 	if msg == "curio" or msg == "curios" then
 		local hasAdvice = ns.HasDelveCurioAdvice and (ns.HasDelveCurioAdvice()) or false
 		if not hasAdvice and ns.ShowCurioExplain then

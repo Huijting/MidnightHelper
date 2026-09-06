@@ -254,6 +254,7 @@ function FitFoot(f)
 		-- Empty foot (the "nothing to show" branch): give the scroll the space back
 		-- rather than leaving a 44px hole under a one-line message.
 		f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), PAD)
+		f._fit = { frameH = f:GetHeight(), h = 0, want = PAD, budget = budget, empty = true }
 		return
 	end
 	-- 14 is the foot's own bottom offset; the rest is breathing room between the last
@@ -263,6 +264,62 @@ function FitFoot(f)
 		want = math.min(want, budget)
 	end
 	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), want)
+
+	--- 🔎 KEEP THE NUMBERS. Rob, 6 Sep, third screenshot: at a mid-size window the foot still
+	--- draws over the slot text, while the SCROLL side is clearly right (the slot line is cut
+	--- off exactly where it should be). So the reservation is smaller than what the foot
+	--- actually paints, and from a screenshot the two cannot be told apart. `/mh curios fit`
+	--- prints them; this is the same move as `/mh travelwhy` yesterday, made after the second
+	--- wrong explanation rather than the fourth.
+	f._fit = {
+		frameH = f:GetHeight(), avail = avail, budget = budget,
+		lineH = (f._foot.GetLineHeight and f._foot:GetLineHeight()) or nil,
+		maxLines = clipped and math.max(1, math.floor((budget - 22) / ((f._foot.GetLineHeight and f._foot:GetLineHeight()) or 12))) or nil,
+		h = h, want = want, clipped = clipped,
+	}
+
+	--- ⚠️ AND MEASURE ONCE MORE NEXT FRAME. A `GetStringHeight` taken inside OnSizeChanged
+	--- can still be using the width the FontString had BEFORE the resize, which would make
+	--- `h` too small and is the leading candidate for the screenshot above. Re-running is
+	--- idempotent, so this cannot make a correct layout wrong -- guarded against recursing
+	--- forever.
+	if not f._fitAgain and C_Timer and C_Timer.After then
+		f._fitAgain = true
+		C_Timer.After(0, function()
+			f._fitAgain = nil
+			if f:IsShown() then
+				FitFoot(f)
+			end
+		end)
+	end
+end
+
+--- `/mh curios fit` — what did the foot measurement actually decide?
+---
+--- 🔴 Built 6 Sep 2026 after two fixes that each looked right and each left an overlap at a
+--- size Rob then found. A screenshot shows THAT the foot overflows; it cannot show whether
+--- the reservation was too small or the paint too tall, and those need opposite fixes.
+function ns.PrintCurioFit()
+	local f = panel
+	if not f then
+		print("|cffffcc00Midnight Helper|r curio fit: panel not built yet — open it first.")
+		return
+	end
+	local d = f._fit
+	if not d then
+		print("|cffffcc00Midnight Helper|r curio fit: no measurement yet — open the panel once.")
+		return
+	end
+	print(("|cffffcc00Midnight Helper|r curio fit — venster %s hoog, scrollruimte %s"):format(
+		tostring(math.floor((d.frameH or 0) + 0.5)), tostring(math.floor((d.avail or 0) + 0.5))))
+	print(("   voet vraagt: %s px   gereserveerd: %s px   plafond: %s px"):format(
+		tostring(math.floor((d.h or 0) + 0.5)), tostring(math.floor((d.want or 0) + 0.5)),
+		tostring(math.floor((d.budget or 0) + 0.5))))
+	print(("   regelhoogte: %s   max regels: %s   begrensd: %s"):format(
+		tostring(d.lineH or "?"), tostring(d.maxLines or "-"),
+		d.clipped and "|cff44ff44ja|r" or "|cffff8844nee — SetMaxLines ontbreekt|r"))
+	print("   |cff8a8f98Overlapt het terwijl 'gereserveerd' groter is dan wat je ziet, dan meet|r")
+	print("   |cff8a8f98de voet zichzelf te laag. Is 'gereserveerd' juist klein: dan het plafond.|r")
 end
 
 --- Redraw from the tree. Returns false when there is nothing honest to show.
