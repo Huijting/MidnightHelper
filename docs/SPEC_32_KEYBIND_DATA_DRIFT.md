@@ -212,6 +212,54 @@ sheet online die de twee nieuwe knoppen niet toont — precies het probleem dat 
 
 ---
 
+## 6b. ✅ UITGEVOERD 6 sep 2026 — vijf entries, mét id
+
+`Modules/KeybindRoles_Druid.lua`:
+
+| Spell | id | Waar het heen ging | Toets op de sheet |
+|---|---|---|---|
+| Lunar Beam | 204066 | `cooldown` p1, `specs = { 104 }` | **F3** |
+| Heart of the Wild | 1261867 | `cooldown` p3, `specs = { 104 }` | Shift+F3 |
+| Ursol's Vortex | 102793 | `dispel_cc` p7, baseline | Ctrl-laag op V |
+| Mark of the Wild | 1126 | `utility` p7, baseline | overloop |
+| Revive | 50769 | `utility` p8, baseline | overloop |
+
+📌 **De ID's zijn geverifieerd tegen `ns.db.autoMapDump.scannedIds` in Robs eigen
+SavedVariables, mét positieve controle** (Mangle 33917 / Ironfur 192081 / Thrash 77758 in
+dezelfde uitlezing). Eerste poging faalde: ik parste `[id] = "Naam"` terwijl het bestand
+`["Naam"] = id` schrijft, en de controle ving dat — zie [[silence-is-not-absence]].
+
+⚠️ **Revive staat NIET op `heal_ooc`/F3.** Die rol is de out-of-combat **self**-heal (Paladin
+Lay on Hands, Monk Vivify, Evoker Living Flame); een rez is dat niet. Guardian houdt dus geen
+self-heal op F3 — daar staat nu Lunar Beam.
+
+📌 **F3 voor Lunar Beam is geen fout.** `KeybindSchema.lua:173` geeft de cooldown-categorie
+`slots = { "F1", "F3", "F2" }` en basistoetsen gaan vóór Shift-lagen. F1 is bezet door het
+`cooldown_bar`-anker (Berserk), dus priority 1 pakt de beste vrije basistoets. Incarnation
+(p2) zakt daardoor naar Shift+F1 — dat ziet er omgekeerd uit en is het niet. Het schema
+noemt deze ruil op `:163-171` zelf al: *"on a healer F3 is an out-of-combat heal, on most
+others it is a cooldown."*
+
+### Wat er ná deze wijziging nog onder `unmatched` staat, en waarom
+
+Uit de dump, elf namen. **Geen enkele is een omissie** — hier opgeschreven zodat niemand ze
+over een maand opnieuw onderzoekt:
+
+| Naam | Waarom geen entry |
+|---|---|
+| `Ferocious Bite`, `Rake`, `Shred`, `Wrath` | Feral/Balance-spells; een Guardian kent ze maar gebruikt ze niet. Entries bestaan, op andere specs |
+| `Regrowth` | entry bestaat op `specs = { 105 }` als `click_cast` — voor een tank bewust geen toets |
+| `Auto Attack` | geen keybind-materiaal |
+| `Teleport: Moonglade` | reis-spell, out-of-combat |
+| `Revive Battle Pets` | pet battles |
+| `Anomaly Detection Mark I`, `Find High-Value Beasts`, `Mechanism Bypass` | Warband-/beroepen-speelgoed |
+
+⚠️ En twee die de addon wél matcht maar níét uit `KeybindRoles_Druid.lua` haalt, dus die
+zoekt niemand daar: `Recuperate` (1231411, globale F4-slot) en `War Stomp` (20549, Tauren-
+racial). Beide staan in de globale tabel en zijn bewust geen Druid-entry.
+
+---
+
 ## 7. Wat hier niet in staat, en waarom
 
 Ik heb **niet** onderzocht of de andere twaalf `KeybindRoles_*`-bestanden hetzelfde gat hebben.

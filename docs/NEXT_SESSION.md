@@ -13,6 +13,39 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## ✅ 6 sep — Spec 32 uitgevoerd: vijf Druid-keybinds erbij, ID-migratie begonnen
+
+`/mhautomap` op Robs Guardian schreef 16 spells als `unmatched` weg. Vijf daarvan waren echte
+omissies en staan nu in `Modules/KeybindRoles_Druid.lua`, **mét een `id`** — Lunar Beam (204066,
+regel 1 van de aanbevolen prioriteitslijst), Heart of the Wild (1261867), Ursol's Vortex (102793,
+stond al sinds dag 1 in het bronnen-commentaar maar was nooit een entry), Mark of the Wild (1126)
+en Revive (50769).
+
+📌 **Elk id komt uit Robs eigen client** (`ns.db.autoMapDump.scannedIds`), geverifieerd mét
+positieve controle. De eerste parse faalde — ik las `[id] = "Naam"` terwijl het bestand
+`["Naam"] = id` schrijft — en dat is precies waarvoor die controle er is.
+
+⚠️ **Raze blijft ontbreken**, met opzet: hij zit niet in Robs spellbook (talent niet genomen), dus
+er is geen id uit de client, en van Wowhead halen mag niet.
+
+⚠️ **Alleen Guardian is gecontroleerd.** De andere twaalf `KeybindRoles_*`-bestanden zijn niet
+nagekeken; dat kan alleen personage voor personage (§3 van de spec). De elf namen die na deze
+wijziging nog `unmatched` zijn, zijn stuk voor stuk verantwoord in `docs/SPEC_32_*.md` §6b — geen
+enkele is een omissie.
+
+🔴 **Openstaand uit dezelfde spec, apart uitzoeken waard:** de coach leest de spellbook en de
+actiebalken, maar **niet wat er in een macro staat**. Rob heeft Lunar Beam in een macro. *"Deze
+staat nog nergens"* is dus een bewering die we niet kunnen waarmaken; *"wij hebben hier geen plek
+voor"* wel. Dat is een toonkwestie in de coach, geen datafout.
+
+🔴 **En een val voor de volgende ID-migratie:** geef `Berserk` en `Incarnation: Guardian of Ursoc`
+niet allebei een id. Robs client meldt `["Incarnation: Guardian of Ursoc"] = 50334` — hetzelfde id
+dat de Berserk-regel noemt, want het talent overschrijft de spell. Twee entries met dat id laten er
+één stil verdwijnen in `BuildIdIndex`.
+
+📌 `tools/keybind_sheet/` is opnieuw gedraaid (HTML + XLSX). ⚠️ **Het gepubliceerde artifact is nog
+niet bijgewerkt** — zie [[keybind-cheatsheet]] voor de URL.
+
 ## 🔴 6 sep — rares: een PERMANENT vinkje wordt gelezen als "deze week gedaan"
 
 Rob stond op de Coiled Isle **letterlijk naast Hisstara** en kreeg geen alert, en de route wilde

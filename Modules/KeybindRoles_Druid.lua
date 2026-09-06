@@ -59,6 +59,40 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 --     nuttige utility: Bear/Cat/Moonkin/Prowl).
 --   * Baseline (geen specs=): Barkskin, Wild Charge, Rebirth, Cyclone, Soothe,
 --     Remove Corruption, Renewal, Dash.
+--
+-- ---------------------------------------------------------------------
+-- 6 sep 2026 — VIJF ENTRIES BIJ, en de ID-migratie begint hier (Spec 32)
+-- ---------------------------------------------------------------------
+-- Gevonden doordat /mhautomap op Robs Guardian 16 spells als `unmatched`
+-- wegschreef. GEMETEN, niet van het web: elk id hieronder komt uit
+-- ns.db.autoMapDump.scannedIds in Robs eigen SavedVariables, met Mangle
+-- (33917), Ironfur (192081) en Thrash (77758) als positieve controle in
+-- dezelfde uitlezing.
+--
+--   Lunar Beam 204066, Heart of the Wild 1261867  -> Guardian-cooldowns
+--   Ursol's Vortex 102793                          -> dispel_cc, baseline
+--   Mark of the Wild 1126, Revive 50769            -> utility, baseline
+--
+-- ⚠️ Raze staat er NIET bij: hij zit niet in Robs spellbook (talent niet
+-- genomen), dus er is geen id uit de client. Van Wowhead halen mag niet --
+-- daar waren de Valeera-poisons fout en dat kostte een PTR-ronde. Het
+-- datagat blijft dus open tot iemand hem getalenteerd heeft.
+--
+-- 📌 Spec-scoping van Lunar Beam op { 104 } rust op twee onafhankelijke
+-- dingen: JustAC SimcRotations noemt 204066 alleen onder DRUID_3 (Guardian,
+-- in burst/st/aoe) en nergens onder DRUID_1 (Balance); en Robs Balance-,
+-- Feral- en Resto-regels zijn als `offSpec` overgeslagen terwijl Lunar Beam
+-- tóch gescand werd. Dat Balance hem NIET kan hebben is daarmee niet
+-- bewezen -- maar te smal scopen kost een Balance-druide hooguit een lege
+-- toets, te breed scopen geeft drie specs advies over een knop die ze
+-- misschien niet hebben.
+--
+-- 🔴 ID-MIGRATIE, VAL OM TE ONTHOUDEN. Geef `Berserk` en `Incarnation:
+-- Guardian of Ursoc` NIET zomaar allebei een id. Robs client meldt
+-- ["Incarnation: Guardian of Ursoc"] = 50334 -- hetzelfde id dat de
+-- Berserk-regel hieronder in zijn commentaar noemt, want het talent
+-- overschrijft de spell en de spellbook geeft de nieuwe naam terug. Twee
+-- entries met id 50334 laten er één stil verliezen in BuildIdIndex.
 -- =====================================================================
 
 ns.KeybindRoleClassifier.DRUID = {
@@ -112,6 +146,8 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Mighty Bash"]                      = { category = "dispel_cc", priority = 1, specs = { 102, 104 }, alsoStop = "stun" }, -- JustAC InterruptAbilities [5211] cc mech=12 (stun) → Spec 08 alsoStop
     ["Incapacitating Roar"]              = { category = "dispel_cc", priority = 2, specs = { 103, 104 }, alsoStop = "incap" }, -- JustAC InterruptAbilities [99] cc mech=14 (incapacitate) → Spec 08 alsoStop
     -- Cooldowns
+    ["Lunar Beam"]                       = { id = 204066, category = "cooldown", priority = 1, specs = { 104 } }, -- regel 1 van de Elune's Chosen-prioriteitslijst (Method/Icy Veins/Maxroll); JustAC SimcRotations DRUID_3 burst+st+aoe, SpellCooldowns 60s
+    ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 104 } }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst
     ["Incarnation: Guardian of Ursoc"]   = { category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
     ["Rage of the Sleeper"]              = { category = "defensive", priority = 3, specs = { 104 } }, -- Guardian actieve def (dmg-reductie + reflect + heal), GEEN offensieve CD -> Defensive
     -- Utility
@@ -178,6 +214,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Entangling Roots"]                 = { category = "dispel_cc", priority = 4 }, -- single-target root
     ["Soothe"]                           = { category = "dispel_cc", priority = 5 }, -- enrage-dispel
     ["Remove Corruption"]                = { category = "dispel_cc", priority = 6, specs = { 102, 103, 104 } }, -- curse/poison-dispel; non-Resto only (Resto uses Nature's Cure -> anders dubbel + overflow op C)
+    ["Ursol's Vortex"]                   = { id = 102793, category = "dispel_cc", priority = 7 }, -- AoE-knockback/slow; staat sinds dag 1 in het bronnen-commentaar hierboven (CROWD_CONTROL) maar was nooit een entry. Priority 7 = ACHTER de bestaande zes, zodat niemands huidige indeling verschuift
     -- Utility / vormen (class-gedeeld)
     ["Rebirth"]                          = { role = "utility_secondary", priority = 2 }, -- battle-res (F/R)
     ["Prowl"]                            = { category = "utility", priority = 3 }, -- stealth (Cat Form openers)
@@ -188,4 +225,9 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T" }, -- tank/def-vorm (nood-mitigation)
     ["Cat Form"]                         = { category = "utility", priority = 5, bindKey = "Shift+R" }, -- melee-DPS-vorm
     ["Moonkin Form"]                     = { category = "utility", priority = 6, bindKey = "Shift+X" }, -- caster-vorm (Balance/Resto Affinity)
+    -- Out-of-combat, achteraan gezet: ze horen in de tabel zodat de coach ze KENT, maar ze
+    -- mogen geen gevechtsknop verdringen. Revive gaat bewust NIET op heal_ooc/F3 -- die rol is
+    -- de out-of-combat SELF-heal (Paladin Lay on Hands, Monk Vivify), en een rez is dat niet.
+    ["Mark of the Wild"]                 = { id = 1126, category = "utility", priority = 7 }, -- klassenbuff
+    ["Revive"]                           = { id = 50769, category = "utility", priority = 8 }, -- rez buiten gevecht (Rebirth = de battle-res, staat op utility_secondary)
 }

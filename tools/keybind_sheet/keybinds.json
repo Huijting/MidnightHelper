@@ -730,6 +730,14 @@
     "Ctrl+V": {
      "name": "Remove Corruption",
      "label": "Dispel / CC"
+    },
+    "Ctrl+R": {
+     "name": "Mark of the Wild",
+     "label": "Utility"
+    },
+    "Ctrl+X": {
+     "name": "Ursol's Vortex",
+     "label": "Dispel / CC"
     }
    },
    "situational": [
@@ -740,7 +748,9 @@
     }
    ],
    "clickcast": [],
-   "unplaced": []
+   "unplaced": [
+    "Revive"
+   ]
   },
   {
    "id": 103,
@@ -868,6 +878,18 @@
     "Ctrl+X": {
      "name": "Remove Corruption",
      "label": "Dispel / CC"
+    },
+    "Ctrl+F": {
+     "name": "Mark of the Wild",
+     "label": "Utility"
+    },
+    "Ctrl+C": {
+     "name": "Ursol's Vortex",
+     "label": "Dispel / CC"
+    },
+    "Ctrl+R": {
+     "name": "Revive",
+     "label": "Utility"
     }
    },
    "situational": [
@@ -967,11 +989,15 @@
      "name": "Growl",
      "label": "Taunt"
     },
+    "F3": {
+     "name": "Lunar Beam",
+     "label": "Cooldown"
+    },
     "Shift+C": {
      "name": "Incapacitating Roar",
      "label": "Dispel / CC"
     },
-    "F3": {
+    "Shift+F1": {
      "name": "Incarnation: Guardian of Ursoc",
      "label": "Cooldown"
     },
@@ -999,6 +1025,10 @@
      "name": "Prowl",
      "label": "Utility"
     },
+    "Shift+F3": {
+     "name": "Heart of the Wild",
+     "label": "Cooldown"
+    },
     "Ctrl+Z": {
      "name": "Bristling Fur",
      "label": "Defensive"
@@ -1010,6 +1040,10 @@
     "Ctrl+C": {
      "name": "Soothe",
      "label": "Dispel / CC"
+    },
+    "Ctrl+R": {
+     "name": "Mark of the Wild",
+     "label": "Utility"
     }
    },
    "situational": [
@@ -1021,7 +1055,9 @@
    ],
    "clickcast": [],
    "unplaced": [
-    "Remove Corruption"
+    "Remove Corruption",
+    "Revive",
+    "Ursol's Vortex"
    ]
   },
   {
@@ -1142,6 +1178,14 @@
     "Ctrl+V": {
      "name": "Soothe",
      "label": "Dispel / CC"
+    },
+    "Ctrl+R": {
+     "name": "Mark of the Wild",
+     "label": "Utility"
+    },
+    "Ctrl+X": {
+     "name": "Ursol's Vortex",
+     "label": "Dispel / CC"
     }
    },
    "situational": [
@@ -1158,7 +1202,9 @@
     "Rejuvenation",
     "Swiftmend"
    ],
-   "unplaced": []
+   "unplaced": [
+    "Revive"
+   ]
   },
   {
    "id": 1473,
