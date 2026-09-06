@@ -137,7 +137,24 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Void Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 258 } }, -- Voidform-spender
 	["Silence"] = { role = "interrupt", priority = 1, specs = { 258 } }, -- E: interrupt + silence
 	["Dispersion"] = { role = "defensive_3", priority = 1, specs = { 258 } }, -- C: grote defensive
-	["Void Eruption"] = { role = "cooldown_bar", priority = 1, specs = { 258 } }, -- F1: burst-CD (castbare knop = Void Eruption 228260; "Voidform" 194249 is de resulterende buff, dus naam-match faalde)
+	-- 🔴 HERNOEMD, NIET VERDWENEN — gerepareerd 6 sep 2026 (Spec 32 §1c).
+	-- De aantekening van 7 aug had het net omgekeerd: het ID (228260) klopte, de NAAM niet.
+	-- 12.0.0 heeft "Void Eruption" hernoemd naar "Voidform" (Warcraft Wiki: *"renamed to
+	-- Voidform ... to reduce confusion between the ability name and active effect"*), en de
+	-- lookup gaat op naam. Robs spellbook kent 228260 als `Voidform` en kent geen
+	-- `Void Eruption`; JustAC (SpellCooldowns :646, SimcRotations :622) en BliZzi_Interrupts
+	-- schrijven inmiddels óók "Voidform" bij 228260, terwijl oudere addons daar nog de oude
+	-- naam hebben staan. Dat verschil ís de hernoeming.
+	--
+	-- ⚠️ Het faalde STIL, en op twee manieren tegelijk. In het spel bleef F1 niet leeg:
+	-- Power Infusion (priority 2) schoof er stilletjes in, dus het scherm zag er goed uit
+	-- terwijl de grootste burst-knop van de spec nergens stond. En het cheat-sheet drukte
+	-- `Void Eruption` af op F1 — een naam die niemand meer in zijn spellbook kan vinden.
+	-- Zie [[silence-is-not-absence]].
+	--
+	-- 📌 Daarom draagt hij nu een `id`: een hernoeming had dan niets gebroken, en het getal
+	-- stond al op deze regel in het commentaar.
+	["Voidform"] = { id = 228260, role = "cooldown_bar", priority = 1, specs = { 258 } }, -- F1: burst-CD
 	["Void Torrent"] = { category = "cooldown", priority = 2, specs = { 258 } }, -- extra burst-CD (channel)
 	["Mindbender"] = { category = "cooldown", priority = 1, specs = { 258 } }, -- pet burst-CD (alt. Shadowfiend)
 

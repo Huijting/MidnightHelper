@@ -43,8 +43,32 @@ niet allebei een id. Robs client meldt `["Incarnation: Guardian of Ursoc"] = 503
 dat de Berserk-regel noemt, want het talent overschrijft de spell. Twee entries met dat id laten er
 één stil verdwijnen in `BuildIdIndex`.
 
-📌 `tools/keybind_sheet/` is opnieuw gedraaid (HTML + XLSX). ⚠️ **Het gepubliceerde artifact is nog
-niet bijgewerkt** — zie [[keybind-cheatsheet]] voor de URL.
+📌 `tools/keybind_sheet/` is opnieuw gedraaid (HTML + XLSX) en het **gepubliceerde artifact is
+bijgewerkt** (zelfde URL, zie [[keybind-cheatsheet]]).
+
+### ✅ 6 sep — Spec 32 §1c: de Shadow-Priest-regressie is gerepareerd
+
+`["Void Eruption"]` matchte sinds 12.0.0 nergens meer: het ID (228260) klopte, de **naam** niet.
+Blizzard hernoemde de spell naar **Voidform**. De entry heet nu zo en draagt `id = 228260`.
+
+📌 **Onafhankelijk bevestigd naast de spec:** JustAC schrijft "Voidform" bij 228260
+(`SpellCooldowns.lua:646`, `SimcRotations.lua:622`) en BliZzi_Interrupts ook, terwijl oudere
+addons (Details' LibOpenRaid, JustAC's eigen `SpellDB`) daar nog "Void Eruption" hebben staan. Dat
+verschil tussen bronnen ís het bewijs van de hernoeming.
+
+🔴 **Het faalde stil, en op twee plekken tegelijk** — het waren dus twee symptomen van één fout:
+1. **In het spel** schoof Power Infusion (priority 2) stilletjes het F1-anker in, dus alles zag er
+   normaal uit terwijl de grootste burst-knop van de spec nergens stond.
+2. **Op het cheat-sheet** stond `Void Eruption` op F1 — een naam die niemand nog in zijn spellbook
+   kan vinden. Dat is vanmiddag nog zo gepubliceerd en inmiddels rechtgezet.
+
+⚠️ **Wat NIET is gedaan: de acht ontbrekende Priest-spells uit §1c** (Tentacle Slam 1227280,
+Vampiric Embrace, Shadowform, Dispel Magic, Purify Disease, Power Word: Fortitude, Shackle Horror,
+Cantrips). Hun ID's staan in de spec als uit Robs client gelezen, maar `ns.db.autoMapDump` heeft
+**één slot** en dat is inmiddels door de Guardian-run overschreven — ik kan ze dus niet
+controleren zoals ik de vijf druïde-ID's wél heb gecontroleerd. Eén `/mhautomap` + `/reload` op de
+priester zet ze terug in de dump; dan zijn ze in vijf minuten na te lopen en toe te voegen. Van
+`Cantrips` zegt de spec zelf al: niet blind toevoegen.
 
 ## 🔴 6 sep — rares: een PERMANENT vinkje wordt gelezen als "deze week gedaan"
 
