@@ -246,3 +246,27 @@ function ns.MH_SniffClear()
 	end
 	print(Prefix() .. " sniffer-logboek leeggemaakt.")
 end
+
+--- 🔴 EEN RELOAD ZETTE HEM STIL UIT, EN DE SCHAKELAAR LOOG DAAROVER.
+---
+--- `sniffOn` staat in SavedVariables en overleeft een `/reload`; de event-registratie doet dat
+--- niet. Zonder dit blok was de toestand na een reload dus "vlag aan, luistert niets" — en de
+--- volgende `/mh sniff` had die vlag gezien en netjes "sniffer uit" geprint terwijl hij al uit
+--- stond. Twee keer aanzetten en nul regels vangen, zonder één foutmelding.
+---
+--- Gevonden doordat Rob middenin een delve vroeg of hij mocht reloaden (6 sep 2026). Hij had de
+--- sniffer nog niet aangezet, dus het heeft hem niets gekost — deze keer.
+---
+--- 📌 Dus: hervat wat de speler heeft aangezet, en zeg het hardop. Precies de regel uit
+--- CLAUDE.md over dingen die stil kunnen zwijgen — alleen dan toegepast op een schakelaar in
+--- plaats van op een advies.
+local loader = CreateFrame("Frame")
+loader:RegisterEvent("PLAYER_LOGIN")
+loader:SetScript("OnEvent", function(self)
+	self:UnregisterAllEvents()
+	if ns.db and ns.db.sniffOn then
+		ns.db.sniffOn = false -- StartSniffing zet hem weer aan; anders telt hij als "al aan"
+		StartSniffing()
+		print("  |cff8a8f98(hervat na de reload — hij stond aan toen je herlaadde)|r")
+	end
+end)
