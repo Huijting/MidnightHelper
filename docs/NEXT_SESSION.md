@@ -57,6 +57,62 @@ voorselecteren.
 🔴 **Tijdgebonden:** na de reset van woensdag zijn deze vier weer open en is de meting opnieuw te
 doen — maar alleen als iemand hem dan doet.
 
+### 🔴 6 sep — de meting is gedaan, en ze heeft onze conclusie van 13 aug omvergeworpen
+
+Rob nam de snapshot, killde **Destra** plus twee gewone mobs, en diffte. Drie ids flipten, alle drie
+zonder titel (`?` — verborgen quests, normaal voor rares):
+
+```
+88529 ?   ·   97415 ?   ·   95452 ?
+```
+
+📌 **95452 is Destra**, en dat is drievoudig vast te maken: onze eigen meting (hij flipte bij de
+kill), `HandyNotes_Midnight/zones/coiled_isles.lua:193` (`quest = 95452`, mét criterium 115288 — dat
+is exact wat wij al in de rij hebben staan), en `ZygorGuidesViewer/.../MID_Common_Rares.lua:844`
+(`kill Destra##261142 ... 52.05,32.29` — npc-id én coördinaten identiek aan onze rij). De twee
+andere ids horen bij de twee gewone mobs en zijn niet toegewezen.
+
+🔴 **Maar daarmee is het niet opgelost, want er blijken TWEE quest-banden per rare te zijn** en
+HandyNotes noemt ze allebei. Onze acht bekende ids liggen in band A (98344..98355, kaarsrecht
+opeenvolgend); HandyNotes gebruikt band B als eigen afvink-vlag en zet band A ernaast als
+*reputation quest*. De vier gaten in onze tabel zijn exact de ontbrekende nummers van die reeks:
+
+| rare | band A | band B | onze tabel |
+|---|---|---|---|
+| Kari'zah | 98346 | 97122 | 0 |
+| Hisstara | 98348 | 96464 | 0 |
+| Szarith | 98349 | 96030 | 0 |
+| Garsecg | 98350 | 94856 | 0 |
+| Destra | 98355 | **95452 ← flipte** | 0 |
+
+⚠️ **En hier zit de tegenspraak.** Destra's kill zette **band B** aan, niet band A. Op 13 aug
+maten we het omgekeerde en schreven het als ANSWERED in `Rares.lua`: onze band vuurde, die van
+HandyNotes vuurde *helemaal niet*. Beide metingen kunnen niet compleet zijn.
+
+Drie lezingen staan nog overeind, geen enkele gemeten:
+1. **Beide banden vuren**, op verschillende momenten of onder voorwaarden die we niet geïsoleerd
+   hebben, en elke meting ving er één.
+2. **Band A is de weekly en 98355 stond al aan** vóór de snapshot (eerdere kill deze week) — maar
+   dan had diezelfde kill band B ook al moeten zetten.
+3. **Het zijn geen twee banden.** HandyNotes zet Venom Lancer en Malformed Leviathan's "band A" op
+   96969/96970 in plaats van 98xxx, dus de nette 98344..98355-reeks kan een toevallige volgorde
+   zijn in plaats van een categorie.
+
+✅ **Wat er wél overeind blijft van 13 aug, apart genoemd omdat de twee helften heel verschillend
+onderbouwd zijn:** *band A reset wekelijks* — zes zones die de dag na een reset 0/15 lezen kan een
+permanent vinkje niet. *"Band B vuurt nooit"* is **dood**; dat stond op twee kills in een zone van
+twee dagen oud, precies het te-korte-historie-bezwaar dat diezelfde aantekening zelf formuleert.
+
+✅ **GEDAAN:** `/mh rarequests` dekt nu **alle twaalf** isle-rares in beide banden in plaats van
+zeven in één (`RARE_QUEST_PAIRS`), en de drie plekken die de ingetrokken conclusie als bewijs
+citeerden (`Rares.lua` 2×, `AtalUtekProbe.lua` 1×) zijn gecorrigeerd in dezelfde commit.
+
+🔴 **NIET GEDAAN, met opzet: de vier nullen zijn niet ingevuld.** De reeks 98344..98355 is
+opeenvolgend en onze acht zitten er precies in, wat de vier gaten *zeker* laat lijken — en dat is
+exact de vorm van een afleiding in de kleren van een meting. Eerst `/mh rarequests` draaien op een
+character met kills achter de rug: als die kills wél op band A staan en niet op B, spreken de twee
+elkaar tegen en is geen van beide te vertrouwen.
+
 ### ❌ 6 sep — farm-modus voor rares: GEBOUWD EN WEGGEGOOID vóór de commit
 
 Rob wilde 600 Coffer Key Shards uit rares halen en vroeg om een schakelaar die ook al-gedane rares

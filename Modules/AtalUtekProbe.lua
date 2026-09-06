@@ -702,8 +702,13 @@ end
 --- Modules/AchievementsData.lua now ships The Honored Dead as a routed twelve-node hunt.
 --- Its coordinates come from HandyNotes_Midnight 150, which this repo trusts for
 --- coordinates. Its criteria ids come from the same file, which this repo has NOT
---- trusted for ids since 13 Aug — `/mh rarequests` proved HandyNotes' Coiled Isle quest
---- band was not the flag the game actually fires.
+--- trusted for ids since 13 Aug — `/mh rarequests` read HandyNotes' Coiled Isle quest
+--- band as not being the flag the game fires.
+---
+--- ⚠️ 6 Sep 2026: that reading is withdrawn (Destra's kill fired that band; see
+--- `Modules/Rares.lua`). It does not make HandyNotes trusted for ids — it makes the
+--- reason we distrusted them wrong, which is a weaker thing and leaves this section's
+--- point intact: ask the client, not a note file.
 ---
 --- So the hunt is shipped on a source that is half-trusted, and the failure is silent:
 --- a wrong criteria id leaves the card stuck at 0/12 while the player stands on the

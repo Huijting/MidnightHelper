@@ -301,10 +301,19 @@ local COILED_ISLE = {
 		--- Rob killed after that reset — and HandyNotes' ids for those same two kills
 		--- stayed false. Their numbers did not fire.
 		---
+		--- 🔴 THAT LAST SENTENCE IS DEAD, 6 Sep 2026. Rob ran `/mh questsnap`, killed
+		--- **Destra**, and 95452 flipped — HandyNotes' number for exactly that rare, the
+		--- band this comment says does not fire. Their 98355 for the same rare did not.
+		--- The weekly half still stands (a permanent flag cannot clear six zones at a
+		--- reset); "their numbers did not fire" rested on two kills in a two-day-old zone.
+		--- See the REOPENED block above `RARE_QUEST_PAIRS` for the three open readings.
+		---
 		--- So these four keep their coordinates, which is what HandyNotes is trusted for,
 		--- and carry `0` for the quest — the same honest zero as the two Curse Surge
-		--- bosses below. They will not tick themselves off until somebody kills one with
-		--- `/mh questdiff` running, which is exactly how the working band was found.
+		--- bosses below. ⚠️ The zero is now a WEAKER position than it was: HandyNotes'
+		--- 98346/98348/98349/98350 for these four complete a consecutive 98344..98355 run
+		--- that our own eight sit inside. Tempting, and still unmeasured. `/mh rarequests`
+		--- covers all twelve in both bands — settle it there before filling these in.
 		---
 		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
 		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
@@ -315,11 +324,12 @@ local COILED_ISLE = {
 		{ 0, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090, ach = 63358, crit = 115784 },
 		--- The Underbelly (map 2613), the level below the Vaults of Atal'Utek. One rare
 		--- there, from HandyNotes_Midnight 150 — coordinates taken, quest id not.
-		--- HandyNotes gives 96030, which sits squarely in the band that `/mh rarequests`
-		--- proved is NOT the weekly kill flag on this isle, so it carries the same honest
-		--- zero as the four above: it will never tick itself off until somebody kills him
-		--- with `/mh questdiff` running. An id that looks like progress and never fires is
-		--- worse than a blank.
+		--- HandyNotes gives 96030 — and on 6 Sep 2026 the claim that made this a zero fell
+		--- over (Destra's kill fired that very band), so the zero now stands on nothing
+		--- but caution. HandyNotes also lists 98349 for him, which fits the consecutive
+		--- run the other eleven sit in. Two candidates, neither measured. An id that looks
+		--- like progress and never fires is still worse than a blank, so it stays blank
+		--- until `/mh rarequests` says which band this isle actually uses.
 		-- ⚠️ 15 aug: gevonden in Robs screenshot toen de andere vier gekoppeld waren.
 		-- Stond op questID 0 én zonder NPC-id, dus kon zichzelf net zomin afvinken.
 		-- Hij telt voor twee achievements; 63358 is degene die deze tab bijhoudt.
@@ -344,19 +354,59 @@ local COILED_ISLE_MAPS = { 2512, 2642, 2509, 2613 }
 -- `/mh rarequests` — which quest id actually means "done"?
 --------------------------------------------------------------------------------
 
---- Our measured id next to HandyNotes' for the same rare.
---- @field [1] npcID, [2] our quest, [3] HandyNotes' quest, [4] name
+--- Band A next to band B for the same rare. Band A is what our data rows use; band B is
+--- what HandyNotes uses as its own completion flag. HandyNotes lists BOTH per rare, and
+--- calls band A the reputation quest — so this table is entirely their data, except that
+--- for the seven rares marked below we have also measured band A ourselves.
+---
+--- ⚠️ `ours` is a name from when we thought we had a band of our own. For the five rares
+--- added on 6 Sep 2026 both columns are HandyNotes' — we have measured nothing there but
+--- Destra's band B. Do not read column 2 as "our measurement" for those.
+--- @field [1] npcID, [2] band A quest, [3] band B quest, [4] name
 local RARE_QUEST_PAIRS = {
-	{ 256631, 98353, 93829, "Big Mon" },
-	{ 257906, 98352, 94619, "Coin-Eye Skully" },
-	{ 258920, 98351, 94860, "Nar'zira" },
-	{ 261109, 98354, 95447, "Sss'alik, The Rotten Claw" },
-	{ 264854, 98344, 96491, "Farthik the Plunderer" },
-	{ 265237, 98347, 96456, "Lockjaw the Snapper" },
-	{ 268049, 98345, 97112, "Siltmouth, the Unflappable" },
+	{ 256631, 98353, 93829, "Big Mon" }, -- band A measured by us, 13 Aug
+	{ 257906, 98352, 94619, "Coin-Eye Skully" }, -- band A measured by us, 13 Aug
+	{ 258920, 98351, 94860, "Nar'zira" }, -- band A measured by us, 13 Aug
+	{ 261109, 98354, 95447, "Sss'alik, The Rotten Claw" }, -- band A measured by us, 13 Aug
+	{ 264854, 98344, 96491, "Farthik the Plunderer" }, -- band A measured by us, 13 Aug
+	{ 265237, 98347, 96456, "Lockjaw the Snapper" }, -- band A measured by us, 13 Aug
+	{ 268049, 98345, 97112, "Siltmouth, the Unflappable" }, -- band A measured by us, 13 Aug
+	-- The five our data rows carry as questID 0. Both columns are HandyNotes'; the only
+	-- thing measured here is Destra's 95452, which flipped on Rob's kill (6 Sep 2026).
+	{ 261142, 98355, 95452, "Destra" },
+	{ 258916, 98350, 94856, "Garsecg" },
+	{ 265262, 98348, 96464, "Hisstara" },
+	{ 268090, 98346, 97122, "Kari'zah the Forgotten" },
+	{ 263456, 98349, 96030, "Szarith the Fanged" },
+	-- The two with no achievement criterion. Band A here is NOT 98xxx — HandyNotes puts
+	-- their reputation quests in a separate 969xx run, which is itself a reason to doubt
+	-- that "band A" is one thing.
+	{ 255927, 96969, 93722, "Venom Lancer Ori'kassi" },
+	{ 255087, 96970, 93673, "Malformed Leviathan" },
 }
 
---- ⚠️ ANSWERED 13 Aug 2026 — OUR BAND IS THE WEEKLY ONE. Kept for the next zone.
+--- 🔴 REOPENED 6 Sep 2026. This block said ANSWERED for three weeks and a single kill
+--- contradicted it. Rob took a `/mh questsnap` on the Coiled Isle, killed **Destra**, and
+--- diffed: three ids flipped, one of them **95452** — which is HandyNotes' band B for
+--- exactly that rare. Band A's 98355 did **not** flip. That is the mirror image of the
+--- 13 Aug result recorded below, where band A fired and band B stayed false.
+---
+--- Both readings cannot be complete. Three explanations survive and none is measured:
+---   1. Both bands fire, at different moments or under conditions we have not isolated,
+---      and each measurement caught only one of them.
+---   2. Band A is weekly and 98355 was ALREADY set before the snapshot (an earlier kill
+---      this week) — but then band B's 95452 should have been set by that same kill.
+---   3. The bands are not two bands at all. HandyNotes files Venom Lancer and Malformed
+---      Leviathan's "band A" as 96969/96970 rather than 98xxx, so the tidy 98344..98355
+---      run may be a coincidence of ordering rather than a category.
+---
+--- ⚠️ Do NOT fill the four questID-0 data rows from the table above until this is settled.
+--- The 98344..98355 sequence is consecutive and our eight sit in it exactly, which makes
+--- the four gaps look certain — and that is precisely the shape of an inference wearing a
+--- measurement's clothes. `/mh rarequests` now covers all twelve isle rares in both bands;
+--- run it on a character with kills behind it and the answer is one screen away.
+---
+--- ⚠️ SUPERSEDED — the 13 Aug reading, kept because it is real data, not because it holds.
 ---
 --- We measured 98344..98354 on the PTR: kill a rare, watch which id flips. HandyNotes
 --- tracks the same rares with 93829..97122, and their Farthik entry carries ours as the
@@ -379,6 +429,13 @@ local RARE_QUEST_PAIRS = {
 --- Left in place because the next zone will raise this again, and because it reports
 --- rather than decides: what "done this week" means for nine rares is not a call to
 --- make from an inference.
+---
+--- 📌 What of that survives 6 Sep, stated separately because the two halves have very
+--- different support. **Band A resets weekly: still standing.** Six zones reading 0/15
+--- the day after a reset is not something a permanent flag can do, and Destra's kill
+--- says nothing against it. **"Band B never fires": dead.** It rested on two kills in a
+--- two-day-old zone — the same too-short-history objection this block raises about
+--- itself two paragraphs up, applied to band A but not to band B.
 --------------------------------------------------------------------------------
 -- `/mh questsnap` — find the quest id a rare actually sets when you kill it
 --------------------------------------------------------------------------------
@@ -493,7 +550,7 @@ function ns.PrintRareQuestProbe()
 	end
 
 	local rows, oursDone, theirsDone = {}, 0, 0
-	print(("%s rare quest ids — ours vs HandyNotes, for %d rares:"):format(
+	print(("%s rare quest ids — band A vs band B, for %d rares:"):format(
 		prefix, #RARE_QUEST_PAIRS))
 	for _, p in ipairs(RARE_QUEST_PAIRS) do
 		local npc, ours, theirs, name = p[1], p[2], p[3], p[4]
@@ -504,16 +561,18 @@ function ns.PrintRareQuestProbe()
 		if b:find("done") then
 			theirsDone = theirsDone + 1
 		end
-		print(("   %-26s ours %d %-18s HN %d %s"):format(name:sub(1, 26), ours, a, theirs, b))
+		print(("   %-26s A %d %-18s B %d %s"):format(name:sub(1, 26), ours, a, theirs, b))
 		rows[#rows + 1] = {
 			npc = npc, name = name, ours = ours, theirs = theirs,
 			oursDone = a:find("done") ~= nil, theirsDone = b:find("done") ~= nil,
 		}
 	end
-	print(("   |cffffd100%d of %d done on our band, %d of %d on theirs.|r"):format(
+	print(("   |cffffd100%d of %d done on band A, %d of %d on band B.|r"):format(
 		oursDone, #RARE_QUEST_PAIRS, theirsDone, #RARE_QUEST_PAIRS))
-	print("   |cff8a8f98Run this on a character that killed some of these in an EARLIER week:|r")
-	print("   |cff8a8f98the weekly band resets, a one-off reputation quest does not.|r")
+	print("   |cff8a8f98A rare you killed THIS WEEK should read done on whichever band is|r")
+	print("   |cff8a8f98the weekly one. Destra flipped B on 6 Sep and not A -- if the rares|r")
+	print("   |cff8a8f98you killed since read done on A and not B, the two disagree and|r")
+	print("   |cff8a8f98neither band alone can be trusted yet. Report the whole screen.|r")
 
 	--- ⚠️ THE COILED ISLE ALONE CANNOT ANSWER THIS, so the older zones come too.
 	---
