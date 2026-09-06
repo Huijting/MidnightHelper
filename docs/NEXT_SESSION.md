@@ -73,6 +73,28 @@ inhoud in), `UI.lua` infoBody, `ProfessionGuided`, `LayoutWizard`.
 ⚠️ **De linter ving een fout van míj**: `FitFoot` stond onder de resize-handler die hem aanroept, dus
 daar was hij `nil`. Check [6] zag het vóór Rob het kon zien.
 
+#### 🔴 6 sep, correctie — een plafond op de RESERVERING is geen plafond op de TEKST
+
+Rob sleepte het paneel op zijn kleinst en de overlap kwam meteen terug, mét screenshot.
+
+**Mijn eerste plafond was fout, en het commentaar erboven beweerde iets onwaars:** er stond dat de
+voet "dan afgekapt wordt". **Een FontString kapt zichzelf niet af.** Verankerd aan de onderkant met
+word wrap groeit hij gewoon door naar boven, voorbij wat het scrollgebied gekregen heeft. Ik had de
+overlap dus **verplaatst**, niet weggenomen.
+
+📊 Doorgerekend op `MIN_H`: de voet wil ~107px, mijn plafond gaf 60 — die overige 47 landden op de
+slot-tekst. Precies de screenshot.
+
+✅ **Nu wordt het REGELAANTAL begrensd** (`SetMaxLines`), en de reservering begrensd om dat te
+volgen. Dan zijn de tekening én de ruimte allebei eindig, en zijn ze het met elkaar eens. Ontbreekt
+`SetMaxLines` op een client, dan valt hij terug op "reserveer wat de voet vraagt" — lelijker in een
+piepklein venster, maar nooit een overlap.
+
+📌 **De les is niet "meten in plaats van reserveren"** — dat deed ik al. Het is dat een grens op de
+ene helft van een paar (ruimte) niets zegt over de andere helft (tekst), en dat een commentaarregel
+die "dan wordt het afgekapt" beweert zonder dat iemand dat heeft laten gebeuren, precies zo'n claim
+is waar dit bestand vol waarschuwingen over staat.
+
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 
 De API-wachter vond het enige punt uit de hele 12.1.5-reeks dat op live een **echte Lua-fout**

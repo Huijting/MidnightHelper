@@ -223,6 +223,32 @@ function FitFoot(f)
 	if not (f and f._foot and f._scroll) then
 		return
 	end
+	--- 🔴 A CAP ON THE RESERVED SPACE IS NOT A CAP ON THE TEXT — corrected 6 Sep 2026, after
+	--- Rob dragged the panel to its smallest and the overlap came straight back.
+	---
+	--- The first version of this reserved at most half the frame and the comment claimed the
+	--- foot would "get clipped instead". **A FontString does not clip itself.** Anchored to
+	--- the bottom with word wrap, it simply keeps growing upward past whatever the scroll
+	--- frame was given — so capping the reservation moved the overlap rather than removing
+	--- it. At MIN_H the foot wants ~107px and the cap allowed 60; the other 47 landed on the
+	--- slot text, which is exactly the screenshot Rob sent.
+	---
+	--- ⚠️ So the LINE COUNT is what gets bounded, with `SetMaxLines`, and the reservation is
+	--- bounded to match. Then both the drawing and the space are finite and they agree.
+	--- Guarded because a missing `SetMaxLines` must not error; without it we fall back to
+	--- reserving what the foot asks for, which is the pre-cap behaviour — worse layout in a
+	--- tiny window, never an overlap.
+	local avail = (f:GetHeight() or DEF_H) - PAD - TITLE_H
+	local budget = math.max(FOOT_H, avail * 0.5)
+	local clipped = false
+	if f._foot.SetMaxLines then
+		local lh = (f._foot.GetLineHeight and f._foot:GetLineHeight()) or 0
+		if lh > 0 then
+			f._foot:SetMaxLines(math.max(1, math.floor((budget - 22) / lh)))
+			clipped = true
+		end
+	end
+
 	local h = f._foot:GetStringHeight() or 0
 	if h <= 0 then
 		-- Empty foot (the "nothing to show" branch): give the scroll the space back
@@ -233,20 +259,10 @@ function FitFoot(f)
 	-- 14 is the foot's own bottom offset; the rest is breathing room between the last
 	-- scrolled line and the first wrapped foot line.
 	local want = math.max(FOOT_H, h + 22)
-	--- ⚠️ AND A CEILING, because the player can drag this window shorter than the foot.
-	--- Yberamos named the mechanism himself: *"the text ... is anchored to the bottom of the
-	--- screen and the text 'you have: ...' ignores it. Therefore, if the window is too short,
-	--- they overlap."* Exactly right — and it means the foot's demand is unbounded while the
-	--- frame's height is not. Without this cap a long foot in a short window would leave the
-	--- scroll area zero or negative pixels tall, which trades an overlap for a panel with no
-	--- content in it at all.
-	---
-	--- 📌 Half the frame is the line. Past that the foot gets clipped instead, which is the
-	--- honest failure: the slots are what the player opened this for, and the foot is a
-	--- disclaimer they can read by making the window taller.
-	local avail = (f:GetHeight() or DEF_H) - PAD - TITLE_H
-	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12),
-		math.min(want, math.max(PAD, avail * 0.5)))
+	if clipped then
+		want = math.min(want, budget)
+	end
+	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), want)
 end
 
 --- Redraw from the tree. Returns false when there is nothing honest to show.
