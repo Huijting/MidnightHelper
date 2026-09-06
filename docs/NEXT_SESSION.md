@@ -38,10 +38,40 @@ van de tekst, en verschuift de onderrand van het scrollgebied mee. De lege-voet-
 terug in plaats van een gat van 44px onder een regel tekst. Het venster is schaalbaar en de grip
 draait de layout opnieuw bij loslaten, dus smaller maken hermeet vanzelf.
 
-⚠️ **Niet gerepareerd, wel het overwegen waard:** dit zal in de vijf vertaalde talen erger zijn dan
-in het Engels — Duits en Frans lopen makkelijk 30% langer. Yberamos zag hem op **enUS**, dus de
-Engelse tekst alleen al is te lang voor 44px. Een zoektocht naar andere vaste `*_H`-constanten die
-een tekstvoet dragen is waarschijnlijk goedkoper dan de vierde melding.
+📌 **Yberamos noemde het mechanisme zelf**, en dat scheelde een middag: *"the text ... is anchored
+to the bottom of the screen and the text 'you have: ...' ignores it. Therefore, if the window is too
+short, they overlap."* Precies goed — en het voegt iets toe dat ik niet had: het gaat niet alleen om
+de lengte van de voet, maar net zo goed om de **hoogte van het venster**. Vandaar ook een plafond in
+`FitFoot`: past de voet niet in de helft van het venster, dan wordt hij afgekapt in plaats van dat
+hij de hele inhoud opeet.
+
+📌 **En Robs eigen test vond een gat in mijn fix:** hij herberekende alleen bij het lóslaten van de
+resize-grip, niet tijdens het slepen. Nu ook op `OnSizeChanged` — `FitFoot` is één meting en één
+`SetPoint`, goedkoop genoeg om live te draaien waar een volledige hertekening dat niet is.
+
+### ✅ 6 sep — de sweep: één tweede geval, de rest schoon
+
+Rob vroeg om de zoektocht meteen te doen in plaats van op melding vier te wachten. Gezocht op de
+échte vorm — een **woordwrappende tekst verankerd aan de onderkant**, met inhoud erboven die een
+vast getal als reservering gebruikt. Acht kandidaten, één echt geval:
+
+🔴 **`DelveCuriosAdvisor.lua` — de curio-popup, `SetSize(POPUP_WIDTH, 180)`.** Vaste hoogte, met een
+wrappende `hint` die naar beneden groeit en een wrappende `reason` die vanaf de onderrand omhoog
+groeit. Geen van beide gemeten. Doorgerekend: `10 + 22 + 4 + hint + 6 + 60 + 8 + reason + 12`. Twee
+tweeregelige teksten ≈ 170 (past); drie regels elk ≈ 194 (past niet).
+📌 **Het faalgeval is een vertaalde client op de nemesis-variant** — die tekst schuift een itemnaam
+in de zin, en de/fr/it lopen langer dan het Engels waarin dit ooit met het oog is afgestemd. Precies
+het soort geval dat niemand hier ooit ziet.
+✅ Gerepareerd met dezelfde discipline als `MidnightToast`: **alleen groeien** (`math.max(180, …)`),
+dus elke popup die vandaag past houdt de maat die hij altijd had.
+
+✅ **Schoon bevonden, met reden:** `MidnightToast` mét `GetStringHeight` (groeit al — en dat is
+belangrijk, want ík heb die tekst gisteren langer gemaakt), `DelveItemsPopup` (knoplabel binnen een
+host), `VaultAdvisor` (`_token`/`_voidcore` stapelen naar boven vanaf de onderrand, niet tegen
+inhoud in), `UI.lua` infoBody, `ProfessionGuided`, `LayoutWizard`.
+
+⚠️ **De linter ving een fout van míj**: `FitFoot` stond onder de resize-handler die hem aanroept, dus
+daar was hij `nil`. Check [6] zag het vóór Rob het kon zien.
 
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 

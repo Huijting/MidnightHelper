@@ -48,6 +48,32 @@ local SLOT_HEAD_H = 20
 local LINE_H = 17
 local SLOT_GAP = 10
 local FOOT_H = 44
+--- 🔴 MEASURE THE FOOT, DO NOT RESERVE A NUMBER FOR IT — 6 Sep 2026, and it is the third
+--- time this exact fault has shipped.
+---
+--- Yberamos, our first bug report from Discord, sent a screenshot through `/mh report`: the
+--- foot text of this panel drawn straight through the last slot's lines. `FOOT_H = 44` is a
+--- constant, and the scroll frame's bottom edge was pinned to it — but the foot's LENGTH is
+--- decided at draw time. When any slot carries a `>>` note the foot gains
+--- `CURIO_NOTE_DISCLAIMER`, roughly 250 characters together, which at this width wraps to six
+--- or seven lines. Everything past 44 pixels grows up into the scrolling area.
+---
+--- 📌 Yberamos named the mechanism himself, which is why this was ten minutes rather than an
+--- afternoon: *"the text ... is anchored to the bottom of the screen and the text 'you have:
+--- ...' ignores it. Therefore, if the window is too short, they overlap."*
+---
+--- 📌 SAME FAULT, THIRD PANEL. Professions → Overview drew two paragraphs over each other for
+--- exactly this reason (fixed 30 Aug, shipped in 3.7.3), and the changelog window reserved
+--- 100px for a footer it had never measured (`2d37151`). The pattern is a fixed height
+--- standing in for text nobody has laid out yet, and it stays invisible until a longer
+--- sentence — or a longer language — arrives.
+---
+--- ⚠️ DECLARED HERE, above the frame builder, because the resize handler in it calls this.
+--- Written first as a `local function` further down, where the handler's reference resolved
+--- to a nil global — caught by lint check [6] rather than by Rob.
+--- @param f table the panel frame
+local FitFoot
+
 local MIN_W, MIN_H = 240, 160
 local MAX_W, MAX_H = 620, 900
 local DEF_W, DEF_H = 320, 300
@@ -148,6 +174,16 @@ local function EnsurePanel()
 	grip:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
 	grip:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
 	grip:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down")
+	--- ⚠️ RE-MEASURE WHILE DRAGGING, not only on release — Rob, 6 Sep 2026, testing the fix
+	--- that had just landed: *"wanneer ik de panel resize rechts onderin dan overlapt het
+	--- inderdaad"*. The grip's OnMouseUp re-runs the whole layout, so letting go corrects it;
+	--- but a narrower window rewraps the foot on every frame of the drag, and until you
+	--- release it is drawn through the text above. `FitFoot` alone is cheap — one
+	--- GetStringHeight and one SetPoint — so it can run live where a full redraw could not.
+	f:SetScript("OnSizeChanged", function(self)
+		FitFoot(self)
+	end)
+
 	grip:SetScript("OnMouseDown", function()
 		f:StartSizing("BOTTOMRIGHT")
 	end)
@@ -183,27 +219,7 @@ local function LineAt(f, index)
 	return fs
 end
 
---- 🔴 MEASURE THE FOOT, DO NOT RESERVE A NUMBER FOR IT — 6 Sep 2026, and it is the third
---- time this exact fault has shipped.
----
---- Yberamos, our first bug report from Discord, sent a screenshot through `/mh report`: the
---- foot text of this panel drawn straight through the last slot's lines. `FOOT_H = 44` is a
---- constant, and the scroll frame's bottom edge was pinned to it — but the foot's LENGTH is
---- decided at draw time. When any slot carries a `>>` note the foot gains
---- `CURIO_NOTE_DISCLAIMER`, roughly 250 characters together, which at this width wraps to six
---- or seven lines. Everything past 44 pixels grows up into the scrolling area.
----
---- 📌 SAME FAULT, THIRD PANEL. Professions → Overview drew two paragraphs over each other for
---- exactly this reason (fixed 30 Aug, shipped in 3.7.3), and the changelog window reserved
---- 100px for a footer it had never measured (`2d37151`). The pattern is a fixed height
---- standing in for text nobody has laid out yet, and it stays invisible until a longer
---- sentence — or a longer language — arrives.
----
---- ⚠️ So this asks the FontString how tall it actually became, after the text is set. The
---- panel is resizable and the grip re-runs the layout on mouse-up, so a narrower window
---- rewraps and re-measures on its own.
---- @param f table the panel frame
-local function FitFoot(f)
+function FitFoot(f)
 	if not (f and f._foot and f._scroll) then
 		return
 	end
@@ -216,7 +232,21 @@ local function FitFoot(f)
 	end
 	-- 14 is the foot's own bottom offset; the rest is breathing room between the last
 	-- scrolled line and the first wrapped foot line.
-	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), math.max(FOOT_H, h + 22))
+	local want = math.max(FOOT_H, h + 22)
+	--- ⚠️ AND A CEILING, because the player can drag this window shorter than the foot.
+	--- Yberamos named the mechanism himself: *"the text ... is anchored to the bottom of the
+	--- screen and the text 'you have: ...' ignores it. Therefore, if the window is too short,
+	--- they overlap."* Exactly right — and it means the foot's demand is unbounded while the
+	--- frame's height is not. Without this cap a long foot in a short window would leave the
+	--- scroll area zero or negative pixels tall, which trades an overlap for a panel with no
+	--- content in it at all.
+	---
+	--- 📌 Half the frame is the line. Past that the foot gets clipped instead, which is the
+	--- honest failure: the slots are what the player opened this for, and the foot is a
+	--- disclaimer they can read by making the window taller.
+	local avail = (f:GetHeight() or DEF_H) - PAD - TITLE_H
+	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12),
+		math.min(want, math.max(PAD, avail * 0.5)))
 end
 
 --- Redraw from the tree. Returns false when there is nothing honest to show.

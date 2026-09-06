@@ -746,7 +746,26 @@ function ns.RefreshDelveCurioAdvisor()
 				popupFrame._reason:SetText(ns:L("DELVE_CURIO_POPUP_WHY"))
 			end
 		end
-		popupFrame:SetSize(POPUP_WIDTH, 180)
+		--- 🔴 SECOND INSTANCE OF THE 6 SEP OVERLAP, found by sweeping for it rather than
+		--- waiting for a report. `180` was a fixed height with a wrapping hint growing DOWN
+		--- from the title and a wrapping reason growing UP from the bottom edge. Neither was
+		--- measured, so the gap between them is whatever is left over.
+		---
+		--- 📌 Counted: 10 pad + 22 title bar + 4 + hint + 6 + 60 body + 8 + reason + 12. Two
+		--- two-line texts come to ~170 and fit; three lines each comes to ~194 and does not.
+		--- The nemesis branch substitutes an item name into its sentence, and German, French
+		--- and Italian run longer than the English this was eyeballed in — so the failing
+		--- case is a translated client on the nemesis variant, which is exactly the kind
+		--- nobody here would ever see.
+		---
+		--- ⚠️ ONLY EVER GROWS, the same discipline as MidnightToast's height: every popup
+		--- that fits today keeps the size it has always had, so this cannot regress a layout
+		--- that is already right.
+		local hintH = (popupFrame._hint and popupFrame._hint:GetStringHeight()) or 0
+		local reasonH = (popupFrame._reason and popupFrame._reason:GetStringHeight()) or 0
+		local needed = 10 + 22 + 4 + math.ceil(hintH) + 6
+			+ ((P_LINE_H * 2) + P_LINE_GAP) + 8 + math.ceil(reasonH) + 12
+		popupFrame:SetSize(POPUP_WIDTH, math.max(180, needed))
 	end
 end
 
