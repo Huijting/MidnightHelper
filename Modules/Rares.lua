@@ -379,6 +379,103 @@ local RARE_QUEST_PAIRS = {
 --- Left in place because the next zone will raise this again, and because it reports
 --- rather than decides: what "done this week" means for nine rares is not a call to
 --- make from an inference.
+--------------------------------------------------------------------------------
+-- `/mh questsnap` — find the quest id a rare actually sets when you kill it
+--------------------------------------------------------------------------------
+
+--- 🔴 WHY THIS EXISTS — 6 Sep 2026. Four Coiled Isle rares (Garsecg, Destra, Hisstara,
+--- Kari'zah) are recorded with **questID 0**, so nothing can tell whether they are done THIS
+--- WEEK. On 15 Aug that gap was filled with an achievement criterion, which is permanent and
+--- therefore answers a different question — it hid those four from every route forever, and
+--- that is the bug this tool exists to end properly.
+---
+--- 📌 `PrintRareQuestProbe` cannot help: it compares ids we already know against HandyNotes'.
+--- Discovering an unknown id needs the world to change while we watch. So: snapshot every
+--- completed quest id in the Midnight band, go kill the rare, snapshot again, and print what
+--- flipped. Whatever appears IS the id, measured rather than looked up.
+---
+--- ⚠️ ROB'S OWN CORRECTION, and it sharpens the instructions: the three isle rares he has
+--- left are the ones open for his ACHIEVEMENT, which is not the same as open for the week on
+--- this character. If a kill flips nothing, that rare's weekly was already done — try the
+--- next one rather than concluding the tool is broken. That is exactly the distinction the
+--- addon currently cannot make, so it cannot pre-select for you either.
+local QUEST_SCAN_LOW, QUEST_SCAN_HIGH = 84000, 106000
+
+--- @return table|nil set of completed quest ids, nil when the API is missing
+local function ScanCompletedQuests()
+	local flagged = C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted
+	if not flagged then
+		return nil
+	end
+	local out, n = {}, 0
+	for id = QUEST_SCAN_LOW, QUEST_SCAN_HIGH do
+		local ok, done = pcall(flagged, id)
+		if ok and done then
+			out[id] = true
+			n = n + 1
+		end
+	end
+	return out, n
+end
+
+local function QuestLabel(id)
+	if C_QuestLog and C_QuestLog.GetTitleForQuestID then
+		local ok, title = pcall(C_QuestLog.GetTitleForQuestID, id)
+		if ok and type(title) == "string" and title ~= "" then
+			return title
+		end
+	end
+	return "?"
+end
+
+--- `/mh questsnap` — remember which quests are complete right now.
+function ns.RareQuestSnapshot()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	local ids, n = ScanCompletedQuests()
+	if not ids then
+		print(prefix .. " IsQuestFlaggedCompleted is unavailable on this client.")
+		return
+	end
+	ns.db = ns.db or {}
+	--- Kept in SavedVariables on purpose: the whole point is to survive the flight to the
+	--- rare, and a /reload in between must not throw the measurement away.
+	ns.db.questSnap = { ids = ids, low = QUEST_SCAN_LOW, high = QUEST_SCAN_HIGH }
+	print(("%s snapshot taken: %d completed quests between %d and %d."):format(
+		prefix, n, QUEST_SCAN_LOW, QUEST_SCAN_HIGH))
+	print("   |cff8a8f98Ga nu de rare doden en typ daarna /mh questsnap diff.|r")
+	print("   |cff8a8f98Flipt er niets, dan was die rare deze week al gedaan — probeer een andere.|r")
+end
+
+--- `/mh questsnap diff` — what became complete since the snapshot?
+function ns.RareQuestSnapshotDiff()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	local prev = ns.db and ns.db.questSnap
+	if type(prev) ~= "table" or type(prev.ids) ~= "table" then
+		print(prefix .. " no snapshot yet — run /mh questsnap first.")
+		return
+	end
+	local ids = ScanCompletedQuests()
+	if not ids then
+		print(prefix .. " IsQuestFlaggedCompleted is unavailable on this client.")
+		return
+	end
+	local found = 0
+	for id in pairs(ids) do
+		if not prev.ids[id] then
+			found = found + 1
+			print(("   |cff40c040%d|r  %s"):format(id, QuestLabel(id)))
+		end
+	end
+	if found == 0 then
+		print(prefix .. " nothing flipped since the snapshot.")
+		print("   |cff8a8f98Die rare was deze week al gedaan, of hij zet geen quest-vlag.|r")
+		return
+	end
+	print(("%s %d quest id(s) flipped since the snapshot."):format(prefix, found))
+	print("   |cff8a8f98Eén daarvan is de rare. Andere regels kunnen een quest zijn die je|r")
+	print("   |cff8a8f98onderweg toevallig afmaakte — dus kijk naar de naam, niet alleen het getal.|r")
+end
+
 function ns.PrintRareQuestProbe()
 	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
 	local flagged = C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted

@@ -2646,6 +2646,21 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh questsnap [diff] — find the quest id a rare sets, by watching the world change.
+	-- Four Coiled Isle rares have no known id, which is why they were hidden from routes.
+	if msg == "questsnap" then
+		if ns.RareQuestSnapshot then
+			ns.RareQuestSnapshot()
+		end
+		return
+	end
+	if msg == "questsnap diff" then
+		if ns.RareQuestSnapshotDiff then
+			ns.RareQuestSnapshotDiff()
+		end
+		return
+	end
+
 	if msg == "rarescan" then
 		if ns.DebugRareScan then
 			ns.DebugRareScan()

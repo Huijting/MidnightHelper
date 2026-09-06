@@ -84,7 +84,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"livetips", "lock", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
 	"partytarget", "poison", "poisons", "portal", "portals", "potionkeys", "prey",
 	"profadvice", "profids", "profweekly", "ptr", "questdiff", "questgate", "questscan", "range",
-	"zonegate", "travelwhy",
+	"zonegate", "travelwhy", "questsnap",
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "setline", "shards", "shardtest", "shots", "showdown",

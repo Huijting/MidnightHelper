@@ -43,11 +43,19 @@ er één verzwijgen die openstaat.
 die op 15 aug tot deze code leidde. We ruilen dus de ene onvolkomenheid voor de andere — **maar de
 nieuwe is zichtbaar en de oude niet.**
 
-🔴 **NOG OP TE LOSSEN: hun échte quest-id vinden**, dan werken beide eigenschappen. `PrintRareQuestProbe`
-vergelijkt alleen bekende id's en kan er geen ontdekken. Wat het wél zou doen: een **voor/na-scan**
-rond een kill — snapshot van `IsQuestFlaggedCompleted` over een kandidaatbereik, rare doden, opnieuw
-scannen, verschil pakken. Rob heeft nog drie ongedode isle-rares deze week (Garsecg, Destra,
-Kari'zah), dus dat is nu meetbaar.
+✅ **GEREEDSCHAP GEBOUWD: `/mh questsnap` en `/mh questsnap diff`.** Snapshot van élke voltooide
+quest tussen 84000 en 106000, rare doden, opnieuw scannen, verschil printen mét questnaam. Wat er
+flipt ÍS het id — gemeten in plaats van opgezocht. De snapshot staat in SavedVariables, want hij
+moet de vlucht naar de rare en een eventuele `/reload` overleven.
+
+⚠️ **ROBS EIGEN CORRECTIE, en die staat in de instructies:** zijn drie overgebleven isle-rares zijn
+open voor zijn **achievement**, wat iets anders is dan open voor **de week op dit character**. Flipt
+een kill niets, dan was die weekly al gedaan — dan de volgende proberen, niet concluderen dat het
+gereedschap stuk is. Precies dat onderscheid kan de addon nu niet maken, dus hij kan ook niet
+voorselecteren.
+
+🔴 **Tijdgebonden:** na de reset van woensdag zijn deze vier weer open en is de meting opnieuw te
+doen — maar alleen als iemand hem dan doet.
 
 ### ❌ 6 sep — farm-modus voor rares: GEBOUWD EN WEGGEGOOID vóór de commit
 
