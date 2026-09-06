@@ -13,6 +13,13 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+🔴 **EN DE EMOJI IN EEN KOPREGEL IS DE ONBETROUWBAARSTE PLEK VAN ALLEMAAL — 6 sep, derde keer.**
+Rob vroeg wat er nog openstond; ik las de 🔴-kopjes en meldde de Home-kop en de levelgrenzen als
+open. Ze waren allebei al af — dat stond gewoon in de tekst erónder, die ik niet gelezen had. Een
+kopregel wordt geschreven op het moment dat het probleem gevonden wordt en daarna zelden aangeraakt;
+de body groeit wél mee. **De body regeert, de kop is een momentopname.** Verandert de status, draai
+dan ook de emoji om — en wie een openstaande-lijst maakt, leest de bodies.
+
 ## ✅ 6 sep — Spec 32 uitgevoerd: vijf Druid-keybinds erbij, ID-migratie begonnen
 
 `/mhautomap` op Robs Guardian schreef 16 spells als `unmatched` weg. Vijf daarvan waren echte
@@ -1098,7 +1105,7 @@ spawn (`RARE_ALERT_TTL`). "Er toevallig overheen vliegen" op hoogte kan makkelij
 yard vallen. Dat is een afweging, geen bug — maar als Rob vaker meldt dat hij er langs vloog zonder
 ping, is die 500 het getal om te bespreken en niet de matcher.
 
-### 🔴 5 sep — Dundun is niet altijd een boom, en dat stond in zeven talen fout
+### ✅ 5 sep — Dundun is niet altijd een boom, en dat stond in zeven talen fout — HERSCHREVEN
 
 Carola, via Rob: *"de DUNDUN in haar delve was niet een boom maar een Paal."* Geen screenshot, wel
 een eigen waarneming in het spel.
@@ -1710,7 +1717,7 @@ niet.** `tip_audit` kijkt alleen naar DBM, en DBM geeft ID's en cues maar niet w
 DOEN. Zygor geeft precies dat, lokaal en machinaal leesbaar — dezelfde eis waaraan MythicDungeonTools
 voldeed. Kandidaat voor een tweede bron in de audit.
 
-## 🔴 3 sep — de Home-kop beval endgame aan op een level 68, en het was één operator
+## ✅ 3 sep — de Home-kop beval endgame aan op een level 68 — GEREPAREERD, drie kleine resten onderaan
 
 Rob, op een level-68 Paladin: *"onze MH laat dingen zien die we nog helemaal niet kunnen doen
 (toch??)"*. Ja. Vier agenten erop gezet — één die alleen mat, twee die het oneens moesten zijn, één
