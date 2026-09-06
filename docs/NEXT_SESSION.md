@@ -182,6 +182,29 @@ gebruiker meldde.
 plaats van hem te betwijfelen. Rob dwong het af door te blijven meten op maten die ik niet had
 geprobeerd.
 
+✅ **BEVESTIGD op de kleinste maat**: inhoud netjes afgeknipt op de scrollrand, voet eronder
+weggescrold, geen overlap.
+
+#### 💡 6 sep — Robs vraag erna, en hij raakt een echt gat
+
+*"Kan het komen dat iedereen de schermen groter en kleiner kan scrollen, net zoals de tekstgrootte?"*
+
+📌 **Voor de oude constructie: ja, en dat was precies de reden dat hij zo bros was.** Een grotere
+UI-schaal of een groter lettertype maakt de voet hoger terwijl `FOOT_H = 44` een constante bleef —
+dus elke speler met een andere schaal dan de onze zat dichter bij de overlap. De nieuwe opzet is
+daar ongevoelig voor: hoe hoog de voet ook wordt, hij is gewoon een rij in de inhoud.
+
+🔴 **En het legde een aparte inconsistentie bloot. GEMETEN:** dit paneel gebruikt kale
+Blizzard-fonts (`GameFontNormal`, `GameFontHighlight`, `GameFontHighlightSmall`) en **niet**
+`ns.MHScalableFont`. De tekstgrootte-schuif in onze eigen instellingen doet hier dus **niets**,
+terwijl het hoofdvenster hem wél volgt. Wie zijn tekst groter zet, krijgt een hoofdvenster dat
+meegroeit en een curio-paneel dat blijft zoals het was.
+
+⚠️ **Nog niet gerepareerd, bewust.** Het is één regel per FontString, maar het verandert het
+uiterlijk voor iedereen, en dit paneel heeft vandaag al zes rondes gehad. 📌 De volgorde is wel
+gunstig: vóór de verhuizing zou een groter lettertype de overlap juist vaker hebben getriggerd,
+nu kan het hooguit meer scrollen kosten.
+
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 
 De API-wachter vond het enige punt uit de hele 12.1.5-reeks dat op live een **echte Lua-fout**
