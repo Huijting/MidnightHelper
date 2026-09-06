@@ -64,17 +64,39 @@ Voeg hem toe zodra iemand hem getalenteerd heeft, of laat hem staan tot dan.
 | `Rake`, `Shred`, `Ferocious Bite`, `Wrath` | Feral/Balance-spells die een Guardian kent maar niet gebruikt |
 | `Auto Attack`, `Revive Battle Pets`, `Teleport: Moonglade`, `Anomaly Detection Mark I`, `Find High-Value Beasts`, `Mechanism Bypass` | ruis: beroepen, speeltjes, Warband |
 
-### 🔴 Losse vondst: toets `1` is leeg
+### 🔴→✅ INGETROKKEN: "toets 1 is leeg"
 
-In de 27 geplaatste spells zit **geen `1`**. De volgorde is `Shift+1` Swipe, `2` Mangle,
-`3` Thrash, `4` Maul, `5` Moonfire — terwijl `Mangle` in de data op `main_rotation` **priority 1**
-staat en dus de eerste builder-toets hoort te krijgen.
+Een eerdere versie van deze spec meldde als mogelijke bug dat er geen `1` bij de 27 geplaatste
+spells zat, met een off-by-one in de allocator als verdachte. **Dat was onterecht en is
+teruggetrokken.**
 
-⚠️ **Dit is een waarneming, geen diagnose.** Er zijn twee onschuldige verklaringen (slot 1
-gereserveerd voor Assisted Combat, of de allocator begint bewust op 2) en één vervelende (een
-off-by-one in de builder-toewijzing). `0 did not fit`, dus er is niets weggevallen. **Uitzoeken
-vóór je aan de tabel begint** — als de allocator een slot overslaat, verschuift het toevoegen van
-Lunar Beam alleen maar meer.
+`1` wordt **met opzet vrijgehouden** voor Blizzards Assisted Combat-knop
+(`Modules/KeybindSchema.lua:490-491`, `:667`), gedetecteerd via
+`C_ActionBar.IsAssistedCombatAction(slot)` (`:508-516`). En alléén de kale toets — vandaar dat
+`Shift+1` (Swipe) wél gevuld is:
+
+> `KeybindSchema.lua:845` — *"Only the BARE key is reserved. Rob asked for 'alleen de 1 knop'"*
+
+Rob bevestigde het los daarvan zelf: *"1 is altijd voor single button assist"*. Het gedrag is
+dus correct én het is precies wat hij gevraagd heeft. **Niets doen.**
+
+📌 De les is de bekende: de uitvoer zag er fout uit omdat ik het ontwerp niet kende. Eén grep op
+`reserved` in `KeybindSchema.lua` had de hele verdenking voorkomen. Zie
+[[read-the-working-example-whole]].
+
+### ⚠️ En "unclassified" betekent niet "de speler heeft geen toets"
+
+Rob, 6 sep: *"lunar beam heb ik in een macro zitten, vandaar dat jij hem niet ziet"*.
+
+Dat verandert niets aan het datagat — Lunar Beam hoort in de tabel, en zonder die entry kan de
+coach er niets over zeggen. Maar het corrigeert wél de schade-inschatting uit §1: **hij zat niet
+zonder knop.**
+
+🔴 **En het legt iets structureels bloot.** De coach leest de spellbook en de actiebalken; wat
+er ín een macro staat leest hij niet. Een speler die zijn halve rotatie in macro's heeft, krijgt
+dus advies over knoppen die hij allang gebonden heeft. Dat is geen bug in deze spec, maar het is
+wel de reden om de toon van de coach te controleren: **"deze staat nog nergens" is een bewering
+die we niet kunnen waarmaken; "wij hebben hier geen plek voor" wel.** Apart uitzoeken waard.
 
 ---
 
