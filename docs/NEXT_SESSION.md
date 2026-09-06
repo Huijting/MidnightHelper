@@ -1,5 +1,29 @@
 # Midnight Helper — waar we staan
 
+## 📅 MORGEN — vier dingen, in deze volgorde
+
+Afgesloten op 6 sep 's avonds. Werkmap schoon, linter 0 hard, `luac` schoon over 252 bestanden.
+
+1. 🔴 **`/mh rarequests` ná de reset van woensdag.** Staat band B dan weer op `--`, dan reset hij
+   wekelijks en is het rare-verhaal compleet. Staat hij nog aan, dan is band B **permanent** en
+   hebben we de achievement-criterium-bug van 15 aug in nieuwe kleren — dan biedt de addon een
+   eenmaal gekilde rare nooit meer aan. **Dit blokkeert de release**, zie punt 4.
+2. **`/mh sniff` in een Bountiful delve**, vóór je Dundun aanspreekt. Dit wordt Robs *tweede*
+   Dundun van de week op dat character (het keuzescherm-geval); hij verwacht zelf dat de melding
+   anders is dan bij de eerste. Volgorde: `/reload` → `/mh sniff` → delve in → `/mh sniff dump`.
+   Let op de gele `gossipOptionID`-regels: een getal overleeft een vertaling, een zin niet.
+3. **`/mhautomap` + `/reload` op Robs Shadow Priest.** `ns.db.autoMapDump` heeft één slot en dat is
+   door de Guardian-run overschreven, dus de acht ontbrekende Priest-spells uit Spec 32 §1c zijn
+   niet te verifiëren zoals de vijf druïde-ID's dat wél zijn. Eén run zet ze terug in bereik.
+4. **Dan pas beslissen over 3.8.1.** Er ligt genoeg: een gemelde Discord-bug plus een tweede
+   exemplaar ervan, en een rare-tabblad dat aantoonbaar het verkeerde vinkje las — dat laatste is
+   een echte gedragsverandering voor iedereen die alts speelt. ⚠️ **Niet uitbrengen vóór punt 1**:
+   valt die meting verkeerd, dan wil je die versie niet buiten hebben.
+
+📌 Kleiner en zonder haast: Szarith is de enige rare die niemand ooit gekilld heeft (id 96030
+ongetest), de 25 rares in Val/Naigtal hebben maar één bron voor hun id, en de keybind-coach leest
+geen macro's — een toonkwestie, geen datafout.
+
 ## 🔴 DIT BESTAND BIJWERKEN HOORT BIJ DE WIJZIGING, NIET ERNA
 
 Rob, 2 sep 2026: *"dit moet eigenlijk altijd gebeuren als er iets verandert, vind je niet?"*
