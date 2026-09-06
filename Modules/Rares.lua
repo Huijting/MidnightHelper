@@ -313,7 +313,7 @@ local COILED_ISLE = {
 		--- bosses below. ⚠️ The zero is now a WEAKER position than it was: HandyNotes'
 		--- 98346/98348/98349/98350 for these four complete a consecutive 98344..98355 run
 		--- that our own eight sit inside. Tempting, and still unmeasured. `/mh rarequests`
-		--- covers all twelve in both bands — settle it there before filling these in.
+		--- covers all fourteen in both bands — settle it there before filling these in.
 		---
 		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
 		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
@@ -403,7 +403,7 @@ local RARE_QUEST_PAIRS = {
 --- ⚠️ Do NOT fill the four questID-0 data rows from the table above until this is settled.
 --- The 98344..98355 sequence is consecutive and our eight sit in it exactly, which makes
 --- the four gaps look certain — and that is precisely the shape of an inference wearing a
---- measurement's clothes. `/mh rarequests` now covers all twelve isle rares in both bands;
+--- measurement's clothes. `/mh rarequests` now covers all fourteen isle rares in both bands;
 --- run it on a character with kills behind it and the answer is one screen away.
 ---
 --- ⚠️ SUPERSEDED — the 13 Aug reading, kept because it is real data, not because it holds.

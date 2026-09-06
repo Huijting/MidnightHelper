@@ -103,7 +103,7 @@ onderbouwd zijn:** *band A reset wekelijks* — zes zones die de dag na een rese
 permanent vinkje niet. *"Band B vuurt nooit"* is **dood**; dat stond op twee kills in een zone van
 twee dagen oud, precies het te-korte-historie-bezwaar dat diezelfde aantekening zelf formuleert.
 
-✅ **GEDAAN:** `/mh rarequests` dekt nu **alle twaalf** isle-rares in beide banden in plaats van
+✅ **GEDAAN:** `/mh rarequests` dekt nu **alle veertien** isle-rares in beide banden in plaats van
 zeven in één (`RARE_QUEST_PAIRS`), en de drie plekken die de ingetrokken conclusie als bewijs
 citeerden (`Rares.lua` 2×, `AtalUtekProbe.lua` 1×) zijn gecorrigeerd in dezelfde commit.
 
