@@ -209,6 +209,9 @@ scrollgebied — exact dezelfde "constante die de plaats inneemt van ongemeten t
 rondes kostte. Die string schalen zonder óók die reservering te meten zou de bug één anker hoger
 opnieuw bouwen. Staat als zodanig in de code.
 
+✅ **BEVESTIGD door Rob**: tekstgrootte verzetten laat het curio-paneel nu meegroeien, regels blijven
+uit elkaar, titel ongewijzigd.
+
 📌 **En één ding dat er nog bij hoorde:** `ns.ApplyContentFontScale` verandert het lettertype maar
 niet de layout eromheen. Een paneel dat zijn rijen op gemeten hoogte stapelt moet daarna opnieuw
 uitlijnen, anders staat het nieuwe font in de ruimte van het oude. De schuif ververst het
