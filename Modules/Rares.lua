@@ -235,10 +235,10 @@ local COILED_ISLE = {
 	label = "The Coiled Isle",
 	shortLabel = "Coiled Isle",
 	rares = {
-		{ 98347, 2512, 31.72, 56.82, "Lockjaw the Snapper", 265237, ach = 63358, crit = 115284 },
-		{ 98354, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109, ach = 63358, crit = 115287 },
-		{ 0, 2512, 46.99, 62.23, "Malformed Leviathan", 255087 }, -- elite; EVENT, no kill quest of its own
-		{ 98353, 2512, 70.03, 63.44, "Big Mon", 256631, ach = 63358, crit = 115286 },
+		{ 96456, 2512, 31.72, 56.82, "Lockjaw the Snapper", 265237, ach = 63358, crit = 115284, acct = 98347 },
+		{ 95447, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109, ach = 63358, crit = 115287, acct = 98354 },
+		{ 93673, 2512, 46.99, 62.23, "Malformed Leviathan", 255087, acct = 96970 }, -- elite; ⚠️ id UNVERIFIED, see the band note
+		{ 93829, 2512, 70.03, 63.44, "Big Mon", 256631, ach = 63358, crit = 115286, acct = 98353 },
 		--- ✅ SETTLED 19 aug, AND NOBODY WAS WRONG. This was flagged that morning as the
 		--- island's biggest coordinate disagreement — ours 4.4 away from HandyNotes 154,
 		--- provably the same rare (npc 257906, criterion 115285). Rob targeted it and ran
@@ -261,8 +261,9 @@ local COILED_ISLE = {
 		--- The lesson is worth more than the rare: a disagreement between careful sources
 		--- can mean the thing being measured moves, not that someone measured badly. I
 		--- spent the morning deciding which file to distrust.
-		{ 98352, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906, ach = 63358, crit = 115285, roams = true },
-		{ 98345, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049, ach = 63358, crit = 115280 },
+		{ 94619, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906, ach = 63358, crit = 115285, roams = true, acct = 98352 },
+		-- 🔎 WATCHED on Rob's alt, 6 Sep: 97112 went from `--` to done on the kill that paid 50 shards.
+		{ 97112, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049, ach = 63358, crit = 115280, acct = 98345 },
 		--- ✅ 19 aug — HIJ SPAWNT NIET VANZELF. Rob: "deze rare verschijnt na het openen van
 		--- een kist". Zijn `/mh here` gaf 53.75/71.96 en dat is de KIST, niet de rare.
 		---
@@ -274,10 +275,10 @@ local COILED_ISLE = {
 		---
 		--- ⚠️ Zonder dat te zeggen sta je op de juiste plek en zie je niets — precies de
 		--- stilte die eruitziet als verouderde data. Vandaar `spawnKey`.
-		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854, ach = 63358, crit = 115279,
-			spawnKey = "RARE_SPAWN_FROM_CHEST" },
-		{ 0, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927 }, -- elite; not killed yet, id unknown
-		{ 98351, 2642, 66.40, 62.90, "Nar'zira", 258920, ach = 63358, crit = 115283 }, -- interior map
+		{ 96491, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854, ach = 63358, crit = 115279,
+			spawnKey = "RARE_SPAWN_FROM_CHEST", acct = 98344 },
+		{ 93722, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927, acct = 96969 }, -- elite; ⚠️ id UNVERIFIED
+		{ 94860, 2642, 66.40, 62.90, "Nar'zira", 258920, ach = 63358, crit = 115283, acct = 98351 }, -- interior map
 		--- Four rares our own lap never saw, from HandyNotes_Midnight 149 (13 Aug 2026)
 		--- — the source Rob has told us to trust for rare coordinates without
 		--- spot-checking. Its Coiled Isle file went from nothing to fourteen nodes with
@@ -333,10 +334,10 @@ local COILED_ISLE = {
 		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
 		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
 		--- that says 10/10 says nothing.
-		{ 98350, 2512, 70.17, 45.29, "Garsecg", 258916, ach = 63358, crit = 110172 }, -- WATCHED
-		{ 98355, 2512, 52.05, 32.29, "Destra", 261142, ach = 63358, crit = 115288 },
-		{ 98348, 2512, 43.85, 50.86, "Hisstara", 265262, ach = 63358, crit = 115281 },
-		{ 98346, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090, ach = 63358, crit = 115784 },
+		{ 94856, 2512, 70.17, 45.29, "Garsecg", 258916, ach = 63358, crit = 110172, acct = 98350 }, -- 🔎 WATCHED
+		{ 95452, 2512, 52.05, 32.29, "Destra", 261142, ach = 63358, crit = 115288, acct = 98355 }, -- 🔎 WATCHED
+		{ 96464, 2512, 43.85, 50.86, "Hisstara", 265262, ach = 63358, crit = 115281, acct = 98348 },
+		{ 97122, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090, ach = 63358, crit = 115784, acct = 98346 },
 		--- The Underbelly (map 2613), the level below the Vaults of Atal'Utek. One rare
 		--- there, from HandyNotes_Midnight 150 — coordinates taken, quest id not.
 		--- HandyNotes gives him two ids, 96030 and 98349. He now carries **98349**, the band
@@ -350,7 +351,7 @@ local COILED_ISLE = {
 		-- Stond op questID 0 én zonder NPC-id, dus kon zichzelf net zomin afvinken.
 		-- Hij telt voor twee achievements; 63358 is degene die deze tab bijhoudt.
 		-- Zijn Soft Underbelly-criterium (62601 / 113661) hoort bij die andere hunt.
-		{ 98349, 2613, 38.40, 17.69, "Szarith the Fanged", 263456, ach = 63358, crit = 115282 },
+		{ 96030, 2613, 38.40, 17.69, "Szarith the Fanged", 263456, ach = 63358, crit = 115282, acct = 98349 },
 	},
 }
 --- 2509 = Vaults of Atal'Utek, 2613 = the Underbelly beneath it. Both are children of
@@ -416,12 +417,21 @@ local RARE_QUEST_PAIRS = {
 ---      Leviathan's "band A" as 96969/96970 rather than 98xxx, so the tidy 98344..98355
 ---      run may be a coincidence of ordering rather than a category.
 ---
+--- ✅✅ SETTLED TWICE, and the second answer overturned the first. Read the note above
+--- `IsRareDoneThisWeek` first: band A is the ACCOUNT's weekly, band B is THIS CHARACTER's,
+--- and the reward follows band B. The data rows now carry band B in field [1] and band A in
+--- `acct`. Everything below is how we got there, kept because the route matters.
+---
 --- ✅ SETTLED the same evening, by reading 1. Rob snapshotted, killed **Garsecg** — the one
 --- rare that was `--` on BOTH bands, so a clean first kill with nothing already true to
 --- confuse it — and the two bands fired at different times:
 ---
 ---     `/mh questsnap diff`, seconds after the kill:  94856 Garsecg   (band B, alone)
 ---     `/mh rarequests`, a few minutes later:         A 98350 done · B 94856 done
+---
+--- ⚠️ "Band A lags" was the reading that evening and it is NOT what happens. Band B fired
+--- at the kill because the kill was on that character; band A followed because the account
+--- credit propagates behind it. Same observation, right cause found an hour later.
 ---
 --- Band A was still `--` at diff time and `done` shortly after. **Band A lags.** Every
 --- earlier reading falls into place: Destra's band A looked like it "failed to fire" that
@@ -1096,21 +1106,35 @@ end
 --- ⚠️ EN NIET VERWARREN MET DE ANDERE VONDST VAN DIE MIDDAG: een TWEEDE kill in dezelfde week
 --- geeft **geen** shard — ook door Rob gemeten, en het is de reden dat er géén "farm-modus"
 --- gebouwd is. Deze fix gaat over weken waarin de rare wél loont.
---- ⚠️ "THIS WEEK" IS RIGHT, "THIS CHARACTER" IS NOT — MEASURED 6 Sep 2026.
+--- 🔑 WHICH FLAG THIS READS, AND WHY — settled 6 Sep 2026, in three measurements.
 ---
---- Rob logged in on an alt that has never set foot on the Coiled Isle. It read the same
---- 11/14 as his main, **Garsecg included** — and Garsecg's flag had only come on that
---- afternoon, after a kill on the other character. A per-character flag cannot do that.
+--- Every Midnight rare carries TWO quest ids and they answer different questions:
 ---
---- Nothing here caches: this function asks `C_QuestLog.IsQuestFlaggedCompleted` and nothing
---- else, so what the alt showed was the client's own answer for the alt. The 98344..98355
---- band is therefore weekly (six zones cleared at the 13 Aug reset) AND account-wide.
+---     band A  98344..98355   your ACCOUNT did this rare this week
+---     band B  93673..97122   THIS CHARACTER did this rare this week
 ---
---- The three strings that claimed otherwise are rewritten in all seven locales. Keep the
---- distinction if you touch them: **weekly is measured, account-wide is measured, but
---- whether the REWARD is account-wide is not.** A second kill on the same character gives
---- no shard (5 Sep, measured); whether a fresh alt gets one from a rare the main already
---- did has never been tried.
+--- 1. Rob's alt, which has never set foot on the Coiled Isle, read band A as done for
+---    eleven rares — Garsecg included, whose flag had come on that afternoon after a kill
+---    on a different character. So band A crosses characters.
+--- 2. On that same alt, band B read done for exactly ONE rare: Siltmouth, the one it had
+---    just killed. On the main, band B read done for a different set. So band B does not.
+--- 3. 🔴 And the reward follows band B, not band A. The alt killed **Siltmouth while band
+---    A said done** and was paid **50 Coffer Key Shards**.
+---
+--- Point 3 is why field [1] is band B. Reading band A meant the panel greyed out, the
+--- route skipped, and the scanner stayed silent for rares an alt could still be paid for —
+--- three symptoms of one wrong question, and actively harmful to the one thing Rob was
+--- doing with this tab.
+---
+--- ⚠️ The `acct` field keeps band A beside it. Nothing reads it yet; it is there because
+--- it was measured and because "your other character already did this" is worth saying
+--- out loud one day.
+---
+--- 🔴 UNMEASURED, AND IT MATTERS ON WEDNESDAY: whether band B resets weekly. Until the
+--- reset both readings agree, so nothing here is at risk yet — but if band B turns out to
+--- be permanent, this becomes the 15 Aug achievement-criterion bug wearing new clothes and
+--- a rare killed once will never be offered again. `/mh rarequests` after Wednesday's reset
+--- answers it in one screen: band B should go back to `--`.
 local function IsRareDoneThisWeek(rareOrQuest)
 	local questId
 	if type(rareOrQuest) == "table" then

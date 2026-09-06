@@ -199,6 +199,42 @@ hier, want "ze zitten allemaal in één nette reeks" is geen bewijs over één e
 gevalideerde reeks, ze hebben geen achievement-criterium, en onze eigen aantekening noemt de
 Leviathan een *event zonder eigen kill-quest*.
 
+### 🔑 6 sep, LAATSTE STAND — band A is de account, band B is dít character, en de beloning volgt B
+
+Drie metingen op één avond, en de derde draaide de conclusie van de tweede om:
+
+1. Robs alt, die **nooit op de Coiled Isle geweest is**, leest band A als done voor elf rares —
+   Garsecg incluis, waarvan de vlag die middag pas aanging na een kill op een ánder character.
+   **Band A steekt dus over tussen characters.**
+2. Op diezelfde alt leest band B done voor **precies één** rare: Siltmouth, die hij net gekilld had.
+   Op de main leest band B een heel andere set. **Band B doet dat niet.**
+3. 🔴 **De beloning volgt band B.** De alt killde **Siltmouth terwijl band A "done" zei** en kreeg
+   gewoon **50 Coffer Key Shards**.
+
+📌 **Punt 3 is waarom veld [1] nu band B draagt.** Band A lezen betekende: het paneel zette groen,
+de route sloeg over en de scanner zweeg — voor rares waar een alt nog gewoon voor betaald wordt.
+Drie symptomen van één verkeerde vraag, en precies in de weg bij wat Rob met dat tabblad deed.
+
+✅ **De reparatie is klein gebleken.** Een audit van onze 93 rare-rijen tegen Zygor's kill-regels:
+**58 van de 68 vergelijkbare droegen band B al**. Alleen de Coiled Isle stond op band A — de zone
+die op 13 aug is toegevoegd, tijdens precies die verkeerde conclusie. Twaalf rijen omgezet, band A
+bewaard in een nieuw `acct`-veld (niets leest dat nog; het is gemeten en het is de basis voor een
+toekomstige hint *"een ander character van jou deed dit al"*). Nu 68 van 68 gelijk.
+
+⚠️ **Venom Lancer (93722) en Malformed Leviathan (93673) zijn van 0 af**, met HandyNotes' band-B
+id — maar **ongeverifieerd**, en zo gemarkeerd in de data. Ze zijn niet slechter dan de nul die er
+stond: klopt het id, dan vinken ze af; klopt het niet, dan gedragen ze zich als voorheen.
+
+🔴 **ONGEMETEN EN HET TELT OP WOENSDAG: reset band B wekelijks?** Tot de reset geven beide banden
+hetzelfde antwoord, dus er staat nu niets op het spel. Maar is band B **permanent**, dan is dit de
+achievement-criterium-bug van 15 aug in nieuwe kleren en wordt een eenmaal gekilde rare nooit meer
+aangeboden. Eén `/mh rarequests` ná de reset beantwoordt het: band B hoort dan terug op `--`.
+
+⚠️ **En de teksten zijn vanavond twee keer gedraaid** — eerst naar "hele account", nu terug naar
+"dit character". Dat is geen slordigheid maar twee verschillende metingen: bij band A was
+accountwide waar, bij band B is per-character waar. De tooltip zegt er nu bij dat een ander
+character hem nog kan looten, want dát is de bruikbare helft van de ontdekking.
+
 ### ✅ 6 sep — en band A blijkt ACCOUNTWIDE. Onze tekst loog, in zeven talen
 
 Rob logde in op een alt die **nooit op de Coiled Isle is geweest**. Die leest **11/14 done**,
