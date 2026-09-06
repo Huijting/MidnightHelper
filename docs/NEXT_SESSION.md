@@ -95,6 +95,14 @@ ene helft van een paar (ruimte) niets zegt over de andere helft (tekst), en dat 
 die "dan wordt het afgekapt" beweert zonder dat iemand dat heeft laten gebeuren, precies zo'n claim
 is waar dit bestand vol waarschuwingen over staat.
 
+✅ **BEVESTIGD in het spel** door Rob, op de kleinst mogelijke maat: de voet eindigt op *"Check them
+against t…"* — afgekapt met een ellips — en de slot-tekst erboven is volledig leesbaar. Drie rondes
+(reserveren → live hermeten → regels begrenzen), elk met een meting van Rob ertussen.
+
+📌 **Voor de melder:** Yberamos vond hem, diagnosticeerde het mechanisme zelf correct, en zijn
+`/mh report` bevatte alles zonder één navraag. Dat mag hij horen — het is precies het gedrag dat je
+bij een tweede melding terug wilt zien.
+
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 
 De API-wachter vond het enige punt uit de hele 12.1.5-reeks dat op live een **echte Lua-fout**
