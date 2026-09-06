@@ -1678,6 +1678,28 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh sniff — welk event draagt een melding die we wel zien maar niet kennen?
+	-- Gebouwd 6 sep 2026 voor de Dundun-banner; bewust generiek, want dit is de derde
+	-- keer dat we een zichtbare melding niet aan een event konden koppelen.
+	if msg == "sniff" then
+		if ns.MH_SniffToggle then
+			ns.MH_SniffToggle()
+		end
+		return
+	end
+	if msg == "sniff dump" then
+		if ns.MH_SniffDump then
+			ns.MH_SniffDump()
+		end
+		return
+	end
+	if msg == "sniff clear" then
+		if ns.MH_SniffClear then
+			ns.MH_SniffClear()
+		end
+		return
+	end
+
 	-- /mh events — does this client know every event we register?
 	if msg == "events" then
 		if ns.MH_EventProbe then

@@ -166,6 +166,7 @@ Modules\LayoutConsumables.lua
 Modules\PotionButton.lua
 Modules\BarEightKeys.lua
 Modules\EventProbe.lua
+Modules\EventSniffer.lua
 Modules\EditModeBackup.lua
 Modules\BarPreset.lua
 Modules\SlotOwnership.lua

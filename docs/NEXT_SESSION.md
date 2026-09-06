@@ -1310,12 +1310,17 @@ Completion"* bij de **eerste** Dundun van de week. Kán de addon die lezen, dan 
 niet meer op te dreunen maar kan hij zeggen wélk geval dít is.
 
 Twee dingen ontbreken, en geen van beide is te bedenken:
-1. **Welk event de banner draagt.** `/mh events` helpt niet — dat controleert alleen of de client
-   onze eigen events kent, het snuffelt niet. Er is een klein sniffertje voor nodig dat de
-   kandidaten registreert (`RAID_BOSS_EMOTE`, `RAID_BOSS_WHISPER`, `UI_INFO_MESSAGE`,
-   `CHAT_MSG_MONSTER_EMOTE`, scenario-updates) en print wat er binnenkomt tijdens een Dundun.
+1. ✅ **GEBOUWD 6 sep: `/mh sniff`** (`Modules/EventSniffer.lua`). Registreert 18 kandidaten
+   defensief — elk door een `pcall`, en wat de client weigert wordt gemeld in plaats van
+   stilgehouden — logt naar `ns.db.sniffLog` én naar chat, en stopt zichzelf na 30 minuten.
+   `/mh sniff dump` en `/mh sniff clear` erbij.
+   📌 **De grootste vangst is waarschijnlijk niet de banner maar `GOSSIP_SHOW`:**
+   `C_GossipInfo.GetOptions()` geeft per keuze een `gossipOptionID`, en dat is een GETAL. Biedt
+   Dundun de eerste keer een andere optie-id dan de tweede, dan is het onderscheid taalonafhankelijk
+   zonder ooit naar een zin te kijken.
 2. **Of hij ook bij de tweede+ Dundun verschijnt.** Zo ja, dan onderscheidt hij niets en is de hele
-   route dood. Eén Dundun later in dezelfde week op hetzelfde character beantwoordt dat.
+   route dood. Eén Dundun later in dezelfde week op hetzelfde character beantwoordt dat — Rob
+   verwacht zelf dat de zin dán anders is.
 
 🔴 **En de voor de hand liggende kortsluiting is een val: NIET op de Engelse tekst matchen.** Deze
 banner is gelokaliseerd, dus een string-vergelijking werkt op zes van de zeven clients niet — en
