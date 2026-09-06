@@ -126,10 +126,36 @@ maten aan. Te weinig reserveren geeft een overlap; te veel kost alleen wat scrol
 onenigheid is de grootste het veilige antwoord. Beide getallen blijven apart in `_fit` staan en
 worden allebei geprint, want ze samenvatten tot één winnaar zou precies deze vondst hebben verborgen.
 
-📌 **Dit was de derde poging, en de eerste twee waren niet fout — ze waren gebouwd op een getal dat
-loog.** Meten, live hermeten en regels begrenzen zijn alle drie juist; ze deelden alleen dezelfde
-kapotte invoer. Het instrument (`/mh curios fit`) vond in één ronde wat drie redeneringen niet
-vonden.
+🔴 **EN DIE CONCLUSIE WAS ZELF FOUT — ingetrokken dezelfde ochtend.** Rob printte `/mh curios fit`
+op **twee** maten in plaats van één, en dat besliste het:
+
+```
+venster 317 hoog:  GetStringHeight 39   ·   4 x 9.8 = 39
+venster 160 hoog:  GetStringHeight 59   ·   6 x 9.8 = 59
+```
+
+**Beide metingen zijn het op beide maten eens.** `GetStringHeight` heeft nooit gelogen — ik had de
+regels op een screenshot verkeerd geteld en die telfout als meting in dit bestand gezet. 📌 Precies
+de fout waar `never-assume-always-factcheck` over gaat, en deze keer in een bestand dat pretendeert
+metingen te bewaren.
+
+✅ **De echte oorzaak stond één regel lager in diezelfde uitvoer: `max regels: 3` terwijl de voet er
+6 tekent.** `SetMaxLines` klipt deze FontString gewoon niet. Daardoor reserveerde het plafond 60px
+voor een voet die er 71 verft — en dát is de overlap.
+
+✅ **Reparatie: niet de tekst kleiner maken maar het VENSTER eerlijk.** `SetResizeBounds` wordt nu
+uit de meting berekend, dus het paneel kan niet kleiner gesleept worden dan titel + één leesbare
+regel + zijn eigen voet. De ondergrens volgt de tekst, dus ook een taal met een langere voet. Geen
+klippen, geen plafond, niets dat het met zichzelf oneens kan zijn.
+⚠️ `SetMaxLines` is **verwijderd** in plaats van als extra zekerheid blijven staan: een aanroep die
+aantoonbaar niets doet is erger dan geen aanroep, want de volgende lezer neemt aan dat hij werkt.
+⚠️ Een opgeslagen venstermaat van vóór deze ondergrens blijft op schijf staan, en `SetResizeBounds`
+verkleint een bestaand venster niet — daarom wordt de hoogte ook eenmalig bijgetrokken.
+
+📌 **Vier pogingen, en drie ervan waren op zichzelf juist.** Meten, live hermeten, regels begrenzen —
+allemaal goed, allemaal onvoldoende, omdat de fout ergens anders zat. Wat het besliste was Robs
+keuze om op **twee** maten te meten in plaats van op één; één meting had elke verkeerde theorie nog
+steeds gepast.
 
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 

@@ -233,37 +233,25 @@ function FitFoot(f)
 	--- it. At MIN_H the foot wants ~107px and the cap allowed 60; the other 47 landed on the
 	--- slot text, which is exactly the screenshot Rob sent.
 	---
-	--- ⚠️ So the LINE COUNT is what gets bounded, with `SetMaxLines`, and the reservation is
-	--- bounded to match. Then both the drawing and the space are finite and they agree.
-	--- Guarded because a missing `SetMaxLines` must not error; without it we fall back to
-	--- reserving what the foot asks for, which is the pre-cap behaviour — worse layout in a
-	--- tiny window, never an overlap.
-	local avail = (f:GetHeight() or DEF_H) - PAD - TITLE_H
-	local budget = math.max(FOOT_H, avail * 0.5)
-	local clipped = false
-	if f._foot.SetMaxLines then
-		local lh = (f._foot.GetLineHeight and f._foot:GetLineHeight()) or 0
-		if lh > 0 then
-			f._foot:SetMaxLines(math.max(1, math.floor((budget - 22) / lh)))
-			clipped = true
-		end
-	end
-
-	--- 🔴 `GetStringHeight` UNDER-REPORTS A WRAPPED FONTSTRING — MEASURED 6 Sep 2026, and it
-	--- is why two correct-looking fixes still overlapped.
+	--- 🔴 CORRECTION, AND THE TWO CLAIMS ABOVE ARE BOTH WRONG — Rob's fourth reading, 6 Sep.
 	---
-	--- `/mh curios fit` on the failing size, from Rob: *voet vraagt 39 px, regelhoogte 9.85,
-	--- max regels 10*. 39 / 9.85 is **four lines**. Seven were on screen. So the reservation
-	--- was built on a height the text does not have, and nothing downstream could recover
-	--- from that — the ceiling was 124 and never came near being the constraint.
+	--- He printed `/mh curios fit` at two sizes instead of one, which is what finally settled
+	--- it. At 317px tall: `GetStringHeight 39 · 4 x 9.8 = 39`. At the smallest, 160px:
+	--- `GetStringHeight 59 · 6 x 9.8 = 59`. **The two measures agree at both sizes.**
 	---
-	--- 📌 So ask for the LINE COUNT, which is what actually gets painted, and keep whichever
-	--- of the two measures is larger. Under-reserving is the failure mode that overlaps;
-	--- over-reserving only costs a little scroll room, so when they disagree the bigger one
-	--- is the safe answer.
+	--- 🔴 So `GetStringHeight` never lied — I had miscounted the lines on a screenshot and
+	--- written the miscount into the file as a measurement. What the same printout shows, one
+	--- line lower, is the actual fault: **`max regels: 3` while the foot paints 6.**
+	--- `SetMaxLines` simply does not clip this FontString, so the ceiling reserved 60px for a
+	--- foot that goes on to paint 71.
 	---
-	--- ⚠️ Both are recorded in `_fit` rather than collapsed, so the next time these disagree
-	--- there is a number to look at instead of a theory.
+	--- 📌 So stop trying to make the text smaller and make the WINDOW honest instead: the
+	--- panel may not be dragged below what its own foot needs. `SetResizeBounds` is recomputed
+	--- from the measurement, so the floor follows the text — including a language whose foot
+	--- runs longer. No clipping, no ceiling, nothing that can disagree with itself.
+	---
+	--- ⚠️ `SetMaxLines` is gone rather than left in as a belt: a call that demonstrably does
+	--- nothing is worse than no call, because the next reader assumes it works.
 	local hStr = f._foot:GetStringHeight() or 0
 	local nLines = (f._foot.GetNumLines and f._foot:GetNumLines()) or 0
 	local lhNow = (f._foot.GetLineHeight and f._foot:GetLineHeight()) or 12
@@ -271,18 +259,34 @@ function FitFoot(f)
 	local h = math.max(hStr, hLines)
 	if h <= 0 then
 		-- Empty foot (the "nothing to show" branch): give the scroll the space back
-		-- rather than leaving a 44px hole under a one-line message.
+		-- rather than leaving a 44px hole under a one-line message, and let the window
+		-- shrink to its ordinary minimum again.
 		f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), PAD)
-		f._fit = { frameH = f:GetHeight(), h = 0, want = PAD, budget = budget, empty = true }
+		if f.SetResizeBounds then
+			f:SetResizeBounds(MIN_W, MIN_H, MAX_W, MAX_H)
+		end
+		f._fit = { frameH = f:GetHeight(), h = 0, want = PAD, empty = true }
 		return
 	end
 	-- 14 is the foot's own bottom offset; the rest is breathing room between the last
 	-- scrolled line and the first wrapped foot line.
 	local want = math.max(FOOT_H, h + 22)
-	if clipped then
-		want = math.min(want, budget)
-	end
 	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), want)
+
+	--- The floor: title, one readable line of content, and the foot. Anything shorter is a
+	--- window that cannot show what it is for, and it was the only way to produce the overlap.
+	local minH = math.max(MIN_H, PAD + TITLE_H + LINE_H + want + 8)
+	if f.SetResizeBounds then
+		f:SetResizeBounds(MIN_W, math.min(minH, MAX_H), MAX_W, MAX_H)
+	end
+	--- ⚠️ A stored size from before this floor existed is still on disk, and SetResizeBounds
+	--- does not resize a frame that already breaks the new rule — it only stops the next drag.
+	--- Guarded against re-entering: SetHeight fires OnSizeChanged, which calls this again.
+	if not f._fitSizing and (f:GetHeight() or 0) < minH then
+		f._fitSizing = true
+		f:SetHeight(math.min(minH, MAX_H))
+		f._fitSizing = nil
+	end
 
 	--- 🔎 KEEP THE NUMBERS. Rob, 6 Sep, third screenshot: at a mid-size window the foot still
 	--- draws over the slot text, while the SCROLL side is clearly right (the slot line is cut
@@ -291,10 +295,9 @@ function FitFoot(f)
 	--- prints them; this is the same move as `/mh travelwhy` yesterday, made after the second
 	--- wrong explanation rather than the fourth.
 	f._fit = {
-		frameH = f:GetHeight(), avail = avail, budget = budget,
+		frameH = f:GetHeight(), minH = minH,
 		lineH = lhNow, lines = nLines, hStr = hStr, hLines = hLines,
-		maxLines = clipped and math.max(1, math.floor((budget - 22) / lhNow)) or nil,
-		h = h, want = want, clipped = clipped,
+		h = h, want = want,
 	}
 
 	--- ⚠️ AND MEASURE ONCE MORE NEXT FRAME. A `GetStringHeight` taken inside OnSizeChanged
@@ -329,20 +332,17 @@ function ns.PrintCurioFit()
 		print("|cffffcc00Midnight Helper|r curio fit: no measurement yet — open the panel once.")
 		return
 	end
-	print(("|cffffcc00Midnight Helper|r curio fit — venster %s hoog, scrollruimte %s"):format(
-		tostring(math.floor((d.frameH or 0) + 0.5)), tostring(math.floor((d.avail or 0) + 0.5))))
-	print(("   voet vraagt: %d px   gereserveerd: %d px   plafond: %d px"):format(
-		math.floor((d.h or 0) + 0.5), math.floor((d.want or 0) + 0.5),
-		math.floor((d.budget or 0) + 0.5)))
+	print(("|cffffcc00Midnight Helper|r curio fit — venster %d hoog, ondergrens %d"):format(
+		math.floor((d.frameH or 0) + 0.5), math.floor((d.minH or 0) + 0.5)))
+	print(("   voet vraagt: %d px   gereserveerd: %d px"):format(
+		math.floor((d.h or 0) + 0.5), math.floor((d.want or 0) + 0.5)))
 	--- 🔎 BOTH MEASURES, SIDE BY SIDE. On 6 Sep `GetStringHeight` said 39 while the text
 	--- painted seven lines; printing only the winner would have hidden exactly that.
 	print(("   GetStringHeight: %d px   regels x regelhoogte: %d x %.1f = %d px"):format(
 		math.floor((d.hStr or 0) + 0.5), d.lines or 0, d.lineH or 0,
 		math.floor((d.hLines or 0) + 0.5)))
-	print(("   max regels: %s   begrensd: %s"):format(
-		tostring(d.maxLines or "-"),
-		d.clipped and "|cff44ff44ja|r" or "|cffff8844nee — SetMaxLines ontbreekt|r"))
-	print("   |cff8a8f98Lopen die twee ver uiteen, dan liegt GetStringHeight en wint de regeltelling.|r")
+	print("   |cff8a8f98Het venster kan niet kleiner dan de ondergrens, dus de voet past altijd.|r")
+	print("   |cff8a8f98Overlapt het tóch, dan is 'gereserveerd' kleiner dan wat je ziet staan.|r")
 end
 
 --- Redraw from the tree. Returns false when there is nothing honest to show.
