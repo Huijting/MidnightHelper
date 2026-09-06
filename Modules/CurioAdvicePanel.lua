@@ -136,6 +136,12 @@ local function EnsurePanel()
 	end
 	tinsert(UISpecialFrames, f:GetName())
 
+	--- ⚠️ THE TITLE DELIBERATELY DOES NOT SCALE, unlike the rows and the foot below.
+	--- `TITLE_H = 26` is a fixed reserve between the top of the frame and the top of the
+	--- scroll area — the same "a constant standing in for text nobody measured" that cost six
+	--- rounds on this very panel today. Scaling this string without also measuring that
+	--- reserve would rebuild the bug one anchor higher. Whoever wants it: measure TITLE_H
+	--- first, then scale.
 	local title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	title:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -PAD)
 	title:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD - 16, -PAD)
@@ -165,6 +171,9 @@ local function EnsurePanel()
 
 	-- Parented to the content, so it scrolls with the rows instead of floating over them.
 	local foot = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	if ns.MHScalableFont then
+		foot:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	end
 	foot:SetJustifyH("LEFT")
 	foot:SetWordWrap(true)
 	foot:SetTextColor(0.7, 0.68, 0.63)
@@ -213,6 +222,12 @@ local function LineAt(f, index)
 	local fs = f._lines[index]
 	if not fs then
 		fs = f._content:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		--- Follows the addon's own text-size slider, like the main window does. Safe here
+		--- by construction: every row's height is measured (`math.max(LINE_H, …)`) and the
+		--- content grows to fit, so a larger font costs scrolling and nothing else.
+		if ns.MHScalableFont then
+			fs:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
+		end
 		fs:SetJustifyH("LEFT")
 		f._lines[index] = fs
 	end

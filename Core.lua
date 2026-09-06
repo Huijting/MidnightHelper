@@ -401,6 +401,13 @@ function ns.ApplyContentFontScale(scale)
 			fo:SetFont(b.path, math.max(6, b.size * s), b.flags)
 		end
 	end
+	--- ⚠️ Resizing the font objects redraws the TEXT but not the LAYOUT around it. A panel
+	--- that stacks its rows by measured height has to lay out again, or the new font sits in
+	--- spacing computed for the old one. Added 6 Sep 2026 when the curio panel started
+	--- following this slider; it refuses politely when it is not open.
+	if ns.RefreshCurioAdvicePanel then
+		pcall(ns.RefreshCurioAdvicePanel)
+	end
 	return s
 end
 

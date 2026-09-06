@@ -200,10 +200,19 @@ Blizzard-fonts (`GameFontNormal`, `GameFontHighlight`, `GameFontHighlightSmall`)
 terwijl het hoofdvenster hem wél volgt. Wie zijn tekst groter zet, krijgt een hoofdvenster dat
 meegroeit en een curio-paneel dat blijft zoals het was.
 
-⚠️ **Nog niet gerepareerd, bewust.** Het is één regel per FontString, maar het verandert het
-uiterlijk voor iedereen, en dit paneel heeft vandaag al zes rondes gehad. 📌 De volgorde is wel
-gunstig: vóór de verhuizing zou een groter lettertype de overlap juist vaker hebben getriggerd,
-nu kan het hooguit meer scrollen kosten.
+✅ **GEREPAREERD op Robs verzoek, en de volgorde was gunstig:** vóór de verhuizing van de voet zou
+een groter lettertype de overlap juist vaker hebben getriggerd; nu kost het hooguit meer scrollen.
+De rijen én de voet volgen nu `ns.MHScalableFont`.
+
+⚠️ **De TITEL bewust NIET.** `TITLE_H = 26` is een vaste reservering tussen de bovenrand en het
+scrollgebied — exact dezelfde "constante die de plaats inneemt van ongemeten tekst" die vandaag zes
+rondes kostte. Die string schalen zonder óók die reservering te meten zou de bug één anker hoger
+opnieuw bouwen. Staat als zodanig in de code.
+
+📌 **En één ding dat er nog bij hoorde:** `ns.ApplyContentFontScale` verandert het lettertype maar
+niet de layout eromheen. Een paneel dat zijn rijen op gemeten hoogte stapelt moet daarna opnieuw
+uitlijnen, anders staat het nieuwe font in de ruimte van het oude. De schuif ververst het
+curio-paneel nu zelf (geguard, weigert netjes als het dicht is).
 
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 
