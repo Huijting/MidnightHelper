@@ -157,6 +157,31 @@ allemaal goed, allemaal onvoldoende, omdat de fout ergens anders zat. Wat het be
 keuze om op **twee** maten te meten in plaats van op één; één meting had elke verkeerde theorie nog
 steeds gepast.
 
+#### ✅ 6 sep, de vijfde en laatste: de voet verhuist de scroll-inhoud in
+
+Ook de vloer hield geen stand. Robs meting: **`ondergrens 160`** — dat is gewoon `MIN_H`. De vloer
+werd berekend terwijl het venster **breed** was en de voet maar 3 regels; sleep je hem smal, dan
+groeit de voet en is de vloer al gezet. Weer de goede gedachte, weer de verkeerde plek.
+
+🔴 **Alle vijf pogingen deelden één aanname: dat de voet vastgeplakt hoort aan de onderrand, en dat
+de scroll dan "de rest" krijgt.** Dat is de fout. Twee helften met elk hun eigen regels, die alleen
+overeenkomen als de rekensom toevallig uitkomt.
+
+✅ **De voet is nu de LAATSTE RIJ van de scroll-inhoud.** Hij wrapt naar wat hij nodig heeft,
+`content:SetHeight` telt hem gewoon mee, en het scrollvenster knipt alles op dezelfde manier af.
+**Overlappen is hier geen mogelijkheid meer** — er valt niets te reserveren, dus ook niets verkeerd
+te reserveren. `FOOT_H`, `SetMaxLines`, het plafond, de `OnSizeChanged`-hermeting en de berekende
+vloer zijn alle vijf weg.
+
+⚠️ **De prijs, hardop:** in een laag venster scrolt de disclaimer uit beeld in plaats van altijd
+zichtbaar te zijn. Dat is de eerlijke helft van de ruil — een disclaimer waar je naartoe scrolt is
+meer waard dan een die dwars door het advies erboven staat, en dat laatste is wat een eerste
+gebruiker meldde.
+
+📌 **Zes rondes op één layoutfout.** Wat elke ronde kostte was dat ik een aanname repareerde in
+plaats van hem te betwijfelen. Rob dwong het af door te blijven meten op maten die ik niet had
+geprobeerd.
+
 ## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
 
 De API-wachter vond het enige punt uit de hele 12.1.5-reeks dat op live een **echte Lua-fout**

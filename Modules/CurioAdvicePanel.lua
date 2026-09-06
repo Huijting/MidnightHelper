@@ -47,7 +47,10 @@ local TITLE_H = 26
 local SLOT_HEAD_H = 20
 local LINE_H = 17
 local SLOT_GAP = 10
-local FOOT_H = 44
+--- ⚠️ `FOOT_H` is GONE, deliberately. It reserved 44 pixels at the bottom of the frame for
+--- a foot whose real height nobody had measured, and every attempt to keep that arrangement
+--- honest failed at some window size. The foot now lives in the scrolling content; see the
+--- note on `FitFoot`.
 --- 🔴 MEASURE THE FOOT, DO NOT RESERVE A NUMBER FOR IT — 6 Sep 2026, and it is the third
 --- time this exact fault has shipped.
 ---
@@ -146,25 +149,26 @@ local function EnsurePanel()
 		f:Hide()
 	end)
 
-	local foot = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	foot:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD, 14)
-	foot:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 14)
-	foot:SetJustifyH("LEFT")
-	foot:SetWordWrap(true)
-	foot:SetTextColor(0.7, 0.68, 0.63)
-	f._foot = foot
-
 	-- Scrolling middle. The rows live on `content`, which grows as tall as it needs;
 	-- the scroll frame is whatever the player has dragged the window to.
+	--- ⚠️ The bottom inset is now plain padding. It used to be `FOOT_H`, reserving room for a
+	--- foot pinned to the frame — see the note on FitFoot for why that whole idea is gone.
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -(PAD + TITLE_H))
-	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), FOOT_H)
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), PAD)
 	f._scroll = scroll
 
 	local content = CreateFrame("Frame", nil, scroll)
 	content:SetSize(10, 10)
 	scroll:SetScrollChild(content)
 	f._content = content
+
+	-- Parented to the content, so it scrolls with the rows instead of floating over them.
+	local foot = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	foot:SetJustifyH("LEFT")
+	foot:SetWordWrap(true)
+	foot:SetTextColor(0.7, 0.68, 0.63)
+	f._foot = foot
 
 	-- Drag the corner. A texture rather than a template so it matches the backdrop
 	-- and cannot pick up a template's own OnMouseDown.
@@ -180,10 +184,9 @@ local function EnsurePanel()
 	--- but a narrower window rewraps the foot on every frame of the drag, and until you
 	--- release it is drawn through the text above. `FitFoot` alone is cheap — one
 	--- GetStringHeight and one SetPoint — so it can run live where a full redraw could not.
-	f:SetScript("OnSizeChanged", function(self)
-		FitFoot(self)
-	end)
-
+	--- ⚠️ No OnSizeChanged re-measure any more. It existed because the foot's height decided
+	--- how much room the scroll frame got, and a resize changed that. Now the foot is inside
+	--- the scroll content, so a resize changes nothing that needs recomputing mid-drag.
 	grip:SetScript("OnMouseDown", function()
 		f:StartSizing("BOTTOMRIGHT")
 	end)
@@ -219,101 +222,52 @@ local function LineAt(f, index)
 	return fs
 end
 
-function FitFoot(f)
-	if not (f and f._foot and f._scroll) then
-		return
+--- Place the foot as the LAST ROW OF THE SCROLLING CONTENT, and report what it took.
+---
+--- 🔴 REWRITTEN 6 Sep 2026, after four attempts at keeping it pinned to the frame's bottom
+--- edge each failed at a window size Rob then found.
+---
+--- It used to be anchored BOTTOMLEFT/BOTTOMRIGHT on the frame, with the scroll area given
+--- whatever pixels were thought to be left over — and every fix was a different way of
+--- guessing that leftover right: reserve the measured height, re-measure while dragging,
+--- bound the line count with `SetMaxLines` (which does not clip this FontString at all),
+--- then a computed minimum window height. Rob's last reading killed that one too: the floor
+--- came out at 160 because it was computed while the window was WIDE and the foot only three
+--- lines. Drag it narrow and the foot grows, but the floor had already been set.
+---
+--- 📌 In the content there is no arithmetic left to get wrong. The foot is simply the last
+--- row, it wraps to whatever it needs, `content:SetHeight` already accounts for it, and the
+--- scroll frame clips everything by the same rule. An overlap is not a thing that can happen
+--- here.
+---
+--- ⚠️ THE TRADE, STATED PLAINLY: in a short window the disclaimer scrolls out of sight
+--- instead of always being on screen. That is the honest half of the deal — a disclaimer you
+--- scroll to beats one painted through the advice above it, which is what Yberamos reported.
+--- @param f table the panel frame
+--- @param y number layout offset inside the content, negative going down
+--- @return number height consumed, to add to the content's own height
+function FitFoot(f, y)
+	if not (f and f._foot and f._content) then
+		return 0
 	end
-	--- 🔴 A CAP ON THE RESERVED SPACE IS NOT A CAP ON THE TEXT — corrected 6 Sep 2026, after
-	--- Rob dragged the panel to its smallest and the overlap came straight back.
-	---
-	--- The first version of this reserved at most half the frame and the comment claimed the
-	--- foot would "get clipped instead". **A FontString does not clip itself.** Anchored to
-	--- the bottom with word wrap, it simply keeps growing upward past whatever the scroll
-	--- frame was given — so capping the reservation moved the overlap rather than removing
-	--- it. At MIN_H the foot wants ~107px and the cap allowed 60; the other 47 landed on the
-	--- slot text, which is exactly the screenshot Rob sent.
-	---
-	--- 🔴 CORRECTION, AND THE TWO CLAIMS ABOVE ARE BOTH WRONG — Rob's fourth reading, 6 Sep.
-	---
-	--- He printed `/mh curios fit` at two sizes instead of one, which is what finally settled
-	--- it. At 317px tall: `GetStringHeight 39 · 4 x 9.8 = 39`. At the smallest, 160px:
-	--- `GetStringHeight 59 · 6 x 9.8 = 59`. **The two measures agree at both sizes.**
-	---
-	--- 🔴 So `GetStringHeight` never lied — I had miscounted the lines on a screenshot and
-	--- written the miscount into the file as a measurement. What the same printout shows, one
-	--- line lower, is the actual fault: **`max regels: 3` while the foot paints 6.**
-	--- `SetMaxLines` simply does not clip this FontString, so the ceiling reserved 60px for a
-	--- foot that goes on to paint 71.
-	---
-	--- 📌 So stop trying to make the text smaller and make the WINDOW honest instead: the
-	--- panel may not be dragged below what its own foot needs. `SetResizeBounds` is recomputed
-	--- from the measurement, so the floor follows the text — including a language whose foot
-	--- runs longer. No clipping, no ceiling, nothing that can disagree with itself.
-	---
-	--- ⚠️ `SetMaxLines` is gone rather than left in as a belt: a call that demonstrably does
-	--- nothing is worse than no call, because the next reader assumes it works.
-	local hStr = f._foot:GetStringHeight() or 0
+	f._foot:ClearAllPoints()
+	if (f._foot:GetText() or "") == "" then
+		f._foot:Hide()
+		f._fit = { frameH = f:GetHeight(), lines = 0, h = 0 }
+		return 0
+	end
+	f._foot:SetPoint("TOPLEFT", f._content, "TOPLEFT", 0, (tonumber(y) or 0) - 6)
+	f._foot:SetPoint("RIGHT", f._content, "RIGHT", 0, 0)
+	f._foot:Show()
+
+	--- Both measures kept and the larger used. They agreed at every size Rob printed, and
+	--- nothing depends on that any more: this number only decides how tall the scroll child
+	--- is, so being generous costs a few pixels of empty scroll rather than an overlap.
 	local nLines = (f._foot.GetNumLines and f._foot:GetNumLines()) or 0
 	local lhNow = (f._foot.GetLineHeight and f._foot:GetLineHeight()) or 12
-	local hLines = nLines * lhNow
-	local h = math.max(hStr, hLines)
-	if h <= 0 then
-		-- Empty foot (the "nothing to show" branch): give the scroll the space back
-		-- rather than leaving a 44px hole under a one-line message, and let the window
-		-- shrink to its ordinary minimum again.
-		f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), PAD)
-		if f.SetResizeBounds then
-			f:SetResizeBounds(MIN_W, MIN_H, MAX_W, MAX_H)
-		end
-		f._fit = { frameH = f:GetHeight(), h = 0, want = PAD, empty = true }
-		return
-	end
-	-- 14 is the foot's own bottom offset; the rest is breathing room between the last
-	-- scrolled line and the first wrapped foot line.
-	local want = math.max(FOOT_H, h + 22)
-	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), want)
-
-	--- The floor: title, one readable line of content, and the foot. Anything shorter is a
-	--- window that cannot show what it is for, and it was the only way to produce the overlap.
-	local minH = math.max(MIN_H, PAD + TITLE_H + LINE_H + want + 8)
-	if f.SetResizeBounds then
-		f:SetResizeBounds(MIN_W, math.min(minH, MAX_H), MAX_W, MAX_H)
-	end
-	--- ⚠️ A stored size from before this floor existed is still on disk, and SetResizeBounds
-	--- does not resize a frame that already breaks the new rule — it only stops the next drag.
-	--- Guarded against re-entering: SetHeight fires OnSizeChanged, which calls this again.
-	if not f._fitSizing and (f:GetHeight() or 0) < minH then
-		f._fitSizing = true
-		f:SetHeight(math.min(minH, MAX_H))
-		f._fitSizing = nil
-	end
-
-	--- 🔎 KEEP THE NUMBERS. Rob, 6 Sep, third screenshot: at a mid-size window the foot still
-	--- draws over the slot text, while the SCROLL side is clearly right (the slot line is cut
-	--- off exactly where it should be). So the reservation is smaller than what the foot
-	--- actually paints, and from a screenshot the two cannot be told apart. `/mh curios fit`
-	--- prints them; this is the same move as `/mh travelwhy` yesterday, made after the second
-	--- wrong explanation rather than the fourth.
-	f._fit = {
-		frameH = f:GetHeight(), minH = minH,
-		lineH = lhNow, lines = nLines, hStr = hStr, hLines = hLines,
-		h = h, want = want,
-	}
-
-	--- ⚠️ AND MEASURE ONCE MORE NEXT FRAME. A `GetStringHeight` taken inside OnSizeChanged
-	--- can still be using the width the FontString had BEFORE the resize, which would make
-	--- `h` too small and is the leading candidate for the screenshot above. Re-running is
-	--- idempotent, so this cannot make a correct layout wrong -- guarded against recursing
-	--- forever.
-	if not f._fitAgain and C_Timer and C_Timer.After then
-		f._fitAgain = true
-		C_Timer.After(0, function()
-			f._fitAgain = nil
-			if f:IsShown() then
-				FitFoot(f)
-			end
-		end)
-	end
+	local h = math.max(f._foot:GetStringHeight() or 0, nLines * lhNow)
+	f._fit = { frameH = f:GetHeight(), lines = nLines, lineH = lhNow, h = h }
+	return h + 10
 end
 
 --- `/mh curios fit` — what did the foot measurement actually decide?
@@ -332,17 +286,12 @@ function ns.PrintCurioFit()
 		print("|cffffcc00Midnight Helper|r curio fit: no measurement yet — open the panel once.")
 		return
 	end
-	print(("|cffffcc00Midnight Helper|r curio fit — venster %d hoog, ondergrens %d"):format(
-		math.floor((d.frameH or 0) + 0.5), math.floor((d.minH or 0) + 0.5)))
-	print(("   voet vraagt: %d px   gereserveerd: %d px"):format(
-		math.floor((d.h or 0) + 0.5), math.floor((d.want or 0) + 0.5)))
-	--- 🔎 BOTH MEASURES, SIDE BY SIDE. On 6 Sep `GetStringHeight` said 39 while the text
-	--- painted seven lines; printing only the winner would have hidden exactly that.
-	print(("   GetStringHeight: %d px   regels x regelhoogte: %d x %.1f = %d px"):format(
-		math.floor((d.hStr or 0) + 0.5), d.lines or 0, d.lineH or 0,
-		math.floor((d.hLines or 0) + 0.5)))
-	print("   |cff8a8f98Het venster kan niet kleiner dan de ondergrens, dus de voet past altijd.|r")
-	print("   |cff8a8f98Overlapt het tóch, dan is 'gereserveerd' kleiner dan wat je ziet staan.|r")
+	print(("|cffffcc00Midnight Helper|r curio fit — venster %d hoog"):format(
+		math.floor((d.frameH or 0) + 0.5)))
+	print(("   voet: %d regels x %.1f = %d px, als laatste rij ín de scroll-inhoud"):format(
+		d.lines or 0, d.lineH or 0, math.floor((d.h or 0) + 0.5)))
+	print("   |cff8a8f98De voet scrollt mee met de rest, dus overlappen kan niet meer.|r")
+	print("   |cff8a8f98Zie je hem toch over de tekst heen staan: dat is dan wél een bug.|r")
 end
 
 --- Redraw from the tree. Returns false when there is nothing honest to show.
@@ -379,7 +328,7 @@ function ns.RefreshCurioAdvicePanel()
 		fs:SetText(L(why or "CURIO_NO_CHOICES"))
 		fs:Show()
 		f._foot:SetText("")
-		FitFoot(f)
+		FitFoot(f, 0)
 		f._content:SetHeight(60)
 		return true
 	end
@@ -475,8 +424,8 @@ function ns.RefreshCurioAdvicePanel()
 		footText = footText .. " " .. L("CURIO_NOTE_DISCLAIMER")
 	end
 	f._foot:SetText(footText)
-	FitFoot(f)
-	f._content:SetHeight(math.max(10, math.abs(y)))
+	local footH = FitFoot(f, y)
+	f._content:SetHeight(math.max(10, math.abs(y) + footH))
 	return true
 end
 
