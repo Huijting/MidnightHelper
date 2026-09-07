@@ -1678,6 +1678,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh pet test — roep de waarschuwing zelf op, zonder op een instance-wissel te wachten.
+	if msg == "pet test" then
+		if ns.RunPetTauntTest then
+			ns.RunPetTauntTest()
+		end
+		return
+	end
+
 	-- /mh pet — is de autocast-stand van je pet leesbaar? (Robs "Growl staat nog aan"-idee)
 	if msg == "pet" then
 		if ns.PrintPetTauntProbe then

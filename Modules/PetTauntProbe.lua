@@ -120,6 +120,22 @@ function ns.PrintPetTauntProbe()
 		return
 	end
 
+	-- The live decision, printed by the probe so "it said nothing" is never a mystery.
+	--
+	-- ⚠️ Through `ns.` and not through the locals: those are declared BELOW this function, and
+	-- calling them directly is a nil global at run time. Lint check [6] caught exactly that
+	-- here — the same trap `FitFoot` fell into on 6 Sep. An `ns.` name resolves when the
+	-- function runs, by which point the whole file has loaded.
+	if ns.PetTauntVerdict then
+		local warn, _n, reason = ns.PetTauntVerdict()
+		print(("  |cffffd100live check right now: would warn = %s (%s)|r"):format(
+			tostring(warn), tostring(reason)))
+	end
+	if ns.PetTauntRealPlayers then
+		print(("  |cff8a8f98real players in the group: %d|r  (a delve companion is not one)")
+			:format(ns.PetTauntRealPlayers()))
+	end
+
 	print("  verdict:")
 	if not taunt then
 		print("    |cff8a8f98No known pet taunt on the bar. Either this pet has none, or its|r")
@@ -166,12 +182,46 @@ end
 local watcher = CreateFrame("Frame")
 local warnedFor = nil -- one warning per instance visit, not per event
 
---- @return boolean|nil warn, string|nil tauntName — nil when we cannot tell
+--- 🔴 GetNumGroupMembers COUNTS VALEERA — measured in a delve, 7 Sep 2026.
+---
+--- The first version required `GetNumGroupMembers() >= 2` to keep delves quiet, on the
+--- assumption that solo means a group of one. It does not: Rob's `/mh pet` inside a delve
+--- read **`instance: true (scenario)   group size: 2`**. The delve companion occupies a party
+--- slot, so every one of the four conditions was met and the warning would have fired in the
+--- one place it must never fire.
+---
+--- ⚠️ Not fixed by excluding `scenario`: Broken Throne rituals are scenarios too, and those
+--- are real groups where the warning is wanted. The honest test is not how many units are in
+--- the party but how many of them are PEOPLE — a follower is not a player.
+---
+--- ⚠️ `UnitIsPlayer` is guarded rather than trusted. A secret boolean survives `pcall` and
+--- bites at the comparison, which is the trap four GUID reads fell into in July.
+--- @return number
+local function RealPlayersInGroup()
+	if IsInRaid and IsInRaid() then
+		-- Followers do not take raid slots, so the plain count is safe here.
+		return (GetNumGroupMembers and GetNumGroupMembers()) or 0
+	end
+	local n = 1 -- yourself
+	for i = 1, 4 do
+		local u = "party" .. i
+		if UnitExists and UnitExists(u) and UnitIsPlayer then
+			local ok, isPlayer = pcall(UnitIsPlayer, u)
+			if ok and not Secret(isPlayer) and isPlayer == true then
+				n = n + 1
+			end
+		end
+	end
+	return n
+end
+
+--- @return boolean|nil warn, string|nil tauntName, string reason — nil warn = cannot tell
 local function ShouldWarn()
 	-- Group + instance, or there is nothing to be wrong about.
-	local n = (GetNumGroupMembers and GetNumGroupMembers()) or 0
+	local n = RealPlayersInGroup()
 	if n < 2 then
-		return false
+		return false, nil, ("solo (%d real player%s in the group)"):format(
+			n, n == 1 and "" or "s")
 	end
 	local inInst = false
 	if IsInInstance then
@@ -179,28 +229,28 @@ local function ShouldWarn()
 		inInst = ok and a or false
 	end
 	if not inInst then
-		return false
+		return false, nil, "not in an instance"
 	end
 
 	-- Am I the tank? Spec route only -- see the note above.
 	if not (GetSpecialization and GetSpecializationRole) then
-		return nil
+		return nil, nil, "no spec API on this client"
 	end
 	local spec = GetSpecialization()
 	if not spec then
-		return nil
+		return nil, nil, "no specialization selected"
 	end
 	local okRole, role = pcall(GetSpecializationRole, spec)
 	if not okRole or role == nil then
-		return nil
+		return nil, nil, "GetSpecializationRole gave nothing"
 	end
 	if role == "TANK" then
-		return false
+		return false, nil, "you ARE the tank"
 	end
 
 	-- Is a taunt on autocast?
 	if not (GetPetActionInfo and UnitExists and UnitExists("pet")) then
-		return false
+		return false, nil, "no pet out"
 	end
 	local slots = (NUM_PET_ACTION_SLOTS and tonumber(NUM_PET_ACTION_SLOTS)) or 10
 	for i = 1, slots do
@@ -209,14 +259,27 @@ local function ShouldWarn()
 		if ok then
 			local sid = (not Secret(spellID)) and tonumber(spellID) or nil
 			if sid and PET_TAUNTS[sid] and autoEnabled == true then
-				return true, (not Secret(name)) and name or nil
+				return true, (not Secret(name)) and name or nil, "taunt on autocast"
 			end
 		end
 	end
-	return false
+	return false, nil, "no known taunt on autocast"
 end
 
-local function Check()
+--- Exposed so the probe can print the same verdict the live path uses. ⚠️ There is no
+--- `if testMode` branch anywhere below: the test walks the identical function, which is the
+--- rule in CLAUDE.md and the reason `/mh dispeltest` exists in the shape it does.
+function ns.PetTauntVerdict()
+	return ShouldWarn()
+end
+
+--- Same reason: the probe above needs this and is defined earlier in the file.
+function ns.PetTauntRealPlayers()
+	return RealPlayersInGroup()
+end
+
+--- @param force boolean|nil skip the once-per-instance memory (the test path)
+local function Check(force)
 	local warn, tauntName = ShouldWarn()
 	if warn ~= true then
 		if warn == false then
@@ -225,10 +288,12 @@ local function Check()
 		return
 	end
 	local key = tostring(GetInstanceInfo and select(8, GetInstanceInfo()) or "?")
-	if warnedFor == key then
-		return
+	if not force then
+		if warnedFor == key then
+			return
+		end
+		warnedFor = key
 	end
-	warnedFor = key
 
 	local label = tauntName or "Growl"
 	print(("|cffffcc00%s|r %s"):format(
@@ -243,6 +308,25 @@ local function Check()
 			icon = 132270, -- Growl's own icon
 		})
 	end
+end
+
+--- `/mh pet test` — fire the real thing on demand, debounce ignored.
+---
+--- 🔴 Rob asked for this the moment he needed it: *"hebben we een commando om hem op te
+--- roepen??"* — standing in a delve where the warning should have appeared and did not, with
+--- no way to tell a broken feature from an unloaded file. CLAUDE.md has required exactly this
+--- of anything that can go quiet since Spec 30, and I built the warning without it.
+function ns.RunPetTauntTest()
+	local warn, _name, reason = ShouldWarn()
+	local p = Prefix()
+	print(("%s pet taunt test — would warn: %s (%s)"):format(
+		p, tostring(warn), tostring(reason)))
+	if warn ~= true then
+		print("  |cff8a8f98Nothing fired, and the reason above is why. That is the answer,|r")
+		print("  |cff8a8f98not a failure — silence here is a decision, not a gap.|r")
+		return
+	end
+	Check(true)
 end
 
 watcher:RegisterEvent("PLAYER_ENTERING_WORLD")

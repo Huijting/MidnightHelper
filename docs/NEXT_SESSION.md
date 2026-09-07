@@ -33,6 +33,39 @@ steeds geen leugen.
 ⚠️ Alleen **Growl (2649)** is gemeten. `Suffering` (17735, Voidwalker) staat als kandidaat in de
 tabel — die moet een warlock bevestigen.
 
+### 🔴 En de eerste versie zou in ELKE DELVE gewaarschuwd hebben
+
+Rob draaide `/mh pet` in een delve met Growl aan:
+
+```
+instance: true (scenario)   group size: 2   pet out: true
+Growl  autoAllowed=true  autoEnabled=true  spellID=2649
+```
+
+**Valeera telt mee als groepslid.** Mijn `GetNumGroupMembers() >= 2`-eis stond er juist om delves
+stil te houden, en beschermde precies niets: alle vier de voorwaarden waren vervuld in de één plek
+waar de melding nooit mag komen.
+
+✅ **Gerepareerd met `RealPlayersInGroup()`** — tel de *mensen*, niet de party-slots. Een follower is
+geen speler. ⚠️ **Niet opgelost door `scenario` uit te sluiten:** Broken Throne-rituals zijn óók
+scenarios, en dat zijn echte groepen waar de melding juist wél moet komen. En `UnitIsPlayer` gaat
+door een guard, want een secret boolean overleeft `pcall` en bijt pas bij de vergelijking.
+
+### 🔴 En ik had het gebouwd zonder testknop
+
+Rob, staand in die delve: *"hebben we een commando om hem op te roepen??"* Terecht — hij kon niet
+zien of de melding kapot was of het bestand simpelweg niet geladen. `CLAUDE.md` eist sinds Spec 30
+precies dat van alles wat kan zwijgen, en ik heb die regel bij het bouwen overgeslagen.
+
+✅ **`/mh pet test`** roept de echte melding op, debounce genegeerd. Vuurt hij niet, dan print hij
+**waaróm** (*"solo (1 real player)"*, *"you ARE the tank"*, *"no known taunt on autocast"*). En
+`/mh pet` toont die live-beslissing nu ook, zodat "hij zei niks" nooit meer een raadsel is.
+⚠️ Geen `if testMode`-tak: de test loopt door dezelfde functie als het spel.
+
+📌 Lintcheck **[6]** ving onderweg een echte bug — ik riep twee locale functies aan die pas
+verderop gedeclareerd staan, wat op dat moment een nil-global is. Zelfde val als `FitFoot` op 6 sep,
+en opgelost zoals het hoort: via `ns.`-namen, die pas bij het uitvoeren opgezocht worden.
+
 Robs idee: *"het komt regelmatig voor dat ik Carola of Cisca in een instance zitten met een tank en
 dan vergeten we onze Growl uit te zetten — kunnen we dat melden?"* Een pet die taunt terwijl iemand
 anders tankt trekt mobs weg, en het spel zegt er niets over.
