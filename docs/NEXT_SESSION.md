@@ -28,8 +28,32 @@ ruimt ze op zodra de eigenaar weg is en wist de vlag. Dat hangt aan **het enige 
 manier van eindigen deelt** — de eigenaar die verdwijnt — in plaats van aan één specifieke waarde
 op één specifiek moment. De opruiming in `Delves.lua` is weggehaald: één plek, geen twee.
 
-**Te testen:** route vanuit de kamer, door het portaal, en op de isle kijken of er nog een pijl
-staat. `/mh arrow` hoort dan `zijn pijl zichtbaar: nee` en `Blizzard-waypoint gezet: nee` te tonen.
+✅ **BEVESTIGD 7 sep, twee runs, allebei schoon.** Rob ging **vanuit de kamer** door het portaal —
+geen pijl — en daarna nog een keer **van buiten de kamer**, dus mét de deur-overdracht erin — ook
+geen pijl. *"Voorlopig kunnen we hem aftekenen."*
+
+📌 **Twee runs, niet één, en dat is wat het een meting maakt.** De twee paden zetten `lastTarget` op
+verschillende momenten (direct, of pas bij de overdracht), en vandaag is precies zo'n verschil drie
+keer de oorzaak geweest. Eén schone run had alleen het pad bewezen dat toevallig gekozen werd.
+
+---
+
+### 📌 De portaalroute in het kort — vier fouten op één dag, en waarom ze niet eerder gevonden waren
+
+1. **De pijl werd nooit vrijgegeven** — `lastTarget` nillen stopt hem niet, alleen de eigenaar doet
+   dat. De eigen afsluiting van de pijl vuurt binnen 20 yard van het doel, en een portaalroute is
+   juist klaar door van zijn coördinaat wég te lopen.
+2. **De deur-overdracht was onmogelijk** — Silvermoon geeft geen wereldcoördinaten, dus de afstand
+   was `nil` bij elke tik en een drempel die niet bereikt kán worden werd nooit bereikt.
+3. **Vanuit de kamer stuurde hij je terug naar de deur** — de uitzondering herkende alleen iemand
+   op de drempel, niet iemand die er al voorbij was.
+4. **De pins overleefden hun route** — het opruimen hing aan een eigenaar-waarde op één moment in
+   plaats van aan het verdwijnen van de eigenaar.
+
+🔴 **Alle vier waren onzichtbaar om dezelfde reden: er was geen manier om te zien wat er beslóten
+werd.** Fout 2 en 4 zijn pas gevonden nadat `/mh arrow` het deurwachtertje en `arrivesOn` ging
+printen — en dat is dezelfde les als [[silence-is-not-absence]] en de Spec 30-regel in CLAUDE.md,
+maar nu vier keer op één middag betaald. **Bouw de diagnose vóór de derde gok, niet erna.**
 
 ## 🔴 7 sep — OPEN: binnen in de kamer wijst de pijl terug naar de deur
 
