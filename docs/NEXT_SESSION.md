@@ -43,9 +43,28 @@ en Barbed Shot 56641 komen terug. Dan het punt zelf:
   nieuwe entry klopt; dat Multi-Shot ontbreekt zegt dat het weghalen van 253 terecht was. Zonder die
   tweede helft was het een halve controle geweest.
 
-📌 **`Wild Thrash` staat in die dump nog onder `unmatched`, en dat is goed.** Rob draaide de automap
-vóórdat mijn wijziging in zijn sessie geladen was. Eén `/reload` + `/mhautomap` erna en hij hoort
-geplaatst te zijn — `unmatched` gaat dan van 11 naar 10.
+✅ **EN HET WERKT, gemeten in de dump zelf:**
+
+```
+["placed"] = { { ["key"] = "Shift+1", ["category"] = "main_rotation",
+                 ["id"] = 1264359, ["name"] = "Wild Thrash" }, ...
+```
+
+`unmatched` van 11 naar 10, `unplaced` leeg, en `layoutSpecKeys` bevat nu `Shift+1` waar dat er in
+de vorige run niet in stond. Het lege AoE-slot is gevuld.
+
+🔴 **TWEE LEESFOUTEN OP RIJ ONDERWEG, en de tweede is de leerzame.**
+1. Mijn eerste parse las de velden op **volgorde** (`id`/`name`/`key`/`category`), maar Lua legt die
+   volgorde niet vast: 11 van de 19 regels kwamen door, en de controle slaagde omdat Kill Command
+   toevallig bij die 11 zat. Gevangen door de telling tegen het getal te zetten dat de dump zélf
+   noemt. **Een controle die alleen de makkelijke gevallen raakt, is geen controle.**
+2. Daarna las ik een dump die nog van de vórige run was en concludeerde "de reparatie werkt niet".
+   **SavedVariables landt pas bij een `/reload`**, en Rob had ná zijn reload de automap gedraaid —
+   zijn 10 stond in het geheugen, de 11 op schijf. Het signaal lag er: het getal in het bestand
+   klopte niet met wat hij op zijn scherm zag. Dat verschil was de vondst, niet iets om overheen te
+   lezen.
+📌 Voor de volgende keer: **lees een `autoMapDump` nooit zonder eerst zijn eigen tellingen tegen
+Robs scherm te leggen**, en draai de volgorde om — `/mhautomap` en dán `/reload`.
 
 ⚠️ **Wat er ná deze reparatie nog `unmatched` staat, opgeschreven zodat niemand het opnieuw
 uitzoekt:** `Wing Clip` (195645) is de enige die een echte afweging waard is — Spec 32 zet hem op
