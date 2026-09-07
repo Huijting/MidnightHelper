@@ -167,6 +167,66 @@ out-of-combat; ruis is `Auto Attack`, `Shoot`, `Revive Battle Pets`.
 
 ---
 
+## 1d. 🔴 Beast Mastery Hunter — een vervanging die we niet gevolgd zijn
+
+`/mhautomap` + `/reload`, 7 sep: **19 placed, 0 did not fit, 11 unclassified.**
+
+```lua
+-- KeybindRoles_Hunter.lua:148
+["Multi-Shot"] = { category = "main_rotation", priority = 6,
+                   bindKey = "Shift+1", specs = { 253, 254 } },
+```
+
+GEMETEN, twee kanten:
+
+1. Robs spellbook kent **`Wild Thrash` = 1264359** (unclassified) en kent **geen** `Multi-Shot`.
+2. Extern: *"The previous existing Multi-Shot got replaced by Wild Thrash, which functions like
+   a baseline AoE version of Kill Command, providing the Beast Cleave / Kill Cleave buffs."*
+   Beast Cleave komt sinds Midnight van Wild Thrash, met 8 s cooldown.
+
+**Gevolg:** het `Shift+1`-slot — de AoE-tweeling — is voor BM **leeg**, en de knop waar Methods
+hele AoE-rotatie om draait heeft geen toets.
+
+**Fix:** `specs` van de `Multi-Shot`-entry terugbrengen naar `{ 254 }` en een nieuwe entry
+`["Wild Thrash"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1",
+id = 1264359, specs = { 253 } }`.
+⚠️ **Controleer eerst of Marksmanship Multi-Shot nog wél heeft** voordat je 253 eruit haalt —
+dat is niet te meten op Robs BM-hunter.
+
+### ✅ Geen gat: pet-afhankelijke knoppen
+
+`Fortitude of the Bear` en `Primal Rage` staan NOT KNOWN. Dat zijn **pet-familie**-vaardigheden
+(Tenacity respectievelijk Ferocity); ze verschijnen alleen met het juiste beestje. Geen defect,
+en ook een waarschuwing: een hunter-meting hangt af van welk pet er uit staat.
+
+`Kill Shot`, `Call of the Wild`, `Bloodshed` NOT KNOWN = talentkeuze.
+Rest van de unclassified-lijst: `Wing Clip`, `Eyes of the Beast`, `Make Camp`,
+`Return to Camp`, `Rummage Your Bag` (lage prioriteit) plus ruis.
+
+---
+
+## 1e. 🔴 De rode draad — dit is één onderhoudsprobleem, geen drie losse
+
+Drie klassen, drie keer dezelfde oorzaak: **Blizzard hernoemt of vervangt een knop, en onze
+naam-gesleutelde tabel volgt niet.**
+
+| Klasse | Wat er gebeurde | Gevolg |
+|---|---|---|
+| Priest | `Void Eruption` **hernoemd** naar `Voidform` (12.0.0), ID ongewijzigd | F1 matcht nooit; Power Infusion schuift er stil in |
+| Hunter | `Multi-Shot` **vervangen** door `Wild Thrash` (12.0) | Shift+1 blijft leeg |
+| Druid | `Lunar Beam`, `Heart of the Wild` nooit toegevoegd | geen toets voor de #1 van de rotatie |
+
+⚠️ **En het faalt in alle drie de gevallen stil.** `0 did not fit` bij alle drie: er valt niets
+om, er komt geen waarschuwing, het scherm ziet er compleet uit. Alleen het `unclassified`-getal
+verraadt het, en dat leest niemand uit zichzelf.
+
+📌 **Daarom is §5a/§5c geen bijzaak.** Een `id`-veld overleeft een hernoeming; een naam niet. En
+voor een *vervanging* helpt zelfs dat niet — daar is de enige verdediging het periodiek lezen
+van `unclassified`. Overweeg dat getal in `/mh binds` of in de layout-pagina te tonen wanneer het
+boven nul staat, zodat de speler het ziet in plaats van dat wij het per ongeluk vinden.
+
+---
+
 ## 2. ⛔ Wat GEEN defect is — niet repareren wat niet stuk is
 
 In hetzelfde bestand staan twee spells die **in 12.0.0 (20 jan 2026) uit het spel zijn
