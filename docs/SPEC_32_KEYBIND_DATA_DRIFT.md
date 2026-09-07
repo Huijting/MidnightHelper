@@ -325,8 +325,24 @@ Van de 11 unclassified op deze Ret zijn er twee geen ruis:
 | **Hand of Reckoning** | `specs = { 66 }` | aanwezig |
 | **Shield of the Righteous** | `specs = { 66 }` | aanwezig |
 
-⚠️ **Nog geen oordeel.** Of een Ret-paladin een taunt-bind hoort te krijgen is een ontwerpvraag —
-"de client kent het" is niet hetzelfde als "het verdient een toets". Rob beslist.
+🔴 **EERST STOND HIER *"de client kent het is niet hetzelfde als het verdient een toets"* — en Rob
+prikte daar terecht doorheen:** *"waarom zouden we ze niet nodig hebben???"* Dat was een mening in
+de vorm van een reden, en er lag een feit dat ik niet had opgezocht.
+
+✅ **GEMETEN: dit is géén lekkage uit een ander tabblad.** `ReadKnownActiveSpells`
+(`KeybindAutoMap.lua:157, 166`) slaat skill lines met `offSpecID` of `shouldHide` **expliciet
+over**. Wat in de lijst staat komt dus uit de ACTIEVE, on-spec spellbook. De client zegt dat een Ret
+deze knoppen heeft — dus `specs = { 66 }` was **onze data die fout was**, niet het spel.
+
+✅ **`Hand of Reckoning` → `{ 66, 70 }`.** Elke paladin heeft de taunt, en een DPS gebruikt hem juist
+wél: een losse mob oppakken, of overnemen als de tank ligt. Beide specs zijn nu in een dump gezien.
+📌 **65 (Holy) blijft eraf** — niet gemeten. Heeft een Holy hem, dan meldt `/mh binds` dat vanzelf.
+
+❓ **`Shield of the Righteous` wacht nog op één tooltip.** Niet omdat het twijfelachtig is dát een
+Ret hem heeft — dat is nu gemeten — maar omdat de bestaande entry `category = "defensive",
+priority = 1` draagt, en dat is afgestemd op Prot waar hij **actieve mitigatie** is. Doet hij op Ret
+iets anders, dan hoort daar een andere categorie bij. Eén hover beslist dat, en dat is precies hoe
+de Voidwalker-vraag dezelfde avond ook beslecht is.
 
 📌 **Wél het bewijs dat de teller doet waarvoor hij gebouwd is:** dit gat meldde zichzelf, op de
 eerste run op een andere spec. Dat is de verdediging tegen drift die een `id`-veld niet kan geven.

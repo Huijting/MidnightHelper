@@ -118,7 +118,18 @@ ns.KeybindRoleClassifier.PALADIN = {
 	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66 } }, -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
 	["Consecration"] = { id = 26573, category = "main_rotation", priority = 4, specs = { 66 } }, -- guide.lua Prot-rotatie; [26573] castbare id (JustAC SpellCooldowns); ground-AoE, on-cooldown houden
 	["Hammer of Wrath"] = { id = 24275, category = "spender", priority = 2, specs = { 66, 70 } }, -- SpellArchetypes [24275] ranged; execute-spender (Prot/Ret)
-	["Hand of Reckoning"] = { id = 62124, category = "taunt", priority = 1, specs = { 66 } }, -- [62124] taunt (JustAC SpellCooldowns/SpellCategories); F, eigen kaart
+	--- 🔴 STOND OP `{ 66 }` EN DAT WAS ONZE FOUT, NIET DIE VAN HET SPEL — 7 sep 2026.
+	--- Robs Ret-paladin (lvl 70) meldde `Hand of Reckoning` als `unclassified`. Dat is geen
+	--- lekkage uit een Prot-tabblad: `ReadKnownActiveSpells` slaat off-spec skill lines expliciet
+	--- over (`offSpecID` en `shouldHide`, regel 157/166 in KeybindAutoMap.lua), dus wat er in de
+	--- lijst staat is de ACTIEVE spellbook van die spec.
+	---
+	--- 📌 Rob, toen ik schreef dat een Ret hem misschien niet nodig heeft: *"waarom zouden we ze
+	--- niet nodig hebben???"* Terecht — dat was een mening in de vorm van een reden. Elke paladin
+	--- heeft deze knop, en een DPS gebruikt hem juist wél: een losse mob oppakken, of overnemen
+	--- als de tank ligt. `{ 66, 70 }` is nu gemeten in twee dumps; **65 (Holy) is NIET gemeten**
+	--- en blijft er daarom af — heeft een Holy hem, dan meldt `/mh binds` dat vanzelf.
+	["Hand of Reckoning"] = { id = 62124, category = "taunt", priority = 1, specs = { 66, 70 } }, -- [62124] taunt (JustAC SpellCooldowns/SpellCategories); F, eigen kaart
 	["Ardent Defender"] = { id = 31850, category = "defensive", priority = 2, specs = { 66 } }, -- DEFENSIVE [31850]; Prot grote persoonlijke DR
 	["Bastion of Light"] = { id = 378974, category = "cooldown", priority = 3, specs = { 66 } }, -- DEFENSIVE [378974]; Prot Holy-Power-burst (talent)
 
