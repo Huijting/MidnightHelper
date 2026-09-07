@@ -1477,6 +1477,71 @@ def main() -> int:
         print("     SOFT  this check proves nothing this run; do not read silence as clean")
         soft += 1
 
+    # [20] A keybind entry that names a spell id in its own comment, without carrying it.
+    #
+    # 🔴 WHY THIS EXISTS — 7 Sep 2026, and it is the cheapest lesson of the week.
+    # KeybindRoles_Priest.lua had `["Void Eruption"] = { ... }` with `228260` written in the
+    # trailing comment ON THE SAME LINE. Blizzard renamed the spell to Voidform in 12.0.0; the
+    # id never changed. The lookup goes by name, so the entry stopped matching, F1 silently
+    # went to Power Infusion, and the cheat sheet printed a name no player could find. Had that
+    # number been an `id` field instead of a comment, the rename would have broken nothing.
+    #
+    # The same shape hit the Hunter (Multi-Shot replaced by Wild Thrash) and the Druid (spells
+    # never added at all). One maintenance problem, three classes, and all three failed silently
+    # -- `0 did not fit` every time, because nothing falls over when nothing is placed.
+    #
+    # So: if the comment already knows the number, the entry must carry it. Machine-checkable,
+    # and it would have caught the Priest case the day it was written.
+    #
+    # ⚠️ SOFT on purpose. The id migration is deliberately incremental (Paladin was the pilot),
+    # so failing the build on it would block work rather than guide it. It names files and
+    # counts, which is what makes a backlog shrink.
+    #
+    # 🔴 AND DO NOT AUTO-FILL FROM THIS. The number in a comment is a CANDIDATE, not the
+    # entry's id: those comments also carry talent ids, cooldown durations in milliseconds and
+    # ids of related spells ("JustAC SpellCooldowns 5217=30s"). Taking the first big number and
+    # writing it into the table would be exactly the plausible guess this repo forbids, and a
+    # wrong id is worse than none -- it matches something else instead of falling back to the
+    # name. Fill them the way the Druid, Priest and Hunter entries were filled: from a client
+    # dump, one class at a time. This check says WHERE to look, not what to write.
+    try:
+        missing_ids = []
+        for path in sorted(glob.glob(os.path.join(root, "Modules", "KeybindRoles_*.lua"))):
+            rel = os.path.relpath(path, root).replace("\\", "/")
+            with open(path, "r", encoding="utf-8", errors="replace") as fh:
+                for n, line in enumerate(fh, 1):
+                    m = re.match(r'\s*\["([^"]+)"\]\s*=\s*\{(.*)\}\s*,?\s*(--.*)?$', line)
+                    if not m:
+                        continue
+                    name, body, comment = m.group(1), m.group(2), m.group(3) or ""
+                    if re.search(r'\bid\s*=\s*\d+', body):
+                        continue
+                    # Five digits or more: spell ids are big, and this avoids reading
+                    # priorities, spec ids and key numbers as if they were spell ids.
+                    nums = [int(x) for x in re.findall(r'\b(\d{5,})\b', comment)]
+                    if nums:
+                        missing_ids.append((rel, n, name, nums))
+
+        print(f"\n[20] Keybind entries naming a spell id in the comment but not carrying it: "
+              f"{len(missing_ids)}  (SOFT)")
+        if missing_ids:
+            print("     A renamed spell breaks these silently — the id is already known here.")
+            per_file = {}
+            for rel, _n, _name, _nums in missing_ids:
+                per_file[rel] = per_file.get(rel, 0) + 1
+            for rel in sorted(per_file, key=lambda k: -per_file[k]):
+                print(f"       {per_file[rel]:>3}  {rel}")
+            for rel, n, name, nums in missing_ids[:8]:
+                print(f"     SOFT  {rel}:{n}  {name} → id = {nums[0]}")
+            if len(missing_ids) > 8:
+                print(f"     ... and {len(missing_ids) - 8} more")
+            soft += 1
+    except Exception as exc:  # noqa: BLE001
+        # Same rule as [19]: a checker that dies quietly is worse than no checker.
+        print(f"\n[20] Keybind id migration: NOT CHECKED — {type(exc).__name__}: {exc}")
+        print("     SOFT  this check proves nothing this run; do not read silence as clean")
+        soft += 1
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

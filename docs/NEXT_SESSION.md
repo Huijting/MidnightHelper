@@ -1,5 +1,53 @@
 # Midnight Helper — waar we staan
 
+## ✅ 7 sep — Spec 32 is af voor alle drie de klassen, plus een linter die dit soort bug vangt
+
+De onderzoek-sessie breidde Spec 32 uit naar drie klassen. **Twee van de drie waren vandaag al
+gedaan** (Priest-hernoeming + zeven spells, Druid-vijf); alleen de Hunter lag er nog.
+
+🔴 **HUNTER — `Multi-Shot` is voor Beast Mastery VERVANGEN door `Wild Thrash`** (1264359, en Beast
+Cleave komt daar sinds Midnight vandaan). Onze entry stond op `specs = { 253, 254 }`, dus voor BM
+bleef **Shift+1 — de AoE-tweeling — gewoon leeg**, terwijl dat de knop is waar de hele AoE-rotatie
+om draait. Nu `{ 254 }` voor Multi-Shot en een eigen entry voor Wild Thrash op `{ 253 }`.
+
+📌 **De waarschuwing van de spec is opgelost in plaats van doorgegeven.** Die zei: controleer eerst
+of Marksmanship Multi-Shot nog heeft, want dat is op een BM-hunter niet te meten. Dat hoeft niet:
+253 eruit halen is veilig ongeacht het antwoord. Heeft MM hem nog, dan klopt de entry; heeft MM hem
+ook niet meer, dan is hij **inert** — de pijplijn loopt over de live spellbook, dus een regel voor
+een spell die niet bestaat matcht nooit. Dat is §2's eigen asymmetrie, toegepast.
+
+### 🔑 De rode draad, en wat we eraan gedaan hebben
+
+Drie klassen, één oorzaak: Blizzard hernoemt of vervangt een knop en onze **naam-gesleutelde**
+tabel volgt niet. En alle drie faalden **stil** — `0 did not fit` in elke dump, want er valt niets
+om als er niets geplaatst wordt.
+
+✅ **Nieuwe lintcheck [20]** (Spec 32 §5c): een entry die een spell-id in zijn eigen commentaar
+noemt maar het niet als `id` draagt. Bij de priester stond het juiste getal (228260) letterlijk op
+dezelfde regel als de kapotte naam-sleutel; met een `id` had de hernoeming niets gebroken.
+**Eerste run: 200 entries in 11 bestanden.** SOFT, want de migratie is bewust stapsgewijs.
+
+🔴 **En in de check staat waarom je die 200 NIET machinaal mag invullen:** dat getal in een
+commentaar is een *kandidaat*, geen id. Er staan ook talent-id's, cooldowns in milliseconden en
+id's van verwante spells tussen ("JustAC SpellCooldowns 5217=30s"). Het eerste grote getal pakken
+en wegschrijven is precies de plausibele gok die dit project verbiedt — en een fout id is erger dan
+géén, want dan matcht hij iets ánders in plaats van terug te vallen op de naam. Vullen gaat zoals
+vandaag bij Druid, Priest en Hunter: uit een client-dump, klasse voor klasse.
+
+⚠️ **`id = 1264359` voor Wild Thrash is NIET door mij hergemeten** — het komt uit de dump van de
+onderzoek-sessie op Robs BM-hunter, en `autoMapDump` heeft één slot dat inmiddels de priester-run
+bevat. Eén `/mhautomap` + `/reload` op de hunter sluit het. 📌 Het risico is klein: staat het id
+fout, dan valt `BuildIdIndex` terug op de naam, en die kwam wél uit zijn spellbook.
+
+⚠️ **SCOPE: drie specs gemeten** (Guardian, Shadow, Beast Mastery) van de veertig. De rest kan
+alleen op een personage dat Rob heeft.
+
+### 📋 Openstaand voorstel uit §1e — nog niet gebouwd
+
+Toon het `unclassified`-getal in `/mh binds` of op de layout-pagina zodra het boven nul staat. Dát
+is de systeemfix: nu is dat getal het enige dat een stille omissie verraadt, en niemand leest het
+uit zichzelf. Raakt speler-UI en dus zeven talen — Robs keuze.
+
 ## 🔑 7 sep — DE ANDERE HELFT IS GEMETEN, en de Dundun-regel is nu een ANTWOORD
 
 Rob sprak de **eerste** Dundun van de week aan op zijn hunter, met de sniffer aan:

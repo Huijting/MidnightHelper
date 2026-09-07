@@ -145,7 +145,22 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	-- AoE (Shift+N)
 	--==================================================================================
-	["Multi-Shot"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 253, 254 } }, -- BM/MM AoE (2643), Shift-tweeling van Steady Shot (1)
+	-- 🔴 VERVANGEN, NIET HERNOEMD — gerepareerd 7 sep 2026 (Spec 32 §1d).
+	-- Midnight heeft Multi-Shot voor Beast Mastery vervangen door **Wild Thrash**: dezelfde rol
+	-- (het is waar Beast Cleave sindsdien vandaan komt, met 8 s cooldown) maar een andere naam
+	-- én een ander ID. Robs spellbook kent `Wild Thrash` en kent **geen** `Multi-Shot`.
+	--
+	-- ⚠️ Gevolg was dat `Shift+1` — de AoE-tweeling — bij BM gewoon LEEG bleef, terwijl de knop
+	-- waar de hele AoE-rotatie om draait geen toets had. En het faalde stil: de dump meldde
+	-- "0 did not fit", want er viel niets om; er werd alleen niets geplaatst.
+	--
+	-- 📌 `specs` gaat van { 253, 254 } naar { 254 }, en dat is veilig ONGEACHT of Marksmanship
+	-- Multi-Shot nog heeft — wat op Robs BM-hunter niet te meten viel. Heeft MM hem nog, dan
+	-- klopt de entry. Heeft MM hem óók niet meer, dan is hij inert: de pijplijn loopt over de
+	-- live spellbook en zoekt daarin op, dus een regel voor een spell die niet bestaat matcht
+	-- nooit. Zie §2 — een spell die verdwijnt kost niets, een spell die erbij komt kost een toets.
+	["Multi-Shot"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 254 } }, -- MM AoE (2643), Shift-tweeling van Steady Shot (1)
+	["Wild Thrash"] = { id = 1264359, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 253 } }, -- BM AoE sinds Midnight; bron van Beast Cleave
 	["Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 254 } }, -- MM AoE-CD (260243), Shift-tweeling van Rapid Fire (2)
 	["Explosive Shot"] = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 254 } }, -- MM AoE/ST (talent), Shift-tweeling van Arcane Shot (4)
 	["Raptor Swipe"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 255 } }, -- SV AoE-variant Raptor Strike, Shift-tweeling van Raptor Strike (2)
