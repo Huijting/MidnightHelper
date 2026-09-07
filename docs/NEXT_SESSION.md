@@ -33,10 +33,25 @@ beëindigen.
 dus voor precies de mensen die geen van beide draaien — en dat is niemand met wie we testen.
 Zelfde vorm als de rare-aankomsttips op 19 aug.
 
-📌 **AFGELEID, NIET GEMETEN.** Dit is uit de code gelezen (`Delves.lua` ~3538 → `NativeArrow.lua`
-878/1030), niet in het spel bevestigd. **Controle:** na een portaalroute op de isle `/mh arrow` —
-als de diagnose klopt, stond daar vóór deze fix nog een levende `waypoint`-eigenaar met de deur als
-doel, en hoort er nu `doel: GEEN` te staan.
+✅ **GEMETEN 7 sep, `/mh arrow` op de isle na een portaalroute:**
+
+```
+route owner: none
+target: NONE — no route has published one
+arrow frame exists: nee   shown: nee
+Blizzard-waypoint gezet: nee     TomTom … zijn pijl zichtbaar: nee
+```
+
+📌 De diagnose was uit de code gelezen (`Delves.lua` ~3538 → `NativeArrow.lua` 878/1030) en pas
+daarna in het spel bevestigd. **`arrow frame exists: nee` is de regel die het beslist**: niet alleen
+het doel is weg, het frame is afgebroken — dus dit is echt de eigenaar die losgelaten is en niet een
+pijl die toevallig niets te wijzen heeft. En de twee pin-regels bevestigen dat de TomTom- en
+Blizzard-waypoint ook mee zijn.
+
+⚠️ **Wat deze meting NIET dekt:** `/mh arrow` meldt ook `WaypointUI aanwezig: ja`. Als er ooit
+tóch nog een pijl blijft staan terwijl deze diagnose `arrow frame exists: nee` zegt, dan tekent
+WaypointUI hem en is dat een ánder spoor dan dit. Vandaag niet aan de hand — genoteerd zodat de
+volgende waarneming niet opnieuw in deze sectie belandt.
 
 ## ✅ 7 sep — de waarschuwing gaat weg zodra je hem opvolgt
 
