@@ -46,6 +46,15 @@ Growl  autoAllowed=true  autoEnabled=true  spellID=2649
 stil te houden, en beschermde precies niets: alle vier de voorwaarden waren vervuld in de één plek
 waar de melding nooit mag komen.
 
+✅ **BEVESTIGD 7 sep**, twee runs in dezelfde delve (Growl uit én aan), allebei:
+`would warn: false (solo (1 real player in the group))`. Valeera wordt niet meer meegeteld.
+📌 Dat Growl aan/uit geen verschil maakte klopt: de check stopt bij de eerste voorwaarde die faalt
+en kijkt dan niet meer naar de petbalk. De reden die hij noemt is dus ook de reden die telde.
+⚠️ **Nog NIET getest: de positieve kant.** Dat een echte groep mét Growl aan de melding wél geeft,
+is nooit gezien — daar is een dungeon met Carola of Cisca voor nodig. Tot dan is alleen bewezen dat
+hij zwijgt waar hij moet zwijgen, en dat is de helft die iedereen zou irriteren, niet de helft die
+de feature waarmaakt.
+
 ✅ **Gerepareerd met `RealPlayersInGroup()`** — tel de *mensen*, niet de party-slots. Een follower is
 geen speler. ⚠️ **Niet opgelost door `scenario` uit te sluiten:** Broken Throne-rituals zijn óók
 scenarios, en dat zijn echte groepen waar de melding juist wél moet komen. En `UnitIsPlayer` gaat
