@@ -30,6 +30,27 @@ local C_Timer = C_Timer
 -- How close to the door counts as "you are at the door". Generous on purpose: the
 -- point is to hand over early rather than to make you stand on a pixel.
 local ARRIVE_YARDS = 22
+
+--- 🔴 SILVERMOON HAS NO WORLD COORDINATES, SO THE YARD ROUTE CAN NEVER ANSWER THERE.
+--- GEMETEN 7 sep 2026 with `/mh arrow` standing inside the room: the watcher was alive
+--- (16 s of its 300), the route was alive, the player was on map 2393 -- the very map the
+--- route uses -- and the distance read `ONMEETBAAR`. `C_Map.GetWorldPosFromMapPos(2393, …)`
+--- gives nothing, so `SmcYardsToPoint` returns nil every single tick and a threshold that
+--- can never be reached is never reached. The hand-over was not fragile here; it was
+--- impossible.
+---
+--- 📌 Same shape as the aura rule in CLAUDE.md: nil meant "could not read", the code treated
+--- it as "not yet", and those are not the same answer. It cost a whole afternoon because
+--- from outside an arrow that never advances looks exactly like an arrow pointing at the
+--- wrong thing.
+---
+--- So the distance is now asked THREE ways, best first, and the diagnostic says which one
+--- answered -- because if this ever silently drops to the coarsest one on a map where the
+--- others used to work, that is a finding and not a detail.
+---   1. world yards            -- exact, works outdoors
+---   2. the map's own size     -- C_Map.GetMapWorldSize, still real yards
+---   3. raw map percent        -- coarse, and the only one that needs its own threshold
+local ARRIVE_MAP_UNITS = 1.2
 -- Stop looking after this long. Someone who clicked and then went to do something
 -- else should not leave a ticker running for the rest of the session.
 local GIVE_UP_SECONDS = 300
@@ -83,6 +104,53 @@ function ns.SmcYardsToPoint(mapID, x, y)
 	return math.sqrt(dx * dx + dy * dy)
 end
 
+--- The player's position on `mapID` as 0..1, or nil.
+local function PlayerMapXY(mapID)
+	if not (C_Map and C_Map.GetPlayerMapPosition) then
+		return nil
+	end
+	local ok, pos = pcall(C_Map.GetPlayerMapPosition, mapID, "player")
+	if not ok or not pos then
+		return nil
+	end
+	return pos:GetXY()
+end
+
+--- How far you are from the door, in whatever unit could actually be measured.
+---
+--- ⚠️ Returns the THRESHOLD alongside the distance on purpose. The two must come from the
+--- same method or they are not comparable, and keeping them apart is how a yard threshold
+--- ends up being compared against a percentage.
+---
+--- @return number|nil dist, number limit, string how  -- how: "yards" | "mapsize" | "percent"
+local function DoorProximity(mapID, x, y)
+	local yards = ns.SmcYardsToPoint(mapID, x, y)
+	if yards then
+		return yards, ARRIVE_YARDS, "yards"
+	end
+
+	local px, py = PlayerMapXY(mapID)
+	if not (px and py) then
+		return nil, ARRIVE_YARDS, "niets"
+	end
+	local dx, dy = px - ((tonumber(x) or 0) / 100), py - ((tonumber(y) or 0) / 100)
+
+	-- The map knows its own size in yards even where it cannot place a world position.
+	if C_Map and C_Map.GetMapWorldSize then
+		local okS, w, h = pcall(C_Map.GetMapWorldSize, mapID)
+		if okS and tonumber(w) and tonumber(h) and w > 0 and h > 0 then
+			local ax, ay = dx * w, dy * h
+			return math.sqrt(ax * ax + ay * ay), ARRIVE_YARDS, "mapsize"
+		end
+	end
+
+	--- ⚠️ Last resort, and deliberately the only one with its own threshold. A percentage of
+	--- the map is not a distance -- it stretches differently in x and y on any map that is not
+	--- square -- so this can only ever mean "near enough", never "22 yards". It is still far
+	--- better than the nil it replaces, which meant the hand-over could not happen at all.
+	return math.sqrt(dx * dx + dy * dy) * 100, ARRIVE_MAP_UNITS, "percent"
+end
+
 function ns.StopSmcTwoStepRoute()
 	active = nil
 end
@@ -105,7 +173,7 @@ function ns.SmcTwoStepStatus()
 	if not active then
 		return nil
 	end
-	local d = ns.SmcYardsToPoint(active.mapID, active.door.x, active.door.y)
+	local d, limit, how = DoorProximity(active.mapID, active.door.x, active.door.y)
 	return {
 		mapID = active.mapID,
 		doorX = active.door.x,
@@ -113,7 +181,9 @@ function ns.SmcTwoStepStatus()
 		destLabel = active.dest and active.dest.label,
 		destX = active.dest and active.dest.x,
 		destY = active.dest and active.dest.y,
-		yards = d, -- nil = could not be measured
+		yards = d, -- nil = could not be measured at all
+		limit = limit,
+		how = how, -- which of the three answered; a silent drop to "percent" is a finding
 		elapsed = active.elapsed or 0,
 		giveUp = GIVE_UP_SECONDS,
 		arriveYards = ARRIVE_YARDS,
@@ -150,8 +220,8 @@ local function Tick(myToken)
 		active = nil
 		return
 	end
-	local d = ns.SmcYardsToPoint(active.mapID, active.door.x, active.door.y)
-	if d and d <= ARRIVE_YARDS then
+	local d, limit = DoorProximity(active.mapID, active.door.x, active.door.y)
+	if d and d <= limit then
 		Arrive()
 		return
 	end
@@ -169,8 +239,8 @@ function ns.StartSmcTwoStepRoute(point, mapID)
 	end
 	-- Already at the door (or inside): skip the detour entirely. Sending someone
 	-- outside to come back in is worse than the bug this fixes.
-	local d = ns.SmcYardsToPoint(mapID, e.x, e.y)
-	if d and d <= ARRIVE_YARDS then
+	local d, limit = DoorProximity(mapID, e.x, e.y)
+	if d and d <= limit then
 		return nil
 	end
 	token = token + 1

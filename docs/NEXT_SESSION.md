@@ -34,6 +34,42 @@ de laatst gemeten afstand (of **ONMEETBAAR**, wat het interessante antwoord is),
 seconden op is, en waar hij daarna heen zou gaan. Dit is de regel uit CLAUDE.md over modules waarvan
 zwijgen de normale uitkomst is.
 
+## ✅ 7 sep — en de diagnose gaf antwoord in één regel
+
+```
+twee-staps deurwachter: actief · deur 54.99/63.30 op map 2393
+   afstand nu: ONMEETBAAR
+   verstreken: 16 s van 300 · daarna naar: Portal to The Coiled Isle (56.74/67.30)
+```
+
+🔴 **De ticker leefde, de route leefde, de speler stond op de kaart die de route gebruikt — en de
+afstand was niet te lezen.** `C_Map.GetWorldPosFromMapPos(2393, …)` geeft niets terug voor
+Silvermoon, dus `SmcYardsToPoint` gaf elke tik `nil`. Een drempel die nooit bereikt kán worden,
+wordt nooit bereikt. De overdracht was hier niet wankel — hij was **onmogelijk**.
+
+📌 **Zelfde vorm als de aura-regel:** `nil` betekende *"niet te lezen"*, de code las het als *"nog
+niet"*, en dat zijn niet dezelfde antwoorden. Het kostte een middag omdat een pijl die niet
+doorschuift er van buiten identiek uitziet als een pijl die naar het verkeerde ding wijst.
+
+✅ **Gerepareerd: de afstand wordt nu op drie manieren gevraagd, beste eerst**, en `/mh arrow` zegt
+welke geantwoord heeft:
+1. **wereld-yards** — exact, werkt buiten;
+2. **`C_Map.GetMapWorldSize`** — de kaart kent zijn eigen maat in yards, ook waar hij geen
+   wereldpositie kan geven;
+3. **kaartpercentage** — grof, en de enige met een eigen drempel (1,2%).
+
+⚠️ **Nummer 3 is geen afstand en doet ook niet alsof.** Een percentage rekt anders in x dan in y op
+elke kaart die niet vierkant is, dus het kan alleen "dichtbij genoeg" betekenen, nooit "22 yard".
+De diagnose noemt de eenheid daarom bij naam — een getal dat liegt over wat het is, is erger dan
+geen getal. En zakt hij ooit stilletjes naar 3 op een kaart waar 1 of 2 het eerst deed, dan is dát
+een bevinding.
+
+**Te testen:** dezelfde route, naar binnen lopen. De pijl hoort nu over te schakelen naar *Portal to
+The Coiled Isle* (56.74/67.30), mét een chatregel dat je bij de ingang bent. En `/mh arrow` hoort
+achter `gemeten via:` iets anders te tonen dan `niets`.
+
+<details><summary>De drie verklaringen van vóór deze meting (verklaring 1 was het niet)</summary>
+
 🔴 **DRIE VERKLARINGEN, NOG NIET GESCHEIDEN.** Ze zien er van buiten identiek uit, en dit is precies
 het punt waarop deze sessie al twee keer verkeerd geraden heeft:
 
@@ -53,6 +89,8 @@ BINNEN in de kamer staat.**
 
 📌 De chatregel `SMC_ENTRANCE_ARRIVED_FMT` is een tweede, gratis onderscheid: die wordt geprint op
 het moment van overdragen. Kwam hij niet, dan heeft `Arrive()` niet gedraaid.
+
+</details>
 
 ## 🔴 7 sep — "route beëindigd" zei het wél, maar de pijl ging niet weg
 

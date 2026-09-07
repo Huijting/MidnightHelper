@@ -1115,8 +1115,11 @@ function ns.PrintArrowStatus()
 			print(("  twee-staps deurwachter: |cff80ff80actief|r · deur %.2f/%.2f op map %s"):format(
 				tonumber(st.doorX) or 0, tonumber(st.doorY) or 0, tostring(st.mapID)))
 			if st.yards then
-				print(("     afstand nu: %.1f yard (overdracht bij <= %d)"):format(
-					st.yards, tonumber(st.arriveYards) or 0))
+				-- The unit comes from whichever method answered; saying "yard" on a
+				-- percentage would be a number that lies about what it is.
+				local unit = (st.how == "percent") and "% van de kaart" or "yard"
+				print(("     afstand nu: %.1f %s (overdracht bij <= %.1f) · gemeten via: %s"):format(
+					st.yards, unit, tonumber(st.limit) or 0, tostring(st.how)))
 			else
 				print("     afstand nu: |cffff8080ONMEETBAAR|r — een afstand die niet te lezen is"
 					.. " kan nooit onder de drempel komen, dus dit IS de reden dat hij niet overdraagt")
