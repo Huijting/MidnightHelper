@@ -889,6 +889,29 @@ local function Tick()
 			end
 			mhOwnedKey = nil
 		end
+		--- 🔴 PINS SET BEHIND THIS MODULE'S BACK OUTLIVED THEIR ROUTE — 7 Sep 2026. Rob on the
+		--- Coiled Isle: `route owner: none`, `onze pijl getekend: nee`, and still an arrow —
+		--- `TomTom … zijn pijl zichtbaar: ja` and `Blizzard-waypoint gezet: ja`. The route had
+		--- ended perfectly; its two pins had not heard about it.
+		---
+		--- 📌 `mhOwnedKey` above only knows about pins THIS module placed. The Silvermoon route
+		--- sets both itself (`SetSMCWaypoint` in UI.lua, deliberately, because the two-step
+		--- hand-over drives them), so the teardown never knew they existed.
+		---
+		--- ⚠️ THIS IS WHY IT BELONGS HERE AND NOT AT THE ARRIVAL CHECK, where it was first
+		--- put: that check clears the pins only if the owner still reads "waypoint" at that
+		--- instant. Today it read "none" -- something else had already ended the route -- and
+		--- the guard meant for safety turned into the leak. An owner that is gone is the one
+		--- signal every ending shares, whichever code path got there.
+		if ns._mhSmcPinsSet then
+			ns._mhSmcPinsSet = nil
+			if ns.MH_TomTomClearAll then
+				pcall(ns.MH_TomTomClearAll) -- flags itself, so the player-clear hook stays quiet
+			end
+			if C_Map and C_Map.ClearUserWaypoint then
+				pcall(C_Map.ClearUserWaypoint)
+			end
+		end
 		return
 	end
 

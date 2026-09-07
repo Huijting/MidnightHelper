@@ -1208,6 +1208,12 @@ local function SetSMCWaypoint(point)
 	end
 
 	TriggerTomTomWaySlash(target)
+	--- 🔴 SAY THAT WE PINNED, so the teardown can unpin. This route places a Blizzard user
+	--- waypoint and a TomTom one directly, which NativeArrow's own bookkeeping (`mhOwnedKey`)
+	--- cannot see -- and on 7 Sep both survived a route that had properly ended, leaving Rob
+	--- with an arrow to Silvermoon while `/mh arrow` correctly read `route owner: none`.
+	--- One flag, cleared by whoever tears the route down, whichever path ended it.
+	ns._mhSmcPinsSet = true
 	print(
 		("|cffffcc00%s|r %s"):format(
 			ns:L("PRINT_PREFIX"),

@@ -1,5 +1,36 @@
 # Midnight Helper — waar we staan
 
+## ✅ 7 sep — de route eindigde wél, de pins niet
+
+Rob op de isle, mét pijl op het scherm, `/mh arrow`:
+
+```
+route owner: none            ← de route is netjes geëindigd
+onze pijl getekend: nee      ← onze pijl is weg
+TomTom actief: ja · zijn pijl zichtbaar: ja
+Blizzard-waypoint gezet: ja
+```
+
+📌 **Dat is een schone splitsing.** Onze kant klopte volledig; wat hij zag was TomTom's pijl, gevoed
+door twee pins die hun route hadden overleefd.
+
+🔴 **En het opruimen zat op de verkeerde plek — de plek die ik er vanmiddag zelf in zette.** De
+aankomstcontrole ruimde de pins alleen op als de eigenaar op dát moment nog `waypoint` of `delve`
+was. Vandaag stond hij al op `none` — iets anders had de route eerder beëindigd — dus sloeg de
+guard over, en precies de guard die voor veiligheid bedoeld was werd het lek.
+
+📌 **Waaróm de teardown ze niet kende:** `NativeArrow` ruimt alleen pins op die het **zelf** gezet
+heeft (`mhOwnedKey`). De Silvermoon-route zet ze bewust zelf, want de deur-overdracht stuurt ze
+aan. Twee boekhoudingen, en de ene wist niets van de andere.
+
+✅ **Gerepareerd met één vlag.** `SetSMCWaypoint` zet `ns._mhSmcPinsSet`; `NativeArrow`'s teardown
+ruimt ze op zodra de eigenaar weg is en wist de vlag. Dat hangt aan **het enige signaal dat elke
+manier van eindigen deelt** — de eigenaar die verdwijnt — in plaats van aan één specifieke waarde
+op één specifiek moment. De opruiming in `Delves.lua` is weggehaald: één plek, geen twee.
+
+**Te testen:** route vanuit de kamer, door het portaal, en op de isle kijken of er nog een pijl
+staat. `/mh arrow` hoort dan `zijn pijl zichtbaar: nee` en `Blizzard-waypoint gezet: nee` te tonen.
+
 ## 🔴 7 sep — OPEN: binnen in de kamer wijst de pijl terug naar de deur
 
 Rob, direct nadat de portaalroute werkte: *"wanneer ik buiten de kamer in Silvermoon City sta en ik

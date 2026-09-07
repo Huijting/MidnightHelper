@@ -3578,18 +3578,13 @@ local function CreateEventBridge()
 						--- running.
 						if ns._mhRouteOwner == "waypoint" or ns._mhRouteOwner == "delve" then
 							ns._mhRouteOwner = nil
-							--- ⚠️ And take the PINS down with it, not just our own arrow. This
-							--- route sets a Blizzard user waypoint and a TomTom one directly
-							--- (`SetSMCWaypoint` in UI.lua), so leaving them would fix the
-							--- symptom only for players who have neither -- which is nobody we
-							--- test with. Same shape as the rare arrival hints on 19 Aug.
-							if ns.MH_TomTomClearAll then
-								pcall(ns.MH_TomTomClearAll) -- flags itself, so the player-clear hook stays quiet
-							end
-							if C_Map and C_Map.ClearUserWaypoint then
-								pcall(C_Map.ClearUserWaypoint)
-							end
 						end
+						--- ⚠️ THE PINS ARE NOT CLEARED HERE ANY MORE, and that is the fix rather
+						--- than an omission. They were, guarded by the same owner test above --
+						--- and on 7 Sep Rob arrived with `route owner: none` already, so the
+						--- guard skipped and both pins outlived the route. Clearing now hangs off
+						--- `ns._mhSmcPinsSet` in NativeArrow's teardown, which runs on the one
+						--- signal every ending shares: the owner being gone.
 						-- The door-watcher polls a coordinate on the map we just left; it can no
 						-- longer measure anything and has nothing left to hand over to.
 						if ns.StopSmcTwoStepRoute then
