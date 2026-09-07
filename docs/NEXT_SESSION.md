@@ -86,7 +86,28 @@ ertussen zit is de overdracht van stap 1 naar stap 2.
 overeenkomen.** Dat scheidt de twee in één regel. `GEEN` = kandidaat 1, twee verschillende getallen
 = kandidaat 2.
 
-**Te meten:** de route doen, door het portaal, en op de isle `/mh arrow`.
+✅ **BEVESTIGD 7 sep, na een zekere reload: de pijl is weg op de isle.** De hele keten loopt nu —
+buiten → deur → portaal → aan de overkant stoppen. 📌 De mislukte run hierboven was dus opnieuw een
+sessie zonder de nieuwe code; dat is vandaag **twee keer** gebeurd en beide keren kostte het een
+ronde. Vraag voortaan expliciet of er gereload is vóór je een meting als bewijs behandelt.
+
+### ✅ 7 sep — en vanuit de kamer stuurde hij je eerst terug naar de deur
+
+Rob: *"als ik al in de kamer sta en vraag de weg, stuurt ie me eerst terug naar de deur en dan weer
+naar de portal."*
+
+📌 De bestaande uitzondering herkende alleen iemand die **op de drempel** stond
+(`d <= limit`). Vijf passen verder naar binnen ben je die drempel in beide betekenissen voorbij, en
+de route marcheerde je weer naar buiten.
+
+✅ **Gerepareerd zonder nieuw getal:** ligt het doel dichter bij dan zijn eigen deur, dan is die deur
+achter je. Beide afstanden komen uit `DoorProximity`, dus ze staan in dezelfde eenheid welke van de
+drie methoden ook geantwoord heeft — precies waarom die functie zijn eenheid teruggeeft.
+
+⚠️ **Het is meetkunde, geen deursensor.** Sta je **buiten** maar pal achter het gebouw, dan is het
+portaal echt dichterbij dan de ingang en krijg je de pijl door een muur — de bug van 3 sep. Bewuste
+ruil: die plek is smal en het foute antwoord daar is precies het gedrag dat iedereen vóór 3 sep had,
+terwijl naar buiten gestuurd worden élke keer gebeurde als je het vanuit de kamer vroeg.
 
 <details><summary>De drie verklaringen van vóór deze meting (verklaring 1 was het niet)</summary>
 

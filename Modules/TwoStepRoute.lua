@@ -237,10 +237,32 @@ function ns.StartSmcTwoStepRoute(point, mapID)
 	if type(e) ~= "table" or not (e.x and e.y) then
 		return nil
 	end
-	-- Already at the door (or inside): skip the detour entirely. Sending someone
-	-- outside to come back in is worse than the bug this fixes.
+	-- Already at the door: skip the detour entirely. Sending someone outside to come
+	-- back in is worse than the bug this fixes.
 	local d, limit = DoorProximity(mapID, e.x, e.y)
 	if d and d <= limit then
+		return nil
+	end
+
+	--- 🔴 …AND "AT THE DOOR" WAS NOT THE SAME AS "PAST IT". Rob, 7 Sep 2026: *"als ik al in
+	--- de kamer sta en vraag de weg, stuurt ie me eerst terug naar de deur en dan weer naar
+	--- de portal."* The check above only recognised someone standing ON the doorstep. Walk
+	--- five paces further in and you are past the threshold in both senses, and the route
+	--- marched you back out.
+	---
+	--- 📌 The rule needs no new number: if the destination is nearer than its own door, the
+	--- door is behind you. Both distances come from `DoorProximity`, so they are in the same
+	--- unit whichever of the three methods answered -- which is exactly why that function
+	--- returns the unit it used.
+	---
+	--- ⚠️ IT IS GEOMETRY, NOT A DOOR SENSOR, and it can be wrong in one specific place:
+	--- standing OUTSIDE but directly behind the building, where the portal really is nearer
+	--- than the entrance. Then you get the arrow pointing through a wall -- which is exactly
+	--- the 3 sep bug this whole file exists to fix. The trade is deliberate: that spot is
+	--- narrow and the wrong answer there is merely the behaviour everyone had before 3 sep,
+	--- while being sent back outside happens every time you ask from inside the room.
+	local dDest = DoorProximity(mapID, point.x, point.y)
+	if d and dDest and dDest <= d then
 		return nil
 	end
 	token = token + 1
