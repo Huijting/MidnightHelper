@@ -329,10 +329,18 @@ ns.MIDNIGHT_PORTALS = MIDNIGHT_PORTALS
 --- the crash is not a fallback.
 ---
 --- 📌 The migration is QUOTED, not invented: the source writes `GetItemCooldown =
---- C_Item.GetItemCooldown`. But `C_Item.GetItemCooldown` has NOT been verified in a client
---- yet, so this tries it FIRST and keeps the bare global as the second branch — the same
---- shape the other seven ItemScript globals in this addon already use, and the reason 12.1.0
---- keeps working unchanged today.
+--- C_Item.GetItemCooldown`. This tries it FIRST and keeps the bare global as the second
+--- branch — the same shape the other seven ItemScript globals in this addon already use, and
+--- the reason 12.1.0 keeps working unchanged today.
+---
+--- ✅ 7 Sep 2026 — AND `C_Item.GetItemCooldown` NOW EXISTS ON 12.1.0, the build Rob plays on.
+--- This comment said "has NOT been verified in a client" for two days; the API watch closed it
+--- against Blizzard's own generated docs (`wow-ui-source`, branch `12.1.0`,
+--- `Blizzard_APIDocumentationGenerated/ItemDocumentation.lua`, `Namespace = "C_Item"`, line 412)
+--- — one `itemInfo` argument and three returns, `startTimeSeconds`/`durationSeconds`/
+--- `enableCooldownTimer`, exactly the three `DelveItemsPopup.lua:278` unpacks.
+--- ⚠️ That is the documentation file generated WITH the build, not a `/dump` in the client.
+--- Strong, and still paper. `/mh ptr` would close the last inch; nothing depends on it.
 ---
 --- Returns nil when neither exists, which every caller must treat as "unknown", never as
 --- "no cooldown".

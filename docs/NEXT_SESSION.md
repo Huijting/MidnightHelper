@@ -1,5 +1,42 @@
 # Midnight Helper — waar we staan
 
+## 🌅 7 sep, ochtendronde — twee dingen uit de wachters, één ervan raakt onze data
+
+Alle vier de wachters gedraaid. GitHub schoon (0 issues, 0 PR's). Verder niets nieuws: hotfixes
+staan nog op 4 sep (dag 3 bevestigd, mét onafhankelijke tegencontrole tegen de cache-val), PTR nog
+steeds build 69594.
+
+### ✅ AFGESLOTEN — `C_Item.GetItemCooldown` bestaat, en al op 12.1.0
+
+Stond sinds 5 sep als open vraag ("gecíteerd, niet gemeten"). De API-wachter heeft het dichtgemeten
+tegen Blizzards eigen gegenereerde documentatie (`wow-ui-source`, branch `12.1.0`,
+`ItemDocumentation.lua`, `Namespace = "C_Item"`, regel 412): één argument, drie returns
+(`startTimeSeconds`/`durationSeconds`/`enableCooldownTimer`) — exact de drie die
+`DelveItemsPopup.lua:278` uitpakt. De comment in `Delves.lua` die nog *"has NOT been verified in a
+client"* zei is vandaag rechtgezet. ⚠️ Het is het documentatiebestand dat mét de build meekomt, geen
+`/dump`; sterk, en nog steeds papier.
+
+### 🔴 NIEUW EN ONGEREPAREERD — de Venomous Abyss heeft een Raid Skip, en onze bosvolgorde is vast
+
+De data-wachter (Wowhead 382759, 6 sep, bevestigd door een tweede site, **live gedrag geen PTR**):
+wie *"The Venomous Abyss: Deception Unmasked"* voltooit — 3× The Coiled Altar over 3 verschillende
+weken, per moeilijkheidsgraad een eigen quest — mag daarna rechtstreeks door naar The Coiled Altar.
+
+📌 **Waarom dat ons raakt:** `Modules/RaidCoachData.lua:89-95` draagt één vaste volgorde
+(Nek'zali → Entombed Sentinels → Lost Explorers → Vashnik → Sszorak → Twin Fangs → Coiled Altar →
+Ula'tek), op 27 jul uit de journal zelf gehaald. Voor een speler mét de skip klopt die niet meer:
+die gaat van Nek'zali naar Twin Fangs/Coiled Altar. Een coach die dan *"volgende boss: Entombed
+Sentinels"* zegt, adviseert iets dat die speler heeft overgeslagen.
+
+⚠️ **NIET GEREPAREERD, met opzet: questID 98226 is een KANDIDAAT.** Hij komt van een PTR-questpagina
+op Wowhead, niet uit de live-hotfixtekst. Hardcoden zonder meting is precies wat dit project niet
+doet.
+🔴 **En let op de valkuil bij het meten:** `IsQuestFlaggedCompleted(98226)` geeft `false` zowel als
+het id fout is als wanneer Rob de skip simpelweg niet heeft — dat onderscheidt niets. De bruikbare
+probe is `C_QuestLog.GetTitleForQuestID(98226)`: komt daar een titel uit, dan bestáát het id.
+📌 En dat is de zwakke variant: ook mét een geldig id blijft ongemeten of onze *volgorde-aanname*
+klopt voor iemand die de skip heeft. Zonder een speler met die quest is dit niet dicht te maken.
+
 ## 📅 MORGEN — vier dingen, in deze volgorde
 
 Afgesloten op 6 sep 's avonds. Werkmap schoon, linter 0 hard, `luac` schoon over 252 bestanden.
