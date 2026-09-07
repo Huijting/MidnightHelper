@@ -87,6 +87,39 @@ function ns.StopSmcTwoStepRoute()
 	active = nil
 end
 
+--- What the door-watcher is doing right now, or nil when it is not running.
+---
+--- 🔴 BUILT BECAUSE IT COULD NOT BE ASKED — Rob, 7 Sep 2026. `/mh arrow` inside the room
+--- proved the hand-over never fires (target still the door, owner still live, same map as
+--- the route, so the position is readable in principle). It could not say WHY, because
+--- everything this file does happens in a closure nobody can see into: whether the ticker
+--- is alive, what it last measured, whether it already gave up. Three different failures
+--- produce the identical silence.
+---
+--- 📌 `yards = nil` is the interesting answer, not the empty one. It means the distance
+--- could not be measured, which is exactly the state that makes a distance-driven hand-over
+--- impossible -- and it is indistinguishable from "measured, still far" unless we say so.
+--- This is CLAUDE.md's rule about modules whose normal outcome is silence.
+--- @return table|nil
+function ns.SmcTwoStepStatus()
+	if not active then
+		return nil
+	end
+	local d = ns.SmcYardsToPoint(active.mapID, active.door.x, active.door.y)
+	return {
+		mapID = active.mapID,
+		doorX = active.door.x,
+		doorY = active.door.y,
+		destLabel = active.dest and active.dest.label,
+		destX = active.dest and active.dest.x,
+		destY = active.dest and active.dest.y,
+		yards = d, -- nil = could not be measured
+		elapsed = active.elapsed or 0,
+		giveUp = GIVE_UP_SECONDS,
+		arriveYards = ARRIVE_YARDS,
+	}
+end
+
 --- Hand the arrow over to the real destination.
 local function Arrive()
 	local a = active

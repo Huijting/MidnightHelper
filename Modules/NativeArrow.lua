@@ -1104,6 +1104,34 @@ function ns.PrintArrowStatus()
 		print("  target: |cffff8080NONE — no route has published one|r")
 	end
 
+	--- 🔎 THE DOOR-WATCHER, 7 Sep 2026. A two-step route points at a doorway first and hands
+	--- over to the thing behind it on arrival. When that hand-over does not happen the arrow
+	--- keeps pointing at the door you just walked through -- which is what Rob saw, and which
+	--- from outside is identical whether the ticker died, never got close enough, or could not
+	--- measure the distance at all. Printing the last reading separates all three.
+	if ns.SmcTwoStepStatus then
+		local ok, st = pcall(ns.SmcTwoStepStatus)
+		if ok and type(st) == "table" then
+			print(("  twee-staps deurwachter: |cff80ff80actief|r · deur %.2f/%.2f op map %s"):format(
+				tonumber(st.doorX) or 0, tonumber(st.doorY) or 0, tostring(st.mapID)))
+			if st.yards then
+				print(("     afstand nu: %.1f yard (overdracht bij <= %d)"):format(
+					st.yards, tonumber(st.arriveYards) or 0))
+			else
+				print("     afstand nu: |cffff8080ONMEETBAAR|r — een afstand die niet te lezen is"
+					.. " kan nooit onder de drempel komen, dus dit IS de reden dat hij niet overdraagt")
+			end
+			print(("     verstreken: %d s van %d · daarna naar: %s (%.2f/%.2f)"):format(
+				tonumber(st.elapsed) or 0, tonumber(st.giveUp) or 0,
+				tostring(st.destLabel or "?"), tonumber(st.destX) or 0, tonumber(st.destY) or 0))
+		else
+			--- ⚠️ "Not running" is a real answer too, and it has two meanings: no two-step
+			--- route was ever started, or it handed over / gave up already. The target line
+			--- above says which -- the door means it never handed over.
+			print("  twee-staps deurwachter: niet actief (nooit gestart, of al klaar/opgegeven)")
+		end
+	end
+
 	--- 🔎 THE CONTINENT VERDICT AND WHY. Added 24 aug because a fix went in blind and did
 	--- nothing: Rob reported "other continent" for a target one zone away, the parent-map
 	--- test was meant to catch it, and after a reload the message was unchanged. Which of

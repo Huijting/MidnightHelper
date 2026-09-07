@@ -12,6 +12,28 @@ deur (54.99/63.30), stap 2 is het portaal zelf (56.74/67.30). `Arrive()` hoort b
 de deur over te dragen. Doet hij dat niet, dan blijft de pijl op de deur staan — en zodra je die
 deur binnenloopt ligt hij achter je.
 
+✅ **GEMETEN 7 sep, `/mh arrow` binnen in de kamer mét de route actief:**
+
+```
+route owner: waypoint
+doel: Entrance — Portal to The Coiled Isle is inside  (map 2393  55.0, 63.3)
+jij: map 2393        doel: map 2393
+```
+
+📌 **Dat sluit twee dingen uit.** De route leeft nog (dus hij wordt niet voortijdig beëindigd), en
+het doel is nog steeds de **deur** — dus de overdracht naar stap 2 heeft nooit plaatsgevonden. En
+`jij: map 2393` is dezelfde kaart als `SMC_CITY_MAP_ID`, dus **verklaring 1 hieronder is dood**:
+het interieur is geen aparte kaart en je positie is daar in principe leesbaar.
+
+🔴 **WAAROM hij niet overdraagt is nog steeds niet te zien, en dat is de echte fout.** Alles wat
+`TwoStepRoute.lua` doet gebeurt in een closure: of de ticker leeft, wat hij als laatste gemeten
+heeft, of hij al opgegeven heeft. Drie verschillende storingen geven identieke stilte.
+
+✅ **`ns.SmcTwoStepStatus()` gebouwd en in `/mh arrow` gezet.** Print of de deurwachter actief is,
+de laatst gemeten afstand (of **ONMEETBAAR**, wat het interessante antwoord is), hoeveel van de 300
+seconden op is, en waar hij daarna heen zou gaan. Dit is de regel uit CLAUDE.md over modules waarvan
+zwijgen de normale uitkomst is.
+
 🔴 **DRIE VERKLARINGEN, NOG NIET GESCHEIDEN.** Ze zien er van buiten identiek uit, en dit is precies
 het punt waarop deze sessie al twee keer verkeerd geraden heeft:
 
