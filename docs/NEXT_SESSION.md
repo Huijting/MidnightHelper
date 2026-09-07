@@ -21,10 +21,21 @@ de notitie blijft als commentaar staan.
 📌 Gevonden doordat de meting de héle balk print in plaats van alleen het gezochte. Dat was ook de
 bedoeling van dat ontwerp, maar dit is de eerste keer dat het zich terugbetaalt.
 
-❓ **OPEN — `112042` Threatening Presence**, op Robs Voidwalker `autoAllowed=true autoEnabled=true`.
-Bewust **niet** toegevoegd: hij lijkt standaard aan te staan, dus als hij hier hoort zou de
-waarschuwing vuren voor élke warlock met een Voidwalker buiten. Eerst lezen wát hij doet, dan pas
-beslissen. Idem `3716` Consuming Shadows en `17767` Shadow Bulwark, ook allebei aan.
+✅ **BESLOTEN met Robs eigen tooltips, dezelfde avond.** Drie van de vier Voidwalker-abilities
+staan op autocast, en "staat standaard aan" is niet hetzelfde als "hoort in deze tabel":
+
+| id | tooltip | oordeel |
+|---|---|---|
+| 17735 Suffering | *"taunts the target… "*, autocast *"taunts any target who attacks its master"* | ✅ erin |
+| 112042 Threatening Presence | *"increasing threat generation"*, autocast *"always keep this effect active"* | ❌ eruit |
+| 3716 Consuming Shadows | *"drains health from all nearby enemies"* | ❌ eruit |
+| 17767 Shadow Bulwark | *"increases health by 30%"* onder 20% | ❌ eruit |
+
+📌 **Threatening Presence is degene die uitleg verdient**, want hij is echt verleidelijk: meer
+pet-dreiging draagt wél bij aan Robs klacht. Hij blijft eruit om drie redenen, en de eerste is op
+zichzelf genoeg — **het is geen taunt, en onze zin beweert van wel**. Daarna: zijn eigen
+autocast-tekst zegt hem aan te laten, dus waarschuwen zou bij élke warlock met een Voidwalker
+afgaan; en het gedrag dat Rob meldde staat letterlijk in Sufferings autocast-regel.
 
 ## ✅ 7 sep — de route eindigde wél, de pins niet
 

@@ -58,11 +58,22 @@ end
 --- was a false alarm waiting for someone to put Sacrifice on autocast. The note was worth
 --- keeping; arming it was not.
 ---
---- ❓ STILL OPEN, seen on Rob's own Voidwalker the same evening: `112042` **Threatening
---- Presence**, `autoAllowed=true autoEnabled=true`. Deliberately NOT added — it appears to be
---- on by default, so if it turns out to belong here the warning would fire for every warlock
---- with a Voidwalker out. What it actually does has to be read before that decision, not
---- guessed. Same for `3716` Consuming Shadows and `17767` Shadow Bulwark, both also on.
+--- ✅ AND THE REST OF THE VOIDWALKER'S BAR WAS READ RATHER THAN ASSUMED — Rob's own tooltips,
+--- 7 Sep, because three of its four abilities sit on autocast and "on by default" is not the
+--- same as "belongs in this table":
+---     17735  Suffering            "taunts the target to attack it for 6 sec"; autocast
+---                                 "taunts any target who attacks its master"     -> IN
+---     112042 Threatening Presence "increasing threat generation"; autocast
+---                                 "always keep this effect active"               -> OUT
+---     3716   Consuming Shadows    "drains health from all nearby enemies"        -> OUT
+---     17767  Shadow Bulwark       "increases health by 30%" below 20%            -> OUT
+---
+--- 📌 Threatening Presence is the one worth explaining, because it is genuinely tempting: more
+--- pet threat does contribute to Rob's actual complaint. It stays out for three reasons, and
+--- the first is enough on its own — **it is not a taunt, and our sentence says it is**. Then:
+--- its own autocast text says to keep it active, so warning about it would fire for every
+--- warlock with a Voidwalker out; and the behaviour Rob reported is precisely what Suffering's
+--- autocast line describes, taking mobs off whoever is tanking.
 local PET_TAUNTS = {
 	[2649] = "Growl (hunter pet)",
 	[17735] = "Suffering (warlock Voidwalker)",
