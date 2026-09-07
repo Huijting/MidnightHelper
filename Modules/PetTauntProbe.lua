@@ -135,6 +135,12 @@ function ns.PrintPetTauntProbe()
 		print(("  |cff8a8f98real players in the group: %d|r  (a delve companion is not one)")
 			:format(ns.PetTauntRealPlayers()))
 	end
+	if ns.PetTauntTankInGroup then
+		local t = ns.PetTauntTankInGroup()
+		print(("  |cff8a8f98somebody tanking: %s|r  (nil = no role could be read, which is"):format(
+			tostring(t)))
+		print("  |cff8a8f98not the same as nobody tanking — the warning falls through there)|r")
+	end
 
 	print("  verdict:")
 	if not taunt then
@@ -215,6 +221,58 @@ local function RealPlayersInGroup()
 	return n
 end
 
+--- Is somebody in this group tanking?
+---
+--- 🔴 ROB'S QUESTION, 7 Sep 2026, holding a screenshot of his party frame: *"waarom zien we
+--- daar wel dat ik DPS ben en Valeera een tank is?"* Fair, and it corrected me. I had treated
+--- `UnitGroupRolesAssigned` as unusable because Blizzard's 12.1 notes say it returns a secret
+--- **when the unit's identity is secret**. That is a documented POSSIBILITY, and I had turned
+--- it into a blanket refusal — while Rob's own `/mh pet` had printed `DAMAGER` from that very
+--- function twice that afternoon, in a delve and in a raid.
+---
+--- ⚠️ So the rule is not "do not read it". The rule is **do not COMPARE a secret**: `role ==
+--- "TANK"` is what throws, not the call. Guarded, the read is worth having.
+---
+--- 📌 Followers count. Valeera holds the TANK role in a delve, and a pet taunting off her is
+--- the same mistake as taunting off a player — which is what makes this answer Rob's duo-delve
+--- question at the same time.
+---
+--- @return boolean|nil true = somebody is tanking, false = nobody is, nil = could not read
+local function TankInGroup()
+	if not (UnitExists and UnitGroupRolesAssigned) then
+		return nil
+	end
+	local units, n = {}, 0
+	if IsInRaid and IsInRaid() then
+		for i = 1, 40 do
+			units[#units + 1] = "raid" .. i
+		end
+	else
+		for i = 1, 4 do
+			units[#units + 1] = "party" .. i
+		end
+	end
+	-- ⚠️ No `UnitIsUnit` to skip yourself: that returns a SECRET BOOLEAN on 12.1 and asking
+	-- what it is throws. Not needed anyway — we only get here when the player is not a tank,
+	-- so finding "a tank" can never be finding yourself.
+	for i = 1, #units do
+		local u = units[i]
+		if UnitExists(u) then
+			local ok, role = pcall(UnitGroupRolesAssigned, u)
+			if ok and role ~= nil and not Secret(role) then
+				n = n + 1
+				if role == "TANK" then
+					return true
+				end
+			end
+		end
+	end
+	if n == 0 then
+		return nil -- nobody's role could be read; that is not the same as nobody tanking
+	end
+	return false
+end
+
 --- @return boolean|nil warn, string|nil tauntName, string reason — nil warn = cannot tell
 local function ShouldWarn()
 	-- Group + instance, or there is nothing to be wrong about.
@@ -248,6 +306,17 @@ local function ShouldWarn()
 		return false, nil, "you ARE the tank"
 	end
 
+	-- Is anyone else? Added 7 Sep after Rob pointed at his own party frame.
+	--
+	-- ⚠️ `nil` FALLS THROUGH ON PURPOSE. Could-not-read is not the same as nobody-tanking, and
+	-- staying silent on a reading we failed to make would hide a real mistake on the strength
+	-- of our own blindness. When it is nil the warning behaves exactly as it did before this
+	-- check existed — and the sentence never claimed a tank exists, so it stays true either way.
+	local tank = TankInGroup()
+	if tank == false then
+		return false, nil, "nobody in the group is tanking"
+	end
+
 	-- Is a taunt on autocast?
 	if not (GetPetActionInfo and UnitExists and UnitExists("pet")) then
 		return false, nil, "no pet out"
@@ -259,7 +328,9 @@ local function ShouldWarn()
 		if ok then
 			local sid = (not Secret(spellID)) and tonumber(spellID) or nil
 			if sid and PET_TAUNTS[sid] and autoEnabled == true then
-				return true, (not Secret(name)) and name or nil, "taunt on autocast"
+				return true, (not Secret(name)) and name or nil,
+					tank == true and "taunt on autocast, somebody else is tanking"
+					or "taunt on autocast (nobody's role could be read)"
 			end
 		end
 	end
@@ -276,6 +347,10 @@ end
 --- Same reason: the probe above needs this and is defined earlier in the file.
 function ns.PetTauntRealPlayers()
 	return RealPlayersInGroup()
+end
+
+function ns.PetTauntTankInGroup()
+	return TankInGroup()
 end
 
 --- @param force boolean|nil skip the once-per-instance memory (the test path)

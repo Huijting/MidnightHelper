@@ -23,10 +23,38 @@ autocast staat. Zeven talen. Twee seconden vertraging na `PLAYER_ENTERING_WORLD`
 inladen is de petbalk nog leeg en dat leest als "geen taunt" — stilte die op een veilig antwoord
 lijkt.
 
-🔴 **Wat de tekst BEWUST NIET beweert: dat iemand anders tankt.** Dat kunnen we niet lezen zonder in
-een secret te lopen. Er staat alleen wat waar en gemeten is — *jij* bent de tank niet en *jouw* pet
-taunt. In een vijfmans is dat hetzelfde; in een tweemans oude raid niet, en daar is de zin nog
-steeds geen leugen.
+🔴 **Wat de tekst BEWUST NIET beweert: dat iemand anders tankt.** Er staat alleen wat waar en
+gemeten is — *jij* bent de tank niet en *jouw* pet taunt. Die formulering blijft, ook nu de
+tank-check er wél is (zie hieronder), want hij kan `nil` teruggeven.
+
+### ✅ 7 sep — de tank-check is er alsnog, en Rob had gelijk dat ik te voorzichtig was
+
+Rob, met een screenshot van zijn party-frame: *"waarom zien we daar wel dat ik DPS ben en Valeera
+een tank is?"* Terechte vraag, en hij corrigeerde een aanname van mij.
+
+📌 **Ik had `UnitGroupRolesAssigned` als onbruikbaar behandeld** omdat Blizzards 12.1-notities
+zeggen dat hij een secret teruggeeft *zodra de identiteit van die unit verborgen is*. Dat is een
+gedocumenteerde **mogelijkheid**, en ik had er een categorisch verbod van gemaakt — terwijl Robs
+eigen `/mh pet` diezelfde middag twee keer gewoon `DAMAGER` printte, in een delve én in een raid.
+
+⚠️ **De regel is niet "niet lezen" maar "een secret niet VERGELIJKEN".** `role == "TANK"` is wat
+gooit, niet de aanroep zelf. Met een guard is de lezing gewoon bruikbaar.
+
+✅ **`TankInGroup()` toegevoegd.** Leest de rol van elk groepslid, slaat secrets over, en geeft
+**drie** antwoorden: `true` (er tankt iemand), `false` (niemand), `nil` (niemands rol was leesbaar).
+
+🔴 **`nil` valt met opzet door naar het oude gedrag.** Niet-kunnen-lezen is niet hetzelfde als
+niemand-tankt, en zwijgen op een lezing die we niet hebben kunnen doen zou een echte fout verbergen
+op grond van onze eigen blindheid. En omdat de zin nooit beweerde dát er een tank is, blijft hij
+waar in álle drie de gevallen — dus geen nieuwe teksten en geen tweede vertaalronde.
+
+📌 **En dit beantwoordt Robs duo-delve-vraag meteen:** Valeera dráágt de TANK-rol, dus followers
+tellen hier bewust mee. Een pet die van háár wegtrekt is dezelfde fout als bij een speler.
+⚠️ Solo blijft stil — dat is een aparte keuze (de `>= 2 echte spelers`-eis), niet iets dat deze
+check verandert.
+
+⚠️ **Geen `UnitIsUnit` om jezelf over te slaan**: die geeft een secret BOOLEAN en ernaar vragen
+gooit. Ook niet nodig — we komen hier alleen als de speler zélf geen tank is.
 
 ⚠️ **Zwijgt solo, en dat is een feature.** In een delve wíl je Growl aan hebben; Valeera tankt niets.
 
