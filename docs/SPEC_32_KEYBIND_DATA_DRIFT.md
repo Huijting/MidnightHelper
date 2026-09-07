@@ -304,16 +304,24 @@ volgende reload overschreven:
 
 | spell | id | opmerking |
 |---|---|---|
-| **Holy Bulwark** | **432459** | Lightsmith-knop, staat in Methods prioriteitslijst |
-| **Rite of Sanctification** | **433568** | zit in Methods Lightsmith-build |
+| ✅ **Holy Bulwark** | **432459** | **TOEGEVOEGD** — `defensive`, priority 3, `specs = { 66 }` |
+| ✅ **Rite of Sanctification** | **433568** | **TOEGEVOEGD** — `utility`, priority 1, `specs = { 66 }` |
 | **Devotion Aura** | **465** | |
 | **Concentration Aura** | **317920** | |
 | **Crusader Aura** | **32223** | |
 
-⚠️ **Alleen de ID's zijn gemeten — welke toets ze verdienen niet.** De drie Aura's zijn "zet 'm één
-keer goed", geen rotatieknop; of die überhaupt een bind horen te krijgen is een ontwerpvraag en geen
-datavraag. Holy Bulwark is het duidelijkste geval om wél te plaatsen. **Niet invullen zonder dat
-Rob de indeling gezien heeft** — dat is §5.2's bloat-waarschuwing in een ander jasje.
+✅ **Rob koos, 7 sep: de twee Lightsmith-knoppen erin, de drie Aura's niet.** Die drie zijn "zet 'm
+één keer goed" en geen rotatieknop — §5.2's bloat-waarschuwing in een ander jasje.
+
+⚠️ **Van de twee toegevoegde entries is alleen het ID gemeten.** Categorie en priority zijn een
+KEUZE en staan als zodanig in het bestand; ze mogen zonder ceremonie omgegooid worden. Er is bewust
+**geen `bindKey`** gezet — de allocator kiest, zoals bij bijna elke entry, want zelf prikken kan een
+conflict maken dat pas in-game opvalt.
+
+📌 **`specs = { 66 }` en niet ruimer**, want 66 is wat gemeten is. Of Holy (65) deze knoppen ook
+heeft is niet gecontroleerd. Heeft een Holy-paladin ze wél, dan verschijnen ze bij hem als
+`unclassified` in `/mh binds` en horen we het vanzelf — een gat dat zichzelf meldt is beter dan een
+gok die dat niet doet, en dat is precies waarvoor die teller gebouwd is.
 
 📌 **Wat er van de 11 overblijft als je de ruis wegdenkt: precies deze vijf.** De andere zes zijn
 `Auto Attack`, `Anomaly Detection Mark I`, `Mechanism Bypass` en `Revive Battle Pets` — die vier

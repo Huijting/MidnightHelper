@@ -122,6 +122,28 @@ ns.KeybindRoleClassifier.PALADIN = {
 	["Ardent Defender"] = { id = 31850, category = "defensive", priority = 2, specs = { 66 } }, -- DEFENSIVE [31850]; Prot grote persoonlijke DR
 	["Bastion of Light"] = { id = 378974, category = "cooldown", priority = 3, specs = { 66 } }, -- DEFENSIVE [378974]; Prot Holy-Power-burst (talent)
 
+	-- Lightsmith (hero-talent) - twee echte knoppen die tot 7 sep 2026 nergens gedekt waren en
+	-- daarom als `unclassified` terugkwamen op Robs Prot Paladin.
+	--
+	-- ✅ De ID's zijn GEMETEN, uit Robs eigen client (`scannedIds` in de automap-dump, 7 sep):
+	--    Holy Bulwark 432459 · Rite of Sanctification 433568.
+	--
+	-- ⚠️ De CATEGORIE en PRIORITEIT zijn een KEUZE, geen meting - Rob mag ze omgooien. Holy
+	-- Bulwark staat als `defensive` achter Shield of the Righteous (1) en Ardent Defender (2)
+	-- omdat Method hem in de Prot-prioriteitslijst zet, dus hij gedraagt zich als een knop die
+	-- je in het gevecht gebruikt. Rite of Sanctification staat als `utility`: hij hoort bij de
+	-- Lightsmith-build maar niet in een rotatie.
+	--
+	-- ⚠️ GEEN `bindKey`: de allocator kiest, zoals bij vrijwel elke entry hier. Zelf een toets
+	-- prikken zou een conflict kunnen maken dat pas in-game opvalt.
+	--
+	-- 📌 `specs = { 66 }` en niet ruimer, want 66 is wat gemeten is. Of Holy (65) deze knoppen
+	-- ook heeft is NIET gecontroleerd; heeft een Holy-paladin ze wel, dan komen ze bij hem als
+	-- `unclassified` in `/mh binds` te staan en horen we het vanzelf. Dat is precies waarvoor
+	-- die teller gebouwd is - een gat dat zichzelf meldt is beter dan een gok die dat niet doet.
+	["Holy Bulwark"] = { id = 432459, category = "defensive", priority = 3, specs = { 66 } }, -- [432459] gemeten in Robs client; Lightsmith, staat in Methods prioriteitslijst
+	["Rite of Sanctification"] = { id = 433568, category = "utility", priority = 1, specs = { 66 } }, -- [433568] gemeten in Robs client; Lightsmith-build
+
 	--==============================================================================
 	-- RETRIBUTION (spec 70) - melee DPS.
 	--==============================================================================
