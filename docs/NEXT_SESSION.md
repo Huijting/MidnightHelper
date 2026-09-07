@@ -83,9 +83,19 @@ flashen??"* Nieuwe optie `spec.flash` in `MidnightToast.lua`: drie pulsen ná de
 volgende daarna is niemand die nog kijkt. Alleen een toast die erom vraagt krijgt het, en deze
 vraagt erom omdat je hem uitvoert vóór de pull in plaats van naleest.
 
-📌 Op **alpha** en niet op een glow-textuur: de kaart is een backdrop met fontstrings, dus de alpha
-van het frame pulsen vraagt niets extra's. `flashGen` zorgt dat een nieuwe toast de oude puls
-afbreekt in plaats van dat twee timers over één alpha ruziën — dezelfde bewaking als `fadeGen`.
+🔴 **De eerste poging pulseerde de ALPHA en Rob zag het amper:** *"ik zag heel snel iets knipperen.
+Ik bedoelde meer dat die gaat rood-wit knipperen of zoiets, dat het echt goed opvalt."* Een donkere
+kaart doorzichtiger maken tegen een donker spel is een verandering van bijna niets, en drie tellen
+ervan waren voorbij voor hij opkeek.
+
+✅ **Nu KLEUR in plaats van doorzichtigheid:** de rand wisselt **rood ↔ wit** en de achtergrond
+kleurt op de rode tel mee. 10 tellen van 0,35 s ≈ 3,5 seconde, dus hij is te vangen midden in een
+pull en niet alleen als je toevallig in die hoek staat te kijken.
+
+📌 Het is een `SetBackdrop`, dus dat kost twee aanroepen per tel — geen textuur, geen animatiegroep,
+en geen gevecht met de fade die de alpha al bezit. `flashGen` breekt een lopende flash af als er een
+nieuwe toast komt, en de goudkleur wordt aan het eind hersteld zodat de vólgende toast niet rood
+blijft staan.
 
 ⚠️ **Geen `UnitIsUnit` om jezelf over te slaan**: die geeft een secret BOOLEAN en ernaar vragen
 gooit. Ook niet nodig — we komen hier alleen als de speler zélf geen tank is.

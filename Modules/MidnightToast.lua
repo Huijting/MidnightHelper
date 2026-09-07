@@ -444,43 +444,58 @@ end
 --- ⚠️ OPT-IN, and it stays that way. Every toast flashing is every toast shouting, and the
 --- next one after that is nobody looking. Only a spec that asks gets it.
 ---
---- 📌 Alpha rather than a glow texture: the card is built from a backdrop plus fontstrings,
---- so pulsing the frame's alpha needs nothing added to it and cannot fight the fade-in/out
---- that already owns that property — `flashGen` makes sure a new toast cancels the old pulse
---- instead of two timers arguing about one alpha.
+--- 🔴 THE FIRST VERSION PULSED ALPHA AND ROB BARELY SAW IT: *"ik zag heel snel iets knipperen.
+--- Ik bedoelde meer dat die gaat rood-wit knipperen of zoiets, dat het echt goed opvalt."*
+--- Fading a dark card against a dark game is a change of almost nothing, and three beats of it
+--- were over before he looked up. So: COLOUR, not transparency, and long enough to be caught
+--- mid-pull rather than only if you happen to be staring at that corner.
+---
+--- 📌 The border and background are a `SetBackdrop`, so alternating red and white costs
+--- nothing but two calls per beat — no texture, no animation group, and no fight with the
+--- fade-in/out that owns the alpha. `flashGen` still cancels a running flash when a new toast
+--- arrives, and the original gold is restored at the end so the next toast is not left red.
+local FLASH_BEATS, FLASH_STEP = 10, 0.35
+local BORDER_GOLD = { 1, 0.82, 0.2, 1 }
+local BG_NORMAL = { 0.07, 0.06, 0.1, 0.94 }
 local flashGen = 0
+
+local function RestoreToastColours()
+	if toastFrame and toastFrame.SetBackdropColor then
+		toastFrame:SetBackdropColor(unpack(BG_NORMAL))
+		toastFrame:SetBackdropBorderColor(unpack(BORDER_GOLD))
+	end
+end
+
 local function StartFlash(spec)
 	flashGen = flashGen + 1
+	RestoreToastColours()
 	if not (spec and spec.flash) then
 		return
 	end
-	if not (toastFrame and C_Timer and C_Timer.After) then
+	if not (toastFrame and toastFrame.SetBackdropColor and C_Timer and C_Timer.After) then
 		return
 	end
-	local gen = flashGen
-	local pulses, i = 3, 0
-	local function pulse()
+	local gen, beat = flashGen, 0
+	local function step()
 		if gen ~= flashGen or not toastFrame or not toastFrame:IsShown() then
+			RestoreToastColours()
 			return
 		end
-		i = i + 1
-		if i > pulses then
-			toastFrame:SetAlpha(1)
+		beat = beat + 1
+		if beat > FLASH_BEATS then
+			RestoreToastColours()
 			return
 		end
-		if UIFrameFadeOut and UIFrameFadeIn then
-			UIFrameFadeOut(toastFrame, 0.18, 1, 0.35)
-			C_Timer.After(0.2, function()
-				if gen ~= flashGen or not toastFrame then
-					return
-				end
-				UIFrameFadeIn(toastFrame, 0.18, 0.35, 1)
-				C_Timer.After(0.24, pulse)
-			end)
+		if beat % 2 == 1 then
+			toastFrame:SetBackdropBorderColor(1, 0.1, 0.1, 1) -- red
+			toastFrame:SetBackdropColor(0.28, 0.03, 0.03, 0.96)
+		else
+			toastFrame:SetBackdropBorderColor(1, 1, 1, 1) -- white
+			toastFrame:SetBackdropColor(0.07, 0.06, 0.1, 0.94)
 		end
+		C_Timer.After(FLASH_STEP, step)
 	end
-	-- After the fade-in has finished, or the two animations fight over the same alpha.
-	C_Timer.After(FADE_IN_SEC + 0.05, pulse)
+	C_Timer.After(FADE_IN_SEC + 0.05, step)
 end
 
 function ns.ShowNextMidnightToast()
