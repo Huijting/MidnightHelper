@@ -247,6 +247,34 @@ er aan feiten ligt:
 *draag het BASE-ID, niet dat van de override* — en moet de naamval altijd blijven werken als
 achtervang.
 
+### ✅ UITGEZOCHT (7 sep, in de code) — de aanname was NET verkeerd, en dat verandert de fix
+
+**Er ís een naamval-terugval**, `KeybindAutoMap.lua:253`. Het mechanisme is een ander:
+
+| stap | uitkomst |
+|---|---|
+| spellbook | `Blessed Hammer` = **35395** (base-ID; hij is een override van Crusader Strike) |
+| `byId[35395]` | **Crusader Strike**, `KeybindRoles_Paladin.lua:129`, `specs = { 70 }` |
+| `SpecMatches({70}, 66)` | **false** |
+| terugval op `["Blessed Hammer"]` (`:117`, `specs = { 66 }`) | **gebeurt nooit** |
+
+De regel luidde `byId[sid] or roles[name] or globalRoles[name]`, dus de **eerste** treffer besliste
+alles — de spec-controle kwam pas daarná. Een ID-treffer die op de spec afketst **overschaduwt** een
+naam-entry die perfect past.
+
+🎯 **Dit verandert wélke laag gerepareerd moest worden.** Onder de oude aanname was het een
+DATA-probleem (draag het base-ID); in werkelijkheid was het de LOOKUP. De data mag blijven zoals hij
+is, en de migratieregel van §5c hoeft **niet** herschreven te worden.
+
+✅ **Gerepareerd:** de kandidaten worden nu op volgorde langsgelopen en de eerste die óók
+`SpecMatches` haalt wint. De volgorde is ongewijzigd, dus wat vandaag matcht matcht op dezelfde
+entry — deze lus kan alleen méér classificeren, nooit anders.
+
+⚠️ **Nog te bevestigen in het spel:** `/mhautomap` + `/reload` op de Prot Paladin. `Blessed Hammer`
+hoort nu **placed** te zijn en unclassified van 12 naar 11 te gaan. 📌 En dit raakt élke klasse waar
+een talent-override een base-ID deelt met een spell van een andere spec — dus kijk of het aantal
+unclassified elders ook zakt.
+
 ### Verder ontbrekend — ID's uit Robs client
 
 | Spell | ID | Opmerking |

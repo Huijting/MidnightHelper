@@ -248,10 +248,39 @@ function ns.MH_AutoMapBuild()
 	local globalRoles = ns.KeybindRoleClassifierGlobal
 	local byId = BuildIdIndex(roles)
 	for name, sid in pairs(known) do
-		-- Primair op spellID (locale-onafhankelijk), naam als fallback voor nog niet
-		-- gemigreerde classifiers.
-		local r = byId[sid] or (roles and roles[name]) or (globalRoles and globalRoles[name])
-		if r and SpecMatches(r.specs, specID) then
+		--- Primair op spellID (locale-onafhankelijk), naam als fallback voor nog niet
+		--- gemigreerde classifiers.
+		---
+		--- 🔴 EN DE SPEC-CONTROLE MOET MEE IN DE KEUZE, NIET ERNA — Prot Paladin, 7 sep 2026.
+		--- Dit stond hier als `byId[sid] or roles[name] or globalRoles[name]`, en dan besliste
+		--- de eerste treffer alles: haalde die de spec-controle niet, dan werd de spell
+		--- unclassified terwijl er een prima kandidaat achter stond.
+		---
+		--- 📌 Gemeten geval: Robs spellbook meldt `Blessed Hammer` onder base-ID **35395**,
+		--- want hij is een talent-override van Crusader Strike. `byId[35395]` vindt daarom de
+		--- entry **Crusader Strike** (`KeybindRoles_Paladin.lua:129`, `specs = { 70 }`), Rob
+		--- is spec 66, de controle faalt — en `["Blessed Hammer"]` (`:117`, `specs = { 66 }`)
+		--- werd nooit meer geprobeerd.
+		---
+		--- ⚠️ De aantekening in `SPEC_32` vermoedde dat er géén naamval-terugval was. Die is er
+		--- wél; hij stond alleen vóór de spec-controle en werd maar één keer gelopen. Het
+		--- gevolg was hetzelfde ("een fout ID is erger dan geen ID"), de oorzaak niet — en dat
+		--- verschil bepaalt of je de DATA of de LOOKUP repareert. Dit is de lookup.
+		---
+		--- 📌 De volgorde blijft ongewijzigd, dus een spell die vandaag matcht matcht morgen
+		--- op dezelfde entry. Deze lus kan alleen méér classificeren, nooit anders.
+		local r
+		local c1 = byId[sid]
+		local c2 = roles and roles[name]
+		local c3 = globalRoles and globalRoles[name]
+		if c1 and SpecMatches(c1.specs, specID) then
+			r = c1
+		elseif c2 and SpecMatches(c2.specs, specID) then
+			r = c2
+		elseif c3 and SpecMatches(c3.specs, specID) then
+			r = c3
+		end
+		if r then
 			if r.role == "click_cast" or r.category == "click_cast" then
 				clickCast[#clickCast + 1] = { id = sid, name = name }
 			else
