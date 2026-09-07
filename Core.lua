@@ -1678,6 +1678,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh pet — is de autocast-stand van je pet leesbaar? (Robs "Growl staat nog aan"-idee)
+	if msg == "pet" then
+		if ns.PrintPetTauntProbe then
+			ns.PrintPetTauntProbe()
+		end
+		return
+	end
+
 	-- /mh sniff — welk event draagt een melding die we wel zien maar niet kennen?
 	-- Gebouwd 6 sep 2026 voor de Dundun-banner; bewust generiek, want dit is de derde
 	-- keer dat we een zichtbare melding niet aan een event konden koppelen.

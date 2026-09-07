@@ -1,5 +1,35 @@
 # Midnight Helper — waar we staan
 
+## 🟡 7 sep — "je Growl staat nog aan" — GEMETEN MOET WORDEN, `/mh pet` staat klaar
+
+Robs idee: *"het komt regelmatig voor dat ik Carola of Cisca in een instance zitten met een tank en
+dan vergeten we onze Growl uit te zetten — kunnen we dat melden?"* Een pet die taunt terwijl iemand
+anders tankt trekt mobs weg, en het spel zegt er niets over.
+
+🔴 **De voor de hand liggende versie kan NIET.** *"Zit er een tank in de groep"* vraagt
+`UnitGroupRolesAssigned` op **andere** units, en 12.1 geeft daar een **secret** terug zodra de
+identiteit verborgen is. `role == "TANK"` op een secret is precies de vergelijking die gooit — zie
+`DelveCuriosAdvisor.lua:40`, waar dat al beschreven staat na vier GUID-reads in juli die er wél op
+sneuvelden.
+
+✅ **Dus de vraag is omgedraaid: "ben ík niet de tank?"** Dat beantwoordt `GetSpecializationRole` —
+die vraagt naar je **spec** en nooit naar een unit, dus geen secret komt erbij.
+`DelveCuriosAdvisor.GetPlayerRoleKey` doet dit al, guard en al.
+
+❓ **Wat ECHT onbekend is, en de enige reden dat er een probe is:** of de autocast-stand van de
+pet-actiebalk leesbaar is op 12.1. Niets in deze addon heeft ooit `GetPetActionInfo` aangeroepen.
+
+✅ **`/mh pet` gebouwd** (`Modules/PetTauntProbe.lua`). Print je rol via **beide** routes naast
+elkaar (unit vs spec, zodat het verschil zichtbaar is), de hele pet-actiebalk met `autoAllowed` /
+`autoEnabled` / `spellID` per slot, en een oordeel. 📌 **Solo te draaien** — de groepshelft is
+wegontworpen, dus alleen een pet uit hebben volstaat.
+
+⚠️ De taunt-id's (`Growl` 2649, `Suffering` 17735) zijn **kandidaten, geen meting**. De probe print
+elk slot, dus een ontbrekende verschijnt als onherkende regel in plaats van als stilte.
+
+🔴 **Pas bouwen na die meting.** Leest `autoEnabled` als SECRET of nil, dan kan de melding niet op
+deze manier en zoeken we een andere route of laten we het.
+
 ## ⛔ 7 sep — DE DISPEL-HELPER IS DICHT, en dit is de meting waarom
 
 Rob vroeg PIHelper (CurseForge, 1,9K downloads) te beoordelen voor onze party-kant. Conclusie:
