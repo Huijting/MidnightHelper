@@ -1,5 +1,43 @@
 # Midnight Helper — waar we staan
 
+## 🔴 7 sep — "route beëindigd" zei het wél, maar de pijl ging niet weg
+
+Rob, mét screenshot, staand op de Coiled Isle: de pijl wees nog steeds naar de deur in Silvermoon,
+**7 km** achter hem. *"Ik denk dat er iets ingebouwd moet worden waarbij hij ziet dat hij op Coiled
+Isle aangekomen is, en dan die pijl afkapt."*
+
+📌 **En het herkennen zat er al in** — `arrivesOn = 2512` is op 5 sep gebouwd, en de controle in
+`Delves.lua` deed precies wat hij moest: hij zag de aankomst, zette `ns.lastTarget = nil` en printte
+"route beëindigd". Dat is de helft van het werk, en die helft was al af.
+
+🔴 **`ns.lastTarget` nillen stopt de pijl niet, en dat is met opzet zo.** `NativeArrow` houdt een
+eigen `activeLead` bij en breekt alleen af op `ns._mhRouteOwner`, omdat een handvol zone-handlers
+`lastTarget` midden in een jacht leegmaakt (staat in zijn eigen kop). Dus stond er "route beëindigd"
+in de chat terwijl de pijl waar die regel over ging gewoon bleef wijzen.
+
+🔴 **De pijl heeft wél een eigen afsluiting, en die kán hier niet helpen** (`NativeArrow.lua:1030`):
+hij laat los zodra je binnen ~20 yard van het doel komt. Een portaalroute is klaar door van zijn
+coördinaat **weg** te lopen — dus de enige uitgang was precies de uitgang die deze route nooit
+neemt. Dat verklaart ook Robs eigen waarneming dat een **rare**-route hier géén last van heeft:
+eigenaar `rare` haalt elke tik een nieuwe lead op en overschrijft de verouderde vanzelf.
+
+✅ **Gerepareerd:** de aankomstcontrole geeft de pijl nu ook echt vrij — `_mhRouteOwner` los, TomTom
+en de Blizzard-pin weg, en de deur-ticker van de tweestapsroute gestopt.
+
+⚠️ **Alleen voor eigenaar `waypoint` en `delve`.** rare/treasure/reset/achievement doen hun eigen
+levensloop, en `RouteLead()` kan een **rare**-lead teruggeven — daarop wissen zou een lopende jacht
+beëindigen.
+
+⚠️ **De pins moeten mee, niet alleen onze eigen pijl.** Deze route zet zelf een Blizzard-waypoint
+én een TomTom-waypoint (`SetSMCWaypoint` in `UI.lua`). Alleen onze pijl opruimen repareert het
+dus voor precies de mensen die geen van beide draaien — en dat is niemand met wie we testen.
+Zelfde vorm als de rare-aankomsttips op 19 aug.
+
+📌 **AFGELEID, NIET GEMETEN.** Dit is uit de code gelezen (`Delves.lua` ~3538 → `NativeArrow.lua`
+878/1030), niet in het spel bevestigd. **Controle:** na een portaalroute op de isle `/mh arrow` —
+als de diagnose klopt, stond daar vóór deze fix nog een levende `waypoint`-eigenaar met de deur als
+doel, en hoort er nu `doel: GEEN` te staan.
+
 ## ✅ 7 sep — de waarschuwing gaat weg zodra je hem opvolgt
 
 Rob, nadat de gecentreerde toast werkte: *"op het moment dat ik de Growl weer uitzet, kan die dan

@@ -3554,6 +3554,47 @@ local function CreateEventBridge()
 						print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"),
 							(ns:L("ROUTE_FINISHED_FMT")):format(tostring(lt.name or "?"))))
 						ns.lastTarget = nil
+						--- 🔴 …AND NILLING `lastTarget` DOES NOT STOP THE ARROW. Rob, 7 Sep 2026,
+						--- standing on the Coiled Isle with the arrow still pointing at a door in
+						--- Silvermoon, 7 km behind him: *"ik denk dat er iets ingebouwd moet worden
+						--- waarbij hij ziet dat hij op Coiled Isle aangekomen is."*
+						---
+						--- 📌 The line above was written to end the route and it ends only half of
+						--- it. NativeArrow deliberately keeps its own `activeLead` and tears down
+						--- on `ns._mhRouteOwner` alone, because half a dozen zone handlers nil
+						--- `lastTarget` mid-hunt (see its header). So this block said "route
+						--- finished" in chat while the arrow it was talking about kept pointing.
+						---
+						--- 📌 And the arrow's OWN release (`NativeArrow.lua:1030`) cannot help
+						--- here: it fires when you come within ~20 yards of the lead. A portal
+						--- route is finished by walking AWAY from its coordinate, so the one way
+						--- out was the one way this route never takes. That is why a rare route
+						--- looked fine through the same portal -- owner "rare" refetches its lead
+						--- every tick and simply replaces the stale one.
+						---
+						--- ⚠️ Only the two single-destination owners. rare/treasure/reset/
+						--- achievement run their own lifecycle, and `RouteLead()` above can hand
+						--- us a RARE lead -- clearing on that would end a hunt that is still
+						--- running.
+						if ns._mhRouteOwner == "waypoint" or ns._mhRouteOwner == "delve" then
+							ns._mhRouteOwner = nil
+							--- ⚠️ And take the PINS down with it, not just our own arrow. This
+							--- route sets a Blizzard user waypoint and a TomTom one directly
+							--- (`SetSMCWaypoint` in UI.lua), so leaving them would fix the
+							--- symptom only for players who have neither -- which is nobody we
+							--- test with. Same shape as the rare arrival hints on 19 Aug.
+							if ns.MH_TomTomClearAll then
+								pcall(ns.MH_TomTomClearAll) -- flags itself, so the player-clear hook stays quiet
+							end
+							if C_Map and C_Map.ClearUserWaypoint then
+								pcall(C_Map.ClearUserWaypoint)
+							end
+						end
+						-- The door-watcher polls a coordinate on the map we just left; it can no
+						-- longer measure anything and has nothing left to hand over to.
+						if ns.StopSmcTwoStepRoute then
+							pcall(ns.StopSmcTwoStepRoute)
+						end
 					else
 						-- After portal / zone: restore delve arrow (TomTom only, no travel popup).
 						local function restoreDelveArrow()
