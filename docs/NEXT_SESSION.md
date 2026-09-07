@@ -1411,6 +1411,21 @@ gelogd, want wegfilteren bij de bron is een aanname en dit gereedschap bestaat j
 wat je niet verwacht. De schakelaar noemt bij het aanzetten welke events hij dempt, anders is
 "stil" van buiten niet te onderscheiden van "kapot".
 
+### ⚠️ 7 sep — "zonder kist" was te grof, en Robs screenshot liet het zien
+
+Hij stuurde wat de tweede Dundun opleverde: een object **Abundant Spoils** aan het eind, en
+**+120 Voidlight Marl** (de keuze die hij maakte). Onze tekst zei *"zonder kist, dus zonder key"* —
+en er stáát dus wél iets om te looten.
+
+📌 **De bewering was niet fout maar te grof, en dat is hier hetzelfde.** Wat de eerste Dundun geeft
+is een tweede **Bountiful Coffer**, en díé kost een Restored Coffer Key. Het keuzegeval geeft een
+Abundant Spoils, en dat is geen coffer. Alle zeven talen zeggen dat nu zo, met de naam erbij zodat
+een speler herkent wat hij ziet staan.
+
+⚠️ **Niet gemeten en dus niet beweerd:** of die Abundant Spoils zelf helemaal gratis is. Rob heeft
+niet gemeld dat hij een key kwijtraakte, maar "niet gemeld" is geen meting. De tekst zegt daarom
+alleen wat we weten — het is géén tweede Bountiful Coffer — en niet "hij is gratis".
+
 ### De twee open vragen van gisteren, bijgewerkt
 
 
