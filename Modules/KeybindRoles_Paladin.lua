@@ -115,6 +115,18 @@ ns.KeybindRoleClassifier.PALADIN = {
 	["Avenger's Shield"] = { id = 31935, category = "main_rotation", priority = 2, specs = { 66 }, alsoStop = "silence" }, -- InterruptAbilities [31935] kind=interrupt pri2 (silences); rotational builder; alsoStop → Spec 08 cross-list (stays on 2)
 	["Hammer of the Righteous"] = { id = 88263, category = "main_rotation", priority = 3, specs = { 66 } }, -- SpellArchetypes [88263] ranged; AoE-cleave builder
 	["Blessed Hammer"] = { id = 204019, category = "main_rotation", priority = 3, specs = { 66 } }, -- SpellArchetypes [204019]; talent-alternatief voor Hammer of the Righteous
+	--- ⚠️ BLIJFT `{ 66 }`, EN DAT IS EEN GEMETEN BESLUIT — 7 sep 2026. Robs Ret meldde deze spell
+	--- als `unclassified`, en omdat onze scan off-spec regels overslaat leek dat te bewijzen dat
+	--- een Ret hem heeft. De tooltip op die Ret zegt iets anders: **"Requires Shield" staat er in
+	--- het ROOD** — een onvervulde eis. Een Ret draagt een tweehander, dus de knop staat in zijn
+	--- boek en is niet te casten.
+	---
+	--- 🔴 DE BREDERE LES, en die geldt voor de hele migratie: **"staat in de actieve spellbook"
+	--- is niet "kan gebruikt worden".** Er is een derde soort gat naast *niet getalenteerd* en
+	--- *hernoemd*: **bekend maar geblokkeerd door uitrusting.** `ReadKnownActiveSpells` ziet dat
+	--- verschil niet en kan het ook niet zien — de eis zit in de tooltip, niet in de spellbook-rij.
+	--- Een `unclassified`-melding is dus een AANWIJZING om te kijken, nooit op zichzelf een bewijs
+	--- dat onze data een gat heeft.
 	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66 } }, -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
 	["Consecration"] = { id = 26573, category = "main_rotation", priority = 4, specs = { 66 } }, -- guide.lua Prot-rotatie; [26573] castbare id (JustAC SpellCooldowns); ground-AoE, on-cooldown houden
 	["Hammer of Wrath"] = { id = 24275, category = "spender", priority = 2, specs = { 66, 70 } }, -- SpellArchetypes [24275] ranged; execute-spender (Prot/Ret)

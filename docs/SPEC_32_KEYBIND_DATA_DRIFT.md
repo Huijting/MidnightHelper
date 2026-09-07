@@ -338,11 +338,32 @@ deze knoppen heeft — dus `specs = { 66 }` was **onze data die fout was**, niet
 wél: een losse mob oppakken, of overnemen als de tank ligt. Beide specs zijn nu in een dump gezien.
 📌 **65 (Holy) blijft eraf** — niet gemeten. Heeft een Holy hem, dan meldt `/mh binds` dat vanzelf.
 
-❓ **`Shield of the Righteous` wacht nog op één tooltip.** Niet omdat het twijfelachtig is dát een
-Ret hem heeft — dat is nu gemeten — maar omdat de bestaande entry `category = "defensive",
-priority = 1` draagt, en dat is afgestemd op Prot waar hij **actieve mitigatie** is. Doet hij op Ret
-iets anders, dan hoort daar een andere categorie bij. Eén hover beslist dat, en dat is precies hoe
-de Voidwalker-vraag dezelfde avond ook beslecht is.
+🔴 **`Shield of the Righteous` BLIJFT `{ 66 }` — en die tooltip weerlegde mijn eigen conclusie van
+vijf minuten eerder.** Rob, terwijl hij hoverde: *"volgens mij vecht een Ret niet met een shield,
+toch??"* Klopt. De tooltip zegt **"Requires Shield" in het ROOD**: een onvervulde eis, geen
+beschrijving. Een Ret draagt een tweehander, dus de knop staat in zijn boek en is niet te casten.
+
+🔴 **DE BREDERE LES, en die geldt voor de hele migratie.** Ik had net geschreven: *"de scan slaat
+off-spec over, dus wat in de lijst staat heeft de speler écht."* Dat eerste klopt en het tweede
+volgt er niet uit. **"Staat in de actieve spellbook" is niet "kan gebruikt worden."**
+
+Er is dus een **derde** soort gat naast *niet getalenteerd* en *hernoemd*:
+
+| soort | herkenbaar aan | actie |
+|---|---|---|
+| niet getalenteerd | staat nergens in de dump | geen defect |
+| hernoemd / vervangen | staat in `unclassified`, wij kennen de oude naam | **repareren** |
+| 🔴 **geblokkeerd door uitrusting** | staat in `unclassified`, tooltip toont een **rode eis** | **niets doen** |
+
+⚠️ `ReadKnownActiveSpells` kan die derde niet zien en zal dat ook nooit kunnen — de eis zit in de
+tooltip, niet in de spellbook-rij. **Een `unclassified`-melding is daarom een aanwijzing om te
+kijken, nooit op zichzelf het bewijs dat onze data een gat heeft.** Dat is dezelfde vorm als
+[[silence-is-not-absence]], maar omgekeerd: hier is het een *volle* uitkomst die te veel lijkt te
+zeggen.
+
+📌 Gevolg: `Shield of the Righteous` blijft op elke Ret als `unclassified` opduiken. Dat is
+permanente ruis in die lijst, en het is bewust niet weggefilterd — één rij is het niet waard om een
+uitzondering in te bouwen die later niemand meer begrijpt.
 
 📌 **Wél het bewijs dat de teller doet waarvoor hij gebouwd is:** dit gat meldde zichzelf, op de
 eerste run op een andere spec. Dat is de verdediging tegen drift die een `id`-veld niet kan geven.
