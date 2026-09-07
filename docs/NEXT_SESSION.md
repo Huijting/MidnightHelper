@@ -49,9 +49,8 @@ Afgesloten op 6 sep 's avonds. Werkmap schoon, linter 0 hard, `luac` schoon over
    Dundun van de week op dat character (het keuzescherm-geval); hij verwacht zelf dat de melding
    anders is dan bij de eerste. Volgorde: `/reload` → `/mh sniff` → delve in → `/mh sniff dump`.
    Let op de gele `gossipOptionID`-regels: een getal overleeft een vertaling, een zin niet.
-3. **`/mhautomap` + `/reload` op Robs Shadow Priest.** `ns.db.autoMapDump` heeft één slot en dat is
-   door de Guardian-run overschreven, dus de acht ontbrekende Priest-spells uit Spec 32 §1c zijn
-   niet te verifiëren zoals de vijf druïde-ID's dat wél zijn. Eén run zet ze terug in bereik.
+3. ✅ **AF (7 sep).** Rob draaide `/mhautomap` + `/reload` op zijn Shadow Priest; alle acht ID's zijn
+   geverifieerd en zeven ervan staan nu in `KeybindRoles_Priest.lua` — zie de sectie hieronder.
 4. **Dan pas beslissen over 3.8.1.** Er ligt genoeg: een gemelde Discord-bug plus een tweede
    exemplaar ervan, en een rare-tabblad dat aantoonbaar het verkeerde vinkje las — dat laatste is
    een echte gedragsverandering voor iedereen die alts speelt. ⚠️ **Niet uitbrengen vóór punt 1**:
@@ -130,7 +129,34 @@ verschil tussen bronnen ís het bewijs van de hernoeming.
 2. **Op het cheat-sheet** stond `Void Eruption` op F1 — een naam die niemand nog in zijn spellbook
    kan vinden. Dat is vanmiddag nog zo gepubliceerd en inmiddels rechtgezet.
 
-⚠️ **Wat NIET is gedaan: de acht ontbrekende Priest-spells uit §1c** (Tentacle Slam 1227280,
+### ✅ 7 sep — de acht Priest-spells zijn geverifieerd, zeven zijn toegevoegd
+
+Robs eigen `autoMapDump` (Shadow Priest): **alle acht ID's kloppen**, naam voor naam. En de
+positieve controle in dezelfde uitlezing deed dubbel werk — **228260 kwam terug als `Voidform`**,
+wat de hernoem-reparatie van gisteren meteen ín de client bevestigt in plaats van uit andere addons.
+
+| spell | id | waar het heen ging |
+|---|---|---|
+| Tentacle Slam | 1227280 | `main_rotation` p3, `{258}` — de AoE-motor, en de grootste omissie |
+| Purify Disease | 213634 | `dispel_cc` **p2**, `{258}` — dezelfde plek als `Purify` voor Disc/Holy |
+| Vampiric Embrace | 15286 | `cooldown` p3, `{258}` |
+| Shadowform | 232698 | `utility` p8, `{258}` |
+| Dispel Magic | 528 | `dispel_cc` p4, baseline |
+| Shackle Horror | 9484 | `dispel_cc` p5, baseline — stond al sinds dag 1 in het commentaar op `:25` |
+| Power Word: Fortitude | 21562 | `utility` p7, baseline |
+
+📌 **Purify Disease op priority 2 is de mooiste van de zeven:** `Purify` (527) heeft die plek al
+voor Disc en Holy, dus een priester houdt dezelfde reflex op dezelfde toets ongeacht zijn spec. Dat
+is precies waar het v6-schema voor bestaat, en het viel hier gratis op zijn plek.
+
+⚠️ **`Cantrips` (255661) is bewust NIET toegevoegd.** Hij staat wél in zijn spellbook, maar §1c zegt
+zelf dat onbekend is wat hij in 12.1 doet. Een entry zonder rol is een gok met een toets eraan.
+
+⚠️ **Drie staan baseline op redenering, niet op meting.** Alleen Shadow is gemeten. Dispel Magic,
+Shackle Horror en Power Word: Fortitude zijn klassenbreed gezet omdat ze dát soort spell zijn, niet
+omdat iemand Disc of Holy heeft opengeslagen. Blijkt er één spec-gebonden, dan is dat één `specs =`.
+
+🗄️ **Ouder — wat er toen nog niet was gedaan:** de acht ontbrekende Priest-spells uit §1c (Tentacle Slam 1227280,
 Vampiric Embrace, Shadowform, Dispel Magic, Purify Disease, Power Word: Fortitude, Shackle Horror,
 Cantrips). Hun ID's staan in de spec als uit Robs client gelezen, maar `ns.db.autoMapDump` heeft
 **één slot** en dat is inmiddels door de Guardian-run overschreven — ik kan ze dus niet

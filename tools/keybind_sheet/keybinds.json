@@ -3205,8 +3205,20 @@
      "name": "Leap of Faith",
      "label": "Utility"
     },
+    "Shift+C": {
+     "name": "Dispel Magic",
+     "label": "Dispel / CC"
+    },
+    "Ctrl+V": {
+     "name": "Shackle Horror",
+     "label": "Dispel / CC"
+    },
     "Shift+R": {
      "name": "Levitate",
+     "label": "Utility"
+    },
+    "Ctrl+F": {
+     "name": "Power Word: Fortitude",
      "label": "Utility"
     }
    },
@@ -3320,11 +3332,23 @@
      "label": "Raid heal"
     },
     "Shift+X": {
+     "name": "Dispel Magic",
+     "label": "Dispel / CC"
+    },
+    "Ctrl+F": {
      "name": "Power Word: Life",
      "label": "Utility"
     },
-    "Ctrl+F": {
+    "Shift+C": {
+     "name": "Shackle Horror",
+     "label": "Dispel / CC"
+    },
+    "Ctrl+R": {
      "name": "Levitate",
+     "label": "Utility"
+    },
+    "Ctrl+X": {
+     "name": "Power Word: Fortitude",
      "label": "Utility"
     }
    },
@@ -3427,6 +3451,10 @@
      "label": "Cooldown"
     },
     "X": {
+     "name": "Purify Disease",
+     "label": "Dispel / CC"
+    },
+    "Shift+V": {
      "name": "Mass Dispel",
      "label": "Dispel / CC"
     },
@@ -3434,12 +3462,36 @@
      "name": "Shadow Word: Pain",
      "label": "Rotation"
     },
+    "Ctrl+F1": {
+     "name": "Vampiric Embrace",
+     "label": "Cooldown"
+    },
+    "Shift+2": {
+     "name": "Tentacle Slam",
+     "label": "Rotation"
+    },
     "Shift+F": {
      "name": "Leap of Faith",
      "label": "Utility"
     },
+    "Shift+X": {
+     "name": "Dispel Magic",
+     "label": "Dispel / CC"
+    },
+    "Shift+C": {
+     "name": "Shackle Horror",
+     "label": "Dispel / CC"
+    },
     "Shift+R": {
      "name": "Levitate",
+     "label": "Utility"
+    },
+    "Ctrl+F": {
+     "name": "Power Word: Fortitude",
+     "label": "Utility"
+    },
+    "Ctrl+R": {
+     "name": "Shadowform",
      "label": "Utility"
     }
    },

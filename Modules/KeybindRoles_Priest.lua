@@ -64,6 +64,16 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Desperate Prayer"] = { role = "heal_quick", priority = 1 },                -- F2: persoonlijke noodheal (GEEN defensive -> heal-slot)
 	["Psychic Scream"] = { category = "dispel_cc", priority = 1 },               -- V: AoE-fear (CC)
 	["Mass Dispel"] = { category = "dispel_cc", priority = 3 },                  -- T: enemy-magic dispel / raid-dispel
+	-- ✅ 7 sep 2026 — ID's GEMETEN in Robs eigen spellbook (`ns.db.autoMapDump.scannedIds`,
+	-- Shadow Priest), niet van het web. Positieve controle in dezelfde uitlezing: 228260 kwam
+	-- terug als `Voidform`, wat meteen de hernoem-reparatie van 6 sep in de client bevestigt.
+	-- ⚠️ Deze drie staan BASELINE op grond van redenering, niet van meting: alleen Shadow is
+	-- gemeten. Ze zijn klassenbreed omdat het dat soort spells zijn (een klassenbuff, de oude
+	-- offensieve dispel, en een klassieke Priest-CC), niet omdat iemand Disc of Holy heeft
+	-- opengeslagen. Blijkt er één spec-gebonden, dan is dat één `specs =` erbij.
+	["Dispel Magic"] = { id = 528, category = "dispel_cc", priority = 4 },       -- offensieve magic-dispel; wij hadden Mass Dispel wél en deze niet
+	["Shackle Horror"] = { id = 9484, category = "dispel_cc", priority = 5 },    -- 📌 stond sinds dag 1 in het bronnen-commentaar op :25, nooit als entry
+	["Power Word: Fortitude"] = { id = 21562, category = "utility", priority = 7 }, -- klassenbuff
 	["Leap of Faith"] = { category = "utility", priority = 4 },                  -- X: ally-pull
 	["Power Infusion"] = { role = "cooldown_bar", priority = 2 },                -- F1-familie: haste-burst-CD (self/ally)
 	["Mind Control"] = { role = "utility_secondary", priority = 2 },             -- E-utility (Disc/Holy hebben geen interrupt)
@@ -124,6 +134,20 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- SHADOW (258) - DPS: volledige rotatie op builders/spenders
 	-- -----------------------------------------------------------------
 	["Vampiric Touch"] = { category = "main_rotation", priority = 2, specs = { 258 } },         -- DoT + self-heal
+	-- 🔴 Tentacle Slam was de grootste omissie van Spec 32 §1c: Method gebruikt hem als
+	-- AoE-motor om Vampiric Touch op 6-12 doelen te krijgen, en wij kenden hem niet.
+	-- Priority 3 = een kale cijfertoets; Shift+1 en Shift+3 zijn al bezet door Mind Flay en
+	-- Void Volley, dus de AoE-tweeling-plek was er niet meer.
+	["Tentacle Slam"] = { id = 1227280, category = "main_rotation", priority = 3, specs = { 258 } },
+	-- Purify Disease krijgt bewust priority 2, dezelfde plek die `Purify` (527) hierboven voor
+	-- Disc en Holy heeft: dezelfde reflex op dezelfde toets, welke spec je ook speelt. Dat is
+	-- waar het v6-schema voor bestaat, en hier viel het gratis op zijn plek.
+	["Purify Disease"] = { id = 213634, category = "dispel_cc", priority = 2, specs = { 258 } },
+	["Shadowform"] = { id = 232698, category = "utility", priority = 8, specs = { 258 } },      -- de stance zelf
+	["Vampiric Embrace"] = { id = 15286, category = "cooldown", priority = 3, specs = { 258 } },-- groeps-heal-CD
+	-- ⚠️ `Cantrips` (255661) staat WEL in Robs spellbook en is hier bewust NIET toegevoegd.
+	-- Spec 32 §1c zegt het zelf: onbekend wat het in 12.1 doet. Een entry zonder rol is een
+	-- gok met een toets eraan, en die kost een echte knop.
 	["Shadow Word: Madness"] = { category = "spender", priority = 1, specs = { 258 } }, -- Insanity-spender
 	["Mind Flay"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 258 } }, -- filler (AoE-tweeling Shift+1)
 	-- ⚠️ Void Bolt is HIER WEGGEHAALD op 7 aug 2026: hij bestaat niet meer. Void Volley
