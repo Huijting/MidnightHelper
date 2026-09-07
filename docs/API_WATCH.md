@@ -652,3 +652,80 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `news.blizzard.com/en-us/article/24296142`; `us.forums.blizzard.com` categorie-JSON 35 op
     `order=created` + topic 2343904. **NIET GEPROBEERD:** de bluetracker-spiegel — niet nodig,
     news.blizzard.com kwam vers binnen en is bovendien via WebSearch tegengelezen.
+
+- [2026-09-07] ✅ **Geen relevante API-wijzigingen. 0 × [MOET GEFIKST].** De enige bewerking sinds
+  gisteren is een woordwijziging in de waarschuwingsbalk van de 12.1.5-pagina; geen enkele
+  functienaam toegevoegd, verwijderd of gewijzigd. Wel is één openstaande vraag van 5–6 sep vandaag
+  **dichtgemeten**.
+  - ✅ **AFGESLOTEN — `C_Item.GetItemCooldown` BESTAAT, en al op 12.1.0 waar Rob nú op speelt.**
+    Sinds 5 sep stond hier: *"de migratie is GECITEERD, niet gemeten; `C_Item.GetItemCooldown` is
+    niet in een client geverifieerd."* Nu **GEMETEN** in Blizzards eigen gegenereerde
+    API-documentatie — `raw.githubusercontent.com/Gethe/wow-ui-source`, branch **`12.1.0`**,
+    `Interface/AddOns/Blizzard_APIDocumentationGenerated/ItemDocumentation.lua`. Dat bestand
+    declareert `Namespace = "C_Item"` (regel 5) en bevat op **regel 412** `Name = "GetItemCooldown"`
+    met `SecretArguments = "AllowedWhenUntainted"`, één argument (`itemInfo`) en **drie** returns:
+    `startTimeSeconds`, `durationSeconds`, `enableCooldownTimer`.
+    📌 Die drie komen exact overeen met wat wij uitpakken op `Modules/DelveItemsPopup.lua:278`
+    (`local start, duration, enabled = ns.GetItemCooldownSafe(itemID)`), en `ns.GetItemCooldownSafe`
+    (`Modules/Delves.lua:341-355`) roept de `C_Item`-vorm als eerste aan. De fix van 6 sep is dus
+    niet alleen syntactisch veilig maar landt ook op een functie die er vandaag écht is.
+    ⚠️ **Wat dit NIET is:** een `/dump` in de client. Het is het documentatiebestand dat mét die
+    build wordt gegenereerd — sterk bewijs, maar nog steeds papier. Wie het helemaal dicht wil,
+    draait één keer `/mh ptr`; noodzakelijk is dat niet meer.
+    📌 **MELDEN, NIET REPAREREN:** de comment op `Modules/Delves.lua:332` zegt nog steeds *"has NOT
+    been verified in a client"*. Die regel is per vandaag achterhaald. Ik raak geen code aan — dit
+    is één zin voor Rob als hij dat bestand toch opent.
+  - **De enige wiki-bewerking sinds gisteren: revid 6863733, 2026-09-06T17:08:08Z, Ketho,
+    `/* Deprecated API */`, 25218 → 25227 bytes (+9).** **GEMETEN** via
+    `action=compare&fromrev=6862562&torev=6863733`, de diff zelf gelezen. Eén regel gewijzigd, de
+    `ambox`-waarschuwing bovenaan de Deprecated-API-tabel:
+    was *"The following deprecations have been removed."*, is nu
+    ***"The following deprecation fallbacks have been removed."***
+    **[RAAKT ONS NIET]** als API-feit — er is geen naam bijgekomen of weggegaan.
+    📌 Wel de moeite waard omdat het de **scope aanscherpt**: wat 12.1.5 weghaalt zijn de
+    *deprecation fallbacks* — de globale aliassen die naar de nieuwe namespace wezen — en niet de
+    functionaliteit zelf. Dat is precies de vorm van het `GetItemCooldown`-geval: de global valt
+    weg, `C_Item.GetItemCooldown` blijft. Onze lezing van 5 sep klopte dus, en staat nu ook zo in
+    de bron.
+  - **`Patch 12.1.0/API changes` onveranderd** — nieuwste revisie nog steeds **6860164,
+    2026-09-05T00:39:06Z** (`12.1.0 (69587)`), dezelfde die 5 en 6 sep gemeld is.
+  - **Geen nieuwe `/API changes`-pagina.** Wiki-zoekopdracht `intitle:"API changes"` gesorteerd op
+    aanmaakdatum: **12.1.5** (pageid 705933) is nog altijd de nieuwst aangemaakte; er bestaat nog
+    geen 12.2.0-pagina. Geen nieuw PTR-build-nummer op de 12.1.5-pagina (nog steeds 69594).
+  - **Hotfixes: nieuwste sectie nog steeds 4 september 2026.** ⚠️ **Even oud als wat hier gisteren
+    stond, niet ouder — dus geen cache-val**, en toch **onafhankelijk tegengelezen**: WebSearch kent
+    artikelen voor 1, 2, 3 en 4 sep en géén voor 5, 6 of 7 sep. Het artikel zelf (cache-buster
+    `?nocache=20260907`) opent met "Hotfixes: September 4, 2026". Volledig gelezen t/m 1 sep:
+    Classes, Dungeons and Raid, Housing, Items, Achievements, Quests, PvP. **Geen Lua-API-,
+    secure-frame-, taint- of addon-sectie in enige sectie binnen het venster.**
+  - **Blizzard US UI-and-Macro-forum: twee nieuwe topics, allebei spelers-macrohulp, geen blue
+    post.** Opgehaald op `order=created` met cache-buster.
+    - *My health pot macro stopped working* (**2026-09-07T01:38:58Z**, 1 post, 0 reacties). Gelezen:
+      `#showtooltip` / `/use Healthstone` / `/use Potent Healing Potion` zou "stoppen bij de
+      Healthstone-regel". **Geen dev-antwoord en geen tweede melding**, dus dit is net zo goed een
+      lege tas als een gedragswijziging — ik tel het níét als bevinding. Wel de moeite waard om
+      morgen terug te kijken of er een antwoord onder staat; `/use` op meerdere items in één macro
+      is precies het soort ding dat stil verandert.
+    - *Trying for a intrrupt macro but wont work need help* (**2026-09-06T07:07:50Z**, 3 posts).
+      Gelezen: `/cast [@focus,…]`-conditionals, gewone macrohulp, geen API-feit.
+    - **Geen enkele `community-manager`-post in de categorie binnen 7 dagen** — GEMETEN aan de
+      categorie-JSON: `primary_groups` en `flair_groups` zijn allebei leeg en geen van de 46
+      deelnemers heeft een Blizzard-groep; trust levels 0–3.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`)
+    zijn ook deze run niet opnieuw getoetst en blijven staan zoals op 2 sep gemeten.
+  - **Positieve controle in dezelfde run.** Ik beweer hierboven nergens een léég zoekresultaat over
+    de addon — de enige grep die ertoe doet, `GetItemCooldown` over `*.lua`/`*.toc`, geeft **17
+    treffers in 3 bestanden** en bevestigt dat de fix van 6 sep staat: `Delves.lua:1767` en `:1935`
+    en `DelveItemsPopup.lua:278` gaan alle drie door `ns.GetItemCooldownSafe`, de rest is commentaar
+    plus de naam-string op `PtrProbe.lua:137`. In het documentatiebestand was de positieve controle
+    `GetItemCount` (regel 429) en `GetItemInfo` (regel 604) — het patroon vindt dus wél wat er is.
+  - **Bronnen, alle met cache-buster opgehaald:** `warcraft.wiki.gg/api.php` (`prop=revisions` op
+    pageids 705933 en 679840, `action=compare&fromrev=6862562&torev=6863733`, `list=search`,
+    `list=recentchanges`); `raw.githubusercontent.com/Gethe/wow-ui-source` @ `12.1.0`
+    (`ItemDocumentation.lua`, HTTP 200, 43162 bytes); `news.blizzard.com/en-us/article/24296142`;
+    `us.forums.blizzard.com` categorie-JSON 35 op `order=created`; WebSearch als tegenlezing op de
+    hotfixes en op 12.1.5-PTR-API-nieuws. **NIET GEPROBEERD:** de bluetracker-spiegel — niet nodig,
+    news.blizzard.com kwam vers binnen. ⚠️ **Directe `curl` naar warcraft.wiki.gg blijft geblokkeerd**
+    (`CONNECT tunnel failed, 403`); `raw.githubusercontent.com` werkt wél via `curl` en dat is nieuw
+    gereedschap voor deze wachter — zo is de meting hierboven gedaan.
