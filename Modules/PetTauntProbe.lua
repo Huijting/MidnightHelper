@@ -46,13 +46,26 @@ local function State(v)
 end
 
 --- Taunts a pet can put on autocast, by spell id so it survives translation.
---- ⚠️ CANDIDATES, not a measured list — these come from what the classes are known to have,
---- and the probe prints every slot anyway so a missing one shows up as an unrecognised row
---- rather than as silence.
+---
+--- ✅ BOTH ROWS ARE MEASURED, each with the value MOVING rather than merely being read:
+---     Growl      2649   hunter pet,          on -> autoEnabled=true, off -> false  (7 Sep)
+---     Suffering  17735  warlock Voidwalker,  on -> autoEnabled=true, off -> false  (7 Sep)
+--- A single reading of `true` would only have proved the field exists.
+---
+--- 🔴 `7812` (Sacrifice) USED TO BE IN THIS TABLE, carrying the label *"not a taunt but often
+--- confused"*. Found 7 Sep while confirming Suffering. This table is not a glossary — every id
+--- in it makes `ShouldWarn` warn, so a row that says in its own text that it does not belong
+--- was a false alarm waiting for someone to put Sacrifice on autocast. The note was worth
+--- keeping; arming it was not.
+---
+--- ❓ STILL OPEN, seen on Rob's own Voidwalker the same evening: `112042` **Threatening
+--- Presence**, `autoAllowed=true autoEnabled=true`. Deliberately NOT added — it appears to be
+--- on by default, so if it turns out to belong here the warning would fire for every warlock
+--- with a Voidwalker out. What it actually does has to be read before that decision, not
+--- guessed. Same for `3716` Consuming Shadows and `17767` Shadow Bulwark, both also on.
 local PET_TAUNTS = {
 	[2649] = "Growl (hunter pet)",
 	[17735] = "Suffering (warlock Voidwalker)",
-	[7812] = "Sacrifice (Voidwalker, not a taunt but often confused)",
 }
 
 function ns.PrintPetTauntProbe()

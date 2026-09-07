@@ -1,5 +1,31 @@
 # Midnight Helper — waar we staan
 
+## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
+
+Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
+
+```
+autocast aan  →  5. Suffering  autoAllowed=true  autoEnabled=true   spellID=17735
+autocast uit  →  5. Suffering  autoAllowed=true  autoEnabled=false  spellID=17735
+```
+
+✅ **17735 klopt en de waarde BEWEEGT.** Suffering gaat van kandidaat naar gemeten; de
+pet-waarschuwing dekt nu ook warlocks.
+
+🔴 **En de lijst zelf bleek een valse alarmbel te bevatten.** `7812` (Sacrifice) stond in
+`PET_TAUNTS` mét als eigen label *"not a taunt but often confused"*. Die tabel is geen woordenlijst
+— **elke id erin laat `ShouldWarn` waarschuwen**. Een rij die in zijn eigen tekst zegt dat hij er
+niet hoort, is een valse melding die stond te wachten tot iemand Sacrifice op autocast zet. Eruit;
+de notitie blijft als commentaar staan.
+
+📌 Gevonden doordat de meting de héle balk print in plaats van alleen het gezochte. Dat was ook de
+bedoeling van dat ontwerp, maar dit is de eerste keer dat het zich terugbetaalt.
+
+❓ **OPEN — `112042` Threatening Presence**, op Robs Voidwalker `autoAllowed=true autoEnabled=true`.
+Bewust **niet** toegevoegd: hij lijkt standaard aan te staan, dus als hij hier hoort zou de
+waarschuwing vuren voor élke warlock met een Voidwalker buiten. Eerst lezen wát hij doet, dan pas
+beslissen. Idem `3716` Consuming Shadows en `17767` Shadow Bulwark, ook allebei aan.
+
 ## ✅ 7 sep — de route eindigde wél, de pins niet
 
 Rob op de isle, mét pijl op het scherm, `/mh arrow`:
