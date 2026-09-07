@@ -1,6 +1,37 @@
 # Midnight Helper — waar we staan
 
-## 🟡 7 sep — "je Growl staat nog aan" — GEMETEN MOET WORDEN, `/mh pet` staat klaar
+## ✅ 7 sep — "je Growl staat nog aan" — GEMETEN EN GEBOUWD
+
+Robs meting op zijn BM-hunter, en de **tweede** run is wat het een meting maakt in plaats van een
+waarneming:
+
+```
+Growl aan   ->  6. Growl  autoAllowed=true  autoEnabled=true   spellID=2649
+Growl uit   ->  6. Growl  autoAllowed=true  autoEnabled=false  spellID=2649
+```
+
+De waarde **bewoog**. Eén aflezing van `true` had alleen bewezen dat het veld bestaat.
+
+📌 **Diezelfde run besliste ook de rol-vraag:** solo gaf `UnitGroupRolesAssigned` **`NONE`** terwijl
+`GetSpecializationRole` **`DAMAGER`** gaf. De unit-route is dus niet alleen secret-gevoelig maar
+gewoon leeg zolang niemand je iets toegewezen heeft — en dat is meestal. De spec-route weet het
+altijd.
+
+✅ **GEBOUWD** in `Modules/PetTauntProbe.lua`: chatregel + toast, één keer per instance-bezoek,
+alleen in een groep, alleen als je zelf geen tank bent, en alleen als een taunt daadwerkelijk op
+autocast staat. Zeven talen. Twee seconden vertraging na `PLAYER_ENTERING_WORLD`, want bij het
+inladen is de petbalk nog leeg en dat leest als "geen taunt" — stilte die op een veilig antwoord
+lijkt.
+
+🔴 **Wat de tekst BEWUST NIET beweert: dat iemand anders tankt.** Dat kunnen we niet lezen zonder in
+een secret te lopen. Er staat alleen wat waar en gemeten is — *jij* bent de tank niet en *jouw* pet
+taunt. In een vijfmans is dat hetzelfde; in een tweemans oude raid niet, en daar is de zin nog
+steeds geen leugen.
+
+⚠️ **Zwijgt solo, en dat is een feature.** In een delve wíl je Growl aan hebben; Valeera tankt niets.
+
+⚠️ Alleen **Growl (2649)** is gemeten. `Suffering` (17735, Voidwalker) staat als kandidaat in de
+tabel — die moet een warlock bevestigen.
 
 Robs idee: *"het komt regelmatig voor dat ik Carola of Cisca in een instance zitten met een tank en
 dan vergeten we onze Growl uit te zetten — kunnen we dat melden?"* Een pet die taunt terwijl iemand

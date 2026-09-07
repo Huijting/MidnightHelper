@@ -137,3 +137,126 @@ function ns.PrintPetTauntProbe()
 		end
 	end
 end
+
+--------------------------------------------------------------------------------
+-- The reminder itself
+--------------------------------------------------------------------------------
+--
+-- ✅ MEASURED on Rob's Beast Mastery hunter, 7 Sep 2026, and the second run is what makes it
+-- a measurement rather than a sighting:
+--
+--     Growl on   ->  6. Growl  autoAllowed=true  autoEnabled=true   spellID=2649
+--     Growl off  ->  6. Growl  autoAllowed=true  autoEnabled=false  spellID=2649
+--
+-- The value MOVED. A single reading of `true` would only have proved the field exists.
+--
+-- 📌 And the same run settled the role question: standing solo, `UnitGroupRolesAssigned`
+-- answered `NONE` while `GetSpecializationRole` answered `DAMAGER`. The unit route is not
+-- merely secret-prone, it is empty when nobody has assigned you anything — which is most of
+-- the time. The spec route is the only one that always knows.
+--
+-- 🔴 WHAT THIS DELIBERATELY DOES NOT CLAIM: that somebody else is tanking. We cannot read
+-- another player's role without walking into a secret, so the line says only what is true and
+-- measured -- *you* are not the tank and *your* pet's taunt is on. In a five-man that is the
+-- same thing; in a two-man old raid it is not, and there the sentence is still not a lie.
+--
+-- ⚠️ Silent when solo, and that is not laziness: in a delve you WANT Growl on. Valeera tanks
+-- nothing. So the group check is a feature, not a guard.
+
+local watcher = CreateFrame("Frame")
+local warnedFor = nil -- one warning per instance visit, not per event
+
+--- @return boolean|nil warn, string|nil tauntName — nil when we cannot tell
+local function ShouldWarn()
+	-- Group + instance, or there is nothing to be wrong about.
+	local n = (GetNumGroupMembers and GetNumGroupMembers()) or 0
+	if n < 2 then
+		return false
+	end
+	local inInst = false
+	if IsInInstance then
+		local ok, a = pcall(IsInInstance)
+		inInst = ok and a or false
+	end
+	if not inInst then
+		return false
+	end
+
+	-- Am I the tank? Spec route only -- see the note above.
+	if not (GetSpecialization and GetSpecializationRole) then
+		return nil
+	end
+	local spec = GetSpecialization()
+	if not spec then
+		return nil
+	end
+	local okRole, role = pcall(GetSpecializationRole, spec)
+	if not okRole or role == nil then
+		return nil
+	end
+	if role == "TANK" then
+		return false
+	end
+
+	-- Is a taunt on autocast?
+	if not (GetPetActionInfo and UnitExists and UnitExists("pet")) then
+		return false
+	end
+	local slots = (NUM_PET_ACTION_SLOTS and tonumber(NUM_PET_ACTION_SLOTS)) or 10
+	for i = 1, slots do
+		local ok, name, _tex, _isToken, _isActive, _allowed, autoEnabled, spellID =
+			pcall(GetPetActionInfo, i)
+		if ok then
+			local sid = (not Secret(spellID)) and tonumber(spellID) or nil
+			if sid and PET_TAUNTS[sid] and autoEnabled == true then
+				return true, (not Secret(name)) and name or nil
+			end
+		end
+	end
+	return false
+end
+
+local function Check()
+	local warn, tauntName = ShouldWarn()
+	if warn ~= true then
+		if warn == false then
+			warnedFor = nil -- left the instance, or turned it off: allow a fresh warning later
+		end
+		return
+	end
+	local key = tostring(GetInstanceInfo and select(8, GetInstanceInfo()) or "?")
+	if warnedFor == key then
+		return
+	end
+	warnedFor = key
+
+	local label = tauntName or "Growl"
+	print(("|cffffcc00%s|r %s"):format(
+		(ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:",
+		(ns:L("PETTAUNT_WARN_CHAT")):format(label)))
+	if ns.QueueMidnightToast then
+		pcall(ns.QueueMidnightToast, {
+			id = "pet_taunt_on",
+			title = ns:L("PETTAUNT_WARN_TITLE"),
+			body = (ns:L("PETTAUNT_WARN_CHAT")):format(label),
+			displaySec = 12,
+			icon = 132270, -- Growl's own icon
+		})
+	end
+end
+
+watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
+watcher:RegisterEvent("GROUP_ROSTER_UPDATE")
+watcher:RegisterEvent("PET_BAR_UPDATE")
+watcher:RegisterEvent("UNIT_PET")
+watcher:SetScript("OnEvent", function()
+	-- A tick of delay: on zone-in the pet bar is not populated yet, and asking too early
+	-- reads an empty bar as "no taunt" -- silence that looks exactly like an all-clear.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(2, function()
+			pcall(Check)
+		end)
+	else
+		pcall(Check)
+	end
+end)
