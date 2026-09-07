@@ -61,7 +61,28 @@ hierheen.
 
 ---
 
-## 3. Wat er ontbreekt — drie macro's, en alle drie lossen ze een spec-eigenaardigheid op
+## 2b. ✅ De beschrijvingen zijn goed — dat is de lat, niet het probleem
+
+Rob keek op 7 sep zelf naar de pagina en vroeg: *"worden ze goed beschreven wat ze doen?"*
+Antwoord: **ja, en dat moet zo blijven.** Wat er nu staat bij de Focus-interruptmacro:
+
+> *"Kicks your focus if it is a living enemy, otherwise your current target. Set the dangerous
+> caster as focus once (`/focus`) and keep hitting your own target — this macro never changes or
+> clears your focus."*
+> *"Copy the text below into Esc > Macros > New. Then drag the macro icon to a spot on your
+> action bar."*
+
+Dat doet drie dingen goed en alle drie moeten ze terugkomen in nieuwe entries:
+1. **wat hij doet**, in gewone taal;
+2. **de val die hij wegneemt** — hier: dat hij je focus niet stilletjes verzet;
+3. **hoe je hem gebruikt**, want een macro die je niet weet te plakken is nutteloos.
+
+⛔ Een nieuwe entry zonder punt 2 hoort er niet in. Dat onderscheidt ons van een gids die alleen
+de tekst afdrukt.
+
+---
+
+## 3. Wat er ontbreekt — vier macro's, en alle vier lossen ze een spec-eigenaardigheid op
 
 📌 **Dat is het selectiecriterium.** Geen macro's toevoegen omdat ze bestaan, maar omdat ze een
 val wegnemen die de speler anders zelf moet ontdekken. Dat is MH's lijn: niet de macro, het
@@ -103,6 +124,21 @@ macro = [=[#showtooltip
 Doel: `PRIEST = { [3] = { ... } }` (Shadow is spec-index 3, zie
 `InterruptMacrosData.lua:24`). Dezelfde vorm graag ook voor **Voidform** en **Mind Blast** — de
 gids geeft alle drie.
+
+### a2) Beast Mastery — mouseover Barbed Shot
+Dots leggen zonder je huidige doel los te laten; in M+ de manier om een losse mob te pakken.
+
+```lua
+{
+id = "mouseover_barbed",
+name = "Mouseover Barbed Shot",
+descNl = "Legt Barbed Shot op de vijand onder je muis, zonder je huidige doel los te laten. Valt terug op je doel als je nergens overheen staat.",
+descEn = "Puts Barbed Shot on the enemy under your cursor without dropping your current target. Falls back to your target when the cursor is on nothing.",
+macro = [=[#showtooltip Barbed Shot
+/cast [@mouseover,harm,nodead][] Barbed Shot]=],
+},
+```
+Doel: `HUNTER = { [1] = { ... } }`.
 
 ### c) Druide — muisaanwijzer-taunt
 `mouseover_taunt` bestaat al voor Demon Hunter (`Torment`, `:86`), Monk (`Provoke`, `:340`) en
