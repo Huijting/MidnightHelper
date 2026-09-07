@@ -408,7 +408,12 @@ local function Check(force)
 			--- glanced at, and the same SOUNDKIT the rest of the addon uses so "Midnight
 			--- Helper wants you" stays one sound instead of a zoo.
 			displaySec = 20,
-			soundKit = SOUNDKIT and SOUNDKIT.READY_CHECK or nil,
+			--- Rob picked this one by ear from `/mh pet sounds` (candidate 5). I cannot hear
+			--- anything, so the choice is his and the list existed to make it his.
+			soundKit = SOUNDKIT and SOUNDKIT.RAID_WARNING or nil,
+			--- Dead centre for this one toast. The next toast returns to wherever the player
+			--- dragged theirs, because the position is applied per toast and never stored.
+			center = true,
 			--- Rob, 7 Sep, straight after it first worked: *"kan ie flashen??"* Yes — and
 			--- this toast is the reason the option exists, because it is one you act on
 			--- before the pull rather than read afterwards.

@@ -547,8 +547,22 @@ function ns.ShowNextMidnightToast()
 	local scale = tonumber(spec.scale) or 1
 	f:SetScale(scale)
 	f:ClearAllPoints()
+	--- Optional `spec.center` — put THIS toast dead centre.
+	---
+	--- 🔴 Rob, 7 Sep: *"kunnen we dan tijdelijk het popup-venster naar het midden brengen?
+	--- Daarna weer eventueel terug naar waar het vandaan kwam."* Both halves come free,
+	--- because the position is applied **per toast** rather than stored: the next toast reads
+	--- the saved position again by itself. Nothing has to be put back, and removing the flag
+	--- is the whole undo.
+	---
+	--- ⚠️ One catch worth knowing: the card is draggable and `OnDragStop` SAVES where it lands
+	--- (`:209`). Drag a centred toast and the centre becomes your stored position for every
+	--- toast. Not guarded against — dragging it back is one motion, and a guard here would
+	--- silently ignore a drag the player meant.
 	local pos = GetToastSettings().pos
-	if type(pos) == "table" and tonumber(pos.x) and tonumber(pos.y) then
+	if spec.center then
+		f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+	elseif type(pos) == "table" and tonumber(pos.x) and tonumber(pos.y) then
 		f:SetPoint("CENTER", UIParent, "CENTER", pos.x / scale, pos.y / scale)
 	else
 		f:SetPoint("TOP", UIParent, "TOP", 0, -118 / scale)
