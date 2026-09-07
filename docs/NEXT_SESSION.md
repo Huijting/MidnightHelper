@@ -1,5 +1,50 @@
 # Midnight Helper — waar we staan
 
+## ⛔ 7 sep — DE DISPEL-HELPER IS DICHT, en dit is de meting waarom
+
+Rob vroeg PIHelper (CurseForge, 1,9K downloads) te beoordelen voor onze party-kant. Conclusie:
+**de feature niet bouwen, en de dispel-helper sluiten.** Niet uit voorzichtigheid — uit een meting
+die we zelf al twee keer gedaan hadden en die ik bijna over het hoofd zag.
+
+🔴 **De route waar alles op zou rusten geeft ZELFVERZEKERD FOUTE ANTWOORDEN in gevecht.**
+`Modules/Auras.lua:107-148`, gemeten 12 aug en **gereproduceerd op 31 aug**: Rob had acht buffs en
+vroeg in gevecht naar diezelfde acht id's — **zeven kwamen terug als `nil`**. Geen fout, geen
+weigering, een rustig verkeerd antwoord. En op 31 aug was het bewijs in plaats van gevolgtrekking:
+voor id 462854 gaven twee aanroepen op hetzelfde moment tegengestelde antwoorden, waarvan er één de
+aura wél zag.
+
+📌 **Dat is precies de techniek van PIHelper** — *"tracks a configurable list of buff IDs"*, dus
+gericht vragen op id in plaats van opsommen. Voor hén is dat goedkoop: een gemiste Power Infusion
+betekent dat een frame een keer niet oplicht. Voor een dispel-helper is een gemiste debuff de hele
+feature, en een helper die er drie van de vijf mist zonder het te weten is **slechter dan geen**.
+
+⚠️ **`Aura.HasUnitBuff` heet gericht maar somt óók op** (`Auras.lua:186`, een `GetAuraDataByIndex`-
+lus). We hebben nergens een echte vraag-op-id voor een ánder character. Dat is geen omissie om te
+repareren zolang de route zelf onbetrouwbaar is.
+
+### 🔓 Wat het kan HEROPENEN — één meting, en die heeft Cisca nodig
+
+Onze meting ging over `GetPlayerAuraBySpellID` op **jezelf**. PIHelper vraagt naar **anderen**, met
+een andere functie (`GetUnitAuraBySpellID`). **Dat verschil is nooit getest.** Twee verklaringen,
+allebei bruikbaar:
+
+1. Ze accepteren de missers (goedkoop voor PI, dodelijk voor dispel).
+2. De unit-route gedraagt zich anders dan de player-route.
+
+Is 2 waar, dan gaat alles weer open. `/mh dispelprobe` bestaat al en heeft zelfs een `watch`-variant
+— maar die somt **op**, dus hij beantwoordt deze vraag níét. Er zou een arm bij moeten die per id
+vraagt, en dan één run in een groep.
+
+🔴 **Niet bouwen vóór die meting.** Anders staat er code op een route waarvan we weten dat hij liegt.
+
+⏰ **Hercontrole gepland: rond 7 okt 2026** — is de aura-route verbeterd (patch/hotfix), en wat doet
+PIHelper inmiddels. Rob: *"check hem over een maand nog eens of ie verbeterd is"*.
+
+📌 **Mijn eerste advies hierover was FOUT en is binnen het uur teruggenomen.** Ik las de indexregel
+in memory (*"opsommen mag niet, gericht vragen wel"*) en niet het bestand waar die naar wijst — waar
+sinds 12 aug staat dat gericht vragen in gevecht stil verkeerde antwoorden geeft. Tweede keer die
+dag dat ik op een kop afging in plaats van op de inhoud; zie de regel bovenaan dit bestand.
+
 ## ✅ 7 sep — Spec 32 is af voor alle drie de klassen, plus een linter die dit soort bug vangt
 
 De onderzoek-sessie breidde Spec 32 uit naar drie klassen. **Twee van de drie waren vandaag al
