@@ -653,6 +653,93 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `order=created` + topic 2343904. **NIET GEPROBEERD:** de bluetracker-spiegel — niet nodig,
     news.blizzard.com kwam vers binnen en is bovendien via WebSearch tegengelezen.
 
+- [2026-09-07] 📋 **Nieuw sinds gisteren: de `Patch 12.1.5/API changes`-pagina is uitgebreid met
+  een volledige API-samenvatting (PTR, Build 69594; dev-notes Linxy 3 sep). Dit is de addon-/
+  API-kant, dus getoetst — géén enkel item raakt ons vandaag. 0 × [MOET GEFIKST].**
+  ⚠️ **KADER: 12.1.5 is PTR, er is nog geen live client-build in Robs spel.** Niets hiervan breekt
+  nu; dit is vooruitkijken. De content-/roadmap-kant van 12.1.5 is PTR-wachter-terrein — ik meld
+  hier uitsluitend wat de *code* kan breken.
+  - **GEMETEN, revisiegeschiedenis i.p.v. paginatekst** (`warcraft.wiki.gg/api.php`,
+    `prop=revisions`, cache-busted). `Patch 12.1.5/API changes` kreeg sinds de 6-sep-run één nieuwe
+    bewerking: **revid 6863733, 2026-09-06T17:08:08Z, `/* Deprecated API */`** (Ketho). De diff
+    (`action=compare` 6862562→6863733) is **puur cosmetisch**: de rode ambox-kop veranderde van
+    *"The following deprecations have been removed"* naar *"The following deprecation fallbacks have
+    been removed"* — geen enkele functienaam toegevoegd, verwijderd of gewijzigd; de tabel eronder
+    is byte-gelijk. De inhoudelijke API-samenvatting zelf stond er al sinds 5 sep (binnen venster),
+    maar was in dit logboek nog niet per item aan de code getoetst — dat gebeurt hieronder.
+  - **AuraContainer/AuraButton: `AddDispelTypeTexture` en `AddPandemicRegion` geven geen index meer
+    terug; de bijbehorende `Remove*` nemen nu een region-referentie i.p.v. een index; tweemaal
+    dezelfde region toevoegen gooit nu een error.** **[RAAKT ONS NIET]** — GEMETEN:
+    `Modules/PartyTargets.lua:326-361` maakt precies één `CustomAuraContainer` en roept daarop
+    alléén `SetUnit`/`AddAuraSlot`/`SetEnabled` aan (+ `SetPoint`/`SetHeight`/`Show`). De vier
+    gewijzigde API's komen in de héle addon uitsluitend voor in `Modules/PtrProbe.lua:402-403`, een
+    *capability-probelijst* (`frame[m] == nil`), nooit als aanroep op de container. Positieve
+    controle: de grep vond de namen wél waar ze staan (PtrProbe), dus het lege container-call-
+    resultaat is echt leeg. `PtrProbe.lua:386-389` documenteerde deze 12.1.5-wijziging al vooraf.
+  - **AddOn Security: `Cooldown:SetCooldown` en `:Clear` kunnen niet meer vanuit getainte code
+    aangeroepen worden wanneer het cooldown-frame zélf protected is.** **[AL AFGEDEKT]** — GEMETEN:
+    MH's enige `SetCooldown`-doel is `f._cd` (`Modules/CombatSafety.lua:184`, `:598`, `:700-701`),
+    een `Cooldown` geparent aan `f = CreateFrame("Button", "MidnightHelperCombatSafety", UIParent)`
+    (`CombatSafety.lua:114`) — een **kale, niet-secure Button**; er staat nergens een
+    `SecureActionButtonTemplate` in de module. Het cooldown-frame is dus niet protected, dus de
+    voorwaarde van de nieuwe restrictie treedt nooit in werking.
+  - **AddOn Security: castbar-ID's zijn nu uniek per unit-token; `UnitCastingInfo("PLAYER")` geeft
+    een ander castbar-ID dan `("player")`.** **[RAAKT ONS NIET]** — GEMETEN: MH leest
+    `UnitCastingInfo`/`UnitChannelInfo` uitsluitend voor naam/texture/spellID/`notInterruptible`
+    (`ActionPrompt.lua:262/270`, `CombatSafety.lua:411-416/529-563/811-815`,
+    `RitualBossCoach.lua:215-216`) en gebruikt het castbar-ID **nooit** om units te vergelijken;
+    alle aanroepen gebruiken bovendien kleine-letter-tokens (`"target"`, `"unit"`). De wijziging
+    mikt op addons die castbar-ID's over tokens heen cachten om units te matchen — dat doet MH niet.
+  - **Nieuwe Lua-util-functies** (`math.clamp/round/lerp/…`, `string.contains/startswith/…`,
+    `table.contains/keys/…`) en **nieuwe additieve script-object-API's** (`CreateFrameWithOptions`,
+    `TimedSignalMap`, `roundLayoutToNearestPixel`/`SetRoundLayoutToNearestPixel`). **[RAAKT ONS
+    NIET]** — additief; voor de util-functies zijn aliassen op de bestaande namen behouden "to
+    prevent addon breakage", en de script-object-API's zijn nieuw (niets verwijderd). MH roept ze
+    niet aan.
+  - **Deprecations: de deprecated *fallback-addons* zijn verwijderd** (Blizzard_Deprecated
+    CurrencyScript/Glue/ItemScript/ItemSocketInfo/LFG/PetInfo/PvpScript/SoundScript/
+    WorldElapsedTimerTypes e.a. — de `loadDeprecationFallbacks`-gated shims voor oude globals).
+    **[grotendeels AL AFGEDEKT — één deel NIET VOLLEDIG MEETBAAR vanaf hier]**:
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` is op 6 sep al gemeten als [RAAKT ONS NIET] (0
+    functie-treffers), en MH draait op moderne `C_*`-namespaces. ⚠️ **Wat ik NIET kan meten:** een
+    volledige per-functie-audit van álle verwijderde shims vereist de exacte functienamen die erin
+    zaten, en die staan niet op de wiki-pagina (alleen de addon-namen). Dit settelt in één run met
+    `/mh ptr` op de 12.1.5-PTR-client; `PtrProbe.lua:120/131-137` somt deze addon-namen al op als
+    probe-doel. Ik gok hier geen functienamen bij — dat is precies de val die CLAUDE.md verbiedt.
+  - ℹ️ **Ter info, geen actiepunt:** 12.1.5 draagt `TOC: 120105`. `MidnightHelper.toc` declareert nu
+    `120007, 120100`; bij een live 12.1.5 wil je die waarschijnlijk bijwerken, maar dat is een
+    compat-nummer (out-of-date-waarschuwing), geen API-breuk, en het is release-/PTR-terrein.
+
+- [2026-09-07] ✅ **Voor de rest géén relevante API-wijzigingen (31 aug–7 sep).**
+  - **`Patch 12.1.0/API changes` onveranderd** — nieuwste revisie nog steeds **6860164,
+    2026-09-05T00:39:06Z** (`12.1.0 (69587)`), dezelfde die 5+6 sep al gemeld is. Geen nieuwe
+    `/API changes`-pagina boven 12.1.5 (wiki-zoek `intitle:"API changes"` op aanmaakdatum: nieuwste
+    is 12.1.5; 12.2.0 bestaat niet).
+  - **Hotfixes: nieuwste sectie nog steeds 4 september 2026** — geen 5/6/7-sep-lijst. Volledig
+    gelezen: Classes (Druid Balance, Shaman Enhancement), The Venomous Abyss, Housing, Items. **Geen
+    Lua-API-, secure-frame-, taint- of addon-sectie;** de enige UI-nabije regel is content
+    ("Stellar Amplification can now be tracked in the Cooldown Manager"). **Onafhankelijk bevestigd
+    via WebSearch:** die kent artikelen t/m 4 sep en géén voor 5/6/7 sep (geen cache-val).
+  - **Blizzard US UI-and-Macro-forum: geen blue post en geen nieuw API-topic binnen 7 dagen.**
+    🔴 **Bijna-val ontweken:** de op *activiteit* gesorteerde categorie-JSON zette **Kaivax**
+    (community-manager) in de users-array — precies de "gebumpte oude thread"-val uit eerdere runs.
+    Positieve tegencontrole: `search.json?q=#ui-macro @Kaivax after:2026-08-25` geeft **0 posts** →
+    Kaivax heeft hier de laatste ~2 weken niets geplaatst. De recente topics zijn allemaal
+    spelershulp (Counterspell-macro, `#showtooltip`-macro's, "please make it so that healbot can
+    show debuffs again" in de lopende *Addons api restrictions*-thread, topic 2343904, post #10 op
+    5 sep). Geen dev-antwoord, geen API-feit.
+  - **Positieve controle in dezelfde run:** de greps op `AddDispelTypeTexture` (→ PtrProbe),
+    `UnitCastingInfo` (→ 6 bestanden) en `SetCooldown` (→ CombatSafety) vonden allemaal wat er is,
+    dus de lege *aanroep*-resultaten hierboven zijn echt leeg, geen kapotte grep.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`,
+    `GetItemCooldown`→`ns.GetItemCooldownSafe`) deze run niet opnieuw getoetst; ongewijzigd afgedekt
+    zoals op 2/6 sep gemeten.
+  - **Bronnen, alle cache-busted:** `warcraft.wiki.gg/api.php` (`prop=revisions`, `action=compare`,
+    `action=parse&prop=wikitext`, `list=search`); `news.blizzard.com/en-us/article/24296142`
+    (hotfixes 4 sep) + WebSearch-tegencontrole; `us.forums.blizzard.com` categorie-JSON 35 +
+    `search.json` (`#ui-macro`, `#ui-macro @Kaivax`).
+
 - [2026-09-07] ✅ **Geen relevante API-wijzigingen. 0 × [MOET GEFIKST].** De enige bewerking sinds
   gisteren is een woordwijziging in de waarschuwingsbalk van de 12.1.5-pagina; geen enkele
   functienaam toegevoegd, verwijderd of gewijzigd. Wel is één openstaande vraag van 5–6 sep vandaag
