@@ -34,10 +34,24 @@ en wegschrijven is precies de plausibele gok die dit project verbiedt — en een
 géén, want dan matcht hij iets ánders in plaats van terug te vallen op de naam. Vullen gaat zoals
 vandaag bij Druid, Priest en Hunter: uit een client-dump, klasse voor klasse.
 
-⚠️ **`id = 1264359` voor Wild Thrash is NIET door mij hergemeten** — het komt uit de dump van de
-onderzoek-sessie op Robs BM-hunter, en `autoMapDump` heeft één slot dat inmiddels de priester-run
-bevat. Eén `/mhautomap` + `/reload` op de hunter sluit het. 📌 Het risico is klein: staat het id
-fout, dan valt `BuildIdIndex` terug op de naam, en die kwam wél uit zijn spellbook.
+✅ **HERMETEN 7 sep, en de negatieve helft is het bewijs.** Rob draaide `/mhautomap` + `/reload` op
+zijn hunter, dus de dump staat weer op HUNTER. Controles in dezelfde uitlezing: Kill Command 34026
+en Barbed Shot 56641 komen terug. Dan het punt zelf:
+
+- **`Wild Thrash` = 1264359** — exact wat de spec zei.
+- **`Multi-Shot` staat er NIET in.** Dat is de meting die telt. Het id bevestigen zegt alleen dat de
+  nieuwe entry klopt; dat Multi-Shot ontbreekt zegt dat het weghalen van 253 terecht was. Zonder die
+  tweede helft was het een halve controle geweest.
+
+📌 **`Wild Thrash` staat in die dump nog onder `unmatched`, en dat is goed.** Rob draaide de automap
+vóórdat mijn wijziging in zijn sessie geladen was. Eén `/reload` + `/mhautomap` erna en hij hoort
+geplaatst te zijn — `unmatched` gaat dan van 11 naar 10.
+
+⚠️ **Wat er ná deze reparatie nog `unmatched` staat, opgeschreven zodat niemand het opnieuw
+uitzoekt:** `Wing Clip` (195645) is de enige die een echte afweging waard is — Spec 32 zet hem op
+lage prioriteit. `Eyes of the Beast`, `Make Camp`, `Return to Camp`, `Rummage Your Bag` zijn
+gemaks-/kampeer-knoppen; `Auto Attack`, `Auto Shot`, `Revive Battle Pets`, `Anomaly Detection Mark I`
+en `Mechanism Bypass` zijn ruis.
 
 ⚠️ **SCOPE: drie specs gemeten** (Guardian, Shadow, Beast Mastery) van de veertig. De rest kan
 alleen op een personage dat Rob heeft.
