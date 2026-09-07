@@ -25,8 +25,14 @@ leest dat als "opgelost". Bij `nil` blijft hij staan tot zijn eigen timer afloop
 petbalk nog leeg, en te vroeg lezen geeft "geen taunt" — stilte die op een veilig antwoord lijkt).
 Bewust niet twee paden gebouwd: één weg naar één antwoord.
 
-**Te testen:** in een delve `/mh pet test`, de kaart komt op, dan Growl uitzetten en niets doen.
-Hij hoort binnen een paar tellen vanzelf weg te gaan.
+✅ **BEVESTIGD 7 sep in een delve.** Rob: `/mh pet test`, kaart komt op, Growl uit, niets doen —
+de kaart gaat vanzelf weg. *"dit werkt goed!!!!"*
+
+📌 **Daarmee is de negatieve helft van de pet-waarschuwing rond**: opkomen, geluid, knipperen,
+midden op het scherm, en weggaan zodra je hem opvolgt. 🔴 **De positieve helft is nog steeds niet
+in het wild gezien** — niemand heeft hem vanzelf zien vuren in een échte groep met een échte tank
+(Carola of Cisca). `/mh pet test` slaat alleen het geheugen over, niet de logica, dus wat getest is
+is de hele beslissing behalve de trigger zelf.
 
 ## ✅ 7 sep — "je Growl staat nog aan" — GEMETEN EN GEBOUWD
 
