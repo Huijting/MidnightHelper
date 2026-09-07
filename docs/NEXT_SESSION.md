@@ -198,7 +198,10 @@ probe is `C_QuestLog.GetTitleForQuestID(98226)`: komt daar een titel uit, dan be
 📌 En dat is de zwakke variant: ook mét een geldig id blijft ongemeten of onze *volgorde-aanname*
 klopt voor iemand die de skip heeft. Zonder een speler met die quest is dit niet dicht te maken.
 
-## 🚀 3.9.0 — getagd 7 sep 2026, 57 commits boven `v3.8.0`
+## 🚀 3.9.0 — LIVE EN GOEDGEKEURD op CurseForge, 7 sep 2026 (tag `v3.9.0` op `5ed095d`)
+
+Rob: *"hij staat er goed op en goedgekeurd"*. Changelog schoon gerenderd door de packager, geen
+handmatige reparatie op de CF-pagina nodig. 57 commits boven `v3.8.0`.
 
 **Robs beslissing, tegen mijn advies in, en dat is genoteerd omdat het uitmaakt.** Ik adviseerde te
 wachten tot de reset van woensdag; hij zei *"zet maar klaar en go"*. Dat is zijn keuze en die staat.
