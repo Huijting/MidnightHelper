@@ -286,10 +286,39 @@ stillere variant — het geraakte entry hoort bij dezelfde spec, maar bij de ver
 Alleen de reden erachter is nu geméten in plaats van vermoed, en dat is precies wat de handoff
 wilde weten vóór de rest van de migratie.
 
-⚠️ **Nog te bevestigen in het spel:** `/mhautomap` + `/reload` op de Prot Paladin. `Blessed Hammer`
-hoort nu **placed** te zijn en unclassified van 12 naar 11 te gaan. 📌 En dit raakt élke klasse waar
-een talent-override een base-ID deelt met een spell van een andere spec — dus kijk of het aantal
-unclassified elders ook zakt.
+✅ **BEVESTIGD 7 sep, 21:25** — `/mhautomap` + `/reload` op de Prot Paladin, gelezen uit de
+SavedVariables (niet uit een screenshot):
+
+- `unmatched` telt **11** rijen, was 12
+- **`Blessed Hammer` staat in `placed`**, `id = 35395`, toets `3`, `main_rotation`
+- `scannedIds` bevestigt de oorzaak letterlijk: `["Blessed Hammer"] = 35395` — het base-ID van
+  Crusader Strike
+
+📌 Dit raakt élke klasse waar een talent-override een base-ID deelt met een spell van een andere
+spec. Bij de volgende `/mhautomap` op een andere klasse: kijk of het aantal daar óók zakt.
+
+### ✅ De vijf ontbrekende ID's — GEMETEN uit Robs eigen client, 7 sep
+
+Stonden in §1f nog als *"uit de dump te halen"*. Hier staan ze, want dat bestand wordt bij de
+volgende reload overschreven:
+
+| spell | id | opmerking |
+|---|---|---|
+| **Holy Bulwark** | **432459** | Lightsmith-knop, staat in Methods prioriteitslijst |
+| **Rite of Sanctification** | **433568** | zit in Methods Lightsmith-build |
+| **Devotion Aura** | **465** | |
+| **Concentration Aura** | **317920** | |
+| **Crusader Aura** | **32223** | |
+
+⚠️ **Alleen de ID's zijn gemeten — welke toets ze verdienen niet.** De drie Aura's zijn "zet 'm één
+keer goed", geen rotatieknop; of die überhaupt een bind horen te krijgen is een ontwerpvraag en geen
+datavraag. Holy Bulwark is het duidelijkste geval om wél te plaatsen. **Niet invullen zonder dat
+Rob de indeling gezien heeft** — dat is §5.2's bloat-waarschuwing in een ander jasje.
+
+📌 **Wat er van de 11 overblijft als je de ruis wegdenkt: precies deze vijf.** De andere zes zijn
+`Auto Attack`, `Anomaly Detection Mark I`, `Mechanism Bypass` en `Revive Battle Pets` — die vier
+zitten al in `KEYBIND_NOISE` en verschijnen dus niet in `/mh binds` — plus `Flash of Light` en
+`Sense Undead`, die off-spec zijn.
 
 ### Verder ontbrekend — ID's uit Robs client
 
