@@ -64,9 +64,29 @@ De diagnose noemt de eenheid daarom bij naam — een getal dat liegt over wat he
 geen getal. En zakt hij ooit stilletjes naar 3 op een kaart waar 1 of 2 het eerst deed, dan is dát
 een bevinding.
 
-**Te testen:** dezelfde route, naar binnen lopen. De pijl hoort nu over te schakelen naar *Portal to
-The Coiled Isle* (56.74/67.30), mét een chatregel dat je bij de ingang bent. En `/mh arrow` hoort
-achter `gemeten via:` iets anders te tonen dan `niets`.
+✅ **BEVESTIGD 7 sep.** Rob liep naar binnen en de pijl schakelde over naar *Portal to The Coiled
+Isle*. De deur-overdracht werkt.
+
+### 🔴 OPEN — en nu stopt hij niet aan de ANDERE kant van het portaal
+
+Rob, na de geslaagde overdracht: hij stapt door het portaal, staat op de isle, en de pijl wijst
+terug naar *Portal to The Coiled Isle*, **6 km 941 m** ver. *"Hij ziet blijkbaar niet dat we
+aangekomen zijn. Wanneer ik kies voor een rare of een delve, dan ziet hij het wél."*
+
+🔴 **En dit is precies het stuk dat vanmiddag als GEMETEN WERKEND is opgeschreven** (`route owner:
+none` op de isle). Het verschil: toen was het doel de **deur**, nu het **portaal** — het enige dat
+ertussen zit is de overdracht van stap 1 naar stap 2.
+
+📌 **Twee kandidaten, en van buiten zien ze er hetzelfde uit:**
+1. `arrivesOn` (2512) overleeft de overdracht niet — `SetSMCWaypointDirect` maakt een ondiepe kopie
+   en die hoort hem mee te nemen, maar dat is gelezen en niet gemeten;
+2. hij overleeft wél, maar de kaart waar het portaal je neerzet is niet 2512.
+
+✅ **`/mh arrow` print nu `portaal-einde (arrivesOn)` naast `jij nu`, mét het oordeel of ze
+overeenkomen.** Dat scheidt de twee in één regel. `GEEN` = kandidaat 1, twee verschillende getallen
+= kandidaat 2.
+
+**Te meten:** de route doen, door het portaal, en op de isle `/mh arrow`.
 
 <details><summary>De drie verklaringen van vóór deze meting (verklaring 1 was het niet)</summary>
 

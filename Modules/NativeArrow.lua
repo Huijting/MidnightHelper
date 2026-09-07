@@ -1100,6 +1100,27 @@ function ns.PrintArrowStatus()
 		local via = (lt and lt.mapID == activeLead.mapID and lt.via) or nil
 		print(("  gezet door: %s"):format(
 			via or "|cffff8844onbekend — geen enkele route heeft zich gemeld|r"))
+
+		--- 🔎 WHERE THIS ROUTE COMES OUT — 7 Sep 2026. A portal route ends by walking AWAY
+		--- from its own coordinate, so `arrivesOn` is the only thing that can end it. It was
+		--- measured working while the target was the DOOR, and Rob then found the arrow still
+		--- pointing back at Silvermoon once the hand-over made the PORTAL the target. Whether
+		--- the value survives that hand-over, and whether it matches the map he lands on, are
+		--- two different failures that from outside look like one.
+		do
+			local here = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+			local far = lt and lt.arrivesOn
+			if far then
+				local match = tonumber(far) == tonumber(here)
+				print(("  portaal-einde (arrivesOn): %s · jij nu: %s → %s"):format(
+					tostring(far), tostring(here or "?"),
+					match and "|cff80ff80komt overeen, route hoort hier te stoppen|r"
+						or "|cffff8080komt NIET overeen, dus hij stopt hier niet|r"))
+			elseif lt then
+				print("  portaal-einde (arrivesOn): |cffff8080GEEN|r — deze route kan alleen"
+					.. " eindigen door naar het doel toe te lopen, niet door er doorheen te gaan")
+			end
+		end
 	else
 		print("  target: |cffff8080NONE — no route has published one|r")
 	end
