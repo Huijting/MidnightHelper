@@ -437,6 +437,61 @@ function ns.RunPetTauntTest()
 	Check(true)
 end
 
+--- `/mh pet sounds` — play the alarm candidates so Rob can pick one.
+---
+--- 🔴 Rob, 7 Sep: *"kunnen we geen alarmgeluid zoals op een onderzeeboot die met spoed moet
+--- duiken ofzo??"* Probably, but **I cannot hear anything**, so choosing one for him would be
+--- picking a name off a list and calling it a decision. This plays them instead.
+---
+--- ⚠️ Each name is a CANDIDATE. A `SOUNDKIT` constant can simply not exist on a client, and
+--- `PlaySound` can refuse to queue one — three different faults all end in silence, which is
+--- why this prints what every step returned rather than what it was supposed to do. Same
+--- reason `/mh zonegate test` exists in the shape it does.
+---
+--- 📌 Each one plays THREE times half a second apart, because that is what turns a single
+--- game sound into something that reads as an alarm. If the winner still feels too polite,
+--- the repeat count is the knob before the sound itself is.
+local ALARM_CANDIDATES = {
+	"ALARM_CLOCK_WARNING_1",
+	"ALARM_CLOCK_WARNING_2",
+	"ALARM_CLOCK_WARNING_3",
+	"UI_RAID_BOSS_WHISPER_WARNING",
+	"RAID_WARNING",
+	"UI_SCENARIO_ENDING",
+	"IG_QUEST_FAILED",
+	"READY_CHECK", -- what it uses today, for comparison
+}
+
+function ns.PetTauntSoundGallery()
+	local p = Prefix()
+	print(p .. " alarm candidates — three plays each, one every 3 seconds.")
+	print("  |cff8a8f98Say which NUMBER you want and it goes in. 'None of them' is also an|r")
+	print("  |cff8a8f98answer — then we look for a different kit or play one more often.|r")
+	if not (PlaySound and C_Timer and C_Timer.After) then
+		print("  |cffff5555PlaySound or C_Timer is missing — nothing can be played here.|r")
+		return
+	end
+	for i = 1, #ALARM_CANDIDATES do
+		local name = ALARM_CANDIDATES[i]
+		local id = SOUNDKIT and SOUNDKIT[name]
+		C_Timer.After((i - 1) * 3, function()
+			if not id then
+				print(("  %2d. %-30s |cffff5555not on this client|r"):format(i, name))
+				return
+			end
+			local ok, willPlay = pcall(PlaySound, id, "Master")
+			print(("  %2d. %-30s id=%s  %s"):format(i, name, tostring(id),
+				ok and ("willPlay=" .. tostring(willPlay)) or "|cffff5555errored|r"))
+			-- The repeat is the point: one beep is a notification, three is an alarm.
+			for r = 1, 2 do
+				C_Timer.After(r * 0.5, function()
+					pcall(PlaySound, id, "Master")
+				end)
+			end
+		end)
+	end
+end
+
 watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
 watcher:RegisterEvent("GROUP_ROSTER_UPDATE")
 watcher:RegisterEvent("PET_BAR_UPDATE")

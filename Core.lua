@@ -1678,6 +1678,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh pet sounds — speel de alarm-kandidaten af, zodat Rob er één kan aanwijzen.
+	if msg == "pet sounds" then
+		if ns.PetTauntSoundGallery then
+			ns.PetTauntSoundGallery()
+		end
+		return
+	end
+
 	-- /mh pet test — roep de waarschuwing zelf op, zonder op een instance-wissel te wachten.
 	if msg == "pet test" then
 		if ns.RunPetTauntTest then
