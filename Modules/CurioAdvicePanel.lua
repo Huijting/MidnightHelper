@@ -303,10 +303,10 @@ function ns.PrintCurioFit()
 	end
 	print(("|cffffcc00Midnight Helper|r curio fit — venster %d hoog"):format(
 		math.floor((d.frameH or 0) + 0.5)))
-	print(("   voet: %d regels x %.1f = %d px, als laatste rij ín de scroll-inhoud"):format(
+	print(("   foot: %d lines x %.1f = %d px, as the last row INSIDE the scrolling content"):format(
 		d.lines or 0, d.lineH or 0, math.floor((d.h or 0) + 0.5)))
-	print("   |cff8a8f98De voet scrollt mee met de rest, dus overlappen kan niet meer.|r")
-	print("   |cff8a8f98Zie je hem toch over de tekst heen staan: dat is dan wél een bug.|r")
+	print("   |cff8a8f98The foot scrolls with the rest, so it can no longer overlap.|r")
+	print("   |cff8a8f98If you still see it on top of the text, that IS a bug.|r")
 end
 
 --- Redraw from the tree. Returns false when there is nothing honest to show.

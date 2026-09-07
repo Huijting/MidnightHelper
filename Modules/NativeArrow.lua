@@ -1086,7 +1086,7 @@ function ns.PrintArrowStatus()
 	end
 
 	print(("%s Route-pijl status:"):format(p))
-	print(("  route-eigenaar: %s"):format(tostring(ns._mhRouteOwner or "geen")))
+	print(("  route owner: %s"):format(tostring(ns._mhRouteOwner or "none")))
 	if activeLead and activeLead.mapID then
 		print(("  doel: %s  (map %s  %.1f, %.1f)"):format(
 			tostring(activeLead.name or "?"), tostring(activeLead.mapID),
@@ -1101,7 +1101,7 @@ function ns.PrintArrowStatus()
 		print(("  gezet door: %s"):format(
 			via or "|cffff8844onbekend — geen enkele route heeft zich gemeld|r"))
 	else
-		print("  doel: |cffff8080GEEN — geen enkele route heeft een doel doorgegeven|r")
+		print("  target: |cffff8080NONE — no route has published one|r")
 	end
 
 	--- 🔎 THE CONTINENT VERDICT AND WHY. Added 24 aug because a fix went in blind and did
@@ -1127,7 +1127,7 @@ function ns.PrintArrowStatus()
 			tostring(pmap or "?"), tostring(MapContinent(pmap) or "?"), chain(pmap)))
 		print(("  doel: map %s (continent %s)   keten: %s"):format(
 			tostring(tmap or "?"), tostring(MapContinent(tmap) or "?"), chain(tmap)))
-		print(("  een ligt in de ander: %s"):format(yn(OneContainsTheOther(pmap, tmap))))
+		print(("  one contains the other: %s"):format(yn(OneContainsTheOther(pmap, tmap))))
 
 		--- 🔴 THE VALUE THAT ACTUALLY DRIVES THE TRAVEL POPUP, and it was invisible until
 		--- 4 Sep. Rob stood inside the cave in Harandar and got "other continent — travel
@@ -1185,18 +1185,18 @@ function ns.PrintArrowStatus()
 		yn(drive), yn(drive and not (IsWaypointUIPresent() and YieldToWaypointUI()))))
 	print(("  wijken voor WaypointUI: %s |cff9d9d9d(/mh arrow yield)|r"):format(yn(YieldToWaypointUI())))
 	print(("  Blizzard-waypoint gezet: %s"):format(yn(HasNativeWaypoint())))
-	print(("  pijl-frame bestaat: %s   zichtbaar: %s"):format(
+	print(("  arrow frame exists: %s   shown: %s"):format(
 		yn(arrowFrame ~= nil), yn(arrowFrame ~= nil and arrowFrame:IsShown() or false)))
 
 	-- Say the consequence out loud. Nobody should have to know that "wij sturen:
 	-- nee" also silently switches off moving to the next stop.
 	if not (activeLead and activeLead.mapID) then
-		print("  |cffff8080Er is geen doel. Start een route en draai dit opnieuw —|r")
-		print("  |cffff8080komt hier dan nog steeds GEEN, dan ligt het niet aan de pijl.|r")
+		print("  |cffff8080There is no target. Start a route and run this again —|r")
+		print("  |cffff8080if it still says NONE, the fault is not in the arrow.|r")
 	elseif not drive then
-		print("  |cffff8080Wij staan opzij voor TomTom: geen pijl EN geen doorschuiven.|r")
+		print("  |cffff8080We stand down for TomTom: no arrow AND no advancing.|r")
 	elseif IsWaypointUIPresent() and YieldToWaypointUI() then
-		print("  |cff9d9d9dJe hebt ingesteld dat WaypointUI stuurt, dus onze pijl blijft weg.|r")
+		print("  |cff9d9d9dYou set WaypointUI to drive, so our arrow stays away.|r")
 		print("  |cff9d9d9dTerugzetten: |cffffffff/mh arrow yield|r")
 	end
 end

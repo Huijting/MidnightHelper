@@ -346,7 +346,7 @@ function ns.EventSchedulerSpyDump()
 		))
 
 	if #ongoing == 0 and #upcoming == 0 then
-		print("  geen events zichtbaar — sta je in/ bij Midnight-content? Probeer opnieuw na een paar seconden (de scheduler laadt async).")
+		print("  no events visible — are you in or near Midnight content? Try again in a few seconds (the scheduler loads async).")
 		return
 	end
 

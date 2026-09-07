@@ -101,7 +101,7 @@ SlashCmdList["MHFIRSTRUN"] = function(msg)
 		end
 		shownThisSession = false
 		local p = (ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:"
-		print(("|cffffcc00%s|r first-run reset — log uit en weer in; na het laadscherm hoort het vanzelf te komen."):format(p))
+		print(("|cffffcc00%s|r first-run reset — log out and back in; it should appear by itself after the loading screen."):format(p))
 		return
 	end
 	shownThisSession = false

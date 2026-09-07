@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ✅ 7 sep — de diagnose-uitvoer is Engels, want hij wordt meegeleverd
+
+Rob, kijkend naar `/mh sniff`: *"klein detail, wanneer het alleen voor mij is en niet voor de
+users, de teksten zijn in het nederlands in de chat haha"*. Terecht, en het was groter dan die ene
+tool: **35 Nederlandse chatregels in 12 bestanden**, waarvan ik er 8 diezelfde ochtend zelf had
+toegevoegd. Een gewoonte die erin geslopen was, geen uitschieter.
+
+📌 **En het maakt uit, want deze commando's wórden meegeleverd.** Ze staan in
+`MH_UNLISTED_ON_PURPOSE` — niemand ziet ze in de commandolijst — maar een Spanjaard die `/mh sniff`
+typt kreeg gewoon Nederlands.
+
+**Engels, géén `ns:L`-keys**, en dat is een bewuste keuze: dit is diagnostiek, geen speler-feature.
+Locale-keys zouden zeven talen, drift-administratie en `check_drift`-onderhoud kosten voor uitvoer
+die alleen bestaat om een bug te vinden. Engels is bovendien de conventie voor addon-diagnostiek.
+
+⚠️ **De veeg was heuristisch, niet uitputtend.** Twee patronen op Nederlandse functiewoorden binnen
+`print(`; alles wat ze vonden is om, en de laatste ronde vindt niets meer in geladen code. Een zin
+zonder die woorden kan er nog staan. `docs/parked/GroundSafety.lua` is bewust overgeslagen (staat
+niet in de `.toc`, wordt nooit geladen) en `tools/*.py` blijft Nederlands — dat draait alleen hier.
+
 ## 🌅 7 sep, ochtendronde — twee dingen uit de wachters, één ervan raakt onze data
 
 Alle vier de wachters gedraaid. GitHub schoon (0 issues, 0 PR's). Verder niets nieuws: hotfixes

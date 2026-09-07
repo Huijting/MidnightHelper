@@ -2503,7 +2503,7 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 				print(("|cffffcc00%s|r  (target de rare voor z'n npcID; questId 0 vul ik aan)"):format(prefix))
 			end
 		else
-			print(("|cffffcc00%s|r capture: geen positie beschikbaar (sta je in een zone met kaart?)."):format(prefix))
+			print(("|cffffcc00%s|r capture: no position available (are you in a zone that has a map?)."):format(prefix))
 		end
 		return
 	end
@@ -2893,7 +2893,7 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		elseif itemId and ns.PreviewItem then
 			ns.PreviewItem(tonumber(itemId))
 		else
-			print("|cffffcc00Midnight Helper:|r /mh model [item-link] · /mh model <itemID> · /mh model npc <npcID>  (shift-klik een item in de chatregel)")
+			print("|cffffcc00Midnight Helper:|r /mh model [item-link] · /mh model <itemID> · /mh model npc <npcID>  (shift-click an item into the chat line)")
 		end
 		return
 	end

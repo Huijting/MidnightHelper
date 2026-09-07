@@ -434,19 +434,19 @@ function ns.PrintMissingBuffDebug()
 	if enabled == false then
 		print("     |cffff6060(UIT → aanzetten in Settings → missende buff)|r")
 	elseif trusted == false then
-		print("     |cffffcc00(auras niet te vertrouwen hier → icoon bewust verborgen)|r")
+		print("     |cffffcc00(auras unreadable here → icon hidden on purpose)|r")
 	elseif #missing > 0 then
-		print("     |cff66dd66(zou nu zichtbaar moeten zijn — zo niet: positie buiten beeld?)|r")
+		print("     |cff66dd66(should be visible now — if not: positioned off screen?)|r")
 		-- Hier hoort de overlap-melding ook thuis. Rob, 7 aug: "ik kijk zelden in de
 		-- chat bij het opstarten" -- een eenmalig regeltje bij het inloggen ziet dus
 		-- niemand. Wie DIT commando typt is juist op zoek naar waarom hij ziet wat hij
 		-- ziet, en dat is het moment om te zeggen dat er een tweede addon meepraat.
 		if EuiReminderLoaded and EuiReminderLoaded() then
-			print("     |cff9d9d9dEllesmereUI herinnert je hier ook aan; je kunt er dus twee tegelijk zien.|r")
-			print("     |cff9d9d9dDe onze is in gevecht aanklikbaar, die van hen niet.|r")
+			print("     |cff9d9d9dEllesmereUI reminds you of this too, so you may see two at once.|r")
+			print("     |cff9d9d9dOurs is clickable in combat, theirs is not.|r")
 		end
 	else
-		print("     (geen missende buff → niets te tonen)")
+		print("     (no missing buff → nothing to show)")
 	end
 end
 

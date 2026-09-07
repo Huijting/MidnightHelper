@@ -1206,7 +1206,7 @@ function ns.PrintTravelPopupDecision()
 		tonumber(t.x) or 0, tonumber(t.y) or 0, t.leg and "  |cff8a8f98[tussenstap]|r" or ""))
 	print(("   jij: map %s"):format(tostring(here)))
 	if not here then
-		print("   |cffff8844kaart onleesbaar — de popup slaat deze ronde over|r")
+		print("   |cffff8844map unreadable — the popup skips this round|r")
 		return
 	end
 
@@ -1243,10 +1243,10 @@ function ns.PrintTravelPopupDecision()
 		end
 	end
 	if shown == 0 then
-		print("      |cffff8844geen enkel portaal op jouw kaart|r — dan heeft de popup niets te tonen")
+		print("      |cffff8844no portal at all on your map|r — then the popup has nothing to show")
 	end
-	print("   |cff8a8f98Een rood kruis hierboven is een reden om te zwijgen. Allemaal groen en|r")
-	print("   |cff8a8f98toch geen venster: dat is een bug, en dan wil ik deze uitvoer zien.|r")
+	print("   |cff8a8f98A red cross above is a reason to stay silent. All green and|r")
+	print("   |cff8a8f98still no window: that is a bug, and this output is what to report.|r")
 end
 
 --- The real zone map behind each slice of canvas 2576 — the inverse of the function below.

@@ -403,7 +403,7 @@ SlashCmdList["MHAUTOMAP"] = function()
 	local map, matched, unmatched, class, clickCast, unplaced = ns.MH_AutoMapBuild()
 	local p = "|cff33ff99Midnight AutoMap|r"
 	if not RolesForClass(class) then
-		print(p .. " |cffff6600— nog geen classifier voor " .. tostring(class) .. ".|r")
+		print(p .. " |cffff6600— no classifier for " .. tostring(class) .. " yet.|r")
 		return
 	end
 

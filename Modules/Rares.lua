@@ -541,7 +541,7 @@ function ns.RareQuestSnapshot()
 	print(("%s snapshot taken: %d completed quests between %d and %d."):format(
 		prefix, n, QUEST_SCAN_LOW, QUEST_SCAN_HIGH))
 	print("   |cff8a8f98Ga nu de rare doden en typ daarna /mh questsnap diff.|r")
-	print("   |cff8a8f98Flipt er niets, dan was die rare deze week al gedaan — probeer een andere.|r")
+	print("   |cff8a8f98If nothing flips, that rare was already done this week — try another.|r")
 end
 
 --- `/mh questsnap diff` — what became complete since the snapshot?
@@ -566,16 +566,16 @@ function ns.RareQuestSnapshotDiff()
 	end
 	if found == 0 then
 		print(prefix .. " nothing flipped since the snapshot.")
-		print("   |cff8a8f98Die rare was deze week al gedaan, of hij zet geen quest-vlag.|r")
+		print("   |cff8a8f98That rare was already done this week, or it sets no quest flag.|r")
 		return
 	end
 	print(("%s %d quest id(s) flipped since the snapshot."):format(prefix, found))
-	print("   |cff8a8f98Eén daarvan is de rare. Andere regels kunnen een quest zijn die je|r")
-	print("   |cff8a8f98onderweg toevallig afmaakte — dus kijk naar de naam, niet alleen het getal.|r")
+	print("   |cff8a8f98One of these is the rare. Other rows can be a quest you happened to|r")
+	print("   |cff8a8f98finish on the way — so read the name, not just the number.|r")
 	-- 6 sep 2026: Garsecg's kill zette 94856 meteen en 98350 pas een paar minuten later.
 	-- Wie hier één keer kijkt, ziet dus maar de helft.
-	print("   |cff8a8f98⚠️ Niet elke vlag komt meteen. Draai dit over een paar minuten NOG een|r")
-	print("   |cff8a8f98keer — dezelfde snapshot blijft staan, dus dat kost je niets.|r")
+	print("   |cff8a8f98Not every flag arrives at once. Run this AGAIN in a few minutes —|r")
+	print("   |cff8a8f98the same snapshot stays, so it costs you nothing.|r")
 end
 
 function ns.PrintRareQuestProbe()

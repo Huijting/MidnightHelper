@@ -420,7 +420,7 @@ function ns.ProbeSocketUI()
 	print(("   SocketInventoryItem: %s"):format(
 		type(fn) == "function" and "|cff40c040bestaat|r" or "|cffff5040ONTBREEKT|r"))
 	if type(fn) ~= "function" then
-		print("   |cff8a8f98Dan is een knop uitgesloten en wordt het een uitleg-tekst.|r")
+		print("   |cff8a8f98Then a button is ruled out and it becomes an explanation instead.|r")
 		return
 	end
 	print(("   onze aanroep is secure: %s"):format(
@@ -438,14 +438,14 @@ function ns.ProbeSocketUI()
 		end
 	end
 	if not slotId then
-		print("   |cff8a8f98Geen leeg socket uitgerust — doe dit met een item dat er wel een heeft,|r")
+		print("   |cff8a8f98No empty socket equipped — run this with an item that has one,|r")
 		print("   |cff8a8f98anders bewijst 'venster bleef dicht' niks.|r")
 		return
 	end
 	print(("   probeert te openen voor: |cffffd100%s|r"):format(tostring(slotName)))
 
 	local ok, err = pcall(fn, slotId)
-	print(("   aanroep: %s"):format(ok and "geen fout" or ("|cffff5040" .. tostring(err) .. "|r")))
+	print(("   call: %s"):format(ok and "no error" or ("|cffff5040" .. tostring(err) .. "|r")))
 
 	-- ⚠️ Het bewijs. "Geen fout" is geen resultaat.
 	if C_Timer and C_Timer.After then

@@ -941,7 +941,7 @@ SLASH_MHCSDEBUG1 = "/mhcsdebug"
 SlashCmdList["MHCSDEBUG"] = function()
 	local uiDb = ns.db and ns.db.ui
 	if type(uiDb) ~= "table" then
-		print("|cff66ccffMH CS|r db nog niet klaar — log eerst volledig in en probeer opnieuw.")
+		print("|cff66ccffMH CS|r db not ready yet — finish logging in and try again.")
 		return
 	end
 	uiDb.combatSafetyDebug = not uiDb.combatSafetyDebug and true or false
@@ -952,7 +952,7 @@ SlashCmdList["MHCSDEBUG"] = function()
 		end
 		HideAllBars()
 	end
-	print(("|cff66ccffMH CS|r debug %s. Ga nu vechten: je hoort/ziet (1) een chatregel per vijandelijke cast = events gaan af, en (2) de %s zou bij ELKE cast moeten flitsen (gate uit). Nog een keer /mhcsdebug = uit."):format(
+	print(("|cff66ccffMH CS|r debug %s. Go fight now: you should get (1) one chat line per enemy cast = the events fire, and (2) the %s should flash on EVERY cast (gate off). /mhcsdebug again = off."):format(
 		uiDb.combatSafetyDebug and "AAN" or "UIT",
 		(BarsMode() and "balk" or "cue")))
 end

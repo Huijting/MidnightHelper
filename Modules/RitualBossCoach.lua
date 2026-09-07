@@ -500,6 +500,6 @@ function ns.DumpRitualBossSpy()
 			print("  " .. line)
 		end
 	else
-		print("  nog geen data — draai een Broken Throne-ritual.")
+		print("  no data yet — run a Broken Throne ritual.")
 	end
 end

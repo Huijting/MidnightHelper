@@ -202,7 +202,7 @@ local function StopSniffing(quiet)
 	end
 	expiry = 0
 	if not quiet then
-		print(Prefix() .. " sniffer uit. |cffffd100/mh sniff dump|r toont wat er gevangen is.")
+		print(Prefix() .. " sniffer OFF. |cffffd100/mh sniff dump|r shows what it caught.")
 	end
 end
 
@@ -230,19 +230,19 @@ local function StartSniffing()
 	frame:SetScript("OnUpdate", function()
 		if expiry > 0 and GetTime() > expiry then
 			StopSniffing(true)
-			print(Prefix() .. " sniffer is na 30 minuten vanzelf gestopt.")
+			print(Prefix() .. " sniffer stopped itself after 30 minutes.")
 		end
 	end)
 
 	ns.db.sniffOn = true
-	print(("%s sniffer AAN — %d van %d events geregistreerd, stopt vanzelf na 30 min."):format(
+	print(("%s sniffer ON — %d of %d events registered, stops itself after 30 min."):format(
 		Prefix(), taken, #CANDIDATES))
 	if #refused > 0 then
-		print("  |cffff5555Deze kent deze client niet:|r " .. table.concat(refused, ", "))
-		print("  |cff8a8f98Dat is zelf een meting — het waren kandidaten, geen feiten.|r")
+		print("  |cffff5555This client does not know:|r " .. table.concat(refused, ", "))
+		print("  |cff8a8f98That is a measurement in itself — they were candidates, not facts.|r")
 	end
-	print("  |cff8a8f98Doe nu de Bountiful delve en spreek Dundun aan. Let op de|r")
-	print("  |cff8a8f98gossipOptionID-regels: een GETAL overleeft een vertaling, een zin niet.|r")
+	print("  |cff8a8f98Now do the thing you want to catch. Watch the gossipOptionID lines:|r")
+	print("  |cff8a8f98a NUMBER survives translation, a sentence does not.|r")
 end
 
 function ns.MH_SniffToggle()
@@ -257,12 +257,12 @@ end
 function ns.MH_SniffDump()
 	local log = (ns.db and ns.db.sniffLog) or {}
 	if #log == 0 then
-		print(Prefix() .. " sniffer-logboek is leeg.")
-		print("  |cff8a8f98Leeg betekent hier NIET 'geen event' — het kan ook betekenen dat|r")
-		print("  |cff8a8f98de sniffer uit stond of dat geen van de kandidaten de juiste was.|r")
+		print(Prefix() .. " sniffer log is empty.")
+		print("  |cff8a8f98Empty does NOT mean 'no event happened' — it can also mean the|r")
+		print("  |cff8a8f98sniffer was off, or that none of the candidates was the right one.|r")
 		return
 	end
-	print(("%s sniffer-logboek — %d regels:"):format(Prefix(), #log))
+	print(("%s sniffer log — %d rows:"):format(Prefix(), #log))
 	local seen = {}
 	for i = 1, #log do
 		local row = log[i]
@@ -296,11 +296,11 @@ function ns.MH_SniffQuiet()
 			muted[#muted + 1] = k
 		end
 		table.sort(muted)
-		print(Prefix() .. " sniffer: STILLE modus aan.")
-		print("  |cff8a8f98Niet meer geprint: " .. table.concat(muted, ", ") .. "|r")
-		print("  |cff8a8f98Ze worden nog wél gelogd — /mh sniff dump toont ze gewoon.|r")
+		print(Prefix() .. " sniffer: QUIET mode on.")
+		print("  |cff8a8f98No longer printed: " .. table.concat(muted, ", ") .. "|r")
+		print("  |cff8a8f98They are still logged — /mh sniff dump shows them as usual.|r")
 	else
-		print(Prefix() .. " sniffer: stille modus uit, alles wordt weer geprint.")
+		print(Prefix() .. " sniffer: quiet mode off, everything is printed again.")
 	end
 end
 
@@ -308,7 +308,7 @@ function ns.MH_SniffClear()
 	if ns.db then
 		ns.db.sniffLog = {}
 	end
-	print(Prefix() .. " sniffer-logboek leeggemaakt.")
+	print(Prefix() .. " sniffer log cleared.")
 end
 
 --- 🔴 EEN RELOAD ZETTE HEM STIL UIT, EN DE SCHAKELAAR LOOG DAAROVER.
@@ -331,6 +331,6 @@ loader:SetScript("OnEvent", function(self)
 	if ns.db and ns.db.sniffOn then
 		ns.db.sniffOn = false -- StartSniffing zet hem weer aan; anders telt hij als "al aan"
 		StartSniffing()
-		print("  |cff8a8f98(hervat na de reload — hij stond aan toen je herlaadde)|r")
+		print("  |cff8a8f98(resumed after the reload — it was on when you reloaded)|r")
 	end
 end)
