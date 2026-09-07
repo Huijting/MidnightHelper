@@ -405,3 +405,27 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   niets om tegen de repo te toetsen. Geen enkele bevinding vandaag. **[RAAKT ONS NIET]** —
   bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260906 (volledig gelezen via
   Exa) · web_search_exa "hotfixes September 5/6 2026" (geen resultaat nieuwer dan 4 sep).
+
+---
+
+- [2026-09-07] 🔁 **Nog steeds niets nieuws sinds 4 sep — dag 3 op rij, opnieuw zelf gemeten.**
+  `Exa web_fetch_exa` op `news.blizzard.com/en-us/article/24296142?nocache=20260907`, **volledige
+  artikeltekst zelf gelezen** — "September 4, 2026" staat nog steeds bovenaan, byte-voor-byte
+  dezelfde vier categorieën (Classes, Dungeons and Raid, Housing, Items) als op 5 en 6 sep gelogd;
+  Delves/Professions/Quests blijven leeg. Twee losse cache-vallen expliciet getest: de URL's
+  `.../hotfixes-september-6-2026?nocache=20260907` en `.../hotfixes-september-7-2026?nocache=20260907`
+  geven **beide** gewoon de 4-sep-inhoud terug (Blizzard's server, geen doorverwijzing/404) — dus
+  het gissen van een datum in de URL bewijst niets, alleen het doorlopende artikel telt.
+  **Positieve controle:** `web_search_exa` op "Hotfixes: September 6/7, 2026" vindt voor
+  news.blizzard.com niets nieuwers dan 4 sep, maar vindt wél een bluetracker.gg-artikel
+  "Hotfixes: September 7" — bij lezing bleek dat over **WoW: Legion** te gaan (classic-realm,
+  Demon Hunter Sigils/Discipline Priest artifact traits/Assault on Violet Hold), niet over
+  Midnight/12.1. Ruis, niet een gemiste retail-hotfix; dezelfde zoekmethode vindt dus wél
+  content, wat bevestigt dat het ontbreken van een retail 5/6/7-sep-artikel een echte afwezigheid
+  is en geen kapotte query. Secundair bevestigd door MMO-Champion (gepubliceerd 5 sep, vat exact
+  de 4-sep-lijst samen, niets nieuwers). Dit convergeert met wat de API-, PTR- en data-wachter
+  vandaag (7 sep) elk apart al vonden — zie hun eigen commits van vandaag, niet hier geciteerd.
+  MEASURED: geen nieuwe hotfix-sectie sinds 4 sep. Geen codebase-vergelijking nodig — er is niets
+  nieuws om tegen te toetsen. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260907 (volledig gelezen via Exa) ·
+  web_search_exa "Hotfixes: September 6/7, 2026" (nieuwste retail-treffer blijft 4 sep).
