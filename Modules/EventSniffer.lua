@@ -55,6 +55,18 @@ local CANDIDATES = {
 }
 
 local MAX_ROWS = 400
+--- 🔴 GEMETEN 7 sep 2026: ÉÉN LUIDRUCHTIG EVENT VERDRINGT DE VANGST.
+---
+--- Robs eerste echte run kwam terug met een vol logboek waarvan **80% (319 van 400 regels)**
+--- `UI_ERROR_MESSAGE` en `CRITERIA_UPDATE` was — "Spell is not ready yet" tijdens het vechten,
+--- en een criterium-tik zonder één argument. De Dundun-gossip stond er nog net in. Nog een halve
+--- minuut ruis en precies datgene waarvoor dit ding gebouwd is was uit het logboek geschoven,
+--- zonder één foutmelding.
+---
+--- Daarom een cap PER EVENT in plaats van alleen een totaal. Elk event houdt zijn eigen laatste
+--- N regels, dus een schreeuwend event kan een zeldzaam event niet meer overschrijven. Bewust
+--- geen kandidaten geschrapt: dat zou de volgende vraag beantwoorden met de aanname van vandaag.
+local PER_EVENT_ROWS = 30
 --- Zichzelf uitzetten. Een snuffelaar die blijft draaien vult SavedVariables met een avond
 --- delve-gepraat en niemand merkt het, want hij is per definitie stil als er niets gebeurt.
 local AUTO_OFF_SECONDS = 30 * 60
@@ -122,6 +134,19 @@ local function Record(event, ...)
 	end
 	if event == "GOSSIP_SHOW" then
 		row.gossip = GossipDetail()
+	end
+
+	-- Eerst de eigen soort afkappen, dan pas het totaal. Andersom zou een schreeuwend
+	-- event alsnog alles wegdrukken voordat zijn eigen cap ooit bereikt wordt.
+	local sameKind = 0
+	for i = #log, 1, -1 do
+		if log[i].ev == event then
+			sameKind = sameKind + 1
+			if sameKind >= PER_EVENT_ROWS then
+				table.remove(log, i)
+				break
+			end
+		end
 	end
 
 	log[#log + 1] = row

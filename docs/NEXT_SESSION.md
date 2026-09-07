@@ -1370,7 +1370,38 @@ Robs bewijs-screenshot toont de spelmelding *"Additional Bountiful Rewards Will 
 Completion"* bij de **eerste** Dundun van de week. Kán de addon die lezen, dan hoeft hij de regel
 niet meer op te dreunen maar kan hij zeggen wélk geval dít is.
 
-Twee dingen ontbreken, en geen van beide is te bedenken:
+### ✅ 7 sep — de sniffer heeft gevangen wat we zochten, en het zijn getallen
+
+Rob sprak zijn **tweede** Dundun van de week aan met `/mh sniff` aan. Uit `ns.db.sniffLog`:
+
+| id | keuze |
+|---|---|
+| 140126 | Grant me some Undercoin! |
+| 140496 | Grant me some Voidlight Marl! |
+| 140495 | Grant Valeera some experience! |
+| 140513 | Grant me a piece of housing decor! |
+| 140514 | No thank you. |
+
+📌 **De banner is `DISPLAY_EVENT_TOASTS`** (07:31:07, één seconde vóór `GOSSIP_CLOSED`) — maar
+**zonder argumenten**, dus de tekst zit niet in de payload. Dat maakt niet uit: de gossip-id's zijn
+beter, want een getal overleeft een vertaling. En de banner verschilt óók inhoudelijk: bij de eerste
+stond er *"Additional **Bountiful Rewards**"*, nu *"Additional **Voidlight Marl** Reward"* — hij
+noemt dus de gekozen beloning.
+
+🔴 **NIETS OP GEBOUWD, want dit is de helft.** Van de EERSTE Dundun (het kist-geval, één aanbod:
+*"Make my delve Abundantly Bountiful!"*) is het id nooit gelezen. Zonder dat kan een controle op
+deze vijf niet uitsluiten dat ze óók bij de eerste verschijnen — en dan zegt de addon "lesser boon"
+tegen iemand die de kist krijgt. **Na de reset van woensdag is dat één `/mh sniff`.**
+
+🔴 **En het gereedschap had een echt gebrek, gemeten in zijn eerste run.** Het logboek zat vol op
+400 regels waarvan **80% `UI_ERROR_MESSAGE` + `CRITERIA_UPDATE`** was — "Spell is not ready yet"
+tijdens het vechten. De Dundun-gossip stond er nét in; een halve minuut later was hij eruit
+geschoven, zonder één foutmelding. Er is nu een cap **per event** (30) naast het totaal, dus een
+schreeuwend event kan een zeldzaam event niet meer overschrijven. Bewust géén kandidaten geschrapt.
+
+### De twee open vragen van gisteren, bijgewerkt
+
+
 1. ✅ **GEBOUWD 6 sep: `/mh sniff`** (`Modules/EventSniffer.lua`). Registreert 18 kandidaten
    defensief — elk door een `pcall`, en wat de client weigert wordt gemeld in plaats van
    stilgehouden — logt naar `ns.db.sniffLog` én naar chat, en stopt zichzelf na 30 minuten.

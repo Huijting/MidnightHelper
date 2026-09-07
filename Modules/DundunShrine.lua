@@ -285,6 +285,24 @@ function ns.AnnounceDundunIfRelevant()
 		end
 	end
 
+	-- 🔑 GEMETEN 7 sep 2026 — DE VIJF KEUZE-ID'S VAN HET "LESSER BOON"-SCHERM.
+	-- Uit `/mh sniff` op Robs TWEEDE Dundun van de week, gelezen uit `ns.db.sniffLog`:
+	--
+	--     140126  Grant me some Undercoin!          140513  Grant me a piece of housing decor!
+	--     140496  Grant me some Voidlight Marl!     140514  No thank you.
+	--     140495  Grant Valeera some experience!
+	--
+	-- Dat zijn GETALLEN, en dat is precies wat we zochten: ze overleven een vertaling waar de
+	-- banner-tekst dat niet doet. De banner zelf blijkt `DISPLAY_EVENT_TOASTS` (07:31:07, één
+	-- seconde vóór GOSSIP_CLOSED) en draagt **geen argumenten** — de tekst zit er dus niet in.
+	--
+	-- 🔴 EN TOCH WORDT HIER NIETS OP GEBOUWD, want dit is de helft van de meting. De EERSTE
+	-- Dundun van de week toont één aanbod ("Make my delve Abundantly Bountiful!") en daarvan is
+	-- het id nooit gelezen. Zolang dat ontbreekt kan een controle op deze vijf niet uitsluiten
+	-- dat ze óók bij de eerste verschijnen — en dan zou de addon "lesser boon" zeggen tegen
+	-- iemand die de kist krijgt. Na de reset van woensdag is dat één `/mh sniff` werk.
+	-- Zie [[silence-is-not-absence]]: vijf gemeten id's zijn geen uitspraak over een zesde.
+
 	-- ✅ GEMETEN door Rob, 6 sep 2026, en het besliste een vraag die de wiki en
 	-- masterofwarcraft.net tegengesteld beantwoordden: de as is PER CHARACTER PER WEEK.
 	-- De eerste Dundun geeft de extra kist; elke volgende geeft het keuzescherm en géén
