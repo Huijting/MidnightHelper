@@ -2109,6 +2109,8 @@ ns._mhLocales.nlNL = {
 	DUNDUN_CHAT_COST_SHORT_FMT = "Let op: die extra kist ÓPENEN kan een tweede Restored Coffer Key kosten, en je hebt er %d. Hem zoeken is nog steeds gratis — je laat die kist dan alleen dicht.",
 	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Let op:|r die extra kist kan een |cffffff00tweede|r Restored Coffer Key kosten. Ik kon niet lezen hoeveel je er hebt.",
 	DUNDUN_CHAT_AFTER_FIRST = "Alleen je |cffffff00eerste|r Dundun van de week op dit character geeft die coffer. Bij elke volgende kies je zelf een beloning — Valeera-ervaring zit erbij — en staat er aan het eind een |cffffff00Abundant Spoils|r. Dat is geen tweede Bountiful Coffer, dus het kost je geen key.",
+	DUNDUN_GOSSIP_FIRST = "Dit is je |cffffff00eerste|r Dundun van de week op dit character — degene die een tweede Bountiful Coffer geeft. Die coffer openen kan een tweede Restored Coffer Key kosten.",
+	DUNDUN_GOSSIP_BOON = "Je Bountiful Coffer heb je deze week al gehad op dit character, dus dit is de |cffffff00mindere gunst|r: kies een beloning en die komt aan het eind in een Abundant Spoils. Geen coffer, geen key.",
 	DUNDUN_CHAT_MACRO = "Kun je hem niet vinden? Maak een macro met |cffffff00/cleartarget|r en dan |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "Je hebt %d Coffer Key Shards — nog %d en het spel maakt er bij binnenkomst vanzelf een key van.",
 

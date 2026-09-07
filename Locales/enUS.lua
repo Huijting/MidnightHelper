@@ -2440,6 +2440,8 @@ ns._mhLocales.enUS = {
 	DUNDUN_CHAT_COST_SHORT_FMT = "Watch out: opening the extra chest can cost a second Restored Coffer Key, and you have %d. Finding him is still free — you would just leave that chest shut.",
 	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Watch out:|r the extra chest can cost a |cffffff00second|r Restored Coffer Key. I could not read how many you have.",
 	DUNDUN_CHAT_AFTER_FIRST = "Only your |cffffff00first|r Dundun of the week on this character gives that coffer. Every one after lets you pick a reward — Valeera experience among them — and leaves an |cffffff00Abundant Spoils|r at the end instead. That is not a second Bountiful Coffer, so it costs you no key.",
+	DUNDUN_GOSSIP_FIRST = "This is your |cffffff00first|r Dundun of the week on this character — the one that adds a second Bountiful Coffer. Opening that coffer can cost a second Restored Coffer Key.",
+	DUNDUN_GOSSIP_BOON = "You have already had your Bountiful Coffer this week on this character, so this is the |cffffff00lesser boon|r: pick a reward and it lands in an Abundant Spoils at the end. No coffer, no key.",
 	DUNDUN_CHAT_MACRO = "Can't find him? Make a macro with |cffffff00/cleartarget|r then |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "You have %d Coffer Key Shards — %d more and the game turns them into a key by itself when you enter.",
 

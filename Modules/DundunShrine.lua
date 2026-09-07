@@ -296,12 +296,14 @@ function ns.AnnounceDundunIfRelevant()
 	-- banner-tekst dat niet doet. De banner zelf blijkt `DISPLAY_EVENT_TOASTS` (07:31:07, één
 	-- seconde vóór GOSSIP_CLOSED) en draagt **geen argumenten** — de tekst zit er dus niet in.
 	--
-	-- 🔴 EN TOCH WORDT HIER NIETS OP GEBOUWD, want dit is de helft van de meting. De EERSTE
-	-- Dundun van de week toont één aanbod ("Make my delve Abundantly Bountiful!") en daarvan is
-	-- het id nooit gelezen. Zolang dat ontbreekt kan een controle op deze vijf niet uitsluiten
-	-- dat ze óók bij de eerste verschijnen — en dan zou de addon "lesser boon" zeggen tegen
-	-- iemand die de kist krijgt. Na de reset van woensdag is dat één `/mh sniff` werk.
-	-- Zie [[silence-is-not-absence]]: vijf gemeten id's zijn geen uitspraak over een zesde.
+	-- ✅ EN DE ANDERE HELFT IS ER OOK, 7 sep: de EERSTE Dundun van de week draagt
+	--     140123  Make my delve Abundantly Bountiful!      140497  No thank you.
+	-- Nul overlap met de vijf hierboven, dus het onderscheid is hard. Zie
+	-- `DUNDUN_GOSSIP_IDS` verderop; dáár wordt het gebruikt.
+	--
+	-- 📌 De twee metingen komen van VERSCHILLENDE characters in VERSCHILLENDE delves — de vijf
+	-- van Robs druid, deze twee van zijn hunter. Dat is precies de controle die telt: waren de
+	-- id's per instantie of per character geweest, dan hadden ze niet mogen matchen.
 
 	-- ✅ GEMETEN door Rob, 6 sep 2026, en het besliste een vraag die de wiki en
 	-- masterofwarcraft.net tegengesteld beantwoordden: de as is PER CHARACTER PER WEEK.
@@ -316,6 +318,86 @@ function ns.AnnounceDundunIfRelevant()
 	ns._mhLastDundun = s
 	return true
 end
+
+--------------------------------------------------------------------------------
+-- Which Dundun is this? Answered by number, not by sentence
+--------------------------------------------------------------------------------
+--
+-- 🔑 GEMETEN 6-7 sep 2026 met `/mh sniff`, twee bezoeken op twee verschillende characters in
+-- twee verschillende delves. Dundun's gossip-opties dragen een `gossipOptionID`, en die
+-- verschillen per geval:
+--
+--     eerste van de week   140123  Make my delve Abundantly Bountiful!
+--     daarna               140126 / 140496 / 140495 / 140513  (de vier keuzes)
+--
+-- ⚠️ DAAROM OP ID EN NOOIT OP TEKST. De zin "Make my delve Abundantly Bountiful!" is
+-- vertaald op zes van de zeven clients; een string-vergelijking zou daar stil falen en
+-- alleen niet-Engelse spelers treffen — de bug die wij nooit te zien krijgen. Een getal
+-- overleeft een vertaling. Zie [[locale-packs-gated-by-client]].
+--
+-- 📌 De "No thank you"-optie staat er BEWUST niet in (140497 resp. 140514): weigeren zegt
+-- niets over welk geval je had, en twee id's die hetzelfde betekenen zijn twee kansen om
+-- het mis te hebben.
+local DUNDUN_GOSSIP_IDS = {
+	[140123] = "first", -- de kist: kan een tweede Restored Coffer Key kosten
+	[140126] = "boon",  -- Undercoin
+	[140496] = "boon",  -- Voidlight Marl
+	[140495] = "boon",  -- Valeera-ervaring
+	[140513] = "boon",  -- housing decor
+}
+
+--- Welk geval toont dit gossipvenster? nil = wij herkennen het niet, en dan zwijgen we.
+--- @return string|nil "first" | "boon"
+function ns.DundunGossipCase()
+	if not C_GossipInfo or not C_GossipInfo.GetOptions then
+		return nil
+	end
+	local ok, opts = pcall(C_GossipInfo.GetOptions)
+	if not ok or type(opts) ~= "table" then
+		return nil
+	end
+	for i = 1, #opts do
+		local id = opts[i] and tonumber(opts[i].gossipOptionID)
+		local case = id and DUNDUN_GOSSIP_IDS[id]
+		if case then
+			return case
+		end
+	end
+	return nil
+end
+
+--- 🔴 EEN ANTWOORD IN DE KAMER WAAR DE KNOP STAAT.
+---
+--- Tot vandaag dreunde de Dundun-regel de régel op ("de eerste van de week geeft de kist,
+--- daarna een keuzescherm") omdat de addon niet kon zien de hoeveelste je deed. Nu wel. Dit
+--- spreekt op het moment dat het venster opengaat — precies wanneer je moet kiezen of je een
+--- tweede key uitgeeft.
+---
+--- ⚠️ Herkennen we geen enkel id, dan zeggen we NIETS. Dundun kan een derde variant hebben
+--- die niemand gemeten heeft, en zwijgen is dan het enige eerlijke. De algemene regel staat
+--- nog steeds in de gewone delve-intro, dus de speler blijft niet met lege handen achter.
+local gossipFrame = CreateFrame("Frame")
+local lastGossipCase, lastGossipAt = nil, 0
+gossipFrame:RegisterEvent("GOSSIP_SHOW")
+gossipFrame:SetScript("OnEvent", function()
+	local case = ns.DundunGossipCase()
+	if not case then
+		return
+	end
+	-- Eén regel per venster: GOSSIP_SHOW kan meermaals vuren voor hetzelfde gesprek.
+	local now = GetTime()
+	if case == lastGossipCase and (now - lastGossipAt) < 5 then
+		return
+	end
+	lastGossipCase, lastGossipAt = case, now
+
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	if case == "first" then
+		print(prefix .. " " .. ns:L("DUNDUN_GOSSIP_FIRST"))
+	else
+		print(prefix .. " " .. ns:L("DUNDUN_GOSSIP_BOON"))
+	end
+end)
 
 --------------------------------------------------------------------------------
 -- A macro that belongs to the world, not to a class

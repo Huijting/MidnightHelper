@@ -1,5 +1,32 @@
 # Midnight Helper — waar we staan
 
+## 🔑 7 sep — DE ANDERE HELFT IS GEMETEN, en de Dundun-regel is nu een ANTWOORD
+
+Rob sprak de **eerste** Dundun van de week aan op zijn hunter, met de sniffer aan:
+
+| | gossipOptionID's |
+|---|---|
+| **eerste van de week** | **140123** *Make my delve Abundantly Bountiful!* · 140497 *No thank you.* |
+| **daarna** | 140126 · 140496 · 140495 · 140513 (de vier keuzes) · 140514 |
+
+**Nul overlap.** En de controle die telt: de vijf kwamen van zijn **druid**, deze twee van zijn
+**hunter** — ander character, andere delve. Waren die id's per instantie of per character geweest,
+dan hadden ze niet zo netjes uit elkaar mogen vallen.
+
+✅ **GEBOUWD.** `DUNDUN_GOSSIP_IDS` + `ns.DundunGossipCase()` in `Modules/DundunShrine.lua`, met een
+`GOSSIP_SHOW`-handler die één regel print op het moment dat het venster opengaat — precies wanneer
+je moet beslissen of je een tweede key uitgeeft. Twee nieuwe teksten (`DUNDUN_GOSSIP_FIRST` /
+`DUNDUN_GOSSIP_BOON`) in alle zeven talen.
+
+📌 **Dit is de regel uit `CLAUDE.md` over "zet de uitleg in dezelfde kamer als de knop".** Tot
+vandaag dreunde de addon de algemene regel op omdat hij niet kon zien welk geval je had. Nu zegt hij
+wélk geval het is, waar je staat.
+
+⚠️ **Herkennen we geen enkel id, dan zwijgt hij.** Er kan een derde variant zijn die niemand gemeten
+heeft; de algemene regel staat nog steeds in de delve-intro, dus niemand blijft met lege handen
+achter. En de "No thank you"-id's staan er bewust NIET in — weigeren zegt niets over welk geval je
+had, en twee id's die hetzelfde betekenen zijn twee kansen om het mis te hebben.
+
 ## ✅ 7 sep — de diagnose-uitvoer is Engels, want hij wordt meegeleverd
 
 Rob, kijkend naar `/mh sniff`: *"klein detail, wanneer het alleen voor mij is en niet voor de
