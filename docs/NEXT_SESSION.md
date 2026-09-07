@@ -75,11 +75,37 @@ en `Mechanism Bypass` zijn ruis.
 ⚠️ **SCOPE: drie specs gemeten** (Guardian, Shadow, Beast Mastery) van de veertig. De rest kan
 alleen op een personage dat Rob heeft.
 
-### 📋 Openstaand voorstel uit §1e — nog niet gebouwd
+### ✅ 7 sep — §1e GEBOUWD: `/mh binds` meldt nu wat wij niet kennen
 
-Toon het `unclassified`-getal in `/mh binds` of op de layout-pagina zodra het boven nul staat. Dát
-is de systeemfix: nu is dat getal het enige dat een stille omissie verraadt, en niemand leest het
-uit zichzelf. Raakt speler-UI en dus zeven talen — Robs keuze.
+Rob: *"doe dat unclassified getal maar in /mh binds"*. `ns.KeybindUnclassified()` in
+`KeybindAutoMap.lua`, geprint door `ShowKeybindExport` naast de bestaande "lege slot"-regel — dus
+wáár de speler toch al kijkt, en **alleen als er iets te melden is**.
+
+🔴 **Het ruwe getal zou misleiden geweest zijn, en dat is waarom dit meer werd dan één regel.**
+Robs BM-hunter had er tien, waarvan **negen ruis**: auto-attacks, kampeerknoppen, pet battles,
+Warband-speelgoed. *"10 abilities have no key"* tonen slaat alarm over niets, en een teller die
+roept bij nul leert de speler hem negeren.
+
+📌 **De ruisfilter is op ID, niet op naam.** Namen zijn gelokaliseerd: een naamfilter zou op een
+Duitse client niets uitsluiten en het getal weer opblazen — precies de bug die alleen niet-Engelse
+spelers treft. De twaalf id's zijn GEMETEN in Robs eigen dumps van 6-7 sep (Guardian, Shadow,
+Beast Mastery). Twijfelgevallen staan er bewust NIET in: liever één regel te veel dan een echte
+omissie die we zelf wegfilteren.
+
+📌 **En de namen staan erbij, niet alleen het getal** — "3 abilities" is een raadsel, drie namen
+zijn een melding. De tekst vraagt de speler het te zeggen als er iets tussen staat dat een toets
+verdient; dat is precies hoe we een hernoeming zoals `Void Eruption` → `Voidform` te horen krijgen
+zonder dat iemand `/mhautomap` draait.
+
+### 🗄️ Uit het onderzoek-overzicht van 7 sep — al af, niet opnieuw doen
+
+De onderzoek-sessie noemt vier openstaande punten uit Spec 32; **drie waren op dat moment al
+gedaan**:
+- ✅ linter-regel §5c → lintcheck **[20]**, eerste run 200 entries in 11 bestanden (`9a18f82`)
+- ✅ `tools/keybind_sheet/` opnieuw gedraaid, artifact bijgewerkt
+- ✅ Marksmanship/Multi-Shot → **opgelost in plaats van open**: 253 weghalen is veilig ongeacht het
+  antwoord, want een entry voor een spell die MM niet meer heeft is inert
+- ✅ en nu ook het `unclassified`-getal hierboven
 
 ## 🔑 7 sep — DE ANDERE HELFT IS GEMETEN, en de Dundun-regel is nu een ANTWOORD
 

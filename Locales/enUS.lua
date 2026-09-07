@@ -551,6 +551,7 @@ ns._mhLocales.enUS = {
 	KEYBIND_EXPORT_HINT = "Ctrl+C to copy. Paste it into a document, or put it on your second screen.",
 	KEYBIND_EXPORT_EMPTY = "(bound to an empty slot)",
 	KEYBIND_EXPORT_EMPTY_NOTE = "%d key(s) are bound to an empty slot — pressing them does nothing.",
+	KEYBIND_UNCLASSIFIED_NOTE = "%d ability we do not have a place for yet: %s. If one of those belongs on a key, tell us — that is how we find out a spell was renamed.",
 	KEYBIND_EXPORT_NONE = "No bound action-bar keys came back. That is more likely a reading problem than an empty setup — try again in a moment.",
 	-- The assistant slot shows whichever spell it currently suggests, so it is named for
 	-- what it IS. Two exports a minute apart called it Frozen Orb and then Flurry.

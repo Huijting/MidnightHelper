@@ -534,6 +534,7 @@ ns._mhLocales.nlNL = {
 	KEYBIND_EXPORT_HINT = "Ctrl+C om te kopiëren. Plak het in een document, of zet het op je tweede scherm.",
 	KEYBIND_EXPORT_EMPTY = "(op een leeg slot gebonden)",
 	KEYBIND_EXPORT_EMPTY_NOTE = "%d toets(en) staan op een leeg slot — daar gebeurt niets als je ze indrukt.",
+	KEYBIND_UNCLASSIFIED_NOTE = "%d vaardigheid/heden waar wij nog geen plek voor hebben: %s. Hoort daar iets op een toets, laat het weten — zo komen we erachter dat een spell hernoemd is.",
 	KEYBIND_EXPORT_NONE = "Geen enkele gebonden actiebalk-toets teruggekregen. Dat is eerder een leesprobleem dan een lege indeling — probeer het zo nog eens.",
 	KEYBIND_EXPORT_ASSIST = "Assisted Combat (verandert tijdens het vechten)",
 	KEYBIND_EXPORT_DUP = "(staat ook elders)",

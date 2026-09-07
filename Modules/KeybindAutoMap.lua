@@ -242,6 +242,9 @@ function ns.MH_AutoMapBuild()
 	local clickCast = {} -- healer single-target-heals: geen toets, via mouseover/click-cast (v6 §6)
 	local matched = 0
 	local unmatched = {}
+	-- Meegeteld sinds 7 sep 2026 omdat de NAAM gelokaliseerd is en het id niet: alles wat
+	-- de ruisfilter hieronder wil uitsluiten moet op getal kunnen, niet op tekst.
+	local unmatchedIds = {}
 	local globalRoles = ns.KeybindRoleClassifierGlobal
 	local byId = BuildIdIndex(roles)
 	for name, sid in pairs(known) do
@@ -265,6 +268,7 @@ function ns.MH_AutoMapBuild()
 			matched = matched + 1
 		else
 			unmatched[#unmatched + 1] = name
+			unmatchedIds[#unmatchedIds + 1] = sid
 		end
 	end
 
@@ -288,7 +292,65 @@ function ns.MH_AutoMapBuild()
 	table.sort(clickCast, function(a, b)
 		return (a.name or "") < (b.name or "")
 	end)
-	return map, matched, unmatched, class, clickCast, unplaced
+	return map, matched, unmatched, class, clickCast, unplaced, unmatchedIds
+end
+
+--------------------------------------------------------------------------------
+-- Het `unclassified`-getal, zonder de ruis
+--------------------------------------------------------------------------------
+--
+-- 🔴 WAAROM DIT BESTAAT — Spec 32 §1e, 7 sep 2026. Drie klassen op één dag: Priest
+-- (`Void Eruption` hernoemd naar `Voidform`), Hunter (`Multi-Shot` vervangen door
+-- `Wild Thrash`), Druid (`Lunar Beam` nooit toegevoegd). **Alle drie faalden STIL** — in
+-- elke dump stond `0 did not fit`, want er valt niets om als er niets geplaatst wordt. Het
+-- énige signaal was het `unclassified`-getal, en dat leest niemand uit zichzelf.
+--
+-- ⚠️ MAAR HET RUWE GETAL IS MISLEIDEND, en dat is de reden dat dit meer is dan één regel.
+-- Robs BM-hunter had er tien, waarvan er **negen ruis** waren: auto-attacks, kampeerknoppen,
+-- pet battles, Warband-speelgoed. "10 abilities have no key" tonen zou alarm slaan over
+-- niets, en een teller die roept als er niets aan de hand is, leert de speler hem negeren.
+--
+-- 📌 DE RUISLIJST IS OP ID EN NIET OP NAAM. Namen zijn gelokaliseerd; op een Duitse client
+-- zou een naamfilter niets uitsluiten en het getal weer opblazen — precies de bug die alleen
+-- niet-Engelse spelers treft. Elk id hieronder is GEMETEN in Robs eigen dumps van 6-7 sep
+-- (Guardian, Shadow, Beast Mastery), niet van het web.
+--
+-- ⚠️ En dit is geen oordeel over de spell, alleen over de vraag of hij ooit op een
+-- gevechtstoets hoort. Twijfelgevallen horen er NIET in: liever één regel te veel dan een
+-- echte omissie die we zelf hebben weggefilterd.
+local KEYBIND_NOISE = {
+	[6603] = true,    -- Auto Attack
+	[75] = true,      -- Auto Shot
+	[5019] = true,    -- Shoot
+	[125439] = true,  -- Revive Battle Pets
+	[312370] = true,  -- Make Camp
+	[312372] = true,  -- Return to Camp
+	[312425] = true,  -- Rummage Your Bag
+	[321297] = true,  -- Eyes of the Beast
+	[18960] = true,   -- Teleport: Moonglade
+	[382499] = true,  -- Anomaly Detection Mark I  (Warband)
+	[382501] = true,  -- Mechanism Bypass          (Warband)
+	[1250491] = true, -- Find High-Value Beasts    (Warband)
+}
+
+--- Wat kent deze spec dat wij niet classificeren, ruis eruit?
+--- @return table names, number rawCount
+function ns.KeybindUnclassified()
+	if not ns.MH_AutoMapBuild then
+		return {}, 0
+	end
+	local ok, _map, _matched, unmatched, _class, _cc, _unplaced, ids = pcall(ns.MH_AutoMapBuild)
+	if not ok or type(unmatched) ~= "table" then
+		return {}, 0
+	end
+	local out = {}
+	for i = 1, #unmatched do
+		local sid = ids and ids[i]
+		if not (sid and KEYBIND_NOISE[sid]) then
+			out[#out + 1] = unmatched[i]
+		end
+	end
+	return out, #unmatched
 end
 
 --- Cache: herbouwen kost een spellbook-scan; alleen opnieuw bij spec/talent-wissel.

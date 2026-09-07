@@ -286,5 +286,24 @@ function ns.ShowKeybindExport()
 		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"),
 			(L("KEYBIND_EXPORT_EMPTY_NOTE")):format(emptyBound)))
 	end
+
+	-- 🔴 Spec 32 §1e: het enige signaal dat een omissie in ONZE data verraadt.
+	--
+	-- Drie klassen op 7 sep hadden een knop die nergens terechtkwam, en alle drie faalden
+	-- stil — `0 did not fit` in elke dump, want er valt niets om als er niets geplaatst
+	-- wordt. Het `unclassified`-getal was het enige verschil, en dat stond alleen in
+	-- `/mhautomap`, een commando dat niemand draait die niet al iets vermoedt.
+	--
+	-- ⚠️ Hier staat het dus wáár de speler toch al kijkt, en alleen als er iets te melden
+	-- is. Nooit als er niets is: een teller die roept bij nul leert je hem negeren. En de
+	-- namen staan erbij, want "3 abilities" is een raadsel en drie namen zijn een melding.
+	if ns.KeybindUnclassified then
+		local names = ns.KeybindUnclassified()
+		if #names > 0 then
+			print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"),
+				(L("KEYBIND_UNCLASSIFIED_NOTE")):format(#names,
+					table.concat(names, ", "))))
+		end
+	end
 	return bound
 end
