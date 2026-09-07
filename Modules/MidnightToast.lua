@@ -403,6 +403,38 @@ function ns.DismissMidnightToast()
 	FinishToast()
 end
 
+--- Take back one specific card by its `id`, wherever it currently sits.
+---
+--- For a warning about a state the player can undo -- "your pet's taunt is on" -- the card
+--- should leave when the state does. Without this the toast keeps standing for its full
+--- 20 seconds after the problem is already fixed, which teaches the player that our warnings
+--- lag behind the game.
+---
+--- ⚠️ It has to cover BOTH places a toast can be, or it would work only when the timing
+--- happens to be right: on screen (`activeSpec`) and still waiting in the queue behind
+--- another card. Turning the taunt off half a second before its own toast came up would
+--- otherwise show the warning anyway.
+---
+--- @param id string the `id` the toast was queued with
+--- @return boolean true if something was actually removed
+function ns.RetractMidnightToast(id)
+	if type(id) ~= "string" then
+		return false
+	end
+	local removed = false
+	for i = #queue, 1, -1 do
+		if queue[i].id == id then
+			table.remove(queue, i)
+			removed = true
+		end
+	end
+	if activeSpec and activeSpec.id == id then
+		ns.DismissMidnightToast()
+		removed = true
+	end
+	return removed
+end
+
 local function StartHideTimer()
 	CancelHideTimer()
 	if not (C_Timer and C_Timer.After) then

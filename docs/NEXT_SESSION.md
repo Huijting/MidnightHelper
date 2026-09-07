@@ -1,5 +1,33 @@
 # Midnight Helper — waar we staan
 
+## ✅ 7 sep — de waarschuwing gaat weg zodra je hem opvolgt
+
+Rob, nadat de gecentreerde toast werkte: *"op het moment dat ik de Growl weer uitzet, kan die dan
+automatisch weggaan, of is dat te lastig?"*
+
+Niet lastig — het gereedschap lag er al. `PET_BAR_UPDATE` staat sinds de eerste versie in de
+watcher (de autocast-schakelaar is precies wat dat event meldt), en `ns.DismissMidnightToast()`
+bestond al voor de sluitknop. Wat ontbrak was een deur om **één specifieke** kaart terug te nemen.
+
+✅ **`ns.RetractMidnightToast(id)`** in `MidnightToast.lua`. `PetTauntProbe.Check()` roept hem aan
+met `"pet_taunt_on"` zodra de reden verdwijnt.
+
+⚠️ **Hij haalt de kaart uit TWEE plekken**, anders zou hij alleen werken als de timing toevallig
+goed valt: van het scherm (`activeSpec`) én uit de wachtrij erachter. Zet je de taunt een halve
+seconde vóór de toast opkomt uit, dan verscheen de waarschuwing anders alsnog.
+
+🔴 **Alleen op `false`, nooit op `nil`.** Dit is dezelfde driedeling als bij `TankInGroup()`.
+`nil` betekent dat we de situatie niet konden lézen, en een waarschuwing van het scherm trekken
+omdat wíj blind werden is dezelfde fout als hem nooit tonen — de speler ziet de kaart verdwijnen en
+leest dat als "opgelost". Bij `nil` blijft hij staan tot zijn eigen timer afloopt.
+
+📌 **Er zit ~2 seconden tussen**, want de watcher stelt élke controle 2 s uit (bij het inladen is de
+petbalk nog leeg, en te vroeg lezen geeft "geen taunt" — stilte die op een veilig antwoord lijkt).
+Bewust niet twee paden gebouwd: één weg naar één antwoord.
+
+**Te testen:** in een delve `/mh pet test`, de kaart komt op, dan Growl uitzetten en niets doen.
+Hij hoort binnen een paar tellen vanzelf weg te gaan.
+
 ## ✅ 7 sep — "je Growl staat nog aan" — GEMETEN EN GEBOUWD
 
 Robs meting op zijn BM-hunter, en de **tweede** run is wat het een meting maakt in plaats van een
@@ -73,11 +101,16 @@ bestaat maar rollen onleesbaar", en die twee worden apart beantwoord.
 
 Rob: *"met een duidelijke waarschuwing, niet alleen maar een regel beneden in mijn chat."* Zelfde
 antwoord als de levelpoort op 5 sep kreeg, en om dezelfde reden — niemand leest chat midden in een
-pull. 20 seconden zichtbaar (dit wordt uitgevoerd, niet aangekeken) en `SOUNDKIT.READY_CHECK`, wat
-de rest van de addon ook gebruikt zodat "Midnight Helper wil iets" één geluid blijft.
+pull. 20 seconden zichtbaar (dit wordt uitgevoerd, niet aangekeken).
+
+🔊 **Geluid: `SOUNDKIT.RAID_WARNING`, door Rob met zijn oren gekozen** uit de acht kandidaten van
+`/mh pet sounds`. Deze regel zei eerst `READY_CHECK` "omdat de rest van de addon dat gebruikt" —
+dat was mijn keuze vóór hij kon luisteren, en ik kan zelf niets horen. De galerij bestond juist om
+die keuze bij iemand te leggen die dat wél kan.
 
 ✅ **En hij knippert nu ook** — Rob, direct nadat hij hem voor het eerst zag werken: *"kan ie
-flashen??"* Nieuwe optie `spec.flash` in `MidnightToast.lua`: drie pulsen ná de fade-in.
+flashen??"* Nieuwe optie `spec.flash` in `MidnightToast.lua` (zie hieronder voor de vorm die het
+uiteindelijk kreeg — de eerste poging met alpha-pulsen is vervangen).
 
 ⚠️ **Opt-in, en dat blijft zo.** Elke toast die knippert is elke toast die schreeuwt, en de
 volgende daarna is niemand die nog kijkt. Alleen een toast die erom vraagt krijgt het, en deze
@@ -100,7 +133,10 @@ blijft staan.
 ⚠️ **Geen `UnitIsUnit` om jezelf over te slaan**: die geeft een secret BOOLEAN en ernaar vragen
 gooit. Ook niet nodig — we komen hier alleen als de speler zélf geen tank is.
 
-⚠️ **Zwijgt solo, en dat is een feature.** In een delve wíl je Growl aan hebben; Valeera tankt niets.
+🔴 **DEZE REGEL STOND HIER EN IS ONWAAR** — ze zei *"zwijgt solo, en dat is een feature; in een
+delve wíl je Growl aan hebben, Valeera tankt niets."* Beide helften zijn diezelfde dag gemeten en
+weerlegd: Valeera **draagt** de TANK-rol, en Robs pet gaat er dood aan. Zie de sectie hierboven over
+`AnyGroupMember()`. Blijft staan als correctie, niet als status.
 
 ⚠️ Alleen **Growl (2649)** is gemeten. `Suffering` (17735, Voidwalker) staat als kandidaat in de
 tabel — die moet een warlock bevestigen.

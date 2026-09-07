@@ -381,6 +381,17 @@ local function Check(force)
 	if warn ~= true then
 		if warn == false then
 			warnedFor = nil -- left the instance, or turned it off: allow a fresh warning later
+			--- Rob, 7 Sep: *"op het moment dat ik de growl weer uitzet, kan die dan automatisch
+			--- weggaan?"* Yes. `PET_BAR_UPDATE` already brings us here when the autocast toggle
+			--- changes, so the card leaves the moment its reason does.
+			---
+			--- ⚠️ Only on `false`, never on `nil`. `nil` means we could not read the situation,
+			--- and pulling a warning off the screen because we went blind would be the same
+			--- mistake as never showing it -- the player would see the card vanish and read that
+			--- as "handled". A `nil` leaves it standing until its own timer runs out.
+			if ns.RetractMidnightToast then
+				pcall(ns.RetractMidnightToast, "pet_taunt_on")
+			end
 		end
 		return
 	end
