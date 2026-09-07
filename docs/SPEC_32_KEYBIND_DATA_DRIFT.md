@@ -205,6 +205,62 @@ Rest van de unclassified-lijst: `Wing Clip`, `Eyes of the Beast`, `Make Camp`,
 
 ---
 
+## 1f. Protection Paladin — het bewijs dát de ID-migratie werkt, plus één bug
+
+`/mhautomap` + `/reload`, 7 sep: **25 placed, 0 did not fit, 12 unclassified.**
+
+### ✅ Eerst het goede nieuws — §5c is geen theorie
+
+```
+PLACED    F1    Sentinel    cooldown_bar
+SPELLBOOK Sentinel = 31884
+```
+
+31884 is **Avenging Wrath**. `KeybindRoles_Paladin.lua:144` draagt
+`["Avenging Wrath"] = { id = 31884, role = "cooldown_bar" }`. Robs spellbook meldt die spell
+onder de náám `Sentinel` (de talent-override), en de match lukte **omdat de entry het ID
+draagt**.
+
+🎯 **Dit is precies het geval dat bij de priester stukging.** Daar stond de naam zonder ID en
+brak een hernoeming de lookup; hier vangt het ID de override op. Paladin is de proefklasse van de
+migratie en dat is meteen zichtbaar. **Gebruik dit als argument voor de rest.**
+
+### 🔴 De bug: `Blessed Hammer` heeft een entry en komt tóch onbekend terug
+
+| | |
+|---|---|
+| In de data | `["Blessed Hammer"] = { id = 204019, category = "main_rotation", priority = 3, specs = { 66 } }` (`:117`) |
+| In Robs spellbook | `Blessed Hammer` = **35395** |
+| Uitkomst | **unclassified** |
+
+Twee dingen zouden hem moeten redden — het ID én de naam — en geen van beide doet het.
+
+⚠️ **Dit is een LEAD, geen diagnose.** Ik kan het mechanisme van buitenaf niet vaststellen. Wat
+er aan feiten ligt:
+- `KeybindAutoMap.lua:355-363` documenteert dat de dump **BASE**-ID's opslaat en dat *"only the
+  NAME follows the override"*. 35395 is van oudsher **Crusader Strike**; `Blessed Hammer` is dus
+  vermoedelijk een override daarvan, en ons ID 204019 is dat van de override zelf.
+- Als de lookup bij een aanwezig-maar-niet-matchend ID **niet** terugvalt op de naam, dan is een
+  fout ID **erger dan geen ID**. Dat zou een nuance zijn op §5c die we nu niet in de spec hebben.
+
+🔴 **Dit uitzoeken vóór de rest van de migratie.** Als de aanname klopt, moet de regel worden:
+*draag het BASE-ID, niet dat van de override* — en moet de naamval altijd blijven werken als
+achtervang.
+
+### Verder ontbrekend — ID's uit Robs client
+
+| Spell | ID | Opmerking |
+|---|---|---|
+| 🔴 **Holy Bulwark** | **432459** | Lightsmith-knop; staat in Methods prioriteitslijst |
+| **Rite of Sanctification** | (uit de dump te halen) | zit in Methods Lightsmith-build |
+| **Devotion Aura** · **Concentration Aura** · **Crusader Aura** | idem | drie echte knoppen, geen van drieën gedekt |
+
+`Flash of Light` en `Sense Undead` zijn off-spec/ruis. `Sacred Weapon`, `Eye of Tyr`,
+`Divine Hammer`, `Hammer of Wrath`, `Bastion of Light` en `Hammer of the Righteous` staan
+NOT KNOWN = talentkeuze, geen defect.
+
+---
+
 ## 1e. 🔴 De rode draad — dit is één onderhoudsprobleem, geen drie losse
 
 Drie klassen, drie keer dezelfde oorzaak: **Blizzard hernoemt of vervangt een knop, en onze
