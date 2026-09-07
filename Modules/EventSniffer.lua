@@ -71,6 +71,24 @@ local PER_EVENT_ROWS = 30
 --- delve-gepraat en niemand merkt het, want hij is per definitie stil als er niets gebeurt.
 local AUTO_OFF_SECONDS = 30 * 60
 
+--- 🔴 DE CHAT WAS ONBRUIKBAAR — Rob, 7 sep 2026: *"echt veel spam in mijn chat nu haha"*.
+---
+--- Dezelfde twee events die 80% van het logboek vulden, vullen ook 80% van zijn scherm, en het
+--- zijn juist de twee die niets dragen: `UI_ERROR_MESSAGE` is "Spell is not ready yet" tijdens
+--- het vechten en `CRITERIA_UPDATE` heeft nul argumenten. In stille modus worden die niet meer
+--- geprint — ze worden nog wél gelogd, want dit gereedschap bestaat om te vangen wat we niet
+--- verwachten, en wegfilteren bij de bron is een aanname.
+---
+--- ⚠️ En stilte moet uitgelegd zijn, anders is dit "aan maar kapot" van buiten. De schakelaar
+--- noemt bij het aanzetten precies welke events hij dempt en zegt dat ze nog steeds in
+--- `/mh sniff dump` staan.
+local QUIET_MUTED = {
+	UI_ERROR_MESSAGE = true,
+	CRITERIA_UPDATE = true,
+	SCENARIO_CRITERIA_UPDATE = true,
+	SCENARIO_POI_UPDATE = true,
+}
+
 local frame
 local refused = {}
 local expiry = 0
@@ -153,6 +171,10 @@ local function Record(event, ...)
 	-- Vooraan afkappen, niet achteraan: het interessante is altijd wat er NET gebeurde.
 	while #log > MAX_ROWS do
 		table.remove(log, 1)
+	end
+
+	if ns.db.sniffQuiet and QUIET_MUTED[event] then
+		return -- gelogd, niet geprint
 	end
 
 	local bits = {}
@@ -263,6 +285,23 @@ function ns.MH_SniffDump()
 	end
 	table.sort(kinds)
 	print("  |cffffd100" .. table.concat(kinds, " · ") .. "|r")
+end
+
+function ns.MH_SniffQuiet()
+	ns.db = ns.db or {}
+	ns.db.sniffQuiet = not ns.db.sniffQuiet
+	if ns.db.sniffQuiet then
+		local muted = {}
+		for k in pairs(QUIET_MUTED) do
+			muted[#muted + 1] = k
+		end
+		table.sort(muted)
+		print(Prefix() .. " sniffer: STILLE modus aan.")
+		print("  |cff8a8f98Niet meer geprint: " .. table.concat(muted, ", ") .. "|r")
+		print("  |cff8a8f98Ze worden nog wél gelogd — /mh sniff dump toont ze gewoon.|r")
+	else
+		print(Prefix() .. " sniffer: stille modus uit, alles wordt weer geprint.")
+	end
 end
 
 function ns.MH_SniffClear()

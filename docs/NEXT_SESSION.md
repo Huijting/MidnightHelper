@@ -1391,13 +1391,25 @@ noemt dus de gekozen beloning.
 🔴 **NIETS OP GEBOUWD, want dit is de helft.** Van de EERSTE Dundun (het kist-geval, één aanbod:
 *"Make my delve Abundantly Bountiful!"*) is het id nooit gelezen. Zonder dat kan een controle op
 deze vijf niet uitsluiten dat ze óók bij de eerste verschijnen — en dan zegt de addon "lesser boon"
-tegen iemand die de kist krijgt. **Na de reset van woensdag is dat één `/mh sniff`.**
+tegen iemand die de kist krijgt.
+
+✅ **En dat hoeft NIET tot woensdag te wachten — Robs idee, en het is beter dan het mijne.** Ik had
+"na de reset" opgeschreven omdat ik aan zíjn character dacht. Maar de as is *per character per
+week*, dus **elke andere character heeft zijn eigen eerste Dundun van de week nog openstaan.** Hij
+doet het op zijn **priester**, en dan kan `/mhautomap` (punt 3 hieronder) in dezelfde run mee.
+📌 Waard om te onthouden: de beperking zat in mijn aanname, niet in het spel.
 
 🔴 **En het gereedschap had een echt gebrek, gemeten in zijn eerste run.** Het logboek zat vol op
 400 regels waarvan **80% `UI_ERROR_MESSAGE` + `CRITERIA_UPDATE`** was — "Spell is not ready yet"
 tijdens het vechten. De Dundun-gossip stond er nét in; een halve minuut later was hij eruit
 geschoven, zonder één foutmelding. Er is nu een cap **per event** (30) naast het totaal, dus een
 schreeuwend event kan een zeldzaam event niet meer overschrijven. Bewust géén kandidaten geschrapt.
+
+⚠️ **En diezelfde twee events maakten zijn chat onbruikbaar** (*"echt veel spam in mijn chat nu
+haha"*). Nieuw: **`/mh sniff quiet`** — die vier stille events worden niet meer geprint maar wél
+gelogd, want wegfilteren bij de bron is een aanname en dit gereedschap bestaat juist om te vangen
+wat je niet verwacht. De schakelaar noemt bij het aanzetten welke events hij dempt, anders is
+"stil" van buiten niet te onderscheiden van "kapot".
 
 ### De twee open vragen van gisteren, bijgewerkt
 

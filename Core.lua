@@ -1693,6 +1693,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	if msg == "sniff quiet" then
+		if ns.MH_SniffQuiet then
+			ns.MH_SniffQuiet()
+		end
+		return
+	end
 	if msg == "sniff clear" then
 		if ns.MH_SniffClear then
 			ns.MH_SniffClear()
