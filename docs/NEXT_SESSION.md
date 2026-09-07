@@ -1,5 +1,37 @@
 # Midnight Helper — waar we staan
 
+## 🔴 7 sep — OPEN: binnen in de kamer wijst de pijl terug naar de deur
+
+Rob, direct nadat de portaalroute werkte: *"wanneer ik buiten de kamer in Silvermoon City sta en ik
+kies de weg naar de Coiled Isle-portal, stuurt MH me de kamer in. Daar loop ik in, en dan wijst ons
+eigen pijltje terug naar het begin van die kamer. Ik weet dat ik rechtdoor moet, maar voor een
+gebruiker is dat heel verwarrend."*
+
+📌 **Dit is de tweestapsroute (`TwoStepRoute.lua`) die zijn tweede stap niet neemt.** Stap 1 is de
+deur (54.99/63.30), stap 2 is het portaal zelf (56.74/67.30). `Arrive()` hoort binnen 22 yard van
+de deur over te dragen. Doet hij dat niet, dan blijft de pijl op de deur staan — en zodra je die
+deur binnenloopt ligt hij achter je.
+
+🔴 **DRIE VERKLARINGEN, NOG NIET GESCHEIDEN.** Ze zien er van buiten identiek uit, en dit is precies
+het punt waarop deze sessie al twee keer verkeerd geraden heeft:
+
+1. **Binnen is je positie op de STADSKAART onleesbaar.** De ticker vraagt
+   `GetPlayerMapPosition(<stadskaart>, "player")`; is het interieur een eigen uiMap, dan komt daar
+   `nil` uit, wordt de afstand nooit berekend en vuurt de overdracht nooit. Dit past het beste bij
+   Robs beschrijving.
+2. **Hij rijdt de bel van 22 yard voorbij.** `TICK = 1` seconde, en op een mount in de stad haal je
+   ~28 yard per seconde. Dan kán de meting hem simpelweg missen.
+3. **De overdracht vuurde wél** en het portaalcoördinaat leest binnen net zo slecht als de deur.
+
+⚠️ **MEET DIT VOORDAT JE IETS BOUWT.** Eén commando scheidt alle drie: **`/mh arrow` terwijl je
+BINNEN in de kamer staat.**
+- `doel:` = de deur → verklaring 1 of 2 (overdracht vuurde niet); is `doel:` het portaal → 3.
+- `jij: map …` anders dan de stadskaart → verklaring 1 bevestigd.
+- Zelfde kaart én `doel:` de deur → verklaring 2.
+
+📌 De chatregel `SMC_ENTRANCE_ARRIVED_FMT` is een tweede, gratis onderscheid: die wordt geprint op
+het moment van overdragen. Kwam hij niet, dan heeft `Arrive()` niet gedraaid.
+
 ## 🔴 7 sep — "route beëindigd" zei het wél, maar de pijl ging niet weg
 
 Rob, mét screenshot, staand op de Coiled Isle: de pijl wees nog steeds naar de deur in Silvermoon,
@@ -47,6 +79,14 @@ daarna in het spel bevestigd. **`arrow frame exists: nee` is de regel die het be
 het doel is weg, het frame is afgebroken — dus dit is echt de eigenaar die losgelaten is en niet een
 pijl die toevallig niets te wijzen heeft. En de twee pin-regels bevestigen dat de TomTom- en
 Blizzard-waypoint ook mee zijn.
+
+✅ **HERMETEN 7 sep, en dat was nodig.** Tussendoor stond er één meting die zei dat de TomTom-pin
+bleef staan (`TomTom actief: ja · zijn pijl zichtbaar: ja` terwijl `route owner: none`). Rob wist
+zelf niet meer of hij toen gereload had, en dat bleek het antwoord: ná een zekere reload liep de
+portaalroute schoon. 🔴 **Die tussenmeting is dus GEEN uitspraak over deze fix** — hij is niet als
+bewijs bruikbaar en staat hier alleen zodat niemand hem later terugvindt en gaat repareren wat niet
+stuk is. Zelfde val als op 6 sep met de verouderde SavedVariables: het meetinstrument klopte, de
+toestand waarin gemeten werd niet.
 
 ⚠️ **Wat deze meting NIET dekt:** `/mh arrow` meldt ook `WaypointUI aanwezig: ja`. Als er ooit
 tóch nog een pijl blijft staan terwijl deze diagnose `arrow frame exists: nee` zegt, dan tekent
