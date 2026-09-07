@@ -376,6 +376,14 @@ end
 --- ⚠️ Herkennen we geen enkel id, dan zeggen we NIETS. Dundun kan een derde variant hebben
 --- die niemand gemeten heeft, en zwijgen is dan het enige eerlijke. De algemene regel staat
 --- nog steeds in de gewone delve-intro, dus de speler blijft niet met lege handen achter.
+---
+--- ✅ GEMETEN 7 sep, en het is meteen de negatieve test op de lastigste NPC die er is: spreek
+--- je Dundun ná het accepteren opnieuw aan, dan opent zijn venster wél maar met **nul opties**
+--- ("Be on your way, then. Adventure awaits does it not?"). `DundunGossipCase` geeft dan nil
+--- en er komt geen regel. Deze handler kan dus alleen vuren bij het EERSTE venster, vóór je
+--- kiest — en dat is precies het moment waarop de beslissing valt.
+--- 📌 Opgeschreven zodat niemand later "waarom print hij niet als ik hem nog eens aanspreek"
+--- als bug onderzoekt. Dat is het spel, niet onze code.
 local gossipFrame = CreateFrame("Frame")
 local lastGossipCase, lastGossipAt = nil, 0
 gossipFrame:RegisterEvent("GOSSIP_SHOW")

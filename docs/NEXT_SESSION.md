@@ -27,6 +27,13 @@ heeft; de algemene regel staat nog steeds in de delve-intro, dus niemand blijft 
 achter. En de "No thank you"-id's staan er bewust NIET in — weigeren zegt niets over welk geval je
 had, en twee id's die hetzelfde betekenen zijn twee kansen om het mis te hebben.
 
+✅ **Negatieve test gedaan, op de lastigste NPC die er is.** Rob sprak Dundun ná het accepteren
+opnieuw aan: het venster gaat wél open maar met **nul opties** (*"Be on your way, then. Adventure
+awaits does it not?"*). `DundunGossipCase` geeft dan nil en er komt geen regel. De handler kan dus
+alleen vuren bij het **eerste** venster, vóór je kiest — precies het moment waarop de beslissing
+valt. 📌 Opgeschreven zodat niemand later "waarom print hij niet als ik hem nog eens aanspreek" als
+bug gaat onderzoeken: dat is het spel, niet onze code.
+
 ## ✅ 7 sep — de diagnose-uitvoer is Engels, want hij wordt meegeleverd
 
 Rob, kijkend naar `/mh sniff`: *"klein detail, wanneer het alleen voor mij is en niet voor de
