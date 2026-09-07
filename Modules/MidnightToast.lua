@@ -434,6 +434,55 @@ local function StartHideTimer()
 	end)
 end
 
+--- Optional attention flash — `spec.flash = true`.
+---
+--- 🔴 Rob, 7 Sep 2026, after seeing the pet-taunt toast work: *"kan ie flashen??"* Fair ask.
+--- A toast you must ACT on (right-click the pet bar before the pull) competes with a boss, a
+--- pack of adds and DBM; fading in politely is not enough. The level gate solved the same
+--- problem with sound; this is the visual half of that answer.
+---
+--- ⚠️ OPT-IN, and it stays that way. Every toast flashing is every toast shouting, and the
+--- next one after that is nobody looking. Only a spec that asks gets it.
+---
+--- 📌 Alpha rather than a glow texture: the card is built from a backdrop plus fontstrings,
+--- so pulsing the frame's alpha needs nothing added to it and cannot fight the fade-in/out
+--- that already owns that property — `flashGen` makes sure a new toast cancels the old pulse
+--- instead of two timers arguing about one alpha.
+local flashGen = 0
+local function StartFlash(spec)
+	flashGen = flashGen + 1
+	if not (spec and spec.flash) then
+		return
+	end
+	if not (toastFrame and C_Timer and C_Timer.After) then
+		return
+	end
+	local gen = flashGen
+	local pulses, i = 3, 0
+	local function pulse()
+		if gen ~= flashGen or not toastFrame or not toastFrame:IsShown() then
+			return
+		end
+		i = i + 1
+		if i > pulses then
+			toastFrame:SetAlpha(1)
+			return
+		end
+		if UIFrameFadeOut and UIFrameFadeIn then
+			UIFrameFadeOut(toastFrame, 0.18, 1, 0.35)
+			C_Timer.After(0.2, function()
+				if gen ~= flashGen or not toastFrame then
+					return
+				end
+				UIFrameFadeIn(toastFrame, 0.18, 0.35, 1)
+				C_Timer.After(0.24, pulse)
+			end)
+		end
+	end
+	-- After the fade-in has finished, or the two animations fight over the same alpha.
+	C_Timer.After(FADE_IN_SEC + 0.05, pulse)
+end
+
 function ns.ShowNextMidnightToast()
 	if activeSpec or #queue == 0 then
 		return
@@ -505,6 +554,7 @@ function ns.ShowNextMidnightToast()
 	else
 		f:SetAlpha(1)
 	end
+	StartFlash(spec)
 	StartHideTimer()
 end
 

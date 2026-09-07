@@ -409,6 +409,10 @@ local function Check(force)
 			--- Helper wants you" stays one sound instead of a zoo.
 			displaySec = 20,
 			soundKit = SOUNDKIT and SOUNDKIT.READY_CHECK or nil,
+			--- Rob, 7 Sep, straight after it first worked: *"kan ie flashen??"* Yes — and
+			--- this toast is the reason the option exists, because it is one you act on
+			--- before the pull rather than read afterwards.
+			flash = true,
 			icon = 132270, -- Growl's own icon
 		})
 	end

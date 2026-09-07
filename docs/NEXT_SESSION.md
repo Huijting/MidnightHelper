@@ -76,6 +76,17 @@ antwoord als de levelpoort op 5 sep kreeg, en om dezelfde reden — niemand lees
 pull. 20 seconden zichtbaar (dit wordt uitgevoerd, niet aangekeken) en `SOUNDKIT.READY_CHECK`, wat
 de rest van de addon ook gebruikt zodat "Midnight Helper wil iets" één geluid blijft.
 
+✅ **En hij knippert nu ook** — Rob, direct nadat hij hem voor het eerst zag werken: *"kan ie
+flashen??"* Nieuwe optie `spec.flash` in `MidnightToast.lua`: drie pulsen ná de fade-in.
+
+⚠️ **Opt-in, en dat blijft zo.** Elke toast die knippert is elke toast die schreeuwt, en de
+volgende daarna is niemand die nog kijkt. Alleen een toast die erom vraagt krijgt het, en deze
+vraagt erom omdat je hem uitvoert vóór de pull in plaats van naleest.
+
+📌 Op **alpha** en niet op een glow-textuur: de kaart is een backdrop met fontstrings, dus de alpha
+van het frame pulsen vraagt niets extra's. `flashGen` zorgt dat een nieuwe toast de oude puls
+afbreekt in plaats van dat twee timers over één alpha ruziën — dezelfde bewaking als `fadeGen`.
+
 ⚠️ **Geen `UnitIsUnit` om jezelf over te slaan**: die geeft een secret BOOLEAN en ernaar vragen
 gooit. Ook niet nodig — we komen hier alleen als de speler zélf geen tank is.
 
