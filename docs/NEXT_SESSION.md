@@ -198,6 +198,32 @@ probe is `C_QuestLog.GetTitleForQuestID(98226)`: komt daar een titel uit, dan be
 📌 En dat is de zwakke variant: ook mét een geldig id blijft ongemeten of onze *volgorde-aanname*
 klopt voor iemand die de skip heeft. Zonder een speler met die quest is dit niet dicht te maken.
 
+## 🚀 3.9.0 — getagd 7 sep 2026, 57 commits boven `v3.8.0`
+
+**Robs beslissing, tegen mijn advies in, en dat is genoteerd omdat het uitmaakt.** Ik adviseerde te
+wachten tot de reset van woensdag; hij zei *"zet maar klaar en go"*. Dat is zijn keuze en die staat.
+
+📌 **Waarom het verantwoord is, en niet alleen toegestaan.** Het enige dat aan woensdag hing was of
+band B wekelijks reset. Zelfs als het antwoord slecht uitvalt is 3.9.0 **niet slechter dan wat er
+nu live staat**: band A verbergt aantoonbaar rares waar een alt voor betaald wordt (Rob mat 50
+shards), en band B is in de eerste week strikt beter en daarna hooguit gelijk. Er stond dus geen
+schade op het spel, alleen de juistheid van een claim.
+
+⚠️ **De release-tekst is bewust zo geschreven dat hij niet van die meting afhangt.** Nergens staat
+dat band B wekelijks reset; er staat dat de shards die vlag volgen, en dat is gemeten.
+
+🔴 **Wat woensdag alsnog moet: `/mh rarequests` ná de reset.** Band B hoort dan terug op `--` te
+staan. Is dat niet zo, dan is er één zin te corrigeren — `RARES_TIP_DONE` zegt *"(reset woensdag)"*
+— en die staat in zeven talen. Geen code, wel tekst.
+
+📌 **Versie: minor, geen patch.** Ik zei gisteren nog 3.8.1; dat klopte toen. Sindsdien zijn er
+drie dingen bijgekomen die nieuw *gedrag* zijn (Dundun kiest zelf welk geval hij toont, `/mh binds`
+meldt iets dat het nooit meldde, en twee nieuwe commando's). Nieuw gedrag = minor, dezelfde regel
+waar 3.2.0 op besloten is.
+
+✅ **Yberamos staat met naam in de changelog én in de CF-notities**, op Robs uitdrukkelijke verzoek.
+Eerste Discord-bugmelding van dit project, en hij leverde een tweede paneel met dezelfde fout op.
+
 ## 📅 MORGEN — vier dingen, in deze volgorde
 
 Afgesloten op 6 sep 's avonds. Werkmap schoon, linter 0 hard, `luac` schoon over 252 bestanden.

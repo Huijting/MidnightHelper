@@ -2,6 +2,87 @@
 
 All notable changes to this project are documented in this file.
 
+## 3.9.0
+
+📌 **A minor, and the deciding factor was new behaviour rather than volume.** Most of the 57
+commits are corrections, which on its own would argue for a patch. But Dundun now *decides* which
+case it is looking at, `/mh binds` reports something it never reported, and two commands were
+added. New behaviour is a minor — the same line 3.2.0 was argued on.
+
+🔴 **Four of the five headline items were SILENT failures.** In every one the screen looked
+complete, nothing threw an error, and nothing could be reported by a player, because there was
+nothing to see. That is why they are grouped rather than listed by size: the shape is the point.
+
+### Fixed — the rares tab read the wrong flag, and it cost loot
+
+- **Every Midnight rare carries two quest ids** — one for "your account did this this week", one
+  for "this character did" — and **the Coffer Key Shards follow the second**. We read the first.
+  An alt that had never been to the Coiled Isle saw eleven rares greyed out as done; the route
+  skipped them and the scanner stayed silent while all of them still paid out. Measured: a rare
+  our own panel called finished handed over **50 Coffer Key Shards**.
+- Twelve rows switched to the per-character band. ⚠️ **Only the Coiled Isle was wrong** — an audit
+  against Zygor showed 58 of 68 comparable rares already carried the right id. That zone was added
+  on 13 Aug, during the mistaken reading this release withdraws, which is exactly why it hid.
+- **Four Coiled Isle rares could never tick themselves off** and had been hung on an *achievement*
+  as a workaround. An achievement never resets: one kill marked them done forever and they left
+  the route permanently. Their real weekly ids are in, one of them found by watching it flip
+  during a kill.
+- The rare tooltip no longer claims a kill was "done on this character" when it was not.
+
+### Changed — Dundun answers instead of reciting
+
+- The first Dundun of the week **on a character** adds a second Bountiful Coffer, which can cost a
+  second Restored Coffer Key; every visit after gives a reward choice that lands in an **Abundant
+  Spoils**, with no coffer and no key. Measured by Rob across two characters.
+- The addon used to state that rule because it could not tell which case you were in. It now reads
+  the gossip **by option id rather than by sentence**, so it names the actual case in all seven
+  languages. If it recognises nothing it says nothing.
+
+### Fixed — three classes with an empty key and no warning
+
+- **Shadow Priest**: `Void Eruption` was renamed to `Voidform` in 12.0.0, id unchanged. Our table
+  matched on name, so F1 never filled and **Power Infusion silently took the anchor** — the screen
+  looked right while the spec's biggest burst button had no key at all.
+- **Beast Mastery Hunter**: `Multi-Shot` was replaced by `Wild Thrash`, leaving Shift+1 empty.
+- **Guardian Druid**: `Lunar Beam` — the first line of its own priority list — was never in the
+  data, along with four others.
+- Twelve abilities added across the three, **every id read from a real spellbook**, never from a
+  website. `Cantrips` and `Raze` were deliberately left out: nobody could say what the first does
+  in 12.1, and the second is not in any client we can read.
+
+### Added — the count that would have caught all three
+
+- **`/mh binds` now names any ability we have no place for yet.** That number was the only signal
+  distinguishing the three cases above from a healthy layout, and it lived in a diagnostic nobody
+  runs without already suspecting something.
+- ⚠️ Noise is filtered **by spell id, not by name** — a name filter would exclude nothing on a
+  German client and inflate the count right back. It stays silent at zero, and prints the names
+  rather than only a number.
+- New lint check **[20]**: any keybind entry that writes a spell id in its own comment without
+  carrying it as a field. First run found **200 across 11 files**. An id survives a rename; the
+  Priest case had the right number sitting on the same line as the broken name key.
+
+### Fixed — the first Discord bug report
+
+- The curio advice panel's closing line overlapped the text above it at small window sizes,
+  **reported by Yberamos**. Chasing it turned up a second panel with the same fault. The foot now
+  scrolls with the content instead of occupying reserved space, and the panel follows the addon's
+  own text-size slider.
+
+### Added — two instruments
+
+- **`/mh questsnap`** — snapshot completed quests, kill a rare, diff. Finds the id by watching the
+  world change rather than by looking it up.
+- **`/mh sniff`** — which event carries a message we can see but cannot name. It answered the
+  Dundun question and is deliberately generic; `/mh sniff quiet` keeps it out of your chat.
+
+### Internal
+
+- All diagnostic chat output is English. It ships, so a Spanish player typing `/mh sniff` was
+  getting Dutch — 35 lines across 12 files.
+- `C_Item.GetItemCooldown` is confirmed to exist on 12.1.0, closing a caveat left in the code when
+  12.1.5 was announced to remove the bare global.
+
 ## 3.8.0
 
 📌 **A minor, and this one is not a close call.** 3.7.3 was a correction release and took a patch
