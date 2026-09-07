@@ -1500,10 +1500,28 @@ def main() -> int:
     # 🔴 AND DO NOT AUTO-FILL FROM THIS. The number in a comment is a CANDIDATE, not the
     # entry's id: those comments also carry talent ids, cooldown durations in milliseconds and
     # ids of related spells ("JustAC SpellCooldowns 5217=30s"). Taking the first big number and
-    # writing it into the table would be exactly the plausible guess this repo forbids, and a
-    # wrong id is worse than none -- it matches something else instead of falling back to the
-    # name. Fill them the way the Druid, Priest and Hunter entries were filled: from a client
-    # dump, one class at a time. This check says WHERE to look, not what to write.
+    # writing it into the table would be exactly the plausible guess this repo forbids. Fill
+    # them the way the Druid, Priest and Hunter entries were filled: from a client dump, one
+    # class at a time. This check says WHERE to look, not what to write.
+    #
+    # 📌 "A WRONG ID IS WORSE THAN NONE" USED TO STAND HERE UNQUALIFIED, and it was measured
+    # the same evening -- so here is what it actually costs, because the size of the risk is
+    # what decides how carefully these get filled.
+    #
+    # Prot Paladin: the spellbook reports `Blessed Hammer` under base id 35395, since it
+    # overrides Crusader Strike. `byId[35395]` therefore found the *Crusader Strike* entry
+    # (specs {70}); Rob is spec 66, so it failed the spec test -- and because the lookup picked
+    # its winner before testing, `["Blessed Hammer"]` (specs {66}) was never tried. Unclassified.
+    #
+    # ✅ That shadowing is fixed (`KeybindAutoMap.lua`, 7 Sep): the candidates are walked in the
+    # same order as before and the first one that ALSO passes the spec test wins. So a wrong id
+    # now falls back to the name in every case where the entry it hit belongs to another spec.
+    #
+    # ⚠️ WHICH NARROWS THE RULE RATHER THAN RETIRING IT. A wrong id is still worse than none
+    # when the entry it lands on passes the spec test too -- same class, same spec, wrong spell.
+    # That case is rarer and it is silent, so the instruction is unchanged: fill from a dump.
+    # 📌 And the DATA is not what needed repairing here, which is why the migration rule in
+    # SPEC_32 §5c stands as written: carry the id you measured, and never a guessed one.
     try:
         missing_ids = []
         for path in sorted(glob.glob(os.path.join(root, "Modules", "KeybindRoles_*.lua"))):

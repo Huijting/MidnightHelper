@@ -270,6 +270,22 @@ is, en de migratieregel van §5c hoeft **niet** herschreven te worden.
 `SpecMatches` haalt wint. De volgorde is ongewijzigd, dus wat vandaag matcht matcht op dezelfde
 entry — deze lus kan alleen méér classificeren, nooit anders.
 
+### 📌 En de linterregel van §5c hoefde niet gebouwd te worden — hij stond er al
+
+Een handoff uit een ander gesprek zette *"de linterregel uit 5c"* nog als open, met de terechte
+waarschuwing hem pas te formuleren ná het Blessed Hammer-geval. **Hij bestaat sinds 7 sep als check
+[20]** en draaide die hele dag mee (200 entries, SOFT). Wat er werkelijk op het antwoord wachtte was
+niet de regel maar **de waarschuwing eronder**.
+
+Die zei kaal *"a wrong id is worse than none — it matches something else instead of falling back to
+the name"*. Dat is nu gemeten en **te breed**: sinds de lookup-fix valt een fout ID wél terug op de
+naam zodra de entry die het raakte bij een ándere spec hoort. Wat overblijft is de smallere en
+stillere variant — het geraakte entry hoort bij dezelfde spec, maar bij de verkeerde spell.
+
+✅ De instructie blijft daarom ongewijzigd: **vullen uit een client-dump, nooit uit het commentaar.**
+Alleen de reden erachter is nu geméten in plaats van vermoed, en dat is precies wat de handoff
+wilde weten vóór de rest van de migratie.
+
 ⚠️ **Nog te bevestigen in het spel:** `/mhautomap` + `/reload` op de Prot Paladin. `Blessed Hammer`
 hoort nu **placed** te zijn en unclassified van 12 naar 11 te gaan. 📌 En dit raakt élke klasse waar
 een talent-override een base-ID deelt met een spell van een andere spec — dus kijk of het aantal
