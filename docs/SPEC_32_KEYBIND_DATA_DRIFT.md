@@ -297,6 +297,44 @@ SavedVariables (niet uit een screenshot):
 📌 Dit raakt élke klasse waar een talent-override een base-ID deelt met een spell van een andere
 spec. Bij de volgende `/mhautomap` op een andere klasse: kijk of het aantal daar óók zakt.
 
+### ✅ De positieve controle — Ret Paladin (lvl 70), 7 sep 22:07
+
+🔴 **De controle die ik vróég bestond niet.** Ik wilde `Crusader Strike` geplaatst zien op een Ret,
+want 35395 is het ID dat bij de Prot afketste. Maar **Crusader Strike komt in de hele dump niet
+voor** — niet in `placed`, niet in `unmatched`, niet in `scanned`. Dit karakter kent hem niet.
+📌 Dat is [[silence-is-not-absence]] van de nuttige kant: had ik alleen naar die ene regel gezocht
+en hem niet gevonden, dan had "niet geplaatst" eruitgezien als een defect.
+
+✅ **Er stonden drie betere controles in, en samen dekken ze alle takken:**
+
+| geval | bewijs | wat het aantoont |
+|---|---|---|
+| ID matcht **en** haalt de spec-test | `Judgment` 20271, `specs = {66,70}`, geplaatst op toets `2` | de ID-route werkt onveranderd — de volgorde is niet omgegooid |
+| ID staat niet in onze tabel | `Final Verdict` gemeld als **85256** (wij kennen 224266 en 383328) → op **naam** geplaatst | de naamval werkt |
+| ID matcht maar **faalt** de spec-test | `Blessed Hammer` op de Prot | de fix zelf |
+
+📌 De eerste rij is de rij die telt: **de fix kan alleen méér plaatsen, niet anders** — en dat is nu
+gemeten in plaats van beredeneerd.
+
+### 🔴 NIEUW — twee Prot-only entries die een Ret wél kent
+
+Van de 11 unclassified op deze Ret zijn er twee geen ruis:
+
+| spell | onze data | in Robs Ret-spellbook |
+|---|---|---|
+| **Hand of Reckoning** | `specs = { 66 }` | aanwezig |
+| **Shield of the Righteous** | `specs = { 66 }` | aanwezig |
+
+⚠️ **Nog geen oordeel.** Of een Ret-paladin een taunt-bind hoort te krijgen is een ontwerpvraag —
+"de client kent het" is niet hetzelfde als "het verdient een toets". Rob beslist.
+
+📌 **Wél het bewijs dat de teller doet waarvoor hij gebouwd is:** dit gat meldde zichzelf, op de
+eerste run op een andere spec. Dat is de verdediging tegen drift die een `id`-veld niet kan geven.
+
+De overige negen: `Auto Attack`, `Anomaly Detection Mark I`, `Mechanism Bypass` en `Revive Battle
+Pets` zitten al in `KEYBIND_NOISE`; `Flash of Light` en `Sense Undead` zijn off-spec; en de drie
+Aura's zijn de bewuste keuze hierboven.
+
 ### ✅ De vijf ontbrekende ID's — GEMETEN uit Robs eigen client, 7 sep
 
 Stonden in §1f nog als *"uit de dump te halen"*. Hier staan ze, want dat bestand wordt bij de
