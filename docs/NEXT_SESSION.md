@@ -50,8 +50,31 @@ waar in álle drie de gevallen — dus geen nieuwe teksten en geen tweede vertaa
 
 📌 **En dit beantwoordt Robs duo-delve-vraag meteen:** Valeera dráágt de TANK-rol, dus followers
 tellen hier bewust mee. Een pet die van háár wegtrekt is dezelfde fout als bij een speler.
-⚠️ Solo blijft stil — dat is een aparte keuze (de `>= 2 echte spelers`-eis), niet iets dat deze
-check verandert.
+### 🔴 7 sep — en toen bleek "solo = zwijgen" gewoon fout, met een reden uit het spel
+
+Rob: *"ik merk dat wanneer mijn pets Growl aan hebben staan, dat ze heel snel doodgaan als er
+meerdere adds zijn. Ik wil het graag in een delve hebben."*
+
+📌 **Dat is geen voorkeur maar een gemeten gevolg.** Mijn `>= 2 echte spelers`-eis hield delves stil
+op mijn aanname dat solo betekent "niemand om aggro van weg te trekken". Valeera **is** iemand, ze
+leest als `TANK` (gemeten diezelfde middag), en zijn pet gaat er dood aan.
+
+✅ **`AnyGroupMember()` vervangt de spelerstelling.** Voorwaarde is nu: er is iemand — speler of
+follower — én er tankt iemand én jij niet én er staat een taunt aan.
+
+⚠️ **"Iemand" moet wel écht iemand zijn.** Alleen in een oude dungeon zonder groep is je pet de
+tank en hoort Growl juist aan; een lege party blijft dus stil. Dat is een ánder geval dan "groep
+bestaat maar rollen onleesbaar", en die twee worden apart beantwoord.
+
+📌 De nieuwe logica is in beide richtingen scherper dan de oude: hij zwijgt waar de pet zelf tankt
+(ook al ben je in een groep) en spreekt waar iemand anders tankt (ook al ben je alleen).
+
+### 🔊 En een toast met geluid, niet een regel in de chat
+
+Rob: *"met een duidelijke waarschuwing, niet alleen maar een regel beneden in mijn chat."* Zelfde
+antwoord als de levelpoort op 5 sep kreeg, en om dezelfde reden — niemand leest chat midden in een
+pull. 20 seconden zichtbaar (dit wordt uitgevoerd, niet aangekeken) en `SOUNDKIT.READY_CHECK`, wat
+de rest van de addon ook gebruikt zodat "Midnight Helper wil iets" één geluid blijft.
 
 ⚠️ **Geen `UnitIsUnit` om jezelf over te slaan**: die geeft een secret BOOLEAN en ernaar vragen
 gooit. Ook niet nodig — we komen hier alleen als de speler zélf geen tank is.

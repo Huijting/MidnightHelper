@@ -132,14 +132,14 @@ function ns.PrintPetTauntProbe()
 			tostring(warn), tostring(reason)))
 	end
 	if ns.PetTauntRealPlayers then
-		print(("  |cff8a8f98real players in the group: %d|r  (a delve companion is not one)")
-			:format(ns.PetTauntRealPlayers()))
+		print(("  |cff8a8f98real players in the group: %d|r  (Valeera is not one, but she still"):
+			format(ns.PetTauntRealPlayers()))
+		print("  |cff8a8f98counts as somebody to steal aggro from — see the line below)|r")
 	end
 	if ns.PetTauntTankInGroup then
 		local t = ns.PetTauntTankInGroup()
-		print(("  |cff8a8f98somebody tanking: %s|r  (nil = no role could be read, which is"):format(
-			tostring(t)))
-		print("  |cff8a8f98not the same as nobody tanking — the warning falls through there)|r")
+		print(("  |cff8a8f98somebody tanking: %s|r"):format(tostring(t)))
+		print("  |cff8a8f98   true = warn · false = stay quiet · nil = roles unreadable, warn anyway|r")
 	end
 
 	print("  verdict:")
@@ -273,13 +273,35 @@ local function TankInGroup()
 	return false
 end
 
+--- Is there anybody else at all — player or follower?
+---
+--- 🔴 This replaced a `>= 2 REAL players` rule on 7 Sep, and Rob's reason is the whole point:
+--- *"ik merk dat wanneer mijn pets Growl aan hebben staan, dat ze heel snel doodgaan als er
+--- meerdere adds zijn. Ik wil het graag in een delve hebben."* The old rule kept delves quiet
+--- on my assumption that solo means nobody to steal aggro from. Valeera is somebody, she reads
+--- as TANK, and his pet dies for it.
+---
+--- ⚠️ But "anybody" still has to mean SOMEBODY. Alone in an old dungeon with no group at all,
+--- the pet IS the tank and Growl belongs on — so an empty party stays silent. That case and
+--- "group exists, roles unreadable" are different things and are answered differently below.
+--- @return boolean
+local function AnyGroupMember()
+	if IsInRaid and IsInRaid() then
+		return ((GetNumGroupMembers and GetNumGroupMembers()) or 0) > 0
+	end
+	for i = 1, 4 do
+		if UnitExists and UnitExists("party" .. i) then
+			return true
+		end
+	end
+	return false
+end
+
 --- @return boolean|nil warn, string|nil tauntName, string reason — nil warn = cannot tell
 local function ShouldWarn()
-	-- Group + instance, or there is nothing to be wrong about.
-	local n = RealPlayersInGroup()
-	if n < 2 then
-		return false, nil, ("solo (%d real player%s in the group)"):format(
-			n, n == 1 and "" or "s")
+	-- Somebody has to be there to steal aggro from.
+	if not AnyGroupMember() then
+		return false, nil, "nobody else here — your pet IS the tank"
 	end
 	local inInst = false
 	if IsInInstance then
@@ -379,7 +401,14 @@ local function Check(force)
 			id = "pet_taunt_on",
 			title = ns:L("PETTAUNT_WARN_TITLE"),
 			body = (ns:L("PETTAUNT_WARN_CHAT")):format(label),
-			displaySec = 12,
+			--- 🔴 Rob, 7 Sep: *"ik wil het graag in een delve hebben met een duidelijke
+			--- waarschuwing. Niet alleen maar een regel beneden in mijn chat."* Same answer
+			--- as the level gate got on 5 Sep, and for the same reason — nobody reads chat
+			--- mid-pull. 20 seconds because this is acted on (right-click the pet bar), not
+			--- glanced at, and the same SOUNDKIT the rest of the addon uses so "Midnight
+			--- Helper wants you" stays one sound instead of a zoo.
+			displaySec = 20,
+			soundKit = SOUNDKIT and SOUNDKIT.READY_CHECK or nil,
 			icon = 132270, -- Growl's own icon
 		})
 	end
