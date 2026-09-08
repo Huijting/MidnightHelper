@@ -1,5 +1,53 @@
 # Midnight Helper — waar we staan
 
+## ✅ 8 sep (avond) — "waar pluk ik Azeroot?" en het antwoord is beter dan een route
+
+Robs brainfart: *"ik wil mijn alchemy levelen en ik moet bv Azeroot hebben, maar ik heb geen idee
+waar die het beste te plukken is."*
+
+📌 **Eerst gekeken wat er al is.** `ProfessionGuidedData.lua` noemde Azeroot al — als één van de vier
+basiskruiden — maar zei alleen *wát*, niet *waar*. En op Robs schijf staat **geen** GatherMate2, geen
+Routes, geen node-addon. Mijn aanname dat die niche bezet was klopte hier niet.
+
+### 🔴 En het feit dat we vonden maakt de vraag kleiner in plaats van groter
+
+Zygors Midnight-beroepengids draagt een farm-gids **per materiaal per gebied**, en de titels alleen
+al zijn het feit:
+
+| materiaal | gebieden |
+|---|---|
+| Sanguithorn · Azeroot · Argentleaf · Mana Lily · Tranquility Bloom | **alle vier** |
+| Refulgent Copper · Umbral Tin · Brilliant Silver | **alle vier** |
+| Void-Tempered Leather | Eversong Woods |
+| Void-Tempered Scales | Zul'Aman |
+
+🎯 **Alle vijf kruiden en alle drie ertsen zitten in alle vier de gebieden.** Het kruid bepaalt dus
+nooit waar je heen gaat — je wéék doet dat. Dat is een beter antwoord dan welke route ook, en het is
+precies wat MH hoort te doen: de vraag terugbrengen tot iets wat je kunt onthouden.
+
+✅ **Gebouwd:** de 1-30-stappen van Herbalism en Mining zeiden *"begin in Eversong Woods"* zónder
+reden. Nu leggen ze uit waaróm dat niet uitmaakt. Een bevel is een uitleg geworden.
+
+### ⚠️ Robs grens, en hoe die is toegepast
+
+Rob: *"alleen feiten uit Zygor, geen routes overnemen."* Zo gedaan — de **titels** zijn gebruikt
+(*"Azeroot (Eversong Woods)"* = waar het groeit), dezelfde soort gebruik als bij quest-ID's. **Geen
+waypoint, geen coördinaat en geen zin van hen is overgenomen.**
+
+🔴 **En het bewijst GROEIT-IN, niet DICHTST-IN.** Vier gidsen per kruid zegt dat het in vier gebieden
+te vinden is; het zegt niets over opbrengst per uur. Die zin mag niet uitgroeien tot een claim over
+efficiëntie — dat zou gemeten moeten worden, en dát is het grootboek-idee (optie C), niet dit.
+
+### ⚠️ Skinning is de uitzondering, en het bewijs is er dunner
+
+Leer en schubben verschillen wél per gebied. Maar Zygor heeft daar **twee** gidsen in totaal tegen
+**vier per materiaal** bij kruiden en erts. Eén gids is even goed te rijmen met *"daar zit het"* als
+met *"die ene hebben ze geschreven"*, en niets hier kan die twee scheiden. De tekst zegt daarom
+**"waar je begint te zoeken"** en niet "de enige plek".
+
+📌 **Nog niet gedaan, bewust:** optie C — meten wat jij oogst en waar, zoals het soul-grootboek. Dat
+is het enige dat "welk gebied levert het meest op" ooit echt kan beantwoorden, en het helpt pas
+nadat je gefarmd hebt.
 ## 🔴 8 sep (avond) — het soul-grootboek bestond al, en niemand kon het lezen
 
 Rob: *"ja bouw dat grootboekje maar."* Ik begon te bouwen en stopte na één grep: het staat er al

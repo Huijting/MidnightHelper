@@ -115,7 +115,24 @@ ns.PROF_GUIDES = {
 		trainer = { mapID = 2393, x = 48.2, y = 51.52 },
 		weeklyAtStation = false,
 		middleSteps = {
-			{ gate = 30, title = { en = "Pick anything (skill 1-30)", nl = "Pluk alles (skill 1-30)" }, body = { en = "Start in Eversong Woods and pick whatever herb you find - almost everything gives skill.", nl = "Begin in Eversong Woods en pluk elk kruid dat je tegenkomt - bijna alles geeft skill." } },
+			--- 🔴 "START IN EVERSONG WOODS" WAS AN ORDER WITHOUT A REASON, and Rob asked the
+			--- question it was hiding: *"ik moet Azeroot hebben, maar ik heb geen idee waar die
+			--- het beste te plukken is."* 8 sep 2026.
+			---
+			--- 📌 THE ANSWER IS BETTER THAN A ROUTE: it does not matter. Zygor ships a farming
+			--- guide per herb PER ZONE, and every one of the five Midnight herbs has one for
+			--- all four zones. So the herb never decides where you go — your week does.
+			---
+			--- ⚠️ SOURCE AND ITS LIMIT. Taken from the guide TITLES in
+			--- `ZygorGuidesViewer/Guides-Retail/Professions/ZygorProfessionsCommonMID.lua`
+			--- ("Azeroot (Eversong Woods)" and so on) — a fact about where a herb grows, the
+			--- same use we already make of Zygor for quest ids. **No route, no waypoint and no
+			--- sentence of theirs is copied**; Rob drew that line himself.
+			--- 🔴 And it proves GROWS IN, not DENSEST IN. Four guides per herb says the herb is
+			--- findable in four zones; it says nothing about which pays best per hour. Do not
+			--- let this sentence grow into a claim about efficiency — that would need measuring,
+			--- and that is the ledger idea, not this one.
+			{ gate = 30, title = { en = "Pick anything (skill 1-30)", nl = "Pluk alles (skill 1-30)" }, body = { en = "Pick whatever herb you find - almost everything gives skill. Where you go matters less than you would think: all five Midnight herbs (Sanguithorn, Azeroot, Argentleaf, Mana Lily, Tranquility Bloom) grow in all four zones - Eversong Woods, Zul'Aman, Harandar and Voidstorm. So gather in whichever zone your week already takes you to, and let the herbs come to you.", nl = "Pluk elk kruid dat je tegenkomt - bijna alles geeft skill. Waar je gaat maakt minder uit dan je denkt: alle vijf Midnight-kruiden (Sanguithorn, Azeroot, Argentleaf, Mana Lily, Tranquility Bloom) groeien in alle vier de gebieden - Eversong Woods, Zul'Aman, Harandar en Voidstorm. Verzamel dus in het gebied waar je week je toch al brengt, en laat de kruiden naar jou toe komen." } },
 			{ gate = 60, title = { en = "Pick the base herbs (skill 30-60)", nl = "Pluk de basis-kruiden (skill 30-60)" }, body = { en = "Keep picking the four base herbs - Sanguithorn, Azeroot, Argentleaf and Mana Lily still give skill.", nl = "Blijf de vier basis-kruiden plukken - Sanguithorn, Azeroot, Argentleaf en Mana Lily geven nog skill." } },
 			{ gate = 100, title = { en = "Hunt Lush & Infused herbs (skill 60-100)", nl = "Zoek Lush- & Infused-kruiden (skill 60-100)" }, body = { en = "Only Lush and Infused herb variants still give skill now, so just keep gathering until they appear.", nl = "Alleen Lush- en Infused-varianten geven nu nog skill, dus blijf gewoon verzamelen tot ze verschijnen." } },
 		},
@@ -126,7 +143,10 @@ ns.PROF_GUIDES = {
 		trainer = { mapID = 2393, x = 42.68, y = 52.84 },
 		weeklyAtStation = false,
 		middleSteps = {
-			{ gate = 30, title = { en = "Mine anything (skill 1-30)", nl = "Min alles (skill 1-30)" }, body = { en = "Start in Eversong Woods and mine whatever deposit you find - almost every one gives skill.", nl = "Begin in Eversong Woods en min elke deposit die je tegenkomt - bijna elke geeft skill." } },
+			-- Same fact and the same limit as the herbalism step above: Zygor ships a farming
+			-- guide for each of the three Midnight ores in each of the four zones. Where it
+			-- grows, not where it is densest.
+			{ gate = 30, title = { en = "Mine anything (skill 1-30)", nl = "Min alles (skill 1-30)" }, body = { en = "Mine whatever deposit you find - almost every one gives skill. The zone barely matters: all three Midnight ores (Refulgent Copper, Umbral Tin, Brilliant Silver) appear in all four zones - Eversong Woods, Zul'Aman, Harandar and Voidstorm. So mine wherever your week already sends you.", nl = "Min elke deposit die je tegenkomt - bijna elke geeft skill. Het gebied maakt nauwelijks uit: alle drie de Midnight-ertsen (Refulgent Copper, Umbral Tin, Brilliant Silver) komen in alle vier de gebieden voor - Eversong Woods, Zul'Aman, Harandar en Voidstorm. Min dus waar je week je toch al heen stuurt." } },
 			{ gate = 60, title = { en = "Mine rich deposits (skill 30-60)", nl = "Min rijke deposits (skill 30-60)" }, body = { en = "Base deposits go yellow now, so keep mining Rich deposits, Seams and Infused variants for skill.", nl = "Basis-deposits worden nu geel, dus blijf Rich deposits, Seams en Infused-varianten minen voor skill." } },
 			{ gate = 100, title = { en = "Hunt rich & infused nodes (skill 60-100)", nl = "Zoek rijke & infused nodes (skill 60-100)" }, body = { en = "Only Rich deposits, Seams and Infused variants still give skill, so keep mining until they spawn.", nl = "Alleen Rich deposits, Seams en Infused-varianten geven nu nog skill, dus blijf minen tot ze spawnen." } },
 		},
@@ -137,6 +157,16 @@ ns.PROF_GUIDES = {
 		trainer = { mapID = 2393, x = 43.27, y = 55.59 },
 		weeklyAtStation = false,
 		middleSteps = {
+			--- ⚠️ THE ONE GATHERING PROFESSION WHERE THE ZONE ACTUALLY MATTERS, and the evidence
+			--- for it is thinner than for the herbs — so it is written as a hint, not a rule.
+			---
+			--- Herbs and ore each have FOUR Zygor farming guides, one per zone, for every single
+			--- material: that repetition is what makes "it grows everywhere" a safe claim.
+			--- Skinning has exactly TWO guides in total — leather in Eversong Woods, scales in
+			--- Zul'Aman. One guide each is equally consistent with "that is where it is" and
+			--- with "that is the only one they bothered to write", and nothing here can tell
+			--- those apart. Hence "start there", not "only there".
+			{ title = { en = "Leather and scales are not in the same place", nl = "Leer en schubben zitten niet op dezelfde plek" }, body = { en = "Unlike herbs and ore, what you skin depends on what lives there. Zygor's farming guides point at Eversong Woods for Void-Tempered Leather and Zul'Aman for Void-Tempered Scales - one guide each, so treat that as where to start looking rather than as the only place they drop.", nl = "Anders dan bij kruiden en erts hangt het ervan af wat er rondloopt. Zygors farm-gidsen wijzen naar Eversong Woods voor Void-Tempered Leather en naar Zul'Aman voor Void-Tempered Scales - één gids per stuk, dus zie dat als waar je begint te zoeken en niet als de enige plek." } },
 			{ title = { en = "Spend points on the farming build", nl = "Zet punten in de farm-build" }, body = { en = "Skinning scales through its trees, so put your early Knowledge points into Thorough Tanning for more leather and scales.", nl = "Skinning schaalt via de trees, dus stop je vroege Knowledge-punten in Thorough Tanning voor meer leather en scales." } },
 			{ title = { en = "Skin High Value Beasts", nl = "Vil High Value Beasts" }, body = { en = "Chase the beasts with a glowing skinning-knife icon on the minimap - they yield 5-10 extra hides.", nl = "Ga achter de beesten met een glimmend skinning-knife-icoon op de minimap aan - die geven 5-10 extra hides." } },
 			{ title = { en = "Carry two knives", nl = "Draag twee messen" }, body = { en = "Keep a Finesse knife for more base materials and a Perception knife for an extra roll on rares.", nl = "Houd een Finesse-mes voor meer base-materialen en een Perception-mes voor een extra roll op rares." } },
