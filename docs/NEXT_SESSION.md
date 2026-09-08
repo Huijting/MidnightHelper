@@ -16,23 +16,41 @@ hij weet hoe dit heet ("skip", "liadrin", "scouting map", "abandon", de vijf zon
 óók in Stormwind en Orgrimmar staat. Die ene regel zou de tip fout hebben gemaakt voor iedereen die
 niet toevallig in Dornogal inlogt.
 
-### ⚠️ Vijf talen staan nog op Engels, met opzet
+### ✅ Alle zeven talen, en Rob wees de weg naar het antwoord
 
-`enUS` en `nlNL` zijn er; de/fr/es/pt/it vallen terug op Engels (dat is hoe `ns:L` werkt — nooit een
-kale sleutel, dus er is niets stuk). **Reden om te wachten: de stadsnamen.** Vertalen vraagt hier de
-naam zoals hij op het scherm van die speler staat, en die verschilt:
+Ik wilde eerst bij enUS + nlNL stoppen omdat ik de stadsnamen voor pt en it niet had. Rob: *"we
+hadden toch de namen al een keer laten checken zodat we zeker weten wat Blizzard gebruikt?"* Ja —
+[[wago-tools-gamedata]], zo is de ptBR-Valeera-kwestie beslecht. Ik stelde voor te gokken terwijl de
+methode er lag.
 
-| taal | Silvermoon volgens ons eigen pack |
-|---|---|
-| deDE | **Silbermond** |
-| frFR | **Lune-d'Argent** |
-| esES | **Lunargenta** |
-| ptBR | niet gevonden — onbekend |
-| itIT | staat als "Lunargenta", de **Spaanse** vorm → verdacht, zie [[machine-translated-packs]] |
+⚠️ **wago.tools is vanaf hier NIET bereikbaar.** `WebFetch` geeft **403**, `web_fetch_exa` geeft
+`CRAWL_UNEXPECTED_CONTENT_TYPE` op de CSV-endpoints. Nieuw feit voor de volgende keer; de meting van
+augustus is dus met ander gereedschap gedaan.
 
-📌 Voor pt en it zou ik moeten gokken, en gokken op eigennamen is precies hoe die machinaal
-vertaalde packs ooit zijn ontstaan. **Eerst meten in de client, dan vertalen** — de vijf zonenamen
-en `Adventuring in Midnight` blijven sowieso Engels (eigennamen van Blizzard).
+✅ **Maar het antwoord stond in de repo zelf, en het verschilt per taal:**
+
+| taal | Silvermoon | bron |
+|---|---|---|
+| deDE | **Silbermond** | ons eigen pack, meerdere plaatsen |
+| frFR | **Lune-d'Argent** | idem |
+| esES | **Lunargenta** | idem |
+| ptBR | **Silvermoon** | de gewoonte van het pack — **14×** in `ptBR.lua` |
+| itIT | **Silvermoon** | de kop van `itIT.lua` zegt letterlijk dat zonenamen Engels blijven |
+
+📌 **Dat is coherent en niet willekeurig:** de/fr/es/pt zijn echte client-talen, dus daar staat
+Blizzards eigen naam op het scherm. Voor Italiaans en Nederlands bestaat geen client, dus ziet die
+speler sowieso Engels — dezelfde redenering als de "Kampioen crest" van 28 aug.
+
+🔴 **BIJVANGST — een echte fout in het Italiaanse pack.** `CODEX_PROFRESET_BODY` (`Codex.lua:276`)
+schrijft *"nel Bazaar di **Lunargenta**"*: de **Spaanse** naam, in een Italiaanse zin, in een pack
+dat in zijn eigen kop zegt Engels te houden. Klassieke machinevertaling-restant, zie
+[[machine-translated-packs]]. **Niet meegerepareerd** — dat is een losse regel die zijn eigen commit
+verdient, en ik heb hem niet in zijn geheel nagelezen.
+
+⚠️ **Eén ding bewust uit alle vijf de vertalingen weggelaten: de opsomming van hoofdsteden.** Onze
+packs hebben "Stormwind" nog nooit in een van die talen geschreven, dus dat zou alsnog een gok zijn.
+Er staat nu "in meerdere hoofdsteden, dus ook in de jouwe" — even waar en niets verzonnen. De vijf
+zonenamen en `Adventuring in Midnight` blijven overal Engels (eigennamen van Blizzard).
 ## 🔴 8 sep — reizen naar Midnight is NIET op level gesloten, en dat weerlegt onze eigen reden
 
 Rob op TwelveInchy (Ret paladin), level 78: *"ik kon er al heen vanaf lvl 70 ofzo maar kan er nog
