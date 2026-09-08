@@ -69,6 +69,28 @@ over.
 
 ⚠️ **Nog niets gebouwd, en de quest-ID is niet gemeten.** `/mh questsnap` staat klaar om dat te
 doen zodra iemand die keten loopt.
+
+#### ✅ GEMETEN 8 sep — het gespreksvenster zelf (Robs screenshot, vóór aannemen)
+
+| | |
+|---|---|
+| NPC | **Image of Lady Liadrin**, Dornogal |
+| quest | **"Midnight"** |
+| aanleiding | *"Xal'atath and her Devouring Host have attacked the Sunwell on the Isle of Quel'Danas. The Light has called to you for help."* |
+| optie 1 | `(Play Movie) What has happened at the Sunwell?` |
+| optie 2 | `I have heard this tale before.` → *"Skip the Midnight introduction and travel to the Sanctum of Light."* |
+
+🎯 **ER IS EEN OFFICIËLE SKIP, en dat is precies wat een alt-speler zoekt.** Dit is het soort ding
+waar deze addon voor bestaat: het staat er, maar alleen als je het gespreksvenster helemaal leest in
+plaats van op de eerste optie te klikken.
+
+🔴 **WAT WE NIET WETEN, en het is de vraag die ertoe doet: wat KOST die skip?** De optie zegt dat hij
+je naar het **Sanctum of Light** brengt. Onze hele weekroutine staat op map 2393, **Silvermoon City**
+— of de skip die toegang óók geeft is niet gemeten. Slaat iemand de intro over en zit Silvermoon
+daarna dicht, dan geeft MH hem een week lang advies dat hij niet kan opvolgen.
+
+⚠️ **Niets over schrijven tot dat gemeten is.** De verleiding is om "er is een skip!" als tip te
+publiceren; dat is de halve waarheid die het duurst is. Meet eerst wat er ná de skip open staat.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
