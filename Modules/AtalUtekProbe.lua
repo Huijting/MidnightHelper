@@ -1753,4 +1753,104 @@ function ns.PrintAtalUtekProbe(from, to)
 	print("   |cff8a8f98Saved to the DB — /reload writes the file. Names and ids come from your client, not from a guide.|r")
 	print("   |cff8a8f98Next: /mh capture at the altar for its coordinates, and /mh zone inside the Vaults.|r")
 	print("   |cff8a8f98Still open: docs/VAULTS_MEASUREMENTS.md lists what nobody has measured yet.|r")
+	print("   |cff8a8f98Read the ledger itself with |cffffff00/mh souls|r|cff8a8f98.|r")
+end
+
+--- `/mh souls` — what the ledger has actually seen pay out.
+---
+--- 🔴 THE LEDGER HAD RUN FOR THREE WEEKS AND NOBODY COULD READ IT — 8 Sep 2026. It has
+--- recorded every change since 15 aug and `/mh atal` printed only how MANY rows there were.
+--- Rob asked tonight how to farm souls quickly; the answer was already on his own disk and
+--- took a Python script over SavedVariables to see. An instrument nobody can read is a
+--- diagnostic that only works for whoever has a shell.
+---
+--- 📌 WHAT IT ALREADY SETTLED, from his rows and not from a guide:
+---     Lair: Nymrissa Wavecaller   +3, six separate times, always 3
+---     Purging the Vaults          +2
+---     unlocking a power           -8, twice (and his Codex shows exactly two unlocked)
+---
+--- ⚠️ ATTRIBUTION IS BY CLOCK, NOT BY PROOF — the same warning the recorder carries. A row
+--- says how many seconds passed since the last quest hand-in; it does not claim the quest
+--- paid. `Containment Zone (+2216s)` is 37 minutes later and means nothing. So the seconds
+--- are printed and the reader judges, rather than the code deciding and hiding it.
+---
+--- ⚠️ AND FLICKER IS FILTERED HERE RATHER THAN TRUSTED TO THE RECORDER. Its settle timer is
+--- meant to swallow the bag reading 0 for a moment, and measured on 8 Sep it does not always:
+--- four such rows sit in the log as a matching minus and plus one second apart. They are
+--- excluded on sight -- equal and opposite within five seconds is a bag rebuilding, not
+--- income -- and the count of skipped rows is printed so the flaw stays visible instead of
+--- being quietly cleaned up.
+function ns.PrintSoulLedger()
+	local p = "|cffffcc00Midnight Helper|r"
+	local log = (ns.db and type(ns.db.soulLedger) == "table") and ns.db.soulLedger or nil
+	print(("%s Corrosive Souls — you hold |cffffffff%s|r"):format(
+		p, tostring(SoulCount() or "unreadable")))
+	if not log or #log == 0 then
+		print("   |cff8a8f98The ledger is empty. It writes a row whenever your soul count changes,|r")
+		print("   |cff8a8f98so play a week and come back — nothing has to be farmed for it.|r")
+		return
+	end
+
+	-- Equal-and-opposite within five seconds: the bag rebuilding, not a transaction.
+	local skip = {}
+	for i = 1, #log - 1 do
+		local a, b = log[i], log[i + 1]
+		if a and b and tonumber(a.delta) and tonumber(b.delta)
+			and tonumber(a.delta) == -tonumber(b.delta)
+			and (tonumber(b.at) or 0) - (tonumber(a.at) or 0) <= 5 then
+			skip[i], skip[i + 1] = true, true
+		end
+	end
+
+	local bySource, order, unattributed, spent, skipped = {}, {}, 0, 0, 0
+	for i = 1, #log do
+		local r = log[i]
+		local d = tonumber(r and r.delta) or 0
+		if skip[i] then
+			skipped = skipped + 1
+		elseif d < 0 then
+			spent = spent + d
+		elseif d > 0 then
+			-- Only credit a source when the hand-in was recent enough to be the cause.
+			-- 60s is generous and deliberately arbitrary; the raw row still shows the gap.
+			local title = r.questTitle
+			local secs = tonumber(r.secondsSinceQuest)
+			if title and secs and secs <= 60 then
+				local e = bySource[title]
+				if not e then
+					e = { n = 0, total = 0, min = d, max = d }
+					bySource[title] = e
+					order[#order + 1] = title
+				end
+				e.n, e.total = e.n + 1, e.total + d
+				if d < e.min then e.min = d end
+				if d > e.max then e.max = d end
+			else
+				unattributed = unattributed + d
+			end
+		end
+	end
+
+	print(("   |cff8fd3ffMeasured in your own client|r — %d row(s) since the ledger started."):format(#log))
+	if #order == 0 then
+		print("   |cff8a8f98No gain yet sat close enough to a quest hand-in to name a source.|r")
+	end
+	for i = 1, #order do
+		local t = order[i]
+		local e = bySource[t]
+		local spread = (e.min == e.max) and ("%d"):format(e.max) or ("%d-%d"):format(e.min, e.max)
+		print(("     |cffffffff%-38s|r %s per time, seen %dx"):format(t:sub(1, 38), spread, e.n))
+	end
+	if unattributed > 0 then
+		print(("     |cff8a8f98%-38s|r %d total — chests and events have no hand-in to hang on"):format(
+			"(no quest within a minute)", unattributed))
+	end
+	if spent < 0 then
+		print(("     |cff8a8f98%-38s|r %d|r"):format("(spent)", spent))
+	end
+	if skipped > 0 then
+		print(("   |cff8a8f98%d row(s) skipped as bag flicker — an equal minus and plus a second apart.|r"):format(skipped))
+	end
+	print("   |cff8a8f98A source is named when the hand-in was under a minute before the gain. That is a|r")
+	print("   |cff8a8f98clock, not proof — a chest opened right after a weekly looks exactly the same.|r")
 end

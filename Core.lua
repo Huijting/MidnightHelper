@@ -1746,6 +1746,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh souls — what the Corrosive Soul ledger has actually seen pay out. The ledger
+	-- has been recording since 15 aug 2026 and had no reader until 8 sep: `/mh atal`
+	-- printed the ROW COUNT and nothing else, so three weeks of measurements were
+	-- readable only by someone with a shell over SavedVariables.
+	if msg == "souls" then
+		if ns.PrintSoulLedger then
+			ns.PrintSoulLedger()
+		end
+		return
+	end
+
 	-- /mh zonegate — which regions would warn this character, and why. Silent at max
 	-- level, so it needs a way to show the silence is deliberate.
 	if msg == "zonegate" then

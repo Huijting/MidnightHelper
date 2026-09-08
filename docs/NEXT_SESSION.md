@@ -1,5 +1,55 @@
 # Midnight Helper — waar we staan
 
+## 🔴 8 sep (avond) — het soul-grootboek bestond al, en niemand kon het lezen
+
+Rob: *"ja bouw dat grootboekje maar."* Ik begon te bouwen en stopte na één grep: het staat er al
+sinds **15 augustus**, in `AtalUtekProbe.lua:1489-1577`. Het kijkt naar item 273000, schrijft elke
+verandering weg met tijd, delta, quest-id, questtitel en de seconden sinds die turn-in, en heeft
+zelfs een settle-timer tegen tas-geflikker.
+
+📌 **Weer [[mh-already-contains-it]].** Ik had het bijna een tweede keer gebouwd.
+
+### 🔴 Maar de échte fout is een andere, en die is groter
+
+**Drie weken meten, en `/mh atal` printte alleen hóéveel regels er waren.** De inhoud was uitsluitend
+te lezen door iemand met een shell over de SavedVariables — vanavond dus door mij, met een
+Python-script. **Een instrument dat alleen werkt voor wie een terminal heeft, is geen diagnose.**
+
+Dat is dezelfde vorm als de Spec 30-regel, maar een slag dieper: die zegt *"bouw je iets dat kan
+zwijgen, bouw dan een manier om te zien dát het zweeg"*. Hier zweeg niets — er werd gemeten, keurig,
+en de meting was onbereikbaar voor de enige persoon die eraan had.
+
+### ✅ WAT ER AL IN STOND — gemeten in Robs client, niet geciteerd
+
+| bron | opbrengst | waargenomen |
+|---|---|---|
+| **Lair: Nymrissa Wavecaller** | **+3** | **6×**, elke keer 3 |
+| **Purging the Vaults** | **+2** | 1× |
+| een power ontgrendelen | **−8** | 2× |
+
+✅ **Intern consistent:** twee keer −8 tegenover een Codex-screenshot met precies twee ontgrendelde
+gifts (Ophidian Maw, Viperine Grasp). Het grootboek en het scherm vertellen hetzelfde verhaal.
+
+✅ **En het bevestigt de structuur waar de hele farm-vraag om draait:** meerdere `+3` van de lair
+binnen één week. Dat kan alleen als de gegarandeerde bronnen **per karakter** resetten — precies wat
+de gidsen beweren, nu gemeten in plaats van overgenomen.
+
+### ✅ Gebouwd: `/mh souls`
+
+Groepeert de regels per bron, toont de spreiding en hoe vaak, en zegt erbij wat het níét weet.
+
+⚠️ **Attributie is een klok, geen bewijs.** Een bron wordt alleen genoemd als de turn-in **binnen een
+minuut** vóór de winst lag. `Containment Zone (+2216s)` is 37 minuten later en betekent niets; die
+telt als niet-toegewezen. De seconden staan erbij zodat de lezer oordeelt in plaats van de code.
+
+🔴 **En de settle-timer van de recorder lekt — GEMETEN.** Vier regels in het log zijn een min en een
+plus van gelijke grootte, één seconde uit elkaar: de tas die heropbouwt. Het commentaar bij die timer
+claimt dat dit opgevangen wordt; dat klopt niet altijd. `/mh souls` filtert ze er daarom **zelf** uit
+(gelijk en tegengesteld binnen 5 s) **en print hoeveel het er waren** — de fout blijft zo zichtbaar
+in plaats van stilletjes opgeruimd te worden.
+
+**Nog uit te zoeken:** waaróm de settle lekt. Twee opnames één seconde uit elkaar zouden door de
+3-seconden-timer geblokkeerd moeten worden; van buitenaf is niet te zien waarom dat niet gebeurde.
 ## ✅ 8 sep (avond) — GEBOUWD: "Corrosive Codex — welke gift eerst?"
 
 Rob: *"kunnen we ook de mensen vertellen welke ze het beste als eerste kunnen kiezen? … zoek dat

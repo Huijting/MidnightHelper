@@ -88,7 +88,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "setline", "shards", "shardtest", "shots", "showdown",
-	"socket", "spell", "stat", "stop", "survival", "tier", "tierread", "tierscan", "tips",
+	"socket", "souls", "spell", "stat", "stop", "survival", "tier", "tierread", "tierscan", "tips",
 	"toast", "twins", "unlearned", "vignettes", "wb", "wiki", "worldboss",
 }
 
