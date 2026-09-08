@@ -2894,6 +2894,10 @@
      "name": "Hand of Reckoning",
      "label": "Taunt"
     },
+    "R": {
+     "name": "Rite of Sanctification",
+     "label": "Utility"
+    },
     "4": {
      "name": "Hammer of Wrath",
      "label": "Spender"
@@ -2939,6 +2943,10 @@
      "label": "Cooldown"
     },
     "Ctrl+C": {
+     "name": "Holy Bulwark",
+     "label": "Defensive"
+    },
+    "Ctrl+X": {
      "name": "Blessing of Sacrifice",
      "label": "Defensive"
     },
@@ -2954,15 +2962,11 @@
      "name": "Sentinel",
      "label": "Cooldown"
     },
-    "Ctrl+X": {
-     "name": "Repentance",
-     "label": "Dispel / CC"
-    },
-    "R": {
+    "Shift+F": {
      "name": "Redemption",
      "label": "Utility"
     },
-    "Shift+F": {
+    "Shift+R": {
      "name": "Intercession",
      "label": "Utility"
     }
@@ -2972,6 +2976,7 @@
    "unplaced": [
     "Blessing of Freedom",
     "Blessing of Spellwarding",
+    "Repentance",
     "Turn Evil"
    ]
   },
@@ -3034,6 +3039,10 @@
      "name": "Crusader Strike",
      "label": "Rotation"
     },
+    "F": {
+     "name": "Hand of Reckoning",
+     "label": "Taunt"
+    },
     "4": {
      "name": "Templar's Verdict",
      "label": "Spender"
@@ -3094,11 +3103,11 @@
      "name": "Blessing of Spellwarding",
      "label": "Defensive"
     },
-    "F": {
+    "R": {
      "name": "Redemption",
      "label": "Utility"
     },
-    "R": {
+    "Shift+F": {
      "name": "Intercession",
      "label": "Utility"
     }

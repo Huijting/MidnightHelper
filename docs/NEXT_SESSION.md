@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ✅ 8 sep (avond) — keybind-cheatsheet opnieuw gegenereerd
+
+Verplicht na elke `KeybindRoles_*`-wijziging, en die waren er vandaag drie op de Paladin (Holy
+Bulwark, Rite of Sanctification, Hand of Reckoning naar `{66,70}`). Beide stappen door de voordeur:
+`_probe.py run keybind_sheet/gen_keybinds` en `… /build_outputs`. 39 specs, HTML + XLSX ververst.
+
+De ingebouwde verificatie van de generator toont de Prot-layout meteen, en de drie wijzigingen staan
+erin.
+
+⚠️ **De sheet en de client geven Holy Bulwark een ANDERE toets** — de sheet `Ctrl+C`, Robs
+`/mhautomap` vanochtend `Shift+C`. **Geen van beide is stuk.** De sheet modelleert het schema met
+*alle* entries die voor die spec gelden; de live allocator ziet alleen de spells die dit karakter
+écht kent. Minder concurrenten om de overloop-toetsen geeft een andere verdeling.
+
+📌 **AFGELEID, niet gemeten** — dat is de plausibele verklaring, niet een bewezen. Wat er wél
+vaststaat en het onthouden waard is: **de cheatsheet is een model van het schema, geen spiegel van
+één karakter.** Wie hem naast zijn eigen `/mh binds` legt en verschil ziet, kijkt niet naar een bug.
 ## 🔁 8 sep (avond) — DBM 12.1.9 doorgelicht: geen bevinding, wél een les over de meting
 
 Robs addon-manager heeft alles bijgewerkt. **Bestandsdatums zijn dan waardeloos** — alles stond op
