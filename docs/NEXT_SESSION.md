@@ -1,5 +1,29 @@
 # Midnight Helper — waar we staan
 
+## ✅ 8 sep — de Italiaanse profressie-regel: vier afwijkingen, niet één
+
+Ik zou alleen "Lunargenta" repareren, maar had beloofd de regel eerst hélemaal na te lezen. Dat
+loonde: `CODEX_PROFRESET_BODY` (itIT) week op **vier** punten af van zijn eigen pack.
+
+| stond er | is nu | waarom |
+|---|---|---|
+| `Bazaar di Lunargenta` | `Bazaar di Silvermoon` | Spaanse naam in een Italiaanse zin |
+| `azzerare Forgiatura` | `azzerare Blacksmithing` | beroepsnaam |
+| `lasciare Incantamento intatto` · `un Incantamento azzerato` | `Enchanting` | idem, 2× |
+| `punto Conoscenza` · `la Conoscenza spesa` | `Knowledge` | vaste term, blijft in álle packs Engels |
+
+📌 **GEMETEN, niet naar smaak beslist.** `itIT.lua` gebruikt `Blacksmithing/Enchanting/Knowledge`
+**28×** en de Italiaanse vormen **0×**; in heel `Codex.lua` was dit de **enige** regel met die
+vormen. De regel was dus een uitschieter tegen zijn eigen pack én tegen de rest van het bestand —
+dat is wat het een fout maakt in plaats van een stijlkeuze.
+
+✅ **Positieve tegencontrole in dezelfde run:** na afloop `grep "Forgiatura|Incantamento|Conoscenza|
+Lunargenta"` → alleen nog **Lunargenta**, op vier regels die allemaal in het **esES**-blok staan,
+waar hij hoort. De nul hierboven is dus een echte nul en geen kapot patroon.
+
+⚠️ **Eén ding bewust niet aangeraakt:** *"La pagina Professioni"* verwijst naar ons eigen tabblad,
+niet naar een naam van Blizzard. Dat is een andere vraag (vertalen wij onze eigen tabnamen in itIT?)
+en die hoort niet in deze reparatie thuis.
 ## ✅ 8 sep — GEBOUWD: Codex-artikel "Starting the Midnight campaign"
 
 Rob: *"bouw die vier maar in de codex."* Gedaan — `midnight_campaign_start`, categorie **start**,
@@ -44,11 +68,7 @@ augustus is dus met ander gereedschap gedaan.
 Blizzards eigen naam op het scherm. Voor Italiaans en Nederlands bestaat geen client, dus ziet die
 speler sowieso Engels — dezelfde redenering als de "Kampioen crest" van 28 aug.
 
-🔴 **BIJVANGST — een echte fout in het Italiaanse pack.** `CODEX_PROFRESET_BODY` (`Codex.lua:276`)
-schrijft *"nel Bazaar di **Lunargenta**"*: de **Spaanse** naam, in een Italiaanse zin, in een pack
-dat in zijn eigen kop zegt Engels te houden. Klassieke machinevertaling-restant, zie
-[[machine-translated-packs]]. **Niet meegerepareerd** — dat is een losse regel die zijn eigen commit
-verdient, en ik heb hem niet in zijn geheel nagelezen.
+🔴 **BIJVANGST — een echte fout in het Italiaanse pack**, apart gerepareerd (zie hieronder).
 
 ⚠️ **Eén ding bewust uit alle vijf de vertalingen weggelaten: de opsomming van hoofdsteden.** Onze
 packs hebben "Stormwind" nog nooit in een van die talen geschreven, dus dat zou alsnog een gok zijn.
