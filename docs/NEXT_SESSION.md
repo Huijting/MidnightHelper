@@ -1,5 +1,42 @@
 # Midnight Helper — waar we staan
 
+## 🔁 8 sep (avond) — DBM 12.1.9 doorgelicht: geen bevinding, wél een les over de meting
+
+Robs addon-manager heeft alles bijgewerkt. **Bestandsdatums zijn dan waardeloos** — alles stond op
+20:05 — dus in plaats daarvan de versies gelezen van de bronnen die wij citeren:
+
+| bron | nu | notitie |
+|---|---|---|
+| **DBM-Core** | **12.1.9** | was 12.1.7 in onze aantekeningen |
+| ZygorGuidesViewer | 9.6 | ongewijzigd; Zygor versiet gidsdata los van de viewer |
+| HandyNotes_Midnight | 155 · JustAC 5.3.7 · Plumber 1.9.5 | — |
+
+### 🔴 De omgekeerde check van [19] is een goed idee en mijn eerste versie deugde niet
+
+Check [19] vraagt *"wordt ONZE id door DBM gedekt"*. De omgekeerde vraag — *"waarschuwt DBM ergens
+op terwijl wij zwijgen"* — leverde op 1 sep Bloodletting op, dus die wilde ik hermeten.
+
+Mijn scratch filterde op `rec["strong"]` en meldde **106 ids over 25 bossen**. Maar de positieve
+controle (`1301231`, dat we sinds 1 sep dekken) kwam terug als *"strong: none"*.
+
+🔴 **En bijna trok ik daaruit de verkeerde conclusie: "DBM waarschuwt er niet meer op".** Dat is
+onwaar. `Zuljan.lua:31` draagt
+`mod:AddAuraSoundOption(1301231, true, 1301231, 1, 2, "watchfeet", 8, 0)` — de aura heeft **zichzelf**
+als parent, dus DBM geeft wel degelijk een signaal. `tip_audit.classify()` noemt het daarom `warned`,
+en dat klopt.
+
+📌 **De aura-logica die ik oversloeg is op 3 sep juist toegevoegd omdat "alleen strong" te grof was.**
+Ik heb dus een probleem opnieuw gemaakt dat dit bestand vijf dagen geleden al had opgelost — precies
+[[read-the-working-example-whole]], maar dan op onze eigen tooling.
+
+⚠️ **Gevolg: die 106 is GEEN bevindingenlijst.** Elke ability die DBM via een self-aura afhandelt
+staat er ten onrechte in. Niet gebruiken.
+
+✅ **Wat wél vaststaat:** de Zul'jan-tip is correct onderbouwd, onze aantekening van 1 sep klopt, en
+er is vanavond niets aan de tips te repareren.
+
+📌 **Als iemand de omgekeerde check echt wil bouwen:** hij moet dezelfde aura-afweging maken als
+`classify()`, niet alleen `strong` lezen. Dat is een echte klus, geen avondklusje.
 ## 🔴 8 sep — de Coiled Isle is 90, en dat legde twee fouten in de zone-poort bloot
 
 Rob nam zijn verse level 80 door het portaal: *"alles is daar lvl 90 😛 dus niet verstandig haha."*
