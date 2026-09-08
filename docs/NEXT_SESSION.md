@@ -1,5 +1,38 @@
 # Midnight Helper — waar we staan
 
+## ✅ 8 sep — GEBOUWD: Codex-artikel "Starting the Midnight campaign"
+
+Rob: *"bouw die vier maar in de codex."* Gedaan — `midnight_campaign_start`, categorie **start**,
+sort 4, met `searchKeys` zodat hij ook te vinden is op woorden die iemand op level 80 intypt vóór
+hij weet hoe dit heet ("skip", "liadrin", "scouting map", "abandon", de vijf zonenamen).
+
+**Wat erin staat, en elke regel is vanochtend in Robs client gemeten:**
+1. op 80 komt de quest **vanzelf**; onder 80 kun je al wél reizen maar valt er niets aan te nemen
+2. de **Image of Lady Liadrin** staat in **meerdere hoofdsteden** (Dornogal, Stormwind, Orgrimmar)
+3. de **skip kost niets** — je komt in Silvermoon uit en krijgt de vervolgquest meteen
+4. de **Scouting Map** heeft vijf ingangen, kijken is gratis, en **abandon opent ze weer**
+
+🔴 **Robs correctie zit erin verwerkt.** Ik had "Lady Liadrin, Dornogal" genoteerd; hij meldde dat ze
+óók in Stormwind en Orgrimmar staat. Die ene regel zou de tip fout hebben gemaakt voor iedereen die
+niet toevallig in Dornogal inlogt.
+
+### ⚠️ Vijf talen staan nog op Engels, met opzet
+
+`enUS` en `nlNL` zijn er; de/fr/es/pt/it vallen terug op Engels (dat is hoe `ns:L` werkt — nooit een
+kale sleutel, dus er is niets stuk). **Reden om te wachten: de stadsnamen.** Vertalen vraagt hier de
+naam zoals hij op het scherm van die speler staat, en die verschilt:
+
+| taal | Silvermoon volgens ons eigen pack |
+|---|---|
+| deDE | **Silbermond** |
+| frFR | **Lune-d'Argent** |
+| esES | **Lunargenta** |
+| ptBR | niet gevonden — onbekend |
+| itIT | staat als "Lunargenta", de **Spaanse** vorm → verdacht, zie [[machine-translated-packs]] |
+
+📌 Voor pt en it zou ik moeten gokken, en gokken op eigennamen is precies hoe die machinaal
+vertaalde packs ooit zijn ontstaan. **Eerst meten in de client, dan vertalen** — de vijf zonenamen
+en `Adventuring in Midnight` blijven sowieso Engels (eigennamen van Blizzard).
 ## 🔴 8 sep — reizen naar Midnight is NIET op level gesloten, en dat weerlegt onze eigen reden
 
 Rob op TwelveInchy (Ret paladin), level 78: *"ik kon er al heen vanaf lvl 70 ofzo maar kan er nog
@@ -74,7 +107,7 @@ doen zodra iemand die keten loopt.
 
 | | |
 |---|---|
-| NPC | **Image of Lady Liadrin**, Dornogal |
+| NPC | **Image of Lady Liadrin** — 🔴 **staat in MEERDERE hoofdsteden**, niet alleen Dornogal. Rob, 8 sep: *"ook in Stormwind en Orgrimmar"*. Deze regel zei eerst "Dornogal" en zou de tip fout hebben gemaakt voor iedereen die daar niet staat. |
 | quest | **"Midnight"** |
 | aanleiding | *"Xal'atath and her Devouring Host have attacked the Sunwell on the Isle of Quel'Danas. The Light has called to you for help."* |
 | optie 1 | `(Play Movie) What has happened at the Sunwell?` |

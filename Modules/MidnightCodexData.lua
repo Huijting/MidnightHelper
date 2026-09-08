@@ -117,6 +117,33 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_WARBAND_BODY",
 		sort = 2,
 	},
+	--- 🔴 THE FIRST HOUR OF THE EXPANSION HAD NO ARTICLE — measured 8 Sep 2026, when Rob took
+	--- a Ret Paladin to 80 and every step of it turned out to be undocumented here. `grep
+	--- "Scouting Map"` over the whole addon returned nothing but the handoff notes written that
+	--- morning; we knew the five zones inside out (980 mentions across 84 files) and knew
+	--- nothing about the screen that asks you to pick one.
+	---
+	--- 📌 Every line of the body is measured in Rob's client that morning, not read anywhere:
+	--- the quest arriving by itself at 80 (nothing at 78 or 79), the skip and what it costs,
+	--- the five names off the map, the tooltip, and the abandon.
+	---
+	--- ⚠️ THE LAST LINE IS THE POINT OF THE ARTICLE. The first draft of this was going to warn
+	--- people before they clicked; the measurement turned it into a way back out. Warning about
+	--- a choice that costs nothing would have been scaremongering, and the thing nobody can see
+	--- on that screen is the undo.
+	{
+		id = "midnight_campaign_start",
+		category = "start",
+		titleKey = "CODEX_MIDSTART_TITLE",
+		bodyKey = "CODEX_MIDSTART_BODY",
+		sort = 4,
+		-- English on purpose: the search box matches raw text, and these are the words
+		-- somebody types at level 80 before they know what any of this is called.
+		searchKeys = "midnight campaign start starting intro introduction skip liadrin lady "
+			.. "image dornogal stormwind orgrimmar scouting map sanctum of light choose "
+			.. "starting zone where to begin eversong harandar voidstorm zulaman zul'aman "
+			.. "arator arator's journey abandon change my mind wrong choice",
+	},
 	-- The general half of /mh stats. The command answers "what about MY spec"; this
 	-- answers "what are these four words" for someone who is not in the game right
 	-- now, and it leads with the rule that matters more than the answer — ilvl
