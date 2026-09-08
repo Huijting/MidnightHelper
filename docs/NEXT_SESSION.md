@@ -1,5 +1,45 @@
 # Midnight Helper — waar we staan
 
+## 🔴 8 sep — de Coiled Isle is 90, en dat legde twee fouten in de zone-poort bloot
+
+Rob nam zijn verse level 80 door het portaal: *"alles is daar lvl 90 😛 dus niet verstandig haha."*
+
+### 1. De isle gaf GEEN waarschuwing, terwijl hij daar juist voor gebouwd is
+
+`REGION_MIN_LEVEL[1] = 80` dekt heel Quel'Thalas — Silvermoon, Eversong, Zul'Aman, Quel'Danas **én
+de Coiled Isle**. Robs 80 haalt die drempel, dus zweeg de poort. Terwijl de isle op **90** staat.
+
+📌 **De regio-regel is niet fout, hij is eenzijdig.** Hij neemt bewust de láágste van een regio,
+zodat we nooit een waarschuwing wegpoetsen (Zul'Amans 82 mag Eversongs 80 niet overrulen). Dat
+dekt de ene richting; de Coiled Isle is de spiegel ervan — een zone **tien levels boven** de
+ondergrens van zijn eigen regio, en dat kan het model niet zeggen.
+
+✅ **`MAP_MIN_LEVEL` toegevoegd**, per kaart en vóór de regio gecontroleerd. Eén rij:
+`[2512] = 90`. ⚠️ Hij mag alleen ooit **verhogen** — een rij die verlaagt zou precies de bug
+terugbrengen die de regio-regel voorkomt.
+
+📌 Dit is de sterkste rij in dat bestand: de andere komen uit gidsen, deze uit **Robs eigen ogen in
+de client**. En het is de rij die het vaakst geraakt wordt, want wij routeren daar elke week naar
+rares.
+
+### 2. En daarbij viel `ns.MidnightEntryLevel = 78` om
+
+Dat getal stond er met als onderbouwing *"waar de intro-questlijn opengaat, uit twee gidsen plus
+Robs eigen lezing"*. **Vanochtend gemeten: het is 80.** Op 78 niets, op 79 niets, op 80 komt de
+quest vanzelf binnen.
+
+🔴 **Twee gidsen waren het met elkaar eens en hadden allebei ongelijk.** Dat is de val die dit
+project blijft tegenkomen: overeenstemming tussen bronnen is geen meting, en een getal dat vaak
+herhaald is, is geen getal dat gecontroleerd is.
+
+✅ **Nu 80.** Dat maakt de rode balk **accurater**, niet alleen consistenter: op 79 valt er echt
+niets te doen en daar zweeg hij over. Hij komt nu uit op hetzelfde getal als
+`REGION_MIN_LEVEL[1]` — niet door twee feiten plat te slaan, maar doordat ze allebei langs een
+eigen weg op 80 gemeten zijn.
+
+**Te testen:** route naar een rare op de isle met een character onder de 90 → er hoort nu een
+waarschuwing te komen (wél mét route, dat was Robs keuze van 5 sep). En `/mh zonegate` op zo'n
+character noemt nu 90 voor de isle in plaats van 80.
 ## ✅ 8 sep — de Italiaanse profressie-regel: vier afwijkingen, niet één
 
 Ik zou alleen "Lunargenta" repareren, maar had beloofd de regel eerst hélemaal na te lezen. Dat

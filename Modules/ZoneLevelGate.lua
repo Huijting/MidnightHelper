@@ -60,6 +60,28 @@ local REGION_MIN_LEVEL = {
 	[3] = 88, -- Voidstorm
 }
 
+--- 🔴 ONE ZONE SITS TEN LEVELS ABOVE ITS OWN REGION'S FLOOR, AND THE REGION MODEL CANNOT SAY
+--- SO — Rob, 8 Sep 2026, the day he took a fresh 80 through the portal: *"alles is daar lvl 90
+--- 😛 dus niet verstandig."*
+---
+--- 📌 The floor-of-the-region rule above is right for the case it was written for: claiming
+--- Zul'Aman's 82 for Eversong would silence a warning we owe. But it only ever errs toward
+--- warning MORE, and the Coiled Isle is the mirror case — region 1's floor is 80, the isle is
+--- tuned for 90, so a level-80 routed to a rare there got **no warning at all**. That is
+--- exactly the silence this module was built to end: *"a route into a zone twelve levels above
+--- you is bad advice, and the addon has been giving it silently."*
+---
+--- ⚠️ SO THE OVERRIDE IS PER MAP AND IS CHECKED FIRST, and it may only ever raise the number.
+--- A per-map entry that LOWERED one would re-introduce the bug the region rule prevents, so if
+--- a future row is below its region's floor, that row is the mistake.
+---
+--- 📌 Source quality, kept visible like the table above: this row is the strongest one here —
+--- **Rob's own eyes in the client**, not a guide. The isle's rares are ours to route to every
+--- week, so this is the row most likely to be acted on.
+local MAP_MIN_LEVEL = {
+	[2512] = 90, -- The Coiled Isle — MEASURED 8 Sep 2026 on Rob's level-80 Ret Paladin
+}
+
 --- 🔴 THE UPPER BOUND IS GONE, AND IT SHOULD NEVER HAVE BEEN IN THE SENTENCE. Rob, 5 Sep,
 --- reading his own toast: *"waarom tot lvl 88, terwijl je die ook kunt doen als je lvl 90
 --- bent?"* Exactly right. "80-88" is the LEVELLING band -- the range over which the zone
@@ -78,12 +100,27 @@ local REGION_MIN_LEVEL = {
 
 --- Where Midnight itself starts, as opposed to where a region is tuned.
 ---
---- ⚠️ DELIBERATELY NOT THE SAME NUMBER as REGION_MIN_LEVEL[1] above, and the difference is
---- the point: 80 is Blizzard's own announcement for when Eversong/Silvermoon are tuned, and
---- 78 is where the intro questline opens, from two guide sources read in full plus Rob's own
---- reading ("volgens mij klopt dat ook"). Flattening them to one number would either warn
---- too early about zones or claim the intro is closed when it is not.
-ns.MidnightEntryLevel = 78
+--- 🔴 WAS 78 UNTIL 8 SEP 2026, AND 78 IS NOW MEASURED WRONG.
+---
+--- The old note said 78 was "where the intro questline opens, from two guide sources read in
+--- full plus Rob's own reading". Rob took a Ret Paladin up that morning and watched it:
+---   • 78 — travel to Silvermoon works, **nothing to accept**
+---   • 79 — still nothing; the game's own refusal on a gathering node reads "requires level 80"
+---   • 80 — the quest **Midnight** lands in the log by itself, the moment he dinged
+---
+--- 📌 Two guides agreed with each other and were both wrong. That is the failure mode this
+--- repo keeps meeting: agreement between sources is not measurement, and a number that has
+--- been repeated is not a number that has been checked.
+---
+--- ⚠️ THE JUSTIFICATION DIED BEFORE THE NUMBER DID, and that is the part worth keeping. A
+--- value may outlive its stated reason and still be right, but it may not keep citing a reason
+--- known to be false — see the same correction made to MIDNIGHT_FLOOR_LEVEL the same morning.
+---
+--- 📌 Raising it to 80 makes the banner MORE accurate rather than merely consistent: at 79
+--- there is genuinely nothing to do, and the old 78 stayed silent about that. It now agrees
+--- with REGION_MIN_LEVEL[1] — not by flattening two different facts into one, but because both
+--- were measured at 80 by two independent routes.
+ns.MidnightEntryLevel = 80
 
 --- @return number|nil level, nil when it cannot be read
 local function PlayerLevel()
@@ -114,7 +151,9 @@ function ns.GetZoneLevelWarning(mapID, xPct)
 	if not okR or not region or region == 0 then
 		return nil
 	end
-	local need = REGION_MIN_LEVEL[region]
+	--- A zone tuned above its own region's floor wins. See MAP_MIN_LEVEL: the region model
+	--- can only express "the lowest thing in here", and the Coiled Isle is ten levels above it.
+	local need = MAP_MIN_LEVEL[mapID] or REGION_MIN_LEVEL[region]
 	if not need then
 		return nil
 	end
