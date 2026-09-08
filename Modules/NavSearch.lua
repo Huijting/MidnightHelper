@@ -155,6 +155,49 @@ local function BuildNavIndex()
 			OpenTab("profacademy")
 		end, nil, L("NAV_WHERE_PROFACADEMY"), "tab")
 
+	--- 🔴 THE GUIDED ADVISOR WAS REACHABLE FROM EXACTLY ONE BUTTON, AND FINDABLE FROM NOWHERE.
+	--- Rob, 8 sep 2026, minutes after we wrote where Azeroot grows: *"waar? en als ik op azeroot
+	--- zoek vind ik niks."* Both halves were true. `MH_OpenProfessionGuide` had a single caller
+	--- (a button inside the Academy), no slash command, and no line in this file — so the only
+	--- way to the answer was to already know where it lived.
+	---
+	--- 📌 THIS IS THE SAME BUG AS THE ONE FIXED DIRECTLY BELOW, one feature over. The comment
+	--- there says a beginner searches for the word they HAVE, not for the name of the screen —
+	--- and then the advisor shipped with neither.
+	---
+	--- ⚠️ THE KEYWORDS ARE THE STEP TEXT ITSELF, not a hand-kept list. A material named in a
+	--- step becomes searchable the moment it is written, which is the only version of this that
+	--- cannot drift out of date — and drifting lists are what this file keeps being fixed for.
+	--- English only: the search box matches raw text and the words a player types are the ones
+	--- Blizzard uses.
+	if type(ns.PROF_GUIDES) == "table" then
+		for skillLine, g in pairs(ns.PROF_GUIDES) do
+			if type(g) == "table" and type(g.profName) == "table" and g.profName.en then
+				local words = { "profession guide levelling leveling", g.profName.en }
+				if type(g.middleSteps) == "table" then
+					for _, m in ipairs(g.middleSteps) do
+						if type(m) == "table" then
+							if type(m.title) == "table" and m.title.en then
+								words[#words + 1] = m.title.en
+							end
+							if type(m.body) == "table" and m.body.en then
+								words[#words + 1] = m.body.en
+							end
+						end
+					end
+				end
+				local sl = skillLine
+				add(("%s — %s"):format(L("PROFHUB_TAB_COURSE"), g.profName.en),
+					table.concat(words, " "):lower(),
+					function()
+						if ns.MH_OpenProfessionGuide then
+							ns.MH_OpenProfessionGuide(sl)
+						end
+					end, nil, L("NAV_WHERE_PROFACADEMY"), "tab")
+			end
+		end
+	end
+
 	--- Every course CHAPTER, not just the course. The whole thing was one entry,
 	--- so the only findable word was "course" — a beginner searching the word they
 	--- actually have ("concentration", "multicraft", "quality") got nothing, and

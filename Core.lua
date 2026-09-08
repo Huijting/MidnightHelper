@@ -1746,6 +1746,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh profguide — open the guided levelling advisor. It had NO command and no search
+	-- entry until 8 sep 2026: one button inside the Academy was the only door, so Rob could
+	-- not find advice we had just written for him.
+	if msg == "profguide" then
+		if ns.MH_OpenProfessionGuide then
+			ns.MH_OpenProfessionGuide()
+		end
+		return
+	end
+
 	-- /mh souls — what the Corrosive Soul ledger has actually seen pay out. The ledger
 	-- has been recording since 15 aug 2026 and had no reader until 8 sep: `/mh atal`
 	-- printed the ROW COUNT and nothing else, so three weeks of measurements were

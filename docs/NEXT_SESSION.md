@@ -48,6 +48,28 @@ met *"die ene hebben ze geschreven"*, en niets hier kan die twee scheiden. De te
 📌 **Nog niet gedaan, bewust:** optie C — meten wat jij oogst en waar, zoals het soul-grootboek. Dat
 is het enige dat "welk gebied levert het meest op" ooit echt kan beantwoorden, en het helpt pas
 nadat je gefarmd hebt.
+
+### 🔴 En toen vond Rob de échte bug: die adviseur was nergens te vinden
+
+Direct na de reload: *"ehm maar waar? en als ik op azeroot zoek vind ik niks."* **Allebei waar.**
+
+`MH_OpenProfessionGuide` had **één** aanroeper — een knop binnen de Academy. Geen slash-commando,
+geen regel in `NavSearch.lua`. De enige weg naar het antwoord was al weten waar het woonde.
+
+🔴 **Dit is exact dezelfde bug als die twintig regels lager in `NavSearch.lua` al is opgelost**, voor
+de cursushoofdstukken. Die kop zegt letterlijk dat een beginner zoekt op het woord dat hij *heeft*,
+niet op de naam van het scherm — en toen kwam de adviseur binnen met geen van beide. **Een oplossing
+die naast het volgende geval staat en er niet op wordt toegepast, is de duurste soort.**
+
+✅ **Drie deuren gemaakt:**
+1. **`/mh profguide`** — een eigen commando, ook in `CommandList` zodat hij in `/mh` verschijnt.
+2. **Zoekingangen per beroep**, gelezen uit `ns.PROF_GUIDES` in plaats van een handlijst.
+3. **De trefwoorden zijn de staptekst zélf.** Een materiaal dat in een stap genoemd wordt is
+   vindbaar op het moment dat het geschreven wordt — de enige versie hiervan die niet kan
+   verouderen, en verouderde handlijsten zijn precies waarvoor dit bestand steeds gerepareerd wordt.
+
+📌 Zoeken op **"azeroot"** landt nu op de Herbalism-gids. Net als "sanguithorn", "umbral tin" of
+welk materiaal we er ooit bij schrijven.
 ## 🔴 8 sep (avond) — het soul-grootboek bestond al, en niemand kon het lezen
 
 Rob: *"ja bouw dat grootboekje maar."* Ik begon te bouwen en stopte na één grep: het staat er al
