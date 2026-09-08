@@ -317,6 +317,23 @@ end
 --- to Silvermoon; that is a question about portals and flight paths, not about levels, and
 --- only Rob can answer it in the client. Until he does, the honest position is the
 --- conservative one: do not make it the headline, do not route to it, keep showing it.
+---
+--- ✅ ANSWERED 8 Sep 2026, AND THE ANSWER SPLITS IN TWO. Rob, on TwelveInchy at level 78:
+--- *"ik kon er al heen vanaf lvl 70 ofzo maar kan er nog niks aannemen of doen"*.
+---   • TRAVEL is **not** gated -- measured at 78, and he recalls it working from about 70
+---     (that recollection is not precise, so the measured floor for travel is "<= 78").
+---   • CONTENT is -- at 78 nothing can be accepted or done.
+---
+--- 🔴 SO THE REASON WRITTEN ABOVE IS DISPROVEN. The gate exists because Rob asked on 3 Sep
+--- *"kan ik nog niet naar dat gebied want ik ben <80, toch"* -- and the answer is no, he
+--- can. A gate can outlive its stated reason and still be right, but it may not keep
+--- citing a reason that has been measured false; that is how a wrong belief survives.
+---
+--- ⚠️ THE NUMBER IS UNCHANGED FOR NOW, ON PURPOSE. What we now know is that 80 is not a
+--- travel gate. Whether it is the right CONTENT floor is still being measured -- Rob is
+--- levelling to 79 to see whether anything opens before 80 -- and moving it on half an
+--- answer would replace one unmeasured number with another. See SPEC_32's neighbour in
+--- docs/NEXT_SESSION.md for the outcome.
 local MIDNIGHT_FLOOR_LEVEL = 80
 
 local function MidnightFloorMet()

@@ -1,5 +1,33 @@
 # Midnight Helper — waar we staan
 
+## 🔴 8 sep — reizen naar Midnight is NIET op level gesloten, en dat weerlegt onze eigen reden
+
+Rob op TwelveInchy (Ret paladin), level 78: *"ik kon er al heen vanaf lvl 70 ofzo maar kan er nog
+niks aannemen of doen."*
+
+✅ **Daarmee is de openstaande vraag van 3 sep beantwoord — en het antwoord valt in tweeën:**
+
+| | |
+|---|---|
+| **reizen** | **niet gesloten**. GEMETEN op 78; Robs herinnering zegt "vanaf ~70", maar dat is niet precies, dus de harde meting is **≤ 78** |
+| **inhoud** | **wél gesloten**. Op 78 valt er niets aan te nemen en niets te doen |
+
+🔴 **De reden onder onze gate is daarmee ONWAAR.** `ns.MidnightFloorMet()` blokkeert routes onder 80,
+en die is er gekomen doordat Rob op 3 sep vroeg: *"kan ik nog niet naar dat gebied want ik ben <80,
+toch"*. Nee dus — hij kan er wél heen.
+
+📌 **Een gate mag zijn reden overleven en tóch goed zijn**, maar hij mag geen reden blijven aanhalen
+die gemeten onwaar is. Dat is precies hoe een verkeerde overtuiging blijft leven — en het is dezelfde
+val als [[never-assume-always-factcheck]] punt 1: een aantekening is een claim mét datum, geen bewijs.
+
+⚠️ **Het getal blijft voorlopig 80, met opzet.** We weten nu dat het geen *reis*-grens is. Of het de
+juiste *inhouds*-grens is wordt nog gemeten — Rob levelt naar 79 om te zien of er iets eerder
+opengaat. Het nu verzetten zou één ongemeten getal door een ander vervangen.
+
+**Te beslissen zodra 79/80 gemeten is:** blijft de route-blokkade staan? Als er op 79 nog niets te
+doen is en op 80 wel, dan klopt 80 als inhoudsgrens en blijft de gate — maar dan moet de **tekst**
+veranderen: niet *"je kunt daar nog niet heen"* maar *"daar is voor jou nog niets te doen"*. Dat is
+een ander soort nee, en de speler kan er iets mee.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
