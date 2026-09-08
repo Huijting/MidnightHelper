@@ -104,9 +104,34 @@ XP.
 Silvermoon uit met een quest die je je startgebied laat kiezen"* is de hele. Het verschil is één
 meting die Rob deed in twee minuten.
 
-❓ **NOG NIET GEMETEN: wat je op die Scouting Map kunt kiezen.** "Choose where to begin the Midnight
-campaign" klinkt als een echte keuze tussen gebieden — en dát is precies het soort beslissing waar
-een speler uitleg bij wil en waar wij nu niets over zeggen.
+#### ✅ GEMETEN 8 sep — de Scouting Map biedt VIJF startpunten
+
+Robs screenshot van de kaart. Elk met een eigen questmarkering:
+
+| keuze | waar op de kaart |
+|---|---|
+| **Arator's Journey** | bij Silvermoon City |
+| **Eversong** | onder Silvermoon |
+| **Zul'Aman** | zuidoost, de trollruïnes |
+| **Voidstorm** | noord, het paarse voidgebied |
+| **Harandar** | noordoost, apart eiland |
+
+📌 **De addon kent die vijf gebieden ruim** — 980 treffers over 84 bestanden aan delves, rituals,
+rares en tips. Wat hij níét kent is deze **keuze**: `grep "Scouting Map"` geeft alleen de regels die
+vandaag in dit bestand zijn geschreven. We hebben de campagne (`CampaignLeadIn.lua`, en
+`LVL8090_PATH_1` zegt *"17 chapters"*) maar niets over de vijfsprong waar hij mee begint.
+
+🔴 **EN DE VRAAG DIE BEPAALT OF HIER ADVIES BIJ HOORT, IS NOG NIET GEMETEN: is dit een KEUZE of een
+VOLGORDE?**
+- Doe je uiteindelijk alle vijf en kies je alleen waar je *begint*, dan is "advies" hier dun — hooguit
+  een zin dat het niets vastlegt.
+- Is het **exclusief**, dan is dit de eerste onomkeerbare beslissing van de uitbreiding, en dan is het
+  precies waar deze addon voor bestaat.
+
+⚠️ **Niet afleiden uit "17 chapters".** Dat wij ergens schrijven dat de campagne 17 hoofdstukken
+heeft, suggereert dat je ze allemaal doet — maar dat is onze eigen tekst als bron gebruiken voor een
+vraag die hij nooit beantwoord heeft. Zelfde val als de 80 die op `"Leveling (80-90)"` leunde.
+**Meet het:** de tooltip op zo'n pin, vóór klikken.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
