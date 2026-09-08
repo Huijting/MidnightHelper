@@ -816,3 +816,104 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     news.blizzard.com kwam vers binnen. ⚠️ **Directe `curl` naar warcraft.wiki.gg blijft geblokkeerd**
     (`CONNECT tunnel failed, 403`); `raw.githubusercontent.com` werkt wél via `curl` en dat is nieuw
     gereedschap voor deze wachter — zo is de meting hierboven gedaan.
+
+- [2026-09-08] ✅ **Geen relevante API-wijzigingen. 0 × [MOET GEFIKST].** Beide `/API changes`-
+  pagina's staan op exact dezelfde revisie als gisteren, de hotfixes zijn nog steeds die van 4 sep,
+  en het forum leverde één nieuw topic zonder API-feit. De enige beweging in API-land is een
+  **herformulering van één zin** op een type-pagina — en die bevestigt juist wat we op 7 sep gemeten
+  hebben. Twee openstaande punten van gisteren zijn vandaag dicht.
+  - ℹ️ **`API types/ItemInfo` bewerkt op 7 sep — herformulering, geen feit. [RAAKT ONS NIET] als
+    API-wijziging, wél een bevestiging.** **GEMETEN** via `action=compare&fromrev=6849222&
+    torev=6864595`, de diff zelf gelezen. Drie bewerkingen op **2026-09-07** (05:40:51, 10:24:36,
+    10:24:43, alle door Ketho, alle 7051 bytes). Netto verandert er precies één zin:
+    was *"ItemInfo refers to an Item ID, Item GUID, ItemLink or name"*,
+    is nu *"ItemInfo refers to an Item ID, ItemLink, ItemGUID or name"* — dezelfde vier vormen,
+    andere volgorde, `Item GUID` → `ItemGUID`. Geen naam toegevoegd of verwijderd.
+    📌 Toch de moeite waard omdat `ItemInfo` het **argumenttype van `C_Item.GetItemCooldown`** is
+    uit het item van 5–7 sep: de pagina zegt dat een **Item ID** een geldige `ItemInfo` is, en dat
+    is precies wat wij doorgeven. **[AL AFGEDEKT]** — `ns.GetItemCooldownSafe`
+    (`Modules/Delves.lua:349-359`) doet `tonumber(itemID)` en roept aan achter
+    `if C_Item and C_Item.GetItemCooldown then` + `pcall` (`Delves.lua:354-355`); aanroepers zijn
+    `Delves.lua:1775` en `:1943` (beide `6948`) en `Modules/DelveItemsPopup.lua:278`.
+  - ✅ **De doorgeefzin van gisteren is opgevolgd — door iemand anders, niet door mij.** Op 7 sep
+    stond hier dat de comment op `Modules/Delves.lua:332` nog *"has NOT been verified in a client"*
+    zei. **GEMETEN in het bestand vandaag:** die tekst is weg; `Delves.lua:336-343` draagt nu de
+    meting van 7 sep (`wow-ui-source` branch `12.1.0`, `ItemDocumentation.lua` regel 412) mét de
+    kanttekening dat het gegenereerde documentatie is en geen `/dump`. Punt dicht. Ik heb geen code
+    aangeraakt.
+  - ✅ **De openstaande forumvraag van gisteren is dicht, en het was géén API-feit.**
+    *My health pot macro stopped working* (topic **2345569**) heeft nu 3 posts, laatste
+    **2026-09-08T02:48:29Z**. Volledig gelezen: een medespeler stelde een andere macro voor
+    (`/use [known:386689] item:224464; item:5512` + `/use item:258138`), de OP antwoordt
+    *"Thank you, that worked."* **Geen dev-antwoord, geen aangetoonde gedragswijziging** — de
+    kapotte versie noemde items op naam, de werkende versie op `item:`-ID. Ik tel dit **niet** als
+    bevinding en sluit het punt van gisteren.
+  - **Eén nieuw forumtopic, geen API-feit:** *Duration Bars setting not saving* (topic **2345637**,
+    **2026-09-07T09:16:58Z**, 1 post, 0 reacties). Volledig gelezen: de Edit Mode-optie Duration
+    Bars (en Archaeology bars) laat zich account-wide niet bewaren — opslaan kan pas na een andere
+    wijziging en is na een reload weer weg; Quartz verwijderd en cache geleegd hielp niet.
+    **Geen dev-antwoord en één enkele melding**, dus dit is net zo goed een kapotte installatie als
+    een client-bug — ik tel het niet mee. **[RAAKT ONS NIET]** voor MH: onze enige Edit
+    Mode-aanraking loopt via `ns.MH_EditMode*` (`Core.lua:1636-1676`,
+    `Modules/BarPreset.lua:162-166`) en gaat over **action bars**, niet over duration- of
+    castbars; `Modules/BarInventory.lua:316-322` doet alleen een aanwezigheidsrapport op
+    `C_EditMode`/`EditModeManagerFrame`/`Enum.EditModeActionBarSetting`. Morgen terugkijken of er
+    alsnog een blue post onder komt.
+  - **Beide `/API changes`-pagina's onveranderd t.o.v. gisteren.** **GEMETEN** via `prop=revisions`:
+    `Patch 12.1.0/API changes` (pageid 679840) nog steeds **revid 6860164, 2026-09-05T00:39:06Z**;
+    `Patch 12.1.5/API changes` (pageid 705933) nog steeds **revid 6863733, 2026-09-06T17:08:08Z**.
+    Geen nieuwe `/API changes`-pagina: `intitle:"API changes"` op aanmaakdatum geeft **12.1.5** als
+    nieuwste (138 hits); **12.2.0 bestaat niet**.
+  - **Wat er verder in API-land bewoog: ouder dan gisteren of allang gemeld.** Wiki-zoek
+    `intitle:/API/` gesorteerd op laatste bewerking geeft binnen het venster alleen
+    `API types/ItemInfo` (hierboven), `Patch 11.0.2/API changes` (6 sep, oude patch),
+    `API getglobal` + `API setglobal` (beide **2026-09-06T02:11–02:12**), en `Events`,
+    `ScriptObject API`, `Widget API`, `World of Warcraft API` (alle 4 sep, al gedekt).
+    `getglobal`/`setglobal` staan hier sinds 18 aug als **[RAAKT ONS NIET]** (regel 98) en dat is
+    vandaag **opnieuw GEMETEN**: `grep -E "getglobal|setglobal"` over `*.lua`/`*.toc` geeft
+    **0 treffers**.
+  - 🔴 **Positieve tegencontrole in dezelfde run en dezelfde vorm** (want een leeg zoekresultaat
+    bewijst niets): hetzelfde `grep -rc --include=*.lua --include=*.toc -E` op
+    `CreateFrame|InCombatLockdown` geeft **2 in `Core.lua`** en **24 in `Modules/Delves.lua`**. Het
+    patroon vindt dus wél wat er is; de nul hierboven is een echte nul.
+  - **Hotfixes: nieuwste sectie nog steeds 4 september 2026.** ⚠️ Even oud als wat hier gisteren
+    stond, **niet ouder** — dus geen cache-val — en tóch **onafhankelijk tegengelezen**: WebSearch
+    kent artikelen t/m 4 sep en géén voor 5, 6, 7 of 8 sep. Artikel `24296142` (cache-buster
+    `?nocache=20260908`) opent met "Hotfixes: September 4, 2026". Secties 2, 3 en 4 sep volledig
+    gelezen: Classes, Dungeons and Raid(s), Housing, Items, Achievements, Quests. **Geen Lua-API-,
+    secure-frame-, taint- of addon-sectie binnen het venster.**
+  - **Blizzard US UI-and-Macro-forum: geen blue post binnen 7 dagen.** **GEMETEN** aan de
+    categorie-JSON (`order=created`, cache-buster): `primary_groups` en `flair_groups` zijn allebei
+    leeg en geen van de 46 getoonde deelnemers heeft een Blizzard-groep (trust levels 0–3). Topics
+    binnen het venster, allemaal spelershulp: Duration Bars (2345637) en health-pot-macro (2345569)
+    hierboven, *Trying for a intrrupt macro* (2345310, 6 sep), *Cast bar addon?* (2344882, 4 sep),
+    *Details! issues since early this week* (2344196, laatste post 5 sep), *Addons api restrictions*
+    (2343904, laatste post 5 sep — **ongewijzigd sinds gisteren**).
+  - **De 12.1.5-lijst niet opnieuw geopend, wel tegengelezen.** Een WebSearch naar 12.1.5-API-nieuws
+    leverde enkel een samenvatting van diezelfde wiki-pagina op: `SetCooldown`/`Clear` niet meer
+    aanroepbaar vanuit tainted code op een protected cooldown-frame, castbar-ID's uniek per
+    unit-token, `roundLayoutToNearestPixel`/`SetRoundLayoutToNearestPixel`, en de nieuwe
+    `math.*`/`string.*`/`table.*`-utils. **Alle vier al getoetst en gelogd op 5–6 sep**
+    (regels 384–393 en 686–695). Niets nieuws, en dus hier niet opnieuw als nieuws opgevoerd.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`,
+    `GetItemCooldown`→`ns.GetItemCooldownSafe`) zijn deze run niet opnieuw getoetst en blijven staan
+    zoals op 2/6/7 sep gemeten.
+  - **Bronnen, alle met cache-buster opgehaald:** `warcraft.wiki.gg/api.php` (`prop=revisions` op
+    pageids 679840, 705933 en 596633 én op de titels `Secret values`/`Taint`/`Patch 12.1.5`/
+    `AddOn changes`; `list=search` op `intitle:"API changes"` en `intitle:/API/`;
+    `list=recentchanges`; `action=compare&fromrev=6849222&torev=6864595`);
+    `news.blizzard.com/en-us/article/24296142`; `us.forums.blizzard.com` categorie-JSON 35 op
+    `order=created` plus `t/2345569.json` en `t/2345637.json`; WebSearch als tegenlezing op de
+    hotfixes en op 12.1.5. **NIET GEPROBEERD:** de bluetracker-spiegel — niet nodig, de bronnen
+    kwamen vers binnen.
+    ⚠️ **`WebFetch` op `warcraft.wiki.gg` is nog steeds EGRESS_BLOCKED**; alles hierboven liep via
+    `web_fetch_exa`, dat de wiki-API wél bereikt.
+    📌 **Nieuwe val genoteerd, voor de volgende run:** `prop=revisions` met `rvlimit` op méér dan
+    één pageid geeft `invalidparammix` — een foutobject dat er níét als "niets gevonden" uitziet,
+    maar wel nul revisies oplevert. Laat `rvlimit` weg zodra je meerdere pagina's opvraagt.
+  - ⚠️ **Repo-observatie, geen API-feit:** `origin/main` was vanochtend **force-pushed** — de pull
+    meldde `+ bfa77f2...c16a392 main -> origin/main (forced update)` en de lokale `main` week
+    50 commits af. Ik heb alleen mijn eigen checkout gelijkgetrokken (`reset --hard origin/main`,
+    werkboom was schoon) en verder niets aangeraakt. Als Rob dit niet zelf gedaan heeft, is het het
+    natrekken waard.
