@@ -711,7 +711,11 @@ ns._mhLocales.nlNL = {
 	HOME_HERO_PROGRESS_FMT = "%d van %d weekly-dingen gedaan",
 	HOME_HERO_PROGRESS_LATER_FMT = "Er komen er nog %d bij naarmate je levelt.",
 	HOME_HERO_NONE_YET_FMT = "De weekroutine speelt zich af in Silvermoon — die gaat open op level %d.",
-	SMC_LOCKED_FMT = "Silvermoon gaat open op level %d, dus er is geen route gezet. De kaart blijft staan voor als je er wel kunt komen.",
+	-- 🔴 De staart zei tot 8 sep 2026 "voor als je er wel kunt komen", en dat is GEMETEN onwaar:
+	-- Rob reisde er op level 78 gewoon heen. Wat op 80 opengaat is de INHOUD, niet de deur — het
+	-- spel zelf zegt "vanaf level 80" bij een verzamelnode, en op 78 én 79 viel er niets aan te
+	-- nemen. De zes andere talen zeiden alleen "een kaart voor later" en hadden dit dus niet.
+	SMC_LOCKED_FMT = "Silvermoon gaat open op level %d, dus er is geen route gezet. Je kunt er nu al heen, maar er is nog niets te doen — de kaart blijft staan voor later.",
 	SMC_LOCKED_BANNER_FMT = "Silvermoon gaat open op level %d. Alles hieronder is een kaart voor later — de pins werken nog, maar erop klikken zet nog geen route.",
 	HOME_ROUTINE_LATER_HEADER = "Later, als je verder levelt:",
 	HOME_ROUTINE_VAULT_READY = "Great Vault: er wacht een beloning — claim 'm bij de bank (neutrale vleugel).",

@@ -24,10 +24,32 @@ val als [[never-assume-always-factcheck]] punt 1: een aantekening is een claim m
 juiste *inhouds*-grens is wordt nog gemeten — Rob levelt naar 79 om te zien of er iets eerder
 opengaat. Het nu verzetten zou één ongemeten getal door een ander vervangen.
 
-**Te beslissen zodra 79/80 gemeten is:** blijft de route-blokkade staan? Als er op 79 nog niets te
-doen is en op 80 wel, dan klopt 80 als inhoudsgrens en blijft de gate — maar dan moet de **tekst**
-veranderen: niet *"je kunt daar nog niet heen"* maar *"daar is voor jou nog niets te doen"*. Dat is
-een ander soort nee, en de speler kan er iets mee.
+### ✅ 79 gemeten — 80 staat, en nu op de client in plaats van op onszelf
+
+Rob op 79: nog steeds niets. En daarvóór al de hardste bron die we tot nu toe hebben — **het spel
+zelf**: bij een verzamelnode in het gebied zegt het *"vanaf level 80"*.
+
+📌 **Dat is het eerste bewijs voor 80 dat niet van ons komt.** Tot vandaag leunde het getal op onze
+eigen gidstekst `"Leveling (80-90)"` — een claim gestut door een andere claim van onszelf.
+
+| level | reizen | inhoud |
+|---|---|---|
+| 78 | ✅ kan | ❌ niets aan te nemen |
+| 79 | ✅ kan | ❌ nog steeds niets, spel zegt "vanaf 80" |
+
+⚠️ **Eén nuance die de 79-meting nodig maakte:** een verzamelnode kan een eigen leveleis dragen, los
+van waar het questen begint. De weigering bij de bloemen bewees dus alleen iets over *plukken*. Pas
+samen met "op 78 én 79 niets aan te nemen" wordt het een uitspraak over het gebied.
+
+✅ **`MIDNIGHT_FLOOR_LEVEL = 80` blijft dus staan, nu mét een bron die niet van onszelf is.** De
+route-blokkade blijft ook — er valt daar echt niets te doen.
+
+✅ **Eén tekst gerepareerd, en het was de Nederlandse.** `SMC_LOCKED_FMT` in `nlNL` eindigde op
+*"De kaart blijft staan voor als je er wel kunt komen"* — dat beweert dat je er niet kunt komen, en
+dat is nu gemeten onwaar. De zes andere talen zeggen alleen *"gaat open op level %d"* en *"een kaart
+voor later"* en hadden deze fout niet.
+🔴 **Precies daarom is dit het moeilijkste soort fout om te vinden:** de zin was niet kapot, hij was
+*onwaar*, en geen enkele controle kan dat zien. Alleen iemand die het in het spel probeert.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
