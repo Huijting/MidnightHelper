@@ -159,23 +159,38 @@ level-80 die op onze eigen gidstekst leunde, nu dit. Beide keren was de bewering
 keren van een expert, en beide keren zou hij als feit in de addon zijn beland. **De markering is
 geen wantrouwen maar een schuld die je later kunt innen.**
 
-⚠️ **WAT NOG STEEDS NIET GEMETEN IS, en het verschil is groot:** komen de andere vier terug als
-Eversong áf is?
-- **Terug** → het was een volgorde, en de waarschuwing hoeft alleen te zeggen "je begint hier, de
-  rest volgt".
-- **Niet terug** → dit is een onomkeerbare keuze op level 80, in een scherm dat dat nergens zegt, en
-  dan hoort MH dat te melden **vóór** de klik.
+#### ✅ BEANTWOORD — het is een VOLGORDE, en hij is terug te draaien
 
-🔴 **Niet invullen met "campagnes werken meestal zo".** Dat is precies de vorm die vandaag al twee
-keer onderuit ging. Robs volgende Eversong-afronding beantwoordt het vanzelf.
+Rob, uit eerder spel op een ander karakter (dus **ROBS RAPPORT**, niet in deze sessie gemeten):
+
+- de andere vier **komen terug** — je hoeft Eversong niet af te maken om dat te weten, hij heeft de
+  keten eerder gelopen;
+- **en abandon je de quest, dan komen ze óók meteen terug.**
+
+📌 **Herkomst eerlijk gemarkeerd**, want vanochtend gleed een herinnering nog ("vanaf lvl 70 ofzo",
+bleek 80). Deze is niet gehedged en gaat over gedrag dat hij zelf heeft gezien; volgens
+[[trust-robs-domain-expertise]] telt zo'n rapport. Hard te maken zonder kosten is hij niet — de
+enige controle is je eigen lopende quest weggooien, en dat is een echte prijs voor een detail.
+
+🎯 **EN HIERMEE KANTELT WAT WE ZOUDEN BOUWEN, van een waarschuwing naar een uitweg.** Er is geen
+onomkeerbare fout om voor te waarschuwen. Wat er wél is, en wat nergens op dat scherm staat:
+
+> **Verkeerd gekozen? Abandon de quest en de kaart gaat weer helemaal open.**
+
+⚠️ **Dat is een betere tip dan "pas op".** Een waarschuwing vóór de klik zou hier bangmakerij zijn
+geweest voor een keuze die niets kost; een uitweg ná de klik is wat iemand écht zoekt op het moment
+dat hij hem nodig heeft. **De vorm van het advies volgde uit de meting, niet andersom** — en tussen
+de eerste versie hiervan en deze zit precies één zin van Rob.
 
 🎯 **En dat maakt de bouwvraag klein en concreet.** Wat een speler hier mist is niet "welke moet ik
 kiezen" maar "**wat ís dit en kan ik het verkeerd doen**". Daar hebben we nu genoeg voor: vijf
 ingangen, kijken kost niets, **kiezen sluit de rest**, en wij weten van alle vijf de gebieden al veel
 meer dan Blizzards ene regel — 980 treffers aan delves, rares en rituals liggen er al.
 
-⚠️ **Die derde is de enige die vóór de klik moet staan**, niet erna. Dat is de regel uit CLAUDE.md:
-het antwoord op *"kan ik hier iets verkeerd doen"* hoort in dezelfde kamer als de knop.
+✅ **En het antwoord op "kan ik het verkeerd doen" is: nee.** Kiezen sluit de rest alleen zolang de
+quest loopt; abandon en de kaart is weer open. Wat MH hier hoort te zeggen is dus geen waarschuwing
+maar een **uitweg** — en die hoort te staan waar iemand hem zoekt: nádat hij gekozen heeft en twijfelt,
+niet ervoor.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
