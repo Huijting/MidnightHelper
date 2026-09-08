@@ -131,7 +131,27 @@ VOLGORDE?**
 ⚠️ **Niet afleiden uit "17 chapters".** Dat wij ergens schrijven dat de campagne 17 hoofdstukken
 heeft, suggereert dat je ze allemaal doet — maar dat is onze eigen tekst als bron gebruiken voor een
 vraag die hij nooit beantwoord heeft. Zelfde val als de 80 die op `"Leveling (80-90)"` leunde.
-**Meet het:** de tooltip op zo'n pin, vóór klikken.
+
+#### ✅ GEMETEN — de tooltip, en klikken legt niets vast
+
+Robs hover op **Eversong**:
+
+> **Eversong** — *"Join Arator as he investigates threats to the home of the Blood Elves."*
+> *"Click to view the scouting report"*
+
+📌 **Twee dingen, en het tweede is het belangrijkste.** Elke pin draagt een eigen regel uitleg, én
+klikken **opent een rapport** in plaats van de keuze te maken. Rondkijken kost dus niets — precies
+de zorg die een nieuwe speler bij zo'n scherm heeft.
+
+✅ **Robs oordeel:** *"ik kan gewoon kiezen waar ik wil beginnen."*
+⚠️ **Dat is zijn lezing van het scherm, niet een zin die er staat.** De tooltip zegt niets over
+exclusiviteit. Het onderscheid blijft dus staan als AFGELEID, niet GEMETEN — hard te maken door na
+één keuze te kijken of de andere vier nog open staan.
+
+🎯 **En dat maakt de bouwvraag klein en concreet.** Wat een speler hier mist is niet "welke moet ik
+kiezen" maar "**wat ís dit en kan ik het verkeerd doen**". Daar hebben we nu genoeg voor: vijf
+ingangen, kijken kost niets, en wij weten van alle vijf de gebieden al veel meer dan Blizzards ene
+regel — 980 treffers aan delves, rares en rituals liggen er al.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
