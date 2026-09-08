@@ -21,11 +21,8 @@ vrijwel woordelijk overeen met de tooltip die Rob op 15 aug uit zijn eigen clien
 
 ### 🔴 Waarom het artikel tóch geen ranglijst is
 
-1. **Ze spreken elkaar tegen op een getal.** Tweede slot bij **8** (Method/Wowhead/WowCarry) of bij
-   **6** (Boostmatch)? De UI noemt er **geen** — gemeten 15 aug: *"until your offerings are
-   sufficient"*. Het artikel zegt daarom **"we weten het niet"** in plaats van de meerderheid te
-   volgen. Diezelfde dag hadden we al een geval waarin twee gidsen het eens waren en allebei
-   ongelijk hadden (de level-78-grens).
+1. **Ze spreken elkaar tegen op een getal** — zie de correctie hieronder, want mijn eerste versie
+   sloeg daarin dóór.
 2. **Ula'tek's Gift is al ~30% generfd.** Een tierlijst van augustus is niet vanzelf waar vandaag.
 3. **Eén optie als hét antwoord is hier precies de fout** — zie [[one-option-shown-as-the-answer]].
 
@@ -39,6 +36,35 @@ probleem** (schade / groepjes / doodgaan / casters), niet per rangorde.
 
 📌 **Het artikel zegt zelf welk deel gemeten is en welk deel van gidsen komt.** Dat is de enige
 eerlijke vorm als je advies geeft dat je niet volledig kunt verifiëren.
+
+### 🔴 CORRECTIE binnen het uur — ik maakte er valse balans van
+
+Rob vroeg door: *"is er ook niks online te vinden?"* Gericht gezocht op de énige open vraag (het
+tweede-slot-getal), en de uitkomst haalt mijn eigen zin onderuit.
+
+| bron | zegt |
+|---|---|
+| **Wowhead** — quest 97616, item 277506 **én spell 1310218, in een tabel** | **8** |
+| Method · WowCarry · ConquestCapped · Icy Veins | **8** |
+| Boostmatch | 6 |
+
+**Zes tegen één**, en de zwaarste is Wowheads spell-pagina: *"a 2nd power when you unlock 8 powers,
+so after spending 64 Corrosive Souls."* WowCarry voegt een controleerbaar gevolg toe: de
+Soul→Coin-wissel bij Er'inye gaat pas bij diezelfde 8 open — één drempel, twee waarneembare
+gevolgen.
+
+🔴 **Mijn tekst zei "gidsen zeggen 8, één zegt 6, dus we weten het niet". Dat is geen voorzichtigheid
+maar VALSE BALANS** — het presenteert 6-tegen-1 als een muntworp. Dat is de spiegel van
+[[one-option-shown-as-the-answer]]: daar wordt één optie hét antwoord, hier wordt een uitschieter
+een gelijkwaardige partij.
+
+✅ **Herschreven in alle zeven talen:** zes bronnen zeggen 8, Wowheads spell-pagina zet het in een
+tabel, één blog zegt 6 — dus 8 klopt vrijwel zeker, wij hebben het alleen zelf niet gezien, en de
+speler weet het op het moment dat zijn tweede slot verschijnt.
+
+📌 **Robs screenshot zegt trouwens waar hij staat:** Ophidian Maw en Viperine Grasp hebben geen
+slotje, de andere tien wel. **Twee van de acht**, en 5 souls in bezit. De meting ligt dus nog een
+eind weg — maar hij ligt bij hem, niet bij een gids.
 ## ✅ 8 sep (avond) — Dundun is óók een flamingo
 
 Rob, met screenshot uit een Bountiful delve: een **houten flamingo** — planken, verf, precies het
