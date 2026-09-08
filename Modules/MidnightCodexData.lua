@@ -615,6 +615,38 @@ ns.CODEX_ARTICLES = {
 			.. "spirit loupe dispelling charm er'inye venom-worn coffer glideways "
 			.. "swift steps broodmaster spectral winds spiritual protection sleutel keys",
 	},
+	--- 🔴 ROBS VRAAG, 8 sep 2026: *"kunnen we ook de mensen vertellen welke ze het beste als
+	--- eerste kunnen kiezen?"* Ja — maar niet als ranglijst, en het waarom staat in de tekst.
+	---
+	--- 📌 ZEVEN BRONNEN NOEMEN DEZELFDE EERSTE KEUZE (Icy Veins, Method, Boostmatch, Mythic
+	--- Store, ConquestCapped, Phrasemaker, een Wowhead-comment) en dat is nog steeds geen
+	--- meting. Wél te controleren: hun beschrijving van Ula'tek's Gift komt vrijwel woordelijk
+	--- overeen met de tooltip die Rob op 15 aug uit zijn eigen client haalde
+	--- (`docs/CORROSIVE_CODEX_MEASURED.md`). Over die power liegen ze dus niet.
+	---
+	--- 🔴 EN ÉÉN GETAL SPREKEN ZE ELKAAR TEGEN: bij hoeveel powers opent het tweede slot?
+	--- Method/Wowhead/WowCarry zeggen 8, Boostmatch zegt 6, en de UI zelf noemt **geen** getal
+	--- ("until your offerings are sufficient" — gemeten 15 aug). Het artikel zegt daarom dat we
+	--- het niet weten, in plaats van de meerderheid te volgen. Diezelfde dag was er al een geval
+	--- waarin twee gidsen het eens waren en allebei ongelijk hadden (de level-78-grens).
+	---
+	--- ⚠️ DAAROM IS DE KERN VAN HET ARTIKEL DE GIFKRINGLOOP EN NIET DE RANGLIJST. Die kringloop
+	--- is structureel — hij verklaart álle combo's en overleeft een tuningpas. Ula'tek's Gift is
+	--- al één keer generfd; een tierlijst van augustus is niet vanzelf de waarheid van vandaag.
+	{
+		id = "corrosive_powers",
+		category = "coiledisle",
+		titleKey = "CODEX_CORRPOWER_TITLE",
+		bodyKey = "CODEX_CORRPOWER_BODY",
+		sort = 15,
+		-- English on purpose: these are the words someone types while staring at the Codex
+		-- window, before they know any of the twelve names.
+		searchKeys = "corrosive codex power powers gift gifts which first best unlock order "
+			.. "ulatek ula'tek gift ophidian maw viperine grasp gorgoneion gaze mephitic cloud "
+			.. "lithic plumage ouroboric cycle insidious venom virulent mucus accursed poison "
+			.. "plague of corrosion miasma geyser poison loop corrosive souls altar of corrosion "
+			.. "welke eerst kiezen",
+	},
 	{
 		id = "vaults_honored_dead",
 		category = "coiledisle",

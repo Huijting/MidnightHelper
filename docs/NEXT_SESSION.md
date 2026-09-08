@@ -1,5 +1,44 @@
 # Midnight Helper — waar we staan
 
+## ✅ 8 sep (avond) — GEBOUWD: "Corrosive Codex — welke gift eerst?"
+
+Rob: *"kunnen we ook de mensen vertellen welke ze het beste als eerste kunnen kiezen? … zoek dat
+maar uit."* Nieuw artikel `corrosive_powers`, categorie **coiledisle**, sort 15, zeven talen.
+
+### Wat het zoeken opleverde
+
+📌 **In de addons: niets.** Geen van de twaalf namen staat in Plumber, HandyNotes_Midnight of
+Zygor. ✅ Met positieve controle op dezelfde scope: `grep "Corrosive"` geeft daar **17 bestanden**,
+inclusief Zygors Midnight-gidsen. Het patroon vindt dus wél iets — de nul is een echte nul.
+
+📌 **Online: zeven bronnen, één antwoord** (Icy Veins, Method, Boostmatch, Mythic Store,
+ConquestCapped, Phrasemaker, een Wowhead-comment). Allemaal **Ula'tek's Gift** eerst, en allemaal om
+dezelfde reden: hij werkt zónder tweede power.
+
+✅ **Half te verifiëren, en dat is meer dan gebruikelijk:** hun beschrijving van Ula'tek's Gift komt
+vrijwel woordelijk overeen met de tooltip die Rob op 15 aug uit zijn eigen client haalde
+(`CORROSIVE_CODEX_MEASURED.md`). Over díé power liegen ze niet.
+
+### 🔴 Waarom het artikel tóch geen ranglijst is
+
+1. **Ze spreken elkaar tegen op een getal.** Tweede slot bij **8** (Method/Wowhead/WowCarry) of bij
+   **6** (Boostmatch)? De UI noemt er **geen** — gemeten 15 aug: *"until your offerings are
+   sufficient"*. Het artikel zegt daarom **"we weten het niet"** in plaats van de meerderheid te
+   volgen. Diezelfde dag hadden we al een geval waarin twee gidsen het eens waren en allebei
+   ongelijk hadden (de level-78-grens).
+2. **Ula'tek's Gift is al ~30% generfd.** Een tierlijst van augustus is niet vanzelf waar vandaag.
+3. **Eén optie als hét antwoord is hier precies de fout** — zie [[one-option-shown-as-the-answer]].
+
+✅ **Dus de kern van het artikel is de GIFKRINGLOOP, niet de volgorde.** De helft van de twaalf wordt
+sterker tegen een *Poisoned* doelwit of terwijl je zelf vergiftigd bent; daarom is elk goed duo
+*gifbron + gifbeloning*. Dat is structureel en overleeft een tuningpas. Daarna pas de keuze **per
+probleem** (schade / groepjes / doodgaan / casters), niet per rangorde.
+
+⚠️ **Eén waarschuwing overgenomen die maar in twee bronnen stond**: `Mephitic Cloud` laat getroffen
+**vijanden** genezen wat ze aanvallen — in groepscontent werkt hij tegen je.
+
+📌 **Het artikel zegt zelf welk deel gemeten is en welk deel van gidsen komt.** Dat is de enige
+eerlijke vorm als je advies geeft dat je niet volledig kunt verifiëren.
 ## ✅ 8 sep (avond) — Dundun is óók een flamingo
 
 Rob, met screenshot uit een Bountiful delve: een **houten flamingo** — planken, verf, precies het
