@@ -84,13 +84,29 @@ doen zodra iemand die keten loopt.
 waar deze addon voor bestaat: het staat er, maar alleen als je het gespreksvenster helemaal leest in
 plaats van op de eerste optie te klikken.
 
-🔴 **WAT WE NIET WETEN, en het is de vraag die ertoe doet: wat KOST die skip?** De optie zegt dat hij
-je naar het **Sanctum of Light** brengt. Onze hele weekroutine staat op map 2393, **Silvermoon City**
-— of de skip die toegang óók geeft is niet gemeten. Slaat iemand de intro over en zit Silvermoon
-daarna dicht, dan geeft MH hem een week lang advies dat hij niet kan opvolgen.
+✅ **EN DE SKIP KOST NIETS — GEMETEN 8 sep, meteen erna.** Dit was de vraag die ertoe deed: onze hele
+weekroutine staat op map 2393 (Silvermoon City), dus als de skip die toegang zou overslaan, gaven wij
+een week lang advies dat niet op te volgen is. Rob heeft het direct nagemeten:
 
-⚠️ **Niets over schrijven tot dat gemeten is.** De verleiding is om "er is een skip!" als tip te
-publiceren; dat is de halve waarheid die het duurst is. Meet eerst wat er ná de skip open staat.
+| | |
+|---|---|
+| waar je uitkomt | **Silvermoon City** |
+| Silvermoon-pin daarna | ✅ **zet gewoon een route** |
+| en er komt meteen | een vervolgquest |
+
+✅ **Vervolgquest: "Adventuring in Midnight"** — *"The Void encroaches on Azeroth from all sides.
+Visit the Scouting Map in the Sanctum of Light and choose where you will make your stand."* Doel:
+*Review the Scouting Map and choose where to begin the Midnight campaign.* Beloning 3g 9s en 1.812
+XP.
+
+🎯 **DAARMEE IS DIT EEN TIP DIE WE MOGEN GEVEN**, en dat was hij een half uur geleden nog niet.
+*"Er is een skip"* is de halve waarheid; *"er is een skip, hij kost je niets, en je komt in
+Silvermoon uit met een quest die je je startgebied laat kiezen"* is de hele. Het verschil is één
+meting die Rob deed in twee minuten.
+
+❓ **NOG NIET GEMETEN: wat je op die Scouting Map kunt kiezen.** "Choose where to begin the Midnight
+campaign" klinkt als een echte keuze tussen gebieden — en dát is precies het soort beslissing waar
+een speler uitleg bij wil en waar wij nu niets over zeggen.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
