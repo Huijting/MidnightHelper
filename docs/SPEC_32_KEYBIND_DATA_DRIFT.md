@@ -379,11 +379,32 @@ volgende reload overschreven:
 
 | spell | id | opmerking |
 |---|---|---|
-| ✅ **Holy Bulwark** | **432459** | **TOEGEVOEGD** — `defensive`, priority 3, `specs = { 66 }` |
-| ✅ **Rite of Sanctification** | **433568** | **TOEGEVOEGD** — `utility`, priority 1, `specs = { 66 }` |
+| ✅ **Holy Bulwark** | **432459** | **GEPLAATST op `Shift+C`** — `defensive`, priority 3, `specs = { 66 }` |
+| ✅ **Rite of Sanctification** | **433568** | **GEPLAATST op `R`** — `utility`, priority 1, `specs = { 66 }` |
 | **Devotion Aura** | **465** | |
 | **Concentration Aura** | **317920** | |
 | **Crusader Aura** | **32223** | |
+
+### ✅ 8 sep — bevestigd in de client: `unclassified` 11 → 9
+
+`/mhautomap` + `/reload` op de Prot Paladin, gelezen uit de SavedVariables (06:25):
+
+| | |
+|---|---|
+| `unmatched` | **9**, was 11 — precies de twee toegevoegde entries eraf |
+| `unplaced` | **leeg** — niets viel buiten de boot |
+| Holy Bulwark | `Shift+C`, defensive |
+| Rite of Sanctification | `R`, utility |
+| Hand of Reckoning | `F`, taunt (ongewijzigd) |
+
+⚠️ **EN ER IS EEN BESTAANDE BIND VERSCHOVEN.** `Intercession` stond op `R` en staat nu op
+`Shift+R`, omdat `Rite of Sanctification` met priority 1 vóór hem komt. Hij is **niet** weggevallen
+— de allocator schoof hem één slot op.
+
+📌 **Dat is een gewoontewijziging, geen datawijziging, en die twee wegen niet hetzelfde.** Wil Rob
+`Intercession` op `R` houden, dan is de oplossing één cijfer: `Rite of Sanctification` op priority 2
+zetten. Dit soort verschuivingen hoort **gemeld** te worden en niet stilzwijgend te gebeuren — zie
+[[keybind-tomorrow-sba-and-mouse]], waar precies dit als risico staat.
 
 ✅ **Rob koos, 7 sep: de twee Lightsmith-knoppen erin, de drie Aura's niet.** Die drie zijn "zet 'm
 één keer goed" en geen rotatieknop — §5.2's bloat-waarschuwing in een ander jasje.
