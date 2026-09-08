@@ -143,15 +143,39 @@ Robs hover op **Eversong**:
 klikken **opent een rapport** in plaats van de keuze te maken. Rondkijken kost dus niets — precies
 de zorg die een nieuwe speler bij zo'n scherm heeft.
 
-✅ **Robs oordeel:** *"ik kan gewoon kiezen waar ik wil beginnen."*
-⚠️ **Dat is zijn lezing van het scherm, niet een zin die er staat.** De tooltip zegt niets over
-exclusiviteit. Het onderscheid blijft dus staan als AFGELEID, niet GEMETEN — hard te maken door na
-één keuze te kijken of de andere vier nog open staan.
+✅ **Robs oordeel was:** *"ik kan gewoon kiezen waar ik wil beginnen."*
+⚠️ Dat stond hier als **AFGELEID**, want de tooltip zegt niets over exclusiviteit — met de meting
+erbij geschreven die het hard zou maken.
+
+#### 🔴 EN DIE METING WEERLEGDE HET, binnen het uur
+
+Rob koos **Eversong** en keek meteen: **de andere vier staan niet meer open.**
+
+📌 **Kiezen doet dus wél iets** — anders dan kijken, dat gratis is. De regel *"klikken opent alleen
+een rapport"* blijft waar; het is de keuze dáárna die de rest sluit.
+
+🎯 **Dit is de tweede keer vandaag dat het als AFGELEID markeren zich terugbetaalde.** Eerst de
+level-80 die op onze eigen gidstekst leunde, nu dit. Beide keren was de bewering plausibel, beide
+keren van een expert, en beide keren zou hij als feit in de addon zijn beland. **De markering is
+geen wantrouwen maar een schuld die je later kunt innen.**
+
+⚠️ **WAT NOG STEEDS NIET GEMETEN IS, en het verschil is groot:** komen de andere vier terug als
+Eversong áf is?
+- **Terug** → het was een volgorde, en de waarschuwing hoeft alleen te zeggen "je begint hier, de
+  rest volgt".
+- **Niet terug** → dit is een onomkeerbare keuze op level 80, in een scherm dat dat nergens zegt, en
+  dan hoort MH dat te melden **vóór** de klik.
+
+🔴 **Niet invullen met "campagnes werken meestal zo".** Dat is precies de vorm die vandaag al twee
+keer onderuit ging. Robs volgende Eversong-afronding beantwoordt het vanzelf.
 
 🎯 **En dat maakt de bouwvraag klein en concreet.** Wat een speler hier mist is niet "welke moet ik
 kiezen" maar "**wat ís dit en kan ik het verkeerd doen**". Daar hebben we nu genoeg voor: vijf
-ingangen, kijken kost niets, en wij weten van alle vijf de gebieden al veel meer dan Blizzards ene
-regel — 980 treffers aan delves, rares en rituals liggen er al.
+ingangen, kijken kost niets, **kiezen sluit de rest**, en wij weten van alle vijf de gebieden al veel
+meer dan Blizzards ene regel — 980 treffers aan delves, rares en rituals liggen er al.
+
+⚠️ **Die derde is de enige die vóór de klik moet staan**, niet erna. Dat is de regel uit CLAUDE.md:
+het antwoord op *"kan ik hier iets verkeerd doen"* hoort in dezelfde kamer als de knop.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
