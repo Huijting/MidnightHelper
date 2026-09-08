@@ -429,3 +429,37 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   nieuws om tegen te toetsen. **[RAAKT ONS NIET]** — bron:
   https://news.blizzard.com/en-us/article/24296142?nocache=20260907 (volledig gelezen via Exa) ·
   web_search_exa "Hotfixes: September 6/7, 2026" (nieuwste retail-treffer blijft 4 sep).
+
+---
+
+- [2026-09-08] 🔁 **Dag 4 zonder nieuwe hotfix-sectie — één nieuwe bron gecheckt, geen tegenspraak.**
+  `Exa web_fetch_exa` op `news.blizzard.com/en-us/article/24296142?nocache=20260908b`, **volledige
+  artikeltekst zelf gelezen**: "September 4, 2026" staat nog steeds bovenaan, secties 1-4 sep
+  byte-voor-byte gelijk aan wat al gelogd staat. Dit convergeert met de data-wachter van vandaag
+  (`docs/PTR_12.0.7_DATA.md`, entry [2026-09-08]: dezelfde sectie, dubbel geverifieerd tegen twee
+  onafhankelijke bronnen) en de API-wachter (geen API-wijzigingen) — niet overgenomen, zelf opnieuw
+  gelezen.
+
+  **Nieuwe bron dit run, aangedragen door de PTR-wachter:** diens entry van vandaag noemt een
+  Blizzard "WoW Weekly"-verzamelartikel (24298589) met het punt *"The Venomous Abyss Raid Finder
+  Wing 3 Now Live"*, en merkt terecht op dat een live-contentstatus in mijn lane hoort, niet de
+  zijne. Zelf gelezen: het artikel zegt alleen dat LFR-wing 3 van The Venomous Abyss nu open is —
+  geen bossnamen, geen datum, geen mechaniekwijziging, gewoon de reguliere wekelijkse wing-rotatie.
+  Getoetst tegen `Modules/RaidCoachData.lua`, `Locales/RaidTips.lua` en `Modules/RaidGuide.lua`
+  (alle drie gegrept op `LFR`/`wing`/`Raid Finder`, alle drie vandaag gelezen): geen van de drie
+  claimt iets over wélke wing wélke bosses bevat of wanneer een wing opengaat — de vaste bosvolgorde
+  daar gaat over encounter-volgorde binnen de raid, niet over LFR-wing-indeling. Niets om tegen te
+  spreken. MEASURED. **[RAAKT ONS NIET]**
+
+  📌 **Zijspoor in de eigen methode, het melden waard.** De eerste grep (`\bLFR\b` zonder
+  woordgrens) gaf 86 bestanden terug; bijna alle "treffers" bleken `ScrollFrame` te zijn
+  (`...rollFrame` bevat toevallig de letters `lFr` op een rij) — een vals-positief door de
+  substring, niet door een kapotte zoekvorm. Met `\bLFR\b` (woordgrens) daalde dat naar de échte
+  treffers: `Locales/OmniumFolio.lua` (wekelijkse Folio-doel "LFR wing boss", alle zeven talen) en
+  meerdere `ACADEMY_*_RAID_*`-teksten in `ptBR.lua`/`nlNL.lua`/`itIT.lua`. Dat is meteen de
+  positieve controle op dezelfde repo-brede scope als de claim hierboven: het patroon vindt LFR
+  waar het echt staat, dus de 0 treffers in de drie raid-bestanden zijn gemeten afwezigheid.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260908b (volledig gelezen via
+  Exa) · https://news.blizzard.com/en-us/article/24298589/blizzcon-2026-midnight-12-1-5-and-more-in-this-weeks-wow-weekly?nocache=20260908c
+  (volledig gelezen via Exa).
