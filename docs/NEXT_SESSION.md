@@ -315,10 +315,25 @@ Bewust niet twee paden gebouwd: één weg naar één antwoord.
 de kaart gaat vanzelf weg. *"dit werkt goed!!!!"*
 
 📌 **Daarmee is de negatieve helft van de pet-waarschuwing rond**: opkomen, geluid, knipperen,
-midden op het scherm, en weggaan zodra je hem opvolgt. 🔴 **De positieve helft is nog steeds niet
-in het wild gezien** — niemand heeft hem vanzelf zien vuren in een échte groep met een échte tank
-(Carola of Cisca). `/mh pet test` slaat alleen het geheugen over, niet de logica, dus wat getest is
-is de hele beslissing behalve de trigger zelf.
+midden op het scherm, en weggaan zodra je hem opvolgt.
+
+### ✅ 8 sep — EN DE POSITIEVE HELFT OOK: hij vuurt uit zichzelf
+
+Rob, in een **follower dungeon**: *"hij vuurt"*. De trigger is daarmee voor het eerst uit zichzelf
+gezien — niet via `/mh pet test`, maar doordat de situatie zich voordeed.
+
+📌 **Het was Robs eigen idee** (7 sep, vlak voor het slapen: *"mag ik de pet waarschuwing morgen in
+een follower dung doen?"*) en het is een slimmere test dan degene waar ik om vroeg. Ik wachtte op een
+dungeon met Carola of Cisca — dus op andere mensen — terwijl de volgers-NPC's dezelfde vier
+voorwaarden vervullen: er is iemand, je zit in een instance, jij bent geen tank, en er tankt iemand.
+**Een test die niemand anders nodig heeft is er een die je vandaag kunt doen.**
+
+⚠️ **Wat hiermee NIET bewezen is: de rol-uitlezing bij een échte speler.** Volgers dragen hun rol
+netjes; bij mensen kan 12.1 een secret teruggeven zodra de identiteit verborgen is, en dát is de
+reden dat `TankInGroup()` drie antwoorden heeft in plaats van twee. Vuurt hij ooit **niet** in een
+mensen-dungeon, dan is `nil` de eerste verdachte — en die valt bewust door naar wél waarschuwen, dus
+zelfs dan zou hij moeten komen. Eén dungeon met Carola of Cisca sluit het af; het is geen blokkade
+meer, alleen de laatste onbekende.
 
 ## ✅ 7 sep — "je Growl staat nog aan" — GEMETEN EN GEBOUWD
 
