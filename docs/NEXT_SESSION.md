@@ -50,6 +50,30 @@ in plaats van stilletjes opgeruimd te worden.
 
 **Nog uit te zoeken:** waaróm de settle lekt. Twee opnames één seconde uit elkaar zouden door de
 3-seconden-timer geblokkeerd moeten worden; van buitenaf is niet te zien waarom dat niet gebeurde.
+
+### 🔴 En binnen tien minuten stond er een val in mijn eigen scherm
+
+Rob draaide `/mh souls` en ik las mijn eigen uitvoer na: 47 verdiend, 19 uitgegeven, netto 28 — maar
+bovenaan stond *"you hold 7"*. Eenentwintig zoek. Ik dacht een bug gevonden te hebben.
+
+📌 **Er was geen bug.** `GetItemCount` leest de tas van **dit ene karakter**; het grootboek zit in
+`ns.db` en de `.toc` declareert alleen `## SavedVariables`, dus dat is **account-breed**. De 47 en de
+19 zijn wat de hele warband verdiende en uitgaf; de 7 is één zak. De andere souls liggen bij zijn
+alts. Beide getallen klopten.
+
+🔴 **Maar ze stonden onder elkaar zonder dat erbij stond dat het twee verschillende schalen zijn — en
+ik trapte er zelf als eerste in.** Dat is geen theoretisch risico: de eerste lezer van dat scherm
+maakte binnen een minuut de verkeerde aftreksom.
+
+✅ **Gerepareerd:** de kop zegt nu *"in this character's bags"* met eronder dat souls Warbound zijn en
+dat het grootboek de hele account is, met de expliciete instructie het niet af te trekken. De
+regel eronder zegt *"across every character"*.
+
+✅ **En elke nieuwe regel legt vast wélk karakter hem schreef.** Dat is precies het bewijs dat
+ontbrak voor de claim waar dit systeem om draait: zes `+3` van de lair zijn alleen bewijs van een
+per-karakter-reset als ze van verschillende karakters komen — en dat wist het grootboek niet.
+⚠️ Oude regels dragen geen naam en worden **niet** geraden; `/mh souls` telt alleen karakters die
+er echt in staan.
 ## ✅ 8 sep (avond) — GEBOUWD: "Corrosive Codex — welke gift eerst?"
 
 Rob: *"kunnen we ook de mensen vertellen welke ze het beste als eerste kunnen kiezen? … zoek dat

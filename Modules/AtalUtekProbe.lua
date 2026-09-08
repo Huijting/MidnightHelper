@@ -1529,8 +1529,20 @@ do
 			ns.db.soulLedger = log
 		end
 		local at = (time and time()) or 0
+		--- 🔴 WHO EARNED IT, added 8 Sep 2026. The ledger is account-wide (`ns.db`) and the
+		--- count it reads is one character's bags, so until now a row could not say whose.
+		--- That matters for the one structural claim this whole system turns on: the
+		--- guaranteed sources reset PER CHARACTER. Six `+3` rows from the lair boss are only
+		--- evidence of that if they came from different characters -- and nothing recorded
+		--- which. From here they do.
+		local who
+		if UnitName then
+			local okN, n = pcall(UnitName, "player")
+			who = (okN and type(n) == "string" and n ~= "") and n or nil
+		end
 		log[#log + 1] = {
 			at = at, from = settled, to = now, delta = now - settled,
+			who = who,
 			quest = lastQuest, questTitle = lastQuestTitle,
 			-- nil when no quest was handed in this session: an empty field is honest,
 			-- a 0 would read as "at the same moment".
@@ -1783,8 +1795,22 @@ end
 function ns.PrintSoulLedger()
 	local p = "|cffffcc00Midnight Helper|r"
 	local log = (ns.db and type(ns.db.soulLedger) == "table") and ns.db.soulLedger or nil
-	print(("%s Corrosive Souls — you hold |cffffffff%s|r"):format(
+	--- 🔴 TWO SCOPES ON ONE SCREEN, AND THEY INVITE A WRONG SUM — caught 8 Sep 2026 within
+	--- minutes of shipping this, by doing the arithmetic myself and getting a contradiction.
+	---
+	--- `GetItemCount` reads THIS character's bags. The ledger lives in `ns.db`, and the .toc
+	--- declares only `## SavedVariables`, so it is ACCOUNT-WIDE: every character writes into
+	--- it. Totals across it are therefore real -- they are what the whole warband earned and
+	--- spent -- while the holding above them is one character's pocket.
+	---
+	--- 📌 Rob's own numbers: 47 earned, 19 spent, and 7 in the bags of the character standing
+	--- there. Nothing is missing; the other souls are on his alts. But printing "you hold 7"
+	--- directly above a 47 makes a reader subtract, and the answer to that subtraction is
+	--- meaningless. Say which scope each number has, on the line that carries it.
+	print(("%s Corrosive Souls — |cffffffff%s|r in |cffffffffthis character's bags|r"):format(
 		p, tostring(SoulCount() or "unreadable")))
+	print("   |cff8a8f98Souls are Warbound, so your alts hold their own. The ledger below is the|r")
+	print("   |cff8a8f98whole account: do not subtract it from the number above.|r")
 	if not log or #log == 0 then
 		print("   |cff8a8f98The ledger is empty. It writes a row whenever your soul count changes,|r")
 		print("   |cff8a8f98so play a week and come back — nothing has to be farmed for it.|r")
@@ -1818,20 +1844,26 @@ function ns.PrintSoulLedger()
 			if title and secs and secs <= 60 then
 				local e = bySource[title]
 				if not e then
-					e = { n = 0, total = 0, min = d, max = d }
+					e = { n = 0, total = 0, min = d, max = d, who = {}, chars = 0 }
 					bySource[title] = e
 					order[#order + 1] = title
 				end
 				e.n, e.total = e.n + 1, e.total + d
 				if d < e.min then e.min = d end
 				if d > e.max then e.max = d end
+				-- Only rows written after 8 Sep carry a name; older ones stay uncounted
+				-- rather than being guessed at.
+				if r.who and not e.who[r.who] then
+					e.who[r.who] = true
+					e.chars = e.chars + 1
+				end
 			else
 				unattributed = unattributed + d
 			end
 		end
 	end
 
-	print(("   |cff8fd3ffMeasured in your own client|r — %d row(s) since the ledger started."):format(#log))
+	print(("   |cff8fd3ffMeasured in your own client, across every character|r — %d row(s)."):format(#log))
 	if #order == 0 then
 		print("   |cff8a8f98No gain yet sat close enough to a quest hand-in to name a source.|r")
 	end
@@ -1839,7 +1871,9 @@ function ns.PrintSoulLedger()
 		local t = order[i]
 		local e = bySource[t]
 		local spread = (e.min == e.max) and ("%d"):format(e.max) or ("%d-%d"):format(e.min, e.max)
-		print(("     |cffffffff%-38s|r %s per time, seen %dx"):format(t:sub(1, 38), spread, e.n))
+		local chars = (e.chars > 0) and (", on %d character(s)"):format(e.chars) or ""
+		print(("     |cffffffff%-38s|r %s per time, seen %dx%s"):format(
+			t:sub(1, 38), spread, e.n, chars))
 	end
 	if unattributed > 0 then
 		print(("     |cff8a8f98%-38s|r %d total — chests and events have no hand-in to hang on"):format(
