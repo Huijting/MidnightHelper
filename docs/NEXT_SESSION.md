@@ -70,6 +70,17 @@ die naast het volgende geval staat en er niet op wordt toegepast, is de duurste 
 
 📌 Zoeken op **"azeroot"** landt nu op de Herbalism-gids. Net als "sanguithorn", "umbral tin" of
 welk materiaal we er ooit bij schrijven.
+
+✅ **BEVESTIGD 8 sep, 23:0x.** Rob typte `azer` en kreeg *"Course (101) — Herbalism · inside
+Professions"*; de knop opende Guided mode op zijn eigen stap (6 van 9).
+
+⚠️ **MAAR HET LABEL KLOPT NIET, en dat is mijn fout.** Ik hergebruikte `PROFHUB_TAB_COURSE` als
+voorvoegsel, dus er staat **"Course (101)"** boven iets dat de **adviseur** is en niet de cursus.
+Die twee zijn verschillende schermen en het label wijst naar het verkeerde. Klein, maar het is
+precies het soort verwarring dat de zoekindex juist zou moeten wegnemen.
+📌 **Te doen:** een eigen labelsleutel voor de guided advisor (7 talen), of het voorvoegsel
+weglaten en alleen de beroepsnaam tonen. Niet vanavond — Rob ging slapen, en het is een label en
+geen fout antwoord.
 ## 🔴 8 sep (avond) — het soul-grootboek bestond al, en niemand kon het lezen
 
 Rob: *"ja bouw dat grootboekje maar."* Ik begon te bouwen en stopte na één grep: het staat er al
