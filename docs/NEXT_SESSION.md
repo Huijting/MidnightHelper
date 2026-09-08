@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ✅ 8 sep (avond) — Dundun is óók een flamingo
+
+Rob, met screenshot uit een Bountiful delve: een **houten flamingo** — planken, verf, precies het
+soort ding dat getimmerd is in plaats van gegroeid.
+
+📌 **Onze tekst was hier al goed geschreven en dat is het aardige.** Hij zei niet "zoek een boom",
+maar *"ga af op 'dat heeft iemand gemaakt', niet op één vorm"*, met **twee** gevonden vormen als
+bewijs: een nepboom en een neppaal. De flamingo is de **derde**, en die maakt de regel sterker in
+plaats van hem te weerleggen.
+
+✅ **Toegevoegd in alle zeven talen**, in `DUNDUN_CHAT_WHAT` én `DUNDUN_PANEL_BODY`. Een derde
+voorbeeld dat zó ver van de eerste twee afligt, is precies wat "niet op één vorm" geloofwaardig
+maakt — een boom en een paal lijken nog op elkaar, een flamingo niet.
+
+⚠️ **`check_drift` sloeg aan op `DUNDUN_PANEL_BODY` en dat was loos alarm**: hij meet **herkomst**,
+dus een gewijzigde enUS-string maakt de zes vertalingen "gedrift" ook als je ze in dezelfde beurt
+hebt bijgewerkt — wat hier zo is. `--mark DUNDUN_PANEL_BODY` gezet, en daarna staat de teller weer
+op **0 gedrift** in alle zes.
+📌 `DUNDUN_CHAT_WHAT` kwam er niet in voor: die sleutel is nieuwer dan de v3.5.0-basis en heeft dus
+geen vastgelegde herkomst om vanaf te driften.
 ## ✅ 8 sep (avond) — keybind-cheatsheet opnieuw gegenereerd
 
 Verplicht na elke `KeybindRoles_*`-wijziging, en die waren er vandaag drie op de Paladin (Holy

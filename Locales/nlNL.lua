@@ -2110,7 +2110,7 @@ ns._mhLocales.nlNL = {
 	-- "Delver's Journey" zijn Blizzards eigen namen: er is geen Nederlandse client,
 	-- dus een speler ziet die woorden altijd in het Engels op zijn scherm.
 	DUNDUN_CHAT_HEADER = "Deze delve is Bountiful, dus |cff00ffffDundun|r zit hier verstopt.",
-	DUNDUN_CHAT_WHAT = "Zoek iets houtens dat getimmerd is in plaats van gegroeid — planken en schroeven, verf in plaats van bast. Hij is gevonden als nepboom én als neppaal, dus ga af op 'dat heeft iemand gemaakt', niet op één vorm. Hem vinden en aanspreken is gratis en geeft extra beloning aan het eind.",
+	DUNDUN_CHAT_WHAT = "Zoek iets houtens dat getimmerd is in plaats van gegroeid — planken en schroeven, verf in plaats van bast. Hij is gevonden als nepboom, als neppaal én als houten flamingo, dus ga af op 'dat heeft iemand gemaakt', niet op één vorm. Hem vinden en aanspreken is gratis en geeft extra beloning aan het eind.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Alleen als je Delver's Journey rank %d of hoger is — ik kon je rank niet lezen, dus kijk zelf even.",
 	DUNDUN_CHAT_COST_FMT = "|cffffff00Let op:|r die extra kist kan een |cffffff00tweede|r Restored Coffer Key kosten. Je hebt er %d.",
 	DUNDUN_CHAT_COST_SHORT_FMT = "Let op: die extra kist ÓPENEN kan een tweede Restored Coffer Key kosten, en je hebt er %d. Hem zoeken is nog steeds gratis — je laat die kist dan alleen dicht.",
@@ -2132,7 +2132,7 @@ ns._mhLocales.nlNL = {
 	SET_ZONEGATE_BLOCK_DESC = "Standaard uit: je krijgt de waarschuwing én de route. Zet je hem aan, dan weigert Midnight Helper de route ook, en zegt dat erbij. De waarschuwing zelf zie je altijd.",
 
 	DUNDUN_PANEL_TITLE = "Bountiful delves — Dundun",
-	DUNDUN_PANEL_BODY = "In een Bountiful delve verstopt Dundun zich als iets houtens dat getimmerd is in plaats van gegroeid — planken en schroeven, verf in plaats van bast. Hij is gevonden als nepboom én als neppaal, dus zoek naar 'dat heeft iemand gemaakt' en niet naar één vorm. Hem vinden en aanspreken is gratis en levert extra beloning op aan het eind. Die extra kist ópenen kan een tweede Restored Coffer Key kosten — maar alleen je eerste Dundun van de week op dit character geeft die kist. Bij elke volgende kies je zelf een beloning — Valeera-ervaring zit erbij — en staat er aan het eind een Abundant Spoils. Dat is geen tweede Bountiful Coffer, dus er is geen key voor nodig.",
+	DUNDUN_PANEL_BODY = "In een Bountiful delve verstopt Dundun zich als iets houtens dat getimmerd is in plaats van gegroeid — planken en schroeven, verf in plaats van bast. Hij is gevonden als nepboom, als neppaal én als houten flamingo, dus zoek naar 'dat heeft iemand gemaakt' en niet naar één vorm. Hem vinden en aanspreken is gratis en levert extra beloning op aan het eind. Die extra kist ópenen kan een tweede Restored Coffer Key kosten — maar alleen je eerste Dundun van de week op dit character geeft die kist. Bij elke volgende kies je zelf een beloning — Valeera-ervaring zit erbij — en staat er aan het eind een Abundant Spoils. Dat is geen tweede Bountiful Coffer, dus er is geen key voor nodig.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "Je hebt %d Restored Coffer Keys en %d shards — genoeg voor de extra kist.",
 	DUNDUN_PANEL_KEYS_SHORT_FMT = "Je hebt %d Restored Coffer Keys en %d shards — nog %d shards tot de volgende key. Zoeken kan gewoon; je laat die extra kist dan alleen dicht.",
 	DUNDUN_PANEL_KEYS_UNKNOWN = "Kon je Restored Coffer Keys nu niet uitlezen.",
