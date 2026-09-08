@@ -16,6 +16,9 @@ hij weet hoe dit heet ("skip", "liadrin", "scouting map", "abandon", de vijf zon
 óók in Stormwind en Orgrimmar staat. Die ene regel zou de tip fout hebben gemaakt voor iedereen die
 niet toevallig in Dornogal inlogt.
 
+✅ **GERENDERD EN GECONTROLEERD 8 sep** — Rob opende de Codex na een reload: koppen, kleuren,
+opsommingen en regelafbrekingen doen het allemaal. Geen kale sleutels, geen zichtbare markup.
+
 ### ✅ Alle zeven talen, en Rob wees de weg naar het antwoord
 
 Ik wilde eerst bij enUS + nlNL stoppen omdat ik de stadsnamen voor pt en it niet had. Rob: *"we
