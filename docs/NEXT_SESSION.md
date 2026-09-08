@@ -36,6 +36,11 @@ eigen gidstekst `"Leveling (80-90)"` — een claim gestut door een andere claim 
 |---|---|---|
 | 78 | ✅ kan | ❌ niets aan te nemen |
 | 79 | ✅ kan | ❌ nog steeds niets, spel zegt "vanaf 80" |
+| **80** | ✅ kan | ✅ **de Midnight-quest komt automatisch binnen** |
+
+🎯 **Daarmee is de grens van drie kanten dichtgetimmerd**, en niet één ervan is onze eigen tekst:
+niets op 78, niets op 79, en op het moment dat 80 valt komt de quest **vanzelf**. Precies wat een
+harde inhoudsgrens hoort te doen.
 
 ⚠️ **Eén nuance die de 79-meting nodig maakte:** een verzamelnode kan een eigen leveleis dragen, los
 van waar het questen begint. De weigering bij de bloemen bewees dus alleen iets over *plukken*. Pas
@@ -50,6 +55,20 @@ dat is nu gemeten onwaar. De zes andere talen zeggen alleen *"gaat open op level
 voor later"* en hadden deze fout niet.
 🔴 **Precies daarom is dit het moeilijkste soort fout om te vinden:** de zin was niet kapot, hij was
 *onwaar*, en geen enkele controle kan dat zien. Alleen iemand die het in het spel probeert.
+
+### 🔴 OPEN — wij weten niets van de Midnight-intro
+
+Op 80 komt de quest vanzelf binnen en stuurt je naar **het beeld van de Lady in Dornogal**. Gegrepd
+op `Dornogal` en op intro-varianten: **de addon noemt die keten nergens.** Eén treffer in
+`Addons/Guide.lua:356`, en dat is een Zygor-lijst, geen uitleg van ons.
+
+📌 **Dat is een echt gat en het zit precies in onze niche.** De markt-aantekening zegt dat MH's
+kracht **uitleggen** is, niet tracken — en dit is het allereerste moment van de uitbreiding, voor
+een speler die net 80 wordt en niet weet waar hij heen moet. Wij zeggen daar op dit moment niets
+over.
+
+⚠️ **Nog niets gebouwd, en de quest-ID is niet gemeten.** `/mh questsnap` staat klaar om dat te
+doen zodra iemand die keten loopt.
 ## ✅ 7 sep — Suffering is gemeten, en de meting vond er een fout bij
 
 Rob logde in op zijn warlock, Voidwalker eruit, twee keer `/mh pet`:
