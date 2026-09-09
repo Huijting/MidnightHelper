@@ -35,20 +35,18 @@ gerenderd. Bouwen is niet testen.
       de modelplek **leeg**, terwijl Farthik zijn portret kreeg. Zijn npcID (257906) staat wél in de
       data, dus dit is waarschijnlijk gewoon een model dat nog niet geladen was. **Niet gemeten**, en
       het raakt de hint niet. Zie je het vaker, dan is het een echt puntje.
-- [ ] 🔴 **WAAROM schreef de giver-waarneming niets op? (9 sep, tweede poging.)** Eerste poging: Rob
-      klikte Liadrin aan en er veranderde niets, zonder enige aanwijzing waarom. `/mh weeklies` print
-      nu bovenaan een regel over het **laatste gesprekvenster**.
-      **Klik een willekeurige NPC aan** — een bankier, een vendor, wie dan ook — en doe
-      `/mh weeklies`. Lees de bovenste regel:
-      | wat er staat | wat het betekent |
+- [x] ✅ **De giver-waarneming: keten bewezen, en de grens ervan gemeten (9 sep).** Bankier gaf
+      `npc=Ceera  giver=not matched` — event vuurt, naam leesbaar, terecht niet als giver gezien.
+      Liadrin daarna aanklikken liet het spoor op Ceera staan: **een NPC zonder aanbod opent geen
+      gesprekvenster.** Dus *"had iets"* is te zien, *"had niets"* niet.
+- [ ] 🔴 **DE ECHTE METING STAAT VOLGENDE WEEK, en kost één commando.** Draai **vóór je iets doet**,
+      na de reset: `/mh weeklies`. Kijk naar Liadrins dertien ID's.
+      | uitkomst | conclusie |
       |---|---|
-      | `No gossip window seen yet` | het event vuurt niet voor ons → **onze aanname was fout**, niet onze code |
-      | `... -> not a giver we track` | het event werkt; bij een gewone NPC is dit **de juiste uitkomst** |
-      | `... -> recorded` bij een giver | alles werkt |
-      | `name unreadable` of `not matched` bij een giver | de NPC-herkenning faalt |
-      📌 **Doe daarna Liadrin nog een keer.** Zegt hij bij een bankier wél iets en bij Liadrin niets,
-      dan opent een NPC zonder aanbod waarschijnlijk geen venster — en dan is "nul gezien" niet vast
-      te leggen zoals ik het bedacht had.
+      | een paar staan op `-` | de vlaggen resetten wél; het scherm had toevallig gelijk |
+      | alle dertien nog `completed` | 🔴 die vlaggen zijn structureel onbruikbaar voor "deze week" |
+      📌 Dit is de enige meting die de openstaande vraag van vandaag beantwoordt. Eén regel, vóór je
+      begint — daarna is hij een week lang niet meer te doen.
 - [ ] 🆕 **De giver-waarneming (9 sep) — drie stappen, en stap 1 hoort NIETS te doen.**
       1. **`/reload`, dan meteen `/mh weeklies`.** Verwacht een nieuw blok *"What each giver actually
          offered when you last stood there"* met bij alle vier de givers **"not visited since this

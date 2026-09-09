@@ -20,10 +20,30 @@ secret value is), of hij aan een giver gekoppeld kon worden, hoeveel quests er w
 `/mh weeklies` print dat bovenaan, vóór de tabel, want het beantwoordt de vraag die de tabel niet kán
 beantwoorden: **ging er überhaupt een venster open?**
 
-**Werkhypothese voor de volgende meting, niet bewezen:** Liadrin had niets aan te bieden, en een NPC
-zónder aanbod opent misschien helemaal geen gesprekvenster. Dan is de stilte een eigenschap van het
-spel, niet van onze code — en dan is *"nul gezien"* juist niet vast te leggen op de manier die ik
-bedacht. Staat er straks *"No gossip window seen yet"*, dan is dát het antwoord.
+### ✅ En de meting is binnen: de hypothese klopt
+
+Twee stappen, allebei op Robs scherm:
+
+1. **Bankier (Ceera):** `npc=Ceera  giver=not matched  -> not a giver we track`. Het event vuurt, de
+   naam is leesbaar, en een bankier wordt terecht niet als giver gezien. **De hele keten werkt.**
+2. **Liadrin daarna aangeklikt:** het spoor bleef op **Ceera** staan.
+
+🔴 **Dus een NPC zonder aanbod opent HELEMAAL GEEN gesprekvenster.** Er is geen event om op te
+reageren. *"Ze had iets"* is waarneembaar; *"ze had niets"* is dat niet, en dat zit in het spel.
+
+📌 **Twee gevolgen, en het tweede is een correctie op mezelf.**
+- De asymmetrie die ik inbouwde blijkt **noodzakelijk** in plaats van alleen voorzichtig. Ik koos hem
+  op een risico-argument (een verborgen taak is duur); hij was de enige beschikbare optie. ⚠️ Gelijk
+  krijgen om een andere reden dan je bedacht, is geen bevestiging van je redenering.
+- **De waarde is smaller dan mijn eigen commentaar suggereerde.** Dit kan een onterechte *"done"*
+  corrigeren wanneer een giver écht werk heeft. Het kan een terechte "done" niet bevestigen. Dat is
+  de helft die je loot kost — dus de helft die je wilt — maar het is een helft, en dat staat nu ook
+  zo in de code.
+
+⚠️ **Nog steeds open:** waaróm alle dertien Liadrin-vlaggen op completed staan. **De meting daarvoor
+is volgende week**, vóór Rob iets doet: `/mh weeklies`. Slaan er een paar om naar `-`, dan resetten ze
+wél en klopte het scherm toevallig. Blijven ze staan, dan is bewezen dat die vlaggen structureel
+onbruikbaar zijn voor "deze week".
 ## ✅ 9 sep — "open de kist" staat nu op de toast, niet alleen in de chat
 
 Rob stond bij **Farthik the Plunderer** met de rare-toast op zijn scherm: *"voor deze moeten we een

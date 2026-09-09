@@ -772,11 +772,20 @@ local function GiverState(def)
 	--- 📌 So if we actually stood in front of this giver since the reset and the game said
 	--- they had quests for us, that settles it and the flags do not get a vote.
 	---
-	--- ⚠️ ASYMMETRIC ON PURPOSE. Seeing zero quests does NOT flip anything to "done": the
-	--- offer could be gated behind something we cannot see, and a wrong "done" HIDES work,
-	--- while a wrong "pickup" only costs a walk. This addon has already shipped one weekly
-	--- that silently went missing (Trailing Xal'atath, a Spark) — the error that hides a task
-	--- is the expensive one, so the shortcut only ever runs towards showing you more.
+	--- ⚠️ ASYMMETRIC ON PURPOSE — AND THEN MEASURED TO BE NECESSARY, WHICH IS NOT THE SAME
+	--- THING. The reasoning was: seeing zero quests must not flip anything to "done", because
+	--- a wrong "done" HIDES work while a wrong "pickup" only costs a walk, and this addon had
+	--- just shipped a weekly that went missing in silence (Trailing Xal'atath, a Spark).
+	---
+	--- 🔴 GEMETEN 9 Sep 2026, an hour later: an NPC with nothing to offer opens NO GOSSIP
+	--- WINDOW AT ALL. Rob clicked Liadrin twice; the breadcrumb still named the banker he had
+	--- clicked before her. So "she had nothing" is not a thing this door can ever report —
+	--- there is no event to hear. The caution turned out to be the only option available.
+	---
+	--- 📌 WHICH NARROWS WHAT THIS IS WORTH, and that is worth stating plainly rather than
+	--- letting the comment above oversell it: this can correct a wrong "done" when a giver
+	--- really does have work waiting. It cannot confirm a right one. That is the half that
+	--- costs you loot, so it is the half worth having — but it is a half.
 	local offered = OfferThisWeek(def.key)
 	if offered and offered > 0 then
 		return "pickup"
