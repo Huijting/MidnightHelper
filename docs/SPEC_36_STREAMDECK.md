@@ -93,8 +93,13 @@ end
 ```
 
 Randvoorwaarden:
-- `ns.IsKnownTab` moet **de aliassen meenemen** (dezelfde tabel die `SelectTab` gebruikt),
-  anders werkt `/mh macros` niet terwijl `SelectTab("macros")` dat wél doet.
+- 🔴 **De controle vooraf is niet optioneel.** `SelectTab` valt bij een onbekende id **stil terug
+  op `home`** (`UI.lua:3491-3499`). Zonder `IsKnownTab` opent elke typefout dus gewoon het
+  Home-scherm, en verdwijnt de "onbekend commando"-melding voor álle bestaande typefouten.
+- `ns.IsKnownTab` moet **de aliassen meenemen** — `macros`, `consumables`, `academy`,
+  `professions`, `profacademy`, `profoverview`, `reference` worden bovenin `SelectTab`
+  (`UI.lua:3460-3487`) omgezet naar `toolbox`/`codex`. Een simpele lookup in `ns.panels` mist
+  die zeven.
 - ⚠️ Zet het **ná** alle bestaande takken. `settings`, `codex`, `delves` hebben al eigen gedrag
   (native opties, codex-zoeker, coach-venster) en dat moet voorgaan.
 - 🔴 Nieuw commando ⇒ ook in `ns.MH_COMMANDS` (`Modules/CommandList.lua`) **en** in
@@ -146,6 +151,28 @@ valkuilen uit §3 hieronder. Dit is ook goed CurseForge-materiaal (zie
 2. Accepteert WoW **F13** op zijn client? Keybind-scherm openen, een vak aanklikken, F13 sturen.
    Als het werkt is dat een schat aan vrije toetsen, maar reken er niet op.
 3. Welk model deck het precies is (aantal knoppen bepaalt de indeling).
+
+---
+
+## 4b. Wat Rob concreet op knoppen wil (9 sep)
+
+Hij noemde er drie: **Rares**, **Delves** en **Account-overzicht**. ALT-M heeft hij al gekoppeld
+en die werkt.
+
+| Knop | Tab-id | Werkt vandaag? |
+|---|---|---|
+| Rares | `rares` | ❌ niets |
+| Delves (overzicht) | `delves` | ❌ — `/mh delves` opent de **Delve Coach**, een ánder venster |
+| Account-overzicht | `account` | ❌ niets |
+
+📌 Twee van de drie bestaan dus in geen enkele vorm, en de derde doet iets anders dan hij
+verwacht. Dat maakt **stap 1 de blokkerende stap** — er is geen omweg via een WoW-macro, want
+`ns` is niet globaal (gemeten: de enige globale functies zijn `MidnightHelper_KeybindToggleMain`,
+`_KeybindSkipNode`, `_KeybindClearRoute` en `_OnAddonCompartmentClick`).
+
+⚠️ Bij het bouwen: `/mh delves` moet blijven doen wat het doet (Coach). Voor de tab is een
+tweede id nodig — voorstel `/mh delveoverview`, of `/mh delves` laten en de Coach onder
+`/mh coach` houden is géén optie, want dat breekt bestaande gewoontes.
 
 ---
 
