@@ -147,16 +147,40 @@ ongedaan maken?"*
 📌 De regel: een zin die in het spel te lezen is, is een claim die we onderbouwd moeten hebben.
 [[never-assume-always-factcheck]]
 
-### 🆕 En de tooltip gaf iets wat we niet vroegen: **Er'inye**
+### 🔴 En de tooltip gaf iets wat we niet vroegen: **Er'inye** — waar ik het daarna volledig fout las
 
 Blizzards eigen flavour text op item 273000: *"Corrosive Souls can be used at the Altar of Corrosion
 **or given to Er'inye in exchange for Corrosive Coins**."*
 
-🔴 **`Er'inye` komt in deze hele repo nul keer voor.** De Altar of Corrosion staat er uitgebreid in
-(`/mh keys`, drie Codex-artikelen, zeven talen), maar de **tweede** bestemming van je souls — omruilen
-voor Corrosive Coins — hebben we nooit genoemd. Dat is precies het soort feit waar deze addon voor
-bestaat: twee uitgangen, wij noemden er één.
-📌 Nog niet gebouwd; eerst meten wat de koers is (hoeveel coins per soul) en waar Er'inye staat.
+🔴 **HIER STOND: "`Er'inye` komt in deze hele repo nul keer voor." DAT WAS ONWAAR, en Rob zag het
+binnen een uur op zijn eigen scherm staan.** Gemeten met een script mét positieve controle: **18
+vermeldingen in 5 bestanden**, waaronder een compleet Codex-blok in **alle zeven talen** met
+waypoint (`{WAY:2509:51.10:62.76}`), de Corrode Spirit-aankoop, en de *Skull of Er'inye* als
+handelaar met drie pagina's mounts en pets van 500 tot 25.000 coin.
+
+⚠️ **DE OORZAAK IS ERGER DAN EEN VERKEERD ZOEKPATROON: het gereedschap zéi dat het afkapte.** Mijn
+grep eindigde op `[Showing results with pagination = limit: 25]`, en alle 25 zichtbare regels waren
+`Altar of Corrosion`-treffers. Ik las "staat niet in de 25 die ik zie" als "staat niet in de repo".
+📌 Dit is [[silence-is-not-absence]] met een nieuwe vermomming: niet een leeg resultaat, maar een
+**afgekapt** resultaat. Een leeg resultaat maakt je nog achterdochtig; een vol resultaat waarvan de
+staart ontbreekt voelt als bewijs. **Regel: een uitvoer met een paginering-regel eronder is geen
+meting.** Herhaal hem zonder limiet, of tel in een script.
+
+✅ **Wat er ná de meting nog van over is, en dat is smal:** we beschrijven waar coins **heen** gaan,
+maar nergens dat je souls **in** coins kunt omzetten. Gescand op zinnen met allebei: 12 treffers, en
+de enige inhoudelijke is *"coin has no cap, while Corrosive Souls are rationed. Farm coin freely; do
+not plan an evening around souls."* 📌 Dát maakt de omruil juist interessant: souls zijn de schaarse
+kant, dus souls→coins is een val. Eén zin waard in het bestaande blok, geen nieuw artikel.
+
+### 🆕 Nieuwe weekly gemeten op Robs scherm: **Trailing Xal'atath**
+
+Vereesa Windrunner in Silvermoon. *Collect 100 Fading Voidwhispers* (uit dungeons, delves, treasures
+en "other dangerous creatures"), beloning **Spark of Tides** + Apex Cache + Void Vestige.
+
+🔴 **`Voidwhisper` komt in geen enkele module en in geen enkel taalbestand voor** — alleen in
+`CONTENT_WATCH.md`, als hotfix-regel van 20 aug. Onze weekly-lijst kent hem dus niet. ⚠️ En hij geeft
+een **Spark**, wat de crafting-tier van een speler direct raakt.
+📌 Dit is precies de klacht uit Spec 35, nu met een naam erbij. Niet gebouwd: eerst de release.
 
 ⚠️ **Nog een meetfeit uit dezelfde tooltip:** Rob houdt **44** souls over vier characters plus 16 in
 de bank, terwijl ons grootboek 47 verdiend en 19 uitgegeven telt. Dat rijmt niet, en er is niets mis:

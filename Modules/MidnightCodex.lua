@@ -167,9 +167,14 @@ local function AttachCurrencyTooltip(frame, currencyId)
 	end)
 end
 
---- Article a search asked us to land on, consumed by the next settled layout.
---- Kept here rather than on `ui` because it must survive the panel being rebuilt.
+--- Article a search asked us to land on. Kept here rather than on `ui` because it must
+--- survive the panel being rebuilt.
 local pendingArticleId
+local pendingClearScheduled
+--- How long we keep re-applying that landing while the page settles. Long enough to
+--- outlive the deferred relayout and the first width sync, short enough that it cannot be
+--- mistaken for the page fighting your mouse wheel.
+local SCROLL_SETTLE = 0.5
 
 local function LayoutContent()
 	if not ui or not ui.child then
@@ -209,12 +214,23 @@ local function LayoutContent()
 		ui.scroll:UpdateScrollChildRect()
 	end
 
-	--- ⚠️ ONLY ONCE THE HEIGHTS HAVE STOPPED MOVING. An EditBox reports a stale height on
-	--- the first measurement after SetText (the same trap this function already plans a
-	--- relayout for), and scrolling to an offset computed from stale heights lands beside
-	--- the article rather than on it. While `heightChanged` is true the deferred pass below
-	--- runs again and this block gets another go, so the target is simply left pending.
-	if pendingArticleId and not heightChanged then
+	--- 🔴 SCROLLING ONCE IS NOT ENOUGH, MEASURED 9 Sep 2026. The first version of this waited
+	--- for `heightChanged` to go false and then scrolled exactly once. Rob searched "mephitic",
+	--- landed on the right page, and stopped SHORT of the article -- its heading sat at the
+	--- bottom of the window instead of the top.
+	---
+	--- 📌 SHORT, NOT RANDOM, AND THAT NAMES THE CAUSE. Every candidate makes the page grow
+	--- AFTER we scroll: an EditBox reports a stale (too small) height on the first measure
+	--- after SetText; the blocks are POOLED, so a reused block can report the previous
+	--- article's height twice in a row and look settled; and `syncWidth` relayouts again when
+	--- the panel first gets its real width, which rewraps every body. Land on an offset
+	--- computed before any of that and the article slides down past you.
+	---
+	--- ✅ SO IT KEEPS LANDING FOR HALF A SECOND instead of trying to be clever about which of
+	--- the three it was. Every settled layout in that window re-applies the offset, so the
+	--- last word belongs to the final geometry rather than the first. Cheap, and it does not
+	--- depend on guessing which of three causes fired.
+	if pendingArticleId then
 		local target
 		for _, block in ipairs(ui.blocks) do
 			if block.article and block.article.id == pendingArticleId and block.root then
@@ -222,15 +238,24 @@ local function LayoutContent()
 				break
 			end
 		end
-		-- Cleared either way: an id that matches nothing on this page must not sit
-		-- around waiting to hijack the next unrelated refresh.
-		pendingArticleId = nil
-		if target and ui.scroll and ui.scroll.SetVerticalScroll then
+		if not target then
+			-- Nothing on this page carries that id: drop it rather than let it sit around
+			-- waiting to hijack an unrelated refresh.
+			pendingArticleId = nil
+		elseif not heightChanged and ui.scroll and ui.scroll.SetVerticalScroll then
 			local maxScroll = ui.scroll.GetVerticalScrollRange and ui.scroll:GetVerticalScrollRange()
 			if maxScroll and target > maxScroll then
 				target = maxScroll
 			end
 			ui.scroll:SetVerticalScroll(math.max(0, target - 4))
+			-- One timer per landing, not one per layout pass.
+			if not pendingClearScheduled and C_Timer and C_Timer.After then
+				pendingClearScheduled = true
+				C_Timer.After(SCROLL_SETTLE, function()
+					pendingClearScheduled = false
+					pendingArticleId = nil
+				end)
+			end
 		end
 	end
 	if heightChanged and C_Timer and C_Timer.After and not ui._mhRelayoutPending then

@@ -16,12 +16,14 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **DE ZOEK-FIX (9 sep) — beroepsgids GEZIEN EN GOED.** Rob 9 sep: *"1 en 2 kloppen nu ... en
       punt 4 is goed"*. Zoeken op `azeroot` landt op stap 1, `umbral tin` op Mining, en `/mh
       profguide` opent nog steeds gewoon op je eigen stap. Geen regressie.
-- [ ] 🆕 **De Codex-sprong is nog NIET beoordeeld.** Robs screenshot toont de Weekly-loop-pagina
-      vanaf de bovenkant, dus het is niet te zien of hij gesprongen is — het gezochte artikel stond
-      waarschijnlijk toch al in beeld. **Betere test:** kies een categorie met veel artikelen
-      (**Coiled Isle** of **Delves**), scroll naar het **laatste** artikel en onthoud de titel. Zoek
-      daarna op een woord uit díé titel en klik. Verwacht: de Codex opent **onderaan**, met dat
-      artikel in beeld — niet bovenaan.
+- [ ] 🆕 **De Codex-sprong, TWEEDE POGING.** Eerste meting (Rob, 9 sep, zoekterm `mephitic`): hij
+      sprong wél, maar **te kort** — de kop van *"Corrosive Codex — which gift do I take first?"*
+      stond onderaan het venster in plaats van bovenaan. Oorzaak: de pagina groeit ná de sprong
+      (EditBox-hoogtes, hergebruikte blokken, en de eerste breedte-sync). De sprong wordt nu een
+      halve seconde lang herhaald. **Zoek opnieuw op `mephitic`.** Verwacht: de kop *"Corrosive
+      Codex — which gift do I take first?"* staat **bovenaan** het leesvenster.
+      ⚠️ **Tweede controle in dezelfde beurt:** klik daarna een categorieknop (bv. **Delves**).
+      Verwacht: die opent gewoon **bovenaan**. De sprong mag alleen gelden voor een zoekresultaat.
 - [ ] 🆕 **De Codex-plank is opgeschoond (9 sep) — controleer wat er wég is.** Open Codex →
       **Weekly loop**. Verwacht: **geen** *"Turbulent Timeways V (Jun 30 - Aug 11)"* meer (dat
       evenement is op 11 aug afgelopen) en **maar één** Omnium Folio-artikel, namelijk het lange met
