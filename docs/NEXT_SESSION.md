@@ -1,5 +1,49 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — twee metingen uit Robs client, en het web had ongelijk
+
+### ✅ De Catalyst-claim KLOPT — en het internet zei iets anders
+
+Robs tooltip op **Venomblight Manaflux**, woordelijk: *"Slowly accumulates every two weeks. Total
+Maximum: 1/8"*, met daaronder **All Characters: 19** en een uitsplitsing —
+Purlymixanox 2, Earthshammy 2, Twelveinchy 2, Warlockie 2, en het personage waar hij op stond 1.
+
+🔴 **Verschillende getallen per personage. Dus per character, cap 8. Onze zin was al goed en de
+addon-regel *"which alts have stopped gaining"* is zinvol.** Meerdere webgidsen zeiden account-wide;
+die zaten ernaast. 📌 Dit is [[verify-against-the-client]] in één screenshot: één tooltip sloeg vier
+zoekresultaten.
+⚠️ En het bewijst iets over de vorm van mijn eigen twijfel: ik las "bronnen spreken elkaar tegen" als
+"wij weten het niet", terwijl de client het gewoon opschrijft. Tegenspraak tussen fansites is een
+reden om te méten, geen reden om te twijfelen aan wat we hadden.
+
+### ✅ De Valeera-tip: machinerie bewezen, en beter dan een lege controle
+
+`/mh curiodebug` op zijn eigen personage:
+
+```
+treeID= 1223   configID= 57051366   roleNodeID= 110817
+subtree name= Tank
+=> resolved role: tank
+your role= dps   node 110818 taken= true
+=> heal tip: silent — your role is dps, not healer
+```
+
+📌 **Twee van de drie voorwaarden waren écht waar** — Valeera stáát op Tank en node 110818 ís genomen.
+Dat is een veel sterkere controle dan drie keer `nil`: de node-lezing en de rol-lezing zijn allebei
+positief bevestigd, en de enige reden voor stilte is de juiste. [[silence-is-not-absence]] met een
+positieve controle die er per ongeluk al in zat.
+**Rest:** de groene regel zelf op een healer zien. Geen haast.
+
+## 📄 9 sep — de nieuwe omschrijving is LIVE in de repo
+
+Rob: *"waar vind ik de nieuwe description precies die we nu gaan gebruiken?"* Antwoord: op de
+gewone plek. Het concept is gepromoveerd naar **`CURSEFORGE_DESCRIPTION.md`** (repo-root, de
+canonieke plek) en `docs/CURSEFORGE_DESCRIPTION_DRAFT.md` is weg — twee bestanden met bijna dezelfde
+inhoud is precies hoe de dubbele Omnium Folio-artikelen ontstonden.
+
+**5244 → 1623 woorden.** Het werkblok met aantekeningen is er door een script afgehaald, niet met de
+hand, en datzelfde script weigert te schrijven als er een comment overleeft of als de kop niet meer
+klopt. ⚠️ Nog niet op de CF-pagina zelf — dat plakt Rob.
 ## ✅ 9 sep — Valeera's Blood-Stained Blades, mét de voorwaarde die het onderzoek miste
 
 Uit `docs/RESEARCH_VALEERA_DPS_VIDEO.md`: healing op Valeera versterkt haar schade, 8 seconden, en
