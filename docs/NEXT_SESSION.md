@@ -1,5 +1,29 @@
 # Midnight Helper — waar we staan
 
+## 🔴 9 sep — ik bouwde iets dat kan zwijgen en géén manier om te zien dát het zweeg
+
+Rob klikte Liadrin aan, deed `/mh weeklies`, en alle vijf de givers stonden nog steeds op *"not
+visited since this was built"*. De waarneming had niets opgeschreven — en er was **geen enkele manier
+om te zien waarom niet**.
+
+📌 **Vier verschillende fouten geven precies datzelfde stille resultaat:** er ging helemaal geen
+gesprekvenster open, de NPC was niet te identificeren, het was geen giver die we volgen, of de
+questlijst was onleesbaar. Van buiten één symptoom.
+
+⚠️ **Dit staat als harde regel in CLAUDE.md (Spec 30)** — *"bouw je iets dat kan zwijgen, bouw dan een
+manier om te zien dát het zweeg"* — en ik heb hem dezelfde dag elders wél toegepast (`/mh curiodebug`
+print waaróm de Valeera-tip zweeg) en hier vergeten. Dat is geen pech, dat is de regel niet toepassen
+op mijn eigen nieuwe code.
+
+✅ **Gerepareerd:** élk gesprekvenster laat nu een spoor achter — tijd, NPC-naam (alleen als hij geen
+secret value is), of hij aan een giver gekoppeld kon worden, hoeveel quests er waren, en de **reden**.
+`/mh weeklies` print dat bovenaan, vóór de tabel, want het beantwoordt de vraag die de tabel niet kán
+beantwoorden: **ging er überhaupt een venster open?**
+
+**Werkhypothese voor de volgende meting, niet bewezen:** Liadrin had niets aan te bieden, en een NPC
+zónder aanbod opent misschien helemaal geen gesprekvenster. Dan is de stilte een eigenschap van het
+spel, niet van onze code — en dan is *"nul gezien"* juist niet vast te leggen op de manier die ik
+bedacht. Staat er straks *"No gossip window seen yet"*, dan is dát het antwoord.
 ## ✅ 9 sep — "open de kist" staat nu op de toast, niet alleen in de chat
 
 Rob stond bij **Farthik the Plunderer** met de rare-toast op zijn scherm: *"voor deze moeten we een

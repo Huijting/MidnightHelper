@@ -526,6 +526,15 @@ local function OfferThisWeek(key)
 	return rec.n, rec.at
 end
 
+--- Public, for `/mh weeklies`: the last gossip window we saw at all, and what we made of it.
+--- 🔴 nil here means NO GOSSIP WINDOW HAS OPENED SINCE THIS SHIPPED — which, if you have just
+--- clicked an NPC, points at the event rather than at our reading of it. That is the one
+--- distinction the giver table below cannot make.
+function ns.GetLastGossipObservation()
+	local rec = LearnStore().lastGossip
+	return type(rec) == "table" and rec or nil
+end
+
 --- Public, for `/mh weeklies`. Three states per giver and they must stay distinguishable:
 --- a count for "seen this week", `false` for "seen, but before the reset", nil for "never
 --- stood there". The middle one is the one a boolean would quietly destroy.
@@ -660,19 +669,49 @@ end
 --- ⚠️ COUNTS ONLY, NEVER TITLES. A quest name from an NPC can be a secret value in 12.x, and
 --- this needs nothing more than "how many" — so it never touches the strings, and there is
 --- no secret to guard against in the first place. The cheapest guard is not needing one.
+--- 🔴 EVERY GOSSIP WINDOW IS RECORDED, NOT ONLY THE ONES WE UNDERSTAND. Rob clicked Liadrin
+--- on 9 Sep 2026 and `/mh weeklies` still read "not visited": the observation had recorded
+--- nothing and there was no way to see WHY. Four different failures produce that same
+--- silence — no window opened at all, the NPC could not be identified, it was not a giver we
+--- track, or the quest list was unreadable — and from outside they are one symptom.
+---
+--- ⚠️ THIS IS THE RULE THIS ADDON ALREADY HAS, and I broke it the same day I applied it
+--- elsewhere: build a thing whose normal outcome is silence, and build a way to see it stayed
+--- silent (CLAUDE.md, Spec 30). `/mh weeklies` now prints this breadcrumb.
+---
+--- 📌 The name is stored only when it is not a secret value, and never compared here — it is
+--- for a human reading the diagnostic, nothing branches on it.
 local function ObserveGossipOffer()
+	local s = LearnStore()
+	local why, key, n = nil, nil, nil
+
+	local name
+	if UnitName then
+		local okN, v = pcall(UnitName, "npc")
+		if okN and not (issecretvalue and v ~= nil and issecretvalue(v)) then
+			name = v
+		end
+	end
+
 	if not (C_GossipInfo and C_GossipInfo.GetAvailableQuests) then
-		return
+		why = "C_GossipInfo.GetAvailableQuests missing"
+	else
+		key = GiverKeyForGossipUnit()
+		if not key then
+			why = "not a giver we track (or the NPC could not be identified)"
+		else
+			local ok, avail = pcall(C_GossipInfo.GetAvailableQuests)
+			if not ok or type(avail) ~= "table" then
+				why = "quest list unreadable" -- unreadable is not the same as empty
+			else
+				n = #avail
+				RecordGiverOffer(key, n)
+				why = "recorded"
+			end
+		end
 	end
-	local key = GiverKeyForGossipUnit()
-	if not key then
-		return -- not a giver we track, or the unit could not be identified: say nothing
-	end
-	local ok, avail = pcall(C_GossipInfo.GetAvailableQuests)
-	if not ok or type(avail) ~= "table" then
-		return -- unreadable is not the same as empty
-	end
-	RecordGiverOffer(key, #avail)
+
+	s.lastGossip = { at = time(), name = name, key = key, n = n, why = why }
 end
 
 -- All quest IDs for a giver: static def + anything we've learned.

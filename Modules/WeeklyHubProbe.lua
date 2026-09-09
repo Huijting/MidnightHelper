@@ -112,6 +112,23 @@ function ns.PrintWeeklyHubProbe()
 	--- ⚠️ THREE STATES, NOT TWO. "not visited this week" is not "offered nothing": an
 	--- unvisited giver and an empty one look identical from in here, and collapsing them is
 	--- exactly the mistake the flags already make.
+	--- The breadcrumb first, because it answers the question the table below cannot: did a
+	--- gossip window open at all? Rob clicked Liadrin and the table still said "not visited",
+	--- which is the same output for four different failures.
+	if ns.GetLastGossipObservation then
+		local g = ns.GetLastGossipObservation()
+		if not g then
+			print("   |cffff5040No gossip window seen yet|r — if you just clicked an NPC, the event never fired for us.")
+		else
+			print(("   |cff8fd3ffLast gossip window|r  %s  npc=%s  giver=%s  quests=%s  -> %s"):format(
+				date("%a %H:%M", g.at or 0),
+				tostring(g.name or "|cff9d9d9dname unreadable|r"),
+				tostring(g.key or "|cff9d9d9dnot matched|r"),
+				g.n ~= nil and tostring(g.n) or "-",
+				tostring(g.why or "?")))
+		end
+	end
+
 	if ns.GetGiverOfferObservations then
 		print("   |cff8fd3ffWhat each giver actually offered when you last stood there|r")
 		for _, o in pairs(ns.GetGiverOfferObservations()) do
