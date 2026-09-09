@@ -40,7 +40,44 @@ Alle vier prezen dezelfde dingen: de eerste 350 woorden (*"het beste addon-pitch
 gelezen heb"*), 🌐 *"You can read a lot of it before installing anything"* (*"Niemand doet dit"*), de
 account-wide-keybinds-zin, en de kleurtje-najagen-zin. Allemaal ongewijzigd overgenomen.
 
-### 🔴 OPEN: vijf feiten die Rob in het spel moet toetsen vóór dit live gaat
+### ✅ De vijf feiten zijn afgehandeld — en de beoordelaars hadden vier keer ongelijk
+
+📌 **Dit is het punt van de hele exercitie:** vier experts leverden scherpe structuurkritiek die
+klopte, én een reeks feitelijke twijfels waarvan de meeste onjuist waren. Structuur is hun vak,
+onze spelinhoud niet. **Een vermoeden van een beoordelaar is een kandidaat, geen meting.**
+
+| # | claim | uitkomst |
+|---|---|---|
+| 1 | "Champion 4/6" zou 4/8 moeten zijn | ❌ **beoordelaar fout** — Rob: 6 rangen. Ongewijzigd |
+| 2 | "top-tier crests solo" verdacht | ❌ **beoordelaar fout** — Rob bevestigt. **Terug in het concept** |
+| 3 | 14 delves / 17 raidbossen rijmen niet | ❌ **beoordelaar fout** — alle drie exact gemeten |
+| 4 | "52 bosses" klopt niet | ✅ **beoordelaar goed**, maar anders dan gedacht |
+| 5 | Catalyst "per character, cap 8" | ⚠️ **onopgelost, en het raakt code** |
+
+**Punt 3 gemeten in onze eigen data:** `DelveTipsData` heeft precies **14** `rosterName`-regels
+(Venomfall Deeps inbegrepen); `RaidCoachData` heeft 4 raidnamen en **17** `encounterID`s, waarvan de
+laatste **8** onder The Venomous Abyss vallen. De beoordelaar nam aan dat de drie Season 1-raids elk
+3 bossen hadden; het zijn er 1, 6 en 2.
+
+**Punt 4:** onze data heeft **57 dungeon-encounters over 16 dungeons + 17 raid = 74**, niet 52. Maar
+het zoekgetal is kleiner, want `NavSearch` indexeert alleen bossen waar we stappen voor schreven
+(`GetDungeonBossTips`) — een runtime-lookup die geen statische telling kan vaststellen. 📌 Dus het
+getal is **niet verifieerbaar én het verrot** bij elke nieuwe tip. Niet opgenomen in het concept:
+**een winkelpagina hoort geen getal te dragen dat bederft.**
+
+### 🔴 Punt 5 is geen zin maar GEDRAG — openstaand
+
+Gezocht op het web: de **cap van 8** wordt door meerdere gidsen bevestigd. **"Per character" is
+betwist** — sommige bronnen zeggen account-wide. Warcraft Wiki dekt Midnight niet, maar noteert dat
+Dragonflight S1 *"account-wide"* was maar *"spent on a per-character basis"*. Dat verklaart de
+tegenspraak én zou onze formulering half onwaar maken.
+
+⚠️ **En dit staat niet alleen op de pagina.** De addon zelf *"names which alts have stopped
+gaining"* — dat is betekenisloos als het opbouwen account-breed is. **Meting voor Rob: vergelijk de
+charge-teller op twee characters.** Verschillen ze → per character. Zijn ze gelijk → account-wide, en
+dan is er een feature fout, niet alleen een zin.
+
+### De oorspronkelijke vijf punten (verslag)
 
 Bewust **niet** stilzwijgend aangepast — een vermoeden van een beoordelaar is een kandidaat, geen
 meting. (Bewijs dat dat nodig is: de tiende twijfel van de power-user was dat de Knowledge

@@ -18,17 +18,34 @@ WHAT THIS DRAFT DOES
 
 NOTHING HERE IS INVENTED. Every claim is lifted from the live page.
 
-STILL NEEDS ROB IN-GAME -- flagged, not silently changed:
-  - "Champion 4/6" in the hook. A reviewer thinks the Champion track has 8 ranks. Left exactly
-    as it is: it is the best sentence on the page and a hunch is not a reason to touch it.
-  - "top-tier crests are earnable solo". High consequence if one tier off. LEFT OUT of this
-    draft rather than restated -- not denied, just not asserted until measured.
-  - Catalyst charges "cap at 8, per character". Kept, because it is already published and two
-    reviewers called the reversal the strongest line for a returning player. Verify it.
-  - The boss and delve counts (17 bosses / 52 bosses / 14 delves) do not obviously reconcile.
-  - `/mh lang de` on an English client does nothing (locale packs are client-gated, measured
-    18 Aug). The Languages table is fine; the slash-command row promised more than it can do,
-    and is corrected here.
+THE FIVE FLAGGED FACTS -- resolved 9 Sep, mostly in the reviewers' disfavour:
+
+  1. "Champion 4/6"  ROB, IN GAME: correct, the track has 6 ranks. The reviewer's "surely 8"
+     was wrong. Unchanged, as it should be -- a hunch is not a reason to touch the best
+     sentence on the page.
+  2. "top-tier crests are earnable solo"  ROB, IN GAME: correct. RESTORED to this draft, in
+     the gear paragraph. It is a strong line for a returning player and it was right all along.
+  3. 14 delves / 17 raid bosses / 8 Season 2 bosses  MEASURED in our own data, all three exact.
+     DelveTipsData ships exactly 14 rosterNames (Venomfall Deeps included); RaidCoachData holds
+     4 raid names and 17 encounterIDs, of which the last 8 sit under The Venomous Abyss. The
+     reviewer assumed 3 bosses per Season 1 raid; they are 1, 6 and 2.
+  4. "52 bosses across dungeons and raids"  DOES NOT MATCH. Our data has 57 dungeon
+     encounterIDs across 16 dungeons plus 17 raid = 74. The searchable count is smaller because
+     NavSearch indexes only bosses we wrote steps for, and that is a runtime lookup no static
+     count can settle. So the number is not verifiable AND it decays every time tips are added.
+     It is simply not carried in this draft. A store page should not hold a number that rots.
+  5. "Charges are per character and cap at 8"  UNRESOLVED, AND IT IS NOT ONLY A SENTENCE.
+     The cap of 8 is corroborated by several guides. "Per character" is contested: some say
+     account-wide. Warcraft Wiki does not cover Midnight, but records that Dragonflight S1 was
+     "account-wide" yet "spent on a per-character basis" -- which would explain the conflict
+     and would make our wording half wrong. THIS DRAFT DOES NOT CARRY THE CLAIM, but
+     Modules code does: the addon "names which alts have stopped gaining", which is meaningless
+     if accrual is account-wide. Rob can settle it in thirty seconds by comparing the charge
+     count on two characters. Until then, neither the page nor the addon should assert it.
+
+  Also corrected: `/mh lang de` on an English client does nothing (locale packs are
+  client-gated, measured 18 Aug). The Languages table was fine; the slash-command row promised
+  more than it can deliver.
 -->
 
 ## Midnight Helper
@@ -75,7 +92,7 @@ Nothing is changed in your game unless you press a button, and the bar setup sho
 
 **Your week.** Weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores, Ritual Sites and Void Assaults with one-click routes. An **account snapshot** across your characters: keys, shards, item level, vault status, and a badge for anyone not logged in since reset.
 
-**Your gear.** `/mh tracks` names the slots at their upgrade ceiling and the two ways onward. The **Great Vault Advisor** ranks your loot choices against what you are wearing, on Blizzard's own vault screen. `/mh stats` explains what crit, haste, mastery and versatility do in your spec's order, with your live percentages — and opens by saying that higher item level almost always wins, because a beginner who has just learned about stats will otherwise turn down an upgrade to chase a colour.
+**Your gear.** `/mh tracks` names the slots at their upgrade ceiling and the two ways onward — and the part that is easy to miss: **top-tier crests are earnable solo**, through high Bountiful Delves and repeatable Tier 6 Ritual Sites. You do not need a raid group. The **Great Vault Advisor** ranks your loot choices against what you are wearing, on Blizzard's own vault screen. `/mh stats` explains what crit, haste, mastery and versatility do in your spec's order, with your live percentages — and opens by saying that higher item level almost always wins, because a beginner who has just learned about stats will otherwise turn down an upgrade to chase a colour.
 
 **Coaching, in the content.** The **Delve Coach** covers all 14 Midnight delves with routes, bosses and 3D previews, and lists the avoidable damage for the instance you are actually in — 173 named hazards, in your own language, because the names come from your client. The **Raids** page has beginner steps for every boss, and the Raid Coach opens by itself when a pull starts.
 
