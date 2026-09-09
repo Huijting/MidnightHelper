@@ -20,6 +20,7 @@ end
 
 local OVERRIDES = {
 	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
+	BINDING_NAME_OPEN_TAB_FMT = "Abrir: %s",
 	BINDING_NAME_TOGGLEMAIN = "Abrir ou fechar janela principal",
 	BINDING_NAME_SKIPNODE = "Pular o alvo de rota atual",
 	PRINT_PREFIX = "Midnight Helper:",

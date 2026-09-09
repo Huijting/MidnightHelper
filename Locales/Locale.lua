@@ -269,6 +269,31 @@ function ns:ApplyBindingLabels()
 	_G.BINDING_NAME_MIDNIGHTHELPER_TOGGLEMAIN = self:L("BINDING_NAME_TOGGLEMAIN")
 	_G.BINDING_NAME_MIDNIGHTHELPER_SKIPNODE = self:L("BINDING_NAME_SKIPNODE")
 	_G.BINDING_NAME_MIDNIGHTHELPER_CLEARROUTE = self:L("BINDING_NAME_CLEARROUTE")
+
+	--- 🔑 The straight-to-a-screen keys (Bindings.xml). Their labels are BUILT from the tabs'
+	--- own names rather than written out, and that is the point of doing it here:
+	---   * eight bindings × seven languages would have been 56 new strings to keep correct;
+	---     this way there are zero, because every TAB_* label already exists in every pack;
+	---   * a binding can never end up called something the tab is not. Rename the tab and the
+	---     key renames itself — which is the failure this repo keeps repairing elsewhere
+	---     (the search entry that said "Course (101)" for the advisor, the giver line that
+	---     named three of four givers by hand).
+	--- ⚠️ The suffix here must match the `name=` in Bindings.xml exactly, or the screen shows
+	--- the raw global instead of a label.
+	local TAB_KEYS = {
+		HOME = "TAB_HOME",
+		RARES = "TAB_RARES",
+		DELVES = "TAB_DELVES",
+		CODEX = "TAB_CODEX",
+		PROFESSIONS = "TAB_PROFESSIONS",
+		ACHIEVEMENTS = "TAB_ACHIEVEMENTS",
+		MOUNTS = "TAB_MOUNTS",
+		ACCOUNT = "TAB_ACCOUNT_SNAPSHOT",
+	}
+	local fmt = self:L("BINDING_NAME_OPEN_TAB_FMT")
+	for suffix, labelKey in pairs(TAB_KEYS) do
+		_G["BINDING_NAME_MIDNIGHTHELPER_TAB_" .. suffix] = fmt:format(self:L(labelKey))
+	end
 end
 
 --- Like L() but uses GetChatLocaleCode (Latin fallback when client cannot render CJK chat).

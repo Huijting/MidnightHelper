@@ -1,5 +1,38 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — acht "spring naar dit scherm"-toetsen, voor Robs Stream Deck
+
+Rob heeft Alt+M al op zijn Stream Dock en wilde knoppen die meteen naar Rares of Delves gaan:
+*"kunnen we daar intern een lijst voor maken die in principe niet voor anderen bedoeld is? Maar wel
+eventueel te vinden als kleine leuke extra?"*
+
+📌 **Dit is zijn keypad-idee van 8 sep — en de ontwerpvraag die het toen blokkeerde geldt hier niet.**
+Die versie was per-scherm **slash-commando's** (`/rares`), en het open punt was botsing: korte
+generieke namen zijn van wie ze het laatst claimt. **Bindings hebben geen namespace-probleem** — ze
+staan onder onze eigen kop in Blizzards keybinding-scherm.
+
+⚠️ **En een binding past ook gewoon beter bij de hardware.** Een Stream Deck kan ook een commando
+*typen*, maar dat heeft het chatvenster nodig, kost een Enter, en verdwijnt als er al een tekstveld
+focus heeft. Eén toetsaanslag die de client zelf afhandelt is robuuster.
+
+✅ **Gebouwd:** `MidnightHelper_KeybindTab(id)` plus acht bindings (This Week, Rares, Delves, Codex,
+Professions, Achievements, Mounts, Account snapshot). **Niets standaard gebonden** behalve het
+bestaande Alt+M — acht toetsen inpikken op andermans toetsenbord is precies wat dit addon anderen
+niet aandoet.
+
+🔴 **Acht, geen negenentwintig.** Het keybinding-scherm is een lijst die een mens leest; alle tabs
+binden zou de drie bestaande toetsen begraven onder een muur waar niemand langs scrollt.
+
+📌 **De labels komen uit de tabbladen zelf** (`ApplyBindingLabels` bouwt ze uit `TAB_*`), niet uit
+nieuwe strings. Dat scheelde **56 vertalingen** (8 × 7 talen) — er is één nieuw formaat,
+`BINDING_NAME_OPEN_TAB_FMT` — én een binding kan nooit iets anders heten dan het tabblad waar hij
+heen gaat. Dat is dezelfde fout die deze week twee keer gerepareerd is: het zoekresultaat dat
+*"Course (101)"* zei voor de adviseur, en de giver-regel die drie van de vier givers bij naam noemde.
+
+**Het lijstje dat hij vroeg:** `docs/STREAMDECK.md` — de recepteerkant (welke toetsen, waarom
+*Hotkey* en niet *Text*, wat te doen als een knop niets doet). ⚠️ `docs/` gaat niet mee in de zip,
+dus dat bereikt geen speler; de **bindings** staan wél gewoon in het spel voor wie kijkt. Precies de
+twee helften die Rob vroeg.
 ## 🔴 9 sep — ik bouwde iets dat kan zwijgen en géén manier om te zien dát het zweeg
 
 Rob klikte Liadrin aan, deed `/mh weeklies`, en alle vijf de givers stonden nog steeds op *"not

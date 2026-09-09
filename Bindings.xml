@@ -12,6 +12,44 @@
 		MidnightHelper_KeybindClearRoute()
 	</Binding>
 	<!--
+		Straight-to-a-screen keys, for a Stream Deck / keypad / any spare key. Nothing is
+		bound by default: these only exist for someone who goes looking, which is exactly
+		what they are for.
+
+		Eight, not twenty-nine. There are far more tabs than this, and binding all of them
+		would bury the three keys above under a wall nobody scrolls past — the keybinding
+		screen is a list a human reads. These are the screens with a reason to be reached
+		mid-play rather than browsed to.
+
+		The LABELS are not written here or in the language packs: ApplyBindingLabels builds
+		them from each tab's own name, so a binding can never be called something the tab
+		is not, and seven translations came free. See Locales/Locale.lua.
+	-->
+	<Binding name="MIDNIGHTHELPER_TAB_HOME" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("home")
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_TAB_RARES" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("rares")
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_TAB_DELVES" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("delves")
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_TAB_CODEX" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("codex")
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_TAB_PROFESSIONS" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("professions")
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_TAB_ACHIEVEMENTS" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("achievements")
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_TAB_MOUNTS" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("mounts")
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_TAB_ACCOUNT" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("account")
+	</Binding>
+	<!--
 		The two potion keys. `CLICK <frame>:LeftButton` is how a secure button becomes
 		bindable in Blizzard's own screen — no macro, no taint. See PotionButton.lua for
 		why these are not action-bar slots. Nothing is bound by default; the player picks.

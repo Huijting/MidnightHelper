@@ -62,6 +62,9 @@ ns._mhLocales.enUS = {
 	BINDING_NAME_TOGGLEMAIN = "Toggle main window",
 	BINDING_NAME_SKIPNODE = "Skip current route target",
 	BINDING_NAME_CLEARROUTE = "Clear active route / arrow",
+	-- The only new string the straight-to-a-screen keys need: their names come from the
+	-- tabs themselves (Locale.lua ApplyBindingLabels), so there is one format, not eight.
+	BINDING_NAME_OPEN_TAB_FMT = "Open: %s",
 
 	-- Chat / slash
 	PRINT_PREFIX = "Midnight Helper:",

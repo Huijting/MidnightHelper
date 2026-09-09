@@ -748,6 +748,36 @@ function MidnightHelper_KeybindToggleMain()
 	end
 end
 
+--- 🔑 ONE KEY, ONE SCREEN — for a Stream Deck, a gaming keypad, or just a spare key.
+---
+--- Rob has a Stream Dock with Alt+M already on it, and asked for buttons that land straight
+--- on Rares or Delves instead of opening the window and clicking. 9 Sep 2026, and the same
+--- idea he raised on 8 Sep.
+---
+--- 📌 THE DESIGN QUESTION THAT STALLED IT IN SEPTEMBER DOES NOT APPLY HERE. That version was
+--- per-screen SLASH COMMANDS (`/rares`), and the open problem was collision: short generic
+--- names belong to whichever addon loads last, and stealing `/rares` from someone would be a
+--- rude thing to ship. Bindings have no such namespace — they live under our own category in
+--- Blizzard's own keybinding screen, and nothing outside it can be clobbered.
+---
+--- ⚠️ AND A BINDING IS THE BETTER FIT FOR THE HARDWARE ANYWAY. A Stream Deck can also type a
+--- slash command, but that needs the chat box focused and an Enter, which is fragile mid-fight
+--- and eats the keystroke if a text field already has focus. A binding is one keypress the
+--- client routes itself.
+---
+--- @param id string a tab id as used by ns.SelectTab ("rares", "delves", ...)
+function MidnightHelper_KeybindTab(id)
+	if type(id) ~= "string" or id == "" then
+		return
+	end
+	if ns.ShowMainUI then
+		ns:ShowMainUI()
+	end
+	if ns.SelectTab then
+		ns.SelectTab(id)
+	end
+end
+
 -- Skip the achievement node the route arrow is currently on (e.g. an un-spawned
 -- rare) and re-point at the next-nearest open one. Handy as an in-flight keybind.
 function MidnightHelper_KeybindSkipNode()
