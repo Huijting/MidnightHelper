@@ -94,13 +94,21 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_FOLIO_BODY",
 		sort = 20,
 	},
-	{
-		id = "turbulent_timeways",
-		category = "world",
-		titleKey = "CODEX_TT_TITLE",
-		bodyKey = "CODEX_TT_BODY",
-		sort = 20,
-	},
+	--- 🔴 TURBULENT TIMEWAYS IS GONE FROM THIS SHELF, both copies of it. Rob, 9 Sep 2026,
+	--- looking at the Weekly loop page: *"wat me wel opvalt is dat er nog bv een oude datum in
+	--- staat die allang voorbij is"*. `CODEX_127_TIMEWAYS_TITLE` read "Turbulent Timeways V
+	--- (Jun 30 - Aug 11)" and the body told you, in the present tense, to run four dungeons a
+	--- week for a mount. The event ended on 11 Aug -- the day 12.1 launched -- so it had been
+	--- over for four weeks while the Codex still asked for your week.
+	---
+	--- 📌 A DEAD DATE IS WORSE THAN A MISSING ARTICLE, because the reader cannot tell. Nothing
+	--- on the page said "this has ended"; it sat between Delver's Call and the Folio looking
+	--- exactly as current as they are. This is the failure `docs/CONTENT_WATCH.md` exists to
+	--- catch and it caught nothing, because a watcher reads the sources -- not our own shelf.
+	---
+	--- ⚠️ THE LOCALE KEYS ARE LEFT IN PLACE (CODEX_TT_*, CODEX_127_TIMEWAYS_*). Unused keys are
+	--- a soft lint note and nothing else, while deleting them across seven packs is churn with
+	--- a real chance of breaking something. If Timeways VI ships, the text is ready.
 
 	-- Start Here
 	{
@@ -521,20 +529,20 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_127_SPOREFALL_BODY",
 		sort = 10,
 	},
-	{
-		id = "folio_127",
-		category = "weekly",
-		titleKey = "CODEX_127_FOLIO_TITLE",
-		bodyKey = "CODEX_127_FOLIO_BODY",
-		sort = 10,
-	},
-	{
-		id = "timeways_127",
-		category = "weekly",
-		titleKey = "CODEX_127_TIMEWAYS_TITLE",
-		bodyKey = "CODEX_127_TIMEWAYS_BODY",
-		sort = 11,
-	},
+	--- 🔴 TWO ARTICLES ABOUT ONE SYSTEM, ON ONE PAGE. `folio_127` ("Omnium Folio & Runes") and
+	--- `omnium_folio` ("Omnium Folio") were both category "weekly", so the Codex rendered the
+	--- Folio twice, four lines apart, in Rob's screenshot of 9 Sep. Written at different times
+	--- from the same datamine and never compared.
+	---
+	--- ✅ The survivor is `omnium_folio` (see the top of this file): it carries the five-week
+	--- Seeking Knowledge chain, the meta achievement, and the note that missed weeks can be
+	--- done back-to-back. `folio_127` said a strict subset of that in fewer words.
+	---
+	--- 📌 Both titles still say "(12.0.7)" while the client runs 12.1. That is not false -- the
+	--- system shipped in 12.0.7 and still exists -- but it reads as stale, and it is Rob's call
+	--- whether the shelf should carry patch numbers at all. Not touched here.
+	---
+	--- (`timeways_127` was removed with its sibling above; see the note there.)
 	{
 		id = "ritual_renown_127",
 		category = "world",

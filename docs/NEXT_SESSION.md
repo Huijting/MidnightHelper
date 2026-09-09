@@ -1,5 +1,75 @@
 # Midnight Helper — waar we staan
 
+## 🔴 9 sep — de restlijst uit de research-chat: de blokkade bestaat niet meer
+
+Rob gaf een complete restlijst door met de opdracht *"bepaal of ie gelijk heeft en voer het evt uit"*.
+Alles hieronder is **gemeten in de code**, niet uit de lijst overgenomen.
+
+### 🔴 §1 "EERST, WANT HET BLOKKEERT DE REST" is ACHTERHAALD — en dat blokkeerde vier andere punten
+
+De lijst zet de Blessed Hammer-bug bovenaan met een ⛔ erbij: *"Schrijf de linterregel uit §5c NIET
+voordat dit is uitgezocht."* **Dat is 7-8 sep allebei al gebeurd.**
+
+| bewering | gemeten |
+|---|---|
+| komt unclassified terug | ✅ **opgelost** — `KeybindAutoMap.lua:254-282` loopt de drie kandidaten en neemt de eerste die óók de spec-test haalt |
+| "misschien dragen we het override-ID" | ❌ **de DATA was goed**, de LOOKUP niet. `204019` mag blijven staan |
+| ⛔ linterregel nog niet schrijven | ✅ **staat er al**, `lint_addon.py:1507-1524`, mét de vernauwing die de meting opleverde |
+
+📌 **Waarom dit telt:** één achterhaald punt met een ⛔ eraan hield vier punten tegen die er geen last
+van hadden. Een blokkade die zichzelf niet opheft is duurder dan het werk erachter — en de lijst
+citeerde `SPEC_32` als bewijs terwijl de code er al voorbij was. Precies de val uit
+[[never-assume-always-factcheck]] punt 1: *een aantekening is een claim mét een datum, geen bewijs.*
+
+### ✅ Wél waar, en uitgevoerd
+
+- **Spec 34 — de exclusiviteitsclaim bij Inscription.** GEMETEN: `enUS.lua:1007` zei *"+2 KP every
+  week, the only profession with that"*. De +2 is gestaafd, *"the only profession"* door niets. Ook
+  *"Unique perk:"* aan het begin doet dezelfde claim — die is dus mee vervangen. Nu: *"so your
+  Treatise gives 2 Knowledge instead of the usual 1"*. **Alle zeven talen**, `check_drift --mark`
+  erachteraan, linter 0 hard.
+- **Spec 31 B6 — half af, klopt.** `DELVE_REWARDS_UNMEASURED` had de vraag al,
+  `DELVE_TIP_UNMEASURED` (`enUS.lua:1469`) niet. Toegevoegd in zeven talen: *"Walk it? /mh report
+  puts what you met into one paste."*
+- **§7, de drie zelfcorrecties, kloppen alle drie.** Wago staat live in de `.toc`, de README zegt 14
+  delves, B6 was half.
+
+### ⏸️ Niet gedaan, en waarom
+
+- **Spec 33 (macro's)** — groot, en het is vindbaarheidswerk vlak vóór een release. Na 3.10.0.
+- **Spec 35 (weekly-lijst)** — de kleine stap ("elk scherm zegt wat het NIET dekt") is goed en klein,
+  maar raakt de lijst waar Rob deze week zijn reset op draait. Eerst de release.
+- ⚠️ **Het Haldurun-blok: NIET aankomen.** De lijst waarschuwt zelf al dat `93751` en ons `93761`
+  dezelfde naam dragen en dat Rob 93761 op 10 jun in de client bevestigde. Eigen meting slaat een
+  Wowhead-ID — zie [[valeera-s2-poisons]]. Eerst `/mh questscan`.
+
+## 🔴 9 sep — Rob vond een dode datum in de Codex, en een artikel dat er twee keer stond
+
+Bij het testen van de zoek-fix: *"wat me wel opvalt is dat er nog bv een oude datum in staat die
+allang voorbij is"*.
+
+**GEMETEN, en het is erger dan één datum:** de Weekly-loop-pagina droeg **vier** artikelen over
+**twee** systemen.
+
+| artikel | probleem |
+|---|---|
+| `timeways_127` — *"Turbulent Timeways V (Jun 30 - Aug 11)"* | 🔴 het evenement is op **11 aug** afgelopen, de dag dat 12.1 uitkwam. Vier weken lang stond er in de tegenwoordige tijd dat je vier dungeons per week moest lopen |
+| `turbulent_timeways` (categorie world) | tweede exemplaar van hetzelfde dode evenement |
+| `folio_127` — *"Omnium Folio & Runes (12.0.7)"* | dubbel |
+| `omnium_folio` — *"Omnium Folio (12.0.7)"* | ✅ de blijver: die heeft de vijfwekenketen, de meta en de inhaalregel |
+
+✅ **Drie entries verwijderd uit `MidnightCodexData.lua`.** De locale-keys blijven staan — ongebruikte
+keys zijn een SOFT-lintregel en niets meer, terwijl ze in zeven packs weghalen churn is met een echte
+kans op schade. Komt Timeways VI, dan ligt de tekst klaar.
+
+🔴 **`docs/CONTENT_WATCH.md` bestaat om te vinden "waar de addon liegt" en heeft dit nooit gezien.**
+De wachter leest de **bronnen**; niemand leest onze **eigen plank** tegen de kalender. Een artikel met
+een einddatum die voorbij is, is machinaal te vinden. **Openstaand voorstel:** een lintregel die elke
+datum in een locale-string tegen vandaag houdt.
+
+⚠️ Beide Folio-titels zeggen nog *"(12.0.7)"* terwijl de client 12.1 draait. Dat is **niet onwaar** —
+het systeem kwam in 12.0.7 en bestaat nog — maar het leest verouderd. Of de plank überhaupt
+patchnummers moet dragen is Robs keuze; niet aangeraakt.
 ## ✅ 9 sep — "kan dat op alles?" was de juiste vraag, en het antwoord was twee plekken
 
 Rob, na de mislukte Azeroot-zoekactie: *"ja bouw die zoek-fix maar, en kan dat op alles?"*

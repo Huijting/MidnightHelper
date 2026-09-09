@@ -13,16 +13,23 @@ Rob vroeg op resetdag: *"is er niets meer echt open voor deze release?"* Dit is 
 antwoord. **Niets hiervan is fout of onwaar** — het is alles wat gebouwd is en nog nooit
 gerenderd. Bouwen is niet testen.
 
-- [ ] 🆕 **DE ZOEK-FIX (9 sep) — drie dingen achter elkaar, één reload.**
-      1. Zoek op **`azeroot`** en klik het resultaat. Verwacht: Guided mode — Herbalism opent op
-         **stap 1 van 9** ("Pick anything, skill 1-30") met de tekst *"Where you go matters less
-         than you would think"*. **Niet** stap 6. Dit is meteen de Azeroot-test hieronder.
-      2. Zoek op **`umbral tin`**. Verwacht: Guided mode — **Mining**, op de eerste stap.
-      3. Zoek een **Codex-artikel** dat onderaan een volle categorie staat (bv. iets uit
-         "coiledisle") en klik het. Verwacht: de Codex opent en **scrollt naar dat artikel**, niet
-         naar de bovenkant van de pagina.
-      ⚠️ **Controle dat er niets kapot is:** open de gids daarna gewoon via `/mh profguide` of de
-      knop. Dan hoort hij nog steeds op **jouw** stap te openen (Alchemy 8/11), niet op stap 1.
+- [x] ✅ **DE ZOEK-FIX (9 sep) — beroepsgids GEZIEN EN GOED.** Rob 9 sep: *"1 en 2 kloppen nu ... en
+      punt 4 is goed"*. Zoeken op `azeroot` landt op stap 1, `umbral tin` op Mining, en `/mh
+      profguide` opent nog steeds gewoon op je eigen stap. Geen regressie.
+- [ ] 🆕 **De Codex-sprong is nog NIET beoordeeld.** Robs screenshot toont de Weekly-loop-pagina
+      vanaf de bovenkant, dus het is niet te zien of hij gesprongen is — het gezochte artikel stond
+      waarschijnlijk toch al in beeld. **Betere test:** kies een categorie met veel artikelen
+      (**Coiled Isle** of **Delves**), scroll naar het **laatste** artikel en onthoud de titel. Zoek
+      daarna op een woord uit díé titel en klik. Verwacht: de Codex opent **onderaan**, met dat
+      artikel in beeld — niet bovenaan.
+- [ ] 🆕 **De Codex-plank is opgeschoond (9 sep) — controleer wat er wég is.** Open Codex →
+      **Weekly loop**. Verwacht: **geen** *"Turbulent Timeways V (Jun 30 - Aug 11)"* meer (dat
+      evenement is op 11 aug afgelopen) en **maar één** Omnium Folio-artikel, namelijk het lange met
+      de vijfwekenketen. Kijk ook onder **World content**: daar stond een tweede Timeways, die hoort
+      ook weg te zijn.
+- [ ] 🆕 **De Inscription-tekst (Spec 34).** Professions → cursus → hoofdstuk Inscription. Verwacht:
+      *"so your Treatise gives 2 Knowledge instead of the usual 1"*. De oude zin beweerde dat
+      Inscription het als **enige** beroep heeft, en dat was door geen enkele bron gestaafd.
 - [ ] 🔴 **De Azeroot-tekst is nog STEEDS nooit gezien, en nu weten we waaróm.** GEMETEN 9 sep:
       Rob zocht op "azeroot", klikte het resultaat, en landde op **stap 6 van 9** — precies zoals
       8 sep. Niet toevallig: `ns.MH_OpenProfessionGuide` eindigt op `AdvanceToCurrent()`, dus de
