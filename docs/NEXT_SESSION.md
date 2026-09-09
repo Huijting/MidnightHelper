@@ -50,6 +50,25 @@ een raadspel, en dit is nu juist het soort knop dat je niet dagelijks gebruikt.
 🔴 **En bij de WoW-iconen-optie geen namen verzonnen.** De vier die in het document staan zijn de
 namen die dit addon zélf gebruikt en dus gegarandeerd bestaan; voor de rest staat er hoe je ze zelf
 opzoekt. Een plausibele icoonnaam is precies het soort gok waar dit project een regel over heeft.
+
+### 🔴 En daarna: hernoemen is niet omzetten
+
+Rob: *"alleen verwacht ie png 🙂 maar dat is simpel renamen"* — en het wérkte, wat betekent dat zijn
+software naar de **inhoud** kijkt in plaats van naar de extensie. ⚠️ **Dat is geen fundament.** Een
+`.svg` die `.png` heet is een bestand dat over zijn eigen formaat liegt; het houdt op te werken bij
+een update, op een andere machine, of na een profiel-export — en dan lijkt het addon stuk terwijl het
+de bestandsnaam is.
+
+✅ **Er staan nu echte PNG's naast:** 288×288, RGBA, doorzichtige hoeken. **Gemeten dat er geen
+converter is** (geen cairosvg, cairo of wand; PIL 12.3 wél), dus ze zijn **opnieuw getekend** uit
+dezelfde specificatie in plaats van geconverteerd — 4× supersampling en LANCZOS, want PIL-primitieven
+hebben harde randen en een kartelig icoontje ziet er kapot uit op zo'n fel schermpje. Het script
+controleert zijn eigen uitvoer: elk bestand moet heropenen als 288×288 RGBA PNG.
+
+📌 **Meegegeven vóór hij WoW-iconen gaat zoeken:** spel-iconen zijn klein — WoW tekent ze voor een
+actiebalkvakje. Opgerekt naar een deck-toets worden ze zacht. Het alternatief staat in het document:
+het spel-icoon **op** ons frame zetten in plaats van uitrekken, en het script kan dat samenstellen
+zodra hij bestanden heeft.
 ## 🔴 9 sep — ik bouwde iets dat kan zwijgen en géén manier om te zien dát het zweeg
 
 Rob klikte Liadrin aan, deed `/mh weeklies`, en alle vijf de givers stonden nog steeds op *"not

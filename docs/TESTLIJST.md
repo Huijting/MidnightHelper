@@ -40,13 +40,15 @@ gerenderd. Bouwen is niet testen.
       Liadrin daarna aanklikken liet het spoor op Ceera staan: **een NPC zonder aanbod opent geen
       gesprekvenster.** Dus *"had iets"* is te zien, *"had niets"* niet.
 - [x] ✅ **De acht scherm-toetsen — GEMETEN 9 sep, werkt.** Rob: *"ja en het werkt"*.
-- [ ] 🆕 **De acht icoontjes (9 sep), buiten het spel.** In `docs/streamdeck-icons/` staan acht
-      SVG's. Sleep er één op een knop in de Stream Deck-software (of knop → *Icon* → *Set from
-      file*) en **maak de titel leeg** — het woord staat al in het plaatje.
-      ⚠️ **Als je software SVG weigert:** open het bestand in een browser en exporteer naar PNG
-      144×144. Dat is geen fout van het bestand maar een beperking van sommige versies.
-      📌 Kijk of de kleuren op de deck genoeg van elkaar verschillen; ik heb ze op een scherm
-      gekozen, niet op jouw hardware. Zo niet, zeg welke twee op elkaar lijken.
+- [x] ✅ **De acht icoontjes — GEZIEN 9 sep, werken op de deck.** (Rob laadde ze als hernoemde SVG;
+      zie hieronder waarom dat vervangen is.)
+- [ ] 🆕 **Vervang de hernoemde SVG's door de ECHTE PNG's.** In `docs/streamdeck-icons/` staan nu
+      `mh-*.png` naast `mh-*.svg` — 288×288, echt PNG. Laad die.
+      🔴 **Waarom dit niet cosmetisch is:** een `.svg` die `.png` heet werkt alleen zolang je
+      software naar de inhoud kijkt. Bij een update of op een andere machine kan dat stoppen, en dan
+      lijkt er iets kapot terwijl het de bestandsnaam is.
+      📌 Kijk meteen of de kleuren op de deck genoeg van elkaar verschillen; ik koos ze op een
+      monitor, niet op jouw hardware. Lijken er twee te veel op elkaar, zeg welke.
 - [ ] 🔴 **DE ECHTE METING STAAT VOLGENDE WEEK, en kost één commando.** Draai **vóór je iets doet**,
       na de reset: `/mh weeklies`. Kijk naar Liadrins dertien ID's.
       | uitkomst | conclusie |
