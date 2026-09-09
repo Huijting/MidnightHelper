@@ -2743,9 +2743,11 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "raretest" then
+	-- /mh raretest [naam] — een naam kiest die rare en vuurt zijn AANKOMST-kaart, zodat
+	-- een hint als "open de kist" te zien is zonder op een weekly spawn te wachten.
+	if msg == "raretest" or msg:match("^raretest%s+") then
 		if ns.TestRareAlert then
-			ns.TestRareAlert()
+			ns.TestRareAlert(msg:match("^raretest%s+(.+)$"))
 		else
 			print("|cffffcc00Midnight Helper:|r rare alert not loaded")
 		end

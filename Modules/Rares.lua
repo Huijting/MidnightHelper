@@ -2819,19 +2819,60 @@ local function ScanForRareAlerts()
 end
 ns.ScanRareAlerts = ScanForRareAlerts
 
--- /mh raretest — fire the alert output path (toast + sound) on demand.
-function ns.TestRareAlert()
-	local playerMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-	local zoneKey = playerMap and ZoneKeyForMap(playerMap)
-	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
-	local rare = (zone and zone.rares and zone.rares[1]) or (ZONES[1] and ZONES[1].rares[1])
-	if rare then
-		-- Model-fallback: bekend/geleerd npcID, anders het laatst geziene.
-		FireRareAlert(rare, KnownRareNpc(rare) or GetRareAlertSettings().lastNpcId)
-		print("|cffffcc00MH:|r raretest fired for " .. GetRareDisplayName(rare))
-	else
-		print("|cffffcc00MH:|r raretest — no rare available")
+--- Any rare whose name contains `text`, across every zone. Case-insensitive, plain find.
+local function FindRareByName(text)
+	if type(text) ~= "string" or text == "" then
+		return nil
 	end
+	local needle = text:lower()
+	for _, zone in ipairs(ZONES) do
+		for _, rare in ipairs(zone.rares or {}) do
+			local name = rare[5]
+			if type(name) == "string" and name:lower():find(needle, 1, true) then
+				return rare
+			end
+		end
+	end
+	return nil
+end
+
+--- /mh raretest [name] — fire the alert output path (toast + sound) on demand.
+---
+--- 🔴 IT COULD NOT TEST THE CASE IT WAS NEEDED FOR. This picked `zone.rares[1]` — the first
+--- rare of whatever zone you stand in — so you could not choose one, and it fired with
+--- `onRoute` nil, which is the other body text. On 9 Sep 2026 Rob wanted to check the new
+--- "open the chest" line on Farthik and had just killed him; rares are weekly, so the tool
+--- built to avoid waiting for a spawn could not avoid waiting for one.
+---
+--- 📌 A name argument fixes both: `/mh raretest farthik` fires HIS toast, as the arrival
+--- case, from anywhere. Bare `/mh raretest` is unchanged, so nothing that worked stops.
+---
+--- ⚠️ SAME DOOR AS THE GAME. It calls `FireRareAlert`, the one the live scan calls — no
+--- test-only branch, so this exercises the hint lookup, the body assembly and the card's
+--- growth exactly as a real arrival would. A test that took a shortcut would pass on
+--- precisely the build where the shortcut is the bug.
+function ns.TestRareAlert(arg)
+	local rare = FindRareByName(arg)
+	local named = rare ~= nil
+	if not rare then
+		local playerMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+		local zoneKey = playerMap and ZoneKeyForMap(playerMap)
+		local zone = zoneKey and ZONE_BY_KEY[zoneKey]
+		rare = (zone and zone.rares and zone.rares[1]) or (ZONES[1] and ZONES[1].rares[1])
+	end
+	if not rare then
+		print("|cffffcc00MH:|r raretest — no rare available")
+		return
+	end
+	if arg and arg ~= "" and not named then
+		print(("|cffffcc00MH:|r raretest — no rare matching '%s'; using the zone default."):format(arg))
+	end
+	-- Model-fallback: bekend/geleerd npcID, anders het laatst geziene.
+	-- onRoute=true for a named test: that is the arrival card, the one carrying the hint.
+	FireRareAlert(rare, KnownRareNpc(rare) or GetRareAlertSettings().lastNpcId, named or nil)
+	local hintKey = ns.RareArrivalHintKey and ns.RareArrivalHintKey(rare) or nil
+	print(("|cffffcc00MH:|r raretest fired for %s  (arrival hint: %s)"):format(
+		GetRareDisplayName(rare), hintKey and ns:L(hintKey) or "none for this rare"))
 end
 
 -- /mh rarescan — dump what the live scan currently sees and how it matches.

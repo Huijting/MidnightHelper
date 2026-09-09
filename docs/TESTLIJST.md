@@ -25,13 +25,21 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **De kop van This Week feliciteert niet meer over een halve week — GEMETEN 9 sep.** Robs
       scherm: *"Nothing left to pick up — but 5 weekly things are still unfinished. They are in the
       list below."* boven *"8 of 13"*, en de **5** komt overeen met zijn vijf genummerde regels.
-- [ ] 🆕 **De kist-hint op de rare-toast (9 sep).** Loop naar **Farthik the Plunderer** (Coiled Isle,
-      54.03/72.22) met een route erheen. Verwacht op de toast een **tweede regel** onder *"This is
-      your routed rare"*: **"(open the chest to summon him)"** in geel. De kaart hoort mee te groeien,
-      niet af te knippen.
-      📌 Zelfde zin hoort ook nog steeds in de chat te staan — dat is expres allebei.
-      ⚠️ **Tweede geval, gratis meegekomen:** **Coin-Eye Skully** zwemt, en die hoort nu
-      *"(roams — look around)"* op zijn toast te krijgen. Kom je hem tegen, kijk dan even.
+- [ ] 🆕 **De kist-hint op de rare-toast (9 sep) — te testen ZONDER op een spawn te wachten.**
+      Rob had Farthik al gedood en rares zijn weekly, dus `/mh raretest` kan nu een naam mee:
+      ```
+      /mh raretest farthik
+      ```
+      Verwacht: zijn aankomst-kaart met een **tweede gele regel** — *"(open the chest to summon
+      him)"* — en de kaart groeit mee in plaats van af te knippen. In de chat komt er een regel bij
+      die zegt welke hint hij gebruikte, zodat "geen tweede regel" te onderscheiden is van "deze rare
+      heeft er geen".
+      ⚠️ **Tegenproef, want alleen de goede uitkomst zien bewijst niets:** `/mh raretest lockjaw`
+      (of een andere rare zonder hint) hoort **één** regel te tonen en in de chat *"none for this
+      rare"* te zeggen.
+      📌 **Derde geval, gratis:** `/mh raretest coin` — Coin-Eye Skully zwemt, dus die hoort
+      *"(roams — look around)"* te krijgen.
+      📌 En kaal `/mh raretest` doet nog steeds wat het altijd deed.
 - [ ] 🆕 **De giver-waarneming (9 sep) — drie stappen, en stap 1 hoort NIETS te doen.**
       1. **`/reload`, dan meteen `/mh weeklies`.** Verwacht een nieuw blok *"What each giver actually
          offered when you last stood there"* met bij alle vier de givers **"not visited since this

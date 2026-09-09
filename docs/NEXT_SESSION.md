@@ -23,6 +23,23 @@ Dus **allebei**, niet in plaats van.
 
 📌 Dit geldt meteen ook voor `ARROW_TARGET_ROAMS` (Coin-Eye Skully zwemt). Zelfde soort zin, zelfde
 plek, zonder extra werk — de hint komt uit één functie.
+
+### 🔴 En het testgereedschap kon precies dít geval niet testen
+
+Rob wilde het meteen controleren en had Farthik **net gedood**. Rares zijn weekly, dus het middel dat
+bestaat om niet op een spawn te hoeven wachten (`/mh raretest`) liep vast op precies dat wachten:
+het vuurde altijd `zone.rares[1]` — de eerste rare van je zone, niet te kiezen — en met `onRoute`
+leeg, dus met de ándere bodytekst.
+
+✅ **`/mh raretest <naam>`** kiest nu de rare op naam en vuurt zijn **aankomst**-kaart. Kaal
+`/mh raretest` is onveranderd. De chatregel erbij noemt wélke hint hij gebruikte, of *"none for this
+rare"* — zodat "geen tweede regel" te onderscheiden is van "deze rare hoort er geen te hebben".
+
+⚠️ **Door dezelfde deur als het spel:** het roept `FireRareAlert` aan, dezelfde functie als de live
+scan, zonder test-tak. Een test die de afkorting neemt, slaagt juist op de build waar die afkorting
+de bug is (CLAUDE.md, Spec 30).
+📌 **De bredere les:** een diagnose die de *normale* uitkomst kan tonen maar het *bijzondere* geval
+niet, is precies de helft van een diagnose — en het bijzondere geval is altijd waarom je hem bouwde.
 ## 🔴 9 sep — de weekly-vinkjes rusten op bewijs dat niets waard is (OPEN)
 
 Rob, na de This Week-test: *"maar ik heb behalve een proff quest nog helemaal niets gedaan vandaag op
