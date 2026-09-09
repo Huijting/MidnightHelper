@@ -1809,8 +1809,20 @@ function ns.PrintSoulLedger()
 	--- meaningless. Say which scope each number has, on the line that carries it.
 	print(("%s Corrosive Souls — |cffffffff%s|r in |cffffffffthis character's bags|r"):format(
 		p, tostring(SoulCount() or "unreadable")))
-	print("   |cff8a8f98Souls are Warbound, so your alts hold their own. The ledger below is the|r")
-	print("   |cff8a8f98whole account: do not subtract it from the number above.|r")
+	--- 🔴 THIS LINE USED TO SAY "Souls are Warbound" AND NOTHING MEASURED THAT. Rob read it the
+	--- next morning and asked the right question -- *"zijn die warbound?"* -- which is exactly
+	--- what a reader should not have to ask about our own sentence. The word was inferred from
+	--- the shape of the numbers (47 earned, 7 in this bag, the rest elsewhere), and plain
+	--- per-character binding explains those numbers just as well. Grepped: the term appears in
+	--- no measurement document in this repo.
+	---
+	--- ✅ WHAT IS LEFT IS WHAT WE CAN DEFEND: the ledger lives in `ns.db`, the .toc declares only
+	--- `## SavedVariables`, so every character writes into the same table -- while `SoulCount()`
+	--- reads this character's bags. Two scopes, and that is the whole reason this line exists.
+	--- Where the souls physically sit is a separate question, and until a tooltip settles it we
+	--- say "elsewhere in your warband" rather than naming a binding rule we have not read.
+	print("   |cff8a8f98The ledger below covers your whole account, so it can be larger than the|r")
+	print("   |cff8a8f98number above -- do not subtract. Other characters carry their own.|r")
 	if not log or #log == 0 then
 		print("   |cff8a8f98The ledger is empty. It writes a row whenever your soul count changes,|r")
 		print("   |cff8a8f98so play a week and come back — nothing has to be farmed for it.|r")

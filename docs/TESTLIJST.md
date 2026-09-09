@@ -13,20 +13,24 @@ Rob vroeg op resetdag: *"is er niets meer echt open voor deze release?"* Dit is 
 antwoord. **Niets hiervan is fout of onwaar** — het is alles wat gebouwd is en nog nooit
 gerenderd. Bouwen is niet testen.
 
-- [ ] 🔴 **De Azeroot-tekst is nog NOOIT gezien.** Hij staat in de stap **skill 1-30** van
-      Herbalism; Robs screenshot van 8 sep was **stap 6 van 9** (Lush & Infused, 60-100). Open
-      `/mh profguide`, kies Herbalism en klik terug naar de eerste stap. Verwacht: *"Where you go
-      matters less than you would think"* met alle vijf de kruiden en alle vier de gebieden.
-      Zelfde voor **Mining** (drie ertsen) en **Skinning** (de nieuwe stap over leer/schubben).
-- [ ] **`/mh souls` opnieuw.** De tekst is ná Robs laatste reload veranderd: de kop hoort nu
-      *"in this character's bags"* te zeggen, met eronder dat souls Warbound zijn en dat het
-      grootboek de hele account is. 📌 Reden: de oude kop zette "you hold 7" pal boven een
-      accountbreed totaal van 47, en de eerste lezer maakte meteen de verkeerde aftreksom.
-- [ ] **`/mh profguide` als kaal commando.** De zoekingang is getest (8 sep), het commando zelf
-      niet. Verwacht: Guided mode opent op je huidige beroep.
-- [ ] **Zoek nog eens op `azer`.** Het label hoorde *"Course (101) — Herbalism"* te zeggen en dat
-      was fout: dit is de **adviseur**, niet de cursus. Nu hoort er **"Guided mode — Herbalism"**
-      te staan, gelijk aan de titel van het venster dat opengaat.
+- [ ] 🔴 **De Azeroot-tekst is nog STEEDS nooit gezien, en nu weten we waaróm.** GEMETEN 9 sep:
+      Rob zocht op "azeroot", klikte het resultaat, en landde op **stap 6 van 9** — precies zoals
+      8 sep. Niet toevallig: `ns.MH_OpenProfessionGuide` eindigt op `AdvanceToCurrent()`, dus de
+      gids springt altijd naar de stap waar je zélf staat. Robs Herbalism is voorbij 30, dus de
+      stap met de Azeroot-tekst schuift onder hem weg.
+      📌 **Dit is de derde ronde van dezelfde bug.** Eerst was het antwoord er niet, toen was het
+      er maar onvindbaar, nu is het vindbaar maar brengt de zoekactie je niet bij het antwoord.
+      Een zoekresultaat dat het juiste vénster opent en de verkeerde bladzijde toont, is van
+      buiten hetzelfde als geen antwoord. Zie het voorstel in `NEXT_SESSION.md`.
+      ⚠️ Tot dat gebouwd is: open de gids en klik **Back** tot stap 1 van 9.
+- [x] ✅ **`/mh souls` — GEZIEN 9 sep.** Kop leest *"7 in this character's bags"*, eronder de
+      Warbound-regel en *"do not subtract"*, en het grootboek groepeert per bron met de
+      flicker-teller eronder (4 rijen overgeslagen).
+      🔴 **MAAR de Warbound-regel zelf is nooit gemeten** — zie `NEXT_SESSION.md` 9 sep.
+- [x] ✅ **`/mh profguide` als kaal commando — GEZIEN 9 sep.** Opent Guided mode op **Alchemy**,
+      stap 8 van 11. Correct: `DefaultGuideSkillLine()` kiest het eerste beroep dat je écht hebt.
+- [x] ✅ **Het zoeklabel — GEZIEN 9 sep.** Zoeken op "azeroot" geeft **"Guided mode — Herbalism
+      inside Professions"**. Gelijk aan de titel van het venster dat opengaat.
 
 ✅ **Wel al gezien en goed bevonden** (dus niet opnieuw testen): het Codex-artikel over de
 Midnight-campagne, het Corrosive-Codex-artikel, de Dundun-flamingo in drie vormen, de

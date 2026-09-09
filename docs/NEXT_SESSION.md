@@ -1,5 +1,50 @@
 # Midnight Helper — waar we staan
 
+## 🔴 9 sep — drie van de vier testpunten af, en twee dingen die ik niet gemeten heb
+
+Rob testte de vier openstaande punten. ✅ Drie goed: `/mh souls` rendert met de nieuwe scope-tekst,
+`/mh profguide` opent kaal op Alchemy (stap 8/11 — correct, `DefaultGuideSkillLine()` kiest je eerste
+échte beroep), en het zoeklabel leest nu **"Guided mode — Herbalism"**.
+
+### 🔴 Het vierde punt faalt, en het is de derde ronde van dezelfde bug
+
+Rob zocht "azeroot", klikte, en landde op **stap 6 van 9** — precies waar hij 8 sep ook landde.
+📌 **GEMETEN oorzaak:** `ns.MH_OpenProfessionGuide` eindigt op `AdvanceToCurrent()`
+(`ProfessionGuided.lua:517`), en `f:SetScript("OnShow", ...)` doet het nog een keer. De gids springt
+dus altijd naar de stap waar je zélf staat. Robs Herbalism is voorbij skill 30, dus de stap die de
+Azeroot-tekst draagt schuift onder hem weg.
+
+🔴 **De vorm is drie keer dezelfde en werd twee keer "opgelost".** Eerst stond het antwoord er niet
+(8 sep, ochtend). Toen stond het er maar was het onvindbaar (8 sep, avond — `NavSearch`). Nu is het
+vindbaar en brengt de zoekactie je naar de verkeerde bladzijde. **Een zoekresultaat dat het juiste
+venster opent en de verkeerde stap toont, is van buiten hetzelfde als geen antwoord** — dezelfde
+maatstaf als de rode regel over chat: het antwoord hoort te staan waar je erom vraagt.
+
+⚠️ **En de gids heeft twee taken die botsen.** Als *levelgids* is "spring naar waar je staat" precies
+goed; als *opzoekboek* is het fout. Voorstel: `MH_OpenProfessionGuide(skillLine, matchText)` — komt
+er een zoekterm mee, dan landt hij op de eerste stap wiens titel of body die term bevat, anders op
+`AdvanceToCurrent()` zoals nu. Niet gebouwd.
+
+### 🔴 Twee beweringen van mij die NIET gemeten zijn
+
+Rob las de nieuwe soul-tekst en stelde de juiste vraag: *"zijn die warbound en kan je een keuze
+ongedaan maken?"*
+
+1. **"Souls are Warbound" staat sinds 8 sep in `AtalUtekProbe.lua:1812` en er is nul bewijs voor.**
+   Gegrept: het woord komt in geen enkel meetdocument voor — niet in `CORROSIVE_CODEX_MEASURED.md`,
+   niet in `VAULTS_MEASUREMENTS.md`, nergens. Ik heb het afgeleid uit "47 verdiend, 7 in de tas, de
+   rest staat op alts", en dat verklaart de getallen net zo goed als *soulbound per character*.
+   ⚠️ **De regel eronder — "het grootboek is de hele account, trek het niet af" — is wél waar**, want
+   die volgt uit `## SavedVariables` tegenover `GetItemCount`. Alleen het woord Warbound is een gok.
+   **Meting: Rob hovert over een Corrosive Soul in zijn tas en leest de bindregel.** Vijf seconden,
+   en het is de enige bron die telt.
+2. **Of je een ontgrendelde power ongedaan kunt maken is nooit onderzocht.** We weten dat het −8
+   souls kost (2× gemeten, 8 sep); over teruggeven staat nergens iets. De Codex is een trait-boom,
+   dus `C_Traits` kent er in principe een antwoord op (`canRefundRank` per node), maar een knop in
+   het venster is een hardere meting dan een API-veld.
+
+📌 Beide vallen onder dezelfde regel: een zin die in het spel te lezen is, is een claim die we
+onderbouwd moeten hebben. [[never-assume-always-factcheck]]
 ## 🔴 9 sep — CurseForge wordt door niets bewaakt, en de browser kan er wél bij
 
 Rob: *"nog steeds geen nieuwe mensen of nieuwe ideeën op de github, voor we dat over het hoofd
