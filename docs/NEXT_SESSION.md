@@ -62,7 +62,32 @@ beter dan zijn slechtste helft. De basis is nooit gemeten.
 📌 **Daarom staat de 50 er nog**, met de meting eromheen gedocumenteerd. Hem vervangen door 75 ruilt
 een **bekende** fout in voor een **verborgen** fout (goed op rank 10, stil fout daaronder).
 
-### 💡 De echte oplossing is dezelfde als vanochtend bij de givers: waarnemen in plaats van afleiden
+### ✅ GEBOUWD 9 sep — de waarnemer: wat jóúw spel betaalt, niet wat een wiki zegt
+
+`CURRENCY_DISPLAY_UPDATE` op currency 3310. Elke **toename** wordt weggeschreven in
+`ns.db.shardGains` (max 40), en `ns.GetObservedShardGain()` geeft de **meest voorkomende** gave terug.
+Zodra er **drie schone waarnemingen** zijn én die meest voorkomende minstens de helft is, rekent
+*"nog ongeveer N rares"* daarmee. Anders blijft de wiki-50 staan **en zegt `/mh shards` dat erbij**.
+
+⚠️ **Bewust NIET toegeschreven aan rares.** Shards komen ook uit chests, treasures en afgemaakte
+delves, en `Rares.lua` vuurt geen "je hebt er een gedood"-signaal. Zo'n gave "een rare" noemen zou een
+gok zijn in feitenkleding — en questvlaggen zijn precies wat vandaag onbetrouwbaar bleek. Er staat
+dus *"een uitbetaling gaf N"*, en dat is toevallig ook precies wat het paneel nodig heeft.
+
+🔴 **Drie valkuilen afgevangen, en de eerste is dezelfde die Robs meting had kunnen bederven:**
+1. **Afgeknipte gaven tellen niet mee.** Vlak bij de cap krijg je alleen wat er nog past, dus een 75
+   arriveert als 12. Een handvol daarvan zou het getal stilletjes omlaag trekken. Alleen gaven
+   waar ruimte voor was tellen; het aantal overgeslagene wordt **gemeld**, niet verstopt.
+2. **De eerste meting legt alleen de basislijn vast.** Zonder dat lijkt inloggen op een gave van
+   alles wat je bezit, en één zo'n rij vergiftigt het gemiddelde voorgoed.
+3. **Een modus die niet typisch is, telt niet.** Is de meest voorkomende waarde minder dan de helft
+   van de waarnemingen, dan is het een allegaartje en geen tarief — dan zwijgt hij.
+
+📌 `/mh shards` toont nu of het getal **GEMETEN** is of nog geleend, met hoeveel waarnemingen. Want
+een tarief van 50 en een tarief van 75 zien er in de uitvoer identiek uit, en juist het geleende was
+fout.
+
+### 💡 De redenering: dezelfde als vanochtend bij de givers — waarnemen in plaats van afleiden
 
 De addon kan `CURRENCY_DISPLAY_UPDATE` volgen en opschrijven wat een rare-kill jóú daadwerkelijk
 opleverde — precies zoals het soul-grootboek item 273000 volgt. Dan komt *"nog ongeveer N rares"* uit

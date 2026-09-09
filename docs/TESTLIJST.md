@@ -49,6 +49,16 @@ gerenderd. Bouwen is niet testen.
       lijkt er iets kapot terwijl het de bestandsnaam is.
       📌 Kijk meteen of de kleuren op de deck genoeg van elkaar verschillen; ik koos ze op een
       monitor, niet op jouw hardware. Lijken er twee te veel op elkaar, zeg welke.
+- [ ] 🆕 **De shard-waarnemer (9 sep) — hij hoort de eerste keer NIETS te weten.**
+      **`/reload`, dan meteen `/mh shards`.** Verwacht onderaan een gele regel: *"per pickup = 50
+      still the wiki figure — no payout observed yet"*. ⚠️ **Dat is de goede uitkomst** — hij heeft
+      nog niets gezien. Staat er meteen "MEASURED", dan telt hij iets mee wat geen uitbetaling was.
+      **Dood daarna drie rares** (mag verspreid over de avond). Na de derde hoort er te staan:
+      *"per pickup = 75 MEASURED in your game (3 of 3 payouts)"*, en *"nog ongeveer N rares"* rekent
+      vanaf dan met 75 in plaats van 50.
+      📌 **Zit je bijna aan de cap, dan hoort hij die uitbetaling over te slaan** en dat te melden
+      (*"1 payout(s) ignored: they landed against the weekly cap"*). Dat is precies de valkuil die
+      jouw eigen meting had kunnen bederven.
 - [x] ✅ **Wat betaalt één rare op rank 10? GEMETEN 9 sep: 75, niet 50.** Verse character, 600
       weekruimte, niets anders geloot ertussen, rank 10 bevestigd. `quantity` 447→522 en
       `quantityEarnedThisWeek` 0→75 — beide tellers eens. 🔴 Het paneel zei *"about 11 rares"* waar

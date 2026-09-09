@@ -69,6 +69,11 @@ local COFFER_SHARDS = 3310
 --- to watch what YOUR game actually pays -- see docs/NEXT_SESSION.md.
 local SHARDS_PER_RARE = 50
 
+--- Forward-declared: `GetCofferShardStatus` below needs it, and it is defined further down
+--- beside the observer it reads from. Without this the earlier function would capture a
+--- global nil instead — the exact thing lint check [6] exists to catch.
+local ShardsPerPickup
+
 --- Every field this currency gives us, named, with nothing guessed.
 --- Returns nil when the API is unavailable — never zeros, because "0 of 600" and
 --- "we could not read it" must not look the same to a caller.
@@ -94,9 +99,126 @@ function ns.GetCofferShardStatus()
 	if weeklyMax > 0 then
 		t.remaining = math.max(weeklyMax - earned, 0)
 		t.capped = t.remaining == 0
-		t.raresLeft = math.ceil(t.remaining / SHARDS_PER_RARE)
+		-- Per pickup: what this player's own game has been paying, once it has seen enough
+		-- to say. Falls back to the wiki figure, and says which it used so no caller has to
+		-- guess whether the number is measured.
+		local per, measured = ShardsPerPickup()
+		t.perPickup = per
+		t.perPickupMeasured = measured and true or false
+		t.raresLeft = math.ceil(t.remaining / per)
 	end
 	return t
+end
+
+--------------------------------------------------------------------------------
+--- 🔑 WHAT YOUR OWN GAME PAYS, instead of what a wiki says it pays.
+---
+--- 🔴 THE CONSTANT ABOVE WAS MEASURED WRONG ON 9 Sep 2026 and cannot be repaired by picking a
+--- better number: Journey rank 10 states every source pays more, so the rate depends on how
+--- far along the player is. Any single figure here is wrong for somebody.
+---
+--- 📌 SO WE WATCH INSTEAD OF LOOKING UP. Same move as the giver observation added the same
+--- morning, and the same machinery as the soul ledger that already follows item 273000: record
+--- what actually arrived, and the number is right at every rank and survives a tuning hotfix
+--- nobody told us about.
+---
+--- ⚠️ DELIBERATELY NOT ATTRIBUTED TO RARES. Shards also come from chests, treasures and
+--- finished delves, and `Rares.lua` fires no "you killed one" signal, so calling a gain "a
+--- rare" would be a guess dressed as a fact -- and quest flags are exactly what today proved
+--- untrustworthy. What is recorded is "a pickup paid N", which is also the quantity the panel
+--- actually needs: how many more pickups fill the cap.
+--------------------------------------------------------------------------------
+
+local GAIN_LOG_MAX = 40
+local MIN_OBSERVATIONS = 3
+
+local function GainLog()
+	ns.db = ns.db or {}
+	if type(ns.db.shardGains) ~= "table" then
+		ns.db.shardGains = {}
+	end
+	return ns.db.shardGains
+end
+
+--- The gain size seen most often, or nil while we have not seen enough.
+---
+--- ⚠️ CLIPPED GAINS ARE EXCLUDED, and that matters more here than it looks. Near the weekly
+--- cap the game hands over only what still fits, so a 75 arrives as a 12 -- and a handful of
+--- those would drag the mode down and quietly shorten every estimate. A gain is only counted
+--- when there was room for it. The count of skipped ones is reported rather than hidden.
+--- @return number|nil size, number seen, number clean, number skipped
+function ns.GetObservedShardGain()
+	local clean, skipped = {}, 0
+	for _, row in ipairs(GainLog()) do
+		if row.clipped then
+			skipped = skipped + 1
+		elseif type(row.gain) == "number" and row.gain > 0 then
+			clean[#clean + 1] = row.gain
+		end
+	end
+	if #clean < MIN_OBSERVATIONS then
+		return nil, 0, #clean, skipped
+	end
+	local tally = {}
+	for _, g in ipairs(clean) do
+		tally[g] = (tally[g] or 0) + 1
+	end
+	local best, bestN = nil, 0
+	for g, n in pairs(tally) do
+		if n > bestN or (n == bestN and best and g > best) then
+			best, bestN = g, n
+		end
+	end
+	-- A mode that is not actually typical says nothing. Half of a mixed bag is not a rate.
+	if bestN * 2 < #clean then
+		return nil, bestN, #clean, skipped
+	end
+	return best, bestN, #clean, skipped
+end
+
+--- What one pickup pays, and whether that is measured or borrowed.
+--- @return number amount, boolean measured
+function ShardsPerPickup()
+	local observed = ns.GetObservedShardGain()
+	if observed then
+		return observed, true
+	end
+	return SHARDS_PER_RARE, false
+end
+
+do
+	local lastQty
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+	f:SetScript("OnEvent", function()
+		local s = ns.GetCofferShardStatus()
+		if not s then
+			return
+		end
+		--- 🔴 The first reading only ESTABLISHES the baseline. Without this, logging in looks
+		--- like a gain of everything you own and one bogus row poisons the mode for good.
+		if lastQty == nil then
+			lastQty = s.quantity
+			return
+		end
+		local gain = s.quantity - lastQty
+		lastQty = s.quantity
+		if gain <= 0 then
+			return -- spending a key, or the reset: not a payout
+		end
+		-- Room BEFORE this gain: if the payout was larger than the space, it was cut short.
+		local roomBefore = s.remaining and (s.remaining + gain) or nil
+		local log = GainLog()
+		log[#log + 1] = {
+			at = time(),
+			gain = gain,
+			clipped = (roomBefore ~= nil and gain >= roomBefore) or nil,
+		}
+		while #log > GAIN_LOG_MAX do
+			table.remove(log, 1)
+		end
+	end)
 end
 
 --- One line for the rares panel: how much of this week's cap is left, in rares.
@@ -149,6 +271,24 @@ function ns.PrintCofferShardProbe()
 	end
 	if s.remaining then
 		print(("   left this week        = %d  (about %d rares at %d each)")
-			:format(s.remaining, s.raresLeft, SHARDS_PER_RARE))
+			:format(s.remaining, s.raresLeft, s.perPickup or SHARDS_PER_RARE))
+	end
+
+	--- The observer's own state, because its normal output is a number that looks the same
+	--- whether it was measured or borrowed — and "borrowed" is the one that was wrong.
+	local size, seen, clean, skipped = ns.GetObservedShardGain()
+	if size then
+		print(("   |cff77dd77per pickup            = %d  MEASURED in your game (%d of %d payouts)|r")
+			:format(size, seen, clean))
+	elseif clean and clean > 0 then
+		print(("   |cffffd100per pickup            = %d  still the wiki figure — %d payout(s) seen, need %d that agree|r")
+			:format(SHARDS_PER_RARE, clean, MIN_OBSERVATIONS))
+	else
+		print(("   |cffffd100per pickup            = %d  still the wiki figure — no payout observed yet|r")
+			:format(SHARDS_PER_RARE))
+	end
+	if skipped and skipped > 0 then
+		print(("   |cff8a8f98%d payout(s) ignored: they landed against the weekly cap and were cut short.|r")
+			:format(skipped))
 	end
 end
