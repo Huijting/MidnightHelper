@@ -22,12 +22,14 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **Valeera-tip: de machinerie is bewezen (9 sep).** `/mh curiodebug` gaf `resolved role: tank`,
       `node 110818 taken= true`, `heal tip: silent — your role is dps, not healer`. **Twee van de drie
       voorwaarden waren écht waar**, dus de node- en rol-lezing zijn allebei positief bevestigd.
-- [ ] 🔴 **De kop van This Week mag niet meer feliciteren over een halve week (9 sep).** Jij hebt nu
-      5 open dingen van 13. Verwacht bovenaan, in oranje: *"Nothing left to pick up — but 5 weekly
-      things are still unfinished. They are in the list below."* **Niet** *"You're all caught up this
-      week. Nice."* — dat stond er vanochtend bóven "8 of 13".
-      ⚠️ **Controle die er echt toe doet:** als je week wél helemaal af is, hoort de felicitatie
-      gewoon terug te komen. Anders heb ik de ene leugen door de andere vervangen.
+- [x] ✅ **De kop van This Week feliciteert niet meer over een halve week — GEMETEN 9 sep.** Robs
+      scherm: *"Nothing left to pick up — but 5 weekly things are still unfinished. They are in the
+      list below."* boven *"8 of 13"*, en de **5** komt overeen met zijn vijf genummerde regels.
+- [ ] ⚠️ **De ANDERE kant van diezelfde fix, nog ongetest.** Is je week wél helemaal af (13 van 13),
+      dan hoort *"You're all caught up this week. Nice."* gewoon terug te komen. **Zonder die meting
+      is alleen bewezen dat de nieuwe regel verschijnt, niet dat de oude nog kan verschijnen** — en
+      een guard die de goede uitkomst per ongeluk uitsluit, ziet er van buiten identiek uit.
+      📌 Geen werk: het valt vanzelf op zodra je een week afmaakt.
 - [x] ✅ **Trailing Xal'atath — GEMETEN 9 sep, goed.** *"3. Weekly (Vereesa Windrunner): picked up —
       finish and turn it in."* Precies het verwachte geval, niet "pick it up next to the vault".
 - [ ] ~~Trailing Xal'atath in de weeklijst~~ (afgevinkt; instructie blijft als naslag): Open **This Week**. Omdat je de
