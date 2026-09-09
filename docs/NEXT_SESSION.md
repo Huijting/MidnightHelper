@@ -1,5 +1,36 @@
 # Midnight Helper — waar we staan
 
+## 📦 9 sep — release 3.10.0: notities geschreven, wachten op Robs "go"
+
+**79 commits sinds v3.9.0.** `docs/CURSEFORGE_3.10.0.md` en `RELEASE_NOTES.md` staan er, byte-voor-byte
+identiek gecontroleerd (6611 bytes, 125 regels). ⚠️ **Groter dan elke eerdere release** — 3.7.3 was
+82 regels / 4709 tekens en ging schoon door. De lengteregel is dood en twee keer weerlegd; ging het
+tóch mis, dan is dat *nieuwe* informatie over de packager en niet een reden om de regel terug te
+zetten. Handmatig plakken kost twee minuten en staat in het draaiboek.
+
+**Nog NIET gedaan, bewust — dat wacht op "go":** `.toc`-versie, `Modules/Changelog.lua` +
+`CHANGELOG_3100_*`, `CHANGELOG.md`, en de tag. Een 3.10.0-regel in het in-game changelogvenster
+terwijl de `.toc` 3.9.0 zegt, toont een versie die niet bestaat.
+
+### 💡 Robs voorstel: vertel in de changelog ook waar we mee bezig zijn
+
+**Aanbevolen, en er staat een concept in.** De CF-notities eindigen nu op *"What we are working on
+next"* met vier punten, expliciet zónder datums en zónder belofte. 📌 Waarom dáár en niet in het
+in-game changelogvenster: dat venster is een **verslag** van wat er gebeurd is, per versie, en het is
+bewust Engelstalig geschiedschrijving. Wat er komt is geen geschiedenis.
+⚠️ Regel bij dit blok: alleen dingen die écht op de bank liggen. Een lijst die belooft is een lijst
+waar iemand je aan houdt.
+
+### 💡 En Robs tweede idee, met een meting erbij: "welk personage heeft dat beroep wél?"
+
+Uit de test van vandaag: hij zocht op `inscription` op een character zonder Inscription, kreeg
+terecht de rode regel, en vroeg *"is het een idee om na de release te kijken of we kunnen zeggen
+welke char in onze lijst hem wel heeft??"*
+
+✅ **GEMETEN dat de data er al is:** `AltOverview.lua:439-440` schrijft per personage
+`professions` én `professionsFull` weg. De rode regel kan er dus een tweede zin bij krijgen —
+*"Purlymixanox heeft dit wel"* — zonder één nieuwe meting. [[mh-already-contains-it]], deze keer in
+de goede richting. Na de release.
 ## ✅ 9 sep — de Codex-sprong is af, en de vierde ronde van dezelfde bug is gevonden
 
 **GEMETEN door Rob:** zoeken op `mephitic` landt nu bovenaan het juiste artikel. De sprong wordt een

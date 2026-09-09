@@ -16,7 +16,11 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **DE ZOEK-FIX (9 sep) — beroepsgids GEZIEN EN GOED.** Rob 9 sep: *"1 en 2 kloppen nu ... en
       punt 4 is goed"*. Zoeken op `azeroot` landt op stap 1, `umbral tin` op Mining, en `/mh
       profguide` opent nog steeds gewoon op je eigen stap. Geen regressie.
-- [ ] 🆕 **Zoek op `inscription` op een personage dat GEEN Inscription heeft.** Kies de bovenste
+- [x] ✅ **De rode regel — GEMETEN 9 sep, op twee beroepen.** Rob zocht op `inscription` én op
+      `alchemy` op een personage dat ze niet heeft; beide gaven de regel. Op een personage dát
+      Inscription heeft blijft hij terecht weg en rendert het hoofdstuk met de nieuwe Treatise-zin.
+- [x] ✅ **De opgeschoonde Codex-plank — GEMETEN 9 sep.** Rob: *"de codexen zijn goed"*.
+- [ ] ~~Zoek op `inscription`~~ (afgevinkt hierboven; instructie blijft als naslag): Kies de bovenste
       optie. Verwacht: het cursusvenster opent en er staat **bovenaan in rood** dat je om het
       Inscription-hoofdstuk vroeg, dat dit personage dat beroep niet heeft, en dat je daarom je
       eerstvolgende onafgeronde hoofdstuk ziet. **Voorheen kreeg je stilzwijgend hoofdstuk 4
