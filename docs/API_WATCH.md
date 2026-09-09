@@ -917,3 +917,78 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     50 commits af. Ik heb alleen mijn eigen checkout gelijkgetrokken (`reset --hard origin/main`,
     werkboom was schoon) en verder niets aangeraakt. Als Rob dit niet zelf gedaan heeft, is het het
     natrekken waard.
+
+- [2026-09-09] ✅ **Geen relevante API-wijzigingen. 0 × [MOET GEFIKST].** Er is sinds gisteren
+  **nul beweging** in API-land: beide `/API changes`-pagina's staan op dezelfde revisie, de
+  hotfixes zijn nog steeds die van 4 sep, en het UI-and-Macro-forum kreeg geen enkel nieuw topic.
+  Dit is de derde stille dag op rij en dat is het volledige antwoord, geen halve meting.
+  - **Beide `/API changes`-pagina's onveranderd t.o.v. 8 sep.** **GEMETEN** via `prop=revisions`
+    (zonder `rvlimit`, zie de val van gisteren): `Patch 12.1.0/API changes` (pageid 679840) nog
+    steeds **revid 6860164, 2026-09-05T00:39:06Z**, 102421 bytes; `Patch 12.1.5/API changes`
+    (pageid 705933) nog steeds **revid 6863733, 2026-09-06T17:08:08Z**, 25227 bytes.
+  - **Geen nieuwe `/API changes`-pagina.** `intitle:"API changes"` op aanmaakdatum: **12.1.5** nog
+    altijd de nieuwst aangemaakte (138 hits); **12.2.0 bestaat nog steeds niet** (`prop=revisions`
+    op de titel `Patch 12.2.0` geeft `missing`).
+  - **Geen enkele API-pagina bewerkt sinds 7 sep.** `intitle:/API/` op laatste bewerking geeft als
+    nieuwste nog steeds `API types/ItemInfo` (**2026-09-07T10:24:43Z**) — het item dat hier
+    gisteren al staat. Daarnaast `list=recentchanges` (ns 0, t/m 7 sep, 40 wijzigingen gelezen):
+    **geen enkele API-, secure-frame- of taint-pagina**; alles is content (items, Coiled Isle NPC's,
+    Tortollan-coördinaten, een nieuwe pagina *WoW's 22nd Anniversary*). Ook `Secret Values`
+    (laatste bewerking 2026-02-07), `Taint` (2010) en `UI escape sequences` (2026-07-25) liggen
+    alle drie ver buiten het venster.
+  - **Hotfixes: nieuwste sectie nog steeds 4 september 2026.** ⚠️ Even oud als gisteren, **niet
+    ouder** — dus geen cache-val — en tóch **onafhankelijk tegengelezen**: WebSearch kent artikelen
+    t/m 4 sep en géén voor 5 t/m 8 sep. Artikel `24296142` (cache-buster `?nocache=20260909`) opent
+    met "Hotfixes: September 4, 2026". Secties 2, 3 en 4 sep opnieuw gelezen: Classes, Dungeons and
+    Raid(s), Housing, Items, Achievements, Quests. **Geen Lua-API-, secure-frame-, taint- of
+    addon-sectie binnen het venster.** 📌 Let op een zoekartefact: WebSearch geeft voor dezelfde
+    article-id `24296142` óók titels "September 3" en "September 2" terug — dat is de zoekindex die
+    oude snapshots van hetzelfde doorlopende artikel bewaart, geen tweede artikel.
+  - **Blizzard US UI-and-Macro-forum: geen nieuw topic en geen blue post binnen 7 dagen.**
+    **GEMETEN** aan de categorie-JSON (`order=created`, cache-buster): nieuwst aangemaakte topic is
+    nog steeds *Duration Bars setting not saving* (**2345637, 2026-09-07T09:16:58Z**), en
+    `primary_groups` en `flair_groups` zijn allebei leeg — geen van de 46 getoonde deelnemers heeft
+    een Blizzard-groep (trust levels 0–3).
+    - ⏳ **Het openstaande punt van gisteren blijft precies zo open:** *Duration Bars* staat nog
+      altijd op **1 post, 0 reacties, 13 views**, dus nog steeds één enkele melding zonder
+      dev-antwoord. Ik tel het nog steeds **niet** mee. **[RAAKT ONS NIET]** blijft staan zoals op
+      8 sep gemeten (`Core.lua:1636-1676`, `Modules/BarPreset.lua:162-166`,
+      `Modules/BarInventory.lua:316-322` — allemaal action bars, geen duration- of castbars).
+      Sluit dit punt als er over een paar dagen nog steeds niets onder staat; een enkele melding
+      die niemand bevestigt is geen bevinding.
+    - *Addons api restrictions* (2343904) **ongewijzigd**: nog steeds 10 posts, laatste
+      2026-09-05T17:29:55Z, geen blue.
+  - **De 12.1.5-lijst tegengelezen, en de tegenlezing leverde niets nieuws op.** Een WebSearch naar
+    12.1.5-PTR-API-nieuws gaf **`TimedSignalMap`** prominent terug alsof het nieuw was; het staat
+    hier al sinds **5 sep** (regels 391-392) en is op 6 sep als **[RAAKT ONS NIET]** afgedaan
+    (regel 695), net als castbar-ID's per unit-token, `roundLayoutToNearestPixel` en de nieuwe
+    `table.*`-functies. **Niet opnieuw als nieuws opgevoerd.**
+  - 🔴 **Positieve controle in dezelfde run.** Ik doe hierboven geen enkele bewering over een leeg
+    zoekresultaat in de addon-code, maar heb er tóch één standing item mee opnieuw gemeten in
+    plaats van het op papier over te nemen: `grep -E "GetNextWaypointForMap|C_Navigation"` over
+    `*.lua` geeft **4 treffers in 1 bestand**, alle in `Modules/EventProbe.lua:119-133`. De
+    migratie-comment (`:119-120`) staat er nog letterlijk, en de twee namen staan er als **strings
+    in een probe-tabel**, niet als aanroep. **[AL AFGEDEKT]**, nu gemeten en niet geciteerd.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, AuraContainer/AuraButton,
+    `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`,
+    `GetItemCooldown`→`ns.GetItemCooldownSafe`) zijn deze run niet opnieuw getoetst en blijven
+    staan zoals op 2/6/7 sep gemeten. `GetNextWaypointForMap` is vandaag wél opnieuw gemeten
+    (hierboven).
+  - **Bronnen, alle met cache-buster opgehaald:** `warcraft.wiki.gg/api.php` (`prop=revisions` op
+    pageids 679840 en 705933 én op de titels `Secret values`/`Taint`/`AddOn changes`/
+    `Patch 12.1.5`/`Patch 12.2.0`/`UI escape sequences`; `list=search` op `intitle:"API changes"`
+    en `intitle:/API/`; `list=recentchanges` ns 0 t/m 7 sep); `news.blizzard.com/en-us/article/
+    24296142`; `us.forums.blizzard.com` categorie-JSON 35 op `order=created`; WebSearch als
+    tegenlezing op de hotfixes en op 12.1.5-PTR-API-nieuws. **NIET GEPROBEERD:** de
+    bluetracker-spiegel — niet nodig, alles kwam vers binnen. ⚠️ `WebFetch` op `warcraft.wiki.gg`
+    blijft EGRESS_BLOCKED; alles liep via `web_fetch_exa`.
+    📌 **Kleine aantekening bij de cache-buster:** de wiki-API antwoordt op elke onbekende
+    parameter met `{"warnings":{"main":{"*":"Unrecognized parameter: nocache."}}}`. Dat is
+    **onschadelijk** — de query wordt gewoon uitgevoerd — en het is juist het bewijs dat de URL een
+    andere string is dan gisteren, dus dat Exa's cache omzeild is. Niet "repareren" door de
+    parameter weg te laten.
+  - ✅ **Repo-observatie van gisteren: geen vervolg.** De force-push van 8 sep heeft zich niet
+    herhaald. `git pull --rebase origin main` gaf vanochtend **"Already up to date"**, werkboom
+    schoon, en `git rev-list --count HEAD` staat op **50** — dezelfde 50 commits als waar de
+    geforceerde historie gisteren op uitkwam. Stabiel dus; het blijft de moeite waard dat Rob
+    bevestigt dat hij die force-push zelf gedaan heeft.
