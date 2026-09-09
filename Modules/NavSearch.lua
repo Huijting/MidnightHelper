@@ -186,8 +186,15 @@ local function BuildNavIndex()
 						end
 					end
 				end
+				--- ⚠️ `PGUIDE_LAUNCH_BTN` ("Guided mode"), NOT `PROFHUB_TAB_COURSE`. The first
+				--- version of this label said "Course (101) — Herbalism" for something that is
+				--- the ADVISOR and not the course; Rob's screenshot caught it within an hour of
+				--- shipping. Two different screens, and the search result named the wrong one —
+				--- in the very index that exists to stop people looking in the wrong place.
+				--- 📌 It also reads better: the window this opens is titled "Guided mode — %s"
+				--- (`PGUIDE_HEADER_TAG_FMT`), so the result now matches what appears.
 				local sl = skillLine
-				add(("%s — %s"):format(L("PROFHUB_TAB_COURSE"), g.profName.en),
+				add(("%s — %s"):format(L("PGUIDE_LAUNCH_BTN"), g.profName.en),
 					table.concat(words, " "):lower(),
 					function()
 						if ns.MH_OpenProfessionGuide then

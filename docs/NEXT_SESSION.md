@@ -1,5 +1,47 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — releasecontrole: vertalingen gemeten, en één label gerepareerd
+
+Rob vóór de release: *"hebben we alle vertalingen van de nieuwe dingen nu ook goed staan? … en is er
+niets meer echt open?"* Beide gemeten in plaats van uit het hoofd beantwoord.
+
+### Vertalingen — 84 van 84
+
+| controle | uitkomst |
+|---|---|
+| `check_drift` | **0 gedrift** in alle zes de talen |
+| nieuwe sleutels × 7 talen | **84 van 84 aanwezig**, geen enkele terugval |
+| lint [13] markup / eigennamen | 0 / 0 |
+| lint [15] vaste termen toch vertaald | 0 |
+| lint HARD | 0 |
+
+🔴 **De eerste versie van die 84-controle gaf een vals alarm en zijn eigen controle ving het.** Vier
+`CODEX_*`-sleutels kwamen terug als ontbrekend in **alle zeven** talen, inclusief enUS — voor een
+artikel dat Rob de avond ervoor had zien renderen. Oorzaak: `Codex.lua` **wijst** zijn taalblokken
+niet toe maar **merget** erin (`merge(ns._mhLocales and ns._mhLocales.enUS, {`), en mijn patroon
+zocht alleen naar een toewijzing. Zeven blokken gezien, nul herkend.
+📌 Zonder die enUS-regel in de lijst was dit een geloofwaardig "vier vertalingen ontbreken" geworden.
+**Zet altijd iets in de meting waarvan je het antwoord al weet.**
+
+⚠️ **Eén ding dat GEEN zeven talen heeft, en dat is de conventie van het bestand:**
+`ProfessionGuidedData.lua` draagt `{ en = …, nl = … }` inline — **57 Nederlandse regels, nul Duitse,
+Franse of Spaanse**. De Azeroot- en mining-tekst staat dus in twee talen, net als elke andere stap
+daar. Geen omissie van gisteren maar de vorm van dat bestand; voor de vijf andere talen valt het
+terug op Engels.
+
+### 🔴 En één label was zichtbaar fout
+
+De zoekingang van gisteren zei *"Course (101) — Herbalism"* voor iets dat de **adviseur** is en niet
+de cursus. Nu `PGUIDE_LAUNCH_BTN` → **"Guided mode — Herbalism"**, gelijk aan de titel van het
+venster dat opengaat. Een zoekresultaat dat het verkeerde scherm noemt, in de index die juist moet
+voorkomen dat je verkeerd zoekt.
+
+### Wat er open staat: niets onwaars, wel vier dingen ongezien
+
+Volledige lijst in `docs/TESTLIJST.md`: de Azeroot-tekst (Robs screenshot was stap 6, de tekst zit in
+stap 1-30), `/mh souls` met de nieuwe scope-tekst, `/mh profguide` als kaal commando, en het
+gerepareerde zoeklabel. **Geen van vieren kan iets onwaars beweren** — het is alles wat gebouwd is en
+nooit gerenderd.
 ## ✅ 9 sep, RESETDAG — band B reset wekelijks. De rare-vraag is dicht.
 
 De meting die sinds zondag openstond, gedaan door Rob op de ochtend van de reset (woensdag 9 sep):

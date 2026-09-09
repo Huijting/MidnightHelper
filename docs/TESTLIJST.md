@@ -7,6 +7,31 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 9 sep — vóór de volgende release: vier dingen die niemand op een scherm gezien heeft
+
+Rob vroeg op resetdag: *"is er niets meer echt open voor deze release?"* Dit is het gemeten
+antwoord. **Niets hiervan is fout of onwaar** — het is alles wat gebouwd is en nog nooit
+gerenderd. Bouwen is niet testen.
+
+- [ ] 🔴 **De Azeroot-tekst is nog NOOIT gezien.** Hij staat in de stap **skill 1-30** van
+      Herbalism; Robs screenshot van 8 sep was **stap 6 van 9** (Lush & Infused, 60-100). Open
+      `/mh profguide`, kies Herbalism en klik terug naar de eerste stap. Verwacht: *"Where you go
+      matters less than you would think"* met alle vijf de kruiden en alle vier de gebieden.
+      Zelfde voor **Mining** (drie ertsen) en **Skinning** (de nieuwe stap over leer/schubben).
+- [ ] **`/mh souls` opnieuw.** De tekst is ná Robs laatste reload veranderd: de kop hoort nu
+      *"in this character's bags"* te zeggen, met eronder dat souls Warbound zijn en dat het
+      grootboek de hele account is. 📌 Reden: de oude kop zette "you hold 7" pal boven een
+      accountbreed totaal van 47, en de eerste lezer maakte meteen de verkeerde aftreksom.
+- [ ] **`/mh profguide` als kaal commando.** De zoekingang is getest (8 sep), het commando zelf
+      niet. Verwacht: Guided mode opent op je huidige beroep.
+- [ ] **Zoek nog eens op `azer`.** Het label hoorde *"Course (101) — Herbalism"* te zeggen en dat
+      was fout: dit is de **adviseur**, niet de cursus. Nu hoort er **"Guided mode — Herbalism"**
+      te staan, gelijk aan de titel van het venster dat opengaat.
+
+✅ **Wel al gezien en goed bevonden** (dus niet opnieuw testen): het Codex-artikel over de
+Midnight-campagne, het Corrosive-Codex-artikel, de Dundun-flamingo in drie vormen, de
+pet-waarschuwing die vanzelf vuurt, en de portaalroute van buiten naar de isle.
+
 ## 🆕 4 sep — Dundun, de Shrine of Abundance (ONGETEST, op LIVE)
 
 De enige zin die niemand anders geeft: deze delve is Bountiful, dus Dundun zit erin, en zijn
