@@ -49,7 +49,15 @@ gerenderd. Bouwen is niet testen.
       lijkt er iets kapot terwijl het de bestandsnaam is.
       📌 Kijk meteen of de kleuren op de deck genoeg van elkaar verschillen; ik koos ze op een
       monitor, niet op jouw hardware. Lijken er twee te veel op elkaar, zeg welke.
-- [ ] 🆕 **Wat betaalt één rare op Delver's Journey rank 10? (9 sep)** Onze code rekent met **50 per
+- [x] ✅ **Wat betaalt één rare op rank 10? GEMETEN 9 sep: 75, niet 50.** Verse character, 600
+      weekruimte, niets anders geloot ertussen, rank 10 bevestigd. `quantity` 447→522 en
+      `quantityEarnedThisWeek` 0→75 — beide tellers eens. 🔴 Het paneel zei *"about 11 rares"* waar
+      het er **7** zijn. Zie `NEXT_SESSION.md`: de 50 blijft voorlopig staan, want 75 is alleen goed
+      op rank 10 en zou een bekende fout inruilen voor een verborgen.
+- [x] ✅ **Bijvangst: shards zijn PER CHARACTER, allebei de tellers.** Twee characters binnen een uur,
+      niets uitgegeven: `quantity` 45 tegenover 447, `quantityEarnedThisWeek` 517 tegenover 0. De
+      rank-10-bonus is accountbreed, de shards die hij oplevert niet — elke alt heeft zijn eigen 600.
+- [ ] ~~Wat betaalt één rare op Delver's Journey rank 10?~~ (afgevinkt; instructie blijft als naslag) Onze code rekent met **50 per
       rare**, en dat is een **wiki-cijfer dat nooit in het spel gemeten is**. Rank 10 zegt dat alle
       bronnen meer uitbetalen, dus die 50 is nu verdacht.
       **Meting:** `/mh shards` → noteer `quantity` → **één rare doden** → `/mh shards` opnieuw.

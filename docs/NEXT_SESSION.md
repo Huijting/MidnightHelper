@@ -36,7 +36,41 @@ omdat `maxQuantity` nul is. Publiceert Blizzard ooit een echte levenslange cap, 
 niet meer, tonen die twee schermen stilletjes die andere cap en blijft de waarschuwing de weekcap
 gebruiken — en geen van beide ziet er kapot uit.
 
-### ❓ Open: hoevéél meer betaalt een bron op rank 10?
+### ✅ BEANTWOORD 9 sep: één rare betaalt **75**, en de wiki-50 is fout
+
+Rob deed een schone voor-en-na op een **verse character**: 600 weekruimte (dus geen afknipping),
+niets anders geloot ertussen, Journey rank 10 — accountbreed, door hem bevestigd op díé character.
+
+```
+quantity                447 -> 522   = +75
+quantityEarnedThisWeek    0 ->  75   = +75
+```
+
+Beide tellers zeggen hetzelfde, dus dit is hard.
+
+🔴 **Wat het vandaag kost, zodat de omvang op papier staat:** met 525 shards over zei het paneel
+*"about 11 rares"* waar het antwoord **7** is. Rob zou vier rares te veel lopen. ⚠️ Die fout raakt
+**alleen spelers die het verst zijn**, en wordt nooit gemeld — je zit gewoon eerder aan je cap dan
+beloofd. Exact dezelfde vorm als alles van vandaag.
+
+🔴 **Maar 75 is NIET het nieuwe getal om in te vullen.** Rank 10 zegt letterlijk dat alle bronnen
+méér betalen, dus de uitbetaling **hangt af van je rank** — een constante in dat bestand is per
+definitie fout voor iemand. En *"de basis is 50 en rank 10 geeft +50%"* mag je er niet uit
+concluderen: die verhouding bestaat uit één gemeten en één wiki-getal, en een verhouding is niet
+beter dan zijn slechtste helft. De basis is nooit gemeten.
+
+📌 **Daarom staat de 50 er nog**, met de meting eromheen gedocumenteerd. Hem vervangen door 75 ruilt
+een **bekende** fout in voor een **verborgen** fout (goed op rank 10, stil fout daaronder).
+
+### 💡 De echte oplossing is dezelfde als vanochtend bij de givers: waarnemen in plaats van afleiden
+
+De addon kan `CURRENCY_DISPLAY_UPDATE` volgen en opschrijven wat een rare-kill jóú daadwerkelijk
+opleverde — precies zoals het soul-grootboek item 273000 volgt. Dan komt *"nog ongeveer N rares"* uit
+**jouw eigen spel** in plaats van uit een tabel, klopt hij op elke rank, en overleeft hij elke
+tuning-hotfix zonder dat wij iets weten.
+⚠️ Tot dat er is: het getal blijft te hoog voor gevorderde spelers, en dat staat nu in de code.
+
+### ❓ Oorspronkelijke vraag (verslag): hoevéél meer betaalt een bron op rank 10?
 
 `SHARDS_PER_RARE = 50` is een wiki-cijfer, expliciet gemarkeerd als **nooit in Robs client gemeten**.
 De regel *"nog ongeveer 2 rares"* deelt daarop. Klopt die 50 niet meer op rank 10, dan is die regel

@@ -42,9 +42,31 @@ local _, ns = ...
 
 local COFFER_SHARDS = 3310
 
---- What one rare pays. Warcraft Wiki (25 aug 2026), consistent with 600/12.
---- ⚠️ A wiki figure, not measured in Rob's client. Only ever used to turn a shard
---- count into "about N rares", never to claim a total we could get wrong.
+--- 🔴 MEASURED 9 Sep 2026 AND THE WIKI FIGURE IS WRONG FOR THIS PLAYER. Rob ran a clean
+--- before-and-after on a fresh character: 600 of weekly headroom, nothing else looted in
+--- between, Delver's Journey rank 10 (account-wide, confirmed on that character).
+---
+---     quantity                447 -> 522   = +75
+---     quantityEarnedThisWeek    0 ->  75   = +75
+---
+--- Both counters agree, so ONE RARE PAID 75, not the 50 the Warcraft Wiki lists.
+---
+--- ⚠️ AND THE RATE IS NOT A CONSTANT AT ALL. Journey rank 10 states that "Coffer Key Shards
+--- earned from all sources is increased", so what a rare pays depends on how far along the
+--- player is. A single number in this file is therefore wrong by design for somebody.
+---
+--- 🔴 DO NOT READ 75 AS "the base is 50 and rank 10 adds 50%". That ratio would be built out
+--- of one measured number and one wiki number, and a ratio is no better than its worse half.
+--- The base has never been measured either.
+---
+--- 📌 WHAT THIS COSTS TODAY, so the size of it is on the record: with 525 shards left the
+--- panel told Rob "about 11 rares" where the true answer was 7. That error only ever appears
+--- for players who progressed furthest, and it never gets reported, because you simply reach
+--- the cap earlier than the addon promised.
+---
+--- Kept at 50 for now rather than swapped for 75: replacing one unverified constant with a
+--- second one that is only right at rank 10 trades a known error for a hidden one. The fix is
+--- to watch what YOUR game actually pays -- see docs/NEXT_SESSION.md.
 local SHARDS_PER_RARE = 50
 
 --- Every field this currency gives us, named, with nothing guessed.
