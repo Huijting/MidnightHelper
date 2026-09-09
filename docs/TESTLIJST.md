@@ -52,11 +52,21 @@ gerenderd. Bouwen is niet testen.
 - [ ] 🆕 **Wat betaalt één rare op Delver's Journey rank 10? (9 sep)** Onze code rekent met **50 per
       rare**, en dat is een **wiki-cijfer dat nooit in het spel gemeten is**. Rank 10 zegt dat alle
       bronnen meer uitbetalen, dus die 50 is nu verdacht.
-      **Meting, tijdens gewoon spelen:** `/mh shards` → noteer `quantity` → **één rare doden** →
-      `/mh shards` opnieuw. Het verschil is het antwoord.
-      📌 Dat wordt het **eerste gemeten getal** dat we voor deze currency hebben.
-      ⚠️ Klopt de 50 niet meer, dan is de regel *"nog ongeveer N rares"* scheef voor precies de
-      spelers die het verst zijn — en niemand meldt dat, want je zit gewoon eerder aan je cap.
+      **Meting:** `/mh shards` → noteer `quantity` → **één rare doden** → `/mh shards` opnieuw.
+      🔴 **DRIE DINGEN DIE DEZE METING STIL BEDERVEN** — de eerste instructie hier noemde er nul,
+      en de eerste levert een getal op dat er écht uitziet:
+      1. **De weekcap knipt de winst af.** Rob stond op 517/600 verdiend, dus 83 over. Betaalt de
+         rare meer dan 83, dan meet je 83 en dat lijkt het tarief. **Kijk dus eerst naar
+         `quantityEarnedThisWeek`** en meet alleen met genoeg ruimte.
+      2. **Alleen die ene kill ertussen.** Chests, treasures en een afgemaakte delve betalen ook
+         shards; anders meet je de som.
+      3. **Noteer de Delver's Journey-rank van díé character** (Delves-tab). Rank 10 meet de
+         verhoogde uitbetaling, lager meet de basis — allebei bruikbaar, maar we moeten later weten
+         welke van de twee het was.
+      ⚠️ De rank komt uit `C_MajorFactions`, een renown-track. Die zijn normaal accountbreed, maar
+      dat is **afgeleid en niet gemeten** — de tab op die char zegt het zeker.
+      📌 Klopt de 50 niet meer, dan is *"nog ongeveer N rares"* scheef voor precies de spelers die
+      het verst zijn, en niemand meldt dat: je zit gewoon eerder aan je cap dan voorspeld.
 - [ ] 🔴 **DE ECHTE METING STAAT VOLGENDE WEEK, en kost één commando.** Draai **vóór je iets doet**,
       na de reset: `/mh weeklies`. Kijk naar Liadrins dertien ID's.
       | uitkomst | conclusie |
