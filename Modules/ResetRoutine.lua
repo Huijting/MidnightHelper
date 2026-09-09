@@ -133,6 +133,29 @@ local GIVER_WEEKLIES = {
 	--   (Rob's level-80-warlock, 11 jun). "any" covers all audiences.
 	{ key = "halduron", name = "Halduron Brightwing", quests = { 93761, 93164, 95468 }, minLevel = nil },
 	{ key = "aethas", name = "Aethas Sunreaver", quests = { 93600, 94836 }, minLevel = 90 },
+	--- 🔴 A WEEKLY THAT HANDS OUT A SPARK, AND THIS LIST DID NOT KNOW IT EXISTED.
+	--- Rob met "Trailing Xal'atath" on 9 Sep 2026 -- 100 Fading Voidwhispers for a Spark of
+	--- Tides, an Apex Cache and a Void Vestige, from Vereesa Windrunner. Grepped that day:
+	--- `Voidwhisper` appeared in no module and no locale file, only in CONTENT_WATCH.md as a
+	--- hotfix line from 20 Aug. A Spark decides what you can have crafted, so missing this is
+	--- exactly the kind of gap that makes a finished-looking week not be one.
+	---
+	--- ✅ 98172 is MEASURED, from `/mh questscan xal` against Rob's own quest log while the
+	--- quest was in it. Not datamined, not a guess -- which matters here more than usual,
+	--- because on 29 Jul a datamined Showdown id (96716) turned out to be wrong where the real
+	--- one was 96713, and the note above Maella still carries that scar.
+	---
+	--- 📌 No `pin`: Rob checked and she stands with the other weekly givers, so she shares the
+	--- default stop rather than getting a waypoint of her own. And no `noNameMatch` — unlike
+	--- Maella there is no second NPC with this name that we know of, but the id is what
+	--- matches anyway.
+	---
+	--- ⚠️ minLevel 90 is an ASSUMPTION, exactly as it is for Liadrin, Aethas and Maella. This
+	--- is endgame Silvermoon content and sub-90 access has never been tested. Being wrong here
+	--- demotes the line into "Later, as you level" for a low character rather than hiding it,
+	--- which is the safe direction to be wrong in. Correct it if a levelling character is
+	--- offered the quest.
+	{ key = "vereesa", name = "Vereesa Windrunner", quests = { 98172 }, minLevel = 90 },
 	-- Showdown weekly, from Riftblade Maella in the active Void world. MH already
 	-- had both zone ids (ShowdownsData.lua, Rob verified 96713 in-game on 16 jun)
 	-- but only used them in the Void & Rituals tab and the account snapshot -- never

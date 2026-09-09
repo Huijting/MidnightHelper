@@ -22,7 +22,13 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **Valeera-tip: de machinerie is bewezen (9 sep).** `/mh curiodebug` gaf `resolved role: tank`,
       `node 110818 taken= true`, `heal tip: silent — your role is dps, not healer`. **Twee van de drie
       voorwaarden waren écht waar**, dus de node- en rol-lezing zijn allebei positief bevestigd.
-- [ ] 🆕 **Spec 35 — de twee scope-regels (9 sep).** Open **This Week**. Onderaan het blok *"Your week
+- [ ] 🆕 **Trailing Xal'atath in de weeklijst (9 sep, quest 98172).** Open **This Week**. Omdat je de
+      quest al **in je log** hebt, hoort er te staan: *"Weekly (Vereesa Windrunner): picked up —
+      finish and turn it in."* **Niet** "pick it up next to the vault" — dat was precies de bug bij
+      Liadrin, waar de routine je een quest liet halen die je al had.
+      ⚠️ **Tweede controle, ná het inleveren:** dan hoort dezelfde regel *"done this week"* te zeggen.
+- [x] ✅ **Spec 35 — de twee scope-regels: GEMETEN 9 sep, goed.** Rob: *"de this week regels kloppen"*.
+- [ ] ~~Spec 35 — de twee scope-regels~~ (afgevinkt hierboven): Open **This Week**. Onderaan het blok *"Your week
       — do these in order"*, ónder de routeknop, hoort een grijze regel te staan: *"Dit is de week van
       dít personage ... klik om de Account snapshot te openen."* **Klik erop** — je hoort op de
       Account snapshot te landen. Daar hoort onderaan de weekly-lijst de omgekeerde regel te staan,

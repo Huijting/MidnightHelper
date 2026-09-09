@@ -34,10 +34,25 @@ onbetrouwbaar over de inhoud.
 📌 **Niet gedaan: samenvoegen.** Dat is het juiste eindbeeld, maar de twee schermen zijn het oneens
 over scope — dit is accountbreed, dat is het personage waar je op staat — en dat is een eigen klus.
 
-### Nog open uit Spec 35
+### ✅ Trailing Xal'atath toegevoegd — quest **98172**, GEMETEN
 
-- **Trailing Xal'atath** (Vereesa, 100 Fading Voidwhispers → Spark of Tides) staat in **geen** module
-  en **geen** taalbestand. Een weekly die een Spark geeft, ontbreekt.
+Vereesa Windrunner, 100 Fading Voidwhispers → **Spark of Tides** + Apex Cache + Void Vestige. Een
+Spark bepaalt wat je kunt laten craften, dus dit ontbrak niet zomaar.
+
+✅ **Het ID komt uit `/mh questscan xal` tegen Robs eigen questlog terwijl de quest erin stond.**
+Niet gedatamined. Dat verschil telt hier zwaarder dan gewoonlijk: op 29 jul bleek een gedatamined
+Showdown-ID (96716) fout waar het echte 96713 was, en die waarschuwing staat nog boven Maella.
+📌 Geen eigen `pin` — Rob keek: ze staat bij de andere weekly-givers, dus ze deelt de bestaande stop.
+⚠️ `minLevel = 90` is een **aanname**, net als bij Liadrin, Aethas en Maella. Fout zijn zet de regel
+in *"Later, as you level"* in plaats van hem te verbergen — de veilige richting.
+
+🔴 **En de fallback-regel noemde de givers bij naam.** `HOME_ROUTINE_GIVERS` las *"Weekly quest givers
+(Liadrin / Halduron / Aethas)"* — met Vereesa erbij noemde hij er drie van vier. **De vierde naam
+toevoegen stelt dezelfde bug alleen uit**, dus de haakjes zijn eruit in alle zeven pakketten. Een
+handbijgehouden lijst binnen een vertaalde string is precies de vorm die dit project blijft
+repareren; drift gemarkeerd, linter 0 hard.
+
+### Nog open uit Spec 35
 - ⛔ **Het Halduron-blok NIET aankomen.** Rob bevestigde `93761` op 10 jun in de client; een eigen
   meting slaat een Wowhead-ID. Eerst `/mh questscan` op de acht.
 - Mythic 0 zou sinds 18 aug een **dagelijkse** reset hebben, en Nymrissa (97128) zou de **RAID**-rij
