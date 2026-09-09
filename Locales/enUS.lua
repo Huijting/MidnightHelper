@@ -696,6 +696,12 @@ ns._mhLocales.enUS = {
 	HOME_VOID_WEEKLY_DONE = "Weekly: done",
 	HOME_VOID_WEEKLY_TODO = "Weekly: not yet",
 	HOME_ROUTINE_HEADER = "Your week — do these in order",
+	-- 🔴 Both notes name the OTHER screen's contents and stop there. Between them the two
+	-- lists still do not cover your keystone, so a line implying "together we have it all"
+	-- would repeat the same false promise one level up. Click-through, because a note that
+	-- tells you where to look and then makes you find it is half a fix.
+	HOME_ROUTINE_SCOPE_NOTE = "This is this character's week. Your Delver's Call, Catalyst charges, coffer keys and the Omnium Folio are account-wide — click to open the Account snapshot.",
+	ACCOUNT_WEEKLY_SCOPE_NOTE = "This list is account-wide. The Silvermoon weekly quest givers, the world boss and Void Assaults are on This Week — click to open it.",
 	-- Spec 20: Mythic+ gain advisor (measured Great Vault M+ slots; no guessed rating math).
 	HOME_MPLUS_HEADER = "Great Vault — Mythic+",
 	MPLUS_GAIN_NEXT_FMT = "Next vault slot: %d more run(s).",

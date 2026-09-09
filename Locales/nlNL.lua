@@ -659,7 +659,9 @@ ns._mhLocales.nlNL = {
 	HOME_VOID_UNKNOWN = "Rouleert wekelijks — check je kaart voor de actieve zone.",
 	HOME_VOID_WEEKLY_DONE = "Weekly: gedaan",
 	HOME_VOID_WEEKLY_TODO = "Weekly: nog niet",
-	HOME_ROUTINE_HEADER = "Je week — doe dit op volgorde",
+	HOME_ROUTINE_SCOPE_NOTE = "Dit is de week van dít personage. Je Delver's Call, Catalyst-ladingen, coffer keys en de Omnium Folio zijn accountbreed — klik om de Account snapshot te openen.",
+	ACCOUNT_WEEKLY_SCOPE_NOTE = "Deze lijst is accountbreed. De weekly quest givers in Silvermoon, de world boss en Void Assaults staan op This Week — klik om die te openen.",
+	HOME_ROUTINE_HEADER ="Je week — doe dit op volgorde",
 	-- Spec 20: Mythic+ winst-adviseur (gemeten Great Vault M+-slots; geen gegokte rating-math).
 	HOME_MPLUS_HEADER = "Great Vault — Mythic+",
 	MPLUS_GAIN_NEXT_FMT = "Volgende vault-slot: nog %d run(s).",

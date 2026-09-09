@@ -472,6 +472,24 @@ local function BuildLayout()
 						end,
 					}
 				end
+
+				--- 🔴 "Your week — do these in order" READS AS ALL OF IT, AND IT IS ABOUT HALF.
+				--- MEASURED 9 Sep 2026 across ResetRoutine.lua and AccountWeeklyChecklist.lua:
+				--- seven subjects live only here (Liadrin, Halduron, Aethas, Maella, the trainer
+				--- weekly, Void Assaults, the world boss), seven only on the Account snapshot
+				--- (Delver's Call, Catalyst charges, coffer keys, shards, the Omnium Folio,
+				--- Manaflux), and three on both. Work this list to the bottom and you have done
+				--- half a week while the screen says you are finished — which is exactly what
+				--- Rob ran into.
+				---
+				--- 📌 The header is left alone. It is true about ORDER, which is the thing it
+				--- was written for, and it is translated in seven packs; the falsehood is the
+				--- implied scope, so the scope is what gets a sentence.
+				line(rows, ns:L("HOME_ROUTINE_SCOPE_NOTE"), COLOR_DIM, function()
+					if ns.SelectTab then
+						ns.SelectTab("account")
+					end
+				end)
 			end)
 		end
 	end

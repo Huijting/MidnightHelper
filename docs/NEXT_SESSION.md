@@ -1,5 +1,48 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — Spec 35, de kleine stap: elk weekly-scherm zegt nu wat het NIET dekt
+
+Eerst gemeten, want de aantallen uit dat onderzoeksdocument wilde ik zelf tellen voordat ik teksten
+schrijf die zeggen *"wij dekken X niet"*.
+
+| | |
+|---|---|
+| **alleen This Week** | Liadrin, Halduron, Aethas, Maella, trainer-weekly, Void Assaults, world boss |
+| **alleen Account snapshot** | Delver's Call, Catalyst, coffer keys, shards, Omnium Folio, Manaflux |
+| **op allebei** | Showdowns, vault, Ritual Sites |
+
+**Zeven om zeven, drie gedeeld.** Werk er één af en je hebt echt ongeveer de helft van je week gedaan
+terwijl het scherm leest als klaar. Dat is precies waar Rob tegenaan liep.
+
+🔴 **En Spec 35 had het op één punt MIS: keystones.** Het document zette ze op de accountlijst.
+Gemeten: `AccountWeeklyChecklist.lua` heeft nul treffers op `mythic`, `M+`, `keystone` én `dungeon`.
+Ze staan op **geen van beide**. (Wel in de vault-rij, maar dat is een ander scherm.) Zelfde soort
+fout als de vier feitelijke twijfels van de beoordelaars: het document was scherp over de vórm en
+onbetrouwbaar over de inhoud.
+
+✅ **Gebouwd:** beide lijsten sluiten nu af met een klikbare regel die de inhoud van de ánder noemt.
+`HOME_ROUTINE_SCOPE_NOTE` en `ACCOUNT_WEEKLY_SCOPE_NOTE`, zeven talen, linter 0 hard.
+
+⚠️ **Twee ontwerpkeuzes, allebei expres:**
+1. **De kop blijft staan.** *"Your week — do these in order"* is waar over de **volgorde** — waarvoor
+   hij geschreven is — en staat in zeven pakketten. De onwaarheid zit in de gesuggereerde **omvang**,
+   dus die krijgt een zin.
+2. **De notities noemen wat er op het ándere scherm staat, en claimen niet dat het paar compleet is.**
+   Je keystone staat op geen van beide. Een regel die *"samen hebben we alles"* impliceert, zou
+   dezelfde leugen zijn, één niveau hoger.
+
+📌 **Niet gedaan: samenvoegen.** Dat is het juiste eindbeeld, maar de twee schermen zijn het oneens
+over scope — dit is accountbreed, dat is het personage waar je op staat — en dat is een eigen klus.
+
+### Nog open uit Spec 35
+
+- **Trailing Xal'atath** (Vereesa, 100 Fading Voidwhispers → Spark of Tides) staat in **geen** module
+  en **geen** taalbestand. Een weekly die een Spark geeft, ontbreekt.
+- ⛔ **Het Halduron-blok NIET aankomen.** Rob bevestigde `93761` op 10 jun in de client; een eigen
+  meting slaat een Wowhead-ID. Eerst `/mh questscan` op de acht.
+- Mythic 0 zou sinds 18 aug een **dagelijkse** reset hebben, en Nymrissa (97128) zou de **RAID**-rij
+  van de vault vullen in plaats van World. Allebei uit geladen Wowhead-pagina's, **niet** in Robs
+  client gemeten.
 ## ✅ 9 sep — twee metingen uit Robs client, en het web had ongelijk
 
 ### ✅ De Catalyst-claim KLOPT — en het internet zei iets anders

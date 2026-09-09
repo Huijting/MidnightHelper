@@ -825,6 +825,29 @@ function ns.RefreshAccountWeeklyChecklist()
 				)
 			end
 		end
+		--- 🔴 SAY WHAT THIS LIST DOES NOT COVER. Rob, 9 Sep 2026, on the two weekly screens:
+		--- neither of them says it is a half. MEASURED across both files that same day —
+		---   only here          : Delver's Call, Catalyst charges, coffer keys and shards,
+		---                        the Omnium Folio, Manaflux
+		---   only on This Week  : Liadrin, Halduron, Aethas, Maella, the trainer weekly,
+		---                        Void Assaults, the world boss
+		---   on both            : Showdowns, the vault, Ritual Sites
+		--- Seven each and three shared. Finish one of them and you have genuinely done about
+		--- half your week while the screen reads as complete.
+		---
+		--- 📌 THE CHEAP FIX IS A SENTENCE, NOT A MERGE. Merging the two is the right end
+		--- state, but they disagree about scope — this one is account-wide, the other is the
+		--- character you are standing on — and that is its own job. A line naming the gap
+		--- removes the false promise today without touching either design.
+		---
+		--- ⚠️ It names the OTHER screen's contents rather than claiming completeness for the
+		--- pair. Neither covers your keystone, and a note that implied "between us we have
+		--- everything" would be the same lie one level up.
+		nextLine(true, ns:L("ACCOUNT_WEEKLY_SCOPE_NOTE"), 0.62, 0.66, 0.74, function()
+			if ns.SelectTab then
+				ns.SelectTab("home")
+			end
+		end)
 	end
 
 	for i = idx + 1, #(panelUi.lines or {}) do

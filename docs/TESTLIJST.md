@@ -22,6 +22,13 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **Valeera-tip: de machinerie is bewezen (9 sep).** `/mh curiodebug` gaf `resolved role: tank`,
       `node 110818 taken= true`, `heal tip: silent — your role is dps, not healer`. **Twee van de drie
       voorwaarden waren écht waar**, dus de node- en rol-lezing zijn allebei positief bevestigd.
+- [ ] 🆕 **Spec 35 — de twee scope-regels (9 sep).** Open **This Week**. Onderaan het blok *"Your week
+      — do these in order"*, ónder de routeknop, hoort een grijze regel te staan: *"Dit is de week van
+      dít personage ... klik om de Account snapshot te openen."* **Klik erop** — je hoort op de
+      Account snapshot te landen. Daar hoort onderaan de weekly-lijst de omgekeerde regel te staan,
+      die je terugbrengt naar This Week.
+      ⚠️ **Controle:** de regel hoort er ook te staan als je week al helemaal af is. Hij gaat over
+      dekking, niet over voortgang.
 - [ ] 🆕 **Alleen nog: de groene regel zélf zien.** Op een healer, met Valeera op Tank en
       Blood-Stained Blades gekozen: onderaan het curio-paneel op de Delves-tab hoort een groene regel
       te staan (*"blijf Valeera healen ... en dat stapelt"*), **zonder percentage, expres**. Geen
