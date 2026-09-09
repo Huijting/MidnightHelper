@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — "open de kist" staat nu op de toast, niet alleen in de chat
+
+Rob stond bij **Farthik the Plunderer** met de rare-toast op zijn scherm: *"voor deze moeten we een
+kist open maken, kunnen we dat vermelden?"*
+
+📌 **We wisten het al.** Farthik draagt `spawnKey = "RARE_SPAWN_FROM_CHEST"`, geschreven op 19 aug
+voor precies dit geval, en `RareArrivalHintKey` geeft hem netjes terug. Hij ging alleen naar **chat**
+— terwijl deze toast, twee keer zo groot als elke andere, vóór Robs neus de algemene zin stond te
+tonen en de nuttige zin erachter langs scrolde. [[mh-already-contains-it]], derde keer vandaag.
+
+✅ **En de toast kon dit al aan.** `MidnightToast` groeit sinds 26 aug mee met zijn tekst, met als
+reden in het commentaar: *"any toast that wanted to tell the player what to DO could not say it on
+the card"*. Precies dit geval, gebouwd en nooit hiervoor gebruikt.
+
+⚠️ **De chatregel blijft, en dat is geen compromis.** Die won op 19 aug een echt argument: de hint
+stond eerst op het **label van onze pijl**, en dat label wordt helemaal niet getekend voor iedereen
+met TomTom — de meeste testers. Chat kan geen enkele addon je afnemen.
+🔴 Maar CLAUDE.md scherpte het op 3 sep aan: **chat is een verslag, geen antwoord ter plekke.**
+*"Open de kist"* is geen verslag van iets dat je gemist hebt — het is het volgende wat je moet doen.
+Dus **allebei**, niet in plaats van.
+
+📌 Dit geldt meteen ook voor `ARROW_TARGET_ROAMS` (Coin-Eye Skully zwemt). Zelfde soort zin, zelfde
+plek, zonder extra werk — de hint komt uit één functie.
 ## 🔴 9 sep — de weekly-vinkjes rusten op bewijs dat niets waard is (OPEN)
 
 Rob, na de This Week-test: *"maar ik heb behalve een proff quest nog helemaal niets gedaan vandaag op

@@ -25,6 +25,13 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **De kop van This Week feliciteert niet meer over een halve week — GEMETEN 9 sep.** Robs
       scherm: *"Nothing left to pick up — but 5 weekly things are still unfinished. They are in the
       list below."* boven *"8 of 13"*, en de **5** komt overeen met zijn vijf genummerde regels.
+- [ ] 🆕 **De kist-hint op de rare-toast (9 sep).** Loop naar **Farthik the Plunderer** (Coiled Isle,
+      54.03/72.22) met een route erheen. Verwacht op de toast een **tweede regel** onder *"This is
+      your routed rare"*: **"(open the chest to summon him)"** in geel. De kaart hoort mee te groeien,
+      niet af te knippen.
+      📌 Zelfde zin hoort ook nog steeds in de chat te staan — dat is expres allebei.
+      ⚠️ **Tweede geval, gratis meegekomen:** **Coin-Eye Skully** zwemt, en die hoort nu
+      *"(roams — look around)"* op zijn toast te krijgen. Kom je hem tegen, kijk dan even.
 - [ ] 🆕 **De giver-waarneming (9 sep) — drie stappen, en stap 1 hoort NIETS te doen.**
       1. **`/reload`, dan meteen `/mh weeklies`.** Verwacht een nieuw blok *"What each giver actually
          offered when you last stood there"* met bij alle vier de givers **"not visited since this

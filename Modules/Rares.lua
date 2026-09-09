@@ -2663,11 +2663,38 @@ local function FireRareAlert(rare, npcId, onRoute)
 		s.lastNpcId = npcId
 	end
 	local name = GetRareDisplayName(rare)
+
+	--- 🔴 THE INSTRUCTION BELONGS ON THE THING YOU ARE LOOKING AT. Rob, 9 Sep 2026, standing
+	--- at Farthik with this toast on his screen: *"voor deze moeten we een kist open maken,
+	--- kunnen we dat vermelden?"*
+	---
+	--- 📌 WE ALREADY KNEW. Farthik carries `spawnKey = "RARE_SPAWN_FROM_CHEST"`, written on
+	--- 19 Aug for exactly this case, and `RareArrivalHintKey` returns it. It just went to
+	--- CHAT — and this toast, twice the size of every other one, sat in front of him saying
+	--- the generic line while the useful sentence scrolled past behind it.
+	---
+	--- ⚠️ CHAT STAYS. That line won an argument it still wins: the hint used to live on our
+	--- arrow's LABEL, which is not drawn at all for anyone running TomTom — most of Rob's
+	--- testers. Chat cannot be taken away by another addon. But CLAUDE.md sharpened it on
+	--- 3 Sep: chat is a RECORD, not an answer in place. "Open the chest" is not a record of
+	--- something you missed, it is the next thing to do, so it also belongs where you are
+	--- already looking. Both, not either.
+	local hintKey = ns.RareArrivalHintKey and ns.RareArrivalHintKey(rare) or nil
+	local body = ns:L(onRoute and "RARE_ALERT_TOAST_ONROUTE_BODY" or "RARE_ALERT_TOAST_BODY")
+	if hintKey then
+		local hint = ns:L(hintKey)
+		-- ⚠️ Only when it resolved to something other than the key itself: a missing string
+		-- would otherwise print RARE_SPAWN_FROM_CHEST across a double-size toast.
+		if type(hint) == "string" and hint ~= "" and hint ~= hintKey then
+			body = body .. "|n" .. hint
+		end
+	end
+
 	if ns.QueueMidnightToast then
 		local spec = {
 			id = "rare:" .. RareKey(rare),
 			title = name,
-			body = ns:L(onRoute and "RARE_ALERT_TOAST_ONROUTE_BODY" or "RARE_ALERT_TOAST_BODY"),
+			body = body,
 			icon = RARE_ALERT_ICON,
 			npcId = npcId or KnownRareNpc(rare),
 			scale = 2, -- Rob 11 jun: rare-toast 2× zo groot (andere toasts 1×)
