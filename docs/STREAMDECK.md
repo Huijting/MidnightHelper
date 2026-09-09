@@ -78,8 +78,8 @@ toets doet — hij stuurt alleen een toetsaanslag.
 
 ### Klaar om te gebruiken: `docs/streamdeck-icons/`
 
-Acht iconen in de kleuren van het addon, **als PNG én als SVG**, elk met een eigen kleur én het
-woord erop:
+Acht iconen met een gouden sierlijst in WoW-stijl, **als PNG** (en de eenvoudiger eerste versie
+nog als SVG), elk met een eigen accentkleur en het woord op een naamplaatje:
 
 | bestand | knop |
 |---|---|
@@ -109,6 +109,22 @@ elk formaat.
 ⚠️ **Elk woord staat er ook in tekst op**, niet alleen een symbool. Een abstract icoontje is na
 een week weg-zijn een raadspelletje, en dit is precies het soort knop dat je niet dagelijks
 gebruikt.
+
+### Over de betaalde packs (Rob vond er een van €12)
+
+🔴 **Kijk eerst wat er in zo'n pack zit.** Op de voorbeeldafbeelding staan knoppen als *DUNGEON,
+SPELLS, PROF, REP, GUILD, BAG, SHEATH, QUEST, CURRENCY, PVP, NEAR/NEAREST/SELF, REPLY* — dat zijn
+**spelfuncties van WoW zelf**, geen schermen van Midnight Helper. **Zo'n pack dekt onze acht
+knoppen dus niet**, en na de aankoop heb je ze nog steeds nodig.
+
+📌 **Het is geen keuze tussen kopen en zelf maken; ze lossen verschillende dingen op.** Wil je je
+hele WoW-deck vullen (tas, sheath, whisper-antwoorden, doelwit-macro's), dan is zo'n set voor
+€12 een prima koop en dat is niets om je voor te schamen. Onze acht komen daar gewoon naast te
+staan, in dezelfde gouden stijl, zodat het één deck blijft.
+
+⚠️ **Wat wij niet kunnen namaken, eerlijk gezegd:** de **geschilderde illustraties** in die
+knoppen. Het frame is meetkunde en kleurverloop — dat staat hier. De harnassen, draken en
+grimoires zijn getekend werk, en dat is precies waar je die €12 voor betaalt.
 
 ### Liever WoW-iconen
 

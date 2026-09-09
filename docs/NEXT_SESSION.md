@@ -69,6 +69,25 @@ controleert zijn eigen uitvoer: elk bestand moet heropenen als 288×288 RGBA PNG
 actiebalkvakje. Opgerekt naar een deck-toets worden ze zacht. Het alternatief staat in het document:
 het spel-icoon **op** ons frame zetten in plaats van uitrekken, en het script kan dat samenstellen
 zodra hij bestanden heeft.
+
+### ✅ En daarna de gouden sierlijst — Rob vond een pack van €12 en vroeg: kunnen wij dat niet zelf?
+
+**Het antwoord splitst netjes in tweeën, en het eerlijke deel eerst.** Het **frame** is meetkunde en
+kleurverloop: gouden rand met bevel, verzonken donker vlak met warme gloed, hoekstenen, naamplaatje.
+Dat is gebouwd en staat er. De **geschilderde illustraties** in zo'n betaald pack zijn tekenwerk, en
+dat kan ik niet maken — dat is precies waar die €12 voor is.
+
+🔴 **Maar de belangrijkste vondst is dat het geen keuze is.** Op Robs voorbeeldafbeelding staan
+*DUNGEON, SPELLS, REP, GUILD, BAG, SHEATH, CURRENCY, PVP, NEAR/NEAREST/SELF, REPLY* — allemaal
+**functies van WoW zelf**, geen schermen van deze addon. **Dat pack dekt onze acht knoppen niet**, en
+na aankoop heeft hij ze nog steeds nodig. Ze vullen elkaar aan in plaats van te concurreren, en dat
+is in het document gezet zodat niemand hier later de verkeerde afweging in leest.
+
+⚠️ **Twee echte fouten onderweg, allebei zichtbaar in het eerste resultaat:** `paste` mét masker
+**vervángt** pixels inclusief alpha, dus een grotendeels transparante gloed wiste het donkere vlak
+weg en de knop kwam wit terug — dat moest `alpha_composite`. En `arc` op de omhullende rechthoek
+tekent een **ellips**, geen afgeronde-rechthoek-rand, dus er lag een grote cirkel over de knop. Beide
+zijn gerepareerd mét de reden erbij in het script, want ze zien er in code allebei redelijk uit.
 ## 🔴 9 sep — ik bouwde iets dat kan zwijgen en géén manier om te zien dát het zweeg
 
 Rob klikte Liadrin aan, deed `/mh weeklies`, en alle vijf de givers stonden nog steeds op *"not
