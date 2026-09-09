@@ -1,5 +1,49 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — de shard-onenigheid is GEMETEN, en er is géén bug (bijna wel gemeld)
+
+Rob werd rank 10 in de Delver's Journey en vroeg wat *"Coffer Key Shards earned from all sources is
+increased"* praktisch betekent. `/mh shards` op zijn client:
+
+```
+quantity               = 45
+quantityEarnedThisWeek = 517
+maxWeeklyQuantity      = 600
+maxQuantity            = 0
+```
+
+**Twee dingen beantwoord, en één blijft open.**
+
+1. ✅ **De weekcap is NIET verhoogd op rank 10** — `maxWeeklyQuantity` staat gewoon op 600. De
+   verhoging zit dus in wat elke bron uitbetaalt, niet in het plafond.
+2. ✅ **De drieweg-onenigheid uit de kop van `CofferShards.lua` is beslecht: ze zijn het eens.**
+   `maxQuantity = 0`, en **beide** kopieën (`AltOverview.lua:298`, `Delves.lua:2248`) testen
+   `maxQ <= 0` en vallen terug op de weekcap. Alle drie komen op 600 uit.
+
+### 🔴 En ik was op weg een bug te melden die niet bestaat
+
+De probe printte `maxQuantity = 0` met erachter *"AltOverview and Delves use this first"*. Samen
+gelezen zegt dat: die twee schermen rekenen met nul. **Dat doen ze niet** — ik zag het pas toen ik
+beide kopieën echt opende.
+
+📌 **De hint was geschreven toen alleen de VOLGORDE bekend was en niemand een echte nul gezien had.**
+Zodra die nul er stond, wees hij de verkeerde kant op. ⚠️ **Een diagnose die zijn lezer misleidt is
+erger dan een die minder zegt, want hij wordt geloofd.** Hij meldt nu per geval wat de terugval
+*doet* in plaats van te hinten naar de leesvolgorde.
+
+⚠️ **En het blijft een val, om de reden waarvoor hij opgeschreven was:** de terugval redt ze alléén
+omdat `maxQuantity` nul is. Publiceert Blizzard ooit een echte levenslange cap, dan vuurt de terugval
+niet meer, tonen die twee schermen stilletjes die andere cap en blijft de waarschuwing de weekcap
+gebruiken — en geen van beide ziet er kapot uit.
+
+### ❓ Open: hoevéél meer betaalt een bron op rank 10?
+
+`SHARDS_PER_RARE = 50` is een wiki-cijfer, expliciet gemarkeerd als **nooit in Robs client gemeten**.
+De regel *"nog ongeveer 2 rares"* deelt daarop. Klopt die 50 niet meer op rank 10, dan is die regel
+scheef **voor precies de spelers die het verst zijn** — en dat wordt nooit gemeld, want je zit
+gewoon eerder aan je cap dan voorspeld.
+📌 **Meting: shards noteren, één rare doden, opnieuw kijken.** Levert het eerste gemeten getal op dat
+we voor deze currency hebben.
 ## ✅ 9 sep — acht "spring naar dit scherm"-toetsen, voor Robs Stream Deck
 
 Rob heeft Alt+M al op zijn Stream Dock en wilde knoppen die meteen naar Rares of Delves gaan:

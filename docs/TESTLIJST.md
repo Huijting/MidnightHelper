@@ -49,6 +49,14 @@ gerenderd. Bouwen is niet testen.
       lijkt er iets kapot terwijl het de bestandsnaam is.
       📌 Kijk meteen of de kleuren op de deck genoeg van elkaar verschillen; ik koos ze op een
       monitor, niet op jouw hardware. Lijken er twee te veel op elkaar, zeg welke.
+- [ ] 🆕 **Wat betaalt één rare op Delver's Journey rank 10? (9 sep)** Onze code rekent met **50 per
+      rare**, en dat is een **wiki-cijfer dat nooit in het spel gemeten is**. Rank 10 zegt dat alle
+      bronnen meer uitbetalen, dus die 50 is nu verdacht.
+      **Meting, tijdens gewoon spelen:** `/mh shards` → noteer `quantity` → **één rare doden** →
+      `/mh shards` opnieuw. Het verschil is het antwoord.
+      📌 Dat wordt het **eerste gemeten getal** dat we voor deze currency hebben.
+      ⚠️ Klopt de 50 niet meer, dan is de regel *"nog ongeveer N rares"* scheef voor precies de
+      spelers die het verst zijn — en niemand meldt dat, want je zit gewoon eerder aan je cap.
 - [ ] 🔴 **DE ECHTE METING STAAT VOLGENDE WEEK, en kost één commando.** Draai **vóór je iets doet**,
       na de reset: `/mh weeklies`. Kijk naar Liadrins dertien ID's.
       | uitkomst | conclusie |
