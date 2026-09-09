@@ -2,6 +2,97 @@
 
 All notable changes to this project are documented in this file.
 
+## 3.10.0
+
+📌 **A minor, and this time volume and behaviour agree.** 79 commits, three new commands
+(`/mh pet`, `/mh souls`, `/mh profguide`), a warning that did not exist, and a level gate that
+now covers a map it silently ignored.
+
+🔴 **The theme is the gap between a screen looking right and a screen answering the question.**
+A route pointing seven kilometres backwards is obvious. A search result that opens the correct
+window on the wrong page is not — and from where the reader sits, those are the same thing.
+Four separate places had it, and the last two were only found because Rob asked *"kan dat op
+alles?"* rather than accepting the first fix.
+
+### Added — your pet is taunting and you are not the tank
+
+- Growl is on by default, so in a group your pet pulls things off the person meant to hold them
+  and nothing says so. One warning, centred, with a sound, and **only when somebody is actually
+  tanking**. It counts **people rather than party slots**, so a delve with Valeera in it no longer
+  reads as a group. Turning Growl off retracts the warning by itself.
+- Measured on real pets: **Growl** (hunter) and **Suffering** (Voidwalker). ⚠️ **Sacrifice was in
+  that list and is not a taunt** — its own row carried a label saying so while still arming the
+  warning. Removed.
+- `/mh pet` prints what the addon can see and why it did or did not warn.
+
+### Fixed — the portal to the Coiled Isle
+
+Four faults in one route, and each hid the next:
+
+- the arrow never let go when a **portal** route ended (only when a target was cleared)
+- 🔴 **Silvermoon City has no world coordinates at all** — `GetWorldPosFromMapPos` returns nil —
+  so a distance in yards is impossible there. The door step asks **three** ways and says which
+  one it used
+- standing in the room, the route sent you back out to the door you had already passed
+- the map pins outlived the route that made them; clearing now hangs on the one signal every
+  ending shares
+
+### Fixed — the Coiled Isle wants level 90
+
+- The isle is tuned ten levels above the region. The gate knew the region floor and applied it to
+  the isle as well, so a character who could do nothing there was told nothing.
+- 📌 Measuring that corrected the **Midnight entry level to 80**, not the 78 we had recorded.
+  Confirmed three independent ways, one of them the game refusing to let a level-79 character
+  pick a flower.
+
+### Fixed — a search result lands on the answer
+
+- The click path cleared the search box and then called `go()` **with no argument**, so the word
+  you typed could not survive the click and no destination could use it.
+- **Profession guide**: opened on the step you stand on. Right for levelling, wrong for a lookup.
+- **Codex article**: opened its category page, scrolled to the top.
+- **Codex article, second round**: then landed **short**, because the page is still growing when
+  you arrive. It now keeps landing while the text settles.
+- **Professions course**: silently showed a different chapter when you asked for one this
+  character cannot see. It now names the chapter you asked for and why it is not here.
+  ⚠️ The search entry stays: someone choosing a profession wants that chapter **before** taking it.
+
+### Added — the Corrosive Codex, and the soul ledger
+
+- **Which gift first?** All twelve cost exactly 8 souls, so the first pick is about what you need,
+  never what you can afford. One idea explains the set: it is a **poison loop**, so every good
+  pair is one gift that poisons plus one that pays off on poison.
+- **`/mh souls`** shows the ledger the addon has kept since August. Bag count is **this
+  character**; the ledger is the **whole account**; and it counts only what it watched, so the
+  real total can be higher. All three said out loud, because two scopes on one screen invite a
+  subtraction that means nothing.
+
+### Added — where do I pick Azeroot?
+
+- The answer is better than a route: **it does not matter.** All five Midnight herbs grow in all
+  four zones, and all three ores appear in all four.
+- The guided advisor had one button, no slash command and no search entry. `/mh profguide` opens
+  it, and its own step text is now the search index — so a material becomes findable the moment
+  it is written.
+
+### Fixed — Paladin
+
+- **Blessed Hammer** could never be classified: it overrides Crusader Strike, so the spellbook
+  reports Crusader Strike's id, which belongs to another spec. The lookup picked its winner
+  **before** testing the spec. It now takes the first candidate that also passes.
+- **Retribution** got *Hand of Reckoning* back; **Holy Bulwark** and **Rite of Sanctification**
+  added for Protection.
+
+### Changed — Codex
+
+- Two new articles: the **first hour of the expansion**, and **the Corrosive powers**.
+- 🔴 Three removed. **Turbulent Timeways V** still carried its 30 Jun – 11 Aug window and told you
+  in the present tense to run four dungeons a week; it ended the day 12.1 launched. It was on the
+  shelf twice, and so was the Omnium Folio.
+- **Dundun** takes a third shape: as well as the two trees, he can be a flamingo.
+- The Inscription chapter claimed the weekly Treatise is +2 Knowledge **and that no other
+  profession has that**. The +2 has three sources; the exclusivity had none.
+
 ## 3.9.0
 
 📌 **A minor, and the deciding factor was new behaviour rather than volume.** Most of the 57

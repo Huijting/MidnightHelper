@@ -1,6 +1,28 @@
 # Midnight Helper — waar we staan
 
-## 📦 9 sep — release 3.10.0: notities geschreven, wachten op Robs "go"
+## 📦 9 sep — 3.10.0 IS GETAGD. Rob zei "go".
+
+`.toc` op 3.10.0, `CHANGELOG_3100_1..7` in enUS (Engels, zoals altijd), `Modules/Changelog.lua`
+bijgewerkt, `CHANGELOG.md` uitgeschreven. Linter 0 hard, Lua-syntax schoon over 253 bestanden.
+
+🔴 **En Robs vraag "(en geen description??)" legde een echt gat bloot.** `CURSEFORGE_DESCRIPTION.md`
+draagt een tabel met **elk** slash-commando, en de drie die deze release toevoegt stonden er niet in:
+`/mh pet`, `/mh souls`, `/mh profguide`. ⚠️ Dit staat op **geen enkele checklist** — de releaselijst
+noemt de `.toc`, het changelogvenster, de notities en `CHANGELOG.md`, maar de omschrijving alleen als
+*"Rob plakt hem"*. Een nieuw commando bereikt de speler dus wél via de changelog van deze week en
+daarna nooit meer via de pagina waar iemand het addon uitkiest.
+📌 **Voorstel na de release:** een lintregel die `ns.MH_COMMANDS` tegen die tabel houdt. Dezelfde
+vorm als check 10 (geroute maar niet-gelijste commando's), één bestand verderop.
+
+### 💤 Nog steeds open uit Spec 31 B10: de KOP van de omschrijving
+
+De concepttekst voor de bovenkant ligt klaar in de spec, maar er zit één geschrapte clausule in die
+Rob expliciet moet goedkeuren. **Niet aangeraakt** — de commandotabel is een feitelijke aanvulling,
+de kop is een redactionele keuze en die is niet van mij.
+
+---
+
+## 📦 9 sep — release 3.10.0: notities geschreven (dit blok bleef staan als verslag)
 
 **79 commits sinds v3.9.0.** `docs/CURSEFORGE_3.10.0.md` en `RELEASE_NOTES.md` staan er, byte-voor-byte
 identiek gecontroleerd (6611 bytes, 125 regels). ⚠️ **Groter dan elke eerdere release** — 3.7.3 was

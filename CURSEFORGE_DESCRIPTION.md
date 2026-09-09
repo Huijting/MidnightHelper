@@ -201,6 +201,9 @@ drift from what the addon actually answers to.
 | `/mh valeera` | Her progress popup — bring it back after you have closed it |
 | `/mh hazards` | What does avoidable damage where you are standing |
 | `/mh keys` | The four Altar of Corrosion nodes that need a treasure hunt first |
+| `/mh pet` | Is your pet still taunting? What the addon can see, and why it warned or did not |
+| `/mh souls` | Your Corrosive Soul ledger: what each source paid, and what you spent |
+| `/mh profguide` | The guided profession advisor — what to gather, craft and learn next |
 | `/mh mount <text>` | Search the mount journal and see what your client actually knows |
 | `/mh partytargets` | Toggle the party targets panel |
 | `/mh lang auto` · `en` · `de` · `fr` · `es` · `pt` · `it` · `nl` | Set language |
