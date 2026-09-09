@@ -98,12 +98,48 @@ local function SavePosition(f)
 	end
 end
 
+--- Title of a chapter that exists in the DATA, whether or not this character can see it.
+--- `MH_GetCourseChapters` filters by profession; this deliberately does not.
+local function DataChapterTitle(key)
+	if not (key and ns.PROF_ACADEMY and ns.PROF_ACADEMY.chapters) then
+		return nil
+	end
+	for _, ch in ipairs(ns.PROF_ACADEMY.chapters) do
+		if ch.key == key and ch.titleKey then
+			return L(ch.titleKey)
+		end
+	end
+	return nil
+end
+
+--- Chapter that was asked for and cannot be shown here. Read by Refresh, set below.
+local wantedButHidden
+
 local function SelectedKey(chapters)
 	local want = ns.db and ns.db.profAcadChapter
+	wantedButHidden = nil
 	for _, c in ipairs(chapters) do
 		if c.key == want then
 			return want
 		end
+	end
+	--- 🔴 A SEARCH CAN ASK FOR A CHAPTER THIS CHARACTER CANNOT SEE, and until 9 Sep 2026 the
+	--- window answered by quietly showing a different one. Rob searched "inscription", picked
+	--- the top result, and got chapter 4, "Quality" -- because he has no Inscription on that
+	--- character, and the fallback below lands on the first unticked chapter. Nothing on the
+	--- screen said the word Inscription anywhere.
+	---
+	--- 📌 THE FALLBACK IS STILL RIGHT for its own case: reopening the course should drop you
+	--- where you left off, not at chapter one. What was missing is that it cannot tell "no
+	--- preference" apart from "I asked for that one". A chapter that exists in the data but
+	--- not in this character's list is the second case, and it gets said out loud in Refresh.
+	---
+	--- ⚠️ AND THE SEARCH ENTRY STAYS. Hiding Inscription from search would break the reader
+	--- this addon is for: someone deciding which profession to take wants to read that chapter
+	--- BEFORE learning it. The answer to "you cannot see this yet" is to say so, not to make
+	--- the question unaskable -- the same call as the Silvermoon pins under level 80.
+	if want and DataChapterTitle(want) then
+		wantedButHidden = want
 	end
 	-- Unknown or vanished (a dropped profession takes its chapter with it): the
 	-- first chapter not yet ticked is where someone returning to the course wants
@@ -170,7 +206,19 @@ local function Refresh()
 	frame.title:SetText(title or L("TAB_PROF_ACADEMY"))
 	-- The task no longer rides along at the end of the body: it has its own row with the
 	-- checkbox beside it, which is the whole point of moving the tick in here.
-	frame.body:SetText(body or "")
+	--
+	-- The "you asked for a chapter you cannot see yet" line goes ABOVE the text, in this
+	-- window, rather than into chat: it is the answer to "why am I not looking at what I
+	-- clicked", and that answer has to be in the room where the click landed.
+	local shown = body or ""
+	if wantedButHidden then
+		local wantedTitle = DataChapterTitle(wantedButHidden)
+		if wantedTitle then
+			shown = ("|cffff6b6b%s|r\n\n%s"):format(
+				L("PROFCOURSE_CH_HIDDEN_FMT"):format(wantedTitle), shown)
+		end
+	end
+	frame.body:SetText(shown)
 	frame.child:SetHeight(math.max((frame.body:GetStringHeight() or 0) + 20, 1))
 
 	local sel

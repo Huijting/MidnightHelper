@@ -1004,7 +1004,11 @@ ns._mhLocales.enUS = {
 	PROFACAD_CH_ENGINEERING_TASK = "Put your first points in Recycling, then choose your focus tree.",
 	PROFACAD_CH_INSCRIPTION_TITLE = "Inscription starter guide",
 	PROFACAD_CH_INSCRIPTION_INTRO = "Inscription is the quiet one: a lot of what scribes make ends up in other players hands rather than their own bags, which is exactly why there is steady demand for it.",
-	PROFACAD_CH_INSCRIPTION_BODY = "Scribes craft staves, bows, off-hands, missives (stats on crafted gear), Vantus runes and Darkmoon cards. The perk to aim for: maxing the central Calm Hands node unlocks the weekly Thalassian Treatise, so your Treatise gives 2 Knowledge instead of the usual 1.\n\nSo: Calm Hands first, always. Then Blueprints (gear), Perfected Products (consumables) or Darkmoon Curiosity (cards, split by card type). Vantus runes, missives and inks sell steadily.",
+	-- Shown when a search asked for a chapter this character cannot see. It names the
+	-- chapter, says why it is not here, and says what you are looking at instead — a click
+	-- that lands somewhere else without explanation is the same as a broken one.
+	PROFCOURSE_CH_HIDDEN_FMT = "You asked for the chapter \"%s\", and this character does not have that profession — so the course cannot show it. Take the profession up and the chapter appears here. Meanwhile, this is your next unfinished chapter.",
+	PROFACAD_CH_INSCRIPTION_BODY ="Scribes craft staves, bows, off-hands, missives (stats on crafted gear), Vantus runes and Darkmoon cards. The perk to aim for: maxing the central Calm Hands node unlocks the weekly Thalassian Treatise, so your Treatise gives 2 Knowledge instead of the usual 1.\n\nSo: Calm Hands first, always. Then Blueprints (gear), Perfected Products (consumables) or Darkmoon Curiosity (cards, split by card type). Vantus runes, missives and inks sell steadily.",
 	PROFACAD_CH_INSCRIPTION_TASK = "Work toward maxing the central Calm Hands node (weekly Treatise = +2 KP/week).",
 	PROFACAD_CH_JEWELCRAFTING_TITLE = "Jewelcrafting starter guide",
 	PROFACAD_CH_JEWELCRAFTING_INTRO = "Rings and necklaces are two slots nobody else can craft, so jewelcrafters never run out of customers.",

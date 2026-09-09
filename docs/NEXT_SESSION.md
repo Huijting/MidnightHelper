@@ -1,5 +1,39 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — de Codex-sprong is af, en de vierde ronde van dezelfde bug is gevonden
+
+**GEMETEN door Rob:** zoeken op `mephitic` landt nu bovenaan het juiste artikel. De sprong wordt een
+halve seconde herhaald terwijl de pagina nog groeit; de eerste versie sprong één keer, op hoogtes die
+nog te klein waren, en kwam **te kort** — de kop stond onderaan het venster.
+
+### 🔴 En toen wees zijn tweede screenshot een vierde plek aan
+
+Rob zocht op **`inscription`**, koos de bovenste optie, en kreeg de cursus op **hoofdstuk 4,
+"Quality"**. Het woord Inscription stond nergens op het scherm.
+
+📌 **GEMETEN oorzaak, en er valt niets te gokken.** `SelectedKey` in `ProfessionCourseWindow.lua`
+zoekt het gevraagde hoofdstuk in de lijst die `MH_GetCourseChapters` teruggeeft — en die is
+**gefilterd op de beroepen die dit personage heeft** (`IsChapterVisible`). Rob heeft geen Inscription
+op dit character, dus het hoofdstuk zit niet in die lijst, en de terugval pakt *"het eerste
+hoofdstuk dat nog niet afgevinkt is"*. Zijn 1-3 stonden op ✓. Vandaar 4.
+
+⚠️ **De terugval is op zichzelf goed** — de cursus heropenen hoort je terug te zetten waar je gebleven
+was, niet op hoofdstuk 1. Wat ontbrak is dat hij *"geen voorkeur"* niet kon onderscheiden van *"ik
+vroeg juist om dat hoofdstuk"*.
+
+✅ **Gebouwd:** vraagt iemand om een hoofdstuk dat in de data bestaat maar op dit personage verborgen
+is, dan staat er nu bovenaan het leesvenster in rood wélk hoofdstuk je vroeg, dat dit personage dat
+beroep niet heeft, en wat je in plaats daarvan ziet. Zeven talen (`PROFCOURSE_CH_HIDDEN_FMT`).
+
+🔴 **En de zoekregel blijft staan, bewust.** Inscription uit de zoekindex halen zou de lezer breken
+waar deze addon voor bestaat: iemand die kiest wélk beroep hij neemt, wil dat hoofdstuk lezen
+**vóórdat** hij het leert. Het antwoord op *"dit kun je nog niet zien"* is het zéggen, niet de vraag
+onstelbaar maken — dezelfde keuze als bij de Silvermoon-pins onder level 80.
+
+📌 **Vier keer nu dezelfde vorm**, en het loont om ze naast elkaar te zetten: het venster opende op
+**jouw stap** (beroepsgids), op de **categorie** in plaats van het artikel (Codex), **te kort**
+(Codex, tweede ronde), en nu op **een ander hoofdstuk zonder dat te zeggen**. Steeds: het juiste
+scherm, de verkeerde plek, en niets dat de lezer vertelt dat er iets anders gebeurde dan hij vroeg.
 ## 🔴 9 sep — de restlijst uit de research-chat: de blokkade bestaat niet meer
 
 Rob gaf een complete restlijst door met de opdracht *"bepaal of ie gelijk heeft en voer het evt uit"*.

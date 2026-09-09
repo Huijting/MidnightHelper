@@ -16,7 +16,15 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **DE ZOEK-FIX (9 sep) — beroepsgids GEZIEN EN GOED.** Rob 9 sep: *"1 en 2 kloppen nu ... en
       punt 4 is goed"*. Zoeken op `azeroot` landt op stap 1, `umbral tin` op Mining, en `/mh
       profguide` opent nog steeds gewoon op je eigen stap. Geen regressie.
-- [ ] 🆕 **De Codex-sprong, TWEEDE POGING.** Eerste meting (Rob, 9 sep, zoekterm `mephitic`): hij
+- [ ] 🆕 **Zoek op `inscription` op een personage dat GEEN Inscription heeft.** Kies de bovenste
+      optie. Verwacht: het cursusvenster opent en er staat **bovenaan in rood** dat je om het
+      Inscription-hoofdstuk vroeg, dat dit personage dat beroep niet heeft, en dat je daarom je
+      eerstvolgende onafgeronde hoofdstuk ziet. **Voorheen kreeg je stilzwijgend hoofdstuk 4
+      ("Quality") zonder dat het woord Inscription ergens stond.**
+      ⚠️ **Controle:** klik daarna een hoofdstuk in de linkerkolom. Die rode regel hoort dan weg te
+      zijn — hij geldt alleen voor het hoofdstuk dat je vroeg en niet kreeg.
+- [x] ✅ **De Codex-sprong — GEMETEN 9 sep, goed.** Rob: *"mephitic werkt nu goed"*.
+- [ ] ~~De Codex-sprong, tweede poging~~ (afgevinkt hierboven — oude tekst hieronder als naslag): Eerste meting (Rob, 9 sep, zoekterm `mephitic`): hij
       sprong wél, maar **te kort** — de kop van *"Corrosive Codex — which gift do I take first?"*
       stond onderaan het venster in plaats van bovenaan. Oorzaak: de pagina groeit ná de sprong
       (EditBox-hoogtes, hergebruikte blokken, en de eerste breedte-sync). De sprong wordt nu een
