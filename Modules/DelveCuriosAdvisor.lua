@@ -184,6 +184,90 @@ local function GetCompanionActiveRoleKey()
 	return SubTreeInfoToRoleKey(subInfo)
 end
 
+--- Valeera's trait config. The role read above resolves this inline; the Blood-Stained
+--- Blades check below needs the same answer, and two copies of a five-call chain is exactly
+--- the pair that drifts apart. Returns nil when anything in the chain is unavailable.
+local function CompanionConfigID()
+	if not C_DelvesUI or not C_Traits then
+		return nil
+	end
+	if not C_DelvesUI.GetTraitTreeForCompanion or not C_Traits.GetConfigIDByTreeID then
+		return nil
+	end
+	local companionID
+	if DelvesCompanionConfigurationFrame then
+		companionID = DelvesCompanionConfigurationFrame.playerCompanionID
+	end
+	local okTree, treeID = pcall(C_DelvesUI.GetTraitTreeForCompanion, companionID)
+	if not okTree or not treeID then
+		return nil
+	end
+	local okCfg, configID = pcall(C_Traits.GetConfigIDByTreeID, treeID)
+	if not okCfg then
+		return nil
+	end
+	return configID
+end
+
+--- 📌 MEASURED IN OUR OWN CLIENT, not taken from a video or a fansite:
+--- `docs/PTR_VALEERA_TREE.md` line 107 reads
+---     node 110818    [0/1]
+---         Blood-Stained Blades    entry 137781   spell 1251122
+--- Healing her empowers her blades, it lasts 8 seconds, and it stacks.
+---
+--- 🔴 AND `[0/1]` IS WHY THIS IS NOT A FLAT TIP. It is a NODE YOU CHOOSE, not something
+--- Valeera does by default. A research note proposed shipping "keep healing her, it stacks"
+--- unconditionally; for every player who has not taken this, that sentence is simply false.
+--- The dump had the answer and the prose around it did not.
+local BLOOD_STAINED_NODE = 110818
+
+--- Has the player actually chosen Blood-Stained Blades?
+---
+--- ⚠️ THREE-STATE, and nil means UNREADABLE rather than "no" — the same discipline `ns.Aura`
+--- carries. Reporting "you have not taken it" when the tree could not be read would be us
+--- inventing a fact about someone's build.
+local function HasBloodStainedBlades()
+	local configID = CompanionConfigID()
+	if not configID or not C_Traits or not C_Traits.GetNodeInfo then
+		return nil
+	end
+	local ok, info = pcall(C_Traits.GetNodeInfo, configID, BLOOD_STAINED_NODE)
+	if not ok or type(info) ~= "table" then
+		return nil
+	end
+	if info.activeEntry and info.activeEntry.entryID then
+		return true
+	end
+	if type(info.ranksPurchased) == "number" then
+		return info.ranksPurchased > 0
+	end
+	return false
+end
+
+--- Should the "keep healing her" line show, and if not, why not?
+---
+--- 📌 THE REASON IS RETURNED, NOT SWALLOWED. Silence is this line's normal outcome — three
+--- conditions have to hold at once — and from outside, correct silence and a broken read look
+--- identical. `/mh curiodebug` prints the reason.
+--- @return boolean show, string reason
+function ns.ValeeraHealTipState()
+	local mine = GetPlayerRoleKey()
+	if mine ~= "heal" then
+		return false, ("your role is %s, not healer"):format(mine or "unreadable")
+	end
+	local hers = GetCompanionActiveRoleKey()
+	if hers ~= "tank" then
+		return false, ("Valeera's role is %s, not tank"):format(hers or "unreadable")
+	end
+	local taken = HasBloodStainedBlades()
+	if taken == nil then
+		return false, "her tree cannot be read from here"
+	elseif not taken then
+		return false, "Blood-Stained Blades is not chosen in her tree"
+	end
+	return true, "healer + Valeera tanking + Blood-Stained Blades taken"
+end
+
 --- Diagnostic: prints every step of companion-role detection so we can see
 --- exactly where it returns nil on the live client. Invoke via /mh curiodebug.
 function ns.DebugCompanionRole()
@@ -245,6 +329,14 @@ function ns.DebugCompanionRole()
 	end
 	out("globals TANK/HEALER/DAMAGER=", tostring(_G.TANK), "/", tostring(_G.HEALER), "/", tostring(_G.DAMAGER))
 	out("=> resolved role:", tostring(GetCompanionActiveRoleKey()))
+
+	-- The Blood-Stained Blades line is silent unless three things hold at once, so its
+	-- reason is printed here rather than left to be guessed at from an empty panel.
+	out("your role=", tostring(GetPlayerRoleKey()),
+		"   node", tostring(BLOOD_STAINED_NODE), " taken=", tostring(HasBloodStainedBlades()),
+		" (nil = unreadable, not 'no')")
+	local show, why = ns.ValeeraHealTipState()
+	out("=> heal tip:", show and "SHOWN" or "silent", "—", why)
 end
 
 --- Role to display in the popup: Valeera's selected role first, then the
@@ -534,8 +626,40 @@ local function NemesisFootnoteHeight(season)
 	return 0
 end
 
+local function ValeeraHealFootHeight()
+	local show = ns.ValeeraHealTipState and ns.ValeeraHealTipState()
+	return show and 34 or 0
+end
+
 local function PanelContentHeight(season)
-	return PANEL_HEADER_H + (#ROLE_ORDER * ROLE_ROW_H) + NemesisFootnoteHeight(season) + PANEL_PAD
+	return PANEL_HEADER_H + (#ROLE_ORDER * ROLE_ROW_H) + NemesisFootnoteHeight(season)
+		+ ValeeraHealFootHeight() + PANEL_PAD
+end
+
+--- 🔴 THIS RENDERS IN BOTH BRANCHES OF RefreshDelveCurioAdvisor, AND THAT IS THE POINT.
+--- Season 2 ships no curio pack, so `HaveAdvice()` is false right now and the panel collapses
+--- to one honest line. Hanging this tip inside the normal path would have shipped something
+--- that could not appear in the season we are actually in — the panel would have gone on
+--- saying nothing while we believed we had added advice to it.
+--- 📌 It also gives that collapsed panel something true to say again.
+---
+--- @param anchor Frame the widget above it: the role rows in the full panel, the title in the
+---        collapsed one.
+local function RefreshValeeraHealFoot(panel, anchor)
+	local foot = panel and panel._valeeraHealFoot
+	if not foot then
+		return
+	end
+	local show = ns.ValeeraHealTipState and ns.ValeeraHealTipState()
+	if not show or not anchor then
+		foot:Hide()
+		return
+	end
+	foot:SetText(ns:L("DELVE_VALEERA_HEAL_TIP"))
+	foot:ClearAllPoints()
+	foot:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", PANEL_PAD, -4)
+	foot:SetPoint("RIGHT", panel, "RIGHT", -PANEL_PAD, 0)
+	foot:Show()
 end
 
 local function RefreshNemesisFootnote(panel, season)
@@ -688,7 +812,9 @@ function ns.RefreshDelveCurioAdvisor()
 			if embeddedPanel._nemesisFoot then
 				embeddedPanel._nemesisFoot:Hide()
 			end
-			embeddedPanel:SetHeight(PANEL_HEADER_H + PANEL_PAD)
+			-- Anchored to the title, because the body is collapsed to 1px here.
+			RefreshValeeraHealFoot(embeddedPanel, embeddedPanel._title)
+			embeddedPanel:SetHeight(PANEL_HEADER_H + ValeeraHealFootHeight() + PANEL_PAD)
 		end
 		if popupFrame and popupFrame:IsShown() then
 			popupFrame:Hide()
@@ -713,6 +839,10 @@ function ns.RefreshDelveCurioAdvisor()
 			RefreshRoleRows(embeddedPanel._body, season, "default")
 		end
 		RefreshNemesisFootnote(embeddedPanel, season)
+		-- Under the nemesis note when that one is up, else straight under the role rows.
+		local nem = embeddedPanel._nemesisFoot
+		RefreshValeeraHealFoot(embeddedPanel,
+			(nem and nem:IsShown()) and nem or embeddedPanel._body)
 		embeddedPanel:SetHeight(PanelContentHeight(season))
 	end
 
@@ -801,6 +931,15 @@ function ns.EnsureDelveCurioPanel(parent)
 	foot:SetWordWrap(true)
 	foot:SetTextColor(0.72, 0.7, 0.65)
 	panel._nemesisFoot = foot
+
+	-- The Blood-Stained Blades line. Its own FontString rather than sharing the nemesis
+	-- one: the two appear under different conditions and could both be true at once.
+	local heal = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	heal:SetJustifyH("LEFT")
+	heal:SetWordWrap(true)
+	heal:SetTextColor(0.55, 0.85, 0.62)
+	heal:Hide()
+	panel._valeeraHealFoot = heal
 
 	BuildRoleRows(body, false)
 	embeddedPanel = panel

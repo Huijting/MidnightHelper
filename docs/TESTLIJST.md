@@ -16,6 +16,20 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **DE ZOEK-FIX (9 sep) — beroepsgids GEZIEN EN GOED.** Rob 9 sep: *"1 en 2 kloppen nu ... en
       punt 4 is goed"*. Zoeken op `azeroot` landt op stap 1, `umbral tin` op Mining, en `/mh
       profguide` opent nog steeds gewoon op je eigen stap. Geen regressie.
+- [ ] 🆕 **De Catalyst-vraag — 30 seconden, en het raakt CODE, niet alleen de winkelpagina.**
+      Druk **C** → tabblad **Currency** → zoek **Venomblight Manaflux** → **hover erover**. Staat er
+      *"Account-wide"* of *"Warband"*? Dan is onze zin *"charges are per character"* fout — én de
+      addon-regel die zegt *"which alts have stopped gaining"* is betekenisloos. Staat het er niet,
+      dan klopt alles. ⚠️ Zegt de tooltip niets duidelijks: noteer het getal, log naar een ander
+      personage, kijk opnieuw. Verschillend = per character. (Cap 8 is al gemeten, currency 3465.)
+- [ ] 🆕 **Valeera's Blood-Stained Blades-tip (9 sep).** Zichtbaar zodra **drie** dingen tegelijk
+      gelden: jij bent healer, Valeera staat op **Tank**, en je hebt **Blood-Stained Blades** in haar
+      boom gekozen. Dan hoort er onderaan het curio-paneel op de Delves-tab een groene regel te
+      staan: *"blijf Valeera healen ... en dat stapelt"*. **Zonder percentage, expres.**
+      📌 **Zwijgen is hier normaal**, dus check het altijd met **`/mh curiodebug`** — die print nu je
+      eigen rol, of node 110818 genomen is (`nil` = onleesbaar, níét "nee") en waaróm de tip zweeg.
+      ⚠️ Doe die debug ook op een **niet-healer** en op een **Valeera op DPS**: verwacht `silent` met
+      de juiste reden erbij, niet een lege regel.
 - [x] ✅ **De rode regel — GEMETEN 9 sep, op twee beroepen.** Rob zocht op `inscription` én op
       `alchemy` op een personage dat ze niet heeft; beide gaven de regel. Op een personage dát
       Inscription heeft blijft hij terecht weg en rendert het hoofdstuk met de nieuwe Treatise-zin.

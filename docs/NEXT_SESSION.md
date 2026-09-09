@@ -1,5 +1,56 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — Valeera's Blood-Stained Blades, mét de voorwaarde die het onderzoek miste
+
+Uit `docs/RESEARCH_VALEERA_DPS_VIDEO.md`: healing op Valeera versterkt haar schade, 8 seconden, en
+het stapelt. Het document zei terecht **ship het zonder getal** — Icy Veins zegt 8%, een
+Wowhead-samenvatting 7%, geen enkele bron noemt een maximum, en de video's *"12 stacks = 80%"* rekent
+met géén van beide uit (12×8=96, 12×7=84). Dat is geen bron tegen bron, dat is een bron die zichzelf
+niet klopt.
+
+### 🔴 Maar de voorgestelde zin was onvoorwaardelijk, en dat is onjuist
+
+📌 **We hadden die spell al zelf gemeten** — `docs/PTR_VALEERA_TREE.md` regel 107, uit onze eigen
+client-dump, sterker dan Wowhead en Icy Veins samen:
+
+```
+node 110818    [0/1]
+    Blood-Stained Blades    entry 137781   spell 1251122
+```
+
+⚠️ **`[0/1]` betekent: het is een KEUZE in haar boom, geen vaste eigenschap.** Het onderzoek stelde
+voor te schrijven *"blijf haar healen, elke heal maakt haar harder slaan"* — voor iedereen die die
+node niet genomen heeft is dat gewoon onwaar. De dump had het antwoord; het proza eromheen niet.
+
+### Wat er gebouwd is
+
+`ns.ValeeraHealTipState()` in `DelveCuriosAdvisor.lua` geeft **true/false + een reden** terug. Drie
+voorwaarden moeten tegelijk gelden: jij bent healer (`GetPlayerRoleKey`), Valeera staat op tank
+(`GetCompanionActiveRoleKey`), én node 110818 is genomen (`C_Traits.GetNodeInfo`).
+
+⚠️ **`HasBloodStainedBlades()` is DRIETRAPS**: `nil` betekent **onleesbaar**, niet "nee". Melden dat
+iemand een node niet genomen heeft terwijl je de boom niet kon lezen, is een feit verzinnen over zijn
+build. Zelfde discipline als `ns.Aura`.
+
+🔴 **En de plek was bijna fout.** `HaveAdvice()` is in **Season 2 false** — er is geen curio-pack —
+dus het paneel klapt nu dicht tot één eerlijke regel. Had ik de tip in het normale pad gehangen, dan
+had hij **in het seizoen waar we in zitten nooit kunnen verschijnen**, terwijl wij dachten dat we
+advies hadden toegevoegd. Hij rendert daarom in **beide** takken, en geeft dat ingeklapte paneel
+meteen weer iets waars te zeggen.
+
+📌 De reden staat in `/mh curiodebug`, want zwijgen is hier de normale uitkomst en correct zwijgen is
+van buiten niet te onderscheiden van kapot.
+
+### Bewust NIET overgenomen uit dat document
+
+De DPS-getallen uit de video (één speler, één context, geen methode), de curio- en
+power-ranglijsten (wij rangschikken bewust niet), *"de DPS-meter meet Ula'tek's Gift verkeerd"* (de
+spreker zegt zelf dat hij het niet zeker weet), en de Resto-Shaman/Skyfury-theorie (hij noemt het
+veertien minuten lang "windfury" en corrigeert pas op 15:12).
+
+📌 **Bijvangst, geen opdracht:** rolkoppeling — welke rol je háár geeft tegenover die van jezelf — is
+een echt gat in ons advies en past bij wat we doen (uitleggen) in plaats van wat we weigeren
+(ranglijstjes).
 ## 📝 9 sep — de CF-omschrijving herschreven van 5244 naar 1592 woorden (CONCEPT, niet live)
 
 Rob: *"Als ik het als onbekende zou kijken is dat een mega lange lijst."* Vier beoordelaars gevraagd
