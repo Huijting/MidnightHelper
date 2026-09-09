@@ -470,7 +470,82 @@ local function LearnStore()
 	end
 	s.npc = s.npc or {} -- npcID -> giverKey
 	s.quests = s.quests or {} -- giverKey -> { [questID] = true }
+	s.offers = s.offers or {} -- giverKey -> { at = epoch, n = availableQuestCount }
 	return s
+end
+
+--- When did this week actually start? Everything the client tells us about weekly
+--- state is only meaningful relative to that line.
+---
+--- ⚠️ Returns nil rather than a guess when the API is missing. An observation we cannot
+--- date is an observation we must not use — dating it wrong is how a note from LAST week
+--- gets to overrule this week's facts.
+local function LastWeeklyResetAt()
+	if not (C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset) then
+		return nil
+	end
+	local ok, secs = pcall(C_DateAndTime.GetSecondsUntilWeeklyReset)
+	if not ok or type(secs) ~= "number" then
+		return nil
+	end
+	return time() - ((7 * 24 * 60 * 60) - secs)
+end
+
+--- 🔴 WHAT A GIVER ACTUALLY OFFERED, WRITTEN DOWN WHEN YOU STOOD IN FRONT OF THEM.
+---
+--- Rob, 9 Sep 2026, after `/mh weeklies` showed all THIRTEEN of Liadrin's quest ids reading
+--- "completed" on a reset morning he had not played: *"kunnen we dat dan ook niet zeggen,
+--- kunnen we dat uitzoeken?? op dat moment?"*
+---
+--- Yes, and it is a better question than the one this file has been answering. Everything
+--- above infers "done" from quest flags. `C_GossipInfo.GetAvailableQuests` does not infer —
+--- it reports what that NPC has for you at the moment the window opens. The addon already
+--- listens to the events either side of this one (QUEST_DETAIL, QUEST_ACCEPTED), so this is
+--- the observation it was missing rather than a new system.
+local function RecordGiverOffer(key, n)
+	if not key or type(n) ~= "number" then
+		return
+	end
+	LearnStore().offers[key] = { at = time(), n = n }
+end
+
+--- An offer count observed since the last reset, or nil.
+---
+--- ⚠️ nil means "we have not stood there this week", NOT "nothing was offered". Those two
+--- must never collapse into each other — see [[silence-is-not-absence]]; an unvisited giver
+--- looks exactly like an empty one from in here.
+local function OfferThisWeek(key)
+	local rec = LearnStore().offers[key]
+	if type(rec) ~= "table" or type(rec.n) ~= "number" or type(rec.at) ~= "number" then
+		return nil
+	end
+	local since = LastWeeklyResetAt()
+	if not since or rec.at < since then
+		return nil -- from a previous week: worthless now
+	end
+	return rec.n, rec.at
+end
+
+--- Public, for `/mh weeklies`. Three states per giver and they must stay distinguishable:
+--- a count for "seen this week", `false` for "seen, but before the reset", nil for "never
+--- stood there". The middle one is the one a boolean would quietly destroy.
+function ns.GetGiverOfferObservations()
+	local out = {}
+	local since = LastWeeklyResetAt()
+	for _, def in ipairs(GIVER_WEEKLIES) do
+		local rec = LearnStore().offers[def.key]
+		if type(rec) == "table" and type(rec.n) == "number" and type(rec.at) == "number" then
+			out[def.key] = {
+				name = def.name,
+				n = rec.n,
+				at = rec.at,
+				thisWeek = (since ~= nil) and (rec.at >= since) or nil,
+			}
+		else
+			out[def.key] = { name = def.name }
+		end
+	end
+	return out
 end
 
 local function NpcIDFromGUID(guid)
@@ -554,6 +629,52 @@ local function LearnGiverQuest(questID)
 	s.quests[key][questID] = true
 end
 
+--- Which known giver is this gossip window? GUID first, name only as a fallback.
+---
+--- 📌 Both helpers already guard 12.x secret values and both already refuse to answer
+--- rather than answer wrongly — `GiverKeyByName` even skips givers flagged `noNameMatch`,
+--- because a second "Riftblade Maella" runs a housing minigame in Silvermoon. Reusing them
+--- is the point: a second way of identifying the same NPC is a second thing to get wrong.
+local function GiverKeyForGossipUnit()
+	local guid, name
+	if UnitGUID then
+		local ok, g = pcall(UnitGUID, "npc")
+		guid = ok and g or nil
+	end
+	if UnitName then
+		local ok, n = pcall(UnitName, "npc")
+		name = ok and n or nil
+	end
+	local npcID = NpcIDFromGUID(guid)
+	if npcID then
+		local learned = LearnStore().npc[npcID]
+		if learned then
+			return learned
+		end
+	end
+	return GiverKeyByName(name)
+end
+
+--- Read what the open gossip window is offering and write it down.
+---
+--- ⚠️ COUNTS ONLY, NEVER TITLES. A quest name from an NPC can be a secret value in 12.x, and
+--- this needs nothing more than "how many" — so it never touches the strings, and there is
+--- no secret to guard against in the first place. The cheapest guard is not needing one.
+local function ObserveGossipOffer()
+	if not (C_GossipInfo and C_GossipInfo.GetAvailableQuests) then
+		return
+	end
+	local key = GiverKeyForGossipUnit()
+	if not key then
+		return -- not a giver we track, or the unit could not be identified: say nothing
+	end
+	local ok, avail = pcall(C_GossipInfo.GetAvailableQuests)
+	if not ok or type(avail) ~= "table" then
+		return -- unreadable is not the same as empty
+	end
+	RecordGiverOffer(key, #avail)
+end
+
 -- All quest IDs for a giver: static def + anything we've learned.
 local function GiverAllQuestIDs(def)
 	local ids = {}
@@ -600,6 +721,28 @@ local function GiverState(def)
 	if #ids == 0 then
 		return nil
 	end
+
+	--- 🔴 AN OBSERVATION BEATS AN INFERENCE, AND ONLY IN ONE DIRECTION.
+	---
+	--- MEASURED 9 Sep 2026 with `/mh weeklies`, on a reset morning Rob had not played: all
+	--- thirteen ids in Liadrin's pool reported `completed`. The loop below returns "done" as
+	--- soon as ANY id is flagged, so her verdict could never be anything else, whatever the
+	--- player did. Her tick happened to be right that morning — she genuinely had nothing —
+	--- and that is the trap: being accidentally right looks identical from outside to knowing.
+	---
+	--- 📌 So if we actually stood in front of this giver since the reset and the game said
+	--- they had quests for us, that settles it and the flags do not get a vote.
+	---
+	--- ⚠️ ASYMMETRIC ON PURPOSE. Seeing zero quests does NOT flip anything to "done": the
+	--- offer could be gated behind something we cannot see, and a wrong "done" HIDES work,
+	--- while a wrong "pickup" only costs a walk. This addon has already shipped one weekly
+	--- that silently went missing (Trailing Xal'atath, a Spark) — the error that hides a task
+	--- is the expensive one, so the shortcut only ever runs towards showing you more.
+	local offered = OfferThisWeek(def.key)
+	if offered and offered > 0 then
+		return "pickup"
+	end
+
 	for _, qid in ipairs(ids) do
 		if Flagged(qid) then
 			return "done"
@@ -1467,6 +1610,11 @@ do
 	local learnFrame = CreateFrame("Frame")
 	learnFrame:RegisterEvent("QUEST_DETAIL")
 	learnFrame:RegisterEvent("QUEST_ACCEPTED")
+	-- 📌 The third event of the same conversation, and the one this file was missing.
+	-- QUEST_DETAIL fires once you have clicked a quest; GOSSIP_SHOW fires when the window
+	-- opens, before you choose anything — which is the only moment the game will tell you
+	-- what is on offer rather than what you took. See ObserveGossipOffer.
+	learnFrame:RegisterEvent("GOSSIP_SHOW")
 	learnFrame:SetScript("OnEvent", function(_, event, a1, a2)
 		if event == "QUEST_DETAIL" then
 			local guid = UnitGUID and (UnitGUID("npc") or UnitGUID("questnpc"))
@@ -1475,6 +1623,10 @@ do
 		elseif event == "QUEST_ACCEPTED" then
 			-- Retail passes questID (a1); older clients passed (logIndex, questID).
 			LearnGiverQuest(a2 or a1)
+		elseif event == "GOSSIP_SHOW" then
+			-- pcall: this runs on every gossip window in the game, including ones with
+			-- nothing to do with us. A fault here must never break talking to an NPC.
+			pcall(ObserveGossipOffer)
 		end
 	end)
 end

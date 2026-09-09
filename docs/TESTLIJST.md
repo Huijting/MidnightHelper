@@ -25,6 +25,20 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **De kop van This Week feliciteert niet meer over een halve week — GEMETEN 9 sep.** Robs
       scherm: *"Nothing left to pick up — but 5 weekly things are still unfinished. They are in the
       list below."* boven *"8 of 13"*, en de **5** komt overeen met zijn vijf genummerde regels.
+- [ ] 🆕 **De giver-waarneming (9 sep) — drie stappen, en stap 1 hoort NIETS te doen.**
+      1. **`/reload`, dan meteen `/mh weeklies`.** Verwacht een nieuw blok *"What each giver actually
+         offered when you last stood there"* met bij alle vier de givers **"not visited since this
+         was built"**. ⚠️ Dat is de goede uitkomst: we hebben nog nergens gestaan. Staat er meteen
+         een getal, dan schrijft hij iets op wat hij niet gemeten heeft.
+      2. **Praat met Lady Liadrin** (gewoon aanklikken, niets aannemen), loop weg, `/mh weeklies`.
+         Verwacht: *"nothing on offer this week"* met dag en tijd erachter — want jij zag vanmiddag
+         dat ze niets had.
+      3. **Praat met een giver die je wél iets te bieden heeft** — Halduron of Aethas, want die
+         quests staan in je log, dus die hebben er nu niets. Dan liever **Vereesa**: ook al in je
+         log. 📌 Kom je er deze week eentje tegen die wél iets aanbiedt, kijk dan of This Week hem
+         op **"pick it up"** zet in plaats van "done". Dát is waar dit voor gebouwd is.
+      ⚠️ **Werkt er iets niet: NPC's aanspreken mag nooit stukgaan.** De lezing zit in een `pcall`,
+      dus als er iets fout is hoor je hooguit een lege regel te zien, geen foutmelding.
 - [ ] ⚠️ **De ANDERE kant van diezelfde fix, nog ongetest.** Is je week wél helemaal af (13 van 13),
       dan hoort *"You're all caught up this week. Nice."* gewoon terug te komen. **Zonder die meting
       is alleen bewezen dat de nieuwe regel verschijnt, niet dat de oude nog kan verschijnen** — en

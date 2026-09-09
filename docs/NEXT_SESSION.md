@@ -30,7 +30,32 @@ Dus de **uitkomst** klopte. Wat niet deugt is het **bewijs** — dertien permane
 kunnen die conclusie niet dragen, ook niet als hij toevallig juist is. ⚠️ *Toevallig gelijk hebben
 leest van buiten precies hetzelfde als het weten*, en dat is precies waarom dit een bug blijft.
 
-### 💡 Robs vraag is de betere oplossing: *"kunnen we dat uitzoeken, op dat moment?"*
+### ✅ GEBOUWD 9 sep — de addon schrijft nu op wat een giver écht aanbood
+
+`GOSSIP_SHOW` erbij op de bestaande learn-frame; `ObserveGossipOffer` leest
+`C_GossipInfo.GetAvailableQuests()` en zet **alleen het aantal** in
+`MidnightHelperDB.giverLearn.offers` met een tijdstempel.
+
+⚠️ **ALLEEN AANTALLEN, NOOIT TITELS.** Een questnaam van een NPC kan in 12.x een secret value
+zijn; dit heeft aan "hoeveel" genoeg, dus het raakt de strings niet aan. **De goedkoopste guard is
+er geen nodig hebben.**
+
+🔴 **En het gebruik is ASYMMETRISCH, expres.** Stond je sinds de reset voor die giver én zei het spel
+dat er quests waren, dan is dat beslissend en krijgen de vlaggen geen stem → `pickup`. Maar **nul
+gezien vlagt nooit iets af als "done"**: de aanbieding kan achter iets zitten wat wij niet zien, en
+een onterechte "done" **verbergt werk** terwijl een onterechte "pickup" alleen een loopje kost. Deze
+addon heeft vandaag al een weekly toegevoegd die stilletjes ontbrak (Trailing Xal'atath, een Spark) —
+de fout die iets verstopt is de dure.
+
+📌 **Drie toestanden in `/mh weeklies`, niet twee:** *"deze week gezien (n)"*, *"gezien vóór de
+reset"*, en *"nooit voor gestaan"*. Die middelste is precies wat een boolean zou vernietigen — en de
+derde is [[silence-is-not-absence]]: een niet-bezochte giver ziet er van binnenuit identiek uit als
+een lege.
+
+⚠️ **Wat dit NIET oplost:** waaróm alle dertien Liadrin-vlaggen op completed staan. Dat blijft open.
+Dit maakt de vlaggen alleen overrulebaar door iets wat je zelf gezien hebt.
+
+### 💡 De redenering erachter: *"kunnen we dat uitzoeken, op dat moment?"*
 
 Ja. In plaats van "done" **afleiden** uit questvlaggen, kun je het de client **vragen** op het moment
 dat je voor de NPC staat: `C_GossipInfo.GetAvailableQuests()` zegt letterlijk welke quests die NPC nú

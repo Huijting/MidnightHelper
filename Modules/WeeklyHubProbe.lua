@@ -103,6 +103,34 @@ end
 function ns.PrintWeeklyHubProbe()
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	print(("%s Weekly hub probe — quest ids are UNVERIFIED, compare with your quest log"):format(prefix))
+
+	--- 🔴 WHAT THE GAME ITSELF SAID, PRINTED ABOVE WHAT WE INFERRED. On 9 Sep 2026 this probe
+	--- reported all thirteen of Liadrin's ids as `completed` on a reset morning Rob had not
+	--- played — a verdict her step could never contradict. The flags below are still worth
+	--- printing, but they are the weaker evidence and should not be read first.
+	---
+	--- ⚠️ THREE STATES, NOT TWO. "not visited this week" is not "offered nothing": an
+	--- unvisited giver and an empty one look identical from in here, and collapsing them is
+	--- exactly the mistake the flags already make.
+	if ns.GetGiverOfferObservations then
+		print("   |cff8fd3ffWhat each giver actually offered when you last stood there|r")
+		for _, o in pairs(ns.GetGiverOfferObservations()) do
+			local state
+			if o.n == nil then
+				state = "|cff9d9d9dnot visited since this was built|r"
+			elseif o.thisWeek == false then
+				state = ("|cff9d9d9dlast seen before the reset (%d then)|r"):format(o.n)
+			elseif o.thisWeek == nil then
+				state = ("|cffff5040cannot date it — reset time unreadable (%d)|r"):format(o.n)
+			elseif o.n > 0 then
+				state = ("|cffffd100%d quest(s) on offer this week|r"):format(o.n)
+			else
+				state = "|cff40c040nothing on offer this week|r"
+			end
+			local when = o.at and date("%a %H:%M", o.at) or "-"
+			print(("      %-22s %-42s %s"):format(o.name or "?", state, when))
+		end
+	end
 	PrintPool("Lady Liadrin's weekly pool", LIADRIN)
 	PrintPool("Void Assault zone rotation", VOID_ZONES)
 	PrintPool("Showdown (Riftblade Maella)", SHOWDOWN)
