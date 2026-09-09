@@ -1,5 +1,55 @@
 # Midnight Helper — waar we staan
 
+## 🔴 VOOR MORGEN — Venom Lancer Ori'kassi is geen rare maar een SCENARIO
+
+Rob, 9 sep 23:26, na de shard-metingen. De route stuurde hem naar **Venom Lancer Ori'kassi** als
+rare. Wat hij aantrof:
+
+- een gebeurtenis-balk **"Siege at Coiler's Wake"** → **"The Slithering Advance"**
+- een voortgangsbalk *"Ula'tek's Spawn Defeated and Trolls Freed"* op **53%** — hij viel er middenin
+- als beloning: een Shadowclaw Jerkin **en 112 Coffer Key Shards**
+
+### 📌 Onze eigen data wist dit half, en dat is het sterkste bewijs dat er is
+
+`Rares.lua` draagt precies **twee** entries met een waarschuwing, en het zijn dezelfde twee:
+
+```
+:240  Malformed Leviathan        -- elite; ⚠️ id UNVERIFIED, see the band note
+:280  Venom Lancer Ori'kassi     -- elite; ⚠️ id UNVERIFIED
+:329  ⚠️ Venom Lancer and Malformed Leviathan stay at `0` on purpose
+```
+
+En bij de Leviathan staat al sinds augustus (`Rares.lua:220`): *"it is the one that is an EVENT
+rather than a plain rare: a scenario banner announces 'Defeat the Monstrosity!'"*. Onze eigen
+aantekening bij Ori'kassi zegt **"never killed"** — nu weten we waaróm: je doodt hem niet als rare,
+je doet mee aan een scenario.
+
+🔴 **Dus allebei de entries die wij zelf verdacht hadden gemarkeerd, zijn evenementen.** Dat is geen
+toeval meer, dat is een categorie. Beginnen bij die twee regels is morgen sneller dan zoeken.
+
+### ⚠️ Wat dit raakt
+
+1. **De route.** We sturen hem naar een vaste coördinaat alsof er iets staat. Loopt het evenement
+   niet, dan komt hij aan bij niets — en dat ziet er van buiten uit als verouderde data.
+2. **112 shards is een DERDE uitbetalingsklasse**: 50 (wiki, onbewezen), 75 (gemeten, rare),
+   112 (gemeten, dit evenement).
+   ✅ **De waarnemer van vanavond overleeft dat door zijn ontwerp** — hij neemt de **modus**, niet
+   het gemiddelde, dus één losse 112 tussen de 75's verschuift niets. Was het een gemiddelde
+   geweest, dan had deze avond het getal meteen kapotgemaakt.
+3. **De quest-ID's** (96969/96970) vielen al buiten de gemeten band. Dat past bij een evenement.
+
+### Morgen, in deze volgorde
+
+1. **Onze eigen twee regels lezen** — `Rares.lua:220-240` en `:280`, plus de bandnotitie. Daar staat
+   al meer dan een zoekmachine gaat opleveren.
+2. **Dan pas online/andere addons** — HandyNotes_Midnight is de kandidatenbron, geen bewijs
+   ([[handynotes-rare-coords-trusted]] gaat over coördinaten, niet over het TYPE content).
+3. **Vraag om te beantwoorden:** is dit een periodiek evenement met een eigen timer? Zo ja, hoort het
+   niet in de rares-lijst maar bij het world-content-spoor, en moet de route erover zwijgen als het
+   niet loopt.
+
+⚠️ **Niets aan aanraken tot dat helder is.** Ori'kassi uit de rares halen terwijl hij daar soms wél
+te doden is, zou een tweede fout op de eerste stapelen.
 ## ✅ 9 sep — de shard-onenigheid is GEMETEN, en er is géén bug (bijna wel gemeld)
 
 Rob werd rank 10 in de Delver's Journey en vroeg wat *"Coffer Key Shards earned from all sources is
