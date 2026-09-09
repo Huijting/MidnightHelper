@@ -1,5 +1,41 @@
 # Midnight Helper — waar we staan
 
+## 🔴 9 sep — CurseForge wordt door niets bewaakt, en de browser kan er wél bij
+
+Rob: *"nog steeds geen nieuwe mensen of nieuwe ideeën op de github, voor we dat over het hoofd
+zien??"* Terechte vraag, en hij legt een echt gat bloot — al viel de uitkomst mee.
+
+📌 **GEMETEN wat `gh_inbox` dekt:** open issues, open PR's, de nieuwste issue/PR-reacties en recent
+gesloten items. **Niet**: Discussions, stars/forks, en — het belangrijkst — **CurseForge**. In de
+hele `tools/`-map komt "curseforge" alleen voor als uitgaande link in `build_site.py`.
+
+🔴 **Dat is dezelfde vorm als de bug van gisteren.** `gh_inbox` bestaat omdat Andy's vijf PR's 17
+dagen bleven liggen; die redenering — *"geen enkele wachter dekt mensen"* — is nooit toegepast op de
+plek waar de **spelers** zitten. GitHub is waar een ontwikkelaar komt; CF is waar 12,5K downloads
+vandaan komen.
+
+### ✅ En de browser komt langs Cloudflare, wat we dachten dat niet kon
+
+`web_fetch_exa` faalt op de comments-pagina (`CRAWL_LIVECRAWL_TIMEOUT`), maar de ingebouwde browser
+laadt hem gewoon. **Dat maakt een CF-controle bouwbaar** — tot vandaag stond genoteerd dat de
+Cloudflare-check niet omzeild was.
+
+### 🔴 En twee dingen die ik zelf fout had
+
+1. **"Niemand heeft die vier reacties ooit gelezen" — ONWAAR.** Rob heeft ze zelf beantwoord, twee
+   keer. Ik leidde dat af uit het ontbreken van een tool: geen wachter ⇒ niemand keek. Dat is
+   [[silence-is-not-absence]] toegepast op mensen. **De vier reacties zijn twee maanden oud, gaan
+   over de shard-popup en het 3D-bossmodel, zijn in v1.8.5 opgelost, en eindigen met *"i absolutely
+   love it. massive help"*.** Niets open.
+2. **De eerste fetch las "v3.7.2, 29 aug, 11,1K downloads" en dat was een STALE CACHE.** De browser
+   geeft **12,5K downloads en 7 sep** — 3.9.0 staat dus gewoon live. ⚠️ Het teken zat in de dump
+   zelf: *"Last Update Aug 29"* náást *"Updated 1 day ago"*. Een pagina die zichzelf tegenspreekt is
+   een cache, niet een feit — precies de val uit CLAUDE.md's kop, nu met twee velden in plaats van
+   een datum.
+
+**Voorstel, nog niet gebouwd:** een CF-stap in het ochtendrondje die het aantal reacties leest en
+meldt wanneer dat verandert. Klein, en het dekt de enige groep gebruikers die we nu structureel niet
+zien.
 ## ✅ 9 sep — releasecontrole: vertalingen gemeten, en één label gerepareerd
 
 Rob vóór de release: *"hebben we alle vertalingen van de nieuwe dingen nu ook goed staan? … en is er
