@@ -1,5 +1,40 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep, RESETDAG — band B reset wekelijks. De rare-vraag is dicht.
+
+De meting die sinds zondag openstond, gedaan door Rob op de ochtend van de reset (woensdag 9 sep):
+
+```
+12 of 14 done on band A,  0 of 14 on band B
+```
+
+| band | gedrag | bewijs |
+|---|---|---|
+| **A** (98344-98355) | **reset NIET** | twaalf staan nog op `done`, uren ná de reset |
+| **B** (93673-97122) | **reset WEL** | Destra stond 6 sep op B gevlagd, staat nu leeg |
+
+🎯 **Daarmee klopt alles wat we in 3.9.0 hebben uitgeleverd.** `RARES_TIP_DONE` zegt *"Done this week
+on this character (resets Wednesday). Another character of yours can still loot it."* — alle drie de
+beweringen staan nu overeind: **per character** (6 sep gemeten), **reset woensdag** (vandaag
+gemeten), en **een alt kan hem nog looten** (volgt uit per-character). **Geen tekstwijziging in zeven
+talen nodig.**
+
+📌 **En band A is daarmee ook benoemd:** hij reset niet, dus het is de permanente/account-kant —
+precies wat het veld `acct` in `Rares.lua` beweert. Die naam was een aanname en is nu een meting.
+
+### ⚠️ Wat deze run NIET bewijst, en dat is de zonelijst
+
+Het tweede blok toont **0 van N gevlagd** in elke zone — Eversong 0/15, Zul'Aman 0/15, Harandar
+0/15, Voidstorm 0/14, Val 0/10, Naigtal 0/10, Coiled Isle 0/14.
+
+🔴 **Dat bewijst vandaag niets.** Een net-gereset week en een lijst met verkeerde quest-ids zien er
+op de ochtend van de reset **identiek** uit: allebei nul. Dit is [[silence-is-not-absence]] in zijn
+zuiverste vorm, en het scherm vraagt er zelf om (*"Recognise one you killed LAST week?"*) — maar dat
+is een vraag aan Robs geheugen, niet aan de client.
+
+**Om dit te sluiten is een meting op een ánder moment nodig:** één `/mh rarequests` later deze week,
+nadat hij in zo'n zone een rare heeft gedood. Springt er dan iets op `done`, dan werken die ids en
+resetten ze; blijft alles nul, dan zijn de ids fout en heeft die tab nooit iets gemeten.
 ## ✅ 8 sep (avond) — "waar pluk ik Azeroot?" en het antwoord is beter dan een route
 
 Robs brainfart: *"ik wil mijn alchemy levelen en ik moet bv Azeroot hebben, maar ik heb geen idee
