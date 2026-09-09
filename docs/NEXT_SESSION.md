@@ -33,6 +33,23 @@ heen gaat. Dat is dezelfde fout die deze week twee keer gerepareerd is: het zoek
 *Hotkey* en niet *Text*, wat te doen als een knop niets doet). ⚠️ `docs/` gaat niet mee in de zip,
 dus dat bereikt geen speler; de **bindings** staan wél gewoon in het spel voor wie kijkt. Precies de
 twee helften die Rob vroeg.
+
+### ✅ En acht icoontjes, want alle knoppen zagen er hetzelfde uit
+
+Robs volgende vraag zodra het werkte. **Gemeten dat er niets te kopiëren viel:** alleen de vier
+zijbalk-kamers hebben een icoon (`UI.lua:333-336`), de tabbladen zelf geen enkele.
+
+📌 **SVG, geen PNG — en dat is een grens van mij, geen ontwerpkeuze.** Een SVG is tekst, dus die kan
+ik exact schrijven; een bitmap kan ik niet tekenen. Meegenomen voordeel: scherp op elk deckformaat.
+Een script schrijft ze (`docs/streamdeck-icons/`, acht stuks, addon-kleuren, elk een eigen accent)
+en **controleert daarna zijn eigen uitvoer**: elk bestand moet als XML parsen en zijn label dragen.
+
+⚠️ **Er staat een WOORD op, niet alleen een symbool.** Een abstract icoontje is na een week weg-zijn
+een raadspel, en dit is nu juist het soort knop dat je niet dagelijks gebruikt.
+
+🔴 **En bij de WoW-iconen-optie geen namen verzonnen.** De vier die in het document staan zijn de
+namen die dit addon zélf gebruikt en dus gegarandeerd bestaan; voor de rest staat er hoe je ze zelf
+opzoekt. Een plausibele icoonnaam is precies het soort gok waar dit project een regel over heeft.
 ## 🔴 9 sep — ik bouwde iets dat kan zwijgen en géén manier om te zien dát het zweeg
 
 Rob klikte Liadrin aan, deed `/mh weeklies`, en alle vijf de givers stonden nog steeds op *"not

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144" width="144" height="144">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1b45"/>
+      <stop offset="1" stop-color="#1b1130"/>
+    </linearGradient>
+  </defs>
+  <rect width="144" height="144" rx="18" fill="url(#bg)"/>
+  <rect x="3" y="3" width="138" height="138" rx="15" fill="none" stroke="#ffcc00" stroke-width="2" opacity="0.55"/>
+  <g transform="translate(22,14) scale(1.0)">
+    <path d="M18 76 L50 22 L82 76 Z" fill="none" stroke="#5cc8ff" stroke-width="7" stroke-linejoin="round"/><path d="M36 76 L50 52 L64 76" fill="none" stroke="#5cc8ff" stroke-width="7" stroke-linejoin="round"/>
+  </g>
+  <text x="72" y="130" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="20" font-weight="700" fill="#ffcc00" letter-spacing="1">DELVES</text>
+</svg>

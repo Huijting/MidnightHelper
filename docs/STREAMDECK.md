@@ -71,6 +71,61 @@ probleem niet: ze staan onder onze eigen kop en botsen met niets.
 
 ---
 
+## Icoontjes
+
+Standaard krijgt elke knop hetzelfde plaatje, want de Stream Deck weet niets van wat een
+toets doet — hij stuurt alleen een toetsaanslag.
+
+### Klaar om te gebruiken: `docs/streamdeck-icons/`
+
+Acht SVG's in de kleuren van het addon, één per scherm, elk met een eigen kleur én het woord
+erop:
+
+| bestand | knop |
+|---|---|
+| `mh-home.svg` | WEEK |
+| `mh-rares.svg` | RARES |
+| `mh-delves.svg` | DELVES |
+| `mh-codex.svg` | CODEX |
+| `mh-professions.svg` | PROFS |
+| `mh-achievements.svg` | ACHIEV |
+| `mh-mounts.svg` | MOUNTS |
+| `mh-account.svg` | ALTS |
+
+**Toevoegen:** sleep het bestand op de knop in de Stream Deck-software, of klik de knop aan →
+*Icon* → *Set from file*. Zet daarna de **titel leeg** — het woord staat al in het plaatje, en
+twee keer dezelfde tekst is onleesbaar op zo'n klein schermpje.
+
+📌 **Waarom SVG en niet PNG:** een SVG is tekst, dus die kon ik exact schrijven; een bitmap
+niet. Bijkomend voordeel is dat hij scherp blijft op elk formaat deck. Weigert jouw software
+er een, open hem dan in een browser en exporteer naar PNG (144×144).
+
+⚠️ **Elk woord staat er ook in tekst op**, niet alleen een symbool. Een abstract icoontje is na
+een week weg-zijn een raadspelletje, en dit is precies het soort knop dat je niet dagelijks
+gebruikt.
+
+### Liever WoW-iconen
+
+Kan ook, en dat oogt in dit rijtje misschien beter. Wowhead serveert elk spel-icoon als
+plaatje op een vast adres:
+
+```
+https://wow.zamimg.com/images/wow/icons/large/<naam>.jpg
+```
+
+🔴 **Ik ga hier geen icoonnamen verzinnen.** De vier die ik met zekerheid heb zijn de namen
+die dit addon zélf gebruikt voor zijn zijbalk (`UI.lua:333-336`), dus die werken gegarandeerd:
+
+| icoon | waar wij het gebruiken |
+|---|---|
+| `achievement_character_human_male` | de kamer "Me" |
+| `inv_misc_book_09` | de Codex |
+| `trade_engineering` | Tools |
+| `inv_misc_gear_01` | Settings |
+
+De rest zoek je op Wowhead zelf (zoek een spell of item, rechtsklik het icoon → afbeelding
+opslaan). ⚠️ Voor je eigen deck is dat prima; het is geen materiaal om door te verspreiden.
+
 ## Als een knop niets doet
 
 - **Zit hij wel écht vast?** Het keybinding-scherm toont de toets naast de regel. Staat daar

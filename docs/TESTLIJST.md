@@ -39,15 +39,14 @@ gerenderd. Bouwen is niet testen.
       `npc=Ceera  giver=not matched` — event vuurt, naam leesbaar, terecht niet als giver gezien.
       Liadrin daarna aanklikken liet het spoor op Ceera staan: **een NPC zonder aanbod opent geen
       gesprekvenster.** Dus *"had iets"* is te zien, *"had niets"* niet.
-- [ ] 🆕 **De acht scherm-toetsen (9 sep).** Esc → Keybindings → **Midnight Helper**. Verwacht onder
-      de drie bestaande regels **acht nieuwe**, met de naam van het tabblad erin: *Open: Rares*,
-      *Open: Delves & Vault*, enzovoort — **geen** losse codes als `MIDNIGHTHELPER_TAB_RARES`.
-      ⚠️ **Alle acht horen LEEG te staan.** Alleen Alt+M is gebonden. Staat er ergens al een toets
-      in, dan pikken we iets in.
-      Bind er één en druk erop: het venster hoort open te gaan **op dat tabblad**, ook als het al
-      openstond op een ander.
-      📌 Recept voor de Stream Deck staat in `docs/STREAMDECK.md` — kort samengevat: gebruik
-      *Hotkey* met bijvoorbeeld `Ctrl+Shift+F13`, **niet** *Text*.
+- [x] ✅ **De acht scherm-toetsen — GEMETEN 9 sep, werkt.** Rob: *"ja en het werkt"*.
+- [ ] 🆕 **De acht icoontjes (9 sep), buiten het spel.** In `docs/streamdeck-icons/` staan acht
+      SVG's. Sleep er één op een knop in de Stream Deck-software (of knop → *Icon* → *Set from
+      file*) en **maak de titel leeg** — het woord staat al in het plaatje.
+      ⚠️ **Als je software SVG weigert:** open het bestand in een browser en exporteer naar PNG
+      144×144. Dat is geen fout van het bestand maar een beperking van sommige versies.
+      📌 Kijk of de kleuren op de deck genoeg van elkaar verschillen; ik heb ze op een scherm
+      gekozen, niet op jouw hardware. Zo niet, zeg welke twee op elkaar lijken.
 - [ ] 🔴 **DE ECHTE METING STAAT VOLGENDE WEEK, en kost één commando.** Draai **vóór je iets doet**,
       na de reset: `/mh weeklies`. Kijk naar Liadrins dertien ID's.
       | uitkomst | conclusie |
