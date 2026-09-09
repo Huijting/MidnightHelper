@@ -710,6 +710,7 @@ ns._mhLocales.nlNL = {
 	HOME_HERO_HEADER = "Nu doen",
 	HOME_HERO_GO_BTN = "Breng me erheen",
 	HOME_HERO_ALL_DONE = "Je bent deze week helemaal bij. Netjes.",
+	HOME_HERO_NOTHING_TO_FETCH_FMT = "Niets meer op te halen — maar %d weekly dingen zijn nog niet af. Ze staan in de lijst hieronder.",
 	HOME_HERO_PROGRESS_FMT = "%d van %d weekly-dingen gedaan",
 	HOME_HERO_PROGRESS_LATER_FMT = "Er komen er nog %d bij naarmate je levelt.",
 	HOME_HERO_NONE_YET_FMT = "De weekroutine speelt zich af in Silvermoon — die gaat open op level %d.",

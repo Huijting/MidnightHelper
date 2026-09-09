@@ -1,5 +1,31 @@
 # Midnight Helper — waar we staan
 
+## 🔴 9 sep — "You're all caught up this week. Nice." bóven "8 of 13". Op één scherm.
+
+Robs screenshot van de Vereesa-test liet iets zien dat groter was dan wat er getest werd. De kop zei
+dat zijn week af was; de regel er direct onder zei **8 van 13**; daaronder stonden **vijf genummerde
+open dingen**, waaronder de Vereesa-regel die we net hadden toegevoegd.
+
+📌 **GEMETEN oorzaak — een ontbrekende toets, geen fout getal.** `ns.GetNextWeeklyAction` wijst alleen
+een kop-stap aan die `open` is, en `open` betekent *"er is ergens iets op te halen"*. Robs vijf
+resterende weeklies zaten **al in zijn questlog**, dus niets stond open, er kwam geen kop-stap uit, en
+de keten viel door naar de felicitatie **zonder ooit te vragen of de week af wás**. De functie gaf de
+hele tijd `done=8, total=13` terug — die tak keek er alleen nooit naar.
+
+⚠️ **En de tak erbóven had deze vorm al gevonden.** Er staat sinds 3 sep een rode aantekening bij dat
+*"all done" een leugen zou zijn* voor een levelend personage wiens stops buiten bereik liggen. Dat gat
+is toen gedicht voor **dat** geval. Dezelfde doorval had een **tweede deur** — alles opgepakt, niets
+ingeleverd — en die bleef open. 📌 **Een guard die geschreven is voor het geval dat je tegenkwam, is
+het herlezen waard zodra er een nieuwe route naartoe opduikt.**
+
+✅ **Gerepareerd:** de felicitatie staat nu achter `done >= total`. Is er niets op te halen maar is de
+week niet af, dan zegt hij dat: *"Nothing left to pick up — but %d weekly things are still unfinished.
+They are in the list below."* Geen route, want er is werkelijk nergens heen te lopen. Zeven talen,
+linter 0 hard.
+
+✅ **En de Vereesa-regel zelf werkte precies zoals voorspeld:** *"3. Weekly (Vereesa Windrunner):
+picked up — finish and turn it in."* Niet *"pick it up next to the vault"* — dat was de Liadrin-bug.
+De scope-regel onderaan staat er ook. Beide afgetekend.
 ## ✅ 9 sep — Spec 35, de kleine stap: elk weekly-scherm zegt nu wat het NIET dekt
 
 Eerst gemeten, want de aantallen uit dat onderzoeksdocument wilde ik zelf tellen voordat ik teksten

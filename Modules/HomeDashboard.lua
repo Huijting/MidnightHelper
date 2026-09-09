@@ -265,8 +265,31 @@ local function BuildLayout()
 				-- reading "you're finished" over a list of things they have never done.
 				line(rows, ns:L("HOME_HERO_NONE_YET_FMT"):format(ns.MidnightFloorLevel or 80),
 					COLOR_SOFT)
-			else
+			elseif (done or 0) >= (total or 0) then
 				line(rows, ns:L("HOME_HERO_ALL_DONE"), COLOR_GOOD)
+			else
+				--- 🔴 "ALL CAUGHT UP" OVER AN UNFINISHED WEEK — caught on Rob's own screen,
+				--- 9 Sep 2026. The headline read "You're all caught up this week. Nice." with
+				--- "8 of 13 weekly things done" on the very next line, and five numbered open
+				--- items under that.
+				---
+				--- 📌 THE CAUSE IS A MISSING TEST, NOT A WRONG NUMBER. `GetNextWeeklyAction`
+				--- only nominates a hero step that is `open` — meaning there is somewhere to GO
+				--- and pick something up. Five weeklies already sat in his quest log, so nothing
+				--- was open, no hero was found, and the chain fell through to the congratulation
+				--- without ever asking whether the week was actually finished. The function
+				--- returned done=8 and total=13 the whole time; this branch just never looked.
+				---
+				--- ⚠️ THE NOTE ON THE BRANCH ABOVE ALREADY FOUND THIS SHAPE and closed it for one
+				--- case: a levelling character whose stops are all out of reach. The same
+				--- fall-through had a second door — everything picked up, nothing handed in —
+				--- and that one stayed open. A guard written for the case you hit is worth
+				--- re-reading whenever a new way to reach it turns up.
+				---
+				--- 📌 No hero step and no route here, because there is genuinely nowhere to walk
+				--- to. The line says what is true and points at the list already underneath it.
+				line(rows, ns:L("HOME_HERO_NOTHING_TO_FETCH_FMT"):format((total or 0) - (done or 0)),
+					COLOR_WARN)
 			end
 			if (total or 0) > 0 then
 				line(rows, ns:L("HOME_HERO_PROGRESS_FMT"):format(done or 0, total), COLOR_DIM)

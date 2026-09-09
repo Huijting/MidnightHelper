@@ -753,6 +753,9 @@ ns._mhLocales.enUS = {
 	HOME_HERO_HEADER = "Next up",
 	HOME_HERO_GO_BTN = "Take me there",
 	HOME_HERO_ALL_DONE = "You're all caught up this week. Nice.",
+	-- The case where there is nothing left to COLLECT but the week is not finished: every
+	-- remaining weekly is already in your log. No route, because there is nowhere to walk to.
+	HOME_HERO_NOTHING_TO_FETCH_FMT = "Nothing left to pick up — but %d weekly things are still unfinished. They are in the list below.",
 	HOME_HERO_PROGRESS_FMT = "%d of %d weekly things done",
 	HOME_HERO_PROGRESS_LATER_FMT = "%d more open up as you level.",
 	HOME_HERO_NONE_YET_FMT = "This week's routine happens in Silvermoon — it opens up at level %d.",
