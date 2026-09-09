@@ -40,9 +40,38 @@ Waarom dit de beste kandidaat van de hele video is:
 - Het is **actiegericht**: "blijf haar healen" is iets wat je doet.
 - Het verklaart iets wat je merkt maar niet begrijpt — precies MH's lijn.
 
-⚠️ **Te toetsen:** de buff moet een naam en een spell-ID hebben. Als hij op Valeera zit en niet
-op de speler, is `ns.Aura` op haar unit de route (zie [[aura-facade-12-1]] — gericht vragen mag,
-opsommen niet). Vraag Rob om de tooltip als hij een healer speelt.
+### ✅ NAGETROKKEN, 9 sep — de mechaniek bestaat, de getallen niet
+
+Rob heeft geen healer, dus de tooltip was niet uit zijn client te halen. Extern nagezocht:
+
+**De buff heet `Blood-Stained Blades`, spell `1251122`.** Wowhead toont hem op **Live, PTR
+12.1.0 én PTR 12.1.5** — hij bestaat dus zeker.
+
+[Icy Veins](https://www.icy-veins.com/wow/valeera-sanguinar-delve-companion-guide) (6 aug 2026)
+geeft de tooltip woordelijk:
+
+> *"Valeera harness effective healing upon her to empower her blades, increasing the damage she
+> inflicts by 8% for 8 sec. This effect stacks."*
+
+| Bewering | Status |
+|---|---|
+| Healen op Valeera verhoogt haar schade, stapelend, 8 sec per stack | ✅ **Bevestigd**, woordelijke tooltip |
+| Werkt in de **Tank**-rol | ✅ Bevestigd |
+| **8% per stack** | ⚠️ **Betwist** — Icy Veins zegt 8%, een Wowhead-samenvatting zegt **7%**. Niet opgelost |
+| **Maximaal 12 stacks** | ❌ **Door geen enkele bron bevestigd.** Geen van de gevonden pagina's noemt een maximum |
+| **80% op vol** | ❌ **Rekent niet uit.** 12 × 8% = 96%, 12 × 7% = 84%. Geen van beide is 80% |
+
+🔴 **Conclusie: de mechaniek is waar, de video's cijfers zijn het niet.** Dat is precies het
+patroon van de vorige video — gelijk over het feit, ongelijk over de details.
+
+📌 **En dat maakt het advies niet zwakker.** *"Blijf haar healen: elke heal maakt haar harder
+slaan en dat stapelt"* is volledig waar, is bruikbaar, en heeft het percentage niet nodig. Het
+getal is precies het stuk dat we niet kunnen staven — dus laat het weg, dan hoeft er nooit iets
+gerectificeerd te worden.
+
+⚠️ Wil iemand het percentage of het maximum alsnog vastleggen: dat vraagt een healer die de
+buff op haar leest via `ns.Aura` op haar unit (gericht vragen mag, opsommen niet — zie
+[[aura-facade-12-1]]). Tot dan: geen getal.
 
 ---
 
