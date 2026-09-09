@@ -463,3 +463,43 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260908b (volledig gelezen via
   Exa) · https://news.blizzard.com/en-us/article/24298589/blizzcon-2026-midnight-12-1-5-and-more-in-this-weeks-wow-weekly?nocache=20260908c
   (volledig gelezen via Exa).
+
+---
+
+- [2026-09-09] 🔁 **Dag 5 zonder nieuwe hotfix-sectie — dus geen nieuwe hotfix-vergelijking; wel
+  twee live-events gecheckt op tegenspraak, geen gevonden.** `Exa web_fetch_exa` met
+  `?nocache=20260909d` op news.blizzard.com's doorlopende hotfix-artikel, **volledige artikeltekst
+  zelf gelezen**: "September 4, 2026" staat nog steeds bovenaan, Classes/Dungeons and Raid/
+  Housing/Items byte-voor-byte gelijk aan wat al in [2026-09-05] gelogd staat. Delves/Professions/
+  Quests waren en zijn leeg in die sectie. **Positieve controle:** een losse `web_search_exa` op
+  dezelfde pagina geeft zijn eigen gepubliceerde titel/datum ongewijzigd terug — geen cache-val.
+  Dit is dag 5 op rij zonder nieuwe hotfix-sectie, convergerend met de API- en PTR-wachter van
+  vandaag (beiden ook nog op 4 sep). Niets nieuws om tegen de repo te toetsen op hotfix-vlak.
+
+  **Twee live-events, aangedragen door de data-wachter van vandaag (`docs/PTR_12.0.7_DATA.md`,
+  entries [2026-09-09]), zelf getoetst op tegenspraak — dat is mijn vraag, niet de zijne:**
+  - **Winds of Mysterious Fortune (wereldevent, 8 t/m 22/23 sep):** +50% reputatie op vrijwel alle
+    facties, **expliciet uitgezonderd Zul'jarra's Forces en Captain Tokka's Crew**. Relevant omdat
+    een verkeerde MH-tekst hier zou kunnen claimen dat de renowngrind voor Zul'jarra's Forces
+    versneld is tijdens het event. `grep -i "Zul'jarra's Forces"` (repo-breed): treffers in
+    `Modules/MountProgress.lua:119` en `Modules/CorrosiveCodexHunts.lua:290` — beide noemen alleen
+    Renown-drempels/node-zichtbaarheid, geen van beide claimt een reputatie-tempo of een
+    eventbonus. Geen enkele treffer op "Winds of Mysterious Fortune"/"Mysterious Fortune" zelf.
+    MEASURED. **[RAAKT ONS NIET]**
+  - **Midnight Dungeon Event (weekly, "voltooi 4 dungeons op Mythic voor een Heroic Cache of
+    Amani Treasures"):** 0 treffers op "Dungeon Event" of "Amani Treasures" repo-breed — dit
+    bestaat nog nergens in MH, dus er is niets om tegen te spreken (het is een ontbrekend stuk
+    content, geen tegenspraak — Rob beslist of het de moeite waard is om te bouwen). MEASURED.
+    **[RAAKT ONS NIET]**
+  - 📌 **Positieve controle voor beide greps, zelfde repo-brede scope:** `grep -i "Trader's
+    Tender"` geeft treffers in `Modules/TradingPost.lua:2,13,19` (currency 2032) — het patroon
+    vindt dus wél iets op deze schaal wanneer het er is; de 0-treffers hierboven zijn gemeten
+    afwezigheid.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260909d (volledig gelezen via
+  Exa, hotfixkant) · `docs/PTR_12.0.7_DATA.md` entries [2026-09-09] als aanleiding voor de twee
+  live-events (feiten niet herhaald, alleen zelf getoetst op tegenspraak met geshipte MH-tekst) ·
+  codebase: `grep` case-insensitive repo-breed op alle bovengenoemde termen, plus gerichte reads
+  van `Modules/MountProgress.lua`, `Modules/CorrosiveCodexHunts.lua`, `Modules/TradingPost.lua`,
+  `Modules/EventScheduler.lua` — allemaal vandaag gelezen. **[RAAKT ONS NIET]** op alle punten.
+  Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
