@@ -1,5 +1,63 @@
 # Midnight Helper — waar we staan
 
+## 📝 9 sep — de CF-omschrijving herschreven van 5244 naar 1592 woorden (CONCEPT, niet live)
+
+Rob: *"Als ik het als onbekende zou kijken is dat een mega lange lijst."* Vier beoordelaars gevraagd
+— een eerste-keer-addongebruiker, een terugkerende speler, een winkelpagina-specialist en een
+sceptische 25-addon-gebruiker. **Concept staat in `docs/CURSEFORGE_DESCRIPTION_DRAFT.md`; het live
+bestand is niet aangeraakt.**
+
+📌 **GEMETEN, en het is één getal:** `### Highlights` besloeg **3740 woorden = 71% van de pagina**,
+met 20 vetgedrukte labels en **nul kopjes** — dus voor een scannende lezer had die sectie geen vorm.
+Daarnaast ~400 woorden **letterlijke** herhaling: 40 verschillende woordgroepen van 8+ woorden stonden
+er tweemaal (`Multicraft` regel 15 én 128, `Take me there` regel 16 én 61).
+
+| | live | concept |
+|---|---|---|
+| woorden | 5244 | **1592** (−70%) |
+| leestijd | ~24 min | **~7 min** |
+| kopjes | 10 | 13 |
+
+### 🔴 De belangrijkste vondst was niet de lengte
+
+Twee beoordelaars vonden **onafhankelijk** hetzelfde: onze gracht is niet "wij leggen uit" — dat
+claimt elke gids — maar dat we **zeggen wanneer we iets niet weten**. *"Zygor zegt nooit 'ik weet het
+niet'."* Dat principe stond nergens als kop; eerste voorkomen was **woord 1056**, als bijzin over een
+delve-consumable. Het heeft nu een eigen sectie: **"What it will not tell you."**
+
+### 🔴 En drie claims die onze eigen never-lie-regel hadden moeten vangen
+
+Gemeten in het live bestand, alle drie weg in het concept: *"the two **cannot** disagree"* (r21),
+*"(**no wrong or missing** spell IDs)"* (r78), *"**Own, verified** data across every class"* (r85).
+Plus *"guessing convincingly"* dat er **twee keer** stond (r23 en r53) — *"je eerlijkheidsprincipe
+twee keer in dezelfde woorden zeggen leest als protesteren"*.
+📌 De linter faalt op een verzonnen spell-ID en de winkelpagina claimde ondertussen perfectie over 40
+specs. **De regel stopte bij de `.lua`-bestanden.**
+
+### ⚠️ Wat NIET geschrapt is, en waarom dat expres is
+
+Alle vier prezen dezelfde dingen: de eerste 350 woorden (*"het beste addon-pitch dat ik dit jaar
+gelezen heb"*), 🌐 *"You can read a lot of it before installing anything"* (*"Niemand doet dit"*), de
+account-wide-keybinds-zin, en de kleurtje-najagen-zin. Allemaal ongewijzigd overgenomen.
+
+### 🔴 OPEN: vijf feiten die Rob in het spel moet toetsen vóór dit live gaat
+
+Bewust **niet** stilzwijgend aangepast — een vermoeden van een beoordelaar is een kandidaat, geen
+meting. (Bewijs dat dat nodig is: de tiende twijfel van de power-user was dat de Knowledge
+Points-link kapot was omdat hij naar de site-root wijst. **Nagemeten: `site/index.html` ÍS de
+KP-pagina.** Vals alarm.)
+
+1. **"Champion 4/6"** in de openingszin — heeft die track niet **8** rangen? Ongewijzigd gelaten: het
+   is de beste zin van de pagina en een vermoeden is geen reden om hem aan te raken.
+2. **"top-tier crests are earnable solo"** — hoge consequentie als het één tier ernaast zit.
+   **Weggelaten uit het concept**, niet ontkend: niet beweren tot het gemeten is.
+3. **Catalyst "charges cap at 8, per character"** — Blizzard heeft dat meer dan eens veranderd. De
+   *omkering* (secondaries blijven behouden) staat er wel in; twee beoordelaars noemden dat de
+   sterkste zin voor een terugkerende speler.
+4. **De boss- en delve-tellingen** (17 bosses / 52 bosses / 14 delves) rijmen niet zichtbaar.
+5. ✅ **Al opgelost in het concept:** de commandoregel `/mh lang de` suggereerde dat een Duitser op
+   een Engelse client Duits kan kiezen. Dat kan niet — packs zijn client-gated
+   ([[locale-packs-gated-by-client]], gemeten 18 aug). De *tabel* klopte; die ene regel niet.
 ## 📦 9 sep — 3.10.0 IS GETAGD. Rob zei "go".
 
 `.toc` op 3.10.0, `CHANGELOG_3100_1..7` in enUS (Engels, zoals altijd), `Modules/Changelog.lua`
