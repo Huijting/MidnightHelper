@@ -1,5 +1,52 @@
 # Midnight Helper — waar we staan
 
+## 🔴 9 sep — de weekly-vinkjes rusten op bewijs dat niets waard is (OPEN)
+
+Rob, na de This Week-test: *"maar ik heb behalve een proff quest nog helemaal niets gedaan vandaag op
+geen enkele character."* Het scherm zei tegelijk **"Resets in 6d 16h"** (dus de reset was ~6 uur
+eerder) én **acht groene vinkjes "done this week"**. Die twee kunnen niet samen waar zijn.
+
+**GEMETEN met `/mh weeklies`:**
+
+| pool | uitkomst |
+|---|---|
+| **Liadrin, 13 ID's** | **13× `completed`** |
+| Void Assault, 2 | 1× `-`, 1× `in your log` |
+| Showdown, 5 | 4× `-`, 1× `completed` |
+
+📌 `GiverState` geeft *"done"* zodra **één** ID uit de pool op completed staat. Bij Liadrin staan ze
+**allemaal** op completed, en dat kan niet van deze week zijn. **Haar vinkje kan dus nooit iets
+anders zeggen dan "done", wat je ook doet.**
+
+⚠️ **En 12 van de 13 geven "no title from the game"** — maar dat verklaart het niet: 93890
+*"Midnight: Abundance"* heeft wél een titel én staat op completed, en de Showdown-pool heeft ID's
+zónder titel die gewoon `-` teruggeven. De Void- en Showdown-pools gedragen zich normaal, dus het is
+geen kapotte API. **De oorzaak is niet vastgesteld. Niets gerepareerd.**
+
+### 🔴 En een correctie op mezelf, binnen één beurt
+
+Ik schreef *"die vinkjes betekenen niets"*. Rob liep naar Liadrin: **ze bood deze week niets aan.**
+Dus de **uitkomst** klopte. Wat niet deugt is het **bewijs** — dertien permanent-voltooide vlaggen
+kunnen die conclusie niet dragen, ook niet als hij toevallig juist is. ⚠️ *Toevallig gelijk hebben
+leest van buiten precies hetzelfde als het weten*, en dat is precies waarom dit een bug blijft.
+
+### 💡 Robs vraag is de betere oplossing: *"kunnen we dat uitzoeken, op dat moment?"*
+
+Ja. In plaats van "done" **afleiden** uit questvlaggen, kun je het de client **vragen** op het moment
+dat je voor de NPC staat: `C_GossipInfo.GetAvailableQuests()` zegt letterlijk welke quests die NPC nú
+voor je heeft.
+
+✅ **En de helft staat er al.** `GOSSIP_SHOW` is al geregistreerd in drie modules
+(`DundunShrine`, `DelveCuriosAdvisor`, `EventSniffer`), en `ResetRoutine` leert nú al welke quest bij
+welke giver hoort via `QUEST_DETAIL` → `QUEST_ACCEPTED` (`LearnGiverQuest`). Wat ontbreekt is één
+stap: bij `GOSSIP_SHOW` op een bekende giver opschrijven **hoeveel hij aanbood en wanneer**.
+
+Dan kan de regel iets zeggen wat waar is — *"Liadrin had niets voor je toen je er 2 uur geleden
+stond"* — in plaats van een gok die er als een feit uitziet. 📌 Dat is dezelfde beweging als
+[[verify-against-the-client]]: vraag het spel in plaats van het af te leiden.
+
+⚠️ Bij het bouwen: quest-namen en NPC-GUID's kunnen in 12.x **secret** zijn. `ResetRoutine` guardt
+dat al op twee plekken (`NpcIDFromGUID`, `GiverKeyByName`); een nieuwe lezing moet dat ook doen.
 ## 🔴 9 sep — "You're all caught up this week. Nice." bóven "8 of 13". Op één scherm.
 
 Robs screenshot van de Vereesa-test liet iets zien dat groter was dan wat er getest werd. De kop zei
