@@ -25,21 +25,16 @@ gerenderd. Bouwen is niet testen.
 - [x] ✅ **De kop van This Week feliciteert niet meer over een halve week — GEMETEN 9 sep.** Robs
       scherm: *"Nothing left to pick up — but 5 weekly things are still unfinished. They are in the
       list below."* boven *"8 of 13"*, en de **5** komt overeen met zijn vijf genummerde regels.
-- [ ] 🆕 **De kist-hint op de rare-toast (9 sep) — te testen ZONDER op een spawn te wachten.**
-      Rob had Farthik al gedood en rares zijn weekly, dus `/mh raretest` kan nu een naam mee:
-      ```
-      /mh raretest farthik
-      ```
-      Verwacht: zijn aankomst-kaart met een **tweede gele regel** — *"(open the chest to summon
-      him)"* — en de kaart groeit mee in plaats van af te knippen. In de chat komt er een regel bij
-      die zegt welke hint hij gebruikte, zodat "geen tweede regel" te onderscheiden is van "deze rare
-      heeft er geen".
-      ⚠️ **Tegenproef, want alleen de goede uitkomst zien bewijst niets:** `/mh raretest lockjaw`
-      (of een andere rare zonder hint) hoort **één** regel te tonen en in de chat *"none for this
-      rare"* te zeggen.
-      📌 **Derde geval, gratis:** `/mh raretest coin` — Coin-Eye Skully zwemt, dus die hoort
-      *"(roams — look around)"* te krijgen.
-      📌 En kaal `/mh raretest` doet nog steeds wat het altijd deed.
+- [x] ✅ **De kist-hint op de rare-toast — GEMETEN 9 sep, met zijn eigen controle erin.** Farthik gaf
+      *"(open the chest to summon him)"*, Coin-Eye Skully *"(roams — look around)"*. **Twee
+      verschillende hints op twee rares** is precies de tegenproef die als aparte stap op deze lijst
+      stond: een vastgeplakte tekst had twee keer hetzelfde getoond. Kaarten groeiden mee.
+      📌 `/mh raretest <naam>` werkt dus ook — gebouwd omdat rares weekly zijn en Rob Farthik net
+      gedood had.
+- [ ] ⚠️ **Kleinigheid, alleen kijken als je hem toch tegenkomt:** op Coin-Eye Skully's kaart bleef
+      de modelplek **leeg**, terwijl Farthik zijn portret kreeg. Zijn npcID (257906) staat wél in de
+      data, dus dit is waarschijnlijk gewoon een model dat nog niet geladen was. **Niet gemeten**, en
+      het raakt de hint niet. Zie je het vaker, dan is het een echt puntje.
 - [ ] 🆕 **De giver-waarneming (9 sep) — drie stappen, en stap 1 hoort NIETS te doen.**
       1. **`/reload`, dan meteen `/mh weeklies`.** Verwacht een nieuw blok *"What each giver actually
          offered when you last stood there"* met bij alle vier de givers **"not visited since this
