@@ -196,9 +196,14 @@ local function BuildNavIndex()
 				local sl = skillLine
 				add(("%s — %s"):format(L("PGUIDE_LAUNCH_BTN"), g.profName.en),
 					table.concat(words, " "):lower(),
-					function()
+					--- ⚠️ THE QUERY IS PASSED ON, and that is the whole fix of 9 sep. The
+					--- guide's own job is to show the step you are ON, which is right for
+					--- levelling and wrong for looking something up -- Rob's Herbalism is
+					--- past skill 30, so the step naming Azeroot slid out from under him
+					--- twice. With a word to go on it lands on the step that matched.
+					function(query)
 						if ns.MH_OpenProfessionGuide then
-							ns.MH_OpenProfessionGuide(sl)
+							ns.MH_OpenProfessionGuide(sl, query)
 						end
 					end, nil, L("NAV_WHERE_PROFACADEMY"), "tab")
 			end
@@ -260,20 +265,33 @@ local function BuildNavIndex()
 		end
 	end
 
-	-- Codex articles (deep content; each lands on its category page).
+	--- Codex articles.
+	---
+	--- 🔴 THIS USED TO LAND ON THE CATEGORY PAGE, and the comment above it said so plainly
+	--- ("each lands on its category page") without anyone reading it as the bug it was. A
+	--- category renders every one of its articles in one scroll and then resets the scroll
+	--- to the top, so searching an article near the bottom of a busy shelf opened the right
+	--- page and showed you something else. Same shape as the profession guide directly
+	--- above; found by asking Rob's question of every entry in this file rather than only
+	--- of the one that broke.
 	if type(ns.CODEX_ARTICLES) == "table" then
 		for _, art in ipairs(ns.CODEX_ARTICLES) do
 			if type(art) == "table" and art.titleKey then
 				local cat = art.category
+				local artId = art.id
 				-- searchKeys matters more than it looks. Without it an article is
 				-- findable only by words already in its own title, which is exactly
 				-- the words someone who has not read it will not type. "When a season
 				-- ends" was invisible to a search for "reset" (Rob, 2026-07-27).
-				add(L(art.titleKey), "codex article " .. (art.id or "") .. " " .. (art.searchKeys or ""), function()
+				add(L(art.titleKey), "codex article " .. (artId or "") .. " " .. (art.searchKeys or ""), function()
 					if cat and ns.SetActiveCodexCategory then
 						ns.SetActiveCodexCategory(cat)
 					end
 					OpenTab("codex")
+					-- After OpenTab, so the panel exists and has been laid out once.
+					if artId and ns.MH_ScrollCodexToArticle then
+						ns.MH_ScrollCodexToArticle(artId)
+					end
 				end, nil, nil, "codex")
 			end
 		end
@@ -704,13 +722,21 @@ local function EnsureNavDrop()
 				return
 			end
 			local go = self._mhGo
+			--- 🔴 THE TYPED WORD HAS TO SURVIVE THE CLICK. Until 9 sep 2026 it did not: the
+			--- box was cleared, `go()` was called with nothing, and a result could therefore
+			--- only ever open a SCREEN -- never the place on that screen that matched. Rob
+			--- searched "azeroot", landed on step 6 of 9, and asked the question that names
+			--- the whole class: *"kan dat op alles?"*
+			--- 📌 Read from the row, not from the edit box: this handler runs after the box
+			--- has been cleared, so by then the query is already gone.
+			local query = self._mhQuery
 			if ns.mhSearchEdit then
 				ns.mhSearchEdit:SetText("")
 				ns.mhSearchEdit:ClearFocus()
 			end
 			HideNavDrop()
 			if go then
-				go()
+				go(query)
 			end
 		end)
 		navDrop.rows[i] = r
@@ -758,10 +784,13 @@ local function ShowNavResults(query)
 				-- riddles. The context is dimmed so the name still reads as the answer.
 				r.fs:SetText(e.context and (e.label .. "  |cff808080" .. e.context .. "|r") or e.label)
 				r._mhGo = e.go
+				-- Carried per row so the click handler can hand the word to the target.
+				r._mhQuery = query
 				r:Show()
 			else
 				r:Hide()
 				r._mhGo = nil
+				r._mhQuery = nil
 			end
 		end
 		-- Say how much is hidden. Without this the list just stops and looks complete,
@@ -801,7 +830,7 @@ function ns.MHNavSearchTryJump(query)
 	local res = FilterIndex(query)
 	local top = res[1]
 	if top and top.lower:sub(1, #query) == query then
-		top.go()
+		top.go(query)
 		HideNavDrop()
 		if ns.mhSearchEdit then
 			ns.mhSearchEdit:SetText("")

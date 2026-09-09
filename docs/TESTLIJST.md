@@ -13,6 +13,16 @@ Rob vroeg op resetdag: *"is er niets meer echt open voor deze release?"* Dit is 
 antwoord. **Niets hiervan is fout of onwaar** — het is alles wat gebouwd is en nog nooit
 gerenderd. Bouwen is niet testen.
 
+- [ ] 🆕 **DE ZOEK-FIX (9 sep) — drie dingen achter elkaar, één reload.**
+      1. Zoek op **`azeroot`** en klik het resultaat. Verwacht: Guided mode — Herbalism opent op
+         **stap 1 van 9** ("Pick anything, skill 1-30") met de tekst *"Where you go matters less
+         than you would think"*. **Niet** stap 6. Dit is meteen de Azeroot-test hieronder.
+      2. Zoek op **`umbral tin`**. Verwacht: Guided mode — **Mining**, op de eerste stap.
+      3. Zoek een **Codex-artikel** dat onderaan een volle categorie staat (bv. iets uit
+         "coiledisle") en klik het. Verwacht: de Codex opent en **scrollt naar dat artikel**, niet
+         naar de bovenkant van de pagina.
+      ⚠️ **Controle dat er niets kapot is:** open de gids daarna gewoon via `/mh profguide` of de
+      knop. Dan hoort hij nog steeds op **jouw** stap te openen (Alchemy 8/11), niet op stap 1.
 - [ ] 🔴 **De Azeroot-tekst is nog STEEDS nooit gezien, en nu weten we waaróm.** GEMETEN 9 sep:
       Rob zocht op "azeroot", klikte het resultaat, en landde op **stap 6 van 9** — precies zoals
       8 sep. Niet toevallig: `ns.MH_OpenProfessionGuide` eindigt op `AdvanceToCurrent()`, dus de

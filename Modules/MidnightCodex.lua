@@ -167,6 +167,10 @@ local function AttachCurrencyTooltip(frame, currencyId)
 	end)
 end
 
+--- Article a search asked us to land on, consumed by the next settled layout.
+--- Kept here rather than on `ui` because it must survive the panel being rebuilt.
+local pendingArticleId
+
 local function LayoutContent()
 	if not ui or not ui.child then
 		return
@@ -195,12 +199,39 @@ local function LayoutContent()
 				heightChanged = true
 			end
 			block.root:SetHeight(h)
+			-- Where this block ended up, so a search can scroll straight to it.
+			block.root._mhY = y
 			y = y + h + ARTICLE_GAP
 		end
 	end
 	ui.child:SetHeight(math.max(y + 8, 1))
 	if ui.scroll and ui.scroll.UpdateScrollChildRect then
 		ui.scroll:UpdateScrollChildRect()
+	end
+
+	--- ⚠️ ONLY ONCE THE HEIGHTS HAVE STOPPED MOVING. An EditBox reports a stale height on
+	--- the first measurement after SetText (the same trap this function already plans a
+	--- relayout for), and scrolling to an offset computed from stale heights lands beside
+	--- the article rather than on it. While `heightChanged` is true the deferred pass below
+	--- runs again and this block gets another go, so the target is simply left pending.
+	if pendingArticleId and not heightChanged then
+		local target
+		for _, block in ipairs(ui.blocks) do
+			if block.article and block.article.id == pendingArticleId and block.root then
+				target = block.root._mhY
+				break
+			end
+		end
+		-- Cleared either way: an id that matches nothing on this page must not sit
+		-- around waiting to hijack the next unrelated refresh.
+		pendingArticleId = nil
+		if target and ui.scroll and ui.scroll.SetVerticalScroll then
+			local maxScroll = ui.scroll.GetVerticalScrollRange and ui.scroll:GetVerticalScrollRange()
+			if maxScroll and target > maxScroll then
+				target = maxScroll
+			end
+			ui.scroll:SetVerticalScroll(math.max(0, target - 4))
+		end
 	end
 	if heightChanged and C_Timer and C_Timer.After and not ui._mhRelayoutPending then
 		ui._mhRelayoutPending = true
@@ -593,8 +624,36 @@ function ns.RefreshCodexPanel()
 	end
 
 	LayoutContent()
-	if ui.scroll and ui.scroll.SetVerticalScroll then
+	-- "A new page starts at the top" is right for a category click and wrong for a search
+	-- that asked for one article: LayoutContent has just scrolled to it, or is still
+	-- waiting for the heights to settle so it can. Either way, do not undo it.
+	if not pendingArticleId and ui.scroll and ui.scroll.SetVerticalScroll then
 		ui.scroll:SetVerticalScroll(0)
+	end
+end
+
+--- Public: open the Codex ON an article, not merely on the page that contains it.
+---
+--- 🔴 A CATEGORY IS A SHELF, NOT AN ANSWER. Every article in a category renders into one
+--- scroll and the scroll then resets to the top, so a search hit for an article near the
+--- bottom of a busy shelf opened the correct page and showed the reader something else.
+--- The old comment in NavSearch said this out loud -- "each lands on its category page" --
+--- and it read as a description for weeks instead of as the defect it was.
+---
+--- 📌 Rob, 9 sep 2026, after the same fault in the profession guide: *"kan dat op alles?"*
+--- This is the second of the two places where it was true. Course chapters already jumped
+--- correctly (`MH_ScrollProfAcademyToChapter`), and the comment on that function had the
+--- principle written down since the day it was built: landing on the tab is not the same
+--- as finding the answer.
+function ns.MH_ScrollCodexToArticle(articleId)
+	if not articleId then
+		return
+	end
+	pendingArticleId = articleId
+	-- The panel may not exist yet (first ever open of the tab), in which case the tab's
+	-- own build calls RefreshCodexPanel and the pending id is picked up there.
+	if ui and ui.panel then
+		ns.RefreshCodexPanel()
 	end
 end
 

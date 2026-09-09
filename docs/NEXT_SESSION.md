@@ -1,5 +1,37 @@
 # Midnight Helper — waar we staan
 
+## ✅ 9 sep — "kan dat op alles?" was de juiste vraag, en het antwoord was twee plekken
+
+Rob, na de mislukte Azeroot-zoekactie: *"ja bouw die zoek-fix maar, en kan dat op alles?"*
+
+📌 **De vorm van de bug:** een zoekresultaat kon alleen een **scherm** openen, nooit de **plek op dat
+scherm** die matchte. Oorzaak gemeten in `NavSearch.lua`: het klikpad wiste eerst het zoekvak en riep
+daarna `go()` **zonder argument** aan. De getypte term overleefde de klik niet, dus geen enkel doel
+kón hem gebruiken.
+
+✅ **Gebouwd — de term reist nu mee:** `r._mhQuery` wordt per rij bewaard (het zoekvak is op het
+moment van klikken al leeg), en `go(query)` geeft hem door. De Enter-toets-route (`MHNavSearchTryJump`)
+doet hetzelfde.
+
+**Daarna elke ingang in dat bestand langsgelopen in plaats van alleen de kapotte. Twee waren fout:**
+
+| ingang | was | nu |
+|---|---|---|
+| Beroepsgids | opende op **jouw** stap (`AdvanceToCurrent`) | `MH_OpenProfessionGuide(sl, query)` landt op de stap die de term noemt |
+| Codex-**artikel** | opende de **categorie**, scroll terug naar boven | `MH_ScrollCodexToArticle(id)` scrollt naar het artikel zelf |
+| Cursus-hoofdstuk | sprong al goed | ongewijzigd |
+| Tabs, rares, mounts, treasures | openen het ding zélf | ongewijzigd |
+
+🔴 **De Codex-fout stond al als commentaar in de code:** *"each lands on its category page"*. Dat las
+wekenlang als een beschrijving in plaats van als het gebrek dat het was. En de regel die het had
+kunnen voorkomen stond óók al geschreven, boven `MH_ScrollProfAcademyToChapter`: *"Landing on the tab
+is not the same as finding the answer."* Eén keer toegepast, twee keer niet.
+
+⚠️ Twee ontwerpkeuzes bewust: de beroepsgids krijgt een **parameter, geen modus** (geen enkele
+bestaande aanroeper verandert), en `FindStepByText` zoekt in **alle taalvarianten** van een stap —
+de index is Engels, een Nederlandse client rendert `.nl`, dus alleen de zichtbare tekst matchen zou
+juist voor die speler niets vinden.
+
 ## 🔴 9 sep — drie van de vier testpunten af, en twee dingen die ik niet gemeten heb
 
 Rob testte de vier openstaande punten. ✅ Drie goed: `/mh souls` rendert met de nieuwe scope-tekst,
@@ -30,21 +62,37 @@ er een zoekterm mee, dan landt hij op de eerste stap wiens titel of body die ter
 Rob las de nieuwe soul-tekst en stelde de juiste vraag: *"zijn die warbound en kan je een keuze
 ongedaan maken?"*
 
-1. **"Souls are Warbound" staat sinds 8 sep in `AtalUtekProbe.lua:1812` en er is nul bewijs voor.**
-   Gegrept: het woord komt in geen enkel meetdocument voor — niet in `CORROSIVE_CODEX_MEASURED.md`,
-   niet in `VAULTS_MEASUREMENTS.md`, nergens. Ik heb het afgeleid uit "47 verdiend, 7 in de tas, de
-   rest staat op alts", en dat verklaart de getallen net zo goed als *soulbound per character*.
-   ⚠️ **De regel eronder — "het grootboek is de hele account, trek het niet af" — is wél waar**, want
-   die volgt uit `## SavedVariables` tegenover `GetItemCount`. Alleen het woord Warbound is een gok.
-   **Meting: Rob hovert over een Corrosive Soul in zijn tas en leest de bindregel.** Vijf seconden,
-   en het is de enige bron die telt.
-2. **Of je een ontgrendelde power ongedaan kunt maken is nooit onderzocht.** We weten dat het −8
-   souls kost (2× gemeten, 8 sep); over teruggeven staat nergens iets. De Codex is een trait-boom,
-   dus `C_Traits` kent er in principe een antwoord op (`canRefundRank` per node), maar een knop in
-   het venster is een hardere meting dan een API-veld.
+1. **"Souls are Warbound" stond sinds 8 sep in `AtalUtekProbe.lua` zonder één bewijs.** Gegrept: het
+   woord kwam in geen enkel meetdocument voor. Ik had het afgeleid uit "47 verdiend, 7 in de tas, de
+   rest staat op alts" — wat *soulbound per character* net zo goed verklaart.
+   ✅ **GEMETEN dezelfde middag, Robs eigen tooltip op item 273000: er staat letterlijk `Warbound`.**
+   De claim klopte dus. ⚠️ **Maar hij was een gok toen hij in het spel te lezen stond**, en de lezer
+   moest ernaar vragen voordat iemand keek. Gelijk krijgen is niet hetzelfde als gelijk hebben.
+   Regel staat er weer, nu mét de bron erbij in het commentaar.
+2. **Of je een ontgrendelde power ongedaan kunt maken is nog steeds NIET onderzocht.** We weten dat
+   het −8 souls kost (2× gemeten, 8 sep); over teruggeven staat nergens iets. De Codex is een
+   trait-boom, dus `C_Traits` kent er in principe een antwoord op (`canRefundRank` per node), maar
+   een **Reset**-knop in het venster is een hardere meting dan een API-veld. **Openstaand.**
 
-📌 Beide vallen onder dezelfde regel: een zin die in het spel te lezen is, is een claim die we
-onderbouwd moeten hebben. [[never-assume-always-factcheck]]
+📌 De regel: een zin die in het spel te lezen is, is een claim die we onderbouwd moeten hebben.
+[[never-assume-always-factcheck]]
+
+### 🆕 En de tooltip gaf iets wat we niet vroegen: **Er'inye**
+
+Blizzards eigen flavour text op item 273000: *"Corrosive Souls can be used at the Altar of Corrosion
+**or given to Er'inye in exchange for Corrosive Coins**."*
+
+🔴 **`Er'inye` komt in deze hele repo nul keer voor.** De Altar of Corrosion staat er uitgebreid in
+(`/mh keys`, drie Codex-artikelen, zeven talen), maar de **tweede** bestemming van je souls — omruilen
+voor Corrosive Coins — hebben we nooit genoemd. Dat is precies het soort feit waar deze addon voor
+bestaat: twee uitgangen, wij noemden er één.
+📌 Nog niet gebouwd; eerst meten wat de koers is (hoeveel coins per soul) en waar Er'inye staat.
+
+⚠️ **Nog een meetfeit uit dezelfde tooltip:** Rob houdt **44** souls over vier characters plus 16 in
+de bank, terwijl ons grootboek 47 verdiend en 19 uitgegeven telt. Dat rijmt niet, en er is niets mis:
+het grootboek noteert alleen wat het zág, vanaf 15 aug en alleen op characters die met de addon
+ingelogd zijn. **Het is een steekproef, geen boekhouding** — en dat staat nu ook in de uitvoer, zodat
+de lezer de tegenspraak niet zelf hoeft te vinden en dan het hele scherm wantrouwt.
 ## 🔴 9 sep — CurseForge wordt door niets bewaakt, en de browser kan er wél bij
 
 Rob: *"nog steeds geen nieuwe mensen of nieuwe ideeën op de github, voor we dat over het hoofd

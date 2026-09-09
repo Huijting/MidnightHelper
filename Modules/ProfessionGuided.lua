@@ -232,6 +232,9 @@ local frame
 local activeGuide     -- current guide table (from ns.PROF_GUIDES)
 local activeSteps      -- assembled step list for activeGuide
 local viewIndex
+--- Set for the duration of one search-driven open, so the frame's OnShow does not
+--- immediately undo the step we were asked to land on. See MH_OpenProfessionGuide.
+local landingOnMatch
 
 local function StepDone(step)
 	local auto = StepAutoDone(step, activeGuide)
@@ -332,6 +335,44 @@ end
 local function AdvanceToCurrent()
 	viewIndex = CurrentStepIndex()
 	Refresh()
+end
+
+--- First step whose title or body contains `text`, or nil.
+---
+--- ⚠️ EVERY LANGUAGE VARIANT IS SEARCHED, not just the rendered one. NavSearch indexes the
+--- English step text (`.en`) because the search box matches raw words, while a Dutch client
+--- renders `.nl` -- so matching only what is on screen would find nothing for exactly the
+--- player whose language the index was not built in.
+---
+--- 📌 Plain substring, `find(..., 1, true)`: the query is a word a player typed, not a
+--- pattern, and "er'inye" or "mana lily" would otherwise be read as magic characters.
+local function FindStepByText(steps, text)
+	if type(steps) ~= "table" or type(text) ~= "string" then
+		return nil
+	end
+	local needle = text:lower():gsub("^%s+", ""):gsub("%s+$", "")
+	if #needle < 2 then
+		return nil
+	end
+	local function holds(v)
+		if type(v) == "string" then
+			return v:lower():find(needle, 1, true) ~= nil
+		elseif type(v) == "table" then
+			for _, s in pairs(v) do
+				if type(s) == "string" and s:lower():find(needle, 1, true) then
+					return true
+				end
+			end
+		end
+		return false
+	end
+	for i = 1, #steps do
+		local s = steps[i]
+		if type(s) == "table" and (holds(s.title) or holds(s.body)) then
+			return i
+		end
+	end
+	return nil
 end
 
 -- Profession picker (dropdown in the header).
@@ -481,7 +522,14 @@ local function EnsureFrame()
 	end)
 	f._action = action
 
-	f:SetScript("OnShow", function() AdvanceToCurrent() end)
+	-- Skipped while a search is landing us on a specific step: OnShow fires inside the
+	-- f:Show() below, and would otherwise jump straight back to the player's own step.
+	f:SetScript("OnShow", function()
+		if landingOnMatch then
+			return
+		end
+		AdvanceToCurrent()
+	end)
 	frame = f
 	return f
 end
@@ -500,7 +548,20 @@ local function DefaultGuideSkillLine()
 end
 
 --- Public: open the guided wizard for a profession skillLine (or a sensible default).
-function ns.MH_OpenProfessionGuide(skillLine)
+---
+--- @param matchText string|nil a word the reader searched for. Given one, the guide opens
+---        on the first step that mentions it instead of on the step they are standing on.
+---
+--- 🔴 THE GUIDE HAS TWO JOBS AND THEY PULL APART. As a levelling guide, "jump to where you
+--- are" is exactly right, and that is all it ever did. As a place to look something up it
+--- is wrong, and Rob hit that twice in two days: he searched "azeroot", and both times the
+--- guide obediently showed him step 6 of 9, because his Herbalism is long past the step
+--- that carries the answer. From outside, a search result that opens the right window on
+--- the wrong page is indistinguishable from no answer at all.
+---
+--- 📌 The fix is a parameter, not a mode. No caller that wants the levelling behaviour has
+--- to change or opt out, and the dropdown inside the window keeps working as it did.
+function ns.MH_OpenProfessionGuide(skillLine, matchText)
 	if not ns.PROF_GUIDES then
 		return
 	end
@@ -512,9 +573,18 @@ function ns.MH_OpenProfessionGuide(skillLine)
 	guide.skillLine = skillLine -- ensure present for detection
 	activeGuide = guide
 	activeSteps = AssembleSteps(guide)
+	local landOn = FindStepByText(activeSteps, matchText)
 	local f = EnsureFrame()
+	landingOnMatch = landOn and true or nil
 	f:Show()
-	AdvanceToCurrent()
+	if landOn then
+		viewIndex = landOn
+		Refresh()
+	else
+		-- No word, or a word that no step mentions: behave exactly as before.
+		AdvanceToCurrent()
+	end
+	landingOnMatch = nil
 end
 
 --------------------------------------------------------------------------------

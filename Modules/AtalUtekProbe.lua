@@ -1809,20 +1809,25 @@ function ns.PrintSoulLedger()
 	--- meaningless. Say which scope each number has, on the line that carries it.
 	print(("%s Corrosive Souls — |cffffffff%s|r in |cffffffffthis character's bags|r"):format(
 		p, tostring(SoulCount() or "unreadable")))
-	--- 🔴 THIS LINE USED TO SAY "Souls are Warbound" AND NOTHING MEASURED THAT. Rob read it the
-	--- next morning and asked the right question -- *"zijn die warbound?"* -- which is exactly
-	--- what a reader should not have to ask about our own sentence. The word was inferred from
-	--- the shape of the numbers (47 earned, 7 in this bag, the rest elsewhere), and plain
-	--- per-character binding explains those numbers just as well. Grepped: the term appears in
-	--- no measurement document in this repo.
+	--- ✅ WARBOUND IS NOW MEASURED -- Rob's own tooltip, 9 Sep 2026, item 273000: the binding
+	--- line under the name reads **Warbound**, and Blizzard's flavour text underneath says the
+	--- souls "can be used at the Altar of Corrosion or given to Er'inye in exchange for
+	--- Corrosive Coins". His warband holds 44 across four characters plus 16 in the bank.
 	---
-	--- ✅ WHAT IS LEFT IS WHAT WE CAN DEFEND: the ledger lives in `ns.db`, the .toc declares only
-	--- `## SavedVariables`, so every character writes into the same table -- while `SoulCount()`
-	--- reads this character's bags. Two scopes, and that is the whole reason this line exists.
-	--- Where the souls physically sit is a separate question, and until a tooltip settles it we
-	--- say "elsewhere in your warband" rather than naming a binding rule we have not read.
-	print("   |cff8a8f98The ledger below covers your whole account, so it can be larger than the|r")
-	print("   |cff8a8f98number above -- do not subtract. Other characters carry their own.|r")
+	--- 🔴 IT WAS PRINTED HERE FOR A DAY BEFORE ANYONE MEASURED IT, and that is the part worth
+	--- keeping. The word was inferred from the shape of the numbers -- 47 earned, 7 in the bag
+	--- in front of him, the rest somewhere -- which ordinary per-character binding explains
+	--- just as well. Being right by luck is not the same as being right, and the reader had to
+	--- ask before we checked.
+	---
+	--- ⚠️ AND THE TOOLTIP SETTLES SOMETHING ELSE: 44 held against a ledger reading 47 earned
+	--- and 19 spent does not reconcile, and nothing is wrong. This log records changes it
+	--- WATCHED, from the day it was built (15 Aug) and only on characters that logged in with
+	--- it running. It is a sample, not an audit, and the line below says so rather than
+	--- leaving the reader to find the contradiction and distrust the whole screen.
+	print("   |cff8a8f98Souls are Warbound (the item's own tooltip says so), so the number above is|r")
+	print("   |cff8a8f98just this bag. The ledger below is account-wide -- do not subtract it. It|r")
+	print("   |cff8a8f98counts only what it watched, so your real total can be higher.|r")
 	if not log or #log == 0 then
 		print("   |cff8a8f98The ledger is empty. It writes a row whenever your soul count changes,|r")
 		print("   |cff8a8f98so play a week and come back — nothing has to be farmed for it.|r")
