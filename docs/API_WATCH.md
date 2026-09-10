@@ -1102,3 +1102,41 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   - ✅ **Repo: rustig.** `git pull --rebase origin main` gaf "Already up to date" op **b0e8f11**,
     werkboom schoon. Geen force-push, geen herhaling van 8 sep. Ik heb alleen dit bestand
     aangeraakt.
+
+- [2026-09-10] ✅ **Tweede run van vandaag — verificatiepas, niets nieuws sinds de 10-sep-regel
+  hierboven. 0 × [MOET GEFIKST].** De volledige eerste run stond er al; deze pas heeft die claims
+  **onafhankelijk hertoetst tegen de live bronnen en de code** in plaats van ze uit de eigen
+  aantekening over te schrijven. Alles klopt en er is niets nieuwers.
+  - **GEMETEN — beide `/API changes`-pagina's onveranderd.** `prop=revisions` (zonder `rvlimit`):
+    `Patch 12.1.0/API changes` (pageid 679840) nog steeds **revid 6860164, 2026-09-05T00:39:06Z**,
+    102421 bytes; `Patch 12.1.5/API changes` (pageid 705933) nog steeds **revid 6863733,
+    2026-09-06T17:08:08Z**, 25227 bytes. Identiek aan wat de eerste run zag — geen oudere kopie
+    teruggekregen, dus geen cache-val. Geen nieuwe `/API changes`-pagina; `Patch 12.2.0` geeft
+    `missing`.
+  - **GEMETEN — `list=recentchanges` (ns 0, cache-busted).** De 40 nieuwste ns-0-bewerkingen
+    (t/m **2026-09-10T04:54Z**) zijn **uitsluitend content**: Venerated-/Mystic-crafting-items,
+    NPC's (Ramja Skyspinner, Lasan Skyhorn), zones (Splintertree Post). **Geen `/API changes`-,
+    `Structure `- of `Enum.`-pagina** in de batch.
+  - **Hotfixes: nieuwste sectie 9 september 2026**, dezelfde als de eerste run — niet ouder, dus
+    geen cache — en tóch tegengelezen: WebSearch + Blue Tracker-spiegel
+    (`wowhead.com/blue-tracker/...hotfixes-september-9-2026-...-24296142`) bevestigen 9 sep als
+    nieuwste, géén 10 sep. Content-only (Achievements/Classes/Delves/Dungeons&Raids/Items/PvP/
+    Prey/TBC Classic); de enige addon-nabije regels zijn Cooldown-Manager-content, **[RAAKT ONS
+    NIET]**.
+  - **Forum: geen beweging sinds de eerste run.** Nieuwst aangemaakte topics blijven *Double Icons*
+    (**2346299**) en *Talent Swap Macro Problems* (**2346279**), beide 9 sep, beide gewone
+    spelershulp zonder API-feit. `primary_groups`/`flair_groups` leeg — **geen blue post binnen 7
+    dagen**. *Duration Bars* (**2345637**) nog steeds 1 post / 0 reacties.
+  - **[AL AFGEDEKT] — carry-over `GetItemCooldown`, ONAFHANKELIJK HERMETEN (positieve controle,
+    niet geciteerd).** `grep GetItemCooldown` over `*.lua` geeft treffers in drie bestanden: alle
+    drie de aanroepers — `Modules/Delves.lua:1775`, `:1943` en `Modules/DelveItemsPopup.lua:278` —
+    gaan via `ns.GetItemCooldownSafe`, dat `C_Item.GetItemCooldown` eerst probeert achter
+    `if C_Item and C_Item.GetItemCooldown then` + `pcall` (`Delves.lua:354-355`) met de kale global
+    als fallback (`:360`). **Geen nieuwe kale aanroep**; de fix van 6 sep staat. Het patroon vindt
+    wél wat er is (17 treffers), dus de meting is echt.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op 679840+705933 en op titels `Patch 2.2.0`/`Patch 12.2.0`; `list=search`
+    `intitle:"API changes"`; `list=recentchanges` ns 0); `news.blizzard.com/en-us/article/24296142`;
+    `us.forums.blizzard.com` categorie-JSON 35 `order=created`; WebSearch + Blue Tracker als
+    tegenlezing op de hotfix-datum. ⚠️ Directe `WebFetch` op warcraft.wiki.gg / news.blizzard.com
+    blijft EGRESS_BLOCKED; alles liep via Exa.
