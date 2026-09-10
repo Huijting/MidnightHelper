@@ -1,6 +1,102 @@
 # Midnight Helper — waar we staan
 
-## 🔴 VOOR MORGEN — Venom Lancer Ori'kassi is geen rare maar een SCENARIO
+## ✅ 10 sep — Ori'kassi uitgezocht: hij is de eindboss van een Curse Surge, één van VIJF
+
+Onderzocht terwijl Rob weg was, in de volgorde die gisteravond hieronder werd afgesproken: eerst
+onze eigen data, dan pas andere bronnen.
+
+### 📌 GEMETEN in Robs eigen client — de sterkste bron die er is
+
+Een oude `/mh atal`-run staat in `WTF/.../SavedVariables/MidnightHelper.lua` (`atalProbe`), en die
+vroeg achievement **63390** bij de client op:
+
+| # | criterium | naam (van de client) |
+|---|---|---|
+| 1 | 115368 | Looming Mutagenitor |
+| 2 | 115369 | Vassti, the Exalted Broodmother |
+| 3 | 115370 | Ss'akrithos |
+| 4 | 115371 | **Venom Lancer Ori'kassi** |
+| 5 | 111353 | **Malformed Leviathan** |
+
+Achievement-naam van de client: **"Turn the Surge"**. Vijf bosses.
+
+### Zygor en HandyNotes, allebei kandidatenbronnen, allebei eens met de client
+
+**Zygor** (`ZygorEventsCommon.lua`, map `Events Guides\Midnight (80-90)\Curse Surges\`) kent precies
+**vijf scenario's** op map 2512:
+
+| scenario | ID | areapoiid | plek | boss |
+|---|---|---|---|---|
+| The Broodmother's Nest | 3278 | 8888 | 46.16 / 33.61 | Vassti — AFGELEID op naam |
+| The Malformed Leviathan | 3270 | 8891 | 47.00 / 62.22 | Leviathan — ✅ Zygors eigen `kill`-stap |
+| Mlurkkr Massacre | 3286 | 8889 | 70.18 / 33.15 | Ss'akrithos — AFGELEID door eliminatie |
+| **Siege at Coiler's Wake** | 3274 | 8890 | 67.64 / 77.90 | Ori'kassi — ✅ Zygors `kill`-stap **én Robs scherm** |
+| The Looming Mutagenitor | 3288 | 8887 | 26.26 / 67.40 | Mutagenitor — AFGELEID op naam |
+
+Vrijspelen volgens Zygor: het tweede hoofdstuk van de Curse of Ula'tek-campagne, plus de quests
+*Counter-Curse Bounty* (97382, Jan'sari the Watchful) en *Turn Back the Surge* (96995, Talon Commander
+Zela) vanaf renown 2696 ≥ 2.
+
+**HandyNotes** (`zones/coiled_isles.lua`) zet beide als `RareElite` met `note = curse_surge_note`, en
+zijn criteria voor Ori'kassi (**115371**) en de Leviathan (**111353**) zijn **gelijk aan wat de client
+gaf**. 📌 Onze PTR-notitie van 6 aug zei al *"one of five locations"* — toen uit twee gidssites, nu
+bevestigd door een derde bron én door de client.
+
+### 🔴 Twee correcties op mezelf, van vanochtend
+
+1. **Ik meldde een tegenstrijdigheid die er niet was.** Onze probe-notitie van 19 aug noemde criteria
+   115368/115369/115370; ik zette die tegenover HandyNotes' 115371/111353. Het zijn gewoon **de andere
+   drie bosses**. Niemand zat fout — ik vergeleek verschillende rijen.
+2. **Zygors `scenariogoal 111387` voor Ori'kassi is een scenariostap-ID**, een andere nummerreeks dan
+   achievement-criteria. Dat hij voor de Leviathan samenvalt met het criterium (111353) is toeval, geen
+   bevestiging.
+
+### ⚠️ Wat er vandaag mis is in de addon — GEMETEN in de code
+
+1. **De route stuurt naar niets.** `NearestOpenRareRespectingSkips` routeert naar elke rare waarvan
+   `rare[1]` niet op done staat. Voor Ori'kassi is dat **93722**. Zolang die niet omslaat, wijst de pijl
+   naar 67.16/77.52 — **of er nu een surge loopt of niet**. Aankomen bij een lege plek ziet er van
+   buiten precies uit als verouderde data.
+2. **Een scheve helft.** De rares-lijst draagt **2 van de 5** surge-bosses, alleen omdat de
+   PTR-vignettevlucht van 6 aug die twee toevallig zag. Vassti, Ss'akrithos en de Mutagenitor staan er
+   niet in.
+3. **We leggen nergens uit wat een Curse Surge is.** De Codex noemt het één keer terloops, in een
+   power-beschrijving (*"ghostly allies at Curse Surges"*).
+
+### ✅ Het precedent bestaat al: Oppose the Foes (63601)
+
+Doelen die alleen tijdens een evenement bestaan, als **checklist** met een notitie per node, en
+`ns.AchievementNodeRoutable` houdt nodes zonder `mapID/x/y` uit de route. Exact deze vorm — alleen met
+één verschil: surges hebben wél een **vaste plek**, alleen geen vast **moment**.
+
+### 💡 Voorstel — NIET gebouwd, Rob beslist
+
+- **A. 63390 "Turn the Surge" als achievement-hunt**, vijf criteria van de client, met een notitie
+  *"dit is een evenement op een vaste plek; het loopt niet altijd"*. Coördinaten wél, want de plek is
+  vast — maar dan moet de route weten dat er alleen iets is als het evenement loopt.
+- **B. Ori'kassi en de Leviathan uit `COILED_ISLE.rares`.** Dan stopt de pijl met naar lege plekken
+  sturen. ⚠️ **Prijs:** de rare-alert matcht vignettes tegen de rares-lijst (`MatchRareInZone`), dus
+  deze twee verliezen hun "vlakbij"-melding. Alleen deze twee hadden die überhaupt; de andere drie
+  surges nooit.
+- **C. Later:** een "er loopt nú een surge, hier"-signaal op basis van de area-POI's (8887-8891
+  volgens Zygor). Machinerie bestaat al (`PrintAreaPOIs` in `AtalUtekProbe.lua`).
+
+### ❓ Open — alleen in het spel te meten
+
+1. **`/mh rarequests` op Earthshammy**, want díé deed de surge gisteravond. Slaat **93722** (B) of
+   **96969** (A) nu om naar done? Dan weten we of de rare-rij zichzelf ooit kán afvinken. (De
+   `rarequests`-snapshot in SV is van **9 sep 07:00 op Iceicebaby**, dus vóór de surge en op een
+   ander personage — die zegt hier niets over.)
+2. **`/mh atal` terwijl er een surge loopt.** Welk POI-ID verschijnt: **8890** (Zygor) of **8937**
+   (HandyNotes)? Die twee bronnen zijn het oneens en ik kies er niet één. De oude probe zag **geen
+   enkele** surge-POI — toen liep er dus geen, en *"leeg is geen bewijs van afwezigheid"* staat er zelf
+   bij.
+3. **De cyclus.** Onbewezen. De PTR-notitie citeert twee gidssites ("rotating"), een forumdraad noemt
+   ~20 minuten per surge. **Er gaat geen getal de addon in tot het gemeten is.**
+
+---
+
+## (verslag) 🔴 VOOR MORGEN — Venom Lancer Ori'kassi is geen rare maar een SCENARIO
 
 Rob, 9 sep 23:26, na de shard-metingen. De route stuurde hem naar **Venom Lancer Ori'kassi** als
 rare. Wat hij aantrof:
