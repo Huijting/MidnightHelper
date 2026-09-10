@@ -418,6 +418,10 @@ local RARE_QUEST_PAIRS = {
 	-- the note there). They stay HERE so `/mh rarequests` can still show whether a surge kill
 	-- ever flips 93722/93673 or 96969/96970. That is the open question, and this is where it
 	-- gets measured.
+	-- 🔎 FIRST ANSWER, 10 Sep 2026 (Rob's `/mh rarequests`): Ori'kassi A 96969 done, B 93722 --;
+	-- Leviathan A 96970 done, B 93673 --. A surge kill sets band A (the account's) and not band
+	-- B -- on the character it was run on, which the test list asked to be Earthshammy, who did
+	-- the surge the night before. Achievement 63390 ticked both criteria in the same reload.
 	{ 255927, 96969, 93722, "Venom Lancer Ori'kassi" },
 	{ 255087, 96970, 93673, "Malformed Leviathan" },
 }

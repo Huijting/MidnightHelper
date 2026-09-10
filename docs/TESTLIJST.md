@@ -7,36 +7,51 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
-## 🆕 10 sep — Curse Surges: Ori'kassi en de Leviathan zijn geen rares meer
+## 🆕 10 sep middag — na de test: vier kleine dingen (één `/reload`)
 
-Rob koos *"doe maar allebei"*: A (achievement-kaart) én B (uit de rares-lijst). Eén `/reload`.
+- [ ] **Kaartsoorten.** *Turn the Surge* en *Oppose the Foes* heten nu **[Event]**, de *Coiled Isle
+      Safari* **[Pet battle]**, *Mysterious Mix Master* **[Mixing]**. Rob vroeg *"deze dingen staan
+      onder Rare kopjes, klopt dat??"* — nee, dat klopte niet. De rest is ongewijzigd.
+- [ ] **Mix Master-popup: waarom er niets te doen is.** Klik een Waypoint bij een offering. Onder de
+      uitleg hoort nu te staan wat het ontgrendelt: **Renown 3 bij Zul'jarra's Forces** (maakt de
+      bakjes zichtbaar) en de node **Ofi's Offerings** op de **Altar of Corrosion** (stopt er
+      ingrediënten in). Daaronder een regel *"Your Renown with …: N (needs 3)"*, **groen** als je er
+      bent en **rood** als niet. ⚠️ De altar-node kan de addon niet lezen, die moet je zelf nakijken.
+      📌 Die uitleg stond sinds augustus in zeven talen klaar en werd nergens getoond.
+- [ ] **De ketel-waypoint** wijst nu naar **57.41 / 48.70** (jouw meting) in plaats van naar
+      Apothecary Dezi (57.23 / 48.46). Je hoort er nu vlak naast uit te komen, niet op 20 m.
+- [ ] **Deck-iconen** in `Downloads\MH_deck_iconen_diablo\`: 28 stuks in DiabloHeavy, alle labels
+      even hoog als DELVES. `_overzicht.png` toont ze allemaal. Kijk op de deck of ze leesbaar zijn.
 
-- [ ] **Rares-tab, Coiled Isle.** Venom Lancer Ori'kassi en Malformed Leviathan staan er **niet**
-      meer in, en de teller bovenaan telt er twee minder. *Generate Route* / *Find Nearest* sturen
-      je er niet meer heen.
-- [ ] **Achievements-tab: een nieuwe kaart `[Rare] Turn the Surge`**, vijf rijen, alle vijf met
-      *(elite)* en een **Waypoint**-knop. ⚠️ De knop op de kaart zelf zegt **"No route"** en is grijs
-      — **dat is goed**: de route mag er juist niet heen.
-- [ ] **Klik op een Waypoint in die kaart.** Pijl naar de plek, én een popup met **de naam van de
-      baas als titel** (niet *"Treasure"*) en de uitleg *"The final boss of a Curse Surge…"*. De
-      knop in die popup draagt de baasnaam en zet de waypoint opnieuw.
-- [ ] **Tegenproef voor dezelfde fix — Mysterious Mix Master.** Klik daar een Waypoint. Popup-titel
-      hoort de offering te zijn, niet *"Treasure"*, en de knop *"Ofi's cauldron"* hoort iets te
-      doen. 📌 **Dat was vóór vandaag stuk** (GEMETEN in de code, nooit op een scherm gezien): de
-      popup zocht zijn achievement via een naam die op die plek nog niet bestond.
-- [ ] **Zoek `kassi`.** Eén resultaat voor Ori'kassi (waren er twee: de rare én de achievement-rij),
-      dat de Achievements-tab opent, een waypoint zet én dezelfde popup toont.
-- 💸 **Wat het kost:** geen *"rare nearby"*-melding meer voor deze twee. Dat was de afgesproken prijs.
+## ✅ 10 sep — Curse Surges: GETEST en gezien (Rob, middag)
 
-**En de drie metingen die alleen het spel kan doen:**
+Rob koos *"doe maar allebei"*: A (achievement-kaart) én B (uit de rares-lijst).
 
-- [ ] **`/mh rarequests` op Earthshammy** (die deed gisteravond de surge). Onderaan staan Ori'kassi en
-      de Leviathan nog steeds, met hun A- en B-nummer. Staat bij Ori'kassi **B 93722 done** of
-      **A 96969 done**? Dan weten we of een surge-kill een vlag zet.
-- [ ] **`/mh atal` terwijl er een surge loopt.** Welk POI-nummer verschijnt: **8890** (Zygor) of
-      **8937** (HandyNotes)? Pas daarna kan optie C ("hier loopt nú een surge") gebouwd worden.
-- [ ] **Hoe vaak ze wisselen.** HandyNotes zegt 45 minuten, een forumdraad ~20. Zie je er een
-      beginnen en de volgende beginnen, noteer de twee tijden.
+- [x] ✅ **Rares-tab, Coiled Isle**: *"0/12 done this week"*, Ori'kassi en de Leviathan weg.
+- [x] ✅ **Kaart Turn the Surge**: vijf rijen met *(Elite)*, een grijze **No route** en vijf
+      Waypoints. Hij staat op **2/5** (Leviathan en Ori'kassi afgevinkt), dus criteria 111353 en 115371
+      zijn nu ook in het spel bevestigd.
+- [x] ✅ **Waypoint-popup**: titel *Looming Mutagenitor*, de uitleg, een knop met de baasnaam en de
+      pijl erheen.
+- [x] ✅ **Tegenproef Mix Master**: titel *Balanced Offering* (niet "Treasure"), een knop *"The
+      cauldron at Tokka's Landing"* en de pijl liep erheen. **De bug van vanochtend is echt weg.**
+- [x] ✅ **Zoek `kassi`**: de popup, plus de TomTom-waypoint *"Venom Lancer Ori'kassi - 67.16, 77.52"*.
+- 💸 De prijs blijft: geen *"rare nearby"*-melding voor deze twee.
+
+**De metingen:**
+
+- [x] 🔎 **`/mh rarequests`**:
+  - Ori'kassi: **A 96969 done / B 93722 --**
+  - Leviathan: **A 96970 done / B 93673 --**
+
+  Een surge-kill zet dus de account-vlag (A), niet die van het personage (B). ⚠️ Dat geldt voor het
+  personage waarop je hem draaide. De lijst vroeg Earthshammy; **nog bevestigen dat hij het was.**
+- [ ] 🔎 **`/mh atal`, gedraaid 10 sep rond 12:03: GEEN surge-POI.** Op 2512 stond precies één
+      area-POI: 8927 *Special Assignment: Wraith Wrath*. Dat is de positieve controle: de probe leest
+      die kaart wél. Er stond geen surge tussen, niet 8887–8891 (Zygor) en niet 8936–8940
+      (HandyNotes). Twee lezingen blijven over: er liep er toen geen, of een surge is geen area-POI.
+      **Volgende keer: `/mh atal` terwijl je een surge-icoon op je kaart ZIET.** Tot dan blijft C dicht.
+- [ ] **Hoe vaak ze wisselen.** HandyNotes zegt 45 minuten, een forumdraad ~20. Nog ongemeten.
 
 ## 🆕 9 sep — vóór de volgende release: vier dingen die niemand op een scherm gezien heeft
 

@@ -307,11 +307,16 @@ ns.MIX_MASTER_GATES = { renownFaction = 2772, renownLevel = 3, altarNode = "Ofi'
 --- Rob's number wins for the WAYPOINT, because he stood on it and read it off his own
 --- client. The name is left unresolved rather than swapped: naming Dezi as the mixer
 --- would be as much a guess as leaving Ofi there.
+---
+--- ✅ 10 Sep 2026: the waypoint now points at the CAULDRON, not at the NPC. Rob stood at it
+--- and read 57.41 / 48.70, which is the research's 57.4 / 48.7 exactly. His 18 Aug number was
+--- the NPC he had targeted, and Zygor puts Apothecary Dezi at 57.20 / 48.45: that same spot.
+--- Both of his measurements were right; they measured two different things.
 ns.MIX_MASTER_CAULDRON = {
 	mapID = 2512,
-	x = 57.23,
-	y = 48.46,
-	measured = "rob /mh here 18 aug",
+	x = 57.41,
+	y = 48.70,
+	measured = "rob at the cauldron, 10 sep (18 aug: 57.23/48.46 was Apothecary Dezi)",
 	npcSeen = "Apothecary Dezi",
 	npcClaimed = "Ofi the Sly (research, 57.4/48.7)",
 }

@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## ✅ 10 sep middag — Rob testte de Curse Surges; wat daaruit volgde
+
+- **Getest, alles gezien:** de Rares-tab (0/12, beide weg), de kaart (2/5, grijze No route, Elite),
+  de popup met de baasnaam, zoeken op `kassi`, en de tegenproef bij Mix Master. De popup-bug is
+  daarmee echt weg. Details staan in `docs/TESTLIJST.md`.
+- 🔎 **`/mh rarequests`:** een surge-kill zet band **A** (96969/96970 done) en niet band **B**
+  (93722/93673 --). Nog bevestigen dat het op Earthshammy was. Vastgelegd bij `RARE_QUEST_PAIRS`.
+- 🔎 **`/mh atal` (SV `atalProbe`, at=1789034570, 10 sep ~12:03):** op 2512 stond alleen POI 8927
+  (Wraith Wrath). Dat is de positieve controle; een surge-POI was er niet. **C blijft dicht** tot een
+  meting terwijl er zichtbaar een surge loopt.
+- **Na de test gebouwd:**
+  - `kind` op kaarten, met drie nieuwe labels: Event (Turn the Surge, Oppose the Foes), Pet battle
+    (Safari) en Mixing (Mix Master). Rob had gezien dat die onder [Rare] stonden.
+  - Mix Master toont nu de ontgrendel-uitleg `ACH_NOTE_MIX_GATES`, die sinds augustus nergens werd
+    gebruikt, plus een live Renown-regel (2772, nodig 3). Gebouwd via `GateText` +
+    `gateNote`/`gateRenown`.
+  - De ketel-waypoint staat nu op 57.41/48.70 (Robs meting). De oude 57.23/48.46 was Apothecary Dezi.
+- **Rob vroeg: moet er eerst een quest bij Tokka/Dezi?** Onze eigen notitie noemt twee
+  voorwaarden en geen quest. Zygor heeft een Ofi-questreeks in het moeras (93387 → 93393, *"A Little
+  Kindness"*). Of die nodig is voor de ketel is **niet gemeten**.
+
 ## 🔎 10 sep middag — twee losse eindjes
 
 - **Een onbekende schrijver in `docs/API_WATCH.md`.** Voor de derde keer (2, 5 en 10 sep) stond er
@@ -7,7 +28,10 @@
   ochtendroutine in `CLAUDE.md` commit zo'n verweesde wachter-regel voortaan zelf, vóór de pull. Wat
   gemeten en uitgesloten is, staat daar; **wie het schrijft is open**. Volgende stap als het
   terugkomt: de Windows-taakplanner bekijken (`schtasks`, kost Rob een prompt).
-- **Deck-iconen: Rob kiest een letter.** `mh_label_fonts.py` (scratchpad van sessie bce6ed51) zet
+- **Deck-iconen: ✅ Rob koos DiabloHeavy (10 sep middag).** Alle 28 staan in
+  `Downloads\MH_deck_iconen_diablo\` (script `mh_deck_diablo.py`, zelfde scratchpad): elk label op de
+  hoogte van DELVES, eerst minder letterafstand en pas daarna hooguit 5% smaller. Nog op de deck
+  bekijken. Hieronder de meting die aan de keuze voorafging: `mh_label_fonts.py` (scratchpad van sessie bce6ed51) zet
   alle acht labels op de hoogte van DELVES: 12,5 px op de deck, waar de rest nu op 81–95% staat. In
   geen enkel font hoeft er iets te krimpen, behalve bij DiabloHeavy.
   🔴 **GEMETEN:** de losse bestanden in `_retail_\Fonts\` (FRIZQT__, MORPHEUS, SKURRI, ARIALN) zijn

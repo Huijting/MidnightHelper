@@ -175,9 +175,18 @@ ns.AchievementDisplayName = AchievementName
 --   kind: treasure / peak / lore / rare (rare-hunter entries carry no nameKey).
 --   feeds-meta: treasures and rares roll up into the zone metas -> Light Up the Night
 --   (peaks and lore award renown but are not part of that meta path).
-local KIND_COLOR = { treasure = "ffcc00", peak = "66ccff", lore = "cc88ff", rare = "ff6060" }
+local KIND_COLOR = { treasure = "ffcc00", peak = "66ccff", lore = "cc88ff", rare = "ff6060",
+	event = "ff9933", pet = "66dd88", mix = "33cccc" }
 
 local function EntryKind(entry)
+	--- An explicit `kind` wins. ADDED 10 Sep 2026: "no nameKey means rare" was true while only
+	--- rare hunts came without one, and stopped being true when the Coiled Isle hunts arrived,
+	--- which all take their title from the client. Rob's screen that day: Mysterious Mix Master
+	--- (ten offerings at a cauldron) and Turn the Surge (event bosses) both under [Rare], and
+	--- the pet Safari wore the same tag. A new kind needs an ACH_KIND_<KIND> string and a colour.
+	if entry and entry.kind then
+		return entry.kind
+	end
 	local nk = entry and entry.nameKey
 	if not nk then
 		return "rare"
@@ -610,6 +619,31 @@ local function EntryForNode(node)
 	return nil
 end
 
+--- What must be true before this hunt can progress at all, as extra toast lines.
+---
+--- ADDED 10 Sep 2026. Rob stood at Ofi's cauldron with nothing to do and asked whether he
+--- first needed a quest from Captain Tokka or Apothecary Dezi. The answer had been written
+--- since August - `ACH_NOTE_MIX_GATES` in seven languages and `ns.MIX_MASTER_GATES` in
+--- CorrosiveCodexHunts.lua - and neither was shown anywhere: the linter listed the string as
+--- never used. `gateRenown` is read live, so the line says whether YOUR renown is there yet.
+--- The Altar of Corrosion node cannot be read from here, so the note names it instead.
+local function GateText(entry)
+	if not (entry and entry.gateNote) then
+		return nil
+	end
+	local text = ns:L(entry.gateNote)
+	local g = entry.gateRenown
+	if g and C_MajorFactions and C_MajorFactions.GetMajorFactionData then
+		local ok, d = pcall(C_MajorFactions.GetMajorFactionData, g.faction)
+		if ok and type(d) == "table" and type(d.renownLevel) == "number" then
+			local col = (d.renownLevel >= g.level) and "ff66dd66" or "ffff6060"
+			text = text .. "\n\n|c" .. col .. (ns:L("ACH_GATE_RENOWN_FMT")):format(
+				d.name or "?", d.renownLevel, g.level) .. "|r"
+		end
+	end
+	return text
+end
+
 function ns.ShowTreasureToast(node)
 	if not node or (not node.note and not node.counterItem and not (node.prereqs and #node.prereqs > 0)) then
 		if toast then
@@ -627,7 +661,9 @@ function ns.ShowTreasureToast(node)
 	local nodeName = ns.AchievementNodeName(entry, node)
 	f.title:SetText(nodeName)
 	local cl = CounterLine(node)
-	f.body:SetText((node.note and ns:L(node.note) or "") .. (cl and ("\n\n" .. cl) or ""))
+	local gate = GateText(entry)
+	f.body:SetText((node.note and ns:L(node.note) or "") .. (gate and ("\n\n" .. gate) or "")
+		.. (cl and ("\n\n" .. cl) or ""))
 
 	-- Button 1 routes back to the treasure itself (so you never lose it when the
 	-- TomTom arrow clears on arrival); the rest are its prerequisites.

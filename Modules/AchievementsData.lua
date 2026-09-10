@@ -219,6 +219,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	},
 	{
 		achievementID = 63601, -- Oppose the Foes (client supplies the title)
+		kind = "event", -- spawned where an incursion ends; [Rare] said otherwise (10 Sep)
 		feedsMeta = false, -- Assault the Vault, not Light Up the Night. See 62601 above.
 		-- No node here will ever carry a coordinate: an Ancient Foe appears where the
 		-- Temple Incursion finishes, and it is the fourth stage of a rotation rather
@@ -240,6 +241,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	--- game calls it Mysterious Mix Master.
 	{
 		achievementID = 62492, -- The Coiled Isle Safari (client supplies the title)
+		kind = "pet", -- pet battles; it wore [Rare] until 10 Sep
 		--- A pet-battle safari. Not a treasure hunt, but the same shape: eight named
 		--- things in fixed places, and the arrow can walk them.
 		feedsMeta = false,
@@ -266,6 +268,11 @@ ns.ACHIEVEMENT_TREASURES = {
 	},
 	{
 		achievementID = 63432, -- Mysterious Mix Master (client supplies the title)
+		kind = "mix", -- ten offerings at a cauldron; it wore [Rare] until 10 Sep
+		--- What has to be true before the cauldron does anything, shown in the toast. Same
+		--- numbers as ns.MIX_MASTER_GATES (CorrosiveCodexHunts.lua), which nothing ever read.
+		gateNote = "ACH_NOTE_MIX_GATES",
+		gateRenown = { faction = 2772, level = 3 },
 		--- ⚠️ NO COORDINATES AT ALL, and that is correct rather than missing.
 		---
 		--- All ten criteria are offerings you hand in, each with its own item
@@ -285,25 +292,25 @@ ns.ACHIEVEMENT_TREASURES = {
 		feedsMeta = false,
 		nodes = {
 			{ criteria = 115813, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115810, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115818, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115817, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115819, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115814, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115815, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115816, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115811, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 			{ criteria = 115812, note = "ACH_NOTE_MIX_MASTER", recipe = true,
-				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
+				wpMapID = 2512, wpX = 57.41, wpY = 48.70, wpName = "ACH_STEP_OFI_CAULDRON" },
 		},
 	},
 	--- ✅ ADDED 10 Sep 2026 — Turn the Surge, and with it the reason two "rares" left the
@@ -333,6 +340,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	--- carries no number.
 	{
 		achievementID = 63390, -- Turn the Surge (client supplies the title)
+		kind = "event", -- not [Rare]: Rob, 10 Sep, "deze dingen staan onder Rare kopjes, klopt dat??"
 		--- A kill list, so EntryKind calls it "rare", and rares roll up into Light Up the Night
 		--- by default. Nobody has checked which meta this one feeds, so it claims none.
 		feedsMeta = false,
