@@ -28,6 +28,11 @@ Rob: *"doe ze allemaal maar, ook die Rapid Fire macro's"*.
   - 📌 De eerste run van de kruiscontrole vond maar 10 spells. De laatste regel van elke macro eindigt op
     `]=],` en mijn script gooide daardoor de naam weg. Een telling die te klein is om waar te zijn, is
     een fout in het script, geen schone uitslag.
+- 🔎 **Eerste `/mh macrocheck`, Hunter BM (Redisch), 10 sep.** De controle staat op known, en alles
+  is known behalve **Misdirection** (not found) en Bite/Smack (pet-families; Claw is known).
+  Misdirection botst met `KeybindRoles_Hunter.lua`, dat hem "baseline" noemt. **Open:** talent niet
+  gekozen, of verdwenen in 12.1? *Smart Misdirection* staat bij BM én MM, dus Watchmenow (MM) is de
+  tweede meting.
 
 ## 🧰 10 sep avond — Spec 33, eerste ronde. De "nog open"-lijst hieronder is inmiddels afgewerkt (zie boven)
 

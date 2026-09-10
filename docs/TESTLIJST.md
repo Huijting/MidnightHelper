@@ -35,6 +35,14 @@ spec waarin je nu zit, dus kijk per personage.
       interrupt; die hoort **known** te zeggen. Stuur de regels met **not found**, vooral bij Warrior
       (*Spear of Bastion*), Paladin (*Final Reckoning*), Priest (*Shadow Crash*), Shaman (*Windfury
       Totem*), Warlock (*Guillotine*), Monk (de standbeelden) en Evoker (*Rescue*).
+  - ✅ **Hunter BM (Redisch), 10 sep.** De controle *Counter Shot* staat op known, dus de meting werkt.
+    Alles is known, behalve:
+    - **Misdirection: not found** (in *Smart Misdirection*)
+    - Bite en Smack: dat zijn pet-aanvallen, en zijn pet gebruikt Claw, dat wél known is. Zo hoort het.
+
+    ⚠️ Onze `KeybindRoles_Hunter.lua` noemt Misdirection *baseline*, maar de client zegt dat dit
+    personage hem niet kent. Is het een talent dat Rob niet gekozen heeft, of is hij weg in 12.1?
+    **Rob gevraagd.**
 
 ## 🆕 10 sep avond — Dundun-macro met een maan
 
