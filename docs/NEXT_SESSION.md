@@ -1,10 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 🔴 MORGEN (11 sep) EERST — Account snapshot: "Sort: Shards" sorteert niet goed
+
+Rob, 10 sep laat: *"Bij de account snapshot is de sorteerfunctie die klopt niet. Er staat nu
+'sort shards' voor het sorteren van de shards. Dat gaat niet goed, maar daar moeten we morgen even
+naar kijken."* **Nog niets aan veranderd.** Wát er precies misgaat heeft hij niet gezegd: vraag
+eerst wat hij zag en wat hij verwachtte, liefst met een screenshot.
+- GEMETEN in de code, alleen gelezen (`CompareSnapshotEntries`, `Modules/AltOverview.lua:715`):
+  - `"shards"` sorteert op de **wallet** (`e.shards`), niet op de weekkolom. Standaard is dat
+    aflopend, want `sortDesc` is `nil` → aflopend voor alles behalve naam.
+  - Het **huidige character staat altijd bovenaan**, welke sortering er ook gekozen is
+    (`ac`/`bc` in de comparator).
+  - De nieuwe **Week-kolom heeft geen sorteersleutel.**
+- AFGELEID, niet bevestigd: sinds optie A staan wallet en week in aparte kolommen. Verwacht Rob
+  sortering op Week (x/600), of snapt hij niet waarom zijn eigen character bovenaan blijft? Dan is
+  "klopt niet" een van die twee. Het kan ook iets anders zijn; niet raden, vragen.
+- Daarna staan nog open: de ongebruikte keys opruimen (mag nu) en optie B (§2d, alleen na Robs ja).
+
 ## ✅ 10 sep avond — Spec 38 (Account snapshot): §3 + optie A af, optie B wacht op Rob
 
-Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3 (c18101a) en optie A
-(c83425c + 6744069) zijn door Rob in-game goedgekeurd.** Alleen de reparatie van de voetregel van
-*This week* moet hij nog zien (`docs/TESTLIJST.md`).
+Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3 (c18101a), optie A
+(c83425c + 6744069) en de voetregel van *This week* (835015f) zijn door Rob in-game goedgekeurd.**
 
 **Optie A (§2c), `Modules/AltOverview.lua`:**
 - Kolommen van rechts naar links: kristal · Undercoins · Week · Shards · Keys, dan Vault.
@@ -28,7 +44,7 @@ Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3 (c18101a) 
 - ✅ **Rob, na de tweede ronde (6744069): "alle punten goed afgewerkt".** Vault blijft "0/9" bij
   een relog-rij. De voetregel van *This week* die tegen de regel erboven plakte is daarna
   gerepareerd in `AccountWeeklyChecklist.lua`: de regels worden gestapeld op hun echte teksthoogte,
-  en bij een breedtewijziging opnieuw. Die reparatie is nog NIET getest.
+  en bij een breedtewijziging opnieuw. Rob: *"ziet er goed uit"*.
 - **Nu toegestaan, niet gedaan:** de ongebruikte keys hieronder opruimen, want Rob keurde optie A goed.
 - **Nu ongebruikt en niet verwijderd:** `ALT_STALE_WED_BADGE`, `ALT_UNDER_MANA_CELL_FMT`,
   `ALT_SHARDS_CELL_FMT`/`_STALE_FMT`, `ALT_VAULT_ROW_FMT`, `ALT_VAULT_EMPTY`, `ALT_COL_UNDER_MANA`,

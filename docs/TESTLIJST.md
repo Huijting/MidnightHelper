@@ -12,10 +12,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 Rob, na de tweede ronde: *"Verder zijn alle punten goed afgewerkt."* Vault blijft "0/9" bij een
 relog-rij, geen streepje.
 
-- [ ] **Nog één, blok *This week* bovenaan hetzelfde tabblad:** de laatste regel ("This list is
-      account-wide…") plakt niet meer tegen de regel erboven. Hij loopt over twee regels en krijgt
-      nu ook twee regels ruimte. Het blok wordt daardoor iets hoger, en de Sort-knop en de tabel
-      schuiven mee omlaag.
+- [x] ~~Blok *This week*: de laatste regel plakt niet meer tegen de regel erboven~~, **Rob 10 sep:
+      "ziet er goed uit"**.
+- [ ] **Open, 11 sep eerst:** *"Sort: Shards"* sorteert niet goed (Rob). Wat hij precies zag staat
+      nog niet vast; zie bovenaan `docs/NEXT_SESSION.md`.
 
 Tabblad *Account snapshot*, na één `/reload`. §3 en optie A zitten in één ronde, dus je ziet
 meteen de nieuwe indeling. Van links naar rechts: **naam · Vault · Keys · Shards · Week ·
