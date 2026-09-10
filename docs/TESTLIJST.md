@@ -12,7 +12,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [x] ✅ **Kaartsoorten: GEZIEN.** [Event] voor Oppose the Foes en Turn the Surge, [Pet battle] voor
       de Safari, [Mixing] voor Mix Master. (Rob vroeg *"deze dingen staan onder Rare kopjes, klopt
       dat??"*, en het antwoord was nee.)
-- [ ] 🔁 **Mix Master: waarom er niets te doen is. OPNIEUW, nu met een instructie die kán.**
+- [x] ✅ **Mix Master: GEZIEN, 10 sep.** Hover boven *Choleric Offering*: de voorwaarden staan onder
+      de notitie, en daaronder in groen *"Your Renown with Zul'jarra's Forces: 8 (needs 3)"*, live
+      gelezen. Robs eerste voorwaarde is dus binnen. Doet de ketel niets, dan is het de altar-node of
+      het ontbreken van ingrediënten. Hieronder de oorspronkelijke tekst:
+- 🔁 **Mix Master: waarom er niets te doen is. OPNIEUW, nu met een instructie die kán.**
       Mijn eerste instructie (*"klik een Waypoint bij een offering"*) was niet uit te voeren. De tien
       offerings hebben geen eigen Waypoint-knop; ze delen er één in de kop, en die opent geen popup.
       Rob hield de muis boven *Eerie Offering* en kreeg de notitie en het recept, maar niet de

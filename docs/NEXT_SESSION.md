@@ -22,7 +22,9 @@
   - ✅ Kaartsoorten gezien; de deck-iconen ook (Rob en Carola: *"supergaaf"*).
   - 🔁 **De Mix Master-voorwaarden zag Rob niet.** Ze stonden alleen in de popup, en Mix Master
     heeft geen Waypoint-knop per rij: de kopknop is gedeeld en opent geen popup. Een rij aanklikken
-    doet niets. Hij hield de muis erboven, dus nu staan ze ook in het muis-vakje. Opnieuw testen.
+    doet niets. Hij hield de muis erboven, dus nu staan ze ook in het muis-vakje.
+    ✅ **Gezien:** *"Your Renown with Zul'jarra's Forces: 8 (needs 3)"*, in groen. De live lezing van
+    faction 2772 werkt, en Rob voldoet aan de eerste voorwaarde.
 - **Rob vroeg: moet er eerst een quest bij Tokka/Dezi?** Onze eigen notitie noemt twee
   voorwaarden en geen quest. Zygor heeft een Ofi-questreeks in het moeras (93387 → 93393, *"A Little
   Kindness"*). Of die nodig is voor de ketel is **niet gemeten**.
