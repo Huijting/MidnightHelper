@@ -2310,6 +2310,8 @@ ns._mhLocales.enUS = {
 	ALT_VAULT_TOOLTIP_UNAVAILABLE = "Great Vault is not available for this character yet.",
 	ALT_VAULT_TOOLTIP_CLAIM_READY = "A Great Vault reward is available to claim on this character.",
 	ALT_VAULT_TOOLTIP_CLAIM_LIKELY = "Likely claim available (inferred from pre-reset snapshot).",
+	ALT_COL_VAULT = "Vault",
+	ALT_COL_VAULT_HINT_FMT = "Great Vault: choices unlocked this week, one number per row, in this order: %s, %s, %s.\n%s = a reward is waiting to be picked on that character.\nHover a character for the details.",
 
 	ACCOUNT_WEEKLY_TITLE = "This week",
 	ACCOUNT_WEEKLY_CLICK_FILTER = "Click to show only matching characters in the table below (click again to clear).",

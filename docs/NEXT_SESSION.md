@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 10 sep avond — Spec 38 (Account snapshot): §3 gebouwd, optie A volgt, optie B wacht op Rob
+
+Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3, de vier kleine reparaties,
+is gebouwd en nog NIET getest.**
+1. Geen afbreken meer in de getalcellen en de vault-cel (`SetWordWrap(false)` + `SetMaxLines(1)`).
+2. `FormatShardsCell` krijgt `weeklyMax` mee in de relog-tak, dus "/600" in plaats van "/0".
+3. Een Vault-kop met een tooltip: `ALT_COL_VAULT` en `ALT_COL_VAULT_HINT_FMT`, 7 talen. De tooltip
+   noemt de drie rijen voluit in volgorde, zodat hij ook de "M D R"-cellen in fr/es uitlegt.
+4. `ROW_H` 17 → 20. Namen en beroepen worden per teken afgekapt (`Utf8Len`/`Utf8Head`), niet per byte.
+
+- **Bijvangst, in dezelfde ronde gerepareerd:** `CLAUDE.md` zei dat `fill()` alleen invult wat
+  ontbreekt. GEMETEN (`Translations2026.lua:44`): hij vervangt ook elke waarde die gelijk is aan het
+  Engels. De regel in `CLAUDE.md` zegt dat nu, met de gevolgen.
+- **Volgende stap:** optie A (§2c). Daarin staan de currency-iconen als kop met de naam uit
+  `C_CurrencyInfo`, en dat lost ook de verkeerde vertaling "Unter/Sous/Bajo/Menos" (§1e) op.
+  **Optie B pas na Robs akkoord.**
+
 ## ✅ 10 sep avond, later — Spec 33 af, behalve het client-oordeel van §7
 
 Rob: *"doe ze allemaal maar, ook die Rapid Fire macro's"*.

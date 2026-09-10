@@ -36,8 +36,34 @@ local COL_W_VAULT = 110
 local NUM_GAP = 4
 local ROW_ACTION_W = 18
 local ROW_ACTION_GAP = 4
-local ROW_H = 17
+--- Spec 38 §3.4, 10 Sep 2026: 17 -> 20. At 17 px a cell that wrapped to two lines stuck out above and
+--- below its row, which is the "lines running into each other" on Rob's screenshot. The cells no
+--- longer wrap (see AnchorThreeNumericCells), and the extra 3 px is breathing room.
+local ROW_H = 20
 local HEADER_ROW_H = 17
+
+--- Count and cut by CHARACTER, not by byte (Spec 38 §3.4). `#s` counts bytes, so a name with an
+--- umlaut or accent - and every " · " between professions, a two-byte dot - was measured too long
+--- and could be cut in the middle of a character. A UTF-8 character starts at any byte that is not
+--- a continuation byte (\128-\191).
+local function Utf8Len(s)
+	if strlenutf8 then
+		return strlenutf8(s)
+	end
+	local _, n = s:gsub("[^\128-\191]", "")
+	return n
+end
+
+local function Utf8Head(s, n)
+	local count = 0
+	for pos in s:gmatch("()[^\128-\191]") do
+		count = count + 1
+		if count > n then
+			return s:sub(1, pos - 1)
+		end
+	end
+	return s
+end
 
 -- Geschaalde rijhoogtes: groeien mee met de content-tekstschaal zodat grotere
 -- letters niet over elkaar vallen. Bij schaal 1.0 leveren ze exact ROW_H /
@@ -321,7 +347,9 @@ local function FormatShardsCell(total, weekly, weeklyMax, weeklyStale)
 		return tostring(total)
 	end
 	if weeklyStale and weekly == 0 then
-		return string.format(ns:L("ALT_SHARDS_CELL_STALE_FMT"), total)
+		--- Spec 38 §1b/§3.2: the format is "%d (—/%d)" - TWO placeholders - and this passed one
+		--- value, so every relog row read "0 (—/0)" where "/600" belongs. weeklyMax was right there.
+		return string.format(ns:L("ALT_SHARDS_CELL_STALE_FMT"), total, weeklyMax)
 	end
 	return string.format(ns:L("ALT_SHARDS_CELL_FMT"), total, weekly, weeklyMax)
 end
@@ -348,8 +376,9 @@ end
 
 local function GetShortProfessionsText(fullText)
 	local s = tostring(fullText or "")
-	if #s > 44 then
-		s = string.sub(s, 1, 42) .. "…"
+	-- Per character, not per byte (Spec 38 §3.4): the " · " between professions is a two-byte dot.
+	if Utf8Len(s) > 44 then
+		s = Utf8Head(s, 42) .. "…"
 	end
 	return s
 end
@@ -541,7 +570,8 @@ local function FormatCharLabel(name, realm)
 		r = ""
 	end
 	local s = nm .. (r ~= "" and ("-" .. r) or "")
-	if #s > 26 then
+	-- Per character (Spec 38 §3.4): an accented name or realm counted two bytes per letter.
+	if Utf8Len(s) > 26 then
 		return nm .. "…"
 	end
 	return s
@@ -863,6 +893,15 @@ end
 --------------------------------------------------------------------------------
 --- Three numeric columns (Keys, Shards, Undercoins): centered under each header band.
 local function AnchorThreeNumericCells(keysFs, shardsFs, underFs, row)
+	--- Spec 38 §1a/§3.1, 10 Sep 2026: these cells had only a width and a CENTER anchor, so WoW
+	--- wrapped "201 (354/600)" onto two lines inside a 17 px row - the overlap on Rob's screenshot.
+	--- One line, always. Too wide now truncates instead of spilling into the neighbouring rows.
+	for _, fs in ipairs({ keysFs, shardsFs, underFs }) do
+		fs:SetWordWrap(false)
+		if fs.SetMaxLines then
+			fs:SetMaxLines(1)
+		end
+	end
 	local rightShift = RowActionOffset()
 	local cxUnder = PAD_R + COL_W_UNDER / 2
 	local shardW = GetColWShards()
@@ -908,6 +947,11 @@ local function MakeDataRow(parent, idx)
 	row.vaultFs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	row.vaultFs:SetWidth(COL_W_VAULT)
 	row.vaultFs:SetJustifyH("RIGHT")
+	-- Spec 38 §3.1: one line, like the numeric cells.
+	row.vaultFs:SetWordWrap(false)
+	if row.vaultFs.SetMaxLines then
+		row.vaultFs:SetMaxLines(1)
+	end
 	row.vaultFs:SetPoint("RIGHT", row, "RIGHT", -(TotalNumericBlockWidth() + 4 + RowActionOffset()), 0)
 	row.vaultGlow = row:CreateTexture(nil, "BACKGROUND", nil, -1)
 	row.vaultGlow:SetAllPoints()
@@ -980,6 +1024,21 @@ local function MakeHeaderRow(parent)
 	row.underH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	row.underH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	AnchorThreeNumericCells(row.keysH, row.shardsH, row.underH, row)
+
+	--- Spec 38 §3.3, 10 Sep 2026: the vault column had no header at all, so "W0 D0 R0" explained
+	--- itself to nobody. Same anchor as the data rows' vaultFs. The hit button carries only the
+	--- tooltip - the vault has no sort key.
+	row.vaultH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.vaultH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+	row.vaultH:SetWidth(COL_W_VAULT)
+	row.vaultH:SetJustifyH("RIGHT")
+	row.vaultH:SetWordWrap(false)
+	row.vaultH:SetPoint("RIGHT", row, "RIGHT", -(TotalNumericBlockWidth() + 4 + RowActionOffset()), 0)
+	row.vaultHit = CreateFrame("Button", nil, row)
+	row.vaultHit:SetSize(COL_W_VAULT, headerH)
+	row.vaultHit:SetPoint("CENTER", row.vaultH, "CENTER")
+	row.vaultHit:SetAlpha(0.001)
+	row.vaultHit:EnableMouse(true)
 
 	row.shardsHit = CreateFrame("Button", nil, row)
 	row.shardsHit:SetSize(GetColWShards() + 12, headerH)
@@ -1660,6 +1719,28 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 	wireHeaderHit(h.shardsHit, "shards", "ALT_COL_SHARDS_HINT")
 	wireHeaderHit(h.underHit, "undercoin", "ALT_COL_UNDER_MANA_HINT")
 	h.underH:SetText(ns:L("ALT_COL_UNDER_MANA"))
+	-- Spec 38 §3.3: the vault header. The hint names the three rows in order by their own
+	-- translated names, so it explains "W D R" and the French/Spanish "M D R" alike.
+	if h.vaultH then
+		h.vaultH:SetText(ns:L("ALT_COL_VAULT"))
+	end
+	if h.vaultHit then
+		h.vaultHit:SetScript("OnEnter", function(self)
+			if not GameTooltip then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+			GameTooltip:SetText(ns:L("ALT_COL_VAULT_HINT_FMT"):format(ns:L("ALT_VAULT_WORLD"),
+				ns:L("ALT_VAULT_DUNGEONS"), ns:L("ALT_VAULT_RAIDS"), ns:L("ALT_VAULT_CLAIM_READY")),
+				1, 0.92, 0.55, 1, true)
+			GameTooltip:Show()
+		end)
+		h.vaultHit:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+	end
 	if h.abundH then
 		h.abundH:Hide()
 	end

@@ -7,6 +7,20 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 10 sep avond — Account snapshot, Spec 38 §3 (vier kleine reparaties)
+
+Tabblad *Account snapshot*, na één `/reload`.
+
+- [ ] **Niets loopt meer door elkaar.** De getallen (Keys, Shards, Under/Mana) en de vault-cel blijven
+      op één regel, ook "201 (354/600)". De rijen zijn iets hoger (20 px in plaats van 17).
+      ⚠️ Is een getal te breed voor zijn kolom, dan wordt het nu **afgekapt** in plaats van dat het
+      over twee regels loopt. Zie je dat ergens, zeg welke kolom; dat lost optie A op.
+- [ ] **De relog-rijen tonen "/600" in plaats van "/0"**: bijvoorbeeld "0 (—/600)".
+- [ ] **Er staat een kop "Vault" boven de kolom met "W0 D0 R0".** Met de muis erop zie je wat de drie
+      getallen zijn: World, Dungeons, Raids, in die volgorde, en wat *CLAIM!* betekent.
+- [ ] **Namen en beroepen worden per teken afgekapt**, niet meer midden in een ü of in het puntje
+      tussen twee beroepen.
+
 ## 🆕 10 sep avond — nieuwe macro's in de Macros-tab (Spec 33 + Hunter's Mark)
 
 Rob: *"dat soort macro's moet bij ons in de macro set komen"*. De Macros-tab toont macro's voor de

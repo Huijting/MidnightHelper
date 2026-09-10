@@ -8015,3 +8015,35 @@ fill("itIT", {
 	TOOLLP_MACROS_DESC = "Macro pronte per la tua classe e specializzazione (mouseover, cursore, focus), ognuna con cosa ti risparmia.",
 	CMDLIST_MACROS = "Apre la scheda Macros: macro pronte per la tua classe e specializzazione, ognuna con cosa fa e cosa ti risparmia.",
 })
+
+--------------------------------------------------------------------------------
+-- 10 Sep 2026 — Spec 38 §3.3: a header over the Account snapshot's vault column.
+-- The hint names the three rows IN ORDER, by their own translated names, so it also
+-- explains the French/Spanish "M D R" and the Portuguese "Mu Ma R" cells. The Great Vault
+-- names are the ones these packs already use. Our own translations, not native-reviewed.
+--------------------------------------------------------------------------------
+
+fill("deDE", {
+	ALT_COL_VAULT = "Schatzkammer",
+	ALT_COL_VAULT_HINT_FMT = "Große Schatzkammer: diese Woche freigeschaltete Auswahlen, eine Zahl pro Reihe, in dieser Reihenfolge: %s, %s, %s.\n%s = auf diesem Charakter wartet eine Belohnung.\nFahre über einen Charakter für die Details.",
+})
+
+fill("frFR", {
+	ALT_COL_VAULT = "Chambre forte",
+	ALT_COL_VAULT_HINT_FMT = "Grande chambre forte : choix débloqués cette semaine, un chiffre par rangée, dans cet ordre : %s, %s, %s.\n%s = une récompense attend sur ce personnage.\nSurvole un personnage pour les détails.",
+})
+
+fill("esES", {
+	ALT_COL_VAULT = "Gran Cámara",
+	ALT_COL_VAULT_HINT_FMT = "Gran Cámara: opciones desbloqueadas esta semana, un número por fila, en este orden: %s, %s, %s.\n%s = hay una recompensa esperando en ese personaje.\nPasa el ratón por un personaje para ver los detalles.",
+})
+
+fill("ptBR", {
+	ALT_COL_VAULT = "Grande Cofre",
+	ALT_COL_VAULT_HINT_FMT = "Grande Cofre: escolhas desbloqueadas esta semana, um número por fileira, nesta ordem: %s, %s, %s.\n%s = há uma recompensa esperando nesse personagem.\nPasse o mouse sobre um personagem para ver os detalhes.",
+})
+
+fill("itIT", {
+	ALT_COL_VAULT = "Great Vault",
+	ALT_COL_VAULT_HINT_FMT = "Great Vault: scelte sbloccate questa settimana, un numero per riga, in quest'ordine: %s, %s, %s.\n%s = c'è una ricompensa in attesa su quel personaggio.\nPassa il mouse su un personaggio per i dettagli.",
+})

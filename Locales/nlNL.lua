@@ -1902,6 +1902,8 @@ ns._mhLocales.nlNL = {
 	ALT_TOOLTIP_PROF_DUNDUN_FMT = "Shards of Dundun deze week: %d / 8",
 	ALT_TOOLTIP_PROF_MOXIE_FMT = "Artisan's Moxie: %s",
 	ALT_COL_CHARACTER = "Character",
+	ALT_COL_VAULT = "Vault",
+	ALT_COL_VAULT_HINT_FMT = "Great Vault: keuzes die deze week vrij zijn, één getal per rij, in deze volgorde: %s, %s, %s.\n%s = er wacht een beloning om te kiezen op dat character.\nWijs een character aan voor de details.",
 	ALT_COL_KEYS = "Keys",
 	ALT_COL_KEYS_HINT = "Restored Coffer Keys in de wallet van dit character (opgeslagen bij laatste login).",
 	ALT_TOOLTIP_KEYS = "Restored Coffer Keys: %d",
