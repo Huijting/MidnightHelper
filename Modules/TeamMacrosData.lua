@@ -491,12 +491,12 @@ ns.TeamMacrosByClassSpec = {
 		},
 		[3] = {
 			{
-			id = "cursor_execution",
-			name = "Cursor Execution",
-			descNl = "Plaatst Execution Sentence of Final Reckoning direct op je muis.",
-			descEn = "Cast Execution Sentence or Final Reckoning at your cursor.",
-			macro = [=[#showtooltip Final Reckoning
-/cast [@cursor] Final Reckoning]=],
+			id = "mouseover_execution_sentence",
+			name = "Mouseover Execution Sentence",
+			descNl = "Execution Sentence op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel.",
+			descEn = "Execution Sentence on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target.",
+			macro = [=[#showtooltip Execution Sentence
+/cast [@mouseover,harm,nodead][] Execution Sentence]=],
 			},
 			{
 			id = "bubble_cancel",
@@ -548,34 +548,34 @@ ns.TeamMacrosByClassSpec = {
 		},
 		[3] = {
 			{
-			id = "cursor_shadow_crash",
-			name = "Cursor Shadow Crash",
-			descNl = "Sleutelmacro: Gooit Shadow Crash direct op je muis om snel Dots te verspreiden.",
-			descEn = "Key macro: cast Shadow Crash at your cursor to spread DoTs quickly.",
-			macro = [=[#showtooltip Shadow Crash
-/cast [@cursor] Shadow Crash]=],
+			id = "mouseover_tentacle_slam",
+			name = "Mouseover Tentacle Slam",
+			descNl = "Tentacle Slam op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel.",
+			descEn = "Tentacle Slam on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target.",
+			macro = [=[#showtooltip Tentacle Slam
+/cast [@mouseover,harm,nodead][] Tentacle Slam]=],
 			},
 			{
 			id = "madness_without_breaking_void_torrent",
 			name = "Madness without breaking Void Torrent",
-			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop.",
-			descEn = "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there.",
+			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop. Void Torrent bestaat in Midnight alleen in de Voidweaver-hero-talenten; zonder Voidweaver cast deze macro gewoon meteen.",
+			descEn = "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there. In Midnight Void Torrent only exists in the Voidweaver hero talents; without Voidweaver this macro simply casts right away.",
 			macro = [=[#showtooltip Shadow Word: Madness
 /cast [nochanneling:Void Torrent,@mouseover,harm,nodead][nochanneling:Void Torrent] Shadow Word: Madness]=],
 			},
 			{
 			id = "voidform_without_breaking_void_torrent",
 			name = "Voidform without breaking Void Torrent",
-			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: Voidform gaat pas aan als de channel klaar is, in plaats van hem af te breken.",
-			descEn = "Press it while Void Torrent is still channelling: Voidform goes up when the channel ends instead of cancelling it.",
+			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: Voidform gaat pas aan als de channel klaar is, in plaats van hem af te breken. Void Torrent bestaat in Midnight alleen in de Voidweaver-hero-talenten; zonder Voidweaver cast deze macro gewoon meteen.",
+			descEn = "Press it while Void Torrent is still channelling: Voidform goes up when the channel ends instead of cancelling it. In Midnight Void Torrent only exists in the Voidweaver hero talents; without Voidweaver this macro simply casts right away.",
 			macro = [=[#showtooltip Voidform
 /cast [nochanneling:Void Torrent] Voidform]=],
 			},
 			{
 			id = "mind_blast_without_breaking_void_torrent",
 			name = "Mind Blast without breaking Void Torrent",
-			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop.",
-			descEn = "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there.",
+			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop. Void Torrent bestaat in Midnight alleen in de Voidweaver-hero-talenten; zonder Voidweaver cast deze macro gewoon meteen.",
+			descEn = "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there. In Midnight Void Torrent only exists in the Voidweaver hero talents; without Voidweaver this macro simply casts right away.",
 			macro = [=[#showtooltip Mind Blast
 /cast [nochanneling:Void Torrent,@mouseover,harm,nodead][nochanneling:Void Torrent] Mind Blast]=],
 			},
@@ -748,10 +748,10 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "cursor_spear",
 			name = "Cursor Spear",
-			descNl = "Gooit je speer/ravager direct op je muispositie.",
-			descEn = "Throw your spear or Ravager at your cursor.",
-			macro = [=[#showtooltip Spear of Bastion
-/cast [@cursor] Spear of Bastion]=],
+			descNl = "Gooit Champion's Spear direct op je muispositie, zonder richtcirkel.",
+			descEn = "Throws Champion's Spear at your cursor, without the targeting circle.",
+			macro = [=[#showtooltip Champion's Spear
+/cast [@cursor] Champion's Spear]=],
 			},
 		},
 		[3] = {

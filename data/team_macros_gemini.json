@@ -341,9 +341,11 @@
     ],
     "Retribution": [
       {
-        "name": "Cursor Execution",
-        "description": "Plaatst Execution Sentence of Final Reckoning direct op je muis.",
-        "macro": "#showtooltip Final Reckoning\n/cast [@cursor] Final Reckoning"
+        "name": "Mouseover Execution Sentence",
+        "description": "Execution Sentence op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel.",
+        "descriptionEn": "Execution Sentence on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target.",
+        "macro": "#showtooltip Execution Sentence\n/cast [@mouseover,harm,nodead][] Execution Sentence",
+        "note": "10 Sep 2026, Spec 33 7: replaces Cursor Execution ('/cast [@cursor] Final Reckoning'). Final Reckoning was removed in Midnight and folded into Execution Sentence (Maxroll 12.1 'Removed: Final Reckoning'; Blizzard forum Jan 2026). Execution Sentence is cast on a target, so [@cursor] cannot work. In Zygor's 12.x talent data. Not measured in the client."
       },
       {
         "name": "Bubble Cancel",
@@ -379,30 +381,32 @@
     ],
     "Shadow": [
       {
-        "name": "Cursor Shadow Crash",
-        "description": "Sleutelmacro: Gooit Shadow Crash direct op je muis om snel Dots te verspreiden.",
-        "macro": "#showtooltip Shadow Crash\n/cast [@cursor] Shadow Crash"
+        "name": "Mouseover Tentacle Slam",
+        "description": "Tentacle Slam op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel.",
+        "descriptionEn": "Tentacle Slam on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target.",
+        "macro": "#showtooltip Tentacle Slam\n/cast [@mouseover,harm,nodead][] Tentacle Slam",
+        "note": "10 Sep 2026, Spec 33 7: replaces Cursor Shadow Crash. Shadow Crash was reworked into Tentacle Slam in Midnight (Icy Veins 12.1, Maxroll, Wowhead), which needs a target - so no [@cursor]. In Zygor's 12.x talent data. Not measured in the client."
       },
       {
         "name": "Madness without breaking Void Torrent",
-        "description": "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop.",
-        "descriptionEn": "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there.",
+        "description": "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop. Void Torrent bestaat in Midnight alleen in de Voidweaver-hero-talenten; zonder Voidweaver cast deze macro gewoon meteen.",
+        "descriptionEn": "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there. In Midnight Void Torrent only exists in the Voidweaver hero talents; without Voidweaver this macro simply casts right away.",
         "macro": "#showtooltip Shadow Word: Madness\n/cast [nochanneling:Void Torrent,@mouseover,harm,nodead][nochanneling:Void Torrent] Shadow Word: Madness",
-        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played."
+        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played. Void Torrent: Voidweaver hero talent only in Midnight (Maxroll 12.0.1; Wowhead: removed for Archon) - added to the description 10 Sep 2026."
       },
       {
         "name": "Voidform without breaking Void Torrent",
-        "description": "Druk hem gerust terwijl Void Torrent nog loopt: Voidform gaat pas aan als de channel klaar is, in plaats van hem af te breken.",
-        "descriptionEn": "Press it while Void Torrent is still channelling: Voidform goes up when the channel ends instead of cancelling it.",
+        "description": "Druk hem gerust terwijl Void Torrent nog loopt: Voidform gaat pas aan als de channel klaar is, in plaats van hem af te breken. Void Torrent bestaat in Midnight alleen in de Voidweaver-hero-talenten; zonder Voidweaver cast deze macro gewoon meteen.",
+        "descriptionEn": "Press it while Void Torrent is still channelling: Voidform goes up when the channel ends instead of cancelling it. In Midnight Void Torrent only exists in the Voidweaver hero talents; without Voidweaver this macro simply casts right away.",
         "macro": "#showtooltip Voidform\n/cast [nochanneling:Void Torrent] Voidform",
-        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played."
+        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played. Void Torrent: Voidweaver hero talent only in Midnight (Maxroll 12.0.1; Wowhead: removed for Archon) - added to the description 10 Sep 2026."
       },
       {
         "name": "Mind Blast without breaking Void Torrent",
-        "description": "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop.",
-        "descriptionEn": "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there.",
+        "description": "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop. Void Torrent bestaat in Midnight alleen in de Voidweaver-hero-talenten; zonder Voidweaver cast deze macro gewoon meteen.",
+        "descriptionEn": "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there. In Midnight Void Torrent only exists in the Voidweaver hero talents; without Voidweaver this macro simply casts right away.",
         "macro": "#showtooltip Mind Blast\n/cast [nochanneling:Void Torrent,@mouseover,harm,nodead][nochanneling:Void Torrent] Mind Blast",
-        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played."
+        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played. Void Torrent: Voidweaver hero talent only in Midnight (Maxroll 12.0.1; Wowhead: removed for Archon) - added to the description 10 Sep 2026."
       }
     ]
   },
@@ -521,8 +525,10 @@
     "Fury": [
       {
         "name": "Cursor Spear",
-        "description": "Gooit je speer/ravager direct op je muispositie.",
-        "macro": "#showtooltip Spear of Bastion\n/cast [@cursor] Spear of Bastion"
+        "description": "Gooit Champion's Spear direct op je muispositie, zonder richtcirkel.",
+        "descriptionEn": "Throws Champion's Spear at your cursor, without the targeting circle.",
+        "macro": "#showtooltip Champion's Spear\n/cast [@cursor] Champion's Spear",
+        "note": "10 Sep 2026, Spec 33 7: was 'Spear of Bastion', renamed Champion's Spear in 10.0 (warcraft.wiki). Still a talent in Midnight, thrown at a location (Blizzard forum dev notes, boostmatch 2026). In Zygor's 12.x talent data. Not measured in the client."
       }
     ],
     "Protection": [

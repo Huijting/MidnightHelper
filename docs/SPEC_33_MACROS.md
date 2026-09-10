@@ -13,8 +13,12 @@ die ook niet in onze addon verwerken? met uitleg natuurlijk?"*
 >   Op Robs vraag kwamen erbij: Mouseover Hunter's Mark, Hunter's Mark in de pet-macro en een Rapid
 >   Fire-macro voor Marksmanship.
 > - ✅ §2a (zoekindex uit de data), §2b (`/mh macros`) en §2c (kaart in de Tools-zaal) zijn gebouwd.
-> - 🟡 §7: statisch nagelopen (8 namen om na te kijken), en `/mh macrocheck` is gebouwd. Het oordeel
->   van de client moet nog per klasse in het spel komen.
+> - 🟡 §7 is voor een groot deel af:
+>   - statisch nagelopen, en `/mh macrocheck` is gebouwd
+>   - Hunter BM en MM zijn in de client gemeten
+>   - de 8 namen zijn online nagezocht, en 3 macro's zijn vervangen (Final Reckoning en Shadow Crash
+>     zijn weg, Spear of Bastion is hernoemd)
+>   - Open: Windfury Totem, en de meting in de client op Robs andere klassen.
 > - De macro's staan in `data/team_macros_gemini.json`, en die is gemeten als de echte bron; de Lua is
 >   daaruit gegenereerd.
 > - De actuele stand staat in `docs/NEXT_SESSION.md`.

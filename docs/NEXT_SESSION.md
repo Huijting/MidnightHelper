@@ -45,6 +45,22 @@ Rob: *"doe ze allemaal maar, ook die Rapid Fire macro's"*.
     ID 34477. Het is dus een class-talent dat hij niet gekozen had, en murlok.io klopte. Het
     commentaar in `KeybindRoles_Hunter.lua`, dat "baseline" zei, is aangepast. Het veld zelf (geen
     `specs`) klopt nog: elke spec kan het talent kiezen.
+- 🔎 **De 8 namen om na te kijken, online en in Zygors 12.x-talentdata (10 sep).**
+  - **Final Reckoning is WEG** (Maxroll 12.1 "Removed", forum). Hij zit nu in Execution Sentence, dat
+    je op een doelwit cast. *Cursor Execution* is daarom vervangen door **Mouseover Execution
+    Sentence**.
+  - **Shadow Crash is WEG en werd Tentacle Slam** (Icy Veins 12.1, Maxroll, Wowhead), en die heeft een
+    doelwit nodig. *Cursor Shadow Crash* is vervangen door **Mouseover Tentacle Slam**.
+  - **Spear of Bastion heet Champion's Spear.** Hernoemd in 10.0, bestaat nog in Midnight, en je gooit
+    hem nog op een plek. In *Cursor Spear* is alleen de naam veranderd.
+  - **Void Torrent** bestaat alleen nog in de **Voidweaver**-hero-talenten (Maxroll, Wowhead). De drie
+    Shadow-macro's zeggen dat nu; zonder Voidweaver casten ze gewoon meteen.
+  - **Blijven staan:** Rescue (Evoker, Method 12.1), Jade Serpent Statue (wiki, 12.0.0), Black Ox
+    Statue (in Zygors data) en Guillotine (Wowhead, bouwdiscussie 12.1).
+  - **Open:** Windfury Totem, want die staat niet in de gidsen voor 12.1 en niet in Zygor. Te meten op
+    Robs Shaman.
+  - Dit zijn allemaal bronnen, geen client-meting. Rob heeft Paladin, Priest, Shaman, Warlock, Druid en
+    Mage; `/mh macrocheck` daar is de echte meting.
   - De uitleg van *Smart Misdirection* (bij BM en MM) zegt nu dat je het talent nodig hebt.
 
 ## 🧰 10 sep avond — Spec 33, eerste ronde. De "nog open"-lijst hieronder is inmiddels afgewerkt (zie boven)

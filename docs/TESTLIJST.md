@@ -54,6 +54,17 @@ spec waarin je nu zit, dus kijk per personage.
     Misdirection* zegt het nu. Rob kan het zelf nakijken: talenten (N), dan de class-boom.
     ✅ **Nagekeken door Rob:** zijn talentboom toont Misdirection als node, *Rank 0/1*, Spell ID
     34477. Het is dus een class-talent dat hij niet gekozen had.
+- [ ] **Na de online-ronde (10 sep): drie macro's vervangen, check ze op je eigen klassen.** Rob heeft
+      geen Warrior, Monk of Evoker, dus die rusten op bronnen. Doe `/mh macrocheck` in deze specs:
+      - **Paladin, Retribution:** *Mouseover Execution Sentence* vervangt *Cursor Execution*, want
+        Final Reckoning bestaat niet meer. Hoort **known** te zeggen.
+      - **Priest, Shadow:** *Mouseover Tentacle Slam* vervangt *Cursor Shadow Crash*, en hoort **known**
+        te zeggen. De drie Void Torrent-macro's zeggen nu dat Void Torrent alleen bij **Voidweaver**
+        bestaat.
+      - **Shaman, Enhancement:** *Cursor Totems* gebruikt **Windfury Totem**. Die vond ik niet terug in
+        de gidsen voor 12.1. Zegt macrocheck **not found**, meld het dan.
+      - **Warlock, Demonology:** *Cursor Guillotine*. Bestaat volgens de bronnen nog (Wowhead 12.1),
+        meestal als talent.
 
 ## 🆕 10 sep avond — Dundun-macro met een maan
 
