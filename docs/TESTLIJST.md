@@ -52,6 +52,8 @@ spec waarin je nu zit, dus kijk per personage.
     📌 Verklaring (online, murlok.io): Misdirection is in Midnight een **talent in de class-boom**, en
     die boom delen alle drie de specs. Dat past bij "in twee specs weg". De uitleg van *Smart
     Misdirection* zegt het nu. Rob kan het zelf nakijken: talenten (N), dan de class-boom.
+    ✅ **Nagekeken door Rob:** zijn talentboom toont Misdirection als node, *Rank 0/1*, Spell ID
+    34477. Het is dus een class-talent dat hij niet gekozen had.
 
 ## 🆕 10 sep avond — Dundun-macro met een maan
 

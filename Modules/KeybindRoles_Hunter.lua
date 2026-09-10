@@ -170,6 +170,9 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	["Mend Pet"] = { category = "utility", priority = 1 }, -- pet-heal (136), baseline
 	["Hunter's Mark"] = { category = "utility", priority = 2 }, -- target-marker (baseline)
-	["Misdirection"] = { category = "utility", priority = 3 }, -- threat-transfer (34477), baseline
+	-- ⚠️ NOT baseline: a CLASS-TREE TALENT in Midnight. Measured 10 Sep 2026 - Rob's hunter showed
+	-- Misdirection as a talent node at Rank 0/1 (spell 34477), and /mh macrocheck read it "not found"
+	-- in BM and MM until taken. No `specs` field stays right: every hunter spec can take it.
+	["Misdirection"] = { category = "utility", priority = 3 }, -- threat-transfer (34477), class talent
 	["Flare"] = { category = "utility", priority = 5 }, -- reveal/dispel-stealth (baseline)
 }

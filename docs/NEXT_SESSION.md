@@ -41,8 +41,10 @@ Rob: *"doe ze allemaal maar, ook die Rapid Fire macro's"*.
 - 🔎 **Tweede meting, Redisch op Marksmanship.** De controle staat op known, en alles is known behalve
   weer **Misdirection**. Online (murlok.io, class-talenten) staat dat Misdirection in Midnight een
   **talent in de class-boom** is, gedeeld door alle specs. Dat verklaart beide metingen.
-  - `KeybindRoles_Hunter.lua` noemt hem nog "baseline". Dat heb ik **niet** aangepast: het is
-    keybind-data, en dit rust op één bron.
+  - ✅ **GEMETEN door Rob, 10 sep:** zijn talentboom toont Misdirection als node, *Rank 0/1*, Spell
+    ID 34477. Het is dus een class-talent dat hij niet gekozen had, en murlok.io klopte. Het
+    commentaar in `KeybindRoles_Hunter.lua`, dat "baseline" zei, is aangepast. Het veld zelf (geen
+    `specs`) klopt nog: elke spec kan het talent kiezen.
   - De uitleg van *Smart Misdirection* (bij BM en MM) zegt nu dat je het talent nodig hebt.
 
 ## 🧰 10 sep avond — Spec 33, eerste ronde. De "nog open"-lijst hieronder is inmiddels afgewerkt (zie boven)
