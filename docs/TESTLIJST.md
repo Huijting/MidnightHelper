@@ -44,8 +44,8 @@ Rob koos *"doe maar allebei"*: A (achievement-kaart) én B (uit de rares-lijst).
   - Ori'kassi: **A 96969 done / B 93722 --**
   - Leviathan: **A 96970 done / B 93673 --**
 
-  Een surge-kill zet dus de account-vlag (A), niet die van het personage (B). ⚠️ Dat geldt voor het
-  personage waarop je hem draaide. De lijst vroeg Earthshammy; **nog bevestigen dat hij het was.**
+  Een surge-kill zet dus de account-vlag (A), niet die van het personage (B). ✅ Gemeten op
+  **Earthshammy**, het personage dat de surge de avond ervoor deed (Rob bevestigde het).
 - [ ] 🔎 **`/mh atal`, gedraaid 10 sep rond 12:03: GEEN surge-POI.** Op 2512 stond precies één
       area-POI: 8927 *Special Assignment: Wraith Wrath*. Dat is de positieve controle: de probe leest
       die kaart wél. Er stond geen surge tussen, niet 8887–8891 (Zygor) en niet 8936–8940

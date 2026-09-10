@@ -6,7 +6,8 @@
   de popup met de baasnaam, zoeken op `kassi`, en de tegenproef bij Mix Master. De popup-bug is
   daarmee echt weg. Details staan in `docs/TESTLIJST.md`.
 - 🔎 **`/mh rarequests`:** een surge-kill zet band **A** (96969/96970 done) en niet band **B**
-  (93722/93673 --). Nog bevestigen dat het op Earthshammy was. Vastgelegd bij `RARE_QUEST_PAIRS`.
+  (93722/93673 --). GEMETEN op Earthshammy, die de surge deed (Rob bevestigde het personage).
+  Vastgelegd bij `RARE_QUEST_PAIRS`.
 - 🔎 **`/mh atal` (SV `atalProbe`, at=1789034570, 10 sep ~12:03):** op 2512 stond alleen POI 8927
   (Wraith Wrath). Dat is de positieve controle; een surge-POI was er niet. **C blijft dicht** tot een
   meting terwijl er zichtbaar een surge loopt.
