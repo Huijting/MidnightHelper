@@ -232,8 +232,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "smart_misdirection",
 			name = "Smart Misdirection",
-			descNl = "Misdirection op je focus (tank) indien aanwezig, anders op je pet.",
-			descEn = "Misdirection on focus (tank) if set, otherwise on your pet.",
+			descNl = "Misdirection op je focus (tank) indien aanwezig, anders op je pet. Let op: Misdirection is in Midnight een talent in de class-boom. Heb je dat talent niet gekozen, dan doet deze knop niets.",
+			descEn = "Misdirection on your focus (tank) if set, otherwise on your pet. Note: in Midnight Misdirection is a talent in the class tree. Without that talent this button does nothing.",
 			macro = [=[#showtooltip Misdirection
 /cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection]=],
 			},
@@ -283,8 +283,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "smart_misdirection",
 			name = "Smart Misdirection",
-			descNl = "Misdirection op je focus (tank) indien aanwezig, anders op je pet.",
-			descEn = "Misdirection on focus (tank) if set, otherwise on your pet.",
+			descNl = "Misdirection op je focus (tank) indien aanwezig, anders op je pet. Let op: Misdirection is in Midnight een talent in de class-boom. Heb je dat talent niet gekozen, dan doet deze knop niets.",
+			descEn = "Misdirection on your focus (tank) if set, otherwise on your pet. Note: in Midnight Misdirection is a talent in the class tree. Without that talent this button does nothing.",
 			macro = [=[#showtooltip Misdirection
 /cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection]=],
 			},

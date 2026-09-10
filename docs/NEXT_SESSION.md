@@ -38,6 +38,12 @@ Rob: *"doe ze allemaal maar, ook die Rapid Fire macro's"*.
     of verhuisd is. Een map in `WTF` bewijst dus niet dat een personage bestaat. De addon slaat per
     personage ook geen klasse op in het accountoverzicht; dat is gemeten, er staat geen `class`-veld
     in. De Rapid Fire-macro is wel echt Robs eigen werk: die macro's stonden in dat bestand.
+- 🔎 **Tweede meting, Redisch op Marksmanship.** De controle staat op known, en alles is known behalve
+  weer **Misdirection**. Online (murlok.io, class-talenten) staat dat Misdirection in Midnight een
+  **talent in de class-boom** is, gedeeld door alle specs. Dat verklaart beide metingen.
+  - `KeybindRoles_Hunter.lua` noemt hem nog "baseline". Dat heb ik **niet** aangepast: het is
+    keybind-data, en dit rust op één bron.
+  - De uitleg van *Smart Misdirection* (bij BM en MM) zegt nu dat je het talent nodig hebt.
 
 ## 🧰 10 sep avond — Spec 33, eerste ronde. De "nog open"-lijst hieronder is inmiddels afgewerkt (zie boven)
 

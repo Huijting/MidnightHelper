@@ -154,8 +154,10 @@
       },
       {
         "name": "Smart Misdirection",
-        "description": "Misdirection op je focus (tank) indien aanwezig, anders op je pet.",
-        "macro": "#showtooltip Misdirection\n/cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection"
+        "description": "Misdirection op je focus (tank) indien aanwezig, anders op je pet. Let op: Misdirection is in Midnight een talent in de class-boom. Heb je dat talent niet gekozen, dan doet deze knop niets.",
+        "macro": "#showtooltip Misdirection\n/cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection",
+        "descriptionEn": "Misdirection on your focus (tank) if set, otherwise on your pet. Note: in Midnight Misdirection is a talent in the class tree. Without that talent this button does nothing.",
+        "note": "10 Sep 2026: /mh macrocheck on Rob's hunter read Misdirection 'not found' in BM and MM with the control known. murlok.io lists it as a class-tree talent, shared by all specs."
       },
       {
         "name": "Turtle Cancel",
@@ -192,8 +194,10 @@
       },
       {
         "name": "Smart Misdirection",
-        "description": "Misdirection op je focus (tank) indien aanwezig, anders op je pet.",
-        "macro": "#showtooltip Misdirection\n/cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection"
+        "description": "Misdirection op je focus (tank) indien aanwezig, anders op je pet. Let op: Misdirection is in Midnight een talent in de class-boom. Heb je dat talent niet gekozen, dan doet deze knop niets.",
+        "macro": "#showtooltip Misdirection\n/cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection",
+        "descriptionEn": "Misdirection on your focus (tank) if set, otherwise on your pet. Note: in Midnight Misdirection is a talent in the class tree. Without that talent this button does nothing.",
+        "note": "10 Sep 2026: /mh macrocheck on Rob's hunter read Misdirection 'not found' in BM and MM with the control known. murlok.io lists it as a class-tree talent, shared by all specs."
       },
       {
         "name": "Cursor Traps",

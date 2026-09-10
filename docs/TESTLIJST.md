@@ -46,6 +46,12 @@ spec waarin je nu zit, dus kijk per personage.
     ⚠️ Onze `KeybindRoles_Hunter.lua` noemt Misdirection *baseline*, maar de client zegt dat dit
     personage hem niet kent. Is het een talent dat Rob niet gekozen heeft, of is hij weg in 12.1?
     **Rob gevraagd.**
+  - ✅ **Hunter MM (Redisch op Marksmanship), 10 sep.** De controle staat op known. Volley, Freezing
+    Trap, Hunter's Mark en Aimed Shot (uit de Rapid Fire-macro) zijn known, **alleen Misdirection is
+    weer not found**.
+    📌 Verklaring (online, murlok.io): Misdirection is in Midnight een **talent in de class-boom**, en
+    die boom delen alle drie de specs. Dat past bij "in twee specs weg". De uitleg van *Smart
+    Misdirection* zegt het nu. Rob kan het zelf nakijken: talenten (N), dan de class-boom.
 
 ## 🆕 10 sep avond — Dundun-macro met een maan
 
