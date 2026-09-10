@@ -8,6 +8,13 @@ die ook niet in onze addon verwerken? met uitleg natuurlijk?"*
 
 ---
 
+> **STATUS 10 sep 2026, avond.**
+> - ✅ De macro's uit §3 (a, a2, b, c) en §4 (Cursor Traps op alle drie de hunter-specs) zijn gebouwd.
+>   Daarbij kwam Mouseover Hunter's Mark, op Robs vraag.
+> - ⛔ **Nog open:** §2a (zoekindex uit de data), §2b (`/mh macros`), §2c (verwijzing vanuit de
+>   Tools-zaal) en §7 (de data tegen de 12.1-client leggen).
+> - De actuele stand staat in `docs/NEXT_SESSION.md`.
+
 ## 1. Het ongemakkelijke antwoord
 
 **Dat doen we al, en uitgebreider dan wat ik hem gaf.** GEMETEN:

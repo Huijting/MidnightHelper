@@ -130,6 +130,19 @@ ns.TeamMacrosByClassSpec = {
 			macro = [=[#showtooltip Ursol's Vortex
 /cast [@cursor] Ursol's Vortex]=],
 			},
+			--- ADDED 10 Sep 2026 (Spec 33 §3c). Demon Hunter, Monk and Paladin already had a
+			--- mouseover taunt; Guardian was the one tank without. Growl is Guardian (104) in
+			--- KeybindRoles_Druid.lua, and this is index 3 in the client spec order.
+			{
+			id = "mouseover_taunt",
+			name = "Mouseover Growl",
+			descNl = "Pak een vijand terug die je maat aanvalt, zonder je eigen doel los te laten."
+				.. " Staat je muis nergens op, dan gaat hij op je doel.",
+			descEn = "Taunt whatever is attacking an ally without dropping your current target."
+				.. " With the cursor on nothing it goes on your target.",
+			macro = [=[#showtooltip Growl
+/cast [@mouseover,harm,nodead][] Growl]=],
+			},
 		},
 		[4] = {
 			{
@@ -209,6 +222,29 @@ ns.TeamMacrosByClassSpec = {
 	},
 	HUNTER = {
 		[1] = {
+			--- 🐾 ADDED 10 Sep 2026 (Spec 33 §3a). Rob's own Beast Mastery hunter has run exactly
+			--- these lines as his first button since the Method guide of 5 Sep, so this is the one
+			--- macro here that has been played with rather than only read. The /use lines are
+			--- what make the pet follow: Claw, Bite and Smack are the basic attack of every pet
+			--- family, so one of the three always fires. Rob: "dat soort macro's moet bij ons in de
+			--- macro set komen" - he had it on one character and could not find it on another PC.
+			{
+			id = "pet_attack_command",
+			name = "Kill Command + Pet Attack",
+			descNl = "Kill Command, en je pet valt meteen mee aan. Zonder de /use-regels gaat je pet"
+				.. " niet altijd betrouwbaar mee; samen dekken ze de aanvalsknop van elk pettype"
+				.. " (Claw, Bite of Smack), dus één ervan werkt altijd. Zet de drie /use-regels ook"
+				.. " onder je andere aanvalsknoppen.",
+			descEn = "Kill Command, and your pet attacks straight away. Without the /use lines the"
+				.. " pet does not always follow reliably; together they cover every pet family's"
+				.. " basic attack (Claw, Bite or Smack), so one of them always fires. Put the three"
+				.. " /use lines under your other attack buttons too.",
+			macro = [=[#showtooltip
+/cast Kill Command
+/use [@pettarget]Claw
+/use [@pettarget]Bite
+/use [@pettarget]Smack]=],
+			},
 			{
 			id = "smart_misdirection",
 			name = "Smart Misdirection",
@@ -225,6 +261,46 @@ ns.TeamMacrosByClassSpec = {
 			macro = [=[#showtooltip Aspect of the Turtle
 /cast Aspect of the Turtle
 /cancelaura Aspect of the Turtle]=],
+			},
+			--- ADDED 10 Sep 2026 (Spec 33 §3a2). Barbed Shot is BM-only (KeybindRoles_Hunter.lua).
+			{
+			id = "mouseover_barbed",
+			name = "Mouseover Barbed Shot",
+			descNl = "Legt Barbed Shot op de vijand onder je muis, zonder je huidige doel los te"
+				.. " laten. Staat je muis nergens op, dan gaat hij op je doel.",
+			descEn = "Puts Barbed Shot on the enemy under your cursor without dropping your current"
+				.. " target. With the cursor on nothing it goes on your target.",
+			macro = [=[#showtooltip Barbed Shot
+/cast [@mouseover,harm,nodead][] Barbed Shot]=],
+			},
+			--- ADDED 10 Sep 2026 (Spec 33 §4). Freezing Trap is baseline for all three specs
+			--- (KeybindRoles_Hunter.lua lists it with no `specs`), so Cursor Traps sitting under
+			--- Survival alone hid it from every BM and MM hunter. Same entry in all three.
+			{
+			id = "cursor_traps",
+			name = "Cursor Traps",
+			descNl = "Zet Freezing Trap direct op je muiscursor, zonder eerst het cirkeltje op de"
+				.. " grond te hoeven plaatsen en nog een keer te klikken.",
+			descEn = "Places Freezing Trap straight at your cursor, without the targeting circle"
+				.. " and a second click.",
+			macro = [=[#showtooltip Freezing Trap
+/cast [@cursor] Freezing Trap]=],
+			},
+			--- ADDED 10 Sep 2026 at Rob's request ("die Hunter's Mark erbij bouwen?"). Hunter's Mark
+			--- is baseline (KeybindRoles_Hunter.lua, no `specs`), so the same entry sits in all three
+			--- specs. The mouseover shape is the point: mark the priority target without switching
+			--- to it. Nothing here claims how the mark behaves in 12.1 - that is not measured.
+			{
+			id = "mouseover_hunters_mark",
+			name = "Mouseover Hunter's Mark",
+			descNl = "Zet Hunter's Mark op de vijand onder je muis, zonder je huidige doel los te"
+				.. " laten: handig om de baas te markeren terwijl je iets anders aanvalt. Staat je muis"
+				.. " nergens op, dan gaat hij op je doel.",
+			descEn = "Puts Hunter's Mark on the enemy under your cursor without dropping your current"
+				.. " target: handy for marking the boss while you are hitting something else. With the"
+				.. " cursor on nothing it goes on your target.",
+			macro = [=[#showtooltip Hunter's Mark
+/cast [@mouseover,harm,nodead][] Hunter's Mark]=],
 			},
 		},
 		[2] = {
@@ -244,13 +320,49 @@ ns.TeamMacrosByClassSpec = {
 			macro = [=[#showtooltip Misdirection
 /cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection]=],
 			},
-		},
-		[3] = {
 			{
 			id = "cursor_traps",
 			name = "Cursor Traps",
-			descNl = "Gooit je vallen direct op je muiscursor.",
-			descEn = "Place traps at your cursor.",
+			descNl = "Zet Freezing Trap direct op je muiscursor, zonder eerst het cirkeltje op de"
+				.. " grond te hoeven plaatsen en nog een keer te klikken.",
+			descEn = "Places Freezing Trap straight at your cursor, without the targeting circle"
+				.. " and a second click.",
+			macro = [=[#showtooltip Freezing Trap
+/cast [@cursor] Freezing Trap]=],
+			},
+			{
+			id = "mouseover_hunters_mark",
+			name = "Mouseover Hunter's Mark",
+			descNl = "Zet Hunter's Mark op de vijand onder je muis, zonder je huidige doel los te"
+				.. " laten: handig om de baas te markeren terwijl je iets anders aanvalt. Staat je muis"
+				.. " nergens op, dan gaat hij op je doel.",
+			descEn = "Puts Hunter's Mark on the enemy under your cursor without dropping your current"
+				.. " target: handy for marking the boss while you are hitting something else. With the"
+				.. " cursor on nothing it goes on your target.",
+			macro = [=[#showtooltip Hunter's Mark
+/cast [@mouseover,harm,nodead][] Hunter's Mark]=],
+			},
+		},
+		[3] = {
+			{
+			id = "mouseover_hunters_mark",
+			name = "Mouseover Hunter's Mark",
+			descNl = "Zet Hunter's Mark op de vijand onder je muis, zonder je huidige doel los te"
+				.. " laten: handig om de baas te markeren terwijl je iets anders aanvalt. Staat je muis"
+				.. " nergens op, dan gaat hij op je doel.",
+			descEn = "Puts Hunter's Mark on the enemy under your cursor without dropping your current"
+				.. " target: handy for marking the boss while you are hitting something else. With the"
+				.. " cursor on nothing it goes on your target.",
+			macro = [=[#showtooltip Hunter's Mark
+/cast [@mouseover,harm,nodead][] Hunter's Mark]=],
+			},
+			{
+			id = "cursor_traps",
+			name = "Cursor Traps",
+			descNl = "Zet Freezing Trap direct op je muiscursor, zonder eerst het cirkeltje op de"
+				.. " grond te hoeven plaatsen en nog een keer te klikken.",
+			descEn = "Places Freezing Trap straight at your cursor, without the targeting circle"
+				.. " and a second click.",
 			macro = [=[#showtooltip Freezing Trap
 /cast [@cursor] Freezing Trap]=],
 			},
@@ -477,6 +589,43 @@ ns.TeamMacrosByClassSpec = {
 			descEn = "Key macro: cast Shadow Crash at your cursor to spread DoTs quickly.",
 			macro = [=[#showtooltip Shadow Crash
 /cast [@cursor] Shadow Crash]=],
+			},
+			--- ADDED 10 Sep 2026 (Spec 33 §3b). Void Torrent is a Shadow channel
+			--- (KeybindRoles_Priest.lua), and pressing the next button cancels it.
+			--- [nochanneling:Void Torrent] makes these three wait for it instead. Voidform is the
+			--- 12.0 name of Void Eruption (228260 in KeybindRoles_Priest.lua).
+			--- ⚠️ Checked against our spell data only; no Shadow priest has pressed these yet.
+			{
+			id = "nochanneling_madness",
+			name = "Madness without breaking Void Torrent",
+			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel"
+				.. " klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat"
+				.. " hij daarop.",
+			descEn = "Press it while Void Torrent is still channelling: it fires when the channel"
+				.. " ends instead of cancelling it. With the cursor on an enemy it goes there.",
+			macro = [=[#showtooltip Shadow Word: Madness
+/cast [nochanneling:Void Torrent,@mouseover,harm,nodead][nochanneling:Void Torrent] Shadow Word: Madness]=],
+			},
+			{
+			id = "nochanneling_voidform",
+			name = "Voidform without breaking Void Torrent",
+			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: Voidform gaat pas aan als de"
+				.. " channel klaar is, in plaats van hem af te breken.",
+			descEn = "Press it while Void Torrent is still channelling: Voidform goes up when the"
+				.. " channel ends instead of cancelling it.",
+			macro = [=[#showtooltip Voidform
+/cast [nochanneling:Void Torrent] Voidform]=],
+			},
+			{
+			id = "nochanneling_mind_blast",
+			name = "Mind Blast without breaking Void Torrent",
+			descNl = "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel"
+				.. " klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat"
+				.. " hij daarop.",
+			descEn = "Press it while Void Torrent is still channelling: it fires when the channel"
+				.. " ends instead of cancelling it. With the cursor on an enemy it goes there.",
+			macro = [=[#showtooltip Mind Blast
+/cast [nochanneling:Void Torrent,@mouseover,harm,nodead][nochanneling:Void Torrent] Mind Blast]=],
 			},
 		},
 	},

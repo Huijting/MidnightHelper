@@ -1,5 +1,31 @@
 # Midnight Helper — waar we staan
 
+## 🧰 10 sep avond — Spec 33: de macro's gebouwd, de vindbaarheid nog NIET
+
+Rob vond zijn eigen BM-hunter-macro ("method", op Redisch, Lightbringer; alleen dat personage) niet
+terug op Carola's pc: *"dat soort macro's moet bij ons in de macro set komen"*. Spec 33 (7 sep) had
+precies deze al op de lijst en stond op "na 3.10.0". GEMETEN vóór het bouwen: van Spec 33 was
+**niets** gebouwd.
+
+**Nu gebouwd in `TeamMacrosData.lua`.** Elke spellnaam is gecontroleerd tegen `KeybindRoles_*.lua`,
+en de spec-index tegen `InterruptMacrosData.lua`.
+- Hunter BM: **Kill Command + Pet Attack** (§3a, Robs eigen tekst, als eerste), **Mouseover Barbed
+  Shot** (§3a2).
+- Hunter alle drie de specs: **Cursor Traps** (§4; Freezing Trap is baseline) en **Mouseover
+  Hunter's Mark** (Robs vraag, 10 sep; baseline).
+- Druid Guardian: **Mouseover Growl** (§3c).
+- Priest Shadow: Madness, Voidform en Mind Blast **zonder Void Torrent af te breken** (§3b).
+
+**Nog OPEN uit Spec 33, niet gebouwd:**
+1. §2a: de zoekfunctie vindt de Macros-tab nog steeds alleen op *interrupt / macro / kick*
+   (`NavSearch.lua:239`). Die zoekindex zou uit `TeamMacrosData.lua` moeten komen.
+2. §2b: er is geen `/mh macros` (GEMETEN: `Core.lua` kent "macros" alleen als tab-vlag).
+3. §2c: de Tools-zaal noemt de Macros-tab niet.
+4. §7: de hele macrodata is nog nooit tegen de 12.1-client gelegd.
+5. Kandidaat uit Robs eigen macro's, **niet toegevoegd, Rob beslist**: op Watchmenow (MM) staat
+   `/use [nochanneling:rapid fire] …` met `/cancelaura Aspect of the turtle` onder vijf schoten.
+   Dat is dezelfde soort als de Shadow-macro's: je channel niet afbreken.
+
 ## 🌙 10 sep avond — Dundun-macro zet nu een maan
 
 Rob: het ping-vlaggetje verdwijnt; kan dat langer? **Nee.** Het is WoW's eigen Ping System; de duur

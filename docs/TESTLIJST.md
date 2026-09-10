@@ -7,6 +7,22 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 10 sep avond — nieuwe macro's in de Macros-tab (Spec 33 + Hunter's Mark)
+
+Rob: *"dat soort macro's moet bij ons in de macro set komen"*. De Macros-tab toont macro's voor de
+spec waarin je nu zit, dus kijk per personage.
+
+- [ ] **Hunter, Beast Mastery** (Redisch): bovenaan **Kill Command + Pet Attack**, precies de
+      "method"-macro die je al gebruikt. Daarnaast nieuw: **Mouseover Barbed Shot**, **Cursor Traps**
+      en **Mouseover Hunter's Mark**.
+- [ ] **Hunter, Marksmanship** (Watchmenow): nieuw **Cursor Traps** en **Mouseover Hunter's Mark**.
+- [ ] **Mouseover Hunter's Mark doen:** muis op een tweede vijand, druk. Het teken hoort op die vijand
+      te komen terwijl je doel blijft wie het was.
+- [ ] **Druid, Guardian:** nieuw **Mouseover Growl**.
+- [ ] **Priest, Shadow:** drie nieuwe, die Void Torrent niet afbreken: *Madness*, *Voidform* en
+      *Mind Blast without breaking Void Torrent*. ⚠️ Alleen gecontroleerd tegen onze spelldata,
+      niet gespeeld.
+
 ## 🆕 10 sep avond — Dundun-macro met een maan
 
 - [x] ✅ **GEZIEN 10 sep avond, Rob: *"hij werkt goed"*.** De Find Dundun-macro zet nu ook een 🌙
