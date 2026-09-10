@@ -503,3 +503,99 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   van `Modules/MountProgress.lua`, `Modules/CorrosiveCodexHunts.lua`, `Modules/TradingPost.lua`,
   `Modules/EventScheduler.lua` — allemaal vandaag gelezen. **[RAAKT ONS NIET]** op alle punten.
   Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-09-10] ⚠️ **Nieuwe sectie "September 9, 2026" (eerste sinds 4 sep) — één geldige tekstuele
+  tegenspraak-kandidaat op Ula'tek, verder geen tegenspraak.** `Exa web_fetch_exa` met
+  `?nocache=20260910` op news.blizzard.com's doorlopende hotfix-artikel, **volledige artikeltekst
+  zelf gelezen**: sectie "September 9, 2026" staat nu bovenaan, dus nieuwer dan de "September 4"-
+  sectie die vijf dagen op rij ([2026-09-05] t/m [2026-09-09]) de nieuwste was — geen cache-val,
+  gewoon nieuwe content. Onafhankelijk bevestigd door `web_search_exa`: een consolepcgaming.com-
+  artikel gepubliceerd 10 sep citeert dezelfde 9-sep-hotfixlijst woordelijk. Categorieën in de
+  9-sep-sectie: Achievements, Classes, Delves, Dungeons and Raids, Items, Player versus PvP, Prey,
+  The Burning Crusade Classic (ander spel, niet retail — genegeerd). **Professions en Quests: leeg**
+  in deze sectie (Blizzard laat lege categorieën gewoon weg, zelfde patroon als eerdere dagen) —
+  niets om te vergelijken.
+
+  📌 **Positieve controle, zelfde repo-brede scope als de claims hieronder:** `grep -ri "Entombed
+  Sentinels"` geeft treffers in `Modules/RaidCoachData.lua:90` en `docs/PTR_S2_ENCOUNTERS.md:73`;
+  `grep -ri "Sentinel of Winter"` geeft een treffer in `Modules/DungeonRosterData.lua:121`. Beide
+  patronen vinden dus iets op deze schaal — de 0-treffers verderop zijn gemeten afwezigheid.
+
+  **Bevindingen:**
+  - **Achievements — Soft Underbelly is nu account-wide.** Wij tracken achievementID 62601 zelf
+    (`Modules/AchievementsData.lua:173`) puur als coördinaten-/checklist-node-lijst, gelezen live
+    via `GetAchievementCriteriaInfo` (client-side, dus automatisch account-wide-bewust) — nergens
+    claimen we dat voortgang per personage apart telt. MEASURED (`Modules/AchievementsData.lua:93,
+    160-179`, `Modules/Achievements.lua:93-99` gelezen). **[RAAKT ONS NIET]**
+  - **Delves — Bountiful Coffers gaven geen Zul'jarra's Forces-reputatie; nu gefixed.** Onze
+    Bountiful-Coffer-tekst (`Modules/Delves.lua:774-780`) gaat over gear-tier/track-cijfers (Trove-
+    hunter's Bounty, Champion/Hero-tracks), niet over welke factie-reputatie de coffer geeft. Onze
+    Zul'jarra's-Forces-treffers (`Modules/MountProgress.lua:119`, `Modules/CorrosiveCodexHunts.lua:290`,
+    beide eerder gemeten) gaan over Renown-drempels voor mounts/achievements, niet over de coffer als
+    rep-bron. MEASURED (0 treffers op "Bountiful Coffer" + "reputation"/"reputatie" in dezelfde zin,
+    repo-breed). **[RAAKT ONS NIET]**
+  - **Dungeons and Raids — Den of Nalorakk: player pets konden The Winter Squall niet beschadigen;
+    nu gefixed.** ⚠️ Naamcollision gecontroleerd: "The Winter Squall" zelf staat 0× in de repo. De
+    boss heet bij ons "Sentinel of Winter" (`Modules/DungeonRosterData.lua:121`) met de ability
+    "Raging Squalls" ({SPELL:1235623}, `Locales/DungeonTips.lua:95` + 6 taalvarianten) — vermoedelijk
+    dezelfde encounter onder een andere naam voor een add/verschijning, maar niet met zekerheid
+    dezelfde entiteit. Onze tip zegt alleen "weef eromheen" (ontwijken), claimt niets over pets die
+    hem wel/niet kunnen beschadigen — dus geen tekstuele tegenspraak, wel INFERRED dezelfde
+    encounter. **[RAAKT ONS NIET]**
+  - **Dungeons and Raids — The Venomous Abyss, Entombed Sentinels: Toxic Droplets stonden niet meer
+    direct te ontploffen bij landen op een speler; Living Venom doorbreekt geen immuniteiten meer.**
+    ⚠️ **Niet met een naam-grep te beslissen, zelfde situatie als de Ula'tek-soak-ID's uit
+    [2026-09-05].** `RAID_BOSS_ENTOMBEDSENT_STEPS` (`Locales/RaidTips.lua:36-38`, zeven
+    taalvarianten) noemt uitsluitend kale `{SPELL:id}`-links (1284588 stack-puzzel, 1288232
+    group-soak, 1284251 grote adds, 1296878 Mythic-kleurwissel, 1284458/1284487 tank-swap, 1284483
+    healer-dispel) — geen van die ID's staat ergens anders in de repo met een naam erbij, dus ik kan
+    niet vaststellen of "Toxic Droplets" of "Living Venom" een van deze mechanieken IS. MEASURED dat
+    de vraag onbeslisbaar is met wat in de repo staat. **[RAAKT ONS NIET]** als actiepunt vandaag,
+    geen bevestigde non-match.
+  - **Dungeons and Raids — The Venomous Abyss, The Lost Explorers: Hoji teleporteert nu terug naar
+    het hoofdplatform als hij van de brug valt.** "Hoji" staat 0× in `Locales/`/`Modules/` (enige
+    twee repo-treffers zijn in `docs/PTR_12.1_WATCH.md` en `docs/PTR_12.0.7_DATA.md`, niet in
+    geshipte tekst). `RAID_BOSS_LOSTEXPLORERS_STEPS` (`Locales/RaidTips.lua:39`) gaat over interrupt,
+    vloer-ontwijken en Tortollan-bezetenheid — geen brug, geen Hoji. Dit is een unstuck-fix, geen
+    mechaniek die wij beschrijven. MEASURED. **[RAAKT ONS NIET]**
+  - **🔴 Dungeons and Raids — The Venomous Abyss, Ula'tek: health-backstops toegevoegd zodat de boss
+    "Rage of the Shackled" verlaat bij specifieke health-drempels.** "Rage of the Shackled" staat 0×
+    in de repo — geen bevestigde naam-match. Maar `RAID_BOSS_ULATEK_STEPS` (`Locales/RaidTips.lua:51`,
+    zeven taalvarianten) sluit zelf af met: "{SPELL:1286905} in de laatste fase is de soft enrage —
+    **die stopt niet**." Als "Rage of the Shackled" dezelfde fase is als die soft enrage (aannemelijk
+    qua naam en positie: laatste fase, een rage-mechaniek), dan zegt Blizzards hotfix nu juist dat de
+    boss die fase ONDER bepaalde health-drempels wél verlaat — het tegenovergestelde van "stopt niet".
+    ⚠️ Ik los deze ambiguïteit niet zelf op: spell-ID 1286905 staat nergens anders in de repo met een
+    naam erbij, dus ik kan de identiteit niet bevestigen, en "stopt niet" kan ook alleen op de
+    damage-toename slaan (blijft doorschalen) in plaats van op de fase zelf, wat geen tegenspraak zou
+    zijn. MEASURED dat de vraag openstaat; INFERRED dat het de moeite waard is om na te trekken.
+    **[RAAKT ONS]** — geen bevestigde tegenspraak, wel de sterkste kandidaat van vandaag; Rob/wie
+    `RaidTips.lua`'s Ula'tek-tekst ooit natoetst kan dit meenemen.
+  - **Items — Preternatural Antivenom trinket: effect werkte alleen op de drager, nu gefixed (los
+    van de absorb-cap/genezingspercentage-fix van [2026-09-05]).** 0 treffers op "Preternatural" of
+    "Antivenom" in `Locales/`/`Modules/` (de enige twee repo-treffers zijn deze eigen watch-historie).
+    MEASURED. **[RAAKT ONS NIET]**
+  - **Prey — spelers boven Preyhunter's Journey renown 6 krijgen nu op elk personage 500 Corrosive
+    Coin per dag voor het verslaan van Ral'kala (was alleen het eerste personage).** Onze
+    Preyhunter's-Journey-treffers (`Modules/Delves.lua:253-260`, `Modules/MountProgress.lua:134`)
+    gaan over de renown-drempel als portal-gate, niet over een dagelijkse Corrosive-Coin-beloning
+    voor Ral'kala. MEASURED (0 treffers op "Ral'kala" in `Locales/`/`Modules/`). **[RAAKT ONS NIET]**
+  - **Achievements/Classes/PvP/Burning Crusade Classic, overig:** klassenbalans (Death Knight,
+    Druid, Paladin, Priest, Shaman, Warrior — Cooldown Manager-tracking en kleine fixes), Evoker
+    Preservation Stasis-exploit in arena's, en een Burning Crusade Classic-questfix (ander spel).
+    Gevestigd patroon: MH volgt geen rotatie-/balanscijfers en geen Classic-content. **[RAAKT ONS
+    NIET]**
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260910 (volledig gelezen via
+  Exa) · `web_search_exa` "World of Warcraft hotfixes September 9/10 2026" (consolepcgaming.com,
+  gepubliceerd 10 sep, bevestigt dezelfde lijst onafhankelijk). Codebase-kant: `grep`
+  case-insensitive repo-breed op alle hierboven genoemde namen en spell-ID's, plus gerichte reads
+  van `Modules/AchievementsData.lua`, `Modules/Achievements.lua`, `Modules/Delves.lua`,
+  `Modules/DungeonRosterData.lua`, `Locales/DungeonTips.lua`, `Locales/RaidTips.lua`,
+  `Modules/RaidCoachData.lua`, `Modules/MountProgress.lua`, `Modules/CorrosiveCodexHunts.lua`,
+  `Modules/Delves.lua` — allemaal vandaag gelezen. **[RAAKT ONS NIET]** op zeven van acht punten,
+  **[RAAKT ONS]** op de Ula'tek-"Rage of the Shackled"-vraag (hierboven) — geen bevestigde
+  tegenspraak, wel de sterkste openstaande kandidaat. Geen actiepunt dat ík kan oppakken — ik
+  rapporteer, een mens beslist.
