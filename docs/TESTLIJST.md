@@ -20,9 +20,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [x] ✅ **Grondmarkeringen werken in een delve met alleen Valeera. GEMETEN 10 sep:** Rob typte
       `/wm [@cursor] 7` en de maan lag er. Volgens de wiki kan het alleen in een groep; een delve telt
       dus als groep.
-- [ ] **Nieuwe macro *Moon on the ground***: Macros-tab → *World* → de tweede macro. Maak hem aan, en
-      druk erop terwijl je muis op de plek bij Dundun wijst. De maan hoort op de grond te komen, en bij
-      een tweede druk op een andere plek hoort hij te **verhuizen** in plaats van dubbel te liggen.
+- [x] ❌ ***Moon on the ground*: getest en weer weggehaald (10 sep).** Met `[@cursor]` komt de maan
+      waar je muis staat (*"dat is niet handig"*). Met `[@target]` en `[@player]` vraagt de game nog
+      steeds om een klik op de grond. Rob: *"vergeet die world marker"*. Alleen Find Dundun met de maan
+      boven zijn hoofd blijft. 📌 **Verwijder je eigen *Moon on the ground*-macro zelf** via `/macro`.
 
 ## 🆕 10 sep middag — na de test: vier kleine dingen
 

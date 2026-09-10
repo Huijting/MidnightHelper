@@ -453,26 +453,16 @@ ns.WORLD_MACROS = {
 /tm 0
 /tm 5]=],
 	},
-	--- 🌙 A MOON ON THE GROUND, 10 Sep 2026. Rob asked for a world-marker moon as well. A macro
-	--- can put a world marker only at the mouse cursor or at your own feet, never on a target
-	--- (wowpedia /worldmarker; WoWUIBugs #606), so it cannot live inside Find Dundun: there it
-	--- would land wherever the mouse happened to be. It is its own button: point, press.
-	--- World markers need a group. ✅ MEASURED 10 Sep: Rob placed one with `/wm [@cursor] 7` in a
-	--- delve with only Valeera, so a delve counts. The moon is world marker 7 (FastMark.lua's
-	--- table), not 5 - the two numberings differ. `/cwm 7` runs first, so a second press moves
-	--- the moon instead of relying on how re-placing behaves.
-	{
-		id = "ground_moon",
-		name = "Moon on the ground",
-		descEn = "Put the moon world marker on the ground where your mouse points, moving it if"
-			.. " it is already down. Point at Dundun once Find Dundun has shown you where he is."
-			.. " Works in a delve with only Valeera.",
-		descNl = "Zet de maan als grondmarkering waar je muis wijst, en verplaatst hem als hij al"
-			.. " ligt. Wijs naar Dundun zodra Find Dundun heeft laten zien waar hij staat."
-			.. " Werkt in een delve met alleen Valeera.",
-		macro = [=[/cwm 7
-/wm [@cursor] 7]=],
-	},
+	--- ❌ NO MOON ON THE GROUND. Built and removed the same evening, 10 Sep 2026. Rob asked for a
+	--- world-marker moon as well, and measured every way a macro can place one, in a delve:
+	---   `/wm [@cursor] 7`  drops it where the MOUSE is - "dat is niet handig"
+	---   `/wm [@target] 7`  and  `/wm [@player] 7`  only bring up the ground-placement cursor;
+	---                      the marker still has to be clicked onto the ground
+	--- So on 12.1 no macro puts a world marker on Dundun, whatever the sources say about
+	--- [@player] (wowpedia /worldmarker, WoWUIBugs #606). Rob: "vergeet die world marker".
+	--- Two things that WERE measured and stay useful: world markers work in a delve with only
+	--- Valeera, and the moon is world marker 7 but raid target 5 (FastMark.lua's table).
+	--- Do not re-add this without a new way to place a world marker at a unit.
 }
 
 if type(ns.MacroPanelTypes) == "table" then
