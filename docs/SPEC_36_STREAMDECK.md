@@ -5,6 +5,26 @@
 niet geverifieerd) en wil per knop één MH-scherm openen.
 **Vervangt niet, maar concretiseert:** het geheugenbriefje `keypad-window-shortcuts`.
 
+> ## ✅ STAND 10 sep 2026 — GEMETEN, en §1 hieronder is daarmee verouderd
+>
+> De BOUW-sessie heeft op 9 sep (commit `dfcefc9`) **acht echte keybindings** gebouwd:
+> `MIDNIGHTHELPER_TAB_HOME/_RARES/_DELVES/_CODEX/_PROFESSIONS/_ACHIEVEMENTS/_MOUNTS/_ACCOUNT`
+> in `Bindings.xml`, via `MidnightHelper_KeybindTab(id)` (`Core.lua:769`) = `ShowMainUI` +
+> `SelectTab`. Labels komen uit de `TAB_*`-strings (`BINDING_NAME_OPEN_TAB_FMT`). Niets standaard
+> gebonden. Recept voor Rob: `docs/STREAMDECK.md`.
+>
+> | Onderdeel van deze spec | Stand |
+> |---|---|
+> | Robs drie knoppen (Rares, Delves, Account) | ✅ **gedekt** — elk een eigen binding |
+> | `/mh delves` vs de Delves-tab (§4b) | ✅ opgelost zonder nieuw commando: `_TAB_DELVES` opent de **tab**, `/mh delves` blijft de Coach |
+> | Stap 2 — zes *instelbare* sloten | 🔁 anders gebouwd: **acht vaste** sloten. Zelfde doel, geen instelscherm nodig |
+> | Stap 1 — `/mh <tab>`-fallback | ⬜ **niet gebouwd** (GEMETEN: geen `IsKnownTab`, geen fallback). Niet meer blokkerend voor Rob; nog wel nuttig voor de 20 schermen zonder binding |
+> | Stap 3 — uitleg voor spelers | 🟡 `docs/STREAMDECK.md` bestaat, maar `docs/` gaat niet mee in de zip — bereikt geen speler |
+>
+> 📌 En de iconen: BOUW maakte acht platte SVG→PNG-deckiconen in `docs/streamdeck-icons/`;
+> ONDERZOEK maakte op 10 sep een geschilderde set van 28 + 16 markers in Robs ComfyUI
+> (`E:\ComfyMCP\mh_iconen\`). Twee sets voor hetzelfde doel — zie `SPEC_37` voor welke waarvoor.
+
 ---
 
 ## 0. De harde randvoorwaarde
