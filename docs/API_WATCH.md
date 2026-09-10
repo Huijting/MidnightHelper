@@ -992,3 +992,113 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     schoon, en `git rev-list --count HEAD` staat op **50** — dezelfde 50 commits als waar de
     geforceerde historie gisteren op uitkwam. Stabiel dus; het blijft de moeite waard dat Rob
     bevestigt dat hij die force-push zelf gedaan heeft.
+
+- [2026-09-10] ✅ **Geen relevante API-wijzigingen. 0 × [MOET GEFIKST].** Er zijn na drie stille
+  dagen **nieuwe hotfixes** (9 sep) — die zijn dus gelezen en niet overgeslagen — maar er zit
+  **geen Lua-API-, secure-frame-, taint- of addon-sectie** in. Wiki en forum staan stil.
+  - 🔴 **Hotfixes: nieuwste sectie is nu 9 september 2026 — NIEUWER dan gisteren, dus geen
+    cache-val.** Gisteren stond hier 4 sep als nieuwste; vandaag opent artikel `24296142`
+    (cache-buster `?nocache=20260910`) met "Hotfixes: September 9, 2026". **Onafhankelijk
+    tegengelezen** met WebSearch, die dezelfde datum kent, plus een Blue Tracker-spiegel
+    (`wowhead.com/blue-tracker/news/us/hotfixes-september-9-2026-…-24296142`).
+    **Secties van 9 sep, volledig gelezen:** Achievements, Classes, Delves, Dungeons and Raids,
+    Items, Player versus Player, Prey, The Burning Crusade Classic. **Geen UI-, addon- of
+    API-sectie.**
+    - ⚠️ **Eerlijkheidshalve één gat in deze meting:** de WebSearch-samenvatting noemt twee
+      9 sep-regels die ik in de opgehaalde pagina **niet heb teruggezien** ("Midnight World
+      Quests rewarding Adventurer Crests" en een Dread/Virulent Plague Erupt-fix). Beide zijn
+      **content, geen API**, dus ze veranderen niets aan de uitkomst hier — maar ik meld het
+      liever dan dat ik doe alsof de paginalezing compleet was. Dit is stof voor de
+      content-wachter, niet voor mij.
+  - **De enige 9 sep-regels die tegen API-land aanschuren zijn Cooldown Manager-regels, en die
+    RAKEN ONS NIET.** Letterlijk: "Fixed an issue where Flash Heal could not be tracked on the
+    Cooldown Manager for Discipline and Shadow specializations", plus vier Warrior-regels
+    ("Rend is now able to be tracked in the Cooldown Manager", en de Venomous Abyss 2-/4-set
+    buffs). Dat is Blizzards eigen CDM (`C_CooldownViewer`/`CooldownViewer`-frames).
+    **[RAAKT ONS NIET] — GEMETEN vandaag:** `grep -rlE "CooldownViewer|CooldownManager|
+    C_CooldownViewer|CooldownViewerSetting"` over alle `*.lua`/`*.xml`/`*.toc` geeft **0 bestanden
+    met treffers, op 270 gescande bestanden**, `Modules/HealerCooldowns.lua` inbegrepen — dat
+    bestand doet zijn eigen cooldowns via `C_Spell`, niet via de CDM.
+    - 🔴 **Positieve controle in dezelfde run, zelfde patroonvorm en dezelfde reikwijdte** (want
+      een nul bewijst niets): hetzelfde `grep -rlE` op `GetSpellCooldown|C_Spell` over dezelfde
+      270 bestanden geeft **41 bestanden met treffers** (o.a. `Modules/ApplyLayout.lua`,
+      `Modules/SurvivalPlan.lua`, `Modules/AtalUtekProbe.lua`). Het patroon vindt dus wél wat er
+      is; de nul hierboven is een echte nul.
+  - **"Soft Underbelly is now an account-wide achievement" (9 sep) — [RAAKT ONS NIET] op de
+    API-kant, en de rest is niet mijn terrein.** Wij dragen dat achievement wél hardcoded
+    (`Modules/AchievementsData.lua:173`, `achievementID = 62601`), maar dit is een **flag op de
+    data, geen API-wijziging**: dezelfde calls geven voortaan de account-wide stand terug.
+    **GEMETEN** dat elke achievement-call bij ons afgedekt is: `Modules/Achievements.lua:72-73`
+    en `:148-149` staan achter `if … and GetAchievementCriteriaInfoByID then` **plus** een
+    `pcall`; `:1490`, `:1518` en `:1574` achter `if not (GetAchievementNumCriteria and
+    GetAchievementCriteriaInfo) then return`; `:158`, `:1532`, `:1581` en `:1605` achter
+    `if GetAchievementInfo then`. Geen kale aanroep. ⚠️ **Of onze tékst nu iets onwaars beweert**
+    (bijvoorbeeld dat het per personage bijgehouden wordt) **heb ik NIET gemeten** — dat is de
+    vraag van `docs/CONTENT_WATCH.md`, en ik laat hem daar liggen in plaats van hem half te
+    beantwoorden.
+  - **Beide `/API changes`-pagina's onveranderd t.o.v. 8 én 9 sep.** **GEMETEN** via
+    `prop=revisions` (zonder `rvlimit`): `Patch 12.1.0/API changes` (pageid 679840) nog steeds
+    **revid 6860164, 2026-09-05T00:39:06Z**, 102421 bytes, comment "12.1.0 (69587)";
+    `Patch 12.1.5/API changes` (pageid 705933) nog steeds **revid 6863733, 2026-09-06T17:08:08Z**,
+    25227 bytes, comment "/* Deprecated API */". Vierde dag zonder beweging.
+  - **Geen nieuwe `/API changes`-pagina, en 12.2.0 bestaat nog steeds niet.**
+    `intitle:"API changes"` op aanmaakdatum: **12.1.5** nog altijd de nieuwst aangemaakte
+    (138 hits, ongewijzigd). `prop=revisions` op de titels `Patch 12.2.0` en `AddOn changes`
+    geeft voor allebei `missing`.
+  - **Geen enkele API-pagina bewerkt sinds 7 sep.** `intitle:/API/` op laatste bewerking geeft als
+    nieuwste nog steeds `API types/ItemInfo` (**2026-09-07T10:24:43Z**) — al twee dagen hier
+    gelogd. `list=recentchanges` (ns 0, 50 wijzigingen t/m **2026-09-10T03:38Z**) is **volledig
+    content**: uitsluitend item- en appearance-pagina's (Drake Racer's Azure-set,
+    Sky-Captain's Masquerade, Flask of Conquest, Orgrimmar/Stormwind Set). **Geen API-,
+    secure-frame- of taint-pagina.** Ook `Secret values` (laatste bewerking **2026-02-07**),
+    `Taint` (**2010-11-25**) en `UI escape sequences` (**2026-07-25**) liggen alle drie ver
+    buiten het venster van 7 dagen.
+  - **Blizzard US UI-and-Macro-forum: twee nieuwe topics, geen blue post.** **GEMETEN** aan de
+    categorie-JSON (`order=created`, cache-buster): `primary_groups` en `flair_groups` zijn
+    allebei leeg — geen van de 46 getoonde deelnemers heeft een Blizzard-groep (trust levels 0–3).
+    Nieuw sinds gisteren, beide **9 sep** en beide gewone spelershulp: *Double Icons* (**2346299**,
+    2026-09-09T19:09:08Z, 3 posts — dubbele quest-iconen bij iemand met ElvUI) en *Talent Swap
+    Macro Problems* (**2346279**, 2026-09-09T17:25:20Z, 3 posts — een `/loadoutindex`-macro met
+    `[known:1247055]` die op een mage niet doet wat hij op een paladin doet). **Geen dev-antwoord,
+    geen aangetoonde gedragswijziging in de client** — ik tel geen van beide als bevinding.
+    - ✅ **Het openstaande punt van 7-9 sep gaat DICHT, en niet omdat ik het beu ben.**
+      *Duration Bars setting not saving* (**2345637**) staat na drie dagen nog steeds op **1 post,
+      0 reacties, 14 views**, zonder dev-antwoord en zonder één bevestiging door een tweede
+      speler. Eén onbevestigde melding is geen API-feit; zo is hij hier op 8 sep ook binnengekomen.
+      **[RAAKT ONS NIET] opnieuw GEMETEN vandaag** in plaats van van 8 sep overgeschreven:
+      `grep -rnE "DurationBar|Duration Bars|CastingBarFrame|castbar|CastBar"` over `*.lua`/`*.xml`
+      geeft **5 treffers, alle vijf commentaar en géén frame** —
+      `Modules/InterruptScore.lua:367` (verwijzing naar `oUF/elements/castbar.lua` in een ándere
+      addon), `Modules/PtrProbe.lua:219` (onze eigen aantekening over de 12.1.5-castbar-ID's) en
+      `Modules/MissingBuff.lua:728` + `Modules/KeybindRoles_Paladin.lua:68,131`, waar "castbare"
+      gewoon **het Nederlandse woord** is en niets met een castbar te maken heeft.
+      📌 Positieve controle in dezelfde vorm: hetzelfde `grep -rnE` op
+      `MH_EditMode|EditModeManagerFrame|C_EditMode` geeft wél treffers
+      (`Modules/LayoutWizard.lua:392-399`, `Modules/BarInventory.lua:316-320`). MH heeft dus geen
+      duration- of castbar-code, en dat is een echte nul.
+    - *Addons api restrictions* (**2343904**) **ongewijzigd**: nog steeds 10 posts, laatste
+      2026-09-05T17:29:55Z, geen blue.
+  - ⚠️ **De tegenlezing probeerde me iets ouds als nieuws te verkopen, en dat is niet gebeurd.**
+    Een WebSearch naar 12.1.5-API-nieuws gaf **`CreateFrameWithOptions`** terug als "a new frame
+    creation API", naast de `SetCooldown`/`Clear`-taintregel en de castbar-ID's-per-unit-token.
+    Alle drie staan hier al: `CreateFrameWithOptions` sinds **5 sep** (regel 391) en opnieuw op
+    **6 sep** (regel 694), de andere twee eveneens op 5-6 sep. **Niet opnieuw als nieuws
+    opgevoerd.** Het staat bij ons trouwens alleen als **string in een probe-tabel**
+    (`Modules/PtrProbe.lua:129`), niet als aanroep.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`,
+    `GetItemCooldown`→`ns.GetItemCooldownSafe`) zijn deze run **niet** opnieuw getoetst en blijven
+    staan zoals op 2/6/7/9 sep gemeten.
+  - **Bronnen, alle met cache-buster opgehaald:** `warcraft.wiki.gg/api.php` (`prop=revisions` op
+    pageids 679840+705933 én op de titels `Secret values`/`Taint`/`Patch 12.2.0`/`AddOn changes`/
+    `UI escape sequences`; `list=search` op `intitle:"API changes"` en `intitle:/API/`;
+    `list=recentchanges` ns 0, 50 stuks); `news.blizzard.com/en-us/article/24296142`;
+    `us.forums.blizzard.com` categorie-JSON 35 op `order=created`; WebSearch als tegenlezing op
+    zowel de hotfixes als 12.1.5, mét Blue Tracker als spiegelbevestiging van de hotfix-datum.
+    ⚠️ `WebFetch` op `warcraft.wiki.gg` en `news.blizzard.com` blijft **EGRESS_BLOCKED**; alles
+    liep via `web_fetch_exa`, dat beide wél bereikt.
+    📌 De wiki-API antwoordt op `nocache` met `"Unrecognized parameter: nocache."` — **onschadelijk
+    en juist het bewijs** dat de URL-string per dag verschilt. Niet "repareren".
+  - ✅ **Repo: rustig.** `git pull --rebase origin main` gaf "Already up to date" op **b0e8f11**,
+    werkboom schoon. Geen force-push, geen herhaling van 8 sep. Ik heb alleen dit bestand
+    aangeraakt.
