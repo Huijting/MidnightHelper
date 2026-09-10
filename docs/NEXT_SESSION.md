@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🔎 10 sep middag — twee losse eindjes
+
+- **Een onbekende schrijver in `docs/API_WATCH.md`.** Voor de derde keer (2, 5 en 10 sep) stond er
+  een *"Tweede run van vandaag"* ongecommit op schijf. Op Robs woord gecommit (`6fe654e`). De
+  ochtendroutine in `CLAUDE.md` commit zo'n verweesde wachter-regel voortaan zelf, vóór de pull. Wat
+  gemeten en uitgesloten is, staat daar; **wie het schrijft is open**. Volgende stap als het
+  terugkomt: de Windows-taakplanner bekijken (`schtasks`, kost Rob een prompt).
+- **Deck-iconen: Rob kiest een letter.** `mh_label_fonts.py` (scratchpad van sessie bce6ed51) zet
+  alle acht labels op de hoogte van DELVES: 12,5 px op de deck, waar de rest nu op 81–95% staat. In
+  geen enkel font hoeft er iets te krimpen, behalve bij DiabloHeavy.
+  🔴 **GEMETEN:** de losse bestanden in `_retail_\Fonts\` (FRIZQT__, MORPHEUS, SKURRI, ARIALN) zijn
+  alle vier **hetzelfde bestand: Barlow Condensed Bold**, een vervangend font. De echte Friz
+  Quadrata en Morpheus staan niet los op schijf. Na Robs keuze: de volle set van 28 naar een
+  **nieuwe** map naast `E:\ComfyMCP\mh_iconen\deck_144`, niets overschrijven.
+
 ## ✅ 10 sep — Ori'kassi uitgezocht: hij is de eindboss van een Curse Surge, één van VIJF
 
 Onderzocht terwijl Rob weg was, in de volgorde die gisteravond hieronder werd afgesproken: eerst

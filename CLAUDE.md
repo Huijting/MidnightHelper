@@ -37,11 +37,24 @@ dezelfde val als [[silence-is-not-absence]], maar met een tijdstempel erop die g
 
 Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgorde:
 
-1. `git -C "<repo>" pull --rebase origin main`
-2. ⚠️ **`git -C "<repo>" status` erachteraan.** Op 2 sep stond `docs/API_WATCH.md` gewijzigd-maar-
+1. **`git -C "<repo>" status` EERST.** Op 2 sep stond `docs/API_WATCH.md` gewijzigd-maar-
    ongecommit in de working tree, met een `.git/index.lock` die de pull blokkeerde. Een lege pull
    bewijst dus niet dat er niets gebeurd is — het werk kan op schijf staan zonder ooit in een
    commit te belanden.
+   ✅ **Staat een van de vier wachter-bestanden uit de tabel gewijzigd-maar-ongecommit, commit het
+   dan meteen** — alleen dat bestand, via `stage.txt` + `git_stage.py`, met als boodschap *"Commit
+   the «wachter» watcher's entry of «datum», left uncommitted on disk"*. Pas daarna pullen:
+   met een vuile working tree weigert `pull --rebase`. Rob, 10 sep: *"commit die API_WATCH maar
+   mee, en hoe kunnen we dat voortaan wel laten gebeuren?"* — dit is het antwoord.
+   ⚠️ **Kijk eerst wát er staat:** een nieuwe `- [JJJJ-MM-DD]`-regel onderaan is wachter-werk; iets
+   anders (een halve regel, een wijziging midden in het bestand) meld je in plaats van te committen.
+   🔎 **De schrijver is NIET gevonden.** Drie keer gezien (2, 5 en 10 sep), telkens `API_WATCH.md`,
+   telkens een *"Tweede run van vandaag"*. Op 10 sep GEMETEN: mtime **04:57:43Z**, drie minuten na
+   de ochtend-pull (reflog: schone fast-forward, geen reset). Uitgesloten: alle vier de cloud-wachters
+   (klaar vóór 04:16Z, de API-wachter draaide één keer), de ochtendbrief (04:06–04:16Z), de
+   inbox-triage (vanaf 05:04Z), de twee lokale geplande taken, en élke lokale Claude-transcript (geen
+   bevat de tekst). De tekst zelf meldt `EGRESS_BLOCKED`, dus een afgeschermde sandbox.
+2. `git -C "<repo>" pull --rebase origin main`
 3. Lees wat er nieuw in staat: de vier bestanden uit de tabel hierboven.
 4. Kijk op GitHub: `python "<repo>/tools/_probe.py" run gh_inbox`. Geen enkele wachter dekt mensen
    die ons willen helpen — Andy's vijf PR's lagen daardoor 17 dagen ongelezen.
