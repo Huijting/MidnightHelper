@@ -8027,6 +8027,7 @@ fill("itIT", {
 fill("deDE", {
 	ALT_COL_VAULT = "Schatzkammer",
 	ALT_COL_VAULT_HINT_FMT = "Große Schatzkammer: diese Woche freigeschaltete Auswahlen, alle drei Reihen zusammengezählt (%s, %s, %s), vom Gesamtwert.\n%s = auf diesem Charakter wartet eine Belohnung.\nFahre über einen Charakter, um jede Reihe zu sehen.",
+	ALT_COL_LEVEL_ILVL_HINT = "Stufe und angelegte Gegenstandsstufe, gespeichert beim letzten Login. Klicken, um nach Stufe zu sortieren.",
 	ALT_COL_WEEK = "Woche",
 	ALT_COL_WEEK_HINT = "Diese Woche verdiente Coffer Key Shards bis zur Wochenobergrenze. Sie wird beim wöchentlichen Reset zurückgesetzt.\nDer Haken heißt: Obergrenze erreicht. — heißt: Dieser Charakter war seit dem Reset nicht eingeloggt, die Woche ist also unbekannt.",
 	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards in der Brieftasche dieses Charakters. Diese Zahl wird nie zurückgesetzt.",
@@ -8036,6 +8037,8 @@ fill("deDE", {
 fill("frFR", {
 	ALT_COL_VAULT = "Chambre forte",
 	ALT_COL_VAULT_HINT_FMT = "Grande chambre forte : choix débloqués cette semaine, les trois rangées additionnées (%s, %s, %s), sur le total.\n%s = une récompense attend sur ce personnage.\nSurvole un personnage pour voir chaque rangée.",
+	ALT_COL_LEVEL_ILVL = "Niv · ilvl",
+	ALT_COL_LEVEL_ILVL_HINT = "Niveau et niveau d'objet équipé, enregistrés à la dernière connexion. Clique pour trier par niveau.",
 	ALT_COL_WEEK = "Semaine",
 	ALT_COL_WEEK_HINT = "Coffer Key Shards gagnés cette semaine vers le plafond hebdomadaire. Il se réinitialise à la réinitialisation hebdomadaire.\nLa coche signifie : plafond atteint. — signifie : ce personnage ne s'est pas connecté depuis la réinitialisation, la semaine est donc inconnue.",
 	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards dans le portefeuille de ce personnage. Ce nombre ne se réinitialise jamais.",
@@ -8045,6 +8048,8 @@ fill("frFR", {
 fill("esES", {
 	ALT_COL_VAULT = "Gran Cámara",
 	ALT_COL_VAULT_HINT_FMT = "Gran Cámara: opciones desbloqueadas esta semana, las tres filas sumadas (%s, %s, %s), del total.\n%s = hay una recompensa esperando en ese personaje.\nPasa el ratón por un personaje para ver cada fila.",
+	ALT_COL_LEVEL_ILVL = "Nv · ilvl",
+	ALT_COL_LEVEL_ILVL_HINT = "Nivel y nivel de objeto equipado, guardados en el último inicio de sesión. Haz clic para ordenar por nivel.",
 	ALT_COL_WEEK = "Semana",
 	ALT_COL_WEEK_HINT = "Coffer Key Shards ganados esta semana hacia el límite semanal. Se reinicia con el reinicio semanal.\nLa marca significa: límite alcanzado. — significa: este personaje no ha entrado desde el reinicio, así que la semana es desconocida.",
 	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards en la bolsa de este personaje. Este número nunca se reinicia.",
@@ -8054,6 +8059,8 @@ fill("esES", {
 fill("ptBR", {
 	ALT_COL_VAULT = "Grande Cofre",
 	ALT_COL_VAULT_HINT_FMT = "Grande Cofre: escolhas desbloqueadas esta semana, as três fileiras somadas (%s, %s, %s), do total.\n%s = há uma recompensa esperando nesse personagem.\nPasse o mouse sobre um personagem para ver cada fileira.",
+	ALT_COL_LEVEL_ILVL = "Nv · ilvl",
+	ALT_COL_LEVEL_ILVL_HINT = "Nível e nível de item equipado, salvos no último login. Clique para ordenar por nível.",
 	ALT_COL_WEEK = "Semana",
 	ALT_COL_WEEK_HINT = "Coffer Key Shards ganhos nesta semana rumo ao limite semanal. Ele zera no reset semanal.\nO visto significa: limite atingido. — significa: este personagem não entrou desde o reset, então a semana é desconhecida.",
 	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards na carteira deste personagem. Esse número nunca zera.",
@@ -8063,6 +8070,7 @@ fill("ptBR", {
 fill("itIT", {
 	ALT_COL_VAULT = "Great Vault",
 	ALT_COL_VAULT_HINT_FMT = "Great Vault: scelte sbloccate questa settimana, le tre righe sommate (%s, %s, %s), sul totale.\n%s = c'è una ricompensa in attesa su quel personaggio.\nPassa il mouse su un personaggio per vedere ogni riga.",
+	ALT_COL_LEVEL_ILVL_HINT = "Livello e livello oggetto equipaggiato, salvati all'ultimo accesso. Clicca per ordinare per livello.",
 	ALT_COL_WEEK = "Settimana",
 	ALT_COL_WEEK_HINT = "Coffer Key Shards guadagnati questa settimana verso il cap settimanale. Si azzera al reset settimanale.\nLa spunta significa: cap raggiunto. — significa: questo personaggio non è entrato dal reset, quindi la settimana è sconosciuta.",
 	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards nel portafoglio di questo personaggio. Questo numero non si azzera mai.",

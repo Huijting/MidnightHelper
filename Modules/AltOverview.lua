@@ -941,10 +941,30 @@ local function AnchorNumericCells(cells, row)
 	end
 end
 
+--- Spec 38 option A, second pass (10 Sep 2026): level and item level are their own column, right-
+--- aligned against Vault, as the spec's mock-up had it ("90 · 279"). Inside the name cell they were
+--- the last thing on the line, so a long name truncated the numbers - Rob's screenshot showed
+--- "Purlymixanox-Bloodhoof Lv90 · 269 i…". Now only the name can be cut.
+local COL_W_LVL = 60
+local function LvlCellRightOffset()
+	return TotalNumericBlockWidth() + 4 + COL_W_VAULT + 8 + RowActionOffset()
+end
+
+local function LayoutLvlCell(fs, row)
+	fs:ClearAllPoints()
+	fs:SetWidth(COL_W_LVL)
+	fs:SetPoint("RIGHT", row, "RIGHT", -LvlCellRightOffset(), 0)
+	fs:SetJustifyH("RIGHT")
+	fs:SetWordWrap(false)
+	if fs.SetMaxLines then
+		fs:SetMaxLines(1)
+	end
+end
+
 local function LayoutNameCell(fs, row)
 	fs:ClearAllPoints()
 	fs:SetPoint("LEFT", row, "LEFT", PAD_L, 0)
-	fs:SetPoint("RIGHT", row, "RIGHT", -(TotalNumericBlockWidth() + COL_W_VAULT + 6 + RowActionOffset()), 0)
+	fs:SetPoint("RIGHT", row, "RIGHT", -(LvlCellRightOffset() + COL_W_LVL + 6), 0)
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(false)
 end
@@ -960,6 +980,9 @@ local function MakeDataRow(parent, idx)
 	row.nameFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	row.nameFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	LayoutNameCell(row.nameFs, row)
+	row.lvlFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	row.lvlFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	LayoutLvlCell(row.lvlFs, row)
 	row.vaultFs = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	row.vaultFs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	row.vaultFs:SetWidth(COL_W_VAULT)
@@ -1041,6 +1064,9 @@ local function MakeHeaderRow(parent)
 	row.charH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	LayoutNameCell(row.charH, row)
 	row.charH:SetJustifyH("LEFT")
+	row.lvlH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.lvlH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+	LayoutLvlCell(row.lvlH, row)
 
 	local function HeaderCell()
 		local fs = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -1080,6 +1106,7 @@ local function MakeHeaderRow(parent)
 		b:EnableMouse(true)
 		return b
 	end
+	row.lvlHit = Hit(row.lvlH, COL_W_LVL)
 	row.keysHit = Hit(row.keysH, COL_W_KEYS)
 	row.shardsHit = Hit(row.shardsH, GetColWShards())
 	row.weekHit = Hit(row.weekH, COL_W_WEEK)
@@ -1339,20 +1366,24 @@ function ns:_mhAltOverviewRefreshRows()
 		if e.guid == curGuid then
 			tag = " " .. ns:L("ALT_OVERVIEW_YOU")
 		end
-		--- Spec 38 option A: name, "(you)" and level/ilvl only. Professions left the row (the
-		--- tooltip has the full list), and the orange "(relog)" badge - "(neu einloggen)" in German -
-		--- became a clock and a dimmed row, with the reason at the top of the tooltip.
+		--- Spec 38 option A: name and "(you)" only. Professions left the row (the tooltip has the
+		--- full list), level/ilvl moved to their own column, and the orange "(relog)" badge -
+		--- "(neu einloggen)" in German - became a clock and a dimmed row, with the reason at the top
+		--- of the tooltip.
 		local stale = SnapshotEntryIsStale(e)
 		local base = FormatCharLabel(e.name, e.realm) .. tag
 		if stale then
 			base = base .. " |TInterface\\Icons\\INV_Misc_PocketWatch_01:0|t"
 		end
+		row.nameFs:SetText(base)
 		local lvl = math.floor(tonumber(e.level) or 0)
 		local ilvl = math.floor(tonumber(e.ilvl) or 0)
-		if lvl > 0 then
-			base = base .. "  " .. ns:L("ALT_ROW_LEVEL_ILVL_FMT"):format(lvl, ilvl)
+		row.lvlFs:SetText(lvl > 0 and ("%d · %d"):format(lvl, ilvl) or "")
+		if stale then
+			row.lvlFs:SetTextColor(0.55, 0.55, 0.55)
+		else
+			row.lvlFs:SetTextColor(0.6, 0.8, 1)
 		end
-		row.nameFs:SetText(base)
 		if e.guid == curGuid then
 			row.nameFs:SetTextColor(1, 0.92, 0.45)
 		elseif stale then
@@ -1616,9 +1647,8 @@ function ns:_mhAltOverviewRefreshRows()
 				0.88,
 				1
 			)
-			if self.vaultTip.shardsWeeklyStale then
-				GameTooltip:AddLine(ns:L("ALT_TOOLTIP_SHARDS_WEEKLY_STALE"), 1, 0.82, 0.3, true)
-			end
+			-- (ALT_TOOLTIP_SHARDS_WEEKLY_STALE stood here; Rob's screenshot showed the relog advice
+			-- twice. ALT_ROW_STALE_TOOLTIP at the top covers this case too.)
 			GameTooltip:AddLine(" ")
 			GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_TITLE"), 1, 0.9, 0.5)
 			if self.vaultTip.hasAvailableRewards then
@@ -1741,6 +1771,7 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 	end
 	local h = ui.headerRow
 	h.charH:SetText(ns:L("ALT_COL_CHARACTER"))
+	h.lvlH:SetText(ns:L("ALT_COL_LEVEL_ILVL"))
 	h.keysH:SetText(ns:L("ALT_COL_KEYS"))
 	h.shardsH:SetText(ns:L("ALT_COL_SHARDS"))
 	--- sortBy nil = tooltip only (Week, crystals). titleFn, when given, supplies a title line from
@@ -1788,6 +1819,7 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 	h.weekH:SetText(ns:L("ALT_COL_WEEK"))
 	h.coinH:SetText(coinIcon and ("|T" .. coinIcon .. ":0|t") or ns:L("ALT_COL_UNDERCOINS"))
 	h.crystalH:SetText(crystalIcon and ("|T" .. crystalIcon .. ":0|t") or (crystalName or "?"))
+	wireHeaderHit(h.lvlHit, "level", "ALT_COL_LEVEL_ILVL_HINT")
 	wireHeaderHit(h.keysHit, "keys", "ALT_COL_KEYS_HINT")
 	wireHeaderHit(h.shardsHit, "shards", "ALT_COL_SHARDS_WALLET_HINT")
 	wireHeaderHit(h.weekHit, nil, "ALT_COL_WEEK_HINT")

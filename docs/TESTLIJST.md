@@ -31,6 +31,14 @@ meteen de nieuwe indeling. Van links naar rechts: **naam · Vault · Keys · Sha
 - [ ] **Relog-rijen:** grijs, met een **klokje** achter de naam in plaats van het oranje "(relog)".
       Ga je erover, dan staat bovenaan de tooltip waarom en wat je moet doen.
 - [ ] **Namen worden per teken afgekapt**, dus niet meer midden in een ü.
+- [x] ~~De tooltip van een relog-rij noemt eerst waarom en wat je moet doen~~, **Rob 10 sep: klopt**
+      (Warlockie).
+- [ ] **Tweede ronde, na Robs screenshot:** level en ilvl staan in een **eigen kolom "Lv · ilvl"**
+      tussen de naam en Vault, bijvoorbeeld "90 · 269" in lichtblauw. *Purlymixanox-Bloodhoof* wordt
+      nu hooguit in de naam afgekapt, nooit meer in de getallen. Klik op de kop om op level te
+      sorteren.
+- [ ] **De tooltip van een relog-rij zegt het maar één keer**: het gele zinnetje onder Shards
+      ("Weekly count not updated…") is weg.
 
 ## 🆕 10 sep avond — nieuwe macro's in de Macros-tab (Spec 33 + Hunter's Mark)
 

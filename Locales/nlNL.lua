@@ -1904,6 +1904,8 @@ ns._mhLocales.nlNL = {
 	ALT_COL_CHARACTER = "Character",
 	ALT_COL_VAULT = "Vault",
 	ALT_COL_VAULT_HINT_FMT = "Great Vault: keuzes die deze week vrij zijn, de drie rijen bij elkaar opgeteld (%s, %s, %s), van het totaal.\n%s = er wacht een beloning om te kiezen op dat character.\nWijs een character aan om elke rij te zien.",
+	ALT_COL_LEVEL_ILVL = "Lv · ilvl",
+	ALT_COL_LEVEL_ILVL_HINT = "Level en item level van je gear, zoals bewaard bij de laatste login. Klik om op level te sorteren.",
 	ALT_COL_WEEK = "Week",
 	ALT_COL_WEEK_HINT = "Coffer Key Shards die deze week verdiend zijn, richting de weekcap. Die reset bij de wekelijkse reset.\nHet vinkje betekent: cap bereikt. — betekent: dit character is sinds de reset niet ingelogd, dus de week is onbekend.",
 	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards in de wallet van dit character. Dit getal reset nooit.",

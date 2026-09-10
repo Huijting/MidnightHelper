@@ -18,9 +18,18 @@ gebouwd en nog NIET in-game gezien.** Test in `docs/TESTLIJST.md`.
   `ALT_VAULT_TOOLTIP_STALE_RESET` onderaan is weg.
 - Nieuwe keys in 7 talen: `ALT_COL_WEEK`, `ALT_COL_WEEK_HINT`, `ALT_COL_SHARDS_WALLET_HINT` en
   `ALT_ROW_STALE_TOOLTIP`. `ALT_COL_VAULT_HINT_FMT` is herschreven voor de optelling. check_drift: 0.
+- **Rob, eerste blik (c83425c): de indeling werkt, de relog-tooltip klopt.** Zijn screenshot liet
+  zien dat een lange naam de getallen afkapte ("Purlymixanox-Bloodhoof Lv90 · 269 i…"). **Tweede
+  ronde:** level en ilvl staan nu in een eigen kolom (`lvlFs`/`lvlH`, `COL_W_LVL` 60,
+  `LvlCellRightOffset`), zoals in de mock-up van de spec. Op de kop sorteer je op level. De tooltip
+  gaf het relog-advies twee keer; `ALT_TOOLTIP_SHARDS_WEEKLY_STALE` is eruit. Nieuwe keys:
+  `ALT_COL_LEVEL_ILVL` en `_HINT`.
+- **Open van Rob:** is het grijs van de relog-rijen goed zichtbaar? Bij Vault staat voor een
+  relog-rij "0/9" (dat klopt) of "—" (zoals de Week-kolom). En het blok *This week* heeft een voetregel die
+  tegen de regel erboven plakt (die fout zat er al).
 - **Nu ongebruikt en niet verwijderd:** `ALT_STALE_WED_BADGE`, `ALT_UNDER_MANA_CELL_FMT`,
-  `ALT_SHARDS_CELL_FMT`/`_STALE_FMT`, `ALT_VAULT_ROW_FMT`, `ALT_VAULT_EMPTY`, `ALT_COL_UNDER_MANA`
-  en `ALT_VAULT_TOOLTIP_STALE_RESET`. Pas opruimen als Rob optie A goedkeurt, zodat terugdraaien
+  `ALT_SHARDS_CELL_FMT`/`_STALE_FMT`, `ALT_VAULT_ROW_FMT`, `ALT_VAULT_EMPTY`, `ALT_COL_UNDER_MANA`,
+  `ALT_VAULT_TOOLTIP_STALE_RESET`, `ALT_ROW_LEVEL_ILVL_FMT` en `ALT_TOOLTIP_SHARDS_WEEKLY_STALE`. Pas opruimen als Rob optie A goedkeurt, zodat terugdraaien
   goedkoop blijft.
 
 **§3, de vier kleine reparaties:**
