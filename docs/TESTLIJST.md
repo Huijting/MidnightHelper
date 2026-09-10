@@ -17,6 +17,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       **Test in de volgende Bountiful delve:** komt de maan boven Dundun te staan, zie je hem van een
       afstand, en blijft hij staan als je de macro twee keer drukt? Niet gemeten zijn: of het werkt
       met alleen Valeera in je groep, en of het teken zichtbaar is op een vermomd voorwerp.
+- [x] ✅ **Grondmarkeringen werken in een delve met alleen Valeera. GEMETEN 10 sep:** Rob typte
+      `/wm [@cursor] 7` en de maan lag er. Volgens de wiki kan het alleen in een groep; een delve telt
+      dus als groep.
+- [ ] **Nieuwe macro *Moon on the ground***: Macros-tab → *World* → de tweede macro. Maak hem aan, en
+      druk erop terwijl je muis op de plek bij Dundun wijst. De maan hoort op de grond te komen, en bij
+      een tweede druk op een andere plek hoort hij te **verhuizen** in plaats van dubbel te liggen.
 
 ## 🆕 10 sep middag — na de test: vier kleine dingen
 

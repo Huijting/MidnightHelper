@@ -453,6 +453,26 @@ ns.WORLD_MACROS = {
 /tm 0
 /tm 5]=],
 	},
+	--- 🌙 A MOON ON THE GROUND, 10 Sep 2026. Rob asked for a world-marker moon as well. A macro
+	--- can put a world marker only at the mouse cursor or at your own feet, never on a target
+	--- (wowpedia /worldmarker; WoWUIBugs #606), so it cannot live inside Find Dundun: there it
+	--- would land wherever the mouse happened to be. It is its own button: point, press.
+	--- World markers need a group. ✅ MEASURED 10 Sep: Rob placed one with `/wm [@cursor] 7` in a
+	--- delve with only Valeera, so a delve counts. The moon is world marker 7 (FastMark.lua's
+	--- table), not 5 - the two numberings differ. `/cwm 7` runs first, so a second press moves
+	--- the moon instead of relying on how re-placing behaves.
+	{
+		id = "ground_moon",
+		name = "Moon on the ground",
+		descEn = "Put the moon world marker on the ground where your mouse points, moving it if"
+			.. " it is already down. Point at Dundun once Find Dundun has shown you where he is."
+			.. " Works in a delve with only Valeera.",
+		descNl = "Zet de maan als grondmarkering waar je muis wijst, en verplaatst hem als hij al"
+			.. " ligt. Wijs naar Dundun zodra Find Dundun heeft laten zien waar hij staat."
+			.. " Werkt in een delve met alleen Valeera.",
+		macro = [=[/cwm 7
+/wm [@cursor] 7]=],
+	},
 }
 
 if type(ns.MacroPanelTypes) == "table" then

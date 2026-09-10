@@ -7,6 +7,10 @@ bepaalt de game, en de instellingen hebben er geen optie voor (twee gidsen, niet
 gemeten). Daarom zet de macro in `DundunShrine.lua` nu ook `/tm 0` en `/tm 5` (maan, Robs keuze):
 een raid-teken blijft staan. ✅ **Werkt**: Rob zette de nieuwe macro erin, *"hij werkt goed"*. Rob moet zijn bestaande
 macro zelf bijwerken, want de addon maakt macro's niet aan.
+- 🌙 **Plus een grondmaan**, een tweede World-macro *Moon on the ground*: `/cwm 7` en dan
+  `/wm [@cursor] 7`. Een macro kan een grondmarkering alleen op je cursor of je eigen voeten leggen,
+  nooit op een doelwit; daarom is het een losse knop. ✅ **GEMETEN:** grondmarkeringen werken in een
+  delve met alleen Valeera. De macro zelf is nog niet getest.
 - 📌 Er zijn nog meer surge-bevindingen van online, die nog niet in de addon zitten. De in-game
   Events-tab toont welke surge er loopt en wanneer. De Mix Master-daily gaat pas open via een
   *Handful of Esoteric Ingredients* bij Ofi in het moeras (één Wowhead-reactie). Allebei wachten op
