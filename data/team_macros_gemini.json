@@ -342,10 +342,10 @@
     "Retribution": [
       {
         "name": "Mouseover Execution Sentence",
-        "description": "Execution Sentence op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel.",
-        "descriptionEn": "Execution Sentence on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target.",
+        "description": "Execution Sentence op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel. Let op: Execution Sentence is een talent in de Retribution-boom. Heb je dat talent (nog) niet, dan doet deze knop niets.",
+        "descriptionEn": "Execution Sentence on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target. Note: Execution Sentence is a talent in the Retribution tree. Without that talent - or before your level reaches it - this button does nothing.",
         "macro": "#showtooltip Execution Sentence\n/cast [@mouseover,harm,nodead][] Execution Sentence",
-        "note": "10 Sep 2026, Spec 33 7: replaces Cursor Execution ('/cast [@cursor] Final Reckoning'). Final Reckoning was removed in Midnight and folded into Execution Sentence (Maxroll 12.1 'Removed: Final Reckoning'; Blizzard forum Jan 2026). Execution Sentence is cast on a target, so [@cursor] cannot work. In Zygor's 12.x talent data. Not measured in the client."
+        "note": "10 Sep 2026, Spec 33 7: replaces Cursor Execution ('/cast [@cursor] Final Reckoning'). Final Reckoning was removed in Midnight and folded into Execution Sentence (Maxroll 12.1 'Removed: Final Reckoning'; Blizzard forum Jan 2026). Execution Sentence is cast on a target, so [@cursor] cannot work. In Zygor's 12.x talent data. Not measured in the client. 10 Sep 2026: /mh macrocheck on Rob's Ret paladin read Execution Sentence 'not found' with the control (Rebuke) known. Maxroll 12.1 lists it under the spec tree and Zygor's Ret build carries it as a talent - an untaken talent, the same pattern as Misdirection."
       },
       {
         "name": "Bubble Cancel",

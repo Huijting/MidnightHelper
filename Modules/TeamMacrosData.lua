@@ -493,8 +493,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "mouseover_execution_sentence",
 			name = "Mouseover Execution Sentence",
-			descNl = "Execution Sentence op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel.",
-			descEn = "Execution Sentence on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target.",
+			descNl = "Execution Sentence op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel. Let op: Execution Sentence is een talent in de Retribution-boom. Heb je dat talent (nog) niet, dan doet deze knop niets.",
+			descEn = "Execution Sentence on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target. Note: Execution Sentence is a talent in the Retribution tree. Without that talent - or before your level reaches it - this button does nothing.",
 			macro = [=[#showtooltip Execution Sentence
 /cast [@mouseover,harm,nodead][] Execution Sentence]=],
 			},

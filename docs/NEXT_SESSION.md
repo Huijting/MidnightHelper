@@ -61,6 +61,14 @@ Rob: *"doe ze allemaal maar, ook die Rapid Fire macro's"*.
     Robs Shaman.
   - Dit zijn allemaal bronnen, geen client-meting. Rob heeft Paladin, Priest, Shaman, Warlock, Druid en
     Mage; `/mh macrocheck` daar is de echte meting.
+- 🔎 **Paladin Retribution, 10 sep:** de controle staat op known, maar **Execution Sentence is not
+  found**. Volgens Maxroll 12.1 (spec-boom) en Zygors Ret-build is het een talent. ⚠️ Deze paladin is
+  **level 80** (Rob), dus het talent kan ook nog buiten bereik liggen in plaats van niet gekozen. De
+  uitleg van de macro zegt "(nog) niet", en de onderste regel van macrocheck noemt nu ook "or cannot
+  take yet at your level".
+  - 📌 **Patroon:** van twee *not found* waren er twee een talent dat niet gekozen was. Macrocheck ziet
+    alleen "zit niet in je spellbook" en kan een niet-gekozen talent niet onderscheiden van een spell
+    die weg is. Het verschil staat in de talentboom, of in een bron.
   - De uitleg van *Smart Misdirection* (bij BM en MM) zegt nu dat je het talent nodig hebt.
 
 ## 🧰 10 sep avond — Spec 33, eerste ronde. De "nog open"-lijst hieronder is inmiddels afgewerkt (zie boven)

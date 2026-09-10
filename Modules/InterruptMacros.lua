@@ -439,8 +439,11 @@ function ns.MH_MacroCheck()
 			print(("   %-34s %-26s %s"):format(tostring(e.name), name, mark(ClientKnowsSpell(name))))
 		end
 	end
+	--- "or cannot take yet": Rob's Ret paladin was level 80 when Execution Sentence read not found
+	--- (10 Sep 2026). Below max level a talent can be out of reach rather than skipped.
 	print("   |cff8a8f98'not found' = not in your spellbook right now: another spec, a talent you did"
-		.. " not take, a pet ability, or a spell that is gone. Switch spec to check the others.|r")
+		.. " not take (or cannot take yet at your level), a pet ability, or a spell that is gone."
+		.. " Switch spec to check the others.|r")
 end
 
 local function LayoutSubtitleAnchor(panel, typeId)

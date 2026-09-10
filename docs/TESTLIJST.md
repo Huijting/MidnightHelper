@@ -57,7 +57,13 @@ spec waarin je nu zit, dus kijk per personage.
 - [ ] **Na de online-ronde (10 sep): drie macro's vervangen, check ze op je eigen klassen.** Rob heeft
       geen Warrior, Monk of Evoker, dus die rusten op bronnen. Doe `/mh macrocheck` in deze specs:
       - **Paladin, Retribution:** *Mouseover Execution Sentence* vervangt *Cursor Execution*, want
-        Final Reckoning bestaat niet meer. Hoort **known** te zeggen.
+        Final Reckoning bestaat niet meer. Mijn voorspelling was **known**, en die was fout.
+        ✅ **GEMETEN 10 sep:** de controle *Rebuke* staat op known, Divine Shield is known, maar
+        **Execution Sentence is not found**. Het is een talent in de Retribution-boom (Maxroll 12.1,
+        Zygors Ret-build), hetzelfde patroon als Misdirection. De uitleg van de macro zegt dat nu. Rob kan
+        het zelf nakijken: talenten (N), de spec-boom.
+        ⚠️ **Rob: "deze is lvl 80".** Het talent kan dus ook nog buiten bereik liggen, in plaats van
+        niet gekozen. Macrocheck ziet dat verschil niet; de onderste regel zegt dat nu ook.
       - **Priest, Shadow:** *Mouseover Tentacle Slam* vervangt *Cursor Shadow Crash*, en hoort **known**
         te zeggen. De drie Void Torrent-macro's zeggen nu dat Void Torrent alleen bij **Voidweaver**
         bestaat.
