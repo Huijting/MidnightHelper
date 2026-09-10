@@ -1,9 +1,29 @@
 # Midnight Helper — waar we staan
 
-## 🛠️ 10 sep avond — Spec 38 (Account snapshot): §3 gebouwd, optie A volgt, optie B wacht op Rob
+## 🛠️ 10 sep avond — Spec 38 (Account snapshot): §3 + optie A gebouwd, optie B wacht op Rob
 
-Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3, de vier kleine reparaties,
-is gebouwd en nog NIET getest.**
+Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3 (c18101a) en optie A zijn
+gebouwd en nog NIET in-game gezien.** Test in `docs/TESTLIJST.md`.
+
+**Optie A (§2c), `Modules/AltOverview.lua`:**
+- Kolommen van rechts naar links: kristal · Undercoins · Week · Shards · Keys, dan Vault.
+  `AnchorThreeNumericCells` is `AnchorNumericCells` geworden, gestuurd door `NUM_COL_ORDER`/`NumColW`.
+- De twee currency-koppen tonen Blizzards eigen icoon, en de tooltiptitel is de naam uit
+  `C_CurrencyInfo.GetCurrencyInfo` (`CurrencyIconAndName`). Daarmee staat de verkeerde vertaling van
+  §1e ("Unter/Sous/Bajo/Menos / Mana") niet meer op het scherm. Sorteren op Undercoins zit op het muntje.
+- Shards is gesplitst in wallet en Week ("x/600", vinkje bij de cap, "—" als het stale is). Vault
+  toont het opgetelde "unlocked/total"; CLAIM!, LIKELY en de reset-pulse zijn ongewijzigd.
+- Beroepen staan niet meer in de naamcel (de tooltip heeft ze). De × staat alleen bij hover. Relog is
+  een gedimde rij met een klokje, en `ALT_ROW_STALE_TOOLTIP` staat bovenaan de tooltip; de oude
+  `ALT_VAULT_TOOLTIP_STALE_RESET` onderaan is weg.
+- Nieuwe keys in 7 talen: `ALT_COL_WEEK`, `ALT_COL_WEEK_HINT`, `ALT_COL_SHARDS_WALLET_HINT` en
+  `ALT_ROW_STALE_TOOLTIP`. `ALT_COL_VAULT_HINT_FMT` is herschreven voor de optelling. check_drift: 0.
+- **Nu ongebruikt en niet verwijderd:** `ALT_STALE_WED_BADGE`, `ALT_UNDER_MANA_CELL_FMT`,
+  `ALT_SHARDS_CELL_FMT`/`_STALE_FMT`, `ALT_VAULT_ROW_FMT`, `ALT_VAULT_EMPTY`, `ALT_COL_UNDER_MANA`
+  en `ALT_VAULT_TOOLTIP_STALE_RESET`. Pas opruimen als Rob optie A goedkeurt, zodat terugdraaien
+  goedkoop blijft.
+
+**§3, de vier kleine reparaties:**
 1. Geen afbreken meer in de getalcellen en de vault-cel (`SetWordWrap(false)` + `SetMaxLines(1)`).
 2. `FormatShardsCell` krijgt `weeklyMax` mee in de relog-tak, dus "/600" in plaats van "/0".
 3. Een Vault-kop met een tooltip: `ALT_COL_VAULT` en `ALT_COL_VAULT_HINT_FMT`, 7 talen. De tooltip
@@ -13,9 +33,7 @@ is gebouwd en nog NIET getest.**
 - **Bijvangst, in dezelfde ronde gerepareerd:** `CLAUDE.md` zei dat `fill()` alleen invult wat
   ontbreekt. GEMETEN (`Translations2026.lua:44`): hij vervangt ook elke waarde die gelijk is aan het
   Engels. De regel in `CLAUDE.md` zegt dat nu, met de gevolgen.
-- **Volgende stap:** optie A (§2c). Daarin staan de currency-iconen als kop met de naam uit
-  `C_CurrencyInfo`, en dat lost ook de verkeerde vertaling "Unter/Sous/Bajo/Menos" (§1e) op.
-  **Optie B pas na Robs akkoord.**
+- **Volgende stap:** Robs test van §3 + optie A. **Optie B (§2d) pas na Robs akkoord.**
 
 ## ✅ 10 sep avond, later — Spec 33 af, behalve het client-oordeel van §7
 

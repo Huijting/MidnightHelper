@@ -18,27 +18,48 @@ local UNTAINTED_MANA_CRYSTALS = 3356
 local VENOMBLIGHT_MANAFLUX = 3465
 local MANAFLUX_CAP = 8
 
---- Layout: keys / shards narrow; Undercoins wider so the header fits.
+--- Layout, Spec 38 option A (10 Sep 2026). From the row's right edge inwards: crystals, Undercoins,
+--- Week, Shards, Keys - then the Vault column, and the name takes what is left. Shards used to be one
+--- cell "201 (354/600)" that did not fit its 62 px; wallet and week are two columns now. The two
+--- currencies were one cell "2121 / 0" under a header ("Under / Mana") that four languages translated
+--- as a preposition; they are two columns headed by Blizzard's own currency icons.
 local PAD_L = 4
 local PAD_R = 6
-local COL_W_KEYS = 34
-local COL_W_SHARDS = 62
+local COL_W_KEYS = 40
+local COL_W_SHARDS = 56
 
 local function GetColWShards()
 	local loc = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode()
 	if loc == "deDE" or loc == "frFR" then
-		return 70
+		return 64
 	end
 	return COL_W_SHARDS
 end
-local COL_W_UNDER = 96
-local COL_W_VAULT = 110
+local COL_W_WEEK = 76
+local COL_W_COIN = 52
+local COL_W_CRYSTAL = 44
+local COL_W_VAULT = 72
 local NUM_GAP = 4
+
+--- The numeric columns in the order they sit, from the right edge inwards.
+local NUM_COL_ORDER = { "crystal", "coin", "week", "shards", "keys" }
+local function NumColW(key)
+	if key == "shards" then
+		return GetColWShards()
+	elseif key == "keys" then
+		return COL_W_KEYS
+	elseif key == "week" then
+		return COL_W_WEEK
+	elseif key == "coin" then
+		return COL_W_COIN
+	end
+	return COL_W_CRYSTAL
+end
 local ROW_ACTION_W = 18
 local ROW_ACTION_GAP = 4
 --- Spec 38 §3.4, 10 Sep 2026: 17 -> 20. At 17 px a cell that wrapped to two lines stuck out above and
 --- below its row, which is the "lines running into each other" on Rob's screenshot. The cells no
---- longer wrap (see AnchorThreeNumericCells), and the extra 3 px is breathing room.
+--- longer wrap (see AnchorNumericCells), and the extra 3 px is breathing room.
 local ROW_H = 20
 local HEADER_ROW_H = 17
 
@@ -89,7 +110,11 @@ local function RowActionOffset()
 end
 
 local function TotalNumericBlockWidth()
-	return PAD_R + COL_W_UNDER + GetColWShards() + COL_W_KEYS + 2 * NUM_GAP
+	local w = PAD_R
+	for i, key in ipairs(NUM_COL_ORDER) do
+		w = w + NumColW(key) + (i > 1 and NUM_GAP or 0)
+	end
+	return w
 end
 
 -- Example-reward item level for a vault activity. nil when the slot has no
@@ -294,6 +319,21 @@ local function GetPlayerItemLevel()
 	return 0
 end
 
+--- Spec 38 §1e / option A: the two currency headers show Blizzard's own icon, and the tooltip title
+--- is the currency's name as the client gives it - right in every language by construction. The
+--- old header "Under / Mana" was translated as a preposition in four packs ("Unter", "Sous",
+--- "Bajo", "Menos"); Under was short for Undercoins.
+local function CurrencyIconAndName(id)
+	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
+		return nil, nil
+	end
+	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+	if not ok or type(info) ~= "table" then
+		return nil, nil
+	end
+	return info.iconFileID, info.name
+end
+
 local function GetCurrencyQty(id)
 	local cid = tonumber(id)
 	if not cid or not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
@@ -337,21 +377,6 @@ local function GetEffectiveShardsWeekly(weekly, snapshotTs)
 		return 0, true
 	end
 	return w, false
-end
-
-local function FormatShardsCell(total, weekly, weeklyMax, weeklyStale)
-	total = math.floor(tonumber(total) or 0)
-	weekly = math.floor(tonumber(weekly) or 0)
-	weeklyMax = math.floor(tonumber(weeklyMax) or 600)
-	if weeklyMax <= 0 then
-		return tostring(total)
-	end
-	if weeklyStale and weekly == 0 then
-		--- Spec 38 §1b/§3.2: the format is "%d (—/%d)" - TWO placeholders - and this passed one
-		--- value, so every relog row read "0 (—/0)" where "/600" belongs. weeklyMax was right there.
-		return string.format(ns:L("ALT_SHARDS_CELL_STALE_FMT"), total, weeklyMax)
-	end
-	return string.format(ns:L("ALT_SHARDS_CELL_FMT"), total, weekly, weeklyMax)
 end
 
 local function GetPlayerProfessionsText()
@@ -891,37 +916,29 @@ function ns:MhIsAccountSnapshotWeeklyFilterActive(kind)
 end
 
 --------------------------------------------------------------------------------
---- Three numeric columns (Keys, Shards, Undercoins): centered under each header band.
-local function AnchorThreeNumericCells(keysFs, shardsFs, underFs, row)
+--- The numeric columns (Spec 38 option A: Keys, Shards, Week, Undercoins, crystals), each centred
+--- under its header band. `cells` is keyed like NUM_COL_ORDER; a missing key is skipped.
+local function AnchorNumericCells(cells, row)
 	--- Spec 38 §1a/§3.1, 10 Sep 2026: these cells had only a width and a CENTER anchor, so WoW
 	--- wrapped "201 (354/600)" onto two lines inside a 17 px row - the overlap on Rob's screenshot.
 	--- One line, always. Too wide now truncates instead of spilling into the neighbouring rows.
-	for _, fs in ipairs({ keysFs, shardsFs, underFs }) do
-		fs:SetWordWrap(false)
-		if fs.SetMaxLines then
-			fs:SetMaxLines(1)
-		end
-	end
 	local rightShift = RowActionOffset()
-	local cxUnder = PAD_R + COL_W_UNDER / 2
-	local shardW = GetColWShards()
-	local cxShards = PAD_R + COL_W_UNDER + NUM_GAP + shardW / 2
-	local cxKeys = PAD_R + COL_W_UNDER + NUM_GAP + shardW + NUM_GAP + COL_W_KEYS / 2
-
-	underFs:SetWidth(COL_W_UNDER)
-	underFs:SetJustifyH("CENTER")
-	underFs:ClearAllPoints()
-	underFs:SetPoint("CENTER", row, "RIGHT", -(cxUnder + rightShift), 0)
-
-	shardsFs:SetWidth(GetColWShards())
-	shardsFs:SetJustifyH("CENTER")
-	shardsFs:ClearAllPoints()
-	shardsFs:SetPoint("CENTER", row, "RIGHT", -(cxShards + rightShift), 0)
-
-	keysFs:SetWidth(COL_W_KEYS)
-	keysFs:SetJustifyH("CENTER")
-	keysFs:ClearAllPoints()
-	keysFs:SetPoint("CENTER", row, "RIGHT", -(cxKeys + rightShift), 0)
+	local x = PAD_R
+	for _, key in ipairs(NUM_COL_ORDER) do
+		local w = NumColW(key)
+		local fs = cells[key]
+		if fs then
+			fs:SetWordWrap(false)
+			if fs.SetMaxLines then
+				fs:SetMaxLines(1)
+			end
+			fs:SetWidth(w)
+			fs:SetJustifyH("CENTER")
+			fs:ClearAllPoints()
+			fs:SetPoint("CENTER", row, "RIGHT", -(x + w / 2 + rightShift), 0)
+		end
+		x = x + w + NUM_GAP
+	end
 end
 
 local function LayoutNameCell(fs, row)
@@ -990,18 +1007,26 @@ local function MakeDataRow(parent, idx)
 		tOut:SetSmoothing("IN_OUT")
 	end
 
-	row.keysFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	row.keysFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-	row.shardsFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	row.shardsFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-	row.underFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	row.underFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-	AnchorThreeNumericCells(row.keysFs, row.shardsFs, row.underFs, row)
+	local function Cell()
+		local fs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+		return fs
+	end
+	row.keysFs = Cell()
+	row.shardsFs = Cell()
+	row.weekFs = Cell()
+	row.coinFs = Cell()
+	row.crystalFs = Cell()
+	AnchorNumericCells({ keys = row.keysFs, shards = row.shardsFs, week = row.weekFs,
+		coin = row.coinFs, crystal = row.crystalFs }, row)
 	row.deleteBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
 	row.deleteBtn:SetSize(ROW_ACTION_W, rowH - 2)
 	row.deleteBtn:SetPoint("RIGHT", row, "RIGHT", -2, 0)
 	row.deleteBtn:SetText("x")
 	row.deleteBtn:SetAlpha(0.9)
+	--- Spec 38 option A: the × shows only while the pointer is on this row. Ten always-visible
+	--- delete buttons read as the table's main action; it is the rarest one.
+	row.deleteBtn:Hide()
 
 	return row
 end
@@ -1017,13 +1042,18 @@ local function MakeHeaderRow(parent)
 	LayoutNameCell(row.charH, row)
 	row.charH:SetJustifyH("LEFT")
 
-	row.keysH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-	row.keysH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
-	row.shardsH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-	row.shardsH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
-	row.underH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-	row.underH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
-	AnchorThreeNumericCells(row.keysH, row.shardsH, row.underH, row)
+	local function HeaderCell()
+		local fs = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+		fs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+		return fs
+	end
+	row.keysH = HeaderCell()
+	row.shardsH = HeaderCell()
+	row.weekH = HeaderCell()
+	row.coinH = HeaderCell()
+	row.crystalH = HeaderCell()
+	AnchorNumericCells({ keys = row.keysH, shards = row.shardsH, week = row.weekH,
+		coin = row.coinH, crystal = row.crystalH }, row)
 
 	--- Spec 38 §3.3, 10 Sep 2026: the vault column had no header at all, so "W0 D0 R0" explained
 	--- itself to nobody. Same anchor as the data rows' vaultFs. The hit button carries only the
@@ -1040,23 +1070,21 @@ local function MakeHeaderRow(parent)
 	row.vaultHit:SetAlpha(0.001)
 	row.vaultHit:EnableMouse(true)
 
-	row.shardsHit = CreateFrame("Button", nil, row)
-	row.shardsHit:SetSize(GetColWShards() + 12, headerH)
-	row.shardsHit:SetPoint("CENTER", row.shardsH, "CENTER")
-	row.shardsHit:SetAlpha(0.001)
-	row.shardsHit:EnableMouse(true)
-
-	row.keysHit = CreateFrame("Button", nil, row)
-	row.keysHit:SetSize(COL_W_KEYS + 12, headerH)
-	row.keysHit:SetPoint("CENTER", row.keysH, "CENTER")
-	row.keysHit:SetAlpha(0.001)
-	row.keysHit:EnableMouse(true)
-
-	row.underHit = CreateFrame("Button", nil, row)
-	row.underHit:SetSize(COL_W_UNDER + 12, headerH)
-	row.underHit:SetPoint("CENTER", row.underH, "CENTER")
-	row.underHit:SetAlpha(0.001)
-	row.underHit:EnableMouse(true)
+	--- One invisible hit button per numeric header: a tooltip, plus a sort click where a sort key
+	--- exists. Exactly the column's width now - the old +12 made neighbouring buttons overlap.
+	local function Hit(fs, w)
+		local b = CreateFrame("Button", nil, row)
+		b:SetSize(w, headerH)
+		b:SetPoint("CENTER", fs, "CENTER")
+		b:SetAlpha(0.001)
+		b:EnableMouse(true)
+		return b
+	end
+	row.keysHit = Hit(row.keysH, COL_W_KEYS)
+	row.shardsHit = Hit(row.shardsH, GetColWShards())
+	row.weekHit = Hit(row.weekH, COL_W_WEEK)
+	row.coinHit = Hit(row.coinH, COL_W_COIN)
+	row.crystalHit = Hit(row.crystalH, COL_W_CRYSTAL)
 
 	return row
 end
@@ -1311,40 +1339,50 @@ function ns:_mhAltOverviewRefreshRows()
 		if e.guid == curGuid then
 			tag = " " .. ns:L("ALT_OVERVIEW_YOU")
 		end
+		--- Spec 38 option A: name, "(you)" and level/ilvl only. Professions left the row (the
+		--- tooltip has the full list), and the orange "(relog)" badge - "(neu einloggen)" in German -
+		--- became a clock and a dimmed row, with the reason at the top of the tooltip.
+		local stale = SnapshotEntryIsStale(e)
 		local base = FormatCharLabel(e.name, e.realm) .. tag
+		if stale then
+			base = base .. " |TInterface\\Icons\\INV_Misc_PocketWatch_01:0|t"
+		end
 		local lvl = math.floor(tonumber(e.level) or 0)
 		local ilvl = math.floor(tonumber(e.ilvl) or 0)
 		if lvl > 0 then
 			base = base .. "  " .. ns:L("ALT_ROW_LEVEL_ILVL_FMT"):format(lvl, ilvl)
 		end
-		if SnapshotEntryIsStale(e) then
-			base = base .. " " .. ns:L("ALT_STALE_WED_BADGE")
-		end
-		local prof = e.professions or ""
-		if prof ~= "" then
-			base = base .. "  |cff888888" .. prof .. "|r"
-		end
 		row.nameFs:SetText(base)
 		if e.guid == curGuid then
 			row.nameFs:SetTextColor(1, 0.92, 0.45)
+		elseif stale then
+			row.nameFs:SetTextColor(0.6, 0.6, 0.6)
 		else
 			row.nameFs:SetTextColor(0.95, 0.95, 0.95)
 		end
+		local plain = stale and 0.55 or 0.95
 		row.keysFs:SetText(tostring(e.keys))
+		row.keysFs:SetTextColor(plain, plain, plain)
 		local shardsWeekly, shardsWeeklyStale = GetEffectiveShardsWeekly(e.shardsWeekly, e.ts)
 		local shardsWeeklyMax = tonumber(e.shardsWeeklyMax) or 600
-		row.shardsFs:SetText(FormatShardsCell(e.shards, shardsWeekly, shardsWeeklyMax, shardsWeeklyStale))
-		if shardsWeeklyStale then
-			row.shardsFs:SetTextColor(1, 0.82, 0.35)
-		elseif shardsWeeklyMax > 0 and shardsWeekly >= shardsWeeklyMax then
-			row.shardsFs:SetTextColor(0.45, 1, 0.55)
+		-- Wallet and week are two columns now: "201 (354/600)" never fitted one 62 px cell.
+		row.shardsFs:SetText(tostring(math.floor(tonumber(e.shards) or 0)))
+		row.shardsFs:SetTextColor(plain, plain, plain)
+		if shardsWeeklyStale or shardsWeeklyMax <= 0 then
+			row.weekFs:SetText("—")
+			row.weekFs:SetTextColor(0.55, 0.55, 0.55)
+		elseif shardsWeekly >= shardsWeeklyMax then
+			-- Never colour alone (WoW has a colour-blind mode): the tick says "capped" too.
+			row.weekFs:SetText(("%d/%d |TInterface\\RaidFrame\\ReadyCheck-Ready:0|t"):format(shardsWeekly, shardsWeeklyMax))
+			row.weekFs:SetTextColor(0.45, 1, 0.55)
 		else
-			row.shardsFs:SetTextColor(0.95, 0.95, 0.95)
+			row.weekFs:SetText(("%d/%d"):format(shardsWeekly, shardsWeeklyMax))
+			row.weekFs:SetTextColor(plain, plain, plain)
 		end
-		row.underFs:SetText(ns:L("ALT_UNDER_MANA_CELL_FMT"):format(
-			math.floor(tonumber(e.undercoin) or 0),
-			math.floor(tonumber(e.manaCrystals) or 0)
-		))
+		row.coinFs:SetText(tostring(math.floor(tonumber(e.undercoin) or 0)))
+		row.coinFs:SetTextColor(plain, plain, plain)
+		row.crystalFs:SetText(tostring(math.floor(tonumber(e.manaCrystals) or 0)))
+		row.crystalFs:SetTextColor(plain, plain, plain)
 		if row.deleteBtn then
 			local canDelete = e.guid ~= curGuid
 			row.deleteBtn:SetEnabled(canDelete)
@@ -1366,9 +1404,12 @@ function ns:_mhAltOverviewRefreshRows()
 				end
 				GameTooltip:Show()
 			end)
-			row.deleteBtn:SetScript("OnLeave", function()
+			row.deleteBtn:SetScript("OnLeave", function(self)
 				if GameTooltip then
 					GameTooltip:Hide()
+				end
+				if not row:IsMouseOver() then
+					self:Hide()
 				end
 			end)
 		end
@@ -1397,10 +1438,13 @@ function ns:_mhAltOverviewRefreshRows()
 			row.vaultFs:SetText(ns:L("ALT_VAULT_CLAIM_LIKELY"))
 			row.vaultFs:SetTextColor(1, 0.72, 0.22)
 		elseif not available then
-			row.vaultFs:SetText(ns:L("ALT_VAULT_EMPTY"))
+			row.vaultFs:SetText("—")
 			row.vaultFs:SetTextColor(0.58, 0.58, 0.58)
 		else
-			row.vaultFs:SetText(ns:L("ALT_VAULT_ROW_FMT"):format(worldUnlocked, dungeonUnlocked, raidUnlocked))
+			--- Spec 38 option A: one count over all three rows ("1/9") instead of "W1 D0 R0", whose
+			--- letters became "M D R" or "Mu Ma R" in three languages. Each row is in the tooltip.
+			row.vaultFs:SetText(("%d/%d"):format(worldUnlocked + dungeonUnlocked + raidUnlocked,
+				math.max(1, worldTotal + dungeonTotal + raidTotal)))
 			if unlockedAny then
 				row.vaultFs:SetTextColor(0.38, 0.95, 0.42)
 			elseif worldProgress > 0 or dungeonProgress > 0 or raidProgress > 0 then
@@ -1488,11 +1532,19 @@ function ns:_mhAltOverviewRefreshRows()
 			end
 		end
 		row:SetScript("OnEnter", function(self)
+			if self.deleteBtn then
+				self.deleteBtn:Show()
+			end
 			if not GameTooltip then
 				return
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			GameTooltip:ClearLines()
+			--- Spec 38 option A: the dimmed row's reason comes first, where the badge used to be.
+			if self.vaultTip.staleSinceReset or self.vaultTip.shardsWeeklyStale then
+				GameTooltip:AddLine(ns:L("ALT_ROW_STALE_TOOLTIP"), 1, 0.82, 0.3, true)
+				GameTooltip:AddLine(" ")
+			end
 			if (tonumber(self.vaultTip.level) or 0) > 0 then
 				GameTooltip:AddLine(
 					ns:L("ALT_TOOLTIP_LEVEL_ILVL_FMT"):format(
@@ -1646,14 +1698,17 @@ function ns:_mhAltOverviewRefreshRows()
 				0.72,
 				true
 			)
-			if self.vaultTip.staleSinceReset then
-				GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_STALE_RESET"), 1, 0.82, 0.3, true)
-			end
+			-- (ALT_VAULT_TOOLTIP_STALE_RESET used to close this tooltip; ALT_ROW_STALE_TOOLTIP
+			-- now opens it, so saying it twice would only push the details apart.)
 			GameTooltip:Show()
 		end)
-		row:SetScript("OnLeave", function()
+		row:SetScript("OnLeave", function(self)
 			if GameTooltip then
 				GameTooltip:Hide()
+			end
+			-- Moving onto the × is leaving the row too; keep it while the pointer is on it.
+			if self.deleteBtn and not self.deleteBtn:IsMouseOver() then
+				self.deleteBtn:Hide()
 			end
 		end)
 		if row.abundFs then
@@ -1688,24 +1743,36 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 	h.charH:SetText(ns:L("ALT_COL_CHARACTER"))
 	h.keysH:SetText(ns:L("ALT_COL_KEYS"))
 	h.shardsH:SetText(ns:L("ALT_COL_SHARDS"))
-	local function wireHeaderHit(hit, sortBy, hintKey)
+	--- sortBy nil = tooltip only (Week, crystals). titleFn, when given, supplies a title line from
+	--- the client (the currency's own name) above the hint.
+	local function wireHeaderHit(hit, sortBy, hintKey, titleFn)
 		if not hit then
 			return
 		end
-		hit:SetScript("OnClick", function()
-			SetAccountSnapshotSort(sortBy)
-			RefreshAccountSnapshotToolbar()
-			if ns._mhAltOverviewRefreshRows then
-				ns:_mhAltOverviewRefreshRows()
-			end
-		end)
+		if sortBy then
+			hit:SetScript("OnClick", function()
+				SetAccountSnapshotSort(sortBy)
+				RefreshAccountSnapshotToolbar()
+				if ns._mhAltOverviewRefreshRows then
+					ns:_mhAltOverviewRefreshRows()
+				end
+			end)
+		else
+			hit:SetScript("OnClick", nil)
+		end
 		if hintKey then
 			hit:SetScript("OnEnter", function(self)
 				if not GameTooltip then
 					return
 				end
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-				GameTooltip:SetText(ns:L(hintKey), 1, 0.92, 0.55, 1, true)
+				local title = titleFn and titleFn()
+				if type(title) == "string" and title ~= "" then
+					GameTooltip:SetText(title, 1, 0.92, 0.55)
+					GameTooltip:AddLine(ns:L(hintKey), 0.9, 0.9, 0.9, true)
+				else
+					GameTooltip:SetText(ns:L(hintKey), 1, 0.92, 0.55, 1, true)
+				end
 				GameTooltip:Show()
 			end)
 			hit:SetScript("OnLeave", function()
@@ -1715,10 +1782,21 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 			end)
 		end
 	end
+	-- Spec 38 option A: Shards is the wallet only now; Week, Undercoins and crystals are new columns.
+	local coinIcon = CurrencyIconAndName(UNDERCOIN)
+	local crystalIcon, crystalName = CurrencyIconAndName(UNTAINTED_MANA_CRYSTALS)
+	h.weekH:SetText(ns:L("ALT_COL_WEEK"))
+	h.coinH:SetText(coinIcon and ("|T" .. coinIcon .. ":0|t") or ns:L("ALT_COL_UNDERCOINS"))
+	h.crystalH:SetText(crystalIcon and ("|T" .. crystalIcon .. ":0|t") or (crystalName or "?"))
 	wireHeaderHit(h.keysHit, "keys", "ALT_COL_KEYS_HINT")
-	wireHeaderHit(h.shardsHit, "shards", "ALT_COL_SHARDS_HINT")
-	wireHeaderHit(h.underHit, "undercoin", "ALT_COL_UNDER_MANA_HINT")
-	h.underH:SetText(ns:L("ALT_COL_UNDER_MANA"))
+	wireHeaderHit(h.shardsHit, "shards", "ALT_COL_SHARDS_WALLET_HINT")
+	wireHeaderHit(h.weekHit, nil, "ALT_COL_WEEK_HINT")
+	wireHeaderHit(h.coinHit, "undercoin", "ALT_COL_UNDER_MANA_HINT", function()
+		return select(2, CurrencyIconAndName(UNDERCOIN))
+	end)
+	wireHeaderHit(h.crystalHit, nil, "ALT_COL_UNDER_MANA_HINT", function()
+		return select(2, CurrencyIconAndName(UNTAINTED_MANA_CRYSTALS))
+	end)
 	-- Spec 38 §3.3: the vault header. The hint names the three rows in order by their own
 	-- translated names, so it explains "W D R" and the French/Spanish "M D R" alike.
 	if h.vaultH then

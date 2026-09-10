@@ -7,19 +7,30 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
-## 🆕 10 sep avond — Account snapshot, Spec 38 §3 (vier kleine reparaties)
+## 🆕 10 sep avond — Account snapshot, Spec 38 §3 + optie A (nieuwe kolommen)
 
-Tabblad *Account snapshot*, na één `/reload`.
+Tabblad *Account snapshot*, na één `/reload`. §3 en optie A zitten in één ronde, dus je ziet
+meteen de nieuwe indeling. Van links naar rechts: **naam · Vault · Keys · Shards · Week ·
+[muntje] · [kristal]**.
 
-- [ ] **Niets loopt meer door elkaar.** De getallen (Keys, Shards, Under/Mana) en de vault-cel blijven
-      op één regel, ook "201 (354/600)". De rijen zijn iets hoger (20 px in plaats van 17).
-      ⚠️ Is een getal te breed voor zijn kolom, dan wordt het nu **afgekapt** in plaats van dat het
-      over twee regels loopt. Zie je dat ergens, zeg welke kolom; dat lost optie A op.
-- [ ] **De relog-rijen tonen "/600" in plaats van "/0"**: bijvoorbeeld "0 (—/600)".
-- [ ] **Er staat een kop "Vault" boven de kolom met "W0 D0 R0".** Met de muis erop zie je wat de drie
-      getallen zijn: World, Dungeons, Raids, in die volgorde, en wat *CLAIM!* betekent.
-- [ ] **Namen en beroepen worden per teken afgekapt**, niet meer midden in een ü of in het puntje
-      tussen twee beroepen.
+- [ ] **Niets loopt meer door elkaar**, ook niet aan het eind van de rij. Alle getallen staan op één
+      regel, en de rijen zijn iets hoger (20 px in plaats van 17).
+      ⚠️ Is iets te breed voor zijn kolom, dan wordt het **afgekapt** in plaats van dat het over twee
+      regels loopt. Zie je ergens een afgekapt getal, zeg dan welke kolom en welke taal.
+- [ ] **Geen beroepen meer in de rij.** Die staan nog wel in de tooltip als je over een naam gaat.
+- [ ] **Vault toont nu "1/9"**: alle drie de rijen bij elkaar opgeteld. *CLAIM!* en *LIKELY* staan
+      er nog, net als het pulseren op resetdag. Met de muis op de kop **Vault** lees je wat het getal is.
+- [ ] **Shards en Week zijn twee kolommen.** Shards is je wallet, Week is bijvoorbeeld "354/600".
+      Op de cap staat **"600/600" met een groen vinkje**. Een character dat sinds de reset niet
+      ingelogd is, toont **"—"** bij Week.
+- [ ] **De laatste twee koppen zijn icoontjes**: het Undercoin-muntje en het Mana Crystal-kristal.
+      Met de muis erop zie je de **naam van de currency** zoals WoW hem noemt. Klikken op het muntje
+      sorteert op Undercoins, net als vroeger de kop "Under / Mana".
+- [ ] **Het ×-knopje verschijnt pas als je met de muis over een rij gaat.** Het werkt nog steeds
+      hetzelfde: een bevestigingsvraag, en je eigen character kun je niet verwijderen.
+- [ ] **Relog-rijen:** grijs, met een **klokje** achter de naam in plaats van het oranje "(relog)".
+      Ga je erover, dan staat bovenaan de tooltip waarom en wat je moet doen.
+- [ ] **Namen worden per teken afgekapt**, dus niet meer midden in een ü.
 
 ## 🆕 10 sep avond — nieuwe macro's in de Macros-tab (Spec 33 + Hunter's Mark)
 

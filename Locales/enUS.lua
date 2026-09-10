@@ -2311,7 +2311,11 @@ ns._mhLocales.enUS = {
 	ALT_VAULT_TOOLTIP_CLAIM_READY = "A Great Vault reward is available to claim on this character.",
 	ALT_VAULT_TOOLTIP_CLAIM_LIKELY = "Likely claim available (inferred from pre-reset snapshot).",
 	ALT_COL_VAULT = "Vault",
-	ALT_COL_VAULT_HINT_FMT = "Great Vault: choices unlocked this week, one number per row, in this order: %s, %s, %s.\n%s = a reward is waiting to be picked on that character.\nHover a character for the details.",
+	ALT_COL_VAULT_HINT_FMT = "Great Vault: choices unlocked this week, all three rows added up (%s, %s, %s), out of the total.\n%s = a reward is waiting to be picked on that character.\nHover a character to see each row.",
+	ALT_COL_WEEK = "Week",
+	ALT_COL_WEEK_HINT = "Coffer Key Shards earned this week toward the weekly cap. It resets at the weekly reset.\nThe tick means the cap is reached. — means this character has not logged in since the reset, so the week is unknown.",
+	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards in this character's wallet. This number never resets.",
+	ALT_ROW_STALE_TOOLTIP = "Needs a relog: this row is from before this week's reset. Log in on this character once and it updates.",
 
 	ACCOUNT_WEEKLY_TITLE = "This week",
 	ACCOUNT_WEEKLY_CLICK_FILTER = "Click to show only matching characters in the table below (click again to clear).",
