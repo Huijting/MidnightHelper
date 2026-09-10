@@ -3572,6 +3572,7 @@ fill("itIT", {
 fill("deDE", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Nur da, solange der Temple Strike: Die Schattenseite läuft - es gibt keinen festen Punkt, also lässt der Pfeil diesen aus.",
 	ACH_NOTE_ANCIENT_FOE = "Erscheint dort, wo eine Temple Incursion endet, hat also keinen Platz auf der Karte. Mach mit, was gerade läuft, dann kommt er von selbst.",
+	ACH_NOTE_CURSE_SURGE = "Der Endboss eines Curse Surge: ein Szenario an dieser Stelle, das nur zeitweise läuft. Wegpunkt zeigt dir den Ort; die Route lässt ihn aus, denn meistens ist dort nichts zu finden.",
 	ACH_NOTE_VSERIX = "Wandert umher und lässt sich töten, ohne dass ein Event läuft.",
 
 	ICV_KEYS_TITLE = "Die vier Altar-der-Korrosion-Knoten, die man nicht kaufen kann",
@@ -3599,6 +3600,7 @@ fill("deDE", {
 fill("frFR", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Présent uniquement pendant le Temple Strike : les Entrailles - il n'y a pas d'endroit fixe, donc la flèche l'ignore.",
 	ACH_NOTE_ANCIENT_FOE = "Apparaît là où se termine une Temple Incursion, donc il n'a pas de place sur la carte. Rejoins ce qui est en cours et il viendra à toi.",
+	ACH_NOTE_CURSE_SURGE = "Le boss final d'un Curse Surge : un scénario à cet endroit, actif seulement une partie du temps. Point de route te montre où ; l'itinéraire l'ignore, car la plupart du temps il n'y a rien à trouver.",
 	ACH_NOTE_VSERIX = "Se déplace, et peut être tué sans qu'aucun événement soit en cours.",
 
 	ICV_KEYS_TITLE = "Les quatre noeuds de l'Autel de la Corrosion qui ne s'achètent pas",
@@ -3626,6 +3628,7 @@ fill("frFR", {
 fill("esES", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Solo está mientras corre el Temple Strike: Bajos Fondos - no hay un sitio fijo al que ir, así que la flecha lo deja pasar.",
 	ACH_NOTE_ANCIENT_FOE = "Aparece donde termina una Temple Incursion, así que no tiene sitio en el mapa. Únete a lo que esté activo y vendrá solo.",
+	ACH_NOTE_CURSE_SURGE = "El jefe final de un Curse Surge: un escenario en este sitio que solo está activo parte del tiempo. Punto de ruta te muestra dónde; la ruta lo salta, porque casi siempre no hay nada que encontrar.",
 	ACH_NOTE_VSERIX = "Deambula, y se puede matar sin que haya ningún evento activo.",
 
 	ICV_KEYS_TITLE = "Los cuatro nodos del Altar de Corrosión que no se pueden comprar",
@@ -3653,6 +3656,7 @@ fill("esES", {
 fill("ptBR", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Só aparece enquanto o Temple Strike: Os Esgotos está rolando - não há um ponto fixo, então a seta ignora este.",
 	ACH_NOTE_ANCIENT_FOE = "Surge onde uma Temple Incursion termina, então não tem lugar no mapa. Entre no que estiver rolando e ele vem até você.",
+	ACH_NOTE_CURSE_SURGE = "O chefe final de um Curse Surge: um cenário neste lugar que só roda parte do tempo. Ponto de rota mostra onde fica; a rota pula este, porque na maior parte do tempo não há nada lá.",
 	ACH_NOTE_VSERIX = "Fica andando por aí, e dá para matar sem nenhum evento ativo.",
 
 	ICV_KEYS_TITLE = "Os quatro nós do Altar da Corrosão que não dá para comprar",
@@ -3680,6 +3684,7 @@ fill("ptBR", {
 fill("itIT", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "C'è solo mentre è attivo il Temple Strike: Sotterranei - non esiste un punto fisso, quindi la freccia lo salta.",
 	ACH_NOTE_ANCIENT_FOE = "Compare dove finisce una Temple Incursion, quindi non ha un posto sulla mappa. Unisciti a quello che è in corso e arriverà da solo.",
+	ACH_NOTE_CURSE_SURGE = "Il boss finale di un Curse Surge: uno scenario in questo punto, attivo solo per parte del tempo. Punto percorso ti mostra dove; il percorso lo salta, perché quasi sempre lì non c'è niente da trovare.",
 	ACH_NOTE_VSERIX = "Si sposta, e si può uccidere senza che sia attivo alcun evento.",
 
 	ICV_KEYS_TITLE = "I quattro nodi dell'Altar of Corrosion che non si possono comprare",

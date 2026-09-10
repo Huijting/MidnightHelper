@@ -591,6 +591,25 @@ local function EnsureToast()
 	return f
 end
 
+--- Which hunt a node belongs to.
+---
+--- 🔴 ADDED 10 Sep 2026, because the toast below never knew. It read `activeEntry`, but that
+--- local is declared ~150 lines further down — so here the name is a GLOBAL, and always nil.
+--- `ns.AchievementNodeName(nil, node)` then returns `node.name` or the generic fallback,
+--- which the older hunts never showed because every one of their nodes carries a `name`.
+--- The Coiled Isle hunts ship without names on purpose (the client supplies them), so every
+--- toast opened from one of them carried the fallback title instead of the thing's name.
+local function EntryForNode(node)
+	for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES or {}) do
+		for _, n in ipairs(entry.nodes or {}) do
+			if n == node then
+				return entry
+			end
+		end
+	end
+	return nil
+end
+
 function ns.ShowTreasureToast(node)
 	if not node or (not node.note and not node.counterItem and not (node.prereqs and #node.prereqs > 0)) then
 		if toast then
@@ -604,13 +623,26 @@ function ns.ShowTreasureToast(node)
 	for _, b in ipairs(f.btns) do
 		b:Hide()
 	end
-	f.title:SetText(ns.AchievementNodeName(activeEntry, node))
+	local entry = EntryForNode(node)
+	local nodeName = ns.AchievementNodeName(entry, node)
+	f.title:SetText(nodeName)
 	local cl = CounterLine(node)
 	f.body:SetText((node.note and ns:L(node.note) or "") .. (cl and ("\n\n" .. cl) or ""))
 
 	-- Button 1 routes back to the treasure itself (so you never lose it when the
 	-- TomTom arrow clears on arrival); the rest are its prerequisites.
-	local targets = { { name = (ns:L("ACH_TOAST_CHEST_FMT")):format(ns.AchievementNodeName(activeEntry, node)), mapID = node.mapID, x = node.x, y = node.y } }
+	--- ⚠️ `wp*` as the fallback, same order as the row's Waypoint button. A node with only a
+	--- `wp*` destination (the Mix Master offerings, the Curse Surge bosses) used to get a
+	--- button 1 with no coordinate, which AddSmartTomTomWay silently refuses. A node with
+	--- neither gets no button 1 at all rather than one that does nothing.
+	local targets = {}
+	local goMap, goX, goY = node.mapID or node.wpMapID, node.x or node.wpX, node.y or node.wpY
+	if goMap and goX and goY then
+		-- "%s — the chest" only for a node that IS the place; a boss at a surge is not a chest.
+		local goName = node.mapID and (ns:L("ACH_TOAST_CHEST_FMT")):format(nodeName)
+			or (node.wpName and ns:L(node.wpName)) or nodeName
+		targets[1] = { name = goName, mapID = goMap, x = goX, y = goY }
+	end
 	for _, p in ipairs(node.prereqs or {}) do
 		targets[#targets + 1] = p
 	end

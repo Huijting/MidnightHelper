@@ -7,6 +7,37 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 10 sep — Curse Surges: Ori'kassi en de Leviathan zijn geen rares meer
+
+Rob koos *"doe maar allebei"*: A (achievement-kaart) én B (uit de rares-lijst). Eén `/reload`.
+
+- [ ] **Rares-tab, Coiled Isle.** Venom Lancer Ori'kassi en Malformed Leviathan staan er **niet**
+      meer in, en de teller bovenaan telt er twee minder. *Generate Route* / *Find Nearest* sturen
+      je er niet meer heen.
+- [ ] **Achievements-tab: een nieuwe kaart `[Rare] Turn the Surge`**, vijf rijen, alle vijf met
+      *(elite)* en een **Waypoint**-knop. ⚠️ De knop op de kaart zelf zegt **"No route"** en is grijs
+      — **dat is goed**: de route mag er juist niet heen.
+- [ ] **Klik op een Waypoint in die kaart.** Pijl naar de plek, én een popup met **de naam van de
+      baas als titel** (niet *"Treasure"*) en de uitleg *"The final boss of a Curse Surge…"*. De
+      knop in die popup draagt de baasnaam en zet de waypoint opnieuw.
+- [ ] **Tegenproef voor dezelfde fix — Mysterious Mix Master.** Klik daar een Waypoint. Popup-titel
+      hoort de offering te zijn, niet *"Treasure"*, en de knop *"Ofi's cauldron"* hoort iets te
+      doen. 📌 **Dat was vóór vandaag stuk** (GEMETEN in de code, nooit op een scherm gezien): de
+      popup zocht zijn achievement via een naam die op die plek nog niet bestond.
+- [ ] **Zoek `kassi`.** Eén resultaat voor Ori'kassi (waren er twee: de rare én de achievement-rij),
+      dat de Achievements-tab opent, een waypoint zet én dezelfde popup toont.
+- 💸 **Wat het kost:** geen *"rare nearby"*-melding meer voor deze twee. Dat was de afgesproken prijs.
+
+**En de drie metingen die alleen het spel kan doen:**
+
+- [ ] **`/mh rarequests` op Earthshammy** (die deed gisteravond de surge). Onderaan staan Ori'kassi en
+      de Leviathan nog steeds, met hun A- en B-nummer. Staat bij Ori'kassi **B 93722 done** of
+      **A 96969 done**? Dan weten we of een surge-kill een vlag zet.
+- [ ] **`/mh atal` terwijl er een surge loopt.** Welk POI-nummer verschijnt: **8890** (Zygor) of
+      **8937** (HandyNotes)? Pas daarna kan optie C ("hier loopt nú een surge") gebouwd worden.
+- [ ] **Hoe vaak ze wisselen.** HandyNotes zegt 45 minuten, een forumdraad ~20. Zie je er een
+      beginnen en de volgende beginnen, noteer de twee tijden.
+
 ## 🆕 9 sep — vóór de volgende release: vier dingen die niemand op een scherm gezien heeft
 
 Rob vroeg op resetdag: *"is er niets meer echt open voor deze release?"* Dit is het gemeten

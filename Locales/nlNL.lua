@@ -1480,6 +1480,7 @@ ns._mhLocales.nlNL = {
 	CURIO_NO_TEXT = "(tekst niet kunnen lezen - ga er in het spel een keer overheen en draai dit opnieuw)",
 	ACH_NOTE_UNDERBELLY_STRIKE = "Staat er alleen terwijl de Temple Strike: The Underbelly loopt - er is geen vaste plek om heen te lopen, dus de pijl laat deze met rust.",
 	ACH_NOTE_ANCIENT_FOE = "Verschijnt waar een Temple Incursion eindigt, dus hij heeft geen plek op de kaart. Sluit aan bij wat er loopt en hij komt vanzelf.",
+	ACH_NOTE_CURSE_SURGE = "De eindbaas van een Curse Surge: een scenario op deze plek dat maar een deel van de tijd loopt. Waypoint wijst de plek aan; de route slaat hem over, want meestal is daar niets te vinden.",
 
 	ACH_NOTE_VSERIX ="Zwerft rond, en is te doden zonder dat er een event loopt.",
 	ACH_NOTE_MIX_MASTER = "Een per dag, gemaakt bij de ketel van Ofi the Sly op 57.4 / 48.7 - niet die Ofi in het moeras, die kan niet mengen. Elk offer is een exacte combinatie van drie ingredienten en het spel laat je tijdens het kiezen niets zien, dus het recept hieronder is het hele werk. Ingredienten komen uit Cracked Canopic Jars, Venom-Clotted Baubles en Singing Shells over het eiland, en ze zijn verhandelbaar - de veiling kan dus ook.",

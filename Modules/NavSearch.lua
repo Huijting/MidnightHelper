@@ -489,6 +489,13 @@ local function BuildNavIndex()
 							ns.AddSmartTomTomWay(n.mapID or n.wpMapID,
 								n.x or n.wpX, n.y or n.wpY, lbl)
 						end
+						--- The same hint the row's own Waypoint button shows. Without it a search
+						--- for a Curse Surge boss (10 Sep) sets a waypoint to a spot that is empty
+						--- most of the time and says nothing about why — the exact silence that
+						--- took those two bosses out of the Rares tab.
+						if n.note and ns.ShowTreasureToast then
+							ns.ShowTreasureToast(n)
+						end
 					end, TIER_CONTENT, title, "treasure")
 				end
 			end

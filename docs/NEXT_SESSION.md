@@ -27,11 +27,17 @@ Achievement-naam van de client: **"Turn the Surge"**. Vijf bosses.
 
 | scenario | ID | areapoiid | plek | boss |
 |---|---|---|---|---|
-| The Broodmother's Nest | 3278 | 8888 | 46.16 / 33.61 | Vassti — AFGELEID op naam |
+| The Broodmother's Nest | 3278 | 8888 | 46.16 / 33.61 | Vassti — ✅ Zygors `kill`-stap (45.29/28.64) |
 | The Malformed Leviathan | 3270 | 8891 | 47.00 / 62.22 | Leviathan — ✅ Zygors eigen `kill`-stap |
-| Mlurkkr Massacre | 3286 | 8889 | 70.18 / 33.15 | Ss'akrithos — AFGELEID door eliminatie |
+| Mlurkkr Massacre | 3286 | 8889 | 70.18 / 33.15 | Ss'akrithos — ✅ Zygors `kill`-stap (71.28/31.39) |
 | **Siege at Coiler's Wake** | 3274 | 8890 | 67.64 / 77.90 | Ori'kassi — ✅ Zygors `kill`-stap **én Robs scherm** |
-| The Looming Mutagenitor | 3288 | 8887 | 26.26 / 67.40 | Mutagenitor — AFGELEID op naam |
+| The Looming Mutagenitor | 3288 | 8887 | 26.26 / 67.40 | Mutagenitor — ✅ Zygors `kill`-stap (26.71/64.95) |
+
+🔴 **Correctie, middag 10 sep:** hier stonden drie koppelingen als AFGELEID ("op naam", "door
+eliminatie"). **Zygor heeft voor álle vijf een `kill`-stap**, elk binnen zijn eigen scenario, en
+HandyNotes heeft ook alle vijf (`RareElite`, criteria 115368/115369/115370 = de client). Alle vijf
+dus GEMETEN in de zin van "drie bronnen eens". Ik had vanochtend alleen de twee regels gezien die ik
+zocht.
 
 Vrijspelen volgens Zygor: het tweede hoofdstuk van de Curse of Ula'tek-campagne, plus de quests
 *Counter-Curse Bounty* (97382, Jan'sari the Watchful) en *Turn Back the Surge* (96995, Talon Commander
@@ -69,7 +75,26 @@ Doelen die alleen tijdens een evenement bestaan, als **checklist** met een notit
 `ns.AchievementNodeRoutable` houdt nodes zonder `mapID/x/y` uit de route. Exact deze vorm — alleen met
 één verschil: surges hebben wél een **vaste plek**, alleen geen vast **moment**.
 
-### 💡 Voorstel — NIET gebouwd, Rob beslist
+### ✅ A + B GEBOUWD, 10 sep middag — Rob: *"doe maar allebei"*
+
+- **A** — `AchievementsData.lua`: 63390 met **alle vijf** bosses. Ze gebruiken `wp*` en geen
+  `mapID/x/y`: elke rij krijgt een Waypoint-knop, maar de route slaat ze over. De kaartknop zegt
+  dus "No route", en dat klopt. Uitleg `ACH_NOTE_CURSE_SURGE` in 7 talen, en alle vijf staan in
+  `ELITE_RARE_CRITERIA`.
+- **B** — de twee rijen zijn uit `COILED_ISLE.rares`. `RARE_QUEST_PAIRS` houdt ze wél, zodat
+  `/mh rarequests` de open vraag (flipt een surge-kill iets?) nog kan meten.
+- 🐛 **Bestaande bug meegenomen** (GEMETEN in de code): `ns.ShowTreasureToast` las `activeEntry`,
+  maar die `local` wordt pas ~150 regels later gedeclareerd. Op die plek was het dus een global, en
+  die was altijd nil. Gevolgen:
+  - elke popup van een naamloze node (alle Coiled Isle-hunts) kreeg de titel *"Treasure"*
+  - knop 1 kreeg bij `wp*`-nodes (Mix Master) geen coördinaat, en deed dus niets
+
+  De fix is `EntryForNode`, met `wp*` als fallback. Nooit op een scherm gezien, dus staat op de
+  testlijst.
+- **Zoeken** op een node met een notitie toont nu dezelfde popup als de Waypoint-knop.
+- Testen: bovenaan `docs/TESTLIJST.md`. **C blijft open** tot het POI-nummer gemeten is.
+
+### 💡 Het oorspronkelijke voorstel (A en B nu gebouwd, C open)
 
 - **A. 63390 "Turn the Surge" als achievement-hunt**, vijf criteria van de client, met een notitie
   *"dit is een evenement op een vaste plek; het loopt niet altijd"*. Coördinaten wél, want de plek is

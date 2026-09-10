@@ -225,6 +225,8 @@ local ZONES = {
 -- ⚠️ Two still carry 0 and so never tick themselves off: the Leviathan (no such quest
 -- appears to exist for it) and Venom Lancer Ori'kassi (never killed). Filling those from
 -- the unused gaps in the band would be a guess wearing a measurement's clothes.
+-- ✅ 10 Sep 2026: both have since LEFT this list. They are Curse Surge bosses, not rares;
+-- see the note where the Leviathan's row stood.
 --
 -- ⚠️ Nar'zira sits on map 2642, an interior with its own map ID, so a lap flown over
 -- 2512 alone will not have seen everything that lives here. Expect this list to grow.
@@ -237,7 +239,18 @@ local COILED_ISLE = {
 	rares = {
 		{ 96456, 2512, 31.72, 56.82, "Lockjaw the Snapper", 265237, ach = 63358, crit = 115284, acct = 98347 },
 		{ 95447, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109, ach = 63358, crit = 115287, acct = 98354 },
-		{ 93673, 2512, 46.99, 62.23, "Malformed Leviathan", 255087, acct = 96970 }, -- elite; ⚠️ id UNVERIFIED, see the band note
+		--- 🔴 Malformed Leviathan and Venom Lancer Ori'kassi LEFT THIS LIST on 10 Sep 2026.
+		--- They are not rares. Each is the final boss of a Curse Surge, a scenario at a fixed
+		--- spot that only runs part of the time. This list's route walks to every row it cannot
+		--- see ticked off: on 9 Sep it sent Rob to Ori'kassi's spot, where there was nothing.
+		---
+		--- They live in AchievementsData.lua now, as 63390 "Turn the Surge", together with the
+		--- three surge bosses this list never had. Each row there gets a Waypoint, and the
+		--- route skips them.
+		---
+		--- ⚠️ THE PRICE, accepted by Rob: MatchRareInZone matches vignettes against this list,
+		--- so these two no longer raise the "rare nearby" toast. RARE_QUEST_PAIRS keeps both, so
+		--- `/mh rarequests` can still say whether their quest flags ever flip.
 		{ 93829, 2512, 70.03, 63.44, "Big Mon", 256631, ach = 63358, crit = 115286, acct = 98353 },
 		--- ✅ SETTLED 19 aug, AND NOBODY WAS WRONG. This was flagged that morning as the
 		--- island's biggest coordinate disagreement — ours 4.4 away from HandyNotes 154,
@@ -277,7 +290,8 @@ local COILED_ISLE = {
 		--- stilte die eruitziet als verouderde data. Vandaar `spawnKey`.
 		{ 96491, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854, ach = 63358, crit = 115279,
 			spawnKey = "RARE_SPAWN_FROM_CHEST", acct = 98344 },
-		{ 93722, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927, acct = 96969 }, -- elite; ⚠️ id UNVERIFIED
+		-- (Venom Lancer Ori'kassi stood here until 10 Sep 2026; see the note where the
+		-- Malformed Leviathan's row stood, above.)
 		{ 94860, 2642, 66.40, 62.90, "Nar'zira", 258920, ach = 63358, crit = 115283, acct = 98351 }, -- interior map
 		--- Four rares our own lap never saw, from HandyNotes_Midnight 149 (13 Aug 2026)
 		--- — the source Rob has told us to trust for rare coordinates without
@@ -330,6 +344,8 @@ local COILED_ISLE = {
 		--- their band A as 96969/96970, outside the run that was just validated, they carry
 		--- no achievement criterion, and our own note calls the Leviathan an EVENT with no
 		--- kill quest of its own. Three reasons to leave them; none of them measured either.
+		--- ✅ 10 Sep 2026: moot now. Both left this list as Curse Surge bosses. (They do carry
+		--- an achievement criterion after all, in 63390, which is where they went.)
 		---
 		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
 		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
@@ -398,6 +414,10 @@ local RARE_QUEST_PAIRS = {
 	-- The two with no achievement criterion. Band A here is NOT 98xxx — HandyNotes puts
 	-- their reputation quests in a separate 969xx run, which is itself a reason to doubt
 	-- that "band A" is one thing.
+	-- ⚠️ Since 10 Sep 2026 neither is in COILED_ISLE.rares (they are Curse Surge bosses, see
+	-- the note there). They stay HERE so `/mh rarequests` can still show whether a surge kill
+	-- ever flips 93722/93673 or 96969/96970. That is the open question, and this is where it
+	-- gets measured.
 	{ 255927, 96969, 93722, "Venom Lancer Ori'kassi" },
 	{ 255087, 96970, 93673, "Malformed Leviathan" },
 }

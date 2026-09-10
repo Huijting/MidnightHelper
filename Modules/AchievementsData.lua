@@ -306,6 +306,45 @@ ns.ACHIEVEMENT_TREASURES = {
 				wpMapID = 2512, wpX = 57.23, wpY = 48.46, wpName = "ACH_STEP_OFI_CAULDRON" },
 		},
 	},
+	--- ✅ ADDED 10 Sep 2026 — Turn the Surge, and with it the reason two "rares" left the
+	--- Rares tab. On 9 Sep our route sent Rob to Venom Lancer Ori'kassi; he found nothing
+	--- there, and met him later that evening as the final boss of a scenario (Siege at
+	--- Coiler's Wake).
+	---
+	--- A Curse Surge is an event at a FIXED place that is NOT always running. There are five,
+	--- and three sources agree on which:
+	---   - Rob's client: an old `/mh atal` asked for 63390 and got five criteria (SV `atalProbe`)
+	---   - Zygor: one Curse Surge scenario per boss, each with a `kill` step for that boss
+	---   - HandyNotes_Midnight: all five as RareElite, with the same five criteria as the client
+	--- Rares.lua only ever carried two of them, because the PTR vignette lap happened to see two.
+	---
+	--- ⚠️ `wp*`, NOT mapID/x/y. The place is real, so every row gets a Waypoint button. But the
+	--- route must not walk you there, because most of the time there is nothing to find — the
+	--- exact fault that moved these out of Rares.lua. That is the Mix Master split (somewhere to
+	--- send you without being a location), for a different reason. The card's Route button then
+	--- reads "No route", which is the truth.
+	---
+	--- Coordinates: Ori'kassi and the Leviathan are the rows they had in Rares.lua (our own PTR
+	--- vignette reads, 6 Aug); the other three are HandyNotes', the source Rob trusts for rare
+	--- coordinates. Zygor's kill steps land within half a point of all five.
+	---
+	--- ⚠️ NO CYCLE, ON PURPOSE. HandyNotes says the surges rotate every 45 minutes, a forum
+	--- thread says about 20. Nobody has measured it, so the note says "part of the time" and
+	--- carries no number.
+	{
+		achievementID = 63390, -- Turn the Surge (client supplies the title)
+		--- A kill list, so EntryKind calls it "rare", and rares roll up into Light Up the Night
+		--- by default. Nobody has checked which meta this one feeds, so it claims none.
+		feedsMeta = false,
+		nodes = {
+			-- North to south, like the other hunts.
+			{ criteria = 115369, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 45.20, wpY = 28.40 }, -- Vassti, the Exalted Broodmother · The Broodmother's Nest
+			{ criteria = 115370, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 71.20, wpY = 31.30 }, -- Ss'akrithos · Mlurkkr Massacre
+			{ criteria = 111353, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 46.99, wpY = 62.23 }, -- Malformed Leviathan · The Malformed Leviathan
+			{ criteria = 115368, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 26.40, wpY = 64.80 }, -- Looming Mutagenitor · The Looming Mutagenitor
+			{ criteria = 115371, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 67.16, wpY = 77.52 }, -- Venom Lancer Ori'kassi · Siege at Coiler's Wake
+		},
+	},
 	{
 		achievementID = 61960, -- Treasures of Eversong Woods
 		nameKey = "ACH_TREASURE_EVERSONG", -- localized title (falls back to API name)
@@ -752,4 +791,6 @@ ns.ELITE_RARE_CRITERIA = {
 	[111885] = true, [111890] = true,                  -- Voidstorm
 	[114011] = true,                                   -- Naigtal (Indomitable Mk XII)
 	[113997] = true,                                   -- Val (Glacial Broodmother)
+	-- Coiled Isle, the five Curse Surge bosses (63390). HandyNotes files all five as RareElite.
+	[115368] = true, [115369] = true, [115370] = true, [115371] = true, [111353] = true,
 }

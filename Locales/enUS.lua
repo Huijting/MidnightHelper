@@ -1711,6 +1711,7 @@ ns._mhLocales.enUS = {
 	CHANGELOG_185_6 = "New in Professions 101: a 'Skill leveling 1-100' route per profession (Alchemy & Herbalism first, more coming) and a clear 'Work Orders explained' chapter - how to order items and craft for others.",
 	ACH_NOTE_UNDERBELLY_STRIKE = "Only up while the Temple Strike: The Underbelly is running - there is no fixed spot to walk to, so the arrow leaves this one alone.",
 	ACH_NOTE_ANCIENT_FOE = "Spawns where a Temple Incursion finishes, so it has no place on the map. Join whatever is running and it comes to you.",
+	ACH_NOTE_CURSE_SURGE = "The final boss of a Curse Surge: a scenario at this spot that only runs part of the time. Waypoint shows you where; the route leaves it out, because most of the time there is nothing there to find.",
 
 	ACH_NOTE_VSERIX ="Wanders, and can be killed without any event running.",
 	ACH_NOTE_MIX_MASTER = "One per day, crafted at Ofi the Sly's cauldron at 57.4 / 48.7 - not the Ofi in the swamp, who cannot mix. Each offering is an exact three-ingredient combination and the game shows you nothing while you pick, so the recipe below is the whole job. Ingredients come from Cracked Canopic Jars, Venom-Clotted Baubles and Singing Shells around the isle, and they are tradable, so the auction house works too.",
