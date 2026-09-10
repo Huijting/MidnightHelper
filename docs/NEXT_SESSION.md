@@ -1,9 +1,10 @@
 # Midnight Helper — waar we staan
 
-## 🛠️ 10 sep avond — Spec 38 (Account snapshot): §3 + optie A gebouwd, optie B wacht op Rob
+## ✅ 10 sep avond — Spec 38 (Account snapshot): §3 + optie A af, optie B wacht op Rob
 
-Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3 (c18101a) en optie A zijn
-gebouwd en nog NIET in-game gezien.** Test in `docs/TESTLIJST.md`.
+Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3 (c18101a) en optie A
+(c83425c + 6744069) zijn door Rob in-game goedgekeurd.** Alleen de reparatie van de voetregel van
+*This week* moet hij nog zien (`docs/TESTLIJST.md`).
 
 **Optie A (§2c), `Modules/AltOverview.lua`:**
 - Kolommen van rechts naar links: kristal · Undercoins · Week · Shards · Keys, dan Vault.
@@ -24,9 +25,11 @@ gebouwd en nog NIET in-game gezien.** Test in `docs/TESTLIJST.md`.
   `LvlCellRightOffset`), zoals in de mock-up van de spec. Op de kop sorteer je op level. De tooltip
   gaf het relog-advies twee keer; `ALT_TOOLTIP_SHARDS_WEEKLY_STALE` is eruit. Nieuwe keys:
   `ALT_COL_LEVEL_ILVL` en `_HINT`.
-- **Open van Rob:** is het grijs van de relog-rijen goed zichtbaar? Bij Vault staat voor een
-  relog-rij "0/9" (dat klopt) of "—" (zoals de Week-kolom). En het blok *This week* heeft een voetregel die
-  tegen de regel erboven plakt (die fout zat er al).
+- ✅ **Rob, na de tweede ronde (6744069): "alle punten goed afgewerkt".** Vault blijft "0/9" bij
+  een relog-rij. De voetregel van *This week* die tegen de regel erboven plakte is daarna
+  gerepareerd in `AccountWeeklyChecklist.lua`: de regels worden gestapeld op hun echte teksthoogte,
+  en bij een breedtewijziging opnieuw. Die reparatie is nog NIET getest.
+- **Nu toegestaan, niet gedaan:** de ongebruikte keys hieronder opruimen, want Rob keurde optie A goed.
 - **Nu ongebruikt en niet verwijderd:** `ALT_STALE_WED_BADGE`, `ALT_UNDER_MANA_CELL_FMT`,
   `ALT_SHARDS_CELL_FMT`/`_STALE_FMT`, `ALT_VAULT_ROW_FMT`, `ALT_VAULT_EMPTY`, `ALT_COL_UNDER_MANA`,
   `ALT_VAULT_TOOLTIP_STALE_RESET`, `ALT_ROW_LEVEL_ILVL_FMT` en `ALT_TOOLTIP_SHARDS_WEEKLY_STALE`. Pas opruimen als Rob optie A goedkeurt, zodat terugdraaien

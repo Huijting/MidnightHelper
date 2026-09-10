@@ -871,18 +871,30 @@ function ns.RefreshAccountWeeklyChecklistLayout()
 		panelUi.titleRow:SetHeight(titleH)
 	end
 	local collapsed = GetCollapsed()
-	local visibleLines = 0
-	for i, line in ipairs(panelUi.lines or {}) do
-		-- Re-anker + hoogte met de huidige tekstschaal (mount zette vaste posities).
-		line:SetHeight(lineH)
+	--- Stack the lines on their REAL text height (10 Sep 2026). Every line used to get one
+	--- fixed 14 px slot at index * lineH, but ACCOUNT_WEEKLY_SCOPE_NOTE is long enough to wrap
+	--- to two lines, and a two-line text centred in a one-line slot sticks out above and below
+	--- it - Rob's screenshot showed it pressed against the line above. A line that wraps now
+	--- gets the room it needs. Until the block has a width, GetStringHeight means nothing, so
+	--- the fixed height stands in; the block's OnSizeChanged re-runs this once it has one.
+	local y = titleH
+	for _, line in ipairs(panelUi.lines or {}) do
+		local h = lineH
+		if line:IsShown() and line.fs and (line:GetWidth() or 0) > 50 then
+			local sh = line.fs:GetStringHeight() or 0
+			if sh > lineH then
+				h = math.ceil(sh) + 2
+			end
+		end
+		line:SetHeight(h)
 		line:ClearAllPoints()
-		line:SetPoint("TOPLEFT", panelUi.block, "TOPLEFT", 4, -(titleH + (i - 1) * lineH))
-		line:SetPoint("TOPRIGHT", panelUi.block, "TOPRIGHT", -4, -(titleH + (i - 1) * lineH))
+		line:SetPoint("TOPLEFT", panelUi.block, "TOPLEFT", 4, -y)
+		line:SetPoint("TOPRIGHT", panelUi.block, "TOPRIGHT", -4, -y)
 		if line:IsShown() then
-			visibleLines = visibleLines + 1
+			y = y + h
 		end
 	end
-	local bodyH = collapsed and 0 or math.max(visibleLines * lineH, 0)
+	local bodyH = collapsed and 0 or math.max(y - titleH, 0)
 	local totalH = titleH + bodyH + 4
 	panelUi.block:SetHeight(totalH)
 	if panelUi._mhOnHeightChanged then
@@ -906,6 +918,14 @@ function ns.MountAccountWeeklyChecklist(host, anchorBelow, onLayoutChanged)
 	block:SetPoint("TOPRIGHT", anchorBelow, "BOTTOMRIGHT", 0, -6)
 	block:SetHeight(80)
 	panelUi.block = block
+	-- A wrapped line's height depends on the width, so re-stack when the WIDTH changes. Only
+	-- the width: the layout sets this block's height itself, and reacting to that would loop.
+	block:SetScript("OnSizeChanged", function(_, w)
+		if math.abs((w or 0) - (panelUi._mhLastW or -1)) > 0.5 then
+			panelUi._mhLastW = w
+			ns.RefreshAccountWeeklyChecklistLayout()
+		end
+	end)
 
 	local titleRow = CreateFrame("Frame", nil, block)
 	titleRow:SetHeight(18)

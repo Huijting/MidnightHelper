@@ -7,7 +7,15 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
-## 🆕 10 sep avond — Account snapshot, Spec 38 §3 + optie A (nieuwe kolommen)
+## ✅ 10 sep avond — Account snapshot, Spec 38 §3 + optie A (nieuwe kolommen) — Rob: alles goed
+
+Rob, na de tweede ronde: *"Verder zijn alle punten goed afgewerkt."* Vault blijft "0/9" bij een
+relog-rij, geen streepje.
+
+- [ ] **Nog één, blok *This week* bovenaan hetzelfde tabblad:** de laatste regel ("This list is
+      account-wide…") plakt niet meer tegen de regel erboven. Hij loopt over twee regels en krijgt
+      nu ook twee regels ruimte. Het blok wordt daardoor iets hoger, en de Sort-knop en de tabel
+      schuiven mee omlaag.
 
 Tabblad *Account snapshot*, na één `/reload`. §3 en optie A zitten in één ronde, dus je ziet
 meteen de nieuwe indeling. Van links naar rechts: **naam · Vault · Keys · Shards · Week ·
