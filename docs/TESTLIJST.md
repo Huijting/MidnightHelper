@@ -7,21 +7,23 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
-## 🆕 10 sep middag — na de test: vier kleine dingen (één `/reload`)
+## 🆕 10 sep middag — na de test: vier kleine dingen
 
-- [ ] **Kaartsoorten.** *Turn the Surge* en *Oppose the Foes* heten nu **[Event]**, de *Coiled Isle
-      Safari* **[Pet battle]**, *Mysterious Mix Master* **[Mixing]**. Rob vroeg *"deze dingen staan
-      onder Rare kopjes, klopt dat??"* — nee, dat klopte niet. De rest is ongewijzigd.
-- [ ] **Mix Master-popup: waarom er niets te doen is.** Klik een Waypoint bij een offering. Onder de
-      uitleg hoort nu te staan wat het ontgrendelt: **Renown 3 bij Zul'jarra's Forces** (maakt de
-      bakjes zichtbaar) en de node **Ofi's Offerings** op de **Altar of Corrosion** (stopt er
-      ingrediënten in). Daaronder een regel *"Your Renown with …: N (needs 3)"*, **groen** als je er
-      bent en **rood** als niet. ⚠️ De altar-node kan de addon niet lezen, die moet je zelf nakijken.
-      📌 Die uitleg stond sinds augustus in zeven talen klaar en werd nergens getoond.
-- [ ] **De ketel-waypoint** wijst nu naar **57.41 / 48.70** (jouw meting) in plaats van naar
-      Apothecary Dezi (57.23 / 48.46). Je hoort er nu vlak naast uit te komen, niet op 20 m.
-- [ ] **Deck-iconen** in `Downloads\MH_deck_iconen_diablo\`: 28 stuks in DiabloHeavy, alle labels
-      even hoog als DELVES. `_overzicht.png` toont ze allemaal. Kijk op de deck of ze leesbaar zijn.
+- [x] ✅ **Kaartsoorten: GEZIEN.** [Event] voor Oppose the Foes en Turn the Surge, [Pet battle] voor
+      de Safari, [Mixing] voor Mix Master. (Rob vroeg *"deze dingen staan onder Rare kopjes, klopt
+      dat??"*, en het antwoord was nee.)
+- [ ] 🔁 **Mix Master: waarom er niets te doen is. OPNIEUW, nu met een instructie die kán.**
+      Mijn eerste instructie (*"klik een Waypoint bij een offering"*) was niet uit te voeren. De tien
+      offerings hebben geen eigen Waypoint-knop; ze delen er één in de kop, en die opent geen popup.
+      Rob hield de muis boven *Eerie Offering* en kreeg de notitie en het recept, maar niet de
+      voorwaarden, want die stonden alleen in de popup. **Nu staan ze ook in het muis-vakje.**
+      Dus: `/reload` en **de muis boven een offering**. Tussen de uitleg en *"Needs: …"* hoort in
+      oranje te staan: Renown 3 bij Zul'jarra's Forces plus de node Ofi's Offerings op de Altar of
+      Corrosion. Daaronder komt *"Your Renown with …: N (needs 3)"*, groen of rood. ⚠️ De altar-node
+      kan de addon niet lezen.
+- [x] ✅ **Ketel-waypoint: GEZIEN**, *"The cauldron at Tokka's Landing — 1m away"* (was 20 m).
+- [x] ✅ **Deck-iconen: GEZIEN.** Rob: *"Ik vind ze er supergaaf uitzien. En mijn zusje Carola vindt
+      ze ook mooi."*
 
 ## ✅ 10 sep — Curse Surges: GETEST en gezien (Rob, middag)
 

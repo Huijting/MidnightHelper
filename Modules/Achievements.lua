@@ -2250,6 +2250,16 @@ local function BuildAchCard(st, entry)
 				GameTooltip:AddLine(body, 0.9, 0.9, 0.9, true)
 				hasExtra = true
 			end
+			--- The gates belong here too, not only in the toast. Rob, 10 Sep, hovering an
+			--- offering: the tooltip showed the note and the recipe, and not a word of why the
+			--- cauldron does nothing. Mix Master has no per-row Waypoint button (the ten share
+			--- one in the header), so the toast was the one place he could not reach by hovering.
+			local gate = GateText(entry)
+			if gate then
+				gate = (ns.SanitizeUIFontText and ns.SanitizeUIFontText(gate)) or gate
+				GameTooltip:AddLine(gate, 1, 0.6, 0.2, true)
+				hasExtra = true
+			end
 			--- The exact three ingredients this offering needs.
 			---
 			--- ⚠️ The one thing a player cannot see for themselves: Ofi's dialogue gives

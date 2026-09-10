@@ -18,6 +18,11 @@
     gebruikt, plus een live Renown-regel (2772, nodig 3). Gebouwd via `GateText` +
     `gateNote`/`gateRenown`.
   - De ketel-waypoint staat nu op 57.41/48.70 (Robs meting). De oude 57.23/48.46 was Apothecary Dezi.
+    ✅ Gezien: *"1m away"*.
+  - ✅ Kaartsoorten gezien; de deck-iconen ook (Rob en Carola: *"supergaaf"*).
+  - 🔁 **De Mix Master-voorwaarden zag Rob niet.** Ze stonden alleen in de popup, en Mix Master
+    heeft geen Waypoint-knop per rij: de kopknop is gedeeld en opent geen popup. Een rij aanklikken
+    doet niets. Hij hield de muis erboven, dus nu staan ze ook in het muis-vakje. Opnieuw testen.
 - **Rob vroeg: moet er eerst een quest bij Tokka/Dezi?** Onze eigen notitie noemt twee
   voorwaarden en geen quest. Zygor heeft een Ofi-questreeks in het moeras (93387 → 93393, *"A Little
   Kindness"*). Of die nodig is voor de ketel is **niet gemeten**.
