@@ -1,6 +1,35 @@
 # Midnight Helper — waar we staan
 
-## 🧰 10 sep avond — Spec 33: de macro's gebouwd, de vindbaarheid nog NIET
+## ✅ 10 sep avond, later — Spec 33 af, behalve het client-oordeel van §7
+
+Rob: *"doe ze allemaal maar, ook die Rapid Fire macro's"*.
+- 🔴 **De macro's staan nu ook in de bron.** `TeamMacrosData.lua` wordt gegenereerd uit
+  `data/team_macros_gemini.json` door `tools/generate_team_macros_lua.py`. GEMETEN: die JSON gaf de
+  Lua van vóór 10 sep exact terug, dus hij is echt de bron. Alle nieuwe macro's staan erin en de Lua
+  is opnieuw gegenereerd. Het waarom per macro staat in een `note`-veld, dat de generator niet leest.
+  De generator schrijft nu atomisch.
+- **Hunter's Mark in de pet-macro**, zoals Rob het bedoelde: `/cast [@target,harm,nodead,nocombat]
+  Hunter's Mark` vóór Kill Command. Alleen bij het openen, want een macro ziet niet of het teken er al
+  op staat. ⚠️ Niet gemeten of Hunter's Mark de global cooldown deelt.
+- **Rapid Fire (MM):** *Shot without breaking Rapid Fire*, gebaseerd op Robs eigen macro's op
+  Watchmenow. Eén macro met Aimed Shot; de uitleg zegt dat het voor Arcane, Steady en Multi-Shot
+  hetzelfde werkt. Death Chakram is weggelaten, want die staat niet in onze 12.1-data.
+- **§2a zoeken:** de tab heeft meer zoekwoorden, en elke macro van je klasse en spec (plus de World-
+  macro's) is een eigen treffer die op díe macro landt (`ns.MH_OpenMacro`).
+- **§2b:** `/mh macros` bestaat en staat in `ns.MH_COMMANDS`.
+- **§2c:** er is een kaart in de Tools-zaal.
+- **§7, half af:** alle macrospells tegen `KeybindRoles_*` gelegd.
+  - 72 bekend, 3 pet-aanvallen (terecht niet gevonden), **8 om na te kijken**: Rescue (Evoker), Summon
+    Black Ox / Jade Serpent Statue (Monk), Final Reckoning (Paladin), Shadow Crash (Priest), Windfury
+    Totem (Shaman), Guillotine (Warlock) en Spear of Bastion (Warrior).
+  - Dat is geen oordeel, want KeybindRoles kent alleen de hoofdknoppen. Het oordeel van de client komt
+    van het nieuwe **`/mh macrocheck`**: per spellnaam in je huidige spec *known* of *not found*, met je
+    eigen interrupt als positieve controle. Dat moet per klasse en spec in het spel.
+  - 📌 De eerste run van de kruiscontrole vond maar 10 spells. De laatste regel van elke macro eindigt op
+    `]=],` en mijn script gooide daardoor de naam weg. Een telling die te klein is om waar te zijn, is
+    een fout in het script, geen schone uitslag.
+
+## 🧰 10 sep avond — Spec 33, eerste ronde. De "nog open"-lijst hieronder is inmiddels afgewerkt (zie boven)
 
 Rob vond zijn eigen BM-hunter-macro ("method", op Redisch, Lightbringer; alleen dat personage) niet
 terug op Carola's pc: *"dat soort macro's moet bij ons in de macro set komen"*. Spec 33 (7 sep) had

@@ -335,6 +335,114 @@ function ns.MH_OpenMacroType(typeId)
 	end
 end
 
+--- Open the Macros panel on one particular macro: kind AND position in its list.
+---
+--- ADDED 10 Sep 2026 for the search box (Spec 33 §2a), which now lists every macro of your
+--- class and spec as a hit of its own. A hit that lands on the first macro of the right kind is
+--- the same "almost there" as the Dundun button above.
+---
+--- ⚠️ ORDER MATTERS. SelectMacroType -> RebuildPickNav -> MaybeResetPickIndexForSpec wipes the
+--- pick indices whenever class/spec differs from the last build, which includes the very first
+--- build. Setting the index before that call would be undone by it, so it is set after, and
+--- the pick row is rebuilt once more to show it.
+--- @param typeId string "interrupt" | "utility" | "world"
+--- @param idx number position in that kind's list
+function ns.MH_OpenMacro(typeId, idx)
+	local function Apply()
+		local panel = ns.MH_MacrosPanel
+		if not panel then
+			return false
+		end
+		SelectMacroType(panel, typeId)
+		SetPickIndex(panel, typeId, idx)
+		RebuildPickNav(panel)
+		if panel._mhRefreshMacros then
+			panel._mhRefreshMacros()
+		end
+		return true
+	end
+	if Apply() then
+		return
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.05, function()
+			pcall(Apply)
+		end)
+	end
+end
+
+--- `/mh macrocheck` - Spec 33 §7, measured in the client instead of against our own data.
+---
+--- ADDED 10 Sep 2026. A static pass over TeamMacrosData.lua found eight spell names that our
+--- KeybindRoles data does not know (Spear of Bastion, Final Reckoning, Shadow Crash, ...). That
+--- is a list to check, not a verdict: KeybindRoles only carries the key buttons. The client
+--- decides, and it can only decide about spells THIS character knows.
+---
+--- ⚠️ So "not found" means "not in this character's spellbook right now": another spec, a
+--- talent not taken, a pet ability, an item - or a spell that no longer exists. The positive
+--- control is the spec's own interrupt: if that one also reads "not found", the lookup itself
+--- is broken on this client and every other line means nothing.
+local function MacroSpellNames(body)
+	local names = {}
+	for line in ((body or "") .. "\n"):gmatch("([^\n]*)\n") do
+		local rest = line:match("^/[Cc][Aa][Ss][Tt]%s+(.*)$") or line:match("^/[Uu][Ss][Ee]%s+(.*)$")
+		if rest then
+			local name = rest:gsub("^.*%]", "")
+			name = name:gsub("^%s+", "")
+			name = name:gsub("%s+$", "")
+			if name ~= "" and not name:match("^%d+$") then
+				names[#names + 1] = name
+			end
+		end
+	end
+	return names
+end
+
+--- @return boolean|nil true known, false not found, nil when the client cannot be asked
+local function ClientKnowsSpell(name)
+	if not (C_Spell and C_Spell.GetSpellInfo) then
+		return nil
+	end
+	local ok, info = pcall(C_Spell.GetSpellInfo, name)
+	if not ok then
+		return nil
+	end
+	return type(info) == "table"
+end
+
+function ns.MH_MacroCheck()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	local token, specIdx, _p, _c, specName = ns.MH_GetMacroClassSpecContext()
+	if not token or not specIdx or specIdx < 1 then
+		print(prefix .. " macrocheck: no class and spec to check yet.")
+		return
+	end
+	local function mark(v)
+		if v == nil then
+			return "|cffffaa00cannot ask the client|r"
+		end
+		return v and "|cff40c040known|r" or "|cffff6060not found|r"
+	end
+	print(("%s macrocheck - %s, spec %d (%s). Only spells this character knows can read 'known'.")
+		:format(prefix, token, specIdx, tostring(specName or "?")))
+	local kicks = ns.InterruptSpellsByClassSpec and ns.InterruptSpellsByClassSpec[token]
+	local control = kicks and kicks[specIdx]
+	if type(control) == "string" then
+		print(("   control - your interrupt %s: %s"):format(control, mark(ClientKnowsSpell(control))))
+	else
+		print("   control: this spec has no interrupt, so judge by the lines below.")
+	end
+	local byClass = ns.TeamMacrosByClassSpec and ns.TeamMacrosByClassSpec[token]
+	local list = byClass and byClass[specIdx]
+	for _, e in ipairs(type(list) == "table" and list or {}) do
+		for _, name in ipairs(MacroSpellNames(e.macro)) do
+			print(("   %-34s %-26s %s"):format(tostring(e.name), name, mark(ClientKnowsSpell(name))))
+		end
+	end
+	print("   |cff8a8f98'not found' = not in your spellbook right now: another spec, a talent you did"
+		.. " not take, a pet ability, or a spell that is gone. Switch spec to check the others.|r")
+end
+
 local function LayoutSubtitleAnchor(panel, typeId)
 	local subtitle = panel._mhMacrosSubtitle
 	if not subtitle then

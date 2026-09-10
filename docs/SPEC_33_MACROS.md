@@ -10,9 +10,13 @@ die ook niet in onze addon verwerken? met uitleg natuurlijk?"*
 
 > **STATUS 10 sep 2026, avond.**
 > - ✅ De macro's uit §3 (a, a2, b, c) en §4 (Cursor Traps op alle drie de hunter-specs) zijn gebouwd.
->   Daarbij kwam Mouseover Hunter's Mark, op Robs vraag.
-> - ⛔ **Nog open:** §2a (zoekindex uit de data), §2b (`/mh macros`), §2c (verwijzing vanuit de
->   Tools-zaal) en §7 (de data tegen de 12.1-client leggen).
+>   Op Robs vraag kwamen erbij: Mouseover Hunter's Mark, Hunter's Mark in de pet-macro en een Rapid
+>   Fire-macro voor Marksmanship.
+> - ✅ §2a (zoekindex uit de data), §2b (`/mh macros`) en §2c (kaart in de Tools-zaal) zijn gebouwd.
+> - 🟡 §7: statisch nagelopen (8 namen om na te kijken), en `/mh macrocheck` is gebouwd. Het oordeel
+>   van de client moet nog per klasse in het spel komen.
+> - De macro's staan in `data/team_macros_gemini.json`, en die is gemeten als de echte bron; de Lua is
+>   daaruit gegenereerd.
 > - De actuele stand staat in `docs/NEXT_SESSION.md`.
 
 ## 1. Het ongemakkelijke antwoord

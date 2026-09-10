@@ -7985,3 +7985,33 @@ fill("itIT", {
 	MACROS_TYPE_WORLD = "Mondo",
 	MACROS_WORLD_SUBTITLE = "Macro che funzionano per ogni classe — per le cose che nasconde il mondo, non per quelle che mancano alla tua spec.",
 })
+
+--------------------------------------------------------------------------------
+-- 10 Sep 2026 — Spec 33 §2b/§2c: the Macros tab gets a command and a Tools card.
+-- Our own translations, not reviewed by a native speaker.
+--------------------------------------------------------------------------------
+
+fill("deDE", {
+	TOOLLP_MACROS_DESC = "Fertige Makros für deine Klasse und Spec (Mouseover, Cursor, Fokus), jedes mit dem, wovor es dich bewahrt.",
+	CMDLIST_MACROS = "Öffnet den Macros-Reiter: fertige Makros für deine Klasse und Spec, jedes mit dem, was es tut und wovor es dich bewahrt.",
+})
+
+fill("frFR", {
+	TOOLLP_MACROS_DESC = "Des macros prêtes pour ta classe et ta spé (mouseover, curseur, focus), chacune avec ce qu'elle t'évite.",
+	CMDLIST_MACROS = "Ouvre l'onglet Macros : des macros prêtes pour ta classe et ta spé, chacune avec ce qu'elle fait et ce qu'elle t'évite.",
+})
+
+fill("esES", {
+	TOOLLP_MACROS_DESC = "Macros listas para tu clase y especialización (mouseover, cursor, foco), cada una con lo que te ahorra.",
+	CMDLIST_MACROS = "Abre la pestaña Macros: macros listas para tu clase y especialización, cada una con lo que hace y lo que te ahorra.",
+})
+
+fill("ptBR", {
+	TOOLLP_MACROS_DESC = "Macros prontas para sua classe e especialização (mouseover, cursor, foco), cada uma com o que te poupa.",
+	CMDLIST_MACROS = "Abre a aba Macros: macros prontas para sua classe e especialização, cada uma com o que faz e o que te poupa.",
+})
+
+fill("itIT", {
+	TOOLLP_MACROS_DESC = "Macro pronte per la tua classe e specializzazione (mouseover, cursore, focus), ognuna con cosa ti risparmia.",
+	CMDLIST_MACROS = "Apre la scheda Macros: macro pronte per la tua classe e specializzazione, ognuna con cosa fa e cosa ti risparmia.",
+})

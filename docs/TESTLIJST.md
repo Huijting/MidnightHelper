@@ -22,6 +22,19 @@ spec waarin je nu zit, dus kijk per personage.
 - [ ] **Priest, Shadow:** drie nieuwe, die Void Torrent niet afbreken: *Madness*, *Voidform* en
       *Mind Blast without breaking Void Torrent*. ⚠️ Alleen gecontroleerd tegen onze spelldata,
       niet gespeeld.
+- [ ] **Pet-macro met Hunter's Mark** (Redisch, BM). Kopieer *Kill Command + Pet Attack* opnieuw, want
+      hij is veranderd. **Buiten gevecht:** doel een vijand en druk; Hunter's Mark hoort erop te komen.
+      **In gevecht** hoort hij alleen nog Kill Command en je pet te doen. Doet de eerste druk alléén het
+      teken, dan deelt Hunter's Mark de global cooldown. Meld het, dan weten we dat ook.
+- [ ] **Marksmanship: *Shot without breaking Rapid Fire*.** Drukken tijdens Rapid Fire hoort niets te
+      doen; de channel loopt gewoon door.
+- [ ] **Zoeken:** typ `pet`, `trap` of `mouseover`. Je hoort de macro zelf te vinden, en klikken hoort
+      de Macros-tab te openen **op die macro**, niet op de eerste.
+- [ ] **`/mh macros`** opent de Macros-tab, en in de Tools-zaal staat een kaart *Macros*.
+- [ ] **`/mh macrocheck`** op elke klasse die je langsloopt. Bovenaan staat een controleregel met je
+      interrupt; die hoort **known** te zeggen. Stuur de regels met **not found**, vooral bij Warrior
+      (*Spear of Bastion*), Paladin (*Final Reckoning*), Priest (*Shadow Crash*), Shaman (*Windfury
+      Totem*), Warlock (*Guillotine*), Monk (de standbeelden) en Evoker (*Rescue*).
 
 ## 🆕 10 sep avond — Dundun-macro met een maan
 

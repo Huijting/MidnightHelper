@@ -236,7 +236,28 @@ local function BuildNavIndex()
 		end
 	end
 
-	tab("TAB_MACROS", "macros", "interrupt macro kick")
+	--- ✅ 10 Sep 2026 (Spec 33 §2a). This line was the ONLY way into the Macros tab, and its
+	--- three words are not what anyone with a problem types. Rob could not find his own pet
+	--- macro. The tab now answers to the words from the spec, and every macro for YOUR class and
+	--- spec - plus the world macros - is a hit of its own that opens on that very macro.
+	tab("TAB_MACROS", "macros", "interrupt macro macros kick mouseover focus cursor pet taunt trap"
+		.. " cancelaura misdirection dispel heal muisaanwijzer channel")
+	do
+		local function addMacros(list, typeId)
+			for i, m in ipairs(type(list) == "table" and list or {}) do
+				local idx = i
+				add(m.name, (m.id or "") .. " macro " .. (m.descEn or "") .. " " .. (m.descNl or ""),
+					function()
+						OpenTab("macros")
+						if ns.MH_OpenMacro then
+							ns.MH_OpenMacro(typeId, idx)
+						end
+					end, TIER_CONTENT, L("TAB_MACROS"), "macro")
+			end
+		end
+		addMacros(ns.MH_GetUtilityMacroList and (ns.MH_GetUtilityMacroList()), "utility")
+		addMacros(ns.WORLD_MACROS, "world")
+	end
 	-- "party targets" is what a player calls it; "focus" and "assist" are what they
 	-- search for when they do not know the name. Additive, like every keyword here.
 	tab("TAB_SETTINGS", "settings", "party target targets focus assist who is attacking")

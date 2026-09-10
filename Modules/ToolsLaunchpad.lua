@@ -54,6 +54,16 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_Head_Human_02", slash = "/mh valeera",
 		open = function() if ns.ToggleValeeraPopup then ns.ToggleValeeraPopup() end end,
 	},
+	-- ✅ 10 Sep 2026 (Spec 33 §2c): this hall named every helper but not the Macros tab, so the
+	-- one place that lists what the addon offers skipped a whole page of it.
+	{
+		nameKey = "TAB_MACROS", descKey = "TOOLLP_MACROS_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Note_01", slash = "/mh macros",
+		open = function()
+			if ns.ShowMainUI then ns:ShowMainUI() end
+			if ns.SelectTab then ns.SelectTab("macros") end
+		end,
+	},
 }
 
 -- Re-apply localized text to a built launchpad (called on locale change, and

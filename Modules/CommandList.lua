@@ -81,7 +81,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"dispelprobe", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
-	"livetips", "lock", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
+	"livetips", "lock", "macrocheck", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
 	"partytarget", "poison", "poisons", "portal", "portals", "potionkeys", "prey",
 	"profadvice", "profguide", "profids", "profweekly", "ptr", "questdiff", "questgate", "questscan", "range",
 	"zonegate", "travelwhy", "questsnap",
@@ -110,6 +110,9 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh", descKey = "CMDLIST_MAIN" },
 		{ cmd = "/mh setup", descKey = "CMDLIST_SETUP" },
 		{ cmd = "/mh codex", descKey = "CMDLIST_CODEX" },
+		-- 10 Sep 2026 (Spec 33 §2b): the Macros tab had no command, and NavSearch indexes this
+		-- table - so without this row "macros" found the tab by its name only.
+		{ cmd = "/mh macros", descKey = "CMDLIST_MACROS" },
 		{ cmd = "/mh settings", descKey = "CMDLIST_SETTINGS" },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
 		{ cmd = "/mh apply", descKey = "CMDLIST_APPLY" },

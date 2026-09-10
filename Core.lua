@@ -2603,6 +2603,25 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	--- ✅ 10 Sep 2026 (Spec 33 §2b): the Macros tab had no command of its own, unlike every
+	--- other hall. Listed in ns.MH_COMMANDS in the same commit, or it would be unfindable again.
+	if msg == "macros" then
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("macros")
+		end
+		return
+	end
+
+	--- Spec 33 §7: which spells in this spec's macros does THIS client know? A probe, so it
+	--- sits in MH_UNLISTED_ON_PURPOSE rather than in the player-facing list.
+	if msg == "macrocheck" then
+		if ns.MH_MacroCheck then
+			ns.MH_MacroCheck()
+		end
+		return
+	end
+
 	if msg == "codex" or msg == "wiki" or msg == "handbook" then
 		if ns.OpenMidnightCodex then
 			if ns.OpenMidnightCodex() then

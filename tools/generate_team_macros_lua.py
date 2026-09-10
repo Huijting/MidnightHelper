@@ -320,7 +320,13 @@ def main() -> int:
     lines.append("}")
     lines.append("")
 
-    out.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    # Atomic, 10 Sep 2026: the repo IS the live AddOns folder (CLAUDE.md, Build & verify). A plain
+    # write_text truncates first, so a game loading in that window reads half a file.
+    import os
+
+    tmp = out.with_suffix(".lua.tmp")
+    tmp.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    os.replace(tmp, out)
     print(f"Wrote {out}")
     return 0
 

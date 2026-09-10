@@ -83,6 +83,13 @@
         "name": "Cursor Vortex",
         "description": "Plaatst Ursol's Vortex direct onder je muis.",
         "macro": "#showtooltip Ursol's Vortex\n/cast [@cursor] Ursol's Vortex"
+      },
+      {
+        "name": "Mouseover Growl",
+        "description": "Pak een vijand terug die je maat aanvalt, zonder je eigen doel los te laten. Staat je muis nergens op, dan gaat hij op je doel.",
+        "descriptionEn": "Taunt whatever is attacking an ally without dropping your current target. With the cursor on nothing it goes on your target.",
+        "macro": "#showtooltip Growl\n/cast [@mouseover,harm,nodead][] Growl",
+        "note": "10 Sep 2026, Spec 33 3c. Guardian was the only tank without a mouseover taunt."
       }
     ],
     "Restoration": [
@@ -139,6 +146,13 @@
   "Hunter": {
     "Beast Mastery": [
       {
+        "name": "Kill Command + Pet Attack",
+        "description": "Kill Command, en je pet valt meteen mee aan. Buiten gevecht zet hij eerst Hunter's Mark op je doel, dus de eerste druk bij het openen markeert; in gevecht slaat hij dat over, want een macro kan niet zien of het teken er al op staat. Zonder de /use-regels gaat je pet niet altijd betrouwbaar mee; samen dekken ze de aanvalsknop van elk pettype (Claw, Bite of Smack). Zet de drie /use-regels ook onder je andere aanvalsknoppen.",
+        "descriptionEn": "Kill Command, and your pet attacks straight away. Out of combat it first puts Hunter's Mark on your target, so the opening press marks; in combat it skips that, because a macro cannot see whether the mark is already there. Without the /use lines the pet does not always follow reliably; together they cover every pet family's basic attack (Claw, Bite or Smack). Put the three /use lines under your other attack buttons too.",
+        "macro": "#showtooltip Kill Command\n/cast [@target,harm,nodead,nocombat] Hunter's Mark\n/cast Kill Command\n/use [@pettarget]Claw\n/use [@pettarget]Bite\n/use [@pettarget]Smack",
+        "note": "10 Sep 2026, Spec 33 3a. Rob's own BM macro ('method' on Redisch) since the Method guide of 5 Sep. Hunter's Mark added at his request; [nocombat] because a macro cannot see an existing mark. Not measured whether Hunter's Mark shares the GCD."
+      },
+      {
         "name": "Smart Misdirection",
         "description": "Misdirection op je focus (tank) indien aanwezig, anders op je pet.",
         "macro": "#showtooltip Misdirection\n/cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection"
@@ -147,6 +161,27 @@
         "name": "Turtle Cancel",
         "description": "Zet je schild aan en direct uit bij een tweede klik om weer te kunnen aanvalen.",
         "macro": "#showtooltip Aspect of the Turtle\n/cast Aspect of the Turtle\n/cancelaura Aspect of the Turtle"
+      },
+      {
+        "name": "Mouseover Barbed Shot",
+        "description": "Legt Barbed Shot op de vijand onder je muis, zonder je huidige doel los te laten. Staat je muis nergens op, dan gaat hij op je doel.",
+        "descriptionEn": "Puts Barbed Shot on the enemy under your cursor without dropping your current target. With the cursor on nothing it goes on your target.",
+        "macro": "#showtooltip Barbed Shot\n/cast [@mouseover,harm,nodead][] Barbed Shot",
+        "note": "10 Sep 2026, Spec 33 3a2. Barbed Shot is BM-only in KeybindRoles_Hunter.lua."
+      },
+      {
+        "name": "Cursor Traps",
+        "description": "Zet Freezing Trap direct op je muiscursor, zonder eerst het cirkeltje op de grond te hoeven plaatsen en nog een keer te klikken.",
+        "descriptionEn": "Places Freezing Trap straight at your cursor, without the targeting circle and a second click.",
+        "macro": "#showtooltip Freezing Trap\n/cast [@cursor] Freezing Trap",
+        "note": "Spec 33 4, 10 Sep 2026: Freezing Trap is baseline (KeybindRoles_Hunter.lua, no specs), so this belongs to all three specs, not Survival alone."
+      },
+      {
+        "name": "Mouseover Hunter's Mark",
+        "description": "Zet Hunter's Mark op de vijand onder je muis, zonder je huidige doel los te laten: handig om de baas te markeren terwijl je iets anders aanvalt. Staat je muis nergens op, dan gaat hij op je doel.",
+        "descriptionEn": "Puts Hunter's Mark on the enemy under your cursor without dropping your current target: handy for marking the boss while you are hitting something else. With the cursor on nothing it goes on your target.",
+        "macro": "#showtooltip Hunter's Mark\n/cast [@mouseover,harm,nodead][] Hunter's Mark",
+        "note": "10 Sep 2026 at Rob's request. Hunter's Mark is baseline in KeybindRoles_Hunter.lua. Nothing claims how the mark behaves in 12.1."
       }
     ],
     "Marksmanship": [
@@ -159,18 +194,48 @@
         "name": "Smart Misdirection",
         "description": "Misdirection op je focus (tank) indien aanwezig, anders op je pet.",
         "macro": "#showtooltip Misdirection\n/cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection"
+      },
+      {
+        "name": "Cursor Traps",
+        "description": "Zet Freezing Trap direct op je muiscursor, zonder eerst het cirkeltje op de grond te hoeven plaatsen en nog een keer te klikken.",
+        "descriptionEn": "Places Freezing Trap straight at your cursor, without the targeting circle and a second click.",
+        "macro": "#showtooltip Freezing Trap\n/cast [@cursor] Freezing Trap",
+        "note": "Spec 33 4, 10 Sep 2026: Freezing Trap is baseline (KeybindRoles_Hunter.lua, no specs), so this belongs to all three specs, not Survival alone."
+      },
+      {
+        "name": "Mouseover Hunter's Mark",
+        "description": "Zet Hunter's Mark op de vijand onder je muis, zonder je huidige doel los te laten: handig om de baas te markeren terwijl je iets anders aanvalt. Staat je muis nergens op, dan gaat hij op je doel.",
+        "descriptionEn": "Puts Hunter's Mark on the enemy under your cursor without dropping your current target: handy for marking the boss while you are hitting something else. With the cursor on nothing it goes on your target.",
+        "macro": "#showtooltip Hunter's Mark\n/cast [@mouseover,harm,nodead][] Hunter's Mark",
+        "note": "10 Sep 2026 at Rob's request. Hunter's Mark is baseline in KeybindRoles_Hunter.lua. Nothing claims how the mark behaves in 12.1."
+      },
+      {
+        "name": "Shot without breaking Rapid Fire",
+        "description": "Aimed Shot die Rapid Fire niet afbreekt: druk je hem terwijl Rapid Fire nog loopt, dan gebeurt er niets in plaats van dat de channel stopt. De tweede regel haalt je uit Aspect of the Turtle, zodat een aanvalsknop je ook meteen weer laat schieten. Werkt net zo voor Arcane Shot, Steady Shot en Multi-Shot: vervang alleen de spellnaam (twee keer).",
+        "descriptionEn": "Aimed Shot that does not cancel Rapid Fire: press it while Rapid Fire is still channelling and nothing happens instead of the channel stopping. The second line takes you out of Aspect of the Turtle, so an attack button also gets you shooting again. Works the same for Arcane Shot, Steady Shot and Multi-Shot: just swap the spell name (twice).",
+        "macro": "#showtooltip Aimed Shot\n/cast [nochanneling:Rapid Fire] Aimed Shot\n/cancelaura Aspect of the Turtle",
+        "note": "10 Sep 2026, from Rob's own Marksmanship macros on Watchmenow (five shots, /use form). One entry, not five: Spec 33 5.2 says do not flood the page. Death Chakram left out - not in our 12.1 data."
       }
     ],
     "Survival": [
       {
         "name": "Cursor Traps",
-        "description": "Gooit je vallen direct op je muiscursor.",
-        "macro": "#showtooltip Freezing Trap\n/cast [@cursor] Freezing Trap"
+        "description": "Zet Freezing Trap direct op je muiscursor, zonder eerst het cirkeltje op de grond te hoeven plaatsen en nog een keer te klikken.",
+        "descriptionEn": "Places Freezing Trap straight at your cursor, without the targeting circle and a second click.",
+        "macro": "#showtooltip Freezing Trap\n/cast [@cursor] Freezing Trap",
+        "note": "Spec 33 4, 10 Sep 2026: Freezing Trap is baseline (KeybindRoles_Hunter.lua, no specs), so this belongs to all three specs, not Survival alone."
       },
       {
         "name": "Mouseover Harpoon",
         "description": "Schiethaken naar de vijand onder je muis.",
         "macro": "#showtooltip Harpoon\n/cast [@mouseover,harm,nodead][] Harpoon"
+      },
+      {
+        "name": "Mouseover Hunter's Mark",
+        "description": "Zet Hunter's Mark op de vijand onder je muis, zonder je huidige doel los te laten: handig om de baas te markeren terwijl je iets anders aanvalt. Staat je muis nergens op, dan gaat hij op je doel.",
+        "descriptionEn": "Puts Hunter's Mark on the enemy under your cursor without dropping your current target: handy for marking the boss while you are hitting something else. With the cursor on nothing it goes on your target.",
+        "macro": "#showtooltip Hunter's Mark\n/cast [@mouseover,harm,nodead][] Hunter's Mark",
+        "note": "10 Sep 2026 at Rob's request. Hunter's Mark is baseline in KeybindRoles_Hunter.lua. Nothing claims how the mark behaves in 12.1."
       }
     ]
   },
@@ -313,6 +378,27 @@
         "name": "Cursor Shadow Crash",
         "description": "Sleutelmacro: Gooit Shadow Crash direct op je muis om snel Dots te verspreiden.",
         "macro": "#showtooltip Shadow Crash\n/cast [@cursor] Shadow Crash"
+      },
+      {
+        "name": "Madness without breaking Void Torrent",
+        "description": "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop.",
+        "descriptionEn": "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there.",
+        "macro": "#showtooltip Shadow Word: Madness\n/cast [nochanneling:Void Torrent,@mouseover,harm,nodead][nochanneling:Void Torrent] Shadow Word: Madness",
+        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played."
+      },
+      {
+        "name": "Voidform without breaking Void Torrent",
+        "description": "Druk hem gerust terwijl Void Torrent nog loopt: Voidform gaat pas aan als de channel klaar is, in plaats van hem af te breken.",
+        "descriptionEn": "Press it while Void Torrent is still channelling: Voidform goes up when the channel ends instead of cancelling it.",
+        "macro": "#showtooltip Voidform\n/cast [nochanneling:Void Torrent] Voidform",
+        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played."
+      },
+      {
+        "name": "Mind Blast without breaking Void Torrent",
+        "description": "Druk hem gerust terwijl Void Torrent nog loopt: hij vuurt pas als de channel klaar is, in plaats van hem af te breken. Staat je muis op een vijand, dan gaat hij daarop.",
+        "descriptionEn": "Press it while Void Torrent is still channelling: it fires when the channel ends instead of cancelling it. With the cursor on an enemy it goes there.",
+        "macro": "#showtooltip Mind Blast\n/cast [nochanneling:Void Torrent,@mouseover,harm,nodead][nochanneling:Void Torrent] Mind Blast",
+        "note": "10 Sep 2026, Spec 33 3b. Void Torrent is a Shadow channel in KeybindRoles_Priest.lua; Voidform is the 12.0 name of Void Eruption. Checked against our data only, not played."
       }
     ]
   },
