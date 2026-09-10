@@ -5,7 +5,7 @@
 Rob: het ping-vlaggetje verdwijnt; kan dat langer? **Nee.** Het is WoW's eigen Ping System; de duur
 bepaalt de game, en de instellingen hebben er geen optie voor (twee gidsen, niet in de client
 gemeten). Daarom zet de macro in `DundunShrine.lua` nu ook `/tm 0` en `/tm 5` (maan, Robs keuze):
-een raid-teken blijft staan. **Nog niet getest**, zie `docs/TESTLIJST.md`. Rob moet zijn bestaande
+een raid-teken blijft staan. ✅ **Werkt**: Rob zette de nieuwe macro erin, *"hij werkt goed"*. Rob moet zijn bestaande
 macro zelf bijwerken, want de addon maakt macro's niet aan.
 - 📌 Er zijn nog meer surge-bevindingen van online, die nog niet in de addon zitten. De in-game
   Events-tab toont welke surge er loopt en wanneer. De Mix Master-daily gaat pas open via een

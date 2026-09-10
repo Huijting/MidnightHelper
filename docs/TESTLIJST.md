@@ -9,7 +9,8 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ## 🆕 10 sep avond — Dundun-macro met een maan
 
-- [ ] **De Find Dundun-macro zet nu ook een 🌙 maan boven hem.** De ping verdwijnt na een tijdje;
+- [x] ✅ **GEZIEN 10 sep avond, Rob: *"hij werkt goed"*.** De Find Dundun-macro zet nu ook een 🌙
+      maan boven hem. De ping verdwijnt na een tijdje;
       de game bepaalt dat en er is geen instelling voor. Een raid-teken blijft staan.
       ⚠️ **Je bestaande macro verandert niet vanzelf.** Macros-tab → *World* → de nieuwe tekst over je
       oude macro heen zetten. Hij eindigt nu op `/tm 0` en `/tm 5`.
