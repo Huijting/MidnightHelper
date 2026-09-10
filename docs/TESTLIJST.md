@@ -7,6 +7,16 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 10 sep avond — Dundun-macro met een maan
+
+- [ ] **De Find Dundun-macro zet nu ook een 🌙 maan boven hem.** De ping verdwijnt na een tijdje;
+      de game bepaalt dat en er is geen instelling voor. Een raid-teken blijft staan.
+      ⚠️ **Je bestaande macro verandert niet vanzelf.** Macros-tab → *World* → de nieuwe tekst over je
+      oude macro heen zetten. Hij eindigt nu op `/tm 0` en `/tm 5`.
+      **Test in de volgende Bountiful delve:** komt de maan boven Dundun te staan, zie je hem van een
+      afstand, en blijft hij staan als je de macro twee keer drukt? Niet gemeten zijn: of het werkt
+      met alleen Valeera in je groep, en of het teken zichtbaar is op een vermomd voorwerp.
+
 ## 🆕 10 sep middag — na de test: vier kleine dingen
 
 - [x] ✅ **Kaartsoorten: GEZIEN.** [Event] voor Oppose the Foes en Turn the Surge, [Pet battle] voor

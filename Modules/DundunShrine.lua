@@ -431,15 +431,27 @@ ns.WORLD_MACROS = {
 		-- world so you can walk to him. Rob found this macro himself and specifically
 		-- asked for the line back: "ik mis in de macro de ping lijn die ik erg makkelijk
 		-- vond." Keep all three lines together.
-		descEn = "Target the Shrine of Abundance in a Bountiful delve and ping where he is."
-			.. " He is disguised as scenery, so the eye will not find him — the targeting"
-			.. " will, and the ping shows you where to walk.",
-		descNl = "Target de Shrine of Abundance in een Bountiful delve en pingt waar hij"
-			.. " staat. Hij is vermomd als decor, dus met het oog vind je hem niet — met"
-			.. " targeten wel, en de ping laat zien waar je heen moet.",
+		--- 🌙 THE MOON LINES, 10 Sep 2026. Rob: the ping flag disappears after a while - can we
+		--- make it last longer? No: the ping is WoW's own Ping System and the game decides how
+		--- long it stays; its settings have no duration (checked in two guides, one says so
+		--- outright). A raid target icon is the thing that stays until removed, so the macro
+		--- now also puts the MOON (index 5, per FastMark.lua) on him. Rob picked the moon.
+		--- `/tm 0` first clears his icon, so a second press cannot toggle the moon off again.
+		--- ⚠️ Not yet measured: that it works solo in a delve with only Valeera, and that the
+		--- icon is visible from afar on an NPC disguised as scenery.
+		descEn = "Target the Shrine of Abundance in a Bountiful delve, ping where he is and put"
+			.. " a moon over him. He is disguised as scenery, so the eye will not find him —"
+			.. " the targeting will. The ping fades after a while (the game decides how long);"
+			.. " the moon stays until you remove it.",
+		descNl = "Target de Shrine of Abundance in een Bountiful delve, pingt waar hij staat en"
+			.. " zet een maan boven hem. Hij is vermomd als decor, dus met het oog vind je hem"
+			.. " niet — met targeten wel. De ping verdwijnt na een tijdje (dat bepaalt de game);"
+			.. " de maan blijft staan tot je hem weghaalt.",
 		macro = [=[/cleartarget
 /target Dundun
-/ping [@target] assist]=],
+/ping [@target] assist
+/tm 0
+/tm 5]=],
 	},
 }
 
