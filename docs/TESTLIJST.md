@@ -15,7 +15,10 @@ spec waarin je nu zit, dus kijk per personage.
 - [ ] **Hunter, Beast Mastery** (Redisch): bovenaan **Kill Command + Pet Attack**, precies de
       "method"-macro die je al gebruikt. Daarnaast nieuw: **Mouseover Barbed Shot**, **Cursor Traps**
       en **Mouseover Hunter's Mark**.
-- [ ] **Hunter, Marksmanship** (Watchmenow): nieuw **Cursor Traps** en **Mouseover Hunter's Mark**.
+- [ ] **Hunter, Marksmanship**: nieuw **Cursor Traps**, **Mouseover Hunter's Mark** en *Shot without
+      breaking Rapid Fire*. ⚠️ **Rob heeft geen Watchmenow meer.** Die naam kwam uit een oude
+      `WTF`-map, en zo'n map blijft staan als een personage weg is. Zet dus **Redisch op
+      Marksmanship** en doe daar `/mh macrocheck`.
 - [ ] **Mouseover Hunter's Mark doen:** muis op een tweede vijand, druk. Het teken hoort op die vijand
       te komen terwijl je doel blijft wie het was.
 - [ ] **Druid, Guardian:** nieuw **Mouseover Growl**.

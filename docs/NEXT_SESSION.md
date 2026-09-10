@@ -31,8 +31,13 @@ Rob: *"doe ze allemaal maar, ook die Rapid Fire macro's"*.
 - 🔎 **Eerste `/mh macrocheck`, Hunter BM (Redisch), 10 sep.** De controle staat op known, en alles
   is known behalve **Misdirection** (not found) en Bite/Smack (pet-families; Claw is known).
   Misdirection botst met `KeybindRoles_Hunter.lua`, dat hem "baseline" noemt. **Open:** talent niet
-  gekozen, of verdwenen in 12.1? *Smart Misdirection* staat bij BM én MM, dus Watchmenow (MM) is de
-  tweede meting.
+  gekozen, of verdwenen in 12.1? *Smart Misdirection* staat bij BM én MM. De tweede meting is
+  **Redisch op Marksmanship**.
+  - 🔴 **Rob heeft geen Watchmenow meer.** Ik noemde hem zijn MM-hunter op basis van de map
+    `WTF\...\Arathor\Watchmenow`, maar zo'n map blijft staan als een personage verwijderd, hernoemd
+    of verhuisd is. Een map in `WTF` bewijst dus niet dat een personage bestaat. De addon slaat per
+    personage ook geen klasse op in het accountoverzicht; dat is gemeten, er staat geen `class`-veld
+    in. De Rapid Fire-macro is wel echt Robs eigen werk: die macro's stonden in dat bestand.
 
 ## 🧰 10 sep avond — Spec 33, eerste ronde. De "nog open"-lijst hieronder is inmiddels afgewerkt (zie boven)
 
