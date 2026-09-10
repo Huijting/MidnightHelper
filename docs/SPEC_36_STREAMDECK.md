@@ -144,6 +144,41 @@ valkuilen uit §3 hieronder. Dit is ook goed CurseForge-materiaal (zie
 
 ---
 
+## 3b. GEMETEN aan een echt WoW-profiel (Echo, 10 sep 2026)
+
+Rob leverde `Echo's World of Warcraft Midnight Profile-12.1.streamDeckProfile` aan. Het is een
+zip; uitgepakt en ontleed. Elgato-formaat, apparaat `20GBA9901` (5×3), software 7.4.2,
+**9 pagina's, 112 knoppen, 110 plaatjes (74 uniek, 144×144 PNG)**.
+
+Twee dingen die onze keuzes bevestigen:
+
+1. 🔑 **Elke spelknop is een kále toetscombinatie.** Het profiel bevat geen enkele
+   WoW-instelling — de speler moet elke combinatie zelf in het keybind-scherm zetten. Precies
+   het model dat wij in §2 kiezen: de deck stuurt een toets, de addon levert de binding.
+2. 🔑 **Geen énkele F13–F24.** Een profiel van een topgilde, 112 knoppen, en het gebruikt
+   uitsluitend F1–F12 met modifiers. Dat is geen bewijs, maar het is het sterkste indirecte
+   signaal dat de forumdraden uit §3 nog steeds gelden.
+
+Bezet in dat profiel (relevant als iemand het naast MH draait):
+
+| Familie | Bezet |
+|---|---|
+| `CTRL-SHIFT-F*` | 1 2 3 5 6 7 9 10 11 12 |
+| `CTRL-ALT-F*` | 1 2 3 5 6 7 8 9 10 11 12 |
+| `ALT-SHIFT-F*` | 1 2 3 5 7 8 9 10 11 12 |
+| `CTRL-ALT-SHIFT-F*` | 1 2 3 5 6 8 9 10 11 12 |
+| `CTRL-ALT-SHIFT-<letter>` | B C H J K L R T V X Z |
+| los | Print Screen |
+
+📌 **F4 komt in geen enkele familie voor** (vermoedelijk vanwege ALT-F4), en de vrije letters
+zijn A D E F G I M N O P Q S U W Y. Als MH ooit standaardbindings voorstelt: kies daaruit.
+`ALT-M` (ons huidige default) botst niet — Echo gebruikt geen kale `ALT-<letter>`.
+
+⚠️ Of de Mirabox-software een `.streamDeckProfile` kan importeren is **niet vastgesteld**; de
+gevonden bronnen gaan alleen over plugin-compatibiliteit. De losse PNG's werken sowieso.
+
+---
+
 ## 4. Wat Rob zelf moet uitzoeken (10 seconden per stuk)
 
 1. Stuurt zijn Stream Dock **drie modifiers tegelijk** (Ctrl+Alt+Shift+toets)? Testen in het
