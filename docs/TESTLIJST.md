@@ -9,8 +9,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ## 🆕 11 sep — Liadrin-logboek (meetfase, de vinkjes veranderen nog niet)
 
-- [ ] **Na een `/reload`: `/mh weeklies`.** Er staat een nieuw blok *"Handed in this week, this
-      character"* met de regel *"last login …: N turn-in event(s) ignored in the first 10s"*.
+- [ ] **Na een `/reload`: `/mh weeklies`.** Het is een lijst voor mij, niet voor jou. Maak alleen een
+      screenshot van het blok *"Handed in this week, this character"*, en vooral van de regel
+      *"last login …: N turn-in event(s) ignored in the first 10s"*.
       📌 **Dat getal is een meting op zich.** Is het groter dan 0, dan stuurt het spel bij het
       inloggen echt valse inlever-meldingen, zoals Midnight Chores beweert. Is het 0, dan (nog) niet.
 - [ ] **Lever een weekly in** bij Liadrin, Halduron, Aethas of Vereesa, en doe dan `/mh weeklies`.
@@ -83,8 +84,9 @@ zolang ComfyUI de videokaart gebruikt.
       bestand gelezen. De uitkomst staat in `docs/NEXT_SESSION.md`. Het blok is erop aangepast: de
       crest-rij kent nu ook een gewone cap, en de tooltip zegt welke currencies je tussen je
       characters kunt verplaatsen.
-- [ ] **Op een max-level character nog één keer `/mh curscan` + `/reload`**, als het uitkomt. Dan
-      zie ik of de crest-caps en de Field Accolade-weekcap daar anders zijn dan op een level 80.
+- [x] ~~Op een max-level character nog één keer `/mh curscan`~~, **Rob 11 sep, 5 screenshots.** Mana
+      Crystals hebben daar een weekcap van 250, de crest-vlag gaat aan zodra er iets verdiend is, en
+      Field Accolade heeft ook daar geen weekcap. Details in `docs/NEXT_SESSION.md`.
 - [ ] **Bovenaan het tabblad staat een blok "Your characters"** met negen rijen: Restored Coffer Key,
       Coffer Key Shards, Venomblight Manaflux, Undercoin, Mana Crystals, Corrosive Coin, Voidlight
       Marl, Field Accolade en Crests. Per rij zie je het icoon, de naam zoals WoW hem noemt, het

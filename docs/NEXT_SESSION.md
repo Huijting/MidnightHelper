@@ -50,6 +50,19 @@ Midnight-weeklies resetten nooit, dus tel alleen een `QUEST_TURNED_IN` van déze
   verplaatst worden.
 - Van de 12 opgeslagen characters hebben er 3 al `cur`-data. De rest verschijnt als "not seen yet"
   tot ze een keer inloggen.
+- ✅ **Tweede scan op een max-level character (Rob, 5 screenshots, 11 sep):**
+  - **Mana-Crystals: weeklyMax 250** (thisWeek 45). Op Lv80 was dat 0: caps kunnen per level
+    verschillen. Het blok leest de weekcap van het huidige character, alleen voor de tooltip.
+  - **Crests:** `useTotalEarnedForMaxQty` is **true** bij Adventurer (147/147 verdiend), Veteran
+    (qty 80, verdiend 20; kennelijk omgewisseld), Hero (50) en Myth (10), en **false** bij Champion
+    (0 verdiend). De vlag gaat dus pas aan zodra er iets verdiend is. Het Crests-tabblad
+    (`totalEarned`) klopt daarmee voor wie verdiend heeft; de zorg van hierboven is ingetrokken.
+    De crest-rij van het blok test beide.
+  - 🔴 **Field Accolade: maxWeeklyQuantity 0, ook op max-level.** `CODEX_CUR_ACCOLADES_BODY` (7
+    talen) zegt *"Weekly earn cap"*. De client meldt die niet. Nakijken: bestaat er een cap die de
+    API niet toont, of klopt onze tekst niet?
+  - Verder hetzelfde als op Lv80: Shards weeklyMax 600 (591 deze week), Manaflux max 8, en Undercoin,
+    Corrosive Coin en Voidlight Marl transferable.
 
 ## 🧹 11 sep — SavedVariables opgeschoond (door Rob, op advies van de pc-chat): 4,05 → 0,83 MB
 
