@@ -14,8 +14,8 @@ gelogd in The Darkway, zonder dat de coach er iets mee deed.
 - [ ] **Volgende *Fungal Pharmacon* (Grudge Pit) of *Eggsplosive Growth* (Darkway):** de coach noemt
       de story en *"Replicating Venomborne"* als eindbaas. Onder **Boss** staat de regel over
       Serpentogenesis, Venom Splash en Hydra Strike.
-- [ ] **Het 3D-model in de bossplek:** lijkt het op de baas die je ziet? Het id (269179) komt van
-      Wowhead en is niet gemeten; bij een fout id verschijnt er gewoon geen model.
+- [x] ~~Het 3D-model in de bossplek~~, **Rob 11 sep, vlak na zijn kill: "het model staat er en
+      klopt".** Het Wowhead-id 269179 is daarmee met eigen ogen bevestigd.
 - [ ] **Na de kill** staat er niet meer *"(Optional) Exit Delve with Leave-O-Bot…"* als story.
 - [ ] **Zolang de story onbekend is,** tonen Route, Trash en Boss álle regels, niet alleen die van de
       laatst bekeken baas (in je screenshot stond onder Route alleen de Mycomight-regel).

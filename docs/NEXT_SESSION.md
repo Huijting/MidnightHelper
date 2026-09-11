@@ -23,7 +23,8 @@
   - *Caustic Crush* (Parhelion Plaza) noemt Ula'tek, maar de baas is onbekend.
   - Spell-id's voor `{SPELL:}` en het model-id moeten nog bevestigd worden. Zie TESTLIJST.
 - ✅ **Rob, na reload:** in The Darkway staat bij 1/2 (Gulkat) en 2/2 (Venomborne) *"alles"*; het
-  filter per baas gooit dus niets van Gulkat weg.
+  filter per baas gooit dus niets van Gulkat weg. En het **model klopt** (*"het model staat er en
+  klopt"*): creatureId 269179 is met eigen ogen bevestigd. Open blijven alleen de spell-id's.
 
 ## 📦 11 sep — RELEASE 3.11.0. Rob zei "go".
 

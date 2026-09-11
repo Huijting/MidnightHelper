@@ -161,7 +161,9 @@ ns.DELVE_BOSS_SHOWCASE = {
 		-- ✅ NAME MEASURED: DelveHistory logged "Replicating Venomborne" from ENCOUNTER_END on
 		-- four Tier 11 Darkway runs (7 and 10 Sep 2026), and Rob killed it in the Grudge Pit on
 		-- 11 Sep. The variant is Eggsplosive Growth, whose DB2 text names the Children of Ula'tek.
-		-- ⚠️ creatureId 269179 is Wowhead's, not measured: a wrong id only fails to load a model.
+		-- ✅ creatureId 269179 came from Wowhead and is CONFIRMED by eye, the way Azta'rec was: Rob
+		-- killed the boss on 11 Sep 2026 and then saw this model in the coach — "het model staat er
+		-- en klopt".
 		{ creatureId = 269179, label = "Replicating Venomborne", storyKeys = { "Eggsplosive Growth" },
 			tipLineMatch = { "Venomborne", "Eggsplosive" },
 			storyHints = { "eggsplosive growth", "children of ula'tek" } },
@@ -194,7 +196,7 @@ ns.DELVE_BOSS_SHOWCASE = {
 		}, tipLineMatch = { "Mycomight", "Rotstalk", "Dastardly" },
 			storyHints = { "dastardly rotstalk", "rotstalk", "heel", "taunt", "fan favorite", "villainous" } },
 		-- 12.1 variant Fungal Pharmacon. Boss name from Rob's own kill, 11 Sep 2026 (nameplate),
-		-- the same Replicating Venomborne DelveHistory logged in The Darkway; id as above.
+		-- the same Replicating Venomborne DelveHistory logged in The Darkway; id as above (confirmed).
 		{ creatureId = 269179, label = "Replicating Venomborne", storyKeys = { "Fungal Pharmacon" },
 			tipLineMatch = { "Venomborne", "Pharmacon" },
 			storyHints = { "fungal pharmacon", "children of ula'tek" } },
