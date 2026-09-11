@@ -8076,7 +8076,7 @@ fill("itIT", {
 
 fill("deDE", {
 	CURACC_TITLE = "Deine Charaktere",
-	CURACC_HINT = "Fahre über eine Zeile, um jeden Charakter zu sehen.",
+	CURACC_HINT = "Du = dieser Charakter · Gesamt = alle deine Charaktere zusammen · fahre über eine Zeile für jeden einzeln.",
 	CURACC_ADV_NONE = "Kein Charakter hat etwas davon.",
 	CURACC_ADV_FULL_FMT = "Voll auf %s — dort kommt nichts mehr hinzu, bis du etwas ausgibst.",
 	CURACC_ADV_FULL_ACCOUNT = "Voll — ein Bestand für alle deine Charaktere, und es kommt nichts mehr hinzu, bis du etwas ausgibst.",
@@ -8104,7 +8104,7 @@ fill("deDE", {
 
 fill("frFR", {
 	CURACC_TITLE = "Tes personnages",
-	CURACC_HINT = "Survole une ligne pour voir chaque personnage.",
+	CURACC_HINT = "Toi = ce personnage · Total = tous tes personnages additionnés · survole une ligne pour le détail.",
 	CURACC_ADV_NONE = "Aucun personnage n'en a.",
 	CURACC_ADV_FULL_FMT = "Plein sur %s — plus rien n'y rentre tant que tu n'en dépenses pas.",
 	CURACC_ADV_FULL_ACCOUNT = "Plein — un seul solde pour tous tes personnages, et plus rien ne rentre tant que tu n'en dépenses pas.",
@@ -8132,7 +8132,7 @@ fill("frFR", {
 
 fill("esES", {
 	CURACC_TITLE = "Tus personajes",
-	CURACC_HINT = "Pasa el ratón por una fila para ver cada personaje.",
+	CURACC_HINT = "Tú = este personaje · Total = todos tus personajes sumados · pasa el ratón por una fila para ver cada uno.",
 	CURACC_ADV_NONE = "Ningún personaje tiene.",
 	CURACC_ADV_FULL_FMT = "Lleno en %s — no entra nada más hasta que gastes algo.",
 	CURACC_ADV_FULL_ACCOUNT = "Lleno — un solo saldo para todos tus personajes, y no entra nada más hasta que gastes algo.",
@@ -8160,7 +8160,7 @@ fill("esES", {
 
 fill("ptBR", {
 	CURACC_TITLE = "Seus personagens",
-	CURACC_HINT = "Passe o mouse sobre uma linha para ver cada personagem.",
+	CURACC_HINT = "Você = este personagem · Total = todos os seus personagens somados · passe o mouse sobre uma linha para ver cada um.",
 	CURACC_ADV_NONE = "Nenhum personagem tem.",
 	CURACC_ADV_FULL_FMT = "Cheio em %s — não entra mais nada até você gastar um pouco.",
 	CURACC_ADV_FULL_ACCOUNT = "Cheio — um só saldo para todos os seus personagens, e não entra mais nada até você gastar um pouco.",
@@ -8188,7 +8188,7 @@ fill("ptBR", {
 
 fill("itIT", {
 	CURACC_TITLE = "I tuoi personaggi",
-	CURACC_HINT = "Passa il mouse su una riga per vedere ogni personaggio.",
+	CURACC_HINT = "Tu = questo personaggio · Totale = tutti i tuoi personaggi sommati · passa il mouse su una riga per il dettaglio.",
 	CURACC_ADV_NONE = "Nessun personaggio ne ha.",
 	CURACC_ADV_FULL_FMT = "Pieno su %s — non entra più niente finché non ne spendi un po'.",
 	CURACC_ADV_FULL_ACCOUNT = "Pieno — un solo saldo per tutti i tuoi personaggi, e non entra più niente finché non ne spendi un po'.",
@@ -8332,26 +8332,36 @@ fill("itIT", {
 })
 
 --------------------------------------------------------------------------------
--- 11 Sep 2026 — Spec 39: the transfer line in the Currencies block's tooltip, shown only when
--- the client reports a currency as transferable. Our own translations, not native-reviewed.
+-- 11 Sep 2026 — Spec 39: "You" and "Total" columns in the Currencies block, after Rob read the
+-- account total as his own balance. Our own translations, not native-reviewed.
 --------------------------------------------------------------------------------
 
 fill("deDE", {
-	CURACC_TT_TRANSFER_FMT = "Lässt sich mit Blizzards Währungstransfer zwischen deinen Charakteren verschieben (%d%% kommen an).",
+	CURACC_COL_YOU = "Du",
+	CURACC_COL_TOTAL = "Gesamt",
+	CURACC_COL_WHAT = "Was du damit tun kannst",
 })
 
 fill("frFR", {
-	CURACC_TT_TRANSFER_FMT = "Peut être transférée entre tes personnages avec le transfert de monnaie de Blizzard (%d%% arrivent).",
+	CURACC_COL_YOU = "Toi",
+	CURACC_COL_TOTAL = "Total",
+	CURACC_COL_WHAT = "Ce que tu peux en faire",
 })
 
 fill("esES", {
-	CURACC_TT_TRANSFER_FMT = "Se puede mover entre tus personajes con la transferencia de monedas de Blizzard (llega el %d%%).",
+	CURACC_COL_YOU = "Tú",
+	CURACC_COL_TOTAL = "Total",
+	CURACC_COL_WHAT = "Qué hacer con ello",
 })
 
 fill("ptBR", {
-	CURACC_TT_TRANSFER_FMT = "Pode ser movida entre seus personagens com a transferência de moedas da Blizzard (chegam %d%%).",
+	CURACC_COL_YOU = "Você",
+	CURACC_COL_TOTAL = "Total",
+	CURACC_COL_WHAT = "O que fazer com isso",
 })
 
 fill("itIT", {
-	CURACC_TT_TRANSFER_FMT = "Si può spostare tra i tuoi personaggi con il trasferimento di valuta di Blizzard (arriva il %d%%).",
+	CURACC_COL_YOU = "Tu",
+	CURACC_COL_TOTAL = "Totale",
+	CURACC_COL_WHAT = "Cosa farne",
 })

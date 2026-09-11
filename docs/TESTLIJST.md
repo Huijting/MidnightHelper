@@ -92,6 +92,12 @@ zolang ComfyUI de videokaart gebruikt.
 - [x] ~~Op een max-level character nog één keer `/mh curscan`~~, **Rob 11 sep, 5 screenshots.** Mana
       Crystals hebben daar een weekcap van 250, de crest-vlag gaat aan zodra er iets verdiend is, en
       Field Accolade heeft ook daar geen weekcap. Details in `docs/NEXT_SESSION.md`.
+- [ ] **Na `/reload`, twee kolommen: "You" (jouw huidige character, in geel) en "Total" (alle
+      characters bij elkaar)**, met een kopjesregel erboven en de uitleg in de hint. Rob las 914
+      Shards als van zijn character; nu staat daar bijvoorbeeld *You 10 · Total 914*. Een character
+      zonder gegevens toont "—" bij You.
+- [ ] **De tooltip van Voidlight Marl noemt het verplaatsen nog maar één keer**: *"You can move this
+      between your characters in Blizzard's currency window."*
 - [x] ✅ **Rob 11 sep, screenshot:** het blok staat er, met negen rijen, iconen, de clientnamen, de
       totalen (onder andere Coffer Key 27, Shards 914, Undercoin 7374, Marl 92419) en de uitlegregels
       (afgekapt met "…"; de hele zin staat in de tooltip). Geen oranje regels. Nog te zien: de tooltips.

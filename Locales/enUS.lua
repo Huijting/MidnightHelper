@@ -1134,7 +1134,7 @@ ns._mhLocales.enUS = {
 	CURRENCY_SUBTITLE = "Earned where, spent where: a quick map of every Midnight currency and which vendor takes it.",
 	-- Spec 39 (11 Sep 2026): the "Your characters" block above the guide (Modules/CurrencyAccount.lua).
 	CURACC_TITLE = "Your characters",
-	CURACC_HINT = "Hover a row to see every character.",
+	CURACC_HINT = "You = this character · Total = all your characters added up · hover a row for each one.",
 	CURACC_ADV_NONE = "None on any character.",
 	CURACC_ADV_FULL_FMT = "Full on %s — nothing more comes in there until you spend some.",
 	CURACC_ADV_FULL_ACCOUNT = "Full — one balance for all your characters, and nothing more comes in until you spend some.",
@@ -1148,7 +1148,9 @@ ns._mhLocales.enUS = {
 	CURACC_TT_CAP_FMT = "Holds at most %d.",
 	CURACC_TT_SEASONCAP_FMT = "Season maximum %d — it counts what you earned, not what you hold.",
 	CURACC_TT_WEEKLY_FMT = "Weekly earn cap: %d.",
-	CURACC_TT_TRANSFER_FMT = "Can be moved between your characters with Blizzard's currency transfer (%d%% arrives).",
+	CURACC_COL_YOU = "You",
+	CURACC_COL_TOTAL = "Total",
+	CURACC_COL_WHAT = "What to do with it",
 	CURACC_TT_TRANSFERABLE = "You can move this between your characters in Blizzard's currency window.",
 	-- What each currency is for, Season 2. Sources per line in docs/SPEC_39_CURRENCIES.md.
 	CURACC_USE_KEYS = "Opens the Bountiful Coffer at the end of a Bountiful delve; up to four delves are Bountiful each day.",

@@ -88,10 +88,14 @@ Midnight-weeklies resetten nooit, dus tel alleen een `QUEST_TURNED_IN` van déze
   dat klopt, is nu twijfelachtig. Eerst meten op een max-level character (TESTLIJST); zonder die
   meting niet aanpassen. Ook de Field Accolade-weekcap van 0 kan aan level 80 liggen: de Codex zegt
   "weekly cap".
-- **Nieuw in de tooltip:** `CURACC_TT_TRANSFER_FMT`, *"Can be moved between your characters with
-  Blizzard's currency transfer (%d%% arrives)"*. Alleen als de client `isAccountTransferable` meldt.
-  AFGELEID: `transferPercentage` is het deel dat aankomt; 100 bij Marl, en die kan aantoonbaar
-  verplaatst worden.
+- ~~Nieuw in de tooltip: `CURACC_TT_TRANSFER_FMT`~~ **WEER WEG, dezelfde dag.** Robs screenshot
+  toonde het verplaatsen twee keer: de module had al `CURACC_TT_TRANSFERABLE` (op
+  `isAccountTransferable`), en dat had ik niet gezien. De bestaande regel blijft, want die zegt ook
+  wáár het kan (in Blizzards currency-venster).
+- 🔴 **Rob las het totaal als zijn eigen saldo** (*"Ik dacht dat ik 914 coffer key shards had. Op dit
+  karakter."*). Nu zijn er twee kolommen: **You** (het huidige character, goud zoals "(you)" in de
+  tooltip, "—" als hij nog geen gegevens heeft) en **Total**. Daarboven een kopjesregel
+  (`CURACC_COL_YOU/TOTAL/WHAT`), en `CURACC_HINT` legt het uit, in 7 talen.
 - Van de 12 opgeslagen characters hebben er 3 al `cur`-data. De rest verschijnt als "not seen yet"
   tot ze een keer inloggen.
 - ✅ **Tweede scan op een max-level character (Rob, 5 screenshots, 11 sep):**

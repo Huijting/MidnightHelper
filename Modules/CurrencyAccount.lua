@@ -42,6 +42,9 @@ local TRACKED = {
 
 local ROW_H = 18
 local TITLE_H = 18
+local COL_NAME_W = 170
+local COL_YOU_W = 56
+local COL_TOTAL_W = 64
 
 local ui
 
@@ -344,9 +347,6 @@ local function ShowRowTooltip(row)
 	if d.capLine then
 		GameTooltip:AddLine(d.capLine, 0.7, 0.7, 0.7, true)
 	end
-	if d.transferLine then
-		GameTooltip:AddLine(d.transferLine, 0.6, 0.85, 1, true)
-	end
 	-- Asked of the client, not claimed: the sources disagree about which of these move.
 	if d.transferable then
 		GameTooltip:AddLine(ns:L("CURACC_TT_TRANSFERABLE"), 0.7, 0.7, 0.7, true)
@@ -384,11 +384,15 @@ local function MakeRow(parent, i)
 	end
 	row.nameFs = Fs("GameFontHighlightSmall")
 	row.nameFs:SetPoint("LEFT", row.icon, "RIGHT", 4, 0)
-	row.nameFs:SetWidth(170)
+	row.nameFs:SetWidth(COL_NAME_W)
 	row.nameFs:SetJustifyH("LEFT")
+	row.youFs = Fs("GameFontHighlightSmall")
+	row.youFs:SetPoint("LEFT", row.nameFs, "RIGHT", 4, 0)
+	row.youFs:SetWidth(COL_YOU_W)
+	row.youFs:SetJustifyH("RIGHT")
 	row.totalFs = Fs("GameFontHighlightSmall")
-	row.totalFs:SetPoint("LEFT", row.nameFs, "RIGHT", 4, 0)
-	row.totalFs:SetWidth(56)
+	row.totalFs:SetPoint("LEFT", row.youFs, "RIGHT", 8, 0)
+	row.totalFs:SetWidth(COL_TOTAL_W)
 	row.totalFs:SetJustifyH("RIGHT")
 	row.adviceFs = Fs("GameFontHighlightSmall")
 	row.adviceFs:SetPoint("LEFT", row.totalFs, "RIGHT", 12, 0)
@@ -433,14 +437,20 @@ local function BuildRowData(c)
 		capLine = CapLine(info),
 		useLine = ns:L("CURACC_USE_" .. string.upper(c.key)),
 	}
-	--- "What can I do with it" includes "move it to the character who needs it". MEASURED 11 Sep
-	--- 2026 (/mh curscan): Undercoin, Corrosive Coin and Voidlight Marl report isAccountTransferable
-	--- with transferPercentage 100. Read from the client each time, never from a list of ours.
-	if info and info.isAccountTransferable and not info.isAccountWide then
-		d.transferLine = ns:L("CURACC_TT_TRANSFER_FMT"):format(math.floor(Num(info.transferPercentage) or 100))
-	end
 	if d.accountWide and info then
 		d.total = math.floor(Num(info.quantity) or 0)
+	end
+	--- 🔴 "THE NUMBER IS MINE" WAS THE NATURAL READING, AND IT WAS WRONG. Rob, 11 Sep 2026:
+	--- "Ik dacht dat ik 914 coffer key shards had. Op dit karakter. Maar dat is bij mekaar allemaal.
+	--- Dat moet duidelijk." So the row shows both: this character, then everyone added up.
+	if d.accountWide then
+		d.you = d.total
+	else
+		for _, e in ipairs(list) do
+			if e.isYou and e.known then
+				d.you = e.q
+			end
+		end
 	end
 	for _, e in ipairs(list) do
 		if e.stale and e.known then
@@ -498,8 +508,11 @@ local function ApplyRow(row, d)
 	end
 	row.nameFs:SetText(d.name or "?")
 	if d.crestTiers then
+		row.youFs:SetText("")
 		row.totalFs:SetText("")
 	else
+		-- "—" when this character is not in the data yet: a guess of 0 would read as "you have none".
+		row.youFs:SetText(d.you and tostring(d.you) or "—")
 		row.totalFs:SetText(tostring(d.total or 0))
 	end
 	local col = KIND_COLOR[d.kind] or KIND_COLOR.info
@@ -507,9 +520,12 @@ local function ApplyRow(row, d)
 	row.adviceFs:SetTextColor(col[1], col[2], col[3])
 	if d.kind == "none" then
 		row.nameFs:SetTextColor(0.6, 0.6, 0.6)
+		row.youFs:SetTextColor(0.6, 0.6, 0.6)
 		row.totalFs:SetTextColor(0.6, 0.6, 0.6)
 	else
 		row.nameFs:SetTextColor(0.95, 0.95, 0.95)
+		-- The same gold as "(you)" in the tooltip, so the two columns cannot be mistaken.
+		row.youFs:SetTextColor(1, 0.92, 0.45)
 		row.totalFs:SetTextColor(1, 1, 1)
 	end
 end
@@ -542,6 +558,19 @@ local function Layout()
 	ui.titleRow:SetHeight(titleH)
 	local collapsed = GetCollapsed()
 	local y = titleH + 2
+	-- The column labels, directly under the title and only when the rows show.
+	if ui.colHead then
+		ui.colHead:ClearAllPoints()
+		ui.colHead:SetHeight(TITLE_H * s)
+		ui.colHead:SetPoint("TOPLEFT", ui.block, "TOPLEFT", 0, -y)
+		ui.colHead:SetPoint("TOPRIGHT", ui.block, "TOPRIGHT", 0, -y)
+		if collapsed then
+			ui.colHead:Hide()
+		else
+			ui.colHead:Show()
+			y = y + TITLE_H * s
+		end
+	end
 	for _, row in ipairs(ui.rows) do
 		row:SetHeight(rowH)
 		row:ClearAllPoints()
@@ -564,6 +593,11 @@ function ns.RefreshCurrencyAccountBlock()
 	end
 	ui.titleFs:SetText(ns:L("CURACC_TITLE"))
 	ui.hintFs:SetText(ns:L("CURACC_HINT"))
+	if ui.colHead then
+		ui.colHead.you:SetText(ns:L("CURACC_COL_YOU"))
+		ui.colHead.total:SetText(ns:L("CURACC_COL_TOTAL"))
+		ui.colHead.what:SetText(ns:L("CURACC_COL_WHAT"))
+	end
 	for i, c in ipairs(TRACKED) do
 		ApplyRow(ui.rows[i], BuildRowData(c))
 	end
@@ -614,6 +648,27 @@ function ns.BuildCurrencyAccountBlock(panel, anchorBelow)
 	hintFs:SetJustifyH("LEFT")
 	hintFs:SetWordWrap(false)
 	ui.hintFs = hintFs
+
+	-- Column labels at the same x as the row cells (icon 4+14+4, then the fixed widths below).
+	local colHead = CreateFrame("Frame", nil, block)
+	colHead:SetHeight(TITLE_H)
+	local function HeadFs(x, w, justify)
+		local fs = colHead:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+		fs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+		fs:SetPoint("LEFT", colHead, "LEFT", x, 0)
+		if w then
+			fs:SetWidth(w)
+		end
+		fs:SetJustifyH(justify)
+		fs:SetWordWrap(false)
+		return fs
+	end
+	local xYou = 22 + COL_NAME_W + 4
+	local xTotal = xYou + COL_YOU_W + 8
+	colHead.you = HeadFs(xYou, COL_YOU_W, "RIGHT")
+	colHead.total = HeadFs(xTotal, COL_TOTAL_W, "RIGHT")
+	colHead.what = HeadFs(xTotal + COL_TOTAL_W + 12, nil, "LEFT")
+	ui.colHead = colHead
 
 	for i = 1, #TRACKED + 1 do
 		ui.rows[i] = MakeRow(block, i)
