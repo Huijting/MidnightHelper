@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 💡 11 sep — Robs "idee één": item level + enchant per slot op het karakterscherm (GEPARKEERD)
+
+Rob: *"een item zoeken waarbij wanneer ik mijn karakter open met C, wat voor enchant ik erop heb en
+wat mijn item level is? Of kunnen wij zoiets heel makkelijk maken?"*, en daarna *"zet dat even in ons
+geheugen"*. **Niets gebouwd; eerst de release.**
+- GEMETEN: geen geïnstalleerde addon doet dit (EllesmereUI en MyCharacterPanel staan er niet meer).
+  MH heeft wel twee buren: `CharacterSidePanel.lua` (signaal "n enchants missing") en
+  `GearEnchantCheck.lua` (per slot: ontbreekt, plus een voorstel).
+- Als Rob erop terugkomt, twee opties: een bestaande addon zoeken, of bouwen in MH als label op de
+  `PaperDollItemSlotButton`s. Dan de enchant-lezing van `GearEnchantCheck` hergebruiken, geen
+  tweede lezer. Memory: `character-sheet-slot-overlay-idea`.
+
 ## 🔎 11 sep — HexBreak 0.6.12 → 0.6.23 (Robs update) doorgelopen: raakt Party Targets niet
 
 `HexBreak/CHANGELOG.txt` 0.6.19–0.6.23 gelezen. Alles is vormgeving: een nieuw
