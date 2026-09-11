@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🔎 11 sep — DandersFrames 5.3.2 (Robs update) doorgelopen: raakt MH niet
+
+Changelog 5.1.3 → 5.3.2 volledig gelezen (`DandersFrames_Options/Changelog.lua`). MH verwijst er drie
+keer naar: PartyTargets (afstandsmethode uit `Features/Range.lua`), ApiProbe (aura's) en
+PotionButton (melding van 5.1.2).
+- *"Item bindings no longer rely on game functions that patch 12.1.5 removes"* (5.3.2). Hun
+  click-casting gebruikt nu `C_Item.*`. Bij MH is dat al afgedekt: `API_WATCH.md` [2026-09-05] liep
+  alle ItemScript-globals na (C_Item eerst, anders een bewaakte terugval), en `GetItemCooldown` gaat
+  via `ns.GetItemCooldownSafe`. Grep van vandaag: de overige kale namen zijn eigen locals
+  (`DelveItemsPopup.lua:115-116`, `DelveItemBrokers.lua:42/61`) of staan in die lijst.
+- *"error storm on entering an instance after the 18 Aug client update"* (5.3.0) is hun eigen
+  aura-code. MH leest via `ns.Aura`; Rob meldde niets vergelijkbaars.
+- Geen wijziging aan de afstandsmethode in het changelog.
+
 ## 🛠️ 11 sep — Liadrin: een turn-in-logboek NAAST de vlaggen (meetfase, Rob koos optie 1)
 
 Het antwoord op "OPEN 9 sep, de weekly-vinkjes rusten op bewijs dat niets waard is". De aanpak komt
