@@ -696,6 +696,71 @@ EntryDundunIncomplete = function(e)
 	return (tonumber(e.profDundun) or 0) < DUNDUN_WEEKLY_CAP
 end
 
+--- Spec 38 option B §4 (11 Sep 2026, Rob chose points 4 and 6): characters below the game's max
+--- level fold under one line. The spec's own test - "all three vault rows unavailable" - folds
+--- nobody on Rob's account: his screenshot of 10 Sep shows a level 15 at "0/9", because the client
+--- hands every level a vault. The max level comes from the game (ns.GetDelveCapLevel, the same
+--- gate as the Bountiful weekly), so it is still no number of ours. Level 0 means "not saved", and
+--- a guess never hides a row; the current character is never folded away.
+local function EntryIsLeveling(e, curGuid)
+	if e.guid == curGuid then
+		return false
+	end
+	local cap = ns.GetDelveCapLevel and tonumber(ns.GetDelveCapLevel())
+	if not cap or cap <= 0 then
+		return false
+	end
+	local lvl = tonumber(e.level) or 0
+	return lvl > 0 and lvl < cap
+end
+
+--- Spec 38 option B §6: what is still open this week on one character, most urgent first, from
+--- data the snapshot already holds. At most three lines; a tooltip is not a to-do app.
+local function NextSteps(tip)
+	local out = {}
+	local function add(text, r, g, b)
+		if #out < 3 then
+			out[#out + 1] = { text = text, r = r or 0.9, g = g or 0.9, b = b or 0.9 }
+		end
+	end
+	if tip.hasAvailableRewards then
+		add(ns:L("ALT_NEXT_CLAIM"), 1, 0.84, 0.18)
+	end
+	-- Things that are lost unless you act come before things that merely wait.
+	local mf = tonumber(tip.manaflux)
+	if mf and mf >= MANAFLUX_CAP then
+		add(ns:L("ALT_NEXT_FLUX_FMT"):format(mf, MANAFLUX_CAP), 1, 0.72, 0.3)
+	end
+	local wMax = tonumber(tip.shardsWeeklyMax) or 0
+	local w = tonumber(tip.shardsWeekly) or 0
+	if wMax > 0 and w < wMax then
+		add(ns:L("ALT_NEXT_SHARDS_FMT"):format(wMax - w, w, wMax))
+	end
+	-- The vault row closest to its next choice.
+	local best
+	for _, pair in ipairs({
+		{ tip.world, "ALT_VAULT_WORLD" },
+		{ tip.dungeons, "ALT_VAULT_DUNGEONS" },
+		{ tip.raids, "ALT_VAULT_RAIDS" },
+	}) do
+		local c = pair[1]
+		if c and c.available and c.unlocked < c.total and c.nextThreshold > c.progress then
+			local left = c.nextThreshold - c.progress
+			if not best or left < best.left then
+				best = { left = left, c = c, label = ns:L(pair[2]) }
+			end
+		end
+	end
+	if best then
+		add(ns:L("ALT_NEXT_VAULT_FMT"):format(best.label, best.left, best.c.progress, best.c.nextThreshold))
+	end
+	local k = tonumber(tip.keys) or 0
+	if k > 0 then
+		add(ns:L("ALT_NEXT_KEYS_FMT"):format(k))
+	end
+	return out
+end
+
 local function FilterSnapshotEntries(entries, settings)
 	local out = {}
 	for i = 1, #entries do
@@ -1284,6 +1349,12 @@ function ns:_mhAltOverviewRefreshRows()
 		row:Hide()
 	end
 	ui.dataRows = ui.dataRows or {}
+	if ui.levelGroupRow then
+		ui.levelGroupRow:Hide()
+	end
+	if ui.legendFs then
+		ui.legendFs:Hide()
+	end
 
 	local settings = GetAccountSnapshotSettings()
 	local allEntries = self:_mhAltOverviewCollectEntries()
@@ -1335,6 +1406,33 @@ function ns:_mhAltOverviewRefreshRows()
 		ui.headerRow:Show()
 	end
 
+	-- Spec 38 option B §4: leveling characters go under one fold line below the rest. Only from
+	-- two on: folding a single row into a line of its own saves nothing and hides it.
+	local levelers = {}
+	for _, e in ipairs(entries) do
+		if EntryIsLeveling(e, curGuid) then
+			levelers[#levelers + 1] = e
+		end
+	end
+	local groupSlot
+	if #levelers >= 2 then
+		local shown = {}
+		for _, e in ipairs(entries) do
+			if not EntryIsLeveling(e, curGuid) then
+				shown[#shown + 1] = e
+			end
+		end
+		groupSlot = #shown + 1
+		if settings.levelersExpanded then
+			for _, e in ipairs(levelers) do
+				shown[#shown + 1] = e
+			end
+		end
+		entries = shown
+	else
+		levelers = {}
+	end
+
 	for i, e in ipairs(entries) do
 		if e.guid == curGuid then
 			e.level = UnitLevel("player") or e.level
@@ -1355,10 +1453,12 @@ function ns:_mhAltOverviewRefreshRows()
 		-- Hoogte opnieuw zetten zodat een gewijzigde tekstschaal de gecachete rij
 		-- mee laat groeien en in sync blijft met de Y-stap hieronder.
 		row:SetHeight(RowH())
-		row:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -(HeaderRowH() + (i - 1) * RowH()))
+		-- The fold line takes one slot; the leveling rows under it move down by one.
+		local slot = (groupSlot and i >= groupSlot) and (i + 1) or i
+		row:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -(HeaderRowH() + (slot - 1) * RowH()))
 		row:Show()
 		if row.bg and row.bg.SetColorTexture then
-			if (i % 2) == 1 then
+			if (slot % 2) == 1 then
 				row.bg:SetColorTexture(1, 1, 1, 0.03)
 			else
 				row.bg:SetColorTexture(1, 1, 1, 0.08)
@@ -1578,6 +1678,19 @@ function ns:_mhAltOverviewRefreshRows()
 			if self.vaultTip.staleSinceReset or self.vaultTip.shardsWeeklyStale then
 				GameTooltip:AddLine(ns:L("ALT_ROW_STALE_TOOLTIP"), 1, 0.82, 0.3, true)
 				GameTooltip:AddLine(" ")
+			else
+				--- Spec 38 option B §6: open with the next step. A stale row's next step is the relog
+				--- line above - its numbers are from before the reset, so steps built on them would lie.
+				GameTooltip:AddLine(ns:L("ALT_NEXT_HEAD"), 1, 0.9, 0.5)
+				local steps = NextSteps(self.vaultTip)
+				if #steps == 0 then
+					GameTooltip:AddLine(ns:L("ALT_NEXT_NONE"), 0.6, 0.9, 0.6, true)
+				else
+					for _, s in ipairs(steps) do
+						GameTooltip:AddLine("• " .. s.text, s.r, s.g, s.b, true)
+					end
+				end
+				GameTooltip:AddLine(" ")
 			end
 			if (tonumber(self.vaultTip.level) or 0) > 0 then
 				GameTooltip:AddLine(
@@ -1756,7 +1869,82 @@ function ns:_mhAltOverviewRefreshRows()
 		ui.dataRows[j]:Hide()
 	end
 
-	local bodyH = HeaderRowH() + #entries * RowH() + 6
+	local slots = #entries
+	if groupSlot then
+		slots = slots + 1
+		local g = ui.levelGroupRow
+		if not g then
+			g = CreateFrame("Button", nil, content)
+			g.bg = g:CreateTexture(nil, "BACKGROUND")
+			g.bg:SetAllPoints()
+			g.bg:SetColorTexture(1, 1, 1, 0.05)
+			g.fs = g:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+			g.fs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+			g.fs:SetPoint("LEFT", g, "LEFT", PAD_L, 0)
+			g.fs:SetPoint("RIGHT", g, "RIGHT", -4, 0)
+			g.fs:SetJustifyH("LEFT")
+			g.fs:SetWordWrap(false)
+			g:SetScript("OnClick", function()
+				local s = GetAccountSnapshotSettings()
+				s.levelersExpanded = not s.levelersExpanded
+				ns:_mhAltOverviewRefreshRows()
+			end)
+			g:SetScript("OnEnter", function(self)
+				if not GameTooltip then
+					return
+				end
+				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+				GameTooltip:ClearLines()
+				GameTooltip:AddLine(self.fs:GetText() or "", 1, 0.9, 0.5, true)
+				for _, nm in ipairs(self._mhNames or {}) do
+					GameTooltip:AddLine("  " .. nm, 0.9, 0.9, 0.9)
+				end
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddLine(ns:L("ALT_LEVEL_GROUP_TT_NOTE"), 0.75, 0.75, 0.75, true)
+				local expanded = GetAccountSnapshotSettings().levelersExpanded
+				GameTooltip:AddLine(ns:L(expanded and "ALT_LEVEL_GROUP_TT_HIDE" or "ALT_LEVEL_GROUP_TT_SHOW"), 0.6, 0.9, 0.6, true)
+				GameTooltip:Show()
+			end)
+			g:SetScript("OnLeave", function()
+				if GameTooltip then
+					GameTooltip:Hide()
+				end
+			end)
+			ui.levelGroupRow = g
+		end
+		local cap = ns.GetDelveCapLevel and tonumber(ns.GetDelveCapLevel()) or 0
+		g.fs:SetText(("%s %s"):format(settings.levelersExpanded and "−" or "+",
+			ns:L("ALT_LEVEL_GROUP_FMT"):format(#levelers, cap)))
+		local names = {}
+		for _, e in ipairs(levelers) do
+			names[#names + 1] = ("%s  %s"):format(FormatCharLabel(e.name, e.realm),
+				ns:L("ALT_ROW_LEVEL_ONLY_FMT"):format(math.floor(tonumber(e.level) or 0)))
+		end
+		g._mhNames = names
+		g:ClearAllPoints()
+		g:SetHeight(RowH())
+		g:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -(HeaderRowH() + (groupSlot - 1) * RowH()))
+		g:SetPoint("TOPRIGHT", content, "TOPRIGHT", 0, -(HeaderRowH() + (groupSlot - 1) * RowH()))
+		g:Show()
+	end
+
+	--- Spec 38 option B §6: one legend line under the table, so the clock and the green need no
+	--- guessing, and the reader learns that the tooltips hold the explanations.
+	if not ui.legendFs then
+		ui.legendFs = content:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+		ui.legendFs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+		ui.legendFs:SetJustifyH("LEFT")
+		ui.legendFs:SetWordWrap(true)
+	end
+	local legendTop = HeaderRowH() + slots * RowH() + 6
+	ui.legendFs:ClearAllPoints()
+	ui.legendFs:SetPoint("TOPLEFT", content, "TOPLEFT", PAD_L, -legendTop)
+	ui.legendFs:SetPoint("TOPRIGHT", content, "TOPRIGHT", -4, -legendTop)
+	ui.legendFs:SetText(ns:L("ALT_TABLE_LEGEND"))
+	ui.legendFs:Show()
+	local legendH = math.max(ui.legendFs:GetStringHeight() or 0, RowH())
+
+	local bodyH = legendTop + legendH + 6
 	content:SetHeight(math.max(bodyH, 24))
 	if scroll.UpdateScrollChildRect then
 		scroll:UpdateScrollChildRect()
@@ -1801,11 +1989,14 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 				end
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				local title = titleFn and titleFn()
+				-- hintKey may be a function: the currency columns build their hint from the
+				-- Currencies tab's "what it is for" line, so the two pages cannot disagree.
+				local hint = (type(hintKey) == "function") and hintKey() or ns:L(hintKey)
 				if type(title) == "string" and title ~= "" then
 					GameTooltip:SetText(title, 1, 0.92, 0.55)
-					GameTooltip:AddLine(ns:L(hintKey), 0.9, 0.9, 0.9, true)
+					GameTooltip:AddLine(hint, 0.9, 0.9, 0.9, true)
 				else
-					GameTooltip:SetText(ns:L(hintKey), 1, 0.92, 0.55, 1, true)
+					GameTooltip:SetText(hint, 1, 0.92, 0.55, 1, true)
 				end
 				GameTooltip:Show()
 			end)
@@ -1826,10 +2017,16 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 	wireHeaderHit(h.keysHit, "keys", "ALT_COL_KEYS_HINT")
 	wireHeaderHit(h.shardsHit, "shards", "ALT_COL_SHARDS_WALLET_HINT")
 	wireHeaderHit(h.weekHit, nil, "ALT_COL_WEEK_HINT")
-	wireHeaderHit(h.coinHit, "undercoin", "ALT_COL_UNDER_MANA_HINT", function()
+	-- Spec 38 option B §6: what it is for comes from Spec 39's line on the Currencies tab; the old
+	-- shared hint sent both currencies to Zah'ran, and Undercoin's main vendor is Naleidea.
+	wireHeaderHit(h.coinHit, "undercoin", function()
+		return ns:L("CURACC_USE_UNDERCOIN") .. "\n" .. ns:L("ALT_HINT_RESET_NOT_WEEKLY")
+	end, function()
 		return select(2, CurrencyIconAndName(UNDERCOIN))
 	end)
-	wireHeaderHit(h.crystalHit, nil, "ALT_COL_UNDER_MANA_HINT", function()
+	wireHeaderHit(h.crystalHit, nil, function()
+		return ns:L("CURACC_USE_MANA") .. "\n" .. ns:L("ALT_HINT_RESET_NOT_WEEKLY")
+	end, function()
 		return select(2, CurrencyIconAndName(UNTAINTED_MANA_CRYSTALS))
 	end)
 	-- Spec 38 §3.3: the vault header. The hint names the three rows in order by their own

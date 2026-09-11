@@ -7,6 +7,26 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 11 sep — Account snapshot, optie B punt 4 en 6 (Robs keuze)
+
+Tabblad **Account snapshot**, na één `/reload`.
+
+- [ ] **Levelende characters staan onder één regel** onder de rest: *"+ Leveling characters (n) —
+      below level 90, the max level"*. Klik erop: ze klappen open (*"−"*), en nog een klik klapt ze
+      weer in. Na `/reload` blijft je keuze staan. Met je muis erop zie je hun namen en levels.
+      ⚠️ **Het criterium is "onder de max-level van het spel"**, niet dat uit de spec. Dat zou
+      niemand inklappen, want je level-15 had op je screenshot gewoon "0/9". Dus ook je level 80 en
+      82 staan in die groep. Is dat wat je wilt?
+- [ ] **Je huidige character klapt nooit in**, ook niet als het aan het levelen is.
+- [ ] **Onder de tabel staat een uitlegregel**: klokje = niet ingelogd sinds de reset, groen = klaar
+      of op de cap, en dat de tooltips uitleggen.
+- [ ] **Met je muis over een character** begint de tooltip met *"Still open this week:"*, met
+      hooguit drie punten: een Vault-beloning om te kiezen, Catalyst charges vol, Shards tot de
+      weekcap, de Vault-rij het dichtst bij een volgende keuze, keys om te gebruiken. Klopt het met
+      wat je van dat character weet?
+- [ ] **De kolomkoppen** leggen nu uit wat het is, **Why** het ertoe doet en **Resets** wanneer het
+      reset. Het muntje en het kristal gebruiken dezelfde uitleg als het tabblad Currencies.
+
 ## 🆕 11 sep — Currencies: het blok "Your characters" (Spec 39)
 
 Tabblad **Currencies** (zijbalk, onder Resources), na één `/reload`. ⚠️ **Alleen als WoW mag**: niet

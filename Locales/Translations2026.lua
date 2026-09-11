@@ -8017,54 +8017,54 @@ fill("itIT", {
 
 fill("deDE", {
 	ALT_COL_VAULT = "Schatzkammer",
-	ALT_COL_VAULT_HINT_FMT = "Große Schatzkammer: diese Woche freigeschaltete Auswahlen, alle drei Reihen zusammengezählt (%s, %s, %s), vom Gesamtwert.\n%s = auf diesem Charakter wartet eine Belohnung.\nFahre über einen Charakter, um jede Reihe zu sehen.",
-	ALT_COL_LEVEL_ILVL_HINT = "Stufe und angelegte Gegenstandsstufe, gespeichert beim letzten Login. Klicken, um nach Stufe zu sortieren.",
+	ALT_COL_VAULT_HINT_FMT = "Große Schatzkammer: diese Woche freigeschaltete Auswahlen, alle drei Reihen zusammengezählt (%s, %s, %s), vom Gesamtwert.\nWarum: Jede Auswahl ist ein Gegenstand mehr zur Wahl nach dem Reset.\nReset: jede Woche. %s = auf diesem Charakter wartet eine Belohnung.\nFahre über einen Charakter, um jede Reihe zu sehen.",
+	ALT_COL_LEVEL_ILVL_HINT = "Stufe und angelegte Gegenstandsstufe, gespeichert beim letzten Login.\nWarum: Charaktere unter der Höchststufe stehen zusammen unter einer Zeile, damit deine Charaktere auf Höchststufe oben stehen.\nKlicken, um nach Stufe zu sortieren.",
 	ALT_COL_WEEK = "Woche",
-	ALT_COL_WEEK_HINT = "Diese Woche verdiente Coffer Key Shards bis zur Wochenobergrenze. Sie wird beim wöchentlichen Reset zurückgesetzt.\nDer Haken heißt: Obergrenze erreicht. — heißt: Dieser Charakter war seit dem Reset nicht eingeloggt, die Woche ist also unbekannt.",
-	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards in der Brieftasche dieses Charakters. Diese Zahl wird nie zurückgesetzt.",
+	ALT_COL_WEEK_HINT = "Diese Woche verdiente Coffer Key Shards.\nWarum: Die Woche hat eine Obergrenze; ist sie erreicht, kommen bis zum Reset keine Shards mehr hinzu.\nReset: beim wöchentlichen Reset. Der Haken heißt: Obergrenze erreicht; — heißt: Dieser Charakter war seit dem Reset nicht eingeloggt.",
+	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards in der Brieftasche dieses Charakters.\nWarum: 100 ergeben einen Restored Coffer Key.\nReset: nie.",
 	ALT_ROW_STALE_TOOLTIP = "Neu einloggen nötig: Diese Zeile ist von vor dem Reset dieser Woche. Logge dich einmal mit diesem Charakter ein, dann wird sie aktualisiert.",
 })
 
 fill("frFR", {
 	ALT_COL_VAULT = "Chambre forte",
-	ALT_COL_VAULT_HINT_FMT = "Grande chambre forte : choix débloqués cette semaine, les trois rangées additionnées (%s, %s, %s), sur le total.\n%s = une récompense attend sur ce personnage.\nSurvole un personnage pour voir chaque rangée.",
+	ALT_COL_VAULT_HINT_FMT = "Grande chambre forte : choix débloqués cette semaine, les trois rangées additionnées (%s, %s, %s), sur le total.\nPourquoi : chaque choix est un objet de plus parmi lesquels choisir après la réinitialisation.\nRéinitialisation : chaque semaine. %s = une récompense attend sur ce personnage.\nSurvole un personnage pour voir chaque rangée.",
 	ALT_COL_LEVEL_ILVL = "Niv · ilvl",
-	ALT_COL_LEVEL_ILVL_HINT = "Niveau et niveau d'objet équipé, enregistrés à la dernière connexion. Clique pour trier par niveau.",
+	ALT_COL_LEVEL_ILVL_HINT = "Niveau et niveau d'objet équipé, enregistrés à la dernière connexion.\nPourquoi : les personnages sous le niveau maximum sont regroupés sous une ligne, pour que tes personnages au niveau maximum passent en premier.\nClique pour trier par niveau.",
 	ALT_COL_WEEK = "Semaine",
-	ALT_COL_WEEK_HINT = "Coffer Key Shards gagnés cette semaine vers le plafond hebdomadaire. Il se réinitialise à la réinitialisation hebdomadaire.\nLa coche signifie : plafond atteint. — signifie : ce personnage ne s'est pas connecté depuis la réinitialisation, la semaine est donc inconnue.",
-	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards dans le portefeuille de ce personnage. Ce nombre ne se réinitialise jamais.",
+	ALT_COL_WEEK_HINT = "Coffer Key Shards gagnés cette semaine.\nPourquoi : la semaine a un plafond ; une fois atteint, plus aucun shard n'arrive jusqu'à la réinitialisation.\nRéinitialisation : à la réinitialisation hebdomadaire. La coche signifie : plafond atteint ; — signifie : ce personnage ne s'est pas connecté depuis la réinitialisation.",
+	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards dans le portefeuille de ce personnage.\nPourquoi : 100 font une Restored Coffer Key.\nRéinitialisation : jamais.",
 	ALT_ROW_STALE_TOOLTIP = "Reconnexion nécessaire : cette ligne date d'avant la réinitialisation de cette semaine. Connecte-toi une fois sur ce personnage pour la mettre à jour.",
 })
 
 fill("esES", {
 	ALT_COL_VAULT = "Gran Cámara",
-	ALT_COL_VAULT_HINT_FMT = "Gran Cámara: opciones desbloqueadas esta semana, las tres filas sumadas (%s, %s, %s), del total.\n%s = hay una recompensa esperando en ese personaje.\nPasa el ratón por un personaje para ver cada fila.",
+	ALT_COL_VAULT_HINT_FMT = "Gran Cámara: opciones desbloqueadas esta semana, las tres filas sumadas (%s, %s, %s), del total.\nPor qué: cada opción es un objeto más entre el que elegir tras el reinicio.\nReinicio: cada semana. %s = hay una recompensa esperando en ese personaje.\nPasa el ratón por un personaje para ver cada fila.",
 	ALT_COL_LEVEL_ILVL = "Nv · ilvl",
-	ALT_COL_LEVEL_ILVL_HINT = "Nivel y nivel de objeto equipado, guardados en el último inicio de sesión. Haz clic para ordenar por nivel.",
+	ALT_COL_LEVEL_ILVL_HINT = "Nivel y nivel de objeto equipado, guardados en el último inicio de sesión.\nPor qué: los personajes por debajo del nivel máximo se agrupan en una línea, para que tus personajes de nivel máximo salgan primero.\nHaz clic para ordenar por nivel.",
 	ALT_COL_WEEK = "Semana",
-	ALT_COL_WEEK_HINT = "Coffer Key Shards ganados esta semana hacia el límite semanal. Se reinicia con el reinicio semanal.\nLa marca significa: límite alcanzado. — significa: este personaje no ha entrado desde el reinicio, así que la semana es desconocida.",
-	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards en la bolsa de este personaje. Este número nunca se reinicia.",
+	ALT_COL_WEEK_HINT = "Coffer Key Shards ganados esta semana.\nPor qué: la semana tiene un límite; al alcanzarlo, no entran más shards hasta el reinicio.\nReinicio: con el reinicio semanal. La marca significa: límite alcanzado; — significa: este personaje no ha entrado desde el reinicio.",
+	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards en la bolsa de este personaje.\nPor qué: 100 forman una Restored Coffer Key.\nReinicio: nunca.",
 	ALT_ROW_STALE_TOOLTIP = "Hace falta volver a entrar: esta fila es de antes del reinicio de esta semana. Entra una vez con este personaje y se actualizará.",
 })
 
 fill("ptBR", {
 	ALT_COL_VAULT = "Grande Cofre",
-	ALT_COL_VAULT_HINT_FMT = "Grande Cofre: escolhas desbloqueadas esta semana, as três fileiras somadas (%s, %s, %s), do total.\n%s = há uma recompensa esperando nesse personagem.\nPasse o mouse sobre um personagem para ver cada fileira.",
+	ALT_COL_VAULT_HINT_FMT = "Grande Cofre: escolhas desbloqueadas esta semana, as três fileiras somadas (%s, %s, %s), do total.\nPor quê: cada escolha é um item a mais para escolher depois do reset.\nReset: toda semana. %s = há uma recompensa esperando nesse personagem.\nPasse o mouse sobre um personagem para ver cada fileira.",
 	ALT_COL_LEVEL_ILVL = "Nv · ilvl",
-	ALT_COL_LEVEL_ILVL_HINT = "Nível e nível de item equipado, salvos no último login. Clique para ordenar por nível.",
+	ALT_COL_LEVEL_ILVL_HINT = "Nível e nível de item equipado, salvos no último login.\nPor quê: os personagens abaixo do nível máximo ficam agrupados numa linha, para que seus personagens de nível máximo apareçam primeiro.\nClique para ordenar por nível.",
 	ALT_COL_WEEK = "Semana",
-	ALT_COL_WEEK_HINT = "Coffer Key Shards ganhos nesta semana rumo ao limite semanal. Ele zera no reset semanal.\nO visto significa: limite atingido. — significa: este personagem não entrou desde o reset, então a semana é desconhecida.",
-	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards na carteira deste personagem. Esse número nunca zera.",
+	ALT_COL_WEEK_HINT = "Coffer Key Shards ganhos nesta semana.\nPor quê: a semana tem um limite; ao atingi-lo, não entram mais shards até o reset.\nReset: no reset semanal. O visto significa: limite atingido; — significa: este personagem não entrou desde o reset.",
+	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards na carteira deste personagem.\nPor quê: 100 formam uma Restored Coffer Key.\nReset: nunca.",
 	ALT_ROW_STALE_TOOLTIP = "Precisa relogar: esta linha é de antes do reset desta semana. Entre uma vez com este personagem e ela é atualizada.",
 })
 
 fill("itIT", {
 	ALT_COL_VAULT = "Great Vault",
-	ALT_COL_VAULT_HINT_FMT = "Great Vault: scelte sbloccate questa settimana, le tre righe sommate (%s, %s, %s), sul totale.\n%s = c'è una ricompensa in attesa su quel personaggio.\nPassa il mouse su un personaggio per vedere ogni riga.",
-	ALT_COL_LEVEL_ILVL_HINT = "Livello e livello oggetto equipaggiato, salvati all'ultimo accesso. Clicca per ordinare per livello.",
+	ALT_COL_VAULT_HINT_FMT = "Great Vault: scelte sbloccate questa settimana, le tre righe sommate (%s, %s, %s), sul totale.\nPerché: ogni scelta è un oggetto in più tra cui scegliere dopo il reset.\nReset: ogni settimana. %s = c'è una ricompensa in attesa su quel personaggio.\nPassa il mouse su un personaggio per vedere ogni riga.",
+	ALT_COL_LEVEL_ILVL_HINT = "Livello e livello oggetto equipaggiato, salvati all'ultimo accesso.\nPerché: i personaggi sotto il livello massimo sono raggruppati in una riga, così i tuoi personaggi al livello massimo vengono prima.\nClicca per ordinare per livello.",
 	ALT_COL_WEEK = "Settimana",
-	ALT_COL_WEEK_HINT = "Coffer Key Shards guadagnati questa settimana verso il cap settimanale. Si azzera al reset settimanale.\nLa spunta significa: cap raggiunto. — significa: questo personaggio non è entrato dal reset, quindi la settimana è sconosciuta.",
-	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards nel portafoglio di questo personaggio. Questo numero non si azzera mai.",
+	ALT_COL_WEEK_HINT = "Coffer Key Shards guadagnati questa settimana.\nPerché: la settimana ha un cap; una volta raggiunto, non arrivano altri shard fino al reset.\nReset: al reset settimanale. La spunta significa: cap raggiunto; — significa: questo personaggio non è entrato dal reset.",
+	ALT_COL_SHARDS_WALLET_HINT = "Coffer Key Shards nel portafoglio di questo personaggio.\nPerché: 100 fanno una Restored Coffer Key.\nReset: mai.",
 	ALT_ROW_STALE_TOOLTIP = "Serve un nuovo login: questa riga è di prima del reset di questa settimana. Entra una volta con questo personaggio e si aggiorna.",
 })
 
@@ -8212,4 +8212,96 @@ fill("itIT", {
 	CURACC_USE_MARL = "Si spende dai quartiermastri di Renown, compresa Jan'sari the Watchful sulla Coiled Isle (novità della stagione 2).",
 	CURACC_USE_ACCOLADE = "Si spendono da Maren Silverwing sopra il Bazaar in cache di equipaggiamento Veteran, o da Triam Dawnsetter in cosmetici.",
 	CURACC_USE_CRESTS = "Servono a migliorare l'equipaggiamento, 20 per passo; ogni emblema vale solo per il proprio percorso. La scheda Emblemi mostra la scala.",
+})
+
+--------------------------------------------------------------------------------
+-- 11 Sep 2026 — Spec 38 option B, points 4 and 6 (Rob's choice): the fold line for leveling
+-- characters, the legend under the table and the "still open this week" tooltip lines. The
+-- header hints above were rewritten as what / why / resets in the same change. Our own
+-- translations, not native-reviewed.
+--------------------------------------------------------------------------------
+
+fill("deDE", {
+	ALT_LEVEL_GROUP_FMT = "Charaktere im Aufstieg (%d) — unter Stufe %d, der Höchststufe",
+	ALT_LEVEL_GROUP_TT_NOTE = "Charaktere unter der Höchststufe, eingeklappt, damit die Tabelle deine Charaktere auf Höchststufe zuerst zeigt. Dein aktueller Charakter wird nie eingeklappt.",
+	ALT_LEVEL_GROUP_TT_SHOW = "Klicken, um sie zu zeigen.",
+	ALT_LEVEL_GROUP_TT_HIDE = "Klicken, um sie wieder einzuklappen.",
+	ALT_ROW_LEVEL_ONLY_FMT = "Lv%d",
+	ALT_TABLE_LEGEND = "|TInterface\\Icons\\INV_Misc_PocketWatch_01:0|t seit dem Reset dieser Woche nicht eingeloggt   ·   grün = erledigt oder an der Obergrenze   ·   fahre über einen Charakter für das, was diese Woche noch offen ist, und über eine Spaltenüberschrift für ihre Bedeutung",
+	ALT_NEXT_HEAD = "Diese Woche noch offen:",
+	ALT_NEXT_NONE = "Nichts offen von dem, was diese Tabelle verfolgt.",
+	ALT_NEXT_CLAIM = "Wähle deine Belohnung aus der Großen Schatzkammer.",
+	ALT_NEXT_FLUX_FMT = "Catalyst-Ladungen voll (%d/%d): nutze eine, es füllt sich nicht mehr.",
+	ALT_NEXT_SHARDS_FMT = "Coffer Key Shards: noch %d bis zur Wochenobergrenze (%d/%d).",
+	ALT_NEXT_VAULT_FMT = "Große Schatzkammer, %s: noch %d bis zur nächsten Auswahl (%d/%d).",
+	ALT_NEXT_KEYS_FMT = "%d Restored Coffer Keys für Bountiful Coffers übrig.",
+	ALT_HINT_RESET_NOT_WEEKLY = "Reset: nicht beim wöchentlichen Reset.",
+})
+
+fill("frFR", {
+	ALT_LEVEL_GROUP_FMT = "Personnages en progression (%d) — sous le niveau %d, le niveau maximum",
+	ALT_LEVEL_GROUP_TT_NOTE = "Personnages sous le niveau maximum, repliés pour que le tableau montre d'abord tes personnages au niveau maximum. Ton personnage actuel n'est jamais replié.",
+	ALT_LEVEL_GROUP_TT_SHOW = "Clique pour les afficher.",
+	ALT_LEVEL_GROUP_TT_HIDE = "Clique pour les replier à nouveau.",
+	ALT_ROW_LEVEL_ONLY_FMT = "Niv%d",
+	ALT_TABLE_LEGEND = "|TInterface\\Icons\\INV_Misc_PocketWatch_01:0|t pas connecté depuis la réinitialisation de cette semaine   ·   vert = fait ou au plafond   ·   survole un personnage pour ce qui reste à faire cette semaine, et un titre de colonne pour ce qu'il signifie",
+	ALT_NEXT_HEAD = "Encore à faire cette semaine :",
+	ALT_NEXT_NONE = "Rien d'ouvert parmi ce que suit ce tableau.",
+	ALT_NEXT_CLAIM = "Choisis ta récompense de la Grande chambre forte.",
+	ALT_NEXT_FLUX_FMT = "Charges de Catalyst pleines (%d/%d) : utilises-en une, ça ne se remplit plus.",
+	ALT_NEXT_SHARDS_FMT = "Coffer Key Shards : encore %d avant le plafond de la semaine (%d/%d).",
+	ALT_NEXT_VAULT_FMT = "Grande chambre forte, %s : encore %d pour le prochain choix (%d/%d).",
+	ALT_NEXT_KEYS_FMT = "%d Restored Coffer Keys à utiliser sur des Bountiful Coffers.",
+	ALT_HINT_RESET_NOT_WEEKLY = "Réinitialisation : pas à la réinitialisation hebdomadaire.",
+})
+
+fill("esES", {
+	ALT_LEVEL_GROUP_FMT = "Personajes subiendo de nivel (%d) — por debajo del nivel %d, el máximo",
+	ALT_LEVEL_GROUP_TT_NOTE = "Personajes por debajo del nivel máximo, plegados para que la tabla muestre primero tus personajes de nivel máximo. Tu personaje actual nunca se pliega.",
+	ALT_LEVEL_GROUP_TT_SHOW = "Haz clic para mostrarlos.",
+	ALT_LEVEL_GROUP_TT_HIDE = "Haz clic para volver a plegarlos.",
+	ALT_ROW_LEVEL_ONLY_FMT = "Nv%d",
+	ALT_TABLE_LEGEND = "|TInterface\\Icons\\INV_Misc_PocketWatch_01:0|t sin entrar desde el reinicio de esta semana   ·   verde = hecho o en el límite   ·   pasa el ratón por un personaje para ver lo que queda esta semana, y por un título de columna para saber qué significa",
+	ALT_NEXT_HEAD = "Pendiente esta semana:",
+	ALT_NEXT_NONE = "Nada pendiente de lo que sigue esta tabla.",
+	ALT_NEXT_CLAIM = "Elige tu recompensa de la Gran Cámara.",
+	ALT_NEXT_FLUX_FMT = "Cargas del Catalyst llenas (%d/%d): usa una, ya no se llena más.",
+	ALT_NEXT_SHARDS_FMT = "Coffer Key Shards: %d más antes del límite de la semana (%d/%d).",
+	ALT_NEXT_VAULT_FMT = "Gran Cámara, %s: %d más para la siguiente opción (%d/%d).",
+	ALT_NEXT_KEYS_FMT = "%d Restored Coffer Keys para usar en Bountiful Coffers.",
+	ALT_HINT_RESET_NOT_WEEKLY = "Reinicio: no con el reinicio semanal.",
+})
+
+fill("ptBR", {
+	ALT_LEVEL_GROUP_FMT = "Personagens subindo de nível (%d) — abaixo do nível %d, o máximo",
+	ALT_LEVEL_GROUP_TT_NOTE = "Personagens abaixo do nível máximo, recolhidos para que a tabela mostre primeiro seus personagens de nível máximo. Seu personagem atual nunca é recolhido.",
+	ALT_LEVEL_GROUP_TT_SHOW = "Clique para mostrá-los.",
+	ALT_LEVEL_GROUP_TT_HIDE = "Clique para recolhê-los de novo.",
+	ALT_ROW_LEVEL_ONLY_FMT = "Nv%d",
+	ALT_TABLE_LEGEND = "|TInterface\\Icons\\INV_Misc_PocketWatch_01:0|t sem entrar desde o reset desta semana   ·   verde = feito ou no limite   ·   passe o mouse sobre um personagem para ver o que falta nesta semana, e sobre um título de coluna para saber o que significa",
+	ALT_NEXT_HEAD = "Ainda aberto nesta semana:",
+	ALT_NEXT_NONE = "Nada aberto entre o que esta tabela acompanha.",
+	ALT_NEXT_CLAIM = "Escolha sua recompensa do Grande Cofre.",
+	ALT_NEXT_FLUX_FMT = "Cargas do Catalyst cheias (%d/%d): use uma, parou de encher.",
+	ALT_NEXT_SHARDS_FMT = "Coffer Key Shards: mais %d até o limite da semana (%d/%d).",
+	ALT_NEXT_VAULT_FMT = "Grande Cofre, %s: mais %d para a próxima escolha (%d/%d).",
+	ALT_NEXT_KEYS_FMT = "%d Restored Coffer Keys para usar em Bountiful Coffers.",
+	ALT_HINT_RESET_NOT_WEEKLY = "Reset: não no reset semanal.",
+})
+
+fill("itIT", {
+	ALT_LEVEL_GROUP_FMT = "Personaggi in livellamento (%d) — sotto il livello %d, il massimo",
+	ALT_LEVEL_GROUP_TT_NOTE = "Personaggi sotto il livello massimo, ripiegati perché la tabella mostri prima i tuoi personaggi al livello massimo. Il personaggio attuale non viene mai ripiegato.",
+	ALT_LEVEL_GROUP_TT_SHOW = "Clicca per mostrarli.",
+	ALT_LEVEL_GROUP_TT_HIDE = "Clicca per ripiegarli di nuovo.",
+	ALT_ROW_LEVEL_ONLY_FMT = "Lv%d",
+	ALT_TABLE_LEGEND = "|TInterface\\Icons\\INV_Misc_PocketWatch_01:0|t non entrato dal reset di questa settimana   ·   verde = fatto o al cap   ·   passa il mouse su un personaggio per ciò che resta aperto questa settimana, e sul titolo di una colonna per il suo significato",
+	ALT_NEXT_HEAD = "Ancora aperto questa settimana:",
+	ALT_NEXT_NONE = "Niente di aperto tra ciò che segue questa tabella.",
+	ALT_NEXT_CLAIM = "Scegli la tua ricompensa della Great Vault.",
+	ALT_NEXT_FLUX_FMT = "Cariche del Catalyst piene (%d/%d): usane una, ha smesso di riempirsi.",
+	ALT_NEXT_SHARDS_FMT = "Coffer Key Shards: ancora %d prima del cap della settimana (%d/%d).",
+	ALT_NEXT_VAULT_FMT = "Great Vault, %s: ancora %d per la prossima scelta (%d/%d).",
+	ALT_NEXT_KEYS_FMT = "%d Restored Coffer Keys da usare sui Bountiful Coffers.",
+	ALT_HINT_RESET_NOT_WEEKLY = "Reset: non al reset settimanale.",
 })

@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 11 sep — Spec 38 optie B: ALLEEN punt 4 en 6 gebouwd (Robs keuze), NIET getest
+
+Rob: *"doe punt 4 en 6 maar"*. De punten 1 (Vault-blokjes), 2 (klasse-icoon), 3 (week-balkje) en 5
+(kolommen vallen weg bij een smal venster) zijn bewust **niet** gebouwd.
+- **Punt 4, `EntryIsLeveling` in `AltOverview.lua`:** characters onder de max-level van de client
+  (`ns.GetDelveCapLevel`, dezelfde poort als Bountiful) staan onder één regel. Dat gebeurt pas vanaf
+  twee, en nooit bij het huidige character. De keuze wordt bewaard in
+  `db.ui.accountSnapshot.levelersExpanded`.
+  - 🔴 **Het criterium van de spec werkt niet op Robs data.** De spec zegt "alle drie de
+    Vault-rijen onbeschikbaar", maar zijn screenshot van 10 sep toont een level 15 op "0/9"; de
+    client geeft elke level een Vault. Daarom is het "onder de max-level" geworden. Daardoor vallen
+    ook Lv80/82 in de groep. Dat staat als vraag in de TESTLIJST.
+- **Punt 6:**
+  - `NextSteps()`: de rij-tooltip opent met *"Still open this week"*, met hooguit drie punten uit het
+    snapshot. Voor een stale rij niet, want die getallen zijn van vóór de reset.
+  - Een legenda onder de tabel: `ALT_TABLE_LEGEND`.
+  - De vijf kolomkoppen zijn herschreven als wat / Why / Resets.
+  - Het muntje en het kristal bouwen hun uitleg uit `CURACC_USE_*` (Spec 39), zodat de twee tabbladen
+    het niet oneens kunnen zijn. De oude gedeelde hint `ALT_COL_UNDER_MANA_HINT` stuurde ook de
+    Undercoins naar Zah'ran; die is weg.
+- Zeven talen, via één script (`alt_option_b_texts.py` in de scratchpad; alleen regels die precies één
+  keer voorkwamen). `check_drift --mark ALT_COL_KEYS_HINT`. Lint 0 hard, check_drift 0.
+
 ## 🛠️ 11 sep — Spec 39 GEBOUWD: currencies per character, en wat je ermee moet doen (NIET getest)
 
 Rob keurde het voorstel goed: *"ga je gang met jouw voorstellen"*. Alles staat in
@@ -48,7 +71,8 @@ eerst wat hij zag en wat hij verwachtte, liefst met een screenshot.
 - AFGELEID, niet bevestigd: sinds optie A staan wallet en week in aparte kolommen. Verwacht Rob
   sortering op Week (x/600), of snapt hij niet waarom zijn eigen character bovenaan blijft? Dan is
   "klopt niet" een van die twee. Het kan ook iets anders zijn; niet raden, vragen.
-- Daarna staat nog open: optie B (§2d, alleen na Robs ja). De oude keys zijn op 11 sep opgeruimd.
+- Optie B: punt 4 en 6 zijn op 11 sep gebouwd (zie boven). Rob koos de punten 1, 2, 3 en 5 niet. De
+  oude keys zijn opgeruimd.
 
 ## ✅ 10 sep avond — Spec 38 (Account snapshot): §3 + optie A af, optie B wacht op Rob
 
