@@ -1236,6 +1236,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh curscan — de ruwe cap-velden achter het blok "Your characters" op de Currencies-tab
+	-- (Spec 39). Een rij zonder advies ziet er hetzelfde uit als hij terecht zwijgt of kapot is.
+	if msg == "curscan" then
+		if ns.PrintCurrencyAccountScan then
+			ns.PrintCurrencyAccountScan()
+		end
+		return
+	end
+
 	-- /mh glow — waarom licht een rij niet rood op? Vier oorzaken zien er hetzelfde
 	-- uit en maar één daarvan is goed nieuws.
 	if msg == "glow" then

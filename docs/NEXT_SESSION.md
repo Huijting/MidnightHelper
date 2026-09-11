@@ -1,10 +1,20 @@
 # Midnight Helper — waar we staan
 
-## 💡 11 sep — Robs idee: currencies per character, en wat je ermee kunt of moet doen
+## 🛠️ 11 sep — Spec 39 GEBOUWD: currencies per character, en wat je ermee moet doen (NIET getest)
 
-Rob: *"Currency's, hebben wij die ook allemaal in een overzicht zodat we weten wat onze characters
-hebben, en dan gaat het wel om nuttige currency's, maar belangrijker, kunnen we van daar uit ook zien
-wat we er mee kunnen of misschien wel moeten doen?"* **Nog niets gebouwd; eerst kiest Rob.**
+Rob keurde het voorstel goed: *"ga je gang met jouw voorstellen"*. Alles staat in
+`docs/SPEC_39_CURRENCIES.md`, ook de bronnen per regel en wat nog open is. De testpunten staan in
+`docs/TESTLIJST.md`, en de eerste is `/mh curscan`.
+- `Modules/CurrencyAccount.lua` (nieuw): het blok "Your characters" boven de gids, met negen rijen,
+  adviesregels op basis van de caps van de client, per character in de tooltip, en `/mh curscan`.
+- `AltOverview.lua`: het snapshot krijgt `cur` (er komt alleen iets bij). `CurrencyGuide.lua`: het blok
+  staat boven de scroll. `Core.lua` / `CommandList.lua`: `curscan` is gerouteerd en staat als unlisted.
+- 🔴 **Echte fout gerepareerd:** de gids verkocht Marens Season 1-caches (*"Champion 75 / Hero
+  500"*). In Season 2 zijn dat Veteran-caches (500/750). Gerepareerd in alle 7 talen;
+  `check_drift --mark CURRENCY_GUIDE_BODY`.
+- Nieuwe keys `CURACC_*` in 7 talen (eigen vertalingen). Lint 0 hard, check_drift 0.
+
+**Wat er vóór het bouwen gemeten was** (Robs vraag, dezelfde ochtend):
 - GEMETEN, wat er al is:
   - **`Modules/CurrencyGuide.lua`** (tabblad Currencies) legt uit waar je iets verdient en waar je het
     uitgeeft, met het live saldo van **alleen het huidige character**. De tekst (`CURRENCY_GUIDE_BODY`)

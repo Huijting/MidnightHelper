@@ -506,6 +506,9 @@ local function SaveCurrentSnapshot()
 		saCompleted = saCompleted,
 		saActive = saActive,
 		saMax = saMax,
+		-- Spec 39 (11 Sep 2026): every currency the Currencies tab lists, keyed by id, with the
+		-- amount earned this week and in total. Added, never renamed; old records have no `cur`.
+		cur = (ns.MH_CurrencySnapshotExtra and ns.MH_CurrencySnapshotExtra()) or (prev and prev.cur) or nil,
 		ts = time(),
 	}
 	local snap = GetVaultSnapshot()

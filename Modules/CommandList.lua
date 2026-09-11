@@ -77,7 +77,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"bonusroll", "bossshare", "campaign", "capture", "chunklog", "chunks", "clearroute",
 	"dundun", "sniff", "sniff dump", "sniff clear", "sniff quiet", "pet", "pet test", "pet sounds",
 	"codexkeys", "companion", "consready", "coord", "crest", "crestfind", "crestscan",
-	"curio", "curiodebug", "death", "debug", "delve", "delveexit", "delvescan", "dispellog",
+	"curio", "curiodebug", "curscan", "death", "debug", "delve", "delveexit", "delvescan", "dispellog",
 	"dispelprobe", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",

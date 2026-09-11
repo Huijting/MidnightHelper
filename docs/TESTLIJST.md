@@ -7,6 +7,33 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 11 sep — Currencies: het blok "Your characters" (Spec 39)
+
+Tabblad **Currencies** (zijbalk, onder Resources), na één `/reload`. ⚠️ **Alleen als WoW mag**: niet
+zolang ComfyUI de videokaart gebruikt.
+
+- [ ] **Eerst `/mh curscan`**, dan `/reload`. De chat toont per currency de ruwe velden. Daarna kan ik
+      ze zelf lezen in je SavedVariables (`curScan`), dus je hoeft geen screenshot te maken. Dit
+      bepaalt welke caps het blok kent.
+- [ ] **Bovenaan het tabblad staat een blok "Your characters"** met negen rijen: Restored Coffer Key,
+      Coffer Key Shards, Venomblight Manaflux, Undercoin, Mana Crystals, Corrosive Coin, Voidlight
+      Marl, Field Accolade en Crests. Per rij zie je het icoon, de naam zoals WoW hem noemt, het
+      totaal over al je characters, en één regel die zegt wat je ermee kunt of moet doen.
+- [ ] **Oranje regel = er gaat iets verloren als je niets doet**, bijvoorbeeld *"Full on
+      Earthshammy-Khadgar — nothing more comes in there until you spend some"* bij Manaflux 8/8.
+      Klopt dat met wat jij weet van die characters?
+- [ ] **Ga met je muis over een rij**: je ziet elk character met zijn aantal, jijzelf in geel, en een
+      klokje bij characters die sinds de reset niet ingelogd zijn. Een character dat sinds vandaag
+      nog niet is ingelogd, staat er als *"not seen yet — log in once"*, niet als 0.
+- [ ] **De rij Crests**: in de tooltip de vijf tiers, met per tier het totaal en wie de meeste heeft.
+- [ ] **Het "−"-knopje** klapt het blok in; de gids eronder krijgt dan de ruimte terug. Na `/reload`
+      blijft het ingeklapt.
+- [ ] **In de gids eronder, bij Field Accolade**, staat nu *"Season 2: Veteran gear, 500 random or 750
+      for a slot you choose"* in plaats van de oude *"Champion 75 / Hero 500"*. Klopt dat met wat
+      Maren Silverwing je aanbiedt?
+- [ ] **Hoe heet de crest-upgrader in de Bazaar echt?** MH schrijft *Cuzoth*, Wowhead *Cuzolth*.
+      Lees het van zijn naambord.
+
 ## ✅ 10 sep avond — Account snapshot, Spec 38 §3 + optie A (nieuwe kolommen) — Rob: alles goed
 
 Rob, na de tweede ronde: *"Verder zijn alle punten goed afgewerkt."* Vault blijft "0/9" bij een

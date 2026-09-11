@@ -166,6 +166,10 @@ function ns.RefreshCurrencyGuidePanel()
 	if not (ui and ui.body) then
 		return
 	end
+	-- Same triggers as the guide (show, currency update, language change) for the block above it.
+	if ns.RefreshCurrencyAccountBlock then
+		ns.RefreshCurrencyAccountBlock()
+	end
 	ui.body:SetText(BodyText())
 end
 
@@ -224,9 +228,14 @@ function ns.BuildCurrencyGuidePanel(panel)
 		prev = b
 	end
 
+	-- Spec 39 (11 Sep 2026): what your characters hold and what to do with it, above the map of
+	-- where each currency is spent. The scroll anchors below it, so collapsing the block gives
+	-- the guide its room back.
+	local accBlock = ns.BuildCurrencyAccountBlock and ns.BuildCurrencyAccountBlock(panel, subtitle)
+
 	-- Scrollbaar leesvenster (de cheatsheet is langer dan het paneel).
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -12)
+	scroll:SetPoint("TOPLEFT", accBlock or subtitle, "BOTTOMLEFT", 0, -12)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 44)
 
 	-- Read-only EditBox → klikbare/hoverbare currency-links.
