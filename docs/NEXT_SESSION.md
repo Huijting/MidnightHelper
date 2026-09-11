@@ -1,6 +1,29 @@
 # Midnight Helper — waar we staan
 
-## 🔴 MORGEN (11 sep) EERST — Account snapshot: "Sort: Shards" sorteert niet goed
+## 💡 11 sep — Robs idee: currencies per character, en wat je ermee kunt of moet doen
+
+Rob: *"Currency's, hebben wij die ook allemaal in een overzicht zodat we weten wat onze characters
+hebben, en dan gaat het wel om nuttige currency's, maar belangrijker, kunnen we van daar uit ook zien
+wat we er mee kunnen of misschien wel moeten doen?"* **Nog niets gebouwd; eerst kiest Rob.**
+- GEMETEN, wat er al is:
+  - **`Modules/CurrencyGuide.lua`** (tabblad Currencies) legt uit waar je iets verdient en waar je het
+    uitgeeft, met het live saldo van **alleen het huidige character**. De tekst (`CURRENCY_GUIDE_BODY`)
+    is van **15 jun** en noemt Voidlight Marl, Field Accolade, de crests (`{CRESTS}`, volgt het seizoen)
+    en PvP.
+  - 🔴 **Geen enkele Season 2-currency staat in die gids.** Undercoins 2803, Untainted Mana
+    Crystals 3356, Coffer Key Shards 3310, Restored Coffer Key 3028, Venomblight Manaflux 3465 en
+    Corrosive Coin 3448 ontbreken allemaal. De gids die zegt *"a quick map of every Midnight
+    currency"* is dus sinds 18 aug onvolledig.
+  - **Het accountoverzicht** (`db.charCurrencies`) bewaart per character alleen keys, shards (+ week),
+    Undercoins, Mana Crystals en Manaflux.
+  - **Het blok *This week*** heeft al twee regels over het hele account die zeggen wat je moet doen:
+    *"Restored Coffer Keys on account: 22 (6 characters)"* en *"Catalyst charges waiting: 18"*.
+- AFGELEID, niet gemeten: `C_CurrencyInfo.GetCurrencyInfo` geeft ook `maxQuantity`,
+  `maxWeeklyQuantity` en `quantityEarnedThisWeek`. Daarmee kan een regel als "bijna op de cap, geef
+  uit" op data rusten in plaats van op een getal dat wij zelf opschrijven. In 12.1 nog niet per
+  currency gemeten.
+
+## ⏸️ GEPARKEERD (11 sep, WoW dicht zolang ComfyUI de videokaart gebruikt) — "Sort: Shards" sorteert niet goed
 
 Rob, 10 sep laat: *"Bij de account snapshot is de sorteerfunctie die klopt niet. Er staat nu
 'sort shards' voor het sorteren van de shards. Dat gaat niet goed, maar daar moeten we morgen even
