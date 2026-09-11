@@ -599,3 +599,77 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   **[RAAKT ONS]** op de Ula'tek-"Rage of the Shackled"-vraag (hierboven) — geen bevestigde
   tegenspraak, wel de sterkste openstaande kandidaat. Geen actiepunt dat ík kan oppakken — ik
   rapporteer, een mens beslist.
+
+---
+
+- [2026-09-11] ⚠️ **Sectie "September 10, 2026" volledig gelezen, geen tegenspraak — wel één
+  bevestiging die onze eigen tekst een reden kan geven die hij nu mist.** `web_fetch_exa` op
+  `news.blizzard.com/en-us/article/24296142?nocache=20260911c` (uniek per vandaag), **volledige
+  artikeltekst zelf gelezen** (niet via search-samenvatting) tot en met "September 1, 2026".
+  Nieuwste sectie is "September 10, 2026" — nieuwer dan de "September 9"-sectie die
+  [2026-09-10] als laatste behandelde, dus geen cache-val. Categorieën met content-relevantie:
+  Delves, Dungeons and Raids; Professions en Quests ontbreken opnieuw als kopje (Blizzard laat
+  lege categorieën weg) — niets om te vergelijken. Onafhankelijk bevestigd: zowel de data- als de
+  API-wachter lazen vanmorgen (03:4x UTC, vóór deze run) dezelfde 10-sep-sectie via hun eigen fetch
+  en citeren er letterlijk uit (`docs/PTR_12.0.7_DATA.md:765-766`, `docs/API_WATCH.md`) — drie
+  onafhankelijke fetches, zelfde inhoud.
+
+  📌 **Positieve controle, zelfde repo-brede scope als de claims hieronder:** `grep -rn
+  "Twilight Crypts"` geeft tientallen treffers in `Modules/DelveChestData.lua`,
+  `Modules/DelveTipsData.lua`, `Locales/DelveTips.lua` (alle zeven talen) — dit patroon vindt dus
+  iets op deze schaal. De 0-treffers verderop (Domanaar+corpse, de twee nieuwe loot-namen,
+  "Final Ascension"/spell-ID 1286921 met naam erbij) zijn gemeten afwezigheid.
+
+  **Bevindingen:**
+  - **Delves — Domanaar Enforcer kon een reeds dode corpse Devouren; nu gefixed.** "Domanaar" komt
+    bij ons uitsluitend voor in Sunkiller Sanctum, en daar gaat het over het stelen van Energized
+    Orbs (`Locales/DelveTips.lua:84`, alle zeven talen) — niets over corpses of Devour. "Enforcer"
+    staat 0× als boss-/mob-naam in de repo (enige treffer is ongerelateerde Codex-Franse tekst).
+    MEASURED (0 treffers op "Enforcer" als entiteit, repo-breed). **[RAAKT ONS NIET]**
+  - **Delves — Twilight Crypts, variant "Loosed Loa": Explorer's League Supplies en de Abandoned
+    Restoration Stone verschijnen er nu.** Onze route-tekst voor deze variant
+    (`Locales/DelveTips.lua:66`, alle zeven talen: "Loosed Loa: Evasive Elixir to explore; kill
+    Skeleton Charmers and totems — track Mot'amra, do not cross his path") en de chestlijst
+    (`Modules/DelveChestData.lua:53-57`, zone 2504, drie quest-gebonden coördinaten) noemen geen
+    enkel lootitem — dus geen tekstuele tegenspraak, alleen ontbrekende dekking. MEASURED (0
+    treffers op beide itemnamen, repo-breed; ook al door de data-wachter gemeten,
+    `docs/PTR_12.0.7_DATA.md:765`, onafhankelijk hier herhaald). **[RAAKT ONS NIET]**
+  - **Dungeons and Raids — Den of Nalorakk: Nalorakk's Echoing Maul triggerde soms onbedoeld; nu
+    gefixed.** Spell-ID 1242887 staat bij ons als kale hazard-trigger (`Modules/HazardData.lua:105`,
+    encounter 2825) en in `Modules/MechanicNameProbe.lua:55` — geen van beide beschrijft wannéér
+    hij hoort te vuren, dus geen tekstuele tegenspraak. `Locales/RaidTips.lua`'s
+    `DGN_TIP_DN_NALORAKK_STEPS` noemt spell-ID 1242887 zelf niet. INFERRED: als de onbedoelde
+    triggers vóór de fix meetelden in ons hazard-alarm, kan de alarmfrequentie voor deze cast na
+    10 sep afnemen — geen actie nodig, geen bewering om te corrigeren. **[RAAKT ONS NIET]**
+  - **🔴 Dungeons and Raids — The Venomous Abyss, The Lost Explorers: Mor'zahi's damage-escalatie
+    tijdens Final Ascension reset nu bij een interrupt.** Onze eigen tip zegt al
+    `RAID_BOSS_LOSTEXPLORERS_STEPS = "• Interrupt {SPELL:1286921}. ..."` (`Locales/RaidTips.lua:39`,
+    zeven taalvarianten) als eerste en enige interrupt-instructie voor deze boss — Blizzards
+    hotfix bevestigt dus dat interrupten hier telt, en geeft er voor het eerst een reden bij
+    ("reset de schade-escalatie") die onze tekst nu niet heeft. ⚠️ Ik bevestig de identiteit niet:
+    "Final Ascension" staat 0× met naam in de repo, en spell-ID 1286921 staat nergens anders met
+    een naam erbij — de brontekst zelf noemt ook geen spell-ID (bevestigd door de data-wachter,
+    `docs/PTR_12.0.7_DATA.md:766`). Kan dezelfde cast zijn (enige interrupt-call op deze boss), kan
+    ook een andere cast in dezelfde fight zijn — niet met zekerheid vast te stellen vanuit de repo.
+    MEASURED dat de vraag openstaat; INFERRED dat 1286921 de waarschijnlijke kandidaat is.
+    **[RAAKT ONS]** — geen tegenspraak, wel een kans om "waarom interrupten" toe te voegen zodra
+    iemand 1286921 = Final Ascension in Robs client of via DBM bevestigt.
+  - **Prey — Afflicted/Tormented Souls-buff valt niet meer weg bij dood/BG/arena/specwissel.**
+    Onafhankelijk herhaald wat de API-wachter vanmorgen al mat: 0 echte treffers op "Afflicted" of
+    "Tormented Souls" in `Modules/`/`Locales/` — enige hit is de substring-valse-positief
+    "Lightbloom Afflicted Hide" (`Modules/Profession.lua:187`, skinning-node, geen buff). MEASURED.
+    **[RAAKT ONS NIET]**
+  - **Classes/PvP/Burning Crusade Classic, overig (beide dagen):** klassenbalans- en
+    cooldownmanager-fixes (Death Knight, Hunter, Mage, Paladin, Rogue, Shaman), Evoker/Chronowarden
+    in PvP, en een Burning-Crusade-Classic-vendorkorting (ander spel). Gevestigd patroon: MH volgt
+    geen rotatie-/balanscijfers, geen PvP-mechanica en geen Classic-content. **[RAAKT ONS NIET]**
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260911c (volledig gelezen via
+  Exa, secties 10 sep t/m 1 sep). Codebase-kant: `grep` case-insensitive repo-breed op alle
+  hierboven genoemde namen en spell-ID's, plus gerichte reads van `Locales/DelveTips.lua`,
+  `Modules/DelveChestData.lua`, `Modules/HazardData.lua`, `Modules/MechanicNameProbe.lua`,
+  `Locales/RaidTips.lua`, `Modules/RaidCoachData.lua`, `Modules/Profession.lua` — allemaal vandaag
+  gelezen. **[RAAKT ONS NIET]** op vier van vijf punten, **[RAAKT ONS]** op de Mor'zahi-"Final
+  Ascension"-vraag (hierboven) — geen bevestigde tegenspraak, wel de sterkste kandidaat van
+  vandaag om aan toe te voegen zodra bevestigd. Geen actiepunt dat ík kan oppakken — ik
+  rapporteer, een mens beslist.
