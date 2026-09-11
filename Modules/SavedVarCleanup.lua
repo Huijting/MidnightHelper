@@ -75,6 +75,7 @@ local DUMPS = {
 	{ key = "bindingSetProbe", by = "KeybindSchema.lua" },
 	{ key = "eventProbe", by = "EventProbe.lua" },
 	{ key = "devShotRects", by = "DevShots.lua" },
+	{ key = "curScan", by = "CurrencyAccount.lua" }, -- /mh curscan (Spec 39), read by nothing
 	-- Left behind by code that no longer exists: nothing writes or reads them.
 	{ key = "interruptedByProbe", by = "" },
 	{ key = "braceProbe", by = "" },
