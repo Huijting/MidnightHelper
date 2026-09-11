@@ -74,7 +74,8 @@ local function QuestState(id)
 	return done, onQuest, title
 end
 
-local function PrintPool(label, list)
+--- @param turned table|nil  questID -> time handed in this week (ResetRoutine's turn-in log)
+local function PrintPool(label, list, turned)
 	print(("   |cff8fd3ff%s|r"):format(label))
 	local anyDone, anyOn = false, false
 	for _, row in ipairs(list) do
@@ -89,6 +90,11 @@ local function PrintPool(label, list)
 			anyDone = true
 		else
 			state = "|cff9d9d9d-|r"
+		end
+		-- Next to the flag, what this character actually handed in this week (11 Sep 2026): on
+		-- a reset morning, "completed" without this is the flag that never clears.
+		if type(turned) == "table" and turned[id] then
+			state = state .. (" |cff40c040+ handed in %s|r"):format(date("%a %H:%M", turned[id]))
 		end
 		-- The game's own title is the check that matters: if it does not match the
 		-- name we carry, the id belongs to something else and must not be used.
@@ -148,9 +154,41 @@ function ns.PrintWeeklyHubProbe()
 			print(("      %-22s %-42s %s"):format(o.name or "?", state, when))
 		end
 	end
-	PrintPool("Lady Liadrin's weekly pool", LIADRIN)
-	PrintPool("Void Assault zone rotation", VOID_ZONES)
-	PrintPool("Showdown (Riftblade Maella)", SHOWDOWN)
+	--- The turn-in log (ResetRoutine, 11 Sep 2026): recorded next to the flags, not yet used for
+	--- the ticks. Compare the two on a reset morning before anything switches.
+	local report = ns.GetTurnInLogReport and ns.GetTurnInLogReport() or nil
+	print("   |cff8fd3ffHanded in this week, this character|r |cff9d9d9d(turn-in log since 11 Sep 2026 — not yet used for the ticks)|r")
+	if not report then
+		print("      |cffff5040turn-in log unavailable (character not identified)|r")
+	else
+		local givers = 0
+		for key, at in pairs(report.givers or {}) do
+			givers = givers + 1
+			print(("      %-22s handed in %s"):format(key, date("%a %H:%M", at)))
+		end
+		if givers == 0 then
+			print("      |cff9d9d9dnothing handed in to a tracked giver since the reset|r")
+		end
+		local q = 0
+		for _ in pairs(report.quests or {}) do
+			q = q + 1
+		end
+		print(("      %d quest(s) handed in since the reset, all givers"):format(q))
+		local ll = report.lastLogin
+		if ll then
+			local ids = {}
+			for _, id in ipairs(ll.ids or {}) do
+				ids[#ids + 1] = tostring(id)
+			end
+			print(("      last login %s: %d turn-in event(s) ignored in the first %ds%s"):format(
+				date("%a %H:%M", ll.at or 0), #ids, report.guardSeconds or 10,
+				#ids > 0 and (" — " .. table.concat(ids, ", ")) or ""))
+		end
+	end
+	local turned = report and report.quests or nil
+	PrintPool("Lady Liadrin's weekly pool", LIADRIN, turned)
+	PrintPool("Void Assault zone rotation", VOID_ZONES, turned)
+	PrintPool("Showdown (Riftblade Maella)", SHOWDOWN, turned)
 
 	-- Cross-check: walk the quest log the way /mh questscan does and report anything
 	-- whose IsOnQuest answer contradicts its presence in the log. That contradiction

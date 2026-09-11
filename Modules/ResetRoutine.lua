@@ -1680,6 +1680,158 @@ do
 end
 
 --------------------------------------------------------------------------------
+-- 🔴 A TURN-IN LOG, BECAUSE THE FLAGS DO NOT RESET (11 Sep 2026) — MEASURING, NOT YET USED
+--
+-- On 9 Sep all thirteen of Liadrin's quest ids read IsQuestFlaggedCompleted on a reset morning
+-- Rob had not played, and GiverState calls a giver "done" as soon as one of them is flagged.
+-- The Midnight Chores addon (okarr, MIT - read on 11 Sep, nothing copied) works from the premise
+-- that recurring Midnight weekly flags never clear: it counts a weekly as done only when
+-- QUEST_TURNED_IN fired THIS week, and ignores QUEST_TURNED_IN in the first 10 seconds after
+-- login for quests that were not in the log, because the client re-fires it for permanently
+-- flagged quests while logging in.
+--
+-- This records the same, per character, NEXT TO the flags. GiverState does not read it yet: on a
+-- reset morning the two can be compared (flags "completed", log empty = the premise holds), and
+-- only then does the tick switch. The login re-fires are written down as well (`lastLogin.ids`),
+-- so that claim is measured in our own client instead of adopted - a candidate from another
+-- addon is not a fact. Everything is pcall'd and guards 12.x secret values.
+--------------------------------------------------------------------------------
+do
+	local TURNIN_GUARD_SECONDS = 10
+	local turnInGuardUntil = 0
+	local sessionQuests = {} -- ids in the log at login, plus everything accepted since
+	local pendingTurnInNpcID
+
+	local function PlainNumber(v)
+		if v == nil or (issecretvalue and issecretvalue(v)) then
+			return nil
+		end
+		return tonumber(v)
+	end
+
+	--- This character's record for the current week; a new week starts it empty.
+	local function TurnInStore()
+		MidnightHelperDB = MidnightHelperDB or {}
+		local all = MidnightHelperDB.turnInLog
+		if type(all) ~= "table" then
+			all = {}
+			MidnightHelperDB.turnInLog = all
+		end
+		local guid = UnitGUID and UnitGUID("player")
+		if type(guid) ~= "string" or (issecretvalue and issecretvalue(guid)) then
+			return nil
+		end
+		local rec = all[guid]
+		if type(rec) ~= "table" then
+			rec = {}
+			all[guid] = rec
+		end
+		-- An hour of slack: LastWeeklyResetAt is computed from "seconds until", so it moves by a
+		-- second or two between calls, and by a whole week only when a reset has happened.
+		local weekStart = LastWeeklyResetAt()
+		if weekStart and (type(rec.week) ~= "number" or rec.week < weekStart - 3600) then
+			rec.week = weekStart
+			rec.quests = {}
+			rec.givers = {}
+		end
+		rec.quests = rec.quests or {}
+		rec.givers = rec.givers or {}
+		return rec
+	end
+
+	local function SeedSessionQuests()
+		wipe(sessionQuests)
+		if not (C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetInfo) then
+			return
+		end
+		local ok, n = pcall(C_QuestLog.GetNumQuestLogEntries)
+		n = (ok and PlainNumber(n)) or 0
+		for i = 1, n do
+			local ok2, info = pcall(C_QuestLog.GetInfo, i)
+			if ok2 and type(info) == "table" then
+				local qid = PlainNumber(info.questID)
+				if qid then
+					sessionQuests[qid] = true
+				end
+			end
+		end
+	end
+
+	local function RecordTurnIn(qid)
+		local rec = TurnInStore()
+		if not rec then
+			return
+		end
+		local now = time()
+		rec.quests[qid] = now
+		-- Which giver? A quest we know belongs to one, else the NPC the turn-in window belonged to.
+		local key = GiverKeyForQuest(qid)
+		if not key and pendingTurnInNpcID then
+			key = LearnStore().npc[pendingTurnInNpcID]
+		end
+		pendingTurnInNpcID = nil
+		if key then
+			rec.givers[key] = now
+		end
+	end
+
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("PLAYER_LOGIN")
+	f:RegisterEvent("QUEST_ACCEPTED")
+	pcall(f.RegisterEvent, f, "QUEST_COMPLETE") -- first use in MH; same caution as below
+	f:RegisterEvent("QUEST_TURNED_IN")
+	-- ⚠️ Seen only in Midnight Chores' code, not in our client. Registering an event the client
+	-- does not know throws "Attempt to register unknown event" at load (LEARNED_SPELL_IN_TAB,
+	-- 8 Aug 2026), so this one goes through pcall: absent means the turn-ins it would catch are
+	-- simply not recorded, never a broken load.
+	pcall(f.RegisterEvent, f, "WORLD_QUEST_COMPLETED_BY_SPELL")
+	f:SetScript("OnEvent", function(_, event, a1, a2)
+		pcall(function()
+			if event == "PLAYER_LOGIN" then
+				turnInGuardUntil = ((GetTime and GetTime()) or 0) + TURNIN_GUARD_SECONDS
+				SeedSessionQuests()
+				local rec = TurnInStore()
+				if rec then
+					rec.lastLogin = { at = time(), ids = {} }
+				end
+			elseif event == "QUEST_ACCEPTED" then
+				local qid = PlainNumber(a2 or a1)
+				if qid then
+					sessionQuests[qid] = true
+				end
+			elseif event == "QUEST_COMPLETE" then
+				pendingTurnInNpcID = NpcIDFromGUID(UnitGUID and UnitGUID("questnpc"))
+			else -- QUEST_TURNED_IN, WORLD_QUEST_COMPLETED_BY_SPELL
+				local qid = PlainNumber(a1)
+				if not qid then
+					return
+				end
+				local now = (GetTime and GetTime()) or 0
+				if event == "QUEST_TURNED_IN" and now < turnInGuardUntil and not sessionQuests[qid] then
+					local rec = TurnInStore()
+					if rec and rec.lastLogin and #rec.lastLogin.ids < 50 then
+						rec.lastLogin.ids[#rec.lastLogin.ids + 1] = qid
+					end
+					return
+				end
+				RecordTurnIn(qid)
+			end
+		end)
+	end)
+
+	--- For `/mh weeklies`: this character's turn-ins this week and the last login's ignored
+	--- re-fires. nil when the character cannot be identified.
+	function ns.GetTurnInLogReport()
+		local rec = TurnInStore()
+		if not rec then
+			return nil
+		end
+		return { week = rec.week, quests = rec.quests, givers = rec.givers, lastLogin = rec.lastLogin,
+			guardSeconds = TURNIN_GUARD_SECONDS }
+	end
+end
+
+--------------------------------------------------------------------------------
 -- `/mh profweekly` — why the routine did or did not send you to a profession
 -- weekly (Rob, 29 jul 2026: "ik werd niet naar de professions quest gestuurd").
 --

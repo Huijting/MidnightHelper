@@ -7,6 +7,20 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 11 sep — Liadrin-logboek (meetfase, de vinkjes veranderen nog niet)
+
+- [ ] **Na een `/reload`: `/mh weeklies`.** Er staat een nieuw blok *"Handed in this week, this
+      character"* met de regel *"last login …: N turn-in event(s) ignored in the first 10s"*.
+      📌 **Dat getal is een meting op zich.** Is het groter dan 0, dan stuurt het spel bij het
+      inloggen echt valse inlever-meldingen, zoals Midnight Chores beweert. Is het 0, dan (nog) niet.
+- [ ] **Lever een weekly in** bij Liadrin, Halduron, Aethas of Vereesa, en doe dan `/mh weeklies`.
+      Die giver staat erbij met *"handed in <tijd>"*, en in Liadrins lijst staat bij die quest
+      *"+ handed in …"*.
+- [ ] 🔴 **DE BELANGRIJKSTE: woensdag 16 sep, resetochtend, VÓÓR je iets doet: `/mh weeklies`.**
+      Staan Liadrins quests weer op *"completed"* terwijl het blok *"nothing handed in … since the
+      reset"* zegt, dan klopt het: die vlaggen resetten nooit, en dan schakel ik de vinkjes over op
+      het logboek.
+
 ## 🆕 11 sep — Edit Mode-backups: geen kopie meer als er niets veranderd is
 
 - [x] ~~`/mh editmode` zegt "unchanged"~~, Rob 11 sep. ⚠️ **Dat bewees te weinig:** het vergeleek

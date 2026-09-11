@@ -1,5 +1,27 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 11 sep — Liadrin: een turn-in-logboek NAAST de vlaggen (meetfase, Rob koos optie 1)
+
+Het antwoord op "OPEN 9 sep, de weekly-vinkjes rusten op bewijs dat niets waard is". De aanpak komt
+uit Midnight Chores (okarr, MIT; gelezen, niets gekopieerd): de voltooid-vlaggen van terugkerende
+Midnight-weeklies resetten nooit, dus tel alleen een `QUEST_TURNED_IN` van déze week.
+- **`ResetRoutine.lua`, blok onderaan:**
+  - `MidnightHelperDB.turnInLog[guid] = { week, quests = {qid=ts}, givers = {key=ts}, lastLogin }`.
+    Een nieuwe week begint leeg; een uur speling op `LastWeeklyResetAt`.
+  - **Giver-toewijzing:** eerst `GiverKeyForQuest`, anders de NPC van het inlever-venster
+    (`QUEST_COMPLETE` → `UnitGUID("questnpc")` → de geleerde `LearnStore().npc`).
+  - **Bescherming bij het inloggen:** in de eerste 10 s na `PLAYER_LOGIN` wordt een `QUEST_TURNED_IN`
+    genegeerd voor een quest die niet in het log stond. Dat wordt wel opgeschreven in
+    `lastLogin.ids`, zodat de bewering van Midnight Chores in ONZE client gemeten wordt.
+  - `WORLD_QUEST_COMPLETED_BY_SPELL` en `QUEST_COMPLETE` zijn nieuw voor MH en staan in een `pcall`
+    (onbekend event = een laadfout, zie LEARNED_SPELL_IN_TAB).
+- **`GiverState` gebruikt het nog NIET.** `/mh weeklies` (`WeeklyHubProbe.lua`) toont het naast de
+  vlaggen: per giver *"handed in <tijd>"*, en per quest in Liadrins lijst *"+ handed in"*.
+- **Beslismoment: woensdag 16 sep op de resetochtend** (TESTLIJST). Vlaggen "completed" en logboek
+  leeg = de premisse klopt, en dan wordt de "done" van `GiverState` voor Liadrin (en de andere
+  roterende givers) gebaseerd op het logboek.
+- Nog niet in het spel gezien.
+
 ## 📏 11 sep — `/mh curscan` GEMETEN (Twelveinchy, Lv80, 14:58; uit `curScan` in het SV-bestand)
 
 | id | currency | maxQuantity | maxWeekly | seizoen? | verplaatsbaar |
