@@ -15,7 +15,11 @@ gekopieerd en vergeleken: 103 regels) en `CHANGELOG.md`. Tag `v3.11.0`; de packa
   Rob plakt die pagina met de hand, dus dat is zijn keus.
 - **Na de upload:** CF → Files → 3.11.0 → Changelog, nakijken of de opmaak goed staat.
 
-## 💡 11 sep — Robs "idee één": item level + enchant per slot op het karakterscherm (GEPARKEERD)
+## ✅ 11 sep — Robs "idee één": item level + enchant per slot op het karakterscherm — OPGELOST met BetterCharacterPanel
+
+Rob installeerde BetterCharacterPanel. Zijn screenshot (Earthshammy) toont ilvl per slot, een korte
+enchantnaam ("Avoid"), rood "No Enchant" en gem-iconen. Het doet wat hij vroeg; **niets bouwen in
+MH.** Het verslag hieronder blijft staan.
 
 Rob: *"een item zoeken waarbij wanneer ik mijn karakter open met C, wat voor enchant ik erop heb en
 wat mijn item level is? Of kunnen wij zoiets heel makkelijk maken?"*, en daarna *"zet dat even in ons
