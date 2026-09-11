@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🔎 11 sep — HexBreak 0.6.12 → 0.6.23 (Robs update) doorgelopen: raakt Party Targets niet
+
+`HexBreak/CHANGELOG.txt` 0.6.19–0.6.23 gelezen. Alles is vormgeving: een nieuw
+instellingenscherm, geluiden, en tegels met naam + spec (valt terug op de rol als de spec van een
+ander onbekend is). Per versie staat er *"Dispel/aura logic was not changed"*, en 0.6.19 is
+*"rebuilt on the stable 0.6.12 dispel engine"*, de versie waar PartyTargets van leerde.
+- GEMETEN in hun code: nog steeds `spell1` = de spell-**naam** en `type2` = `"target"`
+  (`HexBreak/Core.lua:1735-1749`; bij 0.6.12 was dat 1731). Daar leunt onze rechtsklik-dispel op.
+  Niets aan te passen.
+- 📌 **Een les uit hun 0.6.21:** *"a critical 0.6.19 load failure caused by exceeding WoW Lua's
+  local-variable limit"* (200 locals per functie, en het hoofdblok van een bestand telt mee). MH
+  heeft grote bestanden met veel locals, maar `lua_syntax_check.py` draait `luac`, en dat is een
+  compile-fout. AFGELEID: onze syntax-check vangt het dus vóór Rob het ziet.
+- Idee, niet gebouwd: naam + spec op de tegel. Licentie GPL-3.0, dus alleen het idee lenen.
+
 ## 🔎 11 sep — DandersFrames 5.3.2 (Robs update) doorgelopen: raakt MH niet
 
 Changelog 5.1.3 → 5.3.2 volledig gelezen (`DandersFrames_Options/Changelog.lua`). MH verwijst er drie
