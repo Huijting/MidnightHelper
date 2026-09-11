@@ -26,9 +26,11 @@ gelogd in The Darkway, zonder dat de coach er iets mee deed.
       Serpentogenesis, Venom Splash en Hydra Strike.
 - [x] ~~Het 3D-model in de bossplek~~, **Rob 11 sep, vlak na zijn kill: "het model staat er en
       klopt".** Het Wowhead-id 269179 is daarmee met eigen ogen bevestigd.
-- [ ] **Nu al, buiten de delve:** coach → The Darkway → **2 / 2**. In de Boss-regel staan
-      Serpentogenesis, Venom Splash en Hydra Strike als spell-links, **geen "?"**. Ga er met je muis
-      over: dan hoort de tooltip van die spell te verschijnen.
+- [x] ~~Spell-links in de coach, geen "?"~~, **Rob 11 sep, drie screenshots (The Darkway, 2/2):**
+      de hover-tooltips tonen Venom Splash **1303316** (*"The glob forms into a Venomborne"*),
+      Hydra Strike **1289224** en Serpentogenesis **1311500**, met CDPulse-ID's. De client kent alle
+      drie. ⚠️ Dat bewijst dat de links werken, niet dat de baas precies deze ID's cast. Dat meet de
+      volgende regel.
 - [ ] **Volgende Venomborne-run, de debuff-tooltips** (CDPulse toont de Spell ID). De spell-ID's
       zijn gekozen op tooltiptekst, niet via een koppeling aan de NPC. Dit meet het:
       - Hydra Strike-DOT hoort **1289223** te zijn.

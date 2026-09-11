@@ -50,6 +50,8 @@
   - 🔴 Venom Splash heeft twee 12.1-families. 1303316 zegt *"the glob forms into a Venomborne"*;
     1289623 is iemands *"sticky venom"*.
   - Meting staat in TESTLIJST: de debuff-ID's via CDPulse in de volgende run.
+  - ✅ **Rob, na reload:** de drie links renderen in de coach, en de tooltips tonen 1303316, 1289224
+    en 1311500 (CDPulse). Nog open: of de baas in een run echt deze familie gebruikt.
 
 ## 📦 11 sep — RELEASE 3.11.0. Rob zei "go".
 
