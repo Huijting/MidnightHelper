@@ -80,9 +80,18 @@ local function Describe(info)
 	return out
 end
 
+--- Numbers are equal within 0.01. MEASURED 11 Sep 2026 in Rob's file: two backups whose values
+--- were identical on reading back - "offsetX = -0" against "offsetX = 0" was the only difference in
+--- the text - still compared unequal in the game, so every login added a copy after all. A live
+--- layout carries float remainders that the SavedVariables file does not keep, so a snapshot read
+--- back from the file never exactly equals the live layout it came from. A hundredth of a pixel is
+--- not a layout change.
 local function DeepEqual(a, b, depth)
 	if a == b then
 		return true
+	end
+	if type(a) == "number" and type(b) == "number" then
+		return math.abs(a - b) < 0.01
 	end
 	if type(a) ~= "table" or type(b) ~= "table" or depth > MAX_DEPTH + 2 then
 		return false

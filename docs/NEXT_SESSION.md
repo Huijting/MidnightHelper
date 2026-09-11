@@ -57,6 +57,14 @@ meetdumps op nil zette. Die chat heeft in de repo niets aangeraakt.
     - `"before-bars-import"` wordt nooit overgeslagen of samengevoegd, want de undo zoekt hem op dat
       label (`:470`).
     - Nieuwe backups krijgen `at = time()`.
+    - 🔴 **Robs eerste test loog, en mijn testpunt liet het toe.** `/mh editmode` zei "unchanged",
+      maar het bestand (13:01) had nog steeds 3 backups. `editmode_parse.py` las ze als tabellen en
+      vond **#1 en #2 identiek qua waarde**; alleen de tekst verschilt: `offsetX = -0` tegen `0`,
+      8×. Positieve controle: #1 tegen #3 geeft 17 verschillen ("Twelveinchy" / "Bell 1080").
+      AFGELEID: live floats houden restjes die de SV-schrijver afrondt. Een backup die uit het bestand
+      is ingelezen, is daardoor nooit exact gelijk aan de live lay-out; "unchanged" kwam van een
+      kopie uit dezelfde sessie. **Gerepareerd:** getallen gelden als gelijk binnen 0,01. Opnieuw te
+      meten in het bestand, na twee reloads.
 
 ## 🔎 11 sep — Midnight Chores (okarr, v1.0.7, **MIT**) doorgelicht: aanwijzingen, NIETS overgenomen
 
