@@ -1245,6 +1245,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh cleanup [yes] — de meetdumps uit de SavedVariables halen (11 sep 2026). Eerst tonen,
+	-- pas met "yes" wissen; SavedVarCleanup.lua zegt welke sleutels en waarom alleen die.
+	if msg == "cleanup" or msg:match("^cleanup%s") then
+		if ns.RunSavedVarCleanup then
+			ns.RunSavedVarCleanup(msg:match("^cleanup%s+(.+)$"))
+		end
+		return
+	end
+
 	-- /mh glow — waarom licht een rij niet rood op? Vier oorzaken zien er hetzelfde
 	-- uit en maar één daarvan is goed nieuws.
 	if msg == "glow" then

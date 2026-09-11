@@ -230,6 +230,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh mbuff", descKey = "CMDLIST_MBUFF" },
 		{ cmd = "/mh quest", descKey = "CMDLIST_QUEST" },
 		{ cmd = "/mh npc", descKey = "CMDLIST_NPC" },
+		{ cmd = "/mh cleanup", descKey = "CMDLIST_CLEANUP" },
 	} },
 }
 

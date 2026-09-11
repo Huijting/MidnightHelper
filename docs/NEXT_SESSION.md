@@ -15,9 +15,23 @@ meetdumps op nil zette. Die chat heeft in de repo niets aangeraakt.
   `/mh tier`, enzovoort. Er is niets verloren dat nog nodig is.
 - De grootste die overblijven zijn echte functies: `editModeBackups` 350 KB en `taxiSeen` 52 KB. Daarna
   staan er nog ~20 kleine probe-dumps (samen ~150 KB).
-- **Voorstel van de pc-chat, nog NIET gebouwd, Rob beslist:** `/mh cleanup`. Dat toont eerst per
-  probe-dump hoeveel KB hij is, en wist pas na bevestiging. Alleen een vaste lijst probe-sleutels,
-  nooit functie-data. Eventueel met een maximum voor logs.
+- ✅ **`/mh cleanup` GEBOUWD (Rob: *"bouw /mh cleanup maar"*), NIET getest.**
+  `Modules/SavedVarCleanup.lua`:
+  - `/mh cleanup` toont de aanwezige dumps met een geschatte KB en waar ze vandaan komen. Pas
+    `/mh cleanup yes` wist ze, en zet `valeera.log` uit.
+  - Bij het inloggen komt één chatregel (na 15 s) als de dumps samen boven 1 MB komen.
+  - **Een vaste lijst van 49 sleutels, nooit een patroon.** Elke sleutel is op 11 sep nagemeten
+    (`sv_classify.py` + `sv_reads.py`): alleen geschreven door een diagnose en door geen functie
+    gelezen, of door niets meer geschreven (4 wezen).
+  - **Bewust NIET op de lijst:** `dispelCapture` (DispelHelper leest hem), `ritualBossSpy`,
+    `eventSpy`, `soulLedger`, `captures`, `ejCapture`, `keybindExport` en `editModeBarsExport`, plus
+    alle instellingen.
+  - Staat in `MH_COMMANDS` (groep PROBE) als `CMDLIST_CLEANUP`, in 7 talen. De uitvoer is Engels,
+    net als bij de andere diagnoses.
+  - Niet gebouwd: een maximum voor logs. De melding bij 1 MB vangt hetzelfde, zonder gegevens weg
+    te gooien die iemand misschien nog meet.
+  - 📌 **Een nieuwe probe die naar `ns.db` schrijft, hoort in `DUMPS`.** Dat controleert nog niets;
+    kandidaat voor een lintcheck.
 
 ## 🔎 11 sep — Midnight Chores (okarr, v1.0.7, **MIT**) doorgelicht: aanwijzingen, NIETS overgenomen
 

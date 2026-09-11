@@ -319,6 +319,7 @@ ns._mhLocales.enUS = {
 	CMDLIST_MBUFF = "Prints what the missing-buff check sees. The reminder itself is a Settings toggle.",
 	CMDLIST_QUEST = "With a quest window open, writes down its id and title. Same log as /mh here.",
 	CMDLIST_NPC = "Asks your own client what an npc id is called, so an id from a guide can be checked instead of trusted.",
+	CMDLIST_CLEANUP = "Shows the old measurement data these commands left in your saved data, and how big it is. /mh cleanup yes clears it; your settings stay.",
 	CMDLIST_COACH = "The Delve Coach.",
 	CMDLIST_BOSSWIN = "The dungeon boss window.",
 	CMDLIST_RITUALBOSS = "The ritual site boss coach.",

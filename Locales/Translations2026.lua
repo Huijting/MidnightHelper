@@ -8305,3 +8305,28 @@ fill("itIT", {
 	ALT_NEXT_KEYS_FMT = "%d Restored Coffer Keys da usare sui Bountiful Coffers.",
 	ALT_HINT_RESET_NOT_WEEKLY = "Reset: non al reset settimanale.",
 })
+
+--------------------------------------------------------------------------------
+-- 11 Sep 2026 — /mh cleanup in the command list (Modules/SavedVarCleanup.lua). The command's
+-- own output is English, like the other diagnostics. Our own translations, not native-reviewed.
+--------------------------------------------------------------------------------
+
+fill("deDE", {
+	CMDLIST_CLEANUP = "Zeigt die alten Messdaten, die diese Befehle in deinen gespeicherten Daten hinterlassen haben, und wie groß sie sind. /mh cleanup yes löscht sie; deine Einstellungen bleiben.",
+})
+
+fill("frFR", {
+	CMDLIST_CLEANUP = "Affiche les anciennes données de mesure que ces commandes ont laissées dans tes données sauvegardées, et leur taille. /mh cleanup yes les efface ; tes réglages restent.",
+})
+
+fill("esES", {
+	CMDLIST_CLEANUP = "Muestra los datos de medición antiguos que estos comandos dejaron en tus datos guardados, y cuánto ocupan. /mh cleanup yes los borra; tus ajustes se quedan.",
+})
+
+fill("ptBR", {
+	CMDLIST_CLEANUP = "Mostra os dados de medição antigos que esses comandos deixaram nos seus dados salvos, e o tamanho deles. /mh cleanup yes os apaga; suas configurações ficam.",
+})
+
+fill("itIT", {
+	CMDLIST_CLEANUP = "Mostra i vecchi dati di misurazione che questi comandi hanno lasciato nei tuoi dati salvati, e quanto sono grandi. /mh cleanup yes li cancella; le tue impostazioni restano.",
+})

@@ -7,6 +7,17 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 11 sep — `/mh cleanup`
+
+- [ ] **`/mh cleanup`** toont een lijst met meetdumps en hun grootte, bijvoorbeeld *"barInventory
+      28.7 KB"*. Er wordt nog **niets** gewist. Onderaan staat dat `ejCapture` en je instellingen
+      bewust blijven.
+- [ ] **`/mh cleanup yes`** zegt *"Cleared n dump(s), about … KB"*. Na `/reload` meldt `/mh cleanup`:
+      *"No measurement dumps …"*. Je instellingen, het accountoverzicht en je Edit Mode-backups
+      horen er nog te zijn.
+- [ ] **`/mh commands`** (of het Commands-scherm): `/mh cleanup` staat in de groep met de
+      meetcommando's.
+
 ## 🆕 11 sep — Trovehunter's Bounty: MH kijkt nu naar de Season 2-kaart
 
 ✅ Gemeten door Rob (`/mh item 274374 252415`): 274374 is de Season 2-kaart, 252415 die van

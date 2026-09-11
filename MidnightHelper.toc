@@ -121,6 +121,7 @@ Modules\Openables.lua
 Modules\FastMark.lua
 Modules\CurrencyGuide.lua
 Modules\CurrencyAccount.lua
+Modules\SavedVarCleanup.lua
 Modules\TierSetData.lua
 Modules\TierSet.lua
 Modules\OmniumFolioData.lua
