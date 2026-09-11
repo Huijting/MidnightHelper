@@ -1,5 +1,39 @@
 # Midnight Helper — waar we staan
 
+## 🔎 11 sep — Midnight Chores (okarr, v1.0.7, **MIT**) doorgelicht: aanwijzingen, NIETS overgenomen
+
+Rob installeerde het en vroeg: *"check wat het is en hoe we daar van kunnen leren"*. Het is een
+chore-tracker die aan Blizzards quest tracker vastzit: tabs Weekly en Events, per character, met een
+surge-aftelling, delve-knoppen, BiS-lijsten en een optionele auto-quest. De licentie is MIT, dus code
+mag met naamsvermelding. **Alles hieronder is een KANDIDAAT uit hun code, niet in onze client
+gemeten.** Alleen de twee regels over MH zelf zijn GEMETEN.
+- 🔴 **Liadrin-vlaggen:** hun uitgangspunt is dat de voltooid-vlag van terugkerende Midnight-weeklies
+  **nooit** reset. Daarom tellen zij alleen een `QUEST_TURNED_IN` van déze week (log, gewist bij de
+  reset, met 10 s bescherming na het inloggen). Dat verklaart onze 13/13-meting van 9 sep.
+  GEMETEN: `ResetRoutine.lua:794-797` geeft "done" zodra één vlag staat. De oorzaak van "OPEN 9 sep"
+  is daarmee waarschijnlijk gevonden. De reparatie is een turn-in-log; meten op één alt, op een
+  resetochtend.
+- 🔴 **Trovehunter's Bounty:** zij noemen **274374** (kaart S2) / aura **1293799** / fluit 275910;
+  252415/1254631 zou Season 1 zijn. GEMETEN: MH kent alleen 252415/1254631 (`Config.lua:32-34`,
+  `DelveWeeklyTrackers`, `DelveItemsPopup`, `Delves`, `MidnightToast`). Klopt het, dan vuren onze
+  popup en toast niet op de S2-kaart. Meten: het item-ID van de kaart in Robs tas.
+- **Curse Surge:** zij gebruiken `C_AreaPoiInfo.GetEventsForMap(2512)`, niet `GetAreaPOIForMap`, met
+  `IsAreaPOITimed` + `GetAreaPOISecondsLeft`. Plus een voorspelling: 5 vaste plekken, elk 2700 s, in
+  een vaste volgorde, per regio een startanker (EU 1786617900). Weekly 96995. Onze `/mh atal` gebruikte
+  de andere API; daarmee kan optie C ("er loopt nu een surge") opnieuw open.
+- **Spark-weekly:** currency **3509** "Tidal Spark Dust" (`totalEarned` tegen `maxQuantity`). Of die
+  per character of per account is, is niet zeker.
+- **Tegenspraak met MH om na te meten:** Halduron (MH 93761 gemeten, zij 93751-93758); 93423-93426
+  (zij PvP-quests "Sparks of War", MH delve-referentie); Aethas 94836 (MH) tegen 94835; de naam van
+  een surge-plek ("Siege at Coiler's Wake" tegen "Siege at the Whispering Marsh"; de coördinaten
+  kloppen).
+- **Wat zij hebben en MH niet (ideeën):** prey-telling via widget 1843, een delve-telling vanaf
+  tier 9, Soirée/Haranir/Stormarion/World Tour-weeklies, de Darkmoon Faire, per chore een diagnose
+  *"waarom groen"* (`/mc why`).
+- ⚠️ **Hun riskante plekken, niet overnemen:** ze schrijven in Blizzards Group Finder (hun eigen
+  commentaar noemt dat een taint-bron), verbergen de tracker via een secure handler, en hebben een
+  item-ID-sweep die de client laat crashen.
+
 ## 🛠️ 11 sep — Spec 38 optie B: ALLEEN punt 4 en 6 gebouwd (Robs keuze), NIET getest
 
 Rob: *"doe punt 4 en 6 maar"*. De punten 1 (Vault-blokjes), 2 (klasse-icoon), 3 (week-balkje) en 5
