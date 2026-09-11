@@ -22,6 +22,8 @@
   - Twilight Crypts (*Why'd It Have to Be Snakes?*): alleen Icy Veins noemt Venomborne daar.
   - *Caustic Crush* (Parhelion Plaza) noemt Ula'tek, maar de baas is onbekend.
   - Spell-id's voor `{SPELL:}` en het model-id moeten nog bevestigd worden. Zie TESTLIJST.
+- ✅ **Rob, na reload:** in The Darkway staat bij 1/2 (Gulkat) en 2/2 (Venomborne) *"alles"*; het
+  filter per baas gooit dus niets van Gulkat weg.
 
 ## 📦 11 sep — RELEASE 3.11.0. Rob zei "go".
 

@@ -19,7 +19,9 @@ gelogd in The Darkway, zonder dat de coach er iets mee deed.
 - [ ] **Na de kill** staat er niet meer *"(Optional) Exit Delve with Leave-O-Bot…"* als story.
 - [ ] **Zolang de story onbekend is,** tonen Route, Trash en Boss álle regels, niet alleen die van de
       laatst bekeken baas (in je screenshot stond onder Route alleen de Mycomight-regel).
-- [ ] **Darkway met Gulkat** (Focusers, Leyline of Ogre Powered): alle oude tips staan er nog.
+- [x] ~~**Darkway met Gulkat**: alle oude tips staan er nog~~, **Rob 11 sep, coach buiten de delve,
+      ◀ ▶ door The Darkway: "alles staat er, bij zowel 1/2 als 2/2".** Het filter per baas gooit
+      niets van Gulkat weg, en 2/2 toont Venomborne met zijn regel.
 
 ## 🆕 11 sep — Liadrin-logboek (meetfase, de vinkjes veranderen nog niet)
 
