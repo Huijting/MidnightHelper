@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ⏰ EERST VRAGEN, 12 sep: de alchemy-schat in een Voidstorm-subzone gaat mis
+
+Rob, 11 sep 's avonds, vlak voor bedtijd: *"help me herinneren dat wanneer ik een alchemy treasure
+moet gaan halen in de voidstorm subzone dat het dan niet goed gaat, screenshots heb ik gemaakt"*.
+- **Nog niets onderzocht:** wat er misgaat (de pijl, de route of de reis-popup) en welke schat het is,
+  weten we nog niet. **Vraag Rob om zijn screenshots** voordat je iets aanneemt.
+- 📌 Mogelijk verband, ongemeten: de subzone-logica in `AddSmartTomTomWay` (`targetChain`, "Slayer's
+  Rise 2444 → Voidstorm 2405"), `MHSameZoneOrSub`, en de combat-fix van vanavond (`43c4ffa`) in
+  dezelfde functie. Zijn screenshots zijn misschien van vóór die fix.
+
 ## 🐛 11 sep — ADDON_ACTION_BLOCKED op de Hearthstone-knop bij een route in combat
 
 - **Robs melding:** `MidnightHelperHSClick:ClearAllPoints()` via `Profession.lua:573` →
