@@ -1083,6 +1083,7 @@ ns._mhLocales.nlNL = {
 	CURACC_TT_CAP_FMT = "Kan er maximaal %d hebben.",
 	CURACC_TT_SEASONCAP_FMT = "Season maximum %d — dat telt wat je verdiend hebt, niet wat je nu hebt.",
 	CURACC_TT_WEEKLY_FMT = "Weekcap: %d.",
+	CURACC_TT_TRANSFER_FMT = "Kan tussen je characters verplaatst worden met Blizzards currency transfer (%d%% komt aan).",
 	CURACC_TT_TRANSFERABLE = "Je kunt dit tussen je characters verplaatsen in Blizzards currency-venster.",
 	CURACC_USE_KEYS = "Opent de Bountiful Coffer aan het eind van een Bountiful delve; elke dag zijn er tot vier delves Bountiful.",
 	CURACC_USE_SHARDS = "100 shards worden één Restored Coffer Key; als je een delve binnengaat, gebeurt dat vanzelf.",

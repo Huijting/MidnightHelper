@@ -1148,6 +1148,7 @@ ns._mhLocales.enUS = {
 	CURACC_TT_CAP_FMT = "Holds at most %d.",
 	CURACC_TT_SEASONCAP_FMT = "Season maximum %d — it counts what you earned, not what you hold.",
 	CURACC_TT_WEEKLY_FMT = "Weekly earn cap: %d.",
+	CURACC_TT_TRANSFER_FMT = "Can be moved between your characters with Blizzard's currency transfer (%d%% arrives).",
 	CURACC_TT_TRANSFERABLE = "You can move this between your characters in Blizzard's currency window.",
 	-- What each currency is for, Season 2. Sources per line in docs/SPEC_39_CURRENCIES.md.
 	CURACC_USE_KEYS = "Opens the Bountiful Coffer at the end of a Bountiful delve; up to four delves are Bountiful each day.",

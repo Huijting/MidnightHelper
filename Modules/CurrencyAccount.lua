@@ -344,6 +344,9 @@ local function ShowRowTooltip(row)
 	if d.capLine then
 		GameTooltip:AddLine(d.capLine, 0.7, 0.7, 0.7, true)
 	end
+	if d.transferLine then
+		GameTooltip:AddLine(d.transferLine, 0.6, 0.85, 1, true)
+	end
 	-- Asked of the client, not claimed: the sources disagree about which of these move.
 	if d.transferable then
 		GameTooltip:AddLine(ns:L("CURACC_TT_TRANSFERABLE"), 0.7, 0.7, 0.7, true)
@@ -430,6 +433,12 @@ local function BuildRowData(c)
 		capLine = CapLine(info),
 		useLine = ns:L("CURACC_USE_" .. string.upper(c.key)),
 	}
+	--- "What can I do with it" includes "move it to the character who needs it". MEASURED 11 Sep
+	--- 2026 (/mh curscan): Undercoin, Corrosive Coin and Voidlight Marl report isAccountTransferable
+	--- with transferPercentage 100. Read from the client each time, never from a list of ours.
+	if info and info.isAccountTransferable and not info.isAccountWide then
+		d.transferLine = ns:L("CURACC_TT_TRANSFER_FMT"):format(math.floor(Num(info.transferPercentage) or 100))
+	end
 	if d.accountWide and info then
 		d.total = math.floor(Num(info.quantity) or 0)
 	end
@@ -449,10 +458,14 @@ local function BuildCrestRowData()
 		local info = ReadInfo(c.id)
 		local list, total = Collect(c, info)
 		local maxQ = (info and Num(info.maxQuantity)) or 0
+		local seasonal = info and info.useTotalEarnedForMaxQty and true or false
 		local seasonCapped = {}
-		if info and info.useTotalEarnedForMaxQty and maxQ > 0 then
+		if maxQ > 0 then
 			for _, e in ipairs(list) do
-				if e.known and e.t >= maxQ then
+				-- A season cap counts what was earned, a plain cap what is held. MEASURED 11 Sep 2026
+				-- (/mh curscan, a level 80): the five Mistcrests report maxQuantity 500/500/500/400/400
+				-- with useTotalEarnedForMaxQty FALSE, so a seasonal-only test here never fired.
+				if e.known and ((seasonal and e.t >= maxQ) or (not seasonal and e.q >= maxQ)) then
 					seasonCapped[#seasonCapped + 1] = e.label
 				end
 			end

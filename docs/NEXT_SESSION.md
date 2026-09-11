@@ -1,5 +1,34 @@
 # Midnight Helper — waar we staan
 
+## 📏 11 sep — `/mh curscan` GEMETEN (Twelveinchy, Lv80, 14:58; uit `curScan` in het SV-bestand)
+
+| id | currency | maxQuantity | maxWeekly | seizoen? | verplaatsbaar |
+|---|---|---|---|---|---|
+| 3028 | Restored Coffer Key | 0 | 0 | nee | nee |
+| 3310 | Coffer Key Shards | 0 | **600** | nee | nee |
+| 3465 | Venomblight Manaflux | **8** | 0 | nee | nee |
+| 2803 | Undercoin | 0 | 0 | nee | **ja, 100%** |
+| 3356 | Untainted Mana-Crystals | **1000** | 0 | nee | nee |
+| 3448 | Corrosive Coin | 0 | 0 | nee | **ja, 100%** |
+| 3316 | Voidlight Marl | 0 | 0 | nee | **ja, 100%** |
+| 3405 | Field Accolade | 0 | **0** | nee | nee |
+| 3442-3446 | Mistcrest A/V/C/H/M | **500/500/500/400/400** | 0 | **nee** | nee |
+
+- Bevestigd door de client: de cap van 8 voor Manaflux (MH had die als eigen constante) en de weekcap
+  van 600 voor Shards.
+- 🔴 **Crests: `useTotalEarnedForMaxQty = false`.** De crest-rij van het Currencies-blok testte alleen
+  een seizoens-cap, en meldde daardoor nooit "vol". Gerepareerd: nu wordt ook een gewone cap getest.
+  ⚠️ **Het Crests-tabblad (`DawncrestGuide.lua:96-110`) bouwt zijn cap-regel op `totalEarned`.** Of
+  dat klopt, is nu twijfelachtig. Eerst meten op een max-level character (TESTLIJST); zonder die
+  meting niet aanpassen. Ook de Field Accolade-weekcap van 0 kan aan level 80 liggen: de Codex zegt
+  "weekly cap".
+- **Nieuw in de tooltip:** `CURACC_TT_TRANSFER_FMT`, *"Can be moved between your characters with
+  Blizzard's currency transfer (%d%% arrives)"*. Alleen als de client `isAccountTransferable` meldt.
+  AFGELEID: `transferPercentage` is het deel dat aankomt; 100 bij Marl, en die kan aantoonbaar
+  verplaatst worden.
+- Van de 12 opgeslagen characters hebben er 3 al `cur`-data. De rest verschijnt als "not seen yet"
+  tot ze een keer inloggen.
+
 ## 🧹 11 sep — SavedVariables opgeschoond (door Rob, op advies van de pc-chat): 4,05 → 0,83 MB
 
 De pc-chat zocht uit waarom WoW traag opstart. Rob draaide daarna een `/run`-commando dat 11

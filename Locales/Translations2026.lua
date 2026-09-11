@@ -8330,3 +8330,28 @@ fill("ptBR", {
 fill("itIT", {
 	CMDLIST_CLEANUP = "Mostra i vecchi dati di misurazione che questi comandi hanno lasciato nei tuoi dati salvati, e quanto sono grandi. /mh cleanup yes li cancella; le tue impostazioni restano.",
 })
+
+--------------------------------------------------------------------------------
+-- 11 Sep 2026 — Spec 39: the transfer line in the Currencies block's tooltip, shown only when
+-- the client reports a currency as transferable. Our own translations, not native-reviewed.
+--------------------------------------------------------------------------------
+
+fill("deDE", {
+	CURACC_TT_TRANSFER_FMT = "Lässt sich mit Blizzards Währungstransfer zwischen deinen Charakteren verschieben (%d%% kommen an).",
+})
+
+fill("frFR", {
+	CURACC_TT_TRANSFER_FMT = "Peut être transférée entre tes personnages avec le transfert de monnaie de Blizzard (%d%% arrivent).",
+})
+
+fill("esES", {
+	CURACC_TT_TRANSFER_FMT = "Se puede mover entre tus personajes con la transferencia de monedas de Blizzard (llega el %d%%).",
+})
+
+fill("ptBR", {
+	CURACC_TT_TRANSFER_FMT = "Pode ser movida entre seus personagens com a transferência de moedas da Blizzard (chegam %d%%).",
+})
+
+fill("itIT", {
+	CURACC_TT_TRANSFER_FMT = "Si può spostare tra i tuoi personaggi con il trasferimento di valuta di Blizzard (arriva il %d%%).",
+})

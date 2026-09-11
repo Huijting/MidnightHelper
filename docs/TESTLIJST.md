@@ -65,9 +65,12 @@ Tabblad **Account snapshot**, na één `/reload`.
 Tabblad **Currencies** (zijbalk, onder Resources), na één `/reload`. ⚠️ **Alleen als WoW mag**: niet
 zolang ComfyUI de videokaart gebruikt.
 
-- [ ] **Eerst `/mh curscan`**, dan `/reload`. De chat toont per currency de ruwe velden. Daarna kan ik
-      ze zelf lezen in je SavedVariables (`curScan`), dus je hoeft geen screenshot te maken. Dit
-      bepaalt welke caps het blok kent.
+- [x] ~~Eerst `/mh curscan`, dan `/reload`~~, **GEMETEN 11 sep 14:58 op Twelveinchy (Lv80)**, uit het
+      bestand gelezen. De uitkomst staat in `docs/NEXT_SESSION.md`. Het blok is erop aangepast: de
+      crest-rij kent nu ook een gewone cap, en de tooltip zegt welke currencies je tussen je
+      characters kunt verplaatsen.
+- [ ] **Op een max-level character nog één keer `/mh curscan` + `/reload`**, als het uitkomt. Dan
+      zie ik of de crest-caps en de Field Accolade-weekcap daar anders zijn dan op een level 80.
 - [ ] **Bovenaan het tabblad staat een blok "Your characters"** met negen rijen: Restored Coffer Key,
       Coffer Key Shards, Venomblight Manaflux, Undercoin, Mana Crystals, Corrosive Coin, Voidlight
       Marl, Field Accolade en Crests. Per rij zie je het icoon, de naam zoals WoW hem noemt, het
