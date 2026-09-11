@@ -23,6 +23,12 @@ geheugen"*. **Niets gebouwd; eerst de release.**
 - GEMETEN: geen geïnstalleerde addon doet dit (EllesmereUI en MyCharacterPanel staan er niet meer).
   MH heeft wel twee buren: `CharacterSidePanel.lua` (signaal "n enchants missing") en
   `GearEnchantCheck.lua` (per slot: ontbreekt, plus een voorstel).
+- 🔎 **Zoekwerk gedaan (Rob wilde eerst een bestaande addon):** aanbeveling **BetterCharacterPanel**
+  (Grimonja, 12.1, 21 aug 2026, ~801K downloads): het voegt toe aan het gewone C-scherm, met ilvl,
+  enchant- en socket-status, een waarschuwing, en ook Inspect. Of het de enchant-**naam** per slot
+  toont is niet bevestigd. Terugval: **Simple Item Levels** (Kemayo, v70, 10 sep, TOC 120100; alleen
+  markeringen) of **iLevel** (ahak; iconen). Bronnen: addon-radar, WowAce en GitHub; niet in de client
+  getest.
 - Als Rob erop terugkomt, twee opties: een bestaande addon zoeken, of bouwen in MH als label op de
   `PaperDollItemSlotButton`s. Dan de enchant-lezing van `GearEnchantCheck` hergebruiken, geen
   tweede lezer. Memory: `character-sheet-slot-overlay-idea`.
