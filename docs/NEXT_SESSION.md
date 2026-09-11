@@ -25,6 +25,10 @@ Midnight-weeklies resetten nooit, dus tel alleen een `QUEST_TURNED_IN` van déze
   bij één reload bewijst niets over de bewering van Midnight Chores; die kan gelden voor de eerste
   login van een week. En inleveringen van vóór 11 sep kent het logboek niet, dus woensdag 16 sep
   is de eerste eerlijke vergelijking.
+- ✅ **Eerste echte inleveringen, Rob 11 sep op Twelveinchy (Lv80), 17:27:** `/mh weeklies` toonde
+  `halduron` en `vereesa` met "handed in", 2 quests. Opname en giver-koppeling werken dus. Open: of
+  het echt twee NPC's waren, en welke quest-ID's (na een `/reload` in `turnInLog`). Dat is de
+  controle of 95468 de Lv80-variant van Halduron is.
 
 ## 📏 11 sep — `/mh curscan` GEMETEN (Twelveinchy, Lv80, 14:58; uit `curScan` in het SV-bestand)
 
