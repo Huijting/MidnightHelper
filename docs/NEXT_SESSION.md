@@ -63,8 +63,11 @@ meetdumps op nil zette. Die chat heeft in de repo niets aangeraakt.
       8×. Positieve controle: #1 tegen #3 geeft 17 verschillen ("Twelveinchy" / "Bell 1080").
       AFGELEID: live floats houden restjes die de SV-schrijver afrondt. Een backup die uit het bestand
       is ingelezen, is daardoor nooit exact gelijk aan de live lay-out; "unchanged" kwam van een
-      kopie uit dezelfde sessie. **Gerepareerd:** getallen gelden als gelijk binnen 0,01. Opnieuw te
-      meten in het bestand, na twee reloads.
+      kopie uit dezelfde sessie. **Gerepareerd:** getallen gelden als gelijk binnen 0,01.
+      ✅ **GEMETEN na Robs reloads + uitloggen (13:22):** 2 backups. #1 "login" van 13:01, daarna
+      geen nieuwe kopie. #2 is de oude set met "Bell 1080", "MH V1.0" en "MH Hunter BM", drie lay-outs
+      die Rob niet meer heeft. Die zijn niet terug te zetten; de module is read-only, en terugzetten is
+      een aparte beslissing (kop van EditModeBackup.lua). SV: 4,05 MB (vanochtend) → 0,64 MB.
 
 ## 🔎 11 sep — Midnight Chores (okarr, v1.0.7, **MIT**) doorgelicht: aanwijzingen, NIETS overgenomen
 

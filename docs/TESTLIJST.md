@@ -12,9 +12,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [x] ~~`/mh editmode` zegt "unchanged"~~, Rob 11 sep. ⚠️ **Dat bewees te weinig:** het vergeleek
       twee kopieën uit dezelfde sessie. In het bestand bleek dat elke login tóch een kopie bijzette,
       doordat getallen afgerond in de SavedVariables staan. Gerepareerd met een marge van 0,01.
-- [ ] **Doe twee keer `/reload`, en zeg het me.** Niet in de chat kijken: ik meet in je bestand hoeveel
-      Edit Mode-backups er zijn. Het horen er minder dan drie te zijn: de identieke "login"-kopieën
-      worden samengevoegd, en de oude set met *"Bell 1080"* blijft staan.
+- [x] ~~Twee keer `/reload`, en ik meet het bestand~~, **GEMETEN 11 sep 13:22 (na het uitloggen):**
+      nog **2** backups. #1 is van 13:01, en daarna is er geen kopie meer bijgekomen. #2 is de oude set
+      met *"Bell 1080"*, *"MH V1.0"* en *"MH Hunter BM"*. Het bestand is 0,64 MB (vanochtend 4,05).
 - [ ] **Verander iets kleins in Edit Mode**, bijvoorbeeld een balk een stukje verschuiven, en doe
       `/reload`. Dan hoort er wél een nieuwe backup bij te komen, en blijft die van vóór je wijziging
       staan.
