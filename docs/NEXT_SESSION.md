@@ -48,7 +48,7 @@ eerst wat hij zag en wat hij verwachtte, liefst met een screenshot.
 - AFGELEID, niet bevestigd: sinds optie A staan wallet en week in aparte kolommen. Verwacht Rob
   sortering op Week (x/600), of snapt hij niet waarom zijn eigen character bovenaan blijft? Dan is
   "klopt niet" een van die twee. Het kan ook iets anders zijn; niet raden, vragen.
-- Daarna staan nog open: de ongebruikte keys opruimen (mag nu) en optie B (§2d, alleen na Robs ja).
+- Daarna staat nog open: optie B (§2d, alleen na Robs ja). De oude keys zijn op 11 sep opgeruimd.
 
 ## ✅ 10 sep avond — Spec 38 (Account snapshot): §3 + optie A af, optie B wacht op Rob
 
@@ -78,11 +78,15 @@ Van de research-chat via Rob (`docs/SPEC_38_ACCOUNT_TABLE.md`). **§3 (c18101a),
   een relog-rij. De voetregel van *This week* die tegen de regel erboven plakte is daarna
   gerepareerd in `AccountWeeklyChecklist.lua`: de regels worden gestapeld op hun echte teksthoogte,
   en bij een breedtewijziging opnieuw. Rob: *"ziet er goed uit"*.
-- **Nu toegestaan, niet gedaan:** de ongebruikte keys hieronder opruimen, want Rob keurde optie A goed.
-- **Nu ongebruikt en niet verwijderd:** `ALT_STALE_WED_BADGE`, `ALT_UNDER_MANA_CELL_FMT`,
-  `ALT_SHARDS_CELL_FMT`/`_STALE_FMT`, `ALT_VAULT_ROW_FMT`, `ALT_VAULT_EMPTY`, `ALT_COL_UNDER_MANA`,
-  `ALT_VAULT_TOOLTIP_STALE_RESET`, `ALT_ROW_LEVEL_ILVL_FMT` en `ALT_TOOLTIP_SHARDS_WEEKLY_STALE`. Pas opruimen als Rob optie A goedkeurt, zodat terugdraaien
-  goedkoop blijft.
+- ✅ **Opgeruimd 11 sep (Rob: *"ruim die oude teksten maar op"*):** elf keys die door optie A
+  ongebruikt raakten zijn uit alle 7 talen en uit `Translations2026.lua` gehaald, 86 regels:
+  `ALT_STALE_WED_BADGE`, `ALT_UNDER_MANA_CELL_FMT`, `ALT_SHARDS_CELL_FMT`/`_STALE_FMT`,
+  `ALT_VAULT_ROW_FMT`, `ALT_VAULT_EMPTY`, `ALT_COL_UNDER_MANA`, `ALT_VAULT_TOOLTIP_STALE_RESET`,
+  `ALT_ROW_LEVEL_ILVL_FMT`, `ALT_TOOLTIP_SHARDS_WEEKLY_STALE` en `ALT_COL_SHARDS_HINT`. Die laatste
+  stond niet op de lijst; lint [18] wees hem aan zodra de andere weg waren.
+  - GEMETEN vóór het weghalen: 0 keer gebruikt buiten `Locales/` (commentaar niet meegeteld). De
+    positieve controle `ALT_COL_UNDER_MANA_HINT` werd gevonden en blijft staan. Lint 0 hard,
+    check_drift 0.
 
 **§3, de vier kleine reparaties:**
 1. Geen afbreken meer in de getalcellen en de vault-cel (`SetWordWrap(false)` + `SetMaxLines(1)`).

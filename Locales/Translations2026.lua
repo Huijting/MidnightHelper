@@ -5359,7 +5359,6 @@ fill("itIT", {
 fill("deDE", {
 	ALERT_INTERRUPT_FMT = "Unterbrechen!|n%s",
 	ALT_COL_UNDERCOINS = "Lorenmünzen",
-	ALT_STALE_WED_BADGE = "|cffff9900(neu einloggen)|r",
 	ALT_TOOLTIP_PROF_MOXIE_FMT = "Tatkraft des Handwerkers: %s",
 	ARROW_AT_STEP = "Du bist bei %s — geh hindurch, auf der anderen Seite nimmt der Pfeil wieder auf.",
 	ARROW_TARGET_ROAMS = "|cffffd100(wandert umher — schau dich um)|r",
@@ -5763,9 +5762,6 @@ fill("deDE", {
 
 fill("frFR", {
 	ALERT_INTERRUPT_FMT = "Interruption !|n%s",
-	ALT_ROW_LEVEL_ILVL_FMT = "|cff99ccffNiv%d · %d ilvl|r",
-	ALT_STALE_WED_BADGE = "|cffff9900(reconnexion)|r",
-	ALT_VAULT_ROW_FMT = "M%d D%d R%d",
 	ARROW_AT_STEP = "Tu es à %s — traverse, la flèche reprend de l'autre côté.",
 	ARROW_TARGET_ROAMS = "|cffffd100(il se déplace — regarde autour de toi)|r",
 	BINDING_NAME_CLEARROUTE = "Effacer l'itinéraire actif / la flèche",
@@ -6172,8 +6168,6 @@ fill("frFR", {
 
 fill("esES", {
 	ALERT_INTERRUPT_FMT = "¡Interrumpe!|n%s",
-	ALT_ROW_LEVEL_ILVL_FMT = "|cff99ccffNv%d · %d ilvl|r",
-	ALT_VAULT_ROW_FMT = "M%d D%d R%d",
 	ARROW_AT_STEP = "Ya estás en %s — cruza, que la flecha continúa al otro lado.",
 	ARROW_TARGET_ROAMS = "|cffffd100(se mueve — mira alrededor)|r",
 	BINDING_NAME_CLEARROUTE = "Borrar la ruta activa / la flecha",
@@ -6587,8 +6581,6 @@ fill("esES", {
 
 fill("ptBR", {
 	ALERT_INTERRUPT_FMT = "Interrompa!|n%s",
-	ALT_ROW_LEVEL_ILVL_FMT = "|cff99ccffNv%d · %d ilvl|r",
-	ALT_VAULT_ROW_FMT = "Mu%d Ma%d R%d",
 	ARROW_AT_STEP = "Você está em %s — atravesse; a seta continua do outro lado.",
 	ARROW_TARGET_ROAMS = "|cffffd100(fica andando — olhe em volta)|r",
 	BINDING_NAME_CLEARROUTE = "Limpar a rota / seta ativa",
@@ -7002,7 +6994,6 @@ fill("ptBR", {
 fill("itIT", {
 	ALERT_INTERRUPT_FMT = "Interrompi!|n%s",
 	ALT_COL_UNDERCOINS = "Sottomonete",
-	ALT_COL_UNDER_MANA = "Sotto / Mana",
 	ALT_TOOLTIP_PROF_MOXIE_FMT = "Grinta dell'Artigiano: %s",
 	ALT_TOOLTIP_UNDER_MANA_FMT = "Sottomonete: %d | Cristalli di Mana Incontaminati: %d",
 	ARROW_AT_STEP = "Sei a %s — attraversa, la freccia riprende dall'altra parte.",
