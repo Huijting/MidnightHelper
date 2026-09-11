@@ -33,6 +33,9 @@ local Config = {
 	--- 274374 is "Trovehunter's Bounty — Midnight Season 2", 252415 the Season 1 one. Every module
 	--- read 252415 until then, so the popup, the toast and the weekly tracker looked for a map
 	--- nobody gets any more. The lead came from the Midnight Chores addon; the client settled it.
+	--- Its tooltip (Rob's screenshot, same day): "Use: At any time, decipher the map and guarantee
+	--- that you'll find a Hidden Trove at the end of the next Tier 4+ Delve you complete", and the
+	--- contents depend on that delve's tier. So it is NOT an in-delve item; only our popup is.
 	DELVE_ITEM_TROVEHUNTER_BOUNTY = 274374,
 	DELVE_ITEM_TROVEHUNTER_BOUNTY_S1 = 252415,
 	--- Buff after using Trovehunter's Bounty (persists until the trove is earned). 1254631 is the

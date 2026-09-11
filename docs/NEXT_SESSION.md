@@ -18,6 +18,10 @@ gekopieerd en vergeleken: 103 regels) en `CHANGELOG.md`. Tag `v3.11.0`; de packa
   `/mh spell` noemt **1293799 én 1254631 allebei "Trovehunter's Bounty"**, dus de S2-buffkandidaat
   is bevestigd op naam (commentaar in `Config.lua` bijgewerkt). De delve-popup toonde "Bounty ×1"
   naast de Radar, en dat kon vóór de fix niet. Nog open: "actief" na gebruik.
+- ✅ **GEMETEN, Robs tooltip 11 sep: de kaart werkt "At any time"**, niet alleen in een delve; de
+  trove komt na je volgende delve vanaf Tier 4, met de loot van díe tier (onze eigen tabel in
+  `Delves.lua`: bounty 282 op T4 tot 305 op T8-11). `ACCOUNT_WEEKLY_TROVE_ACTIVE` zei "active in
+  delve" en is in 7 talen herschreven, drift gemarkeerd. De in-delve-only popup blijft zoals hij is.
 
 ## ✅ 11 sep — Robs "idee één": item level + enchant per slot op het karakterscherm — OPGELOST met BetterCharacterPanel
 

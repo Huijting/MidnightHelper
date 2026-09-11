@@ -56,7 +56,13 @@ Season 1. MH keek tot nu toe alleen naar de oude.
 - [x] ~~`/mh finditem trovehunter`~~, **Rob 11 sep: "Trovehunter's Bounty id 274374"** in zijn tas.
 - [x] ~~`/mh spell 1293799 1254631`~~, **Rob 11 sep: allebei "Trovehunter's Bounty".**
 - [x] ~~De delve-popup toont de kaart~~, **Rob 11 sep: "Delve items" met Radar en "Bounty ×1".**
-- [ ] **Nog: de kaart gebruiken in een delve.** Springt de knop dan op "actief"?
+- [x] ~~Mag de kaart buiten een delve?~~ **Ja — Robs tooltip-screenshot 11 sep: "Use: At any time",
+      trove aan het eind van je volgende delve vanaf Tier 4, inhoud hangt af van die tier.** De
+      "actief"-regel zei "active in delve"; die zegt nu in 7 talen *"active — Hidden Trove after
+      your next Tier 4+ delve"*.
+- [ ] **Nog: de kaart gebruiken** (in of buiten een delve). Springt de knop in de delve dan op
+      "actief", en toont **Account snapshot → This week** de nieuwe "active — …"-regel? Dat bewijst
+      tegelijk welke buff-ID de S2-kaart geeft.
 - [ ] **Met een Season 2-kaart in je tas, in een delve:** verschijnt de delve-popup met de kaart en
       werkt de knop? Na gebruik hoort de knop "actief" te tonen.
 - [ ] **Account snapshot → This week:** de regel *Trovehunter's Bounty* klopt met je tas: *"map in

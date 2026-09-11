@@ -111,7 +111,8 @@ function ns.GetTrovehunterState()
 	if auraActive then
 		status = "active"
 	elseif inBag > 0 and not bountyUsed then
-		-- Map in bags: still need to use it in a delve.
+		-- Map in bags, not used yet. It can be used anywhere ("At any time", item tooltip, 11 Sep
+		-- 2026); the trove then comes at the end of the next Tier 4+ delve.
 		status = "looted"
 	elseif bountyUsed or weeklyLooted then
 		-- Used, or weekly loot flag set with nothing left to use on this character.
