@@ -7,6 +7,16 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 11 sep — Fout bij een route vragen in combat (Hearthstone-knop)
+
+Rob kreeg `ADDON_ACTION_BLOCKED … MidnightHelperHSClick:ClearAllPoints()` toen hij een alchemy-route
+vroeg (Profession → `AddSmartTomTomWay`). Die knop is beveiligd en mag in combat niet bewegen.
+- [ ] **Vraag in combat een route aan** (bijvoorbeeld een beroepsschat): **geen foutmelding**, en de
+      TomTom-pijl staat gewoon op het doel. De reis-popup met portal/Hearthstone blijft in combat weg.
+- [ ] **Buiten combat**, voor een doel in een ander gebied: de reis-popup verschijnt zoals altijd.
+      ⚠️ Een route die je in combat vroeg, krijgt die popup niet vanzelf. Klik na het gevecht nog
+      een keer.
+
 ## 🆕 11 sep — Replicating Venomborne in de Delve Coach (Grudge Pit + Darkway)
 
 Rob stond in de Grudge Pit tegenover een baas die de coach niet kende. MH had hem al vier keer

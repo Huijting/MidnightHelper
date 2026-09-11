@@ -1370,7 +1370,9 @@ local function SetupProfessionModule()
 			-- Harandar" once you land in Silvermoon), but won't re-pop every tick or
 			-- fight an Esc within the same target+zone.
 			local assistKey = tostring(best.questID) .. "@" .. tostring(curMap)
-			if assistKey ~= treasureAssistKey and ns.ShowTravelAssistFor then
+			-- Not in combat: ShowTravelAssistFor stands down there (secure Hearthstone button),
+			-- and remembering the key anyway would stop the advice coming back after the fight.
+			if assistKey ~= treasureAssistKey and ns.ShowTravelAssistFor and not InCombatLockdown() then
 				treasureAssistKey = assistKey
 				ns.ShowTravelAssistFor(best.mapID, best.nx * 100, best.ny * 100, best.name)
 			end

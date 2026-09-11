@@ -1771,6 +1771,15 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 			return true
 		end
 
+		-- 🔴 The popup parents the SECURE Hearthstone button, so nothing below may run in
+		-- combat: hsBtn:ClearAllPoints() threw ADDON_ACTION_BLOCKED when Rob asked for an
+		-- alchemy route mid-fight (11 Sep 2026, Profession.lua -> here). ShowTravelPopup
+		-- already refuses in combat, so laying the buttons out bought nothing anyway. The
+		-- waypoint itself was set in step 1 and stays; only the portal/HS advice waits.
+		if InCombatLockdown() then
+			return true
+		end
+
 		travelPopup.portalBtn:Hide()
 		local hsStartTime = ns.GetItemCooldownSafe(6948)
 		local portalAdvice, bestDist = "", 9999
@@ -1938,6 +1947,12 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 			px = select(1, playerPos:GetXY()) * 100
 		end
 		local py = select(2, playerPos:GetXY()) * 100
+
+		-- Same guard as in AddSmartTomTomWay: this is the second copy of the layout that moves
+		-- the secure Hearthstone button, and the treasure arrow calls it on its own.
+		if InCombatLockdown() then
+			return
+		end
 
 		travelPopup.portalBtn:Hide()
 		local hsStartTime = ns.GetItemCooldownSafe(6948)

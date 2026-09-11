@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🐛 11 sep — ADDON_ACTION_BLOCKED op de Hearthstone-knop bij een route in combat
+
+- **Robs melding:** `MidnightHelperHSClick:ClearAllPoints()` via `Profession.lua:573` →
+  `AddSmartTomTomWay` (`Delves.lua`), bij een alchemy-route. `hsBtn` is een
+  `SecureActionButtonTemplate` in `MH_TravelPopup`. Hide en Show waren al combat-veilig
+  (`SafeHideTravelPopup`, `ShowTravelPopup`), maar het uitlijnen van de knoppen niet.
+- ✅ **Gerepareerd:** een `InCombatLockdown()`-uitstap vóór de layout, op **beide** kopieën:
+  `AddSmartTomTomWay` en `ShowTravelAssistFor` (de schattenpijl). Het waypoint uit stap 1 blijft
+  staan; in combat vervalt alleen het portal/HS-advies.
+- ⚠️ **Geen herhaling na het gevecht** voor een aangeklikte route. Alleen achievement-routes
+  verversen bij een zonewissel. Rob moet dus nog een keer klikken. Wil hij dat automatisch, dan is
+  dat een `PLAYER_REGEN_ENABLED`-haak.
+  - De **schattenpijl** herstelt wél vanzelf: `Profession.lua` onthoudt zijn `treasureAssistKey` nu
+    pas buiten combat, dus de eerste tik na het gevecht toont het advies alsnog.
+- Test: TESTLIJST, bovenaan.
+
 ## 🐍 11 sep — Replicating Venomborne in de Delve Coach. Rob: "go, doe A en B maar"
 
 - ✅ **GEMETEN:** DelveHistory had de baas al **4×** gelogd via `ENCOUNTER_END`, allemaal The Darkway
