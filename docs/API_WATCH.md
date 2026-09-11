@@ -1257,3 +1257,60 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   - ✅ **Repo: ik heb alleen dit bestand aangeraakt.** `git pull --rebase origin main` bracht de
     checkout van een **detached HEAD** naar `main` op **4e899eb**, werkboom schoon, geen van de vier
     wachter-bestanden gewijzigd-maar-ongecommit. Het verdiepen van de clone hierboven is puur lezen.
+
+- [2026-09-11] ✅ **Geen relevante API-wijzigingen (4–11 sep). 0 × [MOET GEFIKST].** Enige nieuws
+  sinds de 10-sep-run is de hotfix van 10 sep; die is content, geen API. Alles via `web_fetch_exa`
+  met cache-buster, plus WebSearch + Blue Tracker als tegenlezing.
+  - **GEMETEN — beide `/API changes`-pagina's onveranderd.** `prop=revisions` op pageids
+    679840+705933: `Patch 12.1.0/API changes` (679840) nog steeds **revid 6860164,
+    2026-09-05T00:39:06Z, 102421 bytes** (comment "12.1.0 (69587)"); `Patch 12.1.5/API changes`
+    (705933) nog steeds **revid 6863733, 2026-09-06T17:08:08Z, 25227 bytes** ("/* Deprecated API */").
+    Identiek aan de 10-sep-meting — geen oudere kopie teruggekregen, dus geen cache-val. De 12.1.0-
+    diff (5 sep) is 6 dagen oud, de 12.1.5-diff (6 sep) 5 dagen — beide binnen 7 dagen maar
+    ongewijzigd en al eerder volledig getoetst; niets nieuws erin.
+  - **GEMETEN — geen nieuwere `/API changes`-pagina.** `prop=revisions` op de titels
+    `Patch 12.2.0/API changes` én `Patch 12.1.7/API changes`: beide **`missing`**. 12.2.0 bestaat
+    nog steeds niet.
+  - **GEMETEN — `list=recentchanges` (ns 0, 50 stuks, cache-busted).** Nieuwste bewerkingen t/m
+    **2026-09-11T04:55Z** zijn **uitsluitend content**: tier-handschoenen/-gauntlets/-riemen
+    (Forgotten/Wayward/Lost/Fallen/Fiery/Cursed/Crackling Conqueror/Protector/Vanquisher), caches
+    (Cache of (Heroic) Innovation), Freya's (Heroic) Gift. **Geen `/API changes`-, `Structure `- of
+    `Enum.`-pagina** in de batch.
+  - **Hotfixes: nieuwste sectie 10 september 2026** (nieuw sinds de 10-sep-run, die 9 sep als
+    nieuwste zag). **Geen cache-val:** Blue Tracker spiegelt exact dezelfde datum
+    (`bluetracker.gg/wow/topic/us-en/2336376-world-of-warcraft-midnight-hotfixes-september-10`),
+    WebSearch bevestigt 10 sep. Secties van 10 sep, volledig gelezen: Classes (DK/Hunter/Mage/
+    Paladin/Rogue/Shaman), Delves, Dungeons and Raids, Player versus Player, Prey, The Burning
+    Crusade Classic. **Geen UI-, addon-, API- of secure-frame-sectie.**
+  - **De enige addon-nabije regel van 10 sep is Cooldown-Manager-content, en die RAAKT ONS NIET.**
+    Letterlijk: "Rogue — Both versions of Thistle Tea can now be tracked in the Cooldown Manager."
+    Dat is Blizzards eigen CDM (`C_CooldownViewer`/`CooldownViewer`-frames), geen Lua-API-wijziging.
+    **[RAAKT ONS NIET] — GEMETEN vandaag:** grep `CooldownViewer|CooldownManager|C_CooldownViewer|
+    Blizzard_CooldownViewer` over de hele addon (`docs` uitgesloten) geeft **0 bestanden**;
+    "Cooldown Manager" als tekst komt alléén in de vier wachter-docs voor, niet in code.
+    🔴 **Positieve controle in dezelfde run, zelfde vorm:** grep `C_Spell|GetSpellCooldown` over
+    `Modules/*.lua` geeft **228 treffers in 41 bestanden**. Het patroon vindt dus wél wat er is; de
+    nul hierboven is een echte nul.
+  - **Forum: geen nieuwe topics sinds 9 sep, geen blue post.** **GEMETEN** aan de categorie-JSON
+    (`order=created`, cache-buster): `primary_groups` én `flair_groups` zijn **leeg** — geen van de
+    getoonde deelnemers heeft een Blizzard-groep (trust levels 0–3). Nieuwst aangemaakte topics nog
+    steeds *Double Icons* (**2346299**, 9 sep, ElvUI-dubbelicoon) en *Talent Swap Macro Problems*
+    (**2346279**, 9 sep, `/loadoutindex`-macro) — beide gewone spelershulp, geen API-feit, geen
+    dev-antwoord. Niets nieuwers dan de 10-sep-run zag.
+    - ✅ **Het openstaande *Duration Bars*-punt (2345637) blijft dicht.** Na vier dagen nog steeds
+      **1 post, 0 reacties, 18 views**, zonder dev-antwoord en zonder tweede-speler-bevestiging.
+      Eén onbevestigde melding is geen API-feit. Al op 10 sep als [RAAKT ONS NIET] gemeten (MH heeft
+      geen duration-/castbar-code); geen reden dat te heropenen.
+    - *Addons api restrictions* (**2343904**) **ongewijzigd**: 10 posts, laatste 2026-09-05T17:29:55Z,
+      geen blue.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`,
+    `GetItemCooldown`→`ns.GetItemCooldownSafe`) zijn deze run **niet** opnieuw getoetst en blijven
+    staan zoals op 2/6/7/9/10 sep gemeten. Geen open actiepunt aan de addon-/API-kant.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op 679840+705933 én op titels `Patch 12.2.0`/`Patch 12.1.7`;
+    `list=recentchanges` ns 0); `news.blizzard.com/en-us/article/24296142`;
+    `us.forums.blizzard.com` categorie-JSON 35 `order=created`; WebSearch + Blue Tracker als
+    tegenlezing op de hotfix-datum. ⚠️ Directe `WebFetch` op warcraft.wiki.gg / news.blizzard.com
+    blijft geblokkeerd; alles liep via Exa. 📌 De wiki-API antwoordt op `nocache` met
+    "Unrecognized parameter: nocache." — onschadelijk, juist het bewijs dat de URL per dag verschilt.
