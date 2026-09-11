@@ -120,7 +120,7 @@ local RefreshDelveConsumablesUi
 local MarkDelveConsumableActiveFromWorld
 local MarkDelveConsumableActiveFromSpell
 
-local TREASURE_ACTIVE_SPELL = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL or 1254631
+local TREASURE_ACTIVE_SPELL = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL or 1293799
 local RADAR_USE_SPELL = Config.DELVE_ITEM_RAID_R_MINI_USE_SPELL or 1236623
 local RADAR_ACTIVE_SPELLS = Config.DELVE_ITEM_RAID_R_MINI_SPELLS or { 1236623, 467033, 473679, 1236625 }
 local SPELL_IDS_TO_ITEM = {}
@@ -631,7 +631,7 @@ local function CollectConfigSpellIDsForItem(itemID)
 	end
 	if itemID == ITEM_TREASURE then
 		add(TREASURE_ACTIVE_SPELL)
-		-- Season 2's buff id is still a candidate (Config); both seasons are asked.
+		-- Both seasons' buff ids are asked (Config); 1293799 is Season 2's, measured 11 Sep 2026.
 		for _, sid in ipairs(Config.DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELLS or {}) do
 			add(sid)
 		end

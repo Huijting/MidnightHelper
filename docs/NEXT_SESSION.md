@@ -22,6 +22,9 @@ gekopieerd en vergeleken: 103 regels) en `CHANGELOG.md`. Tag `v3.11.0`; de packa
   trove komt na je volgende delve vanaf Tier 4, met de loot van díe tier (onze eigen tabel in
   `Delves.lua`: bounty 282 op T4 tot 305 op T8-11). `ACCOUNT_WEEKLY_TROVE_ACTIVE` zei "active in
   delve" en is in 7 talen herschreven, drift gemarkeerd. De in-delve-only popup blijft zoals hij is.
+- ✅ **S2-buff GEMETEN, Rob 11 sep:** na gebruik zegt de buff-tooltip *"Spell ID: 1293799"*.
+  `DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL` staat nu op 1293799 (was 1254631, S1); de popup en de
+  weektracker vroegen al naar beide, dus er was niets kapot. Open: dat MH's regel "active" toont.
 
 ## ✅ 11 sep — Robs "idee één": item level + enchant per slot op het karakterscherm — OPGELOST met BetterCharacterPanel
 

@@ -99,7 +99,8 @@ function ns.GetTrovehunterState()
 			break
 		end
 	end
-	-- The item's own on-use spell as a third way in, while the Season 2 buff id is unmeasured.
+	-- The item's own on-use spell as a third way in (Season 2's buff, 1293799, is measured since
+	-- 11 Sep 2026; this stays for a future season's map).
 	if not auraActive and C_Item and C_Item.GetItemSpell then
 		local ok, _, useSpell = pcall(C_Item.GetItemSpell, TROVE_MAP_ITEM)
 		if ok and tonumber(useSpell) and ns.Aura.HasPlayerAura(tonumber(useSpell)) == true then

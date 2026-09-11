@@ -40,10 +40,11 @@ local Config = {
 	DELVE_ITEM_TROVEHUNTER_BOUNTY_S1 = 252415,
 	--- Buff after using Trovehunter's Bounty (persists until the trove is earned). 1254631 is the
 	--- Season 1 buff. 1293799 is Season 2's: the lead came from Midnight Chores, and on 11 Sep
-	--- 2026 Rob's client named both "Trovehunter's Bounty" (/mh spell 1293799 1254631). That a
-	--- USED map shows this buff is still to be seen; the popup also finds the buff by name and by
-	--- the item's own GetItemSpell, so neither id is its only way in.
-	DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL = 1254631,
+	--- 2026 Rob's client named both "Trovehunter's Bounty" (/mh spell 1293799 1254631). MEASURED the
+	--- same day: after using the Season 2 map, his buff tooltip read "Spell ID: 1293799" ("You'll
+	--- find a Hidden Trove at the end of the next Tier 4+ Delve you complete"). 1254631 stays in the
+	--- list for anyone still holding a Season 1 buff; the popup also asks the item's GetItemSpell.
+	DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL = 1293799,
 	DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELLS = { 1293799, 1254631 },
 	--- Maps Enum.Profession → Artisan's Moxie currency ID for that trade.
 	ARTISANS_MOXIE_CURRENCY_CODES = {},
