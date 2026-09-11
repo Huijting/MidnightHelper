@@ -67,6 +67,19 @@ ns.DELVE_SPELL_IDS = {
 	fungal_charge = 415492,
 	fungsplosion = 425319,
 
+	-- Replicating Venomborne (NPC 269179) — Grudge Pit: Fungal Pharmacon; Darkway: Eggsplosive
+	-- Growth. Candidates from Wowhead's search, 11 Sep 2026; chosen by TOOLTIP TEXT (nether
+	-- tooltip API), NOT by an NPC link — Wowhead's used-by list did not come through. So these
+	-- are INFERRED; the player's own debuff tooltips settle it (see docs/TESTLIJST.md).
+	--- 🔴 Venom Splash has two 12.1 families and the suffix is load-bearing. 1303316: "The glob
+	--- forms into a Venomborne and leaves behind a toxic pool" (pool = 1303318, 30% slow) — the
+	--- replicating boss. 1289623 is a different caster's "sticky venom" (20 damage, 60% slow).
+	venom_splash_venomborne = 1303316,
+	--- 1289224 is the 2 s melee cast; 1289223 is the stacking DoT it leaves. Only these two exist.
+	hydra_strike = 1289224,
+	--- 1311500 is the 1 s cast; 1303330 the summon of Lesser Venomborne (NPC 263118), same text.
+	serpentogenesis = 1311500,
+
 	-- Sunkiller Sanctum — Esuritus
 	calling_bolt = 1262702,
 	coalescing_malediction = 1262075,

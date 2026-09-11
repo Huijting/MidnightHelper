@@ -25,6 +25,15 @@
 - ✅ **Rob, na reload:** in The Darkway staat bij 1/2 (Gulkat) en 2/2 (Venomborne) *"alles"*; het
   filter per baas gooit dus niets van Gulkat weg. En het **model klopt** (*"het model staat er en
   klopt"*): creatureId 269179 is met eigen ogen bevestigd. Open blijven alleen de spell-id's.
+- 🔎 **Spell-id's toegevoegd, AFGELEID** (Rob: *"zoek de spell-ID's van Venomborne maar op"*):
+  - `venom_splash_venomborne` **1303316**, `hydra_strike` **1289224** en `serpentogenesis`
+    **1311500**; de tips gebruiken nu `{SPELL:@…}`.
+  - Kandidaten uit Wowheads zoek-endpoint; gekozen op **tooltiptekst** via de nether-tooltip-API.
+    Wowheads "Used by"-lijst kwam niet door, en wago.tools gaf 403. Er is dus **geen koppeling aan
+    NPC 269179**.
+  - 🔴 Venom Splash heeft twee 12.1-families. 1303316 zegt *"the glob forms into a Venomborne"*;
+    1289623 is iemands *"sticky venom"*.
+  - Meting staat in TESTLIJST: de debuff-ID's via CDPulse in de volgende run.
 
 ## 📦 11 sep — RELEASE 3.11.0. Rob zei "go".
 

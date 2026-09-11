@@ -1,5 +1,5 @@
 {
-  "_delve_caveat": "DELVE_TIP_* entries are NOT findings. DBM-Delves-Midnight is 4/30 stubs (Antenorian, Hydrangea and Gladius Slaurna hold SetEncounterID and nothing else), so ABSENT there means DBM has no opinion, not that we are wrong. They are listed only so a genuinely new delve id still trips the HARD check. Do not 'fix' them against DBM; there is nothing to fix them against.",
+  "_delve_caveat": "DELVE_TIP_* entries are NOT findings. DBM-Delves-Midnight is 4/30 stubs (Antenorian, Hydrangea and Gladius Slaurna hold SetEncounterID and nothing else), so ABSENT there means DBM has no opinion, not that we are wrong. They are listed only so a genuinely new delve id still trips the HARD check. Do not 'fix' them against DBM; there is nothing to fix them against. 11 Sep 2026: Replicating Venomborne's 1289224, 1303316 and 1311500 (Grudge Pit + Darkway) added after looking - DBM-Delves-Midnight has no Venomborne encounter at all (no file, no 269179; the same grep does find Gulkat). The ids are inferred from tooltip text, see DelveSpellIds.lua.",
   "_real_findings": "All DGN_TIP_* entries are GONE as of 3 Sep 2026: every one was correct. 13 were AddAuraSoundOption(id, true, id, ..., \"<cue>\") -- DBM's only possible warning for a 12.x private aura, which the classifier had been reading as 'never warned on'. What remains is the delve block (no yardstick, see _delve_caveat) plus RAID_BOSS_ULATEK's 1300685, a deliberate keep: DBM has it as the aura of cast 1300530 with cue \"debuffyou\" and documents \"can't soak Spectral Coils\", which is what our line says.",
   "_why": "Tip spell ids that did not hold up against DBM, measured 2026-09-03. Reported SOFT by lint check [19]; anything NOT listed here is new and fails HARD. Remove entries as lines are fixed - this file is meant to shrink.",
   "known": {
@@ -66,6 +66,18 @@
       ],
       [
         "415492",
+        "ABSENT"
+      ],
+      [
+        "1289224",
+        "ABSENT"
+      ],
+      [
+        "1303316",
+        "ABSENT"
+      ],
+      [
+        "1311500",
         "ABSENT"
       ]
     ],
@@ -146,6 +158,18 @@
       ],
       [
         "1272935",
+        "ABSENT"
+      ],
+      [
+        "1289224",
+        "ABSENT"
+      ],
+      [
+        "1303316",
+        "ABSENT"
+      ],
+      [
+        "1311500",
         "ABSENT"
       ]
     ],
