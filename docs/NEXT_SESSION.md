@@ -24,7 +24,9 @@ gekopieerd en vergeleken: 103 regels) en `CHANGELOG.md`. Tag `v3.11.0`; de packa
   delve" en is in 7 talen herschreven, drift gemarkeerd. De in-delve-only popup blijft zoals hij is.
 - ✅ **S2-buff GEMETEN, Rob 11 sep:** na gebruik zegt de buff-tooltip *"Spell ID: 1293799"*.
   `DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL` staat nu op 1293799 (was 1254631, S1); de popup en de
-  weektracker vroegen al naar beide, dus er was niets kapot. Open: dat MH's regel "active" toont.
+  weektracker vroegen al naar beide, dus er was niets kapot. ✅ **Rob, na reload: Account snapshot
+  toont de groene "active — Hidden Trove after your next Tier 4+ delve"-regel.** Open: alleen nog de
+  popup-knop op "actief" in een delve.
 
 ## ✅ 11 sep — Robs "idee één": item level + enchant per slot op het karakterscherm — OPGELOST met BetterCharacterPanel
 

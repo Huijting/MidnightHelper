@@ -62,11 +62,11 @@ Season 1. MH keek tot nu toe alleen naar de oude.
       your next Tier 4+ delve"*.
 - [x] ~~Welke buff geeft de S2-kaart?~~ **Rob 11 sep, buff-tooltip na gebruik: "Spell ID: 1293799".**
       Config's hoofd-ID staat nu op 1293799 (1254631 blijft in de lijst).
-- [ ] **Nog: toont MH het?** Na `/reload`, met de buff op: **Account snapshot → This week** hoort
-      *"Trovehunter's Bounty (this character): active — Hidden Trove after your next Tier 4+
-      delve"* te zeggen, en in de delve hoort de popup-knop op "actief" te staan.
-- [ ] **Met een Season 2-kaart in je tas, in een delve:** verschijnt de delve-popup met de kaart en
-      werkt de knop? Na gebruik hoort de knop "actief" te tonen.
+- [x] ~~Toont MH het in de Account snapshot?~~ **Rob 11 sep, screenshot (Earthshammy, buiten een
+      delve): "Trovehunter's Bounty (this character): active — Hidden Trove after your next Tier
+      4+ delve", in groen.**
+- [ ] **Nog alleen: in de delve, met de buff op.** Staat de popup-knop van de kaart op "actief"?
+      (Eerder gezien: de popup verschijnt en toont "Bounty ×1".)
 - [ ] **Account snapshot → This week:** de regel *Trovehunter's Bounty* klopt met je tas: *"map in
       bags"* als je hem hebt en nog niet gebruikt.
 
