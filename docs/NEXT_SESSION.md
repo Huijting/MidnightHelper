@@ -20,7 +20,11 @@ Midnight-weeklies resetten nooit, dus tel alleen een `QUEST_TURNED_IN` van déze
 - **Beslismoment: woensdag 16 sep op de resetochtend** (TESTLIJST). Vlaggen "completed" en logboek
   leeg = de premisse klopt, en dan wordt de "done" van `GiverState` voor Liadrin (en de andere
   roterende givers) gebaseerd op het logboek.
-- Nog niet in het spel gezien.
+- 🔎 **Eerste meetpunt, Rob 11 sep (hunter, /reload om Fri 16:55):** `lastLogin` 0 genegeerde
+  turn-ins; 0 quests ingeleverd sinds de reset. Het logboek laadt en schrijft dus. Maar 0 re-fires
+  bij één reload bewijst niets over de bewering van Midnight Chores; die kan gelden voor de eerste
+  login van een week. En inleveringen van vóór 11 sep kent het logboek niet, dus woensdag 16 sep
+  is de eerste eerlijke vergelijking.
 
 ## 📏 11 sep — `/mh curscan` GEMETEN (Twelveinchy, Lv80, 14:58; uit `curScan` in het SV-bestand)
 

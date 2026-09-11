@@ -9,9 +9,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ## 🆕 11 sep — Liadrin-logboek (meetfase, de vinkjes veranderen nog niet)
 
-- [ ] **Na een `/reload`: `/mh weeklies`.** Het is een lijst voor mij, niet voor jou. Maak alleen een
-      screenshot van het blok *"Handed in this week, this character"*, en vooral van de regel
-      *"last login …: N turn-in event(s) ignored in the first 10s"*.
+- [x] ~~Na een `/reload`: `/mh weeklies`~~, **Rob 11 sep (hunter): "last login Fri 16:55: 0 turn-in
+      event(s) ignored in the first 10s", "0 quest(s) handed in since the reset".** Eén meetpunt: bij
+      deze reload kwamen er geen valse meldingen. ⚠️ Dat bewijst niet dat ze nooit komen; misschien
+      alleen bij de eerste login van een nieuwe week. En het logboek telt pas vanaf 11 sep, dus
+      inleveringen van eerder deze week kent het niet.
       📌 **Dat getal is een meting op zich.** Is het groter dan 0, dan stuurt het spel bij het
       inloggen echt valse inlever-meldingen, zoals Midnight Chores beweert. Is het 0, dan (nog) niet.
 - [ ] **Lever een weekly in** bij Liadrin, Halduron, Aethas of Vereesa, en doe dan `/mh weeklies`.
