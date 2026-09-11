@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 📦 11 sep — RELEASE 3.11.0. Rob zei "go".
+
+Rob: *"De account snapshot allemaal bekeken en dat was al goedgekeurd … verder krijg je uiteraard ook
+een go."* Alle vijf de artefacten bijgewerkt: de `.toc` (3.11.0), `Changelog.lua` +
+`CHANGELOG_3110_1..7` (alleen enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_3.11.0.md` (byte-voor-byte
+gekopieerd en vergeleken: 103 regels) en `CHANGELOG.md`. Tag `v3.11.0`; de packager uploadt naar CF.
+- 🔴 **Eén bewering uit de concept-notities geschrapt, want ongemeten:** "de gids dekt nu de Season
+  2-currencies". GEMETEN: `CURRENCY_GUIDE_BODY` noemt geen Undercoin, Mana-Crystal, Coffer Key,
+  Corrosive Coin of Manaflux; alleen het nieuwe blok erboven doet dat. Ook geschrapt: een punt "Crests
+  en het blok lezen dezelfde caps", want de zorg over het Crests-tabblad was die middag al
+  ingetrokken.
+- `CURSEFORGE_DESCRIPTION.md` is niet aangepast. Het Currencies-blok zou er een regel waard zijn;
+  Rob plakt die pagina met de hand, dus dat is zijn keus.
+- **Na de upload:** CF → Files → 3.11.0 → Changelog, nakijken of de opmaak goed staat.
+
 ## 💡 11 sep — Robs "idee één": item level + enchant per slot op het karakterscherm (GEPARKEERD)
 
 Rob: *"een item zoeken waarbij wanneer ik mijn karakter open met C, wat voor enchant ik erop heb en

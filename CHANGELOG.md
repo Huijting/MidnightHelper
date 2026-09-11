@@ -2,6 +2,64 @@
 
 All notable changes to this project are documented in this file.
 
+## 3.11.0
+
+📌 **A minor with two new screens' worth of work.** Spec 38 (the Account snapshot made readable)
+and Spec 39 (currencies across characters), the Season 2 Trovehunter map, the Spec 33 macros, the
+Curse Surge clean-up, and a housekeeping pass on SavedVariables.
+
+🔴 **The theme is what sits behind a number.** A total read as your own balance (Rob, on the first
+draft of the currency block: *"Ik dacht dat ik 914 coffer key shards had. Op dit karakter."*), a
+weekly tick that could never have been anything but green (all thirteen Liadrin flags "completed"
+on an unplayed reset morning), and a delve popup that waited for the Season 1 map.
+
+### Added — Your characters (Spec 39, `CurrencyAccount.lua`)
+
+- One row per useful currency on the Currencies tab: **You** and **Total**, one "what it is for"
+  line, orange only at a cap the client reports (`maxQuantity`, season caps via
+  `useTotalEarnedForMaxQty`, Manaflux's 8 confirmed by the client). Per-character tooltip; a record
+  saved before this build reads "not seen yet", never 0. Transferable currencies say so.
+- Snapshot records gained a `cur` table (only added, never renamed). `/mh curscan` prints and saves
+  the raw fields; measured on a level 80 and a max-level character (caps can differ by level).
+
+### Changed — the Account snapshot (Spec 38 §3, option A, option B points 4 and 6)
+
+- One-line cells (the "201 (354/600)" wrap was the overlap), real columns with the game's own
+  currency icons (the "Under / Mana" header was a mistranslated preposition in four packs), a
+  Level · ilvl column, "1/9" vault count, Week with a tick, dimmed relog rows with a clock, hover-only
+  delete, levelling characters folded under one line (max level from the client: the spec's
+  "no vault" test folded nobody), "Still open this week" at the top of the row tooltip, a legend,
+  and what / why / resets in every column hint. Eleven locale keys it made unused are removed.
+
+### Fixed
+
+- **Trovehunter's Bounty:** every module read 252415, the Season 1 map. 274374 is Season 2
+  (measured with `/mh item`). The Season 2 buff id 1293799 is still a candidate; the popup also
+  matches by name and the tracker by the item's own spell.
+- **Edit Mode backups:** a "login" copy was stored every session, changed or not, so three reloads
+  pushed out the backup from before a change. Unchanged layouts are no longer stored (numbers equal
+  within 0.01 — SavedVariables rounds float remainders away), and duplicate logins fold.
+- The last line of "This week" is stacked on its real text height instead of a fixed slot.
+
+### Added — smaller
+
+- Spec 33 macros (Hunter, Guardian Druid, Shadow Priest; removed/renamed spells replaced),
+  `/mh macros`, per-macro search hits, `/mh macrocheck`.
+- Curse Surge bosses moved from Rares to the Turn the Surge card; card kinds; Mix Master gates on
+  hover with live Renown; cauldron waypoint; the Dundun macro sets a moon raid marker.
+- Weekly screens: no congratulation above "8 of 13"; Vereesa's Spark weekly; scope notes on both
+  weekly screens; an observed gossip offer outranks a stale flag; the rare toast carries "open the
+  chest"; Valeera's heal tip only with the talent taken.
+- Eight key bindings to open screens (Stream Deck), none bound by default.
+- `/mh cleanup`: a fixed, checked list of 47 probe keys; shows sizes first, clears on "yes", turns
+  off recorders left on; a login line when the dumps pass 1 MB.
+
+### Measuring, not yet used
+
+- A per-character turn-in log next to the weekly quest flags (`ResetRoutine.lua`, shown in
+  `/mh weeklies`). The Liadrin tick switches only after a reset morning confirms the flags do not
+  clear.
+
 ## 3.10.0
 
 📌 **A minor, and this time volume and behaviour agree.** 79 commits, three new commands
