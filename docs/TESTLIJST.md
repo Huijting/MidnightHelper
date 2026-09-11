@@ -7,6 +7,16 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 11 sep — Edit Mode-backups: geen kopie meer als er niets veranderd is
+
+- [ ] **Doe twee keer `/reload`** en typ dan **`/mh editmode`**. Hij hoort te zeggen: *"Edit Mode
+      unchanged since the newest snapshot, so it was not stored again"*. Daarna meet ik je bestand:
+      `editModeBackups` hoort flink kleiner te zijn dan 513 KB, omdat de identieke "login"-kopieën
+      zijn samengevoegd.
+- [ ] **Verander iets kleins in Edit Mode**, bijvoorbeeld een balk een stukje verschuiven, en doe
+      `/reload`. Dan hoort er wél een nieuwe backup bij te komen, en blijft die van vóór je wijziging
+      staan.
+
 ## 🆕 11 sep — `/mh cleanup`
 
 - [x] ~~`/mh cleanup` toont een lijst met meetdumps en hun grootte~~, **Rob 11 sep: 38 dumps,

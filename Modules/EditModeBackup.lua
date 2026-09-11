@@ -80,8 +80,48 @@ local function Describe(info)
 	return out
 end
 
+local function DeepEqual(a, b, depth)
+	if a == b then
+		return true
+	end
+	if type(a) ~= "table" or type(b) ~= "table" or depth > MAX_DEPTH + 2 then
+		return false
+	end
+	for k, v in pairs(a) do
+		if not DeepEqual(v, b[k], depth + 1) then
+			return false
+		end
+	end
+	for k in pairs(b) do
+		if a[k] == nil then
+			return false
+		end
+	end
+	return true
+end
+
+local function SameLayout(x, y)
+	return type(x) == "table" and type(y) == "table" and x.active == y.active and DeepEqual(x.data, y.data, 0)
+end
+
+--- 🔴 A COPY OF AN UNCHANGED LAYOUT IS NOT A BACKUP, IT IS AN EVICTION. Fixed 11 Sep 2026.
+--- The login capture stored a new snapshot every session, changed or not, and only three are kept:
+--- measured in Rob's file that day, all three were labelled "login", 513 KB between them, grown
+--- by reloads alone. Three reloads after rearranging your bars and the picture from BEFORE the
+--- change - the one "what did I change?" needs - was gone. So "login" and "manual" store nothing
+--- when the layout equals the newest snapshot, and older "login" copies identical to the one
+--- after them are folded away. "before-bars-import" is never skipped or folded: the undo looks
+--- for it by that label.
+local function FoldLoginDuplicates(list)
+	for i = #list, 2, -1 do
+		if list[i].label == "login" and SameLayout(list[i], list[i - 1]) then
+			table.remove(list, i)
+		end
+	end
+end
+
 --- @param label string  why this capture happened, so a list of three is readable
---- @return boolean ok, string|nil reason
+--- @return boolean ok, string|nil reason  ("unchanged" when nothing new was stored)
 function ns.MH_EditModeCapture(label)
 	local ok, why = Ready()
 	if not ok then
@@ -101,10 +141,15 @@ function ns.MH_EditModeCapture(label)
 		active = info.activeLayout,
 		summary = Describe(info),
 		data = Sanitize(info, 0),
+		at = time(),
 	}
 	-- Newest first, and only a few: this is layout data, not a diary, and SavedVariables
 	-- is read on every login.
-	table.insert(list, 1, entry)
+	local unchanged = entry.label ~= "before-bars-import" and SameLayout(list[1], entry)
+	if not unchanged then
+		table.insert(list, 1, entry)
+	end
+	FoldLoginDuplicates(list)
 	while #list > MAX_KEPT do
 		table.remove(list)
 	end
@@ -132,6 +177,9 @@ function ns.MH_EditModeCapture(label)
 		"ConvertStringToLayoutInfo", "ConvertLayoutInfoToString", "OnLayoutAdded",
 	}) do
 		ns.db.editModeApi[name] = (C_EditMode and type(C_EditMode[name]) == "function") and "function" or "absent"
+	end
+	if unchanged then
+		return true, "unchanged"
 	end
 	return true
 end
@@ -611,8 +659,13 @@ function ns.MH_EditModeReport()
 		return
 	end
 	local list = (ns.db and ns.db.editModeBackups) or {}
-	print(("%s Edit Mode captured — |cffffffff%d|r layout(s), keeping the last |cffffffff%d|r snapshot(s)."):format(
-		Prefix(), #(list[1] and list[1].summary or {}), #list))
+	if why == "unchanged" then
+		print(("%s Edit Mode unchanged since the newest snapshot, so it was not stored again — keeping |cffffffff%d|r snapshot(s)."):format(
+			Prefix(), #list))
+	else
+		print(("%s Edit Mode captured — |cffffffff%d|r layout(s), keeping the last |cffffffff%d|r snapshot(s)."):format(
+			Prefix(), #(list[1] and list[1].summary or {}), #list))
+	end
 	for _, l in ipairs(list[1] and list[1].summary or {}) do
 		print(("   |cffffd100%d|r %s |cff9d9d9d(%d system%s)|r"):format(
 			l.index, tostring(l.name), l.systems, l.systems == 1 and "" or "s"))

@@ -49,8 +49,14 @@ meetdumps op nil zette. Die chat heeft in de repo niets aangeraakt.
     `MH_EditModeCapture("login")` bewaart **elke sessie** een kopie, ook als er niets veranderd is.
     GEMETEN in het bestand: alle drie de backups hebben het label `"login"`. Na drie reloads is de
     backup van vóór een wijziging dus weg, en daar is de functie juist voor (*"what did I change?"*).
-    Voorstel, niet gebouwd, Rob beslist: geen nieuwe kopie als de lay-out gelijk is aan de nieuwste.
-    Dat bespaart ook ~340 KB bij identieke kopieën.
+    ✅ **Gebouwd 11 sep (Rob: *"ja, doe dat maar"*), NIET getest.** `SameLayout` (`active` +
+    `DeepEqual` op `data`):
+    - `"login"` en `"manual"` slaan niets op als de lay-out gelijk is aan de nieuwste backup; er komt
+      dan `"unchanged"` terug, en `/mh editmode` zegt dat ook.
+    - `FoldLoginDuplicates` haalt oudere "login"-kopieën weg die gelijk zijn aan de backup erna.
+    - `"before-bars-import"` wordt nooit overgeslagen of samengevoegd, want de undo zoekt hem op dat
+      label (`:470`).
+    - Nieuwe backups krijgen `at = time()`.
 
 ## 🔎 11 sep — Midnight Chores (okarr, v1.0.7, **MIT**) doorgelicht: aanwijzingen, NIETS overgenomen
 
