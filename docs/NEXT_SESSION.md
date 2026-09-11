@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## 🧹 11 sep — SavedVariables opgeschoond (door Rob, op advies van de pc-chat): 4,05 → 0,83 MB
+
+De pc-chat zocht uit waarom WoW traag opstart. Rob draaide daarna een `/run`-commando dat 11
+meetdumps op nil zette. Die chat heeft in de repo niets aangeraakt.
+- GEMETEN (script `sv_sizes.py`, mtime 11:52; positieve controle: 155 top-level keys gevonden, onder
+  meer `ejCapture`): de sleutels `tierProbe`, `chunkLog`, `atalProbe`, `tierScan`, `unlearnedDump`,
+  `sniffLog`, `lockProbe`, `knowledgeProbeApi`, `worldBossProbe`, `crestProbe` en `itemScan` zijn
+  **weg**. `ejCapture` staat er nog (RaidCoachData noemt die als bron om uit te breiden).
+  `valeera.log = false`.
+- GEMETEN in de code: geen enkele functie **leest** die elf. Alleen de diagnosecommando's schrijven
+  ze. De bevindingen staan al in commentaar en in deze handoff: POI 8927 van `atalProbe`, de Dundun-
+  sniff, en de tier-2-meting van `itemScan`. Alles is opnieuw te maken met `/mh atal`, `/mh sniff`,
+  `/mh tier`, enzovoort. Er is niets verloren dat nog nodig is.
+- De grootste die overblijven zijn echte functies: `editModeBackups` 350 KB en `taxiSeen` 52 KB. Daarna
+  staan er nog ~20 kleine probe-dumps (samen ~150 KB).
+- **Voorstel van de pc-chat, nog NIET gebouwd, Rob beslist:** `/mh cleanup`. Dat toont eerst per
+  probe-dump hoeveel KB hij is, en wist pas na bevestiging. Alleen een vaste lijst probe-sleutels,
+  nooit functie-data. Eventueel met een maximum voor logs.
+
 ## 🔎 11 sep — Midnight Chores (okarr, v1.0.7, **MIT**) doorgelicht: aanwijzingen, NIETS overgenomen
 
 Rob installeerde het en vroeg: *"check wat het is en hoe we daar van kunnen leren"*. Het is een
