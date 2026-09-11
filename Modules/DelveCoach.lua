@@ -334,7 +334,12 @@ local function BuildCoachBody(entry, opts)
 				body = (body ~= "" and (body .. "|n|n") or "") .. extra
 			end
 		end
-		if bossIndex and ns.FilterDelveTipBodyForBoss and MULTI_BOSS_TIP_SECTIONS[sec.titleKey] then
+		-- In a live run, filter only when something actually named the boss: the story, the
+		-- player's own ◀ ▶ choice, or the boss itself. Otherwise bossIndex is just the last
+		-- carousel position, and Rob's Fungal Pharmacon run (11 Sep 2026) got Mycomight's route
+		-- line as its only advice. Unknown means the whole body, not someone else's.
+		local bossKnown = not opts.live or storyIdx or opts.bossManualOverride or bossEntry
+		if bossIndex and bossKnown and ns.FilterDelveTipBodyForBoss and MULTI_BOSS_TIP_SECTIONS[sec.titleKey] then
 			body = ns.FilterDelveTipBodyForBoss(body, entry.id, bossIndex)
 		end
 		if ns.ExpandDelveTipMarkup then

@@ -152,7 +152,19 @@ ns.DELVE_BOSS_SHOWCASE = {
 	},
 	the_darkway = {
 		-- 256817 = live delve showcase (CF); 251600 = Wowhead NPC fallback.
-		{ creatureId = 256817, label = "Infiltrator Gulkat", creatureIdFallback = { 251600 } },
+		-- tipLineMatch covers every Darkway line that was Gulkat's before Venomborne joined:
+		-- with one boss nothing was filtered, with two the filter keeps only matching lines.
+		-- The spell tokens match the raw {SPELL:@...} markup, so they hold on every client.
+		{ creatureId = 256817, label = "Infiltrator Gulkat", creatureIdFallback = { 251600 }, storyKeys = {
+			"Focusers Under Pressure", "Leyline Technician", "Ogre Powered",
+		}, tipLineMatch = { "Gulkat", "Twilight Seeker", "abyssal_burst", "illusory_deceit", "Focusers", "Leyline", "Ogre Powered", "Arcway" } },
+		-- ✅ NAME MEASURED: DelveHistory logged "Replicating Venomborne" from ENCOUNTER_END on
+		-- four Tier 11 Darkway runs (7 and 10 Sep 2026), and Rob killed it in the Grudge Pit on
+		-- 11 Sep. The variant is Eggsplosive Growth, whose DB2 text names the Children of Ula'tek.
+		-- ⚠️ creatureId 269179 is Wowhead's, not measured: a wrong id only fails to load a model.
+		{ creatureId = 269179, label = "Replicating Venomborne", storyKeys = { "Eggsplosive Growth" },
+			tipLineMatch = { "Venomborne", "Eggsplosive" },
+			storyHints = { "eggsplosive growth", "children of ula'tek" } },
 	},
 	parhelion_plaza = {
 		{ creatureId = 246621, label = "Gladius Slaurna" },
@@ -181,6 +193,11 @@ ns.DELVE_BOSS_SHOWCASE = {
 			"Dastardly Rotstalk", "Räudiger Rotstalk", "Rotstalk ignoble", "Retoño pútrido", "Rotstalk vil",
 		}, tipLineMatch = { "Mycomight", "Rotstalk", "Dastardly" },
 			storyHints = { "dastardly rotstalk", "rotstalk", "heel", "taunt", "fan favorite", "villainous" } },
+		-- 12.1 variant Fungal Pharmacon. Boss name from Rob's own kill, 11 Sep 2026 (nameplate),
+		-- the same Replicating Venomborne DelveHistory logged in The Darkway; id as above.
+		{ creatureId = 269179, label = "Replicating Venomborne", storyKeys = { "Fungal Pharmacon" },
+			tipLineMatch = { "Venomborne", "Pharmacon" },
+			storyHints = { "fungal pharmacon", "children of ula'tek" } },
 	},
 	sunkiller_sanctum = {
 		{ creatureId = 256683, label = "Esuritus", storyKeys = { "Core of the Problem", "Gravitational Effect" } },
@@ -530,6 +547,11 @@ local function IsGenericStoryName(name)
 		return true
 	end
 	if n:find("^speak with ") or n:find(" defeated$") then
+		return true
+	end
+	-- The step after the kill. Rob, 11 Sep 2026: the coach showed "Today's story: (Optional)
+	-- Exit Delve with Leave-O-Bot after collecting rewards" once the boss was dead.
+	if n:find("^%(optional%)") or n:find("leave-o-bot", 1, true) or n:find("^exit delve") then
 		return true
 	end
 	if n == "unknown" then

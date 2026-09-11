@@ -7,6 +7,20 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 11 sep — Replicating Venomborne in de Delve Coach (Grudge Pit + Darkway)
+
+Rob stond in de Grudge Pit tegenover een baas die de coach niet kende. MH had hem al vier keer
+gelogd in The Darkway, zonder dat de coach er iets mee deed.
+- [ ] **Volgende *Fungal Pharmacon* (Grudge Pit) of *Eggsplosive Growth* (Darkway):** de coach noemt
+      de story en *"Replicating Venomborne"* als eindbaas. Onder **Boss** staat de regel over
+      Serpentogenesis, Venom Splash en Hydra Strike.
+- [ ] **Het 3D-model in de bossplek:** lijkt het op de baas die je ziet? Het id (269179) komt van
+      Wowhead en is niet gemeten; bij een fout id verschijnt er gewoon geen model.
+- [ ] **Na de kill** staat er niet meer *"(Optional) Exit Delve with Leave-O-Bot…"* als story.
+- [ ] **Zolang de story onbekend is,** tonen Route, Trash en Boss álle regels, niet alleen die van de
+      laatst bekeken baas (in je screenshot stond onder Route alleen de Mycomight-regel).
+- [ ] **Darkway met Gulkat** (Focusers, Leyline of Ogre Powered): alle oude tips staan er nog.
+
 ## 🆕 11 sep — Liadrin-logboek (meetfase, de vinkjes veranderen nog niet)
 
 - [x] ~~Na een `/reload`: `/mh weeklies`~~, **Rob 11 sep (hunter): "last login Fri 16:55: 0 turn-in

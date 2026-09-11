@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## 🐍 11 sep — Replicating Venomborne in de Delve Coach. Rob: "go, doe A en B maar"
+
+- ✅ **GEMETEN:** DelveHistory had de baas al **4×** gelogd via `ENCOUNTER_END`, allemaal The Darkway
+  op Tier 11 (7 en 10 sep). Rob killde hem op 11 sep in de Grudge Pit (variant *Fungal Pharmacon*).
+  De coach had er nooit tips voor. Blizzards eigen varianttekst (DB2) noemt de *Children of Ula'tek*
+  bij Fungal Pharmacon en Eggsplosive Growth.
+- **A:** `DELVE_BOSS_SHOWCASE` voor `grudge_pit` en `the_darkway` kreeg Venomborne, met als
+  storyKeys *Fungal Pharmacon* en *Eggsplosive Growth*. `creatureId` **269179 komt van Wowhead en is
+  ongemeten**. De tips staan er in 7 talen; **bron Icy Veins, niet door ons gemeten**; spellnamen in
+  het Engels zonder `{SPELL:}`-id's.
+  - 🔴 Het Darkway-overzicht zei *"final boss on all runs: Infiltrator Gulkat"*. Dat was onwaar en
+    staat nu per variant.
+  - ⚠️ Gulkat kreeg een `tipLineMatch` voor al zijn regels: met twee bazen gaat het filter per baas
+    aan, en anders waren zijn eigen tips verdwenen. Drift van de 4 keys gemarkeerd.
+- **B:**
+  - `IsGenericStoryName` vangt de stap na de kill (*"(Optional) Exit Delve with Leave-O-Bot…"*).
+  - `BuildCoachBody` filtert in een live run alleen nog als de story, ◀ ▶ of de baas zelf bekend is.
+    Anders kreeg je de tips van de laatst bekeken baas, en dat was Mycomight.
+- **Open:**
+  - Twilight Crypts (*Why'd It Have to Be Snakes?*): alleen Icy Veins noemt Venomborne daar.
+  - *Caustic Crush* (Parhelion Plaza) noemt Ula'tek, maar de baas is onbekend.
+  - Spell-id's voor `{SPELL:}` en het model-id moeten nog bevestigd worden. Zie TESTLIJST.
+
 ## 📦 11 sep — RELEASE 3.11.0. Rob zei "go".
 
 Rob: *"De account snapshot allemaal bekeken en dat was al goedgekeurd … verder krijg je uiteraard ook
