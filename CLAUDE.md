@@ -48,8 +48,17 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    mee, en hoe kunnen we dat voortaan wel laten gebeuren?"* — dit is het antwoord.
    ⚠️ **Kijk eerst wát er staat:** een nieuwe `- [JJJJ-MM-DD]`-regel onderaan is wachter-werk; iets
    anders (een halve regel, een wijziging midden in het bestand) meld je in plaats van te committen.
-   🔎 **De schrijver is NIET gevonden.** Drie keer gezien (2, 5 en 10 sep), telkens `API_WATCH.md`,
-   telkens een *"Tweede run van vandaag"*. Op 10 sep GEMETEN: mtime **04:57:43Z**, drie minuten na
+   ⚠️ **Geeft de pull daarna een conflict in dat bestand** (11 sep: de cloud-wachter had diezelfde
+   dag óók een regel gepusht), **houd dan beide regels**: eerst de gepushte, dan de lokale, met een
+   lege regel ertussen. Markeringen weg, `git_stage.py`, dan
+   `git -C "<repo>" -c core.editor=true rebase --continue` (zonder `-c` opent git een editor).
+   🔎 **De schrijver is NIET gevonden.** Vier keer gezien (2, 5, 10 en 11 sep), telkens `API_WATCH.md`.
+   🔴 **11 sep GEMETEN: mtime 04:57:42Z, en op 10 sep was het 04:57:43Z. Dat is één seconde
+   verschil op twee dagen**, dus iets met een vaste planning rond **06:57 Robs tijd**, niet toeval.
+   De 11-sep-regel heette niet "Tweede run", maar zijn eigen gegevens lopen tot **04:55Z**, terwijl
+   de gepushte cloud-regel van die dag tot 03:34Z liep. Het is dus een aparte run, ná de cloud-wachter.
+   Nog niet bekeken: de geplande taken in de Claude-desktopapp (`list_scheduled_tasks`); die draaien
+   lokaal en kunnen dus naar schijf schrijven. Op 10 sep GEMETEN: mtime **04:57:43Z**, drie minuten na
    de ochtend-pull (reflog: schone fast-forward, geen reset). Uitgesloten: alle vier de cloud-wachters
    (klaar vóór 04:16Z, de API-wachter draaide één keer), de ochtendbrief (04:06–04:16Z), de
    inbox-triage (vanaf 05:04Z), de twee lokale geplande taken, en élke lokale Claude-transcript (geen
