@@ -11,11 +11,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 - [x] ~~`/mh cleanup` toont een lijst met meetdumps en hun grootte~~, **Rob 11 sep: 38 dumps,
       about 248 KB, met de "Kept on purpose"-regel.**
-- [ ] **`/mh cleanup yes`, tweede ronde.** Rob zag na de eerste ronde drie dumps terugkomen; twee
-      horen er niet op, en de derde kwam van een kick-probe die nog aan stond. Na `/reload`: typ
-      `/mh cleanup`. Staat er *"Still recording: kicks probe"*? Doe dan `/mh cleanup yes` + `/reload`
-      en nog eens `/mh cleanup`. Het hoort te eindigen op *"No measurement dumps …, and no recorder
-      left on"*. Daarna meet ik het bestand na.
+- [x] ~~`/mh cleanup yes`, tweede ronde~~, **Rob 11 sep:** *"Cleared 1 dump(s) … turned off: kicks
+      probe"*, en na `/reload`: *"No measurement dumps …, and no recorder left on."* Het bestand is
+      nagemeten: `ejCapture`, de instellingen en het accountoverzicht zijn er nog.
 - [ ] **`/mh commands`** (of het Commands-scherm): `/mh cleanup` staat in de groep met de
       meetcommando's.
 

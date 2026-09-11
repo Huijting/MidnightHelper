@@ -41,8 +41,16 @@ meetdumps op nil zette. Die chat heeft in de repo niets aangeraakt.
     - `kicksProbeContext` kwam terug omdat Robs `/mh kicks probe` nog **aan** stond (maximaal 60
       regels). Nu meldt de dry run nog draaiende recorders ("Still recording: …"), en `yes` zet de
       kick-probe en de Valeera-log uit.
-    - Nog te testen: `yes` + `/reload` moet eindigen op *"No measurement dumps …, and no recorder
-      left on"*.
+    - ✅ **Tweede ronde getest, Rob 11 sep:** `yes` zette de kick-probe uit, en na `/reload` stond er
+      *"No measurement dumps …, and no recorder left on."* GEMETEN (sv_sizes, 12:40): 0,81 MB, 119
+      top-level keys. `ejCapture`, `charCurrencies` en `ui` staan er nog; `valeera.log = false`.
+  - 🔴 **NIEUWE BEVINDING: `editModeBackups` groeide van 350 naar 513 KB** tussen 11:52 en 12:40,
+    alleen door reloads. Er zit wel een maximum op (`MAX_KEPT = 3`, EditModeBackup.lua:26), maar
+    `MH_EditModeCapture("login")` bewaart **elke sessie** een kopie, ook als er niets veranderd is.
+    GEMETEN in het bestand: alle drie de backups hebben het label `"login"`. Na drie reloads is de
+    backup van vóór een wijziging dus weg, en daar is de functie juist voor (*"what did I change?"*).
+    Voorstel, niet gebouwd, Rob beslist: geen nieuwe kopie als de lay-out gelijk is aan de nieuwste.
+    Dat bespaart ook ~340 KB bij identieke kopieën.
 
 ## 🔎 11 sep — Midnight Chores (okarr, v1.0.7, **MIT**) doorgelicht: aanwijzingen, NIETS overgenomen
 
