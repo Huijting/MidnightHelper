@@ -13,7 +13,10 @@ gekopieerd en vergeleken: 103 regels) en `CHANGELOG.md`. Tag `v3.11.0`; de packa
   ingetrokken.
 - `CURSEFORGE_DESCRIPTION.md` is niet aangepast. Het Currencies-blok zou er een regel waard zijn;
   Rob plakt die pagina met de hand, dus dat is zijn keus.
-- **Na de upload:** CF → Files → 3.11.0 → Changelog, nakijken of de opmaak goed staat.
+- ✅ **LIVE, Rob 11 sep:** *"staat er op, incl wago"*. 3.11.0 staat op CurseForge en op Wago.
+- Rob heeft nu een Trovehunter's Bounty in zijn tas. Daarmee zijn de testpunten van de S2-kaart in
+  de TESTLIJST te doen (`/mh finditem trovehunter`, `/mh spell 1293799 1254631`, de popup in een
+  delve).
 
 ## ✅ 11 sep — Robs "idee één": item level + enchant per slot op het karakterscherm — OPGELOST met BetterCharacterPanel
 
