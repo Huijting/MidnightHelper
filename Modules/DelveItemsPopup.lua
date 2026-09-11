@@ -11,7 +11,7 @@ local C_Item = C_Item
 local Config = ns.Config or {}
 
 local ITEM_RADAR = Config.DELVE_ITEM_RAID_R_MINI or 244193
-local ITEM_TREASURE = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 252415
+local ITEM_TREASURE = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 274374
 
 local POPUP_MIN_H = 168
 local BTN_SIZE = 52
@@ -631,6 +631,10 @@ local function CollectConfigSpellIDsForItem(itemID)
 	end
 	if itemID == ITEM_TREASURE then
 		add(TREASURE_ACTIVE_SPELL)
+		-- Season 2's buff id is still a candidate (Config); both seasons are asked.
+		for _, sid in ipairs(Config.DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELLS or {}) do
+			add(sid)
+		end
 	elseif itemID == ITEM_RADAR then
 		add(RADAR_USE_SPELL)
 		for i = 1, #RADAR_ACTIVE_SPELLS do

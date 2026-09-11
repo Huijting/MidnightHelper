@@ -29,9 +29,18 @@ local Config = {
 	DELVE_ITEM_RAID_R_MINI_USE_SPELL = 1236623,
 	--- Hidden helpful aura after using the mini (+ item on-use spell from GetItemSpell).
 	DELVE_ITEM_RAID_R_MINI_SPELLS = { 1236623, 467033, 473679, 1236625 },
-	DELVE_ITEM_TROVEHUNTER_BOUNTY = 252415, -- Trovehunter's Bounty — Hidden Trove
-	--- Buff after using Trovehunter's Bounty (persists until the trove is earned).
+	--- Trovehunter's Bounty — Hidden Trove. MEASURED 11 Sep 2026 (/mh item on Rob's client):
+	--- 274374 is "Trovehunter's Bounty — Midnight Season 2", 252415 the Season 1 one. Every module
+	--- read 252415 until then, so the popup, the toast and the weekly tracker looked for a map
+	--- nobody gets any more. The lead came from the Midnight Chores addon; the client settled it.
+	DELVE_ITEM_TROVEHUNTER_BOUNTY = 274374,
+	DELVE_ITEM_TROVEHUNTER_BOUNTY_S1 = 252415,
+	--- Buff after using Trovehunter's Bounty (persists until the trove is earned). 1254631 is the
+	--- Season 1 buff. 1293799 is Season 2's according to Midnight Chores - a CANDIDATE, not yet
+	--- measured (/mh spell 1293799). The popup also finds the buff by name and by the item's own
+	--- GetItemSpell, so neither id is its only way in.
 	DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL = 1254631,
+	DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELLS = { 1293799, 1254631 },
 	--- Maps Enum.Profession → Artisan's Moxie currency ID for that trade.
 	ARTISANS_MOXIE_CURRENCY_CODES = {},
 }

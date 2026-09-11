@@ -7,6 +7,17 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 11 sep — Trovehunter's Bounty: MH kijkt nu naar de Season 2-kaart
+
+✅ Gemeten door Rob (`/mh item 274374 252415`): 274374 is de Season 2-kaart, 252415 die van
+Season 1. MH keek tot nu toe alleen naar de oude.
+- [ ] **`/mh spell 1293799 1254631`**: noemt het spel 1293799 *Trovehunter's Bounty* (of iets
+      vergelijkbaars)? Dat is de kandidaat voor de buff van Season 2, uit Midnight Chores.
+- [ ] **Met een Season 2-kaart in je tas, in een delve:** verschijnt de delve-popup met de kaart en
+      werkt de knop? Na gebruik hoort de knop "actief" te tonen.
+- [ ] **Account snapshot → This week:** de regel *Trovehunter's Bounty* klopt met je tas: *"map in
+      bags"* als je hem hebt en nog niet gebruikt.
+
 ## 🆕 11 sep — Account snapshot, optie B punt 4 en 6 (Robs keuze)
 
 Tabblad **Account snapshot**, na één `/reload`.

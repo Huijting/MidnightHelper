@@ -14,7 +14,7 @@ local C_Item = C_Item
 local Config = ns.Config or {}
 
 local ITEM_RADAR = Config.DELVE_ITEM_RAID_R_MINI or 244193
-local ITEM_TREASURE = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 252415
+local ITEM_TREASURE = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 274374
 local FALLBACK_ICON = 134414
 
 local ICON_RADAR = addonName .. "_DelveRadar"

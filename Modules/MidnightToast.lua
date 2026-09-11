@@ -6,7 +6,7 @@
 local _, ns = ...
 
 local Config = ns.Config or {}
-local ITEM_TREASURE = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 252415
+local ITEM_TREASURE = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 274374
 
 local TOAST_W = 320
 local TOAST_H = 64

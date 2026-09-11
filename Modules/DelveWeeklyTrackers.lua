@@ -12,8 +12,10 @@ local GILDED_MAX = 4
 local GILDED_MIN_TIER = 11
 local TROVE_QUEST_LOOTED = 86371
 local TROVE_QUEST_USED = 92887
-local TROVE_MAP_ITEM = 252415
-local TROVE_AURA_SPELL = 1254631
+--- From Config, which says why: 274374 is the Season 2 map (measured 11 Sep 2026); this read
+--- 252415, the Season 1 map, until then. The buff ids are Season 2's candidate and Season 1's.
+local TROVE_MAP_ITEM = (ns.Config and ns.Config.DELVE_ITEM_TROVEHUNTER_BOUNTY) or 274374
+local TROVE_AURA_SPELLS = (ns.Config and ns.Config.DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELLS) or { 1293799, 1254631 }
 local SA_WEEKLY_MAX = 3
 
 ns.SPECIAL_ASSIGNMENTS = {
@@ -90,7 +92,20 @@ function ns.GetTrovehunterState()
 	local bountyUsed = IsQuestCompleted(TROVE_QUEST_USED)
 	local inBag = GetTrovehunterMapCount()
 	-- nil (unreadable) is not "active": only claim the buff is up when we actually saw it.
-	local auraActive = ns.Aura.HasPlayerAura(TROVE_AURA_SPELL) == true
+	local auraActive = false
+	for _, sid in ipairs(TROVE_AURA_SPELLS) do
+		if ns.Aura.HasPlayerAura(sid) == true then
+			auraActive = true
+			break
+		end
+	end
+	-- The item's own on-use spell as a third way in, while the Season 2 buff id is unmeasured.
+	if not auraActive and C_Item and C_Item.GetItemSpell then
+		local ok, _, useSpell = pcall(C_Item.GetItemSpell, TROVE_MAP_ITEM)
+		if ok and tonumber(useSpell) and ns.Aura.HasPlayerAura(tonumber(useSpell)) == true then
+			auraActive = true
+		end
+	end
 
 	local status = "available"
 	if auraActive then

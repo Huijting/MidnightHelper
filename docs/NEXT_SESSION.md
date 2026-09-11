@@ -13,10 +13,13 @@ gemeten.** Alleen de twee regels over MH zelf zijn GEMETEN.
   GEMETEN: `ResetRoutine.lua:794-797` geeft "done" zodra één vlag staat. De oorzaak van "OPEN 9 sep"
   is daarmee waarschijnlijk gevonden. De reparatie is een turn-in-log; meten op één alt, op een
   resetochtend.
-- 🔴 **Trovehunter's Bounty:** zij noemen **274374** (kaart S2) / aura **1293799** / fluit 275910;
-  252415/1254631 zou Season 1 zijn. GEMETEN: MH kent alleen 252415/1254631 (`Config.lua:32-34`,
-  `DelveWeeklyTrackers`, `DelveItemsPopup`, `Delves`, `MidnightToast`). Klopt het, dan vuren onze
-  popup en toast niet op de S2-kaart. Meten: het item-ID van de kaart in Robs tas.
+- ✅ **Trovehunter's Bounty — GEMETEN en GEREPAREERD, 11 sep.** Rob, `/mh item 274374 252415`:
+  *"274374 — Trovehunter's Bounty, Midnight Season 2"* en *"252415 — … Midnight Season 1"*. MH las
+  overal 252415. Nu leest alles `Config.DELVE_ITEM_TROVEHUNTER_BOUNTY = 274374`; de reservewaarden
+  in DelveItemsPopup, -Brokers, Delves en MidnightToast volgen. De buff: `…_SPELLS = { 1293799
+  (S2-KANDIDAAT, niet gemeten), 1254631 (S1) }`. DelveWeeklyTrackers vraagt beide plus de
+  `GetItemSpell` van het item. De popup vond hem al op naam. Nog open: `/mh spell 1293799` en een
+  test in een delve (TESTLIJST).
 - **Curse Surge:** zij gebruiken `C_AreaPoiInfo.GetEventsForMap(2512)`, niet `GetAreaPOIForMap`, met
   `IsAreaPOITimed` + `GetAreaPOISecondsLeft`. Plus een voorspelling: 5 vaste plekken, elk 2700 s, in
   een vaste volgorde, per regio een startanker (EU 1786617900). Weekly 96995. Onze `/mh atal` gebruikte
