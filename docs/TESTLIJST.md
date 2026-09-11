@@ -92,7 +92,10 @@ zolang ComfyUI de videokaart gebruikt.
 - [x] ~~Op een max-level character nog één keer `/mh curscan`~~, **Rob 11 sep, 5 screenshots.** Mana
       Crystals hebben daar een weekcap van 250, de crest-vlag gaat aan zodra er iets verdiend is, en
       Field Accolade heeft ook daar geen weekcap. Details in `docs/NEXT_SESSION.md`.
-- [ ] **Bovenaan het tabblad staat een blok "Your characters"** met negen rijen: Restored Coffer Key,
+- [x] ✅ **Rob 11 sep, screenshot:** het blok staat er, met negen rijen, iconen, de clientnamen, de
+      totalen (onder andere Coffer Key 27, Shards 914, Undercoin 7374, Marl 92419) en de uitlegregels
+      (afgekapt met "…"; de hele zin staat in de tooltip). Geen oranje regels. Nog te zien: de tooltips.
+- [ ] ~~Bovenaan het tabblad staat een blok "Your characters"~~ (zie hierboven) met negen rijen: Restored Coffer Key,
       Coffer Key Shards, Venomblight Manaflux, Undercoin, Mana Crystals, Corrosive Coin, Voidlight
       Marl, Field Accolade en Crests. Per rij zie je het icoon, de naam zoals WoW hem noemt, het
       totaal over al je characters, en één regel die zegt wat je ermee kunt of moet doen.
