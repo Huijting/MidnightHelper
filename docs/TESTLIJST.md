@@ -53,9 +53,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ✅ Gemeten door Rob (`/mh item 274374 252415`): 274374 is de Season 2-kaart, 252415 die van
 Season 1. MH keek tot nu toe alleen naar de oude.
-- [ ] **`/mh finditem trovehunter`** (Rob heeft er nu een in zijn tas): het ID hoort **274374** te zijn.
-- [ ] **`/mh spell 1293799 1254631`**: noemt het spel 1293799 *Trovehunter's Bounty* (of iets
-      vergelijkbaars)? Dat is de kandidaat voor de buff van Season 2, uit Midnight Chores.
+- [x] ~~`/mh finditem trovehunter`~~, **Rob 11 sep: "Trovehunter's Bounty id 274374"** in zijn tas.
+- [x] ~~`/mh spell 1293799 1254631`~~, **Rob 11 sep: allebei "Trovehunter's Bounty".**
+- [x] ~~De delve-popup toont de kaart~~, **Rob 11 sep: "Delve items" met Radar en "Bounty ×1".**
+- [ ] **Nog: de kaart gebruiken in een delve.** Springt de knop dan op "actief"?
 - [ ] **Met een Season 2-kaart in je tas, in een delve:** verschijnt de delve-popup met de kaart en
       werkt de knop? Na gebruik hoort de knop "actief" te tonen.
 - [ ] **Account snapshot → This week:** de regel *Trovehunter's Bounty* klopt met je tas: *"map in
