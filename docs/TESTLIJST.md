@@ -9,12 +9,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ## 🆕 11 sep — `/mh cleanup`
 
-- [ ] **`/mh cleanup`** toont een lijst met meetdumps en hun grootte, bijvoorbeeld *"barInventory
-      28.7 KB"*. Er wordt nog **niets** gewist. Onderaan staat dat `ejCapture` en je instellingen
-      bewust blijven.
-- [ ] **`/mh cleanup yes`** zegt *"Cleared n dump(s), about … KB"*. Na `/reload` meldt `/mh cleanup`:
-      *"No measurement dumps …"*. Je instellingen, het accountoverzicht en je Edit Mode-backups
-      horen er nog te zijn.
+- [x] ~~`/mh cleanup` toont een lijst met meetdumps en hun grootte~~, **Rob 11 sep: 38 dumps,
+      about 248 KB, met de "Kept on purpose"-regel.**
+- [ ] **`/mh cleanup yes`, tweede ronde.** Rob zag na de eerste ronde drie dumps terugkomen; twee
+      horen er niet op, en de derde kwam van een kick-probe die nog aan stond. Na `/reload`: typ
+      `/mh cleanup`. Staat er *"Still recording: kicks probe"*? Doe dan `/mh cleanup yes` + `/reload`
+      en nog eens `/mh cleanup`. Het hoort te eindigen op *"No measurement dumps …, and no recorder
+      left on"*. Daarna meet ik het bestand na.
 - [ ] **`/mh commands`** (of het Commands-scherm): `/mh cleanup` staat in de groep met de
       meetcommando's.
 

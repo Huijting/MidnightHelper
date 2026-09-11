@@ -32,6 +32,17 @@ meetdumps op nil zette. Die chat heeft in de repo niets aangeraakt.
     te gooien die iemand misschien nog meet.
   - 📌 **Een nieuwe probe die naar `ns.db` schrijft, hoort in `DUMPS`.** Dat controleert nog niets;
     kandidaat voor een lintcheck.
+  - 🔎 **Robs eerste run, 11 sep:**
+    - De dry run toonde 38 dumps, "about 248 KB". De schatting valt ~1,5× te hoog uit
+      (`profIdDump` 48 KB tegen 31 KB in het bestand); voor "hoe groot" is dat goed genoeg.
+    - Na `yes` + `/reload` kwamen er **drie terug**. `dispelFieldLog` en `dispelLookupLog` zijn
+      levende, gededupliceerde logs van de altijd draaiende DispelCapture. Die zijn nu **van de
+      lijst af**, dus 47 sleutels.
+    - `kicksProbeContext` kwam terug omdat Robs `/mh kicks probe` nog **aan** stond (maximaal 60
+      regels). Nu meldt de dry run nog draaiende recorders ("Still recording: …"), en `yes` zet de
+      kick-probe en de Valeera-log uit.
+    - Nog te testen: `yes` + `/reload` moet eindigen op *"No measurement dumps …, and no recorder
+      left on"*.
 
 ## 🔎 11 sep — Midnight Chores (okarr, v1.0.7, **MIT**) doorgelicht: aanwijzingen, NIETS overgenomen
 

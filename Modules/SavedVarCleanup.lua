@@ -16,6 +16,13 @@
 	soulLedger, captures, ejCapture, keybindExport and editModeBarsExport (exports read outside the
 	game), and every setting.
 
+	⚠️ MEASURED ON ROB'S CLIENT THE SAME DAY: after "yes" and a /reload three came straight back.
+	dispelFieldLog and dispelLookupLog belong to DispelCapture, which runs all the time and keeps one
+	row per pattern - a live collector's logs, not a finished measurement - so they are off the list
+	now, like dispelCapture itself. kicksProbeContext came back because Rob's `/mh kicks probe` had
+	been left ON, writing a row per zone change (60 at most). A dump whose switch is still on is
+	not cleaned, it is refilled; so the switches below are reported, and "yes" turns them off.
+
 	Two steps, like any delete: /mh cleanup lists what is there and how big, /mh cleanup yes
 	clears it. And one line in chat at login when the dumps pass 1 MB, so this cannot quietly
 	grow back - the other half of "build a way to see that it went quiet".
@@ -52,8 +59,6 @@ local DUMPS = {
 	{ key = "questSnap", by = "Rares.lua" },
 	{ key = "rareQuestProbe", by = "Rares.lua" },
 	{ key = "delveExitScan", by = "QuickBar.lua" },
-	{ key = "dispelFieldLog", by = "DispelCapture.lua" },
-	{ key = "dispelLookupLog", by = "DispelCapture.lua" },
 	{ key = "mechProbe", by = "MechanicNameProbe.lua" },
 	{ key = "autoMapDump", by = "KeybindAutoMap.lua" },
 	{ key = "survivalProbe", by = "SurvivalPlan.lua" },
@@ -124,9 +129,38 @@ local function Present()
 	return out, total
 end
 
-local function ValeeraLogOn()
-	local v = ns.db and ns.db.valeera
-	return type(v) == "table" and v.log == true
+--- Recorders that refill a dump for as long as they are on. Each: is it on, how to turn it off.
+local SWITCHES = {
+	{
+		label = "Valeera loot log (/mh chunklog)",
+		isOn = function()
+			local v = ns.db and ns.db.valeera
+			return type(v) == "table" and v.log == true
+		end,
+		off = function()
+			ns.db.valeera.log = false
+		end,
+	},
+	{
+		label = "kicks probe (/mh kicks probe)",
+		isOn = function()
+			return ns.db and ns.db.kicksProbe == true
+		end,
+		off = function()
+			ns.db.kicksProbe = false
+		end,
+	},
+}
+
+local function SwitchesOn()
+	local on = {}
+	for _, s in ipairs(SWITCHES) do
+		local ok, v = pcall(s.isOn)
+		if ok and v then
+			on[#on + 1] = s
+		end
+	end
+	return on
 end
 
 --- /mh cleanup [yes]. English on purpose, like the other diagnostics: it ships, and a report
@@ -135,9 +169,10 @@ function ns.RunSavedVarCleanup(arg)
 	local p = "|cffffcc00" .. ns:L("PRINT_PREFIX") .. "|r"
 	local list, total = Present()
 	local confirm = type(arg) == "string" and arg:lower() == "yes"
+	local on = SwitchesOn()
 	if not confirm then
-		if #list == 0 and not ValeeraLogOn() then
-			print(p .. " No measurement dumps in your SavedVariables. Nothing to clear.")
+		if #list == 0 and #on == 0 then
+			print(p .. " No measurement dumps in your SavedVariables, and no recorder left on. Nothing to clear.")
 			return
 		end
 		print(("%s %d measurement dump(s), about %d KB, loaded at every login and /reload:"):format(
@@ -146,8 +181,8 @@ function ns.RunSavedVarCleanup(arg)
 			local by = d.by ~= "" and d.by or "nothing writes this any more"
 			print(("   %-22s %6.1f KB   |cff8a8f98%s|r"):format(d.key, d.kb, by))
 		end
-		if ValeeraLogOn() then
-			print("   |cffffcc00The Valeera loot log is ON|r and adds a row per loot; clearing turns it off.")
+		for _, s in ipairs(on) do
+			print(("   |cffffcc00Still recording:|r %s - clearing turns it off, or it refills."):format(s.label))
 		end
 		print("   Kept on purpose: ejCapture (source for the raid data), feature data and settings.")
 		print("   Type |cffffffff/mh cleanup yes|r to clear these, then |cffffffff/reload|r.")
@@ -158,12 +193,15 @@ function ns.RunSavedVarCleanup(arg)
 		ns.db[d.key] = nil
 		n = n + 1
 	end
-	local logWasOn = ValeeraLogOn()
-	if logWasOn then
-		ns.db.valeera.log = false
+	local turnedOff = {}
+	for _, s in ipairs(on) do
+		if pcall(s.off) then
+			turnedOff[#turnedOff + 1] = s.label
+		end
 	end
 	print(("%s Cleared %d dump(s), about %d KB%s. Now |cffffffff/reload|r so the file shrinks."):format(
-		p, n, math.floor(total + 0.5), logWasOn and ", and turned the Valeera loot log off" or ""))
+		p, n, math.floor(total + 0.5),
+		#turnedOff > 0 and (", and turned off: " .. table.concat(turnedOff, ", ")) or ""))
 end
 
 -- One line at login when the dumps have grown past NOTICE_KB. Delayed, and only once per
