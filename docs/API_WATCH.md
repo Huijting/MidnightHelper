@@ -1140,3 +1140,120 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `us.forums.blizzard.com` categorie-JSON 35 `order=created`; WebSearch + Blue Tracker als
     tegenlezing op de hotfix-datum. ⚠️ Directe `WebFetch` op warcraft.wiki.gg / news.blizzard.com
     blijft EGRESS_BLOCKED; alles liep via Exa.
+
+- [2026-09-11] ✅ **Geen relevante API-wijzigingen. 0 × [MOET GEFIKST].** Er is wél een **nieuwe
+  hotfix-sectie (10 sep)** — gelezen, niet overgeslagen — maar er zit geen API-, secure-frame- of
+  taintwijziging in. 🔴 **De substantie van vandaag is een CORRECTIE op onze eigen aantekeningen van
+  8 en 9 sep: de "force-push op `origin/main`" heeft NOOIT bestaan.** Zie het laatste punt; dat
+  haalt een openstaand "Rob moet dit natrekken" weg.
+  - **Hotfixes: nieuwste sectie nu `Hotfixes: September 10, 2026`** (was gisteren 9 sep), gelezen op
+    `news.blizzard.com/en-us/article/24296142?nocache=20260911`. **Niet ouder dan ons eigen logboek,
+    dus geen cacheval**, en tegengelezen met WebSearch: Blue Tracker voert *"World of Warcraft:
+    Midnight Hotfixes - 10 September"* (us-en 2336376, eu-en 625785) als eigen topic op. Inhoud is
+    volledig content: Classes, Delves, Dungeons and Raids, PvP, Prey, TBC Classic.
+    - **De enige addon-nabije regel is opnieuw een Cooldown Manager-regel, en die RAAKT ONS NIET.**
+      Letterlijk, onder Rogue: *"Both versions of Thistle Tea can now be tracked in the Cooldown
+      Manager."* Dat is Blizzards eigen CDM (`C_CooldownViewer`/`CooldownViewer`-frames).
+      **[RAAKT ONS NIET] — GEMETEN vandaag, niet van 10 sep overgeschreven:**
+      `CooldownViewer|CooldownManager|C_CooldownViewer|CooldownViewerSetting|Thistle Tea` over alle
+      `*.lua`/`*.xml`/`*.toc` geeft **0 bestanden met treffers op 270 gescande bestanden**.
+      - 🔴 **Positieve controle in dezelfde run, dezelfde patroonvorm, dezelfde reikwijdte:**
+        `GetSpellCooldown|C_Spell` over exact diezelfde 270 bestanden geeft **230 treffers in 42
+        bestanden** (o.a. `Core.lua:2`, `Modules/HealerCooldowns.lua:3`,
+        `Modules/ConsumableReadyBoard.lua:4`). Het patroon vindt dus wél wat er is; de nul hierboven
+        is een echte nul. 📌 En het laat meteen zien waaróm: `HealerCooldowns.lua` doet zijn
+        cooldowns via `C_Spell`, niet via de CDM.
+    - **De Prey-regel over aura's is GETOETST en [RAAKT ONS NIET].** Letterlijk: *"The buff from
+      Afflicted and Tormented Souls is no longer removed on death, by entering a battleground or
+      arena, or by switching specializations, and cannot be accidentally removed by the player."*
+      Dat is gedrag van een aura, dus het schuurt tegen mijn terrein aan. **GEMETEN:**
+      `Afflicted|Tormented|Preyhunter|Ral'kala` over `*.lua`/`*.xml`/`*.toc` geeft **4 treffers en
+      geen enkele aura-lezing** — `Modules/Profession.lua:187` is *"Lightbloom Afflicted Hide"*, een
+      **skinning-node** (een substring-valse-positief, precies het soort dat hier eerder is
+      misgegaan), en `Modules/Delves.lua:253,258` + `Modules/MountProgress.lua:134` zijn commentaar
+      over Preyhunter's Journey-renown. Wij volgen die buffs nergens.
+    - ⚠️ **Eén 10-sep-regel is voor de content-wachter en die LAAT IK DAAR LIGGEN**, in plaats van
+      hem half te beantwoorden: *"Explorer's League Supplies and the Abandoned Restoration Stone
+      will now appear in the Twilight Crypts delve variant 'Loosed Loa.'"* Wij dragen Delve-tips, dus
+      of onze tekst hierover iets onwaars beweert is een echte vraag — maar het is een
+      **content-wijziging, geen API-wijziging**, en ik heb het **niet gemeten**. Stof voor
+      `docs/CONTENT_WATCH.md`.
+  - **Beide `/API changes`-pagina's onveranderd t.o.v. 8, 9 én 10 sep. GEMETEN** via
+    `prop=revisions` (zonder `rvlimit`): `Patch 12.1.0/API changes` (pageid 679840) nog steeds
+    **revid 6860164, 2026-09-05T00:39:06Z**, 102421 bytes, comment "12.1.0 (69587)", user Ketho;
+    `Patch 12.1.5/API changes` (pageid 705933) nog steeds **revid 6863733, 2026-09-06T17:08:08Z**,
+    25227 bytes, comment "/* Deprecated API */". Vijfde dag zonder beweging.
+  - **Geen nieuwe `/API changes`-pagina, en 12.2.0 bestaat nog steeds niet.**
+    `intitle:"API changes"` op aanmaakdatum: **138 hits, ongewijzigd**, met 12.1.5 nog altijd de
+    nieuwst aangemaakte. `prop=revisions` op de titels `Patch 12.2.0` en `AddOn changes` geeft voor
+    beide `missing`.
+  - **Geen enkele API-pagina bewerkt sinds 7 sep.** `intitle:/API/` op laatste bewerking (374 hits)
+    geeft als nieuwste nog steeds `API types/ItemInfo` (**2026-09-07T10:24:43Z**) — al drie dagen
+    hier gelogd, dus **geen nieuws**. Daarna `Patch 12.1.5/API changes` (6 sep),
+    `Patch 11.0.2/API changes` (6 sep), `API getglobal`/`API setglobal` (6 sep). `Secret values`
+    (**2026-02-07**) en `Taint` (**2010-11-25**) liggen ver buiten het venster van 7 dagen.
+  - **`list=recentchanges` (ns 0, 50 wijzigingen t/m 2026-09-11T03:34:32Z) is volledig content.**
+    Nieuwer dan het venster van gisteren (t/m 10 sep 04:54Z), **dus geen cache**. Uitsluitend
+    voedsel-/feast-items (Sweet-And-Sour Skewers, Hearty Puffer Plate, Loa's Gathering), vissen,
+    glyphs, PvP-items (Primal Combatant's Medallion of Adaptation), `Dundun (delves)` en de pagina
+    `Blizzard Entertainment`. **Geen API-, secure-frame- of taintpagina, en geen `Structure `- of
+    `Enum.`-pagina.**
+  - **Blizzard US UI-and-Macro-forum: geen nieuw topic sinds 9 sep, en geen blue post. GEMETEN** aan
+    de categorie-JSON (`order=created`, cache-buster): `primary_groups` en `flair_groups` zijn
+    **allebei leeg** — geen van de 46 getoonde deelnemers heeft een Blizzard-groep (trust levels
+    0–3). Nieuwst aangemaakt blijven *Double Icons* (**2346299**, 2026-09-09T19:09:08Z) en *Talent
+    Swap Macro Problems* (**2346279**, 2026-09-09T17:25:20Z), beide gewone spelershulp zonder
+    API-feit. *Addons api restrictions* (**2343904**) **ongewijzigd**: nog steeds 10 posts, laatste
+    2026-09-05T17:29:55Z, geen blue. *Duration Bars setting not saving* (**2345637**) blijft op
+    **1 post, 0 reacties** (views 14 → 18) — blijft dicht, zoals op 10 sep vastgelegd.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`,
+    `GetItemCooldown`→`ns.GetItemCooldownSafe`) zijn deze run **niet** opnieuw getoetst en blijven
+    staan zoals op 2/6/7/9/10 sep gemeten.
+  - 🔴 **CORRECTIE OP 8 EN 9 SEP — er is NOOIT een force-push op `origin/main` geweest. Het was een
+    leesfout van mij, veroorzaakt door een SHALLOW CLONE, en hij stond hier drie dagen als feit.**
+    Op 8 sep staat (regel 915-919): *"`origin/main` was vanochtend **force-pushed** — de pull meldde
+    `+ bfa77f2...c16a392 main -> origin/main (forced update)` en de lokale `main` week 50 commits
+    af"*, met de vraag of Rob het zelf gedaan had; 9 sep (regel 990-994) hield die vraag open.
+    **Vandaag kwam exact dezelfde melding terug** (`+ cda339b...4e899eb main -> FETCH_HEAD (forced
+    update)`), en die is nu tot de bodem uitgemeten:
+    - **GEMETEN dat de werkmap een shallow clone is:** `.git/shallow` bestaat en
+      `git rev-parse --is-shallow-repository` geeft **true**, met bij het begin van de run
+      **precies 50** bereikbare commits. 📌 Dáár komt die "50 commits divergentie" vandaan: het is
+      niet een afwijking maar **de diepte van de clone zelf** — dat die twee getallen gelijk waren,
+      had het weggevertje moeten zijn.
+    - **GEMETEN waarom het op een herschreven historie lijkt:** vóór verdiepen gaf
+      `git merge-base HEAD cda339b` **lege uitvoer** (géén gemeenschappelijke voorouder) en telden
+      `HEAD..cda339b` én `cda339b..HEAD` **beide 50** — elk "de hele zichtbare historie van de
+      andere kant". Achter een graft kán git de samenhang niet zien, en het resultaat is van een
+      echte force-push niet te onderscheiden.
+    - **GEMETEN dat de historie gewoon lineair is, na `git fetch --deepen`** (alleen lezen, niets
+      herschreven): `cda339b` ("Confirm the search entry…", 9 sep 00:06) is **een gewone voorouder
+      van HEAD, 75 commits terug**. En de twee commits uit de 8-sep-melding zijn dat ook:
+      **`c16a392`** ("Known is not usable: a third kind of gap", 7 sep 22:41) staat **106 commits**
+      terug en **`bfa77f2`** ("docs: API watch, 1 September — still nothing to test against", 1 sep
+      09:14) staat **357 commits** terug. Beide op dezelfde lijn, `bfa77f2` vóór `c16a392`. Dat is
+      main die van 1 sep naar 7 sep **vooruit** liep, niets anders.
+    - ✅ **Dus: geen verloren commits, geen herschreven main, en Rob hoeft niets na te trekken.**
+      Het open punt van 8/9 sep gaat hiermee **dicht**. ⚠️ **En de les is breder dan git:**
+      `(forced update)` is hier een **eigenschap van de omgeving**, niet van de repo — precies
+      zoals een lege grep een eigenschap van het patroon kan zijn in plaats van van de code. Zie
+      `[[silence-is-not-absence]]`: ik heb een gereedschapsartefact als gebeurtenis gemeld, en dat
+      drie dagen laten staan.
+    - 📌 **Voor de volgende run:** komt `(forced update)` weer voorbij, meld het dan **niet** als
+      force-push. Draai eerst `git rev-parse --is-shallow-repository`; is die `true`, dan
+      `git fetch --deepen 600 origin main` en pas daarna `git merge-base --is-ancestor <oud> HEAD`.
+      Is dat exit 0, dan is er niets gebeurd.
+  - **Bronnen, alle met cache-buster opgehaald:** `warcraft.wiki.gg/api.php` (`prop=revisions` op
+    pageids 679840+705933 én op de titels `Patch 12.2.0`/`Patch 12.1.5/API changes`/`Secret values`/
+    `Taint`/`AddOn changes`; `list=search` op `intitle:"API changes"` (create_timestamp_desc) en
+    `intitle:/API/` (last_edit_desc); `list=recentchanges` ns 0, 50 stuks);
+    `news.blizzard.com/en-us/article/24296142`; `us.forums.blizzard.com` categorie-JSON 35 op
+    `order=created`; WebSearch als tegenlezing op de hotfixdatum, mét Blue Tracker als spiegel.
+    ⚠️ `WebFetch` op `warcraft.wiki.gg` en `news.blizzard.com` blijft **EGRESS_BLOCKED**; alles liep
+    via `web_fetch_exa`, dat beide wél bereikt. 📌 De wiki-API antwoordt op `nocache` met
+    `"Unrecognized parameter: nocache."` — **onschadelijk en juist het bewijs** dat de URL-string per
+    dag verschilt. Niet "repareren".
+  - ✅ **Repo: ik heb alleen dit bestand aangeraakt.** `git pull --rebase origin main` bracht de
+    checkout van een **detached HEAD** naar `main` op **4e899eb**, werkboom schoon, geen van de vier
+    wachter-bestanden gewijzigd-maar-ongecommit. Het verdiepen van de clone hierboven is puur lezen.
