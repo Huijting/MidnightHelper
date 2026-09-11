@@ -25,10 +25,17 @@ Midnight-weeklies resetten nooit, dus tel alleen een `QUEST_TURNED_IN` van déze
   bij één reload bewijst niets over de bewering van Midnight Chores; die kan gelden voor de eerste
   login van een week. En inleveringen van vóór 11 sep kent het logboek niet, dus woensdag 16 sep
   is de eerste eerlijke vergelijking.
-- ✅ **Eerste echte inleveringen, Rob 11 sep op Twelveinchy (Lv80), 17:27:** `/mh weeklies` toonde
-  `halduron` en `vereesa` met "handed in", 2 quests. Opname en giver-koppeling werken dus. Open: of
-  het echt twee NPC's waren, en welke quest-ID's (na een `/reload` in `turnInLog`). Dat is de
-  controle of 95468 de Lv80-variant van Halduron is.
+- ✅ **Eerste echte inleveringen, Rob 11 sep, GEMETEN in `turnInLog` (`turnin_read.py`, SV 17:30):**
+  - Het character was **Redisch (Lv90)**. Mijn eerdere "op Twelveinchy" was aangenomen, en het
+    bestand spreekt dat tegen.
+  - **Halduron 93756** (17:27:22) en **Vereesa 98172** (17:27:45); Rob bevestigt twee verschillende
+    NPC's. `lastLogin` 16:55:36, 0 genegeerd.
+  - 🔎 **93756 staat NIET in Halduron's statische lijst** (93761/93164/95468), en werd toch aan
+    `halduron` gekoppeld via de NPC van het inlever-venster (of via het leren bij het aannemen).
+    Dat bewijst dat de NPC-koppeling werkt voor een roterend ID. Het valt ook in de reeks
+    93751-93758 die Midnight Chores voor Halduron noemt; die aanwijzing krijgt dus steun (de naam
+    nog meten met `/mh quest 93756`).
+  - De vraag over 95468 (Halduron onder 90) blijft open; dat is te meten op Twelveinchy.
 
 ## 📏 11 sep — `/mh curscan` GEMETEN (Twelveinchy, Lv80, 14:58; uit `curScan` in het SV-bestand)
 

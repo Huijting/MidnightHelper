@@ -16,12 +16,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       inleveringen van eerder deze week kent het niet.
       📌 **Dat getal is een meting op zich.** Is het groter dan 0, dan stuurt het spel bij het
       inloggen echt valse inlever-meldingen, zoals Midnight Chores beweert. Is het 0, dan (nog) niet.
-- [x] ~~Lever een weekly in en doe `/mh weeklies`~~, **Rob 11 sep op Twelveinchy (Lv80):**
-      *"halduron handed in Fri 17:27"*, *"vereesa handed in Fri 17:27"*, *"2 quest(s) handed in since
-      the reset"*. Het logboek ziet inleveringen en koppelt ze aan een giver.
-- [ ] **Nog na te gaan:** heeft Rob ze echt bij Halduron en bij Vereesa ingeleverd, of allebei bij één
-      NPC? En na een `/reload` lees ik de quest-ID's uit het bestand. Gaf Halduron op level 80 echt
-      95468 *"Hope in the Darkest Corners"*?
+- [x] ~~Lever een weekly in en doe `/mh weeklies`~~, **Rob 11 sep:** *"halduron handed in Fri 17:27"*,
+      *"vereesa handed in Fri 17:27"*, 2 quests. Rob bevestigt: twee verschillende NPC's. **GEMETEN
+      in het bestand** (17:30): het was **Redisch (Lv90)**, niet Twelveinchy. Halduron **93756** (om
+      17:27:22), Vereesa **98172** (om 17:27:45).
+- [ ] **Nog open:** geeft Halduron onder level 90 echt 95468 *"Hope in the Darkest Corners"*? Dat is
+      te meten als Twelveinchy een weekly bij hem inlevert.
 - [ ] 🔴 **DE BELANGRIJKSTE: woensdag 16 sep, resetochtend, VÓÓR je iets doet: `/mh weeklies`.**
       Staan Liadrins quests weer op *"completed"* terwijl het blok *"nothing handed in … since the
       reset"* zegt, dan klopt het: die vlaggen resetten nooit, en dan schakel ik de vinkjes over op
