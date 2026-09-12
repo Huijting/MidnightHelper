@@ -16,9 +16,9 @@
 - Tag `v3.11.1` op releasecommit `1518d91`, gepusht 12 sep 11:19.
   - ✅ **GEMETEN (GitHub API):** de run *"Release to CurseForge, Wago and GitHub"* is geslaagd
     (09:19:07–09:19:56 UTC, alle stappen success); *Lua syntax check* en *Addon lint* op main groen.
-  - ⏳ CurseForge toonde om ~09:24 UTC nog 3.11.0 als nieuwste. Dat is normaal: CF verwerkt een
-    nieuw bestand eerst. **Rob kijkt**: staat 3.11.1 op CF én Wago, en is de changelog-opmaak goed
-    (Files → het bestand → Changelog)?
+  - ✅ **LIVE, Rob 12 sep:** *"ze staan op beide CF en Wago, CF moet eerst Approved worden en de
+    changelog ziet er weer goed uit"*. Om ~09:24 UTC toonde de openbare CF-lijst nog 3.11.0: dat was
+    die goedkeuring, geen fout.
   - 📌 Een GitHub-*release* komt er niet: de API-lijst eindigt bij 2.8.1, ook 3.11.0 heeft er geen.
     Een 404 op `releases/tags/v3.11.1` is dus geen fout.
   - 📌 De automatische Wago-upload is al bewezen: bij 3.11.0 zei Rob *"staat er op, incl wago"*.
