@@ -92,6 +92,19 @@
     - Toepassen via `MHApplyLookChrome`, vanuit `RefreshLookHeader`, alleen als de Classic-stand
       verandert. Classic zet de exacte 3.x-texturen en tinten live terug.
     - Classic-label en -tooltip in 7 talen zeggen nu dat ook kleuren en tegels terugkeren.
+    - ✅ **Rob testte stap 2 + 3 (12 sep): "alle 3 de vragen oke, ik vind het echt gaaf, ook het feit
+      dat de classic mode ook hier echt mee werkt."**
+  - ✅ **Stap 4 GEBOUWD (12 sep), ongetest.** Rob: tegels pas na een klik op Me gezien, en *"dan is die
+    lange lijst aan de linker zijde in mijn ogen overbodig"*. In de nieuwe look:
+    - Geen tablijst onder de kamers: de sectielus in `RelayoutSidebarTabs` slaat over bij `MHLookOn()`.
+    - De kamerknoppen worden 44 px (compact 38), met het geschilderde icoon uit `LOOK_SCREENS` en
+      `GameFontNormal`.
+    - Het eerste openen per sessie gaat naar `room_me`.
+    - Het venster zet bij elke `OnShow` de look opnieuw goed, want de UI kan gebouwd worden vóór de
+      SavedVariables er zijn: een Classic-speler ziet zo nooit 4.0-kleuren of tegels.
+    - Tour stap 1 kiest in de nieuwe look `TOUR_CM_ROOMS_TITLE_LOOK` / `_BODY_LOOK` (7 talen).
+    - Auto-grow maakt het venster nooit kleiner (alleen `if height < minH`).
+    - Classic = de 3.x-lijst en knoppen.
     - ⏳ **Nog niet in het palet:** rode `UIPanelButtonTemplate`-knoppen binnen de schermen (123× in
       49 bestanden, o.a. de subtabs van Toolbox/Guide/Addons) en panelen met een eigen bruine
       backdrop (Changelog, DelveCoach, DungeonBossWindow, MountsPanel …). Rob zegt welke het meest

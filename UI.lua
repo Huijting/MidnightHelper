@@ -3484,8 +3484,26 @@ function ns:EnsureMainUI()
 				local rb = ns._mhRoomButtons[roomDef.id]
 				if rb then
 					local isActive = (roomDef.id == activeRoom)
-					rb:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
 					local lookOn = MHLookOn()
+					-- 4.0: the rooms ARE the navigation (no tab list below them; the cards replace
+					-- it), so they get room for our own painted icons. Classic keeps 3.x sizes.
+					local railH = lookOn and (lm.compact and 38 or 44) or lm.sidebarTabHeight
+					rb:SetSize(lm.sidebarWidth - 16, railH)
+					if rb._mhIcon then
+						if lookOn then
+							local screen = LOOK_SCREENS[roomDef.id == "settings" and "settings" or ("room_" .. roomDef.id)]
+							rb._mhIcon:SetTexture(LOOK_ICON_PATH:format((screen and screen.stem) or "home"))
+							rb._mhIcon:SetTexCoord(0, 1, 0, 1)
+							rb._mhIcon:SetSize(railH - 10, railH - 10)
+						else
+							rb._mhIcon:SetTexture(roomDef.icon)
+							rb._mhIcon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+							rb._mhIcon:SetSize(16, 16)
+						end
+					end
+					if rb._mhLabel then
+						rb._mhLabel:SetFontObject(lookOn and GameFontNormal or GameFontNormalSmall)
+					end
 					if rb._mhLabel then
 						rb._mhLabel:SetText(ns:L(roomDef.labelKey))
 						if lookOn then
@@ -3522,7 +3540,7 @@ function ns:EnsureMainUI()
 					rb:ClearAllPoints()
 					rb:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
 					rb:Show()
-					yy = yy - lm.sidebarTabStep
+					yy = yy - (lookOn and (railH + 6) or lm.sidebarTabStep)
 				end
 			end
 			yy = yy - SIDEBAR_SECTION_GAP
@@ -3574,7 +3592,9 @@ function ns:EnsureMainUI()
 		local firstSectionDrawn = false
 		for _, section in ipairs(SIDEBAR_SECTIONS) do
 			local visibleCount = 0
-			if section.room == activeRoom then
+			-- 4.0: no tab list under the rooms; the room cards replace it (Rob, 12 Sep: "dan is
+			-- die lange lijst aan de linker zijde in mijn ogen overbodig"). Classic keeps it.
+			if section.room == activeRoom and not MHLookOn() then
 				for _, tabId in ipairs(section.ids) do
 					local btn = ns.tabButtons and ns.tabButtons[tabId]
 					if btn and SidebarTabVisible(tabId) then
@@ -3800,10 +3820,24 @@ function ns:EnsureMainUI()
 		ns.uiSelectedTab = "delves"
 	end
 
-	-- Default tab on first open
-	SelectTab(ns.uiSelectedTab or "home")
+	-- Default screen on first open: the 4.0 look opens on the Me room's cards (Rob, 12 Sep:
+	-- he only saw the cards after clicking Me); Classic keeps This Week.
+	local openedCards = not ns.uiSelectedTab and MHLookOn() and ns.OpenRoomLauncher and ns:OpenRoomLauncher("me")
+	if not openedCards then
+		SelectTab(ns.uiSelectedTab or "home")
+	end
 	ns:ApplySavedMainWindowSize()
 	ns:_mhRefreshSidePanel(ns.uiSelectedTab or "home")
+
+	-- The window can be built before the SavedVariables are loaded, so the look is settled
+	-- again each time it opens: a Classic player never sees 4.0 colours or room cards.
+	main:HookScript("OnShow", function()
+		if type(ns.uiSelectedTab) == "string" and ns.uiSelectedTab:match("^room_") and not MHLookOn() then
+			SelectTab(ns.uiSelectedTab) -- a card grid is 4.0-only; SelectTab opens the room's first tab
+		elseif ns.RefreshLookHeader then
+			ns:RefreshLookHeader()
+		end
+	end)
 
 	main:SetScript("OnHide", function()
 		if ns._mhInfoWindow and ns._mhInfoWindow.Hide then

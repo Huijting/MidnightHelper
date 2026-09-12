@@ -7,6 +7,22 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 12 sep — 4.0.0 stap 4: geen lange lijst meer, openen op de tegels
+
+Rob, na stap 2 en 3 (*"alle 3 de vragen oke, ik vind het echt gaaf"*): de tegels zag hij pas na een klik
+op Me, en *"dan is die lange lijst aan de linker zijde in mijn ogen overbodig"*. `/reload` is genoeg.
+- [ ] **Open MH na `/reload`:** je ziet meteen de **Me-tegels**, niet This Week.
+- [ ] **De zijbalk** heeft alleen nog de **vier kamerknoppen**, groter en met onze eigen plaatjes. De
+      lange lijst met schermen is weg.
+- [ ] **Klik een tegel** → dat scherm. **Klik op de kamerknop** → terug naar de tegels. Settings opent
+      meteen Settings.
+- [ ] **Je venster wordt niet kleiner** dan het was.
+- [ ] **Sneltoetsen en Stream Deck-knoppen** naar een scherm werken nog gewoon.
+- [ ] **Rondleiding** (Start Here → de rondleiding): stap 1 heet nu *"The rooms"* en zegt dat een klik
+      op een kamer de tegels opent.
+- [ ] **Classic look aan:** de lange lijst en de kleine knoppen met Blizzard-plaatjes zijn terug. Na
+      `/reload` opent MH weer op This Week.
+
 ## 🆕 12 sep — 4.0.0 stap 3: kleuren C "Schemerlantaarn" (Rob: "Het wordt C")
 
 `/reload` is genoeg (geen nieuwe bestanden). Vergelijk met het voorbeeld `_kleuren_A_B_C.png`, rechts.

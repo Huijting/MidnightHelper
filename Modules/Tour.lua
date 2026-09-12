@@ -18,6 +18,8 @@ local STEPS = {
 	{
 		frameFn = function() return ns._mhLayoutRefs and ns._mhLayoutRefs.sidebar end,
 		titleKey = "TOUR_CM_ROOMS_TITLE", bodyKey = "TOUR_CM_ROOMS_BODY", anchor = "RIGHT",
+		-- 4.0 look: no tab list under the rooms any more, a room opens its cards.
+		lookTitleKey = "TOUR_CM_ROOMS_TITLE_LOOK", lookBodyKey = "TOUR_CM_ROOMS_BODY_LOOK",
 	},
 	{
 		frameFn = function() return ns.mhSearchBar end,
@@ -176,8 +178,9 @@ local function ApplyStep()
 		b:SetPoint("TOP", f, "BOTTOM", 0, -12)
 	end
 
-	b.title:SetText(ns:L(step.titleKey))
-	b.body:SetText(ns:L(step.bodyKey))
+	local look = not (ns.IsClassicLookEnabled and ns:IsClassicLookEnabled())
+	b.title:SetText(ns:L((look and step.lookTitleKey) or step.titleKey))
+	b.body:SetText(ns:L((look and step.lookBodyKey) or step.bodyKey))
 	b.counter:SetText(("%d / %d"):format(idx, #active))
 
 	if idx <= 1 then
