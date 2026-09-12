@@ -15,6 +15,18 @@
   `DELVE_TIP_TWILIGHT_CRYPTS_ROUTE`, in 7 talen. Wat de twee items doen, staat nergens; dat is dus
   bewust niet beschreven.
 - Drift van beide keys gemarkeerd (eigen vertalingen). Test: TESTLIJST.
+- 🔎 **Opdracht 2: de wees-schrijver van `API_WATCH.md` is GEVONDEN.**
+  - Het is een **Cowork**-taak, `midnight-helper--api-wachter`
+    (`C:\Users\RobHu\Claude\Scheduled\midnight-helper--api-wachter\SKILL.md`). Aangemaakt op 18 aug,
+    draait dagelijks om 06:00 lokaal. De opdracht zegt letterlijk *"geen commits"*.
+  - Twee zustertaken schrijven op dezelfde manier naar `PTR_12.0.7_DATA.md` en `PTR_12.1_WATCH.md`,
+    met opdrachten uit juni.
+  - GEMETEN uitgesloten: 7 cloud-routines, 2 taken in de Code-tab, 394 Windows-taken, de cron van
+    deze sessie en andere desktop-sessies.
+  - ⚠️ Een run in september staat niet in `main.log`. Dat hij het is, is dus AFGELEID, al is dat
+    sterk.
+  - ➡️ **Rob zet ze uit** in de Claude-app (Cowork → Scheduled). De cloud-wachters doen hetzelfde
+    werk, en die committen wel. Details: CLAUDE.md, ochtendroutine.
 
 ## 🧭 12 sep: routes naar Slayer's Rise (Voidstorm). GEBOUWD (Rob: "go, doe A, B en C"), wacht op test
 

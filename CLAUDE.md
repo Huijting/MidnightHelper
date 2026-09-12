@@ -52,17 +52,21 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    dag óók een regel gepusht), **houd dan beide regels**: eerst de gepushte, dan de lokale, met een
    lege regel ertussen. Markeringen weg, `git_stage.py`, dan
    `git -C "<repo>" -c core.editor=true rebase --continue` (zonder `-c` opent git een editor).
-   🔎 **De schrijver is NIET gevonden.** Vier keer gezien (2, 5, 10 en 11 sep), telkens `API_WATCH.md`.
-   🔴 **11 sep GEMETEN: mtime 04:57:42Z, en op 10 sep was het 04:57:43Z. Dat is één seconde
-   verschil op twee dagen**, dus iets met een vaste planning rond **06:57 Robs tijd**, niet toeval.
-   De 11-sep-regel heette niet "Tweede run", maar zijn eigen gegevens lopen tot **04:55Z**, terwijl
-   de gepushte cloud-regel van die dag tot 03:34Z liep. Het is dus een aparte run, ná de cloud-wachter.
-   Nog niet bekeken: de geplande taken in de Claude-desktopapp (`list_scheduled_tasks`); die draaien
-   lokaal en kunnen dus naar schijf schrijven. Op 10 sep GEMETEN: mtime **04:57:43Z**, drie minuten na
-   de ochtend-pull (reflog: schone fast-forward, geen reset). Uitgesloten: alle vier de cloud-wachters
-   (klaar vóór 04:16Z, de API-wachter draaide één keer), de ochtendbrief (04:06–04:16Z), de
-   inbox-triage (vanaf 05:04Z), de twee lokale geplande taken, en élke lokale Claude-transcript (geen
-   bevat de tekst). De tekst zelf meldt `EGRESS_BLOCKED`, dus een afgeschermde sandbox.
+   ✅ **DE SCHRIJVER IS GEVONDEN — 12 sep 2026.** Een **Cowork**-taak (de agentmodus van de
+   desktopapp, draait in een lokale VM met deze map gemount): `midnight-helper--api-wachter`,
+   `C:\Users\RobHu\Claude\Scheduled\midnight-helper--api-wachter\SKILL.md`, aangemaakt 18 aug,
+   dagelijks 06:00 lokaal. Zijn opdracht zegt letterlijk *"Voeg je bevindingen toe aan
+   `docs/API_WATCH.md` … geen commits"*. Dat zijn precies de wees-regels van 2, 5, 7, 10 en 11 sep, en
+   de sandbox verklaart de `EGRESS_BLOCKED` in hun tekst. Twee zustertaken schrijven op dezelfde
+   manier naar `PTR_12.0.7_DATA.md` en `PTR_12.1_WATCH.md`, met opdrachten uit juni.
+   ⚠️ Een run in september staat niet in `main.log`; de toewijzing is afgeleid, wel sterk.
+   📌 **Waarom het twee weken duurde:** `list_scheduled_tasks` toont alleen de taken van de Code-tab.
+   Cowork-taken zie je alleen in `%APPDATA%\Claude\logs\main*.log`
+   (`[ScheduledTasks] Spawning new session for scheduled task …`). GEMETEN uitgesloten op 12 sep: 7
+   cloud-routines, 2 Code-tab-taken, 394 Windows-taken, de cron van deze sessie en andere
+   desktopsessies. Memory: `cowork-scheduled-tasks-local`.
+   ➡️ **Rob zet de drie uit** in de Claude-app (Cowork → Scheduled). Tot dat gebeurd is, geldt het
+   recept hierboven nog: wees-regel committen, dan pullen.
 2. `git -C "<repo>" pull --rebase origin main`
 3. Lees wat er nieuw in staat: de vier bestanden uit de tabel hierboven.
 4. Kijk op GitHub: `python "<repo>/tools/_probe.py" run gh_inbox`. Geen enkele wachter dekt mensen
