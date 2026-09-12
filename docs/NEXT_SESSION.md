@@ -1,14 +1,44 @@
 # Midnight Helper — waar we staan
 
-## ⏰ EERST VRAGEN, 12 sep: de alchemy-schat in een Voidstorm-subzone gaat mis
+## 🧭 12 sep: routes naar Slayer's Rise (Voidstorm) lopen vast. ONDERZOCHT, wacht op Robs keuze
 
-Rob, 11 sep 's avonds, vlak voor bedtijd: *"help me herinneren dat wanneer ik een alchemy treasure
-moet gaan halen in de voidstorm subzone dat het dan niet goed gaat, screenshots heb ik gemaakt"*.
-- **Nog niets onderzocht:** wat er misgaat (de pijl, de route of de reis-popup) en welke schat het is,
-  weten we nog niet. **Vraag Rob om zijn screenshots** voordat je iets aanneemt.
-- 📌 Mogelijk verband, ongemeten: de subzone-logica in `AddSmartTomTomWay` (`targetChain`, "Slayer's
-  Rise 2444 → Voidstorm 2405"), `MHSameZoneOrSub`, en de combat-fix van vanavond (`43c4ffa`) in
-  dezelfde functie. Zijn screenshots zijn misschien van vóór die fix.
+Rob, met screenshots: *"in smc werd ik naar de FP gestuurd terwijl ik gewoon de portal moest nemen,
+aangekomen in Voidstorm raakte die helemaal vaak de weg kwijt, terug naar smc en zelfs een keer dat
+ik naar oggrimar moest"*. Zijn vermoeden: Voidstorm heeft subregio's waar we geen raad mee weten.
+**Dat klopt.** Twee onderzoekers plus eigen nalezing van de doorslaggevende regels:
+
+- 🔴 **KERN (GELEZEN in de code): twee ideeën van "waar ligt een map".**
+  - De reis-popup (`Delves.lua:1793`) klimt de parent-keten van de client. Hij zei terecht
+    *"Use: Portal to Voidstorm"*.
+  - De planner (`TravelPlan.lua:124` `INSIDE`) kent alleen Vaults/Underbelly. Voor Slayer's Rise
+    (**2444**, 17 schatrijen in `Profession.lua`) vindt hij geen portal met `toID == 2444`. Dan
+    `RouteFirstToFlightPoint`: "Master's Perch" staat niet in `FLIGHT_NETWORK`, `nil` blokkeert
+    niet (`DelveTipMarkup.lua:601`), dus de pijl ging naar **Flight master: Sanctum of Light**.
+  - 📌 Dat de client 2444 onder 2405 hangt, is **indirect GEMETEN**: de popup kon alleen via die
+    keten bij "Portal to Voidstorm" uitkomen.
+- **In Voidstorm terug naar Silvermoon:** het vluchtdeel eindigt nooit (`ArrivedOnTargetMap`
+  accepteert alleen 2444 of "Master's Perch"), `pendingLeg` blijft staan, en `NativeArrow`'s
+  continent-check stuurt naar "Portal to Silvermoon" (`ARROW_AT_STEP`).
+- **"Head for Orgrimmar":** `TravelPlan.lua:392` voegt de faction-hoofdstad toe als er geen stap is
+  en het doel "cross-continent" is, zonder te vragen of je al ín Midnight staat. Vanaf 2444 zijn er
+  geen portalrijen (`p.mapID == here`), en dan kom je uit bij Orgrimmar.
+- **Bijvangst (GELEZEN):**
+  - `targetX` is een ongedefinieerde global (`Delves.lua:1750`, `:1935`).
+  - `GetBaseZoneName` noemt 2395 (Eversong) "Zul'Aman" (`:1030`).
+  - Zonder TomTom schuift de "Generate"-route niet door (`Profession.lua:1443`).
+  - Atal'Aman (2535/2536) mist in dezelfde tabellen als 2444.
+- **Bronnen voor de structuur (kandidaten, niet gemeten):** Zygor LibRover (`data.lua`,
+  `data_transit.lua`, `LibTaxi`), HandyNotes_Midnight en MapNotes.
+  - Voidstorm 2405 met *floor* 2479, en Slayer's Rise 2444 als deel ervan.
+  - Harandar 2413 met 2480/2576 ("The Den"). Voidstorm en Harandar zijn elk een eigen virtueel
+    continent.
+  - MapNotes heeft een portal Voidstorm 45.43,63.77 → Quel'Danas die wij missen.
+  - DBM-Test noemt Slayer's Rise instance 2799 (ongemeten).
+- **Meten (Rob):** `/mh zone` in Slayer's Rise, elders in Voidstorm en in Harandar. Vergelijk
+  `uiMapID`, `parent` en de regel `continent`.
+- **Voorstel aan Rob (NIET gebouwd):** de planner dezelfde parent-keten laten gebruiken als de popup,
+  voor zowel doel als eigen positie. De hoofdstad-terugval alleen als je buiten Midnight staat. Plus
+  de bijvangst. Zie het gesprek van 12 sep.
 
 ## 🐛 11 sep — ADDON_ACTION_BLOCKED op de Hearthstone-knop bij een route in combat
 
