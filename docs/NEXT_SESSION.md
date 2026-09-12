@@ -14,6 +14,16 @@
     zijn **bewust NIET gecommit**: geen iconen in de openbare repo zonder Robs akkoord. Ze staan
     alleen lokaal, dus `git status` toont `Media/Icons/` als untracked. Dat is geen wees-bestand.
 - Spec 37 §6c: bèta niet vóór 13 sep, en niet in de 12.1.5-week. Er is nog geen layoutcode geschreven.
+- ✅ **Proefronde gerenderd en door Rob beoordeeld (12 sep).** Het proefvel staat in
+  `Downloads\MH_iconen_4.0_proef\_proefvel.png`. Rob: *"doe je keuzes maar"*.
+  - **Gekozen: Home 2, Delves 2, Codex 2.** Bijgesneden rond het onderwerp (script, geen GPU), naar
+    256/128/64 in `…\gekozen\`.
+  - ⚠️ Codex heeft kriebeltekens op de bladzijden; op klein formaat onleesbaar, maar ze zijn er.
+  - ⏳ **Rares opnieuw**: variant 1 had een witte rand, variant 2 was een bosscène. Nieuwe render =
+    **los medaillon op indigo, geen landschap**. Negatief extra: `white border, frame, forest,
+    landscape, scenery, trees`. **Pas zodra ComfyUI vrij is**: Rob gaf de andere chat even
+    exclusief gebruik.
+  - Daarna pas de andere 24, in dezelfde stijl en met dezelfde bijsnijding.
 
 ## 🩹 12 sep — Twee officiële hotfix-feiten (10 sep) in de tips. Rob: "begin maar met 1 en 2"
 
