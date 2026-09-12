@@ -1027,7 +1027,12 @@ function ns.GetBaseZoneName(mapID, xPct)
 	if mid == 2424 then
 		return "Quel'Danas"
 	end
-	if mid == 2395 or mid == 2437 then
+	--- 2395 is Eversong Woods. It shared "Zul'Aman" with 2437 until 12 Sep 2026, so a level
+	--- warning for Eversong named the wrong zone.
+	if mid == 2395 then
+		return "Eversong Woods"
+	end
+	if mid == 2437 then
 		return "Zul'Aman"
 	end
 
@@ -1060,7 +1065,9 @@ function ns.GetBaseZoneName(mapID, xPct)
 				return "Voidstorm"
 			elseif parent == 2424 then
 				return "Quel'Danas"
-			elseif parent == 2395 or parent == 2437 then
+			elseif parent == 2395 then
+				return "Eversong Woods"
+			elseif parent == 2437 then
 				return "Zul'Aman"
 			end
 			cur = parent
@@ -1581,6 +1588,45 @@ function ns.MHSameZoneOrSub(a, b)
 	return isAncestor(a, b) or isAncestor(b, a)
 end
 
+--- The map and every map it sits inside, as a set — read from the client's parent chain,
+--- never from a table of ours. Bounded and pcall-guarded: a malformed chain must not loop.
+local function MapWithAncestors(mapID)
+	local set = {}
+	local m, guard = tonumber(mapID), 0
+	while m and guard < 12 do
+		set[m] = true
+		if not (C_Map and C_Map.GetMapInfo) then
+			break
+		end
+		local ok, info = pcall(C_Map.GetMapInfo, m)
+		if not ok or type(info) ~= "table" or not info.parentMapID or info.parentMapID == 0 then
+			break
+		end
+		m = tonumber(info.parentMapID)
+		guard = guard + 1
+	end
+	return set
+end
+
+--- Is `anc` this map itself, or one of the maps it sits inside?
+---
+--- 🔴 ONE IDEA OF "WHERE A MAP BELONGS" — 12 Sep 2026. Rob routed from Silvermoon to an
+--- alchemy treasure on Slayer's Rise (2444). The travel popup climbed this chain and said
+--- "Use: Portal to Voidstorm"; the travel planner only knew its own INSIDE table, found no
+--- portal to 2444, and the arrow went to a flight master. In Voidstorm it then lost the way
+--- and once said "head for Orgrimmar". Same question, two answers, and the one drawing the
+--- arrow was the one that never asked the client.
+---
+--- ⚠️ One direction only, unlike MHSameZoneOrSub: callers ask "does this portal land in
+--- the zone around the target" and "is this portal's map around the player".
+function ns.MHIsSelfOrAncestor(anc, map)
+	anc, map = tonumber(anc), tonumber(map)
+	if not anc or not map then
+		return false
+	end
+	return MapWithAncestors(map)[anc] == true
+end
+
 -- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI / skipCrazyArrow (bulk pins).
 -- travelOnly = re-evaluate the travel assistant ONLY (no waypoint side effects),
 -- so a zone-change refresh can update the next-leg portal/HS advice without
@@ -1747,7 +1793,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	-- Phase 60: Same continent region — silence travel assistant (no portals, no HS nag).
 	local currentHub, px = ns.GetPlayerHubContext(currentMap)
 	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
-	local targetRegion = ns.GetTargetRegionGroupID(targetMap, targetX)
+	local targetRegion = ns.GetTargetRegionGroupID(targetMap, xPct) -- was an undefined `targetX` until 12 Sep 2026
 	if currentMap and targetMap and currentRegion == targetRegion and currentRegion ~= 0 then
 		SafeHideTravelPopup()
 		return true
@@ -1790,19 +1836,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		-- portal actually lands in the parent zone (Voidstorm 2405). Build the
 		-- target's ancestor chain so a portal into the parent zone still counts as
 		-- "direct" — otherwise sub-area targets get no portal advice at all.
-		local targetChain = { [targetMap] = true }
-		if C_Map and C_Map.GetMapInfo then
-			local m, guard = targetMap, 0
-			while m and guard < 10 do
-				local info = C_Map.GetMapInfo(m)
-				if not info or not info.parentMapID or info.parentMapID == 0 then
-					break
-				end
-				m = info.parentMapID
-				targetChain[m] = true
-				guard = guard + 1
-			end
-		end
+		local targetChain = MapWithAncestors(targetMap)
 
 		for _, portal in ipairs(MIDNIGHT_PORTALS) do
 			local mapMatch = (tonumber(portal.mapID) == tonumber(currentMap))
@@ -1932,7 +1966,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 
 	local currentHub, px = ns.GetPlayerHubContext(currentMap)
 	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
-	local targetRegion = ns.GetTargetRegionGroupID(targetMap, targetX)
+	local targetRegion = ns.GetTargetRegionGroupID(targetMap, xPct) -- was an undefined `targetX` until 12 Sep 2026
 	if currentMap and currentRegion == targetRegion and currentRegion ~= 0 then
 		SafeHideTravelPopup()
 		return
@@ -1959,6 +1993,10 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		local portalAdvice, bestDist = "", 9999
 		local hubMapID = 2393
 		local directPortal, hubPortal = nil, nil
+		-- Same ancestor chain as AddSmartTomTomWay: a portal into the zone around a sub-map
+		-- target (Voidstorm for Slayer's Rise) is a direct one. This copy compared the bare
+		-- map id until 12 Sep 2026, so the treasure arrow never got portal advice for 2444.
+		local targetChain = MapWithAncestors(targetMap)
 
 		for _, portal in ipairs(MIDNIGHT_PORTALS) do
 			local mapMatch = (tonumber(portal.mapID) == tonumber(currentMap))
@@ -1969,7 +2007,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 			if mapMatch and hubMatch and PortalUsable(portal) then
 				local dist = math.sqrt((portal.x - px) ^ 2 + (portal.y - py) ^ 2)
 				local distYards = math.floor(dist * 45)
-				if tonumber(portal.toID) == targetMap then
+				if targetChain[tonumber(portal.toID)] then
 					if not directPortal or distYards < directPortal.d then
 						directPortal = { p = portal, d = distYards }
 					end

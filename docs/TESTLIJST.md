@@ -7,6 +7,27 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 12 sep — Routes naar Slayer's Rise en andere subzones (A + B + C)
+
+De planner vraagt nu net als de reis-popup aan het spel in welke zone een kaart ligt.
+- [ ] **In Silvermoon, route naar *Vial of Voidstorm Oddities*** (Slayer's Rise): de pijl gaat naar
+      **Portal to Voidstorm**, niet naar *Flight master: Sanctum of Light*. Pijl en popup zeggen nu
+      hetzelfde.
+- [ ] **Door die portal:** in Voidstorm wijst de pijl naar de schat, en er komt **geen** *"You are at
+      Portal to Silvermoon"* meer.
+- [ ] **Vanuit Slayer's Rise of Voidstorm een Harandar-schat** (*Vial of Rootlands Oddities*):
+      **geen "head for Orgrimmar"** meer, maar de Portal to Harandar.
+      ⚠️ Staat er nog *"(other continent — travel back)"* vóór, dan heeft Slayer's Rise vermoedelijk
+      een eigen continent-nummer. Dat meet `/mh zone` hieronder; de instructie zelf hoort te kloppen.
+- [ ] 📌 **Binnen Voidstorm** kan de pijl je nog naar het vliegpunt *Master's Perch* sturen. Dat is
+      bestaand gedrag, net als in de Vaults. Zeg het als je dat daar niet wilt.
+- [ ] **`/mh zone`** in Slayer's Rise, elders in Voidstorm en in Harandar: `uiMapID`, `parent` en
+      `continent`.
+- [ ] **Quel'Danas-portal (niet ingebouwd):** alleen MapNotes noemt een portal in Voidstorm bij
+      **45.4, 63.8** naar Isle of Quel'Danas. Staat daar echt een portal? Dan voeg ik hem toe.
+- [ ] *(Optioneel, alleen zonder TomTom)* **Generate Route Treasures**: na het looten schuift de pijl
+      door naar de volgende schat. Voorheen bleef hij op de eerste staan.
+
 ## 🆕 11 sep — Fout bij een route vragen in combat (Hearthstone-knop)
 
 Rob kreeg `ADDON_ACTION_BLOCKED … MidnightHelperHSClick:ClearAllPoints()` toen hij een alchemy-route

@@ -415,6 +415,22 @@ local function ArrivedOnTargetMap()
 		end
 	end
 
+	--- 🔴 A PORTAL THAT LANDS IN THE ZONE AROUND THE TARGET — 12 Sep 2026. Rob went through
+	--- the Portal to Voidstorm for a Slayer's Rise treasure (2444) and arrived on 2405. The id
+	--- test above wants 2444, so the leg never finished and the arrow stayed on a portal in
+	--- Silvermoon while he stood in Voidstorm.
+	---
+	--- ⚠️ PORTAL LEGS ONLY, AND ONLY AFTER A REAL CHANGE OF MAP. The warning below is about a
+	--- parentage test firing before anyone moved. So: no flight leg (`toName`), the player has
+	--- left the map the leg started on, and that start map is not itself around the target —
+	--- the Vaults case, where the isle contains the Underbelly and the leg would end on the spot.
+	if not pendingLeg.toName and pendingLeg.fromMap and ns.MHIsSelfOrAncestor
+		and tonumber(here) ~= tonumber(pendingLeg.fromMap)
+		and ns.MHIsSelfOrAncestor(here, pendingLeg.mapID)
+		and not ns.MHIsSelfOrAncestor(pendingLeg.fromMap, pendingLeg.mapID) then
+		return true
+	end
+
 	--- ⚠️ THE SAME SUB-ZONE MISTAKE, ONE LAYER DOWN — and I fixed the other one and
 	--- left this. Rob, 18 aug: the arrow reached "Flight master: Amani Foothold, 33m
 	--- away" and flipped back to the destination about two seconds later. That is this
@@ -537,7 +553,12 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 		local okP, steps = pcall(ns.BuildTravelPlan, targetMap, x, y, name)
 		if okP and type(steps) == "table" then
 			for _, s in ipairs(steps) do
-				if s.kind ~= "arrive" and s.mapID == currentMap and s.x and s.y then
+				--- A step on a map AROUND this one counts too (12 Sep 2026): on Slayer's Rise the
+				--- portal out is on Voidstorm. Canvas 2576 stays exact, as in TravelPlan.
+				local onThisMap = s.mapID == currentMap
+					or (s.mapID ~= 2576 and ns.MHIsSelfOrAncestor ~= nil
+						and ns.MHIsSelfOrAncestor(s.mapID, currentMap))
+				if s.kind ~= "arrive" and onThisMap and s.x and s.y then
 					--- ...and then actually LEAD, which is the half that was missing.
 					---
 					--- This block only stood down, on the assumption the plan would
@@ -562,7 +583,7 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						--- a portal has no flight point. The map test alone is exactly
 						--- right here — coming out of this portal PUTS you on the target
 						--- map, which is the plainest arrival signal there is.
-						pendingLeg = { mapID = targetMap, x = x, y = y, name = name }
+						pendingLeg = { mapID = targetMap, x = x, y = y, name = name, fromMap = currentMap }
 						StartLegWatcher()
 					end
 					return false

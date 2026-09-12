@@ -211,6 +211,16 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		end
 	end
 
+	--- 🔴 ALREADY IN THE TARGET'S ZONE, BY THE CLIENT'S OWN MAP TREE — 12 Sep 2026.
+	--- INSIDE only knows the Vaults. In Voidstorm with a treasure on Slayer's Rise (2444, a
+	--- map inside Voidstorm), the plan went looking for a way in and named the Portal to
+	--- Silvermoon beside Rob's feet. One map inside the other means there is no door to
+	--- find. See ns.MHIsSelfOrAncestor (Delves.lua).
+	if not startAt and ns.MHIsSelfOrAncestor
+		and (ns.MHIsSelfOrAncestor(here, targetMap) or ns.MHIsSelfOrAncestor(targetMap, here)) then
+		startAt = 0
+	end
+
 	--- Not in the chain at all: the first job is reaching the outermost container.
 	--- The portal table already knows the way in, and already refuses to name a
 	--- portal this character has not unlocked — reused rather than re-derived.
@@ -258,23 +268,49 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		--- 📌 With no player position we keep the old behaviour — first match — because a
 		--- portal on the right map is still a better answer than none.
 		if ns.MIDNIGHT_PORTALS and ns.MHPortalUsable then
-			local pxp, pyp
-			if C_Map and C_Map.GetPlayerMapPosition then
-				local okPos, pos = pcall(C_Map.GetPlayerMapPosition, here, "player")
-				if okPos and pos then
-					local okXY, mx, my = pcall(pos.GetXY, pos)
-					if okXY and mx then
-						pxp, pyp = mx, my
+			--- The player's position on a given map, 0-1, or nil. Per map because a portal on
+			--- a map AROUND the player (Voidstorm, while standing on Slayer's Rise) is measured
+			--- in that map's coordinates, not the sub-map's.
+			local posOn = {}
+			local function PlayerPosOn(mapID)
+				if posOn[mapID] == nil then
+					posOn[mapID] = false
+					if C_Map and C_Map.GetPlayerMapPosition then
+						local okPos, pos = pcall(C_Map.GetPlayerMapPosition, mapID, "player")
+						if okPos and pos then
+							local okXY, mx, my = pcall(pos.GetXY, pos)
+							if okXY and mx then
+								posOn[mapID] = { mx, my }
+							end
+						end
 					end
 				end
+				return posOn[mapID] or nil
+			end
+			--- 🔴 12 Sep 2026: "on my map" and "into the target" ask the client's parent chain,
+			--- the question the travel popup already asked. Slayer's Rise (2444) has no portal
+			--- of its own either way: the portals are on Voidstorm (2405), and the one serving
+			--- it lands in Voidstorm. Canvas 2576 stays exact, because its rows are sliced by
+			--- `zone` and an ancestor match could offer one third's portal to another third.
+			local function OnMyMap(p)
+				if p.mapID == here then
+					return true
+				end
+				return p.mapID ~= 2576 and ns.MHIsSelfOrAncestor ~= nil
+					and ns.MHIsSelfOrAncestor(p.mapID, here)
+			end
+			local function IntoTarget(toID)
+				return toID == outermost
+					or (ns.MHIsSelfOrAncestor ~= nil and ns.MHIsSelfOrAncestor(toID, outermost))
 			end
 			local best, bestDist
 			local function Consider(p)
 				local d
-				if pxp and p.x and p.y then
+				local pp = PlayerPosOn(p.mapID)
+				if pp and p.x and p.y then
 					-- Portal coords are 0-100, the player position 0-1.
-					local dx = (p.x / 100) - pxp
-					local dy = (p.y / 100) - pyp
+					local dx = (p.x / 100) - pp[1]
+					local dy = (p.y / 100) - pp[2]
 					d = dx * dx + dy * dy
 				end
 				if not best then
@@ -284,7 +320,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 				end
 			end
 			for _, p in ipairs(ns.MIDNIGHT_PORTALS) do
-				if p.toID == outermost and p.mapID == here and ns.MHPortalUsable(p) then
+				if IntoTarget(p.toID) and OnMyMap(p) and ns.MHPortalUsable(p) then
 					Consider(p)
 				end
 			end
@@ -309,7 +345,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 				local okR, region = pcall(ns.GetTargetRegionGroupID, targetMap, x)
 				if okR and region and region ~= 0 then
 					for _, p in ipairs(ns.MIDNIGHT_PORTALS) do
-						if p.toID == MIDNIGHT_HUB_MAP and p.mapID == here and ns.MHPortalUsable(p) then
+						if p.toID == MIDNIGHT_HUB_MAP and OnMyMap(p) and ns.MHPortalUsable(p) then
 							Consider(p)
 						end
 					end
@@ -389,7 +425,21 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		--- 📌 Only for a target inside Midnight, asked of `ns.GetTargetRegionGroupID` like the
 		--- hub-portal rule above. Region 0 is "we do not know", and a player routing to some
 		--- old-world rare must not be sent to Orgrimmar.
-		if #steps == 0 and crossContinent and ns.GetTargetRegionGroupID then
+		--- 🔴 AND NEVER FROM INSIDE MIDNIGHT — 12 Sep 2026. Rob, routing to a Harandar treasure
+		--- from Voidstorm: "head for Orgrimmar". This step is for someone arriving from the old
+		--- world; here it only fired because no portal row sat on the map he stood on. Standing
+		--- in Midnight, the way on is never your capital. Region 0 = outside (or unknown).
+		local playerInMidnight = false
+		if ns.GetEffectiveRegionGroupID then
+			local hub
+			if ns.GetPlayerHubContext then
+				local okHub, h = pcall(ns.GetPlayerHubContext, here)
+				hub = okHub and h or nil
+			end
+			local okPR, pr = pcall(ns.GetEffectiveRegionGroupID, here, hub)
+			playerInMidnight = (okPR and pr and pr ~= 0) and true or false
+		end
+		if #steps == 0 and crossContinent and not playerInMidnight and ns.GetTargetRegionGroupID then
 			local okR, region = pcall(ns.GetTargetRegionGroupID, targetMap, x)
 			if okR and region and region ~= 0 then
 				--- ⚠️ NEVER TELL SOMEONE TO GO WHERE THEY ARE STANDING. Same fault as the

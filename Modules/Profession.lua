@@ -1283,14 +1283,14 @@ local function SetupProfessionModule()
 		if ns._mhRouteOwner and ns._mhRouteOwner ~= "treasure" then
 			return -- another navigation feature (reset route) owns the arrow
 		end
-		if not (ns.IsTomTomReady and ns.IsTomTomReady()) then
-			return
-		end
+		--- Without TomTom the pins carry no uid and MH's own route points at the nearest one
+		--- (below). Until 12 Sep 2026 this returned here, so a hunt without TomTom never moved on.
+		local useTomTom = (ns.IsTomTomReady and ns.IsTomTomReady()) and true or false
 		local i = 1
 		while i <= #treasurePins do
 			local p = treasurePins[i]
 			if p.questID and C_QuestLog.IsQuestFlaggedCompleted(p.questID) then
-				if p.uid and _G.TomTom.RemoveWaypoint then
+				if useTomTom and p.uid and _G.TomTom.RemoveWaypoint then
 					pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, p.uid)
 				end
 				table.remove(treasurePins, i)
@@ -1343,6 +1343,21 @@ local function SetupProfessionModule()
 				end
 			end
 			best = best or treasurePins[1]
+		end
+		--- No TomTom: MH's own route (Blizzard pin + our arrow) at the nearest pin, set again only
+		--- when the nearest one changes. The owner stays "treasure": AddSmartTomTomWay only takes
+		--- over an owner that is nil, "waypoint" or "delve" (Delves.lua).
+		if best and not useTomTom then
+			local key = "q" .. tostring(best.questID)
+			if key ~= treasureArrowUid and ns.AddSmartTomTomWay then
+				treasureArrowUid = key
+				ns.AddSmartTomTomWay(best.mapID, best.nx * 100, best.ny * 100, best.name, true)
+			end
+			local assistKey = tostring(best.questID) .. "@" .. tostring(curMap)
+			if assistKey ~= treasureAssistKey and ns.ShowTravelAssistFor and not InCombatLockdown() then
+				treasureAssistKey = assistKey
+				ns.ShowTravelAssistFor(best.mapID, best.nx * 100, best.ny * 100, best.name)
+			end
 		end
 		if best and best.uid then
 			-- Drive the crazy arrow at the nearest treasure — UNLESS it's on another
@@ -1440,25 +1455,20 @@ local function SetupProfessionModule()
 
 		treasureLabel = kindLabel
 
-		if not tomtom then
-			-- No TomTom: single Blizzard user waypoint at the first eligible pin.
-			local e = eligible[1]
-			ns.AddSmartTomTomWay(e.mapID, e.x, e.y, e.name)
-			print(("|cffffff78Midnight Helper:|r Generate %s: %d eligible (TomTom not loaded — single waypoint only)."):format(kindLabel, #eligible))
-			return
-		end
-
 		-- Drop every eligible treasure as a map pin (no arrow yet); the dynamic
 		-- arrow below points at whichever is nearest.
+		--- Without TomTom there is no pin to drop, but the record alone lets the ticker walk
+		--- the list. Until 12 Sep 2026 that case set one waypoint and returned, so it never
+		--- advanced to the next treasure.
 		for _, e in ipairs(eligible) do
-			local uid = _G.TomTom:AddWaypoint(e.mapID, e.x / 100, e.y / 100, {
+			local uid = tomtom and _G.TomTom:AddWaypoint(e.mapID, e.x / 100, e.y / 100, {
 				title = e.name,
 				persistent = false,
 				minimap = true,
 				world = true,
 				cleardistance = 0, -- keep the pin until the treasure is actually looted
 				crazy = false,
-			})
+			}) or nil
 			treasurePins[#treasurePins + 1] = {
 				uid = uid,
 				questID = e.questID,

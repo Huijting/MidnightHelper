@@ -1,6 +1,26 @@
 # Midnight Helper — waar we staan
 
-## 🧭 12 sep: routes naar Slayer's Rise (Voidstorm) lopen vast. ONDERZOCHT, wacht op Robs keuze
+## 🧭 12 sep: routes naar Slayer's Rise (Voidstorm). GEBOUWD (Rob: "go, doe A, B en C"), wacht op test
+
+- ✅ **A:** `ns.MHIsSelfOrAncestor` + `MapWithAncestors` in `Delves.lua` vragen de parent-keten van
+  de client. Die worden gebruikt door:
+  - `TravelPlan` voor "al in de zone" (startAt 0), voor portals op een map rond de speler en voor
+    portals die in de zone rond het doel landen. Kaart 2576 blijft exact.
+  - `DelveTipMarkup` voor "een stap op een omliggende map telt" en `ArrivedOnTargetMap` voor
+    portal-legs: `fromMap`, alleen na een echte mapwissel, en niet als de startmap zelf rond het
+    doel ligt (Vaults).
+  - `ShowTravelAssistFor`, dat nu dezelfde ancestor-set gebruikt als `AddSmartTomTomWay`.
+  - ⚠️ Het label in `NativeArrow` is bewust NIET aangepast: een richting over mogelijk verschillende
+    continenten zou verzonnen zijn. Eerst `/mh zone` meten.
+- ✅ **B:** de hoofdstad-stap alleen als je buiten Midnight staat (`GetEffectiveRegionGroupID == 0`).
+- ✅ **C:**
+  - `targetX` → `xPct` (2×).
+  - 2395 = "Eversong Woods" in `GetBaseZoneName` (2×).
+  - "Generate" zonder TomTom schuift nu door: pins zonder uid, en de ticker zet MH's eigen route.
+  - ⚠️ De Quel'Danas-portal is NIET toegevoegd: alleen MapNotes noemt hem. Staat als testpunt.
+- Test: TESTLIJST, bovenaan.
+
+### Het onderzoek dat eraan voorafging
 
 Rob, met screenshots: *"in smc werd ik naar de FP gestuurd terwijl ik gewoon de portal moest nemen,
 aangekomen in Voidstorm raakte die helemaal vaak de weg kwijt, terug naar smc en zelfs een keer dat
