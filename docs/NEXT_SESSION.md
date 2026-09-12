@@ -39,16 +39,33 @@
       Die heten nu variant 3 en 4, dus de afgekeurde 1 en 2 kun je niet per ongeluk kiezen.
     - GEMETEN: 7 van de 48 renders kregen een witte rand, één met ronde hoeken. Het script snijdt die
       eraf en vult de hoekjes met indigo.
-    - **Mijn keuzes:** start_4, dungeons_1, account_1, achievements_1, mounts_1, tradingpost_4, raids_1,
-      world_1, events_1, delvelog_1, enchants_1, tier_1, omnium_2, city_2, currency_1, guide_2, tools_2,
-      toolbox_1, addons_1, settings_1, macros_1, consumables_2, academy_1, professions_1.
-    - ⏳ **Drie vragen aan Rob:**
-      1. **Addons en Settings zijn allebei een gouden tandwiel.** Op 10 sep had elk een naambalk;
-         in de game niet. Eén van de twee een ander onderwerp geven?
-      2. **Vijf opengeslagen boeken**: Codex, Account, Delve Log, Omnium en Leveling. Op 64 px lijken
-         ze op elkaar.
-      3. **Zwak op 64 px:** Toolbox (de leren rol lijkt een worst, vult 32–37%), Enchants (dunne staf)
-         en SMC (dunne torens, vult 30%).
+    - **Definitieve keuzes (12 sep, na de ontwerpvragen hieronder):** start_4, dungeons_1, account_1,
+      achievements_1, mounts_1, tradingpost_4, raids_1, world_1, events_1, delvelog_4, enchants_3, tier_1,
+      omnium_2, city_3, currency_1, guide_4, tools_2, toolbox_3, addons_1, settings_3, macros_1,
+      consumables_2, academy_1, professions_1 (plus home_2, delves_2, codex_2, rares2_2).
+  - 📦 **Tussenrelease 3.11.1: Rob vroeg 12 sep of er genoeg is. Antwoord: ja.** Sinds v3.11.0
+    (11 sep 20:37) zijn er zes wijzigingen voor de speler:
+    - Trovehunter's Bounty S2: kaart, buff en de tekst "werkt overal". Getest.
+    - Replicating Venomborne in de Delve Coach. Model en spell-links getest; de story-herkenning volgt
+      bij de volgende run.
+    - Routes naar submaps. Eén route getest (Voidstorm-vial).
+    - Route in combat: geen `ADDON_ACTION_BLOCKED` meer. **Nog niet getest.**
+    - Twee hotfix-tips: alleen tekst.
+    - Geen bump vóór Robs "go". Wat nog moet:
+      1. Rob vraagt één keer een route aan in combat.
+      2. Een schone `/reload`.
+      3. Ik haal `/mh texturetest` uit `.toc`/`Core.lua` of laat hem staan. De twee PNG's staan niet in
+         git, dus in de zip zou de probe groene vakjes tonen.
+    - **Drie ontwerpvragen, Rob: "doe maar wat jij denkt" (12 sep).** Nieuwe onderwerpen, `mh40_<stem>2_*`:
+      1. Addons houdt Robs tandwiel; **Settings** = bedieningspaneel met drie kristal-schuiven + draaiknop. ✅ `settings_3`.
+      2. Minder boeken: **Delve Log** = perkamentrol + houweel + edelstenen ✅ `delvelog_4`; **Leveling**
+         = kompas op een kaart ✅ `guide_4`. Codex, Account en Omnium blijven boeken.
+      3. **Toolbox** = gekruiste sleutel en hamer ✅ `toolbox_3` (vult nu 66% i.p.v. 33%).
+         **Enchants** = staf met een grote violette kristallen bol ✅ `enchants_3` (vult 33%, maar de bol
+         leest op 64 px); **SMC** = feniks van Silvermoon ✅ `city_3` (vult 65% i.p.v. 30%).
+      ✅ **Alle 28 hebben nu een keuze.** De definitieve lijst staat hieronder.
+  - 📌 **Rob, 12 sep: "ik denk dat dit een versie 4.0.0 moet worden".** De nieuwe look + iconen = 4.0.0
+    (Spec 37). Een tussenrelease 3.11.1 met de fixes sinds 3.11.0 is apart gevraagd; zie hieronder.
   - 📏 **Grootte, GEMETEN 12 sep (Rob: "gaat dit onze addon niet vreselijk groot maken?"):**
     - Per icoon gemiddeld 27 KB op 128 px en 8 KB op 64 px. Alle 28 in beide maten ≈ **0,95 MB**.
     - In het geheugen ≈ 2,2 MB, verwaarloosbaar.
