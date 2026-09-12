@@ -21,10 +21,17 @@
   - **Gekozen: Home 2, Delves 2, Codex 2.** Bijgesneden rond het onderwerp (script, geen GPU), naar
     256/128/64 in `…\gekozen\`.
   - ⚠️ Codex heeft kriebeltekens op de bladzijden; op klein formaat onleesbaar, maar ze zijn er.
-  - ⏳ **Rares opnieuw**: variant 1 had een witte rand, variant 2 was een bosscène. Nieuwe render =
-    **los medaillon op indigo, geen landschap**. Negatief extra: `white border, frame, forest,
-    landscape, scenery, trees`. **Pas zodra ComfyUI vrij is**: Rob gaf de andere chat even
-    exclusief gebruik.
+  - ✅ **Rares opnieuw gerenderd (12 sep, Rob: "comfy is vrij, doe Rares maar")**: `mh40_rares2_*`,
+    los medaillon op indigo, zonder bos en zonder ogen. Negatief extra: `white border, white
+    background, white margin, forest, landscape, scenery, trees, eyes, creature`.
+    - GEMETEN: variant 1 kreeg **wéér een witte rand** (hoeken 253), ondanks het negatief. Die rand
+      snijdt `mh40_rares_crop.py` er nu af. Variant 2 was schoon.
+    - Sterretjes telden eerst mee als onderwerp (vulling 48%). Een 9px-minfilter op het masker
+      verhelpt dat: nu 51% en 58%. Een staand medaillon vult een vierkant nu eenmaal minder.
+    - Vel: `Downloads\MH_iconen_4.0_proef\_rares2_vel.png`. **Mijn keus: `rares2_2`** (schoon, warme
+      kern zoals de lantaarn en kaars van de rest, duidelijkste silhouet op 64 px). Rob mag omkiezen.
+    - 📌 Voor de andere 24: gebruik `mh40_rares_crop.py` (randcheck + sterretjesfilter), niet de
+      oude `mh40_crop.py`.
   - Daarna pas de andere 24, in dezelfde stijl en met dezelfde bijsnijding.
 
 ## 🩹 12 sep — Twee officiële hotfix-feiten (10 sep) in de tips. Rob: "begin maar met 1 en 2"
