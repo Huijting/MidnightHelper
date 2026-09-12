@@ -704,6 +704,8 @@ ns._mhLocales.itIT = {
 	SETTINGS_MINIMAP_ICON = "Mostra icona minimappa",
 	SETTINGS_MINIMAP_ICON_TT = "Mostra il pulsante di Midnight Helper sulla minimappa. Disattivato = meno disordine — puoi comunque aprirlo dal comparto addon (in alto a destra) o con /mh.",
 	SETTINGS_COMPACT_MODE = "Modalità compatta (layout più denso)",
+	SETTINGS_CLASSIC_LOOK = "Aspetto classico (senza intestazione della schermata)",
+	SETTINGS_CLASSIC_LOOK_TT = "Disattiva l'aspetto 4.0, la striscia con l'icona di ogni schermata e a cosa serve, e rimette ogni schermata esattamente come nella 3.x.",
 	SETTINGS_TEXT_SIZE_LABEL = "Dimensione del testo",
 	NAV_TOOL_BOARD = "Tabella consumabili",
 	NAV_TOOL_BOSSWIN = "Finestra boss dungeon",

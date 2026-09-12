@@ -466,12 +466,115 @@ local function MHGetInfoBodyKeyForTab(tabId)
 			return "INFO_DRAWER_BODY_PROFHUB"
 		end
 		return "INFO_DRAWER_BODY_CONSUMABLES"
+	elseif tabId == "mounts" then
+		-- No drawer text of their own (they fell back to Home's); each panel's subtitle
+		-- says what the screen is and exists in all seven packs.
+		return "MOUNTS_PANEL_SUBTITLE"
+	elseif tabId == "tradingpost" then
+		return "TRADINGPOST_SUBTITLE"
+	elseif tabId == "raids" then
+		return "RAIDS_PANEL_SUBTITLE"
 	elseif tabId == "addons" then
 		return "INFO_DRAWER_BODY_ADDONS"
 	elseif tabId == "settings" then
 		return "INFO_DRAWER_BODY_SETTINGS"
 	end
 	return "INFO_DRAWER_BODY_HOME"
+end
+
+--------------------------------------------------------------------------------
+-- 4.0.0 look (Spec 37 concept A): a strip above the content column with the screen's
+-- own icon and one line on what the screen is for. Built once for every tab, so no panel
+-- needed an edit. The name is left out on purpose: nearly every panel draws its own
+-- title, and the title bar already reads "Room > Tab".
+-- The Classic setting (ns:IsClassicLookEnabled) hides it and puts the content back on
+-- the level bar exactly as 3.x had it -- the way back Rob asked about, and the exit for
+-- anyone who does not want the AI-made icons.
+--------------------------------------------------------------------------------
+-- Screen id -> icon stem (Media/Icons/<stem>_64.png) and tagline key. The Toolbox shows
+-- its active sub-tab. Keys are literal so the linter can check that each one exists.
+local LOOK_SCREENS = {
+	starthere = { stem = "starthere", tagline = "TAB_TAGLINE_STARTHERE" },
+	dungeons = { stem = "dungeons", tagline = "TAB_TAGLINE_DUNGEONS" },
+	codex = { stem = "codex", tagline = "TAB_TAGLINE_CODEX" },
+	home = { stem = "home", tagline = "TAB_TAGLINE_HOME" },
+	delves = { stem = "delves", tagline = "TAB_TAGLINE_DELVES" },
+	account = { stem = "account", tagline = "TAB_TAGLINE_ACCOUNT" },
+	rares = { stem = "rares", tagline = "TAB_TAGLINE_RARES" },
+	achievements = { stem = "achievements", tagline = "TAB_TAGLINE_ACHIEVEMENTS" },
+	mounts = { stem = "mounts", tagline = "TAB_TAGLINE_MOUNTS" },
+	tradingpost = { stem = "tradingpost", tagline = "TAB_TAGLINE_TRADINGPOST" },
+	raids = { stem = "raids", tagline = "TAB_TAGLINE_RAIDS" },
+	world = { stem = "world", tagline = "TAB_TAGLINE_WORLD" },
+	events = { stem = "events", tagline = "TAB_TAGLINE_EVENTS" },
+	delvelog = { stem = "delvelog", tagline = "TAB_TAGLINE_DELVELOG" },
+	enchants = { stem = "enchants", tagline = "TAB_TAGLINE_ENCHANTS" },
+	tier = { stem = "tier", tagline = "TAB_TAGLINE_TIER" },
+	omnium = { stem = "omnium", tagline = "TAB_TAGLINE_OMNIUM" },
+	smcguide = { stem = "smcguide", tagline = "TAB_TAGLINE_SMCGUIDE" },
+	currency = { stem = "currency", tagline = "TAB_TAGLINE_CURRENCY" },
+	guide = { stem = "guide", tagline = "TAB_TAGLINE_GUIDE" },
+	toolslaunch = { stem = "toolslaunch", tagline = "TAB_TAGLINE_TOOLSLAUNCH" },
+	addons = { stem = "addons", tagline = "TAB_TAGLINE_ADDONS" },
+	settings = { stem = "settings", tagline = "TAB_TAGLINE_SETTINGS" },
+	consumables = { stem = "consumables", tagline = "TAB_TAGLINE_CONSUMABLES" },
+	macros = { stem = "macros", tagline = "TAB_TAGLINE_MACROS" },
+	academy = { stem = "academy", tagline = "TAB_TAGLINE_ACADEMY" },
+	professionsHub = { stem = "professions", tagline = "TAB_TAGLINE_PROFESSIONSHUB" },
+}
+local LOOK_ICON_PATH = "Interface\\AddOns\\MidnightHelper\\Media\\Icons\\%s_64.png"
+local LOOK_HEADER_H = 64
+local LOOK_HEADER_H_COMPACT = 54
+
+--- Anchors the 4.0 header (when shown) and the content column below the level bar.
+--- The one place that decides where content starts: compact mode, the Classic setting
+--- and the first build all go through here.
+local function MHAnchorContentColumn(refs, m)
+	local top = refs.levelBar or refs.favRow or refs.searchBar
+	local header = refs.lookHeader
+	local useHeader = header ~= nil and not (ns.IsClassicLookEnabled and ns:IsClassicLookEnabled())
+	if header then
+		local h = m.compact and LOOK_HEADER_H_COMPACT or LOOK_HEADER_H
+		header:ClearAllPoints()
+		header:SetPoint("TOPLEFT", top, "BOTTOMLEFT", m.sidebarWidth, 0)
+		header:SetPoint("TOPRIGHT", top, "BOTTOMRIGHT", 0, 0)
+		header:SetHeight(h)
+		if header._mhIcon then
+			header._mhIcon:SetSize(h - 10, h - 10)
+		end
+		header:SetShown(useHeader)
+	end
+	if refs.content then
+		refs.content:ClearAllPoints()
+		if useHeader then
+			refs.content:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, 0)
+		else
+			refs.content:SetPoint("TOPLEFT", top, "BOTTOMLEFT", m.sidebarWidth, 0)
+		end
+		refs.content:SetPoint("BOTTOMRIGHT", refs.main, "BOTTOMRIGHT", -MH_MAIN_EDGE.R, MH_MAIN_EDGE.B)
+	end
+end
+
+--- Re-anchors (so a Classic value loaded after the window was built still wins) and
+--- fills the header for the open screen. Called on every tab and Toolbox sub-tab switch
+--- and on a language change.
+function ns:RefreshLookHeader()
+	local refs = self._mhLayoutRefs
+	local header = refs and refs.lookHeader
+	if not header then
+		return
+	end
+	MHAnchorContentColumn(refs, MHGetLayoutMetrics())
+	if not header:IsShown() then
+		return
+	end
+	local sid = self.uiSelectedTab or "home"
+	if sid == "toolbox" then
+		sid = self.uiSelectedToolboxSubTab or "consumables"
+	end
+	local screen = LOOK_SCREENS[sid] or LOOK_SCREENS.home
+	header._mhIcon:SetTexture(LOOK_ICON_PATH:format(screen.stem))
+	header._mhText:SetText(self:L(screen.tagline))
 end
 
 --- Apply ns:L() to the main shell (tabs, search row, SMC headers, side helpers). See Locales/*.lua.
@@ -594,6 +697,9 @@ function ns:RefreshLocaleUI()
 	if layoutPanel and layoutPanel._mhProtoBuilt and ns.KeyboardLayoutPrototype_Refresh then
 		ns.KeyboardLayoutPrototype_Refresh(layoutPanel)
 	end
+	if self.RefreshLookHeader then
+		self:RefreshLookHeader()
+	end
 	if self._mhRefreshSidePanel then
 		self:_mhRefreshSidePanel(self.uiSelectedTab or "delves")
 	end
@@ -609,11 +715,9 @@ function ns:ApplyCompactMode()
 	if refs.sidebar and refs.sidebar.SetWidth then
 		refs.sidebar:SetWidth(m.sidebarWidth)
 	end
-	if refs.content then
-		refs.content:ClearAllPoints()
-		refs.content:SetPoint("TOPLEFT", refs.levelBar or refs.favRow or refs.searchBar, "BOTTOMLEFT", m.sidebarWidth, 0)
-		refs.content:SetPoint("BOTTOMRIGHT", refs.main, "BOTTOMRIGHT", -MH_MAIN_EDGE.R, MH_MAIN_EDGE.B)
-	end
+	-- Content column, and the 4.0 screen header above it unless Classic: one helper, so
+	-- compact mode and the Classic setting can never disagree about where content starts.
+	MHAnchorContentColumn(refs, m)
 	if refs.searchResetBtn and refs.searchResetBtn.SetWidth then
 		refs.searchResetBtn:SetWidth(m.searchResetBtnWidth)
 	end
@@ -2576,10 +2680,39 @@ function ns:EnsureMainUI()
 
 	-- (About button now lives in the title bar beside Info; see above.)
 
+	-- 4.0 screen header (Spec 37 concept A): icon + one line, above the content column.
+	-- Anchored by MHAnchorContentColumn; hidden, with content back on the level bar, when
+	-- the Classic setting is on.
+	local lookHeader = CreateFrame("Frame", "MidnightHelperLookHeader", main)
+	local lookBg = lookHeader:CreateTexture(nil, "BACKGROUND")
+	lookBg:SetAllPoints()
+	-- Night indigo from the logo; the icons were painted on the same ground.
+	lookBg:SetColorTexture(0.06, 0.045, 0.12, 0.94)
+	local lookEdge = lookHeader:CreateTexture(nil, "BORDER")
+	lookEdge:SetHeight(1)
+	lookEdge:SetPoint("BOTTOMLEFT", lookHeader, "BOTTOMLEFT", 0, 0)
+	lookEdge:SetPoint("BOTTOMRIGHT", lookHeader, "BOTTOMRIGHT", 0, 0)
+	lookEdge:SetColorTexture(0.91, 0.76, 0.42, 0.45)
+	local lookIcon = lookHeader:CreateTexture(nil, "ARTWORK")
+	lookIcon:SetPoint("LEFT", lookHeader, "LEFT", 10, 0)
+	lookIcon:SetSize(LOOK_HEADER_H - 10, LOOK_HEADER_H - 10)
+	local lookText = lookHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	lookText:SetPoint("LEFT", lookIcon, "RIGHT", 12, 0)
+	lookText:SetPoint("RIGHT", lookHeader, "RIGHT", -14, 0)
+	lookText:SetJustifyH("LEFT")
+	lookText:SetJustifyV("MIDDLE")
+	lookText:SetWordWrap(true)
+	if lookText.SetMaxLines then
+		lookText:SetMaxLines(2)
+	end
+	lookText:SetTextColor(0.93, 0.90, 0.98)
+	lookHeader._mhIcon = lookIcon
+	lookHeader._mhText = lookText
+
 	-- Content region: hosts one visible module panel at a time.
 	local content = CreateFrame("Frame", nil, main)
-	content:SetPoint("TOPLEFT", levelBar, "BOTTOMLEFT", MHGetLayoutMetrics().sidebarWidth, 0)
-	content:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -MH_MAIN_EDGE.R, MH_MAIN_EDGE.B)
+	MHAnchorContentColumn({ main = main, levelBar = levelBar, content = content, lookHeader = lookHeader },
+		MHGetLayoutMetrics())
 
 	local contentBg = content:CreateTexture(nil, "BACKGROUND")
 	contentBg:SetAllPoints()
@@ -3383,6 +3516,7 @@ function ns:EnsureMainUI()
 		searchBar = searchBar,
 		favRow = favRow,
 		levelBar = levelBar,
+		lookHeader = lookHeader,
 		searchResetBtn = searchResetBtn,
 		searchGoBtn = searchGoBtn,
 		aboutBtn = aboutBtn,
@@ -3619,6 +3753,11 @@ SelectTab = function(tabId)
 		and ns._mhRefreshSidePanel then
 		ns:_mhRefreshSidePanel(tabId)
 	end
+
+	-- 4.0 screen header follows the open screen (and re-checks the Classic setting).
+	if ns.RefreshLookHeader then
+		ns:RefreshLookHeader()
+	end
 end
 
 ns.SelectTab = SelectTab
@@ -3696,6 +3835,10 @@ function ns.SelectToolboxSubTab(subId)
 	end
 
 	MHRefreshToolboxSubTabChrome(subId)
+	-- The 4.0 header shows the sub-tab's own icon and line.
+	if ns.RefreshLookHeader then
+		ns:RefreshLookHeader()
+	end
 	-- Help drawer text follows the active sub-tab.
 	if ns._mhRefreshSidePanel and ns.uiSelectedTab == "toolbox" then
 		ns:_mhRefreshSidePanel("toolbox")

@@ -643,6 +643,8 @@ local OVERRIDES = {
 	SETTINGS_MINIMAP_ICON = "Mostrar ícone do minimapa",
 	SETTINGS_MINIMAP_ICON_TT = "Mostra o botão do Midnight Helper no minimapa. Desligado = menos poluição — você ainda pode abri-lo pelo compartimento de addons (canto superior direito) ou com /mh.",
 	SETTINGS_COMPACT_MODE = "Modo compacto (layout mais denso)",
+	SETTINGS_CLASSIC_LOOK = "Visual clássico (sem cabeçalho de tela)",
+	SETTINGS_CLASSIC_LOOK_TT = "Desliga o visual 4.0, a faixa com o ícone de cada tela e para que ela serve, e deixa cada tela exatamente como na 3.x.",
 	SETTINGS_TEXT_SIZE_LABEL = "Tamanho do texto",
 	NAV_TOOL_BOARD = "Painel de consumíveis",
 	NAV_TOOL_BOSSWIN = "Janela de chefes de masmorra",

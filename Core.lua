@@ -237,6 +237,9 @@ local DEFAULT_DB = {
 		guideVisibility = "auto",
 		--- Compact mode: denser main UI layout for smaller resolutions.
 		compactMode = false,
+		--- Classic look: turn off the 4.0 screen header (icon + one line) and keep the 3.x
+		--- layout exactly (Spec 37 section 6a). Off by default: 4.0 shows the new look.
+		classicLook = false,
 	},
 	changelog = {
 		--- Last addon version for which the changelog popup was dismissed.
@@ -641,6 +644,23 @@ function ns:SetCompactModeEnabled(enabled, silent)
 		DEFAULT_CHAT_FRAME:AddMessage(
 			("|cffffcc00%s|r Compact mode: %s"):format(self:L("PRINT_PREFIX"), state)
 		)
+	end
+	return true
+end
+
+--- 4.0.0 (Spec 37 section 6a): "Classic" turns the new look off and restores the 3.x layout
+--- exactly -- the way back for anyone who does not want it, the AI-made icons included.
+function ns:IsClassicLookEnabled()
+	return self.db and self.db.settings and self.db.settings.classicLook == true
+end
+
+function ns:SetClassicLookEnabled(enabled)
+	local value = enabled and true or false
+	if self.db and self.db.settings then
+		self.db.settings.classicLook = value
+	end
+	if self.RefreshLookHeader then
+		self:RefreshLookHeader()
 	end
 	return true
 end

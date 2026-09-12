@@ -7,6 +7,29 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 12 sep — 4.0.0 stap 1: de schermkop met icoon, en de knop "Klassiek"
+
+⚠️ **Eerst WoW HELEMAAL afsluiten en opnieuw starten**: er zijn 56 nieuwe plaatjes, en die ziet het
+spel pas na een volledige herstart, niet na `/reload`.
+- [ ] **Open MH.** Boven elk scherm staat nu een donkerblauwe strook: links het icoon van dat scherm,
+      rechts één regel over waar het scherm voor is. De zijbalk en de schermen zelf zijn niet
+      veranderd; ze staan alleen iets lager.
+- [ ] **Klik de schermen langs**, ook de vier in Toolbox (Consumables, Macros, Academy, Professions):
+      elk scherm hoort zijn eigen icoon en zijn eigen regel te krijgen. Staat er ergens het icoon van
+      Home of een lege regel, zeg welk scherm.
+- [ ] **Past alles nog?** Door de strook is er ~64 px minder ruimte. Kijk vooral bij **Settings**, de
+      **Tools-kaarten** (Pop-outs) en **Codex**: valt er onderaan iets weg dat eerst wel paste?
+- [ ] **De knop terug:** Esc → Options → AddOns → Midnight Helper → *Venster & weergave* →
+      **Classic look (no screen header)** aan. De strook verdwijnt en alles staat weer precies zoals in
+      3.11.1. Weer uit: de strook komt terug. Na `/reload` blijft je keuze staan.
+- [ ] **Compact mode** aan en uit met de strook zichtbaar: de strook wordt iets lager (54 px) en
+      schuift mee met de smallere zijbalk.
+- [ ] **Info-laatje (ⓘ) bij Mounts, Trading Post en Raids:** daar stond de uitleg van Home. Nu hoort
+      de eigen ondertitel van dat scherm er te staan.
+- 📌 De regels zijn in het Engels en Nederlands. In het Duits, Frans, Spaans, Portugees en Italiaans
+  staan ze voorlopig in het Engels; de vertaling is de volgende stap. Jouw client is Engels, dus
+  daar zie je dat niet.
+
 ## ✅ 12 sep — `/mh texturetest`: de eerste meting voor de 4.0.0-look (Spec 37 §5)
 
 GEMETEN door Rob op 12 sep, na een volledige herstart; alle vier zichtbaar (screenshot):

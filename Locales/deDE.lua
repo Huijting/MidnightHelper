@@ -693,6 +693,8 @@ local OVERRIDES = {
 	SETTINGS_MINIMAP_ICON = "Minimap-Symbol anzeigen",
 	SETTINGS_MINIMAP_ICON_TT = "Zeigt die Midnight-Helper-Schaltfläche auf der Minikarte. Aus = aufgeräumter — du erreichst es weiterhin über das Addon-Kompartiment (oben rechts) oder mit /mh.",
 	SETTINGS_COMPACT_MODE = "Kompaktmodus (dichteres Layout)",
+	SETTINGS_CLASSIC_LOOK = "Klassisches Aussehen (ohne Bildschirmkopf)",
+	SETTINGS_CLASSIC_LOOK_TT = "Schaltet das 4.0-Aussehen aus, die Leiste mit dem Symbol jedes Bildschirms und wofür er da ist, und stellt jeden Bildschirm genau wie in 3.x wieder her.",
 	SETTINGS_TEXT_SIZE_LABEL = "Textgröße",
 	NAV_TOOL_BOARD = "Verbrauchsgüter-Tafel",
 	NAV_TOOL_BOSSWIN = "Dungeon-Boss-Fenster",

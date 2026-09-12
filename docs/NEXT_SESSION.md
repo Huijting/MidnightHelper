@@ -16,8 +16,32 @@
   - PNG en NPOT laden op 12.1;
   - de Platy-TGA is heel;
   - Z-Image Turbo is Apache 2.0 volgens de officiële modelkaart.
-- ⏳ **Volgende stap:** een kaart van de UI-code (kopbalk per scherm, kamerknoppen, pop-outkaarten,
-  instelling, Tour), daarna de eerste bouwstap: de kopbalk + de Klassiek-schakelaar.
+- ✅ **UI-kaart gemaakt (zoekagent, 12 sep).**
+  - 24 tabs + 4 Toolbox-subtabs hebben allemaal een stem; `professionsHub` → `professions`.
+  - Bijna elk paneel tekent zijn eigen titel.
+  - `INFO_DRAWER_BODY_*` bestaat in 7 talen maar is tot drie alinea's lang.
+  - Mounts/TradingPost/Raids vielen in het Info-laatje terug op Home.
+  - Kamerknop-`defaultTab` wordt nergens gelezen.
+  - De launchpad-kaarten scrollen niet.
+  - De Tour-skip test alleen op nil, niet op hidden.
+- ✅ **Stap 1 GEBOUWD (12 sep), ongetest in het spel:** zie TESTLIJST bovenaan.
+  - **Schermkop** `MidnightHelperLookHeader` (UI.lua): 64 px, compact 54 px. Icoon `<stem>_64.png` +
+    één regel `TAB_TAGLINE_<ID>`, **zonder naam** (die staat al in paneeltitel én titelbalk).
+  - Eén helper `MHAnchorContentColumn` zet header + content, gebruikt bij het bouwen, in
+    `ApplyCompactMode` en in `ns:RefreshLookHeader`. Die laatste draait bij elke tab-/subtabwissel en
+    taalwissel, dus een Classic-waarde uit de SavedVariables wint altijd.
+  - **Klassiek:** `ns.db.settings.classicLook` (default false), `ns:Is/SetClassicLookEnabled`
+    (Core.lua), toggle `mh_classicLook` in NativeSettings → *Venster & weergave*. "Aanbevolen" zet
+    hem uit.
+  - **Teksten:** 27 `TAB_TAGLINE_*` in enUS + nlNL, en `SETTINGS_CLASSIC_LOOK(_TT)` in alle 7 packs.
+    ⏳ **De taglines in de/fr/es/pt/it** vallen nu terug op Engels: dat is de volgende stap.
+  - Info-laatje Mounts/TradingPost/Raids → hun paneel-ondertitel (bestaat in 7 packs).
+  - Gecontroleerd: `lua_syntax_check` OK, lint 0 HARD, [1] 0 missende keys.
+- ⏳ **Daarna, uit Spec 37 concept A:**
+  - (2) kamerknop → kaartjesrooster;
+  - (3) pop-outkaarten 34 → 64 px. Die moeten dan eerst scrollen: 8 kaarten passen nu al nauwelijks.
+  - Tour stap 5: de header valt buiten de highlight van `content`. Nu geen probleem; kijken als de
+    Tour een eigen stap voor de kop krijgt.
 
 ## 📦 12 sep — 3.11.1: Rob "go"
 

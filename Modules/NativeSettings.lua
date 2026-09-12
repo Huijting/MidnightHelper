@@ -419,6 +419,12 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetCompactModeEnabled then ns:SetCompactModeEnabled(v, true) end
 		end, false) -- expliciete default (uit); niet de toevallige login-waarde (F4.6)
+		-- 4.0: de weg terug naar de 3.x-look (Spec 37 §6a). "Aanbevolen" zet hem uit = nieuwe look.
+		AddToggle("mh_classicLook", "SETTINGS_CLASSIC_LOOK", "SETTINGS_CLASSIC_LOOK_TT", function()
+			return ns.IsClassicLookEnabled and ns:IsClassicLookEnabled()
+		end, function(v)
+			if ns.SetClassicLookEnabled then ns:SetClassicLookEnabled(v) end
+		end, false)
 		AddToggle("mh_minimapIcon", "SETTINGS_MINIMAP_ICON", "SETTINGS_MINIMAP_ICON_TT", function()
 			return ns.IsMinimapIconShown and ns.IsMinimapIconShown()
 		end, function(v)
