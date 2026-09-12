@@ -2,6 +2,21 @@
 
 ## 🎨 12 sep — 4.0.0 (Spec 37, concept A): bouw gestart. Rob: "begin maar met 4.0.0"
 
+- 📅 **Rob, 12 sep: "4.0.0 wordt denk ik na de reset, als we andere dingen die we die dag moesten doen
+  ook gecontroleerd hebben (weeklies)".** Dat is woensdag 16 sep, na de Liadrin-meting (`/mh weeklies`).
+  Mijn advies, in lijn met Spec 37 §6b/§6c en CLAUDE.md: **eerst `v4.0.0-beta1`** voor Rob en Cisca,
+  een paar dagen, dan de release op een rustige doordeweekse dag, niet in de 12.1.5-launchweek.
+- **Vóór 4.0.0 nog nodig:**
+  1. De taglines (30) en tegelregels (12) vertalen naar de/fr/es/pt/it. Anders zien die spelers
+     Engels in een vertaalde UI.
+  2. De changelog/"what's new" van 4.0 (*"Same addon, new coat of paint"*).
+  3. Nieuwe screenshots voor CF: galerijfoto 1 wordt het Me-rooster.
+  4. Rob plakt de CF-omschrijving met de AI-regel.
+- **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
+  Tools-kaarten.
+- ✅ **Stap 4 door Rob gezien (screenshot, 12 sep): "zoals ik wilde".** Statusregels kloppen; de
+  "Missing enchants: 7" controleerde hij tegen het Enchants-scherm. Schuifbalk verborgen als alles past.
+
 - **Rob vroeg of we terug kunnen naar de oude layout. Ja:**
   - tag `v3.11.1`;
   - de oude bestanden op CF;

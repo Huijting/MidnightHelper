@@ -198,7 +198,18 @@ local function Layout(panel)
 		panel._mhCards[i]:Hide()
 	end
 	local rows = math.ceil(#cards / cols)
-	panel._mhBody:SetSize(width, math.max(1, rows * (CARD_H + GAP)))
+	local bodyH = math.max(1, rows * (CARD_H + GAP))
+	panel._mhBody:SetSize(width, bodyH)
+	-- No scroll bar while every card fits (Rob, 12 Sep: "verberg de schuifbalk maar"); it comes
+	-- back as soon as the window is too short for the grid.
+	local bar = panel._mhScroll.ScrollBar
+	if bar then
+		local fits = bodyH <= (panel._mhScroll:GetHeight() or 0)
+		bar:SetShown(not fits)
+		if fits then
+			panel._mhScroll:SetVerticalScroll(0)
+		end
+	end
 end
 
 local function EnsurePanel(roomId)
@@ -223,6 +234,9 @@ local function EnsurePanel(roomId)
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -10)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 10)
+	-- The template's own range handler hides the bar at zero range when this is set; Layout
+	-- decides as well, so the bar is right whichever runs last.
+	scroll.scrollBarHideable = true
 	local body = CreateFrame("Frame", nil, scroll)
 	body:SetSize(1, 1)
 	scroll:SetScrollChild(body)

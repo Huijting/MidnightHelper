@@ -11,9 +11,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 Rob, na stap 2 en 3 (*"alle 3 de vragen oke, ik vind het echt gaaf"*): de tegels zag hij pas na een klik
 op Me, en *"dan is die lange lijst aan de linker zijde in mijn ogen overbodig"*. `/reload` is genoeg.
-- [ ] **Open MH na `/reload`:** je ziet meteen de **Me-tegels**, niet This Week.
-- [ ] **De zijbalk** heeft alleen nog de **vier kamerknoppen**, groter en met onze eigen plaatjes. De
-      lange lijst met schermen is weg.
+- [x] **Open MH na `/reload`:** je ziet meteen de **Me-tegels**, niet This Week. ✅ **Rob, 12 sep,
+      screenshot: "zoals ik wilde".**
+- [x] **De zijbalk** heeft alleen nog de **vier kamerknoppen**, groter en met onze eigen plaatjes. De
+      lange lijst met schermen is weg. ✅ Zelfde screenshot.
+- [x] **Statusregels kloppen** (screenshot): *9 of 13 weekly things done*, *Great Vault 2 / 9*,
+      *Weeklies done: 2 / 2*, *Live now: 3*, *Missing enchants: 7*, *Tier set 1 / 5*, *Characters: 12*.
+      Rob controleerde de 7: *"er staan er ook 7"* op het Enchants-scherm.
+- [ ] 🆕 **De schuifbalk rechts van de tegels** is weg als alle tegels passen, en komt terug als het
+      venster te klein is (maak het venster lager of zet Compact mode aan).
 - [ ] **Klik een tegel** → dat scherm. **Klik op de kamerknop** → terug naar de tegels. Settings opent
       meteen Settings.
 - [ ] **Je venster wordt niet kleiner** dan het was.
