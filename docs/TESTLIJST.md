@@ -7,6 +7,19 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 12 sep — `/mh texturetest`: de eerste meting voor de 4.0.0-look (Spec 37 §5)
+
+⚠️ **Eerst WoW HELEMAAL afsluiten en opnieuw starten**; een `/reload` is niet genoeg voor nieuwe
+plaatjes. Dan `/mh texturetest`. Je ziet vier vakjes naast elkaar:
+- [ ] **PNG 128×128** (het MH-schild): zichtbaar? Zo ja, dan kunnen we PNG uit `Media/` gebruiken.
+- [ ] **PNG 144×144** (hetzelfde schild): zichtbaar, of een **groen/leeg vak**? Dat beslist of de
+      2-machtsregel nog geldt.
+- [ ] **TGA 629×342** (Platynator-screenshot): zichtbaar of groen? Groen = de drie Platy-plaatjes in
+      *Addons → Platynator* zijn al maanden kapot.
+- [ ] **Blizzard-icoon** (vraagteken): hoort er altijd te staan. Staat die er niet, dan is het venster
+      stuk en zeggen de andere drie niets.
+Eén screenshot van het venster is genoeg.
+
 ## 🆕 12 sep — Twee hotfix-feiten van Blizzard (10 sep) in de tips
 
 - [ ] **Raid coach → The Venomous Abyss → The Lost Explorers:** de laatste regel luidt *"Mor'zahi:

@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🎨 12 sep — 4.0.0-look (Spec 37) gestart: proefronde iconen + `/mh texturetest`. Rob: "begin met 1 en 2"
+
+- **1. Proefronde, 4 iconen in de in-game-stijl van Spec 37 §3c** (Home, Delves, Rares, Codex, elk 2
+  varianten). Zelfde onderwerpen als de goedgekeurde set van 10 sep (prompts uit de PNG-metadata),
+  maar **zonder lijst en naambalk**, op **nachtindigo met violette gloed** in de kleuren van het logo.
+  ComfyUI-workflow `basis`, bestanden `mh40_<onderwerp>_*` in `E:\ComfyMCP\output`. Rob kiest de
+  stijl; daarna pas de andere 24.
+- **2. `/mh texturetest`** (`Modules/TextureProbe.lua`, in `MH_UNLISTED_ON_PURPOSE`): vier vakjes,
+  namelijk PNG 128, PNG 144, `Platy1.tga` (629×342) en een Blizzard-controle-icoon. Beantwoordt Spec 37 §5
+  punt 1 en 2 én de 2-machtsvraag in één keer, na een **volledige herstart**.
+  - ⚠️ De twee test-PNG's (`Media/Icons/mh_texturetest_128.png` / `_144.png`, gemaakt uit het logo)
+    zijn **bewust NIET gecommit**: geen iconen in de openbare repo zonder Robs akkoord. Ze staan
+    alleen lokaal, dus `git status` toont `Media/Icons/` als untracked. Dat is geen wees-bestand.
+- Spec 37 §6c: bèta niet vóór 13 sep, en niet in de 12.1.5-week. Er is nog geen layoutcode geschreven.
+
 ## 🩹 12 sep — Twee officiële hotfix-feiten (10 sep) in de tips. Rob: "begin maar met 1 en 2"
 
 - **Bron GEMETEN:** `news.blizzard.com/en-us/article/24296142`, vandaag vers opgehaald met
