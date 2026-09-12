@@ -32,6 +32,10 @@ De planner vraagt nu net als de reis-popup aan het spel in welke zone een kaart 
       hetzelfde. ✅ Rob, 12 sep: *"de vial in voidstorm werkte nu perfect"*.
 - [x] **Door die portal:** in Voidstorm wijst de pijl naar de schat, en er komt **geen** *"You are at
       Portal to Silvermoon"* meer. ✅ Zelfde run.
+- [ ] **Dezelfde fix, andere submaps** (GEMETEN 12 sep in Blizzards UiMap-data: 10 van de 20
+      Midnight-kaarten in MH zijn submaps). Vanuit Silvermoon een route naar een **rare in Val of
+      Naigtal** (Voidstorm, 10 rares elk) en naar een **Zul'Aman-schat in Atal'Aman** (*Measured
+      Ladle*): de pijl gaat naar de juiste portal, niet naar een vliegpunt of Orgrimmar.
 - [ ] **Vanuit Slayer's Rise of Voidstorm een Harandar-schat** (*Vial of Rootlands Oddities*):
       **geen "head for Orgrimmar"** meer, maar de Portal to Harandar.
       ⚠️ Staat er nog *"(other continent — travel back)"* vóór, dan heeft Slayer's Rise vermoedelijk
