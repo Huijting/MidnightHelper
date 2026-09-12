@@ -7,6 +7,15 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 12 sep — Twee hotfix-feiten van Blizzard (10 sep) in de tips
+
+- [ ] **Raid coach → The Venomous Abyss → The Lost Explorers:** de laatste regel luidt *"Mor'zahi:
+      interrupt Final Ascension whenever you can — since the 10 Sep hotfix that resets his rising
+      damage."*
+- [ ] **Delve Coach → Twilight Crypts → Route:** de tweede regel noemt *Explorer's League Supplies*
+      en een *Abandoned Restoration Stone* in *Loosed Loa*. Wat die doen, staat nergens. Kom je ze
+      tegen, vertel dan wat ze doen, dan zet ik dat erbij.
+
 ## 🆕 12 sep — Routes naar Slayer's Rise en andere subzones (A + B + C)
 
 De planner vraagt nu net als de reis-popup aan het spel in welke zone een kaart ligt.

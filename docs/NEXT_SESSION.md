@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🩹 12 sep — Twee officiële hotfix-feiten (10 sep) in de tips. Rob: "begin maar met 1 en 2"
+
+- **Bron GEMETEN:** `news.blizzard.com/en-us/article/24296142`, vandaag vers opgehaald met
+  cache-buster; de sectie 10 sep staat erin, dus geen oude kopie. Letterlijk:
+  - *"Mor'zahi's damage escalation during Final Ascension will now reset if his cast is interrupted."*
+  - *"Explorer's League Supplies and the Abandoned Restoration Stone will now appear in the Twilight
+    Crypts delve variant 'Loosed Loa.'"*
+- ✅ **Mor'zahi:** een nieuwe regel onderaan `RAID_BOSS_LOSTEXPLORERS_STEPS`, in 7 talen.
+  - Geen spell-ID: de hotfix noemt er geen.
+  - GEMETEN: de `{SPELL:1286921}` in dezelfde tip is *Icebound Flames* (Scrollsage Iku), dus geen
+    dubbele regel.
+- ✅ **Loosed Loa:** een regel direct na de bestaande Loosed Loa-regel in
+  `DELVE_TIP_TWILIGHT_CRYPTS_ROUTE`, in 7 talen. Wat de twee items doen, staat nergens; dat is dus
+  bewust niet beschreven.
+- Drift van beide keys gemarkeerd (eigen vertalingen). Test: TESTLIJST.
+
 ## 🧭 12 sep: routes naar Slayer's Rise (Voidstorm). GEBOUWD (Rob: "go, doe A, B en C"), wacht op test
 
 - ✅ **A:** `ns.MHIsSelfOrAncestor` + `MapWithAncestors` in `Delves.lua` vragen de parent-keten van
