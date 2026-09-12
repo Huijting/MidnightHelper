@@ -13,10 +13,15 @@
   Details in `CHANGELOG.md`, spelertekst in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_3.11.1.md`).
 - `/mh texturetest` is eruit (`TextureProbe.lua` en de twee test-PNG's verwijderd): de vraag is
   beantwoord, en de PNG's stonden niet in git.
-- Tag `v3.11.1` op de releasecommit. ⏳ **Nog na te kijken:**
-  - of de Actions-run naar CurseForge **en** Wago is gegaan;
-  - of de changelog-opmaak op CF klopt;
-  - of de automatische Wago-upload nu echt werkt (was nog onbewezen).
+- Tag `v3.11.1` op releasecommit `1518d91`, gepusht 12 sep 11:19.
+  - ✅ **GEMETEN (GitHub API):** de run *"Release to CurseForge, Wago and GitHub"* is geslaagd
+    (09:19:07–09:19:56 UTC, alle stappen success); *Lua syntax check* en *Addon lint* op main groen.
+  - ⏳ CurseForge toonde om ~09:24 UTC nog 3.11.0 als nieuwste. Dat is normaal: CF verwerkt een
+    nieuw bestand eerst. **Rob kijkt**: staat 3.11.1 op CF én Wago, en is de changelog-opmaak goed
+    (Files → het bestand → Changelog)?
+  - 📌 Een GitHub-*release* komt er niet: de API-lijst eindigt bij 2.8.1, ook 3.11.0 heeft er geen.
+    Een 404 op `releases/tags/v3.11.1` is dus geen fout.
+  - 📌 De automatische Wago-upload is al bewezen: bij 3.11.0 zei Rob *"staat er op, incl wago"*.
 - 💡 **Idee van Rob voor ná 3.11.1 (screenshot 12 sep):** Friend Finder toonde bij een gekozen rare
   een kadertje met een rond portret en de afstand (*"1107 yd"*). Rob: *"dit is wel gaaf"*.
   - 🔴 **Niet hun code**: Friend Finder is All Rights Reserved; zelf bouwen, op onze eigen manier.
