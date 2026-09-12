@@ -81,8 +81,21 @@
         instructie. Geen woordgrappen, want die sterven in 6 talen. Elke grap een eigen key, zodat een
         vertaler hem mag vervangen of leeglaten.
       - Contrastscript: `contrast.py` in de sessie-scratchpad.
-    - ⏳ Mock-up van A/B/C in ons eigen venster: `Downloads\MH_iconen_4.0_proef\_kleuren_A_B_C.png`.
-      Rob kiest.
+    - ✅ Mock-up van A/B/C in ons eigen venster: `Downloads\MH_iconen_4.0_proef\_kleuren_A_B_C.png`.
+      **Rob: "Het wordt C"** (12 sep).
+  - ✅ **Stap 3, palet C, GEBOUWD (12 sep), ongetest.**
+    - `LOOK_PALETTE` in UI.lua (ook als `ns.LOOK_PALETTE`, gelezen door RoomLauncher).
+    - **Zijbalktabs:** de rode template-art gaat naar alpha 0, met een eigen vlak + 2 px accentbalk en
+      eigen font objects (de knop wisselt die bij hover, dus een losse SetTextColor houdt geen stand).
+    - Titel-, zoek- en favorietenrij, zijbalk en content krijgen effen paletkleuren (content 95%
+      dekkend). De 5 titel/zoekknoppen worden "chips". Kamerknoppen en sectiekoppen volgen het palet.
+    - Toepassen via `MHApplyLookChrome`, vanuit `RefreshLookHeader`, alleen als de Classic-stand
+      verandert. Classic zet de exacte 3.x-texturen en tinten live terug.
+    - Classic-label en -tooltip in 7 talen zeggen nu dat ook kleuren en tegels terugkeren.
+    - ⏳ **Nog niet in het palet:** rode `UIPanelButtonTemplate`-knoppen binnen de schermen (123× in
+      49 bestanden, o.a. de subtabs van Toolbox/Guide/Addons) en panelen met een eigen bruine
+      backdrop (Changelog, DelveCoach, DungeonBossWindow, MountsPanel …). Rob zegt welke het meest
+      storen.
   - (3) pop-outkaarten 34 → 64 px. Die moeten dan eerst scrollen: 8 kaarten passen nu al nauwelijks.
   - Tour stap 5: de header valt buiten de highlight van `content`. Nu geen probleem; kijken als de
     Tour een eigen stap voor de kop krijgt.

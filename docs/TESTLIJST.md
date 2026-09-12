@@ -7,6 +7,25 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 12 sep — 4.0.0 stap 3: kleuren C "Schemerlantaarn" (Rob: "Het wordt C")
+
+`/reload` is genoeg (geen nieuwe bestanden). Vergelijk met het voorbeeld `_kleuren_A_B_C.png`, rechts.
+- [ ] **De zijbalk** is effen donker violet. De **rode knoppen zijn weg**: de rijen zijn plat, het
+      scherm waar je bent heeft een lichtere violette balk met een paars streepje links, en met je
+      muis erover wordt een rij iets lichter.
+- [ ] **De titelbalk, de zoekbalk en de favorietenrij** zijn ook donker violet; de knoppen *About*,
+      *Info*, *Search* en *My character* (en *Read in Codex*) zijn violette blokjes met goudkleurige
+      tekst.
+- [ ] **Het scherm zelf** heeft een effen violette achtergrond en is minder doorzichtig dan eerst
+      (95%). Staat er ergens nog een bruin of rood stuk **binnen** een scherm (bijvoorbeeld de
+      knoppen bovenaan Toolbox of Addons, of de Settings-pagina), dan klopt dat: die volgen later.
+      Zeg welke je het meest stoort.
+- [ ] **Leesbaar?** Vooral de Duitse/Franse knoppen niet: jouw client is Engels. Kijk of de
+      zijbalkteksten nog in hun rij passen.
+- [ ] **Classic look aan:** alles is weer precies bruin/rood zoals in 3.11.1, zonder `/reload`. Weer
+      uit: meteen weer violet.
+- [ ] De kop en de tegels hebben dezelfde kleuren (zacht goud voor namen, lichtpaars voor regels).
+
 ## 🆕 12 sep — 4.0.0 stap 2: tegels per kamer (Rob: "doe maar 1 en 2")
 
 ⚠️ **WoW helemaal opnieuw starten**: er is een nieuw Lua-bestand (`RoomLauncher.lua`), en dat laadt

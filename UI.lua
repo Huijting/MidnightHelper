@@ -211,17 +211,150 @@ local function MHTintButtonTextures(btn, r, g, b)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- 4.0 palette C "Twilight lantern" (Rob's pick, 12 Sep 2026, out of three researched
+-- proposals; contrast measured there: body 15.2:1, muted 8.4:1 on the window colour).
+-- One table for the shell. The Classic look ignores it and keeps the 3.x Blizzard
+-- textures and tints, restored live when the setting is switched.
+--------------------------------------------------------------------------------
+local LOOK_PALETTE = {
+	window = { 0.106, 0.086, 0.200, 0.95 }, -- #1B1633; >= ~90% opaque so the world does not eat contrast
+	sidebar = { 0.075, 0.059, 0.153, 0.97 }, -- #130F27
+	active = { 0.239, 0.180, 0.471, 1 }, -- #3D2E78
+	hover = { 0.165, 0.129, 0.314, 1 }, -- #2A2150
+	chip = { 0.239, 0.180, 0.471, 0.80 }, -- a button at rest: the active fill, a touch see-through
+	header = { 0.957, 0.871, 0.604 }, -- #F4DE9A
+	body = { 0.945, 0.933, 0.980 }, -- #F1EEFA
+	muted = { 0.722, 0.682, 0.859 }, -- #B8AEDB
+	accent = { 0.788, 0.659, 1.0, 1 }, -- #C9A8FF
+}
+ns.LOOK_PALETTE = LOOK_PALETTE
+
+local function MHLookOn()
+	return not (ns.IsClassicLookEnabled and ns:IsClassicLookEnabled())
+end
+
+local mhLookFonts
+local function MHLookFont(kind)
+	if not mhLookFonts then
+		local function make(name, base, c)
+			local f = CreateFont(name)
+			f:CopyFontObject(base)
+			f:SetTextColor(c[1], c[2], c[3])
+			return f
+		end
+		mhLookFonts = {
+			normal = make("MidnightHelperLookFont", GameFontNormal, LOOK_PALETTE.body),
+			active = make("MidnightHelperLookFontActive", GameFontNormal, LOOK_PALETTE.header),
+			hover = make("MidnightHelperLookFontHover", GameFontHighlight, { 1, 1, 1 }),
+		}
+	end
+	return mhLookFonts[kind]
+end
+
+--- Blizzard's red panel-button art cannot be tinted indigo (SetVertexColor only multiplies),
+--- so the new look fades the template's own textures out and draws a flat fill and a 2 px
+--- accent bar of its own. Nothing of the template is removed: Classic fades it back in.
+local function MHLookButtonParts(btn)
+	if btn._mhLookParts then
+		return btn._mhLookParts
+	end
+	local parts = { tex = {} }
+	for _, region in ipairs({ btn:GetRegions() }) do
+		if region.IsObjectType and region:IsObjectType("Texture") then
+			parts.tex[#parts.tex + 1] = region
+		end
+	end
+	local fill = btn:CreateTexture(nil, "BACKGROUND", nil, -8)
+	fill:SetAllPoints()
+	fill:Hide()
+	local bar = btn:CreateTexture(nil, "ARTWORK")
+	bar:SetPoint("TOPLEFT", btn, "TOPLEFT", 0, 0)
+	bar:SetPoint("BOTTOMLEFT", btn, "BOTTOMLEFT", 0, 0)
+	bar:SetWidth(2)
+	bar:Hide()
+	parts.fill, parts.bar = fill, bar
+	btn._mhLookParts = parts
+	btn:HookScript("OnEnter", function(self)
+		if self._mhLookOn and not self._mhLookActive then
+			parts.fill:SetColorTexture(MHUnpack4(LOOK_PALETTE.hover))
+			parts.fill:Show()
+		end
+	end)
+	btn:HookScript("OnLeave", function(self)
+		if self._mhLookOn and not self._mhLookActive then
+			if self._mhLookRest then
+				parts.fill:SetColorTexture(MHUnpack4(self._mhLookRest))
+			else
+				parts.fill:Hide()
+			end
+		end
+	end)
+	return parts
+end
+
+--- style "tab": a flat sidebar row, filled with a bar when active. style "chip": always a
+--- filled button (title and search bar).
+local function MHLookSkinButton(btn, active, style)
+	local parts = MHLookButtonParts(btn)
+	for _, t in ipairs(parts.tex) do
+		t:SetAlpha(0)
+	end
+	btn._mhLookOn = true
+	btn._mhLookActive = active and true or false
+	btn._mhLookRest = nil
+	parts.bar:Hide()
+	if style == "chip" then
+		btn._mhLookRest = LOOK_PALETTE.chip
+		parts.fill:SetColorTexture(MHUnpack4(LOOK_PALETTE.chip))
+		parts.fill:Show()
+		btn:SetNormalFontObject(MHLookFont("active"))
+	elseif active then
+		parts.fill:SetColorTexture(MHUnpack4(LOOK_PALETTE.active))
+		parts.fill:Show()
+		parts.bar:SetColorTexture(MHUnpack4(LOOK_PALETTE.accent))
+		parts.bar:Show()
+		btn:SetNormalFontObject(MHLookFont("active"))
+	else
+		parts.fill:Hide()
+		btn:SetNormalFontObject(MHLookFont("normal"))
+	end
+	btn:SetHighlightFontObject(MHLookFont("hover"))
+end
+
+local function MHLookUnskinButton(btn)
+	local parts = btn._mhLookParts
+	if not parts or not btn._mhLookOn then
+		return
+	end
+	for _, t in ipairs(parts.tex) do
+		t:SetAlpha(1)
+	end
+	parts.fill:Hide()
+	parts.bar:Hide()
+	btn._mhLookOn, btn._mhLookActive, btn._mhLookRest = false, false, nil
+	btn:SetNormalFontObject(GameFontNormal)
+	btn:SetHighlightFontObject(GameFontHighlight)
+end
+
 local function MHRefreshSidebarTabChrome(activeId)
 	if not ns.tabButtons then
 		return
 	end
+	local lookOn = MHLookOn()
 	for id, btn in pairs(ns.tabButtons) do
-		if id == activeId then
+		if lookOn then
 			btn:SetAlpha(1)
-			MHTintButtonTextures(btn, MH_CHROME.tabTexActive[1], MH_CHROME.tabTexActive[2], MH_CHROME.tabTexActive[3])
+			MHLookSkinButton(btn, id == activeId, "tab")
 		else
-			btn:SetAlpha(0.9)
-			MHTintButtonTextures(btn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
+			MHLookUnskinButton(btn)
+			if id == activeId then
+				btn:SetAlpha(1)
+				MHTintButtonTextures(btn, MH_CHROME.tabTexActive[1], MH_CHROME.tabTexActive[2], MH_CHROME.tabTexActive[3])
+			else
+				btn:SetAlpha(0.9)
+				MHTintButtonTextures(btn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
+			end
 		end
 	end
 end
@@ -564,6 +697,69 @@ local function MHAnchorContentColumn(refs, m)
 	end
 end
 
+-- The shell surfaces: flat palette colours in the new look, and the exact 3.x Blizzard
+-- dialog textures + tints (or flat colour) in Classic.
+local LOOK_SURFACES = {
+	{ ref = "titleTex", flat = "sidebar", texture = MH_TEX.dialogBgDark, vertex = { 0.55, 0.45, 0.35, 0.9 } },
+	{ ref = "searchBg", flat = "sidebar", texture = MH_TEX.dialogBgDark, vertex = { 0.22, 0.2, 0.24, 0.92 } },
+	{ ref = "favBg", flat = "sidebar", color = { 0.16, 0.15, 0.18, 0.85 } },
+	{ ref = "sidebarBg", flat = "sidebar", texture = MH_TEX.dialogBgDark, vertex = { 0.34, 0.32, 0.38, 0.94 } },
+	{ ref = "contentBg", flat = "window", texture = MH_TEX.dialogBg, vertex = { 0.42, 0.44, 0.52, 0.72 } },
+}
+
+local function MHLookSurface(tex, s, lookOn)
+	if not tex then
+		return
+	end
+	if lookOn then
+		tex:SetColorTexture(MHUnpack4(LOOK_PALETTE[s.flat]))
+		tex:SetVertexColor(1, 1, 1, 1)
+	elseif s.texture then
+		tex:SetTexture(s.texture)
+		if tex.SetHorizTile then
+			tex:SetHorizTile(true)
+		end
+		if tex.SetVertTile then
+			tex:SetVertTile(true)
+		end
+		tex:SetVertexColor(MHUnpack4(s.vertex))
+	else
+		tex:SetColorTexture(MHUnpack4(s.color))
+		tex:SetVertexColor(1, 1, 1, 1)
+	end
+end
+
+--- Applies the palette (or restores 3.x) to the shell, once per change of the Classic
+--- setting; the sidebar rows and room buttons follow on the relayout it forces.
+local function MHApplyLookChrome(refs)
+	local lookOn = MHLookOn()
+	if refs._mhLookApplied == lookOn then
+		return
+	end
+	refs._mhLookApplied = lookOn
+	for _, s in ipairs(LOOK_SURFACES) do
+		MHLookSurface(refs[s.ref], s, lookOn)
+	end
+	if refs.titleText then
+		local c = lookOn and LOOK_PALETTE.header or { 1, 0.82, 0 }
+		refs.titleText:SetTextColor(c[1], c[2], c[3])
+	end
+	for _, btn in ipairs({ refs.infoToggleBtn or false, refs.aboutBtn or false, ns._mhCodexLinkBtn or false,
+		refs.searchResetBtn or false, refs.searchGoBtn or false }) do
+		if btn then
+			if lookOn then
+				MHLookSkinButton(btn, false, "chip")
+			else
+				MHLookUnskinButton(btn)
+			end
+		end
+	end
+	MHRefreshSidebarTabChrome(ns.uiSelectedTab)
+	if ns._mhRelayoutSidebarTabs and not ns._mhSidebarRelaying then
+		ns._mhRelayoutSidebarTabs()
+	end
+end
+
 --- Re-anchors (so a Classic value loaded after the window was built still wins) and
 --- fills the header for the open screen. Called on every tab and Toolbox sub-tab switch
 --- and on a language change.
@@ -574,6 +770,7 @@ function ns:RefreshLookHeader()
 		return
 	end
 	MHAnchorContentColumn(refs, MHGetLayoutMetrics())
+	MHApplyLookChrome(refs)
 	if not header:IsShown() then
 		return
 	end
@@ -2705,12 +2902,12 @@ function ns:EnsureMainUI()
 	local lookBg = lookHeader:CreateTexture(nil, "BACKGROUND")
 	lookBg:SetAllPoints()
 	-- Night indigo from the logo; the icons were painted on the same ground.
-	lookBg:SetColorTexture(0.06, 0.045, 0.12, 0.94)
+	lookBg:SetColorTexture(MHUnpack4(LOOK_PALETTE.sidebar))
 	local lookEdge = lookHeader:CreateTexture(nil, "BORDER")
 	lookEdge:SetHeight(1)
 	lookEdge:SetPoint("BOTTOMLEFT", lookHeader, "BOTTOMLEFT", 0, 0)
 	lookEdge:SetPoint("BOTTOMRIGHT", lookHeader, "BOTTOMRIGHT", 0, 0)
-	lookEdge:SetColorTexture(0.91, 0.76, 0.42, 0.45)
+	lookEdge:SetColorTexture(LOOK_PALETTE.accent[1], LOOK_PALETTE.accent[2], LOOK_PALETTE.accent[3], 0.7)
 	local lookIcon = lookHeader:CreateTexture(nil, "ARTWORK")
 	lookIcon:SetPoint("LEFT", lookHeader, "LEFT", 10, 0)
 	lookIcon:SetSize(LOOK_HEADER_H - 10, LOOK_HEADER_H - 10)
@@ -2720,7 +2917,7 @@ function ns:EnsureMainUI()
 	lookIconEdge:SetPoint("TOPLEFT", lookIcon, "TOPLEFT", -2, 2)
 	lookIconEdge:SetPoint("BOTTOMRIGHT", lookIcon, "BOTTOMRIGHT", 2, -2)
 	lookIconEdge:SetBackdrop({ edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 2 })
-	lookIconEdge:SetBackdropBorderColor(0.91, 0.76, 0.42, 0.95)
+	lookIconEdge:SetBackdropBorderColor(LOOK_PALETTE.header[1], LOOK_PALETTE.header[2], LOOK_PALETTE.header[3], 0.95)
 	local lookText = lookHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	lookText:SetPoint("LEFT", lookIcon, "RIGHT", 12, 0)
 	lookText:SetPoint("RIGHT", lookHeader, "RIGHT", -14, 0)
@@ -2730,7 +2927,7 @@ function ns:EnsureMainUI()
 	if lookText.SetMaxLines then
 		lookText:SetMaxLines(2)
 	end
-	lookText:SetTextColor(0.93, 0.90, 0.98)
+	lookText:SetTextColor(LOOK_PALETTE.body[1], LOOK_PALETTE.body[2], LOOK_PALETTE.body[3])
 	lookHeader._mhIcon = lookIcon
 	lookHeader._mhText = lookText
 
@@ -3288,21 +3485,40 @@ function ns:EnsureMainUI()
 				if rb then
 					local isActive = (roomDef.id == activeRoom)
 					rb:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
+					local lookOn = MHLookOn()
 					if rb._mhLabel then
 						rb._mhLabel:SetText(ns:L(roomDef.labelKey))
-						if isActive then
+						if lookOn then
+							local c = isActive and LOOK_PALETTE.header or LOOK_PALETTE.muted
+							rb._mhLabel:SetTextColor(c[1], c[2], c[3])
+						elseif isActive then
 							rb._mhLabel:SetTextColor(1, 0.95, 0.6)
 						else
 							rb._mhLabel:SetTextColor(0.82, 0.78, 0.68)
 						end
 					end
 					if rb._mhBg then
-						if isActive then
+						if lookOn then
+							if isActive then
+								rb._mhBg:SetColorTexture(MHUnpack4(LOOK_PALETTE.active))
+							else
+								rb._mhBg:SetColorTexture(0, 0, 0, 0)
+							end
+						elseif isActive then
 							rb._mhBg:SetColorTexture(0.85, 0.65, 0.13, 0.55)
 						else
 							rb._mhBg:SetColorTexture(0.18, 0.16, 0.20, 0.55)
 						end
 					end
+					if not rb._mhLookBar then
+						local bar = rb:CreateTexture(nil, "ARTWORK")
+						bar:SetPoint("TOPLEFT", rb, "TOPLEFT", 0, 0)
+						bar:SetPoint("BOTTOMLEFT", rb, "BOTTOMLEFT", 0, 0)
+						bar:SetWidth(2)
+						rb._mhLookBar = bar
+					end
+					rb._mhLookBar:SetColorTexture(MHUnpack4(LOOK_PALETTE.accent))
+					rb._mhLookBar:SetShown(lookOn and isActive)
 					rb:ClearAllPoints()
 					rb:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
 					rb:Show()
@@ -3375,6 +3591,11 @@ function ns:EnsureMainUI()
 				sidebar._mhSectionHeaders[section.key] = header
 			end
 			header:SetText(ns:L(section.titleKey))
+			if MHLookOn() then
+				header:SetTextColor(LOOK_PALETTE.header[1], LOOK_PALETTE.header[2], LOOK_PALETTE.header[3])
+			else
+				header:SetTextColor(0.91, 0.76, 0.42)
+			end
 
 			if visibleCount > 0 then
 				if firstSectionDrawn then
@@ -3547,6 +3768,14 @@ function ns:EnsureMainUI()
 		favRow = favRow,
 		levelBar = levelBar,
 		lookHeader = lookHeader,
+		-- 4.0 palette surfaces (MHApplyLookChrome).
+		titleTex = titleHighlight,
+		titleText = title,
+		searchBg = searchBarBg,
+		favBg = favRowBg,
+		sidebarBg = sidebarBg,
+		contentBg = contentBg,
+		infoToggleBtn = infoToggleBtn,
 		searchResetBtn = searchResetBtn,
 		searchGoBtn = searchGoBtn,
 		aboutBtn = aboutBtn,

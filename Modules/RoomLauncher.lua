@@ -27,13 +27,21 @@ local CARD_H = 116
 local GAP = 10
 local ICON = 56
 
-local LOOK = {
-	cardBg = { 0.11, 0.086, 0.19, 0.92 },
-	cardEdge = { 0.27, 0.23, 0.39, 1 },
-	iconEdge = { 0.91, 0.76, 0.42, 0.9 },
-	hover = { 1, 0.82, 0.3, 0.10 },
-	status = { 0.72, 0.68, 0.82 },
-}
+-- Palette C "Twilight lantern" (Rob's pick, 12 Sep), read from the shell's ns.LOOK_PALETTE;
+-- the literals are fallbacks and the one card-only shade (the window colour, a step lighter).
+local function Palette()
+	local p = ns.LOOK_PALETTE or {}
+	local header = p.header or { 0.957, 0.871, 0.604 }
+	local accent = p.accent or { 0.788, 0.659, 1.0 }
+	return {
+		cardBg = { 0.153, 0.129, 0.271, 0.96 },
+		cardEdge = p.hover or { 0.165, 0.129, 0.314, 1 },
+		iconEdge = { header[1], header[2], header[3], 0.95 },
+		hover = { accent[1], accent[2], accent[3], 0.12 },
+		name = header,
+		status = p.muted or { 0.722, 0.682, 0.859 },
+	}
+end
 
 local TOOLS_CARDS = {
 	{ id = "toolslaunch" },
@@ -81,6 +89,7 @@ local function CardsForRoom(roomId)
 end
 
 local function MakeCard(parent)
+	local LOOK = Palette()
 	local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
 	b:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
 	b:SetBackdropColor(unpack(LOOK.cardBg))
@@ -101,6 +110,7 @@ local function MakeCard(parent)
 	name:SetPoint("RIGHT", b, "RIGHT", -6, 0)
 	name:SetJustifyH("CENTER")
 	name:SetWordWrap(false)
+	name:SetTextColor(LOOK.name[1], LOOK.name[2], LOOK.name[3])
 
 	local status = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	status:SetPoint("TOP", name, "BOTTOM", 0, -3)
@@ -206,6 +216,8 @@ local function EnsurePanel(roomId)
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", 14, -12)
+	local header = Palette().name
+	title:SetTextColor(header[1], header[2], header[3])
 	panel._mhTitle = title
 
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
