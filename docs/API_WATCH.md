@@ -1314,3 +1314,92 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     tegenlezing op de hotfix-datum. ⚠️ Directe `WebFetch` op warcraft.wiki.gg / news.blizzard.com
     blijft geblokkeerd; alles liep via Exa. 📌 De wiki-API antwoordt op `nocache` met
     "Unrecognized parameter: nocache." — onschadelijk, juist het bewijs dat de URL per dag verschilt.
+
+- [2026-09-12] ✅ **Geen relevante API-wijzigingen (5–12 sep). 0 × [MOET GEFIKST].** Geen hotfix
+  sinds 10 sep, geen bewerkte `/API changes`-pagina sinds 6 sep, geen blue post. Wél één echte
+  verandering in een openstaand punt: het *Duration Bars*-topic heeft na vijf dagen een tweede
+  melder gekregen. Alles via `web_fetch_exa` met cache-buster (`?nocache=20260912`), plus WebSearch
+  als tegenlezing.
+  - **GEMETEN — beide `/API changes`-pagina's onveranderd, derde dag op rij.** `prop=revisions` op
+    pageids 679840+705933: `Patch 12.1.0/API changes` nog steeds **revid 6860164,
+    2026-09-05T00:39:06Z, 102421 bytes**; `Patch 12.1.5/API changes` nog steeds **revid 6863733,
+    2026-09-06T17:08:08Z, 25227 bytes**. Byte-identiek aan de metingen van 10 en 11 sep — geen
+    oudere kopie teruggekregen, dus geen cache-val. ⚠️ De 12.1.0-diff (5 sep) is vandaag **7 dagen**
+    oud en valt hiermee uit het venster; hij is op 2/5/6/7/9/10 sep volledig getoetst en er is
+    sindsdien niets bij gekomen.
+  - **GEMETEN — er bestaat geen nieuwere `/API changes`-pagina.** `Patch 12.1.6`, `Patch 12.1.7` en
+    `Patch 12.2.0` zijn alledrie **`missing`**. Tegenlezing met `list=search` (`intitle:"API
+    changes"`, `srsort=last_edit_desc`, 15 stuks van 138 treffers): de nieuwst *bewerkte* zijn
+    12.1.5 (6 sep), 11.0.2 (6 sep), 12.1.0 (5 sep) en `API change summaries` (4 sep). **Niets binnen
+    7 dagen dat deze wachter niet al gelezen heeft.**
+  - **GEMETEN — de kernpagina's staan stil en vallen buiten het venster:** `World of Warcraft API`
+    **2026-09-04T22:38:05Z** (871833 bytes, comment "12.1.5 (69594)"), `Secret Values`
+    **2026-09-04T11:56:18Z**, `Patch 12.1.5` **2026-09-03T23:11:42Z**, `Secure Execution and
+    Tainting` **2026-02-15**. `AddOn changes` en `Events/Complete list` bestaan niet onder die naam
+    (`missing`) — dat is een eigenschap van de titel, geen leegte in de wiki.
+  - **GEMETEN — `list=recentchanges` (ns 0, 50 stuks, cache-busted).** Nieuwste bewerking
+    **2026-09-12T03:37:59Z**, dus nieuwer dan de 04:55Z van 11 sep: geen cache-val. Inhoud
+    **uitsluitend content**: Stormrider's Wristguards, de Orgrimmar-set, Scouting Missives, Tier
+    set/Tier 1–3, Heroic: Worlds Ahead, Lady La-La's Medallion, Thistle Tea (2). **Geen
+    `/API changes`-, `Structure `- of `Enum.`-pagina in de batch.** ⚠️ De 50 stuks dekken maar
+    ~1,5 uur (01:59–03:37Z); de dekking over de rest van de week komt van de `list=search`
+    hierboven, niet hiervan. Dat verschil stond er tot nu toe niet bij.
+  - **Hotfixes: nieuwste sectie nog steeds 10 september 2026.** `news.blizzard.com/en-us/article/
+    24296142` met cache-buster: secties 10 sep, 9 sep, 4 sep — **geen 11- of 12-sep-sectie**.
+    WebSearch bevestigt dat onafhankelijk (nieuwste treffers 10 en 9 sep, ook op Blue Tracker; geen
+    hotfixpost van 11 sep). Geen UI-, addon-, API- of secure-frame-sectie in wat er staat.
+  - ⏳ **NIEUW: het *Duration Bars*-topic (2345637) heeft een tweede post. Dat verandert de status,
+    niet de conclusie.** Op **2026-09-12T01:12:43Z** schrijft een tweede speler (Tumble, trust level
+    2, geen blue): *"I was having this issue and came looking for answers. After finding this post,
+    I found another that had a suggestion for a fix. ... If you take your character underwater, and
+    then edit ui and turn them on and save and exit, they appear and work as they should."* Vier
+    runs lang was dit **één onbevestigde melding**; het is nu een **tweede bevestiging plus een
+    workaround**. **Het is nog steeds geen API-wijziging:** een clientbug in Blizzards eigen Edit
+    Mode, geen wijziging aan een Lua-API, en nog altijd geen dev-antwoord.
+    - **[RAAKT ONS NIET] voor de instelling zelf — GEMETEN vandaag:** grep
+      `DurationBar|Duration Bars|durationBars|ArcheologyDigsite` over `*.{lua,xml,toc}` geeft
+      **0 treffers in 0 bestanden**; de woorden komen alleen in dit logboek voor.
+    - **[AL AFGEDEKT] voor de Edit-Mode-kant — en die is vandaag pas onderzocht.** De vorige runs
+      stopten bij "MH heeft geen duration-/castbar-code" en keken daarmee langs het punt heen: de
+      instelling die niet bewaard wordt is een **Edit Mode account setting**, en MH raakt Edit Mode
+      wél aan — **19 × `C_EditMode` in 2 bestanden** (`Modules/EditModeBackup.lua` 16×,
+      `Modules/BarInventory.lua` 3×). Alles is afgedekt: `EditModeBackup.lua:60` weigert als
+      `C_EditMode.GetLayouts` ontbreekt, `EditModeBackup.lua:63` wacht tot
+      `EditModeManagerFrame.accountSettings` er is, `BarInventory.lua:363` doet
+      `if C_EditMode and C_EditMode.GetLayouts then`, `BarInventory.lua:316` vraagt alleen
+      `type(C_EditMode[fn]) == "function"`, en **10 aanroepen staan in een `pcall`**. De module is
+      bovendien met opzet read-only (`EditModeBackup.lua:14`, met de reden erbij). MH kan dus geen
+      layout stukmaken en kan deze bug niet veroorzaken. Geen actiepunt.
+    - 🔴 **Positieve controle in dezelfde run, dezelfde scope:** dezelfde grep-vorm op `C_EditMode`
+      over `*.{lua,xml,toc}` geeft **19 treffers in 2 bestanden**. Het patroon vindt dus wél wat er
+      is; de nul hierboven is een echte nul.
+  - **Forum: één nieuw topic, geen API-feit, geen blue post.** *Cannot see the rain in game*
+    (**2346840**, aangemaakt 2026-09-11T14:44:22Z, 5 posts, 20 views) — CVars, graphics settings en
+    een herinstallatie, geen addon-API. **GEMETEN** aan de categorie-JSON (`order=created`,
+    cache-buster): `primary_groups` én `flair_groups` zijn **leeg**, dus geen van de getoonde
+    deelnemers heeft een Blizzard-groep (trust levels 0–3). *Addons api restrictions* (**2343904**)
+    **ongewijzigd**: 10 posts, laatste 2026-09-05T17:29:55Z, geen blue.
+  - **Staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`,
+    `GetItemCooldown`→`ns.GetItemCooldownSafe`) zijn deze run **niet** opnieuw getoetst en blijven
+    staan zoals op 2/6/7/9/10 sep gemeten. Geen open actiepunt aan de addon-/API-kant.
+  - ✅ **`(forced update)` is weer langsgekomen en is weer géén force-push** — afgehandeld met het
+    recept van 11 sep, niet opnieuw als vondst gemeld. `git pull --rebase` bracht de checkout van
+    een **detached HEAD** naar `main` op **bab0c09** met de regel
+    `+ cda339b...bab0c09 main -> origin/main (forced update)`. **GEMETEN:**
+    `git rev-parse --is-shallow-repository` = **`true`**, en na `git fetch --deepen 200` geeft
+    `git merge-base --is-ancestor cda339b HEAD` **exit 0** — `cda339b` is gewoon een voorouder. Het
+    recept werkt; het kostte drie commando's. Werkboom schoon, geen van de vier wachter-bestanden
+    gewijzigd-maar-ongecommit.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op pageids 679840+705933 én op de titels `Patch 12.1.6`/`12.1.7`/`12.2.0`,
+    `Secret values`/`Secret Values`/`Taint`/`Secure Execution and Tainting`/`AddOn changes`/
+    `World of Warcraft API`/`Events/Complete list`/`Patch 12.1.5`; `list=search` op
+    `intitle:"API changes"` met `last_edit_desc`; `list=recentchanges` ns 0, 50 stuks);
+    `news.blizzard.com/en-us/article/24296142`; `us.forums.blizzard.com` categorie-JSON 35 op
+    `order=created` plus topic-JSON `2345637`; WebSearch als tegenlezing op de hotfixdatum.
+    ⚠️ Directe `WebFetch` op warcraft.wiki.gg / news.blizzard.com blijft **EGRESS_BLOCKED**; alles
+    liep via Exa. 📌 De wiki-API antwoordt op `nocache` met "Unrecognized parameter: nocache." —
+    onschadelijk, en juist het bewijs dat de URL-string per dag verschilt.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Het verdiepen van de clone hierboven is puur
+    lezen.
