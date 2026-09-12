@@ -2,6 +2,43 @@
 
 All notable changes to this project are documented in this file.
 
+## 3.11.1
+
+📌 **A patch with the first day's fixes after 3.11.0.** Rob asked for a route in combat and did a
+clean `/reload` before the tag (12 Sep 2026): no errors.
+
+### Fixed
+
+- **Routes to sub-maps** (`Delves.lua` `MapWithAncestors` / `ns.MHIsSelfOrAncestor`, `TravelPlan.lua`,
+  `DelveTipMarkup.lua`): the planner used its own INSIDE table; it now reads the client's
+  `parentMapID` chain, like the travel popup. Measured against the UiMap DB2: 10 of the 20 Midnight
+  map ids MH routes to are sub-maps (Slayer's Rise, Val, Naigtal, Atal'Aman, Silvermoon City, the
+  Vaults and its micro-maps). The capital fallback only runs outside Midnight. Seen working in the
+  game on Slayer's Rise; the other maps are derived from the code.
+- `targetX` was an undefined global in both travel-assistant copies; `GetBaseZoneName` called
+  Eversong (2395) "Zul'Aman".
+- **Route in combat** (`Delves.lua` `AddSmartTomTomWay` / `ShowTravelAssistFor`, `Profession.lua`):
+  no more `ADDON_ACTION_BLOCKED` on `MidnightHelperHSClick:ClearAllPoints()`; the layout returns
+  early under `InCombatLockdown()`. Tested by Rob.
+- Generate Route Treasures without TomTom advances through the list instead of stopping at the first
+  pin (not yet seen in the game).
+- **Trovehunter's Bounty:** the Season 2 buff 1293799 is measured from the buff tooltip; "active in
+  delve" became "active — Hidden Trove after your next Tier 4+ delve" in seven languages.
+
+### Added
+
+- Delve Coach: Replicating Venomborne (creature 269179, confirmed by eye) for Fungal Pharmacon (Grudge
+  Pit) and Eggsplosive Growth (Darkway). Spell ids 1311500 / 1303316 / 1289224 are chosen by tooltip
+  text (DBM has no module; listed in `tools/tip_baseline.json`). The coach no longer takes
+  "(Optional) Exit Delve…" as the story, and shows every line while the story is unknown.
+- Tips from Blizzard's 10 Sep hotfix post: Mor'zahi's Final Ascension (`RaidTips.lua`) and the
+  Loosed Loa objects (`DelveTips.lua`), in seven languages.
+
+### Removed
+
+- `/mh texturetest` (`TextureProbe.lua`): its question is answered (PNG, a 144×144 non-power-of-two
+  PNG and a 629×342 TGA all load on 12.1; Rob, 12 Sep), and its test images were never in git.
+
 ## 3.11.0
 
 📌 **A minor with two new screens' worth of work.** Spec 38 (the Account snapshot made readable)

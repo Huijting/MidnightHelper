@@ -1,5 +1,29 @@
 # Midnight Helper — waar we staan
 
+## 📦 12 sep — 3.11.1: Rob "go"
+
+- **Rob testte vooraf** een route in combat en een schone `/reload`: *"geen foutmelding gezien … geen
+  foutmeldingen dus een Go voor 3.11.1"*.
+- **Inhoud:**
+  - routes naar submaps;
+  - geen fout meer bij een route in combat;
+  - Replicating Venomborne in de Delve Coach;
+  - Trovehunter "werkt overal" + de S2-buff;
+  - twee hotfix-tips.
+  Details in `CHANGELOG.md`, spelertekst in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_3.11.1.md`).
+- `/mh texturetest` is eruit (`TextureProbe.lua` en de twee test-PNG's verwijderd): de vraag is
+  beantwoord, en de PNG's stonden niet in git.
+- Tag `v3.11.1` op de releasecommit. ⏳ **Nog na te kijken:**
+  - of de Actions-run naar CurseForge **en** Wago is gegaan;
+  - of de changelog-opmaak op CF klopt;
+  - of de automatische Wago-upload nu echt werkt (was nog onbewezen).
+- 💡 **Idee van Rob voor ná 3.11.1 (screenshot 12 sep):** Friend Finder toonde bij een gekozen rare
+  een kadertje met een rond portret en de afstand (*"1107 yd"*). Rob: *"dit is wel gaaf"*.
+  - 🔴 **Niet hun code**: Friend Finder is All Rights Reserved; zelf bouwen, op onze eigen manier.
+  - ⚠️ Rob rijdt met TomTom, en dan tekent MH geen eigen pijl. Een portret hangen we dus niet aan
+    onze pijl (zie CLAUDE.md, *"Do not hang information on the arrow's label"*).
+  - Niet vastgesteld: of dat portret de rare was of Robs eigen character.
+
 ## 🎨 12 sep — 4.0.0-look (Spec 37) gestart: proefronde iconen + `/mh texturetest`. Rob: "begin met 1 en 2"
 
 - **1. Proefronde, 4 iconen in de in-game-stijl van Spec 37 §3c** (Home, Delves, Rares, Codex, elk 2
@@ -43,7 +67,8 @@
       achievements_1, mounts_1, tradingpost_4, raids_1, world_1, events_1, delvelog_4, enchants_3, tier_1,
       omnium_2, city_3, currency_1, guide_4, tools_2, toolbox_3, addons_1, settings_3, macros_1,
       consumables_2, academy_1, professions_1 (plus home_2, delves_2, codex_2, rares2_2).
-  - 📦 **Tussenrelease 3.11.1: Rob vroeg 12 sep of er genoeg is. Antwoord: ja.** Sinds v3.11.0
+  - 📦 **Tussenrelease 3.11.1: Rob vroeg 12 sep of er genoeg is. Antwoord: ja.** ✅ Getest en "go"
+    gekregen; zie de 3.11.1-sectie bovenaan. Sinds v3.11.0
     (11 sep 20:37) zijn er zes wijzigingen voor de speler:
     - Trovehunter's Bounty S2: kaart, buff en de tekst "werkt overal". Getest.
     - Replicating Venomborne in de Delve Coach. Model en spell-links getest; de story-herkenning volgt

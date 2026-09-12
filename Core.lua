@@ -1486,15 +1486,6 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh texturetest — Spec 37 §5: laadt een eigen PNG in 12.1, geldt de 2-machtsregel nog,
-	-- en tonen de Platy-screenshots? Vier vakjes naast elkaar; Rob kijkt, na een VOLLEDIGE herstart.
-	if msg == "texturetest" then
-		if ns.ShowTextureProbe then
-			ns.ShowTextureProbe()
-		end
-		return
-	end
-
 	-- /mh campaign — verifieer de Curse-of-Ula'tek-lead-in quest-IDs tegen de live game.
 	if msg == "campaign" then
 		if ns.PrintCampaignLeadInDiagnostics then

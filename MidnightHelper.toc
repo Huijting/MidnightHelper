@@ -1,6 +1,6 @@
 ﻿## Interface: 120007, 120100
 ## Title: Midnight Helper
-## Version: 3.11.0
+## Version: 3.11.1
 ## Author: TwelveInchy
 ## Category: User Interface
 ## Notes: All-in-one Midnight helper: weekly planning, Delves, Great Vault, achievement hunts, a class keybind coach, combat helpers and route guidance.
@@ -268,7 +268,6 @@ Modules\ApiProbe.lua
 Modules\PtrProbe.lua
 Modules\PartyTargetProbe.lua
 Modules\TierProbe.lua
-Modules\TextureProbe.lua
 Modules\PartyTargets.lua
 Modules\KnowledgeData_S1.lua
 Modules\KnowledgeRuntime.lua

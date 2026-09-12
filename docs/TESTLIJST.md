@@ -53,8 +53,10 @@ De planner vraagt nu net als de reis-popup aan het spel in welke zone een kaart 
 
 Rob kreeg `ADDON_ACTION_BLOCKED … MidnightHelperHSClick:ClearAllPoints()` toen hij een alchemy-route
 vroeg (Profession → `AddSmartTomTomWay`). Die knop is beveiligd en mag in combat niet bewegen.
-- [ ] **Vraag in combat een route aan** (bijvoorbeeld een beroepsschat): **geen foutmelding**, en de
+- [x] **Vraag in combat een route aan** (bijvoorbeeld een beroepsschat): **geen foutmelding**, en de
       TomTom-pijl staat gewoon op het doel. De reis-popup met portal/Hearthstone blijft in combat weg.
+      ✅ **Rob, 12 sep (vóór 3.11.1):** *"stap 1, geen foutmelding gezien, stap 2 reload gedaan en geen
+      foutmeldingen"*.
 - [ ] **Buiten combat**, voor een doel in een ander gebied: de reis-popup verschijnt zoals altijd.
       ⚠️ Een route die je in combat vroeg, krijgt die popup niet vanzelf. Klik na het gevecht nog
       een keer.
