@@ -10,6 +10,8 @@
 - **2. `/mh texturetest`** (`Modules/TextureProbe.lua`, in `MH_UNLISTED_ON_PURPOSE`): vier vakjes,
   namelijk PNG 128, PNG 144, `Platy1.tga` (629×342) en een Blizzard-controle-icoon. Beantwoordt Spec 37 §5
   punt 1 en 2 én de 2-machtsvraag in één keer, na een **volledige herstart**.
+  - ✅ **GEMETEN door Rob, 12 sep: alle vier zichtbaar.** PNG werkt, en **PNG 144×144 ook: de
+    2-machtsregel geldt niet op 12.1**. De TGA van 629×342 laadt ook (Platynator is dus niet kapot).
   - ⚠️ De twee test-PNG's (`Media/Icons/mh_texturetest_128.png` / `_144.png`, gemaakt uit het logo)
     zijn **bewust NIET gecommit**: geen iconen in de openbare repo zonder Robs akkoord. Ze staan
     alleen lokaal, dus `git status` toont `Media/Icons/` als untracked. Dat is geen wees-bestand.

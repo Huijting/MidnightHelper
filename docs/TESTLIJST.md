@@ -7,18 +7,13 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
-## 🆕 12 sep — `/mh texturetest`: de eerste meting voor de 4.0.0-look (Spec 37 §5)
+## ✅ 12 sep — `/mh texturetest`: de eerste meting voor de 4.0.0-look (Spec 37 §5)
 
-⚠️ **Eerst WoW HELEMAAL afsluiten en opnieuw starten**; een `/reload` is niet genoeg voor nieuwe
-plaatjes. Dan `/mh texturetest`. Je ziet vier vakjes naast elkaar:
-- [ ] **PNG 128×128** (het MH-schild): zichtbaar? Zo ja, dan kunnen we PNG uit `Media/` gebruiken.
-- [ ] **PNG 144×144** (hetzelfde schild): zichtbaar, of een **groen/leeg vak**? Dat beslist of de
-      2-machtsregel nog geldt.
-- [ ] **TGA 629×342** (Platynator-screenshot): zichtbaar of groen? Groen = de drie Platy-plaatjes in
-      *Addons → Platynator* zijn al maanden kapot.
-- [ ] **Blizzard-icoon** (vraagteken): hoort er altijd te staan. Staat die er niet, dan is het venster
-      stuk en zeggen de andere drie niets.
-Eén screenshot van het venster is genoeg.
+GEMETEN door Rob op 12 sep, na een volledige herstart; alle vier zichtbaar (screenshot):
+- [x] **PNG 128×128** (het MH-schild): zichtbaar. PNG uit `Media/` werkt.
+- [x] **PNG 144×144**: zichtbaar. **De 2-machtsregel geldt niet meer op 12.1**; elke maat kan.
+- [x] **TGA 629×342** (Platynator-screenshot): zichtbaar. De Platy-plaatjes zijn dus niet kapot.
+- [x] **Blizzard-icoon** (vraagteken, de controle): zichtbaar, dus het venster zelf werkt.
 
 ## 🆕 12 sep — Twee hotfix-feiten van Blizzard (10 sep) in de tips
 
@@ -32,11 +27,11 @@ Eén screenshot van het venster is genoeg.
 ## 🆕 12 sep — Routes naar Slayer's Rise en andere subzones (A + B + C)
 
 De planner vraagt nu net als de reis-popup aan het spel in welke zone een kaart ligt.
-- [ ] **In Silvermoon, route naar *Vial of Voidstorm Oddities*** (Slayer's Rise): de pijl gaat naar
+- [x] **In Silvermoon, route naar *Vial of Voidstorm Oddities*** (Slayer's Rise): de pijl gaat naar
       **Portal to Voidstorm**, niet naar *Flight master: Sanctum of Light*. Pijl en popup zeggen nu
-      hetzelfde.
-- [ ] **Door die portal:** in Voidstorm wijst de pijl naar de schat, en er komt **geen** *"You are at
-      Portal to Silvermoon"* meer.
+      hetzelfde. ✅ Rob, 12 sep: *"de vial in voidstorm werkte nu perfect"*.
+- [x] **Door die portal:** in Voidstorm wijst de pijl naar de schat, en er komt **geen** *"You are at
+      Portal to Silvermoon"* meer. ✅ Zelfde run.
 - [ ] **Vanuit Slayer's Rise of Voidstorm een Harandar-schat** (*Vial of Rootlands Oddities*):
       **geen "head for Orgrimmar"** meer, maar de Portal to Harandar.
       ⚠️ Staat er nog *"(other continent — travel back)"* vóór, dan heeft Slayer's Rise vermoedelijk
