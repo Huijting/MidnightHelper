@@ -30,8 +30,31 @@
       verhelpt dat: nu 51% en 58%. Een staand medaillon vult een vierkant nu eenmaal minder.
     - Vel: `Downloads\MH_iconen_4.0_proef\_rares2_vel.png`. **Mijn keus: `rares2_2`** (schoon, warme
       kern zoals de lantaarn en kaars van de rest, duidelijkste silhouet op 64 px). Rob mag omkiezen.
-    - 📌 Voor de andere 24: gebruik `mh40_rares_crop.py` (randcheck + sterretjesfilter), niet de
-      oude `mh40_crop.py`.
+    - Rob: *"rares2_2 is goed"*.
+  - ✅ **De andere 24 gerenderd (12 sep, Rob: "begin maar met de 24")**: `mh40_<stem>_*`, zelfde
+    onderwerpen als 10 sep, maar zonder de achtergrondscènes; Addons = het nieuwe hele tandwiel.
+    Vel met alle 28: `Downloads\MH_iconen_4.0_proef\_set28_vel.png`. Bijgesneden 256/128/64 in `…\gekozen\`.
+    Script: `…\MH_iconen_4.0_proef\mh40_set_crop.py`.
+    - Opnieuw gedaan: **Start** (nep-letters "XXX" op het bord) en **Trading** (een "1" op de munt).
+      Die heten nu variant 3 en 4, dus de afgekeurde 1 en 2 kun je niet per ongeluk kiezen.
+    - GEMETEN: 7 van de 48 renders kregen een witte rand, één met ronde hoeken. Het script snijdt die
+      eraf en vult de hoekjes met indigo.
+    - **Mijn keuzes:** start_4, dungeons_1, account_1, achievements_1, mounts_1, tradingpost_4, raids_1,
+      world_1, events_1, delvelog_1, enchants_1, tier_1, omnium_2, city_2, currency_1, guide_2, tools_2,
+      toolbox_1, addons_1, settings_1, macros_1, consumables_2, academy_1, professions_1.
+    - ⏳ **Drie vragen aan Rob:**
+      1. **Addons en Settings zijn allebei een gouden tandwiel.** Op 10 sep had elk een naambalk;
+         in de game niet. Eén van de twee een ander onderwerp geven?
+      2. **Vijf opengeslagen boeken**: Codex, Account, Delve Log, Omnium en Leveling. Op 64 px lijken
+         ze op elkaar.
+      3. **Zwak op 64 px:** Toolbox (de leren rol lijkt een worst, vult 32–37%), Enchants (dunne staf)
+         en SMC (dunne torens, vult 30%).
+  - 📏 **Grootte, GEMETEN 12 sep (Rob: "gaat dit onze addon niet vreselijk groot maken?"):**
+    - Per icoon gemiddeld 27 KB op 128 px en 8 KB op 64 px. Alle 28 in beide maten ≈ **0,95 MB**.
+    - In het geheugen ≈ 2,2 MB, verwaarloosbaar.
+    - De nieuwste zip op schijf (3.7.3) is 3,16 MB. PNG is al gecomprimeerd, dus de zip groeit met
+      ongeveer 1 MB. Dat valt binnen het budget van Spec 37 (+2 MB).
+    - De 256px-maat (2,6 MB) is niet nodig. De ~900px-originelen (35 MB) gaan nooit mee.
   - Daarna pas de andere 24, in dezelfde stijl en met dezelfde bijsnijding.
 
 ## 🩹 12 sep — Twee officiële hotfix-feiten (10 sep) in de tips. Rob: "begin maar met 1 en 2"
