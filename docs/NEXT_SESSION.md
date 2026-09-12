@@ -65,7 +65,24 @@
       worden, niet getint.
     - Tekstcontrast is al goed; alleen footer-grijs 0.45 haalt AA niet (4,3:1).
     - Maar 11 van ~150 bestanden lezen `ns.UI_COLORS`. Vijf `MH_CHROME`-velden worden nooit gebruikt.
-    - Webagent B (frisse paletten, humor) liep nog bij het schrijven.
+    - **Webagent B (frisse paletten, humor), 12 sep.** Reddit was onbereikbaar, en Blizzard noemt
+      geen officiële Midnight-hex-kleuren. Drie paletten, contrast zelf berekend (body 14,5–15,5:1,
+      muted 7,4–8,7:1 op een dekkende achtergrond):
+      - **A "Calm night"**: window #161A2E, sidebar #0F1224, active #2C2860 + 2 px goud, header/accent
+        #F2C45A, body #ECEAF6, muted #A9A6C8. Advies van de agent.
+      - **B "Festive Silvermoon"**: window #1E1419, active #5A1E2C, header #FFCF5C, body #F6EDDD.
+        Past eerder bij een seizoens- of eventskin.
+      - **C "Twilight lantern"**: window #1B1633, active #3D2E78, header #F4DE9A, accent #C9A8FF,
+        body #F1EEFA. Het "frisse" alternatief.
+      - Success en danger verschillen maar 1,2× in helderheid, dus nooit alleen kleur: altijd een
+        woord of icoon erbij (Blizzards eigen oplossing in 6.1).
+      - Venster ≥ ~90% dekkend, anders zakt het contrast door de 3D-wereld.
+      - **Humor** (Mailchimp, NN/g, Microsoft): alleen waar niets meer te doen is, nooit in een
+        instructie. Geen woordgrappen, want die sterven in 6 talen. Elke grap een eigen key, zodat een
+        vertaler hem mag vervangen of leeglaten.
+      - Contrastscript: `contrast.py` in de sessie-scratchpad.
+    - ⏳ Mock-up van A/B/C in ons eigen venster: `Downloads\MH_iconen_4.0_proef\_kleuren_A_B_C.png`.
+      Rob kiest.
   - (3) pop-outkaarten 34 → 64 px. Die moeten dan eerst scrollen: 8 kaarten passen nu al nauwelijks.
   - Tour stap 5: de header valt buiten de highlight van `content`. Nu geen probleem; kijken als de
     Tour een eigen stap voor de kop krijgt.
