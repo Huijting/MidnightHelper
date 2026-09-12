@@ -32,8 +32,10 @@
     GEMETEN byte-voor-byte gelijk (opdracht, schema, model, tools, repo, omgeving, 6 connectoren).
     Nieuwe ID's: API `trig_01FLuvPV5NAb2UEN4e1fboTS`, PTR `trig_018jpghYW8vRpDsj9qkWWD8f`, data
     `trig_015Bz5PbUNrgr6x7KTiSXVqe`. Eerste run: 13 sep, 03:37/03:40/03:50 UTC.
-  - ➡️ **Nog open voor Rob:** de drie **Cowork**-taken staan er nog (map `C:\Users\RobHu\Claude\Scheduled\`).
-    Verwijderen in de **desktopapp → Cowork → Scheduled**, niet in claude.ai → Routines.
+  - ✅ **Cowork-taken verwijderd door Rob, 12 sep.** GEMETEN: `C:\Users\RobHu\Claude\Scheduled\` is leeg
+    (dezelfde zoekopdracht vond er die ochtend nog drie). De 7 cloud-routines staan er allemaal
+    (3 teruggezet + content + oude uitgezette API-wachter + ochtendbrief + triage), en de 2 taken in de
+    Code-tab ook. **Check morgenochtend:** er hoort GEEN wees-regel meer in `API_WATCH.md` te staan.
 
 ## 🧭 12 sep: routes naar Slayer's Rise (Voidstorm). GEBOUWD (Rob: "go, doe A, B en C"), wacht op test
 

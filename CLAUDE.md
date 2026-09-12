@@ -65,8 +65,9 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    (`[ScheduledTasks] Spawning new session for scheduled task …`). GEMETEN uitgesloten op 12 sep: 7
    cloud-routines, 2 Code-tab-taken, 394 Windows-taken, de cron van deze sessie en andere
    desktopsessies. Memory: `cowork-scheduled-tasks-local`.
-   ➡️ **Rob zet de drie uit** in de Claude-app (Cowork → Scheduled). Tot dat gebeurd is, geldt het
-   recept hierboven nog: wees-regel committen, dan pullen.
+   ✅ **Verwijderd door Rob op 12 sep**; GEMETEN dat `C:\Users\RobHu\Claude\Scheduled\` leeg is. Duikt er
+   tóch weer een wees-regel op, dan is er een nieuwe lokale schrijver: kijk eerst in die map en in
+   `main*.log`. Het recept hierboven (committen, dan pullen) blijft de terugval.
    🔴 **LET OP DE NAMEN. De cloud-routines en de Cowork-taken lijken op elkaar** ("API watch" /
    "api-wachter", "blue post / data watch" / "bluepost-check", "PTR / roadmap watch" /
    "ptr-12-1-watch"). Op 12 sep zijn daardoor de drie verkeerde verwijderd: de **cloud**-wachters.
