@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## 🎨 12 sep — 4.0.0 (Spec 37, concept A): bouw gestart. Rob: "begin maar met 4.0.0"
+
+- **Rob vroeg of we terug kunnen naar de oude layout. Ja:**
+  - tag `v3.11.1`;
+  - de oude bestanden op CF;
+  - en de schakelaar **"Klassiek"** uit Spec 37 §6a/§7, die 4.0.0 krijgt.
+- ✅ **Rob: "Ja ja"** op (1) de 28 iconen in de openbare repo en (2) de eerlijke AI-regel in README
+  en CF-omschrijving.
+  - Iconen: `Media/Icons/<stem>_128.png` + `_64.png`, 56 bestanden, **0,96 MB** (GEMETEN).
+  - Stems volgen de deck-namen (`smcguide`, `toolslaunch`).
+  - ⚠️ De CF-omschrijving plakt Rob zelf (de packager doet dat niet), en niet op een dag met een
+    andere CF-wijziging (Spec 37 §6g).
+- Spec 37 §5 punt 1–3 en §1a zijn bijgewerkt:
+  - PNG en NPOT laden op 12.1;
+  - de Platy-TGA is heel;
+  - Z-Image Turbo is Apache 2.0 volgens de officiële modelkaart.
+- ⏳ **Volgende stap:** een kaart van de UI-code (kopbalk per scherm, kamerknoppen, pop-outkaarten,
+  instelling, Tour), daarna de eerste bouwstap: de kopbalk + de Klassiek-schakelaar.
+
 ## 📦 12 sep — 3.11.1: Rob "go"
 
 - **Rob testte vooraf** een route in combat en een schone `/reload`: *"geen foutmelding gezien … geen

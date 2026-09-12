@@ -65,6 +65,9 @@ See `CURSEFORGE_DESCRIPTION.md` for the full feature list.
 - [Wowhead](https://www.wowhead.com/) for public game-reference validation and lookup support.
 - [Icy Veins](https://www.icy-veins.com/wow/) for external leveling and talent reference links.
 - [TomTom](https://www.curseforge.com/wow/addons/tomtom) for optional waypoint integration.
+- Art: the screen icons were generated locally with an open image model (Z-Image Turbo) from text
+  prompts, then picked and cropped by us; the logo was made with Google Gemini. No Blizzard artwork
+  was used as input for the icons.
 
 ## Disclaimer
 

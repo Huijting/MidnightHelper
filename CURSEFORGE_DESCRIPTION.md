@@ -86,6 +86,8 @@ Around forty more are listed and explained inside the addon, under **Tools**, wh
 
 Guide data cross-checked against Wowhead and Icy Veins. Boss, spell and item names come from the game's own data. Thanks to everyone who has reported something that read wrong.
 
+The screen icons were generated locally with an open image model (Z-Image Turbo) from text prompts, then picked and cropped by us; the logo was made with Google Gemini. No Blizzard artwork was used as input for the icons.
+
 ### Disclaimer
 
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. This addon is not affiliated with or endorsed by Blizzard Entertainment.

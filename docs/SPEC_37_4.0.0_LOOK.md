@@ -26,8 +26,9 @@ verbouwing.
   (`## Interface: 120100`) levert 512×512 PNG's en laadt ze met `SetTexture("...png")`.
   ⇒ **Geen omzetting naar TGA/BLP nodig.** ComfyUI levert al PNG. (Dit corrigeert mijn eigen
   aantekening van 10 sep, die zei "MH gebruikt TGA, dus omzetten".)
-- **Machten van twee:** de wiki eist het nog; verkeerde maten tonen als **groen blok**. Niet
-  hermeten op 12.1. ⇒ Alles op **64, 128 of 256**. Onze `deck_144` is dat níet.
+- **Machten van twee:** de wiki eist het nog, maar ✅ **G, 12 sep (`/mh texturetest`): op 12.1 laadt
+  een PNG van 144×144 gewoon.** De regel geldt niet meer. We leveren toch 64 en 128 px, om de maat
+  in KB, niet om de regel.
 - ⚠️ **Nieuwe texturebestanden vragen een volledige herstart van het spel**, niet `/reload`
   (**A**, uit forummeldingen). Anders zie je groen en denk je dat het kapot is.
 
@@ -177,14 +178,13 @@ een avond, geen project. De huidige set blijft voor deck en marketing.
 
 ## 5. Open punten — te meten, niet aan te nemen
 
-1. **Laadt een 128 px-PNG uit `Media/` in 12.1?** Eén bestand, één `SetTexture`, **volledige
-   herstart**. Vóór er één regel layoutcode wordt geschreven.
-2. **Tonen de Platy-screenshots nu als groene blokken?** (§1b) Tien seconden.
-3. ~~Licentie van Z-Image Turbo~~ — **grotendeels beantwoord, 10 sep:** meerdere pagina's
-   (o.a. een GitHub-`LICENSE`, Hugging Face-kopieën, twee reviews) noemen **Apache 2.0**, uitgebracht
-   26 nov 2025, commercieel gebruik toegestaan. Die licentie gaat over de modelgewichten en legt
-   de gegenereerde beelden geen beperking op. ⚠️ **A:** de officiële modelkaart van Tongyi heb ik
-   niet zelf gelezen — alleen kopieën en samenvattingen. Eén blik op de officiële pagina maakt dit G.
+1. ✅ ~~Laadt een 128 px-PNG uit `Media/` in 12.1?~~ **G, 12 sep** (`/mh texturetest`, volledige
+   herstart): ja. En **een PNG van 144×144 ook** — de 2-machtsregel uit §1a geldt niet meer op 12.1.
+2. ✅ ~~Tonen de Platy-screenshots nu als groene blokken?~~ **G, 12 sep:** nee, de TGA van 629×342
+   laadt gewoon. §1b's zorg was ongegrond.
+3. ✅ ~~Licentie van Z-Image Turbo~~ — **G, 12 sep:** de officiële modelkaart
+   (`huggingface.co/Tongyi-MAI/Z-Image-Turbo`, uitgever Tongyi-MAI) zegt **Apache 2.0**. De kaart
+   zegt niets over beperkingen op gegenereerde beelden; Apache 2.0 gaat over de gewichten.
 4. **Welke Blizzard-atlassen** voor kader, knoppen en koppen — per naam bevestigd in de client.
 
 ---
