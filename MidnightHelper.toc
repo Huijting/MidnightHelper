@@ -245,6 +245,7 @@ Modules\DevShots.lua
 Modules\CommandList.lua
 Modules\SupportReport.lua
 Modules\ToolsLaunchpad.lua
+Modules\RoomLauncher.lua
 Modules\Tour.lua
 Modules\FirstRun.lua
 Modules\Nudges.lua

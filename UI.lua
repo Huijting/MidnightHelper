@@ -341,6 +341,11 @@ for _, r in ipairs(SIDEBAR_ROOMS) do
 end
 
 local function MHRoomForTab(tabId)
+	-- 4.0 room card grids (Modules/RoomLauncher.lua) are panels named "room_<room>".
+	local launcherRoom = type(tabId) == "string" and tabId:match("^room_(%a+)$")
+	if launcherRoom and SIDEBAR_ROOM_BY_ID[launcherRoom] then
+		return launcherRoom
+	end
 	for _, section in ipairs(SIDEBAR_SECTIONS) do
 		for _, id in ipairs(section.ids) do
 			if id == tabId then
@@ -521,6 +526,10 @@ local LOOK_SCREENS = {
 	macros = { stem = "macros", tagline = "TAB_TAGLINE_MACROS" },
 	academy = { stem = "academy", tagline = "TAB_TAGLINE_ACADEMY" },
 	professionsHub = { stem = "professions", tagline = "TAB_TAGLINE_PROFESSIONSHUB" },
+	-- The three room card grids (Modules/RoomLauncher.lua).
+	room_me = { stem = "home", tagline = "TAB_TAGLINE_ROOM_ME" },
+	room_codex = { stem = "codex", tagline = "TAB_TAGLINE_ROOM_CODEX" },
+	room_tools = { stem = "toolslaunch", tagline = "TAB_TAGLINE_ROOM_TOOLS" },
 }
 local LOOK_ICON_PATH = "Interface\\AddOns\\MidnightHelper\\Media\\Icons\\%s_64.png"
 local LOOK_HEADER_H = 64
@@ -2068,6 +2077,15 @@ for _, tab in ipairs(TAB_DEFS) do
 	TAB_LABEL_BY_ID[tab.id] = tab.labelKey
 end
 
+-- Shared, read-only, with Modules/RoomLauncher.lua (4.0 room card grid), so the grid lists
+-- exactly what the sidebar lists and uses the same icons and taglines as the screen header.
+ns._mhSidebarSections = SIDEBAR_SECTIONS
+ns._mhSidebarRoomById = SIDEBAR_ROOM_BY_ID
+ns._mhTabLabelById = TAB_LABEL_BY_ID
+ns._mhSidebarTabVisible = SidebarTabVisible
+ns._mhLookScreens = LOOK_SCREENS
+ns._mhLookIconPath = LOOK_ICON_PATH
+
 --------------------------------------------------------------------------------
 -- Internal Addons sub-tab registry (modules call ns.RegisterAddonSubTab at load)
 --------------------------------------------------------------------------------
@@ -3213,6 +3231,11 @@ function ns:EnsureMainUI()
 		return nil
 	end
 	local function MHSelectRoom(roomId)
+		-- 4.0: a room with more than one screen opens its card grid (Modules/RoomLauncher.lua).
+		-- Classic, or a room with a single screen, keeps the 3.x behaviour: its first tab.
+		if ns.OpenRoomLauncher and ns:OpenRoomLauncher(roomId) then
+			return
+		end
 		local target = MHFirstVisibleTabInRoom(roomId)
 		if target then
 			SelectTab(target)
@@ -3628,6 +3651,12 @@ SelectTab = function(tabId)
 	end
 	if tabId == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
 		tabId = "home"
+	end
+	-- A room card grid is a 4.0 screen; with Classic on, open the room's own first tab.
+	local launcherRoom = type(tabId) == "string" and tabId:match("^room_(%a+)$")
+	if launcherRoom and ns.IsClassicLookEnabled and ns:IsClassicLookEnabled() then
+		local roomDef = SIDEBAR_ROOM_BY_ID[launcherRoom]
+		tabId = (roomDef and roomDef.defaultTab) or "home"
 	end
 	if not ns.panels or not ns.panels[tabId] then
 		-- Saved/stale tab id no longer exists (e.g. merged or removed tab): fall

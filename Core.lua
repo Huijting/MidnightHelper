@@ -659,7 +659,11 @@ function ns:SetClassicLookEnabled(enabled)
 	if self.db and self.db.settings then
 		self.db.settings.classicLook = value
 	end
-	if self.RefreshLookHeader then
+	-- Switching to Classic while a room card grid is open: SelectTab sends that grid to its
+	-- room's first tab (a grid is a 4.0-only screen) and refreshes the header itself.
+	if value and type(self.uiSelectedTab) == "string" and self.uiSelectedTab:match("^room_") and self.SelectTab then
+		self.SelectTab(self.uiSelectedTab)
+	elseif self.RefreshLookHeader then
 		self:RefreshLookHeader()
 	end
 	return true

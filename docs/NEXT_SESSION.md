@@ -38,7 +38,34 @@
   - Info-laatje Mounts/TradingPost/Raids → hun paneel-ondertitel (bestaat in 7 packs).
   - Gecontroleerd: `lua_syntax_check` OK, lint 0 HARD, [1] 0 missende keys.
 - ⏳ **Daarna, uit Spec 37 concept A:**
-  - (2) kamerknop → kaartjesrooster;
+  - ✅ **(2) kamerknop → kaartjesrooster GEBOUWD (12 sep), ongetest.** Rob koos "1 en 2" na de mock-up
+    `Downloads\MH_iconen_4.0_proef\_mockup_kamer_me.png`.
+    - `Modules/RoomLauncher.lua` (nieuw, in `.toc` na ToolsLaunchpad): panelen `room_me`,
+      `room_codex`, `room_tools` in `ns.panels`. De kaartlijst komt uit het zijbalkmodel, dat UI.lua
+      deelt als `ns._mhSidebarSections` / `_mhSidebarRoomById` / `_mhTabLabelById` /
+      `_mhSidebarTabVisible` / `_mhLookScreens` / `_mhLookIconPath`.
+    - Tools toont de Toolbox-subtabs als eigen kaarten; `profoverview` landt op Overview.
+    - `MHRoomForTab` kent `room_<id>`. Een kamerknop opent het rooster via `ns:OpenRoomLauncher`, dat
+      in Classic of bij minder dan 2 schermen `false` geeft (Settings).
+    - In Classic stuurt `SelectTab` een `room_*` door naar `defaultTab` van die kamer (eindelijk
+      gelezen), en `SetClassicLookEnabled` doet dat ook voor een open rooster.
+    - **Statusregels** (`ns.RoomCardStatus`), alleen waar MH het al goedkoop uitrekent (statusagent,
+      12 sep): home (`GetNextWeeklyAction`), delves (Vault uit `charCurrencies`), world (twee
+      weekly-vlaggen), events (`GetOngoingWorldEvents`, pas na de eerste scan), enchants, tier,
+      account (aantal characters), raids (bosses), professionsHub (Knowledge).
+      - Onleesbaar = lege regel, nooit 0.
+      - 12 `ROOMCARD_*`-keys in enUS + nlNL.
+      - Nog zonder statusregel: rares ("up" werkt alleen in de eigen zone), mounts (zwaar),
+        achievements, currency, starthere, smcguide, tradingpost (koude cache).
+    - De kleuren van de kaarten staan in één `LOOK`-tabel bovenin, voor de paletkeuze.
+  - ⏳ **(zijbalk in logo-kleuren)** wacht op de kleurkeuze.
+    - Paletagent A (12 sep) vond de oorzaak van het zware gevoel: de rode `UIPanelButtonTemplate`
+      (123× in 49 bestanden) en de getinte bruine dialoogtexturen.
+    - `SetVertexColor` kan rood niet indigo maken. De zijbalkknoppen moeten dus zelf getekend
+      worden, niet getint.
+    - Tekstcontrast is al goed; alleen footer-grijs 0.45 haalt AA niet (4,3:1).
+    - Maar 11 van ~150 bestanden lezen `ns.UI_COLORS`. Vijf `MH_CHROME`-velden worden nooit gebruikt.
+    - Webagent B (frisse paletten, humor) liep nog bij het schrijven.
   - (3) pop-outkaarten 34 → 64 px. Die moeten dan eerst scrollen: 8 kaarten passen nu al nauwelijks.
   - Tour stap 5: de header valt buiten de highlight van `content`. Nu geen probleem; kijken als de
     Tour een eigen stap voor de kop krijgt.

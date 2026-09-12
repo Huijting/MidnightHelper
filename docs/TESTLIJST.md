@@ -7,6 +7,31 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 12 sep — 4.0.0 stap 2: tegels per kamer (Rob: "doe maar 1 en 2")
+
+⚠️ **WoW helemaal opnieuw starten**: er is een nieuw Lua-bestand (`RoomLauncher.lua`), en dat laadt
+het spel pas na een volledige herstart.
+- [ ] **Klik op de kamerknop "Me"** (bovenaan de zijbalk). Je krijgt nu een rooster met tegels in
+      plaats van meteen This Week: 15 tegels, elk met plaatje, naam en soms een regel eronder.
+- [ ] **Codex** geeft 4 of 5 tegels, **Tools** 6 (Pop-outs, Consumables, Macros, Academy, Professions,
+      Addons). **Settings** heeft maar één scherm en opent dat meteen, net als eerst.
+- [ ] **Muis op een tegel:** een tooltip met de naam en de regel over waar dat scherm voor is.
+      **Klik:** dat scherm opent, en in de zijbalk staat de goede kamer aan.
+- [ ] **Kloppen de regels onder de tegels?** Vergelijk ze met het scherm zelf:
+      - This Week: *"x of y weekly things done"*, hetzelfde als op This Week;
+      - Delves & Vault: *"Great Vault x / 9"*, hetzelfde als de Vault-kolom in Account snapshot;
+      - Void & Rituals: *"Weeklies done: x / 2"*; Events: *"Live now: x"*;
+      - Enchants & Gems, Tier Sets, Account snapshot (*"Characters: x"*), Raids (*"Bosses: x"*) en
+        Professions (*"Knowledge to spend: x"*).
+      Een lege regel bij de andere tegels is expres: daar rekent MH (nog) niets goedkoop uit.
+- [ ] **Classic look aan:** de kamerknoppen doen weer precies wat ze in 3.11.1 deden, dus het eerste
+      scherm openen. Zet je Classic aan terwijl er een rooster openstaat, dan spring je naar het
+      eerste scherm van die kamer.
+- [ ] **Compact mode** met een rooster open: de tegels schuiven in minder kolommen en je kunt
+      scrollen.
+- 📌 Het plaatje in de kop van het Me-rooster is de zandloper van This Week. Wil je daar liever een
+  ander plaatje, zeg het.
+
 ## 🆕 12 sep — 4.0.0 stap 1: de schermkop met icoon, en de knop "Klassiek"
 
 ⚠️ **Eerst WoW HELEMAAL afsluiten en opnieuw starten**: er zijn 56 nieuwe plaatjes, en die ziet het
