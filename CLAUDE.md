@@ -67,6 +67,14 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    desktopsessies. Memory: `cowork-scheduled-tasks-local`.
    ➡️ **Rob zet de drie uit** in de Claude-app (Cowork → Scheduled). Tot dat gebeurd is, geldt het
    recept hierboven nog: wees-regel committen, dan pullen.
+   🔴 **LET OP DE NAMEN. De cloud-routines en de Cowork-taken lijken op elkaar** ("API watch" /
+   "api-wachter", "blue post / data watch" / "bluepost-check", "PTR / roadmap watch" /
+   "ptr-12-1-watch"). Op 12 sep zijn daardoor de drie verkeerde verwijderd: de **cloud**-wachters.
+   Diezelfde ochtend zijn ze teruggezet uit een `RemoteTrigger list` van eerder die dag, en een script
+   bevestigde byte-voor-byte gelijkheid van opdracht, schema, model, tools, repo en connectoren
+   (nieuwe ID's `trig_01FLuvPV5NAb2UEN4e1fboTS`, `trig_018jpghYW8vRpDsj9qkWWD8f`,
+   `trig_015Bz5PbUNrgr6x7KTiSXVqe`). 📌 Wie ooit routines laat opruimen: noem het ID en de plek
+   (claude.ai → Routines, of desktopapp → Cowork → Scheduled), niet alleen de naam.
 2. `git -C "<repo>" pull --rebase origin main`
 3. Lees wat er nieuw in staat: de vier bestanden uit de tabel hierboven.
 4. Kijk op GitHub: `python "<repo>/tools/_probe.py" run gh_inbox`. Geen enkele wachter dekt mensen

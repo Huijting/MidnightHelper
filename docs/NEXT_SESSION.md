@@ -27,6 +27,13 @@
     sterk.
   - ➡️ **Rob zet ze uit** in de Claude-app (Cowork → Scheduled). De cloud-wachters doen hetzelfde
     werk, en die committen wel. Details: CLAUDE.md, ochtendroutine.
+  - ⚠️ **Rob verwijderde eerst per ongeluk de drie CLOUD-wachters** (API, PTR, data): de namen lijken
+    op elkaar. **Dezelfde ochtend teruggezet** uit de `RemoteTrigger list` van die ochtend, en
+    GEMETEN byte-voor-byte gelijk (opdracht, schema, model, tools, repo, omgeving, 6 connectoren).
+    Nieuwe ID's: API `trig_01FLuvPV5NAb2UEN4e1fboTS`, PTR `trig_018jpghYW8vRpDsj9qkWWD8f`, data
+    `trig_015Bz5PbUNrgr6x7KTiSXVqe`. Eerste run: 13 sep, 03:37/03:40/03:50 UTC.
+  - ➡️ **Nog open voor Rob:** de drie **Cowork**-taken staan er nog (map `C:\Users\RobHu\Claude\Scheduled\`).
+    Verwijderen in de **desktopapp → Cowork → Scheduled**, niet in claude.ai → Routines.
 
 ## 🧭 12 sep: routes naar Slayer's Rise (Voidstorm). GEBOUWD (Rob: "go, doe A, B en C"), wacht op test
 
