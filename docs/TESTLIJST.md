@@ -7,6 +7,15 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 12 sep — 4.0.0: de nieuwe regels vertaald (de/fr/es/pt/it)
+
+- 📌 **Niet door Rob te testen**: zijn client is Engels, en `/mh lang de` doet daar niets (de
+  taalpacks laden alleen op een client in die taal). Een speler met een Duitse, Franse, Spaanse,
+  Portugese of Italiaanse client zou de kopregels, kamerregels en tegelregels nu in zijn taal moeten
+  zien. Speelt Cisca in een andere taal, dan is dat de test.
+- [ ] **Wel te zien voor Rob:** de regel onder een tegel mag nu over twee regels lopen. In het Engels
+      past alles op één regel, dus er hoort niets te veranderen.
+
 ## 🆕 12 sep — 4.0.0 stap 4: geen lange lijst meer, openen op de tegels
 
 Rob, na stap 2 en 3 (*"alle 3 de vragen oke, ik vind het echt gaaf"*): de tegels zag hij pas na een klik

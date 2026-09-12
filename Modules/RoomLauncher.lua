@@ -117,7 +117,12 @@ local function MakeCard(parent)
 	status:SetPoint("LEFT", b, "LEFT", 6, 0)
 	status:SetPoint("RIGHT", b, "RIGHT", -6, 0)
 	status:SetJustifyH("CENTER")
-	status:SetWordWrap(false)
+	-- Two lines, not one: the translated status lines run up to 30 characters (German
+	-- "Wochenquests erledigt: 3 / 4") on a card ~140 px wide. The card has room below.
+	status:SetWordWrap(true)
+	if status.SetMaxLines then
+		status:SetMaxLines(2)
+	end
 	status:SetTextColor(unpack(LOOK.status))
 
 	local hl = b:CreateTexture(nil, "HIGHLIGHT")

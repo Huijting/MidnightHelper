@@ -7,8 +7,21 @@
   Mijn advies, in lijn met Spec 37 §6b/§6c en CLAUDE.md: **eerst `v4.0.0-beta1`** voor Rob en Cisca,
   een paar dagen, dan de release op een rustige doordeweekse dag, niet in de 12.1.5-launchweek.
 - **Vóór 4.0.0 nog nodig:**
-  1. De taglines (30) en tegelregels (12) vertalen naar de/fr/es/pt/it. Anders zien die spelers
-     Engels in een vertaalde UI.
+  1. ✅ **Vertaald (12 sep), 42 keys × de/fr/es/pt/it**, als nieuwe `fill()`-batch onderaan
+     `Locales/Translations2026.lua`.
+     - Werkwijze: één agent per taal. Die las eerst de termen van zijn eigen pack, daarna controleerde
+       `mh40_merge_translations.py` alles: 42 keys, `%d` gelijk, geen markup, tegel ≤ 30 en tagline ≤ 130
+       tekens.
+     - 🔴 **Niet nagekeken door een moedertaalspreker**, en Rob kan het niet zien: zijn client is
+       Engels en de packs zijn client-gated.
+     - Tegelregels mogen nu 2 regels lang zijn (Duits *"Wochenquests erledigt: %d / %d"* = 30 tekens).
+     - **Open twijfels per taal:**
+       - de: *Shards* staat als Scherben (Account) én Splitter (Delves), zoals elk scherm het zelf schrijft.
+       - fr: *Lune-d'argent* in de zinnen, terwijl de tab "Silvermoon City" heet.
+       - es: het pack kiest niet tussen *Gran Bóveda* en *Gran Cámara* (gekozen: Bóveda).
+       - pt: *Assaltos do Vazio*, maar Codex zegt *Investidas do Caos*. Blizzards echte ptBR-naam niet
+         nagekeken.
+       - it: *Lunargenta* en *valuta*; het bestaande tikfoutje "Lunargento" (2×) is verbeterd.
   2. De changelog/"what's new" van 4.0 (*"Same addon, new coat of paint"*).
   3. Nieuwe screenshots voor CF: galerijfoto 1 wordt het Me-rooster.
   4. Rob plakt de CF-omschrijving met de AI-regel.
