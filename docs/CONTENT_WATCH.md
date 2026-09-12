@@ -673,3 +673,26 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   Ascension"-vraag (hierboven) — geen bevestigde tegenspraak, wel de sterkste kandidaat van
   vandaag om aan toe te voegen zodra bevestigd. Geen actiepunt dat ík kan oppakken — ik
   rapporteer, een mens beslist.
+
+---
+
+- [2026-09-12] 🔁 **Geen nieuwe hotfix-sectie sinds gisteren — niets nieuws om tegen de repo
+  te toetsen.** `Exa web_fetch_exa` met `?nocache=20260912` op news.blizzard.com's doorlopende
+  hotfix-artikel, **volledige artikeltekst zelf gelezen**: nieuwste sectie is nog steeds
+  "September 10, 2026" — dezelfde sectie die [2026-09-11] al volledig behandelde (Delves:
+  Domanaar Enforcer, Twilight Crypts "Loosed Loa"; Dungeons and Raids: Nalorakk's Echoing
+  Maul, Mor'zahi/Final Ascension), byte-voor-byte gelijk aan wat toen gelogd is. **Positieve
+  controle tegen de cache-val van 3 sep:** `web_search_exa` op "World of Warcraft hotfixes
+  September 11/12 2026" vindt geen enkel retail-artikel nieuwer dan 10 sep — wel vindt
+  dezelfde zoekmethode zonder moeite de losse 9- en 10-sep-artikelen van Wowhead/Icy
+  Veins/MMOHuts (gepubliceerd 11 sep), dus de query kan wél recente content vinden; het
+  ontbreken van 11/12 sep is een gemeten afwezigheid, geen kapotte zoekopdracht of een
+  week-oude cache. Dit convergeert met de API- en data-wachter van vandaag, die onafhankelijk
+  dezelfde "10 sep blijft nieuwste"-stand vonden (`docs/API_WATCH.md` [2026-09-12],
+  `docs/PTR_12.0.7_DATA.md` [2026-09-12]) — niet overgenomen, zelf opnieuw gemeten.
+
+  Delves/Professions/Quests: geen nieuwe regels sinds gisteren, dus niets om te vergelijken.
+  Geen enkele bevinding vandaag. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260912 (volledig gelezen via
+  Exa) · `web_search_exa` "World of Warcraft hotfixes September 11/12 2026" (nieuwste
+  retail-treffer blijft 10 sep).
