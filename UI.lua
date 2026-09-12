@@ -2696,6 +2696,13 @@ function ns:EnsureMainUI()
 	local lookIcon = lookHeader:CreateTexture(nil, "ARTWORK")
 	lookIcon:SetPoint("LEFT", lookHeader, "LEFT", 10, 0)
 	lookIcon:SetSize(LOOK_HEADER_H - 10, LOOK_HEADER_H - 10)
+	-- A thin gold frame hides the hard edge of the painted square (Rob, 12 Sep: "vierkant met
+	-- een goud randje"). A child frame so it draws over the icon; it follows the icon's size.
+	local lookIconEdge = CreateFrame("Frame", nil, lookHeader, "BackdropTemplate")
+	lookIconEdge:SetPoint("TOPLEFT", lookIcon, "TOPLEFT", -2, 2)
+	lookIconEdge:SetPoint("BOTTOMRIGHT", lookIcon, "BOTTOMRIGHT", 2, -2)
+	lookIconEdge:SetBackdrop({ edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 2 })
+	lookIconEdge:SetBackdropBorderColor(0.91, 0.76, 0.42, 0.95)
 	local lookText = lookHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	lookText:SetPoint("LEFT", lookIcon, "RIGHT", 12, 0)
 	lookText:SetPoint("RIGHT", lookHeader, "RIGHT", -14, 0)

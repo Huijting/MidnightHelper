@@ -11,9 +11,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ⚠️ **Eerst WoW HELEMAAL afsluiten en opnieuw starten**: er zijn 56 nieuwe plaatjes, en die ziet het
 spel pas na een volledige herstart, niet na `/reload`.
-- [ ] **Open MH.** Boven elk scherm staat nu een donkerblauwe strook: links het icoon van dat scherm,
-      rechts één regel over waar het scherm voor is. De zijbalk en de schermen zelf zijn niet
-      veranderd; ze staan alleen iets lager.
+- [x] **Open MH.** Boven elk scherm staat nu een donkerblauwe strook: links het icoon van dat scherm,
+      rechts één regel over waar het scherm voor is. ✅ **Rob, 12 sep (screenshot Events):** het werkt;
+      *"er valt niets weg, en de classic knop werkt"*.
+- [ ] 🆕 **Goudrandje rond het icoon** (Robs keuze: *"vierkant met een goud randje"*): na `/reload`
+      staat er een dun gouden kader om het plaatje in de kop, en de harde rand van het blauwe vlak
+      valt weg.
 - [ ] **Klik de schermen langs**, ook de vier in Toolbox (Consumables, Macros, Academy, Professions):
       elk scherm hoort zijn eigen icoon en zijn eigen regel te krijgen. Staat er ergens het icoon van
       Home of een lege regel, zeg welk scherm.
