@@ -105,7 +105,7 @@ te testen of ik deze al gehaald heb"*.
     rekenen op de indeling. Classic blijft ongewijzigd.
   - **AFGELEID:** dat een drag pas begint na een beetje bewegen, zodat een klik een klik blijft. De
     muisklik die een drag afsluit, wordt 0,3 s genegeerd. Test: TESTLIJST, 13 sep.
-  - ✅ **Ook voor de favorietenknopjes bovenin** (Rob in het spel: *"ja dit werkt ook"*), dezelfde dag gebouwd (Rob: *"doe het slepen ook maar
+  - ✅ **Ook voor de favorietenknopjes bovenin** (Rob in het spel: *"ja dit werkt ook"*; ook na `/reload` blijft de volgorde staan), dezelfde dag gebouwd (Rob: *"doe het slepen ook maar
     voor de knopjes bovenin"*). Het zit in `UI.lua` bij de favRow:
     `StartFavDrag`, `EndFavDrag` en `PlaceFavChips`. De nieuwe volgorde van de zichtbare knopjes gaat
     terug in de plekken die ze in `ns.db.favourites` hadden, dus een verstopt scherm houdt zijn plek.

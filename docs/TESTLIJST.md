@@ -58,7 +58,8 @@ Pigment een vinkje. De twee quest-ID's stonden omgewisseld. `/reload` is genoeg.
       mee naar het eind. ✅ **Rob, 13 sep: "ja dit werkt ook".**
 - [x] **Laat los** → het knopje staat op zijn nieuwe plek. ✅ Zelfde test.
 - [ ] **Gewoon klikken** opent nog, en **rechtsklik** haalt het knopje nog weg.
-- [ ] **Na `/reload`** staat je volgorde er nog.
+- [x] **Na `/reload`** staat je volgorde er nog. ✅ **Rob, 13 sep: "ik test de knopjes ook even na een
+      reload en ook dat gaat goed".**
 
 ## 🆕 13 sep — 4.0.0: schermen zelf verstoppen (Rob: "bouw het voor 4.0.0, allebei de plekken")
 
