@@ -29,9 +29,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 `/reload` is genoeg. Gebouwd, nog niet in het spel gezien.
 - [ ] **Beweeg over een knopje** (bv. *Rares*): de tooltip zegt nu ook *"Drag to change the order."*
-- [ ] **Sleep een knopje** opzij: het gaat mee met de muis, de andere schuiven opzij, en de **+** schuift
-      mee naar het eind.
-- [ ] **Laat los** → het knopje staat op zijn nieuwe plek, en er opent geen scherm.
+- [x] **Sleep een knopje** opzij: het gaat mee met de muis, de andere schuiven opzij, en de **+** schuift
+      mee naar het eind. ✅ **Rob, 13 sep: "ja dit werkt ook".**
+- [x] **Laat los** → het knopje staat op zijn nieuwe plek. ✅ Zelfde test.
 - [ ] **Gewoon klikken** opent nog, en **rechtsklik** haalt het knopje nog weg.
 - [ ] **Na `/reload`** staat je volgorde er nog.
 
