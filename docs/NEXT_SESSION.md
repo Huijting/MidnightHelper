@@ -50,6 +50,14 @@
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.
+- ⏸ **13 sep, schermkeuze: houden, verstoppen of weg.** Rob: *"laten we de schermen doorlopen"*. Er
+  staat een keuzepagina met alle 26 schermen, hun grootte in regels, andere addons van Rob die
+  hetzelfde lijken te doen (AFGELEID uit mapnamen, niet in het spel gezien) en mijn advies:
+  https://claude.ai/code/artifact/145de8d4-24a5-49ee-bc52-05d6f6a30c47
+  Rob, dezelfde dag: *"we komen hier op terug haha, ik vind dit lastig"*. Er is dus nog niets
+  gekozen. Keuzes teruglezen gaat met `read_db` op collectie `keuzes` (doc-id = scherm-id). Mijn
+  advies was 2× weg (Trading Post, Addons), 8× verstoppen en de rest houden. Rob beslist, en het
+  hoeft niet vóór 4.0.0.
 - ✅ **Stap 4 door Rob gezien (screenshot, 12 sep): "zoals ik wilde".** Statusregels kloppen; de
   "Missing enchants: 7" controleerde hij tegen het Enchants-scherm. Schuifbalk verborgen als alles past.
 
