@@ -491,6 +491,30 @@ mechanisme uit §2 is daarmee niet langer een voorspelling.
 `beginner`, `knowledge points`, `concentration`, `work orders`, `weekly planner`) en noteer
 positie én het totaal aantal resultaten. Downloads erbij als er toevallig geen release was.
 
+✅ **AFGELEZEN 13 sep 2026 (GEMETEN).** CurseForge-zoekpagina per term, `sortBy=relevancy`, via
+WebFetch. De positie is zoals de pagina de lijst toont; het totaal is de letterlijke
+*"N Projects found"*-regel.
+
+| Wat iemand intypt | 29 aug: aantal / MH | **13 sep: aantal / MH** |
+|---|---|---|
+| `returning player` | 1 / afwezig | **2 / #2** |
+| `beginner` | 4 / afwezig | **5 / #5** |
+| `knowledge points` | 5 / afwezig | **6 / #6** |
+| `concentration` | 12 / afwezig | **14 / #12** |
+| `work orders` | 16 / afwezig | **18 / #18** |
+| `weekly planner` | 5 / afwezig | **6 / #6** |
+| `keybind coach` | 1 / #1 | **1 / #1** |
+| `professions` | 281 / afwezig | **288 / niet op pagina 1** (top 20 gelezen, verder niet) |
+
+- **Het mechanisme uit §2 houdt stand op álle zes de doeltermen.** Waar MH op 29 aug nergens stond,
+  staat hij nu overal in de lijst. Het "+1" in de meeste totalen is MH zelf.
+- **Maar meestal onderaan.** De relevantie-sortering zet addons met het woord in hun *naam* hoger.
+  Vindbaar, niet bovenaan. Dat is precies het onderscheid uit de ⚠️ hieronder.
+- ⚠️ **Twee kanttekeningen.**
+  - Of de meting van 29 aug dezelfde sortering gebruikte, staat nergens (AFGELEID: dezelfde
+    standaard).
+  - De downloads tellen niet mee: in het venster vielen 3.8.0 t/m 3.11.1.
+
 ⚠️ Zoekplaatsing is *vindbaarheid*, geen publiek. Het zegt dat we in het schap liggen, niet dat
 iemand ons pakt. Verwar de twee niet — en dat is precies wat er van deze meting overblijft.
 

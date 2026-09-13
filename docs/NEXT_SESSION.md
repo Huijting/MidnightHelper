@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## ☀️ 13 sep — ochtendronde en de Spec 31-meting
+
+- **Working tree schoon vóór de pull (GEMETEN)**: geen wees-regel in een wachterbestand. Dat is de
+  eerste ochtend na het verwijderen van de Cowork-taken (12 sep), en de eerste bevestiging dat die de
+  schrijver waren.
+- **De drie op 12 sep teruggezette cloud-wachters draaiden** (API 03:42, PTR 03:44, data 03:53 UTC),
+  plus content (04:09).
+- **Niets dat MH raakt.**
+  - 0 × [MOET GEFIKST].
+  - Hotfix-pagina staat nog op 10 sep.
+  - Geen nieuwe `/API changes`.
+- **BlizzCon (PTR-wachter):**
+  - 12.2 "Eclipse", met raid The Worldcore (eindbaas Xal'atath) en zone The Mantle Vault.
+  - Season 3: Delve-Nemesis **Astalor Bloodsworn**, **Valeera-cap naar 10** en een nieuwe M+-pool.
+    Kandidaten voor later, niets hardcoden.
+  - *The Last Titan* in 2027.
+  - *WoW Forever*: apart product, buiten MH.
+  - 12.1.5-datum nog onbekend; een fansite gokt op 6 okt. Een 4.0.0 rond 16–20 sep valt dus niet in
+    de 12.1.5-week (Spec 37 §6c).
+- **GitHub:** geen open issues of PR's.
+- ✅ **Spec 31-zoekmeting afgelezen**, zie `SPEC_31_COMMUNITY_REACH.md` §7. MH staat nu op alle zes
+  doeltermen in de lijst, op 29 aug op nul; meestal onderaan.
+
 ## 🎨 12 sep — 4.0.0 (Spec 37, concept A): bouw gestart. Rob: "begin maar met 4.0.0"
 
 - 📅 **Rob, 12 sep: "4.0.0 wordt denk ik na de reset, als we andere dingen die we die dag moesten doen
