@@ -23,6 +23,25 @@
 - ✅ **Spec 31-zoekmeting afgelezen**, zie `SPEC_31_COMMUNITY_REACH.md` §7. MH staat nu op alle zes
   doeltermen in de lijst, op 29 aug op nul; meestal onderaan.
 
+## 🔎 13 sep — twee Inscription-schatten hebben elkaars quest-ID (wacht op de client)
+
+Rob, met een screenshot van *Intrepid Explorer's Marker* met een rood kruis: *"is er een manier om
+te testen of ik deze al gehaald heb"*.
+- `Modules/Profession.lua:145-146` zegt: Leftover Sanguithorn Pigment = **89070**, Intrepid
+  Explorer's Marker = **89071**.
+- HandyNotes_Midnight (`zones/harandar.lua:372-373`) en Zygor (`ZygorProfessionsCommonMID.lua`, regels
+  2593 en 2600) zeggen allebei het omgekeerde: Marker **89070** (item 238575), Pigment **89071** (item
+  238576). Dat is AFGELEID: andere addons zijn kandidaten, geen bewijs.
+- Een script (scratch `mh_treasure_audit.py`) legde alle 88 MH-schatten naast beide addons: **dit paar
+  is de enige onenigheid**. Zygor herkende 84 namen, HandyNotes 47. Positieve controle: het paar
+  kwam eruit. De ene die het script niet vond, *Vial of Eversong Oddities* (89111, regel 97), staat
+  wél in beide met hetzelfde ID. HandyNotes schrijft hem als `smc.nodes[...]` en Zygor in een
+  `click`-regel, en die vormen dekte het patroon niet. Die is dus in orde.
+- **Nog te doen:** Rob draait `/run print(C_QuestLog.IsQuestFlaggedCompleted(89070),
+  C_QuestLog.IsQuestFlaggedCompleted(89071))` en zegt welke van de twee hij heeft opgepakt. Bevestigt
+  dat de omwisseling, dan draai ik de twee ID's om op regel 145-146.
+- `/mh quest` kan dit niet: het toont alleen het ID van een open questvenster.
+
 ## 🎨 12 sep — 4.0.0 (Spec 37, concept A): bouw gestart. Rob: "begin maar met 4.0.0"
 
 - 📅 **Rob, 12 sep: "4.0.0 wordt denk ik na de reset, als we andere dingen die we die dag moesten doen
