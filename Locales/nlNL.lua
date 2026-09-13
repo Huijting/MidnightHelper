@@ -283,6 +283,7 @@ ns._mhLocales.nlNL = {
 	ROOMCARD_HIDE_HINT = "Rechtsklik: dit scherm verstoppen.",
 	ROOMCARD_DRAG_HINT = "Sleep om deze kaart te verplaatsen.",
 	ROOMCARD_RESET_ORDER = "Volgorde herstellen",
+	FAV_DRAG_HINT = "Sleep om de volgorde te veranderen.",
 	ROOMCARD_HIDDEN_FMT = "Verstopt: %d — terugzetten",
 	ROOMCARD_RESTORE_TITLE = "Terugzetten",
 	ROOMCARD_RESTORE_ALL = "Alles terugzetten",

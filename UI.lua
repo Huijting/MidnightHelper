@@ -2732,6 +2732,130 @@ function ns:EnsureMainUI()
 		end
 	end
 
+	-- Drag a chip to change the order (Rob, 13 Sep 2026: "doe het slepen ook maar voor de
+	-- knopjes bovenin"), the same way the 4.0 room cards move. The dragged chip follows the
+	-- cursor along the row and the others make room. On release the shown chips' new order is
+	-- written back into the slots they held in ns.db.favourites, so an entry that is not shown
+	-- (a hidden screen) keeps its place in the list.
+	local function FavCursorX()
+		local left = favRow:GetLeft()
+		if not left then
+			return nil
+		end
+		return GetCursorPosition() / favRow:GetEffectiveScale() - left
+	end
+
+	local function PlaceFavChips()
+		local drag = favRow._drag
+		local x, slot = 8, 0
+		for _, c in ipairs(favRow._order or {}) do
+			if not (drag and c == drag.chip) then
+				slot = slot + 1
+				if drag and slot == drag.to then
+					x = x + drag.chip:GetWidth() + 5
+				end
+				c:ClearAllPoints()
+				c:SetPoint("LEFT", favRow, "LEFT", x, 0)
+				x = x + c:GetWidth() + 5
+			end
+		end
+		if drag and drag.to > slot then
+			x = x + drag.chip:GetWidth() + 5
+		end
+		if favRow._plus then
+			favRow._plus:ClearAllPoints()
+			favRow._plus:SetPoint("LEFT", favRow, "LEFT", x, 0)
+		end
+	end
+
+	-- Which slot the cursor is over, measured on the row as it stands without the dragged chip.
+	local function FavSlotAt(cx)
+		local drag = favRow._drag
+		local x, n, to = 8, 0, 1
+		for _, c in ipairs(favRow._order or {}) do
+			if c ~= drag.chip then
+				n = n + 1
+				local w = c:GetWidth()
+				if cx > x + w / 2 then
+					to = n + 1
+				end
+				x = x + w + 5
+			end
+		end
+		return to
+	end
+
+	local function StartFavDrag(chip)
+		if favRow._drag or not favRow._order then
+			return
+		end
+		local from
+		for i, c in ipairs(favRow._order) do
+			if c == chip then
+				from = i
+			end
+		end
+		if not from then
+			return
+		end
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+		favRow._drag = { chip = chip, from = from, to = from }
+		chip._mhLevel = chip:GetFrameLevel()
+		chip:SetFrameLevel(chip._mhLevel + 10)
+		chip:SetAlpha(0.8)
+		chip:SetScript("OnUpdate", function(self)
+			local drag = favRow._drag
+			local cx = FavCursorX()
+			if not (drag and cx) then
+				return
+			end
+			self:ClearAllPoints()
+			self:SetPoint("CENTER", favRow, "LEFT", cx, 0)
+			local to = FavSlotAt(cx)
+			if to ~= drag.to then
+				drag.to = to
+				PlaceFavChips()
+			end
+		end)
+	end
+
+	--- Drops the dragged chip (save) or puts it back (a re-render mid-drag), then re-renders.
+	local function EndFavDrag(save)
+		local drag = favRow._drag
+		if not drag then
+			return
+		end
+		local chip = drag.chip
+		favRow._drag = nil
+		chip:SetScript("OnUpdate", nil)
+		chip:SetAlpha(1)
+		if chip._mhLevel then
+			chip:SetFrameLevel(chip._mhLevel)
+		end
+		chip._mhDragEnd = GetTime()
+		if save and drag.to ~= drag.from then
+			local order = favRow._order
+			table.remove(order, drag.from)
+			table.insert(order, drag.to, chip)
+			local shown = {}
+			for _, c in ipairs(order) do
+				shown[c._mhId] = true
+			end
+			local list, k = MHFavList(), 0
+			for i, id in ipairs(list) do
+				if shown[id] then
+					k = k + 1
+					list[i] = order[k]._mhId
+				end
+			end
+		end
+		if MHRenderFavRow then
+			MHRenderFavRow()
+		end
+	end
+
 	local function InitFavPinMenu(_, level)
 		if not (UIDropDownMenu_CreateInfo and UIDropDownMenu_AddButton) then
 			return
@@ -2773,7 +2897,15 @@ function ns:EnsureMainUI()
 		fs:SetPoint("CENTER")
 		c.fs = fs
 		c:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		c:RegisterForDrag("LeftButton")
+		c:SetScript("OnDragStart", StartFavDrag)
+		c:SetScript("OnDragStop", function()
+			EndFavDrag(true)
+		end)
 		c:SetScript("OnClick", function(self, button)
+			if self._mhDragEnd and GetTime() - self._mhDragEnd < 0.3 then
+				return -- the mouse-up that ended a drag is not a click
+			end
 			if button == "RightButton" then
 				if self._mhId then
 					MHToggleFav(self._mhId)
@@ -2791,9 +2923,10 @@ function ns:EnsureMainUI()
 			end
 		end)
 		c:SetScript("OnEnter", function(self)
-			if GameTooltip and self._mhId then
+			if GameTooltip and self._mhId and not favRow._drag then
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				GameTooltip:SetText(ns:L("FAV_CHIP_HINT"), 1, 0.82, 0.2, 1, true)
+				GameTooltip:AddLine(ns:L("FAV_DRAG_HINT"), 0.72, 0.74, 0.78, true)
 				GameTooltip:Show()
 			end
 		end)
@@ -2807,9 +2940,13 @@ function ns:EnsureMainUI()
 	end
 
 	MHRenderFavRow = function()
+		if favRow._drag then
+			EndFavDrag(false) -- puts the chip back and renders again
+			return
+		end
 		local list = MHFavList()
-		local x = 8
 		local n = 0
+		favRow._order = {}
 		for _, id in ipairs(list) do
 			local labelKey = TAB_LABEL_BY_ID[id]
 			if labelKey and SidebarTabVisible(id) then
@@ -2817,12 +2954,9 @@ function ns:EnsureMainUI()
 				local c = FavChip(n)
 				c._mhId = id
 				c.fs:SetText(ns:L(labelKey))
-				local w = math.max(46, (c.fs:GetStringWidth() or 40) + 16)
-				c:SetWidth(w)
-				c:ClearAllPoints()
-				c:SetPoint("LEFT", favRow, "LEFT", x, 0)
+				c:SetWidth(math.max(46, (c.fs:GetStringWidth() or 40) + 16))
 				c:Show()
-				x = x + w + 5
+				favRow._order[n] = c
 			end
 		end
 		if favRow._chips then
@@ -2867,9 +3001,8 @@ function ns:EnsureMainUI()
 			end)
 			favRow._plus = plus
 		end
-		plus:ClearAllPoints()
-		plus:SetPoint("LEFT", favRow, "LEFT", x, 0)
 		plus:Show()
+		PlaceFavChips()
 	end
 
 	ns.MHRenderFavRow = MHRenderFavRow

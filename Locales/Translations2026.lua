@@ -8702,3 +8702,9 @@ fill("frFR", { ROOMCARD_DRAG_HINT = "Fais glisser pour déplacer cette carte.", 
 fill("esES", { ROOMCARD_DRAG_HINT = "Arrastra para mover esta tarjeta.", ROOMCARD_RESET_ORDER = "Restablecer el orden" })
 fill("ptBR", { ROOMCARD_DRAG_HINT = "Arraste para mover este cartão.", ROOMCARD_RESET_ORDER = "Restaurar a ordem" })
 fill("itIT", { ROOMCARD_DRAG_HINT = "Trascina per spostare questa scheda.", ROOMCARD_RESET_ORDER = "Ripristina l'ordine" })
+-- The favourites row under the search bar can be reordered the same way (same day).
+fill("deDE", { FAV_DRAG_HINT = "Ziehen, um die Reihenfolge zu ändern." })
+fill("frFR", { FAV_DRAG_HINT = "Fais glisser pour changer l'ordre." })
+fill("esES", { FAV_DRAG_HINT = "Arrastra para cambiar el orden." })
+fill("ptBR", { FAV_DRAG_HINT = "Arraste para mudar a ordem." })
+fill("itIT", { FAV_DRAG_HINT = "Trascina per cambiare l'ordine." })

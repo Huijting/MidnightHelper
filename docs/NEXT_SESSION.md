@@ -61,7 +61,11 @@
     rekenen op de indeling. Classic blijft ongewijzigd.
   - **AFGELEID:** dat een drag pas begint na een beetje bewegen, zodat een klik een klik blijft. De
     muisklik die een drag afsluit, wordt 0,3 s genegeerd. Test: TESTLIJST, 13 sep.
-  - 📌 Dezelfde truc kan later ook voor de favorietenknopjes bovenin (die hebben nu geen volgorde-UI).
+  - 🔨 **Ook voor de favorietenknopjes bovenin**, dezelfde dag gebouwd (Rob: *"doe het slepen ook maar
+    voor de knopjes bovenin"*), nog niet in het spel gezien. Het zit in `UI.lua` bij de favRow:
+    `StartFavDrag`, `EndFavDrag` en `PlaceFavChips`. De nieuwe volgorde van de zichtbare knopjes gaat
+    terug in de plekken die ze in `ns.db.favourites` hadden, dus een verstopt scherm houdt zijn plek.
+    Werkt ook in Classic.
 - ✅ **13 sep, gebouwd én door Rob gezien: spelers verstoppen zelf schermen.** Rob, dezelfde dag in
   het spel: *"de rechtermuis klik werkt, het terug halen ook, ook in de settings staat screens met
   vinkjes"*. Daarmee is MenuUtil op 12.1 GEMETEN. Nog open in TESTLIJST: de kopjes in Screens, zoeken

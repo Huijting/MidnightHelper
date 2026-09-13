@@ -288,6 +288,7 @@ ns._mhLocales.enUS = {
 	ROOMCARD_HIDE_HINT = "Right-click: hide this screen.",
 	ROOMCARD_DRAG_HINT = "Drag to move this card.",
 	ROOMCARD_RESET_ORDER = "Reset the order",
+	FAV_DRAG_HINT = "Drag to change the order.",
 	ROOMCARD_HIDDEN_FMT = "Hidden: %d — show again",
 	ROOMCARD_RESTORE_TITLE = "Show again",
 	ROOMCARD_RESTORE_ALL = "Show all",

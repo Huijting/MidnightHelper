@@ -22,7 +22,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       de standaardvolgorde is terug. In een kamer die je niet hebt aangeraakt staat die regel er niet.
 - [ ] **This Week** kun je ook verslepen, en met rechtsklik krijg je daar nu ook een menu (zonder
       "Hide", want This Week kan niet weg).
-- [ ] **Classic look aan**: de lange lijst staat in de oude volgorde; het slepen zit alleen in de kaarten.
+- [ ] **Classic look aan**: de lange lijst staat in de oude volgorde; de kaarten zijn er dan niet. De
+      knopjes bovenin (hieronder) kun je ook in Classic slepen.
+
+### 🆕 13 sep, daarna — ook de knopjes bovenin (Rob: "doe het slepen ook maar voor de knopjes bovenin")
+
+`/reload` is genoeg. Gebouwd, nog niet in het spel gezien.
+- [ ] **Beweeg over een knopje** (bv. *Rares*): de tooltip zegt nu ook *"Drag to change the order."*
+- [ ] **Sleep een knopje** opzij: het gaat mee met de muis, de andere schuiven opzij, en de **+** schuift
+      mee naar het eind.
+- [ ] **Laat los** → het knopje staat op zijn nieuwe plek, en er opent geen scherm.
+- [ ] **Gewoon klikken** opent nog, en **rechtsklik** haalt het knopje nog weg.
+- [ ] **Na `/reload`** staat je volgorde er nog.
 
 ## 🆕 13 sep — 4.0.0: schermen zelf verstoppen (Rob: "bouw het voor 4.0.0, allebei de plekken")
 
