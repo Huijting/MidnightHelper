@@ -138,6 +138,12 @@ local function ShowCardMenu(card)
 		root:CreateButton(ns:L("ROOMCARD_HIDE"), function()
 			ns.SetScreenHidden(screenId, true)
 		end)
+		root:CreateDivider()
+		root:CreateButton(ns:L("SCREENS_ALL_LINK"), function()
+			if ns.SelectTab then
+				ns.SelectTab("screens")
+			end
+		end)
 	end)
 	if not opened then
 		ns.SetScreenHidden(screenId, true)
@@ -166,6 +172,12 @@ local function ShowRestoreMenu(row)
 			root:CreateDivider()
 			root:CreateButton(ns:L("ROOMCARD_RESTORE_ALL"), showAll)
 		end
+		root:CreateDivider()
+		root:CreateButton(ns:L("SCREENS_ALL_LINK"), function()
+			if ns.SelectTab then
+				ns.SelectTab("screens")
+			end
+		end)
 	end)
 	if not opened then
 		showAll()

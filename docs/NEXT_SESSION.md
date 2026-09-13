@@ -54,9 +54,20 @@
   het spel: *"de rechtermuis klik werkt, het terug halen ook, ook in de settings staat screens met
   vinkjes"*. Daarmee is MenuUtil op 12.1 GEMETEN. Nog open in TESTLIJST: de kopjes in Screens, zoeken
   naar een verstopt scherm, Classic, de migratie van oude beta-vinkjes.
-  Zijn vervolgvraag: *"moet zo een settings screen niet gewoon in MH??"* (zie het antwoord in de chat
-  van 13 sep; zijn keuze staat nog open). Achtergrond: op 5 jul koos Rob voor het native
-  Blizzard-paneel, en MH's Settings-scherm is sindsdien een launcher (`Modules/SettingsPage.lua`). Rob kreeg
+  Zijn vervolgvraag: *"moet zo een settings screen niet gewoon in MH??"* Hij kreeg drie opties: zo
+  laten, alleen de schermenlijst óók in MH, of alle instellingen in MH. Rob: *"doe maar nummer 2, en
+  later nummer 3"*.
+  🔨 **Nummer 2 gebouwd op 13 sep, nog niet in het spel gezien.**
+  - Een Screens-pagina in MH zelf (`Modules/SettingsPage.lua`, tab-id `screens`, hoort bij de kamer
+    Settings).
+  - Bereikbaar via de knop *Choose your screens* op de Settings-pagina, via *All screens...* in beide
+    rechtsklikmenu's, en via het zoekvak.
+  - Het is dezelfde lijst als in het Blizzard-paneel, met dezelfde functies.
+  📌 **Nummer 3 (alle instellingen in MH, in de 4.0-look) komt ná 4.0.0.** Dat keert Robs keuze van
+  5 jul om: toen koos hij het native Blizzard-paneel, en MH's Settings is sindsdien een launcher.
+  Wat we dan zelf moeten bouwen: een zoekbalk, uitleg per optie en de Aanbevolen-knop. Het
+  brugpatroon in `NativeSettings.lua` (een getter en setter per optie) kan een tweede UI voeden
+  zonder dat er twee waarheden ontstaan. Rob kreeg
   eerst een keuzepagina (houden/verstoppen/weg per scherm,
   https://claude.ai/code/artifact/145de8d4-24a5-49ee-bc52-05d6f6a30c47), vond dat lastig, en toen:
   *"waarom zou ik moeten kiezen wat de users zien, waarom laten we ze zelf niet dingen aan en uit

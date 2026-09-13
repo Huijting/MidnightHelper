@@ -291,6 +291,11 @@ ns._mhLocales.enUS = {
 	ROOMCARD_RESTORE_ALL = "Show all",
 	ROOMCARD_RESTORE_HINT = "A hidden screen still opens from search and from links in other screens. The full list is under Settings -> Screens.",
 	SETTINGS_SCREENS_TITLE = "Screens",
+	-- The same list inside MH: the Screens page (Modules/SettingsPage.lua).
+	SET_LAUNCH_SCREENS = "Choose your screens",
+	SCREENS_PANEL_INTRO = "Tick the screens you want in your rooms. Hiding one switches nothing off: search and links still open it. This Week and Settings always stay.",
+	TAB_TAGLINE_SCREENS = "Pick which screens show in your rooms; hiding one switches nothing off.",
+	SCREENS_ALL_LINK = "All screens...",
 	SETTINGS_SCREEN_TT = "Untick to hide this screen: it leaves its room's cards and the sidebar. Nothing is switched off: search and links still open it, and ticking it again brings it back.",
 	HOME_TITLE = "This Week",
 	HOME_ONBOARD_HEADER = "Getting started",

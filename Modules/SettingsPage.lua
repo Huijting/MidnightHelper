@@ -11,6 +11,10 @@
 	het native paneel — omdat native knoppen (CreateSettingsButtonInitializer) op
 	client 12.0 een Blizzard-assertion triggeren (bevestigd door ClassCodex + MDT).
 	Gewone UIPanelButtons hier werken wél betrouwbaar.
+
+	4.0 (13 sep 2026): hier woont ook de Screens-pagina, de aan/uit-lijst van schermen in MH's
+	eigen look. Rob: "moet zo een settings screen niet gewoon in MH??" → "doe maar nummer 2, en
+	later nummer 3" (nummer 3 = alle instellingen in MH, na 4.0.0).
 ]]
 
 local _, ns = ...
@@ -93,6 +97,259 @@ local function MakeFS(parent, font, color)
 		fs:SetTextColor(color[1], color[2], color[3])
 	end
 	return fs
+end
+
+--------------------------------------------------------------------------------
+-- Screens page (4.0). Rob, 13 Sep 2026: "moet zo een settings screen niet gewoon in MH??" The
+-- show/hide list inside the addon, in its own look. It is the same list as Blizzard's Settings ->
+-- Midnight Helper -> Screens (Modules/NativeSettings.lua): both read and write
+-- ns.IsScreenHidden / ns.SetScreenHidden (Core.lua), so the two cannot disagree.
+-- Reached from the button on the Settings page, the room cards' right-click menu and search.
+--------------------------------------------------------------------------------
+local SCR_ROW_H = 26
+local SCR_COL_MIN_W = 190
+local SCR_GAP = 8
+local SCR_ROOMS = {
+	{ id = "me", labelKey = "SIDEBAR_ROOM_ME" },
+	{ id = "codex", labelKey = "SIDEBAR_ROOM_CODEX" },
+	{ id = "tools", labelKey = "SIDEBAR_ROOM_TOOLS" },
+}
+local screensPage
+
+-- Palette C in the new look; the 3.x gold and grey with Classic on.
+local function ScreenColors()
+	local p = ns.LOOK_PALETTE
+	if p and not (ns.IsClassicLookEnabled and ns:IsClassicLookEnabled()) then
+		return { header = p.header, body = p.body, muted = p.muted, accent = p.accent }
+	end
+	return { header = COLOR_HEADER, body = { 1, 1, 1 }, muted = COLOR_DIM, accent = { 1, 0.82, 0.2, 1 } }
+end
+
+-- Every hideable screen, plus the Basics category under Codex, which keeps its own switch.
+local function ScreenEntries()
+	local list = {}
+	for _, s in ipairs(ns.GetHideableScreens and ns.GetHideableScreens() or {}) do
+		list[#list + 1] = { id = s.id, room = s.room, labelKey = s.labelKey }
+	end
+	list[#list + 1] = { id = "reference", room = "codex", basics = true }
+	return list
+end
+
+local function EntryLabel(e)
+	if e.basics then
+		return ns:L("TAB_CODEX") .. ": " .. ns:L("SETTINGS_BETA_TAB_REFERENCE")
+	end
+	return ns:L(e.labelKey)
+end
+
+local function EntryOn(e)
+	if e.basics then
+		local bt = ns.GetBetaTabsSettings and ns.GetBetaTabsSettings() or {}
+		return bt.enabled ~= false and bt.reference ~= false
+	end
+	return not (ns.IsScreenHidden and ns.IsScreenHidden(e.id))
+end
+
+local function ToggleEntry(e)
+	local on = EntryOn(e)
+	if e.basics then
+		if ns.SetBetaTabOption then
+			ns.SetBetaTabOption("reference", not on)
+		end
+		if ns.SyncNativeScreenSetting then
+			ns.SyncNativeScreenSetting("reference", not on)
+		end
+		if ns.RefreshScreensPanel then
+			ns.RefreshScreensPanel()
+		end
+	elseif ns.SetScreenHidden then
+		ns.SetScreenHidden(e.id, on) -- refreshes this page as well
+	end
+end
+
+local function MakeScreenRow(parent)
+	local row = CreateFrame("Button", nil, parent)
+	row:SetHeight(SCR_ROW_H)
+	local box = CreateFrame("Frame", nil, row, "BackdropTemplate")
+	box:SetSize(14, 14)
+	box:SetPoint("LEFT", row, "LEFT", 2, 0)
+	box:SetBackdrop({ edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	local fill = box:CreateTexture(nil, "ARTWORK")
+	fill:SetPoint("TOPLEFT", box, "TOPLEFT", 3, -3)
+	fill:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", -3, 3)
+	local icon = row:CreateTexture(nil, "ARTWORK")
+	icon:SetSize(20, 20)
+	icon:SetPoint("LEFT", box, "RIGHT", 8, 0)
+	local label = MakeFS(row, "GameFontHighlight")
+	label:SetPoint("LEFT", icon, "RIGHT", 6, 0)
+	label:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+	label:SetWordWrap(false)
+	local hl = row:CreateTexture(nil, "HIGHLIGHT")
+	hl:SetAllPoints()
+	hl:SetColorTexture(1, 1, 1, 0.06)
+	row._box, row._fill, row._icon, row._label = box, fill, icon, label
+	row:SetScript("OnClick", function(self)
+		if self._entry then
+			ToggleEntry(self._entry)
+		end
+	end)
+	return row
+end
+
+local function PaintScreenRow(row, e, c)
+	local on = EntryOn(e)
+	row._entry = e
+	row._box:SetBackdropBorderColor(c.muted[1], c.muted[2], c.muted[3], 1)
+	row._fill:SetColorTexture(c.accent[1], c.accent[2], c.accent[3], 1)
+	row._fill:SetShown(on)
+	local screen = (ns._mhLookScreens or {})[e.basics and "codex" or e.id]
+	if screen and ns._mhLookIconPath then
+		row._icon:SetTexture(ns._mhLookIconPath:format(screen.stem))
+	else
+		row._icon:SetTexture(nil)
+	end
+	row._icon:SetDesaturated(not on)
+	row._icon:SetAlpha(on and 1 or 0.5)
+	row._label:SetText(EntryLabel(e))
+	local t = on and c.body or c.muted
+	row._label:SetTextColor(t[1], t[2], t[3])
+end
+
+local function LayoutScreensPage()
+	local page = screensPage
+	if not page or not page:IsShown() then
+		return
+	end
+	local c = ScreenColors()
+	page._title:SetText(ns:L("SETTINGS_SCREENS_TITLE"))
+	page._title:SetTextColor(c.header[1], c.header[2], c.header[3])
+	page._intro:SetText(ns:L("SCREENS_PANEL_INTRO"))
+	page._intro:SetTextColor(c.muted[1], c.muted[2], c.muted[3])
+	page._showAll._text:SetText(ns:L("ROOMCARD_RESTORE_ALL"))
+	page._showAll._text:SetTextColor(c.accent[1], c.accent[2], c.accent[3])
+	page._showAll:SetWidth((page._showAll._text:GetStringWidth() or 80) + 8)
+
+	local width = page._scroll:GetWidth()
+	if not width or width < 50 then
+		return
+	end
+	local cols = math.max(1, math.min(3, math.floor((width + SCR_GAP) / (SCR_COL_MIN_W + SCR_GAP))))
+	local colW = math.floor((width - SCR_GAP * (cols - 1)) / cols)
+	local y, anyHidden = 0, false
+	for _, room in ipairs(SCR_ROOMS) do
+		local header = page._roomHeaders[room.id]
+		header:ClearAllPoints()
+		header:SetPoint("TOPLEFT", page._body, "TOPLEFT", 0, -y)
+		header:SetText(ns:L(room.labelKey))
+		header:SetTextColor(c.header[1], c.header[2], c.header[3])
+		y = y + 22
+		local n = 0
+		for i, e in ipairs(page._entries) do
+			if e.room == room.id then
+				local row = page._rows[i]
+				local col = n % cols
+				local line = math.floor(n / cols)
+				row:ClearAllPoints()
+				row:SetWidth(colW)
+				row:SetPoint("TOPLEFT", page._body, "TOPLEFT", col * (colW + SCR_GAP), -(y + line * SCR_ROW_H))
+				PaintScreenRow(row, e, c)
+				row:Show()
+				if not EntryOn(e) then
+					anyHidden = true
+				end
+				n = n + 1
+			end
+		end
+		y = y + math.ceil(n / cols) * SCR_ROW_H + 14
+	end
+	page._body:SetSize(width, math.max(1, y))
+	page._showAll:SetShown(anyHidden)
+	-- Same as the room cards: no scroll bar while everything fits.
+	local bar = page._scroll.ScrollBar
+	if bar then
+		local fits = y <= (page._scroll:GetHeight() or 0)
+		bar:SetShown(not fits)
+		if fits then
+			page._scroll:SetVerticalScroll(0)
+		end
+	end
+end
+
+local function ShowAllScreens()
+	for _, e in ipairs(screensPage and screensPage._entries or {}) do
+		if not EntryOn(e) then
+			ToggleEntry(e)
+		end
+	end
+end
+
+local function BuildScreensPage(settingsPanel)
+	local host = settingsPanel and settingsPanel:GetParent()
+	if screensPage or not host or not ns.panels then
+		return
+	end
+	local page = CreateFrame("Frame", nil, host)
+	page:SetAllPoints(settingsPanel)
+	page:Hide()
+
+	local title = page:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	title:SetPoint("TOPLEFT", page, "TOPLEFT", 14, -12)
+	page._title = title
+
+	local showAll = CreateFrame("Button", nil, page)
+	showAll:SetHeight(20)
+	showAll:SetPoint("LEFT", title, "RIGHT", 16, 0)
+	local showAllText = showAll:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	showAllText:SetPoint("LEFT", showAll, "LEFT", 2, 0)
+	showAll._text = showAllText
+	showAll:SetScript("OnClick", ShowAllScreens)
+	showAll:SetScript("OnEnter", function(self)
+		local h = ScreenColors().header
+		self._text:SetTextColor(h[1], h[2], h[3])
+	end)
+	showAll:SetScript("OnLeave", function(self)
+		local a = ScreenColors().accent
+		self._text:SetTextColor(a[1], a[2], a[3])
+	end)
+	page._showAll = showAll
+
+	local intro = MakeFS(page, "GameFontHighlightSmall")
+	intro:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -8)
+	intro:SetPoint("RIGHT", page, "RIGHT", -20, 0)
+	page._intro = intro
+
+	local scroll = CreateFrame("ScrollFrame", nil, page, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", intro, "BOTTOMLEFT", 0, -14)
+	scroll:SetPoint("BOTTOMRIGHT", page, "BOTTOMRIGHT", -30, 10)
+	scroll.scrollBarHideable = true
+	local body = CreateFrame("Frame", nil, scroll)
+	body:SetSize(1, 1)
+	scroll:SetScrollChild(body)
+	page._scroll, page._body = scroll, body
+
+	page._entries = ScreenEntries()
+	page._rows = {}
+	for i = 1, #page._entries do
+		page._rows[i] = MakeScreenRow(body)
+	end
+	page._roomHeaders = {}
+	for _, room in ipairs(SCR_ROOMS) do
+		page._roomHeaders[room.id] = body:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	end
+
+	screensPage = page
+	page:SetScript("OnShow", LayoutScreensPage)
+	scroll:SetScript("OnSizeChanged", function()
+		if page:IsShown() then
+			LayoutScreensPage()
+		end
+	end)
+	ns.panels.screens = page
+end
+
+--- Redraws the Screens page after a screen was hidden or shown (from anywhere).
+function ns.RefreshScreensPanel()
+	LayoutScreensPage()
 end
 
 --------------------------------------------------------------------------------
@@ -191,12 +448,20 @@ function ns.BuildSettingsPanel(panel)
 	openBtn:SetHeight(30)
 	openBtn:SetPoint("TOPLEFT", body, "BOTTOMLEFT", 0, -16)
 
+	-- 4.0: the show/hide list inside MH (the Screens page above), right under the big button.
+	local screensBtn = MakeBtn(260, "SET_LAUNCH_SCREENS", function()
+		if ns.SelectTab then
+			ns.SelectTab("screens")
+		end
+	end)
+	screensBtn:SetPoint("TOPLEFT", openBtn, "BOTTOMLEFT", 0, -8)
+
 	local recBtn = MakeBtn(260, "SET_BTN_RECOMMENDED", function()
 		if ns.ApplyRecommendedSettings then
 			ns.ApplyRecommendedSettings()
 		end
 	end)
-	recBtn:SetPoint("TOPLEFT", openBtn, "BOTTOMLEFT", 0, -8)
+	recBtn:SetPoint("TOPLEFT", screensBtn, "BOTTOMLEFT", 0, -8)
 
 	local hint = MakeFS(panel, "GameFontHighlightSmall", COLOR_DIM)
 	hint:SetPoint("TOPLEFT", recBtn, "BOTTOMLEFT", 2, -12)
@@ -283,6 +548,8 @@ function ns.BuildSettingsPanel(panel)
 		ApplyEyecatcherModel()
 		ns.RefreshSettingsPanel()
 	end)
+
+	BuildScreensPage(panel)
 end
 
 --------------------------------------------------------------------------------

@@ -670,6 +670,9 @@ function ns.SetScreenHidden(id, hidden)
 	if ns.RefreshRoomLauncher then
 		ns.RefreshRoomLauncher()
 	end
+	if ns.RefreshScreensPanel then
+		ns.RefreshScreensPanel() -- the Screens page in MH (Modules/SettingsPage.lua)
+	end
 	return true
 end
 

@@ -30,6 +30,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       de instellingen. Had jij er een uit staan, dan is dat scherm nu verstopt, en kun je het terugzetten.
 - [ ] **Na `/reload`** blijven je keuzes staan.
 
+### 🆕 13 sep, daarna — dezelfde lijst in MH zelf (Rob: "doe maar nummer 2")
+
+`/reload` is genoeg (geen nieuwe bestanden).
+- [ ] **Settings in MH** (kamerknop Settings): onder de grote knop staat nu **"Choose your screens"**.
+      De rest van de pagina schuift een knop omlaag.
+- [ ] **Klik erop** → een scherm *Screens* in onze kleuren. Kopjes **Me, Codex en Tools**, en per
+      scherm een vakje, het plaatje en de naam. Een aan-scherm heeft een paars gevuld vakje; een
+      verstopt scherm is grijs en heeft een leeg vakje. De titelbalk zegt *Settings > Screens*.
+- [ ] **Klik een regel** → het vakje wisselt, en de kaart verdwijnt uit (of komt terug in) die kamer.
+- [ ] **"Show all"** naast de titel staat er alleen als er iets verstopt is, en zet alles terug.
+- [ ] **Rechtsklik op een kaart** → het menuutje heeft onderaan **"All screens..."**. Dat opent deze
+      pagina. Dezelfde regel staat in het menu onder *"Hidden: N — show again"*.
+- [ ] **Zoekvak**: typ *hide* of *screens* → de Screens-pagina staat in de lijst.
+- [ ] **Verstop iets op deze pagina, kijk dan in Blizzards Settings → Screens**: daar staat het vinkje
+      ook uit.
+
 ## 🆕 12 sep — 4.0.0: de nieuwe regels vertaald (de/fr/es/pt/it)
 
 - 📌 **Niet door Rob te testen**: zijn client is Engels, en `/mh lang de` doet daar niets (de

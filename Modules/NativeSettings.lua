@@ -665,7 +665,8 @@ end
 --- the checkbox is right the next time the Screens page is drawn. Writes the proxy directly;
 --- going through SetValue would call SetScreenHidden again.
 function ns.SyncNativeScreenSetting(id, shown)
-	local variable = "mh_screen_" .. tostring(id)
+	-- "reference" is the Codex Basics category, which kept its old setting name.
+	local variable = (id == "reference") and "mh_betaReference" or ("mh_screen_" .. tostring(id))
 	if proxy[variable] ~= nil then
 		proxy[variable] = shown and true or false
 	end

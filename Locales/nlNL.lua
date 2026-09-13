@@ -286,6 +286,11 @@ ns._mhLocales.nlNL = {
 	ROOMCARD_RESTORE_ALL = "Alles terugzetten",
 	ROOMCARD_RESTORE_HINT = "Een verstopt scherm opent nog steeds via zoeken en via links in andere schermen. De hele lijst staat onder Instellingen -> Schermen.",
 	SETTINGS_SCREENS_TITLE = "Schermen",
+	-- Dezelfde lijst in MH zelf: de Screens-pagina.
+	SET_LAUNCH_SCREENS = "Kies je schermen",
+	SCREENS_PANEL_INTRO = "Vink aan welke schermen je in je kamers wilt zien. Verstoppen zet niets uit: zoeken en links openen een verstopt scherm nog steeds. Deze week en Instellingen blijven altijd staan.",
+	TAB_TAGLINE_SCREENS = "Kies welke schermen in je kamers staan; verstoppen zet niets uit.",
+	SCREENS_ALL_LINK = "Alle schermen...",
 	SETTINGS_SCREEN_TT = "Vinkje weg = dit scherm verstoppen: het verdwijnt uit de kaarten van zijn kamer en uit de zijbalk. Er gaat niets uit: zoeken en links openen het nog steeds, en met het vinkje komt het terug.",
 	INFO_DRAWER_BODY_TOOLSLAUNCH = "De Tools-launchpad: open de zwevende helper-vensters (boss-venster, consumable-board, curios, ritual-boss) vanaf één plek.",
 	HOME_TITLE = "Deze week",

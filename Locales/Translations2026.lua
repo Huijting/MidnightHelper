@@ -8657,3 +8657,38 @@ fill("itIT", {
 	SETTINGS_SCREENS_TITLE = "Schermate",
 	SETTINGS_SCREEN_TT = "Togli la spunta per nascondere questa schermata: esce dalle schede della sua stanza e dalla barra laterale. Non si spegne nulla: la ricerca e i link la aprono ancora, e rimettendo la spunta torna.",
 })
+
+--========================================================================
+-- 4.0.0 Screens page inside MH (Rob, 13 Sep 2026: "doe maar nummer 2"). This Week and Settings
+-- use each pack's own TAB_HOME / TAB_SETTINGS. Written by Claude; not reviewed by a native speaker.
+--========================================================================
+fill("deDE", {
+	SET_LAUNCH_SCREENS = "Bildschirme wählen",
+	SCREENS_PANEL_INTRO = "Hake an, welche Bildschirme du in deinen Räumen sehen willst. Ausblenden schaltet nichts ab: Suche und Links öffnen einen ausgeblendeten Bildschirm weiterhin. Diese Woche und Einstellungen bleiben immer.",
+	TAB_TAGLINE_SCREENS = "Wähle, welche Bildschirme in deinen Räumen stehen; Ausblenden schaltet nichts ab.",
+	SCREENS_ALL_LINK = "Alle Bildschirme...",
+})
+fill("frFR", {
+	SET_LAUNCH_SCREENS = "Choisir tes écrans",
+	SCREENS_PANEL_INTRO = "Coche les écrans que tu veux voir dans tes salles. Masquer ne désactive rien : la recherche et les liens ouvrent toujours un écran masqué. Cette semaine et Paramètres restent toujours.",
+	TAB_TAGLINE_SCREENS = "Choisis les écrans de tes salles ; en masquer un ne désactive rien.",
+	SCREENS_ALL_LINK = "Tous les écrans...",
+})
+fill("esES", {
+	SET_LAUNCH_SCREENS = "Elegir tus pantallas",
+	SCREENS_PANEL_INTRO = "Marca las pantallas que quieres ver en tus salas. Ocultar no desactiva nada: la búsqueda y los enlaces siguen abriendo una pantalla oculta. Esta semana y Ajustes se quedan siempre.",
+	TAB_TAGLINE_SCREENS = "Elige qué pantallas aparecen en tus salas; ocultar una no desactiva nada.",
+	SCREENS_ALL_LINK = "Todas las pantallas...",
+})
+fill("ptBR", {
+	SET_LAUNCH_SCREENS = "Escolher suas telas",
+	SCREENS_PANEL_INTRO = "Marque as telas que você quer ver nas suas salas. Ocultar não desliga nada: a busca e os links ainda abrem uma tela oculta. Esta semana e Configurações ficam sempre.",
+	TAB_TAGLINE_SCREENS = "Escolha quais telas aparecem nas suas salas; ocultar uma não desliga nada.",
+	SCREENS_ALL_LINK = "Todas as telas...",
+})
+fill("itIT", {
+	SET_LAUNCH_SCREENS = "Scegli le tue schermate",
+	SCREENS_PANEL_INTRO = "Spunta le schermate che vuoi vedere nelle tue stanze. Nascondere non spegne nulla: la ricerca e i link aprono ancora una schermata nascosta. Questa settimana e Impostazioni restano sempre.",
+	TAB_TAGLINE_SCREENS = "Scegli quali schermate compaiono nelle tue stanze; nasconderne una non spegne nulla.",
+	SCREENS_ALL_LINK = "Tutte le schermate...",
+})
