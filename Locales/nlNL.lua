@@ -281,6 +281,8 @@ ns._mhLocales.nlNL = {
 	-- 4.0: schermen zelf verstoppen (rechtsklik op een kaart, of Instellingen -> Schermen).
 	ROOMCARD_HIDE = "Dit scherm verstoppen",
 	ROOMCARD_HIDE_HINT = "Rechtsklik: dit scherm verstoppen.",
+	ROOMCARD_DRAG_HINT = "Sleep om deze kaart te verplaatsen.",
+	ROOMCARD_RESET_ORDER = "Volgorde herstellen",
 	ROOMCARD_HIDDEN_FMT = "Verstopt: %d — terugzetten",
 	ROOMCARD_RESTORE_TITLE = "Terugzetten",
 	ROOMCARD_RESTORE_ALL = "Alles terugzetten",

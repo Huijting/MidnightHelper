@@ -19,6 +19,10 @@
 	right-clicking a card hides that screen (ns.SetScreenHidden, Core.lua). The way back sits in
 	the same room as the button: a line under the cards counts the hidden screens and offers them
 	again. Settings -> Screens has the full list.
+
+	Order (Rob, 13 Sep 2026: "kunnen we dit door users laten verplaatsen naar hun zin?" → "bouw
+	het slepen maar"): drag a card to a new place in its room. Each room remembers its own order;
+	right-click offers "Reset the order". Cards stay in their room, and Classic keeps 3.x.
 ]]
 
 local addonName, ns = ...
@@ -116,6 +120,180 @@ local function CardsForRoom(roomId)
 	return shown, hidden
 end
 
+--------------------------------------------------------------------------------
+-- Card order. Each room keeps its own list of card ids in ns.db.ui.cardOrder[room], stored on
+-- demand. A card the list does not know yet (new in an update) comes after the ordered ones,
+-- in its default place among the others.
+--------------------------------------------------------------------------------
+local function SavedOrder(roomId)
+	local ui = ns.db and ns.db.ui
+	local t = type(ui) == "table" and type(ui.cardOrder) == "table" and ui.cardOrder[roomId]
+	return type(t) == "table" and t or nil
+end
+
+local function OrderedCards(roomId, cards)
+	local saved = SavedOrder(roomId)
+	if not saved then
+		return cards
+	end
+	local rank = {}
+	for i, id in ipairs(saved) do
+		rank[id] = rank[id] or i
+	end
+	local known, unknown = {}, {}
+	for _, c in ipairs(cards) do
+		if rank[c.id] then
+			known[#known + 1] = c
+		else
+			unknown[#unknown + 1] = c
+		end
+	end
+	table.sort(known, function(a, b)
+		return rank[a.id] < rank[b.id]
+	end)
+	for _, c in ipairs(unknown) do
+		known[#known + 1] = c
+	end
+	return known
+end
+
+local function ResetOrder(roomId)
+	local ui = ns.db and ns.db.ui
+	if type(ui) == "table" and type(ui.cardOrder) == "table" then
+		ui.cardOrder[roomId] = nil
+	end
+	if ns.RefreshRoomLauncher then
+		ns.RefreshRoomLauncher()
+	end
+end
+
+-- Where slot n (1-based) sits in the grid Layout last measured.
+local function SlotPoint(panel, slot)
+	local g = panel._mhGeom
+	local col = (slot - 1) % g.cols
+	local row = math.floor((slot - 1) / g.cols)
+	return col * (g.cardW + GAP), -row * (CARD_H + GAP)
+end
+
+--- Puts every card in its slot. While a card is dragged it follows the cursor, and the others
+--- close up around the slot it would drop into.
+local function PlaceCards(panel)
+	if not (panel._mhGeom and panel._mhOrder) then
+		return
+	end
+	local drag = panel._mhDrag
+	local slot = 0
+	for _, b in ipairs(panel._mhOrder) do
+		if not (drag and b == drag.btn) then
+			slot = slot + 1
+			if drag and slot == drag.to then
+				slot = slot + 1
+			end
+			local x, y = SlotPoint(panel, slot)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", panel._mhBody, "TOPLEFT", x, y)
+		end
+	end
+end
+
+local function CursorInBody(panel)
+	local body = panel._mhBody
+	local left, top = body:GetLeft(), body:GetTop()
+	if not (left and top) then
+		return nil
+	end
+	local scale = body:GetEffectiveScale()
+	local cx, cy = GetCursorPosition()
+	return cx / scale - left, top - cy / scale
+end
+
+local function SlotAt(panel, x, y)
+	local g = panel._mhGeom
+	local col = math.min(g.cols - 1, math.max(0, math.floor(x / (g.cardW + GAP))))
+	local row = math.max(0, math.floor(y / (CARD_H + GAP)))
+	return math.max(1, math.min(#panel._mhOrder, row * g.cols + col + 1))
+end
+
+local function SaveOrder(panel)
+	local ui = ns.db and ns.db.ui
+	if type(ui) ~= "table" then
+		return
+	end
+	if type(ui.cardOrder) ~= "table" then
+		ui.cardOrder = {}
+	end
+	local ids, seen = {}, {}
+	for _, b in ipairs(panel._mhOrder) do
+		ids[#ids + 1] = b._mhTarget
+		seen[b._mhTarget] = true
+	end
+	-- Hidden cards keep their entry (after the rest), so the list stays whole.
+	for _, id in ipairs(SavedOrder(panel._mhRoom) or {}) do
+		if not seen[id] then
+			ids[#ids + 1] = id
+			seen[id] = true
+		end
+	end
+	ui.cardOrder[panel._mhRoom] = ids
+end
+
+local function StartCardDrag(b)
+	local panel = b._mhPanel
+	if not (panel and panel._mhGeom and panel._mhOrder) or panel._mhDrag then
+		return
+	end
+	local from
+	for i, x in ipairs(panel._mhOrder) do
+		if x == b then
+			from = i
+		end
+	end
+	if not from then
+		return
+	end
+	GameTooltip:Hide()
+	panel._mhDrag = { btn = b, from = from, to = from }
+	b._mhLevel = b:GetFrameLevel()
+	b:SetFrameLevel(b._mhLevel + 20)
+	b:SetAlpha(0.85)
+	b:SetScript("OnUpdate", function(self)
+		local drag = panel._mhDrag
+		local x, y = CursorInBody(panel)
+		if not (drag and x) then
+			return
+		end
+		self:ClearAllPoints()
+		self:SetPoint("CENTER", panel._mhBody, "TOPLEFT", x, -y)
+		local to = SlotAt(panel, x, y)
+		if to ~= drag.to then
+			drag.to = to
+			PlaceCards(panel)
+		end
+	end)
+end
+
+--- Drops the dragged card (save) or puts it back (the panel hid, or re-laid out mid-drag).
+local function EndCardDrag(panel, save)
+	local drag = panel and panel._mhDrag
+	if not drag then
+		return
+	end
+	local b = drag.btn
+	panel._mhDrag = nil
+	b:SetScript("OnUpdate", nil)
+	b:SetAlpha(1)
+	if b._mhLevel then
+		b:SetFrameLevel(b._mhLevel)
+	end
+	b._mhDragEnd = GetTime()
+	if save and drag.to ~= drag.from then
+		table.remove(panel._mhOrder, drag.from)
+		table.insert(panel._mhOrder, drag.to, b)
+		SaveOrder(panel)
+	end
+	PlaceCards(panel)
+end
+
 -- Blizzard's context menu (MenuUtil, 11.0+). Without it, the click does the one obvious thing
 -- itself rather than nothing.
 local function OpenMenu(owner, build)
@@ -130,14 +308,21 @@ end
 
 local function ShowCardMenu(card)
 	local screenId = card._mhScreen
-	if not (screenId and ns.IsScreenHideable and ns.IsScreenHideable(screenId) and ns.SetScreenHidden) then
-		return
-	end
+	local hideable = screenId and ns.IsScreenHideable and ns.IsScreenHideable(screenId) and ns.SetScreenHidden
+	local roomId = card._mhPanel and card._mhPanel._mhRoom
+	local ordered = roomId and SavedOrder(roomId) ~= nil
 	local opened = OpenMenu(card, function(root)
-		root:CreateTitle(card._mhName:GetText() or screenId)
-		root:CreateButton(ns:L("ROOMCARD_HIDE"), function()
-			ns.SetScreenHidden(screenId, true)
-		end)
+		root:CreateTitle(card._mhName:GetText() or screenId or "")
+		if hideable then
+			root:CreateButton(ns:L("ROOMCARD_HIDE"), function()
+				ns.SetScreenHidden(screenId, true)
+			end)
+		end
+		if ordered then
+			root:CreateButton(ns:L("ROOMCARD_RESET_ORDER"), function()
+				ResetOrder(roomId)
+			end)
+		end
 		root:CreateDivider()
 		root:CreateButton(ns:L("SCREENS_ALL_LINK"), function()
 			if ns.SelectTab then
@@ -145,7 +330,7 @@ local function ShowCardMenu(card)
 			end
 		end)
 	end)
-	if not opened then
+	if not opened and hideable then
 		ns.SetScreenHidden(screenId, true)
 	end
 end
@@ -227,7 +412,17 @@ local function MakeCard(parent)
 
 	b._mhIcon, b._mhName, b._mhStatus = icon, name, status
 	b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	-- Drag to reorder (Card order above). A drag only begins once the held mouse moves, so a
+	-- plain click still opens the screen.
+	b:RegisterForDrag("LeftButton")
+	b:SetScript("OnDragStart", StartCardDrag)
+	b:SetScript("OnDragStop", function(self)
+		EndCardDrag(self._mhPanel, true)
+	end)
 	b:SetScript("OnClick", function(self, button)
+		if self._mhDragEnd and GetTime() - self._mhDragEnd < 0.3 then
+			return -- the mouse-up that ended a drag is not a click
+		end
 		if button == "RightButton" then
 			ShowCardMenu(self)
 			return
@@ -237,17 +432,18 @@ local function MakeCard(parent)
 		end
 	end)
 	b:SetScript("OnEnter", function(self)
-		local hideable = self._mhScreen and ns.IsScreenHideable and ns.IsScreenHideable(self._mhScreen)
-		if not self._mhTagline and not hideable then
+		if self._mhPanel and self._mhPanel._mhDrag then
 			return
 		end
+		local hideable = self._mhScreen and ns.IsScreenHideable and ns.IsScreenHideable(self._mhScreen)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:AddLine(self._mhName:GetText() or "", 1, 0.82, 0)
 		if self._mhTagline then
 			GameTooltip:AddLine(ns:L(self._mhTagline), 0.92, 0.92, 0.92, true)
 		end
+		local m = Palette().status
+		GameTooltip:AddLine(ns:L("ROOMCARD_DRAG_HINT"), m[1], m[2], m[3], true)
 		if hideable then
-			local m = Palette().status
 			GameTooltip:AddLine(ns:L("ROOMCARD_HIDE_HINT"), m[1], m[2], m[3], true)
 		end
 		GameTooltip:Show()
@@ -279,8 +475,12 @@ local function Layout(panel)
 	end
 	local cols = math.max(1, math.floor((width + GAP) / (CARD_MIN_W + GAP)))
 	local cardW = math.floor((width - GAP * (cols - 1)) / cols)
+	EndCardDrag(panel, false) -- a re-layout mid-drag puts the card back
 	local cards, hidden = CardsForRoom(roomId)
+	cards = OrderedCards(roomId, cards)
 	local screens = ns._mhLookScreens or {}
+	panel._mhGeom = { cols = cols, cardW = cardW }
+	panel._mhOrder = {}
 
 	for i, c in ipairs(cards) do
 		local b = panel._mhCards[i]
@@ -288,11 +488,9 @@ local function Layout(panel)
 			b = MakeCard(panel._mhBody)
 			panel._mhCards[i] = b
 		end
-		local col = (i - 1) % cols
-		local row = math.floor((i - 1) / cols)
-		b:ClearAllPoints()
 		b:SetSize(cardW, CARD_H)
-		b:SetPoint("TOPLEFT", panel._mhBody, "TOPLEFT", col * (cardW + GAP), -row * (CARD_H + GAP))
+		b._mhPanel = panel
+		panel._mhOrder[i] = b
 		local screenId = ScreenOf(c)
 		local screen = screens[screenId]
 		if screen and ns._mhLookIconPath then
@@ -310,6 +508,7 @@ local function Layout(panel)
 	for i = #cards + 1, #panel._mhCards do
 		panel._mhCards[i]:Hide()
 	end
+	PlaceCards(panel)
 	local rows = math.ceil(#cards / cols)
 	local bodyH = math.max(1, rows * (CARD_H + GAP))
 	-- The way back from a right-click, in the same room: "Hidden: 2 — show again".
@@ -400,6 +599,9 @@ local function EnsurePanel(roomId)
 	panel._mhBody = body
 	panel._mhCards = {}
 	panel:SetScript("OnShow", Layout)
+	panel:SetScript("OnHide", function(self)
+		EndCardDrag(self, false)
+	end)
 	scroll:SetScript("OnSizeChanged", function()
 		if panel:IsShown() then
 			Layout(panel)

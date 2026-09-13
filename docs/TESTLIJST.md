@@ -7,6 +7,21 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 13 sep — 4.0.0: kaarten verslepen (Rob: "bouw het slepen maar")
+
+`/reload` is genoeg (geen nieuwe bestanden). Gebouwd, nog niet in het spel gezien.
+- [ ] **Beweeg over een kaart**: de tooltip zegt nu ook *"Drag to move this card."*
+- [ ] **Pak een kaart** (linkermuis ingedrukt houden en bewegen): de kaart gaat met de muis mee en is
+      iets doorzichtig. De andere kaarten schuiven opzij naar de plek waar hij zou landen.
+- [ ] **Laat los** → de kaart staat op zijn nieuwe plek. Het scherm opent daarbij níét.
+- [ ] **Gewoon klikken** op een kaart opent het scherm nog, net als eerst.
+- [ ] **Na `/reload`** staat je volgorde er nog. Elke kamer (Me, Codex, Tools) heeft zijn eigen volgorde.
+- [ ] **Rechtsklik op een kaart** in een kamer die je hebt omgegooid → *"Reset the order"*. Klik →
+      de standaardvolgorde is terug. In een kamer die je niet hebt aangeraakt staat die regel er niet.
+- [ ] **This Week** kun je ook verslepen, en met rechtsklik krijg je daar nu ook een menu (zonder
+      "Hide", want This Week kan niet weg).
+- [ ] **Classic look aan**: de lange lijst staat in de oude volgorde; het slepen zit alleen in de kaarten.
+
 ## 🆕 13 sep — 4.0.0: schermen zelf verstoppen (Rob: "bouw het voor 4.0.0, allebei de plekken")
 
 `/reload` is genoeg (geen nieuwe bestanden). Alles gebouwd, niets in het spel gezien.

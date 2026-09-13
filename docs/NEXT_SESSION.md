@@ -50,6 +50,17 @@
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.
+- 🔨 **13 sep, gebouwd, nog niet in het spel gezien: kaarten verslepen.** Rob, met een screenshot
+  van de Me-kaarten: *"kunnen we dit door users laten verplaatsen naar hun zin?"* Hij kreeg drie
+  opties: slepen, pijlen in het menu, of pijlen op de Screens-pagina. Rob: *"bouw het slepen maar"*.
+  - In `Modules/RoomLauncher.lua`: `RegisterForDrag`. De kaart volgt de cursor, de rest schuift op
+    (`PlaceCards`), en bij loslaten wordt het `ui.cardOrder[room]` (kaart-id's).
+  - Nieuwe schermen komen achteraan. Rechtsklik geeft *Reset the order*.
+  - Kaarten blijven in hun kamer: tussen kamers slepen heb ik afgeraden, want rondleiding en uitleg
+    rekenen op de indeling. Classic blijft ongewijzigd.
+  - **AFGELEID:** dat een drag pas begint na een beetje bewegen, zodat een klik een klik blijft. De
+    muisklik die een drag afsluit, wordt 0,3 s genegeerd. Test: TESTLIJST, 13 sep.
+  - 📌 Dezelfde truc kan later ook voor de favorietenknopjes bovenin (die hebben nu geen volgorde-UI).
 - ✅ **13 sep, gebouwd én door Rob gezien: spelers verstoppen zelf schermen.** Rob, dezelfde dag in
   het spel: *"de rechtermuis klik werkt, het terug halen ook, ook in de settings staat screens met
   vinkjes"*. Daarmee is MenuUtil op 12.1 GEMETEN. Nog open in TESTLIJST: de kopjes in Screens, zoeken

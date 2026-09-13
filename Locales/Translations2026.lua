@@ -8692,3 +8692,13 @@ fill("itIT", {
 	TAB_TAGLINE_SCREENS = "Scegli quali schermate compaiono nelle tue stanze; nasconderne una non spegne nulla.",
 	SCREENS_ALL_LINK = "Tutte le schermate...",
 })
+
+--========================================================================
+-- 4.0.0 drag to reorder the room cards (Rob, 13 Sep 2026: "bouw het slepen maar"). Written by
+-- Claude; not reviewed by a native speaker.
+--========================================================================
+fill("deDE", { ROOMCARD_DRAG_HINT = "Ziehen, um diese Karte zu verschieben.", ROOMCARD_RESET_ORDER = "Reihenfolge zurücksetzen" })
+fill("frFR", { ROOMCARD_DRAG_HINT = "Fais glisser pour déplacer cette carte.", ROOMCARD_RESET_ORDER = "Rétablir l'ordre" })
+fill("esES", { ROOMCARD_DRAG_HINT = "Arrastra para mover esta tarjeta.", ROOMCARD_RESET_ORDER = "Restablecer el orden" })
+fill("ptBR", { ROOMCARD_DRAG_HINT = "Arraste para mover este cartão.", ROOMCARD_RESET_ORDER = "Restaurar a ordem" })
+fill("itIT", { ROOMCARD_DRAG_HINT = "Trascina per spostare questa scheda.", ROOMCARD_RESET_ORDER = "Ripristina l'ordine" })
