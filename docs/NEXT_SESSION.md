@@ -23,7 +23,7 @@
 - ✅ **Spec 31-zoekmeting afgelezen**, zie `SPEC_31_COMMUNITY_REACH.md` §7. MH staat nu op alle zes
   doeltermen in de lijst, op 29 aug op nul; meestal onderaan.
 
-## 🔨 13 sep — de zone-levelwaarschuwing vraagt het spel nu zelf (gebouwd, nog niet gezien)
+## ✅ 13 sep — de zone-levelwaarschuwing vraagt het spel nu zelf (Rob, na `/reload` op de 81: "goed gegaan")
 
 Rob, level 81, kwam in Harandar aan en kreeg *"That area starts at level 82 … the enemies there are
 well above you"*, terwijl *"de meeste mobs hier scalen mee"*. De 82 (en 88 voor Voidstorm) kwam uit

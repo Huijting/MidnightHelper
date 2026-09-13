@@ -12,7 +12,8 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 Rob, level 81 in Harandar, kreeg *"the enemies there are well above you"*, terwijl de mobs daar
 meeschalen. Zijn `/run`-meting (C_Map.GetMapLevels): Eversong, Zul'Aman, Harandar en Voidstorm allemaal
 **80 90**, Coiled Isle **90 90**, Silvermoon en Slayer's Rise **0 0**. `/reload` is genoeg.
-- [ ] **Op de level-81**: zet een route naar iets in Harandar (bv. een schat) → **geen** melding meer.
+- [x] **Op de level-81**: zet een route naar iets in Harandar (bv. een schat) → **geen** melding meer.
+      ✅ **Rob, 13 sep, na `/reload`: "goed gegaan".**
 - [ ] **`/mh zonegate`** → vijf regels, per gebied *"game says 80-90"* (Coiled Isle *90-90*). Op level 81
       waarschuwt alleen The Coiled Isle.
 - [ ] **Een route naar The Coiled Isle** op die 81 → de melding komt nog wel, en eindigt nu op *"above your
