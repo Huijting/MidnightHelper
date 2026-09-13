@@ -696,3 +696,35 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   https://news.blizzard.com/en-us/article/24296142?nocache=20260912 (volledig gelezen via
   Exa) · `web_search_exa` "World of Warcraft hotfixes September 11/12 2026" (nieuwste
   retail-treffer blijft 10 sep).
+
+---
+
+- [2026-09-13] 🔁 **Dag 3 op rij zonder nieuwe hotfix-sectie (BlizzCon-dag 2) — niets nieuws om
+  tegen de repo te toetsen.** `Exa web_fetch_exa` met `?nocache=20260913e` op news.blizzard.com's
+  doorlopende hotfix-artikel, **volledige artikeltekst zelf gelezen**: nieuwste sectie is nog
+  steeds "September 10, 2026", byte-voor-byte gelijk aan wat op [2026-09-11] volledig behandeld
+  en op [2026-09-12] al bevestigd is (Delves: Domanaar Enforcer, Twilight Crypts "Loosed Loa";
+  Dungeons and Raids: Nalorakk's Echoing Maul, Mor'zahi/Final Ascension) — geen elfde/twaalfde/
+  dertiende sectie. Delves/Professions/Quests: geen nieuwe regels, dus niets om te vergelijken.
+  **Positieve controle tegen de cache-val van 3 sep:** een losse `web_search_exa` op "World of
+  Warcraft hotfixes September 12 2026 OR September 13 2026 Midnight retail" vindt correct
+  gedateerde artikelen tot en met 11 sep (Wowhead, gepubliceerd 11 sep, citeert zelf de volledige
+  "September 10, 2026"-sectie) maar niets nieuwer dan 10 sep als retail-hotfix — dus de query kan
+  wél recente content vinden, het ontbreken van een 11/12/13-sep-hotfixartikel is een gemeten
+  afwezigheid, geen kapotte zoekopdracht of een cache-val. Dit convergeert met de data-wachter van
+  vandaag (`docs/PTR_12.0.7_DATA.md`, entry [2026-09-13]: zelfde "10 sep blijft nieuwste"-stand,
+  ook via Wowhead/Icy Veins tegengelezen) en de API-wachter (`docs/API_WATCH.md`, vandaag: zelfde
+  sectie, geen UI/API/addon-inhoud) — beide onafhankelijk zelf gemeten, niet hier overgenomen als
+  bewijs, alleen als bevestiging genoemd.
+
+  📌 **BlizzCon 2026 dag 1/2 bracht content-aankondigingen (12.2 "Eclipse": raid The Worldcore,
+  legendary Midnight's Edge, zone The Mantle Vault; Season 3 M+-rotatie; WoW Forever), maar dat is
+  roadmap/PTR-materiaal, niet een live hotfix op geshipte content** — bewust niet meegenomen hier,
+  dat is `docs/PTR_12.1_WATCH.md`'s lane (zie ook diens entry van vandaag). Ik toets alleen live
+  hotfixes tegen wat we al claimen; een aankondiging van iets dat nog niet bestaat, is niets om
+  tegen te spreken.
+
+  Geen enkele bevinding vandaag. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260913e (volledig gelezen via Exa)
+  · `web_search_exa` "World of Warcraft hotfixes September 12 2026 OR September 13 2026 Midnight
+  retail" (nieuwste retail-hotfixtreffer blijft 10 sep).
