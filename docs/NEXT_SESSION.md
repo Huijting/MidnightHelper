@@ -59,8 +59,8 @@
   later nummer 3"*.
   ✅ **Nummer 2 gebouwd op 13 sep; Rob zag het: *"ja dat ziet er goed uit"*.** Hij zag wel dat bij
   een klein venster de knoppen van de Settings-pagina onder MH uitstaken. Die pagina kon nooit
-  schuiven. Nu wel: een scroll child `sheet` en `SizeSettingsSheet()` in `SettingsPage.lua`. De test
-  daarvan staat nog open in TESTLIJST.
+  schuiven. Nu wel: een scroll child `sheet` en `SizeSettingsSheet()` in `SettingsPage.lua`. ✅ Rob,
+  na `/reload`: *"ja het is opgelost"*.
   - Een Screens-pagina in MH zelf (`Modules/SettingsPage.lua`, tab-id `screens`, hoort bij de kamer
     Settings).
   - Bereikbaar via de knop *Choose your screens* op de Settings-pagina, via *All screens...* in beide

@@ -39,7 +39,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       scherm een vakje, het plaatje en de naam. Een aan-scherm heeft een paars gevuld vakje; een
       verstopt scherm is grijs en heeft een leeg vakje. De titelbalk zegt *Settings > Screens*.
       ✅ **Rob, 13 sep: "ja dat ziet er goed uit".**
-- [ ] 🆕 **Maak het venster laag** (sleep de hoek omhoog) en ga naar Settings: de pagina **schuift**
+- [x] ✅ **Rob, 13 sep, na `/reload`: "ja het is opgelost".** **Maak het venster laag** (sleep de hoek omhoog) en ga naar Settings: de pagina **schuift**
       nu. Er komt een schuifbalk rechts, en geen knop steekt meer onder MH uit. Maak het venster
       weer groot: de schuifbalk verdwijnt. Rob zag op 13 sep dat de knoppen eronder uitstaken;
       dat was al zo vóór de nieuwe knop.
