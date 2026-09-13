@@ -93,6 +93,19 @@ te testen of ik deze al gehaald heb"*.
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.
+- 💡 **Gebankt idee, 13 sep (Rob: "zet het maar in het logboek voor later"): een teller voor de
+  wekelijkse Knowledge-drops.** Rob kreeg uit een kistje een *Loa-Blessed Rune* (item 259197, +2
+  Midnight Inscription Knowledge) en krijgt soms zoiets bij Herbalism en Mining. Zijn vraag: zit daar een
+  weekgrens op?
+  - Wat MH zelf zegt (`PROFACAD_CH_WEEKLY_BODY`): *"Two random treasure-drop items from open-world
+    containers (+2 KP each)"* per week per beroep. Dat komt uit gidsen en is **niet door ons gemeten**.
+    Voor gathering-drops zegt MH niets.
+  - 259197 staat in geen enkele geïnstalleerde addon: MH, Zygor en HandyNotes hebben hem niet.
+  - **Plan:** eerst meten, dan pas een teller ("1 van 2 deze week" per beroep). Meten gaat via
+    `C_QuestLog.GetAllCompletedQuestIDs()` vlak vóór en ná het oppakken, en het verschil is het
+    verborgen weekvinkje. Doe dat als een `/mh`-diagnose die naar `ns.db` schrijft, zodat ik het
+    SV-bestand lees ([[savedvariables-diagnostics]]). Tel pas als die vinkjes bekend zijn; geen
+    gids-getallen hardcoden.
 - ✅ **13 sep, gebouwd én door Rob gezien: kaarten verslepen.** Rob in het spel: *"wauw, dat we dat
   niet eerder hadden bedacht"*. Ook *Reset the order* en Classic zijn ✅ (Rob: *"beide werken goed"*). De volgorde
   blijft ook na `/reload` staan ✅ (Rob: *"ja ze blijven staan"*). Alles van het kaarten-slepen is gezien. Rob, met een screenshot
