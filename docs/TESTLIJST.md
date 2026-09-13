@@ -41,12 +41,13 @@ Pigment een vinkje. De twee quest-ID's stonden omgewisseld. `/reload` is genoeg.
       scherm daarbij níét opent.
 - [ ] **Gewoon klikken** op een kaart opent het scherm nog, net als eerst.
 - [ ] **Na `/reload`** staat je volgorde er nog. Elke kamer (Me, Codex, Tools) heeft zijn eigen volgorde.
-- [ ] **Rechtsklik op een kaart** in een kamer die je hebt omgegooid → *"Reset the order"*. Klik →
+- [x] **Rechtsklik op een kaart** in een kamer die je hebt omgegooid → *"Reset the order"*. Klik →
       de standaardvolgorde is terug. In een kamer die je niet hebt aangeraakt staat die regel er niet.
+      ✅ **Rob, 13 sep: "beide werken goed"** (Reset the order en Classic).
 - [ ] **This Week** kun je ook verslepen, en met rechtsklik krijg je daar nu ook een menu (zonder
       "Hide", want This Week kan niet weg).
-- [ ] **Classic look aan**: de lange lijst staat in de oude volgorde; de kaarten zijn er dan niet. De
-      knopjes bovenin (hieronder) kun je ook in Classic slepen.
+- [x] **Classic look aan**: de lange lijst staat in de oude volgorde; de kaarten zijn er dan niet. De
+      knopjes bovenin (hieronder) kun je ook in Classic slepen. ✅ Rob, 13 sep: "beide werken goed".
 
 ### 🆕 13 sep, daarna — ook de knopjes bovenin (Rob: "doe het slepen ook maar voor de knopjes bovenin")
 
