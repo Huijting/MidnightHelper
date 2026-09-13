@@ -7,6 +7,15 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 13 sep — twee Inscription-schatten in Harandar omgedraaid
+
+Rob had de Intrepid Explorer's Marker opgepakt, maar MH toonde hem met een rood kruis en gaf de
+Pigment een vinkje. De twee quest-ID's stonden omgewisseld. `/reload` is genoeg.
+- [ ] **Tools → Professions → Treasures & Books**: *Intrepid Explorer's Marker* heeft nu een ✓, en
+      *Leftover Sanguithorn Pigment* een rood ✗.
+- [ ] **Vlieg naar Harandar 52.7, 50.0**: daar ligt de Pigment nog. Pak hem op → na even wachten (of
+      `/reload`) krijgt hij een ✓, en *Midnight Inscription* telt 7/8.
+
 ## 🆕 13 sep — 4.0.0: kaarten verslepen (Rob: "bouw het slepen maar")
 
 `/reload` is genoeg (geen nieuwe bestanden). Gebouwd, nog niet in het spel gezien.

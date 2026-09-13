@@ -142,8 +142,10 @@ local MIDNIGHT_DATA = {
 	{ 89074, 2395, 40.4, 61.3, "Songwriter's Quill", "Inscription" },
 	{ 89069, 2395, 48.3, 75.6, "Spare Ink", "Inscription" },
 	{ 89068, 2437, 40.5, 49.4, "Leather-Bound Techniques", "Inscription" },
-	{ 89070, 2413, 52.7, 50.0, "Leftover Sanguithorn Pigment", "Inscription" },
-	{ 89071, 2413, 52.4, 52.6, "Intrepid Explorer's Marker", "Inscription" },
+	-- These two had each other's quest ID until 13 Sep 2026: Rob picked up the Marker and 89070
+	-- flipped. HandyNotes_Midnight and Zygor agree (items 238575 Marker, 238576 Pigment).
+	{ 89071, 2413, 52.7, 50.0, "Leftover Sanguithorn Pigment", "Inscription" },
+	{ 89070, 2413, 52.4, 52.6, "Intrepid Explorer's Marker", "Inscription" },
 	{ 89067, 2444, 60.7, 84.1, "Void-Touched Quill", "Inscription" },
 	{ 89072, 2395, 39.3, 45.4, "Half-Baked Techniques", "Inscription" },
 

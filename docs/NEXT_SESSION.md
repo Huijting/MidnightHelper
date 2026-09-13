@@ -23,7 +23,7 @@
 - ✅ **Spec 31-zoekmeting afgelezen**, zie `SPEC_31_COMMUNITY_REACH.md` §7. MH staat nu op alle zes
   doeltermen in de lijst, op 29 aug op nul; meestal onderaan.
 
-## 🔎 13 sep — twee Inscription-schatten hebben elkaars quest-ID (wacht op de client)
+## ✅ 13 sep — twee Inscription-schatten hadden elkaars quest-ID (opgelost, `/reload` te zien)
 
 Rob, met een screenshot van *Intrepid Explorer's Marker* met een rood kruis: *"is er een manier om
 te testen of ik deze al gehaald heb"*.
@@ -37,9 +37,12 @@ te testen of ik deze al gehaald heb"*.
   kwam eruit. De ene die het script niet vond, *Vial of Eversong Oddities* (89111, regel 97), staat
   wél in beide met hetzelfde ID. HandyNotes schrijft hem als `smc.nodes[...]` en Zygor in een
   `click`-regel, en die vormen dekte het patroon niet. Die is dus in orde.
-- **Nog te doen:** Rob draait `/run print(C_QuestLog.IsQuestFlaggedCompleted(89070),
-  C_QuestLog.IsQuestFlaggedCompleted(89071))` en zegt welke van de twee hij heeft opgepakt. Bevestigt
-  dat de omwisseling, dan draai ik de twee ID's om op regel 145-146.
+- ✅ **Bevestigd door Rob in het spel.** Hij stuurde een screenshot van de schattenlijst (Pigment ✓,
+  Marker ✗), dus 89070 staat aan en 89071 niet. Daarna zei hij: *"ik heb volgens mij al die Intrepid
+  vanmiddag opgepakt"*. Dat maakt 89070 de Marker. **De ID's zijn omgedraaid** op regel 145-146.
+  Na `/reload` hoort de Marker ✓ te krijgen en de Pigment ✗. De Pigment ligt dan nog op 52.7, 50.0.
+  📌 Dit hoort in de 4.0-changelog: "twee Inscription-schatten in Harandar toonden elkaars
+  status".
 - `/mh quest` kan dit niet: het toont alleen het ID van een open questvenster.
 
 ## 🎨 12 sep — 4.0.0 (Spec 37, concept A): bouw gestart. Rob: "begin maar met 4.0.0"
