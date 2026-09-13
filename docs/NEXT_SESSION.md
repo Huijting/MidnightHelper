@@ -50,7 +50,8 @@
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.
-- 🔨 **13 sep, gebouwd, nog niet in het spel gezien: kaarten verslepen.** Rob, met een screenshot
+- ✅ **13 sep, gebouwd én door Rob gezien: kaarten verslepen.** Rob in het spel: *"wauw, dat we dat
+  niet eerder hadden bedacht"*. Nog open in TESTLIJST: Reset the order, na `/reload`, Classic. Rob, met een screenshot
   van de Me-kaarten: *"kunnen we dit door users laten verplaatsen naar hun zin?"* Hij kreeg drie
   opties: slepen, pijlen in het menu, of pijlen op de Screens-pagina. Rob: *"bouw het slepen maar"*.
   - In `Modules/RoomLauncher.lua`: `RegisterForDrag`. De kaart volgt de cursor, de rest schuift op

@@ -11,9 +11,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 `/reload` is genoeg (geen nieuwe bestanden). Gebouwd, nog niet in het spel gezien.
 - [ ] **Beweeg over een kaart**: de tooltip zegt nu ook *"Drag to move this card."*
-- [ ] **Pak een kaart** (linkermuis ingedrukt houden en bewegen): de kaart gaat met de muis mee en is
+- [x] **Pak een kaart** (linkermuis ingedrukt houden en bewegen): de kaart gaat met de muis mee en is
       iets doorzichtig. De andere kaarten schuiven opzij naar de plek waar hij zou landen.
-- [ ] **Laat los** → de kaart staat op zijn nieuwe plek. Het scherm opent daarbij níét.
+      ✅ **Rob, 13 sep: "wauw, dat we dat niet eerder hadden bedacht"**.
+- [x] **Laat los** → de kaart staat op zijn nieuwe plek. ✅ Zelfde test. Niet apart genoemd: dat het
+      scherm daarbij níét opent.
 - [ ] **Gewoon klikken** op een kaart opent het scherm nog, net als eerst.
 - [ ] **Na `/reload`** staat je volgorde er nog. Elke kamer (Me, Codex, Tools) heeft zijn eigen volgorde.
 - [ ] **Rechtsklik op een kaart** in een kamer die je hebt omgegooid → *"Reset the order"*. Klik →
