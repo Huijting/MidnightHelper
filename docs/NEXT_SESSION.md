@@ -41,6 +41,9 @@ te testen of ik deze al gehaald heb"*.
   Marker ✗), dus 89070 staat aan en 89071 niet. Daarna zei hij: *"ik heb volgens mij al die Intrepid
   vanmiddag opgepakt"*. Dat maakt 89070 de Marker. **De ID's zijn omgedraaid** op regel 145-146.
   Na `/reload` hoort de Marker ✓ te krijgen en de Pigment ✗. De Pigment ligt dan nog op 52.7, 50.0.
+  ✅ **GEMETEN, dezelfde middag:** de Pigment lag er echt nog, en Rob pakte hem op (screenshot *"You
+  received Leftover Sanguithorn Pigment"*). MH had hem vóór de reparatie als opgepakt getoond. Dat
+  bewijst de omwisseling in het spel zelf, niet alleen via twee andere addons.
   📌 Dit hoort in de 4.0-changelog: "twee Inscription-schatten in Harandar toonden elkaars
   status".
 - `/mh quest` kan dit niet: het toont alleen het ID van een open questvenster.

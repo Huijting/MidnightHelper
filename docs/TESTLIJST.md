@@ -13,8 +13,10 @@ Rob had de Intrepid Explorer's Marker opgepakt, maar MH toonde hem met een rood 
 Pigment een vinkje. De twee quest-ID's stonden omgewisseld. `/reload` is genoeg.
 - [ ] **Tools → Professions → Treasures & Books**: *Intrepid Explorer's Marker* heeft nu een ✓, en
       *Leftover Sanguithorn Pigment* een rood ✗.
-- [ ] **Vlieg naar Harandar 52.7, 50.0**: daar ligt de Pigment nog. Pak hem op → na even wachten (of
-      `/reload`) krijgt hij een ✓, en *Midnight Inscription* telt 7/8.
+- [x] ✅ **Rob, 13 sep: de Pigment lag er nog, en hij pakte hem op** (screenshot *"You received Leftover
+      Sanguithorn Pigment"*). Vóór de reparatie toonde MH hem als opgepakt, dus de omwisseling is nu
+      in het spel GEMETEN.
+  - [ ] Nog even kijken: heeft de Pigment nu een ✓, en telt *Midnight Inscription* 7/8?
 
 ## 🆕 13 sep — 4.0.0: kaarten verslepen (Rob: "bouw het slepen maar")
 
