@@ -40,7 +40,8 @@ Pigment een vinkje. De twee quest-ID's stonden omgewisseld. `/reload` is genoeg.
 - [x] **Laat los** → de kaart staat op zijn nieuwe plek. ✅ Zelfde test. Niet apart genoemd: dat het
       scherm daarbij níét opent.
 - [ ] **Gewoon klikken** op een kaart opent het scherm nog, net als eerst.
-- [ ] **Na `/reload`** staat je volgorde er nog. Elke kamer (Me, Codex, Tools) heeft zijn eigen volgorde.
+- [x] **Na `/reload`** staat je volgorde er nog. Elke kamer (Me, Codex, Tools) heeft zijn eigen volgorde.
+      ✅ **Rob, 13 sep: "ja ze blijven staan".**
 - [x] **Rechtsklik op een kaart** in een kamer die je hebt omgegooid → *"Reset the order"*. Klik →
       de standaardvolgorde is terug. In een kamer die je niet hebt aangeraakt staat die regel er niet.
       ✅ **Rob, 13 sep: "beide werken goed"** (Reset the order en Classic).

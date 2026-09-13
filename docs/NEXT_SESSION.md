@@ -94,8 +94,8 @@ te testen of ik deze al gehaald heb"*.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.
 - ✅ **13 sep, gebouwd én door Rob gezien: kaarten verslepen.** Rob in het spel: *"wauw, dat we dat
-  niet eerder hadden bedacht"*. Ook *Reset the order* en Classic zijn ✅ (Rob: *"beide werken goed"*). Nog open: de
-  volgorde na `/reload`. Rob, met een screenshot
+  niet eerder hadden bedacht"*. Ook *Reset the order* en Classic zijn ✅ (Rob: *"beide werken goed"*). De volgorde
+  blijft ook na `/reload` staan ✅ (Rob: *"ja ze blijven staan"*). Alles van het kaarten-slepen is gezien. Rob, met een screenshot
   van de Me-kaarten: *"kunnen we dit door users laten verplaatsen naar hun zin?"* Hij kreeg drie
   opties: slepen, pijlen in het menu, of pijlen op de Screens-pagina. Rob: *"bouw het slepen maar"*.
   - In `Modules/RoomLauncher.lua`: `RegisterForDrag`. De kaart volgt de cursor, de rest schuift op
