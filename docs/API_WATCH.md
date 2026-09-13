@@ -1403,3 +1403,108 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     onschadelijk, en juist het bewijs dat de URL-string per dag verschilt.
   - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Het verdiepen van de clone hierboven is puur
     lezen.
+- [2026-09-13] ✅ **Geen relevante API-wijzigingen (6–13 sep). 0 × [MOET GEFIKST].** Geen hotfix
+  sinds 10 sep, geen bewerkte `/API changes`-pagina sinds 6 sep, geen blue post. Twee dingen zijn
+  wél nieuw: **Patch 12.2.0 "Eclipse" heeft een wiki-pagina** (roadmap, niet mijn terrein) en een
+  **correctie op de bronnenlijst van de vorige runs** (`Events` bestaat wél). Alles via
+  `web_fetch_exa` met cache-buster (`?nocache=20260913`), plus WebSearch als tegenlezing.
+  - **GEMETEN — beide `/API changes`-pagina's onveranderd, vierde dag op rij.** `prop=revisions` op
+    pageids 679840+705933: `Patch 12.1.0/API changes` nog steeds **revid 6860164,
+    2026-09-05T00:39:06Z, 102421 bytes**; `Patch 12.1.5/API changes` nog steeds **revid 6863733,
+    2026-09-06T17:08:08Z, 25227 bytes**. Byte-identiek aan 10, 11 en 12 sep. ⚠️ De 12.1.5-bewerking
+    (6 sep) is vandaag **7 dagen** oud en valt hiermee als laatste uit het venster; hij is op 6/7 sep
+    volledig getoetst. **Vanaf nu staat er geen enkel wiki-item meer binnen de 7 dagen** — de
+    12.1.0-/12.1.5-bevindingen hieronder zijn daarmee historie, geen openstaand werk.
+  - 🆕 **NIEUW, maar NIET MIJN TERREIN: `Patch 12.2.0` "Eclipse" heeft een wiki-pagina gekregen.**
+    pageid **706990**, laatste bewerking **2026-09-12T23:40:16Z**, **833 bytes**, plus een redirect
+    `Patch 12.2` aangemaakt **2026-09-13T01:20:59Z**. Letterlijk uit de wikitext: `Release = Winter
+    2026/2027`, highlights *"New zone: The Mantle Vault · New dungeon: Thraegar's Stand · New lair:
+    The Gearhold · New raid: The Worldcore · Legendary caster blade · New delves · Forsaken, night
+    elf, and troll paladins · Housing updates"*, en in de patchbox `Prev = 12.1.7`, `Next = 12.2.5`.
+    Dat is **content/roadmap → de PTR-wachter** (`docs/PTR_12.1_WATCH.md`); ik noteer het hier alleen
+    omdat er nu een nieuwe `/API changes`-pagina kán ontstaan om op te letten. **GEMETEN vandaag:
+    `Patch 12.1.6/API changes`, `Patch 12.1.7/API changes` en `Patch 12.2.0/API changes` zijn alle
+    drie nog steeds `missing`.**
+  - 📌 **CORRECTIE op de bronnenlijst van 11 en 12 sep: `Events` bestáát wél.** Die runs schreven dat
+    `Events/Complete list` `missing` was en noemden dat "een eigenschap van de titel". Dat klopte,
+    maar de conclusie was te mager: **de pagina heet gewoon `Events`** — pageid **304884**, laatste
+    bewerking **2026-09-04T22:53:30Z**, **117345 bytes**. Vandaag voor het eerst tegen de juiste
+    titel gemeten en daarmee binnen de vaste ronde opgenomen. Hij staat stil en valt buiten het
+    7-dagenvenster. ⚠️ Dit is precies de val uit [[silence-is-not-absence]]: mijn zoekterm was fout,
+    niet de wiki.
+  - **GEMETEN — er is geen nieuwere `/API changes`-pagina.** `list=search` (`intitle:"API changes"`,
+    `srsort=last_edit_desc`, 15 van 138 treffers): nieuwst *bewerkt* zijn 12.1.5 (6 sep), 11.0.2
+    (6 sep), 12.1.0 (5 sep) en `API change summaries` (4 sep). **Niets binnen 7 dagen dat deze
+    wachter niet al gelezen heeft.**
+  - **GEMETEN — de kernpagina's staan stil, alle buiten het venster:** `World of Warcraft API`
+    **2026-09-04T22:38:05Z** (871833 bytes, comment "12.1.5 (69594)"), `Events`
+    **2026-09-04T22:53:30Z**, `Secret Values` **2026-09-04T11:56:18Z**, `Patch 12.1.5`
+    **2026-09-03T23:11:42Z**, `Patch 12.1.0` **2026-08-24T17:50:03Z**, `Secure Execution and
+    Tainting` **2026-02-15T17:17:51Z**.
+  - **GEMETEN — `list=recentchanges` (ns 0, 50 stuks, cache-busted).** Nieuwste bewerking
+    **2026-09-13T03:38:24Z**, dus nieuwer dan de 03:37:59Z van gisteren: geen cache-val. Inhoud
+    **uitsluitend content**: Warcraft III / Reforged-patchpagina's (incl. een nieuwe
+    `Warcraft III/Patch 3.0.0`), `Warcraft client builds`, Pandaria-NPC's, `Logo`, `War of Light and
+    Shadow`, en de `Patch 12.2`-redirect hierboven. **Geen `/API changes`-, `Structure `- of
+    `Enum.`-pagina in de batch.** ⚠️ De 50 stuks dekken maar ~3,2 uur (00:25–03:38Z); de dekking over
+    de rest van de week komt van de `list=search` hierboven, niet hiervan.
+  - **Hotfixes: nieuwste sectie nog steeds 10 september 2026 — derde dag op rij.**
+    `news.blizzard.com/en-us/article/24296142` met cache-buster: secties **10 sep, 9 sep, 4 sep,
+    3 sep**, géén 11-, 12- of 13-sep-sectie. Inhoud is class tuning, Delves, dungeons/raids, PvP,
+    Prey en TBC Classic — **geen UI-, addon-, API- of secure-frame-sectie**. ⚠️ Dit is **gelijk aan**,
+    niet ouder dan, wat mijn logboek gisteren noemde, dus geen cache-val; dat de `recentchanges`
+    hierboven wél nieuwer was dan gisteren bevestigt onafhankelijk dat Exa mij vandaag verse pagina's
+    gaf. WebSearch als tegenlezing geeft alleen **oudere** treffers (9 en 3 sep, Blue Tracker en
+    bluetracker.gg) — indexeringsachterstand bij de zoekmachine, geen tegenspraak.
+  - **Forum: één nieuw topic sinds gisteren, geen API-feit, geen blue post.** *How do i change how
+    loot is looted into a bag?* (**2347002**, aangemaakt **2026-09-12T06:22:46Z**, 3 posts, 25 views)
+    — vraag over de richting waarin loot in de tas wordt gezet, beantwoord door spelers. Een
+    client-instelling, geen API-wijziging. **GEMETEN** aan de categorie-JSON (`order=created`,
+    cache-buster): `primary_groups` én `flair_groups` zijn **leeg**, dus geen van de getoonde
+    deelnemers heeft een Blizzard-groep (trust levels 0–3).
+    - **Toch getoetst, want het kost één grep — [RAAKT ONS NIET].** `SetInsertItemsLeftToRight`,
+      `SetSortBagsRightToLeft` en `GetInsertItemsLeftToRight` geven samen **0 treffers** over
+      `*.lua`/`*.xml`/`*.toc` (zonder `docs/`): MH raakt de loot-/tasvolgorde nergens aan.
+    - **[AL AFGEDEKT] voor de tas-API die MH wél gebruikt.** `C_Container`: **22 treffers in 6
+      bestanden**, alleen lezend en overal geguard — `Modules/DelveItemsPopup.lua:285` (plus `pcall`
+      op 287/290/292 en een tweede guard op 567), `Modules/Openables.lua:77` en `:231`,
+      `Modules/BagUpgrade.lua:48`, `Core.lua:2524`, `Modules/AtalUtekProbe.lua:563-565`.
+    - 🔴 **Positieve controle in dezelfde run, dezelfde scope:** dezelfde grep-vorm op `C_Timer` over
+      `*.lua`/`*.xml`/`*.toc` geeft **86 bestanden**. Het patroon vindt dus wél wat er is; de nul
+      hierboven is een echte nul.
+  - **Twee lopende topics ongewijzigd.** *Duration Bars setting not saving* (**2345637**): nog steeds
+    **2 posts**, laatste **2026-09-12T01:12:43Z**, nog altijd geen dev-antwoord — op 12 sep volledig
+    getoetst ([RAAKT ONS NIET] voor de instelling zelf, [AL AFGEDEKT] voor de Edit-Mode-kant, 19 ×
+    `C_EditMode` in 2 bestanden, alles geguard of in `pcall`), vandaag niet opnieuw gemeten.
+    *Addons api restrictions* (**2343904**): **10 posts**, laatste **2026-09-05T17:29:55Z**, geen
+    blue.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per unit-token,
+    `TimedSignalMap`) zijn deze run **niet** opnieuw getoetst en blijven staan zoals op 2/6/7/9/10 sep
+    gemeten. Geen open actiepunt aan de addon-/API-kant.
+  - ⚠️ **Gezien maar NIET gemeten:** de WebSearch-samenvatting beweerde terloops dat "September 12-13,
+    2026" BlizzCon was. Dat is een uitspraak van de zoekmachine-samenvatting, geen bron die ik gelezen
+    heb, en het is hoe dan ook content/roadmap → PTR-wachter. De nieuwe 12.2.0-pagina past er wel bij.
+  - ✅ **`(forced update)` opnieuw langsgekomen, opnieuw géén force-push — nu in de andere richting.**
+    De sessie startte op een **detached HEAD** (`2fe81cd`) terwijl de lokale `main`-ref nog op
+    `cda339b` stond; `git fetch origin main` gaf `+ cda339b...2fe81cd main -> origin/main (forced
+    update)`. **GEMETEN:** `git rev-parse --is-shallow-repository` = **`true`**;
+    `merge-base --is-ancestor cda339b HEAD` gaf eerst **exit 1**, en ná `git fetch --deepen 200`
+    **exit 0** — `cda339b` is gewoon een voorouder van `2fe81cd`. Opgelost met `git checkout main` +
+    `git reset --hard origin/main`; niets verloren. ⚠️ **Nieuw t.o.v. 11/12 sep:** de ancestry-check
+    *faalt* zolang de clone ondiep is, dus `--deepen` is geen extra zekerheid maar een noodzakelijke
+    stap van het recept. Werkboom schoon; geen van de vier wachter-bestanden gewijzigd-maar-ongecommit.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op pageids 679840+705933 én op de titels `Patch 12.1.6`/`12.1.7`/`12.2.0`
+    `/API changes`, `World of Warcraft API`/`Secret Values`/`Secure Execution and Tainting`/
+    `Patch 12.1.5`/`Patch 12.1.0`/`Events`, en `Patch 12.2.0`; `action=parse&prop=wikitext` op
+    `Patch 12.2.0`; `list=search` op `intitle:"API changes"` met `last_edit_desc`;
+    `list=recentchanges` ns 0, 50 stuks); `news.blizzard.com/en-us/article/24296142`;
+    `us.forums.blizzard.com` categorie-JSON 35 op `order=created`; WebSearch (2×) als tegenlezing op
+    de hotfixdatum en op 12.1.5-API-nieuws. ⚠️ Directe `WebFetch` op warcraft.wiki.gg /
+    news.blizzard.com blijft **EGRESS_BLOCKED**; alles liep via Exa. 📌 De wiki-API antwoordt op
+    `nocache` met "Unrecognized parameter: nocache." — onschadelijk, en juist het bewijs dat de
+    URL-string per dag verschilt.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Het verdiepen van de clone hierboven is puur
+    lezen.
