@@ -356,6 +356,34 @@ end
 -- Build (launcher)
 --------------------------------------------------------------------------------
 
+--- The launcher scrolls. Rob, 13 Sep 2026: with the window made smaller, the buttons stuck
+--- out below MH. The sheet (scroll child) is as tall as its lowest widget; the bar only shows
+--- when that does not fit, as on the room cards.
+local function SizeSettingsSheet()
+	local scroll, sheet, last = ui and ui.scroll, ui and ui.sheet, ui and ui.last
+	if not (scroll and sheet and last) then
+		return
+	end
+	local w = scroll:GetWidth()
+	if w and w > 1 then
+		sheet:SetWidth(w)
+	end
+	local top, bottom = sheet:GetTop(), last:GetBottom()
+	if not (top and bottom) then
+		return
+	end
+	local h = math.max(1, math.ceil(top - bottom + 16))
+	sheet:SetHeight(h)
+	local bar = scroll.ScrollBar
+	if bar then
+		local fits = h <= (scroll:GetHeight() or 0)
+		bar:SetShown(not fits)
+		if fits then
+			scroll:SetVerticalScroll(0)
+		end
+	end
+end
+
 function ns.BuildSettingsPanel(panel)
 	if not panel or panel._mhSettingsBuilt then
 		return
@@ -367,13 +395,25 @@ function ns.BuildSettingsPanel(panel)
 
 	ui = { panel = panel, texts = {} }
 
+	-- Everything below is built on `sheet`, a scroll child; the panel's own title (from
+	-- CreateModulePanel, 12 px from the top) stays put above it.
+	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -44)
+	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 8)
+	scroll.scrollBarHideable = true
+	local sheet = CreateFrame("Frame", nil, scroll)
+	sheet:SetSize(1, 1)
+	scroll:SetScrollChild(sheet)
+	scroll:SetScript("OnSizeChanged", SizeSettingsSheet)
+	ui.scroll, ui.sheet = scroll, sheet
+
 	-- Onthoud label-key per widget zodat een taalwissel alles herlabelt.
 	local function track(obj, key, isFS)
 		ui.texts[#ui.texts + 1] = { obj = obj, key = key, isFS = isFS }
 	end
 
 	local function MakeBtn(w, labelKey, onClick)
-		local b = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+		local b = CreateFrame("Button", nil, sheet, "UIPanelButtonTemplate")
 		b:SetSize(w, BTN_H)
 		b:SetText(ns:L(labelKey))
 		b:SetScript("OnClick", function()
@@ -384,7 +424,7 @@ function ns.BuildSettingsPanel(panel)
 	end
 
 	local function MakeHeader(labelKey, anchorTo, gapY)
-		local fs = MakeFS(panel, "GameFontNormal", COLOR_HEADER)
+		local fs = MakeFS(sheet, "GameFontNormal", COLOR_HEADER)
 		fs:SetPoint("TOPLEFT", anchorTo, "BOTTOMLEFT", 0, gapY or -16)
 		fs:SetText(ns:L(labelKey))
 		track(fs, labelKey, true)
@@ -392,10 +432,10 @@ function ns.BuildSettingsPanel(panel)
 	end
 
 	-- Eyecatcher-strip: roterend model links, tagline + versie rechts.
-	local eye = CreateFrame("Frame", nil, panel)
+	local eye = CreateFrame("Frame", nil, sheet)
 	eye:SetHeight(EYE_H)
-	eye:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -56)
-	eye:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
+	eye:SetPoint("TOPLEFT", sheet, "TOPLEFT", 12, -12)
+	eye:SetPoint("RIGHT", sheet, "RIGHT", -16, 0)
 	if eye.SetClipsChildren then
 		eye:SetClipsChildren(true)
 	end
@@ -427,9 +467,9 @@ function ns.BuildSettingsPanel(panel)
 	accent:SetColorTexture(1, 0.82, 0.2, 0.9)
 
 	-- Uitleg.
-	local body = MakeFS(panel, "GameFontHighlight", COLOR_SOFT)
+	local body = MakeFS(sheet, "GameFontHighlight", COLOR_SOFT)
 	body:SetPoint("TOPLEFT", eye, "BOTTOMLEFT", 2, -18)
-	body:SetPoint("RIGHT", panel, "RIGHT", -20, 0)
+	body:SetPoint("RIGHT", sheet, "RIGHT", -20, 0)
 	body:SetText(ns:L("SET_LAUNCH_BODY"))
 	track(body, "SET_LAUNCH_BODY", true)
 
@@ -463,9 +503,9 @@ function ns.BuildSettingsPanel(panel)
 	end)
 	recBtn:SetPoint("TOPLEFT", screensBtn, "BOTTOMLEFT", 0, -8)
 
-	local hint = MakeFS(panel, "GameFontHighlightSmall", COLOR_DIM)
+	local hint = MakeFS(sheet, "GameFontHighlightSmall", COLOR_DIM)
 	hint:SetPoint("TOPLEFT", recBtn, "BOTTOMLEFT", 2, -12)
-	hint:SetPoint("RIGHT", panel, "RIGHT", -20, 0)
+	hint:SetPoint("RIGHT", sheet, "RIGHT", -20, 0)
 	hint:SetText(ns:L("SET_LAUNCH_HINT"))
 	track(hint, "SET_LAUNCH_HINT", true)
 
@@ -523,6 +563,7 @@ function ns.BuildSettingsPanel(panel)
 		end
 	end)
 	toastResetBtn:SetPoint("TOPLEFT", forgetBtn, "BOTTOMLEFT", 0, -6)
+	ui.last = toastResetBtn -- the lowest widget, for the scroll height (nudges move it down)
 
 	-- Notifications & tips (Spec 15): permanent, findable home for nudges.
 	if ns.GetSettingsNudges then
@@ -541,12 +582,18 @@ function ns.BuildSettingsPanel(panel)
 				if ns.ResetNudges then ns.ResetNudges() end
 			end)
 			resetNudgeBtn:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -10)
+			ui.last = resetNudgeBtn
 		end
 	end
 
 	panel:SetScript("OnShow", function()
 		ApplyEyecatcherModel()
 		ns.RefreshSettingsPanel()
+		SizeSettingsSheet()
+		-- Once more after the text has wrapped to the new width.
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0, SizeSettingsSheet)
+		end
 	end)
 
 	BuildScreensPage(panel)

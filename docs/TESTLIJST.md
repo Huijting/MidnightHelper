@@ -35,9 +35,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 `/reload` is genoeg (geen nieuwe bestanden).
 - [ ] **Settings in MH** (kamerknop Settings): onder de grote knop staat nu **"Choose your screens"**.
       De rest van de pagina schuift een knop omlaag.
-- [ ] **Klik erop** → een scherm *Screens* in onze kleuren. Kopjes **Me, Codex en Tools**, en per
+- [x] **Klik erop** → een scherm *Screens* in onze kleuren. Kopjes **Me, Codex en Tools**, en per
       scherm een vakje, het plaatje en de naam. Een aan-scherm heeft een paars gevuld vakje; een
       verstopt scherm is grijs en heeft een leeg vakje. De titelbalk zegt *Settings > Screens*.
+      ✅ **Rob, 13 sep: "ja dat ziet er goed uit".**
+- [ ] 🆕 **Maak het venster laag** (sleep de hoek omhoog) en ga naar Settings: de pagina **schuift**
+      nu. Er komt een schuifbalk rechts, en geen knop steekt meer onder MH uit. Maak het venster
+      weer groot: de schuifbalk verdwijnt. Rob zag op 13 sep dat de knoppen eronder uitstaken;
+      dat was al zo vóór de nieuwe knop.
 - [ ] **Klik een regel** → het vakje wisselt, en de kaart verdwijnt uit (of komt terug in) die kamer.
 - [ ] **"Show all"** naast de titel staat er alleen als er iets verstopt is, en zet alles terug.
 - [ ] **Rechtsklik op een kaart** → het menuutje heeft onderaan **"All screens..."**. Dat opent deze
