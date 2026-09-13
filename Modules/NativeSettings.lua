@@ -454,39 +454,9 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetGuideVisibilityMode then ns:SetGuideVisibilityMode(v) end
 		end, "auto")
-		-- Beta-tabs (welke tabbladen tonen). Master + subs.
-		local betaEnabledSetting, betaEnabledInit = AddToggle("mh_betaEnabled", "SETTINGS_BETA_TABS_ENABLED", "SETTINGS_BETA_TABS_ENABLED_TT", function()
-			local bt = ns.GetBetaTabsSettings and ns.GetBetaTabsSettings() or {}
-			return bt.enabled ~= false
-		end, function(v)
-			if ns.SetBetaTabOption then ns.SetBetaTabOption("enabled", v) end
-			if ns.RefreshBetaTabVisibility then ns.RefreshBetaTabVisibility() end
-		end, true)
-		local betaSubs = {
-			{ var = "mh_betaCodex", key = "codex", name = "SETTINGS_BETA_TAB_CODEX" },
-			{ var = "mh_betaReference", key = "reference", name = "SETTINGS_BETA_TAB_REFERENCE" },
-			{ var = "mh_betaGuide", key = "guide", name = "SETTINGS_BETA_TAB_GUIDE" },
-			{ var = "mh_betaMacros", key = "macros", name = "SETTINGS_BETA_TAB_MACROS" },
-			{ var = "mh_betaAcademy", key = "academy", name = "SETTINGS_BETA_TAB_ACADEMY" },
-		}
-		for _, sub in ipairs(betaSubs) do
-			local subKey = sub.key
-			local _, subInit = AddToggle(sub.var, sub.name, sub.name .. "_TT", function()
-				local bt = ns.GetBetaTabsSettings and ns.GetBetaTabsSettings() or {}
-				return bt.enabled ~= false and bt[subKey] ~= false
-			end, function(v)
-				if ns.SetBetaTabOption then ns.SetBetaTabOption(subKey, v) end
-				if ns.RefreshBetaTabVisibility then ns.RefreshBetaTabVisibility() end
-			end, true)
-			-- Grijs de sub uit zolang de master (mh_betaEnabled) uit staat.
-			if subInit and subInit.SetParentInitializer and betaEnabledInit and betaEnabledSetting then
-				pcall(function()
-					subInit:SetParentInitializer(betaEnabledInit, function()
-						return betaEnabledSetting:GetValue() and true or false
-					end)
-				end)
-			end
-		end
+		-- (4.0: de beta-tab-vinkjes — master + Codex/Basics/Guide/Macros/Academy — zijn opgegaan in
+		-- de subcategorie "Screens" hieronder: één schakelaar per scherm. Core.lua-migratie v2 zet
+		-- wie er een uit had staan over naar ui.hiddenScreens.)
 
 		----------------------------------------------------------------
 		-- Great Vault
@@ -542,6 +512,78 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.db and ns.db.ui then ns.db.ui.debug = v and true or nil end
 		end, false)
+
+		----------------------------------------------------------------
+		-- Screens (4.0). Rob, 13 Sep 2026: "waarom laten we ze zelf niet dingen aan en uit
+		-- zetten". One checkbox per screen, room by room; unticked = hidden from the room cards,
+		-- the sidebar and the favourites menu (ns.SetScreenHidden, Core.lua). Not in the
+		-- Recommended preset: that would undo a player's own choices. The Basics category inside
+		-- the Codex keeps its own switch here, under Codex.
+		----------------------------------------------------------------
+		local scrCat, scrLayout = category, layout
+		if Settings.RegisterVerticalLayoutSubcategory then
+			local okSub, sc, sl = pcall(Settings.RegisterVerticalLayoutSubcategory, category, L("SETTINGS_SCREENS_TITLE"))
+			if okSub and sc then
+				scrCat, scrLayout = sc, sl
+				-- The layout as second return value is AFGELEID (the parent call returns one); without
+				-- either route only the room headers go missing, the checkboxes still work.
+				if not scrLayout and SettingsPanel and SettingsPanel.GetLayout then
+					local okL, l = pcall(SettingsPanel.GetLayout, SettingsPanel, sc)
+					if okL then
+						scrLayout = l
+					end
+				end
+			end
+		end
+		local function ScreenHeader(text)
+			if scrLayout and scrLayout.AddInitializer and CreateSettingsListSectionHeaderInitializer then
+				scrLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer(text))
+			end
+		end
+		local function ScreenToggle(variable, label, tipKey, getFn, setFn)
+			local cur = true
+			pcall(function()
+				cur = getFn() and true or false
+			end)
+			proxy[variable] = cur
+			local setting = Settings.RegisterAddOnSetting(scrCat, variable, variable, proxy, "boolean", label, true)
+			Settings.SetOnValueChangedCallback(variable, function()
+				pcall(setFn, proxy[variable] and true or false)
+			end)
+			Settings.CreateCheckbox(scrCat, setting, Tip(tipKey))
+			settingObjs[variable] = setting
+		end
+		if scrCat == category then
+			ScreenHeader(L("SETTINGS_SCREENS_TITLE"))
+		end
+		local roomLabel = { me = "SIDEBAR_ROOM_ME", codex = "SIDEBAR_ROOM_CODEX", tools = "SIDEBAR_ROOM_TOOLS" }
+		local screens = ns.GetHideableScreens and ns.GetHideableScreens() or {}
+		for _, room in ipairs({ "me", "codex", "tools" }) do
+			local headed = false
+			for _, s in ipairs(screens) do
+				if s.room == room then
+					if not headed then
+						ScreenHeader(L(roomLabel[room]))
+						headed = true
+					end
+					local sid = s.id
+					ScreenToggle("mh_screen_" .. sid, L(s.labelKey), "SETTINGS_SCREEN_TT", function()
+						return not (ns.IsScreenHidden and ns.IsScreenHidden(sid))
+					end, function(v)
+						if ns.SetScreenHidden then ns.SetScreenHidden(sid, not v) end
+					end)
+				end
+			end
+			if room == "codex" then
+				ScreenToggle("mh_betaReference", L("TAB_CODEX") .. ": " .. L("SETTINGS_BETA_TAB_REFERENCE"),
+					"SETTINGS_BETA_TAB_REFERENCE_TT", function()
+						local bt = ns.GetBetaTabsSettings and ns.GetBetaTabsSettings() or {}
+						return bt.enabled ~= false and bt.reference ~= false
+					end, function(v)
+						if ns.SetBetaTabOption then ns.SetBetaTabOption("reference", v) end
+					end)
+			end
+		end
 
 		----------------------------------------------------------------
 		-- Achievements — per-achievement zichtbaarheid (vinkje aan = kaart wordt
@@ -618,6 +660,16 @@ end
 -- hetzelfde als Blizzards rode "Defaults"-knop, maar laat taal/venster/grootte
 -- met rust (alleen de functie-toggles in `recommended`).
 --------------------------------------------------------------------------------
+
+--- A screen was hidden or shown outside this panel (right-click on a room card): mirror it, so
+--- the checkbox is right the next time the Screens page is drawn. Writes the proxy directly;
+--- going through SetValue would call SetScreenHidden again.
+function ns.SyncNativeScreenSetting(id, shown)
+	local variable = "mh_screen_" .. tostring(id)
+	if proxy[variable] ~= nil then
+		proxy[variable] = shown and true or false
+	end
+end
 
 function ns.ApplyRecommendedSettings()
 	for variable, val in pairs(recommended) do

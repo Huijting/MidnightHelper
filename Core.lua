@@ -156,7 +156,9 @@ local DEFAULT_DB = {
 			profileMode = "auto",
 			showBlizzardPanel = true,
 		},
-		--- Sidebar beta tabs (Codex, Basics, Leveling Guides, Macros, Role Academy).
+		--- Sidebar beta tabs (Codex, Basics, Leveling Guides, Macros, Role Academy). Since 4.0 only
+		--- `reference` (Basics) is still switched here; the four screens moved to the per-screen
+		--- show/hide list, ui.hiddenScreens (schema migration v2).
 		betaTabs = {
 			enabled = true,
 			codex = true,
@@ -276,7 +278,7 @@ end
 --   removed. On-demand fields: db.favourites (UI.lua), db.firstRunSeen
 --   (Modules/FirstRun.lua), ui.mainWidth/mainHeight/mainPoint (window size+pos).
 --------------------------------------------------------------------------------
-local CURRENT_SCHEMA_VERSION = 1
+local CURRENT_SCHEMA_VERSION = 2
 
 local MIGRATIONS = {
 	-- v0 -> v1 (2026-07): drop ghost fields (re-seeded or written-never-read) and
@@ -290,6 +292,30 @@ local MIGRATIONS = {
 			end
 		end
 		db.simpleMode = nil -- ghost could also sit at top level (a UI toggle wrote it here)
+	end,
+	-- v1 -> v2 (4.0.0, 13 Sep 2026): the per-screen show/hide list (ui.hiddenScreens) takes over
+	-- from the beta-tab checkboxes for the four screens they covered, so one screen has one
+	-- switch. A screen someone had switched off stays hidden; the beta key goes back to on.
+	function(db)
+		local ui = db.ui
+		local bt = type(ui) == "table" and ui.betaTabs
+		if type(bt) ~= "table" then
+			return
+		end
+		if type(ui.hiddenScreens) ~= "table" then
+			ui.hiddenScreens = {}
+		end
+		local allOff = bt.enabled == false
+		for _, id in ipairs({ "codex", "guide", "macros", "academy" }) do
+			if allOff or bt[id] == false then
+				ui.hiddenScreens[id] = true
+			end
+			bt[id] = true
+		end
+		if allOff then
+			bt.enabled = true
+			bt.reference = false -- the master switch hid the Basics category too; keep it that way
+		end
 	end,
 }
 
@@ -600,6 +626,51 @@ function ns.SetBetaTabOption(key, value)
 	if ns.RefreshBetaTabVisibility then
 		ns.RefreshBetaTabVisibility()
 	end
+end
+
+--------------------------------------------------------------------------------
+-- 4.0: the player decides which screens show. Rob, 13 Sep 2026: "waarom zou ik moeten kiezen
+-- wat de users zien, waarom laten we ze zelf niet dingen aan en uit zetten". Hidden means out
+-- of the room cards, the sidebar, the favourites menu and the Toolbox sub-nav, nothing more:
+-- search, links and slash commands still open the screen, and its background work (alerts,
+-- scans) runs as before. This Week and Settings cannot be hidden, because they are the way
+-- back. Stored on demand in ui.hiddenScreens (id -> true); an untouched install has no entry.
+-- The switches: right-click a room card (Modules/RoomLauncher.lua) and Settings -> Screens
+-- (Modules/NativeSettings.lua).
+--------------------------------------------------------------------------------
+local NEVER_HIDDEN_SCREENS = { home = true, settings = true }
+
+function ns.IsScreenHideable(id)
+	return type(id) == "string" and not NEVER_HIDDEN_SCREENS[id] and not id:match("^room_")
+end
+
+function ns.IsScreenHidden(id)
+	if not ns.IsScreenHideable(id) then
+		return false
+	end
+	local t = ns.db and ns.db.ui and ns.db.ui.hiddenScreens
+	return type(t) == "table" and t[id] == true
+end
+
+function ns.SetScreenHidden(id, hidden)
+	local ui = ns.db and ns.db.ui
+	if not ns.IsScreenHideable(id) or type(ui) ~= "table" then
+		return false
+	end
+	if type(ui.hiddenScreens) ~= "table" then
+		ui.hiddenScreens = {}
+	end
+	ui.hiddenScreens[id] = hidden and true or nil
+	if ns.SyncNativeScreenSetting then
+		ns.SyncNativeScreenSetting(id, not hidden)
+	end
+	if ns.RefreshBetaTabVisibility then
+		ns.RefreshBetaTabVisibility() -- sidebar, favourites and Toolbox sub-nav
+	end
+	if ns.RefreshRoomLauncher then
+		ns.RefreshRoomLauncher()
+	end
+	return true
 end
 
 function ns:SetGuideVisibilityMode(mode, silent)

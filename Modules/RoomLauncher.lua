@@ -14,6 +14,11 @@
 
 	Colours live in LOOK below so the palette decision (Rob asked for something fresher) is one
 	edit, not a hunt.
+
+	Show/hide (Rob, 13 Sep 2026: "waarom laten we ze zelf niet dingen aan en uit zetten"):
+	right-clicking a card hides that screen (ns.SetScreenHidden, Core.lua). The way back sits in
+	the same room as the button: a line under the cards counts the hidden screens and offers them
+	again. Settings -> Screens has the full list.
 ]]
 
 local addonName, ns = ...
@@ -53,39 +58,118 @@ local TOOLS_CARDS = {
 	{ id = "addons" },
 }
 
-local function TabVisible(id)
+-- Can the screen exist here (client, beta switch)? The player's own show/hide is asked
+-- separately, so a hidden screen can still be offered back.
+local function TabAvailable(id)
+	if ns._mhSidebarTabAvailable then
+		return ns._mhSidebarTabAvailable(id)
+	end
 	if ns._mhSidebarTabVisible then
 		return ns._mhSidebarTabVisible(id)
 	end
 	return true
 end
 
+local function ScreenOf(c)
+	return c.screen or c.id
+end
+
+local function CardLabel(c)
+	local labelKey = c.labelKey or (ns._mhTabLabelById and ns._mhTabLabelById[c.id])
+	return (labelKey and ns:L(labelKey)) or c.id
+end
+
+--- The room's screens as two lists: the cards to draw, and the ones the player hid (for the
+--- "show again" line). A screen the client or a beta switch takes away is in neither.
 local function CardsForRoom(roomId)
-	local list = {}
+	local shown, hidden = {}, {}
+	local function add(c)
+		if ns.IsScreenHidden and ns.IsScreenHidden(ScreenOf(c)) then
+			hidden[#hidden + 1] = c
+		else
+			shown[#shown + 1] = c
+		end
+	end
 	if roomId == "tools" then
 		for _, c in ipairs(TOOLS_CARDS) do
 			local ok = true
 			if c.beta then
 				ok = not ns.IsBetaTabEnabled or ns.IsBetaTabEnabled(c.beta)
 			elseif not c.screen then
-				ok = TabVisible(c.id) and ns.panels and ns.panels[c.id] ~= nil
+				ok = TabAvailable(c.id) and ns.panels and ns.panels[c.id] ~= nil
 			end
 			if ok then
-				list[#list + 1] = c
+				add(c)
 			end
 		end
-		return list
+		return shown, hidden
 	end
 	for _, section in ipairs(ns._mhSidebarSections or {}) do
 		if section.room == roomId then
 			for _, id in ipairs(section.ids) do
-				if TabVisible(id) and ns.panels and ns.panels[id] then
-					list[#list + 1] = { id = id }
+				if TabAvailable(id) and ns.panels and ns.panels[id] then
+					add({ id = id })
 				end
 			end
 		end
 	end
-	return list
+	return shown, hidden
+end
+
+-- Blizzard's context menu (MenuUtil, 11.0+). Without it, the click does the one obvious thing
+-- itself rather than nothing.
+local function OpenMenu(owner, build)
+	if MenuUtil and MenuUtil.CreateContextMenu then
+		MenuUtil.CreateContextMenu(owner, function(_, root)
+			build(root)
+		end)
+		return true
+	end
+	return false
+end
+
+local function ShowCardMenu(card)
+	local screenId = card._mhScreen
+	if not (screenId and ns.IsScreenHideable and ns.IsScreenHideable(screenId) and ns.SetScreenHidden) then
+		return
+	end
+	local opened = OpenMenu(card, function(root)
+		root:CreateTitle(card._mhName:GetText() or screenId)
+		root:CreateButton(ns:L("ROOMCARD_HIDE"), function()
+			ns.SetScreenHidden(screenId, true)
+		end)
+	end)
+	if not opened then
+		ns.SetScreenHidden(screenId, true)
+	end
+end
+
+local function ShowRestoreMenu(row)
+	local hidden = row._mhHidden or {}
+	if #hidden == 0 or not ns.SetScreenHidden then
+		return
+	end
+	local function showAll()
+		for _, c in ipairs(hidden) do
+			ns.SetScreenHidden(ScreenOf(c), false)
+		end
+	end
+	local opened = OpenMenu(row, function(root)
+		root:CreateTitle(ns:L("ROOMCARD_RESTORE_TITLE"))
+		for _, c in ipairs(hidden) do
+			local screenId = ScreenOf(c)
+			root:CreateButton(CardLabel(c), function()
+				ns.SetScreenHidden(screenId, false)
+			end)
+		end
+		if #hidden > 1 then
+			root:CreateDivider()
+			root:CreateButton(ns:L("ROOMCARD_RESTORE_ALL"), showAll)
+		end
+	end)
+	if not opened then
+		showAll()
+	end
 end
 
 local function MakeCard(parent)
@@ -130,18 +214,30 @@ local function MakeCard(parent)
 	hl:SetColorTexture(unpack(LOOK.hover))
 
 	b._mhIcon, b._mhName, b._mhStatus = icon, name, status
-	b:SetScript("OnClick", function(self)
+	b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	b:SetScript("OnClick", function(self, button)
+		if button == "RightButton" then
+			ShowCardMenu(self)
+			return
+		end
 		if self._mhTarget and ns.SelectTab then
 			ns.SelectTab(self._mhTarget)
 		end
 	end)
 	b:SetScript("OnEnter", function(self)
-		if not self._mhTagline then
+		local hideable = self._mhScreen and ns.IsScreenHideable and ns.IsScreenHideable(self._mhScreen)
+		if not self._mhTagline and not hideable then
 			return
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:AddLine(self._mhName:GetText() or "", 1, 0.82, 0)
-		GameTooltip:AddLine(ns:L(self._mhTagline), 0.92, 0.92, 0.92, true)
+		if self._mhTagline then
+			GameTooltip:AddLine(ns:L(self._mhTagline), 0.92, 0.92, 0.92, true)
+		end
+		if hideable then
+			local m = Palette().status
+			GameTooltip:AddLine(ns:L("ROOMCARD_HIDE_HINT"), m[1], m[2], m[3], true)
+		end
 		GameTooltip:Show()
 	end)
 	b:SetScript("OnLeave", GameTooltip_Hide)
@@ -171,7 +267,7 @@ local function Layout(panel)
 	end
 	local cols = math.max(1, math.floor((width + GAP) / (CARD_MIN_W + GAP)))
 	local cardW = math.floor((width - GAP * (cols - 1)) / cols)
-	local cards = CardsForRoom(roomId)
+	local cards, hidden = CardsForRoom(roomId)
 	local screens = ns._mhLookScreens or {}
 
 	for i, c in ipairs(cards) do
@@ -185,17 +281,17 @@ local function Layout(panel)
 		b:ClearAllPoints()
 		b:SetSize(cardW, CARD_H)
 		b:SetPoint("TOPLEFT", panel._mhBody, "TOPLEFT", col * (cardW + GAP), -row * (CARD_H + GAP))
-		local screenId = c.screen or c.id
+		local screenId = ScreenOf(c)
 		local screen = screens[screenId]
 		if screen and ns._mhLookIconPath then
 			b._mhIcon:SetTexture(ns._mhLookIconPath:format(screen.stem))
 		else
 			b._mhIcon:SetTexture(nil)
 		end
-		local labelKey = c.labelKey or (ns._mhTabLabelById and ns._mhTabLabelById[c.id])
-		b._mhName:SetText((labelKey and ns:L(labelKey)) or c.id)
+		b._mhName:SetText(CardLabel(c))
 		b._mhTagline = screen and screen.tagline
 		b._mhTarget = c.id
+		b._mhScreen = screenId
 		b._mhStatus:SetText(StatusFor(screenId))
 		b:Show()
 	end
@@ -204,6 +300,22 @@ local function Layout(panel)
 	end
 	local rows = math.ceil(#cards / cols)
 	local bodyH = math.max(1, rows * (CARD_H + GAP))
+	-- The way back from a right-click, in the same room: "Hidden: 2 — show again".
+	local restore = panel._mhRestore
+	if restore then
+		if #hidden > 0 then
+			restore._mhHidden = hidden
+			restore._mhText:SetText(ns:L("ROOMCARD_HIDDEN_FMT"):format(#hidden))
+			restore:SetWidth((restore._mhText:GetStringWidth() or 120) + 8)
+			restore:ClearAllPoints()
+			restore:SetPoint("TOPLEFT", panel._mhBody, "TOPLEFT", 0, -bodyH)
+			restore:Show()
+			bodyH = bodyH + 24
+		else
+			restore._mhHidden = nil
+			restore:Hide()
+		end
+	end
 	panel._mhBody:SetSize(width, bodyH)
 	-- No scroll bar while every card fits (Rob, 12 Sep: "verberg de schuifbalk maar"); it comes
 	-- back as soon as the window is too short for the grid.
@@ -246,6 +358,31 @@ local function EnsurePanel(roomId)
 	body:SetSize(1, 1)
 	scroll:SetScrollChild(body)
 
+	local restore = CreateFrame("Button", nil, body)
+	restore:SetHeight(20)
+	local restoreText = restore:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	restoreText:SetPoint("LEFT", restore, "LEFT", 2, 0)
+	restoreText:SetJustifyH("LEFT")
+	local muted = Palette().status
+	restoreText:SetTextColor(muted[1], muted[2], muted[3])
+	restore._mhText = restoreText
+	restore:SetScript("OnClick", ShowRestoreMenu)
+	restore:SetScript("OnEnter", function(self)
+		local h = Palette().name
+		self._mhText:SetTextColor(h[1], h[2], h[3])
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:AddLine(ns:L("ROOMCARD_RESTORE_TITLE"), 1, 0.82, 0)
+		GameTooltip:AddLine(ns:L("ROOMCARD_RESTORE_HINT"), 0.92, 0.92, 0.92, true)
+		GameTooltip:Show()
+	end)
+	restore:SetScript("OnLeave", function(self)
+		local m = Palette().status
+		self._mhText:SetTextColor(m[1], m[2], m[3])
+		GameTooltip:Hide()
+	end)
+	restore:Hide()
+	panel._mhRestore = restore
+
 	panel._mhRoom = roomId
 	panel._mhScroll = scroll
 	panel._mhBody = body
@@ -261,12 +398,14 @@ local function EnsurePanel(roomId)
 end
 
 --- Opens the room's card grid. Returns false when the room button should keep its 3.x
---- behaviour: Classic look, or a room with fewer than two screens.
+--- behaviour: Classic look, or a room with fewer than two screens. Hidden screens count: a
+--- room whose cards are all hidden still opens, on the line that brings them back.
 function ns:OpenRoomLauncher(roomId)
 	if self.IsClassicLookEnabled and self:IsClassicLookEnabled() then
 		return false
 	end
-	if #CardsForRoom(roomId) < 2 then
+	local shown, hidden = CardsForRoom(roomId)
+	if #shown + #hidden < 2 then
 		return false
 	end
 	if not EnsurePanel(roomId) or not self.SelectTab then
@@ -274,6 +413,16 @@ function ns:OpenRoomLauncher(roomId)
 	end
 	self.SelectTab("room_" .. roomId)
 	return true
+end
+
+--- Re-lays the open card grid after a screen was hidden or shown again.
+function ns.RefreshRoomLauncher()
+	for _, roomId in ipairs({ "me", "codex", "tools" }) do
+		local panel = ns.panels and ns.panels["room_" .. roomId]
+		if panel and panel:IsShown() then
+			Layout(panel)
+		end
+	end
 end
 
 --------------------------------------------------------------------------------

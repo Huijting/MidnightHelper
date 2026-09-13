@@ -8601,3 +8601,59 @@ fill("itIT", {
 	ROOMCARD_KP_FMT = "Conoscenza da spendere: %d",
 	ROOMCARD_KP_NONE = "Niente Conoscenza in attesa",
 })
+
+--========================================================================
+-- 4.0.0 show/hide per screen (Rob, 13 Sep 2026): the room-card menu, the "show again" line and
+-- Settings -> Screens. Written by Claude on 13 Sep with each pack's own words for screen / room
+-- card / sidebar (from SETTINGS_CLASSIC_LOOK_TT); not reviewed by a native speaker.
+--========================================================================
+fill("deDE", {
+	ROOMCARD_HIDE = "Diesen Bildschirm ausblenden",
+	ROOMCARD_HIDE_HINT = "Rechtsklick: diesen Bildschirm ausblenden.",
+	ROOMCARD_HIDDEN_FMT = "Ausgeblendet: %d — wieder zeigen",
+	ROOMCARD_RESTORE_TITLE = "Wieder zeigen",
+	ROOMCARD_RESTORE_ALL = "Alle zeigen",
+	ROOMCARD_RESTORE_HINT = "Ein ausgeblendeter Bildschirm öffnet sich weiterhin über die Suche und über Links in anderen Bildschirmen. Die ganze Liste steht unter Einstellungen -> Bildschirme.",
+	SETTINGS_SCREENS_TITLE = "Bildschirme",
+	SETTINGS_SCREEN_TT = "Haken entfernen, um diesen Bildschirm auszublenden: Er verschwindet aus den Karten seines Raums und aus der Seitenleiste. Abgeschaltet wird nichts: Suche und Links öffnen ihn weiterhin, und mit dem Haken kommt er zurück.",
+})
+fill("frFR", {
+	ROOMCARD_HIDE = "Masquer cet écran",
+	ROOMCARD_HIDE_HINT = "Clic droit : masquer cet écran.",
+	ROOMCARD_HIDDEN_FMT = "Masqués : %d — réafficher",
+	ROOMCARD_RESTORE_TITLE = "Réafficher",
+	ROOMCARD_RESTORE_ALL = "Tout réafficher",
+	ROOMCARD_RESTORE_HINT = "Un écran masqué s'ouvre toujours depuis la recherche et depuis les liens des autres écrans. La liste complète est dans Paramètres -> Écrans.",
+	SETTINGS_SCREENS_TITLE = "Écrans",
+	SETTINGS_SCREEN_TT = "Décoche pour masquer cet écran : il quitte les cartes de sa salle et la barre latérale. Rien n'est désactivé : la recherche et les liens l'ouvrent toujours, et le recocher le fait revenir.",
+})
+fill("esES", {
+	ROOMCARD_HIDE = "Ocultar esta pantalla",
+	ROOMCARD_HIDE_HINT = "Clic derecho: ocultar esta pantalla.",
+	ROOMCARD_HIDDEN_FMT = "Ocultas: %d — volver a mostrar",
+	ROOMCARD_RESTORE_TITLE = "Volver a mostrar",
+	ROOMCARD_RESTORE_ALL = "Mostrar todas",
+	ROOMCARD_RESTORE_HINT = "Una pantalla oculta se sigue abriendo desde la búsqueda y desde los enlaces de otras pantallas. La lista completa está en Ajustes -> Pantallas.",
+	SETTINGS_SCREENS_TITLE = "Pantallas",
+	SETTINGS_SCREEN_TT = "Desmarca para ocultar esta pantalla: sale de las tarjetas de su sala y de la barra lateral. No se desactiva nada: la búsqueda y los enlaces la siguen abriendo, y al volver a marcarla regresa.",
+})
+fill("ptBR", {
+	ROOMCARD_HIDE = "Ocultar esta tela",
+	ROOMCARD_HIDE_HINT = "Clique direito: ocultar esta tela.",
+	ROOMCARD_HIDDEN_FMT = "Ocultas: %d — mostrar de novo",
+	ROOMCARD_RESTORE_TITLE = "Mostrar de novo",
+	ROOMCARD_RESTORE_ALL = "Mostrar todas",
+	ROOMCARD_RESTORE_HINT = "Uma tela oculta ainda abre pela busca e pelos links de outras telas. A lista completa fica em Configurações -> Telas.",
+	SETTINGS_SCREENS_TITLE = "Telas",
+	SETTINGS_SCREEN_TT = "Desmarque para ocultar esta tela: ela sai dos cartões da sua sala e da barra lateral. Nada é desligado: a busca e os links ainda a abrem, e marcar de novo a traz de volta.",
+})
+fill("itIT", {
+	ROOMCARD_HIDE = "Nascondi questa schermata",
+	ROOMCARD_HIDE_HINT = "Clic destro: nascondi questa schermata.",
+	ROOMCARD_HIDDEN_FMT = "Nascoste: %d — mostra di nuovo",
+	ROOMCARD_RESTORE_TITLE = "Mostra di nuovo",
+	ROOMCARD_RESTORE_ALL = "Mostra tutte",
+	ROOMCARD_RESTORE_HINT = "Una schermata nascosta si apre ancora dalla ricerca e dai link delle altre schermate. L'elenco completo è in Impostazioni -> Schermate.",
+	SETTINGS_SCREENS_TITLE = "Schermate",
+	SETTINGS_SCREEN_TT = "Togli la spunta per nascondere questa schermata: esce dalle schede della sua stanza e dalla barra laterale. Non si spegne nulla: la ricerca e i link la aprono ancora, e rimettendo la spunta torna.",
+})

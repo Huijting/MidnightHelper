@@ -7,6 +7,28 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 13 sep — 4.0.0: schermen zelf verstoppen (Rob: "bouw het voor 4.0.0, allebei de plekken")
+
+`/reload` is genoeg (geen nieuwe bestanden). Alles gebouwd, niets in het spel gezien.
+- [ ] **Beweeg over een kaart** (bv. Trading Post in Me): onderaan de tooltip staat *"Right-click: hide
+      this screen."* Bij **This Week** staat die regel er niet: This Week en Settings kunnen niet weg.
+- [ ] **Rechtsklik op die kaart** → een menuutje met de naam en *"Hide this screen"*. Klik erop → de
+      kaart is weg, en onder de kaarten staat *"Hidden: 1 — show again"*.
+- [ ] **Klik op "Hidden: 1 — show again"** → een menuutje met het verstopte scherm (bij twee of meer
+      ook *"Show all"*). Klik → de kaart is terug.
+- [ ] **Instellingen**: Esc → Options → AddOns → Midnight Helper → **Screens**. Je ziet de kopjes **Me,
+      Codex en Tools** met een vinkje per scherm, en onder Codex ook *"Codex: Basics"*. Vinkje weg →
+      het scherm is weg uit de kaarten. ⚠️ Staan de vinkjes er wel maar de kopjes niet? Meld het: dan
+      geeft het spel ons het kopjes-gereedschap niet.
+- [ ] **Verstop via rechtsklik, kijk dan in Screens**: dat vinkje staat uit.
+- [ ] **Een verstopt scherm opent nog via het zoekvak** bovenin (typ bv. *trading*).
+- [ ] **Verstop alle vijf de Codex-schermen** en klik op de kamer Codex → een lege kamer met alleen de
+      regel *"Hidden: 5 — show again"*. Via die regel kun je alles terugzetten.
+- [ ] **Classic look aan**: verstopte schermen staan ook niet in de lange lijst.
+- [ ] **De oude Beta-vinkjes** (Codex, Guide, Macros, Academy) staan niet meer op de hoofdpagina van
+      de instellingen. Had jij er een uit staan, dan is dat scherm nu verstopt, en kun je het terugzetten.
+- [ ] **Na `/reload`** blijven je keuzes staan.
+
 ## 🆕 12 sep — 4.0.0: de nieuwe regels vertaald (de/fr/es/pt/it)
 
 - 📌 **Niet door Rob te testen**: zijn client is Engels, en `/mh lang de` doet daar niets (de

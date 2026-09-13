@@ -509,7 +509,10 @@ local SIDEBAR_HEADER_HEIGHT = 16
 -- (Simpele modus / Tier 3 uitgefaseerd in Phase 2 — de kamer-rail verving 'm; alle
 -- resten opgeruimd in F3.8.)
 
-local function SidebarTabVisible(tabId)
+--- Can this screen exist here: on this client, with the beta switches, under the Guide's own
+--- level rule? Not the player's show/hide choice (see SidebarTabVisible), so anything deciding
+--- whether a tab may be OPEN asks this one.
+local function SidebarTabAvailable(tabId)
 	if tabId == "omnium" and not (ns.IsOmniumFolioAvailable and ns.IsOmniumFolioAvailable()) then
 		return false -- 12.0.7-content: alleen op clients >= 120007
 	end
@@ -520,6 +523,32 @@ local function SidebarTabVisible(tabId)
 		return ns.IsBetaTabEnabled and ns.IsBetaTabEnabled(tabId)
 	end
 	return true
+end
+
+-- The Toolbox's sub-tabs are screens of their own for show/hide, as on the 4.0 Tools cards.
+local TOOLBOX_SCREENS = {
+	{ id = "consumables", labelKey = "TAB_CONSUMABLES" },
+	{ id = "macros", labelKey = "TAB_MACROS" },
+	{ id = "academy", labelKey = "TAB_ACADEMY" },
+	{ id = "professionsHub", labelKey = "TAB_PROFESSIONS" },
+}
+
+--- Listed in the sidebar, the room cards and the favourites menu: available AND not hidden by
+--- the player (4.0 per-screen show/hide, Core.lua). The Toolbox tab stays while any of its
+--- sub-tabs is shown.
+local function SidebarTabVisible(tabId)
+	if not SidebarTabAvailable(tabId) then
+		return false
+	end
+	if tabId == "toolbox" then
+		for _, s in ipairs(TOOLBOX_SCREENS) do
+			if not (ns.IsScreenHidden and ns.IsScreenHidden(s.id)) then
+				return true
+			end
+		end
+		return false
+	end
+	return not (ns.IsScreenHidden and ns.IsScreenHidden(tabId))
 end
 
 local function MHAttachTabBetaBadge(btn, tabId)
@@ -1048,7 +1077,8 @@ function ns.RelayoutToolboxSubNav()
 	for _, def in ipairs(defs) do
 		local btn = btns[def.id]
 		if btn then
-			local visible = (not def.beta) or (ns.IsBetaTabEnabled and ns.IsBetaTabEnabled(def.id))
+			local visible = ((not def.beta) or (ns.IsBetaTabEnabled and ns.IsBetaTabEnabled(def.id)))
+				and not (ns.IsScreenHidden and ns.IsScreenHidden(def.id))
 			if visible then
 				btn:ClearAllPoints()
 				btn:SetPoint("TOPLEFT", subNav, "TOPLEFT", x, -6)
@@ -2280,8 +2310,27 @@ ns._mhSidebarSections = SIDEBAR_SECTIONS
 ns._mhSidebarRoomById = SIDEBAR_ROOM_BY_ID
 ns._mhTabLabelById = TAB_LABEL_BY_ID
 ns._mhSidebarTabVisible = SidebarTabVisible
+ns._mhSidebarTabAvailable = SidebarTabAvailable
 ns._mhLookScreens = LOOK_SCREENS
 ns._mhLookIconPath = LOOK_ICON_PATH
+
+--- Every screen a player can hide, room by room in sidebar order, for Settings -> Screens.
+--- The Toolbox expands into its sub-tabs; This Week and Settings are never listed.
+function ns.GetHideableScreens()
+	local list = {}
+	for _, section in ipairs(SIDEBAR_SECTIONS) do
+		for _, id in ipairs(section.ids) do
+			if id == "toolbox" then
+				for _, s in ipairs(TOOLBOX_SCREENS) do
+					list[#list + 1] = { id = s.id, room = section.room, labelKey = s.labelKey }
+				end
+			elseif TAB_LABEL_BY_ID[id] and ns.IsScreenHideable and ns.IsScreenHideable(id) then
+				list[#list + 1] = { id = id, room = section.room, labelKey = TAB_LABEL_BY_ID[id] }
+			end
+		end
+	end
+	return list
+end
 
 --------------------------------------------------------------------------------
 -- Internal Addons sub-tab registry (modules call ns.RegisterAddonSubTab at load)
@@ -3425,6 +3474,17 @@ function ns:EnsureMainUI()
 				end
 			end
 		end
+		-- The player hid every screen in this room: open the first one anyway, rather than a
+		-- room button that silently does nothing.
+		for _, section in ipairs(SIDEBAR_SECTIONS) do
+			if section.room == roomId then
+				for _, id in ipairs(section.ids) do
+					if ns.tabButtons and ns.tabButtons[id] and SidebarTabAvailable(id) then
+						return id
+					end
+				end
+			end
+		end
 		return nil
 	end
 	local function MHSelectRoom(roomId)
@@ -3664,9 +3724,10 @@ function ns:EnsureMainUI()
 			end
 		end
 
-		-- Staat de geselecteerde tab niet meer in beeld (beta-gate óf simpele modus
-		-- verbergt 'm)? Val terug op Home (altijd zichtbaar).
-		if ns.uiSelectedTab and ns.uiSelectedTab ~= "home" and not SidebarTabVisible(ns.uiSelectedTab) then
+		-- Bestaat de geselecteerde tab hier niet meer (beta-gate)? Val terug op Home (altijd
+		-- zichtbaar). Een scherm dat de speler zelf verstopte blijft open: verstoppen haalt het
+		-- alleen uit de lijsten, en SelectTab komt hier ook langs (anders sprong zoeken terug).
+		if ns.uiSelectedTab and ns.uiSelectedTab ~= "home" and not SidebarTabAvailable(ns.uiSelectedTab) then
 			SelectTab("home")
 		elseif ns.uiSelectedTab == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
 			SelectTab("home")

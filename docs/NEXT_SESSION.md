@@ -50,14 +50,29 @@
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.
-- ⏸ **13 sep, schermkeuze: houden, verstoppen of weg.** Rob: *"laten we de schermen doorlopen"*. Er
-  staat een keuzepagina met alle 26 schermen, hun grootte in regels, andere addons van Rob die
-  hetzelfde lijken te doen (AFGELEID uit mapnamen, niet in het spel gezien) en mijn advies:
-  https://claude.ai/code/artifact/145de8d4-24a5-49ee-bc52-05d6f6a30c47
-  Rob, dezelfde dag: *"we komen hier op terug haha, ik vind dit lastig"*. Er is dus nog niets
-  gekozen. Keuzes teruglezen gaat met `read_db` op collectie `keuzes` (doc-id = scherm-id). Mijn
-  advies was 2× weg (Trading Post, Addons), 8× verstoppen en de rest houden. Rob beslist, en het
-  hoeft niet vóór 4.0.0.
+- 🔨 **13 sep, gebouwd, nog niet in het spel gezien: spelers verstoppen zelf schermen.** Rob kreeg
+  eerst een keuzepagina (houden/verstoppen/weg per scherm,
+  https://claude.ai/code/artifact/145de8d4-24a5-49ee-bc52-05d6f6a30c47), vond dat lastig, en toen:
+  *"waarom zou ik moeten kiezen wat de users zien, waarom laten we ze zelf niet dingen aan en uit
+  zetten"* → *"bouw het voor 4.0.0, allebei de plekken"*. De keuzepagina is daarmee overbodig.
+  - **Rechtsklik op een kaart** → *Hide this screen*. Onder de kaarten staat dan *"Hidden: N — show
+    again"* met een menu om ze terug te zetten (`Modules/RoomLauncher.lua`).
+  - **Settings → Screens**: een subcategorie met een vinkje per scherm, per kamer
+    (`Modules/NativeSettings.lua`). Niet in de Aanbevolen-knop, want die zou eigen keuzes terugdraaien.
+  - **Opslag** `ui.hiddenScreens` (id → true), `ns.IsScreenHidden` / `ns.SetScreenHidden` in Core.lua.
+    This Week en Settings kunnen niet weg. **Schema-migratie v2** zet de oude beta-vinkjes (Codex,
+    Guide, Macros, Academy) om naar deze lijst; die vier vinkjes zijn uit de instellingen. *Basics*
+    houdt een eigen vinkje, onder Codex in Screens.
+  - **Verstoppen = alleen uit de lijsten**: kaarten, zijbalk (Classic), favorieten en de Toolbox-subnav.
+    Zoeken en links openen het scherm nog. Daarvoor kijkt de terugval in `RelayoutSidebarTabs` nu naar
+    `SidebarTabAvailable`, want SelectTab komt daar ook langs en zou anders terugspringen naar Home.
+    Het werk op de achtergrond (meldingen, scans) loopt door. Dat ook stilzetten is later werk.
+  - **AFGELEID, niet gemeten:** `MenuUtil.CreateContextMenu` (11.0+; DBM, Auctionator en ClassCodex
+    gebruiken het; zonder MenuUtil voert de klik de actie direct uit). Ook afgeleid: de tweede
+    returnwaarde van `RegisterVerticalLayoutSubcategory` (met een terugval via
+    `SettingsPanel:GetLayout`; zonder beide missen alleen de kopjes).
+  - **Test:** TESTLIJST, 13 sep. De vijf vertalingen zijn van mij, niet nagekeken door een
+    moedertaalspreker.
 - ✅ **Stap 4 door Rob gezien (screenshot, 12 sep): "zoals ik wilde".** Statusregels kloppen; de
   "Missing enchants: 7" controleerde hij tegen het Enchants-scherm. Schuifbalk verborgen als alles past.
 
