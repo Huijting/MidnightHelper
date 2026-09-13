@@ -50,7 +50,13 @@
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.
-- 🔨 **13 sep, gebouwd, nog niet in het spel gezien: spelers verstoppen zelf schermen.** Rob kreeg
+- ✅ **13 sep, gebouwd én door Rob gezien: spelers verstoppen zelf schermen.** Rob, dezelfde dag in
+  het spel: *"de rechtermuis klik werkt, het terug halen ook, ook in de settings staat screens met
+  vinkjes"*. Daarmee is MenuUtil op 12.1 GEMETEN. Nog open in TESTLIJST: de kopjes in Screens, zoeken
+  naar een verstopt scherm, Classic, de migratie van oude beta-vinkjes.
+  Zijn vervolgvraag: *"moet zo een settings screen niet gewoon in MH??"* (zie het antwoord in de chat
+  van 13 sep; zijn keuze staat nog open). Achtergrond: op 5 jul koos Rob voor het native
+  Blizzard-paneel, en MH's Settings-scherm is sindsdien een launcher (`Modules/SettingsPage.lua`). Rob kreeg
   eerst een keuzepagina (houden/verstoppen/weg per scherm,
   https://claude.ai/code/artifact/145de8d4-24a5-49ee-bc52-05d6f6a30c47), vond dat lastig, en toen:
   *"waarom zou ik moeten kiezen wat de users zien, waarom laten we ze zelf niet dingen aan en uit

@@ -12,14 +12,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 `/reload` is genoeg (geen nieuwe bestanden). Alles gebouwd, niets in het spel gezien.
 - [ ] **Beweeg over een kaart** (bv. Trading Post in Me): onderaan de tooltip staat *"Right-click: hide
       this screen."* Bij **This Week** staat die regel er niet: This Week en Settings kunnen niet weg.
-- [ ] **Rechtsklik op die kaart** → een menuutje met de naam en *"Hide this screen"*. Klik erop → de
-      kaart is weg, en onder de kaarten staat *"Hidden: 1 — show again"*.
-- [ ] **Klik op "Hidden: 1 — show again"** → een menuutje met het verstopte scherm (bij twee of meer
-      ook *"Show all"*). Klik → de kaart is terug.
-- [ ] **Instellingen**: Esc → Options → AddOns → Midnight Helper → **Screens**. Je ziet de kopjes **Me,
-      Codex en Tools** met een vinkje per scherm, en onder Codex ook *"Codex: Basics"*. Vinkje weg →
-      het scherm is weg uit de kaarten. ⚠️ Staan de vinkjes er wel maar de kopjes niet? Meld het: dan
-      geeft het spel ons het kopjes-gereedschap niet.
+- [x] **Rechtsklik op die kaart** → een menuutje met de naam en *"Hide this screen"*. Klik erop → de
+      kaart is weg, en onder de kaarten staat *"Hidden: 1 — show again"*. ✅ **Rob, 13 sep: "de
+      rechtermuis klik werkt"** — dus MenuUtil werkt op 12.1 (was AFGELEID).
+- [x] **Klik op "Hidden: 1 — show again"** → een menuutje met het verstopte scherm (bij twee of meer
+      ook *"Show all"*). Klik → de kaart is terug. ✅ **Rob: "het terug halen ook".**
+- [x] **Instellingen**: Esc → Options → AddOns → Midnight Helper → **Screens**. ✅ **Rob: "ook in de
+      settings staat screens met vinkjes".**
+  - [ ] Nog niet genoemd: staan de kopjes **Me, Codex en Tools** erboven, en onder Codex *"Codex:
+        Basics"*? En haalt een vinkje weg het scherm echt uit de kaarten?
 - [ ] **Verstop via rechtsklik, kijk dan in Screens**: dat vinkje staat uit.
 - [ ] **Een verstopt scherm opent nog via het zoekvak** bovenin (typ bv. *trading*).
 - [ ] **Verstop alle vijf de Codex-schermen** en klik op de kamer Codex → een lege kamer met alleen de
