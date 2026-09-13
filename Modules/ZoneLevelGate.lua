@@ -19,6 +19,8 @@ local _, ns = ...
 	⚠️ WHAT WE CLAIM, AND WHAT WE DO NOT. Two independent sources (Icy Veins' leveling
 	guide, read in full, and a second search that agrees) put the Midnight intro at level
 	78 and the zones at Eversong 80-82, Zul'Aman 82-88, Harandar 82-88, Voidstorm 88-90.
+	🔴 13 Sep 2026: the client itself says 80-90 for all four zones (C_Map.GetMapLevels); the
+	guide's bands are the levelling order, not where a zone starts. See REGION_MIN_LEVEL.
 	Blizzard's own launch announcement gates Eversong/Silvermoon at 80 -- that one is
 	measured and already drives MIDNIGHT_FLOOR_LEVEL in ResetRoutine.
 
@@ -45,19 +47,20 @@ local _, ns = ...
 
 local PREFIX = "|cffffcc00Midnight Helper|r"
 
---- Lowest level at which a region's content starts, by the region ids GetRegionGroupID
---- returns. Deliberately the floor of the region rather than per-zone: Zul'Aman (82) sits
---- in the same region as Eversong (80), and claiming 82 for Eversong would be wrong in the
---- direction that silences a warning we should give.
+--- Fallback floor per region, by the region ids GetRegionGroupID returns: used only where
+--- the game gives a map no level band (ClientMinLevel below returns nil for cities and
+--- sub-maps, such as Silvermoon City and Slayer's Rise).
 ---
---- ⚠️ SOURCE-QUALITY DIFFERS PER ROW and that is recorded here rather than flattened:
----   [1] 80 — Blizzard's own announcement (Eversong/Silvermoon), the strongest of the three
----   [2] 82 — Icy Veins' zone table, one source read in full
----   [3] 88 — same source, same confidence
+--- 🔴 [2] WAS 82 AND [3] WAS 88 UNTIL 13 SEP 2026, BOTH FROM ICY VEINS. THE CLIENT SAYS 80.
+--- Rob, level 81 in Harandar, got "the enemies there are well above you" while "de meeste mobs
+--- hier scalen mee". C_Map.GetMapLevels on his client gives 80-90 for Eversong, Zul'Aman,
+--- Harandar and Voidstorm alike. The guide's numbers are the levelling ORDER (where a guide sends
+--- you next), not a zone's floor. Same lesson as MidnightEntryLevel below: agreement between
+--- guides is not measurement.
 local REGION_MIN_LEVEL = {
-	[1] = 80, -- Quel'Thalas: Silvermoon, Eversong, Zul'Aman, Quel'Danas, Coiled Isle
-	[2] = 82, -- Harandar
-	[3] = 88, -- Voidstorm
+	[1] = 80, -- Quel'Thalas: Silvermoon, Eversong, Zul'Aman, Quel'Danas (Blizzard's announcement)
+	[2] = 80, -- Harandar: MEASURED 13 Sep 2026, client 80-90
+	[3] = 80, -- Voidstorm: MEASURED 13 Sep 2026, client 80-90
 }
 
 --- 🔴 ONE ZONE SITS TEN LEVELS ABOVE ITS OWN REGION'S FLOOR, AND THE REGION MODEL CANNOT SAY
@@ -135,6 +138,20 @@ local function PlayerLevel()
 	return (lvl and lvl > 0) and lvl or nil
 end
 
+--- The game's own answer: C_Map.GetMapLevels returns a zone's level band, lowest first.
+--- MEASURED 13 Sep 2026 on Rob's client: Eversong Woods, Zul'Aman, Harandar and Voidstorm 80 90;
+--- the Coiled Isle 90 90 (the positive control: Rob had measured 90 there on 8 Sep); Silvermoon
+--- City and Slayer's Rise 0 0. A 0 means "no band", never "level 0", so it returns nil.
+--- @return number|nil
+local function ClientMinLevel(mapID)
+	if not (mapID and C_Map and C_Map.GetMapLevels) then
+		return nil
+	end
+	local ok, minLevel = pcall(C_Map.GetMapLevels, mapID)
+	minLevel = ok and tonumber(minLevel) or nil
+	return (minLevel and minLevel > 0) and minLevel or nil
+end
+
 --- Should we warn about routing to this target, and with what numbers?
 ---
 --- ⚠️ Returns nil for every "we do not know" case -- unreadable level, unknown region,
@@ -151,9 +168,9 @@ function ns.GetZoneLevelWarning(mapID, xPct)
 	if not okR or not region or region == 0 then
 		return nil
 	end
-	--- A zone tuned above its own region's floor wins. See MAP_MIN_LEVEL: the region model
-	--- can only express "the lowest thing in here", and the Coiled Isle is ten levels above it.
-	local need = MAP_MIN_LEVEL[mapID] or REGION_MIN_LEVEL[region]
+	--- The game's own band wins (ClientMinLevel). Where it has none: a zone tuned above its
+	--- region's floor (MAP_MIN_LEVEL, the Coiled Isle), and last the region's floor.
+	local need = ClientMinLevel(mapID) or MAP_MIN_LEVEL[mapID] or REGION_MIN_LEVEL[region]
 	if not need then
 		return nil
 	end
@@ -348,10 +365,20 @@ function ns.PrintZoneLevelGate()
 	local lvl = PlayerLevel()
 	print(("%s zone level gate — your level: %s"):format(
 		PREFIX, lvl and tostring(lvl) or "|cffff8844could not read|r"))
-	local names = { [1] = "Quel'Thalas (Silvermoon, Eversong, Zul'Aman)", [2] = "Harandar",
-		[3] = "Voidstorm" }
-	for region = 1, 3 do
-		local need = REGION_MIN_LEVEL[region]
+	-- The zones a route can lead into, each with the game's own level band.
+	local zones = { { 2395, "Eversong Woods" }, { 2437, "Zul'Aman" }, { 2413, "Harandar" },
+		{ 2405, "Voidstorm" }, { 2512, "The Coiled Isle" } }
+	for _, z in ipairs(zones) do
+		local mapID = z[1]
+		local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mapID)
+		local lo, hi = "?", "?"
+		if C_Map and C_Map.GetMapLevels then
+			local ok, a, b = pcall(C_Map.GetMapLevels, mapID)
+			if ok then
+				lo, hi = tostring(a), tostring(b)
+			end
+		end
+		local need = ClientMinLevel(mapID) or MAP_MIN_LEVEL[mapID] or REGION_MIN_LEVEL[1]
 		local verdict
 		if not lvl then
 			verdict = "|cffff8844unknown — level unreadable|r"
@@ -360,14 +387,14 @@ function ns.PrintZoneLevelGate()
 		else
 			verdict = ("|cffffcc00warns: needs %d, you are %d|r"):format(need, lvl)
 		end
-		print(("   region %d  %-42s %s"):format(region, names[region] or "?", verdict))
+		print(("   %-18s game says %s-%s   %s"):format((info and info.name) or z[2], lo, hi, verdict))
 	end
 	if ns.IsZoneGateBlockEnabled() then
 		print("  route below level: |cffff4444REFUSED|r (Settings -> Route arrow)")
 	else
 		print("  route below level: |cff44ff44still set|r — warn only (Settings -> Route arrow)")
 	end
-	print("  Floors come from guides (Icy Veins, read in full); the level-80 one is")
-	print("  Blizzard's own announcement. |cff44ff44MEASURED 5 Sep: the game does NOT stop you|r —")
-	print("  a level 70 walked into Silvermoon — so we say 'tuned for', never 'you cannot go'.")
+	print("  Levels come from the game itself (C_Map.GetMapLevels). Where it has none (cities,")
+	print("  sub-maps) the floor is 80, from Blizzard's announcement. |cff44ff44MEASURED 5 Sep: the")
+	print("  game does NOT stop you|r — a level 70 walked into Silvermoon — so we say 'tuned for'.")
 end

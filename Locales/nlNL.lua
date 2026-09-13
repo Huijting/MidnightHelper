@@ -2240,7 +2240,7 @@ ns._mhLocales.nlNL = {
 	-- Zone level gate. "Midnight" is Blizzards uitbreidingsnaam en blijft Engels.
 	ROUTE_FINISHED_FMT = "Route klaar — Midnight Helper leest je als aangekomen bij %s, dus de pijl is weer vrij. Ben je er niet, zeg het: dat oordeel is van ons en het kan fout zijn.",
 	ZONEGATE_TITLE_FMT ="Dat gebied begint op level %d",
-	ZONEGATE_BODY_FMT = "%s is gemaakt voor level %d en hoger, en jij bent %d. Niets houdt je tegen om er in te lopen — maar de vijanden daar zijn ver boven je.",
+	ZONEGATE_BODY_FMT = "%s is gemaakt voor level %d en hoger, en jij bent %d. Niets houdt je tegen om er in te lopen — maar de vijanden daar zijn hoger dan jouw level.",
 	ZONEGATE_STILL_ROUTED = "De route staat er toch — de plek opzoeken is op elk level nuttig.",
 	LEVELBAR_BELOW_ENTRY_FMT = "Midnight Helper is gemaakt voor level %d en hoger — jij bent %d. Alles blijft open; het meeste is een kaart voor later.",
 	ZONEGATE_BLOCKED ="Geen route gezet — je hebt Midnight Helper gevraagd je onder dit level tegen te houden. Instellingen -> Route-pijl om dat te wijzigen.",

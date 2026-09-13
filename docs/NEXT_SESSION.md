@@ -23,6 +23,24 @@
 - ✅ **Spec 31-zoekmeting afgelezen**, zie `SPEC_31_COMMUNITY_REACH.md` §7. MH staat nu op alle zes
   doeltermen in de lijst, op 29 aug op nul; meestal onderaan.
 
+## 🔨 13 sep — de zone-levelwaarschuwing vraagt het spel nu zelf (gebouwd, nog niet gezien)
+
+Rob, level 81, kwam in Harandar aan en kreeg *"That area starts at level 82 … the enemies there are
+well above you"*, terwijl *"de meeste mobs hier scalen mee"*. De 82 (en 88 voor Voidstorm) kwam uit
+Icy Veins.
+- **GEMETEN** op Robs client met `C_Map.GetMapLevels`:
+  - Eversong 2395, Zul'Aman 2437, Harandar 2413 en Voidstorm 2405 geven allemaal **80 90**;
+  - The Coiled Isle 2512 geeft **90 90**. Dat is de positieve controle: Rob mat daar zelf 90 op 8 sep;
+  - Silvermoon 2393 en Slayer's Rise 2444 geven **0 0** (geen band).
+- **Wat er veranderde** (`Modules/ZoneLevelGate.lua`):
+  - `ClientMinLevel()` vraagt het spel eerst. Pas daarna komen `MAP_MIN_LEVEL` (Coiled Isle 90) en
+    `REGION_MIN_LEVEL`. Regio 2 en 3 staan daarin nu op 80 in plaats van 82 en 88.
+  - `/mh zonegate` toont per gebied wat het spel zegt.
+  - De meldtekst zegt "above your level" in plaats van "well above you", in alle zeven talen.
+- 📌 De gids-getallen zijn de levelvolgorde, niet de vloer van een zone. Dezelfde les als op 8 sep
+  met de 78 → 80: twee gidsen die het eens zijn, is geen meting.
+- **Test:** TESTLIJST 13 sep.
+
 ## ✅ 13 sep — twee Inscription-schatten hadden elkaars quest-ID (opgelost, `/reload` te zien)
 
 Rob, met een screenshot van *Intrepid Explorer's Marker* met een rood kruis: *"is er een manier om

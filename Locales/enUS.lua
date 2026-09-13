@@ -2610,7 +2610,7 @@ ns._mhLocales.enUS = {
 	-- Zone level gate. "Midnight" is Blizzard's expansion name and stays English.
 	ROUTE_FINISHED_FMT = "Route finished — Midnight Helper reads you as arrived at %s, so the arrow is free again. If you are not there, say so: that verdict is ours and it can be wrong.",
 	ZONEGATE_TITLE_FMT ="That area starts at level %d",
-	ZONEGATE_BODY_FMT = "%s is built for level %d and up, and you are %d. Nothing stops you walking in — but the enemies there are well above you.",
+	ZONEGATE_BODY_FMT = "%s is built for level %d and up, and you are %d. Nothing stops you walking in — but the enemies there are above your level.",
 	ZONEGATE_STILL_ROUTED = "The route is set anyway — finding the spot is useful at any level.",
 	LEVELBAR_BELOW_ENTRY_FMT = "Midnight Helper is built for level %d and up — you are %d. Everything still opens; most of it is a map for later.",
 	ZONEGATE_BLOCKED ="No route set — you asked Midnight Helper to hold you back below the level. Settings -> Route arrow to change it.",

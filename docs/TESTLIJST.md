@@ -7,6 +7,17 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 13 sep — geen onterechte "That area starts at level 82" meer (levels uit het spel zelf)
+
+Rob, level 81 in Harandar, kreeg *"the enemies there are well above you"*, terwijl de mobs daar
+meeschalen. Zijn `/run`-meting (C_Map.GetMapLevels): Eversong, Zul'Aman, Harandar en Voidstorm allemaal
+**80 90**, Coiled Isle **90 90**, Silvermoon en Slayer's Rise **0 0**. `/reload` is genoeg.
+- [ ] **Op de level-81**: zet een route naar iets in Harandar (bv. een schat) → **geen** melding meer.
+- [ ] **`/mh zonegate`** → vijf regels, per gebied *"game says 80-90"* (Coiled Isle *90-90*). Op level 81
+      waarschuwt alleen The Coiled Isle.
+- [ ] **Een route naar The Coiled Isle** op die 81 → de melding komt nog wel, en eindigt nu op *"above your
+      level"* in plaats van *"well above you"*.
+
 ## 🆕 13 sep — twee Inscription-schatten in Harandar omgedraaid
 
 Rob had de Intrepid Explorer's Marker opgepakt, maar MH toonde hem met een rood kruis en gaf de
