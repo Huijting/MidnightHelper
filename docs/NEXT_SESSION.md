@@ -97,8 +97,21 @@ aan te pakken"*.
     changelog-regel weg vóór de bump.
   - ✅ "About the icons" zegt nu "The icons" in plaats van "The screen icons", zodat het ook de kaarticonen
     dekt (Rob: "4 ja").
-  - Nog open bij Rob: nummer 3 (alle instellingen in MH, in een aparte kopie, samenvoegen na woensdag) en de
-    twee Recommended-fouten. Zie de memory `settings-inventory-2026-09-14`.
+  - Nog open bij Rob: de twee Recommended-fouten. Zie de memory `settings-inventory-2026-09-14`.
+- 🔨 **Nummer 3 — alle instellingen in MH: GEBOUWD op branch `settings-in-mh`, NIET in main** (Rob: "Go voor
+  1", 14 sep). De branch staat op origin. Samenvoegen pas na de 4.0.0-release (reset wo 16 sep), daarna testen.
+  - `16abdf9`: de 47 instellingen van Blizzards hoofdcategorie verhuisd naar `Modules/SettingsDefs.lua`
+    (gedeelde lijst); `NativeSettings.lua` tekent daaruit. GEMETEN gelijk aan de oude code (script, na
+    commentaar/spaties weghalen: 12145 = 12145 tekens, 47 = 47, zelfde volgorde).
+  - `4aa689c`: pagina "All settings" in de Settings-kamer (`Modules/SettingsPage.lua`), grote knop +
+    `/mh settings` + zoeken gaan erheen, Blizzards venster eigen knop, teksten in 7 talen (drift gestempeld, 0).
+  - Syntax + lint in de kopie groen; de raid-tip-check [19] kon daar niet draaien (geen DBM naast de kopie).
+  - **Na samenvoegen testen:** Settings → "Open Midnight Helper settings" opent de nieuwe pagina; vinkje
+    aan/uit werkt én staat daarna hetzelfde in Blizzards venster; tekstgrootte −/+; taal kiezen via het menu
+    (pagina wisselt meteen van taal); `/mh settings` in een verse sessie; zoeken op "settings"; Classic aan →
+    zelfde pagina in 3.x-kleuren.
+  - De kopie zelf staat in de scratchpad van sessie `bce6ed51` (`mh_settings_wt`); weg = geen verlies, de
+    commits staan in de repo. Opnieuw maken: `git worktree add <pad> settings-in-mh`.
 - ⏳ **Rob test pas vanavond** (hij werkt overdag; 's avonds eerst de Tidebound Grotto). Open voor hem: A (de
   routeknoppen en de `/run` met de ingangen), B en C, alles in TESTLIJST 14 sep.
 
