@@ -33,12 +33,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       Klik → de pijl (of TomTom) wijst naar de ingang, net als bij de dungeons. Dicht geklapt is de knop weg.
 - [ ] **Meet de ingangen in het spel.** Plak dit in je chat en stuur me de regels die je krijgt:
       ```
-      /run for _,m in ipairs({2413,2405,2424,2509}) do for _,e in ipairs(C_EncounterJournal.GetDungeonEntrancesForMap(m) or {}) do local x,y=e.position:GetXY() print(m,e.name,format("%.2f %.2f",x*100,y*100)) end end
+      /run for _,m in ipairs({2413,2405,2424,2509,2512}) do for _,e in ipairs(C_EncounterJournal.GetDungeonEntrancesForMap(m) or {}) do local x,y=e.position:GetXY() print(m,e.name,format("%.2f %.2f",x*100,y*100)) end end
       ```
       Onze getallen (uit Zygor): Dreamrift **2413 61.33 63.01**, Voidspire **2405 45.21 64.79**, March on
       Quel'Danas **2424 52.60 85.11**, Venomous Abyss **2509 47.25 20.51**. Controle: bij 2413 hoort ook de
       dungeon in Harandar te staan, ongeveer **26.24 78.09**. Staat die er, dan geeft het spel eerlijke
-      getallen.
+      getallen. Bij **2512** (The Coiled Isle) hoort ook The Tidebound Grotto; die staat bij ons op **59.99
+      66.20**, want daar stond Rob zelf op 11 aug.
+- [ ] 🆕 **The Tidebound Grotto** staat nu **onderaan de Raids-pagina**, met *"Route to The Tidebound Grotto"*
+      als je hem openklapt, en ook in het blok *Dungeons & Raids* in het Silvermoon-tabblad. Het zwevende
+      boss-venster toont hem nog steeds **één** keer, niet twee.
 
 ## 🆕 13 sep — geen onterechte "That area starts at level 82" meer (levels uit het spel zelf)
 

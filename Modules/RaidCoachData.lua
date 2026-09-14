@@ -229,6 +229,21 @@ function ns.GetRaidCoachRaids()
 	return ACTIVE_RAIDS
 end
 
+--- What the Raids page and the Silvermoon tab list: the raids, then the lairs (instanced world
+--- bosses that count toward the Great Vault's raid row). A lair registers itself into
+--- ns.LAIR_ENTRIES from its own coach file (TideboundGrottoCoach.lua). Kept apart from
+--- ACTIVE_RAIDS so the loop above does not register a lair in the boss window a second time.
+function ns.GetRaidPageList()
+	local list = {}
+	for _, raid in ipairs(ACTIVE_RAIDS) do
+		list[#list + 1] = raid
+	end
+	for _, lair in ipairs(ns.LAIR_ENTRIES or {}) do
+		list[#list + 1] = lair
+	end
+	return list
+end
+
 --- Raid- en boss-telling voor het Home-blok dat de Raid Coach vindbaar maakt.
 --- Namen zijn eigennamen (niet vertaald). Geeft een kopie terug.
 --- @return names(table), bossCount(number)

@@ -1425,7 +1425,10 @@ local function AddSMCInstanceCategory()
 			y = e.y,
 		}
 	end
-	for _, raid in ipairs(ns.GetRaidCoachRaids and ns.GetRaidCoachRaids() or {}) do
+	-- Raids and then the lairs (The Tidebound Grotto), the same list the Raids page shows.
+	local raidList = (ns.GetRaidPageList and ns.GetRaidPageList())
+		or (ns.GetRaidCoachRaids and ns.GetRaidCoachRaids()) or {}
+	for _, raid in ipairs(raidList) do
 		add(raid, true)
 	end
 	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do

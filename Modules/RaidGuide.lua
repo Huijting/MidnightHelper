@@ -339,7 +339,9 @@ function ns.BuildRaidsPanel(panel)
 		rows = {},
 	}
 
-	local raids = (ns.GetRaidCoachRaids and ns.GetRaidCoachRaids()) or {}
+	-- The raids and then the lairs (The Tidebound Grotto), see ns.GetRaidPageList.
+	local raids = (ns.GetRaidPageList and ns.GetRaidPageList())
+		or (ns.GetRaidCoachRaids and ns.GetRaidCoachRaids()) or {}
 	for idx, raid in ipairs(raids) do
 		local btn = CreateFrame("Button", nil, child, "UIPanelButtonTemplate")
 		btn:SetHeight(BTN_H)

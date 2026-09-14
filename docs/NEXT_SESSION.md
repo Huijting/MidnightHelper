@@ -59,7 +59,14 @@ aan te pakken"*.
   - Hij staat niet in `RaidCoachData.lua` RAIDS, dus niet op Codex → Raids, niet in het nieuwe SMC-blok, en
     zonder routeknop.
   - Zygor-kandidaat voor de ingang: **The Coiled Isle 2512, 59.57 / 66.33** (LibRover `data_dungeons.lua:866`).
-  - Nog niet gebouwd; eerst Robs ja.
+  - 🔨 **Gebouwd 14 sep, nog niet in het spel gezien** (Rob: *"ja, zet Tidebound Grotto op de
+    Raids-pagina"*).
+    - `TideboundGrottoCoach.lua` zet `ENTRY.entrance = ENTRY.route`. Dat is de GEMETEN plek (Rob stond op
+      11 aug op 60.1 / 66.4, de route zegt 59.99 / 66.20), dus niet de Zygor-kandidaat.
+    - Het bestand registreert zich in `ns.LAIR_ENTRIES`, en `RaidCoachData.lua` heeft
+      `ns.GetRaidPageList()` (raids + lairs).
+    - RaidGuide en het SMC-blok lezen die lijst. Het boss-venster blijft `ACTIVE_RAIDS` +
+      de eigen registratie van de lair gebruiken, dus hij staat daar niet dubbel.
 - ⏳ **Rob test pas vanavond** (hij werkt overdag; 's avonds eerst de Tidebound Grotto). Open voor hem: A (de
   routeknoppen en de `/run` met de ingangen), B en C, alles in TESTLIJST 14 sep.
 

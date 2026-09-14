@@ -73,6 +73,16 @@ local ENTRY = {
 	},
 }
 
+-- 14 Sep 2026, Rob: "zet Tidebound Grotto op de Raids-pagina". The Raids page, its route button
+-- and the Dungeons & Raids block in the Silvermoon tab read `entrance`; the measured route above is
+-- exactly that place, so this is the same table rather than a second copy of the numbers.
+ENTRY.entrance = ENTRY.route
+-- A lair is not a raid, but it counts toward the Great Vault's raid row, so players look for it
+-- there. RaidCoachData's ns.GetRaidPageList lists these after the raids. This file loads first,
+-- hence the `or {}`; the boss window keeps its single registration below.
+ns.LAIR_ENTRIES = ns.LAIR_ENTRIES or {}
+ns.LAIR_ENTRIES[#ns.LAIR_ENTRIES + 1] = ENTRY
+
 -- Registraties zodat venster/Chat/Share/picker de bestaande route gebruiken.
 ns.CUSTOM_BOSS_ENTRIES = ns.CUSTOM_BOSS_ENTRIES or {}
 ns.CUSTOM_BOSS_ENTRIES[ENTRY.key] = ENTRY
