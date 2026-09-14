@@ -1371,6 +1371,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh smcicons — welke Silvermoon-pins hebben geen plaatje? Een leeg vakje en een plaatje dat
+	-- laadt zijn in de code niet te onderscheiden; het spel zegt welk symbool het wel en niet kent.
+	if msg == "smcicons" then
+		if ns.PrintSMCIconProbe then
+			ns.PrintSMCIconProbe()
+		end
+		return
+	end
+
 	-- /mh profids — alle spec-tabbladen en nodes MET hun id, voor de beroepen die dit
 	-- personage heeft. Grondstof om advisorRoutes van naam naar id om te zetten.
 	if msg == "profids" then

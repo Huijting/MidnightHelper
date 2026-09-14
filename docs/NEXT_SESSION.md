@@ -129,6 +129,20 @@ aan te pakken"*.
     crest,weekly,pvp}` en het hergebruik uit het plan (ritual/void → `world`, world boss → `raids`), gekoppeld
     in `SMCCard.ICONS`. De beroepen, prof-reset, crafting orders, dummies en Prey houden bewust Blizzards
     symbolen (keuze in het plan).
+  - 🔴 **Die Blizzard-symbolen bleken LEEG (Robs screenshot 14 sep, GEMETEN):** de 8 beroepen, de 4
+    verzamelberoepen en Training Dummies tonen een leeg vakje. Oorzaak (AFGELEID uit de code):
+    - de atlasnamen (`ui-profession-*`, `services-icon-dueling`) staan nergens anders in de AddOns-map;
+    - `SMCCard.Skin` las `select(1, pcall(SetAtlas))`, en dat is pcall's eigen status: true, ook voor een
+      atlas die niet bestaat. Daardoor viel hij nergens op terug.
+    Waarschijnlijk was het in 3.x (Classic) ook al leeg, maar dat is niet gezien.
+    - ✅ **Gerepareerd:**
+      - `SMCCard.AtlasExists` vraagt het spel eerst (`C_Texture.GetAtlasInfo`);
+      - een ontbrekend symbool blijft bewust leeg, en wordt dus niet het bankzakje;
+      - **`/mh smcicons`** somt per look op welke pins leeg zijn, met als positieve controle het aantal
+        symbolen dat het spel wél kent.
+    - ▶ **Rob koos "c" = ronde 3 in ComfyUI: 13 eigen plaatjes** (12 beroepen + dummy). Het plan is voorgelegd;
+      draaien pas na zijn ja, en met ComfyUI aan (14 sep gaf `queue_status` een fout = uit).
+    - Andere pins die `/mh smcicons` leeg meldt, gaan mee in ronde 3.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.

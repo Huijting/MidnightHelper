@@ -1808,6 +1808,15 @@ function SMCCard.Stem(point)
 	return SMCCard.ICONS[id]
 end
 
+--- Whether the game has an atlas by this name. SetAtlas on an unknown name fails without an error,
+--- so a pcall cannot tell. Without the API we cannot ask, and behave as before.
+function SMCCard.AtlasExists(name)
+	if not (C_Texture and C_Texture.GetAtlasInfo) then
+		return true
+	end
+	return C_Texture.GetAtlasInfo(name) ~= nil
+end
+
 --- Paint one pin as a card (lookOn) or as the 3.x button. Creates nothing, so a switch of the Classic
 --- setting repaints the same frames in place. The label colour is left to SMCApplyPinLock and the
 --- quest tint, which run right after this in the panel's layout.
@@ -1831,12 +1840,21 @@ function SMCCard.Skin(btn, point, lookOn)
 		icon:SetPoint("LEFT", btn, "LEFT", 8, 0)
 	else
 		local size = lookOn and 26 or 20
+		-- 14 Sep: this used to be `select(1, pcall(...))`, which is pcall's own status and true even
+		-- for an atlas the game does not have. Thirteen cards (professions, gathering, the dummies)
+		-- showed an empty slot and nothing noticed. Ask the game first; `/mh smcicons` lists them.
 		local iconSet = false
-		if point.atlas and icon.SetAtlas then
-			iconSet = select(1, pcall(icon.SetAtlas, icon, point.atlas))
+		if point.atlas and icon.SetAtlas and SMCCard.AtlasExists(point.atlas) then
+			iconSet = pcall(icon.SetAtlas, icon, point.atlas) and true or false
 		end
 		if not iconSet then
-			icon:SetTexture("Interface\\MINIMAP\\TRACKING\\Banker")
+			-- A named symbol the game lacks stays an empty slot, not the bank's bag: a wrong picture
+			-- reads as information. Round 3 (Rob, 14 Sep: "c") gives those cards pictures of their own.
+			if point.atlas then
+				icon:SetTexture(nil)
+			else
+				icon:SetTexture("Interface\\MINIMAP\\TRACKING\\Banker")
+			end
 			icon:SetTexCoord(0, 1, 0, 1)
 		end
 		icon:SetSize(size, size)
@@ -1870,6 +1888,40 @@ function ns.MH_RelayoutSMCPins()
 	local sg = ns.panels and ns.panels.smcguide
 	if sg and sg._mhSMCRelayout then
 		sg._mhSMCRelayout()
+	end
+end
+
+--- `/mh smcicons` — which Silvermoon pins end up without a picture. An empty slot and a loaded one
+--- look the same to the code, so the game is asked per pin. Two looks, two answers: a card shows our
+--- own icon when it has one and the Blizzard symbol otherwise; Classic always shows the symbol.
+--- The "found" count is the positive control: if the game knew no symbol at all, that says the
+--- question is broken, not the pins.
+function ns.PrintSMCIconProbe()
+	local own, found, both, classicOnly = 0, 0, {}, {}
+	for _, cat in ipairs(SMC_CATEGORIES) do
+		for _, point in ipairs(cat.items or {}) do
+			local stem = SMCCard.Stem(point)
+			local hasAtlas = point.atlas and SMCCard.AtlasExists(point.atlas)
+			if stem then
+				own = own + 1
+			end
+			if hasAtlas then
+				found = found + 1
+			elseif stem then
+				classicOnly[#classicOnly + 1] = ("%s (%s)"):format(tostring(point.label), tostring(point.atlas))
+			else
+				both[#both + 1] = ("%s (%s)"):format(tostring(point.label), tostring(point.atlas))
+			end
+		end
+	end
+	print(("|cffc9a8ffMidnight Helper|r Silvermoon icons: %d pins with our own picture, %d Blizzard symbols the game knows."):format(own, found))
+	print(("   |cffff5555Empty in both looks: %d|r"):format(#both))
+	for _, line in ipairs(both) do
+		print("      " .. line)
+	end
+	print(("   |cffffcc55Empty in Classic only: %d|r"):format(#classicOnly))
+	for _, line in ipairs(classicOnly) do
+		print("      " .. line)
 	end
 end
 

@@ -83,7 +83,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
 	"livetips", "lock", "macrocheck", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
 	"partytarget", "poison", "poisons", "portal", "portals", "potionkeys", "prey",
-	"profadvice", "profguide", "profids", "profweekly", "ptr", "questdiff", "questgate", "questscan", "range",
+	"profadvice", "profguide", "profids", "profweekly", "ptr", "questdiff", "questgate", "questscan", "range", "smcicons",
 	"zonegate", "travelwhy", "questsnap",
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",

@@ -59,13 +59,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       (Transmog), kristal in een kooi (Catalyst), vleugel-crest (Crest Exchange), questrol (Weekly Quest
       Givers) en gekruiste zwaarden (PvP Hub). Ritual Site en Void Assault tonen het Rituals-icoon,
       "World boss this week" het raid-icoon. Raids en dungeons hebben hun eigen icoon, met de
-      zone eronder. Kaarten zonder eigen plaatje houden Blizzards kaartsymbool. Beweeg over een kaart →
+      zone eronder. ⚠️ De 12 beroepen en Training Dummies hebben nog een **leeg vakje**: bekend (Robs
+      screenshot 14 sep), ronde 3 geeft ze eigen plaatjes. Beweeg over een kaart →
       hij licht op; klikken zet de route zoals altijd.
       ❌ Zie je een **leeg vakje** waar een plaatje hoort, dan is WoW niet helemaal herstart geweest.
 - [ ] 🆕 Zet **Classic** aan (Settings) en ga terug naar het Silvermoon-tabblad: de oude rode knoppen staan
       er weer, precies zoals in 3.x. Terug naar de nieuwe look → weer kaarten, zonder `/reload`.
 - [ ] 🆕 Typ **bank** in de zoekbalk en kies de Bank-pin: het tabblad springt naar die kaart en die licht
       even op.
+- [ ] 🆕 Typ **`/mh smcicons`** (na een `/reload`). Je ziet drie dingen: hoeveel pins ons eigen plaatje hebben,
+      hoeveel Blizzard-symbolen het spel kent, en welke pins leeg zijn ("in both looks" en "in Classic
+      only"). Verwacht onder *both looks*: de 8 beroepen, de 4 verzamelberoepen en Training Dummies. Staan er
+      méér, dan gaan die mee in ronde 3. Plak de lijst of maak een screenshot.
 - [ ] 🆕 **"Recommended" laat je eigen keuzes staan.** Zet Classic aan, maak de tekst groter en verberg één
       achievement (Achievements-tab). Druk dan op Settings → *Set everything to recommended*: Classic blijft
       aan, de tekst blijft groot en die achievement blijft verborgen. Open daarna een
