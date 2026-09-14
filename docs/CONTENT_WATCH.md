@@ -728,3 +728,41 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   https://news.blizzard.com/en-us/article/24296142?nocache=20260913e (volledig gelezen via Exa)
   · `web_search_exa` "World of Warcraft hotfixes September 12 2026 OR September 13 2026 Midnight
   retail" (nieuwste retail-hotfixtreffer blijft 10 sep).
+
+---
+
+- [2026-09-14] 🔁 **Vierde dag op rij zonder nieuwe hotfix-sectie (BlizzCon-dag 3) — niets nieuws
+  om tegen de repo te toetsen.** `Exa web_fetch_exa` met `?nocache=20260914z` op news.blizzard.com's
+  doorlopende hotfix-artikel, **volledige artikeltekst zelf gelezen**: nieuwste sectie blijft
+  "September 10, 2026", byte-voor-byte gelijk aan wat op [2026-09-11] (de "September 10"-sectie:
+  Delves — Domanaar Enforcer, Twilight Crypts "Loosed Loa"; Dungeons and Raids — Nalorakk's Echoing
+  Maul, Mor'zahi/Final Ascension) en op [2026-09-10] (de "September 9"-sectie: Achievements — Soft
+  Underbelly account-wide; Delves — Bountiful Coffers/Zul'jarra's Forces; Prey — Ral'kala Corrosive
+  Coin per account) al volledig behandeld en tegen de repo getoetst is — geen elfde sectie.
+  Delves/Professions/Quests: geen nieuwe regels sinds gisteren, dus niets om te vergelijken.
+
+  📌 **Positieve controle tegen de cache-val van 3 sep:** `web_search_exa` op "World of Warcraft
+  Midnight hotfixes September 13 2026 OR September 14 2026 retail" vindt geen enkel
+  retail-hotfixartikel nieuwer dan 10 sep — maar de zoekopdracht zelf werkt prima: hij vindt zonder
+  moeite stukken die wél vandaag/gisteren gedateerd zijn (Wowhead's "What's Next"-liveblog, 12 sep
+  21:42 UTC; Blizzards eigen "Midnight: What's Next Panel Recap", 12 sep 22:24 UTC) — het ontbreken
+  van een 11-14 sep hotfixartikel is dus gemeten afwezigheid, geen kapotte zoekopdracht of een
+  week-oude cache. Convergeert met de data-wachter van vandaag (`docs/PTR_12.0.7_DATA.md`,
+  entry [2026-09-14]: "dag 5" sinds dezelfde stand) — onafhankelijk zelf opnieuw gemeten, niet
+  overgenomen als bewijs.
+
+  Gerichte tweede zoekslag specifiek op Delves/Professions/Quests (`web_search_exa` "Wowhead World
+  of Warcraft Midnight Delves Professions Quests update September 14 2026") leverde uitsluitend
+  bestaand referentiemateriaal op (het Season 2-delvegidsartikel, laatst bijgewerkt 4 sep; de
+  Profession Knowledge Points-gids, laatst bijgewerkt 18 aug) plus het al op [2026-09-13] als
+  PTR/roadmap beoordeelde 12.1.5/12.2-materiaal (nieuwe Delve-modus Labyrinths, nieuwe Delve
+  Nemesis Astalor Bloodsworn in Season 3, Aqir Invasions) — niets nieuws over al geshipte content,
+  dus niets om aan de repo te toetsen. Bewust buiten scope gelaten, zelfde reden als [2026-09-13]:
+  dit is aankondiging/roadmap-materiaal (`docs/PTR_12.1_WATCH.md`'s lane), geen live hotfix op
+  bestaande content.
+
+  Geen enkele bevinding vandaag. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260914z (volledig gelezen via Exa)
+  · `web_search_exa` "World of Warcraft Midnight hotfixes September 13 2026 OR September 14 2026
+  retail" en "Wowhead World of Warcraft Midnight Delves Professions Quests update September 14
+  2026" (geen retail-hotfix nieuwer dan 10 sep gevonden).
