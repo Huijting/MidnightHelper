@@ -7,6 +7,17 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 14 sep — blok "Dungeons & Raids" in het Silvermoon-tabblad (C)
+
+`/reload` is genoeg. Gebouwd, nog niet in het spel gezien.
+- [ ] **Codex → Silvermoon City**: direct onder *Travel* (de portals) staat een nieuw blok **"Dungeons &
+      Raids"**. Het heeft een knop per raid (Dreamrift, Voidspire, March on Quel'Danas, Venomous Abyss) en per
+      Midnight-dungeon (o.a. Maisara Caverns, Windrunner Spire, Murder Row, Den of Nalorakk). Raids hebben een
+      raid-icoon, dungeons een dungeon-icoon.
+- [ ] **Beweeg over zo'n knop**: de tooltip noemt de **zone** van de ingang (niet "Map 2393") en *"Route to …"*.
+- [ ] **Klik** → de pijl of TomTom wijst naar de ingang, net als de knop op de Dungeons- en Raids-pagina.
+- [ ] **Zoekvak**: typ *voidspire* → het zoekvak springt naar die knop in het tabblad.
+
 ## 🆕 14 sep — consumables nagelopen tegen Season 2 (B)
 
 `/reload` is genoeg. Alleen het eten van drie tanks is veranderd.

@@ -1128,6 +1128,15 @@ local function CategoryTitle(cat)
 	if not cat then
 		return ""
 	end
+	-- Two existing words joined ("Dungeons & Raids"): each pack already names both tabs, so the
+	-- heading follows the pack's own words without a key of its own.
+	if cat.titleKeys then
+		local parts = {}
+		for _, key in ipairs(cat.titleKeys) do
+			parts[#parts + 1] = ns:L(key)
+		end
+		return table.concat(parts, " & ")
+	end
 	if cat.titleKey then
 		return ns:L(cat.titleKey)
 	end
@@ -1382,6 +1391,71 @@ do
 	end
 end
 
+--- The Dungeons & Raids block. Rob, 14 Sep 2026: "ik wil ook een blok dungeons en raids erbij
+--- hebben in onze smc tab blad waar oa ook de portals staan".
+---
+--- ⚠️ Built when the panel is built, not at load: UI.lua loads before
+--- Modules/DungeonRosterData.lua and Modules/RaidCoachData.lua, so their lists do not exist yet
+--- when SMC_CATEGORIES does. Read from those lists, like the flight masters above, so every
+--- entrance is typed in one place. Only entries that have one: the raids and the Midnight
+--- dungeons. The older dungeons of the season lie on other continents and have the M+ Teleports
+--- pin instead.
+local smcInstancesAdded = false
+local function AddSMCInstanceCategory()
+	if smcInstancesAdded then
+		return
+	end
+	smcInstancesAdded = true
+	local items = {}
+	-- "Dungeon" is the atlas Mythic Dungeon Tools draws entrances with. "Raid" is checked first:
+	-- an unknown atlas does not error, it just draws nothing.
+	local raidAtlas = (C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo("Raid")) and "Raid" or "Dungeon"
+	local function add(entry, isRaid)
+		local e = entry and entry.entrance
+		if not (e and e.mapID and e.x and e.y) then
+			return
+		end
+		items[#items + 1] = {
+			id = "inst_" .. tostring(entry.key),
+			label = (ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(entry)) or entry.name or "?",
+			atlas = isRaid and raidAtlas or "Dungeon",
+			instance = entry,
+			mapID = e.mapID,
+			x = e.x,
+			y = e.y,
+		}
+	end
+	for _, raid in ipairs(ns.GetRaidCoachRaids and ns.GetRaidCoachRaids() or {}) do
+		add(raid, true)
+	end
+	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
+		if d.native then
+			add(d, false)
+		end
+	end
+	if #items == 0 then
+		return
+	end
+	local cat = { titleKeys = { "TAB_DUNGEONS", "TAB_RAIDS" }, items = items }
+	local at = #SMC_CATEGORIES + 1
+	for i, c in ipairs(SMC_CATEGORIES) do
+		if c.titleKey == "SMC_CAT_TRAVEL" then
+			at = i + 1
+			break
+		end
+	end
+	table.insert(SMC_CATEGORIES, at, cat)
+	-- The search index was built at load, before this block existed. Add its rows the way
+	-- WorldBoss.lua adds its own; a full rebuild here would drop that one.
+	ns._mhSMCGuideSearchRows = ns._mhSMCGuideSearchRows or {}
+	for _, point in ipairs(items) do
+		ns._mhSMCGuideSearchRows[#ns._mhSMCGuideSearchRows + 1] = {
+			blob = string.lower(("%s %s %s dungeon raid entrance"):format(CategoryTitle(cat), point.label, point.id)),
+			point = point,
+		}
+	end
+end
+
 local function TriggerTomTomWaySlash(point)
 	if not C_AddOns then
 		return false
@@ -1404,6 +1478,15 @@ end
 
 local function SetSMCWaypoint(point)
 	if type(point) ~= "table" then
+		return
+	end
+
+	-- 14 Sep 2026: a dungeon or raid entrance in another zone (the Dungeons & Raids block).
+	-- Same route the Dungeons and Raids pages set, so the three can never disagree.
+	if point.instance then
+		if ns.RouteDungeonEntrance then
+			ns.RouteDungeonEntrance(point.instance)
+		end
 		return
 	end
 
@@ -2133,6 +2216,7 @@ local function BuildSMCCityGuidePanel(panel)
 		end
 	end
 
+	AddSMCInstanceCategory()
 	for _, cat in ipairs(SMC_CATEGORIES) do
 		local header = scrollContent:CreateFontString(nil, "OVERLAY", "GameFontHighlightMedium")
 		header:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, -y)
@@ -2226,8 +2310,16 @@ local function BuildSMCCityGuidePanel(panel)
 				if SMCPinLocked(point) then
 					GameTooltip:AddLine(ns:L("SMC_PIN_LOCKED"), 1, 0.5, 0.4, true)
 				end
-				GameTooltip:AddLine(("Map 2393 • %.2f, %.2f"):format(point.x, point.y), 0.8, 0.8, 0.8, false)
-				GameTooltip:AddLine(ns:L("SMC_PIN_CLICK_HINT"), 0.7, 0.8, 1, true)
+				if point.instance then
+					-- Not in Silvermoon: name the zone the entrance is in, and what a click does.
+					local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(point.mapID)
+					local zone = (info and info.name) or ("Map " .. tostring(point.mapID))
+					GameTooltip:AddLine(("%s • %.2f, %.2f"):format(zone, point.x, point.y), 0.8, 0.8, 0.8, false)
+					GameTooltip:AddLine(ns:L("HOME_WB_ROUTE_BTN_FMT"):format(point.label), 0.7, 0.8, 1, true)
+				else
+					GameTooltip:AddLine(("Map 2393 • %.2f, %.2f"):format(point.x, point.y), 0.8, 0.8, 0.8, false)
+					GameTooltip:AddLine(ns:L("SMC_PIN_CLICK_HINT"), 0.7, 0.8, 1, true)
+				end
 				GameTooltip:Show()
 			end)
 			btn:SetScript("OnLeave", function()

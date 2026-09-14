@@ -37,7 +37,17 @@ aan te pakken"*.
     - Niet gemeten: 6 pagina's hebben geen Food Buff-sectie (Disc, de 3 Warlocks, Arms en Fury).
     - Gezien maar niet opgenomen: Wowhead noemt voor Arcane *Sanguithorn Tea* naast de feast ("they
       stack!"). Dat past niet in ons schema (geen drank-categorie).
-- **C, daarna:** een blok *Dungeons & Raids* in het Silvermoon-tabblad, waar de portals staan.
+- 🔨 **C, gebouwd 14 sep, nog niet in het spel gezien:** een blok *Dungeons & Raids* in het
+  Silvermoon-tabblad, direct onder Travel.
+  - `AddSMCInstanceCategory()` in `UI.lua` bouwt het bij het opbouwen van het paneel uit
+    `GetRaidCoachRaids()` en de `native` dungeons van `GetDungeonRoster()`, alleen die met een `entrance`.
+    Niet bij het laden, want UI.lua laadt vóór die modules.
+  - Een klik gaat via `SetSMCWaypoint` → `point.instance` → `ns.RouteDungeonEntrance`.
+  - De tooltip noemt de zone. De kop is `TAB_DUNGEONS & TAB_RAIDS`, via nieuwe `titleKeys`-steun in
+    `CategoryTitle`, dus geen nieuwe vertaling nodig. Het raid-icoon valt terug op "Dungeon" als het
+    atlas "Raid" niet bestaat.
+  - De zoekrijen worden toegevoegd, niet herbouwd, omdat herbouwen de world-boss-rij van WorldBoss.lua
+    zou wissen.
   **D (misschien):** dat tabblad grafisch opknappen; eerst een voorstel aan Rob.
 
 ## ☀️ 13 sep — ochtendronde en de Spec 31-meting
