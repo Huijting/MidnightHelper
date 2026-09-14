@@ -83,9 +83,10 @@ local function TintWaypointButton(btn, done)
 	local icon = btn._mhSMCIcon
 	local label = btn._mhSMCLabel
 	if done == true then
-		-- Not on a 4.0 card (UI.lua, SMCCard): a green wash muddies a full-colour picture, and the
-		-- green label already says "done". The 3.x map symbol still takes the tint.
-		if icon and icon.SetVertexColor and not btn._mhCardMode then
+		-- Not on a 4.0 card (UI.lua, SMCCard), nor on our own picture where Classic shows it: a green
+		-- wash muddies a full-colour picture, and the green label already says "done". The 3.x map
+		-- symbol still takes the tint.
+		if icon and icon.SetVertexColor and not btn._mhCardMode and not btn._mhOwnPicture then
 			icon:SetVertexColor(0.45, 0.95, 0.55)
 		end
 		if label and label.SetTextColor then

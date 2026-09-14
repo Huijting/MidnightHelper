@@ -1838,6 +1838,7 @@ end
 function SMCCard.Skin(btn, point, lookOn)
 	local icon, label, sub = btn._mhSMCIcon, btn._mhSMCLabel, btn._mhSMCSub
 	btn._mhCardMode = lookOn and true or false
+	btn._mhOwnPicture = false
 	for _, t in ipairs(btn._mhSMCTemplateTex or {}) do
 		t:SetAlpha(lookOn and 0 or 1)
 	end
@@ -1863,9 +1864,15 @@ function SMCCard.Skin(btn, point, lookOn)
 			iconSet = pcall(icon.SetAtlas, icon, point.atlas) and true or false
 		end
 		if not iconSet then
-			-- A named symbol the game lacks stays an empty slot, not the bank's bag: a wrong picture
-			-- reads as information. Round 3 (Rob, 14 Sep: "c") gives those cards pictures of their own.
-			if point.atlas then
+			-- Only Classic gets here with a picture of our own: a card would have taken the branch above.
+			-- Where the symbol is missing, Classic shows ours at the 3.x size (Rob, 14 Sep: "ja, doe
+			-- Classic ook maar"); where it exists, Classic keeps it. Without either the slot stays empty
+			-- rather than showing the bank's bag, because a wrong picture reads as information.
+			local own = SMCCard.Stem(point)
+			if own then
+				icon:SetTexture(LOOK_ICON_PATH:format(own))
+				btn._mhOwnPicture = true
+			elseif point.atlas then
 				icon:SetTexture(nil)
 			else
 				icon:SetTexture("Interface\\MINIMAP\\TRACKING\\Banker")
@@ -1908,7 +1915,8 @@ end
 
 --- `/mh smcicons` — which Silvermoon pins end up without a picture. An empty slot and a loaded one
 --- look the same to the code, so the game is asked per pin. Two looks, two answers: a card shows our
---- own icon when it has one and the Blizzard symbol otherwise; Classic always shows the symbol.
+--- own icon when it has one and the Blizzard symbol otherwise; Classic shows the symbol, and our icon
+--- only where the symbol is missing.
 --- The "found" count is the positive control: if the game knew no symbol at all, that says the
 --- question is broken, not the pins.
 function ns.PrintSMCIconProbe()
@@ -1934,7 +1942,7 @@ function ns.PrintSMCIconProbe()
 	for _, line in ipairs(both) do
 		print("      " .. line)
 	end
-	print(("   |cffffcc55Empty in Classic only: %d|r"):format(#classicOnly))
+	print(("   |cffffcc55Classic shows our picture (Blizzard symbol missing): %d|r"):format(#classicOnly))
 	for _, line in ipairs(classicOnly) do
 		print("      " .. line)
 	end

@@ -67,14 +67,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       hij licht op; klikken zet de route zoals altijd.
       ❌ Zie je een **leeg vakje** waar een plaatje hoort, dan is WoW niet helemaal herstart geweest.
 - [ ] 🆕 Zet **Classic** aan (Settings) en ga terug naar het Silvermoon-tabblad: de oude rode knoppen staan
-      er weer, precies zoals in 3.x. Terug naar de nieuwe look → weer kaarten, zonder `/reload`.
+      er weer, zoals in 3.x. **Nieuw:** de beroepen, verzamelberoepen en Training Dummies tonen daar nu ons
+      eigen plaatje, klein; in 3.x was dat vakje leeg (Rob: "ja, doe Classic ook maar"). Alle andere knoppen
+      houden Blizzards symbool. Terug naar de nieuwe look → weer kaarten, zonder `/reload`.
 - [ ] 🆕 Typ **bank** in de zoekbalk en kies de Bank-pin: het tabblad springt naar die kaart en die licht
       even op.
 - [ ] 🆕 Typ **`/mh smcicons`** (na een `/reload`). Je ziet drie dingen: hoeveel pins ons eigen plaatje hebben,
-      hoeveel Blizzard-symbolen het spel kent, en welke pins leeg zijn ("in both looks" en "in Classic
-      only"). Verwacht onder *both looks*: **0** (sinds ronde 3). Onder *Classic only* staan in elk geval
-      de 13 uit ronde 3, want Classic toont Blizzards symbool en dat bestaat voor hen niet. Staat er iets
-      onder *both looks*, dan is dat een kaart die nog een plaatje mist. Plak de lijst of maak een screenshot.
+      hoeveel Blizzard-symbolen het spel kent, welke pins in beide looks leeg zijn ("Empty in both looks"),
+      en waar Classic ons plaatje toont ("Classic shows our picture"). Verwacht onder *both looks*: **0**.
+      Onder *Classic shows our picture* staan in elk geval de 13 uit ronde 3, want daar bestaat Blizzards
+      symbool niet. Staat er iets onder *both looks*, dan is dat een kaart die nog een plaatje mist. Plak
+      de lijst of maak een screenshot.
 - [ ] 🆕 **"Recommended" laat je eigen keuzes staan.** Zet Classic aan, maak de tekst groter en verberg één
       achievement (Achievements-tab). Druk dan op Settings → *Set everything to recommended*: Classic blijft
       aan, de tekst blijft groot en die achievement blijft verborgen. Open daarna een

@@ -145,9 +145,12 @@ aan te pakken"*.
         tailoring,fishing,herbalism,mining,skinning,dummy}_{128,64}.png`, gekoppeld in `SMCCard.ICONS`.
       - Gerenderd 14 sep avond; Robs keuzes GEMETEN in db-collectie `keuzes` (memory `mh-icon-set`).
       - Nog niet in het spel gezien: vraagt een **volledige herstart**.
-    - ⚠️ **Classic blijft leeg voor deze 13.** Classic toont bewust Blizzards symbool (3.x exact), en dat
-      bestaat voor hen niet. Waarschijnlijk was dat in 3.x al zo. Wil Rob daar ons plaatje, dan is dat één
-      regel in `SMCCard.Skin`: zijn keuze, nog niet gevraagd.
+    - ✅ **Classic toont nu ons plaatje waar Blizzards symbool ontbreekt** (Rob: "ja, doe Classic ook maar",
+      14 sep).
+      - Het gaat om de 13 van ronde 3, op de 3.x-maat van 20 px. Knoppen met een bestaand symbool houden
+        dat symbool.
+      - `btn._mhOwnPicture` zorgt dat `SMCChecklist` ons plaatje niet groen tint, net als op de kaarten.
+      - `/mh smcicons` noemt dit "Classic shows our picture". Nog niet in het spel gezien.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.
