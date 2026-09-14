@@ -1784,6 +1784,21 @@ local SMCCard = {
 		maren_silverwing = "smc_crest",
 		weekly_hub = "smc_weekly",
 		pvp_hub = "smc_pvp",
+		-- Round 3 (Rob, 14 Sep: "c", picked on his phone). These pins named Blizzard atlases that the game
+		-- does not have, so their slot stayed empty; `/mh smcicons` lists any pin still in that state.
+		alchemy = "smc_alchemy",
+		blacksmithing = "smc_blacksmith",
+		enchanting = "smc_enchanting",
+		engineering = "smc_engineering",
+		inscription = "smc_inscription",
+		jewelcrafting = "smc_jewelcrafting",
+		leatherworking = "smc_leatherworking",
+		tailoring = "smc_tailoring",
+		fishing = "smc_fishing",
+		herbalism_trainer = "smc_herbalism",
+		mining_trainer = "smc_mining",
+		skinning_trainer = "smc_skinning",
+		training_dummies = "smc_dummy",
 		-- Screen icons Rob already approved on 12 Sep, reused where the pin is that screen's subject.
 		trading_post = "tradingpost",
 		delves_hq = "delves",

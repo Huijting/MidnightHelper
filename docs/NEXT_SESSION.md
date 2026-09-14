@@ -140,9 +140,14 @@ aan te pakken"*.
       - een ontbrekend symbool blijft bewust leeg, en wordt dus niet het bankzakje;
       - **`/mh smcicons`** somt per look op welke pins leeg zijn, met als positieve controle het aantal
         symbolen dat het spel wél kent.
-    - ▶ **Rob koos "c" = ronde 3 in ComfyUI: 13 eigen plaatjes** (12 beroepen + dummy). Het plan is voorgelegd;
-      draaien pas na zijn ja, en met ComfyUI aan (14 sep gaf `queue_status` een fout = uit).
-    - Andere pins die `/mh smcicons` leeg meldt, gaan mee in ronde 3.
+    - ✅ **Ronde 3 in de addon** (Rob koos "c", en daarna "keuze geldt als ja"):
+      - 13 iconen: `smc_{alchemy,blacksmith,enchanting,engineering,inscription,jewelcrafting,leatherworking,
+        tailoring,fishing,herbalism,mining,skinning,dummy}_{128,64}.png`, gekoppeld in `SMCCard.ICONS`.
+      - Gerenderd 14 sep avond; Robs keuzes GEMETEN in db-collectie `keuzes` (memory `mh-icon-set`).
+      - Nog niet in het spel gezien: vraagt een **volledige herstart**.
+    - ⚠️ **Classic blijft leeg voor deze 13.** Classic toont bewust Blizzards symbool (3.x exact), en dat
+      bestaat voor hen niet. Waarschijnlijk was dat in 3.x al zo. Wil Rob daar ons plaatje, dan is dat één
+      regel in `SMCCard.Skin`: zijn keuze, nog niet gevraagd.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.
