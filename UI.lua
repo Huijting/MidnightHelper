@@ -790,6 +790,10 @@ local function MHApplyLookChrome(refs)
 		end
 	end
 	MHRefreshSidebarTabChrome(ns.uiSelectedTab)
+	-- The Silvermoon tab's pins follow the setting in place: 4.0 cards, or the 3.x buttons.
+	if ns.MH_RelayoutSMCPins then
+		ns.MH_RelayoutSMCPins()
+	end
 	if ns._mhRelayoutSidebarTabs and not ns._mhSidebarRelaying then
 		ns._mhRelayoutSidebarTabs()
 	end
@@ -1419,6 +1423,7 @@ local function AddSMCInstanceCategory()
 			id = "inst_" .. tostring(entry.key),
 			label = (ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(entry)) or entry.name or "?",
 			atlas = isRaid and raidAtlas or "Dungeon",
+			raid = isRaid and true or nil, -- picks the raids or the dungeons picture on a 4.0 card
 			instance = entry,
 			mapID = e.mapID,
 			x = e.x,
@@ -1743,6 +1748,118 @@ function ns.OpenSMCCityGuidePin(pinId)
 	end
 end
 
+--- 4.0 cards for the Silvermoon tab. Rob, 14 Sep 2026: "misschien is het een idee om die pagina ook
+--- grafisch aan te pakken"; he picked the pictures on his phone the same day and said "1 is ja 2 is
+--- nu" (the pictures may go into the repo, build it now).
+---
+--- A pin without a picture of its own keeps Blizzard's map symbol. Classic keeps the 3.x buttons
+--- exactly: 34 px, a 20 px symbol, the red template art. One local table on purpose, because this
+--- chunk already declares a great many locals and Lua 5.1 stops at 200.
+local SMCCard = {
+	ICONS = {
+		portals = "smc_portal",
+		portal_voidstorm = "smc_portal",
+		portal_harandar = "smc_portal",
+		portal_coiled_isle = "smc_portal",
+		timeways = "smc_portal",
+		-- Not the flight master's picture. Rob: "voor portals niet dezelfde iconen als voor de
+		-- flightpoints" — and a teleport is not a flight, so it got a keystone of its own.
+		mplus_teleports = "smc_keystone",
+		nearest_fp = "smc_flight",
+		bank = "smc_bank",
+		horde_bank = "smc_bank",
+		ah = "smc_auction",
+		bmah = "smc_auction",
+		horde_ah = "smc_auction",
+		inn_cooking = "smc_inn",
+		horde_inn = "smc_inn",
+		item_upgrades = "smc_upgrade",
+		-- Screen icons Rob already approved on 12 Sep, reused where the pin is that screen's subject.
+		trading_post = "tradingpost",
+		delves_hq = "delves",
+		valeera_delves = "delves",
+	},
+	FILL = { 0.153, 0.129, 0.271, 1 }, -- #272145, one step above the window colour
+	EDGE = { 0.227, 0.184, 0.408, 1 }, -- #3A2F68
+	HEIGHT = 52,
+}
+
+function SMCCard.Stem(point)
+	if point.instance then
+		return point.raid and "raids" or "dungeons"
+	end
+	local id = tostring(point.id or "")
+	if id:find("^flightmaster_") then
+		return "smc_flight"
+	end
+	return SMCCard.ICONS[id]
+end
+
+--- Paint one pin as a card (lookOn) or as the 3.x button. Creates nothing, so a switch of the Classic
+--- setting repaints the same frames in place. The label colour is left to SMCApplyPinLock and the
+--- quest tint, which run right after this in the panel's layout.
+function SMCCard.Skin(btn, point, lookOn)
+	local icon, label, sub = btn._mhSMCIcon, btn._mhSMCLabel, btn._mhSMCSub
+	btn._mhCardMode = lookOn and true or false
+	for _, t in ipairs(btn._mhSMCTemplateTex or {}) do
+		t:SetAlpha(lookOn and 0 or 1)
+	end
+	btn._mhCardEdge:SetShown(lookOn)
+	btn._mhCardFill:SetShown(lookOn)
+	btn._mhCardFill:SetColorTexture(MHUnpack4(SMCCard.FILL))
+
+	local stem = lookOn and SMCCard.Stem(point)
+	icon:ClearAllPoints()
+	icon:SetVertexColor(1, 1, 1)
+	if stem then
+		icon:SetTexture(LOOK_ICON_PATH:format(stem))
+		icon:SetTexCoord(0, 1, 0, 1)
+		icon:SetSize(36, 36)
+		icon:SetPoint("LEFT", btn, "LEFT", 8, 0)
+	else
+		local size = lookOn and 26 or 20
+		local iconSet = false
+		if point.atlas and icon.SetAtlas then
+			iconSet = select(1, pcall(icon.SetAtlas, icon, point.atlas))
+		end
+		if not iconSet then
+			icon:SetTexture("Interface\\MINIMAP\\TRACKING\\Banker")
+			icon:SetTexCoord(0, 1, 0, 1)
+		end
+		icon:SetSize(size, size)
+		-- On a card: centred in the same 36 px slot a picture gets, so every name starts at one x.
+		icon:SetPoint("LEFT", btn, "LEFT", lookOn and 13 or 8, 0)
+	end
+
+	label:ClearAllPoints()
+	sub:ClearAllPoints()
+	local subText = sub:GetText()
+	local hasSub = lookOn and subText ~= nil and subText ~= ""
+	if lookOn then
+		label:SetFontObject(GameFontNormal)
+		label:SetPoint("LEFT", btn, "LEFT", 52, hasSub and 7 or 0)
+		label:SetPoint("RIGHT", btn, "RIGHT", -8, hasSub and 7 or 0)
+		label:SetMaxLines(hasSub and 1 or 2)
+		sub:SetPoint("LEFT", btn, "LEFT", 52, -9)
+		sub:SetPoint("RIGHT", btn, "RIGHT", -8, -9)
+	else
+		label:SetFontObject(GameFontNormalSmall)
+		label:SetPoint("LEFT", icon, "RIGHT", 8, 0)
+		label:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
+		label:SetMaxLines(0)
+	end
+	sub:SetShown(hasSub and true or false)
+end
+
+--- Called when the Classic setting changes (MHApplyLookChrome). The panel builds once a session, so
+--- without this a switch would leave the other look's pins standing until the next login.
+function ns.MH_RelayoutSMCPins()
+	local sg = ns.panels and ns.panels.smcguide
+	if sg and sg._mhSMCRelayout then
+		sg._mhSMCRelayout()
+	end
+end
+
 -- Called from Guide search: open SMC tab and scroll the city list to a matching pin (no Delves.lua edits).
 function ns.JumpSMCCityGuideToPoint(point)
 	if type(point) ~= "table" then
@@ -1773,7 +1890,17 @@ function ns.JumpSMCCityGuideToPoint(point)
 		scroll:UpdateScrollChildRect()
 	end
 	local btn = point._mhWaypointButton
-	if btn and btn.LockHighlight then
+	-- A 4.0 card has no template highlight to lock (its art is faded out), so it lights its own fill.
+	if btn and btn._mhCardMode and btn._mhCardFill then
+		btn._mhCardFill:SetColorTexture(MHUnpack4(LOOK_PALETTE.active))
+		if C_Timer and C_Timer.After then
+			C_Timer.After(1.6, function()
+				if btn._mhCardMode and not btn:IsMouseOver() then
+					btn._mhCardFill:SetColorTexture(MHUnpack4(SMCCard.FILL))
+				end
+			end)
+		end
+	elseif btn and btn.LockHighlight then
 		btn:LockHighlight()
 		if C_Timer and C_Timer.After then
 			C_Timer.After(1.6, function()
@@ -2220,51 +2347,59 @@ local function BuildSMCCityGuidePanel(panel)
 	end
 
 	AddSMCInstanceCategory()
+	-- 14 Sep 2026 (4.0 cards): make every header and pin first, then place them. Placing is its own
+	-- function below because the Classic setting can change while this panel exists (it is built once
+	-- a session), and a card is taller than a 3.x button, so every y under the checklist moves.
+	local pinsTopY = y
+	local blocks = {}
 	for _, cat in ipairs(SMC_CATEGORIES) do
 		local header = scrollContent:CreateFontString(nil, "OVERLAY", "GameFontHighlightMedium")
-		header:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, -y)
 		header:SetText(CategoryTitle(cat))
-		header:SetTextColor(MH_CHROME.tabTexActive[1], MH_CHROME.tabTexActive[2], MH_CHROME.tabTexActive[3])
-		y = y + 20
 
 		local separator = scrollContent:CreateTexture(nil, "ARTWORK")
-		separator:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, -y)
-		separator:SetPoint("TOPRIGHT", scrollContent, "TOPRIGHT", 0, -y)
 		separator:SetHeight(1)
-		separator:SetColorTexture(MH_CHROME.separator[1], MH_CHROME.separator[2], MH_CHROME.separator[3], MH_CHROME.separator[4])
-		y = y + 8
 
-		local items = cat.items or {}
-		for i, point in ipairs(items) do
+		local pins = {}
+		for _, point in ipairs(cat.items or {}) do
 			local btn = CreateFrame("Button", nil, scrollContent, "UIPanelButtonTemplate")
-			btn:SetSize(btnW, BTN_H)
 			btn:SetText("")
-
-			local col = (i - 1) % cols
-			local row = math.floor((i - 1) / cols)
-			btn:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", col * (btnW + GAP_X), -y - row * (BTN_H + GAP_Y))
+			-- The template's own textures, collected before anything of ours is added: a card fades
+			-- them out and Classic shows them, the same trick MHLookButtonParts uses for chips.
+			local templateTex = {}
+			for _, region in ipairs({ btn:GetRegions() }) do
+				if region.IsObjectType and region:IsObjectType("Texture") then
+					templateTex[#templateTex + 1] = region
+				end
+			end
+			btn._mhSMCTemplateTex = templateTex
+			local edge = btn:CreateTexture(nil, "BACKGROUND", nil, -8)
+			edge:SetAllPoints()
+			edge:SetColorTexture(MHUnpack4(SMCCard.EDGE))
+			local fill = btn:CreateTexture(nil, "BACKGROUND", nil, -7)
+			fill:SetPoint("TOPLEFT", btn, "TOPLEFT", 1, -1)
+			fill:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -1, 1)
+			btn._mhCardEdge, btn._mhCardFill = edge, fill
 
 			local icon = btn:CreateTexture(nil, "ARTWORK")
-			icon:SetSize(20, 20)
-			icon:SetPoint("LEFT", btn, "LEFT", 8, 0)
-			local iconSet = false
-			if point.atlas and icon.SetAtlas then
-				iconSet = select(1, pcall(icon.SetAtlas, icon, point.atlas))
-			end
-			if not iconSet then
-				icon:SetTexture("Interface\\MINIMAP\\TRACKING\\Banker")
-			end
 
 			local label = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-			label:SetPoint("LEFT", icon, "RIGHT", 8, 0)
-			label:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
 			label:SetJustifyH("LEFT")
 			if point.action == "worldboss_week" and ns.GetActiveWorldBoss then
 				label:SetText(SMCWorldBossButtonText())
 			else
 				label:SetText(point.label)
 			end
-			label:SetTextColor(1, 0.94, 0.75)
+
+			-- The second line a card has room for: the zone an entrance lies in, since it is not in
+			-- Silvermoon. Shown on cards only; SMCCard.Skin decides.
+			local sub = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			sub:SetJustifyH("LEFT")
+			sub:SetWordWrap(false)
+			sub:SetTextColor(LOOK_PALETTE.muted[1], LOOK_PALETTE.muted[2], LOOK_PALETTE.muted[3])
+			if point.instance and C_Map and C_Map.GetMapInfo then
+				local info = C_Map.GetMapInfo(point.mapID)
+				sub:SetText(info and info.name or "")
+			end
 
 			--- ⚠️ A PIN FOR SOMETHING YOU CANNOT USE YET MUST SAY SO ON ITS FACE.
 			---
@@ -2290,22 +2425,22 @@ local function BuildSMCCityGuidePanel(panel)
 			--- settled it on his client: per-character AND account-wide both return true, quest
 			--- 96004 is the right id. A wrong-looking answer from a right function, cached at
 			--- the wrong moment. Measuring first is what stopped a pointless API swap.
-			SMCApplyPinLock(point, label, icon)
+			--- (Since 14 Sep that call, SMCApplyPinLock, runs in LayoutPins below, after the skin and
+			--- every time the pins are placed, followed by the quest tint in the same order as before.)
 
 			btn._mhSMCIcon = icon
 			btn._mhSMCLabel = label
+			btn._mhSMCSub = sub
 			panel._mhSMCWaypointButtons[#panel._mhSMCWaypointButtons + 1] = { btn, point }
-			if ns.SMC_ApplyQuestTintToWaypointButton then
-				ns.SMC_ApplyQuestTintToWaypointButton(btn, point)
-			end
-
-			point._mhNavY = y + row * (BTN_H + GAP_Y)
 			point._mhWaypointButton = btn
 
 			btn:SetScript("OnClick", function()
 				SetSMCWaypoint(point)
 			end)
 			btn:SetScript("OnEnter", function(self)
+				if self._mhCardMode then
+					self._mhCardFill:SetColorTexture(MHUnpack4(LOOK_PALETTE.active))
+				end
 				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				GameTooltip:SetText(point.label, 1, 0.9, 0.6)
 				GameTooltip:AddLine(PinDescription(point), 0.9, 0.9, 0.9, true)
@@ -2325,23 +2460,62 @@ local function BuildSMCCityGuidePanel(panel)
 				end
 				GameTooltip:Show()
 			end)
-			btn:SetScript("OnLeave", function()
+			btn:SetScript("OnLeave", function(self)
+				if self._mhCardMode then
+					self._mhCardFill:SetColorTexture(MHUnpack4(SMCCard.FILL))
+				end
 				GameTooltip:Hide()
 			end)
+			pins[#pins + 1] = { btn = btn, point = point }
 		end
-
-		local rows = math.ceil((#items) / cols)
-		if rows < 0 then
-			rows = 0
-		end
-		y = y + rows * (BTN_H + GAP_Y) + 10
+		blocks[#blocks + 1] = { header = header, separator = separator, pins = pins }
 	end
 
-	scrollContent:SetWidth(availableW)
-	scrollContent:SetHeight(math.max(1, y + 8))
-	if scroll.UpdateScrollChildRect then
-		scroll:UpdateScrollChildRect()
+	--- Place every header and pin for the look that is on right now. Classic reproduces the 3.x
+	--- geometry exactly (BTN_H 34); the 4.0 cards are SMCCard.HEIGHT. `_mhNavY` is rewritten each
+	--- time because the search jump scrolls to it.
+	local function LayoutPins()
+		local lookOn = MHLookOn()
+		local btnH = lookOn and SMCCard.HEIGHT or BTN_H
+		local hc = lookOn and LOOK_PALETTE.header or MH_CHROME.tabTexActive
+		local sc = lookOn and SMCCard.EDGE or MH_CHROME.separator
+		-- The near-black well suits the 3.x buttons; cards sit on the window colour itself.
+		smcScrollFill:SetShown(not lookOn)
+		local yy = pinsTopY
+		for _, block in ipairs(blocks) do
+			block.header:ClearAllPoints()
+			block.header:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, -yy)
+			block.header:SetTextColor(hc[1], hc[2], hc[3])
+			yy = yy + 20
+			block.separator:ClearAllPoints()
+			block.separator:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, -yy)
+			block.separator:SetPoint("TOPRIGHT", scrollContent, "TOPRIGHT", 0, -yy)
+			block.separator:SetColorTexture(sc[1], sc[2], sc[3], sc[4])
+			yy = yy + 8
+			for i, pin in ipairs(block.pins) do
+				local col = (i - 1) % cols
+				local row = math.floor((i - 1) / cols)
+				pin.btn:SetSize(btnW, btnH)
+				pin.btn:ClearAllPoints()
+				pin.btn:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", col * (btnW + GAP_X), -yy - row * (btnH + GAP_Y))
+				SMCCard.Skin(pin.btn, pin.point, lookOn)
+				SMCApplyPinLock(pin.point, pin.btn._mhSMCLabel, pin.btn._mhSMCIcon)
+				if ns.SMC_ApplyQuestTintToWaypointButton then
+					ns.SMC_ApplyQuestTintToWaypointButton(pin.btn, pin.point)
+				end
+				pin.point._mhNavY = yy + row * (btnH + GAP_Y)
+			end
+			yy = yy + math.ceil(#block.pins / cols) * (btnH + GAP_Y) + 10
+		end
+		scrollContent:SetWidth(availableW)
+		scrollContent:SetHeight(math.max(1, yy + 8))
+		if scroll.UpdateScrollChildRect then
+			scroll:UpdateScrollChildRect()
+		end
+		SyncSMCScrollBar()
 	end
+	panel._mhSMCRelayout = LayoutPins
+	LayoutPins()
 	if scroll.SetHorizontalScroll then
 		scroll:SetHorizontalScroll(0)
 	end

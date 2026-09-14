@@ -43,6 +43,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] 🆕 **The Tidebound Grotto** staat nu **onderaan de Raids-pagina**, met *"Route to The Tidebound Grotto"*
       als je hem openklapt, en ook in het blok *Dungeons & Raids* in het Silvermoon-tabblad. Het zwevende
       boss-venster toont hem nog steeds **één** keer, niet twee.
+- [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
+      en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
+      Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone
+      (M+ Teleports), kistje, weegschaal, pul en pijl. Raids en dungeons hebben hun eigen icoon, met de
+      zone eronder. Kaarten zonder eigen plaatje houden Blizzards kaartsymbool. Beweeg over een kaart →
+      hij licht op; klikken zet de route zoals altijd.
+      ❌ Zie je een **leeg vakje** waar een plaatje hoort, dan is WoW niet helemaal herstart geweest.
+- [ ] 🆕 Zet **Classic** aan (Settings) en ga terug naar het Silvermoon-tabblad: de oude rode knoppen staan
+      er weer, precies zoals in 3.x. Terug naar de nieuwe look → weer kaarten, zonder `/reload`.
+- [ ] 🆕 Typ **bank** in de zoekbalk en kies de Bank-pin: het tabblad springt naar die kaart en die licht
+      even op.
 
 ## 🆕 13 sep — geen onterechte "That area starts at level 82" meer (levels uit het spel zelf)
 

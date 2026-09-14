@@ -67,6 +67,24 @@ aan te pakken"*.
       `ns.GetRaidPageList()` (raids + lairs).
     - RaidGuide en het SMC-blok lezen die lijst. Het boss-venster blijft `ACTIVE_RAIDS` +
       de eigen registratie van de lair gebruiken, dus hij staat daar niet dubbel.
+- 🔨 **D — het Silvermoon-tabblad in kaarten: gebouwd 14 sep, nog niet in het spel gezien.** Rob gaf op
+  "mogen de plaatjes erin / nu bouwen?" als antwoord *"1 is ja 2 is nu"*.
+  - **7 nieuwe iconen** in `Media/Icons/smc_<soort>_{128,64}.png` (portal, flight, keystone, bank,
+    auction, inn, upgrade), samen 244 KB (GEMETEN).
+    - Gemaakt in ComfyUI (`basis`, dezelfde stijlzin als de 28).
+    - Rob koos ze op een telefoonpagina: artifact `b80c76fe`, db-collectie `keuzes`.
+    - Details en seeds staan in de memory `mh-icon-set`.
+    - M+ Teleports heeft een eigen keystone, want Rob wilde niet hetzelfde plaatje als bij de flight
+      masters.
+  - **`UI.lua`:**
+    - `SMCCard` bevat het icoon per pin-id en `SMCCard.Skin`.
+    - `BuildSMCCityGuidePanel` maakt nu eerst alle knoppen en plaatst ze daarna, via
+      `panel._mhSMCRelayout`.
+    - `MHApplyLookChrome` roept `ns.MH_RelayoutSMCPins` aan, dus de Classic-schakelaar wisselt live.
+    - Classic = de 3.x-maten (34 px, symbool 20 px, rode templatekunst).
+  - **`SMCChecklist.lua`:** op een kaart wordt het plaatje niet groen getint, alleen de tekst.
+  - ⚠️ Nieuwe PNG's vragen een **volledige herstart** van WoW, geen `/reload`.
+  - **Ronde 2 nog niet gedaan:** beroepen, hubs, Horde en vendors houden Blizzards symbolen.
 - ⏳ **Rob test pas vanavond** (hij werkt overdag; 's avonds eerst de Tidebound Grotto). Open voor hem: A (de
   routeknoppen en de `/run` met de ingangen), B en C, alles in TESTLIJST 14 sep.
 
