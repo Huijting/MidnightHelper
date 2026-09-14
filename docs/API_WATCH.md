@@ -1508,3 +1508,103 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     URL-string per dag verschilt.
   - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Het verdiepen van de clone hierboven is puur
     lezen.
+
+- [2026-09-14] ✅ **Geen relevante API-wijzigingen (7–14 sep). 0 × [MOET GEFIKST].** Geen hotfix sinds
+  10 sep, geen bewerkte `/API changes`-pagina sinds 6 sep, geen blue post, geen nieuw forumtopic.
+  Het enige nieuws van vandaag is groot maar niet van mij: **BlizzCon 2026 (12–13 sep) heeft
+  `World of Warcraft: Forever` aangekondigd en 12.2 "Eclipse" bevestigd** — content/roadmap, dus
+  PTR-wachter. Ik heb er wél de API-kant van gemeten, want een nieuwe client kán een nieuwe
+  `/API changes`-pagina betekenen: die bestaat nog niet. Alles via `web_fetch_exa` met cache-buster
+  (`?nocache=20260914`), plus WebSearch als tegenlezing.
+  - **GEMETEN — beide `/API changes`-pagina's onveranderd, vijfde dag op rij.** `prop=revisions` op
+    pageids 679840+705933: `Patch 12.1.0/API changes` nog steeds **revid 6860164,
+    2026-09-05T00:39:06Z, 102421 bytes** (user `Ketho`, comment "12.1.0 (69587)");
+    `Patch 12.1.5/API changes` nog steeds **revid 6863733, 2026-09-06T17:08:08Z, 25227 bytes**
+    (`/* Deprecated API */`). Byte-identiek aan 10 t/m 13 sep. **Er staat nog altijd geen enkel
+    wiki-item binnen het 7-dagenvenster**; de 12.1.0-/12.1.5-bevindingen uit sep zijn historie,
+    geen openstaand werk.
+  - 🆕 **NIEUW, NIET MIJN TERREIN, maar de API-kant is gemeten: `World of Warcraft: Forever`.**
+    Wikipagina **pageid 706932**, laatst bewerkt **2026-09-14T03:35:06Z**, **7311 bytes**. Letterlijk
+    uit de wikitext: *"announced at BlizzCon 2026 and will release on 4 November 2026"*, *"referred
+    to as Classic+"*, *"does not exist in the same continuity as modern World of Warcraft"*. Blizzards
+    eigen ceremonie-artikel (`news.blizzard.com/en-us/article/24301453`) noemt het *"our new, third
+    World of Warcraft experience alongside Modern and Classic"*, met **Beta vanaf 17 september** en
+    launch **4 november 2026**, en bevestigt **Eclipse (12.2)** als *"World of Warcraft's next major
+    update"*. Inhoud, zones, races, raids → **PTR-wachter** (`docs/PTR_12.1_WATCH.md`).
+    - **GEMETEN — er is géén addon-/API-documentatie bij:** dat hele ceremonie-artikel bevat **geen
+      UI-, addon-, API- of secure-frame-sectie**; `Patch 12.1.6/API changes`, `Patch 12.1.7/API
+      changes` en `Patch 12.2.0/API changes` zijn alle drie nog steeds **`missing`**; en
+      `intitle:"Planned API changes"` geeft **precies 1 treffer in de hele wiki** —
+      `Patch 12.0.0/Planned API changes`, laatst bewerkt **2026-06-17T06:42:29Z**, ruim buiten het
+      venster. ⚠️ **Gezien maar NIET zelf gelezen:** een WebSearch-samenvatting stelde dat Blizzard
+      "no addon details, no API notes, no addon folder path" voor Forever heeft gepubliceerd. Dat
+      dekt mijn eigen meting, maar de bron is een samenvatting (deels een boostshop-blog) —
+      **MEASURED (via search, niet zelf gelezen)**, niet als feit te citeren.
+    - **[RAAKT ONS NIET] voor de addon — MH is retail-only en vertakt nergens per client.**
+      `MidnightHelper.toc:1` is `## Interface: 120007, 120100`; een Vanilla-client krijgt de addon
+      dus niet eens te zien. **GEMETEN:** `WOW_PROJECT_ID`/`WOW_PROJECT_MAINLINE`/
+      `WOW_PROJECT_CLASSIC` over `*.lua`/`*.xml`/`*.toc` (zonder `docs/`, `tools/`) geeft **1
+      bestand, 3 treffers, alle in geleende code en alle geguard**: `Libs/LibDBIcon-1.0.lua:533`,
+      `:572`, `:607`, steeds als `if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then`. **Nul treffers in
+      onze eigen bestanden.** 📌 Zou Rob ooit een Forever-versie willen, dan is dat nieuw werk
+      (eigen `.toc`, eigen Interface-nummer) en geen migratie van bestaande code — maar er is
+      vandaag **geen enkel API-feit** om dat op te baseren.
+    - 🔴 **Positieve controle in dezelfde run, dezelfde scope:** dezelfde grep-vorm op `GetBuildInfo`
+      geeft **10+ treffers** (o.a. `Modules/SeasonTransition.lua:22`, `Modules/PtrProbe.lua:86`,
+      `Modules/InterruptScore.lua:31`) en op `C_Timer` **85 bestanden**. Het patroon vindt dus wél
+      wat er is; de nul hierboven is een echte nul.
+  - **GEMETEN — er is geen nieuwere `/API changes`-pagina.** `list=search` (`intitle:"API changes"`,
+    `srsort=last_edit_desc`, 15 van **138** treffers): nieuwst *bewerkt* zijn 12.1.5 (6 sep), 11.0.2
+    (6 sep), 12.1.0 (5 sep) en `API change summaries` (4 sep). **Niets binnen 7 dagen dat deze
+    wachter niet al gelezen heeft.**
+  - **GEMETEN — de kernpagina's staan alle stil, alle buiten het venster:** `World of Warcraft API`
+    **2026-09-04T22:38:05Z** (871833 bytes, "12.1.5 (69594)"), `Events` **2026-09-04T22:53:30Z**,
+    `Secret Values` **2026-09-04T11:56:18Z**, `Patch 12.1.5` **2026-09-03T23:11:42Z**,
+    `Patch 12.1.0` **2026-08-24T17:50:03Z**, `Secure Execution and Tainting` **2026-02-15T17:17:51Z**.
+    Alle zes byte-identiek aan gisteren.
+  - **GEMETEN — `list=recentchanges` (ns 0, 50 stuks, cache-busted).** Nieuwste bewerking
+    **2026-09-14T03:35:17Z**, dus nieuwer dan de 03:38:24Z van gisteren: **geen cache-val**. Inhoud
+    **uitsluitend content**, en bijna allemaal BlizzCon-nasleep: `World of Warcraft: Forever`,
+    `World of Warcraft: Forever Collector's Edition`, `Skyborne (playable)`, de nieuwe mounts
+    `Cerulean Prideclaw` en `Veteran Adventurer's Loyal Companion`, `Blizzcon Guide`,
+    `Warcraft III Reforged: Forsaken Kingdom`, plus quest- en NPC-pagina's. **Geen `/API changes`-,
+    `Structure `- of `Enum.`-pagina in de batch.** ⚠️ De 50 stuks dekken maar ~1,8 uur
+    (01:48–03:35Z); de dekking over de rest van de week komt van de `list=search` hierboven.
+  - **Hotfixes: nieuwste sectie nog steeds 10 september 2026 — vierde dag op rij.**
+    `news.blizzard.com/en-us/article/24296142` met cache-buster: secties **10 sep, 9 sep, 4 sep,
+    3 sep**, géén 11- t/m 14-sep-sectie. Inhoud is class tuning, Delves, dungeons/raids, PvP, Prey en
+    TBC Classic — **geen UI-, addon-, API- of secure-frame-sectie**. ⚠️ Dit is **gelijk aan**, niet
+    ouder dan, wat mijn logboek gisteren noemde, dus geen cache-val; de `recentchanges` hierboven was
+    wél nieuwer dan gisteren en bevestigt onafhankelijk dat Exa mij vandaag verse pagina's gaf.
+  - **Forum: géén nieuw topic sinds gisteren, geen API-feit, geen blue post.** Nieuwste topic is nog
+    steeds *How do i change how loot is looted into a bag?* (**2347002**, aangemaakt
+    **2026-09-12T06:22:46Z**), nu **4 posts** (was 3) en 40 views; de nieuwe post is
+    **2026-09-13T18:02:23Z** van een speler. Op 13 sep al getoetst ([RAAKT ONS NIET] voor de
+    loot-/tasvolgorde-API, [AL AFGEDEKT] voor het `C_Container`-gebruik) — vandaag niet opnieuw
+    gemeten. **GEMETEN** aan de categorie-JSON (`order=created`, cache-buster): `primary_groups` én
+    `flair_groups` zijn **leeg**, dus geen Blizzard-groep onder de deelnemers (trust levels 0–3).
+  - **Twee lopende topics ongewijzigd.** *Duration Bars setting not saving* (**2345637**): nog steeds
+    **2 posts**, laatste **2026-09-12T01:12:43Z**, nog altijd geen dev-antwoord — op 12 sep volledig
+    getoetst ([RAAKT ONS NIET] / [AL AFGEDEKT], `C_EditMode` overal geguard of in `pcall`).
+    *Addons api restrictions* (**2343904**): nog steeds **10 posts**, laatste
+    **2026-09-05T17:29:55Z**, geen blue.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per unit-token,
+    `TimedSignalMap`, `CreateFrameWithOptions`) zijn deze run **niet** opnieuw getoetst en blijven
+    staan zoals op 2/6/7/9/10 sep gemeten. Geen open actiepunt aan de addon-/API-kant.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op pageids 679840+705933 én op de titels `Patch 12.1.6`/`12.1.7`/`12.2.0`
+    `/API changes`, `World of Warcraft API`/`Secret Values`/`Events`/`Secure Execution and Tainting`
+    en `World of Warcraft: Forever`/`Patch 12.2.0`/`Patch 12.1.5`/`Patch 12.1.0`;
+    `action=parse&prop=wikitext` op `World of Warcraft: Forever`; `list=search` op
+    `intitle:"API changes"` én op `intitle:"Planned API changes"`, beide `last_edit_desc`;
+    `list=recentchanges` ns 0, 50 stuks); `news.blizzard.com/en-us/article/24296142` (hotfixes) en
+    `/24301453` (BlizzCon-ceremonie); `us.forums.blizzard.com` categorie-JSON 35 op `order=created`;
+    WebSearch (2×) als tegenlezing op 12.1.5-API-nieuws en op de BlizzCon-aankondiging. ⚠️ Directe
+    `WebFetch` op warcraft.wiki.gg / news.blizzard.com blijft **EGRESS_BLOCKED**; alles liep via Exa.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang schoon; geen van de
+    vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ `git pull --rebase origin main` gaf
+    opnieuw een `(forced update)`-regel (`+ cda339b...f28cc0d main -> origin/main`) gevolgd door
+    **`Already up to date.`** — dit is de bekende ondiepe-clone-ruis van 11/12/13 sep, geen
+    force-push: de rebase had niets te doen en er is niets verloren.
