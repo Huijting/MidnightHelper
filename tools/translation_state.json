@@ -19369,6 +19369,30 @@
    "nlNL": "ee21dd0ef0007273",
    "ptBR": "ee21dd0ef0007273"
   },
+  "SET_ALL_BLIZZARD": {
+   "deDE": "d72bf20a3298746b",
+   "esES": "d72bf20a3298746b",
+   "frFR": "d72bf20a3298746b",
+   "itIT": "d72bf20a3298746b",
+   "nlNL": "d72bf20a3298746b",
+   "ptBR": "d72bf20a3298746b"
+  },
+  "SET_ALL_INTRO": {
+   "deDE": "35c0db28e3ae72ab",
+   "esES": "35c0db28e3ae72ab",
+   "frFR": "35c0db28e3ae72ab",
+   "itIT": "35c0db28e3ae72ab",
+   "nlNL": "35c0db28e3ae72ab",
+   "ptBR": "35c0db28e3ae72ab"
+  },
+  "SET_ALL_TITLE": {
+   "deDE": "04d2e8f940a5c79c",
+   "esES": "04d2e8f940a5c79c",
+   "frFR": "04d2e8f940a5c79c",
+   "itIT": "04d2e8f940a5c79c",
+   "nlNL": "04d2e8f940a5c79c",
+   "ptBR": "04d2e8f940a5c79c"
+  },
   "SET_ARROWSIZE_DESC": {
    "deDE": "a1c600ee2f4c5d18",
    "esES": "a1c600ee2f4c5d18",
@@ -19799,12 +19823,12 @@
    "ptBR": "8279e25435224fde"
   },
   "SET_LAUNCH_BODY": {
-   "deDE": "03fbe686d7ccb3a1",
-   "esES": "03fbe686d7ccb3a1",
-   "frFR": "03fbe686d7ccb3a1",
-   "itIT": "03fbe686d7ccb3a1",
-   "nlNL": "03fbe686d7ccb3a1",
-   "ptBR": "03fbe686d7ccb3a1"
+   "deDE": "ed3abca8d1070917",
+   "esES": "ed3abca8d1070917",
+   "frFR": "ed3abca8d1070917",
+   "itIT": "ed3abca8d1070917",
+   "nlNL": "ed3abca8d1070917",
+   "ptBR": "ed3abca8d1070917"
   },
   "SET_LAUNCH_BOSSWIN": {
    "deDE": "b8d5a616b2f5efb2",
@@ -21381,6 +21405,14 @@
    "frFR": "c2a26264b6cc0175",
    "itIT": "c2a26264b6cc0175",
    "ptBR": "c2a26264b6cc0175"
+  },
+  "TAB_TAGLINE_ALLSETTINGS": {
+   "deDE": "40653b03c580ee99",
+   "esES": "40653b03c580ee99",
+   "frFR": "40653b03c580ee99",
+   "itIT": "40653b03c580ee99",
+   "nlNL": "40653b03c580ee99",
+   "ptBR": "40653b03c580ee99"
   },
   "TAB_TIER": {
    "deDE": "6dcdb8ce670b807e",

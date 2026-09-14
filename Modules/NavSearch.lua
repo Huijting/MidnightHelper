@@ -121,6 +121,7 @@ local function BuildNavIndex()
 	tab("TAB_SETTINGS", "settings", "options preferences text size font language scale")
 	-- 4.0: the show/hide list, found by what a player wants to do with a screen.
 	tab("SETTINGS_SCREENS_TITLE", "screens", "screens hide hidden show visible choose cards rooms tabs")
+	tab("SET_ALL_TITLE", "allsettings", "settings options preferences all toggles language combat alerts dungeon arrow window vault advanced")
 
 	--- The pages INSIDE the Addons tab, which were not searchable at all.
 	---

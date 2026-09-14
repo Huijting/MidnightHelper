@@ -15,6 +15,10 @@
 	4.0 (13 sep 2026): hier woont ook de Screens-pagina, de aan/uit-lijst van schermen in MH's
 	eigen look. Rob: "moet zo een settings screen niet gewoon in MH??" → "doe maar nummer 2, en
 	later nummer 3" (nummer 3 = alle instellingen in MH, na 4.0.0).
+
+	14 sep 2026, nummer 3 (Rob: "Go voor 1"): the "All settings" page below draws every setting of
+	Blizzard's main category from the shared list in Modules/SettingsDefs.lua. The big button opens
+	it; Blizzard's window keeps the same settings and gets its own button.
 ]]
 
 local _, ns = ...
@@ -353,6 +357,409 @@ function ns.RefreshScreensPanel()
 end
 
 --------------------------------------------------------------------------------
+-- All settings (nummer 3). Rob, 13 Sep 2026: "moet zo een settings screen niet gewoon in MH??";
+-- 14 Sep: "Go voor 1". Every setting of Blizzard's main Midnight Helper category, drawn from the
+-- same list (ns.GetSettingsDefs, Modules/SettingsDefs.lua) in MH's own look. A change goes through
+-- the entry's own setter, exactly as Blizzard's panel does, and is then mirrored into that panel
+-- (ns.SyncNativeSetting), so the two always agree. Labels resolve every time the page is drawn,
+-- so a language switch shows here at once; Blizzard's panel keeps its login language until
+-- /reload. Screens and Achievements keep their own pages.
+--------------------------------------------------------------------------------
+local ALL_ROW_H = 26
+local ALL_CTRL_W = 180
+local ALL_BTN_W = 26
+local allPage
+local LayoutAllSettingsPage
+
+local function AllValue(d)
+	local ok, v = pcall(d.get)
+	if not ok then
+		v = nil
+	end
+	if d.kind == "toggle" then
+		return v and true or false
+	elseif d.kind == "slider" then
+		if type(v) == "number" then
+			return v
+		end
+		return d.rec or d.min
+	end
+	if v == nil then
+		return d.default
+	end
+	return v
+end
+
+local function AllOptionLabel(d, value)
+	for _, o in ipairs(d.options or {}) do
+		if o.value == value then
+			return ns:L(o.labelKey)
+		end
+	end
+	return tostring(value or "")
+end
+
+-- ns:L returns the raw key when it exists nowhere; a missing tooltip then stays empty.
+local function AllTip(key)
+	if not key then
+		return nil
+	end
+	local s = ns:L(key)
+	if s == key then
+		return nil
+	end
+	return s
+end
+
+local function AllWrite(d, v)
+	pcall(d.set, v)
+	if ns.SyncNativeSetting then
+		ns.SyncNativeSetting(d.var, v)
+	end
+	if LayoutAllSettingsPage then
+		LayoutAllSettingsPage()
+	end
+end
+
+local function AllShowTip(row)
+	local d = row and row._def
+	if not d then
+		return
+	end
+	GameTooltip:SetOwner(row, "ANCHOR_RIGHT")
+	GameTooltip:SetText(ns:L(d.name), 1, 0.9, 0.6)
+	local tip = AllTip(d.tip)
+	if tip then
+		GameTooltip:AddLine(tip, 0.9, 0.9, 0.9, true)
+	end
+	GameTooltip:Show()
+end
+
+local function AllHideTip()
+	GameTooltip:Hide()
+end
+
+-- A slider click steps once and rounds to the step, so repeated clicks never drift the way
+-- 0.7 + 0.1 * n does in floating point.
+local function AllStep(row, dir)
+	local d = row and row._def
+	if not (d and d.kind == "slider") then
+		return
+	end
+	local v = AllValue(d) + dir * d.step
+	v = d.min + math.floor((v - d.min) / d.step + 0.5) * d.step
+	v = math.floor(v * 100 + 0.5) / 100
+	if v < d.min then
+		v = d.min
+	elseif v > d.max then
+		v = d.max
+	end
+	AllWrite(d, v)
+end
+
+-- A dropdown opens Blizzard's context menu (MenuUtil, the same one the room cards use; measured
+-- working on 12.1). Without it, a click moves to the next choice rather than doing nothing.
+local function AllOpenChoices(row)
+	local d = row and row._def
+	if not (d and d.kind == "dropdown") then
+		return
+	end
+	if MenuUtil and MenuUtil.CreateContextMenu then
+		MenuUtil.CreateContextMenu(row._value, function(_, root)
+			root:CreateTitle(ns:L(d.name))
+			for _, o in ipairs(d.options or {}) do
+				local value = o.value
+				if root.CreateRadio then
+					root:CreateRadio(ns:L(o.labelKey), function()
+						return AllValue(d) == value
+					end, function()
+						AllWrite(d, value)
+					end)
+				else
+					root:CreateButton(ns:L(o.labelKey), function()
+						AllWrite(d, value)
+					end)
+				end
+			end
+		end)
+		return
+	end
+	local opts, cur = d.options or {}, AllValue(d)
+	for i, o in ipairs(opts) do
+		if o.value == cur then
+			AllWrite(d, opts[i % #opts + 1].value)
+			return
+		end
+	end
+	if opts[1] then
+		AllWrite(d, opts[1].value)
+	end
+end
+
+local function MakeMiniButton(row, text)
+	local b = CreateFrame("Button", nil, row)
+	b:SetSize(ALL_BTN_W, 20)
+	local bg = b:CreateTexture(nil, "BACKGROUND")
+	bg:SetAllPoints()
+	b._bg = bg
+	local fs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	fs:SetPoint("CENTER")
+	fs:SetText(text)
+	b._text = fs
+	local hl = b:CreateTexture(nil, "HIGHLIGHT")
+	hl:SetAllPoints()
+	hl:SetColorTexture(1, 1, 1, 0.12)
+	b:SetScript("OnEnter", function()
+		AllShowTip(row)
+	end)
+	b:SetScript("OnLeave", AllHideTip)
+	return b
+end
+
+-- One row for every kind: a checkbox for a toggle, "-" value "+" for a slider, a choice button for
+-- a dropdown. PaintAllRow shows the parts the row's entry needs.
+local function MakeAllRow(parent)
+	local row = CreateFrame("Button", nil, parent)
+	row:SetHeight(ALL_ROW_H)
+	local box = CreateFrame("Frame", nil, row, "BackdropTemplate")
+	box:SetSize(14, 14)
+	box:SetPoint("LEFT", row, "LEFT", 2, 0)
+	box:SetBackdrop({ edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	local fill = box:CreateTexture(nil, "ARTWORK")
+	fill:SetPoint("TOPLEFT", box, "TOPLEFT", 3, -3)
+	fill:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", -3, 3)
+	local label = MakeFS(row, "GameFontHighlight")
+	label:SetWordWrap(false)
+	local hl = row:CreateTexture(nil, "HIGHLIGHT")
+	hl:SetAllPoints()
+	hl:SetColorTexture(1, 1, 1, 0.06)
+
+	local plus = MakeMiniButton(row, "+")
+	plus:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+	local minus = MakeMiniButton(row, "-")
+	local value = CreateFrame("Button", nil, row)
+	value:SetHeight(20)
+	local valueBg = value:CreateTexture(nil, "BACKGROUND")
+	valueBg:SetAllPoints()
+	local valueText = value:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	valueText:SetPoint("LEFT", value, "LEFT", 6, 0)
+	valueText:SetPoint("RIGHT", value, "RIGHT", -6, 0)
+	valueText:SetWordWrap(false)
+	local valueHl = value:CreateTexture(nil, "HIGHLIGHT")
+	valueHl:SetAllPoints()
+	valueHl:SetColorTexture(1, 1, 1, 0.12)
+	value:SetScript("OnEnter", function()
+		AllShowTip(row)
+	end)
+	value:SetScript("OnLeave", AllHideTip)
+	value:SetScript("OnClick", function()
+		AllOpenChoices(row)
+	end)
+
+	row._box, row._fill, row._label = box, fill, label
+	row._minus, row._plus, row._value, row._valueText, row._valueBg = minus, plus, value, valueText, valueBg
+	minus:SetScript("OnClick", function()
+		AllStep(row, -1)
+	end)
+	plus:SetScript("OnClick", function()
+		AllStep(row, 1)
+	end)
+	row:SetScript("OnClick", function(self)
+		local d = self._def
+		if d and d.kind == "toggle" then
+			AllWrite(d, not AllValue(d))
+		elseif d and d.kind == "dropdown" then
+			AllOpenChoices(self)
+		end
+	end)
+	row:SetScript("OnEnter", AllShowTip)
+	row:SetScript("OnLeave", AllHideTip)
+	return row
+end
+
+local function PaintAllRow(row, c)
+	local d = row._def
+	local v = AllValue(d)
+	local isToggle = d.kind == "toggle"
+	row._label:SetText(ns:L(d.name))
+	row._label:SetTextColor(c.body[1], c.body[2], c.body[3])
+	row._label:ClearAllPoints()
+	row._box:SetShown(isToggle)
+	row._minus:SetShown(d.kind == "slider")
+	row._plus:SetShown(d.kind == "slider")
+	row._value:SetShown(not isToggle)
+	if isToggle then
+		row._box:SetBackdropBorderColor(c.muted[1], c.muted[2], c.muted[3], 1)
+		row._fill:SetColorTexture(c.accent[1], c.accent[2], c.accent[3], 1)
+		row._fill:SetShown(v)
+		row._label:SetPoint("LEFT", row._box, "RIGHT", 10, 0)
+		row._label:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+		return
+	end
+	row._label:SetPoint("LEFT", row, "LEFT", 2, 0)
+	row._label:SetPoint("RIGHT", row, "RIGHT", -(ALL_CTRL_W + 12), 0)
+	row._value:ClearAllPoints()
+	row._valueText:SetTextColor(c.header[1], c.header[2], c.header[3])
+	if d.kind == "slider" then
+		for _, b in ipairs({ row._minus, row._plus }) do
+			b._bg:SetColorTexture(c.accent[1], c.accent[2], c.accent[3], 0.22)
+			b._text:SetTextColor(c.body[1], c.body[2], c.body[3])
+		end
+		row._value:SetPoint("RIGHT", row._plus, "LEFT", -4, 0)
+		row._value:SetWidth(ALL_CTRL_W - 2 * (ALL_BTN_W + 4))
+		row._minus:ClearAllPoints()
+		row._minus:SetPoint("RIGHT", row._value, "LEFT", -4, 0)
+		row._value:EnableMouse(false)
+		row._valueBg:SetColorTexture(0, 0, 0, 0)
+		row._valueText:SetJustifyH("CENTER")
+		row._valueText:SetText(d.fmt and d.fmt(v) or tostring(v))
+	else
+		row._value:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+		row._value:SetWidth(ALL_CTRL_W)
+		row._value:EnableMouse(true)
+		row._valueBg:SetColorTexture(c.accent[1], c.accent[2], c.accent[3], 0.22)
+		row._valueText:SetJustifyH("LEFT")
+		row._valueText:SetText(AllOptionLabel(d, v))
+	end
+end
+
+LayoutAllSettingsPage = function()
+	local page = allPage
+	if not page or not page:IsShown() then
+		return
+	end
+	local c = ScreenColors()
+	page._title:SetText(ns:L("SET_ALL_TITLE"))
+	page._title:SetTextColor(c.header[1], c.header[2], c.header[3])
+	page._intro:SetText(ns:L("SET_ALL_INTRO"))
+	page._intro:SetTextColor(c.muted[1], c.muted[2], c.muted[3])
+	page._blizz._text:SetText(ns:L("SET_ALL_BLIZZARD"))
+	page._blizz._text:SetTextColor(c.accent[1], c.accent[2], c.accent[3])
+	page._blizz:SetWidth((page._blizz._text:GetStringWidth() or 80) + 8)
+
+	local width = page._scroll:GetWidth()
+	if not width or width < 50 then
+		return
+	end
+	local y = 0
+	for si, section in ipairs(page._sections) do
+		local header = page._headers[si]
+		header:ClearAllPoints()
+		header:SetPoint("TOPLEFT", page._body, "TOPLEFT", 0, -y)
+		header:SetText(ns:L(section.header))
+		header:SetTextColor(c.header[1], c.header[2], c.header[3])
+		y = y + 22
+		for _, row in ipairs(section.rows) do
+			row:ClearAllPoints()
+			row:SetWidth(width)
+			row:SetPoint("TOPLEFT", page._body, "TOPLEFT", 0, -y)
+			PaintAllRow(row, c)
+			row:Show()
+			y = y + ALL_ROW_H
+		end
+		y = y + 12
+	end
+	page._body:SetSize(width, math.max(1, y))
+	-- Same as the Screens page: no scroll bar while everything fits.
+	local bar = page._scroll.ScrollBar
+	if bar then
+		local fits = y <= (page._scroll:GetHeight() or 0)
+		bar:SetShown(not fits)
+		if fits then
+			page._scroll:SetVerticalScroll(0)
+		end
+	end
+end
+
+local function BuildAllSettingsPage(settingsPanel)
+	local host = settingsPanel and settingsPanel:GetParent()
+	if allPage or not host or not ns.panels or not ns.GetSettingsDefs then
+		return
+	end
+	local page = CreateFrame("Frame", nil, host)
+	page:SetAllPoints(settingsPanel)
+	page:Hide()
+
+	local title = page:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	title:SetPoint("TOPLEFT", page, "TOPLEFT", 14, -12)
+	page._title = title
+
+	-- The way to Blizzard's window, as a link beside the title (like "Show all" on Screens).
+	local blizz = CreateFrame("Button", nil, page)
+	blizz:SetHeight(20)
+	blizz:SetPoint("LEFT", title, "RIGHT", 16, 0)
+	local blizzText = blizz:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	blizzText:SetPoint("LEFT", blizz, "LEFT", 2, 0)
+	blizz._text = blizzText
+	blizz:SetScript("OnClick", function()
+		if ns.OpenNativeSettings then
+			ns.OpenNativeSettings()
+		end
+	end)
+	blizz:SetScript("OnEnter", function(self)
+		local h = ScreenColors().header
+		self._text:SetTextColor(h[1], h[2], h[3])
+	end)
+	blizz:SetScript("OnLeave", function(self)
+		local a = ScreenColors().accent
+		self._text:SetTextColor(a[1], a[2], a[3])
+	end)
+	page._blizz = blizz
+
+	local intro = MakeFS(page, "GameFontHighlightSmall")
+	intro:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -8)
+	intro:SetPoint("RIGHT", page, "RIGHT", -20, 0)
+	page._intro = intro
+
+	local scroll = CreateFrame("ScrollFrame", nil, page, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", intro, "BOTTOMLEFT", 0, -14)
+	scroll:SetPoint("BOTTOMRIGHT", page, "BOTTOMRIGHT", -30, 10)
+	scroll.scrollBarHideable = true
+	local body = CreateFrame("Frame", nil, scroll)
+	body:SetSize(1, 1)
+	scroll:SetScrollChild(body)
+	page._scroll, page._body = scroll, body
+
+	page._sections, page._headers = {}, {}
+	for si, section in ipairs(ns.GetSettingsDefs()) do
+		page._headers[si] = body:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		local rows = {}
+		for _, d in ipairs(section.items) do
+			local row = MakeAllRow(body)
+			row._def = d
+			rows[#rows + 1] = row
+		end
+		page._sections[si] = { header = section.header, rows = rows }
+	end
+
+	allPage = page
+	page:SetScript("OnShow", LayoutAllSettingsPage)
+	scroll:SetScript("OnSizeChanged", function()
+		if page:IsShown() then
+			LayoutAllSettingsPage()
+		end
+	end)
+	ns.panels.allsettings = page
+end
+
+--- Redraws the All settings page, after a change made anywhere or a language switch.
+function ns.RefreshAllSettingsPanel()
+	if LayoutAllSettingsPage then
+		LayoutAllSettingsPage()
+	end
+end
+
+do
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		ns.RefreshAllSettingsPanel()
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Build (launcher)
 --------------------------------------------------------------------------------
 
@@ -473,16 +880,11 @@ function ns.BuildSettingsPanel(panel)
 	body:SetText(ns:L("SET_LAUNCH_BODY"))
 	track(body, "SET_LAUNCH_BODY", true)
 
-	-- Primaire knoppen: open native paneel + aanbevolen stand.
+	-- Primaire knoppen (nummer 3, 14 sep): alle instellingen hier in MH, de schermen, Blizzards
+	-- venster met dezelfde instellingen, en de aanbevolen stand.
 	local openBtn = MakeBtn(260, "SET_LAUNCH_OPEN", function()
-		if not (ns.OpenNativeSettings and ns.OpenNativeSettings()) then
-			-- In combat OpenNativeSettings already printed a "can't open in combat" note
-			-- (opening is a protected action); don't also print the API-fallback hint.
-			if not (InCombatLockdown and InCombatLockdown()) then
-				DEFAULT_CHAT_FRAME:AddMessage(
-					("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SET_LAUNCH_HINT"))
-				)
-			end
+		if ns.SelectTab then
+			ns.SelectTab("allsettings")
 		end
 	end)
 	openBtn:SetHeight(30)
@@ -496,12 +898,29 @@ function ns.BuildSettingsPanel(panel)
 	end)
 	screensBtn:SetPoint("TOPLEFT", openBtn, "BOTTOMLEFT", 0, -8)
 
+	-- The game's own Settings window still has every setting, with a search box.
+	local blizzBtn = MakeBtn(260, "SET_ALL_BLIZZARD", function()
+		if not (ns.OpenNativeSettings and ns.OpenNativeSettings()) then
+			-- In combat OpenNativeSettings already printed a "can't open in combat" note
+			-- (opening is a protected action); don't also print the API-fallback hint.
+			if not (InCombatLockdown and InCombatLockdown()) then
+				DEFAULT_CHAT_FRAME:AddMessage(
+					("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SET_LAUNCH_HINT"))
+				)
+			end
+		end
+	end)
+	blizzBtn:SetPoint("TOPLEFT", screensBtn, "BOTTOMLEFT", 0, -8)
+
 	local recBtn = MakeBtn(260, "SET_BTN_RECOMMENDED", function()
 		if ns.ApplyRecommendedSettings then
 			ns.ApplyRecommendedSettings()
 		end
+		if ns.RefreshAllSettingsPanel then
+			ns.RefreshAllSettingsPanel()
+		end
 	end)
-	recBtn:SetPoint("TOPLEFT", screensBtn, "BOTTOMLEFT", 0, -8)
+	recBtn:SetPoint("TOPLEFT", blizzBtn, "BOTTOMLEFT", 0, -8)
 
 	local hint = MakeFS(sheet, "GameFontHighlightSmall", COLOR_DIM)
 	hint:SetPoint("TOPLEFT", recBtn, "BOTTOMLEFT", 2, -12)
@@ -597,6 +1016,7 @@ function ns.BuildSettingsPanel(panel)
 	end)
 
 	BuildScreensPage(panel)
+	BuildAllSettingsPage(panel)
 end
 
 --------------------------------------------------------------------------------
