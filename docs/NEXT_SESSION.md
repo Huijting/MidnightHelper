@@ -13,7 +13,11 @@
   - Geen nieuwe `/API changes`.
 - **BlizzCon (PTR-wachter):**
   - 12.2 "Eclipse", met raid The Worldcore (eindbaas Xal'atath) en zone The Mantle Vault.
-  - Season 3: Delve-Nemesis **Astalor Bloodsworn**, **Valeera-cap naar 10** en een nieuwe M+-pool.
+  - Season 3: Delve-Nemesis **Astalor Bloodsworn**, **een hoger Valeera-maximumlevel** en een nieuwe
+    M+-pool. ⚠️ Stond hier tot 14 sep als "cap naar 10". Dat getal kwam uit een tweedehands verslag
+    (Inven Global). Blizzards eigen tekst (artikel 24298591) zegt alleen *"an increased level cap"*,
+    zonder getal; de PTR-wachter las die op 14 sep zelf. Gebruik geen 10 tot de client of Blizzard het
+    zegt.
     Kandidaten voor later, niets hardcoden.
   - *The Last Titan* in 2027.
   - *WoW Forever*: apart product, buiten MH.
