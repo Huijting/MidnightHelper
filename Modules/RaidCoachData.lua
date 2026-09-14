@@ -23,10 +23,17 @@ local _, ns = ...
 -- middenbosses (DBM-encounterID-volgorde zet Vaelgor&Ezzorak vóór Fallen-King);
 -- in-game te bevestigen. encounterID hoort bij de specifieke boss, dus auto-open
 -- klopt ongeacht de getoonde volgorde.
+-- Entrances (14 Sep 2026, Rob: "hebben wij al klikbare buttons voor de ingangen van de raids?"):
+-- mirrored from Zygor's LibRover dungeon-portal data, the same source DungeonRosterData used for
+-- the dungeon entrances. CANDIDATES until Rob's client confirms them through
+-- C_EncounterJournal.GetDungeonEntrancesForMap (docs/TESTLIJST.md, 14 sep). The Raids page
+-- routes to them with ns.RouteDungeonEntrance, which reads raid.entrance like a dungeon's.
+-- Maps: 2413 Harandar, 2405 Voidstorm, 2424 Isle of Quel'Danas, 2509 Vaults of Atal'Utek.
 local RAIDS = {
 	{
 		key = "raid_dreamrift",
 		name = "The Dreamrift",
+		entrance = { mapID = 2413, x = 61.33, y = 63.01 }, -- Harandar
 		bosses = {
 			{ key = "chimaerus", name = "Chimaerus, the Undreamt God", seedCreatureId = 256116, encounterID = 2795 },
 		},
@@ -34,6 +41,7 @@ local RAIDS = {
 	{
 		key = "raid_voidspire",
 		name = "The Voidspire",
+		entrance = { mapID = 2405, x = 45.21, y = 64.79 }, -- Voidstorm
 		bosses = {
 			{ key = "averzian",  name = "Imperator Averzian",      seedCreatureId = 240435, encounterID = 2733 },
 			{ key = "vorasius",  name = "Vorasius",                 seedCreatureId = 240434, encounterID = 2734 },
@@ -46,6 +54,7 @@ local RAIDS = {
 	{
 		key = "raid_queldanas",
 		name = "March on Quel'Danas",
+		entrance = { mapID = 2424, x = 52.60, y = 85.11 }, -- Isle of Quel'Danas
 		bosses = {
 			{ key = "beloren", name = "Belo'ren, Child of Al'ar", seedCreatureId = 240387, encounterID = 2739 },
 			{ key = "lura",    name = "Midnight Falls",           seedCreatureId = 240391, encounterID = 2740 },
@@ -63,6 +72,7 @@ local RAIDS = {
 		key = "raid_venomousabyss",
 		name = "The Venomous Abyss",
 		season = 2,
+		entrance = { mapID = 2509, x = 47.25, y = 20.51 }, -- Vaults of Atal'Utek (below the Coiled Isle)
 		--- ✅ CLIENT-VERIFIED 24 aug 2026, and now a FIELD rather than a remark. It sat in
 		--- the comment above as "journalInstanceID 1320" read out of DBM, where nothing
 		--- could use it. Rob's own `/mh ej save` returned `The Venomous Abyss  id 1320`

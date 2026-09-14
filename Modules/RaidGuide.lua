@@ -214,6 +214,22 @@ local function Relayout()
 		row.btn:Show()
 		y = y + BTN_H + 2
 
+		-- The route button sits under the raid's name while it is open, as on the Dungeons page.
+		if row.routeBtn then
+			if collapsed then
+				row.routeBtn:Hide()
+			else
+				row.routeBtn:SetText(ns:L("HOME_WB_ROUTE_BTN_FMT"):format(plainName))
+				local fs = row.routeBtn:GetFontString()
+				local textW = (fs and fs:GetStringWidth()) or 140
+				row.routeBtn:SetWidth(math.max(math.min(textW + 30, width - BODY_INDENT), 1))
+				row.routeBtn:ClearAllPoints()
+				row.routeBtn:SetPoint("TOPLEFT", ui.child, "TOPLEFT", BODY_INDENT, -y)
+				row.routeBtn:Show()
+				y = y + BTN_H + 4
+			end
+		end
+
 		if collapsed then
 			row.body:Hide()
 			if row.models then
@@ -347,7 +363,18 @@ function ns.BuildRaidsPanel(panel)
 			ns:AttachDelveTipHyperlinksToEditBox(body)
 		end
 
-		ui.rows[#ui.rows + 1] = { raid = raid, btn = btn, body = body }
+		-- 14 Sep 2026: a route to the raid's entrance, the same button the Dungeon Coach has
+		-- (ns.RouteDungeonEntrance reads raid.entrance exactly as it reads a dungeon's).
+		local routeBtn
+		if raid.entrance and ns.RouteDungeonEntrance then
+			routeBtn = CreateFrame("Button", nil, child, "UIPanelButtonTemplate")
+			routeBtn:SetHeight(BTN_H)
+			routeBtn:SetScript("OnClick", function()
+				ns.RouteDungeonEntrance(raid)
+			end)
+		end
+
+		ui.rows[#ui.rows + 1] = { raid = raid, btn = btn, body = body, routeBtn = routeBtn }
 	end
 
 	BuildModelStrips()

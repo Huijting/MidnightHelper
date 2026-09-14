@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## 🔨 14 sep — A: raid-ingangen, B: consumables, C: SMC-blok (Rob: "doe allebei, eerst A en dan B")
+
+Rob vroeg twee dingen. Of het consumable-advies voor een Mage klopt (screenshot van een andere addon:
+Light's Potential / Flask of the Magisters / Hearty Feast / Thalassian Phoenix Oil / Void-Touched). En of MH
+klikbare knoppen naar de raid-ingangen heeft. Daarna: *"ik wil ook een blok dungeons en raids erbij hebben
+in onze smc tab blad waar oa ook de portals staan, en misschien is het een idee om die pagina ook grafisch
+aan te pakken"*.
+- **A, gebouwd, nog niet gezien.** `RaidCoachData.lua` heeft nu per raid een `entrance` (Zygor LibRover,
+  kandidaat). `RaidGuide.lua` toont onder een opengeklapte raid *Route to <raid>* via
+  `ns.RouteDungeonEntrance`. Bevestigen met de `/run` op `C_EncounterJournal.GetDungeonEntrancesForMap`
+  in TESTLIJST 14 sep.
+- **B, nog te doen: consumables tegen de Season 2-gidsen.**
+  - GEMETEN voor Mage (Icy Veins en Wowhead via Exa, 14 sep): flask en potion van MH kloppen. Arcane en
+    Fire: Blood Knights + Light's Potential; Frost: Shattered Sun + Recklessness.
+  - De Magisters-flask uit Robs screenshot is bij geen van de gidsen de beste; bij MH is hij tweede keus.
+  - Wat **wel** afwijkt: het eten. MH zegt Hearty Harandar Celebration (feast) en Hearty Royal Roast;
+    de S2-gidsen zeggen Silvermoon Parade + Sanguithorn Tea.
+  - Bron van MH: `ConsumablesWowheadData.lua`, "Midnight S1, 12.0.5, 18 mei", gegenereerd door
+    `tools/generate_consumables_lua.py` uit JSON. Sinds 19 aug is alleen de healing potion bijgewerkt.
+  - wago.tools gaf 403 op WebFetch; Wowhead via Exa werkte.
+- **C, daarna:** een blok *Dungeons & Raids* in het Silvermoon-tabblad, waar de portals staan.
+  **D (misschien):** dat tabblad grafisch opknappen; eerst een voorstel aan Rob.
+
 ## ☀️ 13 sep — ochtendronde en de Spec 31-meting
 
 - **Working tree schoon vóór de pull (GEMETEN)**: geen wees-regel in een wachterbestand. Dat is de

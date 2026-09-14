@@ -7,6 +7,20 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 14 sep — routeknop naar de raid-ingangen (Rob: "doe allebei, eerst A")
+
+`/reload` is genoeg. Gebouwd, nog niet in het spel gezien.
+- [ ] **Codex → Raids → klap een raid open**: onder de naam staat nu *"Route to The Voidspire"* (enz.).
+      Klik → de pijl (of TomTom) wijst naar de ingang, net als bij de dungeons. Dicht geklapt is de knop weg.
+- [ ] **Meet de ingangen in het spel.** Plak dit in je chat en stuur me de regels die je krijgt:
+      ```
+      /run for _,m in ipairs({2413,2405,2424,2509}) do for _,e in ipairs(C_EncounterJournal.GetDungeonEntrancesForMap(m) or {}) do local x,y=e.position:GetXY() print(m,e.name,format("%.2f %.2f",x*100,y*100)) end end
+      ```
+      Onze getallen (uit Zygor): Dreamrift **2413 61.33 63.01**, Voidspire **2405 45.21 64.79**, March on
+      Quel'Danas **2424 52.60 85.11**, Venomous Abyss **2509 47.25 20.51**. Controle: bij 2413 hoort ook de
+      dungeon in Harandar te staan, ongeveer **26.24 78.09**. Staat die er, dan geeft het spel eerlijke
+      getallen.
+
 ## 🆕 13 sep — geen onterechte "That area starts at level 82" meer (levels uit het spel zelf)
 
 Rob, level 81 in Harandar, kreeg *"the enemies there are well above you"*, terwijl de mobs daar
