@@ -57,8 +57,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       er weer, precies zoals in 3.x. Terug naar de nieuwe look → weer kaarten, zonder `/reload`.
 - [ ] 🆕 Typ **bank** in de zoekbalk en kies de Bank-pin: het tabblad springt naar die kaart en die licht
       even op.
-- [ ] 🆕 **"Recommended" laat je indeling staan.** Zet Classic aan en maak de tekst groter. Druk dan op
-      Settings → *Set everything to recommended*: Classic blijft aan en de tekst blijft groot. Open daarna een
+- [ ] 🆕 **"Recommended" laat je eigen keuzes staan.** Zet Classic aan, maak de tekst groter en verberg één
+      achievement (Achievements-tab). Druk dan op Settings → *Set everything to recommended*: Classic blijft
+      aan, de tekst blijft groot en die achievement blijft verborgen. Open daarna een
       boss-venster: het grote model van de baas staat uit. (Blizzards eigen *Defaults*-knop zet wél alles
       terug; dat is bedoeld.)
 

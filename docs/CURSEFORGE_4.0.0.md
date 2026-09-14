@@ -65,9 +65,10 @@ Creation Catalyst, crests, the weekly quest givers and the PvP hub. The Classic 
   *above your level* instead of *well above you*.
 - **The feast for three tanks.** The feast advice for **Vengeance**, **Guardian** and **Brewmaster** now
   points at *Hearty Silvermoon Parade*, matching the Season 2 class guides.
-- **The Recommended button leaves your layout alone.** It used to put Classic, compact mode, text size, the
-  minimap icon, the quick bar and the arrow and boss window sizes back as well, and it switched the big boss
-  model on although that is off by default. Now it only sets the features, as it always said it would.
+- **The Recommended button leaves your own choices alone.** It used to put Classic, compact mode, text size,
+  the minimap icon, the quick bar and the arrow and boss window sizes back as well, showed every achievement
+  you had hidden again, and switched the big boss model on although that is off by default. Now it only sets
+  the features, as it always said it would.
 - **The Settings page scrolls**, so no button sticks out below a small window.
 - **The old beta checkboxes** for Codex, Guide, Macros and Role Academy are now part of the screen
   list. If you had one switched off, that screen is hidden, and one click brings it back.

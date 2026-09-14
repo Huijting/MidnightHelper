@@ -643,7 +643,8 @@ function ns.RegisterNativeSettings()
 				end)
 				Settings.CreateCheckbox(achCat, setting, nil)
 				settingObjs[variable] = setting
-				recommended[variable] = true
+				-- Not in the Recommended preset (Rob, 14 Sep 2026: "Ja dus"): which achievements show is
+				-- the player's own choice, like the Screens list. It used to show every hidden one again.
 			end
 		end
 

@@ -105,8 +105,8 @@ aan te pakken"*.
     quickBar, fontScale, guideMode, arrowSize, arrowMeters, bossScale), en het baasmodel staat aanbevolen UIT.
     Blizzards Defaults zet nog wél alles terug (bedoeld). Dezelfde reparatie staat ook op de branch
     `settings-in-mh`, dus bij het samenvoegen is "neem de branch" voor die regels goed.
-  - Opgemerkt, NIET veranderd: Recommended zet ook alle verborgen achievements weer aan (`mh_ach_*` staan in
-    de preset), terwijl Screens daar bewust buiten blijft omdat het spelerskeuzes zijn. Rob vragen.
+  - ✅ **Ook gerepareerd** (Rob: "Ja dus"): Recommended laat verborgen achievements voortaan staan. `mh_ach_*`
+    zit niet meer in de preset, net als Screens. Dit staat ook op de branch.
 - 🔨 **Nummer 3 — alle instellingen in MH: GEBOUWD op branch `settings-in-mh`, NIET in main** (Rob: "Go voor
   1", 14 sep). De branch staat op origin. Samenvoegen pas na de 4.0.0-release (reset wo 16 sep), daarna testen.
   - `16abdf9`: de 47 instellingen van Blizzards hoofdcategorie verhuisd naar `Modules/SettingsDefs.lua`
