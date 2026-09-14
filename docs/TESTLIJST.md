@@ -46,7 +46,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone
-      (M+ Teleports), kistje, weegschaal, pul en pijl. Raids en dungeons hebben hun eigen icoon, met de
+      (M+ Teleports), kistje, weegschaal, pul en pijl. En uit ronde 2: envelop (Mailbox), paspop
+      (Transmog), kristal in een kooi (Catalyst), vleugel-crest (Crest Exchange), questrol (Weekly Quest
+      Givers) en gekruiste zwaarden (PvP Hub). Ritual Site en Void Assault tonen het Rituals-icoon,
+      "World boss this week" het raid-icoon. Raids en dungeons hebben hun eigen icoon, met de
       zone eronder. Kaarten zonder eigen plaatje houden Blizzards kaartsymbool. Beweeg over een kaart →
       hij licht op; klikken zet de route zoals altijd.
       ❌ Zie je een **leeg vakje** waar een plaatje hoort, dan is WoW niet helemaal herstart geweest.
@@ -54,6 +57,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       er weer, precies zoals in 3.x. Terug naar de nieuwe look → weer kaarten, zonder `/reload`.
 - [ ] 🆕 Typ **bank** in de zoekbalk en kies de Bank-pin: het tabblad springt naar die kaart en die licht
       even op.
+- [ ] 🆕 **"Recommended" laat je indeling staan.** Zet Classic aan en maak de tekst groter. Druk dan op
+      Settings → *Set everything to recommended*: Classic blijft aan en de tekst blijft groot. Open daarna een
+      boss-venster: het grote model van de baas staat uit. (Blizzards eigen *Defaults*-knop zet wél alles
+      terug; dat is bedoeld.)
 
 ## 🆕 13 sep — geen onterechte "That area starts at level 82" meer (levels uit het spel zelf)
 

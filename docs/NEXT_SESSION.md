@@ -84,7 +84,10 @@ aan te pakken"*.
     - Classic = de 3.x-maten (34 px, symbool 20 px, rode templatekunst).
   - **`SMCChecklist.lua`:** op een kaart wordt het plaatje niet groen getint, alleen de tekst.
   - ⚠️ Nieuwe PNG's vragen een **volledige herstart** van WoW, geen `/reload`.
-  - **Ronde 2 nog niet gedaan:** beroepen, hubs, Horde en vendors houden Blizzards symbolen.
+  - ✅ **Ronde 2 in de addon** (Rob: "Op beide vragen ja", 14 sep): 6 iconen `smc_{mail,transmog,catalyst,
+    crest,weekly,pvp}` en het hergebruik uit het plan (ritual/void → `world`, world boss → `raids`), gekoppeld
+    in `SMCCard.ICONS`. De beroepen, prof-reset, crafting orders, dummies en Prey houden bewust Blizzards
+    symbolen (keuze in het plan).
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.
@@ -97,7 +100,13 @@ aan te pakken"*.
     changelog-regel weg vóór de bump.
   - ✅ "About the icons" zegt nu "The icons" in plaats van "The screen icons", zodat het ook de kaarticonen
     dekt (Rob: "4 ja").
-  - Nog open bij Rob: de twee Recommended-fouten. Zie de memory `settings-inventory-2026-09-14`.
+  - ✅ **De twee Recommended-fouten gerepareerd** (Rob: "Op beide vragen ja", 14 sep; `NativeSettings.lua`):
+    de knop slaat voortaan de indeling over (`KEEP_ON_RECOMMENDED`: openLogin, compact, classicLook, minimap,
+    quickBar, fontScale, guideMode, arrowSize, arrowMeters, bossScale), en het baasmodel staat aanbevolen UIT.
+    Blizzards Defaults zet nog wél alles terug (bedoeld). Dezelfde reparatie staat ook op de branch
+    `settings-in-mh`, dus bij het samenvoegen is "neem de branch" voor die regels goed.
+  - Opgemerkt, NIET veranderd: Recommended zet ook alle verborgen achievements weer aan (`mh_ach_*` staan in
+    de preset), terwijl Screens daar bewust buiten blijft omdat het spelerskeuzes zijn. Rob vragen.
 - 🔨 **Nummer 3 — alle instellingen in MH: GEBOUWD op branch `settings-in-mh`, NIET in main** (Rob: "Go voor
   1", 14 sep). De branch staat op origin. Samenvoegen pas na de 4.0.0-release (reset wo 16 sep), daarna testen.
   - `16abdf9`: de 47 instellingen van Blizzards hoofdcategorie verhuisd naar `Modules/SettingsDefs.lua`

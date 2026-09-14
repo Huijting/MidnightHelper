@@ -1774,10 +1774,23 @@ local SMCCard = {
 		inn_cooking = "smc_inn",
 		horde_inn = "smc_inn",
 		item_upgrades = "smc_upgrade",
+		-- Round 2, picked by Rob on his phone the same day ("Op beide vragen ja").
+		mailbox = "smc_mail",
+		transmog = "smc_transmog",
+		triam_dawnsetter = "smc_transmog",
+		creation_catalyst = "smc_catalyst",
+		horde_creation_catalyst = "smc_catalyst",
+		crest_exchange = "smc_crest",
+		maren_silverwing = "smc_crest",
+		weekly_hub = "smc_weekly",
+		pvp_hub = "smc_pvp",
 		-- Screen icons Rob already approved on 12 Sep, reused where the pin is that screen's subject.
 		trading_post = "tradingpost",
 		delves_hq = "delves",
 		valeera_delves = "delves",
+		ritual_hub = "world",
+		void_hub = "world",
+		world_boss_week = "raids",
 	},
 	FILL = { 0.153, 0.129, 0.271, 1 }, -- #272145, one step above the window colour
 	EDGE = { 0.227, 0.184, 0.408, 1 }, -- #3A2F68
