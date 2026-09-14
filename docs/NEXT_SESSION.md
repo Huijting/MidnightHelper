@@ -92,7 +92,16 @@ te testen of ik deze al gehaald heb"*.
        - pt: *Assaltos do Vazio*, maar Codex zegt *Investidas do Caos*. Blizzards echte ptBR-naam niet
          nagekeken.
        - it: *Lunargenta* en *valuta*; het bestaande tikfoutje "Lunargento" (2×) is verbeterd.
-  2. De changelog/"what's new" van 4.0 (*"Same addon, new coat of paint"*).
+  2. 🔨 **De "what's new" van 4.0, concept geschreven op 14 sep** (Rob: *"begin maar met de lijst wat is
+     er nieuw"*). Wacht op Robs oordeel.
+     - `docs/CURSEFORGE_4.0.0.md`: de CurseForge-tekst.
+     - In-game: `CHANGELOG_400_1..8` in `enUS.lua` en een 4.0.0-blok bovenaan `Modules/Changelog.lua`.
+       De popup volgt de `.toc`-versie (nog 3.11.1), dus spelers zien het blok pas na de bump. De
+       dev-stalecheck spreekt alleen met `MidnightHelperDB.changelogDevCheck`.
+     - **Nog bij de bump** (pas op Robs "go"): `.toc` Version 4.0.0 (of `v4.0.0-beta1` eerst),
+       `RELEASE_NOTES.md` = byte-kopie van `docs/CURSEFORGE_4.0.0.md`, en een blok in `CHANGELOG.md`.
+     - Alles in de tekst is in het spel gezien (TESTLIJST 12-13 sep), behalve twee dingen: de kopjes op
+       de Screens-pagina en de migratie van de beta-vinkjes. Die worden er beschreven zoals gebouwd.
   3. Nieuwe screenshots voor CF: galerijfoto 1 wordt het Me-rooster.
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
