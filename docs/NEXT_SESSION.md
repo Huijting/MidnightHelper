@@ -48,7 +48,20 @@ aan te pakken"*.
     atlas "Raid" niet bestaat.
   - De zoekrijen worden toegevoegd, niet herbouwd, omdat herbouwen de world-boss-rij van WorldBoss.lua
     zou wissen.
-  **D (misschien):** dat tabblad grafisch opknappen; eerst een voorstel aan Rob.
+  **D (misschien):** dat tabblad grafisch opknappen. Rob kreeg drie opties: dezelfde knoppen in de 4.0-kleuren,
+  kaarten per blok, of een klikbaar kaartje van Silvermoon. Advies en Robs keuze: kaarten, *"maak eerst een
+  plaatje van nummer 2"*. Het plaatje staat in `Downloads\MH_iconen_4.0_proef\_mockup_smc_kaarten.png` (scratch
+  `mh_smc_mockup.py`, palet C, WoW-lettertype FRIZQT). Wacht op zijn oordeel; er is nog niets gebouwd.
+- 📌 **Tidebound Grotto ontbreekt op de Raids-pagina** (Rob, 14 sep: *"die ik trouwens mis in MH, toch??"*,
+  gedicteerd als "Timeboud"). GEMETEN in de code:
+  - MH heeft hem als Lair-coach (`Modules/TideboundGrottoCoach.lua`, 1 baas, Nymrissa Wavecaller) in het
+    zwevende boss-venster.
+  - Hij staat niet in `RaidCoachData.lua` RAIDS, dus niet op Codex → Raids, niet in het nieuwe SMC-blok, en
+    zonder routeknop.
+  - Zygor-kandidaat voor de ingang: **The Coiled Isle 2512, 59.57 / 66.33** (LibRover `data_dungeons.lua:866`).
+  - Nog niet gebouwd; eerst Robs ja.
+- ⏳ **Rob test pas vanavond** (hij werkt overdag; 's avonds eerst de Tidebound Grotto). Open voor hem: A (de
+  routeknoppen en de `/run` met de ingangen), B en C, alles in TESTLIJST 14 sep.
 
 ## ☀️ 13 sep — ochtendronde en de Spec 31-meting
 
