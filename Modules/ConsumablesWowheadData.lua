@@ -10,7 +10,7 @@ ns.ConsumablesWowheadMeta = {
 	gameVersion = "12.0.5",
 	contentPhase = "Midnight Season 1",
 	generatedAt = "2026-05-18",
-	patchedSince = "2026-08-19: Season 2 health potion (Concentrated Silvermoon) only",
+	patchedSince = "2026-08-19: Season 2 health potion (Concentrated Silvermoon); 2026-09-14: checked against Icy Veins 12.1 - flask and combat potion agree for all specs, primary-stat feast first for Vengeance, Guardian and Brewmaster",
 }
 
 ns.ConsumablesWowheadByClassSpec = {}
@@ -181,9 +181,9 @@ ns.ConsumablesWowheadByClassSpec.DEMONHUNTER = {
 			noteKey = "CONS_NOTE_02",
 		},
 		feast = {
-			best = { 242745 },
-			alternates = { 242273, 266996 },
-			noteKey = "CONS_NOTE_09",
+			best = { 266985 },
+			alternates = { 255845, 266996, 242745, 242273 },
+			noteKey = "CONS_NOTE_07",
 		},
 		personalFood = {
 			best = { 242747 },
@@ -332,9 +332,9 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 			noteKey = "CONS_NOTE_02",
 		},
 		feast = {
-			best = { 242745 },
-			alternates = { 242273, 266996 },
-			noteKey = "CONS_NOTE_09",
+			best = { 266985 },
+			alternates = { 255845, 266996, 242745, 242273 },
+			noteKey = "CONS_NOTE_07",
 		},
 		personalFood = {
 			best = { 242747 },
@@ -751,9 +751,9 @@ ns.ConsumablesWowheadByClassSpec.MONK = {
 			noteKey = "CONS_NOTE_02",
 		},
 		feast = {
-			best = { 242745 },
-			alternates = { 242273, 266996 },
-			noteKey = "CONS_NOTE_09",
+			best = { 266985 },
+			alternates = { 255845, 266996, 242745, 242273 },
+			noteKey = "CONS_NOTE_07",
 		},
 		personalFood = {
 			best = { 242747 },

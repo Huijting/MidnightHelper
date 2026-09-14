@@ -7,6 +7,14 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 14 sep — consumables nagelopen tegen Season 2 (B)
+
+`/reload` is genoeg. Alleen het eten van drie tanks is veranderd.
+- [ ] **Tools → Consumables**, kies bij de specs **Vengeance Demon Hunter**, **Guardian Druid** of
+      **Brewmaster Monk**: bij *Feast* staat nu **Hearty Silvermoon Parade** voorop, met de uitleg *"Primary-stat
+      feast is the safe group default."* De Blooming Feast staat er nog, als tweede keus.
+- [ ] **Een willekeurige andere spec** (bv. je eigen Protection Paladin): daar is niets veranderd.
+
 ## 🆕 14 sep — routeknop naar de raid-ingangen (Rob: "doe allebei, eerst A")
 
 `/reload` is genoeg. Gebouwd, nog niet in het spel gezien.

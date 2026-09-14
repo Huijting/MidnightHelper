@@ -11,7 +11,7 @@ aan te pakken"*.
   kandidaat). `RaidGuide.lua` toont onder een opengeklapte raid *Route to <raid>* via
   `ns.RouteDungeonEntrance`. Bevestigen met de `/run` op `C_EncounterJournal.GetDungeonEntrancesForMap`
   in TESTLIJST 14 sep.
-- **B, nog te doen: consumables tegen de Season 2-gidsen.**
+- 🔨 **B, gebouwd 14 sep, nog niet in het spel gezien: consumables tegen de Season 2-gidsen.**
   - GEMETEN voor Mage (Icy Veins en Wowhead via Exa, 14 sep): flask en potion van MH kloppen. Arcane en
     Fire: Blood Knights + Light's Potential; Frost: Shattered Sun + Recklessness.
   - De Magisters-flask uit Robs screenshot is bij geen van de gidsen de beste; bij MH is hij tweede keus.
@@ -20,6 +20,23 @@ aan te pakken"*.
   - Bron van MH: `ConsumablesWowheadData.lua`, "Midnight S1, 12.0.5, 18 mei", gegenereerd door
     `tools/generate_consumables_lua.py` uit JSON. Sinds 19 aug is alleen de healing potion bijgewerkt.
   - wago.tools gaf 403 op WebFetch; Wowhead via Exa werkte.
+  - **Uitkomst (GEMETEN met `tools/check_consumables.py` + scratch `mh_food_sections.py`, Icy Veins 12.1):**
+    - Flask en combat potion kloppen bij alle 39 specs.
+    - Het eten "verschilde" bij 19 specs, maar vrijwel steeds was dat Harandar Celebration tegenover
+      Silvermoon Parade. Die geven hetzelfde (Hearty: +50 primary stat, +98 Stamina; Wowhead 266996 en
+      266985), dus dat is geen fout.
+    - Echt anders waren drie tanks: Vengeance, Guardian en Brewmaster hadden Hearty Blooming Feast
+      (secondary) voorop, terwijl hun pagina's een primary-stat feast zeggen. Die zijn omgezet naar
+      Hearty Silvermoon Parade, met de Blooming Feast als tweede keus en noteKey CONS_NOTE_07 (bestaande
+      tekst, 7 talen). Blood DK, Prot Paladin en Prot Warrior zeggen "allebei goed" en houden het hunne.
+    - Werkwijze: eerst is gemeten dat generator + `apply_cons_note_keys` de huidige Lua exact reproduceren
+      (alleen regeleinden anders). Daarna de JSON aangepast via scratch `mh_tank_feast_fix.py`, die het
+      blok van de DPS-broer kopieert, en opnieuw gegenereerd (16 keys, 0 nieuw). Na afloop geven Vengeance
+      en Guardian 0 verschillen; bij Brewmaster zijn er nog 2, die van het script komen: de healing-potion-
+      naam, en "Royal Roast" dat als deel van "Impossibly Royal Roast" wegvalt.
+    - Niet gemeten: 6 pagina's hebben geen Food Buff-sectie (Disc, de 3 Warlocks, Arms en Fury).
+    - Gezien maar niet opgenomen: Wowhead noemt voor Arcane *Sanguithorn Tea* naast de feast ("they
+      stack!"). Dat past niet in ons schema (geen drank-categorie).
 - **C, daarna:** een blok *Dungeons & Raids* in het Silvermoon-tabblad, waar de portals staan.
   **D (misschien):** dat tabblad grafisch opknappen; eerst een voorstel aan Rob.
 

@@ -5,7 +5,7 @@
     "primarySource": "https://www.wowhead.com",
     "generatedAt": "2026-05-18",
     "localeItemNames": "enUS",
-    "patchedSince": "2026-08-19: Season 2 health potion (Concentrated Silvermoon) only"
+    "patchedSince": "2026-08-19: Season 2 health potion (Concentrated Silvermoon); 2026-09-14: checked against Icy Veins 12.1 - flask and combat potion agree for all specs, primary-stat feast first for Vengeance, Guardian and Brewmaster"
   },
   "Death Knight": {
     "Blood": {
@@ -682,24 +682,34 @@
       "feast": {
         "best": [
           {
-            "id": 242745,
-            "name": "Hearty Blooming Feast",
-            "wowheadUrl": "https://www.wowhead.com/item=242745"
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
         "alternates": [
           {
-            "id": 242273,
-            "name": "Blooming Feast",
-            "wowheadUrl": "https://www.wowhead.com/item=242273"
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
           },
           {
             "id": 266996,
             "name": "Hearty Harandar Celebration",
             "wowheadUrl": "https://www.wowhead.com/item=266996"
+          },
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          },
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
           }
         ],
-        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+        "noteEn": "Primary-stat feast is the safe group default."
       },
       "personalFood": {
         "best": [
@@ -1298,24 +1308,34 @@
       "feast": {
         "best": [
           {
-            "id": 242745,
-            "name": "Hearty Blooming Feast",
-            "wowheadUrl": "https://www.wowhead.com/item=242745"
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
         "alternates": [
           {
-            "id": 242273,
-            "name": "Blooming Feast",
-            "wowheadUrl": "https://www.wowhead.com/item=242273"
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
           },
           {
             "id": 266996,
             "name": "Hearty Harandar Celebration",
             "wowheadUrl": "https://www.wowhead.com/item=266996"
+          },
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          },
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
           }
         ],
-        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+        "noteEn": "Primary-stat feast is the safe group default."
       },
       "personalFood": {
         "best": [
@@ -3019,24 +3039,34 @@
       "feast": {
         "best": [
           {
-            "id": 242745,
-            "name": "Hearty Blooming Feast",
-            "wowheadUrl": "https://www.wowhead.com/item=242745"
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
         "alternates": [
           {
-            "id": 242273,
-            "name": "Blooming Feast",
-            "wowheadUrl": "https://www.wowhead.com/item=242273"
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
           },
           {
             "id": 266996,
             "name": "Hearty Harandar Celebration",
             "wowheadUrl": "https://www.wowhead.com/item=266996"
+          },
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          },
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
           }
         ],
-        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+        "noteEn": "Primary-stat feast is the safe group default."
       },
       "personalFood": {
         "best": [
