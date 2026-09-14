@@ -95,8 +95,10 @@ aan te pakken"*.
     in-game changelog (`CHANGELOG_400_9..11`).
   - ⚠️ De voorstellen hangen aan Robs test van vanavond. Valt er één af, haal dan die sectie én die
     changelog-regel weg vóór de bump.
-  - Nog open, Rob beslist: "About the icons" noemt alleen de schermiconen, terwijl de 7 kaarticonen op
-    dezelfde manier gemaakt zijn.
+  - ✅ "About the icons" zegt nu "The icons" in plaats van "The screen icons", zodat het ook de kaarticonen
+    dekt (Rob: "4 ja").
+  - Nog open bij Rob: nummer 3 (alle instellingen in MH, in een aparte kopie, samenvoegen na woensdag) en de
+    twee Recommended-fouten. Zie de memory `settings-inventory-2026-09-14`.
 - ⏳ **Rob test pas vanavond** (hij werkt overdag; 's avonds eerst de Tidebound Grotto). Open voor hem: A (de
   routeknoppen en de `/run` met de ingangen), B en C, alles in TESTLIJST 14 sep.
 

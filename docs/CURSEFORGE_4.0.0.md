@@ -75,7 +75,7 @@ native speaker has checked them yet, so corrections are very welcome.
 
 ## About the icons
 
-The screen icons were generated locally with an open image model (Z-Image Turbo) from text prompts,
+The icons were generated locally with an open image model (Z-Image Turbo) from text prompts,
 then picked and cropped by us. No Blizzard artwork was used as input for the icons.
 
 ## What we are working on next
