@@ -80,8 +80,24 @@ aan te pakken"*.
     - Wowhead (bijgewerkt 18 aug), Method, Wowcarry (26 aug, met de hotfix van 25 aug) en Overgear.
       Die zijn AFGELEID, dus niet zelf gezien.
   - Wij hebben het gevecht nog niet zelf gelopen: aanvullen met Robs Normal-run van 14 sep 's avonds.
-  - **Idee van Rob:** alle instances nalopen, en tips per moeilijkheid (LFR/Normal/Heroic/Mythic). Het plan
-    ligt bij Rob; wacht op zijn keuze.
+  - **Besluit Rob (14 sep): "Ik ga van jou advies uit".**
+    - Alle instances nalopen.
+    - Tips per moeilijkheid op manier **A**: één tekst met kopjes als "Op Heroic en Mythic: …", zoals
+      Nymrissa nu.
+    - Manier **B** (het boss-venster toont alleen jouw moeilijkheid) komt later, en alleen voor raids.
+    - LFR krijgt geen eigen tekst; dat is ≈ Normal.
+  - **Audit gestart op 14 sep rond 17:00**, met 4 hulpen die alleen lezen:
+    1. Dreamrift + Voidspire
+    2. March on Quel'Danas + Venomous Abyss
+    3. de dungeons uit de S2 M+-pool
+    4. Sporefall + de ritual-bazen
+
+    De uitkomst gaat naar een reviewpagina op de telefoon, waar Rob per baas aantikt wat er moet
+    gebeuren. Daarna herschrijven in 7 talen; het bouwscript is `mh_audit_page.py`.
+  - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):
+    - Van de 39 onbevestigde ids zijn er 38 van delves, en DBM heeft geen delve-mods.
+    - De laatste is een bewuste keep: Ula'tek 1300685.
+    - De DGN_TIP-ids waren op 3 sep allemaal goed.
 - 🔨 **D — het Silvermoon-tabblad in kaarten: gebouwd 14 sep, nog niet in het spel gezien.** Rob gaf op
   "mogen de plaatjes erin / nu bouwen?" als antwoord *"1 is ja 2 is nu"*.
   - **7 nieuwe iconen** in `Media/Icons/smc_<soort>_{128,64}.png` (portal, flight, keystone, bank,
