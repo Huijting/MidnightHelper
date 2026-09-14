@@ -85,6 +85,18 @@ aan te pakken"*.
   - **`SMCChecklist.lua`:** op een kaart wordt het plaatje niet groen getint, alleen de tekst.
   - ⚠️ Nieuwe PNG's vragen een **volledige herstart** van WoW, geen `/reload`.
   - **Ronde 2 nog niet gedaan:** beroepen, hubs, Horde en vendors houden Blizzards symbolen.
+- ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
+  GEMETEN in de db, zie de memory `mh40-review-page`).
+  - Alle 9 secties vond hij goed.
+  - De 4 voorstellen van vandaag gaan erin.
+  - Bij de naamvraag schreef hij **TwelveInchy**, dus de schatfix noemt nu TwelveInchy in plaats van
+    "a player".
+  - Verwerkt in `docs/CURSEFORGE_4.0.0.md` (3 nieuwe secties en een feast-regel bij Fixes) en in het
+    in-game changelog (`CHANGELOG_400_9..11`).
+  - ⚠️ De voorstellen hangen aan Robs test van vanavond. Valt er één af, haal dan die sectie én die
+    changelog-regel weg vóór de bump.
+  - Nog open, Rob beslist: "About the icons" noemt alleen de schermiconen, terwijl de 7 kaarticonen op
+    dezelfde manier gemaakt zijn.
 - ⏳ **Rob test pas vanavond** (hij werkt overdag; 's avonds eerst de Tidebound Grotto). Open voor hem: A (de
   routeknoppen en de `/run` met de ingangen), B en C, alles in TESTLIJST 14 sep.
 

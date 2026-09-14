@@ -35,16 +35,35 @@ working. **This Week** and **Settings** always stay.
 In Blizzard's settings for Midnight Helper, tick **Classic look (as in 3.x)**. Every screen goes back
 exactly as it was, with the long tab list. Untick it for the new look again.
 
+## Raids: The Tidebound Grotto, and a route to every door
+
+The Raids page now lists **The Tidebound Grotto** as well, below the four raids. Open a raid and a
+*Route to ...* button sets a waypoint to its entrance, the same button the Dungeons page already had.
+
+## Silvermoon City: Dungeons & Raids
+
+The Silvermoon City screen, where the portals are, has a new **Dungeons & Raids** block: The Dreamrift,
+The Voidspire, March on Quel'Danas, The Venomous Abyss, The Tidebound Grotto and the Midnight dungeons,
+each one click away from a route to its entrance.
+
+## Silvermoon City in cards
+
+In the new look the Silvermoon City screen shows its places as cards, with new icons for portals, flight
+masters, M+ teleports, the bank, the auction house, the inn and item upgrades. The Classic look keeps the
+buttons from 3.x.
+
 ## Fixes
 
 - **Two Inscription treasures in Harandar showed each other's state.** *Intrepid Explorer's Marker*
   and *Leftover Sanguithorn Pigment* had swapped quest IDs, so picking up one ticked the other. Found
-  because a player picked up the Marker and the addon still showed a red cross; the Pigment was then
+  because TwelveInchy picked up the Marker and the addon still showed a red cross; the Pigment was then
   still lying in the world. All 88 profession treasures were checked; these two were the only pair.
 - **No more "That area starts at level 82" in Harandar at level 81.** The level for a zone came from
   a levelling guide. It now comes from the game itself: Eversong Woods, Zul'Aman, Harandar and
   Voidstorm all scale from 80 to 90, and only the Coiled Isle starts at 90. The warning also says
   *above your level* instead of *well above you*.
+- **The feast for three tanks.** The feast advice for **Vengeance**, **Guardian** and **Brewmaster** now
+  points at *Hearty Silvermoon Parade*, matching the Season 2 class guides.
 - **The Settings page scrolls**, so no button sticks out below a small window.
 - **The old beta checkboxes** for Codex, Guide, Macros and Role Academy are now part of the screen
   list. If you had one switched off, that screen is hidden, and one click brings it back.
