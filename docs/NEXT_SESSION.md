@@ -94,6 +94,16 @@ aan te pakken"*.
 
     De uitkomst gaat naar een reviewpagina op de telefoon, waar Rob per baas aantikt wat er moet
     gebeuren. Daarna herschrijven in 7 talen; het bouwscript is `mh_audit_page.py`.
+  - ✅ **Audit klaar (14 sep ~17:30):** https://claude.ai/code/artifact/ab99b0fd-3e38-4a7d-80fe-e3136cd93f50
+    (db-collectie `audit`). Details en rode draden staan in de memory `instance-tips-audit-2026-09-14`.
+    - **Uitkomst:** 51 punten: 24 fout, 23 ontbreekt, 3 onzeker, 1 klopt.
+    - **De spell-ids kloppen, de inhoud vaak niet.** Soms staat er precies het omgekeerde van wat je moet
+      doen: Vorasius, Sszorak, Coiled Altar, Hoardmonger, Zul'jan en Kystia.
+    - **Kings' Rest, Temple of Sethraliss en Ruby Life Pools (S2 M+) hebben geen tips** (GEMETEN).
+    - **Codefout, GEMETEN, nog niet gerepareerd:** `SporefallCoach.lua` matcht encounter 2711 in plaats van
+      3159, en npc 254176 in plaats van 238693.
+    - **Volgende stap:** Rob tikt per baas aan. Daarna herschrijven op manier A, in 7 talen, met drift
+      `--mark`.
   - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):
     - Van de 39 onbevestigde ids zijn er 38 van delves, en DBM heeft geen delve-mods.
     - De laatste is een bewuste keep: Ula'tek 1300685.
