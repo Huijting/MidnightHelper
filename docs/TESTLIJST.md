@@ -43,6 +43,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] 🆕 **The Tidebound Grotto** staat nu **onderaan de Raids-pagina**, met *"Route to The Tidebound Grotto"*
       als je hem openklapt, en ook in het blok *Dungeons & Raids* in het Silvermoon-tabblad. Het zwevende
       boss-venster toont hem nog steeds **één** keer, niet twee.
+- [ ] 🆕 **Nieuwe tips voor Nymrissa (Tidebound Grotto).** Raids-pagina → The Tidebound Grotto, en het
+      boss-venster tijdens het gevecht. Er staat nu:
+      - murlocs doden vóór ze bij de bel zijn;
+      - in het gat tussen de draaikolken staan;
+      - bij de knal niet het water in;
+      - ijsbollen op Normal niet aanraken;
+      - tank: defensive op Iceblade Flurry.
+      Klopt dat met wat je zag? Wat mist er, of wat is fout? Het komt uit de live-gidsen en DBM; wij zijn het
+      nog niet zelf gelopen.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

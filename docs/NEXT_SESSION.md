@@ -67,6 +67,21 @@ aan te pakken"*.
       `ns.GetRaidPageList()` (raids + lairs).
     - RaidGuide en het SMC-blok lezen die lijst. Het boss-venster blijft `ACTIVE_RAIDS` +
       de eigen registratie van de lair gebruiken, dus hij staat daar niet dubbel.
+- 🔨 **Nymrissa-tips herschreven** (14 sep, Rob: "Is goed"), in 7 talen, in `Locales/RitualTips.lua`,
+  script `mh_nymrissa_tips.py`.
+  - **Wat er fout was aan de oude PTR-tekst:**
+    - De tanktip klopte niet voor Normal: Iceblade Flurry is geen lijn, en Water Jet is alleen Mythic.
+    - De 10-minuten-enrage heette "soft", terwijl DBM hem als berserk van 600 s heeft: dat is de harde.
+    - Er stond nog een verlopen zin over de opening.
+  - **Wat er nu in staat:** murlocs vóór de bel, het gat tussen de draaikolken, de knal met haaien, de
+    ijsbollen per moeilijkheid, en aparte tips voor tank, healer en dps.
+  - **Bronnen:**
+    - De DBM-mod, rev 20260902, op schijf (GEMETEN).
+    - Wowhead (bijgewerkt 18 aug), Method, Wowcarry (26 aug, met de hotfix van 25 aug) en Overgear.
+      Die zijn AFGELEID, dus niet zelf gezien.
+  - Wij hebben het gevecht nog niet zelf gelopen: aanvullen met Robs Normal-run van 14 sep 's avonds.
+  - **Idee van Rob:** alle instances nalopen, en tips per moeilijkheid (LFR/Normal/Heroic/Mythic). Het plan
+    ligt bij Rob; wacht op zijn keuze.
 - 🔨 **D — het Silvermoon-tabblad in kaarten: gebouwd 14 sep, nog niet in het spel gezien.** Rob gaf op
   "mogen de plaatjes erin / nu bouwen?" als antwoord *"1 is ja 2 is nu"*.
   - **7 nieuwe iconen** in `Media/Icons/smc_<soort>_{128,64}.png` (portal, flight, keystone, bank,
