@@ -343,10 +343,28 @@ function ns.SyncNativeSetting(variable, value)
 	end
 end
 
+--- The player's own layout, not a feature preference: Recommended leaves these alone, as the note
+--- above and SET_RECOMMENDED_TT always promised. Until 14 Sep 2026 it did not. It also put Classic,
+--- compact mode, text size, the minimap icon, the quick bar, the guide mode and the arrow and boss
+--- window sizes back, so a Classic player who pressed it lost the Classic look. Blizzard's own
+--- Defaults button still resets everything; that is what "defaults" means there.
+local KEEP_ON_RECOMMENDED = {
+	mh_openLogin = true,
+	mh_compact = true,
+	mh_classicLook = true,
+	mh_minimapIcon = true,
+	mh_quickBar = true,
+	mh_fontScale = true,
+	mh_guideMode = true,
+	mh_arrowSize = true,
+	mh_arrowMeters = true,
+	mh_bossScale = true,
+}
+
 function ns.ApplyRecommendedSettings()
 	for variable, val in pairs(recommended) do
 		local s = settingObjs[variable]
-		if s and s.SetValue then
+		if s and s.SetValue and not KEEP_ON_RECOMMENDED[variable] then
 			pcall(s.SetValue, s, val)
 		end
 	end

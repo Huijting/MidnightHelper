@@ -208,11 +208,13 @@ local function Build()
 	end, function(v)
 		if ns.SetBossWindowAutoOpenEnabledFor then ns.SetBossWindowAutoOpenEnabledFor("raid", v) end
 	end, true)
+	-- Recommended OFF since 14 Sep 2026: the module's own default is off
+	-- (IsBossWindowModelEnabled reads showModel == true), and Recommended used to switch it back on.
 	Toggle("mh_bossModel", "SET_BOSSWIN_MODEL_TITLE", "SET_BOSSWIN_MODEL_DESC", function()
 		return ns.IsBossWindowModelEnabled and ns.IsBossWindowModelEnabled()
 	end, function(v)
 		if ns.SetBossWindowModelEnabled then ns.SetBossWindowModelEnabled(v) end
-	end, true)
+	end, false)
 	Toggle("mh_bossSpotlight", "SET_BOSSWIN_SPOTLIGHT_TITLE", "SET_BOSSWIN_SPOTLIGHT_DESC", function()
 		return ns.IsBossWindowThumbEnabled and ns.IsBossWindowThumbEnabled()
 	end, function(v)
