@@ -60,6 +60,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Beweeg erover: de tooltip legt uit wat hij doet.
       - Staat hij in de weg, of past de tekst niet? Zeg het; we besluiten later of hij daar blijft.
 - [ ] 🆕 Silvermoon: de kaart heet nu **Theremis — Reset specializations** (er stond "…resetten").
+- [ ] 🆕 **About leest nu tot het eind** (Robs screenshot, 15 sep: de tekst stopte bij "locatio…"). Klik op
+      *About*: het venster is nu zo hoog als de tekst. Je hoort de hele dankregel te zien, tot en met "…no code
+      from these addons is used." Klik ook op *Info* bij een paar tabbladen: ook daar mag niets meer afgekapt
+      zijn, en een kort Info-venster blijft even groot als eerst.
 - [x] ✅ **Rob 15 sep: "deze werkt"**, met een screenshot van Farthik in de nieuwe look: violette kaart, lila rand,
       model en gele hint. ❓ Nog open: beweegt het model, en hoe ziet Classic eruit?
 - [ ] 🆕 **De popup "Rare nearby" in de nieuwe look** (Rob, 15 sep: "eerst de popup"). `/reload` en typ

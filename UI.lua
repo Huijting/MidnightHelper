@@ -990,7 +990,8 @@ function ns:ApplyCompactMode()
 	end
 	if refs.infoWindow and refs.infoWindow.SetWidth then
 		refs.infoWindow:SetWidth(m.infoWindowWidth)
-		refs.infoWindow:SetHeight(m.infoWindowHeight)
+		-- Keep a height fitted to the text (see _mhRefreshSidePanel); only the minimum comes from here.
+		refs.infoWindow:SetHeight(math.max(m.infoWindowHeight, refs.infoWindow._mhFitHeight or 0))
 	end
 	if refs.reanchorInfoWindow then
 		refs.reanchorInfoWindow()
@@ -3567,7 +3568,9 @@ function ns:EnsureMainUI()
 	local infoBody = infoWindow:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	infoBody:SetPoint("TOPLEFT", infoTitle, "BOTTOMLEFT", 0, -10)
 	infoBody:SetPoint("TOPRIGHT", infoWindow, "TOPRIGHT", -12, -10)
-	infoBody:SetPoint("BOTTOMLEFT", infoWindow, "BOTTOMLEFT", 12, 12)
+	-- No bottom anchor (15 Sep 2026): the body sizes itself to its text and the window grows to
+	-- fit it in _mhRefreshSidePanel. Pinned to a fixed 210 px window, the About text ended in
+	-- "locatio..." on Rob's screen and the rest was unreadable.
 	infoBody:SetJustifyH("LEFT")
 	infoBody:SetJustifyV("TOP")
 	infoBody:SetWordWrap(true)
@@ -3606,6 +3609,17 @@ function ns:EnsureMainUI()
 			local tabName = self:L(TAB_LABEL_BY_ID[tabId] or keyById[tabId] or "TAB_HOME")
 			infoTitle:SetText(self:L("INFO_DRAWER_TITLE_FMT"):format(tabName))
 			infoBody:SetText(self:L(MHGetInfoBodyKeyForTab(tabId)))
+		end
+		-- Grow the window to its text: never below the layout's height, never above 70% of the
+		-- screen. The fitted height is kept on the frame so a relayout does not shrink it back.
+		do
+			local titleH = (infoTitle.GetStringHeight and infoTitle:GetStringHeight()) or 14
+			local bodyH = (infoBody.GetStringHeight and infoBody:GetStringHeight()) or 0
+			local want = math.ceil(12 + titleH + 10 + bodyH + 14)
+			local maxH = ((UIParent.GetHeight and UIParent:GetHeight()) or 800) * 0.7
+			local h = math.max(MHGetLayoutMetrics().infoWindowHeight, math.min(want, maxH))
+			infoWindow._mhFitHeight = h
+			infoWindow:SetHeight(h)
 		end
 		local infoToggleKey = (infoWindow:IsShown() and mode == "info") and "INFO_DRAWER_TOGGLE_HIDE" or "INFO_DRAWER_TOGGLE_SHOW"
 		infoToggleBtn:SetText(self:EscapeButtonAmpersand(self:L(infoToggleKey)))

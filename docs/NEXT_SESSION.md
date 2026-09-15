@@ -186,7 +186,16 @@ aan te pakken"*.
       - ⚠️ `smc_pins_without_icon.py` las `SMCCard.ICONS` als leeg (foute inspringing in de regex); de 4 zijn
         met de hand vergeleken, dus AFGELEID.
       - Theremis-label: "…resetten" → "Reset specializations".
-    - **EXBoss** (Robs vraag 15 sep):
+    - ✅ **About/Info-venster kapte tekst af** (Robs screenshot 15 sep: "locatio…"). Het venster was vast 210 px
+      en het tekstvak zat onderaan vast.
+      - Nu heeft het tekstvak geen onderanker meer, en `_mhRefreshSidePanel` maakt het venster zo hoog als de
+        tekst: minimaal de layout-hoogte, maximaal 70% van het scherm.
+      - `_mhFitHeight` overleeft een relayout.
+      - Nog niet in het spel gezien.
+      - Bijvangst (GEMETEN): de dankregel staat alleen in enUS en nlNL. de/fr/es/pt/it missen die alinea helemaal;
+        die gaat mee als de EXBoss-regel verandert.
+    - **EXBoss** (Robs vraag 15 sep; Rob opnieuw na zijn reload: *"exboss staat er nog steeds in"*): blok 2 (de 9
+      S1-bazen) is gestart, zodat de EXBoss-notities en daarna de dankregel weg kunnen.
       - Niet geïnstalleerd, GEMETEN: de glob met positieve controle vond DBM wel.
       - De code gebruikt het nergens. Het staat alleen in de About-dankregel en in de Midnight Falls-notitie
         in `RaidTips.lua` (7 talen), uit de verrijking van juni (SESSION_NOTES:789).
