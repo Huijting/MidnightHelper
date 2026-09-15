@@ -346,7 +346,8 @@ aan te pakken"*.
          - ✅ Beantwoord door Rob dezelfde avond (screenshot met CDPulse): 2 kisten in de eerste kamer, daaruit o.a.
            **Fireball** = spell **1298792** (GEMETEN in zijn client: 50 yd, instant, 5 s cd, "Cast into poison for
            explosive results. Stand clear!"). Route-regel in 7 talen vervangen (`mh_vashnik_route_fix.py`), token
-           `venomous_fireball`. Wat er verder in die kisten zit: nog onbekend.
+           `venomous_fireball`. Het tweede gereedschap uit die kisten (Rob, dezelfde avond, uit zijn hoofd): iets
+           waarmee je heel hoog springt. Naam en spell-id onbekend; de route-regel beschrijft het zonder naam.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.

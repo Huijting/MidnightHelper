@@ -176,7 +176,8 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Doe je een ander Atal'Aman-verhaal: dan staat alleen Jin'Ma er, zoals eerst.
       - Shadowguard Point met **Basilisk Blitz** heeft dezelfde baas.
       - ✅ Beantwoord door Rob (15 sep): 2 kisten in de eerste kamer openen, daaruit o.a. **Fireball** (spell
-        1298792) oppakken en die in een Toxic Cloud gooien. Staat nu in de route-regel: kijk of het klopt.
+        1298792) oppakken en die in een Toxic Cloud gooien; het tweede gereedschap laat je heel hoog springen.
+        Staat nu in de route-regel: kijk of het klopt. ❓ Hoe heet dat spring-ding? (Muis erop met CDPulse aan.)
       - ❓ Staat zijn model er, en klopt het?
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
