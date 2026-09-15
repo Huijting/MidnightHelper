@@ -333,6 +333,10 @@ aan te pakken"*.
             GetDifficultyInfo's returns (isHeroic, isChallengeMode, displayHeroic, displayMythic) komt uit geheugen
             van de API; `/mh bossdiff` in een instance print ze, dat is de meting.
           - Branch `settings-in-mh`: ook `mh_bossDiffFilter` toevoegen aan `SettingsDefs.lua` bij de merge.
+          - 🐛 Rob 15 sep (screenshot): in een delve, bij een raidbaas, stond "Delves: lines for harder difficulties
+            are hidden" - de moeilijkheid van de delve werd op een raid toegepast. Gerepareerd:
+            `GetBossWindowDifficultyLevel(d)` filtert alleen bij instanceType "party"/"raid", en alleen als de
+            getoonde baas bij dat soort plek hoort (roster-dungeon in een dungeon, raid/lair in een raid).
       8. 🔨 **Disciple of Vashnik, een delve-baas die MH niet kende** (15 sep, Robs screenshots uit Atal'Aman T11:
          "0/5 Venom Vipers defeated", "Toxic Clouds ignited", "0/1 Disciple of Vashnik slain"). Gebouwd, nog niet gezien.
          - GEMETEN vooraf: "Disciple of Vashnik" 0× in MH en in alle addons op schijf (positieve controle: "Atal'Aman"

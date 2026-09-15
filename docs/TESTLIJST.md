@@ -167,6 +167,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - In een echte dungeon of raid gaat dat vanzelf. `/mh bossdiff` zonder woord zegt welke moeilijkheid MH ziet.
       - **Settings:** *Only tips for my difficulty* staat aan; zet hem uit en het venster toont altijd alles.
       - ❓ Zitten de drie rol-icoontjes de knoppen rechtsonder in de weg als het venster smal is?
+      - ✅ Rob 15 sep: Silvermoon en Raids oké, rol-icoontjes oké, `/mh bossdiff normal` werkt, Settings-schakelaar
+        werkt (korte tips blijven bewust ongefilterd). 🐛 In een delve, bij een raidbaas: "Delves: lines for harder
+        difficulties are hidden" → gerepareerd: het filter werkt nu alleen in een dungeon of raid, en alleen voor
+        bazen van dat soort plek. Controleer: in een delve een raidbaas openen → geen grijze regel meer.
 - [ ] 🆕 **Disciple of Vashnik in de Delve Coach** (Rob, 15 sep: "een baas die we volgens mij niet hebben"). Een
       `/reload` is genoeg.
       - Ga Atal'Aman in met het verhaal **Venomous Vapors**. De Delve Coach noemt nu *Disciple of Vashnik* als

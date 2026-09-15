@@ -1044,12 +1044,22 @@ local diffOverride -- `/mh bossdiff normal|heroic|mythic`: see the filter withou
 
 --- 1 = Normal (also LFR, Follower, Timewalking), 2 = Heroic, 3 = Mythic or Mythic+; nil outside an
 --- instance. Read from the client's own difficulty flags rather than a table of ids.
-function ns.GetBossWindowDifficultyLevel()
+function ns.GetBossWindowDifficultyLevel(d)
 	if diffOverride then
 		return diffOverride, ({ "Normal", "Heroic", "Mythic" })[diffOverride] .. " (/mh bossdiff)", 0
 	end
-	local inInst = IsInInstance and IsInInstance()
-	if not inInst or not GetInstanceInfo then
+	-- Only in a dungeon or a raid. Rob, 15 Sep 2026, in a delve looking at a raid boss: the window said
+	-- "Delves: lines for harder difficulties are hidden" - the delve's difficulty applied to a raid.
+	local inInst, instType = false, nil
+	if IsInInstance then
+		inInst, instType = IsInInstance()
+	end
+	if not inInst or not GetInstanceInfo or (instType ~= "party" and instType ~= "raid") then
+		return nil
+	end
+	-- The window can show any boss anywhere, so filter only a boss of the kind of place you are in: a
+	-- roster dungeon inside a dungeon, a raid or lair entry inside a raid.
+	if type(d) == "table" and d.key and ((instType == "party") ~= (FindDungeonByKey(d.key) ~= nil)) then
 		return nil
 	end
 	local _, _, diffID, diffName = GetInstanceInfo()
@@ -1176,7 +1186,7 @@ local function BuildBossText(d, idx)
 	-- Your difficulty, inside an instance and with the setting on (see FilterByDifficulty).
 	local level, diffName
 	if ns.IsBossWindowDiffFilterEnabled and ns.IsBossWindowDiffFilterEnabled() then
-		level, diffName = ns.GetBossWindowDifficultyLevel()
+		level, diffName = ns.GetBossWindowDifficultyLevel(d)
 	end
 	local hiddenTotal = 0
 	local function add(key, color)
