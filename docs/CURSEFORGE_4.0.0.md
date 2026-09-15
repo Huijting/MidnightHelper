@@ -63,12 +63,20 @@ We checked every boss tip against DBM's current encounter mods and the current g
 links were right, but the advice often was not: several tips said the opposite of what the fight
 needs. All 17 raid bosses are rewritten: The Venomous Abyss, The Dreamrift, The Voidspire and March
 on Quel'Danas. Normal comes first, the Heroic and Mythic rules are marked, and tanks, healers and
-damage dealers get their own lines. The dungeons follow.
+damage dealers get their own lines.
+
+The eight Season 2 Mythic+ dungeons got the same treatment. The 17 bosses of Altar of Fangs, Murder
+Row, Den of Nalorakk, The Blinding Vale and Voidscar Arena are rewritten, and Kings' Rest, Temple of
+Sethraliss and Ruby Life Pools, which had no tips at all, now have them for all 11 bosses.
 
 Every raid boss also has a short version: three plain lines, plus one for your own role. The boss
 window shows it by default, **Show all tips** brings back everything, and Settings → *Short tips in the
 boss window* turns it off. The Raids page shows the short block above the full tips, and puts this
-season's raid first, with the Season 1 raids below under their own heading.
+season's raid first, with the Season 1 raids below under their own heading. The dungeon bosses have
+the same short version, and the Dungeons page shows it the same way.
+
+Every raid and dungeon on those two pages now shows its bosses as moving 3D models. Click one and the
+tips window opens on that boss.
 
 ## Fixes
 

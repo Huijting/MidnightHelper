@@ -131,6 +131,8 @@ local function Relayout()
 			w:SetWidth(math.max(width - indent, 1))
 			if el.button then
 				y = y + BTN_H
+			elseif w._mhModelStrip then
+				y = y + (ns.LayoutBossModelStrip and ns.LayoutBossModelStrip(w, math.max(width - indent, 1)) or 0)
 			elseif w._mhTipBox then
 				-- Read-only EditBox (boss-tips met klikbare spell-links):
 				-- hoogte = regels × regelhoogte, gemeten ná SetWidth. De
@@ -270,6 +272,19 @@ function ns.RefreshDungeonGuidePanel()
 			local tips = ns.GetDungeonBossTips and ns.GetDungeonBossTips(d.key, b.key)
 			if tips then
 				lines[#lines + 1] = "|cffe8c36a" .. bossName .. "|r"
+				-- Short block first, as on the Raids page (Rob, 15 Sep 2026: "eli10 versie").
+				local quick = tips.quick and ns.FormatQuickTipLines and ns.FormatQuickTipLines(tips.quick)
+				if quick and #quick > 0 then
+					lines[#lines + 1] = "|cffc9a8ff" .. ns:L("RAID_QUICK_HEADER") .. "|r"
+					for _, q in ipairs(quick) do
+						lines[#lines + 1] = q
+					end
+					local roleLine = ns.FormatQuickRoleLine and ns.FormatQuickRoleLine(tips)
+					if roleLine then
+						lines[#lines + 1] = roleLine
+					end
+					lines[#lines + 1] = "|cffc9a8ff" .. ns:L("RAID_FULL_HEADER") .. "|r"
+				end
 				if tips.steps then
 					lines[#lines + 1] = ns:L(tips.steps)
 				end
@@ -551,6 +566,12 @@ function ns.BuildDungeonGuidePanel(panel)
 				push(nameFs, 8, 0, true, "coach")
 				local collapsedFn = function()
 					return IsDgnCollapsed(d.key)
+				end
+				-- Animated boss models above the tips; a click opens the boss window on that
+				-- boss (Rob, 15 Sep 2026). Built on first open, see ns.CreateBossModelStrip.
+				local models = ns.CreateBossModelStrip and ns.CreateBossModelStrip(child, d)
+				if models then
+					push(models, 4, 10, false, "coach", collapsedFn)
 				end
 				-- Read-only EditBox i.p.v. FontString: nodig voor hover/klik op
 				-- de {SPELL:id}-links (FontStrings doen geen hyperlinks) —

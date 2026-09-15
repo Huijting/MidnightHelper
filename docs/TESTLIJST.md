@@ -120,6 +120,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         Quel'Danas.
       - Silvermoon-tabblad → blok *Dungeons & Raids*: dezelfde volgorde (Venomous Abyss eerst), zonder kop.
       - ❓ Staat de kop niet tegen de knop eronder geplakt?
+- [ ] 🆕 **Bewegende bazen bij alle raids en dungeons, en klikbaar** (Rob, 15 sep). Een `/reload` is genoeg.
+      - Codex → Raids: klap The Dreamrift open. Je ziet nu ook daar een rij bewegende bazen.
+      - Codex → Dungeons: klap een dungeon open, bijvoorbeeld Murder Row. Boven de tips staat de rij bazen.
+      - Ga met de muis op een baas: een tooltip zegt *Click: open the tips window for this boss*.
+      - Klik: het tips-venster opent op die baas.
+      - ❓ Staat er een baas zonder model (een leeg vakje met alleen de naam)? Welke? Klap dicht en weer open; dan
+        vraagt hij het nog eens.
+- [ ] 🆕 **Nieuwe dungeon-tips (blok 3 en 4)** (Rob, 15 sep). Een `/reload` is genoeg.
+      - Codex → Dungeons → Murder Row. Bij Kystia staat nu "kill Nibbles first" (was precies andersom), met
+        bovenaan **In short**.
+      - Kings' Rest, Temple of Sethraliss en Ruby Life Pools hebben nu tips (die hadden er geen).
+      - In een dungeon: het boss-venster toont de korte tips en **Show all tips**, net als bij raids.
+      - ❓ Klopt er iets niet met wat je in het gevecht zag? Zeg welke baas.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

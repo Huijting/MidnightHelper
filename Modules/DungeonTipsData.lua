@@ -325,6 +325,66 @@ ns.DUNGEON_TIPS = {
 	},
 }
 
+--- Block 4 of the tip audit (15 Sep 2026): the three Season 2 dungeons that had no tips at all
+--- (GEMETEN on 14 Sep: no entry for Kings' Rest, Temple of Sethraliss or Ruby Life Pools). Boss keys
+--- match DungeonRosterData. A boss is registered only when its enUS steps text exists, so a missing
+--- text can never show up as a raw key or as a boss with an empty section.
+do
+	local en = ns._mhLocales and ns._mhLocales.enUS
+	local NEW_DUNGEONS = {
+		kingsrest = {
+			goldenserpent = "DGN_TIP_KR_SERPENT", mchimba = "DGN_TIP_KR_MCHIMBA",
+			counciloftribes = "DGN_TIP_KR_COUNCIL", dazar = "DGN_TIP_KR_DAZAR",
+		},
+		sethraliss = {
+			adderisaspix = "DGN_TIP_TS_ADDERIS", merektha = "DGN_TIP_TS_MEREKTHA",
+			galvazzt = "DGN_TIP_TS_GALVAZZT", avatar = "DGN_TIP_TS_AVATAR",
+		},
+		rubylifepools = {
+			melidrussa = "DGN_TIP_RL_MELIDRUSSA", kokia = "DGN_TIP_RL_KOKIA", kyrakka = "DGN_TIP_RL_KYRAKKA",
+		},
+	}
+	if en then
+		for dungeonKey, bosses in pairs(NEW_DUNGEONS) do
+			for bossKey, base in pairs(bosses) do
+				if en[base .. "_STEPS"] ~= nil then
+					ns.DUNGEON_TIPS[dungeonKey] = ns.DUNGEON_TIPS[dungeonKey] or {}
+					ns.DUNGEON_TIPS[dungeonKey][bossKey] = ns.DUNGEON_TIPS[dungeonKey][bossKey]
+						or { steps = base .. "_STEPS" }
+				end
+			end
+		end
+	end
+end
+
+--- Role lines and short tips by name (15 Sep 2026, block 3 of the tip audit; the short tips are Rob's
+--- "eli10 versie"). For every boss whose steps key is DGN_TIP_<D>_<B>_STEPS, a _TANK / _HEALER / _DPS
+--- line or a _QUICK block that exists in the enUS table is attached here, the same way RaidCoachData
+--- does it for the raids. A key the table lacks stays nil, so no empty section appears and the boss
+--- window keeps the full text. Hand-written fields above are never overwritten.
+do
+	local en = ns._mhLocales and ns._mhLocales.enUS
+	local FIELDS = {
+		tank = "_TANK", healer = "_HEALER", dps = "_DPS",
+		quick = "_QUICK", quickTank = "_QUICK_TANK", quickHealer = "_QUICK_HEALER", quickDps = "_QUICK_DPS",
+	}
+	if en then
+		for _, bosses in pairs(ns.DUNGEON_TIPS) do
+			for _, t in pairs(bosses) do
+				local base = type(t) == "table" and type(t.steps) == "string"
+					and t.steps:match("^(DGN_TIP_[A-Z]+_[A-Z]+)_STEPS$")
+				if base then
+					for field, suffix in pairs(FIELDS) do
+						if t[field] == nil and en[base .. suffix] ~= nil then
+							t[field] = base .. suffix
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
 function ns.GetDungeonBossTips(dungeonKey, bossKey)
 	local d = ns.DUNGEON_TIPS and ns.DUNGEON_TIPS[dungeonKey]
 	return d and d[bossKey] or nil

@@ -140,7 +140,7 @@ aan te pakken"*.
          - `RaidGuide.lua`: "In short" boven "All tips". Settings: `mh_bossShortTips` (standaard aan).
          - ⚠️ **Branch `settings-in-mh`:** voeg `mh_bossShortTips` toe aan `SettingsDefs.lua` bij de merge, anders
            ontbreekt hij op de pagina "All settings".
-         - Dungeons hebben nog geen korte tips; die gaan mee met blok 3.
+         - Dungeons hebben sinds blok 3 en 4 (hieronder) ook korte tips.
       2c. 🔨 **Raids-pagina: oudere raids onderaan** (15 sep; Rob: *"Ik hoor je zeggen voor seizoen 1 maar we
          zitten toch in 2?"* → *"Doe maar"*). Gebouwd, nog niet gezien.
          - `ns.GetRaidPageList` zet eerst de raids van het hoogste seizoen (nu The Venomous Abyss, `season = 2`),
@@ -151,8 +151,33 @@ aan te pakken"*.
            raid.
          - Standaard open is nu Venomous Abyss (index 1). Het SMC-blok Dungeons & Raids (`UI.lua`) gebruikt dezelfde
            lijst en krijgt dus dezelfde volgorde, zonder kop.
-      3. de dungeons;
-      4. de drie dungeons zonder tips.
+      3. ✅ **de dungeons (15 sep; Rob: *"Ga maar door zonder toestemming te vragen"*):** de 17 bazen van Altar of
+         Fangs, Murder Row, Den of Nalorakk, The Blinding Vale en Voidscar Arena herschreven, met steps + tank +
+         healer + DPS + korte tips.
+      4. ✅ **de drie dungeons zonder tips:** Kings' Rest, Temple of Sethraliss en Ruby Life Pools, 11 bazen, nieuw.
+         - Werkwijze: 8 schrijfhulpen (`dg_en_<af|mr|dn|bv|va|kr|ts|rl>.json`, DBM op schijf + gidsen van na 18 aug) en
+           12 vertaalhulpen (`dg_tr_<lang>_{a,b}.json`). Daarna `dg_validate.py` (ids live in DBM, met een positieve
+           controle), `mh_raid_tips_merge.py dg`, `dg_shape_check.py` en `mh_dungeon_tips_apply.py`. Dat laatste
+           schrijft in `DungeonTips.lua` én `Translations2026.lua`, want Altar of Fangs heeft zijn fr/es/pt/it daar.
+         - 224 sleutels × 7 talen. `DungeonTipsData.lua` vult rollen en korte tips op naam; de nieuwe dungeons
+           staan er alleen in als hun enUS-tekst bestaat.
+         - Lint [19]: 3 nieuwe ids met de hand nagekeken en in de baseline gezet: 372963 Storm's Eye en 1291815
+           Induction Field (beide "watchfeet"-grond in DBM).
+         - Twijfels die de hulpen niet konden beslechten (AFGELEID): Kyrakka landt op 40 of 50%; is Frost Overload
+           te kicken; Ziekket-orbs alleen Mythic?; Lightfire uit elkaar (DBM) of samen (Method); de Struggle-knop
+           heet in andere clients anders.
+         - Niet geaudit (staan niet in de S2-pool): Windrunner Spire, Maisara, Nexus-Point, Magisters' Terrace,
+           Skyreach, Pit of Saron, Seat of the Triumvirate, Algeth'ar.
+      5. 🔨 **3D-bazen op de Raids- en Dungeons-pagina, klikbaar** (15 sep; Rob: *"de bewegende animaties, super
+         tof, die wil ik voor alle raids en dungeons"* + *"als ik op een van deze klik … dat de boss popup open
+         gaat"*). Gebouwd, nog niet gezien.
+         - `DungeonBossWindow.lua`: `ns.GetBossModelSource` (eerst `RAID_BOSS_DISPLAYS`, dan `DISPLAYS`, dan de
+           Adventure Guide van de client via `EJ_GetCreatureInfo(1, encounterID)`, dan een creature-id),
+           `ns.CreateBossModelStrip` / `ns.LayoutBossModelStrip` en `ns.OpenBossWindowFor`.
+         - Modellen worden pas gemaakt als de raid of dungeon openklapt. Elke baas krijgt een vakje, dus elke baas
+           is klikbaar; vindt het spel het model nog niet, dan wordt het tot 5 keer opnieuw gevraagd.
+         - Het boss-venster zelf gebruikt dezelfde terugval, dus Nalorakk en de raidbazen krijgen daar nu ook een model.
+         - Tooltip `BOSS_MODEL_CLICK_TT` in 7 talen.
   - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):
     - Van de 39 onbevestigde ids zijn er 38 van delves, en DBM heeft geen delve-mods.
     - De laatste is een bewuste keep: Ula'tek 1300685.

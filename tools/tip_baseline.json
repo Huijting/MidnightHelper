@@ -288,6 +288,24 @@
         "1255453",
         "WEAK"
       ]
+    ],
+    "DGN_TIP_RL_MELIDRUSSA_STEPS": [
+      [
+        "372963",
+        "AURA-OF"
+      ]
+    ],
+    "DGN_TIP_TS_GALVAZZT_STEPS": [
+      [
+        "1291815",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_TS_GALVAZZT_TANK": [
+      [
+        "1291815",
+        "WEAK"
+      ]
     ]
   },
   "measured": "2026-09-03",

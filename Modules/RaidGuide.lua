@@ -119,90 +119,24 @@ end
 --------------------------------------------------------------------------------
 
 --- Een strook 3D-modellen boven de tips van een raid, één per boss, met de naam
---- eronder. Alleen voor raids waarvan de displayIDs GEMETEN zijn: de strook leest
---- ns.RAID_BOSS_DISPLAYS, en die tabel is op 15 aug geverifieerd tegen Robs eigen
---- ejCapture (alle acht ids letterlijk in zijn journal). Een boss zonder id krijgt
---- gewoon geen model — geen gok, geen placeholder-draak.
+--- eronder. Tot 15 sep 2026 alleen voor raids waarvan de displayIDs GEMETEN zijn
+--- (ns.RAID_BOSS_DISPLAYS, 15 aug geverifieerd tegen Robs ejCapture). Nu voor elke raid:
+--- zonder gemeten id vraagt ns.GetBossModelSource het de Adventure Guide van de client
+--- zelf. Nog steeds geen gok en geen placeholder-draak.
 ---
 --- SetDisplayInfo, niet SetCreature: het journal geeft display-ids, en dat is ook
 --- wat het Adventure Guide zelf tekent. PlayerModel-frames zijn niet secure, dus
 --- dit mag allemaal buiten combat om zonder taint-zorgen.
-local MODEL_W, MODEL_H, MODEL_GAP, MODEL_LABEL_H = 86, 110, 4, 12
-
+--- 15 Sep 2026: the strip moved to DungeonBossWindow.lua (ns.CreateBossModelStrip), because Rob
+--- wanted it for every raid and dungeon and a click that opens the boss window. It still reads
+--- ns.RAID_BOSS_DISPLAYS first, and falls back to the client's own Adventure Guide, never to a guess.
+--- Every raid gets a strip; the models are made the first time its row is opened.
 local function BuildModelStrips()
 	for _, row in ipairs(ui.rows) do
-		local displays = ns.RAID_BOSS_DISPLAYS
-		local wants = false
-		if displays then
-			for _, b in ipairs(row.raid.bosses or {}) do
-				if displays[b.key] then
-					wants = true
-					break
-				end
-			end
-		end
-		if wants and not row.models then
-			local strip = CreateFrame("Frame", nil, ui.child)
-			strip:SetHeight(MODEL_H + MODEL_LABEL_H)
-			strip._cells = {}
-			for i, b in ipairs(row.raid.bosses) do
-				local id = displays[b.key]
-				if id then
-					local cell = CreateFrame("Frame", nil, strip)
-					cell:SetSize(MODEL_W, MODEL_H + MODEL_LABEL_H)
-					local model = CreateFrame("PlayerModel", nil, cell)
-					model:SetPoint("TOPLEFT", cell, "TOPLEFT", 0, 0)
-					model:SetSize(MODEL_W, MODEL_H)
-					local okSet = pcall(model.SetDisplayInfo, model, id)
-					if okSet and model.SetPortraitZoom then
-						pcall(model.SetPortraitZoom, model, 0.55)
-					end
-					local label = cell:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-					label:SetPoint("TOP", model, "BOTTOM", 0, -1)
-					label:SetWidth(MODEL_W)
-					label:SetWordWrap(false)
-					-- Alleen de eerste naam vóór een spatie-scheider zou namen als
-					-- "The Twin Fangs" slopen; toon de bossnaam gewoon klein en kap af.
-					--
-					--- ⚠️ VIA DE ENCOUNTER JOURNAL, NIET VIA ONZE TABEL. Regel 72 hierboven
-					--- deed dat al; dit label was de laatste plek die `b.name` rechtstreeks
-					--- toonde, en dus de enige die de Engelse naam liet zien aan een Duitse
-					--- speler.
-					---
-					--- 20 aug gaf daar een tweede reden voor. Blizzards hotfix van 19 aug
-					--- schrijft "Nek'zali the Soul*caller*"; Blizzards eigen seizoensartikel
-					--- én Icy Veins schrijven "Soul*coiler*" — twee achternamen uit drie
-					--- publicaties, waarvan twee van Blizzard zelf. Onze tabel zegt
-					--- Soulcoiler omdat de PTR-client dat zei, wat een betere bron is dan
-					--- alle drie, maar het blijft een naam die kan verschuiven zonder dat
-					--- wij iets merken. `EJ_GetEncounterInfo` op de encounterID die er toch
-					--- al naast staat volgt de client vanzelf — in elke taal, na elke rename.
-					label:SetText((ns.GetDungeonBossName and ns.GetDungeonBossName(b, row.raid, i)) or b.name or "?")
-					cell._displayId = id
-					strip._cells[#strip._cells + 1] = cell
-				end
-			end
-			row.models = strip
+		if not row.models and ns.CreateBossModelStrip then
+			row.models = ns.CreateBossModelStrip(ui.child, row.raid)
 		end
 	end
-end
-
---- De cellen in rijen wikkelen op de huidige breedte. Geen horizontale scroll:
---- op een smal paneel worden het gewoon twee rijen van vier.
-local function LayoutModelStrip(strip, width)
-	local perRow = math.max(1, math.floor((width + MODEL_GAP) / (MODEL_W + MODEL_GAP)))
-	local rows = 0
-	for i, cell in ipairs(strip._cells) do
-		local col = (i - 1) % perRow
-		local r = math.floor((i - 1) / perRow)
-		rows = math.max(rows, r + 1)
-		cell:ClearAllPoints()
-		cell:SetPoint("TOPLEFT", strip, "TOPLEFT",
-			col * (MODEL_W + MODEL_GAP), -r * (MODEL_H + MODEL_LABEL_H + MODEL_GAP))
-	end
-	local h = rows * (MODEL_H + MODEL_LABEL_H + MODEL_GAP)
-	strip:SetHeight(math.max(h, 1))
-	return h
 end
 
 local function Relayout()
@@ -269,7 +203,7 @@ local function Relayout()
 				row.models:ClearAllPoints()
 				row.models:SetPoint("TOPLEFT", ui.child, "TOPLEFT", BODY_INDENT, -y)
 				row.models:SetWidth(math.max(width - BODY_INDENT, 1))
-				y = y + LayoutModelStrip(row.models, math.max(width - BODY_INDENT, 1)) + 4
+				y = y + ns.LayoutBossModelStrip(row.models, math.max(width - BODY_INDENT, 1)) + 4
 			end
 			row.body:Show()
 			row.body:ClearAllPoints()

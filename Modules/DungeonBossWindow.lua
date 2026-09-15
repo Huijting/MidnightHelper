@@ -1125,6 +1125,14 @@ function ns.RefreshDungeonBossWindow()
 	-- Alleen raadplegen als er GEEN creature-id is: een creature-id kent de camera-
 	-- standen uit MODEL_CAMSCALE en is dus de rijkere bron.
 	local displayID = (not creatureID) and b and DISPLAYS[curDungeon.key .. ":" .. b.key] or nil
+	-- 15 Sep 2026: a boss with neither (Nalorakk, the raids, the new Season 2 dungeons) asks the
+	-- client's own Adventure Guide, the same source the model strips on the pages use.
+	if not creatureID and not displayID and b and ns.GetBossModelSource then
+		local kind, id = ns.GetBossModelSource(curDungeon, b)
+		if kind == "display" then
+			displayID = id
+		end
+	end
 	win._previewCreatureID = creatureID -- voor de shift-klik-preview (hook C)
 	win._previewDisplayID = displayID
 	win._previewName = bossName
@@ -1273,6 +1281,169 @@ function ns.ShowBossWindowForEntry(d, bossKey)
 	local f = EnsureWindow()
 	f:Show()
 	ns.RefreshDungeonBossWindow()
+end
+
+--- Open this window on one boss, from anywhere that holds the entry: a roster dungeon goes through
+--- ShowDungeonBossWindow, a raid, lair or ritual entry through ShowBossWindowForEntry.
+function ns.OpenBossWindowFor(d, bossKey)
+	if type(d) ~= "table" or not d.key then
+		return
+	end
+	if FindDungeonByKey(d.key) then
+		ns.ShowDungeonBossWindow(d.key, bossKey)
+	else
+		ns.ShowBossWindowForEntry(d, bossKey)
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Boss model strips for the Raids and Dungeons pages. Rob, 15 Sep 2026: "de bewegende animaties,
+-- super tof, die wil ik voor alle raids en dungeons" and "als ik op een van deze klik ... dat de boss
+-- popup open gaat". One animated model per boss with its name under it; a click opens this window
+-- on that boss. Until then only the eight Venomous Abyss bosses had models (RaidGuide.lua).
+--------------------------------------------------------------------------------
+
+local MODEL_W, MODEL_H, MODEL_GAP, MODEL_LABEL_H = 86, 110, 4, 12
+
+--- Where a boss's model comes from, measured sources first:
+--- 1. ns.RAID_BOSS_DISPLAYS - raid display ids, checked against Rob's ejCapture on 15 Aug;
+--- 2. DISPLAYS above - read out of the client with /mh ej;
+--- 3. the Adventure Guide itself: EJ_GetCreatureInfo(1, encounterID), whose 4th return is the display
+---    id - the call DBM-Core uses for its own boss models and EncounterCapture prints. Asked at run
+---    time, so nothing is looked up or guessed; for a council it is the creature the journal leads with;
+--- 4. a creature id (CREATURES above, or b.creatureId on a custom entry), drawn with SetCreature.
+--- Returns the kind ("display" / "creature") and the id, or nil while no source answers.
+function ns.GetBossModelSource(d, b)
+	if type(b) ~= "table" then
+		return nil
+	end
+	local id = b.key and ns.RAID_BOSS_DISPLAYS and ns.RAID_BOSS_DISPLAYS[b.key]
+	if id then
+		return "display", id
+	end
+	local key = tostring(d and d.key) .. ":" .. tostring(b.key)
+	if DISPLAYS[key] then
+		return "display", DISPLAYS[key]
+	end
+	if EJ_GetCreatureInfo and type(b.encounterID) == "number" then
+		local ok, creature, _, _, displayId = pcall(EJ_GetCreatureInfo, 1, b.encounterID)
+		if ok and creature and type(displayId) == "number" and displayId > 0 then
+			return "display", displayId
+		end
+	end
+	local creatureId = CREATURES[key] or b.creatureId
+	if creatureId then
+		return "creature", creatureId
+	end
+	return nil
+end
+
+local function ApplyStripModel(cell)
+	local kind, id = ns.GetBossModelSource(cell._entry, cell._boss)
+	if not kind then
+		return false
+	end
+	local model = cell.model
+	local ok
+	if kind == "display" then
+		ok = pcall(model.SetDisplayInfo, model, id)
+	else
+		ok = pcall(model.SetCreature, model, id)
+	end
+	if ok and model.SetPortraitZoom then
+		pcall(model.SetPortraitZoom, model, 0.55)
+	end
+	cell._modelSet = ok
+	return ok
+end
+
+local function BuildStripCells(strip)
+	local d = strip._entry
+	for i, b in ipairs(d.bosses) do
+		local cell = CreateFrame("Button", nil, strip)
+		cell:SetSize(MODEL_W, MODEL_H + MODEL_LABEL_H)
+		cell:RegisterForClicks("LeftButtonUp")
+		cell._entry, cell._boss = d, b
+		local hl = cell:CreateTexture(nil, "HIGHLIGHT")
+		hl:SetAllPoints(cell)
+		hl:SetColorTexture(1, 1, 1, 0.08)
+		local model = CreateFrame("PlayerModel", nil, cell)
+		model:SetPoint("TOPLEFT", cell, "TOPLEFT", 0, 0)
+		model:SetSize(MODEL_W, MODEL_H)
+		cell.model = model
+		local label = cell:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		label:SetPoint("TOP", model, "BOTTOM", 0, -1)
+		label:SetWidth(MODEL_W)
+		label:SetWordWrap(false)
+		-- The name through the Encounter Journal, not our table: it follows the client's language
+		-- and every rename (see the note at the old strip in RaidGuide.lua, 20 Aug).
+		cell._name = (ns.GetDungeonBossName and ns.GetDungeonBossName(b, d, i)) or b.name or "?"
+		label:SetText(cell._name)
+		cell:SetScript("OnClick", function(self)
+			ns.OpenBossWindowFor(self._entry, self._boss.key)
+		end)
+		cell:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+			GameTooltip:SetText(self._name)
+			GameTooltip:AddLine(ns:L("BOSS_MODEL_CLICK_TT"), 1, 1, 1, true)
+			GameTooltip:Show()
+		end)
+		cell:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
+		ApplyStripModel(cell)
+		strip._cells[#strip._cells + 1] = cell
+	end
+	strip._built = true
+end
+
+--- An empty strip for one raid or dungeon entry. The cells (and their models) are made on the first
+--- layout while the strip is shown, so a collapsed dungeon costs no models at all.
+function ns.CreateBossModelStrip(parent, d)
+	if type(d) ~= "table" or type(d.bosses) ~= "table" or #d.bosses == 0 then
+		return nil
+	end
+	local strip = CreateFrame("Frame", nil, parent)
+	strip:SetHeight(1)
+	strip._mhModelStrip = true
+	strip._entry = d
+	strip._cells = {}
+	strip:Hide()
+	return strip
+end
+
+--- Wrap the cells into rows at this width (no sideways scroll: a narrow panel gets two rows) and
+--- return the height used. Every boss gets a cell, so every boss is clickable; a boss whose journal
+--- data was not cached yet keeps an empty model and is asked again on the next few layouts.
+function ns.LayoutBossModelStrip(strip, width)
+	if not strip then
+		return 0
+	end
+	if not strip._built then
+		BuildStripCells(strip)
+	end
+	if (strip._retries or 0) < 5 then
+		local missing = false
+		for _, cell in ipairs(strip._cells) do
+			if not cell._modelSet and not ApplyStripModel(cell) then
+				missing = true
+			end
+		end
+		strip._retries = missing and ((strip._retries or 0) + 1) or 99
+	end
+	local perRow = math.max(1, math.floor((width + MODEL_GAP) / (MODEL_W + MODEL_GAP)))
+	local rows = 0
+	for i, cell in ipairs(strip._cells) do
+		local col = (i - 1) % perRow
+		local r = math.floor((i - 1) / perRow)
+		rows = math.max(rows, r + 1)
+		cell:ClearAllPoints()
+		cell:SetPoint("TOPLEFT", strip, "TOPLEFT",
+			col * (MODEL_W + MODEL_GAP), -r * (MODEL_H + MODEL_LABEL_H + MODEL_GAP))
+	end
+	local h = rows * (MODEL_H + MODEL_LABEL_H + MODEL_GAP)
+	strip:SetHeight(math.max(h, 1))
+	return h
 end
 
 -- Same split as the picker: a ritual_ key is a ritual, every other custom entry a raid.
