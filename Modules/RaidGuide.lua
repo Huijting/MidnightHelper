@@ -215,8 +215,23 @@ local function Relayout()
 	end
 	local y = 4
 	local tipHeightChanged = false
+	local olderPlaced = false
+	if ui.olderHeader then
+		ui.olderHeader:Hide()
+	end
 
 	for idx, row in ipairs(ui.rows) do
+		-- One heading above the first raid from an earlier season (see ns.GetRaidPageList).
+		if not olderPlaced and ui.olderHeader and ns.IsOlderSeasonRaid and ns.IsOlderSeasonRaid(row.raid) then
+			olderPlaced = true
+			y = y + 6
+			ui.olderHeader:SetText(ns:L("RAIDS_OLDER_HEADER_FMT"):format(ns.GetOlderRaidSeason and ns.GetOlderRaidSeason() or 1))
+			ui.olderHeader:ClearAllPoints()
+			ui.olderHeader:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
+			ui.olderHeader:SetWidth(math.max(width, 1))
+			ui.olderHeader:Show()
+			y = y + (ui.olderHeader:GetStringHeight() or 14) + 6
+		end
 		local collapsed = IsCollapsed(row.raid.key, idx)
 		local plainName = (ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(row.raid)) or row.raid.name or "?"
 		-- ASCII indicator: arrow glyphs render as boxes in the WoW fonts.
@@ -352,7 +367,14 @@ function ns.BuildRaidsPanel(panel)
 		rows = {},
 	}
 
-	-- The raids and then the lairs (The Tidebound Grotto), see ns.GetRaidPageList.
+	-- "Older raids (Season 1)": placed by Relayout above the first raid of an earlier season.
+	local olderHeader = child:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	olderHeader:SetFontObject(ns.MHScalableFont("GameFontNormal"))
+	olderHeader:SetJustifyH("LEFT")
+	olderHeader:Hide()
+	ui.olderHeader = olderHeader
+
+	-- This season's raids, the lairs (The Tidebound Grotto), then older raids; see ns.GetRaidPageList.
 	local raids = (ns.GetRaidPageList and ns.GetRaidPageList())
 		or (ns.GetRaidCoachRaids and ns.GetRaidCoachRaids()) or {}
 	for idx, raid in ipairs(raids) do

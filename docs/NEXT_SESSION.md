@@ -141,6 +141,16 @@ aan te pakken"*.
          - ⚠️ **Branch `settings-in-mh`:** voeg `mh_bossShortTips` toe aan `SettingsDefs.lua` bij de merge, anders
            ontbreekt hij op de pagina "All settings".
          - Dungeons hebben nog geen korte tips; die gaan mee met blok 3.
+      2c. 🔨 **Raids-pagina: oudere raids onderaan** (15 sep; Rob: *"Ik hoor je zeggen voor seizoen 1 maar we
+         zitten toch in 2?"* → *"Doe maar"*). Gebouwd, nog niet gezien.
+         - `ns.GetRaidPageList` zet eerst de raids van het hoogste seizoen (nu The Venomous Abyss, `season = 2`),
+           dan de lairs (Tidebound Grotto), dan de oudere raids (geen `season` = seizoen 1). Bij seizoen 3 schuift
+           Venomous Abyss vanzelf mee naar beneden.
+         - `ns.IsOlderSeasonRaid` / `ns.GetOlderRaidSeason`; `RaidGuide.lua` zet één kop
+           `RAIDS_OLDER_HEADER_FMT` ("Older raids (Season %d)", 7 talen in `SettingsPage.lua`) boven de eerste oudere
+           raid.
+         - Standaard open is nu Venomous Abyss (index 1). Het SMC-blok Dungeons & Raids (`UI.lua`) gebruikt dezelfde
+           lijst en krijgt dus dezelfde volgorde, zonder kop.
       3. de dungeons;
       4. de drie dungeons zonder tips.
   - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):

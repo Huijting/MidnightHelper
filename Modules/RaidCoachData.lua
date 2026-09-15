@@ -262,15 +262,46 @@ end
 --- bosses that count toward the Great Vault's raid row). A lair registers itself into
 --- ns.LAIR_ENTRIES from its own coach file (TideboundGrottoCoach.lua). Kept apart from
 --- ACTIVE_RAIDS so the loop above does not register a lair in the boss window a second time.
+--- Current season first, older raids after (Rob, 15 Sep 2026, on "Season 1 raids" while we are in
+--- Season 2: the three older raids go below, under their own heading). "Current" is the highest
+--- season among the active raids, so at Season 3 The Venomous Abyss moves down by itself. Lairs (The
+--- Tidebound Grotto) carry no season and count as current. Raids without a season field are Season 1.
+local OLDER_RAIDS = {}
+local OLDER_SEASON = nil
+
 function ns.GetRaidPageList()
-	local list = {}
+	local current = 1
 	for _, raid in ipairs(ACTIVE_RAIDS) do
-		list[#list + 1] = raid
+		current = math.max(current, raid.season or 1)
+	end
+	local list, older = {}, {}
+	OLDER_RAIDS, OLDER_SEASON = {}, nil
+	for _, raid in ipairs(ACTIVE_RAIDS) do
+		if (raid.season or 1) < current then
+			older[#older + 1] = raid
+			OLDER_RAIDS[raid] = true
+			OLDER_SEASON = math.max(OLDER_SEASON or 0, raid.season or 1)
+		else
+			list[#list + 1] = raid
+		end
 	end
 	for _, lair in ipairs(ns.LAIR_ENTRIES or {}) do
 		list[#list + 1] = lair
 	end
+	for _, raid in ipairs(older) do
+		list[#list + 1] = raid
+	end
 	return list
+end
+
+--- True for a raid from an earlier season, as sorted by GetRaidPageList (call that first).
+function ns.IsOlderSeasonRaid(raid)
+	return OLDER_RAIDS[raid] == true
+end
+
+--- The season number of the older raids, for the heading ("Older raids (Season 1)"); nil if none.
+function ns.GetOlderRaidSeason()
+	return OLDER_SEASON
 end
 
 --- Raid- en boss-telling voor het Home-blok dat de Raid Coach vindbaar maakt.

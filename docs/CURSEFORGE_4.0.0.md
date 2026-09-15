@@ -67,7 +67,8 @@ damage dealers get their own lines. The dungeons follow.
 
 Every raid boss also has a short version: three plain lines, plus one for your own role. The boss
 window shows it by default, **Show all tips** brings back everything, and Settings → *Short tips in the
-boss window* turns it off. The Raids page shows the short block above the full tips.
+boss window* turns it off. The Raids page shows the short block above the full tips, and puts this
+season's raid first, with the Season 1 raids below under their own heading.
 
 ## Fixes
 

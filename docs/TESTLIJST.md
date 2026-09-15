@@ -114,6 +114,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - **Dungeons** hebben (nog) geen korte tips: daar verandert niets.
       - ❓ Snap je de korte regels in het gevecht? Welke is nog te moeilijk?
       - ❓ Overlapt de knop linksonder de Route-knop als het venster smal is?
+- [ ] 🆕 **Raids-pagina: oudere raids onderaan** (Rob, 15 sep: "Doe maar"). Een `/reload` is genoeg.
+      - Codex → Raids. Bovenaan staat **The Venomous Abyss** (open), daaronder **The Tidebound Grotto**.
+      - Dan een gouden kop **Older raids (Season 1)**, met daaronder The Dreamrift, The Voidspire en March on
+        Quel'Danas.
+      - Silvermoon-tabblad → blok *Dungeons & Raids*: dezelfde volgorde (Venomous Abyss eerst), zonder kop.
+      - ❓ Staat de kop niet tegen de knop eronder geplakt?
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone
