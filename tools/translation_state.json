@@ -2703,6 +2703,14 @@
    "nlNL": "edcd6bcbd381938e",
    "ptBR": "edcd6bcbd381938e"
   },
+  "BOSSWIN_DIFF_HIDDEN_FMT": {
+   "deDE": "06438e12047c9fed",
+   "esES": "06438e12047c9fed",
+   "frFR": "06438e12047c9fed",
+   "itIT": "06438e12047c9fed",
+   "nlNL": "06438e12047c9fed",
+   "ptBR": "06438e12047c9fed"
+  },
   "BOSSWIN_QUICK_YOU_DAMAGER": {
    "deDE": "926119d1a4393fd1",
    "esES": "926119d1a4393fd1",
@@ -2726,6 +2734,14 @@
    "itIT": "1217a29885c2121b",
    "nlNL": "1217a29885c2121b",
    "ptBR": "1217a29885c2121b"
+  },
+  "BOSSWIN_ROLE_PICK_TT": {
+   "deDE": "fa5e09c8fa922f1f",
+   "esES": "fa5e09c8fa922f1f",
+   "frFR": "fa5e09c8fa922f1f",
+   "itIT": "fa5e09c8fa922f1f",
+   "nlNL": "fa5e09c8fa922f1f",
+   "ptBR": "fa5e09c8fa922f1f"
   },
   "BOSSWIN_SHOW_ALL": {
    "deDE": "2058fb5a67c012a6",
@@ -20642,6 +20658,7 @@
    "esES": "666bf4a2e44aaf39",
    "frFR": "666bf4a2e44aaf39",
    "itIT": "666bf4a2e44aaf39",
+   "nlNL": "666bf4a2e44aaf39",
    "ptBR": "666bf4a2e44aaf39"
   },
   "RARES_EMPTY_ZONE": {
@@ -22630,6 +22647,22 @@
    "itIT": "189de1bce004a217",
    "nlNL": "189de1bce004a217",
    "ptBR": "189de1bce004a217"
+  },
+  "SET_BOSSWIN_DIFF_DESC": {
+   "deDE": "d9f1bb1ea15314e9",
+   "esES": "d9f1bb1ea15314e9",
+   "frFR": "d9f1bb1ea15314e9",
+   "itIT": "d9f1bb1ea15314e9",
+   "nlNL": "d9f1bb1ea15314e9",
+   "ptBR": "d9f1bb1ea15314e9"
+  },
+  "SET_BOSSWIN_DIFF_TITLE": {
+   "deDE": "1b5e0c4fb1a241f2",
+   "esES": "1b5e0c4fb1a241f2",
+   "frFR": "1b5e0c4fb1a241f2",
+   "itIT": "1b5e0c4fb1a241f2",
+   "nlNL": "1b5e0c4fb1a241f2",
+   "ptBR": "1b5e0c4fb1a241f2"
   },
   "SET_BOSSWIN_MODEL_DESC": {
    "deDE": "69f145a8333cddba",

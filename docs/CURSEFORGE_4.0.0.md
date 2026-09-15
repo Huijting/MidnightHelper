@@ -79,7 +79,10 @@ Every raid boss also has a short version: three plain lines, plus one for your o
 window shows it by default, **Show all tips** brings back everything, and Settings → *Short tips in the
 boss window* turns it off. The Raids page shows the short block above the full tips, and puts this
 season's raid first, with the Season 1 raids below under their own heading. The dungeon bosses have
-the same short version, and the Dungeons page shows it the same way.
+the same short version, and the Dungeons page shows it the same way. Three role icons next to **Show
+all tips** let you read another role's line, and inside a dungeon or raid the window leaves out the
+lines meant for harder difficulties than yours, with a line at the bottom that says so. Settings →
+*Only tips for my difficulty* turns that off.
 
 Every raid and dungeon on those two pages now shows its bosses as moving 3D models. Click one and the
 tips window opens on that boss.

@@ -52,7 +52,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - tank: defensive op Iceblade Flurry.
       Klopt dat met wat je zag? Wat mist er, of wat is fout? Het komt uit de live-gidsen en DBM; wij zijn het
       nog niet zelf gelopen.
-- [ ] 🆕 **Knop Classic / Modern rechtsboven** (Rob, 15 sep). Een `/reload` is genoeg, want er zijn geen
+- [x] ✅ Rob 15 sep: klopt. **Knop Classic / Modern rechtsboven** (Rob, 15 sep). Een `/reload` is genoeg, want er zijn geen
       nieuwe plaatjes.
       - Naast *About* staat nu een knop. In de nieuwe look zegt hij *Classic*.
       - Klik erop: alles gaat terug naar 3.x, en de knop zegt nu *Modern*. Klik weer: de nieuwe look.
@@ -60,7 +60,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Beweeg erover: de tooltip legt uit wat hij doet.
       - Staat hij in de weg, of past de tekst niet? Zeg het; we besluiten later of hij daar blijft.
 - [ ] 🆕 Silvermoon: de kaart heet nu **Theremis — Reset specializations** (er stond "…resetten").
-- [ ] 🆕 **About leest nu tot het eind** (Robs screenshot, 15 sep: de tekst stopte bij "locatio…"). Klik op
+- [x] ✅ Rob 15 sep: klopt. **About leest nu tot het eind** (Robs screenshot, 15 sep: de tekst stopte bij "locatio…"). Klik op
       *About*: het venster is nu zo hoog als de tekst. Je hoort de hele dankregel te zien, tot en met "…no code
       from these addons is used." Klik ook op *Info* bij een paar tabbladen: ook daar mag niets meer afgekapt
       zijn, en een kort Info-venster blijft even groot als eerst.
@@ -100,8 +100,8 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - **Crown of the Cosmos:** de mini-bazen heten Demiar, Morium en Vorelus;
       - **Midnight Falls:** je staat IN de Dawnlight Barrier.
       De interne "EXBoss"-notitie is weg.
-- [ ] 🆕 **About: EXBoss is weg en DBM staat erbij, in alle 7 talen.** In het Duits ontbraken ook de regeleinden.
-- [ ] 🆕 **Korte tips (B + C)** (Rob, 15 sep: "eli10 versie"). Een `/reload` is genoeg.
+- [x] ✅ Rob 15 sep: klopt. **About: EXBoss is weg en DBM staat erbij, in alle 7 talen.** In het Duits ontbraken ook de regeleinden.
+- [x] ✅ Rob 15 sep: "ook goed" (wens: rol kiezen, zie onderaan). **Korte tips (B + C)** (Rob, 15 sep: "eli10 versie"). Een `/reload` is genoeg.
       - **Boss-venster:** open het bij een raidbaas, bijvoorbeeld The Coiled Altar via de Raids-pagina of `/mh`.
         - Je ziet 3 korte regels met een lila label ("Phase 1", "Walls" …), en daaronder één regel voor jouw rol:
           *"You (tank): …"*.
@@ -127,7 +127,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Klik: het tips-venster opent op die baas.
       - ❓ Staat er een baas zonder model (een leeg vakje met alleen de naam)? Welke? Klap dicht en weer open; dan
         vraagt hij het nog eens.
-- [ ] 🆕 **Nieuwe dungeon-tips (blok 3 en 4)** (Rob, 15 sep). Een `/reload` is genoeg.
+- [x] ✅ Rob 15 sep: goed. **Nieuwe dungeon-tips (blok 3 en 4)** (Rob, 15 sep). Een `/reload` is genoeg.
       - Codex → Dungeons → Murder Row. Bij Kystia staat nu "kill Nibbles first" (was precies andersom), met
         bovenaan **In short**.
       - Kings' Rest, Temple of Sethraliss en Ruby Life Pools hebben nu tips (die hadden er geen).
@@ -143,7 +143,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         botsen (was: "kill the phantoms"). Bovenaan elke baas **In short**.
       - Windrunner Spire, Nexus-Point Xenas en Magisters' Terrace idem; die draai je ook op Normal/Heroic.
       - ❓ Klopt er iets niet met wat je in het gevecht zag? Zeg welke baas.
-- [ ] 🆕 **De Rares-pagina in de nieuwe look** (Rob, 15 sep: "begin maar aan de moderne rare pagina"). Een
+- [x] ✅ Rob 15 sep: "helemaal goed", Classic goedgekeurd (wens: meters in het Nederlands, gebouwd). **De Rares-pagina in de nieuwe look** (Rob, 15 sep: "begin maar aan de moderne rare pagina"). Een
       `/reload` is genoeg. Codex → Rares:
       - De rijen zijn vlak violet (geen rode Blizzard-knoppen meer). Een rare die nu leeft: groen **UP** en een
         gouden naam. Open: een streepje en een witte naam. Gedood deze week: gedempt, met het woordje **done**.
@@ -152,6 +152,21 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Muis op een rij: in de tooltip staat nu ook de hint van die rare (bijv. dat je eerst een kist opent).
       - **Classic look:** alles zoals vroeger, alleen is "gedood" nu grijs in plaats van groen.
       - ❓ Leest de afstand goed, of zit hij de naam in de weg bij lange namen?
+- [ ] 🆕 **Na Robs testronde van 15 sep 's avonds.** Een `/reload` is genoeg.
+      - **Silvermoon:** maak het MH-venster smaller en weer breder. De kaarten schuiven mee; bij smal worden het
+        2 kolommen (of 1). Er valt rechts niets meer weg: Enchanting en Jewelcrafting staan er weer.
+      - **Raids:** alle raids beginnen ingeklapt. (Heb je er zelf een open- of dichtgeklikt, dan blijft die zo.)
+      - **Tidebound Grotto:** klap open → Nymrissa heeft nu een bewegend model.
+      - **Rares in het Nederlands:** de afstand eindigt op *m* (op een Engelse client zie je nog *yd*).
+      - **Rol kiezen:** open het tips-venster van een raidbaas. Naast *Show all tips* staan drie icoontjes (tank,
+        healer, dps). Klik de healer: de laatste korte regel wordt *"You (healer): …"*. Klik dezelfde nog eens:
+        terug naar je eigen spec. Op de Raids-pagina geldt dezelfde keuze.
+      - **Moeilijkheid:** typ `/mh bossdiff normal` en open een raidbaas in het tips-venster, klik *Show all tips*.
+        De regels "On Heroic and Mythic…" en "On Mythic…" zijn weg, en onderaan staat een grijze regel dat ze
+        verborgen zijn. `/mh bossdiff heroic`: de Heroic-regels komen terug. `/mh bossdiff off`: weer alles.
+      - In een echte dungeon of raid gaat dat vanzelf. `/mh bossdiff` zonder woord zegt welke moeilijkheid MH ziet.
+      - **Settings:** *Only tips for my difficulty* staat aan; zet hem uit en het venster toont altijd alles.
+      - ❓ Zitten de drie rol-icoontjes de knoppen rechtsonder in de weg als het venster smal is?
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

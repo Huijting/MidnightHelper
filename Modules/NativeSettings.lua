@@ -337,6 +337,12 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetBossWindowShortTipsEnabled then ns.SetBossWindowShortTipsEnabled(v) end
 		end, true)
+		-- Rob, 15 Sep 2026: tips for your own difficulty ("manier B"), on by default.
+		AddToggle("mh_bossDiffFilter", "SET_BOSSWIN_DIFF_TITLE", "SET_BOSSWIN_DIFF_DESC", function()
+			return ns.IsBossWindowDiffFilterEnabled and ns.IsBossWindowDiffFilterEnabled()
+		end, function(v)
+			if ns.SetBossWindowDiffFilterEnabled then ns.SetBossWindowDiffFilterEnabled(v) end
+		end, true)
 		AddSlider("mh_bossScale", "SET_BOSSWIN_SCALE", nil, 0.7, 1.8, 0.1, function()
 			return ns.GetBossWindowScale and ns.GetBossWindowScale()
 		end, function(v)

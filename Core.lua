@@ -1380,6 +1380,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh bossdiff [normal|heroic|mythic|off] — voor welke moeilijkheid het boss-venster filtert, en
+	-- waarom; met een woord doet het alsof, zodat het filter buiten een instance te zien is.
+	if msg == "bossdiff" or msg:find("^bossdiff%s") then
+		if ns.BossWindowDifficultyCommand then
+			ns.BossWindowDifficultyCommand(msg:match("^bossdiff%s+(%a+)"))
+		end
+		return
+	end
+
 	-- /mh profids — alle spec-tabbladen en nodes MET hun id, voor de beroepen die dit
 	-- personage heeft. Grondstof om advisorRoutes van naam naar id om te zetten.
 	if msg == "profids" then

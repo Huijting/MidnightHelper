@@ -41,8 +41,9 @@ local function IsCollapsed(key, index)
 	if map and map[key] ~= nil then
 		return map[key] == true
 	end
-	-- First raid open by default, so the page immediately shows what it offers.
-	return index ~= 1
+	-- Rob, 15 Sep 2026: every raid starts folded ("anders is het zo overweldigend"), now that each
+	-- one carries a row of models. A raid you opened or closed yourself keeps that choice.
+	return true
 end
 
 local function ToggleCollapsed(key, index)

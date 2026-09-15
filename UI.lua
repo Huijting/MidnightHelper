@@ -1848,6 +1848,9 @@ local SMCCard = {
 	FILL = { 0.153, 0.129, 0.271, 1 }, -- #272145, one step above the window colour
 	EDGE = { 0.227, 0.184, 0.408, 1 }, -- #3A2F68
 	HEIGHT = 52,
+	-- Narrowest a card may get before the panel drops a column (15 Sep 2026, see _mhMeasureSMC):
+	-- room for the 32 px picture and a name like "Horde Creation Catalyst".
+	MIN_W = 190,
 }
 
 function SMCCard.Stem(point)
@@ -2387,6 +2390,23 @@ local function BuildSMCCityGuidePanel(panel)
 	)
 	local cols = 3
 	local btnW = math.max(100, math.floor((availableW - (cols - 1) * GAP_X) / cols))
+	--- Rob, 15 Sep 2026 (screenshot): with the window made smaller, the third column fell off the right
+	--- edge - Enchanting, Jewelcrafting and more were simply gone - because these three numbers were
+	--- measured once, when the panel was built. LayoutPins now measures the panel every time. The 4.0
+	--- cards drop to two columns, or one, when three would be too narrow to read; Classic keeps its
+	--- three 3.x columns and only narrows them. A field, not a local: this function is near Lua's limit.
+	panel._mhMeasureSMC = function()
+		local w = panel:GetWidth()
+		if w and w > 0 then
+			availableW = math.max(120, math.floor(w - 24 - 2 * SMC_SCROLL_INSET - SMC_SCROLL_BAR_GUTTER))
+		end
+		cols = 3
+		local minW = MHLookOn() and SMCCard.MIN_W or 0
+		while cols > 1 and (availableW - (cols - 1) * GAP_X) / cols < minW do
+			cols = cols - 1
+		end
+		btnW = math.max(100, math.floor((availableW - (cols - 1) * GAP_X) / cols))
+	end
 
 	panel._mhSMCWaypointButtons = {}
 	panel._mhSMCChecklistRows = {}
@@ -2601,6 +2621,10 @@ local function BuildSMCCityGuidePanel(panel)
 	--- geometry exactly (BTN_H 34); the 4.0 cards are SMCCard.HEIGHT. `_mhNavY` is rewritten each
 	--- time because the search jump scrolls to it.
 	local function LayoutPins()
+		panel._mhMeasureSMC()
+		if panel._mhSMCLockedBanner then
+			panel._mhSMCLockedBanner:SetWidth(availableW)
+		end
 		local lookOn = MHLookOn()
 		local btnH = lookOn and SMCCard.HEIGHT or BTN_H
 		local hc = lookOn and LOOK_PALETTE.header or MH_CHROME.tabTexActive
@@ -2641,6 +2665,21 @@ local function BuildSMCCityGuidePanel(panel)
 		SyncSMCScrollBar()
 	end
 	panel._mhSMCRelayout = LayoutPins
+	-- Re-measure when the window is resized or the tab is shown again, one relayout per frame at most.
+	panel._mhSMCScheduleRelayout = function()
+		if panel._mhSMCRelayoutPending or not (C_Timer and C_Timer.After) then
+			return
+		end
+		panel._mhSMCRelayoutPending = true
+		C_Timer.After(0, function()
+			panel._mhSMCRelayoutPending = false
+			if panel:IsVisible() then
+				LayoutPins()
+			end
+		end)
+	end
+	panel:HookScript("OnSizeChanged", panel._mhSMCScheduleRelayout)
+	panel:HookScript("OnShow", panel._mhSMCScheduleRelayout)
 	LayoutPins()
 	if scroll.SetHorizontalScroll then
 		scroll:SetHorizontalScroll(0)

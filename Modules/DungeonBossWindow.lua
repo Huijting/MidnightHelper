@@ -859,6 +859,43 @@ local function EnsureWindow()
 	f._routeBtn = routeBtn
 	f._allBtn = allBtn
 
+	-- Rob, 15 Sep 2026: pick another role's short line. Three small role icons next to "Show all
+	-- tips"; the lit one is the role shown. A click on the lit, picked role follows your spec again.
+	local ROLE_ICONS = { TANK = _G.INLINE_TANK_ICON, HEALER = _G.INLINE_HEALER_ICON, DAMAGER = _G.INLINE_DAMAGER_ICON }
+	local ROLE_NAMES = { TANK = _G.TANK, HEALER = _G.HEALER, DAMAGER = _G.DAMAGER }
+	local roleBtns, prevRoleBtn = {}, allBtn
+	for _, role in ipairs({ "TANK", "HEALER", "DAMAGER" }) do
+		local rb = CreateFrame("Button", nil, f)
+		rb:SetSize(20, 18)
+		rb:SetPoint("LEFT", prevRoleBtn, "RIGHT", role == "TANK" and 6 or 2, 0)
+		rb:SetFrameLevel(f:GetFrameLevel() + 5)
+		local rfs = rb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		rfs:SetPoint("CENTER")
+		rfs:SetText(ROLE_ICONS[role] or role:sub(1, 1))
+		rb._role = role
+		rb:SetScript("OnClick", function(self)
+			local cur, picked = ns.GetBossWindowRole()
+			if picked and cur == self._role then
+				ns.SetBossWindowRole(nil)
+			else
+				ns.SetBossWindowRole(self._role)
+			end
+		end)
+		rb:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+			GameTooltip:SetText(ROLE_NAMES[self._role] or self._role)
+			GameTooltip:AddLine(ns:L("BOSSWIN_ROLE_PICK_TT"), 1, 1, 1, true)
+			GameTooltip:Show()
+		end)
+		rb:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
+		rb:Hide()
+		roleBtns[#roleBtns + 1] = rb
+		prevRoleBtn = rb
+	end
+	f._roleBtns = roleBtns
+
 	-- Resize-grip rechtsonder: breedte vrij; hoogte snapt na afloop terug
 	-- naar de tekstinhoud.
 	local grip = CreateFrame("Button", nil, f)
@@ -973,6 +1010,110 @@ local function PlayerSpecRole()
 	return spec and GetSpecializationRole and GetSpecializationRole(spec) or nil -- TANK / HEALER / DAMAGER
 end
 
+--- The role whose short line is shown: a pick made with the three small role buttons (Rob, 15 Sep
+--- 2026: "kunnen we ook kiezen voor de andere twee specs? (en dat geldt voor alle boss windows)"),
+--- otherwise the current spec's. The pick is saved and also holds on the Raids and Dungeons pages.
+function ns.GetBossWindowRole()
+	local pick = GetWinSettings().quickRole
+	if pick == "TANK" or pick == "HEALER" or pick == "DAMAGER" then
+		return pick, true
+	end
+	return PlayerSpecRole(), false
+end
+
+function ns.SetBossWindowRole(role)
+	GetWinSettings().quickRole = role
+	if ns.RefreshDungeonBossWindow then
+		ns.RefreshDungeonBossWindow()
+	end
+	if ns.RefreshRaidsPanel then
+		ns.RefreshRaidsPanel()
+	end
+	if ns.RefreshDungeonGuidePanel then
+		ns.RefreshDungeonGuidePanel()
+	end
+end
+
+--- 🔴 TIPS FOR YOUR DIFFICULTY - Rob, 15 Sep 2026: "het verschil tussen normal, heroic en mythic ...
+--- kunnen we dat nu inbouwen?" This is "manier B" from 14 Sep. The texts mark harder-only lines with
+--- an opening phrase ("On Heroic and Mythic:", "On Mythic and Mythic+:" and so on, in seven
+--- languages). Inside an instance the window hides the lines above your difficulty and says so at
+--- the bottom, so hidden can never be mistaken for missing. The Raids and Dungeons pages always show
+--- everything, and so does the window outside an instance.
+local diffOverride -- `/mh bossdiff normal|heroic|mythic`: see the filter without zoning in
+
+--- 1 = Normal (also LFR, Follower, Timewalking), 2 = Heroic, 3 = Mythic or Mythic+; nil outside an
+--- instance. Read from the client's own difficulty flags rather than a table of ids.
+function ns.GetBossWindowDifficultyLevel()
+	if diffOverride then
+		return diffOverride, ({ "Normal", "Heroic", "Mythic" })[diffOverride] .. " (/mh bossdiff)", 0
+	end
+	local inInst = IsInInstance and IsInInstance()
+	if not inInst or not GetInstanceInfo then
+		return nil
+	end
+	local _, _, diffID, diffName = GetInstanceInfo()
+	if not diffID or diffID == 0 or not GetDifficultyInfo then
+		return nil
+	end
+	local ok, name, _, isHeroic, isChallengeMode, displayHeroic, displayMythic = pcall(GetDifficultyInfo, diffID)
+	if not ok then
+		return nil
+	end
+	local level = 1
+	if isChallengeMode or displayMythic then
+		level = 3
+	elseif isHeroic or displayHeroic then
+		level = 2
+	end
+	return level, (diffName ~= "" and diffName) or name, diffID
+end
+
+-- Words in the opening phrase, lowercased, in all seven languages: Heroic / Eroico / Heroico /
+-- Heroisch / Héroïque, and Mythic / Mythisch / Mythique / Mitico / Mítico. Heroic is checked first,
+-- because "On Heroic and Mythic" names both and means Heroic and up.
+local HEROIC_TOKENS = { "eroic", "erois", "roïque" }
+local MYTHIC_TOKENS = { "mythi", "mitico", "mítico" }
+
+--- The lowest difficulty a line is meant for: 2 or 3 when it opens with such a phrase before its
+--- first colon, 0 otherwise. Bullets, step numbers and a leading colour code are skipped first.
+local function LineMinLevel(line)
+	local body = (line:gsub("^%s*|c%x%x%x%x%x%x%x%x", ""):gsub("^%s*•%s*", ""):gsub("^%s*%d+%.%s*", ""))
+	local head = body:match("^([^:]+):")
+	if not head or #head > 48 then
+		return 0
+	end
+	head = head:lower()
+	for _, t in ipairs(HEROIC_TOKENS) do
+		if head:find(t, 1, true) then
+			return 2
+		end
+	end
+	for _, t in ipairs(MYTHIC_TOKENS) do
+		if head:find(t, 1, true) then
+			return 3
+		end
+	end
+	return 0
+end
+
+--- One tip text without the lines above `level`, and how many were dropped. Applied per text before
+--- it is coloured, so a dropped last line can never take a colour's |r with it.
+local function FilterByDifficulty(text, level)
+	if not level or type(text) ~= "string" then
+		return text, 0
+	end
+	local kept, hidden = {}, 0
+	for line in (text .. "|n"):gmatch("(.-)|n") do
+		if LineMinLevel(line) > level then
+			hidden = hidden + 1
+		else
+			kept[#kept + 1] = line
+		end
+	end
+	return table.concat(kept, "|n"), hidden
+end
+
 --- "Label: text" lines with the label in the accent colour. Shared with the Raids page (RaidGuide).
 function ns.FormatQuickTipLines(key)
 	local out = {}
@@ -993,7 +1134,7 @@ end
 
 --- The one short line for the player's own role, or nil.
 function ns.FormatQuickRoleLine(tips)
-	local role = PlayerSpecRole()
+	local role = ns.GetBossWindowRole()
 	local key = (role == "TANK" and tips.quickTank) or (role == "HEALER" and tips.quickHealer)
 		or (role == "DAMAGER" and tips.quickDps) or nil
 	if not key then
@@ -1032,18 +1173,31 @@ local function BuildBossText(d, idx)
 			return quickText
 		end
 	end
+	-- Your difficulty, inside an instance and with the setting on (see FilterByDifficulty).
+	local level, diffName
+	if ns.IsBossWindowDiffFilterEnabled and ns.IsBossWindowDiffFilterEnabled() then
+		level, diffName = ns.GetBossWindowDifficultyLevel()
+	end
+	local hiddenTotal = 0
+	local function add(key, color)
+		local t, n = FilterByDifficulty(ns:L(key), level)
+		hiddenTotal = hiddenTotal + n
+		if t ~= "" then
+			lines[#lines + 1] = color and ("|cff" .. color .. t .. "|r") or t
+		end
+	end
 	if tips then
 		if tips.steps then
-			lines[#lines + 1] = ns:L(tips.steps)
+			add(tips.steps)
 		end
 		if tips.tank then
-			lines[#lines + 1] = "|cff" .. COLOR_TANK .. ns:L(tips.tank) .. "|r"
+			add(tips.tank, COLOR_TANK)
 		end
 		if tips.healer then
-			lines[#lines + 1] = "|cff" .. COLOR_HEAL .. ns:L(tips.healer) .. "|r"
+			add(tips.healer, COLOR_HEAL)
 		end
 		if tips.dps then
-			lines[#lines + 1] = "|cff" .. COLOR_DPS .. ns:L(tips.dps) .. "|r"
+			add(tips.dps, COLOR_DPS)
 		end
 	else
 		lines[#lines + 1] = "|cff" .. COLOR_DIMTXT .. ns:L("DGN_TIPS_SOON") .. "|r"
@@ -1062,6 +1216,10 @@ local function BuildBossText(d, idx)
 		if lens then
 			lines[#lines + 1] = lens
 		end
+	end
+	-- Say it when something was left out, so a hidden line is never read as a missing one.
+	if hiddenTotal > 0 then
+		lines[#lines + 1] = "|cff" .. COLOR_DIMTXT .. ns:L("BOSSWIN_DIFF_HIDDEN_FMT"):format(diffName or "?") .. "|r"
 	end
 	local text = table.concat(lines, "|n")
 	if ns.ExpandDelveTipMarkup then
@@ -1106,6 +1264,15 @@ function ns.RefreshDungeonBossWindow()
 			win._allBtn:SetText(ns:L(win._mhShowAll and "BOSSWIN_SHOW_SHORT" or "BOSSWIN_SHOW_ALL"))
 			local fs = win._allBtn.GetFontString and win._allBtn:GetFontString()
 			win._allBtn:SetWidth(((fs and fs:GetStringWidth()) or 80) + 20)
+		end
+	end
+	-- The role icons belong to the short block: shown with it, the lit one is the role on screen.
+	if win._roleBtns then
+		local showRoles = win._allBtn and win._allBtn:IsShown() and not win._mhShowAll
+		local cur = ns.GetBossWindowRole()
+		for _, rb in ipairs(win._roleBtns) do
+			rb:SetShown(showRoles and true or false)
+			rb:SetAlpha(rb._role == cur and 1 or 0.35)
 		end
 	end
 
@@ -1232,6 +1399,49 @@ function ns.SetBossWindowShortTipsEnabled(v)
 	end
 end
 
+-- Tips for your difficulty (see FilterByDifficulty): on unless switched off.
+function ns.IsBossWindowDiffFilterEnabled()
+	return GetWinSettings().diffFilter ~= false
+end
+
+function ns.SetBossWindowDiffFilterEnabled(v)
+	GetWinSettings().diffFilter = v and true or false
+	if ns.RefreshDungeonBossWindow then
+		ns.RefreshDungeonBossWindow()
+	end
+end
+
+--- `/mh bossdiff` prints the difficulty the window filters for and the client flags it came from;
+--- `/mh bossdiff normal|heroic|mythic` pretends one (for this session) so the filter can be seen
+--- outside an instance, and `off` stops pretending. The pretend goes through the same code path.
+function ns.BossWindowDifficultyCommand(arg)
+	local p = "|cffffcc00MH bossdiff:|r"
+	local map = { normal = 1, heroic = 2, mythic = 3 }
+	if arg == "off" then
+		diffOverride = nil
+		print(p, "pretend off")
+	elseif arg and map[arg] then
+		diffOverride = map[arg]
+		print(p, "pretending " .. arg .. " until /reload or /mh bossdiff off")
+	end
+	local inInst, instType = IsInInstance()
+	local _, _, diffID, diffName = GetInstanceInfo()
+	print(p, ("in instance: %s (%s) · difficultyID %s · %s"):format(tostring(inInst), tostring(instType),
+		tostring(diffID), tostring(diffName)))
+	if GetDifficultyInfo and diffID and diffID ~= 0 then
+		local ok, name, groupType, isHeroic, isChallengeMode, displayHeroic, displayMythic = pcall(GetDifficultyInfo, diffID)
+		print(p, ("GetDifficultyInfo ok=%s name=%s group=%s isHeroic=%s challenge=%s displayHeroic=%s displayMythic=%s")
+			:format(tostring(ok), tostring(name), tostring(groupType), tostring(isHeroic), tostring(isChallengeMode),
+			tostring(displayHeroic), tostring(displayMythic)))
+	end
+	local level, name = ns.GetBossWindowDifficultyLevel()
+	print(p, ("filter level: %s (%s) · setting %s"):format(tostring(level), tostring(name),
+		ns.IsBossWindowDiffFilterEnabled() and "on" or "off"))
+	if ns.RefreshDungeonBossWindow then
+		ns.RefreshDungeonBossWindow()
+	end
+end
+
 -- Settings-pagina: schaal live zetten (slider) en layout resetten.
 function ns.SetBossWindowScale(sc)
 	sc = tonumber(sc)
@@ -1331,7 +1541,7 @@ function ns.GetBossModelSource(d, b)
 			return "display", displayId
 		end
 	end
-	local creatureId = CREATURES[key] or b.creatureId
+	local creatureId = CREATURES[key] or b.creatureId or b.seedCreatureId
 	if creatureId then
 		return "creature", creatureId
 	end

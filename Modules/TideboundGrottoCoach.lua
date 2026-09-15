@@ -69,6 +69,13 @@ local ENTRY = {
 			name = "Nymrissa Wavecaller",
 			-- No verified npcID yet (DBM SetCreatureID is blanked). The model
 			-- self-learns from the boss1 frame on pull, like the Ritual Boss Coach.
+			-- 15 Sep 2026 (Rob: the Raids page showed her without a model): DBM has both now,
+			-- GEMETEN in DBM-Lairs-Midnight\TideboundGrotto\NymrissaWavecaller.lua - NewMod(2849, ...)
+			-- is the journal encounter id, which is what encounterID means in these tables (the
+			-- name and the model are asked from the Adventure Guide with it), and SetCreatureID(252959).
+			-- The auto-open below keeps matching ENCOUNTER_START's own id, 3379.
+			encounterID = 2849,
+			seedCreatureId = 252959,
 		},
 	},
 }

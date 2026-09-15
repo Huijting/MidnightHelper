@@ -313,6 +313,26 @@ aan te pakken"*.
           nooit de kaartfractie-terugval), elke seconde bijgewerkt via `OnUpdate`; de aankomst-hint
           (`ns.RareArrivalHintKey`) staat nu ook in de tooltip. Nieuwe sleutels `RARES_TAG_DONE`, `RARES_DIST_FMT`.
         - Nog open: "betaalt nog" in de rij (wat precies? vragen aan Rob), en of de afstand bij lange namen past.
+        - ✅ Rob 15 sep 's avonds: Rares "helemaal goed", Classic goedgekeurd, knop + About kloppen, korte tips en
+          dungeon-tips goed. Zijn wensen, dezelfde avond gebouwd (nog niet gezien):
+          - Silvermoon: de derde kolom viel rechts weg bij een kleiner venster (breedte één keer gemeten bij het
+            bouwen). `panel._mhMeasureSMC` meet nu bij elke `LayoutPins`, `OnSizeChanged`/`OnShow` plannen een
+            relayout; de kaarten gaan onder `SMCCard.MIN_W` (190) naar 2 of 1 kolom, Classic houdt 3.
+          - Raids: allemaal standaard ingeklapt (`RaidGuide.lua` IsCollapsed).
+          - Nymrissa zonder model: `TideboundGrottoCoach.lua` kreeg `encounterID = 2849` (journal) en
+            `seedCreatureId = 252959`, GEMETEN in DBM's NymrissaWavecaller.lua; `GetBossModelSource` leest nu ook
+            `seedCreatureId` (ook Rotmire en de ritual-bazen).
+          - nlNL: `RARES_DIST_FMT` = "%d m".
+          - Rol kiezen: drie rol-icoontjes naast *Show all tips*; `ns.GetBossWindowRole` / `SetBossWindowRole`
+            (`bossWin.quickRole`, bewaard; nil = je spec). Geldt ook voor de Raids- en Dungeons-pagina.
+          - **Manier B, tips per moeilijkheid:** `ns.GetBossWindowDifficultyLevel` (GetInstanceInfo +
+            GetDifficultyInfo-vlaggen, geen id-tabel), `LineMinLevel` herkent de openingszin in 7 talen,
+            `FilterByDifficulty` per tekst vóór het kleuren; onderaan `BOSSWIN_DIFF_HIDDEN_FMT` als er iets weg is.
+            Setting `mh_bossDiffFilter` (aan). Diagnose `/mh bossdiff [normal|heroic|mythic|off]`. Alleen het
+            boss-venster in een instance; de pagina's tonen alles. ⚠️ AFGELEID: de volgorde van
+            GetDifficultyInfo's returns (isHeroic, isChallengeMode, displayHeroic, displayMythic) komt uit geheugen
+            van de API; `/mh bossdiff` in een instance print ze, dat is de meting.
+          - Branch `settings-in-mh`: ook `mh_bossDiffFilter` toevoegen aan `SettingsDefs.lua` bij de merge.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.
