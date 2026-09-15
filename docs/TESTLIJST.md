@@ -65,7 +65,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       from these addons is used." Klik ook op *Info* bij een paar tabbladen: ook daar mag niets meer afgekapt
       zijn, en een kort Info-venster blijft even groot als eerst.
 - [x] ✅ **Rob 15 sep: "deze werkt"**, met een screenshot van Farthik in de nieuwe look: violette kaart, lila rand,
-      model en gele hint. ❓ Nog open: beweegt het model, en hoe ziet Classic eruit?
+      model en gele hint. ✅ Rob, 15 sep: het model beweegt ("ja"), en de Classic-popup is "ook goed".
 - [ ] 🆕 **De popup "Rare nearby" in de nieuwe look** (Rob, 15 sep: "eerst de popup"). `/reload` en typ
       **`/mh raretest farthik`**. Die gaat door dezelfde deur als een echte rare.
       - Nieuwe look: een effen violette kaart met een dunne lila rand, die bij het verschijnen twee keer goud
@@ -89,10 +89,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         Spawn-adds?
       - **Coiled Altar:** staan de groene bollen erin (naar de marker, de klap van de tank ruimt ze op) en de
         spookjes (aankijken, dan staan ze stil)?
-      - ❓ **Coiled Altar: twee of drie fases?** DBM en alle gidsen zeggen drie fases plus een pauze van 35
-        seconden, ook op Normal. Rob herinnert zich er twee. Kwam je groep niet verder dan Malacrass, of voelde
-        de pauze met fase 3 als één fase?
+      - ✅ **Coiled Altar: drie fases** (DBM + alle gidsen, ook op Normal). Rob, 15 sep: *"geen idee, niet zover
+        gekomen denk ik"*. De tekst houdt dus drie fases plus de pauze. Kom je wél verder, kijk dan of het klopt.
       - Klikbare spell-namen: staat er ergens *[Spell 1234567]* in plaats van een naam? Noem de baas.
+- [ ] 🆕 **Ook de Season 1-raids herschreven** (15 sep, blok 2): The Dreamrift, The Voidspire en March on
+      Quel'Danas, samen 9 bazen. Elke baas heeft steps, tank, healer en DPS, met dezelfde kopjes. Kijk vooral naar:
+      - **Vorasius:** de muren moet je kapotmaken, niet erachter schuilen;
+      - **Crown of the Cosmos:** de mini-bazen heten Demiar, Morium en Vorelus;
+      - **Midnight Falls:** je staat IN de Dawnlight Barrier.
+      De interne "EXBoss"-notitie is weg.
+- [ ] 🆕 **About: EXBoss is weg en DBM staat erbij, in alle 7 talen.** In het Duits ontbraken ook de regeleinden.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

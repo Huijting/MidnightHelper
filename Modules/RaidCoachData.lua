@@ -111,7 +111,12 @@ local RAIDS = {
 -- Stap-locale-keys per boss. Alleen velden die we ook echt schrijven (de UI
 -- toont tank/healer/dps alleen als de key bestaat). never-lie: geen lege rollen.
 local TIPS = {
-	chimaerus = { steps = "RAID_BOSS_CHIMAERUS_STEPS", tank = "RAID_BOSS_CHIMAERUS_TANK", healer = "RAID_BOSS_CHIMAERUS_HEALER" },
+	--- ✅ SEASON 1 REWRITTEN 15 Sep 2026 (block 2 of Rob's "de raids en dung enz weer correct"). Every
+	--- boss below now has steps + tank + healer + dps, Normal first and Heroic/Mythic as their own
+	--- bullets; every {SPELL:id} was checked in the DBM mod on disk and the advice against guides from
+	--- March-June 2026. The old "Key casts ... (EXBoss timeline — confirm in-game.)" lines are gone,
+	--- and with them the last text that came from EXBossData. The notes below are the history.
+	chimaerus = { steps = "RAID_BOSS_CHIMAERUS_STEPS", tank = "RAID_BOSS_CHIMAERUS_TANK", healer = "RAID_BOSS_CHIMAERUS_HEALER", dps = "RAID_BOSS_CHIMAERUS_DPS" },
 	--- 🔴 THE ROLE LINES BELOW CAME FROM A SECOND SOURCE, 3 Sep 2026. `tools/zygor_tips.py`
 	--- compares this table against Zygor's own raid guide and found 13 roles where Zygor
 	--- writes advice and we shipped nothing at all -- Ula'tek, the current tier's final
@@ -129,13 +134,13 @@ local TIPS = {
 	--- that is a weaker footing than the DBM-backed spell ids beside it. Treat a report
 	--- that one of these is wrong as likely, not as surprising.
 	averzian  = { steps = "RAID_BOSS_AVERZIAN_STEPS",  tank = "RAID_BOSS_AVERZIAN_TANK", healer = "RAID_BOSS_AVERZIAN_HEALER", dps = "RAID_BOSS_AVERZIAN_DPS" },
-	vorasius  = { steps = "RAID_BOSS_VORASIUS_STEPS",  tank = "RAID_BOSS_VORASIUS_TANK", healer = "RAID_BOSS_VORASIUS_HEALER" },
+	vorasius  = { steps = "RAID_BOSS_VORASIUS_STEPS",  tank = "RAID_BOSS_VORASIUS_TANK",  healer = "RAID_BOSS_VORASIUS_HEALER",  dps = "RAID_BOSS_VORASIUS_DPS" },
 	salhadaar = { steps = "RAID_BOSS_SALHADAAR_STEPS", tank = "RAID_BOSS_SALHADAAR_TANK", healer = "RAID_BOSS_SALHADAAR_HEALER", dps = "RAID_BOSS_SALHADAAR_DPS" },
-	vaelgor   = { steps = "RAID_BOSS_VAELGOR_STEPS",   tank = "RAID_BOSS_VAELGOR_TANK", healer = "RAID_BOSS_VAELGOR_HEALER" },
-	vanguard  = { steps = "RAID_BOSS_VANGUARD_STEPS",  tank = "RAID_BOSS_VANGUARD_TANK" },
-	crown     = { steps = "RAID_BOSS_CROWN_STEPS" },
-	beloren   = { steps = "RAID_BOSS_BELOREN_STEPS" },
-	lura      = { steps = "RAID_BOSS_LURA_STEPS",      tank = "RAID_BOSS_LURA_TANK" },
+	vaelgor   = { steps = "RAID_BOSS_VAELGOR_STEPS",   tank = "RAID_BOSS_VAELGOR_TANK",   healer = "RAID_BOSS_VAELGOR_HEALER",   dps = "RAID_BOSS_VAELGOR_DPS" },
+	vanguard  = { steps = "RAID_BOSS_VANGUARD_STEPS",  tank = "RAID_BOSS_VANGUARD_TANK",  healer = "RAID_BOSS_VANGUARD_HEALER",  dps = "RAID_BOSS_VANGUARD_DPS" },
+	crown     = { steps = "RAID_BOSS_CROWN_STEPS",     tank = "RAID_BOSS_CROWN_TANK",     healer = "RAID_BOSS_CROWN_HEALER",     dps = "RAID_BOSS_CROWN_DPS" },
+	beloren   = { steps = "RAID_BOSS_BELOREN_STEPS",   tank = "RAID_BOSS_BELOREN_TANK",   healer = "RAID_BOSS_BELOREN_HEALER",   dps = "RAID_BOSS_BELOREN_DPS" },
+	lura      = { steps = "RAID_BOSS_LURA_STEPS",      tank = "RAID_BOSS_LURA_TANK",      healer = "RAID_BOSS_LURA_HEALER",      dps = "RAID_BOSS_LURA_DPS" },
 
 	-- ✅ Season 2, HERSCHREVEN 15 sep 2026. Rob, na Twin Fangs en Coiled Altar op Normal: de tips
 	-- waren "absoluut incompleet". De tekst van 15 aug kwam uit DBM en journal-dumps, drie dagen

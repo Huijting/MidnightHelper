@@ -612,10 +612,7 @@ local OVERRIDES = {
 	INFO_DRAWER_BODY_ADDONS = "Hub für optionale Tools, die in Midnight Helper gebündelt sind, anstatt separate Downloads.\n\nWähle oben eine Unterregisterkarte aus – heute ist das Platynator: Wago-Link, Profil-String-Import und die visuelle Galerie von MF Platynator.\n\nZusätzliche Partnerpanels werden hier automatisch registriert, wenn zukünftige Module ausgeliefert werden.",
 	ABOUT_WINDOW_TITLE = "Über Midnight Helper",
 	ABOUT_VERSION_FMT = "Installierte Version: |cffffcc00%s|r",
-	ABOUT_WINDOW_BODY =
-	"Autoren: TwelveInchy & Claude"
-		.. ""
-		.. "Alles-in-einem-Midnight-Nachschlag: Delves & Vault, Tiefen-Coach & Gruppenteilen, Delve-Items-Popup, Account-Snapshot, SMC City Guide, Berufe (KP + Schätze), Leveling Guides, gebündelte Tools — EN / NL / DE / FR / ES / PT / IT.",
+	ABOUT_WINDOW_BODY = "Autoren: TwelveInchy & Claude\n\nDein All-in-one-Begleiter für Midnight, aufgeteilt in vier Räume — Me, Codex, Tools und Settings. Hefte Favoriten unter die Suchleiste und tippe, um überallhin zu springen. Mit Diese Woche, Delves & Vault, Delve- und Ritual-Coaches, dem Berater für Verzauberungen & Edelsteine, Account-Snapshot, Codex-Guides, Berufen und integrierten Addon-Tools — EN / NL / DE / FR / ES / PT / IT.\n\nDanke an die Addons und Guides, an denen wir unsere Fakten geprüft haben: DBM (Boss-Fähigkeiten und Zauber-IDs), HandyNotes_Midnight (Fundorte von Rares und Schätzen), GTFO (Zauber-IDs von Gefahren), RareScanner (Umgang mit Vignetten) sowie Wowhead, Icy Veins, Method und wowcarry. IDs und Zahlen sind für uns Hinweise, die wir, wo immer es geht, am Spiel selbst prüfen; Code aus diesen Addons verwenden wir nicht.",
 	MAIN_TITLE_VERSION_FMT = "v%s",
 	BROKER_TOOLTIP_VERSION_FMT = "Version: %s",
 	CHANGELOG_TITLE = "Mitternachtshelfer-Änderungsprotokoll",

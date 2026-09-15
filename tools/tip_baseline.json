@@ -282,8 +282,14 @@
         "1301800",
         "WEAK"
       ]
+    ],
+    "RAID_BOSS_CROWN_TANK": [
+      [
+        "1255453",
+        "WEAK"
+      ]
     ]
   },
   "measured": "2026-09-03",
-  "_venomous_abyss_2026_09_15": "Accepted after the rewrite of all eight Venomous Abyss bosses: each id was found in that boss's DBM mod on disk by the drafting helpers (file and line in the session notes), and each link names the debuff or aura our sentence talks about. AURA-OF here means the player-facing debuff, not a stand-in for a different cast."
+  "_raid_rewrite_2026_09_15": "Accepted after the 15 Sep 2026 rewrite of all 17 raid bosses (The Venomous Abyss, then the Season 1 raids): each id was found in that boss's DBM mod on disk by the drafting helpers (file and line in the session notes), and each link names the debuff or aura our sentence talks about. AURA-OF and WEAK here mean the player-facing debuff, not a stand-in for a different cast."
 }

@@ -113,13 +113,21 @@ aan te pakken"*.
            {SPELL}-links, `|n` of kleurcodes tussen talen verschillen.
          - Nieuwe rolregels staan ook in TIPS (`RaidCoachData.lua`). `RAID_PRERELEASE_NOTE` zegt nu
            "Rewritten on 15 Sep".
-         - ❓ Open: Coiled Altar heeft volgens DBM en de gidsen 3 fases + pauze, ook op Normal; Rob herinnert
-           zich er 2 (TESTLIJST).
+         - ✅ Coiled Altar-fases: DBM en de gidsen zeggen 3 + pauze. Rob, 15 sep: "geen idee, niet zover gekomen
+           denk ik" → de tekst houdt drie fases.
          - Bewust zonder link:
            - Hungering Pyre (1305421: DBM zegt dat die geen tooltip heeft);
            - Final Ascension (DBM-commentaar noemt die anders);
            - Blighted Sever (id twijfelachtig).
-      2. de andere raids;
+      2. ✅ de andere raids (15 sep): de 9 S1-bazen herschreven, met steps + tank + healer + DPS.
+         - 3 schrijfhulpen (`s1_en_part1..3.json`) en 6 vertaalhulpen (`s1_tr_<lang>_{a,b}.json`); de termen voor
+           Heroism/Bloodlust per taal lagen vooraf vast.
+         - Geplaatst met `mh_raid_tips_merge.py s1` → `mh_raid_tips_apply.py raid_tips_new_s1.json`.
+         - De EXBoss-notitie (Midnight Falls) is weg; GEMETEN 0× "EXBoss" in `Locales/`, met als positieve controle
+           "DBM (" in de About-tekst.
+         - De About-dankregel noemt nu DBM in plaats van EXBoss, in alle 7 talen. de/fr/es/pt/it misten de alinea,
+           en Duits miste ook de regeleinden.
+         - Gidsen: maart-juni 2026; na april geen mechanische hotfixes gevonden.
       3. de dungeons;
       4. de drie dungeons zonder tips.
   - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):
@@ -216,7 +224,7 @@ aan te pakken"*.
       - `RestoreToastColours` vraagt de look, dus een flits eindigt niet meer in hard goud;
       - modern krijgt een gloei van 2 tellen in headergoud bij binnenkomst (alleen zonder `spec.flash`).
       - Test: `/mh raretest farthik`. ✅ **Rob 15 sep: "deze werkt"** (screenshot, nieuwe look: violet, lila rand,
-        model, hint). Of het model beweegt, is op een screenshot niet te zien; Classic is nog niet gezien.
+        model, hint). ✅ Rob: het model beweegt ("ja") en de Classic-popup is "ook goed" — stap 1 is af.
       - ▶ Volgende stap volgens de spar: de Rares-rijen (vlakke vulling, oude hoogte, kleurcode per look;
         "gedood" niet meer groen), daarna afstand + "betaalt nog" + hint in de rij.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan

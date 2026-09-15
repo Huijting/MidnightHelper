@@ -57,13 +57,13 @@ Creation Catalyst, crests, the weekly quest givers, the PvP hub, every professio
 the training dummies, crafting orders, the specialization reset, the Prey hub and Magister Astalor. The
 Classic look keeps the buttons from 3.x.
 
-## Raid tips for The Venomous Abyss, rewritten
+## Raid tips, rewritten
 
-We checked every boss tip against DBM's current encounter mods and the guides written after the raid
-opened. For The Venomous Abyss the spell links were right, but the advice often was not: several tips
-said the opposite of what the fight needs. All eight bosses are rewritten. Normal comes first, the
-Heroic and Mythic rules are marked, and tanks, healers and damage dealers get their own lines. The
-other raids and the dungeons follow.
+We checked every boss tip against DBM's current encounter mods and the current guides. The spell
+links were right, but the advice often was not: several tips said the opposite of what the fight
+needs. All 17 raid bosses are rewritten: The Venomous Abyss, The Dreamrift, The Voidspire and March
+on Quel'Danas. Normal comes first, the Heroic and Mythic rules are marked, and tanks, healers and
+damage dealers get their own lines. The dungeons follow.
 
 ## Fixes
 
