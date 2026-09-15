@@ -175,7 +175,8 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         die je kunt cleansen, **Living Venom** = knockback + slijm doden.
       - Doe je een ander Atal'Aman-verhaal: dan staat alleen Jin'Ma er, zoals eerst.
       - Shadowguard Point met **Basilisk Blitz** heeft dezelfde baas.
-      - ❓ Hoe steek je de Toxic Clouds aan, en wat is Marla's gereedschap? Geen enkele bron zegt het; jij zag het.
+      - ✅ Beantwoord door Rob (15 sep): 2 kisten in de eerste kamer openen, daaruit o.a. **Fireball** (spell
+        1298792) oppakken en die in een Toxic Cloud gooien. Staat nu in de route-regel: kijk of het klopt.
       - ❓ Staat zijn model er, en klopt het?
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).

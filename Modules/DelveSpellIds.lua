@@ -41,6 +41,10 @@ ns.DELVE_SPELL_IDS = {
 	malignance = 1311537, -- 4 s volley of venom globs, stacking DoT + slow; interrupt
 	toxic_froth = 1292454, -- 8 s poison DoT on the player, dispel type Poison
 	living_venom = 1292441, -- knockback + summons Living Venom
+	-- Venomous Vapors' own tool: GEMETEN in Rob's client, 15 Sep 2026 (tooltip with CDPulse's Spell ID):
+	-- "Fireball", 50 yd, instant, 5 s cooldown, "Cast into poison for explosive results. Stand clear!"
+	-- Picked up from one of the 2 chests in the first room.
+	venomous_fireball = 1298792,
 
 	-- Twilight Crypts — Blademaster Darza
 	shade_cleave = 1267227,

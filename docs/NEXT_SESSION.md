@@ -343,7 +343,10 @@ aan te pakken"*.
          - `DelveBossShowcase.lua`: Disciple als tweede baas in beide delves; Jin'Ma en Patram kregen `tipLineMatch`
            + `storyKeys`, anders filtert de tweede baas hun regels weg. `DelveSpellIds.lua`: drie tokens.
          - Tipregels aangevuld in 7 talen via scratch `mh_delve_tips_append.py` (voegt toe achter bestaande sleutels).
-         - Onbekend: hoe je de Toxic Clouds aansteekt en wat Marla's gereedschap is → vraag in TESTLIJST.
+         - ✅ Beantwoord door Rob dezelfde avond (screenshot met CDPulse): 2 kisten in de eerste kamer, daaruit o.a.
+           **Fireball** = spell **1298792** (GEMETEN in zijn client: 50 yd, instant, 5 s cd, "Cast into poison for
+           explosive results. Stand clear!"). Route-regel in 7 talen vervangen (`mh_vashnik_route_fix.py`), token
+           `venomous_fireball`. Wat er verder in die kisten zit: nog onbekend.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.
