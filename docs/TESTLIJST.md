@@ -181,7 +181,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Shadowguard Point met **Basilisk Blitz** heeft dezelfde baas.
       - ✅ Beantwoord door Rob (15 sep): 2 kisten in de eerste kamer openen, daaruit o.a. **Fireball** (spell
         1298792) oppakken en die in een Toxic Cloud gooien; het tweede gereedschap laat je heel hoog springen.
-        Staat nu in de route-regel: kijk of het klopt. ❓ Hoe heet dat spring-ding? (Muis erop met CDPulse aan.)
+        ✅ Rob 15 sep, later (screenshots): het spring-ding heet **Springstep Rune** (uit de *Rune Chest*), de Fireball
+        komt uit de **Fire Gauntlet** (*Gauntlet Chest*), en eerst praat je met **Marla**. De route staat nu zo in drie
+        regels, en de Springstep Rune heeft een tooltip. Kijk bij de volgende run of het zo leest als je het ziet.
       - ❓ Staat zijn model er, en klopt het?
 - [ ] 🆕 **Delves bijgewerkt voor Seizoen 2** (Rob, 15 sep: "doe de delve-audit maar"). Een `/reload` is genoeg.
       Open de Delve Coach (of loop de delve in) en kijk:

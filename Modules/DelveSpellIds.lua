@@ -45,6 +45,11 @@ ns.DELVE_SPELL_IDS = {
 	-- "Fireball", 50 yd, instant, 5 s cooldown, "Cast into poison for explosive results. Stand clear!"
 	-- Picked up from one of the 2 chests in the first room.
 	venomous_fireball = 1298792,
+	-- Its sibling from the Rune Chest: "Springstep Rune", GEMETEN on Rob's screen (tracker "Springstep Rune
+	-- gathered", 15 Sep 2026) and in DB2 CriteriaTree 229389. Of the two SpellName rows, 1298970 carries the
+	-- player text (Wowhead tooltip: 50 yd, instant, "Leap into the air in the direction you're moving");
+	-- 1302209 has no text. 1298975 is its Feather Fall trigger.
+	springstep_rune = 1298970,
 
 	-- Twilight Crypts — Blademaster Darza
 	shade_cleave = 1267227,

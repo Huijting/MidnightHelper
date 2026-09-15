@@ -351,7 +351,12 @@ aan te pakken"*.
            **Fireball** = spell **1298792** (GEMETEN in zijn client: 50 yd, instant, 5 s cd, "Cast into poison for
            explosive results. Stand clear!"). Route-regel in 7 talen vervangen (`mh_vashnik_route_fix.py`), token
            `venomous_fireball`. Het tweede gereedschap uit die kisten (Rob, dezelfde avond, uit zijn hoofd): iets
-           waarmee je heel hoog springt. Naam en spell-id onbekend; de route-regel beschrijft het zonder naam.
+           waarmee je heel hoog springt. ✅ Later die avond (Robs screenshots + DB2
+           CriteriaTree 229389 "Chests + Loot": Marla spoken to, 2 Chests opened, Fire Gauntlet gathered, Springstep Rune
+           gathered): het is de **Springstep Rune** uit de Rune Chest, spell **1298970** (Wowhead-tooltip "Leap into the
+           air in the direction you're moving"; 1302209 is een kale rij). De Fireball komt uit de **Fire Gauntlet**
+           (Gauntlet Chest). Route nu in drie regels (Marla → 2 kisten → 5 Venom Vipers + Toxic Clouds-balk, DB2 222623),
+           7 talen, zelf vertaald. Vashniks `storyHints` kregen de trackerregels.
       9. 🔨 **Delve-audit voor Seizoen 2** (15 sep, Rob: *"ja, doe de delve-audit maar"*). Gebouwd, nog niet gezien.
          - 5 onderzoekshulpen plus eigen metingen in DB2 (wago.tools via het browservenster; WebFetch krijgt 403).
            GEMETEN in CriteriaTree "12.1 Delves - … - V04" (live 12.1.0.69814), de laatste stap per nieuw verhaal:

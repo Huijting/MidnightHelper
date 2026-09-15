@@ -195,7 +195,10 @@ ns.DELVE_BOSS_SHOWCASE = {
 		-- a wrong id only means no model loads. Every tip line for it names "Vashnik" or the variant.
 		{ creatureId = 267970, label = "Disciple of Vashnik", storyKeys = { "Venomous Vapors" },
 			tipLineMatch = { "Vashnik", "Venomous Vapors" },
-			storyHints = { "venomous vapors", "toxic cloud", "venom viper", "disciple of vashnik" } },
+			-- "marla" ... "springstep rune": the objective lines Rob's tracker showed (15 Sep 2026), which
+			-- match DB2 CriteriaTree 229389 word for word.
+			storyHints = { "venomous vapors", "toxic cloud", "venom viper", "disciple of vashnik",
+				"marla spoken to", "fire gauntlet", "springstep rune" } },
 	},
 	twilight_crypts = {
 		-- 15 Sep 2026: the 12.1 story Why'd it have to be snakes? ends at Replicating Venomborne. GEMETEN in
