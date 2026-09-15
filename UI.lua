@@ -768,6 +768,11 @@ end
 --- setting; the sidebar rows and room buttons follow on the relayout it forces.
 local function MHApplyLookChrome(refs)
 	local lookOn = MHLookOn()
+	-- The header switch must follow every change, also one made in Settings, so it is set before
+	-- the early return below.
+	if ns._mhRefreshLookToggle then
+		ns._mhRefreshLookToggle()
+	end
 	if refs._mhLookApplied == lookOn then
 		return
 	end
@@ -779,7 +784,7 @@ local function MHApplyLookChrome(refs)
 		local c = lookOn and LOOK_PALETTE.header or { 1, 0.82, 0 }
 		refs.titleText:SetTextColor(c[1], c[2], c[3])
 	end
-	for _, btn in ipairs({ refs.infoToggleBtn or false, refs.aboutBtn or false, ns._mhCodexLinkBtn or false,
+	for _, btn in ipairs({ refs.infoToggleBtn or false, refs.aboutBtn or false, refs.lookToggleBtn or false, ns._mhCodexLinkBtn or false,
 		refs.searchResetBtn or false, refs.searchGoBtn or false }) do
 		if btn then
 			if lookOn then
@@ -853,6 +858,9 @@ function ns:RefreshLocaleUI()
 	end
 	if r.aboutBtn and r.aboutBtn.SetText then
 		r.aboutBtn:SetText(self:L("ABOUT_BUTTON"))
+	end
+	if ns._mhRefreshLookToggle then
+		ns._mhRefreshLookToggle()
 	end
 
 	if r.tabKeys and self.tabButtons then
@@ -1193,7 +1201,7 @@ local SMC_CATEGORIES = {
 			--- recepten "tijdelijk" weg zijn en vanzelf terugkomen als je identiek herbesteedt.
 			--- Dat staat er niet, en het is de ene zin die iemand zijn recepten kan kosten.
 			--- Het spel belooft niets terug — dus wij ook niet.
-			{ id = "prof_reset", label = "Theremis — Specializations resetten", descKey = "SMC_PIN_PROF_RESET", atlas = "services-icon-trainer", x = 45.05, y = 56.17, npcID = 243280 },
+			{ id = "prof_reset", label = "Theremis — Reset specializations", descKey = "SMC_PIN_PROF_RESET", atlas = "services-icon-trainer", x = 45.05, y = 56.17, npcID = 243280 },
 			{ id = "creation_catalyst", label = "Creation Catalyst", descKey = "SMC_PIN_CREATION_CATALYST", atlas = "creationcatalyst-32x32", x = 40.31, y = 64.85 },
 		},
 	},
@@ -2839,11 +2847,43 @@ function ns:EnsureMainUI()
 		end
 	end)
 
+	-- Rob, 15 Sep 2026: "rechts boven in een knop die classic of modern als switch geeft voor de
+	-- layout zodat ie snel om te zetten is. Later bepalen we of die daar blijft." It flips the same
+	-- setting as Settings -> Classic look, through the same setter, so the two never disagree. The
+	-- label names the look a click switches TO; MHApplyLookChrome keeps it right after every change.
+	local lookToggleBtn = CreateFrame("Button", "MidnightHelperLookToggleBtn", titleBar, "UIPanelButtonTemplate")
+	lookToggleBtn:SetSize(64, 22)
+	lookToggleBtn:SetPoint("RIGHT", aboutBtn, "LEFT", -4, 0)
+	MHTintButtonTextures(lookToggleBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
+	lookToggleBtn:SetScript("OnClick", function()
+		if ns.SetClassicLookEnabled and ns.IsClassicLookEnabled then
+			ns:SetClassicLookEnabled(not ns:IsClassicLookEnabled())
+		end
+		if ns._mhRefreshLookToggle then
+			ns._mhRefreshLookToggle()
+		end
+	end)
+	lookToggleBtn:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+		GameTooltip:SetText(ns:L("SETTINGS_CLASSIC_LOOK"), 1, 0.82, 0)
+		GameTooltip:AddLine(ns:L("LOOK_TOGGLE_TT"), 0.9, 0.9, 0.9, true)
+		GameTooltip:Show()
+	end)
+	lookToggleBtn:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+	ns._mhRefreshLookToggle = function()
+		local classic = ns.IsClassicLookEnabled and ns:IsClassicLookEnabled()
+		lookToggleBtn:SetText(ns:L(classic and "LOOK_TOGGLE_MODERN" or "LOOK_TOGGLE_CLASSIC"))
+		FitTitleBarButton(lookToggleBtn, 56, 100)
+	end
+	ns._mhRefreshLookToggle()
+
 	-- Phase 3 cross-link: "Read in Codex"-knop, verschijnt bij tabs met een
 	-- Codex-tegenhanger (gevuld door SelectTab) en springt naar die categorie.
 	local codexLinkBtn = CreateFrame("Button", "MidnightHelperCodexLink", titleBar, "UIPanelButtonTemplate")
 	codexLinkBtn:SetSize(110, 20)
-	codexLinkBtn:SetPoint("RIGHT", aboutBtn, "LEFT", -6, 0)
+	codexLinkBtn:SetPoint("RIGHT", lookToggleBtn, "LEFT", -6, 0)
 	MHTintButtonTextures(codexLinkBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
 	codexLinkBtn:SetText(ns:L("CODEX_LINK_OPEN"))
 	codexLinkBtn:SetScript("OnClick", function(self)
@@ -4358,6 +4398,7 @@ function ns:EnsureMainUI()
 		searchResetBtn = searchResetBtn,
 		searchGoBtn = searchGoBtn,
 		aboutBtn = aboutBtn,
+		lookToggleBtn = lookToggleBtn,
 		guidePanel = ns.panels.guide,
 		addonsPanel = addonsPanel,
 		addonsSubNav = addonsSubNav,

@@ -52,10 +52,32 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - tank: defensive op Iceblade Flurry.
       Klopt dat met wat je zag? Wat mist er, of wat is fout? Het komt uit de live-gidsen en DBM; wij zijn het
       nog niet zelf gelopen.
+- [ ] 🆕 **Knop Classic / Modern rechtsboven** (Rob, 15 sep). Een `/reload` is genoeg, want er zijn geen
+      nieuwe plaatjes.
+      - Naast *About* staat nu een knop. In de nieuwe look zegt hij *Classic*.
+      - Klik erop: alles gaat terug naar 3.x, en de knop zegt nu *Modern*. Klik weer: de nieuwe look.
+      - Zet je het om in Settings, dan volgt de knop ook.
+      - Beweeg erover: de tooltip legt uit wat hij doet.
+      - Staat hij in de weg, of past de tekst niet? Zeg het; we besluiten later of hij daar blijft.
+- [ ] 🆕 Silvermoon: de kaart heet nu **Theremis — Reset specializations** (er stond "…resetten").
 - [ ] 🆕 **Sporefall: gaat het boss-venster vanzelf open bij Rotmire?** (gerepareerd 15 sep). Bij de
       volgende Sporefall-pull hoort het venster vanzelf open te springen, met Rotmires model erin. Op een
       Engelse client deed het dat al; de reparatie is vooral voor spelers met een andere taal. Blijft het
       dicht, of staat er een verkeerd model: zeg het.
+- [ ] 🆕 **Nieuwe tips voor alle 8 bazen van The Venomous Abyss** (15 sep, na Robs "absoluut incompleet").
+      Raids-pagina → The Venomous Abyss, en het boss-venster tijdens het gevecht.
+      - Bovenaan staat een nieuwe regel: *"Rewritten on 15 Sep ..."*.
+      - Elke baas heeft nu een regel voor tank, healer en DPS.
+      - Normal staat voorop; regels voor Heroic en Mythic beginnen met *"On Heroic and Mythic:"* of
+        *"On Mythic:"*.
+      - **Twin Fangs:** staan de gifstapels erin, de drie Feast-groepen, de groene Caustic Globules en de
+        Spawn-adds?
+      - **Coiled Altar:** staan de groene bollen erin (naar de marker, de klap van de tank ruimt ze op) en de
+        spookjes (aankijken, dan staan ze stil)?
+      - ❓ **Coiled Altar: twee of drie fases?** DBM en alle gidsen zeggen drie fases plus een pauze van 35
+        seconden, ook op Normal. Rob herinnert zich er twee. Kwam je groep niet verder dan Malacrass, of voelde
+        de pauze met fase 3 als één fase?
+      - Klikbare spell-namen: staat er ergens *[Spell 1234567]* in plaats van een naam? Noem de baas.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

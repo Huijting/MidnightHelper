@@ -67,7 +67,7 @@ local RAIDS = {
 	-- 3429/3445/3455/3470/3492/3497) aren't needed here: auto-open falls back to the boss name
 	-- like the S1 raids. Season-gated below so it stays hidden until 12.1 is live. Boss order =
 	-- SetEncounterID order (confirm the pull order + model NPC IDs in-game). Beginner step
-	-- texts land as S2 approaches — never-lie: no invented mechanics, so no TIPS entries yet.
+	-- texts: see TIPS below (rewritten 15 Sep 2026 from the DBM mods on disk and live guides).
 	{
 		key = "raid_venomousabyss",
 		name = "The Venomous Abyss",
@@ -137,30 +137,33 @@ local TIPS = {
 	beloren   = { steps = "RAID_BOSS_BELOREN_STEPS" },
 	lura      = { steps = "RAID_BOSS_LURA_STEPS",      tank = "RAID_BOSS_LURA_TANK" },
 
-	-- ⚠️ Season 2, geschreven 15 aug 2026 — DRIE DAGEN VÓÓR DE OPENING. Dit is de al
-	-- geplande "fase 2 uit DBM-mechanics" (Spec 01). Bronnen, in volgorde van gewicht:
-	-- de geïnstalleerde DBM-Raids-Midnight-modules (met de hand geschreven waarschuwingen
-	-- incl. soort: rennen/kicken/soaken/dispellen), en warcraft.wiki.gg's Encounter-
-	-- Journal-dumps voor de beginner-framing. Spell-verwijzingen gaan als {SPELL:id}-
-	-- markup: de client levert naam, taal en tooltip zelf, en een fout id is meteen
-	-- zichtbaar als kapotte link in plaats van als stil verkeerd woord.
+	-- ✅ Season 2, HERSCHREVEN 15 sep 2026. Rob, na Twin Fangs en Coiled Altar op Normal: de tips
+	-- waren "absoluut incompleet". De tekst van 15 aug kwam uit DBM en journal-dumps, drie dagen
+	-- vóór de opening, en zei bij zes bazen het omgekeerde van wat het gevecht vraagt (audit 14 sep).
+	-- Nu heeft elke baas steps + tank + healer + dps. Normal staat voorop, en Heroic en Mythic krijgen
+	-- elk een eigen regel ("On Heroic and Mythic:" / "On Mythic:"). Elke {SPELL:id} is gecontroleerd
+	-- in de DBM-mod op schijf. Het advies komt uit de gidsen van na 18 aug (wowcarry, Method), met de
+	-- oudere (Icy Veins, Wowhead) alleen als tweede stem.
 	--
-	-- Waar DBM en de wiki elkaar tegenspreken staat de mechaniek ZONDER link of ZONDER
-	-- advies: Raging Crosswinds (1285425 vs 1285419), Guillotine (1283485 vs 1283489),
-	-- en Blink Nova — DBM zegt wegrennen, de wiki zegt stapelen; de tekst zegt dat
-	-- hardop. Ula'tek zelf is bij DBM vrijwel leeg én nooit op de PTR getest; haar
-	-- regels leunen op de wiki en zeggen dat.
+	-- De twijfels van toen heeft DBM zelf beslecht:
+	-- - Raging Crosswinds is 1285425;
+	-- - Guillotine is 1283485;
+	-- - Blink Nova: wegrennen (DBM "justrun").
+	-- Bewust zonder link:
+	-- - Hungering Pyre (DBM: 1305421 heeft geen tooltip);
+	-- - Final Ascension (DBM-commentaar noemt die anders);
+	-- - Blighted Sever (id twijfelachtig).
 	--
-	-- BuildRaidBody toont boven elke season-2-raid RAID_PRERELEASE_NOTE tot iemand dit
-	-- na 18 aug live heeft nagelopen — haal die pas weg mét een meting.
-	nekzali       = { steps = "RAID_BOSS_NEKZALI_STEPS",       tank = "RAID_BOSS_NEKZALI_TANK", healer = "RAID_BOSS_NEKZALI_HEALER", dps = "RAID_BOSS_NEKZALI_DPS" },
-	entombedsent  = { steps = "RAID_BOSS_ENTOMBEDSENT_STEPS",  tank = "RAID_BOSS_ENTOMBEDSENT_TANK", healer = "RAID_BOSS_ENTOMBEDSENT_HEALER" },
-	lostexplorers = { steps = "RAID_BOSS_LOSTEXPLORERS_STEPS" },
-	vashnik       = { steps = "RAID_BOSS_VASHNIK_STEPS",       tank = "RAID_BOSS_VASHNIK_TANK", healer = "RAID_BOSS_VASHNIK_HEALER", dps = "RAID_BOSS_VASHNIK_DPS" },
-	sszorak       = { steps = "RAID_BOSS_SSZORAK_STEPS",       tank = "RAID_BOSS_SSZORAK_TANK", dps = "RAID_BOSS_SSZORAK_DPS" },
-	twinfangs     = { steps = "RAID_BOSS_TWINFANGS_STEPS",     tank = "RAID_BOSS_TWINFANGS_TANK" },
-	coiledaltar   = { steps = "RAID_BOSS_COILEDALTAR_STEPS",   healer = "RAID_BOSS_COILEDALTAR_HEALER" },
-	ulatek        = { steps = "RAID_BOSS_ULATEK_STEPS",        tank = "RAID_BOSS_ULATEK_TANK", healer = "RAID_BOSS_ULATEK_HEALER", dps = "RAID_BOSS_ULATEK_DPS" },
+	-- BuildRaidBody toont boven elke season-2-raid RAID_PRERELEASE_NOTE; sinds 15 sep zegt die
+	-- "Rewritten on 15 Sep". Haal hem pas weg als iemand de raid heeft uitgespeeld en het klopte.
+	nekzali       = { steps = "RAID_BOSS_NEKZALI_STEPS",       tank = "RAID_BOSS_NEKZALI_TANK",       healer = "RAID_BOSS_NEKZALI_HEALER",       dps = "RAID_BOSS_NEKZALI_DPS" },
+	entombedsent  = { steps = "RAID_BOSS_ENTOMBEDSENT_STEPS",  tank = "RAID_BOSS_ENTOMBEDSENT_TANK",  healer = "RAID_BOSS_ENTOMBEDSENT_HEALER",  dps = "RAID_BOSS_ENTOMBEDSENT_DPS" },
+	lostexplorers = { steps = "RAID_BOSS_LOSTEXPLORERS_STEPS", tank = "RAID_BOSS_LOSTEXPLORERS_TANK", healer = "RAID_BOSS_LOSTEXPLORERS_HEALER", dps = "RAID_BOSS_LOSTEXPLORERS_DPS" },
+	vashnik       = { steps = "RAID_BOSS_VASHNIK_STEPS",       tank = "RAID_BOSS_VASHNIK_TANK",       healer = "RAID_BOSS_VASHNIK_HEALER",       dps = "RAID_BOSS_VASHNIK_DPS" },
+	sszorak       = { steps = "RAID_BOSS_SSZORAK_STEPS",       tank = "RAID_BOSS_SSZORAK_TANK",       healer = "RAID_BOSS_SSZORAK_HEALER",       dps = "RAID_BOSS_SSZORAK_DPS" },
+	twinfangs     = { steps = "RAID_BOSS_TWINFANGS_STEPS",     tank = "RAID_BOSS_TWINFANGS_TANK",     healer = "RAID_BOSS_TWINFANGS_HEALER",     dps = "RAID_BOSS_TWINFANGS_DPS" },
+	coiledaltar   = { steps = "RAID_BOSS_COILEDALTAR_STEPS",   tank = "RAID_BOSS_COILEDALTAR_TANK",   healer = "RAID_BOSS_COILEDALTAR_HEALER",   dps = "RAID_BOSS_COILEDALTAR_DPS" },
+	ulatek        = { steps = "RAID_BOSS_ULATEK_STEPS",        tank = "RAID_BOSS_ULATEK_TANK",        healer = "RAID_BOSS_ULATEK_HEALER",        dps = "RAID_BOSS_ULATEK_DPS" },
 }
 
 --- 3D-modellen voor de acht bosses: journal-displayIDs.

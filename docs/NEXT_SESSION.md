@@ -105,7 +105,20 @@ aan te pakken"*.
     - ▶ **15 sep, Rob:** *"de raids en dung enz weer correct alles laten weergeven"*. Aantikken is dus niet
       nodig (de db `audit` is GEMETEN leeg). Herschrijven op manier A, in 7 talen, met drift `--mark`, in
       blokken:
-      1. Venomous Abyss — Rob liep gisteren Twin Fangs en Coiled Altar en vond de tips "absoluut incompleet";
+      1. ✅ Venomous Abyss (15 sep): alle 8 bazen herschreven, met steps + tank + healer + DPS. Rob liep op
+         14 sep Twin Fangs en Coiled Altar en vond de tips "absoluut incompleet".
+         - 4 schrijfhulpen: DBM op schijf plus gidsen; alleen wowcarry (21 aug) en Method Vashnik (3 sep) en
+           Coiled Altar/Ula'tek (22/30 aug) zijn van na de opening, de rest is van vóór 18 aug.
+         - 6 vertaalhulpen. Geplaatst met `mh_raid_tips_apply.py` (scratchpad), dat weigert als de
+           {SPELL}-links, `|n` of kleurcodes tussen talen verschillen.
+         - Nieuwe rolregels staan ook in TIPS (`RaidCoachData.lua`). `RAID_PRERELEASE_NOTE` zegt nu
+           "Rewritten on 15 Sep".
+         - ❓ Open: Coiled Altar heeft volgens DBM en de gidsen 3 fases + pauze, ook op Normal; Rob herinnert
+           zich er 2 (TESTLIJST).
+         - Bewust zonder link:
+           - Hungering Pyre (1305421: DBM zegt dat die geen tooltip heeft);
+           - Final Ascension (DBM-commentaar noemt die anders);
+           - Blighted Sever (id twijfelachtig).
       2. de andere raids;
       3. de dungeons;
       4. de drie dungeons zonder tips.
@@ -156,6 +169,32 @@ aan te pakken"*.
         dat symbool.
       - `btn._mhOwnPicture` zorgt dat `SMCChecklist` ons plaatje niet groen tint, net als op de kaarten.
       - `/mh smcicons` noemt dit "Classic shows our picture". Nog niet in het spel gezien.
+    - ✅ **Rob 15 sep: plaatjes goed, Classic ook goed** (GEZIEN door Rob).
+    - ✅ **Knop Classic/Modern rechtsboven** (15 sep). Rob: *"rechts boven een knop ... zodat ie snel om te
+      zetten is, later bepalen we of die daar blijft"*.
+      - `lookToggleBtn` in `UI.lua` staat naast About en gebruikt dezelfde setter als Settings.
+      - Het label is de look waar een klik naartoe gaat.
+      - `ns._mhRefreshLookToggle` loopt via `MHApplyLookChrome` en `RefreshLocaleUI`.
+      - Keys `LOOK_TOGGLE_*` in 7 talen. Nog niet in het spel gezien.
+    - ▶ **4 pins nog zonder plaatje** (Robs screens 15 sep): Crafting Orders, Theremis, Prey Hub en Astalor.
+      Ronde 4 is voorgelegd als plan en wacht op Robs ja.
+      - ⚠️ `smc_pins_without_icon.py` las `SMCCard.ICONS` als leeg (foute inspringing in de regex); de 4 zijn
+        met de hand vergeleken, dus AFGELEID.
+      - Theremis-label: "…resetten" → "Reset specializations".
+    - **EXBoss** (Robs vraag 15 sep):
+      - Niet geïnstalleerd, GEMETEN: de glob met positieve controle vond DBM wel.
+      - De code gebruikt het nergens. Het staat alleen in de About-dankregel en in de Midnight Falls-notitie
+        in `RaidTips.lua` (7 talen), uit de verrijking van juni (SESSION_NOTES:789).
+      - De dankregel gaat weg zodra blok 2 (de S1-raids) die notitie vervangt.
+      - Robs vraag "misschien handig om die wel te checken?": EXBossData kan een derde bron zijn naast DBM
+        en de gidsen, maar alleen als Rob het zelf weer installeert.
+    - **Spar "moderne rare-pagina"** (Rob: *"graag over sparren met een stel agenten"*): 3 hulpen (ontwerp,
+      speler, techniek), uitkomst in de chat van 15 sep. Nog niets gebouwd. De kern:
+      - de toast deelt één frame met alle meldingen;
+      - het model krijgt geen idle-animatie (1 regel, zoals `DelveBossShowcase.lua:2036`);
+      - `RestoreToastColours` zet de rand hard terug naar goud;
+      - de Rares-rijen gebruiken kleurcodes in de tekst en een schaalbare kleine letter;
+      - "gedood" en "up" zijn nu allebei groen.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.

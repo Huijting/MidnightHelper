@@ -33,7 +33,8 @@ working. **This Week** and **Settings** always stay.
 ## Prefer the old look?
 
 In Blizzard's settings for Midnight Helper, tick **Classic look (as in 3.x)**. Every screen goes back
-exactly as it was, with the long tab list. Untick it for the new look again.
+exactly as it was, with the long tab list. Untick it for the new look again. The **Classic** / **Modern**
+button at the top right of the window does the same in one click.
 
 ## Raids: The Tidebound Grotto, and a route to every door
 
@@ -53,6 +54,14 @@ masters, M+ teleports, the bank, the auction house, the inn, item upgrades, the 
 Creation Catalyst, crests, the weekly quest givers, the PvP hub, every profession and gathering trainer
 and the training dummies. The Classic look keeps the buttons from 3.x.
 
+## Raid tips for The Venomous Abyss, rewritten
+
+We checked every boss tip against DBM's current encounter mods and the guides written after the raid
+opened. For The Venomous Abyss the spell links were right, but the advice often was not: several tips
+said the opposite of what the fight needs. All eight bosses are rewritten. Normal comes first, the
+Heroic and Mythic rules are marked, and tanks, healers and damage dealers get their own lines. The
+other raids and the dungeons follow.
+
 ## Fixes
 
 - **Two Inscription treasures in Harandar showed each other's state.** *Intrepid Explorer's Marker*
@@ -69,6 +78,8 @@ and the training dummies. The Classic look keeps the buttons from 3.x.
   the minimap icon, the quick bar and the arrow and boss window sizes back as well, showed every achievement
   you had hidden again, and switched the big boss model on although that is off by default. Now it only sets
   the features, as it always said it would.
+- **The Sporefall boss window opens by itself on every client language.** It matched Rotmire by an
+  id the game never sends, so outside English clients it stayed shut.
 - **The Settings page scrolls**, so no button sticks out below a small window.
 - **The old beta checkboxes** for Codex, Guide, Macros and Role Academy are now part of the screen
   list. If you had one switched off, that screen is hidden, and one click brings it back.

@@ -12209,6 +12209,28 @@
    "nlNL": "b4c270aacb5bf27e",
    "ptBR": "b4c270aacb5bf27e"
   },
+  "LOOK_TOGGLE_CLASSIC": {
+   "deDE": "ae25d6481fc1741f",
+   "esES": "ae25d6481fc1741f",
+   "frFR": "ae25d6481fc1741f",
+   "itIT": "ae25d6481fc1741f",
+   "nlNL": "ae25d6481fc1741f",
+   "ptBR": "ae25d6481fc1741f"
+  },
+  "LOOK_TOGGLE_MODERN": {
+   "esES": "eef6c7f6ddd4067e",
+   "frFR": "eef6c7f6ddd4067e",
+   "itIT": "eef6c7f6ddd4067e",
+   "ptBR": "eef6c7f6ddd4067e"
+  },
+  "LOOK_TOGGLE_TT": {
+   "deDE": "440293895adaa74f",
+   "esES": "440293895adaa74f",
+   "frFR": "440293895adaa74f",
+   "itIT": "440293895adaa74f",
+   "nlNL": "440293895adaa74f",
+   "ptBR": "440293895adaa74f"
+  },
   "LOOT_UP_FORSPEC": {
    "deDE": "d6a5b82645af2c80",
    "esES": "d6a5b82645af2c80",
@@ -17159,20 +17181,37 @@
    "nlNL": "52acb8caada2fbf1",
    "ptBR": "52acb8caada2fbf1"
   },
+  "RAID_BOSS_COILEDALTAR_DPS": {
+   "deDE": "53b8da139051ea8f",
+   "esES": "53b8da139051ea8f",
+   "frFR": "53b8da139051ea8f",
+   "itIT": "53b8da139051ea8f",
+   "nlNL": "53b8da139051ea8f",
+   "ptBR": "53b8da139051ea8f"
+  },
   "RAID_BOSS_COILEDALTAR_HEALER": {
-   "deDE": "ab5e1006202f02f0",
-   "esES": "ab5e1006202f02f0",
-   "frFR": "ab5e1006202f02f0",
-   "itIT": "ab5e1006202f02f0",
-   "ptBR": "ab5e1006202f02f0"
+   "deDE": "99a912bb5a00809a",
+   "esES": "99a912bb5a00809a",
+   "frFR": "99a912bb5a00809a",
+   "itIT": "99a912bb5a00809a",
+   "nlNL": "99a912bb5a00809a",
+   "ptBR": "99a912bb5a00809a"
   },
   "RAID_BOSS_COILEDALTAR_STEPS": {
-   "deDE": "017871aab73dc778",
-   "esES": "017871aab73dc778",
-   "frFR": "017871aab73dc778",
-   "itIT": "017871aab73dc778",
-   "nlNL": "017871aab73dc778",
-   "ptBR": "017871aab73dc778"
+   "deDE": "c6df08a8af94646a",
+   "esES": "c6df08a8af94646a",
+   "frFR": "c6df08a8af94646a",
+   "itIT": "c6df08a8af94646a",
+   "nlNL": "c6df08a8af94646a",
+   "ptBR": "c6df08a8af94646a"
+  },
+  "RAID_BOSS_COILEDALTAR_TANK": {
+   "deDE": "91219df8b4aefb74",
+   "esES": "91219df8b4aefb74",
+   "frFR": "91219df8b4aefb74",
+   "itIT": "91219df8b4aefb74",
+   "nlNL": "91219df8b4aefb74",
+   "ptBR": "91219df8b4aefb74"
   },
   "RAID_BOSS_CROWN_STEPS": {
    "deDE": "6a325418f510d62b",
@@ -17182,37 +17221,69 @@
    "nlNL": "6a325418f510d62b",
    "ptBR": "6a325418f510d62b"
   },
+  "RAID_BOSS_ENTOMBEDSENT_DPS": {
+   "deDE": "4c8c42ca306e7a7f",
+   "esES": "4c8c42ca306e7a7f",
+   "frFR": "4c8c42ca306e7a7f",
+   "itIT": "4c8c42ca306e7a7f",
+   "nlNL": "4c8c42ca306e7a7f",
+   "ptBR": "4c8c42ca306e7a7f"
+  },
   "RAID_BOSS_ENTOMBEDSENT_HEALER": {
-   "deDE": "a81d950ef08aed03",
-   "esES": "a81d950ef08aed03",
-   "frFR": "a81d950ef08aed03",
-   "itIT": "a81d950ef08aed03",
-   "nlNL": "a81d950ef08aed03",
-   "ptBR": "a81d950ef08aed03"
+   "deDE": "1d4bbd34663669fa",
+   "esES": "1d4bbd34663669fa",
+   "frFR": "1d4bbd34663669fa",
+   "itIT": "1d4bbd34663669fa",
+   "nlNL": "1d4bbd34663669fa",
+   "ptBR": "1d4bbd34663669fa"
   },
   "RAID_BOSS_ENTOMBEDSENT_STEPS": {
-   "deDE": "f624f51e295c2dea",
-   "esES": "f624f51e295c2dea",
-   "frFR": "f624f51e295c2dea",
-   "itIT": "f624f51e295c2dea",
-   "nlNL": "f624f51e295c2dea",
-   "ptBR": "f624f51e295c2dea"
+   "deDE": "84e8c6a3b3822d36",
+   "esES": "84e8c6a3b3822d36",
+   "frFR": "84e8c6a3b3822d36",
+   "itIT": "84e8c6a3b3822d36",
+   "nlNL": "84e8c6a3b3822d36",
+   "ptBR": "84e8c6a3b3822d36"
   },
   "RAID_BOSS_ENTOMBEDSENT_TANK": {
-   "deDE": "b83876e10bdc571c",
-   "esES": "b83876e10bdc571c",
-   "frFR": "b83876e10bdc571c",
-   "itIT": "b83876e10bdc571c",
-   "nlNL": "b83876e10bdc571c",
-   "ptBR": "b83876e10bdc571c"
+   "deDE": "f799d943b81dcaa6",
+   "esES": "f799d943b81dcaa6",
+   "frFR": "f799d943b81dcaa6",
+   "itIT": "f799d943b81dcaa6",
+   "nlNL": "f799d943b81dcaa6",
+   "ptBR": "f799d943b81dcaa6"
+  },
+  "RAID_BOSS_LOSTEXPLORERS_DPS": {
+   "deDE": "d8d2379b35848679",
+   "esES": "d8d2379b35848679",
+   "frFR": "d8d2379b35848679",
+   "itIT": "d8d2379b35848679",
+   "nlNL": "d8d2379b35848679",
+   "ptBR": "d8d2379b35848679"
+  },
+  "RAID_BOSS_LOSTEXPLORERS_HEALER": {
+   "deDE": "94f38083030ad591",
+   "esES": "94f38083030ad591",
+   "frFR": "94f38083030ad591",
+   "itIT": "94f38083030ad591",
+   "nlNL": "94f38083030ad591",
+   "ptBR": "94f38083030ad591"
   },
   "RAID_BOSS_LOSTEXPLORERS_STEPS": {
-   "deDE": "7f567dc67fd32eef",
-   "esES": "7f567dc67fd32eef",
-   "frFR": "7f567dc67fd32eef",
-   "itIT": "7f567dc67fd32eef",
-   "nlNL": "7f567dc67fd32eef",
-   "ptBR": "7f567dc67fd32eef"
+   "deDE": "af004c7d9de2b577",
+   "esES": "af004c7d9de2b577",
+   "frFR": "af004c7d9de2b577",
+   "itIT": "af004c7d9de2b577",
+   "nlNL": "af004c7d9de2b577",
+   "ptBR": "af004c7d9de2b577"
+  },
+  "RAID_BOSS_LOSTEXPLORERS_TANK": {
+   "deDE": "0c3978b6f6f2fd47",
+   "esES": "0c3978b6f6f2fd47",
+   "frFR": "0c3978b6f6f2fd47",
+   "itIT": "0c3978b6f6f2fd47",
+   "nlNL": "0c3978b6f6f2fd47",
+   "ptBR": "0c3978b6f6f2fd47"
   },
   "RAID_BOSS_LURA_STEPS": {
    "deDE": "bb6eca363c82729a",
@@ -17230,21 +17301,37 @@
    "nlNL": "0b72620f2fee9572",
    "ptBR": "0b72620f2fee9572"
   },
+  "RAID_BOSS_NEKZALI_DPS": {
+   "deDE": "2172b6c34ed846db",
+   "esES": "2172b6c34ed846db",
+   "frFR": "2172b6c34ed846db",
+   "itIT": "2172b6c34ed846db",
+   "nlNL": "2172b6c34ed846db",
+   "ptBR": "2172b6c34ed846db"
+  },
+  "RAID_BOSS_NEKZALI_HEALER": {
+   "deDE": "12179f0eb6ec4c7d",
+   "esES": "12179f0eb6ec4c7d",
+   "frFR": "12179f0eb6ec4c7d",
+   "itIT": "12179f0eb6ec4c7d",
+   "nlNL": "12179f0eb6ec4c7d",
+   "ptBR": "12179f0eb6ec4c7d"
+  },
   "RAID_BOSS_NEKZALI_STEPS": {
-   "deDE": "ad216a4dec67817e",
-   "esES": "ad216a4dec67817e",
-   "frFR": "ad216a4dec67817e",
-   "itIT": "ad216a4dec67817e",
-   "nlNL": "ad216a4dec67817e",
-   "ptBR": "ad216a4dec67817e"
+   "deDE": "91f6ee93a6072acb",
+   "esES": "91f6ee93a6072acb",
+   "frFR": "91f6ee93a6072acb",
+   "itIT": "91f6ee93a6072acb",
+   "nlNL": "91f6ee93a6072acb",
+   "ptBR": "91f6ee93a6072acb"
   },
   "RAID_BOSS_NEKZALI_TANK": {
-   "deDE": "5f43d6a352e72c5d",
-   "esES": "5f43d6a352e72c5d",
-   "frFR": "5f43d6a352e72c5d",
-   "itIT": "5f43d6a352e72c5d",
-   "nlNL": "5f43d6a352e72c5d",
-   "ptBR": "5f43d6a352e72c5d"
+   "deDE": "b48c31b857f6c46a",
+   "esES": "b48c31b857f6c46a",
+   "frFR": "b48c31b857f6c46a",
+   "itIT": "b48c31b857f6c46a",
+   "nlNL": "b48c31b857f6c46a",
+   "ptBR": "b48c31b857f6c46a"
   },
   "RAID_BOSS_NYMRISSA_DPS": {
    "deDE": "15d74db56b3a8e04",
@@ -17326,45 +17413,101 @@
    "nlNL": "be68bdb193ee13b7",
    "ptBR": "be68bdb193ee13b7"
   },
+  "RAID_BOSS_SSZORAK_DPS": {
+   "deDE": "8942bdb47d77b37b",
+   "esES": "8942bdb47d77b37b",
+   "frFR": "8942bdb47d77b37b",
+   "itIT": "8942bdb47d77b37b",
+   "nlNL": "8942bdb47d77b37b",
+   "ptBR": "8942bdb47d77b37b"
+  },
+  "RAID_BOSS_SSZORAK_HEALER": {
+   "deDE": "cd60e92725e679bd",
+   "esES": "cd60e92725e679bd",
+   "frFR": "cd60e92725e679bd",
+   "itIT": "cd60e92725e679bd",
+   "nlNL": "cd60e92725e679bd",
+   "ptBR": "cd60e92725e679bd"
+  },
   "RAID_BOSS_SSZORAK_STEPS": {
-   "deDE": "9b915f55cdf9deab",
-   "esES": "9b915f55cdf9deab",
-   "frFR": "9b915f55cdf9deab",
-   "itIT": "9b915f55cdf9deab",
-   "nlNL": "9b915f55cdf9deab",
-   "ptBR": "9b915f55cdf9deab"
+   "deDE": "068a3227577654e3",
+   "esES": "068a3227577654e3",
+   "frFR": "068a3227577654e3",
+   "itIT": "068a3227577654e3",
+   "nlNL": "068a3227577654e3",
+   "ptBR": "068a3227577654e3"
   },
   "RAID_BOSS_SSZORAK_TANK": {
-   "deDE": "d50422ca965be9c7",
-   "esES": "d50422ca965be9c7",
-   "frFR": "d50422ca965be9c7",
-   "itIT": "d50422ca965be9c7",
-   "nlNL": "d50422ca965be9c7",
-   "ptBR": "d50422ca965be9c7"
+   "deDE": "5cb885a42ea69d0a",
+   "esES": "5cb885a42ea69d0a",
+   "frFR": "5cb885a42ea69d0a",
+   "itIT": "5cb885a42ea69d0a",
+   "nlNL": "5cb885a42ea69d0a",
+   "ptBR": "5cb885a42ea69d0a"
+  },
+  "RAID_BOSS_TWINFANGS_DPS": {
+   "deDE": "501b9562714deecf",
+   "esES": "501b9562714deecf",
+   "frFR": "501b9562714deecf",
+   "itIT": "501b9562714deecf",
+   "nlNL": "501b9562714deecf",
+   "ptBR": "501b9562714deecf"
+  },
+  "RAID_BOSS_TWINFANGS_HEALER": {
+   "deDE": "6e8e1b44d8af5369",
+   "esES": "6e8e1b44d8af5369",
+   "frFR": "6e8e1b44d8af5369",
+   "itIT": "6e8e1b44d8af5369",
+   "nlNL": "6e8e1b44d8af5369",
+   "ptBR": "6e8e1b44d8af5369"
   },
   "RAID_BOSS_TWINFANGS_STEPS": {
-   "deDE": "834603a845423da5",
-   "esES": "834603a845423da5",
-   "frFR": "834603a845423da5",
-   "itIT": "834603a845423da5",
-   "nlNL": "834603a845423da5",
-   "ptBR": "834603a845423da5"
+   "deDE": "0b83b8c21c32e9f5",
+   "esES": "0b83b8c21c32e9f5",
+   "frFR": "0b83b8c21c32e9f5",
+   "itIT": "0b83b8c21c32e9f5",
+   "nlNL": "0b83b8c21c32e9f5",
+   "ptBR": "0b83b8c21c32e9f5"
   },
   "RAID_BOSS_TWINFANGS_TANK": {
-   "deDE": "1b8fa40da4f910b2",
-   "esES": "1b8fa40da4f910b2",
-   "frFR": "1b8fa40da4f910b2",
-   "itIT": "1b8fa40da4f910b2",
-   "nlNL": "1b8fa40da4f910b2",
-   "ptBR": "1b8fa40da4f910b2"
+   "deDE": "423dddbeb3fe865d",
+   "esES": "423dddbeb3fe865d",
+   "frFR": "423dddbeb3fe865d",
+   "itIT": "423dddbeb3fe865d",
+   "nlNL": "423dddbeb3fe865d",
+   "ptBR": "423dddbeb3fe865d"
+  },
+  "RAID_BOSS_ULATEK_DPS": {
+   "deDE": "16daf11cd142cfb9",
+   "esES": "16daf11cd142cfb9",
+   "frFR": "16daf11cd142cfb9",
+   "itIT": "16daf11cd142cfb9",
+   "nlNL": "16daf11cd142cfb9",
+   "ptBR": "16daf11cd142cfb9"
+  },
+  "RAID_BOSS_ULATEK_HEALER": {
+   "deDE": "6c43085d49f082d0",
+   "esES": "6c43085d49f082d0",
+   "frFR": "6c43085d49f082d0",
+   "itIT": "6c43085d49f082d0",
+   "nlNL": "6c43085d49f082d0",
+   "ptBR": "6c43085d49f082d0"
   },
   "RAID_BOSS_ULATEK_STEPS": {
-   "deDE": "6167588309e7e147",
-   "esES": "6167588309e7e147",
-   "frFR": "6167588309e7e147",
-   "itIT": "6167588309e7e147",
-   "nlNL": "6167588309e7e147",
-   "ptBR": "6167588309e7e147"
+   "deDE": "7de0795cac51c93a",
+   "esES": "7de0795cac51c93a",
+   "frFR": "7de0795cac51c93a",
+   "itIT": "7de0795cac51c93a",
+   "nlNL": "7de0795cac51c93a",
+   "ptBR": "7de0795cac51c93a"
+  },
+  "RAID_BOSS_ULATEK_TANK": {
+   "deDE": "028b035a7afe4e4c",
+   "esES": "028b035a7afe4e4c",
+   "frFR": "028b035a7afe4e4c",
+   "itIT": "028b035a7afe4e4c",
+   "nlNL": "028b035a7afe4e4c",
+   "ptBR": "028b035a7afe4e4c"
   },
   "RAID_BOSS_VAELGOR_HEALER": {
    "deDE": "be896bdee8a5b68d",
@@ -17406,21 +17549,37 @@
    "nlNL": "953ac081b5dfd441",
    "ptBR": "953ac081b5dfd441"
   },
+  "RAID_BOSS_VASHNIK_DPS": {
+   "deDE": "086cada75181bfb5",
+   "esES": "086cada75181bfb5",
+   "frFR": "086cada75181bfb5",
+   "itIT": "086cada75181bfb5",
+   "nlNL": "086cada75181bfb5",
+   "ptBR": "086cada75181bfb5"
+  },
+  "RAID_BOSS_VASHNIK_HEALER": {
+   "deDE": "0ed33683f297cd57",
+   "esES": "0ed33683f297cd57",
+   "frFR": "0ed33683f297cd57",
+   "itIT": "0ed33683f297cd57",
+   "nlNL": "0ed33683f297cd57",
+   "ptBR": "0ed33683f297cd57"
+  },
   "RAID_BOSS_VASHNIK_STEPS": {
-   "deDE": "63a519971c951e5b",
-   "esES": "63a519971c951e5b",
-   "frFR": "63a519971c951e5b",
-   "itIT": "63a519971c951e5b",
-   "nlNL": "63a519971c951e5b",
-   "ptBR": "63a519971c951e5b"
+   "deDE": "3f256aac464fd79b",
+   "esES": "3f256aac464fd79b",
+   "frFR": "3f256aac464fd79b",
+   "itIT": "3f256aac464fd79b",
+   "nlNL": "3f256aac464fd79b",
+   "ptBR": "3f256aac464fd79b"
   },
   "RAID_BOSS_VASHNIK_TANK": {
-   "deDE": "7f187b58282be0b4",
-   "esES": "7f187b58282be0b4",
-   "frFR": "7f187b58282be0b4",
-   "itIT": "7f187b58282be0b4",
-   "nlNL": "7f187b58282be0b4",
-   "ptBR": "7f187b58282be0b4"
+   "deDE": "931eb3a75842522d",
+   "esES": "931eb3a75842522d",
+   "frFR": "931eb3a75842522d",
+   "itIT": "931eb3a75842522d",
+   "nlNL": "931eb3a75842522d",
+   "ptBR": "931eb3a75842522d"
   },
   "RAID_BOSS_VORASIUS_HEALER": {
    "deDE": "5c1dd37ad8066179",
@@ -17439,12 +17598,12 @@
    "ptBR": "b05022bd381ecd5c"
   },
   "RAID_PRERELEASE_NOTE": {
-   "deDE": "16528da9536fbcaa",
-   "esES": "16528da9536fbcaa",
-   "frFR": "16528da9536fbcaa",
-   "itIT": "16528da9536fbcaa",
-   "nlNL": "16528da9536fbcaa",
-   "ptBR": "16528da9536fbcaa"
+   "deDE": "f56f2c28997168c1",
+   "esES": "f56f2c28997168c1",
+   "frFR": "f56f2c28997168c1",
+   "itIT": "f56f2c28997168c1",
+   "nlNL": "f56f2c28997168c1",
+   "ptBR": "f56f2c28997168c1"
   },
   "RARES_BTN_NEAREST": {
    "deDE": "ab7155048b1e2644",

@@ -57,10 +57,6 @@
         "ABSENT"
       ],
       [
-        "1265320",
-        "ABSENT"
-      ],
-      [
         "1265326",
         "ABSENT"
       ],
@@ -183,8 +179,111 @@
       [
         "1300685",
         "AURA-OF"
+      ],
+      [
+        "1312967",
+        "AURA-OF"
+      ]
+    ],
+    "RAID_BOSS_NEKZALI_STEPS": [
+      [
+        "1297624",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_NEKZALI_HEALER": [
+      [
+        "1297624",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_ENTOMBEDSENT_STEPS": [
+      [
+        "1284590",
+        "AURA-OF"
+      ]
+    ],
+    "RAID_BOSS_LOSTEXPLORERS_STEPS": [
+      [
+        "1308853",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_LOSTEXPLORERS_DPS": [
+      [
+        "1308853",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_LOSTEXPLORERS_HEALER": [
+      [
+        "1308853",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_VASHNIK_STEPS": [
+      [
+        "1295224",
+        "AURA-OF"
+      ],
+      [
+        "1294994",
+        "AURA-OF"
+      ],
+      [
+        "1295173",
+        "AURA-OF"
+      ]
+    ],
+    "RAID_BOSS_VASHNIK_HEALER": [
+      [
+        "1295224",
+        "AURA-OF"
+      ],
+      [
+        "1294994",
+        "AURA-OF"
+      ],
+      [
+        "1295173",
+        "AURA-OF"
+      ]
+    ],
+    "RAID_BOSS_SSZORAK_STEPS": [
+      [
+        "1287083",
+        "AURA-OF"
+      ]
+    ],
+    "RAID_BOSS_SSZORAK_DPS": [
+      [
+        "1287083",
+        "AURA-OF"
+      ]
+    ],
+    "RAID_BOSS_COILEDALTAR_STEPS": [
+      [
+        "1286837",
+        "AURA-OF"
+      ]
+    ],
+    "RAID_BOSS_ULATEK_TANK": [
+      [
+        "1300938",
+        "AURA-OF"
+      ]
+    ],
+    "RAID_BOSS_ULATEK_HEALER": [
+      [
+        "1301268",
+        "WEAK"
+      ],
+      [
+        "1301800",
+        "WEAK"
       ]
     ]
   },
-  "measured": "2026-09-03"
+  "measured": "2026-09-03",
+  "_venomous_abyss_2026_09_15": "Accepted after the rewrite of all eight Venomous Abyss bosses: each id was found in that boss's DBM mod on disk by the drafting helpers (file and line in the session notes), and each link names the debuff or aura our sentence talks about. AURA-OF here means the player-facing debuff, not a stand-in for a different cast."
 }
