@@ -60,6 +60,8 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Beweeg erover: de tooltip legt uit wat hij doet.
       - Staat hij in de weg, of past de tekst niet? Zeg het; we besluiten later of hij daar blijft.
 - [ ] 🆕 Silvermoon: de kaart heet nu **Theremis — Reset specializations** (er stond "…resetten").
+- [x] ✅ **Rob 15 sep: "deze werkt"**, met een screenshot van Farthik in de nieuwe look: violette kaart, lila rand,
+      model en gele hint. ❓ Nog open: beweegt het model, en hoe ziet Classic eruit?
 - [ ] 🆕 **De popup "Rare nearby" in de nieuwe look** (Rob, 15 sep: "eerst de popup"). `/reload` en typ
       **`/mh raretest farthik`**. Die gaat door dezelfde deur als een echte rare.
       - Nieuwe look: een effen violette kaart met een dunne lila rand, die bij het verschijnen twee keer goud
@@ -98,7 +100,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       fles (Alchemy), hamer + tang (Blacksmithing), kristal boven stof (Enchanting), stofbril (Engineering),
       veer in inktpot (Inscription), ring met blauwe steen (Jewelcrafting), armbeschermer (Leatherworking),
       klos goudgaren (Tailoring), vis aan een haak (Fishing), bosje kruiden (Herbalism), ertsbrok (Mining),
-      mes op een vacht (Skinning) en stropop (Training Dummies). Beweeg over een kaart →
+      mes op een vacht (Skinning) en stropop (Training Dummies). En uit ronde 4 (15 sep): kist met hamer
+      (Crafting Orders), twee pijlen rond een kristal (Theremis), jachthoorn (Prey Hub) en een gouden boek
+      (Astalor). ⚠️ Ook deze vragen een **volledige herstart** van WoW. Beweeg over een kaart →
       hij licht op; klikken zet de route zoals altijd.
       ❌ Zie je een **leeg vakje** waar een plaatje hoort, dan is WoW niet helemaal herstart geweest.
 - [ ] 🆕 Zet **Classic** aan (Settings) en ga terug naar het Silvermoon-tabblad: de oude rode knoppen staan

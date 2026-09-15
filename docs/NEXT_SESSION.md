@@ -176,8 +176,13 @@ aan te pakken"*.
       - Het label is de look waar een klik naartoe gaat.
       - `ns._mhRefreshLookToggle` loopt via `MHApplyLookChrome` en `RefreshLocaleUI`.
       - Keys `LOOK_TOGGLE_*` in 7 talen. Nog niet in het spel gezien.
-    - ▶ **4 pins nog zonder plaatje** (Robs screens 15 sep): Crafting Orders, Theremis, Prey Hub en Astalor.
-      Ronde 4 is voorgelegd als plan en wacht op Robs ja.
+    - ✅ **Ronde 4 in de addon** (15 sep, Rob: "Ja draai ronde 4, keuze geldt als ja"): de laatste 4 pins
+      zonder plaatje.
+      - `smc_{crafting,reset,prey,astalor}_{128,64}.png`, gekoppeld aan crafting_orders, prof_reset, prey_hub
+        en astalor.
+      - Robs keuze, GEMETEN in de db: crafting 1, reset 1, prey 2, astalor 1.
+      - Nu heeft elke Silvermoon-pin een eigen plaatje (AFGELEID: met de hand vergeleken met `SMCCard.ICONS`).
+      - Nog niet in het spel gezien; vraagt een volledige herstart.
       - ⚠️ `smc_pins_without_icon.py` las `SMCCard.ICONS` als leeg (foute inspringing in de regex); de 4 zijn
         met de hand vergeleken, dus AFGELEID.
       - Theremis-label: "…resetten" → "Reset specializations".
@@ -201,7 +206,8 @@ aan te pakken"*.
         Classic = exact de oude gouden dialoogrand;
       - `RestoreToastColours` vraagt de look, dus een flits eindigt niet meer in hard goud;
       - modern krijgt een gloei van 2 tellen in headergoud bij binnenkomst (alleen zonder `spec.flash`).
-      - Test: `/mh raretest farthik`. Nog niet in het spel gezien.
+      - Test: `/mh raretest farthik`. ✅ **Rob 15 sep: "deze werkt"** (screenshot, nieuwe look: violet, lila rand,
+        model, hint). Of het model beweegt, is op een screenshot niet te zien; Classic is nog niet gezien.
       - ▶ Volgende stap volgens de spar: de Rares-rijen (vlakke vulling, oude hoogte, kleurcode per look;
         "gedood" niet meer groen), daarna afstand + "betaalt nog" + hint in de rij.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan

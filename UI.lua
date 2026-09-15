@@ -1807,6 +1807,12 @@ local SMCCard = {
 		mining_trainer = "smc_mining",
 		skinning_trainer = "smc_skinning",
 		training_dummies = "smc_dummy",
+		-- Round 4 (Rob, 15 Sep, from his screenshots: "we missen er een paar"): the last four pins whose
+		-- Blizzard atlas does not exist either. Picked on his phone; "keuze geldt als ja".
+		crafting_orders = "smc_crafting",
+		prof_reset = "smc_reset",
+		prey_hub = "smc_prey",
+		astalor = "smc_astalor",
 		-- Screen icons Rob already approved on 12 Sep, reused where the pin is that screen's subject.
 		trading_post = "tradingpost",
 		delves_hq = "delves",

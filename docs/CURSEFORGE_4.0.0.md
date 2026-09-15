@@ -54,7 +54,8 @@ each one click away from a route to its entrance.
 In the new look the Silvermoon City screen shows its places as cards, with new icons for portals, flight
 masters, M+ teleports, the bank, the auction house, the inn, item upgrades, the mailbox, transmog, the
 Creation Catalyst, crests, the weekly quest givers, the PvP hub, every profession and gathering trainer
-and the training dummies. The Classic look keeps the buttons from 3.x.
+the training dummies, crafting orders, the specialization reset, the Prey hub and Magister Astalor. The
+Classic look keeps the buttons from 3.x.
 
 ## Raid tips for The Venomous Abyss, rewritten
 
