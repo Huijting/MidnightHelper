@@ -35,6 +35,13 @@ ns.DELVE_SPELL_IDS = {
 	raging_spirits = 1266023,
 	claim_spirits = 1266337,
 
+	-- Disciple of Vashnik — Season 2 variant boss: Atal'Aman (Venomous Vapors) and Shadowguard Point
+	-- (Basilisk Blitz). Ids and tooltip text read on Wowhead (nether.wowhead.com tooltips) by a
+	-- research helper on 15 Sep 2026, after Rob met the boss. DBM has no encounter mod for him.
+	malignance = 1311537, -- 4 s volley of venom globs, stacking DoT + slow; interrupt
+	toxic_froth = 1292454, -- 8 s poison DoT on the player, dispel type Poison
+	living_venom = 1292441, -- knockback + summons Living Venom
+
 	-- Twilight Crypts — Blademaster Darza
 	shade_cleave = 1267227,
 	dark_pursuit = 1267121,

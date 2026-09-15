@@ -333,6 +333,17 @@ aan te pakken"*.
             GetDifficultyInfo's returns (isHeroic, isChallengeMode, displayHeroic, displayMythic) komt uit geheugen
             van de API; `/mh bossdiff` in een instance print ze, dat is de meting.
           - Branch `settings-in-mh`: ook `mh_bossDiffFilter` toevoegen aan `SettingsDefs.lua` bij de merge.
+      8. 🔨 **Disciple of Vashnik, een delve-baas die MH niet kende** (15 sep, Robs screenshots uit Atal'Aman T11:
+         "0/5 Venom Vipers defeated", "Toxic Clouds ignited", "0/1 Disciple of Vashnik slain"). Gebouwd, nog niet gezien.
+         - GEMETEN vooraf: "Disciple of Vashnik" 0× in MH en in alle addons op schijf (positieve controle: "Atal'Aman"
+           wel gevonden). Het verhaal Venomous Vapors stond al in `DelveStoryData.lua`, maar zonder tips of baas.
+         - Onderzoekshulp (AFGELEID, Wowhead + Icy Veins + forums): npc 267970 (Atal'Aman) / 268150 (Shadowguard
+           Point, verhaal Basilisk Blitz); Malignance 1311537 (kicken), Toxic Froth 1292454 (poison, 8 s),
+           Living Venom 1292441 (knockback + slijm). Geen DBM-encounter-mod.
+         - `DelveBossShowcase.lua`: Disciple als tweede baas in beide delves; Jin'Ma en Patram kregen `tipLineMatch`
+           + `storyKeys`, anders filtert de tweede baas hun regels weg. `DelveSpellIds.lua`: drie tokens.
+         - Tipregels aangevuld in 7 talen via scratch `mh_delve_tips_append.py` (voegt toe achter bestaande sleutels).
+         - Onbekend: hoe je de Toxic Clouds aansteekt en wat Marla's gereedschap is → vraag in TESTLIJST.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.

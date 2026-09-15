@@ -172,7 +172,22 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 246621, label = "Gladius Slaurna" },
 	},
 	atal_aman = {
-		{ creatureId = 247114, label = "Spiritflayer Jin'Ma" },
+		-- 15 Sep 2026: tipLineMatch covers every Atal'Aman line that was Jin'Ma's before the Season 2
+		-- variant Venomous Vapors brought a second boss (Rob met Disciple of Vashnik there, Tier 11).
+		-- With one boss nothing was filtered; with two, only matching lines stay. The variant words
+		-- ("Ritual:", "Toadly:", "Totem:") stay English in all seven languages, the spell tokens are
+		-- raw markup, and "NPC" / "PNJ" catch the third trash line in every translation.
+		{ creatureId = 247114, label = "Spiritflayer Jin'Ma", storyKeys = {
+			"Ritual Interrupted", "Toadly Unbecoming", "Totem Annihilation",
+		}, tipLineMatch = { "Jin'Ma", "Ritual", "Toadly", "Totem", "Vilebranch", "Spiritpaw", "Akil'zon", "NPC", "PNJ",
+			"flaying_knife", "raging_spirits", "claim_spirits" } },
+		-- Season 2 variant Venomous Vapors. Boss name GEMETEN on Rob's screen, 15 Sep 2026 ("0/1 Disciple
+		-- of Vashnik slain", Tier 11). creatureId 267970 is Wowhead's Atal'Aman npc (a research helper,
+		-- 15 Sep); the same boss is 268150 in Shadowguard Point. Not yet confirmed by eye in the coach:
+		-- a wrong id only means no model loads. Every tip line for it names "Vashnik" or the variant.
+		{ creatureId = 267970, label = "Disciple of Vashnik", storyKeys = { "Venomous Vapors" },
+			tipLineMatch = { "Vashnik", "Venomous Vapors" },
+			storyHints = { "venomous vapors", "toxic cloud", "venom viper", "disciple of vashnik" } },
 	},
 	twilight_crypts = {
 		{ creatureId = 251032, label = "Blademaster Darza" },
@@ -205,7 +220,18 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 256683, label = "Esuritus", storyKeys = { "Core of the Problem", "Gravitational Effect" } },
 	},
 	shadowguard_point = {
-		{ creatureId = 248676, label = "Chief-Arcanist Patram" },
+		-- 15 Sep 2026: Patram's lines get their own match words now that the Season 2 story Basilisk
+		-- Blitz ends in a second boss. Variant words stay English in every language; "ethereal" and
+		-- Spanish "etéreo" catch the trash line, and the spell tokens the boss lines.
+		{ creatureId = 248676, label = "Chief-Arcanist Patram", storyKeys = {
+			"Results: Calamitous", "Captured Wildlife", "Stolen Mana",
+		}, tipLineMatch = { "Patram", "Calamitous", "Captured Wildlife", "Wildlife", "Stolen Mana", "ethereal", "etéreo",
+			"void_bolt_patram", "submit_to_the_void", "discordant_hymn" } },
+		-- The same Disciple of Vashnik as in Atal'Aman (see there); npc 268150 in this delve (Wowhead,
+		-- research helper 15 Sep). Not yet seen in the coach by Rob.
+		{ creatureId = 268150, label = "Disciple of Vashnik", storyKeys = { "Basilisk Blitz" },
+			tipLineMatch = { "Vashnik", "Basilisk Blitz" },
+			storyHints = { "basilisk blitz", "disciple of vashnik" } },
 	},
 	torments_rise = {
 		{ creatureId = 255108, label = "Nullaeus" },

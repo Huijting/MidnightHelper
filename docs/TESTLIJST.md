@@ -167,6 +167,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - In een echte dungeon of raid gaat dat vanzelf. `/mh bossdiff` zonder woord zegt welke moeilijkheid MH ziet.
       - **Settings:** *Only tips for my difficulty* staat aan; zet hem uit en het venster toont altijd alles.
       - ❓ Zitten de drie rol-icoontjes de knoppen rechtsonder in de weg als het venster smal is?
+- [ ] 🆕 **Disciple of Vashnik in de Delve Coach** (Rob, 15 sep: "een baas die we volgens mij niet hebben"). Een
+      `/reload` is genoeg.
+      - Ga Atal'Aman in met het verhaal **Venomous Vapors**. De Delve Coach noemt nu *Disciple of Vashnik* als
+        eindbaas (met model), en bij Route/Trash/Boss staan zijn regels in plaats van die van Jin'Ma.
+      - Boss-tips: onderbreek **Malignance** zelf (Valeera doet het niet altijd), **Toxic Froth** = zware gifschade
+        die je kunt cleansen, **Living Venom** = knockback + slijm doden.
+      - Doe je een ander Atal'Aman-verhaal: dan staat alleen Jin'Ma er, zoals eerst.
+      - Shadowguard Point met **Basilisk Blitz** heeft dezelfde baas.
+      - ❓ Hoe steek je de Toxic Clouds aan, en wat is Marla's gereedschap? Geen enkele bron zegt het; jij zag het.
+      - ❓ Staat zijn model er, en klopt het?
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone
