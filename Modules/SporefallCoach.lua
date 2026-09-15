@@ -44,6 +44,10 @@ if type(ns.DUNGEON_TIPS) == "table" then
 			dps = "RAID_BOSS_ROTMIRE_DPS",
 		},
 	}
+	-- Short tips by name, when they exist (15 Sep 2026; DungeonTipsData.lua loads first).
+	if ns.AttachQuickTips then
+		ns.AttachQuickTips(ns.DUNGEON_TIPS[ENTRY.key].rotmire, "RAID_BOSS_ROTMIRE")
+	end
 end
 
 -- /mh-toegang loopt via de bestaande boss-window-picker; hier alleen de

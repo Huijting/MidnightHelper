@@ -306,6 +306,12 @@
         "1291815",
         "WEAK"
       ]
+    ],
+    "RAID_BOSS_ROTMIRE_STEPS": [
+      [
+        "1222129",
+        "AURA-OF"
+      ]
     ]
   },
   "measured": "2026-09-03",

@@ -64,6 +64,11 @@ if type(ns.DUNGEON_TIPS) == "table" then
 		dragonhawk = { steps = "RITUAL_BOSS_DRAGONHAWK_STEPS" },
 		gerlok = { steps = "RITUAL_BOSS_GERLOK_STEPS" },
 	}
+	-- Short tips by name, when they exist (15 Sep 2026; DungeonTipsData.lua loads first).
+	if ns.AttachQuickTips then
+		ns.AttachQuickTips(ns.DUNGEON_TIPS[ENTRY.key].dragonhawk, "RITUAL_BOSS_DRAGONHAWK")
+		ns.AttachQuickTips(ns.DUNGEON_TIPS[ENTRY.key].gerlok, "RITUAL_BOSS_GERLOK")
+	end
 end
 
 local inScenario = false

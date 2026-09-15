@@ -362,24 +362,34 @@ end
 --- line or a _QUICK block that exists in the enUS table is attached here, the same way RaidCoachData
 --- does it for the raids. A key the table lacks stays nil, so no empty section appears and the boss
 --- window keeps the full text. Hand-written fields above are never overwritten.
-do
+local TIP_FIELDS = {
+	tank = "_TANK", healer = "_HEALER", dps = "_DPS",
+	quick = "_QUICK", quickTank = "_QUICK_TANK", quickHealer = "_QUICK_HEALER", quickDps = "_QUICK_DPS",
+}
+
+--- The same by-name attach for one boss, for coaches that register their own tips after this file
+--- loads (Sporefall, the Ritual Site coaches; 15 Sep 2026, group 4 of the tip audit). base is e.g.
+--- "RAID_BOSS_ROTMIRE" or "RITUAL_BOSS_GERLOK".
+function ns.AttachQuickTips(t, base)
 	local en = ns._mhLocales and ns._mhLocales.enUS
-	local FIELDS = {
-		tank = "_TANK", healer = "_HEALER", dps = "_DPS",
-		quick = "_QUICK", quickTank = "_QUICK_TANK", quickHealer = "_QUICK_HEALER", quickDps = "_QUICK_DPS",
-	}
-	if en then
-		for _, bosses in pairs(ns.DUNGEON_TIPS) do
-			for _, t in pairs(bosses) do
-				local base = type(t) == "table" and type(t.steps) == "string"
-					and t.steps:match("^(DGN_TIP_[A-Z]+_[A-Z]+)_STEPS$")
-				if base then
-					for field, suffix in pairs(FIELDS) do
-						if t[field] == nil and en[base .. suffix] ~= nil then
-							t[field] = base .. suffix
-						end
-					end
-				end
+	if not en or type(t) ~= "table" or type(base) ~= "string" then
+		return t
+	end
+	for field, suffix in pairs(TIP_FIELDS) do
+		if t[field] == nil and en[base .. suffix] ~= nil then
+			t[field] = base .. suffix
+		end
+	end
+	return t
+end
+
+do
+	for _, bosses in pairs(ns.DUNGEON_TIPS) do
+		for _, t in pairs(bosses) do
+			local base = type(t) == "table" and type(t.steps) == "string"
+				and t.steps:match("^(DGN_TIP_[A-Z]+_[A-Z]+)_STEPS$")
+			if base then
+				ns.AttachQuickTips(t, base)
 			end
 		end
 	end

@@ -68,6 +68,8 @@ damage dealers get their own lines.
 The eight Season 2 Mythic+ dungeons got the same treatment. The 17 bosses of Altar of Fangs, Murder
 Row, Den of Nalorakk, The Blinding Vale and Voidscar Arena are rewritten, and Kings' Rest, Temple of
 Sethraliss and Ruby Life Pools, which had no tips at all, now have them for all 11 bosses.
+Rotmire in Sporefall and the Ritual Site bosses were checked too: Rotmire is rewritten around Fungal
+Bloom, and the Ritual Site tips now say plainly what no source describes yet instead of promising it.
 
 Every raid boss also has a short version: three plain lines, plus one for your own role. The boss
 window shows it by default, **Show all tips** brings back everything, and Settings → *Short tips in the

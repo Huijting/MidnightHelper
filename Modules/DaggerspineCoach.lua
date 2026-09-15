@@ -52,6 +52,11 @@ if type(ns.DUNGEON_TIPS) == "table" then
 		mindbreaker = { steps = "RITUAL_BOSS_MINDBREAKER_STEPS" },
 		selenvjar = { steps = "RITUAL_BOSS_SELENVJAR_STEPS" },
 	}
+	-- Short tips by name, only once a source exists for them (15 Sep 2026: none yet).
+	if ns.AttachQuickTips then
+		ns.AttachQuickTips(ns.DUNGEON_TIPS[ENTRY.key].mindbreaker, "RITUAL_BOSS_MINDBREAKER")
+		ns.AttachQuickTips(ns.DUNGEON_TIPS[ENTRY.key].selenvjar, "RITUAL_BOSS_SELENVJAR")
+	end
 end
 
 --------------------------------------------------------------------------------

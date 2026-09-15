@@ -26,6 +26,7 @@ local CHANGELOG_ENTRIES = {
 			"CHANGELOG_400_18",
 			"CHANGELOG_400_19",
 			"CHANGELOG_400_20",
+			"CHANGELOG_400_21",
 		},
 	},
 	{

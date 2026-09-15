@@ -178,6 +178,19 @@ aan te pakken"*.
            is klikbaar; vindt het spel het model nog niet, dan wordt het tot 5 keer opnieuw gevraagd.
          - Het boss-venster zelf gebruikt dezelfde terugval, dus Nalorakk en de raidbazen krijgen daar nu ook een model.
          - Tooltip `BOSS_MODEL_CLICK_TT` in 7 talen.
+      6. ✅ **Groep 4: Sporefall + de ritual-bazen** (15 sep; Rob: *"ja, ga maar door met Sporefall en de rituelen"*).
+         - Rotmire herschreven (DBM `DBM-Lairs-Midnight\Sporefall\Rotmire.lua` + gidsen): de kern is nu Fungal Bloom
+           (alle adds dood op één hoop vóór Bloom, daarna de Bursting Shrooms binnen ~16 s). Weg: "he feeds on
+           them" en "energie nooit laten vollopen" (de energie loopt op een vaste timer, DBM r.118). Erbij: Sporecap
+           kicken (Heroic+), vines naar de rand, Mythic-lijkenregel. Met rollen en korte tips.
+         - Dragonhawk: Binding Nebula nu juist ("dood de nebula"), Dissonant Reflections linkt het live-id 1284081
+           (Robs death recap) i.p.v. PTR-id 1284085. Weg: Unbound Caller, Radiation Wave en "(Verified in-game)".
+         - Ger'lok klopte; er is een Embers-regel bij (één spelersrapport op Wowhead, zo gelabeld).
+         - Mindbreaker: het ene spelersrapport (de straal is dodelijk, blijf over de healing orbs lopen). Selen'vjar:
+           de belofte "komt in de volgende update" is weg; er staat eerlijk dat geen bron haar abilities beschrijft.
+         - Korte tips alleen waar bronnen zijn: Rotmire, Dragonhawk, Ger'lok. `ns.AttachQuickTips` in
+           `DungeonTipsData.lua`, aangeroepen door de drie coach-bestanden.
+         - Open (AFGELEID): Wowhead noemt 1279186 (Shadow Blast) "Obsolete"; misschien is dat niet meer het live-id.
   - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):
     - Van de 39 onbevestigde ids zijn er 38 van delves, en DBM heeft geen delve-mods.
     - De laatste is een bewuste keep: Ula'tek 1300685.
