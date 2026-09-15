@@ -8,7 +8,8 @@
 	bevestigen bij launch — zelfde posture als onze andere boss-tips
 	("geschreven tegen DBM/Wowhead; in-game verificatie loopt").
 
-	Rotmire = npc 254176. Energie-balk-fight: bij vol → Fungal Bloom (wipe).
+	Rotmire = npc 238693 (DBM SetCreatureID; was 254176 uit de PTR-datamining, zie
+	hieronder). Energie-balk-fight: bij vol → Fungal Bloom (wipe).
 	Auto-open: ENCOUNTER_START dat op de bossnaam matcht, leert de encounterID
 	zelf in SavedVars (geen hardcoded encounterID nodig).
 ]]
@@ -22,9 +23,11 @@ local ENTRY = {
 		{
 			key = "rotmire",
 			name = "Rotmire",
-			-- Web-gedataminet npcID (Wowhead PTR). Een in-game geleerd ID (van
-			-- het boss1-frame) wint, net als bij de Ritual Boss Coach.
-			seedCreatureId = 254176,
+			-- 15 Sep 2026: 238693, DBM's SetCreatureID (DBM-Lairs-Midnight\Sporefall\Rotmire.lua,
+			-- revision 20260827050047); our Tidebound Grotto notes call Rotmire 238693 too. The old
+			-- 254176 came from Wowhead PTR datamining in June. An id learned in-game from the boss1
+			-- frame still wins, as with the Ritual Boss Coach.
+			seedCreatureId = 238693,
 		},
 	},
 }
@@ -78,9 +81,12 @@ local function OnEncounterStart(encounterID, encounterName)
 	local rotmireNpc = ENTRY.bosses[1].seedCreatureId
 	local match = false
 
-	-- 1. Bekend/geleerd encounterID (snelste, locale-onafhankelijk). 2711 =
-	-- DBM-Raids-Midnight NewMod-id voor Rotmire (15 jun datamining).
-	if encounterID and (encounterID == 2711 or (store and store.id == encounterID)) then
+	-- 1. Bekend/geleerd encounterID (snelste, locale-onafhankelijk). 3159 = DBM's
+	-- SetEncounterID for Rotmire, the id ENCOUNTER_START carries. Until 15 Sep this said 2711,
+	-- DBM's NewMod (journal) id, which ENCOUNTER_START never sends, so on a non-English client
+	-- the window only opened if the boss1 npc matched, and that seed was wrong as well. The
+	-- Tidebound Grotto coach already matched its SetEncounterID (3379). Found by the 14 Sep audit.
+	if encounterID and (encounterID == 3159 or (store and store.id == encounterID)) then
 		match = true
 	end
 	-- 2. Naam-match (leert dan meteen het encounterID).

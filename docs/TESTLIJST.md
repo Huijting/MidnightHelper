@@ -52,6 +52,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - tank: defensive op Iceblade Flurry.
       Klopt dat met wat je zag? Wat mist er, of wat is fout? Het komt uit de live-gidsen en DBM; wij zijn het
       nog niet zelf gelopen.
+- [ ] 🆕 **Sporefall: gaat het boss-venster vanzelf open bij Rotmire?** (gerepareerd 15 sep). Bij de
+      volgende Sporefall-pull hoort het venster vanzelf open te springen, met Rotmires model erin. Op een
+      Engelse client deed het dat al; de reparatie is vooral voor spelers met een andere taal. Blijft het
+      dicht, of staat er een verkeerd model: zeg het.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

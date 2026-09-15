@@ -100,10 +100,15 @@ aan te pakken"*.
     - **De spell-ids kloppen, de inhoud vaak niet.** Soms staat er precies het omgekeerde van wat je moet
       doen: Vorasius, Sszorak, Coiled Altar, Hoardmonger, Zul'jan en Kystia.
     - **Kings' Rest, Temple of Sethraliss en Ruby Life Pools (S2 M+) hebben geen tips** (GEMETEN).
-    - **Codefout, GEMETEN, nog niet gerepareerd:** `SporefallCoach.lua` matcht encounter 2711 in plaats van
-      3159, en npc 254176 in plaats van 238693.
-    - **Volgende stap:** Rob tikt per baas aan. Daarna herschrijven op manier A, in 7 talen, met drift
-      `--mark`.
+    - ✅ **Codefout gerepareerd (15 sep):** `SporefallCoach.lua` matcht nu encounter 3159 (was 2711) en
+      zaait npc 238693 (was 254176). Nog niet in het spel gezien: dat vraagt een Sporefall-kill.
+    - ▶ **15 sep, Rob:** *"de raids en dung enz weer correct alles laten weergeven"*. Aantikken is dus niet
+      nodig (de db `audit` is GEMETEN leeg). Herschrijven op manier A, in 7 talen, met drift `--mark`, in
+      blokken:
+      1. Venomous Abyss — Rob liep gisteren Twin Fangs en Coiled Altar en vond de tips "absoluut incompleet";
+      2. de andere raids;
+      3. de dungeons;
+      4. de drie dungeons zonder tips.
   - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):
     - Van de 39 onbevestigde ids zijn er 38 van delves, en DBM heeft geen delve-mods.
     - De laatste is een bewuste keep: Ula'tek 1300685.
