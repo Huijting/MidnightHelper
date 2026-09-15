@@ -195,6 +195,15 @@ aan te pakken"*.
       - `RestoreToastColours` zet de rand hard terug naar goud;
       - de Rares-rijen gebruiken kleurcodes in de tekst en een schaalbare kleine letter;
       - "gedood" en "up" zijn nu allebei groen.
+    - ✅ **Stap 1 gebouwd: de popup** (Rob: "eerst de popup", 15 sep), in `MidnightToast.lua`:
+      - het model krijgt `SetAnimation(0, -1)`, in beide looks;
+      - `ApplyToastLook` zet bij élke toast de backdrop per look: modern = WHITE8X8, rand van 2 px, palet;
+        Classic = exact de oude gouden dialoogrand;
+      - `RestoreToastColours` vraagt de look, dus een flits eindigt niet meer in hard goud;
+      - modern krijgt een gloei van 2 tellen in headergoud bij binnenkomst (alleen zonder `spec.flash`).
+      - Test: `/mh raretest farthik`. Nog niet in het spel gezien.
+      - ▶ Volgende stap volgens de spar: de Rares-rijen (vlakke vulling, oude hoogte, kleurcode per look;
+        "gedood" niet meer groen), daarna afstand + "betaalt nog" + hint in de rij.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.

@@ -60,6 +60,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Beweeg erover: de tooltip legt uit wat hij doet.
       - Staat hij in de weg, of past de tekst niet? Zeg het; we besluiten later of hij daar blijft.
 - [ ] 🆕 Silvermoon: de kaart heet nu **Theremis — Reset specializations** (er stond "…resetten").
+- [ ] 🆕 **De popup "Rare nearby" in de nieuwe look** (Rob, 15 sep: "eerst de popup"). `/reload` en typ
+      **`/mh raretest farthik`**. Die gaat door dezelfde deur als een echte rare.
+      - Nieuwe look: een effen violette kaart met een dunne lila rand, die bij het verschijnen twee keer goud
+        oplicht. De titel is lichtgoud en de tekst wit.
+      - **Het 3D-model beweegt nu**: het ademt of wiebelt, en staat niet meer stil.
+      - Klik rechtsboven op *Classic* en typ het nog eens: dan zie je weer het oude gouden kader, met het
+        model dat óók beweegt.
+      - Het geldt voor álle popups, want ze delen één venster, dus ook de shard- en bounty-popups.
+      - ❓ Mooi zo, of te druk? Klopt de ruimte rond het model met de dunne rand?
 - [ ] 🆕 **Sporefall: gaat het boss-venster vanzelf open bij Rotmire?** (gerepareerd 15 sep). Bij de
       volgende Sporefall-pull hoort het venster vanzelf open te springen, met Rotmires model erin. Op een
       Engelse client deed het dat al; de reparatie is vooral voor spelers met een andere taal. Blijft het

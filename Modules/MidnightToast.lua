@@ -112,6 +112,15 @@ local function ApplyToastContent(spec)
 			if root.model.SetFacing then
 				root.model:SetFacing(0.45)
 			end
+			-- Rob, 15 Sep 2026, flying past Coin-Eye Skully: "we missen daar de animatie". The toast
+			-- never had one: without an animation call a PlayerModel holds a static pose and looks
+			-- frozen. Variation -1 loops the idle, the same call DelveBossShowcase.lua makes.
+			if root.model.SetAnimation then
+				pcall(root.model.SetAnimation, root.model, 0, -1)
+			end
+			if root.model.SetPaused then
+				pcall(root.model.SetPaused, root.model, false)
+			end
 		end) == true
 	end
 	if root.model then
@@ -489,12 +498,72 @@ end
 local FLASH_BEATS, FLASH_STEP = 10, 0.35
 local BORDER_GOLD = { 1, 0.82, 0.2, 1 }
 local BG_NORMAL = { 0.07, 0.06, 0.1, 0.94 }
+local TITLE_GOLD = { 1, 0.84, 0.2 }
+local BODY_WHITE = { 0.95, 0.95, 0.95 }
 local flashGen = 0
+
+--- 🎨 THE 4.0 LOOK — Rob, 15 Sep 2026: "onze rare pagina oa, ook in modern vorm", popup first.
+---
+--- One frame serves EVERY toast (rares, bounty, shards, pet taunt), so the look is set each time a
+--- toast is shown, in ApplyToastLook: a switch of the Classic setting reaches the next card without a
+--- reload, and all toasts follow it together. Classic re-applies the exact 3.x gold dialog frame.
+--- ⚠️ RestoreToastColours used to put hard gold back after a flash; it now asks the look, or a
+--- modern card would have turned Classic after its first flash (found by the spar helpers).
+local CLASSIC_BACKDROP = {
+	bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+	edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+	tile = true,
+	tileSize = 32,
+	edgeSize = 32,
+	insets = { left = 11, right = 12, top = 12, bottom = 11 },
+}
+local MODERN_BACKDROP = {
+	bgFile = "Interface\\Buttons\\WHITE8X8",
+	edgeFile = "Interface\\Buttons\\WHITE8X8",
+	tile = false,
+	edgeSize = 2,
+	insets = { left = 2, right = 2, top = 2, bottom = 2 },
+}
+
+local function ToastLookModern()
+	return ns.LOOK_PALETTE ~= nil and not (ns.IsClassicLookEnabled and ns:IsClassicLookEnabled())
+end
+
+--- Background, border, title and body colour for the look that is on right now.
+local function LookColours()
+	local p = ToastLookModern() and ns.LOOK_PALETTE
+	if p and p.window and p.accent and p.header and p.body then
+		return p.window, p.accent, p.header, p.body
+	end
+	return BG_NORMAL, BORDER_GOLD, TITLE_GOLD, BODY_WHITE
+end
 
 local function RestoreToastColours()
 	if toastFrame and toastFrame.SetBackdropColor then
-		toastFrame:SetBackdropColor(unpack(BG_NORMAL))
-		toastFrame:SetBackdropBorderColor(unpack(BORDER_GOLD))
+		local bg, edge = LookColours()
+		toastFrame:SetBackdropColor(bg[1], bg[2], bg[3], bg[4] or 0.94)
+		toastFrame:SetBackdropBorderColor(edge[1], edge[2], edge[3], edge[4] or 1)
+	end
+end
+
+local function ApplyToastLook()
+	local f = toastFrame
+	if not (f and f.SetBackdrop) then
+		return
+	end
+	local modern = ToastLookModern()
+	if f._mhModern ~= modern then
+		f:SetBackdrop(modern and MODERN_BACKDROP or CLASSIC_BACKDROP)
+		f._mhModern = modern
+	end
+	RestoreToastColours()
+	local _, _, title, body = LookColours()
+	local c = f.content
+	if c and c.title then
+		c.title:SetTextColor(title[1], title[2], title[3])
+	end
+	if c and c.body then
+		c.body:SetTextColor(body[1], body[2], body[3])
 	end
 end
 
@@ -502,6 +571,29 @@ local function StartFlash(spec)
 	flashGen = flashGen + 1
 	RestoreToastColours()
 	if not (spec and spec.flash) then
+		-- Modern only: the border lights up twice in the header gold as the card arrives. A greeting,
+		-- not an alarm, so it stays well short of the red-white flash a spec has to ask for.
+		if ToastLookModern() and toastFrame and C_Timer and C_Timer.After then
+			local gen, beat = flashGen, 0
+			local hdr = ns.LOOK_PALETTE.header
+			local function glow()
+				if gen ~= flashGen or not toastFrame or not toastFrame:IsShown() then
+					return
+				end
+				beat = beat + 1
+				if beat > 4 then
+					RestoreToastColours()
+					return
+				end
+				if beat % 2 == 1 then
+					toastFrame:SetBackdropBorderColor(hdr[1], hdr[2], hdr[3], 1)
+				else
+					RestoreToastColours()
+				end
+				C_Timer.After(0.22, glow)
+			end
+			C_Timer.After(FADE_IN_SEC, glow)
+		end
 		return
 	end
 	if not (toastFrame and toastFrame.SetBackdropColor and C_Timer and C_Timer.After) then
@@ -573,6 +665,7 @@ function ns.ShowNextMidnightToast()
 		pcall(PlaySound, spec.soundKit, "Master")
 	end
 	local f = EnsureToastFrame()
+	ApplyToastLook()
 	-- Schaal per toast (spec.scale, default 1) + bewaarde/standaard positie.
 	-- SetPoint-offsets zijn in frame-lokale (geschaalde) coördinaten → delen
 	-- door de schaal houdt de schermpositie gelijk voor elke toast-grootte.
