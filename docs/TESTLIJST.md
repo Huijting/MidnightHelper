@@ -143,6 +143,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         botsen (was: "kill the phantoms"). Bovenaan elke baas **In short**.
       - Windrunner Spire, Nexus-Point Xenas en Magisters' Terrace idem; die draai je ook op Normal/Heroic.
       - ❓ Klopt er iets niet met wat je in het gevecht zag? Zeg welke baas.
+- [ ] 🆕 **De Rares-pagina in de nieuwe look** (Rob, 15 sep: "begin maar aan de moderne rare pagina"). Een
+      `/reload` is genoeg. Codex → Rares:
+      - De rijen zijn vlak violet (geen rode Blizzard-knoppen meer). Een rare die nu leeft: groen **UP** en een
+        gouden naam. Open: een streepje en een witte naam. Gedood deze week: gedempt, met het woordje **done**.
+      - Rechts in elke open rij staat de afstand, bijvoorbeeld *340 yd*, en die loopt mee als je beweegt.
+      - Links: de actieve zone heeft een lila streepje, net als de zijbalk.
+      - Muis op een rij: in de tooltip staat nu ook de hint van die rare (bijv. dat je eerst een kist opent).
+      - **Classic look:** alles zoals vroeger, alleen is "gedood" nu grijs in plaats van groen.
+      - ❓ Leest de afstand goed, of zit hij de naam in de weg bij lange namen?
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

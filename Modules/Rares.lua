@@ -2034,10 +2034,28 @@ function ns.MHRareTryAutoAdvance(reached)
 	return true
 end
 
+--- The new look (4.0) is on, rather than Classic.
+local function RaresLookOn()
+	return ns.MHLookOn ~= nil and ns.LOOK_PALETTE ~= nil and ns.MHLookOn() and true or false
+end
+
+--- Rob, 15 Sep 2026: a rare killed this week was green, right next to the green "UP" of a rare that
+--- is alive now, so the two read the same. Done is grey in Classic now (its only change), and in the
+--- new look it is muted with a "done" tag; up is the palette's good green with a gold name, and an
+--- open rare is plain body text. Every state keeps a word, not only a colour.
 local function FormatRareRowLabel(rare, zoneKey)
 	local name = GetRareDisplayName(rare)
+	if RaresLookOn() then
+		if IsRareDoneThisWeek(rare) then
+			return "|cff8f86ad" .. ns:L("RARES_TAG_DONE") .. "|r |cffb8aedb" .. name .. "|r"
+		end
+		if IsRareVignetteUp(rare, zoneKey) then
+			return "|cff73f280" .. ns:L("RARES_TAG_UP") .. "|r |cfff4de9a" .. name .. "|r"
+		end
+		return "|cffb8aedb" .. ns:L("RARES_TAG_DOWN") .. "|r |cfff1eefa" .. name .. "|r"
+	end
 	if IsRareDoneThisWeek(rare) then
-		return "|cff55ee88" .. name .. "|r"
+		return "|cff8a8f98" .. name .. "|r"
 	end
 	if IsRareVignetteUp(rare, zoneKey) then
 		return "|cff33ff33" .. ns:L("RARES_TAG_UP") .. "|r |cffffe9b3" .. name .. "|r"
@@ -2140,11 +2158,18 @@ local function AttachRareRowTooltip(btn)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(GetRareDisplayName(r), 1, 0.9, 0.55)
 		if IsRareDoneThisWeek(r) then
-			GameTooltip:AddLine(ns:L("RARES_TIP_DONE"), 0.35, 0.95, 0.45)
+			-- Grey-blue, not green: green is "up now" (Rob, 15 Sep 2026: the two read the same).
+			GameTooltip:AddLine(ns:L("RARES_TIP_DONE"), 0.62, 0.66, 0.74)
 		elseif IsRareVignetteUp(r, self._mhZoneKey) then
 			GameTooltip:AddLine(ns:L("RARES_TIP_UP"), 0.25, 1, 0.35)
 		else
 			GameTooltip:AddLine(ns:L("RARES_TIP_DOWN"), 0.7, 0.7, 0.7)
+		end
+		-- Step 3 of the 15 Sep spar: the rare's quirk (a chest to open, one that roams ...) here too,
+		-- not only in chat once you arrive. The same key the arrival watch and the popup use.
+		local hintKey = ns.RareArrivalHintKey and ns.RareArrivalHintKey(r)
+		if hintKey then
+			GameTooltip:AddLine(ns:L(hintKey), 0.55, 0.78, 1, true)
 		end
 		GameTooltip:AddLine(ns:L("RARES_TIP_VIGNETTE_NOTE"), 0.65, 0.68, 0.72, true)
 		GameTooltip:Show()
@@ -2343,6 +2368,13 @@ local function EnsureRowButton(index)
 	if fs and fs.SetFontObject then
 		fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	end
+	-- New look only: the distance to the rare, right-aligned in the row (step 3 of the 15 Sep spar).
+	local dist = btn:CreateFontString(nil, "OVERLAY")
+	dist:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	dist:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
+	dist:SetJustifyH("RIGHT")
+	dist:Hide()
+	btn._mhDist = dist
 	btn:SetScript("OnClick", function(self)
 		if self._mhRare then
 			RouteRare(self._mhRare, true)
@@ -2392,9 +2424,12 @@ local function RefreshZoneRail(zoneKey)
 		local zb = zoneBtns[z.key]
 		if zb then
 			local active = z.key == zoneKey
-			local prefix = active and "|cffffcc00> |r" or ""
+			-- The new look marks the active zone with its fill and accent bar, as the sidebar does,
+			-- instead of the "> " prefix and a disabled (greyed) button.
+			local lookOn = RaresLookOn()
+			local prefix = (active and not lookOn) and "|cffffcc00> |r" or ""
 			zb:SetText(prefix .. (z.shortLabel or z.label))
-			if active then
+			if active and not lookOn then
 				zb:Disable()
 			else
 				zb:Enable()
@@ -2442,6 +2477,114 @@ local function LayoutRareRows(zone, innerW)
 	listHost:SetSize(innerW, math.max(1, maxY + ROW_GAP))
 end
 
+--- Yards from the player to a rare, only when both sit on the world grid; nil otherwise. The sort
+--- helper RareDistanceFromRef falls back to map fractions, which are not yards and must never be
+--- printed as such.
+local function RareYardsNow(rare)
+	local rx, ry = GetRareWorldPos(rare)
+	local px, py = GetPlayerWorldPos()
+	if not (rx and ry and px and py) then
+		return nil
+	end
+	local dx, dy = rx - px, ry - py
+	return math.sqrt(dx * dx + dy * dy)
+end
+
+--- The distance column of the rows (new look only; a rare done this week shows none). Called on
+--- every refresh and once a second while the page is open.
+local function UpdateRowDistances()
+	local on = RaresLookOn()
+	local c = ns.LOOK_PALETTE and ns.LOOK_PALETTE.muted
+	for _, btn in ipairs(rowBtns) do
+		local d = btn._mhDist
+		if d then
+			local rare = btn:IsShown() and btn._mhRare
+			local yards = on and c and rare and not IsRareDoneThisWeek(rare) and RareYardsNow(rare)
+			if yards then
+				d:SetText(ns:L("RARES_DIST_FMT"):format(math.floor(yards + 0.5)))
+				d:SetTextColor(c[1], c[2], c[3])
+				d:Show()
+			else
+				d:Hide()
+			end
+		end
+	end
+end
+
+--- The row's label sits left-aligned with room for the distance in the new look; Classic gets the
+--- template's own anchors back, saved the first time the row is changed.
+local function PlaceRowLabel(btn, lookOn)
+	local fs = btn.GetFontString and btn:GetFontString()
+	if not fs then
+		return
+	end
+	if not btn._mhFsPoints then
+		local pts = {}
+		for i = 1, fs:GetNumPoints() do
+			pts[i] = { fs:GetPoint(i) }
+		end
+		btn._mhFsPoints = pts
+		btn._mhFsJustify = fs:GetJustifyH()
+	end
+	fs:ClearAllPoints()
+	if lookOn then
+		fs:SetPoint("LEFT", btn, "LEFT", 8, 0)
+		fs:SetPoint("RIGHT", btn, "RIGHT", -60, 0)
+		fs:SetJustifyH("LEFT")
+	else
+		for _, p in ipairs(btn._mhFsPoints) do
+			fs:SetPoint(unpack(p))
+		end
+		fs:SetJustifyH(btn._mhFsJustify or "CENTER")
+	end
+end
+
+--- Puts the rows, the zone rail, the two footer buttons and the title in the look that is on now
+--- (step 2 of the 15 Sep spar on a modern Rares page; step 1 was the popup). Cheap, so every refresh
+--- calls it; a switch in Settings or the header button reaches here through MHApplyLookChrome.
+--- Classic gets the Blizzard buttons back exactly as they were.
+local function ApplyRaresLook(zoneKey)
+	local skin, unskin = ns.MHLookSkinButton, ns.MHLookUnskinButton
+	if not (skin and unskin) then
+		return
+	end
+	local on = RaresLookOn()
+	for _, btn in ipairs(rowBtns) do
+		if on then
+			skin(btn, false, "row")
+		else
+			unskin(btn)
+		end
+		PlaceRowLabel(btn, on)
+	end
+	UpdateRowDistances()
+	for key, zb in pairs(zoneBtns) do
+		if on then
+			skin(zb, key == zoneKey, "tab")
+		else
+			unskin(zb)
+		end
+	end
+	for _, b in ipairs({ nearestBtn or false, routeBtn or false }) do
+		if b then
+			if on then
+				skin(b, false, "chip")
+			else
+				unskin(b)
+			end
+		end
+	end
+	local p = ns.LOOK_PALETTE
+	if titleFs then
+		local c = on and p.header or { 1, 1, 1 }
+		titleFs:SetTextColor(c[1], c[2], c[3])
+	end
+	if subtitleFs then
+		local c = on and p.muted or { 0.75, 0.78, 0.82 }
+		subtitleFs:SetTextColor(c[1], c[2], c[3])
+	end
+end
+
 function ns.RefreshRaresPanel()
 	if not frame or not frame:IsVisible() then
 		return
@@ -2486,6 +2629,7 @@ function ns.RefreshRaresPanel()
 	end
 	innerW = math.max(260, innerW)
 	LayoutRareRows(zone, innerW)
+	ApplyRaresLook(zoneKey)
 end
 
 function ns.BuildRaresPanel(panel)
@@ -2565,6 +2709,16 @@ function ns.BuildRaresPanel(panel)
 	frame:SetScript("OnSizeChanged", function()
 		if frame:IsVisible() then
 			ns.RefreshRaresPanel()
+		end
+	end)
+
+	-- The distances follow you while the page is open (OnUpdate only runs while it is shown).
+	local distAcc = 0
+	frame:SetScript("OnUpdate", function(_, elapsed)
+		distAcc = distAcc + (elapsed or 0)
+		if distAcc >= 1 then
+			distAcc = 0
+			UpdateRowDistances()
 		end
 	end)
 

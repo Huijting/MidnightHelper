@@ -301,6 +301,18 @@ aan te pakken"*.
         model, hint). ✅ Rob: het model beweegt ("ja") en de Classic-popup is "ook goed" — stap 1 is af.
       - ▶ Volgende stap volgens de spar: de Rares-rijen (vlakke vulling, oude hoogte, kleurcode per look;
         "gedood" niet meer groen), daarna afstand + "betaalt nog" + hint in de rij.
+      - 🔨 **Stap 2 + een deel van 3 gebouwd (15 sep; Rob: *"Begin maar aan de moderne rare pagina"*).** Nog niet gezien.
+        - `UI.lua`: `MHLookSkinButton` kent stijl `"row"` (vlakke vulling `LOOK_PALETTE.row` #231C42, eigen
+          schaalbare letter blijft); `ns.MHLookSkinButton` / `ns.MHLookUnskinButton` / `ns.MHLookOn` zijn nu
+          bereikbaar; `MHApplyLookChrome` roept `ns.RefreshRaresPanel` aan bij een wissel.
+        - `Rares.lua`: `ApplyRaresLook` (rijen = "row", zone-rail = "tab" met actief-balk i.p.v. "> " + disable,
+          footerknoppen = "chip", titel goud, ondertitel muted). Rij-label per look: modern up = groen UP + gouden
+          naam, open = "—" + body, done = `RARES_TAG_DONE` gedempt; Classic: alleen done van groen naar grijs.
+          Tooltip-regel "done" ook niet meer groen.
+        - Stap 3, deels: afstand rechts in de rij (alleen modern, `RareYardsNow` = alleen echte wereld-yards,
+          nooit de kaartfractie-terugval), elke seconde bijgewerkt via `OnUpdate`; de aankomst-hint
+          (`ns.RareArrivalHintKey`) staat nu ook in de tooltip. Nieuwe sleutels `RARES_TAG_DONE`, `RARES_DIST_FMT`.
+        - Nog open: "betaalt nog" in de rij (wat precies? vragen aan Rob), en of de afstand bij lange namen past.
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.

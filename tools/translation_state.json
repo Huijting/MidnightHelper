@@ -20637,6 +20637,13 @@
    "nlNL": "bd8a2b99335606f2",
    "ptBR": "bd8a2b99335606f2"
   },
+  "RARES_DIST_FMT": {
+   "deDE": "666bf4a2e44aaf39",
+   "esES": "666bf4a2e44aaf39",
+   "frFR": "666bf4a2e44aaf39",
+   "itIT": "666bf4a2e44aaf39",
+   "ptBR": "666bf4a2e44aaf39"
+  },
   "RARES_EMPTY_ZONE": {
    "deDE": "738995cb2db245b4",
    "esES": "738995cb2db245b4",
@@ -20724,6 +20731,14 @@
    "itIT": "cbcf8ea3c96a3d45",
    "nlNL": "cbcf8ea3c96a3d45",
    "ptBR": "cbcf8ea3c96a3d45"
+  },
+  "RARES_TAG_DONE": {
+   "deDE": "a4c3ed04a95a3da1",
+   "esES": "a4c3ed04a95a3da1",
+   "frFR": "a4c3ed04a95a3da1",
+   "itIT": "a4c3ed04a95a3da1",
+   "nlNL": "a4c3ed04a95a3da1",
+   "ptBR": "a4c3ed04a95a3da1"
   },
   "RARES_TAG_UP": {
    "itIT": "42cb4e6f84970e97",

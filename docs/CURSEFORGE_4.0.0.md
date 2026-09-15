@@ -17,7 +17,8 @@ The long list of tabs under the rooms is gone; the cards replace it, and the win
 Every screen has its own icon, shown in a strip at the top with one line on what the screen is for.
 The window has new colours as well: deep twilight violet with warm gold. The pop-up cards, like
 *Rare nearby*, follow the new look too, and the rare's 3D model in them now moves instead of standing
-still.
+still. So does the Rares page: flat rows, a rare that is up in green, one you killed this week muted
+and marked done instead of green as well, and the distance to every open rare in its row.
 
 ## Your screens, your order
 

@@ -227,6 +227,7 @@ local LOOK_PALETTE = {
 	body = { 0.945, 0.933, 0.980 }, -- #F1EEFA
 	muted = { 0.722, 0.682, 0.859 }, -- #B8AEDB
 	accent = { 0.788, 0.659, 1.0, 1 }, -- #C9A8FF
+	row = { 0.137, 0.110, 0.259, 0.90 }, -- #231C42, a list row at rest: between window and hover
 }
 ns.LOOK_PALETTE = LOOK_PALETTE
 
@@ -304,6 +305,15 @@ local function MHLookSkinButton(btn, active, style)
 	btn._mhLookActive = active and true or false
 	btn._mhLookRest = nil
 	parts.bar:Hide()
+	if style == "row" then
+		-- A list row (the Rares page, 15 Sep 2026): a quiet flat fill, lighter on hover. The row
+		-- keeps its own scalable font; its text carries its colours as codes.
+		btn._mhLookRest = LOOK_PALETTE.row
+		btn._mhLookKeepFont = true
+		parts.fill:SetColorTexture(MHUnpack4(LOOK_PALETTE.row))
+		parts.fill:Show()
+		return
+	end
 	if style == "chip" then
 		btn._mhLookRest = LOOK_PALETTE.chip
 		parts.fill:SetColorTexture(MHUnpack4(LOOK_PALETTE.chip))
@@ -333,9 +343,18 @@ local function MHLookUnskinButton(btn)
 	parts.fill:Hide()
 	parts.bar:Hide()
 	btn._mhLookOn, btn._mhLookActive, btn._mhLookRest = false, false, nil
+	if btn._mhLookKeepFont then
+		btn._mhLookKeepFont = nil
+		return
+	end
 	btn:SetNormalFontObject(GameFontNormal)
 	btn:SetHighlightFontObject(GameFontHighlight)
 end
+
+--- For modules that draw their own buttons in the look (the Rares page, 15 Sep 2026).
+ns.MHLookSkinButton = MHLookSkinButton
+ns.MHLookUnskinButton = MHLookUnskinButton
+ns.MHLookOn = MHLookOn
 
 local function MHRefreshSidebarTabChrome(activeId)
 	if not ns.tabButtons then
@@ -798,6 +817,10 @@ local function MHApplyLookChrome(refs)
 	-- The Silvermoon tab's pins follow the setting in place: 4.0 cards, or the 3.x buttons.
 	if ns.MH_RelayoutSMCPins then
 		ns.MH_RelayoutSMCPins()
+	end
+	-- The Rares page redraws its rows, rail and buttons in the look that is on now.
+	if ns.RefreshRaresPanel then
+		ns.RefreshRaresPanel()
 	end
 	if ns._mhRelayoutSidebarTabs and not ns._mhSidebarRelaying then
 		ns._mhRelayoutSidebarTabs()
