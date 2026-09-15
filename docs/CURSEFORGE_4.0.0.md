@@ -70,6 +70,9 @@ Row, Den of Nalorakk, The Blinding Vale and Voidscar Arena are rewritten, and Ki
 Sethraliss and Ruby Life Pools, which had no tips at all, now have them for all 11 bosses.
 Rotmire in Sporefall and the Ritual Site bosses were checked too: Rotmire is rewritten around Fungal
 Bloom, and the Ritual Site tips now say plainly what no source describes yet instead of promising it.
+The eight Season 1 dungeons followed, all 29 bosses, and several of them had it backwards: at Vordaza
+you make the phantoms collide instead of killing them, and at Nysarra you stand in the light of her
+wound instead of dodging it.
 
 Every raid boss also has a short version: three plain lines, plus one for your own role. The boss
 window shows it by default, **Show all tips** brings back everything, and Settings → *Short tips in the

@@ -191,6 +191,19 @@ aan te pakken"*.
          - Korte tips alleen waar bronnen zijn: Rotmire, Dragonhawk, Ger'lok. `ns.AttachQuickTips` in
            `DungeonTipsData.lua`, aangeroepen door de drie coach-bestanden.
          - Open (AFGELEID): Wowhead noemt 1279186 (Shadow Blast) "Obsolete"; misschien is dat niet meer het live-id.
+      7. ✅ **De 8 oudere dungeons** (15 sep; Rob: *"ja, doe de 8 oudere dungeons ook maar"*): Windrunner Spire, Maisara
+         Caverns, Nexus-Point Xenas, Magisters' Terrace, Skyreach, Pit of Saron, Seat of the Triumvirate, Algeth'ar
+         Academy. 29 bazen, audit + herschrijven in één stap (er was geen eerdere audit), met korte tips, 7 talen.
+         - 8 schrijfhulpen (`od_en_*.json`) en 12 vertaalhulpen (`od_tr_<lang>_{a,b}.json`); `dg_validate.py od`: 232
+           sleutels, 0 fouten, alle ids live in DBM (positieve controle meegedraaid).
+         - Omgekeerd advies gevonden (AFGELEID uit gidsen + journal, GEMETEN tegen DBM-cues): Vordaza (phantoms niet
+           doden maar tegen elkaar laten botsen), Nysarra (IN het licht van de wond staan, niet ontwijken), Saprish
+           (de dash ruimt de bommen op), Nezhar (onder de baas staan), L'ura (Symphony is een instant kill, niet
+           doorheen healen), Arcanotron (rug NAAR de muur), Kasreth (baas naar de beam als melee Reflux heeft).
+         - Verouderd door hotfixes: Restless Heart (Squall Leap stapelt niet meer sinds 17 mrt), Gemellus (Neural
+           Link is Mythic-only), Echo of Doragosa (Astral Breath is Astral Blast).
+         - Twijfels (AFGELEID): Rak'tul-totems doden of negeren; Duo-tanks samen of apart; welke Seat-mechanics
+           Mythic-only zijn; Energy Bomb 1 of 2 doelen.
   - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):
     - Van de 39 onbevestigde ids zijn er 38 van delves, en DBM heeft geen delve-mods.
     - De laatste is een bewuste keep: Ula'tek 1300685.

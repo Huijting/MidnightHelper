@@ -138,6 +138,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Boss-venster voor de Corrupted Amani Dragonhawk en Ger'lok (Broken Throne): ook korte tips.
       - Mindbreaker en Selen'vjar (Daggerspine Point) hebben géén korte tips: er is nog te weinig bekend.
       - ❓ Doe je Daggerspine Point: wat deden de Mindbreaker en Selen'vjar? Dan gaat het erin.
+- [ ] 🆕 **De 8 oudere dungeons opnieuw** (Rob, 15 sep). Een `/reload` is genoeg.
+      - Codex → Dungeons → bijvoorbeeld Maisara Caverns: bij Vordaza staat nu dat je de phantoms tegen elkaar laat
+        botsen (was: "kill the phantoms"). Bovenaan elke baas **In short**.
+      - Windrunner Spire, Nexus-Point Xenas en Magisters' Terrace idem; die draai je ook op Normal/Heroic.
+      - ❓ Klopt er iets niet met wat je in het gevecht zag? Zeg welke baas.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone
