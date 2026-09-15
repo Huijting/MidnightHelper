@@ -1608,3 +1608,93 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     opnieuw een `(forced update)`-regel (`+ cda339b...f28cc0d main -> origin/main`) gevolgd door
     **`Already up to date.`** — dit is de bekende ondiepe-clone-ruis van 11/12/13 sep, geen
     force-push: de rebase had niets te doen en er is niets verloren.
+- [2026-09-15] ✅ **Geen relevante API-wijzigingen (8–15 sep). 0 × [MOET GEFIKST].** Geen hotfix
+  sinds 10 sep, geen wiki-bewerking aan enige API-pagina binnen het venster, geen blue post. Wat er
+  wél nieuw is, is **één forumtopic dat een API-restrictie noemt** — getoetst aan de code en
+  [AL AFGEDEKT]. Details, met per bron de meting:
+  - 🧩 **NIEUW TOPIC, GETOETST — *MSBT or Nothing* (`2349553`, aangemaakt 2026-09-14T22:45:18Z,
+    1 post, 5 views, geen dev-antwoord).** Letterlijk: *"When the new API rework that came out and
+    killed MSBT, which still has been bugging the crap out of me, has anyone else just not played
+    with numbers on their screen anymore?"* en *"Will this ever be allowed to be used in addons
+    again or is it too code based in the API that it cant move to another source?"*
+    - ⚠️ **Dit is GEEN nieuw API-feit.** Het is een speler die naar de bestaande
+      `COMBAT_LOG_EVENT_UNFILTERED`-restrictie uit 12.0 verwijst; er staat geen datum, geen versie
+      en geen bron bij. **MEASURED (via search, niet zelf gelezen):** een tegenlezing bevestigt
+      dezelfde oorzaak — SCT-addons lekken andermans schade en *"this cannot be fixed until
+      Blizzard eases the restrictions of `COMBAT_LOG_EVENT_UNFILTERED`"*. Geen aankondiging dat er
+      iets aan verandert. Ik tel het daarom **niet** als wijziging, maar wel als toets, omdat het
+      precies de API raakt waar één van onze modules op leunt.
+    - **[AL AFGEDEKT]** `Modules/Retrospective.lua` is de enige module die het event registreert, en
+      hij doet het defensief: `DoClogRegistration()` (`Retrospective.lua:570-596`) registreert
+      alleen in dungeons/raids (`inTrackedInstance()`), **leest de registratie synchroon terug** met
+      `clog:IsEventRegistered("COMBAT_LOG_EVENT_UNFILTERED")` (`:596`) in plaats van te geloven dat
+      hij gelukt is, kent een `MAX_CLOG_ATTEMPTS`-pogingencap, een `CLEUProvenClosedThisBuild()`-
+      kortsluiting en `StandDownCLEU()` (`:569`, `:619`) dat het event weer afmeldt. Het comment op
+      `:53-119` beschrijft de restrictie in Blizzards eigen bewoording. Bovendien staat de
+      afzonderlijke uitleg in `Modules/InterruptScore.lua:325` — *"Midnight refuses
+      `COMBAT_LOG_EVENT_UNFILTERED` to every addon — measured"* — en `InterruptScore.lua:373` legt
+      uit dat de interrupt-attributie het event helemáál niet nodig heeft. Er is `/mh death` als
+      diagnose, dus correct zwijgen is van kapot te onderscheiden. Geen actie.
+    - **GEMETEN — wij hebben geen floating-combat-text-pad.** Dezelfde grep over de addon (zonder
+      `.git`, `docs`, `tools`, `dist`) op `COMBAT_TEXT_UPDATE`, `SHOW_COMBAT_TEXT`,
+      `FloatingCombatText` en `CombatText_` geeft **nul treffers**. 🔴 **Positieve controle in
+      dezelfde run, dezelfde scope en dezelfde grep-vorm:** `COMBAT_LOG_EVENT_UNFILTERED` geeft
+      **13 treffers in 3 bestanden** (`Retrospective.lua`, `InterruptScore.lua`,
+      `EventProbe.lua:31`). Het patroon vindt dus wél wat er is; de nul hierboven is een echte nul.
+      Wat MSBT sloopt, kan bij ons geen scherm-element raken dat niet bestaat.
+  - 🧩 **Tweede nieuw topic, [RAAKT ONS NIET] — *New AddOn: ChromaChat for easier chat
+    reading/tracking* (`2349301`, 2026-09-14T17:44:29Z, 1 post).** Een addon-aankondiging over
+    kleuren in de chat, geen API-bewering, geen dev-antwoord. Eén regel, klaar.
+  - **Forum: geen blue post.** **GEMETEN** aan de categorie-JSON 35 (`order=created`, cache-buster):
+    `primary_groups` én `flair_groups` zijn **leeg**, dus geen Blizzard-groep onder de deelnemers
+    (trust levels 0–3). *How do i change how loot is looted into a bag?* (`2347002`) groeide van 4
+    naar **5 posts** (laatste 2026-09-15T02:06:59Z, speler); op 13 sep al getoetst
+    ([RAAKT ONS NIET] / [AL AFGEDEKT] voor `C_Container`) — vandaag niet opnieuw gemeten.
+    *Duration Bars setting not saving* (`2345637`) en *Addons api restrictions* (`2343904`) zijn
+    ongewijzigd en buiten het venster.
+  - **GEMETEN — geen enkele API-pagina bewerkt binnen 7 dagen.** `prop=revisions`, cache-busted:
+    `World of Warcraft API` **2026-09-04T22:38:05Z** (871833 bytes, comment "12.1.5 (69594)"),
+    `Events` **2026-09-04T22:53:30Z**, `Secret Values` **2026-09-04T11:56:18Z**,
+    `Secure Execution and Tainting` **2026-02-15T17:17:51Z**, `Patch 12.1.5` **2026-09-03T23:11:42Z**,
+    `Patch 12.1.0` **2026-08-24T17:50:03Z**, `Patch 12.1.0/API changes` **2026-09-05T00:39:06Z**,
+    `Patch 12.1.5/API changes` **2026-09-06T17:08:08Z**. Alle acht byte-identiek aan gisteren en
+    alle acht **buiten** het 8–15-sep-venster. `Patch 12.1.6/API changes` en
+    `Patch 12.2.0/API changes` bestaan nog steeds **niet** (`"missing": true`).
+  - **GEMETEN — er is geen nieuwere `/API changes`-pagina.** `list=search`
+    (`intitle:"API changes"`, `srsort=last_edit_desc`, 15 van **138** treffers): nieuwst *bewerkt*
+    zijn 12.1.5 (**6 sep**), 11.0.2 (**6 sep**), 12.1.0 (**5 sep**) en `API change summaries`
+    (**4 sep**). De nieuwste is negen dagen oud — **niets binnen 7 dagen**.
+  - **GEMETEN — geen cache-val.** `list=recentchanges` (ns 0, 50 stuks, cache-busted): nieuwste
+    bewerking **2026-09-15T03:32:39Z**, bijna een etmaal nieuwer dan wat mijn logboek gisteren
+    noemde (**2026-09-14T03:35:17Z**), dus verse data en geen cache. Inhoud **uitsluitend content**: de Shen'dorei
+    Peacekeeper-transmogset (9 nieuwe itempagina's, itemIDs 271733–271743), storm worgs, quests
+    (*And Stay Dead!*, *Going for the Crown*), `World of Warcraft: Forever`. **Geen
+    `/API changes`-, `Structure `- of `Enum.`-pagina in de batch.** ⚠️ De 50 stuks dekken maar
+    ~3,5 uur (00:04–03:32Z); de dekking over de rest van de week komt van de `list=search` hierboven.
+  - **Hotfixes: nieuwste sectie nog steeds 10 september 2026 — vijfde dag op rij.**
+    `news.blizzard.com/en-us/article/24296142` met cache-buster: secties **10 sep, 9 sep, 4 sep,
+    3 sep, 2 sep**, géén 11- t/m 15-sep-sectie. Inhoud is class tuning, Delves, Dungeons and Raids,
+    PvP, Prey en TBC Classic — **geen UI-, addon-, API- of secure-frame-sectie**. ⚠️ Dit is **gelijk
+    aan**, niet ouder dan, wat mijn logboek gisteren noemde, dus geen cache-val; de `recentchanges`
+    en de twee nieuwe forumtopics hierboven bevestigen onafhankelijk dat Exa mij vandaag verse
+    pagina's gaf.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per unit-token,
+    `TimedSignalMap`, `CreateFrameWithOptions`) zijn deze run **niet** opnieuw getoetst en blijven
+    staan zoals op 2/6/7/9/10 sep gemeten. Een WebSearch als tegenlezing op 12.1.5-API-nieuws gaf
+    exact diezelfde twee punten (castbar-ID's per unit-token, `TimedSignalMap`) en niets nieuwers.
+    Geen open actiepunt aan de addon-/API-kant.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op de acht titels hierboven plus `Patch 12.1.6`/`12.2.0` `/API changes`;
+    `list=search` op `intitle:"API changes"`, `last_edit_desc`; `list=recentchanges` ns 0, 50 stuks);
+    `news.blizzard.com/en-us/article/24296142` (hotfixes); `us.forums.blizzard.com` categorie-JSON 35
+    op `order=created` én de topic-JSON van `2349553`; WebSearch (2×) als tegenlezing op
+    12.1.5-API-nieuws en op de MSBT-claim. ⚠️ Directe `WebFetch` op warcraft.wiki.gg /
+    news.blizzard.com blijft **EGRESS_BLOCKED**; alles liep via Exa.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang schoon; geen van de
+    vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ De sessie startte met een
+    **detached HEAD** op `72d8b70` terwijl `main` 50 commits achterliep; `git checkout main` +
+    `git pull --rebase origin main` zette main weer op `72d8b70`. De pull gaf opnieuw een
+    `(forced update)`-regel (`+ cda339b...72d8b70 main -> origin/main`) — dit is de bekende
+    ondiepe-clone-ruis van 11/12/13/14 sep, geen force-push: er is niets verloren.
