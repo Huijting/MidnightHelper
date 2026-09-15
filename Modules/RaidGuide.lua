@@ -72,6 +72,19 @@ local function BuildRaidBody(raid)
 		local bossName = (ns.GetDungeonBossName and ns.GetDungeonBossName(b, raid, i)) or b.name or "?"
 		lines[#lines + 1] = "|cffe8c36a" .. bossName .. "|r"
 		local tips = ns.GetDungeonBossTips and ns.GetDungeonBossTips(raid.key, b.key)
+		-- Short block on top (Rob, 15 Sep 2026: "eli10 versie"), the full tips below it.
+		local quick = tips and tips.quick and ns.FormatQuickTipLines and ns.FormatQuickTipLines(tips.quick)
+		if quick and #quick > 0 then
+			lines[#lines + 1] = "|cffc9a8ff" .. ns:L("RAID_QUICK_HEADER") .. "|r"
+			for _, q in ipairs(quick) do
+				lines[#lines + 1] = q
+			end
+			local roleLine = ns.FormatQuickRoleLine and ns.FormatQuickRoleLine(tips)
+			if roleLine then
+				lines[#lines + 1] = roleLine
+			end
+			lines[#lines + 1] = "|cffc9a8ff" .. ns:L("RAID_FULL_HEADER") .. "|r"
+		end
 		if tips then
 			if tips.steps then
 				lines[#lines + 1] = ns:L(tips.steps)

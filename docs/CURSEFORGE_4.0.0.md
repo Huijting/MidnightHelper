@@ -65,6 +65,10 @@ needs. All 17 raid bosses are rewritten: The Venomous Abyss, The Dreamrift, The 
 on Quel'Danas. Normal comes first, the Heroic and Mythic rules are marked, and tanks, healers and
 damage dealers get their own lines. The dungeons follow.
 
+Every raid boss also has a short version: three plain lines, plus one for your own role. The boss
+window shows it by default, **Show all tips** brings back everything, and Settings → *Short tips in the
+boss window* turns it off. The Raids page shows the short block above the full tips.
+
 ## Fixes
 
 - **Two Inscription treasures in Harandar showed each other's state.** *Intrepid Explorer's Marker*

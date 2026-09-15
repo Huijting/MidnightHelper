@@ -840,9 +840,24 @@ local function EnsureWindow()
 		end
 	end)
 
+	-- Short tips <-> all tips (see BuildQuickText). Only shown for a boss that has a short block while
+	-- the setting is on; the choice holds for the rest of the session, across bosses.
+	local allBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	allBtn:SetSize(100, 18)
+	allBtn:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 10, 8)
+	allBtn:SetFrameLevel(f:GetFrameLevel() + 5)
+	allBtn:Hide()
+	allBtn:SetScript("OnClick", function()
+		f._mhShowAll = not f._mhShowAll
+		if ns.RefreshDungeonBossWindow then
+			ns.RefreshDungeonBossWindow()
+		end
+	end)
+
 	f._chatBtn = chatBtn
 	f._shareBtn = shareBtn
 	f._routeBtn = routeBtn
+	f._allBtn = allBtn
 
 	-- Resize-grip rechtsonder: breedte vrij; hoogte snapt na afloop terug
 	-- naar de tekstinhoud.
@@ -946,6 +961,61 @@ local function EnsureWindow()
 	return f
 end
 
+--- 🔴 SHORT TIPS — Rob, 15 Sep 2026, after a raid: "best nog wel moeilijk onze tips te begrijpen, hoe
+--- denk je over een eli10 versie?" He picked B + C: a short block per boss that the window shows by
+--- default (three plain "Label: text" lines plus the one line for your own role), "Show all tips" for
+--- the full text, and a setting to turn the short block off. A boss without a short block (every
+--- dungeon today) keeps the full text exactly as before.
+local COLOR_QUICK = "c9a8ff"
+
+local function PlayerSpecRole()
+	local spec = GetSpecialization and GetSpecialization()
+	return spec and GetSpecializationRole and GetSpecializationRole(spec) or nil -- TANK / HEALER / DAMAGER
+end
+
+--- "Label: text" lines with the label in the accent colour. Shared with the Raids page (RaidGuide).
+function ns.FormatQuickTipLines(key)
+	local out = {}
+	local text = key and ns:L(key)
+	if type(text) ~= "string" or text == "" or text == key then
+		return out
+	end
+	for line in (text .. "|n"):gmatch("(.-)|n") do
+		local label, rest = line:match("^([^:]+):%s*(.+)$")
+		if label and #label <= 24 then
+			out[#out + 1] = "|cff" .. COLOR_QUICK .. label .. "|r  " .. rest
+		elseif line ~= "" then
+			out[#out + 1] = line
+		end
+	end
+	return out
+end
+
+--- The one short line for the player's own role, or nil.
+function ns.FormatQuickRoleLine(tips)
+	local role = PlayerSpecRole()
+	local key = (role == "TANK" and tips.quickTank) or (role == "HEALER" and tips.quickHealer)
+		or (role == "DAMAGER" and tips.quickDps) or nil
+	if not key then
+		return nil
+	end
+	local txt = ns:L(key)
+	if type(txt) ~= "string" or txt == "" or txt == key then
+		return nil
+	end
+	local color = (role == "TANK" and COLOR_TANK) or (role == "HEALER" and COLOR_HEAL) or COLOR_DPS
+	return "|cff" .. color .. ns:L("BOSSWIN_QUICK_YOU_" .. role) .. "|r  " .. txt
+end
+
+local function BuildQuickText(tips)
+	local lines = ns.FormatQuickTipLines(tips.quick)
+	local roleLine = ns.FormatQuickRoleLine(tips)
+	if roleLine then
+		lines[#lines + 1] = roleLine
+	end
+	return table.concat(lines, "|n")
+end
+
 local function BuildBossText(d, idx)
 	local b = d and d.bosses and d.bosses[idx]
 	if not b then
@@ -953,6 +1023,15 @@ local function BuildBossText(d, idx)
 	end
 	local lines = {}
 	local tips = ns.GetDungeonBossTips and ns.GetDungeonBossTips(d.key, b.key)
+	if tips and tips.quick and ns.IsBossWindowShortTipsEnabled and ns.IsBossWindowShortTipsEnabled()
+		and not (win and win._mhShowAll) then
+		-- Never an empty block: if the short text is missing (a key without a translation that
+		-- resolves to nothing), fall through to the full tips below.
+		local quickText = BuildQuickText(tips)
+		if quickText ~= "" then
+			return quickText
+		end
+	end
 	if tips then
 		if tips.steps then
 			lines[#lines + 1] = ns:L(tips.steps)
@@ -1019,6 +1098,16 @@ function ns.RefreshDungeonBossWindow()
 	win._sub:SetWidth(((subFs and subFs:GetStringWidth()) or 90) + 20)
 	win._pager:SetText(total > 0 and (curIdx .. "/" .. total) or "-")
 	win._body:SetText(BuildBossText(curDungeon, curIdx))
+	if win._allBtn then
+		local t = b and ns.GetDungeonBossTips and ns.GetDungeonBossTips(curDungeon.key, b.key)
+		local hasQuick = t and t.quick and ns.IsBossWindowShortTipsEnabled() and true or false
+		win._allBtn:SetShown(hasQuick)
+		if hasQuick then
+			win._allBtn:SetText(ns:L(win._mhShowAll and "BOSSWIN_SHOW_SHORT" or "BOSSWIN_SHOW_ALL"))
+			local fs = win._allBtn.GetFontString and win._allBtn:GetFontString()
+			win._allBtn:SetWidth(((fs and fs:GetStringWidth()) or 80) + 20)
+		end
+	end
 
 	-- Only entries that know where their entrance is get the route button.
 	if win._routeBtn then
@@ -1117,6 +1206,21 @@ function ns.SetBossWindowThumbEnabled(v)
 	GetWinSettings().showThumb = v and true or false
 	if ns.RefreshDungeonBossWindow then
 		ns.RefreshDungeonBossWindow() -- direct effect als het venster open is
+	end
+end
+
+-- Short tips (Rob, 15 Sep 2026: "eli10 versie?"): on unless switched off. Off = the full text always.
+function ns.IsBossWindowShortTipsEnabled()
+	return GetWinSettings().shortTips ~= false
+end
+
+function ns.SetBossWindowShortTipsEnabled(v)
+	GetWinSettings().shortTips = v and true or false
+	if win then
+		win._mhShowAll = false
+	end
+	if ns.RefreshDungeonBossWindow then
+		ns.RefreshDungeonBossWindow()
 	end
 end
 

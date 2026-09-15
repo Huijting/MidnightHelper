@@ -331,6 +331,12 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetBossWindowThumbEnabled then ns.SetBossWindowThumbEnabled(v) end
 		end, true)
+		-- Rob, 15 Sep 2026: "eli10 versie?" Short tips in the boss window, on by default.
+		AddToggle("mh_bossShortTips", "SET_BOSSWIN_SHORT_TITLE", "SET_BOSSWIN_SHORT_DESC", function()
+			return ns.IsBossWindowShortTipsEnabled and ns.IsBossWindowShortTipsEnabled()
+		end, function(v)
+			if ns.SetBossWindowShortTipsEnabled then ns.SetBossWindowShortTipsEnabled(v) end
+		end, true)
 		AddSlider("mh_bossScale", "SET_BOSSWIN_SCALE", nil, 0.7, 1.8, 0.1, function()
 			return ns.GetBossWindowScale and ns.GetBossWindowScale()
 		end, function(v)

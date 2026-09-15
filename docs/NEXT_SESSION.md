@@ -128,6 +128,19 @@ aan te pakken"*.
          - De About-dankregel noemt nu DBM in plaats van EXBoss, in alle 7 talen. de/fr/es/pt/it misten de alinea,
            en Duits miste ook de regeleinden.
          - Gidsen: maart-juni 2026; na april geen mechanische hotfixes gevonden.
+      2b. ✅ **Korte tips, B + C** (15 sep; Rob: *"best nog wel moeilijk onze tips te begrijpen, eli10 versie?"*
+         → het voorbeeld van Coiled Altar goedgekeurd → *"doe maar voor alle bazen"*).
+         - Per raidbaas zijn er 4 nieuwe sleutels: `_QUICK` (3 regels "Label: tekst") en `_QUICK_TANK` / `_HEALER` /
+           `_DPS`, in 7 talen. Ze staan als `quick` / `quickTank` / `quickHealer` / `quickDps` in TIPS.
+         - `DungeonBossWindow.lua`:
+           - `BuildQuickText`, `ns.FormatQuickTipLines` en `ns.FormatQuickRoleLine`; de rol komt van
+             `GetSpecializationRole`;
+           - de knop `_allBtn` linksonder;
+           - `IsBossWindowShortTipsEnabled` (`winSettings.shortTips`, standaard aan).
+         - `RaidGuide.lua`: "In short" boven "All tips". Settings: `mh_bossShortTips` (standaard aan).
+         - ⚠️ **Branch `settings-in-mh`:** voeg `mh_bossShortTips` toe aan `SettingsDefs.lua` bij de merge, anders
+           ontbreekt hij op de pagina "All settings".
+         - Dungeons hebben nog geen korte tips; die gaan mee met blok 3.
       3. de dungeons;
       4. de drie dungeons zonder tips.
   - ⚠️ `tip_baseline.json` is GEEN foutenlijst voor raids (GEMETEN):

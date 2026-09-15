@@ -90,7 +90,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - **Coiled Altar:** staan de groene bollen erin (naar de marker, de klap van de tank ruimt ze op) en de
         spookjes (aankijken, dan staan ze stil)?
       - ✅ **Coiled Altar: drie fases** (DBM + alle gidsen, ook op Normal). Rob, 15 sep: *"geen idee, niet zover
-        gekomen denk ik"*. De tekst houdt dus drie fases plus de pauze. Kom je wél verder, kijk dan of het klopt.
+        gekomen denk ik"*. De tekst houdt dus drie fases plus de pauze. ✅ Rob zag daarna in het korte voorbeeld dat
+      zijn groep wél in fase 3 kwam: drie fases klopt. Zijn vraag "ik kon de bol daar achterlaten" is het ontwerp:
+      de bol valt na ~5 s vanzelf neer waar je staat (AFGELEID, gidsen); het korte blok zegt "leave it there".
       - Klikbare spell-namen: staat er ergens *[Spell 1234567]* in plaats van een naam? Noem de baas.
 - [ ] 🆕 **Ook de Season 1-raids herschreven** (15 sep, blok 2): The Dreamrift, The Voidspire en March on
       Quel'Danas, samen 9 bazen. Elke baas heeft steps, tank, healer en DPS, met dezelfde kopjes. Kijk vooral naar:
@@ -99,6 +101,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - **Midnight Falls:** je staat IN de Dawnlight Barrier.
       De interne "EXBoss"-notitie is weg.
 - [ ] 🆕 **About: EXBoss is weg en DBM staat erbij, in alle 7 talen.** In het Duits ontbraken ook de regeleinden.
+- [ ] 🆕 **Korte tips (B + C)** (Rob, 15 sep: "eli10 versie"). Een `/reload` is genoeg.
+      - **Boss-venster:** open het bij een raidbaas, bijvoorbeeld The Coiled Altar via de Raids-pagina of `/mh`.
+        - Je ziet 3 korte regels met een lila label ("Phase 1", "Walls" …), en daaronder één regel voor jouw rol:
+          *"You (tank): …"*.
+        - Linksonder staat **Show all tips**. Klik erop: de volledige tekst. De knop heet dan **Show short tips**.
+      - **Bij een pull:** het venster gaat dicht zoals altijd. Haal je het terug met het knopje, dan staat het korte
+        blok er weer.
+      - **Raids-pagina:** per baas eerst "In short" met de korte regels, daaronder "All tips".
+      - **Settings** → *Short tips in the boss window*: zet hem uit. Het venster toont dan altijd alles, en de knop
+        linksonder verdwijnt.
+      - **Dungeons** hebben (nog) geen korte tips: daar verandert niets.
+      - ❓ Snap je de korte regels in het gevecht? Welke is nog te moeilijk?
+      - ❓ Overlapt de knop linksonder de Route-knop als het venster smal is?
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

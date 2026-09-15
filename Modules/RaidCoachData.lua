@@ -171,6 +171,27 @@ local TIPS = {
 	ulatek        = { steps = "RAID_BOSS_ULATEK_STEPS",        tank = "RAID_BOSS_ULATEK_TANK",        healer = "RAID_BOSS_ULATEK_HEALER",        dps = "RAID_BOSS_ULATEK_DPS" },
 }
 
+--- Short tips (Rob, 15 Sep 2026: "eli10 versie?" → B + C). Every raid boss above has
+--- RAID_BOSS_<BOSS>_QUICK (three "Label: text" lines) and _QUICK_TANK / _QUICK_HEALER / _QUICK_DPS in
+--- Locales/RaidTips.lua, in seven languages. Filled by name here rather than as 68 hand-written
+--- fields. A key the enUS table does not have stays nil, so a boss without a short block keeps the
+--- full text; DungeonBossWindow also falls back to the full text if a short block resolves to nothing.
+do
+	local en = ns._mhLocales and ns._mhLocales.enUS
+	local function known(key)
+		return (not en) or en[key] ~= nil
+	end
+	for _, t in pairs(TIPS) do
+		local base = type(t.steps) == "string" and t.steps:match("^(RAID_BOSS_[A-Z]+)_STEPS$")
+		if base and known(base .. "_QUICK") then
+			t.quick = base .. "_QUICK"
+			t.quickTank = known(base .. "_QUICK_TANK") and (base .. "_QUICK_TANK") or nil
+			t.quickHealer = known(base .. "_QUICK_HEALER") and (base .. "_QUICK_HEALER") or nil
+			t.quickDps = known(base .. "_QUICK_DPS") and (base .. "_QUICK_DPS") or nil
+		end
+	end
+end
+
 --- 3D-modellen voor de acht bosses: journal-displayIDs.
 ---
 --- ✅ GEMETEN 15 aug 2026. Verscheept als DB2-kandidaten (wago.tools) en dezelfde
