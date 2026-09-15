@@ -151,6 +151,10 @@
       [
         "1256093",
         "ABSENT"
+      ],
+      [
+        "1307600",
+        "ABSENT"
       ]
     ],
     "DELVE_TIP_SUNKILLER_SANCTUM_BOSS": [
@@ -196,6 +200,18 @@
     "DELVE_TIP_TWILIGHT_CRYPTS_BOSS": [
       [
         "1267121",
+        "ABSENT"
+      ],
+      [
+        "1311500",
+        "ABSENT"
+      ],
+      [
+        "1303316",
+        "ABSENT"
+      ],
+      [
+        "1289224",
         "ABSENT"
       ]
     ],
@@ -342,8 +358,33 @@
         "1298792",
         "ABSENT"
       ]
+    ],
+    "DELVE_TIP_SHADOW_ENCLAVE_ROUTE": [
+      [
+        "1279443",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_COLLEGIATE_CALAMITY_ROUTE": [
+      [
+        "1279443",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_PARHELION_PLAZA_ROUTE": [
+      [
+        "1279443",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_TWILIGHT_CRYPTS_ROUTE": [
+      [
+        "1279443",
+        "ABSENT"
+      ]
     ]
   },
   "measured": "2026-09-03",
-  "_raid_rewrite_2026_09_15": "Accepted after the 15 Sep 2026 rewrite of all 17 raid bosses (The Venomous Abyss, then the Season 1 raids): each id was found in that boss's DBM mod on disk by the drafting helpers (file and line in the session notes), and each link names the debuff or aura our sentence talks about. AURA-OF and WEAK here mean the player-facing debuff, not a stand-in for a different cast."
+  "_raid_rewrite_2026_09_15": "Accepted after the 15 Sep 2026 rewrite of all 17 raid bosses (The Venomous Abyss, then the Season 1 raids): each id was found in that boss's DBM mod on disk by the drafting helpers (file and line in the session notes), and each link names the debuff or aura our sentence talks about. AURA-OF and WEAK here mean the player-facing debuff, not a stand-in for a different cast.",
+  "_delve_s2_audit_2026_09_15": "Accepted after the 15 Sep 2026 delve Season 2 audit: the new bosses (Abominable Blunder, Replicating Venomborne in Twilight Crypts, Gralka Snake-Eater, Osseous Amalgamation, Drakta, Gnok) have no DBM mod, so every id is ABSENT by construction. Ids and names from SpellName.db2 (wago.tools) and Wowhead tooltips; sources per id in the session's audit files."
 }

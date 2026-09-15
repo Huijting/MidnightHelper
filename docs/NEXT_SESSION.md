@@ -352,6 +352,36 @@ aan te pakken"*.
            explosive results. Stand clear!"). Route-regel in 7 talen vervangen (`mh_vashnik_route_fix.py`), token
            `venomous_fireball`. Het tweede gereedschap uit die kisten (Rob, dezelfde avond, uit zijn hoofd): iets
            waarmee je heel hoog springt. Naam en spell-id onbekend; de route-regel beschrijft het zonder naam.
+      9. 🔨 **Delve-audit voor Seizoen 2** (15 sep, Rob: *"ja, doe de delve-audit maar"*). Gebouwd, nog niet gezien.
+         - 5 onderzoekshulpen plus eigen metingen in DB2 (wago.tools via het browservenster; WebFetch krijgt 403).
+           GEMETEN in CriteriaTree "12.1 Delves - … - V04" (live 12.1.0.69814), de laatste stap per nieuw verhaal:
+           Infiltrate and Ameliorate → Abominable Blunder (eerst nepbaas Ula'tek Supreme Summoner); Why'd it have to
+           be snakes? → Replicating Venomborne; Fungal Pharmacon → Venomborne; **Caustic Crush → "Ritual Pillar
+           defeated"** (Icy Veins zegt Venomborne, DB2 niet); Venomous Vapors en Basilisk Blitz → Disciple of Vashnik;
+           Academic Antitoxin → geen baas. Geen 12.1-verhaal voor Sunkiller Sanctum en The Gulf of Memory.
+         - Crocolisk Reintroduction en Teleporter Tantrums zijn TWW-verhalen uit Sidestreet Sluice (AFGELEID, wiki +
+           Method); onze gegenereerde `DelveStoryData.lua` hangt ze aan Midnight-delves. Geen tips geschreven. De coach
+           toont hun tekst alleen als de client die naam echt geeft. 📌 Open: de generator nakijken.
+         - Gyrospore klopt (DB2: "Gyrospore slain"), maar encounter 3363 heet "Spinshroom" (hergebruikte TWW-naam);
+           daarom loggen DelveHistory en DBM *Spinshroom*. Er staat nu een regel over in de tips. 📌 Open: 3363 →
+           Gyrospore mappen in `DelveHistory.lua`, zodat de coach de baas ook op naam herkent.
+         - Gnarldor Isle (Gralka 3512, Osseous 3560) en The Ring of Glory (Gnok 3514 / "Gnok?" 3515, Drakta 3535, een
+           nooit geziene Tarem'be 3536) GEMETEN in DB2 DungeonEncounter; welk verhaal bij welke baas: twee gidsen eens
+           (AFGELEID). Beide kregen een Trash- en Boss-sectie (`DelveTipsData.lua`).
+         - Tips: 49 sleutels, 119 nieuwe regels, 7 talen, via scratch `mh_delve_lines_apply.py` (per regel vervangen,
+           weghalen, toevoegen, of een nieuwe sleutel; in DelveTips.lua, enUS.lua, nlNL.lua en Translations2026.lua).
+           Vertaald door 6 hulpen, niet door moedertaalsprekers nagekeken. De nlNL Parhelion-overview miste zijn 4e
+           regel; die is eerst teruggezet.
+         - Fouten die eruit zijn: "Final boss every run/on all" (Shadow Enclave, Twilight Crypts, Atal'Aman,
+           Shadowguard, Parhelion), "March of the Arcane **Parade**" (moet Brigade; de filter matchte daardoor nooit),
+           Sunkiller-trash "Voidcallers empower him later" en "Dispel Coalescing Malediction or kill the add" (dispel
+           maakt óók de add), Venomfall "stop attacking and watch" (op ?? moet de Echo of Azta'rec dood), Ring of
+           Glory "a series of opponents rather than one boss" (alleen Open Night).
+         - `FilterDelveTipBodyForBoss` (`DelveBossShowcase.lua`): een regel valt nu alleen weg als hij bij een ándere
+           baas hoort; regels zonder baas (kisten, algemene trash) blijven bij elke baas staan.
+         - Showcase: Abominable Blunder (npc 260174, alleen Wowhead) in Shadow Enclave, Venomborne in Twilight Crypts;
+           `storyKeys` + `tipLineMatch` voor Antenorian, Darza, Gralka, Osseous, Drakta en Gnok.
+         - 26 nieuwe tokens in `DelveSpellIds.lua`; lint [19]-baseline `_delve_s2_audit_2026_09_15` (geen DBM-mods).
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.

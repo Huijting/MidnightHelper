@@ -118,6 +118,44 @@ ns.DELVE_SPELL_IDS = {
 	oblivion_shell = 1255886,
 	umbral_rage = 1256180,
 	-- dread_portal: no Wowhead spell with this exact name in Nullaeus ID range yet (tips use mechanic name)
+
+	-- ⚠️ 15 Sep 2026, delve Season 2 audit. Ids read in SpellName.db2 (wago.tools, live 12.1.0) and on
+	-- Wowhead's tooltips by five research helpers. Unless noted, each is tied to its boss by name and
+	-- tooltip text, not by an npc link. DBM has no mod for any of these bosses except Azta'rec.
+	-- The shared 12.1 delve tool of the Ula'tek stories: cleans Ula'tek Poison Pools, hits enemies within 5 yd.
+	fungal_pharmacon = 1279443,
+	-- The Shadow Enclave — Abominable Blunder (Infiltrate and Ameliorate). One of only two SpellName rows
+	-- with this name, both new in 12.1 (1307603 is the 4 s cast bar); the link to the boss is inferred.
+	searing_spew = 1307600,
+	-- Gnarldor Isle — Gralka Snake-Eater (DB2 encounter 3512)
+	snake_eater = 1287653,
+	venomblade_slash = 1287794,
+	purging_breath = 1287716,
+	muckwave = 1287559, -- Stonerender Raider; GTFO ties it to instance 3038
+	-- Gnarldor Isle — Osseous Amalgamation (DB2 encounter 3560). The 1305761-1305771 block: the tooltips
+	-- name no caster, so the link is Icy Veins' ability list plus the ids sitting together.
+	bone_armor_osseous = 1305761,
+	frost_strike_osseous = 1305762,
+	bonestorm_osseous = 1305764,
+	bone_spike_osseous = 1305771,
+	-- The Ring of Glory — Drakta (3535) and Gnok (3514, undead 3515); trash and floor traps via GTFO (3077)
+	soul_cleave_drakta = 1303106,
+	spirit_tear = 1301863,
+	roar_of_the_champion = 1301848,
+	upheaval_gnok = 1306011,
+	ruptured_ground_gnok = 1306124,
+	necrotic_upheaval_gnok = 1306117,
+	necrotic_ground_gnok = 1306135,
+	ejecting_decay = 1306233,
+	soul_impale = 1239757,
+	whirling_spirit = 1238255,
+	hex_pile = 1296441,
+	thrusting_spear = 1296414,
+	-- Venomfall Deeps — Azta'rec: the ids DBM's own mod uses (Nemesis\Aztarec.lua, revision 20260828)
+	noxious_bile = 1291555,
+	soul_extinction = 1294963,
+	serpents_strike = 1293825,
+	venom_storm = 1309418,
 }
 
 --- Display name when no ID is mapped yet ({SPELL:@token} without entry above).

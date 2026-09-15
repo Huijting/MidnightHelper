@@ -87,6 +87,15 @@ lines meant for harder difficulties than yours, with a line at the bottom that s
 Every raid and dungeon on those two pages now shows its bosses as moving 3D models. Click one and the
 tips window opens on that boss.
 
+The Delve Coach got the same check for Season 2, held against Blizzard's own scenario data. The new
+stories now end at the right boss: Abominable Blunder in The Shadow Enclave, Replicating Venomborne
+in Twilight Crypts, the Disciple of Vashnik in Atal'Aman and Shadowguard Point, and Academic Antitoxin
+in Collegiate Calamity has no boss at all. Each of them, and Caustic Crush in Parhelion Plaza, has its
+route, and Basilisk Blitz no longer says it has no notes yet. Gnarldor Isle and The Ring of Glory get
+trash and boss sections for Gralka Snake-Eater, Osseous Amalgamation, Drakta and Gnok. Several lines
+that claimed one boss ends every story are fixed, and so is the Azta'rec intermission: on ?? the Echo
+has to die.
+
 ## Fixes
 
 - **Two Inscription treasures in Harandar showed each other's state.** *Intrepid Explorer's Marker*

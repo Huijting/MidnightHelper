@@ -196,6 +196,10 @@ ns.DELVE_TIP_ENTRIES = {
 		sections = {
 			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_GNARLDOR_OVERVIEW" },
 			{ titleKey = "DELVE_COACH_SEC_ROUTE", bodyKey = "DELVE_TIP_GNARLDOR_ROUTE" },
+			-- 15 Sep 2026 (delve Season 2 audit): the bosses are measured now (DB2 encounters 3512 and
+			-- 3560, Rob's run log), so this delve gets the trash and boss sections the others have.
+			{ titleKey = "DELVE_COACH_SEC_TRASH", bodyKey = "DELVE_TIP_GNARLDOR_TRASH" },
+			{ titleKey = "DELVE_COACH_SEC_BOSS", bodyKey = "DELVE_TIP_GNARLDOR_BOSS" },
 		},
 	},
 	{
@@ -215,6 +219,9 @@ ns.DELVE_TIP_ENTRIES = {
 			{ titleKey = "DELVE_COACH_SEC_DANGER", bodyKey = "DELVE_TIP_RINGOFGLORY_DANGER", danger = true },
 			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_RINGOFGLORY_OVERVIEW" },
 			{ titleKey = "DELVE_COACH_SEC_ROUTE", bodyKey = "DELVE_TIP_RINGOFGLORY_ROUTE" },
+			-- 15 Sep 2026: trash and boss sections, same reason as Gnarldor Isle above (DB2 3514/3535).
+			{ titleKey = "DELVE_COACH_SEC_TRASH", bodyKey = "DELVE_TIP_RINGOFGLORY_TRASH" },
+			{ titleKey = "DELVE_COACH_SEC_BOSS", bodyKey = "DELVE_TIP_RINGOFGLORY_BOSS" },
 		},
 	},
 	--- ⚠️ THE NEMESIS DELVE, AND THE ONLY ENTRY HERE BUILT AROUND SOMEBODY'S DEATH.

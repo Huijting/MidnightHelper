@@ -131,7 +131,15 @@ local CREATURE_FRAMES = {
 ---@type table<string, MHDelveBossVisual[]>
 ns.DELVE_BOSS_SHOWCASE = {
 	shadow_enclave = {
-		{ creatureId = 252352, label = "Lord Antenorian" },
+		-- 15 Sep 2026 (delve Season 2 audit): the 12.1 story Infiltrate and Ameliorate ends at Abominable
+		-- Blunder, not Antenorian. GEMETEN in DB2: CriteriaTree 222632 "Abominable Blunder slain" (live
+		-- 12.1.0.69814). npc 260174 is Wowhead's; a wrong id only means no model loads. The encounter the
+		-- client reports may be DB2 3477 "Appalling Potadpolastrophy", the delve's only other row.
+		{ creatureId = 252352, label = "Lord Antenorian", storyKeys = { "Mirror Shine", "Shadowy Supplies", "Traitor's Due" },
+			tipLineMatch = { "Antenorian", "Mirror Shine", "Shadowy Supplies", "Supplies", "Traitor's Due" } },
+		{ creatureId = 260174, label = "Abominable Blunder", storyKeys = { "Infiltrate and Ameliorate" },
+			tipLineMatch = { "Blunder", "Ameliorate", "Potadpolastrophy" },
+			storyHints = { "infiltrate and ameliorate", "ula'tek summoner", "cauldron" } },
 	},
 	collegiate_calamity = {
 		{ creatureId = 254773, label = "Voidscorned Vagrant", storyKeys = {
@@ -190,7 +198,14 @@ ns.DELVE_BOSS_SHOWCASE = {
 			storyHints = { "venomous vapors", "toxic cloud", "venom viper", "disciple of vashnik" } },
 	},
 	twilight_crypts = {
-		{ creatureId = 251032, label = "Blademaster Darza" },
+		-- 15 Sep 2026: the 12.1 story Why'd it have to be snakes? ends at Replicating Venomborne. GEMETEN in
+		-- DB2: CriteriaTree 222301 and 232506 "Replicating Venomborne defeated" (TwilightsBlade02 V04). The
+		-- same boss as in The Darkway and The Grudge Pit; this delve's own npc id is not measured.
+		{ creatureId = 251032, label = "Blademaster Darza", storyKeys = { "Loosed Loa", "Party Crasher", "Trapped!" },
+			tipLineMatch = { "Darza", "Loosed Loa", "Party Crasher", "Trapped", "Mot'amra" } },
+		{ creatureId = 269179, label = "Replicating Venomborne", storyKeys = { "Why'd it have to be snakes?" },
+			tipLineMatch = { "Venomborne", "snakes?" },
+			storyHints = { "why'd it have to be snakes", "harrison jones" } },
 	},
 	gulf_of_memory = {
 		{ creatureId = 246680, label = "Lumenia", storyKeys = { "Alnmoth Munchies", "Sporasaur Special" }, tipLineMatch = { "Lumenia", "Munchies", "Sporasaur", "Sporasaurier", "Sporassauro", "Larica" } },
@@ -243,9 +258,14 @@ ns.DELVE_BOSS_SHOWCASE = {
 	-- Robs client gemeten: een fout id laat gewoon geen model laden (de showcase valt
 	-- stil terug), dus dit is veilig te proberen. DelveHistory logt de echte bossnaam
 	-- bij de eerstvolgende run — dat is de meting die dit bevestigt of corrigeert.
+	-- ✅ 15 Sep 2026 (delve Season 2 audit): both bosses are GEMETEN in DB2 (DungeonEncounter, map 3038:
+	-- Gralka Snake-Eater 3512, Osseous Amalgamation 3560) and in Rob's own run log. Which story ends at
+	-- which boss comes from two guides that agree (Icy Veins, Method): AFGELEID.
 	gnarldor_isle = {
-		{ creatureId = 260309, label = "Gralka Snake-Eater" },
-		{ creatureId = 267736, label = "Osseous Amalgamation" },
+		{ creatureId = 260309, label = "Gralka Snake-Eater", storyKeys = { "Olds and Ends", "Speaking Their Language" },
+			tipLineMatch = { "Gralka", "Olds and Ends", "Speaking Their Language" } },
+		{ creatureId = 267736, label = "Osseous Amalgamation", storyKeys = { "Minchi's Osseous Adventure" },
+			tipLineMatch = { "Osseous", "Minchi" } },
 	},
 	-- ⚠️ VENOMFALL DEEPS — hetzelfde patroon als Drakta hieronder, en het antwoord op
 	-- Robs vraag van 19 aug: "we hebben voor andere delves toch ook een animatie terwijl
@@ -273,10 +293,14 @@ ns.DELVE_BOSS_SHOWCASE = {
 		-- ✅ Drakta als eindboss is door Rob zelf bevestigd (run van 14 aug, "het was
 		-- Drakta !!"). Zijn ogen tellen als bron voor de NAAM; het creature-id blijft
 		-- van Wowheads suggestions-endpoint tot een gelogde run het vastlegt.
-		{ creatureId = 265691, label = "Drakta" },
+		-- 15 Sep 2026: DB2 map 3077 = Gnok 3514, "Gnok?" 3515, Drakta, Hero of the Arena 3535 and an unseen
+		-- Tarem'be 3536. Open Night and Game Day end at Drakta, Adopt-a-thon at Gnok (guides, AFGELEID).
+		{ creatureId = 265691, label = "Drakta", storyKeys = { "Open Night", "Game Day" },
+			tipLineMatch = { "Drakta", "Open Night", "Game Day" } },
 		-- Gnok heeft twee ids (264423, en 264931 "Gnok?" — vrijwel zeker de fase-2
 		-- ondode vorm; die koppeling is inferentie, geen bron).
-		{ creatureId = 264423, label = "Gnok", creatureIdFallback = { 264931 } },
+		{ creatureId = 264423, label = "Gnok", creatureIdFallback = { 264931 }, storyKeys = { "Adopt-a-thon" },
+			tipLineMatch = { "Gnok", "Adopt-a-thon" } },
 	},
 }
 
@@ -330,7 +354,24 @@ local function GetBossTipLineMatchers(boss)
 	return nil
 end
 
---- Keep only route/trash/boss bullets that match the selected boss spotlight entry.
+local function LineMatchesAny(lower, matchers)
+	for j = 1, #matchers do
+		local needle = matchers[j]
+		if type(needle) == "string" and needle ~= "" and lower:find(needle:lower(), 1, true) then
+			return true
+		end
+	end
+	return false
+end
+
+--- Drop the route/trash/boss bullets that belong to ANOTHER boss of this delve.
+---
+--- ⚠️ Changed 15 Sep 2026 (delve Season 2 audit). This used to keep only the lines that matched the
+--- selected boss, which also threw away every line that matched no boss at all: the Sturdy Chest
+--- waypoints, the delve-wide trash. The audit gave Gnarldor Isle and The Ring of Glory story lines
+--- per boss, and under the old rule their chest waypoints would have vanished the moment a boss was
+--- picked. Now a line goes only when it names another boss (or that boss's story) and not this one;
+--- a line that names nobody stays for everybody.
 function ns.FilterDelveTipBodyForBoss(body, entryId, bossIndex)
 	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId]
 	if type(body) ~= "string" or type(bosses) ~= "table" or #bosses < 2 then
@@ -345,26 +386,41 @@ function ns.FilterDelveTipBodyForBoss(body, entryId, bossIndex)
 	if not matchers then
 		return body
 	end
+	local others = {}
+	for i = 1, #bosses do
+		if i ~= bossIndex then
+			local m = GetBossTipLineMatchers(bosses[i])
+			if m then
+				others[#others + 1] = m
+			end
+		end
+	end
 	local lines = SplitTipLines(body)
 	if #lines == 0 then
 		return body
 	end
-	local matched = {}
+	local kept = {}
 	for i = 1, #lines do
 		local line = lines[i]
 		local lower = line:lower()
-		for j = 1, #matchers do
-			local needle = matchers[j]
-			if type(needle) == "string" and needle ~= "" and lower:find(needle:lower(), 1, true) then
-				matched[#matched + 1] = line
-				break
+		local keep = LineMatchesAny(lower, matchers)
+		if not keep then
+			keep = true
+			for j = 1, #others do
+				if LineMatchesAny(lower, others[j]) then
+					keep = false
+					break
+				end
 			end
 		end
+		if keep then
+			kept[#kept + 1] = line
+		end
 	end
-	if #matched == 0 then
+	if #kept == 0 then
 		return body
 	end
-	return table.concat(matched, "|n")
+	return table.concat(kept, "|n")
 end
 
 local function IsSecretValue(value)

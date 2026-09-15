@@ -183,6 +183,21 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         1298792) oppakken en die in een Toxic Cloud gooien; het tweede gereedschap laat je heel hoog springen.
         Staat nu in de route-regel: kijk of het klopt. ❓ Hoe heet dat spring-ding? (Muis erop met CDPulse aan.)
       - ❓ Staat zijn model er, en klopt het?
+- [ ] 🆕 **Delves bijgewerkt voor Seizoen 2** (Rob, 15 sep: "doe de delve-audit maar"). Een `/reload` is genoeg.
+      Open de Delve Coach (of loop de delve in) en kijk:
+      - **The Shadow Enclave**, verhaal *Infiltrate and Ameliorate*: eindbaas is nu **Abominable Blunder**. De route
+        noemt Scout Lok'aemon, 5 Ula'tek Summoners en 4 ketels. ❓ Staat er een model, en klopt het?
+      - **Twilight Crypts**, *Why'd it have to be snakes?*: eindbaas **Replicating Venomborne**, niet Darza.
+      - **Parhelion Plaza**, *Caustic Crush*: volgens Blizzards data is de laatste stap een **Ritual Pillar**, geen
+        baas. ❓ Wat stond er in jouw doelen aan het eind?
+      - **Shadowguard Point**, *Basilisk Blitz*: de route staat er nu (Energy Distributor, Waygate, 4 Power
+        Generators, 4 Energized Basilisks), in plaats van "no route notes yet".
+      - **Gnarldor Isle** en **The Ring of Glory**: nieuwe blokken *Trash* en *Boss*. Klik met ◀ ▶ door de bazen:
+        de kisten-waypoints blijven bij élke baas staan.
+      - **The Grudge Pit**, *Arena Champion*: onder Gyrospore staat nu dat DBM en je delve-geschiedenis dit gevecht
+        *Spinshroom* noemen.
+      - **Venomfall Deeps** (Azta'rec): op ?? staat nu dat je de Echo of Azta'rec in elke pauze moet doden.
+      - ❓ Kom je een verhaal tegen waar de tips niet kloppen? Zeg welke delve en welk verhaal.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone
