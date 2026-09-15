@@ -766,3 +766,40 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   · `web_search_exa` "World of Warcraft Midnight hotfixes September 13 2026 OR September 14 2026
   retail" en "Wowhead World of Warcraft Midnight Delves Professions Quests update September 14
   2026" (geen retail-hotfix nieuwer dan 10 sep gevonden).
+
+---
+
+- [2026-09-15] 🔁 **Vijfde dag op rij zonder nieuwe hotfix-sectie — wel één vooraankondiging
+  gecheckt, geen tegenspraak.** `Exa web_fetch_exa` met `?nocache=20260915` op news.blizzard.com's
+  doorlopende hotfix-artikel, **volledige artikeltekst zelf gelezen**: nieuwste sectie blijft
+  "September 10, 2026", byte-voor-byte gelijk aan wat op [2026-09-11] volledig behandeld en op
+  [2026-09-12]/[2026-09-13]/[2026-09-14] al bevestigd is (Delves — Domanaar Enforcer, Twilight
+  Crypts "Loosed Loa"; Dungeons and Raids — Nalorakk's Echoing Maul, Mor'zahi/Final Ascension) —
+  geen elfde sectie. Delves/Professions/Quests: geen nieuwe regels sinds gisteren, dus niets om te
+  vergelijken.
+
+  **Eén nieuwe bron dit run: een blue post van vandaag, "Midnight Season 2 Trinket Tuning –
+  September 22"** (us.forums.blizzard.com, Linxy, 15 sep 00:31 UTC — gevonden via `web_search_exa`,
+  daarna de forumpagina niet apart opgehaald omdat de zoekresultaat-highlights de volledige lijst al
+  citeerden). Dit is **geen live hotfix maar een vooraankondiging**, van kracht pas bij het
+  weekly-onderhoud van 22 sep — dus strikt genomen dichter bij `docs/PTR_12.1_WATCH.md`'s "wat komt
+  eraan"-lane dan bij mijn "is wat al leeft in tegenspraak"-lane. Ik neem hem toch hier op omdat het
+  om al-live Season 2-trinkets gaat, geen PTR-build. Lijst: Preternatural Antivenom (+75% healing),
+  Seed of Radiant Hope, Mycolic Medicine, Unstable Felheart Crystal, Ruby Whelp Shell (allemaal
+  buff), Gaze of the Alnseer, Vaelgor's Final Stare, Algeth'ar Puzzle Box (allemaal nerf). Puur
+  percentage-tuning op bestaande trinkets, geen naam- of mechaniekwijziging.
+
+  📌 **Positieve controle, repo-brede scope, zelfde run:** `grep -i "Trader's Tender"` in
+  `Modules/TradingPost.lua` geeft nog steeds een treffer (currency 2032, zoals eerder gemeten) — het
+  patroon vindt dus iets op deze schaal. Tegen diezelfde scope: `grep -i` op alle acht trinketnamen
+  hierboven geeft **0 treffers** in `Locales/`/`Modules/` — de enige treffer repo-breed is deze
+  watch-historie zelf (`docs/CONTENT_WATCH.md`, Preternatural Antivenom eerder al gemeten op
+  [2026-09-05] en [2026-09-10]). MEASURED. Gevestigd patroon bevestigd: MH volgt geen balans-/
+  tuningcijfers op trinkets, dus een %-wijziging op zeven van de acht is sowieso buiten scope; de
+  achtste (Preternatural Antivenom) staat al vast als niet-getrackt. **[RAAKT ONS NIET]**
+
+  Geen andere bevindingen vandaag. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260915 (volledig gelezen via Exa) ·
+  `web_search_exa` "World of Warcraft Midnight hotfixes September 14 2026 OR September 15 2026
+  retail" (nieuwste retail-hotfixtreffer blijft 10 sep; leverde wel de trinket-tuning-vooraankondiging
+  op, hierboven behandeld).
