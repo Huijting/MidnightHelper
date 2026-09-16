@@ -1215,11 +1215,21 @@ local function BuildBossText(d, idx)
 	if ns.IsBossWindowDiffFilterEnabled and ns.IsBossWindowDiffFilterEnabled() then
 		level, diffName = ns.GetBossWindowDifficultyLevel(d)
 	end
+	-- 16 Sep 2026, Rob: *"bij de full versie blijft de tekst op dps staan"*. The full list shows
+	-- every role, so picking a role changed nothing you could see and the three buttons read as
+	-- broken. Your own role's block now carries its role icon, so a pick moves something here too.
+	local yourRole = ns.GetBossWindowRole and ns.GetBossWindowRole()
+	local ROLE_MARK = {
+		TANK = _G.INLINE_TANK_ICON, HEALER = _G.INLINE_HEALER_ICON, DAMAGER = _G.INLINE_DAMAGER_ICON,
+	}
 	local hiddenTotal = 0
-	local function add(key, color)
+	local function add(key, color, role)
 		local t, n = FilterByDifficulty(ns:L(key), level)
 		hiddenTotal = hiddenTotal + n
 		if t ~= "" then
+			if role and role == yourRole then
+				t = (ROLE_MARK[role] or "»") .. " " .. t
+			end
 			lines[#lines + 1] = color and ("|cff" .. color .. t .. "|r") or t
 		end
 	end
@@ -1228,13 +1238,13 @@ local function BuildBossText(d, idx)
 			add(tips.steps)
 		end
 		if tips.tank then
-			add(tips.tank, COLOR_TANK)
+			add(tips.tank, COLOR_TANK, "TANK")
 		end
 		if tips.healer then
-			add(tips.healer, COLOR_HEAL)
+			add(tips.healer, COLOR_HEAL, "HEALER")
 		end
 		if tips.dps then
-			add(tips.dps, COLOR_DPS)
+			add(tips.dps, COLOR_DPS, "DAMAGER")
 		end
 	else
 		lines[#lines + 1] = "|cff" .. COLOR_DIMTXT .. ns:L("DGN_TIPS_SOON") .. "|r"
@@ -1318,8 +1328,11 @@ function ns.RefreshDungeonBossWindow()
 	-- The difficulty button belongs to the full list: the short block carries no difficulty lines,
 	-- so filtering it would be a control that does nothing.
 	if win._diffBtn then
-		local showDiff = ns.IsBossWindowDiffFilterEnabled and ns.IsBossWindowDiffFilterEnabled()
-			and not ns.IsBossWindowShowingShort()
+		-- 16 Sep 2026: this used to hide itself when *Only tips for my difficulty* was off, and
+		-- Rob's own settings had it off (MEASURED in his SavedVariables: `diffFilter = false`),
+		-- so the control he was looking for was invisible in the one state that needed it most.
+		-- The button now owns that switch too: "All" is the setting off.
+		local showDiff = not ns.IsBossWindowShowingShort()
 		win._diffBtn:SetShown(showDiff and true or false)
 		if showDiff and ns.GetBossWindowDifficultyLabel then
 			win._diffBtn:SetText(ns.GetBossWindowDifficultyLabel())
@@ -1482,8 +1495,12 @@ end
 --- `/mh bossdiff normal|heroic|mythic` pretends one (for this session) so the filter can be seen
 --- outside an instance, and `off` stops pretending. The pretend goes through the same code path.
 --- What the difficulty button says: the client's own words for the three difficulties, so they
---- match the names on the player's screen, or "Auto" for "read the instance I am in".
+--- match the names on the player's screen, "Auto" for "read the instance I am in", or "All" when
+--- the filter is off and every line is shown.
 function ns.GetBossWindowDifficultyLabel()
+	if not (ns.IsBossWindowDiffFilterEnabled and ns.IsBossWindowDiffFilterEnabled()) then
+		return ns:L("BOSSWIN_DIFF_ALL")
+	end
 	if diffOverride == 1 then
 		return _G.PLAYER_DIFFICULTY1 or "Normal"
 	elseif diffOverride == 2 then
@@ -1494,9 +1511,16 @@ function ns.GetBossWindowDifficultyLabel()
 	return ns:L("BOSSWIN_DIFF_AUTO")
 end
 
---- Auto -> Normal -> Heroic -> Mythic -> Auto. Same `diffOverride` the /mh bossdiff command sets,
---- so the two can never disagree; it lasts until you set it back or reload, like that command.
+--- All -> Auto -> Normal -> Heroic -> Mythic -> All. One button for the whole difficulty question:
+--- "All" IS the *Only tips for my difficulty* setting switched off, the other four switch it on.
+--- The three named ones share the `diffOverride` that /mh bossdiff sets, so the two can never
+--- disagree; that part lasts until you set it back or reload, the on/off part is saved.
 function ns.CycleBossWindowDifficulty()
+	if not (ns.IsBossWindowDiffFilterEnabled and ns.IsBossWindowDiffFilterEnabled()) then
+		diffOverride = nil
+		ns.SetBossWindowDiffFilterEnabled(true) -- refreshes the window itself
+		return
+	end
 	if diffOverride == nil then
 		diffOverride = 1
 	elseif diffOverride == 1 then
@@ -1505,6 +1529,8 @@ function ns.CycleBossWindowDifficulty()
 		diffOverride = 3
 	else
 		diffOverride = nil
+		ns.SetBossWindowDiffFilterEnabled(false)
+		return
 	end
 	if ns.RefreshDungeonBossWindow then
 		ns.RefreshDungeonBossWindow()

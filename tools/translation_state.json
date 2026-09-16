@@ -2711,6 +2711,14 @@
    "nlNL": "edcd6bcbd381938e",
    "ptBR": "edcd6bcbd381938e"
   },
+  "BOSSWIN_DIFF_ALL": {
+   "deDE": "a52ace420f2175d0",
+   "esES": "a52ace420f2175d0",
+   "frFR": "a52ace420f2175d0",
+   "itIT": "a52ace420f2175d0",
+   "nlNL": "a52ace420f2175d0",
+   "ptBR": "a52ace420f2175d0"
+  },
   "BOSSWIN_DIFF_BTN": {
    "deDE": "be44133ed57f9e44",
    "esES": "be44133ed57f9e44",
@@ -2720,12 +2728,12 @@
    "ptBR": "be44133ed57f9e44"
   },
   "BOSSWIN_DIFF_BTN_TT": {
-   "deDE": "a7f3386a89cbb4fa",
-   "esES": "a7f3386a89cbb4fa",
-   "frFR": "a7f3386a89cbb4fa",
-   "itIT": "a7f3386a89cbb4fa",
-   "nlNL": "a7f3386a89cbb4fa",
-   "ptBR": "a7f3386a89cbb4fa"
+   "deDE": "be0529bfdbad030b",
+   "esES": "be0529bfdbad030b",
+   "frFR": "be0529bfdbad030b",
+   "itIT": "be0529bfdbad030b",
+   "nlNL": "be0529bfdbad030b",
+   "ptBR": "be0529bfdbad030b"
   },
   "BOSSWIN_DIFF_HIDDEN_FMT": {
    "deDE": "06438e12047c9fed",

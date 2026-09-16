@@ -186,16 +186,21 @@ end
 --- 🔴 Rob, 16 Sep 2026: *"als ik Deel of Chat kies krijg ik de volledige lijst en niet de korte
 --- lijst"*. Both buttons always walked steps/tank/healer/dps, so what you sent had nothing to do
 --- with what you were reading. What you share should be what is on your screen.
+---
+--- Each entry is `{ key = <locale key>, prefix = <label or nil> }`. The role line carries the same
+--- "You (tank):" label the window puts in front of it — Rob, 16 Sep 2026: *"kan er bij de role tip
+--- ook voor komen welke role het is"*. Without it the last line of a share is a sentence with no
+--- owner, and in a party nobody can tell whose advice it is.
 local function QuickKeys(tips)
-	local keys = { tips.quick }
+	local out = { { key = tips.quick } }
 	local role = ns.GetBossWindowRole and ns.GetBossWindowRole()
 	local rk = (role == "TANK" and tips.quickTank)
 		or (role == "HEALER" and tips.quickHealer)
 		or (role == "DAMAGER" and tips.quickDps) or nil
 	if rk then
-		keys[#keys + 1] = rk
+		out[#out + 1] = { key = rk, prefix = ns:L("BOSSWIN_QUICK_YOU_" .. role) }
 	end
-	return keys
+	return out
 end
 
 --- @param short boolean|nil  true = send the short block the window is showing
@@ -207,8 +212,13 @@ local function PrintTipsLocal(dungeonKey, bossKey, short)
 	local name = BossDisplayName(dungeonKey, bossKey)
 	print("|cffffd100" .. ns:L("DGN_LIVE_HEADER_FMT"):format(name) .. "|r")
 	if short and tips.quick then
-		for _, key in ipairs(QuickKeys(tips)) do
-			for _, line in ipairs(KeyToLines(key, true)) do
+		for _, part in ipairs(QuickKeys(tips)) do
+			local first = true
+			for _, line in ipairs(KeyToLines(part.key, true)) do
+				if first and part.prefix then
+					line = part.prefix .. " " .. line
+					first = false
+				end
 				print("|cffe8e8e8" .. line .. "|r")
 			end
 		end
@@ -223,6 +233,11 @@ local function PrintTipsLocal(dungeonKey, bossKey, short)
 	end
 	for _, line in ipairs(KeyToLines(tips.healer, true)) do
 		print("|cffa9e8b8" .. line .. "|r")
+	end
+	-- MEASURED 16 Sep 2026: the DPS block was simply missing here, while the window, the share and
+	-- the two other roles all have one. Nobody reported it because the short block is the default.
+	for _, line in ipairs(KeyToLines(tips.dps, true)) do
+		print("|cfff2c4a0" .. line .. "|r")
 	end
 	print("|cff8a8f98" .. ns:L("DGN_LIVE_SHARE_HINT") .. "|r")
 	return true
@@ -299,10 +314,26 @@ function ns.ShareDungeonBossTips(dungeonKey, bossKey, short)
 	-- What is on screen is what goes out: the short block when the window shows it, otherwise
 	-- everything. `short` rides along through the combat queue, so a queued share does not
 	-- silently change shape when it finally sends.
-	local keys = (target.short and tips.quick) and QuickKeys(tips)
-		or { tips.steps, tips.tank, tips.healer, tips.dps }
-	for _, key in ipairs(keys) do
-		for _, line in ipairs(KeyToLines(key)) do
+	local parts
+	if target.short and tips.quick then
+		parts = QuickKeys(tips)
+	else
+		parts = {}
+		-- Built one by one: a nil in the middle of a list literal cuts `ipairs` short, and a boss
+		-- without a tank note would have silently dropped the healer's and the DPS's lines.
+		for _, k in ipairs({ "steps", "tank", "healer", "dps" }) do
+			if tips[k] then
+				parts[#parts + 1] = { key = tips[k] }
+			end
+		end
+	end
+	for _, part in ipairs(parts) do
+		local first = true
+		for _, line in ipairs(KeyToLines(part.key)) do
+			if first and part.prefix then
+				line = StripMarkup(part.prefix) .. " " .. line
+				first = false
+			end
 			ChunkLine(line, msgs)
 		end
 	end

@@ -222,14 +222,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       in je log zit, hoort de stap bij **Aethas Sunreaver** als "opgepakt" te staan en je niet meer te vragen
       hem te halen. ❓ Klopt dat?
 - [ ] 🆕 **Boss-venster: delen, rollen en moeilijkheid** (Rob, 16 sep). Een `/reload` is genoeg.
-      - **Deel / Chat volgen nu wat je ziet.** Sta je op de korte lijst, dan gaat de korte lijst eruit (plus
-        de regel van je gekozen rol). Sta je op *Alle tips tonen*, dan gaat alles eruit, zoals eerst.
-      - **De rol-icoontjes blijven staan** bij de volledige lijst; eerst verdwenen ze daar.
-      - **Nieuwe knop: Moeilijkheid.** Hij staat naast de rol-icoontjes zodra je de volledige lijst bekijkt en
-        de instelling *Only tips for my difficulty* aan staat. Klikken loopt rond: Auto → Normal → Heroic →
-        Mythic → Auto. Auto is wat MH altijd deed: kijken in welke instance je staat.
-      - ❓ Klopt wat er in je chat verschijnt met wat er in het venster stond? En verandert de tekst echt als
-        je de moeilijkheid omzet (de regels "On Heroic and Mythic…" horen te komen en gaan)?
+      - [x] ✅ Rob 16 sep: *"de dumps zijn wel goed"* — **Deel / Chat volgen nu wat je ziet.**
+      - [x] ✅ De rol-icoontjes blijven staan bij de volledige lijst.
+      - [ ] 🆕 **De knop Moeilijkheid was onzichtbaar** (Rob: *"ik zie geen moeilijkheid opties"*). GEMETEN in
+        je SavedVariables: `diffFilter = false` — jij had *Only tips for my difficulty* uit staan, en precies
+        dáár verstopte de knop zich. Nu doet die ene knop alles: klikken loopt rond **Alles → Auto → Normal →
+        Heroic → Mythic → Alles**, en *Alles* ís die instelling uit. Hij staat er altijd zodra je de volledige
+        lijst bekijkt. ❓ Zie je hem nu, en gaan de regels "On Heroic and Mythic…" weg op **Normal** en terug
+        op **Mythic**? (Het vinkje in Settings verandert mee; het scherm ververst pas als je het opnieuw opent.)
+      - [ ] 🆕 **Je eigen rol is nu te zien in de volledige lijst** (Rob: *"bij de full versie blijft de tekst
+        op dps staan"*). Vóór jouw rol-blok staat nu het rol-icoontje. Klik een andere rol aan → het icoontje
+        verspringt. ❓ Verspringt het?
+      - [ ] 🆕 **In de chat staat nu vóór de rolregel wie het is** (Rob: *"kan er bij de role tip ook voor komen
+        welke role het is"*): *Jij (tank): …*. Geldt voor **Chat** én **Deel**.
+      - [ ] 🆕 Bij **Chat** met de volledige lijst komt nu ook het **DPS**-blok mee. Dat ontbrak er gewoon.
 - [ ] 🆕 **Randjes om de iconen, tweede poging** (Rob, 16 sep, met screenshots waarop *Rares* en *Account
       snapshot* hun randje misten en de buren niet). Ze worden nu als vier lijntjes op de kaart zelf getekend
       in plaats van als los venstertje erbovenop. Een `/reload` is genoeg.

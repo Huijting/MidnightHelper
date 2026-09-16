@@ -402,6 +402,25 @@ aan te pakken"*.
   Klikken loopt Auto → Normal → Heroic → Mythic → Auto via `ns.CycleBossWindowDifficulty`, dezelfde
   `diffOverride` die `/mh bossdiff` zet — die twee kunnen dus niet uit elkaar lopen. Labels komen uit de
   client zelf (`PLAYER_DIFFICULTY1/2/6`), alleen "Auto" is een eigen sleutel. 3 nieuwe keys in 7 talen.
+- 🔴 **En die knop was voor Rob ONZICHTBAAR — tweede ronde, 16 sep.** *"ik zie geen moeilijkheid opties"*.
+  GEMETEN in zijn SavedVariables (`ui.bossWin`): `diffFilter = false`. De zichtbaarheid hing aan diezelfde
+  instelling, dus de knop verstopte zich precies in de toestand waarin een speler hem nodig heeft. 📌 De les is
+  algemeen: **een besturing verbergen op grond van de instelling die hij zelf bedient, is altijd fout** — dan
+  is de enige weg terug de instelling die je niet kunt vinden. De knop bezit nu die schakelaar: **Alles → Auto
+  → Normal → Heroic → Mythic → Alles**, waarbij *Alles* letterlijk `diffFilter = false` is. Zichtbaar zodra de
+  volledige lijst getoond wordt. Nieuwe key `BOSSWIN_DIFF_ALL` + één zin extra in `BOSSWIN_DIFF_BTN_TT`,
+  7 talen, drift 0.
+- 🐛 **De rolkeuze deed niets zichtbaars in de volledige lijst** (Rob: *"bij de full versie blijft de tekst op
+  dps staan"*; zijn `quickRole` stond op `DAMAGER`). De volledige lijst toont alle rollen, dus klikken
+  veranderde niets en de drie knoppen lazen als kapot. `BuildBossText` zet nu het inline rol-icoontje
+  (`INLINE_TANK_ICON` enz., met `»` als terugval) vóór het blok van je eigen rol; een klik verplaatst het.
+- 🆕 **De rolregel in chat/share zegt nu wélke rol** (Rob: *"kan er bij de role tip ook voor komen welke role
+  het is"*). `QuickKeys` geeft `{ key, prefix }` terug; de prefix is de bestaande sleutel
+  `BOSSWIN_QUICK_YOU_<ROL>` die het venster al gebruikt, dus geen nieuwe vertaling.
+- 🐛 **GEMETEN en meteen gerepareerd: `PrintTipsLocal` sloeg het DPS-blok over** bij de volledige lijst — steps,
+  tank en healer stonden er, dps niet. En de share bouwde zijn lijst als `{ steps, tank, healer, dps }`: een
+  `nil` in het midden kapt `ipairs` af, dus een baas zonder tanknotitie verloor stilletjes healer én dps.
+  Beide lopen nu langs een lijst die per onderdeel wordt opgebouwd.
 
 ## 🌅 16 sep — Curse Surge-cyclus (hotfix) en `/mh weeklies` korter
 
