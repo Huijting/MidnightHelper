@@ -689,6 +689,19 @@ te testen of ik deze al gehaald heb"*.
      - ✅ **Beslecht, Rob 16 sep: *"doe die me rooster maar als foto 1"*.** `SPEC_37_4.0.0_LOOK.md` §6d
        (*"galerijfoto 1 blijft This Week"*) is daarmee achterhaald en staat daar doorgestreept, met een
        verwijzing naar de opnamelijst. This Week wordt foto 2.
+     - 🔴 **"WACHT, WE HADDEN DAAR EEN SCRIPT VOOR!!!" — Rob, 16 sep, en hij had gelijk.** De opnamelijst
+       zoals ik hem eerst schreef zei *"druk op Print Screen"*, terwijl `Modules/DevShots.lua` (`/mh shots`)
+       precies bestaat om dat handwerk te vervangen: vaste venstermaat, UIParent verborgen, 14 scènes,
+       bijsnij-rechthoek per foto naar SavedVariables, `tools\Crop-Shots.bat` erachteraan. 📌 Dat is
+       [[mh-already-contains-it]] in het klein: ik schreef een instructie vóór ik greppte of we het al
+       hadden, en een ondocumenteerde `/mh`-diagnose staat in geen enkele lijst die ik toen las.
+     - 🔨 **De scènelijst is herzien voor 4.0** (nog niet gedraaid). Hij was geschreven voor de 3.x-tabstrip
+       en fotografeerde niets van wat 4.0 verandert. Nu 14 scènes met het Me-rooster voorop, plus Codex- en
+       Tools-kamer en Rares. `tab` mag voortaan een **functie** zijn: een kamerpaneel bestaat pas nadat
+       `OpenRoomLauncher` het gebouwd heeft, dus `SelectTab("room_me")` zou op een lege naam stuiten. In
+       Klassiek vallen die drie scènes vanzelf terug op hun gewone scherm.
+     - Wat het script niet kan (handwerk, staat in de lijst): het rechtsklikmenu, de *Rare nearby*-pop-up,
+       het boss-venster in een dungeon, en het iconenvel.
      - GEMETEN 16 sep, voor de opnamelijst: Robs client slaat screenshots op als `.jpg` in
        `_retail_\Screenshots\`, en `WTF\Config.wtf` bevat geen enkele screenshot-CVar (positieve controle:
        163 `SET`-regels wél gevonden), dus alles staat op de standaardwaarde.

@@ -120,10 +120,25 @@ end
 
 --- Scenes, in gallery order. `pad` grows the crop rectangle for things that render
 --- outside the main window (the floating 3D preview, the search result list).
+---
+--- `tab` is a tab id, or a FUNCTION that puts the window on the right screen itself. The
+--- function form exists for the 4.0 rooms: a room's panel is built on demand, so its tab id
+--- (`room_me`) does not exist until `OpenRoomLauncher` has made it. It runs where SelectTab
+--- runs, before the window is parked — anything that re-selects a tab later would undo the
+--- parking and the crop rectangle with it.
+---
+--- 🔴 REORDERED 16 Sep 2026 for the 4.0.0 gallery (Rob: "doe die me rooster maar als foto 1").
+--- The old list was written for the 3.x tab strip and photographed none of what 4.0 changed;
+--- see docs/CF_SCREENSHOTS_4.0.0.md, which is the authority on the order. In Classic the three
+--- room scenes fall back to their 3.x screen, because OpenRoomLauncher returns false there.
 local SHOTS = {
-	{ name = "01-this-week", tab = "home" },
+	{ name = "01-me-room", tab = function() ns:OpenRoomLauncher("me") end },
+	{ name = "02-this-week", tab = "home" },
+	{ name = "03-codex-room", tab = function() ns:OpenRoomLauncher("codex") end },
+	{ name = "04-tools-room", tab = function() ns:OpenRoomLauncher("tools") end },
+	{ name = "05-rares", tab = "rares" },
 	{
-		name = "02-mounts-preview",
+		name = "06-mounts-preview",
 		tab = "mounts",
 		setup = function()
 			if ns.DevHoverFirstMountRow then
@@ -134,9 +149,9 @@ local SHOTS = {
 			return ns.DevGetMountPreviewFrame and ns.DevGetMountPreviewFrame() or nil
 		end,
 	},
-	{ name = "03-raids", tab = "raids" },
+	{ name = "07-raids", tab = "raids" },
 	{
-		name = "04-search-boss",
+		name = "08-search-boss",
 		tab = "home",
 		setup = function()
 			if ns.DevShowNavResults then
@@ -144,9 +159,9 @@ local SHOTS = {
 			end
 		end,
 	},
-	{ name = "05-class-coach", tab = "guide" },
-	{ name = "06-alts", tab = "account" },
-	{ name = "07-void-rituals", tab = "world" },
+	{ name = "09-class-coach", tab = "guide" },
+	{ name = "10-alts", tab = "account" },
+	{ name = "11-void-rituals", tab = "world" },
 	--- Two scenes for the 12.1 / Season 2 work, added 18 aug.
 	---
 	--- ⚠️ `/mh keys` and `/mh plan` were on the shot list too and are NOT here. Both
@@ -154,7 +169,7 @@ local SHOTS = {
 	--- screen when the shutter fires. They cannot be photographed until they have a
 	--- window; pretending otherwise would produce two pictures of an empty backdrop.
 	{
-		name = "08-achievements-coiled-isle",
+		name = "12-achievements-coiled-isle",
 		tab = "achievements",
 		setup = function()
 			--- Open on the hunt with the most to show: several steps, and the shared
@@ -165,7 +180,7 @@ local SHOTS = {
 		end,
 	},
 	{
-		name = "09-delve-coach-ring-of-glory",
+		name = "13-delve-coach-ring-of-glory",
 		--- No tab: the coach is its own window. `preview` so it opens on a delve the
 		--- player is not standing in — the whole point of a gallery picture.
 		setup = function()
@@ -191,7 +206,7 @@ local SHOTS = {
 	--- ⚠️ THIS SCENE DEPENDS ON THE LOGGED-IN CHARACTER, which none of the others do. Run it
 	--- on someone with Midnight professions and points to spend, or it photographs an honest
 	--- empty page. Rob's Tailoring/Enchanting characters are the ones to use.
-	{ name = "10-professions-advice", tab = "profoverview" },
+	{ name = "14-professions-advice", tab = "profoverview" },
 }
 
 local function Say(msg)
@@ -395,7 +410,13 @@ function ns.RunDevShots()
 		-- main window: the Delve Coach is its own window, and calling SelectTab(nil) for
 		-- it would fail the scene for a tab it never wanted.
 		if shot.tab then
-			local ok, err = pcall(ns.SelectTab, shot.tab)
+			-- A function scene opens its own screen (the 4.0 rooms build their panel first).
+			local ok, err
+			if type(shot.tab) == "function" then
+				ok, err = pcall(shot.tab)
+			else
+				ok, err = pcall(ns.SelectTab, shot.tab)
+			end
 			if not ok then
 				Say(("|cffff6060skipped|r %s — tab '%s': %s"):format(shot.name, tostring(shot.tab), tostring(err)))
 				C_Timer.After(0.1, takeNext)

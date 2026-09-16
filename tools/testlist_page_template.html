@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MH Testronde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ink:#1c1630;
+  --ink-soft:#4b4168;
+  --ink-faint:#7a6f96;
+  --ground:#f4f1f8;
+  --card:#ffffff;
+  --edge:#e2dcee;
+  --gold:#8a6c1f;
+  --gold-bright:#c8a33c;
+  --violet:#5b3fa8;
+  --good:#1e7a4d;
+  --good-bg:#e3f4ea;
+  --bad:#a32f2f;
+  --bad-bg:#fbe7e5;
+  --shadow:0 1px 2px rgba(28,22,48,.08);
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#efeaff;
+    --ink-soft:#c2b7e2;
+    --ink-faint:#9084b4;
+    --ground:#120e21;
+    --card:#1c1731;
+    --edge:#2e2547;
+    --gold:#f4de9a;
+    --gold-bright:#f4de9a;
+    --violet:#c9a8ff;
+    --good:#7ee0a8;
+    --good-bg:#12331f;
+    --bad:#ffa39a;
+    --bad-bg:#3a1a19;
+    --shadow:0 1px 2px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#efeaff;
+  --ink-soft:#c2b7e2;
+  --ink-faint:#9084b4;
+  --ground:#120e21;
+  --card:#1c1731;
+  --edge:#2e2547;
+  --gold:#f4de9a;
+  --gold-bright:#f4de9a;
+  --violet:#c9a8ff;
+  --good:#7ee0a8;
+  --good-bg:#12331f;
+  --bad:#ffa39a;
+  --bad-bg:#3a1a19;
+  --shadow:0 1px 2px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font:16px/1.5 Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 72px}
+
+header{margin-bottom:18px}
+h1{
+  font:600 27px/1.15 Cinzel,Georgia,serif;
+  margin:0 0 6px;
+  color:var(--ink);
+  letter-spacing:.01em;
+  text-wrap:balance;
+}
+.sub{margin:0;color:var(--ink-faint);font-size:14px}
+
+.meter{margin:16px 0 10px;display:flex;flex-direction:column;gap:7px}
+.meter .bar{height:8px;border-radius:99px;background:var(--edge);overflow:hidden}
+.meter .bar span{display:block;height:100%;width:0;background:var(--gold-bright);transition:width .3s ease}
+.meter .nums{display:flex;gap:14px;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.meter .nums b{color:var(--ink);font-weight:600}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.chip{
+  font:500 13px/1 Manrope,sans-serif;
+  padding:9px 13px;border-radius:99px;border:1px solid var(--edge);
+  background:var(--card);color:var(--ink-soft);cursor:pointer;
+}
+.chip[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:var(--ground)}
+.note-bar{
+  margin:14px 0 0;padding:10px 12px;border-radius:var(--r);
+  border:1px solid var(--edge);background:var(--card);
+  font-size:13px;color:var(--ink-soft);box-shadow:var(--shadow);
+}
+.note-bar.warn{border-color:var(--bad);color:var(--bad);background:var(--bad-bg)}
+
+section.block{
+  margin:16px 0;border:1px solid var(--edge);border-radius:var(--r);
+  background:var(--card);box-shadow:var(--shadow);overflow:hidden;
+}
+section.block > h2{
+  margin:0;font:600 15px/1.35 Manrope,sans-serif;
+}
+section.block > h2 button{
+  width:100%;display:flex;gap:10px;align-items:baseline;justify-content:space-between;
+  background:none;border:0;padding:14px 15px;text-align:left;cursor:pointer;
+  font:inherit;color:var(--ink);
+}
+section.block .tag{
+  font:600 11px/1 Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold);white-space:nowrap;
+}
+.items{display:flex;flex-direction:column;border-top:1px solid var(--edge)}
+.item{padding:13px 15px;border-bottom:1px solid var(--edge)}
+.item:last-child{border-bottom:0}
+.item.lvl1{padding-left:30px;background:linear-gradient(to right,var(--edge) 0 2px,transparent 2px)}
+.item p{margin:0 0 10px;font-size:15px;line-height:1.45}
+.item.done p{color:var(--ink-faint)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.acts button{
+  font:600 13px/1 Manrope,sans-serif;padding:9px 12px;border-radius:9px;
+  border:1px solid var(--edge);background:transparent;color:var(--ink-soft);cursor:pointer;
+}
+.acts button[aria-pressed="true"].ok{background:var(--good-bg);border-color:var(--good);color:var(--good)}
+.acts button[aria-pressed="true"].bad{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.acts .memo{margin-left:auto;font-weight:500}
+textarea{
+  width:100%;margin-top:10px;min-height:64px;padding:10px;border-radius:9px;
+  border:1px solid var(--edge);background:var(--ground);color:var(--ink);
+  font:400 14px/1.45 Manrope,sans-serif;resize:vertical;
+}
+textarea[hidden]{display:none}
+.foot{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.foot button{
+  font:600 14px/1 Manrope,sans-serif;padding:12px 15px;border-radius:10px;
+  border:1px solid var(--violet);background:var(--violet);color:#fff;cursor:pointer;
+}
+.foot .ghost{background:transparent;color:var(--violet)}
+.saved{font-size:13px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Testronde Midnight Helper</h1>
+    <p class="sub">Alles wat gebouwd is en nog door jou in het spel bevestigd moet worden. Vink af terwijl je speelt; ik lees het terug.</p>
+    <div class="meter">
+      <div class="bar"><span id="bar"></span></div>
+      <div class="nums">
+        <span><b id="n-done">0</b> beoordeeld van <b id="n-tot">0</b></span>
+        <span>✅ <b id="n-ok">0</b> klopt</span>
+        <span>❌ <b id="n-bad">0</b> fout</span>
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="note-bar" id="status">Opslaan wordt klaargezet…</div>
+  </header>
+
+  <main id="list"></main>
+
+  <div class="foot">
+    <button id="copy">Kopieer wat ik moet weten</button>
+    <button class="ghost" id="reset">Alles terug op open</button>
+    <span class="saved" id="saved"></span>
+  </div>
+</div>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+(function(){
+  "use strict";
+  var DATA = JSON.parse(document.getElementById("data").textContent);
+  var state = {};            // id -> {s:"ok"|"bad", n:"notitie"}
+  var db = null, docRef = null, filter = "all", saveTimer = null, muted = false;
+
+  var listEl = document.getElementById("list");
+  var statusEl = document.getElementById("status");
+  var savedEl = document.getElementById("saved");
+
+  var all = [];
+  DATA.sections.forEach(function(s){ s.items.forEach(function(i){ i.section = s; all.push(i); }); });
+  document.getElementById("n-tot").textContent = all.length;
+
+  function isNew(s){ return /16 sep|15 sep|14 sep/.test(s.title); }
+
+  var FILTERS = [
+    { id:"all",  label:"Alles (" + all.length + ")", test:function(){ return true; } },
+    { id:"new",  label:"Nieuwste", test:function(s){ return isNew(s); } },
+    { id:"v40",  label:"4.0.0", test:function(s){ return s.is40; } },
+    { id:"open", label:"Alleen open", test:function(){ return true; }, itemTest:function(i){ return !state[i.id]; } }
+  ];
+
+  function chips(){
+    var box = document.getElementById("chips");
+    box.innerHTML = "";
+    FILTERS.forEach(function(f){
+      var b = document.createElement("button");
+      b.className = "chip";
+      b.textContent = f.label;
+      b.setAttribute("aria-pressed", filter === f.id ? "true" : "false");
+      b.addEventListener("click", function(){ filter = f.id; chips(); render(); });
+      box.appendChild(b);
+    });
+  }
+
+  function current(){ return FILTERS.filter(function(f){ return f.id === filter; })[0] || FILTERS[0]; }
+
+  function counts(){
+    var ok = 0, bad = 0;
+    all.forEach(function(i){
+      var st = state[i.id];
+      if (!st) return;
+      if (st.s === "ok") ok++; else if (st.s === "bad") bad++;
+    });
+    document.getElementById("n-ok").textContent = ok;
+    document.getElementById("n-bad").textContent = bad;
+    document.getElementById("n-done").textContent = ok + bad;
+    document.getElementById("bar").style.width = all.length ? ((ok + bad) / all.length * 100) + "%" : "0";
+  }
+
+  function setMark(item, mark){
+    var st = state[item.id] || {};
+    if (st.s === mark) { delete st.s; } else { st.s = mark; }
+    if (!st.s && !st.n) { delete state[item.id]; } else { state[item.id] = st; }
+    save(); render();
+  }
+
+  function render(){
+    var f = current();
+    listEl.innerHTML = "";
+    DATA.sections.forEach(function(s){
+      if (!f.test(s)) return;
+      var items = s.items.filter(function(i){ return !f.itemTest || f.itemTest(i); });
+      if (!items.length) return;
+
+      var sec = document.createElement("section");
+      sec.className = "block";
+      var h = document.createElement("h2");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      var open = items.filter(function(i){ return !state[i.id]; }).length;
+      btn.innerHTML = "<span>" + esc(s.title) + "</span><span class='tag'>" + open + " open</span>";
+      var wrap = document.createElement("div");
+      wrap.className = "items";
+      btn.addEventListener("click", function(){ wrap.hidden = !wrap.hidden; });
+      h.appendChild(btn);
+      sec.appendChild(h);
+
+      items.forEach(function(i){
+        var st = state[i.id] || {};
+        var row = document.createElement("div");
+        row.className = "item" + (i.indent ? " lvl1" : "") + (st.s ? " done" : "");
+        var p = document.createElement("p");
+        p.textContent = i.text;
+        row.appendChild(p);
+
+        var acts = document.createElement("div");
+        acts.className = "acts";
+        acts.appendChild(mkBtn("ok", "✅ Klopt", st.s === "ok", function(){ setMark(i, "ok"); }));
+        acts.appendChild(mkBtn("bad", "❌ Niet goed", st.s === "bad", function(){ setMark(i, "bad"); }));
+
+        var memo = document.createElement("button");
+        memo.className = "memo";
+        memo.type = "button";
+        memo.textContent = st.n ? "notitie ✎" : "notitie +";
+        acts.appendChild(memo);
+        row.appendChild(acts);
+
+        var ta = document.createElement("textarea");
+        ta.placeholder = "Wat zag je? (dit lees ik terug)";
+        ta.value = st.n || "";
+        ta.hidden = !st.n;
+        ta.addEventListener("input", function(){
+          var cur = state[i.id] || {};
+          cur.n = ta.value;
+          if (!cur.n && !cur.s) { delete state[i.id]; } else { state[i.id] = cur; }
+          save();
+        });
+        memo.addEventListener("click", function(){
+          ta.hidden = !ta.hidden;
+          if (!ta.hidden) ta.focus();
+        });
+        row.appendChild(ta);
+        wrap.appendChild(row);
+      });
+
+      sec.appendChild(wrap);
+      listEl.appendChild(sec);
+    });
+    counts();
+  }
+
+  function mkBtn(cls, label, on, fn){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = cls;
+    b.textContent = label;
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.addEventListener("click", fn);
+    return b;
+  }
+
+  function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]; }); }
+
+  function save(){
+    counts();
+    if (!docRef) return;
+    if (saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      muted = true;
+      docRef.set({ items: state, updatedAt: new Date().toISOString() }).then(function(){
+        savedEl.textContent = "opgeslagen " + new Date().toLocaleTimeString("nl-NL", { hour:"2-digit", minute:"2-digit" });
+        setTimeout(function(){ muted = false; }, 400);
+      }).catch(function(e){
+        muted = false;
+        savedEl.textContent = "opslaan lukte niet (" + (e && e.code ? e.code : "?") + ")";
+      });
+    }, 500);
+  }
+
+  document.getElementById("copy").addEventListener("click", function(){
+    var out = ["Testronde Midnight Helper — " + new Date().toLocaleDateString("nl-NL")];
+    DATA.sections.forEach(function(s){
+      var lines = [];
+      s.items.forEach(function(i){
+        var st = state[i.id];
+        if (!st) return;
+        lines.push((st.s === "ok" ? "OK   " : st.s === "bad" ? "FOUT " : "     ") + i.text + (st.n ? "\n       notitie: " + st.n : ""));
+      });
+      if (lines.length) out.push("\n## " + s.title + "\n" + lines.join("\n"));
+    });
+    var text = out.length > 1 ? out.join("\n") : "Nog niets afgevinkt.";
+    navigator.clipboard.writeText(text).then(function(){
+      savedEl.textContent = "gekopieerd — plak het in de bouwchat";
+    }, function(){
+      savedEl.textContent = "kopiëren mocht niet van de browser";
+    });
+  });
+
+  document.getElementById("reset").addEventListener("click", function(){
+    if (!confirm("Alles terug op open? Je notities gaan ook weg.")) return;
+    state = {};
+    save(); render();
+  });
+
+  chips();
+  render();
+
+  claude.use("db").then(function(d){
+    if (!d) {
+      statusEl.className = "note-bar warn";
+      statusEl.textContent = "Let op: opslaan werkt hier niet. Je vinkjes blijven alleen op dit scherm staan — gebruik onderaan “Kopieer wat ik moet weten”.";
+      return;
+    }
+    db = d;
+    docRef = db.doc("state/checks");
+    docRef.onSnapshot(function(snap){
+      if (muted) return;
+      var body = snap.exists ? snap.data() : null;
+      if (body && body.items && typeof body.items === "object") {
+        state = body.items;
+        render();
+      }
+      statusEl.textContent = "Opslaan werkt. Je vinkjes staan er ook nog als je de pagina sluit, en ik lees ze terug.";
+    }, function(e){
+      statusEl.className = "note-bar warn";
+      statusEl.textContent = "De verbinding met de opslag is weg (" + e.code + "). Vink gerust verder en gebruik onderaan “Kopieer wat ik moet weten”.";
+    });
+  });
+})();
+</script>
+</body>
+</html>

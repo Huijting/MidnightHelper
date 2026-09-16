@@ -1,5 +1,11 @@
 # Testlijst — wat wacht er op Rob
 
+📱 **Deze lijst staat ook als afvinkpagina op Robs telefoon:**
+<https://claude.ai/artifact/2SbQS4EfWH1BCxDuHut2C4> (16 sep 2026, 194 open punten).
+Bouwen/bijwerken: `python tools/_probe.py run testlist_page`, daarna de Artifact-tool met die URL
+(`capabilities {db:{}}`). Robs vinkjes en notities staan in de db van die pagina, in `state/checks`;
+deze markdown blijft de bron — de pagina wordt eruit gegenereerd, nooit andersom.
+
 **Lopende lijst.** Rob, 27 aug 2026: *"we gaan later alles proberen, onthoud dit en dan maken
 we straks een lijstje wat ik in een keer kan testen"*. Alles wat gebouwd maar niet in het spel
 gezien is, komt hier te staan tot hij het afvinkt.
