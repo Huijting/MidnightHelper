@@ -12,14 +12,12 @@ iconen en het logo — als de galerij dan een nagemaakt venster toont, is die re
 
 ---
 
-## 0. Eerst beslissen (Rob)
+## 0. Beslist (Rob, 16 sep 2026)
 
-❓ **Welke wordt galerijfoto 1?** Onze eigen twee aantekeningen van 12 sep spreken elkaar tegen:
-- `SPEC_37_4.0.0_LOOK.md` §6d: *"galerijfoto 1 blijft This Week — dat plaatje beslist of mensen klikken"*.
-- `NEXT_SESSION.md` (12 sep, punt 3): *"galerijfoto 1 wordt het Me-rooster"*.
-
-Beide zijn te verdedigen: **This Week** laat zien wát de addon voor je doet, het **Me-rooster** laat
-zien dat 4.0 er anders uitziet. Jij kiest; de rest van de lijst verandert er niet van.
+✅ **Galerijfoto 1 wordt het Me-rooster** (*"doe die me rooster maar als foto 1"*). Daarmee is de
+tegenspraak van 12 sep weg: `SPEC_37_4.0.0_LOOK.md` §6d zei *"This Week blijft foto 1"*, en die regel
+geldt dus niet meer. **This Week** schuift door naar foto 2 — het is nog steeds het plaatje dat zegt
+wát de addon voor je doet.
 
 ---
 
@@ -37,10 +35,19 @@ zien dat 4.0 er anders uitziet. Jij kiest; de rest van de lijst verandert er nie
   changelog-venster dicht.
 - **Zet het MH-venster netjes:** niet tegen de rand, en groot genoeg dat de kaarten niet inklappen.
 - **Taal Engels** (dat is je client sowieso) — de galerij is voor iedereen.
-- AFGELEID, even nakijken in het spel: `/console screenshotFormat png` en `/console screenshotQuality 10`
-  geven de scherpste opname. Werkt dat niet, dan is de gewone JPG ook goed genoeg; niet bijsnijden of
-  opschalen achteraf.
-- Foto's komen in `_retail_\Screenshots\`.
+
+### Hoe je de foto maakt
+
+- **Toets: Print Screen.** Meer is het niet; er komt geen venster in beeld.
+- **GEMETEN 16 sep:** ze komen in `E:\World of Warcraft\_retail_\Screenshots\` te staan, als **`.jpg`**,
+  met de datum en de tijd in de naam (`WoWScrnShot_MMDDJJ_UUMMSS.jpg`). In `WTF\Config.wtf` staat geen
+  enkele screenshot-instelling, dus je speelt met de standaardwaarden.
+- **Scherper kan met één regel:** `/console screenshotQuality 10`. Dat is de hoogste stand (AFGELEID;
+  het spel zegt het zelf als het getal niet mag). Eén keer instellen is genoeg, hij blijft staan.
+- **Niet bijsnijden of opschalen** achteraf. Wat de client opslaat is de volle schermgrootte; snijden
+  maakt het kleiner en opschalen maakt het wazig.
+- **Meteen kijken na elke foto.** Staat er per ongeluk een naam, een whisper of een debugregel in, dan
+  weet je dat nu en niet pas bij het uploaden.
 
 ## 2. De opnamelijst
 
@@ -48,8 +55,8 @@ Volgorde = hoe ze in de galerij komen te staan.
 
 | # | Wat | Wat er te zien moet zijn |
 |---|---|---|
-| 1 | **This Week** óf **Me-rooster** (zie §0) | de keuze uit §0 |
-| 2 | De andere van die twee | — |
+| 1 | **Me-rooster** (Robs keuze, §0) | de kaarten met hun icoon én hun statusregel (*Great Vault 2 / 9*) |
+| 2 | **This Week** | de weeklijst zoals hij er midden in de week uitziet |
 | 3 | **Een scherm met zijn kop** (Great Vault of Delves) | het icoon bovenin, de naam en de ene uitlegregel |
 | 4 | **Codex-kamer** | de secties als kaarten, elk met eigen icoon (nieuw op 16 sep) |
 | 5 | **Rechtsklik op een kaart** | het menu open met *Hide this screen* — laat zien dat je zelf kiest |

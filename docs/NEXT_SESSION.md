@@ -686,9 +686,12 @@ te testen of ik deze al gehaald heb"*.
        screens maken voor CF, dus die moet ook goed klaargezet worden"*). Tien foto's, plus wat er vóór de
        eerste opname klaar moet staan (rustige donkere plek, schone chat, geen andere addons in beeld, een
        personage midden in de week zodat de statusregels iets zeggen).
-     - ❓ **Tegenspraak die Rob moet beslechten:** deze regel zegt *Me-rooster*, `SPEC_37_4.0.0_LOOK.md` §6d
-       zegt *"galerijfoto 1 blijft This Week — dat plaatje beslist of mensen klikken"*. Beide op 12 sep
-       geschreven. Staat als vraag 0 bovenaan de opnamelijst.
+     - ✅ **Beslecht, Rob 16 sep: *"doe die me rooster maar als foto 1"*.** `SPEC_37_4.0.0_LOOK.md` §6d
+       (*"galerijfoto 1 blijft This Week"*) is daarmee achterhaald en staat daar doorgestreept, met een
+       verwijzing naar de opnamelijst. This Week wordt foto 2.
+     - GEMETEN 16 sep, voor de opnamelijst: Robs client slaat screenshots op als `.jpg` in
+       `_retail_\Screenshots\`, en `WTF\Config.wtf` bevat geen enkele screenshot-CVar (positieve controle:
+       163 `SET`-regels wél gevonden), dus alles staat op de standaardwaarde.
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.

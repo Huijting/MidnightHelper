@@ -228,8 +228,10 @@ niet in de 12.1.5-launchweek, en niet op dezelfde dag als een wijziging van de C
 | Stream Deck-iconenpakket | precies 144×144 | — | **G** — `deck_144` klopt al |
 
 Maken: CF-avatar (een nieuw MH-wapen, **geen** raid-marker), één galerij-vel met alle 28 iconen
-**ná** de echte screenshots (galerijfoto 1 blijft This Week — dat plaatje beslist of mensen klikken),
+**ná** de echte screenshots (~~galerijfoto 1 blijft This Week — dat plaatje beslist of mensen klikken~~),
 GitHub-banner, Discord-icoon.
+⚠️ **ACHTERHAALD, Rob 16 sep 2026: foto 1 wordt het Me-rooster**, This Week schuift naar foto 2. De
+opnamelijst staat in `docs/CF_SCREENSHOTS_4.0.0.md`; dat bestand is vanaf nu de baas over de galerij.
 
 ### 6e. Wat trekt, en wat is versiering (A)
 - ✅ **r/WowUI voor/na-post** — die sub stemt op beeld; `[AddOn]`-tag (Spec 31 C3). Afsluiten met een
