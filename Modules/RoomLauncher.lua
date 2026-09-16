@@ -108,6 +108,45 @@ local function CardsForRoom(roomId)
 		end
 		return shown, hidden
 	end
+	--- 16 Sep 2026, Rob: "bij de codex in classic kreeg ik al die keuzes bovenaan en bij modern
+	--- niet". True: Classic drops you straight on the handbook with its section buttons, while
+	--- Modern showed one Codex card and put those buttons a click further. So here every SECTION
+	--- of the handbook is its own card (`ns.CODEX_CATEGORIES`, the same list the buttons use) and
+	--- one click lands you in it. The room's other screens stay ordinary cards.
+	if roomId == "codex" then
+		local codexOk = TabAvailable("codex") and ns.panels and ns.panels["codex"]
+		if codexOk then
+			if ns.IsScreenHidden and ns.IsScreenHidden("codex") then
+				-- Hidden by the player: one line in "show again", not ten of them.
+				add({ id = "codex" })
+			else
+				for _, cat in ipairs(ns.CODEX_CATEGORIES or {}) do
+					local ok = true
+					if cat.betaKey then
+						ok = not ns.IsBetaTabEnabled or ns.IsBetaTabEnabled(cat.betaKey)
+					end
+					if ok then
+						add({
+							id = "codexcat_" .. cat.id,
+							screen = "codex", -- the card leads there, so hide/status follow that screen
+							labelKey = cat.labelKey,
+							codexCategory = cat.id,
+						})
+					end
+				end
+			end
+		end
+		for _, section in ipairs(ns._mhSidebarSections or {}) do
+			if section.room == roomId then
+				for _, id in ipairs(section.ids) do
+					if id ~= "codex" and TabAvailable(id) and ns.panels and ns.panels[id] then
+						add({ id = id })
+					end
+				end
+			end
+		end
+		return shown, hidden
+	end
 	for _, section in ipairs(ns._mhSidebarSections or {}) do
 		if section.room == roomId then
 			for _, id in ipairs(section.ids) do
@@ -427,6 +466,11 @@ local function MakeCard(parent)
 			ShowCardMenu(self)
 			return
 		end
+		-- A handbook section card opens the Codex on that section; the rest are plain tabs.
+		if self._mhCodexCategory and ns.OpenMidnightCodex then
+			ns.OpenMidnightCodex(self._mhCodexCategory)
+			return
+		end
 		if self._mhTarget and ns.SelectTab then
 			ns.SelectTab(self._mhTarget)
 		end
@@ -502,6 +546,7 @@ local function Layout(panel)
 		b._mhTagline = screen and screen.tagline
 		b._mhTarget = c.id
 		b._mhScreen = screenId
+		b._mhCodexCategory = c.codexCategory
 		b._mhStatus:SetText(StatusFor(screenId))
 		b:Show()
 	end

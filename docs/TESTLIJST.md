@@ -209,6 +209,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - ❓ Staat er iets in de samenvatting dat niet klopt met de volledige lijst?
 - [x] ✅ **Meting gedaan (Rob, 16 sep 07:02):** alle vijf de Curse-Surge-plekken geven 1800 seconden, en de
       starts liggen 1800 uit elkaar. Blizzards 30 minuten klopt, en de client geeft het getal zelf.
+- [ ] 🆕 **Codex in Modern: de secties zijn nu kaarten** (Rob, 16 sep: "doe C maar"). Een `/reload` is genoeg.
+      - Klik in de zijbalk op **Codex**. Je ziet nu een kaart per sectie van het handboek — Start Here,
+        Weeklijkse loop, Currencies, Delves, Dungeons & M+, Raid & crests, Wereldcontent, Coiled Isle,
+        Professions — plus Dungeons, Raids, Leveling en Silvermoon City.
+      - Klik een sectiekaart: je komt meteen in díé sectie van het handboek, niet op de eerste.
+      - Slepen werkt ook hier: sleep een kaart naar voren, en rechtsklik → *Reset de volgorde*.
+      - ❓ Staat de volgorde van de kaarten gelijk aan de knoppenbalk bovenin het handboek?
+      - ❓ Is het zo handiger, of wil je er juist minder kaarten?
 - [ ] 🆕 **Classic ↔ Modern laat je niet meer op een half scherm staan** (Rob, 16 sep, screenshots 2-4).
       Een `/reload` is genoeg.
       - Zet **Klassiek** aan, open **Codex → Midnight Codex**, klik dan op **Modern**: je hoort nu het

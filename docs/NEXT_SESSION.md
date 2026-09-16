@@ -429,6 +429,20 @@ aan te pakken"*.
     eerste scherm van die kamer. Een kamer met één scherm verandert niets (`OpenRoomLauncher` = false).
   - De recursie is afgedekt door de bestaande `_mhLookApplied`-poort: die staat al op de nieuwe waarde voordat
     er een `SelectTab` uit deze functie komt.
+- ✅ **Codex-kamer: elke handboek-sectie is nu een eigen kaart** (Rob, 16 sep: *"bij de codex in classic kreeg
+  ik al die keuzes bovenaan en bij modern niet"* → *"doe C maar"*). `RoomLauncher.lua` heeft een eigen tak voor
+  de kamer `codex`: één kaart per `ns.CODEX_CATEGORIES`-sectie (Start Here, Weeklijkse loop, Currencies, Delves,
+  Dungeons & M+, Raid & crests, Wereldcontent, Coiled Isle, Professions, en Reference als de beta-schakelaar aan
+  staat), plus de andere schermen van de kamer. Klik → `ns.OpenMidnightCodex(categorie)`, dus je landt meteen in
+  die sectie. Volgorde volgt dezelfde tabel als de knoppenbalk, slepen en de opslag van de volgorde werken zoals
+  bij de andere kaarten (eigen id per kaart, `codexcat_<id>`).
+  - Verbergen volgt het onderliggende scherm: een sectie-kaart wijst naar `codex`, dus rechtsklik-verbergen
+    verbergt het Codex-scherm zelf. Is dat verborgen, dan staat er één regel in "weer tonen", geen tien.
+- 🆕 **Robs wens voor de snelknoppenbalk (16 sep, nog niet gebouwd):** de balk met `reload`, `leave group` enz.
+  moet knoppen kunnen tonen die bij je situatie passen — in een groep een knop naar het **Consumable Ready
+  Board**, en in een instance een knop naar het **boss-venster**, zodat je tussendoor buffs of tactieken kunt
+  checken. Te bekijken: welke balk dat precies is (`FastMark`? de quick bar in `UI.lua`?), of de knoppen
+  secure moeten zijn (in combat!), en dat een knop die niets doet erger is dan geen knop.
 - 📌 **Twee dingen die `/mh weeklies` verklapte, nog te beslissen:**
   - **95245 "Midnight: World Tour"** staat in Robs log maar in geen enkele pool — kandidaat om toe te voegen,
     maar we weten de giver niet. Vragen bij wie hij hem ophaalde.
