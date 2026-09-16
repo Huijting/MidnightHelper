@@ -216,9 +216,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         vragen hem te halen.
       - `/mh weeklies` toont hem als eigen blokje, met de titel die het spel zelf teruggeeft.
       - ❓ Klopt die regel met wat je in het spel ziet? En krijg je 'm echt bij Lor'themar in Silvermoon?
-- [ ] 🆕 **Meting: welk id heeft jouw Timewalking-quest?** (Rob, 16 sep). Terwijl die quest in je log zit:
-      typ `/mh questscan time`. Plak me de regel die je krijgt — dan weten we het echte quest-id en kan MH
-      hem gaan volgen. Nu kent MH Timewalking alleen als uitleg, niet als quest.
+- [x] ✅ Rob 16 sep: `/mh questscan time` gaf **93611 "A Shattered Path Through Time"**. Die staat nu vast bij
+      Aethas (hij zat al in jouw leergeheugen, maar niet in wat we meeleveren).
+- [ ] 🆕 **Timewalking telt nu mee bij Aethas.** Een `/reload` is genoeg. Kijk in de routine: zolang die quest
+      in je log zit, hoort de stap bij **Aethas Sunreaver** als "opgepakt" te staan en je niet meer te vragen
+      hem te halen. ❓ Klopt dat?
+- [ ] 🆕 **Randje om het icoon in de kopbalk** (Rob, 16 sep: "nu mis ik lijntjes om de iconen aan de
+      bovenkant"). Zelfde soort fout als bij de kaarten, nu ook daar vastgezet. Open een paar schermen achter
+      elkaar (Ik → Codex → Tools) en kijk of het gouden randje om het icoon in de balk bovenaan er élke keer
+      meteen staat. ❓ Zo niet: welk icoon precies mist het — dat in de balk bovenaan, die in de linkerkolom,
+      of die op de kaarten?
 - [ ] 🆕 **Twee extra knoppen op de snelbalk** (Rob, 16 sep). Een `/reload` is genoeg. Staat de balk uit, zet
       hem aan met `/mh bar` (of Settings → Quick bar).
       - **In een groep** komt er een knop bij met het consumables-icoon. Klik → het Consumable Ready Board

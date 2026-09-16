@@ -132,7 +132,17 @@ local GIVER_WEEKLIES = {
 	--   "Hope in the Darkest Corners", the leveling variant Halduron offers sub-90
 	--   (Rob's level-80-warlock, 11 jun). "any" covers all audiences.
 	{ key = "halduron", name = "Halduron Brightwing", quests = { 93761, 93164, 95468 }, minLevel = nil },
-	{ key = "aethas", name = "Aethas Sunreaver", quests = { 93600, 94836 }, minLevel = 90 },
+	--- 93611 "A Shattered Path Through Time" is the TIMEWALKING weekly, and it is here because
+	--- Rob asked on 16 Sep 2026 whether MH was missing it. It was, twice over:
+	---   * GEMETEN: "Timewalking" appears nowhere in the modules — only in explanatory strings
+	---     (the vault note, the Vyranoth mount line). No id, no tracker, no step.
+	---   * GEMETEN in his own client the same morning: `/mh questscan time` printed 93611
+	---     "A Shattered Path Through Time", and `MidnightHelperDB.giverLearn` had already filed
+	---     that id under `aethas` — so the routine recognised it on HIS account through the learn
+	---     store, and on a fresh install it would not have.
+	--- That is exactly the gap the learn store hides: it heals one player and nobody else. The
+	--- static list is what ships.
+	{ key = "aethas", name = "Aethas Sunreaver", quests = { 93600, 94836, 93611 }, minLevel = 90 },
 	--- 🔴 A WEEKLY THAT HANDS OUT A SPARK, AND THIS LIST DID NOT KNOW IT EXISTED.
 	--- Rob met "Trailing Xal'atath" on 9 Sep 2026 -- 100 Fading Voidwhispers for a Spark of
 	--- Tides, an Apex Cache and a Void Vestige, from Vereesa Windrunner. Grepped that day:

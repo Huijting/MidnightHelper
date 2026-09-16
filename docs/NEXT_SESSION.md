@@ -478,9 +478,13 @@ aan te pakken"*.
   aangenomen, zie ik die over het hoofd??"*). GEMETEN: "Timewalking" komt alleen voor in uitlegteksten
   (`MPLUS_VAULT_COUNTS_NOTE`, de Vyranoth-mountuitleg, een Codex-regel) — geen enkel quest-id, geen tracker,
   geen stap. De reset-routine noemt hem dus niet, en de Great Vault-uitleg zegt alleen dát Timewalking meetelt.
-  - Volgende stap is een meting, geen gok: Rob draait `/mh questscan time` terwijl de quest in zijn log zit;
-    dan hebben we het echte id (zelfde route als Vereesa's 98172 destijds).
-  - Daarna beslissen: eigen weekly-stap, of alleen een regel bij de dungeon-vault.
+  - ✅ **Gemeten dezelfde ochtend:** `/mh questscan time` gaf **93611 "A Shattered Path Through Time"**. En
+    `MidnightHelperDB.giverLearn` had dat id al onder **`aethas`** staan — dus op Robs account herkende de
+    routine hem allang via het leergeheugen, en op een verse installatie niet. 93611 staat nu in Aethas'
+    statische lijst. 📌 Les: het leergeheugen geneest één speler en verder niemand; wat meegeleverd wordt is
+    de statische lijst.
+  - Nog open: of Timewalking ook een eigen regel verdient bij de dungeon-vault (nu alleen uitleg dat het
+    meetelt).
   - ❌ **93891 "Legends of the Haranir" NIET schrappen** — Rob zei op 16 sep "haal maar weg", ik heb het niet
     gedaan en dit is waarom: `ResetRoutine.lua:99-108` besliste dit al op 29 jul. Dezelfde probe gaf toen géén
     titel voor 96713 "Showdown on Val", een id dat Rob zelf in juni had aangenomen. **Geen titel = de client
