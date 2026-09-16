@@ -5,6 +5,10 @@
 Bouwen/bijwerken: `python tools/_probe.py run testlist_page`, daarna de Artifact-tool met die URL
 (`capabilities {db:{}}`). Robs vinkjes en notities staan in de db van die pagina, in `state/checks`;
 deze markdown blijft de bron — de pagina wordt eruit gegenereerd, nooit andersom.
+**Vinkjes terugzetten** (16 sep, Rob: *"zijn er wel heel veel"*): lees `state/checks`, zet de id's met
+`"s":"ok"` in een bestand, en `python tools/_probe.py run testlist_page apply <bestand> "<wie, datum>"`.
+Dat zet ze hier op `[x]` en bouwt de pagina opnieuw; een "niet goed" blijft open. De pagina opent
+standaard op *Nieuwste* (de twee jongste datums in de koppen).
 
 **Lopende lijst.** Rob, 27 aug 2026: *"we gaan later alles proberen, onthoud dit en dan maken
 we straks een lijstje wat ik in een keer kan testen"*. Alles wat gebouwd maar niet in het spel
@@ -61,40 +65,43 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 ## 🆕 14 sep — blok "Dungeons & Raids" in het Silvermoon-tabblad (C)
 
 `/reload` is genoeg. Gebouwd, nog niet in het spel gezien.
-- [ ] **Codex → Silvermoon City**: direct onder *Travel* (de portals) staat een nieuw blok **"Dungeons &
+- [x] ✅ (Rob, telefoon 16 sep) **Codex → Silvermoon City**: direct onder *Travel* (de portals) staat een nieuw blok **"Dungeons &
       Raids"**. Het heeft een knop per raid (Dreamrift, Voidspire, March on Quel'Danas, Venomous Abyss) en per
       Midnight-dungeon (o.a. Maisara Caverns, Windrunner Spire, Murder Row, Den of Nalorakk). Raids hebben een
       raid-icoon, dungeons een dungeon-icoon.
-- [ ] **Beweeg over zo'n knop**: de tooltip noemt de **zone** van de ingang (niet "Map 2393") en *"Route to …"*.
-- [ ] **Klik** → de pijl of TomTom wijst naar de ingang, net als de knop op de Dungeons- en Raids-pagina.
-- [ ] **Zoekvak**: typ *voidspire* → het zoekvak springt naar die knop in het tabblad.
+- [x] ✅ (Rob, telefoon 16 sep) **Beweeg over zo'n knop**: de tooltip noemt de **zone** van de ingang (niet "Map 2393") en *"Route to …"*.
+- [x] ✅ (Rob, telefoon 16 sep) **Klik** → de pijl of TomTom wijst naar de ingang, net als de knop op de Dungeons- en Raids-pagina.
+- [x] ✅ (Rob, telefoon 16 sep) **Zoekvak**: typ *voidspire* → het zoekvak springt naar die knop in het tabblad.
 
 ## 🆕 14 sep — consumables nagelopen tegen Season 2 (B)
 
 `/reload` is genoeg. Alleen het eten van drie tanks is veranderd.
-- [ ] **Tools → Consumables**, kies bij de specs **Vengeance Demon Hunter**, **Guardian Druid** of
+- [x] ✅ (Rob, telefoon 16 sep) **Tools → Consumables**, kies bij de specs **Vengeance Demon Hunter**, **Guardian Druid** of
       **Brewmaster Monk**: bij *Feast* staat nu **Hearty Silvermoon Parade** voorop, met de uitleg *"Primary-stat
       feast is the safe group default."* De Blooming Feast staat er nog, als tweede keus.
-- [ ] **Een willekeurige andere spec** (bv. je eigen Protection Paladin): daar is niets veranderd.
+- [x] ✅ (Rob, telefoon 16 sep) **Een willekeurige andere spec** (bv. je eigen Protection Paladin): daar is niets veranderd.
 
 ## 🆕 14 sep — routeknop naar de raid-ingangen (Rob: "doe allebei, eerst A")
 
 `/reload` is genoeg. Gebouwd, nog niet in het spel gezien.
-- [ ] **Codex → Raids → klap een raid open**: onder de naam staat nu *"Route to The Voidspire"* (enz.).
+- [x] ✅ (Rob, telefoon 16 sep) **Codex → Raids → klap een raid open**: onder de naam staat nu *"Route to The Voidspire"* (enz.).
       Klik → de pijl (of TomTom) wijst naar de ingang, net als bij de dungeons. Dicht geklapt is de knop weg.
 - [ ] **Meet de ingangen in het spel.** Plak dit in je chat en stuur me de regels die je krijgt:
       ```
-      /run for _,m in ipairs({2413,2405,2424,2509,2512}) do for _,e in ipairs(C_EncounterJournal.GetDungeonEntrancesForMap(m) or {}) do local x,y=e.position:GetXY() print(m,e.name,format("%.2f %.2f",x*100,y*100)) end end
+      /run for _,m in ipairs({2413,2405,2424,2509,2512}) do for _,e in ipairs(C_EncounterJournal.GetDungeonEntrancesForMap(m) or {}) do local x,y=e.position:GetXY() print(m,e.name,x and floor(x*1e4)/100,y and floor(y*1e4)/100) end end
       ```
+      ⚠️ **Nieuwe versie, 16 sep.** De vorige gaf in BugGrabber (sessie 3849, 10:26) *"bad argument #2 to
+      'format' (number expected, got nil)"* en brak af voordat hij iets had laten zien — `format` accepteert
+      geen lege waarde. Deze drukt bij een ingang zonder positie gewoon `nil` af en gaat door.
       Onze getallen (uit Zygor): Dreamrift **2413 61.33 63.01**, Voidspire **2405 45.21 64.79**, March on
       Quel'Danas **2424 52.60 85.11**, Venomous Abyss **2509 47.25 20.51**. Controle: bij 2413 hoort ook de
       dungeon in Harandar te staan, ongeveer **26.24 78.09**. Staat die er, dan geeft het spel eerlijke
       getallen. Bij **2512** (The Coiled Isle) hoort ook The Tidebound Grotto; die staat bij ons op **59.99
       66.20**, want daar stond Rob zelf op 11 aug.
-- [ ] 🆕 **The Tidebound Grotto** staat nu **onderaan de Raids-pagina**, met *"Route to The Tidebound Grotto"*
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **The Tidebound Grotto** staat nu **onderaan de Raids-pagina**, met *"Route to The Tidebound Grotto"*
       als je hem openklapt, en ook in het blok *Dungeons & Raids* in het Silvermoon-tabblad. Het zwevende
       boss-venster toont hem nog steeds **één** keer, niet twee.
-- [ ] 🆕 **Nieuwe tips voor Nymrissa (Tidebound Grotto).** Raids-pagina → The Tidebound Grotto, en het
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Nieuwe tips voor Nymrissa (Tidebound Grotto).** Raids-pagina → The Tidebound Grotto, en het
       boss-venster tijdens het gevecht. Er staat nu:
       - murlocs doden vóór ze bij de bel zijn;
       - in het gat tussen de draaikolken staan;
@@ -110,14 +117,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Zet je het om in Settings, dan volgt de knop ook.
       - Beweeg erover: de tooltip legt uit wat hij doet.
       - Staat hij in de weg, of past de tekst niet? Zeg het; we besluiten later of hij daar blijft.
-- [ ] 🆕 Silvermoon: de kaart heet nu **Theremis — Reset specializations** (er stond "…resetten").
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 Silvermoon: de kaart heet nu **Theremis — Reset specializations** (er stond "…resetten").
 - [x] ✅ Rob 15 sep: klopt. **About leest nu tot het eind** (Robs screenshot, 15 sep: de tekst stopte bij "locatio…"). Klik op
       *About*: het venster is nu zo hoog als de tekst. Je hoort de hele dankregel te zien, tot en met "…no code
       from these addons is used." Klik ook op *Info* bij een paar tabbladen: ook daar mag niets meer afgekapt
       zijn, en een kort Info-venster blijft even groot als eerst.
 - [x] ✅ **Rob 15 sep: "deze werkt"**, met een screenshot van Farthik in de nieuwe look: violette kaart, lila rand,
       model en gele hint. ✅ Rob, 15 sep: het model beweegt ("ja"), en de Classic-popup is "ook goed".
-- [ ] 🆕 **De popup "Rare nearby" in de nieuwe look** (Rob, 15 sep: "eerst de popup"). `/reload` en typ
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **De popup "Rare nearby" in de nieuwe look** (Rob, 15 sep: "eerst de popup"). `/reload` en typ
       **`/mh raretest farthik`**. Die gaat door dezelfde deur als een echte rare.
       - Nieuwe look: een effen violette kaart met een dunne lila rand, die bij het verschijnen twee keer goud
         oplicht. De titel is lichtgoud en de tekst wit.
@@ -130,7 +137,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       volgende Sporefall-pull hoort het venster vanzelf open te springen, met Rotmires model erin. Op een
       Engelse client deed het dat al; de reparatie is vooral voor spelers met een andere taal. Blijft het
       dicht, of staat er een verkeerd model: zeg het.
-- [ ] 🆕 **Nieuwe tips voor alle 8 bazen van The Venomous Abyss** (15 sep, na Robs "absoluut incompleet").
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Nieuwe tips voor alle 8 bazen van The Venomous Abyss** (15 sep, na Robs "absoluut incompleet").
       Raids-pagina → The Venomous Abyss, en het boss-venster tijdens het gevecht.
       - Bovenaan staat een nieuwe regel: *"Rewritten on 15 Sep ..."*.
       - Elke baas heeft nu een regel voor tank, healer en DPS.
@@ -145,7 +152,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       zijn groep wél in fase 3 kwam: drie fases klopt. Zijn vraag "ik kon de bol daar achterlaten" is het ontwerp:
       de bol valt na ~5 s vanzelf neer waar je staat (AFGELEID, gidsen); het korte blok zegt "leave it there".
       - Klikbare spell-namen: staat er ergens *[Spell 1234567]* in plaats van een naam? Noem de baas.
-- [ ] 🆕 **Ook de Season 1-raids herschreven** (15 sep, blok 2): The Dreamrift, The Voidspire en March on
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Ook de Season 1-raids herschreven** (15 sep, blok 2): The Dreamrift, The Voidspire en March on
       Quel'Danas, samen 9 bazen. Elke baas heeft steps, tank, healer en DPS, met dezelfde kopjes. Kijk vooral naar:
       - **Vorasius:** de muren moet je kapotmaken, niet erachter schuilen;
       - **Crown of the Cosmos:** de mini-bazen heten Demiar, Morium en Vorelus;
@@ -165,13 +172,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - **Dungeons** hebben (nog) geen korte tips: daar verandert niets.
       - ❓ Snap je de korte regels in het gevecht? Welke is nog te moeilijk?
       - ❓ Overlapt de knop linksonder de Route-knop als het venster smal is?
-- [ ] 🆕 **Raids-pagina: oudere raids onderaan** (Rob, 15 sep: "Doe maar"). Een `/reload` is genoeg.
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Raids-pagina: oudere raids onderaan** (Rob, 15 sep: "Doe maar"). Een `/reload` is genoeg.
       - Codex → Raids. Bovenaan staat **The Venomous Abyss** (open), daaronder **The Tidebound Grotto**.
       - Dan een gouden kop **Older raids (Season 1)**, met daaronder The Dreamrift, The Voidspire en March on
         Quel'Danas.
       - Silvermoon-tabblad → blok *Dungeons & Raids*: dezelfde volgorde (Venomous Abyss eerst), zonder kop.
       - ❓ Staat de kop niet tegen de knop eronder geplakt?
-- [ ] 🆕 **Bewegende bazen bij alle raids en dungeons, en klikbaar** (Rob, 15 sep). Een `/reload` is genoeg.
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Bewegende bazen bij alle raids en dungeons, en klikbaar** (Rob, 15 sep). Een `/reload` is genoeg.
       - Codex → Raids: klap The Dreamrift open. Je ziet nu ook daar een rij bewegende bazen.
       - Codex → Dungeons: klap een dungeon open, bijvoorbeeld Murder Row. Boven de tips staat de rij bazen.
       - Ga met de muis op een baas: een tooltip zegt *Click: open the tips window for this boss*.
@@ -184,12 +191,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Kings' Rest, Temple of Sethraliss en Ruby Life Pools hebben nu tips (die hadden er geen).
       - In een dungeon: het boss-venster toont de korte tips en **Show all tips**, net als bij raids.
       - ❓ Klopt er iets niet met wat je in het gevecht zag? Zeg welke baas.
-- [ ] 🆕 **Sporefall en de ritual-bazen opnieuw** (Rob, 15 sep). Een `/reload` is genoeg.
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Sporefall en de ritual-bazen opnieuw** (Rob, 15 sep). Een `/reload` is genoeg.
       - Boss-venster voor Rotmire (Sporefall): korte tips bovenaan ("Adds", "Shrooms", "Vines"), en je rol-regel.
       - Boss-venster voor de Corrupted Amani Dragonhawk en Ger'lok (Broken Throne): ook korte tips.
       - Mindbreaker en Selen'vjar (Daggerspine Point) hebben géén korte tips: er is nog te weinig bekend.
       - ❓ Doe je Daggerspine Point: wat deden de Mindbreaker en Selen'vjar? Dan gaat het erin.
-- [ ] 🆕 **De 8 oudere dungeons opnieuw** (Rob, 15 sep). Een `/reload` is genoeg.
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **De 8 oudere dungeons opnieuw** (Rob, 15 sep). Een `/reload` is genoeg.
       - Codex → Dungeons → bijvoorbeeld Maisara Caverns: bij Vordaza staat nu dat je de phantoms tegen elkaar laat
         botsen (was: "kill the phantoms"). Bovenaan elke baas **In short**.
       - Windrunner Spire, Nexus-Point Xenas en Magisters' Terrace idem; die draai je ook op Normal/Heroic.
@@ -203,7 +210,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Muis op een rij: in de tooltip staat nu ook de hint van die rare (bijv. dat je eerst een kist opent).
       - **Classic look:** alles zoals vroeger, alleen is "gedood" nu grijs in plaats van groen.
       - ❓ Leest de afstand goed, of zit hij de naam in de weg bij lange namen?
-- [ ] 🆕 **Na Robs testronde van 15 sep 's avonds.** Een `/reload` is genoeg.
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Na Robs testronde van 15 sep 's avonds.** Een `/reload` is genoeg.
       - **Silvermoon:** maak het MH-venster smaller en weer breder. De kaarten schuiven mee; bij smal worden het
         2 kolommen (of 1). Er valt rechts niets meer weg: Enchanting en Jewelcrafting staan er weer.
       - **Raids:** alle raids beginnen ingeklapt. (Heb je er zelf een open- of dichtgeklikt, dan blijft die zo.)
@@ -222,7 +229,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         werkt (korte tips blijven bewust ongefilterd). 🐛 In een delve, bij een raidbaas: "Delves: lines for harder
         difficulties are hidden" → gerepareerd: het filter werkt nu alleen in een dungeon of raid, en alleen voor
         bazen van dat soort plek. Controleer: in een delve een raidbaas openen → geen grijze regel meer.
-- [ ] 🆕 **Disciple of Vashnik in de Delve Coach** (Rob, 15 sep: "een baas die we volgens mij niet hebben"). Een
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Disciple of Vashnik in de Delve Coach** (Rob, 15 sep: "een baas die we volgens mij niet hebben"). Een
       `/reload` is genoeg.
       - Ga Atal'Aman in met het verhaal **Venomous Vapors**. De Delve Coach noemt nu *Disciple of Vashnik* als
         eindbaas (met model), en bij Route/Trash/Boss staan zijn regels in plaats van die van Jin'Ma.
@@ -236,7 +243,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         komt uit de **Fire Gauntlet** (*Gauntlet Chest*), en eerst praat je met **Marla**. De route staat nu zo in drie
         regels, en de Springstep Rune heeft een tooltip. Kijk bij de volgende run of het zo leest als je het ziet.
       - ❓ Staat zijn model er, en klopt het?
-- [ ] 🆕 **Delves bijgewerkt voor Seizoen 2** (Rob, 15 sep: "doe de delve-audit maar"). Een `/reload` is genoeg.
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Delves bijgewerkt voor Seizoen 2** (Rob, 15 sep: "doe de delve-audit maar"). Een `/reload` is genoeg.
       Open de Delve Coach (of loop de delve in) en kijk:
       - **The Shadow Enclave**, verhaal *Infiltrate and Ameliorate*: eindbaas is nu **Abominable Blunder**. De route
         noemt Scout Lok'aemon, 5 Ula'tek Summoners en 4 ketels. ❓ Staat er een model, en klopt het?
@@ -251,7 +258,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         *Spinshroom* noemen.
       - **Venomfall Deeps** (Azta'rec): op ?? staat nu dat je de Echo of Azta'rec in elke pauze moet doden.
       - ❓ Kom je een verhaal tegen waar de tips niet kloppen? Zeg welke delve en welk verhaal.
-- [ ] 🆕 **`/mh weeklies` is niet meer een muur tekst** (Rob, 16 sep: "dit zijn weer heel veel regels").
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **`/mh weeklies` is niet meer een muur tekst** (Rob, 16 sep: "dit zijn weer heel veel regels").
       Een `/reload` is genoeg.
       - Typ `/mh weeklies`: je krijgt nu **3 of 4 regels** — hoeveel weeklies in je log staan, hoeveel
         completed, hoeveel givers iets te halen hebben, wanneer het laatste gossip-venster openging, en
@@ -260,7 +267,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - ❓ Staat er iets in de samenvatting dat niet klopt met de volledige lijst?
 - [x] ✅ **Meting gedaan (Rob, 16 sep 07:02):** alle vijf de Curse-Surge-plekken geven 1800 seconden, en de
       starts liggen 1800 uit elkaar. Blizzards 30 minuten klopt, en de client geeft het getal zelf.
-- [ ] 🆕 **Lor'themar staat nu in je weekroutine** (Rob, 16 sep: "ja doe Lor'themar er maar bij").
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Lor'themar staat nu in je weekroutine** (Rob, 16 sep: "ja doe Lor'themar er maar bij").
       Een `/reload` is genoeg.
       - Home → de routine na de reset: er hoort nu een stap **Lor'themar Theron** bij te staan. Heb je
         *Midnight: World Tour* al in je log, dan moet die stap meteen als "opgepakt" tellen en je niet meer
@@ -269,13 +276,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - ❓ Klopt die regel met wat je in het spel ziet? En krijg je 'm echt bij Lor'themar in Silvermoon?
 - [x] ✅ Rob 16 sep: `/mh questscan time` gaf **93611 "A Shattered Path Through Time"**. Die staat nu vast bij
       Aethas (hij zat al in jouw leergeheugen, maar niet in wat we meeleveren).
-- [ ] 🆕 **Timewalking telt nu mee bij Aethas.** Een `/reload` is genoeg. Kijk in de routine: zolang die quest
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Timewalking telt nu mee bij Aethas.** Een `/reload` is genoeg. Kijk in de routine: zolang die quest
       in je log zit, hoort de stap bij **Aethas Sunreaver** als "opgepakt" te staan en je niet meer te vragen
       hem te halen. ❓ Klopt dat?
-- [ ] 🆕 **Boss-venster: delen, rollen en moeilijkheid** (Rob, 16 sep). Een `/reload` is genoeg.
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Boss-venster: delen, rollen en moeilijkheid** (Rob, 16 sep). Een `/reload` is genoeg.
       - [x] ✅ Rob 16 sep: *"de dumps zijn wel goed"* — **Deel / Chat volgen nu wat je ziet.**
       - [x] ✅ De rol-icoontjes blijven staan bij de volledige lijst.
-      - [ ] 🆕 **De knop Moeilijkheid was onzichtbaar** (Rob: *"ik zie geen moeilijkheid opties"*). GEMETEN in
+      - [x] ✅ (Rob, telefoon 16 sep) 🆕 **De knop Moeilijkheid was onzichtbaar** (Rob: *"ik zie geen moeilijkheid opties"*). GEMETEN in
         je SavedVariables: `diffFilter = false` — jij had *Only tips for my difficulty* uit staan, en precies
         dáár verstopte de knop zich. Nu doet die ene knop alles: klikken loopt rond **Alles → Auto → Normal →
         Heroic → Mythic → Alles**, en *Alles* ís die instelling uit. Hij staat er altijd zodra je de volledige
@@ -284,7 +291,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - [ ] 🆕 **De knop staat nu ook bij de korte lijst, maar grijs** (Rob: *"hij staat bij full en niet bij
         short"* → *"doe A maar"*). Klikken doet daar niets, want de korte tips gelden op elke moeilijkheid.
         ❓ Beweeg erover: zegt de tooltip dat ook, in het rood, onder de gewone uitleg?
-      - [ ] 🆕 **Je eigen rol is nu te zien in de volledige lijst** (Rob: *"bij de full versie blijft de tekst
+      - [x] ✅ (Rob, telefoon 16 sep) 🆕 **Je eigen rol is nu te zien in de volledige lijst** (Rob: *"bij de full versie blijft de tekst
         op dps staan"*). Vóór jouw rol-blok staat nu het rol-icoontje. Klik een andere rol aan → het icoontje
         verspringt. ❓ Verspringt het?
       - [ ] 🆕 **In de chat staat nu vóór de rolregel wie het is** (Rob: *"kan er bij de role tip ook voor komen
@@ -319,7 +326,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - Slepen werkt ook hier: sleep een kaart naar voren, en rechtsklik → *Reset de volgorde*.
       - ❓ Staat de volgorde van de kaarten gelijk aan de knoppenbalk bovenin het handboek?
       - ❓ Is het zo handiger, of wil je er juist minder kaarten?
-- [ ] 🆕 **Classic ↔ Modern laat je niet meer op een half scherm staan** (Rob, 16 sep, screenshots 2-4).
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 **Classic ↔ Modern laat je niet meer op een half scherm staan** (Rob, 16 sep, screenshots 2-4).
       Een `/reload` is genoeg.
       - Zet **Klassiek** aan, open **Codex → Midnight Codex**, klik dan op **Modern**: je hoort nu het
         kaartoverzicht van de Codex te zien (de vijf kaarten), niet de oude pagina met een banner erboven.
@@ -350,7 +357,7 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       (Astalor). ⚠️ Ook deze vragen een **volledige herstart** van WoW. Beweeg over een kaart →
       hij licht op; klikken zet de route zoals altijd.
       ❌ Zie je een **leeg vakje** waar een plaatje hoort, dan is WoW niet helemaal herstart geweest.
-- [ ] 🆕 Zet **Classic** aan (Settings) en ga terug naar het Silvermoon-tabblad: de oude rode knoppen staan
+- [x] ✅ (Rob, telefoon 16 sep) 🆕 Zet **Classic** aan (Settings) en ga terug naar het Silvermoon-tabblad: de oude rode knoppen staan
       er weer, zoals in 3.x. **Nieuw:** de beroepen, verzamelberoepen en Training Dummies tonen daar nu ons
       eigen plaatje, klein; in 3.x was dat vakje leeg (Rob: "ja, doe Classic ook maar"). Alle andere knoppen
       houden Blizzards symbool. Terug naar de nieuwe look → weer kaarten, zonder `/reload`.

@@ -178,7 +178,7 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
   "use strict";
   var DATA = JSON.parse(document.getElementById("data").textContent);
   var state = {};            // id -> {s:"ok"|"bad", n:"notitie"}
-  var db = null, docRef = null, filter = "all", saveTimer = null, muted = false;
+  var db = null, docRef = null, filter = "new", saveTimer = null, muted = false;
 
   var listEl = document.getElementById("list");
   var statusEl = document.getElementById("status");
@@ -188,7 +188,7 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
   DATA.sections.forEach(function(s){ s.items.forEach(function(i){ i.section = s; all.push(i); }); });
   document.getElementById("n-tot").textContent = all.length;
 
-  function isNew(s){ return /16 sep|15 sep|14 sep/.test(s.title); }
+  function isNew(s){ return !!s.isNew; }
 
   var FILTERS = [
     { id:"all",  label:"Alles (" + all.length + ")", test:function(){ return true; } },
