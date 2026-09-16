@@ -456,7 +456,16 @@ aan te pakken"*.
   scherm groter of kleiner maak komen ze weer terug"*). Oorzaak: een `BackdropTemplate` tekent zijn randen bij
   `SetBackdrop`, en beide randen werden gezet toen het frame nog geen opgeloste maat had — de kaart krijgt zijn
   breedte pas in `Layout`, en de icoonrand hing met twee hoeken aan het icoon in die nog-niet-berekende kaart.
-  Nu heeft de icoonrand een eigen maat (`ICON + 2`, gecentreerd) en zet `Layout` de kaartrandkleur opnieuw.
+  Eerste poging: de icoonrand een eigen maat geven (`ICON + 2`, gecentreerd) en de kaartrandkleur opnieuw
+  zetten in `Layout`. ❌ **Niet genoeg** — Robs volgende screenshots lieten zien dat bij de ene kaart het
+  randje er stond en bij de buurkaart niet (*Rares* en *Account snapshot* misten hem, *Deze week* niet). Dat
+  patroon sluit "maat nog onbekend" uit.
+  - ✅ **Echte oorzaak:** het randje was een KIND-FRAME met een backdrop. Zo'n frame tekent op zijn eigen frame
+    level, gelijk met de laag waarop het icoon van de kaart staat, en WoW legt niet vast wie dan bovenop komt —
+    dus per kaart anders, en een hersize (die levels opnieuw uitdeelt) "repareerde" het tijdelijk.
+  - ✅ **Nu:** vier texturen op de OVERLAY-laag van de kaart zelf (`RoomLauncher.lua`, MakeCard) en dezelfde
+    aanpak voor het icoon in de 4.0-kopbalk (`UI.lua`, `lookIconEdges`). Geen backdrop-frames meer, dus geen
+    race. Rob bood aan de randjes helemaal te schrappen; dat hoeft niet.
 - 🆕 **Robs wens voor de snelknoppenbalk (16 sep, nog niet gebouwd):** de balk met `reload`, `leave group` enz.
   moet knoppen kunnen tonen die bij je situatie passen — in een groep een knop naar het **Consumable Ready
   Board**, en in een instance een knop naar het **boss-venster**, zodat je tussendoor buffs of tactieken kunt

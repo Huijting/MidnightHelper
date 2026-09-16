@@ -221,11 +221,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] 🆕 **Timewalking telt nu mee bij Aethas.** Een `/reload` is genoeg. Kijk in de routine: zolang die quest
       in je log zit, hoort de stap bij **Aethas Sunreaver** als "opgepakt" te staan en je niet meer te vragen
       hem te halen. ❓ Klopt dat?
-- [ ] 🆕 **Randje om het icoon in de kopbalk** (Rob, 16 sep: "nu mis ik lijntjes om de iconen aan de
-      bovenkant"). Zelfde soort fout als bij de kaarten, nu ook daar vastgezet. Open een paar schermen achter
-      elkaar (Ik → Codex → Tools) en kijk of het gouden randje om het icoon in de balk bovenaan er élke keer
-      meteen staat. ❓ Zo niet: welk icoon precies mist het — dat in de balk bovenaan, die in de linkerkolom,
-      of die op de kaarten?
+- [ ] 🆕 **Randjes om de iconen, tweede poging** (Rob, 16 sep, met screenshots waarop *Rares* en *Account
+      snapshot* hun randje misten en de buren niet). Ze worden nu als vier lijntjes op de kaart zelf getekend
+      in plaats van als los venstertje erbovenop. Een `/reload` is genoeg.
+      - Loop alle kamers langs: **Ik**, **Codex**, **Tools**. Heeft élke kaart zijn gouden randje, meteen,
+        zonder te schalen?
+      - Maak het venster een paar keer groter en kleiner, en klap tussen **Klassiek** en **Modern**. Blijven
+        ze staan?
+      - Ook het icoon in de **balk bovenin** (naast de uitleg) is zo omgebouwd. ❓ Staat dat randje er ook?
 - [ ] 🆕 **Twee extra knoppen op de snelbalk** (Rob, 16 sep). Een `/reload` is genoeg. Staat de balk uit, zet
       hem aan met `/mh bar` (of Settings → Quick bar).
       - **In een groep** komt er een knop bij met het consumables-icoon. Klik → het Consumable Ready Board

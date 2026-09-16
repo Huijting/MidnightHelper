@@ -418,16 +418,37 @@ local function MakeCard(parent)
 	local icon = b:CreateTexture(nil, "ARTWORK")
 	icon:SetSize(ICON, ICON)
 	icon:SetPoint("TOP", b, "TOP", 0, -10)
-	--- ⚠️ Eigen maat, niet "plak me aan beide hoeken van het icoon". Rob, 16 sep 2026: *"soms
-	--- verdwijnen de lijntjes om de iconen, wanneer ik het scherm groter of kleiner maak komen ze
-	--- weer terug"*. Een BackdropTemplate tekent zijn randen bij `SetBackdrop`, en een frame dat
-	--- op dat moment nog geen opgeloste maat heeft — de kaart krijgt zijn breedte pas in Layout —
-	--- tekent er geen; pas een hersize duwt het alsnog. Met een vaste maat staat de rand er altijd.
-	local edge = CreateFrame("Frame", nil, b, "BackdropTemplate")
-	edge:SetSize(ICON + 2, ICON + 2)
-	edge:SetPoint("CENTER", icon, "CENTER", 0, 0)
-	edge:SetBackdrop({ edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
-	edge:SetBackdropBorderColor(unpack(LOOK.iconEdge))
+	--- ⚠️ VIER LIJNTJES, GEEN BACKDROP-FRAME — en dat is de tweede poging.
+	---
+	--- Rob, 16 sep 2026: *"soms verdwijnen de lijntjes om de iconen"*, en na de eerste poging
+	--- (een eigen maat geven): *"nu mis ik lijntjes om de iconen"* — met screenshots waarop de ene
+	--- kaart zijn randje had en de buurkaart niet. Dát patroon sluit "maat nog niet bekend" uit.
+	---
+	--- Wat overblijft: het randje was een KIND-FRAME met een backdrop. Zo'n frame tekent op zijn
+	--- eigen frame level, en dat ligt hier gelijk met de laag waarop het icoon van de kaart zelf
+	--- staat. Welke van de twee dan bovenop komt, legt WoW niet vast — dus per kaart anders, en
+	--- een hersize (die de levels opnieuw uitdeelt) "repareerde" het tijdelijk.
+	---
+	--- Vier texturen op de OVERLAY-laag van de kaart zelf kennen die race niet: ze horen bij
+	--- dezelfde tekenvolgorde als het icoon en liggen er per definitie bovenop.
+	local edges = {}
+	for _, side in ipairs({ "top", "bottom", "left", "right" }) do
+		local t = b:CreateTexture(nil, "OVERLAY")
+		t:SetColorTexture(unpack(LOOK.iconEdge))
+		edges[side] = t
+	end
+	edges.top:SetPoint("BOTTOMLEFT", icon, "TOPLEFT", -1, 0)
+	edges.top:SetPoint("BOTTOMRIGHT", icon, "TOPRIGHT", 1, 0)
+	edges.top:SetHeight(1)
+	edges.bottom:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", -1, 0)
+	edges.bottom:SetPoint("TOPRIGHT", icon, "BOTTOMRIGHT", 1, 0)
+	edges.bottom:SetHeight(1)
+	edges.left:SetPoint("TOPRIGHT", icon, "TOPLEFT", 0, 1)
+	edges.left:SetPoint("BOTTOMRIGHT", icon, "BOTTOMLEFT", 0, -1)
+	edges.left:SetWidth(1)
+	edges.right:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 1)
+	edges.right:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 0, -1)
+	edges.right:SetWidth(1)
 
 	local name = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	name:SetPoint("TOP", icon, "BOTTOM", 0, -7)

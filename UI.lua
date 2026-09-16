@@ -3575,15 +3575,29 @@ function ns:EnsureMainUI()
 	lookIcon:SetSize(LOOK_HEADER_H - 10, LOOK_HEADER_H - 10)
 	-- A thin gold frame hides the hard edge of the painted square (Rob, 12 Sep: "vierkant met
 	-- een goud randje"). A child frame so it draws over the icon; it follows the icon's size.
-	--- ⚠️ 16 sep 2026: eigen maat, niet aan twee hoeken van het icoon hangen. Dat is dezelfde
-	--- constructie die bij de kaarten randjes liet verdwijnen tot je het venster schaalde: een
-	--- BackdropTemplate tekent zijn rand bij `SetBackdrop`, en een frame waarvan de maat dan nog
-	--- van een ander frame moet komen, tekent er geen. Zie `RoomLauncher.lua` (MakeCard).
-	local lookIconEdge = CreateFrame("Frame", nil, lookHeader, "BackdropTemplate")
-	lookIconEdge:SetSize(LOOK_HEADER_H - 10 + 4, LOOK_HEADER_H - 10 + 4)
-	lookIconEdge:SetPoint("CENTER", lookIcon, "CENTER", 0, 0)
-	lookIconEdge:SetBackdrop({ edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 2 })
-	lookIconEdge:SetBackdropBorderColor(LOOK_PALETTE.header[1], LOOK_PALETTE.header[2], LOOK_PALETTE.header[3], 0.95)
+	--- ⚠️ 16 sep 2026: vier texturen, geen backdrop-frame. Zelfde reden als bij de kaarten
+	--- (`RoomLauncher.lua`, MakeCard): een kind-frame met een backdrop tekent op zijn eigen frame
+	--- level, gelijk met de laag van het icoon eronder, en wie er dan bovenop komt ligt niet vast.
+	--- Robs screenshots lieten het per kaart verschillen. Texturen op de OVERLAY-laag van dezelfde
+	--- frame kennen die race niet.
+	local lookIconEdges = {}
+	for _, side in ipairs({ "top", "bottom", "left", "right" }) do
+		local t = lookHeader:CreateTexture(nil, "OVERLAY")
+		t:SetColorTexture(LOOK_PALETTE.header[1], LOOK_PALETTE.header[2], LOOK_PALETTE.header[3], 0.95)
+		lookIconEdges[side] = t
+	end
+	lookIconEdges.top:SetPoint("BOTTOMLEFT", lookIcon, "TOPLEFT", -2, 0)
+	lookIconEdges.top:SetPoint("BOTTOMRIGHT", lookIcon, "TOPRIGHT", 2, 0)
+	lookIconEdges.top:SetHeight(2)
+	lookIconEdges.bottom:SetPoint("TOPLEFT", lookIcon, "BOTTOMLEFT", -2, 0)
+	lookIconEdges.bottom:SetPoint("TOPRIGHT", lookIcon, "BOTTOMRIGHT", 2, 0)
+	lookIconEdges.bottom:SetHeight(2)
+	lookIconEdges.left:SetPoint("TOPRIGHT", lookIcon, "TOPLEFT", 0, 2)
+	lookIconEdges.left:SetPoint("BOTTOMRIGHT", lookIcon, "BOTTOMLEFT", 0, -2)
+	lookIconEdges.left:SetWidth(2)
+	lookIconEdges.right:SetPoint("TOPLEFT", lookIcon, "TOPRIGHT", 0, 2)
+	lookIconEdges.right:SetPoint("BOTTOMLEFT", lookIcon, "BOTTOMRIGHT", 0, -2)
+	lookIconEdges.right:SetWidth(2)
 	local lookText = lookHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	lookText:SetPoint("LEFT", lookIcon, "RIGHT", 12, 0)
 	lookText:SetPoint("RIGHT", lookHeader, "RIGHT", -14, 0)
