@@ -682,6 +682,13 @@ te testen of ik deze al gehaald heb"*.
      - Alles in de tekst is in het spel gezien (TESTLIJST 12-13 sep), behalve twee dingen: de kopjes op
        de Screens-pagina en de migratie van de beta-vinkjes. Die worden er beschreven zoals gebouwd.
   3. Nieuwe screenshots voor CF: galerijfoto 1 wordt het Me-rooster.
+     - 🔨 **16 sep: opnamelijst geschreven, `docs/CF_SCREENSHOTS_4.0.0.md`** (Rob: *"wel moeten we nieuwe
+       screens maken voor CF, dus die moet ook goed klaargezet worden"*). Tien foto's, plus wat er vóór de
+       eerste opname klaar moet staan (rustige donkere plek, schone chat, geen andere addons in beeld, een
+       personage midden in de week zodat de statusregels iets zeggen).
+     - ❓ **Tegenspraak die Rob moet beslechten:** deze regel zegt *Me-rooster*, `SPEC_37_4.0.0_LOOK.md` §6d
+       zegt *"galerijfoto 1 blijft This Week — dat plaatje beslist of mensen klikken"*. Beide op 12 sep
+       geschreven. Staat als vraag 0 bovenaan de opnamelijst.
   4. Rob plakt de CF-omschrijving met de AI-regel.
 - **Mag ook na 4.0.0:** rode knoppen binnen de schermen, grappen in lege toestanden, grotere
   Tools-kaarten.
