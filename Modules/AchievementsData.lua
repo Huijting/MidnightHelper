@@ -335,9 +335,19 @@ ns.ACHIEVEMENT_TREASURES = {
 	--- vignette reads, 6 Aug); the other three are HandyNotes', the source Rob trusts for rare
 	--- coordinates. Zygor's kill steps land within half a point of all five.
 	---
-	--- ⚠️ NO CYCLE, ON PURPOSE. HandyNotes says the surges rotate every 45 minutes, a forum
-	--- thread says about 20. Nobody has measured it, so the note says "part of the time" and
-	--- carries no number.
+	--- ⚠️ THE CYCLE IS READ FROM THE GAME, NEVER WRITTEN DOWN. This used to say "NO CYCLE, ON
+	--- PURPOSE: HandyNotes says 45 minutes, a forum thread says about 20, nobody has measured
+	--- it". Two things changed on 15/16 Sep 2026. Blizzard hotfixed the surges from 45 to 30
+	--- minutes, and HandyNotes_Midnight (156, read that morning) turns out to quote no number
+	--- either: it asks `C_EventScheduler` and drops the sentence when the client stays silent.
+	--- MEASURED in Rob's client, 16 Sep 07:02: all five POIs below answer 1800 seconds, and
+	--- their next starts lie 1800 apart — so the window is also how often the surge moves on.
+	--- `ns.AchievementNoteText` now appends the minutes from `cyclePois`, and says nothing when
+	--- the client says nothing. A number typed in here would have aged with the next hotfix.
+	---
+	--- ⚠️ The five ids are the Coiled Isle's surge POIs as Rob's own spy listed them; WHICH id
+	--- belongs to WHICH boss is not measured, and nothing here claims it — every row asks the
+	--- same five and takes the first answer.
 	{
 		achievementID = 63390, -- Turn the Surge (client supplies the title)
 		kind = "event", -- not [Rare]: Rob, 10 Sep, "deze dingen staan onder Rare kopjes, klopt dat??"
@@ -346,11 +356,11 @@ ns.ACHIEVEMENT_TREASURES = {
 		feedsMeta = false,
 		nodes = {
 			-- North to south, like the other hunts.
-			{ criteria = 115369, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 45.20, wpY = 28.40 }, -- Vassti, the Exalted Broodmother · The Broodmother's Nest
-			{ criteria = 115370, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 71.20, wpY = 31.30 }, -- Ss'akrithos · Mlurkkr Massacre
-			{ criteria = 111353, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 46.99, wpY = 62.23 }, -- Malformed Leviathan · The Malformed Leviathan
-			{ criteria = 115368, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 26.40, wpY = 64.80 }, -- Looming Mutagenitor · The Looming Mutagenitor
-			{ criteria = 115371, note = "ACH_NOTE_CURSE_SURGE", wpMapID = 2512, wpX = 67.16, wpY = 77.52 }, -- Venom Lancer Ori'kassi · Siege at Coiler's Wake
+			{ criteria = 115369, note = "ACH_NOTE_CURSE_SURGE", cyclePois = { 8936, 8937, 8938, 8939, 8940 }, wpMapID = 2512, wpX = 45.20, wpY = 28.40 }, -- Vassti, the Exalted Broodmother · The Broodmother's Nest
+			{ criteria = 115370, note = "ACH_NOTE_CURSE_SURGE", cyclePois = { 8936, 8937, 8938, 8939, 8940 }, wpMapID = 2512, wpX = 71.20, wpY = 31.30 }, -- Ss'akrithos · Mlurkkr Massacre
+			{ criteria = 111353, note = "ACH_NOTE_CURSE_SURGE", cyclePois = { 8936, 8937, 8938, 8939, 8940 }, wpMapID = 2512, wpX = 46.99, wpY = 62.23 }, -- Malformed Leviathan · The Malformed Leviathan
+			{ criteria = 115368, note = "ACH_NOTE_CURSE_SURGE", cyclePois = { 8936, 8937, 8938, 8939, 8940 }, wpMapID = 2512, wpX = 26.40, wpY = 64.80 }, -- Looming Mutagenitor · The Looming Mutagenitor
+			{ criteria = 115371, note = "ACH_NOTE_CURSE_SURGE", cyclePois = { 8936, 8937, 8938, 8939, 8940 }, wpMapID = 2512, wpX = 67.16, wpY = 77.52 }, -- Venom Lancer Ori'kassi · Siege at Coiler's Wake
 		},
 	},
 	{

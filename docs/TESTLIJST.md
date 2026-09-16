@@ -207,11 +207,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         hoeveel regels er zijn opgeslagen.
       - Wil je toch alles zien: `/mh weeklies full` print de hele lijst zoals vroeger.
       - ❓ Staat er iets in de samenvatting dat niet klopt met de volledige lijst?
-- [ ] 🆕 **Meting voor de Curse Surge-cyclus** (Blizzard, hotfix 15 sep: elke 30 minuten in plaats van 45).
-      Doe dit het liefst op **The Coiled Isle**: `/reload`, dan `/mh eventspy`, dan nóg een `/reload`
-      (anders staat het niet op schijf), en zeg het. MH bewaart nu per plek ook hoe lang één ronde duurt.
-      Geeft jouw client dat getal, dan leest MH de cyclus voortaan zelf uit het spel in plaats van "30"
-      over te typen uit een hotfix.
+- [x] ✅ **Meting gedaan (Rob, 16 sep 07:02):** alle vijf de Curse-Surge-plekken geven 1800 seconden, en de
+      starts liggen 1800 uit elkaar. Blizzards 30 minuten klopt, en de client geeft het getal zelf.
+- [ ] 🆕 **Curse Surge: de cyclus komt nu uit het spel.** Een `/reload` is genoeg.
+      - Codex → Achievements → **Turn the Surge**, en beweeg over een van de vijf bazen (of open zijn kaart).
+        Onder de bekende notitie staat nu een tweede zin: *"Your client says this event moves on to the next
+        spot every 30 minutes."*
+      - ❓ Staat dat er, en zegt hij **30**? Staat er geen tweede zin, dan gaf je client op dat moment geen
+        schema — dat is de bedoeling, we verzinnen er dan geen getal bij. Zeg het wel even.
+      - Ook meegepakt: bij de Peculiar Cauldron (het verzamel-doel) toonde het toastvenster de interne
+        sleutel in plaats van de tekst. Kijk of daar nu gewoon Nederlands/Engels staat.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

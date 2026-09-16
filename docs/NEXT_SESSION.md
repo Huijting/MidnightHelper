@@ -403,10 +403,21 @@ aan te pakken"*.
     de getter `ns.GetWorldEventWindowSeconds(areaPoiID)` en `windowByPoi` in de `/mh eventspy`-snapshot.
   - 📌 Bij de Curse Surges is de vensterduur óók de cyclus: de vijf plekken lossen elkaar direct af (zo leest
     HandyNotes het ook). AFGELEID, niet gemeten.
-  - ⏳ **Wacht op Robs meting** (`/mh eventspy` + `/reload` op The Coiled Isle). Komt er geen getal uit zijn
-    client, dan valt B af en doen we A: het getal met de hand in `ACH_NOTE_CURSE_SURGE` (7 talen).
-  - Daarna pas: de notitie-tekst koppelen. De POI-ids per criteria-rij zijn nog niet van ons — HandyNotes
-    koppelt 8936/8937/8938/8939/8940 aan de vijf bazen; dat zijn kandidaten tot de spy ze bevestigt.
+  - ✅ **GEMETEN in Robs client, 16 sep 07:02** (`ns.db.eventSpy`): alle vijf de Coiled-Isle-POI's
+    (8936, 8937, 8938, 8939, 8940) geven `windowSeconds = 1800`, en hun volgende starts liggen 1800 uit
+    elkaar (1610 · 3410 · 5210 · 7010 · 8810 · 10610 · 12410). Dezelfde plek is dus na 5 × 30 = 150 minuten
+    weer aan de beurt. Blizzards 30 minuten klopt, en de client geeft het getal zelf.
+  - ✅ **Ingebouwd:** `ns.AchievementNoteText(node)` (`Achievements.lua`) plakt onder de notitie de zin
+    `ACH_NOTE_CYCLE_FMT` ("… elke %d minuten …", 7 talen) zodra `node.cyclePois` een venster oplevert; geeft
+    de client niets, dan is er géén zin en leest de notitie als voorheen. De vijf Curse-Surge-rijen kregen
+    `cyclePois = { 8936, 8937, 8938, 8939, 8940 }`. Alle drie de plekken waar een notitie getoond wordt
+    (kaart, chatroute, tooltip) lopen nu via die functie.
+  - 🐛 **Meegepakt:** de counter-toast zette `node.note` — de SLEUTEL — in het venster in plaats van de
+    tekst (`Achievements.lua`, oude regel 509). Alleen zichtbaar bij een counter-node (Peculiar Cauldron).
+  - ⚠️ **Niet gemeten en niet geclaimd:** welk POI-id bij welke baas hoort. Alle vijf de rijen vragen
+    dezelfde vijf ids en nemen het eerste antwoord; ze geven toch allemaal 1800.
+  - 📌 Open: het achievement **Cursebreaker** (150 Curse Surges, alleen bij Wowhead, geen ID) staat in geen
+    enkel MH-bestand. Kandidaat.
 - ✅ **`/mh weeklies` vat samen in plaats van de chat vol te zetten** (Rob: *"kunnen we hier ook een reload voor
   bouwen, dit zijn weer heel veel regels"*). `WeeklyHubProbe.lua` schrijft via `say()`: standaard verzamelt hij
   alles in `ns.db.weeklyProbe` (met tijdstempel) en print 3-4 regels met getallen die hij zelf geteld heeft;

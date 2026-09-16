@@ -483,6 +483,42 @@ end
 
 -- Live progress line for a "collect N of an item" treasure (e.g. 150x Crystalized
 -- Resin Fragment for the Peculiar Cauldron). Returns nil for normal treasures.
+--- The note a row shows, plus the event's cycle when the GAME tells us one.
+---
+--- 16 Sep 2026. Blizzard's hotfix of 15 Sep moved the Curse Surges from 45 to 30
+--- minutes. This note carried no number on purpose, because nobody had measured
+--- it — and writing "30" in by hand would go stale exactly like the sources it
+--- replaced. So the number comes from the client: `EventScheduler.lua` reads the
+--- event schedule, and MEASURED in Rob's own client that morning all five Coiled
+--- Isle surge POIs answer 1800 seconds, with their next starts 1800 apart.
+---
+--- ⚠️ No number from the client means NO sentence: the note then reads exactly as
+--- it did before. Unknown is not a reason to guess.
+function ns.AchievementNoteText(node)
+	if not (node and node.note) then
+		return nil
+	end
+	local text = ns:L(node.note)
+	if not (node.cyclePois and ns.GetWorldEventWindowSeconds) then
+		return text
+	end
+	local secs
+	for _, poi in ipairs(node.cyclePois) do
+		secs = ns.GetWorldEventWindowSeconds(poi)
+		if secs then
+			break
+		end
+	end
+	if not (secs and secs >= 60) then
+		return text
+	end
+	local fmt = ns.SafeL and ns:SafeL("ACH_NOTE_CYCLE_FMT")
+	if not fmt or fmt == "" or fmt == "ACH_NOTE_CYCLE_FMT" then
+		return text
+	end
+	return text .. "\n\n" .. fmt:format(math.floor(secs / 60 + 0.5))
+end
+
 local function CounterLine(node)
 	if not (node and node.counterItem) then
 		return nil
@@ -506,7 +542,9 @@ local function RefreshToastSteps()
 	local node = toast._node
 	if node and node.counterItem then
 		local cl = CounterLine(node)
-		toast.body:SetText((node.note or "") .. (cl and ("\n\n" .. cl) or ""))
+		-- ⚠️ 16 sep 2026: dit zette de KEY in de toast, niet de tekst (`node.note` is
+		-- de sleutel). Alleen zichtbaar bij een counter-node, daarom nooit opgevallen.
+		toast.body:SetText((ns.AchievementNoteText(node) or "") .. (cl and ("\n\n" .. cl) or ""))
 	end
 end
 
@@ -662,7 +700,7 @@ function ns.ShowTreasureToast(node)
 	f.title:SetText(nodeName)
 	local cl = CounterLine(node)
 	local gate = GateText(entry)
-	f.body:SetText((node.note and ns:L(node.note) or "") .. (gate and ("\n\n" .. gate) or "")
+	f.body:SetText((ns.AchievementNoteText(node) or "") .. (gate and ("\n\n" .. gate) or "")
 		.. (cl and ("\n\n" .. cl) or ""))
 
 	-- Button 1 routes back to the treasure itself (so you never lose it when the
@@ -1004,7 +1042,7 @@ local function IssueRoute(entry, firstTime, silent)
 			print((ns:L("ACH_MSG_ROUTE_NEXT")):format(Prefix(), firstName, done, total))
 		end
 		if first.note then
-			print((ns:L("ACH_MSG_ROUTE_NOTE")):format(Prefix(), ns:L(first.note)))
+			print((ns:L("ACH_MSG_ROUTE_NOTE")):format(Prefix(), ns.AchievementNoteText(first) or ""))
 		end
 		ArmTreasureToast(first)
 	end
@@ -2246,7 +2284,7 @@ local function BuildAchCard(st, entry)
 				hasExtra = true
 			end
 			if n.note then
-				local body = ns:L(n.note); body = (ns.SanitizeUIFontText and ns.SanitizeUIFontText(body)) or body
+				local body = ns.AchievementNoteText(n) or ""; body = (ns.SanitizeUIFontText and ns.SanitizeUIFontText(body)) or body
 				GameTooltip:AddLine(body, 0.9, 0.9, 0.9, true)
 				hasExtra = true
 			end
