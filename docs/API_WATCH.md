@@ -1698,3 +1698,112 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `git pull --rebase origin main` zette main weer op `72d8b70`. De pull gaf opnieuw een
     `(forced update)`-regel (`+ cda339b...72d8b70 main -> origin/main`) — dit is de bekende
     ondiepe-clone-ruis van 11/12/13/14 sep, geen force-push: er is niets verloren.
+- [2026-09-16] ✅ **Geen relevante API-wijzigingen (9–16 sep). 0 × [MOET GEFIKST].** Er is voor het
+  eerst in zes dagen een **nieuwe hotfix-sectie (15 september 2026)**, maar die heeft geen UI-,
+  addon-, API- of secure-frame-regel. Verder één nieuw forumtopic binnen het venster, getoetst aan de
+  code en [RAAKT ONS NIET]. Details, met per bron de meting:
+  - **Hotfixes: nieuwe sectie 15 september 2026 — GEEN UI-/addon-/API-regel.**
+    `news.blizzard.com/en-us/article/24296142` met cache-buster gaf als titel *"Hotfixes:
+    September 15, 2026"*; secties nu **15 sep, 10 sep, 9 sep, 4 sep, 3 sep, 2 sep**. ⚠️ Dit is
+    **nieuwer** dan wat mijn logboek gisteren noemde (nieuwste sectie was 10 sep), dus verse pagina
+    en geen cache-val. De 15-sep-sectie bestaat uit **Classes** (Hunter/Paladin/Priest-fixes),
+    **Dungeons and Raids** (The Venomous Abyss, The Coiled Altar, Ula'tek — tuning), **Items**,
+    **Quests** en **The Coiled Isle**. Geen enkele kop over User Interface, Accessibility, AddOns,
+    macro's of secure frames. **Niets aan de API-kant om te toetsen.**
+    - 📌 **Eén regel is wél een contentfeit, en die is niet van mij:** *"Curse Surges now rotate
+      every 30 minutes (was 45 minutes)."* Dat hoort bij `docs/CONTENT_WATCH.md` (wat de addon
+      *beweert*), niet bij deze wachter. **Wel één keer gemeten zodat niemand het hoeft te zoeken:**
+      de addon noemt **nergens een tijdsinterval** bij Curse Surges. `[Cc]urse ?[Ss]urge` geeft
+      buiten `docs/` drie bestanden — `Modules/AtalUtekProbe.lua`, `Locales/Codex.lua` (7×, één per
+      taal, alle in de vorm *"ghostly allies at Curse Surges"*) en `site/coiled-isle.html` — en een
+      tweede grep op `45 min|45-min|45 minut|elke 45|every 45` (case-insensitive, hele repo) treft
+      **alleen** `docs/PTR_12.1_WATCH.md`, `docs/PTR_12.0.7_DATA.md` en
+      `docs/PROPOSAL_ONMISBAAR.md` — dus geen enkele string die de speler ziet. Er valt hier voor de
+      content-wachter niets te repareren; ik laat het bij deze aantekening.
+  - 🧩 **NIEUW TOPIC, GETOETST — *Target on click-down instead of click-release?* (`2349816`,
+    aangemaakt 2026-09-15T04:24:18Z, 2 posts, 14 views, geen dev-antwoord).** De vraag, letterlijk:
+    *"Is it possible, without installing custom raidframes & party frames, to target people when the
+    mouse clicks down instead of when the click releases?"* Het enige antwoord, van een speler
+    (`Elvenbane`, trust level 2, `staff: false`, `moderator: false`, `admin: false`): *"Can't even do
+    it with addons. I'd recommend enabling the mouseover casting feature instead, then you don't need
+    to click at all."*
+    - ⚠️ **Dit is GEEN API-feit en GEEN wijziging.** Het is een spelersbewering over Blizzards eigen
+      raid-frames, zonder datum, versie of bron, en zonder blue-bevestiging. Ik tel het **niet** als
+      wijziging, maar wel als toets, omdat het precies de mechaniek noemt waar onze klikbare-in-combat
+      knoppen op leunen.
+    - **[RAAKT ONS NIET] — het gaat over een andere mechaniek dan de onze.** De bewering betreft
+      *unit targeting* op Blizzards raid-/party-frames. Wij hebben geen unit-frame-pad: een grep over
+      de **hele addon** (zonder `docs/`) op `RegisterUnitWatch`, `SecureUnitButtonTemplate` en
+      `type="target"` geeft **nul treffers**. Onze secure buttons zijn
+      `type="macro"`/`type="worldmarker"`-knoppen die een spell of een marker uitvoeren, niet iets
+      dat een unit target.
+    - 🔴 **Positieve controle in dezelfde run, dezelfde scope, dezelfde grep-vorm:**
+      `RegisterForClicks` geeft **29 treffers in 20 bestanden** — waarvan één de documentatieregel
+      `CLAUDE.md:344` is, dus **28 in 19 codebestanden** — waarvan **12** de gedocumenteerde
+      `("AnyUp", "AnyDown")`-vorm gebruiken (`Modules/MissingBuff.lua:678`, `FastMark.lua:94`,
+      `Openables.lua:385`, `PotionButton.lua:110`, `PartyTargets.lua:1512`,
+      `ConsumableReadyBoard.lua:464` en `:500`, `Delves.lua:3951`/`:4034`/`:4053`,
+      `DelveItemsPopup.lua:1041`, `DelveItemBrokers.lua:104`). Het patroon vindt dus wél wat er is;
+      de nul hierboven is een echte nul. **En er is geen bron die zegt dat `AnyDown` op een
+      `SecureActionButtonTemplate` veranderd is** — niet op de wiki (alle API-pagina's ongewijzigd,
+      zie hieronder) en niet in dit topic. Geen actie.
+  - **Forum: geen blue post.** **GEMETEN** aan de categorie-JSON 35 (`order=created`, cache-buster):
+    `primary_groups` én `flair_groups` zijn **leeg**, dus geen Blizzard-groep onder de deelnemers
+    (trust levels 0–3). *Duration Bars setting not saving* (`2345637`) groeide van 2 naar **3 posts**
+    (laatste 2026-09-15T09:25:46Z); **gemeten aan `/raw/2345637/3`** is die derde post een bedankje
+    van de OP (*"Oh my god, I love you!"*) met een spelers-workaround — je karakter onder water
+    laten gaan zodat de bars verschijnen en dán in Edit Mode bewaren. **Geen API-feit, geen
+    dev-antwoord**; het topic is op 12 sep al volledig getoetst ([RAAKT ONS NIET] / [AL AFGEDEKT],
+    `C_EditMode` overal geguard of in `pcall`) en ik toets het niet opnieuw. *MSBT or Nothing*
+    (`2349553`) en *ChromaChat* (`2349301`) zijn ongewijzigd op 1 post en op 15 sep al getoetst.
+    *How do i change how loot is looted into a bag?* (`2347002`) staat nog op **5 posts** (laatste
+    2026-09-15T02:06:59Z), ongewijzigd sinds gisteren. *Addons api restrictions* (`2343904`) is uit
+    de eerste pagina op `order=created` gezakt en ligt buiten het venster.
+  - **GEMETEN — geen enkele API-pagina bewerkt binnen 7 dagen.** `prop=revisions`, cache-busted, alle
+    acht **byte-identiek** aan gisteren en alle acht **buiten** het 9–16-sep-venster:
+    `World of Warcraft API` **2026-09-04T22:38:05Z** (871833 bytes, comment "12.1.5 (69594)"),
+    `Events` **2026-09-04T22:53:30Z** (117345 bytes), `Secret Values` **2026-09-04T11:56:18Z**
+    (30685 bytes), `Secure Execution and Tainting` **2026-02-15T17:17:51Z** (9636 bytes),
+    `Patch 12.1.5` **2026-09-03T23:11:42Z**, `Patch 12.1.0` **2026-08-24T17:50:03Z**,
+    `Patch 12.1.0/API changes` **2026-09-05T00:39:06Z** (102421 bytes),
+    `Patch 12.1.5/API changes` **2026-09-06T17:08:08Z** (25227 bytes). `Patch 12.1.6/API changes` en
+    `Patch 12.2.0/API changes` bestaan nog steeds **niet** (`"missing": true`).
+  - **GEMETEN — er is geen nieuwere `/API changes`-pagina.** `list=search`
+    (`intitle:"API changes"`, `srsort=last_edit_desc`, 12 van **138** treffers): nieuwst *bewerkt*
+    zijn 12.1.5 (**6 sep**), 11.0.2 (**6 sep**), 12.1.0 (**5 sep**) en `API change summaries`
+    (**4 sep**). De nieuwste is **tien dagen** oud — niets binnen 7 dagen.
+  - **GEMETEN — geen cache-val op de wiki.** `list=recentchanges` (ns 0, 50 stuks, cache-busted):
+    nieuwste bewerking **2026-09-16T03:29:59Z**, bijna een etmaal nieuwer dan wat mijn logboek
+    gisteren noemde (**2026-09-15T03:32:39Z**), dus verse data. Inhoud **uitsluitend content**:
+    wolven/worgs (Spirit Worg, Frostwolf Bloodhound, Den Mother Ylva, Rayder), quests (*Be Raptor*,
+    *Beasts of the Apocalypse!*, *Beating Them Back!*), items en een Mastery-update voor Mistweaver.
+    **Geen `/API changes`-, `Structure `- of `Enum.`-pagina in de batch.** ⚠️ De 50 stuks dekken maar
+    ~2,3 uur (01:10–03:29Z); de dekking over de rest van de week komt van de `list=search` hierboven.
+  - **Tegenlezing met WebSearch (2×) — niets nieuws.** Een zoekvraag op *"12.1.6 PTR API changes
+    addon secure frames September 2026"* en één op *"Midnight addon API breaking change secret values
+    taint September 2026"* leverden **uitsluitend al bekende 12.0.x-/12.1.0-punten** op
+    (AuraContainer/AuraButton + Forbidden Partition/ForbiddenAspect, Group Buffs via `C_UnitAuras`,
+    `SetCooldown` met secret values → `SetCooldownFromDurationObject` uit 12.0.1, de
+    `SimulateMouse`-beperking uit 12.0.7). **MEASURED (via search, niet zelf gelezen):** er is geen
+    aanwijzing voor een 12.1.6-PTR-build, wat klopt met de ontbrekende wiki-pagina hierboven.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per unit-token,
+    `TimedSignalMap`, `CreateFrameWithOptions`, de `COMBAT_LOG_EVENT_UNFILTERED`-restrictie) zijn
+    deze run **niet** opnieuw getoetst en blijven staan zoals op 2/6/7/9/10/15 sep gemeten. Geen open
+    actiepunt aan de addon-/API-kant.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op de acht titels hierboven plus `Patch 12.1.6`/`12.2.0` `/API changes`;
+    `list=search` op `intitle:"API changes"`, `last_edit_desc`; `list=recentchanges` ns 0, 50 stuks);
+    `news.blizzard.com/en-us/article/24296142` (hotfixes); `us.forums.blizzard.com` categorie-JSON 35
+    op `order=created` (2×, met verschillende buster) plus de topic-JSON van `2349816` en `2345637`
+    en `/raw/2345637/3`; WebSearch (2×) als tegenlezing. ⚠️ Directe `WebFetch` op warcraft.wiki.gg /
+    news.blizzard.com blijft **EGRESS_BLOCKED**; alles liep via Exa. 📌 De wiki-API antwoordt met
+    `"Unrecognized parameter: nocache"` — dat is een waarschuwing van MediaWiki, niet een fout: de
+    buster hoort ook niet bij MediaWiki te werken maar bij de cache vóór hem, en de verse
+    `recentchanges`-tijdstempel hierboven bewijst dat hij zijn werk doet.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang schoon; geen van de
+    vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ De sessie startte opnieuw met een
+    **detached HEAD** (op `1c02256`, 50 commits vóór `main`); `git checkout main` gaf de bekende
+    *"you are leaving 50 commits behind"*-waarschuwing. Dat is de ondiepe-clone-ruis van
+    11/12/13/14/15 sep, geen verlies — `origin/main` heeft die commits.
