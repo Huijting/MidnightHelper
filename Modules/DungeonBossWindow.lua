@@ -915,6 +915,10 @@ local function EnsureWindow()
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:SetText(ns:L("BOSSWIN_DIFF_BTN"))
 		GameTooltip:AddLine(ns:L("BOSSWIN_DIFF_BTN_TT"), 1, 1, 1, true)
+		-- Greyed out on the short block: say why, in the place where you are already looking.
+		if self._mhIdle then
+			GameTooltip:AddLine(ns:L("BOSSWIN_DIFF_BTN_IDLE_TT"), 1, 0.5, 0.4, true)
+		end
 		GameTooltip:Show()
 	end)
 	diffBtn:SetScript("OnLeave", function()
@@ -1325,16 +1329,20 @@ function ns.RefreshDungeonBossWindow()
 		end
 	end
 
-	-- The difficulty button belongs to the full list: the short block carries no difficulty lines,
-	-- so filtering it would be a control that does nothing.
+	-- The difficulty button always stands in the same spot, but it only WORKS with the full list:
+	-- the short block carries no difficulty lines, so there is nothing there to filter. Rob picked
+	-- this over hiding it (16 Sep 2026, "doe A maar") — the greyed-out button with a tooltip says
+	-- the control exists and why it is idle, where an empty spot says nothing at all.
 	if win._diffBtn then
-		-- 16 Sep 2026: this used to hide itself when *Only tips for my difficulty* was off, and
-		-- Rob's own settings had it off (MEASURED in his SavedVariables: `diffFilter = false`),
-		-- so the control he was looking for was invisible in the one state that needed it most.
-		-- The button now owns that switch too: "All" is the setting off.
-		local showDiff = not ns.IsBossWindowShowingShort()
-		win._diffBtn:SetShown(showDiff and true or false)
-		if showDiff and ns.GetBossWindowDifficultyLabel then
+		-- Earlier that day it hid itself when *Only tips for my difficulty* was off, and Rob's own
+		-- settings had it off (MEASURED in his SavedVariables: `diffFilter = false`), so the control
+		-- he was looking for was invisible in the one state that needed it most. The button now owns
+		-- that switch too: "All" is the setting off.
+		local short = ns.IsBossWindowShowingShort()
+		win._diffBtn:SetShown(true)
+		win._diffBtn:SetEnabled(not short)
+		win._diffBtn._mhIdle = short -- read by the tooltip
+		if ns.GetBossWindowDifficultyLabel then
 			win._diffBtn:SetText(ns.GetBossWindowDifficultyLabel())
 			local dfs = win._diffBtn.GetFontString and win._diffBtn:GetFontString()
 			win._diffBtn:SetWidth(((dfs and dfs:GetStringWidth()) or 50) + 18)

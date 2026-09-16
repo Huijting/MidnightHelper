@@ -410,6 +410,11 @@ aan te pakken"*.
   → Normal → Heroic → Mythic → Alles**, waarbij *Alles* letterlijk `diffFilter = false` is. Zichtbaar zodra de
   volledige lijst getoond wordt. Nieuwe key `BOSSWIN_DIFF_ALL` + één zin extra in `BOSSWIN_DIFF_BTN_TT`,
   7 talen, drift 0.
+- ✅ **De moeilijkheidsknop staat nu altijd op dezelfde plek, grijs bij de korte lijst** (Rob, 16 sep: *"hij
+  staat bij full en niet bij short"*, daarna *"doe A maar"* uit twee voorstellen). `SetEnabled(not short)` +
+  `_mhIdle`, en de tooltip krijgt er een rode regel bij (`BOSSWIN_DIFF_BTN_IDLE_TT`, 7 talen, drift 0). 📌 De
+  afweging: een lege plek zegt niets, een grijze knop zegt "dit bestaat en hier doet het niets" — dezelfde
+  redenering als de rode regel op het Silvermoon-tabblad (3 sep).
 - 🐛 **De rolkeuze deed niets zichtbaars in de volledige lijst** (Rob: *"bij de full versie blijft de tekst op
   dps staan"*; zijn `quickRole` stond op `DAMAGER`). De volledige lijst toont alle rollen, dus klikken
   veranderde niets en de drie knoppen lazen als kapot. `BuildBossText` zet nu het inline rol-icoontje

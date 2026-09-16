@@ -230,6 +230,9 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         Heroic → Mythic → Alles**, en *Alles* ís die instelling uit. Hij staat er altijd zodra je de volledige
         lijst bekijkt. ❓ Zie je hem nu, en gaan de regels "On Heroic and Mythic…" weg op **Normal** en terug
         op **Mythic**? (Het vinkje in Settings verandert mee; het scherm ververst pas als je het opnieuw opent.)
+      - [ ] 🆕 **De knop staat nu ook bij de korte lijst, maar grijs** (Rob: *"hij staat bij full en niet bij
+        short"* → *"doe A maar"*). Klikken doet daar niets, want de korte tips gelden op elke moeilijkheid.
+        ❓ Beweeg erover: zegt de tooltip dat ook, in het rood, onder de gewone uitleg?
       - [ ] 🆕 **Je eigen rol is nu te zien in de volledige lijst** (Rob: *"bij de full versie blijft de tekst
         op dps staan"*). Vóór jouw rol-blok staat nu het rol-icoontje. Klik een andere rol aan → het icoontje
         verspringt. ❓ Verspringt het?
