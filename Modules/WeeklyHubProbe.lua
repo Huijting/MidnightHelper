@@ -26,7 +26,14 @@ local LIADRIN = {
 	{ 93769, "Housing" },
 	{ 93889, "Saltheril's Soiree" },
 	{ 93890, "Abundance" },
-	{ 93891, "Legends of the Haranir" }, -- source flags this one as possibly obsolete
+	--- ⚠️ 93891 KEEPS COMING BACK AS "no title from the game", AND THAT IS NOT A DEAD ID.
+	--- Rob asked on 16 Sep 2026 to drop it for exactly that reason. `ResetRoutine.lua:99-108`
+	--- already settled it on 29 jul: the same probe returned no title for 96713 "Showdown on
+	--- Val", an id Rob had accepted himself in June. No title means the client has not cached
+	--- that quest, not that it does not exist. And the costs are lopsided — a dead id here
+	--- matches nothing, a missing one brings back the bug this pool exists to prevent ("go and
+	--- pick up a quest" while it sits in your log). So it stays, and this comment is the reason.
+	{ 93891, "Legends of the Haranir" }, -- no title on this client; kept on purpose, see above
 	{ 95843, "Ritual Sites" }, -- IN-GAME gemeten 29 jul 2026: Rob koos deze en de probe gaf "NOT IN OUR DATA". Game-titel "Midnight: Ritual Sites" bevestigt het id. Ligt naast 95842 (Void Assaults) — beide de 12.0.5-wereldsystemen.
 	{ 93892, "Stormarion Assault" },
 	{ 93909, "Delves" },

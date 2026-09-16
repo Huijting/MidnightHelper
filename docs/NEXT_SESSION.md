@@ -432,8 +432,12 @@ aan te pakken"*.
 - 📌 **Twee dingen die `/mh weeklies` verklapte, nog te beslissen:**
   - **95245 "Midnight: World Tour"** staat in Robs log maar in geen enkele pool — kandidaat om toe te voegen,
     maar we weten de giver niet. Vragen bij wie hij hem ophaalde.
-  - **93891 "Legends of the Haranir"** geeft "no title from the game": het id bestaat niet (meer). De bron
-    (Broker_MidnightEvents) vlagde hem zelf al als "Wowhead: obsolete — verify". Kandidaat om te schrappen.
+  - ❌ **93891 "Legends of the Haranir" NIET schrappen** — Rob zei op 16 sep "haal maar weg", ik heb het niet
+    gedaan en dit is waarom: `ResetRoutine.lua:99-108` besliste dit al op 29 jul. Dezelfde probe gaf toen géén
+    titel voor 96713 "Showdown on Val", een id dat Rob zelf in juni had aangenomen. **Geen titel = de client
+    heeft die quest niet in de cache, niet: hij bestaat niet.** En de kosten zijn scheef: een dood id doet hier
+    niets, een ontbrekend id brengt precies de bug terug waarvoor deze lijst bestaat. Het id blijft staan, nu
+    mét die uitleg in `WeeklyHubProbe.lua`. (Mijn eerdere regel hier zei "kandidaat om te schrappen" — fout.)
 - ✅ **`/mh weeklies` vat samen in plaats van de chat vol te zetten** (Rob: *"kunnen we hier ook een reload voor
   bouwen, dit zijn weer heel veel regels"*). `WeeklyHubProbe.lua` schrijft via `say()`: standaard verzamelt hij
   alles in `ns.db.weeklyProbe` (met tijdstempel) en print 3-4 regels met getallen die hij zelf geteld heeft;
