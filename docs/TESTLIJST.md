@@ -221,6 +221,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] 🆕 **Timewalking telt nu mee bij Aethas.** Een `/reload` is genoeg. Kijk in de routine: zolang die quest
       in je log zit, hoort de stap bij **Aethas Sunreaver** als "opgepakt" te staan en je niet meer te vragen
       hem te halen. ❓ Klopt dat?
+- [ ] 🆕 **Boss-venster: delen, rollen en moeilijkheid** (Rob, 16 sep). Een `/reload` is genoeg.
+      - **Deel / Chat volgen nu wat je ziet.** Sta je op de korte lijst, dan gaat de korte lijst eruit (plus
+        de regel van je gekozen rol). Sta je op *Alle tips tonen*, dan gaat alles eruit, zoals eerst.
+      - **De rol-icoontjes blijven staan** bij de volledige lijst; eerst verdwenen ze daar.
+      - **Nieuwe knop: Moeilijkheid.** Hij staat naast de rol-icoontjes zodra je de volledige lijst bekijkt en
+        de instelling *Only tips for my difficulty* aan staat. Klikken loopt rond: Auto → Normal → Heroic →
+        Mythic → Auto. Auto is wat MH altijd deed: kijken in welke instance je staat.
+      - ❓ Klopt wat er in je chat verschijnt met wat er in het venster stond? En verandert de tekst echt als
+        je de moeilijkheid omzet (de regels "On Heroic and Mythic…" horen te komen en gaan)?
 - [ ] 🆕 **Randjes om de iconen, tweede poging** (Rob, 16 sep, met screenshots waarop *Rares* en *Account
       snapshot* hun randje misten en de buren niet). Ze worden nu als vier lijntjes op de kaart zelf getekend
       in plaats van als los venstertje erbovenop. Een `/reload` is genoeg.
@@ -235,8 +244,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         komt op; klik nog eens → weg. Verlaat je de groep, dan verdwijnt de knop en krimpt de balk.
       - **In een dungeon, raid of delve** komt er een knop bij met het dungeon-icoon. Klik → het boss-venster
         aan/uit, ook midden in een gevecht.
-      - ❓ Blijven de knoppen netjes naast elkaar staan (geen gat), en verschijnen/verdwijnen ze op het juiste
-        moment? En werkt de board-knop ook tijdens een gevecht (hij mag dan pas ná het gevecht dichtgaan)?
+      - ✅ Rob 16 sep: *"de extra knoppen in een instance werken goed trouwens"* — de boss-knop is gezien en
+        doet wat hij moet doen.
+      - ❓ Nog open: de **board-knop in een groep** (verschijnt/verdwijnt hij met de groep?), en of hij ook
+        tijdens een gevecht werkt — dichtgaan mag dan pas ná het gevecht.
 - [ ] 🆕 **De lijntjes om de kaart-iconen blijven nu staan** (Rob, 16 sep). Open Codex, en maak het venster
       een paar keer groter en kleiner. De gouden randjes om de iconen horen er meteen te staan, ook zonder
       slepen. ❓ Zie je er nog een verdwijnen?

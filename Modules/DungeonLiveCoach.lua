@@ -181,13 +181,40 @@ local function KeyToLines(key, rich)
 	return out
 end
 
-local function PrintTipsLocal(dungeonKey, bossKey)
+--- The short block plus the line for the role you picked, as locale keys.
+---
+--- 🔴 Rob, 16 Sep 2026: *"als ik Deel of Chat kies krijg ik de volledige lijst en niet de korte
+--- lijst"*. Both buttons always walked steps/tank/healer/dps, so what you sent had nothing to do
+--- with what you were reading. What you share should be what is on your screen.
+local function QuickKeys(tips)
+	local keys = { tips.quick }
+	local role = ns.GetBossWindowRole and ns.GetBossWindowRole()
+	local rk = (role == "TANK" and tips.quickTank)
+		or (role == "HEALER" and tips.quickHealer)
+		or (role == "DAMAGER" and tips.quickDps) or nil
+	if rk then
+		keys[#keys + 1] = rk
+	end
+	return keys
+end
+
+--- @param short boolean|nil  true = send the short block the window is showing
+local function PrintTipsLocal(dungeonKey, bossKey, short)
 	local tips = ns.GetDungeonBossTips and ns.GetDungeonBossTips(dungeonKey, bossKey)
 	if not tips then
 		return false
 	end
 	local name = BossDisplayName(dungeonKey, bossKey)
 	print("|cffffd100" .. ns:L("DGN_LIVE_HEADER_FMT"):format(name) .. "|r")
+	if short and tips.quick then
+		for _, key in ipairs(QuickKeys(tips)) do
+			for _, line in ipairs(KeyToLines(key, true)) do
+				print("|cffe8e8e8" .. line .. "|r")
+			end
+		end
+		print("|cff8a8f98" .. ns:L("DGN_LIVE_SHARE_HINT") .. "|r")
+		return true
+	end
 	for _, line in ipairs(KeyToLines(tips.steps, true)) do
 		print("|cffe8e8e8" .. line .. "|r")
 	end
@@ -203,8 +230,8 @@ end
 
 -- Ook aanroepbaar vanuit het boss-venster (Chat-knop, 12 jun). NB: ná de
 -- local-definitie geplaatst — ervóór zou de upvalue nil zijn.
-function ns.PrintDungeonBossTips(dungeonKey, bossKey)
-	return PrintTipsLocal(dungeonKey, bossKey)
+function ns.PrintDungeonBossTips(dungeonKey, bossKey, short)
+	return PrintTipsLocal(dungeonKey, bossKey, short)
 end
 
 -- Platte tekst in stukken ≤240 tekens (SendChatMessage-limiet ~255),
@@ -236,10 +263,11 @@ local pendingShare = nil
 
 -- Optionele args (boss-venster deelt de gétoonde boss); zonder args geldt
 -- de laatst gepullde boss.
-function ns.ShareDungeonBossTips(dungeonKey, bossKey)
+--- @param short boolean|nil  true = share the short block instead of everything (see QuickKeys)
+function ns.ShareDungeonBossTips(dungeonKey, bossKey, short)
 	local target
 	if dungeonKey and bossKey then
-		target = { dungeonKey = dungeonKey, bossKey = bossKey }
+		target = { dungeonKey = dungeonKey, bossKey = bossKey, short = short }
 	else
 		target = lastEngaged
 	end
@@ -254,7 +282,7 @@ function ns.ShareDungeonBossTips(dungeonKey, bossKey)
 		return
 	end
 	if InCombatLockdown and InCombatLockdown() then
-		pendingShare = { dungeonKey = target.dungeonKey, bossKey = target.bossKey }
+		pendingShare = { dungeonKey = target.dungeonKey, bossKey = target.bossKey, short = target.short }
 		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_QUEUED"))
 		return
 	end
@@ -268,7 +296,12 @@ function ns.ShareDungeonBossTips(dungeonKey, bossKey)
 	local name = BossDisplayName(lastEngaged.dungeonKey, lastEngaged.bossKey)
 	local msgs = {}
 	ChunkLine("MH " .. StripMarkup(ns:L("DGN_LIVE_HEADER_FMT"):format(name)), msgs)
-	for _, key in ipairs({ tips.steps, tips.tank, tips.healer, tips.dps }) do
+	-- What is on screen is what goes out: the short block when the window shows it, otherwise
+	-- everything. `short` rides along through the combat queue, so a queued share does not
+	-- silently change shape when it finally sends.
+	local keys = (target.short and tips.quick) and QuickKeys(tips)
+		or { tips.steps, tips.tank, tips.healer, tips.dps }
+	for _, key in ipairs(keys) do
 		for _, line in ipairs(KeyToLines(key)) do
 			ChunkLine(line, msgs)
 		end

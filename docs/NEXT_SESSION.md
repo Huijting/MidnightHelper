@@ -388,6 +388,21 @@ aan te pakken"*.
            `storyKeys` + `tipLineMatch` voor Antenorian, Darza, Gralka, Osseous, Drakta en Gnok.
          - 26 nieuwe tokens in `DelveSpellIds.lua`; lint [19]-baseline `_delve_s2_audit_2026_09_15` (geen DBM-mods).
 
+## 🌅 16 sep — Curse Surge-cyclus (hotfix), `/mh weeklies` korter, boss-venster bijgeschaafd
+
+- 🐛 **Deel en Chat stuurden altijd de VOLLEDIGE tips** (Rob, 16 sep, met screenshot van de korte lijst):
+  `PrintDungeonBossTips`/`ShareDungeonBossTips` liepen hard langs `steps/tank/healer/dps` en keken nooit naar
+  het korte blok. Nu nemen ze een derde argument `short`; het venster geeft `ns.IsBossWindowShowingShort()`
+  mee, en in het korte geval gaan `quick` + de regel van je gekozen rol eruit (`QuickKeys`). Het argument
+  reist mee in de combat-wachtrij, zodat een uitgestelde share niet alsnog van vorm verandert.
+- ✅ **Rol-icoontjes blijven nu ook bij de volledige lijst staan.** Ze hingen aan `not win._mhShowAll`; je rol
+  bepaalt óók wat Deel/Chat meesturen, dus ze horen in beide weergaven zichtbaar te zijn.
+- ✅ **Zichtbare moeilijkheidsknop** (Rob: *"ik zie geen optie voor andere moeilijkheden"*). `_diffBtn` naast de
+  rol-icoontjes, alleen bij de volledige lijst én met de setting aan (het korte blok wordt niet gefilterd).
+  Klikken loopt Auto → Normal → Heroic → Mythic → Auto via `ns.CycleBossWindowDifficulty`, dezelfde
+  `diffOverride` die `/mh bossdiff` zet — die twee kunnen dus niet uit elkaar lopen. Labels komen uit de
+  client zelf (`PLAYER_DIFFICULTY1/2/6`), alleen "Auto" is een eigen sleutel. 3 nieuwe keys in 7 talen.
+
 ## 🌅 16 sep — Curse Surge-cyclus (hotfix) en `/mh weeklies` korter
 
 - 🐛 **Wat de wachters vannacht vonden.** Hotfix 15 sep: *"Curse Surges now rotate every 30 minutes (was 45

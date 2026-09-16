@@ -2711,6 +2711,22 @@
    "nlNL": "edcd6bcbd381938e",
    "ptBR": "edcd6bcbd381938e"
   },
+  "BOSSWIN_DIFF_BTN": {
+   "deDE": "be44133ed57f9e44",
+   "esES": "be44133ed57f9e44",
+   "frFR": "be44133ed57f9e44",
+   "itIT": "be44133ed57f9e44",
+   "nlNL": "be44133ed57f9e44",
+   "ptBR": "be44133ed57f9e44"
+  },
+  "BOSSWIN_DIFF_BTN_TT": {
+   "deDE": "a7f3386a89cbb4fa",
+   "esES": "a7f3386a89cbb4fa",
+   "frFR": "a7f3386a89cbb4fa",
+   "itIT": "a7f3386a89cbb4fa",
+   "nlNL": "a7f3386a89cbb4fa",
+   "ptBR": "a7f3386a89cbb4fa"
+  },
   "BOSSWIN_DIFF_HIDDEN_FMT": {
    "deDE": "06438e12047c9fed",
    "esES": "06438e12047c9fed",

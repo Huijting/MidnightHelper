@@ -774,7 +774,8 @@ local function EnsureWindow()
 	chatBtn:SetScript("OnClick", function()
 		local b = curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
 		if b and ns.PrintDungeonBossTips then
-			ns.PrintDungeonBossTips(curDungeon.key, b.key)
+			-- What you are reading is what you send (Rob, 16 Sep 2026).
+			ns.PrintDungeonBossTips(curDungeon.key, b.key, ns.IsBossWindowShowingShort())
 		end
 	end)
 
@@ -786,7 +787,7 @@ local function EnsureWindow()
 	shareBtn:SetScript("OnClick", function()
 		local b = curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
 		if b and ns.ShareDungeonBossTips then
-			ns.ShareDungeonBossTips(curDungeon.key, b.key)
+			ns.ShareDungeonBossTips(curDungeon.key, b.key, ns.IsBossWindowShowingShort())
 		end
 	end)
 	--- Route to the entrance, for entries that know where theirs is.
@@ -895,6 +896,32 @@ local function EnsureWindow()
 		prevRoleBtn = rb
 	end
 	f._roleBtns = roleBtns
+
+	--- Difficulty picker. Rob, 16 Sep 2026: *"ik zie geen optie voor andere moeilijkheden"* — and
+	--- he was right: the only way to look at another difficulty was `/mh bossdiff`, a diagnostic
+	--- command that is deliberately not even listed. Same switch, now a button you can see:
+	--- Auto -> Normal -> Heroic -> Mythic -> Auto. Auto is what the window has always done, read
+	--- the instance you are standing in; the other three are "show me what that difficulty says".
+	local diffBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	diffBtn:SetSize(64, 18)
+	diffBtn:SetPoint("LEFT", prevRoleBtn, "RIGHT", 6, 0)
+	diffBtn:SetFrameLevel(f:GetFrameLevel() + 5)
+	diffBtn:SetScript("OnClick", function()
+		if ns.CycleBossWindowDifficulty then
+			ns.CycleBossWindowDifficulty()
+		end
+	end)
+	diffBtn:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:SetText(ns:L("BOSSWIN_DIFF_BTN"))
+		GameTooltip:AddLine(ns:L("BOSSWIN_DIFF_BTN_TT"), 1, 1, 1, true)
+		GameTooltip:Show()
+	end)
+	diffBtn:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+	diffBtn:Hide()
+	f._diffBtn = diffBtn
 
 	-- Resize-grip rechtsonder: breedte vrij; hoogte snapt na afloop terug
 	-- naar de tekstinhoud.
@@ -1276,13 +1303,28 @@ function ns.RefreshDungeonBossWindow()
 			win._allBtn:SetWidth(((fs and fs:GetStringWidth()) or 80) + 20)
 		end
 	end
-	-- The role icons belong to the short block: shown with it, the lit one is the role on screen.
+	-- 16 Sep 2026: the role icons used to vanish with the short block (`and not win._mhShowAll`),
+	-- and Rob asked for them in the full list too — "dan kan ik weer geen role kiezen". Your role
+	-- is also what the Chat and Share buttons send, so it belongs on screen in both views.
 	if win._roleBtns then
-		local showRoles = win._allBtn and win._allBtn:IsShown() and not win._mhShowAll
+		local showRoles = win._allBtn and win._allBtn:IsShown()
 		local cur = ns.GetBossWindowRole()
 		for _, rb in ipairs(win._roleBtns) do
 			rb:SetShown(showRoles and true or false)
 			rb:SetAlpha(rb._role == cur and 1 or 0.35)
+		end
+	end
+
+	-- The difficulty button belongs to the full list: the short block carries no difficulty lines,
+	-- so filtering it would be a control that does nothing.
+	if win._diffBtn then
+		local showDiff = ns.IsBossWindowDiffFilterEnabled and ns.IsBossWindowDiffFilterEnabled()
+			and not ns.IsBossWindowShowingShort()
+		win._diffBtn:SetShown(showDiff and true or false)
+		if showDiff and ns.GetBossWindowDifficultyLabel then
+			win._diffBtn:SetText(ns.GetBossWindowDifficultyLabel())
+			local dfs = win._diffBtn.GetFontString and win._diffBtn:GetFontString()
+			win._diffBtn:SetWidth(((dfs and dfs:GetStringWidth()) or 50) + 18)
 		end
 	end
 
@@ -1395,6 +1437,21 @@ function ns.SetBossWindowThumbEnabled(v)
 end
 
 -- Short tips (Rob, 15 Sep 2026: "eli10 versie?"): on unless switched off. Off = the full text always.
+--- Is the window showing the SHORT block right now? The Chat and Share buttons ask this so
+--- what they send matches what you are reading (Rob, 16 Sep 2026: "als ik Deel of Chat kies
+--- krijg ik de volledige lijst en niet de korte lijst").
+function ns.IsBossWindowShowingShort()
+	if not (win and win:IsShown()) or win._mhShowAll then
+		return false
+	end
+	if not (ns.IsBossWindowShortTipsEnabled and ns.IsBossWindowShortTipsEnabled()) then
+		return false
+	end
+	local b = curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
+	local t = b and ns.GetDungeonBossTips and ns.GetDungeonBossTips(curDungeon.key, b.key)
+	return (t and t.quick) and true or false
+end
+
 function ns.IsBossWindowShortTipsEnabled()
 	return GetWinSettings().shortTips ~= false
 end
@@ -1424,6 +1481,36 @@ end
 --- `/mh bossdiff` prints the difficulty the window filters for and the client flags it came from;
 --- `/mh bossdiff normal|heroic|mythic` pretends one (for this session) so the filter can be seen
 --- outside an instance, and `off` stops pretending. The pretend goes through the same code path.
+--- What the difficulty button says: the client's own words for the three difficulties, so they
+--- match the names on the player's screen, or "Auto" for "read the instance I am in".
+function ns.GetBossWindowDifficultyLabel()
+	if diffOverride == 1 then
+		return _G.PLAYER_DIFFICULTY1 or "Normal"
+	elseif diffOverride == 2 then
+		return _G.PLAYER_DIFFICULTY2 or "Heroic"
+	elseif diffOverride == 3 then
+		return _G.PLAYER_DIFFICULTY6 or "Mythic"
+	end
+	return ns:L("BOSSWIN_DIFF_AUTO")
+end
+
+--- Auto -> Normal -> Heroic -> Mythic -> Auto. Same `diffOverride` the /mh bossdiff command sets,
+--- so the two can never disagree; it lasts until you set it back or reload, like that command.
+function ns.CycleBossWindowDifficulty()
+	if diffOverride == nil then
+		diffOverride = 1
+	elseif diffOverride == 1 then
+		diffOverride = 2
+	elseif diffOverride == 2 then
+		diffOverride = 3
+	else
+		diffOverride = nil
+	end
+	if ns.RefreshDungeonBossWindow then
+		ns.RefreshDungeonBossWindow()
+	end
+end
+
 function ns.BossWindowDifficultyCommand(arg)
 	local p = "|cffffcc00MH bossdiff:|r"
 	local map = { normal = 1, heroic = 2, mythic = 3 }
