@@ -418,6 +418,22 @@ aan te pakken"*.
     dezelfde vijf ids en nemen het eerste antwoord; ze geven toch allemaal 1800.
   - 📌 Open: het achievement **Cursebreaker** (150 Curse Surges, alleen bij Wowhead, geen ID) staat in geen
     enkel MH-bestand. Kandidaat.
+- ✅ **Robs testronde 16 sep:** de cyclus-zin staat er en zegt 30 (screenshot), de Peculiar-Cauldron-toast toont
+  weer gewone tekst, en de `/mh weeklies`-samenvatting klopt regel voor regel met de 41 opgeslagen regels
+  (GEMETEN in `ns.db.weeklyProbe`: 0 in log, 1 completed = 96054, 0 givers, 0 ingeleverd, 1 onbekende quest).
+- 🐛 **Look-omschakelaar liet je in een scherm achter dat in die look niet bestaat** (Rob, 16 sep, 3 screenshots:
+  Classic → Midnight Codex → Modern gaf de oude pagina mét de kaart-banner erboven). `MHApplyLookChrome` riep
+  wel de zijbalk, de SMC-pins en de Rares-pagina aan, maar verplaatste het open scherm niet.
+  - Gerepareerd met `ns._mhRerouteForLook(lookOn)` (UI.lua, bij `MHSelectRoom`): naar Modern gaat een scherm
+    dat bij een kamer hoort naar het kaartgrid van die kamer; naar Classic gaat een open `room_*`-grid naar het
+    eerste scherm van die kamer. Een kamer met één scherm verandert niets (`OpenRoomLauncher` = false).
+  - De recursie is afgedekt door de bestaande `_mhLookApplied`-poort: die staat al op de nieuwe waarde voordat
+    er een `SelectTab` uit deze functie komt.
+- 📌 **Twee dingen die `/mh weeklies` verklapte, nog te beslissen:**
+  - **95245 "Midnight: World Tour"** staat in Robs log maar in geen enkele pool — kandidaat om toe te voegen,
+    maar we weten de giver niet. Vragen bij wie hij hem ophaalde.
+  - **93891 "Legends of the Haranir"** geeft "no title from the game": het id bestaat niet (meer). De bron
+    (Broker_MidnightEvents) vlagde hem zelf al als "Wowhead: obsolete — verify". Kandidaat om te schrappen.
 - ✅ **`/mh weeklies` vat samen in plaats van de chat vol te zetten** (Rob: *"kunnen we hier ook een reload voor
   bouwen, dit zijn weer heel veel regels"*). `WeeklyHubProbe.lua` schrijft via `say()`: standaard verzamelt hij
   alles in `ns.db.weeklyProbe` (met tijdstempel) en print 3-4 regels met getallen die hij zelf geteld heeft;

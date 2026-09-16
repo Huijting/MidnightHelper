@@ -209,7 +209,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - ❓ Staat er iets in de samenvatting dat niet klopt met de volledige lijst?
 - [x] ✅ **Meting gedaan (Rob, 16 sep 07:02):** alle vijf de Curse-Surge-plekken geven 1800 seconden, en de
       starts liggen 1800 uit elkaar. Blizzards 30 minuten klopt, en de client geeft het getal zelf.
-- [ ] 🆕 **Curse Surge: de cyclus komt nu uit het spel.** Een `/reload` is genoeg.
+- [ ] 🆕 **Classic ↔ Modern laat je niet meer op een half scherm staan** (Rob, 16 sep, screenshots 2-4).
+      Een `/reload` is genoeg.
+      - Zet **Klassiek** aan, open **Codex → Midnight Codex**, klik dan op **Modern**: je hoort nu het
+        kaartoverzicht van de Codex te zien (de vijf kaarten), niet de oude pagina met een banner erboven.
+      - Andersom: sta in Modern op het kaartoverzicht en klik **Klassiek** → je komt op het eerste scherm van
+        die kamer, want kaarten bestaan daar niet.
+      - ❓ Doet hij dat ook bij **Ik** en **Tools**? En blijft **Instellingen** gewoon staan (één scherm)?
+- [x] ✅ Rob 16 sep: staat er, en zegt 30. **Curse Surge: de cyclus komt nu uit het spel.** Een `/reload` is genoeg.
       - Codex → Achievements → **Turn the Surge**, en beweeg over een van de vijf bazen (of open zijn kaart).
         Onder de bekende notitie staat nu een tweede zin: *"Your client says this event moves on to the next
         spot every 30 minutes."*

@@ -825,6 +825,12 @@ local function MHApplyLookChrome(refs)
 	if ns._mhRelayoutSidebarTabs and not ns._mhSidebarRelaying then
 		ns._mhRelayoutSidebarTabs()
 	end
+	-- Als laatste: het open scherm naar de weergave brengen die in deze look bestaat. Dit kan
+	-- SelectTab aanroepen en dus hier weer binnenkomen; de `_mhLookApplied`-poort hierboven staat
+	-- dan al op de nieuwe waarde, dus die tweede keer keert meteen terug.
+	if ns._mhRerouteForLook then
+		ns._mhRerouteForLook(lookOn)
+	end
 end
 
 --- Re-anchors (so a Classic value loaded after the window was built still wins) and
@@ -4107,6 +4113,49 @@ function ns:EnsureMainUI()
 		end
 		return nil
 	end
+	--- Na een look-wissel het open scherm brengen naar de weergave die in DIE look bestaat.
+	---
+	--- Rob, 16 sep 2026: in Classic het Midnight Codex-scherm openen, dan op Modern klikken — hij
+	--- bleef op die pagina staan mét de kaart-banner erboven. Andersom is het erger: een kaartgrid
+	--- (`room_*`) bestaat in Classic niet, dus daar blijf je in een scherm hangen dat de zijbalk
+	--- niet kan maken.
+	---
+	--- Dus: naar Modern gaat een scherm dat bij een kamer hoort naar de kaarten van die kamer
+	--- (precies wat de kamerknop in Modern doet), en naar Classic gaat een kaartgrid naar het
+	--- eerste scherm van die kamer, zoals 3.x deed. Een kamer met één scherm verandert niets:
+	--- `OpenRoomLauncher` geeft dan false terug.
+	ns._mhRerouteForLook = function(lookOn)
+		local sel = ns.uiSelectedTab
+		if not sel then
+			return
+		end
+		local openRoom = sel:match("^room_(.+)$")
+		if openRoom then
+			if not lookOn then
+				local target = MHFirstVisibleTabInRoom(openRoom)
+				if target then
+					SelectTab(target)
+				end
+			end
+			return
+		end
+		if not lookOn then
+			return
+		end
+		for _, section in ipairs(SIDEBAR_SECTIONS) do
+			if section.room then
+				for _, id in ipairs(section.ids) do
+					if id == sel then
+						if ns.OpenRoomLauncher then
+							ns:OpenRoomLauncher(section.room)
+						end
+						return
+					end
+				end
+			end
+		end
+	end
+
 	local function MHSelectRoom(roomId)
 		-- 4.0: a room with more than one screen opens its card grid (Modules/RoomLauncher.lua).
 		-- Classic, or a room with a single screen, keeps the 3.x behaviour: its first tab.
