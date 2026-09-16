@@ -31,6 +31,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] ❓ **World bosses:** typ één keer `/mh worldboss`. Noemt de client nog steeds alleen Lu'ashal,
       Cragpine, Thorm'belan en Predaxas, of is er in Season 2 een vijfde bijgekomen? Er is geen enkele
       bron op je pc die dat kan beantwoorden — alleen jouw client.
+- [ ] 🆕 **Heroic Slugger staat bij Achievements** (Rob: *"bouw die er ook maar in"*). Een kaart met 19
+      rares uit Val en Naigtal, met route en afvinklijst.
+      ❓ Typ **`/mh ach check`**: zegt hij dat 63348 er **19** heeft, of **20**? Bij 20 mist er één en
+      weet ik waar ik moet zoeken.
+      ❓ Heb je een rare alleen op **Normal** gedood: blijft die rij bij Heroic dan **open**? Dat hoort zo.
 - [ ] ❓ **Prey, drie beweringen uit onze eigen uitleg** (Codex → Prey hunts): zijn er nog steeds
       **drie moeilijkheidsmodi**, telt een hunt mee voor de **Great Vault**, en tellen **War Mode**-hunts
       apart? Alle drie staan er zo in sinds augustus.

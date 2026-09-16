@@ -56,6 +56,20 @@ positieve controle; twee daarvan sloegen aan en hebben me van een onwaar antwoor
   de data is er; het is werk, geen onderzoek.
 - De overige 15 die MH niet noemt zijn allemaal id's onder 62500 — ouder dan het Coiled Isle-blok, dus
   Midnight-lancering, niet Season 2. Backlog, geen onderdeel van deze sweep.
+- 🔨 **Heroic Slugger gebouwd, zelfde dag** (Rob: *"bouw die Heroic Slugger er ook maar in"*), nog niet
+  in het spel gezien. Eén nieuw blok in `AchievementsData.lua`, 19 nodes (10 Val, 9 Naigtal).
+  - HandyNotes zet op elke node **beide** criteria, de gewone en de heroic. Daarop gekoppeld: namen en
+    coördinaten komen dus uit **onze eigen** 62881/62883-rijen, HandyNotes leverde alleen de heroic-id's.
+  - 🔴 **Geen `quest`-veld, met opzet.** `NodeDone` valt terug op de questvlag als het criterium niet te
+    lezen is, en de kill-quest is voor normal en heroic dezelfde. Met die terugval zou een gewone kill
+    een heroic-rij afvinken.
+  - ⚠️ **Mogelijk één te weinig.** De reeks 115248..115266 heeft een gat op 115249, en Voidwarped
+    Sporebat (de tweelingbroer van Thal'kuur) heeft bij HandyNotes géén heroic-criterium. Niet ingevuld:
+    `/mh ach check` telt de echte criteria en beslist het — dezelfde opdracht die op 15 aug het gat in
+    de gewone Naigtal-lijst vond.
+  - ⚠️ Eén kaart over twee roterende zones: de route pakt de dichtstbijzijnde open rij, dus vanuit
+    Silvermoon kan hij de dichte zone kiezen. De twee gewone kaarten hebben die blinde vlek ook.
+  - Changelog: `CHANGELOG_401_2` in het (nog niet uitgebrachte) 4.0.1-blok.
 
 ## 🚀 16 sep — 4.0.0 klaargezet voor CurseForge (Rob: "Ik heb de shots gedaan en we gaan naar CF 🙂 dus GO")
 

@@ -742,6 +742,61 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 114004, mapID = 2599, x = 35.90, y = 59.80, name = "Shadowguard Destroyer", quest = 96465 },
 		},
 	},
+	--- 🆕 HEROIC SLUGGER — added 16 Sep 2026 (Rob: "bouw die Heroic Slugger er ook maar in").
+	---
+	--- Found in the Season 2 sweep: HandyNotes lays pins for 63348 with 19 criteria and MH
+	--- named it nowhere, while both ordinary Sluggers above were hunts. It is the same Val and
+	--- Naigtal rares, killed on Heroic -- so every row below is the rare the ordinary lists
+	--- already carry, joined on HandyNotes' own pairing: each node there holds both criteria,
+	--- the ordinary one and this one. Names and coordinates are therefore OURS, from the rows
+	--- above; HandyNotes contributed only the heroic criterion ids.
+	---
+	--- 🔴 NO `quest` FIELD, ON PURPOSE. NodeDone reads the criterion first and falls back to
+	--- the quest flag when the criterion cannot be read. The kill quest is the SAME for the
+	--- normal and the heroic kill, so a fallback here would tick a heroic row for a normal kill.
+	--- Better a row that waits than one that lies.
+	---
+	--- ⚠️ Auredar's Chassis: HandyNotes files the heroic criterion on the interior map 2646.
+	--- This keeps the entrance on 2600, like the ordinary Naigtal list, because that is where
+	--- the route must take you.
+	---
+	--- ⚠️ POSSIBLY ONE SHORT. The heroic ids run 115248..115266 with one hole, 115249, and
+	--- 115343 sits far outside the band (Warbringer Thal'kuur, a late addition the ordinary
+	--- list got on 15 Aug). Its twin Voidwarped Sporebat has no heroic criterion in HandyNotes
+	--- at all. Filling 115249 with it would be a guess; `/mh ach check` in the game counts the
+	--- real criteria and settles it -- the same command that found the ordinary list's gap.
+	---
+	--- ⚠️ ONE CARD, TWO ROTATING ZONES. Val and Naigtal take turns, and nothing in this table
+	--- knows which one is open. The route takes the nearest open row, so standing in the active
+	--- zone it stays there; from Silvermoon it may pick the closed one. The two ordinary cards
+	--- have the same blind spot, one zone each -- this is not new, only more visible.
+	{
+		achievementID = 63348, -- Heroic Slugger (client supplies the title)
+		feedsMeta = false,
+		nodes = {
+			-- Val (2599)
+			{ criteria = 115257, mapID = 2599, x = 66.80, y = 86.40, name = "Sleet-Rune" },
+			{ criteria = 115258, mapID = 2599, x = 37.90, y = 77.25, name = "Atomus" },
+			{ criteria = 115259, mapID = 2599, x = 67.20, y = 41.80, name = "Glacial Broodmother" },
+			{ criteria = 115260, mapID = 2599, x = 49.70, y = 79.20, name = "Mercilus" },
+			{ criteria = 115261, mapID = 2599, x = 28.50, y = 74.50, name = "Xirah" },
+			{ criteria = 115262, mapID = 2599, x = 42.60, y = 58.30, name = "Krilkan" },
+			{ criteria = 115263, mapID = 2599, x = 33.30, y = 43.00, name = "Opprimius" },
+			{ criteria = 115264, mapID = 2599, x = 23.20, y = 41.40, name = "Nelgothar" },
+			{ criteria = 115265, mapID = 2599, x = 33.50, y = 58.20, name = "The Horror Below" },
+			{ criteria = 115266, mapID = 2599, x = 35.90, y = 59.80, name = "Shadowguard Destroyer" },
+			-- Naigtal (2600)
+			{ criteria = 115248, mapID = 2600, x = 37.60, y = 61.80, name = "Interminable Uarn" },
+			{ criteria = 115250, mapID = 2600, x = 45.10, y = 55.40, name = "Broxion" },
+			{ criteria = 115251, mapID = 2600, x = 77.70, y = 38.30, name = "Swalewing Matriarch" },
+			{ criteria = 115252, mapID = 2600, x = 68.50, y = 62.20, name = "Lomelith" },
+			{ criteria = 115253, mapID = 2600, x = 28.00, y = 50.60, name = "Auredar's Chassis" },
+			{ criteria = 115254, mapID = 2600, x = 70.30, y = 76.40, name = "Warp Agent Xi'grivr" },
+			{ criteria = 115255, mapID = 2600, x = 54.60, y = 42.30, name = "Indomitable Mk XII" },
+			{ criteria = 115256, mapID = 2600, x = 55.20, y = 62.00, name = "Slaipaan" },
+			{ criteria = 115343, mapID = 2600, x = 29.70, y = 19.20, name = "Warbringer Thal'kuur" },
+		},
+	},
 	--- The Honored Dead — Vaults of Atal'Utek (uiMapID 2509, child of 2512 The Coiled
 	--- Isle, measured with /mh atal on 13 Aug 2026).
 	---

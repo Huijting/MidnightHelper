@@ -11,6 +11,7 @@ local CHANGELOG_ENTRIES = {
 		version = "4.0.1",
 		lines = {
 			"CHANGELOG_401_1",
+			"CHANGELOG_401_2",
 		},
 	},
 	{
