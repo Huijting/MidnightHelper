@@ -71,9 +71,9 @@ local SHOWDOWN = {
 --- Lor'themar Theron as both start and end, in Silvermoon City, rewarding a Spark of Tides
 --- (AFGELEID: one source, not the client).
 ---
---- It is only in this probe, so MH still routes nobody to him: whether he becomes a step in
---- the reset routine is Rob's call, and that call wants one more measurement — this pool asks
---- the game for the title, which is the check that matters.
+--- ✅ Rob, 16 Sep 2026: "ja doe Lor'themar er maar bij", so he is a giver in the reset routine
+--- now (`ResetRoutine.lua`, key `lorthemar`). This pool stays, because it asks the game for the
+--- quest's own title — the check that catches a wrong id before a route step does.
 local LORTHEMAR = {
 	{ 95245, "World Tour (Spark)" },
 }
@@ -252,7 +252,7 @@ function ns.PrintWeeklyHubProbe(mode)
 	local a1, b1 = PrintPool("Lady Liadrin's weekly pool", LIADRIN, turned)
 	local a2, b2 = PrintPool("Void Assault zone rotation", VOID_ZONES, turned)
 	local a3, b3 = PrintPool("Showdown (Riftblade Maella)", SHOWDOWN, turned)
-	local a4, b4 = PrintPool("Lor'themar Theron (not routed to yet)", LORTHEMAR, turned)
+	local a4, b4 = PrintPool("Lor'themar Theron (Spark weekly)", LORTHEMAR, turned)
 	inLog, completed = a1 + a2 + a3 + a4, b1 + b2 + b3 + b4
 
 	-- Cross-check: walk the quest log the way /mh questscan does and report anything

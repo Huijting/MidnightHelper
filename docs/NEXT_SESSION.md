@@ -470,10 +470,17 @@ aan te pakken"*.
     "World Tour" dan `DelverCallData.lua` (die gaat over de Delver's Call per delve).
     - Nu alleen als eigen pool in `WeeklyHubProbe.lua` gezet ("Lor'themar Theron (not routed to yet)"), zodat de
       volgende `/mh weeklies` de titel uit het spel haalt. MH stuurt niemand naar hem.
-    - ❓ **Openstaande vraag voor Rob:** moet Lor'themar een echte stap in de reset-routine worden, naast
-      Liadrin/Halduron/Aethas/Vereesa/Maella? Dat verandert wat MH je elke week aanraadt, dus dat doe ik niet
-      zonder zijn go. MH kent al drie andere Spark-bronnen (Liadrins keuze-pool, Trailing Xal'atath, Void
-      Assaults); deze ontbrak.
+    - ✅ **Rob: "ja doe Lor'themar er maar bij"** → `GIVER_WEEKLIES` heeft nu `lorthemar` (quest 95245,
+      minLevel 90 als dezelfde gedocumenteerde aanname als bij Liadrin/Aethas/Vereesa/Maella). De reset-routine
+      noemt hem dus vanaf nu als stap, en `/mh weeklies` houdt zijn eigen pool om de titel aan het spel te
+      blijven vragen. Nog niet in het spel gezien.
+- 🕳️ **GAP, gemeten 16 sep: MH kent Timewalking niet** (Rob: *"ook heb ik een time walking dungeon quest
+  aangenomen, zie ik die over het hoofd??"*). GEMETEN: "Timewalking" komt alleen voor in uitlegteksten
+  (`MPLUS_VAULT_COUNTS_NOTE`, de Vyranoth-mountuitleg, een Codex-regel) — geen enkel quest-id, geen tracker,
+  geen stap. De reset-routine noemt hem dus niet, en de Great Vault-uitleg zegt alleen dát Timewalking meetelt.
+  - Volgende stap is een meting, geen gok: Rob draait `/mh questscan time` terwijl de quest in zijn log zit;
+    dan hebben we het echte id (zelfde route als Vereesa's 98172 destijds).
+  - Daarna beslissen: eigen weekly-stap, of alleen een regel bij de dungeon-vault.
   - ❌ **93891 "Legends of the Haranir" NIET schrappen** — Rob zei op 16 sep "haal maar weg", ik heb het niet
     gedaan en dit is waarom: `ResetRoutine.lua:99-108` besliste dit al op 29 jul. Dezelfde probe gaf toen géén
     titel voor 96713 "Showdown on Val", een id dat Rob zelf in juni had aangenomen. **Geen titel = de client

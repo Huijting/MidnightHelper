@@ -209,6 +209,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - ❓ Staat er iets in de samenvatting dat niet klopt met de volledige lijst?
 - [x] ✅ **Meting gedaan (Rob, 16 sep 07:02):** alle vijf de Curse-Surge-plekken geven 1800 seconden, en de
       starts liggen 1800 uit elkaar. Blizzards 30 minuten klopt, en de client geeft het getal zelf.
+- [ ] 🆕 **Lor'themar staat nu in je weekroutine** (Rob, 16 sep: "ja doe Lor'themar er maar bij").
+      Een `/reload` is genoeg.
+      - Home → de routine na de reset: er hoort nu een stap **Lor'themar Theron** bij te staan. Heb je
+        *Midnight: World Tour* al in je log, dan moet die stap meteen als "opgepakt" tellen en je niet meer
+        vragen hem te halen.
+      - `/mh weeklies` toont hem als eigen blokje, met de titel die het spel zelf teruggeeft.
+      - ❓ Klopt die regel met wat je in het spel ziet? En krijg je 'm echt bij Lor'themar in Silvermoon?
+- [ ] 🆕 **Meting: welk id heeft jouw Timewalking-quest?** (Rob, 16 sep). Terwijl die quest in je log zit:
+      typ `/mh questscan time`. Plak me de regel die je krijgt — dan weten we het echte quest-id en kan MH
+      hem gaan volgen. Nu kent MH Timewalking alleen als uitleg, niet als quest.
 - [ ] 🆕 **Twee extra knoppen op de snelbalk** (Rob, 16 sep). Een `/reload` is genoeg. Staat de balk uit, zet
       hem aan met `/mh bar` (of Settings → Quick bar).
       - **In een groep** komt er een knop bij met het consumables-icoon. Klik → het Consumable Ready Board
