@@ -74,10 +74,28 @@ local function QuestState(id)
 	return done, onQuest, title
 end
 
+--- Alles wat deze probe schrijft gaat hier doorheen.
+---
+--- Rob, 16 sep 2026: *"dit zijn weer heel veel regels"*. Dat klopte: dit is een
+--- diagnose van tientallen regels in een chatvenster dat er acht toont. Dus gaat
+--- de volledige lijst standaard naar SavedVariables (zoals elke lange diagnose
+--- hier, zie de memory `savedvariables-diagnostics`) en krijgt de chat een
+--- samenvatting. `/mh weeklies full` print alsnog alles.
+local capture = nil
+local function say(text)
+	if capture then
+		capture[#capture + 1] = text
+	else
+		print(text)
+	end
+end
+
 --- @param turned table|nil  questID -> time handed in this week (ResetRoutine's turn-in log)
+--- @return number inLog, number completed
 local function PrintPool(label, list, turned)
-	print(("   |cff8fd3ff%s|r"):format(label))
+	say(("   |cff8fd3ff%s|r"):format(label))
 	local anyDone, anyOn = false, false
+	local nOn, nDone = 0, 0
 	for _, row in ipairs(list) do
 		local id, name = row[1], row[2]
 		local done, onQuest, title = QuestState(id)
@@ -85,9 +103,11 @@ local function PrintPool(label, list, turned)
 		if onQuest then
 			state = "|cffffd100in your log|r"
 			anyOn = true
+			nOn = nOn + 1
 		elseif done then
 			state = "|cff40c040completed|r"
 			anyDone = true
+			nDone = nDone + 1
 		else
 			state = "|cff9d9d9d-|r"
 		end
@@ -99,16 +119,20 @@ local function PrintPool(label, list, turned)
 		-- The game's own title is the check that matters: if it does not match the
 		-- name we carry, the id belongs to something else and must not be used.
 		local shown = title and title ~= "" and title or "|cffff5040no title from the game|r"
-		print(("      %d  %-24s %-16s %s"):format(id, name, state, shown))
+		say(("      %d  %-24s %-16s %s"):format(id, name, state, shown))
 	end
 	if not anyDone and not anyOn then
-		print("      |cff9d9d9d(nothing in this pool is active or completed right now)|r")
+		say("      |cff9d9d9d(nothing in this pool is active or completed right now)|r")
 	end
+	return nOn, nDone
 end
 
-function ns.PrintWeeklyHubProbe()
+--- @param mode string|nil  "full" print alles in de chat; anders samenvatten
+function ns.PrintWeeklyHubProbe(mode)
+	local full = (mode == "full")
+	capture = (not full) and {} or nil
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
-	print(("%s Weekly hub probe — quest ids are UNVERIFIED, compare with your quest log"):format(prefix))
+	say(("%s Weekly hub probe — quest ids are UNVERIFIED, compare with your quest log"):format(prefix))
 
 	--- 🔴 WHAT THE GAME ITSELF SAID, PRINTED ABOVE WHAT WE INFERRED. On 9 Sep 2026 this probe
 	--- reported all thirteen of Liadrin's ids as `completed` on a reset morning Rob had not
@@ -121,12 +145,24 @@ function ns.PrintWeeklyHubProbe()
 	--- The breadcrumb first, because it answers the question the table below cannot: did a
 	--- gossip window open at all? Rob clicked Liadrin and the table still said "not visited",
 	--- which is the same output for four different failures.
+	--- Wat de samenvatting straks noemt. Alleen dingen die we hieronder echt tellen;
+	--- een samenvatting die iets zegt dat niet geteld is, is precies de fout die dit
+	--- bestand elders al beschrijft.
+	local gossipLine = "|cff9d9d9dno gossip window seen yet|r"
+	local giversOffering, giversKnown = 0, 0
+	local inLog, completed = 0, 0
+	local handedIn, mismatches, unknownQuests = 0, 0, 0
+
 	if ns.GetLastGossipObservation then
 		local g = ns.GetLastGossipObservation()
 		if not g then
-			print("   |cffff5040No gossip window seen yet|r — if you just clicked an NPC, the event never fired for us.")
+			say("   |cffff5040No gossip window seen yet|r — if you just clicked an NPC, the event never fired for us.")
 		else
-			print(("   |cff8fd3ffLast gossip window|r  %s  npc=%s  giver=%s  quests=%s  -> %s"):format(
+			gossipLine = ("%s · npc=%s · %s"):format(
+				date("%a %H:%M", g.at or 0),
+				tostring(g.name or "name unreadable"),
+				tostring(g.why or "?"))
+			say(("   |cff8fd3ffLast gossip window|r  %s  npc=%s  giver=%s  quests=%s  -> %s"):format(
 				date("%a %H:%M", g.at or 0),
 				tostring(g.name or "|cff9d9d9dname unreadable|r"),
 				tostring(g.key or "|cff9d9d9dnot matched|r"),
@@ -136,8 +172,12 @@ function ns.PrintWeeklyHubProbe()
 	end
 
 	if ns.GetGiverOfferObservations then
-		print("   |cff8fd3ffWhat each giver actually offered when you last stood there|r")
+		say("   |cff8fd3ffWhat each giver actually offered when you last stood there|r")
 		for _, o in pairs(ns.GetGiverOfferObservations()) do
+			giversKnown = giversKnown + 1
+			if o.n and o.n > 0 and o.thisWeek == true then
+				giversOffering = giversOffering + 1
+			end
 			local state
 			if o.n == nil then
 				state = "|cff9d9d9dnot visited since this was built|r"
@@ -151,51 +191,52 @@ function ns.PrintWeeklyHubProbe()
 				state = "|cff40c040nothing on offer this week|r"
 			end
 			local when = o.at and date("%a %H:%M", o.at) or "-"
-			print(("      %-22s %-42s %s"):format(o.name or "?", state, when))
+			say(("      %-22s %-42s %s"):format(o.name or "?", state, when))
 		end
 	end
 	--- The turn-in log (ResetRoutine, 11 Sep 2026): recorded next to the flags, not yet used for
 	--- the ticks. Compare the two on a reset morning before anything switches.
 	local report = ns.GetTurnInLogReport and ns.GetTurnInLogReport() or nil
-	print("   |cff8fd3ffHanded in this week, this character|r |cff9d9d9d(turn-in log since 11 Sep 2026 — not yet used for the ticks)|r")
+	say("   |cff8fd3ffHanded in this week, this character|r |cff9d9d9d(turn-in log since 11 Sep 2026 — not yet used for the ticks)|r")
 	if not report then
-		print("      |cffff5040turn-in log unavailable (character not identified)|r")
+		say("      |cffff5040turn-in log unavailable (character not identified)|r")
 	else
 		local givers = 0
 		for key, at in pairs(report.givers or {}) do
 			givers = givers + 1
-			print(("      %-22s handed in %s"):format(key, date("%a %H:%M", at)))
+			say(("      %-22s handed in %s"):format(key, date("%a %H:%M", at)))
 		end
 		if givers == 0 then
-			print("      |cff9d9d9dnothing handed in to a tracked giver since the reset|r")
+			say("      |cff9d9d9dnothing handed in to a tracked giver since the reset|r")
 		end
 		local q = 0
 		for _ in pairs(report.quests or {}) do
 			q = q + 1
 		end
-		print(("      %d quest(s) handed in since the reset, all givers"):format(q))
+		handedIn = q
+		say(("      %d quest(s) handed in since the reset, all givers"):format(q))
 		local ll = report.lastLogin
 		if ll then
 			local ids = {}
 			for _, id in ipairs(ll.ids or {}) do
 				ids[#ids + 1] = tostring(id)
 			end
-			print(("      last login %s: %d turn-in event(s) ignored in the first %ds%s"):format(
+			say(("      last login %s: %d turn-in event(s) ignored in the first %ds%s"):format(
 				date("%a %H:%M", ll.at or 0), #ids, report.guardSeconds or 10,
 				#ids > 0 and (" — " .. table.concat(ids, ", ")) or ""))
 		end
 	end
 	local turned = report and report.quests or nil
-	PrintPool("Lady Liadrin's weekly pool", LIADRIN, turned)
-	PrintPool("Void Assault zone rotation", VOID_ZONES, turned)
-	PrintPool("Showdown (Riftblade Maella)", SHOWDOWN, turned)
+	local a1, b1 = PrintPool("Lady Liadrin's weekly pool", LIADRIN, turned)
+	local a2, b2 = PrintPool("Void Assault zone rotation", VOID_ZONES, turned)
+	local a3, b3 = PrintPool("Showdown (Riftblade Maella)", SHOWDOWN, turned)
+	inLog, completed = a1 + a2 + a3, b1 + b2 + b3
 
 	-- Cross-check: walk the quest log the way /mh questscan does and report anything
 	-- whose IsOnQuest answer contradicts its presence in the log. That contradiction
 	-- is the open question right now, so let the game settle it rather than reasoning
 	-- about it from the outside.
 	if C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetInfo then
-		local mismatches = 0
 		local n = C_QuestLog.GetNumQuestLogEntries() or 0
 		for i = 1, n do
 			local q = C_QuestLog.GetInfo(i)
@@ -203,12 +244,12 @@ function ns.PrintWeeklyHubProbe()
 				local okOn, onQuest = pcall(C_QuestLog.IsOnQuest, q.questID)
 				if okOn and not onQuest then
 					mismatches = mismatches + 1
-					print(("   |cffff5040in the log but IsOnQuest says no:|r %d  %s"):format(q.questID, q.title or "?"))
+					say(("   |cffff5040in the log but IsOnQuest says no:|r %d  %s"):format(q.questID, q.title or "?"))
 				end
 			end
 		end
 		if mismatches == 0 then
-			print("   |cff9d9d9dEvery quest in your log also answers yes to IsOnQuest.|r")
+			say("   |cff9d9d9dEvery quest in your log also answers yes to IsOnQuest.|r")
 		end
 
 		-- The pools above can only ever report on ids we already hold, so a weekly
@@ -225,7 +266,7 @@ function ns.PrintWeeklyHubProbe()
 				known[row[1]] = true
 			end
 		end
-		print("   |cff8fd3ffWeekly-hub quests in your log|r")
+		say("   |cff8fd3ffWeekly-hub quests in your log|r")
 		local seen = 0
 		for i = 1, n do
 			local q = C_QuestLog.GetInfo(i)
@@ -233,15 +274,38 @@ function ns.PrintWeeklyHubProbe()
 				local title = tostring(q.title)
 				if title:lower():find("midnight:", 1, true) == 1 or known[q.questID] then
 					seen = seen + 1
-					print(("      %d  %s  %s"):format(
+					if not known[q.questID] then
+						unknownQuests = unknownQuests + 1
+					end
+					say(("      %d  %s  %s"):format(
 						q.questID, title,
 						known[q.questID] and "|cff40c040known|r" or "|cffff8080NOT IN OUR DATA|r"))
 				end
 			end
 		end
 		if seen == 0 then
-			print("      |cff9d9d9d(none right now -- pick one up first)|r")
+			say("      |cff9d9d9d(none right now -- pick one up first)|r")
 		end
 	end
-	print("   |cff9d9d9dA title that does not match the label means the id is wrong.|r")
+	say("   |cff9d9d9dA title that does not match the label means the id is wrong.|r")
+
+	--- De samenvatting. Alleen getallen die hierboven echt geteld zijn: een
+	--- samenvatting die meer beweert dan de lijst eronder is precies de fout die
+	--- deze probe bij Blizzards eigen vlaggen aanwijst.
+	if capture then
+		local lines = capture
+		capture = nil
+		if ns.db then
+			ns.db.weeklyProbe = { ts = date("%d-%m %H:%M:%S"), lines = lines }
+		end
+		print(("%s Weekly hub probe: %d in your log, %d completed, %d giver(s) with something on offer, %d handed in this week.")
+			:format(prefix, inLog, completed, giversOffering, handedIn))
+		print(("   last gossip window: %s  |cff9d9d9d(%d giver(s) tracked)|r"):format(gossipLine, giversKnown))
+		if unknownQuests > 0 or mismatches > 0 then
+			print(("   |cffff5040%d quest(s) MH does not know, %d that contradict themselves|r — the full list has the ids.")
+				:format(unknownQuests, mismatches))
+		end
+		print(("   |cff9d9d9d%d lines saved in MidnightHelperDB.weeklyProbe — /reload and they are on disk. All of it in chat: /mh weeklies full|r")
+			:format(#lines))
+	end
 end

@@ -2316,9 +2316,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- actually raises them from there (Spec 21).
 	-- /mh weeklies — probe for the weekly quest-giver ids MH has never been able to
 	-- track (Liadrin / Void Assault rotation). Unverified on purpose; see the module.
-	if msg == "weeklies" then
+	-- 16 sep 2026 (Rob: "dit zijn weer heel veel regels"): kaal vat de probe samen en
+	-- bewaart de volledige lijst in SavedVariables; "full" print alles alsnog.
+	if msg == "weeklies" or msg:find("^weeklies%s") then
 		if ns.PrintWeeklyHubProbe then
-			ns.PrintWeeklyHubProbe()
+			local arg = msg:match("^weeklies%s+(%a+)")
+			ns.PrintWeeklyHubProbe(arg == "full" and "full" or nil)
 		end
 		return
 	end

@@ -200,6 +200,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
         *Spinshroom* noemen.
       - **Venomfall Deeps** (Azta'rec): op ?? staat nu dat je de Echo of Azta'rec in elke pauze moet doden.
       - ❓ Kom je een verhaal tegen waar de tips niet kloppen? Zeg welke delve en welk verhaal.
+- [ ] 🆕 **`/mh weeklies` is niet meer een muur tekst** (Rob, 16 sep: "dit zijn weer heel veel regels").
+      Een `/reload` is genoeg.
+      - Typ `/mh weeklies`: je krijgt nu **3 of 4 regels** — hoeveel weeklies in je log staan, hoeveel
+        completed, hoeveel givers iets te halen hebben, wanneer het laatste gossip-venster openging, en
+        hoeveel regels er zijn opgeslagen.
+      - Wil je toch alles zien: `/mh weeklies full` print de hele lijst zoals vroeger.
+      - ❓ Staat er iets in de samenvatting dat niet klopt met de volledige lijst?
+- [ ] 🆕 **Meting voor de Curse Surge-cyclus** (Blizzard, hotfix 15 sep: elke 30 minuten in plaats van 45).
+      Doe dit het liefst op **The Coiled Isle**: `/reload`, dan `/mh eventspy`, dan nóg een `/reload`
+      (anders staat het niet op schijf), en zeg het. MH bewaart nu per plek ook hoe lang één ronde duurt.
+      Geeft jouw client dat getal, dan leest MH de cyclus voortaan zelf uit het spel in plaats van "30"
+      over te typen uit een hotfix.
 - [ ] 🆕 **Het Silvermoon-tabblad in kaarten** (alleen in de nieuwe look). ⚠️ **Sluit WoW eerst helemaal af
       en start opnieuw**: nieuwe plaatjes laadt het spel niet met een `/reload` (GEMETEN op 12 sep).
       Dan: Codex → Silvermoon City. Je ziet kaarten met jouw plaatjes: portaal, dragonhawk, keystone

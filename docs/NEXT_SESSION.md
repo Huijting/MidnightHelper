@@ -387,6 +387,30 @@ aan te pakken"*.
          - Showcase: Abominable Blunder (npc 260174, alleen Wowhead) in Shadow Enclave, Venomborne in Twilight Crypts;
            `storyKeys` + `tipLineMatch` voor Antenorian, Darza, Gralka, Osseous, Drakta en Gnok.
          - 26 nieuwe tokens in `DelveSpellIds.lua`; lint [19]-baseline `_delve_s2_audit_2026_09_15` (geen DBM-mods).
+
+## 🌅 16 sep — Curse Surge-cyclus (hotfix) en `/mh weeklies` korter
+
+- 🐛 **Wat de wachters vannacht vonden.** Hotfix 15 sep: *"Curse Surges now rotate every 30 minutes (was 45
+  minutes)."* Verder niets dat ons raakt (API-wachter: 0 wijzigingen; GitHub: 0 open issues/PR's).
+- 🔴 **Onze eigen code zei iets onwaars over HandyNotes, GEMETEN 16 sep.** `AchievementsData.lua:338` zegt
+  *"HandyNotes says the surges rotate every 45 minutes"*. HandyNotes_Midnight **156** noemt geen 45: zijn
+  tekst is `L['curse_surge_note']` = "Cursed Surge events rotate every %d minutes", en dat getal komt uit
+  `C_EventScheduler.GetScheduledEvents()` (`core/nodes.lua:1020-1156`); zonder schema laat hij de zin weg.
+  De aftelling komt uit `C_AreaPoiInfo.IsAreaPOITimed` + `GetAreaPOISecondsLeft`.
+- 🔨 **Robs keuze: B (live lezen), niet het getal overtypen.** Gebouwd, nog niet gemeten:
+  - `Modules/EventScheduler.lua` bewaart nu per POI `windowSeconds` (`duration`, anders `endTime - startTime`,
+    allebei eerst gelaunderd — de taint-regel van dat bestand blijft gelden) plus een cache `windowByPoi`,
+    de getter `ns.GetWorldEventWindowSeconds(areaPoiID)` en `windowByPoi` in de `/mh eventspy`-snapshot.
+  - 📌 Bij de Curse Surges is de vensterduur óók de cyclus: de vijf plekken lossen elkaar direct af (zo leest
+    HandyNotes het ook). AFGELEID, niet gemeten.
+  - ⏳ **Wacht op Robs meting** (`/mh eventspy` + `/reload` op The Coiled Isle). Komt er geen getal uit zijn
+    client, dan valt B af en doen we A: het getal met de hand in `ACH_NOTE_CURSE_SURGE` (7 talen).
+  - Daarna pas: de notitie-tekst koppelen. De POI-ids per criteria-rij zijn nog niet van ons — HandyNotes
+    koppelt 8936/8937/8938/8939/8940 aan de vijf bazen; dat zijn kandidaten tot de spy ze bevestigt.
+- ✅ **`/mh weeklies` vat samen in plaats van de chat vol te zetten** (Rob: *"kunnen we hier ook een reload voor
+  bouwen, dit zijn weer heel veel regels"*). `WeeklyHubProbe.lua` schrijft via `say()`: standaard verzamelt hij
+  alles in `ns.db.weeklyProbe` (met tijdstempel) en print 3-4 regels met getallen die hij zelf geteld heeft;
+  `/mh weeklies full` print alles zoals vroeger (Core routeert het net als `bossdiff`).
 - ✅ **Rob heeft "wat is er nieuw" voor 4.0 nagelezen** (14 sep, op zijn telefoon; zijn oordelen staan
   GEMETEN in de db, zie de memory `mh40-review-page`).
   - Alle 9 secties vond hij goed.

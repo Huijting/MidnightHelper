@@ -35,8 +35,12 @@ local POLL = 5 -- seconden; wereld-events veranderen niet per seconde
 
 -- Platte caches (bevatten NOOIT secret waarden — alleen gelaunderde numbers
 -- en strings). Render/spy lezen hieruit.
-local ongoing = {}  -- { {name, zoneName, uiMapID, areaPoiID, secondsLeft}, ... }
-local upcoming = {} -- { {name, zoneName, uiMapID, areaPoiID, inSeconds},  ... }
+local ongoing = {}  -- { {name, zoneName, uiMapID, areaPoiID, secondsLeft, windowSeconds}, ... }
+local upcoming = {} -- { {name, zoneName, uiMapID, areaPoiID, inSeconds, windowSeconds},  ... }
+--- areaPoiID -> seconden dat één venster van dat event duurt. Los van de twee
+--- lijsten hierboven, zodat een lezer het ook kan opvragen voor een POI die nu
+--- niet loopt maar wel gepland staat. Ook plat: alleen gelaunderde numbers.
+local windowByPoi = {}
 local lastScan = nil
 
 -- pcall-wrapper: roept een API veilig aan, geeft nil terug bij een throw
@@ -219,9 +223,36 @@ end
 
 -- De enige plek met rekenwerk op (mogelijk) secret waarden. Draait in de
 -- ticker; schrijft uitsluitend platte waarden weg.
+--- Hoe lang één venster van dit event duurt, in seconden, of nil.
+---
+--- `duration` als de API hem geeft, anders endTime - startTime. Allebei eerst
+--- apart gelaunderd: aftrekken mag pas als het gewone numbers zijn, anders
+--- rekenen we op een secret (zie de kop van dit bestand).
+---
+--- 📌 Bij de Curse Surges op The Coiled Isle is dit tegelijk hoe vaak het event
+--- DOORSCHUIFT, want de vijf plekken lossen elkaar direct af. Dat is dezelfde
+--- lezing die HandyNotes_Midnight maakt (`core/nodes.lua`, versie 156).
+local function windowSecondsFor(ev, poiID)
+	local secs = plainNumber(ev.duration)
+	if not secs then
+		local s, e = plainNumber(ev.startTime), plainNumber(ev.endTime)
+		if s and e and e > s then
+			secs = e - s
+		end
+	end
+	if secs and secs > 0 then
+		if poiID then
+			windowByPoi[poiID] = secs
+		end
+		return secs
+	end
+	return nil
+end
+
 local function rescan()
 	wipe(ongoing)
 	wipe(upcoming)
+	wipe(windowByPoi)
 
 	local now = (GetServerTime and GetServerTime()) or time()
 
@@ -239,6 +270,7 @@ local function rescan()
 					uiMapID = uiMapID,
 					areaPoiID = poiID,
 					secondsLeft = secondsLeftFor(poiID),
+					windowSeconds = windowSecondsFor(ev, poiID),
 					posX = px,
 					posY = py,
 					progressPct = pct,
@@ -263,6 +295,7 @@ local function rescan()
 						uiMapID = uiMapID,
 						areaPoiID = poiID,
 						inSeconds = endt - now,
+						windowSeconds = windowSecondsFor(ev, poiID),
 						posX = px,
 						posY = py,
 					}
@@ -293,6 +326,17 @@ end
 
 function ns.GetWorldEventsLastScan()
 	return lastScan
+end
+
+--- Seconden dat één venster van dit event duurt, of nil als de client het niet
+--- zegt. Nil is hier een echte uitkomst: een tekst die hierop leunt laat het
+--- getal dan weg in plaats van er een te verzinnen.
+function ns.GetWorldEventWindowSeconds(areaPoiID)
+	areaPoiID = tonumber(areaPoiID)
+	if not areaPoiID then
+		return nil
+	end
+	return windowByPoi[areaPoiID]
 end
 
 ----------------------------------------------------------------------- Spy
@@ -334,6 +378,10 @@ function ns.EventSchedulerSpyDump()
 			hasData = safe(C_EventScheduler and C_EventScheduler.HasData) and true or false,
 			ongoing = ongoing,
 			upcoming = upcoming,
+			--- 16 sep 2026: de vensterduur per POI. Dit is de meting achter de
+			--- vraag of MH de Curse-Surge-cyclus live kan tonen in plaats van
+			--- een getal uit een hotfix over te typen.
+			windowByPoi = windowByPoi,
 		}
 	end
 
