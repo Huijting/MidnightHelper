@@ -66,6 +66,19 @@ positieve controle; twee daarvan sloegen aan en hebben me van een onwaar antwoor
   - Rij-label: oranje **Elite** achter de naam, uit de client-string `ELITE` (AFGELEID dat die gelokaliseerd
     is; bewaakt met een Engelse terugval). Een gedode rare laat het weg.
   - `RARE_ELITE_HINT` in 7 talen, drift 0; `CHANGELOG_401_3`.
+- 🐛 **Twee fouten uit één screenshot (Nymrissa, Tidebound Grotto), 16 sep 's avonds.**
+  - **Moeilijkheidsknop over de Route-knop.** Mijn eigen wijziging van die middag: sinds hij altijd
+    zichtbaar is, past de onderste rij niet meer in een venster van 368 breed (alle tips + 3 icoontjes +
+    deze knop, en Route + Share + Chat). Verplaatst naar de kop: `TOPRIGHT -32, -40`, onder de `>`-knop.
+    De tekst begint op -80, dus hij zit nergens in de weg. ⚠️ Een héél lange instancenaam kan er in
+    theorie tegenaan lopen; niet gemeten.
+  - 🔴 **Het filter verborg "Normal and Heroic:"-regels op Normal.** `LineMinLevel` vond "eroic" in de kop
+    en gaf niveau 2. Nu wint "normal" (dekt Normal/Normale in alle zeven talen): zo'n regel is voor elke
+    moeilijkheid. Bij Nymrissa viel daardoor de tank-regel over spell 1282937 (haar harde klappen) weg.
+  - ❓ **Open:** de voet zei *"World: …"* — de lair geeft kennelijk een moeilijkheid met naam "World" door.
+    `/mh bossdiff` ter plekke zegt welke vlaggen. En Rob zag *"shorts tijdens het gevecht"* terwijl
+    Nymrissa GEMETEN nergens een `quick`-blok heeft; eerst zijn screenshot, dan pas bouwen. Een script dat
+    de korte tips in 7 talen toevoegt ligt klaar (`scratchpad/nymrissa_quick.py`, niet uitgevoerd).
 - **Niet toegevoegd, met opzet:** npc 259971 op Daggerspine Point (2594). Alleen HandyNotes kent hem,
   Zygor heeft niet eens zijn naam, en hij zit achter Ritual Sites Renown 8. Eén bron zonder naam is te
   weinig voor data die een route belooft.

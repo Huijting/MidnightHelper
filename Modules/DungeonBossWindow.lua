@@ -904,7 +904,11 @@ local function EnsureWindow()
 	--- the instance you are standing in; the other three are "show me what that difficulty says".
 	local diffBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	diffBtn:SetSize(64, 18)
-	diffBtn:SetPoint("LEFT", prevRoleBtn, "RIGHT", 6, 0)
+	-- 🔴 NOT IN THE BOTTOM ROW any more (16 Sep 2026, Rob's screenshot: "kijk bij auto en route onderop").
+	-- Chained behind the role icons it landed on top of Route in a narrow window: the bottom row
+	-- (all tips + three icons + this, then Route + Share + Chat) is wider than the window's usual 368.
+	-- The header row under the pager is free: right-aligned there, below the ">" button.
+	diffBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -32, -40)
 	diffBtn:SetFrameLevel(f:GetFrameLevel() + 5)
 	diffBtn:SetScript("OnClick", function()
 		if ns.CycleBossWindowDifficulty then
@@ -1115,6 +1119,10 @@ end
 -- because "On Heroic and Mythic" names both and means Heroic and up.
 local HEROIC_TOKENS = { "eroic", "erois", "roïque" }
 local MYTHIC_TOKENS = { "mythi", "mitico", "mítico" }
+-- 🔴 16 Sep 2026, Rob's screenshot of Nymrissa: the tank line "Normal and Heroic: ..." was hidden on
+-- Normal, because the heroic token matched before anything noticed the line starts with Normal. A head
+-- that names Normal is for every difficulty. "normal" covers Normal/Normale in all seven languages.
+local NORMAL_TOKENS = { "normal" }
 
 --- The lowest difficulty a line is meant for: 2 or 3 when it opens with such a phrase before its
 --- first colon, 0 otherwise. Bullets, step numbers and a leading colour code are skipped first.
@@ -1125,6 +1133,11 @@ local function LineMinLevel(line)
 		return 0
 	end
 	head = head:lower()
+	for _, t in ipairs(NORMAL_TOKENS) do
+		if head:find(t, 1, true) then
+			return 0
+		end
+	end
 	for _, t in ipairs(HEROIC_TOKENS) do
 		if head:find(t, 1, true) then
 			return 2

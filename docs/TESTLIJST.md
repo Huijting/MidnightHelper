@@ -50,6 +50,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - ✅ Rob, 's avonds: *"ik herinner me deze bazen namelijk wel"* — de vijf in de Blackcore-hoek bestaan.
       - ✅ Rob op Slayer's Rise: **Hardin Steellock gevonden**, maar hij is **niet solo te doen** — dus of
         hij samen met Gar'chak afvinkt, blijft open tot iemand hem in een groep doodt.
+- [ ] 🆕 **Boss-venster, na Robs screenshot van Nymrissa** (16 sep). `/reload`.
+      - De knop **Moeilijkheid** staat niet meer onderin maar **bovenin rechts**, onder de `>`-knop. ❓ Botst
+        hij nergens meer mee, ook niet met **Route** en niet met de naam van de instance?
+      - Regels die met **"Normal and Heroic:"** beginnen, blijven nu staan op Normal. Bij Nymrissa hoort de
+        tank-regel over zijn harde klappen er dus weer te staan.
+      - ❓ Onderaan stond *"World: lines for harder difficulties are hidden"*. Typ daar **`/mh bossdiff`** en
+        stuur me wat hij zegt: dan weet ik wat de Tidebound Grotto als moeilijkheid doorgeeft.
+      - ❓ Je zag **korte tips tijdens het gevecht**, maar Nymrissa heeft er in de code geen. Maak er een
+        screenshot van als je hem weer doet.
 - [ ] 🆕 **Elite-rares zeggen het nu zelf** (Rob: *"ja doe die elite-regel er maar bij"*). `/reload`.
       - In **Rares** staat achter 16 rares een oranje **Elite** (o.a. Hardin Steellock, Gar'chak, de vijf
         in de Blackcore-hoek, Stumpy, Oro'ohna, Annulus, Glacial Broodmother). Een rare die je al gedood
