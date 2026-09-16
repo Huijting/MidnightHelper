@@ -13,6 +13,22 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 16 sep — alle instellingen nu ook ín MH ("nummer 3", de settings-branch)
+
+`/reload` is genoeg. Samengevoegd, nog niet in het spel gezien.
+- [ ] **Open in MH het scherm Settings** en klik de grote knop bovenaan, **Open Midnight Helper
+      settings**. Je komt op de pagina **All settings**, in de MH-look. Staan daar dezelfde kopjes als in
+      Blizzards scherm (Taal, Gevecht, Meldingen, Dungeon-hulp, Schermknoppen, Route-pijl, Venster,
+      Great Vault, Geavanceerd)?
+- [ ] **Zet op die pagina één ding om** (bv. *Daily tip*), en open dan Blizzards instellingen →
+      Midnight Helper: staat het vinkje daar ook om? En andersom?
+- [ ] **Onder Dungeon-hulp** horen **Short tips in the boss window** en **Only tips for my difficulty**
+      te staan. Die twee zijn tijdens het samenvoegen verhuisd; zonder die verhuizing waren ze weg geweest.
+- [ ] **Boss-venster → knop Moeilijkheid → zet hem op Alles.** Open daarna de instellingen: staat
+      *Only tips for my difficulty* nu **uit**? Dat hoort, want *Alles* ís die instelling uit.
+- [ ] **Recommended-knop**: zet Classic aan, druk op Recommended. Blijft Classic aan? (Die fix van
+      14 sep is meeverhuisd; dit bewijst dat hij het nog doet.)
+
 ## 🆕 16 sep — negen nieuwe rares en drie vragen uit de Season 2-sweep
 
 `/reload` is genoeg. Alle negen komen uit HandyNotes + Zygor, die het over alles eens zijn — maar

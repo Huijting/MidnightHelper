@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 🔀 16 sep — `settings-in-mh` samengevoegd ("nummer 3": alle instellingen ook ín MH)
+
+Rob: *"Merge de settings-branch dan maar"*. Stond geparkeerd tot na 4.0.0; dat is nu.
+- **Gemeten vóór het samenvoegen:** 4 commits op de branch (14 sep), 57 op `main` sindsdien. Een
+  proefmerge (`git merge-tree`) gaf **één conflict**, `Modules/NativeSettings.lua` — precies waar de
+  branch alle instellingen weghaalde naar `SettingsDefs.lua` en `main` er intussen twee bijzette.
+- **Hoe:** in een **aparte worktree**, niet in de live map. Die map ís Robs addon, en midden in een merge
+  staan er conflictmarkeringen in `.lua`-bestanden; een `/reload` op dat moment is een Lua-fout. De
+  live map kreeg het resultaat pas als fast-forward, in één stap.
+- **Opgelost:** beide conflictblokken kiezen de branch (de nieuwe opzet). De Recommended-fix en de
+  achievement-fix van 14 sep waren al meegenomen naar de branch en staan er nog (gecontroleerd:
+  `KEEP_ON_RECOMMENDED` en de "Not in the Recommended preset"-regel). **`mh_bossShortTips` en
+  `mh_bossDiffFilter` zijn naar `SettingsDefs.lua` verhuisd** — zonder dat waren ze uit béide panelen
+  verdwenen, en niets had dat gemeld.
+- **Eén kleine koppeling erbij:** `ns.SetBossWindowDiffFilterEnabled` roept nu `ns.SyncNativeSetting`
+  aan (die de branch meebracht), zodat het vinkje in de instellingen meeloopt met de nieuwe
+  moeilijkheidsknop in het boss-venster.
+- **GEMETEN in de worktree:** syntax 257 bestanden schoon (één meer: `SettingsDefs.lua`), lint 0 HARD,
+  drift 0. Nog **niet in het spel gezien** → TESTLIJST.
+- Spelers krijgen dit pas met 4.0.1.
+
 ## 🔍 16 sep — Season 2-sweep van de vier gebieden die nooit nagelopen waren (Rob: "begin maar aan")
 
 Rares, world bosses, Prey en achievements. Methode als bij de tip-audits: MH's eigen data naast de

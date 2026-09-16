@@ -2721,9 +2721,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	if msg == "settings" then
-		-- Settings live now in the native Blizzard Settings panel (Escape >
-		-- Options > AddOns > Midnight Helper). Open straight to it; fall back to
-		-- the in-addon launcher tab if the native API isn't available.
+		-- 14 Sep 2026 (nummer 3): every setting is on MH's own "All settings" page now; the game's
+		-- Settings window still has them too (Escape > Options > AddOns > Midnight Helper). Open
+		-- ours; the old routes below stay as the fallback.
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("allsettings")
+			return
+		end
 		if ns.OpenNativeSettings and ns.OpenNativeSettings() then
 			return
 		end

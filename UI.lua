@@ -493,8 +493,10 @@ for _, r in ipairs(SIDEBAR_ROOMS) do
 end
 
 local function MHRoomForTab(tabId)
-	if tabId == "screens" then
-		return "settings" -- the 4.0 Screens page (Modules/SettingsPage.lua) sits in the Settings room
+	if tabId == "screens" or tabId == "allsettings" then
+		-- The 4.0 Screens page and the All settings page (Modules/SettingsPage.lua) sit in the
+		-- Settings room.
+		return "settings"
 	end
 	-- 4.0 room card grids (Modules/RoomLauncher.lua) are panels named "room_<room>".
 	local launcherRoom = type(tabId) == "string" and tabId:match("^room_(%a+)$")
@@ -669,6 +671,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_SETTINGS"
 	elseif tabId == "screens" then
 		return "SCREENS_PANEL_INTRO"
+	elseif tabId == "allsettings" then
+		return "SET_ALL_INTRO"
 	end
 	return "INFO_DRAWER_BODY_HOME"
 end
@@ -709,6 +713,7 @@ local LOOK_SCREENS = {
 	addons = { stem = "addons", tagline = "TAB_TAGLINE_ADDONS" },
 	settings = { stem = "settings", tagline = "TAB_TAGLINE_SETTINGS" },
 	screens = { stem = "settings", tagline = "TAB_TAGLINE_SCREENS" },
+	allsettings = { stem = "settings", tagline = "TAB_TAGLINE_ALLSETTINGS" },
 	consumables ={ stem = "consumables", tagline = "TAB_TAGLINE_CONSUMABLES" },
 	macros = { stem = "macros", tagline = "TAB_TAGLINE_MACROS" },
 	academy = { stem = "academy", tagline = "TAB_TAGLINE_ACADEMY" },
@@ -2751,6 +2756,7 @@ for _, tab in ipairs(TAB_DEFS) do
 end
 -- Not a sidebar tab, but the title bar and the help drawer name it: "Settings > Screens".
 TAB_LABEL_BY_ID.screens = "SETTINGS_SCREENS_TITLE"
+TAB_LABEL_BY_ID.allsettings = "SET_ALL_TITLE"
 
 -- Shared, read-only, with Modules/RoomLauncher.lua (4.0 room card grid), so the grid lists
 -- exactly what the sidebar lists and uses the same icons and taglines as the screen header.

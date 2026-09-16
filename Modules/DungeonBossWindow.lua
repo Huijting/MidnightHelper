@@ -1494,6 +1494,11 @@ end
 
 function ns.SetBossWindowDiffFilterEnabled(v)
 	GetWinSettings().diffFilter = v and true or false
+	-- The boss window's Difficulty button writes this too ("All" = off). Mirror it into the
+	-- settings panels so their checkbox never contradicts the button (a proxy write only).
+	if ns.SyncNativeSetting then
+		ns.SyncNativeSetting("mh_bossDiffFilter", v and true or false)
+	end
 	if ns.RefreshDungeonBossWindow then
 		ns.RefreshDungeonBossWindow()
 	end
