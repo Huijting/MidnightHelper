@@ -18,6 +18,24 @@
 - ✅ **UIT. `v4.0.0` getagd en gepusht** (Rob koos meteen Release, geen beta: *"Meteen v4.0.0"*).
   GEMETEN: workflow *Release to CurseForge, Wago and GitHub* **success** om 08:39:54Z, en Rob meldt dat
   CurseForge het bestand heeft goedgekeurd.
+- 🐛 **De GitHub-release-helft deed twee weken niets, en zei "success"** (Rob: *"regel die github en
+  zorg dat dat niet meer gebeurt"*). GEMETEN in het log van de v4.0.0-run: `CurseForge ID … [token set]`
+  en `Wago ID … [token set]`, maar de regel `GitHub: Huijting/MidnightHelper` **zonder** `[token set]`.
+  De packager zag onze token dus niet; sinds 2 sep uploadden alle tags naar twee winkels en maakten er
+  nul GitHub-releases aan (releases-API gaf één object: `v2.8.1`, 19 juli).
+  - **Oorzaak:** wij gaven alleen `GITHUB_API_TOKEN` mee. De notitie in `release.yml` noemde dat
+    "VERIFIED against release.sh" — gecontroleerd in september tegen `@v2`, een tag die **meebeweegt**.
+    📌 Dezelfde les als de Exa-cache in CLAUDE.md: een feit dat je één keer controleert tegen iets dat
+    onder je kan veranderen, is daarna geen feit meer. Nu gaan **beide** namen mee (`GITHUB_OAUTH` én
+    `GITHUB_API_TOKEN`), dus welke de packager ook leest, hij vindt er een.
+  - 🔴 **De echte reparatie is de stilte, niet de variabele.** Nieuwe stap *Verify the GitHub Release
+    was created*: na de packager vraagt `gh release view` of de release voor deze tag bestaat en laat
+    de run **falen** als hij er niet is. De zip staat dan al op CurseForge, dus het blokkeert nooit een
+    release — het maakt alleen zichtbaar dat een winkel is overgeslagen.
+  - ✅ **v4.0.0 alsnog handmatig aangemaakt** (`gh release create`, releasenotitie + zip, 5,74 MB):
+    <https://github.com/Huijting/MidnightHelper/releases/tag/v4.0.0>. De tags v2.9.0 t/m v3.11.1 blijven
+    kale tags; daar met terugwerkende kracht releases van maken voegt niets toe. Vanaf de volgende tag
+    gaat het vanzelf, en anders valt de run om.
 - 📦 **De download ging van 3,42 MB naar 5,74 MB, en dat klopt.** GEMETEN in
   `dist\MidnightHelper-4.0.0.zip` (zelfde getal als CF toont), 390 bestanden:
   - **Media 2,61 MB ingepakt (46% van de download)**, waarvan de **116 schermiconen 1,94 MB** — dat is

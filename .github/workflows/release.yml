@@ -38,11 +38,24 @@
 # and nothing else. That is also why today's first Wago upload had to be done by hand.
 #
 # ⚠️ NO NEW SECRET. `secrets.GITHUB_TOKEN` is provided by Actions itself; it only needs
-# `permissions: contents: write` below, which is why that block is new. VERIFIED against the
-# packager's own release.sh rather than its README: it reads
-#     [ -z "$github_token" ] && github_token=$GITHUB_OAUTH
-#     [ -z "$github_token" ] && github_token=$GITHUB_API_TOKEN
-# so GITHUB_API_TOKEN is the right name.
+# `permissions: contents: write` below, which is why that block is new.
+#
+# 🔴 AND IT DID NOT WORK FOR TWO WEEKS — MEASURED 16 Sep 2026, in the v4.0.0 run's own log:
+#     CurseForge ID: 1528577 [token set]
+#     Wago ID: rNky4wKa [token set]
+#     GitHub: Huijting/MidnightHelper
+# The first two say "[token set]" and the GitHub line does not. So the packager never saw a
+# token, and every tag from 2 Sep onward uploaded to two shops and quietly created no GitHub
+# Release — while the step reported success, because a missing token is not an error to it.
+# 📌 The note here used to say GITHUB_API_TOKEN was "VERIFIED against release.sh". It was, in
+# September, against a `@v2` tag that FLOATS: the same lesson as the Exa cache in CLAUDE.md —
+# a fact checked once against something that can change under you is not a fact any more. Both
+# names are passed below, so whichever the current packager reads, it finds one.
+#
+# 🔴 And the real repair is not the variable but the SILENCE. A shop that stops working must
+# not look like a shop that worked: the verify step below asks GitHub whether the release for
+# this tag exists and fails the run when it does not. See CLAUDE.md, "bouw je iets dat kan
+# zwijgen, bouw dan een manier om te zien dát het zweeg".
 #
 # 📌 The same check settled a scare worth recording: the README calls the CurseForge variable
 # CF_API_TOKEN while we pass CF_API_KEY. release.sh accepts BOTH, so our working setup was
@@ -75,4 +88,22 @@ jobs:
           # Live since 2 Sep: the .toc now carries X-Wago-ID: rNky4wKa.
           WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
           # Built-in token, no setup. Publishes the same zip as a GitHub Release.
+          # Both names on purpose (see the note above): GITHUB_OAUTH is the one the packager
+          # reads first, and the one it was missing while only GITHUB_API_TOKEN was set.
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # The whole point of this step is that a silent shop becomes a loud failure. The zip is
+      # already on CurseForge by now, so this never blocks a release -- it tells us, in the
+      # place we look, that the GitHub half did not happen.
+      - name: Verify the GitHub Release was created
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "GitHub Release $tag exists."
+          else
+            echo "::error title=No GitHub Release::CurseForge and Wago got $tag, GitHub did not. Check the '[token set]' markers in the packager output above."
+            exit 1
+          fi
