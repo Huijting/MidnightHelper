@@ -47,6 +47,12 @@ positieve controle; twee daarvan sloegen aan en hebben me van een onwaar antwoor
     juiste lijst pakt.
   - ⚠️ Zygor markeert alle negen `|future`; HandyNotes zet ze als gewone nodes. Geen van beide is een
     meting in het spel — dit is het enige uit deze ronde dat Rob nog moet bevestigen.
+  - ✅ **Eerste waarneming, 16 sep 's avonds (Rob, op zijn mage): het rare-alarm voor Blackcore ging af.**
+    De rij werkt. Rob: *"ik denk dat je daar iets moet doen"* — klopt: HandyNotes' eigen notitie zegt dat
+    je 248462/248483 doodt in een cirkel rond 28.85/70.25 voor 3× item 248680 en dan de Singularity Lens
+    gebruikt. Blackcore kreeg `spawnKey = "RARE_SPAWN_BLACKCORE"` (7 talen, drift 0), net als Farthik:
+    de uitleg staat nu in de toast én in de chatregel bij aankomst. De vier andere in die hoek zag Rob
+    nog niet.
 - **Niet toegevoegd, met opzet:** npc 259971 op Daggerspine Point (2594). Alleen HandyNotes kent hem,
   Zygor heeft niet eens zijn naam, en hij zit achter Ritual Sites Renown 8. Eén bron zonder naam is te
   weinig voor data die een route belooft.

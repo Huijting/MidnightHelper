@@ -42,6 +42,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] **Rares → Voidstorm**: er staan er nu 21 in plaats van 14. Vijf nieuwe liggen dicht bij elkaar
       in de Blackcore-hoek (rond 24-30 / 66-70): **Nullspiral, The Many-Broken, Abysslick, Voidseer
       Orivane, Blackcore**. Loop er één keer langs: staan ze daar echt, en klopt de route ernaartoe?
+      - ✅ Rob 16 sep, 's avonds: **het alarm voor Blackcore ging af** — de eerste van de zeven die we in het
+        spel zien. De andere vier nog niet gevonden.
+      - [ ] 🆕 **Blackcore moet je oproepen**, en het alarm zegt dat nu zelf (`/reload`): dood de vijanden
+        rond **28.9 / 70.3** tot je er 3 van hun buit hebt, en gebruik dan de **Singularity Lens**. ❓ Klopt
+        dat, en komt hij dan?
 - [ ] **Rares → Voidstorm, Slayer's Rise**: **Hardin Steellock** en **Gar'chak Skullcleave**.
       ❓ Belangrijkste vraag van deze ronde: ze delen kill-quest 94461, dus als je er één doodmaakt
       horen ze **allebei** afgevinkt te worden. Klopt dat, of wil de weekly er twee?

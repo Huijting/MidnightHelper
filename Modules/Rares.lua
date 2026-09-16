@@ -180,7 +180,13 @@ local ZONES = {
 			{ 94458, 2405, 28.84, 70.23, "The Many-Broken", 248459 },
 			{ 94462, 2405, 28.20, 66.00, "Abysslick", 248700 },
 			{ 94459, 2405, 30.33, 66.52, "Voidseer Orivane", 248791 },
-			{ 94463, 2405, 24.80, 67.80, "Blackcore", 248823 },
+			--- 🔴 SUMMONED, NOT SPAWNED — Rob, 16 Sep 2026, standing there with the alarm up: *"Blackcore
+			--- alarm kwam maar ik denk dat je daar iets moet doen?"* HandyNotes' own note says what:
+			--- kill npc 248462 or 248483 inside a marked circle (28.85 / 70.25, radius 0.5) for three of
+			--- item 248680, then use the Singularity Lens. So this is Farthik's case again -- the
+			--- coordinate is where the summon happens, and standing on it does nothing by itself.
+			--- ✅ The alarm firing is also our first in-game sighting of any of the seven: the row works.
+			{ 94463, 2405, 24.80, 67.80, "Blackcore", 248823, spawnKey = "RARE_SPAWN_BLACKCORE" },
 			--- ⚠️ ONE QUEST, TWO RARES, and that is what both sources say: 94461 is credited by
 			--- either of these two on Slayer's Rise. So both rows tick off together, which is
 			--- correct if the weekly wants one of them -- and would be visibly wrong if it wants
