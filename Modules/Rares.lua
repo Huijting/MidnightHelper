@@ -10,6 +10,7 @@ local _, ns = ...
 local MAP_TO_ZONE_KEY = {
 	[2395] = "eversong",
 	[2393] = "eversong",
+	[2424] = "eversong", -- Isle of Quel'Danas: two rares, filed under Eversong like HandyNotes does
 	[2437] = "zulaman",
 	[2413] = "harandar",
 	--- ⚠️ 2576 IS THREE ZONES ON ONE CANVAS and this row can only name one of them. It is
@@ -87,6 +88,15 @@ local ZONES = {
 			{ 92395, 2395, 34.81, 20.98, "Waverly", 250780 },
 			{ 92399, 2395, 59.36, 79.25, "Lost Guardian", 250806 },
 			{ 93555, 2395, 51.54, 45.85, "Malfunctioning Construct", 255329 },
+			--- The Isle of Quel'Danas (map 2424) belongs to this list the way Slayer's Rise belongs
+			--- to Voidstorm's: a second map under one zone button. Found in the same sweep of
+			--- 16 Sep 2026; MH knew neither npc nor quest. HandyNotes files them in its Eversong
+			--- file and Zygor names them, with the same coordinates.
+			--- ⚠️ 2424 is also the map the March on Quel'Danas raid entrance sits on -- the same
+			--- island, not a mistake. `MAP_TO_ZONE_KEY` gained the id so the rare alert knows which
+			--- list to match against while you stand there.
+			{ 95011, 2424, 55.71, 29.13, "Tarhu the Ransacker", 252465 },
+			{ 95010, 2424, 37.09, 38.30, "Dripping Shadow", 239864 },
 		},
 	},
 	{
@@ -152,6 +162,31 @@ local ZONES = {
 			{ 93953, 2444, 46.46, 41.03, "Rakshur the Bonegrinder", 257027 },
 			{ 91047, 2444, 40.88, 88.99, "Eruundi", 245182 }, -- 2444 = Slayer's Rise (sub-zone van Voidstorm); coords via HandyNotes, matcht AchievementsData
 			{ 93896, 2405, 53.89, 62.79, "Far'thana the Mad", 256821 },
+			--- 🔴 SEVEN RARES THIS LIST HAD NEVER HEARD OF — found 16 Sep 2026, in the Season 2
+			--- sweep of the areas the tip audits never touched (rares, world bosses, Prey,
+			--- achievements). MH knew none of these seven by npc id OR by quest id, anywhere.
+			---
+			--- Two independent local sources agree on all three numbers that matter, which is why
+			--- they are written here without an in-game visit first:
+			---   HandyNotes_Midnight  zones/voidstorm.lua   npc id, coordinate, kill quest
+			---   Zygor MID_Common_Rares.lua                 the same, plus the name
+			--- The five on 2405 sit in one cluster around 24-30 / 66-70 -- the Blackcore corner --
+			--- which is why a lap flown across the rest of Voidstorm never produced them.
+			---
+			--- ⚠️ Zygor marks all seven `|future`, meaning they were unreleased when that guide was
+			--- written. HandyNotes lists them as ordinary nodes. Neither has been seen by us in the
+			--- game, so this is the one thing in this batch Rob still has to confirm: TESTLIJST.
+			{ 94460, 2405, 29.79, 67.87, "Nullspiral", 248068 },
+			{ 94458, 2405, 28.84, 70.23, "The Many-Broken", 248459 },
+			{ 94462, 2405, 28.20, 66.00, "Abysslick", 248700 },
+			{ 94459, 2405, 30.33, 66.52, "Voidseer Orivane", 248791 },
+			{ 94463, 2405, 24.80, 67.80, "Blackcore", 248823 },
+			--- ⚠️ ONE QUEST, TWO RARES, and that is what both sources say: 94461 is credited by
+			--- either of these two on Slayer's Rise. So both rows tick off together, which is
+			--- correct if the weekly wants one of them -- and would be visibly wrong if it wants
+			--- both. Worth a glance the first week someone kills one.
+			{ 94461, 2444, 28.35, 57.11, "Hardin Steellock", 257199 },
+			{ 94461, 2444, 69.68, 77.30, "Gar'chak Skullcleave", 257231 },
 		},
 	},
 	-- Showdown-zones (12.0.7): Naigtal (2600) & Val (2599), roterend via de

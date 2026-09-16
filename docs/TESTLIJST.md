@@ -13,6 +13,28 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 16 sep — negen nieuwe rares en drie vragen uit de Season 2-sweep
+
+`/reload` is genoeg. Alle negen komen uit HandyNotes + Zygor, die het over alles eens zijn — maar
+**niemand van ons heeft ze in het spel gezien**, en Zygor noemt ze nog `|future`.
+- [ ] **Rares → Voidstorm**: er staan er nu 21 in plaats van 14. Vijf nieuwe liggen dicht bij elkaar
+      in de Blackcore-hoek (rond 24-30 / 66-70): **Nullspiral, The Many-Broken, Abysslick, Voidseer
+      Orivane, Blackcore**. Loop er één keer langs: staan ze daar echt, en klopt de route ernaartoe?
+- [ ] **Rares → Voidstorm, Slayer's Rise**: **Hardin Steellock** en **Gar'chak Skullcleave**.
+      ❓ Belangrijkste vraag van deze ronde: ze delen kill-quest 94461, dus als je er één doodmaakt
+      horen ze **allebei** afgevinkt te worden. Klopt dat, of wil de weekly er twee?
+- [ ] **Rares → Eversong**: onderaan staan nu **Tarhu the Ransacker** en **Dripping Shadow** op de
+      **Isle of Quel'Danas**. Klik op de route: stuurt hij je naar het eiland en niet naar de raid?
+- [ ] ❓ **Twee coördinaten die ik expres níét heb aangepast.** Wij en HandyNotes verschillen bij
+      **Tremora** (Voidstorm, wij 35.7/81.1 — zij 36.2/83.5) en **Nar'zira** (2,4 uit elkaar). Sta je
+      er toch: waar staat hij écht? Loopt hij rond, zoals Coin-Eye Skully, dan hebben we allebei gelijk.
+- [ ] ❓ **World bosses:** typ één keer `/mh worldboss`. Noemt de client nog steeds alleen Lu'ashal,
+      Cragpine, Thorm'belan en Predaxas, of is er in Season 2 een vijfde bijgekomen? Er is geen enkele
+      bron op je pc die dat kan beantwoorden — alleen jouw client.
+- [ ] ❓ **Prey, drie beweringen uit onze eigen uitleg** (Codex → Prey hunts): zijn er nog steeds
+      **drie moeilijkheidsmodi**, telt een hunt mee voor de **Great Vault**, en tellen **War Mode**-hunts
+      apart? Alle drie staan er zo in sinds augustus.
+
 ## 🆕 14 sep — blok "Dungeons & Raids" in het Silvermoon-tabblad (C)
 
 `/reload` is genoeg. Gebouwd, nog niet in het spel gezien.

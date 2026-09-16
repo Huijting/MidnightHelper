@@ -1,5 +1,62 @@
 # Midnight Helper — waar we staan
 
+## 🔍 16 sep — Season 2-sweep van de vier gebieden die nooit nagelopen waren (Rob: "begin maar aan")
+
+Rares, world bosses, Prey en achievements. Methode als bij de tip-audits: MH's eigen data naast de
+twee bronnen die al op Robs schijf staan — **HandyNotes_Midnight** (coords vertrouwd, [[handynotes-rare-coords-trusted]])
+en **Zygor** (`NPCs_enUS.lua` + `MID_Common_Rares.lua`). Alles via scratch-scripts, elk met een
+positieve controle; twee daarvan sloegen aan en hebben me van een onwaar antwoord gered (zie onder).
+
+### 1. Rares — 9 toegevoegd, MH ging van 91 naar 100
+- **GEMETEN: MH kende negen rares niet, op geen enkele manier** — niet op npc-id, niet op quest-id,
+  nergens in de hele addon. Beide bronnen noemen voor alle negen dezelfde npc-id, dezelfde kill-quest
+  én dezelfde coördinaten:
+  - **Voidstorm (2405), de Blackcore-hoek** rond 24-30 / 66-70: Nullspiral (94460), The Many-Broken
+    (94458), Abysslick (94462), Voidseer Orivane (94459), Blackcore (94463). Ze liggen in één cluster,
+    wat verklaart waarom onze eigen rondvlucht ze nooit zag.
+  - **Slayer's Rise (2444)**: Hardin Steellock en Gar'chak Skullcleave — ⚠️ **beide op quest 94461**,
+    dus ze vinken samen af. Klopt als de weekly er één van de twee wil; zichtbaar fout als hij er twee
+    wil. Staat in TESTLIJST.
+  - **Isle of Quel'Danas (2424)**: Tarhu the Ransacker (95011), Dripping Shadow (95010). `MAP_TO_ZONE_KEY`
+    kreeg 2424 → `eversong`, zoals HandyNotes ze ook onder Eversong zet, zodat het rare-alarm daar de
+    juiste lijst pakt.
+  - ⚠️ Zygor markeert alle negen `|future`; HandyNotes zet ze als gewone nodes. Geen van beide is een
+    meting in het spel — dit is het enige uit deze ronde dat Rob nog moet bevestigen.
+- **Niet toegevoegd, met opzet:** npc 259971 op Daggerspine Point (2594). Alleen HandyNotes kent hem,
+  Zygor heeft niet eens zijn naam, en hij zit achter Ritual Sites Renown 8. Eén bron zonder naam is te
+  weinig voor data die een route belooft.
+- **Twee coördinaten wijken af en blijven staan:** Tremora (2,4 uit elkaar) en Nar'zira (3,2). Het
+  Coin-Eye-precedent van 19 aug zegt waarom: twee zorgvuldige bronnen die verschillen kunnen allebei
+  gelijk hebben als het beest loopt. Eerst kijken, dan pas kiezen.
+- 🔴 **Mijn eigen parser loog twee keer, en de positieve controle ving het** — de reden dat die regel
+  bestaat. Eerst matchte hij geen enkele Coiled Isle-rij (die dragen extra velden als `ach =`), waarna
+  ik bijna gemeld had dat MH het hele Season 2-eiland mist. Daarna miste hij Farthik, wiens rij over
+  twee regels loopt. Zonder de controle "coiled_isle gevonden? Farthik gevonden?" was dit rapport
+  precies andersom geweest. Zie [[silence-is-not-absence]].
+
+### 2. World bosses — niets te repareren, en niets lokaal te controleren
+- MH's roster is vier bossen (Lu'ashal, Cragpine, Thorm'belan, Predaxas) en is **2 sep op live gemeten**
+  mét de client-scan, ín Season 2. HandyNotes heeft geen enkel world-boss-knooptype in de Midnight-zones
+  (wel `CurseSurge` ×5, `RitualCollectible` ×9, `Treasure` ×9), dus er is **geen tweede bron op schijf**.
+- De enige open vraag — heeft Season 2 er een vijfde bijgezet? — is alleen door de client te beantwoorden.
+  `/mh worldboss` doet dat al; staat in TESTLIJST.
+
+### 3. Prey — niets verouderds, en dat is een ontwerpkeuze
+- Prey heeft in MH **geen doelenlijst die kan verouderen**: de Codex legt het systeem uit en de
+  voortgang komt uit de client (`/mh prey`, Adventure Guide). De enige harde getallen zijn de twee
+  portaal-coördinaten en de instapquest 96004, allebei al in aug geverifieerd.
+- Wat er wél te controleren valt zijn drie beweringen in de uitleg (drie moeilijkheidsmodi, telt voor
+  de Great Vault, War Mode telt apart). Die gaan over spelsystemen, niet over data: TESTLIJST.
+
+### 4. Achievements — één echte S2-gat gevonden
+- MH heeft **24 hunts met routes**; HandyNotes legt pins voor **36** achievements.
+- 🔴 **63348 (19 criteria) kent MH nergens.** Uit HandyNotes' eigen commentaar: *Heroic Slugger* — de
+  Heroic-variant van de Showdown-sluggers. MH heeft 62881 (Val) en 62883 (Naigtal) wél als hunt, dus
+  dit is een echt gat en geen bewuste keuze. De criteria hangen bij HandyNotes aan dezelfde rares, dus
+  de data is er; het is werk, geen onderzoek.
+- De overige 15 die MH niet noemt zijn allemaal id's onder 62500 — ouder dan het Coiled Isle-blok, dus
+  Midnight-lancering, niet Season 2. Backlog, geen onderdeel van deze sweep.
+
 ## 🚀 16 sep — 4.0.0 klaargezet voor CurseForge (Rob: "Ik heb de shots gedaan en we gaan naar CF 🙂 dus GO")
 
 - **De vijf artefacten staan** (`docs/RELEASE_CHECKLIST.md` §1): `.toc` op **4.0.0**,

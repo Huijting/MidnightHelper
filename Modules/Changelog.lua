@@ -3,6 +3,16 @@ local addonName, ns = ...
 local changelogFrame
 
 local CHANGELOG_ENTRIES = {
+	--- ⚠️ 4.0.1 IS NOT RELEASED. The popup follows the .toc version, which is still 4.0.0, so
+	--- nobody sees this block until the bump. It is written here because the checklist's standing
+	--- rule is that a batch updates the changelog in its own commit -- the version number is the
+	--- guess, not the content, and renaming it later costs one line.
+	{
+		version = "4.0.1",
+		lines = {
+			"CHANGELOG_401_1",
+		},
+	},
 	{
 		version = "4.0.0",
 		lines = {
