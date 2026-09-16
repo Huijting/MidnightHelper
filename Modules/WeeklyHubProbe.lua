@@ -63,6 +63,21 @@ local SHOWDOWN = {
 	{ 96054, "Surveying the Mana-Bog" },
 }
 
+--- Lor'themar Theron's own weekly, and the reason this probe exists.
+---
+--- GEMETEN 16 Sep 2026: after Rob picked up his weeklies, the probe listed **95245
+--- "Midnight: World Tour"** under "in your log" with NOT IN OUR DATA — no pool here knew it,
+--- and `MidnightHelperDB.giverLearn` had never seen it either. Wowhead's quest page names
+--- Lor'themar Theron as both start and end, in Silvermoon City, rewarding a Spark of Tides
+--- (AFGELEID: one source, not the client).
+---
+--- It is only in this probe, so MH still routes nobody to him: whether he becomes a step in
+--- the reset routine is Rob's call, and that call wants one more measurement — this pool asks
+--- the game for the title, which is the check that matters.
+local LORTHEMAR = {
+	{ 95245, "World Tour (Spark)" },
+}
+
 local function QuestState(id)
 	local done, onQuest
 	if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
@@ -237,7 +252,8 @@ function ns.PrintWeeklyHubProbe(mode)
 	local a1, b1 = PrintPool("Lady Liadrin's weekly pool", LIADRIN, turned)
 	local a2, b2 = PrintPool("Void Assault zone rotation", VOID_ZONES, turned)
 	local a3, b3 = PrintPool("Showdown (Riftblade Maella)", SHOWDOWN, turned)
-	inLog, completed = a1 + a2 + a3, b1 + b2 + b3
+	local a4, b4 = PrintPool("Lor'themar Theron (not routed to yet)", LORTHEMAR, turned)
+	inLog, completed = a1 + a2 + a3 + a4, b1 + b2 + b3 + b4
 
 	-- Cross-check: walk the quest log the way /mh questscan does and report anything
 	-- whose IsOnQuest answer contradicts its presence in the log. That contradiction
@@ -268,7 +284,7 @@ function ns.PrintWeeklyHubProbe(mode)
 		-- So: name every "Midnight:" quest in the log and say whether we know it.
 		-- An unknown id here is the answer, not a puzzle.
 		local known = {}
-		for _, pool in ipairs({ LIADRIN, VOID_ZONES, SHOWDOWN }) do
+		for _, pool in ipairs({ LIADRIN, VOID_ZONES, SHOWDOWN, LORTHEMAR }) do
 			for _, row in ipairs(pool) do
 				known[row[1]] = true
 			end

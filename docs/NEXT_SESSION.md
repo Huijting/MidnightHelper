@@ -463,8 +463,17 @@ aan te pakken"*.
   checken. Te bekijken: welke balk dat precies is (`FastMark`? de quick bar in `UI.lua`?), of de knoppen
   secure moeten zijn (in combat!), en dat een knop die niets doet erger is dan geen knop.
 - 📌 **Twee dingen die `/mh weeklies` verklapte, nog te beslissen:**
-  - **95245 "Midnight: World Tour"** staat in Robs log maar in geen enkele pool — kandidaat om toe te voegen,
-    maar we weten de giver niet. Vragen bij wie hij hem ophaalde.
+  - ✅ **95245 "Midnight: World Tour" is uitgezocht.** Robs tweede meting (16 sep 08:00, ná het ophalen van zijn
+    weeklies) zette hem in "in your log" met NOT IN OUR DATA, en `MidnightHelperDB.giverLearn` had hem óók nooit
+    gezien (GEMETEN). Wowheads questpagina noemt **Lor'themar Theron** als start én eind, in Silvermoon City,
+    met een **Spark of Tides** als beloning (AFGELEID: één bron, niet de client). Let op: dit is een ándere
+    "World Tour" dan `DelverCallData.lua` (die gaat over de Delver's Call per delve).
+    - Nu alleen als eigen pool in `WeeklyHubProbe.lua` gezet ("Lor'themar Theron (not routed to yet)"), zodat de
+      volgende `/mh weeklies` de titel uit het spel haalt. MH stuurt niemand naar hem.
+    - ❓ **Openstaande vraag voor Rob:** moet Lor'themar een echte stap in de reset-routine worden, naast
+      Liadrin/Halduron/Aethas/Vereesa/Maella? Dat verandert wat MH je elke week aanraadt, dus dat doe ik niet
+      zonder zijn go. MH kent al drie andere Spark-bronnen (Liadrins keuze-pool, Trailing Xal'atath, Void
+      Assaults); deze ontbrak.
   - ❌ **93891 "Legends of the Haranir" NIET schrappen** — Rob zei op 16 sep "haal maar weg", ik heb het niet
     gedaan en dit is waarom: `ResetRoutine.lua:99-108` besliste dit al op 29 jul. Dezelfde probe gaf toen géén
     titel voor 96713 "Showdown on Val", een id dat Rob zelf in juni had aangenomen. **Geen titel = de client
