@@ -111,14 +111,14 @@ local ZONES = {
 			{ 89580, 2437, 47.44, 34.35, "Tiny Vermin", 242033 },
 			{ 89583, 2437, 39.49, 20.32, "The Devouring Invader", 242035 },
 			{ 89573, 2437, 47.73, 20.73, "Depthborn Eelamental", 242027 },
-			{ 91073, 2437, 45.29, 41.70, "Asha the Empowered", 245692 }, -- naam "Asha" per HandyNotes-node + achievement (het drop-item heet wél "Ash'an's ...")
+			{ 91073, 2437, 45.29, 41.70, "Asha the Empowered", 245692, elite = true }, -- naam "Asha" per HandyNotes-node + achievement (het drop-item heet wél "Ash'an's ...")
 			{ 89570, 2437, 51.61, 18.63, "The Snapping Scourge", 242024 },
 			{ 89575, 2437, 28.73, 24.03, "Lightwood Borer", 242028 },
 			{ 91634, 2437, 38.99, 50.01, "Poacher Rav'ik", 247976 },
 			{ 89579, 2437, 46.45, 51.93, "Oophaga", 242032 },
 			{ 89581, 2437, 21.48, 70.69, "Voidtouched Crustacean", 242034 },
 			{ 89572, 2437, 33.47, 88.64, "Elder Oaktalon", 242026 },
-			{ 91072, 2437, 46.77, 43.85, "The Decaying Diamondback", 245691 },
+			{ 91072, 2437, 46.77, 43.85, "The Decaying Diamondback", 245691, elite = true },
 		},
 	},
 	{
@@ -129,17 +129,17 @@ local ZONES = {
 			{ 91832, 2413, 51.15, 45.33, "Rhazul", 248741 },
 			{ 92142, 2413, 70.17, 60.87, "Ha'kalawe", 249849 },
 			{ 92154, 2413, 60.16, 47.11, "Queen Lashtongue", 249962 },
-			{ 92168, 2413, 65.34, 32.95, "Stumpy", 250086 },
+			{ 92168, 2413, 65.34, 32.95, "Stumpy", 250086, elite = true },
 			{ 92172, 2413, 46.11, 32.17, "Mindrot", 250226 },
 			{ 92183, 2413, 36.34, 75.35, "Treetop", 250246 },
 			{ 92191, 2413, 27.39, 71.39, "Pterrock", 250321 },
-			{ 92194, 2413, 43.76, 16.78, "Annulus the Worldshaker", 250358 },
+			{ 92194, 2413, 43.76, 16.78, "Annulus the Worldshaker", 250358, elite = true },
 			{ 92137, 2413, 68.70, 40.61, "Chironex", 249844 },
 			{ 92148, 2413, 72.62, 69.35, "Tallcap the Truthspreader", 249902 },
 			{ 92161, 2413, 64.47, 47.68, "Chlorokyll", 249997 },
 			{ 92170, 2413, 55.94, 31.63, "Serrasa", 250180 },
 			{ 92176, 2413, 40.53, 43.27, "Dracaena", 250231 },
-			{ 92190, 2413, 28.19, 81.81, "Oro'ohna", 250317 },
+			{ 92190, 2413, 28.19, 81.81, "Oro'ohna", 250317, elite = true },
 			{ 92193, 2413, 39.75, 60.21, "Ahl'ua'huhi", 250347 },
 		},
 	},
@@ -152,7 +152,7 @@ local ZONES = {
 			{ 91048, 2405, 35.67, 81.11, "Tremora", 241443 },
 			{ 93946, 2405, 47.17, 79.82, "Bane of the Vilebloods", 256923 },
 			{ 93947, 2405, 37.99, 71.64, "Lotus Darkblossom", 256925 },
-			{ 93895, 2405, 48.62, 53.63, "Ravengerus", 256808 },
+			{ 93895, 2405, 48.62, 53.63, "Ravengerus", 256808, elite = true },
 			{ 93884, 2405, 35.59, 49.36, "Bilemaw the Gluttonous", 256770 },
 			{ 91051, 2405, 40.09, 41.36, "Nightbrood", 245044 },
 			{ 91050, 2405, 34.12, 82.02, "Territorial Voidscythe", 238498 },
@@ -161,7 +161,7 @@ local ZONES = {
 			{ 93934, 2405, 55.72, 79.45, "Queen o' War", 256926 },
 			{ 93953, 2444, 46.46, 41.03, "Rakshur the Bonegrinder", 257027 },
 			{ 91047, 2444, 40.88, 88.99, "Eruundi", 245182 }, -- 2444 = Slayer's Rise (sub-zone van Voidstorm); coords via HandyNotes, matcht AchievementsData
-			{ 93896, 2405, 53.89, 62.79, "Far'thana the Mad", 256821 },
+			{ 93896, 2405, 53.89, 62.79, "Far'thana the Mad", 256821, elite = true },
 			--- 🔴 SEVEN RARES THIS LIST HAD NEVER HEARD OF — found 16 Sep 2026, in the Season 2
 			--- sweep of the areas the tip audits never touched (rares, world bosses, Prey,
 			--- achievements). MH knew none of these seven by npc id OR by quest id, anywhere.
@@ -176,23 +176,23 @@ local ZONES = {
 			--- ⚠️ Zygor marks all seven `|future`, meaning they were unreleased when that guide was
 			--- written. HandyNotes lists them as ordinary nodes. Neither has been seen by us in the
 			--- game, so this is the one thing in this batch Rob still has to confirm: TESTLIJST.
-			{ 94460, 2405, 29.79, 67.87, "Nullspiral", 248068 },
-			{ 94458, 2405, 28.84, 70.23, "The Many-Broken", 248459 },
-			{ 94462, 2405, 28.20, 66.00, "Abysslick", 248700 },
-			{ 94459, 2405, 30.33, 66.52, "Voidseer Orivane", 248791 },
+			{ 94460, 2405, 29.79, 67.87, "Nullspiral", 248068, elite = true },
+			{ 94458, 2405, 28.84, 70.23, "The Many-Broken", 248459, elite = true },
+			{ 94462, 2405, 28.20, 66.00, "Abysslick", 248700, elite = true },
+			{ 94459, 2405, 30.33, 66.52, "Voidseer Orivane", 248791, elite = true },
 			--- 🔴 SUMMONED, NOT SPAWNED — Rob, 16 Sep 2026, standing there with the alarm up: *"Blackcore
 			--- alarm kwam maar ik denk dat je daar iets moet doen?"* HandyNotes' own note says what:
 			--- kill npc 248462 or 248483 inside a marked circle (28.85 / 70.25, radius 0.5) for three of
 			--- item 248680, then use the Singularity Lens. So this is Farthik's case again -- the
 			--- coordinate is where the summon happens, and standing on it does nothing by itself.
 			--- ✅ The alarm firing is also our first in-game sighting of any of the seven: the row works.
-			{ 94463, 2405, 24.80, 67.80, "Blackcore", 248823, spawnKey = "RARE_SPAWN_BLACKCORE" },
+			{ 94463, 2405, 24.80, 67.80, "Blackcore", 248823, elite = true, spawnKey = "RARE_SPAWN_BLACKCORE" },
 			--- ⚠️ ONE QUEST, TWO RARES, and that is what both sources say: 94461 is credited by
 			--- either of these two on Slayer's Rise. So both rows tick off together, which is
 			--- correct if the weekly wants one of them -- and would be visibly wrong if it wants
 			--- both. Worth a glance the first week someone kills one.
-			{ 94461, 2444, 28.35, 57.11, "Hardin Steellock", 257199 },
-			{ 94461, 2444, 69.68, 77.30, "Gar'chak Skullcleave", 257231 },
+			{ 94461, 2444, 28.35, 57.11, "Hardin Steellock", 257199, elite = true },
+			{ 94461, 2444, 69.68, 77.30, "Gar'chak Skullcleave", 257231, elite = true },
 		},
 	},
 	-- Showdown-zones (12.0.7): Naigtal (2600) & Val (2599), roterend via de
@@ -214,7 +214,7 @@ local ZONES = {
 		--- die drie zijn nooit gemeten zoals Skully dat is, en een vlag zetten op een
 		--- vermoeden maakt van commentaar een bewering. Wie er een tegenkomt en het ziet
 		--- zwemmen, zet 'm om.
-		{ 95559, 2599, 67.20, 41.80, "Glacial Broodmother", 261716 }, -- elite, roamt
+		{ 95559, 2599, 67.20, 41.80, "Glacial Broodmother", 261716, elite = true }, -- elite, roamt
 			{ 96370, 2599, 28.50, 74.50, "Xirah", 264864 },
 			{ 96373, 2599, 33.30, 43.00, "Opprimius", 264868 },
 			{ 96375, 2599, 33.50, 58.20, "The Horror Below", 264870 },
@@ -233,7 +233,7 @@ local ZONES = {
 			{ 96205, 2600, 37.60, 61.80, "Interminable Uarn", 263947 },
 			{ 96207, 2600, 77.70, 38.30, "Swalewing Matriarch", 263954 },
 			{ 96316, 2600, 28.00, 50.60, "Auredar's Chassis", 264569 }, -- in gebouw The Vacant Vigilant (map 2646); ingang op 2600
-			{ 96317, 2600, 54.60, 42.30, "Indomitable Mk XII", 264571 }, -- elite
+			{ 96317, 2600, 54.60, 42.30, "Indomitable Mk XII", 264571, elite = true }, -- elite
 			{ 96206, 2600, 45.10, 55.40, "Broxion", 263950 },
 			{ 96208, 2600, 68.50, 62.20, "Lomelith", 263955 },
 			{ 96319, 2600, 70.30, 76.40, "Warp Agent Xi'grivr", 264574 },
@@ -1407,7 +1407,43 @@ function ns.RareArrivalHintKey(rare)
 	if rare.spawnKey then
 		return rare.spawnKey
 	end
-	return rare.roams and "ARROW_TARGET_ROAMS" or nil
+	if rare.roams then
+		return "ARROW_TARGET_ROAMS"
+	end
+	return rare.elite and "RARE_ELITE_HINT" or nil
+end
+
+--- Everything worth saying about a rare before you fight it, as one resolved line, or nil.
+---
+--- 🆕 16 Sep 2026, Rob: *"ja doe die elite-regel er maar bij"*, after flying to Hardin Steellock
+--- and finding he cannot be soloed. `elite` is a second fact next to the quirk, not instead of it:
+--- Blackcore has to be summoned AND needs a group, so a single key could only ever tell half. The
+--- arrow keeps using `RareArrivalHintKey` (its label has room for one word-group); every surface a
+--- player reads -- the alarm, the arrival chat line, the tooltip -- uses this.
+function ns.RareHintText(rare)
+	if type(rare) ~= "table" then
+		return nil
+	end
+	local parts = {}
+	local function add(key)
+		local t = key and ns.L and ns:L(key)
+		-- A key that does not resolve is left out rather than printed by name.
+		if type(t) == "string" and t ~= "" and t ~= key then
+			parts[#parts + 1] = t
+		end
+	end
+	if rare.spawnKey then
+		add(rare.spawnKey)
+	elseif rare.roams then
+		add("ARROW_TARGET_ROAMS")
+	end
+	if rare.elite then
+		add("RARE_ELITE_HINT")
+	end
+	if #parts == 0 then
+		return nil
+	end
+	return table.concat(parts, " ")
 end
 
 --------------------------------------------------------------------------------
@@ -1461,8 +1497,8 @@ local function CheckArrivalHint()
 	if not rare then
 		return
 	end
-	local key = ns.RareArrivalHintKey(rare)
-	if not key then
+	local text = ns.RareHintText(rare)
+	if not text then
 		return
 	end
 	local npc = rare[6]
@@ -1477,10 +1513,6 @@ local function CheckArrivalHint()
 	local dx, dy = rx - px, ry - py
 	if (dx * dx + dy * dy) > (ARRIVAL_HINT_YARDS * ARRIVAL_HINT_YARDS) then
 		return
-	end
-	local text = ns.L and ns:L(key)
-	if not text or text == key then
-		return -- unresolved key: say nothing rather than print its name
 	end
 	hintSaidFor[npc] = true
 	print(("|cffffff78Midnight Helper:|r %s — %s"):format(GetRareDisplayName(rare), text))
@@ -1534,13 +1566,12 @@ function ns.PrintRareHintState()
 		return
 	end
 	local key = ns.RareArrivalHintKey(rare)
-	print(("   nearest open rare: %s  |cff8a8f98npc %s|r"):format(
-		GetRareDisplayName(rare), tostring(rare[6])))
+	print(("   nearest open rare: %s  |cff8a8f98npc %s%s|r"):format(
+		GetRareDisplayName(rare), tostring(rare[6]), rare.elite and ", elite" or ""))
 	print(("   hint key: %s"):format(key or "|cff8a8f98none — this rare has no quirk to mention|r"))
 	if key then
-		local text = ns.L and ns:L(key)
-		print(("   resolves to: %s"):format(
-			(text and text ~= key) and text or "|cffff5040UNRESOLVED — key missing from enUS|r"))
+		local text = ns.RareHintText(rare)
+		print(("   says: %s"):format(text or "|cffff5040UNRESOLVED — key missing from enUS|r"))
 		print(("   already said: %s"):format(hintSaidFor[rare[6]] and "yes (once per session)" or "no"))
 	end
 	local rx, ry = GetRareWorldPos(rare)
@@ -2084,6 +2115,19 @@ end
 --- is alive now, so the two read the same. Done is grey in Classic now (its only change), and in the
 --- new look it is muted with a "done" tag; up is the palette's good green with a gold name, and an
 --- open rare is plain body text. Every state keeps a word, not only a colour.
+--- 16 Sep 2026: an elite rare says so in its row, so nobody flies to one that needs a group
+--- (Rob, at Hardin Steellock). The word is the client's own ELITE string, so it reads in the
+--- game's language without a translation of ours; a done rare drops it, it no longer matters.
+local function EliteTag(rare)
+	if not rare.elite then
+		return ""
+	end
+	-- AFGELEID, not measured: that the client's ELITE global is the localized word. Guarded so
+	-- anything else (nil, a non-string) falls back to the English word instead of erroring.
+	local word = type(_G.ELITE) == "string" and _G.ELITE ~= "" and _G.ELITE or "Elite"
+	return "  |cffe0a060" .. word .. "|r"
+end
+
 local function FormatRareRowLabel(rare, zoneKey)
 	local name = GetRareDisplayName(rare)
 	if RaresLookOn() then
@@ -2091,17 +2135,17 @@ local function FormatRareRowLabel(rare, zoneKey)
 			return "|cff8f86ad" .. ns:L("RARES_TAG_DONE") .. "|r |cffb8aedb" .. name .. "|r"
 		end
 		if IsRareVignetteUp(rare, zoneKey) then
-			return "|cff73f280" .. ns:L("RARES_TAG_UP") .. "|r |cfff4de9a" .. name .. "|r"
+			return "|cff73f280" .. ns:L("RARES_TAG_UP") .. "|r |cfff4de9a" .. name .. "|r" .. EliteTag(rare)
 		end
-		return "|cffb8aedb" .. ns:L("RARES_TAG_DOWN") .. "|r |cfff1eefa" .. name .. "|r"
+		return "|cffb8aedb" .. ns:L("RARES_TAG_DOWN") .. "|r |cfff1eefa" .. name .. "|r" .. EliteTag(rare)
 	end
 	if IsRareDoneThisWeek(rare) then
 		return "|cff8a8f98" .. name .. "|r"
 	end
 	if IsRareVignetteUp(rare, zoneKey) then
-		return "|cff33ff33" .. ns:L("RARES_TAG_UP") .. "|r |cffffe9b3" .. name .. "|r"
+		return "|cff33ff33" .. ns:L("RARES_TAG_UP") .. "|r |cffffe9b3" .. name .. "|r" .. EliteTag(rare)
 	end
-	return "|cff999999" .. ns:L("RARES_TAG_DOWN") .. "|r |cffffe9b3" .. name .. "|r"
+	return "|cff999999" .. ns:L("RARES_TAG_DOWN") .. "|r |cffffe9b3" .. name .. "|r" .. EliteTag(rare)
 end
 
 -- Model-voorbeeld bij hover (Robs idee, 12 jun): klein zwevend paneel met
@@ -2208,9 +2252,9 @@ local function AttachRareRowTooltip(btn)
 		end
 		-- Step 3 of the 15 Sep spar: the rare's quirk (a chest to open, one that roams ...) here too,
 		-- not only in chat once you arrive. The same key the arrival watch and the popup use.
-		local hintKey = ns.RareArrivalHintKey and ns.RareArrivalHintKey(r)
-		if hintKey then
-			GameTooltip:AddLine(ns:L(hintKey), 0.55, 0.78, 1, true)
+		local hint = ns.RareHintText and ns.RareHintText(r)
+		if hint then
+			GameTooltip:AddLine(hint, 0.55, 0.78, 1, true)
 		end
 		GameTooltip:AddLine(ns:L("RARES_TIP_VIGNETTE_NOTE"), 0.65, 0.68, 0.72, true)
 		GameTooltip:Show()
@@ -2898,15 +2942,12 @@ local function FireRareAlert(rare, npcId, onRoute)
 	--- 3 Sep: chat is a RECORD, not an answer in place. "Open the chest" is not a record of
 	--- something you missed, it is the next thing to do, so it also belongs where you are
 	--- already looking. Both, not either.
-	local hintKey = ns.RareArrivalHintKey and ns.RareArrivalHintKey(rare) or nil
 	local body = ns:L(onRoute and "RARE_ALERT_TOAST_ONROUTE_BODY" or "RARE_ALERT_TOAST_BODY")
-	if hintKey then
-		local hint = ns:L(hintKey)
-		-- ⚠️ Only when it resolved to something other than the key itself: a missing string
-		-- would otherwise print RARE_SPAWN_FROM_CHEST across a double-size toast.
-		if type(hint) == "string" and hint ~= "" and hint ~= hintKey then
-			body = body .. "|n" .. hint
-		end
+	-- ⚠️ RareHintText only returns resolved strings: a missing one would otherwise print
+	-- RARE_SPAWN_FROM_CHEST across a double-size toast.
+	local hint = ns.RareHintText and ns.RareHintText(rare) or nil
+	if hint then
+		body = body .. "|n" .. hint
 	end
 
 	if ns.QueueMidnightToast then
@@ -3089,9 +3130,9 @@ function ns.TestRareAlert(arg)
 	-- Model-fallback: bekend/geleerd npcID, anders het laatst geziene.
 	-- onRoute=true for a named test: that is the arrival card, the one carrying the hint.
 	FireRareAlert(rare, KnownRareNpc(rare) or GetRareAlertSettings().lastNpcId, named or nil)
-	local hintKey = ns.RareArrivalHintKey and ns.RareArrivalHintKey(rare) or nil
+	local hint = ns.RareHintText and ns.RareHintText(rare) or nil
 	print(("|cffffcc00MH:|r raretest fired for %s  (arrival hint: %s)"):format(
-		GetRareDisplayName(rare), hintKey and ns:L(hintKey) or "none for this rare"))
+		GetRareDisplayName(rare), hint or "none for this rare"))
 end
 
 -- /mh rarescan — dump what the live scan currently sees and how it matches.

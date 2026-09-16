@@ -47,6 +47,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - [ ] 🆕 **Blackcore moet je oproepen**, en het alarm zegt dat nu zelf (`/reload`): dood de vijanden
         rond **28.9 / 70.3** tot je er 3 van hun buit hebt, en gebruik dan de **Singularity Lens**. ❓ Klopt
         dat, en komt hij dan?
+      - ✅ Rob, 's avonds: *"ik herinner me deze bazen namelijk wel"* — de vijf in de Blackcore-hoek bestaan.
+      - ✅ Rob op Slayer's Rise: **Hardin Steellock gevonden**, maar hij is **niet solo te doen** — dus of
+        hij samen met Gar'chak afvinkt, blijft open tot iemand hem in een groep doodt.
+- [ ] 🆕 **Elite-rares zeggen het nu zelf** (Rob: *"ja doe die elite-regel er maar bij"*). `/reload`.
+      - In **Rares** staat achter 16 rares een oranje **Elite** (o.a. Hardin Steellock, Gar'chak, de vijf
+        in de Blackcore-hoek, Stumpy, Oro'ohna, Annulus, Glacial Broodmother). Een rare die je al gedood
+        hebt, laat het weg.
+      - Beweeg erover: de tooltip zegt *(elite — neem een groep mee)* (in jouw client in het Engels).
+      - Blackcore zegt nu **beide**: hoe je hem oproept én dat hij elite is.
+      - ❓ Staat het woord **Elite** er in de taal van je spel? Het komt uit je client zelf.
 - [ ] **Rares → Voidstorm, Slayer's Rise**: **Hardin Steellock** en **Gar'chak Skullcleave**.
       ❓ Belangrijkste vraag van deze ronde: ze delen kill-quest 94461, dus als je er één doodmaakt
       horen ze **allebei** afgevinkt te worden. Klopt dat, of wil de weekly er twee?

@@ -52,7 +52,20 @@ positieve controle; twee daarvan sloegen aan en hebben me van een onwaar antwoor
     je 248462/248483 doodt in een cirkel rond 28.85/70.25 voor 3× item 248680 en dan de Singularity Lens
     gebruikt. Blackcore kreeg `spawnKey = "RARE_SPAWN_BLACKCORE"` (7 talen, drift 0), net als Farthik:
     de uitleg staat nu in de toast én in de chatregel bij aankomst. De vier andere in die hoek zag Rob
-    nog niet.
+    nog niet, maar hij herkent ze: *"ik herinner me deze bazen namelijk wel"*.
+  - ✅ **Hardin Steellock gevonden** op Slayer's Rise — en niet solo te doen. HandyNotes noemt hem én
+    Gar'chak `RareElite`. De gedeelde-quest-vraag (94461) blijft daardoor open.
+- 🆕 **Elite-markering voor rares** (Rob: *"ja doe die elite-regel er maar bij"*). MH zei nergens dat een
+  rare een groep nodig heeft; HandyNotes markeert 17 nodes `RareElite`, waarvan 16 echt (één is een
+  placeholder met id 0) en **alle 16 staan in onze lijst**. Controle die klopte: Glacial Broodmother en
+  Indomitable Mk XII hadden in Rares.lua al `-- elite` als commentaar.
+  - Data: `elite = true` op die 16 rijen (scripted, één rij per npc of niets geschreven).
+  - `ns.RareHintText(rare)` bundelt de eigenaardigheid (spawnKey / roams) **en** elite tot één zin, omdat
+    Blackcore allebei is en één sleutel maar de helft kon zeggen. Alarm, aankomstregel, tooltip en
+    `/mh rarehint` gebruiken die; de pijl houdt `RareArrivalHintKey` (valt nu terug op de elite-sleutel).
+  - Rij-label: oranje **Elite** achter de naam, uit de client-string `ELITE` (AFGELEID dat die gelokaliseerd
+    is; bewaakt met een Engelse terugval). Een gedode rare laat het weg.
+  - `RARE_ELITE_HINT` in 7 talen, drift 0; `CHANGELOG_401_3`.
 - **Niet toegevoegd, met opzet:** npc 259971 op Daggerspine Point (2594). Alleen HandyNotes kent hem,
   Zygor heeft niet eens zijn naam, en hij zit achter Ritual Sites Renown 8. Eén bron zonder naam is te
   weinig voor data die een route belooft.

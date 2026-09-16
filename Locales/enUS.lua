@@ -1764,7 +1764,8 @@ ns._mhLocales.enUS = {
 	-- Short on purpose: it sits on the arrow label beside a name and a distance.
 	ARROW_TARGET_ROAMS = "|cffffd100(roams — look around)|r",
 	RARE_SPAWN_FROM_CHEST = "|cffffd100(open the chest to summon him)|r",
-	RARE_SPAWN_BLACKCORE = "|cffffd100(kill the mobs around 28.9, 70.3 until you carry 3 of the item they drop, then use the Singularity Lens to summon it)|r",
+	RARE_ELITE_HINT = "|cffe0a060(elite — bring a group)|r",
+	RARE_SPAWN_BLACKCORE ="|cffffd100(kill the mobs around 28.9, 70.3 until you carry 3 of the item they drop, then use the Singularity Lens to summon it)|r",
 	ROUTE_CLEARED = "Route cleared.",
 	ROUTE_CLEAR_NONE = "No active route to clear.",
 	RARES_ROUTE_ORDER_NEAR = "Order: nearest first, then next closest each step.",
@@ -1843,7 +1844,8 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
-	CHANGELOG_401_2 = "Achievements: Heroic Slugger is a hunt now, with all nineteen Val and Naigtal rares, a route and a checklist, next to the two ordinary Showdown Sluggers. A row only ticks off for a heroic kill, never for the normal one.",
+	CHANGELOG_401_3 = "Rares that need a group say so: sixteen elite rares carry an Elite tag in the Rares list, and their alarm, tooltip and arrival line add 'bring a group'. Blackcore in Voidstorm also tells you how to summon him.",
+	CHANGELOG_401_2 ="Achievements: Heroic Slugger is a hunt now, with all nineteen Val and Naigtal rares, a route and a checklist, next to the two ordinary Showdown Sluggers. A row only ticks off for a heroic kill, never for the normal one.",
 	CHANGELOG_401_1 ="Nine rares the Rares page had never heard of: five in Voidstorm's Blackcore corner (Nullspiral, The Many-Broken, Abysslick, Voidseer Orivane, Blackcore), two on Slayer's Rise (Hardin Steellock, Gar'chak Skullcleave) and two on the Isle of Quel'Danas (Tarhu the Ransacker, Dripping Shadow).",
 	CHANGELOG_400_1 ="Same addon, new coat of paint. Every screen has its own icon and a strip at the top that says what it is for, and the window has new colours: twilight violet with warm gold.",
 	CHANGELOG_400_2 = "Rooms with cards: click Me, Codex or Tools and you get a card for every screen, with its icon and, where the addon knows it, one line of status. The long tab list is gone, and the window opens on your Me cards.",

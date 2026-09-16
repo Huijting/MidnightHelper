@@ -12,6 +12,7 @@ local CHANGELOG_ENTRIES = {
 		lines = {
 			"CHANGELOG_401_1",
 			"CHANGELOG_401_2",
+			"CHANGELOG_401_3",
 		},
 	},
 	{
