@@ -15,8 +15,20 @@
   bestandstype.
 - `CURSEFORGE_DESCRIPTION.md` is nagekeken: de AI-regel over de iconen én het logo staat er al in
   (regel 89). Die plakt Rob zelf; de packager raakt de paginabeschrijving niet aan.
-- ⏳ **Nog niet getagd.** De tag ís de publicatie, en de checklist zegt bij een grote release eerst
-  `v4.0.0-beta1` voor Cisca. Die keuze ligt bij Rob — beta of meteen release.
+- ✅ **UIT. `v4.0.0` getagd en gepusht** (Rob koos meteen Release, geen beta: *"Meteen v4.0.0"*).
+  GEMETEN: workflow *Release to CurseForge, Wago and GitHub* **success** om 08:39:54Z, en Rob meldt dat
+  CurseForge het bestand heeft goedgekeurd.
+- 📦 **De download ging van 3,42 MB naar 5,74 MB, en dat klopt.** GEMETEN in
+  `dist\MidnightHelper-4.0.0.zip` (zelfde getal als CF toont), 390 bestanden:
+  - **Media 2,61 MB ingepakt (46% van de download)**, waarvan de **116 schermiconen 1,94 MB** — dat is
+    de release zelf; 4.0 ís die iconenset.
+  - **Locales 1,41 MB**: de herschreven Season 2-tips in 7 talen (`DungeonTips.lua` +0,52 MB uitgepakt,
+    `RaidTips.lua` +0,33 MB).
+  - Modules 1,53 MB, de rest verwaarloosbaar. Geen dev-bestanden meegeglipt; `package.ps1` faalt daarop.
+  - 💡 **Kleine besparing voor later, geen haast:** de 5 Platynator-TGA's zijn uitgepakt 1,90 MB maar
+    **ingepakt 0,64 MB** (11% van de download). Spec 37 §5 stelde al voor ze als PNG op te slaan; de
+    winst is dus hooguit een paar honderd kB, niet de 1,9 MB die de uitgepakte maat suggereert.
+    ⚠️ Reken bij zip-vragen altijd met `compress_size`, niet met `file_size`.
 
 ## 🔨 14 sep — A: raid-ingangen, B: consumables, C: SMC-blok (Rob: "doe allebei, eerst A en dan B")
 
