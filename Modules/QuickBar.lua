@@ -259,7 +259,75 @@ local ACTIONS = {
 			end
 		end,
 	},
+	--- 16 Sep 2026, Rob: "ik wil ... die met extra knoppen uitbreiden zoals wanneer in een group
+	--- de board en een knop voor de bosswin wanneer ik in een instance ben, zodat je altijd
+	--- tussendoor de buffs ed kan checken net zoals de bazen en tactics in een instance."
+	---
+	--- These two come and go with your situation. `when` asks about BOTH: the situation, and
+	--- whether the function it would call exists at all — a button that sits there and does
+	--- nothing on click is worse than no button (CLAUDE.md, Spec 30). Neither is secure, so the
+	--- bar may show, hide and re-anchor them in combat; what they open handles its own combat
+	--- rules (the board defers its hide to PLAYER_REGEN_ENABLED).
+	{
+		id = "board",
+		icon = "Interface\\AddOns\\MidnightHelper\\Media\\Icons\\consumables_64.png",
+		titleKey = "QUICKBAR_BOARD",
+		linesKey = { "QUICKBAR_BOARD_L" },
+		when = function()
+			return ns.ToggleConsumableBoard ~= nil and IsInGroup and IsInGroup()
+		end,
+		OnClick = function()
+			if ns.ToggleConsumableBoard then
+				ns.ToggleConsumableBoard()
+			end
+		end,
+	},
+	{
+		id = "bosswin",
+		icon = "Interface\\AddOns\\MidnightHelper\\Media\\Icons\\dungeons_64.png",
+		titleKey = "QUICKBAR_BOSSWIN",
+		linesKey = { "QUICKBAR_BOSSWIN_L" },
+		when = function()
+			if not ns.ToggleDungeonBossWindow or not IsInInstance then
+				return false
+			end
+			local inInst, instType = IsInInstance()
+			-- Dungeon, raid and delve (a delve is a scenario). A battleground has no bosses.
+			return inInst and (instType == "party" or instType == "raid" or instType == "scenario")
+		end,
+		OnClick = function()
+			if ns.ToggleDungeonBossWindow then
+				ns.ToggleDungeonBossWindow()
+			end
+		end,
+	},
 }
+
+--- Does this button belong on the bar right now? No `when` means always.
+local function Visible(act)
+	if not act.when then
+		return true
+	end
+	local ok, v = pcall(act.when)
+	return (ok and v) and true or false
+end
+
+--- Puts the visible buttons side by side and shrinks the bar to fit them. Called on every
+--- refresh, so the bar never keeps a gap where a context button used to be.
+local function LayoutBar(f)
+	local n = 0
+	for _, b in ipairs(f._mhButtons or {}) do
+		if Visible(b._mhAct) then
+			n = n + 1
+			b:ClearAllPoints()
+			b:SetPoint("LEFT", f, "LEFT", PAD + (n - 1) * (BTN + PAD), 0)
+			b:Show()
+		else
+			b:Hide()
+		end
+	end
+	f:SetWidth(math.max(1, n) * (BTN + PAD) + PAD)
+end
 
 local function Build()
 	if bar then
@@ -300,10 +368,12 @@ local function Build()
 		f:SetPoint("CENTER", UIParent, "CENTER", 0, -180)
 	end
 
-	for i, act in ipairs(ACTIONS) do
+	f._mhButtons = {}
+	for _, act in ipairs(ACTIONS) do
 		local b = CreateFrame("Button", nil, f)
 		b:SetSize(BTN, BTN)
-		b:SetPoint("LEFT", f, "LEFT", PAD + (i - 1) * (BTN + PAD), 0)
+		b._mhAct = act
+		f._mhButtons[#f._mhButtons + 1] = b
 		b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 		b:SetNormalTexture(act.icon)
 		b:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
@@ -328,6 +398,7 @@ local function Build()
 	end
 
 	bar = f
+	LayoutBar(f)
 	return f
 end
 
@@ -338,7 +409,9 @@ function ns.MH_RefreshQuickBar()
 		end
 		return
 	end
-	Build():Show()
+	local f = Build()
+	LayoutBar(f) -- de context-knoppen komen en gaan; de balk krimpt mee
+	f:Show()
 end
 
 --- `/mh bar` — show or hide it, and remember the choice.
@@ -364,6 +437,12 @@ end
 
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_LOGIN")
+-- De twee context-knoppen hangen aan "zit ik in een groep" en "sta ik in een instance".
+-- Dit zijn de momenten waarop dat verandert; de refresh tekent de balk opnieuw en laat hem
+-- krimpen of groeien. Alle drie zijn goedkoop en niets hiervan is secure.
+ev:RegisterEvent("GROUP_ROSTER_UPDATE")
+ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 ev:SetScript("OnEvent", function()
 	ns.MH_RefreshQuickBar()
 end)

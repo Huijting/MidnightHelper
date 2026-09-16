@@ -19333,6 +19333,37 @@
    "nlNL": "17d793de0c8dc4c2",
    "ptBR": "17d793de0c8dc4c2"
   },
+  "QUICKBAR_BOARD": {
+   "deDE": "8279e25435224fde",
+   "esES": "8279e25435224fde",
+   "frFR": "8279e25435224fde",
+   "itIT": "8279e25435224fde",
+   "ptBR": "8279e25435224fde"
+  },
+  "QUICKBAR_BOARD_L": {
+   "deDE": "190c7656646ad5e4",
+   "esES": "190c7656646ad5e4",
+   "frFR": "190c7656646ad5e4",
+   "itIT": "190c7656646ad5e4",
+   "nlNL": "190c7656646ad5e4",
+   "ptBR": "190c7656646ad5e4"
+  },
+  "QUICKBAR_BOSSWIN": {
+   "deDE": "b8d5a616b2f5efb2",
+   "esES": "b8d5a616b2f5efb2",
+   "frFR": "b8d5a616b2f5efb2",
+   "itIT": "b8d5a616b2f5efb2",
+   "nlNL": "b8d5a616b2f5efb2",
+   "ptBR": "b8d5a616b2f5efb2"
+  },
+  "QUICKBAR_BOSSWIN_L": {
+   "deDE": "87bcd524a83d5f07",
+   "esES": "87bcd524a83d5f07",
+   "frFR": "87bcd524a83d5f07",
+   "itIT": "87bcd524a83d5f07",
+   "nlNL": "87bcd524a83d5f07",
+   "ptBR": "87bcd524a83d5f07"
+  },
   "QUICKBAR_DELVE_UNKNOWN": {
    "deDE": "cb5c4d7624a0289b",
    "esES": "cb5c4d7624a0289b",

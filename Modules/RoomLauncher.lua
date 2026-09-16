@@ -418,9 +418,14 @@ local function MakeCard(parent)
 	local icon = b:CreateTexture(nil, "ARTWORK")
 	icon:SetSize(ICON, ICON)
 	icon:SetPoint("TOP", b, "TOP", 0, -10)
+	--- ⚠️ Eigen maat, niet "plak me aan beide hoeken van het icoon". Rob, 16 sep 2026: *"soms
+	--- verdwijnen de lijntjes om de iconen, wanneer ik het scherm groter of kleiner maak komen ze
+	--- weer terug"*. Een BackdropTemplate tekent zijn randen bij `SetBackdrop`, en een frame dat
+	--- op dat moment nog geen opgeloste maat heeft — de kaart krijgt zijn breedte pas in Layout —
+	--- tekent er geen; pas een hersize duwt het alsnog. Met een vaste maat staat de rand er altijd.
 	local edge = CreateFrame("Frame", nil, b, "BackdropTemplate")
-	edge:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
-	edge:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+	edge:SetSize(ICON + 2, ICON + 2)
+	edge:SetPoint("CENTER", icon, "CENTER", 0, 0)
 	edge:SetBackdrop({ edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
 	edge:SetBackdropBorderColor(unpack(LOOK.iconEdge))
 
@@ -509,6 +514,7 @@ local function StatusFor(screenId)
 end
 
 local function Layout(panel)
+	local LOOK = Palette()
 	local roomId = panel._mhRoom
 	local roomDef = ns._mhSidebarRoomById and ns._mhSidebarRoomById[roomId]
 	panel._mhTitle:SetText((roomDef and ns:L(roomDef.labelKey)) or roomId)
@@ -533,6 +539,11 @@ local function Layout(panel)
 			panel._mhCards[i] = b
 		end
 		b:SetSize(cardW, CARD_H)
+		-- Zelfde reden als bij de icoonrand hierboven: de kaart kreeg zijn backdrop toen hij nog
+		-- geen breedte had. De kleur opnieuw zetten is goedkoop en dwingt de rand te tekenen.
+		if b.SetBackdropBorderColor then
+			b:SetBackdropBorderColor(unpack(LOOK.cardEdge))
+		end
 		b._mhPanel = panel
 		panel._mhOrder[i] = b
 		local screenId = ScreenOf(c)

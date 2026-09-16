@@ -438,6 +438,25 @@ aan te pakken"*.
   bij de andere kaarten (eigen id per kaart, `codexcat_<id>`).
   - Verbergen volgt het onderliggende scherm: een sectie-kaart wijst naar `codex`, dus rechtsklik-verbergen
     verbergt het Codex-scherm zelf. Is dat verborgen, dan staat er één regel in "weer tonen", geen tien.
+- ✅ **Snelknoppenbalk: twee knoppen die met je situatie meekomen** (gebouwd 16 sep, nog niet gezien).
+  `QuickBar.lua` kent nu een `when` per knop: staat die er niet, dan is de knop er altijd; staat hij er wel,
+  dan moet én de situatie kloppen én de functie bestaan. `LayoutBar` zet de zichtbare knoppen naast elkaar en
+  krimpt de balk mee, dus er blijft nooit een gat staan.
+  - **Board** (icoon `consumables`): alleen in een groep, roept `ns.ToggleConsumableBoard()` aan — nieuw in
+    `ConsumableReadyBoard.lua`, samen met `ns.IsConsumableBoardShown()`. Verbergen loopt via de bestaande
+    `HideConsumableBoard`, dus de combat-regel (uitstellen tot `PLAYER_REGEN_ENABLED`) blijft gelden.
+  - **Boss-venster** (icoon `dungeons`): alleen in een dungeon, raid of delve (scenario), roept de bestaande
+    `ns.ToggleDungeonBossWindow()` aan. Een battleground heeft geen bazen, dus die telt niet mee.
+  - Ververst op `GROUP_ROSTER_UPDATE`, `PLAYER_ENTERING_WORLD` en `ZONE_CHANGED_NEW_AREA`. Niets hiervan is
+    secure, dus tonen/verbergen mag ook in combat.
+  - 4 nieuwe sleutels in 7 talen (`QUICKBAR_BOARD(_L)`, `QUICKBAR_BOSSWIN(_L)`).
+  - 📌 Nog open: `SETTINGS_QUICKBAR_TT` somt de knoppen op ("reload, leave-group en het layout-paneel") en
+    noemt deze twee nog niet. Niet onwaar, wel onvolledig.
+- 🐛 **Kaartranden verdwenen soms** (Rob, 16 sep: *"soms verdwijnen de lijntjes om de iconen, wanneer ik het
+  scherm groter of kleiner maak komen ze weer terug"*). Oorzaak: een `BackdropTemplate` tekent zijn randen bij
+  `SetBackdrop`, en beide randen werden gezet toen het frame nog geen opgeloste maat had — de kaart krijgt zijn
+  breedte pas in `Layout`, en de icoonrand hing met twee hoeken aan het icoon in die nog-niet-berekende kaart.
+  Nu heeft de icoonrand een eigen maat (`ICON + 2`, gecentreerd) en zet `Layout` de kaartrandkleur opnieuw.
 - 🆕 **Robs wens voor de snelknoppenbalk (16 sep, nog niet gebouwd):** de balk met `reload`, `leave group` enz.
   moet knoppen kunnen tonen die bij je situatie passen — in een groep een knop naar het **Consumable Ready
   Board**, en in een instance een knop naar het **boss-venster**, zodat je tussendoor buffs of tactieken kunt

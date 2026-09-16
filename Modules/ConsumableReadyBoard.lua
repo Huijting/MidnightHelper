@@ -808,6 +808,22 @@ function ns.RefreshConsumableBoard()
 	end
 end
 
+--- 16 Sep 2026: the quick bar wants one button that opens AND closes the board (Rob: a
+--- board button while you are in a group, so you can check buffs between pulls). Hiding
+--- keeps going through HideConsumableBoard, so the combat rule above still holds — in
+--- combat the hide is deferred to PLAYER_REGEN_ENABLED instead of being blocked.
+function ns.IsConsumableBoardShown()
+	return not not (board and board:IsShown())
+end
+
+function ns.ToggleConsumableBoard()
+	if ns.IsConsumableBoardShown() then
+		ns.HideConsumableBoard()
+	else
+		ns.ShowConsumableBoard()
+	end
+end
+
 ev = CreateFrame("Frame")
 ev:RegisterEvent("ENCOUNTER_START")
 ev:RegisterEvent("PLAYER_REGEN_DISABLED")

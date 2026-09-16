@@ -209,6 +209,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       - ❓ Staat er iets in de samenvatting dat niet klopt met de volledige lijst?
 - [x] ✅ **Meting gedaan (Rob, 16 sep 07:02):** alle vijf de Curse-Surge-plekken geven 1800 seconden, en de
       starts liggen 1800 uit elkaar. Blizzards 30 minuten klopt, en de client geeft het getal zelf.
+- [ ] 🆕 **Twee extra knoppen op de snelbalk** (Rob, 16 sep). Een `/reload` is genoeg. Staat de balk uit, zet
+      hem aan met `/mh bar` (of Settings → Quick bar).
+      - **In een groep** komt er een knop bij met het consumables-icoon. Klik → het Consumable Ready Board
+        komt op; klik nog eens → weg. Verlaat je de groep, dan verdwijnt de knop en krimpt de balk.
+      - **In een dungeon, raid of delve** komt er een knop bij met het dungeon-icoon. Klik → het boss-venster
+        aan/uit, ook midden in een gevecht.
+      - ❓ Blijven de knoppen netjes naast elkaar staan (geen gat), en verschijnen/verdwijnen ze op het juiste
+        moment? En werkt de board-knop ook tijdens een gevecht (hij mag dan pas ná het gevecht dichtgaan)?
+- [ ] 🆕 **De lijntjes om de kaart-iconen blijven nu staan** (Rob, 16 sep). Open Codex, en maak het venster
+      een paar keer groter en kleiner. De gouden randjes om de iconen horen er meteen te staan, ook zonder
+      slepen. ❓ Zie je er nog een verdwijnen?
 - [ ] 🆕 **Codex in Modern: de secties zijn nu kaarten** (Rob, 16 sep: "doe C maar"). Een `/reload` is genoeg.
       - Klik in de zijbalk op **Codex**. Je ziet nu een kaart per sectie van het handboek — Start Here,
         Weeklijkse loop, Currencies, Delves, Dungeons & M+, Raid & crests, Wereldcontent, Coiled Isle,
