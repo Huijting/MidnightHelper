@@ -803,3 +803,55 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `web_search_exa` "World of Warcraft Midnight hotfixes September 14 2026 OR September 15 2026
   retail" (nieuwste retail-hotfixtreffer blijft 10 sep; leverde wel de trinket-tuning-vooraankondiging
   op, hierboven behandeld).
+
+---
+
+- [2026-09-16] 🎯 **Eerste elfde hotfixsectie sinds 10 sep ("September 15") bevat één punt dat
+  onze eigen ontwerpnotitie inhaalt — geen tegenspraak, wel een aanname die niet meer klopt.**
+  Zelf gelezen: `news.blizzard.com/en-us/article/24296142?nocache=20260916c` (Exa, volledige
+  artikeltekst) — nieuwste sectie is **"September 15, 2026"**: Classes (Hunter/Paladin/Priest
+  bugfixes), Dungeons and Raids (pure schade-/timing-tuning in The Venomous Abyss/Twin Fangs/
+  Coiled Altar/Ula'tek, geen nieuwe mechanieknamen), Items, Quests, The Coiled Isle. Geen
+  Delves- of Professions-sectie die dag. Dit dekt zich byte-voor-byte met wat de data-wachter
+  vanmorgen al citeerde (`docs/PTR_12.0.7_DATA.md`, regel 772-775) — onafhankelijk zelf
+  opnieuw opgehaald, niet van die log overgenomen.
+
+  **The Coiled Isle — Curse Surge-cyclus nu MEASURED: 30 minuten (was 45).** Letterlijk citaat:
+  *"Curse Surges now rotate every 30 minutes (was 45 minutes)."* → `Locales/enUS.lua:1816`
+  (`ACH_NOTE_CURSE_SURGE`) zegt tegen de speler *"a scenario at this spot that only runs part
+  of the time"* — geen getal, met opzet: `Modules/AchievementsData.lua:338` motiveert dat
+  expliciet met *"NO CYCLE, ON PURPOSE… Nobody has measured it, so the note says 'part of the
+  time' and carries no number."* Die tekst **spreekt niets tegen** — "part of the time" blijft
+  waar — maar de reden om het getal weg te laten (onzekerheid tussen HandyNotes' 45 minuten en
+  een forumschatting van ~20) bestaat niet meer: Blizzard bevestigt nu zelf dat het 45 minuten
+  wás en sinds 15 sep 30 minuten is. MEASURED. Dit is een kandidaat voor een mens om de
+  ontwerpbeslissing te herzien (het getal toevoegen aan `ACH_NOTE_CURSE_SURGE`), niet iets wat
+  ik zelf aanpas — ik raak alleen dit bestand aan. **[RAAKT ONS]**
+
+  **Quests — "Delves should once again count for progress towards the objective of 'Hope in
+  the Darkest Corners'."** QuestID **95468** staat al met naam in `Modules/ResetRoutine.lua:134`
+  (Halduron's leveling-variant, sub-90), maar die regel gebruikt de quest alleen als
+  opgehaald/ingeleverd-vlag voor de reset-routine — nergens in de repo staat een bewering over
+  wélk objectief telt of hoe. GEMETEN: 0 treffers op "Darkest Corners" gecombineerd met "delve"
+  buiten dit ene questID-gebruik. Geen tegenspraak, want geen claim om tegen te spreken.
+  **[RAAKT ONS NIET]**
+
+  **Items — Spark-of-Tides-restauratiemechanisme** (vult de status van [2026-09-04] verder aan
+  met het letterlijke "meer Spark Dust dan Sparks"-mechanisme). MH tracked geen Spark-of-Tides-
+  of Spark-Dust-currency-ID's (bevestigd door de data-wachter vandaag, zelf nagelopen: alleen
+  een questnaam-vermelding in `Modules/AtalUtekProbe.lua:269`, geen saldo-claim). **[RAAKT ONS NIET]**
+
+  **Positieve controle op repo-brede grepschaal, zelfde run:** een grep op de zes nieuwe
+  bosnamen/mechanieken uit de Dungeons-and-Raids-tuning ("Putrid Membrane", "Serpent's Call",
+  "Wail of Terror", "Dreadmarch", "Manifestations of Dread", "Spiteful Soulcoiler") en op de
+  quest "Still Behind Enemy Portals"/"Hijacked Portal" geeft **0 treffers** in heel `Locales/`
+  en `Modules/` — bewust NIET als bewijs van afwezigheid geteld zonder controle: dezelfde
+  grepschaal (`Locales/`+`Modules/`) vindt in deze zelfde run wél "Curse Surge" in 6 bestanden
+  (zie boven) en "Hope in the Darkest Corners"/95468 in `ResetRoutine.lua` — het patroon werkt
+  dus op deze schaal, de nul is een gemeten afwezigheid.
+
+  Verder bewust overgeslagen als tuning zonder nieuwe mechaniek voor een tracker (de overige
+  Sszorak-/Twin-Fangs-/Coiled-Altar-/Ula'tek-percentages van 15 sep) of als PTR/roadmap
+  (`docs/PTR_12.1_WATCH.md`'s lane). **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260916c (volledig gelezen via Exa)
+  · `docs/PTR_12.0.7_DATA.md` (regel 772-775, ter kruisverwijzing, niet als bewijs overgenomen).
