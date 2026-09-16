@@ -73,17 +73,20 @@ git push origin v<ver>
    voor je kan doen: de wereld achter het venster is niet weg te poetsen.
 2. Zet de tekstgrootte van MH een stap hoger — leesbaarheid wint van informatiedichtheid
    in een thumbnail.
-3. `/mh shots` → de rig parkeert het venster op een vaste maat, loopt door zeven scènes,
+3. `/mh shots` → de rig parkeert het venster op een vaste maat, loopt door **14 scènes**,
    schiet elke scène en onthoudt de bijbehorende bijsnij-rechthoek.
 4. `/reload` (WoW schrijft SavedVariables pas dan weg).
 5. `powershell -ExecutionPolicy Bypass -File tools\Crop-Shots.ps1` → identiek uitgesneden
    PNG's in `Screenshots\mh-shots\`.
 
-Volgorde in de galerij is de bestandsvolgorde. Shot 1 (This Week, met "Nu doen") is de
-thumbnail en bepaalt of iemand doorklikt; shot 2 (mounts + 3D-preview) is het enige beeld
-met kleur en beweging. De rest is bewijs van diepgang.
+Volgorde in de galerij is de bestandsvolgorde. ⚠️ **Herzien 16 sep 2026 voor 4.0.0:** shot 1
+is het **Me-rooster** (Robs keuze), This Week staat op 2. De scènelijst hiervóór was voor de
+3.x-tabstrip en fotografeerde niets van wat 4.0 verandert.
 
-Het boss-venster staat níét in de rig — dat is een zwevend venster; schiet dat met de hand.
+📌 **`docs/CF_SCREENSHOTS_4.0.0.md` is de baas over de galerij** — wat er geschoten wordt, in
+welke volgorde, en wat er vóór de eerste opname klaar moet staan. Daar staat ook wat de rig
+níét kan: het rechtsklikmenu, de *Rare nearby*-pop-up, het boss-venster (een zwevend venster)
+en het iconenvel. Die vier blijven handwerk.
 
 ## 5. Wat de packager NIET doet
 

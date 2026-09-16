@@ -10,7 +10,8 @@ its icon, its name and, where the addon already knows it, one line of status —
 *Great Vault 2 / 9*, *Missing enchants: 7*. Click a card to open the screen.
 
 The long list of tabs under the rooms is gone; the cards replace it, and the window opens on your
-**Me** cards.
+**Me** cards. The **Codex** room shows every chapter of the handbook as its own card, so the choice
+you used to get at the top of the Codex in 3.x is the room itself now.
 
 ## An icon for every screen
 
@@ -87,6 +88,13 @@ lines meant for harder difficulties than yours, with a line at the bottom that s
 Every raid and dungeon on those two pages now shows its bosses as moving 3D models. Click one and the
 tips window opens on that boss.
 
+**Chat** and **Share** in the boss window now send what you are reading: the short block plus your own
+role's line when that is what is on screen, everything when it is not. The role icons stay visible in
+both views, because your role also decides what those two buttons send, and a **Difficulty** button
+sits next to them: *All*, *Auto*, *Normal*, *Heroic*, *Mythic*. *Auto* is what the window has always
+done — read the instance you are standing in — and the other three let you read another difficulty from
+anywhere. It is greyed out while you read the short tips, because those hold on every difficulty.
+
 The Delve Coach got the same check for Season 2, held against Blizzard's own scenario data. The new
 stories now end at the right boss: Abominable Blunder in The Shadow Enclave, Replicating Venomborne
 in Twilight Crypts, the Disciple of Vashnik in Atal'Aman and Shadowguard Point, and Academic Antitoxin
@@ -95,6 +103,26 @@ route, and Basilisk Blitz no longer says it has no notes yet. Gnarldor Isle and 
 trash and boss sections for Gralka Snake-Eater, Osseous Amalgamation, Drakta and Gnok. Several lines
 that claimed one boss ends every story are fixed, and so is the Azta'rec intermission: on ?? the Echo
 has to die.
+
+## The quick bar comes with you
+
+The little bar with *Reload* and *Leave group* now grows two buttons when they are of use. **In a
+group** a consumables button opens the Consumable Ready Board, so you can check everyone's food and
+flasks between pulls. **Inside a dungeon, raid or delve** a dungeon button opens the boss window with
+the tactics for the boss you are on. Both disappear again when they no longer apply, and the bar
+shrinks back.
+
+## Your week
+
+- **Lor'themar Theron** is part of the weekly routine: his *World Tour* quest is where this season's
+  Spark half comes from, and the routine now says so instead of leaving you to find it.
+- **The Timewalking dungeon quest** is in the routine too. It only shows up in a Timewalking week, and
+  it ships with the addon now instead of depending on having picked it up once before.
+- **`/mh weeklies`** answers in a few lines instead of filling your chat; add `full` when you want
+  everything.
+- **Curse Surge** tells you how long a surge lasts by asking the game, so the addon follows Blizzard's
+  hotfix of 15 September (45 minutes → 30) without us guessing. It says nothing when the game will not
+  say.
 
 ## Fixes
 

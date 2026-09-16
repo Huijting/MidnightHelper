@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 🚀 16 sep — 4.0.0 klaargezet voor CurseForge (Rob: "Ik heb de shots gedaan en we gaan naar CF 🙂 dus GO")
+
+- **De vijf artefacten staan** (`docs/RELEASE_CHECKLIST.md` §1): `.toc` op **4.0.0**,
+  `Modules/Changelog.lua` met 30 regels, `CHANGELOG_400_1..30` in enUS (alleen enUS, zoals de regel),
+  `RELEASE_NOTES.md` als **byte-kopie** van `docs/CURSEFORGE_4.0.0.md` (GEMETEN: identiek, 170 regels /
+  10461 tekens), en een 4.0.0-blok bovenaan `CHANGELOG.md`.
+- **Vier changelogregels bijgeschreven** voor het werk van 15-16 sep dat nog nergens stond: de twee
+  extra snelbalkknoppen, het delen/rollen/moeilijkheid-werk in het boss-venster, Lor'themar + de
+  Timewalking-quest + het kortere `/mh weeklies`, en de Curse-Surge-cyclus uit het spel. Dezelfde
+  onderwerpen staan nu ook in de CF-tekst (drie nieuwe stukjes).
+- **GEMETEN vóór de tag:** `lua_syntax_check` 256 bestanden schoon, lint 0 HARD, en
+  `tools\package.ps1` bouwt `dist\MidnightHelper-4.0.0.zip` zonder te struikelen over een verboden
+  bestandstype.
+- `CURSEFORGE_DESCRIPTION.md` is nagekeken: de AI-regel over de iconen én het logo staat er al in
+  (regel 89). Die plakt Rob zelf; de packager raakt de paginabeschrijving niet aan.
+- ⏳ **Nog niet getagd.** De tag ís de publicatie, en de checklist zegt bij een grote release eerst
+  `v4.0.0-beta1` voor Cisca. Die keuze ligt bij Rob — beta of meteen release.
+
 ## 🔨 14 sep — A: raid-ingangen, B: consumables, C: SMC-blok (Rob: "doe allebei, eerst A en dan B")
 
 Rob vroeg twee dingen. Of het consumable-advies voor een Mage klopt (screenshot van een andere addon:
