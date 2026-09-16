@@ -26,6 +26,8 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       te staan. Die twee zijn tijdens het samenvoegen verhuisd; zonder die verhuizing waren ze weg geweest.
 - [ ] **Boss-venster → knop Moeilijkheid → zet hem op Alles.** Open daarna de instellingen: staat
       *Only tips for my difficulty* nu **uit**? Dat hoort, want *Alles* ís die instelling uit.
+- [ ] **Beweeg over *Quick bar*** (All settings of Blizzards scherm): de uitleg noemt nu ook de twee
+      knoppen die erbij komen — het Consumable Ready Board in een groep, de bosstips in een instance.
 - [ ] **Recommended-knop**: zet Classic aan, druk op Recommended. Blijft Classic aan? (Die fix van
       14 sep is meeverhuisd; dit bewijst dat hij het nog doet.)
 

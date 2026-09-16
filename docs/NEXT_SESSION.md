@@ -20,6 +20,10 @@ Rob: *"Merge de settings-branch dan maar"*. Stond geparkeerd tot na 4.0.0; dat i
 - **GEMETEN in de worktree:** syntax 257 bestanden schoon (één meer: `SettingsDefs.lua`), lint 0 HARD,
   drift 0. Nog **niet in het spel gezien** → TESTLIJST.
 - Spelers krijgen dit pas met 4.0.1.
+- ✅ **Losse eindjes dezelfde dag:** branches opgeruimd (alleen `main` over; `perf/idle-work` bleek een
+  oude kopie van Andy's PR #1 — 45 van 47 regels letterlijk in `main`, de andere 2 herschreven
+  commentaar), en `SETTINGS_QUICKBAR_TT` noemt nu de twee situatieknoppen, 7 talen, drift 0. Meteen
+  meegenomen: het tikfoutje "bostips" → "bosstips" in `QUICKBAR_BOSSWIN_L` (nlNL).
 
 ## 🔍 16 sep — Season 2-sweep van de vier gebieden die nooit nagelopen waren (Rob: "begin maar aan")
 
