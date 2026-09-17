@@ -15,7 +15,8 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 --   * utility         : JustAC Data/SpellCategories.lua UTILITY_SPELLS (Taunt 355) + guide.lua
 --
 -- Baseline (GEEN specs; alle 3 specs): Pummel, Battle Shout, Rallying Cry, Berserker Rage,
---   Heroic Leap, Charge, Victory Rush/Impending Victory, Intimidating Shout.
+--   Heroic Leap, Charge, Victory Rush/Impending Victory, Intimidating Shout,
+--   en sinds 17 sep ook Storm Bolt, Shockwave en Shattering Throw (class-talenten, zie onder).
 --
 -- SELF-HEALS (de gaten in de oude draft): Victory Rush (34428) en Impending Victory (202168)
 --   zijn baseline instant self-heals (DEFENSE_TIER tier 2 in SpellDB.lua; HEALING_SPELLS in
@@ -24,16 +25,35 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 --   baseline (alle 3 specs). Enraged Regeneration (184364, Fury) is een DR+heal-over-time
 --   defensive (DEFENSE_TIER tier 2), geen instant heal -> defensive_3, niet heal-anker.
 --   Warrior heeft geen aparte out-of-combat-heal-spell -> geen heal_ooc/F3 (never-lie: niets verzinnen).
+--
+-- STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder`, `survivalNote` and `survivalId` feed
+--   only Modules/SurvivalPlan.lua; the key fields (role/category/priority/bindKey/alsoStop) are
+--   untouched. Every tag follows docs/audit_2026-09-17/audit_paladin_warrior_dk.md (Icy Veins 12.1 +
+--   wago.tools 12.1.0.69814). Order within a step: small and frequent first, big and rare last.
+--   ⚠️ Ignore Pain is ONE entry for Arms and Prot and `survival` is one value, so it is "small" for
+--   both: on Arms it is a 20 s layered button (IV-Arms, W-CD 1277297), and "keepup" there was the
+--   audit's FOUT. On Prot it is really maintenance next to Shield Block; that needs a per-spec
+--   `survival` in SurvivalPlan.lua (lead's call). Arms' own id 1277297 is in `survivalId`.
+--   Left OFF the card on purpose: Intervene (ally only, W-DESC 3411), Charge (runs you INTO the
+--   enemy), Berserker Rage (fear break only, audit: low priority), Challenging Shout / Disrupting
+--   Shout (group tools, not your own health).
+--   Removed: nothing here. Last Stand (passive in 12.1, talent 1243659), Thunderous Roar and Bitter
+--   Immunity (old tree 880 only) were never classifier entries.
+--   Storm Bolt, Shockwave, Shattering Throw and Champion's Spear are class talents for all three
+--   specs (W-TREE 850), but their `specs` stay as they were: widening them hands out new keys, and
+--   this pass promised to move no binds. A keybind pass can take them up.
+--   Ignore Pain carries a per-spec step: small on Arms, keepup on Prot.
+--   No `id`s added: the audit warns name lookups jump to replacements; measure with /mh survival.
 
 ns.KeybindRoleClassifier.WARRIOR = {
 	--==============================================================
 	-- BASELINE (alle 3 specs) - geen specs = {}
 	--==============================================================
 	-- Interrupt (InterruptAbilities.lua [6552] kind="interrupt" pri=1; SpellCategories CC)
-	["Pummel"]             = { role = "interrupt", priority = 1 },
+	["Pummel"]             = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
 
 	-- Movement (SpellDB CLASS_GAP_CLOSER_DEFAULTS WARRIOR_1/2/3 = {100, 6544})
-	["Heroic Leap"]        = { role = "utility_primary", priority = 1 },
+	["Heroic Leap"]        = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- card: 45 s leap away (IV-ProtWar; W-CD cat. 1211)
 	["Charge"]             = { role = "utility_primary", priority = 2, bindKey = "Shift+Q" },
 
 	-- CC / dispel_cc (InterruptAbilities.lua [5246] fear; SpellCategories CROWD_CONTROL)
@@ -41,13 +61,13 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Berserker Rage"]     = { category = "dispel_cc", priority = 2, bindKey = "Shift+V" }, -- fear/CC-immuniteit baseline
 
 	-- Self-heals (baseline instant heal; DEFENSE_TIER tier2 34428/202168; HEALING_SPELLS)
-	["Victory Rush"]       = { role = "heal_quick", priority = 1 }, -- F2: instant self-heal (baseline; talent-wederhelft van Impending Victory)
-	["Impending Victory"]  = { role = "heal_quick", priority = 1 }, -- F2: instant self-heal (baseline; talent-variant; Prot gebruikt dit ook, guide.lua)
+	["Victory Rush"]       = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_AFTER_KILL" }, -- F2: instant self-heal (baseline; talent-wederhelft van Impending Victory); only within 20 s of a kill (W-DESC)
+	["Impending Victory"]  = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2 }, -- F2: instant self-heal (baseline; talent-variant; Prot gebruikt dit ook, guide.lua); 30% health, 25 s (IV-ProtWar)
 
 	-- Utility (SpellCategories UTILITY_SPELLS + guide.lua)
 	["Battle Shout"]       = { role = "utility_secondary", priority = 1 }, -- raid-buff (Arms/Fury op F, Prot op R)
-	["Rallying Cry"]       = { category = "defensive", priority = 4 },      -- groeps-defensive CD (+15% max HP; DEFENSIVE_SPELLS 97462) -> functioneel defensive
-	["Intervene"]          = { category = "defensive", priority = 5 },      -- baseline gap-closer + damage-intercept op ally (JustAC SpellCooldowns 3411=30s)
+	["Rallying Cry"]       = { category = "defensive", priority = 4, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_GROUP" }, -- groeps-defensive CD (+15% max HP; DEFENSIVE_SPELLS 97462) -> functioneel defensive; 3 min (W-CD)
+	["Intervene"]          = { category = "defensive", priority = 5 },      -- baseline gap-closer + damage-intercept op ally (JustAC SpellCooldowns 3411=30s); NOT on the card: ally only
 	["Heroic Throw"]       = { category = "utility", priority = 5 },        -- baseline ranged pull/threat (JustAC SpellArchetypes 57755); vooral Prot
 	["Hamstring"]          = { category = "utility", priority = 3 },        -- slow (SpellArchetypes 1715)
 
@@ -65,9 +85,10 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Sweeping Strikes"]   = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 71 } },
 	["Cleave"]             = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 71 } },
 	-- Kleine def (DEFENSE_TIER untagged = tier3; SpellCategories DEFENSIVE 190456)
-	["Ignore Pain"]        = { role = "defensive_1", priority = 1, specs = { 71, 73 } },
+	-- Card: "small" for both specs (see header); Arms owns 1277297, a 20 s layered button (W-CD, W-DESC).
+	["Ignore Pain"]        = { role = "defensive_1", priority = 1, specs = { 71, 73 }, survival = { [71] = "small", [73] = "keepup" }, survivalOrder = 1, survivalId = { [71] = 1277297 } },
 	-- Grote def (DEFENSE_TIER 118038 = tier2)
-	["Die by the Sword"]   = { role = "defensive_3", priority = 1, specs = { 71 } },
+	["Die by the Sword"]   = { role = "defensive_3", priority = 1, specs = { 71 }, survival = "big", survivalOrder = 1 }, -- 2 min (W-CD), Arms' big one
 	-- Grootste CD / cooldown_bar (guide.lua opener {167105}; SpellArchetypes 167105)
 	["Colossus Smash"]     = { role = "cooldown_bar", priority = 1, specs = { 71 } },
 	-- Extra CD's (guide.lua {107574} Avatar; {227847} Bladestorm; {228920} Ravager; {436358} Demolish)
@@ -88,7 +109,7 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Thunder Clap"]          = { category = "main_rotation", priority = 3, specs = { 72, 73 } }, -- Fury AoE-builder (Mountain Thane) + Prot kernbuilder (guide.lua {6343})
 	["Thunder Blast"]         = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 72, 73 } }, -- Mountain Thane proc (guide.lua {435607})
 	-- Kleine/vangnet def + self-heal-DR (DEFENSE_TIER 184364 = tier2 DR-over-time)
-	["Enraged Regeneration"]  = { role = "defensive_3", priority = 1, specs = { 72 } }, -- 30% DR + heal-over-time (tier2 wall van Fury); geen instant-heal-anker
+	["Enraged Regeneration"]  = { role = "defensive_3", priority = 1, specs = { 72 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_STUNNED" }, -- 30% DR + heal-over-time (tier2 wall van Fury); geen instant-heal-anker; usable while stunned (IV-Fury)
 	-- Grootste CD / cooldown_bar (guide.lua {385059}=Recklessness variant; SpellDB burst)
 	["Recklessness"]          = { role = "cooldown_bar", priority = 1, specs = { 72 } },
 	-- Extra CD's (guide.lua {227847} Bladestorm; Odyn's Fury Fury-talent)
@@ -108,15 +129,17 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Shield Slam"]        = { category = "main_rotation", priority = 1, specs = { 73 } },
 	["Revenge"]            = { category = "main_rotation", priority = 2, specs = { 73 } },
 	-- AoE (Shift-tweelingen; Demoralizing Shout rage-gen)
-	["Demoralizing Shout"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 73 } },
+	-- Card: enemies deal 20% less damage to you, 45 s (IV-ProtWar; W-CD 45).
+	["Demoralizing Shout"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 73 }, survival = "small", survivalOrder = 2 },
 	-- Movement extra (SpellArchetypes 385954 Shield Charge, gap-closer)
 	["Shield Charge"]      = { role = "utility_primary", priority = 3, bindKey = "Ctrl+Q", specs = { 73 } },
 	-- Kleine def (SpellDB WARRIOR_3 2565 Shield Block; DEFENSE_TIER untagged = tier3)
-	["Shield Block"]       = { role = "defensive_1", priority = 1, specs = { 73 } },
+	["Shield Block"]       = { role = "defensive_1", priority = 1, specs = { 73 }, survival = "keepup", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- blocks melee only (W-DESC)
 	-- Grote def (DEFENSE_TIER 871 = tier2; Last Stand 12975 nu passief effect van Shield Wall)
-	["Shield Wall"]        = { role = "defensive_3", priority = 1, specs = { 73 } },
+	["Shield Wall"]        = { role = "defensive_3", priority = 1, specs = { 73 }, survival = "big", survivalOrder = 1 }, -- -40%, 3 min base (W-CD cat. 1929)
 	-- Extra def (SpellCategories DEFENSIVE 23920 Spell Reflection; DEFENSE_TIER untagged = tier3)
-	["Spell Reflection"]   = { category = "defensive", priority = 4, bindKey = "Shift+C" }, -- alle specs kunnen dit; anker Shift+C
+	-- Card: reflects the next spell, so press it as the cast comes (W-DESC 23920), not when health drops.
+	["Spell Reflection"]   = { category = "defensive", priority = 4, bindKey = "Shift+C", survival = "small", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_SPELL_AT_YOU" }, -- alle specs kunnen dit; anker Shift+C
 	-- Threat-taunt (SpellCategories UTILITY 355 Taunt)
 	["Taunt"]              = { category = "taunt", priority = 1, specs = { 73 } },
 	-- Grootste CD / cooldown_bar (guide.lua Prot: {107574} Avatar als burst-opener -> zie Avatar hierboven)
@@ -124,9 +147,11 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Champion's Spear"]   = { role = "cooldown_bar", priority = 1, specs = { 73 } }, -- F1 Prot burst-anker (SpellArchetypes 376080). Avatar is bij Prot op de gedeelde 'Avatar'-key category=cooldown (die key is Arms' cooldown terwijl Arms' cooldown_bar Colossus Smash is); één key = één rol, dus Prot krijgt hier zijn eigen cooldown_bar-anker.
 	["Ravager"]            = { excludes = "Bladestorm", category = "cooldown", priority = 3, specs = { 71, 73 } }, -- SpellArchetypes 228920 (Arms/Prot Colossus-alt)
 	["Demolish"]           = { category = "cooldown", priority = 3, specs = { 71, 73 } }, -- guide.lua {436358} (Colossus hero-tree)
-	-- Utility CC (InterruptAbilities 46968 Shockwave kind="cc"; Prot/talent stun)
+	-- Utility CC (InterruptAbilities 46968 Shockwave kind="cc"; talent stun)
 	["Shockwave"]          = { category = "dispel_cc", priority = 3, specs = { 73 }, alsoStop = "stun" }, -- AoE-stun (InterruptAbilities 46968 mech=12) → Spec 08 alsoStop
 	-- Utility (SpellArchetypes 394352 Shattering Throw anti-immuniteit)
+	-- 17 Sep: a class talent for all three specs (W-TREE 850), but widening `specs` would hand out
+	-- new keys; left for a keybind pass (the audit lists it).
 	["Shattering Throw"]   = { category = "utility", priority = 5, specs = { 73 } }, -- anti-immuniteit (geen heal)
 	-- Shout-utility talenten (ExwindCore Midnight: Challenging Shout 1161 / Disrupting Shout 386071, specs={73})
 	["Challenging Shout"]  = { category = "utility", priority = 6, specs = { 73 } }, -- AoE-taunt (Prot-talent)

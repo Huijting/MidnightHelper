@@ -27,10 +27,29 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	Chains of Ice, Death Strike, Death Pact, Raise Dead, Dark Command, Lichborne.
 
 	LET OP: Death Strike blijft de rotatie-SPENDER (category=spender). De self-heal-anker (F2 heal_quick)
-	is Death Pact - Death Strike wordt bewust NIET naar heal_quick gedupliceerd.
+	is Death Pact - Death Strike wordt bewust NIET naar heal_quick gedupliceerd. De Stay-alive-kaart
+	leest het `survival`-veld, dus Death Strike staat daar tóch als eerste heal zonder dat de toets verschuift.
 
 	Overgeslagen (conform regels): Recuperate/F4, heal_sustain, racial (Shift+E), trinket (Ctrl+F1),
 	potion (Alt+C), en zuivere passieve talents (Bone Shield 195181, Last Stand-effecten e.d.).
+
+	STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder`, `survivalNote` feed only
+	Modules/SurvivalPlan.lua; the key fields (role/category/priority/bindKey/alsoStop) are untouched.
+	Every tag follows docs/audit_2026-09-17/audit_paladin_warrior_dk.md (Icy Veins 12.1 + wago.tools
+	12.1.0.69814). Beginner order from the audit: Anti-Magic Shell -> Death Strike -> Icebound
+	Fortitude -> Death Pact -> Lichborne (fear/charm only).
+	Lichborne is ON the card, last under "big", with the CC-break note: it is a 2 min button to get out
+	of fear/charm/sleep (IV-Blood/IV-Unholy), not a keep-up.
+	Left OFF on purpose: Anti-Magic Zone (TWIJFEL: a group zone against magic only), Dancing Rune
+	Weapon (a Blood burst/parry cooldown the audit does not put on the card), Consumption (TWIJFEL:
+	the new 1263824 also reduces damage, not measured on the card), Death Grip / Gorefiend's Grasp.
+	Removed 17 Sep, gone from the 12.1 trees: Bonestorm, Tombstone, Blooddrinker (W-TREE; not on
+	IV-Blood), Summon Gargoyle (now talent 1242147 on Army of the Dead, W-DESC), Apocalypse and
+	Unholy Assault (IV-UHnews "Both Apocalypse and Unholy Assault have been removed"; Maxroll).
+	Specs fixed 17 Sep: Empower Rune Weapon -> Frost only (not on IV-Blood). Asphyxiate and Blinding
+	Sleet are class talents (IV-Blood, IV-Frost and IV-Unholy list both) but keep their `specs`:
+	widening them hands out new keys, and this pass moves no binds.
+	No `id`s added: the audit warns name lookups jump to replacements; measure with /mh survival.
 ]]
 
 ns.KeybindRoleClassifier.DEATHKNIGHT = {
@@ -38,24 +57,24 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- BASELINE (alle 3 specs: 250 Blood, 251 Frost, 252 Unholy)
 	-- ============================================================
 	-- Interrupt (E)
-	["Mind Freeze"] = { role = "interrupt", priority = 1 },
+	["Mind Freeze"] = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
 	-- Movement (Q / Shift+Q)
-	["Death's Advance"] = { role = "utility_primary", priority = 1 }, -- Q (movement, baseline)
-	["Wraith Walk"] = { role = "utility_primary", priority = 2 },     -- Shift+Q (movement, talent-alternatief)
+	["Death's Advance"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q (movement, baseline); 1 charge, 45 s (W-CD cat. 1941)
+	["Wraith Walk"] = { role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 2 }, -- Shift+Q (movement, talent-alternatief); 60 s, breaks roots (IV-Blood)
 	-- Grote defensive (C)
-	["Icebound Fortitude"] = { role = "defensive_3", priority = 1 },  -- grote def (baseline)
+	["Icebound Fortitude"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- grote def (baseline); -30%, 2 min (W-CD)
 	-- Dispel/CC (V) - Death Grip als threat/gap-tool op de dispel/CC-anker
 	["Death Grip"] = { category = "dispel_cc", priority = 1 },        -- V (CC/threat, baseline)
 	["Chains of Ice"] = { category = "dispel_cc", priority = 2 },     -- Shift+V (slow/CC; Frost/Unholy binden dit, baseline spell)
 	-- Self-heals (F2 heal-anker)
-	["Death Pact"] = { role = "heal_quick", priority = 1 },           -- F2 heal-anker: instant self-heal (talent, baseline beschikbaar)
+	["Death Pact"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2 }, -- F2 heal-anker: instant self-heal (talent, baseline beschikbaar); card: emergency, after Death Strike
 	-- Spender (rotatie) - Death Strike BLIJFT spender, NIET dupliceren naar heal
-	["Death Strike"] = { category = "spender", priority = 1 },        -- rotatie-spender (heal is bijproduct, geen heal_quick)
+	["Death Strike"] = { category = "spender", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- rotatie-spender (heal is bijproduct, geen heal_quick); card: "our primary means of healing" (IV)
 	-- Extra defensive (Shift+Z)
-	["Lichborne"] = { role = "defensive_1", priority = 2 },           -- kleine def / CC-immuniteit (baseline)
+	["Lichborne"] = { role = "defensive_1", priority = 2, survival = "big", survivalOrder = 9, survivalNote = "SURVIVAL_NOTE_CC_BREAK" }, -- kleine def / CC-immuniteit (baseline); card: CC break, last
 	-- Utility (R / F)
-	["Anti-Magic Shell"] = { category = "utility", priority = 1 },    -- R (magische mitigatie, baseline)
-	["Anti-Magic Zone"] = { category = "defensive", priority = 5 },   -- groeps-magie-DR-koepel, baseline (JustAC SpellCategories DEFENSIVE 51052)
+	["Anti-Magic Shell"] = { category = "utility", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- R (magische mitigatie, baseline); 60 s (W-CD)
+	["Anti-Magic Zone"] = { category = "defensive", priority = 5 },   -- groeps-magie-DR-koepel, baseline (JustAC SpellCategories DEFENSIVE 51052); NOT on the card (TWIJFEL)
 	["Gorefiend's Grasp"] = { category = "dispel_cc", priority = 3, specs = { 250 } }, -- Blood AoE mass-grip (M+ control; JustAC SpellCooldowns 108199=90s)
 	["Dark Command"] = { category = "taunt", priority = 1 },          -- F: taunt (baseline, eigen kaart)
 	["Raise Dead"] = { category = "utility", priority = 3 },          -- T/F (pet, baseline alle 3 specs)
@@ -71,13 +90,11 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Blood Boil"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 250 } },      -- AoE
 	["Death and Decay"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 250, 252 } }, -- AoE-grondeffect (Blood + Unholy)
 	-- Grote defensive (Shift+C)
-	["Vampiric Blood"] = { role = "defensive_4", priority = 1, specs = { 250 } },       -- grote def (extra, Blood-only)
+	["Vampiric Blood"] = { role = "defensive_4", priority = 1, specs = { 250 }, survival = "big", survivalOrder = 1 }, -- grote def (extra, Blood-only); 90 s (W-CD), before the 2 min Icebound
 	-- Grootste CD (F1) + extra CD's
 	["Dancing Rune Weapon"] = { role = "cooldown_bar", priority = 1, specs = { 250 } }, -- F1 (grootste CD: burst/mitigatie)
 	["Consumption"] = { category = "cooldown", priority = 2, specs = { 250 } },         -- Shift+F1 (major CD, talent)
-	["Bonestorm"] = { category = "cooldown", priority = 3, specs = { 250 } },           -- extra CD (talent, AoE/heal)
-	["Blooddrinker"] = { category = "cooldown", priority = 5, specs = { 250 } },        -- kanaal-CD (talent, damage/heal; genereert RP i.p.v. spenden)
-	["Tombstone"] = { category = "cooldown", priority = 4, specs = { 250 } },           -- extra CD (talent, Bone Shield-dump)
+	-- Bonestorm / Blooddrinker / Tombstone removed 17 Sep: in no 12.1 tree node, not on IV-Blood.
 
 	-- ============================================================
 	-- FROST (251) - dps
@@ -85,7 +102,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- Builders (main_rotation)
 	["Obliterate"] = { category = "main_rotation", priority = 1, specs = { 251 } },        -- 1 (kernbuilder)
 	["Remorseless Winter"] = { category = "main_rotation", priority = 2, specs = { 251 } },-- 3 (rotationeel, AoE-grond)
-	["Empower Rune Weapon"] = { category = "cooldown", priority = 5, specs = { 251, 250 } },-- resource-CD (Frost 2; Blood-talent)
+	["Empower Rune Weapon"] = { category = "cooldown", priority = 5, specs = { 251 } },    -- resource-CD (Frost, 2 charges); 17 Sep: Blood dropped, not on IV-Blood
 	-- Spender (RP-dump)
 	["Frost Strike"] = { category = "spender", priority = 1, specs = { 251 } },            -- 4 (RP-spender)
 	-- AoE (Shift-tweelingen)
@@ -117,15 +134,15 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Epidemic"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 252 } }, -- AoE-spender
 	-- Grootste CD (F1) + extra CD's
 	["Army of the Dead"] = { role = "cooldown_bar", priority = 1, specs = { 252 } },       -- F1 (grootste CD: burst-opener)
-	["Summon Gargoyle"] = { category = "cooldown", priority = 2, specs = { 252 } },        -- Shift+F1 (major CD, talent)
-	["Apocalypse"] = { category = "cooldown", priority = 3, specs = { 252 } },             -- extra CD (talent, wounds-burst)
-	["Unholy Assault"] = { category = "cooldown", priority = 4, specs = { 252 } },         -- extra CD (talent, burst)
+	-- Summon Gargoyle removed 17 Sep (now talent 1242147 on Army of the Dead, W-DESC); Apocalypse and
+	-- Unholy Assault removed 17 Sep (IV-UHnews: removed in Midnight; Maxroll).
 	["Outbreak"] = { category = "main_rotation", priority = 3, specs = { 252 } },          -- disease-applicatie (builder-onderhoud)
 
 	-- ============================================================
-	-- CC-EXTRA per spec (dispel_cc) - Asphyxiate / Blinding Sleet / Strangulate
+	-- CC-EXTRA (dispel_cc) - Asphyxiate / Blinding Sleet / Strangulate
 	-- ============================================================
+	-- Both are class talents (IV-Blood/IV-Frost/IV-Unholy); `specs` kept for the keys (see header).
 	["Asphyxiate"] = { category = "dispel_cc", priority = 3, specs = { 250, 252 }, alsoStop = "stun" }, -- stun (Blood 221562 / Unholy 108194); JustAC cc mech=12 → Spec 08 alsoStop
-	["Blinding Sleet"] = { category = "dispel_cc", priority = 3, specs = { 251 } },  -- AoE disorient (Frost)
+	["Blinding Sleet"] = { category = "dispel_cc", priority = 3, specs = { 251 } },  -- AoE disorient
 	["Strangulate"] = { category = "dispel_cc", priority = 4, alsoStop = "silence" },                      -- silence (talent, baseline beschikbaar)
 }
