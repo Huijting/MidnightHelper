@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🐛 17 sep — boss-venster: Deel kende geen raid
+
+Rob: *"wanneer ik in een raid zit geeft de share alleen in party"*. `DungeonLiveCoach.lua` koos
+`INSTANCE_CHAT` of `PARTY` en had geen raid-tak; in een raid zit er niemand in PARTY, dus de tips
+kwamen **nergens** aan (stil, geen fout). Nu: raid → `RAID`, instance-groep → `INSTANCE_CHAT`, party →
+`PARTY`, solo → lokaal printen. Zelfde volgorde als `RitualShare.lua:51` en `DelvePartyShare.lua:146`.
+- **GEMETEN:** de enige andere plek met deze keuze (`ConsumableReadyComms.lua:69`) heeft de raid-tak
+  wél; alle andere shares gebruiken al een helper met raid erin. Positieve controle: dezelfde grep
+  vindt die helpers.
+- Gaat mee in 4.0.1 (nog vóór de release-tag).
+
 ## 🔎 17 sep — eerste `/mh survival` in het spel (Robs Frost Mage, spec 64)
 
 Beta geladen, **geen foutmeldingen**. De kaart klopt: Ice Barrier (keepup) · Alter Time (small) ·

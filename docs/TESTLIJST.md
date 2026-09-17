@@ -17,6 +17,16 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 17 sep — Deel-knop in het boss-venster werkt nu ook in een raid
+
+`/reload`. Rob, 17 sep: *"wanneer ik in een raid zit geeft de share alleen in party"* — in een raid is
+het party-kanaal leeg, dus de tips kwamen nergens aan.
+- [ ] **In een raid** (Sporefall, Venomous Abyss of een world boss met een groep): open het boss-venster,
+      druk **Deel**. Komen de regels in de **raidchat**?
+- [ ] **In een dungeon met vier man**: nog steeds partychat.
+- [ ] **In een LFG/LFR-groep**: instance-chat.
+- [ ] **Alleen**: geen groep, dan print hij de regels alleen voor jezelf. Dat hoort zo.
+
 ## 🆕 17 sep — "Blijf leven"-kaart opnieuw gebouwd (Paladin eerst)
 
 `/reload`. Academy → DPS-tab → **Blijf leven**. De kaart volgt niet meer je toetsen maar een keuze per spell.

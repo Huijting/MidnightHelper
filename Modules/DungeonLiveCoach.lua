@@ -302,10 +302,16 @@ function ns.ShareDungeonBossTips(dungeonKey, bossKey, short)
 		return
 	end
 	lastEngaged = target -- de share-body hieronder leest lastEngaged
+	-- 🔴 RAID ONTBRAK — Rob, 17 sep 2026: "wanneer ik in een raid zit geeft de share alleen in
+	-- party". In een raid zit er niemand in het PARTY-kanaal, dus de tips kwamen nergens aan.
+	-- Zelfde volgorde als elke andere share in de addon (RitualShare.lua:51, DelvePartyShare.lua:146):
+	-- eerst raid, dan een echte party, dan een instance-groep (LFG/LFR).
 	local channel
-	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+	if IsInRaid and IsInRaid() then
+		channel = "RAID"
+	elseif IsInGroup and IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
 		channel = "INSTANCE_CHAT"
-	elseif IsInGroup() then
+	elseif IsInGroup and IsInGroup() then
 		channel = "PARTY"
 	end
 	local name = BossDisplayName(lastEngaged.dungeonKey, lastEngaged.bossKey)
