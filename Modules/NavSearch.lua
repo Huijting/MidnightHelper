@@ -422,6 +422,30 @@ local function BuildNavIndex()
 		addBosses(e)
 	end
 
+	-- Delves, by name and by boss (Rob, 17 Sep 2026: a dungeon found by search opens its boss
+	-- window, a delve found nothing). Both open the Delve Coach as a preview, the same call the
+	-- coach's own picker makes; a boss hit opens on that boss. Boss labels are the showcase's
+	-- English names, which is what the coach itself shows.
+	if ns.ShowDelveCoach then
+		local coachTitle = L("DELVE_COACH_TITLE")
+		for _, entry in ipairs(ns.DELVE_TIP_ENTRIES or {}) do
+			local entryId = entry.id
+			local delveName = (ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName
+			if entryId and delveName then
+				add(delveName, "delve tips coach", function()
+					ns:ShowDelveCoach(entryId, { preview = true })
+				end, TIER_CONTENT, coachTitle, "boss")
+				local bosses = ns.GetDelveBossShowcase and ns:GetDelveBossShowcase(entryId)
+				for i, boss in ipairs(bosses or {}) do
+					local bossIndex = i
+					add(boss.label, "", function()
+						ns:ShowDelveCoach(entryId, { preview = true, bossIndex = bossIndex })
+					end, TIER_CONTENT, delveName, "boss")
+				end
+			end
+		end
+	end
+
 	-- Actions. Typing "ritual" should start the arrow, not open a page about rituals —
 	-- that is the whole promise of this addon. Both entries mirror the buttons the Home
 	-- dashboard already shows, so there is one truth about where they send you.

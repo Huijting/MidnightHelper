@@ -276,6 +276,7 @@ ns._mhLocales.nlNL = {
 	ROOMCARD_TIER_FMT = "Tier set %d / %d",
 	ROOMCARD_CHARS_FMT = "Characters: %d",
 	ROOMCARD_BOSSES_FMT = "Bazen: %d",
+	ROOMCARD_CODEX_SECTION = "Codex-handboek",
 	ROOMCARD_KP_FMT = "Knowledge te besteden: %d",
 	ROOMCARD_KP_NONE = "Geen Knowledge te besteden",
 	-- 4.0: schermen zelf verstoppen (rechtsklik op een kaart, of Instellingen -> Schermen).
@@ -2419,6 +2420,7 @@ ns._mhLocales.nlNL = {
 	DELVE_COACH_SEC_BOSS = "Eindbaas",
 	DELVE_COACH_PREVIEW_TAG = "(voorbeeld)",
 	DELVE_COACH_PICKER_TITLE = "Kies een delve",
+	DELVE_ROW_TIPS_TT = "Baas en tips voor deze delve (Delve Coach)",
 	DELVE_COACH_BOSS_SHOWCASE = "Bazen in beeld",
 	DELVE_COACH_DRAG_HINT = "Sleep titelbalk om te verplaatsen. Sleep hoek, onderrand of rechterrand om te vergroten/verkleinen (opgeslagen). |cffffcc00Shift + muiswiel|r schaalt het hele paneel (zoals Midnight Helper). Wiel scrollt tips; wiel op baas zoomt.",
 	DELVE_COACH_RESIZE_HINT = "Sleep om Delve Coach groter of kleiner te maken.",

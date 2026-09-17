@@ -579,7 +579,9 @@ local function Layout(panel)
 		b._mhTarget = c.id
 		b._mhScreen = screenId
 		b._mhCodexCategory = c.codexCategory
-		b._mhStatus:SetText(StatusFor(screenId))
+		-- A handbook section says so under its name: "Raid & crests" next to "Raids" read as two
+		-- raid screens (Carola, 17 Sep 2026). The Raids card's own line is its boss count.
+		b._mhStatus:SetText(c.codexCategory and ns:L("ROOMCARD_CODEX_SECTION") or StatusFor(screenId))
 		b:Show()
 	end
 	for i = #cards + 1, #panel._mhCards do

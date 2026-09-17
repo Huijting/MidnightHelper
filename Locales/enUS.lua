@@ -281,6 +281,7 @@ ns._mhLocales.enUS = {
 	ROOMCARD_TIER_FMT = "Tier set %d / %d",
 	ROOMCARD_CHARS_FMT = "Characters: %d",
 	ROOMCARD_BOSSES_FMT = "Bosses: %d",
+	ROOMCARD_CODEX_SECTION = "Codex handbook",
 	ROOMCARD_KP_FMT = "Knowledge to spend: %d",
 	ROOMCARD_KP_NONE = "No Knowledge waiting",
 	-- 4.0 show/hide per screen: right-click a room card, or Settings -> Screens.
@@ -2818,6 +2819,7 @@ ns._mhLocales.enUS = {
 	DELVE_COACH_SEC_BOSS = "Final boss",
 	DELVE_COACH_PREVIEW_TAG = "(preview)",
 	DELVE_COACH_PICKER_TITLE = "Choose a delve",
+	DELVE_ROW_TIPS_TT = "Boss and tips for this delve (Delve Coach)",
 	DELVE_COACH_BOSS_SHOWCASE = "Boss spotlight",
 	DELVE_COACH_DRAG_HINT = "Drag title bar to move. Drag corner, bottom, or right edge to resize (saved). |cffffcc00Shift + mouse wheel|r scales the whole panel (like Midnight Helper). Wheel scrolls tips; wheel on boss zooms.",
 	DELVE_COACH_RESIZE_HINT = "Drag to resize Delve Coach (width and height).",

@@ -17,6 +17,20 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 17 sep — Codex-kaarten met een kopje, en delves vindbaar zoals dungeons
+
+`/reload` is genoeg. Na Carola's verwarring tussen "Raids" en "Raid & crests".
+- [ ] **Open de Codex-kamer.** Staat onder elk handboek-hoofdstuk (Delves, Dungeons & M+, Raid & crests,
+      …) klein **Codex-handboek**? En staat onder **Raids** nog steeds **Bazen: 17**?
+- [ ] **Typ in de zoekbalk een delvenaam** (bv. *Shadowguard Point* of *Sunkiller Sanctum*). Komt hij in de
+      lijst, met *Delve Coach* eronder, en opent een klik de **Delve Coach** voor die delve (met "voorbeeld"
+      in de titel)?
+- [ ] **Typ een delvebaas** die in de Coach staat (bv. *Gnok* of *Drakta*). Opent de Coach op **die** baas
+      (naam en model boven de tips zijn die van Gnok, niet van de eerste baas)?
+- [ ] **Delves-scherm → de lijst met delves**: staat rechts op elke rij met tips een **boekje**? Klik erop:
+      opent de Coach voor die delve? En zet een klik op de rij zelf nog steeds alleen de route?
+- [ ] **Bountiful-rijen**: staan het gele **>** en het boekje netjes naast elkaar, zonder over de naam heen?
+
 ## 🆕 16 sep — alle instellingen nu ook ín MH ("nummer 3", de settings-branch)
 
 `/reload` is genoeg. Samengevoegd, nog niet in het spel gezien.

@@ -2449,6 +2449,32 @@ local function EnsureDelveRowButton(columnFrame, rows, index, colW)
 		row.routeMark:SetText("|cffffcc00>|r")
 		row.routeMark:Hide()
 
+		-- Tips button (Rob, 17 Sep 2026): a click on the row routes, and the boss tips were only
+		-- behind the Coach picker. This opens the Delve Coach for this delve, like a dungeon's
+		-- boss model opens its boss window.
+		local tips = CreateFrame("Button", nil, row)
+		tips:SetSize(16, 16)
+		tips:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+		local tipsTex = tips:CreateTexture(nil, "ARTWORK")
+		tipsTex:SetAllPoints()
+		tipsTex:SetTexture("Interface\\Icons\\INV_Misc_Book_09")
+		tipsTex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		tips:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+		tips:SetScript("OnClick", function(self)
+			local item = self:GetParent().mhDelveRow
+			if item and item.tipEntryId and ns.ShowDelveCoach then
+				ns:ShowDelveCoach(item.tipEntryId, { preview = true })
+			end
+		end)
+		tips:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(ns:L("DELVE_ROW_TIPS_TT"), 1, 1, 1, 1, true)
+			GameTooltip:Show()
+		end)
+		tips:SetScript("OnLeave", GameTooltip_Hide)
+		tips:Hide()
+		row.tipsBtn = tips
+
 		rows[index] = row
 	end
 	row:SetWidth(colW)
@@ -2470,15 +2496,26 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 		row.routeBtn:Hide()
 		row.routeBtn:EnableMouse(false)
 	end
-	if row.routeMark then
-		if isBountiful then
-			row.routeMark:Show()
-			row.name:SetPoint("RIGHT", row.routeMark, "LEFT", -2, 0)
-		else
-			row.routeMark:Hide()
-			row.name:SetPoint("RIGHT", row, "RIGHT", -6, 0)
+	-- Right edge, from the outside in: tips button, bountiful ">", then the name.
+	local rightAnchor, rightPoint, rightGap = row, "RIGHT", -6
+	if row.tipsBtn then
+		local hasTips = item.tipEntryId and ns.ShowDelveCoach and true or false
+		row.tipsBtn:SetShown(hasTips)
+		if hasTips then
+			rightAnchor, rightPoint, rightGap = row.tipsBtn, "LEFT", -3
 		end
 	end
+	if row.routeMark then
+		row.routeMark:ClearAllPoints()
+		row.routeMark:SetPoint("RIGHT", rightAnchor, rightPoint, rightAnchor == row and -4 or rightGap, 0)
+		if isBountiful then
+			row.routeMark:Show()
+			rightAnchor, rightPoint, rightGap = row.routeMark, "LEFT", -2
+		else
+			row.routeMark:Hide()
+		end
+	end
+	row.name:SetPoint("RIGHT", rightAnchor, rightPoint, rightGap, 0)
 
 	if isBountiful then
 		row.name:SetTextColor(1, 0.82, 0)
@@ -3151,6 +3188,7 @@ local function PaintDelvesPanel(fullRefresh)
 			x = packed[3],
 			y = packed[4],
 			name = displayName,
+			tipEntryId = tipEntry and tipEntry.id,
 			isNemesisDelve = packed[5] == DELVE_NEMESIS_NAME,
 			isBountiful = bountiful,
 			bountifulAtlas = bountifulAtlas,

@@ -8849,6 +8849,19 @@ fill("frFR", { ROOMCARD_DRAG_HINT = "Fais glisser pour déplacer cette carte.", 
 fill("esES", { ROOMCARD_DRAG_HINT = "Arrastra para mover esta tarjeta.", ROOMCARD_RESET_ORDER = "Restablecer el orden" })
 fill("ptBR", { ROOMCARD_DRAG_HINT = "Arraste para mover este cartão.", ROOMCARD_RESET_ORDER = "Restaurar a ordem" })
 fill("itIT", { ROOMCARD_DRAG_HINT = "Trascina per spostare questa scheda.", ROOMCARD_RESET_ORDER = "Ripristina l'ordine" })
+-- 17 Sep 2026: the Codex sections sit beside "Raids" in the Codex room; the subtitle says which
+-- cards are reading (Carola confused "Raids" with "Raid & crests"). Claude, not native-reviewed.
+fill("deDE", { ROOMCARD_CODEX_SECTION = "Codex-Handbuch" })
+fill("frFR", { ROOMCARD_CODEX_SECTION = "Manuel du Codex" })
+fill("esES", { ROOMCARD_CODEX_SECTION = "Manual del Codex" })
+fill("ptBR", { ROOMCARD_CODEX_SECTION = "Manual do Codex" })
+fill("itIT", { ROOMCARD_CODEX_SECTION = "Manuale del Codex" })
+-- Same day: the book button on each Delves row opens the Delve Coach for that delve.
+fill("deDE", { DELVE_ROW_TIPS_TT = "Boss und Tipps für diese Tiefe (Delve Coach)" })
+fill("frFR", { DELVE_ROW_TIPS_TT = "Boss et conseils pour ce gouffre (Delve Coach)" })
+fill("esES", { DELVE_ROW_TIPS_TT = "Jefe y consejos de esta profundidad (Delve Coach)" })
+fill("ptBR", { DELVE_ROW_TIPS_TT = "Chefe e dicas desta profundidade (Delve Coach)" })
+fill("itIT", { DELVE_ROW_TIPS_TT = "Boss e consigli per questa delve (Delve Coach)" })
 -- The favourites row under the search bar can be reordered the same way (same day).
 fill("deDE", { FAV_DRAG_HINT = "Ziehen, um die Reihenfolge zu ändern." })
 fill("frFR", { FAV_DRAG_HINT = "Fais glisser pour changer l'ordre." })

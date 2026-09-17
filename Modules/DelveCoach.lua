@@ -1468,6 +1468,11 @@ function ns:ShowDelveCoach(entryId, options)
 			f._bossManualOverride = false
 			f._bossBrowseIndex = nil
 		end
+		-- Search can name a boss (17 Sep 2026): open on that one, as ◀ ▶ would.
+		if options.bossIndex then
+			f._bossBrowseIndex = options.bossIndex
+			f._bossManualOverride = true
+		end
 		currentEntryId = entryId
 		f._previewMode = isPreview
 		f._userDismissed = false
@@ -1479,6 +1484,11 @@ function ns:ShowDelveCoach(entryId, options)
 		local delveLabel = (ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName or ""
 		f._title:SetText(self:L("DELVE_COACH_TITLE") .. " — " .. delveLabel .. tag)
 		UpdateBossShowcase(f, entryId)
+		if options.bossIndex then
+			-- A new delve clears the manual pick inside UpdateBossShowcase; keep the searched boss.
+			f._bossBrowseIndex = options.bossIndex
+			f._bossManualOverride = true
+		end
 		RefreshCoachBody(f, entry, not isPreview, true)
 		ApplyCoachSize(f)
 

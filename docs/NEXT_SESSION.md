@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## 🧭 17 sep — Codex-kaarten krijgen een kopje; delves vindbaar via zoeken en een tips-knop
+
+Rob: Carola raakte in de war tussen de kaarten **Raids** (raidgids met bazen) en **Raid & crests** (een
+handboek-hoofdstuk), die sinds 16 sep naast elkaar in de Codex-kamer staan. En: *"voor Delves hebben we
+geen bossvenster"*. Rob koos: "go, doe A en 1 + 2".
+- **GEMETEN vooraf:** de Delve Coach bestond al (`DelveCoach.lua`, bazenmodel + tips, preview buiten een
+  delve), maar was alleen bereikbaar via de picker. Zoeken vond geen enkele delve of delvebaas
+  (`DELVE_TIP_ENTRIES` kwam niet voor in `NavSearch.lua`; positieve controle: `GetDungeonRoster` wél). Een
+  klik op een rij in het Delves-scherm zette alleen een route.
+- **A:** handboek-kaarten tonen `ROOMCARD_CODEX_SECTION` ("Codex-handboek") als statusregel
+  (`RoomLauncher.lua`). 7 talen.
+- **1:** `NavSearch.lua` indexeert elke delve (naam) en elke baas uit `DELVE_BOSS_SHOWCASE` (Engelse
+  labels, zoals de Coach ze zelf toont); een klik opent `ShowDelveCoach(id, {preview=true[, bossIndex]})`.
+  `ShowDelveCoach` kreeg daarvoor de optie `bossIndex` (werkt als ◀ ▶).
+- **2:** elke delve-rij met tips krijgt rechts een boekje (`row.tipsBtn`, `Delves.lua`) dat de Coach opent;
+  tooltip `DELVE_ROW_TIPS_TT`, 7 talen. De rij zelf routeert nog steeds.
+- **Open:** geen rolknoppen of moeilijkheidskeuze in de Coach (bewust niet gedaan; eerst uitzoeken of de
+  delvetips per rol geschreven zijn). Syntax schoon, lint 0 HARD. Niet in het spel gezien → TESTLIJST.
+
 ## 🔀 16 sep — `settings-in-mh` samengevoegd ("nummer 3": alle instellingen ook ín MH)
 
 Rob: *"Merge de settings-branch dan maar"*. Stond geparkeerd tot na 4.0.0; dat is nu.
