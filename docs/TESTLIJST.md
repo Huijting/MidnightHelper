@@ -30,6 +30,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] **Delves-scherm → de lijst met delves**: staat rechts op elke rij met tips een **boekje**? Klik erop:
       opent de Coach voor die delve? En zet een klik op de rij zelf nog steeds alleen de route?
 - [ ] **Bountiful-rijen**: staan het gele **>** en het boekje netjes naast elkaar, zonder over de naam heen?
+- [ ] **The Shadow Enclave, variant Infiltrate and Ameliorate** (Rob, 17 sep, screenshot: "0/5 Ula'tek Summoners
+      kicked", "Oddball Ingredients added to Cauldrons"). MH kent de variant en de eindbaas **Abominable Blunder**,
+      maar de tips zeggen **niets** over die twee opdrachten (GEMETEN: "summoner", "cauldron" en "ingredient"
+      komen in geen enkele delvetip voor). ❓ Kijk tijdens de run: toont de Coach Abominable Blunder? En vertel
+      wat je moet doen: waar vind je de "Oddball Ingredients", en is "kicked" gewoon onderbreken
+      (interrupt)? Dan schrijf ik er een regel voor.
 
 ## 🆕 16 sep — alle instellingen nu ook ín MH ("nummer 3", de settings-branch)
 

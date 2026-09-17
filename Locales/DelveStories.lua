@@ -40,7 +40,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_STORY_FUNGAL_PHARMACON = "Purge the Children of Ula'tek from their burrows and purify their poison.",
 	DELVE_STORY_GAME_DAY = "Headball, the most popular, and explosively violent, sport to ever grace the arena is in full swing!",
 	DELVE_STORY_HOLDING_THE_LINE = "Help restore the Sunwell's defenses in the face of a renewed Void assault.",
-	DELVE_STORY_INFILTRATE_AND_AMELIORATE = "Sagotage a plan to summon Ula'tek herself.",
+	DELVE_STORY_INFILTRATE_AND_AMELIORATE = "Sabotage a plan to summon Ula'tek herself.",
 	DELVE_STORY_INVASIVE_GLOW = "Cut down the Lightbloom overgrowth before it overruns the campus!",
 	DELVE_STORY_LEYLINE_TECHNICIAN = "Untangle the invisible flows of arcane power that course beneath Suramar.",
 	DELVE_STORY_LIGHTBLOOM_INVASION = "Help the fungarians fend off a lightbloom attack.",
