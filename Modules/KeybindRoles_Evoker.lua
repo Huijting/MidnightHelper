@@ -33,17 +33,31 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 
 	Gekeyd op de exacte spell-NAAM; de addon matcht dit tegen de live spellbook. Alle specs van
 	de class in EEN tabel. Baseline-spells (geen specs-veld) gelden voor alle 3 de specs:
-	Quell, Hover, Deep Breath, Obsidian Scales, Zephyr, Sleep Walk, Expunge, Cauterizing Flame,
-	Verdant Embrace, Renewing Blaze, Living Flame, Blessing of the Bronze, Fury of the Aspects,
-	Landslide, Tip the Scales.
+	Hover, Deep Breath, Obsidian Scales, Zephyr, Sleep Walk, Expunge, Cauterizing Flame,
+	Verdant Embrace, Living Flame, Blessing of the Bronze, Fury of the Aspects,
+	Landslide, Tip the Scales. (Quell: Dev/Aug only since 12.0, see below.)
 
 	Heal-ankers (never-lie, per opdracht):
 	  - heal_quick (F2) = Verdant Embrace  (instant self-heal + korte pull-to-target)
-	  - heal_ooc   (F3) = Living Flame (Devastation/Augmentation) / Renewing Blaze (Preservation)
-	  Renewing Blaze staat expliciet op heal_ooc (F3), NIET op de globale F4-Recuperate-slot.
+	  - heal_ooc   (F3) = Living Flame
 
 	Overgeslagen (conform regels): Recuperate (globale F4), heal_sustain/F4, racial, trinket,
 	potion, en zuivere passieven (Might of the Black Dragonflight, Shattering Stars-talent e.d.).
+
+	STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder` and `survivalNote` feed only
+	Modules/SurvivalPlan.lua; the key fields next to them are untouched. Every tag follows
+	docs/audit_2026-09-17/audit_shaman_evoker.md (Icy Veins 12.1, Wowhead pre-patch guides + spell pages).
+	Card: small = Obsidian Scales (the main defensive, a cooldown, NOT a keep-up); big = Zephyr
+	(area damage only, also covers 4 allies); heal = Verdant Embrace, Emerald Blossom (Pres),
+	Living Flame; escape = Hover; interrupt = Quell (Dev/Aug).
+	Left OFF the card on purpose: Deep Breath (flying away works, but it is the damage button;
+	audit TWIJFEL), Rescue (not an entry here; moves an ally), Time Dilation / Blistering Scales
+	(ally only), Rewind / Dream Flight / Stasis (group cooldowns).
+	Specs fixed 17 Sep: Quell is gone for Preservation ("Removed Abilities: … Quell"; WH-pp-Pres).
+	Removed 17 Sep, no button in 12.1: Renewing Blaze (passive, Obsidian Scales heals you back;
+	Wiki-RB, WH-pp-Dev/Pres, IV-Aug), Defy Fate (passive cheat-death; IV-Aug, wiki), Firestorm
+	(passive via Feed the Flames; WH-pp-Dev), Spiritbloom (removed; WH-pp-Pres) and Emerald
+	Communion (PvP talent only; WH-pp-Pres, Wiki-EC).
 ]]
 
 ns.KeybindRoleClassifier.EVOKER = {
@@ -51,25 +65,28 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- BASELINE (alle 3 specs: 1467 Devastation, 1468 Preservation, 1473 Augmentation)
 	-- ============================================================
 	-- Interrupt (E) - enige Evoker-entry in InterruptAbilities.lua
-	["Quell"] = { role = "interrupt", priority = 1 },
+	-- Dev/Aug only: Preservation lost Quell in 12.0 (WH-pp-Pres).
+	["Quell"] = { role = "interrupt", priority = 1, specs = { 1467, 1473 }, survival = "interrupt", survivalOrder = 1 },
 	-- Movement (Q / Shift+Q)
-	["Hover"] = { role = "utility_primary", priority = 1 },              -- Q (movement, baseline)
+	["Hover"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q (movement, baseline)
 	["Deep Breath"] = { role = "utility_primary", priority = 2 },        -- Shift+Q (movement, ook major damage-CD)
 	-- Kleine defensive (Z)
-	["Obsidian Scales"] = { role = "defensive_1", priority = 1 },        -- Z (kleine def, baseline)
+	-- Card: 30% for 12 s on 1.5 min (IV-Dev, WH-spell) — the main defensive, a cooldown, not a keep-up.
+	["Obsidian Scales"] = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1 }, -- Z (kleine def, baseline)
 	-- Grote defensive (C)
-	["Zephyr"] = { role = "defensive_3", priority = 1 },                 -- C (grote def, groeps-damage-reductie, baseline)
+	-- Card: -20% AREA damage for you + 4 allies, 2 min (WH-spell 374227); no help against one big hit.
+	["Zephyr"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline)
 	-- Dispel / CC (V-cluster)
 	["Sleep Walk"] = { category = "dispel_cc", priority = 1 },           -- V (incapacitate CC, baseline)
 	["Expunge"] = { category = "dispel_cc", priority = 2 },              -- Shift+V (poison-dispel, baseline)
 	["Cauterizing Flame"] = { category = "dispel_cc", priority = 3 },    -- Ctrl+V (bleed/poison/curse/disease-dispel, overflow)
 	["Landslide"] = { category = "dispel_cc", priority = 4 },            -- T (root-CC, baseline; draft: Interrupt_CCAndCD_Tracker)
 	-- Self-heals (heal-ankers)
-	["Verdant Embrace"] = { role = "heal_quick", priority = 1 },         -- F2 heal-anker: instant self-heal (baseline)
-	["Living Flame"] = { role = "heal_ooc", priority = 1 },              -- F3 heal-anker: out-of-combat/filler self-heal (baseline)
-	-- Renewing Blaze: persoonlijke self-heal-over-time. Op heal_ooc (F3), NIET F4-Recuperate.
-	-- Baseline (alle specs beschikbaar); voor Deva/Aug is dit het F3-anker naast Living Flame's damage-filler.
-	["Renewing Blaze"] = { role = "heal_ooc", priority = 2 },            -- F3 (self-heal, baseline alle 3 specs)
+	-- Card: the strongest instant heal first; on an ally it flies you to them (IV-Dev).
+	["Verdant Embrace"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- F2 heal-anker: instant self-heal (baseline)
+	-- Card: a cast, so after the instant heals.
+	["Living Flame"] = { role = "heal_ooc", priority = 1, survival = "heal", survivalOrder = 3 }, -- F3 heal-anker: out-of-combat/filler self-heal (baseline)
+	-- Renewing Blaze removed 17 Sep: passive since 12.0 (Wiki-RB), see the header.
 	-- Utility (R / F / T)
 	["Blessing of the Bronze"] = { category = "utility", priority = 1 }, -- R/F (raid-buff, baseline)
 	["Fury of the Aspects"] = { category = "cooldown", priority = 5 },   -- Shift+F1 (groeps-Bloodlust, baseline)
@@ -86,7 +103,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- AoE (Shift-tweelingen)
 	["Azure Sweep"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 1467 } },  -- AoE (Shift-tweeling Azure Strike)
 	["Pyre"] = { category = "spender", priority = 6, bindKey = "Shift+4", specs = { 1467 } },               -- AoE-spender (Shift-tweeling Disintegrate)
-	["Firestorm"] = { category = "main_rotation", priority = 7, bindKey = "Shift+5", specs = { 1467 } },    -- AoE (extra, proc-based)
+	-- Firestorm removed 17 Sep: passive in 12.0 (WH-pp-Dev).
 	-- Grootste CD (F1) + extra CD's
 	["Dragonrage"] = { role = "cooldown_bar", priority = 1, specs = { 1467 } },          -- F1 (grootste CD: burst-venster)
 	-- Utility (F3)
@@ -94,7 +111,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 
 	-- ============================================================
 	-- PRESERVATION (1468) - healer
-	-- ST-heals + ST-HoTs (Reversion/Echo/Spiritbloom/Verdant Embrace/Living Flame) lopen via
+	-- ST-heals + ST-HoTs (Reversion/Echo/Verdant Embrace/Living Flame) lopen via
 	-- mouseover/Click-Cast (role="click_cast", priority=1), GEEN keybind-slot (v6 SS6).
 	-- Raid/AoE-heals staan op toets (main_rotation/spender). Heal-CD's onder category="cooldown".
 	-- Pres krijgt hier verder: utility/dispel/defensives + persoonlijke self-heal.
@@ -102,21 +119,21 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- Single-target-heals / ST-HoTs -> Click-Cast (mouseover), GEEN toets (v6 SS6)
 	["Reversion"] = { role = "click_cast", priority = 1, specs = { 1468 } },             -- ST-HoT (366155, HEALING_SPELLS) -> mouseover/click-cast
 	["Echo"] = { role = "click_cast", priority = 1, specs = { 1468 } },                  -- ST-heal/HoT-buffer (Essence) -> mouseover/click-cast
-	["Spiritbloom"] = { role = "click_cast", priority = 1, specs = { 1468 } },           -- empower ST-split-heal (367226) -> mouseover/click-cast
+	-- Spiritbloom removed 17 Sep: gone in 12.0 (WH-pp-Pres).
 	-- (Verdant Embrace = baseline heal_quick/F2, werkt ook op ally als ST-heal; niet dubbel keyen.)
 	-- (Living Flame heal = baseline heal_ooc/F3, ST-heal-filler; niet dubbel keyen.)
 	-- "Builders" / raid-AoE-heal (kernrotatie, op toets)
 	["Dream Breath"] = { category = "raid_heal", priority = 1, specs = { 1468 } },   -- empower raid-AoE-heal
 	["Temporal Anomaly"] = { category = "raid_heal", priority = 2, specs = { 1468 } }, -- raid-AoE-shield, Echo-generator
 	-- Raid/AoE-heal (op toets)
-	["Emerald Blossom"] = { category = "raid_heal", priority = 3, specs = { 1468 } },      -- Essence-spender, AoE-heal
+	-- Card: it heals you too (IV-Pres). Baseline for Dev/Aug per IV-Dev, but widening specs would move keys.
+	["Emerald Blossom"] = { category = "raid_heal", priority = 3, specs = { 1468 }, survival = "heal", survivalOrder = 2 }, -- Essence-spender, AoE-heal
 	-- Heal-COOLDOWNS (v6 SS6): grootste = cooldown_bar, rest category="cooldown"
 	["Dream Flight"] = { role = "cooldown_bar", priority = 1, specs = { 1468 } },        -- F1 (grootste heal-CD: grote burst-raid-heal)
 	["Stasis"] = { category = "cooldown", priority = 2, specs = { 1468 } },              -- Shift+F1 (banked-heals major CD)
-	["Emerald Communion"] = { category = "cooldown", priority = 3, specs = { 1468 } },   -- extra CD (self/raid channel-heal, mana; SpellCategories defensive)
+	-- Emerald Communion removed 17 Sep: PvP talent only in 12.0 (Wiki-EC).
 	["Rewind"] = { category = "cooldown", priority = 4, specs = { 1468 } },              -- F1-familie (grote heal-CD: rewind group-health; vorige ronde -> laten)
 	["Time Dilation"] = { category = "cooldown", priority = 5, specs = { 1468 } },       -- external heal-CD (357170, damage-delay op ally; SpellCategories defensive)
-	-- (Preservation self-heal Renewing Blaze staat in het BASELINE-blok op heal_ooc/F3.)
 	-- Utility
 	["Source of Magic"] = { category = "utility", priority = 2, specs = { 1468 } },      -- R (mana-support op ally)
 
@@ -131,8 +148,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Upheaval"] = { category = "spender", priority = 2, specs = { 1473 } },             -- 5 (empower-spender/AoE-launch)
 	-- Grootste CD (F1) + extra CD's
 	["Breath of Eons"] = { role = "cooldown_bar", priority = 1, specs = { 1473 } },      -- F1 (grootste CD: gebundelde raid-damage)
-	-- Extra defensive (Shift+C) - cheat-death (draft, geen SpellCategories-entry)
-	["Defy Fate"] = { role = "defensive_4", priority = 1, specs = { 1473 } },            -- Shift+C (cheat-death, extra grote def)
+	-- Defy Fate removed 17 Sep: a passive cheat-death, not a button (IV-Aug).
 	-- Utility
 	["Blistering Scales"] = { category = "utility", priority = 2, specs = { 1473 } },    -- R (ally-defensive-buff + thorns)
 	["Time Skip"] = { category = "utility", priority = 3, specs = { 1473 } },            -- T (groep-cooldown-reset support)
