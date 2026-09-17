@@ -31,8 +31,8 @@ verdween bij **elk** gevecht en liet het knopje achter, ook bij trash.
 
 `/reload`. Rob, 17 sep: *"wanneer ik in een raid zit geeft de share alleen in party"* — in een raid is
 het party-kanaal leeg, dus de tips kwamen nergens aan.
-- [ ] **In een raid** (Sporefall, Venomous Abyss of een world boss met een groep): open het boss-venster,
-      druk **Deel**. Komen de regels in de **raidchat**?
+- [x] **In een raid** (Sporefall, Venomous Abyss of een world boss met een groep): open het boss-venster,
+      druk **Deel**. Komen de regels in de **raidchat**? ✅ **Rob, 17 sep: "dit werkt nu".**
 - [ ] **In een dungeon met vier man**: nog steeds partychat.
 - [ ] **In een LFG/LFR-groep**: instance-chat.
 - [ ] **Alleen**: geen groep, dan print hij de regels alleen voor jezelf. Dat hoort zo.

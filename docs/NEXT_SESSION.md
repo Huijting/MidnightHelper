@@ -12,7 +12,7 @@ Rob: *"vaak bij trash een bosswindow, of de vraag of ik hem open wil doen"*.
 - ✅ **Bevestigd door Rob, 17 sep:** *"het venster ging niet open bij trash, het was de knop"*. Het doel-pad en
   de encounter-paden deden dus niets verkeerd; er was precies één bug en die is weg. Geen open punt meer.
 
-## 🐛 17 sep — boss-venster: Deel kende geen raid
+## 🐛 17 sep — boss-venster: Deel kende geen raid ✅ IN HET SPEL BEVESTIGD
 
 Rob: *"wanneer ik in een raid zit geeft de share alleen in party"*. `DungeonLiveCoach.lua` koos
 `INSTANCE_CHAT` of `PARTY` en had geen raid-tak; in een raid zit er niemand in PARTY, dus de tips
