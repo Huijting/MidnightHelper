@@ -1873,6 +1873,13 @@ function ns.ToggleDungeonBossWindow()
 		win:Hide()
 		return
 	end
+	-- In a delve the boss window is the Delve Coach (Rob, 17 Sep 2026: the quick-bar boss button
+	-- in The Shadow Enclave showed Emberdawn from Windrunner Spire, the last dungeon viewed).
+	-- ToggleDelveCoach picks this delve's coach, and a second press closes it.
+	if ns.ToggleDelveCoach and ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
+		ns:ToggleDelveCoach()
+		return
+	end
 	suppressedFor = nil -- handmatig openen heft de suppress op
 	ns.ShowDungeonBossWindow(curDungeon and curDungeon.key or nil,
 		curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]

@@ -30,6 +30,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] **Delves-scherm → de lijst met delves**: staat rechts op elke rij met tips een **boekje**? Klik erop:
       opent de Coach voor die delve? En zet een klik op de rij zelf nog steeds alleen de route?
 - [ ] **Bountiful-rijen**: staan het gele **>** en het boekje netjes naast elkaar, zonder over de naam heen?
+- [ ] **Boss-knop op de snelbalk in een delve** (Rob, 17 sep: hij gaf Emberdawn uit Windrunner Spire). Nu opent
+      die knop (en `/mh bosswin`) in een delve de **Delve Coach** van díé delve; nog een klik sluit hem. In een
+      dungeon blijft het gewone boss-venster. ⚠️ Staat de Delve Coach uit in de instellingen, dan gebeurt er
+      in een delve niets — zeg het als je dat tegenkomt.
 - [ ] **The Shadow Enclave, variant Infiltrate and Ameliorate** (Rob, 17 sep, screenshot: "0/5 Ula'tek Summoners
       kicked", "Oddball Ingredients added to Cauldrons"). MH kent de variant en de eindbaas **Abominable Blunder**,
       maar de tips zeggen **niets** over die twee opdrachten (GEMETEN: "summoner", "cauldron" en "ingredient"

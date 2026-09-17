@@ -16,6 +16,10 @@ geen bossvenster"*. Rob koos: "go, doe A en 1 + 2".
   `ShowDelveCoach` kreeg daarvoor de optie `bossIndex` (werkt als ◀ ▶).
 - **2:** elke delve-rij met tips krijgt rechts een boekje (`row.tipsBtn`, `Delves.lua`) dat de Coach opent;
   tooltip `DELVE_ROW_TIPS_TT`, 7 talen. De rij zelf routeert nog steeds.
+- **Later die dag:** de boss-knop op de snelbalk gaf in een delve het laatst bekeken dungeon-venster
+  (Emberdawn). `ns.ToggleDungeonBossWindow` stuurt nu in een delve (`IsDelveInstanceInProgress`) door naar
+  `ToggleDelveCoach`. Ook: typo "Sagotage" in `DELVE_STORY_INFILTRATE_AND_AMELIORATE`; en de objectives van
+  die variant (Summoners kicken, Ingredients in Cauldrons) staan in geen enkele tip — gevraagd aan Rob.
 - **Open:** geen rolknoppen of moeilijkheidskeuze in de Coach (bewust niet gedaan; eerst uitzoeken of de
   delvetips per rol geschreven zijn). Syntax schoon, lint 0 HARD. Niet in het spel gezien → TESTLIJST.
 
