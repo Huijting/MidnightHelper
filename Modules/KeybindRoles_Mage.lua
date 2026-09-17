@@ -54,6 +54,21 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	Slots (v6): interrupt=E, movement=Q, kleine def=Z, grote def=C, dispel/CC=V, grootste CD=F1,
 	heal_quick=F2, heal_ooc=F3, AoE=Shift+N. NIET opgenomen: Recuperate (F4/heal_sustain), racial,
 	trinket, potion, buffs (Arcane Intellect) en zuivere passieven.
+
+	STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder`, `survivalNote` and `survivalId` feed
+	only Modules/SurvivalPlan.lua; the key fields above them are untouched. Every tag follows
+	docs/audit_2026-09-17/audit_mage_warlock_priest.md (Method + Icy Veins 12.1).
+	Card: keepup = the spec's barrier; small = Alter Time; big = Ice Block/Ice Cold, then Cold Snap
+	(Frost: it only helps once Ice Block/Barrier are spent); escape = Blink/Shimmer, Frost Nova,
+	Greater Invisibility (aggro drop); interrupt = Counterspell.
+	Left OFF the card on purpose: Mirror Image (no damage reduction in Midnight; only Arcane's
+	Refractive Images talent brings some back, and the card cannot see that talent), Invisibility
+	(3 s delay, poor escape in a fight), Cauterize (passive), Dragon's Breath (crowd control; the
+	audit only derives it as an escape).
+	Removed 17 Sep, gone in Midnight (audit, BRON Icy Veins Frost 12.1 / Method Fire intro /
+	Wowhead pre-patch): Icy Veins (Frost's big cooldown is now Ray of Frost), Ice Floes, Phoenix
+	Flames, and Glacial Spike / Comet Storm (no longer spells; they change Frostbolt / Ray of Frost).
+	NOTE: Modules/KeybindingData.lua (frost_mage) still lists Icy Veins, Glacial Spike and Comet Storm.
 ]]
 
 ns.KeybindRoleClassifier.MAGE = {
@@ -63,23 +78,26 @@ ns.KeybindRoleClassifier.MAGE = {
 	--==============================================================================
 
 	-- Interrupt (E). Counterspell = enige mage-interrupt (InterruptAbilities [2139]).
-	["Counterspell"] = { role = "interrupt", priority = 1 }, -- InterruptAbilities.lua [2139] kind=interrupt pri=1
+	["Counterspell"] = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities.lua [2139] kind=interrupt pri=1
 
 	-- Movement (Q). Blink = baseline; Shimmer = talent-vervanger (Shift+Q / 2e charge-variant).
-	["Blink"] = { role = "utility_primary", priority = 1, survival = "escape" }, -- SpellCategories UTILITY [1953]; GapCloser
-	["Shimmer"] = { role = "utility_primary", priority = 2, survival = "escape" }, -- SpellCategories UTILITY [212653]; GapCloser (talent)
-	["Ice Floes"] = { role = "utility_secondary", priority = 2 }, -- SpellCategories UTILITY [108839]; cast-while-moving (talent)
+	-- Card: one of the two shows (the name lookup dedupes a replaced Blink).
+	["Blink"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- SpellCategories UTILITY [1953]; GapCloser
+	["Shimmer"] = { role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 2 }, -- SpellCategories UTILITY [212653]; GapCloser (talent)
+	-- Ice Floes removed 17 Sep: gone in Midnight (audit, BRON Icy Veins Frost 12.1).
 
 	-- Grote defensive (C). Ice Block = full immunity, baseline alle specs (DEFENSIVE [45438]).
-	["Ice Block"] = { role = "defensive_3", priority = 1, id = 45438 }, -- C; baseline
+	-- Card: the emergency button, first in "big" but after Alter Time (small) on the card.
+	["Ice Block"] = { role = "defensive_3", priority = 1, id = 45438, survival = "big", survivalOrder = 1 }, -- C; baseline
 	-- EXPLICIET ID, gemeten 4 aug: de NAAM "Ice Block" lost op naar spell 414658, die Rob
 	-- niet heeft -- een naamgenoot wint de lookup. Zijn echte Ice Block is 45438 (tooltip in
 	-- zijn talentboom, en DPS_DEFENSIVES gebruikt hetzelfde id). Zonder dit veld viel de
 	-- sterkste defensive van de klasse van de overlevingskaart, als "je hebt hem niet".
 
 	-- Extra defensives (category="defensive"; overflow-slots).
-	["Alter Time"] = { category = "defensive", priority = 2 }, -- Frost Shift+Z; DEFENSIVE [342245] (reset HP/pos)
-	["Greater Invisibility"] = { category = "defensive", priority = 3 }, -- [110959]; def + threatdrop. GEEN specs-lijst: het is een MAGE-klassentalent, dus alle drie.
+	["Alter Time"] = { category = "defensive", priority = 2, survival = "small", survivalOrder = 1 }, -- Frost Shift+Z; DEFENSIVE [342245] (reset HP/pos)
+	-- Card: NOT a defensive any more (damage reduction removed in Midnight, audit BRON) -> escape, aggro drop.
+	["Greater Invisibility"] = { category = "defensive", priority = 3, survival = "escape", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- [110959]; def + threatdrop. GEEN specs-lijst: het is een MAGE-klassentalent, dus alle drie.
 	-- Stond hier als specs={62,63}, en drie geinstalleerde bronnen zeggen zelfs Arcane-only
 	-- (BliZzi PartyCooldowns spec=MAGE_ARCANE; LibOpenRaid Dragonflight en MIDNIGHT allebei
 	-- specs={62}). Rob liet 4 aug zijn talentboom zien op een FROST mage: Greater Invisibility
@@ -89,7 +107,7 @@ ns.KeybindRoleClassifier.MAGE = {
 
 	-- Dispel / CC (V). Frost Nova (root) + Polymorph (CC) baseline; Remove Curse = dispel;
 	-- Ring of Frost = AoE-CC; Dragon's Breath = cone-disorient.
-	["Frost Nova"] = { category = "dispel_cc", priority = 1, survival = "escape" }, -- CROWD_CONTROL [122]; baseline root
+	["Frost Nova"] = { category = "dispel_cc", priority = 1, survival = "escape", survivalOrder = 3 }, -- CROWD_CONTROL [122]; baseline root
 	["Polymorph"] = { category = "dispel_cc", priority = 2 }, -- CROWD_CONTROL [118]; baseline CC
 	["Remove Curse"] = { category = "dispel_cc", priority = 3 }, -- UTILITY [475]; baseline curse-dispel
 	["Ring of Frost"] = { category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [113724]; AoE-CC (talent)
@@ -101,9 +119,11 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- duimknop geduwd. Rob, die deze klasse speelt: Spellsteal is voor een goede speler
 	-- onmisbaar, Dragon's Breath is op Frost bijvangst van de heldenboom. Hij gaat voor.
 	["Spellsteal"] = { category = "dispel_cc", priority = 5 }, -- [30449]; offensieve dispel (steelt enemy-buff) -> dispel_cc, geen zuivere utility
+	-- Card: off. No damage reduction in Midnight (audit BRON); Arcane's Refractive Images is a talent the card cannot see.
 	["Mirror Image"] = { category = "defensive", priority = 5 }, -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
 	["Time Warp"] = { category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
-	["Invisibility"] = { category = "utility", priority = 4, survival = "escape" }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
+	-- Card: off since 17 Sep (was escape). You fade after 3 s, too slow to get away in a fight (audit TWIJFEL).
+	["Invisibility"] = { category = "utility", priority = 4 }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
 	["Slow Fall"] = { category = "utility", priority = 9 }, -- UTILITY [130]; val-utility, bewust laatste prioriteit (buiten combat)
 
 	--==============================================================================
@@ -125,7 +145,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- wensen op dezelfde toets binnen één spec is precies wat lint-controle [11] afvangt.
 	-- Zonder wens zoekt hij per spec zelf een vrije rotatie-plek.
 	["Arcane Explosion"] = { category = "main_rotation", priority = 6 }, -- SpellArchetypes [1449] melee; baseline PBAoE
-	["Prismatic Barrier"] = { role = "defensive_1", priority = 1, specs = { 62 } }, -- Z; DEFENSIVE [235450] (kleine def, magic-absorb)
+	["Prismatic Barrier"] = { role = "defensive_1", priority = 1, specs = { 62 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235450] (kleine def, magic-absorb)
 	["Arcane Surge"] = { role = "cooldown_bar", priority = 1, specs = { 62 } }, -- F1; SpellArchetypes [365350]; Arcane grootste burst-CD
 	["Touch of the Magi"] = { category = "cooldown", priority = 2, specs = { 62 } }, -- extra CD; burst-window-opener
 	["Presence of Mind"] = { category = "utility", priority = 5, specs = { 62 } }, -- guide.lua; instant-cast-CD (geen movement -> utility)
@@ -140,34 +160,36 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Fire Blast"] = { category = "main_rotation", priority = 2, specs = { 63 } }, -- SpellArchetypes [13341] ranged; instant crit (Hot Streak)
 	["Scorch"] = { category = "main_rotation", priority = 3, specs = { 63 } }, -- SpellArchetypes [2948] ranged; execute/move-filler
 	["Pyroblast"] = { category = "spender", priority = 1, specs = { 63 } }, -- SpellArchetypes [11366] ranged; Hot-Streak-spender
-	["Phoenix Flames"] = { category = "main_rotation", priority = 4, specs = { 63 } }, -- SpellArchetypes [257542] ranged; charge-builder/cleave
+	-- Phoenix Flames removed 17 Sep: gone in Midnight (audit, BRON Method Fire intro + Wowhead pre-patch).
 	["Living Bomb"] = { category = "main_rotation", priority = 5, specs = { 63 } }, -- SpellArchetypes [44461] ranged; AoE-DoT (talent)
 	["Flamestrike"] = { category = "spender", priority = 2, bindKey = "Shift+4", specs = { 63 } }, -- SpellArchetypes [2120] ranged; AoE-Hot-Streak-spender (AoE-slot)
 	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026 — zelfde reden als Arcane Explosion hierboven. Stond
 	-- op 63, maar Robs Frost mage heeft hem (Frostfire-heldenboom) en kreeg dus geen toets.
 	["Dragon's Breath"] = { category = "dispel_cc", priority = 6 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (achter Spellsteal, zie daar)
-	["Blazing Barrier"] = { role = "defensive_1", priority = 1, specs = { 63 } }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
-	["Cauterize"] = { category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow
+	["Blazing Barrier"] = { role = "defensive_1", priority = 1, specs = { 63 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
+	["Cauterize"] = { category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow. Card: off (passive, not a button)
 	["Combustion"] = { role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD
 	["Meteor"] = { category = "cooldown", priority = 2, specs = { 63 } }, -- guide.lua / SpellArchetypes [351140] ranged; extra CD (talent, ook Frost)
 
 	--==============================================================================
 	-- FROST (spec 64) - ranged DPS. LEIDEND uit KeybindingData.lua (frost_mage), toetsen/rollen
 	-- exact overgenomen. Builder = Frostbolt; Flurry (Brain Freeze); Ice Lance (Shatter);
-	-- Ray of Frost (channel-CD); Glacial Spike (finisher). AoE = Frozen Orb/Blizzard/Cone of
-	-- Cold/Comet Storm op de Shift-laag. Kleine def Z = Ice Barrier. F1 = Icy Veins.
+	-- Ray of Frost (channel-CD). AoE = Frozen Orb/Blizzard/Cone of Cold op de Shift-laag.
+	-- Kleine def Z = Ice Barrier. F1 was Icy Veins (removed 17 Sep); Ray of Frost is now the
+	-- big cooldown but stays main_rotation here until the lead moves it (moving it moves binds).
 	--==============================================================================
 
 	["Frostbolt"] = { category = "main_rotation", priority = 1, specs = { 64 } }, -- KeybindingData "1" [116]; kern-builder (Fingers of Frost / Icicles)
 	["Flurry"] = { category = "main_rotation", priority = 2, specs = { 64 } }, -- KeybindingData "2" [44614]; Brain-Freeze-proc, Winter's Chill
 	["Ray of Frost"] = { category = "main_rotation", priority = 3, specs = { 64 } }, -- KeybindingData "3" [205021]; channel-nuke damage-knop (talent) -> main_rotation, geen cooldown
 	["Ice Lance"] = { category = "main_rotation", priority = 4, specs = { 64 } }, -- KeybindingData "4" [30455]; Shatter-spender (instant)
-	["Glacial Spike"] = { category = "spender", priority = 1, specs = { 64 } }, -- KeybindingData "5" [199786]; Icicle-finisher (talent)
+	-- Glacial Spike removed 17 Sep: no longer a spell, it changes Frostbolt (audit, BRON Icy Veins Frost 12.1).
 	["Frozen Orb"] = { category = "main_rotation", priority = 2, bindKey = "Shift+1", specs = { 64 } }, -- KeybindingData "Shift+1" [84714]; AoE + Fingers-of-Frost-CD (AoE-slot)
 	["Blizzard"] = { category = "main_rotation", priority = 5, bindKey = "Shift+2", specs = { 64 } }, -- KeybindingData "Shift+2" [190356]; ground-AoE
 	["Cone of Cold"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 64 } }, -- KeybindingData "Shift+3" [120]; PBAoE-frost
-	["Comet Storm"] = { category = "spender", priority = 2, bindKey = "Shift+4", specs = { 64 } }, -- KeybindingData "Shift+4" [153595]; AoE-spender (talent)
-	["Ice Barrier"] = { role = "defensive_1", priority = 1, specs = { 64 } }, -- KeybindingData "Z" [11426]; kleine def (absorb)
-	["Cold Snap"] = { category = "cooldown", priority = 3, specs = { 64 } }, -- KeybindingData "X" [235219]; reset-CD (Ice Block/Barrier/Nova/Cone of Cold) -> cooldown, geen utility
-	["Icy Veins"] = { role = "cooldown_bar", priority = 1, specs = { 64 } }, -- KeybindingData "F1" [12472]; Frost grootste burst-CD
+	-- Comet Storm removed 17 Sep: no longer a spell, it changes Ray of Frost (audit, BRON Icy Veins Frost 12.1).
+	["Ice Barrier"] = { role = "defensive_1", priority = 1, specs = { 64 }, survival = "keepup", survivalOrder = 1 }, -- KeybindingData "Z" [11426]; kleine def (absorb)
+	-- Card: after Ice Block — it resets Ice Block/Ice Cold and Ice Barrier (audit BRON Icy Veins Frost).
+	["Cold Snap"] = { category = "cooldown", priority = 3, specs = { 64 }, survival = "big", survivalOrder = 2 }, -- KeybindingData "X" [235219]; reset-CD (Ice Block/Barrier/Nova/Cone of Cold) -> cooldown, geen utility
+	-- Icy Veins removed 17 Sep: "Icy Veins has been removed, and our main cooldown is now Ray of Frost" (audit, BRON Icy Veins Frost 12.1).
 }

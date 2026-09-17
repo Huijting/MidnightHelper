@@ -55,6 +55,21 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	  - Demonology (266): Axe Toss via Felguard.
 	Beide spells zijn spec-specifiek toegewezen (verschillende pets), daarom specs={} per entry
 	i.p.v. baseline.
+
+	STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder`, `survivalNote` and `survivalId` feed
+	only Modules/SurvivalPlan.lua; the key fields above them are untouched. Every tag follows
+	docs/audit_2026-09-17/audit_mage_warlock_priest.md (Method + Icy Veins 12.1).
+	Card: small = Dark Pact (costs health; press it at high health, just before the hit); big =
+	Unending Resolve; heal = Mortal Coil, then Drain Life (stand still); escape = Demonic Circle:
+	Teleport, Burning Rush (costs health); interrupt = Spell Lock (Aff/Destro) / Axe Toss (Demo),
+	both cast by the pet.
+	Left OFF the card on purpose: Fear (crowd control; defensive_2 only puts it on key X),
+	Healthstone (an item: the name lookup cannot pass the IsPlayerSpell check), Call Felhunter (no
+	12.1 guide names it).
+	Removed 17 Sep, gone in Midnight (audit, BRON Icy Veins Affliction/Demonology 12.1): Malefic
+	Rapture, Soul Rot, Phantom Singularity, Vile Taint, Grimoire: Felguard, Summon Vilefiend (now
+	part of Call Dreadstalkers). Malevolence is Destruction too (Hellcaller, BRON Method), but its
+	`specs` stay { 265 } so no key moves.
 ]]
 
 ns.KeybindRoleClassifier.WARLOCK = {
@@ -64,23 +79,27 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	--==============================================================================
 
 	-- Movement (Q). Burning Rush + Demonic Circle: Teleport zijn class-brede mobility.
-	["Burning Rush"] = { role = "utility_primary", priority = 1 }, -- Q; SpellCategories UTILITY [111400] (movement, hp-drain)
-	["Demonic Circle: Teleport"] = { role = "utility_primary", priority = 2 }, -- Q-overflow; teleport naar geplaatste Circle (movement)
+	["Burning Rush"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_COSTS_HP" }, -- Q; SpellCategories UTILITY [111400] (movement, hp-drain)
+	["Demonic Circle: Teleport"] = { role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 1 }, -- Q-overflow; teleport naar geplaatste Circle (movement)
 
 	-- Kleine defensive (Z). Dark Pact = instant hp-shield (offert een deel van pet/eigen hp).
-	["Dark Pact"] = { role = "defensive_1", priority = 1 }, -- Z; SpellCategories DEFENSIVE [108416] (shield)
+	-- Card: not a keep-up — it takes 20% of your current health, so press it high, just before the hit (Method).
+	["Dark Pact"] = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_COSTS_HP" }, -- Z; SpellCategories DEFENSIVE [108416] (shield)
 
 	-- Grote defensive (C). Unending Resolve = grote persoonlijke DR (panic-button), alle specs.
-	["Unending Resolve"] = { role = "defensive_3", priority = 1 }, -- C; SpellCategories DEFENSIVE [104773]
+	["Unending Resolve"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- C; SpellCategories DEFENSIVE [104773]
 
 	-- Dispel / CC (V) + overflow. Alle addon-bevestigd (SpellCategories CROWD_CONTROL / Interrupt).
+	-- Fear: card off (crowd control; defensive_2 is only its key slot).
 	["Fear"] = { role = "defensive_2", category = "dispel_cc", priority = 1 }, -- V; CROWD_CONTROL [118699] (single-target fear)
-	["Mortal Coil"] = { category = "dispel_cc", priority = 2 }, -- CROWD_CONTROL [6789] (horror-fear + 20% self-heal; talent)
+	-- Mortal Coil: stays dispel_cc for the key, but on the card it is a heal (20%, 45 s; Method).
+	["Mortal Coil"] = { category = "dispel_cc", priority = 2, survival = "heal", survivalOrder = 1 }, -- CROWD_CONTROL [6789] (horror-fear + 20% self-heal; talent)
 	["Howl of Terror"] = { category = "dispel_cc", priority = 3 }, -- InterruptAbilities [5484] kind=cc mech=5 (AoE-fear; talent)
 	["Banish"] = { category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [710] (banish demon/elemental)
 
 	-- Self-heals. Drain Life = snelle combat-self-heal-kanaal (F2). Healthstone = OOC-noodheal (F3).
-	["Drain Life"] = { role = "heal_quick", priority = 1 }, -- F2; SpellArchetypes [234153] kanaal, heelt de caster
+	["Drain Life"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_STAND_STILL" }, -- F2; SpellArchetypes [234153] kanaal, heelt de caster
+	-- Healthstone: card off — an item, not a spell; the name lookup cannot pass IsPlayerSpell (audit TWIJFEL).
 	["Healthstone"] = { role = "heal_ooc", priority = 1 }, -- F3; HealingItems [5512] (spell "Create Healthstone" -> item); instant noodheal
 
 	-- Utility (rez / raid-mobility / pet-command). Soulstone = battle-res, NOOIT heal.
@@ -95,7 +114,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	--==============================================================================
 
 	-- Interrupt (E). Geen eigen kick -> via Felhunter (Spell Lock). Command Demon proct de pet-cast.
-	["Spell Lock"] = { role = "interrupt", priority = 1, specs = { 265, 267 } }, -- InterruptAbilities [19647] kind=interrupt pri=1 (Felhunter)
+	["Spell Lock"] = { role = "interrupt", priority = 1, specs = { 265, 267 }, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities [19647] kind=interrupt pri=1 (Felhunter)
 	["Call Felhunter"] = { role = "interrupt", priority = 2, specs = { 265, 267 } }, -- InterruptAbilities [212619] interrupt pri=2 (summon+kick)
 
 	-- Builders (DoT-opbouw / shard-generatie).
@@ -107,7 +126,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	["Drain Soul"] = { category = "main_rotation", priority = 5, specs = { 265 } }, -- SpellArchetypes ranged; ST-filler/execute-kanaal
 
 	-- Spenders (Soul Shard-dump).
-	["Malefic Rapture"] = { category = "spender", priority = 1, specs = { 265 } }, -- SpellArchetypes [1254057] ranged; hoofd-shard-spender
+	-- Malefic Rapture removed 17 Sep: gone in Midnight (audit, BRON Icy Veins Affliction 12.1).
 	["Malefic Grasp"] = { category = "spender", priority = 2, specs = { 265 } }, -- SpellArchetypes [1261153] ranged; kanaal-spender-variant
 
 	-- AoE-tweeling (Shift+N).
@@ -115,9 +134,9 @@ ns.KeybindRoleClassifier.WARLOCK = {
 
 	-- Cooldowns.
 	["Summon Darkglare"] = { role = "cooldown_bar", priority = 1, specs = { 265 } }, -- F1; SpellDB/Archetypes [205180] grootste burst-CD (extendt DoTs)
-	["Soul Rot"] = { category = "cooldown", priority = 2, specs = { 265 } }, -- SpellArchetypes [325640] ranged; burst-DoT-cooldown (ook Diabolist)
-	["Phantom Singularity"] = { category = "cooldown", priority = 3, specs = { 265 } }, -- SpellArchetypes [205179] ranged; AoE-DoT-cooldown (talent)
-	["Vile Taint"] = { category = "cooldown", priority = 4, specs = { 265 } }, -- SpellArchetypes [386931] ranged; AoE-DoT-cooldown (talent)
+	-- Soul Rot, Phantom Singularity, Vile Taint removed 17 Sep: "have been removed" (audit, BRON Icy Veins Affliction 12.1).
+	-- Malevolence: Hellcaller is also a Destruction hero tree (audit, BRON Method Destruction), but `specs`
+	-- stays { 265 }: adding 267 would give Destruction a new key, and the 17 Sep pass moves no binds.
 	["Malevolence"] = { role = "cooldown_bar", priority = 2, specs = { 265 } }, -- SpellArchetypes [446285] ranged; Hellcaller-hoofd-CD (Shift+F1)
 
 	--==============================================================================
@@ -125,7 +144,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	--==============================================================================
 
 	-- Interrupt (E). Geen eigen kick -> via Felguard (Axe Toss).
-	["Axe Toss"] = { role = "interrupt", priority = 1, specs = { 266 } }, -- InterruptAbilities [89766] kind=cc mech=12 (stun, Felguard-interrupt)
+	["Axe Toss"] = { role = "interrupt", priority = 1, specs = { 266 }, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities [89766] kind=cc mech=12 (stun, Felguard-interrupt)
 
 	-- Builders (shard-generatie / Demonic Core).
 	["Shadow Bolt"] = { category = "main_rotation", priority = 1, specs = { 266 } }, -- SpellArchetypes [686] ranged; shard-generatie-filler
@@ -134,8 +153,8 @@ ns.KeybindRoleClassifier.WARLOCK = {
 
 	-- Spenders (shard-dump / pet-summon).
 	["Hand of Gul'dan"] = { category = "spender", priority = 1, specs = { 266 } }, -- SpellArchetypes [86040] ranged; hoofd-shard-spender (Wild Imps)
-	["Summon Vilefiend"] = { category = "cooldown", priority = 2, specs = { 266 } }, -- SpellArchetypes [264119]; ~45s cooldown-pet-summon (CD, geen spambare shard-dump)
-	["Grimoire: Felguard"] = { category = "spender", priority = 3, specs = { 266 } }, -- SpellArchetypes [111898]; extra-Felguard-cooldown (talent)
+	-- Summon Vilefiend removed 17 Sep: now part of Call Dreadstalkers (audit, BRON Icy Veins Demonology 12.1).
+	-- Grimoire: Felguard removed 17 Sep: "has been removed" (audit, BRON Icy Veins Demonology 12.1).
 
 	-- AoE-tweeling (Shift+N).
 	["Implosion"] = { category = "spender", priority = 4, bindKey = "Shift+4", specs = { 266 } }, -- SpellArchetypes [196278] ranged; Wild-Imp-AoE-detonatie (AoE-slot, Shift-tweeling van Hand of Gul'dan slot 4)
