@@ -24,9 +24,8 @@ verdween bij **elk** gevecht en liet het knopje achter, ook bij trash.
 - [ ] **Raid of dungeon, trash pullen** met het boss-venster open: het venster gaat dicht (dat hoort), maar
       het knopje **"openen?"** hoort er nu níét te komen.
 - [ ] **Een baas pullen**: het venster gaat dicht en het knopje komt wél, zoals eerst.
-- [ ] ❓ Zie je het venster **vanzelf opengaan** bij trash (dus niet alleen het knopje), zeg het dan: typ dan
-      `/mh bosswin why` terwijl je die trash-mob als doel hebt en stuur me de regels. Dat pad heb ik niet
-      kunnen reproduceren.
+- ✅ **Rob, 17 sep:** *"het venster ging niet open bij trash, het was de knop"* — het venster zelf deed het
+      dus goed; alleen het knopje kwam te vaak. Precies wat deze reparatie aanpakt.
 
 ## 🆕 17 sep — Deel-knop in het boss-venster werkt nu ook in een raid
 

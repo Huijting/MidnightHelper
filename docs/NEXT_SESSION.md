@@ -9,8 +9,8 @@ Rob: *"vaak bij trash een bosswindow, of de vraag of ik hem open wil doen"*.
 - **Oorzaak:** `PLAYER_REGEN_DISABLED` verbergt het open venster en toont ALTIJD `ShowBossWindowPrompt()`.
   Elke trash-pull gaf dus het knopje. Nu zet `ENCOUNTER_START`/`ENCOUNTER_END` een vlag en wacht het knopje
   2 s; zonder encounter komt het niet. `/mh bosswin why` zegt die regel nu ook.
-- **Open:** of het VENSTER zelf ook bij trash opengaat is niet gereproduceerd — als Rob dat ziet, `/mh bosswin
-  why` met die mob als doel (staat op de TESTLIJST).
+- ✅ **Bevestigd door Rob, 17 sep:** *"het venster ging niet open bij trash, het was de knop"*. Het doel-pad en
+  de encounter-paden deden dus niets verkeerd; er was precies één bug en die is weg. Geen open punt meer.
 
 ## 🐛 17 sep — boss-venster: Deel kende geen raid
 
