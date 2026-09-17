@@ -30,6 +30,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] **`/mh survival`** print nu per spell een regel: groen **+** = op de kaart (met volgorde), rood **−** met
       de reden (niet bekend, passief, geen tag). Staat er iets met "no spell found", stuur me die regel.
 - [ ] Holy Paladin (als je er een hebt): staat **Divine Protection** er nu wél? (Holy heeft een eigen id, 498.)
+- [ ] **Alle andere klassen staan nu ook op het nieuwe model.** Op elke alt die je langsloopt: Academy → DPS-tab →
+      Blijf leven, en `/mh survival`. Let vooral op: staat er een rij **"no spell found"**? Dan vindt de kaart die
+      spell niet op naam. Bekende kandidaten: Shift (Devourer), Spell Lock / Axe Toss (pet-spells), alle Warrior-
+      en DK-spells (die hebben geen id).
+- [ ] **Tank- en healerlijsten** (Academy → Tank- of Heal-tab, op je eigen spec) tonen alleen nog wat je kent.
+      Verdwenen hoort: Last Stand, Zen Meditation, Dampen Harm, Heal, Renew, Spiritbloom, Essence Font, Mana Tide.
+- [ ] **In het spel te meten** (uit de audit, niemand heeft het gezien):
+      - Enhancement Shaman: staat **Ascendance** in je DPS-lijst? (Nu id 114051; was 114050.)
+      - Windwalker: staat **Zenith** erin (1249625)? Resto/Balance/Feral: **Convoke the Spirits** (391528)?
+      - Unholy: **Dark Transformation** (1233448) en **Putrefy** (1247378)? Subtlety: **Secret Technique** (280719)?
+      - Devourer: krijg je nu een eigen lijst (Void Metamorphosis, The Hunt, Soul Immolation, Voidblade) en niet
+        meer die van Havoc?
+      - Vengeance DH: heeft **Metamorphosis** nu een toets (Shift+C)? Die viel voorheen stil weg; dit is de enige
+        toets die door deze ronde echt verandert.
+      - Tegenstrijdige cooldowns (Ardent Defender 90 s of 2 min, Spell Reflection 25 of 20 s, Barkskin 45 s,
+        Combustion 60 s met Kindling, Bestial Wrath 30 s): wat zegt de tooltip?
 
 ## 🆕 17 sep — Codex-kaarten met een kopje, en delves vindbaar zoals dungeons
 

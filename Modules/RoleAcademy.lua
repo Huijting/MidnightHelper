@@ -449,6 +449,24 @@ local function ToolkitSpecName(specID)
 	return ""
 end
 
+--- On your OWN active spec, keep only the spells you own; a preview of another spec shows the whole
+--- list (its talents are unknowable from here). Added 17 Sep 2026 for the tank and healer lists, which
+--- showed removed spells (Last Stand, Zen Meditation, Heal) by name: the DPS list already did this.
+--- Fails open on an API error. Returns nil for an empty result, so no heading is drawn over nothing.
+local function OwnedOnly(list, activeID)
+	if not (list and activeID and IsPlayerSpell) then
+		return list
+	end
+	local out = {}
+	for _, e in ipairs(list) do
+		local ok, known = pcall(IsPlayerSpell, e.id)
+		if not ok or known then
+			out[#out + 1] = e
+		end
+	end
+	return #out > 0 and out or nil
+end
+
 local function RenderHealerToolkit(panel, child, y, cw)
 	local activeID = ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()
 	-- On a non-heal spec, preview the class's healer spec (a Prot Paladin sees the
@@ -465,7 +483,7 @@ local function RenderHealerToolkit(panel, child, y, cw)
 		y = AddToolkitLine(panel, child, cw, y,
 			"|cff9d9d9d" .. (SL("HEALTOOLKIT_PREVIEW_FMT")):format(ToolkitSpecName(specID)) .. "|r", false)
 	end
-	local heals = ns.GetHealerCoreHeals and ns.GetHealerCoreHeals(specID)
+	local heals = OwnedOnly(ns.GetHealerCoreHeals and ns.GetHealerCoreHeals(specID), activeID)
 	if heals then
 		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_HEALS_HEAD"), true)
 		for _, h in ipairs(heals) do
@@ -477,7 +495,7 @@ local function RenderHealerToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, h.id)
 		end
 	end
-	local cds = ns.GetHealerCooldowns and ns.GetHealerCooldowns(specID)
+	local cds = OwnedOnly(ns.GetHealerCooldowns and ns.GetHealerCooldowns(specID), activeID)
 	if cds then
 		y = y - 4
 		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_CDS_HEAD"), true)
@@ -491,7 +509,7 @@ local function RenderHealerToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
 		end
 	end
-	local defs = ns.GetHealerDefensives and ns.GetHealerDefensives(specID)
+	local defs = OwnedOnly(ns.GetHealerDefensives and ns.GetHealerDefensives(specID), activeID)
 	if defs then
 		y = y - 4
 		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_DEF_HEAD"), true)
@@ -553,7 +571,7 @@ local function RenderTankToolkit(panel, child, y, cw)
 		y = AddToolkitLine(panel, child, cw, y,
 			"|cff9d9d9d" .. (SL("HEALTOOLKIT_PREVIEW_FMT")):format(ToolkitSpecName(specID)) .. "|r", false)
 	end
-	local mit = ns.GetTankMitigation and ns.GetTankMitigation(specID)
+	local mit = OwnedOnly(ns.GetTankMitigation and ns.GetTankMitigation(specID), activeID)
 	if mit then
 		y = AddToolkitLine(panel, child, cw, y, SL("TANKKIT_MIT_HEAD"), true)
 		for _, m in ipairs(mit) do
@@ -565,7 +583,7 @@ local function RenderTankToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, m.id)
 		end
 	end
-	local cds = ns.GetTankCooldowns and ns.GetTankCooldowns(specID)
+	local cds = OwnedOnly(ns.GetTankCooldowns and ns.GetTankCooldowns(specID), activeID)
 	if cds then
 		y = y - 4
 		y = AddToolkitLine(panel, child, cw, y, SL("TANKKIT_CDS_HEAD"), true)

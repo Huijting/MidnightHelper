@@ -91,12 +91,16 @@ local TAG_COLOR = {
 	bounce = "ffb0e060",
 }
 
+-- 17 Sep 2026 (docs/audit_2026-09-17, BRON per row there): removed Tyr's Deliverance (a passive on
+-- Avenging Wrath now), Zen Meditation, Emerald Communion (PvP only), Mana Tide Totem, and from the
+-- core heals Spiritbloom, Essence Font, Heal, Renew and Shadow Mend (a passive Flash Heal upgrade);
+-- Healing Surge is gone for Restoration. Convoke is 391528 (323764 was the covenant spell), Holy's
+-- Divine Protection is 498, Barkskin 45 s. These lists are now filtered on your own spec too.
 ns.HEALER_COOLDOWNS = {
 	-- Holy Paladin (65)
 	[65] = {
 		{ id = 31884, cd = 120, kind = "heal", when = "flow" }, -- Avenging Wrath (boosts healing)
 		{ id = 375576, cd = 60, kind = "heal", when = "flow" }, -- Divine Toll
-		{ id = 200652, cd = 90, kind = "heal", when = "raid" }, -- Tyr's Deliverance
 		{ id = 31821, cd = 180, kind = "mitig", when = "raid" }, -- Aura Mastery (raid magic DR)
 		{ id = 6940, cd = 120, kind = "ext", when = "ext" }, -- Blessing of Sacrifice
 		{ id = 633, cd = 600, kind = "heal", when = "emerg" }, -- Lay on Hands (full-HP emergency heal, ally OR self)
@@ -105,14 +109,13 @@ ns.HEALER_COOLDOWNS = {
 	[105] = {
 		{ id = 740, cd = 180, kind = "heal", when = "raid" }, -- Tranquility
 		{ id = 33891, cd = 180, kind = "heal", when = "flow" }, -- Incarnation: Tree of Life (healing boost)
-		{ id = 323764, cd = 120, kind = "heal", when = "flow" }, -- Convoke the Spirits
+		{ id = 391528, cd = 120, kind = "heal", when = "flow" }, -- Convoke the Spirits (talent)
 		{ id = 102342, cd = 90, kind = "ext", when = "ext" }, -- Ironbark
 	},
 	-- Preservation Evoker (1468)
 	[1468] = {
 		{ id = 363534, cd = 240, kind = "heal", when = "raid" }, -- Rewind
-		{ id = 359816, cd = 120, kind = "heal", when = "raid" }, -- Dream Flight
-		{ id = 370960, cd = 180, kind = "heal", when = "flow" }, -- Emerald Communion
+		{ id = 359816, cd = 120, kind = "heal", when = "raid" }, -- Dream Flight (choice node with Stasis)
 		{ id = 370537, cd = 90, kind = "heal", when = "flow" }, -- Stasis (banks heals)
 		{ id = 357170, cd = 60, kind = "ext", when = "ext" }, -- Time Dilation
 	},
@@ -122,14 +125,13 @@ ns.HEALER_COOLDOWNS = {
 		{ id = 325197, cd = 120, kind = "heal", when = "raid" }, -- Invoke Chi-Ji, the Red Crane
 		{ id = 322118, cd = 120, kind = "heal", when = "raid" }, -- Invoke Yu'lon, the Jade Serpent
 		{ id = 116849, cd = 120, kind = "ext", when = "ext" }, -- Life Cocoon
-		{ id = 115176, cd = 300, kind = "mitig", when = "self" }, -- Zen Meditation (personal DR channel)
 	},
 	-- Discipline Priest (256)
 	[256] = {
 		{ id = 421453, cd = 240, kind = "heal", when = "flow" }, -- Ultimate Penitence
 		{ id = 62618, cd = 180, kind = "mitig", when = "raid" }, -- Power Word: Barrier (ground DR zone)
 		{ id = 33206, cd = 180, kind = "ext", when = "ext" }, -- Pain Suppression
-		{ id = 472433, cd = 90, kind = "heal", when = "flow" }, -- Evangelism (extends atonement healing)
+		{ id = 472433, cd = 90, kind = "heal", when = "raid" }, -- Evangelism (casts Power Word: Radiance and makes the next two instant: a ramp before raid damage; cd unconfirmed)
 		{ id = 10060, cd = 120, kind = "util", when = "haste" }, -- Power Infusion
 	},
 	-- Holy Priest (257)
@@ -144,8 +146,7 @@ ns.HEALER_COOLDOWNS = {
 	[264] = {
 		{ id = 108280, cd = 180, kind = "heal", when = "raid" }, -- Healing Tide Totem
 		{ id = 98008, cd = 180, kind = "mitig", when = "raid" }, -- Spirit Link Totem (health redistribute + DR)
-		{ id = 114052, cd = 180, kind = "heal", when = "raid" }, -- Ascendance (Restoration)
-		{ id = 16191, cd = 180, kind = "util", when = "mana" }, -- Mana Tide Totem
+		{ id = 114052, cd = 180, kind = "heal", when = "raid" }, -- Ascendance (Restoration; choice node with Healing Tide Totem)
 	},
 }
 
@@ -174,7 +175,6 @@ ns.HEALER_CORE_HEALS = {
 		{ id = 361469, tag = "fast" }, -- Living Flame
 		{ id = 366155, tag = "hot" }, -- Reversion
 		{ id = 360995, tag = "fast" }, -- Verdant Embrace
-		{ id = 367226, tag = "big" }, -- Spiritbloom
 		{ id = 355913, tag = "aoe" }, -- Emerald Blossom
 	},
 	-- Mistweaver Monk (270)
@@ -183,19 +183,16 @@ ns.HEALER_CORE_HEALS = {
 		{ id = 116670, tag = "fast" }, -- Vivify
 		{ id = 119611, tag = "hot" }, -- Renewing Mist
 		{ id = 124682, tag = "big" }, -- Enveloping Mist
-		{ id = 231633, tag = "aoe" }, -- Essence Font
 	},
 	-- Discipline Priest (256)
 	[256] = {
 		{ id = 17, tag = "shield" }, -- Power Word: Shield
-		{ id = 186263, tag = "fast" }, -- Shadow Mend
+		{ id = 2061, tag = "fast" }, -- Flash Heal (Shadow Mend is its passive upgrade in 12.1)
 		{ id = 194509, tag = "aoe" }, -- Power Word: Radiance
 	},
 	-- Holy Priest (257)
 	[257] = {
 		{ id = 2061, tag = "fast" }, -- Flash Heal
-		{ id = 2060, tag = "big" }, -- Heal
-		{ id = 139, tag = "hot" }, -- Renew
 		{ id = 33076, tag = "bounce" }, -- Prayer of Mending
 		{ id = 596, tag = "aoe" }, -- Prayer of Healing
 	},
@@ -203,7 +200,6 @@ ns.HEALER_CORE_HEALS = {
 	[264] = {
 		{ id = 61295, tag = "hot" }, -- Riptide
 		{ id = 77472, tag = "big" }, -- Healing Wave
-		{ id = 8004, tag = "fast" }, -- Healing Surge
 		{ id = 1064, tag = "bounce" }, -- Chain Heal
 		{ id = 73920, tag = "aoe" }, -- Healing Rain
 	},
@@ -224,10 +220,10 @@ end
 -- these keep YOU alive. IDs verified in JustAC SpellCategories DEFENSIVE; cds
 -- from SpellCooldowns (nil where not listed — tooltip shows it). never-lie.
 ns.HEALER_DEFENSIVES = {
-	[65] = { { id = 642, cd = 300 }, { id = 403876 } }, -- Holy Paladin: Divine Shield, Divine Protection
-	[105] = { { id = 22812, cd = 60 }, { id = 108238, cd = 90 } }, -- Resto Druid: Barkskin, Renewal
-	[1468] = { { id = 363916, cd = 90 }, { id = 374348 } }, -- Pres Evoker: Obsidian Scales, Renewing Blaze
-	[270] = { { id = 243435 }, { id = 122278, cd = 120 } }, -- Mistweaver: Fortifying Brew, Dampen Harm
+	[65] = { { id = 498, cd = 60 }, { id = 642, cd = 300 } }, -- Holy Paladin: Divine Protection (498 is Holy's), Divine Shield
+	[105] = { { id = 22812, cd = 45 } }, -- Resto Druid: Barkskin
+	[1468] = { { id = 363916, cd = 90 } }, -- Pres Evoker: Obsidian Scales (Renewing Blaze is passive on it now)
+	[270] = { { id = 243435 } }, -- Mistweaver: Fortifying Brew
 	[256] = { { id = 19236, cd = 90 } }, -- Disc Priest: Desperate Prayer
 	[257] = { { id = 19236, cd = 90 } }, -- Holy Priest: Desperate Prayer
 	[264] = { { id = 108271, cd = 120 } }, -- Resto Shaman: Astral Shift

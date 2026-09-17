@@ -21,8 +21,26 @@ regel BRON/AFGELEID).
   `C_Spell.IsSpellPassive` (AFGELEID dat die bestaat; gepcall'd). `/mh survival` print per spell stap + reden.
   **Paladin** getagd en opgeschoond (7 dode entries weg, Guardian/Sentinel alleen Prot). Andere klassen
   draaien nog op het oude model tot hun token in `TAGGED` staat.
-- **Open:** de andere 12 klassen (tags + dode classifier-entries), C/D/E in de gedeelde lijsten
-  (`DpsToolkit`, `TankToolkit`, `HealerCooldowns`, filter in `RoleAcademy`), keybind-cheatsheet regenereren.
+- ✅ **Stap 2, dezelfde dag — alle 13 klassen.** Vijf helpers taggden de andere 12 classifiers (elk alleen
+  eigen bestanden, per auditrapport); ik controleerde en herstelde:
+  - **Spec-verbredingen teruggedraaid** (Heart of the Wild, Tiger Dash, Chi Torpedo, Transfer, Earth
+    Elemental, Healing Stream Totem, Storm Bolt, Shockwave, Shattering Throw, Asphyxiate, Blinding Sleet,
+    Malevolence): die gaven nieuwe toetsen. De kaart verbreedt nu via `survivalSpecs`; versmallingen
+    (spells die een spec niet meer heeft) bleven staan.
+  - **`survival` mag per spec** (`{ [71] = "small", [73] = "keepup" }`, Ignore Pain).
+  - **136 meerregelige entries terug op één regel**: `lint_addon [11]` en `gen_keybinds.py` lezen per regel
+    en zagen `specs` niet (lint gaf 2 valse HARD-botsingen op Demoralizing Shout).
+  - **Toetsverdeling GEMETEN met `gen_keybinds.py`, HEAD~1 tegen nu:** 140 rijen anders, allemaal te
+    verklaren uit verwijderde entries die volgens de audit in 12.1 niet (meer) op die spec bestaan. In het
+    spel kent de speler die niet, dus de echte toetsen horen gelijk te blijven (AFGELEID). Enige echte
+    wijziging: `Metamorphosis (Vengeance)` kreeg `id = 187827` en krijgt nu zijn toets.
+  - **C/D/E:** `DpsToolkit` (22 dode weg, 10 bij, Bestial Wrath 30 s, Enh Ascendance 114051, Devourer 1480
+    eigen lijst), `TankToolkit` en `HealerCooldowns` opgeschoond, `RoleAcademy.OwnedOnly` filtert tank- en
+    healerlijsten op je eigen spec. Keybind-cheatsheet geregenereerd.
+- **Open:** in-game meten (TESTLIJST); ontbrekende spells zonder entry (Defensive Stance, Zenith als knop,
+  Takedown/Boomstick-id's, Ray of Frost als F1, Tiger's Lust, Rescue…) staan in de audits;
+  `KeybindingData.lua` (frost_mage-blok noemt nog Icy Veins, Glacial Spike, Comet Storm) is niet aangeraakt;
+  een keybind-ronde voor de class-talenten die nu te smal gescoped zijn.
 
 ## 🧭 17 sep — Codex-kaarten krijgen een kopje; delves vindbaar via zoeken en een tips-knop
 

@@ -86,10 +86,27 @@ local _, ns = ...
 ---     survivalOrder = number, lower first within the step (never `priority`)
 ---     survivalNote  = locale key, a short "only against magic"-style remark
 ---     survivalId    = { [specID] = spellID } where one spec owns a different id
+---     survival may also be { [specID] = step } when one entry means different things per spec
+---     (Ignore Pain: small on Arms, keepup on Prot)
+---     survivalSpecs = { specID, ... } widens WHO sees the row, for the card only. `specs` is what
+---     the key allocator reads; widening that would hand out new keys, and the promise to Rob
+---     was that this work moves no binds.
 --- An untagged spell is simply not on the card. That is the point: every row is a judgement made
 --- per spell, with its source in the audit.
 local TAGGED = {
 	PALADIN = true,
+	WARRIOR = true,
+	DEATHKNIGHT = true,
+	HUNTER = true,
+	ROGUE = true,
+	DEMONHUNTER = true,
+	DRUID = true,
+	MONK = true,
+	SHAMAN = true,
+	EVOKER = true,
+	MAGE = true,
+	WARLOCK = true,
+	PRIEST = true,
 }
 
 --- The steps for a TAGGED class, in the order a fight happens.
@@ -360,12 +377,27 @@ end
 --- The card for a TAGGED class: only `survival`-tagged entries, ordered by `survivalOrder`.
 --- `trace`, when given, receives one record per entry that applies to this spec, with the step it
 --- landed in (or nil) and why — that is what `/mh survival` prints.
+local function StepOf(entry, specID)
+	local s = entry.survival
+	if type(s) == "table" then
+		return specID and s[specID] or nil
+	end
+	return s
+end
+
+local function OnCardFor(entry, specID)
+	if type(entry.survivalSpecs) == "table" then
+		return AppliesTo({ specs = entry.survivalSpecs }, specID)
+	end
+	return AppliesTo(entry, specID)
+end
+
 local function TaggedPlan(tbl, specID, trace)
 	local steps, already = {}, {}
 	for _, step in ipairs(TAGGED_PLAN) do
 		local bucket = {}
 		for key, entry in pairs(tbl) do
-			if type(entry) == "table" and entry.survival == step.survival and AppliesTo(entry, specID) then
+			if type(entry) == "table" and StepOf(entry, specID) == step.survival and OnCardFor(entry, specID) then
 				bucket[#bucket + 1] = { key = key, entry = entry }
 			end
 		end
@@ -404,7 +436,7 @@ local function TaggedPlan(tbl, specID, trace)
 	end
 	if trace then
 		for key, entry in pairs(tbl) do
-			if type(entry) == "table" and not entry.survival and AppliesTo(entry, specID)
+			if type(entry) == "table" and not StepOf(entry, specID) and AppliesTo(entry, specID)
 				and (entry.category == "defensive" or entry.category == "selfheal"
 					or (type(entry.role) == "string" and (entry.role:find("^defensive") or entry.role:find("^heal")
 						or entry.role == "interrupt" or entry.role == "mobility"))) then

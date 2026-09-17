@@ -94,21 +94,26 @@ ns.TANK_MITIGATION = {
 	},
 }
 
+-- 17 Sep 2026 (docs/audit_2026-09-17): removed Last Stand (passive on Shield Wall in 12.1), Dampen
+-- Harm and Zen Meditation (gone); added Sentinel, Blessing of Spellwarding, Demoralizing Shout and
+-- Darkness; Metamorphosis got its 2 min; Barkskin is 45 s. Shown filtered on your own spec now.
 ns.TANK_COOLDOWNS = {
 	[66] = { -- Protection Paladin
 		{ id = 31850, cd = 90, kind = "dr" }, -- Ardent Defender
 		{ id = 86659, cd = 180, kind = "dr" }, -- Guardian of Ancient Kings
+		{ id = 389539, cd = 120, kind = "dr" }, -- Sentinel (up to 30% less damage taken)
+		{ id = 204018, kind = "magic" }, -- Blessing of Spellwarding (talent; shares its cooldown with Blessing of Protection)
 		{ id = 642, cd = 300, kind = "immunity" }, -- Divine Shield
 	},
 	[73] = { -- Protection Warrior
+		{ id = 1160, cd = 45, kind = "dr" }, -- Demoralizing Shout (enemies deal 20% less to you)
 		{ id = 871, cd = 180, kind = "dr" }, -- Shield Wall
-		{ id = 12975, cd = 180, kind = "dr" }, -- Last Stand
 		{ id = 97462, cd = 180, kind = "raid" }, -- Rallying Cry
 		{ id = 23920, cd = 25, kind = "magic" }, -- Spell Reflection
 	},
 	[104] = { -- Guardian Druid
-		{ id = 61336, cd = 180, kind = "dr" }, -- Survival Instincts
-		{ id = 22812, cd = 60, kind = "dr" }, -- Barkskin
+		{ id = 22812, cd = 45, kind = "dr" }, -- Barkskin
+		{ id = 61336, cd = 180, kind = "dr" }, -- Survival Instincts (2 charges baseline)
 	},
 	[250] = { -- Blood Death Knight
 		{ id = 55233, cd = 90, kind = "selfheal" }, -- Vampiric Blood
@@ -118,13 +123,12 @@ ns.TANK_COOLDOWNS = {
 	},
 	[268] = { -- Brewmaster Monk
 		{ id = 115203, cd = 360, kind = "dr" }, -- Fortifying Brew
-		{ id = 122278, cd = 120, kind = "dr" }, -- Dampen Harm
-		{ id = 115176, cd = 300, kind = "dr" }, -- Zen Meditation
 	},
 	[581] = { -- Vengeance Demon Hunter
 		{ id = 204021, cd = 60, kind = "dr" }, -- Fiery Brand
 		{ id = 212084, cd = 40, kind = "selfheal" }, -- Fel Devastation
-		{ id = 187827, kind = "dr" }, -- Metamorphosis (Vengeance); CD via tooltip
+		{ id = 187827, cd = 120, kind = "dr" }, -- Metamorphosis (Vengeance)
+		{ id = 196718, cd = 300, kind = "raid" }, -- Darkness
 	},
 }
 
