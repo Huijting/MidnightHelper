@@ -855,3 +855,39 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   (`docs/PTR_12.1_WATCH.md`'s lane). **[RAAKT ONS NIET]** — bron:
   https://news.blizzard.com/en-us/article/24296142?nocache=20260916c (volledig gelezen via Exa)
   · `docs/PTR_12.0.7_DATA.md` (regel 772-775, ter kruisverwijzing, niet als bewijs overgenomen).
+
+---
+
+- [2026-09-17] 🔁 **Geen nieuwe hotfix-sectie sinds gisteren — niets nieuws om tegen de repo te
+  toetsen.** `Exa web_fetch_exa` met `?nocache=20260917f` op news.blizzard.com's doorlopende
+  hotfix-artikel, **volledige artikeltekst zelf gelezen**: nieuwste sectie is nog steeds
+  "September 15, 2026" — byte-voor-byte dezelfde vier categorieën (Classes, Dungeons and Raids,
+  Items, Quests) plus The Coiled Isle die [2026-09-16] al volledig behandeld heeft (Sszorak/Twin
+  Fangs/Coiled Altar/Ula'tek-tuning, Spark-of-Tides-restauratie, "Hijacked Portal"/"Hope in the
+  Darkest Corners"-questfixes, Curse Surge 30 min). Geen twaalfde sectie. Delves/Professions:
+  geen nieuwe regels sinds gisteren, dus niets om te vergelijken.
+
+  **Positieve controle tegen de cache-val van 3 sep:** `web_search_exa` op "World of Warcraft
+  Midnight hotfixes September 16 2026 OR September 17 2026 retail" vindt geen enkel
+  retail-hotfixartikel nieuwer dan 15 sep — maar dezelfde zoekmethode vindt in diezelfde
+  resultatenlijst zonder moeite de correct gedateerde artikelen voor 15, 10, 9 en 4 sep en zelfs
+  17/19 aug, dus de query kan wél recente en oude content vinden; het ontbreken van een 16/17-sep-
+  hotfixartikel is een gemeten afwezigheid, geen kapotte zoekopdracht of een week-oude cache. Dit
+  convergeert met de API-, PTR/roadmap- en data-wachter van vandaag, die elk onafhankelijk
+  dezelfde "15 sep blijft nieuwste"-stand vonden (`docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md`,
+  `docs/PTR_12.0.7_DATA.md`, alle entries [2026-09-17]) — niet overgenomen als bewijs, zelf
+  opnieuw gemeten via een eigen fetch met een eigen cache-buster.
+
+  De data-wachter noemt vandaag ook dat `Modules/ResetRoutine.lua` in de net binnengehaalde
+  4.0.0-releasecommit de Timewalking-weekly is gaan trackeren ("Ship the Timewalking weekly
+  instead of relying on one player's learn store") — dat is een codewijziging uit deze sessie
+  zelf, geen hotfix-bevinding, en dus niets voor deze wachter om tegen een hotfix te toetsen.
+  Verder geen nieuwe blue posts of live-events gevonden die in mijn lane vallen (Delves/
+  Professions/Quests/Dungeons and Raids/Items) — de vandaag lopende maar nog niet gehouden
+  BlizzCon-Q&A en het Kith'ix-testverslag zijn beide PTR/roadmap-materiaal, al door de PTR-wachter
+  vandaag als "nog niet plaatsgevonden" genoteerd.
+
+  Geen enkele bevinding vandaag. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260917f (volledig gelezen via Exa) ·
+  `web_search_exa` "World of Warcraft Midnight hotfixes September 16 2026 OR September 17 2026
+  retail" (nieuwste retail-hotfixtreffer blijft 15 sep).
