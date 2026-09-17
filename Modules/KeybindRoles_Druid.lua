@@ -58,7 +58,8 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 --     trinkets, potions, zuivere passieven, vorm-shapeshifts (behalve als
 --     nuttige utility: Bear/Cat/Moonkin/Prowl).
 --   * Baseline (geen specs=): Barkskin, Wild Charge, Rebirth, Cyclone, Soothe,
---     Remove Corruption, Renewal, Dash.
+--     Remove Corruption, Dash (Renewal is verwijderd, zie STAY ALIVE CARD
+--     hieronder).
 --
 -- ---------------------------------------------------------------------
 -- 6 sep 2026 — VIJF ENTRIES BIJ, en de ID-migratie begint hier (Spec 32)
@@ -93,6 +94,25 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 -- Berserk-regel hieronder in zijn commentaar noemt, want het talent
 -- overschrijft de spell en de spellbook geeft de nieuwe naam terug. Twee
 -- entries met id 50334 laten er één stil verliezen in BuildIdIndex.
+--
+-- ---------------------------------------------------------------------
+-- STAY ALIVE CARD (17 Sep 2026)
+-- ---------------------------------------------------------------------
+-- `survival`, `survivalOrder`, `survivalNote` and `survivalId` feed only
+-- Modules/SurvivalPlan.lua; role/category/priority/bindKey are untouched.
+-- Every tag follows docs/audit_2026-09-17/audit_druid_monk.md (patch notes,
+-- warcraft.wiki.gg, Icy Veins/Method 12.1). Barkskin is a small 45 s button,
+-- not a keep-up; Ironfur is the only real keep-up. Ironbark is on the card as
+-- a big button you cast on yourself (it is mainly an external).
+-- Left OFF the card on purpose: Bristling Fur (a Rage generator, not damage
+-- reduction); Bear Form (baseline entry, so a tag would also put it on
+-- Guardian, who is always in it); Convoke / Incarnations (offensive).
+-- Removed 17 Sep, gone in 12.x (BRON in the audit): Renewal (now the passive
+-- Aessina's Renewal), Rage of the Sleeper, Cenarion Ward, Flourish and Grove
+-- Guardians (both passive now).
+-- Specs changed 17 Sep: Thrash is no longer Feral -> { 104 }. Heart of the Wild and
+-- Tiger Dash are class talents; their `specs` stay (no key moves) and
+-- `survivalSpecs` shows them on every spec's card.
 -- =====================================================================
 
 ns.KeybindRoleClassifier.DRUID = {
@@ -110,9 +130,9 @@ ns.KeybindRoleClassifier.DRUID = {
     -- AoE
     ["Starfall"]                         = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 102 } }, -- AoE-spender (Shift-tweeling van Starsurge, spender 4)
     -- Interrupt
-    ["Solar Beam"]                       = { role = "interrupt", priority = 1, specs = { 102 } }, -- Balance ranged AoE-silence
-    -- Movement (Balance-specifiek talent)
-    ["Tiger Dash"]                       = { role = "utility_primary", priority = 2, specs = { 102 } }, -- Shift+Q (Cat Form sprint)
+    ["Solar Beam"]                       = { role = "interrupt", priority = 1, specs = { 102 }, survival = "interrupt", survivalOrder = 1 }, -- Balance ranged AoE-silence
+    -- Movement (klassentalent volgens de audit; toetsen blijven { 102 }, de kaart toont hem bij alle specs)
+    ["Tiger Dash"]                       = { role = "utility_primary", priority = 2, specs = { 102 }, survivalSpecs = { 102, 103, 104, 105 }, survival = "escape", survivalOrder = 2 }, -- Shift+Q (Cat Form sprint)
     -- CC
     ["Typhoon"]                          = { category = "dispel_cc", priority = 1, specs = { 102, 104, 105 } }, -- knockback+daze (Balance V; Guardian/Resto talent)
     -- Cooldowns
@@ -140,29 +160,31 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Builders
     ["Mangle"]                           = { category = "main_rotation", priority = 1, specs = { 104 } }, -- primaire Rage-generator
     -- Spenders (mitigation / self-heal)
-    ["Ironfur"]                          = { category = "defensive", priority = 1, specs = { 104 } }, -- actieve mitigation (armor), GEEN damage-spender -> Defensive-kaart
+    ["Ironfur"]                          = { category = "defensive", priority = 1, specs = { 104 }, survival = "keepup", survivalOrder = 1 }, -- actieve mitigation (armor), GEEN damage-spender -> Defensive-kaart; card: keep one stack up (Wowhead)
     ["Maul"]                             = { category = "spender", priority = 3, specs = { 104 } }, -- Rage-dump
     -- CC
     ["Mighty Bash"]                      = { category = "dispel_cc", priority = 1, specs = { 102, 104 }, alsoStop = "stun" }, -- JustAC InterruptAbilities [5211] cc mech=12 (stun) → Spec 08 alsoStop
     ["Incapacitating Roar"]              = { category = "dispel_cc", priority = 2, specs = { 103, 104 }, alsoStop = "incap" }, -- JustAC InterruptAbilities [99] cc mech=14 (incapacitate) → Spec 08 alsoStop
     -- Cooldowns
-    ["Lunar Beam"]                       = { id = 204066, category = "cooldown", priority = 1, specs = { 104 } }, -- regel 1 van de Elune's Chosen-prioriteitslijst (Method/Icy Veins/Maxroll); JustAC SimcRotations DRUID_3 burst+st+aoe, SpellCooldowns 60s
-    ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 104 } }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst
+    ["Lunar Beam"]                       = { id = 204066, category = "cooldown", priority = 1, specs = { 104 }, survival = "small", survivalOrder = 2 }, -- regel 1 van de Elune's Chosen-prioriteitslijst (Method/Icy Veins/Maxroll); JustAC SimcRotations DRUID_3 burst+st+aoe, SpellCooldowns 60s; card: IV 12.1 "survivability tool"
+    -- Heart of the Wild: klassentalent (patchnotes, Method "class tree") -> baseline sinds 17 sep.
+    -- ⚠️ id 1261867 is gemeten op Guardian; op de andere specs niet gemeten.
+    ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 104 }, survivalSpecs = { 102, 103, 104, 105 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst; card: Bear Form +30% max health
     ["Incarnation: Guardian of Ursoc"]   = { category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
-    ["Rage of the Sleeper"]              = { category = "defensive", priority = 3, specs = { 104 } }, -- Guardian actieve def (dmg-reductie + reflect + heal), GEEN offensieve CD -> Defensive
+    -- Rage of the Sleeper: verwijderd 17 sep (weg in 12.0.0, wiki).
     -- Utility
     ["Growl"]                            = { category = "taunt", priority = 1, specs = { 104 } }, -- taunt (F, eigen kaart)
-    ["Bristling Fur"]                    = { category = "defensive", priority = 4, specs = { 104 } }, -- Rage-on-damage def-talent
+    ["Bristling Fur"]                    = { category = "defensive", priority = 4, specs = { 104 } }, -- Rage-on-damage def-talent; NOT on the card: a Rage generator
 
     -- =================================================================
     -- GEDEELD: Feral + Guardian (melee-vormen)
     -- =================================================================
-    ["Thrash"]                           = { category = "main_rotation", priority = 2, specs = { 103, 104 } }, -- Feral builder / Guardian AoE-builder
+    ["Thrash"]                           = { category = "main_rotation", priority = 2, specs = { 104 } }, -- Guardian AoE-builder; Feral kwijt in 12.1 (IV Feral: "removed from the tree")
     ["Swipe"]                            = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 103, 104 } }, -- AoE-builder (Shift-tweeling van primaire builder Shred/Mangle, builder 1)
-    ["Skull Bash"]                       = { role = "interrupt", priority = 1, specs = { 103, 104 } }, -- charge+interrupt (melee-specs)
-    ["Stampeding Roar"]                  = { role = "utility_primary", priority = 2, specs = { 103, 104 } }, -- Shift+Q (raid-speed)
-    ["Survival Instincts"]               = { role = "defensive_3", priority = 1, specs = { 103, 104 } }, -- grote def (-50% dmg), C
-    ["Frenzied Regeneration"]            = { role = "heal_quick", priority = 2, specs = { 103, 104 } }, -- self-heal (Guardian spender/Feral noodheal), F2/5
+    ["Skull Bash"]                       = { role = "interrupt", priority = 1, specs = { 103, 104 }, survival = "interrupt", survivalOrder = 1 }, -- charge+interrupt (melee-specs)
+    ["Stampeding Roar"]                  = { role = "utility_primary", priority = 2, specs = { 103, 104 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q (raid-speed)
+    ["Survival Instincts"]               = { role = "defensive_3", priority = 1, specs = { 103, 104 }, survival = "big", survivalOrder = 2 }, -- grote def (-50% dmg), C
+    ["Frenzied Regeneration"]            = { role = "heal_quick", priority = 2, specs = { 103, 104 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- self-heal (Guardian spender/Feral noodheal), F2/5; Bear Form only (Feral Cat only with Druid of the Claw)
     ["Berserk"]                          = { role = "cooldown_bar", priority = 1, specs = { 103, 104 } }, -- Feral 106951 + Guardian 50334, zelfde naam, F1
     ["Tiger's Fury"]                     = { category = "cooldown", priority = 3, specs = { 103 } }, -- Feral signature 30s energy/dmg-CD (JustAC SpellCooldowns 5217=30s; SimC core)
 
@@ -179,19 +201,18 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Ontbrekende ST-heals + ST-HoTs -> click_cast (mouseover, GEEN toets). Regrowth is
     -- Resto-only en bestaat NIET als aparte Lua-key elders -> veilig toegevoegd.
     ["Rejuvenation"]                     = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-HoT (Resto-only) -> mouseover/click-cast
-    ["Regrowth"]                         = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-heal + kort HoT -> mouseover/click-cast
+    ["Regrowth"]                         = { role = "click_cast", priority = 1, specs = { 105 }, survival = "heal", survivalOrder = 2 }, -- ST-heal + kort HoT -> mouseover/click-cast; card: Resto's own self-heal
     ["Lifebloom"]                        = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-HoT op tank (Resto-only) -> mouseover/click-cast
-    ["Cenarion Ward"]                    = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-schild/HoT (Resto-only) -> mouseover/click-cast
+    -- Cenarion Ward: verwijderd 17 sep (weg in 12.0, patchnotes).
     ["Wild Growth"]                      = { category = "raid_heal", priority = 2, bindKey = "Shift+4", specs = { 105 } }, -- AoE-raidheal BLIJFT op toets (Shift+4)
     ["Efflorescence"]                    = { category = "raid_heal", priority = 4, specs = { 105 } }, -- grond-AoE-raidheal (bloom) -> toets
     -- Kleine defensive (extern)
-    ["Ironbark"]                         = { role = "defensive_1", priority = 2, specs = { 105 } }, -- extern -20% dmg (Z); ook raid-CD-slot
+    ["Ironbark"]                         = { role = "defensive_1", priority = 2, specs = { 105 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- extern -20% dmg (Z); ook raid-CD-slot; card: 1.5 min, not a keep-up (wiki)
     -- Raid-heal cooldowns (op cooldown-slots)
     ["Tranquility"]                      = { role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
-    ["Flourish"]                         = { category = "cooldown", priority = 2, specs = { 105 } }, -- verlengt HoTs (F1)
+    -- Flourish en Grove Guardians: verwijderd 17 sep (nu passief, patchnotes/IV Resto).
     ["Incarnation: Tree of Life"]        = { category = "cooldown", priority = 2, specs = { 105 } }, -- Resto heal-vorm CD (talent)
     ["Convoke the Spirits"]              = { category = "cooldown", priority = 2, specs = { 105 } }, -- burst heal/dmg CD (talent)
-    ["Grove Guardians"]                  = { category = "cooldown", priority = 2, specs = { 105 } }, -- treants die mee-healen (talent)
     -- Dispel / CC
     ["Nature's Cure"]                    = { category = "dispel_cc", priority = 1, specs = { 105 } }, -- magic/curse/poison dispel
     ["Mass Entanglement"]                = { category = "dispel_cc", priority = 2, specs = { 105 } }, -- AoE-root
@@ -202,13 +223,12 @@ ns.KeybindRoleClassifier.DRUID = {
     -- BASELINE (alle 4 Druid-specs; geen specs=)
     -- =================================================================
     -- Movement
-    ["Wild Charge"]                      = { role = "utility_primary", priority = 1 }, -- Q (vorm-afhankelijke gap-closer)
-    ["Dash"]                             = { role = "utility_primary", priority = 3 }, -- Cat Form sprint (baseline movement)
-    ["Travel Form"]                      = { role = "mobility", priority = 1 }, -- R (snelle reis-vorm: outdoor speed / zwem / vlieg; alle specs, out-of-combat)
+    ["Wild Charge"]                      = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 3 }, -- Q (vorm-afhankelijke gap-closer)
+    ["Dash"]                             = { role = "utility_primary", priority = 3, survival = "escape", survivalOrder = 1 }, -- Cat Form sprint (baseline movement)
+    ["Travel Form"]                      = { role = "mobility", priority = 1, survival = "escape", survivalOrder = 5 }, -- R (snelle reis-vorm: outdoor speed / zwem / vlieg; alle specs, out-of-combat); card: last, limited indoors
     -- Kleine defensive
-    ["Barkskin"]                         = { role = "defensive_1", priority = 1 }, -- -20% dmg, alle vormen (Z)
-    -- Self-heal
-    ["Renewal"]                          = { role = "heal_quick", priority = 1 }, -- F2 instant self-heal (talent; ExwindCore alle specs)
+    ["Barkskin"]                         = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_STUNNED" }, -- -20% dmg, alle vormen (Z); card: 8 s on 45 s, not a keep-up (wiki)
+    -- Self-heal: Renewal verwijderd 17 sep (weg in 12.0.0, patchnotes).
     -- Dispel / CC (class-gedeeld)
     ["Cyclone"]                          = { category = "dispel_cc", priority = 3 }, -- banish-CC (1 doel)
     ["Entangling Roots"]                 = { category = "dispel_cc", priority = 4 }, -- single-target root
