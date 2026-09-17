@@ -39,6 +39,20 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 --   * Baseline (geen specs=): Kick, Sprint, Crimson Vial, Feint, Cloak of
 --     Shadows, Evasion, Blind, Kidney Shot, Vanish, Cheap Shot, Gouge, Sap,
 --     Distract, Tricks of the Trade, Stealth.
+--
+-- STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder` en
+-- `survivalNote` voeden alleen Modules/SurvivalPlan.lua; de keybind-velden
+-- (role, category, priority, bindKey, alsoStop) zijn niet aangeraakt. Elke
+-- tag volgt docs/audit_2026-09-17/audit_hunter_rogue_dh.md (Icy Veins,
+-- Method, murlok 12.1).
+--   * Feint is de kleine knop die je vlak voor een klap drukt, niet iets om
+--     aan te houden. Evasion (fysiek, van voren) en Cloak of Shadows (alleen
+--     magie) zijn de grote; de notitie zegt welke tegen wat werkt.
+--   * Weg: Sprint, Shadowstep (Assa/Sub), Grappling Hook (Outlaw), Vanish
+--     (laat aggro vallen).
+--   * Bewust NIET op de kaart: Blind / Gouge / Kidney Shot (CC, zie
+--     SurvivalPlan.lua), Cheat Death (passief, geen knop, geen entry).
+--   * Niets verwijderd: Flagellation (weg in Midnight) had hier geen entry.
 -- =====================================================================
 
 ns.KeybindRoleClassifier.ROGUE = {
@@ -73,7 +87,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     -- AoE
     ["Blade Flurry"]     = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 260 } }, -- cleave-toggle
     -- Movement (Outlaw-exclusief)
-    ["Grappling Hook"]   = { role = "utility_primary", priority = 1, specs = { 260 } },
+    ["Grappling Hook"]   = { role = "utility_primary", priority = 1, specs = { 260 }, survival = "escape", survivalOrder = 2 },
     -- Cooldowns
     ["Adrenaline Rush"]  = { role = "cooldown_bar", priority = 1, specs = { 260 } }, -- grootste CD (F1)
     ["Killing Spree"]    = { category = "cooldown", priority = 2, specs = { 260 } }, -- extra CD (Shift+F1)
@@ -100,17 +114,17 @@ ns.KeybindRoleClassifier.ROGUE = {
     -- BASELINE (alle 3 Rogue-specs; geen specs=)
     -- =================================================================
     -- Interrupt
-    ["Kick"]             = { role = "interrupt", priority = 1 },
+    ["Kick"]             = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
     -- Movement / gap-closers
-    ["Sprint"]           = { role = "utility_primary", priority = 1 },                     -- Q op Assa/Sub; Shift+Q op Outlaw
-    ["Shadowstep"]       = { role = "utility_primary", priority = 1, specs = { 259, 261 } }, -- gap-closer; niet Outlaw (heeft Grappling Hook)
+    ["Sprint"]           = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q op Assa/Sub; Shift+Q op Outlaw
+    ["Shadowstep"]       = { role = "utility_primary", priority = 1, specs = { 259, 261 }, survival = "escape", survivalOrder = 2 }, -- gap-closer; niet Outlaw (heeft Grappling Hook)
     -- Self-heal
-    ["Crimson Vial"]     = { role = "heal_quick", priority = 1 }, -- F2 primaire combat self-heal (instant HoT). NIET F4.
+    ["Crimson Vial"]     = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 primaire combat self-heal (instant HoT). NIET F4.
     -- Kleine defensive
-    ["Feint"]            = { role = "defensive_1", priority = 1 }, -- kleine def (AoE dmg-reductie)
+    ["Feint"]            = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1 }, -- kleine def (AoE dmg-reductie); kaart: vlak voor een klap
     -- Grote defensieven
-    ["Cloak of Shadows"] = { role = "defensive_3", priority = 1 }, -- magic immunity
-    ["Evasion"]          = { role = "defensive_3", priority = 2 }, -- dodge (grote def)
+    ["Cloak of Shadows"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- magic immunity
+    ["Evasion"]          = { role = "defensive_3", priority = 2, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- dodge (grote def), alleen van voren
     -- Dispel / CC
     ["Blind"]            = { category = "dispel_cc", priority = 1 }, -- disorient
     ["Kidney Shot"]      = { category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- finisher-stun (JustAC 408 mech=12)
@@ -118,7 +132,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Sap"]              = { category = "dispel_cc", priority = 4 }, -- incapacitate (uit combat/stealth)
     ["Gouge"]            = { category = "dispel_cc", priority = 5, alsoStop = "incap" }, -- incapacitate (frontaal) (JustAC 1776 mech=14)
     -- Utility
-    ["Vanish"]           = { category = "cooldown", priority = 1 },                   -- stealth-CD (reset/opener), geen zuivere utility
+    ["Vanish"]           = { category = "cooldown", priority = 1, survival = "escape", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- stealth-CD (reset/opener), geen zuivere utility
     ["Stealth"]          = { category = "utility", priority = 2 },                    -- pre-pull/openers
     ["Distract"]         = { category = "utility", priority = 3 },                    -- misdirect/aggro
     ["Tricks of the Trade"] = { category = "utility", priority = 4 },                 -- threat transfer

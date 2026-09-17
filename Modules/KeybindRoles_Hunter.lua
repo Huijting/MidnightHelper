@@ -57,32 +57,46 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	    Bursting Shot, Scare Beast, Survival of the Fittest, Roar of Sacrifice, Kill Shot.
 	  - NIET opgenomen: Recuperate (globale F4), heal_sustain/F4, racials, trinket, potion,
 	    passieve talents, pet-summon/revive.
+
+	STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder` and `survivalNote` feed only
+	Modules/SurvivalPlan.lua; the key fields (role, category, priority, bindKey, alsoStop) are
+	untouched. Every tag follows docs/audit_2026-09-17/audit_hunter_rogue_dh.md (Icy Veins / Method 12.1).
+	Order: Roar of Sacrifice (15%, your pet takes half) and Survival of the Fittest (30%, 2 charges)
+	are the small buttons, Aspect of the Turtle the big one. Escapes: Disengage (leaps backwards),
+	Feign Death (drops aggro), Aspect of the Cheetah.
+	Left OFF the card on purpose: Harpoon (a gap-closer TOWARDS the enemy, not an escape; its
+	`mobility` role stays for the keybind), Camouflage and Mend Pet (small, out of combat / pet only).
+	Removed 17 Sep, no longer buttons in 12.1 (M-BM, hackmd, WH-SV): Call of the Wild (removed),
+	Bloodshed (now a passive bleed with Bestial Wrath), Fury of the Eagle (folded into Boomstick).
+	Fortitude of the Bear never had an entry here (a passive 3% DR in Midnight).
 ]]
 
 ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	-- INTERRUPT (E)
 	--==================================================================================
-	["Counter Shot"] = { role = "interrupt", priority = 1, specs = { 253, 254 } }, -- BM/MM kick (147362); SV = Muzzle
-	["Muzzle"] = { role = "interrupt", priority = 1, specs = { 255 } }, -- SV kick (187707)
+	["Counter Shot"] = { role = "interrupt", priority = 1, specs = { 253, 254 }, survival = "interrupt", survivalOrder = 1 }, -- BM/MM kick (147362); SV = Muzzle
+	["Muzzle"] = { role = "interrupt", priority = 1, specs = { 255 }, survival = "interrupt", survivalOrder = 1 }, -- SV kick (187707)
 
 	--==================================================================================
 	-- MOVEMENT (Q)
 	--==================================================================================
-	["Disengage"] = { role = "utility_primary", priority = 1 }, -- baseline retreat (781); alle 3 specs
-	["Harpoon"] = { role = "mobility", priority = 1, specs = { 255 } }, -- SV engage/gap-closer (190925)
-	["Aspect of the Cheetah"] = { role = "utility_primary", priority = 2 }, -- baseline sprint/movement (186257); movement -> utility_primary
+	["Disengage"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- baseline retreat (781); alle 3 specs
+	["Harpoon"] = { role = "mobility", priority = 1, specs = { 255 } }, -- SV engage/gap-closer (190925); NOT on the card: pulls you TOWARDS the enemy
+	["Aspect of the Cheetah"] = { role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 3 }, -- baseline sprint/movement (186257); movement -> utility_primary
 
 	--==================================================================================
 	-- DEFENSIVES
 	--==================================================================================
-	["Exhilaration"] = { role = "heal_quick", priority = 1 }, -- F2 heal-anker: self+pet quick heal (109304), baseline
-	["Survival of the Fittest"] = { role = "defensive_1", priority = 1 }, -- kleine def, 30% DR (264735), baseline (talent)
-	["Aspect of the Turtle"] = { role = "defensive_3", priority = 1 }, -- grote def, immune (186265), baseline
+	["Exhilaration"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 heal-anker: self+pet quick heal (109304), baseline; 1 min (IV)
+	-- Card: 30% DR for 8 s, 2 charges — pressed before a hit, not kept up (IV).
+	["Survival of the Fittest"] = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 2 }, -- kleine def, 30% DR (264735), baseline (talent)
+	["Aspect of the Turtle"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- grote def, immune (186265), baseline
 	["Primal Rage"] = { category = "cooldown", priority = 5, specs = { 253 } }, -- BM pet-Bloodlust/Heroism-equivalent (JustAC SpellCategories 264667); analoog aan Shaman Bloodlust
 	["Camouflage"] = { category = "utility", priority = 5 }, -- baseline stealth/reset-utility (JustAC SpellCooldowns 199483)
-	["Roar of Sacrifice"] = { category = "defensive", priority = 2 }, -- externe pet-def (53480), baseline (talent)
-	["Feign Death"] = { category = "utility", priority = 4 }, -- baseline threat-drop (5384)
+	-- Card: self-castable in Midnight (IV-SVguide); 15% DR, the pet takes half — the smallest button.
+	["Roar of Sacrifice"] = { category = "defensive", priority = 2, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PET" }, -- externe pet-def (53480), baseline (talent)
+	["Feign Death"] = { category = "utility", priority = 4, survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- baseline threat-drop (5384); 30 s
 
 	--==================================================================================
 	-- DISPEL / CC (V + overflow)
@@ -103,12 +117,10 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	-- Beast Mastery
 	["Bestial Wrath"] = { role = "cooldown_bar", priority = 1, specs = { 253 } }, -- BM grote CD (19574)
-	["Call of the Wild"] = { category = "cooldown", priority = 2, specs = { 253 } }, -- BM extra CD (359844, talent)
-	["Bloodshed"] = { category = "cooldown", priority = 3, specs = { 253 } }, -- BM extra CD (321530, talent)
+	-- Call of the Wild (removed) and Bloodshed (passive now) deleted 17 Sep 2026 (M-BM, hackmd).
 	-- Marksmanship
 	["Trueshot"] = { role = "cooldown_bar", priority = 1, specs = { 254 } }, -- MM grote CD (288613)
-	-- Survival
-	["Fury of the Eagle"] = { category = "cooldown", priority = 2, specs = { 255 } }, -- SV extra CD (203415, talent)
+	-- Survival: Fury of the Eagle deleted 17 Sep 2026, folded into Boomstick (WH-SV, IV-SV).
 	-- Gedeeld (talent-CD's die op meerdere specs kunnen zitten)
 	["Stampede"] = { category = "cooldown", priority = 4 }, -- pet-charge CD (baseline talent)
 

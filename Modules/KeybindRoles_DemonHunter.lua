@@ -39,19 +39,34 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 -- Baseline (GEEN specs; BEIDE specs 577+581): Disrupt, Vengeful Retreat, Chaos Nova,
 --   Imprison, Consume Magic, Torment, Immolation Aura, Felblade, The Hunt, Sigil of Misery,
 --   Spectral Sight, Glide.
+--
+-- STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder` and `survivalNote` feed only
+-- Modules/SurvivalPlan.lua; the key fields (role, category, priority, bindKey, alsoStop) are
+-- untouched. Every tag follows docs/audit_2026-09-17/audit_hunter_rogue_dh.md (Icy Veins 12.1).
+--   * Blur is a 1-min button you press before a hit (IV-HAV/IV-DEV), not a keep-up. Only
+--     Demon Spikes (Vengeance) is real keep-up.
+--   * Vengeance: Fiery Brand small, Metamorphosis then Darkness big, Fel Devastation heals.
+--     "Metamorphosis (Vengeance)" is not a spell name, so that entry now carries id = 187827;
+--     without it the card dropped the tank's biggest button in silence.
+--   * Devourer: Soul Immolation is its real self-heal (IV-DEV). Shift only shows if its name
+--     resolves (no verified id yet).
+--   * Escapes: the spec dash (Fel Rush / Infernal Strike / Shift), then Vengeful Retreat.
+--   * Left OFF on purpose: Soul Cleave (a rotation spender that heals), Chaos Nova (CC).
+--   * Removed 17 Sep: Netherwalk, absent from the full 12.1 Havoc trees (IV-HAV, with
+--     Eye Beam / Essence Break found on the same page as a positive check).
 
 ns.KeybindRoleClassifier.DEMONHUNTER = {
 	--==============================================================
 	-- BASELINE (beide specs 577+581) - geen specs = {}
 	--==============================================================
 	-- Interrupt (InterruptAbilities [183752] kind="interrupt" pri=1; SpellCategories CC)
-	["Disrupt"]            = { role = "interrupt", priority = 1 },
+	["Disrupt"]            = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
 
 	-- Movement / utility_primary (GAP_CLOSER + guide.lua both specs)
-	["Vengeful Retreat"]   = { role = "utility_primary", priority = 2, bindKey = "Shift+Q" }, -- backward jump (guide.lua havoc + venge)
+	["Vengeful Retreat"]   = { role = "utility_primary", priority = 2, bindKey = "Shift+Q", survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- backward jump (guide.lua havoc + venge)
 	["Felblade"]           = { role = "utility_primary", priority = 3, bindKey = "Ctrl+Q" },  -- gap-closer/builder (GAP_CLOSER 232893; RangeReferences)
-	["Fel Rush"]           = { role = "utility_primary", priority = 1, specs = { 577 } },     -- Havoc kern-movement/dash (GAP_CLOSER DEMONHUNTER_1 = 195072; ontbrak, toegevoegd)
-	["Infernal Strike"]    = { role = "utility_primary", priority = 1, specs = { 581 } },     -- Vengeance kern-movement/gap-closer (GAP_CLOSER DEMONHUNTER_2 = 189110; ontbrak, toegevoegd)
+	["Fel Rush"]           = { role = "utility_primary", priority = 1, specs = { 577 }, survival = "escape", survivalOrder = 1 }, -- Havoc kern-movement/dash (GAP_CLOSER DEMONHUNTER_1 = 195072; ontbrak, toegevoegd)
+	["Infernal Strike"]    = { role = "utility_primary", priority = 1, specs = { 581 }, survival = "escape", survivalOrder = 1 }, -- Vengeance kern-movement/gap-closer (GAP_CLOSER DEMONHUNTER_2 = 189110; ontbrak, toegevoegd)
 
 	-- Grote CD / cooldown_bar F1 (SpellDB THE_HUNT DEMONHUNTER_1/2 = {370965})
 	["The Hunt"]           = { role = "cooldown_bar", priority = 2, bindKey = "Shift+F1" }, -- baseline major CD (beide specs)
@@ -82,11 +97,12 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Blade Dance"]       = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- AoE (SpellArchetypes 188499; guide.lua {188499})
 	["Death Sweep"]       = { excludes = "Blade Dance", category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- Meta-vorm van Blade Dance (SpellArchetypes 210152; guide.lua {210152})
 	-- Kleine def (SpellCategories DEFENSIVE 198589; SpellDB fallback DEMONHUNTER {198589,...})
-	["Blur"]              = { role = "defensive_1", priority = 1, specs = { 577, 1480 } }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
+	-- Card: 25% DR for 10 s on a 1 min cooldown — press it before a hit (IV-HAV, IV-DEV).
+	["Blur"]              = { role = "defensive_1", priority = 1, specs = { 577, 1480 }, survival = "small", survivalOrder = 1 }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
 	-- Grote def (SpellDB fallback DEMONHUNTER {198589,196718}; Darkness = raid-wall)
-	["Darkness"]          = { category = "defensive", priority = 4 },                      -- AoE avoidance-koepel; baseline beide specs (SpellDB DEMONHUNTER class-level 196718). category=defensive i.p.v. defensive_3, zodat de persoonlijke C-def (Blur/Fiery Brand) het anker houdt en Darkness naar een overflow-slot gaat
+	["Darkness"]          = { category = "defensive", priority = 4, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_GROUND" }, -- AoE avoidance-koepel; baseline beide specs (SpellDB DEMONHUNTER class-level 196718). category=defensive i.p.v. defensive_3, zodat de persoonlijke C-def (Blur/Fiery Brand) het anker houdt en Darkness naar een overflow-slot gaat -- card: 5 min, stand in the dome
 	["Sigil of Silence"]  = { category = "dispel_cc", priority = 1, specs = { 581 }, alsoStop = "silence" }, -- Veng AoE-silence sigil (JustAC SpellCategories CROWD_CONTROL 202137) -> Spec 08 alsoStop
-	["Netherwalk"]        = { category = "defensive", priority = 2, specs = { 577 } },     -- DR + immuniteit (SpellCategories DEFENSIVE 196555; talent-alt van Blur)
+	-- Netherwalk deleted 17 Sep 2026: not in the 12.1 Havoc trees (IV-HAV).
 	-- Grootste CD / cooldown_bar F1 (SpellDB BURST DEMONHUNTER_1 = {191427})
 	["Metamorphosis"]     = { role = "cooldown_bar", priority = 1, specs = { 577 } },      -- Havoc burst-vorm (SpellDB DEMONHUNTER_1 191427)
 	-- Extra CD's (guide.lua {258860} Essence Break Fel-Scarred; {213241} Sigil of Doom; {442294} Reaver's Glaive)
@@ -106,12 +122,13 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- AoE (guide.lua {247454} Spirit Bomb; Shift+N-anker)
 	["Spirit Bomb"]       = { category = "spender", priority = 6, bindKey = "Shift+4", specs = { 581 } }, -- soul-spender AoE (SpellArchetypes 247454; guide.lua {247454})
 	-- Kleine def (SpellCategories DEFENSIVE 203720; SpellDB DEMONHUNTER_2 mitigatie-lijst)
-	["Demon Spikes"]      = { role = "defensive_1", priority = 1, specs = { 581 } },       -- armor + parry mitigatie (SpellCategories 203720)
+	["Demon Spikes"]      = { role = "defensive_1", priority = 1, specs = { 581 }, survival = "keepup", survivalOrder = 1 }, -- armor + parry mitigatie (SpellCategories 203720) -- card: active mitigation you keep rolling (IV-VEN)
 	-- Grote def (DEFENSE_TIER 204021 = tier2; SpellCategories DEFENSIVE 187827)
-	["Fiery Brand"]       = { role = "defensive_3", priority = 1, specs = { 581 } },       -- 40% DR-brand (DEFENSE_TIER 204021 tier2)
-	["Metamorphosis (Vengeance)"] = { role = "defensive_3", priority = 2, bindKey = "Shift+C", specs = { 581 } }, -- health + armor wall (SpellCategories DEFENSIVE 187827)
+	["Fiery Brand"]       = { role = "defensive_3", priority = 1, specs = { 581 }, survival = "small", survivalOrder = 2 }, -- 40% DR-brand (DEFENSE_TIER 204021 tier2) -- card: 40% for 12 s, the shorter one next to Meta
+	-- The key is not a spell name (in game 187827 is just "Metamorphosis"), so the card needs the id (audit).
+	["Metamorphosis (Vengeance)"] = { id = 187827, role = "defensive_3", priority = 2, bindKey = "Shift+C", specs = { 581 }, survival = "big", survivalOrder = 1 }, -- health + armor wall (SpellCategories DEFENSIVE 187827) -- card: +40% HP, 15 s, 2 min (IV-VEN)
 	-- Extra def / major (SpellArchetypes 212084; guide.lua {212084} heal + AoE damage)
-	["Fel Devastation"]   = { category = "defensive", priority = 4, specs = { 581 } },     -- heal-over-time + AoE (SpellArchetypes 212084; guide.lua {212084})
+	["Fel Devastation"]   = { category = "defensive", priority = 4, specs = { 581 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- heal-over-time + AoE (SpellArchetypes 212084; guide.lua {212084}) -- card: heals while channeling (IV-VEN)
 	-- Grootste CD's Vengeance (guide.lua {207407} Soul Carver; {390163} Sigil of Spite)
 	["Soul Carver"]       = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 581 } }, -- souls/burst-talent (SpellArchetypes 207407; guide.lua {207407})
 	["Sigil of Spite"]    = { category = "cooldown", priority = 4, specs = { 581 } },      -- souls-burst sigil (SpellArchetypes 389860; guide.lua {390163})
@@ -133,7 +150,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	--   geen geverifieerd spell-ID -> naam-keyed; vul id aan uit Rob's in-game spellbook-dump.
 	--==============================================================
 	-- Movement / utility_primary (Icy Veins: "Shift" = targeted 30yd dash, 20s CD, Devourer-signatuur)
-	["Shift"]             = { role = "utility_primary", priority = 1, specs = { 1480 } },  -- naam-keyed (id volgt uit dump)
+	["Shift"]             = { role = "utility_primary", priority = 1, specs = { 1480 }, survival = "escape", survivalOrder = 1 }, -- naam-keyed (id volgt uit dump) -- card: only shows if the name resolves
 	-- Builders / kernrotatie (guide.lua devourer; JustAC SpellArchetypes "ranged")
 	["Consume"]           = { id = 473662,  category = "main_rotation", priority = 1, specs = { 1480 } }, -- core builder/filler (SpellArchetypes 473662 "ranged"; guide.lua opener)
 	["Voidblade"]         = { id = 1245412, category = "main_rotation", priority = 2, specs = { 1480 } }, -- rotational (SpellCooldowns 1245412=30000; guide.lua)
@@ -144,7 +161,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Devour"]            = { id = 1217610, category = "spender", priority = 3, specs = { 1480 } },       -- Void-Meta-vorm spender (SpellArchetypes 1217610 "ranged"; guide.lua {1217610})
 	["Eradicate"]         = { id = 1226033, category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 1480 } }, -- AoE-spender (guide.lua multitarget)
 	-- Cooldowns
-	["Soul Immolation"]   = { id = 1241937, category = "cooldown", priority = 3, specs = { 1480 } },      -- 60s-CD setup/buff (SpellCooldowns 1241937=60000; SelfAuras 1241937)
+	["Soul Immolation"]   = { id = 1241937, category = "cooldown", priority = 3, specs = { 1480 }, survival = "heal", survivalOrder = 1 }, -- 60s-CD setup/buff (SpellCooldowns 1241937=60000; SelfAuras 1241937) -- card: heals 24% of max HP (IV-DEV); id not measured in the client
 	-- Grootste CD / cooldown_bar F1 (Void Metamorphosis = burst-vorm; soul-driven, geen timer)
 	["Void Metamorphosis"] = { id = 1217607, role = "cooldown_bar", priority = 1, specs = { 1480 } },    -- burst-vorm (Wowhead 1217607; analoog aan Havoc Metamorphosis)
 }
