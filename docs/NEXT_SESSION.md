@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 📦 17 sep — testlijst gesplitst (Rob: "zijn er wel heel veel")
+
+196 open punten op de telefoonpagina was onbruikbaar. `docs/TESTLIJST.md` houdt nu de **twee jongste
+testrondes** (16 + 17 sep): 6 secties, **35 open punten**. De 49 oudere secties met 166 punten staan
+in `docs/TESTLIJST_ARCHIEF.md` — niets weggegooid, alleen weg van de pagina. Zelfde splitsing als
+`NEXT_SESSION` op 2 sep kreeg, en om dezelfde reden.
+- **Terugzetten** = die sectie weer bovenaan `TESTLIJST.md` plakken en `_probe.py run testlist_page`.
+- Pagina opnieuw gepubliceerd (versie 11).
+
 ## 🐛 17 sep — boss-venster popte bij elke trash-pull zijn "openen?"-knopje
 
 Rob: *"vaak bij trash een bosswindow, of de vraag of ik hem open wil doen"*.
