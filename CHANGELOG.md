@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.0.1
+
+📌 **2026-09-17: eerst als beta (`v4.0.1-beta1`), dezelfde commit wordt daarna de release.** De
+releasenotitie staat in `docs/CURSEFORGE_4.0.1.md` (identiek aan `RELEASE_NOTES.md`). Kort:
+- "Stay alive"-kaart voor alle 13 klassen opnieuw gebouwd uit expliciete tags per spell
+  (`docs/audit_2026-09-17/`); cooldownlijsten opgeschoond; tank-/healerlijsten gefilterd; Devourer
+  eigen lijst.
+- Delves via de zoekbalk en een boekje per rij; boss-knop opent in een delve de Delve Coach.
+- Negen nieuwe rares, elite-tags, Heroic Slugger; alle instellingen in MH; boss-venster- en
+  Codex-kamerfixes.
+
 ## 4.0.0
 
 📌 **Released 2026-09-16.** De volledige releasenotitie zoals hij op CurseForge staat:

@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🚀 17 sep — 4.0.1 als BETA (`v4.0.1-beta1`)
+
+Rob: *"Go beta"* (weinig tijd de komende dagen, creditlimiet dichtbij). `.toc` 4.0.1, changelog-popup
+8 regels (`CHANGELOG_401_1..8`), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.0.1.md`, `CHANGELOG.md`.
+- **Van beta naar release:** tag `v4.0.1` op **dezelfde commit** en pushen; de packager uploadt dan
+  een gewone Release. Geen nieuwe notities nodig. Pas doen na Robs/Cisca's `/reload`-check.
+- ⚠️ Vrijwel niets van deze versie is in het spel gezien (zie TESTLIJST, 17 sep-secties).
+
 ## 🩺 17 sep — klasse-advies ("Blijf leven"-kaart + cooldownlijsten) is voor alle 13 klassen fout gebouwd
 
 Rob (Ret Paladin): de kaart zei bij **Divine Shield** "keep this up, put it on BEFORE you pull" en zette

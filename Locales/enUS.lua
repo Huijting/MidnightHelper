@@ -1870,6 +1870,11 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
+	CHANGELOG_401_8 = "Boss window: the difficulty button sits at the top right, 'Normal and Heroic' lines show on Normal again, chat lines name your role, and the Codex room labels its handbook chapters.",
+	CHANGELOG_401_7 = "All settings inside Midnight Helper: the Settings screen opens a full settings page in the addon's own look, in step with Blizzard's options panel.",
+	CHANGELOG_401_6 = "Delves: type a delve or one of its bosses in the search bar, or click the book on a Delves row, to open its Delve Coach. Inside a delve the quick bar's boss button opens the coach too.",
+	CHANGELOG_401_5 = "Cooldown lists: spells Midnight removed are gone, a few current ones added, tank and healer lists show only what you have, and Devourer has its own list. Your keybinds do not move.",
+	CHANGELOG_401_4 = "Stay alive, rebuilt for all thirteen classes: every button now sits in the right step (keep up, small, big, heal, get away, interrupt) with a short note where it matters. /mh survival explains each row.",
 	CHANGELOG_401_3 = "Rares that need a group say so: sixteen elite rares carry an Elite tag in the Rares list, and their alarm, tooltip and arrival line add 'bring a group'. Blackcore in Voidstorm also tells you how to summon him.",
 	CHANGELOG_401_2 ="Achievements: Heroic Slugger is a hunt now, with all nineteen Val and Naigtal rares, a route and a checklist, next to the two ordinary Showdown Sluggers. A row only ticks off for a heroic kill, never for the normal one.",
 	CHANGELOG_401_1 ="Nine rares the Rares page had never heard of: five in Voidstorm's Blackcore corner (Nullspiral, The Many-Broken, Abysslick, Voidseer Orivane, Blackcore), two on Slayer's Rise (Hardin Steellock, Gar'chak Skullcleave) and two on the Isle of Quel'Danas (Tarhu the Ransacker, Dripping Shadow).",
