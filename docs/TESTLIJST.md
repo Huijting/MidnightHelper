@@ -17,6 +17,20 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 17 sep — "Blijf leven"-kaart opnieuw gebouwd (Paladin eerst)
+
+`/reload`. Academy → DPS-tab → **Blijf leven**. De kaart volgt niet meer je toetsen maar een keuze per spell.
+- [ ] **Ret Paladin** (lvl < 90): verwacht ongeveer *klein:* Divine Protection · *groot:* Blessing of Protection
+      (alleen fysiek), Divine Shield (Forbearance) · *heal:* Word of Glory, dan Lay on Hands (laatste redmiddel)
+      · *wegkomen:* Divine Steed · *onderbreken:* Rebuke. **Blessing of Sacrifice staat er niet meer op.**
+      Klopt de volgorde voor jou?
+- [ ] **Prot Paladin**: *houd aan:* Shield of the Righteous · *klein:* Ardent Defender · *groot:* Guardian of
+      Ancient Kings, Sentinel, Blessing of Spellwarding (magie), Blessing of Protection, Divine Shield · heal,
+      wegkomen, onderbreken als bij Ret.
+- [ ] **`/mh survival`** print nu per spell een regel: groen **+** = op de kaart (met volgorde), rood **−** met
+      de reden (niet bekend, passief, geen tag). Staat er iets met "no spell found", stuur me die regel.
+- [ ] Holy Paladin (als je er een hebt): staat **Divine Protection** er nu wél? (Holy heeft een eigen id, 498.)
+
 ## 🆕 17 sep — Codex-kaarten met een kopje, en delves vindbaar zoals dungeons
 
 `/reload` is genoeg. Na Carola's verwarring tussen "Raids" en "Raid & crests".

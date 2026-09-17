@@ -34,6 +34,15 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	Slots (v6): interrupt=E, movement=Q, kleine def=Z, grote def=C, dispel/CC=V, grootste CD=F1,
 	heal_quick=F2, heal_ooc=F3, AoE=Shift+N. NIET opgenomen: Recuperate (F4/heal_sustain), racial,
 	trinket, potion, en zuivere passieven.
+
+	STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder`, `survivalNote` and `survivalId` feed
+	only Modules/SurvivalPlan.lua; the key fields above them are untouched. Every tag follows
+	docs/audit_2026-09-17/audit_paladin_warrior_dk.md (Icy Veins 12.1 + wago.tools 12.1.0.69814).
+	Left OFF the card on purpose: Blessing of Sacrifice (ally only, the damage lands on you), Holy
+	Bulwark (a toggle with Sacred Weapon), Guardian of Ancient Kings on Ret/Holy (Prot only).
+	Removed 17 Sep, gone from the 12.1 trees (W-TREE): Shield of Vengeance (now cast by Divine
+	Protection), Tyr's Deliverance and Avenging Crusader (passive changes to Avenging Wrath),
+	Bestow Faith, Light's Hammer, Barrier of Faith, Bastion of Light.
 ]]
 
 ns.KeybindRoleClassifier.PALADIN = {
@@ -44,22 +53,31 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Interrupt (E). Rebuke is spellbook-baseline; BliZzi assigneert 'm actief aan Prot/Ret,
 	-- Holy noKick, maar de spell is leerbaar door alle Paladins -> baseline.
-	["Rebuke"] = { id = 96231, role = "interrupt", priority = 1 }, -- InterruptAbilities.lua [96231] kind=interrupt pri=1
+	["Rebuke"] = { id = 96231, role = "interrupt", priority = 1,
+		survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities.lua [96231] kind=interrupt pri=1
 
 	-- Movement (Q). Divine Steed = enige class-brede mobility (SpellCategories UTILITY [190784]).
-	["Divine Steed"] = { id = 190784, role = "utility_primary", priority = 1 }, -- Q; baseline movement
+	["Divine Steed"] = { id = 190784, role = "utility_primary", priority = 1,
+		survival = "escape", survivalOrder = 1 }, -- Q; baseline movement
 
 	-- Kleine defensive (Z). Divine Shield = persoonlijke immunity (SpellCategories DEFENSIVE [642]).
-	["Divine Shield"] = { id = 642, role = "defensive_1", priority = 1 }, -- Z; baseline (642)
+	-- Card: 8 s immunity on a 5 min cooldown with Forbearance — the LAST big button, not a keep-up.
+	["Divine Shield"] = { id = 642, role = "defensive_1", priority = 1,
+		survival = "big", survivalOrder = 5, survivalNote = "SURVIVAL_NOTE_FORBEARANCE" }, -- Z; baseline (642)
 
-	-- Grote defensive (C). Guardian of Ancient Kings (SpellCategories DEFENSIVE [86659]).
-	["Guardian of Ancient Kings"] = { id = 86659, role = "defensive_3", priority = 1 }, -- C; baseline (86659)
+	-- Grote defensive (C). Guardian of Ancient Kings (SpellCategories DEFENSIVE [86659]). Prot only (W-TREE 790).
+	["Guardian of Ancient Kings"] = { id = 86659, role = "defensive_3", priority = 1, specs = { 66 },
+		survival = "big", survivalOrder = 1 }, -- C; Prot (86659)
 
 	-- Extra defensives (category="defensive"; overflow-slots). Allen SpellCategories DEFENSIVE.
-	["Divine Protection"] = { id = 403876, category = "defensive", priority = 2 }, -- DEFENSIVE [403876] (kleine DR)
-	["Blessing of Protection"] = { id = 1022, category = "defensive", priority = 3 }, -- DEFENSIVE [1022] (fysieke immunity, op ally/self)
-	["Blessing of Sacrifice"] = { id = 6940, category = "defensive", priority = 4 }, -- DEFENSIVE [6940] (external DR-transfer)
-	["Blessing of Spellwarding"] = { id = 204018, category = "defensive", priority = 5 }, -- DEFENSIVE [204018] (magic immunity, talent)
+	-- Divine Protection: 403876 is the Ret spell, Holy owns 498 (W-SPEC); the card asks per spec.
+	["Divine Protection"] = { id = 403876, category = "defensive", priority = 2,
+		survival = "small", survivalOrder = 1, survivalId = { [65] = 498 } }, -- DEFENSIVE [403876] (kleine DR)
+	["Blessing of Protection"] = { id = 1022, category = "defensive", priority = 3,
+		survival = "big", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- DEFENSIVE [1022] (fysieke immunity, op ally/self)
+	["Blessing of Sacrifice"] = { id = 6940, category = "defensive", priority = 4 }, -- DEFENSIVE [6940] (external DR-transfer); NOT on the card: ally only
+	["Blessing of Spellwarding"] = { id = 204018, category = "defensive", priority = 5,
+		survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- DEFENSIVE [204018] (magic immunity, talent)
 
 	-- Dispel / CC (V). Cleanse=dispel; Hammer of Justice/Blinding Light/Repentance=CC/stun.
 	["Cleanse"] = { id = 4987, category = "dispel_cc", priority = 1 }, -- SpellCategories HEALING [4987] (poison/disease/magic dispel)
@@ -72,9 +90,11 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Self-heals (F2 = heal_quick snelle combat-heal; F3 = heal_ooc out-of-combat).
 	-- Word of Glory = instant Holy-Power-noodheal, baseline alle specs (SpellCategories HEALING [85673]).
-	["Word of Glory"] = { id = 85673, role = "heal_quick", priority = 1 }, -- F2; baseline (85673) instant self-heal
-	-- Lay on Hands = grootste out-of-combat noodheal (full HP), baseline (SpellCategories HEALING [633]).
-	["Lay on Hands"] = { id = 633, role = "heal_ooc", priority = 1 }, -- F3; baseline (633) OOC-noodheal
+	["Word of Glory"] = { id = 85673, role = "heal_quick", priority = 1,
+		survival = "heal", survivalOrder = 1 }, -- F2; baseline (85673) instant self-heal
+	-- Lay on Hands = full heal on a 10 min cooldown with Forbearance (W-CD 600) — after Word of Glory.
+	["Lay on Hands"] = { id = 633, role = "heal_ooc", priority = 1,
+		survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_LAST_RESORT" }, -- F3; baseline (633)
 
 	-- Utility (Blessings / rez / etc.). Blessing of Freedom staat al bij dispel_cc.
 	["Redemption"] = { id = 7328, category = "utility", priority = 8 }, -- UTILITY [7328] (out-of-combat rez)
@@ -91,21 +111,16 @@ ns.KeybindRoleClassifier.PALADIN = {
 	["Holy Shock"] = { id = 20473, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [20473]; Holy single-target heal (bouwt ook Holy Power). Ret/Prot hebben geen Holy Shock -> Holy-only, veilig click_cast.
 	["Flash of Light"] = { id = 19750, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [19750]; snelle ST-heal (instant bij Infusion of Light)
 	["Holy Light"] = { id = 82326, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [82326]; grote (dure) ST-filler-heal
-	["Bestow Faith"] = { id = 223306, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [223306]; ST-heal-op-target (talent)
 	-- Beacons = buff-op-target (kies doelwit) -> ook click_cast/mouseover.
 	["Beacon of Light"] = { id = 53563, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [53563]; beacon-plaatsing op target
 	["Beacon of Faith"] = { id = 156910, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [156910]; tweede beacon-op-target (talent)
 	-- Raid/AoE-heals BLIJVEN op toetsen.
 	["Light of Dawn"] = { id = 85222, category = "raid_heal", priority = 1, bindKey = "Shift+4", specs = { 65 } }, -- HEALING [85222]; AoE-heal-spender (AoE-slot)
 	["Holy Prism"] = { id = 114165, category = "raid_heal", priority = 2, specs = { 65 } }, -- HEALING [114165]; AoE-heal/damage
-	["Barrier of Faith"] = { id = 148039, category = "spender", priority = 3, specs = { 65 } }, -- HEALING [148039]; raid-shield-op-target (talent)
-	["Light's Hammer"] = { id = 114158, category = "spender", priority = 4, specs = { 65 } }, -- HEALING [114158]; ground-AoE-heal (talent)
 	["Beacon of Virtue"] = { id = 200025, category = "utility", priority = 4, specs = { 65 } }, -- HEALING [200025]; multi-beacon-AoE (talent)
 	-- Heal-cooldowns: grootste = cooldown_bar, rest category="cooldown".
 	["Divine Toll"] = { id = 375576, category = "cooldown", priority = 2, specs = { 65, 66, 70 } }, -- [375576] instant Holy-Power-burst; baseline-CD op alle 3 specs (Holy heal / Prot / Ret). Eén entry: dubbele-key zou anders 2 specs verliezen.
-	["Tyr's Deliverance"] = { id = 200652, category = "cooldown", priority = 3, specs = { 65 } }, -- HEALING [200652]; raid-heal-CD (talent)
 	["Aura Mastery"] = { id = 31821, role = "cooldown_bar", priority = 2, specs = { 65 } }, -- HEALING [31821]; raid-defensive-CD (F1-familie)
-	["Avenging Crusader"] = { id = 216331, role = "cooldown_bar", priority = 3, specs = { 65 } }, -- HEALING [216331]; Avenging-Wrath-vervanger, grote heal-CD (talent)
 
 	--==============================================================================
 	-- PROTECTION (spec 66) - tank.
@@ -127,7 +142,8 @@ ns.KeybindRoleClassifier.PALADIN = {
 	--- verschil niet en kan het ook niet zien — de eis zit in de tooltip, niet in de spellbook-rij.
 	--- Een `unclassified`-melding is dus een AANWIJZING om te kijken, nooit op zichzelf een bewijs
 	--- dat onze data een gat heeft.
-	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66 } }, -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
+	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66 },
+		survival = "keepup", survivalOrder = 1 }, -- card: active mitigation you keep rolling (IV-ProtPal) -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
 	["Consecration"] = { id = 26573, category = "main_rotation", priority = 4, specs = { 66 } }, -- guide.lua Prot-rotatie; [26573] castbare id (JustAC SpellCooldowns); ground-AoE, on-cooldown houden
 	["Hammer of Wrath"] = { id = 24275, category = "spender", priority = 2, specs = { 66, 70 } }, -- SpellArchetypes [24275] ranged; execute-spender (Prot/Ret)
 	--- 🔴 STOND OP `{ 66 }` EN DAT WAS ONZE FOUT, NIET DIE VAN HET SPEL — 7 sep 2026.
@@ -142,8 +158,8 @@ ns.KeybindRoleClassifier.PALADIN = {
 	--- als de tank ligt. `{ 66, 70 }` is nu gemeten in twee dumps; **65 (Holy) is NIET gemeten**
 	--- en blijft er daarom af — heeft een Holy hem, dan meldt `/mh binds` dat vanzelf.
 	["Hand of Reckoning"] = { id = 62124, category = "taunt", priority = 1, specs = { 66, 70 } }, -- [62124] taunt (JustAC SpellCooldowns/SpellCategories); F, eigen kaart
-	["Ardent Defender"] = { id = 31850, category = "defensive", priority = 2, specs = { 66 } }, -- DEFENSIVE [31850]; Prot grote persoonlijke DR
-	["Bastion of Light"] = { id = 378974, category = "cooldown", priority = 3, specs = { 66 } }, -- DEFENSIVE [378974]; Prot Holy-Power-burst (talent)
+	["Ardent Defender"] = { id = 31850, category = "defensive", priority = 2, specs = { 66 },
+		survival = "small", survivalOrder = 2 }, -- DEFENSIVE [31850]; 90 s (W-CD), the smaller one next to Guardian
 
 	-- Lightsmith (hero-talent) - twee echte knoppen die tot 7 sep 2026 nergens gedekt waren en
 	-- daarom als `unclassified` terugkwamen op Robs Prot Paladin.
@@ -177,7 +193,6 @@ ns.KeybindRoleClassifier.PALADIN = {
 	["Final Verdict"] = { id = 383328, category = "spender", priority = 1, specs = { 70 } }, -- SpellArchetypes [383328]; Templar's-Verdict-vervanger (talent)
 	["Divine Storm"] = { id = 53385, category = "spender", priority = 2, bindKey = "Shift+4", specs = { 70 } }, -- SpellArchetypes [53385] melee; AoE-spender (AoE-slot)
 	["Wake of Ashes"] = { id = 255937, category = "cooldown", priority = 2, specs = { 70 } }, -- SpellArchetypes [255937] melee; Ret burst-cooldown
-	["Shield of Vengeance"] = { id = 184662, role = "defensive_3", priority = 1, specs = { 70 } }, -- DEFENSIVE [184662]; Ret C (grote def; Holy/Prot = Guardian)
 	-- Divine Toll staat als één gedeelde baseline-entry bij Holy (specs {65,66,70}); geen aparte Ret-entry (dubbele table-key).
 
 	--==============================================================================
@@ -189,5 +204,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	["Avenging Wrath"] = { id = 31884, role = "cooldown_bar", priority = 1 }, -- F1; baseline (31884) grote CD
 	-- Sentinel (Prot/Ret cooldown) - SpellCategories/SpellCooldowns [389539]. NB: de "hero-Templar-lijn"-
 	-- duiding is onbevestigd (review F1.4); het id 389539 is wél addon-geverifieerd.
-	["Sentinel"] = { id = 389539, category = "cooldown", priority = 4, specs = { 66, 70 } },
+	-- 17 Sep 2026: Prot only (W-TREE 790, not on IV-Ret); up to 30% less damage taken (IV-ProtPal).
+	["Sentinel"] = { id = 389539, category = "cooldown", priority = 4, specs = { 66 },
+		survival = "big", survivalOrder = 2 },
 }

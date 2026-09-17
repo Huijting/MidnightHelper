@@ -608,10 +608,11 @@ local function RenderSurvivalPlan(panel, child, y, cw)
 	for _, s in ipairs(steps) do
 		step = step + 1
 		-- Numbered, because the number IS the content: which one first.
-		local line = ("|cffffcc00%d.|r |cffffffff%s|r%s — %s"):format(
+		local line = ("|cffffcc00%d.|r |cffffffff%s|r%s — %s%s"):format(
 			step, s.text,
 			s.bindKey and (" |cff9d9d9d[" .. s.bindKey .. "]|r") or "",
-			SL(s.whenKey))
+			SL(s.whenKey),
+			s.noteKey and (" |cff9d9d9d(" .. SL(s.noteKey) .. ")|r") or "")
 		y = AddToolkitLine(panel, child, cw, y, line, false, s.spellID)
 	end
 	return y - 6

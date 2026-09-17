@@ -72,6 +72,36 @@ local _, ns = ...
 --- The cost is that it must be tagged per class by hand, and the benefit is that
 --- it is a deliberate judgement per spell instead of a rule that guesses right for
 --- mages and wrong for paladins.
+---
+--- 🔴 17 SEP 2026 — THE DERIVATION BELOW WAS WRONG FOR ALL THIRTEEN CLASSES, and the tag is now
+--- the only source for classes listed in TAGGED. Rob's Ret Paladin card said "keep this up, put it
+--- on BEFORE you pull" for Divine Shield and listed Blessing of Sacrifice (ally-only) for when his
+--- own health drops. Five audits (`docs/audit_2026-09-17/`) found the same cause everywhere:
+--- `defensive_1` means "key Z", not "the small one you keep up"; `priority` is key order, and on a
+--- tie the alphabet decided; `category = "defensive"` holds ally spells, ground zones and active
+--- mitigation alike; escapes are `utility_primary`, so the escape row was almost always empty.
+--- The keybind fields stay what they are (moving them would move binds). For a TAGGED class an
+--- entry reaches the card only through:
+---     survival      = "keepup" | "small" | "big" | "heal" | "escape" | "interrupt"
+---     survivalOrder = number, lower first within the step (never `priority`)
+---     survivalNote  = locale key, a short "only against magic"-style remark
+---     survivalId    = { [specID] = spellID } where one spec owns a different id
+--- An untagged spell is simply not on the card. That is the point: every row is a judgement made
+--- per spell, with its source in the audit.
+local TAGGED = {
+	PALADIN = true,
+}
+
+--- The steps for a TAGGED class, in the order a fight happens.
+local TAGGED_PLAN = {
+	{ survival = "keepup", key = "SURVIVAL_STEP_KEEPUP" },
+	{ survival = "small", key = "SURVIVAL_STEP_SMALL" },
+	{ survival = "big", key = "SURVIVAL_STEP_BIG" },
+	{ survival = "heal", key = "SURVIVAL_STEP_HEAL" },
+	{ survival = "escape", key = "SURVIVAL_STEP_ESCAPE" },
+	{ survival = "interrupt", key = "SURVIVAL_STEP_INTERRUPT" },
+}
+
 local PLAN = {
 	{ survival = "keepup", roles = { "defensive_1" }, key = "SURVIVAL_STEP_KEEPUP" },
 	{ survival = "hurts", roles = { "defensive_2", "defensive_3", "defensive_4" },
@@ -88,7 +118,11 @@ local function ClassTable()
 		return nil
 	end
 	local _, token = UnitClass("player")
-	return token and ns.KeybindRoleClassifier[token] or nil
+	return token and ns.KeybindRoleClassifier[token] or nil, token
+end
+
+local function IsTagged(token)
+	return token and TAGGED[token] or false
 end
 
 --- Does this classifier entry apply to the given spec?
@@ -127,9 +161,14 @@ end
 ---
 --- Fails open: if IsPlayerSpell is missing we show the row. A card with one row
 --- too many is repairable by eye; one silently missing your panic button is not.
-local function LiveName(key, entry)
+local function LiveName(key, entry, specID)
 	if not (C_Spell and C_Spell.GetSpellInfo) then
 		return key, nil
+	end
+	-- A per-spec id wins (Divine Protection is 498 on Holy, 403876 on Ret).
+	local specId = entry and type(entry.survivalId) == "table" and specID and entry.survivalId[specID]
+	if specId then
+		entry = { id = specId }
 	end
 
 	-- CHECK ON THE BASE, DISPLAY THE REPLACEMENT. In that order.
@@ -153,7 +192,7 @@ local function LiveName(key, entry)
 	local lookup = (entry and entry.id) or key
 	local ok, info = pcall(C_Spell.GetSpellInfo, lookup)
 	if not (ok and type(info) == "table" and info.spellID) then
-		return nil
+		return nil, "no spell found for " .. tostring(lookup)
 	end
 	local id = info.spellID
 
@@ -176,7 +215,15 @@ local function LiveName(key, entry)
 		end
 	end
 	if known == false then
-		return nil
+		return nil, "not known (" .. tostring(id) .. ")"
+	end
+	-- A passive talent is "known" too (Cauterize, Defy Fate, Renewing Blaze): it is not a
+	-- button, so it has no place on a card that says what to press. Only a clear `true` skips.
+	if C_Spell.IsSpellPassive then
+		local pOk, passive = pcall(C_Spell.IsSpellPassive, id)
+		if pOk and passive == true then
+			return nil, "passive (" .. tostring(id) .. ")"
+		end
 	end
 
 	-- STEP 2 — only now follow the replacement, and only to decide the NAME.
@@ -288,6 +335,19 @@ function ns.SaveSurvivalProbe()
 		end
 	end
 
+	-- The card's own decision per spell, in chat (Spec 30: a card that leaves a row out must be
+	-- able to say why). Only for classes on the tagged model; the old model has no reasons.
+	local _, token = ClassTable()
+	if IsTagged(token) then
+		local trace = {}
+		ns.GetSurvivalPlan(specID, trace)
+		out.card = trace
+		print(("|cffffcc00Midnight Helper:|r Stay alive card, spec %s:"):format(tostring(specID)))
+		for _, t in ipairs(trace) do
+			print(("  %s %s |cff9d9d9d[%s]|r %s"):format(
+				t.shown and "|cff40ff40+|r" or "|cffff8080-|r", t.key, t.step or "—", t.why or ""))
+		end
+	end
 	ns.db.survivalProbe = out
 	print(("|cffffcc00Midnight Helper:|r survival probe saved (%d entries). |cffffffff/reload|r."):format(#out.keys))
 end
@@ -297,14 +357,76 @@ end
 --- Returns nil rather than an empty table when this class has no classifier data,
 --- so the caller can say "not written yet" instead of drawing an empty box that
 --- reads as "you have nothing".
-function ns.GetSurvivalPlan(specID)
-	local tbl = ClassTable()
+--- The card for a TAGGED class: only `survival`-tagged entries, ordered by `survivalOrder`.
+--- `trace`, when given, receives one record per entry that applies to this spec, with the step it
+--- landed in (or nil) and why — that is what `/mh survival` prints.
+local function TaggedPlan(tbl, specID, trace)
+	local steps, already = {}, {}
+	for _, step in ipairs(TAGGED_PLAN) do
+		local bucket = {}
+		for key, entry in pairs(tbl) do
+			if type(entry) == "table" and entry.survival == step.survival and AppliesTo(entry, specID) then
+				bucket[#bucket + 1] = { key = key, entry = entry }
+			end
+		end
+		table.sort(bucket, function(a, b)
+			local oa, ob = a.entry.survivalOrder or 99, b.entry.survivalOrder or 99
+			if oa ~= ob then
+				return oa < ob
+			end
+			return a.key < b.key
+		end)
+		for _, item in ipairs(bucket) do
+			local name, idOrWhy = LiveName(item.key, item.entry, specID)
+			local id = name and idOrWhy or nil
+			local dedupe = id or name
+			local shown = name and not already[dedupe]
+			if shown then
+				already[dedupe] = true
+				steps[#steps + 1] = {
+					text = name,
+					spellID = id,
+					whenKey = step.key,
+					noteKey = item.entry.survivalNote,
+					bindKey = item.entry.bindKey,
+				}
+			end
+			if trace then
+				trace[#trace + 1] = {
+					key = item.key,
+					step = step.survival,
+					shown = shown and true or false,
+					why = shown and ("order " .. tostring(item.entry.survivalOrder or 99))
+						or (name and "same spell already listed") or idOrWhy,
+				}
+			end
+		end
+	end
+	if trace then
+		for key, entry in pairs(tbl) do
+			if type(entry) == "table" and not entry.survival and AppliesTo(entry, specID)
+				and (entry.category == "defensive" or entry.category == "selfheal"
+					or (type(entry.role) == "string" and (entry.role:find("^defensive") or entry.role:find("^heal")
+						or entry.role == "interrupt" or entry.role == "mobility"))) then
+				trace[#trace + 1] = { key = key, shown = false, why = "no survival tag (left off on purpose)" }
+			end
+		end
+	end
+	return steps
+end
+
+function ns.GetSurvivalPlan(specID, trace)
+	local tbl, token = ClassTable()
 	if not tbl then
 		return nil
 	end
 	if not specID and GetSpecialization and GetSpecializationInfo then
 		local idx = GetSpecialization()
 		specID = idx and GetSpecializationInfo(idx) or nil
+	end
+	if IsTagged(token) then
+		local steps = TaggedPlan(tbl, specID, trace)
+		return #steps > 0 and steps or nil
 	end
 
 	-- Index by all three fields, since a spell may be classified any of the ways.

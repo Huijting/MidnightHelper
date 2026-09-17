@@ -15,7 +15,14 @@ regel BRON/AFGELEID).
   `HealerCooldowns.lua` en de classifiers (TWW-data uit JustAC/ClassCodex); tank- en healerlijsten filteren
   niet op `IsPlayerSpell`; Devourer (1480) valt terug op Havoc; enkele verkeerde id's (Divine Protection
   Holy 498, Enh Ascendance 114051, Convoke 391528).
-- **Stand:** rapporten veiliggesteld. Voorstel A–F ligt bij Rob; nog niets aan de code veranderd.
+- **Rob koos A–F allemaal.** Stap 1 (deze commit): `SurvivalPlan.lua` heeft een `TAGGED`-lijst; voor die
+  klassen telt alleen nog `survival` (keepup/small/big/heal/escape/interrupt) + `survivalOrder` +
+  `survivalNote` (vaste set `SURVIVAL_NOTE_*`, 7 talen) + `survivalId` (per-spec id). Passieven vallen af via
+  `C_Spell.IsSpellPassive` (AFGELEID dat die bestaat; gepcall'd). `/mh survival` print per spell stap + reden.
+  **Paladin** getagd en opgeschoond (7 dode entries weg, Guardian/Sentinel alleen Prot). Andere klassen
+  draaien nog op het oude model tot hun token in `TAGGED` staat.
+- **Open:** de andere 12 klassen (tags + dode classifier-entries), C/D/E in de gedeelde lijsten
+  (`DpsToolkit`, `TankToolkit`, `HealerCooldowns`, filter in `RoleAcademy`), keybind-cheatsheet regenereren.
 
 ## 🧭 17 sep — Codex-kaarten krijgen een kopje; delves vindbaar via zoeken en een tips-knop
 
