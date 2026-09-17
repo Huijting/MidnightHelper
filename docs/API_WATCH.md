@@ -1807,3 +1807,136 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     **detached HEAD** (op `1c02256`, 50 commits vóór `main`); `git checkout main` gaf de bekende
     *"you are leaving 50 commits behind"*-waarschuwing. Dat is de ondiepe-clone-ruis van
     11/12/13/14/15 sep, geen verlies — `origin/main` heeft die commits.
+- [2026-09-17] ✅ **Geen relevante API-wijzigingen (10–17 sep). 0 × [MOET GEFIKST].** Voor het eerst
+  sinds 5 sep is er een wiki-pagina **binnen het venster bewerkt** — `Patch 12.1.5`, op 16 sep, van
+  11445 naar 16242 bytes. Ik heb de diff gelezen: hij is vrijwel geheel **class tuning**, plus
+  **één** nieuwe regel in de UI-sectie, en die is een Blizzard-*instelling*, geen Lua-API. Alle drie
+  de addon-nabije regels zijn aan de code getoetst. Details, met per bron de meting:
+  - 🆕 **`Patch 12.1.5` (wiki) bewerkt binnen het venster — GEMETEN.** `prop=revisions&rvlimit=8`,
+    cache-busted: twee bewerkingen op **16 sep** (`6876266`, Dark T Zeratul, 2026-09-16T04:10:52Z,
+    16244 bytes; `6876301`, Mordecay, 2026-09-16T06:00:57Z, 16242 bytes), boven op de vorige van
+    **2026-09-03T23:11:42Z** (11445 bytes) die mijn logboek tot gisteren noemde. ⚠️ Dit is dus
+    **nieuwer** dan wat ik gisteren had, geen cache-val. De volledige diff `6858016 → 6876301` is
+    gelezen via `action=compare`.
+    - **Inhoud, letterlijk:** nieuwe class-secties voor **Druid** (Restoration, Nature's Bounty
+      redesign), **Evoker** (Preservation), **Mage** (Arcane + Frost + Hero Talents), **Priest**
+      (Discipline, Holy), **Rogue** (Outlaw, Subtlety) en uitbreidingen bij **Demon Hunter** en
+      **Warrior**; plus één raidtest-regel (*"Kith'ix raid testing starts September 16"*). **Geen
+      enkele regel over de Lua-API, secure frames, taint of secret values.**
+    - 🧩 **[RAAKT ONS NIET] — de enige nieuwe UI-regel.** Letterlijk: *"Added a new setting called
+      "Pulse Your Health" under the Combat Audio Alerts section of the Audio Assist settings. This
+      setting allows the player to specify a health percentage below which a looping sound will be
+      played. The sound gets progressively more aggressive as their health gets lower"*. Dat is een
+      **instelling in Blizzards eigen Audio Assist**, geen API en geen CVar die wij lezen. Grep over
+      de hele addon (zonder `docs/`) op `AudioAssist|Audio Assist|PulseYourHealth|Pulse Your Health`:
+      **nul treffers**. De twee andere UI-regels op de pagina (raid frame dispel overlay pulse,
+      `#showtooltip` in de ping alert) staan **ongewijzigd** in de diff en zijn niet nieuw.
+    - 🧩 **[RAAKT ONS NIET] — *"Splinterstorm is now trackable in the Cooldown Manager as a Buff."***
+      (Mage → Hero Talents → Spellslinger.) Wij hebben **geen Cooldown-Manager-pad**: grep op
+      `C_CooldownViewer|CooldownViewer|CooldownManager|Cooldown Manager` geeft **nul treffers**.
+      🔴 **Positieve controle in dezelfde run, dezelfde scope, dezelfde grep-vorm en hetzelfde
+      glob-filter:** `C_Timer|InCombatLockdown` geeft **477 treffers in 103 bestanden**
+      (`UI.lua` 10×, `Modules/NativeArrow.lua` 6×, `Modules/ConsumableReadyBoard.lua` 5×, …). Het
+      patroon en het filter vinden dus wél wat er is; de nul hierboven is een echte nul. 📌 Dit is
+      bovendien dezelfde soort **content**fix als "Dark Simulacrum can now be tracked through the
+      Cooldown Manager" (19 aug) — een spell die Blizzard aan zijn eigen lijst toevoegt.
+    - 🧩 **[AL AFGEDEKT] — *"Several Arcane spells have been added to the Spell Density system for
+      additional visibility options for non-Mage players."*** (Mage → Arcane.) Dit verandert **welke
+      spell-effecten** het systeem meetelt, niet de CVar en niet een API. Wij raken het systeem één
+      keer aan: `Modules/FpsPanel.lua:52` heeft de rij
+      `{ "graphicsSpellDensity", "raidGraphicsSpellDensity", "FPS_SPELLDENS", { "SPELL_DENSITY" } }`.
+      Die wordt gelezen via `Read()` op `Modules/FpsPanel.lua:97-99`:
+      `local getter = (C_CVar and C_CVar.GetCVar) or _G.GetCVar` met daarna een
+      `type(getter) ~= "function"`-afbreking — dubbel geguard. Het label komt uit
+      `LabelFor()` (`:60-76`), dat per global een `type(v) == "string"`-controle doet en terugvalt op
+      onze eigen key. Niets om te repareren.
+  - 📌 **Eén correctie op de pagina, en die is NIET van mij.** De Warrior-regel *"Execute damage
+    increased by 100 %"* is vervangen door *"Execute damage increased by 30 %"*, en de regel
+    *"Execute no longer consumes additional Rage for additional damage"* is **weggehaald**, met een
+    dev-note: *"Last week's changes to Execute were not sufficient … so we're restoring Execute to
+    it's previous functionality with a damage boost in 12.1.5, and are refocusing on 12.2 and 13.0"*.
+    Hard-regel 3 zegt: noem een correctie expliciet, dus hier staat hij. ⚠️ **Niet gemeten tegen de
+    code** — class tuning is het terrein van `docs/CONTENT_WATCH.md` (wat de addon *beweert*), niet
+    van deze wachter.
+  - **GEMETEN — geen enkele API-pagina bewerkt binnen 7 dagen.** `prop=revisions`, cache-busted; de
+    acht titels, alle **buiten** het 10–17-sep-venster en op `Patch 12.1.5` na alle **byte-identiek**
+    aan gisteren: `World of Warcraft API` **2026-09-04T22:38:05Z** (871833 bytes, comment
+    "12.1.5 (69594)"), `Events` **2026-09-04T22:53:30Z** (117345 bytes), `Secret Values`
+    **2026-09-04T11:56:18Z** (30685 bytes), `Secure Execution and Tainting` **2026-02-15T17:17:51Z**
+    (9636 bytes), `Patch 12.1.0` **2026-08-24T17:50:03Z** (130520 bytes),
+    `Patch 12.1.0/API changes` **2026-09-05T00:39:06Z** (102421 bytes),
+    `Patch 12.1.5/API changes` **2026-09-06T17:08:08Z** (25227 bytes, comment "/* Deprecated API */").
+    De achtste, `Patch 12.1.5`, is de bewerkte hierboven. `Patch 12.1.6/API changes` en
+    `Patch 12.2.0/API changes` bestaan nog steeds **niet** (`"missing": true`). 📌 De
+    **`/API changes`-pagina van 12.1.5 is dus níét meegegroeid** met de patchnotitie-pagina — wat
+    klopt met wat de diff laat zien: er zat geen API-regel in.
+  - **GEMETEN — er is geen nieuwere `/API changes`-pagina.** `list=search`
+    (`intitle:"API changes"`, `srsort=last_edit_desc`, 12 van **138** treffers): nieuwst *bewerkt*
+    zijn 12.1.5 (**6 sep**), 11.0.2 (**6 sep**), 12.1.0 (**5 sep**) en `API change summaries`
+    (**4 sep**). De nieuwste is **elf dagen** oud — niets binnen 7 dagen.
+  - **GEMETEN — geen cache-val op de wiki.** `list=recentchanges` (ns 0, 50 stuks, cache-busted):
+    nieuwste bewerking **2026-09-17T03:33:09Z**, ruim een etmaal nieuwer dan wat mijn logboek
+    gisteren noemde (**2026-09-16T03:29:59Z**), dus verse data. Inhoud **uitsluitend content**:
+    Warcraft III-unitpagina's (Blademaster, Far Seer, Spirit Walker, Grunt, Peon, …), de
+    *Warcraft Forever Collection* en de Skyborne-packs, `Twilight's Blade`, `Console Orb`, en
+    trivia bij `Bladestorm`/`Bestial Wrath`/`Steady Shot`. **Geen `/API changes`-, `Structure `- of
+    `Enum.`-pagina in de batch.** ⚠️ De 50 stuks dekken maar ~5 uur (22:37–03:33Z); de dekking over
+    de rest van de week komt van de `list=search` hierboven.
+  - **Hotfixes: nieuwste sectie nog steeds 15 september 2026.**
+    `news.blizzard.com/en-us/article/24296142` met cache-buster gaf als titel *"Hotfixes:
+    September 15, 2026"*; secties **15 sep, 10 sep, 9 sep, 4 sep, 3 sep, 2 sep**. ⚠️ Dit is **gelijk
+    aan**, niet ouder dan, wat mijn logboek gisteren noemde, dus geen cache-val; de verse
+    `recentchanges`-tijdstempel hierboven bevestigt onafhankelijk dat Exa mij vandaag verse pagina's
+    gaf. Geen 16- of 17-sep-sectie. **Geen UI-, addon-, API- of secure-frame-kop** in de hele post.
+  - **Forum: geen blue post, geen nieuw topic.** **GEMETEN** aan de categorie-JSON 35
+    (`order=created`, cache-buster): `primary_groups` én `flair_groups` zijn **leeg**, dus geen
+    Blizzard-groep onder de deelnemers (trust levels 0–3). Nieuwste topic is nog steeds *Target on
+    click-down instead of click-release?* (`2349816`, aangemaakt 2026-09-15T04:24:18Z), **ongewijzigd
+    op 2 posts** (laatste 2026-09-15T07:09:17Z; alleen de views liepen van 14 naar 20) en gisteren al
+    volledig getoetst — [RAAKT ONS NIET], geen unit-frame-pad bij ons. *MSBT or Nothing* (`2349553`)
+    staat nog op 1 post. Omdat de lijst op **aanmaakdatum** gesorteerd is en het nieuwste item van
+    15 sep is, is er **niets nieuws aangemaakt** in de laatste twee dagen.
+  - **Tegenlezing met WebSearch — één treffer nagelopen, buiten het venster én al getoetst.** De
+    zoekvraag *"WoW 12.1.5 PTR API changes addon secure frames taint September 2026"* leverde als
+    enige concrete claim een **Codex-review op PR `zol-wow/QUI#871`**: *"The updated vendored API
+    marks Cooldown:Clear, SetCooldown, and SetCooldownFromDurationObject as protected, but this path
+    invokes them from addon code on cooldowns parented to SecureActionButtonTemplate buttons."*
+    - ⚠️ **GEMETEN dat dit oud is:** de PR is `created 2026-09-03T20:38:02Z`, `merged
+      2026-09-03T21:30:07Z` — **veertien dagen**, dus per hard-regel 1 **geen vondst van vandaag**.
+      Het is bovendien de review-bot van een ánder addon, geen Blizzard-bron.
+    - **[AL AFGEDEKT], en deze run opnieuw in de code gemeten in plaats van uit mijn eigen
+      aantekening geciteerd.** Onze enige `SetCooldown` staat op `Modules/CombatSafety.lua:701`
+      (`f._cd:SetCooldown(GetTime(), 8)`, cosmetische preview-swipe) en
+      `SetCooldownFromDurationObject` op `:598-601`, achter `if duration and
+      f._cd.SetCooldownFromDurationObject then`. Het cooldown-frame maken we zelf op `:184`:
+      `CreateFrame("Cooldown", nil, f, "CooldownFrameTemplate")`. **De hele voorouderketen is
+      gemeten:** `f` is `CreateFrame("Button", "MidnightHelperCombatSafety", UIParent)` op `:114`, en
+      een grep op `CreateFrame\(|SecureActionButtonTemplate|SetParent` over het hele bestand geeft
+      **zeven** treffers (`:114`, `:160`, `:184`, `:276`, `:314`, `:323`, `:860`) — **geen enkele
+      `SecureActionButtonTemplate` en geen enkele `SetParent`**. De keten is dus
+      `UIParent → f → cd`, nergens protected. Het scenario uit die review (cooldown ónder een
+      `SecureActionButtonTemplate`-knop) bestaat bij ons niet. Dit bevestigt de conclusie van
+      `API_WATCH.md:378-383`; ik heb hem nagemeten, niet overgeschreven.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per unit-token,
+    `TimedSignalMap`, `CreateFrameWithOptions`, de `COMBAT_LOG_EVENT_UNFILTERED`-restrictie) zijn
+    deze run **niet** opnieuw getoetst — op het Cooldown-item hierboven na — en blijven staan zoals
+    op 2/6/7/9/10/15 sep gemeten. Geen open actiepunt aan de addon-/API-kant.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op de acht titels plus `Patch 12.1.6`/`12.2.0` `/API changes`; `rvlimit=8` op
+    `Patch 12.1.5`; `action=compare` `6858016→6876301`; `list=search` op `intitle:"API changes"`,
+    `last_edit_desc`; `list=recentchanges` ns 0, 50 stuks); `news.blizzard.com/en-us/article/24296142`
+    (hotfixes); `us.forums.blizzard.com` categorie-JSON 35 op `order=created`;
+    `github.com/zol-wow/QUI/pull/871`; WebSearch (1×) als tegenlezing. ⚠️ Directe `WebFetch` op
+    warcraft.wiki.gg / news.blizzard.com blijft **EGRESS_BLOCKED**; alles liep via Exa. 📌 De
+    wiki-API antwoordt opnieuw met `"Unrecognized parameter: nocache"` — een MediaWiki-waarschuwing,
+    geen fout: de buster hoort bij de cache vóór MediaWiki, en de verse `recentchanges`-tijdstempel
+    hierboven bewijst dat hij werkt.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang **schoon**; geen van
+    de vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ De sessie startte opnieuw met een
+    **detached HEAD**, nu op `7fb6fbc` met de waarschuwing *"you are leaving 74 commits behind"*;
+    `main` stond op `be28b43` en `pull --rebase` bracht hem met een gewone **fast-forward**
+    (`be28b43..7fb6fbc`, 40 bestanden) op dezelfde commit. 📌 **Anders dan 11 t/m 15 sep was er
+    géén `(forced update)`-regel.** `docs/API_WATCH.md` zat **niet** in die 40 bestanden, dus er
+    heeft sinds mijn vorige regel niemand anders in dit logboek geschreven.
