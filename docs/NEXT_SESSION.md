@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🐛 17 sep — boss-venster popte bij elke trash-pull zijn "openen?"-knopje
+
+Rob: *"vaak bij trash een bosswindow, of de vraag of ik hem open wil doen"*.
+- **GEMETEN met `/mh bosswin why`** (Rob stond in Venomous Abyss): `VERDICT: would NOT open — not in a
+  5-man party instance (type=raid)`. Het **doel-pad** opende dus niets; ook `BossWindowOnEncounter` en
+  `RaidCoachData` hangen aan ENCOUNTER_START, dat bij trash niet vuurt.
+- **Oorzaak:** `PLAYER_REGEN_DISABLED` verbergt het open venster en toont ALTIJD `ShowBossWindowPrompt()`.
+  Elke trash-pull gaf dus het knopje. Nu zet `ENCOUNTER_START`/`ENCOUNTER_END` een vlag en wacht het knopje
+  2 s; zonder encounter komt het niet. `/mh bosswin why` zegt die regel nu ook.
+- **Open:** of het VENSTER zelf ook bij trash opengaat is niet gereproduceerd — als Rob dat ziet, `/mh bosswin
+  why` met die mob als doel (staat op de TESTLIJST).
+
 ## 🐛 17 sep — boss-venster: Deel kende geen raid
 
 Rob: *"wanneer ik in een raid zit geeft de share alleen in party"*. `DungeonLiveCoach.lua` koos

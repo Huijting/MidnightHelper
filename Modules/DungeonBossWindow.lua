@@ -2120,14 +2120,35 @@ function ns.PrintBossWindowDiag()
 	else
 		line("|cffff8888VERDICT: would NOT open|r — " .. why)
 	end
+	-- The other half of the question Rob asked on 17 Sep: what happens to an OPEN window when a
+	-- fight starts. It hides, and the little "open it?" button only follows a boss pull.
+	line("on a pull: window hides; the \"open it?\" button only appears for a boss (ENCOUNTER_START), not for trash")
 end
 
 local targetFrame = CreateFrame("Frame")
 targetFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 targetFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- combat-start: venster sluiten (Rob-wens)
 targetFrame:RegisterEvent("PLAYER_REGEN_ENABLED") -- combat klaar: prompt weer opruimen
+-- 🔴 TRASH IS GEEN BOSS — Rob, 17 sep 2026: "het valt me op dat ik vaak bij trash een bosswindow
+-- krijg, of de vraag of ik hem open wil doen". Het venster verdween bij ELK gevecht en liet het
+-- knopje achter, ook bij een trash-pack; in een raid is dat tien keer per gang. Een bossgevecht
+-- kondigt zichzelf aan met ENCOUNTER_START (trash nooit), dus dat is het verschil dat telt.
+-- Het knopje wacht nu even af: komt er geen encounter, dan komt het knopje ook niet.
+targetFrame:RegisterEvent("ENCOUNTER_START")
+targetFrame:RegisterEvent("ENCOUNTER_END")
+local encounterActive = false
+local PROMPT_GRACE = 2 -- s; ENCOUNTER_START valt vlak vóór of vlak ná PLAYER_REGEN_DISABLED
 targetFrame:SetScript("OnEvent", function(_, event)
+	if event == "ENCOUNTER_START" then
+		encounterActive = true
+		return
+	end
+	if event == "ENCOUNTER_END" then
+		encounterActive = false
+		return
+	end
 	if event == "PLAYER_REGEN_ENABLED" then
+		encounterActive = false
 		HideBossWindowPrompt() -- buiten combat kan het venster gewoon weer open
 		return
 	end
@@ -2137,7 +2158,15 @@ targetFrame:SetScript("OnEvent", function(_, event)
 		-- venster verschijnt een klein knopje waarmee je het terughaalt (Delve Coach-recept).
 		if win and win:IsShown() then
 			win:Hide()
-			ShowBossWindowPrompt()
+			if encounterActive then
+				ShowBossWindowPrompt()
+			elseif C_Timer and C_Timer.After then
+				C_Timer.After(PROMPT_GRACE, function()
+					if encounterActive and InCombatLockdown and InCombatLockdown() then
+						ShowBossWindowPrompt()
+					end
+				end)
+			end
 		end
 		return
 	end

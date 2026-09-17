@@ -17,6 +17,17 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 17 sep — geen "openen?"-knopje meer bij trash
+
+`/reload`. Rob: *"ik krijg vaak bij trash een bosswindow, of de vraag of ik hem open wil doen"*. Het venster
+verdween bij **elk** gevecht en liet het knopje achter, ook bij trash.
+- [ ] **Raid of dungeon, trash pullen** met het boss-venster open: het venster gaat dicht (dat hoort), maar
+      het knopje **"openen?"** hoort er nu níét te komen.
+- [ ] **Een baas pullen**: het venster gaat dicht en het knopje komt wél, zoals eerst.
+- [ ] ❓ Zie je het venster **vanzelf opengaan** bij trash (dus niet alleen het knopje), zeg het dan: typ dan
+      `/mh bosswin why` terwijl je die trash-mob als doel hebt en stuur me de regels. Dat pad heb ik niet
+      kunnen reproduceren.
+
 ## 🆕 17 sep — Deel-knop in het boss-venster werkt nu ook in een raid
 
 `/reload`. Rob, 17 sep: *"wanneer ik in een raid zit geeft de share alleen in party"* — in een raid is
