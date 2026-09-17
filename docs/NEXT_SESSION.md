@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🔎 17 sep — eerste `/mh survival` in het spel (Robs Frost Mage, spec 64)
+
+Beta geladen, **geen foutmeldingen**. De kaart klopt: Ice Barrier (keepup) · Alter Time (small) ·
+Ice Block (big) · Blink/Frost Nova/Greater Invisibility (escape) · Counterspell. Shimmer werd
+herkend als dezelfde spell als Blink; Mirror Image staat er bewust niet op.
+- 🔴 **GEMETEN — een NAAM resolvet alleen uit je eigen spellbook.** `C_Spell.GetSpellInfo("Cold Snap")`
+  = nil op Robs mage (talent niet genomen), terwijl `C_Spell.GetSpellInfo(235219)` "Cold Snap" geeft
+  en `IsPlayerSpell(235219)` false. Cold Snap heeft nu `id = 235219`. **Gevolg voor de rest:** elke
+  entry zonder `id` (alle Warrior- en DK-regels, veel andere) kan een rij stil missen bij wie de
+  spell wél heeft maar onder een vervangende naam — de probe zegt nu eerlijk "niet gevonden op naam;
+  je hebt hem misschien gewoon niet".
+
 ## 🚀 17 sep — 4.0.1 als BETA (`v4.0.1-beta1`)
 
 Rob: *"Go beta"* (weinig tijd de komende dagen, creditlimiet dichtbij). `.toc` 4.0.1, changelog-popup
@@ -47,8 +59,16 @@ regel BRON/AFGELEID).
     healerlijsten op je eigen spec. Keybind-cheatsheet geregenereerd.
 - **Open:** in-game meten (TESTLIJST); ontbrekende spells zonder entry (Defensive Stance, Zenith als knop,
   Takedown/Boomstick-id's, Ray of Frost als F1, Tiger's Lust, Rescue…) staan in de audits;
-  `KeybindingData.lua` (frost_mage-blok noemt nog Icy Veins, Glacial Spike, Comet Storm) is niet aangeraakt;
   een keybind-ronde voor de class-talenten die nu te smal gescoped zijn.
+- ✅ **`KeybindingData.lua` ook opgeschoond (17 sep, later).** Vergeleken met de vijf audits; alleen rijen met
+  een BRON aangepast. **Weg:** Frost Mage Glacial Spike (5), Comet Storm (Shift+4), Icy Veins (F1); Enh
+  Shaman Feral Spirit (F1), Primordial Wave (Shift+R). **Id vervangen:** Enh Ascendance 114050 → 114051;
+  Ret Divine Protection 498 → 403876 (in `abilitiesWithoutHotkey` én `guideSpellsWithoutKeycap`).
+  Ongemoeid (niet in de audits als weg/passief): Ele-, Hunter- en Paladin-early-rijen, Cold Snap, Mirror
+  Image. F1 bij Frost blijft leeg; Ray of Frost naar F1 blijft open (zie hierboven).
+  - **GEMETEN in de code:** deze hand-maps worden nu nergens getoond. `LevelingKeybindSlugForLayout`
+    (`KeybindLayoutSlug.lua:48`) geeft altijd `nil`; de Layout-tab gebruikt de auto-map. Speler ziet dus
+    geen verschil. Syntax schoon, lint 0 HARD. Niet in het spel gezien.
 
 ## 🧭 17 sep — Codex-kaarten krijgen een kopje; delves vindbaar via zoeken en een tips-knop
 

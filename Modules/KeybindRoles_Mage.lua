@@ -68,7 +68,7 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	Removed 17 Sep, gone in Midnight (audit, BRON Icy Veins Frost 12.1 / Method Fire intro /
 	Wowhead pre-patch): Icy Veins (Frost's big cooldown is now Ray of Frost), Ice Floes, Phoenix
 	Flames, and Glacial Spike / Comet Storm (no longer spells; they change Frostbolt / Ray of Frost).
-	NOTE: Modules/KeybindingData.lua (frost_mage) still lists Icy Veins, Glacial Spike and Comet Storm.
+	Modules/KeybindingData.lua (frost_mage) dropped the same three on 17 Sep.
 ]]
 
 ns.KeybindRoleClassifier.MAGE = {
@@ -190,6 +190,9 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- Comet Storm removed 17 Sep: no longer a spell, it changes Ray of Frost (audit, BRON Icy Veins Frost 12.1).
 	["Ice Barrier"] = { role = "defensive_1", priority = 1, specs = { 64 }, survival = "keepup", survivalOrder = 1 }, -- KeybindingData "Z" [11426]; kleine def (absorb)
 	-- Card: after Ice Block — it resets Ice Block/Ice Cold and Ice Barrier (audit BRON Icy Veins Frost).
-	["Cold Snap"] = { category = "cooldown", priority = 3, specs = { 64 }, survival = "big", survivalOrder = 2 }, -- KeybindingData "X" [235219]; reset-CD (Ice Block/Barrier/Nova/Cone of Cold) -> cooldown, geen utility
+	-- 17 Sep 2026, GEMETEN in Robs client: C_Spell.GetSpellInfo("Cold Snap") is nil (he has not
+	-- talented it, and a name only resolves from your own spellbook), while 235219 answers
+	-- "Cold Snap". Without the id the card said "no spell found" for every mage, talented or not.
+	["Cold Snap"] = { id = 235219, category = "cooldown", priority = 3, specs = { 64 }, survival = "big", survivalOrder = 2 }, -- KeybindingData "X" [235219]; reset-CD (Ice Block/Barrier/Nova/Cone of Cold) -> cooldown, geen utility
 	-- Icy Veins removed 17 Sep: "Icy Veins has been removed, and our main cooldown is now Ray of Frost" (audit, BRON Icy Veins Frost 12.1).
 }

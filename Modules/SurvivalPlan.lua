@@ -209,7 +209,12 @@ local function LiveName(key, entry, specID)
 	local lookup = (entry and entry.id) or key
 	local ok, info = pcall(C_Spell.GetSpellInfo, lookup)
 	if not (ok and type(info) == "table" and info.spellID) then
-		return nil, "no spell found for " .. tostring(lookup)
+		-- GEMETEN 17 Sep 2026 on Rob's Frost Mage: a NAME only resolves out of your own spellbook.
+		-- C_Spell.GetSpellInfo("Cold Snap") was nil while 235219 answered "Cold Snap", because he
+		-- has not talented it. So a nameless entry cannot tell "you lack it" from "the name is
+		-- wrong" — say both, and give the entry an `id` when the row must be findable either way.
+		return nil, ("not found by %s (you may simply not have it; an id would settle it)")
+			:format(type(lookup) == "number" and ("id " .. lookup) or ("name " .. tostring(lookup)))
 	end
 	local id = info.spellID
 
