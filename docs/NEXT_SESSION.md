@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🩺 17 sep — klasse-advies ("Blijf leven"-kaart + cooldownlijsten) is voor alle 13 klassen fout gebouwd
+
+Rob (Ret Paladin): de kaart zei bij **Divine Shield** "keep this up, put it on BEFORE you pull" en zette
+**Blessing of Sacrifice** onder "health drops fast". Vijf read-only audits (andere chat, 17 sep) liepen alle
+13 klassen na tegen 12.1-bronnen; ze staan nu in `docs/audit_2026-09-17/` (niets in het spel gemeten, per
+regel BRON/AFGELEID).
+- **Hoofdoorzaak, alle vijf onafhankelijk:** `SurvivalPlan.lua` leest de **keybind**-indeling als advies:
+  `defensive_1` (= toets Z) → KEEPUP; `defensive_2-4`/`category=defensive` → HURTS; `priority` (toetsvolgorde,
+  bij gelijk het alfabet) → volgorde; ESCAPE alleen `role=mobility` (bijna nergens gebruikt); Death Strike /
+  Anti-Magic Shell / Soul Immolation / Mortal Coil vallen buiten elke bucket; passieven (Cauterize, Defy Fate,
+  Renewing Blaze) halen het known-filter; `"Metamorphosis (Vengeance)"` is geen spellnaam.
+- **Daarnaast:** verwijderde/passief geworden spells in `DpsToolkit.lua`, `TankToolkit.lua`,
+  `HealerCooldowns.lua` en de classifiers (TWW-data uit JustAC/ClassCodex); tank- en healerlijsten filteren
+  niet op `IsPlayerSpell`; Devourer (1480) valt terug op Havoc; enkele verkeerde id's (Divine Protection
+  Holy 498, Enh Ascendance 114051, Convoke 391528).
+- **Stand:** rapporten veiliggesteld. Voorstel A–F ligt bij Rob; nog niets aan de code veranderd.
+
 ## 🧭 17 sep — Codex-kaarten krijgen een kopje; delves vindbaar via zoeken en een tips-knop
 
 Rob: Carola raakte in de war tussen de kaarten **Raids** (raidgids met bazen) en **Raid & crests** (een
