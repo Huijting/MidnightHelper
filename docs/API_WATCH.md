@@ -1940,3 +1940,134 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     (`be28b43..7fb6fbc`, 40 bestanden) op dezelfde commit. 📌 **Anders dan 11 t/m 15 sep was er
     géén `(forced update)`-regel.** `docs/API_WATCH.md` zat **niet** in die 40 bestanden, dus er
     heeft sinds mijn vorige regel niemand anders in dit logboek geschreven.
+
+- [2026-09-18] ✅ **Geen relevante API-wijzigingen (11–18 sep). 0 × [MOET GEFIKST].** Drie dingen
+  ván vandaag of gisteren, geen ervan een API-wijziging: de **hotfixes van 17 sep**, een **nieuw
+  forumtopic over `/cancelaura`** dat ons wél op een plek raakt waar ik het niet kan meten, en zes
+  **wiki-pagina's over `CustomAuraContainer`** die alleen zijn omgedoopt. Per bron de meting:
+  - 🆕 **Hotfixes: September 17, 2026 — GEMETEN, en de enige UI-regel raakt ons niet.**
+    `news.blizzard.com/en-us/article/24296142` met cache-buster gaf als titel *"Hotfixes: September
+    17, 2026"*, **nieuwer** dan wat mijn logboek gisteren noemde (*"September 15"*), dus geen
+    cache-val. Onafhankelijk bevestigd op de wiki: `Hotfixes` rev `6877795` (Dark T Zeratul,
+    2026-09-18T00:35:08Z, `/* September 2026 */`, 343770 → 345203 bytes) en de diff
+    `6876255→6877795` gelezen. **Geen UI-, addon-, API- of secure-frame-kop**; de secties zijn
+    *Dungeons and Raids* en *Player versus Player*.
+    - 🧩 **[RAAKT ONS NIET] — de enige regel die de UI noemt.** Letterlijk, als developer's note
+      onder Ruby Life Pools: *"A known side-effect of this change is that these creatures will no
+      longer display their contribution towards enemy forces on their tooltip in the default UI."*
+      Dat is een **weergave in Blizzards eigen tooltip**, geen Lua-API. Grep over de addon (zonder
+      `docs/`, `tools/`, `dist/`) op `enemy forces|EnemyForces`: **nul treffers**. 🔴 **Positieve
+      controle in dezelfde run, dezelfde scope en dezelfde grep-vorm:** dezelfde alternatie bevatte
+      ook `ScenarioCriteria|GetCriteriaInfo|C_ScenarioInfo` en die gaf **40+ treffers** in o.a.
+      `Modules/DelveCoach.lua:1730`, `Modules/Knowledge.lua:457`,
+      `Modules/DelveBossShowcase.lua:1409`, `Modules/RitualBossCoach.lua:274`. Het patroon vindt dus
+      wél wat er is; de nul is een echte nul. Wij lezen scenario-**criteria** voor Delves, nooit een
+      enemy-forces-percentage uit een mob-tooltip. 📌 De rest van deze hotfix (PvP-rating-inflatie,
+      `Font of Venomous Rage` −50% in PvP, Coiled Altar-tuning) is **content** en dus voor
+      `CONTENT_WATCH.md`, niet voor mij.
+  - 🆕 **Nieuw forumtopic binnen het venster: *"Cancel auras not working"* — [RAAKT ONS NIET] voor
+    de gemelde spells, mét één open vraag die ik van hieruit niet kan beantwoorden.**
+    `us.forums.blizzard.com/en/wow/t/2351797`, aangemaakt **2026-09-17T10:11:58Z**, 2 posts (laatste
+    2026-09-17T19:09:38Z). Letterlijk: *"Did they change something with cancenl aura macros? I've
+    disabled addons and what not … /cancelaura Subterfuge  /cancelaura Shadow Dance"*. Het antwoord
+    (Bahz, trust level 3): *"I remember reading somewhere that some things were losing the ability to
+    /cancelaura. I don't remember the list"*, met een link naar het Rogue-topic *Cant cancel Dance
+    anymore?* (`2338541`).
+    - ⚠️ **GEEN Blizzard-bron. GEMETEN:** beide posts in `2351797` hebben `"staff":false`,
+      `"admin":false`, `"moderator":false`, en de categorie-JSON 35 heeft lege `primary_groups` én
+      `flair_groups`. Het gelinkte Rogue-topic is `created 2026-08-19T03:47:40Z` — **30 dagen**, dus
+      per hard-regel 1 geen vondst van vandaag. ⚠️ Van dat topic (32 posts) heb ik post 1 en post 13
+      gelezen, beide spelers; ik heb **niet** gemeten of er verderop een blue post staat.
+    - 🧩 **[RAAKT ONS NIET] voor de gemelde spells.** Grep op `Subterfuge`: **nul treffers**. In
+      dezelfde run, dezelfde scope en dezelfde alternatie gaf `Shadow Dance` **3** treffers
+      (`Modules/KeybindRoles_Rogue.lua:110` als `cooldown_bar`-entry, `:100`/`:101` in commentaar, en
+      `Modules/DpsToolkit.lua:60` in commentaar) — **geen daarvan is een macro**, dus de nul is een
+      echte nul en wij cancelen die twee auras nergens.
+    - ⚠️ **WEL RAAKT HET ONS ELDERS, EN DAT KAN IK NIET METEN.** Wij zetten `/cancelaura` **acht
+      keer** in `Modules/TeamMacrosData.lua`, in vijf spells: `Hover` (`:170`, Evoker *Hover
+      Cancel*), `Aspect of the Turtle` (`:247` *Turtle Cancel*, `:314` *Shot without breaking Rapid
+      Fire*), `Ice Block` (`:354`, `:382`, `:402`, drie Mage-specs *Ice Block Cancel*) en
+      `Divine Shield` (`:471`, `:508`, Paladin *Bubble Cancel*). Of een aura te cancelen is, is een
+      **server-side spell-flag** — niet in Lua te zien, en er staat niets over op de
+      `/API changes`-pagina's die ik vandaag gelezen heb. 🔴 **Ik weet dus niet of deze vijf nog
+      werken, en ik ga het niet raden.** Dit is **geen [MOET GEFIKST]**: er is niets gemeten kapot,
+      en er is geen migratie te verzinnen (er is niets om naartoe te migreren — een macro werkt of
+      hij doet stil niets). **De client beslist:** één in-game test volstaat, `Ice Block Cancel` is
+      de makkelijkste — tweede klik moet het blok opheffen. Doet hij stil niets, dan is dat het
+      symptoom en dán is het een echte vondst. 📌 Precies de vorm van *"een klik die stil niets doet
+      is van buiten hetzelfde als kapot"* (CLAUDE.md, 3 sep).
+  - 🆕 **Zes wiki-pagina's `Structure CustomAuraContainer*DefaultOptions` bewerkt vandaag — GEMETEN
+    dat het een naamswijziging is en géén API-wijziging.** `list=recentchanges` gaf zes edits van
+    P3lim tussen **2026-09-18T03:30:04Z en 03:30:25Z** (Slot, ProcessAuraPolicy,
+    ItemEnchantmentLayout, ItemEnchantment, GroupLayout, Group) plus zes log-regels om 03:13 met de
+    comment *"correcting script"*. `prop=revisions` op `Structure CustomAuraContainerSlotDefaultOptions`
+    legt het uit: rev `6877899` is *"P3lim renamed page [[FrameXML types/CustomAuraContainerSlotDefaultOptions]]
+    to [[Structure CustomAuraContainerSlotDefaultOptions]]: correcting script"* — **zelfde grootte,
+    1272 bytes**. De diff `6877899→6877920` die ik las bevat precies twee dingen: `{{framexmltype}}`
+    → `{{wowapitype}}`, en een weggehaalde regel `<!--dummy test-->`. **De veldentabel is
+    onveranderd sinds de bot-upload van 23 aug** (rev `6841403`). Dit is wiki-onderhoud.
+    - 🧩 **[AL AFGEDEKT] als er ooit wél iets verandert.** Wij gebruiken deze template echt:
+      `Modules/PartyTargets.lua:326` doet `local okC, c = pcall(CreateFrame, "AuraContainer", nil,
+      panel, "CustomAuraContainerTemplate")`, met `pcall(C_AddOns.LoadAddOn,
+      "Blizzard_AuraContainer")` op `:314`, een foutmelding in `glowUnavailable` op `:328` en een
+      capability-check op `:348` (*"AuraContainer is missing SetUnit/AddAuraSlot/SetEnabled"*). Een
+      verdwenen template of een ontbrekende methode wordt dus opgevangen en gemeld, niet gegooid.
+  - **GEMETEN — geen enkele `/API changes`-pagina binnen het venster bewerkt.** `prop=revisions` op
+    acht titels: `Patch 12.1.5/API changes` **2026-09-06T17:08:08Z** (25227 bytes),
+    `Patch 12.1.0/API changes` **2026-09-05T00:39:06Z** (102421), `API change summaries`
+    **2026-09-04T13:49:28Z**, `Patch 12.0.7/API changes` **2026-08-04T04:34:26Z**;
+    `Patch 12.1.6/API changes` en `Patch 12.2.0/API changes` zijn nog steeds `"missing":true`.
+    Tegengelezen met `list=search` (`intitle:"API changes"`, `srsort=last_edit_desc`, 10 van **138**
+    treffers): nieuwst bewerkt zijn 12.1.5 (6 sep), 11.0.2 (6 sep), 12.1.0 (5 sep) en de summaries
+    (4 sep) — **twaalf dagen** oud, niets binnen 7 dagen.
+  - ⚠️ **`Patch 12.1.0` (de patchpagina, niet de API-pagina) is wél binnen het venster bewerkt, en
+    het is niets.** Twee edits: `6877240` (Zeal, 2026-09-17T04:04:17Z, *"Updated latest version and
+    date"*) en `6877692` (Dark T Zeratul, 2026-09-17T22:48:20Z). Diff `6841965→6877692` gelezen: de
+    infobox (`|Latest = September 12, 2026`, `|Version = 69214`,
+    `|Latestv = {{API_LatestBuild|midnight}}`) plus één link-hernoeming
+    (`Nature's Splendor (druid talent)` → `Nature's Splendor (Dragonflight)`). **Geen API- of
+    UI-regel.**
+  - **GEMETEN — geen cache-val.** `list=recentchanges` (ns 0, 50 stuks, cache-busted): nieuwste
+    bewerking **2026-09-18T03:30:25Z**, ruim een etmaal nieuwer dan wat mijn logboek gisteren noemde
+    (**2026-09-17T03:33:09Z**). De rest van de batch is content (Skyborne-NPC's op `Zephras Isle`,
+    alchemie-recepten, druid-talenten) plus de `Hotfixes`- en `Alpha and beta`-pagina's. ⚠️ De 50
+    stuks dekken maar ~1 uur (02:23–03:30Z); de dekking over de week komt van de `list=search` en de
+    `prop=revisions` hierboven.
+  - **Forum, verder dan het ene nieuwe topic:** *Target on click-down instead of click-release?*
+    (`2349816`, 15 sep) staat nog op 2 posts en is gisteren al getoetst; *MSBT or Nothing*
+    (`2349553`, 14 sep) nog op 1 post. De lijst is op **aanmaakdatum** gesorteerd en `2351797` is de
+    nieuwste, dus daarnaast is er niets nieuws aangemaakt.
+  - **Tegenlezing met WebSearch — niets binnen het venster.** *"WoW addon API change taint secure
+    frames cancelaura September 17 2026"* gaf alleen tijdloze pagina's (*Secure Execution and
+    Tainting*, oude `/API changes`-pagina's). ⚠️ De samenvatting beweerde er wél bij dat *"Patch
+    12.1.5 was released on August 28, 2026"*. **Dat heb ik op geen enkele pagina gelezen**, het
+    spreekt de wiki zelf tegen (de `Patch 12.1.5`-pagina is nog een stub van 16 kB en zijn
+    API-pagina staat nog als aanstaand), en ik neem het dus **niet** over. Label: claim van het
+    zoekmodel, ongeverifieerd.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per unit-token,
+    `TimedSignalMap`, `CreateFrameWithOptions`, de `COMBAT_LOG_EVENT_UNFILTERED`-restrictie) zijn
+    deze run **niet** opnieuw getoetst, op het AuraContainer-item hierboven na, en blijven staan
+    zoals op 2/6/7/9/10/15/17 sep gemeten. Geen open actiepunt aan de addon-/API-kant.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op de acht `/API changes`-titels plus `Patch 12.1.0`, `Patch 12.1.5`,
+    `Hotfixes` en `Structure CustomAuraContainerSlotDefaultOptions`; `action=compare` op
+    `6841965→6877692`, `6877899→6877920` en `6876255→6877795`; `list=search`; `list=recentchanges`
+    ns 0, 2×50 stuks); `news.blizzard.com/en-us/article/24296142`; `us.forums.blizzard.com`
+    categorie-JSON 35 op `order=created` plus de topic-JSON van `2351797` en `2338541`; WebSearch
+    (1×) als tegenlezing. ⚠️ De eerste poging op het hotfix-artikel faalde met
+    **`CRAWL_LIVECRAWL_TIMEOUT`**; een tweede poging met een andere cache-buster lukte direct — een
+    time-out is dus geen bewijs dat er niets staat. ⚠️ Directe `WebFetch` op warcraft.wiki.gg /
+    news.blizzard.com blijft **EGRESS_BLOCKED**; alles liep via Exa. 📌 De wiki-API antwoordt
+    opnieuw met `"Unrecognized parameter: nocache"` — een MediaWiki-waarschuwing, geen fout: de
+    buster hoort bij de cache vóór MediaWiki, en de verse `recentchanges`-tijdstempel bewijst dat
+    hij werkt.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang **schoon**; geen van
+    de vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ Opnieuw een **detached HEAD**, nu
+    op `69774fa` (*"you are leaving 54 commits behind"*), met `main` achterop op `be28b43`;
+    `pull --rebase origin main` gaf — net als 11 t/m 15 sep, anders dan gisteren — een
+    **`(forced update)`**-regel (`be28b43...69774fa`) en landde op diezelfde `69774fa`. In die 72
+    gewijzigde bestanden zit `docs/API_WATCH.md` wél, maar dat is **mijn eigen regel van gisteren**:
+    de laatste commit op dit bestand is `11f9aa1` (*"API watch 17 Sep: …"*, Thu Sep 17 03:39:20 2026
+    +0000). Er heeft dus niemand anders in dit logboek geschreven.
