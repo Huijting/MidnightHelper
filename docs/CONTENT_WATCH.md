@@ -891,3 +891,61 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   https://news.blizzard.com/en-us/article/24296142?nocache=20260917f (volledig gelezen via Exa) ·
   `web_search_exa` "World of Warcraft Midnight hotfixes September 16 2026 OR September 17 2026
   retail" (nieuwste retail-hotfixtreffer blijft 15 sep).
+
+---
+
+- [2026-09-18] 🔴 **Twaalfde hotfixsectie ("17 september") gemeten — en één regel erin raakt een
+  baas die we deze maand net herschreven hebben, met precies de mechaniek-namen die in onze tekst
+  ontbreken.** Zelf gelezen: `news.blizzard.com/en-us/article/24296142?nocache=20260918z` (Exa,
+  volledige artikeltekst) — nieuwste sectie is nu **"September 17, 2026"**, met alleen Dungeons
+  and Raids en Player versus Player (geen Delves/Professions/Quests/Items die dag). Kruisverwijzing:
+  dezelfde sectie is vandaag ook al gelezen door de API-, PTR- en data-wachter
+  ([2026-09-18]-entries in hun eigen bestanden) — hier onafhankelijk opnieuw opgehaald met een
+  eigen cache-buster, niet van die logs overgenomen. **Positieve controle tegen de cache-val van
+  3 sep:** `web_search_exa` op "...September 18 2026..." vindt geen enkel hotfixartikel na 17 sep,
+  terwijl dezelfde zoekvorm moeiteloos correct gedateerde stukken tot en met 17, 15, 10, 9, 4 sep
+  en augustus teruggeeft — een gemeten afwezigheid, geen kapotte cache.
+
+  **Ruby Life Pools — enemy-forces-telfix voor Blazebound Destroyers/Primalist Flamedancers, met
+  als bijwerking dat hun bijdrage niet meer op de tooltip staat.** GEMETEN: 0 treffers op "enemy
+  forces", "Blazebound Destroyer" en "Primalist Flamedancer" in heel `Locales/` en `Modules/`
+  (`grep -rniE` op alle `.lua`-bestanden). Onze drie Ruby Life Pools-tips
+  (`Locales/DungeonTips.lua:516-539`, Kokia/Kyrakka/Melidrussa) gaan alleen over boss-mechanics,
+  niet over trash-tellingen — niets om tegen te spreken. **[RAAKT ONS NIET]**
+
+  **The Coiled Altar — Unnerving Fixation targette tanks vaker dan bedoeld, nu gefixt.** Deze baas
+  is bij ons `coiledaltar` (`Modules/RaidCoachData.lua:105`, encounterID 2883, Zul'jan/Malacrass —
+  `Modules/RaidCoachData.lua:210`), en de tips (`Locales/RaidTips.lua:85-92`,
+  `RAID_BOSS_COILEDALTAR_STEPS/_TANK/_HEALER/_DPS`) zijn **op 15 sep herschreven** — dezelfde dag
+  als Blizzards eerste afstembeurt voor deze baas. GEMETEN, `grep -rniE` op alle `.lua`-bestanden
+  in de hele repo: geen van de zes mechaniek-namen die Blizzard voor déze baas gebruikt in de
+  hotfixes van 15 én 17 sep — "Unnerving Fixation", "Wail of Terror", "Manifestations of Dread",
+  "Dreadmarch", "Spiteful Soulcoiler", "Venom Rupture", "Mutagenic Venom" — komt ook maar één keer
+  voor, nergens. **Positieve controle op dezelfde repo-brede schaal, zelfde run:** "Malacrass"
+  (4 bestanden) en "Guillotine" (2 bestanden) vinden wél treffers met exact dezelfde zoekvorm — de
+  nul hierboven is dus een gemeten afwezigheid, geen kapot patroon. Onze tekst beschrijft in plaats
+  daarvan groene orbs, geesten en Guillotine-soak over drie fases; geen van die zes officiële namen
+  valt daar ook maar zijdelings onder te vangen.
+  Dit is geen weerlegging van een claim — we noemen nergens een tank-target-frequentie — maar wel
+  een gemeten hiaat: zes officiële mechaniek-namen voor precies déze baas, verspreid over twee
+  hotfix-rondes, ontbreken volledig uit een tekst die dezelfde week "compleet herschreven" heet.
+  Een derde, zwakkere bron (consolepcgaming.com, via `web_search_exa`, dus MEASURED (via search,
+  niet zelf gelezen)) citeert een "Manifestations"-fix voor deze baas al op 31 augustus — dus dit
+  is vermoedelijk geen gloednieuwe mechaniek uit de 15-sep-tuning, maar iets dat al bestond vóór de
+  herschrijving. `RAID_PRERELEASE_NOTE` (`Locales/RaidTips.lua:36`) zegt er zelf al bij dat niet
+  alles zelf gelopen is, dus dit is geen verzwegen fout — maar wel iets concreets voor een mens om
+  te beoordelen: mist de tekst een hele fase/mechaniek, of heet iets hier anders dan bij DBM? Dat
+  kan ik niet vaststellen, alleen een speler in-game. INFERRED dat dit de moeite waard is om na te
+  lopen; MEASURED dat de namen ontbreken. **[RAAKT ONS]**
+
+  **Player versus Player — rating-inflatie fors omhoog, Font of Venomous Rage-trinketschade -50%
+  in PvP.** GEMETEN: 0 treffers op "Font of Venomous Rage" of "PvP rating" in `Locales/`/`Modules/`
+  die iets anders beweren — MH heeft geen PvP-rating- of PvP-trinketadvies. Buiten onze lane.
+  **[RAAKT ONS NIET]**
+
+  Verder niets nieuws: de 17-sep-batch had geen Delves-, Professions-, Quests- of Items-secties.
+  — bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260918z (volledig gelezen
+  via Exa) · `web_search_exa` "World of Warcraft Midnight hotfixes September 18 2026 retail Delves
+  Professions Quests" (nieuwste retail-hotfixtreffer blijft 17 sep) · consolepcgaming.com (31-aug-
+  Manifestations-vermelding, secundair, niet zelf gelezen, niet als bewijs voor de hotfix-datum
+  gebruikt).
