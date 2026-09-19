@@ -636,6 +636,38 @@ local function RenderSurvivalPlan(panel, child, y, cw)
 	return y - 6
 end
 
+--- "How you play" — the spec's buttons in order, in a few short lines (Modules/PlayCards.lua).
+---
+--- Unlike the survival card this one is NOT silent when it has nothing: the cards are being
+--- written spec by spec, and a player on a spec without one should read "not written yet"
+--- rather than wonder whether MH forgot. Once every spec has a card that line never shows.
+local function RenderPlayCard(panel, child, y, cw, specID)
+	if not specID then
+		return y
+	end
+	local card = ns.GetPlayCard and ns.GetPlayCard(specID)
+	local name = ToolkitSpecName(specID)
+	y = AddToolkitLine(panel, child, cw, y, (SL("PLAYCARD_HEAD_FMT")):format(name), true)
+	if not card then
+		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("PLAYCARD_NONE") .. "|r", false)
+		return y - 8
+	end
+	y = AddToolkitLine(panel, child, cw, y, "|cffffffff" .. SL("PLAYCARD_IDEA") .. "|r " .. card.idea, false)
+	y = AddToolkitLine(panel, child, cw, y, "|cffffffff" .. SL("PLAYCARD_STEPS") .. "|r", false)
+	for i, s in ipairs(card.steps) do
+		y = AddToolkitLine(panel, child, cw, y, ("|cffffcc00%d.|r %s"):format(i, s.text), false, s.spellID)
+	end
+	if card.aoe then
+		y = AddToolkitLine(panel, child, cw, y, "|cffffffff" .. SL("PLAYCARD_AOE") .. "|r " .. card.aoe, false)
+	end
+	y = AddToolkitLine(panel, child, cw, y, "|cffff6060" .. SL("PLAYCARD_MISTAKE") .. "|r " .. card.mistake, false)
+	for _, h in ipairs(card.hero) do
+		y = AddToolkitLine(panel, child, cw, y, "|cff9d9dff•|r " .. h.text, false, h.spellID)
+	end
+	y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. (SL("PLAYCARD_SOURCE_FMT")):format(card.source) .. "|r", false)
+	return y - 8
+end
+
 local function RenderDpsToolkit(panel, child, y, cw)
 	local activeID = ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()
 	local specID = activeID or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID())
@@ -738,11 +770,15 @@ local function RebuildScrollContent(panel)
 		y = RenderHealerToolkit(panel, child, y, cw)
 	elseif track == TRACK_TANK then
 		y = RenderTankToolkit(panel, child, y, cw)
+		y = RenderPlayCard(panel, child, y, cw,
+			(ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()) or (ns.GetClassTankSpecID and ns.GetClassTankSpecID()))
 	elseif track == TRACK_DPS then
 		-- Survival first, damage second. Carola dies to rares on a Frost Mage
 		-- (Rob, 4 Aug); the cooldown list below tells her how to kill faster,
 		-- which is not her problem. Order on the page is the advice.
 		y = RenderSurvivalPlan(panel, child, y, cw)
+		y = RenderPlayCard(panel, child, y, cw,
+			(ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()) or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID()))
 		y = RenderDpsToolkit(panel, child, y, cw)
 	end
 

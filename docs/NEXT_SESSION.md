@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🎓 19 sep — "Zo speel je"-kaarten: proef met 4 specs (wacht op Robs oordeel)
+
+Rob: rotatie-uitleg voor **alle** specs, eli10. Aanleiding: twee spiekbriefjes uit een andere chat; 4 hulpen
+maten dat het Arcane-briefje grotendeels verouderd was en dat MH **geen enkele** rotatietekst had.
+- **Nieuw:** `Modules/PlayCards.lua` (data + `ns.GetPlayCard`), `RenderPlayCard` in `RoleAcademy.lua`
+  (tank-tab onder de toolkit, DPS-tab tussen Stay alive en de cooldownlijst). Tekst = `PLAYCARD_<spec>_*`,
+  alleen **enUS + nlNL**; de 5 andere talen pas als de vorm is goedgekeurd (anders dubbel vertalen).
+- **Specs:** 70, 66, 62, 262. Bronnen + datum staan per kaart. Spell-id's: bestaande MH-id's of Wowhead door
+  de hulpen; **niet bevestigde id's staan als platte tekst** (Hammer of Light, Holy Bulwark, Arcane Pulse,
+  Arcane Soul). Spec zonder kaart toont bewust "nog niet geschreven".
+- **Meegenomen:** Arcane Orb uit `DPS_COOLDOWNS[62]` (rotatieknop, geen burst).
+- **Bewust NIET gedaan:** Hammer of Wrath staat in `KeybindRoles_Paladin.lua:138` als `spender` (is een
+  generator) — omzetten verschuift mogelijk toetsen, dus eerst Robs akkoord. Forbearance-noot bij LoH/BoP
+  (kaart heeft één noot per spell; vraagt een nieuwe sleutel in 7 talen). Intercession 391054 vs 461622.
+- **Volgende stap na Robs ja:** de andere ~36 specs in groepjes (onderzoek-hulpen met hetzelfde format),
+  dan vertalen.
+
 ## 🐍 19 sep — Coiled Altar-tips getoetst tegen de hotfixes (content-wachter 18 sep)
 
 De wachter meldde zes officiële mechaniek-namen die "nergens" in onze tekst staan. Nagemeten:

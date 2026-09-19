@@ -49,7 +49,7 @@ ns.DPS_COOLDOWNS = {
 	[254] = { { id = 288613, cd = 120 }, { id = 257044, cd = 16 }, { id = 212431, cd = 30 } }, -- MM Hunter: Trueshot, Rapid Fire (16s core), Explosive Shot (talent)
 	-- Takedown and Boomstick are Survival's real cooldowns, but their ids are not settled (audit: TWIJFEL).
 	[255] = { { id = 259495, cd = 18 } }, -- Survival Hunter: Wildfire Bomb (18s core)
-	[62] = { { id = 365350, cd = 90 }, { id = 321507, cd = 45 }, { id = 153626, cd = 20 } }, -- Arcane Mage: Arcane Surge, Touch of the Magi, Arcane Orb (talent)
+	[62] = { { id = 365350, cd = 90 }, { id = 321507, cd = 45 } }, -- Arcane Mage: Arcane Surge, Touch of the Magi. Arcane Orb left 19 Sep 2026: 12.1 guides use it at 0 charges / on cooldown in AoE, a rotation button, not a burst to save (Icy Veins 15 Aug, Method 13 Sep)
 	[63] = { { id = 190319, cd = 120 }, { id = 153561, cd = 45 }, { id = 44457, cd = 30 } }, -- Fire Mage: Combustion, Meteor, Living Bomb (talent)
 	[64] = { { id = 205021, cd = 60 }, { id = 84714, cd = 60 }, { id = 157997, cd = 25 } }, -- Frost Mage: Ray of Frost (the main cooldown now), Frozen Orb, Ice Nova (talent)
 	[269] = { { id = 1249625, cd = 90 }, { id = 123904, cd = 120 }, { id = 113656, cd = 24 }, { id = 392983, cd = 35 } }, -- Windwalker Monk: Zenith (2 charges), Invoke Xuen (Conduit of the Celestials), Fists of Fury (24s core), Strike of the Windlord (talent)

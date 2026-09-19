@@ -20,6 +20,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 📦 **Oudere rondes staan in [`TESTLIJST_ARCHIEF.md`](TESTLIJST_ARCHIEF.md)** (afgesplitst 17 sep 2026,
 op Robs verzoek). Deze lijst houdt de twee jongste testrondes; er is niets weggegooid.
 
+## 🆕 19 sep — proef: "Zo speel je"-kaart (Ret, Prot, Arcane, Elemental)
+
+`/reload`. Rob: *"Ik wil dat mh dat soort uitleg ook gaat geven … maar wel in eli10 formaat"*. Eerst vier
+specs; pas als de vorm goed voelt volgen de andere en de vijf andere talen (nu Engels + Nederlands).
+- [ ] **Op je Prot Paladin**: Academy → **Tank**-tab. Onder de tank-toolkit staat **How you play Protection**:
+      het idee, 4 knoppen, "More enemies", "Biggest mistake", twee hero-regels (Templar / Lightsmith) en de bron.
+- [ ] Academy → **DPS**-tab op dezelfde Paladin: onder "Stay alive" staat de kaart voor **Retribution** (voorbeeld).
+- [ ] **Staan alle spellnamen er als naam** (goud), en nergens "spell 123456"? Let vooral op Judgment,
+      Sacred Weapon (Lightsmith-regel). Beweeg over een stap: komt de tooltip van die spell?
+- [ ] **Voelt het eli10?** Te lang, te kort, onduidelijke woorden? Dit is de vraag waar de rest op wacht.
+- [ ] (Mage- of Shaman-alt) DPS-tab: **Arcane** en **Elemental** kaarten. Bij Arcane staat **Arcane Orb niet
+      meer** in "Your damage cooldowns" (het is een rotatieknop, geen burst).
+
 ## 🆕 19 sep — werkt Bubble Cancel nog? (forummelding over /cancelaura)
 
 Spelers melden sinds 17 sep dat `/cancelaura` bij sommige spells stil niets meer doet (Subterfuge, Shadow
