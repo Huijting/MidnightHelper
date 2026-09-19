@@ -120,14 +120,16 @@ section.block .tag{
 .item:last-child{border-bottom:0}
 .item.lvl1{padding-left:30px;background:linear-gradient(to right,var(--edge) 0 2px,transparent 2px)}
 .item p{margin:0 0 10px;font-size:15px;line-height:1.45}
-.item.done p{color:var(--ink-faint)}
+.item.done p{color:var(--ink-soft)}
+.item.is-ok{background:var(--good-bg);box-shadow:inset 6px 0 0 var(--good)}
+.item.is-bad{background:var(--bad-bg);box-shadow:inset 6px 0 0 var(--bad)}
 .acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .acts button{
   font:600 13px/1 Manrope,sans-serif;padding:9px 12px;border-radius:9px;
   border:1px solid var(--edge);background:transparent;color:var(--ink-soft);cursor:pointer;
 }
-.acts button[aria-pressed="true"].ok{background:var(--good-bg);border-color:var(--good);color:var(--good)}
-.acts button[aria-pressed="true"].bad{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.acts button[aria-pressed="true"].ok{background:var(--good);border-color:var(--good);color:var(--card)}
+.acts button[aria-pressed="true"].bad{background:var(--bad);border-color:var(--bad);color:var(--card)}
 .acts .memo{margin-left:auto;font-weight:500}
 textarea{
   width:100%;margin-top:10px;min-height:64px;padding:10px;border-radius:9px;
@@ -256,7 +258,7 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
       items.forEach(function(i){
         var st = state[i.id] || {};
         var row = document.createElement("div");
-        row.className = "item" + (i.indent ? " lvl1" : "") + (st.s ? " done" : "");
+        row.className = "item" + (i.indent ? " lvl1" : "") + (st.s ? " done is-" + st.s : "");
         var p = document.createElement("p");
         p.textContent = i.text;
         row.appendChild(p);
