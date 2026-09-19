@@ -20,6 +20,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 📦 **Oudere rondes staan in [`TESTLIJST_ARCHIEF.md`](TESTLIJST_ARCHIEF.md)** (afgesplitst 17 sep 2026,
 op Robs verzoek). Deze lijst houdt de twee jongste testrondes; er is niets weggegooid.
 
+## 🆕 19 sep — Coiled Altar: Guillotine vraagt nu 3 man, niet 5
+
+`/reload`. Blizzard verlaagde op 1 sep het minimum voor Guillotine naar **3 spelers** op LFR, Normal en
+Heroic. Onze tip zei nog 5. Bij Mythic staat nu "5"; dat is afgeleid, want de hotfix noemt Mythic niet.
+- [ ] **Raids → The Venomous Abyss → The Coiled Altar**: de Guillotine-regel zegt *"at least 3 players (5 on Mythic)"*.
+- [ ] **In het gevecht (Normal of Heroic)**: staan er 3 of meer in de Guillotine, dan krijgt de raid geen
+      straf-schade. Klopt dat met wat je ziet?
+
 ## 🆕 17 sep — geen "openen?"-knopje meer bij trash
 
 `/reload`. Rob: *"ik krijg vaak bij trash een bosswindow, of de vraag of ik hem open wil doen"*. Het venster

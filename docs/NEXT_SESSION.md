@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🐍 19 sep — Coiled Altar-tips getoetst tegen de hotfixes (content-wachter 18 sep)
+
+De wachter meldde zes officiële mechaniek-namen die "nergens" in onze tekst staan. Nagemeten:
+- **GEMETEN — drie zijn er wél, alleen als id.** `{SPELL:1285911}` (Unnerving Fixation) en `{SPELL:1289900}`
+  (Dreadmarch; DBM-commentaar noemt hem "Deathmarch") worden in het spel een link met de clientnaam
+  (`DelveTipMarkup.lua:89`). Wail of Terror = de fear van de `{SPELL:1286441}`-adds, die de Heroic-regel al noemt.
+  Een grep op tekst kan die dus nooit vinden; de wachter had geen ongelijk over de tekst, wel over wat de speler ziet.
+- 🔴 **GEMETEN FOUT, gerepareerd:** Guillotine "at least 5 players" → **3** op LFR/Normal/Heroic (Blizzard-hotfix
+  1 sep: *"Reduced the minimum players needed to be hit by Guillotine and Grim Guillotine to avoid failure damage
+  to 3 players"*). Mythic staat nu op "5" = AFGELEID (hotfix noemt Mythic niet). 7 talen, drift 0.
+- **Niet gedaan, bewust:** Spiteful Soulcoiler / Manifestations of Dread (onzichtbare geesten die een onderbroken
+  Wail of Terror zichtbaar maakt), Venom Rupture en Mutagenic Venom (Mythic-orb). Dat is Heroic/Mythic-mechaniek
+  die ik alleen uit hotfixzinnen ken, niet uit een gids of een run; herschrijven zonder bron is raden.
+  Rob loopt Normal. Oppakken als er een Heroic/Mythic-gids van na 15 sep is.
+
 ## 📦 17 sep — testlijst gesplitst (Rob: "zijn er wel heel veel")
 
 196 open punten op de telefoonpagina was onbruikbaar. `docs/TESTLIJST.md` houdt nu de **twee jongste
