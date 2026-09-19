@@ -949,3 +949,30 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   Professions Quests" (nieuwste retail-hotfixtreffer blijft 17 sep) · consolepcgaming.com (31-aug-
   Manifestations-vermelding, secundair, niet zelf gelezen, niet als bewijs voor de hotfix-datum
   gebruikt).
+
+---
+
+- [2026-09-19] 🔁 **Dag 2 zonder nieuwe hotfix-sectie sinds 17 sep — zelf gemeten, drie andere
+  wachters vandaag onafhankelijk hetzelfde.** `Exa web_fetch_exa` met `?nocache=20260919x` op
+  news.blizzard.com's doorlopende hotfix-artikel, **volledige artikeltekst zelf gelezen**:
+  nieuwste sectie is nog steeds **"September 17, 2026"** (Dungeons and Raids: Ruby Life Pools,
+  The Coiled Altar; Player versus PvP), byte-voor-byte gelijk aan wat al op [2026-09-18] gelogd
+  staat — geen Delves-, Professions-, Quests- of Items-sectie die dag, zoals toen al vastgesteld.
+  Dit convergeert met de API-, PTR/roadmap- en data-wachter van vandaag (elk apart,
+  `docs/API_WATCH.md`/`docs/PTR_12.1_WATCH.md`/`docs/PTR_12.0.7_DATA.md`, entries [2026-09-19]) —
+  niet overgenomen, zelf opnieuw opgehaald met een eigen cache-buster.
+
+  **Positieve controle tegen de cache-val van 3 sep:** `web_search_exa` op retail-hotfixes van
+  18/19 sep vindt geen enkel artikel nieuwer dan 17 sep, maar dezelfde zoekopdracht geeft in
+  dezelfde resultatenlijst moeiteloos correct gedateerde stukken terug tot en met 17, 15, 9, 4 sep
+  en augustus — een gemeten afwezigheid, geen kapotte of verouderde cache. Eén ruisresultaat
+  expliciet herkend en genegeerd: een "War Within Hotfixes: September 18th"-artikel van Icy Veins
+  bleek bij lezing over **The War Within** te gaan (Kobold Delves, Hallowfall, Khaz Algar,
+  Necrotic Wake — een ouder addon-seizoen/andere expansion), niet over Midnight/12.1 — niet
+  meegeteld.
+
+  Geen enkele bevinding vandaag om tegen de repo te toetsen. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260919x (volledig gelezen via Exa) ·
+  `web_search_exa` "World of Warcraft Midnight hotfixes September 18 2026 OR September 19 2026
+  retail Delves Professions Quests Items patch notes" (nieuwste retail-hotfixtreffer blijft
+  17 sep).
