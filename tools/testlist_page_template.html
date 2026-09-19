@@ -97,6 +97,7 @@ h1{
   border:1px solid var(--edge);background:var(--card);
   font-size:13px;color:var(--ink-soft);box-shadow:var(--shadow);
 }
+.diag{margin:8px 2px 0;font-size:12px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
 .note-bar.warn{border-color:var(--bad);color:var(--bad);background:var(--bad-bg)}
 
 section.block{
@@ -163,6 +164,7 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
     </div>
     <div class="chips" id="chips"></div>
     <div class="note-bar" id="status">Opslaan wordt klaargezet…</div>
+    <p class="diag" id="diag">versie __BUILT__</p>
   </header>
 
   <main id="list"></main>
@@ -181,10 +183,23 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
   var DATA = JSON.parse(document.getElementById("data").textContent);
   var state = {};            // id -> {s:"ok"|"bad", n:"notitie"}
   var db = null, docRef = null, filter = "new", saveTimer = null, muted = false;
+  // Ids changed on this screen and not yet confirmed saved. A snapshot from the store may be
+  // older than a click (19 Sep: Rob's ticks vanished the moment he let go), so for these ids
+  // the local choice wins until the write has landed.
+  var touched = {};
+  var diag = { clicks:0, snaps:0, saves:0, db:"wacht", err:"" };
 
   var listEl = document.getElementById("list");
   var statusEl = document.getElementById("status");
   var savedEl = document.getElementById("saved");
+  var diagEl = document.getElementById("diag");
+
+  function showDiag(){
+    diagEl.textContent = "versie __BUILT__ · klikken " + diag.clicks + " · opslag " + diag.db +
+      " · opgeslagen " + diag.saves + "× · updates " + diag.snaps + (diag.err ? " · fout: " + diag.err : "");
+  }
+  window.addEventListener("error", function(e){ diag.err = (e && e.message) || "?"; showDiag(); });
+  showDiag();
 
   var all = [];
   DATA.sections.forEach(function(s){ s.items.forEach(function(i){ i.section = s; all.push(i); }); });
@@ -231,6 +246,8 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
     var st = state[item.id] || {};
     if (st.s === mark) { delete st.s; } else { st.s = mark; }
     if (!st.s && !st.n) { delete state[item.id]; } else { state[item.id] = st; }
+    touched[item.id] = true;
+    diag.clicks++; showDiag();
     save(); render();
   }
 
@@ -283,6 +300,7 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
           var cur = state[i.id] || {};
           cur.n = ta.value;
           if (!cur.n && !cur.s) { delete state[i.id]; } else { state[i.id] = cur; }
+          touched[i.id] = true;
           save();
         });
         memo.addEventListener("click", function(){
@@ -317,11 +335,17 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
     if (saveTimer) clearTimeout(saveTimer);
     saveTimer = setTimeout(function(){
       muted = true;
+      var sent = touched; touched = {};
       docRef.set({ items: state, updatedAt: new Date().toISOString() }).then(function(){
+        diag.saves++; diag.err = ""; showDiag();
         savedEl.textContent = "opgeslagen " + new Date().toLocaleTimeString("nl-NL", { hour:"2-digit", minute:"2-digit" });
         setTimeout(function(){ muted = false; }, 400);
       }).catch(function(e){
         muted = false;
+        for (var k in sent) touched[k] = true;   // not saved: keep them protected and retry on the next change
+        diag.err = "opslaan " + (e && e.code ? e.code : (e && e.message) || "?"); showDiag();
+        statusEl.className = "note-bar warn";
+        statusEl.textContent = "Opslaan lukte niet (" + (e && e.code ? e.code : "?") + "). Je vinkjes staan nog op dit scherm; gebruik onderaan “Kopieer wat ik moet weten”.";
         savedEl.textContent = "opslaan lukte niet (" + (e && e.code ? e.code : "?") + ")";
       });
     }, 500);
@@ -357,17 +381,25 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold-bright)
 
   claude.use("db").then(function(d){
     if (!d) {
+      diag.db = "niet beschikbaar"; showDiag();
       statusEl.className = "note-bar warn";
       statusEl.textContent = "Let op: opslaan werkt hier niet. Je vinkjes blijven alleen op dit scherm staan — gebruik onderaan “Kopieer wat ik moet weten”.";
       return;
     }
     db = d;
     docRef = db.doc("state/checks");
+    diag.db = "verbonden"; showDiag();
     docRef.onSnapshot(function(snap){
+      diag.snaps++; showDiag();
       if (muted) return;
       var body = snap.exists ? snap.data() : null;
       if (body && body.items && typeof body.items === "object") {
-        state = body.items;
+        var incoming = {};
+        for (var k in body.items) incoming[k] = body.items[k];
+        for (var id in touched) {
+          if (state[id]) incoming[id] = state[id]; else delete incoming[id];
+        }
+        state = incoming;
         render();
       }
       statusEl.textContent = "Opslaan werkt. Je vinkjes staan er ook nog als je de pagina sluit, en ik lees ze terug.";

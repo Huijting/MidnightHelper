@@ -152,6 +152,9 @@ def main():
         raise SystemExit("no __DATA__ placeholder in " + TEMPLATE)
     blob = json.dumps({"sections": sections}, ensure_ascii=False).replace("</", "<\\/")
     html = html.replace("__DATA__", blob)
+    # So Rob can see on his phone whether the page he has open is the one just published.
+    import datetime
+    html = html.replace("__BUILT__", datetime.datetime.now().strftime("%d-%m %H:%M"))
 
     io.open(OUT + ".tmp", "w", encoding="utf-8", newline="").write(html)
     os.replace(OUT + ".tmp", OUT)
