@@ -2071,3 +2071,123 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     gewijzigde bestanden zit `docs/API_WATCH.md` wél, maar dat is **mijn eigen regel van gisteren**:
     de laatste commit op dit bestand is `11f9aa1` (*"API watch 17 Sep: …"*, Thu Sep 17 03:39:20 2026
     +0000). Er heeft dus niemand anders in dit logboek geschreven.
+
+- [2026-09-19] 🔁 **Eén échte API-regel bijgekomen (12–19 sep): `MouseIsOver` is verhuisd naar
+  `InputUtil.IsMouseOver`. 0 × [MOET GEFIKST].** Voor het eerst sinds 10 sep staat er weer een
+  nieuwe regel op een `/API changes`-pagina, en er is daarnaast een tweede addon-zijdig item: de
+  wiki heeft vandaag het **gedrag van `AllowLoadGameType`** in `TOC format` aangescherpt. Beide
+  raken ons niet, maar beide zijn gemeten en niet aangenomen.
+  - 🔁 **[RAAKT ONS NIET] — `MouseIsOver` → `InputUtil.IsMouseOver`, nieuw op de 12.1.0-pagina.**
+    `Patch 12.1.0/API changes` rev `6878058` (Ketho, **2026-09-18T13:00:08Z**, 102421 → 102492
+    bytes, lege comment). De diff `6860164→6878058` (gelezen via `action=compare`) bevat precies
+    twee dingen, letterlijk geciteerd:
+    - toegevoegd: `* {{api|MouseIsOver}} has been moved to {{tlygo|InputUtil.IsMouseOver}}.`
+    - gewijzigd: `* {{api|UIParentLoadAddOn}} has been` ~~`renamed to`~~ → `moved to`
+      `{{tlygo|LoadAddOnWithErrorHandling}}.`
+    ⚠️ **Dit is een CORRECTIE op onze eigen aantekening van 18 aug**, die deze verhuizing als
+    *"renamed"* noteerde; de wiki noemt het nu *"moved to"*. Zelfde `{{tlygo}}`-template als bij
+    `MouseIsOver`, dus vermoedelijk dezelfde mechaniek (global weg, functie leeft voort in een
+    namespace-tabel). 📌 De vorige revisie van die pagina dateerde van **2026-09-05T00:39:06Z**
+    (`6860164`, comment *"12.1.0 (69587)"*), dus dit is de eerste inhoudelijke wijziging in twee
+    weken — geen cache-artefact.
+    - 🧩 **[RAAKT ONS NIET] — gemeten, mét positieve controle in dezelfde run en dezelfde scope.**
+      Grep over de addon (`docs/`, `tools/`, `dist/`, `.git/` uitgesloten) op de alternatie
+      `MouseIsOver|InputUtil|LoadAddOnWithErrorHandling`: **nul** treffers op `MouseIsOver` en
+      **nul** op `InputUtil`, terwijl dezelfde grep `LoadAddOnWithErrorHandling` **wél** vond in
+      `Core.lua:68` (comment) en `Core.lua:79`. Het patroon vindt dus wat er is; de nul is een
+      echte nul.
+    - ✅ **[AL AFGEDEKT] voor het gecorrigeerde item.** `Core.lua:79` doet
+      `local fn = _G.LoadAddOnWithErrorHandling or _G.UIParentLoadAddOn` — een `or`-fallback die
+      werkt of de oude naam nu hernoemd of verhuisd is. ⚠️ Wel staat in de comment op
+      `Core.lua:68` nog *"12.1 renames `UIParentLoadAddOn` to `LoadAddOnWithErrorHandling`"*; dat
+      woord klopt sinds gisteren niet meer met de bron. **Geen actiepunt** (de code gedraagt zich
+      goed), hooguit een woordje als Rob dat bestand toch aanraakt.
+    - ⚠️ **Verwar het niet met `Region:IsMouseOver()`, dat is iets anders en blijft.** Gemeten:
+      wij gebruiken de **widget-methode** op drie plekken — `UI.lua:2038`,
+      `Modules/AltOverview.lua:1545` en `:1856`, alle drie als `<frame>:IsMouseOver()`. De
+      verhuisde functie is de **global** `MouseIsOver(frame)`; een methode op een widget is geen
+      global en wordt hier niet genoemd. 🔴 Ik heb **niet** gemeten dat de widget-methode
+      ongemoeid blijft — er staat er alleen niets over op de pagina. Wordt dit ooit wél een
+      probleem, dan is `Modules/DelveCoach.lua:684` de plek om mee te kijken: daar staat
+      `local focus = GetMouseFocus and GetMouseFocus()`, al netjes achter een guard.
+  - 📄 **[RAAKT ONS NIET] — `TOC format` vandaag driemaal bewerkt: `AllowLoadGameType` faalt
+    OPEN bij een onbekend game type.** `warcraft.wiki.gg/wiki/TOC format` revs `6878832`
+    (2026-09-19T02:54:23Z), `6878834` (03:09:16Z) en `6878841` (03:35:28Z), alle drie van Zeal,
+    26478 → 26970 bytes. Diff `6877637→6878841` gelezen; de toegevoegde zin staat er twee keer,
+    bij de per-regel-conditional én bij de directive, letterlijk: *"If at least 1 game type is
+    specified, but the client doesn't recognise ''any'' of the game types in the condition, the
+    condition will still be satisfied."* Daarnaast is de rij `[ExcludeLoadGameType ...]` van een
+    eigen omschrijving voorzien (stond onder een `rowspan` van de rij erboven).
+    ⚠️ **Dit is wiki-documentatie van bestaand clientgedrag, geen aangekondigde API-wijziging** —
+    er staat geen build of patch bij, alleen *"Added for files in 11.1.5. Added for metadata in
+    12.0.7."*. Ik weet dus **niet** of het gedrag nieuw is of alleen nu pas opgeschreven.
+    - 🧩 **Gemeten, mét positieve controle:** `MidnightHelper.toc` is het **enige** `.toc`-bestand
+      in de repo (`ls *.toc`), en een grep over `*.toc` op
+      `AllowLoad|ExcludeLoad|## Interface|OnlyBetaAndPTR` gaf **precies één** treffer:
+      `MidnightHelper.toc:1` (`## Interface: 120007, 120100`). Dus het patroon werkt en er staat
+      geen enkele `AllowLoad*`/`ExcludeLoad*`-directive in ons `.toc`. Aanvullend: `grep "\["` op
+      dat bestand geeft **nul** regels, dus ook geen per-regel-conditionals. Wij kunnen hier niet
+      door geraakt worden.
+  - 🔁 **`/cancelaura`-topic van gisteren: twee nieuwe posts, GEEN nieuwe informatie — het punt
+    blijft open en is GEEN nieuwe vondst.** `us.forums.blizzard.com/en/wow/t/2351797` staat nu op
+    **4 posts** (was 2), laatste **2026-09-18T08:34:12Z**. Post 3 (dan, `"staff":false`,
+    2026-09-18T04:11:57Z): *"Its not the cancel laura. Its Blizzard removed the ability to cancel
+    Dance."* Post 4 (de topicstarter, 08:34Z): *"was this recent?"* — onbeantwoord. **Nog steeds
+    geen Blizzard-bron**: alle vier de posts hebben `"staff":false`, `"admin":false`,
+    `"moderator":false`. Onze acht `/cancelaura`-regels in `Modules/TeamMacrosData.lua` (`:170`,
+    `:247`, `:314`, `:354`, `:382`, `:402`, `:471`, `:508`) staan dus nog precies zoals gisteren
+    beschreven: **niet gemeten kapot, niet te meten van hieruit, en er is niets om naartoe te
+    migreren.** De client beslist; `Ice Block Cancel` blijft de makkelijkste test.
+  - **GEMETEN — de rest van de `/API changes`-pagina's is stil.** `prop=revisions` op acht titels:
+    `Patch 12.1.5/API changes` **2026-09-06T17:08:08Z**, `API change summaries`
+    **2026-09-04T13:49:28Z**, `Patch 12.0.7/API changes` **2026-08-04T04:34:26Z**;
+    `Patch 12.1.6/API changes`, `Patch 12.1.7/API changes` en `Patch 12.2.0/API changes` zijn nog
+    steeds `"missing":true`. Tegengelezen met `list=search` (`intitle:"API changes"`,
+    `srsort=last_edit_desc`, 10 van **139** treffers, was 138): binnen het venster staat er naast
+    12.1.0 nog één, **`Patch 1.60.1/API changes` (2026-09-18T14:34:36Z)** — dat is **Classic
+    Anniversary**, niet Retail, en dus niet ons terrein.
+  - **GEMETEN — geen nieuwe hotfix, en geen cache-val.** `news.blizzard.com/en-us/article/24296142`
+    met cache-buster geeft nog altijd titel *"Hotfixes: September 17, 2026"* — **even oud** als
+    wat mijn logboek gisteren noemde, niet ouder, dus dit is echt de laatste en niet een cache.
+    De wiki bevestigt het onafhankelijk: `Hotfixes` staat nog op rev `6877795`
+    (2026-09-18T00:35:08Z, 345203 bytes), precies de revisie die ik gisteren las. ⚠️ Eerste poging
+    faalde met **`CRAWL_NOT_FOUND`** op het `…/blog/24296142`-pad; met `…/article/…` lukte het
+    direct — een mislukte fetch is dus opnieuw geen bewijs dat er niets staat.
+  - **GEMETEN — recentchanges is vers.** `list=recentchanges` (ns 0, 50 stuks, cache-busted):
+    nieuwste bewerking **2026-09-19T03:35:28Z**, ruim een etmaal nieuwer dan wat mijn logboek
+    gisteren noemde (**2026-09-18T03:30:25Z**). Buiten de drie `TOC format`-edits hierboven is de
+    hele batch content (NPC's, zones, `Skyborne (playable)`, `Kirin Tor`, `Earthen Ring`) en dus
+    voor `CONTENT_WATCH.md`.
+  - **Forum, verder dan `2351797`:** de categorie-JSON is op **aanmaakdatum** gesorteerd en
+    `2351797` (17 sep) is nog steeds de nieuwste — er is sinds gisteren **geen enkel nieuw topic**
+    aangemaakt in UI and Macro. *Target on click-down instead of click-release?* (`2349816`,
+    15 sep) staat nog op 2 posts; *MSBT or Nothing* (`2349553`, 14 sep) nog op 1.
+  - **Tegenlezing met WebSearch — niets binnen het venster.** *"WoW addon API change September 18
+    2026 MouseIsOver InputUtil taint secure frames"* gaf alleen tijdloze pagina's (*Secure
+    Execution and Tainting*, oude `/API changes`-pagina's, een forumtopic uit 2020). ⚠️ De
+    samenvatting beweerde er wél bij dat Blizzard op **16 sep 2026** zou hebben aangekondigd dat
+    *"WoW Forever runs on Mainline's UI architecture and shares the vast majority of APIs
+    available in 12.1.5"*. **Dat heb ik op geen enkele pagina zelf gelezen** en ik neem het dus
+    **niet** over. Label: claim van het zoekmodel, ongeverifieerd. 📌 Als het waar is, hoort het
+    bij de PTR/roadmap-wachter, niet bij mij.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per
+    unit-token, `TimedSignalMap`, `CreateFrameWithOptions`, de
+    `COMBAT_LOG_EVENT_UNFILTERED`-restrictie) zijn deze run **niet** opnieuw getoetst en blijven
+    staan zoals op 2/6/7/9/10/15/17/18 sep gemeten. Geen open actiepunt aan de addon-/API-kant.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op de acht `/API changes`-titels plus `Hotfixes`, en apart met `rvlimit=5`
+    op `Patch 12.1.0/API changes`; `action=compare` op `6860164→6878058` en `6877637→6878841`;
+    `list=search`; `list=recentchanges` ns 0, 50 stuks); `news.blizzard.com/en-us/article/24296142`;
+    `us.forums.blizzard.com` categorie-JSON 35 op `order=created` plus de topic-JSON van `2351797`;
+    WebSearch (1×) als tegenlezing. ⚠️ Directe `WebFetch` op warcraft.wiki.gg / news.blizzard.com
+    blijft **EGRESS_BLOCKED**; alles liep via Exa. 📌 De wiki-API antwoordt opnieuw met
+    `"Unrecognized parameter: nocache"` — een MediaWiki-waarschuwing, geen fout: de buster hoort bij
+    de cache vóór MediaWiki, en de verse `recentchanges`-tijdstempel bewijst dat hij werkt.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang **schoon**; geen van
+    de vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ Opnieuw een **detached HEAD**, nu
+    op `c9f6bf3`; `pull --rebase origin main` gaf net als de afgelopen dagen een
+    **`(forced update)`**-regel (`be28b43...c9f6bf3`) en daarna *"Already up to date"*. De laatste
+    commit op dit bestand is `523171c` (*"API watch 18 Sep: …"*) — mijn eigen regel van gisteren, dus
+    er heeft niemand anders in dit logboek geschreven.
