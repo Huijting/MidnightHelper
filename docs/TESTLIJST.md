@@ -54,9 +54,9 @@ verdween bij **elk** gevecht en liet het knopje achter, ook bij trash.
 het party-kanaal leeg, dus de tips kwamen nergens aan.
 - [x] **In een raid** (Sporefall, Venomous Abyss of een world boss met een groep): open het boss-venster,
       druk **Deel**. Komen de regels in de **raidchat**? ✅ **Rob, 17 sep: "dit werkt nu".**
-- [ ] **In een dungeon met vier man**: nog steeds partychat.
-- [ ] **In een LFG/LFR-groep**: instance-chat.
-- [ ] **Alleen**: geen groep, dan print hij de regels alleen voor jezelf. Dat hoort zo.
+- [x] ✅ (Rob, 19 sep) **In een dungeon met vier man**: nog steeds partychat.
+- [x] ✅ (Rob, 19 sep) **In een LFG/LFR-groep**: instance-chat.
+- [x] ✅ (Rob, 19 sep) **Alleen**: geen groep, dan print hij de regels alleen voor jezelf. Dat hoort zo.
 
 ## 🆕 17 sep — "Blijf leven"-kaart opnieuw gebouwd (Paladin eerst)
 
@@ -91,7 +91,7 @@ het party-kanaal leeg, dus de tips kwamen nergens aan.
 ## 🆕 17 sep — Codex-kaarten met een kopje, en delves vindbaar zoals dungeons
 
 `/reload` is genoeg. Na Carola's verwarring tussen "Raids" en "Raid & crests".
-- [ ] **Open de Codex-kamer.** Staat onder elk handboek-hoofdstuk (Delves, Dungeons & M+, Raid & crests,
+- [x] ✅ (Rob, 19 sep) **Open de Codex-kamer.** Staat onder elk handboek-hoofdstuk (Delves, Dungeons & M+, Raid & crests,
       …) klein **Codex-handboek**? En staat onder **Raids** nog steeds **Bazen: 17**?
 - [ ] **Typ in de zoekbalk een delvenaam** (bv. *Shadowguard Point* of *Sunkiller Sanctum*). Komt hij in de
       lijst, met *Delve Coach* eronder, en opent een klik de **Delve Coach** voor die delve (met "voorbeeld"
