@@ -65,6 +65,7 @@ tekenen van de "layout"-subtab.
 | **E** | Interrupt (kick). Geen interrupt? → E blijft utility tot er een komt. |
 | **Q** | Movement (dash/blink/roll/leap). |
 | **Z** | Kleine/rotationele defensive. |
+| **X** | Nog een defensive — of **leeg** als de spec er geen derde heeft (sinds 19 sep 2026). |
 | **C** | Grote/panic defensive. |
 | **T** | **Consumable-anker: healing potion.** Krijgt nooit een spell — zie §4. |
 | **V** | Dispel / CC. |
@@ -95,6 +96,13 @@ duimknop komt vóór Ctrl omdat een vrije duimknop beter drukt dan een tweede mo
 | Cooldown | `F1`, `F3`, `F2` (F3 vóór F2 — F2 draagt bij 34 specs een self-heal, F3 bij 12) |
 | Defensive | `Z`, `C`, `X`, `V` |
 | Self-heal | `F2`, `F3`, `F4` |
+
+> **De kale `Z`, `X` en `C` zijn alleen voor defensives** (sinds 19 sep 2026,
+> `KeybindSchema.defensiveOnlyBaseKeys`). Utility en Dispel/CC noemen `X`/`C` nog wel in hun lijst,
+> maar mogen daar alleen de Shift- en Ctrl-laag gebruiken. Rob vroeg of er op elke spec een defensive
+> op Z staat; gemeten stond er op X bij bijna twee derde van de specs een dispel of CC (Purge, Fear,
+> Cleanse Toxins) en bij twee Druids een CC op C. Kost: 4 situationele spells meer zonder toets
+> (18 → 22), 107 verschuivingen over 27 specs; Prot Paladin ongewijzigd.
 
 > **`T` staat in géén enkele lijst.** Dat is het consumable-anker. Gemeten 7 aug 2026:
 > daarvóór pakte de healing potion "de eerste vrije toets", en bij **18 van de 39 specs

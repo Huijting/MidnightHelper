@@ -20,6 +20,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 📦 **Oudere rondes staan in [`TESTLIJST_ARCHIEF.md`](TESTLIJST_ARCHIEF.md)** (afgesplitst 17 sep 2026,
 op Robs verzoek). Deze lijst houdt de twee jongste testrondes; er is niets weggegooid.
 
+## 🆕 19 sep — Z, X en C zijn nu altijd een defensive (of leeg)
+
+`/reload`. Rob koos optie B: *"doe b maar"*. Op de kale Z, X en C komt alleen nog een defensive; dispels en CC
+schuiven naar Shift/Ctrl. 107 verschuivingen in 27 specs; **Prot Paladin blijft gelijk**.
+- [ ] **Ret of Holy Paladin**: in de toetsindeling van MH staat nu **Blessing of Protection op X** en
+      **Cleanse Toxins op Shift+V** (was X). Klopt dat in het scherm met de toetsen?
+- [ ] **Een alt van een andere klasse** (Shaman, Warlock, Rogue of Druid): staat er op X een defensive of niets,
+      en géén Purge / Fear / Shiv / CC meer? Shaman hoort nu **Earth Elemental op Z** te hebben, Rogue **Evasion op X**.
+- [ ] Gebruik je `/mh apply` om de indeling echt op je balken te zetten: doe dat pas na de reload, anders zet hij
+      nog de oude.
+
 ## 🆕 19 sep — proef: "Zo speel je"-kaart (Ret, Prot, Arcane, Elemental)
 
 `/reload`. Rob: *"Ik wil dat mh dat soort uitleg ook gaat geven … maar wel in eli10 formaat"*. Eerst vier

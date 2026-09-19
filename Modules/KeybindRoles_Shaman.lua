@@ -76,7 +76,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Thunderstorm"] = { category = "utility", priority = 4, specs = { 262 }, survival = "escape", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_STUNNED" }, -- Ele X (AoE knockback + slow; JustAC SpellCategories 51490)
 	-- Class talent for all three specs (IV-Ele/Enh/Resto); `specs` stays { 262 } for the keys, the card widens.
 	-- Card: an emergency tank on a 3 min cooldown (WH-spell 198103), after Astral Shift.
-	["Earth Elemental"] = { category = "defensive", priority = 4, specs = { 262 }, survivalSpecs = { 262, 263, 264 }, survival = "big", survivalOrder = 2 }, -- Ele Shift+C (extra def/pet; JustAC DefensiveEngine 198103)
+	["Earth Elemental"] = { category = "defensive", priority = 4, specs = { 262, 263, 264 }, survival = "big", survivalOrder = 2 }, -- Z on all three (extra def/pet; JustAC DefensiveEngine 198103). Widened from Ele only on 19 Sep 2026: Enh and Resto had nothing on Z, and the card already listed it for all three
 	["Cleanse Spirit"] = { category = "dispel_cc", priority = 3, specs = { 262 } }, -- Ele Shift+V (friendly dispel; JustAC SpellCategories 51886)
 	["Stormkeeper"] = { role = "cooldown_bar", priority = 1, specs = { 262, 263 } }, -- Ele F1 (burst-CD, live); Enh R (191634 Ele / 205495 Enh talent)
 

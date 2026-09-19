@@ -91,7 +91,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 
 	-- Dispel / CC (V) + overflow. Alle addon-bevestigd (SpellCategories CROWD_CONTROL / Interrupt).
 	-- Fear: card off (crowd control; defensive_2 is only its key slot).
-	["Fear"] = { role = "defensive_2", category = "dispel_cc", priority = 1 }, -- V; CROWD_CONTROL [118699] (single-target fear)
+	["Fear"] = { category = "dispel_cc", priority = 1 }, -- V; CROWD_CONTROL [118699] (single-target fear). Was role defensive_2 (= key X) until 19 Sep 2026: a CC on the defensive key, on all three specs
 	-- Mortal Coil: stays dispel_cc for the key, but on the card it is a heal (20%, 45 s; Method).
 	["Mortal Coil"] = { category = "dispel_cc", priority = 2, survival = "heal", survivalOrder = 1 }, -- CROWD_CONTROL [6789] (horror-fear + 20% self-heal; talent)
 	["Howl of Terror"] = { category = "dispel_cc", priority = 3 }, -- InterruptAbilities [5484] kind=cc mech=5 (AoE-fear; talent)

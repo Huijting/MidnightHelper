@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## ⌨️ 19 sep — Z/X/C = altijd een defensive (Rob: "doe b maar")
+
+Rob vroeg of een defensive op Z op elke spec op Z staat. **GEMETEN** (gen_keybinds, 39 specs): Z 36×, C 37×
+defensive, maar X maar ~⅓ — X zat in drie slotlijsten (utility, defensive, dispel_cc) en ging naar wie eerst kwam.
+- **Regel:** `KeybindSchema.defensiveOnlyBaseKeys = {Z,X,C}` — de kale toets alleen voor role `defensive_*` of
+  category `defensive`; Shift/Ctrl blijven open. Gespiegeld in `tools/keybind_sheet/gen_keybinds.py`
+  (`DEFENSIVE_ONLY_BASE`). Een eigen anker-override mag er nog wel op.
+- **Data:** Warlock Fear niet meer `defensive_2`; Rogue Evasion → category defensive (X); Shaman Earth Elemental
+  → alle drie specs (Z); Resto Druid Ironbark → category defensive (C).
+- **Gevolg (GEMETEN, kb_before/kb_after):** 107 rijen in 27 specs; unplaced 18 → 22 (Ursol's Vortex ×3, Fel
+  Eruption). Prot Paladin 0 wijzigingen. Nog leeg: X bij 17 specs, Z bij Holy Priest, C bij Balance — bewust leeg
+  i.p.v. een CC. **Niet in het spel gezien**: de Lua-allocator is alleen syntactisch en via de Python-spiegel gecheckt.
+- Keybind-sheet (json/html/xlsx) opnieuw gegenereerd; `docs/KEYBIND_STANDARD_v6.md` §3/§4 bijgewerkt.
+
 ## 🎓 19 sep — "Zo speel je"-kaarten: proef met 4 specs (wacht op Robs oordeel)
 
 Rob: rotatie-uitleg voor **alle** specs, eli10. Aanleiding: twee spiekbriefjes uit een andere chat; 4 hulpen

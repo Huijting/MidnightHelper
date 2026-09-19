@@ -90,14 +90,24 @@ def slotlist_for(sp):
     if cat: return CATEGORIES.get(cat)  # None if unknown -> base fallback
     return BASE_FILL
 
+# Mirror of KeybindSchema.defensiveOnlyBaseKeys (19 Sep 2026): the bare Z, X and C are for
+# defensives only; their Shift/Ctrl layers stay open to everyone.
+DEFENSIVE_ONLY_BASE = {"Z", "X", "C"}
+
+def is_defensive(sp):
+    r = sp.get("role") or ""
+    return r.startswith("defensive") or sp.get("category") == "defensive"
+
 def try_slots(slots, sp, occupied, out):
     if not slots: return False
+    sp_def = is_defensive(sp)
     for mod in [None] + MOD_FILL:
         for s in slots:
             base = normalize_base(s)
             anchored = set(ANCHORS.values())
             own = (len(slots) == 1 and base in anchored)
-            blocked = (base in RESERVED_BASE and not mod) or (base in anchored and not mod and not own)
+            blocked = ((base in RESERVED_BASE and not mod) or (base in anchored and not mod and not own)
+                       or (base in DEFENSIVE_ONLY_BASE and not mod and not sp_def and not own))
             if base and base not in EXCLUDED and not blocked:
                 bk = make_bindkey(mod, base) if mod else base
                 if bk and bk not in occupied:

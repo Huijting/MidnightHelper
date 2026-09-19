@@ -54,6 +54,21 @@ ns.KeybindSchema = {
 	modifierFillOrder = { "shift", "ctrl" },
 	--- Not used for Midnight spell binds (grid slot exists but team leaves empty).
 	excludedBaseKeys = { G = true },
+	--- ⚠️ THE BARE Z, X AND C ARE FOR DEFENSIVES ONLY. Added 19 Sep 2026.
+	---
+	--- Rob asked: "als op Z een defensive staat bij de ene spec, staat dan ook altijd een
+	--- defensive op Z bij andere specs?" Measured across all 39 specs that day: Z held a
+	--- defensive on 36, C on 37 — but X on barely a third. X sat in three slot lists
+	--- (utility, defensive, dispel_cc), so whichever came first in priority took it: Cleanse
+	--- Toxins on a Ret Paladin, Purge on every Shaman, Fear on every Warlock, while their
+	--- second defensive was pushed to Shift+Z. Balance and Resto Druid had crowd control
+	--- (Cyclone, Mass Entanglement) on C for the same reason. Rob chose to fix it ("doe b").
+	---
+	--- So the bare key is kept for the family it is named after; the Shift and Ctrl layers of
+	--- those keys stay open to everyone, which is where the displaced dispels and CC go.
+	--- A spec with only two defensives leaves X empty rather than putting a CC there: an
+	--- empty key keeps the meaning, a CC on it breaks it for every alt.
+	defensiveOnlyBaseKeys = { Z = true, X = true, C = true },
 
 	--- Thumb buttons, in the order they get handed out.
 	---
@@ -832,8 +847,15 @@ function ns.Keybind_AllocateSpells(spells, opts)
 
 	local reservedBase = ns.Keybind_ReservedBaseKeys()
 
+	local function isDefensive(spell)
+		local r = spell and spell.role
+		return (type(r) == "string" and r:find("^defensive") ~= nil) or (spell and spell.category == "defensive")
+	end
+
 	local function trySlots(slots, spell)
 		slots = slots or {}
+		local defOnly = Schema.defensiveOnlyBaseKeys or {}
+		local spellIsDef = isDefensive(spell)
 		local layers = { false } -- false = base-laag (geen modifier)
 		for i = 1, #Schema.modifierFillOrder do
 			layers[#layers + 1] = Schema.modifierFillOrder[i]
@@ -853,6 +875,7 @@ function ns.Keybind_AllocateSpells(spells, opts)
 				local isOwnAnchor = (#slots == 1 and anchored[base]) or false
 				local blocked = (reservedBase[base] and not mod)
 					or (anchored[base] and not mod and not isOwnAnchor)
+					or (defOnly[base] and not mod and not spellIsDef and not isOwnAnchor)
 				if base and not Schema.excludedBaseKeys[base] and not blocked then
 					local bk = mod and ns.Keybind_MakeBindKey(mod, base) or base
 					if bk and not isOccupied(bk) then

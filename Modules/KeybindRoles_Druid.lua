@@ -207,7 +207,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Wild Growth"]                      = { category = "raid_heal", priority = 2, bindKey = "Shift+4", specs = { 105 } }, -- AoE-raidheal BLIJFT op toets (Shift+4)
     ["Efflorescence"]                    = { category = "raid_heal", priority = 4, specs = { 105 } }, -- grond-AoE-raidheal (bloom) -> toets
     -- Kleine defensive (extern)
-    ["Ironbark"]                         = { role = "defensive_1", priority = 2, specs = { 105 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- extern -20% dmg (Z); ook raid-CD-slot; card: 1.5 min, not a keep-up (wiki)
+    ["Ironbark"]                         = { category = "defensive", priority = 2, specs = { 105 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- extern -20% dmg (C since 19 Sep 2026: it was a second defensive_1 behind Barkskin, so it fell to Shift+Z while C held Mass Entanglement); ook raid-CD-slot; card: 1.5 min, not a keep-up (wiki)
     -- Raid-heal cooldowns (op cooldown-slots)
     ["Tranquility"]                      = { role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
     -- Flourish en Grove Guardians: verwijderd 17 sep (nu passief, patchnotes/IV Resto).
