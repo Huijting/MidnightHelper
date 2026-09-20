@@ -79,6 +79,8 @@ local WORLD_MARKERS = {
 	{ "Skull",    8, 8 },
 }
 
+local COUNTDOWN_SECONDS = 10 -- the usual pull timer; right-click cancels it
+
 local ICON = 22
 local PAD = 6
 local GAP = 2
@@ -242,27 +244,60 @@ local function AddClearButton(row, key, macrotext, tipText, prev)
 	return b
 end
 
--- Ready-check knop (GEWONE knop; DoReadyCheck is niet protected). Werkt alleen als je
--- leider/assist bent — anders doet 'ie stil niks.
-local function AddReadyCheck(row, prev)
-	local b = CreateFrame("Button", "MidnightHelperMarkReadyCheck", row)
+--- Group buttons. None of these are protected — a plain OnClick is enough, which is why
+--- wMarker can offer them beside its markers (wMarker.lua:348-390). They DO need lead or
+--- assist, and that is the trap: without it the game simply ignores the call, so the button
+--- looks broken. They are dimmed and say why instead (see UpdateLeadButtons).
+local leadButtons = {}
+
+local function CanLead()
+	if not IsInGroup or not IsInGroup() then
+		return false
+	end
+	if UnitIsGroupLeader and UnitIsGroupLeader("player") then
+		return true
+	end
+	return UnitIsGroupAssistant and UnitIsGroupAssistant("player") or false
+end
+
+function ns.RefreshFastMarkLead()
+	local can = CanLead()
+	for _, b in ipairs(leadButtons) do
+		b:SetAlpha(can and 1 or 0.35)
+		b._canLead = can
+	end
+end
+
+--- One group button: icon, what it does, and the tooltip line it shows.
+local function AddGroupButton(row, key, texture, tipKey, tipFallback, onClick, prev, extraTip)
+	local b = CreateFrame("Button", "MidnightHelperMark" .. key, row)
 	b:SetSize(ICON, ICON)
-	b:SetNormalTexture("Interface\\RaidFrame\\ReadyCheck-Ready")
+	b:SetNormalTexture(texture)
 	if prev then
 		b:SetPoint("LEFT", prev, "RIGHT", GAP, 0)
 	else
 		b:SetPoint("LEFT", row, "LEFT", 0, 0)
 	end
-	b:RegisterForClicks("LeftButtonUp")
-	b:SetScript("OnClick", function()
-		if DoReadyCheck then
-			DoReadyCheck()
-		end
+	b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	b:SetScript("OnClick", function(self, button)
+		onClick(self, button)
 	end)
 	b:SetScript("OnEnter", function(self)
-		Tip(self, L("MARK_READYCHECK", "Ready check"))
+		if not (GameTooltip) then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:AddLine(L(tipKey, tipFallback), 1, 0.82, 0.2)
+		if extraTip then
+			GameTooltip:AddLine(extraTip(), 0.7, 0.7, 0.7)
+		end
+		if not self._canLead then
+			GameTooltip:AddLine(L("MARK_NEEDLEAD", "Only the group leader or an assistant can do this."), 1, 0.3, 0.3)
+		end
+		GameTooltip:Show()
 	end)
 	b:SetScript("OnLeave", TipHide)
+	leadButtons[#leadButtons + 1] = b
 	return b
 end
 
@@ -271,8 +306,8 @@ local function BuildBar()
 		return bar
 	end
 
-	-- Rij 1 is het breedst: 8 target-markers + wis + ready-check = 10 knoppen.
-	local rowContent = 10 * ICON + 9 * GAP + 3 -- +3 voor de extra ruimte vóór de wis-knop
+	-- De onderste rij is het breedst: 8 target-markers + wis + ready + rollen + klok = 12.
+	local rowContent = 12 * ICON + 11 * GAP + 3 -- +3 voor de extra ruimte vóór de wis-knop
 	local rowW = PAD + rowContent + PAD
 	local barW = GRIP + rowW
 	local barH = PAD + 2 * ICON + ROWGAP + PAD
@@ -361,7 +396,30 @@ local function BuildBar()
 	end
 	prev = AddClearButton(targetRow, "TargetClear", SlashTargetMarker() .. " 0",
 		L("MARK_CLEAR_TARGET", "Clear target marker"), prev)
-	AddReadyCheck(targetRow, prev)
+
+	-- Groepsknoppen, Robs punt 3 na wMarker: ready check, rollen-check, aftelklok.
+	prev = AddGroupButton(targetRow, "ReadyCheck", "Interface\\RaidFrame\\ReadyCheck-Ready",
+		"MARK_READYCHECK", "Ready check", function()
+			if DoReadyCheck then
+				DoReadyCheck()
+			end
+		end, prev)
+	prev = AddGroupButton(targetRow, "RoleCheck", "Interface\\LFGFrame\\UI-LFG-ICON-ROLES",
+		"MARK_ROLECHECK", "Role check", function()
+			if InitiateRolePoll then
+				InitiateRolePoll()
+			end
+		end, prev)
+	AddGroupButton(targetRow, "Countdown", "Interface\\Icons\\INV_Misc_PocketWatch_01",
+		"MARK_COUNTDOWN", "Pull timer", function(_, button)
+			if not (C_PartyInfo and C_PartyInfo.DoCountdown) then
+				return
+			end
+			-- Right-click cancels: DoCountdown(0) is Blizzard's own stop (wMarker.lua:379).
+			C_PartyInfo.DoCountdown(button == "RightButton" and 0 or COUNTDOWN_SECONDS)
+		end, prev, function()
+			return (L("MARK_COUNTDOWN_HINT", "Left-click: %d seconds · Right-click: cancel")):format(COUNTDOWN_SECONDS)
+		end)
 
 	bar:Hide()
 	return bar
@@ -389,6 +447,7 @@ local function ApplyVisibility()
 	BuildBar()
 	bar:Show()
 	ns.RefreshFastMarkActive()
+	ns.RefreshFastMarkLead()
 end
 
 function ns.SetFastMarkEnabled(v)
@@ -425,6 +484,11 @@ function ns.PrintFastMarkCheck()
 	else
 		say("  IsRaidMarkerActive:  MISSING — the 'already placed' ring stays off")
 	end
+	say(("  group buttons: ready %s · roles %s · countdown %s — lead/assist right now: %s")
+		:format(DoReadyCheck and "yes" or "MISSING",
+			InitiateRolePoll and "yes" or "MISSING",
+			(C_PartyInfo and C_PartyInfo.DoCountdown) and "yes" or "MISSING",
+			CanLead() and "yes" or "no (they are dimmed)"))
 	say(("  bar built: %s · world buttons: %d"):format(bar and "yes" or "no", #worldButtons))
 end
 
@@ -446,9 +510,15 @@ ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 -- Fires when any raid target icon OR world marker changes, for everyone in the group —
 -- so the "already placed" ring also follows what your raid leader does.
 ev:RegisterEvent("RAID_TARGET_UPDATE")
+-- Lead/assist can change without the roster changing, and the group buttons are dimmed by it.
+ev:RegisterEvent("PARTY_LEADER_CHANGED")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "RAID_TARGET_UPDATE" then
 		ns.RefreshFastMarkActive()
+		return
+	end
+	if event == "PARTY_LEADER_CHANGED" then
+		ns.RefreshFastMarkLead()
 		return
 	end
 	if event == "PLAYER_REGEN_ENABLED" then

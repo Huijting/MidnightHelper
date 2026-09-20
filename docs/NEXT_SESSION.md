@@ -19,9 +19,15 @@ schijf; hun code is GEMETEN, niet van internet overgenomen.
   `IsRaidMarkerActive` bestaat en welke markers nu liggen.
 - **Niet gedaan, bewust:** alle 8 target-iconen in één klik wissen — wMarker heeft die knop zelf
   uitgezet ("broken by macro limits", `wMarker.lua:506`).
-- **Volgende (Robs "dan kijken we naar 3"):** groepsknoppen op dezelfde balk — ready check (hebben we al),
-  rollen-check (`InitiateRolePoll`) en aftelklok (`C_PartyInfo.DoCountdown`), plus Main Tank/Assist via
-  secure `type="maintank"`. Niets daarvan is protected.
+- ✅ **Punt 3 er meteen bij gedaan (Rob, 21 sep: "doe 3 er ook maar bij"):** ready check, **rollen-check**
+  (`InitiateRolePoll`) en **aftelklok** (`C_PartyInfo.DoCountdown`, rechtsklik = `DoCountdown(0)`) staan
+  nu rechts op de onderste rij. Geen van drieën is protected. **Ze zijn gedimd zonder lead/assist**, met
+  de reden in de tooltip — anders doet de knop stil niets en dat is van buiten hetzelfde als kapot
+  (CLAUDE.md, 3 sep). Ververst op `PARTY_LEADER_CHANGED`. Nog niet gedaan: Main Tank/Assist via secure
+  `type="maintank"` — dat kan later, wMarker doet het op `unit="target"`.
+- ✅ **GEMETEN op Robs client (20 sep, `/mh mark check`):** slash = `/tm`, wis-macro = `/cwm All`
+  (global ALL = "All"), `IsRaidMarkerActive` bestaat. De locale-reparatie is dus niet te zien op zijn
+  eigen (Engelse) client; hij hielp voor iedereen mét een andere client.
 - 📌 Zijstap voor Rob zelf: **wMarker is sinds 26 apr niet bijgewerkt** (zegt 12.0.5). Alternatief met een
   12.1-build: *Raid Markers / RaidBar* (17 sep).
 

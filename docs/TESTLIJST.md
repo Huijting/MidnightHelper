@@ -23,8 +23,11 @@ op Robs verzoek). Deze lijst houdt de twee jongste testrondes; er is niets wegge
 ## 🆕 20 sep — markeerbalk: wissen gerepareerd + je ziet welke vlaggen al liggen
 
 `/reload`, dan `/mh mark` (de balk komt alleen in een groep). Geleerd uit wMarker en EllesmereUIQoL.
-- [ ] **Typ `/mh mark check`** en stuur me de vier regels. Daar staat in welk slash-commando jouw client
-      gebruikt en of `IsRaidMarkerActive` bestaat. Dit is de meting waar de rest op leunt.
+- [x] ✅ **Rob, 20 sep, `/mh mark check`:** jouw client gebruikt `/tm` en `/cwm All`, en
+      **`IsRaidMarkerActive` bestaat** — de gouden ring kan dus werken.
+- [ ] **Nieuw: drie groepsknoppen** rechts op de onderste rij — ready check, **rollen-check** en een
+      **aftelklok** (linksklik 10 seconden, rechtsklik stopt hem). Ze zijn **gedimd** als je geen leider of
+      assistent bent, en de tooltip zegt dat dan ook. Klopt dat allebei?
 - [ ] **Zet een paar wereldmarkers** (bovenste rij). Krijgen die knoppen een **gouden ring** zolang de
       vlag op de grond ligt? Wist je er één met rechtsklik, dan hoort de ring weg te gaan.
 - [ ] **Zet iemand anders in de groep een marker**, dan hoort jouw ring ook mee te veranderen.
