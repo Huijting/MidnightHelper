@@ -2191,3 +2191,95 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     **`(forced update)`**-regel (`be28b43...c9f6bf3`) en daarna *"Already up to date"*. De laatste
     commit op dit bestand is `523171c` (*"API watch 18 Sep: …"*) — mijn eigen regel van gisteren, dus
     er heeft niemand anders in dit logboek geschreven.
+
+- [2026-09-20] ✅ **Geen relevante API-wijzigingen (13–20 sep). 0 × [MOET GEFIKST].** Alle vier de
+  bronnen staan exact zoals ik ze gisteren achterliet: geen enkele `/API changes`-pagina is
+  aangeraakt, `TOC format` is stil sinds de drie edits van gisterochtend, er is geen nieuwe
+  hotfix, en er is geen nieuw forumtopic of zelfs maar één nieuwe post. De nieuwe regel van
+  gisteren (`MouseIsOver` → `InputUtil.IsMouseOver`) is **niet** opnieuw gemeld; wel opnieuw
+  gemeten, omdat Rob na mijn run van gisteren nog code heeft gepusht.
+  - **GEMETEN — de `/API changes`-pagina's zijn onveranderd.** `prop=revisions` op acht titels:
+    `Patch 12.1.0/API changes` staat nog op rev **`6878058`** (Ketho, 2026-09-18T13:00:08Z,
+    102492 bytes) — **exact de revisie die ik gisteren las**, dus de regel van gisteren is nog
+    steeds de nieuwste. `Patch 12.1.5/API changes` **2026-09-06T17:08:08Z**, `API change
+    summaries` **2026-09-04T13:49:28Z**, `Patch 12.0.7/API changes` **2026-08-04T04:34:26Z**;
+    `Patch 12.1.6/…`, `12.1.7/…` en `12.2.0/API changes` nog altijd `"missing":true`.
+    Tegengelezen met `list=search` (`intitle:"API changes"`, `srsort=last_edit_desc`, 10 van
+    **139** treffers — hetzelfde totaal als gisteren): binnen het 7-daagse venster staan alleen
+    12.1.0 (18 sep) en `Patch 1.60.1/API changes` (2026-09-18T14:34:36Z), en die laatste is
+    **Classic Anniversary**, niet Retail.
+  - **GEMETEN — `TOC format` is stil.** Nog steeds rev **`6878841`** (Zeal, 2026-09-19T03:35:28Z,
+    26970 bytes), de laatste van de drie edits die ik gisteren al gelezen en getoetst heb. Geen
+    vierde edit, dus niets nieuws over `AllowLoadGameType`.
+  - **GEMETEN — geen nieuwe hotfix, en geen cache-val.** Drie onafhankelijke controles wijzen
+    dezelfde kant op: (1) `news.blizzard.com/en-us/article/24296142` met cache-buster geeft titel
+    *"Hotfixes: September 17, 2026"* — **even oud** als gisteren, niet ouder; (2) de wiki-pagina
+    `Hotfixes` staat nog op rev `6877795` (2026-09-18T00:35:08Z, 345203 bytes), precies de
+    revisie van gisteren; (3) een Exa-zoekopdracht naar een hotfix van 18 of 19 sep levert
+    **niets nieuwers** op dan die van 17 sep (wel drie spiegels ervan: Wowheads Blue Tracker,
+    `arctium.io/blue-posts/780` en een mmos.com-artikel van 18 sep). ⚠️ De index
+    `news.blizzard.com/en-us/wow` faalde met **`CRAWL_NOT_FOUND`**; dat is opnieuw geen bewijs
+    dat er niets staat, vandaar de drie andere controles.
+  - **GEMETEN — recentchanges is vers, dus dit is geen cache.** `list=recentchanges` (ns 0, 50
+    stuks, cache-busted): nieuwste bewerking **2026-09-20T02:57:36Z**, ruim een etmaal nieuwer
+    dan wat mijn logboek gisteren noemde (2026-09-19T03:35:28Z). De hele batch is content
+    (Tortollan-questitems op `Gnarldor Isle`, `Special Assignment`, WC3-pagina's, NPC's) en dus
+    voor `CONTENT_WATCH.md`, niet voor mij.
+  - **Forum: nul nieuwe topics én nul nieuwe posts sinds gisteren.** *Cancel auras not working*
+    (`2351797`, 17 sep) is nog steeds het nieuwste topic en staat nog steeds op **4 posts**, met
+    de laatste post op **2026-09-18T08:34:12Z** — identiek aan wat ik gisteren noteerde. Ook
+    *Target on click-down instead of click-release?* (`2349816`, 2 posts) en *MSBT or Nothing*
+    (`2349553`, 1 post) zijn onveranderd. Er is dus nog steeds **geen Blizzard-reactie** op de
+    `/cancelaura`-klacht; onze acht `/cancelaura`-regels in `Modules/TeamMacrosData.lua` (`:170`,
+    `:247`, `:314`, `:354`, `:382`, `:402`, `:471`, `:508`) blijven **niet gemeten kapot en niet
+    te meten van hieruit**. De client beslist; `Ice Block Cancel` blijft de makkelijkste test.
+  - 🔁 **HERMETEN, want de code is veranderd: `MouseIsOver`/`InputUtil` blijft [RAAKT ONS NIET].**
+    Rob heeft ná mijn run van gisteren nog twee commits gepusht — `6f3e0da` (19 sep 11:49, nieuw
+    bestand `Modules/PlayCards.lua`, 105 regels) en `6725ad3` (19 sep 20:43, `KeybindSchema.lua`
+    plus vier `KeybindRoles_*`). Nieuwe code kan een gemeten nul ongeldig maken, dus dezelfde
+    grep opnieuw gedraaid over de hele addon (`docs/`, `tools/`, `dist/`, `.git/` uitgesloten):
+    **nul** treffers op `MouseIsOver`, **nul** op `InputUtil`. Positieve controle in dezelfde run
+    en dezelfde scope: hetzelfde patroon vindt wél `LoadAddOnWithErrorHandling` op `Core.lua:68`
+    (comment) en `Core.lua:79`, en `GetMouseFocus` op `Modules/DelveCoach.lua:684`. Het patroon
+    werkt dus; de nul is een echte nul.
+  - ✅ **[AL AFGEDEKT] blijft staan voor `UIParentLoadAddOn`.** `Core.lua:79` doet nog steeds
+    `local fn = _G.LoadAddOnWithErrorHandling or _G.UIParentLoadAddOn`. 📌 De comment op
+    `Core.lua:68` zegt nog altijd *"renames"* waar de wiki sinds 18 sep *"moved to"* schrijft —
+    **geen actiepunt**, alleen een woordje voor als Rob dat bestand toch aanraakt. Dit is dezelfde
+    opmerking als gisteren en geen nieuwe bevinding.
+  - 🧩 **Nieuw bestand `Modules/PlayCards.lua` getoetst tegen de staande 12.1.0/12.1.5-lijst:
+    [RAAKT ONS NIET].** Grep op `C_UnitAuras|C_SuperTrack|GetNextWaypointForMap|GetItemCooldown|
+    GetWeaponEnchantInfo|SecureActionButtonTemplate|issecretvalue|CreateFrame|UnitCastingInfo|
+    SetCooldown` over dat bestand: **nul** treffers. Positieve controle, tweeledig: dezelfde
+    alternatie geeft over `Modules/` **844** treffers in **135** bestanden (o.a.
+    `ConsumableReadyCheck.lua` 14×, `WorldContent.lua` 6×), en een grep op `function|local` over
+    `PlayCards.lua` zelf geeft **16** treffers — het bestand is dus leesbaar én het patroon vindt
+    wat er is. Het nieuwe kaartje raakt geen enkele API van de deprecation-lijst.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per
+    unit-token, `TimedSignalMap`, `CreateFrameWithOptions`, de
+    `COMBAT_LOG_EVENT_UNFILTERED`-restrictie) zijn deze run **niet** één voor één opnieuw
+    getoetst en blijven staan zoals op 2/6/7/9/10/15/17/18/19 sep gemeten. Geen open actiepunt
+    aan de addon-/API-kant.
+  - **Tegenlezing met WebSearch — niets binnen het venster.** *"WoW 12.1.5 API changes addon
+    taint secure frames September 19 2026"* gaf alleen pagina's die ik al ken (de
+    `/API changes`-reeks, *Secure Execution and Tainting*, een danderbot-diff van 12.1.0) en vatte
+    daaruit precies de vier 12.1.5-punten samen die sinds 6 sep in dit logboek staan
+    (`SetCooldown`/`Clear` vanuit tainted code, castbar-ID's per unit-token,
+    `CreateFrameWithOptions`, `TimedSignalMap`). **Geen enkel nieuw item.**
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op acht `/API changes`-titels plus `Hotfixes` en `TOC format`;
+    `list=search`; `list=recentchanges` ns 0, 50 stuks); `news.blizzard.com/en-us/article/24296142`;
+    `us.forums.blizzard.com` categorie-JSON 35 op `order=created`; `web_search_exa` (1×) op nieuwe
+    hotfixes; `WebSearch` (1×) als tegenlezing. ⚠️ Directe `WebFetch` op warcraft.wiki.gg /
+    news.blizzard.com blijft **EGRESS_BLOCKED**; alles liep via Exa. 📌 De wiki-API antwoordt
+    opnieuw met `"Unrecognized parameter: nocache"` — een MediaWiki-waarschuwing, geen fout: de
+    buster hoort bij de cache vóór MediaWiki, en de verse `recentchanges`-tijdstempel van vanochtend
+    bewijst dat hij werkt.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang **schoon**; geen
+    van de vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ Opnieuw een **detached
+    HEAD**, nu op `6725ad3`; `pull --rebase origin main` gaf net als de afgelopen dagen een
+    **`(forced update)`**-regel (`be28b43...6725ad3`) en daarna *"Already up to date"*. De laatste
+    commit op dit bestand is mijn eigen regel van gisteren; er heeft niemand anders in dit logboek
+    geschreven.
