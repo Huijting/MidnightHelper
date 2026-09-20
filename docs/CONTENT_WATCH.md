@@ -976,3 +976,32 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `web_search_exa` "World of Warcraft Midnight hotfixes September 18 2026 OR September 19 2026
   retail Delves Professions Quests Items patch notes" (nieuwste retail-hotfixtreffer blijft
   17 sep).
+
+---
+
+- [2026-09-20] 🔁 **Dag 3 zonder nieuwe hotfix-sectie sinds 17 sep — zelf gemeten, geen delta om te
+  toetsen.** `Exa web_fetch_exa` met `?nocache=20260920a` op news.blizzard.com's doorlopende
+  hotfix-artikel, **volledige artikeltekst zelf gelezen**: nieuwste sectie is nog steeds
+  **"September 17, 2026"** (Dungeons and Raids: Ruby Life Pools, The Coiled Altar; Player versus
+  PvP), byte-voor-byte gelijk aan wat al op [2026-09-18] en [2026-09-19] gelogd staat — geen
+  Delves-, Professions-, Quests- of Items-sectie die dag, zoals toen al vastgesteld. De oudere
+  secties in hetzelfde artikel (10/9/4/3/2/1 sep, incl. de Delves-regels "Domanaar Enforcer" en
+  Twilight Crypts "Loosed Loa") zijn al in eerdere entries getoetst (zie de kruisverwijzingen op
+  [2026-09-12] t/m [2026-09-14]) — niet opnieuw behandeld.
+
+  **Onafhankelijke bevestiging, vijf bronnen via `web_search_exa`:** news.blizzard.com (en-us én
+  en-gb), Arctium blue-post-spiegel, een pubt.io-spiegel en Wowhead's Blue Tracker geven allemaal
+  "Hotfixes: September 17, 2026" als nieuwste retail-artikel — geen 18-, 19- of 20-sep-titel
+  gevonden bij geen van de vijf. **Positieve controle op dezelfde zoekopdracht:** diezelfde
+  resultatenlijst geeft moeiteloos correct gedateerde stukken voor 17, 15, 4 sep en zelfs 19/18 aug
+  (Arctium's eigen archiefpagina's) — de query kan dus wél oudere en recentere datums vinden; het
+  ontbreken van een 18-20-sep-hotfixartikel is een gemeten afwezigheid, geen kapotte of
+  verouderde cache. Dit convergeert met de API-wachter van vandaag (`docs/API_WATCH.md`,
+  entry [2026-09-20]: "0 x MOET GEFIKST", zelfde 17-sep-baseline) — niet overgenomen, zelf
+  opnieuw opgehaald met een eigen cache-buster en een eigen zoekopdracht.
+
+  Geen enkele bevinding vandaag om tegen de repo te toetsen. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260920a (volledig gelezen via Exa) ·
+  `web_search_exa` "World of Warcraft Midnight retail hotfixes September 18 2026 OR September 19
+  2026 OR September 20 2026 Delves Professions Quests Items patch notes" (nieuwste retail-
+  hotfixtreffer blijft 17 sep, vijf onafhankelijke bronnen eens).
