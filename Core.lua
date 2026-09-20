@@ -2517,6 +2517,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mark check — what the marker buttons are wired to (localized slash commands,
+	-- clear-all macro, IsRaidMarkerActive). A dead marker button is invisible otherwise.
+	if msg == "mark check" or msg == "fastmark check" then
+		if ns.PrintFastMarkCheck then
+			ns.PrintFastMarkCheck()
+		end
+		return
+	end
+
 	-- /mh mark — toggle the Fast Mark bar (raid target + world markers).
 	if msg == "mark" or msg == "fastmark" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))

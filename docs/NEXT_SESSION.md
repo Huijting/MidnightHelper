@@ -1,5 +1,30 @@
 # Midnight Helper — waar we staan
 
+## 🎯 20 sep — FastMark geleerd van wMarker + EllesmereUIQoL (Rob: "doe 1 en 4 maar, dan kijken we naar 3")
+
+Rob vroeg wat we van **wMarker** konden leren (Oak noemt het als optionele dep). Beide addons staan op
+schijf; hun code is GEMETEN, niet van internet overgenomen.
+- 🔴 **Echte bug gevonden: wij schreven `/tm` en `/cwm` LETTERLIJK.** Die commando's zijn vertaald per
+  client (`EllesmereUIQoL_RaidTools.lua:570`). Op een Duitse/Franse client deed onze balk dus niets.
+  Nu via `SLASH_TARGET_MARKER1` / `SLASH_CLEAR_WORLD_MARKER1` + het globale `ALL`.
+- 🔴 **`/cwm 9` was ook inhoudelijk fout**: het woord is "all", geen index. Nieuw: `<cwm> <ALL>`.
+  ⚠️ wMarker gebruikt hiervoor juist `marker="all"` + `action="clear"` op een secure knop, Ellesmere zegt
+  dat het attribuut er maar één tegelijk wist. Niet te beslissen zonder het spel → testlijst.
+- **Dubbele klik-fase weg.** Was `RegisterForClicks("AnyUp","AnyDown")` = twee acties per klik; nu
+  `AnyDown` + vastgepinde `useOnKeyDown` (anders bepaalt de CVar `ActionButtonUseKeyDown` de fase en kan
+  de knop dood zijn). AFGELEID dat dit ook de 12.0-rem ("You can't do this right now") minder vaak raakt.
+- **Nieuw: "ligt al"-ring** op de world-marker knoppen via `IsRaidMarkerActive` (+ `RAID_TARGET_UPDATE`,
+  dus ook als een ander markeert) en `PostClick`. Stil als de API ontbreekt.
+- **Nieuw: `/mh mark check`** — print de slash-commando's van jouw client, de wis-macro, of
+  `IsRaidMarkerActive` bestaat en welke markers nu liggen.
+- **Niet gedaan, bewust:** alle 8 target-iconen in één klik wissen — wMarker heeft die knop zelf
+  uitgezet ("broken by macro limits", `wMarker.lua:506`).
+- **Volgende (Robs "dan kijken we naar 3"):** groepsknoppen op dezelfde balk — ready check (hebben we al),
+  rollen-check (`InitiateRolePoll`) en aftelklok (`C_PartyInfo.DoCountdown`), plus Main Tank/Assist via
+  secure `type="maintank"`. Niets daarvan is protected.
+- 📌 Zijstap voor Rob zelf: **wMarker is sinds 26 apr niet bijgewerkt** (zegt 12.0.5). Alternatief met een
+  12.1-build: *Raid Markers / RaidBar* (17 sep).
+
 ## ⌨️ 19 sep — Z/X/C = altijd een defensive (Rob: "doe b maar")
 
 Rob vroeg of een defensive op Z op elke spec op Z staat. **GEMETEN** (gen_keybinds, 39 specs): Z 36×, C 37×

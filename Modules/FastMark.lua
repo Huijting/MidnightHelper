@@ -8,6 +8,27 @@
 	  target-marker : type="macro", macrotext="/tm N"   (N = 1..8, 0 = wissen)   [Blizzard /tm]
 	  world-marker  : type="worldmarker", marker=N, action="set" / "clear"        [wiki-bevestigd]
 
+	⚠️ 20 sep 2026 — drie dingen geleerd uit twee andere markeer-addons op deze schijf,
+	nadat Rob vroeg wat we van wMarker konden leren:
+	  1. **Schrijf `/tm` en `/cwm` nooit letterlijk.** Ze zijn vertaald per client.
+	     `EllesmereUIQoL_RaidTools.lua:570` zegt het met zoveel woorden ("writing /tm or
+	     /cwm as a literal breaks every non-English client"), en leest ze uit de globals
+	     `SLASH_TARGET_MARKER1` / `SLASH_CLEAR_WORLD_MARKER1`. Wij deden het wél letterlijk,
+	     dus onze balk deed op een Duitse of Franse client waarschijnlijk niets.
+	  2. **Eén klik-fase.** Met `RegisterForClicks("AnyUp","AnyDown")` vuurt de knop twee
+	     keer per klik. Bij markeren is dat niet onschuldig: 12.0 kent een rem die
+	     "You can't do this right now" geeft bij te snel markeren. Ellesmere pint daarom
+	     `useOnKeyDown` vast, omdat de CVar `ActionButtonUseKeyDown` anders bepaalt welke
+	     fase telt — staat die op 0, dan doet de knop niets meer. AFGELEID dat onze
+	     dubbele fase de rem sneller raakt; GEMETEN dat zij het zo doen.
+	  3. **Alle world-markers wissen kan niet via het attribuut** ("the attribute form
+	     clears one index at a time", zelfde bestand), dus dat blijft een macro — maar wel
+	     met de vertaalde slash en het globale woord `ALL`. wMarker gebruikt in zijn eigen
+	     code juist `marker="all"` + `action="clear"`; die twee spreken elkaar tegen en
+	     alleen het spel kan dat beslissen. We volgen de addon die 12.1 wél bijhoudt.
+	📌 En wat we NIET overnemen: alle acht target-iconen in één keer wissen. wMarker heeft
+	die knop zelf uitgezet met de reden "broken by macro limits" (wMarker.lua:506).
+
 	De balk is STATISCH (hoeft niet in combat te verplaatsen), dus de secure knoppen
 	werken gewoon tijdens gevecht. De balk parent wel secure knoppen → hij wordt
 	"protected", dus we mogen 'm alleen BUITEN combat verplaatsen/tonen/verbergen.
@@ -69,6 +90,23 @@ local GRIP = 12
 --------------------------------------------------------------------------------
 
 local bar -- main draggable frame (protected zodra hij secure knoppen parent)
+local worldButtons = {} -- world-marker knoppen, voor de "ligt al"-gloed
+
+--- Which world markers are on the ground right now? `IsRaidMarkerActive(index)` answers it
+--- and is not protected. Silent when the API is missing: then no button claims anything,
+--- which is the honest state. See /mh mark check for what it reads.
+function ns.RefreshFastMarkActive()
+	for _, b in ipairs(worldButtons) do
+		local shown = false
+		if IsRaidMarkerActive and b._worldIndex then
+			local ok, active = pcall(IsRaidMarkerActive, b._worldIndex)
+			shown = ok and active and true or false
+		end
+		if b._activeGlow then
+			b._activeGlow:SetShown(shown)
+		end
+	end
+end
 
 local function SavePos()
 	if not bar then
@@ -88,10 +126,27 @@ local function L(key, fallback)
 	return s
 end
 
+--- The player's own client writes these slash commands in its own language, so the command
+--- text must come from the game, never from us. The fallback is only there so a missing
+--- global cannot nil out a macro.
+local function SlashTargetMarker()
+	return SLASH_TARGET_MARKER1 or "/tm"
+end
+local function SlashClearWorldMarker()
+	return SLASH_CLEAR_WORLD_MARKER1 or "/cwm"
+end
+--- "All" as this client spells it (the global ALL is Blizzard's own translated word).
+local function WordAll()
+	return ALL or "All"
+end
+
 local function SecureBtn(name, parent)
 	local b = CreateFrame("Button", "MidnightHelperMark" .. name, parent, "SecureActionButtonTemplate")
 	b:SetSize(ICON, ICON)
-	b:RegisterForClicks("AnyUp", "AnyDown")
+	-- One phase, and pin the phase: see the header. Both phases = two actions per click,
+	-- and an unpinned useOnKeyDown follows a CVar that can leave the button dead.
+	b:RegisterForClicks("AnyDown")
+	b:SetAttribute("useOnKeyDown", true)
 	return b
 end
 
@@ -119,7 +174,7 @@ local function AddTargetButton(row, idx, prev)
 		b:SetPoint("LEFT", row, "LEFT", 0, 0)
 	end
 	b:SetAttribute("type1", "macro")
-	b:SetAttribute("macrotext1", "/tm " .. idx)
+	b:SetAttribute("macrotext1", SlashTargetMarker() .. " " .. idx)
 	b:SetScript("OnEnter", function(self)
 		Tip(self, _G["BINDING_NAME_RAIDTARGET" .. idx] or ("Marker " .. idx))
 	end)
@@ -137,16 +192,35 @@ local function AddWorldButton(row, def, prev)
 	else
 		b:SetPoint("LEFT", row, "LEFT", 0, 0)
 	end
+	-- The worldmarker type takes `marker` as a STRING (EllesmereUIQoL_RaidTools.lua:573).
 	b:SetAttribute("type1", "worldmarker")
-	b:SetAttribute("marker1", num)
+	b:SetAttribute("marker1", tostring(num))
 	b:SetAttribute("action1", "set")
 	b:SetAttribute("type2", "worldmarker")
-	b:SetAttribute("marker2", num)
+	b:SetAttribute("marker2", tostring(num))
 	b:SetAttribute("action2", "clear")
 	b:SetScript("OnEnter", function(self)
 		Tip(self, _G["WORLD_MARKER" .. num] or (name .. " world marker"))
 	end)
 	b:SetScript("OnLeave", TipHide)
+
+	-- "This flare is already on the ground": a gold ring, driven by IsRaidMarkerActive.
+	-- Without it you cannot tell a placed marker from a free one until you look at the
+	-- floor, which is the one moment you are not looking at the bar.
+	local glow = b:CreateTexture(nil, "OVERLAY")
+	glow:SetTexture("Interface\\Buttons\\CheckButtonHilight")
+	glow:SetBlendMode("ADD")
+	glow:SetPoint("CENTER")
+	glow:SetSize(ICON * 1.25, ICON * 1.25)
+	glow:SetVertexColor(1, 0.82, 0.2, 0.9)
+	glow:Hide()
+	b._worldIndex = num
+	b._activeGlow = glow
+	worldButtons[#worldButtons + 1] = b
+	-- The click itself is secure and we may not touch it; the refresh afterwards is ours.
+	b:SetScript("PostClick", function()
+		ns.RefreshFastMarkActive()
+	end)
 	return b
 end
 
@@ -270,9 +344,12 @@ local function BuildBar()
 	for _, def in ipairs(WORLD_MARKERS) do
 		prev = AddWorldButton(worldRow, def, prev)
 	end
-	-- /cwm 9 = alle world-markers wissen (overgenomen van FastMarks; rechtsklik op een
-	-- losse knop wist die ene marker).
-	AddClearButton(worldRow, "WorldClear", "/cwm 9", L("MARK_CLEAR_WORLD", "Clear all world markers"), prev)
+	-- Alle world-markers wissen. Was "/cwm 9" — letterlijk geschreven én met een index
+	-- i.p.v. het woord "alle"; beide breken buiten een Engelse client. Nu de vertaalde
+	-- slash + het globale woord ALL, zoals EllesmereUIQoL doet.
+	AddClearButton(worldRow, "WorldClear",
+		SlashClearWorldMarker() .. " " .. WordAll(),
+		L("MARK_CLEAR_WORLD", "Clear all world markers"), prev)
 
 	-- Onderste rij: target-markers (skull/cross op een vijand).
 	local targetRow = CreateFrame("Frame", nil, bar)
@@ -282,7 +359,8 @@ local function BuildBar()
 	for _, idx in ipairs(TARGET_ORDER) do
 		prev = AddTargetButton(targetRow, idx, prev)
 	end
-	prev = AddClearButton(targetRow, "TargetClear", "/tm 0", L("MARK_CLEAR_TARGET", "Clear target marker"), prev)
+	prev = AddClearButton(targetRow, "TargetClear", SlashTargetMarker() .. " 0",
+		L("MARK_CLEAR_TARGET", "Clear target marker"), prev)
 	AddReadyCheck(targetRow, prev)
 
 	bar:Hide()
@@ -310,6 +388,7 @@ local function ApplyVisibility()
 	end
 	BuildBar()
 	bar:Show()
+	ns.RefreshFastMarkActive()
 end
 
 function ns.SetFastMarkEnabled(v)
@@ -318,6 +397,35 @@ function ns.SetFastMarkEnabled(v)
 		uiDb.fastMark = v and true or false
 	end
 	ApplyVisibility()
+end
+
+--- `/mh mark check` — what this bar is actually wired to. Built for the 20 Sep 2026 repair:
+--- the slash commands are localized, "clear all" is disputed between two addons, and
+--- IsRaidMarkerActive may not exist. All three are invisible from outside, and a marker
+--- button that silently does nothing looks exactly like one that works.
+function ns.PrintFastMarkCheck()
+	local function say(s)
+		print("|cffffd100MH|r " .. s)
+	end
+	say("FastMark check:")
+	say(("  target-marker slash: %s   (global SLASH_TARGET_MARKER1 = %s)")
+		:format(SlashTargetMarker(), tostring(SLASH_TARGET_MARKER1)))
+	say(("  clear-world macro:   %s %s   (global ALL = %s)")
+		:format(SlashClearWorldMarker(), WordAll(), tostring(ALL)))
+	if IsRaidMarkerActive then
+		local active = {}
+		for i = 1, 8 do
+			local ok, on = pcall(IsRaidMarkerActive, i)
+			if ok and on then
+				active[#active + 1] = tostring(i)
+			end
+		end
+		say(("  IsRaidMarkerActive:  yes — world markers on the ground: %s")
+			:format(#active > 0 and table.concat(active, ", ") or "none"))
+	else
+		say("  IsRaidMarkerActive:  MISSING — the 'already placed' ring stays off")
+	end
+	say(("  bar built: %s · world buttons: %d"):format(bar and "yes" or "no", #worldButtons))
 end
 
 -- /mh mark → toggelt de balk aan/uit.
@@ -335,7 +443,14 @@ ev:RegisterEvent("PLAYER_LOGIN")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("GROUP_ROSTER_UPDATE") -- joinen/verlaten van party/raid
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+-- Fires when any raid target icon OR world marker changes, for everyone in the group —
+-- so the "already placed" ring also follows what your raid leader does.
+ev:RegisterEvent("RAID_TARGET_UPDATE")
 ev:SetScript("OnEvent", function(_, event)
+	if event == "RAID_TARGET_UPDATE" then
+		ns.RefreshFastMarkActive()
+		return
+	end
 	if event == "PLAYER_REGEN_ENABLED" then
 		if pendingApply then
 			pendingApply = false

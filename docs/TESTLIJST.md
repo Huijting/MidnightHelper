@@ -20,6 +20,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 📦 **Oudere rondes staan in [`TESTLIJST_ARCHIEF.md`](TESTLIJST_ARCHIEF.md)** (afgesplitst 17 sep 2026,
 op Robs verzoek). Deze lijst houdt de twee jongste testrondes; er is niets weggegooid.
 
+## 🆕 20 sep — markeerbalk: wissen gerepareerd + je ziet welke vlaggen al liggen
+
+`/reload`, dan `/mh mark` (de balk komt alleen in een groep). Geleerd uit wMarker en EllesmereUIQoL.
+- [ ] **Typ `/mh mark check`** en stuur me de vier regels. Daar staat in welk slash-commando jouw client
+      gebruikt en of `IsRaidMarkerActive` bestaat. Dit is de meting waar de rest op leunt.
+- [ ] **Zet een paar wereldmarkers** (bovenste rij). Krijgen die knoppen een **gouden ring** zolang de
+      vlag op de grond ligt? Wist je er één met rechtsklik, dan hoort de ring weg te gaan.
+- [ ] **Zet iemand anders in de groep een marker**, dan hoort jouw ring ook mee te veranderen.
+- [ ] **De rode X op de bovenste rij** (alles wissen): werkt die nu? Hij gebruikte `/cwm 9`, wat buiten
+      een Engelse client sowieso niet werkte, en mogelijk helemaal niet meer.
+- [ ] **Markeer een paar keer snel achter elkaar.** Krijg je nog "You can't do this right now"? De knop
+      vuurde eerst twee keer per klik; dat is nu één keer.
+
 ## 🆕 19 sep — Z, X en C zijn nu altijd een defensive (of leeg)
 
 `/reload`. Rob koos optie B: *"doe b maar"*. Op de kale Z, X en C komt alleen nog een defensive; dispels en CC
