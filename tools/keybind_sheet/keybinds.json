@@ -4722,6 +4722,10 @@
      "name": "Rallying Cry",
      "label": "Defensive"
     },
+    "Ctrl+V": {
+     "name": "Disrupting Shout",
+     "label": "Dispel / CC"
+    },
     "Ctrl+Z": {
      "name": "Intervene",
      "label": "Defensive"
@@ -4745,9 +4749,7 @@
    },
    "situational": [],
    "clickcast": [],
-   "unplaced": [
-    "Disrupting Shout"
-   ]
+   "unplaced": []
   }
  ]
 }

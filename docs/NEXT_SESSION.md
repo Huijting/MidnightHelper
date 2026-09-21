@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🛑 21 sep — "kan ook stoppen"-spreuken uit JustAC 5.5.0 (Rob: "doe maar, en anders online zoeken")
+
+JustAC's changelog (via `api.curse.tools`, bestand 8931375) noemt 7 extra interrupt-achtige spreuken.
+Per spreuk nagelopen tegen onze data, JustAC's `Data/InterruptAbilities.lua` (GPL-3, kandidaat) en online:
+- **Al goed:** Sigil of Silence (`alsoStop="silence"`), Wailing Arrow (`alsoStop="silence"`).
+- **Toegevoegd:** Sigil of Misery `id=207684`, `alsoStop="fear"`; Disrupting Shout `id=386071` (JustAC +
+  ExwindCore eens) → van `utility` prio 7 (**unplaced**) naar `dispel_cc` prio 4 = **Ctrl+V**, `alsoStop="aoekick"`.
+- **Nieuw + correctie:** Void Nova `id=1234195`, Devourer-only (Wowhead spell=1234195, wiki "only available to
+  Devourer; Havoc and Vengeance … Chaos Nova"). **Chaos Nova had geen `specs` en gaf dus ook Devourer een toets**
+  → nu `specs={577,581}`. Devourer staat niet in `gen_keybinds.py` (39 specs), dus die wissel is AFGELEID, niet gemeten.
+- **Bewust niet:** Shadow Lock (171138, Doomguard/Terrorguard) en Monstrous Blow (91797, getransformeerde ghoul) zijn
+  **pet-spreuken**; onze klassenlijsten keyen geen pet-acties behalve de pet-interrupt zelf.
+- **Nieuwe labels:** `KEYBIND_TAG_FEAR`, `KEYBIND_TAG_AOEKICK` in 7 talen. Keybind-diff GEMETEN: 1 rij (Prot Warrior).
+- 📌 **WoW Forever** (vraag van Rob): apart spel ("Classic+", 4 nov). Addons geven het Interface **16001**
+  (GEMETEN in TomTom- en DBM-Party-Forever-toc). MH declareert alleen 120007/120100 → laadt daar niet, en
+  vrijwel alle MH-inhoud bestaat daar niet. Geen actie.
+
 ## 🎯 20 sep — FastMark geleerd van wMarker + EllesmereUIQoL (Rob: "doe 1 en 4 maar, dan kijken we naar 3")
 
 Rob vroeg wat we van **wMarker** konden leren (Oak noemt het als optionele dep). Beide addons staan op

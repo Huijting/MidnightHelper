@@ -155,5 +155,8 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Shattering Throw"]   = { category = "utility", priority = 5, specs = { 73 } }, -- anti-immuniteit (geen heal)
 	-- Shout-utility talenten (ExwindCore Midnight: Challenging Shout 1161 / Disrupting Shout 386071, specs={73})
 	["Challenging Shout"]  = { category = "utility", priority = 6, specs = { 73 } }, -- AoE-taunt (Prot-talent)
-	["Disrupting Shout"]   = { category = "utility", priority = 7, specs = { 73 } }, -- AoE-interrupt-shout (Prot-talent)
+	-- A true AoE interrupt (JustAC InterruptAbilities [386071] kind=interrupt, 14 yd; ExwindCore agrees
+	-- on the id). Was category utility at priority 7 and got NO key at all (unplaced on every Prot
+	-- sheet). 21 Sep 2026: moved to the stop family, next to Shockwave, and cross-listed as a stop.
+	["Disrupting Shout"]   = { id = 386071, category = "dispel_cc", priority = 4, specs = { 73 }, alsoStop = "aoekick" },
 }

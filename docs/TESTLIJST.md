@@ -20,6 +20,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 📦 **Oudere rondes staan in [`TESTLIJST_ARCHIEF.md`](TESTLIJST_ARCHIEF.md)** (afgesplitst 17 sep 2026,
 op Robs verzoek). Deze lijst houdt de twee jongste testrondes; er is niets weggegooid.
 
+## 🆕 21 sep — interrupt-kaart kent drie extra "kan ook een cast stoppen"-spreuken
+
+`/reload`. Uit de JustAC-update van 20 sep, id's apart nagekeken.
+- [ ] **Prot Warrior** (als je er een hebt): **Disrupting Shout** heeft nu een toets (**Ctrl+V**; had er
+      eerst geen) en staat op de interrupt-kaart met het label **AoE interrupt**.
+- [ ] **Demon Hunter, Vengeance of Havoc**: **Sigil of Misery** staat op de interrupt-kaart met **fear**.
+- [ ] **Devourer Demon Hunter**: **Void Nova** heeft een toets en staat op de interrupt-kaart met **stun**.
+      **Chaos Nova** hoort bij Devourer **niet** meer te staan (die spec heeft hem niet).
+
 ## 🆕 20 sep — markeerbalk: wissen gerepareerd + je ziet welke vlaggen al liggen
 
 `/reload`, dan `/mh mark` (de balk komt alleen in een groep). Geleerd uit wMarker en EllesmereUIQoL.

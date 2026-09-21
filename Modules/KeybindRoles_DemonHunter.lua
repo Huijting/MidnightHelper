@@ -72,8 +72,12 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["The Hunt"]           = { role = "cooldown_bar", priority = 2, bindKey = "Shift+F1" }, -- baseline major CD (beide specs)
 
 	-- CC / dispel_cc (InterruptAbilities 179057/211881; SpellCategories CROWD_CONTROL)
-	["Chaos Nova"]         = { category = "dispel_cc", priority = 1, alsoStop = "stun" },                       -- AoE stun (InterruptAbilities kind="cc" mech=12)
-	["Sigil of Misery"]    = { category = "dispel_cc", priority = 2, bindKey = "Shift+V" },  -- AoE fear (SpellCategories 207684; beide specs)
+	-- Chaos Nova is Havoc/Vengeance only since 21 Sep 2026: Devourer gets Void Nova instead
+	-- ("only available to Devourer; Havoc and Vengeance demon hunters instead have access to
+	-- Chaos Nova", warcraft.wiki.gg/wiki/Void_Nova). Without `specs` it also handed Devourer a key
+	-- for a spell that spec cannot learn.
+	["Chaos Nova"]         = { category = "dispel_cc", priority = 1, specs = { 577, 581 }, alsoStop = "stun" }, -- AoE stun (InterruptAbilities kind="cc" mech=12)
+	["Sigil of Misery"]    = { id = 207684, category = "dispel_cc", priority = 2, bindKey = "Shift+V", alsoStop = "fear" },  -- AoE fear (SpellCategories 207684; beide specs); stops a cast too (JustAC 5.5.0 interrupt list, mech=2)
 	["Imprison"]           = { category = "dispel_cc", priority = 3, bindKey = "Ctrl+V" },   -- cage (SpellCategories 217832)
 	["Consume Magic"]      = { category = "dispel_cc", priority = 4 },                       -- offensieve magic-dispel (SpellArchetypes 1277738; beide specs)
 
@@ -155,6 +159,9 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Consume"]           = { id = 473662,  category = "main_rotation", priority = 1, specs = { 1480 } }, -- core builder/filler (SpellArchetypes 473662 "ranged"; guide.lua opener)
 	["Voidblade"]         = { id = 1245412, category = "main_rotation", priority = 2, specs = { 1480 } }, -- rotational (SpellCooldowns 1245412=30000; guide.lua)
 	["Hungering Slash"]   = { id = 1239123, category = "main_rotation", priority = 5, specs = { 1480 } }, -- AoE-builder (guide.lua multitarget)
+	-- Devourer's Chaos Nova: 2 s AoE stun, 8 yd, 45 s (Wowhead spell=1234195; wiki "only available to
+	-- Devourer"; JustAC InterruptAbilities [1234195] kind=cc mech=12). Added 21 Sep 2026.
+	["Void Nova"]         = { id = 1234195, category = "dispel_cc", priority = 1, specs = { 1480 }, alsoStop = "stun" },
 	-- Spenders (Fury; guide.lua "at 84 fury" / 100-Fury-channel)
 	["Reap"]              = { id = 1226019, category = "spender", priority = 1, specs = { 1480 } },       -- Fury-spender (SpellCooldowns 1226019=8000; guide.lua "at 84 fury")
 	["Void Ray"]          = { id = 473728,  category = "spender", priority = 2, specs = { 1480 } },       -- 100-Fury-channel (SpellArchetypes 473728; guide.lua {473728})
