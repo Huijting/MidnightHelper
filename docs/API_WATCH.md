@@ -2283,3 +2283,118 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     **`(forced update)`**-regel (`be28b43...6725ad3`) en daarna *"Already up to date"*. De laatste
     commit op dit bestand is mijn eigen regel van gisteren; er heeft niemand anders in dit logboek
     geschreven.
+- [2026-09-21] ✅ **Geen relevante API-wijzigingen (14–21 sep). 0 × [MOET GEFIKST].** Geen enkele
+  `/API changes`-pagina is aangeraakt, `TOC format` is stil, en er is voor de **vierde dag** geen
+  nieuwe hotfix-sectie sinds 17 sep. Wél **twee nieuwe forumtopics** — de eerste die dit logboek
+  sinds 17 sep ziet — maar het zijn allebei gebruikersvragen zonder Blizzard-reactie en zonder
+  API-claim. Ik heb ze tóch aan de code getoetst, omdat Rob vannacht `Modules/FastMark.lua` heeft
+  uitgebreid en één van de twee precies daarover gaat.
+  - **GEMETEN — de `/API changes`-pagina's zijn onveranderd.** `prop=revisions` op acht titels:
+    `Patch 12.1.0/API changes` staat nog op rev **`6878058`** (Ketho, 2026-09-18T13:00:08Z,
+    102492 bytes), `Patch 12.1.5/API changes` op rev **`6863733`** (2026-09-06T17:08:08Z, 25227
+    bytes), `API change summaries` op rev `6859728` (2026-09-04T13:49:28Z), `Patch 12.0.7/API
+    changes` op rev `6794100` (2026-08-04T04:34:26Z); `Patch 12.1.6/…`, `12.1.7/…` en
+    `12.2.0/API changes` nog altijd `"missing":true`. Tegengelezen met `list=search`
+    (`intitle:"API changes"`, `srsort=last_edit_desc`, 10 van **139** treffers — hetzelfde totaal
+    als gisteren): binnen het 7-daagse venster staan nog steeds alleen 12.1.0 (18 sep) en
+    `Patch 1.60.1/API changes` (2026-09-18T14:34:36Z), en die laatste is **Classic Anniversary**,
+    niet Retail.
+  - **GEMETEN — `TOC format` is stil.** Nog steeds rev **`6878841`** (Zeal, 2026-09-19T03:35:28Z,
+    26970 bytes), de laatste van de drie edits van 19 sep. Geen vierde edit, dus niets nieuws over
+    `AllowLoadGameType`.
+  - **GEMETEN — vierde dag zonder nieuwe hotfix, en geen cache-val.** Drie onafhankelijke
+    controles: (1) `news.blizzard.com/en-us/article/24296142` mét cache-buster geeft titel
+    *"Hotfixes: September 17, 2026"* — **even oud** als gisteren, niet ouder; (2) de wiki-pagina
+    `Hotfixes` staat nog op rev `6877795` (Dark T Zeratul, 2026-09-18T00:35:08Z, 345203 bytes),
+    precies de revisie van gisteren; (3) een Exa-zoekopdracht naar een hotfix van 18–21 sep levert
+    **niets nieuwers** dan die van 17 sep (wel de bekende spiegels: `arctium.io/blue-posts/780`,
+    een pubt.io-kopie). 📌 Niets in de 17-sep-lijst raakt de UI-/addon-kant: het zijn Ruby Life
+    Pools-threat, Venomous Abyss-tuning en PvP-rating-inflatie. Eén regel noemt de **default UI**
+    (*"these creatures will no longer display their contribution towards enemy forces on their
+    tooltip"*), maar dat is een tooltip-inhoudswijziging, geen API-wijziging — en het is
+    CONTENT_WATCH-terrein.
+  - **GEMETEN — recentchanges is vers, dus dit is geen cache.** `list=recentchanges` (ns 0, 50
+    stuks, cache-busted): nieuwste bewerking **2026-09-21T03:33:47Z**, ruim een etmaal nieuwer dan
+    wat mijn logboek gisteren noemde (2026-09-20T02:57:36Z). De hele batch is content
+    (Westfall-quests, NPC's, WC3-pagina's, `Skyborne`, `Gorgonna`) en dus voor `CONTENT_WATCH.md`,
+    niet voor mij.
+  - 🆕 **Forum — nieuw topic *Default in game commands* (`2356245`, aangemaakt
+    2026-09-20T20:07:34Z, 2 posts): [AL AFGEDEKT].** Vraag van Sakiri: *"is there a built in pull
+    or break timer, or do you absolutely need an addon for this? I know ready check is doable
+    without it."* Antwoord van Elvenbane (20:30:47Z), letterlijk en volledig: `/countdown ##`.
+    **Geen API-wijziging, geen Blizzard-reactie** — maar het raakt precies wat Rob vannacht heeft
+    gebouwd, dus getoetst: de nieuwe knop *Pull timer* in `Modules/FastMark.lua` zit achter
+    `if not (C_PartyInfo and C_PartyInfo.DoCountdown) then return end` (`:415`), annuleert met
+    `C_PartyInfo.DoCountdown(0)` op rechtsklik (`:419`), en de diagnose print *"countdown …
+    MISSING"* als de functie ontbreekt (`:487`, `:490`). Dat is de namespace-route naar dezelfde
+    ingebouwde functie die `/countdown` aanroept; wij verzinnen er niets bij. Geen actiepunt.
+  - 🆕 **Forum — nieuw topic *Does Classic Era not have a LUA errors toggle?* (`2355798`,
+    aangemaakt 2026-09-20T07:43:56Z, 2 posts): [RAAKT ONS NIET].** Gaat over de CVar
+    `scriptErrors` in **Classic Era**; Fizzlemizz antwoordt (17:21:31Z) *"`scriptErrors` is
+    there."* MH is Retail-only (`## Interface: 120007, 120100`) en gebruikt die CVar sowieso niet:
+    **nul** treffers op `scriptErrors` over de hele addon (`--include=*.lua,*.xml,*.toc`, `docs/`
+    uitgesloten). Positieve controle in dezelfde run en dezelfde scope: het patroon `CVar` vindt
+    wél `Modules/FpsPanel.lua:97` en `:106` (`C_CVar.GetCVar` / `GetCVarDefault` met
+    `or _G.…`-fallback) en `Modules/DevShots.lua:333`, `:371`–`:373`. De nul is een echte nul.
+  - **Forum — *Target on click-down instead of click-release?* (`2349816`) is van 2 naar 4 posts
+    gegaan, zonder API-inhoud.** Post 3 (de OP, 2026-09-20T07:51:07Z): hij heeft het opgelost met
+    **Grid2 + Clique**, *"targeting is now functioning on click instead of on release"*. Post 4
+    (15:00:25Z) is *"Fascinating. Glad you found something that works for you!"*. Post 2 is om
+    15:00:33Z bewerkt — een doorhaling van *"Can't even do it with addons."* Geen Blizzard-reactie
+    en geen claim over `RegisterForClicks` of de secure-kant; dus niets te toetsen.
+  - **Forum — *Cancel auras not working* (`2351797`) onveranderd op 4 posts**, laatste post nog
+    steeds **2026-09-18T08:34:12Z**, identiek aan wat ik gisteren noteerde. Nog steeds **geen
+    Blizzard-reactie**; onze acht `/cancelaura`-regels in `Modules/TeamMacrosData.lua` (`:170`,
+    `:247`, `:314`, `:354`, `:382`, `:402`, `:471`, `:508`) blijven **niet gemeten kapot en niet
+    te meten van hieruit**. De client beslist; `Ice Block Cancel` blijft de makkelijkste test.
+  - 🔁 **HERMETEN, want de code is veranderd: `MouseIsOver`/`InputUtil` blijft [RAAKT ONS NIET].**
+    Rob pushte vannacht twee commits, allebei op `Modules/FastMark.lua`: `45cd9fe` (2026-09-20
+    23:57:58 +0200) en `a9116e5` (2026-09-21 00:03:15 +0200, *ready check, role check and a pull
+    timer*). Nieuwe code kan een gemeten nul ongeldig maken, dus dezelfde grep opnieuw over de hele
+    addon (`--include=*.lua`, `docs/` en `tools/` uitgesloten): **nul** treffers op `MouseIsOver`,
+    **nul** op `InputUtil`. Positieve controle in dezelfde run en dezelfde scope: hetzelfde patroon
+    vindt wél `GetItemCooldown` (`Modules/Delves.lua:349`–`:360`, `Modules/DelveItemsPopup.lua:278`),
+    `GetWeaponEnchantInfo` (`Modules/MissingBuff.lua:78`, `Modules/ConsumableReadyCheck.lua:734`)
+    en `C_SuperTrack.GetNextWaypointForMap` (`Modules/EventProbe.lua:119`). Het patroon werkt dus;
+    de nul is een echte nul.
+  - 🧩 **`Modules/FastMark.lua` (533 regels, twee verse commits) getoetst tegen de staande
+    12.1.0-/12.1.5-lijst: [RAAKT ONS NIET].** Grep op `MouseIsOver|InputUtil|GetItemCooldown|
+    GetWeaponEnchantInfo|GetNextWaypointForMap|UntrustedScriptExecution|SetCooldown` over dat ene
+    bestand: **0** treffers. Positieve controle op hetzelfde bestand:
+    `CreateFrame|SecureActionButtonTemplate|InCombatLockdown|RegisterStateDriver` geeft **10**
+    treffers. Het bestand is dus leesbaar voor het patroon en de nul is echt. De drie nieuwe
+    groepsknoppen raken geen enkele API van de deprecation-lijst.
+  - ✅ **[AL AFGEDEKT] blijft staan voor `UIParentLoadAddOn`.** `Core.lua:79` doet nog steeds
+    `local fn = _G.LoadAddOnWithErrorHandling or _G.UIParentLoadAddOn`. 📌 De comment op
+    `Core.lua:68` zegt nog altijd *"renames"* waar de wiki sinds 18 sep *"moved to"* schrijft —
+    **geen actiepunt**, alleen een woordje voor als Rob dat bestand toch aanraakt. Dezelfde
+    opmerking als 19 en 20 sep, geen nieuwe bevinding.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per
+    unit-token, `TimedSignalMap`, `CreateFrameWithOptions`, de
+    `COMBAT_LOG_EVENT_UNFILTERED`-restrictie) zijn deze run **niet** één voor één opnieuw getoetst
+    en blijven staan zoals op 2/6/7/9/10/15/17/18/19/20 sep gemeten. Geen open actiepunt aan de
+    addon-/API-kant.
+  - **Tegenlezing met WebSearch — niets binnen het venster.** *"WoW 12.1.5 API changes addon taint
+    secure frames deprecated September 21 2026"* gaf alleen pagina's die ik al ken (de
+    `/API changes`-reeks, *Secure Execution and Tainting*, een WoWUIBugs-wiki) en vatte daaruit
+    precies de bekende 12.1.5-punten samen: `SetCooldown`/`Clear` vanuit tainted code, castbar-ID's
+    per unit-token, `TimedSignalMap`, de nieuwe `table.*`-functies en `C_Weather`. Alle vijf staan
+    al sinds 4 en 7 sep in dit logboek (regels 390–395 en 694–695). **Geen enkel nieuw item.**
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op negen titels incl. `Hotfixes` en `TOC format`; `list=search`;
+    `list=recentchanges` ns 0, 50 stuks); `news.blizzard.com/en-us/article/24296142`;
+    `us.forums.blizzard.com` categorie-JSON 35 op `order=created` plus de topic-JSON's `2356245`,
+    `2355798` en `2349816`; `web_search_exa` (1×) op nieuwe hotfixes; `WebSearch` (1×) als
+    tegenlezing. ⚠️ Directe `WebFetch` op warcraft.wiki.gg / news.blizzard.com is vandaag **niet
+    opnieuw geprobeerd** — dat stond de afgelopen weken steevast op `EGRESS_BLOCKED` en alles liep
+    hoe dan ook via Exa; ik meld het als aanname, niet als meting van vandaag. 📌 De wiki-API
+    antwoordt opnieuw met `"Unrecognized parameter: nocache"` — een MediaWiki-waarschuwing, geen
+    fout: de buster hoort bij de cache vóór MediaWiki, en de verse `recentchanges`-tijdstempel van
+    vanochtend bewijst dat hij werkt.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang **schoon**; geen
+    van de vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ Opnieuw een **detached
+    HEAD**, nu op `a9116e5`, en `fetch origin main` gaf net als de afgelopen dagen een
+    **`(forced update)`**-regel (`be28b43...a9116e5`). De laatste commit op dit logboek is mijn
+    eigen regel van gisteren; er heeft niemand anders in dit logboek geschreven.
