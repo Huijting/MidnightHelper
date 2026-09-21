@@ -1005,3 +1005,45 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `web_search_exa` "World of Warcraft Midnight retail hotfixes September 18 2026 OR September 19
   2026 OR September 20 2026 Delves Professions Quests Items patch notes" (nieuwste retail-
   hotfixtreffer blijft 17 sep, vijf onafhankelijke bronnen eens).
+
+---
+
+- [2026-09-21] 🔁 **Dag 4 zonder nieuwe hotfix-sectie sinds 17 sep — zelf gemeten; één zijspoor uit
+  de data-wachter gecheckt op tegenspraak, geen gevonden.** `Exa web_fetch_exa` met
+  `?nocache=20260921e` op news.blizzard.com's doorlopende hotfix-artikel, **volledige artikeltekst
+  zelf gelezen**: nieuwste sectie is nog steeds **"September 17, 2026"** (Dungeons and Raids: Ruby
+  Life Pools, The Coiled Altar/Unnerving Fixation; Player versus PvP) — byte-voor-byte dezelfde
+  inhoud als op [2026-09-18] al volledig gelezen en getoetst, geen Delves-, Professions-, Quests-
+  of Items-sectie die dag. **Onafhankelijke bevestiging:** `web_search_exa` op retail-hotfixes van
+  18 t/m 21 sep vindt geen enkel artikel nieuwer dan 17 sep (o.a. news.blizzard.com, pubt.io- en
+  bluetracker.gg-spiegels doorzocht), terwijl dezelfde zoekvorm in dezelfde resultatenlijst zonder
+  moeite correct gedateerde stukken voor 17, 15, 10, 9 sep en 21 augustus teruggeeft — een gemeten
+  afwezigheid, geen kapotte of verouderde cache. Dit convergeert met de API-, PTR/roadmap- en
+  data-wachter van vandaag (elk apart, eigen entries [2026-09-21]) — niet overgenomen, zelf
+  opnieuw opgehaald met een eigen cache-buster.
+
+  **Zijspoor gecheckt: de data-wachter logde vandaag een Wowhead-community-theorie (artikel
+  382966, GEEN Blizzard-bevestiging) dat een "Mythic (Flexible Raiding)"-Great-Vault-slot
+  gegarandeerd Mythic-Nymrissa-Wavecaller-loot geeft, en merkte zelf al op dat dit voor mijn lane
+  relevant is.** Dat is zijn feit, niet het mijne — mijn vraag is of het een geshipte claim
+  tegenspreekt. GEMETEN: `Modules/VaultAdvisor.lua` en `Modules/VaultAdvisorData.lua` (beide
+  vandaag gelezen, gegrept op `Mythic`/`slot`/`Flex`) bevatten geen enkele regel over
+  loot-*herkomst* per Vault-slot — alleen generieke tier-set-telling, same-slot-swap-logica en
+  item-level-vergelijking. `grep -i "Flexible Raiding"` repo-breed: 0 treffers buiten de
+  data-wachter's eigen logregel van vandaag. `grep -i Nymrissa` repo-breed geeft wél 18 bestanden
+  terug (o.a. `Modules/TideboundGrottoCoach.lua`, `Locales/RitualTips.lua`) — maar dat zijn allemaal
+  boss-fight-tips voor de Nymrissa-Wavecaller-encounter zelf, niet iets over Vault-slotherkomst; dus
+  geen naamcollision met de claim. **Positieve controle, zelfde repo-brede scope:** dezelfde
+  grep-vorm die 0 treffers gaf op "Flexible Raiding" vond wél 18 bestanden op "Nymrissa" in
+  hetzelfde commando — het patroon werkt, de 0 is gemeten afwezigheid. Niets om tegen te spreken:
+  VaultAdvisor claimt nergens welke boss een slot vult. **[RAAKT ONS NIET]**
+
+  Geen enkele hotfix-bevinding vandaag om tegen de repo te toetsen. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260921e (volledig gelezen via Exa) ·
+  `web_search_exa` "World of Warcraft Midnight retail hotfixes September 21 2026 Delves Professions
+  Quests Items patch notes" (nieuwste retail-hotfixtreffer blijft 17 sep) ·
+  `docs/PTR_12.0.7_DATA.md` entry [2026-09-21] als aanleiding voor de Nymrissa/Vault-check (feit
+  niet herhaald, alleen zelf getoetst op tegenspraak met geshipte MH-tekst). Codebase-kant: `grep`
+  case-insensitive repo-breed, plus gerichte reads van `Modules/VaultAdvisor.lua` en
+  `Modules/VaultAdvisorData.lua` — allemaal vandaag gelezen. Geen actiepunt dat ík kan oppakken —
+  ik rapporteer, een mens beslist.
