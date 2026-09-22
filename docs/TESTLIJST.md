@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 sep — Events-scherm: een lopende surge heet niet meer "komt eraan"
+
+`/reload`. Gevonden met Robs Leviathan-meting: een Curse Surge die al liep, stond bij *Coming up — in 21 min*;
+die 21 minuten waren de tijd tot het **einde**.
+- [ ] **Sta op Coiled Isle tijdens een surge** en open het Events-scherm van MH (of `/mh eventspy`). De surge hoort
+      nu bij **NU bezig** te staan, met de resterende tijd; bij *Coming up* staat de **volgende** plek, met de
+      tijd tot hij **begint**.
+- [ ] **Controle met een ander event** (bv. *Abundance*): klopt "over X min" nu met wanneer hij echt begint?
+
 ## 🆕 21 sep — interrupt-kaart kent drie extra "kan ook een cast stoppen"-spreuken
 
 `/reload`. Uit de JustAC-update van 20 sep, id's apart nagekeken.

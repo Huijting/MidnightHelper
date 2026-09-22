@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🌀 22 sep middag — Curse Surge gemeten; `inSeconds` telde tot het EINDE (bug gerepareerd)
+
+Rob stond om 13:33 bij de Malformed Leviathan en draaide `/mh eventspy` + `/mh atal` (SV gelezen, 13:38).
+- ✅ **GEMETEN:** de vijf Coiled-Isle-POI's lossen elkaar af in vaste volgorde **8940 → 8938 → 8936 → 8939 →
+  8937**, elk 1800 s. Een surge is **geen area-POI** op 2512 (0 treffers; andere kaarten wel = controle) en staat
+  **niet** in `GetOngoingEvents` (3 andere events wel).
+- ✅ **GEMETEN, 2 van 5:** 8940 = **Malformed Leviathan** (Rob live), 8938 = de zone bij ~45,28 (Robs kaart
+  14:15). Beide kloppen met HandyNotes' koppeling (`coiled_isles.lua:225-283`); de andere drie = alleen HandyNotes.
+- 🐛 **Mijn eerste lezing was fout en de oorzaak zat in onze code:** `EventScheduler.lua` zette
+  `inSeconds = endTime - now` met als commentaar "endTime is het volgende fire-moment". Het is het **einde** →
+  het Events-scherm toonde een lopende surge als *"Coming up — in 21 min"*. Gerepareerd: start ≤ nu < einde →
+  naar `ongoing` (`fromSchedule=true`, `secondsLeft`); anders `inSeconds` tot de **start**, plus `endsInSeconds`.
+- 📌 **Mogelijk vervolg (Rob kiest):** met de koppeling kan MH tonen "nu: Leviathan · volgende om 14:26: X".
+
 ## 🌅 22 sep — wachters: 1 echte fix, 2× dezelfde valse vondst
 
 - ✅ **API-wachter, `[MOET GEFIKST]`:** `Modules/DundunShrine.lua:731` deed `tostring(aura.name)` zonder

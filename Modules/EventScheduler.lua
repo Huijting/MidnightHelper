@@ -279,8 +279,25 @@ local function rescan()
 		end)
 	end
 
-	-- 2. Geplande events (scheduler-scheduled). endTime is het volgende
-	--    fire-moment; filter op toekomst en sorteer oplopend.
+	-- 2. Geplande events (scheduler-scheduled).
+	--
+	-- 🔴 endTime IS HET EINDE VAN HET VENSTER, NIET DE START. Deze regel zei tot 22 sep 2026
+	-- "endTime is het volgende fire-moment" en de code zette `inSeconds = endTime - now`, dus het
+	-- Events-scherm toonde een LOPENDE Curse Surge als "Coming up — in 21 min". GEMETEN die dag:
+	-- Rob stond om 13:33 bij de Malformed Leviathan; zijn /mh eventspy van 13:34:10 gaf als eerste
+	-- Coiled-Isle-regel POI 8940 "in 1304 s", en 8940 ís de Leviathan (HandyNotes' koppeling, plus
+	-- de volgende regel 8938 = de rode zone die hij om 14:15 op zijn kaart zag, bij 45,28). Het
+	-- getal was dus "stopt over", niet "begint over".
+	--
+	-- En zo'n lopend venster stond ook niet bij de lopende events: GetOngoingEvents gaf het die
+	-- dag niet terug (drie andere wel). Daarom: start ≤ nu < einde → het loopt, en hoort bij
+	-- `ongoing`, met de resterende tijd. Anders telt `inSeconds` tot de START.
+	local seenOngoing = {}
+	for _, e in ipairs(ongoing) do
+		if e.areaPoiID then
+			seenOngoing[e.areaPoiID] = true
+		end
+	end
 	local rawScheduled = safe(C_EventScheduler and C_EventScheduler.GetScheduledEvents) or {}
 	for _, ev in ipairs(rawScheduled) do
 		pcall(function()
@@ -289,16 +306,40 @@ local function rescan()
 				local poiID = plainNumber(ev.areaPoiID) or ev.areaPoiID
 				local name, zone, uiMapID, px, py = resolvePoi(poiID)
 				if name or uiMapID then
-					upcoming[#upcoming + 1] = {
-						name = name,
-						zoneName = zone,
-						uiMapID = uiMapID,
-						areaPoiID = poiID,
-						inSeconds = endt - now,
-						windowSeconds = windowSecondsFor(ev, poiID),
-						posX = px,
-						posY = py,
-					}
+					local window = windowSecondsFor(ev, poiID)
+					local startt = plainNumber(ev.startTime) or (window and (endt - window)) or nil
+					if startt and startt <= now then
+						if not seenOngoing[poiID] then
+							seenOngoing[poiID] = true
+							ongoing[#ongoing + 1] = {
+								name = name,
+								zoneName = zone,
+								uiMapID = uiMapID,
+								areaPoiID = poiID,
+								secondsLeft = endt - now,
+								windowSeconds = window,
+								posX = px,
+								posY = py,
+								fromSchedule = true, -- running per its own window; the ongoing API did not list it
+							}
+						end
+					else
+						upcoming[#upcoming + 1] = {
+							name = name,
+							zoneName = zone,
+							uiMapID = uiMapID,
+							areaPoiID = poiID,
+							-- Until it STARTS. Without a start time we only know the end, and
+							-- saying "in <end>" is the very lie this block was fixed for — so
+							-- fall back to the end but flag it, rather than guess a start.
+							inSeconds = (startt or endt) - now,
+							endsInSeconds = endt - now,
+							startKnown = startt ~= nil,
+							windowSeconds = window,
+							posX = px,
+							posY = py,
+						}
+					end
 				end
 				-- (geen progress voor geplande events; die komt van het actieve event)
 			end
