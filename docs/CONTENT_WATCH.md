@@ -1047,3 +1047,78 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   case-insensitive repo-breed, plus gerichte reads van `Modules/VaultAdvisor.lua` en
   `Modules/VaultAdvisorData.lua` — allemaal vandaag gelezen. Geen actiepunt dat ík kan oppakken —
   ik rapporteer, een mens beslist.
+
+---
+
+- [2026-09-22] 🔴 **Eerste nieuwe hotfix-sectie sinds 17 sep gemeten ("21 september") — en de
+  Ula'tek-baastips missen twee genoemde mechanieken volledig, los van wat er al bekend stond over
+  Coiled Altar.** Zelf gelezen, eigen cache-buster: `news.blizzard.com/en-us/article/24296142
+  ?nocache=20260922c` (via Exa, volledige artikeltekst tot en met de 15-sep-sectie). Nieuwste
+  sectie is **"September 21, 2026"** (Classes/Evoker, Dungeons and Raids, Player versus Player) —
+  geen Delves-, Professions-, Quests- of Items-sectie die dag, en ook niet op 17 sep. Kruisverwijzing:
+  dezelfde sectie is vandaag ook al gelezen door de API-, PTR/roadmap- en data-wachter (elk hun
+  eigen [2026-09-22]-entry) — hier onafhankelijk opnieuw opgehaald met een eigen cache-buster, niet
+  overgenomen. **Positieve controle tegen de cache-val van 3 sep:** de "21 sep"-sectie is nieuwer
+  dan wat mijn eigen log van [2026-09-21] al kende ("17 sep" toen nieuwste), dus een verse cache,
+  geen oude — bevestigd door een los `web_search_exa` die dezelfde 21-sep-titel onafhankelijk
+  teruggeeft (Arctium-spiegel, `arctium.io/blue-posts/780`, gedateerd 2026-09-17, plus een
+  pubt.io-spiegel van de 21-sep-titel). Diezelfde zoekslag vond ook oudere Delve-hotfixregels
+  (Domanaar Enforcer, Bountiful Coffers/Zul'jarra's Forces, trinket-droprate) terug — dat zijn
+  **geen nieuwe feiten**: ze matchen woordelijk de al-gelogde 1/9/10-sep-secties uit eerdere runs
+  van dit logboek, gewoon lager op dezelfde doorlopende Blizzard-pagina.
+
+  **1. Lindormi's Guidance / enemy-forces-fix in Den of Nalorakk en Altar of Fangs.** Al gezien en
+  gelogd door de API- en data-wachter vanmorgen; ik toets vanuit mijn eigen hoek (de dungeon-tip-
+  tekst, niet de affix-tekst). GEMETEN: `Locales/DungeonTips.lua:151-157,407` (`DGN_TIP_DN_NALORAKK_*`)
+  en de Altar of Fangs/Zul'jan-tips (`Modules/DungeonTipsData.lua:59-61`) noemen nergens "enemy
+  forces", een percentage of een routing-garantie — alleen boss-mechanics (marks, charges, schild).
+  Niets om tegen te spreken. **[RAAKT ONS NIET]**
+
+  **2. Vier nieuwe Coiled Altar-mechanieknamen (21 sep) komen bovenop de zes die al op
+  [2026-09-18] ontbraken.** De 21-sep-fix noemt *"Toxic Deluge"*, *"Coalesced Venoms"*,
+  *"Virulent Mutations"*, *"Fangs of the Crucible"* en *"Defilement of the Crucible"* (vijf namen,
+  in Blizzards tekst als "vier fixes" geteld) plus een pets-tijdens-roleplay-bug bij Zul'jan.
+  GEMETEN, `grep -rniE` repo-breed op alle vijf de namen: **0 treffers**, in geen enkel bestand.
+  **Positieve controle, zelfde repo-brede grep-vorm, zelfde run:** "Zul'jan" (7+ bestanden) en
+  "Guillotine" (2 bestanden) geven wél treffers — de nul hierboven is een gemeten afwezigheid.
+  Onze Coiled Altar-tips (`Locales/RaidTips.lua:85-92`, `RAID_BOSS_COILEDALTAR_*`) beschrijven nog
+  steeds alleen groene orbs, geesten en Guillotine-soak. Dit is geen weerlegging van een claim —
+  net als op 18 sep noemen we nergens een mechaniek-naam die tegengesproken wordt — maar het gat
+  dat toen zes officiële namen telde, is vandaag met vijf uitgebreid: elf mechaniek-namen voor
+  precies déze baas, over drie hotfix-rondes (15, 17, 21 sep), ontbreken nu volledig uit een tekst
+  die medio september "herschreven" heet. **[RAAKT ONS]** — zelfde open punt als [2026-09-18], nu
+  breder.
+
+  **3. NIEUW vandaag: Ula'tek's "Mother's Wrath"/"Stone Venom" en "Boiling Venom" komen in onze
+  eigen baastips helemaal niet voor — twee losse mechanieken, niet één met een andere naam.**
+  De hotfixes van 15 én 21 sep tunen *"Stone Venom"* expliciet als straf voor het niet in
+  *"Mother's Wrath"* staan (15 sep: *"Failing to stand within Mother's Wrath now only inflicts 1
+  stack of Stone Venom"*; 21 sep: schade -40% op alle moeilijkheden plus een bugfix, en los
+  daarvan wordt *"Boiling Venom"* op Mythic nu een "Important Aura"). GEMETEN: onze volledige
+  Ula'tek-tips (`Locales/RaidTips.lua:93` STEPS, `:98` TANK, `:99` HEALER, `:100` DPS — zelf
+  gelezen, alle vier de regels) noemen alleen een generieke gif-DoT bij het uitkomen van een Viper
+  ({SPELL:1301268}) en "dispel poison" ({SPELL:1301800}); nergens een positioneringsopdracht rond
+  een naam als "Mother's Wrath", en nul keer de woorden "Stone Venom" of "Boiling Venom", in de
+  hele repo (`grep -rniE`, .lua-breed). **Positieve controle, zelfde repo-brede scope, zelfde
+  grepvorm:** "Ula'tek"/"Nymrissa"/"Wavecaller" (26 bestanden), en binnen dezelfde vier tip-regels
+  vinden "Doomscale Warden", "Malice" en "Anguished Cry" wél treffers — het patroon werkt, de nul
+  op de drie gezochte namen is een gemeten afwezigheid. **Wat ik niet kan vaststellen:** of
+  {SPELL:1301268}/{SPELL:1301800} in werkelijkheid dezelfde aura's zijn als "Stone Venom" (alleen
+  door ons anders omschreven) of dat dit een volledig los, nergens genoemd deel van het gevecht is
+  — dat vraagt een spellId-check in de client, niet een gok van hier. MEASURED dat de namen
+  ontbreken; INFERRED dat dit het navragen waard is, want de mechaniek is inmiddels twee keer
+  getuned (15 + 21 sep) op een baas die momenteel live en Mythic-relevant is. **[RAAKT ONS]**
+
+  **4. Trinket-tuningronde (Preternatural Antivenom e.a.) en PvP-rating-inflatie/Font of Venomous
+  Rage: geen nieuwe check nodig.** Al eerder vastgesteld — trinketnamen 0 treffers repo-breed
+  (bevestigd door de data-wachter vandaag, hier zelf herhaald met dezelfde uitkomst), PvP-rating
+  buiten onze lane (geen PvP-advies in MH). **[RAAKT ONS NIET]**
+
+  Evoker-classfixes (Unravel/Fire Breath) zijn class-balans, geen addon-content — buiten scope.
+  — bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260922c (volledig gelezen via
+  Exa) · `web_search_exa` "World of Warcraft Midnight retail Delves hotfix OR blue post September
+  2026 Season 2 changes" (bevestigt 21-sep-titel onafhankelijk, geen nieuwe Delve-content t.o.v.
+  eerdere runs) · codebase: `grep -rniE` repo-breed plus gerichte reads van
+  `Locales/DungeonTips.lua`, `Modules/DungeonTipsData.lua`, `Locales/RaidTips.lua` — allemaal
+  vandaag gelezen. Geen actiepunt dat ík kan oppakken — ik rapporteer, punt 2 en 3 zijn voor een
+  mens (of Cisca in-game) om te beoordelen.
