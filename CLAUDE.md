@@ -80,6 +80,11 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
 3. Lees wat er nieuw in staat: de vier bestanden uit de tabel hierboven.
 4. Kijk op GitHub: `python "<repo>/tools/_probe.py" run gh_inbox`. Geen enkele wachter dekt mensen
    die ons willen helpen — Andy's vijf PR's lagen daardoor 17 dagen ongelezen.
+4b. **Kijk welke van Robs andere addons zijn bijgewerkt:** `python "<repo>/tools/_probe.py" run
+   addon_updates`. Sinds 22 sep 2026 (Rob: *"hebben we addons die geupdate zijn ook getest?"* → *"ja doe
+   maar"*). Hij vergelijkt `## Version` met de vorige keer en print de top van elke changelog; **jij**
+   oordeelt of iets MH raakt (taint, markers, secret values, TomTom, DBM-formaat, JustAC-data). Lezen is
+   geen testen: zeg dat erbij, Robs `/reload` + BugSack is de test.
 5. Vertel hem alleen wat hém raakt. De meeste dagen is dat "niets" — zeg dat dan ook, mét wat er
    gelezen is, zodat stilte te onderscheiden is van niet-kijken.
 

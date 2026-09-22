@@ -31,6 +31,9 @@ tools/MY_KEYBINDS.html
 # realms, so the generator is version-controlled and its output never is.
 tools/PROFESSIONS_PLAN.html
 
+# tools/addon_updates.py onthoudt welke addonversies hij vorige keer zag. Beschrijft één pc.
+tools/addon_versions_seen.json
+
 # De afvinkpagina die tools/testlist_page.py uit docs/TESTLIJST.md bouwt. De generator en
 # haar sjabloon staan wél in git; de uitkomst is een kopie van de testlijst en wordt vóór
 # elke publicatie opnieuw gemaakt.
