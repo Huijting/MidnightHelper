@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🌅 22 sep — wachters: 1 echte fix, 2× dezelfde valse vondst
+
+- ✅ **API-wachter, `[MOET GEFIKST]`:** `Modules/DundunShrine.lua:731` deed `tostring(aura.name)` zonder
+  `issecretvalue`-poortje (12.1.5 build 69848 noemt tostring-op-secret als crash; live nog open). Gerepareerd
+  met hetzelfde poortje als `:665/:675`. Het is een diagnose-scan, geen doorlopend pad.
+- ⚠️ **Content-wachter meldt nu voor de derde keer "mechaniek-namen ontbreken" terwijl ze er als
+  `{SPELL:id}` staan** — de client zet die om in de spreuknaam, een tekst-grep ziet ze nooit.
+  GEMETEN 22 sep: Mother's Wrath = `{SPELL:1298367}` in de Ula'tek-TANK-regel (7 talen), Toxic Deluge
+  `1299960`, Fangs `1282487`, Defilement `1298381` in de Coiled Altar-tekst (samen 21 treffers). Wat écht
+  ontbreekt is kleiner: de namen Stone Venom, Boiling Venom (Mythic), Coalesced Venom/Virulent Mutations
+  (heten bij ons "groene orbs"). 📌 **Voorstel aan Rob:** de content-wachter-routine één zin geven —
+  "zoek ook naar het spell-id uit DBM (`DBM-Raids-Midnight`), `{SPELL:id}` rendert de naam" — pas na zijn ja.
+
 ## 🛑 21 sep — "kan ook stoppen"-spreuken uit JustAC 5.5.0 (Rob: "doe maar, en anders online zoeken")
 
 JustAC's changelog (via `api.curse.tools`, bestand 8931375) noemt 7 extra interrupt-achtige spreuken.

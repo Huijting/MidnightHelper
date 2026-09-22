@@ -728,7 +728,14 @@ function ns.ScanDundunSources()
 		elseif aura == nil then
 			out.bountifulAura = "absent"
 		elseif type(aura) == "table" then
-			out.bountifulAura = "PRESENT: " .. tostring(aura.name)
+			-- Same gate as :665/:675. The 12.1.5 API-changes page (build 69848) lists tostring()
+			-- on a secret value as a crash, fixed there and so still open on live 12.1.0
+			-- (API watch, 22 Sep 2026). Whether our own aura's name is ever secret is unmeasured.
+			local name = aura.name
+			if issecretvalue and issecretvalue(name) then
+				name = "SECRET"
+			end
+			out.bountifulAura = "PRESENT: " .. tostring(name)
 		else
 			out.bountifulAura = tostring(aura)
 		end
