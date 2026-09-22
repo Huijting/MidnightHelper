@@ -2398,3 +2398,182 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     HEAD**, nu op `a9116e5`, en `fetch origin main` gaf net als de afgelopen dagen een
     **`(forced update)`**-regel (`be28b43...a9116e5`). De laatste commit op dit logboek is mijn
     eigen regel van gisteren; er heeft niemand anders in dit logboek geschreven.
+- [2026-09-22] 🆕 **Er is een TWEEDE 12.1.5-changeslijst (build 69848) en die is vannacht op de
+  wiki gezet. 1 × [MOET GEFIKST]** — en dat punt komt niet uit Blizzards lijst zelf maar uit het
+  toetsen ervan aan onze code. Na vijf stille dagen is dit de eerste run met echte inhoud: de
+  `12.1.5/API changes`-pagina groeide van **25227 naar 29966 bytes** (+4739) en er kwam ook een
+  **nieuwe hotfix (21 sep)**.
+  - **GEMETEN — welke pagina's bewogen.** `prop=revisions` op negen titels, cache-busted:
+    `Patch 12.1.5/API changes` staat nu op rev **`6882829`** (Ketho, 2026-09-22T02:38:03Z, 29966
+    bytes; `parentid` `6882828`, dus **twee** edits vannacht) — was `6863733` van 6 sep.
+    `Patch 12.1.0/API changes` op rev **`6882827`** (Ketho, 2026-09-22T02:35:00Z, **102493** bytes,
+    was 102492). `Hotfixes` op rev **`6882796`** (Dark T Zeratul, 2026-09-22T00:56:19Z, 346276
+    bytes, was 345203). Onveranderd: `API change summaries` (`6859728`), `Patch 12.0.7/API
+    changes` (`6794100`), `TOC format` (**`6878841`**, Zeal, 19 sep — vierde dag stil, dus nog
+    niets nieuws over `AllowLoadGameType`); `Patch 12.1.6/…`, `12.1.7/…` en `12.2.0/API changes`
+    nog altijd `"missing":true`.
+  - ⚠️ **De 12.1.0-edit is 1 byte en raakt ons niet.** `action=compare` `6878058`→`6882827` geeft
+    één gewijzigd blok rond regel 359: een lege regel bij een `----` vóór de kop `===2026-07-23===`.
+    Geen inhoud. **[RAAKT ONS NIET]**, en genoemd zodat een bewogen revisie niet als "misschien iets"
+    blijft hangen.
+  - 📅 **DATERING, want dit is het randje van het 7-daagse venster.** De nieuwe sectie op de
+    12.1.5-pagina heet `===2026-09-16===` en linkt naar het WoW-dev-Discord-kanaal; de
+    meegekopieerde Bluepost staat op **poster=Linxy, date=Sep 16, 2026 1:09 am**. De build zelf is
+    **69848 van Sep 14** (de pagina's `#description2` ging van `69594 Aug 28` naar `69848 Sep 14`).
+    Dus: de **build is 8 dagen oud en daarmee bùiten het venster**, de **publicatie is 6 dagen oud
+    en erbinnen**, en de **wiki-bewerking is van vandaag**. Ik neem het mee op de publicatiedatum
+    en zeg dat er hardop bij. 📌 Tegengelezen met `WebSearch`: die bevestigt build 69848 en
+    dev notes van **15 sep** (MMO-Champion, Wowhead, Icy Veins) — één dag eerder dan de Bluepost op
+    de wiki. Welke van de twee klopt is van hieruit niet te meten; beide datums vallen binnen het
+    venster, dus het verandert niets aan de conclusie. Dat de zoekmachine zélf niets over
+    `UnitFrameUtil` vond, maakt de wiki-pagina hier de **enige** bron — en die heb ik via
+    `action=compare` letterlijk gelezen, niet als samenvatting.
+  - 🔴 **[MOET GEFIKST] — `Modules/DundunShrine.lua:731` doet `tostring(aura.name)` zonder
+    `issecretvalue`-poortje, en de nieuwe lijst zegt dat dát kon crashen.** Letterlijk uit de
+    12.1.5-sectie: *"Fixed an issue that could cause some APIs, like tostring and dumpobject, to
+    crash when passed secret objects."* Een **fix in 12.1.5** betekent dat het op de **live
+    12.1.0-client waar Rob op speelt nog stuk is**. De regel luidt
+    `out.bountifulAura = "PRESENT: " .. tostring(aura.name)`, met `aura` uit
+    `pcall(C_UnitAuras.GetPlayerAuraBySpellID, 430253)` op `:726` — de `pcall` dekt de **aanroep**,
+    niet de `tostring` erna, en een client-crash vangt een `pcall` hoe dan ook niet.
+    ⚠️ **Wat dit wél en niet is.** Hetzelfde bestand gebruikt het poortje op **drie** andere
+    plekken (`:83`, `:665`, `:675`, alle drie `if issecretvalue and issecretvalue(x)`), en vijf
+    zusterplekken elders ook: `Modules/Auras.lua:719`–`:721`, `Modules/DispelCapture.lua:345`,
+    `:497`, `:575` (`(aura.name ~= nil and not isSecret(aura.name)) and tostring(aura.name) or "?"`)
+    en `Modules/AccessibleAlerts.lua:227`. Dit is dus **geen nieuwe API-migratie maar één gemiste
+    toepassing van ons eigen patroon** — de fix is die ene regel dezelfde vorm geven, en ik verzin
+    er niets bij.
+    ⚠️ **Wat ik NIET gemeten heb:** of de aura van de **speler zelf** ooit secret wordt. `CLAUDE.md`
+    zegt *"Other units' aura `spellId`/tooltip `leftText` can be secret"*, wat suggereert van niet,
+    maar `C_Secrets.ShouldAurasBeSecret` is een clientvlag en ik kan hier geen client vragen. Dus:
+    de **inconsistentie is gemeten**, het **daadwerkelijk afgaan is afgeleid**. Eén `/mh` op de
+    Dundun-scan in restricted content settelt het; tot dan is de guard hoe dan ook goedkoper dan de
+    vraag.
+  - ✅ **[AL AFGEDEKT] — de andere `tostring`-op-een-secret-plekken.** `Modules/DispelHelper.lua:587`
+    (`(dn ~= nil and not isSecret(dn)) and tostring(dn) or "SECRET"`), `Modules/Auras.lua:606`
+    (`... and not Secret(sid)) and tostring(sid) or "secret"`), `:719`–`:721` en
+    `Modules/AccessibleAlerts.lua:227` hebben alle vier het poortje vóór de `tostring`.
+    `Modules/DispelCapture.lua:247`/`:250` zien er kaal uit maar zitten achter de
+    readability-classificatie `sName == "read"` / `sDispel == "read"` (`:245`–`:252`) — dat is
+    hetzelfde poortje, één laag eerder. `Modules/PartyTargets.lua:531` is een schijnvondst:
+    `c.spellID` komt uit `tonumber(id)` op `:599`, dus het is een getal of `nil`.
+  - ✅ **[RAAKT ONS NIET] — de drie ECHTE verwijderingen in deze build.** De Global-API-tabel gaat
+    van *Added 75 / Removed 1* naar *Added 81 / Removed 4*. De drie nieuwe removals zijn alle drie
+    `C_PvP`-Training-Grounds-namen die **gesplitst** zijn in een Arena- en een BG-variant:
+    `C_PvP.GetRandomTrainingGroundRewards` → `…ArenaRewards` + `…BGRewards`,
+    `C_PvP.HasRandomTrainingGroundWinToday` → `…ArenaWinToday` + `…BGWinToday`, en
+    `C_PvP.JoinRandomTrainingGroundBattleground` → `C_PvP.JoinRandomTrainingGroundBG`. MH raakt
+    `C_PvP` **nergens** aan: **nul** treffers op `C_PvP\.` en op `TrainingGround` over de hele
+    addon (`--include=*.lua,*.xml,*.toc`, `docs/`, `tools/` en `dist/` uitgesloten). Positieve
+    controle in dezelfde run en dezelfde scope: `issecretvalue|C_UnitAuras|InCombatLockdown|
+    CreateFrame` geeft **977** treffers. De nul is een echte nul.
+  - ✅ **[RAAKT ONS NIET] — negen andere nieuwe namen, allemaal nul treffers** in diezelfde scope
+    met diezelfde positieve controle: `C_UnitAuras.AddAuraSound` (en dus ook z'n nieuwe optionele
+    `throttleSeconds`), `sourceGUID` (*"now secret when the unit's identity is secret"*, en de
+    bron zegt letterlijk **Damage Meter APIs** — `C_DamageMeter`/`DamageMeter`: ook nul; MH's enige
+    combat-log-lezer is `Modules/Retrospective.lua:242`, `CombatLogGetCurrentEventInfo()`, en die
+    staat niet op de lijst), `UnitFrameUtil` (incl. `UpdateUnitPvPIndicator` en
+    `GetUnitPvPIndicatorDisplayInfo`), `C_ClassColor`/`GetClassColor` (de nieuwe optionele
+    tint-kleur), `GetPlayerInfoByGUID` (geeft nu ook het level terug — puur additief), `UIFrameFlash`
+    (de chat-tab-flash-verhuizing naar `ChatFrameUtil.StartFlash` c.s.), `ChatFrameUtil`,
+    `CombatAudioAlertUtil` (de nieuwe *"Pulse Your Health"*-instelling) en `GetTextureMetatable`.
+  - ✅ **[RAAKT ONS NIET] — de drie herstelde CVars en de nameplate-hitbox.** *"The following CVars,
+    removed in Midnight, have been restored: nameplateMotionSpeed, nameplateBottomInset, and
+    nameplateTopInset"*: **nul** treffers op alle drie. En *"Addons now get an additional one-frame
+    window to adjust the hitbox of an enemy nameplate if a `UNIT_CLASSIFICATION_CHANGED` event
+    arrives after the nameplate was already created"* gaat over **hitboxen**, en die raken wij niet
+    aan. Wat wij wél met nameplates doen staat in `Modules/Rares.lua`: een skull-texture erop via
+    `C_NamePlate.GetNamePlateForUnit` (`:910`, `:920`) en `GetNamePlates` (`:934`), met het poortje
+    `if ... not (C_NamePlate and C_NamePlate.GetNamePlateForUnit)` op `:907` en `:917` — dus
+    **[AL AFGEDEKT]** voor de aanroepen zelf.
+    📌 **Eén open observatie, geen actiepunt en geen gok.** Wij herevalueren alleen op
+    `NAME_PLATE_UNIT_ADDED` / `_REMOVED` (`Modules/Rares.lua:959`–`:965`) en registreren
+    `UNIT_CLASSIFICATION_CHANGED` **nergens** (nul treffers). Of een rare zijn classificatie kan
+    wijzigen *nadat* z'n nameplate al bestaat — het geval waar Blizzard nu een extra frame voor
+    geeft — weet ik niet, en ik ga het niet aannemen. Zou het kunnen, dan mist zo'n rare z'n skull
+    tot de plate hergebruikt wordt. Te meten met `/mh` naast een rare, niet van hieruit.
+  - 🧩 **[AL AFGEDEKT] — de Aura-Container-wijzigingen raken precies de velden die wij níét
+    gebruiken.** De nieuwe sectie noemt vier dingen: de `includeSpellIDs`-fix (*"such as Sated,
+    could also allow unrelated auras through"*), de `ProcessAura`-policy-fix (`ProcessAuraType.None`),
+    twee nieuwe `CustomAuraButton`-animatietriggers (`AddAuraShownAnimation`,
+    `AddAuraAssignedAnimation`) en *"CustomAuraButton animations now apply secret aspects for
+    VertexColor and TexCoord to target objects"*. Onze enige container zit in
+    `Modules/PartyTargets.lua:326`–`:361` en gebruikt **geen** van die vijf namen: het is
+    `AddAuraSlot(c, "mhPartyDispel", DISPEL_FILTER, { initializeFrame = PaintDispelSlot })` op
+    `:354` — een **filterstring** (gevalideerd met `AuraUtil.IsValidFilterString` op `:321`) plus
+    eigen artwork, geen `includeSpellIDs`, geen policy en geen animaties. **Nul** treffers op
+    `includeSpellIDs|ProcessAura|CustomAuraButton|AddAura(Shown|Assigned)Animation`; de positieve
+    controle op hetzelfde patroon vindt wél `AuraContainer` en `AddAuraSlot` in datzelfde bestand.
+    Ook **[RAAKT ONS NIET]**: *"Fixed a bug where RaidWarning frames could retain secret aspects on
+    their fontstrings after being returned to the pool"* — wij gebruiken alleen de **soundkit**
+    `SOUNDKIT.RAID_WARNING` (`Modules/AccessibleAlerts.lua:110`–`:111`), geen `RaidNotice`- of
+    `RaidWarningFrame`-frame (nul treffers op beide).
+  - 📌 **Suggestie voor Rob, geen bevinding: `Modules/PtrProbe.lua` loopt achter op deze build.**
+    `ADDED_GLOBALS` (`:128`–`:146`) en `WATCH_TABLES` (`:159`) zijn geschreven voor build 69594 en
+    kennen geen van de 69848-namen (`UnitFrameUtil`, `CombatAudioAlertUtil`, `ChatFrameUtil`,
+    `GetTextureMetatable`, `C_ClassColor`). Het bestand zegt zelf op `:126`–`:127` dat het bijhoudt
+    *"what became available, so a future feature is chosen from what exists rather than from a
+    guess"* — dat doel verwatert stil als de lijst niet meegroeit. **Ik raak het niet aan** (één
+    bestand per run), maar het is één regel werk als Rob dat bestand toch opent. ⚠️ En
+    `:131`–`:137` heeft nog altijd z'n open vraag: niemand heeft `GetItemCooldown` óf
+    `C_Item.GetItemCooldown` op een 12.1.5-client gezien.
+  - 🩹 **GEMETEN — nieuwe hotfix (21 sep), en niets ervan is API.** De cache-val is uitgesloten met
+    twéé onafhankelijke controles die **nieuwer** zijn dan mijn eigen regel van gisteren: (1)
+    `news.blizzard.com/en-us/article/24296142` mét cache-buster geeft nu titel *"Hotfixes:
+    September 21, 2026"* (gisteren: *"…September 17…"*); (2) de wiki-`Hotfixes`-diff `6877795`→
+    `6882796` voegt een kop `===September 21===` toe en hernoemt de Postlink van *"Hotfixes:
+    September 1-17"* naar *"…September 1-21"*. Inhoud: twee Evoker-fixes (`Unravel` /
+    `Fire Breath` / `Tip the Scales`), `Lindormi's Guidance` in Den of Nalorakk en Altar of Fangs,
+    drie The Coiled Altar-fixes en drie Ula'tek-regels (*"Stone Venom damage reduced by 40%"*,
+    *"Boiling Venom on Mythic difficulty is now an Important Aura"*). Allemaal tuning en
+    encounter-gedrag → **CONTENT_WATCH-terrein**, niet het mijne. ⚠️ Eén regel grenst eraan:
+    *"Boiling Venom … is now an Important Aura"* is een **data-vlag op een boss-aura**, geen
+    API-wijziging; wij lezen geen important-aura-vlag (nul treffers op `ImportantAura|IsImportant`).
+    📌 **Wat er NIET in staat:** de 12.1.5-lijst belooft *"Fixed a bug that could cause the
+    right-click unit menu to incorrectly show battle-pet options for a distant player. This is
+    pending a hotfix to 12.1.0 as well."* Die hotfix staat **niet** in de 21-sep-lijst. Raakt ons
+    niet (wij bouwen geen unit-menu), maar het is een aangekondigde 12.1.0-hotfix die nog open is.
+  - 🗣️ **Forum — twee nieuwe topics, geen van beide met API-inhoud en geen Blizzard-reactie.**
+    (1) *Way to hide minions and minor nameplates?* (`2357458`, aangemaakt 2026-09-22T01:27:01Z,
+    **1** post): gingerbread wil *"hide the enemy nameplates of minions and minor creatures UNLESS
+    in combat"* en is van Plater af. Nul antwoorden. **[RAAKT ONS NIET]** — het raakt nameplates,
+    waar wij wél werken, maar er staat geen enkele API-claim in en het gaat over zichtbaarheid van
+    plates, niet over de skull die wij erop zetten.
+    (2) *UI Audio Bug* (`2356609`, aangemaakt 2026-09-21T05:02:24Z, 2 posts): OpticX76 had stille
+    UI-audio na een crash en vond de oorzaak zelf, letterlijk: *"the floating platforms in
+    Silvermoon cause audio bugs"* — op de zwevende platformen valt de audio weg, op de grond bij de
+    bank komt hij terug, *"I tested it 3x"*. Elvenbane (11:55:50Z): *"First I've heard of that bug."*
+    **Geen API-wijziging**, dus **[RAAKT ONS NIET]** op mijn terrein. 📌 Wel één regel waard omdat
+    het onze eigen zwijg-modules raakt: `Modules/AccessibleAlerts.lua:110`–`:111` doet
+    `pcall(PlaySound, SOUNDKIT.RAID_WARNING, "Master")`. Is dit een clientbug, dan is een alert op
+    zo'n platform **onhoorbaar zonder dat er iets kapot is** — precies de klasse "correct zwijgen
+    versus stuk" die `/mh`-diagnoses moeten kunnen onderscheiden. Onbevestigd door Blizzard; ik
+    meld het als observatie, niet als feit over ons.
+  - **Forum — de vier bekende topics, onveranderd.** *Default in game commands* (`2356245`) nog op
+    2 posts, *Does Classic Era not have a LUA errors toggle?* (`2355798`) op 2, *Cancel auras not
+    working* (`2351797`) nog steeds op 4 met laatste post **2026-09-18T08:34:12Z** en nog altijd
+    **geen Blizzard-reactie** (onze acht `/cancelaura`-regels in `Modules/TeamMacrosData.lua` blijven
+    dus niet-gemeten en van hieruit niet te meten), *Target on click-down…* (`2349816`) op 4 met
+    laatste post 2026-09-20T15:00:25Z. *MSBT or Nothing* (`2349553`, 14 sep) valt bùiten het venster
+    en is nog steeds 1 post.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`,
+    `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per unit-token, `TimedSignalMap`,
+    `CreateFrameWithOptions`, de `COMBAT_LOG_EVENT_UNFILTERED`-restrictie) zijn deze run **niet**
+    één voor één opnieuw getoetst en blijven staan zoals eerder gemeten. `UIParentLoadAddOn` blijft
+    **[AL AFGEDEKT]**: `Core.lua:79` doet nog steeds
+    `local fn = _G.LoadAddOnWithErrorHandling or _G.UIParentLoadAddOn`.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op negen titels; `action=compare` 3×: 12.1.5, 12.1.0 en `Hotfixes`);
+    `news.blizzard.com/en-us/article/24296142`; `us.forums.blizzard.com` categorie-JSON 35
+    (`order=created` én kaal) plus de topic-JSON's `2357458` en `2356609`; `WebSearch` 1× als
+    tegenlezing. ⚠️ Directe `WebFetch` op warcraft.wiki.gg / news.blizzard.com is vandaag **niet**
+    opnieuw geprobeerd — dat stond wekenlang op `EGRESS_BLOCKED` en alles liep via Exa; aanname,
+    geen meting van vandaag. 📌 De wiki-API waarschuwt opnieuw *"Unrecognized parameter: nocache"* —
+    een MediaWiki-waarschuwing, geen fout: de buster hoort bij de cache vóór MediaWiki, en dat hij
+    werkt blijkt eruit dat drie revisies van **vannacht** terugkomen die mijn logboek gisteren nog
+    niet kende.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang **schoon**; geen
+    van de vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ Opnieuw een **detached
+    HEAD**, nu op `68490e9`. De laatste commit op dit logboek is mijn eigen regel van gisteren; er
+    heeft niemand anders in dit logboek geschreven.
