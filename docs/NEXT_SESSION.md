@@ -10,8 +10,11 @@
   GEMETEN 22 sep: Mother's Wrath = `{SPELL:1298367}` in de Ula'tek-TANK-regel (7 talen), Toxic Deluge
   `1299960`, Fangs `1282487`, Defilement `1298381` in de Coiled Altar-tekst (samen 21 treffers). Wat écht
   ontbreekt is kleiner: de namen Stone Venom, Boiling Venom (Mythic), Coalesced Venom/Virulent Mutations
-  (heten bij ons "groene orbs"). 📌 **Voorstel aan Rob:** de content-wachter-routine één zin geven —
-  "zoek ook naar het spell-id uit DBM (`DBM-Raids-Midnight`), `{SPELL:id}` rendert de naam" — pas na zijn ja.
+  (heten bij ons "groene orbs"). ✅ **Rob: "ja doe maar" → routine `trig_01JYW9gqzFNe8MkY3x3tQzh6` bijgewerkt**
+  (22 sep 05:51 UTC; cron/model/repo/connectoren ongewijzigd, eerste run met de regel 23 sep 04:02 UTC). Nieuwe
+  alinea "OUR TIPS NAME SPELLS BY ID": vóór "ontbreekt" eerst elk `{SPELL:id}` in de tipregels van die baas
+  online opzoeken. ⚠️ DBM staat NIET in de cloud-checkout (alleen onze repo) — de regel verwijst daarom naar
+  Wowhead per id en naar DBM op GitHub, niet naar de schijf.
 
 ## 🛑 21 sep — "kan ook stoppen"-spreuken uit JustAC 5.5.0 (Rob: "doe maar, en anders online zoeken")
 
