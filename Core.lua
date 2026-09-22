@@ -3071,6 +3071,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh surge — which Curse Surge runs now on the Coiled Isle, and which boss is next (22 Sep 2026).
+	if msg == "surge" or msg == "surges" then
+		if ns.PrintCurseSurgeNowNext then
+			ns.PrintCurseSurgeNowNext()
+		end
+		return
+	end
+
 	if msg == "eventspy" then
 		if ns.EventSchedulerSpyDump then
 			ns.EventSchedulerSpyDump()

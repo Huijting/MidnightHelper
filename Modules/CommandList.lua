@@ -88,7 +88,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "setline", "shards", "shardtest", "shots", "showdown",
-	"socket", "souls", "spell", "stat", "stop", "survival", "tier", "tierread", "tierscan", "tips",
+	"socket", "souls", "spell", "stat", "stop", "surges", "survival", "tier", "tierread", "tierscan", "tips",
 	"toast", "twins", "unlearned", "vignettes", "wb", "wiki", "worldboss",
 }
 
@@ -172,6 +172,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh keys", descKey = "CMDLIST_KEYS" },
 		{ cmd = "/mh board", descKey = "CMDLIST_BOARD" },
 		{ cmd = "/mh items", descKey = "CMDLIST_ITEMS" },
+		{ cmd = "/mh surge", descKey = "CMDLIST_SURGE" },
 	} },
 	{ headKey = "CMDLIST_GRP_ROUTE", items = {
 		{ cmd = "/mh arrow", descKey = "CMDLIST_ARROW" },

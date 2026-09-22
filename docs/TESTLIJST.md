@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 sep — Curse Surge: "nu" en "volgende" met de naam van de baas
+
+`/reload`. Rob: *"ja doe dat vervolg maar"*. De koppeling plek → baas komt van HandyNotes; 2 van de 5 zijn door
+jou gemeten (Leviathan, Vassti).
+- [ ] **Typ `/mh surge`** (op of vlak bij de Coiled Isle). Je krijgt *"Curse Surge nu: <baas> — nog X min"* en
+      *"Volgende Curse Surge: <baas> om HH:MM"*. **Klopt de baas met wat je op de kaart ziet?** Vooral de drie
+      die we nog niet zelf zagen: Looming Mutagenitor, Ori'kassi, Ss'akrithos.
+- [ ] **Events-scherm van MH:** de lopende surge heet nu *Curse Surge: <baas>* en is **klikbaar** (zet een route
+      naar die plek). Bij *Coming up* staat de volgende, ook met naam.
+
 ## 🆕 22 sep — Events-scherm: een lopende surge heet niet meer "komt eraan"
 
 `/reload`. Gevonden met Robs Leviathan-meting: een Curse Surge die al liep, stond bij *Coming up — in 21 min*;

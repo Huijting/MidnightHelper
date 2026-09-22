@@ -43,6 +43,56 @@ local upcoming = {} -- { {name, zoneName, uiMapID, areaPoiID, inSeconds, windowS
 local windowByPoi = {}
 local lastScan = nil
 
+--- The five Curse Surge spots on The Coiled Isle: area POI -> the Turn the Surge (63390) criterion
+--- for its boss, and where it stands. Rob, 22 Sep 2026: "ja doe dat vervolg maar" — show which
+--- surge runs now and which comes next.
+---
+--- The POI -> boss pairs are HandyNotes_Midnight's (`zones/coiled_isles.lua:222-283`, v156: each
+--- node carries `areaPOI` and the criterion). TWO are measured in Rob's client on 22 Sep: 8940 was
+--- running while he stood at the Malformed Leviathan (13:33), and 8938 was running at 14:15 while
+--- his map showed the surge zone at ~45,28, Vassti's spot. The other three are HandyNotes' word.
+--- Coordinates are the same as the Turn the Surge rows in AchievementsData.lua.
+--- The boss NAME is asked from the achievement at run time, so every client names it in its own
+--- language; `fallback` is only used if that lookup fails.
+local CURSE_SURGE = {
+	[8936] = { criteria = 115368, x = 26.40, y = 64.80, fallback = "Looming Mutagenitor" },
+	[8937] = { criteria = 115371, x = 67.16, y = 77.52, fallback = "Venom Lancer Ori'kassi" },
+	[8938] = { criteria = 115369, x = 45.20, y = 28.40, fallback = "Vassti, the Exalted Broodmother", measured = true },
+	[8939] = { criteria = 115370, x = 71.20, y = 31.30, fallback = "Ss'akrithos" },
+	[8940] = { criteria = 111353, x = 46.99, y = 62.23, fallback = "Malformed Leviathan", measured = true },
+}
+local CURSE_SURGE_MAP = 2512
+local CURSE_SURGE_ACH = 63390
+
+local function curseSurgeBoss(poiID)
+	local s = CURSE_SURGE[poiID]
+	if not s then
+		return nil
+	end
+	if not s.name and GetAchievementCriteriaInfoByID then
+		local ok, text = pcall(GetAchievementCriteriaInfoByID, CURSE_SURGE_ACH, s.criteria)
+		if ok and type(text) == "string" and text ~= "" then
+			s.name = text
+		end
+	end
+	return s.name or s.fallback
+end
+
+--- Give a scheduled Coiled-Isle entry its boss, its place and a clickable position. Runs in the
+--- ticker, on the flat tables only.
+local function decorateCurseSurge(e)
+	local s = e and CURSE_SURGE[e.areaPoiID]
+	if not s then
+		return
+	end
+	e.isCurseSurge = true
+	e.surgeBoss = curseSurgeBoss(e.areaPoiID)
+	e.name = (ns:L("CURSE_SURGE_NAME_FMT")):format(e.surgeBoss or "?")
+	e.uiMapID = e.uiMapID or CURSE_SURGE_MAP
+	e.posX = e.posX or s.x
+	e.posY = e.posY or s.y
+end
+
 -- pcall-wrapper: roept een API veilig aan, geeft nil terug bij een throw
 -- (bv. wanneer een secret wordt aangeraakt) of als de functie niet bestaat.
 local function safe(fn, ...)
@@ -346,6 +396,13 @@ local function rescan()
 		end)
 	end
 
+	for _, e in ipairs(ongoing) do
+		decorateCurseSurge(e)
+	end
+	for _, e in ipairs(upcoming) do
+		decorateCurseSurge(e)
+	end
+
 	table.sort(upcoming, function(a, b)
 		return (a.inSeconds or math.huge) < (b.inSeconds or math.huge)
 	end)
@@ -367,6 +424,52 @@ end
 
 function ns.GetWorldEventsLastScan()
 	return lastScan
+end
+
+--- The Curse Surge running now and the one after it, from the flat caches. Either may be nil:
+--- no schedule loaded yet, or not near the Coiled Isle. Entries carry surgeBoss, secondsLeft
+--- (now) or inSeconds (next), and posX/posY on map 2512.
+function ns.GetCurseSurgeNowNext()
+	local now, nxt
+	for _, e in ipairs(ongoing) do
+		if e.isCurseSurge then
+			now = e
+			break
+		end
+	end
+	for _, e in ipairs(upcoming) do
+		if e.isCurseSurge then
+			nxt = e
+			break
+		end
+	end
+	return now, nxt
+end
+
+--- `/mh surge` — which surge runs now, how long it has left, and which boss is next and when.
+--- Also the diagnosis for the whole feature: it says WHY it cannot answer when it cannot.
+function ns.PrintCurseSurgeNowNext()
+	local function say(s)
+		print("|cffffd100MH|r " .. s)
+	end
+	local function mins(sec)
+		return math.max(0, math.floor((sec or 0) / 60 + 0.5))
+	end
+	local now, nxt = ns.GetCurseSurgeNowNext()
+	if not lastScan then
+		say(ns:L("CURSE_SURGE_NOSCAN"))
+		return
+	end
+	if now then
+		say((ns:L("CURSE_SURGE_NOW_FMT")):format(now.surgeBoss or "?", mins(now.secondsLeft)))
+	end
+	if nxt then
+		local at = date("%H:%M", time() + (nxt.inSeconds or 0))
+		say((ns:L("CURSE_SURGE_NEXT_FMT")):format(nxt.surgeBoss or "?", at, mins(nxt.inSeconds)))
+	end
+	if not now and not nxt then
+		say(ns:L("CURSE_SURGE_NONE"))
+	end
 end
 
 --- Seconden dat één venster van dit event duurt, of nil als de client het niet

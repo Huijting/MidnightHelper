@@ -12,7 +12,11 @@ Rob stond om 13:33 bij de Malformed Leviathan en draaide `/mh eventspy` + `/mh a
   `inSeconds = endTime - now` met als commentaar "endTime is het volgende fire-moment". Het is het **einde** →
   het Events-scherm toonde een lopende surge als *"Coming up — in 21 min"*. Gerepareerd: start ≤ nu < einde →
   naar `ongoing` (`fromSchedule=true`, `secondsLeft`); anders `inSeconds` tot de **start**, plus `endsInSeconds`.
-- 📌 **Mogelijk vervolg (Rob kiest):** met de koppeling kan MH tonen "nu: Leviathan · volgende om 14:26: X".
+- ✅ **Vervolg gebouwd (Rob: "ja doe dat vervolg maar"):** `CURSE_SURGE` in `EventScheduler.lua` (POI → criterium +
+  plek; naam uit `GetAchievementCriteriaInfoByID(63390, …)` = clienttaal), `decorateCurseSurge` na elke scan
+  (naam "Curse Surge: <baas>", map 2512 + coords → klikbaar in het Events-scherm), `ns.GetCurseSurgeNowNext()` en
+  **`/mh surge`** (in de commandolijst; `surges` = alias). Nieuwe sleutels `CURSE_SURGE_*` + `CMDLIST_SURGE`, 7 talen
+  ("Curse Surge" blijft Engels). Nog te meten: de drie niet-geziene koppelingen (8936, 8937, 8939).
 
 ## 🌅 22 sep — wachters: 1 echte fix, 2× dezelfde valse vondst
 

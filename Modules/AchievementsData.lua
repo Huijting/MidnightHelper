@@ -345,9 +345,10 @@ ns.ACHIEVEMENT_TREASURES = {
 	--- `ns.AchievementNoteText` now appends the minutes from `cyclePois`, and says nothing when
 	--- the client says nothing. A number typed in here would have aged with the next hotfix.
 	---
-	--- ⚠️ The five ids are the Coiled Isle's surge POIs as Rob's own spy listed them; WHICH id
-	--- belongs to WHICH boss is not measured, and nothing here claims it — every row asks the
-	--- same five and takes the first answer.
+	--- ⚠️ The five ids are the Coiled Isle's surge POIs as Rob's own spy listed them. Every row
+	--- still asks the same five and takes the first answer: the cycle length is all this needs.
+	--- WHICH id belongs to WHICH boss lives in EventScheduler.lua (`CURSE_SURGE`, 22 Sep 2026):
+	--- HandyNotes' pairs, two of them measured in Rob's client (8940 Leviathan, 8938 Vassti).
 	{
 		achievementID = 63390, -- Turn the Surge (client supplies the title)
 		kind = "event", -- not [Rare]: Rob, 10 Sep, "deze dingen staan onder Rare kopjes, klopt dat??"
