@@ -85,12 +85,21 @@ def main():
         removed = [n for n in seen if n not in now]
         # The DB-only halves of a suite repeat their parent's news; show the parent once.
         shown = [n for n in changed if not re.match(r"^RaiderIO_DB_|^DBM-(Party|Raids|Delves)-(?!Midnight)", n)]
+        # A suite's modules share its prefix and version (EllesmereUIBags next to EllesmereUI, 23 Sep:
+        # 21 blocks saying "no changelog"). Fold a module into its parent when both moved together.
+        folded = {}
+        for n in list(shown):
+            parent = next((p for p in shown if p != n and n.startswith(p) and now[p] == now[n]), None)
+            if parent:
+                shown.remove(n)
+                folded[parent] = folded.get(parent, 0) + 1
         print("addons: %d · bijgewerkt: %d (waarvan %d getoond) · nieuw: %d · weg: %d"
               % (len(now), len(changed), len(shown), len(added), len(removed)))
         for n in shown:
             log, lines = changelog_top(os.path.join(ADDONS, n))
             print()
-            print("== %s  %s -> %s" % (n, seen[n] or "?", now[n] or "?"))
+            extra = ("  (+%d modules, same version)" % folded[n]) if n in folded else ""
+            print("== %s  %s -> %s%s" % (n, seen[n] or "?", now[n] or "?", extra))
             if log:
                 for s in lines:
                     print("   " + s)
