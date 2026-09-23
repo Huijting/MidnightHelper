@@ -2577,3 +2577,141 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     van de vier wachter-bestanden stond gewijzigd-maar-ongecommit. ⚠️ Opnieuw een **detached
     HEAD**, nu op `68490e9`. De laatste commit op dit logboek is mijn eigen regel van gisteren; er
     heeft niemand anders in dit logboek geschreven.
+- [2026-09-23] 🆕 **12.1.5 PTR Changes 3 (build 69952) staat sinds vannacht op de wiki, en er
+  kwam een grote hotfix (22 sep). 0 × [MOET GEFIKST].** Het punt van gisteren is bovendien
+  **dicht**: `Modules/DundunShrine.lua` heeft het `issecretvalue`-poortje gekregen.
+  - ✅ **GEMETEN — het [MOET GEFIKST] van 22 sep is opgelost.** `grep "tostring(aura.name)"` over
+    de hele addon geeft nu **nul** treffers; positieve controle in dezelfde run: `grep
+    bountifulAura` geeft wél vier treffers in datzelfde bestand (`:727`, `:729`, `:738`, `:740`),
+    dus het patroon en de reikwijdte deugen. `DundunShrine.lua:734`–`:738` leest nu
+    `local name = aura.name` / `if issecretvalue and issecretvalue(name) then name = "SECRET" end`
+    / `out.bountifulAura = "PRESENT: " .. tostring(name)`, met een comment dat naar deze wachter
+    verwijst. Commit `c4ba893` *"DundunShrine scan: gate the aura name before tostring"*.
+    📌 Ik meld dit één keer en haal het daarna niet meer op.
+  - **GEMETEN — welke pagina's bewogen** (`prop=revisions` op negen titels, cache-busted):
+    `Patch 12.1.5/API changes` nu rev **`6884498`** (Ketho, 2026-09-23T02:56:59Z, **34494** bytes,
+    was 29966 op `6882829`; samenvatting `/* 2026-09-22 */`, `parentid` `6884497` → opnieuw twee
+    edits in één nacht). `Hotfixes` rev **`6884263`** (Dark T Zeratul, 2026-09-23T00:27:59Z,
+    **363185** bytes, was 346276). `API change summaries` rev **`6883777`** (Ketho,
+    2026-09-22T14:00:22Z, 7280 bytes, was 6859728). Onveranderd: `Patch 12.1.0/API changes`
+    (`6882827`), `Patch 12.0.7/API changes` (`6794100`), `TOC format` (`6878841`, Zeal, 19 sep —
+    vijfde dag stil, dus nog steeds niets nieuws over `AllowLoadGameType`). `Patch 12.1.6/…`,
+    `12.1.7/…` en `12.2.0/API changes` nog altijd `"missing":true`.
+  - 🔒 **Cache-val uitgesloten.** Alle drie de nieuwste dingen die ik zie zijn **nieuwer** dan wat
+    mijn eigen regel van gisteren noemde: wiki-rev `6884498` (23 sep 02:56) > `6882829` (22 sep
+    02:38), `Hotfixes` `6884263` (23 sep 00:27) > `6882796` (22 sep 00:56), en het nieuwste
+    forumtopic is van 22 sep 18:25 tegen 22 sep 01:27 gisteren.
+  - 📅 **DATERING.** De nieuwe wiki-sectie heet `===2026-09-22===` en draagt de titel
+    *"Midnight 12.1.5 PTR Changes 3"* (Build **69952**), met een link naar het WoW-dev-Discord.
+    `#description2` ging van `12.1.5 (69848) Sep 14 2026` naar `12.1.5 (**69952**) Sep 21 2026`.
+    Dus: build 2 dagen oud, publicatie 1 dag oud, wiki-bewerking van vannacht — **ruim binnen het
+    venster**. ⚠️ Dit is **PTR-materiaal**: niets hiervan staat op de live 12.1.0-client waar Rob
+    op speelt. Het is vooruitkijken naar wat breekt, niet wat nu stuk is.
+  - 🧩 **Wat er inhoudelijk bij kwam, letterlijk geciteerd, en wat het voor ons betekent:**
+    - *"The {{api|GetArenaOpponentSpec}} API now returns secrets."* → **[RAAKT ONS NIET]**. Nul
+      treffers op `GetArenaOpponentSpec` in de hele addon; de 30+ `arena`-treffers die een kale
+      grep geeft zijn allemaal **contentnamen** (Voidscar Arena, Arena Champion-delve,
+      `DELVE_STORY_ARENA_CHAMPION`), geen API. Wij bouwen geen arena-unitframes.
+    - *"`UnitFrameUtil` library introduced in the last PTR build has been expanded with APIs for
+      raid role icons and arena opponent specs. It has also been moved to shared code, making it
+      available in Classic."* Nieuw daarin: `GetArenaOpponentSpecDisplayInfo`,
+      `UpdateArenaOpponentSpecDisplay`, `UpdateArenaOpponentSpecDisplayName`,
+      `GetUnitRoleIconDisplayInfo`, `UpdateUnitFrameRoleIcon`, plus een optionele `textureMap`-tabel
+      op álle display-API's. → **[RAAKT ONS NIET]**: nul treffers op `UnitFrameUtil`. 📌 Wel het
+      noteren waard als **richting**: Blizzard levert secret-veilige vervangers per onderdeel van
+      een unitframe. Raken wij ooit een rolicoon of spec-icoon aan, dan is dít de deur.
+    - *"Added {{api|C_UnitAuras.GetRefreshCarryOverDuration}}, a secret-aware API returning how much
+      of an aura's remaining duration would carry over on refresh. `AuraContainerUtil.GetPandemicWindow`
+      now uses this internally…"* → **[RAAKT ONS NIET]**: nul treffers op
+      `GetRefreshCarryOverDuration` en op `GetPandemicWindow`. (Positieve controle in dezelfde run:
+      `C_UnitAuras` geeft 70 treffers over 13 bestanden, dus de grep zoekt écht in de Lua.)
+    - **CVars: 5 → 12 toegevoegd.** Teruggezet zijn `nameplateMotionSpeed`, `nameplateBottomInset`
+      en `nameplateTopInset` (*"The following CVars, removed in Midnight, have been restored"*);
+      nieuw zijn `CAAPulsePlayerHealthPercent` / `CAAPulsePlayerHealthVolume` (*"Play a looping
+      pulse sound once the player's health is below X percent"*), `winePlatformTTS` en het commando
+      `dumpSmallAlloc`. → **[AL AFGEDEKT]** voor het enige stukje dat ons raakt: wij zetten maar
+      twee CVars, `Modules/DevShots.lua:333-334` en `:372-373`, allebei
+      `if SetCVar then pcall(SetCVar, "screenshotFormat", …)`. Lezen gaat via
+      `Modules/FpsPanel.lua:97` met `(C_CVar and C_CVar.GetCVar) or _G.GetCVar`. Geen enkele
+      nameplate-CVar komt bij ons voor.
+    - 🔊 **`winePlatformTTS` is het enige item dat ons gedrag kan verklaren.** Omschrijving:
+      *"Use Windows TTS on Wine. Disabled by default as it can cause crashes."* Wij spreken wél:
+      `Modules/InterruptScore.lua:70`–`:80` doet `C_VoiceChat.SpeakText` achter
+      `if not (C_VoiceChat and C_VoiceChat.SpeakText) then return` plus een `pcall`. →
+      **[AL AFGEDEKT]** (het breekt niet), maar met een staart die hierheen hoort: op een
+      Mac/Linux-client via Wine staat TTS straks **standaard uit**, dus onze interrupt-stem zwijgt
+      zonder dat er iets kapot is. Dat is precies de klasse *"correct zwijgen versus stuk"* uit
+      CLAUDE.md. Of dit ook op de live 12.1.0-client al zo is: **niet gemeten**, de CVar staat
+      alleen op de 12.1.5-lijst.
+    - 📌 **`CAAPulsePlayerHealthPercent/Volume` raakt ons niet in code** (nul treffers op
+      `CAAPulse`, `lowHealth`, `LOW_HEALTH`), maar Blizzard bouwt hiermee zelf een
+      lage-levens-audiowaarschuwing. Dat grenst aan `Modules/AccessibleAlerts.lua`. Geen actie,
+      wel iets om te weten vóór we ooit zoiets zelf maken.
+    - **De rest van de 12.1.5-diff is opmaak**, geen inhoud: dezelfde zinnen van build 69848 kregen
+      `<code>`-, `{{api}}`- en `{{tlygo}}`-opmaak. Eén daarvan is de regel waarop gisteren het
+      [MOET GEFIKST] rustte (*"Fixed an issue that could cause some APIs, like tostring and
+      dumpobject, to crash when passed secret objects"*) — die staat er **ongewijzigd**, dus de
+      bewering van gisteren is niet stilletjes herzien.
+  - 🩹 **Hotfix 22 sep: GEMETEN dat er géén UI-, addon- of API-sectie in zit.** Ik heb niet de diff
+    maar de **hele sectie** gelezen (`action=parse&prop=wikitext&section=2`, 16895 bytes, van
+    `===September 22===` tot en met Warrior/Arms). De koppen zijn exact: `;Classes`,
+    `;Dungeons and Raids`, `;Housing`, `;Items`, `;Player versus Player` — **geen** `;User Interface`,
+    geen `;Accessibility`, geen API-regel. Inhoud is klassentuning (DK, DH, Druid, Evoker, Hunter,
+    Mage, Monk, Paladin, Priest, Rogue, Warrior), twee crowd-control-fixes (Altar of Fangs' *Laced
+    Edge*, Temple of Sethraliss' *Slither Strike*), acht item-aanpassingen en een grote PvP-lijst.
+    → **CONTENT_WATCH-terrein**, niet het mijne. ⚠️ Eén regel grenst eraan, net als gisteren:
+    *"[[Deathmark]] now shows as a large aura on raid frames"* — een **weergavevlag op een aura**
+    in Blizzards eigen raidframes, geen API. Wij lezen zo'n vlag niet (nul treffers op
+    `largeAura|IsLargeAura`). 📌 De Postlink op de wiki heet nu *"Hotfixes: September 1-22"*
+    (was *"…1-21"*).
+  - 🌐 **Nieuw op de wiki, maar niet van ons: `Patch 1.60.1/API changes`.** De edit op
+    `API change summaries` (`6883777`, samenvatting *"forever"*) voegt één tabel toe met de kop
+    `|+ Forever` en daaronder `[[Patch 1.60.1/API changes|1.60.1]]`. Dat is **WoW Forever**, niet
+    Retail. → **[RAAKT ONS NIET]**: `MidnightHelper.toc` is Retail-only (`## Interface: 120007,
+    120100`). Genoemd zodat een toekomstige run niet schrikt van een API-changes-pagina met een
+    1.x-nummer.
+  - 🗣️ **Forum — één nieuw topic, en één bestaand topic dat een echte claim kreeg.**
+    (1) *Cast On Target Macro / Addon - On a Unit, Not a Party/Raid/Target Frame* (`2358144`,
+    aangemaakt 2026-09-22T18:25:49Z, 2 posts). Sarjin wil *"Cast a spell, on the target (model) -
+    where my mouse is - on the unit and not a 'frame'"* voor **WoW Forever**. Elvenbane:
+    *"If you're using Blizz click casting, enabling nameplates should be all you need. If you're
+    using Clique you'll need to add those combos to the nameplate frames."* Geen API-claim, geen
+    Blizzard-reactie. **[RAAKT ONS NIET]**.
+    (2) *Way to hide minions and minor nameplates?* (`2357458`) groeide van 1 naar **3** posts.
+    Bahz (2026-09-22T18:06:33Z) geeft een CVar-macro
+    `/run local t=1-GetCVar("nameplateShowEnemyMinions")SetCVar("nameplateShowEnemyMinions",t)SetCVar("nameplateShowEnemyMinus",t)`
+    en zegt erbij: *"Blizz broke some things in combat, so toggling the Minor nameplates while in
+    combat fails to trigger (not sure about Minions as I wasn't in an area to test)."* → dit is een
+    **onbevestigde spelersmelding** over `SetCVar` in combat, geen Blizzard-woord. Voor ons
+    **[AL AFGEDEKT]**: onze enige twee `SetCVar`-aanroepen staan in `Modules/DevShots.lua:333-334`
+    en `:372-373`, achter `if SetCVar then` + `pcall`, en zetten `screenshotFormat` — geen
+    nameplate-CVar en geen combat-pad. ⚠️ Als de melding klopt, is *"CVar-schrijven faalt stil in
+    combat"* wel een breder risico; ik kan het van hieruit niet meten en claim het dus niet.
+  - **Forum — de bekende topics, onveranderd.** *UI Audio Bug* (`2356609`) nog op 2 posts,
+    *Default in game commands* (`2356245`) op 2, *Does Classic Era not have a LUA errors toggle?*
+    (`2355798`) op 2, *Cancel auras not working* (`2351797`) nog steeds op 4 met laatste post
+    **2026-09-18T08:34:12Z** en nog altijd **geen Blizzard-reactie** (onze acht `/cancelaura`-regels
+    in `Modules/TeamMacrosData.lua` blijven dus niet-gemeten), *Target on click-down…* (`2349816`)
+    op 4 met laatste post 2026-09-20T15:00:25Z.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, `MouseIsOver`→`C_UI`, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per
+    unit-token, `TimedSignalMap`, `CreateFrameWithOptions`, de `COMBAT_LOG_EVENT_UNFILTERED`-
+    restrictie) zijn deze run **niet** één voor één opnieuw getoetst en blijven staan zoals eerder
+    gemeten. Nog altijd open uit de 12.1.5-lijst: *"Fixed a bug that could cause the right-click
+    unit menu to incorrectly show battle-pet options for a distant player. This is pending a hotfix
+    to 12.1.0 as well."* — die hotfix staat **ook niet** in de 22-sep-lijst (raakt ons niet, wij
+    bouwen geen unit-menu).
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op negen titels; `action=compare` 3×: 12.1.5, `Hotfixes`, `API change
+    summaries`; `action=parse` 2×: `prop=sections` en `prop=wikitext&section=2`);
+    `us.forums.blizzard.com` categorie-JSON 35 (`order=created`) plus de topic-JSON's `2358144` en
+    `2357458`. ⚠️ **GEMETEN vandaag, niet aangenomen:** directe `WebFetch` op
+    `news.blizzard.com/en-us/article/24296142` geeft opnieuw `EGRESS_BLOCKED`. De hotfixtekst komt
+    daarom van de wiki, die de Blizzard-post letterlijk overneemt — een **spiegel**, niet Blizzards
+    eigen pagina. 📌 De wiki-API waarschuwt weer *"Unrecognized parameter: nocache"*; dat is een
+    MediaWiki-waarschuwing en geen fout, en dat de buster werkt blijkt uit de revisies van
+    vannacht die mijn logboek gisteren nog niet kende.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang schoon, op branch
+    `main` en gelijk met `origin/main`; geen van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit.
