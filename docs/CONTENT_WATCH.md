@@ -1122,3 +1122,80 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Locales/DungeonTips.lua`, `Modules/DungeonTipsData.lua`, `Locales/RaidTips.lua` — allemaal
   vandaag gelezen. Geen actiepunt dat ík kan oppakken — ik rapporteer, punt 2 en 3 zijn voor een
   mens (of Cisca in-game) om te beoordelen.
+
+---
+
+- [2026-09-23] 🔴 **Correctie op de eigen fout van 22 sep: de "ontbrekende" Coiled Altar- en
+  Ula'tek-mechanieken staan er wél — als spell-ID, niet als naam.** Voordat ik verder ging met de
+  hotfixes van vandaag, eerst de eigen methode toegepast die deze wachter zichzelf al drie keer
+  eerder had moeten aanleren: een spell-ID in onze tips opzoeken vóórdat "ontbreekt" wordt gemeld.
+  GEMETEN via Wowhead (Exa `web_fetch_exa`, elke URL met een eigen `?nocache=20260923`-variant):
+  - `{SPELL:1298367}` = **Mother's Wrath** (Ula'tek): "knocks back her current target... Each bite
+    injects [target] with Stone Venom and leaves them Hobbled." Dat is precies wat
+    `RAID_BOSS_ULATEK_TANK` (`Locales/RaidTips.lua:98`, zeven taalvarianten) al zegt: "{SPELL:1298367}
+    knocks you back and slows you ({SPELL:1300938})" — en `{SPELL:1300938}` bleek zelf **Hobbled**
+    te zijn, precies de slow die Mother's Wrath toedient. Geen los ontbrekend stuk: hetzelfde
+    mechaniek, alleen via ID beschreven i.p.v. via naam.
+  - `{SPELL:1299960}` = **Toxic Deluge** (Coiled Altar): "The crucible spews venom into the
+    chamber... creating Coalesced Venom." Dat is het `{SPELL:1299960}` uit
+    `RAID_BOSS_COILEDALTAR_STEPS` (`Locales/RaidTips.lua:85`): "Green orbs ({SPELL:1299960})".
+  - `{SPELL:1282487}` = **Fangs of the Coiled Altar** en `{SPELL:1298381}` = **Defilement of the
+    Coiled Altar** op Wowhead (Blizzards eigen 21-sep-hotfixtekst noemt dezelfde twee ID's "Fangs
+    of the Crucible" en "Defilement of the Crucible" — een kortere patchnotes-naam voor dezelfde
+    spell, geen aparte mechaniek). Beide staan in `RAID_BOSS_COILEDALTAR_TANK` en `_HEALER`
+    (`Locales/RaidTips.lua:91-92`, zeven taalvarianten): "After {SPELL:1282487}, and {SPELL:1298381}
+    in phase 3, his next swings hit hard."
+
+  Dat weerlegt punt 2 en 3 van mijn eigen entry van [2026-09-22]: die zei dat deze vier namen
+  "volledig ontbreken" uit onze Coiled Altar- en Ula'tek-tips. Ze ontbreken als tekst, niet als
+  mechaniek — precies het onderscheid dat deze watch al op [2026-09-01] met Ring of Glory/Gnarldor
+  had moeten leren en blijkbaar nog niet had beet. **Wat nog steeds niet vastgesteld is:**
+  "Coalesced Venom" en "Virulent Mutation" (twee namen uit dezelfde 21-sep-hotfix) hebben in de
+  repo geen eigen ID om op te zoeken; Wowheads tekst bij Toxic Deluge noemt "creating Coalesced
+  Venom" als rechtstreeks gevolg van diezelfde cast, wat sterk suggereert dat het hetzelfde
+  orb-object is dat wij al als "Green orbs" beschrijven, maar ik heb geen los ID om dat te
+  bevestigen. INFERRED, niet MEASURED — blijft een open vraag, geen bevestigde afwezigheid.
+  **[RAAKT ONS NIET]** op de kern-correctie (geen geshipte tekst wordt tegengesproken, het
+  mechaniek is wél gedekt); geen actiepunt op deze vier namen. Rob/Cisca: als iemand ooit deze
+  fight opnieuw naloopt, is dit gecontroleerd en gesloten, geen openstaand punt meer.
+
+  **Vandaag verder: sectie "September 22, 2026" (nieuw sinds [2026-09-22]'s "21 sep") volledig
+  zelf gelezen**, `news.blizzard.com/en-us/article/24296142?nocache=20260923` (via Exa). Categorieën
+  die dag: Classes, Dungeons and Raids, Housing, Items, Player versus PvP — geen Delves-,
+  Professions-, Quests- of Achievements-sectie (leeg, zoals gebruikelijk als Blizzard niets heeft).
+  Positieve controle op cache-vers: deze sectie is nieuwer dan wat [2026-09-22] al kende ("21 sep"),
+  en de PTR/roadmap- en data-wachter van vandaag zagen onafhankelijk dezelfde "22 sep"-sectie.
+
+  **Bevindingen:**
+  - **Dungeons and Raids — Altar of Fangs (Blade of the Altar's Laced Edge) en Temple of
+    Sethraliss (Shrouded Fang's Slither Strike): beide konden casten tijdens crowd control, nu
+    gefixed.** GEMETEN: "Blade of the Altar" en "Shrouded Fang" komen in geen enkel bestand voor
+    (0 treffers repo-breed). Onze Altar-of-Fangs-tips dekken drie named encounters — Rav'i, Coil,
+    Zul'jan (`Locales/DungeonTips.lua:460,468,476`) — en onze Temple-of-Sethraliss-tips dekken
+    Adderis, Avatar, Galvazzt, Merektha (`Locales/DungeonTips.lua:540,548,556,564`); geen van
+    beide bugfix-namen matcht een van deze acht bossen, dus dit raakt vermoedelijk trash/een
+    tussenmob die wij niet tracken, niet een van onze geschreven fights. Positieve controle,
+    zelfde repo-brede scope: "Zul'jan" en "Guillotine" geven wél treffers (7× in `RaidTips.lua`) —
+    de nul hierboven is gemeten afwezigheid. **[RAAKT ONS NIET]**
+  - **Housing — Rustbolt Jetpack krijgt een "firmware update"** ("Ocular Non-Obstruction Mode").
+    Pure flavourtekst op een decor-item, geen mechaniek of ID. GEMETEN: 0 treffers op "Rustbolt
+    Jetpack" repo-breed; MH heeft geen housing-decor-module. **[RAAKT ONS NIET]**
+  - **Items — trinket-tuningronde (Preternatural Antivenom, Seed of Radiant Hope, Mycolic
+    Medicine, Unstable Felheart Crystal, Ruby Whelp Shell omhoog; Gaze of the Alnseer, Vaelgor's
+    Final Stare, Algeth'ar Puzzle Box omlaag).** GEMETEN: 0 treffers op alle acht itemnamen
+    repo-breed (los gecontroleerd: "Vaelgor" zelf geeft wél treffers, maar dat is de boss
+    Vaelgor & Ezzorak in `Locales/RaidTips.lua`/`Modules/RaidCoachData.lua` — een andere
+    "Vaelgor" dan het trinket "Vaelgor's Final Stare"; geen naamcollision met een claim over dit
+    item). Pure percentages op trinkets die wij niet bij naam noemen. **[RAAKT ONS NIET]**
+  - **Classes en Player versus PvP:** uitsluitend spec-balanspercentages (San'layn, Aldrachi
+    Reaver, Augmentation, Mistweaver, Windwalker e.v.a.) — gevestigd patroon, MH volgt geen
+    rotatie- of balansgetallen. **[RAAKT ONS NIET]**
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260923 (volledig gelezen via
+  Exa) · https://www.wowhead.com/spell=1298367, /spell=1299960, /spell=1282487, /spell=1298381,
+  /spell=1300938 (elk met eigen cache-buster, via Exa `web_fetch_exa`) voor de correctie hierboven.
+  Codebase-kant: `grep` case-insensitive/regex repo-breed op alle hierboven genoemde namen, plus
+  gerichte reads van `Locales/RaidTips.lua`, `Locales/DungeonTips.lua` — allemaal vandaag gelezen.
+  **[RAAKT ONS NIET]** op alle punten van vandaag; de correctie hierboven is het enige met een
+  [RAAKT ONS]-geschiedenis, en die is nu gesloten. Geen actiepunt dat ík kan oppakken — ik
+  rapporteer, een mens beslist.
