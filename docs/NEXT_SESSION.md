@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🃏 24 sep avond — Prot-kaart voor het eerst in het spel gezien; `/mh playcards check` erbij
+
+Rob zette `/mh playcards` aan (chat: ON), deed `/reload`, en zag op Tank track **geen** kaart, zonder fout.
+GEMETEN: de schakelaar stond in `MidnightHelperDB.ui.playCards = true`. Toegevoegd: **`/mh playcards check`**
+(`ns.PrintPlayCardCheck` in `PlayCards.lua`; `RenderPlayCard` bewaart zijn laatste beslissing in `ns._playCardLast`).
+Rob draaide hem: spec 66, schakelaar true, kaart true — en daarna **stond de kaart er** (screenshot: idee, 4 stappen,
+More enemies, Biggest mistake, Templar-regel; Lightsmith-regel en bron vielen buiten beeld).
+⚠️ **Waarom hij eerst wegbleef is NIET vastgesteld.** Afgeleid: het scherm was na het aanzetten niet opnieuw
+opgebouwd (bij `OnShow` hoort dat wel te gebeuren). Komt het terug: eerst `/mh playcards check`.
+Robs oordeel over de vorm (eli10?) loopt nu.
+
 ## 🚀 24 sep — 4.0.2 uitgebracht (direct als release)
 
 Rob: *"doe maar a … doe maar wel een release ipv een beta"*. Inhoud: `docs/CURSEFORGE_4.0.2.md` (== `RELEASE_NOTES.md`,

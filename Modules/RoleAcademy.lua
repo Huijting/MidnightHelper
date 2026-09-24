@@ -645,10 +645,15 @@ local function RenderPlayCard(panel, child, y, cw, specID)
 	-- Hidden by default since 4.0.2 (Rob, 24 Sep 2026: option A). Four of forty specs have a card,
 	-- and a public release showing "not written yet" to everyone else reads as half-built work.
 	-- `/mh playcards` turns it on per account, for Rob's own review of the pilot.
-	if not specID or not (ns.db and ns.db.ui and ns.db.ui.playCards) then
+	local on = (ns.db and ns.db.ui and ns.db.ui.playCards) and true or false
+	-- `/mh playcards check` prints this: a card that stays away is silent, so keep the reason.
+	-- Added 24 Sep 2026: switch on in the saved file, card still missing on Rob's Prot Paladin.
+	ns._playCardLast = { spec = specID, on = on, at = GetTime and GetTime() or 0 }
+	if not specID or not on then
 		return y
 	end
 	local card = ns.GetPlayCard and ns.GetPlayCard(specID)
+	ns._playCardLast.card = card and true or false
 	local name = ToolkitSpecName(specID)
 	y = AddToolkitLine(panel, child, cw, y, (SL("PLAYCARD_HEAD_FMT")):format(name), true)
 	if not card then

@@ -3073,6 +3073,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh playcards — show or hide the "How you play" pilot cards in the Academy (hidden by default
 	-- since 4.0.2: only 4 of 40 specs have one yet).
+	if msg == "playcards check" or msg == "playcard check" then
+		if ns.PrintPlayCardCheck then
+			ns.PrintPlayCardCheck()
+		end
+		return
+	end
 	if msg == "playcards" then
 		if ns.db then
 			ns.db.ui = ns.db.ui or {}

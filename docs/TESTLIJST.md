@@ -81,9 +81,10 @@ schuiven naar Shift/Ctrl. 107 verschuivingen in 27 specs; **Prot Paladin blijft 
 `/reload`. Rob: *"Ik wil dat mh dat soort uitleg ook gaat geven … maar wel in eli10 formaat"*. Eerst vier
 specs; pas als de vorm goed voelt volgen de andere en de vijf andere talen (nu Engels + Nederlands).
 ⚠️ **Sinds 4.0.2 standaard verborgen.** Typ eerst **`/mh playcards`** (zet ze aan voor jouw account), dan de Academy
-opnieuw openen.
-- [ ] **Op je Prot Paladin**: Academy → **Tank**-tab. Onder de tank-toolkit staat **How you play Protection**:
+opnieuw openen. Zie je hem niet: **`/mh playcards check`** zegt of de Academy hem getekend heeft, en waarom niet.
+- [x] ✅ (Rob, 24 sep, screenshot) **Op je Prot Paladin**: Academy → **Tank**-tab. Onder de tank-toolkit staat **How you play Protection**:
       het idee, 4 knoppen, "More enemies", "Biggest mistake", twee hero-regels (Templar / Lightsmith) en de bron.
+      (Gezien t/m de Templar-regel; Lightsmith en bron vielen buiten de screenshot.)
 - [ ] Academy → **DPS**-tab op dezelfde Paladin: onder "Stay alive" staat de kaart voor **Retribution** (voorbeeld).
 - [ ] **Staan alle spellnamen er als naam** (goud), en nergens "spell 123456"? Let vooral op Judgment,
       Sacred Weapon (Lightsmith-regel). Beweeg over een stap: komt de tooltip van die spell?

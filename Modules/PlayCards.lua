@@ -94,6 +94,33 @@ function ns.GetPlayCard(specID)
 	return out
 end
 
+--- `/mh playcards check`: the switch, the spec the Academy would ask for, and what the Academy
+--- decided the last time it drew. Rob, 24 Sep 2026: switch on, /reload, no error, no card.
+function ns.PrintPlayCardCheck()
+	local function say(s)
+		print("|cffffd100MH|r " .. s)
+	end
+	local ui = ns.db and ns.db.ui
+	say("Play card check:")
+	say(("  switch ns.db.ui.playCards = %s   (ns.db present: %s)")
+		:format(tostring(ui and ui.playCards), tostring(ns.db ~= nil)))
+	local tank = ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()
+	local classTank = ns.GetClassTankSpecID and ns.GetClassTankSpecID()
+	local dps = ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()
+	say(("  tank spec now: %s (class tank spec: %s) · dps spec now: %s")
+		:format(tostring(tank), tostring(classTank), tostring(dps)))
+	local want = tank or classTank
+	say(("  card for tank spec %s: %s"):format(tostring(want), (want and CARDS[want]) and "yes" or "NO"))
+	local last = ns._playCardLast
+	if last then
+		say(("  last Academy draw: spec %s · switch %s · card %s · %d s ago")
+			:format(tostring(last.spec), tostring(last.on), tostring(last.card),
+				math.floor((GetTime and GetTime() or 0) - (last.at or 0))))
+	else
+		say("  last Academy draw: NONE since the /reload - the card slot was never reached")
+	end
+end
+
 --- Which specs have a card. For /mh playcard and for the linter.
 function ns.GetPlayCardSpecs()
 	local ids = {}
