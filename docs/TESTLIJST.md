@@ -43,10 +43,10 @@ die 21 minuten waren de tijd tot het **einde**.
 ## 🆕 21 sep — interrupt-kaart kent drie extra "kan ook een cast stoppen"-spreuken
 
 `/reload`. Uit de JustAC-update van 20 sep, id's apart nagekeken.
-- [ ] **Prot Warrior** (als je er een hebt): **Disrupting Shout** heeft nu een toets (**Ctrl+V**; had er
+- [x] ✅ (Rob, 24 sep) **Prot Warrior** (als je er een hebt): **Disrupting Shout** heeft nu een toets (**Ctrl+V**; had er
       eerst geen) en staat op de interrupt-kaart met het label **AoE interrupt**.
-- [ ] **Demon Hunter, Vengeance of Havoc**: **Sigil of Misery** staat op de interrupt-kaart met **fear**.
-- [ ] **Devourer Demon Hunter**: **Void Nova** heeft een toets en staat op de interrupt-kaart met **stun**.
+- [x] ✅ (Rob, 24 sep) **Demon Hunter, Vengeance of Havoc**: **Sigil of Misery** staat op de interrupt-kaart met **fear**.
+- [x] ✅ (Rob, 24 sep) **Devourer Demon Hunter**: **Void Nova** heeft een toets en staat op de interrupt-kaart met **stun**.
       **Chaos Nova** hoort bij Devourer **niet** meer te staan (die spec heeft hem niet).
 
 ## 🆕 20 sep — markeerbalk: wissen gerepareerd + je ziet welke vlaggen al liggen
@@ -54,26 +54,26 @@ die 21 minuten waren de tijd tot het **einde**.
 `/reload`, dan `/mh mark` (de balk komt alleen in een groep). Geleerd uit wMarker en EllesmereUIQoL.
 - [x] ✅ **Rob, 20 sep, `/mh mark check`:** jouw client gebruikt `/tm` en `/cwm All`, en
       **`IsRaidMarkerActive` bestaat** — de gouden ring kan dus werken.
-- [ ] **Nieuw: drie groepsknoppen** rechts op de onderste rij — ready check, **rollen-check** en een
+- [x] ✅ (Rob, 24 sep) **Nieuw: drie groepsknoppen** rechts op de onderste rij — ready check, **rollen-check** en een
       **aftelklok** (linksklik 10 seconden, rechtsklik stopt hem). Ze zijn **gedimd** als je geen leider of
       assistent bent, en de tooltip zegt dat dan ook. Klopt dat allebei?
-- [ ] **Zet een paar wereldmarkers** (bovenste rij). Krijgen die knoppen een **gouden ring** zolang de
+- [x] ✅ (Rob, 24 sep) **Zet een paar wereldmarkers** (bovenste rij). Krijgen die knoppen een **gouden ring** zolang de
       vlag op de grond ligt? Wist je er één met rechtsklik, dan hoort de ring weg te gaan.
-- [ ] **Zet iemand anders in de groep een marker**, dan hoort jouw ring ook mee te veranderen.
-- [ ] **De rode X op de bovenste rij** (alles wissen): werkt die nu? Hij gebruikte `/cwm 9`, wat buiten
+- [x] ✅ (Rob, 24 sep) **Zet iemand anders in de groep een marker**, dan hoort jouw ring ook mee te veranderen.
+- [x] ✅ (Rob, 24 sep) **De rode X op de bovenste rij** (alles wissen): werkt die nu? Hij gebruikte `/cwm 9`, wat buiten
       een Engelse client sowieso niet werkte, en mogelijk helemaal niet meer.
-- [ ] **Markeer een paar keer snel achter elkaar.** Krijg je nog "You can't do this right now"? De knop
+- [x] ✅ (Rob, 24 sep) **Markeer een paar keer snel achter elkaar.** Krijg je nog "You can't do this right now"? De knop
       vuurde eerst twee keer per klik; dat is nu één keer.
 
 ## 🆕 19 sep — Z, X en C zijn nu altijd een defensive (of leeg)
 
 `/reload`. Rob koos optie B: *"doe b maar"*. Op de kale Z, X en C komt alleen nog een defensive; dispels en CC
 schuiven naar Shift/Ctrl. 107 verschuivingen in 27 specs; **Prot Paladin blijft gelijk**.
-- [ ] **Ret of Holy Paladin**: in de toetsindeling van MH staat nu **Blessing of Protection op X** en
+- [x] ✅ (Rob, 24 sep) **Ret of Holy Paladin**: in de toetsindeling van MH staat nu **Blessing of Protection op X** en
       **Cleanse Toxins op Shift+V** (was X). Klopt dat in het scherm met de toetsen?
-- [ ] **Een alt van een andere klasse** (Shaman, Warlock, Rogue of Druid): staat er op X een defensive of niets,
+- [x] ✅ (Rob, 24 sep) **Een alt van een andere klasse** (Shaman, Warlock, Rogue of Druid): staat er op X een defensive of niets,
       en géén Purge / Fear / Shiv / CC meer? Shaman hoort nu **Earth Elemental op Z** te hebben, Rogue **Evasion op X**.
-- [ ] Gebruik je `/mh apply` om de indeling echt op je balken te zetten: doe dat pas na de reload, anders zet hij
+- [x] ✅ (Rob, 24 sep) Gebruik je `/mh apply` om de indeling echt op je balken te zetten: doe dat pas na de reload, anders zet hij
       nog de oude.
 
 ## 🆕 19 sep — proef: "Zo speel je"-kaart (Ret, Prot, Arcane, Elemental)
@@ -103,6 +103,6 @@ Cancel (Mage, 3×), Turtle Cancel + Aimed Shot (Hunter), Hover Cancel (Evoker).
 
 `/reload`. Blizzard verlaagde op 1 sep het minimum voor Guillotine naar **3 spelers** op LFR, Normal en
 Heroic. Onze tip zei nog 5. Bij Mythic staat nu "5"; dat is afgeleid, want de hotfix noemt Mythic niet.
-- [ ] **Raids → The Venomous Abyss → The Coiled Altar**: de Guillotine-regel zegt *"at least 3 players (5 on Mythic)"*.
+- [x] ✅ (Rob, 24 sep) **Raids → The Venomous Abyss → The Coiled Altar**: de Guillotine-regel zegt *"at least 3 players (5 on Mythic)"*.
 - [ ] **In het gevecht (Normal of Heroic)**: staan er 3 of meer in de Guillotine, dan krijgt de raid geen
       straf-schade. Klopt dat met wat je ziet?
