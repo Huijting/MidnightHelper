@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🚀 24 sep — 4.0.2 uitgebracht (direct als release)
+
+Rob: *"doe maar a … doe maar wel een release ipv een beta"*. Inhoud: `docs/CURSEFORGE_4.0.2.md` (== `RELEASE_NOTES.md`,
+2529 bytes, GEMETEN identiek). Getest door Rob vóór release: markeerbalk (6), Z/X/C (3), interrupt-kaart (3),
+Guillotine-tekst. **Niet getest maar wel meegegaan:** trash-knop (sinds 17 sep, archief r.14-16), Curse Surge
+(`/mh surge`, Events-scherm), Arcane Orb-weglating.
+- **Optie A:** "Zo speel je"-kaarten verborgen (`RenderPlayCard` checkt `ns.db.ui.playCards`), aan met **`/mh playcards`**
+  (unlisted; `PLAYCARD_TOGGLE_*` alleen en/nl — preview). Wacht op Robs oordeel over de vorm.
+- Tag `v4.0.2` → packager → CF/Wago/GitHub.
+
 ## 🌀 22 sep middag — Curse Surge gemeten; `inSeconds` telde tot het EINDE (bug gerepareerd)
 
 Rob stond om 13:33 bij de Malformed Leviathan en draaide `/mh eventspy` + `/mh atal` (SV gelezen, 13:38).

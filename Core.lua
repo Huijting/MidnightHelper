@@ -3071,6 +3071,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh playcards — show or hide the "How you play" pilot cards in the Academy (hidden by default
+	-- since 4.0.2: only 4 of 40 specs have one yet).
+	if msg == "playcards" then
+		if ns.db then
+			ns.db.ui = ns.db.ui or {}
+			ns.db.ui.playCards = not ns.db.ui.playCards
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"),
+				ns:L(ns.db.ui.playCards and "PLAYCARD_TOGGLE_ON" or "PLAYCARD_TOGGLE_OFF")))
+		end
+		return
+	end
+
 	-- /mh surge — which Curse Surge runs now on the Coiled Isle, and which boss is next (22 Sep 2026).
 	if msg == "surge" or msg == "surges" then
 		if ns.PrintCurseSurgeNowNext then

@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.0.2
+
+📌 **2026-09-24, direct als release (Rob: "doe maar wel een release ipv een beta").** Notitie in
+`docs/CURSEFORGE_4.0.2.md` (identiek aan `RELEASE_NOTES.md`). Kort:
+- Markeerbalk: werkt op elke clienttaal (slash-commando's uit de client), alles wissen hersteld, één klik =
+  één actie, gouden ring op liggende vlaggen, ready check/rollen-check/aftelklok, `/mh mark check`.
+- Toetsadvies: kale Z/X/C altijd een defensive of leeg.
+- Interrupt-kaart: Disrupting Shout (nu met toets), Sigil of Misery, Void Nova; geen Chaos Nova op Devourer.
+- Curse Surge: lopende surge niet meer als "komt eraan", baasnaam + route, `/mh surge`.
+- Boss-venster-knop alleen na een baas; Guillotine 3 man; Arcane Orb geen burst.
+- "Zo speel je"-kaarten verborgen (4 van 40 specs), aan te zetten met `/mh playcards`.
+
 ## 4.0.1
 
 📌 **2026-09-17: eerst als beta (`v4.0.1-beta1`), dezelfde commit wordt daarna de release.** De

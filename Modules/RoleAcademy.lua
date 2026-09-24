@@ -642,7 +642,10 @@ end
 --- written spec by spec, and a player on a spec without one should read "not written yet"
 --- rather than wonder whether MH forgot. Once every spec has a card that line never shows.
 local function RenderPlayCard(panel, child, y, cw, specID)
-	if not specID then
+	-- Hidden by default since 4.0.2 (Rob, 24 Sep 2026: option A). Four of forty specs have a card,
+	-- and a public release showing "not written yet" to everyone else reads as half-built work.
+	-- `/mh playcards` turns it on per account, for Rob's own review of the pilot.
+	if not specID or not (ns.db and ns.db.ui and ns.db.ui.playCards) then
 		return y
 	end
 	local card = ns.GetPlayCard and ns.GetPlayCard(specID)
