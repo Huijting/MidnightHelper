@@ -1199,3 +1199,36 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   **[RAAKT ONS NIET]** op alle punten van vandaag; de correctie hierboven is het enige met een
   [RAAKT ONS]-geschiedenis, en die is nu gesloten. Geen actiepunt dat ík kan oppakken — ik
   rapporteer, een mens beslist.
+
+
+- [2026-09-24] 🟢 **Eén nieuwe hotfix-sectie sinds gisteren (23 sep), en die raakt onze content niet.**
+  GEMETEN: `news.blizzard.com/en-us/article/24296142` opnieuw gelezen (via Exa `web_fetch_exa`,
+  elke aanroep met een eigen `?nocache=20260924`-variant, tweemaal met verschillende suffix om
+  cache-versheid te bevestigen). De bovenste sectie is nu "September 23, 2026" — nieuwer dan wat
+  [2026-09-23] al kende ("22 sep"), dus geen cache-treffer. Onafhankelijk bevestigd via
+  `web_search_exa`: dezelfde 23-sep-tekst staat ook op bluetracker.gg, consolepcgaming.com en een
+  pubt.io-spiegel, woordelijk gelijk.
+
+  **Sectie "September 23, 2026" bevat precies twee categorieën: Classes en Delves.** Geen
+  Professions-, Quests-, Dungeons and Raids-, Items- of Achievements-sectie die dag (leeg, zoals
+  gebruikelijk als Blizzard daar niets heeft). Classes is uitsluitend Death Knight/Monk
+  classbalans (Blightfall-tuning, Windwalker PvP/PvE-scheiding) — buiten scope, MH volgt geen
+  rotatie- of balansgetallen.
+
+  **Delves — de enige game-content wijziging van vandaag:** "Fixed issue where Valeera becomes
+  unable to change talents and gain abilities after a faction change. Players experiencing this
+  will need to enter a delve on the affected character, then leave the delve, and then log out to
+  correct the issue." GEMETEN tegen `Modules/ValeeraProgress.lua` (volledig gelezen): die module
+  leest alleen `GetFriendshipReputation` (chunks/XP-delta binnen een delve) en zegt nergens iets
+  over talentkeuzes, abilities of faction change — repo-breed `grep -i "faction"` geeft buiten
+  `docs/API_WATCH.md` (een ander, al gesloten punt) nul treffers, en `docs/PTR_VALEERA_TREE.md`
+  noemt "faction" evenmin. Geen geshipte bewering wordt hierdoor tegengesproken of bevestigd — dit
+  is een bug in Blizzards eigen talent-/abilities-toekenning, niet in een getal of naam die wij
+  zelf claimen. **[RAAKT ONS NIET]**
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260924 en
+  ?nocache=20260924b (beide volledig gelezen via Exa) · `web_search_exa` "World of Warcraft
+  Midnight blue post Delves Professions Quests hotfix September 23 24 2026" (kruiscontrole tegen
+  bluetracker.gg/arctium.io/pubt.io, geen extra content-secties gevonden). Codebase: volledige
+  read van `Modules/ValeeraProgress.lua`, repo-brede `grep -i "faction"`. Geen actiepunt dat ík
+  kan oppakken — ik rapporteer, een mens beslist.
