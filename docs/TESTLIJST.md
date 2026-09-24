@@ -88,7 +88,7 @@ opnieuw openen. Zie je hem niet: **`/mh playcards check`** zegt of de Academy he
 - [ ] Academy → **DPS**-tab op dezelfde Paladin: onder "Stay alive" staat de kaart voor **Retribution** (voorbeeld).
 - [ ] **Staan alle spellnamen er als naam** (goud), en nergens "spell 123456"? Let vooral op Judgment,
       Sacred Weapon (Lightsmith-regel). Beweeg over een stap: komt de tooltip van die spell?
-- [ ] **Voelt het eli10?** Te lang, te kort, onduidelijke woorden? Dit is de vraag waar de rest op wacht.
+- [x] ✅ (Rob, 24 sep: *"Ziet er goed uit"*) **Voelt het eli10?** Te lang, te kort, onduidelijke woorden? Dit is de vraag waar de rest op wacht.
 - [ ] (Mage- of Shaman-alt) DPS-tab: **Arcane** en **Elemental** kaarten. Bij Arcane staat **Arcane Orb niet
       meer** in "Your damage cooldowns" (het is een rotatieknop, geen burst).
 
