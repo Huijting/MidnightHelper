@@ -2715,3 +2715,80 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang schoon, op branch
     `main` en gelijk met `origin/main`; geen van de vier wachter-bestanden stond
     gewijzigd-maar-ongecommit.
+
+- [2026-09-24] ✅ **Geen relevante API-wijzigingen (17–24 sep). 0 × [MOET GEFIKST].** Eén ding
+  bewoog vannacht: de wiki-`Hotfixes`-pagina kreeg de **hotfixlijst van 23 september**. Die is
+  volledig klassen- en content-werk; geen `;User Interface`-sectie, geen API-regel. Op de
+  API-pagina's zelf gebeurde vandaag **niets**.
+  - **GEMETEN — welke pagina's bewogen** (`prop=revisions` op negen titels, cache-busted):
+    alleen `Hotfixes`, nu rev **`6885563`** (Dark T Zeratul, 2026-09-24T00:56:02Z, **363781**
+    bytes, was 363185 op `6884263`; samenvatting `/* September 2026 */`). **Onveranderd sinds
+    gisteren:** `Patch 12.1.5/API changes` (`6884498`, Ketho, 23 sep 02:56 — eerste stille nacht
+    sinds build 69952), `Patch 12.1.0/API changes` (`6882827`), `Patch 12.0.7/API changes`
+    (`6794100`), `API change summaries` (`6883777`), `TOC format` (`6878841`, Zeal, 19 sep —
+    **zesde** dag stil, dus nog steeds niets nieuws over `AllowLoadGameType`). `Patch 12.1.6/…`,
+    `12.1.7/…` en `12.2.0/API changes` nog altijd `"missing":true`.
+  - 🔒 **Cache-val uitgesloten.** Het nieuwste dat ik zie is **nieuwer** dan wat mijn eigen regel
+    van gisteren noemde: `Hotfixes` `6885563` (24 sep 00:56) > `6884263` (23 sep 00:27), en het
+    nieuwste forumtopic is van 23 sep 14:46 tegen 22 sep 18:25 gisteren. Dat `12.1.5/API changes`
+    níét bewoog is dus een echte stille nacht en geen oude snapshot.
+  - 📰 **De hotfix van 23 sep, letterlijk uit de diff.** De Postlink ging van
+    *"Hotfixes: September 1-22"* naar *"Hotfixes: September 1-**23**"*. De nieuwe sectie
+    `===September 23===` heeft precies **twee** koppen — `;Classes` en `;Delves` — en drie regels:
+    - *"Resolved an issue with [[Blightfall]] doing less damage as more time passes since the
+      plague was applied."* (Death Knight, Unholy)
+    - *"Fixed an issue that caused PvP adjustments to Windwalker's [[Celestial Conduit]] and
+      [[Flurry Strikes]] to apply in PvE as well."* (Monk, Windwalker)
+    - *"Fixed issue where [[Valeera Sanguinar (delves)|Valeera]] becomes unable to change talents
+      and gain abilities after a faction change. Players experiencing this will need to enter a
+      delve on the affected character, then leave the delve, and then log out to correct the
+      issue."* (Delves)
+    → **Geen `;User Interface`, geen `;Accessibility`, geen API-regel.** Klassen- en
+    Delve-inhoud is **CONTENT_WATCH-terrein**, niet het mijne.
+  - 🗡️ **De Valeera-regel raakt onze code niet, en dat is gemeten.** `Modules/ValeeraProgress.lua`
+    noemt **nul** keer `talent` of `faction change` (positieve controle in dezelfde run:
+    `grep -c Valeera` op dat bestand geeft **14**, en `\btalent` over heel `Modules/` geeft **201**
+    treffers — patroon én reikwijdte deugen dus, de combinatie bestaat gewoon niet).
+    → **[RAAKT ONS NIET]** voor de API-kant. ⚠️ Of de addon ergens *bewéért* dat Valeera altijd
+    talenten kan wisselen, is een inhoudsvraag; die laat ik expliciet aan `CONTENT_WATCH.md`.
+  - 🗣️ **Forum — één nieuw topic, geen enkele API-claim, geen Blizzard-reactie.**
+    *Help with Addon* (`2359076`, aangemaakt 2026-09-23T14:46:47Z, **1** post). Wraither16 mist een
+    tooltip-addon die bij mouseover op een mount de drop-locatie toonde: *"Ever since the new UI
+    changes, this no longer works."* Geen API-naam, geen foutmelding, geen blue post — dit is een
+    zoekvraag naar een addon, geen melding van een breuk. **[RAAKT ONS NIET]** als API-bevinding.
+    📌 Wel even nagekeken omdat het over tooltips gaat: onze **enige** twee tooltip-hooks zijn
+    `Modules/DelveBossShowcase.lua:1112` + `:1170`/`:1175` en `Modules/LootUpgrade.lua:68`, alle
+    vier `TooltipDataProcessor.AddTooltipPostCall` achter
+    `if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
+    Enum.TooltipDataType then` plus `pcall` → **[AL AFGEDEKT]** als dat systeem ooit schuift.
+    Nul treffers op `GameTooltip:HookScript` en `OnTooltipSetUnit`; wij haken nergens op
+    mount-tooltips.
+  - **Forum — de bekende topics, allemaal onveranderd.** *Way to hide minions and minor
+    nameplates?* (`2357458`) nog op 3 posts (laatste 2026-09-22T19:07:02Z), *Cast On Target Macro…*
+    (`2358144`) op 2, *UI Audio Bug* (`2356609`) op 2, *Does Classic Era not have a LUA errors
+    toggle?* (`2355798`) op 2, *Cancel auras not working* (`2351797`) nog steeds op 4 met laatste
+    post **2026-09-18T08:34:12Z** en nog altijd **geen Blizzard-reactie** (onze acht
+    `/cancelaura`-regels in `Modules/TeamMacrosData.lua` blijven dus niet-gemeten). De
+    `SetCVar`-in-combat-melding van Bahz (22 sep) kreeg **geen** bevestiging en blijft een
+    onbevestigde spelersmelding.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, `MouseIsOver`→`C_UI`, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per
+    unit-token, `TimedSignalMap`, `CreateFrameWithOptions`, de `COMBAT_LOG_EVENT_UNFILTERED`-
+    restrictie, `GetArenaOpponentSpec`/`UnitFrameUtil`/`GetRefreshCarryOverDuration` uit build
+    69952) zijn deze run **niet** één voor één opnieuw getoetst en blijven staan zoals eerder
+    gemeten. Nog altijd open uit de 12.1.5-lijst: de aangekondigde hotfix voor het right-click
+    unit-menu dat battle-pet-opties toont bij een verre speler — die staat **ook niet** in de
+    23-sep-lijst (raakt ons niet, wij bouwen geen unit-menu).
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op negen titels; `action=compare` 1×: `Hotfixes` `6884263`→`6885563`);
+    `us.forums.blizzard.com` categorie-JSON 35 (zowel `order=created` als `order=activity`) plus
+    de topic-JSON `2359076`. ⚠️ **Niet zelf gelezen:** Blizzards eigen hotfixartikel op
+    `news.blizzard.com` blijft `EGRESS_BLOCKED`; de hotfixtekst komt uit de wiki, die de post
+    letterlijk overneemt — een **spiegel**, niet de bron. 📌 De wiki-API waarschuwt weer
+    *"Unrecognized parameter: nocache"*; dat is een MediaWiki-waarschuwing en geen fout, en dat de
+    buster werkt blijkt uit de `Hotfixes`-revisie van vannacht die mijn logboek gisteren nog niet
+    kende.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang schoon, op branch
+    `main` en gelijk met `origin/main`; geen van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit.
