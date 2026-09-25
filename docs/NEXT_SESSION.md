@@ -24,6 +24,26 @@ Rob: *"ja begin maar met de kaarten, maar … ze zijn nu veel te verstopt en las
   Twijfelpunten die de experts zelf noemden: it *Demonista* (eerder "Diabolisti") en *Vilsfregiato* (Midnight noemt
   het "Sfregiato"); es *Marcado por la vileza* (Midnight: "Marcado"); fr *Gel* voor Freezing (ouder: "Givrer");
   pt *Fragmentos de Alma* (de krachtbalk zegt "Estilhaços de Alma").
+- ✅ **De rest van de Engelse regels, dezelfde dag** (Rob: *"kijk … wat er nog wel vertaald moet worden. De dingen
+  die we besloten hebben altijd Engels te laten, moeten natuurlijk Engels blijven"*). GEMETEN (`gap_audit.py`,
+  met lint's eigen tellers): per taal ~496 Engels, waarvan **380 changelog-regels** (it 414), 3 KeepEnglish en 8
+  zonder woorden = expres. Van de ~105-122 over ook bewust overgeslagen: taalnamen, baas-/zone-/valutanamen,
+  Mythic+/PvP/Raid/Great Vault/ilvl, en de **48 `DELVE_STORY_*`** (zie hieronder). De rest (33-57 per taal) naar
+  een taalexpert per taal; 160 regels vertaald, 42 bewust Engels gelaten door de expert (Burst, HoT, Poison in het
+  Frans…). Onderaan `Translations2026.lua`. Lint: de 89,8 / fr 89,9 / es 89,9 / pt 89,9 / it 88,9 %.
+  Keuzes van experts om te weten: es zegt "banda" voor raid (zoals de rest van het es-pack); it "Birra" voor Brew.
+- 🐛 **Frans sprak de speler aan met "vous" in de kaarten — MIJN fout in de brief.** GEMETEN: `frFR.lua` 122× tu,
+  15× vous. ✅ Opgelost: de Franse expert zette de kaartregels om naar "tu" (261 van 384 gewijzigd, 0× vous
+  over, zelfde tokens), en het frFR-kaartblok in `Translations2026.lua` is vervangen.
+- 🔎 **`DELVE_STORY_*` (48, Blizzards eigen DB2-tekst) NIET vertaald, en vertalen alleen helpt niet.** AFGELEID
+  uit de code: `DelveCoach.lua:316` zoekt `ns.DELVE_STORY_TIP[storyName:lower()]` met **Engelse** namen, en
+  `storyName` komt uit clienttekst (`DelveBossShowcase.lua:1630`, scenario/POI-namen). Op een Duitse client is die
+  naam Duits → geen treffer → de omschrijving verschijnt nooit, vertaald of niet. Mogelijk faalt de verhaal-
+  herkenning zelf ook op niet-Engelse clients. Goede oplossing = sleutelen op een id + Blizzards eigen vertaling
+  uit DB2 per taal (wago.tools, `GossipUIDisplayInfoCondition`). Niet gemeten op een niet-Engelse client; Rob beslist.
+- 📌 Inconsistenties die experts zagen (niet aangepast): de noemt de Vaults in 4 oudere regels "Kammern von
+  Atal'Utek" (regel: Engels); es `HOME_VAULTS_AVAILABLE` "las Cámaras"; pt `ALT_TOOLTIP_MANAFLUX_FMT` "Catalyst"
+  waar de rest "Catalisador" zegt.
 - ⚠️ **Door de agenten gevonden, NIET gerepareerd (eerst meten op een Devourer):** `DpsToolkit.lua:73` Devourer
   gebruikt `1217607` (volgens Wowhead de in-vorm-buff, knop = `1217605`) en `370965` (Havoc/Veng-Hunt, Devourer =
   `1246167`) — `IsPlayerSpell` op de eigen spec kan die twee dan verbergen. Verder alleen commentaar-id's die
