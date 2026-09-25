@@ -23,7 +23,7 @@ er is niets weggegooid.
 
 ## 🆕 25 sep — "Zo speel je" in een eigen venster, en kaarten voor álle specs
 
-- [ ] 🆕 **4.1.0: lage levels** — op je level 26 Druid `/reload`, `/mh play`. Bovenaan staat in lichtblauw *"Written for
+- [x] ✅ (Rob, 25 sep, screenshot Resto Druid: *"het grijs werkt, goed"*) **4.1.0: lage levels** — op je level 26 Druid `/reload`, `/mh play`. Bovenaan staat in lichtblauw *"Written for
       level 90. Grey: you don't have that spell yet."* Spreuken die je nog niet hebt zijn grijs (naam en icoon), die je
       wel hebt goud. Klopt dat met je spellbook? Zelfde op het tabblad Stay alive. (Op een andere spec via de icoontjes
       bovenin wordt niets grijs, alleen de regel "Written for level 90".)

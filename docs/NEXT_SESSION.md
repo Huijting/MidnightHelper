@@ -23,7 +23,7 @@ moeten we een extra opvallende knop daarvoor maken in de MH"*.
   C_SpellBook.IsSpellKnown, faalt naar goud). Niet op andere specs (dan antwoordt "bekend" voor de spec waarin je
   staat) en niet op max level (proc-knoppen als Thunder Blast zouden dan onterecht grijs zijn). Ververst bij
   PLAYER_LEVEL_UP en SPELLS_CHANGED. Sleutels in 7 talen (door ons). Release-notes + CHANGELOG_410_7 bijgewerkt.
-- ⏸ **Nog niet getagd:** het grijs maken wacht op één blik van Rob op zijn level 26 Druid.
+- ✅ Grijs GEMETEN door Rob (Resto Druid, screenshot): *"het grijs werkt, goed"* → **getagd als `v4.1.0`**.
 
 ## 🛡️ 25 sep avond — kaartvenster werkt in het spel; tabblad "Stay alive" erbij
 
