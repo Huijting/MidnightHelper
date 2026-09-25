@@ -11169,3 +11169,25 @@ fill("itIT", {
 	STATS_TIED_MARK = "|cff9aa0a8(uguali — prendi quella che offre l'oggetto)|r",
 	TANKKIT_MIT_BREW = "Birra",
 })
+
+-- Play-card window tabs, 25 Sep 2026 (Rob: "ik mis eigenlijk de defense dingen"). Ours, not native-reviewed.
+fill("deDE", {
+	PLAYCARD_TAB_PLAY = "Deine Tasten",
+	PLAYCARD_ALIVE_NONE = "MH hat für diese Spezialisierung noch keine Überlebensliste.",
+})
+fill("frFR", {
+	PLAYCARD_TAB_PLAY = "Tes touches",
+	PLAYCARD_ALIVE_NONE = "MH n'a pas encore de liste de survie pour cette spé.",
+})
+fill("esES", {
+	PLAYCARD_TAB_PLAY = "Tus botones",
+	PLAYCARD_ALIVE_NONE = "MH aún no tiene una lista de supervivencia para esta especialización.",
+})
+fill("ptBR", {
+	PLAYCARD_TAB_PLAY = "Seus botões",
+	PLAYCARD_ALIVE_NONE = "O MH ainda não tem uma lista de sobrevivência para esta especialização.",
+})
+fill("itIT", {
+	PLAYCARD_TAB_PLAY = "I tuoi tasti",
+	PLAYCARD_ALIVE_NONE = "MH non ha ancora una lista di sopravvivenza per questa specializzazione.",
+})

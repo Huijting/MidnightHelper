@@ -25,8 +25,12 @@ er is niets weggegooid.
 
 ⚠️ **WoW helemaal afsluiten en opnieuw starten** (er is een nieuw bestand; `/reload` laadt dat mogelijk niet).
 Rob: *"ze zijn nu veel te verstopt en lastig te lezen"* → hij koos een eigen venster met iconen.
-- [ ] **Typ `/mh play`** op je Prot Paladin. Komt er een los venster met bovenin 3 spec-icoontjes (Protection
-      met een gouden rand), het idee, en 4 stappen **met een icoon ervoor**? Muis op een stap: de uitleg van die spreuk?
+- [x] ✅ (Rob, 25 sep, screenshot op zijn **Elemental Shaman**) **Typ `/mh play`**. Komt er een los venster met bovenin
+      3 spec-icoontjes (je eigen spec met een gouden rand), het idee, en de stappen **met een icoon ervoor**?
+      (Tooltip bij het aanwijzen van een stap nog niet bevestigd.)
+- [ ] 🆕 **Tabblad "Stay alive"** (Rob: *"ik mis eigenlijk de defense dingen"*): onder de spec-icoontjes staan nu twee
+      tabs, **Your buttons** en **Stay alive**. Klik Stay alive: je verdedigingsknoppen in volgorde, met icoon en je
+      toets erachter, dezelfde lijst als in de Academy. Onthoudt het venster het tabblad na sluiten en openen?
 - [ ] **Klik op het Holy- of Retribution-icoon** bovenin: wisselt de kaart naar die spec? Nog een keer `/mh play`
       sluit het venster.
 - [ ] **Leesbaarheid:** is het nu goed te lezen? Te groot, te klein, te breed? (Shift + muiswiel maakt het venster

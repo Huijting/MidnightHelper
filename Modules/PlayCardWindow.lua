@@ -177,6 +177,77 @@ local function SpecButton(i)
 	return b
 end
 
+--- Which tab is open, remembered per account so the window reopens where you left it.
+local function CurrentTab()
+	local ui = ns.db and ns.db.ui
+	return (ui and ui.playCardTab == "alive") and "alive" or "play"
+end
+
+local function SetTab(id)
+	if ns.db then
+		ns.db.ui = ns.db.ui or {}
+		ns.db.ui.playCardTab = id
+	end
+end
+
+local function TabButton(i)
+	win._tabBtns = win._tabBtns or {}
+	local b = win._tabBtns[i]
+	if not b then
+		b = CreateFrame("Button", nil, win.body)
+		b:SetHeight(26)
+		b.fs = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		b.fs:SetPoint("CENTER", b, "CENTER", 0, 1)
+		b.line = b:CreateTexture(nil, "ARTWORK")
+		b.line:SetColorTexture(1, 0.82, 0.2, 0.9)
+		b.line:SetHeight(2)
+		b.line:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 4, 0)
+		b.line:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -4, 0)
+		b:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight2", "ADD")
+		win._tabBtns[i] = b
+	end
+	Font(b.fs, "GameFontNormal")
+	b:Show()
+	return b
+end
+
+--- The "Stay alive" tab: the same list the Academy shows (Modules/SurvivalPlan.lua), with an icon per
+--- button and your own key. Returns the new y.
+local function DrawStayAlive(specID, y, inner)
+	local t = 0
+	t = t + 1
+	local intro = Text(t, "GameFontHighlight")
+	intro:SetWidth(inner)
+	intro:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+	intro:SetTextColor(0.62, 0.6, 0.56)
+	local steps = ns.GetSurvivalPlan and ns.GetSurvivalPlan(specID)
+	intro:SetText(L(steps and "SURVIVAL_INTRO" or "PLAYCARD_ALIVE_NONE"))
+	y = y - intro:GetStringHeight() - 12
+	for i, s in ipairs(steps or {}) do
+		local row = StepRow(i)
+		row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		row:SetWidth(inner)
+		row.num:SetText(i)
+		local tex = SpellIcon(s.spellID)
+		row.icon:SetTexture(tex)
+		row.icon:SetShown(tex ~= nil)
+		row.spellID = s.spellID
+		row.fs:ClearAllPoints()
+		row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
+		row.fs:SetWidth(inner - (20 + ICON + 10))
+		row.fs:SetTextColor(0.9, 0.88, 0.82)
+		row.fs:SetText(("|cffffd100%s|r%s|n%s%s"):format(
+			s.text or "",
+			s.bindKey and ("  |cff9d9d9d[" .. s.bindKey .. "]|r") or "",
+			L(s.whenKey),
+			s.noteKey and (" |cff9d9d9d(" .. L(s.noteKey) .. ")|r") or ""))
+		local h = math.max(ICON, row.fs:GetStringHeight() + 4)
+		row:SetHeight(h)
+		y = y - h - 10
+	end
+	return y
+end
+
 --------------------------------------------------------------------------------
 -- Drawing
 --------------------------------------------------------------------------------
@@ -219,6 +290,34 @@ local function Redraw()
 			end)
 		end
 		y = y - SPEC_ICON - 12
+	end
+
+	-- Two tabs: the card, and "Stay alive". Rob, 25 Sep 2026, on his Elemental Shaman: "ik mis
+	-- eigenlijk de defense dingen". He chose a second tab so the window stays as short as it was.
+	local tab = CurrentTab()
+	local tabs = { { id = "play", key = "PLAYCARD_TAB_PLAY" }, { id = "alive", key = "SURVIVAL_HEAD" } }
+	local tx = 0
+	for i, def in ipairs(tabs) do
+		local b = TabButton(i)
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", win.body, "TOPLEFT", tx, y)
+		b.fs:SetText(L(def.key))
+		b:SetWidth(b.fs:GetStringWidth() + 24)
+		local on = def.id == tab
+		b.fs:SetTextColor(on and 1 or 0.62, on and 0.82 or 0.6, on and 0.2 or 0.56)
+		b.line:SetShown(on)
+		b:SetScript("OnClick", function()
+			SetTab(def.id)
+			Redraw()
+		end)
+		tx = tx + b:GetWidth() + 8
+	end
+	y = y - 26 - 10
+
+	if tab == "alive" then
+		y = DrawStayAlive(specID, y, inner)
+		win:SetHeight(32 + 32 - y + 16 + 8)
+		return
 	end
 
 	local card = specID and ns.GetPlayCard and ns.GetPlayCard(specID)

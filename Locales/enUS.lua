@@ -814,6 +814,8 @@ ns._mhLocales.enUS = {
 	-- "How you play" cards (Modules/PlayCards.lua), 19 Sep 2026. Short on purpose: Rob asked for eli10.
 	PLAYCARD_HEAD_FMT = "How you play %s",
 	PLAYCARD_OPEN_FMT = "How you play %s  >",
+	PLAYCARD_TAB_PLAY = "Your buttons",
+	PLAYCARD_ALIVE_NONE = "MH has no survival list for this spec yet.",
 	PLAYCARD_TOGGLE_ON = "\"How you play\" button ON at the top of the Academy (preview). /mh play opens the card anytime.",
 	PLAYCARD_TOGGLE_OFF = "\"How you play\" cards OFF.",
 	PLAYCARD_NONE = "This spec's card isn't written yet. We're adding them one by one.",

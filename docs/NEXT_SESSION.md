@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🛡️ 25 sep avond — kaartvenster werkt in het spel; tabblad "Stay alive" erbij
+
+GEMETEN (Rob, screenshot, Elemental Shaman): het venster verschijnt met 3 spec-iconen, idee, 5 stappen mét spell-icoon,
+More enemies / Mistake / hero-regels / bron. Rob: *"ik mis eigenlijk de defense dingen"* → hij koos een **tweede
+tabblad** (AskUserQuestion). `PlayCardWindow.lua`: tabs **Your buttons** (`PLAYCARD_TAB_PLAY`) | **Stay alive**
+(`SURVIVAL_HEAD`), gekozen tab in `ns.db.ui.playCardTab`. Stay alive = `ns.GetSurvivalPlan(specID)` (dezelfde lijst
+als de Academy), per stap icoon + naam + `[toets]` + wanneer + opmerking; geen lijst → `PLAYCARD_ALIVE_NONE`.
+Nieuwe sleutels en/nl + 5 talen (TAB_PLAY uit elk pack's goedgekeurde PLAYCARD_STEPS; ALIVE_NONE door ons, niet
+nagekeken). Nog niet in het spel gezien.
+
 ## 💬 25 sep — Shadow Enclave: de korte chatversie kent nu ook Infiltrate and Ameliorate
 
 `DELVE_CHAT_SHADOW_ENCLAVE_ROUTE` (de tekst die je met de groep deelt) noemde alleen Mirrors/Supplies/Traitor.
