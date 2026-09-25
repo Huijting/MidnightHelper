@@ -31,7 +31,7 @@ Rob: *"ze zijn nu veel te verstopt en lastig te lezen"* → hij koos een eigen v
 - [x] ✅ (Rob, 25 sep, screenshot Elemental: 7 knoppen met icoon) **Tabblad "Stay alive"** (Rob: *"ik mis eigenlijk de
       defense dingen"*): twee tabs, **Your buttons** en **Stay alive**; je verdedigingsknoppen in volgorde met icoon.
       (Of het tabblad onthouden wordt na sluiten en openen: nog niet bevestigd.)
-- [ ] 🆕 **Uitleg bij élke spreuknaam** (Rob, Shadow Priest: *"de andere spells geven geen tooltip, bv vampire
+- [x] ✅ (Rob, 25 sep: *"de tooltips werken"*) **Uitleg bij élke spreuknaam** (Rob, Shadow Priest: *"de andere spells geven geen tooltip, bv vampire
       touch"*): `/reload`, `/mh play`, en wijs met de muis naar een gouden naam midden in een zin (bv. Shadow Word:
       Pain, of een naam in "More enemies" of een hero-regel). Komt de uitleg van **die** spreuk? Het icoon vooraan
       toont de eerste spreuk van de stap. En sleept het venster nog, ook als je een stap-regel vastpakt?

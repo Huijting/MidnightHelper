@@ -19,6 +19,8 @@ hebben `SetHyperlinksEnabled` + `OnHyperlinkEnter`. Het icoon kreeg een eigen ho
 body sturen een sleep door naar het venster (`ForwardDrag`). AFGELEID dat hyperlinks op een gewone Frame werken
 buiten een ScrollFrame (DelveTipMarkup gebruikt een EditBox omdat het in een ScrollFrame faalt); niet in het spel
 gezien. Werkt het niet, dan valt `HookLinks` stil weg (guard op `SetHyperlinksEnabled`).
+✅ **GEMETEN, Rob na `/reload`: *"de tooltips werken"*** — hyperlinks op een gewone Frame buiten een ScrollFrame
+werken dus in 12.1. Rob: *"Ik vind dit echt gaaf, en een echte major update eigenlijk"*.
 
 ## 💬 25 sep — Shadow Enclave: de korte chatversie kent nu ook Infiltrate and Ameliorate
 
