@@ -13,6 +13,12 @@ nagekeken). ✅ GEMETEN (Rob, screenshot): het tabblad werkt, 7 Elemental-knoppe
 `EnsureMidnightDialogTitleBar`. Nu sleept het hele venster (`f:RegisterForDrag`, vóór `RegisterMidnightDialogPopup`
 zodat de dock-hook meeloopt), de titelstrook laat de muis door (`EnableMouse(false)`), en de plek wordt bewaard in
 `ns.db.ui.playCardPos`. ✅ Rob, na `/reload`: *"slepen werkt nu"*.
+🔗 **Tooltip per spreuknaam** (Rob, Shadow Priest: *"de andere spells geven geen tooltip, bv vampire touch"*): `Expand`
+in `PlayCards.lua` maakt van `{SPELL:id}` nu een `|Hspell:id|h`-link (goud, geen haken); de rij-frames en `body`
+hebben `SetHyperlinksEnabled` + `OnHyperlinkEnter`. Het icoon kreeg een eigen hover-vlak (eerste spreuk); rijen en
+body sturen een sleep door naar het venster (`ForwardDrag`). AFGELEID dat hyperlinks op een gewone Frame werken
+buiten een ScrollFrame (DelveTipMarkup gebruikt een EditBox omdat het in een ScrollFrame faalt); niet in het spel
+gezien. Werkt het niet, dan valt `HookLinks` stil weg (guard op `SetHyperlinksEnabled`).
 
 ## 💬 25 sep — Shadow Enclave: de korte chatversie kent nu ook Infiltrate and Ameliorate
 

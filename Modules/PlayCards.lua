@@ -198,14 +198,17 @@ local function SpellName(id)
 	return (n and n ~= "") and n or ("spell " .. tostring(id))
 end
 
---- {SPELL:id} -> the client's own name for it, in gold. Returns the text and the first id it saw,
---- so a line can show that spell's tooltip on hover.
+--- {SPELL:id} -> the client's own name for it, in gold, as a spell hyperlink. Returns the text and
+--- the first id it saw (the window shows that spell's icon in front of the step).
+--- The link is why every name has its own tooltip: Rob, 25 Sep 2026, on his Shadow Priest, "wat ik wel
+--- mis is dat de andere spells niet een tooltip geven, bv vampire touch". The window's frames turn
+--- hyperlinks on (PlayCardWindow.lua); no brackets, so the text reads the same as before.
 local function Expand(text)
 	local first
 	text = tostring(text or ""):gsub("{SPELL:(%d+)}", function(id)
 		id = tonumber(id)
 		first = first or id
-		return "|cffffd100" .. SpellName(id) .. "|r"
+		return ("|cffffd100|Hspell:%d|h%s|h|r"):format(id, SpellName(id))
 	end)
 	return text, first
 end

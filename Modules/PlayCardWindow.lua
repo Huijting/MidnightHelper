@@ -88,6 +88,50 @@ local function SpellIcon(spellID)
 	return nil
 end
 
+--- Spell names on the card are |Hspell:id|h links (PlayCards.lua). A frame with hyperlinks enabled
+--- fires OnHyperlinkEnter for links in its own font strings, so each name gets its own tooltip.
+--- (DelveTipMarkup.lua uses an EditBox because links fail inside ScrollFrames; this window has none.)
+local function HookLinks(frame)
+	if frame._mhLinks or not frame.SetHyperlinksEnabled then
+		return
+	end
+	frame._mhLinks = true
+	frame:SetHyperlinksEnabled(true)
+	frame:SetScript("OnHyperlinkEnter", function(self, link)
+		if not (GameTooltip and link) then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+		pcall(GameTooltip.SetHyperlink, GameTooltip, link)
+		GameTooltip:Show()
+	end)
+	frame:SetScript("OnHyperlinkLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+end
+
+--- A frame that takes the mouse (for its links) would otherwise swallow the drag, and Rob had just
+--- reported "ik kan het scherm niet verslepen". Pass the drag on to the window.
+local function ForwardDrag(frame)
+	frame:RegisterForDrag("LeftButton")
+	frame:SetScript("OnDragStart", function()
+		if ns.IsMidnightDialogDocked and ns.IsMidnightDialogDocked(win) and ns.SetMidnightDialogDocked then
+			ns.SetMidnightDialogDocked(win, false)
+		end
+		win:StartMoving()
+	end)
+	frame:SetScript("OnDragStop", function()
+		local stop = win:GetScript("OnDragStop")
+		if stop then
+			stop(win)
+		else
+			win:StopMovingOrSizing()
+		end
+	end)
+end
+
 --------------------------------------------------------------------------------
 -- Pooled widgets. Everything lives on `win.body` and is reused on every redraw.
 --------------------------------------------------------------------------------
@@ -122,20 +166,28 @@ local function StepRow(i)
 		row.fs:SetJustifyH("LEFT")
 		row.fs:SetWordWrap(true)
 		row.fs:SetSpacing(2)
-		row:EnableMouse(true)
-		row:SetScript("OnEnter", function(self)
-			if not (self.spellID and GameTooltip and GameTooltip.SetSpellByID) then
+		-- The icon has its own hover spot (the step's first spell); the names in the text are links
+		-- with their own tooltips. Two tooltips for one row fought each other when both sat on the row.
+		row.iconHit = CreateFrame("Frame", nil, row)
+		row.iconHit:SetAllPoints(row.icon)
+		row.iconHit:EnableMouse(true)
+		row.iconHit:SetScript("OnEnter", function(self)
+			local id = row.spellID
+			if not (id and GameTooltip and GameTooltip.SetSpellByID) then
 				return
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetSpellByID(self.spellID)
+			GameTooltip:SetSpellByID(id)
 			GameTooltip:Show()
 		end)
-		row:SetScript("OnLeave", function()
+		row.iconHit:SetScript("OnLeave", function()
 			if GameTooltip then
 				GameTooltip:Hide()
 			end
 		end)
+		row:EnableMouse(true)
+		HookLinks(row)
+		ForwardDrag(row)
 		win._rows[i] = row
 	end
 	Font(row.num, "GameFontNormalLarge")
@@ -469,6 +521,10 @@ local function Build()
 	body:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -32)
 	body:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, 0)
 	f.body = body
+	-- The idea, "more enemies", mistake and hero lines are font strings on the body: links there too.
+	body:EnableMouse(true)
+	HookLinks(body)
+	ForwardDrag(body)
 
 	f._texts, f._rows, f._specBtns = {}, {}, {}
 
