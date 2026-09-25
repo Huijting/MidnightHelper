@@ -12,7 +12,7 @@ nagekeken). ✅ GEMETEN (Rob, screenshot): het tabblad werkt, 7 Elemental-knoppe
 🐛 **Verslepen werkte niet** (Rob). Oorzaak NIET vastgesteld: de drag zat alleen op de titelstrook van
 `EnsureMidnightDialogTitleBar`. Nu sleept het hele venster (`f:RegisterForDrag`, vóór `RegisterMidnightDialogPopup`
 zodat de dock-hook meeloopt), de titelstrook laat de muis door (`EnableMouse(false)`), en de plek wordt bewaard in
-`ns.db.ui.playCardPos`. Nog niet in het spel getest.
+`ns.db.ui.playCardPos`. ✅ Rob, na `/reload`: *"slepen werkt nu"*.
 
 ## 💬 25 sep — Shadow Enclave: de korte chatversie kent nu ook Infiltrate and Ameliorate
 
