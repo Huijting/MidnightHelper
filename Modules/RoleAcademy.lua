@@ -636,11 +636,9 @@ local function RenderSurvivalPlan(panel, child, y, cw)
 	return y - 6
 end
 
---- "How you play" — the spec's buttons in order, in a few short lines (Modules/PlayCards.lua).
+--- "How you play" — a button that opens the spec's card in its own window (PlayCardWindow.lua).
 ---
---- Unlike the survival card this one is NOT silent when it has nothing: the cards are being
---- written spec by spec, and a player on a spec without one should read "not written yet"
---- rather than wonder whether MH forgot. Once every spec has a card that line never shows.
+--- The window, not this page, says "not written yet" for a spec without a card.
 local function RenderPlayCard(panel, child, y, cw, specID)
 	-- Hidden by default since 4.0.2 (Rob, 24 Sep 2026: option A). Four of forty specs have a card,
 	-- and a public release showing "not written yet" to everyone else reads as half-built work.
@@ -654,26 +652,29 @@ local function RenderPlayCard(panel, child, y, cw, specID)
 	end
 	local card = ns.GetPlayCard and ns.GetPlayCard(specID)
 	ns._playCardLast.card = card and true or false
-	local name = ToolkitSpecName(specID)
-	y = AddToolkitLine(panel, child, cw, y, (SL("PLAYCARD_HEAD_FMT")):format(name), true)
-	if not card then
-		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("PLAYCARD_NONE") .. "|r", false)
-		return y - 8
+	-- One button at the top, not the card itself. Rob, 25 Sep 2026: the card in this page was
+	-- "veel te verstopt en lastig te lezen ... in die lange lap met tekst". It now opens in its own
+	-- window (Modules/PlayCardWindow.lua) with an icon per step.
+	-- ⚠️ One button per panel, reused: this page is rebuilt on every show, track click and resize,
+	-- and a frame created per rebuild can never be freed.
+	local btn = panel._playCardBtn
+	if not btn then
+		btn = CreateFrame("Button", nil, child, "UIPanelButtonTemplate")
+		btn:SetHeight(26)
+		panel._playCardBtn = btn
 	end
-	y = AddToolkitLine(panel, child, cw, y, "|cffffffff" .. SL("PLAYCARD_IDEA") .. "|r " .. card.idea, false)
-	y = AddToolkitLine(panel, child, cw, y, "|cffffffff" .. SL("PLAYCARD_STEPS") .. "|r", false)
-	for i, s in ipairs(card.steps) do
-		y = AddToolkitLine(panel, child, cw, y, ("|cffffcc00%d.|r %s"):format(i, s.text), false, s.spellID)
-	end
-	if card.aoe then
-		y = AddToolkitLine(panel, child, cw, y, "|cffffffff" .. SL("PLAYCARD_AOE") .. "|r " .. card.aoe, false)
-	end
-	y = AddToolkitLine(panel, child, cw, y, "|cffff6060" .. SL("PLAYCARD_MISTAKE") .. "|r " .. card.mistake, false)
-	for _, h in ipairs(card.hero) do
-		y = AddToolkitLine(panel, child, cw, y, "|cff9d9dff•|r " .. h.text, false, h.spellID)
-	end
-	y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. (SL("PLAYCARD_SOURCE_FMT")):format(card.source) .. "|r", false)
-	return y - 8
+	btn:SetParent(child)
+	btn:SetText((SL("PLAYCARD_OPEN_FMT")):format(ToolkitSpecName(specID)))
+	btn:SetWidth(math.min(cw, (btn:GetFontString() and btn:GetFontString():GetStringWidth() or 200) + 40))
+	btn:ClearAllPoints()
+	btn:SetPoint("TOPLEFT", child, "TOPLEFT", 4, y)
+	btn:SetScript("OnClick", function()
+		if ns.ShowPlayCardWindow then
+			ns.ShowPlayCardWindow(specID)
+		end
+	end)
+	btn:Show()
+	return y - 26 - 12
 end
 
 local function RenderDpsToolkit(panel, child, y, cw)
@@ -774,19 +775,26 @@ local function RebuildScrollContent(panel)
 	local cw = math.max(320, (scroll:GetWidth() or 400) - 28)
 
 	-- Spec-aware toolkits sit above the reading chapters, per track.
+	-- The "How you play" button goes FIRST on every track (Rob, 25 Sep 2026: it was hidden
+	-- halfway down). It hides itself when this track has no spec to show.
+	if panel._playCardBtn then
+		panel._playCardBtn:Hide()
+	end
 	if track == TRACK_HEAL then
+		y = RenderPlayCard(panel, child, y, cw,
+			(ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()) or (ns.GetClassHealerSpecID and ns.GetClassHealerSpecID()))
 		y = RenderHealerToolkit(panel, child, y, cw)
 	elseif track == TRACK_TANK then
-		y = RenderTankToolkit(panel, child, y, cw)
 		y = RenderPlayCard(panel, child, y, cw,
 			(ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()) or (ns.GetClassTankSpecID and ns.GetClassTankSpecID()))
+		y = RenderTankToolkit(panel, child, y, cw)
 	elseif track == TRACK_DPS then
+		y = RenderPlayCard(panel, child, y, cw,
+			(ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()) or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID()))
 		-- Survival first, damage second. Carola dies to rares on a Frost Mage
 		-- (Rob, 4 Aug); the cooldown list below tells her how to kill faster,
 		-- which is not her problem. Order on the page is the advice.
 		y = RenderSurvivalPlan(panel, child, y, cw)
-		y = RenderPlayCard(panel, child, y, cw,
-			(ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()) or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID()))
 		y = RenderDpsToolkit(panel, child, y, cw)
 	end
 

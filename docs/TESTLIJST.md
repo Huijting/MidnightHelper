@@ -21,6 +21,21 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 25 sep — "Zo speel je" in een eigen venster, en kaarten voor álle specs
+
+⚠️ **WoW helemaal afsluiten en opnieuw starten** (er is een nieuw bestand; `/reload` laadt dat mogelijk niet).
+Rob: *"ze zijn nu veel te verstopt en lastig te lezen"* → hij koos een eigen venster met iconen.
+- [ ] **Typ `/mh play`** op je Prot Paladin. Komt er een los venster met bovenin 3 spec-icoontjes (Protection
+      met een gouden rand), het idee, en 4 stappen **met een icoon ervoor**? Muis op een stap: de uitleg van die spreuk?
+- [ ] **Klik op het Holy- of Retribution-icoon** bovenin: wisselt de kaart naar die spec? Nog een keer `/mh play`
+      sluit het venster.
+- [ ] **Leesbaarheid:** is het nu goed te lezen? Te groot, te klein, te breed? (Shift + muiswiel maakt het venster
+      groter of kleiner.) Slepen aan de titel, Escape sluit.
+- [ ] **Academy** (Tank, Heal én DPS): bovenaan staat nu één knop **"How you play …  >"**, en de lange kaarttekst
+      is weg. Opent de knop het venster met die spec?
+- [ ] **Andere klassen:** op elke alt `/mh play`. Staat er een kaart (niet "isn't written yet")? Klopt hij met hoe
+      jij die spec speelt? Vooral: staan er **nergens rare namen of "spell 12345"**?
+
 ## 🆕 22 sep — Curse Surge: "nu" en "volgende" met de naam van de baas
 
 `/reload`. Rob: *"ja doe dat vervolg maar"*. De koppeling plek → baas komt van HandyNotes; 2 van de 5 zijn door
@@ -80,6 +95,8 @@ schuiven naar Shift/Ctrl. 107 verschuivingen in 27 specs; **Prot Paladin blijft 
 
 `/reload`. Rob: *"Ik wil dat mh dat soort uitleg ook gaat geven … maar wel in eli10 formaat"*. Eerst vier
 specs; pas als de vorm goed voelt volgen de andere en de vijf andere talen (nu Engels + Nederlands).
+📌 **Sinds 25 sep staat de kaart niet meer in de Academy-tekst maar in een eigen venster** (zie de sectie van 25 sep
+bovenaan); de open punten hieronder test je dus in dat venster.
 ⚠️ **Sinds 4.0.2 standaard verborgen.** Typ eerst **`/mh playcards`** (zet ze aan voor jouw account), dan de Academy
 opnieuw openen. Zie je hem niet: **`/mh playcards check`** zegt of de Academy hem getekend heeft, en waarom niet.
 - [x] ✅ (Rob, 24 sep, screenshot) **Op je Prot Paladin**: Academy → **Tank**-tab. Onder de tank-toolkit staat **How you play Protection**:

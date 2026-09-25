@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## 🃏 25 sep — "Zo speel je": eigen venster + kaarten voor alle 40 specs
+
+Rob: *"ja begin maar met de kaarten, maar … ze zijn nu veel te verstopt en lastig te lezen"*. Hij koos (AskUserQuestion)
+**eigen venster** + **icoon per stap**.
+- **`Modules/PlayCardWindow.lua` (nieuw, in de .toc → client-herstart nodig):** los, versleepbaar venster
+  (`ns.RegisterMidnightDialogPopup`: slepen, Shift+scroll, Dock, Esc). Bovenin een icoonknop per spec van je klasse
+  (actieve = gouden rand; klik = die spec bekijken), dan het idee, "Your buttons…", genummerde stappen met spell-icoon
+  (tooltip bij hover; stap zonder bevestigd id = geen icoon, geen "?"), More enemies, Biggest mistake, hero-regels,
+  bron. Volgt een spec-wissel. Openen: **`/mh play`** (alias `howtoplay`, unlisted) of de knop **bovenaan** de Academy
+  (nu op alle drie de tracks, ook Heal). De lange tekst in de Academy is weg; knop = `panel._playCardBtn`, hergebruikt.
+- **Kaarten:** 36 nieuwe specs (alle behalve 70/66/62/262), en + nl, via 6 agenten per klasse
+  (`scratchpad/playcards/*.md`, brief in `BRIEF.md`). Elk `{SPELL:id}` tegen Wowheads live tooltip; ids zonder
+  bevestiging als platte tekst. Samengevoegd met een controlescript (onderdelen volgens meta, zelfde spell-ids
+  in en/nl, geen dubbele sleutels) — 36/36 geslaagd, 339 regels per taal. **AFGELEID tot Rob ze ziet.**
+- Nog steeds achter `ns.db.ui.playCards` (alleen de Academy-knop; `/mh play` werkt altijd). Rob beslist bij de
+  release of de schakelaar weg kan, en de 5 andere talen volgen daarna.
+- ⚠️ **Door de agenten gevonden, NIET gerepareerd (eerst meten op een Devourer):** `DpsToolkit.lua:73` Devourer
+  gebruikt `1217607` (volgens Wowhead de in-vorm-buff, knop = `1217605`) en `370965` (Havoc/Veng-Hunt, Devourer =
+  `1246167`) — `IsPlayerSpell` op de eigen spec kan die twee dan verbergen. Verder alleen commentaar-id's die
+  verouderd zijn (Thunder Blast 435607→435222, Boomstick 1261215→1261193, Evoker Dream Breath/Temporal Anomaly,
+  Fire Blast/Hand of Gul'dan/Implosion/Havoc/Infernal/Meteor, Crimson Tempest 121411 bestaat niet meer, Shadow
+  Void Blast 450405 = passief) — classifier matcht op naam, dus geen effect in het spel.
+
 ## 🃏 24 sep avond — Prot-kaart voor het eerst in het spel gezien; `/mh playcards check` erbij
 
 Rob zette `/mh playcards` aan (chat: ON), deed `/reload`, en zag op Tank track **geen** kaart, zonder fout.

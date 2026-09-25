@@ -92,6 +92,7 @@ Modules\ActionPrompt.lua
 Modules\TankToolkit.lua
 Modules\DpsToolkit.lua
 Modules\PlayCards.lua
+Modules\PlayCardWindow.lua
 Modules\SurvivalPlan.lua
 Modules\TankPullSummary.lua
 Modules\DispelCapture.lua
