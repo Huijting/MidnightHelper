@@ -24,6 +24,13 @@ moeten we een extra opvallende knop daarvoor maken in de MH"*.
   staat) en niet op max level (proc-knoppen als Thunder Blast zouden dan onterecht grijs zijn). Ververst bij
   PLAYER_LEVEL_UP en SPELLS_CHANGED. Sleutels in 7 talen (door ons). Release-notes + CHANGELOG_410_7 bijgewerkt.
 - ✅ Grijs GEMETEN door Rob (Resto Druid, screenshot): *"het grijs werkt, goed"* → **getagd als `v4.1.0`**.
+  GEMETEN: workflow success; CurseForge ✅, Wago ✅, GitHub-release v4.1.0 (geen prerelease, zip 6164847 bytes).
+- ✅ **Wekelijkse kaartcontrole** (Rob: *"ja doe maar die wekelijkse check"*): de **content-wachter**
+  (`trig_01JYW9gqzFNe8MkY3x3tQzh6`, dagelijks 04:00 UTC) heeft een nieuwe sectie: **alleen op maandag** vergelijkt hij
+  per kaart de datum van elke gids in `source` met de huidige gids, en legt alleen bij nieuwere gidsen de kaartregels
+  ernaast; ook klassen-hotfixes die de knopvolgorde veranderen. Rapport als alinea "🃏 Kaarten:" in
+  `docs/CONTENT_WATCH.md`, kaarten wijzigt hij nooit. Bij een nieuwe patch: melding "alle kaarten nakijken". Eerste
+  run: maandag 28 sep. Via RemoteTrigger bijgewerkt; de rest van de opdracht is ongewijzigd teruggezet.
 
 ## 🛡️ 25 sep avond — kaartvenster werkt in het spel; tabblad "Stay alive" erbij
 
