@@ -2792,3 +2792,95 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Werkboom was bij aanvang schoon, op branch
     `main` en gelijk met `origin/main`; geen van de vier wachter-bestanden stond
     gewijzigd-maar-ongecommit.
+- [2026-09-25] ✅ **Geen relevante API-wijzigingen (18–25 sep). 0 × [MOET GEFIKST].** Vannacht
+  bewogen voor het eerst sinds dagen **beide** API-pagina's — `Patch 12.1.0/API changes` en
+  `Patch 12.1.5/API changes`, binnen 21 seconden van elkaar — en er staat **geen enkele API-regel**
+  in de diff. Ketho haalde op beide alleen de `TOC:`-regel uit het `{{#description2:}}`-sjabloon en
+  zette een ontbrekende accolade terug; op 12.1.5 kortte hij daarbij twee `Bluepost`-datums in.
+  📌 **Dit is precies de val die deze wachter moet zien: een bewogen revisie-ID is geen veranderde
+  API.** Had ik "de API-pagina is bijgewerkt" gemeld, dan had er vandaag onterecht nieuws gestaan.
+  - **GEMETEN — byte-voor-byte via de REST-diff** (`rest.php/v1/revision/<van>/compare/<naar>`,
+    cache-busted):
+    - `Patch 12.1.0/API changes`: `6882827` (102493 b) → `6886718` (102480) → `6886719` (102481),
+      beide Ketho, 2026-09-25T01:45:38Z en 01:45:50Z, **zonder samenvatting**. Netto **−12 bytes**.
+      De diff raakt alléén regel 2: `TOC: 120100}}` verwijderd, en `…(Curse of Ula’tek)}` → `}}`.
+      **Alle 21 sectiekoppen staan er nog** (Resources t/m Deprecated API), met hun offset uniform
+      −13 en daarna +1 verschoven — geen sectie toegevoegd, geen sectie weg.
+    - `Patch 12.1.5/API changes`: `6884498` → `6886717` (34466 b, 01:45:29Z). `TOC: 120105}}` weg
+      uit `{{#description2:}}`, plus `|date=Sep 3, 2026 6:42 pm` → `|date=Sep 3, 2026` en
+      `|date=Sep 16, 2026 1:09 am` → `|date=Sep 15, 2026` (dus ook een dag terug, vermoedelijk een
+      tijdzonecorrectie op dezelfde post — de `|link=` erachter is onveranderd). **Geen regel in
+      `Consolidated changes`, geen nieuwe `Bluepost`, geen nieuw item.**
+    ℹ️ Dat 12.1.0 op TOC `120100` staat en 12.1.5 op `120105` is dus **niet** nieuw en niet
+    gewijzigd — dat stond al in mijn regel van 6 sep. `MidnightHelper.toc:1` declareert nog steeds
+    `## Interface: 120007, 120100`; **[RAAKT ONS NIET]**.
+  - 📰 **De hotfixes van 24 september staan erop, en er is géén `;User Interface`.** `Hotfixes` rev
+    **`6886643`** (Dark T Zeratul, 2026-09-25T00:42:51Z, 364493 b, was `6885563`/363781). De
+    Postlink ging van *"Hotfixes: September 1-23"* naar *"1-**24**"*. De nieuwe sectie
+    `===September 24===` heeft precies twee koppen:
+    - `;Delves` — *"In the [[Shadow Enclave]] delve variant "Infiltrate and Ameliorate", Oddball
+      "Ingredient" now teleport to one of several points in the play space if dropped into the
+      pit."*
+    - `;Player versus Player` — *"Developers' notes: We've added a few more adjustments to our
+      prior changes to movement speed reduction effects."*: Hunter `Wing Clip` verlaagt nu 40% in
+      PvP, `Improved Snaring` verhoogt dat met 10%, Mage Arcane `Chrono Shift` (PvP Talent) 30%
+      (was 50%), Paladin `Consecrated Ground` 20% (was 50%).
+    → **[RAAKT ONS NIET]** als API-bevinding: klassen- en Delve-inhoud is CONTENT_WATCH-terrein.
+    GEMETEN over `*.lua` buiten `docs/`, `tools/` en `dist/`: `Wing Clip` 0, `Improved Snaring` 0,
+    `Chrono Shift` 0, `Consecrated Ground` 0, `Oddball` 0 treffers. **Positieve controle in dezelfde
+    run en op dezelfde reikwijdte:** `Blessing of Freedom` 3, `Hunter's Mark` 21, `Arcane Explosion`
+    7 — patroon én reikwijdte deugen, die vier spells staan er gewoon niet in.
+  - 🍲 **Eén ding door naar `CONTENT_WATCH.md`, niet naar mij.** De addon beschrijft die
+    ingrediënten-stap wél, in zeven talen: `Locales/DelveTips.lua:36` (enUS) zegt *"Infiltrate and
+    Ameliorate: sabotage 4 cauldrons by adding odd ingredients. Some ingredients sit up high: use
+    the jumping mushrooms."*, met dezelfde regel in it/nl/de/fr (en de es/pt-varianten in hetzelfde
+    bestand). Of die tekst na deze hotfix nog klopt — wat er nu gebeurt als een ingrediënt in de pit
+    valt — is een **inhoudsvraag**. Ik meld hem door en repareer niets.
+  - 🗣️ **Forum: twee topics gebumpt na middernacht, geen van beide met een API-claim in zijn
+    onderwerp.** *ONLY show characters on a specific realm?* (`1911888`, 8 posts, laatste
+    2026-09-25T03:21:52Z door JerrodOwex) — een vraag uit aug 2024 over het
+    personageselectiescherm, waarvan post 2 (Fizzlemizz, 2024) *"Not at this time."* zegt. En *New
+    AddOn: ChromaChat for easier chat reading/tracking* (`2349301`, 3 posts, laatste
+    2026-09-25T01:18:25Z) — een addon-aankondiging over chatkleuren, class-color-regels en
+    mention-sounds. In beide staat **geen Blizzard-reactie**: geen `community-manager` of
+    `cs-support-sse` onder de posters.
+    ⚠️ **NIET GEMETEN: de tekst van de nieuwste post in deze twee threads.** Discourse gaf op
+    `/t/<id>/<n>.json` én `/t/<id>/last.json` telkens de thread vanaf post 1 terug, en binnen mijn
+    tekenlimiet kwam het laatste bericht niet in beeld. Wat ik wél gemeten heb: auteur, tijdstip,
+    aantal posts, en de eerste posts. Een API-breuk zou hier dus in principe onopgemerkt kunnen
+    blijven; de onderwerpen maken dat onwaarschijnlijk, maar dat is een oordeel en geen meting.
+  - **Onveranderd sinds gisteren:** `TOC format` (`6878841`, Zeal, 19 sep — **zevende** stille dag,
+    dus nog steeds niets nieuws over `AllowLoadGameType`), `API change summaries` (`6883777`,
+    22 sep), `Patch 12.0.7/API changes` (`6794100`, 4 aug). `Patch 12.1.6/…`, `12.1.7/…` en
+    `12.2.0/API changes` nog altijd `"missing":true`. Geen nieuw topic in forumcategorie 35 sinds
+    `2359076` (23 sep 14:46) — die staat nog op 1 post.
+  - 🔒 **Cache-val uitgesloten.** Het nieuwste dat ik zie is nieuwer dan wat mijn eigen regel van
+    gisteren noemde: `Hotfixes` `6886643` (25 sep 00:42) > `6885563` (24 sep 00:56), en de nieuwste
+    forumactiviteit is 25 sep 03:21 tegen 23 sep 14:46 gisteren. Dat `TOC format` en `API change
+    summaries` níét bewogen is dus echt en geen oude snapshot.
+  - **Staande 12.1.0-/12.1.5-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→
+    `C_Navigation`, `MouseIsOver`→`C_UI`, `UntrustedScriptExecution` op AuraButtons,
+    `GetWeaponEnchantInfo`, `GetItemCooldown`→`ns.GetItemCooldownSafe`, castbar-ID's per
+    unit-token, `TimedSignalMap`, `CreateFrameWithOptions`, de `COMBAT_LOG_EVENT_UNFILTERED`-
+    restrictie, `GetArenaOpponentSpec`/`UnitFrameUtil`/`GetRefreshCarryOverDuration` uit build
+    69952) zijn deze run **niet** één voor één opnieuw getoetst en blijven staan zoals eerder
+    gemeten. Ook onveranderd: de acht `/cancelaura`-regels in `Modules/TeamMacrosData.lua` blijven
+    niet-gemeten zolang topic `2351797` (laatste post 18 sep) zonder Blizzard-reactie blijft.
+  - **Bronnen, alle met cache-buster via `web_fetch_exa`:** `warcraft.wiki.gg/api.php`
+    (`prop=revisions` op negen titels, plus `rvlimit=10` op `Patch 12.1.0/API changes`;
+    `action=compare` 1× voor 12.1.5), `warcraft.wiki.gg/rest.php/v1/revision/…/compare/…` (3×),
+    `us.forums.blizzard.com` categorie-JSON 35 (`order=created` én `order=activity`) en drie
+    topic-JSON's. ⚠️ **Niet zelf gelezen:** `news.blizzard.com` blijft `EGRESS_BLOCKED`; de
+    hotfixtekst komt uit de wiki, die de post letterlijk overneemt — een **spiegel**, niet de bron.
+    📌 **Nieuw gereedschap, en het is beter dan wat ik had:** `action=compare` op `api.php` faalde
+    twee keer op de grote 12.1.0-diff (`CRAWL_UNKNOWN_ERROR`, dan `CRAWL_UNEXPECTED_CONTENT_TYPE`),
+    maar `rest.php/v1/revision/<van>/compare/<naar>` werkte wél en geeft bovendien de **sectielijst
+    van vóór en ná** mee. Daarmee is "geen sectie toegevoegd" te *meten* in plaats van te hopen —
+    precies wat er vandaag nodig was. De wiki-API blijft *"Unrecognized parameter: nocache"*
+    waarschuwen; dat is een MediaWiki-waarschuwing, geen fout.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** ⚠️ De werkmap stond bij aanvang in
+    **detached HEAD** op `b6fe103` met een schone boom, terwijl de lokale `main`-ref nog op
+    `f32c136` stond en `origin/main` niet vers was — `git rev-parse` liet drie verschillende commits
+    zien. Na `git fetch origin main` bleek `b6fe103` exact `origin/main`: geen verloren werk, alleen
+    een achterlopende ref. `main` bijgezet en daarop gecommit. Geen van de vier wachter-bestanden
+    stond gewijzigd-maar-ongecommit.
