@@ -80,6 +80,9 @@ het party-kanaal leeg, dus de tips kwamen nergens aan.
       komen in geen enkele delvetip voor). ❓ Kijk tijdens de run: toont de Coach Abominable Blunder? En vertel
       wat je moet doen: waar vind je de "Oddball Ingredients", en is "kicked" gewoon onderbreken
       (interrupt)? Dan schrijf ik er een regel voor.
+      ✅ **Tekstvraag achterhaald (GEMETEN 25 sep, na een melding van de content-wachter):** de tips noemen nu
+      beide opdrachten (`DELVE_TIP_SHADOW_ENCLAVE_ROUTE`: "kick 5 Ula'tek Summoners into the abyss", "sabotage 4
+      cauldrons by adding odd ingredients"). Open blijft alleen: **toont de Coach Abominable Blunder?**
 
 ## 🆕 16 sep — alle instellingen nu ook ín MH ("nummer 3", de settings-branch)
 
