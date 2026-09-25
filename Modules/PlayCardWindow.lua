@@ -557,6 +557,92 @@ function ns.TogglePlayCardWindow(specID)
 	end
 end
 
+--- The gold "How you play" button in MH's search bar, on every tab (4.1.0). Rob, 25 Sep 2026: "misschien
+--- moeten we een extra opvallende knop daarvoor maken in de MH". Its own gold fill rather than either
+--- look's button style, so it stands out in both; it pulses until the first click, then stays still.
+function ns.CreatePlayCardButton(parent)
+	local b = CreateFrame("Button", "MidnightHelperPlayCardButton", parent)
+	b:SetHeight(22)
+	local glow = b:CreateTexture(nil, "BACKGROUND", nil, -2)
+	glow:SetPoint("TOPLEFT", -3, 3)
+	glow:SetPoint("BOTTOMRIGHT", 3, -3)
+	glow:SetColorTexture(1, 0.85, 0.35, 1)
+	local fill = b:CreateTexture(nil, "BACKGROUND")
+	fill:SetAllPoints()
+	fill:SetColorTexture(0.80, 0.58, 0.16, 1)
+	local hi = b:CreateTexture(nil, "HIGHLIGHT")
+	hi:SetAllPoints()
+	hi:SetColorTexture(1, 1, 1, 0.2)
+	local icon = b:CreateTexture(nil, "ARTWORK")
+	icon:SetSize(18, 18)
+	icon:SetPoint("LEFT", b, "LEFT", 3, 0)
+	icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+	local fs = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	fs:SetPoint("LEFT", icon, "RIGHT", 5, 0)
+	fs:SetTextColor(0.12, 0.07, 0.02)
+
+	local pulse = glow:CreateAnimationGroup()
+	pulse:SetLooping("BOUNCE")
+	local a = pulse:CreateAnimation("Alpha")
+	a:SetFromAlpha(0.15)
+	a:SetToAlpha(1)
+	a:SetDuration(0.9)
+
+	local function Seen()
+		return ns.db and ns.db.ui and ns.db.ui.playCardSeen
+	end
+
+	function b:Refresh()
+		fs:SetText(L("PLAYCARD_BTN"))
+		local specID = ActiveSpecID()
+		local tex
+		if specID and GetSpecializationInfoByID then
+			local ok, _, _, _, t = pcall(GetSpecializationInfoByID, specID)
+			tex = ok and t or nil
+		end
+		icon:SetTexture(tex or "Interface\\Icons\\INV_Misc_Book_09")
+		self:SetWidth(3 + 18 + 5 + fs:GetStringWidth() + 10)
+		if Seen() then
+			pulse:Stop()
+			glow:Hide()
+		else
+			glow:Show()
+			if not pulse:IsPlaying() then
+				pulse:Play()
+			end
+		end
+	end
+
+	b:SetScript("OnClick", function(self)
+		if ns.db then
+			ns.db.ui = ns.db.ui or {}
+			ns.db.ui.playCardSeen = true
+		end
+		self:Refresh()
+		ns.TogglePlayCardWindow()
+	end)
+	b:SetScript("OnEnter", function(self)
+		if GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+			GameTooltip:SetText(L("PLAYCARD_BTN"), 1, 0.82, 0.2)
+			GameTooltip:AddLine(L("CMDLIST_PLAY"), 0.9, 0.88, 0.82, true)
+			GameTooltip:AddLine("/mh play", 0.62, 0.6, 0.56)
+			GameTooltip:Show()
+		end
+	end)
+	b:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	b:SetScript("OnShow", b.Refresh)
+	b:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+	b:RegisterEvent("PLAYER_ENTERING_WORLD")
+	b:SetScript("OnEvent", b.Refresh)
+	b:Refresh()
+	return b
+end
+
 function ns.ShowPlayCardWindow(specID)
 	local f = Build()
 	chosenSpec = specID

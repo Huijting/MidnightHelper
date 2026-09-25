@@ -30,11 +30,11 @@ local _, ns = ...
 local CARDS = {
 	[70] = { -- Retribution Paladin
 		steps = 4, aoe = false, hero = 2,
-		source = "Icy Veins 25 Aug · Method 12 Aug 2026",
+		source = "Icy Veins 25 Aug · Method 27 Aug 2026", -- rechecked 25 Sep: still right
 	},
 	[66] = { -- Protection Paladin
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 3 Sep · Wowhead 12 Aug · Icy Veins 10 Aug 2026",
+		source = "Method 3 Sep · Wowhead 12 Aug · Icy Veins 21 Sep 2026", -- rechecked 25 Sep: still right
 	},
 	[62] = { -- Arcane Mage
 		steps = 4, aoe = true, hero = 2,
@@ -42,7 +42,7 @@ local CARDS = {
 	},
 	[262] = { -- Elemental Shaman
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 1 Sep · Wowhead 31 Aug 2026",
+		source = "Icy Veins 10 Aug · Method 1 Sep · Wowhead 20 Sep 2026", -- rechecked 25 Sep: still right
 	},
 	[63] = { -- Fire Mage
 		steps = 5, aoe = true, hero = 2,
@@ -251,8 +251,9 @@ function ns.PrintPlayCardCheck()
 	end
 	local ui = ns.db and ns.db.ui
 	say("Play card check:")
-	say(("  switch ns.db.ui.playCards = %s   (ns.db present: %s)")
-		:format(tostring(ui and ui.playCards), tostring(ns.db ~= nil)))
+	-- The preview switch (ns.db.ui.playCards) is gone since 4.1.0; the cards show for everyone.
+	say(("  ns.db present: %s · last tab: %s")
+		:format(tostring(ns.db ~= nil), tostring(ui and ui.playCardTab or "play")))
 	local tank = ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()
 	local classTank = ns.GetClassTankSpecID and ns.GetClassTankSpecID()
 	local dps = ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()

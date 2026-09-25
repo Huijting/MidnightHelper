@@ -82,7 +82,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
 	"livetips", "lock", "macrocheck", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
-	"partytarget", "play", "howtoplay", "playcards","poison", "poisons", "portal", "portals", "potionkeys", "prey",
+	"partytarget", "howtoplay", "playcards", "poison", "poisons", "portal", "portals", "potionkeys", "prey",
 	"profadvice", "profguide", "profids", "profweekly", "ptr", "questdiff", "questgate", "questscan", "range", "smcicons", "bossdiff",
 	"zonegate", "travelwhy", "questsnap",
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
@@ -110,6 +110,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh", descKey = "CMDLIST_MAIN" },
 		{ cmd = "/mh setup", descKey = "CMDLIST_SETUP" },
 		{ cmd = "/mh codex", descKey = "CMDLIST_CODEX" },
+		-- 4.1.0: the "How you play" card for every spec (also the gold button in the search bar).
+		{ cmd = "/mh play", descKey = "CMDLIST_PLAY" },
 		-- 10 Sep 2026 (Spec 33 §2b): the Macros tab had no command, and NavSearch indexes this
 		-- table - so without this row "macros" found the tab by its name only.
 		{ cmd = "/mh macros", descKey = "CMDLIST_MACROS" },

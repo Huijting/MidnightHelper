@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.1.0
+
+📌 **2026-09-25, als release (Rob: "go, maak maar 4.1.0 klaar, maar dit moet echt duidelijk vermeld worden").**
+Notitie in `docs/CURSEFORGE_4.1.0.md` (identiek aan `RELEASE_NOTES.md`). Kort:
+- **"How you play"-kaarten voor alle 40 specs** in een eigen venster: idee, knoppen op volgorde met icoon,
+  meer vijanden, grootste fout, hero-regels, bron met datum; tooltip op elke spreuknaam; tab "Stay alive";
+  spec-iconen om andere specs te bekijken; versleepbaar en onthouden. In 7 talen.
+- **Gouden "How you play"-knop** in de zoekbalk op elk tabblad (pulseert tot de eerste klik); `/mh play` in de
+  commandolijst; Academy-knop voor iedereen (schakelaar `/mh playcards` weg, is nu een alias).
+- Vertalingen: de laatste Engelse UI-regels in de/fr/es/pt/it (160 regels).
+- Shadow Enclave-chattekst noemt Infiltrate and Ameliorate.
+
 ## 4.0.2
 
 📌 **2026-09-24, direct als release (Rob: "doe maar wel een release ipv een beta").** Notitie in

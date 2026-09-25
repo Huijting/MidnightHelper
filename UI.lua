@@ -890,6 +890,9 @@ function ns:RefreshLocaleUI()
 	if r.searchGoBtn and r.searchGoBtn.SetText then
 		r.searchGoBtn:SetText(self:L("SEARCH_GO"))
 	end
+	if r.playCardBtn and r.playCardBtn.Refresh then
+		r.playCardBtn:Refresh()
+	end
 	if r.aboutBtn and r.aboutBtn.SetText then
 		r.aboutBtn:SetText(self:L("ABOUT_BUTTON"))
 	end
@@ -3018,9 +3021,24 @@ function ns:EnsureMainUI()
 	searchBarHint:SetTextColor(0.82, 0.78, 0.68)
 	searchBarHint:SetText(ns:L("SEARCH_LABEL"))
 
+	-- 4.1.0: the gold "How you play" button, rightmost, on every tab (Modules/PlayCardWindow.lua).
+	-- pcall: this runs while the main window is built, and a fault here must not cost the whole window.
+	local playCardBtn
+	if ns.CreatePlayCardButton then
+		local ok, btn = pcall(ns.CreatePlayCardButton, searchBar)
+		playCardBtn = ok and btn or nil
+	end
+	if playCardBtn then
+		playCardBtn:SetPoint("RIGHT", searchBar, "RIGHT", -8, 0)
+	end
+
 	local searchResetBtn = CreateFrame("Button", nil, searchBar, "UIPanelButtonTemplate")
 	searchResetBtn:SetSize(MHGetLayoutMetrics().searchResetBtnWidth, 22)
-	searchResetBtn:SetPoint("RIGHT", searchBar, "RIGHT", -8, 0)
+	if playCardBtn then
+		searchResetBtn:SetPoint("RIGHT", playCardBtn, "LEFT", -8, 0)
+	else
+		searchResetBtn:SetPoint("RIGHT", searchBar, "RIGHT", -8, 0)
+	end
 	searchResetBtn:SetText(ns:L("SEARCH_MY_CHARACTER"))
 	MHTintButtonTextures(searchResetBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
 
@@ -4527,6 +4545,7 @@ function ns:EnsureMainUI()
 		searchHint = searchBarHint,
 		searchResetBtn = searchResetBtn,
 		searchGoBtn = searchGoBtn,
+		playCardBtn = playCardBtn,
 		aboutBtn = aboutBtn,
 		infoToggleBtn = infoToggleBtn,
 		tabKeys = tabKeys,

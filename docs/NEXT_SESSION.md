@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🚀 25 sep avond — 4.1.0 klaargezet ("How you play" voor iedereen); tag wacht op één blik van Rob
+
+Rob: *"go, maak maar 4.1.0 klaar, maar dit moet echt duidelijk vermeld worden bij de release notes en misschien
+moeten we een extra opvallende knop daarvoor maken in de MH"*.
+- **Gouden knop** `ns.CreatePlayCardButton` (PlayCardWindow.lua) rechts in de zoekbalk van UI.lua, op elk tabblad:
+  eigen goudkleur (los van beide looks), spec-icoon, pulseert tot de eerste klik (`ns.db.ui.playCardSeen`),
+  tooltip = `CMDLIST_PLAY`. Aangemaakt onder `pcall`, zodat een fout het hoofdvenster niet meeneemt.
+- **Schakelaar weg:** de Academy-knop staat voor iedereen; `/mh playcards` = alias van `/mh play`;
+  `PLAYCARD_TOGGLE_*` uit alle 7 talen. `/mh play` in de commandolijst (MAIN), `CMDLIST_PLAY` + `PLAYCARD_BTN` in 7 talen
+  (de knopnaam = het goedgekeurde "HEAD_FMT" zonder %s; CMDLIST_PLAY door ons).
+- **Vier pilotkaarten nagekeken** (agent, 25 sep): alle vier kloppen nog; hotfixes 22-24 sep veranderen geen
+  knopvolgorde. Brondatums bijgewerkt: Ret Method 27 Aug (12 Aug was een cachekopie), Prot Icy Veins 21 Sep,
+  Elemental Wowhead 20 Sep.
+- Release: TOC 4.1.0, `CHANGELOG_410_1..6`, `RELEASE_NOTES.md` == `docs/CURSEFORGE_4.1.0.md` (2300 bytes, GEMETEN
+  identiek), CHANGELOG.md. Syntax/lint 0 hard, drift alleen de bekende SET_CONSREADY.
+- ⏸ **Nog niet getagd:** de gouden knop zit in het hoofdvenster en is nog niet gezien.
+
 ## 🛡️ 25 sep avond — kaartvenster werkt in het spel; tabblad "Stay alive" erbij
 
 GEMETEN (Rob, screenshot, Elemental Shaman): het venster verschijnt met 3 spec-iconen, idee, 5 stappen mét spell-icoon,

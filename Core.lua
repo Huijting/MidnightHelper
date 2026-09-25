@@ -3071,11 +3071,10 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh playcards — show or hide the "How you play" pilot cards in the Academy (hidden by default
-	-- since 4.0.2: only 4 of 40 specs have one yet).
 	-- /mh play — the "How you play" card in its own window (Rob, 25 Sep 2026: the card inside the
 	-- Academy was "veel te verstopt en lastig te lezen").
-	if msg == "play" or msg == "howtoplay" then
+	-- `playcards` was the preview switch (4.0.2); since 4.1.0 everyone has the cards, so it just opens them.
+	if msg == "play" or msg == "howtoplay" or msg == "playcards" then
 		if ns.TogglePlayCardWindow then
 			ns.TogglePlayCardWindow()
 		end
@@ -3084,15 +3083,6 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	if msg == "playcards check" or msg == "playcard check" then
 		if ns.PrintPlayCardCheck then
 			ns.PrintPlayCardCheck()
-		end
-		return
-	end
-	if msg == "playcards" then
-		if ns.db then
-			ns.db.ui = ns.db.ui or {}
-			ns.db.ui.playCards = not ns.db.ui.playCards
-			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"),
-				ns:L(ns.db.ui.playCards and "PLAYCARD_TOGGLE_ON" or "PLAYCARD_TOGGLE_OFF")))
 		end
 		return
 	end

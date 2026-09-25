@@ -640,14 +640,13 @@ end
 ---
 --- The window, not this page, says "not written yet" for a spec without a card.
 local function RenderPlayCard(panel, child, y, cw, specID)
-	-- Hidden by default since 4.0.2 (Rob, 24 Sep 2026: option A). Four of forty specs have a card,
-	-- and a public release showing "not written yet" to everyone else reads as half-built work.
-	-- `/mh playcards` turns it on per account, for Rob's own review of the pilot.
-	local on = (ns.db and ns.db.ui and ns.db.ui.playCards) and true or false
+	-- Hidden behind `/mh playcards` from 4.0.2 (4 of 40 specs had a card) until 4.1.0, when all 40 were
+	-- written and Rob said go (25 Sep 2026). Shown to everyone now; `on` stays in the check output.
+	local on = true
 	-- `/mh playcards check` prints this: a card that stays away is silent, so keep the reason.
 	-- Added 24 Sep 2026: switch on in the saved file, card still missing on Rob's Prot Paladin.
 	ns._playCardLast = { spec = specID, on = on, at = GetTime and GetTime() or 0 }
-	if not specID or not on then
+	if not specID then
 		return y
 	end
 	local card = ns.GetPlayCard and ns.GetPlayCard(specID)
