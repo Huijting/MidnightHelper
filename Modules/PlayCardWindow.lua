@@ -410,17 +410,45 @@ local function Build()
 	local f = CreateFrame("Frame", WIN_NAME, UIParent, "BackdropTemplate")
 	f:SetSize(WIDTH, 300)
 	f:SetFrameStrata("HIGH")
-	f:SetPoint("CENTER", UIParent, "CENTER", 320, 60)
+	local saved = ns.db and ns.db.ui and ns.db.ui.playCardPos
+	if type(saved) == "table" and saved[1] then
+		f:SetPoint(saved[1], UIParent, saved[2] or saved[1], tonumber(saved[3]) or 0, tonumber(saved[4]) or 0)
+	else
+		f:SetPoint("CENTER", UIParent, "CENTER", 320, 60)
+	end
 	f:Hide()
 	if ns.ApplyMidnightDialogBackdrop then
 		ns.ApplyMidnightDialogBackdrop(f)
 	end
+	-- Drag by the whole window, not only the title strip. Rob, 25 Sep 2026: "ik kan alleen het scherm
+	-- niet verslepen" -- the title-bar drag from EnsureMidnightDialogTitleBar did not take. Set BEFORE
+	-- RegisterMidnightDialogPopup: its dock button hooks an existing OnDragStart to undock on drag.
+	-- The step rows take the mouse for their tooltips, so drag from the title, the tabs or an empty spot.
+	f:SetMovable(true)
+	f:EnableMouse(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", function(self)
+		self:StartMoving()
+	end)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		local p, _, rp, x, y = self:GetPoint(1)
+		if p and ns.db then
+			ns.db.ui = ns.db.ui or {}
+			ns.db.ui.playCardPos = { p, rp, x, y }
+		end
+	end)
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f) -- drag, Shift+scroll to resize, dock button, Escape closes
 	end
 	local titleBar, content
 	if ns.EnsureMidnightDialogTitleBar then
 		titleBar, content = ns.EnsureMidnightDialogTitleBar(f)
+	end
+	if titleBar then
+		-- Let a drag on the title fall through to the frame, so there is ONE drag path: it saves the
+		-- position and runs the dock button's undock hook, which a handler of our own would skip.
+		titleBar:EnableMouse(false)
 	end
 	if ns.AttachMidnightDialogCloseButton then
 		ns.AttachMidnightDialogCloseButton(f)

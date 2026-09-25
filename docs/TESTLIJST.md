@@ -28,9 +28,12 @@ Rob: *"ze zijn nu veel te verstopt en lastig te lezen"* → hij koos een eigen v
 - [x] ✅ (Rob, 25 sep, screenshot op zijn **Elemental Shaman**) **Typ `/mh play`**. Komt er een los venster met bovenin
       3 spec-icoontjes (je eigen spec met een gouden rand), het idee, en de stappen **met een icoon ervoor**?
       (Tooltip bij het aanwijzen van een stap nog niet bevestigd.)
-- [ ] 🆕 **Tabblad "Stay alive"** (Rob: *"ik mis eigenlijk de defense dingen"*): onder de spec-icoontjes staan nu twee
-      tabs, **Your buttons** en **Stay alive**. Klik Stay alive: je verdedigingsknoppen in volgorde, met icoon en je
-      toets erachter, dezelfde lijst als in de Academy. Onthoudt het venster het tabblad na sluiten en openen?
+- [x] ✅ (Rob, 25 sep, screenshot Elemental: 7 knoppen met icoon) **Tabblad "Stay alive"** (Rob: *"ik mis eigenlijk de
+      defense dingen"*): twee tabs, **Your buttons** en **Stay alive**; je verdedigingsknoppen in volgorde met icoon.
+      (Of het tabblad onthouden wordt na sluiten en openen: nog niet bevestigd.)
+- [ ] 🆕 **Verslepen** (Rob: *"ik kan alleen het scherm niet verslepen"*): `/reload`, dan het venster pakken aan de
+      titel, de tabs of een lege plek, en slepen. Na `/reload` hoort het op dezelfde plek terug te komen.
+      (Op een stap-regel zelf slepen gaat niet: die regels vangen de muis voor de tooltip.)
 - [ ] **Klik op het Holy- of Retribution-icoon** bovenin: wisselt de kaart naar die spec? Nog een keer `/mh play`
       sluit het venster.
 - [ ] **Leesbaarheid:** is het nu goed te lezen? Te groot, te klein, te breed? (Shift + muiswiel maakt het venster

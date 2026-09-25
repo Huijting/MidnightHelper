@@ -8,7 +8,11 @@ tabblad** (AskUserQuestion). `PlayCardWindow.lua`: tabs **Your buttons** (`PLAYC
 (`SURVIVAL_HEAD`), gekozen tab in `ns.db.ui.playCardTab`. Stay alive = `ns.GetSurvivalPlan(specID)` (dezelfde lijst
 als de Academy), per stap icoon + naam + `[toets]` + wanneer + opmerking; geen lijst → `PLAYCARD_ALIVE_NONE`.
 Nieuwe sleutels en/nl + 5 talen (TAB_PLAY uit elk pack's goedgekeurde PLAYCARD_STEPS; ALIVE_NONE door ons, niet
-nagekeken). Nog niet in het spel gezien.
+nagekeken). ✅ GEMETEN (Rob, screenshot): het tabblad werkt, 7 Elemental-knoppen met icoon.
+🐛 **Verslepen werkte niet** (Rob). Oorzaak NIET vastgesteld: de drag zat alleen op de titelstrook van
+`EnsureMidnightDialogTitleBar`. Nu sleept het hele venster (`f:RegisterForDrag`, vóór `RegisterMidnightDialogPopup`
+zodat de dock-hook meeloopt), de titelstrook laat de muis door (`EnableMouse(false)`), en de plek wordt bewaard in
+`ns.db.ui.playCardPos`. Nog niet in het spel getest.
 
 ## 💬 25 sep — Shadow Enclave: de korte chatversie kent nu ook Infiltrate and Ameliorate
 
