@@ -7,9 +7,10 @@ Aangevuld in alle zeven talen met één zin uit wat `DELVE_TIP_SHADOW_ENCLAVE_RO
 in schoppen, vreemde ingrediënten in 4 ketels. Variantnaam en "Summoners" blijven Engels; fr in "tu", zoals de rest
 van die regel. Lengte geen probleem: `DelvePartyShare.lua` splitst boven 255 tekens (`SplitForChat`).
 `check_drift --mark` gedaan. Nog niet in het spel gedeeld.
-⚠️ **Gevonden, niet aangepast:** de **Franse** volle tip (`DelveTips.lua:551`, frFR `DELVE_TIP_SHADOW_ENCLAVE_ROUTE`)
-noemt Infiltrate and Ameliorate helemaal niet — de andere zes talen wel (GEMETEN: 0 treffers op die regel, 4-5 in
-de andere talen). De Franse chatregel weet het dus nu wel en de Franse volle tip niet.
+🔴 **INGETROKKEN, dezelfde dag:** ik schreef hier eerst dat de Franse volle tip (`DelveTips.lua:551`) Infiltrate and
+Ameliorate niet noemt. **Onwaar** — hij noemt alle vier de stappen. Mijn zoekpatroon was `Infiltrate and Ameliorate:`
+en het Frans schrijft `Infiltrate and Ameliorate :` (spatie vóór de dubbele punt). Een lege uitkomst zonder
+positieve controle, precies de val van [[silence-is-not-absence]]. Niets aangepast; de Franse tip klopt.
 
 ## 🃏 25 sep — "Zo speel je": eigen venster + kaarten voor alle 40 specs
 
