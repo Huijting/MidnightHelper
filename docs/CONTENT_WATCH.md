@@ -1232,3 +1232,68 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   bluetracker.gg/arctium.io/pubt.io, geen extra content-secties gevonden). Codebase: volledige
   read van `Modules/ValeeraProgress.lua`, repo-brede `grep -i "faction"`. Geen actiepunt dat ík
   kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-09-25] 🟡 **Eén nieuwe hotfix-sectie sinds gisteren (24 sep) — een Delve-bugfix raakt exact
+  de stap die onze eigen tip beschrijft, zonder hem tegen te spreken; bijvangst: een openstaand
+  testpunt uit 17 sep lijkt intussen achterhaald.** GEMETEN: `news.blizzard.com`'s doorlopende
+  hotfix-artikel opnieuw gelezen via Exa `web_fetch_exa` met `?nocache=20260925` — **volledige
+  artikeltekst zelf gelezen**. Bovenste sectie is nu "September 24, 2026", nieuwer dan de
+  "September 23"-sectie die gisteren al gelogd stond, dus geen cache-treffer. Onafhankelijk
+  bevestigd via `web_search_exa`: Wowheads nieuwsartikel "More PvP Tuning - Patch 12.1 Hotfixes
+  for September 24th" citeert dezelfde tekst woordelijk. Convergeert met de API-wachter van
+  vandaag, die onafhankelijk dezelfde twee koppen zag (revisie `6886643`, Postlink "1-23" →
+  "1-24"). Sectie 24 sep bevat precies twee categorieën: **Delves** en **Player versus Player** —
+  geen Professions-, Quests-, Dungeons and Raids-, Items- of Achievements-sectie die dag (leeg,
+  zoals gebruikelijk als Blizzard daar niets heeft).
+
+  **Delves — de enige game-content wijziging:** *"In the Shadow Enclave delve variant 'Infiltrate
+  and Ameliorate', Oddball 'Ingredient' now teleport to one of several points in the play space
+  if dropped into the pit."* Achtergrond opgezocht (via `web_search_exa`): Wowheads NPC-pagina
+  npc=271018 (Oddball "Ingredient") heeft spelerscommentaar dat de onderliggende bug beschrijft —
+  *"if you die at the bottom of the pit while holding one, it will stay down there and the delve
+  will be unable to be completed, forcing a reset"* — en een consolepcgaming.com-artikel (24 aug)
+  bevestigt dezelfde klacht via een Reddit-report. Dit repareert dus een langer bekende
+  reset-dwingende bug op **exact** de stap die onze eigen tip beschrijft.
+  GEMETEN tegen `Locales/DelveTips.lua:36` (`DELVE_TIP_SHADOW_ENCLAVE_ROUTE`, enUS; zelfde patroon
+  in alle zeven taalvarianten): *"Infiltrate and Ameliorate: sabotage 4 cauldrons by adding odd
+  ingredients. Some ingredients sit up high: use the jumping mushrooms."* Onze tekst noemt geen
+  "pit", geen valgevaar en geen waarschuwing om niet met een ingrediënt in handen te sterven —
+  `grep -wi pit` op `Locales/DelveTips.lua` geeft alleen `DELVE_NAME_GRUDGE_PIT` terug (een andere,
+  ongerelateerde delve-naam), 0 treffers op deze mechaniek. Positieve controle, zelfde bestand/
+  scope: "Blessing of Freedom" geeft 14 treffers elders in de repo — het patroon werkt op deze
+  schaal. Onze tip claimt dus niets over wat er gebeurt als je het ingrediënt laat vallen, dus
+  geen tegenspraak — de hotfix maakt alleen een bug onschadelijk die al bestond terwijl onze tip
+  al klopte. **[RAAKT ONS NIET]** — geen actiepunt, de tip blijft correct.
+
+  **Player versus Player:** Hunter Wing Clip (40% snelheidsreductie in PvP), Improved Snaring
+  (+10% op Wing Clip), Mage Arcane Chrono Shift (30%, was 50%), Paladin Consecrated Ground (20%,
+  was 50%) — allemaal movement-speed-percentages. GEMETEN: 0 treffers op alle vier namen in
+  `.lua`-bestanden buiten `docs/`/`tools/`/`dist/` (losse vermeldingen bestaan alleen in dev-docs
+  als `docs/NEXT_SESSION.md` en `docs/API_WATCH.md`, geen geshipte speler-tekst). Gevestigd
+  patroon: MH volgt geen rotatie- of PvP-balansgetallen. **[RAAKT ONS NIET]**
+
+  **Terzijde, geen hotfix-bevinding maar tijdens deze sweep opgevallen:** `docs/TESTLIJST_ARCHIEF.md:77-80`
+  heeft een nog open (`- [ ]`) testpunt van Rob, 17 sep, dat zegt dat de Shadow-Enclave-tips
+  "niets" claimen over de Summoner-kick- en cauldron-ingrediëntstappen ("GEMETEN: summoner,
+  cauldron en ingredient komen in geen enkele delvetip voor"). Dat klopt niet meer met wat er nu
+  staat: `DELVE_TIP_SHADOW_ENCLAVE_ROUTE` (hierboven geciteerd) noemt expliciet "5 Ula'tek
+  Summoners", "4 cauldrons" en "odd ingredients". Wanneer dat precies is toegevoegd kan ik niet
+  vaststellen — deze checkout heeft maar 50 commits diepte, geen bruikbare geschiedenis voor dit
+  bestand — dus ik claim niet wannéér het testpunt achterhaald raakte, alleen dat de huidige
+  inhoud het weerlegt. MEASURED. Geen hotfix-gerelateerde tegenspraak, dus geen [RAAKT ONS]-vlag;
+  ik verander niets aan `TESTLIJST_ARCHIEF.md` (niet mijn bestand) — Rob/wie dat bestand beheert
+  kan het punt afvinken of opnieuw testen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260925 (volledig gelezen via
+  Exa) · `web_search_exa` "World of Warcraft hotfixes September 24 2026 Shadow Enclave Infiltrate
+  and Ameliorate Oddball Ingredient" (Wowhead-nieuwsartikel + Wowhead NPC-pagina npc=271018 +
+  consolepcgaming.com als achtergrond op de bug, niet als hotfix-bron zelf) ·
+  `docs/API_WATCH.md`'s entry van vandaag als aanleiding voor de doorverwijzing (feit niet
+  herhaald, wel zelf getoetst tegen `Locales/DelveTips.lua`). Codebase: `grep` case-insensitive/
+  woordgrens repo-breed op alle hierboven genoemde namen, plus gerichte reads van
+  `Locales/DelveTips.lua:34-38` en `docs/TESTLIJST_ARCHIEF.md:75-81` — allemaal vandaag gelezen.
+  **[RAAKT ONS NIET]** op de hotfix-vergelijking; het testlijst-zijspoor is geen contradictie maar
+  een gemeten inconsistentie voor een mens om te sluiten. Geen actiepunt dat ík kan oppakken — ik
+  rapporteer, een mens beslist.
