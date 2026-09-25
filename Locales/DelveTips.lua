@@ -99,7 +99,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 
 	-- Party chat (short; spell tokens expand to links for the whole group)
 	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "SW Eversong (Deatholme). Mirrors, supplies, traitor: boss Lord Antenorian. Infiltrate and Ameliorate: boss Abominable Blunder.",
-	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Mirrors: hit Shadow Nexuses for light. Supplies: loot Twilight valuables. Traitor: stop rituals, chase to boss.",
+	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Mirrors: hit Shadow Nexuses for light. Supplies: loot Twilight valuables. Traitor: stop rituals, chase to boss. Infiltrate and Ameliorate: kick 5 Summoners into the abyss, put odd ingredients in 4 cauldrons.",
 	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Mirror light = Dazzled (more crits). Interrupt shadow casters. Don't stack on bad ground.",
 	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kick {SPELL:@shadow_bolt}. Teleport leaves a pool — keep him central. {SPELL:@shadowveil_annihilation}: kill 3 Orbs (only the unshielded orb). Burst orbs.",
 
@@ -240,7 +240,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 
 	-- Party chat
 	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "Eversong SO (Deatholme). Specchi, supplies, traitor: boss Lord Antenorian. Infiltrate and Ameliorate: boss Abominable Blunder.",
-	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Specchi: colpisci gli Shadow Nexus per la luce. Supplies: saccheggia gli oggetti Twilight. Traitor: ferma i rituali, insegui fino al boss.",
+	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Specchi: colpisci gli Shadow Nexus per la luce. Supplies: saccheggia gli oggetti Twilight. Traitor: ferma i rituali, insegui fino al boss. Infiltrate and Ameliorate: spingi a calci 5 Summoners nell'abisso, metti ingredienti strani in 4 calderoni.",
 	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Luce dello specchio = Dazzled (più crit). Interrompi i caster shadow. Non ammassarti su terreno pericoloso.",
 	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kicka {SPELL:@shadow_bolt}. Il teletrasporto lascia una pozza — tienilo centrale. {SPELL:@shadowveil_annihilation}: uccidi 3 Orb (solo quello senza scudo). Burst sugli orb.",
 
@@ -375,7 +375,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_TIP_TORMENTS_RISE_BOSS = "• Onderbreek {SPELL:@devouring_essence} elke cast (DoT + {SPELL:@umbral_rage}-stacks).|n• {SPELL:@dread_portal}: baas 100% damage reduction tot alle adds dood — volle AoE op spawn.|n• {SPELL:@oblivion_shell}: DPS-check.|n• {SPELL:@umbral_rage}: +10% damage per stack — kill adds snel.",
 
 	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "ZW Eversong (Deatholme). Spiegels, supplies, traitor: baas Lord Antenorian. Infiltrate and Ameliorate: baas Abominable Blunder.",
-	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Spiegels: Shadow Nexuses voor licht. Supplies: buit looten. Traitor: rituals stoppen, achtervolg naar baas.",
+	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Spiegels: Shadow Nexuses voor licht. Supplies: buit looten. Traitor: rituals stoppen, achtervolg naar baas. Infiltrate and Ameliorate: schop 5 Summoners de afgrond in, doe vreemde ingrediënten in 4 ketels.",
 	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Spiegellicht = Dazzled (meer crits). Onderbreek casters. Niet stapelen op vuil.",
 	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kick {SPELL:@shadow_bolt}. Teleport = plas — houd hem centraal. {SPELL:@shadowveil_annihilation}: 3 Orbs (alleen onbeschermde). Burst orbs.",
 
@@ -490,7 +490,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_TIP_TORMENTS_RISE_TRASH"] = "• Pactsworn-Mobs findest du in normalen Delves, nicht in Torment's Rise.|n• Teil dir die Cooldowns ein – heb Defensives und Interrupts für Nullaeus auf.",
 	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Unterbrich {SPELL:@devouring_essence} bei jedem Cast (DoT + füttert die Stacks von {SPELL:@umbral_rage}).|n• {SPELL:@dread_portal}: 100 % Schadensreduktion, bis alle Adds tot sind – beim Spawn voller AoE-Burst.|n• Die Phase mit {SPELL:@oblivion_shell} ist ein DPS-Check.|n• {SPELL:@umbral_rage}: +10 % Schaden pro Stack, wenn Adds oder DoTs stehen bleiben – töte die Adds schnell.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SW-Eversong (Deatholme). Spiegel, Vorräte, Verräter: Boss Lord Antenorian. Infiltrate and Ameliorate: Boss Abominable Blunder.",
-	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Spiegel: Triff die Shadow Nexuses für Licht. Vorräte: Plünder die Twilight-Wertsachen. Verräter: Rituale stoppen, bis zum Boss verfolgen.",
+	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Spiegel: Triff die Shadow Nexuses für Licht. Vorräte: Plünder die Twilight-Wertsachen. Verräter: Rituale stoppen, bis zum Boss verfolgen. Infiltrate and Ameliorate: Stoß 5 Summoners in den Abgrund, wirf seltsame Zutaten in 4 Kessel.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Spiegellicht = Dazzled (mehr Crits). Unterbrich die Schattenzauberer. Stell dich nicht auf schlechten Boden.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Kick {SPELL:@shadow_bolt}. Der Teleport hinterlässt eine Pfütze – halt ihn mittig. {SPELL:@shadowveil_annihilation}: Töte 3 Kugeln (nur die ohne Schild). Burst auf die Kugeln.",
 	["DELVE_CHAT_COLLEGIATE_CALAMITY_OVERVIEW"] = "NW-Silvermoon / Eversong (Universität). Siege, Faculty und Glow enden je mit einem Boss. Academic Antitoxin hat keinen Boss, nur eine Truhe.",
@@ -592,7 +592,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	["DELVE_TIP_TORMENTS_RISE_TRASH"] = "• Les mobs Pactsworn se trouvent dans les delves normaux, pas à l'intérieur de Torment's Rise.|n• Gère le rythme de tes cooldowns — garde tes défensives et tes interruptions pour Nullaeus.",
 	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Interromps {SPELL:@devouring_essence} à chaque incantation (DoT + alimente les cumuls d'{SPELL:@umbral_rage}).|n• {SPELL:@dread_portal} : 100 % de réduction des dégâts tant que tous les adds ne sont pas morts — lâche tout ton burst AoE dès qu'ils apparaissent.|n• La phase {SPELL:@oblivion_shell} est un DPS check.|n• {SPELL:@umbral_rage} : +10 % de dégâts par cumul si des adds ou des DoT traînent — tue les adds vite.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO Eversong (Deatholme). Miroirs, ravitaillement, traître : boss Lord Antenorian. Infiltrate and Ameliorate : boss Abominable Blunder.",
-	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Miroirs : frappe les Shadow Nexuses pour avoir de la lumière. Supplies : ramasse les objets de valeur Twilight. Traître : arrête les rituels, poursuis-le jusqu'au boss.",
+	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Miroirs : frappe les Shadow Nexuses pour avoir de la lumière. Supplies : ramasse les objets de valeur Twilight. Traître : arrête les rituels, poursuis-le jusqu'au boss. Infiltrate and Ameliorate : envoie 5 Summoners dans l'abîme d'un coup de pied, mets des ingrédients bizarres dans 4 chaudrons.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Lumière du miroir = Dazzled (plus de crit). Interromps les casters d'ombre. Ne reste pas sur les zones au sol dangereuses.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Kick {SPELL:@shadow_bolt}. La téléportation laisse une flaque — garde-le au centre. {SPELL:@shadowveil_annihilation} : tue 3 orbes (seulement celui sans bouclier). Burst les orbes.",
 	["DELVE_CHAT_COLLEGIATE_CALAMITY_OVERVIEW"] = "NO Silvermoon / Eversong (l'université). Siege, Faculty et Glow finissent chacun sur un boss. Academic Antitoxin n'a pas de boss, seulement un coffre.",
@@ -664,7 +664,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_CHAT_SHADOWGUARD_POINT_TRASH"] = "Interrumpe a los etéreos. Planifica con cuidado por dónde llevas las cargas.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Corta {SPELL:@shadow_bolt}. El teletransporte deja un charco: mantenlo en el centro. {SPELL:@shadowveil_annihilation}: mata 3 orbes (solo el que no tiene escudo). Burst a los orbes.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO de Canción Eterna (Deatholme). Espejos, suministros, traidor: jefe Lord Antenorian. Infiltrate and Ameliorate: jefe Abominable Blunder.",
-	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Espejos: golpea los Shadow Nexuses para tener luz. Suministros: saquea los objetos de Twilight's Blade. Traidor: detén los rituales y persíguelo hasta el jefe.",
+	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Espejos: golpea los Shadow Nexuses para tener luz. Suministros: saquea los objetos de Twilight's Blade. Traidor: detén los rituales y persíguelo hasta el jefe. Infiltrate and Ameliorate: tira de una patada a 5 Summoners al abismo y echa ingredientes raros en 4 calderos.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Luz de espejo = Dazzled (más críticos). Interrumpe a los lanzadores de sombras. No te apiles en terreno malo.",
 	["DELVE_CHAT_SUNKILLER_SANCTUM_BOSS"] = "Todos los Voidcallers muertos antes de {SPELL:@gorge} o acumula +daño. Corta {SPELL:@calling_bolt}. {SPELL:@coalescing_malediction} acaba en un Voidcaller. Esquiva {SPELL:@crushing_rift} (4 Voidcallers).",
 	["DELVE_CHAT_SUNKILLER_SANCTUM_OVERVIEW"] = "Este de Voidstorm. Variantes Core / Not Expected / Gravity. Jefe: Esuritus (o 3 Umbraroot, sin jefe).",
@@ -766,7 +766,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_CHAT_SHADOWGUARD_POINT_TRASH"] = "Interrompa os ethereals. Planeje com segurança o trajeto carregando as charges.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Kick em {SPELL:@shadow_bolt}. O teleporte deixa uma poça — mantenha-o no centro. {SPELL:@shadowveil_annihilation}: mate os 3 Orbs (só o orbe sem escudo). Mande burst nos orbes.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO da Floresta do Canto Eterno (Deatholme). Espelhos, suprimentos, traidor: chefe Lord Antenorian. Infiltrate and Ameliorate: chefe Abominable Blunder.",
-	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Espelhos: acerte os Shadow Nexuses para ter luz. Suprimentos: saqueie os itens de valor dos Twilight. Traidor: pare os rituais e persiga até o chefe.",
+	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Espelhos: acerte os Shadow Nexuses para ter luz. Suprimentos: saqueie os itens de valor dos Twilight. Traidor: pare os rituais e persiga até o chefe. Infiltrate and Ameliorate: chute 5 Summoners no abismo e coloque ingredientes estranhos em 4 caldeirões.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Luz do espelho = Dazzled (mais críticos). Interrompa os conjuradores de sombra. Não se amontoe em chão ruim.",
 	["DELVE_CHAT_SUNKILLER_SANCTUM_BOSS"] = "Todos os Voidcallers mortos antes de {SPELL:@gorge} ou ele acumula +dano. Kick em {SPELL:@calling_bolt}. {SPELL:@coalescing_malediction} termina num Voidcaller. Desvie de {SPELL:@crushing_rift} (4 callers).",
 	["DELVE_CHAT_SUNKILLER_SANCTUM_OVERVIEW"] = "Leste da Tempestade do Caos. Variantes Core / Not Expected / Gravity. Chefe: Esuritus (ou 3 Umbraroot, sem chefe).",
