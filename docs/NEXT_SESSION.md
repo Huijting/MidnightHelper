@@ -16,6 +16,14 @@ Rob: *"ja begin maar met de kaarten, maar … ze zijn nu veel te verstopt en las
   in en/nl, geen dubbele sleutels) — 36/36 geslaagd, 339 regels per taal. **AFGELEID tot Rob ze ziet.**
 - Nog steeds achter `ns.db.ui.playCards` (alleen de Academy-knop; `/mh play` werkt altijd). Rob beslist bij de
   release of de schakelaar weg kan, en de 5 andere talen volgen daarna.
+- ✅ **Vertaald, dezelfde dag** (Rob: *"doe maar vast de vertalingen … wel door de taal experts"*): alle 384
+  `PLAYCARD_*`-sleutels in de/fr/es/pt/it, één taalexpert per taal (`scratchpad/translate/`), als vijf nieuwe
+  `fill()`-blokken onderaan `Locales/Translations2026.lua`. Termen uit die taal's eigen clientdata (wago.tools /
+  Wowhead-tooltips per taal). Controlescript (`pc_apply.py`): 5×384, 0 fouten, 0 regels gelijk aan Engels. Lint:
+  de/fr/es/pt 80,9 → 89,2 %, it 79,8 → 88,1 %. **Door ons gemaakt, niet door een moedertaalspreker nagekeken.**
+  Twijfelpunten die de experts zelf noemden: it *Demonista* (eerder "Diabolisti") en *Vilsfregiato* (Midnight noemt
+  het "Sfregiato"); es *Marcado por la vileza* (Midnight: "Marcado"); fr *Gel* voor Freezing (ouder: "Givrer");
+  pt *Fragmentos de Alma* (de krachtbalk zegt "Estilhaços de Alma").
 - ⚠️ **Door de agenten gevonden, NIET gerepareerd (eerst meten op een Devourer):** `DpsToolkit.lua:73` Devourer
   gebruikt `1217607` (volgens Wowhead de in-vorm-buff, knop = `1217605`) en `370965` (Havoc/Veng-Hunt, Devourer =
   `1246167`) — `IsPlayerSpell` op de eigen spec kan die twee dan verbergen. Verder alleen commentaar-id's die
