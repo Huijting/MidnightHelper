@@ -263,10 +263,51 @@ local function TabButton(i)
 	return b
 end
 
+--- Below max level the cards advise spells the character may not have yet (Rob, 25 Sep 2026, on a
+--- level 26 Druid). Then: a line saying the card is written for max level, and on your OWN active spec
+--- the spells you do not have yet go grey. Only there: for another spec, "known" answers for the spec
+--- you are in, so greying would lie. At max level nothing greys, because some card buttons only exist
+--- while a proc has turned another button into them, and those would read as missing.
+local function Greying(specID)
+	local max = ns.PlayCardMaxLevel and ns.PlayCardMaxLevel() or 90
+	local low = (UnitLevel and UnitLevel("player") or max) < max
+	local grey = low and specID ~= nil and specID == ActiveSpecID() and ns.PlayCardKnowsSpell or nil
+	return low, grey, max
+end
+
+--- The "written for level 90" line. Returns the new y and the text-pool index it used.
+local function LevelBanner(y, t, inner, low, grey, max)
+	if not low then
+		return y, t
+	end
+	t = t + 1
+	local fs = Text(t, "GameFontHighlight")
+	fs:SetWidth(inner)
+	fs:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+	fs:SetTextColor(0.55, 0.78, 1)
+	fs:SetText((L("PLAYCARD_LEVEL_FMT")):format(max) .. (grey and (" " .. L("PLAYCARD_GREY_HINT")) or ""))
+	return y - fs:GetStringHeight() - 10, t
+end
+
+--- A step's icon, greyed like its name when the character does not have that spell yet.
+local function StepIcon(row, id, grey)
+	local tex = SpellIcon(id)
+	row.icon:SetTexture(tex)
+	row.icon:SetShown(tex ~= nil)
+	local missing = grey and id and not grey(id)
+	row.icon:SetDesaturated(missing and true or false)
+	row.icon:SetAlpha(missing and 0.55 or 1)
+	row.num:SetTextColor(missing and 0.55 or 1, missing and 0.55 or 0.8, missing and 0.55 or 0)
+	row.spellID = id
+	return missing
+end
+
 --- The "Stay alive" tab: the same list the Academy shows (Modules/SurvivalPlan.lua), with an icon per
 --- button and your own key. Returns the new y.
 local function DrawStayAlive(specID, y, inner)
 	local t = 0
+	local low, grey, max = Greying(specID)
+	y, t = LevelBanner(y, t, inner, low, grey, max)
 	t = t + 1
 	local intro = Text(t, "GameFontHighlight")
 	intro:SetWidth(inner)
@@ -280,15 +321,13 @@ local function DrawStayAlive(specID, y, inner)
 		row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
 		row:SetWidth(inner)
 		row.num:SetText(i)
-		local tex = SpellIcon(s.spellID)
-		row.icon:SetTexture(tex)
-		row.icon:SetShown(tex ~= nil)
-		row.spellID = s.spellID
+		local missing = StepIcon(row, s.spellID, grey)
 		row.fs:ClearAllPoints()
 		row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
 		row.fs:SetWidth(inner - (20 + ICON + 10))
 		row.fs:SetTextColor(0.9, 0.88, 0.82)
-		row.fs:SetText(("|cffffd100%s|r%s|n%s%s"):format(
+		row.fs:SetText(("|cff%s%s|r%s|n%s%s"):format(
+			missing and "8a8a8a" or "ffd100",
 			s.text or "",
 			s.bindKey and ("  |cff9d9d9d[" .. s.bindKey .. "]|r") or "",
 			L(s.whenKey),
@@ -372,7 +411,11 @@ local function Redraw()
 		return
 	end
 
-	local card = specID and ns.GetPlayCard and ns.GetPlayCard(specID)
+	local low, grey, max = Greying(specID)
+	local card = specID and ns.GetPlayCard and ns.GetPlayCard(specID, grey)
+	if card then
+		y, t = LevelBanner(y, t, inner, low, grey, max)
+	end
 	if not card then
 		t = t + 1
 		local fs = Text(t, "GameFontHighlight")
@@ -406,10 +449,7 @@ local function Redraw()
 			row.num:SetText(i)
 			-- A step written as plain text (no confirmed spell id) gets no icon rather than a
 			-- question mark: a "?" would read as "MH does not know this", which is not the case.
-			local tex = SpellIcon(s.spellID)
-			row.icon:SetTexture(tex)
-			row.icon:SetShown(tex ~= nil)
-			row.spellID = s.spellID
+			StepIcon(row, s.spellID, grey)
 			row.fs:ClearAllPoints()
 			row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
 			row.fs:SetWidth(inner - (20 + ICON + 10))
@@ -530,9 +570,19 @@ local function Build()
 
 	-- Follow a spec change while open, unless the player picked another spec to look at.
 	f:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
-	f:SetScript("OnEvent", function(self, _, unit)
-		if (unit == nil or unit == "player") and self:IsShown() then
-			chosenSpec = nil
+	-- A new level or a new talent can turn a grey spell gold: redraw, but keep the spec being looked at.
+	f:RegisterEvent("PLAYER_LEVEL_UP")
+	f:RegisterEvent("SPELLS_CHANGED")
+	f:SetScript("OnEvent", function(self, event, unit)
+		if not self:IsShown() then
+			return
+		end
+		if event == "PLAYER_SPECIALIZATION_CHANGED" then
+			if unit == nil or unit == "player" then
+				chosenSpec = nil
+				Redraw()
+			end
+		else
 			Redraw()
 		end
 	end)

@@ -15,7 +15,15 @@ moeten we een extra opvallende knop daarvoor maken in de MH"*.
   Elemental Wowhead 20 Sep.
 - Release: TOC 4.1.0, `CHANGELOG_410_1..6`, `RELEASE_NOTES.md` == `docs/CURSEFORGE_4.1.0.md` (2300 bytes, GEMETEN
   identiek), CHANGELOG.md. Syntax/lint 0 hard, drift alleen de bekende SET_CONSREADY.
-- ⏸ **Nog niet getagd:** de gouden knop zit in het hoofdvenster en is nog niet gezien.
+- ✅ Gouden knop GEMETEN door Rob: *"knop staat er en werkt"*.
+- 🐛→✅ **Lage levels** (Rob, level 26 Druid: *"geeft adviezen van dingen die hij nog niet heeft"*). Hij koos grijs +
+  melding in 4.1.0. Onder max level (`GetMaxLevelForPlayerExpansion`, terugval 90): regel "Written for level %d."
+  (`PLAYCARD_LEVEL_FMT`), en op je **eigen actieve spec** worden spreuken die je nog niet hebt grijs, naam én icoon,
+  in de kaart en in Stay alive (`ns.PlayCardKnowsSpell`: IsPlayerSpell / IsSpellKnownOrOverridesKnown /
+  C_SpellBook.IsSpellKnown, faalt naar goud). Niet op andere specs (dan antwoordt "bekend" voor de spec waarin je
+  staat) en niet op max level (proc-knoppen als Thunder Blast zouden dan onterecht grijs zijn). Ververst bij
+  PLAYER_LEVEL_UP en SPELLS_CHANGED. Sleutels in 7 talen (door ons). Release-notes + CHANGELOG_410_7 bijgewerkt.
+- ⏸ **Nog niet getagd:** het grijs maken wacht op één blik van Rob op zijn level 26 Druid.
 
 ## 🛡️ 25 sep avond — kaartvenster werkt in het spel; tabblad "Stay alive" erbij
 

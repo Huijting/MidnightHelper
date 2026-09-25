@@ -22,6 +22,8 @@ And it is made to be used while you play:
 - **Point at any spell name** and you get that spell's tooltip, in your own game language.
 - **Stay alive tab:** your defensives in the order a fight needs them, with your own keys.
 - **Look at your other specs** with the icons at the top, before you switch.
+- **Levelling?** The cards are written for level 90. On a lower character, the spells you do not have
+  yet are grey, so you can see what is still coming.
 - **A small window you can drag anywhere.** It stays where you put it, so you can keep it open next to
   a target dummy while you practise. Shift + mouse wheel makes it bigger or smaller.
 

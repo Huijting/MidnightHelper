@@ -203,12 +203,15 @@ end
 --- The link is why every name has its own tooltip: Rob, 25 Sep 2026, on his Shadow Priest, "wat ik wel
 --- mis is dat de andere spells niet een tooltip geven, bv vampire touch". The window's frames turn
 --- hyperlinks on (PlayCardWindow.lua); no brackets, so the text reads the same as before.
-local function Expand(text)
+--- `known` (optional): function(id) -> bool. A spell it says you do not have yet is grey instead of gold
+--- (Rob, 25 Sep 2026, on a level 26 Druid: the card advised spells that character did not have yet).
+local function Expand(text, known)
 	local first
 	text = tostring(text or ""):gsub("{SPELL:(%d+)}", function(id)
 		id = tonumber(id)
 		first = first or id
-		return ("|cffffd100|Hspell:%d|h%s|h|r"):format(id, SpellName(id))
+		local colour = (known and not known(id)) and "8a8a8a" or "ffd100"
+		return ("|cff%s|Hspell:%d|h%s|h|r"):format(colour, id, SpellName(id))
 	end)
 	return text, first
 end
@@ -216,7 +219,8 @@ ns.ExpandPlayCardText = Expand
 
 --- The card for a spec, as plain data for the renderer, or nil when there is none yet.
 --- { idea, steps = { {text, spellID}, ... }, aoe, mistake, hero = { {text, spellID}, ... }, source }
-function ns.GetPlayCard(specID)
+--- `known` (optional) greys out spells the character does not have yet; see Expand.
+function ns.GetPlayCard(specID, known)
 	local c = specID and CARDS[specID]
 	if not c then
 		return nil
@@ -227,20 +231,48 @@ function ns.GetPlayCard(specID)
 		return ns:L(("PLAYCARD_%d_%s"):format(specID, p))
 	end
 	local out = { steps = {}, hero = {}, source = c.source }
-	out.idea = Expand(Part("IDEA"))
+	out.idea = Expand(Part("IDEA"), known)
 	for i = 1, c.steps do
-		local t, id = Expand(Part("S" .. i))
+		local t, id = Expand(Part("S" .. i), known)
 		out.steps[#out.steps + 1] = { text = t, spellID = id }
 	end
 	if c.aoe then
-		out.aoe = Expand(Part("AOE"))
+		out.aoe = Expand(Part("AOE"), known)
 	end
-	out.mistake = Expand(Part("MISTAKE"))
+	out.mistake = Expand(Part("MISTAKE"), known)
 	for i = 1, c.hero or 0 do
-		local t, id = Expand(Part("HERO" .. i))
+		local t, id = Expand(Part("HERO" .. i), known)
 		out.hero[#out.hero + 1] = { text = t, spellID = id }
 	end
 	return out
+end
+
+--- The level the cards are written for: the expansion's max level (90 in Midnight).
+function ns.PlayCardMaxLevel()
+	if GetMaxLevelForPlayerExpansion then
+		local ok, lv = pcall(GetMaxLevelForPlayerExpansion)
+		if ok and type(lv) == "number" and lv > 0 then
+			return lv
+		end
+	end
+	return 90
+end
+
+--- Does this character have the spell (talents and replaced buttons included)? Fails open: an
+--- API hiccup shows gold, because grey on a spell you DO have would be the worse lie.
+function ns.PlayCardKnowsSpell(id)
+	if not id then
+		return true
+	end
+	local ok, yes = pcall(function()
+		return (IsPlayerSpell and IsPlayerSpell(id))
+			or (IsSpellKnownOrOverridesKnown and IsSpellKnownOrOverridesKnown(id))
+			or (C_SpellBook and C_SpellBook.IsSpellKnown and C_SpellBook.IsSpellKnown(id))
+	end)
+	if not ok then
+		return true
+	end
+	return yes and true or false
 end
 
 --- `/mh playcards check`: the switch, the spec the Academy would ask for, and what the Academy
