@@ -769,6 +769,7 @@ ns._mhLocales.nlNL = {
 	PLAYCARD_HEAD_FMT = "Zo speel je %s",
 	PLAYCARD_OPEN_FMT = "Zo speel je %s  >",
 	PLAYCARD_BTN = "Zo speel je",
+	PLAYCARD_CONS_INTRO = "Wat je meeneemt voor deze spec. Wijs een item aan voor de uitleg.",
 	PLAYCARD_LEVEL_FMT = "Geschreven voor level %d.",
 	PLAYCARD_GREY_HINT = "Grijs: die spreuk heb je nog niet.",
 	CMDLIST_PLAY = "Zo speel je je spec: je knoppen op volgorde, en hoe je in leven blijft.",

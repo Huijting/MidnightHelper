@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🧪 26 sep — kaartvenster: derde tabblad "Consumables" (na 4.1.0, nog niet uitgebracht)
+
+Rob: *"Ik ben heel blij met de pop-up ... eigenlijk zou ik daar het tabbladje voor onze consumables in willen hebben,
+zodat we die makkelijk en snel terug kunnen vinden, zonder in een lange lijst te moeten zoeken."*
+`PlayCardWindow.lua`: tab `cons` (`TAB_CONSUMABLES`) naast Your buttons / Stay alive. Zelfde gegevens als de
+Consumables-pagina (`ns.MH_GetConsumablesWowheadForSpec(classToken, specIndex)`; spec-id → index via
+`SpecIndexOf`). Per categorie (flask, combat/health potion, wapenolie tenzij `omitWeaponOil`, rune, food, feast):
+icoon + aanbevolen item als item-link in kwaliteitskleur (tooltip bij hover, ook op het icoon via `row.itemID`),
+`×N` in je tassen (best + alternatieven samen) of "Not in your bags", en "Also: …". Ververst bij
+GET_ITEM_INFO_RECEIVED en BAG_UPDATE_DELAYED (0,2 s gebundeld, alleen op die tab). Nieuwe sleutel
+`PLAYCARD_CONS_INTRO` in 7 talen (door ons). Nog niet in het spel gezien.
+
 ## 🚀 25 sep avond — 4.1.0 klaargezet ("How you play" voor iedereen); tag wacht op één blik van Rob
 
 Rob: *"go, maak maar 4.1.0 klaar, maar dit moet echt duidelijk vermeld worden bij de release notes en misschien

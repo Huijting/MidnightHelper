@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 26 sep — kaartvenster: tabblad Consumables
+
+`/reload`, dan `/mh play` (of de gouden knop). Rob: *"het tabbladje voor onze consumables ... zonder in een lange lijst te
+moeten zoeken"*.
+- [ ] Derde tabblad **Consumables**. Staan er flask, potions, wapenolie (niet bij elke spec), rune en food, elk met
+      icoon en de naam in de kleur van het item?
+- [ ] Achter elk item: **×aantal** als je het (of een alternatief) in je tassen hebt, anders *Not in your bags*. Klopt dat?
+- [ ] Muis op een naam of icoon: komt de item-tooltip? Staan er eerst "..." in plaats van namen, verschijnen ze dan
+      binnen een seconde?
+- [ ] Wissel met de icoontjes bovenin naar een andere spec: wisselen de consumables mee?
+
 ## 🆕 25 sep — "Zo speel je" in een eigen venster, en kaarten voor álle specs
 
 - [x] ✅ (Rob, 25 sep, screenshot Resto Druid: *"het grijs werkt, goed"*) **4.1.0: lage levels** — op je level 26 Druid `/reload`, `/mh play`. Bovenaan staat in lichtblauw *"Written for

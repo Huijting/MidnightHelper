@@ -815,6 +815,7 @@ ns._mhLocales.enUS = {
 	PLAYCARD_HEAD_FMT = "How you play %s",
 	PLAYCARD_OPEN_FMT = "How you play %s  >",
 	PLAYCARD_BTN = "How you play",
+	PLAYCARD_CONS_INTRO = "What to bring for this spec. Point at an item for its tooltip.",
 	PLAYCARD_LEVEL_FMT = "Written for level %d.",
 	PLAYCARD_GREY_HINT = "Grey: you don't have that spell yet.",
 	CMDLIST_PLAY = "How you play your spec: your buttons in order, and how to stay alive.",

@@ -172,8 +172,17 @@ local function StepRow(i)
 		row.iconHit:SetAllPoints(row.icon)
 		row.iconHit:EnableMouse(true)
 		row.iconHit:SetScript("OnEnter", function(self)
+			if not GameTooltip then
+				return
+			end
+			if row.itemID and GameTooltip.SetItemByID then
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetItemByID(row.itemID)
+				GameTooltip:Show()
+				return
+			end
 			local id = row.spellID
-			if not (id and GameTooltip and GameTooltip.SetSpellByID) then
+			if not (id and GameTooltip.SetSpellByID) then
 				return
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -232,7 +241,8 @@ end
 --- Which tab is open, remembered per account so the window reopens where you left it.
 local function CurrentTab()
 	local ui = ns.db and ns.db.ui
-	return (ui and ui.playCardTab == "alive") and "alive" or "play"
+	local t = ui and ui.playCardTab
+	return (t == "alive" or t == "cons") and t or "play"
 end
 
 local function SetTab(id)
@@ -299,7 +309,138 @@ local function StepIcon(row, id, grey)
 	row.icon:SetAlpha(missing and 0.55 or 1)
 	row.num:SetTextColor(missing and 0.55 or 1, missing and 0.55 or 0.8, missing and 0.55 or 0)
 	row.spellID = id
+	row.itemID = nil
 	return missing
+end
+
+--------------------------------------------------------------------------------
+-- The Consumables tab (Rob, 26 Sep 2026: "het tabbladje voor onze consumables ... zodat we die
+-- makkelijk en snel terug kunnen vinden, zonder in een lange lijst te moeten zoeken"). Same data as
+-- the Consumables page (ns.ConsumablesWowheadByClassSpec via ns.MH_GetConsumablesWowheadForSpec):
+-- per category the recommended item, its icon, how many you carry, and the alternatives.
+--------------------------------------------------------------------------------
+
+local CONS_CATEGORIES = {
+	{ key = "flask", labelKey = "GUIDE_CONS_TYPE_FLASK" },
+	{ key = "combatPotion", labelKey = "GUIDE_CONS_TYPE_COMBAT" },
+	{ key = "healingPotion", labelKey = "GUIDE_CONS_TYPE_HEALING" },
+	{ key = "weaponOil", labelKey = "GUIDE_CONS_TYPE_WEAPON" },
+	{ key = "augmentRune", labelKey = "GUIDE_CONS_TYPE_RUNE" },
+	{ key = "personalFood", labelKey = "GUIDE_CONS_TYPE_FOOD" },
+	{ key = "feast", labelKey = "GUIDE_CONS_TYPE_FEAST" },
+}
+
+--- The consumables table is keyed by class token + spec INDEX; the window works in spec ids.
+local function SpecIndexOf(specID)
+	if not (specID and GetNumSpecializations and GetSpecializationInfo) then
+		return nil
+	end
+	for i = 1, (GetNumSpecializations() or 0) do
+		if GetSpecializationInfo(i) == specID then
+			return i
+		end
+	end
+	return nil
+end
+
+--- Name of an item, or nil while the client has not loaded it yet (then it is asked for, and the
+--- window redraws on GET_ITEM_INFO_RECEIVED).
+local function ItemName(id)
+	local n = C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(id)
+	if (not n or n == "") and GetItemInfo then
+		n = GetItemInfo(id)
+	end
+	if n and n ~= "" then
+		return n
+	end
+	if C_Item and C_Item.RequestLoadItemDataByID then
+		pcall(C_Item.RequestLoadItemDataByID, id)
+	end
+	return nil
+end
+
+--- The item as a link in its quality colour, so hovering the name shows its tooltip.
+local function ItemLink(id)
+	local name = ItemName(id) or "..."
+	local hex = "ffffffff"
+	local q = C_Item and C_Item.GetItemQualityByID and C_Item.GetItemQualityByID(id)
+	if q and GetItemQualityColor then
+		local ok, _, _, _, h = pcall(GetItemQualityColor, q)
+		if ok and type(h) == "string" and #h == 8 then
+			hex = h
+		end
+	end
+	return ("|c%s|Hitem:%d|h%s|h|r"):format(hex, id, name)
+end
+
+local function BagCount(ids)
+	local count = (C_Item and C_Item.GetItemCount) or GetItemCount
+	local n = 0
+	for _, id in ipairs(ids or {}) do
+		local ok, c = pcall(count, id)
+		if ok and type(c) == "number" then
+			n = n + c
+		end
+	end
+	return n
+end
+
+local function DrawConsumables(specID, y, inner)
+	local classToken = UnitClass and select(2, UnitClass("player"))
+	local data = ns.MH_GetConsumablesWowheadForSpec and ns.MH_GetConsumablesWowheadForSpec(classToken, SpecIndexOf(specID))
+	local t = 1
+	local intro = Text(t, "GameFontHighlight")
+	intro:SetWidth(inner)
+	intro:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+	intro:SetTextColor(0.62, 0.6, 0.56)
+	if not data then
+		intro:SetText(L("MACROS_CONS_NO_DATA"))
+		return y - intro:GetStringHeight() - 8
+	end
+	intro:SetText(L("PLAYCARD_CONS_INTRO"))
+	y = y - intro:GetStringHeight() - 12
+	local i = 0
+	for _, def in ipairs(CONS_CATEGORIES) do
+		local cat = data[def.key]
+		local best = cat and cat.best and cat.best[1]
+		if best and not (def.key == "weaponOil" and data.omitWeaponOil) then
+			i = i + 1
+			local row = StepRow(i)
+			row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+			row:SetWidth(inner)
+			row.num:SetText("")
+			local tex = C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(best)
+			row.icon:SetTexture(tex or 134400)
+			row.icon:SetShown(true)
+			row.icon:SetDesaturated(false)
+			row.icon:SetAlpha(1)
+			row.spellID, row.itemID = nil, best
+			-- How many you carry, counting the alternatives too: any of them does the job.
+			local all = {}
+			for _, list in ipairs({ cat.best or {}, cat.alternates or {} }) do
+				for _, id in ipairs(list) do
+					all[#all + 1] = id
+				end
+			end
+			local have = BagCount(all)
+			local haveText = have > 0 and ("  |cff8cd98c×%d|r"):format(have)
+				or ("  |cff9d9d9d(" .. L("CONSREADY_NOT_IN_BAG") .. ")|r")
+			local alts = {}
+			for _, id in ipairs(cat.alternates or {}) do
+				alts[#alts + 1] = ItemLink(id)
+			end
+			local altText = #alts > 0 and ("|n|cff9d9d9d" .. (L("GUIDE_CONS_ALSO_FMT")):format(table.concat(alts, " / ")) .. "|r") or ""
+			row.fs:ClearAllPoints()
+			row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
+			row.fs:SetWidth(inner - (20 + ICON + 10))
+			row.fs:SetTextColor(0.9, 0.88, 0.82)
+			row.fs:SetText(("|cffffd100%s|r|n%s%s%s"):format(L(def.labelKey), ItemLink(best), haveText, altText))
+			local h = math.max(ICON, row.fs:GetStringHeight() + 4)
+			row:SetHeight(h)
+			y = y - h - 10
+		end
+	end
+	return y
 end
 
 --- The "Stay alive" tab: the same list the Academy shows (Modules/SurvivalPlan.lua), with an icon per
@@ -386,7 +527,12 @@ local function Redraw()
 	-- Two tabs: the card, and "Stay alive". Rob, 25 Sep 2026, on his Elemental Shaman: "ik mis
 	-- eigenlijk de defense dingen". He chose a second tab so the window stays as short as it was.
 	local tab = CurrentTab()
-	local tabs = { { id = "play", key = "PLAYCARD_TAB_PLAY" }, { id = "alive", key = "SURVIVAL_HEAD" } }
+	-- Third tab, Consumables: Rob, 26 Sep 2026.
+	local tabs = {
+		{ id = "play", key = "PLAYCARD_TAB_PLAY" },
+		{ id = "alive", key = "SURVIVAL_HEAD" },
+		{ id = "cons", key = "TAB_CONSUMABLES" },
+	}
 	local tx = 0
 	for i, def in ipairs(tabs) do
 		local b = TabButton(i)
@@ -405,8 +551,8 @@ local function Redraw()
 	end
 	y = y - 26 - 10
 
-	if tab == "alive" then
-		y = DrawStayAlive(specID, y, inner)
+	if tab == "alive" or tab == "cons" then
+		y = (tab == "alive" and DrawStayAlive or DrawConsumables)(specID, y, inner)
 		win:SetHeight(32 + 32 - y + 16 + 8)
 		return
 	end
@@ -573,6 +719,10 @@ local function Build()
 	-- A new level or a new talent can turn a grey spell gold: redraw, but keep the spec being looked at.
 	f:RegisterEvent("PLAYER_LEVEL_UP")
 	f:RegisterEvent("SPELLS_CHANGED")
+	-- Consumables tab: item names arrive later than the first draw, and bag counts change.
+	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+	f:RegisterEvent("BAG_UPDATE_DELAYED")
+	local pending = false
 	f:SetScript("OnEvent", function(self, event, unit)
 		if not self:IsShown() then
 			return
@@ -581,6 +731,17 @@ local function Build()
 			if unit == nil or unit == "player" then
 				chosenSpec = nil
 				Redraw()
+			end
+		elseif event == "GET_ITEM_INFO_RECEIVED" or event == "BAG_UPDATE_DELAYED" then
+			-- Many at once while names load: one redraw a moment later, and only on that tab.
+			if CurrentTab() == "cons" and not pending and C_Timer and C_Timer.After then
+				pending = true
+				C_Timer.After(0.2, function()
+					pending = false
+					if self:IsShown() then
+						Redraw()
+					end
+				end)
 			end
 		else
 			Redraw()
