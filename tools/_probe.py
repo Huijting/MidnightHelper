@@ -26,6 +26,38 @@ try:
 except Exception:
     pass
 
+# 🔴 THE WILDCARD RULE NEVER MATCHED. MEASURED 26 Sep 2026: settings.local.json holds 192
+# exact "Always allow" entries for `_probe.py" scratch <x>` and 66 for `_probe.py" run <x>` --
+# each one a prompt Rob clicked, although settings.json has `Bash(python ".../_probe.py" *)`.
+# Why that rule does not match is not established. What IS measured: the argument-free rules
+# (git_stage.py, lint_addon.py, lua_syntax_check.py) run clean.
+#
+# So the command line carries NO arguments at all:
+#
+#     python ".../tools/_probe.py"
+#
+# and the job goes in `probe_job.txt` in the scratchpad, one line, e.g.
+# `scratch filelog.py Modules/X.lua` or `run check_drift --mark KEY`. The file is renamed to
+# probe_job.done.txt once read, so a stale job can never run twice. No job file -> the old
+# SavedVariables probe below, unchanged.
+if len(sys.argv) == 1:
+    import glob as _gj
+    import shlex as _sh
+    _roots = [os.environ.get("CLAUDE_SCRATCHPAD") or ""]
+    _roots.append(os.path.join(os.path.expanduser("~"), "AppData", "Local", "Temp", "claude",
+                               "E--World-of-Warcraft--retail--Interface-AddOns"))
+    _jobs = []
+    for _r in _roots:
+        if _r:
+            _jobs += _gj.glob(os.path.join(_r, "probe_job.txt"))
+            _jobs += _gj.glob(os.path.join(_r, "*", "scratchpad", "probe_job.txt"))
+    if _jobs:
+        _job = max(_jobs, key=os.path.getmtime)
+        _line = io.open(_job, encoding="utf-8").read().strip()
+        os.replace(_job, _job[:-len("probe_job.txt")] + "probe_job.done.txt")
+        print("job: %s" % _line)
+        sys.argv = [sys.argv[0]] + _sh.split(_line, posix=True)
+
 if len(sys.argv) > 2 and sys.argv[1] == "scratch":
     # 🔴 THE THIRD FRONT DOOR, AND THE ONE CLAUDE.md WRONGLY SAID ALREADY EXISTED.
     #

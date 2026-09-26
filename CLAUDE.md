@@ -134,6 +134,19 @@ dat is precies het verschil dat dit project al drie keer verkeerd om heeft gelez
 - **Version bumps & releases only when Rob says "af"/"go".** Don't bump the version or write release docs pre-emptively.
 - **Big releases: consider Beta-first on CurseForge** (Cisca-test) before Release — Rob decides.
 
+## 🔴 26 sep 2026: `_probe.py` krijgt GEEN argumenten meer
+
+GEMETEN: `settings.local.json` bevat 192 losse "Always allow"-regels voor `_probe.py" scratch <x>` en 66 voor
+`_probe.py" run <x>`. De sterregel `Bash(python ".../_probe.py" *)` heeft dus nooit gematcht; elke run met
+argumenten was een prompt. Waarom is niet vastgesteld. Argumentloze regels (`git_stage.py`, `lint_addon.py`,
+`lua_syntax_check.py`) draaien wél schoon. Dus, net als `git_stage.py`:
+1. Write `<scratchpad>/probe_job.txt` met één regel, bv. `scratch filelog.py Modules/X.lua` of
+   `run check_drift --mark KEY`.
+2. Draai altijd exact `python "E:/World of Warcraft/_retail_/Interface/AddOns/MidnightHelper/tools/_probe.py"`.
+De job wordt na lezen hernoemd naar `probe_job.done.txt`. Overal hieronder waar `_probe.py run …` of
+`_probe.py scratch …` staat: lees het als de inhoud van `probe_job.txt`.
+Geschiedenis van één bestand: `scratch filelog.py <pad>` (git met een pad prompt, zie verderop).
+
 ## ⚠️ De PowerShell-tool: niet gebruiken
 
 Op 11 aug 2026 stonden de prompts er ineens weer, terwijl er niets aan de regels was

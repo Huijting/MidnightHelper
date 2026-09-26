@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🔴 26 sep laat — allow-prompts: `_probe.py` nu ZONDER argumenten
+
+Rob: *"eerst even die ellendige allow popups fixen !!!"* (prompt op `_probe.py" scratch filelog.py`). GEMETEN:
+`settings.local.json` had 192 losse allow-regels voor `_probe.py" scratch …` en 66 voor `run …` — de sterregel
+matchte nooit. `_probe.py` zonder argumenten leest nu `<scratchpad>/probe_job.txt` (hernoemt naar `.done`). Zie
+CLAUDE.md bovenaan. ⚠️ Rob moet nog bevestigen dat de kale aanroep niet vraagt.
+
 ## 🩹 26 sep laat — party-paneel: DISPEL staat nu bij de naam
 
 Rob (Prot Paladin): *"waarom kan ik niet op de rechtermuis drukken om te dispellen?"* Het woord DISPEL stond helemaal
