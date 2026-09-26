@@ -1297,3 +1297,24 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   **[RAAKT ONS NIET]** op de hotfix-vergelijking; het testlijst-zijspoor is geen contradictie maar
   een gemeten inconsistentie voor een mens om te sluiten. Geen actiepunt dat ík kan oppakken — ik
   rapporteer, een mens beslist.
+
+---
+
+- [2026-09-26] 🔁 **Geen nieuwe hotfix-sectie sinds gisteren (24 sep) — tweede dag op rij, zelf
+  gemeten.** GEMETEN: `news.blizzard.com`'s doorlopende hotfix-artikel opnieuw gelezen via Exa
+  `web_fetch_exa` met `?nocache=20260926z` — volledige artikeltekst t/m de "September 22, 2026"-
+  sectie zelf gelezen. Bovenste sectie blijft **"September 24, 2026"** (Delves: Shadow Enclave/
+  Oddball Ingredient-teleport; Player versus Player: movement-speed-tuning) — byte-voor-byte gelijk
+  aan wat al volledig gelogd staat op [2026-09-25]. Geen Professions-, Quests-, Dungeons and Raids-,
+  Items- of Achievements-sectie op 22/23/24 sep (leeg, zoals gebruikelijk). **Positieve controle
+  tegen de cache-val:** `web_search_exa` op "hotfixes September 25/26 2026" vindt geen artikel
+  nieuwer dan Wowheads "More PvP Tuning"-stuk (gepubliceerd 25 sep 01:03 UTC, over dezelfde 24-sep-
+  sectie); drie onafhankelijke spiegels (pubt.io, consolepcgaming.com, Wowhead Blue Tracker) citeren
+  woordelijk dezelfde tekst zonder nieuwere datum — dus geen week-oude cache, gewoon geen nieuwe
+  sectie. Convergeert met de data-wachter van vandaag (`docs/PTR_12.0.7_DATA.md`, entry
+  [2026-09-26]: zelfde conclusie), hier onafhankelijk zelf herlezen, niet overgenomen. Niets nieuws
+  om tegen de repo te toetsen — geen codebase-vergelijking nodig. **[RAAKT ONS NIET]** — bron:
+  https://news.blizzard.com/en-us/article/24296142?nocache=20260926z (volledig gelezen via Exa) ·
+  `web_search_exa` "World of Warcraft Midnight hotfixes September 25 OR September 26 2026 Delves
+  Professions Quests" (nieuwste treffer blijft 24 sep). Geen actiepunt dat ík kan oppakken — ik
+  rapporteer, een mens beslist.
