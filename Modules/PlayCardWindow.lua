@@ -16,7 +16,7 @@
 local _, ns = ...
 
 local WIN_NAME = "MidnightHelperPlayCardWindow"
-local WIDTH = 460
+local WIDTH = 500 -- 460 until 26 Sep 2026; four tabs did not fit
 local PAD = 16
 local ICON = 30
 local SPEC_ICON = 26
@@ -242,7 +242,7 @@ end
 local function CurrentTab()
 	local ui = ns.db and ns.db.ui
 	local t = ui and ui.playCardTab
-	return (t == "alive" or t == "cons") and t or "play"
+	return (t == "alive" or t == "cons" or t == "dispel") and t or "play"
 end
 
 local function SetTab(id)
@@ -268,7 +268,7 @@ local function TabButton(i)
 		b:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight2", "ADD")
 		win._tabBtns[i] = b
 	end
-	Font(b.fs, "GameFontNormal")
+	Font(b.fs, "GameFontNormalSmall")
 	b:Show()
 	return b
 end
@@ -383,6 +383,187 @@ local function BagCount(ids)
 		end
 	end
 	return n
+end
+
+--------------------------------------------------------------------------------
+-- The Dispel tab (Rob, 26 Sep 2026: "Ik weet nooit wat ik kan dispellen of weghalen bij vijanden, maar
+-- ook bij de friendlies"). Three parts: what you remove from your group, what you take off enemies, and
+-- the debuffs in Midnight's dungeons and raid that are removable, marked where YOU can do it.
+-- ⚠️ Static knowledge only. Since 12.0 an addon cannot read auras on other players or enemies, so this
+-- tab never claims something is on someone right now; it says what you COULD remove, and where.
+--------------------------------------------------------------------------------
+
+--- Taking a buff off an ENEMY. Ids from Modules/DispelHelper.lua (ns.OFFENSIVE_PURGES, each with two
+--- sources) plus Soothe. Demon Hunter's Consume Magic has two candidate ids in our own data (278326 in
+--- DispelHelper, 1277738 in KeybindRoles_DemonHunter); whichever this character knows is shown.
+local ENEMY_DISPELS = {
+	PRIEST = { { ids = { 528 }, what = "PLAYCARD_PURGE_MAGIC" } },
+	MAGE = { { ids = { 30449 }, what = "PLAYCARD_PURGE_STEAL" } },
+	SHAMAN = { { ids = { 370 }, what = "PLAYCARD_PURGE_MAGIC" } },
+	HUNTER = { { ids = { 19801 }, what = "PLAYCARD_PURGE_BOTH" } },
+	DRUID = { { ids = { 2908 }, what = "PLAYCARD_PURGE_ENRAGE" } },
+	DEMONHUNTER = { { ids = { 278326, 1277738 }, what = "PLAYCARD_PURGE_MAGIC" } },
+}
+
+--- Removable debuffs (and one boss buff) in Midnight's dungeons and raid, from the installed DBM boss
+--- mods: only entries where DBM names the TYPE (Remove<Type> / MagicDispeller). Instance and boss names
+--- come from the client (GetRealZoneText / EJ_GetEncounterInfo), so they read in the player's language.
+--- Untyped DBM "helpdispel" entries (Glacial Torment 1235548, Icebound Flames 1286922) are left out on
+--- purpose: guessing their type is the mistake BOSS_HEAL_LENS already refused to make.
+local SEASON_DISPELS = {
+	{ zone = 3004, ej = 2883, id = 1282281, type = "poison" }, -- The Coiled Altar, Venomfang (TheCoiledAltar.lua:35)
+	{ zone = 3004, ej = 2895, id = 1301800, type = "poison" }, -- Ula'tek, Acidic Burst from Blightscale Vipers (Ulatek.lua:58)
+	{ zone = 2993, id = 1307571, type = "poison" }, -- Altar of Fangs trash, Envenom (AltarofFangsTrash.lua:16)
+	{ zone = 2859, id = 1250937, type = "poison" }, -- The Blinding Vale trash, Toxic Spew (TheBlindingValeTrash.lua:16)
+	{ zone = 2874, ej = 2810, id = 1246666, type = "disease" }, -- Muro'jin and Nekraxx, Infected Pinions (MurojinandNekraxx.lua:20)
+	{ zone = 2811, ej = 2661, id = 1248689, purge = "magic" }, -- Seranel Sunlash, Hastening Ward on the boss (SeranelSunlash.lua:17)
+}
+
+local function ClassToken()
+	return UnitClass and select(2, UnitClass("player")) or nil
+end
+
+--- Friendly dispels for a spec: the healer's own, else the class list (only what you know, on your own
+--- active spec; the whole class list when looking at another spec, since "known" answers for this one).
+local function FriendlyDispels(specID)
+	local healer = ns.GetHealerDispel and ns.GetHealerDispel(specID)
+	if healer then
+		return { healer }
+	end
+	if specID == ActiveSpecID() and ns.GetKnownClassDispels then
+		return ns.GetKnownClassDispels()
+	end
+	return (ns.NONHEALER_DISPELS and ns.NONHEALER_DISPELS[ClassToken() or ""]) or {}
+end
+
+local function EnemyDispels(specID)
+	local out = {}
+	local own = specID == ActiveSpecID()
+	for _, e in ipairs(ENEMY_DISPELS[ClassToken() or ""] or {}) do
+		local pick
+		for _, id in ipairs(e.ids) do
+			if not own or (ns.PlayCardKnowsSpell and ns.PlayCardKnowsSpell(id)) then
+				pick = id
+				break
+			end
+		end
+		if pick then
+			out[#out + 1] = { id = pick, what = e.what }
+		end
+	end
+	return out
+end
+
+local function SpellLink(id)
+	return ns.ExpandPlayCardText and (ns.ExpandPlayCardText("{SPELL:" .. id .. "}")) or tostring(id)
+end
+
+local function DrawDispel(specID, y, inner)
+	local t = 0
+	local function Head(key)
+		t = t + 1
+		local fs = Text(t, "GameFontNormal")
+		fs:SetWidth(inner)
+		fs:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		fs:SetTextColor(1, 0.82, 0.4)
+		fs:SetText(L(key))
+		y = y - fs:GetStringHeight() - 8
+	end
+	local function Line(text, dim)
+		t = t + 1
+		local fs = Text(t, "GameFontHighlight")
+		fs:SetWidth(inner)
+		fs:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		if dim then
+			fs:SetTextColor(0.62, 0.6, 0.56)
+		else
+			fs:SetTextColor(0.9, 0.88, 0.82)
+		end
+		fs:SetText(text)
+		y = y - fs:GetStringHeight() - 8
+	end
+	local r = 0
+	local function Row(id, second)
+		r = r + 1
+		local row = StepRow(r)
+		row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		row:SetWidth(inner)
+		row.num:SetText("")
+		StepIcon(row, id, nil)
+		row.fs:ClearAllPoints()
+		row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
+		row.fs:SetWidth(inner - (20 + ICON + 10))
+		row.fs:SetTextColor(0.9, 0.88, 0.82)
+		row.fs:SetText(SpellLink(id) .. "|n" .. second)
+		local h = math.max(ICON, row.fs:GetStringHeight() + 4)
+		row:SetHeight(h)
+		y = y - h - 10
+	end
+
+	-- 1. From your group.
+	Head("PLAYCARD_DISPEL_FRIENDS")
+	local friendly = FriendlyDispels(specID)
+	local canTypes = {}
+	for _, d in ipairs(friendly) do
+		Row(d.id, ns.FormatDispelTypes and ns.FormatDispelTypes(d.types) or "")
+		for _, ty in ipairs(d.types or {}) do
+			canTypes[ty] = true
+		end
+	end
+	if #friendly == 0 then
+		Line(L("PLAYCARD_DISPEL_NONE_FRIENDS"), true)
+	end
+
+	-- 2. From enemies.
+	y = y - 4
+	Head("PLAYCARD_DISPEL_ENEMIES")
+	local enemy = EnemyDispels(specID)
+	for _, e in ipairs(enemy) do
+		Row(e.id, L(e.what))
+	end
+	if #enemy == 0 then
+		Line(L("PLAYCARD_DISPEL_NONE_ENEMIES"), true)
+	end
+	local canPurgeMagic = false
+	for _, e in ipairs(enemy) do
+		if e.what ~= "PLAYCARD_PURGE_ENRAGE" then
+			canPurgeMagic = true
+		end
+	end
+
+	-- 3. Where it matters in Midnight's dungeons and raid.
+	y = y - 4
+	Head("PLAYCARD_DISPEL_SEASON")
+	for _, s in ipairs(SEASON_DISPELS) do
+		local zone = GetRealZoneText and GetRealZoneText(s.zone)
+		if not zone or zone == "" then
+			zone = "?"
+		end
+		local where = zone
+		if s.ej and EJ_GetEncounterInfo then
+			local ok, bossName = pcall(EJ_GetEncounterInfo, s.ej)
+			if ok and bossName and bossName ~= "" then
+				where = zone .. " - " .. bossName
+			end
+		else
+			where = zone .. " (" .. L("PLAYCARD_DISPEL_TRASH") .. ")"
+		end
+		local you, what
+		if s.purge then
+			you = canPurgeMagic
+			what = L("PLAYCARD_DISPEL_BOSSBUFF")
+		else
+			you = canTypes[s.type] and true or false
+			what = ns.FormatDispelTypes and ns.FormatDispelTypes({ s.type }) or s.type
+		end
+		local mark = you and ("  |cff8cd98c" .. L("PLAYCARD_DISPEL_YOU") .. "|r") or ""
+		Line(("|cff%s%s|r|n%s (%s)%s"):format(you and "ffffff" or "9d9d9d", where, SpellLink(s.id), what, mark), not you)
+	end
+
+	-- 4. What MH cannot do, and where the game shows it instead.
+	y = y - 4
+	Line(L("PLAYCARD_DISPEL_LIVE_NOTE"), true)
+	return y
 end
 
 local function DrawConsumables(specID, y, inner)
@@ -532,6 +713,7 @@ local function Redraw()
 		{ id = "play", key = "PLAYCARD_TAB_PLAY" },
 		{ id = "alive", key = "SURVIVAL_HEAD" },
 		{ id = "cons", key = "TAB_CONSUMABLES" },
+		{ id = "dispel", key = "PLAYCARD_TAB_DISPEL" },
 	}
 	local tx = 0
 	for i, def in ipairs(tabs) do
@@ -539,7 +721,7 @@ local function Redraw()
 		b:ClearAllPoints()
 		b:SetPoint("TOPLEFT", win.body, "TOPLEFT", tx, y)
 		b.fs:SetText(L(def.key))
-		b:SetWidth(b.fs:GetStringWidth() + 24)
+		b:SetWidth(b.fs:GetStringWidth() + 18)
 		local on = def.id == tab
 		b.fs:SetTextColor(on and 1 or 0.62, on and 0.82 or 0.6, on and 0.2 or 0.56)
 		b.line:SetShown(on)
@@ -547,12 +729,13 @@ local function Redraw()
 			SetTab(def.id)
 			Redraw()
 		end)
-		tx = tx + b:GetWidth() + 8
+		tx = tx + b:GetWidth() + 4
 	end
 	y = y - 26 - 10
 
-	if tab == "alive" or tab == "cons" then
-		y = (tab == "alive" and DrawStayAlive or DrawConsumables)(specID, y, inner)
+	if tab == "alive" or tab == "cons" or tab == "dispel" then
+		local draw = (tab == "alive" and DrawStayAlive) or (tab == "cons" and DrawConsumables) or DrawDispel
+		y = draw(specID, y, inner)
 		win:SetHeight(32 + 32 - y + 16 + 8)
 		return
 	end

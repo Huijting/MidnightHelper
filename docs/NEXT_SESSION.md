@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 🧹 26 sep avond — kaartvenster: vierde tabblad "Dispel"
+
+Rob: *"Ik weet nooit wat ik kan dispellen of weghalen bij vijanden, maar ook bij de friendlies."* Hij koos (AskUserQuestion)
+het tabblad **mét de bosstips erbij**. `PlayCardWindow.lua` tab `dispel`, drie delen:
+1. **Bij je groep:** `ns.GetHealerDispel(spec)` of de klassenlijst (`ns.GetKnownClassDispels` op je eigen spec,
+   anders de hele `NONHEALER_DISPELS`-lijst), met icoon + soorten.
+2. **Bij vijanden:** nieuwe `ENEMY_DISPELS` (Priest 528, Mage 30449 steal, Shaman 370, Hunter 19801 magic+enrage,
+   Druid Soothe 2908 enrage, DH Consume Magic 278326 **of** 1277738 — welke je kent; onze eigen data spreekt elkaar
+   tegen). Niet: Warlock (pet), Rogue Shiv, Evoker (niet bevestigd).
+3. **Waar het telt:** `SEASON_DISPELS`, alleen DBM-regels mét type (Remove<Type>/MagicDispeller): Coiled Altar
+   Venomfang, Ula'tek Acidic Burst, Altar of Fangs-trash Envenom, Blinding Vale-trash Toxic Spew (poison),
+   Muro'jin & Nekraxx Infected Pinions (disease), Seranel Sunlash Hastening Ward (purge). Namen van dungeon en baas
+   uit de client (`GetRealZoneText`, `EJ_GetEncounterInfo`). "jij kunt het" als jouw soorten/purge het dekken.
+   Bewust niet: Glacial Torment en Icebound Flames (DBM zegt niet welk type).
++ Eerlijke regel: MH ziet sinds 12.0 geen auras op anderen; Blizzards eigen schermen wel.
+Venster 460 → 500 breed, tabletters kleiner (4 tabs). 14 sleutels en + nl; **5 talen + de precieze Blizzard-
+instelling volgen** (onderzoeksagent loopt). Nog niet in het spel gezien.
+
 ## 🧪 26 sep — kaartvenster: derde tabblad "Consumables" (na 4.1.0, nog niet uitgebracht)
 
 Rob: *"Ik ben heel blij met de pop-up ... eigenlijk zou ik daar het tabbladje voor onze consumables in willen hebben,

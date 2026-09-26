@@ -21,11 +21,21 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 26 sep — kaartvenster: tabblad Dispel
+
+`/reload`, `/mh play`, tabblad **Dispel**.
+- [ ] Passen de vier tabbladen naast elkaar (venster is iets breder geworden)?
+- [ ] **Bij je groep**: klopt wat er staat met je spreuken (Prot Paladin: Cleanse Toxins en misschien Cleanse)?
+- [ ] **Bij vijanden**: op een Shaman staat Purge, op een Mage Spellsteal, op een Hunter Tranquilizing Shot, op een
+      Druid Soothe. Klopt dat, en staat bij een spec zonder zo'n spreuk *"This spec cannot take buffs off enemies"*?
+- [ ] **Waar het telt**: staan de dungeon- en baasnamen er echt (geen "?")? Staat "you can" bij de dingen die jij kunt?
+- [ ] Muis op een spreuknaam: komt de uitleg?
+
 ## 🆕 26 sep — kaartvenster: tabblad Consumables
 
 `/reload`, dan `/mh play` (of de gouden knop). Rob: *"het tabbladje voor onze consumables ... zonder in een lange lijst te
 moeten zoeken"*.
-- [ ] Derde tabblad **Consumables**. Staan er flask, potions, wapenolie (niet bij elke spec), rune en food, elk met
+- [x] ✅ (Rob, 26 sep: *"het werkt"*) Derde tabblad **Consumables**. Staan er flask, potions, wapenolie (niet bij elke spec), rune en food, elk met
       icoon en de naam in de kleur van het item?
 - [ ] Achter elk item: **×aantal** als je het (of een alternatief) in je tassen hebt, anders *Not in your bags*. Klopt dat?
 - [ ] Muis op een naam of icoon: komt de item-tooltip? Staan er eerst "..." in plaats van namen, verschijnen ze dan
