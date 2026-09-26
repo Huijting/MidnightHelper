@@ -15,8 +15,15 @@ het tabblad **mét de bosstips erbij**. `PlayCardWindow.lua` tab `dispel`, drie 
    uit de client (`GetRealZoneText`, `EJ_GetEncounterInfo`). "jij kunt het" als jouw soorten/purge het dekken.
    Bewust niet: Glacial Torment en Icebound Flames (DBM zegt niet welk type).
 + Eerlijke regel: MH ziet sinds 12.0 geen auras op anderen; Blizzards eigen schermen wel.
-Venster 460 → 500 breed, tabletters kleiner (4 tabs). 14 sleutels en + nl; **5 talen + de precieze Blizzard-
-instelling volgen** (onderzoeksagent loopt). Nog niet in het spel gezien.
+Venster 460 → 500 breed, tabletters kleiner (4 tabs). ✅ GEMETEN (Rob, screenshot Prot Paladin): werkt, alle
+zes namen, "you can" klopt.
+✅ **Blizzard-instellingen** (agent, gemeten in Blizzards 12.1.0-UI-code build 69933 + GlobalStrings): groep =
+Options > Gameplay > Interface > Raid Frames, "Dispellable Debuff Indicator" (standaard Show All) → "Dispellable By
+Me", "Color" (standaard Use Debuff Color); vijanden = Options > Gameplay > Nameplates > "Enemy NPC Buffs/Debuffs" >
+"Mob Buffs" (standaard onbekend); target-frame randt stealable buffs altijd. Party-frames: "Use Raid-Style Party
+Frames" in Edit Mode is AFGELEID. Als `PLAYCARD_DISPEL_TIP_*` in het tabblad.
+✅ **Vertaald** (5 taalexperts): 16 sleutels, menunamen uit de GlobalStrings van elke client (alle 13 bevestigd per
+taal). pt: "Quadros de Raide"-hoofdletter onzeker; de: tab heet "Bannen". Niet door moedertaalsprekers nagekeken.
 
 ## 🧪 26 sep — kaartvenster: derde tabblad "Consumables" (na 4.1.0, nog niet uitgebracht)
 

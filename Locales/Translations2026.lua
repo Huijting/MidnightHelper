@@ -11206,3 +11206,95 @@ fill("itIT", {
 	PLAYCARD_TAB_PLAY = "I tuoi tasti",
 	PLAYCARD_ALIVE_NONE = "MH non ha ancora una lista di sopravvivenza per questa specializzazione.",
 })
+
+-- Play-card window, Dispel tab (26 Sep 2026). One language expert per language; Blizzard's
+-- option labels taken from that client's GlobalStrings where confirmed. Not native-reviewed.
+fill("deDE", {
+	PLAYCARD_TAB_DISPEL = "Bannen",
+	PLAYCARD_DISPEL_FRIENDS = "Bei deiner Gruppe: Debuffs, die du entfernen kannst",
+	PLAYCARD_DISPEL_ENEMIES = "Bei Gegnern: Buffs, die du ihnen nehmen kannst",
+	PLAYCARD_DISPEL_NONE_FRIENDS = "Diese Spezialisierung kann keine Debuffs von anderen entfernen.",
+	PLAYCARD_DISPEL_NONE_ENEMIES = "Diese Spezialisierung kann Gegnern keine Buffs nehmen.",
+	PLAYCARD_PURGE_MAGIC = "nimmt einem Gegner einen Magie-Buff",
+	PLAYCARD_PURGE_STEAL = "stiehlt einem Gegner einen Magie-Buff, und du bekommst ihn",
+	PLAYCARD_PURGE_ENRAGE = "beruhigt einen wütenden Gegner (entfernt Wutanfall)",
+	PLAYCARD_PURGE_BOTH = "nimmt einem Gegner einen Magie-Buff oder beruhigt einen Wutanfall",
+	PLAYCARD_DISPEL_SEASON = "Wo es in den Dungeons und im Raid von Midnight zählt",
+	PLAYCARD_DISPEL_YOU = "du kannst",
+	PLAYCARD_DISPEL_BOSSBUFF = "ein Magie-Buff auf dem Boss",
+	PLAYCARD_DISPEL_TRASH = "Trash",
+	PLAYCARD_DISPEL_LIVE_NOTE = "MH kann in diesem Patch keine Buffs und Debuffs auf anderen Spielern oder Gegnern sehen; das Spiel verbirgt sie vor Addons. Das Spiel selbst kann sie anzeigen:",
+	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Deine Gruppe:|r Optionen > Gameplay > Interface > Schlachtzugsfenster. Stell \"Indikator für bannbaren Schwächungseffekt\" auf \"Bannbar durch mich\" und \"Farbe\" auf \"Farbe von Schwächungseffekt verwenden\": Ein Fenster leuchtet dann in der Farbe des Debuffs auf, wenn du ihn entfernen kannst. Keine Änderung an deinen Gruppenfenstern? Schalte im Bearbeitungsmodus \"Gruppen wie Schlachtzüge anzeigen\" ein.",
+	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Gegner:|r Optionen > Gameplay > Namensplaketten > \"Stärkungseffekte/Schwächungseffekte feindlicher NSCs\" > \"Mobstärkungseffekte\" anhaken. Buffs, die du bannen oder stehlen kannst, erscheinen dann auf ihren Namensplaketten. Dein Zielfenster gibt diesen Buffs schon einen besonderen Rahmen.",
+})
+
+fill("frFR", {
+	PLAYCARD_TAB_DISPEL = "Dissipation",
+	PLAYCARD_DISPEL_FRIENDS = "Sur ton groupe : les debuffs que tu peux retirer",
+	PLAYCARD_DISPEL_ENEMIES = "Sur les ennemis : les buffs que tu peux leur retirer",
+	PLAYCARD_DISPEL_NONE_FRIENDS = "Cette spé ne peut pas retirer les debuffs des autres.",
+	PLAYCARD_DISPEL_NONE_ENEMIES = "Cette spé ne peut pas retirer les buffs des ennemis.",
+	PLAYCARD_PURGE_MAGIC = "retire un buff de Magie à un ennemi",
+	PLAYCARD_PURGE_STEAL = "vole un buff de Magie à un ennemi, et il passe sur toi",
+	PLAYCARD_PURGE_ENRAGE = "calme un ennemi enragé (retire l'effet Enragé)",
+	PLAYCARD_PURGE_BOTH = "retire un buff de Magie à un ennemi, ou calme un effet Enragé",
+	PLAYCARD_DISPEL_SEASON = "Où ça compte dans les donjons et le raid de Midnight",
+	PLAYCARD_DISPEL_YOU = "tu peux",
+	PLAYCARD_DISPEL_BOSSBUFF = "un buff de Magie sur le boss",
+	PLAYCARD_DISPEL_LIVE_NOTE = "Dans ce patch, MH ne voit pas les buffs et debuffs des autres joueurs ni des ennemis ; le jeu les cache aux addons. Le jeu lui-même peut les afficher :",
+	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Ton groupe :|r Options > Jeu > Interface > Fenêtres de raid. Règle \"Indicateur d’affaiblissement dissipable\" sur \"Dissipable par moi\" et \"Couleur\" sur \"Utiliser la couleur de l’affaiblissement\" : un cadre s'allume alors dans la couleur du debuff quand tu peux le retirer. Rien ne change sur tes cadres de groupe ? Active \"Utiliser interface de type raid\" dans le Mode Édition.",
+	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Ennemis :|r Options > Jeu > Barres d’info > \"Améliorations/Affaiblissements des PNJ adverses\" > coche \"Améliorations des PNJ adverses\". Les buffs que tu peux purger ou voler s'affichent alors sur leurs barres d'info. Le cadre de ta cible donne déjà une bordure spéciale à ces buffs.",
+})
+
+fill("esES", {
+	PLAYCARD_TAB_DISPEL = "Disipar",
+	PLAYCARD_DISPEL_FRIENDS = "De tu grupo: debuffs que puedes quitar",
+	PLAYCARD_DISPEL_ENEMIES = "De los enemigos: buffs que puedes quitarles",
+	PLAYCARD_DISPEL_NONE_FRIENDS = "Esta especialización no puede quitar debuffs a otros.",
+	PLAYCARD_DISPEL_NONE_ENEMIES = "Esta especialización no puede quitar buffs a los enemigos.",
+	PLAYCARD_PURGE_MAGIC = "le quita un buff de Magia a un enemigo",
+	PLAYCARD_PURGE_STEAL = "le roba un buff de Magia a un enemigo, y te lo quedas tú",
+	PLAYCARD_PURGE_ENRAGE = "calma a un enemigo enfurecido (quita Enfurecer)",
+	PLAYCARD_PURGE_BOTH = "le quita un buff de Magia a un enemigo, o calma Enfurecer",
+	PLAYCARD_DISPEL_SEASON = "Dónde importa en las mazmorras y la banda de Midnight",
+	PLAYCARD_DISPEL_YOU = "tú puedes",
+	PLAYCARD_DISPEL_BOSSBUFF = "un buff de Magia en el jefe",
+	PLAYCARD_DISPEL_LIVE_NOTE = "En este parche MH no puede ver los buffs y debuffs de otros jugadores ni de los enemigos; el juego se los oculta a los addons. El propio juego sí puede mostrarlos:",
+	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Tu grupo:|r Opciones > Experiencia de juego > Interfaz > Marcos de banda. Pon \"Indicador de perjuicio disipable\" en \"Solo disipables por el jugador\" y \"Color\" en \"Utilizar color de perjuicio\": así el marco se ilumina con el color del debuff cuando puedes quitarlo. ¿No cambia nada en tus marcos de grupo? Activa \"Usar marcos de grupo estilo banda\" en el Modo edición.",
+	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Enemigos:|r Opciones > Experiencia de juego > Placas de nombre > \"Beneficios/perjuicios de PNJ enemigos\" > marca \"Beneficios de criaturas\". Así los buffs que puedes purgar o robar aparecen en sus placas de nombre. Tu marco de objetivo ya les pone un borde especial a esos buffs.",
+})
+
+fill("ptBR", {
+	PLAYCARD_TAB_DISPEL = "Dissipar",
+	PLAYCARD_DISPEL_FRIENDS = "Do seu grupo: debuffs que você pode remover",
+	PLAYCARD_DISPEL_ENEMIES = "Dos inimigos: buffs que você pode tirar",
+	PLAYCARD_DISPEL_NONE_FRIENDS = "Esta especialização não consegue remover debuffs dos outros.",
+	PLAYCARD_DISPEL_NONE_ENEMIES = "Esta especialização não consegue tirar buffs dos inimigos.",
+	PLAYCARD_PURGE_MAGIC = "tira um buff de Magia de um inimigo",
+	PLAYCARD_PURGE_STEAL = "rouba um buff de Magia de um inimigo, e ele passa para você",
+	PLAYCARD_PURGE_ENRAGE = "acalma um inimigo enfurecido (remove Enfurecimento)",
+	PLAYCARD_PURGE_BOTH = "tira um buff de Magia de um inimigo, ou acalma Enfurecimento",
+	PLAYCARD_DISPEL_SEASON = "Onde isso importa nas masmorras e na raid de Midnight",
+	PLAYCARD_DISPEL_YOU = "você pode",
+	PLAYCARD_DISPEL_BOSSBUFF = "um buff de Magia no chefe",
+	PLAYCARD_DISPEL_LIVE_NOTE = "O MH não consegue ver buffs e debuffs de outros jogadores ou de inimigos neste patch; o jogo os esconde dos addons. O próprio jogo pode mostrá-los:",
+	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Seu grupo:|r Opções > Jogabilidade > Interface > Quadros de Raide. Defina \"Indicador de penalidade dissipável\" como \"Dissipável por mim\" e \"Cor\" como \"Usar cor de penalidade\": aí o quadro acende na cor do debuff quando você pode removê-lo. Nada mudou nos seus quadros de grupo? Ative \"Usar quadros de grupo estilo Raide\" no Modo de edição.",
+	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Inimigos:|r Opções > Jogabilidade > Placas de identificação > \"Bônus/Penalidades de PNJ inimigos\" > marque \"Bônus do PNJ\". Os buffs que você pode purgar ou roubar aparecem então nas placas de identificação deles. Seu quadro de alvo já dá a esses buffs uma borda especial.",
+})
+
+fill("itIT", {
+	PLAYCARD_DISPEL_FRIENDS = "Dal tuo gruppo: debuff che puoi rimuovere",
+	PLAYCARD_DISPEL_ENEMIES = "Dai nemici: buff che puoi togliere",
+	PLAYCARD_DISPEL_NONE_FRIENDS = "Questa specializzazione non può rimuovere debuff dagli altri.",
+	PLAYCARD_DISPEL_NONE_ENEMIES = "Questa specializzazione non può togliere buff ai nemici.",
+	PLAYCARD_PURGE_MAGIC = "toglie un buff di Magia a un nemico",
+	PLAYCARD_PURGE_STEAL = "ruba un buff di Magia a un nemico, e lo ottieni tu",
+	PLAYCARD_PURGE_ENRAGE = "calma un nemico in Furia (rimuove Furia)",
+	PLAYCARD_PURGE_BOTH = "toglie un buff di Magia a un nemico, o calma la Furia",
+	PLAYCARD_DISPEL_SEASON = "Dove conta nei dungeon e nel raid di Midnight",
+	PLAYCARD_DISPEL_YOU = "puoi farlo",
+	PLAYCARD_DISPEL_BOSSBUFF = "un buff di Magia sul boss",
+	PLAYCARD_DISPEL_LIVE_NOTE = "In questa patch MH non può vedere i buff e i debuff su altri giocatori o sui nemici: il gioco li nasconde agli addon. Ma il gioco stesso può mostrarli:",
+	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Il tuo gruppo:|r Opzioni > Gioco > Interfaccia > Riquadri di incursione. Imposta \"Indicatore penalità dissolvibili\" su \"Dissolvibili da me\" e \"Colore\" su \"Usa il colore delle penalità\": così un riquadro si illumina del colore del debuff quando puoi rimuoverlo. Nessun cambiamento sui riquadri del gruppo? Attiva \"Gruppi in stile incursione\" in Modalità modifica.",
+	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Nemici:|r Opzioni > Gioco > Barre > \"Benefici/Penalità dei PNG nemici\" > spunta \"Benefici dei mostri\". I buff che puoi togliere (purge) o rubare compaiono poi sulle loro barre. Il tuo riquadro del bersaglio dà già a quei buff un bordo speciale.",
+})
