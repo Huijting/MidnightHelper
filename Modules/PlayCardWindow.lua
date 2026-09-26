@@ -560,9 +560,13 @@ local function DrawDispel(specID, y, inner)
 		Line(("|cff%s%s|r|n%s (%s)%s"):format(you and "ffffff" or "9d9d9d", where, SpellLink(s.id), what, mark), not you)
 	end
 
-	-- 4. What MH cannot do, and where the game shows it instead.
+	-- 4. What MH cannot do, and where the game shows it instead. Labels and paths measured in
+	-- Blizzard's own 12.1.0 UI code (build 69933: Blizzard_SettingsDefinitions_Frame, NamePlateAuras,
+	-- TargetFrameAuraContainer) and the 12.1.0 GlobalStrings, 26 Sep 2026.
 	y = y - 4
 	Line(L("PLAYCARD_DISPEL_LIVE_NOTE"), true)
+	Line(L("PLAYCARD_DISPEL_TIP_FRIENDS"), false)
+	Line(L("PLAYCARD_DISPEL_TIP_ENEMIES"), false)
 	return y
 end
 

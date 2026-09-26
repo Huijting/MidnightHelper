@@ -24,11 +24,12 @@ er is niets weggegooid.
 ## 🆕 26 sep — kaartvenster: tabblad Dispel
 
 `/reload`, `/mh play`, tabblad **Dispel**.
-- [ ] Passen de vier tabbladen naast elkaar (venster is iets breder geworden)?
-- [ ] **Bij je groep**: klopt wat er staat met je spreuken (Prot Paladin: Cleanse Toxins en misschien Cleanse)?
+- [x] ✅ (Rob, 26 sep, screenshot Prot Paladin) Passen de vier tabbladen naast elkaar (venster is iets breder geworden)?
+- [x] ✅ (Rob, 26 sep: Cleanse Toxins, Poison + Disease) **Bij je groep**: klopt wat er staat met je spreuken?
 - [ ] **Bij vijanden**: op een Shaman staat Purge, op een Mage Spellsteal, op een Hunter Tranquilizing Shot, op een
       Druid Soothe. Klopt dat, en staat bij een spec zonder zo'n spreuk *"This spec cannot take buffs off enemies"*?
-- [ ] **Waar het telt**: staan de dungeon- en baasnamen er echt (geen "?")? Staat "you can" bij de dingen die jij kunt?
+- [x] ✅ (Rob, 26 sep: alle zes met naam, "you can" bij de 5 poison/disease, niet bij de boss-buff) **Waar het telt**:
+      staan de dungeon- en baasnamen er echt (geen "?")? Staat "you can" bij de dingen die jij kunt?
 - [ ] Muis op een spreuknaam: komt de uitleg?
 
 ## 🆕 26 sep — kaartvenster: tabblad Consumables
