@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ✅ 26 sep laat — consumables opnieuw gecontroleerd: geen wijzigingen nodig
+
+Rob: *"de consumables waren actueel he ???"* → *"zet ze maar in de maandagcheck, maar controleer ze nu een keer, als
+er veel wijzigingen zijn gaan we toch releasen"*. GEMETEN met `tools/check_consumables.py` (Icy Veins, alle specs):
+flask en combat potion kloppen bij **alle** specs; 0 secties zonder bekend item. 17 food-"verschillen" (14 sep: 19),
+allemaal de bekende ruis: Harandar Celebration ↔ Silvermoon Parade (zelfde buff) en "Royal Roast" binnen "Impossibly
+Royal Roast". Brewmaster "Potions" = alleen dat de pagina de healing potion niet noemt. Geen release nodig.
+⚠️ Blinde vlek (AFGELEID): de checker telt "eens" als al ónze items op de pagina staan; een gloednieuw item dat de
+pagina vóór het onze zet, ziet hij niet. De maandagroutine vraagt daar nu wél naar.
+✅ **Content-wachter** (`trig_01JYW9gqzFNe8MkY3x3tQzh6`): nieuwe maandagsectie "🧪 Consumables:" naast "🃏 Kaarten:";
+eerste run ma 28 sep.
+
 ## 🔴 26 sep laat — allow-prompts: `_probe.py` nu ZONDER argumenten
 
 Rob: *"eerst even die ellendige allow popups fixen !!!"* (prompt op `_probe.py" scratch filelog.py`). GEMETEN:
