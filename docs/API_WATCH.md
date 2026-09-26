@@ -2884,3 +2884,115 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     zien. Na `git fetch origin main` bleek `b6fe103` exact `origin/main`: geen verloren werk, alleen
     een achterlopende ref. `main` bijgezet en daarop gecommit. Geen van de vier wachter-bestanden
     stond gewijzigd-maar-ongecommit.
+- [2026-09-26] 🧩 **Eén échte addon-kant-wijziging (19–26 sep): de wiki documenteert sinds
+  gisteravond een nieuw client-specifiek TOC-achtervoegsel `AddonName_Standard.toc`, toegeschreven
+  aan 12.1.5. 0 × [MOET GEFIKST].** Dit is precies het soort ding dat deze wachter moet vangen —
+  het raakt hoe de client een addon *laadt*, niet wat er in het spel gebeurt — maar het raakt
+  Midnight Helper niet, en dat is **gemeten**, niet gehoopt.
+  - 🆕 **GEMETEN — vier edits van `Zeal` op `TOC format`, gisteravond binnen zes minuten**
+    (`api.php`, `prop=revisions`, `rvlimit=12`, cache-busted):
+    - `6887877` 2026-09-25T19:36:36Z (26984 b) — *"/\* Per-file variables \*/ Expanded description
+      for variables within meta-data"*
+    - `6887878` 19:38:02Z (26936 b) — *"/\* Per-file variables \*/ Reworded to reduce duplicate
+      statements"*
+    - `6887882` 19:39:47Z (27001 b) — *"/\* Modern \*/ Added Standard TOC suffix"*
+    - `6887886` 19:42:12Z (27066 b) — *"/\* Client-specific TOC files \*/ Readded Standard suffix"*
+    Ouder was `6878841` (19 sep 03:35), de revisie die mijn regel van gisteren als "stil sinds
+    19 sep" noemde. Netto **+96 bytes**.
+  - **GEMETEN — de REST-diff `6878841 → 6887886`** (`rest.php/v1/revision/<van>/compare/<naar>`)
+    raakt precies drie plekken, en **alle 52 sectiekoppen staan er nog** (Rules t/m References, in
+    dezelfde volgorde): geen sectie toegevoegd, geen sectie weg. De koppen vóór de eerste wijziging
+    staan op een identieke offset (`Rules` 424 … `Per-file variables` 7983), daarna schuift alles
+    mee: `Client-specific TOC files` 9806 → 9772 (−34), `AddOns list formatting` 12681 → 12712
+    (+31), en vanaf `Forever` 24722 → 24818 (+96, het netto-saldo).
+    1. In de tabel onder `== Client-specific TOC files ==` staat nu de regel
+       `| standard || … || {{LatestPatchInfo|expansion=}} excluding [[Plunderstorm]], [[Talebound]]
+       and other Modern modes. || AddonName _Standard.toc`. De sectietekst zelf (letterlijk
+       opgehaald via `action=parse&section=9`) blijft zeggen: *"The WoW client first searches for
+       the special file names as shown below, and if none are found, uses AddonName.toc"*, met
+       daarbij *"Note that comma-delimited interface versions or per-file conditional loading
+       directives should be preferred over the use of client-specific TOC files where possible."*
+    2. Onder `=== Modern ===` in `== Patch changes ==` is toegevoegd:
+       `* {{Patch 12.1.5|note=Added _Standard TOC suffix.}}`
+    3. Onder `== Per-file variables ==` zijn twee zinnen samengevoegd tot één:
+       *"TOC files support the use of variable expansions in the form [Variable] within file
+       references **and metadata**. The following variables are currently supported by the client."*
+       (was: *"Variables of the form [Variable] can be used within file references. …"*). De
+       **uitbreiding naar metadata** is de inhoudelijke wijziging; de tabel eronder is onveranderd.
+  - 🔁 **DIT IS EEN CORRECTIE OP EERDERE INFO, en ik zeg dat er expliciet bij.** Hetzelfde
+    `_Standard`-achtervoegsel stond er al eens en is op **17 sep 21:20** door dezelfde editor
+    verwijderd met de samenvatting *"Removed invalid Standard suffix."* (`6877634`). Gisteravond is
+    het **teruggezet** (*"Readded Standard suffix"*). Wie alleen de huidige pagina leest, ziet die
+    heen-en-weer niet.
+    ⚠️ **En let op de herkomst: dit is een wiki-editor, geen Blizzard-bron.** In de diff staat
+    **geen** `Bluepost`, geen bronverwijzing en geen build-nummer; de toeschrijving aan 12.1.5 is
+    Zeals eigen `{{Patch 12.1.5|note=}}`. `WebSearch` op `_Standard`-TOC leverde **niets** buiten de
+    wiki op — geen patch note, geen forumpost, geen Wowhead-artikel. Behandel het dus als
+    **AFGELEID uit datamining door een derde**, niet als een aangekondigde API.
+  - ✅ **[RAAKT ONS NIET] — toetsing aan de code, met positieve controle in dezelfde run.**
+    - `find . -name "*.toc"` (buiten `.git`) geeft **exact één** bestand: `MidnightHelper.toc`. Er
+      is dus geen enkel achtervoegselbestand om mee te botsen, en de pagina zegt zelf dat de client
+      dan `AddonName.toc` gebruikt.
+    - `grep -rn "_Standard"` over `*.lua`, `*.toc`, `*.ps1`, `*.pkgmeta`, `*.yml`: **0 treffers**.
+      Idem `_Mainline`: 0. **Positieve controle op dezelfde reikwijdte:** `grep -rn "AddOns"` over
+      diezelfde bestandstypen vindt wél `MidnightHelper.toc:12`, `tools/sync_to_wow.ps1:3`,
+      `tools/package.ps1:22` en `tools/Crop-Shots.ps1:28` — patroon én scope deugen.
+    - `.pkgmeta:8` zegt `enable-toc-creation: no`, met op regel 7 de uitleg *"We ship a
+      hand-maintained .toc and use no embedded libraries' nolib stripping."* De packager genereert
+      dus ook geen achtervoegselbestanden achter onze rug om.
+    - `MidnightHelper.toc:1` is nog steeds `## Interface: 120007, 120100` — comma-delimited, precies
+      de vorm die de wiki aanbeveelt boven client-specifieke TOC-bestanden.
+    - De **metadata**-uitbreiding van `[Variable]` raakt ons evenmin: `grep -n "\[[A-Za-z]*\]"` over
+      `MidnightHelper.toc` geeft **0 treffers**. **Positieve controle:** dezelfde scope telt 17
+      `## `-directives (`Interface`, `Title`, `Version`, `Author`, `Category`, `Notes` + vijf
+      `Notes-<taal>`, `IconTexture`, `SavedVariables`, `AddonCompartmentFunc`, `X-Curse-Project-ID`,
+      `X-Wago-ID`, `X-Website`, `X-License`) — we gebruiken simpelweg geen variabele-expansies.
+    📌 Conclusie: dit is een **kans**, geen breuk. Wil Rob ooit een aparte build voor Plunderstorm
+    of Talebound, dan is `_Standard` het haakje. Nu niet nodig, en ik stel het niet voor.
+  - 🔇 **`AllowLoadGameType` heeft NIET bewogen — en dat is het punt dat hier al acht dagen open
+    staat.** De vier nieuwe revisies raken de sectie niet; de laatste inhoudelijke edit eraan blijft
+    `6878834` (19 sep 03:09, *"Added note about behaviour of unrecognised game types"*). Onze `.toc`
+    gebruikt hem hoe dan ook niet: één grep over `MidnightHelper.toc` naar `AllowLoad`,
+    `OnlyBetaAndPTR`, `LoadFirst`, `LoadManagers`, `LoadWith` en `UseSecureEnvironment` samen geeft
+    **0 treffers**, met de
+    17-directives-telling hierboven als positieve controle. **[RAAKT ONS NIET]**, en dat blijft zo
+    tot wij zelf zo'n directive toevoegen.
+  - 📰 **Geen nieuwe hotfixpost sinds gisteren.** `Hotfixes` staat onveranderd op rev **`6886643`**
+    (Dark T Zeratul, 2026-09-25T00:42:51Z, 364493 b) — exact de revisie die mijn regel van gisteren
+    al noemde, dus de hotfixes van 24 sep zijn nog steeds de laatste. Geen `;User Interface`-kop
+    bijgekomen.
+  - **Onveranderd sinds gisteren, alle drie byte-voor-byte bevestigd:** `Patch 12.1.0/API changes`
+    (`6886719`, 102481 b, 25 sep 01:45), `Patch 12.1.5/API changes` (`6886717`, 34466 b, 25 sep
+    01:45), `Patch 12.0.7/API changes` (`6794100`, 4 aug), `API change summaries` (`6883777`,
+    22 sep). `Patch 12.1.6/API changes`, `12.1.7/…` en `12.2.0/API changes` blijven `"missing":true`.
+  - 🗣️ **Forum: niets bewogen in 24 uur.** Nieuwste topic in categorie 35 is nog altijd
+    `2359076` *Help with Addon* (23 sep 14:46, 1 post); de nieuwste activiteit buiten de vastgepinde
+    topics is nog steeds *ONLY show characters on a specific realm?* (`1911888`, 25 sep 03:21) en
+    *New AddOn: ChromaChat…* (`2349301`, 25 sep 01:18) — beide gisteren al gemeld, beide nog zonder
+    `community-manager`- of `cs-support-sse`-poster. Geen nieuwe blue post.
+  - 🔒 **Cache-val uitgesloten, en deze keer met een harde ondergrens.** Het nieuwste dat ik zie
+    (`6887886`, 25 sep 19:42) is **nieuwer** dan álles wat mijn regel van gisteren noemde
+    (`6886643`, 25 sep 00:42). Dat `Hotfixes` en beide API-pagina's níét bewogen, is dus een echte
+    stilte en geen oude snapshot — dezelfde fetch die de stilte meldt, levert elders nieuws.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` blijft `EGRESS_BLOCKED`. De hotfixinfo hierboven komt van de wiki, die de
+      post letterlijk overneemt — een **spiegel**, niet de bron.
+    - `wowhead.com/blue-tracker` gaf **twee keer** `CRAWL_UNKNOWN_ERROR` (met verschillende
+      cache-busters), dus de gebruikelijke tweede spiegel ontbrak vandaag volledig. Een blue post
+      van gisteravond die de wiki nog niet heeft opgepikt, zou ik daardoor gemist kunnen hebben.
+    - Directe `curl` naar `us.forums.blizzard.com` faalt in deze sessie op de proxy
+      (`CONNECT tunnel failed, response 403`); alle forumdata komt via `web_fetch_exa`.
+  - **Bronnen, alle met cache-buster:** `warcraft.wiki.gg/api.php` — `prop=revisions` op negen
+    titels, `rvlimit=12` op `TOC format`, en `action=parse&section=9&prop=wikitext` voor de
+    letterlijke sectietekst; `warcraft.wiki.gg/rest.php/v1/revision/6878841/compare/6887886`;
+    `us.forums.blizzard.com` categorie-JSON 35 (`order=activity` én `order=created`); `WebSearch`.
+    ℹ️ `rvlimit=12` faalde één keer op `CRAWL_UNEXPECTED_CONTENT_TYPE` en de REST-diff één keer op
+    `CRAWL_UNKNOWN_ERROR`; beide lukten bij de tweede poging met een andere cache-buster. De
+    wiki-API blijft *"Unrecognized parameter: nocache"* waarschuwen — een MediaWiki-waarschuwing,
+    geen fout.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** ⚠️ De werkmap stond **opnieuw** in detached
+    HEAD, nu op `d5f6722`, terwijl de lokale `main`-ref op `f32c136` bleef staan. Na `git fetch
+    origin main` bleek `d5f6722` exact `origin/main` (Robs 4.1.0-werk van gisteren): geen verloren
+    werk. `main` bijgezet en daarop gecommit. 📌 Dit is de **tweede** dag op rij; het lijkt hoe deze
+    cloud-sessie de repo uitcheckt, niet iets wat Rob doet. Geen van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit.
