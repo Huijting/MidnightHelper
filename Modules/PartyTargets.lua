@@ -162,6 +162,18 @@ local function OwningRow(slot)
 	return nil
 end
 
+--- Put the DISPEL word at the end of the row's name column; the far right until the
+--- rows exist. `canvas` is the fallback anchor.
+local function AnchorDispelTag(tag, idx, canvas)
+	local nameText = idx and rows and rows[idx] and rows[idx].member
+	tag:ClearAllPoints()
+	if nameText then
+		tag:SetPoint("RIGHT", nameText, "RIGHT", -2, 0)
+	else
+		tag:SetPoint("RIGHT", canvas, "RIGHT", -6, 0)
+	end
+end
+
 local function PaintDispelSlot(slot)
 	if slot.SetMouseClickEnabled then
 		pcall(slot.SetMouseClickEnabled, slot, false)
@@ -296,8 +308,24 @@ local function PaintDispelSlot(slot)
 
 	-- HexBreak writes the word on the tile and that is why Rob could read theirs at a
 	-- glance. Static artwork, so it is allowed here; a FontString is not a script.
+	--
+	-- 🔴 ON THE NAME HALF, NOT AT THE FAR RIGHT. Rob, 26 sep, Prot Paladin: the word sat
+	-- at the right edge, so that is where he right-clicked -- the PURGE half, and a Prot
+	-- Paladin has no purge. Nothing happened. The word now ends where the name column
+	-- ends, which is where the dispel click lives; PositionClicks keeps that column and
+	-- the click split on one number, so anchoring to the name follows every resize.
+	--
+	-- ⚠️ AND NOT ONLY HERE. The first build anchored at paint time and the word stayed at
+	-- the far right (Rob, 26 sep, same evening): EnsureDispelGlow runs before `rows[i]`
+	-- exists, and `initializeFrame` can fire inside AddAuraSlot, so the name was nil and
+	-- the fallback won. The tag is remembered on the container and PositionClicks, which
+	-- runs once the rows exist, anchors it again.
 	local tag = canvas:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	tag:SetPoint("RIGHT", canvas, "RIGHT", -6, 0)
+	if row then
+		row._mhTags = row._mhTags or {}
+		row._mhTags[#row._mhTags + 1] = tag
+	end
+	AnchorDispelTag(tag, idx, canvas)
 	tag:SetText((ns.L and ns:L("PARTY_DISPEL_TAG")) or "DISPEL")
 	tag:SetTextColor(1, 0.92, 0.55)
 end
@@ -1441,6 +1469,12 @@ function PositionClicks()
 			local r = rows[i]
 			if r and r.member and r.member.SetWidth then
 				r.member:SetWidth(nameW)
+			end
+			local g = glows[i]
+			if g and g._mhTags then
+				for _, tag in ipairs(g._mhTags) do
+					AnchorDispelTag(tag, i, tag:GetParent())
+				end
 			end
 		end
 	end

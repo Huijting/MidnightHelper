@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🩹 26 sep laat — party-paneel: DISPEL staat nu bij de naam
+
+Rob (Prot Paladin): *"waarom kan ik niet op de rechtermuis drukken om te dispellen?"* Het woord DISPEL stond helemaal
+rechts, op de **purge**-helft; een Prot Paladin heeft geen purge, dus daar gebeurde niets. `PartyTargets.lua`:
+`AnchorDispelTag` zet het woord aan het eind van de naamkolom (= de dispel-helft). Eerste poging viel terug op rechts:
+`EnsureDispelGlow` draait vóór `rows[i]` bestaat en `initializeFrame` kan binnen `AddAuraSlot` vuren; daarom onthoudt
+de container de tags (`_mhTags`) en zet `PositionClicks` ze opnieuw. ✅ GEMETEN (Rob): staat bij de naam.
+✅ GEMETEN (`/mh glow`, castlog): rechtsklik op de naam castte Cleanse Toxins (213644); de knop is in orde. Regel bleef
+rood: debuff was **Wounding Poison** (Poison, dus terecht rood). AFGELEID: de vijand zette hem opnieuw bij elke klap.
+
 ## 🧹 26 sep avond — kaartvenster: vierde tabblad "Dispel"
 
 Rob: *"Ik weet nooit wat ik kan dispellen of weghalen bij vijanden, maar ook bij de friendlies."* Hij koos (AskUserQuestion)
