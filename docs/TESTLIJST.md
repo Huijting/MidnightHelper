@@ -24,7 +24,7 @@ er is niets weggegooid.
 ## 🆕 27 sep — kaartvenster: je echte toets op elk icoon
 
 `/reload`, `/mh play`.
-- [ ] **Your buttons**: rechtsboven op elk icoon staat de toets waar die spreuk nu op staat (`1`, `Z`, `S-2`…), gelijk
+- [x] ✅ (Rob, 27 sep: "de toetsen staan erop") **Your buttons**: rechtsboven op elk icoon staat de toets waar die spreuk nu op staat (`1`, `Z`, `S-2`…), gelijk
       aan wat je actiebalk toont.
 - [ ] Een spreuk die niet op een toets staat: grijs `-`, en de tooltip zegt *"Not on a key on your action bars yet."*
 - [ ] **Stay alive**: ook daar je echte toets op het icoon; de oude `[toets]` achter de naam is weg.
