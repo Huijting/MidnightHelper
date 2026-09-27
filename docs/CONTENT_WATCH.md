@@ -1318,3 +1318,36 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `web_search_exa` "World of Warcraft Midnight hotfixes September 25 OR September 26 2026 Delves
   Professions Quests" (nieuwste treffer blijft 24 sep). Geen actiepunt dat ík kan oppakken — ik
   rapporteer, een mens beslist.
+
+---
+
+- [2026-09-27] 🔁 **Derde dag op rij zonder nieuwe hotfix-sectie sinds 24 sep — zelf gemeten, geen
+  codebase-vergelijking nodig.** GEMETEN: `news.blizzard.com`'s doorlopende hotfix-artikel
+  rechtstreeks gelezen via Exa `web_fetch_exa` met `?nocache=20260927x` — **volledige artikeltekst
+  zelf gelezen** (niet alleen een samenvatting). Bovenste sectie is nog steeds **"September 24,
+  2026"** (Delves: Shadow Enclave/Oddball "Ingredient"-teleport; Player versus Player: Wing
+  Clip/Improved Snaring/Chrono Shift/Consecrated Ground-bewegingssnelheid), byte-voor-byte gelijk
+  aan wat al volledig gelogd staat op [2026-09-25] en herbevestigd op [2026-09-26]. Geen
+  Professions-, Quests-, Dungeons and Raids-, Items- of Achievements-sectie sinds 24 sep (leeg,
+  zoals gebruikelijk als Blizzard daar niets heeft).
+
+  **Positieve controle tegen de cache-val, in dezelfde run:** een gerichte `web_search_exa`-
+  zoekslag op dezelfde vraag geeft resultaten met eigen, latere publicatiedata terug (o.a.
+  consolepcgaming.com, gepubliceerd 24 sep 01:36 UTC, en Wowheads "More PvP Tuning"-artikel,
+  gepubliceerd 25 sep 01:03 UTC) die woordelijk dezelfde 22/23/24-sep-inhoud citeren als hierboven
+  — het zoeksysteem levert dus vers materiaal, en het ontbreken van een sectie ná 24 sep is een
+  echte afwezigheid, geen week-oude cache. Een tweede, breder gerichte zoekslag op Delves/
+  Professions/Quests-nieuws van 26/27 sep leverde uitsluitend al bekend materiaal op: dezelfde
+  24-sep-hotfixtekst, Icy Veins' Delves-/professiongidsen (ongewijzigd sinds hun eigen laatste
+  changelog-datums, 3 en 9 aug) en het BlizzCon-12.2-roadmapnieuws van 13 sep — niets met een
+  publicatiedatum ná 24 sep dat Delves/Professions/Quests/Dungeons and Raids/Items raakt. Dit
+  convergeert met de PTR- en data-wachter van vandaag (beiden onafhankelijk ook nog op de 24-sep-
+  sectie/build 69952), hier zelf opnieuw gemeten, niet overgenomen.
+
+  Geen nieuwe hotfix-inhoud in mijn lane, dus geen codebase-vergelijking te doen vandaag. **[RAAKT
+  ONS NIET]** — bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260927x
+  (volledig gelezen via Exa) · `web_search_exa` "World of Warcraft Midnight patch 12.1 hotfixes
+  September 26 OR September 27 2026 Delves Professions Quests Dungeons Raids Items" en "World of
+  Warcraft Midnight news Delves Professions Quests update September 26 27 2026" (nieuwste treffer
+  blijft 24 sep). Vandaag is zondag, dus de wekelijkse play-card- en consumables-checks (alleen
+  maandag) zijn overgeslagen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
