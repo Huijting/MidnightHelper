@@ -32,6 +32,12 @@ komen uit de client, dus taalonafhankelijk). Geen bazen: delves staan niet in de
 tussen haakjes). Nu: losse vergelijking (`Norm`: geen haakjes/lidwoord/leestekens), ook Zone- en Orphan-kaarten,
 bij dubbele naam de zone via de parent-keten; een misser schrijft de dichtstbijzijnde namen naar
 `ns.db.instanceMapMiss`.
+🔬 **Overgangen tekenen** (Rob: *"kunnen wij op die mapjes iets tekenen, zoals de overgang in een raid naar een andere
+map?"* → *"ja doe maar, eerst de meting"*). `/mh mapprobe` meet nu per verdieping `C_Map.GetMapLinksForMap`
+(naam, doelkaart, atlas, positie) en het aantal `GetAreaPOIForMap`; de twee nieuwste EJ-tiers; dungeons via
+`ns.InstanceMapResolve` (zelfde weg als het venster). `show` tekent de links als "-> doel". AFGELEID dat de links er
+binnen instances zijn (de wereldkaart toont trap/portaal-iconen). Wacht op Robs meting. Plan B (niet gebouwd):
+tekenstand waarin Rob klikt en MH de plek bewaart.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 

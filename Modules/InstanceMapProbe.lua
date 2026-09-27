@@ -47,6 +47,25 @@ local function FloorDetail(mapID)
 	end
 	local okT, tex = pcall(C_Map.GetMapArtLayerTextures, mapID, 1)
 	d.tiles = okT and type(tex) == "table" and #tex or 0
+	-- Floor transitions (Rob, 27 Sep 2026: "kunnen wij op die mapjes iets tekenen, zoals de overgang in
+	-- een raid naar een andere map?"). The world map draws stair and portal icons between floors from
+	-- map links; whether an addon gets them for an instance floor is what this measures.
+	d.links = {}
+	if C_Map.GetMapLinksForMap then
+		local okK, links = pcall(C_Map.GetMapLinksForMap, mapID)
+		for _, k in ipairs(okK and type(links) == "table" and links or {}) do
+			local x, y
+			if k.position and k.position.GetXY then
+				x, y = k.position:GetXY()
+			end
+			d.links[#d.links + 1] = { name = k.name, to = k.linkedUiMapID, atlas = k.atlasName, x = x, y = y }
+		end
+	end
+	d.pois = 0
+	if C_AreaPoiInfo and C_AreaPoiInfo.GetAreaPOIForMap then
+		local okP, pois = pcall(C_AreaPoiInfo.GetAreaPOIForMap, mapID)
+		d.pois = okP and type(pois) == "table" and #pois or 0
+	end
 	d.bosses = {}
 	if C_EncounterJournal and C_EncounterJournal.GetEncountersOnMap then
 		local okE, list = pcall(C_EncounterJournal.GetEncountersOnMap, mapID)
@@ -65,23 +84,39 @@ local function Measure()
 		return results
 	end
 	local before = EJ_GetCurrentTier and EJ_GetCurrentTier() or nil
-	pcall(EJ_SelectTier, EJ_GetNumTiers())
-	for _, isRaid in ipairs({ true, false }) do
-		for i = 1, 40 do
-			local okI, jid, name = pcall(EJ_GetInstanceByIndex, i, isRaid)
-			if not okI or not jid then
-				break
+	-- The newest two tiers: Season 2 alone is the newest (MEASURED 27 sep), Season 1 sits one below.
+	local seen = {}
+	local function One(jid, name, isRaid)
+		local okD, _, _, _, _, _, _, areaMap = pcall(EJ_GetInstanceInfo, jid)
+		areaMap = okD and areaMap or nil
+		-- Dungeons come back 0 here (MEASURED); take the window's second road, same as the players get.
+		if (not areaMap or areaMap == 0) and ns.InstanceMapResolve then
+			areaMap = ns.InstanceMapResolve(jid)
+		end
+		local inst = { jid = jid, name = name, raid = isRaid, areaMap = areaMap, floors = {} }
+		if inst.areaMap and inst.areaMap > 0 then
+			for _, f in ipairs(Floors(inst.areaMap)) do
+				local d = FloorDetail(f.mapID)
+				d.name = f.name
+				inst.floors[#inst.floors + 1] = d
 			end
-			local okD, _, _, _, _, _, _, areaMap = pcall(EJ_GetInstanceInfo, jid)
-			local inst = { jid = jid, name = name, raid = isRaid, areaMap = okD and areaMap or nil, floors = {} }
-			if inst.areaMap and inst.areaMap > 0 then
-				for _, f in ipairs(Floors(inst.areaMap)) do
-					local d = FloorDetail(f.mapID)
-					d.name = f.name
-					inst.floors[#inst.floors + 1] = d
+		end
+		results[#results + 1] = inst
+	end
+	local top = EJ_GetNumTiers()
+	for tier = top, math.max(1, top - 1), -1 do
+		pcall(EJ_SelectTier, tier)
+		for _, isRaid in ipairs({ true, false }) do
+			for i = 1, 40 do
+				local okI, jid, name = pcall(EJ_GetInstanceByIndex, i, isRaid)
+				if not okI or not jid then
+					break
+				end
+				if not seen[jid] then
+					seen[jid] = true
+					One(jid, name, isRaid)
 				end
 			end
-			results[#results + 1] = inst
 		end
 	end
 	if before then
@@ -91,20 +126,22 @@ local function Measure()
 end
 
 local function Print(results)
-	print(("%s mapprobe: %d instances in the current journal tier"):format(Prefix(), #results))
+	print(("%s mapprobe: %d instances in the two newest journal tiers"):format(Prefix(), #results))
 	for _, inst in ipairs(results) do
-		local floors, tiles, bosses = #inst.floors, 0, 0
+		local floors, tiles, bosses, links, pois = #inst.floors, 0, 0, 0, 0
 		for _, f in ipairs(inst.floors) do
 			tiles = tiles + (f.tiles or 0)
 			bosses = bosses + #f.bosses
+			links = links + #(f.links or {})
+			pois = pois + (f.pois or 0)
 		end
 		local ids = {}
 		for _, f in ipairs(inst.floors) do
 			ids[#ids + 1] = tostring(f.mapID)
 		end
-		print(("   %s %-26s map %s · %d floor(s) [%s] · %d tiles · %d bosses placed"):format(
-			inst.raid and "R" or "D", tostring(inst.name):sub(1, 26), tostring(inst.areaMap),
-			floors, table.concat(ids, " "), tiles, bosses))
+		print(("   %s %-24s map %s · %d floor(s) [%s] · %d bosses · |cff8cd98c%d links|r · %d POIs"):format(
+			inst.raid and "R" or "D", tostring(inst.name):sub(1, 24), tostring(inst.areaMap),
+			floors, table.concat(ids, " "), bosses, links, pois))
 	end
 	print("   Draw one: /mh mapprobe show <mapID>  (a number from the [...] list)")
 end
@@ -186,6 +223,37 @@ local function Draw(mapID)
 		p:SetPoint("CENTER", win.canvas, "TOPLEFT", (b.x or 0) * W, -(b.y or 0) * H)
 		p.fs:SetText(b.name or ("#" .. tostring(b.id)))
 		p:Show()
+	end
+	-- Floor transitions, drawn with Blizzard's own atlas when it gave one, labelled with the target floor.
+	win.links = win.links or {}
+	for _, k in ipairs(win.links) do
+		k:Hide()
+	end
+	for i, lk in ipairs(d.links or {}) do
+		local k = win.links[i]
+		if not k then
+			k = CreateFrame("Frame", nil, win.canvas)
+			k:SetSize(22, 22)
+			k.tex = k:CreateTexture(nil, "OVERLAY")
+			k.tex:SetAllPoints()
+			k.fs = k:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmallOutline")
+			k.fs:SetPoint("TOP", k, "BOTTOM", 0, -1)
+			k.fs:SetTextColor(0.55, 1, 0.55)
+			win.links[i] = k
+		end
+		local okA = lk.atlas and pcall(k.tex.SetAtlas, k.tex, lk.atlas)
+		if not okA then
+			k.tex:SetTexture("Interface\\Minimap\\MiniMap-QuestArrow")
+		end
+		local target = lk.name
+		if (not target or target == "") and lk.to then
+			local okI, info = pcall(C_Map.GetMapInfo, lk.to)
+			target = okI and info and info.name or tostring(lk.to)
+		end
+		k.fs:SetText("-> " .. tostring(target or "?"))
+		k:ClearAllPoints()
+		k:SetPoint("CENTER", win.canvas, "TOPLEFT", (lk.x or 0) * W, -(lk.y or 0) * H)
+		k:Show()
 	end
 	win:Show()
 end

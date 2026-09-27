@@ -108,6 +108,11 @@ local function FirstMapOf(jid)
 	return MapFromWorld(jid), ok and name or nil
 end
 
+--- For /mh mapprobe: the same two roads to a journal instance's first floor as the window takes.
+function ns.InstanceMapResolve(jid)
+	return (FirstMapOf(jid))
+end
+
 local function FloorsOf(mapID)
 	local out = {}
 	local okG, groupID = pcall(C_Map.GetMapGroupID, mapID)
