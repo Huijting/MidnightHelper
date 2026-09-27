@@ -79,7 +79,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"codexkeys", "companion", "consready", "coord", "crest", "crestfind", "crestscan",
 	"curio", "curiodebug", "curscan", "death", "debug", "delve", "durability", "durability test", "delveexit", "delvescan", "dispellog",
 	"dispelprobe", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
-	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "guide",
+	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "groupmap", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
 	"livetips", "lock", "macrocheck", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
 	"partytarget", "howtoplay", "playcards", "poison", "poisons", "portal", "portals", "potionkeys", "prey",

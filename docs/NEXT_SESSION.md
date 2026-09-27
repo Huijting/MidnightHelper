@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🔬 27 sep — "de weg kwijt in de raid na doodgaan" (Cisca): eerst meten
+
+Rob: je komt BINNEN de dungeon/raid weer tot leven en moet je groep terugvinden; de minimap toont één verdieping.
+(Mijn eerste voorstel — pijl naar de ingang na release — was een misverstand; niet bouwen.)
+Nieuw `Modules/GroupFloorProbe.lua`, `/mh groupmap` (unlisted): per groepslid `C_Map.GetBestMapForUnit`,
+kaartnaam/-type, `C_Map.GetPlayerMapPosition`, `UnitPosition`, plus de verdiepingen van jouw kaart
+(`GetMapGroupMembersInfo`); ook naar `ns.db.groupMapProbe`. AFGELEID, niet gemeten: posities van anderen zijn
+binnen instances al jaren dicht. Uitkomst bepaalt het ontwerp: verdieping leesbaar → "je groep is op <verdieping>"
++ knop die de wereldkaart op die verdieping opent (Blizzard tekent daar zelf de stippen); niets leesbaar → alleen
+de kaart-knop + uitleg over de verdiepingskeuze. Wacht op Robs meting (TESTLIJST 27 sep).
+
 ## 🔨 27 sep — waarschuwing bij versleten uitrusting (idee uit "Ready Check Marks & Buffs")
 
 Rob liet 's ochtends twee addons zien. **Ready Check Marks & Buffs** (Tankncrank, All Rights Reserved: alleen het

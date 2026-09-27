@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 27 sep — meting: wat ziet MH van je groep binnen een dungeon/raid?
+
+Waarom: Cisca vond na doodgaan in een raid haar groep niet terug (meerdere verdiepingen).
+- [ ] In een **dungeon of raid met je groep** (een follower dungeon mag ook): typ `/mh groupmap`, en daarna
+      `/reload`. Ik lees de uitkomst uit het SavedVariables-bestand; een screenshot mag ook.
+      Liefst op een moment dat een groepslid op een **andere verdieping** staat dan jij.
+
 ## 🆕 27 sep — waarschuwing bij versleten uitrusting
 
 `/reload`.

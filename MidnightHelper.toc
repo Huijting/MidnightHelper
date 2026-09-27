@@ -114,6 +114,7 @@ Modules\ConsumableReadyCheck.lua
 Modules\ConsumableReadyComms.lua
 Modules\ConsumableReadyBoard.lua
 Modules\DurabilityWarn.lua
+Modules\GroupFloorProbe.lua
 Modules\LayoutExtras.lua
 Modules\MissingBuffData.lua
 Modules\MissingBuff.lua

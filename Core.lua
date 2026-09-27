@@ -3118,6 +3118,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "groupmap" then
+		if ns.PrintGroupMapProbe then
+			ns.PrintGroupMapProbe()
+		end
+		return
+	end
+
 	if msg == "durability" or msg == "durability test" then
 		if ns.DurabilityCommand then
 			ns.DurabilityCommand(msg == "durability test" and "test" or nil)
