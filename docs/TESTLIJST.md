@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 27 sep — waarschuwing bij versleten uitrusting
+
+`/reload`.
+- [ ] `/mh durability` → een regel met *warning on, limit 30%*, je laagste item met percentage, en per versleten slot
+      een regel. Klopt het laagste percentage met wat je karakterscherm (tooltip van dat item) zegt?
+- [ ] `/mh durability test` → midden in beeld de grote tekst *"Your gear is at N% - repair before you pull!"*, en
+      in chat dezelfde regel met *Lowest:* en een item-link.
+- [ ] Instellingen → Midnight Helper → *Dungeon help*: **Warn about worn gear** (aan) en de schuif **Warn below** (30%).
+      Zet de schuif hoger dan je laagste item en start een ready check of ga een delve in: komt de waarschuwing?
+- [ ] Onder de grens, en na het repareren: géén waarschuwing bij binnengaan.
+
 ## 🆕 26 sep — kaartvenster: tabblad Dispel
 
 `/reload`, `/mh play`, tabblad **Dispel**.

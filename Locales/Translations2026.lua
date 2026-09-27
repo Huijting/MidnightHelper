@@ -11298,3 +11298,49 @@ fill("itIT", {
 	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Il tuo gruppo:|r Opzioni > Gioco > Interfaccia > Riquadri di incursione. Imposta \"Indicatore penalità dissolvibili\" su \"Dissolvibili da me\" e \"Colore\" su \"Usa il colore delle penalità\": così un riquadro si illumina del colore del debuff quando puoi rimuoverlo. Nessun cambiamento sui riquadri del gruppo? Attiva \"Gruppi in stile incursione\" in Modalità modifica.",
 	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Nemici:|r Opzioni > Gioco > Barre > \"Benefici/Penalità dei PNG nemici\" > spunta \"Benefici dei mostri\". I buff che puoi togliere (purge) o rubare compaiono poi sulle loro barre. Il tuo riquadro del bersaglio dà già a quei buff un bordo speciale.",
 })
+
+-- Durability warning (27 Sep 2026). One language expert per language. Not native-reviewed.
+fill("deDE", {
+	DURABILITY_WARN_FMT = "Deine Ausrüstung ist bei %d%% – repariere vor dem Pull!",
+	DURABILITY_WORST_FMT = "Am niedrigsten: %s.",
+	SET_DURA_TOGGLE_TITLE = "Vor abgenutzter Ausrüstung warnen",
+	SET_DURA_TOGGLE_DESC = "Eine große Warnung in der Mitte deines Bildschirms, wenn die Haltbarkeit eines Gegenstands unter das Limit fällt, sobald du einen Dungeon, Raid oder eine Delve betrittst, und bei jeder Bereitschaftsprüfung. /mh durability zeigt deine Werte.",
+	SET_DURA_LIMIT_TITLE = "Warnen unter",
+	SET_DURA_LIMIT_DESC = "Warnt, wenn dein am stärksten abgenutzter Gegenstand unter diesem Prozentsatz liegt.",
+})
+
+fill("frFR", {
+	DURABILITY_WARN_FMT = "Équipement à %d%% - répare avant le pull !",
+	DURABILITY_WORST_FMT = "Plus bas : %s.",
+	SET_DURA_TOGGLE_TITLE = "Avertir de l'équipement usé",
+	SET_DURA_TOGGLE_DESC = "Une grande alerte au milieu de ton écran quand un objet est usé sous la limite, à l'entrée d'un donjon, d'un raid ou d'une delve, et à chaque vérification de préparation. /mh durability affiche tes chiffres.",
+	SET_DURA_LIMIT_TITLE = "Avertir sous",
+	SET_DURA_LIMIT_DESC = "Avertit quand ton objet le plus usé est en dessous de ce pourcentage.",
+})
+
+fill("esES", {
+	DURABILITY_WARN_FMT = "¡Equipo al %d%% - repara antes del pull!",
+	DURABILITY_WORST_FMT = "Más bajo: %s.",
+	SET_DURA_TOGGLE_TITLE = "Avisar sobre equipo desgastado",
+	SET_DURA_TOGGLE_DESC = "Un gran aviso en el centro de la pantalla cuando la durabilidad de un objeto baja del límite, al entrar en una mazmorra, incursión o delve y en cada comprobación de preparación. /mh durability muestra tus cifras.",
+	SET_DURA_LIMIT_TITLE = "Avisar por debajo de",
+	SET_DURA_LIMIT_DESC = "Avisa cuando tu objeto más desgastado esté por debajo de este porcentaje.",
+})
+
+fill("ptBR", {
+	DURABILITY_WARN_FMT = "Seu equipamento está em %d%% - repare antes do pull!",
+	DURABILITY_WORST_FMT = "Mais baixo: %s.",
+	SET_DURA_TOGGLE_TITLE = "Avisar sobre equipamento desgastado",
+	SET_DURA_TOGGLE_DESC = "Um grande aviso no meio da tela quando um item está desgastado abaixo do limite, ao entrar em uma masmorra, raide ou delve e em toda verificação de prontidão. /mh durability mostra os seus números.",
+	SET_DURA_LIMIT_TITLE = "Avisar abaixo de",
+	SET_DURA_LIMIT_DESC = "Avisa quando o seu item mais desgastado estiver abaixo desta porcentagem.",
+})
+
+fill("itIT", {
+	DURABILITY_WARN_FMT = "Equipaggiamento al %d%% - riparalo prima del pull!",
+	DURABILITY_WORST_FMT = "Il più danneggiato: %s.",
+	SET_DURA_TOGGLE_TITLE = "Avvisa per equipaggiamento danneggiato",
+	SET_DURA_TOGGLE_DESC = "Un grande avviso al centro dello schermo quando un pezzo scende sotto il limite, quando entri in un dungeon, raid o delve e a ogni controllo di prontezza. /mh durability mostra i tuoi numeri.",
+	SET_DURA_LIMIT_TITLE = "Avvisa sotto",
+	SET_DURA_LIMIT_DESC = "Avvisa quando il tuo pezzo più danneggiato è sotto questa percentuale.",
+})

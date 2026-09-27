@@ -247,6 +247,19 @@ local function Build()
 	end, function(v)
 		if ns.SetConsumableReadyCheckEnabled then ns.SetConsumableReadyCheckEnabled(v) end
 	end, true)
+	Toggle("mh_durabilityWarn", "SET_DURA_TOGGLE_TITLE", "SET_DURA_TOGGLE_DESC", function()
+		return ns.IsDurabilityWarnEnabled and ns.IsDurabilityWarnEnabled()
+	end, function(v)
+		if ns.SetDurabilityWarnEnabled then ns.SetDurabilityWarnEnabled(v) end
+	end, true)
+	local dB = ns.DurabilityThresholdBounds or { min = 5, max = 80, default = 30 }
+	Slider("mh_durabilityLimit", "SET_DURA_LIMIT_TITLE", "SET_DURA_LIMIT_DESC", dB.min, dB.max, 5, function()
+		return ns.GetDurabilityThreshold and ns.GetDurabilityThreshold()
+	end, function(v)
+		if ns.SetDurabilityThreshold then ns.SetDurabilityThreshold(v) end
+	end, function(v)
+		return ("%d%%"):format(math.floor(v + 0.5))
+	end, dB.default)
 
 	----------------------------------------------------------------
 	-- Schermknoppen
