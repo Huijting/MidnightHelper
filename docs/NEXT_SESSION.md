@@ -54,7 +54,10 @@ Shadow Enclave-meting (Rob, 27 sep): eigen debuff alleen *Gift of the Golden Val
 een /reload ervoor. Rob: *"ik ben tank en dat maakt het lastig"* → **automatische na-gevechtcheck**
 (`AfterCombatDispelCheck`, PLAYER_REGEN_ENABLED +1 s): `Aura.ForEachPlayerAuraFiltered("HARMFUL|RAID")` op jezelf
 (nieuw in Auras.lua; in combat weigert het spel scans, GEMETEN 12 aug), alles naar `ns.db.dispelSelfLog` (30), en één
-chatregel per naam als het type niet in `GetDispellableSchools` zit = vermoedelijk vals alarm. Nog niet gezien.
+chatregel per naam als het type niet in `GetDispellableSchools` zit = vermoedelijk vals alarm.
+✅ Eerste meting (Rob, 27 sep 21:42, delve in Atal'Aman): één match, *Venom Bite* (1265527) type **poison**,
+youCan = true → het filter klopte daar. Nog geen vals alarm gevangen; het Nexus-Point-geval (Blistering Smite, geen
+type, rood bleef na Cleanse Toxins) blijft onverklaard. Doorlopen met meer sessies.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 
