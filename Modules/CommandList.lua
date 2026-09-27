@@ -81,7 +81,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"dispelprobe", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "groupmap", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
-	"livetips", "lock", "macrocheck", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
+	"livetips", "lock", "macrocheck", "mapprobe", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
 	"partytarget", "howtoplay", "playcards", "playkeys", "poison", "poisons", "portal", "portals", "potionkeys", "prey",
 	"profadvice", "profguide", "profids", "profweekly", "ptr", "questdiff", "questgate", "questscan", "range", "smcicons", "bossdiff",
 	"zonegate", "travelwhy", "questsnap",

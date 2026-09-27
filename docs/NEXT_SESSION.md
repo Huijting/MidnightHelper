@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🔬 27 sep — plattegronden van raids/dungeons zonder eigen plaatjes: eerst meten
+
+Rob: *"kunnen we niet eenvoudige plaatjes krijgen in MH met hoe de layout van een raid bv is? zonder dat we vele
+mb's groter worden?"* Idee: de client heeft de verdiepingskaarten al (C_Map art-lagen) en de Dungeon Journal kent
+de baasposities per verdieping (`C_EncounterJournal.GetEncountersOnMap`). AFGELEID dat dat ook buiten de instance
+werkt. Nieuw `Modules/InstanceMapProbe.lua`: `/mh mapprobe` (per instance van de huidige EJ-tier: eerste kaart uit
+`EJ_GetInstanceInfo` #7, alle verdiepingen, art-grootte, aantal tiles, geplaatste bazen → `ns.db.mapProbe`) en
+`/mh mapprobe show <mapID>` (tekent één verdieping met een doodshoofd per baas). Tier wordt teruggezet.
+Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
+`groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
+
 ## 🔬 27 sep — "de weg kwijt in de raid na doodgaan" (Cisca): eerst meten
 
 Rob: je komt BINNEN de dungeon/raid weer tot leven en moet je groep terugvinden; de minimap toont één verdieping.

@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 27 sep — metingen: plattegronden, zwevende iconen, dispel
+
+- [ ] `/mh mapprobe`, dan `/reload` (buiten een dungeon mag). Daarna `/mh mapprobe show <getal>` met een getal uit
+      de lijst tussen [ ], bijvoorbeeld van The Voidspire: verschijnt een plattegrond met doodshoofdjes bij de bazen?
+- [ ] Zwevende iconen op de Paladin: als ze er staan `/mh whatis 5`, muis erop, daarna `/reload`.
+- [ ] Rode regel in het party-paneel en dispel lukt niet: welk type debuff (Poison/Disease/Magic/Curse)? Rechtsklik
+      op de naam, dan `/mh glow` → regels onder *recent casts and errors*.
+
 ## 🆕 27 sep — kaartvenster: je echte toets op elk icoon
 
 `/reload`, `/mh play`.
