@@ -29,8 +29,9 @@ er is niets weggegooid.
 - [ ] 🆕 **Kaartvenster**: Codex → Raids → klap een raid open → naast *Route to* staat **Map**. Klik: plattegrond,
       knoppen per verdieping (als die er zijn), doodshoofden met bazennamen. Beweeg over een baas → tooltip; klik →
       MH's tips voor die baas.
-- [ ] Codex → Dungeons → onder *Route to …* staat **Map of …**. Werkt die ook voor de dungeons (die kregen via de
-      eerste weg geen kaart)?
+- [x] ✅ (Rob, 27 sep) dungeon-kaarten werken. 🆕 De knop **Map** staat nu náást *Route to …*, zoals bij de raids.
+- [ ] The Voidspire, The Dreamrift, March on Quel'Danas: **Map** geeft nu een kaart (gaf "No map found").
+- [ ] 🆕 Delves-pagina: op elke regel een kaart-icoontje naast het boekje. Klik → de plattegrond van die delve.
 - [ ] In een dungeon: `/mh map` opent de verdieping waar je staat.
 - [ ] Zwevende iconen op de Paladin: als ze er staan `/mh whatis 5`, muis erop, daarna `/reload`.
 - [ ] Rode regel in het party-paneel en dispel lukt niet: welk type debuff (Poison/Disease/Magic/Curse)? Rechtsklik

@@ -793,7 +793,6 @@ ns._mhLocales.nlNL = {
 	CMDLIST_PLAY = "Zo speel je je spec: je knoppen op volgorde, en hoe je in leven blijft.",
 	CMDLIST_MAP = "De plattegrond van de dungeon of raid waar je bent, met de bazen erop.",
 	INSTMAP_BTN = "Kaart",
-	INSTMAP_BTN_FMT = "Kaart van %s",
 	INSTMAP_BOSS_CLICK = "Klik: open de tips voor deze baas.",
 	INSTMAP_NO_ART = "Het spel heeft geen kaart van deze verdieping.",
 	INSTMAP_NOTE = "Doodshoofden zijn de bazen. Je groep staat er niet op: het spel verbergt ieders plek binnen een dungeon of raid. Meerdere verdiepingen? Kies er hierboven een.",

@@ -22,7 +22,12 @@ dungeon op de Dungeons-pagina) en `/mh map` (binnen: de verdieping waar je staat
 `/mh mapprobe`): EJ-areamap = 0 voor ALLE dungeons (raids wel) → tweede weg `MapFromWorld`: alle Dungeon-type
 kaarten onder 946 + `EJ_GetInstanceForMap` → jid→map (AFGELEID dat dat werkt; nog niet gezien). S1-raids zonder
 journalInstanceID: opzoeken op Engelse naam in de EJ-tier (op een anderstalige client kan dat missen).
-8 sleutels, `CMDLIST_MAP` in de spelerslijst. Nog niet in het spel gezien.
+8 sleutels, `CMDLIST_MAP` in de spelerslijst. ✅ GEMETEN (Rob): de kaart werkt, dungeon-kaarten ook; de 3 S1-raids
+gaven "No map found" → de nieuwste EJ-tier bevat alleen S2 (Robs mapprobe) → naam-lookup loopt nu de nieuwste 4
+tiers af. Dungeon-knop op Robs verzoek naast *Route to* (`_mhFitText` in de layout), `INSTMAP_BTN_FMT` weg.
+**Delves** (Rob: *"ja, bouw de delve-knop maar"*): kaart-icoontje op elke regel van de Delves-pagina naast het
+tips-boekje → `ns.ShowInstanceMapByName(naam)` via de wereldkaartboom (types Dungeon + Micro, op naam; de namen
+komen uit de client, dus taalonafhankelijk). Geen bazen: delves staan niet in de EJ. Nog niet gezien.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 

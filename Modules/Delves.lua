@@ -2475,6 +2475,31 @@ local function EnsureDelveRowButton(columnFrame, rows, index, colW)
 		tips:Hide()
 		row.tipsBtn = tips
 
+		-- Map button (Rob, 27 Sep 2026: "ja, bouw de delve-knop maar"): the delve's floor plan in
+		-- the instance map window (InstanceMap.lua), found by the delve's name. No bosses on it:
+		-- delves are not in the Encounter Journal.
+		local mapB = CreateFrame("Button", nil, row)
+		mapB:SetSize(16, 16)
+		local mapTex = mapB:CreateTexture(nil, "ARTWORK")
+		mapTex:SetAllPoints()
+		mapTex:SetTexture("Interface\\Icons\\INV_Misc_Map_01")
+		mapTex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		mapB:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+		mapB:SetScript("OnClick", function(self)
+			local item = self:GetParent().mhDelveRow
+			if item and item.name and ns.ShowInstanceMapByName then
+				ns.ShowInstanceMapByName(item.name)
+			end
+		end)
+		mapB:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(ns:L("INSTMAP_BTN"), 1, 1, 1, 1, true)
+			GameTooltip:Show()
+		end)
+		mapB:SetScript("OnLeave", GameTooltip_Hide)
+		mapB:Hide()
+		row.mapBtn = mapB
+
 		rows[index] = row
 	end
 	row:SetWidth(colW)
@@ -2496,13 +2521,22 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 		row.routeBtn:Hide()
 		row.routeBtn:EnableMouse(false)
 	end
-	-- Right edge, from the outside in: tips button, bountiful ">", then the name.
+	-- Right edge, from the outside in: tips button, map button, bountiful ">", then the name.
 	local rightAnchor, rightPoint, rightGap = row, "RIGHT", -6
 	if row.tipsBtn then
 		local hasTips = item.tipEntryId and ns.ShowDelveCoach and true or false
 		row.tipsBtn:SetShown(hasTips)
 		if hasTips then
 			rightAnchor, rightPoint, rightGap = row.tipsBtn, "LEFT", -3
+		end
+	end
+	if row.mapBtn then
+		local hasMap = item.name and ns.ShowInstanceMapByName and true or false
+		row.mapBtn:SetShown(hasMap)
+		if hasMap then
+			row.mapBtn:ClearAllPoints()
+			row.mapBtn:SetPoint("RIGHT", rightAnchor, rightPoint, rightAnchor == row and -4 or rightGap, 0)
+			rightAnchor, rightPoint, rightGap = row.mapBtn, "LEFT", -3
 		end
 	end
 	if row.routeMark then

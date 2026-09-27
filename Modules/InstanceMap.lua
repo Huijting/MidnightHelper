@@ -377,6 +377,45 @@ function ns.ShowInstanceMapFor(entry)
 	Draw()
 end
 
+--- A map found by its name in the world's map tree (Dungeon and Micro types). For delves: they are
+--- not in the Encounter Journal, so there is no journal id to go by -- and no bosses to place either.
+--- The delve list names come from the client, so the names match on every language.
+local nameToMap
+local function MapByName(name)
+	if not name then
+		return nil
+	end
+	if not nameToMap then
+		nameToMap = {}
+		local types = {
+			(Enum and Enum.UIMapType and Enum.UIMapType.Dungeon) or 4,
+			(Enum and Enum.UIMapType and Enum.UIMapType.Micro) or 5,
+		}
+		for _, t in ipairs(types) do
+			local ok, list = pcall(C_Map.GetMapChildrenInfo, 946, t, true)
+			for _, m in ipairs(ok and list or {}) do
+				if m.name and m.name ~= "" and (not nameToMap[m.name] or m.mapID < nameToMap[m.name]) then
+					nameToMap[m.name] = m.mapID
+				end
+			end
+		end
+	end
+	return nameToMap[name]
+end
+
+--- Open a map by its name (the Map icon on each row of the Delves page).
+function ns.ShowInstanceMapByName(name)
+	local mapID = MapByName(name)
+	Build()
+	if not mapID then
+		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), (L("INSTMAP_NO_MAP_FMT")):format(name or "?")))
+		return
+	end
+	current = { entry = nil, name = name, floors = FloorsOf(mapID), floor = 1 }
+	win:Show()
+	Draw()
+end
+
 --- `/mh map`: inside a dungeon or raid, the floor you are standing on.
 function ns.ShowCurrentInstanceMap()
 	local inside = IsInInstance and IsInInstance()
