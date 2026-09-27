@@ -36,8 +36,12 @@ bij dubbele naam de zone via de parent-keten; een misser schrijft de dichtstbijz
 map?"* → *"ja doe maar, eerst de meting"*). `/mh mapprobe` meet nu per verdieping `C_Map.GetMapLinksForMap`
 (naam, doelkaart, atlas, positie) en het aantal `GetAreaPOIForMap`; de twee nieuwste EJ-tiers; dungeons via
 `ns.InstanceMapResolve` (zelfde weg als het venster). `show` tekent de links als "-> doel". AFGELEID dat de links er
-binnen instances zijn (de wereldkaart toont trap/portaal-iconen). Wacht op Robs meting. Plan B (niet gebouwd):
-tekenstand waarin Rob klikt en MH de plek bewaart.
+binnen instances zijn (de wereldkaart toont trap/portaal-iconen). Plan B (niet gebouwd): tekenstand waarin Rob
+klikt en MH de plek bewaart.
+✅ **GEMETEN (Rob, 27 sep):** `show 2606` tekent "-> Pit of Fangs" op de juiste plek; `ns.db.mapProbe`: **57 links**
+over de raids en dungeons van beide seizoenen (Venomous Abyss 10, Windrunner Spire 17; Tidebound Grotto, Blinding
+Vale, Voidspire, Maisara, Nexus-Point 0). Linknaam is soms de instancenaam zelf. Nu in het kaartvenster: pin met
+Blizzards atlas, label = naam van de doelverdieping, klik = die verdieping tonen (`INSTMAP_LINK_CLICK`).
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 

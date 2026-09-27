@@ -840,6 +840,7 @@ ns._mhLocales.enUS = {
 	CMDLIST_MAP = "The floor plan of the dungeon or raid you are in, with its bosses.",
 	INSTMAP_BTN = "Map",
 	INSTMAP_BOSS_CLICK = "Click: open the tips for this boss.",
+	INSTMAP_LINK_CLICK = "The way to this floor. Click: show it.",
 	INSTMAP_NO_ART = "The game has no map for this floor.",
 	INSTMAP_NOTE = "Skulls are the bosses. Your group is not shown: the game hides everyone's position inside a dungeon or raid. Several floors? Pick one above.",
 	INSTMAP_NOT_INSIDE = "You are not in a dungeon or raid. Open a map with the Map button on the Raids or Dungeons page.",

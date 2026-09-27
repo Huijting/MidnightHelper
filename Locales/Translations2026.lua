@@ -11421,3 +11421,24 @@ fill("itIT", {
 	INSTMAP_NOT_INSIDE = "Non sei in un dungeon o in un raid. Apri una mappa col pulsante Mappa nella pagina Raid o Dungeon.",
 	INSTMAP_NO_MAP_FMT = "Nessuna mappa trovata per %s.",
 })
+
+-- Instance map: floor transition tooltip (27 Sep 2026). Not native-reviewed.
+fill("deDE", {
+	INSTMAP_LINK_CLICK = "Der Weg zu dieser Etage. Klick: zeigt sie an.",
+})
+
+fill("frFR", {
+	INSTMAP_LINK_CLICK = "Le chemin vers cet étage. Clique : montre-le.",
+})
+
+fill("esES", {
+	INSTMAP_LINK_CLICK = "El camino hacia esta planta. Clic: muéstrala.",
+})
+
+fill("ptBR", {
+	INSTMAP_LINK_CLICK = "O caminho até este andar. Clique: mostre-o.",
+})
+
+fill("itIT", {
+	INSTMAP_LINK_CLICK = "La strada per questo piano. Clic: mostralo.",
+})

@@ -794,6 +794,7 @@ ns._mhLocales.nlNL = {
 	CMDLIST_MAP = "De plattegrond van de dungeon of raid waar je bent, met de bazen erop.",
 	INSTMAP_BTN = "Kaart",
 	INSTMAP_BOSS_CLICK = "Klik: open de tips voor deze baas.",
+	INSTMAP_LINK_CLICK = "De weg naar deze verdieping. Klik: laat hem zien.",
 	INSTMAP_NO_ART = "Het spel heeft geen kaart van deze verdieping.",
 	INSTMAP_NOTE = "Doodshoofden zijn de bazen. Je groep staat er niet op: het spel verbergt ieders plek binnen een dungeon of raid. Meerdere verdiepingen? Kies er hierboven een.",
 	INSTMAP_NOT_INSIDE = "Je bent niet in een dungeon of raid. Open een kaart met de Kaart-knop op de pagina Raids of Dungeons.",

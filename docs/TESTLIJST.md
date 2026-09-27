@@ -32,9 +32,9 @@ er is niets weggegooid.
 - [x] ✅ (Rob, 27 sep) dungeon-kaarten werken. 🆕 De knop **Map** staat nu náást *Route to …*, zoals bij de raids.
 - [ ] The Voidspire, The Dreamrift, March on Quel'Danas: **Map** geeft nu een kaart (gaf "No map found").
 - [x] ✅ (Rob, 27 sep) Raids én Dungeons: *Route to …* en **Map** staan nu direct **onder de bewegende bazen**.
-- [ ] 🆕 Meting overgangen tussen verdiepingen: `/mh mapprobe` → per instance een groen getal *links*. Kies een raid
-      met meerdere verdiepingen en `/mh mapprobe show <nummer>`: staan er pijltjes *"-> …"* bij de trappen/portalen?
-      Daarna `/reload`.
+- [x] ✅ (Rob, 27 sep, screenshot "-> Pit of Fangs") meting overgangen: 57 in totaal.
+- [ ] 🆕 In het echte kaartvenster (**Map**-knop), bv. The Venomous Abyss of Windrunner Spire: groene labels met de naam
+      van een verdieping bij de trappen/portalen. Beweeg erover → tooltip; klik → die verdieping verschijnt.
 - [x] ✅ (Rob, 27 sep) Delves-pagina: kaart-icoontje werkt "meestal". 6 zonder kaart: The Shadow Enclave, The Gulf
       of Memory, The Grudge Pit, The Ring of Glory, Venomfall Deeps (Zul'Aman) en (The Coiled Isle).
 - [ ] 🆕 Na de ruimere naamvergelijking: klik die zes nog eens aan, daarna `/reload` (missers schrijven de dichtstbijzijnde

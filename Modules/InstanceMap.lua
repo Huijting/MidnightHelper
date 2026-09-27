@@ -274,9 +274,54 @@ local function Pin(i)
 	return p
 end
 
+--- A floor transition: Blizzard's own stair/portal atlas, the target floor's name, a click goes there.
+--- Rob, 27 Sep 2026: "kunnen wij op die mapjes iets tekenen, zoals de overgang in een raid naar een
+--- andere map?" MEASURED the same day with /mh mapprobe: 57 map links over the season's raids and
+--- dungeons (The Venomous Abyss 10, Windrunner Spire 17), with positions and target maps.
+local function LinkPin(i)
+	win.linkPins = win.linkPins or {}
+	local k = win.linkPins[i]
+	if not k then
+		k = CreateFrame("Button", nil, win.canvas)
+		k:SetSize(24, 24)
+		k.tex = k:CreateTexture(nil, "OVERLAY")
+		k.tex:SetAllPoints()
+		k.fs = k:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmallOutline")
+		k.fs:SetPoint("TOP", k, "BOTTOM", 0, -1)
+		k.fs:SetTextColor(0.55, 1, 0.55)
+		k:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+		k:SetScript("OnEnter", function(self)
+			if GameTooltip then
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetText(self.targetName or "", 0.55, 1, 0.55)
+				if self.floorIndex then
+					GameTooltip:AddLine(L("INSTMAP_LINK_CLICK"), 0.9, 0.88, 0.82, true)
+				end
+				GameTooltip:Show()
+			end
+		end)
+		k:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		k:SetScript("OnClick", function(self)
+			if self.floorIndex and current then
+				current.floor = self.floorIndex
+				Draw()
+			end
+		end)
+		win.linkPins[i] = k
+	end
+	return k
+end
+
 function Draw()
 	if not (win and current) then
 		return
+	end
+	for _, k in ipairs(win.linkPins or {}) do
+		k:Hide()
 	end
 	for _, t in ipairs(win.tiles) do
 		t:Hide()
@@ -357,6 +402,39 @@ function Draw()
 			p:ClearAllPoints()
 			p:SetPoint("CENTER", win.canvas, "TOPLEFT", (e.mapX or 0) * W, -(e.mapY or 0) * H)
 			p:Show()
+		end
+	end
+
+	if C_Map.GetMapLinksForMap then
+		local okK, links = pcall(C_Map.GetMapLinksForMap, mapID)
+		for i, lk in ipairs(okK and type(links) == "table" and links or {}) do
+			local x, y
+			if lk.position and lk.position.GetXY then
+				x, y = lk.position:GetXY()
+			end
+			if x and y then
+				local k = LinkPin(i)
+				local okA = lk.atlasName and pcall(k.tex.SetAtlas, k.tex, lk.atlasName)
+				if not okA then
+					k.tex:SetTexture("Interface\\Minimap\\MiniMap-QuestArrow")
+				end
+				-- Name the floor it leads to; the link's own name is sometimes just the instance's.
+				k.floorIndex = nil
+				local target = lk.name
+				for fi, fl in ipairs(current.floors) do
+					if fl.mapID == lk.linkedUiMapID then
+						k.floorIndex = fi
+						if fl.name and fl.name ~= "" then
+							target = fl.name
+						end
+					end
+				end
+				k.targetName = target or ""
+				k.fs:SetText(target or "")
+				k:ClearAllPoints()
+				k:SetPoint("CENTER", win.canvas, "TOPLEFT", x * W, -y * H)
+				k:Show()
+			end
 		end
 	end
 
