@@ -31,7 +31,7 @@ het icoon (Your buttons + Stay alive, alleen actieve spec), grijze `-` + tooltip
 de oude `[bindKey]` uit ons schema in Stay alive is weg. Redraw bij ACTIONBAR_SLOT_CHANGED / UPDATE_BINDINGS /
 ACTIONBAR_PAGE_CHANGED / UPDATE_BONUS_ACTIONBAR (0,2 s gebundeld). `/mh playkeys` = diagnose. 2 sleutels in 7 talen
 (esES: expert koos "botón", door mij → "tecla", zoals esES.lua voor toetsen). ✅ GEMETEN (Rob, 27 sep): de toetsen
-staan op de iconen. Nog niet gezien: grijze `-`, Stay alive, live meeveranderen bij slepen.
+staan op de iconen, ook bij Stay alive. Nog niet gezien: grijze `-`, live meeveranderen bij slepen.
 **Later:** EllesmereUI/Bartender-balken (eigen bindcommando's).
 
 ## 🔨 27 sep — waarschuwing bij versleten uitrusting (idee uit "Ready Check Marks & Buffs")

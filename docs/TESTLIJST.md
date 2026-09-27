@@ -27,7 +27,7 @@ er is niets weggegooid.
 - [x] ✅ (Rob, 27 sep: "de toetsen staan erop") **Your buttons**: rechtsboven op elk icoon staat de toets waar die spreuk nu op staat (`1`, `Z`, `S-2`…), gelijk
       aan wat je actiebalk toont.
 - [ ] Een spreuk die niet op een toets staat: grijs `-`, en de tooltip zegt *"Not on a key on your action bars yet."*
-- [ ] **Stay alive**: ook daar je echte toets op het icoon; de oude `[toets]` achter de naam is weg.
+- [x] ✅ (Rob, 27 sep) **Stay alive**: ook daar je echte toets op het icoon; de oude `[toets]` achter de naam is weg.
 - [ ] Venster open laten, een spreuk naar een andere knop slepen: het label verandert mee.
 - [ ] Een andere spec aanklikken bovenin: daar staan géén labels (die spreuken staan niet op je balken).
 - [ ] Klopt een toets niet: `/mh playkeys` en stuur de regels.
