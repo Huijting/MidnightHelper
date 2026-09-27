@@ -42,6 +42,7 @@ klikt en MH de plek bewaart.
 over de raids en dungeons van beide seizoenen (Venomous Abyss 10, Windrunner Spire 17; Tidebound Grotto, Blinding
 Vale, Voidspire, Maisara, Nexus-Point 0). Linknaam is soms de instancenaam zelf. Nu in het kaartvenster: pin met
 Blizzards atlas, label = naam van de doelverdieping, klik = die verdieping tonen (`INSTMAP_LINK_CLICK`).
+✅ GEMETEN (Rob, 27 sep): "de overgangen werken".
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 
