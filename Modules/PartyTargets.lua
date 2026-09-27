@@ -1665,6 +1665,12 @@ local function InRaidGroup()
 	return ok and v == true
 end
 
+--- Solo test stand (Rob, 27 Sep 2026: "kunnen we de party targets ook niet single target maken om
+--- te testen?"). Shows only your own row without a group, so a dispel can be tried on a rare's poison
+--- instead of waiting for the right dungeon boss. Session only: a /reload turns it off, so it can never
+--- stay behind as a panel following you through the open world.
+local soloTest = false
+
 local function Refresh()
 	if InRaidGroup() then
 		if panel then
@@ -1751,8 +1757,8 @@ local function Refresh()
 		local present
 		if i == playerRowIndex then
 			local canDispel = ns.GetPlayerDispelIcon and ns.GetPlayerDispelIcon() and true or false
-			present = canDispel and IsInGroup and IsInGroup()
-				and not (IsInRaid and IsInRaid())
+			present = canDispel and ((IsInGroup and IsInGroup()
+				and not (IsInRaid and IsInRaid())) or soloTest)
 		else
 			present = ReadsTrue(Ask(UnitExists, unit))
 		end
@@ -1880,6 +1886,29 @@ local function ScheduleRefresh()
 		pending = false
 		pcall(Refresh)
 	end)
+end
+
+--- `/mh partytest`: the solo test stand on or off (see soloTest above).
+function ns.TogglePartyTargetsSoloTest()
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+	-- Showing the row means showing a secure button, which combat forbids.
+	if InCombatLockdown and InCombatLockdown() then
+		print(prefix .. " partytest: leave combat first.")
+		return
+	end
+	if not (ns.db and ns.db.partyTargets) then
+		print(prefix .. " partytest: the Party targets panel is turned off in the settings.")
+		return
+	end
+	if not (ns.GetPlayerDispelIcon and ns.GetPlayerDispelIcon()) then
+		print(prefix .. " partytest: this character has no dispel, so there is no row to test.")
+		return
+	end
+	soloTest = not soloTest
+	print(prefix .. (soloTest
+		and " partytest ON: your own row shows without a group. Right-click your name to dispel yourself. /reload or /mh partytest turns it off."
+		or " partytest OFF."))
+	pcall(Refresh)
 end
 
 local f = CreateFrame("Frame")

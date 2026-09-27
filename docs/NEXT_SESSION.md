@@ -48,6 +48,8 @@ Blizzards atlas, label = naam van de doelverdieping, klik = die verdieping tonen
 `HARMFUL|RAID` (geciteerd in DandersFrames_Options AuraExplorer.lua:79): "harmful auras THE PLAYER can dispel".
 AFGELEID: dat antwoordt voor de klasse (Holy cleanst Magic), niet de spec. `/mh glow` print nu je eigen debuffs
 met `dispelName` (leesbaar voor jezelf) — meting als Robs eigen regel rood is. Nog niets gerepareerd.
+Rob: *"kunnen we de party targets ook niet single target maken om te testen?"* → `/mh partytest` (unlisted): alleen
+je eigen regel zonder groep, sessie-only (`soloTest`, weg na /reload), buiten combat, alleen met een dispel.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 
