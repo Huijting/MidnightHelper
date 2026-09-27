@@ -27,7 +27,11 @@ gaven "No map found" → de nieuwste EJ-tier bevat alleen S2 (Robs mapprobe) →
 tiers af. Dungeon-knop op Robs verzoek naast *Route to* (`_mhFitText` in de layout), `INSTMAP_BTN_FMT` weg.
 **Delves** (Rob: *"ja, bouw de delve-knop maar"*): kaart-icoontje op elke regel van de Delves-pagina naast het
 tips-boekje → `ns.ShowInstanceMapByName(naam)` via de wereldkaartboom (types Dungeon + Micro, op naam; de namen
-komen uit de client, dus taalonafhankelijk). Geen bazen: delves staan niet in de EJ. Nog niet gezien.
+komen uit de client, dus taalonafhankelijk). Geen bazen: delves staan niet in de EJ. ✅ GEMETEN (Rob): werkt
+"meestal"; 6 missers (Shadow Enclave, Gulf of Memory, Grudge Pit, Ring of Glory, beide Venomfall Deeps met zone
+tussen haakjes). Nu: losse vergelijking (`Norm`: geen haakjes/lidwoord/leestekens), ook Zone- en Orphan-kaarten,
+bij dubbele naam de zone via de parent-keten; een misser schrijft de dichtstbijzijnde namen naar
+`ns.db.instanceMapMiss`.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 

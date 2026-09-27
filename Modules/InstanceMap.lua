@@ -380,27 +380,109 @@ end
 --- A map found by its name in the world's map tree (Dungeon and Micro types). For delves: they are
 --- not in the Encounter Journal, so there is no journal id to go by -- and no bosses to place either.
 --- The delve list names come from the client, so the names match on every language.
-local nameToMap
+---
+--- ⚠️ MEASURED 27 sep (Rob): six delves printed "No map found" -- The Shadow Enclave, The Gulf of
+--- Memory, The Grudge Pit, The Ring of Glory, and both Venomfall Deeps, which our list writes with the
+--- zone in brackets to tell them apart. So names are compared loosely (no brackets, no leading article,
+--- no punctuation, any case), and Zone and Orphan maps are searched too. A miss still records the
+--- nearest map names in ns.db.instanceMapMiss, so the next round is measured instead of guessed.
+local allMaps -- { { id, type, name, key } }
+local function Norm(s)
+	s = tostring(s or ""):lower()
+	s = s:gsub("%s*%b()", "")
+	s = s:gsub("^the%s+", "")
+	s = s:gsub("[%p]", "")
+	s = s:gsub("%s+", " ")
+	return (s:gsub("^%s+", ""):gsub("%s+$", ""))
+end
+
+local function AllMaps()
+	if allMaps then
+		return allMaps
+	end
+	allMaps = {}
+	local E = Enum and Enum.UIMapType or {}
+	local types = { E.Dungeon or 4, E.Micro or 5, E.Zone or 3, E.Orphan or 6 }
+	local seen = {}
+	for _, t in ipairs(types) do
+		local ok, list = pcall(C_Map.GetMapChildrenInfo, 946, t, true)
+		for _, m in ipairs(ok and list or {}) do
+			if m.name and m.name ~= "" and not seen[m.mapID] then
+				seen[m.mapID] = true
+				allMaps[#allMaps + 1] = { id = m.mapID, type = t, name = m.name, key = Norm(m.name), parent = m.parentMapID }
+			end
+		end
+	end
+	-- Dungeon and Micro maps first: a delve is one of those far more often than a zone.
+	table.sort(allMaps, function(a, b)
+		local pa = (a.type == (E.Dungeon or 4) or a.type == (E.Micro or 5)) and 0 or 1
+		local pb = (b.type == (E.Dungeon or 4) or b.type == (E.Micro or 5)) and 0 or 1
+		if pa ~= pb then
+			return pa < pb
+		end
+		return a.id < b.id
+	end)
+	return allMaps
+end
+
 local function MapByName(name)
 	if not name then
 		return nil
 	end
-	if not nameToMap then
-		nameToMap = {}
-		local types = {
-			(Enum and Enum.UIMapType and Enum.UIMapType.Dungeon) or 4,
-			(Enum and Enum.UIMapType and Enum.UIMapType.Micro) or 5,
-		}
-		for _, t in ipairs(types) do
-			local ok, list = pcall(C_Map.GetMapChildrenInfo, 946, t, true)
-			for _, m in ipairs(ok and list or {}) do
-				if m.name and m.name ~= "" and (not nameToMap[m.name] or m.mapID < nameToMap[m.name]) then
-					nameToMap[m.name] = m.mapID
+	local want = Norm(name)
+	for _, m in ipairs(AllMaps()) do
+		if m.name == name then
+			return m.id
+		end
+	end
+	-- Two delves can share a name (Venomfall Deeps, in Zul'Aman and on The Coiled Isle); our list then
+	-- adds the zone in brackets. With more than one match, take the one whose parent maps name that zone.
+	local zone = name:match("%((.-)%)")
+	zone = zone and Norm(zone) or nil
+	local matches = {}
+	for _, m in ipairs(AllMaps()) do
+		if m.key == want then
+			matches[#matches + 1] = m
+		end
+	end
+	if #matches > 1 and zone then
+		for _, m in ipairs(matches) do
+			local p, hops = m.parent, 0
+			while p and p > 0 and hops < 4 do
+				local okI, info = pcall(C_Map.GetMapInfo, p)
+				if not (okI and info) then
+					break
 				end
+				if Norm(info.name) == zone then
+					return m.id
+				end
+				p, hops = info.parentMapID, hops + 1
 			end
 		end
 	end
-	return nameToMap[name]
+	if matches[1] then
+		return matches[1].id
+	end
+	-- Record what came closest: maps sharing the longest word of the name.
+	local longest = ""
+	for w in want:gmatch("%S+") do
+		if #w > #longest then
+			longest = w
+		end
+	end
+	local near = {}
+	if #longest >= 4 then
+		for _, m in ipairs(AllMaps()) do
+			if m.key:find(longest, 1, true) and #near < 12 then
+				near[#near + 1] = ("%d:%d:%s"):format(m.id, m.type, m.name)
+			end
+		end
+	end
+	if ns.db then
+		ns.db.instanceMapMiss = ns.db.instanceMapMiss or {}
+		ns.db.instanceMapMiss[name] = near
+	end
+	return nil
 end
 
 --- Open a map by its name (the Map icon on each row of the Delves page).

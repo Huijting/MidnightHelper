@@ -31,7 +31,10 @@ er is niets weggegooid.
       MH's tips voor die baas.
 - [x] ✅ (Rob, 27 sep) dungeon-kaarten werken. 🆕 De knop **Map** staat nu náást *Route to …*, zoals bij de raids.
 - [ ] The Voidspire, The Dreamrift, March on Quel'Danas: **Map** geeft nu een kaart (gaf "No map found").
-- [ ] 🆕 Delves-pagina: op elke regel een kaart-icoontje naast het boekje. Klik → de plattegrond van die delve.
+- [x] ✅ (Rob, 27 sep) Delves-pagina: kaart-icoontje werkt "meestal". 6 zonder kaart: The Shadow Enclave, The Gulf
+      of Memory, The Grudge Pit, The Ring of Glory, Venomfall Deeps (Zul'Aman) en (The Coiled Isle).
+- [ ] 🆕 Na de ruimere naamvergelijking: klik die zes nog eens aan, daarna `/reload` (missers schrijven de dichtstbijzijnde
+      kaartnamen weg, zodat ik ze kan lezen).
 - [ ] In een dungeon: `/mh map` opent de verdieping waar je staat.
 - [ ] Zwevende iconen op de Paladin: als ze er staan `/mh whatis 5`, muis erop, daarna `/reload`.
 - [ ] Rode regel in het party-paneel en dispel lukt niet: welk type debuff (Poison/Disease/Magic/Curse)? Rechtsklik
