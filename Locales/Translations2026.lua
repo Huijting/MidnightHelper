@@ -11370,3 +11370,59 @@ fill("itIT", {
 	PLAYCARD_KEY_FMT = "Il tuo tasto: %s",
 	PLAYCARD_KEY_NONE = "Non è ancora su un tasto delle tue action bar.",
 })
+
+-- Instance map window (27 Sep 2026). One language expert per language. Not native-reviewed.
+fill("deDE", {
+	CMDLIST_MAP = "Der Grundriss des Dungeons oder Raids, in dem du gerade bist, mit seinen Bossen.",
+	INSTMAP_BTN = "Karte",
+	INSTMAP_BTN_FMT = "Karte von %s",
+	INSTMAP_BOSS_CLICK = "Klick: öffnet die Tipps für diesen Boss.",
+	INSTMAP_NO_ART = "Das Spiel hat keine Karte für diese Etage.",
+	INSTMAP_NOTE = "Totenköpfe sind die Bosse. Deine Gruppe wird nicht angezeigt: Das Spiel verbirgt innerhalb eines Dungeons oder Raids die Position aller. Mehrere Etagen? Wähle oben eine aus.",
+	INSTMAP_NOT_INSIDE = "Du bist nicht in einem Dungeon oder Raid. Öffne eine Karte mit dem Karte-Knopf auf der Seite Raids oder Dungeons.",
+	INSTMAP_NO_MAP_FMT = "Keine Karte für %s gefunden.",
+})
+
+fill("frFR", {
+	CMDLIST_MAP = "Le plan du donjon ou raid où tu es, avec ses boss.",
+	INSTMAP_BTN = "Carte",
+	INSTMAP_BTN_FMT = "Carte de %s",
+	INSTMAP_BOSS_CLICK = "Clique : ouvre les conseils pour ce boss.",
+	INSTMAP_NO_ART = "Le jeu n'a pas de carte pour cet étage.",
+	INSTMAP_NOTE = "Les têtes de mort sont les boss. Ton groupe n'est pas affiché : le jeu cache la position de chacun à l'intérieur d'un donjon ou raid. Plusieurs étages ? Choisis-en un ci-dessus.",
+	INSTMAP_NOT_INSIDE = "Tu n'es pas dans un donjon ou un raid. Ouvre une carte avec le bouton Carte sur la page Raids ou Donjons.",
+	INSTMAP_NO_MAP_FMT = "Aucune carte trouvée pour %s.",
+})
+
+fill("esES", {
+	CMDLIST_MAP = "El plano de la mazmorra o el raid en el que estás, con sus jefes.",
+	INSTMAP_BTN = "Mapa",
+	INSTMAP_BTN_FMT = "Mapa de %s",
+	INSTMAP_BOSS_CLICK = "Clic: abre los consejos de este jefe.",
+	INSTMAP_NO_ART = "El juego no tiene mapa para esta planta.",
+	INSTMAP_NOTE = "Las calaveras son los jefes. Tu grupo no aparece: el juego oculta la posición de todos dentro de una mazmorra o un raid. ¿Varias plantas? Elige una arriba.",
+	INSTMAP_NOT_INSIDE = "No estás en una mazmorra ni en un raid. Abre un mapa con el botón Mapa en la pestaña Raids o Mazmorras.",
+	INSTMAP_NO_MAP_FMT = "No se ha encontrado mapa para %s.",
+})
+
+fill("ptBR", {
+	CMDLIST_MAP = "A planta baixa da masmorra ou raid em que você está, com seus chefes.",
+	INSTMAP_BTN = "Mapa",
+	INSTMAP_BTN_FMT = "Mapa de %s",
+	INSTMAP_BOSS_CLICK = "Clique: abra as dicas deste chefe.",
+	INSTMAP_NO_ART = "O jogo não tem mapa para este andar.",
+	INSTMAP_NOTE = "As caveiras são os chefes. Seu grupo não aparece: o jogo esconde a posição de todos dentro de uma masmorra ou raid. Vários andares? Escolha um acima.",
+	INSTMAP_NOT_INSIDE = "Você não está em uma masmorra ou raid. Abra um mapa com o botão Mapa na página Masmorras ou Raids.",
+	INSTMAP_NO_MAP_FMT = "Nenhum mapa encontrado para %s.",
+})
+
+fill("itIT", {
+	CMDLIST_MAP = "La piantina del dungeon o del raid in cui ti trovi, con i suoi boss.",
+	INSTMAP_BTN = "Mappa",
+	INSTMAP_BTN_FMT = "Mappa di %s",
+	INSTMAP_BOSS_CLICK = "Clic: apri i consigli per questo boss.",
+	INSTMAP_NO_ART = "Il gioco non ha una mappa per questo piano.",
+	INSTMAP_NOTE = "I teschi sono i boss. Il tuo gruppo non è mostrato: il gioco nasconde la posizione di tutti dentro un dungeon o un raid. Più piani? Scegline uno qui sopra.",
+	INSTMAP_NOT_INSIDE = "Non sei in un dungeon o in un raid. Apri una mappa col pulsante Mappa nella pagina Raid o Dungeon.",
+	INSTMAP_NO_MAP_FMT = "Nessuna mappa trovata per %s.",
+})

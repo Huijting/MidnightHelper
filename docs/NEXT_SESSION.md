@@ -14,6 +14,15 @@ SV-bestand (reload vóór het commando), dus de lijst van alle instances is nog 
 `/mh whatis` (12:03): alleen één naamloos frame met 903 kleur-texturen onder de muis (`UIParent.21de8e61c20`, zelfde
 als in Robs /fstack) — AFGELEID een cursor-addon (CursorRing volgt de muis), niet de iconen. Opnieuw, met de muis
 precies op een icoon.
+🔨 **Kaartvenster gebouwd 27 sep** (Rob: *"ja, bouw het kaartvenster maar"*). `Modules/InstanceMap.lua`:
+`ns.ShowInstanceMapFor(entry)` (knop **Map** naast *Route to* op de Raids-pagina; eigen rij *Map of X* bij elke
+dungeon op de Dungeons-pagina) en `/mh map` (binnen: de verdieping waar je staat, via `GetBestMapForUnit` +
+`EJ_GetInstanceForMap`). Verdiepingsknoppen uit de map-groep, art-tiles zoals de probe, doodshoofd per baas
+(`GetEncountersOnMap`), klik = `ns.OpenBossWindowFor(entry, bossKey)` via encounterID. ⚠️ GEMETEN (Robs
+`/mh mapprobe`): EJ-areamap = 0 voor ALLE dungeons (raids wel) → tweede weg `MapFromWorld`: alle Dungeon-type
+kaarten onder 946 + `EJ_GetInstanceForMap` → jid→map (AFGELEID dat dat werkt; nog niet gezien). S1-raids zonder
+journalInstanceID: opzoeken op Engelse naam in de EJ-tier (op een anderstalige client kan dat missen).
+8 sleutels, `CMDLIST_MAP` in de spelerslijst. Nog niet in het spel gezien.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 

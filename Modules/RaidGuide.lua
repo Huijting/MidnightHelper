@@ -344,6 +344,10 @@ function ns.BuildRaidsPanel(panel)
 			routeBtn:SetScript("OnClick", function()
 				ns.RouteDungeonEntrance(raid)
 			end)
+			-- 27 Sep 2026: the raid's floor plan, right beside it (InstanceMap.lua).
+			if ns.AttachInstanceMapButton then
+				ns.AttachInstanceMapButton(routeBtn, raid)
+			end
 		end
 
 		ui.rows[#ui.rows + 1] = { raid = raid, btn = btn, body = body, routeBtn = routeBtn }

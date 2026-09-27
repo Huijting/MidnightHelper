@@ -3118,6 +3118,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "map" then
+		if ns.ShowCurrentInstanceMap then
+			ns.ShowCurrentInstanceMap()
+		end
+		return
+	end
+
 	if msg == "mapprobe" or msg:match("^mapprobe show %d+$") then
 		if ns.MapProbeCommand then
 			ns.MapProbeCommand(msg:match("^mapprobe (show %d+)$"))

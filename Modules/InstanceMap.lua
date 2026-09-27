@@ -1,0 +1,423 @@
+--[[
+	Instance map: the floor plan of a dungeon or raid, with its bosses on it.
+
+	Rob, 27 sep 2026, after Cisca lost her group in a raid: "kunnen we niet eenvoudige plaatjes
+	krijgen in MH met hoe de layout van een raid bv is? zonder dat we vele mb's groter worden?"
+	No images are shipped. The client already carries every floor's map art (the world map shows
+	it inside), and the Encounter Journal knows where each boss stands per floor. MEASURED that
+	day with /mh mapprobe show 2606: The Venomous Abyss drew complete, from outside the instance,
+	with Nek'zali in place.
+
+	What it cannot show: where your group is. Positions of anyone inside an instance are hidden
+	from addons (MEASURED 27 sep, /mh groupmap: nil for every member and for yourself).
+
+	Open it with the Map button on the Raids and Dungeons pages, or `/mh map` inside an instance
+	(opens the floor you are on). A boss on the map is clickable: it opens MH's tips for that boss.
+]]
+
+local _, ns = ...
+
+local WIN_NAME = "MidnightHelperInstanceMap"
+local ART_W = 620
+
+local function L(key)
+	return ns:L(key)
+end
+
+local win
+local current -- { entry = <raid/dungeon table or nil>, name = string, floors = { {mapID, name} }, floor = index }
+
+--------------------------------------------------------------------------------
+-- Finding the map
+--------------------------------------------------------------------------------
+
+--- The journal id for one of our raid or dungeon entries. Most carry it; the Season 1 raids do not,
+--- so those are looked up by their English name in the current journal tier (cached). On a client in
+--- another language that name lookup can miss; then the entry simply has no map.
+local nameToJid
+local function JournalIdFor(entry)
+	if not entry then
+		return nil
+	end
+	if entry.journalInstanceID then
+		return entry.journalInstanceID
+	end
+	if not nameToJid then
+		nameToJid = {}
+		if EJ_GetNumTiers and EJ_SelectTier and EJ_GetInstanceByIndex then
+			local before = EJ_GetCurrentTier and EJ_GetCurrentTier() or nil
+			pcall(EJ_SelectTier, EJ_GetNumTiers())
+			for _, isRaid in ipairs({ true, false }) do
+				for i = 1, 40 do
+					local ok, jid, name = pcall(EJ_GetInstanceByIndex, i, isRaid)
+					if not ok or not jid then
+						break
+					end
+					if name then
+						nameToJid[name] = jid
+					end
+				end
+			end
+			if before then
+				pcall(EJ_SelectTier, before)
+			end
+		end
+	end
+	return entry.name and nameToJid[entry.name] or nil
+end
+
+--- journal id -> the first dungeon-type map that belongs to it, from the whole world's map tree.
+---
+--- ⚠️ MEASURED 27 sep (/mh mapprobe on Rob's client): EJ_GetInstanceInfo's area map is filled for the
+--- raids (The Venomous Abyss 2606) but 0 for every dungeon. So the second road: every map of type
+--- Dungeon under the cosmic map, each asked which journal instance it is. Language-independent, done
+--- once, on the first map that needs it.
+local jidToMap
+local function MapFromWorld(jid)
+	if not jidToMap then
+		jidToMap = {}
+		local DUNGEON = (Enum and Enum.UIMapType and Enum.UIMapType.Dungeon) or 4
+		local ok, list = pcall(C_Map.GetMapChildrenInfo, 946, DUNGEON, true)
+		for _, m in ipairs(ok and list or {}) do
+			if EJ_GetInstanceForMap then
+				local okE, id = pcall(EJ_GetInstanceForMap, m.mapID)
+				if okE and id and id > 0 and (not jidToMap[id] or m.mapID < jidToMap[id]) then
+					jidToMap[id] = m.mapID
+				end
+			end
+		end
+	end
+	return jidToMap[jid]
+end
+
+local function FirstMapOf(jid)
+	if not (jid and EJ_GetInstanceInfo) then
+		return nil, nil
+	end
+	local ok, name, _, _, _, _, _, areaMap = pcall(EJ_GetInstanceInfo, jid)
+	if ok and areaMap and areaMap > 0 then
+		return areaMap, name
+	end
+	return MapFromWorld(jid), ok and name or nil
+end
+
+local function FloorsOf(mapID)
+	local out = {}
+	local okG, groupID = pcall(C_Map.GetMapGroupID, mapID)
+	if okG and groupID then
+		local okF, list = pcall(C_Map.GetMapGroupMembersInfo, groupID)
+		for _, f in ipairs(okF and list or {}) do
+			out[#out + 1] = { mapID = f.mapID, name = f.name }
+		end
+	end
+	if #out == 0 then
+		local okI, info = pcall(C_Map.GetMapInfo, mapID)
+		out[1] = { mapID = mapID, name = okI and info and info.name or "" }
+	end
+	return out
+end
+
+--- Every raid and dungeon entry MH knows, to link a map back to its boss tips.
+local function AllEntries()
+	local list = {}
+	for _, r in ipairs((ns.GetRaidPageList and ns.GetRaidPageList()) or (ns.GetRaidCoachRaids and ns.GetRaidCoachRaids()) or {}) do
+		list[#list + 1] = r
+	end
+	for _, d in ipairs(ns.DUNGEON_ROSTER or {}) do
+		list[#list + 1] = d
+	end
+	return list
+end
+
+--------------------------------------------------------------------------------
+-- Window
+--------------------------------------------------------------------------------
+
+local function BossKeyFor(entry, encounterID)
+	for _, b in ipairs((entry and entry.bosses) or {}) do
+		if b.encounterID == encounterID then
+			return b.key
+		end
+	end
+	return nil
+end
+
+local function Build()
+	if win then
+		return win
+	end
+	local f = CreateFrame("Frame", WIN_NAME, UIParent, "BackdropTemplate")
+	f:SetSize(ART_W + 40, 520)
+	f:SetFrameStrata("HIGH")
+	local saved = ns.db and ns.db.ui and ns.db.ui.instanceMapPos
+	if type(saved) == "table" and saved[1] then
+		f:SetPoint(saved[1], UIParent, saved[2] or saved[1], tonumber(saved[3]) or 0, tonumber(saved[4]) or 0)
+	else
+		f:SetPoint("CENTER")
+	end
+	f:Hide()
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
+	end
+	f:SetMovable(true)
+	f:EnableMouse(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", function(self)
+		self:StartMoving()
+	end)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		local p, _, rp, x, y = self:GetPoint(1)
+		if p and ns.db then
+			ns.db.ui = ns.db.ui or {}
+			ns.db.ui.instanceMapPos = { p, rp, x, y }
+		end
+	end)
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	end
+	local titleBar, content
+	if ns.EnsureMidnightDialogTitleBar then
+		titleBar, content = ns.EnsureMidnightDialogTitleBar(f)
+	end
+	if titleBar then
+		titleBar:EnableMouse(false)
+	end
+	if ns.AttachMidnightDialogCloseButton then
+		ns.AttachMidnightDialogCloseButton(f)
+	end
+	content = content or f
+	local title = (titleBar or f):CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	title:SetPoint("LEFT", titleBar or f, "LEFT", 0, 0)
+	title:SetJustifyH("LEFT")
+	title:SetWidth(ART_W - 120)
+	title:SetWordWrap(false)
+	title:SetTextColor(1, 0.9, 0.55)
+	f._title = title
+
+	f._content = content
+	f._floorBtns = {}
+	f.canvas = CreateFrame("Frame", nil, content)
+	f.tiles, f.pins = {}, {}
+	f.note = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.note:SetJustifyH("LEFT")
+	f.note:SetTextColor(0.62, 0.6, 0.56)
+	win = f
+	return f
+end
+
+local Draw
+
+local function FloorButton(i)
+	local b = win._floorBtns[i]
+	if not b then
+		b = CreateFrame("Button", nil, win._content)
+		b:SetHeight(24)
+		b.fs = b:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		b.fs:SetPoint("CENTER", 0, 1)
+		b.line = b:CreateTexture(nil, "ARTWORK")
+		b.line:SetColorTexture(1, 0.82, 0.2, 0.9)
+		b.line:SetHeight(2)
+		b.line:SetPoint("BOTTOMLEFT", 4, 0)
+		b.line:SetPoint("BOTTOMRIGHT", -4, 0)
+		b:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight2", "ADD")
+		win._floorBtns[i] = b
+	end
+	b:Show()
+	return b
+end
+
+local function Pin(i)
+	local p = win.pins[i]
+	if not p then
+		p = CreateFrame("Button", nil, win.canvas)
+		p:SetSize(22, 22)
+		p.tex = p:CreateTexture(nil, "OVERLAY")
+		p.tex:SetAllPoints()
+		p.tex:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_8")
+		p.fs = p:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmallOutline")
+		p.fs:SetPoint("TOP", p, "BOTTOM", 0, -1)
+		p:SetScript("OnEnter", function(self)
+			if GameTooltip then
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetText(self.bossName or "", 1, 0.82, 0.2)
+				if self.bossKey then
+					GameTooltip:AddLine(L("INSTMAP_BOSS_CLICK"), 0.9, 0.88, 0.82, true)
+				end
+				GameTooltip:Show()
+			end
+		end)
+		p:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		p:SetScript("OnClick", function(self)
+			if self.bossKey and current and current.entry and ns.OpenBossWindowFor then
+				ns.OpenBossWindowFor(current.entry, self.bossKey)
+			end
+		end)
+		win.pins[i] = p
+	end
+	return p
+end
+
+function Draw()
+	if not (win and current) then
+		return
+	end
+	for _, t in ipairs(win.tiles) do
+		t:Hide()
+	end
+	for _, p in ipairs(win.pins) do
+		p:Hide()
+	end
+	for _, b in ipairs(win._floorBtns) do
+		b:Hide()
+	end
+	win._title:SetText(current.name or "")
+	local y = -32
+
+	-- One button per floor, when there is more than one.
+	if #current.floors > 1 then
+		local x = 0
+		for i, fl in ipairs(current.floors) do
+			local b = FloorButton(i)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", win._content, "TOPLEFT", x, y)
+			b.fs:SetText(fl.name ~= "" and fl.name or ("#" .. i))
+			b:SetWidth(b.fs:GetStringWidth() + 18)
+			local on = i == current.floor
+			b.fs:SetTextColor(on and 1 or 0.62, on and 0.82 or 0.6, on and 0.2 or 0.56)
+			b.line:SetShown(on)
+			b:SetScript("OnClick", function()
+				current.floor = i
+				Draw()
+			end)
+			x = x + b:GetWidth() + 4
+			if x > ART_W - 60 then
+				x = 0
+				y = y - 26
+			end
+		end
+		y = y - 30
+	end
+
+	local mapID = current.floors[current.floor].mapID
+	local okL, layers = pcall(C_Map.GetMapArtLayers, mapID)
+	local l1 = okL and type(layers) == "table" and layers[1] or nil
+	local okT, tex = pcall(C_Map.GetMapArtLayerTextures, mapID, 1)
+	tex = okT and type(tex) == "table" and tex or {}
+	win.canvas:ClearAllPoints()
+	win.canvas:SetPoint("TOPLEFT", win._content, "TOPLEFT", 0, y)
+	if not (l1 and l1.layerWidth and l1.tileWidth and #tex > 0) then
+		win.canvas:SetSize(ART_W, 1)
+		win.note:ClearAllPoints()
+		win.note:SetPoint("TOPLEFT", win._content, "TOPLEFT", 0, y - 4)
+		win.note:SetWidth(ART_W)
+		win.note:SetText(L("INSTMAP_NO_ART"))
+		win:SetHeight(32 + (-y) + 60)
+		return
+	end
+	local scale = ART_W / l1.layerWidth
+	local W, H = ART_W, l1.layerHeight * scale
+	win.canvas:SetSize(W, H)
+	local cols = math.ceil(l1.layerWidth / l1.tileWidth)
+	for i, fileID in ipairs(tex) do
+		local t = win.tiles[i] or win.canvas:CreateTexture(nil, "ARTWORK")
+		win.tiles[i] = t
+		local col, row = (i - 1) % cols, math.floor((i - 1) / cols)
+		t:ClearAllPoints()
+		t:SetSize(l1.tileWidth * scale, l1.tileHeight * scale)
+		t:SetPoint("TOPLEFT", win.canvas, "TOPLEFT", col * l1.tileWidth * scale, -row * l1.tileHeight * scale)
+		t:SetTexture(fileID)
+		t:Show()
+	end
+
+	if C_EncounterJournal and C_EncounterJournal.GetEncountersOnMap then
+		local okE, list = pcall(C_EncounterJournal.GetEncountersOnMap, mapID)
+		for i, e in ipairs(okE and list or {}) do
+			local p = Pin(i)
+			local name = EJ_GetEncounterInfo and select(1, EJ_GetEncounterInfo(e.encounterID)) or nil
+			p.bossName = name or ""
+			p.bossKey = BossKeyFor(current.entry, e.encounterID)
+			p.fs:SetText(name or "")
+			p:ClearAllPoints()
+			p:SetPoint("CENTER", win.canvas, "TOPLEFT", (e.mapX or 0) * W, -(e.mapY or 0) * H)
+			p:Show()
+		end
+	end
+
+	win.note:ClearAllPoints()
+	win.note:SetPoint("TOPLEFT", win.canvas, "BOTTOMLEFT", 0, -6)
+	win.note:SetWidth(ART_W)
+	win.note:SetText(L("INSTMAP_NOTE"))
+	win:SetHeight(32 + (-y) + H + win.note:GetStringHeight() + 30)
+end
+
+--- Open the map of one of our raid or dungeon entries (the Map buttons).
+function ns.ShowInstanceMapFor(entry)
+	local first, name = FirstMapOf(JournalIdFor(entry))
+	Build()
+	if not first then
+		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"),
+			(L("INSTMAP_NO_MAP_FMT")):format((ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(entry)) or entry.name or "?")))
+		return
+	end
+	local floors = FloorsOf(first)
+	current = { entry = entry, name = name or entry.name, floors = floors, floor = 1 }
+	win:Show()
+	Draw()
+end
+
+--- `/mh map`: inside a dungeon or raid, the floor you are standing on.
+function ns.ShowCurrentInstanceMap()
+	local inside = IsInInstance and IsInInstance()
+	local okM, mapID = pcall(C_Map.GetBestMapForUnit, "player")
+	if not (inside and okM and mapID) then
+		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), L("INSTMAP_NOT_INSIDE")))
+		return
+	end
+	local jid = EJ_GetInstanceForMap and select(1, EJ_GetInstanceForMap(mapID)) or nil
+	local entry
+	for _, e in ipairs(AllEntries()) do
+		if jid and JournalIdFor(e) == jid then
+			entry = e
+			break
+		end
+	end
+	local floors = FloorsOf(mapID)
+	local floor = 1
+	for i, fl in ipairs(floors) do
+		if fl.mapID == mapID then
+			floor = i
+		end
+	end
+	local name = GetInstanceInfo and select(1, GetInstanceInfo()) or ""
+	Build()
+	current = { entry = entry, name = name, floors = floors, floor = floor }
+	win:Show()
+	Draw()
+end
+
+--- A "Map" button next to a Route button (Raids and Dungeons pages). Parented to the route
+--- button so it shows and hides with it.
+function ns.AttachInstanceMapButton(routeBtn, entry)
+	if not routeBtn then
+		return nil
+	end
+	local b = CreateFrame("Button", nil, routeBtn, "UIPanelButtonTemplate")
+	b:SetHeight(routeBtn:GetHeight() > 0 and routeBtn:GetHeight() or 22)
+	b:SetPoint("LEFT", routeBtn, "RIGHT", 6, 0)
+	local function label()
+		b:SetText(L("INSTMAP_BTN"))
+		local fs = b:GetFontString()
+		b:SetWidth(((fs and fs:GetStringWidth()) or 40) + 28)
+	end
+	label()
+	b:SetScript("OnShow", label)
+	b:SetScript("OnClick", function()
+		ns.ShowInstanceMapFor(entry)
+	end)
+	return b
+end

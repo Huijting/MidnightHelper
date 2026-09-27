@@ -112,6 +112,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh codex", descKey = "CMDLIST_CODEX" },
 		-- 4.1.0: the "How you play" card for every spec (also the gold button in the search bar).
 		{ cmd = "/mh play", descKey = "CMDLIST_PLAY" },
+		-- 27 Sep 2026: the floor plan of the dungeon or raid you are in (Rob, after Cisca lost her group).
+		{ cmd = "/mh map", descKey = "CMDLIST_MAP" },
 		-- 10 Sep 2026 (Spec 33 §2b): the Macros tab had no command, and NavSearch indexes this
 		-- table - so without this row "macros" found the tab by its name only.
 		{ cmd = "/mh macros", descKey = "CMDLIST_MACROS" },

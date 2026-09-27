@@ -264,6 +264,9 @@ function ns.RefreshDungeonGuidePanel()
 		if row.routeBtn then
 			row.routeBtn:SetText(ns:L("HOME_WB_ROUTE_BTN_FMT"):format(plainName))
 		end
+		if row.mapBtn then
+			row.mapBtn:SetText(ns:L("INSTMAP_BTN_FMT"):format(plainName))
+		end
 		-- Per boss: name + (when written) the numbered steps and colored role
 		-- lines; dungeons without content yet say so honestly per dungeon.
 		local lines = {}
@@ -598,7 +601,16 @@ function ns.BuildDungeonGuidePanel(panel)
 					end)
 					push(routeBtn, 4, 10, true, "coach", collapsedFn)
 				end
-				ui.coachRows[#ui.coachRows + 1] = { dungeon = d, nameFs = nameFs, bossFs = bossFs, routeBtn = routeBtn }
+				-- 27 Sep 2026: the dungeon's floor plan with its bosses (InstanceMap.lua). A row of its
+				-- own: the route button above spans the full width.
+				local mapBtn
+				if ns.ShowInstanceMapFor then
+					mapBtn = MakeButton(child, function()
+						ns.ShowInstanceMapFor(d)
+					end)
+					push(mapBtn, 4, 10, true, "coach", collapsedFn)
+				end
+				ui.coachRows[#ui.coachRows + 1] = { dungeon = d, nameFs = nameFs, bossFs = bossFs, routeBtn = routeBtn, mapBtn = mapBtn }
 			end
 		end
 	end
