@@ -41,8 +41,10 @@ er is niets weggegooid.
       kaartnamen weg, zodat ik ze kan lezen).
 - [ ] In een dungeon: `/mh map` opent de verdieping waar je staat.
 - [ ] Zwevende iconen op de Paladin: als ze er staan `/mh whatis 5`, muis erop, daarna `/reload`.
-- [ ] Rode regel in het party-paneel en dispel lukt niet: welk type debuff (Poison/Disease/Magic/Curse)? Rechtsklik
-      op de naam, dan `/mh glow` → regels onder *recent casts and errors*.
+- [x] ✅ (Rob, 27 sep, Nexus-Point Xenas) rechtsklik castte Cleanse Toxins (castlog), maar de rode kleur bleef. Zijn
+      debuff: Blistering Smite, **zonder type** in de tooltip.
+- [ ] 🆕 Als **je eigen** regel rood is: `/mh glow` → nieuwe regel *"your own debuffs now: naam [type]"*. Screenshot.
+      Staat daar alleen Magic of "no type" terwijl de regel rood is, dan kleurt het spelfilter op klasse, niet op spec.
 
 ## 🆕 27 sep — kaartvenster: je echte toets op elk icoon
 

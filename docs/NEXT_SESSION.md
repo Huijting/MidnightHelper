@@ -43,6 +43,11 @@ over de raids en dungeons van beide seizoenen (Venomous Abyss 10, Windrunner Spi
 Vale, Voidspire, Maisara, Nexus-Point 0). Linknaam is soms de instancenaam zelf. Nu in het kaartvenster: pin met
 Blizzards atlas, label = naam van de doelverdieping, klik = die verdieping tonen (`INSTMAP_LINK_CLICK`).
 ✅ GEMETEN (Rob, 27 sep): "de overgangen werken".
+🔬 **Dispel-rood vals alarm?** GEMETEN (Rob, 27 sep, Nexus-Point Xenas, Prot): rechtsklik → `cast Cleanse Toxins`
+(213644) in het castlog, rood bleef; zijn debuff Blistering Smite heeft geen dispeltype. Blizzards commentaar op
+`HARMFUL|RAID` (geciteerd in DandersFrames_Options AuraExplorer.lua:79): "harmful auras THE PLAYER can dispel".
+AFGELEID: dat antwoordt voor de klasse (Holy cleanst Magic), niet de spec. `/mh glow` print nu je eigen debuffs
+met `dispelName` (leesbaar voor jezelf) — meting als Robs eigen regel rood is. Nog niets gerepareerd.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 

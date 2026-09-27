@@ -540,6 +540,26 @@ function ns.PrintPartyDispelGlowStatus()
 		end
 	end
 
+	--- 🔴 WHAT MADE YOUR OWN ROW RED? Rob, 27 sep, Prot Paladin in Nexus-Point Xenas: his row
+	--- was red, right-click cast Cleanse Toxins (logged below), and the red did NOT go away. The
+	--- debuff he hovered, Blistering Smite, has no dispel type at all. The glow follows the
+	--- game's HARMFUL|RAID filter ("the player can dispel"); the suspicion is that it answers
+	--- for the CLASS (a Holy Paladin cleanses Magic) and not for the spec. Other players'
+	--- dispel types are hidden, but your OWN are readable -- so this row is where it can be
+	--- measured: run /mh glow while your own row is red.
+	if ns.Aura and ns.Aura.ForEachPlayerDebuff then
+		local own = {}
+		pcall(ns.Aura.ForEachPlayerDebuff, function(aura)
+			local nm, dn = aura and aura.name, aura and aura.dispelName
+			if issecretvalue and (issecretvalue(nm) or issecretvalue(dn)) then
+				own[#own + 1] = "(secret)"
+			else
+				own[#own + 1] = ("%s [%s]"):format(tostring(nm or "?"), tostring(dn or "no type"))
+			end
+		end)
+		print("   your own debuffs now: " .. (#own > 0 and table.concat(own, ", ") or "none"))
+	end
+
 	-- What your own client did with the last few clicks. This is the half the panel
 	-- cannot see about itself.
 	if #castLog == 0 then
