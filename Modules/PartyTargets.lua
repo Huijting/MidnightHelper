@@ -1956,6 +1956,72 @@ local f5 = CreateFrame("Frame")
 f5:RegisterUnitEvent("UNIT_AURA", "player")
 f5:SetScript("OnEvent", ScheduleRefresh)
 
+--- 🔬 AFTER-COMBAT CHECK: does the red glow ask for something you cannot remove?
+---
+--- Rob, 27 sep, Prot Paladin: his row stayed red after Cleanse Toxins went out; the debuff he
+--- could hover had no dispel type. Measuring by hand means typing /mh glow while tanking --
+--- "ik ben tank en dat maakt het lastig". And in combat the game refuses aura scans anyway
+--- (MEASURED 12 aug). So this asks once the fight is over, which is exactly the moment the
+--- red was seen to linger: which of YOUR debuffs does HARMFUL|RAID -- the glow's filter, "the
+--- player can dispel" -- still match, and with what dispel type? Your own auras are readable.
+---
+--- Everything goes to ns.db.dispelSelfLog (newest last, 30 kept). A match whose type your spec
+--- cannot remove prints ONE chat line per debuff name per session: that is the suspected
+--- false alarm, stated as a measurement, not yet acted on.
+local suspectSaid = {}
+local function AfterCombatDispelCheck()
+	if not (ns.db and ns.db.partyTargets and ns.Aura and ns.Aura.ForEachPlayerAuraFiltered) then
+		return
+	end
+	local inParty = IsInGroup and IsInGroup() and not InRaidGroup()
+	if not (inParty or soloTest) then
+		return
+	end
+	local schools = ns.GetDispellableSchools and ns.GetDispellableSchools() or {}
+	if not next(schools) then
+		return
+	end
+	local found = {}
+	local ran = ns.Aura.ForEachPlayerAuraFiltered(DISPEL_FILTER, function(aura)
+		local nm, dn, sid = aura.name, aura.dispelName, aura.spellId
+		if issecretvalue and (issecretvalue(nm) or issecretvalue(dn) or issecretvalue(sid)) then
+			found[#found + 1] = { secret = true }
+			return
+		end
+		local t = (type(dn) == "string" and dn ~= "") and dn:lower() or nil
+		found[#found + 1] = { name = nm, type = t or "none", spellId = sid, youCan = t and schools[t] or false }
+	end)
+	if not ran or #found == 0 then
+		return
+	end
+	ns.db.dispelSelfLog = ns.db.dispelSelfLog or {}
+	local log = ns.db.dispelSelfLog
+	for _, e in ipairs(found) do
+		e.at = date and date("%Y-%m-%d %H:%M:%S") or "?"
+		e.zone = GetRealZoneText and GetRealZoneText() or nil
+		log[#log + 1] = e
+		while #log > 30 do
+			table.remove(log, 1)
+		end
+		if not e.secret and not e.youCan and e.name and not suspectSaid[e.name] then
+			suspectSaid[e.name] = true
+			print(("|cffffcc00%s|r dispel check: your row is red for |cffff8080%s|r (type: %s), which your spec cannot remove."):format(
+				(ns.L and ns:L("PRINT_PREFIX")) or "MH", tostring(e.name), e.type))
+		end
+	end
+end
+
+local fAfter = CreateFrame("Frame")
+fAfter:RegisterEvent("PLAYER_REGEN_ENABLED")
+fAfter:SetScript("OnEvent", function()
+	-- A moment after the fight: combat-only auras have dropped, what lingers is what Rob saw.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(1, AfterCombatDispelCheck)
+	else
+		AfterCombatDispelCheck()
+	end
+end)
+
 --- Read/write pair for the settings panel. A slash command alone is not a feature
 --- anyone finds: MH's own July review called that out as its heaviest UX fault, and
 --- shipping this behind `/mh partytargets` only would have repeated it.

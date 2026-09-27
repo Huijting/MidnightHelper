@@ -46,7 +46,10 @@ er is niets weggegooid.
 - [ ] 🆕 **Solo testen:** `/mh partytest` (buiten gevecht) → alleen je eigen regel, zonder groep. Laat een rare of mob
       je een Poison geven (Venomous Infusion) → regel rood → rechtsklik op je naam → gaat het rood weg? Ook een mob
       met een Magic-debuff proberen: wordt de regel dan óók rood (= vals alarm voor Prot)?
-- [ ] 🆕 Als **je eigen** regel rood is: `/mh glow` → nieuwe regel *"your own debuffs now: naam [type]"*. Screenshot.
+- [ ] 🆕 **Automatisch (niets typen):** gewoon spelen in een groep (of met `/mh partytest`). Na elk gevecht kijkt MH
+      welke van jouw debuffs het spel nog "wegneembaar" noemt. Is dat iets wat jouw spec níét kan weghalen, dan
+      komt er één chatregel *"dispel check: your row is red for X (type: …)"*. Na de sessie: `/reload`.
+- [ ] Als **je eigen** regel rood is: `/mh glow` → nieuwe regel *"your own debuffs now: naam [type]"*. Screenshot.
       Staat daar alleen Magic of "no type" terwijl de regel rood is, dan kleurt het spelfilter op klasse, niet op spec.
 
 ## 🆕 27 sep — kaartvenster: je echte toets op elk icoon

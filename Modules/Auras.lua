@@ -255,6 +255,13 @@ function Aura.ForEachPlayerDebuff(fn)
 	return Scan("player", "HARMFUL", fn)
 end
 
+--- Walk the player's auras under any filter string, e.g. "HARMFUL|RAID" -- the filter the party
+--- panel's red glow uses. Same refusal rules as the other scans: in combat the game may say no.
+--- @return boolean scan happened
+function Aura.ForEachPlayerAuraFiltered(filter, fn)
+	return Scan("player", filter, fn)
+end
+
 --- Walk any unit's harmful auras (party/raid members included). This is exactly
 --- the read 12.1 restricts for other players — the scan still runs, but fields
 --- may come back SECRET; callers must guard with issecretvalue and never compare

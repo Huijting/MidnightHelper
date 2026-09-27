@@ -50,6 +50,11 @@ AFGELEID: dat antwoordt voor de klasse (Holy cleanst Magic), niet de spec. `/mh 
 met `dispelName` (leesbaar voor jezelf) — meting als Robs eigen regel rood is. Nog niets gerepareerd.
 Rob: *"kunnen we de party targets ook niet single target maken om te testen?"* → `/mh partytest` (unlisted): alleen
 je eigen regel zonder groep, sessie-only (`soloTest`, weg na /reload), buiten combat, alleen met een dispel.
+Shadow Enclave-meting (Rob, 27 sep): eigen debuff alleen *Gift of the Golden Val'kyr [no type]*; castlog leeg door
+een /reload ervoor. Rob: *"ik ben tank en dat maakt het lastig"* → **automatische na-gevechtcheck**
+(`AfterCombatDispelCheck`, PLAYER_REGEN_ENABLED +1 s): `Aura.ForEachPlayerAuraFiltered("HARMFUL|RAID")` op jezelf
+(nieuw in Auras.lua; in combat weigert het spel scans, GEMETEN 12 aug), alles naar `ns.db.dispelSelfLog` (30), en één
+chatregel per naam als het type niet in `GetDispellableSchools` zit = vermoedelijk vals alarm. Nog niet gezien.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 
