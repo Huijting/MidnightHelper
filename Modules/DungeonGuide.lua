@@ -581,6 +581,22 @@ function ns.BuildDungeonGuidePanel(panel)
 				if models then
 					push(models, 4, 10, false, "coach", collapsedFn)
 				end
+				-- Route and Map right under the animated bosses, above the tips (Rob, 27 Sep 2026:
+				-- "kan je deze knoppen onder de animated bosses zetten"); they used to close the row.
+				local routeBtn
+				if d.entrance and ns.RouteDungeonEntrance then
+					routeBtn = MakeButton(child, function()
+						ns.RouteDungeonEntrance(d)
+					end)
+					push(routeBtn, 4, 10, true, "coach", collapsedFn)
+					-- 27 Sep 2026: the dungeon's floor plan (InstanceMap.lua), right beside the route
+					-- button like on the Raids page. Rob: "ik verwachtte ze op dezelfde plek zoals we ze
+					-- bij de raids hebben" -- the first build gave it a full-width row of its own.
+					if ns.AttachInstanceMapButton then
+						routeBtn._mhFitText = true
+						ns.AttachInstanceMapButton(routeBtn, d)
+					end
+				end
 				-- Read-only EditBox i.p.v. FontString: nodig voor hover/klik op
 				-- de {SPELL:id}-links (FontStrings doen geen hyperlinks) —
 				-- zelfde patroon als de Delve Coach (DelveTipMarkup).
@@ -599,20 +615,6 @@ function ns.BuildDungeonGuidePanel(panel)
 					ns:AttachDelveTipHyperlinksToEditBox(bossFs)
 				end
 				push(bossFs, 2, 10, false, "coach", collapsedFn)
-				local routeBtn
-				if d.entrance and ns.RouteDungeonEntrance then
-					routeBtn = MakeButton(child, function()
-						ns.RouteDungeonEntrance(d)
-					end)
-					push(routeBtn, 4, 10, true, "coach", collapsedFn)
-					-- 27 Sep 2026: the dungeon's floor plan (InstanceMap.lua), right beside the route
-					-- button like on the Raids page. Rob: "ik verwachtte ze op dezelfde plek zoals we ze
-					-- bij de raids hebben" -- the first build gave it a full-width row of its own.
-					if ns.AttachInstanceMapButton then
-						routeBtn._mhFitText = true
-						ns.AttachInstanceMapButton(routeBtn, d)
-					end
-				end
 				ui.coachRows[#ui.coachRows + 1] = { dungeon = d, nameFs = nameFs, bossFs = bossFs, routeBtn = routeBtn }
 			end
 		end

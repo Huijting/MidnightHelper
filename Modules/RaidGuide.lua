@@ -177,20 +177,8 @@ local function Relayout()
 		row.btn:Show()
 		y = y + BTN_H + 2
 
-		-- The route button sits under the raid's name while it is open, as on the Dungeons page.
-		if row.routeBtn then
-			if collapsed then
-				row.routeBtn:Hide()
-			else
-				row.routeBtn:SetText(ns:L("HOME_WB_ROUTE_BTN_FMT"):format(plainName))
-				local fs = row.routeBtn:GetFontString()
-				local textW = (fs and fs:GetStringWidth()) or 140
-				row.routeBtn:SetWidth(math.max(math.min(textW + 30, width - BODY_INDENT), 1))
-				row.routeBtn:ClearAllPoints()
-				row.routeBtn:SetPoint("TOPLEFT", ui.child, "TOPLEFT", BODY_INDENT, -y)
-				row.routeBtn:Show()
-				y = y + BTN_H + 4
-			end
+		if row.routeBtn and collapsed then
+			row.routeBtn:Hide()
 		end
 
 		if collapsed then
@@ -205,6 +193,18 @@ local function Relayout()
 				row.models:SetPoint("TOPLEFT", ui.child, "TOPLEFT", BODY_INDENT, -y)
 				row.models:SetWidth(math.max(width - BODY_INDENT, 1))
 				y = y + ns.LayoutBossModelStrip(row.models, math.max(width - BODY_INDENT, 1)) + 4
+			end
+			-- Route and Map right under the animated bosses (Rob, 27 Sep 2026: "kan je deze knoppen
+			-- onder de animated bosses zetten"). They used to sit under the raid's name.
+			if row.routeBtn then
+				row.routeBtn:SetText(ns:L("HOME_WB_ROUTE_BTN_FMT"):format(plainName))
+				local fs = row.routeBtn:GetFontString()
+				local textW = (fs and fs:GetStringWidth()) or 140
+				row.routeBtn:SetWidth(math.max(math.min(textW + 30, width - BODY_INDENT), 1))
+				row.routeBtn:ClearAllPoints()
+				row.routeBtn:SetPoint("TOPLEFT", ui.child, "TOPLEFT", BODY_INDENT, -y)
+				row.routeBtn:Show()
+				y = y + BTN_H + 6
 			end
 			row.body:Show()
 			row.body:ClearAllPoints()
