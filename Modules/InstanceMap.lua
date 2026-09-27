@@ -46,15 +46,22 @@ local function JournalIdFor(entry)
 		nameToJid = {}
 		if EJ_GetNumTiers and EJ_SelectTier and EJ_GetInstanceByIndex then
 			local before = EJ_GetCurrentTier and EJ_GetCurrentTier() or nil
-			pcall(EJ_SelectTier, EJ_GetNumTiers())
-			for _, isRaid in ipairs({ true, false }) do
-				for i = 1, 40 do
-					local ok, jid, name = pcall(EJ_GetInstanceByIndex, i, isRaid)
-					if not ok or not jid then
-						break
-					end
-					if name then
-						nameToJid[name] = jid
+			-- ⚠️ NOT ONLY THE NEWEST TIER. MEASURED 27 sep (Rob's /mh mapprobe): the newest tier holds
+			-- Season 2 (The Venomous Abyss, The Tidebound Grotto) and NOT The Voidspire, The Dreamrift
+			-- or March on Quel'Danas, which then printed "No map found". Newest first, so a name that
+			-- exists twice resolves to the current one.
+			local top = EJ_GetNumTiers()
+			for tier = top, math.max(1, top - 3), -1 do
+				pcall(EJ_SelectTier, tier)
+				for _, isRaid in ipairs({ true, false }) do
+					for i = 1, 40 do
+						local ok, jid, name = pcall(EJ_GetInstanceByIndex, i, isRaid)
+						if not ok or not jid then
+							break
+						end
+						if name and not nameToJid[name] then
+							nameToJid[name] = jid
+						end
 					end
 				end
 			end
