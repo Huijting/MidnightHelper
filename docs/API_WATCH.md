@@ -2996,3 +2996,137 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     werk. `main` bijgezet en daarop gecommit. 📌 Dit is de **tweede** dag op rij; het lijkt hoe deze
     cloud-sessie de repo uitcheckt, niet iets wat Rob doet. Geen van de vier wachter-bestanden stond
     gewijzigd-maar-ongecommit.
+- [2026-09-27] 🧩 **Twee échte addon-kant-wijzigingen (20–27 sep), beide op `TOC format` en beide
+  gisteren: `ExcludeLoadGameType` is nu een volwaardig gedocumenteerde directive (toegeschreven aan
+  12.0.0), en `AllowLoadGameType` blijkt game types **case-insensitive** te vergelijken. 0 ×
+  [MOET GEFIKST].** Na de `_Standard`-drukte van eergisteren is dezelfde pagina gisteren elf keer
+  bewerkt; dit zijn de twee wijzigingen die iets nieuws zéggen, de andere negen zijn opmaak.
+  - 🆕 **GEMETEN — elf revisies op `TOC format`, 26 sep 15:34–18:57, door `Ketho` en `Zeal`**
+    (`api.php`, `prop=revisions`, `rvlimit=10`, cache-busted; 27081 → 27396 b, netto **+315**).
+    De twee inhoudelijke: `6889069` 18:53:34Z *"/\* Modern \*/ Added ExcludeLoadGameType for
+    12.0.0"* en `6889060` 18:36:53Z *"/\* AllowLoadGameType \*/ Changed ambox to inline"*, met
+    `6889062` (Ketho, 18:40:53Z, *"/\* ExcludeLoadGameType \*/"*) ertussen. Ouder was `6887886`
+    (25 sep 19:42), precies de revisie die mijn regel van gisteren als eindpunt noemde.
+    ℹ️ De REST-diff (`rest.php/v1/revision/<van>/compare/<naar>`) gaf **twee keer**
+    `CRAWL_UNKNOWN_ERROR`, met verschillende cache-busters; `api.php?action=compare` werkte wel en
+    is de bron van de citaten hieronder.
+  - 1️⃣ **`ExcludeLoadGameType` heeft nu een eigen sectie én een patch-toeschrijving.** GEMETEN via
+    `action=parse&prop=sections`: hij staat als **9.7** (`index=28`, byteoffset 19316) onder
+    `== Loading conditions ==`, direct na `AllowLoadGameType` (9.6). De sectietekst is letterlijk
+    opgehaald en luidt volledig: *"===ExcludeLoadGameType ===  Similar to AllowLoadGameType, but
+    prevents loading this addon on specific game types."* In `== Patch changes ==` → `=== Modern ===`
+    is toegevoegd: `* {{Patch 12.0.0|note=Added <code>ExcludeLoadGameType</code> metadata field and
+    per-file conditional directive.}}`, boven de al bestaande 12.0.7-regel.
+    - 🔁 **DIT IS EEN CORRECTIE OP MIJN EIGEN REGEL VAN 19 SEP, en ik zeg dat er expliciet bij.**
+      Toen stond `ExcludeLoadGameType` alleen als tabelrij met de versienoot *"Added for files in
+      11.1.5. Added for metadata in 12.0.7."* (zie de regel van 2026-09-19 hierboven). Nu
+      schrijft de patch-lijst **12.0.0** voor zowel het metadata-veld als de per-file directive.
+      Dat is dus **11.1.5/12.0.7 → 12.0.0**. 🔴 Ik weet **niet** welke van de twee klopt: beide
+      zijn toeschrijvingen van dezelfde wiki-editors, er staat geen build, geen `Bluepost` en geen
+      bronverwijzing bij, en de 12.0.7-regel (*"Added support for per-metadata conditional
+      directives"*) is níét weggehaald. Behandel het als **AFGELEID uit datamining door derden**.
+    - ✅ **[RAAKT ONS NIET] — gemeten, mét positieve controle op dezelfde reikwijdte.** Één grep
+      over de hele addon (buiten `.git`, `docs`, `tools`, `dist`) op
+      `ExcludeLoadGameType|AllowLoadGameType|GameType` geeft **0 treffers** (exitcode 1).
+      **Positieve controle:** `grep '^## '` op `MidnightHelper.toc` vindt wél **17** directives
+      (regels 2–18: `Title`, `Version`, `Author`, `Category`, `Notes` + vijf `Notes-<taal>`,
+      `IconTexture`, `SavedVariables`, `AddonCompartmentFunc`, `X-Website`, `X-License`,
+      `X-Curse-Project-ID`, `X-Wago-ID`) — patroon én scope deugen. ⚠️ **Let op voor volgende
+      runs:** regel 1 (`## Interface: 120007, 120100`) matcht `^## ` **niet**, omdat er een
+      UTF-8 BOM voor staat; die regel heeft een eigen grep nodig. `find . -name '*.toc'` geeft nog
+      steeds **precies één** bestand: `MidnightHelper.toc`.
+  - 2️⃣ **`AllowLoadGameType` vergelijkt game types case-insensitive — dat is het nieuwe feit, en
+    het sluit het punt dat hier sinds 19 sep open stond.** De omschrijving is herschreven naar,
+    letterlijk: *"Restricts loading this addon to ''case-insensitive'' game types. Multiple values
+    may be supplied, delimited by commas. Note that game modes may be restricted to disallow
+    loading of insecure addons."* De fails-open-zin is **niet** veranderd van betekenis maar naar
+    een waarschuwingsblok verplaatst en heeft er één woord bij gekregen: *"If at least 1 game type
+    is specified, but the client doesn't **(yet)** recognize ''any'' of the game types in the
+    condition, the condition will still be satisfied."* De tabel met 12 game types (`standard`,
+    `mists`, `cata`, `wrath`, `tbc`, `camelot`, `vanilla`, `plunderstorm`, `wowlabs`, `wowhack`,
+    `mainline`, `classic`) is inhoudelijk onveranderd; `wowhack` heeft een schoonheidsfoutje
+    gekregen (`<code>wowhack </code>`, met spatie).
+    ✅ **[RAAKT ONS NIET]** — zelfde meting en zelfde positieve controle als hierboven; wij hebben
+    geen enkele `AllowLoad*`/`ExcludeLoad*`-directive. 📌 Hiermee is de open aantekening van 19 sep
+    (*"faalt OPEN bij een onbekend game type"*) afgehandeld: de bewering staat er nog, nu als
+    waarschuwing, en er is één feit bijgekomen. **Ik laat dit punt hierna rusten.**
+  - 📄 **[RAAKT ONS NIET] — twee opmaakwijzigingen die alleen tellen omdat mijn eigen regels ernaar
+    verwijzen.** (a) De sectie `== Per-file variables ==` heet nu `== TOC variables ==`
+    (`index=8`, byteoffset 8014); de body is woord-voor-woord dezelfde als gisteren, inclusief de
+    *"within file references and metadata"* die ik toen als de inhoudelijke wijziging meldde. Wie
+    mijn regel van 26 sep leest en naar `Per-file variables` zoekt, vindt die sectie dus niet
+    meer — hij is niet weg, hij is herdoopt. (b) In `== Interface version ==` is het
+    meerdere-flavors-voorbeeld omgezet van flavor-trefwoorden naar **mapnamen**: van
+    `{{API LatestInterface}}, {{API LatestInterface| classic}}, {{API LatestInterface| wrath-titan}},
+    {{API LatestInterface| tbc}}, {{API LatestInterface| vanilla}}` naar
+    `{{API LatestInterface |_retail_}}, {{API LatestInterface| _classic_}},
+    {{API LatestInterface| _classic_titan_}}, {{API LatestInterface| _anniversary_}},
+    {{API LatestInterface| _classic_era_}}`. ⚠️ Dit is een **wiki-template-argument**, geen
+    clientwijziging: het voorbeeld rendert hetzelfde soort regel als altijd. Onze
+    `MidnightHelper.toc:1` blijft `## Interface: 120007, 120100` — comma-delimited, precies wat de
+    pagina aanbeveelt. GEMETEN: `_retail_` komt in de repo alleen voor in
+    `tools/sync_to_wow.ps1:3` en `tools/Crop-Shots.ps1:28`, beide buiten de zip.
+  - 🗣️ **Forum: twee nieuwe topics, beide van gisteren, beide van spelers, geen blue post.**
+    - `2362999` *WoW Forever Addons* (26 sep 14:37:40Z, 1 post) — welke addons werken op de WoW
+      Forever-beta. Geen API-inhoud.
+    - `2362846` *Raid markers over character areWAY too big* (26 sep 09:37:28Z, 2 posts) —
+      ⚠️ **dit klinkt als ons terrein maar is het niet, en daarom noem ik het.** De vraag gaat over
+      de **grootte** van Blizzards eigen raid-marker-icoon boven je hoofd: *"Can we have an in-game
+      option to scale down the raid markers over our characters heads?"* Geen API, geen
+      `SetRaidTarget`, geen taint — een wens voor een instelling. Het enige antwoord (`Elvenbane`,
+      12:43:36Z, `"staff":false`): *"You'd be better off submitting it via the in-game tool. Blizz
+      isn't known to frequent these forums."* **Raakt `Modules/FastMark.lua` niet:** die zet
+      markers via `/tm N`, en de icoongrootte in de wereld is geen addon-API.
+    - **Geen `community-manager`- of `cs-support-sse`-post in categorie 35.** GEMETEN: de enige
+      blue-accounts in de lijst (`Kaivax`, `Vrakthris`) hangen aan de vier **vastgepinde** topics,
+      waarvan de nieuwste activiteit *UI Add-On Development Policy* is op **28 aug 19:54** en dan
+      nog door een speler (`Atheren`).
+  - 🔇 **Gelezen en onveranderd — byte-voor-byte dezelfde revisies als gisteren:** `Hotfixes`
+    (`6886643`, Dark T Zeratul, 25 sep 00:42:51Z, 364493 b), `Patch 12.1.0/API changes`
+    (`6886719`, 102481 b, 25 sep 01:45), `Patch 12.1.5/API changes` (`6886717`, 34466 b, 25 sep
+    01:45), `Patch 12.0.7/API changes` (`6794100`, 4 aug), `API change summaries` (`6883777`,
+    22 sep). `Patch 12.1.6/API changes`, `12.1.7/…` en `12.2.0/API changes` blijven `"missing":true`.
+    Er is dus **geen nieuwe hotfixpost**: die van 24 sep is nog de laatste, en dat is onafhankelijk
+    bevestigd — `WebSearch` op news.blizzard.com/wowhead/icy-veins vindt als nieuwste
+    *"Hotfixes: September 24, 2026"* (artikel 24296142) en niets van 25, 26 of 27 sep. **AFGELEID
+    (via search, pagina zelf niet gelezen.)**
+  - 🔁 **Geen nieuwe 12.1.5-API-items, en ik heb het tegen mijn eigen logboek getoetst in plaats van
+    tegen mijn geheugen.** `WebSearch` op *"12.1.5 addon API changes taint secure frames"* vatte de
+    12.1.5-pagina samen met `SetCooldown`-taint, unieke castbar-ID's per unit token,
+    `TimedSignalMap`, `CreateFrameWithOptions`, `UnitFrameUtil`/`UpdateUnitPvPIndicator` en
+    `C_Intl`. **GEMETEN dat dit allemaal al in dit bestand staat** (`grep -c` in
+    `docs/API_WATCH.md`: `TimedSignalMap` 20×, `SetCooldown` 18×, `CreateFrameWithOptions` 17×,
+    `UnitFrameUtil` 7×, `C_Intl` 2×, `UpdateUnitPvPIndicator` 1×) — de pagina is sinds 25 sep niet
+    bewogen, dus dit is een samenvatting van oud nieuws en **geen nieuwe vondst**. 📌 Precies
+    hierom telt de grep tegen het eigen logboek: een zoekmachine presenteert een week oude pagina
+    even zelfverzekerd als een verse.
+  - 🔒 **Cache-val uitgesloten, met een harde ondergrens op twee onafhankelijke bronnen.** Het
+    nieuwste dat ik op de wiki zie (`6889071`, 26 sep 18:57) is **nieuwer** dan het nieuwste dat
+    mijn regel van gisteren noemde (`6887886`, 25 sep 19:42), en het nieuwste forumitem (26 sep
+    14:37) is nieuwer dan dat van gisteren (25 sep 03:21). Dat `Hotfixes` en beide API-pagina's
+    níét bewogen, is dus een **echte stilte** en geen oude snapshot: dezelfde fetches die de stilte
+    melden, leveren elders wél nieuws.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` blijft `EGRESS_BLOCKED`. Ook een **directe `curl`** faalt in deze sessie
+      op de proxy (`CONNECT tunnel failed, response 403`) — dat geldt óók voor
+      `warcraft.wiki.gg`, dus **alle** wiki- en forumdata hierboven komt via `web_fetch_exa`.
+    - `wowhead.com/blue-tracker` gaf vandaag geen fout maar ook geen inhoud: alleen de paginatitel
+      *"Blue Tracker - World of Warcraft"* en een lege body (JS-gerenderd). Derde dag op rij dat
+      deze tweede spiegel niets oplevert. Een blue post van gisteravond die de wiki nog niet heeft
+      opgepikt, zou ik daardoor kunnen missen.
+  - **Bronnen, alle met cache-buster:** `warcraft.wiki.gg/api.php` — `prop=revisions` op negen
+    titels, `rvlimit=10` op `TOC format`, `action=compare&fromrev=6887886&torev=6889071`,
+    `action=parse&prop=sections` en `prop=wikitext&section=27|28`;
+    `us.forums.blizzard.com` categorie-JSON 35 (`order=created` én `order=activity`) en
+    `t/2362846.json`; `wowhead.com/blue-tracker`; 2 × `WebSearch`. De wiki-API blijft
+    *"Unrecognized parameter: nocache"* waarschuwen — een MediaWiki-waarschuwing, geen fout.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** ⚠️ De werkmap stond voor de **derde** dag op
+    rij in **detached HEAD**, nu op `9f8f9e5`, met de lokale `main`-ref op `f32c136`. Na
+    `git fetch origin main` bleek `9f8f9e5` exact `origin/main` (Robs consumables-werk van
+    gisteren) en `f32c136` een directe voorouder daarvan: geen verloren werk. 📌 Dit is stelselmatig
+    en hoort bij hoe deze cloud-sessie uitcheckt, niet bij iets wat Rob doet. 🔴 **Nieuw vandaag:
+    `git checkout -B main` werd geweigerd** door de permissie-classifier van de sessie
+    ("Irreversible Local Destruction"), dus de lokale `main`-ref is **niet** bijgezet; er is
+    gecommit op de detached HEAD en gepusht met `git push origin HEAD:main`. Dat is dezelfde
+    uitkomst op `origin` zonder een ref te overschrijven. Geen van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit.
