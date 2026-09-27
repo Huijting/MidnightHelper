@@ -89,7 +89,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "setline", "shards", "shardtest", "shots", "showdown",
 	"socket", "souls", "spell", "stat", "stop", "surges", "survival", "tier", "tierread", "tierscan", "tips",
-	"toast", "twins", "unlearned", "vignettes", "wb", "wiki", "worldboss",
+	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 }
 
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone

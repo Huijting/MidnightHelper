@@ -3118,6 +3118,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "whatis" or msg:match("^whatis %d+$") then
+		if ns.WhatIsCommand then
+			ns.WhatIsCommand(msg:match("^whatis (%d+)$"))
+		end
+		return
+	end
+
 	if msg == "playkeys" then
 		if ns.PrintPlayKeys then
 			ns.PrintPlayKeys()
