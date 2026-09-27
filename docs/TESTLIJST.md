@@ -33,8 +33,9 @@ Waarom: Cisca vond na doodgaan in een raid haar groep niet terug (meerdere verdi
 `/reload`.
 - [ ] `/mh durability` → een regel met *warning on, limit 30%*, je laagste item met percentage, en per versleten slot
       een regel. Klopt het laagste percentage met wat je karakterscherm (tooltip van dat item) zegt?
-- [ ] `/mh durability test` → midden in beeld de grote tekst *"Your gear is at N% - repair before you pull!"*, en
-      in chat dezelfde regel met *Lowest:* en een item-link.
+- [x] ✅ (Rob, 27 sep: "tekst is groot en geluid werkt") `/mh durability test` → midden in beeld de grote tekst
+      *"Your gear is at N% - repair before you pull!"* (eigen frame, 34 px, raid-warning-geluid), en in chat
+      dezelfde regel met *Lowest:* en een item-link.
 - [ ] Instellingen → Midnight Helper → *Dungeon help*: **Warn about worn gear** (aan) en de schuif **Warn below** (30%).
       Zet de schuif hoger dan je laagste item en start een ready check of ga een delve in: komt de waarschuwing?
 - [ ] Onder de grens, en na het repareren: géén waarschuwing bij binnengaan.

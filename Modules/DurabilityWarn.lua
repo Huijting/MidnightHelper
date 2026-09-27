@@ -7,8 +7,8 @@
 	at the two moments it still helps: walking into content, and a ready check.
 
 	⚠️ CENTRE OF THE SCREEN, NOT ONLY CHAT. Rob, 3 sep: "niemand kijkt in de chat". The warning
-	uses the raid-warning frame (plain UI, no protected call) and ALSO prints a chat line, so
-	there is a record with the item link after the big text has faded.
+	is a big line of our own with the raid-warning sound (see EnsureAlert) and ALSO a chat line,
+	so there is a record with the item link after the big text has faded.
 
 	Silence is the normal outcome here, so `/mh durability` prints the decision and the reason,
 	and `/mh durability test` runs the real warning path with the real numbers.
@@ -99,13 +99,56 @@ local function Prefix()
 	return ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 end
 
+--- Our own big line, not Blizzard's raid-warning frame. Rob, 27 sep, after the first
+--- `/mh durability test`: "een mooie rode zin, maar ik hoor geen geluid. Kunnen we de tekst
+--- groter maken?" The raid-warning frame has its own fixed size, so this draws its own
+--- text, twice as tall, and plays the raid-warning sound with it.
+local alert
+local function EnsureAlert()
+	if alert then
+		return alert
+	end
+	local f = CreateFrame("Frame", "MidnightHelperDurabilityAlert", UIParent)
+	f:SetSize(1000, 60)
+	f:SetPoint("CENTER", UIParent, "CENTER", 0, 200)
+	f:SetFrameStrata("FULLSCREEN_DIALOG")
+	f:SetFrameLevel(190)
+	f:EnableMouse(false)
+	local t = f:CreateFontString(nil, "OVERLAY")
+	pcall(t.SetFont, t, STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 34, "THICKOUTLINE")
+	if not t:GetFont() then
+		t:SetFontObject("GameFontNormalHuge")
+	end
+	t:SetPoint("CENTER")
+	t:SetJustifyH("CENTER")
+	t:SetTextColor(1, 0.22, 0.12)
+	f.text = t
+	f.anim = f:CreateAnimationGroup()
+	local a1 = f.anim:CreateAnimation("Alpha")
+	a1:SetFromAlpha(0); a1:SetToAlpha(1); a1:SetDuration(0.15); a1:SetOrder(1)
+	local a2 = f.anim:CreateAnimation("Alpha")
+	a2:SetFromAlpha(1); a2:SetToAlpha(1); a2:SetDuration(5.0); a2:SetOrder(2)
+	local a3 = f.anim:CreateAnimation("Alpha")
+	a3:SetFromAlpha(1); a3:SetToAlpha(0); a3:SetDuration(1.0); a3:SetOrder(3)
+	f.anim:SetScript("OnFinished", function()
+		f:Hide()
+	end)
+	f:Hide()
+	alert = f
+	return f
+end
+
 --- Show the warning. Same path for the real trigger and for `/mh durability test`.
 local function Warn(lowest, slot)
 	local pct = math.floor(lowest + 0.5)
 	local big = ns:L("DURABILITY_WARN_FMT"):format(pct)
-	if RaidNotice_AddMessage and RaidWarningFrame then
-		local info = ChatTypeInfo and ChatTypeInfo["RAID_WARNING"] or { r = 1, g = 0.3, b = 0.1 }
-		pcall(RaidNotice_AddMessage, RaidWarningFrame, big, info)
+	local f = EnsureAlert()
+	f.text:SetText(big)
+	f:Show()
+	f.anim:Stop()
+	f.anim:Play()
+	if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then
+		pcall(PlaySound, SOUNDKIT.RAID_WARNING, "Master")
 	end
 	local link = SlotLink(slot)
 	print(("%s %s%s"):format(Prefix(), big,

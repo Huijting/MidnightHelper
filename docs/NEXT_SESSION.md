@@ -17,8 +17,9 @@ Rob liet 's ochtends twee addons zien. **Ready Check Marks & Buffs** (Tankncrank
 idee, geen code) en **AllChars** (SKSHIN; TBC Classic, niets voor Retail). GEMETEN: MH keek nergens naar durability
 (0 treffers in `Modules/`). Rob: *"Ja doe maar"*.
 - Nieuw `Modules/DurabilityWarn.lua` (TOC na ConsumableReadyBoard). Laagste item van 17 slots (geen shirt/tabard)
-  via `GetInventoryItemDurability`. Onder de grens (standaard 30%, schuif 5-80) → `RaidNotice_AddMessage` midden in
-  beeld + chatregel met item-link. Moment: binnengaan van party/raid/scenario (1× per instance) en `READY_CHECK`.
+  via `GetInventoryItemDurability`. Onder de grens (standaard 30%, schuif 5-80) → eigen frame midden in beeld
+  (34 px THICKOUTLINE, 5 s, `SOUNDKIT.RAID_WARNING` op Master; eerst was het Blizzards RaidWarningFrame, Rob wilde
+  groter + geluid; ✅ GEMETEN door Rob) + chatregel met item-link. Moment: binnengaan van party/raid/scenario (1× per instance) en `READY_CHECK`.
 - Instellingen (Dungeon-sectie): `mh_durabilityWarn`, `mh_durabilityLimit`. `/mh durability` (beslissing + cijfers),
   `/mh durability test` (zelfde pad als echt). Niet in de lijst voor spelers (unlisted-on-purpose).
 - Vertalingen: 6 sleutels, 5 taalexperts. Nog niet in het spel gezien → TESTLIJST 27 sep.
