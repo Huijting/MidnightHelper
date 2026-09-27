@@ -23,8 +23,9 @@ er is niets weggegooid.
 
 ## 🆕 27 sep — metingen: plattegronden, zwevende iconen, dispel
 
-- [ ] `/mh mapprobe`, dan `/reload` (buiten een dungeon mag). Daarna `/mh mapprobe show <getal>` met een getal uit
-      de lijst tussen [ ], bijvoorbeeld van The Voidspire: verschijnt een plattegrond met doodshoofdjes bij de bazen?
+- [x] ✅ (Rob, 27 sep: The Venomous Abyss, map 2606, met Nek'zali) `/mh mapprobe show <getal>` tekent een plattegrond
+      met doodshoofdjes bij de bazen.
+- [ ] Nog even `/mh mapprobe` en **daarna** `/reload`, zodat ik de lijst van alle raids en dungeons kan lezen.
 - [ ] Zwevende iconen op de Paladin: als ze er staan `/mh whatis 5`, muis erop, daarna `/reload`.
 - [ ] Rode regel in het party-paneel en dispel lukt niet: welk type debuff (Poison/Disease/Magic/Curse)? Rechtsklik
       op de naam, dan `/mh glow` → regels onder *recent casts and errors*.

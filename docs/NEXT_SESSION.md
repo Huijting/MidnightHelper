@@ -8,6 +8,12 @@ de baasposities per verdieping (`C_EncounterJournal.GetEncountersOnMap`). AFGELE
 werkt. Nieuw `Modules/InstanceMapProbe.lua`: `/mh mapprobe` (per instance van de huidige EJ-tier: eerste kaart uit
 `EJ_GetInstanceInfo` #7, alle verdiepingen, art-grootte, aantal tiles, geplaatste bazen → `ns.db.mapProbe`) en
 `/mh mapprobe show <mapID>` (tekent één verdieping met een doodshoofd per baas). Tier wordt teruggezet.
+✅ **GEMETEN (Rob, 27 sep, screenshot):** `show 2606` buiten de instance tekent The Venomous Abyss volledig (art-tiles)
+met Nek'zali the Soulcoiler op zijn plek. Het idee werkt zonder eigen plaatjes. `ns.db.mapProbe` stond nog niet in het
+SV-bestand (reload vóór het commando), dus de lijst van alle instances is nog niet gelezen.
+`/mh whatis` (12:03): alleen één naamloos frame met 903 kleur-texturen onder de muis (`UIParent.21de8e61c20`, zelfde
+als in Robs /fstack) — AFGELEID een cursor-addon (CursorRing volgt de muis), niet de iconen. Opnieuw, met de muis
+precies op een icoon.
 Ook open vandaag: `/mh whatis 5` (zwevende iconen op de Paladin; stond nog niet in het SV-bestand, GEMETEN met
 `groupMapProbe` als controle) en de dispel die "weer" niet lukte (debufftype + `/mh glow`-castlog nodig).
 
