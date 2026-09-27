@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.2.0
+
+📌 **2026-09-27, als release (Rob: "go, maak 4.2.0 maar klaar en alle delves hebben nu de map werkend").**
+Notitie in `docs/CURSEFORGE_4.2.0.md` (identiek aan `RELEASE_NOTES.md`). Kort:
+- **Kaartvenster** (`InstanceMap.lua`): plattegronden van raids, dungeons en delves uit de eigen kaarten van de
+  client, verdiepingsknoppen, bazen (EJ) met klik naar de tips, overgangen (map links) met klik naar die
+  verdieping; knop Map onder de bewegende bazen, kaart-icoon per delve, `/mh map` binnen een instance.
+- **How you play:** echte toets per icoon (`LiveKeys.lua`, standaard Blizzard-balken), tabbladen Consumables en
+  Dispel (met Blizzard-instellingen in de client-taal).
+- **Slijtage-waarschuwing** (`DurabilityWarn.lua`): groot, met geluid, grens instelbaar.
+- Party targets: DISPEL bij de naam; na-gevecht dispel-check naar `ns.db.dispelSelfLog` (meten).
+- Diagnose: `/mh groupmap`, `/mh whatis`, `/mh mapprobe`, `/mh playkeys`, `/mh partytest`, `/mh durability`.
+
 ## 4.1.0
 
 📌 **2026-09-25, als release (Rob: "go, maak maar 4.1.0 klaar, maar dit moet echt duidelijk vermeld worden").**

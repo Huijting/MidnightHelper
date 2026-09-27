@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🚀 27 sep avond — 4.2.0 uitgebracht (Rob: "go, maak 4.2.0 maar klaar en alle delves hebben nu de map werkend")
+
+TOC 4.2.0, `Changelog.lua` 420 (6 regels, enUS), `RELEASE_NOTES.md` == `docs/CURSEFORGE_4.2.0.md` (2426 bytes,
+filecmp identiek), CHANGELOG.md, tag `v4.2.0` → packager naar CF/Wago/GitHub. Inhoud: kaartvenster (raids, dungeons,
+delves; bazen; overgangen), echte toetsen, tabs Consumables + Dispel, slijtage-waarschuwing, DISPEL bij de naam.
+✅ Delve-kaarten: alle werken (Rob). Open na de release: vals-rood-vraag (meting loopt via `dispelSelfLog`), zwevende
+iconen op de Paladin (waarschijnlijk geen MH), EllesmereUI-balken voor de live toetsen, CURSEFORGE_DESCRIPTION.md
+noemt de kaarten nog niet (Rob plakt die zelf).
+
 ## 🔬 27 sep — plattegronden van raids/dungeons zonder eigen plaatjes: eerst meten
 
 Rob: *"kunnen we niet eenvoudige plaatjes krijgen in MH met hoe de layout van een raid bv is? zonder dat we vele
