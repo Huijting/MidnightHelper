@@ -10,6 +10,19 @@ kaartnaam/-type, `C_Map.GetPlayerMapPosition`, `UnitPosition`, plus de verdiepin
 binnen instances al jaren dicht. Uitkomst bepaalt het ontwerp: verdieping leesbaar → "je groep is op <verdieping>"
 + knop die de wereldkaart op die verdieping opent (Blizzard tekent daar zelf de stippen); niets leesbaar → alleen
 de kaart-knop + uitleg over de verdiepingskeuze. Wacht op Robs meting (TESTLIJST 27 sep).
+✅ **GEMETEN 27 sep** (Rob, follower dungeon Nexus-Point Xenas, 4 volgers): elk lid `GetBestMapForUnit` = 2556
+'Nexus Point Xenas' (type 4); `GetPlayerMapPosition` nil,nil en `UnitPosition` nil,nil voor IEDEREEN, ook jezelf;
+"single-level map". Dus: geen pijl naar je groep mogelijk. Verdieping per lid is leesbaar, maar of die per verdieping
+verschilt is NIET gemeten (deze dungeon heeft er één) → herhalen in een raid/dungeon met meerdere verdiepingen.
+
+## 💡 27 sep — Robs wens: ECHTE toetsen in het kaartvenster ("How you play")
+
+Rob: *"dat die ook realtime kijkt waar wij ze hebben neergezet op ons keyboard. Dus niet waar we ze zouden moeten
+zetten volgens ons systeem, maar waar ze werkelijk staan. En dan een soort van overlay met een Z, X, C of 1, 2."*
+Bouwstenen die er al zijn (GEMETEN in de code): `KeybindExport.lua` leest live `GetBindingKey` per balkknop +
+slotinhoud; `BarInventory.lua` (`ns.MH_CommandSlotMap`, knop-frame → slot); `ns.KEYBIND_BAR_COMMANDS`
+(ApplyLayout.lua:49). Aandachtspunten: EllesmereUI-balken (Rob + Carola) hebben eigen commando's (`EUI_BAR9_…`),
+macro's (GetActionInfo geeft de spell), overrides (talent vervangt spell), Single-Button Assistant.
 
 ## 🔨 27 sep — waarschuwing bij versleten uitrusting (idee uit "Ready Check Marks & Buffs")
 

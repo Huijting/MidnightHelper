@@ -24,7 +24,9 @@ er is niets weggegooid.
 ## 🆕 27 sep — meting: wat ziet MH van je groep binnen een dungeon/raid?
 
 Waarom: Cisca vond na doodgaan in een raid haar groep niet terug (meerdere verdiepingen).
-- [ ] In een **dungeon of raid met je groep** (een follower dungeon mag ook): typ `/mh groupmap`, en daarna
+- [x] ✅ (Rob, 27 sep, Nexus-Point Xenas) eerste meting: kaart per lid leesbaar, posities van niemand.
+- [ ] Nog één keer in een raid/dungeon met **meerdere verdiepingen**, als iemand op een andere verdieping staat.
+      Typ `/mh groupmap`, en daarna
       `/reload`. Ik lees de uitkomst uit het SavedVariables-bestand; een screenshot mag ook.
       Liefst op een moment dat een groepslid op een **andere verdieping** staat dan jij.
 
