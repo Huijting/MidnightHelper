@@ -10,8 +10,9 @@ Midnight Helper answers those questions in plain language — in your own langua
 
 Free, open source (MIT), no dependencies, no ads, seven languages built in — no second addon to install.
 
-### Start with these three
+### Start with these four
 
+- **How you play** — every spec (all 40) explained on one short card: the idea in one sentence, your buttons in order with their icons, what changes on a pack, and the biggest beginner mistake. Each icon shows **the key that spell is on right now**, read live from your bars. Tabs for **staying alive**, your spec's **consumables** and **what you can dispel**. The gold button in the search bar, or `/mh play`.
 - **Professions 101** — a fourteen-chapter beginner course, not a help page. Why the same recipe gives two players different results. What those six numbers on your screen actually do. When Concentration is worth spending. How work orders really work, and why there are two counters rather than one. It reads in a window of its own beside the game, because half the chapters end by telling you to go and press something. A **Guided mode** walks a total newcomer through learning and levelling any of the 11 professions, ticking steps off as your skill grows.
 - **"What should I do this week?"** — the This Week page opens with the single most useful thing you can do right now and a **Take me there** button that sets the route. While you are still levelling it never proposes endgame content you cannot do yet.
 - **Your class, on a keyboard** — your live spellbook drawn onto a clean keyboard layout, every ability on the key it belongs on, for all 13 classes and 40 specs. A new alt or a fresh spec becomes readable in about five seconds.
@@ -29,6 +30,7 @@ This is the part most guide addons skip. Where the game will not tell us somethi
 - `/mh curios` describes what each of Valeera's curios does, read live from your own game, and deliberately **does not rank them**: which one wins depends on your spec and your delve, and nobody has measured that.
 - It will not estimate how many delve runs Valeera still needs. How much a single run gives is not something anyone can honestly pin down.
 - Season 2 content stays hidden until the season genuinely **opens**, not merely until the patch lands. Those are a week apart.
+- The maps do **not** show where your group is. Inside a dungeon or raid the game hides everyone's position from addons, your own included — so there is no arrow to your group, only the floor plan.
 
 ### Getting started
 
@@ -45,6 +47,8 @@ Nothing is changed in your game unless you press a button, and the bar setup sho
 **Your gear.** `/mh tracks` names the slots at their upgrade ceiling and the two ways onward — and the part that is easy to miss: **top-tier crests are earnable solo**, through high Bountiful Delves and repeatable Tier 6 Ritual Sites. You do not need a raid group. The **Great Vault Advisor** ranks your loot choices against what you are wearing, on Blizzard's own vault screen. `/mh stats` explains what crit, haste, mastery and versatility do in your spec's order, with your live percentages — and opens by saying that higher item level almost always wins, because a beginner who has just learned about stats will otherwise turn down an upgrade to chase a colour.
 
 **Coaching, in the content.** The **Delve Coach** covers all 14 Midnight delves with routes, bosses and 3D previews, and lists the avoidable damage for the instance you are actually in — 173 named hazards, in your own language, because the names come from your client. The **Raids** page has beginner steps for every boss, and the Raid Coach opens by itself when a pull starts.
+
+**Maps of every raid, dungeon and delve.** The floor plan, floor by floor, with the bosses on it — click one for its tips — and the stairs and portals between floors, which take you to the next floor with a click. Walk through a raid before you go in, or type `/mh map` inside to see the floor you are on. They are the game's own maps, so the addon did not get bigger for them. And before you pull: a big warning with a sound when your gear is badly worn.
 
 **Getting there.** A route arrow that rotates, shows live distance and drives the game's own waypoint. `/mh plan` lays out the whole journey as clickable steps, takes the door when a door beats a flight, and says why. If you run **TomTom**, it stands aside; alongside **WaypointUI** you get both.
 
@@ -78,7 +82,7 @@ WoW Retail. No dependencies. TomTom and WaypointUI are optional and supported if
 
 ### Slash commands
 
-`/mh` opens the window · `/mh setup` bars and keybinds · `/mh course` the professions course · `/mh report` send a bug report.
+`/mh` opens the window · `/mh play` how you play your spec · `/mh map` the map of the dungeon or raid you are in · `/mh setup` bars and keybinds · `/mh course` the professions course · `/mh report` send a bug report.
 
 Around forty more are listed and explained inside the addon, under **Tools**, where they cannot drift from what it actually answers to.
 

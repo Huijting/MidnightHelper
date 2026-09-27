@@ -6,8 +6,10 @@ TOC 4.2.0, `Changelog.lua` 420 (6 regels, enUS), `RELEASE_NOTES.md` == `docs/CUR
 filecmp identiek), CHANGELOG.md, tag `v4.2.0` → packager naar CF/Wago/GitHub. Inhoud: kaartvenster (raids, dungeons,
 delves; bazen; overgangen), echte toetsen, tabs Consumables + Dispel, slijtage-waarschuwing, DISPEL bij de naam.
 ✅ Delve-kaarten: alle werken (Rob). Open na de release: vals-rood-vraag (meting loopt via `dispelSelfLog`), zwevende
-iconen op de Paladin (waarschijnlijk geen MH), EllesmereUI-balken voor de live toetsen, CURSEFORGE_DESCRIPTION.md
-noemt de kaarten nog niet (Rob plakt die zelf).
+iconen op de Paladin (waarschijnlijk geen MH), EllesmereUI-balken voor de live toetsen.
+✅ CURSEFORGE_DESCRIPTION.md bijgewerkt (Rob: "ja, werk de CF-omschrijving maar bij"): How you play in "Start with
+these four", een alinea kaarten + slijtage-waarschuwing, "maps do not show your group" onder "What it will not tell
+you", `/mh play` en `/mh map` bij de slash commands. Rob plakt hem zelf op CF.
 
 ## 🔬 27 sep — plattegronden van raids/dungeons zonder eigen plaatjes: eerst meten
 
