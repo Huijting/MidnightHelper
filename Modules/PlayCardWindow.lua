@@ -162,6 +162,12 @@ local function StepRow(i)
 		row.icon:SetSize(ICON, ICON)
 		row.icon:SetPoint("TOPLEFT", row, "TOPLEFT", 20, 0)
 		row.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+		-- The key this spell is on right now, on the icon like an action button's hotkey
+		-- (Rob, 27 Sep 2026). Filled by StepIcon; hidden where there is no live key to show.
+		row.key = row:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
+		row.key:SetPoint("TOPRIGHT", row.icon, "TOPRIGHT", 1, -1)
+		row.key:SetJustifyH("RIGHT")
+		row.key:Hide()
 		row.fs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 		row.fs:SetJustifyH("LEFT")
 		row.fs:SetWordWrap(true)
@@ -187,6 +193,14 @@ local function StepRow(i)
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetSpellByID(id)
+			if row.liveKey ~= nil then
+				GameTooltip:AddLine(" ")
+				if row.liveKey then
+					GameTooltip:AddLine((L("PLAYCARD_KEY_FMT")):format(row.liveKey), 1, 0.82, 0.2)
+				else
+					GameTooltip:AddLine(L("PLAYCARD_KEY_NONE"), 0.62, 0.62, 0.62, true)
+				end
+			end
 			GameTooltip:Show()
 		end)
 		row.iconHit:SetScript("OnLeave", function()
@@ -300,7 +314,9 @@ local function LevelBanner(y, t, inner, low, grey, max)
 end
 
 --- A step's icon, greyed like its name when the character does not have that spell yet.
-local function StepIcon(row, id, grey)
+--- `live`: show the key the spell is really on (only for your active spec; another spec's
+--- spells are not on your bars, so a "not on your bars" there would be noise).
+local function StepIcon(row, id, grey, live)
 	local tex = SpellIcon(id)
 	row.icon:SetTexture(tex)
 	row.icon:SetShown(tex ~= nil)
@@ -310,6 +326,21 @@ local function StepIcon(row, id, grey)
 	row.num:SetTextColor(missing and 0.55 or 1, missing and 0.55 or 0.8, missing and 0.55 or 0)
 	row.spellID = id
 	row.itemID = nil
+	row.liveKey = nil
+	row.key:Hide()
+	if live and id and tex and ns.LiveKeyForSpell then
+		local key = ns.LiveKeyForSpell(id)
+		row.liveKey = key or false
+		if key then
+			row.key:SetText(key)
+			row.key:SetTextColor(1, 1, 1)
+		else
+			-- Not on a bound button: a grey dash, the tooltip says why.
+			row.key:SetText("-")
+			row.key:SetTextColor(0.62, 0.62, 0.62)
+		end
+		row.key:Show()
+	end
 	return missing
 end
 
@@ -600,6 +631,8 @@ local function DrawConsumables(specID, y, inner)
 			row.icon:SetDesaturated(false)
 			row.icon:SetAlpha(1)
 			row.spellID, row.itemID = nil, best
+			row.liveKey = nil
+			row.key:Hide()
 			-- How many you carry, counting the alternatives too: any of them does the job.
 			local all = {}
 			for _, list in ipairs({ cat.best or {}, cat.alternates or {} }) do
@@ -647,15 +680,16 @@ local function DrawStayAlive(specID, y, inner)
 		row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
 		row:SetWidth(inner)
 		row.num:SetText(i)
-		local missing = StepIcon(row, s.spellID, grey)
+		local missing = StepIcon(row, s.spellID, grey, specID == ActiveSpecID())
 		row.fs:ClearAllPoints()
 		row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
 		row.fs:SetWidth(inner - (20 + ICON + 10))
 		row.fs:SetTextColor(0.9, 0.88, 0.82)
-		row.fs:SetText(("|cff%s%s|r%s|n%s%s"):format(
+		-- No [key] from our keybind scheme here any more: the icon now carries the key the spell
+		-- is really on (Rob, 27 Sep 2026: "niet waar we ze zouden moeten zetten volgens ons systeem").
+		row.fs:SetText(("|cff%s%s|r|n%s%s"):format(
 			missing and "8a8a8a" or "ffd100",
 			s.text or "",
-			s.bindKey and ("  |cff9d9d9d[" .. s.bindKey .. "]|r") or "",
 			L(s.whenKey),
 			s.noteKey and (" |cff9d9d9d(" .. L(s.noteKey) .. ")|r") or ""))
 		local h = math.max(ICON, row.fs:GetStringHeight() + 4)
@@ -681,6 +715,10 @@ local function Redraw()
 	end
 	for _, b in ipairs(win._specBtns) do
 		b:Hide()
+	end
+	-- Read the bars afresh for every draw: the keys are whatever they are right now.
+	if ns.LiveKeysInvalidate then
+		ns.LiveKeysInvalidate()
 	end
 
 	local specID = chosenSpec or ActiveSpecID()
@@ -782,7 +820,7 @@ local function Redraw()
 			row.num:SetText(i)
 			-- A step written as plain text (no confirmed spell id) gets no icon rather than a
 			-- question mark: a "?" would read as "MH does not know this", which is not the case.
-			StepIcon(row, s.spellID, grey)
+			StepIcon(row, s.spellID, grey, specID == ActiveSpecID())
 			row.fs:ClearAllPoints()
 			row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
 			row.fs:SetWidth(inner - (20 + ICON + 10))
@@ -909,7 +947,13 @@ local function Build()
 	-- Consumables tab: item names arrive later than the first draw, and bag counts change.
 	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 	f:RegisterEvent("BAG_UPDATE_DELAYED")
+	-- Live keys: a spell moved, a key rebound, the main bar paged or a form changed the bar.
+	f:RegisterEvent("ACTIONBAR_SLOT_CHANGED")
+	f:RegisterEvent("UPDATE_BINDINGS")
+	f:RegisterEvent("ACTIONBAR_PAGE_CHANGED")
+	f:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 	local pending = false
+	local keysPending = false
 	f:SetScript("OnEvent", function(self, event, unit)
 		if not self:IsShown() then
 			return
@@ -918,6 +962,19 @@ local function Build()
 			if unit == nil or unit == "player" then
 				chosenSpec = nil
 				Redraw()
+			end
+		elseif event == "ACTIONBAR_SLOT_CHANGED" or event == "UPDATE_BINDINGS"
+			or event == "ACTIONBAR_PAGE_CHANGED" or event == "UPDATE_BONUS_ACTIONBAR" then
+			-- Dragging a spell fires several of these at once: one redraw, on the tabs that show keys.
+			local tab = CurrentTab()
+			if (tab == "play" or tab == "alive") and not keysPending and C_Timer and C_Timer.After then
+				keysPending = true
+				C_Timer.After(0.2, function()
+					keysPending = false
+					if self:IsShown() then
+						Redraw()
+					end
+				end)
 			end
 		elseif event == "GET_ITEM_INFO_RECEIVED" or event == "BAG_UPDATE_DELAYED" then
 			-- Many at once while names load: one redraw a moment later, and only on that tab.

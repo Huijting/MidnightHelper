@@ -3118,6 +3118,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "playkeys" then
+		if ns.PrintPlayKeys then
+			ns.PrintPlayKeys()
+		end
+		return
+	end
+
 	if msg == "groupmap" then
 		if ns.PrintGroupMapProbe then
 			ns.PrintGroupMapProbe()

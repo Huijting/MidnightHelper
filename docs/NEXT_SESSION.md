@@ -23,6 +23,15 @@ Bouwstenen die er al zijn (GEMETEN in de code): `KeybindExport.lua` leest live `
 slotinhoud; `BarInventory.lua` (`ns.MH_CommandSlotMap`, knop-frame → slot); `ns.KEYBIND_BAR_COMMANDS`
 (ApplyLayout.lua:49). Aandachtspunten: EllesmereUI-balken (Rob + Carola) hebben eigen commando's (`EUI_BAR9_…`),
 macro's (GetActionInfo geeft de spell), overrides (talent vervangt spell), Single-Button Assistant.
+🔨 **Gebouwd 27 sep** (Rob: *"Maak het maar bij de standaardvariant, en dan doen we later Ellesmere UI"* — hij
+gebruikt EllesmereUI nu niet). Nieuw `Modules/LiveKeys.lua`: `ns.LiveKeyForSpell(id)` over de 8 standaard
+bindcommando's (`MH_CommandSlotMap`, volgt pagina/vorm), match op id → base-spell (`FindBaseSpellByID`) → macro;
+Assistant-slot overgeslagen; korte tekst via `GetBindingText(key, true)`. `PlayCardWindow.lua`: label rechtsboven op
+het icoon (Your buttons + Stay alive, alleen actieve spec), grijze `-` + tooltipregel als hij niet op een toets staat;
+de oude `[bindKey]` uit ons schema in Stay alive is weg. Redraw bij ACTIONBAR_SLOT_CHANGED / UPDATE_BINDINGS /
+ACTIONBAR_PAGE_CHANGED / UPDATE_BONUS_ACTIONBAR (0,2 s gebundeld). `/mh playkeys` = diagnose. 2 sleutels in 7 talen
+(esES: expert koos "botón", door mij → "tecla", zoals esES.lua voor toetsen). Nog niet in het spel gezien.
+**Later:** EllesmereUI/Bartender-balken (eigen bindcommando's).
 
 ## 🔨 27 sep — waarschuwing bij versleten uitrusting (idee uit "Ready Check Marks & Buffs")
 

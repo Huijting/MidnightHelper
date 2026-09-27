@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 27 sep — kaartvenster: je echte toets op elk icoon
+
+`/reload`, `/mh play`.
+- [ ] **Your buttons**: rechtsboven op elk icoon staat de toets waar die spreuk nu op staat (`1`, `Z`, `S-2`…), gelijk
+      aan wat je actiebalk toont.
+- [ ] Een spreuk die niet op een toets staat: grijs `-`, en de tooltip zegt *"Not on a key on your action bars yet."*
+- [ ] **Stay alive**: ook daar je echte toets op het icoon; de oude `[toets]` achter de naam is weg.
+- [ ] Venster open laten, een spreuk naar een andere knop slepen: het label verandert mee.
+- [ ] Een andere spec aanklikken bovenin: daar staan géén labels (die spreuken staan niet op je balken).
+- [ ] Klopt een toets niet: `/mh playkeys` en stuur de regels.
+
 ## 🆕 27 sep — meting: wat ziet MH van je groep binnen een dungeon/raid?
 
 Waarom: Cisca vond na doodgaan in een raid haar groep niet terug (meerdere verdiepingen).

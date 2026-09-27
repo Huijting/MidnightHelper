@@ -11344,3 +11344,29 @@ fill("itIT", {
 	SET_DURA_LIMIT_TITLE = "Avvisa sotto",
 	SET_DURA_LIMIT_DESC = "Avvisa quando il tuo pezzo più danneggiato è sotto questa percentuale.",
 })
+
+-- Play window: live key on each spell icon (27 Sep 2026). One language expert per language. Not native-reviewed.
+fill("deDE", {
+	PLAYCARD_KEY_FMT = "Deine Taste: %s",
+	PLAYCARD_KEY_NONE = "Auf keiner deiner Aktionsleisten belegt.",
+})
+
+fill("frFR", {
+	PLAYCARD_KEY_FMT = "Ta touche : %s",
+	PLAYCARD_KEY_NONE = "Pas encore sur une touche de tes barres d'action.",
+})
+
+fill("esES", {
+	PLAYCARD_KEY_FMT = "Tu tecla: %s",
+	PLAYCARD_KEY_NONE = "Aún no está en ninguna tecla de tus barras de acción.",
+})
+
+fill("ptBR", {
+	PLAYCARD_KEY_FMT = "Sua tecla: %s",
+	PLAYCARD_KEY_NONE = "Ainda sem tecla atribuída nas suas barras de ação.",
+})
+
+fill("itIT", {
+	PLAYCARD_KEY_FMT = "Il tuo tasto: %s",
+	PLAYCARD_KEY_NONE = "Non è ancora su un tasto delle tue action bar.",
+})

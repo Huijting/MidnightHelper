@@ -1,0 +1,152 @@
+--[[
+	Live keys: which key a spell is bound to RIGHT NOW on the player's own action bars.
+
+	Rob, 27 sep 2026, for the "How you play" window: "dat die ook realtime kijkt waar wij ze
+	hebben neergezet op ons keyboard. Dus niet waar we ze zouden moeten zetten volgens ons
+	systeem, maar waar ze werkelijk staan." So this never looks at our keybind scheme. It
+	asks the bars what sits in each slot and the binding list which key drives that button.
+
+	Standard Blizzard bars only (the eight binding commands in ns.KEYBIND_BAR_COMMANDS). Rob
+	does not run EllesmereUI at the moment and asked to add bar addons later.
+
+	Matching, cheapest first: the exact spell id, then either side's BASE spell (a talent or
+	a proc can put another id on the same button -- Hammer of Light on Eye of Tyr), then a
+	macro, which GetActionInfo reports as the spell it casts. The Single-Button Assistant
+	slot is skipped: it wears whatever it suggests and is not that spell.
+
+	Reads only. `/mh playkeys` prints the decision per spell, including why a spell has no key.
+]]
+
+local _, ns = ...
+
+local function Base(id)
+	if not id then
+		return nil
+	end
+	if FindBaseSpellByID then
+		local ok, b = pcall(FindBaseSpellByID, id)
+		if ok and b then
+			return b
+		end
+	end
+	return id
+end
+
+--- binding command -> slot, as the buttons themselves report it (this follows the main bar's
+--- page and a druid's forms); the fixed table when a button frame is missing.
+local function CommandSlots()
+	local map = ns.MH_CommandSlotMap and ns.MH_CommandSlotMap() or {}
+	for _, bar in ipairs(ns.KEYBIND_BAR_COMMANDS or {}) do
+		for i = 1, 12 do
+			local cmd = bar.prefix .. i
+			if not map[cmd] then
+				map[cmd] = bar.first + i - 1
+			end
+		end
+	end
+	return map
+end
+
+--- What the player sees on the button: Blizzard's own short form ("S-2", "M4"), else the key.
+local function ShortKey(key)
+	if GetBindingText then
+		local ok, s = pcall(GetBindingText, key, true)
+		if ok and type(s) == "string" and s ~= "" then
+			return s
+		end
+	end
+	return key
+end
+
+-- Rebuilt at most once per redraw burst; the window calls ns.LiveKeysInvalidate on bar events.
+local cache
+
+function ns.LiveKeysInvalidate()
+	cache = nil
+end
+
+local function Build()
+	local slots = {}
+	for cmd, slot in pairs(CommandSlots()) do
+		local key
+		if GetBindingKey then
+			local ok, k1 = pcall(GetBindingKey, cmd)
+			key = ok and k1 or nil
+		end
+		if key and key ~= "" and GetActionInfo then
+			local okA, kind, id = pcall(GetActionInfo, slot)
+			local assisted = false
+			if C_ActionBar and C_ActionBar.IsAssistedCombatAction then
+				local okS, v = pcall(C_ActionBar.IsAssistedCombatAction, slot)
+				assisted = okS and v and true or false
+			end
+			if okA and (kind == "spell" or kind == "macro") and id and not assisted
+				and not (issecretvalue and issecretvalue(id)) then
+				slots[#slots + 1] = { slot = slot, cmd = cmd, key = key, kind = kind, id = id, base = Base(id) }
+			end
+		end
+	end
+	-- Main bar first, then the rest in slot order, so the answer is stable.
+	table.sort(slots, function(a, b)
+		return a.slot < b.slot
+	end)
+	return slots
+end
+
+--- @return string|nil shortKey, table|nil hit  (hit: slot, cmd, key, kind, id)
+function ns.LiveKeyForSpell(spellID)
+	if not spellID then
+		return nil
+	end
+	cache = cache or Build()
+	local base = Base(spellID)
+	local byBase
+	for _, s in ipairs(cache) do
+		if s.id == spellID then
+			return ShortKey(s.key), s
+		end
+		if not byBase and s.base == base then
+			byBase = s
+		end
+	end
+	if byBase then
+		return ShortKey(byBase.key), byBase
+	end
+	return nil
+end
+
+--- `/mh playkeys`: for the active spec, every spell on the card and on Stay alive, with its key.
+function ns.PrintPlayKeys()
+	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	ns.LiveKeysInvalidate()
+	cache = Build()
+	print(("%s live keys: %d bound action buttons hold a spell or macro"):format(prefix, #cache))
+	local specID
+	if GetSpecialization and GetSpecializationInfo then
+		local idx = GetSpecialization()
+		specID = idx and GetSpecializationInfo(idx) or nil
+	end
+	local ids, seen = {}, {}
+	local card = specID and ns.GetPlayCard and ns.GetPlayCard(specID)
+	for _, s in ipairs((card and card.steps) or {}) do
+		if s.spellID and not seen[s.spellID] then
+			seen[s.spellID] = true
+			ids[#ids + 1] = s.spellID
+		end
+	end
+	for _, s in ipairs((ns.GetSurvivalPlan and ns.GetSurvivalPlan(specID)) or {}) do
+		if s.spellID and not seen[s.spellID] then
+			seen[s.spellID] = true
+			ids[#ids + 1] = s.spellID
+		end
+	end
+	for _, id in ipairs(ids) do
+		local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id) or tostring(id)
+		local short, hit = ns.LiveKeyForSpell(id)
+		if short then
+			print(("   %-24s %-6s slot %d (%s, %s %d)"):format(name, short, hit.slot, hit.cmd, hit.kind, hit.id))
+		else
+			print(("   %-24s |cff9d9d9dnot on a bound button of the standard bars|r"):format(name))
+		end
+	end
+end
