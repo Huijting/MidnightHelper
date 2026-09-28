@@ -150,6 +150,9 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh enchant", descKey = "CMDLIST_ENCHANT" },
 		{ cmd = "/mh stats", descKey = "CMDLIST_STATS" },
 		{ cmd = "/mh pawn", descKey = "CMDLIST_PAWN" },
+		-- 28 Sep 2026: gear + bags as text for the Midnight Helper Armory website (GearExport.lua).
+		-- In this table so NavSearch finds it too (NavSearch.lua:609 walks MH_COMMANDS).
+		{ cmd = "/mh export", descKey = "CMDLIST_EXPORT" },
 		{ cmd = "/mh bagarrows", descKey = "CMDLIST_BAGARROWS" },
 	} },
 	{ headKey = "CMDLIST_GRP_GROUP", items = {

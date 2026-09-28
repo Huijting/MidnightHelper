@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## Unreleased
+
+- **`/mh export`** (`Modules/GearExport.lua`, 28 sep 2026): uitgeruste gear + uitrustbare items in de tassen als
+  tekst voor de Midnight Helper Armory-website, in het vaste formaat `MH-EXPORT 1` (contract met de site). Kopieer-
+  venster = het gedeelde `ns.ShowShareCopyDialog`; niet-gecachte items worden geteld en de tekst bouwt zichzelf
+  opnieuw na `GET_ITEM_INFO_RECEIVED`. In de commandolijst (Gear) en via NavSearch vindbaar.
+
 ## 4.2.0
 
 📌 **2026-09-27, als release (Rob: "go, maak 4.2.0 maar klaar en alle delves hebben nu de map werkend").**

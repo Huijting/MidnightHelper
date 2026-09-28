@@ -605,6 +605,7 @@ local function BuildNavIndex()
 		clear = "clear route arrow stop waypoint",
 		arrowsize = "route arrow size bigger smaller resize",
 		bagarrows = "bag upgrade arrows green item better",
+		export = "export gear bags armory website best set copy paste items",
 	}
 	for _, group in ipairs(ns.MH_COMMANDS or {}) do
 		for _, item in ipairs(group.items or {}) do

@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🔨 28 sep — `/mh export` voor de Armory-website (opdracht `Downloads\MH_Opdracht_GearExport.md`)
+
+Nieuw `Modules/GearExport.lua` (TOC na PawnExport): `ns.BuildGearExport()` → `MH-EXPORT 1`-tekst (vast contract
+met de site): 16 uitgeruste slots (geen shirt/tabard; slotnaam uit het inventory-slot) + uitrustbare items uit
+tas 0..`NUM_BAG_SLOTS` (reagent bag 5 niet), E/B, echte ilvl, epic/rare, naam met `|`→`/`, primary = STR+AGI+INT.
+Hergebruikt: `ns.ShowShareCopyDialog` (venster van `/mh binds`), API-patronen van VaultAdvisor.lua:461-507,
+`ns.IsSecretValue`/`ns.CanAccessText` (Core.lua:52-65). Niet-gecachte items: geteld + `RequestLoadItemDataByID`,
+tekst herbouwt na 1 s stilte in `GET_ITEM_INFO_RECEIVED` zolang het venster open is. Dispatcher `msg == "export"`
+(Core.lua), `ns.MH_COMMANDS` Gear-groep (`CMDLIST_EXPORT`) + NavSearch-trefwoorden. Keys alleen enUS + nlNL (zo
+gevraagd). CHANGELOG.md "Unreleased". GEEN versie/tag. **VERIFY in-game:** STR/AGI/STAMINA-statkeys (MH las ze nog
+nooit), `NUM_BAG_SLOTS`, ranged → mainhand (niet in het contract), spec-naam is gelokaliseerd (site-afspraak?).
+
 ## 🚀 27 sep avond — 4.2.0 uitgebracht (Rob: "go, maak 4.2.0 maar klaar en alle delves hebben nu de map werkend")
 
 TOC 4.2.0, `Changelog.lua` 420 (6 regels, enUS), `RELEASE_NOTES.md` == `docs/CURSEFORGE_4.2.0.md` (2426 bytes,

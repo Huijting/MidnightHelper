@@ -51,6 +51,18 @@ er is niets weggegooid.
 - [ ] Als **je eigen** regel rood is: `/mh glow` → nieuwe regel *"your own debuffs now: naam [type]"*. Screenshot.
       Staat daar alleen Magic of "no type" terwijl de regel rood is, dan kleurt het spelfilter op klasse, niet op spec.
 
+## 🆕 28 sep — `/mh export` (Armory-website)
+
+`/reload`, dan `/mh export`.
+- [ ] Er opent een venster *Gear export* met tekst die begint met `MH-EXPORT 1`, al geselecteerd. Ctrl+C werkt; Esc sluit.
+- [ ] Regel 2 heeft je naam, `class=PALADIN` en je spec. Daarna 16 regels `E|…` (alles wat je draagt, zonder shirt/tabard).
+- [ ] Bij je helm: klopt het item level met de tooltip? Staat bij `str` je **Strength**-waarde (niet 0) en bij `sta` je
+      Stamina? Dit is het belangrijkste VERIFY-punt.
+- [ ] Items in je tassen die je kunt dragen staan erbij als `B|…`; potions/reagents niet.
+- [ ] Chat zegt *"Gear export: N items."* Zegt hij dat items nog laden, dan werkt de tekst zich binnen een paar tellen bij.
+- [ ] Zoek in de MH-zoekbalk op "export": de regel `/mh export` verschijnt.
+- [ ] Plak de tekst op de site → "Calculate best set".
+
 ## 🆕 27 sep — kaartvenster: je echte toets op elk icoon
 
 `/reload`, `/mh play`.

@@ -1000,6 +1000,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh pawn — export this spec's stat weights as a Pawn scale string.
+	if msg == "export" then
+		if ns.ShowGearExport then
+			ns.ShowGearExport()
+		end
+		return
+	end
+
 	if msg == "pawn" then
 		if ns.ShowPawnExport then
 			ns.ShowPawnExport()
