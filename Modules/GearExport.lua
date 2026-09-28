@@ -208,9 +208,13 @@ local function Show(isRefresh)
 	-- A fresh id per build: the shared dialog toggles closed when asked for the id it already shows,
 	-- and a refresh must replace the text instead.
 	showCount = showCount + 1
+	-- 🔴 "|" IS WOW'S ESCAPE CHARACTER. Rob's first paste (28 Sep 2026) came back mangled: "E|head"
+	-- as "Eead", "|rare" as "are", "|neck" as a line break -- the edit box read |h, |r, |n and |t as
+	-- hyperlink, colour, newline and texture codes and swallowed them. Written as "||" it shows (and
+	-- copies) as one plain "|", which is what the website's contract needs.
 	ns.ShowShareCopyDialog({
 		id = "gearexport:" .. showCount,
-		text = text,
+		text = (text:gsub("|", "||")),
 		titleKey = "GEAREXPORT_TITLE",
 		hintKey = pending > 0 and "GEAREXPORT_HINT_PENDING" or "GEAREXPORT_HINT",
 		closeKey = "DELVE_SHARE_COPY_CLOSE",

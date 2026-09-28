@@ -11,6 +11,9 @@ tekst herbouwt na 1 s stilte in `GET_ITEM_INFO_RECEIVED` zolang het venster open
 (Core.lua), `ns.MH_COMMANDS` Gear-groep (`CMDLIST_EXPORT`) + NavSearch-trefwoorden. Keys alleen enUS + nlNL (zo
 gevraagd). CHANGELOG.md "Unreleased". GEEN versie/tag. **VERIFY in-game:** STR/AGI/STAMINA-statkeys (MH las ze nog
 nooit), `NUM_BAG_SLOTS`, ranged → mainhand (niet in het contract), spec-naam is gelokaliseerd (site-afspraak?).
+✅ GEMETEN (Rob, 28 sep, Prot Paladin): 16 E + 28 B, alle 11 velden; Strength/Stamina gelezen. Eerste poging kapot
+door WoW-escapecodes (`|h |r |n |t` opgegeten in de EditBox) → tekst gaat nu als `gsub("|","||")` het venster in.
+Nog open: Agility (agi-klasse), ranged (hunter), de site zelf ("Calculate best set"), NavSearch op "export".
 
 ## 🚀 27 sep avond — 4.2.0 uitgebracht (Rob: "go, maak 4.2.0 maar klaar en alle delves hebben nu de map werkend")
 

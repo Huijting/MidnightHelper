@@ -54,11 +54,11 @@ er is niets weggegooid.
 ## 🆕 28 sep — `/mh export` (Armory-website)
 
 `/reload`, dan `/mh export`.
-- [ ] Er opent een venster *Gear export* met tekst die begint met `MH-EXPORT 1`, al geselecteerd. Ctrl+C werkt; Esc sluit.
-- [ ] Regel 2 heeft je naam, `class=PALADIN` en je spec. Daarna 16 regels `E|…` (alles wat je draagt, zonder shirt/tabard).
-- [ ] Bij je helm: klopt het item level met de tooltip? Staat bij `str` je **Strength**-waarde (niet 0) en bij `sta` je
-      Stamina? Dit is het belangrijkste VERIFY-punt.
-- [ ] Items in je tassen die je kunt dragen staan erbij als `B|…`; potions/reagents niet.
+- [x] ✅ (Rob, 28 sep, 2e poging) venster opent, Ctrl+C werkt. 1e poging: `|h |r |n |t` werden door het tekstvak als
+      WoW-codes opgegeten ("Eead", "are") → nu als `||` in het venster, kopieert als één `|`.
+- [x] ✅ Regel 2 `char=Twelveinchy;class=PALADIN;spec=Protection`; 16 regels `E|…`.
+- [x] ✅ Helm `str` 116, `sta` 2142: STR/STAMINA-keys werken (VERIFY afgevinkt voor Strength; Agility nog op een agi-klasse).
+- [x] ✅ 28 tas-items als `B|…`, geen potions/reagents.
 - [ ] Chat zegt *"Gear export: N items."* Zegt hij dat items nog laden, dan werkt de tekst zich binnen een paar tellen bij.
 - [ ] Zoek in de MH-zoekbalk op "export": de regel `/mh export` verschijnt.
 - [ ] Plak de tekst op de site → "Calculate best set".
