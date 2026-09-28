@@ -14,6 +14,13 @@ nooit), `NUM_BAG_SLOTS`, ranged → mainhand (niet in het contract), spec-naam i
 ✅ GEMETEN (Rob, 28 sep, Prot Paladin): 16 E + 28 B, alle 11 velden; Strength/Stamina gelezen. Eerste poging kapot
 door WoW-escapecodes (`|h |r |n |t` opgegeten in de EditBox) → tekst gaat nu als `gsub("|","||")` het venster in.
 Nog open: Agility (agi-klasse), ranged (hunter), de site zelf ("Calculate best set"), NavSearch op "export".
+🔧 **28 sep middag, na de red-team-review van de site:** de export telde STR+AGI+INT op en keek niet naar
+pantsertype, dus een Prot Paladin kon een Int-stoffen robe of caster-mace aangeraden krijgen (GEMETEN in de code;
+of Robs "Bonedust Pestle +568" zo'n geval is: AFGELEID, niet gecontroleerd). Nu: `str` = de primary van je spec
+(`GetSpecializationInfo` 6e return → 1/2/4; **VERIFY**, MH las die nog nooit), terugval op de som als dat `nil`/secret
+is. Tas-items met andermans primary of ander pantsertype (plate/mail/leather/cloth per klasse, mantels vrij) vallen
+weg; uitgeruste items altijd. Char-regel kreeg `;primary=<naam>` — de parser op de site negeert onbekende keys, dus
+het contract houdt. Test: TESTLIJST "28 sep middag". Site-label "Strength" klopt dan niet voor agi/int (siteformulering, Rob).
 
 ## 🚀 27 sep avond — 4.2.0 uitgebracht (Rob: "go, maak 4.2.0 maar klaar en alle delves hebben nu de map werkend")
 

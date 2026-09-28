@@ -62,6 +62,11 @@ er is niets weggegooid.
 - [ ] Chat zegt *"Gear export: N items."* Zegt hij dat items nog laden, dan werkt de tekst zich binnen een paar tellen bij.
 - [ ] Zoek in de MH-zoekbalk op "export": de regel `/mh export` verschijnt.
 - [ ] Plak de tekst op de site → "Calculate best set".
+- [ ] 🆕 (28 sep middag) Regel 2 eindigt nu op `;primary=Strength` (Prot Paladin). Staat er `primary=?`, dan kon MH
+      je hoofdstat niet lezen en telt hij nog alles op — screenshot.
+- [ ] 🆕 Er staan **minder** `B|…`-regels dan de 28 van vanochtend: geen stof/leer/maliën-pantser meer, en geen
+      items met alleen Agility of Intellect. Staat er een item bij dat je als paladin tóch niet kunt dragen: naam noemen.
+- [ ] 🆕 Op een agi- of int-alt: `primary=Agility` / `primary=Intellect`, en de `str`-kolom (6e getal) is die stat.
 
 ## 🆕 27 sep — kaartvenster: je echte toets op elk icoon
 

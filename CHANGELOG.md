@@ -8,6 +8,8 @@ All notable changes to this project are documented in this file.
   tekst voor de Midnight Helper Armory-website, in het vaste formaat `MH-EXPORT 1` (contract met de site). Kopieer-
   venster = het gedeelde `ns.ShowShareCopyDialog`; niet-gecachte items worden geteld en de tekst bouwt zichzelf
   opnieuw na `GET_ITEM_INFO_RECEIVED`. In de commandolijst (Gear) en via NavSearch vindbaar.
+  Tas-items die je niet kunt gebruiken (ander pantsertype, andermans hoofdstat) blijven weg, en de hoofdstat-kolom
+  is die van je spec in plaats van Strength + Agility + Intellect opgeteld.
 
 ## 4.2.0
 

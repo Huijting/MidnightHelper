@@ -11,7 +11,7 @@ local _, ns = ...
 	field, its order or a slot name without changing the site in the same breath:
 
 	    MH-EXPORT 1
-	    char=<name>;class=<CLASSFILE>;spec=<spec name>
+	    char=<name>;class=<CLASSFILE>;spec=<spec name>;primary=<Strength|Agility|Intellect|?>
 	    # where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers
 	    E|head|285|epic|Helm of ...|541|839|121|81|0|0
 
@@ -20,8 +20,18 @@ local _, ns = ...
 	  ilvl     the real item level (C_Item.GetDetailedItemLevelInfo), not the base
 	  quality  epic | rare (anything else is written as epic; the site only colours with it)
 	  name     the client's item name, a "|" in it becomes "/"
-	  str      the PRIMARY stat, Strength + Agility + Intellect added up, despite the column name
+	  str      YOUR SPEC'S primary stat, despite the column name. Only when the spec's primary stat
+	           cannot be read does it fall back to Strength + Agility + Intellect added up.
 	  numbers  whole numbers, a missing stat is 0
+	  primary  extra key on the char line (28 Sep 2026). The site's parser ignores keys it does not
+	           know, so the contract holds; it is there so a pasted export shows what we filtered on.
+
+	Bag items you cannot use are left out (red-team review, 28 Sep 2026: the first version summed all
+	three primaries and never looked at armour type, so a Protection Paladin could be told to wear an
+	Intellect cloth robe or a caster mace):
+	  - armour of another type than your class wears (plate/mail/leather/cloth; cloaks exempt), and
+	  - items that carry a primary stat, but not yours.
+	Equipped items are always written: they are what you wear, whatever they are.
 
 	Reused, not rebuilt: the copy window is the one /mh binds and the delve share use
 	(ns.ShowShareCopyDialog: draggable, Escape closes, text focused and selected). The API calls are
@@ -63,6 +73,30 @@ local LOC_TO_SLOT = {
 -- table (BetterCharacterPanel.lua:358-359). Test on a strength or agility character.
 local PRIMARY_KEYS = { "ITEM_MOD_STRENGTH_SHORT", "ITEM_MOD_AGILITY_SHORT", "ITEM_MOD_INTELLECT_SHORT" }
 
+-- GetSpecializationInfo's 6th return, the spec's primary stat: LE_UNIT_STAT_STRENGTH = 1,
+-- LE_UNIT_STAT_AGILITY = 2, LE_UNIT_STAT_INTELLECT = 4.
+-- VERIFY: MH does not read this return anywhere else yet. The char line's "primary=" shows what
+-- came back; "?" there means we fell back to the old sum of all three.
+local PRIMARY_BY_STAT = {
+	[1] = { key = "ITEM_MOD_STRENGTH_SHORT", name = "Strength" },
+	[2] = { key = "ITEM_MOD_AGILITY_SHORT", name = "Agility" },
+	[4] = { key = "ITEM_MOD_INTELLECT_SHORT", name = "Intellect" },
+}
+
+-- The armour type each class wears (Enum.ItemArmorSubclass: 1 cloth, 2 leather, 3 mail, 4 plate).
+local ARMOR_BY_CLASS = {
+	WARRIOR = 4, PALADIN = 4, DEATHKNIGHT = 4,
+	HUNTER = 3, SHAMAN = 3, EVOKER = 3,
+	ROGUE = 2, DRUID = 2, MONK = 2, DEMONHUNTER = 2,
+	MAGE = 1, PRIEST = 1, WARLOCK = 1,
+}
+-- Slots where the armour type matters. Cloaks are "cloth" for every class, so INVTYPE_CLOAK is not here.
+local ARMOR_LOCS = {
+	INVTYPE_HEAD = true, INVTYPE_SHOULDER = true, INVTYPE_CHEST = true, INVTYPE_ROBE = true,
+	INVTYPE_WRIST = true, INVTYPE_HAND = true, INVTYPE_WAIST = true, INVTYPE_LEGS = true, INVTYPE_FEET = true,
+}
+local ITEM_CLASS_ARMOR = (Enum and Enum.ItemClass and Enum.ItemClass.Armor) or 4
+
 local function Num(v)
 	if v == nil or ns.IsSecretValue(v) then
 		return 0
@@ -71,8 +105,10 @@ local function Num(v)
 	return math.floor(v + 0.5)
 end
 
-local function Stats(link)
-	local out = { str = 0, sta = 0, crit = 0, haste = 0, mast = 0, vers = 0 }
+--- The item's stats. `primaryKey` is the spec's primary stat key, or nil to add up all three.
+--- `out.otherPrimary` is true when the item carries a primary stat and it is not `primaryKey`.
+local function Stats(link, primaryKey)
+	local out = { str = 0, sta = 0, crit = 0, haste = 0, mast = 0, vers = 0, otherPrimary = false }
 	if not (C_Item and C_Item.GetItemStats) then
 		return out
 	end
@@ -80,8 +116,19 @@ local function Stats(link)
 	if not ok or type(s) ~= "table" then
 		return out
 	end
-	for _, k in ipairs(PRIMARY_KEYS) do
-		out.str = out.str + Num(s[k])
+	if primaryKey then
+		out.str = Num(s[primaryKey])
+		if out.str == 0 then
+			for _, k in ipairs(PRIMARY_KEYS) do
+				if Num(s[k]) > 0 then
+					out.otherPrimary = true
+				end
+			end
+		end
+	else
+		for _, k in ipairs(PRIMARY_KEYS) do
+			out.str = out.str + Num(s[k])
+		end
 	end
 	out.sta = Num(s.ITEM_MOD_STAMINA_SHORT)
 	out.crit = Num(s.ITEM_MOD_CRIT_RATING_SHORT)
@@ -101,19 +148,21 @@ local function ItemLevel(link)
 	return 0
 end
 
+--- Equip location, item class and subclass (GetItemInfoInstant returns 4, 6 and 7).
 local function EquipLoc(link)
 	if not (C_Item and C_Item.GetItemInfoInstant) then
 		return nil
 	end
-	local ok, _, _, _, loc = pcall(C_Item.GetItemInfoInstant, link)
+	local ok, _, _, _, loc, _, classID, subClassID = pcall(C_Item.GetItemInfoInstant, link)
 	if ok and ns.CanAccessText(loc) then
-		return loc
+		return loc, tonumber(classID), tonumber(subClassID)
 	end
 	return nil
 end
 
---- One line, or nil plus "pending" when the client has not cached the item yet.
-local function Line(where, slot, link)
+--- One line, or nil plus "pending" when the client has not cached the item yet, or nil plus
+--- "unusable" when `skipOtherPrimary` is set and the item carries someone else's primary stat.
+local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	if not (C_Item and C_Item.GetItemInfo) then
 		return nil
 	end
@@ -128,7 +177,10 @@ local function Line(where, slot, link)
 	-- Enum.ItemQuality: 3 = Rare, 4 = Epic. The site only colours with it (contract).
 	local q = (not ns.IsSecretValue(quality) and quality == 3) and "rare" or "epic"
 	name = (name:gsub("|", "/"):gsub("[\r\n]", " "))
-	local s = Stats(link)
+	local s = Stats(link, primaryKey)
+	if skipOtherPrimary and s.otherPrimary then
+		return nil, "unusable"
+	end
 	return ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d"):format(
 		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers)
 end
@@ -144,22 +196,31 @@ function ns.BuildGearExport()
 
 	local charName = (UnitName and UnitName("player")) or "?"
 	local classFile = UnitClass and select(2, UnitClass("player")) or "?"
-	local specName = "?"
+	local specName, primary = "?", nil
 	if GetSpecialization and GetSpecializationInfo then
 		local idx = GetSpecialization()
-		local sname = idx and select(2, GetSpecializationInfo(idx))
-		if ns.CanAccessText(sname) then
-			specName = sname
+		if idx then
+			local ok, _, sname, _, _, _, primaryStat = pcall(GetSpecializationInfo, idx)
+			if ok and ns.CanAccessText(sname) then
+				specName = sname
+			end
+			if ok and not ns.IsSecretValue(primaryStat) then
+				primary = PRIMARY_BY_STAT[tonumber(primaryStat) or 0]
+			end
 		end
 	end
+	local primaryKey = primary and primary.key or nil
+	local myArmor = ARMOR_BY_CLASS[tostring(classFile)]
 	lines[#lines + 1] = "MH-EXPORT 1"
 	-- Parentheses around each gsub: it returns two values, and the count would slide into the next %s.
-	lines[#lines + 1] = ("char=%s;class=%s;spec=%s"):format(
-		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")))
+	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s"):format(
+		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
+		primary and primary.name or "?")
 	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers"
 
 	local function Add(where, slot, link)
-		local line, why = Line(where, slot, link)
+		-- Only bag items are filtered: what you wear is written whatever it is.
+		local line, why = Line(where, slot, link, primaryKey, where == "B" and primaryKey ~= nil)
 		if line then
 			lines[#lines + 1] = line
 			items = items + 1
@@ -185,7 +246,16 @@ function ns.BuildGearExport()
 			for slotIdx = 1, (okN and tonumber(n) or 0) do
 				local okI, info = pcall(CC.GetContainerItemInfo, bag, slotIdx)
 				local link = okI and type(info) == "table" and Link(true, info.hyperlink) or nil
-				local slot = link and LOC_TO_SLOT[EquipLoc(link) or ""]
+				local loc, classID, subClassID
+				if link then
+					loc, classID, subClassID = EquipLoc(link)
+				end
+				local slot = LOC_TO_SLOT[loc or ""]
+				-- Another class's armour type: skip. Subclass 0 (miscellaneous) and cloaks pass.
+				if slot and myArmor and ARMOR_LOCS[loc] and classID == ITEM_CLASS_ARMOR
+					and subClassID and subClassID >= 1 and subClassID <= 4 and subClassID ~= myArmor then
+					slot = nil
+				end
 				if slot then
 					Add("B", slot, link)
 				end
