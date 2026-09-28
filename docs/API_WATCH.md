@@ -3130,3 +3130,107 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     gecommit op de detached HEAD en gepusht met `git push origin HEAD:main`. Dat is dezelfde
     uitkomst op `origin` zonder een ref te overschrijven. Geen van de vier wachter-bestanden stond
     gewijzigd-maar-ongecommit.
+- [2026-09-28] ✅ **Geen relevante API-wijzigingen (21–28 sep). 0 × [MOET GEFIKST].** Alle negen
+  wiki-pagina's die ik volg staan op **exact dezelfde revid en bytegrootte** als gisteren, en de
+  stilte is geen cache: twee onafhankelijke bronnen in dezelfde run zijn wél nieuwer dan wat mijn
+  eigen regel van gisteren noemde.
+  - 🔇 **Gelezen en byte-voor-byte onveranderd:** `TOC format` (`6889071`, Zeal, 26 sep 18:57:25Z,
+    27396 b — precies de revisie die mijn regel van gisteren als eindpunt noemde; na de elf
+    bewerkingen van die avond is de pagina 33 uur stil), `Hotfixes` (`6886643`, Dark T Zeratul,
+    25 sep 00:42:51Z, 364493 b), `Patch 12.1.0/API changes` (`6886719`, 102481 b), `Patch
+    12.1.5/API changes` (`6886717`, 34466 b), `Patch 12.0.7/API changes` (`6794100`, 4 aug),
+    `API change summaries` (`6883777`, 22 sep). `Patch 12.1.6/API changes`, `12.1.7/…` en
+    `12.2.0/API changes` blijven `"missing":true`.
+  - 🔒 **Cache-val uitgesloten, met een harde ondergrens op twee onafhankelijke bronnen.**
+    (a) `list=recentchanges` (ns 0) levert bewerkingen van **vandaag 03:36:14Z** (`6891314`,
+    *Sentinel Keldara Sunblade*) — nieuwer dan élke revisie die mijn logboek tot nu toe noemt.
+    (b) Het nieuwste forumbericht is van **27 sep 08:37:34Z**, nieuwer dan het nieuwste van
+    gisteren (26 sep 14:37). Dezelfde fetches die de stilte melden, leveren elders dus wél nieuws:
+    de stilte op de negen pagina's is **echt**. ⚠️ `recentchanges` is géén volledige veegactie —
+    `rclimit=60` dekt op deze wiki maar **17 minuten** (03:19–03:36Z), dus hij dient hier alleen
+    als versheidsbewijs, niet als dekking.
+  - 🆕 **Nieuw gereedschap deze run: een `list=allpages`-veegactie op `Patch 12.1*`**, zodat een
+    nieuwe API-pagina niet gemist kan worden doordat ik alleen naar mijn eigen negen titels kijk.
+    GEMETEN, precies zeven pagina's: `Patch 12.1`, `Patch 12.1.0`, `Patch 12.1.0/API changes`,
+    `Patch 12.1.0 (undocumented changes)`, `Patch 12.1.5`, `Patch 12.1.5/API changes`,
+    `Patch 12.1.7`. **Eén pagina is nieuw sinds gisteren en hij is leeg:** `Patch 12.1`
+    (`6889180`, Surafbrov, 26 sep 20:56:53Z, **26 bytes**, `parentid=0`) — een redirect,
+    commentaar *"Redirected to [[Patch 12.1.0]] via [[Special:SearchDigest]]"*. Geen inhoud, dus
+    **[RAAKT ONS NIET]**. De vier niet-API-pagina's zijn allemaal ouder dan een week en dus buiten
+    mijn venster: `Patch 12.1.0` (17 sep), `Patch 12.1.5` (22 sep), `Patch 12.1.0 (undocumented
+    changes)` (16 sep), `Patch 12.1.7` (12 sep, 893 b). ⚠️ `Patch 12.1.6` bestaat in **geen**
+    vorm; de veegactie bevestigt wat de `"missing":true` van de API-pagina al zei.
+    ℹ️ Dezelfde veegactie op `Patch 12.2` gaf `CRAWL_UNEXPECTED_CONTENT_TYPE`, en `prop=revisions`
+    op titels mét een `(haakje)` erin gaf twee keer `CRAWL_UNKNOWN_ERROR` (ook met `%28%29`);
+    **`pageids=` in plaats van `titles=` werkte meteen** — noteer dat voor volgende runs.
+  - 🗣️ **Forum (categorie 35, `order=created`): geen nieuw topic, één reactie, geen blue post.**
+    Het nieuwste topic is nog steeds `2362999` *WoW Forever Addons* (26 sep 14:37); de reactie
+    erop is van `Ludius` (27 sep 08:37:34Z, `"staff":false`) en luidt volledig: *"`https://
+    www.curseforge.com/wow/search?class=addons&gameVersionTypeId=88568` shows you all addons
+    marked as compatible with Forever by their authors."* Een CurseForge-zoeklink, geen API.
+    **Geen `community-manager`- of `cs-support-sse`-post**; de blue-accounts in de lijst hangen nog
+    aan dezelfde vier vastgepinde topics (nieuwste activiteit *UI Add-On Development Policy*,
+    28 aug).
+  - 📰 **Hotfixes: nog steeds die van 24 sep, onafhankelijk bevestigd.** `WebSearch` vindt als
+    nieuwste *"Hotfixes: September 24, 2026"* en niets van 25, 26, 27 of 28 sep — consistent met
+    de wiki-`Hotfixes`-pagina die sinds 25 sep 00:42 niet bewogen is. **AFGELEID (via search,
+    pagina zelf niet gelezen.)**
+  - 🔁 **De 12.1.5-samenvatting uit `WebSearch` is oud nieuws, en ik heb dat tegen mijn eigen
+    logboek gemeten in plaats van tegen mijn geheugen.** De zoekmachine vatte drie items op:
+    chat-tabs gebruiken `UIFrameFlash` niet meer (minder taint), `RaidWarning`-frames hielden
+    secret aspects op hun fontstrings na terugkeer in de pool, en addons krijgen een extra
+    één-frame-venster voor de hitbox van een vijandelijke nameplate bij een laat
+    `UNIT_CLASSIFICATION_CHANGED`. GEMETEN in `docs/API_WATCH.md`: `UIFrameFlash` 1×,
+    `RaidWarning` 2×, `UNIT_CLASSIFICATION_CHANGED` 2× — alle drie staan er al. **Positieve
+    controle in dezelfde run:** `TimedSignalMap` 22×, een verzonnen patroon 0×; patroon én scope
+    deugen. De 12.1.5-pagina is sinds 25 sep niet bewogen, dus dit is **geen nieuwe vondst**.
+  - ⏳ **Eén artikel gelezen dat ik BEWUST NIET meetel, zodat de volgende run het niet als nieuw
+    ontdekt.** `wowforeverbuilds.com` — *"What the WoW Forever beta breaks for addons: secret
+    health values, dead secure snippets, new APIs"*, **gedateerd 18 sep 2026** en dus 10 dagen oud:
+    buiten het venster van 7 dagen (harde regel 1). Het gaat bovendien over de **WoW
+    Forever-betaclient** (build `1.60.1.69913`), niet over retail 12.1, en de site zegt zelf dat
+    zijn illustratie AI-gegenereerd is — behandel het als **kandidaat, geen bewijs**. Het beweert
+    dat `UnitHealth` daar een secret number is, dat `loadstring_untainted` ontbreekt waardoor
+    secure snippets niet compileren, dat `WOW_PROJECT_ID` 1 is, en dat `GetItemInfo`,
+    `GetSpellInfo`, `GetSpellBookItemName`, `GetNumTalentTabs`, `GetTalentInfo` en
+    `GetNumSkillLines` daar weg zijn.
+    - ✅ **[AL AFGEDEKT] — en dit is het enige stukje code-werk dat het artikel waard was, want de
+      controle kostte één grep en het antwoord is bruikbaar los van de betaclient.** GEMETEN over
+      de hele addon (272 `.lua`-bestanden, buiten `.git`, `docs`, `tools`, `dist`): de zes globals
+      leveren **7 treffers** op en **alle zeven** staan achter een `C_Item`/`C_Spell`-tak met de
+      kale global als tweede, expliciet geguarde tak — `Modules/Delves.lua:4186-4191`
+      (`if C_Spell and C_Spell.GetSpellName then … end; if GetSpellInfo then`),
+      `Modules/ConsumableReadyBoard.lua:593-596` (`elseif GetSpellInfo then`),
+      `Modules/RitualBossCoach.lua:244` (`or (GetSpellInfo and GetSpellInfo(id))`),
+      `Modules/PlayCardWindow.lua:380-382`, `Modules/DelveCuriosData.lua:178`,
+      `Modules/GuideConsumables.lua:48` en `:62`. **Positieve controle op dezelfde reikwijdte:**
+      dezelfde scope vindt `C_Item.`/`C_Spell.` in **69** bestanden. `loadstring` en
+      `loadstring_untainted`: **0 treffers** in de addon. `WOW_PROJECT_ID` komt alleen voor in
+      `Libs/LibDBIcon-1.0.lua:533`, `:572` en `:607`, elke keer als
+      `if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then` — de tak die op retail juist wél draait.
+      📌 Dit is **geen** nieuwe [MOET GEFIKST]: er is vandaag geen API-wijziging die dit raakt, en
+      MH is retail-only (`MidnightHelper.toc:1` = `## Interface: 120007, 120100`, één `.toc` in de
+      repo). Ik noteer het omdat de volgende run dit artikel weer tegenkomt.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` blijft `EGRESS_BLOCKED`; ook `warcraft.wiki.gg` is via directe `curl`
+      niet te bereiken, dus alle wiki- en forumdata hierboven komt via `web_fetch_exa`.
+    - `wowhead.com/blue-tracker` gaf voor de **vierde** dag op rij alleen de paginatitel
+      *"Blue Tracker - World of Warcraft"* en een lege body (JS-gerenderd). Een blue post van
+      gisteravond die de wiki nog niet heeft opgepikt, zou ik daardoor kunnen missen.
+  - **Bronnen, alle met cache-buster:** `warcraft.wiki.gg/api.php` — `prop=revisions` op negen
+    titels, `list=recentchanges` (ns 0, 60 items), `list=allpages` met `apprefix=Patch 12.1` en
+    `Patch 12.2`, `prop=revisions` op `pageids=708701|664847|664848|664849|686125`;
+    `us.forums.blizzard.com` categorie-JSON 35 (`order=created`) en `t/2362999.json`;
+    `wowhead.com/blue-tracker`; `wowforeverbuilds.com`; 2 × `WebSearch`. De wiki-API blijft
+    *"Unrecognized parameter: nocache"* waarschuwen — een MediaWiki-waarschuwing, geen fout.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Geen van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit. ⚠️ Vierde dag op rij **detached HEAD**, nu op `644a124`
+    (= `origin/main`, Robs `CurseForge description`-commit van gisteren), dus er is gecommit op de
+    detached HEAD en gepusht met `git push origin HEAD:main` — `git checkout -B main` werd op
+    27 sep geweigerd door de permissie-classifier van de sessie en is niet opnieuw geprobeerd.
+    🔎 **Nieuw en gemeten: `origin/main` is deze keer met een `forced update` binnengekomen**
+    (`+ f32c136...644a124 main -> origin/main`), en `f32c136` — Robs *"addon_updates: fold a
+    suite's modules into their parent"* van 23 sep — is **geen voorouder** van `644a124`; het
+    onderwerp staat ook niet in de laatste 60 commits. **Er is niets verloren:** `git cat-file -p`
+    op `tools/addon_updates.py` in beide revisies geeft een **identiek** bestand van 119 regels
+    (`diff` leeg). De historie is dus herschreven, de inhoud is er nog. Ik repareer hier niets.
