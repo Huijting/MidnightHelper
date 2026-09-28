@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🎬 28 sep — website: echte clips uit het spel i.p.v. effecten (Rob: "doe twee maar")
+
+Site-repo (`Downloads\midnighthelper-site`): `tools/make_clip.py` (ffmpeg van ComfyUI; `list`, `frame <in> <s>`,
+`<in|latest> <naam> <start> <sec> [crop w:h:x:y]` → `clips/<naam>.mp4` H.264 zonder geluid ≤1280 breed + poster).
+Aanroepen via `probe_job.txt` = `scratch make_clip.py …` (wrapper in de scratchpad). GEMETEN: Robs scherm is 32:9 en
+zijn Discord-clips zijn 1920×540 → altijd bijsnijden, en liever Win+Alt+R (volle resolutie). Concept-sectie
+`drafts/clips-section.html` (3 clips: speel-kaart, kaart, slijtage; teksten = concept, Rob kiest), niet gepubliceerd.
+Opnamelijst in TESTLIJST "opnames voor de website". Daarna: bijsnijden, Rob laten kijken, dan pas online.
+
 ## 🔨 28 sep — `/mh export` voor de Armory-website (opdracht `Downloads\MH_Opdracht_GearExport.md`)
 
 Nieuw `Modules/GearExport.lua` (TOC na PawnExport): `ns.BuildGearExport()` → `MH-EXPORT 1`-tekst (vast contract

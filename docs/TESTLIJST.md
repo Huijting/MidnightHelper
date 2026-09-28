@@ -51,6 +51,21 @@ er is niets weggegooid.
 - [ ] Als **je eigen** regel rood is: `/mh glow` → nieuwe regel *"your own debuffs now: naam [type]"*. Screenshot.
       Staat daar alleen Magic of "no type" terwijl de regel rood is, dan kleurt het spelfilter op klasse, niet op spec.
 
+## 🎬 28 sep — opnames voor de website (Rob: "doe twee maar")
+
+Drie korte filmpjes uit het spel voor midnighthelper.com. Elk ± 10 seconden; ik knip er het mooiste stuk uit.
+**Opnemen met Win+Alt+R** (start én stop), die neemt je hele scherm scherp op. Discord-clips kan ook, maar zet dan
+de kwaliteit op de hoogste stand: je huidige Discord-clips zijn 1920×540 (GEMETEN), te klein om het MH-venster uit
+te knippen op jouw brede scherm. Zet het MH-venster **midden** op je scherm en beweeg rustig.
+- [ ] **Speel-kaart:** `/mh play`, even stil laten staan zodat je de toetsen op de icoontjes ziet, dan één keer
+      naar een ander tabblad (bv. Stay alive) en terug.
+- [ ] **Kaart:** open een raid in MH → knop **Map** → wacht 2 tellen → klik op een doorgang (overgang) zodat hij van
+      verdieping wisselt. (In een dungeon kan ook: `/mh map`.)
+- [ ] **Slijtage:** `/mh durability test` → de grote waarschuwing verschijnt (geluid doet er niet toe, de site speelt
+      zonder geluid).
+Klaar? Zeg het me: ik snijd bij (`tools/make_clip.py` in de site-repo, via de voordeur `scratch make_clip.py`), en
+zet ze in een concept dat je eerst ziet voordat het online gaat.
+
 ## 🆕 28 sep — `/mh export` (Armory-website)
 
 `/reload`, dan `/mh export`.
