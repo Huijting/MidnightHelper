@@ -1351,3 +1351,103 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   Warcraft Midnight news Delves Professions Quests update September 26 27 2026" (nieuwste treffer
   blijft 24 sep). Vandaag is zondag, dus de wekelijkse play-card- en consumables-checks (alleen
   maandag) zijn overgeslagen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-09-28] 🔁 **Vierde dag op rij zonder nieuwe hotfix-sectie sinds 24 sep — geen
+  codebase-vergelijking nodig. Wél de allereerste weekly play-card- en consumables-check (vandaag
+  maandag), grotendeels geen afwijking.** GEMETEN: `news.blizzard.com`'s doorlopende hotfix-artikel
+  rechtstreeks gelezen via Exa `web_fetch_exa` met `?nocache=20260928a` — **volledige artikeltekst
+  zelf gelezen**. Bovenste sectie is nog steeds **"September 24, 2026"** (Delves: Shadow
+  Enclave/Oddball "Ingredient"-teleport; Player versus Player: Wing Clip/Improved Snaring/Chrono
+  Shift/Consecrated Ground), byte-voor-byte gelijk aan wat al volledig gelogd staat op
+  [2026-09-25]. **Positieve controle tegen de cache-val:** `web_search_exa` op dezelfde vraag
+  geeft mirrors met eigen, latere publicatiedata (pubt.io, consolepcgaming.com, playnews.gg,
+  us.forums.blizzard.com) die woordelijk dezelfde 22/23/24-sep-inhoud citeren — het zoeksysteem
+  levert dus vers materiaal, en het ontbreken van een sectie ná 24 sep is een echte afwezigheid,
+  geen week-oude cache. Geen Professions-, Quests-, Dungeons and Raids-, Items- of
+  Achievements-sectie sinds 24 sep (leeg, zoals gebruikelijk). Geen nieuwe hotfix-inhoud in mijn
+  lane, dus geen codebase-vergelijking vandaag. **[RAAKT ONS NIET]**
+
+  🃏 **Kaarten:** Vandaag is de allereerste maandag sinds deze wekelijkse check op 25 sep is
+  ingevoerd — dus de eerste keer dat hij daadwerkelijk draait. `Modules/PlayCards.lua` heeft 40
+  specs; elke `source`-regel noemt Icy Veins en/of Method en/of Wowhead met een datum.
+  **Methode:** voor elke spec de bron die het kaartje zelf noemt herlezen (niet zomaar Icy Veins
+  gepakt omdat de URL toevallig bestaat) en de datum die de pagina nu zelf toont vergelijken met
+  onze geciteerde datum — nieuwer dan onze datum = mogelijk gedrift, ouder of gelijk = niets
+  gebeurd sinds we keken.
+  - **33 van de 40 specs gecontroleerd** (alle waar Icy Veins of, bij afwezigheid daarvan, Method
+    in de bron staat, plus Restoration Druid/Holy Paladin/Balance Druid/Brewmaster Monk op hun
+    Method-pagina): Blood/Frost/Unholy Death Knight, Havoc/Vengeance/Devourer Demon Hunter,
+    Preservation Evoker, Arcane/Fire/Frost Mage, Beast Mastery/Marksmanship/Survival Hunter,
+    Windwalker/Mistweaver/Brewmaster Monk, Protection/Retribution/Holy Paladin,
+    Discipline/Holy/Shadow Priest, Elemental/Enhancement/Restoration Shaman,
+    Affliction/Demonology/Destruction Warlock, Arms/Fury/Protection Warrior, Restoration/Balance
+    Druid. In alle 33 gevallen toont de pagina zelf een "Last Updated" op of vóór onze geciteerde
+    datum — dus **niets gedrift**: "guide ongewijzigd sinds we keken". GEMETEN (elke datum
+    rechtstreeks van de pagina gelezen via Exa, geen samenvatting).
+  - **Eén kaart met een echte, kleine afwijking: Devourer Demon Hunter (1480).** Onze bron zegt
+    "Icy Veins 17 Aug"; Icy Veins' eigen rotatiepagina (`devourer-demon-hunter-pve-dps-guide`)
+    noemt in zijn eigen wijzigingenlijst "18 Aug. 2026 (rotation page): Updated for August 18th
+    tuning" — één dag ná onze controledatum. Vergeleken: de huidige prioriteitstekst noemt
+    Consume/Reap/Soul Immolation/Voidblade/Vengeful Retreat/The Hunt/Void Metamorphosis/Void Ray in
+    dezelfde volgorde en rollen als `PLAYCARD_1480_S1`-`_S5` in `Locales/enUS.lua:1220-1225` — geen
+    knoppen toegevoegd, verwijderd of van plaats gewisseld. MEASURED: datum verschilt één dag, tekst
+    komt overeen. Geen actiepunt.
+  - **Eén onzekerheid, geen kaartfout: Survival Hunter (255).** Onze bron zegt "Icy Veins 30 Aug",
+    maar Icy Veins' eigen rotatiepagina (`survival-hunter-pve-dps-rotation-cooldowns-abilities`)
+    toont nu zelf "Last Updated: Jul 16, 2026" en patchlabel **12.0.7** — dus ouder dan onze eigen
+    controledatum, en op een ouder patchlabel. Dit kán betekenen dat Icy Veins die specifieke
+    pagina nooit heeft doorontwikkeld voor 12.1 (en op 30 aug dus al net zo gedateerd was, dus geen
+    nieuw gat), of dat de meting van 30 aug een andere/gecachte versie zag. Ik kan het verschil niet
+    verklaren zonder de check van 30 aug zelf te kunnen inzien. Geen bewijs dat `PLAYCARD_255_*`
+    fout is, wel een vlag voor een mens: de pagina die als bron dient is op dit moment zélf niet
+    12.1. **Niet als kaartfout gemeld — als open vraag.**
+  - **7 specs NIET gecontroleerd deze run** (budget): Feral Druid (103), Guardian Druid (104),
+    Assassination Rogue (259), Outlaw Rogue (260), Subtlety Rogue (261), Devastation Evoker (1467),
+    Augmentation Evoker (1473) — allemaal specs waarvan de bron alleen Method+Wowhead noemt, geen
+    Icy Veins, en waar ik geen tijd meer had om de exacte Method/Wowhead-pagina op te zoeken. Dit
+    zijn kaarten die dus **niet als fris gemeld worden** — ze zijn gewoon niet bekeken.
+  - **Class-hotfixes van de afgelopen week die HOE je speelt raken (niet alleen schadegetallen):**
+    gecontroleerd tegen de 22-24 sep classes-sectie (hierboven en op [2026-09-24]/[2026-09-25]
+    gelogd) — Death Knight (Blood/Frost/Unholy/San'layn), Demon Hunter (Devourer/Havoc
+    Vengeance Aldrachi Reaver), Druid (Wildstalker/Feral/Restoration), Monk (Windwalker, bugfix).
+    Op alle punten: percentages op schade/genezing, een procKans (Broken Spirit 15%→20%) of een
+    bugfix — geen enkele voegt een knop toe, haalt er een weg, of verandert een volgorde. MEASURED.
+    **Geen kaart hoeft hierdoor aangepast.**
+
+  🧪 **Consumables:** Ook de eerste keer dat deze check draait. `tools/check_consumables.py` gaf
+  op alle 39 specs `Tunnel connection failed: 403 Forbidden` (egress-proxy blokkeert Python's
+  eigen urllib, zoals de opdracht al waarschuwde) — dus uitgeweken naar Icy Veins' eigen
+  `*-gems-enchants-consumables`-pagina's via Exa, met dezelfde datum-eerst-methode. Referentiepunt:
+  `data/consumables_wowhead.json`'s `meta.patchedSince` noemt al een volledige check tegen Icy
+  Veins 12.1 op **14 sep 2026** ("flask and combat potion agree for all specs") — dus alleen een
+  "Last Updated" ná 14 sep betekent dat er iets kán zijn veranderd sinds die laatste volledige
+  vergelijking.
+  - **Alle 39 specs uit `data/vault_stat_catalog.json` plus Devourer Demon Hunter (niet in die
+    catalog, apart opgezocht) gecontroleerd op datum.** 38 van de 40 tonen "Last Updated" vóór
+    14 sep 2026 — niets gebeurd sinds de laatste volledige vergelijking. GEMETEN (elke datum
+    rechtstreeks van de pagina).
+  - **Eén pagina ná 14 sep bijgewerkt: Beast Mastery Hunter (253),** `Last Updated: Sep 15, 2026`.
+    Diepgelezen: flask-sectie noemt "Flask of the Magisters" als beste keuze (onze `best`:
+    Flask of the Magisters, id 241322 — komt overeen); potion-sectie noemt "Potion of Recklessness"
+    als default (onze `best`: Potion of Recklessness, id 241288 — komt overeen). MEASURED: pagina
+    bijgewerkt, maar flask en combat-potion ongewijzigd. **Geen verschil te melden.**
+  - Food niet apart nagekeken deze run (de instructie zelf noemt food "noisy"); geen enkele
+    flask/potion-pagina die ik las noemde een item dat wij niet al voeren.
+  - **Hotfix/patch van de afgelopen week die een consumable toevoegt of van werking verandert:**
+    de Items-secties van 17-24 sep (hierboven gelogd) noemen alleen genezingstrinket-tuning
+    (Preternatural Antivenom, Seed of Radiant Hope, Mycolic Medicine, Unstable Felheart Crystal,
+    Ruby Whelp Shell, Gaze of the Alnseer, Vaelgor's Final Stare, Algeth'ar Puzzle Box) — trinkets,
+    geen flask/potion/food. **Niets gevonden.**
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260928a (volledig gelezen via
+  Exa) · `web_search_exa` "World of Warcraft Midnight hotfixes September 27 OR September 28 2026
+  Delves Professions Quests Dungeons Raids Items" (nieuwste treffer blijft 24 sep) ·
+  `Modules/PlayCards.lua` (volledig gelezen) · `Locales/enUS.lua:1220-1229` ·
+  `data/vault_stat_catalog.json` · `data/consumables_wowhead.json` · circa 45 Icy Veins-pagina's
+  (rotation-cooldowns-abilities en gems-enchants-consumables, per spec) gelezen via Exa
+  `web_fetch_exa`, plus drie Method.gg-pagina's (Holy Paladin, Balance Druid, Brewmaster Monk) via
+  `web_search_exa` · `tools/check_consumables.py` (gedraaid, gaf `403 Forbidden` op alle specs).
+  Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist over de open vraag bij
+  Survival Hunter en over de 7 niet-gecontroleerde kaarten.
