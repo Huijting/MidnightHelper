@@ -1451,3 +1451,34 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `web_search_exa` · `tools/check_consumables.py` (gedraaid, gaf `403 Forbidden` op alle specs).
   Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist over de open vraag bij
   Survival Hunter en over de 7 niet-gecontroleerde kaarten.
+
+---
+
+- [2026-09-29] 🔁 **Vijfde dag op rij zonder nieuwe hotfix-sectie sinds 24 sep — geen
+  codebase-vergelijking nodig. Vandaag is dinsdag, dus geen wekelijkse kaarten-/consumables-check.**
+  GEMETEN: `news.blizzard.com`'s doorlopende hotfix-artikel rechtstreeks gelezen via Exa
+  `web_fetch_exa` met `?nocache=20260929a` — **volledige artikeltekst zelf gelezen**. Bovenste
+  sectie is nog steeds **"September 24, 2026"** (Delves: Shadow Enclave/Oddball "Ingredient"-
+  teleport; Player versus Player: Wing Clip/Improved Snaring/Chrono Shift/Consecrated Ground),
+  byte-voor-byte gelijk aan wat al volledig gelogd staat op [2026-09-25] en herbevestigd op
+  [2026-09-26] t/m [2026-09-28]. Geen Professions-, Quests-, Dungeons and Raids-, Items- of
+  Achievements-sectie sinds 24 sep (leeg, zoals gebruikelijk als Blizzard daar niets heeft).
+
+  **Positieve controle tegen de cache-val, in dezelfde run:** een gerichte `web_search_exa`-
+  zoekslag op dezelfde vraag geeft resultaten met eigen, latere publicatiedata terug (o.a.
+  consolepcgaming.com, gepubliceerd 24 sep 01:36 UTC, en playnews.gg, gepubliceerd 25 sep) die
+  woordelijk dezelfde 22/23/24-sep-inhoud citeren als hierboven — het zoeksysteem levert dus vers
+  materiaal, en het ontbreken van een sectie ná 24 sep is een echte afwezigheid, geen week-oude
+  cache. Een tweede, apart gerichte zoekslag naar blue posts over Delves/Professions/Quests van de
+  afgelopen dagen leverde uitsluitend al bekend materiaal op (dezelfde 22-24-sep-hotfixtekst en een
+  oud "Unleash Your Skills in Midnight's New Delves"-blue-post van rond de release, geen datum na
+  24 sep) — niets nieuws in mijn lane. Dit convergeert met de API-, PTR- en data-wachter van
+  vandaag (commits `0921d45`, `845354f`, `645eb98`: alle drie onafhankelijk ook nog op de 24-sep-
+  sectie/build 69952), hier zelf opnieuw gemeten, niet overgenomen.
+
+  Geen nieuwe hotfix-inhoud in mijn lane, dus geen codebase-vergelijking te doen vandaag. **[RAAKT
+  ONS NIET]** — bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260929a
+  (volledig gelezen via Exa) · `web_search_exa` "World of Warcraft Midnight hotfixes September 28
+  OR September 29 2026 Delves Professions Quests Dungeons Raids Items" en "WoW Midnight blue post
+  Delves OR Professions OR Quests update news September 29 2026" (nieuwste treffer blijft 24 sep).
+  Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
