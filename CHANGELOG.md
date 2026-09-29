@@ -9,7 +9,8 @@ All notable changes to this project are documented in this file.
   venster = het gedeelde `ns.ShowShareCopyDialog`; niet-gecachte items worden geteld en de tekst bouwt zichzelf
   opnieuw na `GET_ITEM_INFO_RECEIVED`. In de commandolijst (Gear) en via NavSearch vindbaar.
   Tas-items die je niet kunt gebruiken (ander pantsertype, andermans hoofdstat) blijven weg, en de hoofdstat-kolom
-  is die van je spec in plaats van Strength + Agility + Intellect opgeteld.
+  is die van je spec in plaats van Strength + Agility + Intellect opgeteld. Het venster en de chatregels zijn vertaald
+  in het Duits, Frans, Spaans, Portugees en Italiaans.
 - **Codex → Crests** (29 sep 2026): de regel over de cap zei dat hij telt hoeveel je kunt *hebben*; hij telt wat je
   deze season hebt *verdiend* en stijgt elke week (zoals de crest-teller in MH al liet zien). Alle zeven talen.
 

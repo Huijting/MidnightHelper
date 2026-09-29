@@ -11442,3 +11442,50 @@ fill("ptBR", {
 fill("itIT", {
 	INSTMAP_LINK_CLICK = "La strada per questo piano. Clic: mostralo.",
 })
+
+-- /mh export (Armory website), 29 Sep 2026. Translated by language agents that measured
+-- each pack's terms; not native-reviewed.
+fill("deDE", {
+	CMDLIST_EXPORT = "Exportiert deine Ausrüstung und die Ausrüstung in deinen Taschen als Text für die Website Midnight Helper Armory.",
+	GEAREXPORT_TITLE = "Ausrüstungs-Export",
+	GEAREXPORT_HINT = "Drücke Strg+C und füge den Text auf der Website ein.",
+	GEAREXPORT_HINT_PENDING = "Einige Gegenstände laden noch: Der Text aktualisiert sich gleich von selbst. Drücke dann Strg+C und füge ihn auf der Website ein.",
+	GEAREXPORT_COUNT_FMT = "Ausrüstungs-Export: %d Gegenstände.",
+	GEAREXPORT_PENDING_FMT = "%d Gegenstände waren noch nicht geladen; der Export aktualisiert sich, sobald sie da sind. Oder versuche /mh export gleich noch einmal.",
+})
+
+fill("frFR", {
+	CMDLIST_EXPORT = "Exporte ton équipement et celui de tes sacs en texte pour le site Midnight Helper Armory.",
+	GEAREXPORT_TITLE = "Export d'équipement",
+	GEAREXPORT_HINT = "Appuie sur Ctrl+C et colle le texte sur le site.",
+	GEAREXPORT_HINT_PENDING = "Certains objets se chargent encore : le texte se met à jour tout seul dans un instant. Appuie ensuite sur Ctrl+C et colle-le sur le site.",
+	GEAREXPORT_COUNT_FMT = "Export d'équipement : %d objets.",
+	GEAREXPORT_PENDING_FMT = "%d objets n'étaient pas encore chargés ; l'export se met à jour dès qu'ils le sont. Ou réessaie /mh export dans un instant.",
+})
+
+fill("esES", {
+	CMDLIST_EXPORT = "Exporta tu equipo y el equipo de tus bolsas como texto para la web Midnight Helper Armory.",
+	GEAREXPORT_TITLE = "Exportar equipo",
+	GEAREXPORT_HINT = "Pulsa Ctrl+C y pega el texto en la web.",
+	GEAREXPORT_HINT_PENDING = "Algunos objetos todavía se están cargando: el texto se actualiza solo en un momento. Después pulsa Ctrl+C y pégalo en la web.",
+	GEAREXPORT_COUNT_FMT = "Exportación de equipo: %d objetos.",
+	GEAREXPORT_PENDING_FMT = "%d objetos todavía no estaban cargados; la exportación se actualiza sola en cuanto lo estén. O vuelve a probar /mh export en un momento.",
+})
+
+fill("ptBR", {
+	CMDLIST_EXPORT = "Exporta como texto o seu equipamento e o das suas bolsas para o site Midnight Helper Armory.",
+	GEAREXPORT_TITLE = "Exportar equipamento",
+	GEAREXPORT_HINT = "Pressione Ctrl+C e cole o texto no site.",
+	GEAREXPORT_HINT_PENDING = "Alguns itens ainda estão carregando: o texto se atualiza sozinho em instantes. Depois pressione Ctrl+C e cole no site.",
+	GEAREXPORT_COUNT_FMT = "Exportação de equipamento: %d itens.",
+	GEAREXPORT_PENDING_FMT = "%d itens ainda não foram carregados; a exportação se atualiza sozinha assim que forem. Ou tente /mh export de novo em instantes.",
+})
+
+fill("itIT", {
+	CMDLIST_EXPORT = "Esporta come testo il tuo equipaggiamento e quello nelle tue borse per il sito Midnight Helper Armory.",
+	GEAREXPORT_TITLE = "Export dell'equipaggiamento",
+	GEAREXPORT_HINT = "Premi Ctrl+C e incolla il testo sul sito.",
+	GEAREXPORT_HINT_PENDING = "Alcuni oggetti si stanno ancora caricando: il testo si aggiorna da solo tra un momento. Poi premi Ctrl+C e incollalo sul sito.",
+	GEAREXPORT_COUNT_FMT = "Export dell'equipaggiamento: %d oggetti.",
+	GEAREXPORT_PENDING_FMT = "%d oggetti non erano ancora caricati; l'export si aggiorna da solo appena lo sono. Oppure riprova /mh export tra un momento.",
+})

@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🚦 29 sep — 4.3.0 bijna klaar (Rob: "ja, begin maar met de vertaling"); GEEN release zonder Robs "go"
+
+Sinds v4.2.0 in de code: `/mh export` (3 commits) + Codex-crestzin. ✅ De 6 export-strings (CMDLIST_EXPORT,
+GEAREXPORT_*) nu in de/fr/es/pt/it via `fill()`-blokken onderaan Translations2026.lua (5 agents die het pack maten;
+de = Strg+C; lint: +6 per taal, 0 HARD). Nog vóór "go": Rob test `/mh export` op een Intellect-alt
+(`primary=Intellect`; GetSpecializationInfo 6e return, 1 en 2 al GEMETEN). Niet blokkerend: boog in tassen,
+Gilded Stash T11 (Myth-zin). NA de release: op de site `index.html` "Coming in the next Midnight Helper update." en
+`armory/index.html` "(coming in the next Midnight Helper update)" weg → `site_i18n.py extract` → die 2 units per taal
+opnieuw laten vertalen → `build` → push.
+
 ## 📊 29 sep — MH-getallen tegen Gandalin's Gearing Guide (Rob installeerde de addon; All Rights Reserved = alleen feitenbron)
 
 Agent vergeleek 59 MH-getallen met `GandalinGearingGuide/Assets/guide.png` (S2, 18 aug): 55 gelijk (hele delve-tabel
