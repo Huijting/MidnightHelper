@@ -3234,3 +3234,91 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     onderwerp staat ook niet in de laatste 60 commits. **Er is niets verloren:** `git cat-file -p`
     op `tools/addon_updates.py` in beide revisies geeft een **identiek** bestand van 119 regels
     (`diff` leeg). De historie is dus herschreven, de inhoud is er nog. Ik repareer hier niets.
+- [2026-09-29] ✅ **Geen relevante API-wijzigingen (22–29 sep). 0 × [MOET GEFIKST].** Alle negen
+  wiki-pagina's die ik volg staan op **exact dezelfde revid en bytegrootte** als gisteren — dag
+  twee van die stilte — en de stilte is opnieuw geen cache: **beide** brondomeinen serveren in
+  dezelfde run materiaal van vanochtend.
+  - 🔇 **Gelezen en byte-voor-byte onveranderd:** `TOC format` (`6889071`, Zeal, 26 sep 18:57:25Z,
+    27396 b — de pagina is nu 57 uur stil), `Hotfixes` (`6886643`, Dark T Zeratul, 25 sep
+    00:42:51Z, 364493 b), `Patch 12.1.0/API changes` (`6886719`, Ketho, 25 sep 01:45:50Z,
+    102481 b), `Patch 12.1.5/API changes` (`6886717`, Ketho, 25 sep 01:45:29Z, 34466 b),
+    `Patch 12.0.7/API changes` (`6794100`, Ketho, 4 aug, 34044 b), `API change summaries`
+    (`6883777`, Ketho, 22 sep, 7280 b). `Patch 12.1.6/API changes`, `12.1.7/…` en
+    `12.2.0/API changes` blijven `"missing":true`.
+  - 🔒 **Cache-val uitgesloten op ALLEBEI de domeinen, elk met zijn eigen bewijs in deze run.**
+    (a) Wiki: `list=recentchanges` (ns 0) levert bewerkingen tot **vandaag 03:36:45Z**
+    (`6892871`, *Chief Officer Leonards*, Mordecay) — nieuwer dan élke revisie in mijn logboek.
+    (b) Forum: `us.forums.blizzard.com/en/wow/posts.json` geeft als nieuwste post **vandaag
+    03:38:11Z** (post `30247558`, topic `2365534` *Regarding Reputations*, categorie 349). Beide
+    servers leveren dus vers materiaal; de stilte op mijn negen pagina's en in categorie 35 is
+    **echt**. ⚠️ `recentchanges` blijft géén veegactie — `rclimit=60` dekt vandaag maar **44
+    minuten** (02:52–03:36Z) en dient alleen als versheidsbewijs.
+  - 🧹 **Veegactie verbreed van `Patch 12.1*` naar `Patch 12*`**, want de smalle variant van
+    gisteren zou een `Patch 12.2.0/API changes` niet gezien hebben. GEMETEN, **25 pagina's**, en
+    er is er **geen enkele bij die ik nog niet kende**. Van de vijf 12.2-titels heeft er **geen
+    één** een `/API changes`-subpagina: `Patch 12.2` (`6873087`, 13 sep, **26 b** redirect),
+    `Patch 12.2.0` (`6883801`, Mordecay, 22 sep, 928 b), `Patch 12.2.5`, `Patch 12.2.7`.
+    Ook buiten mijn venster en onveranderd: `Patch 12.1.0 (undocumented changes)` (`6877092`,
+    16 sep, 7870 b), `Patch 12.1.7` (`6872990`, 12 sep, 893 b), `Patch 12.1` (26 b redirect).
+    📌 **`Patch 12.1.6` bestaat in geen enkele vorm** — de bredere sweep bevestigt dat nu voor de
+    hele 12-reeks, niet alleen voor de titels die ik zelf bedacht had.
+  - 🗣️ **Forum (categorie 35): geen nieuw topic, geen nieuwe reactie, geen blue post.** Het
+    nieuwste topic is nog steeds `2362999` *WoW Forever Addons* (26 sep 14:37:40Z) en de nieuwste
+    activiteit in de hele categorie is nog steeds de reactie van `Ludius` van **27 sep 08:37:34Z**
+    — identiek aan gisteren. Dat "identiek" is hier geen cache-verdenking maar een gemeten
+    stilstand, want (b) hierboven laat zien dat dezelfde forumserver vanochtend wél post.
+    **Geen `community-manager`- of `cs-support-sse`-post in categorie 35.**
+  - 📰 **Hotfixes: nog steeds die van 24 sep — vijfde dag.** `WebSearch` vindt als nieuwste
+    *"Hotfixes: September 24, 2026"* (`news.blizzard.com/en-us/article/24296142`) en niets van
+    25 t/m 28 sep; dat strookt met de wiki-`Hotfixes`-pagina die sinds 25 sep 00:42 niet bewogen
+    is. **AFGELEID (via search, de pagina zelf niet gelezen.)**
+  - 🔁 **De 12.1.5-samenvatting uit `WebSearch` is opnieuw oud nieuws, gemeten tegen mijn logboek
+    in plaats van tegen mijn geheugen.** De zoekmachine vatte vijf punten samen: de
+    `UnitFrameUtil`-library (`UpdateUnitPvPIndicator`), `C_Intl` dat secret strings van tainted
+    code accepteert, `SetCooldown`/`Clear` die niet meer vanuit tainted code mogen op een
+    protected cooldown-frame, castbar-ID's die uniek zijn per unit token, en
+    `GetArenaOpponentSpecDisplayInfo` / `GetUnitRoleIconDisplayInfo`. GEMETEN in
+    `docs/API_WATCH.md`: `UnitFrameUtil` 9×, `SetCooldown` 20×, `C_Intl` 4×, castbar 36×
+    (hoofdletterongevoelig; **hoofdlettergevoelig `Castbar` geeft 0** — precies de
+    [[silence-is-not-absence]]-val), `GetArenaOpponentSpecDisplayInfo` 1×,
+    `GetUnitRoleIconDisplayInfo` 1×, `UpdateUnitPvPIndicator` 3×. **Positieve controle in dezelfde
+    run:** een verzonnen patroon geeft 0×. Alle vijf staan er dus al, en de 12.1.5-pagina is sinds
+    25 sep niet bewogen — **geen nieuwe vondst, en dus ook geen nieuwe grep over de addon.**
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` blijft `EGRESS_BLOCKED`. Nieuw gemeten vandaag: een **directe `curl`**
+      naar `warcraft.wiki.gg` geeft `CONNECT tunnel failed, response 403` — alle wiki- en
+      forumdata hierboven komt dus via `web_fetch_exa`.
+    - `wowhead.com/blue-tracker` **niet geprobeerd** deze run: vier runs op rij gaven alleen de
+      paginatitel en een lege body (JS-gerenderd). De hotfix-versheid is in plaats daarvan via
+      `WebSearch` gedekt. Een blue post van vannacht die noch de wiki noch het UI-forum heeft
+      opgepikt, zou ik daardoor kunnen missen.
+  - 🆕 **Twee gereedschapsnotities voor de volgende run.** (1) `us.forums.blizzard.com/en/wow/
+    posts.json` is een **compacte versheidsproef**: hij begint meteen met `latest_posts` en dus
+    met een tijdstempel, terwijl `35.json` en `latest.json` eerst een `users`-array van duizenden
+    tekens uitspugen waar de timestamps achter wegvallen. `latest.rss` geeft
+    `CRAWL_UNEXPECTED_CONTENT_TYPE`. (2) De wiki-API is via Exa **wisselvallig, niet stuk**:
+    dezelfde `pageids=`-query gaf achtereenvolgens `CRAWL_UNKNOWN_ERROR`,
+    `CRAWL_UNEXPECTED_CONTENT_TYPE` en toen — met dezelfde parameters in een andere volgorde —
+    gewoon het juiste antwoord. **Opnieuw proberen vóór je "onbereikbaar" noteert.**
+  - **Bronnen, alle met cache-buster:** `warcraft.wiki.gg/api.php` — `prop=revisions` op negen
+    titels, `list=recentchanges` (ns 0, 60 items), `list=allpages` met `apprefix=Patch 12`
+    (60 items), `prop=revisions` op `pageids=686125|706990|706995|664849`;
+    `us.forums.blizzard.com` categorie-JSON 35 (`order=created`), `l/latest.json` en `posts.json`;
+    2 × `WebSearch`. De wiki-API blijft *"Unrecognized parameter: nocache"* waarschuwen — een
+    MediaWiki-waarschuwing, geen fout.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Geen van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit (`git status` leeg bij aanvang). ⚠️ Vijfde dag op rij **detached
+    HEAD**, nu op `d93331e` (= `origin/main`, Robs *"Handoff: recording list for the website
+    clips"*), dus opnieuw gecommit op de detached HEAD en gepusht met
+    `git push origin HEAD:main`.
+    🔎 **De `forced update` van gisteren is GEEN historie-herschrijving, maar een eigenaardigheid
+    van de container — gemeten vandaag.** `git fetch` meldde opnieuw
+    `+ f32c136...d93331e main -> origin/main (forced update)`, **met exact dezelfde `f32c136`**
+    als gisteren (Robs *"addon_updates: fold a suite's modules into their parent"*, 23 sep). Dat
+    kan geen nieuwe rewrite zijn: gisteren is er ná die melding al voorbij `f32c136` gepusht.
+    De verklaring is dat de verse clone van elke run zijn `origin/main`-ref op `f32c136` zet
+    terwijl de working tree al op de echte tip staat (vandaag `d93331e`); de eerste `fetch`
+    trekt die achterstallige ref bij en git noemt dat "forced". `f32c136` is nog steeds **geen**
+    voorouder van de tip en het onderwerp staat niet in de laatste 80 commits — net als gisteren,
+    en net als gisteren is er niets verloren. 📌 **Volgende run: tel deze melding niet als
+    nieuws.** Verandert de linkerkant ooit in iets anders dan `f32c136`, dán is het wél wat.
