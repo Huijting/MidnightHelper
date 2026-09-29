@@ -20,6 +20,12 @@ Aanroepen via `probe_job.txt` = `scratch make_clip.py …` (wrapper in de scratc
 zijn Discord-clips zijn 1920×540 → altijd bijsnijden, en liever Win+Alt+R (volle resolutie). Concept-sectie
 `drafts/clips-section.html` (3 clips: speel-kaart, kaart, slijtage; teksten = concept, Rob kiest), niet gepubliceerd.
 Opnamelijst in TESTLIJST "opnames voor de website". Daarna: bijsnijden, Rob laten kijken, dan pas online.
+✅ 29 sep ONLINE (Rob: "zet de twee clips maar online"): `clips/map.mp4` (1200×648, uit opname 11:08) en
+`clips/play-card.mp4` (350×420, 11:31) in sectie "See it in the game" na de hero. Beide features zitten al in 4.2.0
+(GEMETEN in CURSEFORGE_4.2.0.md) — Rob dacht van niet; de "nog niet live"-melding staat daarom bij `/mh export`.
+⏳ Slijtage-clip: Rob neemt op als zijn gear echt laag is. 📌 Win+Alt+R pakte 3× het Claude-venster; via Win+G →
+Capture-widget zie je welk venster hij opneemt ("World of Warcraft") en start je met de rode knop. Opnames zijn
+2560×720 (half scherm): toets-badges op de speel-kaart zijn in de clip onleesbaar klein.
 
 ## 🔨 28 sep — `/mh export` voor de Armory-website (opdracht `Downloads\MH_Opdracht_GearExport.md`)
 

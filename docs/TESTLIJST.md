@@ -53,7 +53,7 @@ er is niets weggegooid.
 
 ## 🆕 29 sep — crests (na de vergelijking met Gandalin)
 
-- [ ] `/reload`, Codex → Currencies → **Crests**: de 3e regel zegt nu dat de cap telt wat je deze season hebt
+- [x] ✅ (Rob, 29 sep) `/reload`, Codex → Currencies → **Crests**: de 3e regel zegt nu dat de cap telt wat je deze season hebt
       **verdiend** (niet wat je hebt), en elke week omhooggaat.
 - [ ] Doe je een **Tier 11 Bountiful Delve**: wat geeft de **Gilded Stash** aan crests? Staat daar **Myth**, dan
       klopt de zin "Myth haal je solo niet" in MH niet meer. Screenshot van de loot of de crest-tooltip.
@@ -64,11 +64,11 @@ Drie korte filmpjes uit het spel voor midnighthelper.com. Elk ± 10 seconden; ik
 **Opnemen met Win+Alt+R** (start én stop), die neemt je hele scherm scherp op. Discord-clips kan ook, maar zet dan
 de kwaliteit op de hoogste stand: je huidige Discord-clips zijn 1920×540 (GEMETEN), te klein om het MH-venster uit
 te knippen op jouw brede scherm. Zet het MH-venster **midden** op je scherm en beweeg rustig.
-- [ ] **Speel-kaart:** `/mh play`, even stil laten staan zodat je de toetsen op de icoontjes ziet, dan één keer
+- [x] ✅ (29 sep, online) **Speel-kaart:** `/mh play`, even stil laten staan zodat je de toetsen op de icoontjes ziet, dan één keer
       naar een ander tabblad (bv. Stay alive) en terug.
-- [ ] **Kaart:** open een raid in MH → knop **Map** → wacht 2 tellen → klik op een doorgang (overgang) zodat hij van
+- [x] ✅ (29 sep, online) **Kaart:** open een raid in MH → knop **Map** → wacht 2 tellen → klik op een doorgang (overgang) zodat hij van
       verdieping wisselt. (In een dungeon kan ook: `/mh map`.)
-- [ ] **Slijtage:** `/mh durability test` → de grote waarschuwing verschijnt (geluid doet er niet toe, de site speelt
+- [ ] **Slijtage** (als je gear echt laag is; start de opname via **Win+G** → rode knop, niet Win+Alt+R): `/mh durability test` → de grote waarschuwing verschijnt (geluid doet er niet toe, de site speelt
       zonder geluid).
 Klaar? Zeg het me: ik snijd bij (`tools/make_clip.py` in de site-repo, via de voordeur `scratch make_clip.py`), en
 zet ze in een concept dat je eerst ziet voordat het online gaat.
@@ -82,11 +82,11 @@ zet ze in een concept dat je eerst ziet voordat het online gaat.
 - [x] ✅ Helm `str` 116, `sta` 2142: STR/STAMINA-keys werken (VERIFY afgevinkt voor Strength; Agility nog op een agi-klasse).
 - [x] ✅ 28 tas-items als `B|…`, geen potions/reagents.
 - [ ] Chat zegt *"Gear export: N items."* Zegt hij dat items nog laden, dan werkt de tekst zich binnen een paar tellen bij.
-- [ ] Zoek in de MH-zoekbalk op "export": de regel `/mh export` verschijnt.
+- [x] ✅ (Rob, 29 sep) Zoek in de MH-zoekbalk op "export": de regel `/mh export` verschijnt.
 - [ ] Plak de tekst op de site → "Calculate best set".
-- [ ] 🆕 (28 sep middag) Regel 2 eindigt nu op `;primary=Strength` (Prot Paladin). Staat er `primary=?`, dan kon MH
+- [x] ✅ (Rob, 29 sep) Regel 2 eindigt nu op `;primary=Strength` (Prot Paladin). Staat er `primary=?`, dan kon MH
       je hoofdstat niet lezen en telt hij nog alles op — screenshot.
-- [ ] 🆕 Er staan **minder** `B|…`-regels dan de 28 van vanochtend: geen stof/leer/maliën-pantser meer, en geen
+- [x] ✅ (Rob, 29 sep: 19 i.p.v. 28; Bonedust Pestle, Snapdragon Pantaloons en Void-Reaper's Libram weg) Er staan **minder** `B|…`-regels dan de 28 van vanochtend: geen stof/leer/maliën-pantser meer, en geen
       items met alleen Agility of Intellect. Staat er een item bij dat je als paladin tóch niet kunt dragen: naam noemen.
 - [ ] 🆕 Op een agi- of int-alt: `primary=Agility` / `primary=Intellect`, en de `str`-kolom (6e getal) is die stat.
 
