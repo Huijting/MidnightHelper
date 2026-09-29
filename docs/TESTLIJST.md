@@ -88,7 +88,8 @@ zet ze in een concept dat je eerst ziet voordat het online gaat.
       je hoofdstat niet lezen en telt hij nog alles op — screenshot.
 - [x] ✅ (Rob, 29 sep: 19 i.p.v. 28; Bonedust Pestle, Snapdragon Pantaloons en Void-Reaper's Libram weg) Er staan **minder** `B|…`-regels dan de 28 van vanochtend: geen stof/leer/maliën-pantser meer, en geen
       items met alleen Agility of Intellect. Staat er een item bij dat je als paladin tóch niet kunt dragen: naam noemen.
-- [ ] 🆕 Op een agi- of int-alt: `primary=Agility` / `primary=Intellect`, en de `str`-kolom (6e getal) is die stat.
+- [x] ✅ (Rob, 29 sep, BM Hunter "Redisch") `primary=Agility`; de boog (Recurve Wisp-Shooter) staat als `E|mainhand`.
+      Nog open: een boog/geweer in de TASSEN (`INVTYPE_RANGED*` → mainhand) en een int-alt (`primary=Intellect`).
 
 ## 🆕 27 sep — kaartvenster: je echte toets op elk icoon
 
