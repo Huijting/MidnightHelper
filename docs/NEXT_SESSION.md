@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 📊 29 sep — MH-getallen tegen Gandalin's Gearing Guide (Rob installeerde de addon; All Rights Reserved = alleen feitenbron)
+
+Agent vergeleek 59 MH-getallen met `GandalinGearingGuide/Assets/guide.png` (S2, 18 aug): 55 gelijk (hele delve-tabel
+`Delves.lua:812-823`, T8 coffer 295, Gilded Stash 4/wk, bonus roll 3 slots, season-cap 100 stijgend).
+✅ GEREPAREERD: `CODEX_CUR_DAWN_BODY` (Locales/Codex.lua, 7 talen) zei "cap = hoeveel je kunt hébben" — tegenspraak
+met `DawncrestGuide.lua:96-102` (GEMETEN: season-cap telt verdiend, stijgt wekelijks). `check_drift --mark` gedaan.
+⏳ OPEN, wacht op Rob: `TRACKCEIL_ROUTE_SOLO` (enUS.lua:2013) zegt "Myth Mistcrest haal je solo niet"; Gandalin: Gilded
+Stash T11 = 5 Myth. NIET gemeten → Rob kijkt bij een T11 Bountiful wat de Stash geeft. Ook: Gandalin zegt Gilded Stash
+vraagt Delver's Journey 4; MH checkt alleen level (`DelveWeeklyTrackers.lua:251-285`) → "0/4" zonder reden.
+Docs-only verouderd: `CREST_SOURCES_MEASURED.md:325-333` (PTR-cap 800/700) en `:340-349` ("Prey geen crests";
+Gandalin: N/H/NM geven crests). Opruimen, niet dringend.
+
 ## 🎬 28 sep — website: echte clips uit het spel i.p.v. effecten (Rob: "doe twee maar")
 
 Site-repo (`Downloads\midnighthelper-site`): `tools/make_clip.py` (ffmpeg van ComfyUI; `list`, `frame <in> <s>`,

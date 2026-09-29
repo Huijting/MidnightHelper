@@ -51,6 +51,13 @@ er is niets weggegooid.
 - [ ] Als **je eigen** regel rood is: `/mh glow` → nieuwe regel *"your own debuffs now: naam [type]"*. Screenshot.
       Staat daar alleen Magic of "no type" terwijl de regel rood is, dan kleurt het spelfilter op klasse, niet op spec.
 
+## 🆕 29 sep — crests (na de vergelijking met Gandalin)
+
+- [ ] `/reload`, Codex → Currencies → **Crests**: de 3e regel zegt nu dat de cap telt wat je deze season hebt
+      **verdiend** (niet wat je hebt), en elke week omhooggaat.
+- [ ] Doe je een **Tier 11 Bountiful Delve**: wat geeft de **Gilded Stash** aan crests? Staat daar **Myth**, dan
+      klopt de zin "Myth haal je solo niet" in MH niet meer. Screenshot van de loot of de crest-tooltip.
+
 ## 🎬 28 sep — opnames voor de website (Rob: "doe twee maar")
 
 Drie korte filmpjes uit het spel voor midnighthelper.com. Elk ± 10 seconden; ik knip er het mooiste stuk uit.
