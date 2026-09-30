@@ -7,8 +7,13 @@ GEMETEN); `CHANGELOG.md` Unreleased → 4.3.0; `CURSEFORGE_DESCRIPTION.md` kreeg
 brez/Hero-paneel → **Rob plakt die op de CF-projectpagina.** Tag `v4.3.0` gepusht → packager-run 36779532939 **success**
 (1m11s); GitHub Release v4.3.0 gepubliceerd met `MidnightHelper-v4.3.0.zip` (6,2 MB) → Discord-aankondiging volgt daaruit.
 ✅ Site omgezet en live (GEMETEN via curl `/nl/`: 4× "Nieuw in 4.3.0", 0× "Komt"): "New in 4.3.0"-labels, Armory-lede noemt
-de knop (per taal het in-game label), build 0 problemen. **Open:** CF → Files → 4.3.0 → Changelog: opmaak goed? (Rob.)
+de knop (per taal het in-game label), build 0 problemen. ✅ Rob: CF-changelog ziet er goed uit, beschrijving geplakt.
 Eén release later (4.4.0) de "New in 4.3.0"-labels weer weg.
+📌 **Voor 1 okt (Rob, na de release):** *"is het niet handiger als we deze pagina's ook niet naar de website brengen?"* —
+de zes gegenereerde gidspagina's op `huijting.github.io/MidnightHelper` (start, weekly, currencies, delves, KP, coiled-isle;
+gelinkt vanuit `CURSEFORGE_DESCRIPTION.md` "Read it before you install") verhuizen naar midnighthelper.com, zodat alles
+één site is. Eerst meten: hoe ze gegenereerd worden, wat de content-wachter ervan leest, en of oude links moeten blijven
+werken (doorverwijzing). Daarna plan voorleggen, pas bouwen na Robs ja.
 
 ## 🧭 30 sep laat — Armory vindbaar in de addon (Rob: "wat zien we in de addon over de armory … raidbots keuzes?" → "ja, bouw dat maar")
 
