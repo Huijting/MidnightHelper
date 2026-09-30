@@ -9,7 +9,8 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
 De rest, bewaard voor later (≈ prioriteit):
 
-- [ ] **Raidbots-route voor de Armory (Rob, 30 sep: "zet de Raidbots-route op de ideeënlijst, en begin maar
+- [~] **GEBOUWD 30 sep als optie B (`Modules/SimcExport.lua`, `/mh raidbots`) — wacht op Robs eerste plak op Raidbots.**
+      **Raidbots-route voor de Armory (Rob, 30 sep: "zet de Raidbots-route op de ideeënlijst, en begin maar
       met uitwerken")** — MH maakt een tekst in het SimulationCraft-formaat (karakter, talenten, gear met bonus-ids,
       enchants, gems, tas-items als `# `-regels), de speler plakt die zelf op Raidbots **Top Gear**. Echte simulaties,
       dus trinket-effecten, sets en embellishments tellen mee — wat onze stat-gewichten niet kunnen (zie de Lost

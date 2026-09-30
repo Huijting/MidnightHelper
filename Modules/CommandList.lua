@@ -87,7 +87,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"zonegate", "travelwhy", "questsnap",
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
-	"roleset", "route", "sba", "setline", "shards", "shardtest", "shots", "showdown",
+	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
 	"socket", "souls", "spell", "stat", "stop", "surges", "survival", "tier", "tierread", "tierscan", "tips",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 }
@@ -153,6 +153,8 @@ ns.MH_COMMANDS = {
 		-- 28 Sep 2026: gear + bags as text for the Midnight Helper Armory website (GearExport.lua).
 		-- In this table so NavSearch finds it too (NavSearch.lua:609 walks MH_COMMANDS).
 		{ cmd = "/mh export", descKey = "CMDLIST_EXPORT" },
+		-- 30 Sep 2026: SimulationCraft input for Raidbots Top Gear (SimcExport.lua).
+		{ cmd = "/mh raidbots", descKey = "CMDLIST_RAIDBOTS" },
 		{ cmd = "/mh bagarrows", descKey = "CMDLIST_BAGARROWS" },
 	} },
 	{ headKey = "CMDLIST_GRP_GROUP", items = {

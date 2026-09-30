@@ -1000,6 +1000,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh pawn — export this spec's stat weights as a Pawn scale string.
+	-- /mh raidbots — SimulationCraft input for Raidbots Top Gear (SimcExport.lua, 30 Sep 2026).
+	if msg == "raidbots" or msg == "simc" then
+		if ns.ShowSimcExport then
+			ns.ShowSimcExport()
+		end
+		return
+	end
+
 	if msg == "export" then
 		if ns.ShowGearExport then
 			ns.ShowGearExport()

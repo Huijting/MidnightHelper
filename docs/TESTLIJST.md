@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 30 sep — `/mh raidbots`: tekst voor Raidbots Top Gear (`SimcExport.lua`)
+
+- [ ] `/reload`, `/mh raidbots` → venster *"For Raidbots Top Gear"*, chat *"Raidbots text ready, with N item(s)…"*.
+      Bovenaan `paladin="Twelveinchy"`, `spec=protection`, een regel `talents=…` (lange code), dan per slot
+      `head=,id=…,bonus_id=…`, onder *### Gear from Bags* de tas-items met `# ` ervoor, onderaan `# Checksum: …`.
+- [ ] Ctrl+C → raidbots.com/simbot/topgear → plakken. **Dé test:** leest Raidbots hem zonder foutmelding? Klopt je
+      karakter (naam, spec, talenten, item levels)? Staan je tas-items als keuze klaar? Screenshot, of plak de
+      foutmelding van Raidbots letterlijk.
+- [ ] Zelfde op de Shaman (staf) en op een alt met een crafted item (dan staat er `crafted_stats=` in de regel).
+- [ ] Site → Armory → Best set: onderaan het blok *"Want the exact answer…"* met de knop *Open Raidbots Top Gear*.
+
 ## 🆕 30 sep — paneel battle res & Bloodlust (`GroupRezLust.lua`)
 
 - [x] ✅ (Rob, 30 sep, screenshot op Shaman "Earthshammy": "deze werkt") `/mh lust test` → paneel met *"Battle res:

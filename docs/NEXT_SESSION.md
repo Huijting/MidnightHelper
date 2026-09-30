@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 🔨 30 sep laat — Raidbots-route optie B gebouwd (Rob: "Doe optie b dan maar")
+
+Nieuw `Modules/SimcExport.lua` (TOC na GearExport), `/mh raidbots` (alias `/mh simc`, unlisted). Port van simc-addon
+core.lua/extras.lua (Unlicense, gelezen 30 sep, release 12.1.0-04): header, talents via `C_Traits.GenerateImportString`
+(+ serialisatieversie-check = 2), saved loadouts, `omnium_talents` (system 48), gear-regels (id/enchant/gems/bonus/
+drop_level/content_tuning/crafted_stats/redirected_base_stats/gem_bonus/crafting_quality), bags incl. bank-bereik,
+Great Vault, Adler-32-checksum (identiek aan simc-addon incl. bit.lshift). NIET: upgrade/catalyst-valuta, merchant,
+11.1.7-riem. Offline getest: 11/11 (tokenizer, races, Adler-32 tegen bekende waarden, 3 itemlinks) via
+`scratch simc_test.py`. Site: blok "Want the exact answer…" + knop naar Top Gear, 6 talen. ⏳ Test = Robs eerste plak.
+📌 Onderhoud: bij elke simc-addon-release `GetItemStringFromItemLink`/`GetSimcProfile` vergelijken; voorstel aan Rob:
+de API-wachter laat elke ochtend ook github.com/simulationcraft/simc-addon/releases zien (routine aanpassen = Robs ok).
+
+🔴 **`_probe.py` kan de opdracht van een ANDERE sessie draaien** (GEMETEN 30 sep): hij pakt het nieuwste
+`probe_job.txt` over álle scratchpads (`_probe.py:44-57`), en `scratch <naam>` pakt ook het nieuwste script met die
+naam over alle sessies (`:95-100`). Mijn `site_i18n.py extract` draaide in de Comfy-sessie, hun `strook_zoom.py` bij mij
+— elk één keer, bevestigd door die sessie. Tot er een fix is: lees altijd de `job:`-regel bovenaan de uitvoer.
+Fix nog niet gedaan (gedeeld gereedschap; Rob beslist).
+
 ## 🧭 30 sep laat — Raidbots-route uitgewerkt, wacht op Robs keuze (A/B/C)
 
 Plan + bronnen: `docs/RAIDBOTS_ROUTE.md`. Kort: Raidbots verbiedt alleen automatisering; linken wordt aangemoedigd

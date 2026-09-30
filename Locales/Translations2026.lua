@@ -11490,6 +11490,54 @@ fill("itIT", {
 	GEAREXPORT_PENDING_FMT = "%d oggetti non erano ancora caricati; l'export si aggiorna da solo appena lo sono. Oppure riprova /mh export tra un momento.",
 })
 
+-- /mh raidbots (SimcExport.lua), 30 Sep 2026. Written in the words of the /mh export block above
+-- (same address form per pack: de du, fr tu, es tú, pt você, it tu); not native-reviewed.
+-- Raidbots, Top Gear and SimulationCraft stay English (product names).
+fill("deDE", {
+	CMDLIST_RAIDBOTS = "Dein Charakter, deine Talente und deine Ausrüstung als SimulationCraft-Text, zum Einfügen bei Raidbots Top Gear für das genaue beste Set.",
+	RAIDBOTS_TITLE = "Für Raidbots Top Gear",
+	RAIDBOTS_HINT = "Drücke Strg+C und füge den Text auf raidbots.com/simbot/topgear ein. Raidbots simuliert, also zählen auch Schmuckstück-Effekte und Setboni.",
+	RAIDBOTS_DONE_FMT = "Raidbots-Text fertig, mit %d Gegenstand/Gegenständen aus deinen Taschen. Füge ihn auf raidbots.com/simbot/topgear ein.",
+	RAIDBOTS_NOSPEC = "Wähle zuerst eine Spezialisierung: Raidbots braucht eine.",
+	RAIDBOTS_TALENTVERSION = "Der Talent-Export des Spiels hat sich geändert und Midnight Helper kennt die neue Version noch nicht. Raidbots liest deine Talente vielleicht falsch: bitte sag uns Bescheid.",
+})
+
+fill("frFR", {
+	CMDLIST_RAIDBOTS = "Ton personnage, tes talents et ton équipement en texte SimulationCraft, à coller sur Raidbots Top Gear pour le meilleur ensemble exact.",
+	RAIDBOTS_TITLE = "Pour Raidbots Top Gear",
+	RAIDBOTS_HINT = "Appuie sur Ctrl+C, puis colle-le sur raidbots.com/simbot/topgear. Raidbots simule, donc les effets des bijoux et les bonus d'ensemble comptent aussi.",
+	RAIDBOTS_DONE_FMT = "Texte Raidbots prêt, avec %d objet(s) de tes sacs. Colle-le sur raidbots.com/simbot/topgear.",
+	RAIDBOTS_NOSPEC = "Choisis d'abord une spécialisation : Raidbots en a besoin.",
+	RAIDBOTS_TALENTVERSION = "L'export des talents du jeu a changé et Midnight Helper ne connaît pas encore la nouvelle version. Raidbots risque de mal lire tes talents : préviens-nous.",
+})
+
+fill("esES", {
+	CMDLIST_RAIDBOTS = "Tu personaje, talentos y equipo como texto de SimulationCraft, para pegarlo en Raidbots Top Gear y ver el mejor conjunto exacto.",
+	RAIDBOTS_TITLE = "Para Raidbots Top Gear",
+	RAIDBOTS_HINT = "Pulsa Ctrl+C y pégalo en raidbots.com/simbot/topgear. Raidbots simula, así que los efectos de los abalorios y las bonificaciones de conjunto también cuentan.",
+	RAIDBOTS_DONE_FMT = "Texto para Raidbots listo, con %d objeto(s) de tus bolsas. Pégalo en raidbots.com/simbot/topgear.",
+	RAIDBOTS_NOSPEC = "Elige primero una especialización: Raidbots la necesita.",
+	RAIDBOTS_TALENTVERSION = "La exportación de talentos del juego ha cambiado y Midnight Helper aún no conoce la nueva versión. Puede que Raidbots lea mal tus talentos: avísanos.",
+})
+
+fill("ptBR", {
+	CMDLIST_RAIDBOTS = "Seu personagem, talentos e equipamento como texto do SimulationCraft, para colar no Raidbots Top Gear e ver o melhor conjunto exato.",
+	RAIDBOTS_TITLE = "Para o Raidbots Top Gear",
+	RAIDBOTS_HINT = "Pressione Ctrl+C e cole em raidbots.com/simbot/topgear. O Raidbots simula, então efeitos de berloques e bônus de conjunto também contam.",
+	RAIDBOTS_DONE_FMT = "Texto do Raidbots pronto, com %d item(ns) das suas bolsas. Cole em raidbots.com/simbot/topgear.",
+	RAIDBOTS_NOSPEC = "Escolha uma especialização primeiro: o Raidbots precisa de uma.",
+	RAIDBOTS_TALENTVERSION = "A exportação de talentos do jogo mudou e o Midnight Helper ainda não conhece a nova versão. O Raidbots pode ler seus talentos errado: avise a gente.",
+})
+
+fill("itIT", {
+	CMDLIST_RAIDBOTS = "Il tuo personaggio, i talenti e l'equipaggiamento come testo SimulationCraft, da incollare su Raidbots Top Gear per il miglior set esatto.",
+	RAIDBOTS_TITLE = "Per Raidbots Top Gear",
+	RAIDBOTS_HINT = "Premi Ctrl+C e incollalo su raidbots.com/simbot/topgear. Raidbots simula, quindi contano anche gli effetti dei monili e i bonus di set.",
+	RAIDBOTS_DONE_FMT = "Testo per Raidbots pronto, con %d oggetto/i dalle tue borse. Incollalo su raidbots.com/simbot/topgear.",
+	RAIDBOTS_NOSPEC = "Scegli prima una specializzazione: Raidbots ne ha bisogno.",
+	RAIDBOTS_TALENTVERSION = "L'export dei talenti del gioco è cambiato e Midnight Helper non conosce ancora la nuova versione. Raidbots potrebbe leggere male i tuoi talenti: faccelo sapere.",
+})
+
 -- Battle res & Bloodlust panel (GroupRezLust.lua), 30 Sep 2026. One agent per language, each
 -- measured its pack first (address form, key/raid/boss wording, SET_SEC_DUNGEON); not native-reviewed.
 -- Spell names, Battle res, Mythic+ and EllesmereUI stay English on purpose.

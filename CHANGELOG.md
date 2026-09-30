@@ -13,6 +13,11 @@ All notable changes to this project are documented in this file.
   in het Duits, Frans, Spaans, Portugees en Italiaans.
 - **Codex → Crests** (29 sep 2026): de regel over de cap zei dat hij telt hoeveel je kunt *hebben*; hij telt wat je
   deze season hebt *verdiend* en stijgt elke week (zoals de crest-teller in MH al liet zien). Alle zeven talen.
+- **`/mh raidbots`** (`Modules/SimcExport.lua`, 30 sep 2026): je karakter, talenten, uitrusting, tas-items en Great
+  Vault-keuzes als SimulationCraft-tekst, om op Raidbots Top Gear te plakken (echte simulatie: trinket-effecten en sets
+  tellen mee). Formaat gevolgd naar de SimulationCraft-addon (publiek domein, release 12.1.0-04). Zeven talen.
+- **Armory-export** (`/mh export`): wapens krijgen `hands` (twee- of eenhandig), ringen/trinkets `unique` en `effect`
+  uit de tooltip; de site kiest wapens als paar, respecteert Unique-Equipped en wisselt nooit een effect-item.
 - **Paneel battle res & Bloodlust** (`Modules/GroupRezLust.lua`, 30 sep 2026): in Mythic-dungeons, keys en raids
   een klein paneel met de gedeelde battle res-ladingen (in een key en tijdens een raidbaas), of Bloodlust klaar is
   (met aftellen), en wie in je groep kan brezzen of lusten. Beweeg erover voor uitleg. Een regel blijft weg waar
