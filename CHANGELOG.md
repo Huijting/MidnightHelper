@@ -4,6 +4,11 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+## 4.3.0
+
+📌 **2026-09-30, als release (Rob: "go, zet 4.3.0 maar live").** Notitie in `docs/CURSEFORGE_4.3.0.md` (identiek aan
+`RELEASE_NOTES.md`). In detail:
+
 - **`/mh export`** (`Modules/GearExport.lua`, 28 sep 2026): uitgeruste gear + uitrustbare items in de tassen als
   tekst voor de Midnight Helper Armory-website, in het vaste formaat `MH-EXPORT 1` (contract met de site). Kopieer-
   venster = het gedeelde `ns.ShowShareCopyDialog`; niet-gecachte items worden geteld en de tekst bouwt zichzelf

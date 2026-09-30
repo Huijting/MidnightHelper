@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🚀 30 sep laat — 4.3.0 als Release getagd (Rob: "go, zet 4.3.0 maar live")
+
+`.toc` 4.3.0; `Changelog.lua` + `CHANGELOG_430_1..6` (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.3.0.md` (byte-gelijk,
+GEMETEN); `CHANGELOG.md` Unreleased → 4.3.0; `CURSEFORGE_DESCRIPTION.md` kreeg de gear-knoppen (Armory/Raidbots) en het
+brez/Hero-paneel → **Rob plakt die op de CF-projectpagina.** Tag `v4.3.0` gepusht → packager. **Nog te doen na de upload:**
+(1) CF → Files → 4.3.0 → Changelog: opmaak goed? (2) site: `.tag.new` "Coming in 4.3.0" → "New in 4.3.0" (hero-fact, tegel
+Battle res and Hero, tools Armory + Raidbots); Armory-lede "(coming in the next Midnight Helper update)" weg en de knop
+*Quick advice: Armory website* noemen; `site_i18n.py extract` → vertalen → merge → build → push.
+
 ## 🧭 30 sep laat — Armory vindbaar in de addon (Rob: "wat zien we in de addon over de armory … raidbots keuzes?" → "ja, bouw dat maar")
 
 GEMETEN vooraf: Raidbots had knop + venster met adres; de Armory alleen `/mh export`, en het venster zei "paste the text on
