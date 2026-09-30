@@ -23,10 +23,10 @@ er is niets weggegooid.
 
 ## 🆕 30 sep — paneel battle res & Bloodlust (`GroupRezLust.lua`)
 
-- [ ] `/reload` → geen foutmelding. Dan `/mh lust test` (waar je ook staat) → linksboven een paneeltje
-      "Battle res & Bloodlust" voor 30 seconden. Solo zie je: *"Battle res: shared charges only in a Mythic+ key…"*,
-      *"Can revive in combat: <jij> (Paladin)"* en *"Bloodlust: ready"* (of *used - ready again in …*).
-      Beweeg erover → uitleg over beide. Slepen → het blijft daar staan na `/reload`.
+- [x] ✅ (Rob, 30 sep, screenshot op Shaman "Earthshammy": "deze werkt") `/mh lust test` → paneel met *"Battle res:
+      shared charges only in a Mythic+ key…"*, geel *"Nobody in your group can revive in combat."*, groen
+      *"Bloodlust: ready"*, *"Can cast Bloodlust: Earthshammy (Shaman)"* in klassekleur.
+- [ ] Beweeg erover → uitleg over beide. Slepen → het blijft daar staan na `/reload`.
 - [ ] Instellingen → Dungeon-hulp → **Paneel battle res & Bloodlust** uit → `/mh lust` zegt *setting off*.
 - [ ] **In een M+-key of raid, in een groep** (hier zit de echte meting): het paneel staat er vanzelf. In de key:
       *"Battle res: 1 of 1 left"* (of meer), en na een brez *"… next in m:ss"*. Kreeg de groep Bloodlust → *"used -
@@ -42,7 +42,7 @@ er is niets weggegooid.
 - [x] ✅ (Rob, 27 sep: The Venomous Abyss, map 2606, met Nek'zali) `/mh mapprobe show <getal>` tekent een plattegrond
       met doodshoofdjes bij de bazen.
 - [x] ✅ (Rob, 27 sep, screenshot) `/mh mapprobe`: bij de dungeons "map 0" → daarvoor is een tweede weg gebouwd.
-- [ ] 🆕 **Kaartvenster**: Codex → Raids → klap een raid open → naast *Route to* staat **Map**. Klik: plattegrond,
+- [x] ✅ (Rob, 30 sep: "deze werkt ook") 🆕 **Kaartvenster**: Codex → Raids → klap een raid open → naast *Route to* staat **Map**. Klik: plattegrond,
       knoppen per verdieping (als die er zijn), doodshoofden met bazennamen. Beweeg over een baas → tooltip; klik →
       MH's tips voor die baas.
 - [x] ✅ (Rob, 27 sep) dungeon-kaarten werken. 🆕 De knop **Map** staat nu náást *Route to …*, zoals bij de raids.
@@ -99,7 +99,12 @@ zet ze in een concept dat je eerst ziet voordat het online gaat.
 - [x] ✅ 28 tas-items als `B|…`, geen potions/reagents.
 - [ ] Chat zegt *"Gear export: N items."* Zegt hij dat items nog laden, dan werkt de tekst zich binnen een paar tellen bij.
 - [x] ✅ (Rob, 29 sep) Zoek in de MH-zoekbalk op "export": de regel `/mh export` verschijnt.
-- [ ] Plak de tekst op de site → "Calculate best set".
+- [x] ✅ (Rob, 30 sep, Shaman) Plak de tekst op de site → "Calculate best set": werkt, 37 items gelezen. MAAR hij
+      adviseerde een schild (Wailing Bulwark, +561) naast zijn **staf** → gerepareerd (export veld 12 `hands`, site kiest
+      wapens als paar). ⏳ Opnieuw: `/reload`, `/mh export` → wapenregels eindigen op `|2` (staf) of `|1`; plakken →
+      geen schild meer, off hand-regel weg (of *"Leave empty: … takes both hands"*).
+- [ ] ❓ Zelfde export: MH stelde een **tweede Ouroboric Signet** (292, uit de tas) voor naast de gedragen 295. Staat
+      er *Unique-Equipped* in de tooltip van die ring? Dan kan dat niet en moet de site dat weten (nog niet gebouwd).
 - [x] ✅ (Rob, 29 sep) Regel 2 eindigt nu op `;primary=Strength` (Prot Paladin). Staat er `primary=?`, dan kon MH
       je hoofdstat niet lezen en telt hij nog alles op — screenshot.
 - [x] ✅ (Rob, 29 sep: 19 i.p.v. 28; Bonedust Pestle, Snapdragon Pantaloons en Void-Reaper's Libram weg) Er staan **minder** `B|…`-regels dan de 28 van vanochtend: geen stof/leer/maliën-pantser meer, en geen

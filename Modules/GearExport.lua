@@ -25,6 +25,9 @@ local _, ns = ...
 	  numbers  whole numbers, a missing stat is 0
 	  primary  extra key on the char line (28 Sep 2026). The site's parser ignores keys it does not
 	           know, so the contract holds; it is there so a pasted export shows what we filtered on.
+	  hands    12th field, weapons only (30 Sep 2026): 2 = takes both hands, 1 = one hand. Rob's Shaman
+	           wore a staff and the site told him to add a shield from his bags, because nothing said
+	           the staff filled the off hand too. The site picks weapons as a pair when this is present.
 
 	Bag items you cannot use are left out (red-team review, 28 Sep 2026: the first version summed all
 	three primaries and never looked at armour type, so a Protection Paladin could be told to wear an
@@ -97,6 +100,11 @@ local ARMOR_LOCS = {
 }
 local ITEM_CLASS_ARMOR = (Enum and Enum.ItemClass and Enum.ItemClass.Armor) or 4
 
+-- Equip locations that fill both hands. Bows, guns and crossbows do; a wand is written as one
+-- hand. VERIFY: whether a wand still blocks the off hand on 12.1 is not measured.
+local TWO_HAND_LOCS = { INVTYPE_2HWEAPON = true, INVTYPE_RANGED = true, INVTYPE_RANGEDRIGHT = true }
+local WAND = (Enum and Enum.ItemWeaponSubclass and Enum.ItemWeaponSubclass.Wand) or 19
+
 local function Num(v)
 	if v == nil or ns.IsSecretValue(v) then
 		return 0
@@ -160,6 +168,18 @@ local function EquipLoc(link)
 	return nil
 end
 
+--- The "hands" field for a weapon line ("|2" or "|1"), empty for every other slot.
+local function Hands(slot, link)
+	if slot ~= "mainhand" and slot ~= "offhand" then
+		return ""
+	end
+	local loc, _, subClassID = EquipLoc(link)
+	if loc and TWO_HAND_LOCS[loc] and not (loc == "INVTYPE_RANGEDRIGHT" and subClassID == WAND) then
+		return "|2"
+	end
+	return "|1"
+end
+
 --- One line, or nil plus "pending" when the client has not cached the item yet, or nil plus
 --- "unusable" when `skipOtherPrimary` is set and the item carries someone else's primary stat.
 local function Line(where, slot, link, primaryKey, skipOtherPrimary)
@@ -181,8 +201,8 @@ local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	if skipOtherPrimary and s.otherPrimary then
 		return nil, "unusable"
 	end
-	return ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d"):format(
-		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers)
+	return ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d%s"):format(
+		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers, Hands(slot, link))
 end
 
 local function Link(ok, v)
@@ -216,7 +236,7 @@ function ns.BuildGearExport()
 	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s"):format(
 		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
 		primary and primary.name or "?")
-	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers"
+	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)"
 
 	local function Add(where, slot, link)
 		-- Only bag items are filtered: what you wear is written whatever it is.

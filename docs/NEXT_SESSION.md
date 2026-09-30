@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🔧 30 sep avond — Armory: staf + schild-advies gerepareerd (Rob, Shaman-export)
+
+GEMETEN in de code: export schreef `INVTYPE_2HWEAPON` gewoon als `mainhand`, site koos per slot → schild "replaces empty
+slot +561" naast een staf. Nu: `GearExport.lua` schrijft op wapenregels een 12e veld `hands` (2/1; bow/gun/crossbow = 2,
+wand = 1 — VERIFY); site-commit "Pick weapons as a pair" (2H tegen beste 1H + beste off hand, gelijk = houden; zonder
+veld of met Titan's Grip de oude keuze). Lokaal getest met 4 gevallen. Rob moet opnieuw exporteren. Open vraag: twee
+Ouroboric Signets (Unique-Equipped?) — site kent uniqueness nog niet. Rob testte vanavond ook: paneel brez/lust ✅,
+raid-kaart Map ✅ (TESTLIJST).
+
 ## 🔨 30 sep — paneel battle res & Bloodlust gebouwd (Rob: "werk die maar uit" → koos "MH-versie mét uitleg")
 
 Aanleiding: DDingUI (3 addons van DDing op CF, All Rights Reserved → alleen het idee). GEMETEN in Robs
