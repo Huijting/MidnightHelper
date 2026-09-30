@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🏠 30 sep avond — hoofdpagina midnighthelper.com bijgewerkt (Rob: "moet altijd up2date zijn … één geheel")
+
+Twee agents (inventaris + ontwerp) → fase 1 gebouwd in `index.html`: nav *In the game · Armory · Raidbots · Feedback*;
+hero-fact naar `#tools`; "In the game" = 12 tegels (8 herschreven naar CURSEFORGE_DESCRIPTION.md, nieuw: Battle res and
+Hero, Getting there, Collecting, Gear check); de oude Armory-promo vervangen door `#tools` "On the website" (Armory,
+Raidbots, Feedback, elk met het in-game commando). Labels `.tag.new` / `.tag.test` = één patroon voor wat er aankomt.
+Gecontroleerd lokaal: desktop + 375px, geen horizontale scroll. Vaste regel: memory `site-follows-every-feature`.
+⏭️ **Fase 2 (ontwerpagent, nog niet gedaan, Rob laten zien):** één gedeelde header/nav + footer op álle pagina's (via
+i18n.py-marker zoals de taalkiezer), kleurtokens/knoppen/tekstmaat naar `shared.css` (nu per pagina gedrift: `.btn`
+10/8px radius, `--warn` alleen op raidbots, body 15/16px), "Next"-link onderaan elke tool-pagina (Armory → Raidbots → Feedback).
+
 ## 📝 30 sep avond — Raidbots-uitleg op drie plekken + knop (Rob: "ja, maak die drie maar … testfase, eigen risico")
 
 1. **In het spel:** `RAIDBOTS_HINT` = oranje testfase-regel + 5 stappen + verwijzing naar midnighthelper.com/<taal>/raidbots
@@ -110,9 +121,10 @@ GEAREXPORT_*) nu in de/fr/es/pt/it via `fill()`-blokken onderaan Translations202
 de = Strg+C; lint: +6 per taal, 0 HARD). ✅ Intellect GEMETEN 30 sep: Robs Shaman-export op de site toonde
 "Example weights (survival): Intellect 1" — die kolomnaam komt uit `primary=` van de export (armory `statName`), dus
 `primary=Intellect` (4 = Intellect werkt). Alle drie de primaries nu gemeten; de release wacht alleen nog op Robs "go". Niet blokkerend: boog in tassen,
-Gilded Stash T11 (Myth-zin). NA de release: op de site `index.html` "Coming in the next Midnight Helper update." en
-`armory/index.html` "(coming in the next Midnight Helper update)" weg → `site_i18n.py extract` → die 2 units per taal
-opnieuw laten vertalen → `build` → push.
+Gilded Stash T11 (Myth-zin). NA de release (site): `index.html` — de `.tag.new`-labels "Coming in 4.3.0" (hero-fact,
+tegel Battle res and Hero, tools Armory + Raidbots) → "New in 4.3.0"; `armory/index.html` "(coming in the next Midnight
+Helper update)" weg; `raidbots/index.html` en het Armory-blok zeggen al "new in 4.3.0" ✔. Dan `site_i18n.py extract` →
+units per taal laten vertalen → `build` → push. Eén release later de labels weer weg.
 
 ## 📊 29 sep — MH-getallen tegen Gandalin's Gearing Guide (Rob installeerde de addon; All Rights Reserved = alleen feitenbron)
 
