@@ -23,7 +23,7 @@ er is niets weggegooid.
 
 ## 🆕 30 sep — `/mh raidbots`: tekst voor Raidbots Top Gear (`SimcExport.lua`)
 
-- [ ] 🆕 `/reload`, open je karakterscherm (C) → onderaan het MH-paneel ernaast: *"Best set from your bags: Raidbots
+- [x] ✅ (Rob, 30 sep avond, screenshot: "beide werken") 🆕 `/reload`, open je karakterscherm (C) → onderaan het MH-paneel ernaast: *"Best set from your bags: Raidbots
       (test)"*. Klik → het Raidbots-venster opent, bovenaan een **oranje** testfase-regel en 5 stappen. Past alles erin?
 - [ ] Site: midnighthelper.com/raidbots (en /nl/raidbots) → 7 stappen met gouden nummers en een oranje testfase-blok;
       Armory → Best set → knop *Step by step* gaat erheen.
@@ -71,7 +71,8 @@ er is niets weggegooid.
       Twelveinchy staat nu ook *"Redemption (out of combat): Your key: …"* onder Intercession. Klopt die toets?
 - [ ] Instellingen → Dungeon-hulp → **Only in Mythic+ keys and raids** aan → in de delve/normale dungeon verdwijnt het
       paneel, `/mh lust` zegt *"…the setting says Mythic+ keys and raids only"*. Weer uit → het is terug.
-- [ ] 🆕 (Rob, 30 sep: "sluit knop") Rechtsboven op het paneel een **X**. Muis erop → uitleg. Klik in een dungeon → het
+- [x] ✅ (Rob, 30 sep avond, screenshot: X rechtsboven zichtbaar, "beide werken"; het wegblijven tot de volgende
+      instance nog niet apart gezien) 🆕 (Rob, 30 sep: "sluit knop") Rechtsboven op het paneel een **X**. Muis erop → uitleg. Klik in een dungeon → het
       paneel is weg, ook na `/reload` in dezelfde dungeon; `/mh lust` zegt *"closed with the X for this instance"*.
       Dungeon uit en een nieuwe in → het staat er weer.
 - [ ] Beweeg erover → uitleg over beide. Slepen → het blijft daar staan na `/reload`.
