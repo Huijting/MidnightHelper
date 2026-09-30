@@ -7,7 +7,7 @@ the website" zonder adres; de keuze snel/precies stond alleen op de site. Gebouw
 Raidbots-knop, `CharacterSidePanel.lua` → `ns.ShowGearExport`); `GEAREXPORT_HINT(_PENDING)` noemen
 midnighthelper.com/<taal>/armory + regel naar `/mh raidbots`; `RAIDBOTS_HINT` + regel terug naar `/mh export`;
 `CMDLIST_EXPORT` noemt midnighthelper.com. 7 talen (zelf vertaald, niet nagekeken), `check_drift --mark` gedaan, lint 0
-HARD / 4 SOFT. Nog niet in het spel gezien → TESTLIJST. **Na de release (site):** de Armory-lede (die met "coming in the
+HARD / 4 SOFT. ✅ GEMETEN in het spel (Rob: "reload gedaan, beide knoppen werken"). **Na de release (site):** de Armory-lede (die met "coming in the
 next Midnight Helper update") meteen ook de knop *Quick advice: Armory website* laten noemen — één keer vertalen.
 
 ## 🏠 30 sep avond — hoofdpagina midnighthelper.com bijgewerkt (Rob: "moet altijd up2date zijn … één geheel")

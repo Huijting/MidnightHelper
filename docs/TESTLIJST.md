@@ -23,11 +23,11 @@ er is niets weggegooid.
 
 ## 🆕 30 sep laat — Armory-knop + "snel of precies" in beide vensters
 
-- [ ] 🆕 `/reload`, karakterscherm (C) → onderaan het MH-paneel nu **twee** knoppen: eerst *"Quick advice: Armory
+- [x] ✅ (Rob, 30 sep laat: "reload gedaan, beide knoppen werken") 🆕 `/reload`, karakterscherm (C) → onderaan het MH-paneel nu **twee** knoppen: eerst *"Quick advice: Armory
       website"*, dan *"Best set from your bags: Raidbots (test)"*. Klik de eerste → het export-venster; bovenaan staat
       **midnighthelper.com/armory** en de regel *"Want the exact answer … /mh raidbots (test phase)"*. Staat de tekst
       eronder nog in beeld?
-- [ ] Klik de Raidbots-knop → onderaan de uitleg een nieuwe regel *"Rather a quick answer … /mh export and
+- [x] ✅ (Rob, idem; of alles in het venster past is niet apart genoemd) Klik de Raidbots-knop → onderaan de uitleg een nieuwe regel *"Rather a quick answer … /mh export and
       midnighthelper.com/armory"*. Past alles nog in het venster?
 
 ## 🆕 30 sep — `/mh raidbots`: tekst voor Raidbots Top Gear (`SimcExport.lua`)
