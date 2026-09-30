@@ -48,6 +48,11 @@ er is niets weggegooid.
       onder *Can cast Bloodlust* met Bloodlust/Heroism.
 - [x] ✅ (Rob, 30 sep avond: "de toets bij Redemption klopt ook, ook de andere toetsen voor de Battle Res")
       Redemption (out of combat) + Intercession tonen de juiste toets.
+- [x] ✅ (Rob, 30 sep avond, screenshot in een echte groep) *"Battle res: no shared charges here…"*, *"Twelveinchy
+      (Paladin) - Intercession"*, Intercession toets R, Redemption (out of combat) toets s-R, **"Hero: used - ready again
+      in 0:41"** zonder "~" (= echte eindtijd van de Sated-debuff GEMETEN leesbaar), *"Sizle (Shaman) - Bloodlust,
+      Magedobby (Mage) - Time Warp"* in klassekleur (Horde → Bloodlust klopt). ⏳ Nog: `/mh lust` + `/reload` na de dungeon
+      voor `ns.db.rezLustLog` (in-combat-metingen).
 - [ ] 🆕 (Rob, 30 sep avond: "wordt gewoon hero genoemd … voor elke spec zijn eigen naam") `/reload`, `/mh lust test`
       → titel *"Battle res & Hero"*, regels *"Hero: ready"*, *"Can cast Hero: Twelveinchy…"* ontbreekt (Paladin kan geen
       Hero) maar *"Can revive in combat: Twelveinchy (Paladin) - Intercession"* staat er met de spreuknaam. Op de Shaman:
