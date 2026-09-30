@@ -103,8 +103,12 @@ zet ze in een concept dat je eerst ziet voordat het online gaat.
       adviseerde een schild (Wailing Bulwark, +561) naast zijn **staf** → gerepareerd (export veld 12 `hands`, site kiest
       wapens als paar). ⏳ Opnieuw: `/reload`, `/mh export` → wapenregels eindigen op `|2` (staf) of `|1`; plakken →
       geen schild meer, off hand-regel weg (of *"Leave empty: … takes both hands"*).
-- [ ] ❓ Zelfde export: MH stelde een **tweede Ouroboric Signet** (292, uit de tas) voor naast de gedragen 295. Staat
-      er *Unique-Equipped* in de tooltip van die ring? Dan kan dat niet en moet de site dat weten (nog niet gebouwd).
+- [x] ✅ (Rob, 30 sep, 2e export) staf-fix: geen schild meer, *Lightgrasp Worldroot — Keep*, off hand-regel weg.
+- [x] ✅ (Rob, 30 sep) de Ouroboric Signet-tooltip zegt **Unique-Equipped** → gebouwd: export veld 13 `unique`
+      (`i<itemID>:1` of `c<categorie>:<n>`, uit de tooltip), site kiest nooit meer dan toegestaan.
+- [ ] ⏳ `/reload`, `/mh export` → de Ouroboric Signet-regels eindigen op `||i<getal>:1`; ringen/trinkets zonder
+      Unique-Equipped eindigen gewoon op het 11e getal. Plakken → nooit twee dezelfde unieke ring/trinket.
+      Staat er bij de Signet géén `i…:1`, dan leest MH de tooltip niet — zeg het.
 - [x] ✅ (Rob, 29 sep) Regel 2 eindigt nu op `;primary=Strength` (Prot Paladin). Staat er `primary=?`, dan kon MH
       je hoofdstat niet lezen en telt hij nog alles op — screenshot.
 - [x] ✅ (Rob, 29 sep: 19 i.p.v. 28; Bonedust Pestle, Snapdragon Pantaloons en Void-Reaper's Libram weg) Er staan **minder** `B|…`-regels dan de 28 van vanochtend: geen stof/leer/maliën-pantser meer, en geen

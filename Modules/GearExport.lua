@@ -28,6 +28,11 @@ local _, ns = ...
 	  hands    12th field, weapons only (30 Sep 2026): 2 = takes both hands, 1 = one hand. Rob's Shaman
 	           wore a staff and the site told him to add a shield from his bags, because nothing said
 	           the staff filled the off hand too. The site picks weapons as a pair when this is present.
+	  unique   13th field, rings and trinkets only (30 Sep 2026): <key>:<max>, empty when the item is not
+	           Unique-Equipped. Rob's Shaman was told to wear a second Ouroboric Signet next to the one he
+	           had on; its tooltip says Unique-Equipped. Key "i<itemID>" for a plain Unique-Equipped item,
+	           "c<category>" for "Unique-Equipped: <category> (n)". Rings and trinkets only: a category
+	           that spans other slots (embellishments) is not handled.
 
 	Bag items you cannot use are left out (red-team review, 28 Sep 2026: the first version summed all
 	three primaries and never looked at armour type, so a Protection Paladin could be told to wear an
@@ -180,6 +185,49 @@ local function Hands(slot, link)
 	return "|1"
 end
 
+--- The "unique" field for a ring or trinket line ("|<hands>|<key>:<max>"), empty for other slots.
+--- The tooltip is the source Pawn and AskMrRobot read (`ITEM_UNIQUE_EQUIPPABLE`, localised by the
+--- game, so it matches every client language). `C_Item.GetItemUniqueness` is Zygor's route and only
+--- the fallback. VERIFY: neither is measured in MH yet.
+local function Unique(slot, link)
+	if slot ~= "finger" and slot ~= "trinket" then
+		return ""
+	end
+	local tag = rawget(_G, "ITEM_UNIQUE_EQUIPPABLE")
+	local id = tonumber(link:match("item:(%d+)"))
+	local key, max
+	if type(tag) == "string" and tag ~= "" and C_TooltipInfo and C_TooltipInfo.GetHyperlink then
+		local ok, data = pcall(C_TooltipInfo.GetHyperlink, link)
+		local lines = ok and type(data) == "table" and data.lines
+		for _, line in ipairs(type(lines) == "table" and lines or {}) do
+			local text = line.leftText
+			if ns.CanAccessText(text) and text:sub(1, #tag) == tag then
+				local rest = text:sub(#tag + 1)
+				if rest == "" then
+					key, max = id and ("i" .. id), 1
+				else
+					-- "Unique-Equipped: <category> (<n>)"
+					local cat, n = rest:match("^%s*:%s*(.-)%s*%((%d+)%)%s*$")
+					if cat and cat ~= "" then
+						key, max = "c" .. (cat:gsub("[|:]", "")), tonumber(n)
+					end
+				end
+				break
+			end
+		end
+	end
+	if not key and id and C_Item and C_Item.GetItemUniqueness then
+		local ok, fam, n = pcall(C_Item.GetItemUniqueness, id)
+		if ok and type(fam) == "number" and not ns.IsSecretValue(fam) and fam > 0 then
+			key, max = "f" .. fam, (type(n) == "number" and not ns.IsSecretValue(n) and n > 0) and n or 1
+		end
+	end
+	if not key then
+		return ""
+	end
+	return ("||%s:%d"):format(key, max or 1)
+end
+
 --- One line, or nil plus "pending" when the client has not cached the item yet, or nil plus
 --- "unusable" when `skipOtherPrimary` is set and the item carries someone else's primary stat.
 local function Line(where, slot, link, primaryKey, skipOtherPrimary)
@@ -201,8 +249,9 @@ local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	if skipOtherPrimary and s.otherPrimary then
 		return nil, "unusable"
 	end
-	return ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d%s"):format(
-		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers, Hands(slot, link))
+	return ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d%s%s"):format(
+		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers,
+		Hands(slot, link), Unique(slot, link))
 end
 
 local function Link(ok, v)
@@ -236,7 +285,7 @@ function ns.BuildGearExport()
 	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s"):format(
 		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
 		primary and primary.name or "?")
-	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)"
+	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique (rings, trinkets)"
 
 	local function Add(where, slot, link)
 		-- Only bag items are filtered: what you wear is written whatever it is.

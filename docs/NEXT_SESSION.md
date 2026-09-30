@@ -5,8 +5,10 @@
 GEMETEN in de code: export schreef `INVTYPE_2HWEAPON` gewoon als `mainhand`, site koos per slot → schild "replaces empty
 slot +561" naast een staf. Nu: `GearExport.lua` schrijft op wapenregels een 12e veld `hands` (2/1; bow/gun/crossbow = 2,
 wand = 1 — VERIFY); site-commit "Pick weapons as a pair" (2H tegen beste 1H + beste off hand, gelijk = houden; zonder
-veld of met Titan's Grip de oude keuze). Lokaal getest met 4 gevallen. Rob moet opnieuw exporteren. Open vraag: twee
-Ouroboric Signets (Unique-Equipped?) — site kent uniqueness nog niet. Rob testte vanavond ook: paneel brez/lust ✅,
+veld of met Titan's Grip de oude keuze). Lokaal getest met 4 gevallen. ✅ Rob bevestigde met een nieuwe export (staf Keep, schild weg).
+Daarna Unique-Equipped (Rob: tooltip zegt het): export veld 13 `unique` voor ringen/trinkets uit de tooltip
+(`ITEM_UNIQUE_EQUIPPABLE`, Pawn/AMR-route; `C_Item.GetItemUniqueness` = Zygor-route als terugval; beide VERIFY), site
+kiest de beste twee binnen de limiet. Lokaal 3 gevallen goed. Embellishment-limiet over andere slots: niet gebouwd. Rob testte vanavond ook: paneel brez/lust ✅,
 raid-kaart Map ✅ (TESTLIJST).
 
 ## 🔨 30 sep — paneel battle res & Bloodlust gebouwd (Rob: "werk die maar uit" → koos "MH-versie mét uitleg")
