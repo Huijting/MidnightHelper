@@ -33,6 +33,8 @@ local _, ns = ...
 	           had on; its tooltip says Unique-Equipped. Key "i<itemID>" for a plain Unique-Equipped item,
 	           "c<category>" for "Unique-Equipped: <category> (n)". Rings and trinkets only: a category
 	           that spans other slots (embellishments) is not handled.
+	  effect   14th field, rings and trinkets only (30 Sep 2026): "e" when the tooltip has a Use:, Equip:
+	           or proc line. The site cannot score an effect, so it never advises swapping such an item.
 
 	Bag items you cannot use are left out (red-team review, 28 Sep 2026: the first version summed all
 	three primaries and never looked at armour type, so a Protection Paladin could be told to wear an
@@ -185,23 +187,37 @@ local function Hands(slot, link)
 	return "|1"
 end
 
---- The "unique" field for a ring or trinket line ("|<hands>|<key>:<max>"), empty for other slots.
+local function StartsWith(text, global)
+	local tag = rawget(_G, global)
+	return type(tag) == "string" and tag ~= "" and text:sub(1, #tag) == tag
+end
+
+--- The "unique" and "effect" fields for a ring or trinket line, empty for other slots:
+--- "||<key>:<max>" for Unique-Equipped, then "|e" when the item has a Use:/Equip:/proc effect.
 --- The tooltip is the source Pawn and AskMrRobot read (`ITEM_UNIQUE_EQUIPPABLE`, localised by the
 --- game, so it matches every client language). `C_Item.GetItemUniqueness` is Zygor's route and only
---- the fallback. VERIFY: neither is measured in MH yet.
-local function Unique(slot, link)
+--- the fallback. MEASURED 30 Sep 2026 on Rob's Twelveinchy: every ring and trinket came back i<id>:1.
+--- Effects (30 Sep 2026): Rob's Lost Idol of the Hash'ey carries no stats at all, its power is its
+--- effect, so the site scored it 0 and told him to swap it for a 272 with 101 Strength. The trigger
+--- prefixes are the game's own strings; Zygor (Item-ItemScore.lua:414-416) reads the same three.
+--- VERIFY: the effect flag is not measured yet.
+local function Extras(slot, link)
 	if slot ~= "finger" and slot ~= "trinket" then
 		return ""
 	end
 	local tag = rawget(_G, "ITEM_UNIQUE_EQUIPPABLE")
 	local id = tonumber(link:match("item:(%d+)"))
-	local key, max
-	if type(tag) == "string" and tag ~= "" and C_TooltipInfo and C_TooltipInfo.GetHyperlink then
+	local key, max, effect
+	if C_TooltipInfo and C_TooltipInfo.GetHyperlink then
 		local ok, data = pcall(C_TooltipInfo.GetHyperlink, link)
 		local lines = ok and type(data) == "table" and data.lines
 		for _, line in ipairs(type(lines) == "table" and lines or {}) do
 			local text = line.leftText
-			if ns.CanAccessText(text) and text:sub(1, #tag) == tag then
+			if ns.CanAccessText(text) and (StartsWith(text, "ITEM_SPELL_TRIGGER_ONUSE")
+				or StartsWith(text, "ITEM_SPELL_TRIGGER_ONEQUIP") or StartsWith(text, "ITEM_SPELL_TRIGGER_ONPROC")) then
+				effect = true
+			end
+			if not key and type(tag) == "string" and tag ~= "" and ns.CanAccessText(text) and text:sub(1, #tag) == tag then
 				local rest = text:sub(#tag + 1)
 				if rest == "" then
 					key, max = id and ("i" .. id), 1
@@ -212,7 +228,6 @@ local function Unique(slot, link)
 						key, max = "c" .. (cat:gsub("[|:]", "")), tonumber(n)
 					end
 				end
-				break
 			end
 		end
 	end
@@ -222,10 +237,14 @@ local function Unique(slot, link)
 			key, max = "f" .. fam, (type(n) == "number" and not ns.IsSecretValue(n) and n > 0) and n or 1
 		end
 	end
-	if not key then
-		return ""
+	local uniq = key and ("%s:%d"):format(key, max or 1) or ""
+	if effect then
+		return "||" .. uniq .. "|e"
 	end
-	return ("||%s:%d"):format(key, max or 1)
+	if uniq ~= "" then
+		return "||" .. uniq
+	end
+	return ""
 end
 
 --- One line, or nil plus "pending" when the client has not cached the item yet, or nil plus
@@ -251,7 +270,7 @@ local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	end
 	return ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d%s%s"):format(
 		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers,
-		Hands(slot, link), Unique(slot, link))
+		Hands(slot, link), Extras(slot, link))
 end
 
 local function Link(ok, v)
@@ -285,7 +304,7 @@ function ns.BuildGearExport()
 	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s"):format(
 		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
 		primary and primary.name or "?")
-	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique (rings, trinkets)"
+	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect (rings, trinkets)"
 
 	local function Add(where, slot, link)
 		-- Only bag items are filtered: what you wear is written whatever it is.

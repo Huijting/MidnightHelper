@@ -113,6 +113,11 @@ zet ze in een concept dat je eerst ziet voordat het online gaat.
       (`i<itemID>:1` of `c<categorie>:<n>`, uit de tooltip), site kiest nooit meer dan toegestaan.
 - [x] ✅ (Rob, 30 sep, Twelveinchy-export) GEMETEN: tooltip-route werkt — Ouroboric Signet `||i272150:1`, alle 4
       gedragen ringen/trinkets en de tas-ringen/trinkets dragen een `i…:1`; wapen en schild eindigen op `|1`.
+- [x] ✅ (Rob, 30 sep, Twelveinchy geplakt) staf/ringen goed, maar trinket-advies fout: Lost Idol (295, geen stats,
+      alleen effect) → Keepsake 272 (+101 Str). Gerepareerd: export veld 14 `e` (Use:/Equip:/proc in de tooltip), en
+      de site wisselt een effect-trinket nooit en stelt er geen voor; trinket zonder één stat = effect, ook in oude exports.
+- [ ] ⏳ `/reload`, `/mh export` → Lost Idol eindigt op `||i251783:1|e` (en Effigy ook op `|e` als hij een effect heeft).
+      Plakken → Trinket-regels *Keep* met *"Its effect can't be scored here…"*, geen wissel naar de Keepsake.
 - [ ] ⏳ (plakken nog te doen) `/reload`, `/mh export` → de Ouroboric Signet-regels eindigen op `||i<getal>:1`; ringen/trinkets zonder
       Unique-Equipped eindigen gewoon op het 11e getal. Plakken → nooit twee dezelfde unieke ring/trinket.
       Staat er bij de Signet géén `i…:1`, dan leest MH de tooltip niet — zeg het.

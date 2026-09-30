@@ -12,7 +12,11 @@ kiest de beste twee binnen de limiet. Lokaal 3 gevallen goed. Embellishment-limi
 ✅ GEMETEN (Twelveinchy-export): tooltip-route geeft `i<itemID>:1` op elke ring/trinket, wapens `|1`.
 Paneel brez/lust kreeg daarna "je eigen knop" (Rob: "ook de knop erbij"): eigen brez-/lust-spreuk (IsPlayerSpell /
 C_SpellBook.IsSpellKnown / IsSpellKnown pet) + toets via `ns.LiveKeyForSpell`, hergebruikt `PLAYCARD_KEY_FMT/_NONE`
-(al in 7 talen); bars/bindings-events maken de LiveKeys-cache ongeldig. Nog niet in het spel gezien. Rob testte vanavond ook: paneel brez/lust ✅,
+(al in 7 talen); bars/bindings-events maken de LiveKeys-cache ongeldig. ✅ Rob: "toets klopt".
+Bubble Cancel ontbrak bij Prot (alleen Holy/Ret) → toegevoegd. Trinket-effecten: Lost Idol (0 stats) werd weggewisseld
+voor een 272 met 101 Str → export veld 14 `e` (tooltip ITEM_SPELL_TRIGGER_ONUSE/ONEQUIP/ONPROC, Zygor-route; VERIFY),
+site: gedragen effect-item blijft (met uitleg "a sim can"), effect-item uit de tas nooit voorgesteld; trinket zonder
+stats = effect ook zonder veld. AskMrRobot rekent niet in de addon (export → hun server; GEMETEN in hun enUS.lua). Rob testte vanavond ook: paneel brez/lust ✅,
 raid-kaart Map ✅ (TESTLIJST).
 
 ## 🔨 30 sep — paneel battle res & Bloodlust gebouwd (Rob: "werk die maar uit" → koos "MH-versie mét uitleg")
