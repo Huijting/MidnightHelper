@@ -15,8 +15,13 @@ de API-wachter laat elke ochtend ook github.com/simulationcraft/simc-addon/relea
 🔴 **`_probe.py` kan de opdracht van een ANDERE sessie draaien** (GEMETEN 30 sep): hij pakt het nieuwste
 `probe_job.txt` over álle scratchpads (`_probe.py:44-57`), en `scratch <naam>` pakt ook het nieuwste script met die
 naam over alle sessies (`:95-100`). Mijn `site_i18n.py extract` draaide in de Comfy-sessie, hun `strook_zoom.py` bij mij
-— elk één keer, bevestigd door die sessie. Tot er een fix is: lees altijd de `job:`-regel bovenaan de uitvoer.
-Fix nog niet gedaan (gedeeld gereedschap; Rob beslist).
+— elk één keer, bevestigd door die sessie. ✅ GEREPAREERD (Rob: "Kan je dat zonder mij ??"): Claude Code zet
+`CLAUDE_CODE_SESSION_ID` (GEMETEN = naam van de scratchpad-map). `_probe.py` pakt nu alleen de job uit de eigen map
+(geen job = geen job, nooit die van een ander), `scratch` zoekt eerst in de eigen map; `git_stage.py` leest alleen de
+eigen `stage.txt`. Zonder die map (cloud, oude client): oud gedrag + een melding. GEMETEN: eigen job draait; zonder job
+draait de standaardprobe en niet andermans job.
+✅ API-wachter (`trig_01FLuvPV5NAb2UEN4e1fboTS`) kijkt sinds 30 sep ook naar simc-addon-releases en toetst die aan
+`SimcExport.lua` (blok "EXTRA BRON SINDS 30 SEP 2026" in de prompt; rest ongewijzigd). Eerste run 1 okt 05:35.
 
 ## 🧭 30 sep laat — Raidbots-route uitgewerkt, wacht op Robs keuze (A/B/C)
 

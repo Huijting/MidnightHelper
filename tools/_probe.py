@@ -40,17 +40,39 @@ except Exception:
 # `scratch filelog.py Modules/X.lua` or `run check_drift --mark KEY`. The file is renamed to
 # probe_job.done.txt once read, so a stale job can never run twice. No job file -> the old
 # SavedVariables probe below, unchanged.
+#
+# 🔴 30 Sep 2026: "the newest job on disk" RAN ANOTHER SESSION'S JOB. Two sessions wrote a job
+# within the same minute; this session ran the Comfy session's image script and that session ran
+# this one's site build (each once, confirmed by the other session). Claude Code puts the calling
+# session's id in CLAUDE_CODE_SESSION_ID, and the scratchpad folder carries that same id
+# (measured: bce6ed51-... both). So when that folder exists, ONLY that folder counts -- no job
+# there means no job, never someone else's. The old newest-anywhere search stays only for callers
+# without that folder (cloud routines, older clients), and it says so.
+_SCRATCH_ROOT = os.path.join(os.path.expanduser("~"), "AppData", "Local", "Temp", "claude",
+                             "E--World-of-Warcraft--retail--Interface-AddOns")
+
+
+def _own_scratchpad():
+    sid = os.environ.get("CLAUDE_CODE_SESSION_ID") or ""
+    own = os.path.join(_SCRATCH_ROOT, sid, "scratchpad") if sid else ""
+    return own if own and os.path.isdir(own) else None
+
+
 if len(sys.argv) == 1:
     import glob as _gj
     import shlex as _sh
-    _roots = [os.environ.get("CLAUDE_SCRATCHPAD") or ""]
-    _roots.append(os.path.join(os.path.expanduser("~"), "AppData", "Local", "Temp", "claude",
-                               "E--World-of-Warcraft--retail--Interface-AddOns"))
+    _own = _own_scratchpad()
     _jobs = []
-    for _r in _roots:
-        if _r:
-            _jobs += _gj.glob(os.path.join(_r, "probe_job.txt"))
-            _jobs += _gj.glob(os.path.join(_r, "*", "scratchpad", "probe_job.txt"))
+    if _own:
+        _p = os.path.join(_own, "probe_job.txt")
+        _jobs = [_p] if os.path.isfile(_p) else []
+    else:
+        print("note: no scratchpad for this session id; taking the newest job of any session")
+        _roots = [os.environ.get("CLAUDE_SCRATCHPAD") or "", _SCRATCH_ROOT]
+        for _r in _roots:
+            if _r:
+                _jobs += _gj.glob(os.path.join(_r, "probe_job.txt"))
+                _jobs += _gj.glob(os.path.join(_r, "*", "scratchpad", "probe_job.txt"))
     if _jobs:
         _job = max(_jobs, key=os.path.getmtime)
         _line = io.open(_job, encoding="utf-8").read().strip()
@@ -80,10 +102,10 @@ if len(sys.argv) > 2 and sys.argv[1] == "scratch":
     if not name.endswith(".py"):
         name += ".py"
     base = os.environ.get("CLAUDE_SCRATCHPAD")
-    roots = [base] if base else []
-    roots.append(os.path.join(
-        os.path.expanduser("~"), "AppData", "Local", "Temp", "claude",
-        "E--World-of-Warcraft--retail--Interface-AddOns"))
+    # This session's own scratchpad first (30 Sep 2026: a same-named script of another session
+    # would otherwise win on age alone); other sessions' scripts stay reachable after it.
+    roots = [r for r in (_own_scratchpad(), base) if r]
+    roots.append(_SCRATCH_ROOT)
     target = None
     for root in roots:
         if not root:

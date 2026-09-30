@@ -61,6 +61,14 @@ def resolve_list():
         print("⚠️  ignoring the argument %r: this tool must stay argument-free or the\n"
               "    allowlist stops matching and every run prompts. Using the newest\n"
               "    stage.txt on disk instead." % sys.argv[1])
+    # 🔴 30 Sep 2026: "newest on disk" can be ANOTHER SESSION'S list (_probe.py ran another
+    # session's job that day by the same rule). Claude Code names the caller in
+    # CLAUDE_CODE_SESSION_ID, which is also its scratchpad folder. When that folder exists, only
+    # its stage.txt counts: none there means stop, never stage someone else's files.
+    sid = os.environ.get("CLAUDE_CODE_SESSION_ID") or ""
+    own = os.path.join(SCRATCH_ROOT, sid, "scratchpad") if sid else ""
+    if own and os.path.isdir(own):
+        return os.path.join(own, "stage.txt"), "this session (%s)" % sid[:8]
     env = os.environ.get("CLAUDE_SCRATCHPAD")
     if env:
         p = os.path.join(env, "stage.txt")
