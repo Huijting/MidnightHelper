@@ -4,7 +4,9 @@
 
 Aanleiding: DDingUI (3 addons van DDing op CF, All Rights Reserved → alleen het idee). GEMETEN in Robs
 `EllesmereUI.lua`-SV: EllesmereUIQoL heeft beide al (battleRes aan, MPLUS_AND_RAID; bloodlust visibility NEVER; drie
-profielen, welk actief is niet vastgesteld). Rob koos toch een MH-versie: die voegt *wie kan het* + uitleg toe en
+profielen, welk actief is niet vastgesteld). ⚠️ Rob, later die dag: *"op dit moment gebruik ik niet Ellesmere UI"* —
+het SV-bestand bewees dus alleen dat hij het óóit had. De code kijkt naar de runtime-getter, niet naar het bestand,
+dus zonder geladen EllesmereUIQoL staan alle MH-regels er. Rob koos toch een MH-versie: die voegt *wie kan het* + uitleg toe en
 laat per regel het veld aan EllesmereUI als dát icoon aan staat (`_EUI_BattleRes_DB`-getter, alleen lezen).
 - Nieuw `Modules/GroupRezLust.lua` (TOC na DurabilityWarn). Toont in Mythic-dungeon (diff 23), key (8 of
   `IsChallengeModeActive`) en raid, alleen in een groep. Brez = `C_Spell.GetSpellCharges(20484)` in key/raidbaas;

@@ -32,8 +32,8 @@ er is niets weggegooid.
       *"Battle res: 1 of 1 left"* (of meer), en na een brez *"… next in m:ss"*. Kreeg de groep Bloodlust → *"used -
       ready again in 9:5x"* en dat telt af. Na afloop `/mh lust` → onderaan regels `brez combat:key …` en
       `lust combat:seen …` → `/reload` zodat ik ze uit het bestand kan lezen. Dáármee zijn de twee reads GEMETEN.
-      ⚠️ Jouw EllesmereUI toont battle res al (aan in M+ en raid): dan ontbreekt onze ladingen-regel, dat is de bedoeling.
-      Wie het wil zien: `/mh lust` zegt *EllesmereUI shows: battle res yes*.
+      Rob gebruikt EllesmereUI nu níét (30 sep) → `/mh lust` hoort *EllesmereUI shows: battle res no, Bloodlust no*
+      te zeggen en alle regels staan er. Zegt hij "yes", dan is EllesmereUIQoL tóch geladen — meld het.
 - [ ] Iemand in de groep is Druid/DK/Warlock/Paladin → staat bij *Can revive*; Shaman/Mage/Evoker/Hunter → bij
       *Can cast Bloodlust* (Hunter met *(with the right pet)*).
 
