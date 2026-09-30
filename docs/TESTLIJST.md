@@ -26,6 +26,11 @@ er is niets weggegooid.
 - [x] ✅ (Rob, 30 sep, screenshot op Shaman "Earthshammy": "deze werkt") `/mh lust test` → paneel met *"Battle res:
       shared charges only in a Mythic+ key…"*, geel *"Nobody in your group can revive in combat."*, groen
       *"Bloodlust: ready"*, *"Can cast Bloodlust: Earthshammy (Shaman)"* in klassekleur.
+- [x] ✅ (Rob, 30 sep, Twelveinchy) *"Can revive in combat: Twelveinchy (Paladin)"*.
+- [ ] 🆕 (Rob, 30 sep: "ook de knop erbij") `/reload`, `/mh lust test` op Twelveinchy → onder *Can revive* een regel
+      *"Intercession: Your key: <toets>"* (of oranje *"Not on a key on your action bars yet."*). Klopt de toets? Sleep
+      Intercession naar een andere knop terwijl het paneel open is → de toets verandert mee. Op de Shaman: dezelfde regel
+      onder *Can cast Bloodlust* met Bloodlust/Heroism.
 - [ ] Beweeg erover → uitleg over beide. Slepen → het blijft daar staan na `/reload`.
 - [ ] Instellingen → Dungeon-hulp → **Paneel battle res & Bloodlust** uit → `/mh lust` zegt *setting off*.
 - [ ] **In een M+-key of raid, in een groep** (hier zit de echte meting): het paneel staat er vanzelf. In de key:
@@ -106,7 +111,9 @@ zet ze in een concept dat je eerst ziet voordat het online gaat.
 - [x] ✅ (Rob, 30 sep, 2e export) staf-fix: geen schild meer, *Lightgrasp Worldroot — Keep*, off hand-regel weg.
 - [x] ✅ (Rob, 30 sep) de Ouroboric Signet-tooltip zegt **Unique-Equipped** → gebouwd: export veld 13 `unique`
       (`i<itemID>:1` of `c<categorie>:<n>`, uit de tooltip), site kiest nooit meer dan toegestaan.
-- [ ] ⏳ `/reload`, `/mh export` → de Ouroboric Signet-regels eindigen op `||i<getal>:1`; ringen/trinkets zonder
+- [x] ✅ (Rob, 30 sep, Twelveinchy-export) GEMETEN: tooltip-route werkt — Ouroboric Signet `||i272150:1`, alle 4
+      gedragen ringen/trinkets en de tas-ringen/trinkets dragen een `i…:1`; wapen en schild eindigen op `|1`.
+- [ ] ⏳ (plakken nog te doen) `/reload`, `/mh export` → de Ouroboric Signet-regels eindigen op `||i<getal>:1`; ringen/trinkets zonder
       Unique-Equipped eindigen gewoon op het 11e getal. Plakken → nooit twee dezelfde unieke ring/trinket.
       Staat er bij de Signet géén `i…:1`, dan leest MH de tooltip niet — zeg het.
 - [x] ✅ (Rob, 29 sep) Regel 2 eindigt nu op `;primary=Strength` (Prot Paladin). Staat er `primary=?`, dan kon MH

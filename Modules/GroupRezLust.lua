@@ -56,6 +56,12 @@ local BREZ_CLASSES = { DRUID = true, DEATHKNIGHT = true, WARLOCK = true, PALADIN
 --- which we cannot see on somebody else, so the panel says so instead of promising it.
 local LUST_CLASSES = { SHAMAN = true, MAGE = true, EVOKER = true, HUNTER = "pet" }
 
+--- Your own spell for each, tried in order; the first one you know is shown with its key
+--- (Rob, 30 Sep: "zodat ik niet eerst moet zoeken bij mijn spells"). Intercession is 461622 in
+--- 12.0 and was 391054 in Dragonflight (`KeybindingData.lua`); Primal Rage is the pet's spell.
+local MY_BREZ = { 20484, 61999, 20707, 461622, 391054 }
+local MY_LUST = { 2825, 32182, 80353, 390386, 272678, 264667 }
+
 local MAX_NAMES = 3
 local PANEL_W = 300
 local PAD = 10
@@ -397,6 +403,45 @@ local function WhoCan(classes)
 	return s
 end
 
+local function Known(id)
+	for _, fn in ipairs({ rawget(_G, "IsPlayerSpell"), C_SpellBook and C_SpellBook.IsSpellKnown }) do
+		if type(fn) == "function" then
+			local ok, v = pcall(fn, id)
+			if ok and v == true then
+				return true
+			end
+		end
+	end
+	local isk = rawget(_G, "IsSpellKnown")
+	if type(isk) == "function" then
+		local ok, v = pcall(isk, id, true) -- true = the pet's spellbook (Primal Rage)
+		if ok and v == true then
+			return true
+		end
+	end
+	return false
+end
+
+--- "Intercession: Your key: 5" for the spell of this kind you know, or nil when you have none.
+--- The key comes from LiveKeys, the same reader the How you play window uses: the key it is on
+--- right now on the standard Blizzard bars, never our keybind scheme.
+local function MyButton(ids)
+	for _, id in ipairs(ids) do
+		if Known(id) then
+			local name
+			if C_Spell and C_Spell.GetSpellName then
+				local ok, n = pcall(C_Spell.GetSpellName, id)
+				name = ok and Readable(n) and n or nil
+			end
+			local key = ns.LiveKeyForSpell and ns.LiveKeyForSpell(id)
+			local where = key and ns:L("PLAYCARD_KEY_FMT"):format("|cffffffff" .. key .. "|r")
+				or ("|cffff9900" .. ns:L("PLAYCARD_KEY_NONE") .. "|r")
+			return ("   |cffffd100%s|r: %s"):format(name or ("spell " .. id), where)
+		end
+	end
+	return nil
+end
+
 local function Clock(seconds)
 	seconds = math.max(0, math.floor(seconds + 0.5))
 	return ("%d:%02d"):format(math.floor(seconds / 60), seconds % 60)
@@ -446,6 +491,7 @@ local function BuildLines(logIt)
 	local brezWho = WhoCan(BREZ_CLASSES)
 	lines[#lines + 1] = brezWho and ns:L("REZLUST_BREZ_WHO_FMT"):format(brezWho)
 		or ("|cffff9900" .. ns:L("REZLUST_BREZ_WHO_NONE") .. "|r")
+	lines[#lines + 1] = MyButton(MY_BREZ)
 
 	lines[#lines + 1] = " "
 	if not EllesmereShows("bloodlust") then
@@ -461,6 +507,7 @@ local function BuildLines(logIt)
 	local lustWho = WhoCan(LUST_CLASSES)
 	lines[#lines + 1] = lustWho and ns:L("REZLUST_LUST_WHO_FMT"):format(lustWho)
 		or ("|cffff9900" .. ns:L("REZLUST_LUST_WHO_NONE") .. "|r")
+	lines[#lines + 1] = MyButton(MY_LUST)
 	return table.concat(lines, "\n")
 end
 
@@ -616,7 +663,18 @@ ev:RegisterEvent("CHALLENGE_MODE_COMPLETED")
 ev:RegisterEvent("CHALLENGE_MODE_RESET")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterUnitEvent("UNIT_AURA", "player")
+ev:RegisterEvent("ACTIONBAR_SLOT_CHANGED")
+ev:RegisterEvent("UPDATE_BINDINGS")
 ev:SetScript("OnEvent", function(_, event)
+	if event == "ACTIONBAR_SLOT_CHANGED" or event == "UPDATE_BINDINGS" then
+		-- A spell dragged to another button or a key rebound: read the bars again.
+		if ns.LiveKeysInvalidate then
+			ns.LiveKeysInvalidate()
+		end
+		if not (panel and panel:IsShown()) then
+			return
+		end
+	end
 	if event == "ENCOUNTER_START" then
 		encounterActive = true
 	elseif event == "ENCOUNTER_END" then

@@ -8,7 +8,11 @@ wand = 1 — VERIFY); site-commit "Pick weapons as a pair" (2H tegen beste 1H + 
 veld of met Titan's Grip de oude keuze). Lokaal getest met 4 gevallen. ✅ Rob bevestigde met een nieuwe export (staf Keep, schild weg).
 Daarna Unique-Equipped (Rob: tooltip zegt het): export veld 13 `unique` voor ringen/trinkets uit de tooltip
 (`ITEM_UNIQUE_EQUIPPABLE`, Pawn/AMR-route; `C_Item.GetItemUniqueness` = Zygor-route als terugval; beide VERIFY), site
-kiest de beste twee binnen de limiet. Lokaal 3 gevallen goed. Embellishment-limiet over andere slots: niet gebouwd. Rob testte vanavond ook: paneel brez/lust ✅,
+kiest de beste twee binnen de limiet. Lokaal 3 gevallen goed. Embellishment-limiet over andere slots: niet gebouwd.
+✅ GEMETEN (Twelveinchy-export): tooltip-route geeft `i<itemID>:1` op elke ring/trinket, wapens `|1`.
+Paneel brez/lust kreeg daarna "je eigen knop" (Rob: "ook de knop erbij"): eigen brez-/lust-spreuk (IsPlayerSpell /
+C_SpellBook.IsSpellKnown / IsSpellKnown pet) + toets via `ns.LiveKeyForSpell`, hergebruikt `PLAYCARD_KEY_FMT/_NONE`
+(al in 7 talen); bars/bindings-events maken de LiveKeys-cache ongeldig. Nog niet in het spel gezien. Rob testte vanavond ook: paneel brez/lust ✅,
 raid-kaart Map ✅ (TESTLIJST).
 
 ## 🔨 30 sep — paneel battle res & Bloodlust gebouwd (Rob: "werk die maar uit" → koos "MH-versie mét uitleg")
