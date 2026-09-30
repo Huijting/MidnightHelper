@@ -16,7 +16,7 @@ gelijkgetrokken.
 16px/1.6; twee breedtes — 1080 (home, Armory) en 720 (Raidbots, Feedback, Privacy); `.next`-kaart in shared.css onderaan
 Armory → Raidbots → Feedback → `/#features`, 6 zinnen zelf vertaald (niet door moedertaalspreker nagekeken); de 6
 verouderde "fan-made"-vertalingen weg via merge, build `problems: 0`. GEMETEN in lokale preview (nl/raidbots: vertaald,
-25.6px regelhoogte, 720 breed). Live-controle op midnighthelper.com nog niet gedaan.
+25.6px regelhoogte, 720 breed) én live via curl (`/nl/raidbots/`: `?v=20260930b` + "Volgende"-kaart).
 Ook 30 sep: Raidbots-stappen stonden één woord per regel (2e `<p>` in de 40px-kolom) → `grid-column:2`, live.
 
 ## 📝 30 sep avond — Raidbots-uitleg op drie plekken + knop (Rob: "ja, maak die drie maar … testfase, eigen risico")
