@@ -1482,3 +1482,53 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   OR September 29 2026 Delves Professions Quests Dungeons Raids Items" en "WoW Midnight blue post
   Delves OR Professions OR Quests update news September 29 2026" (nieuwste treffer blijft 24 sep).
   Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-09-30] 🟢 **Eerste nieuwe hotfix-sectie sinds 24 sep — "September 29, 2026" — één relevante
+  wijziging, geen tegenspraak gevonden.** GEMETEN: `news.blizzard.com`'s doorlopende hotfix-artikel
+  rechtstreeks gelezen via Exa `web_fetch_exa` met `?nocache=20260930a` — **volledige artikeltekst
+  zelf gelezen**, niet via een samenvatting. De nieuwe sectie "September 29, 2026" bevat: Dungeons
+  and Raids (Ula'tek), Events (Brewfest) en The Burning Crusade Classic (ander spel, niet retail —
+  genegeerd). Geen Delves-, Professions-, Quests- of Items-sectie op 29 sep (leeg, zoals gebruikelijk
+  wanneer Blizzard daar niets heeft). De onderliggende secties 24/23/22 sep in hetzelfde artikel zijn
+  byte-voor-byte gelijk aan wat al volledig gelogd staat op [2026-09-24]/[2026-09-25] (inclusief de
+  Valeera-faction-change-Delve-fix van 23 sep) — niet opnieuw doorgenomen.
+
+  📌 **Positieve controle, repo-brede scope, zelfde run:** `grep -i "Mother's Wrath\|1298367"` vindt
+  de spell-ID meteen terug in `Locales/RaidTips.lua:98` (zeven taalvarianten) — het patroon werkt op
+  deze schaal, dus de 0-treffers hieronder op Brewfest zijn gemeten afwezigheid.
+
+  **Bevindingen:**
+  - **Dungeons and Raids — Ula'tek's Mother's Wrath: targeting-bugfix.** *"Fixed an issue with
+    Ula'tek's Mother's Wrath where it can be cast at a target that isn't the current target if a
+    non-target has higher threat but hasn't passed the threat threshold to force a target change."*
+    Al gelogd als feit door de data-wachter van vandaag (`docs/PTR_12.0.7_DATA.md`, spell 1298367 —
+    "al getrackt, levert geen nieuwe ID/drempel") — dat is zijn lane. Voor mijn lane: onze
+    `RAID_BOSS_ULATEK_TANK` (`Locales/RaidTips.lua:98`, zeven taalvarianten) zegt "{SPELL:1298367}
+    knocks you back and slows you ({SPELL:1300938}): get back into melee at once, or the raid takes
+    the bites" — een generieke instructie voor wie geraakt wordt, geen claim over wélke eenheid
+    Mother's Wrath onder threat-omstandigheden target. De bugfix verandert wie geraakt wordt, niet
+    wat het effect doet, dus spreekt onze tekst niet tegen. MEASURED (spell-ID rechtstreeks in
+    `RaidTips.lua:98` teruggevonden, zie positieve controle hierboven). **[RAAKT ONS NIET]**
+  - **Events — Brewfest: loot van Coren Direbrew krijgt nu het vereiste level van de ontvanger.**
+    0 treffers op "Brewfest"/"Direbrew"/"Grim Batol" repo-breed (case-insensitive) — we noemen
+    Brewfest nergens, dus niets om tegen te spreken. MEASURED. **[RAAKT ONS NIET]**
+
+  ⚠️ **Terzijde, niet mijn lane maar ter waarschuwing:** dezelfde dag verscheen ook een aparte
+  nieuwsanalyse (archynewsy.com, gepubliceerd 29 sep) met concrete 12.1.5-launchdetails (Kith'ix-
+  raid, Kindo'jan-labyrinth, Aqir-invasions, Ascendant-Venomstones-questlijn, crestcap-verval week
+  van 21 okt). Dat is nog niet geshipte content — er valt op dit moment niets tegen te spreken — en
+  de releasedatum zelf is vandaag al door de PTR-wachter gelogd (`docs/PTR_12.1_WATCH.md`, "12.1.5
+  releasedatum aangekondigd (13/14 okt)"), dus niet hier herhaald als feit. Puur ter herinnering:
+  zodra 12.1.5 live gaat is dit precies het soort content-tegenspraak dat deze watch moet vangen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20260930a (volledig gelezen via
+  Exa) · `web_search_exa` "World of Warcraft Midnight hotfixes September 30 2026 Delves Professions
+  Quests Dungeons Raids Items" (nieuwste inhoudelijke sectie blijft 29 sep; enige nieuwere treffer is
+  de losse 12.1.5-aankondiging, hierboven als terzijde genoemd). Codebase-kant: `grep`
+  case-insensitive repo-breed op "Mother's Wrath", "1298367", "Brewfest", "Direbrew", "Grim Batol",
+  plus gerichte read van `Locales/RaidTips.lua:98` — allemaal vandaag gelezen. **[RAAKT ONS NIET]**
+  op beide bevindingen. Vandaag is woensdag, dus de wekelijkse kaarten- en consumables-check
+  (alleen maandag) is overgeslagen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
+  beslist.
