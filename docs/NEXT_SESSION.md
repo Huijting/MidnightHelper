@@ -14,6 +14,11 @@ de zes gegenereerde gidspagina's op `huijting.github.io/MidnightHelper` (start, 
 gelinkt vanuit `CURSEFORGE_DESCRIPTION.md` "Read it before you install") verhuizen naar midnighthelper.com, zodat alles
 één site is. Eerst meten: hoe ze gegenereerd worden, wat de content-wachter ervan leest, en of oude links moeten blijven
 werken (doorverwijzing). Daarna plan voorleggen, pas bouwen na Robs ja.
+📌 **Ook voor 1 okt (Rob):** *"kunnen we een soort vraag stellen, wat de users juist gebruiken van de addon? ik heb namelijk
+geen idee wat mensen er van vinden"*. Randvoorwaarde: een addon kan niets naar buiten sturen, dus alleen wat spelers zelf
+invullen. Opties uitwerken (alle, met de as): korte vragenlijst op midnighthelper.com (bestaande feedback-API), eenmalige
+in-game uitnodiging ernaartoe (weg te klikken, nooit opnieuw), Discord-poll, CF-beschrijving/release notes met link. Privacy-
+pagina moet mee als er iets nieuws verzameld wordt. Plan voorleggen, pas bouwen na Robs ja.
 
 ## 🧭 30 sep laat — Armory vindbaar in de addon (Rob: "wat zien we in de addon over de armory … raidbots keuzes?" → "ja, bouw dat maar")
 
