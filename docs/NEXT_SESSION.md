@@ -4,10 +4,11 @@
 
 `.toc` 4.3.0; `Changelog.lua` + `CHANGELOG_430_1..6` (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.3.0.md` (byte-gelijk,
 GEMETEN); `CHANGELOG.md` Unreleased → 4.3.0; `CURSEFORGE_DESCRIPTION.md` kreeg de gear-knoppen (Armory/Raidbots) en het
-brez/Hero-paneel → **Rob plakt die op de CF-projectpagina.** Tag `v4.3.0` gepusht → packager. **Nog te doen na de upload:**
-(1) CF → Files → 4.3.0 → Changelog: opmaak goed? (2) site: `.tag.new` "Coming in 4.3.0" → "New in 4.3.0" (hero-fact, tegel
-Battle res and Hero, tools Armory + Raidbots); Armory-lede "(coming in the next Midnight Helper update)" weg en de knop
-*Quick advice: Armory website* noemen; `site_i18n.py extract` → vertalen → merge → build → push.
+brez/Hero-paneel → **Rob plakt die op de CF-projectpagina.** Tag `v4.3.0` gepusht → packager-run 36779532939 **success**
+(1m11s); GitHub Release v4.3.0 gepubliceerd met `MidnightHelper-v4.3.0.zip` (6,2 MB) → Discord-aankondiging volgt daaruit.
+✅ Site omgezet en live (GEMETEN via curl `/nl/`: 4× "Nieuw in 4.3.0", 0× "Komt"): "New in 4.3.0"-labels, Armory-lede noemt
+de knop (per taal het in-game label), build 0 problemen. **Open:** CF → Files → 4.3.0 → Changelog: opmaak goed? (Rob.)
+Eén release later (4.4.0) de "New in 4.3.0"-labels weer weg.
 
 ## 🧭 30 sep laat — Armory vindbaar in de addon (Rob: "wat zien we in de addon over de armory … raidbots keuzes?" → "ja, bouw dat maar")
 
