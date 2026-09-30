@@ -163,8 +163,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "hover_cancel",
 			name = "Hover Cancel",
-			descNl = "Zet Hover aan, of stopt het direct bij een tweede klik om snel te landen.",
-			descEn = "Toggle Hover on, or cancel it on a second press to land quickly.",
+			descNl = "Zet Hover aan, of stopt het direct bij een tweede klik om snel te landen. Gaat hij meteen weer uit? Zet Opties > Gameplay > Combat > Press and Hold Casting uit: bij vasthouden draait de macro twee keer.",
+			descEn = "Toggle Hover on, or cancel it on a second press to land quickly. Does it switch off again straight away? Turn off Options > Gameplay > Combat > Press and Hold Casting: holding the key runs the macro twice.",
 			macro = [=[#showtooltip Hover
 /cast Hover
 /cancelaura Hover]=],
@@ -240,8 +240,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "turtle_cancel",
 			name = "Turtle Cancel",
-			descNl = "Zet je schild aan en direct uit bij een tweede klik om weer te kunnen aanvalen.",
-			descEn = "Toggle your defensive on and off so you can attack again.",
+			descNl = "Zet je schild aan en direct uit bij een tweede klik om weer te kunnen aanvalen. Gaat hij meteen weer uit? Zet Opties > Gameplay > Combat > Press and Hold Casting uit: bij vasthouden draait de macro twee keer.",
+			descEn = "Toggle your defensive on and off so you can attack again. Does it switch off again straight away? Turn off Options > Gameplay > Combat > Press and Hold Casting: holding the key runs the macro twice.",
 			macro = [=[#showtooltip Aspect of the Turtle
 /cast Aspect of the Turtle
 /cancelaura Aspect of the Turtle]=],
@@ -346,8 +346,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "ice_block_cancel",
 			name = "Ice Block Cancel",
-			descNl = "Activeert Ice Block en heft het direct op bij de volgende klik.",
-			descEn = "Activates Ice Block and cancels it on the next press.",
+			descNl = "Activeert Ice Block en heft het direct op bij de volgende klik. Gaat hij meteen weer uit? Zet Opties > Gameplay > Combat > Press and Hold Casting uit: bij vasthouden draait de macro twee keer.",
+			descEn = "Activates Ice Block and cancels it on the next press. Does it switch off again straight away? Turn off Options > Gameplay > Combat > Press and Hold Casting: holding the key runs the macro twice.",
 			macro = [=[#showtooltip Ice Block
 /stopcasting
 /cast Ice Block
@@ -374,8 +374,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "ice_block_cancel",
 			name = "Ice Block Cancel",
-			descNl = "Activeert Ice Block en heft het direct op bij de volgende klik.",
-			descEn = "Activates Ice Block and cancels it on the next press.",
+			descNl = "Activeert Ice Block en heft het direct op bij de volgende klik. Gaat hij meteen weer uit? Zet Opties > Gameplay > Combat > Press and Hold Casting uit: bij vasthouden draait de macro twee keer.",
+			descEn = "Activates Ice Block and cancels it on the next press. Does it switch off again straight away? Turn off Options > Gameplay > Combat > Press and Hold Casting: holding the key runs the macro twice.",
 			macro = [=[#showtooltip Ice Block
 /stopcasting
 /cast Ice Block
@@ -394,8 +394,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "ice_block_cancel",
 			name = "Ice Block Cancel",
-			descNl = "Activeert Ice Block en heft het direct op bij de volgende klik.",
-			descEn = "Activates Ice Block and cancels it on the next press.",
+			descNl = "Activeert Ice Block en heft het direct op bij de volgende klik. Gaat hij meteen weer uit? Zet Opties > Gameplay > Combat > Press and Hold Casting uit: bij vasthouden draait de macro twee keer.",
+			descEn = "Activates Ice Block and cancels it on the next press. Does it switch off again straight away? Turn off Options > Gameplay > Combat > Press and Hold Casting: holding the key runs the macro twice.",
 			macro = [=[#showtooltip Ice Block
 /stopcasting
 /cast Ice Block
@@ -464,8 +464,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "bubble_cancel",
 			name = "Bubble Cancel",
-			descNl = "Zet Divine Shield direct aan en uit om mechanics te skippen.",
-			descEn = "Toggle Divine Shield on and off to skip mechanics.",
+			descNl = "Zet Divine Shield direct aan en uit om mechanics te skippen. Gaat hij meteen weer uit? Zet Opties > Gameplay > Combat > Press and Hold Casting uit: bij vasthouden draait de macro twee keer.",
+			descEn = "Toggle Divine Shield on and off to skip mechanics. Does it switch off again straight away? Turn off Options > Gameplay > Combat > Press and Hold Casting: holding the key runs the macro twice.",
 			macro = [=[#showtooltip Divine Shield
 /cast Divine Shield
 /cancelaura Divine Shield]=],
@@ -493,8 +493,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "bubble_cancel",
 			name = "Bubble Cancel",
-			descNl = "Zet Divine Shield aan, en druk nog een keer om hem weg te halen zodra het gevaar voorbij is.",
-			descEn = "Turn Divine Shield on, and press again to drop it once the danger has passed.",
+			descNl = "Zet Divine Shield aan, en druk nog een keer om hem weg te halen zodra het gevaar voorbij is. Gaat hij meteen weer uit? Zet Opties > Gameplay > Combat > Press and Hold Casting uit: bij vasthouden draait de macro twee keer.",
+			descEn = "Turn Divine Shield on, and press again to drop it once the danger has passed. Does it switch off again straight away? Turn off Options > Gameplay > Combat > Press and Hold Casting: holding the key runs the macro twice.",
 			macro = [=[#showtooltip Divine Shield
 /cast Divine Shield
 /cancelaura Divine Shield]=],
@@ -512,8 +512,8 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "bubble_cancel",
 			name = "Bubble Cancel",
-			descNl = "Zet Divine Shield direct aan en uit om door te kunnen dps'en.",
-			descEn = "Toggle Divine Shield on and off so you can keep DPSing.",
+			descNl = "Zet Divine Shield direct aan en uit om door te kunnen dps'en. Gaat hij meteen weer uit? Zet Opties > Gameplay > Combat > Press and Hold Casting uit: bij vasthouden draait de macro twee keer.",
+			descEn = "Toggle Divine Shield on and off so you can keep DPSing. Does it switch off again straight away? Turn off Options > Gameplay > Combat > Press and Hold Casting: holding the key runs the macro twice.",
 			macro = [=[#showtooltip Divine Shield
 /cast Divine Shield
 /cancelaura Divine Shield]=],

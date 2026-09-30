@@ -26,6 +26,10 @@ er is niets weggegooid.
 - [ ] `/reload`, `/mh raidbots` → venster *"For Raidbots Top Gear"*, chat *"Raidbots text ready, with N item(s)…"*.
       Bovenaan `paladin="Twelveinchy"`, `spec=protection`, een regel `talents=…` (lange code), dan per slot
       `head=,id=…,bonus_id=…`, onder *### Gear from Bags* de tas-items met `# ` ervoor, onderaan `# Checksum: …`.
+- [x] ✅ (Rob, 30 sep avond, screenshot) Raidbots leest het: Twelveinchy, 90 Blood Elf Protection Paladin, Khadgar (EU),
+      talenten, gear-iconen, ilvl 282, set *Radiance of the Consecrated Flame*, Omnium Folio-sectie. Labels: *Unverified
+      Input* (tekst komt niet van de SimC-addon zelf — we doen bewust niet alsof) en *Tank* (Raidbots' eigen tank-waarschuwing).
+      ⏳ Nog: tas-items aanklikken → Find Top Gear (eerste poging: "requires at least two combinations" = niets aangeklikt).
 - [ ] Ctrl+C → raidbots.com/simbot/topgear → plakken. **Dé test:** leest Raidbots hem zonder foutmelding? Klopt je
       karakter (naam, spec, talenten, item levels)? Staan je tas-items als keuze klaar? Screenshot, of plak de
       foutmelding van Raidbots letterlijk.
@@ -315,6 +319,9 @@ Dance). Geen reactie van Blizzard. Of een buff weg te klikken is, beslist de ser
 MH levert acht van zulke macro's (`Modules/TeamMacrosData.lua`): Bubble Cancel (Paladin, 2×), Ice Block
 Cancel (Mage, 3×), Turtle Cancel + Aimed Shot (Hunter), Hover Cancel (Evoker).
 - [x] ✅ (Rob, 30 sep, Prot) Bubble Cancel stond **niet** bij Protection (alleen Holy + Ret) → toegevoegd aan Prot.
+- [x] ✅ (Rob, 30 sep avond) Bubble Cancel werkt — maar pas nadat **Press and Hold Casting** uit stond. GEMETEN
+      `ActionButtonUseKeyHeldSpell "1"` in config-cache.wtf: toets vasthouden draaide de macro twee keer, de tweede
+      `/cancelaura` haalde de bubbel meteen weg (en Shimmer ging twee keer). Alle 8 cancel-macro's zeggen dat nu erbij.
 - [ ] **Paladin**: Macros → Utility → **Bubble Cancel**, op een knop zetten. Klik: Divine Shield gaat aan.
       Klik nog een keer: **verdwijnt de bubbel?** Zo niet, dan is de macro stuk en haal ik hem eraf.
 - [ ] (Als je een Mage of Hunter langsloopt) hetzelfde met **Ice Block Cancel** of **Turtle Cancel**.
