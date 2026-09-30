@@ -11446,46 +11446,46 @@ fill("itIT", {
 -- /mh export (Armory website), 29 Sep 2026. Translated by language agents that measured
 -- each pack's terms; not native-reviewed.
 fill("deDE", {
-	CMDLIST_EXPORT = "Exportiert deine Ausrüstung und die Ausrüstung in deinen Taschen als Text für die Website Midnight Helper Armory.",
+	CMDLIST_EXPORT = "Exportiert deine Ausrüstung und die Ausrüstung in deinen Taschen als Text für die Armory auf midnighthelper.com: schneller Rat für dein bestes Set.",
 	GEAREXPORT_TITLE = "Ausrüstungs-Export",
-	GEAREXPORT_HINT = "Drücke Strg+C und füge den Text auf der Website ein.",
-	GEAREXPORT_HINT_PENDING = "Einige Gegenstände laden noch: Der Text aktualisiert sich gleich von selbst. Drücke dann Strg+C und füge ihn auf der Website ein.",
+	GEAREXPORT_HINT = "Drücke Strg+C und füge den Text auf midnighthelper.com/de/armory ein, für schnellen Rat.\nWillst du die genaue Antwort aus einer echten Simulation? Nutze /mh raidbots (Testphase).",
+	GEAREXPORT_HINT_PENDING = "Einige Gegenstände laden noch: Der Text aktualisiert sich gleich von selbst. Drücke dann Strg+C und füge ihn auf midnighthelper.com/de/armory ein.\nWillst du die genaue Antwort aus einer echten Simulation? Nutze /mh raidbots (Testphase).",
 	GEAREXPORT_COUNT_FMT = "Ausrüstungs-Export: %d Gegenstände.",
 	GEAREXPORT_PENDING_FMT = "%d Gegenstände waren noch nicht geladen; der Export aktualisiert sich, sobald sie da sind. Oder versuche /mh export gleich noch einmal.",
 })
 
 fill("frFR", {
-	CMDLIST_EXPORT = "Exporte ton équipement et celui de tes sacs en texte pour le site Midnight Helper Armory.",
+	CMDLIST_EXPORT = "Exporte ton équipement et celui de tes sacs en texte pour l'Armory sur midnighthelper.com : un conseil rapide sur ton meilleur ensemble.",
 	GEAREXPORT_TITLE = "Export d'équipement",
-	GEAREXPORT_HINT = "Appuie sur Ctrl+C et colle le texte sur le site.",
-	GEAREXPORT_HINT_PENDING = "Certains objets se chargent encore : le texte se met à jour tout seul dans un instant. Appuie ensuite sur Ctrl+C et colle-le sur le site.",
+	GEAREXPORT_HINT = "Appuie sur Ctrl+C et colle le texte sur midnighthelper.com/fr/armory pour un conseil rapide.\nTu veux la réponse exacte d'une vraie simulation ? Utilise /mh raidbots (phase de test).",
+	GEAREXPORT_HINT_PENDING = "Certains objets se chargent encore : le texte se met à jour tout seul dans un instant. Appuie ensuite sur Ctrl+C et colle-le sur midnighthelper.com/fr/armory.\nTu veux la réponse exacte d'une vraie simulation ? Utilise /mh raidbots (phase de test).",
 	GEAREXPORT_COUNT_FMT = "Export d'équipement : %d objets.",
 	GEAREXPORT_PENDING_FMT = "%d objets n'étaient pas encore chargés ; l'export se met à jour dès qu'ils le sont. Ou réessaie /mh export dans un instant.",
 })
 
 fill("esES", {
-	CMDLIST_EXPORT = "Exporta tu equipo y el equipo de tus bolsas como texto para la web Midnight Helper Armory.",
+	CMDLIST_EXPORT = "Exporta tu equipo y el equipo de tus bolsas como texto para la Armory en midnighthelper.com: un consejo rápido sobre tu mejor conjunto.",
 	GEAREXPORT_TITLE = "Exportar equipo",
-	GEAREXPORT_HINT = "Pulsa Ctrl+C y pega el texto en la web.",
-	GEAREXPORT_HINT_PENDING = "Algunos objetos todavía se están cargando: el texto se actualiza solo en un momento. Después pulsa Ctrl+C y pégalo en la web.",
+	GEAREXPORT_HINT = "Pulsa Ctrl+C y pega el texto en midnighthelper.com/es/armory para un consejo rápido.\n¿Quieres la respuesta exacta de una simulación real? Usa /mh raidbots (fase de prueba).",
+	GEAREXPORT_HINT_PENDING = "Algunos objetos todavía se están cargando: el texto se actualiza solo en un momento. Después pulsa Ctrl+C y pégalo en midnighthelper.com/es/armory.\n¿Quieres la respuesta exacta de una simulación real? Usa /mh raidbots (fase de prueba).",
 	GEAREXPORT_COUNT_FMT = "Exportación de equipo: %d objetos.",
 	GEAREXPORT_PENDING_FMT = "%d objetos todavía no estaban cargados; la exportación se actualiza sola en cuanto lo estén. O vuelve a probar /mh export en un momento.",
 })
 
 fill("ptBR", {
-	CMDLIST_EXPORT = "Exporta como texto o seu equipamento e o das suas bolsas para o site Midnight Helper Armory.",
+	CMDLIST_EXPORT = "Exporta como texto o seu equipamento e o das suas bolsas para a Armory em midnighthelper.com: um conselho rápido sobre o seu melhor conjunto.",
 	GEAREXPORT_TITLE = "Exportar equipamento",
-	GEAREXPORT_HINT = "Pressione Ctrl+C e cole o texto no site.",
-	GEAREXPORT_HINT_PENDING = "Alguns itens ainda estão carregando: o texto se atualiza sozinho em instantes. Depois pressione Ctrl+C e cole no site.",
+	GEAREXPORT_HINT = "Pressione Ctrl+C e cole o texto em midnighthelper.com/pt/armory para um conselho rápido.\nQuer a resposta exata de uma simulação de verdade? Use /mh raidbots (fase de teste).",
+	GEAREXPORT_HINT_PENDING = "Alguns itens ainda estão carregando: o texto se atualiza sozinho em instantes. Depois pressione Ctrl+C e cole em midnighthelper.com/pt/armory.\nQuer a resposta exata de uma simulação de verdade? Use /mh raidbots (fase de teste).",
 	GEAREXPORT_COUNT_FMT = "Exportação de equipamento: %d itens.",
 	GEAREXPORT_PENDING_FMT = "%d itens ainda não foram carregados; a exportação se atualiza sozinha assim que forem. Ou tente /mh export de novo em instantes.",
 })
 
 fill("itIT", {
-	CMDLIST_EXPORT = "Esporta come testo il tuo equipaggiamento e quello nelle tue borse per il sito Midnight Helper Armory.",
+	CMDLIST_EXPORT = "Esporta come testo il tuo equipaggiamento e quello nelle tue borse per l'Armory su midnighthelper.com: un consiglio rapido sul tuo set migliore.",
 	GEAREXPORT_TITLE = "Export dell'equipaggiamento",
-	GEAREXPORT_HINT = "Premi Ctrl+C e incolla il testo sul sito.",
-	GEAREXPORT_HINT_PENDING = "Alcuni oggetti si stanno ancora caricando: il testo si aggiorna da solo tra un momento. Poi premi Ctrl+C e incollalo sul sito.",
+	GEAREXPORT_HINT = "Premi Ctrl+C e incolla il testo su midnighthelper.com/it/armory per un consiglio rapido.\nVuoi la risposta esatta di una vera simulazione? Usa /mh raidbots (fase di test).",
+	GEAREXPORT_HINT_PENDING = "Alcuni oggetti si stanno ancora caricando: il testo si aggiorna da solo tra un momento. Poi premi Ctrl+C e incollalo su midnighthelper.com/it/armory.\nVuoi la risposta esatta di una vera simulazione? Usa /mh raidbots (fase di test).",
 	GEAREXPORT_COUNT_FMT = "Export dell'equipaggiamento: %d oggetti.",
 	GEAREXPORT_PENDING_FMT = "%d oggetti non erano ancora caricati; l'export si aggiorna da solo appena lo sono. Oppure riprova /mh export tra un momento.",
 })
@@ -11496,8 +11496,9 @@ fill("itIT", {
 fill("deDE", {
 	CMDLIST_RAIDBOTS = "Dein Charakter, deine Talente und deine Ausrüstung als SimulationCraft-Text, zum Einfügen bei Raidbots Top Gear für das genaue beste Set.",
 	RAIDBOTS_TITLE = "Für Raidbots Top Gear",
-	RAIDBOTS_HINT = "|cffff9900Testphase: neu in Midnight Helper, Nutzung auf eigenes Risiko.|r\n1. Drücke Strg+C (der Text ist schon markiert).\n2. Auf raidbots.com/simbot/topgear, Reiter SimC Addon: mit Strg+V einfügen.\n3. Klicke unter Gear die Gegenstände aus deinen Taschen an, die du vergleichen willst.\n4. Klicke auf Find Top Gear und warte ein paar Minuten.\n5. Ganz oben im Ergebnis steht dein bestes Set: zieh das an.\n\"Unverified Input\" auf Raidbots ist normal. Schritt für Schritt: midnighthelper.com/de/raidbots",
+	RAIDBOTS_HINT = "|cffff9900Testphase: neu in Midnight Helper, Nutzung auf eigenes Risiko.|r\n1. Drücke Strg+C (der Text ist schon markiert).\n2. Auf raidbots.com/simbot/topgear, Reiter SimC Addon: mit Strg+V einfügen.\n3. Klicke unter Gear die Gegenstände aus deinen Taschen an, die du vergleichen willst.\n4. Klicke auf Find Top Gear und warte ein paar Minuten.\n5. Ganz oben im Ergebnis steht dein bestes Set: zieh das an.\n\"Unverified Input\" auf Raidbots ist normal. Schritt für Schritt: midnighthelper.com/de/raidbots\nLieber schnell eine Antwort, ohne Simulation? /mh export und midnighthelper.com/de/armory.",
 	CHARPANEL_RAIDBOTS = "Bestes Set aus deinen Taschen: Raidbots (Test)",
+	CHARPANEL_ARMORY = "Schneller Rat: Armory-Website",
 	RAIDBOTS_DONE_FMT = "Raidbots-Text fertig, mit %d Gegenstand/Gegenständen aus deinen Taschen. Füge ihn auf raidbots.com/simbot/topgear ein.",
 	RAIDBOTS_NOSPEC = "Wähle zuerst eine Spezialisierung: Raidbots braucht eine.",
 	RAIDBOTS_TALENTVERSION = "Der Talent-Export des Spiels hat sich geändert und Midnight Helper kennt die neue Version noch nicht. Raidbots liest deine Talente vielleicht falsch: bitte sag uns Bescheid.",
@@ -11506,8 +11507,9 @@ fill("deDE", {
 fill("frFR", {
 	CMDLIST_RAIDBOTS = "Ton personnage, tes talents et ton équipement en texte SimulationCraft, à coller sur Raidbots Top Gear pour le meilleur ensemble exact.",
 	RAIDBOTS_TITLE = "Pour Raidbots Top Gear",
-	RAIDBOTS_HINT = "|cffff9900Phase de test : nouveau dans Midnight Helper, à utiliser à tes risques.|r\n1. Appuie sur Ctrl+C (le texte est déjà sélectionné).\n2. Sur raidbots.com/simbot/topgear, onglet SimC Addon : colle avec Ctrl+V.\n3. Sous Gear, clique sur les objets de tes sacs à comparer.\n4. Clique sur Find Top Gear et attends quelques minutes.\n5. En haut du résultat se trouve ton meilleur ensemble : équipe-le.\n\"Unverified Input\" sur Raidbots est normal. Étape par étape : midnighthelper.com/fr/raidbots",
+	RAIDBOTS_HINT = "|cffff9900Phase de test : nouveau dans Midnight Helper, à utiliser à tes risques.|r\n1. Appuie sur Ctrl+C (le texte est déjà sélectionné).\n2. Sur raidbots.com/simbot/topgear, onglet SimC Addon : colle avec Ctrl+V.\n3. Sous Gear, clique sur les objets de tes sacs à comparer.\n4. Clique sur Find Top Gear et attends quelques minutes.\n5. En haut du résultat se trouve ton meilleur ensemble : équipe-le.\n\"Unverified Input\" sur Raidbots est normal. Étape par étape : midnighthelper.com/fr/raidbots\nTu préfères une réponse rapide, sans simulation ? /mh export et midnighthelper.com/fr/armory.",
 	CHARPANEL_RAIDBOTS = "Meilleur ensemble de tes sacs : Raidbots (test)",
+	CHARPANEL_ARMORY = "Conseil rapide : site Armory",
 	RAIDBOTS_DONE_FMT = "Texte Raidbots prêt, avec %d objet(s) de tes sacs. Colle-le sur raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Choisis d'abord une spécialisation : Raidbots en a besoin.",
 	RAIDBOTS_TALENTVERSION = "L'export des talents du jeu a changé et Midnight Helper ne connaît pas encore la nouvelle version. Raidbots risque de mal lire tes talents : préviens-nous.",
@@ -11516,8 +11518,9 @@ fill("frFR", {
 fill("esES", {
 	CMDLIST_RAIDBOTS = "Tu personaje, talentos y equipo como texto de SimulationCraft, para pegarlo en Raidbots Top Gear y ver el mejor conjunto exacto.",
 	RAIDBOTS_TITLE = "Para Raidbots Top Gear",
-	RAIDBOTS_HINT = "|cffff9900Fase de prueba: nuevo en Midnight Helper, úsalo bajo tu propio riesgo.|r\n1. Pulsa Ctrl+C (el texto ya está seleccionado).\n2. En raidbots.com/simbot/topgear, pestaña SimC Addon: pega con Ctrl+V.\n3. En Gear, haz clic en los objetos de tus bolsas que quieras comparar.\n4. Haz clic en Find Top Gear y espera unos minutos.\n5. Arriba del resultado está tu mejor conjunto: póntelo.\n\"Unverified Input\" en Raidbots es normal. Paso a paso: midnighthelper.com/es/raidbots",
+	RAIDBOTS_HINT = "|cffff9900Fase de prueba: nuevo en Midnight Helper, úsalo bajo tu propio riesgo.|r\n1. Pulsa Ctrl+C (el texto ya está seleccionado).\n2. En raidbots.com/simbot/topgear, pestaña SimC Addon: pega con Ctrl+V.\n3. En Gear, haz clic en los objetos de tus bolsas que quieras comparar.\n4. Haz clic en Find Top Gear y espera unos minutos.\n5. Arriba del resultado está tu mejor conjunto: póntelo.\n\"Unverified Input\" en Raidbots es normal. Paso a paso: midnighthelper.com/es/raidbots\n¿Prefieres una respuesta rápida, sin simulación? /mh export y midnighthelper.com/es/armory.",
 	CHARPANEL_RAIDBOTS = "Mejor conjunto de tus bolsas: Raidbots (prueba)",
+	CHARPANEL_ARMORY = "Consejo rápido: web Armory",
 	RAIDBOTS_DONE_FMT = "Texto para Raidbots listo, con %d objeto(s) de tus bolsas. Pégalo en raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Elige primero una especialización: Raidbots la necesita.",
 	RAIDBOTS_TALENTVERSION = "La exportación de talentos del juego ha cambiado y Midnight Helper aún no conoce la nueva versión. Puede que Raidbots lea mal tus talentos: avísanos.",
@@ -11526,8 +11529,9 @@ fill("esES", {
 fill("ptBR", {
 	CMDLIST_RAIDBOTS = "Seu personagem, talentos e equipamento como texto do SimulationCraft, para colar no Raidbots Top Gear e ver o melhor conjunto exato.",
 	RAIDBOTS_TITLE = "Para o Raidbots Top Gear",
-	RAIDBOTS_HINT = "|cffff9900Fase de teste: novo no Midnight Helper, use por sua conta e risco.|r\n1. Pressione Ctrl+C (o texto já está selecionado).\n2. Em raidbots.com/simbot/topgear, aba SimC Addon: cole com Ctrl+V.\n3. Em Gear, clique nos itens das suas bolsas que você quer comparar.\n4. Clique em Find Top Gear e espere alguns minutos.\n5. No topo do resultado está o seu melhor conjunto: equipe-o.\n\"Unverified Input\" no Raidbots é normal. Passo a passo: midnighthelper.com/pt/raidbots",
+	RAIDBOTS_HINT = "|cffff9900Fase de teste: novo no Midnight Helper, use por sua conta e risco.|r\n1. Pressione Ctrl+C (o texto já está selecionado).\n2. Em raidbots.com/simbot/topgear, aba SimC Addon: cole com Ctrl+V.\n3. Em Gear, clique nos itens das suas bolsas que você quer comparar.\n4. Clique em Find Top Gear e espere alguns minutos.\n5. No topo do resultado está o seu melhor conjunto: equipe-o.\n\"Unverified Input\" no Raidbots é normal. Passo a passo: midnighthelper.com/pt/raidbots\nPrefere uma resposta rápida, sem simulação? /mh export e midnighthelper.com/pt/armory.",
 	CHARPANEL_RAIDBOTS = "Melhor conjunto das suas bolsas: Raidbots (teste)",
+	CHARPANEL_ARMORY = "Conselho rápido: site Armory",
 	RAIDBOTS_DONE_FMT = "Texto do Raidbots pronto, com %d item(ns) das suas bolsas. Cole em raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Escolha uma especialização primeiro: o Raidbots precisa de uma.",
 	RAIDBOTS_TALENTVERSION = "A exportação de talentos do jogo mudou e o Midnight Helper ainda não conhece a nova versão. O Raidbots pode ler seus talentos errado: avise a gente.",
@@ -11536,8 +11540,9 @@ fill("ptBR", {
 fill("itIT", {
 	CMDLIST_RAIDBOTS = "Il tuo personaggio, i talenti e l'equipaggiamento come testo SimulationCraft, da incollare su Raidbots Top Gear per il miglior set esatto.",
 	RAIDBOTS_TITLE = "Per Raidbots Top Gear",
-	RAIDBOTS_HINT = "|cffff9900Fase di test: novità di Midnight Helper, usala a tuo rischio.|r\n1. Premi Ctrl+C (il testo è già selezionato).\n2. Su raidbots.com/simbot/topgear, scheda SimC Addon: incolla con Ctrl+V.\n3. Sotto Gear, clicca gli oggetti delle tue borse che vuoi confrontare.\n4. Clicca Find Top Gear e aspetta qualche minuto.\n5. In cima al risultato c'è il tuo set migliore: indossalo.\n\"Unverified Input\" su Raidbots è normale. Passo passo: midnighthelper.com/it/raidbots",
+	RAIDBOTS_HINT = "|cffff9900Fase di test: novità di Midnight Helper, usala a tuo rischio.|r\n1. Premi Ctrl+C (il testo è già selezionato).\n2. Su raidbots.com/simbot/topgear, scheda SimC Addon: incolla con Ctrl+V.\n3. Sotto Gear, clicca gli oggetti delle tue borse che vuoi confrontare.\n4. Clicca Find Top Gear e aspetta qualche minuto.\n5. In cima al risultato c'è il tuo set migliore: indossalo.\n\"Unverified Input\" su Raidbots è normale. Passo passo: midnighthelper.com/it/raidbots\nPreferisci una risposta rapida, senza simulazione? /mh export e midnighthelper.com/it/armory.",
 	CHARPANEL_RAIDBOTS = "Miglior set dalle tue borse: Raidbots (test)",
+	CHARPANEL_ARMORY = "Consiglio rapido: sito Armory",
 	RAIDBOTS_DONE_FMT = "Testo per Raidbots pronto, con %d oggetto/i dalle tue borse. Incollalo su raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Scegli prima una specializzazione: Raidbots ne ha bisogno.",
 	RAIDBOTS_TALENTVERSION = "L'export dei talenti del gioco è cambiato e Midnight Helper non conosce ancora la nuova versione. Raidbots potrebbe leggere male i tuoi talenti: faccelo sapere.",

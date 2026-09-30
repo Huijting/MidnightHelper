@@ -27,6 +27,9 @@ All notable changes to this project are documented in this file.
   Toont ook je eigen battle res, Bloodlust en gewone res met de toets waar ze op staan. Verschijnt in elke groep in
   een dungeon, delve of raid; een schakelaar beperkt het tot Mythic+-keys en raids.
   Een kruisje sluit het paneel tot de volgende instance.
+- **Armory of Raidbots kiezen** (30 sep 2026): naast het karakterscherm nu ook de knop *Quick advice: Armory website*
+  (opent `/mh export`), boven de Raidbots-knop. Het export-venster noemt nu het adres (midnighthelper.com/<taal>/armory)
+  in plaats van "de website", en beide vensters wijzen naar elkaar: snel antwoord = Armory, precies = Raidbots. 7 talen.
 - **Macro's** (`Modules/TeamMacrosData.lua`, 30 sep 2026): *Bubble Cancel* staat nu ook bij Protection Paladin. De
   acht cancel-macro's (bubble, Ice Block, Turtle, Hover) waarschuwen voor Blizzards instelling *Press and Hold
   Casting*: die laat zo'n macro twee keer vuren, zodat je bubble meteen weer weg is (Rob, in het spel gemeten).

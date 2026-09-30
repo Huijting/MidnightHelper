@@ -108,6 +108,15 @@ local function BuildLines()
 	-- Rob, 30 Sep 2026: "we moeten dan ook een knop inbouwen om de mh raidbots te genereren".
 	-- Always last and always there: it is a way in, not an attention point, so it never
 	-- decides whether the "all good" line above shows.
+	-- Two ways in, quick before exact (Rob, 30 Sep 2026: "ja, bouw dat maar"): the Armory
+	-- export was reachable only by typing /mh export, while Raidbots had a button.
+	if ns.ShowGearExport then
+		out[#out + 1] = {
+			text = ns:SafeL("CHARPANEL_ARMORY") or "Armory",
+			color = "prog",
+			onClick = function() pcall(ns.ShowGearExport) end,
+		}
+	end
 	if ns.ShowSimcExport then
 		out[#out + 1] = {
 			text = ns:SafeL("CHARPANEL_RAIDBOTS") or "Raidbots",

@@ -3109,6 +3109,14 @@
    "nlNL": "d87d2d96597a7141",
    "ptBR": "d87d2d96597a7141"
   },
+  "CMDLIST_EXPORT": {
+   "deDE": "6b3ee7a467f99c8b",
+   "esES": "6b3ee7a467f99c8b",
+   "frFR": "6b3ee7a467f99c8b",
+   "itIT": "6b3ee7a467f99c8b",
+   "nlNL": "6b3ee7a467f99c8b",
+   "ptBR": "6b3ee7a467f99c8b"
+  },
   "CMDLIST_FOLIO": {
    "deDE": "607222d6403acd3b",
    "esES": "607222d6403acd3b",
@@ -11980,6 +11988,22 @@
    "nlNL": "7a7d3c80f46b39b6",
    "ptBR": "7a7d3c80f46b39b6"
   },
+  "GEAREXPORT_HINT": {
+   "deDE": "e3c247fac00e9614",
+   "esES": "e3c247fac00e9614",
+   "frFR": "e3c247fac00e9614",
+   "itIT": "e3c247fac00e9614",
+   "nlNL": "e3c247fac00e9614",
+   "ptBR": "e3c247fac00e9614"
+  },
+  "GEAREXPORT_HINT_PENDING": {
+   "deDE": "72c4aa05d00e3f4f",
+   "esES": "72c4aa05d00e3f4f",
+   "frFR": "72c4aa05d00e3f4f",
+   "itIT": "72c4aa05d00e3f4f",
+   "nlNL": "72c4aa05d00e3f4f",
+   "ptBR": "72c4aa05d00e3f4f"
+  },
   "GEM_BEST_FMT": {
    "deDE": "427552a76bfda14a",
    "esES": "427552a76bfda14a",
@@ -19517,12 +19541,12 @@
    "ptBR": "2c8cd65c7f9536f7"
   },
   "RAIDBOTS_HINT": {
-   "deDE": "614d66e6fc202f47",
-   "esES": "614d66e6fc202f47",
-   "frFR": "614d66e6fc202f47",
-   "itIT": "614d66e6fc202f47",
-   "nlNL": "614d66e6fc202f47",
-   "ptBR": "614d66e6fc202f47"
+   "deDE": "eb5ae5a2135c0e97",
+   "esES": "eb5ae5a2135c0e97",
+   "frFR": "eb5ae5a2135c0e97",
+   "itIT": "eb5ae5a2135c0e97",
+   "nlNL": "eb5ae5a2135c0e97",
+   "ptBR": "eb5ae5a2135c0e97"
   },
   "RAIDS_OLDER_HEADER_FMT": {
    "deDE": "038d893bf6d7b43d",

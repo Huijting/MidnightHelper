@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 30 sep laat — Armory-knop + "snel of precies" in beide vensters
+
+- [ ] 🆕 `/reload`, karakterscherm (C) → onderaan het MH-paneel nu **twee** knoppen: eerst *"Quick advice: Armory
+      website"*, dan *"Best set from your bags: Raidbots (test)"*. Klik de eerste → het export-venster; bovenaan staat
+      **midnighthelper.com/armory** en de regel *"Want the exact answer … /mh raidbots (test phase)"*. Staat de tekst
+      eronder nog in beeld?
+- [ ] Klik de Raidbots-knop → onderaan de uitleg een nieuwe regel *"Rather a quick answer … /mh export and
+      midnighthelper.com/armory"*. Past alles nog in het venster?
+
 ## 🆕 30 sep — `/mh raidbots`: tekst voor Raidbots Top Gear (`SimcExport.lua`)
 
 - [x] ✅ (Rob, 30 sep avond, screenshot: "beide werken") 🆕 `/reload`, open je karakterscherm (C) → onderaan het MH-paneel ernaast: *"Best set from your bags: Raidbots
