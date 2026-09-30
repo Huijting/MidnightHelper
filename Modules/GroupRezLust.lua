@@ -51,6 +51,18 @@ local SATED = {
 --- (461622 in 12.0, `KeybindingData.lua`). JustAC's battle-res category lists exactly these four.
 local BREZ_CLASSES = { DRUID = true, DEATHKNIGHT = true, WARLOCK = true, PALADIN = true }
 
+--- The spell each class uses, so the panel can say "Druid - Rebirth" (Rob, 30 Sep: "voor elke spec
+--- zijn eigen naam"). Names come from the client, so they are in the player's own language.
+--- A Shaman's is Heroism for the Alliance and Bloodlust for the Horde (KeybindingData.lua:50).
+local CLASS_SPELL = {
+	DRUID = 20484, DEATHKNIGHT = 61999, WARLOCK = 20707, PALADIN = 461622,
+	MAGE = 80353, EVOKER = 390386, HUNTER = 264667,
+	SHAMAN = function(unit)
+		local ok, faction = pcall(UnitFactionGroup, unit)
+		return (ok and faction == "Alliance") and 32182 or 2825
+	end,
+}
+
 --- Classes with a Bloodlust: Bloodlust/Heroism 2825/32182, Time Warp 80353, Fury of the
 --- Aspects 390386, and the hunter's pet (Primal Rage 264667). "pet" = only with the right pet,
 --- which we cannot see on somebody else, so the panel says so instead of promising it.
@@ -404,6 +416,16 @@ local function WhoCan(classes)
 				local label = ClassName(classFile)
 				if okN and Readable(name) then
 					label = ("%s (%s)"):format(name, label)
+				end
+				local spell = CLASS_SPELL[classFile]
+				if type(spell) == "function" then
+					spell = spell(u)
+				end
+				if spell and C_Spell and C_Spell.GetSpellName then
+					local okS, sname = pcall(C_Spell.GetSpellName, spell)
+					if okS and Readable(sname) then
+						label = label .. " - " .. sname
+					end
 				end
 				if classes[classFile] == "pet" then
 					label = label .. " " .. ns:L("REZLUST_PET")
@@ -790,7 +812,7 @@ function ns.RezLustCommand(arg)
 	print(("   EllesmereUI shows: battle res %s, Bloodlust %s (our line stands down where yes)"):format(
 		EllesmereShows("battleRes") and "yes" or "no", EllesmereShows("bloodlust") and "yes" or "no"))
 	print("   can revive: " .. (WhoCan(BREZ_CLASSES) or "nobody"))
-	print("   can Bloodlust: " .. (WhoCan(LUST_CLASSES) or "nobody"))
+	print("   can Hero: " .. (WhoCan(LUST_CLASSES) or "nobody"))
 	PrintLog()
 	print("   /mh lust test shows the panel now. /reload writes the measurements to the file.")
 end

@@ -48,6 +48,11 @@ er is niets weggegooid.
       onder *Can cast Bloodlust* met Bloodlust/Heroism.
 - [x] ✅ (Rob, 30 sep avond: "de toets bij Redemption klopt ook, ook de andere toetsen voor de Battle Res")
       Redemption (out of combat) + Intercession tonen de juiste toets.
+- [ ] 🆕 (Rob, 30 sep avond: "wordt gewoon hero genoemd … voor elke spec zijn eigen naam") `/reload`, `/mh lust test`
+      → titel *"Battle res & Hero"*, regels *"Hero: ready"*, *"Can cast Hero: Twelveinchy…"* ontbreekt (Paladin kan geen
+      Hero) maar *"Can revive in combat: Twelveinchy (Paladin) - Intercession"* staat er met de spreuknaam. Op de Shaman:
+      *"Earthshammy (Shaman) - Heroism"* (Alliance) of *Bloodlust* (Horde). Beweeg erover: uitleg begint met *"Hero (Bloodlust,
+      Heroism, …)"*.
 - [ ] 🆕 (Rob, 30 sep: "waarom niet in een delve als we met meerdere zijn … en de normale res buiten combat")
       Nu in **elke groep** in een dungeon, delve of raid. Test: ga met iemand een **delve** of **normale dungeon** in →
       het paneel staat er vanzelf, met *"Battle res: no shared charges here - everyone has their own cooldown."* Op
