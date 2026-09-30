@@ -26,6 +26,10 @@ All notable changes to this project are documented in this file.
   EllesmereUI hetzelfde icoon al toont. Aan/uit in de instellingen (Dungeon-hulp); `/mh lust` en `/mh lust test`.
   Toont ook je eigen battle res, Bloodlust en gewone res met de toets waar ze op staan. Verschijnt in elke groep in
   een dungeon, delve of raid; een schakelaar beperkt het tot Mythic+-keys en raids.
+  Een kruisje sluit het paneel tot de volgende instance.
+- **Macro's** (`Modules/TeamMacrosData.lua`, 30 sep 2026): *Bubble Cancel* staat nu ook bij Protection Paladin. De
+  acht cancel-macro's (bubble, Ice Block, Turtle, Hover) waarschuwen voor Blizzards instelling *Press and Hold
+  Casting*: die laat zo'n macro twee keer vuren, zodat je bubble meteen weer weg is (Rob, in het spel gemeten).
 
 ## 4.2.0
 
