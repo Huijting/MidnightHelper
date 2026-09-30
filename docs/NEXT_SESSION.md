@@ -7,8 +7,10 @@
   Displacement, na Time Warp). `combat:unsure` ×2945 = "niets" terwijl auras secret zijn (vermoedelijk echt afwezig,
   want dezelfde id's worden in gevecht wél gezien; het paneel houdt dan de vorige stand, zoals ontworpen).
 - **Brez:** buiten key/raidbaas `no shared pool here` (cur/max nil) ✔. Tijdens een **raidbaas**: cur 99 / max 99, dur 108,
-  na een brez 98 met start gezet — getallen in gevecht leesbaar, niet secret. Welke difficulty: niet gelogd → nu wel
-  (`:d<difficultyID>` in de log-sleutel); Rob gevraagd. Paneel toont bij max ≥ 20 `REZLUST_BREZ_UNLIMITED`.
+  na een brez 98 met start gezet — getallen in gevecht leesbaar, niet secret. Rob: dat was **LFR** (onderwater-grot,
+  gracht, twee hond-achtige wachters, één baas in het midden; naam niet genoemd). Dus LFR = 99 = onbeperkt. Normal/
+  Heroic/Mythic nog niet gemeten; de log-sleutel draagt nu `:d<difficultyID>`. Paneel toont bij max ≥ 20
+  `REZLUST_BREZ_UNLIMITED`.
 - Nog niet gemeten: een M+-key (de krappe pot).
 
 ## 🔧 30 sep laat — paneel brez/lust in álle groepsinhoud + gewone res (Rob: "Ja, dat is een goed idee zo")
