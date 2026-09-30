@@ -7,9 +7,13 @@ hero-fact naar `#tools`; "In the game" = 12 tegels (8 herschreven naar CURSEFORG
 Hero, Getting there, Collecting, Gear check); de oude Armory-promo vervangen door `#tools` "On the website" (Armory,
 Raidbots, Feedback, elk met het in-game commando). Labels `.tag.new` / `.tag.test` = één patroon voor wat er aankomt.
 Gecontroleerd lokaal: desktop + 375px, geen horizontale scroll. Vaste regel: memory `site-follows-every-feature`.
-⏭️ **Fase 2 (ontwerpagent, nog niet gedaan, Rob laten zien):** één gedeelde header/nav + footer op álle pagina's (via
-i18n.py-marker zoals de taalkiezer), kleurtokens/knoppen/tekstmaat naar `shared.css` (nu per pagina gedrift: `.btn`
-10/8px radius, `--warn` alleen op raidbots, body 15/16px), "Next"-link onderaan elke tool-pagina (Armory → Raidbots → Feedback).
+✅ **Fase 2 live (Rob zag screenshots: "zet het live"):** `shared.css` heeft nu palet, `.sh` (kop: logo, menu, taalkiezer;
+huidige pagina `aria-current="page"` goud onderstreept), `.sf` (voettekst), `.tag`. Alle 6 pagina's gebruiken ze (met de
+hand in elke Engelse bronpagina, geen i18n-marker). Link = `/shared.css?v=20260930` — **verhoog dat getal bij elke
+shared.css-wijziging**, anders toont een browser met oude cache een reusachtig logo (gezien in de preview). Armory-knoppen
+gelijkgetrokken. Nog open uit het ontwerpadvies: tekstmaat/breedtes per pagina (15 vs 16px), "Next"-link onderaan
+tool-pagina's, 6 verouderde vertalingen van de oude "fan-made … Blizzard Entertainment."-zin opruimen (build-melding).
+Ook 30 sep: Raidbots-stappen stonden één woord per regel (2e `<p>` in de 40px-kolom) → `grid-column:2`, live.
 
 ## 📝 30 sep avond — Raidbots-uitleg op drie plekken + knop (Rob: "ja, maak die drie maar … testfase, eigen risico")
 
