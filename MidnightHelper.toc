@@ -116,6 +116,7 @@ Modules\ConsumableReadyCheck.lua
 Modules\ConsumableReadyComms.lua
 Modules\ConsumableReadyBoard.lua
 Modules\DurabilityWarn.lua
+Modules\GroupRezLust.lua
 Modules\GroupFloorProbe.lua
 Modules\WhatIsProbe.lua
 Modules\InstanceMapProbe.lua

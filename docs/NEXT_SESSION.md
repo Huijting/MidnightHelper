@@ -1,11 +1,20 @@
 # Midnight Helper — waar we staan
 
-## 💡 30 sep — DDingUI bekeken (3 addons van DDing op CurseForge, niet gedownload)
+## 🔨 30 sep — paneel battle res & Bloodlust gebouwd (Rob: "werk die maar uit" → koos "MH-versie mét uitleg")
 
-CooldownManager (CDM-skin/resourcebalken), Toolkit (combat timer, brez + lust, healer-mana, LFG/mail-alarm,
-slijtage), Media & Profile (UI-installer). Alle drie All Rights Reserved (GEMETEN op CF) → geen code. Slijtage
-heeft MH al (`DurabilityWarn.lua`). Rob: brez-ladingen + Bloodlust → ideeënlijst: staat in `docs/ROADMAP.md`
-feature-backlog, eerst in-game meten of 12.1 het laat lezen.
+Aanleiding: DDingUI (3 addons van DDing op CF, All Rights Reserved → alleen het idee). GEMETEN in Robs
+`EllesmereUI.lua`-SV: EllesmereUIQoL heeft beide al (battleRes aan, MPLUS_AND_RAID; bloodlust visibility NEVER; drie
+profielen, welk actief is niet vastgesteld). Rob koos toch een MH-versie: die voegt *wie kan het* + uitleg toe en
+laat per regel het veld aan EllesmereUI als dát icoon aan staat (`_EUI_BattleRes_DB`-getter, alleen lezen).
+- Nieuw `Modules/GroupRezLust.lua` (TOC na DurabilityWarn). Toont in Mythic-dungeon (diff 23), key (8 of
+  `IsChallengeModeActive`) en raid, alleen in een groep. Brez = `C_Spell.GetSpellCharges(20484)` in key/raidbaas;
+  Bloodlust = eigen Sated-debuff (7 id's) via `GetPlayerAuraBySpellID`, drie toestanden; "niets" terwijl auras
+  secret zijn wist een geziene lockout niet; verborgen einde → 600 s met "~". Wie-kan: klasse (Druid/DK/Warlock/
+  Paladin; Shaman/Mage/Evoker/Hunter-met-pet), JustAC-categorieën + onze KeybindRoles.
+- ⚠️ **Beide reads zijn KANDIDATEN** (uit EllesmereUIQoL gelezen, geen code overgenomen), niet gemeten. Het paneel
+  logt per situatie de eerste + laatste meting naar `ns.db.rezLustLog`; `/mh lust` print ze. Test: TESTLIJST 30 sep.
+- Instelling `mh_rezLust` (Dungeon-hulp, standaard aan), `/mh lust`, `/mh lust test` (30 s, echte waarden),
+  aliassen `/mh brez`. Keys `REZLUST_*` + `SET_REZLUST_*` in enUS/nlNL; de/fr/es/pt/it via `fill()`.
 
 ## 🚦 29 sep — 4.3.0 bijna klaar (Rob: "ja, begin maar met de vertaling"); GEEN release zonder Robs "go"
 

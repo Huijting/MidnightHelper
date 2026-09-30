@@ -260,6 +260,12 @@ local function Build()
 	end, function(v)
 		return ("%d%%"):format(math.floor(v + 0.5))
 	end, dB.default)
+	-- Rob, 30 Sep 2026: battle res charges + Bloodlust, with who in the group can.
+	Toggle("mh_rezLust", "SET_REZLUST_TOGGLE_TITLE", "SET_REZLUST_TOGGLE_DESC", function()
+		return ns.IsRezLustEnabled and ns.IsRezLustEnabled()
+	end, function(v)
+		if ns.SetRezLustEnabled then ns.SetRezLustEnabled(v) end
+	end, true)
 
 	----------------------------------------------------------------
 	-- Schermknoppen

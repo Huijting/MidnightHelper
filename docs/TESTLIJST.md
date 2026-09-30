@@ -21,6 +21,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 30 sep — paneel battle res & Bloodlust (`GroupRezLust.lua`)
+
+- [ ] `/reload` → geen foutmelding. Dan `/mh lust test` (waar je ook staat) → linksboven een paneeltje
+      "Battle res & Bloodlust" voor 30 seconden. Solo zie je: *"Battle res: shared charges only in a Mythic+ key…"*,
+      *"Can revive in combat: <jij> (Paladin)"* en *"Bloodlust: ready"* (of *used - ready again in …*).
+      Beweeg erover → uitleg over beide. Slepen → het blijft daar staan na `/reload`.
+- [ ] Instellingen → Dungeon-hulp → **Paneel battle res & Bloodlust** uit → `/mh lust` zegt *setting off*.
+- [ ] **In een M+-key of raid, in een groep** (hier zit de echte meting): het paneel staat er vanzelf. In de key:
+      *"Battle res: 1 of 1 left"* (of meer), en na een brez *"… next in m:ss"*. Kreeg de groep Bloodlust → *"used -
+      ready again in 9:5x"* en dat telt af. Na afloop `/mh lust` → onderaan regels `brez combat:key …` en
+      `lust combat:seen …` → `/reload` zodat ik ze uit het bestand kan lezen. Dáármee zijn de twee reads GEMETEN.
+      ⚠️ Jouw EllesmereUI toont battle res al (aan in M+ en raid): dan ontbreekt onze ladingen-regel, dat is de bedoeling.
+      Wie het wil zien: `/mh lust` zegt *EllesmereUI shows: battle res yes*.
+- [ ] Iemand in de groep is Druid/DK/Warlock/Paladin → staat bij *Can revive*; Shaman/Mage/Evoker/Hunter → bij
+      *Can cast Bloodlust* (Hunter met *(with the right pet)*).
+
 ## 🆕 27 sep — metingen: plattegronden, zwevende iconen, dispel
 
 - [x] ✅ (Rob, 27 sep: The Venomous Abyss, map 2606, met Nek'zali) `/mh mapprobe show <getal>` tekent een plattegrond

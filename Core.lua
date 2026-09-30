@@ -3174,6 +3174,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "lust" or msg == "lust test" or msg == "brez" or msg == "brez test" then
+		if ns.RezLustCommand then
+			ns.RezLustCommand(msg:find(" test$") and "test" or nil)
+		end
+		return
+	end
+
 	if msg == "readytoggle" then
 		if ns.ToggleConsumableReadyCheck then
 			ns.ToggleConsumableReadyCheck()

@@ -9,7 +9,8 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
 De rest, bewaard voor later (≈ prioriteit):
 
-- [ ] **Battle res-ladingen + Bloodlust/Heroism in je groep (Rob, 30 sep: "zet die maar op de
+- [~] **GEBOUWD 30 sep (`Modules/GroupRezLust.lua`), wacht op meting in het spel — zie NEXT_SESSION.**
+      **Battle res-ladingen + Bloodlust/Heroism in je groep (Rob, 30 sep: "zet die maar op de
       ideeënlijst")** — idee uit DDingUI Toolkit (CurseForge, All Rights Reserved → alleen het
       idee, geen code). MH heeft het nog niet (GEMETEN 30 sep: geen treffer in `Modules/` buiten
       keybind-rollen). Past bij de Tank/DPS-toolkit. EERST meten in het spel of 12.1 het laat

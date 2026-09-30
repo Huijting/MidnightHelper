@@ -13,6 +13,10 @@ All notable changes to this project are documented in this file.
   in het Duits, Frans, Spaans, Portugees en Italiaans.
 - **Codex → Crests** (29 sep 2026): de regel over de cap zei dat hij telt hoeveel je kunt *hebben*; hij telt wat je
   deze season hebt *verdiend* en stijgt elke week (zoals de crest-teller in MH al liet zien). Alle zeven talen.
+- **Paneel battle res & Bloodlust** (`Modules/GroupRezLust.lua`, 30 sep 2026): in Mythic-dungeons, keys en raids
+  een klein paneel met de gedeelde battle res-ladingen (in een key en tijdens een raidbaas), of Bloodlust klaar is
+  (met aftellen), en wie in je groep kan brezzen of lusten. Beweeg erover voor uitleg. Een regel blijft weg waar
+  EllesmereUI hetzelfde icoon al toont. Aan/uit in de instellingen (Dungeon-hulp); `/mh lust` en `/mh lust test`.
 
 ## 4.2.0
 
