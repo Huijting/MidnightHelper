@@ -266,6 +266,12 @@ local function Build()
 	end, function(v)
 		if ns.SetRezLustEnabled then ns.SetRezLustEnabled(v) end
 	end, true)
+	-- Rob, 30 Sep 2026: every group instance by default (delves too); this narrows it back.
+	Toggle("mh_rezLustKeyRaid", "SET_REZLUST_ONLYKEY_TITLE", "SET_REZLUST_ONLYKEY_DESC", function()
+		return ns.IsRezLustKeyRaidOnly and ns.IsRezLustKeyRaidOnly()
+	end, function(v)
+		if ns.SetRezLustKeyRaidOnly then ns.SetRezLustKeyRaidOnly(v) end
+	end, false)
 
 	----------------------------------------------------------------
 	-- Schermknoppen

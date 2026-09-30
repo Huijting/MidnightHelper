@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🔧 30 sep laat — paneel brez/lust in álle groepsinhoud + gewone res (Rob: "Ja, dat is een goed idee zo")
+
+`GroupRezLust.lua`: `Place()` kent nu ook "dungeon" (party, andere difficulty) en "scenario" (delves); getoond in elke
+groep daar. Nieuwe instelling `mh_rezLustKeyRaid` (standaard uit) = het oude smalle gedrag (Mythic/key/raid). Buiten
+key/raidbaas: `REZLUST_BREZ_OWN` ("iedereen eigen afkoeltijd"; `REZLUST_BREZ_OFF` is weg). Extra regel voor de
+gewone res met toets: `MY_RES` = 7328/2006/2008/50769/115178/361227 (JustAC SpellCategories "Resurrects"), label
+`REZLUST_OOC_FMT`. `SET_REZLUST_TOGGLE_DESC` herschreven in 7 talen + `check_drift --mark`. Nog niet in het spel gezien.
+
 ## 🔨 30 sep laat — Raidbots-route optie B gebouwd (Rob: "Doe optie b dan maar")
 
 Nieuw `Modules/SimcExport.lua` (TOC na GearExport), `/mh raidbots` (alias `/mh simc`, unlisted). Port van simc-addon

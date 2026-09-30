@@ -11544,7 +11544,8 @@ fill("itIT", {
 fill("deDE", {
 	REZLUST_BREZ_FMT = "Battle res: noch %d von %d übrig",
 	REZLUST_NEXT_FMT = "nächste in %s",
-	REZLUST_BREZ_OFF = "Battle res: gemeinsame Ladungen gibt es nur in einem Mythic+-Schlüssel oder in einem Raid-Bosskampf.",
+	REZLUST_BREZ_OWN = "Battle res: hier keine gemeinsamen Ladungen - jeder hat seine eigene Abklingzeit.",
+	REZLUST_OOC_FMT = "%s (außerhalb des Kampfes)",
 	REZLUST_BREZ_UNREAD = "Battle res: Die Ladungen sind gerade nicht lesbar.",
 	REZLUST_BREZ_WHO_FMT = "Können im Kampf wiederbeleben: %s",
 	REZLUST_BREZ_WHO_NONE = "Niemand in deiner Gruppe kann im Kampf wiederbeleben.",
@@ -11559,13 +11560,16 @@ fill("deDE", {
 	REZLUST_TIP_LUST = "Bloodlust (auch Heroism, Time Warp, Fury of the Aspects und Primal Rage eines Jägerbegleiters) macht die ganze Gruppe 40 Sekunden lang schneller. Danach kann es 10 Minuten lang niemand mehr bekommen. Die meisten Gruppen heben es sich für den Boss auf oder für den ersten großen Pull in einem Schlüssel.",
 	REZLUST_TIP_MOVE = "Ziehen zum Verschieben. Du kannst dieses Fenster in den Einstellungen unter Dungeon-Hilfe ausschalten.",
 	SET_REZLUST_TOGGLE_TITLE = "Battle res & Bloodlust-Fenster",
-	SET_REZLUST_TOGGLE_DESC = "Ein kleines Fenster in Mythic-Dungeons, Mythic+-Schlüsseln und Raids: die Battle-res-Ladungen der Gruppe, ob Bloodlust bereit ist und wer in deiner Gruppe eins von beiden kann. Fahre mit der Maus darüber, um zu sehen, was sie sind. Wo EllesmereUI dasselbe Symbol schon zeigt, bleibt diese Zeile weg. /mh lust zeigt, was gelesen wird.",
+	SET_REZLUST_TOGGLE_DESC = "Ein kleines Fenster, wenn du in einer Gruppe in einem Dungeon, einer Delve oder einem Raid bist: die Battle-res-Ladungen der Gruppe, ob Bloodlust bereit ist, wer in deiner Gruppe eins von beiden kann, und auf welcher Taste deine eigenen Wiederbelebungszauber liegen. Fahre mit der Maus darüber, um zu sehen, was sie sind. Wo EllesmereUI dasselbe Symbol schon zeigt, bleibt diese Zeile weg. /mh lust zeigt, was gelesen wird.",
+	SET_REZLUST_ONLYKEY_TITLE = "Nur in Mythic+-Schlüsseln und Raids",
+	SET_REZLUST_ONLYKEY_DESC = "Zeigt das Battle res & Bloodlust-Fenster nur in Mythic-Dungeons, Mythic+-Schlüsseln und Raids, nicht in anderen Dungeons und Delves.",
 })
 
 fill("frFR", {
 	REZLUST_BREZ_FMT = "Battle res : %d sur %d restante(s)",
 	REZLUST_NEXT_FMT = "prochaine dans %s",
-	REZLUST_BREZ_OFF = "Battle res : charges partagées uniquement dans une clé Mythic+ ou un combat de boss de raid.",
+	REZLUST_BREZ_OWN = "Battle res : pas de charges partagées ici - chacun a son propre temps de recharge.",
+	REZLUST_OOC_FMT = "%s (hors combat)",
 	REZLUST_BREZ_UNREAD = "Battle res : impossible de lire les charges pour l'instant.",
 	REZLUST_BREZ_WHO_FMT = "Peut ressusciter en combat : %s",
 	REZLUST_BREZ_WHO_NONE = "Personne dans ton groupe ne peut ressusciter en combat.",
@@ -11580,14 +11584,17 @@ fill("frFR", {
 	REZLUST_TIP_LUST = "Bloodlust (aussi Heroism, Time Warp, Fury of the Aspects et Primal Rage du familier d'un chasseur) rend tout le groupe plus rapide pendant 40 secondes. Ensuite, personne ne peut le relancer pendant 10 minutes. La plupart des groupes le gardent pour le boss, ou pour le premier gros pull d'une clé.",
 	REZLUST_TIP_MOVE = "Fais glisser pour déplacer. Tu peux désactiver ce panneau dans les réglages, sous « Aide donjon ».",
 	SET_REZLUST_TOGGLE_TITLE = "Panneau Battle res & Bloodlust",
-	SET_REZLUST_TOGGLE_DESC = "Un petit panneau dans les donjons Mythic, les clés Mythic+ et les raids : les charges de battle res du groupe, si Bloodlust est prêt, et qui dans ton groupe peut faire l'un ou l'autre. Survole-le pour savoir ce que c'est. Là où EllesmereUI affiche déjà la même icône, cette ligne disparaît. /mh lust montre ce qu'il lit.",
+	SET_REZLUST_TOGGLE_DESC = "Un petit panneau quand tu es en groupe dans un donjon, une delve ou un raid : les charges de battle res du groupe, si Bloodlust est prêt, qui dans ton groupe peut faire l'un ou l'autre, et la touche de tes propres sorts de résurrection. Survole-le pour savoir ce que c'est. Là où EllesmereUI affiche déjà la même icône, cette ligne disparaît. /mh lust montre ce qu'il lit.",
+	SET_REZLUST_ONLYKEY_TITLE = "Seulement dans les clés Mythic+ et les raids",
+	SET_REZLUST_ONLYKEY_DESC = "N'affiche le panneau Battle res & Bloodlust que dans les donjons Mythic, les clés Mythic+ et les raids, pas dans les autres donjons ni les delves.",
 })
 
 fill("esES", {
 	REZLUST_TITLE = "Battle res y Bloodlust",
 	REZLUST_BREZ_FMT = "Battle res: quedan %d de %d",
 	REZLUST_NEXT_FMT = "próxima en %s",
-	REZLUST_BREZ_OFF = "Battle res: cargas compartidas solo en una key de Mythic+ o en un combate contra un jefe de raid.",
+	REZLUST_BREZ_OWN = "Battle res: aquí no hay cargas compartidas - cada uno tiene su propio tiempo de reutilización.",
+	REZLUST_OOC_FMT = "%s (fuera de combate)",
 	REZLUST_BREZ_UNREAD = "Battle res: no se pueden leer las cargas ahora mismo.",
 	REZLUST_BREZ_WHO_FMT = "Pueden revivir en combate: %s",
 	REZLUST_BREZ_WHO_NONE = "Nadie de tu grupo puede revivir en combate.",
@@ -11602,13 +11609,16 @@ fill("esES", {
 	REZLUST_TIP_LUST = "Bloodlust (también Heroism, Time Warp, Fury of the Aspects y el Primal Rage de una mascota de cazador) hace que todo el grupo vaya más rápido durante 40 segundos. Después, nadie puede volver a usarlo durante 10 minutos. La mayoría de los grupos lo guardan para el jefe o para el primer pull grande de una key.",
 	REZLUST_TIP_MOVE = "Arrastra para mover. Puedes desactivar este panel en los ajustes, en Ayuda de mazmorra.",
 	SET_REZLUST_TOGGLE_TITLE = "Panel de Battle res y Bloodlust",
-	SET_REZLUST_TOGGLE_DESC = "Un panel pequeño en mazmorras Mythic, keys de Mythic+ y raids: las cargas de battle res del grupo, si Bloodlust está listo y quién de tu grupo puede usar cada uno. Pasa el ratón por encima para ver qué son. Donde EllesmereUI ya muestre el mismo icono, esa línea no aparece. /mh lust muestra lo que lee.",
+	SET_REZLUST_TOGGLE_DESC = "Un panel pequeño cuando estás en grupo en una mazmorra, delve o raid: las cargas de battle res del grupo, si Bloodlust está listo, quién de tu grupo puede usar cada uno y en qué tecla están tus propios hechizos de resurrección. Pasa el ratón por encima para ver qué son. Donde EllesmereUI ya muestre el mismo icono, esa línea no aparece. /mh lust muestra lo que lee.",
+	SET_REZLUST_ONLYKEY_TITLE = "Solo en keys de Mythic+ y raids",
+	SET_REZLUST_ONLYKEY_DESC = "Muestra el panel de Battle res y Bloodlust solo en mazmorras Mythic, keys de Mythic+ y raids, no en otras mazmorras ni delves.",
 })
 
 fill("ptBR", {
 	REZLUST_BREZ_FMT = "Battle res: %d de %d restantes",
 	REZLUST_NEXT_FMT = "próxima em %s",
-	REZLUST_BREZ_OFF = "Battle res: cargas compartilhadas só numa chave Mythic+ ou numa luta de chefe de raid.",
+	REZLUST_BREZ_OWN = "Battle res: aqui não há cargas compartilhadas - cada um tem sua própria recarga.",
+	REZLUST_OOC_FMT = "%s (fora de combate)",
 	REZLUST_BREZ_UNREAD = "Battle res: não foi possível ler as cargas agora.",
 	REZLUST_BREZ_WHO_FMT = "Pode reviver em combate: %s",
 	REZLUST_BREZ_WHO_NONE = "Ninguém no seu grupo pode reviver em combate.",
@@ -11623,13 +11633,16 @@ fill("ptBR", {
 	REZLUST_TIP_LUST = "Bloodlust (também Heroism, Time Warp, Fury of the Aspects e o Primal Rage do pet de um caçador) deixa o grupo todo mais rápido por 40 segundos. Depois disso, ninguém pode usar de novo por 10 minutos. A maioria dos grupos guarda para o chefe, ou para o primeiro pull grande de uma chave.",
 	REZLUST_TIP_MOVE = "Arraste para mover. Você pode desligar este painel nas Configurações, em Ajuda de masmorra.",
 	SET_REZLUST_TOGGLE_TITLE = "Painel de Battle res & Bloodlust",
-	SET_REZLUST_TOGGLE_DESC = "Um painel pequeno em masmorras Mythic, chaves Mythic+ e raids: as cargas de Battle res do grupo, se o Bloodlust está pronto e quem do seu grupo pode usar cada um. Passe o mouse para ver o que são. Onde o EllesmereUI já mostra o mesmo ícone, essa linha some. /mh lust mostra o que ele lê.",
+	SET_REZLUST_TOGGLE_DESC = "Um painel pequeno quando você está em grupo numa masmorra, delve ou raid: as cargas de Battle res do grupo, se o Bloodlust está pronto, quem do seu grupo pode usar cada um e em que tecla estão seus próprios feitiços de ressurreição. Passe o mouse para ver o que são. Onde o EllesmereUI já mostra o mesmo ícone, essa linha some. /mh lust mostra o que ele lê.",
+	SET_REZLUST_ONLYKEY_TITLE = "Só em chaves Mythic+ e raids",
+	SET_REZLUST_ONLYKEY_DESC = "Mostra o painel de Battle res & Bloodlust só em masmorras Mythic, chaves Mythic+ e raids, não em outras masmorras nem delves.",
 })
 
 fill("itIT", {
 	REZLUST_BREZ_FMT = "Battle res: %d su %d rimaste",
 	REZLUST_NEXT_FMT = "prossima tra %s",
-	REZLUST_BREZ_OFF = "Battle res: cariche condivise solo in una key Mythic+ o in un boss di raid.",
+	REZLUST_BREZ_OWN = "Battle res: qui niente cariche condivise - ognuno ha il proprio tempo di ricarica.",
+	REZLUST_OOC_FMT = "%s (fuori combattimento)",
 	REZLUST_BREZ_UNREAD = "Battle res: al momento non riesco a leggere le cariche.",
 	REZLUST_BREZ_WHO_FMT = "Può rianimare in combattimento: %s",
 	REZLUST_BREZ_WHO_NONE = "Nessuno nel tuo gruppo può rianimare in combattimento.",
@@ -11644,5 +11657,7 @@ fill("itIT", {
 	REZLUST_TIP_LUST = "Bloodlust (anche Heroism, Time Warp, Fury of the Aspects e il Primal Rage del pet di un hunter) rende tutto il gruppo più veloce per 40 secondi. Dopo, nessuno può riaverlo per 10 minuti. La maggior parte dei gruppi lo tiene per il boss, o per il primo pull grosso in una key.",
 	REZLUST_TIP_MOVE = "Trascina per spostare. Puoi disattivare questo pannello nelle impostazioni, sotto Aiuto dungeon.",
 	SET_REZLUST_TOGGLE_TITLE = "Pannello Battle res & Bloodlust",
-	SET_REZLUST_TOGGLE_DESC = "Un piccolo pannello nei dungeon Mythic, nelle key Mythic+ e nei raid: le cariche di Battle res del gruppo, se Bloodlust è pronto e chi nel tuo gruppo può usare l'uno o l'altro. Passaci sopra il mouse per sapere cosa sono. Dove EllesmereUI mostra già la stessa icona, quella riga non appare. /mh lust mostra cosa legge.",
+	SET_REZLUST_TOGGLE_DESC = "Un piccolo pannello quando sei in gruppo in un dungeon, una delve o un raid: le cariche di Battle res del gruppo, se Bloodlust è pronto, chi nel tuo gruppo può usare l'uno o l'altro e su quale tasto sono i tuoi incantesimi di resurrezione. Passaci sopra il mouse per sapere cosa sono. Dove EllesmereUI mostra già la stessa icona, quella riga non appare. /mh lust mostra cosa legge.",
+	SET_REZLUST_ONLYKEY_TITLE = "Solo nelle key Mythic+ e nei raid",
+	SET_REZLUST_ONLYKEY_DESC = "Mostra il pannello Battle res & Bloodlust solo nei dungeon Mythic, nelle key Mythic+ e nei raid, non negli altri dungeon né nelle delve.",
 })

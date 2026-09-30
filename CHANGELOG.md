@@ -22,6 +22,8 @@ All notable changes to this project are documented in this file.
   een klein paneel met de gedeelde battle res-ladingen (in een key en tijdens een raidbaas), of Bloodlust klaar is
   (met aftellen), en wie in je groep kan brezzen of lusten. Beweeg erover voor uitleg. Een regel blijft weg waar
   EllesmereUI hetzelfde icoon al toont. Aan/uit in de instellingen (Dungeon-hulp); `/mh lust` en `/mh lust test`.
+  Toont ook je eigen battle res, Bloodlust en gewone res met de toets waar ze op staan. Verschijnt in elke groep in
+  een dungeon, delve of raid; een schakelaar beperkt het tot Mythic+-keys en raids.
 
 ## 4.2.0
 

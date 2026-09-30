@@ -26,8 +26,8 @@
 	measured 12 Aug and 31 Aug), so a "nothing" read while auras are secret never clears a
 	lockout we already saw. A sighting always counts.
 
-	Silence is a normal outcome here (the panel only shows in Mythic dungeons, keys and
-	raids), so `/mh lust` prints the decision and the reason, and `/mh lust test` shows the
+	Silence is a normal outcome here (the panel only shows in a group inside a dungeon, delve or
+	raid; or, with the setting, only in Mythic dungeons, keys and raids), so `/mh lust` prints the decision and the reason, and `/mh lust test` shows the
 	panel for 30 seconds wherever you are, with the real readings.
 ]]
 
@@ -61,6 +61,9 @@ local LUST_CLASSES = { SHAMAN = true, MAGE = true, EVOKER = true, HUNTER = "pet"
 --- 12.0 and was 391054 in Dragonflight (`KeybindingData.lua`); Primal Rage is the pet's spell.
 local MY_BREZ = { 20484, 61999, 20707, 461622, 391054 }
 local MY_LUST = { 2825, 32182, 80353, 390386, 272678, 264667 }
+--- The ordinary resurrection, out of combat (Rob, 30 Sep: "ook de normale res buiten combat").
+--- Redemption, Resurrection, Ancestral Spirit, Revive, Resuscitate, Return: JustAC's resurrect list.
+local MY_RES = { 7328, 2006, 2008, 50769, 115178, 361227 }
 
 local MAX_NAMES = 3
 local PANEL_W = 300
@@ -100,6 +103,15 @@ function ns.IsRezLustEnabled()
 	return not (type(ui) == "table" and ui.rezLust == false)
 end
 
+--- Rob, 30 Sep 2026: "waarom zien we het niet in een delve als we met meerdere zijn, of überhaupt
+--- in groepen?" The first version showed only where the SHARED battle res pool exists (keys, raid
+--- bosses). Now it shows in every group instance by default; this switch brings back the narrow
+--- version for players who want less on screen.
+function ns.IsRezLustKeyRaidOnly()
+	local ui = Ui()
+	return type(ui) == "table" and ui.rezLustKeyRaidOnly == true
+end
+
 --------------------------------------------------------------------------------
 -- Where are we?
 --------------------------------------------------------------------------------
@@ -128,7 +140,8 @@ local function InBossFight()
 	return false
 end
 
---- @return string|nil where ("key", "mythic", "raid") and the instance type, or nil outside
+--- @return string|nil where ("key", "mythic", "raid", "dungeon", "scenario") and the instance
+--- type, or nil outside instances. "scenario" is where delves live.
 local function Place()
 	if not GetInstanceInfo then
 		return nil
@@ -144,9 +157,15 @@ local function Place()
 		if difficulty == 23 then
 			return "mythic", kind
 		end
+		return "dungeon", kind
+	end
+	if kind == "scenario" then
+		return "scenario", kind
 	end
 	return nil, kind
 end
+
+local NARROW = { key = true, mythic = true, raid = true }
 
 --- Where the shared pool applies: in a key, and during a raid boss fight.
 local function PoolContext()
@@ -425,7 +444,7 @@ end
 --- "Intercession: Your key: 5" for the spell of this kind you know, or nil when you have none.
 --- The key comes from LiveKeys, the same reader the How you play window uses: the key it is on
 --- right now on the standard Blizzard bars, never our keybind scheme.
-local function MyButton(ids)
+local function MyButton(ids, labelKey)
 	for _, id in ipairs(ids) do
 		if Known(id) then
 			local name
@@ -433,10 +452,14 @@ local function MyButton(ids)
 				local ok, n = pcall(C_Spell.GetSpellName, id)
 				name = ok and Readable(n) and n or nil
 			end
+			name = name or ("spell " .. id)
+			if labelKey then
+				name = ns:L(labelKey):format(name)
+			end
 			local key = ns.LiveKeyForSpell and ns.LiveKeyForSpell(id)
 			local where = key and ns:L("PLAYCARD_KEY_FMT"):format("|cffffffff" .. key .. "|r")
 				or ("|cffff9900" .. ns:L("PLAYCARD_KEY_NONE") .. "|r")
-			return ("   |cffffd100%s|r: %s"):format(name or ("spell " .. id), where)
+			return ("   |cffffd100%s|r: %s"):format(name, where)
 		end
 	end
 	return nil
@@ -485,13 +508,14 @@ local function BuildLines(logIt)
 			if logIt then
 				ReadBrez(true)
 			end
-			lines[#lines + 1] = "|cff9d9d9d" .. ns:L("REZLUST_BREZ_OFF") .. "|r"
+			lines[#lines + 1] = "|cff9d9d9d" .. ns:L("REZLUST_BREZ_OWN") .. "|r"
 		end
 	end
 	local brezWho = WhoCan(BREZ_CLASSES)
 	lines[#lines + 1] = brezWho and ns:L("REZLUST_BREZ_WHO_FMT"):format(brezWho)
 		or ("|cffff9900" .. ns:L("REZLUST_BREZ_WHO_NONE") .. "|r")
 	lines[#lines + 1] = MyButton(MY_BREZ)
+	lines[#lines + 1] = MyButton(MY_RES, "REZLUST_OOC_FMT")
 
 	lines[#lines + 1] = " "
 	if not EllesmereShows("bloodlust") then
@@ -603,7 +627,10 @@ local function ShouldShow()
 	end
 	local place, kind = Place()
 	if not place then
-		return false, ("not in a Mythic dungeon, key or raid (instance type %s)"):format(tostring(kind))
+		return false, ("not in a dungeon, delve or raid (instance type %s)"):format(tostring(kind))
+	end
+	if ns.IsRezLustKeyRaidOnly() and not NARROW[place] then
+		return false, ("in %s, but the setting says Mythic+ keys and raids only"):format(place)
 	end
 	if not (IsInGroup and IsInGroup()) then
 		return false, "not in a group"
@@ -638,6 +665,14 @@ local function Refresh()
 	if not ticker and C_Timer and C_Timer.NewTicker then
 		ticker = C_Timer.NewTicker(0.5, Refresh)
 	end
+end
+
+function ns.SetRezLustKeyRaidOnly(v)
+	local ui = Ui()
+	if type(ui) == "table" then
+		ui.rezLustKeyRaidOnly = v and true or false
+	end
+	Refresh()
 end
 
 function ns.SetRezLustEnabled(v)

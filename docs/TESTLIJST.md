@@ -42,6 +42,12 @@ er is niets weggegooid.
       *"Intercession: Your key: <toets>"* (of oranje *"Not on a key on your action bars yet."*). Klopt de toets? Sleep
       Intercession naar een andere knop terwijl het paneel open is → de toets verandert mee. Op de Shaman: dezelfde regel
       onder *Can cast Bloodlust* met Bloodlust/Heroism.
+- [ ] 🆕 (Rob, 30 sep: "waarom niet in een delve als we met meerdere zijn … en de normale res buiten combat")
+      Nu in **elke groep** in een dungeon, delve of raid. Test: ga met iemand een **delve** of **normale dungeon** in →
+      het paneel staat er vanzelf, met *"Battle res: no shared charges here - everyone has their own cooldown."* Op
+      Twelveinchy staat nu ook *"Redemption (out of combat): Your key: …"* onder Intercession. Klopt die toets?
+- [ ] Instellingen → Dungeon-hulp → **Only in Mythic+ keys and raids** aan → in de delve/normale dungeon verdwijnt het
+      paneel, `/mh lust` zegt *"…the setting says Mythic+ keys and raids only"*. Weer uit → het is terug.
 - [ ] Beweeg erover → uitleg over beide. Slepen → het blijft daar staan na `/reload`.
 - [ ] Instellingen → Dungeon-hulp → **Paneel battle res & Bloodlust** uit → `/mh lust` zegt *setting off*.
 - [ ] **In een M+-key of raid, in een groep** (hier zit de echte meting): het paneel staat er vanzelf. In de key:
