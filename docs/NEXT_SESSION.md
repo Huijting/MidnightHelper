@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 💡 30 sep — DDingUI bekeken (3 addons van DDing op CurseForge, niet gedownload)
+
+CooldownManager (CDM-skin/resourcebalken), Toolkit (combat timer, brez + lust, healer-mana, LFG/mail-alarm,
+slijtage), Media & Profile (UI-installer). Alle drie All Rights Reserved (GEMETEN op CF) → geen code. Slijtage
+heeft MH al (`DurabilityWarn.lua`). Rob: brez-ladingen + Bloodlust → ideeënlijst: staat in `docs/ROADMAP.md`
+feature-backlog, eerst in-game meten of 12.1 het laat lezen.
+
 ## 🚦 29 sep — 4.3.0 bijna klaar (Rob: "ja, begin maar met de vertaling"); GEEN release zonder Robs "go"
 
 Sinds v4.2.0 in de code: `/mh export` (3 commits) + Codex-crestzin. ✅ De 6 export-strings (CMDLIST_EXPORT,

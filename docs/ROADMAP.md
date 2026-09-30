@@ -9,6 +9,14 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
 De rest, bewaard voor later (≈ prioriteit):
 
+- [ ] **Battle res-ladingen + Bloodlust/Heroism in je groep (Rob, 30 sep: "zet die maar op de
+      ideeënlijst")** — idee uit DDingUI Toolkit (CurseForge, All Rights Reserved → alleen het
+      idee, geen code). MH heeft het nog niet (GEMETEN 30 sep: geen treffer in `Modules/` buiten
+      keybind-rollen). Past bij de Tank/DPS-toolkit. EERST meten in het spel of 12.1 het laat
+      lezen: gedeelde brez-ladingen (`C_Spell.GetSpellCharges`?) en de Sated/Exhaustion-debuff
+      op groepsleden (andermans auras kunnen secret zijn → `ns.Aura`, nil = onleesbaar). Niet
+      gemeten, dus nog geen belofte.
+
 - [ ] **Leveling/beta-tab herzien (Rob, 30 jun)** — de leveling-tab hoort er in de
       huidige vorm niet zo in: te summier en te vrijblijvend. Apart oppakken: scope
       aanscherpen, concreter/sturender maken (of anders positioneren). Na de
