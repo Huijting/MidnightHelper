@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🧭 30 sep laat — Raidbots-route uitgewerkt, wacht op Robs keuze (A/B/C)
+
+Plan + bronnen: `docs/RAIDBOTS_ROUTE.md`. Kort: Raidbots verbiedt alleen automatisering; linken wordt aangemoedigd
+(developers-pagina); gratis Top Gear heeft sinds aug een uurlimiet. SimC-addon = Unlicense, bijgehouden voor 12.1.
+Advies **A** (verwijzen naar SimulationCraft + Raidbots, niets zelf genereren: geen formaat-onderhoud per patch).
+Conceptbericht aan Raidbots staat in het plan; Rob verstuurt het zelf als hij wil. Nog niets gebouwd.
+
 ## 🔧 30 sep avond — Armory: staf + schild-advies gerepareerd (Rob, Shaman-export)
 
 GEMETEN in de code: export schreef `INVTYPE_2HWEAPON` gewoon als `mainhand`, site koos per slot → schild "replaces empty

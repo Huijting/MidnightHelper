@@ -9,6 +9,14 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
 De rest, bewaard voor later (≈ prioriteit):
 
+- [ ] **Raidbots-route voor de Armory (Rob, 30 sep: "zet de Raidbots-route op de ideeënlijst, en begin maar
+      met uitwerken")** — MH maakt een tekst in het SimulationCraft-formaat (karakter, talenten, gear met bonus-ids,
+      enchants, gems, tas-items als `# `-regels), de speler plakt die zelf op Raidbots **Top Gear**. Echte simulaties,
+      dus trinket-effecten, sets en embellishments tellen mee — wat onze stat-gewichten niet kunnen (zie de Lost
+      Idol-fout, 30 sep). Onze site blijft het snelle overzicht met uitleg en linkt door. Geen API, geen automatische
+      inzending. Eerst: Raidbots' voorwaarden + licentie van de SimC-addon (niet kopiëren als GPL). Schatting (AFGELEID):
+      een dag of twee. Plan: `docs/RAIDBOTS_ROUTE.md` (30 sep uitgewerkt: advies optie A = verwijzen naar de
+      SimulationCraft-addon i.p.v. zelf genereren; wacht op Robs keuze).
 - [~] **GEBOUWD 30 sep (`Modules/GroupRezLust.lua`), wacht op meting in het spel — zie NEXT_SESSION.**
       **Battle res-ladingen + Bloodlust/Heroism in je groep (Rob, 30 sep: "zet die maar op de
       ideeënlijst")** — idee uit DDingUI Toolkit (CurseForge, All Rights Reserved → alleen het
