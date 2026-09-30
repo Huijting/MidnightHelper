@@ -79,8 +79,9 @@ laat per regel het veld aan EllesmereUI als dát icoon aan staat (`_EUI_BattleRe
 
 Sinds v4.2.0 in de code: `/mh export` (3 commits) + Codex-crestzin. ✅ De 6 export-strings (CMDLIST_EXPORT,
 GEAREXPORT_*) nu in de/fr/es/pt/it via `fill()`-blokken onderaan Translations2026.lua (5 agents die het pack maten;
-de = Strg+C; lint: +6 per taal, 0 HARD). Nog vóór "go": Rob test `/mh export` op een Intellect-alt
-(`primary=Intellect`; GetSpecializationInfo 6e return, 1 en 2 al GEMETEN). Niet blokkerend: boog in tassen,
+de = Strg+C; lint: +6 per taal, 0 HARD). ✅ Intellect GEMETEN 30 sep: Robs Shaman-export op de site toonde
+"Example weights (survival): Intellect 1" — die kolomnaam komt uit `primary=` van de export (armory `statName`), dus
+`primary=Intellect` (4 = Intellect werkt). Alle drie de primaries nu gemeten; de release wacht alleen nog op Robs "go". Niet blokkerend: boog in tassen,
 Gilded Stash T11 (Myth-zin). NA de release: op de site `index.html` "Coming in the next Midnight Helper update." en
 `armory/index.html` "(coming in the next Midnight Helper update)" weg → `site_i18n.py extract` → die 2 units per taal
 opnieuw laten vertalen → `build` → push.
