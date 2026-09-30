@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 📏 30 sep avond — paneel brez/Hero GEMETEN in Robs groep (`ns.db.rezLustLog`, SV na /reload)
+
+- **Sated/Hero:** `combat:seen` ×841 met `expiration` als gewoon getal en `trusted=false` → `GetPlayerAuraBySpellID`
+  op de Sated-id's antwoordt ÓÓK in gevecht mét eindtijd. Ids gezien: 57724 (Sated, na Bloodlust) en 80354 (Temporal
+  Displacement, na Time Warp). `combat:unsure` ×2945 = "niets" terwijl auras secret zijn (vermoedelijk echt afwezig,
+  want dezelfde id's worden in gevecht wél gezien; het paneel houdt dan de vorige stand, zoals ontworpen).
+- **Brez:** buiten key/raidbaas `no shared pool here` (cur/max nil) ✔. Tijdens een **raidbaas**: cur 99 / max 99, dur 108,
+  na een brez 98 met start gezet — getallen in gevecht leesbaar, niet secret. Welke difficulty: niet gelogd → nu wel
+  (`:d<difficultyID>` in de log-sleutel); Rob gevraagd. Paneel toont bij max ≥ 20 `REZLUST_BREZ_UNLIMITED`.
+- Nog niet gemeten: een M+-key (de krappe pot).
+
 ## 🔧 30 sep laat — paneel brez/lust in álle groepsinhoud + gewone res (Rob: "Ja, dat is een goed idee zo")
 
 `GroupRezLust.lua`: `Place()` kent nu ook "dungeon" (party, andere difficulty) en "scenario" (delves); getoond in elke

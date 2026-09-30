@@ -51,8 +51,10 @@ er is niets weggegooid.
 - [x] ✅ (Rob, 30 sep avond, screenshot in een echte groep) *"Battle res: no shared charges here…"*, *"Twelveinchy
       (Paladin) - Intercession"*, Intercession toets R, Redemption (out of combat) toets s-R, **"Hero: used - ready again
       in 0:41"** zonder "~" (= echte eindtijd van de Sated-debuff GEMETEN leesbaar), *"Sizle (Shaman) - Bloodlust,
-      Magedobby (Mage) - Time Warp"* in klassekleur (Horde → Bloodlust klopt). ⏳ Nog: `/mh lust` + `/reload` na de dungeon
-      voor `ns.db.rezLustLog` (in-combat-metingen).
+      Magedobby (Mage) - Time Warp"* in klassekleur (Horde → Bloodlust klopt). ✅ Log gelezen na `/reload`: Sated in
+      gevecht leesbaar mét eindtijd (841×); raidbaas-pot 99/99 (→ nu "no real limit in this fight").
+- [ ] **In een M+-key** (de echte krappe pot): *"Battle res: 1 of 1 left"* of zo, en na een brez *"next in m:ss"*. Daarna
+      `/mh lust` + `/reload`. En: welke raid/difficulty gaf 99 ladingen? (vanaf nu staat de difficulty in de log)
 - [ ] 🆕 (Rob, 30 sep avond: "wordt gewoon hero genoemd … voor elke spec zijn eigen naam") `/reload`, `/mh lust test`
       → titel *"Battle res & Hero"*, regels *"Hero: ready"*, *"Can cast Hero: Twelveinchy…"* ontbreekt (Paladin kan geen
       Hero) maar *"Can revive in combat: Twelveinchy (Paladin) - Intercession"* staat er met de spreuknaam. Op de Shaman:

@@ -11661,3 +11661,20 @@ fill("itIT", {
 	SET_REZLUST_ONLYKEY_TITLE = "Solo nelle key Mythic+ e nei raid",
 	SET_REZLUST_ONLYKEY_DESC = "Mostra il pannello Battle res & Hero solo nei dungeon Mythic, nelle key Mythic+ e nei raid, non negli altri dungeon né nelle delve.",
 })
+
+-- Battle res pool of 20+ charges (measured 99 in a raid boss fight, 30 Sep 2026). Not native-reviewed.
+fill("deDE", {
+	REZLUST_BREZ_UNLIMITED = "Battle res: in diesem Kampf keine echte Grenze.",
+})
+fill("frFR", {
+	REZLUST_BREZ_UNLIMITED = "Battle res : pas de vraie limite dans ce combat.",
+})
+fill("esES", {
+	REZLUST_BREZ_UNLIMITED = "Battle res: en este combate no hay un límite real.",
+})
+fill("ptBR", {
+	REZLUST_BREZ_UNLIMITED = "Battle res: nesta luta não há limite real.",
+})
+fill("itIT", {
+	REZLUST_BREZ_UNLIMITED = "Battle res: in questo combattimento non c'è un vero limite.",
+})

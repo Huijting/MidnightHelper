@@ -1554,6 +1554,7 @@ ns._mhLocales.nlNL = {
 	REZLUST_TITLE = "Battle res & Hero",
 	REZLUST_BREZ_FMT = "Battle res: nog %d van %d",
 	REZLUST_NEXT_FMT = "volgende over %s",
+	REZLUST_BREZ_UNLIMITED = "Battle res: in dit gevecht geen echte grens.",
 	REZLUST_BREZ_OWN = "Battle res: hier geen gedeelde ladingen - iedereen heeft zijn eigen afkoeltijd.",
 	REZLUST_OOC_FMT = "%s (buiten gevecht)",
 	REZLUST_BREZ_UNREAD = "Battle res: de ladingen zijn nu niet te lezen.",

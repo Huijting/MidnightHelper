@@ -35,6 +35,9 @@ local _, ns = ...
 
 local REBIRTH = 20484 -- the shared battle res pool answers under this id (candidate, see above)
 local LOCKOUT = 600 -- Sated lasts 10 minutes; used only when the real expiry is hidden
+-- MEASURED 30 Sep 2026 (Rob, raid boss): the pool read 99 of 99, then 98 with 108 s to the next.
+-- A pool that large is no limit in practice, so the panel says that instead of counting.
+local UNLIMITED = 20
 
 --- Every Bloodlust variant's lockout debuff. Same list in EllesmereUIQoL and JustAC.
 local SATED = {
@@ -282,7 +285,10 @@ local function ReadBrez(logIt)
 	end
 	if logIt then
 		local ctx = PoolContext() or "elsewhere"
-		Log("brez", (InCombat() and "combat:" or "calm:") .. ctx, {
+		local difficulty = GetInstanceInfo and select(3, GetInstanceInfo())
+		-- The difficulty goes in the key: 30 Sep 2026 a raid boss reported 99 of 99 charges, and which
+		-- difficulty that was could not be told from the log afterwards.
+		Log("brez", (InCombat() and "combat:" or "calm:") .. ctx .. ":d" .. tostring(difficulty), {
 			result = why, cur = Shape(cur), max = Shape(max), start = Shape(start), dur = Shape(dur),
 		})
 	end
@@ -513,7 +519,9 @@ local function BuildLines(logIt)
 		local ctx = PoolContext()
 		if ctx then
 			local charges = ReadBrez(logIt)
-			if charges then
+			if charges and charges.max >= UNLIMITED then
+				lines[#lines + 1] = ns:L("REZLUST_BREZ_UNLIMITED")
+			elseif charges then
 				local line = ns:L("REZLUST_BREZ_FMT"):format(charges.cur, charges.max)
 				if charges.nextIn then
 					line = line .. " · " .. ns:L("REZLUST_NEXT_FMT"):format(Clock(charges.nextIn))
