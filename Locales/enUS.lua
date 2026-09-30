@@ -1623,6 +1623,7 @@ ns._mhLocales.enUS = {
 	REZLUST_BREZ_FMT = "Battle res: %d of %d left",
 	REZLUST_NEXT_FMT = "next in %s",
 	REZLUST_BREZ_UNLIMITED = "Battle res: no real limit in this fight.",
+	REZLUST_CLOSE_TIP = "Close until you leave this dungeon, delve or raid. To turn it off for good: settings, Dungeon help.",
 	REZLUST_BREZ_OWN = "Battle res: no shared charges here - everyone has their own cooldown.",
 	REZLUST_OOC_FMT = "%s (out of combat)",
 	REZLUST_BREZ_UNREAD = "Battle res: can't read the charges right now.",

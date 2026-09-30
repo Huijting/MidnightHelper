@@ -71,6 +71,9 @@ er is niets weggegooid.
       Twelveinchy staat nu ook *"Redemption (out of combat): Your key: …"* onder Intercession. Klopt die toets?
 - [ ] Instellingen → Dungeon-hulp → **Only in Mythic+ keys and raids** aan → in de delve/normale dungeon verdwijnt het
       paneel, `/mh lust` zegt *"…the setting says Mythic+ keys and raids only"*. Weer uit → het is terug.
+- [ ] 🆕 (Rob, 30 sep: "sluit knop") Rechtsboven op het paneel een **X**. Muis erop → uitleg. Klik in een dungeon → het
+      paneel is weg, ook na `/reload` in dezelfde dungeon; `/mh lust` zegt *"closed with the X for this instance"*.
+      Dungeon uit en een nieuwe in → het staat er weer.
 - [ ] Beweeg erover → uitleg over beide. Slepen → het blijft daar staan na `/reload`.
 - [ ] Instellingen → Dungeon-hulp → **Paneel battle res & Bloodlust** uit → `/mh lust` zegt *setting off*.
 - [ ] **In een M+-key of raid, in een groep** (hier zit de echte meting): het paneel staat er vanzelf. In de key:

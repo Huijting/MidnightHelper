@@ -11683,3 +11683,20 @@ fill("ptBR", {
 fill("itIT", {
 	REZLUST_BREZ_UNLIMITED = "Battle res: in questo combattimento non c'è un vero limite.",
 })
+
+-- Close button on the battle res & Hero panel (30 Sep 2026). Not native-reviewed.
+fill("deDE", {
+	REZLUST_CLOSE_TIP = "Schließen, bis du diesen Dungeon, diese Delve oder diesen Raid verlässt. Ganz ausschalten: Einstellungen, Dungeon-Hilfe.",
+})
+fill("frFR", {
+	REZLUST_CLOSE_TIP = "Fermer jusqu'à ce que tu quittes ce donjon, cette delve ou ce raid. Pour le désactiver pour de bon : réglages, Aide donjon.",
+})
+fill("esES", {
+	REZLUST_CLOSE_TIP = "Cerrar hasta que salgas de esta mazmorra, delve o raid. Para desactivarlo del todo: ajustes, Ayuda de mazmorra.",
+})
+fill("ptBR", {
+	REZLUST_CLOSE_TIP = "Fechar até você sair desta masmorra, delve ou raid. Para desligar de vez: Configurações, Ajuda de masmorra.",
+})
+fill("itIT", {
+	REZLUST_CLOSE_TIP = "Chiudi finché non lasci questo dungeon, delve o raid. Per disattivarlo del tutto: impostazioni, Aiuto dungeon.",
+})

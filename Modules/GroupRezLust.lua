@@ -182,6 +182,19 @@ end
 
 local NARROW = { key = true, mythic = true, raid = true }
 
+--- Which instance we are in, for "closed until you leave". Kept in the saved settings so a
+--- /reload inside the same dungeon does not bring the panel back; cleared outside instances.
+local function InstanceKey()
+	if not GetInstanceInfo then
+		return nil
+	end
+	local _, kind, _, _, _, _, _, instanceID = GetInstanceInfo()
+	if kind == "none" or kind == nil then
+		return nil
+	end
+	return tostring(kind) .. ":" .. tostring(instanceID)
+end
+
 --- Where the shared pool applies: in a key, and during a raid boss fight.
 local function PoolContext()
 	local place = Place()
@@ -618,6 +631,24 @@ local function EnsurePanel()
 	f.title:SetTextColor(HeaderRGB())
 	f.title:SetText(ns:L("REZLUST_TITLE"))
 
+	-- Rob, 30 Sep 2026: "de lust venster moet ook een sluit knop krijgen". Closed = gone until you
+	-- leave this instance; the next dungeon, delve or raid shows it again. For good: the setting.
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetSize(22, 22)
+	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -2, -2)
+	close:SetScript("OnClick", function()
+		ns.DismissRezLust()
+	end)
+	close:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(ns:L("REZLUST_CLOSE_TIP"), 1, 1, 1, 1, true)
+		GameTooltip:Show()
+	end)
+	close:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+	f.close = close
+
 	f.body = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	if ns.MHScalableFont then
 		f.body:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
@@ -662,6 +693,10 @@ local function ShouldShow()
 	if ns.IsRezLustKeyRaidOnly() and not NARROW[place] then
 		return false, ("in %s, but the setting says Mythic+ keys and raids only"):format(place)
 	end
+	local ui = Ui()
+	if type(ui) == "table" and ui.rezLustClosedIn and ui.rezLustClosedIn == InstanceKey() then
+		return false, "closed with the X for this instance (it comes back in the next one)"
+	end
 	if not (IsInGroup and IsInGroup()) then
 		return false, "not in a group"
 	end
@@ -695,6 +730,15 @@ local function Refresh()
 	if not ticker and C_Timer and C_Timer.NewTicker then
 		ticker = C_Timer.NewTicker(0.5, Refresh)
 	end
+end
+
+function ns.DismissRezLust()
+	local ui = Ui()
+	if type(ui) == "table" then
+		ui.rezLustClosedIn = InstanceKey() or "outside"
+	end
+	testUntil = 0
+	Refresh()
 end
 
 function ns.SetRezLustKeyRaidOnly(v)
@@ -746,6 +790,13 @@ ev:SetScript("OnEvent", function(_, event)
 		encounterActive = false
 	elseif event == "PLAYER_ENTERING_WORLD" then
 		encounterActive = false
+	end
+	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED_NEW_AREA" then
+		-- Out of every instance: a panel closed with the X may come back next time.
+		local ui = Ui()
+		if type(ui) == "table" and ui.rezLustClosedIn and not InstanceKey() then
+			ui.rezLustClosedIn = nil
+		end
 	end
 	if event == "UNIT_AURA" or event == "PLAYER_ENTERING_WORLD" or event == "PLAYER_REGEN_ENABLED" then
 		-- After combat the aura API can be believed again, so this is where a lockout
