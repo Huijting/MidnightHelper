@@ -104,6 +104,17 @@ local function BuildLines()
 			out[#out + 1] = { text = ns:SafeL("CHARPANEL_ALLGOOD") or "", color = "good" }
 		end
 	end
+
+	-- Rob, 30 Sep 2026: "we moeten dan ook een knop inbouwen om de mh raidbots te genereren".
+	-- Always last and always there: it is a way in, not an attention point, so it never
+	-- decides whether the "all good" line above shows.
+	if ns.ShowSimcExport then
+		out[#out + 1] = {
+			text = ns:SafeL("CHARPANEL_RAIDBOTS") or "Raidbots",
+			color = "prog",
+			onClick = function() pcall(ns.ShowSimcExport) end,
+		}
+	end
 	return out
 end
 

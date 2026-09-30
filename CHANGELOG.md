@@ -16,11 +16,13 @@ All notable changes to this project are documented in this file.
 - **`/mh raidbots`** (`Modules/SimcExport.lua`, 30 sep 2026): je karakter, talenten, uitrusting, tas-items en Great
   Vault-keuzes als SimulationCraft-tekst, om op Raidbots Top Gear te plakken (echte simulatie: trinket-effecten en sets
   tellen mee). Formaat gevolgd naar de SimulationCraft-addon (publiek domein, release 12.1.0-04). Zeven talen.
+  **Testfase, op eigen risico** — dat staat bovenaan het venster. Het venster toont de stappen; knop op het
+  karakterscherm (MH-paneel: *Best set from your bags: Raidbots (test)*); uitleg op midnighthelper.com/raidbots.
 - **Armory-export** (`/mh export`): wapens krijgen `hands` (twee- of eenhandig), ringen/trinkets `unique` en `effect`
   uit de tooltip; de site kiest wapens als paar, respecteert Unique-Equipped en wisselt nooit een effect-item.
-- **Paneel battle res & Bloodlust** (`Modules/GroupRezLust.lua`, 30 sep 2026): in Mythic-dungeons, keys en raids
-  een klein paneel met de gedeelde battle res-ladingen (in een key en tijdens een raidbaas), of Bloodlust klaar is
-  (met aftellen), en wie in je groep kan brezzen of lusten. Beweeg erover voor uitleg. Een regel blijft weg waar
+- **Paneel battle res & Hero** (`Modules/GroupRezLust.lua`, 30 sep 2026): in groepen in dungeons, delves en raids
+  een klein paneel met de gedeelde battle res-ladingen (in een key en tijdens een raidbaas; LFR = geen echte grens),
+  of Hero klaar is (met aftellen), en wie in je groep kan brezzen of Hero geven, met de naam van hun spreuk. Beweeg erover voor uitleg. Een regel blijft weg waar
   EllesmereUI hetzelfde icoon al toont. Aan/uit in de instellingen (Dungeon-hulp); `/mh lust` en `/mh lust test`.
   Toont ook je eigen battle res, Bloodlust en gewone res met de toets waar ze op staan. Verschijnt in elke groep in
   een dungeon, delve of raid; een schakelaar beperkt het tot Mythic+-keys en raids.

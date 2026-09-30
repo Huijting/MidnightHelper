@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 📝 30 sep avond — Raidbots-uitleg op drie plekken + knop (Rob: "ja, maak die drie maar … testfase, eigen risico")
+
+1. **In het spel:** `RAIDBOTS_HINT` = oranje testfase-regel + 5 stappen + verwijzing naar midnighthelper.com/<taal>/raidbots
+   (7 talen, `check_drift --mark`); venster 640×560. **Knop:** regel `CHARPANEL_RAIDBOTS` onderaan het MH-paneel naast het
+   karakterscherm (`CharacterSidePanel.lua`, klik → `ns.ShowSimcExport`; beïnvloedt de "all good"-regel niet).
+   **Automatisch Ctrl+C kan niet:** geen enkele geïnstalleerde addon roept `CopyToClipboard` aan, ook de SimC-addon niet
+   (GEMETEN, grep); de tekst staat voorgeselecteerd.
+2. **Site:** nieuwe pagina `raidbots/index.html` (in `PAGES`), 7 stappen + testfase-blok + "good to know" (tanks, Armory vs
+   Raidbots, geen band met Raidbots). Armory-blok linkt ernaar, met testfase-zin. 6 talen via agents.
+3. **Release-notes 4.3.0 (concept, Engels, voor als Rob "go" zegt):**
+   > **New, test phase: exact advice with Raidbots.** Type `/mh raidbots` (or click *Best set from your bags: Raidbots
+   > (test)* in the Midnight Helper panel next to your character sheet), press Ctrl+C and paste it on Raidbots Top Gear.
+   > Raidbots simulates your character, so trinket effects and set bonuses count. This is new and still being tested:
+   > use it at your own risk. Step by step: midnighthelper.com/raidbots
+
 ## 📏 30 sep avond — paneel brez/Hero GEMETEN in Robs groep (`ns.db.rezLustLog`, SV na /reload)
 
 - **Sated/Hero:** `combat:seen` ×841 met `expiration` als gewoon getal en `trusted=false` → `GetPlayerAuraBySpellID`

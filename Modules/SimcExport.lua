@@ -19,8 +19,14 @@ local _, ns = ...
 	Left out on purpose (v1): the upgrade/catalyst currency lines (season data that would need its
 	own upkeep), the merchant and linked-gear dumps (debug features), and the 11.1.7 belt.
 
-	VERIFY in the game: everything. Nothing here is measured yet; the first real paste on Raidbots
-	is the test (docs/TESTLIJST.md).
+	MEASURED 30 Sep 2026: Raidbots read Rob's Twelveinchy export (character, talents, gear, set,
+	Omnium Folio, bag items), with the label "Unverified Input" because the text does not come from
+	the SimulationCraft addon itself. We do not pretend it does.
+
+	📌 TEST PHASE (Rob, 30 Sep: "duidelijk maken dat dit nog in een testfase zit en op eigen risico").
+	The window says so in its first line, and so does midnighthelper.com/raidbots. An addon cannot put
+	text on the system clipboard (no installed addon calls CopyToClipboard, the SimulationCraft addon
+	included), so the text is pre-selected and the first step is Ctrl+C.
 ]]
 
 -- Item string field positions (simc-addon core.lua).
@@ -597,8 +603,8 @@ function ns.ShowSimcExport()
 		titleKey = "RAIDBOTS_TITLE",
 		hintKey = "RAIDBOTS_HINT",
 		closeKey = "DELVE_SHARE_COPY_CLOSE",
-		width = 620,
-		height = 420,
+		width = 640,
+		height = 560,
 	})
 	print(prefix .. " " .. ns:L("RAIDBOTS_DONE_FMT"):format(bagCount or 0))
 end

@@ -11496,7 +11496,8 @@ fill("itIT", {
 fill("deDE", {
 	CMDLIST_RAIDBOTS = "Dein Charakter, deine Talente und deine Ausrüstung als SimulationCraft-Text, zum Einfügen bei Raidbots Top Gear für das genaue beste Set.",
 	RAIDBOTS_TITLE = "Für Raidbots Top Gear",
-	RAIDBOTS_HINT = "Drücke Strg+C und füge den Text auf raidbots.com/simbot/topgear ein. Raidbots simuliert, also zählen auch Schmuckstück-Effekte und Setboni.",
+	RAIDBOTS_HINT = "|cffff9900Testphase: neu in Midnight Helper, Nutzung auf eigenes Risiko.|r\n1. Drücke Strg+C (der Text ist schon markiert).\n2. Auf raidbots.com/simbot/topgear, Reiter SimC Addon: mit Strg+V einfügen.\n3. Klicke unter Gear die Gegenstände aus deinen Taschen an, die du vergleichen willst.\n4. Klicke auf Find Top Gear und warte ein paar Minuten.\n5. Ganz oben im Ergebnis steht dein bestes Set: zieh das an.\n\"Unverified Input\" auf Raidbots ist normal. Schritt für Schritt: midnighthelper.com/de/raidbots",
+	CHARPANEL_RAIDBOTS = "Bestes Set aus deinen Taschen: Raidbots (Test)",
 	RAIDBOTS_DONE_FMT = "Raidbots-Text fertig, mit %d Gegenstand/Gegenständen aus deinen Taschen. Füge ihn auf raidbots.com/simbot/topgear ein.",
 	RAIDBOTS_NOSPEC = "Wähle zuerst eine Spezialisierung: Raidbots braucht eine.",
 	RAIDBOTS_TALENTVERSION = "Der Talent-Export des Spiels hat sich geändert und Midnight Helper kennt die neue Version noch nicht. Raidbots liest deine Talente vielleicht falsch: bitte sag uns Bescheid.",
@@ -11505,7 +11506,8 @@ fill("deDE", {
 fill("frFR", {
 	CMDLIST_RAIDBOTS = "Ton personnage, tes talents et ton équipement en texte SimulationCraft, à coller sur Raidbots Top Gear pour le meilleur ensemble exact.",
 	RAIDBOTS_TITLE = "Pour Raidbots Top Gear",
-	RAIDBOTS_HINT = "Appuie sur Ctrl+C, puis colle-le sur raidbots.com/simbot/topgear. Raidbots simule, donc les effets des bijoux et les bonus d'ensemble comptent aussi.",
+	RAIDBOTS_HINT = "|cffff9900Phase de test : nouveau dans Midnight Helper, à utiliser à tes risques.|r\n1. Appuie sur Ctrl+C (le texte est déjà sélectionné).\n2. Sur raidbots.com/simbot/topgear, onglet SimC Addon : colle avec Ctrl+V.\n3. Sous Gear, clique sur les objets de tes sacs à comparer.\n4. Clique sur Find Top Gear et attends quelques minutes.\n5. En haut du résultat se trouve ton meilleur ensemble : équipe-le.\n\"Unverified Input\" sur Raidbots est normal. Étape par étape : midnighthelper.com/fr/raidbots",
+	CHARPANEL_RAIDBOTS = "Meilleur ensemble de tes sacs : Raidbots (test)",
 	RAIDBOTS_DONE_FMT = "Texte Raidbots prêt, avec %d objet(s) de tes sacs. Colle-le sur raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Choisis d'abord une spécialisation : Raidbots en a besoin.",
 	RAIDBOTS_TALENTVERSION = "L'export des talents du jeu a changé et Midnight Helper ne connaît pas encore la nouvelle version. Raidbots risque de mal lire tes talents : préviens-nous.",
@@ -11514,7 +11516,8 @@ fill("frFR", {
 fill("esES", {
 	CMDLIST_RAIDBOTS = "Tu personaje, talentos y equipo como texto de SimulationCraft, para pegarlo en Raidbots Top Gear y ver el mejor conjunto exacto.",
 	RAIDBOTS_TITLE = "Para Raidbots Top Gear",
-	RAIDBOTS_HINT = "Pulsa Ctrl+C y pégalo en raidbots.com/simbot/topgear. Raidbots simula, así que los efectos de los abalorios y las bonificaciones de conjunto también cuentan.",
+	RAIDBOTS_HINT = "|cffff9900Fase de prueba: nuevo en Midnight Helper, úsalo bajo tu propio riesgo.|r\n1. Pulsa Ctrl+C (el texto ya está seleccionado).\n2. En raidbots.com/simbot/topgear, pestaña SimC Addon: pega con Ctrl+V.\n3. En Gear, haz clic en los objetos de tus bolsas que quieras comparar.\n4. Haz clic en Find Top Gear y espera unos minutos.\n5. Arriba del resultado está tu mejor conjunto: póntelo.\n\"Unverified Input\" en Raidbots es normal. Paso a paso: midnighthelper.com/es/raidbots",
+	CHARPANEL_RAIDBOTS = "Mejor conjunto de tus bolsas: Raidbots (prueba)",
 	RAIDBOTS_DONE_FMT = "Texto para Raidbots listo, con %d objeto(s) de tus bolsas. Pégalo en raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Elige primero una especialización: Raidbots la necesita.",
 	RAIDBOTS_TALENTVERSION = "La exportación de talentos del juego ha cambiado y Midnight Helper aún no conoce la nueva versión. Puede que Raidbots lea mal tus talentos: avísanos.",
@@ -11523,7 +11526,8 @@ fill("esES", {
 fill("ptBR", {
 	CMDLIST_RAIDBOTS = "Seu personagem, talentos e equipamento como texto do SimulationCraft, para colar no Raidbots Top Gear e ver o melhor conjunto exato.",
 	RAIDBOTS_TITLE = "Para o Raidbots Top Gear",
-	RAIDBOTS_HINT = "Pressione Ctrl+C e cole em raidbots.com/simbot/topgear. O Raidbots simula, então efeitos de berloques e bônus de conjunto também contam.",
+	RAIDBOTS_HINT = "|cffff9900Fase de teste: novo no Midnight Helper, use por sua conta e risco.|r\n1. Pressione Ctrl+C (o texto já está selecionado).\n2. Em raidbots.com/simbot/topgear, aba SimC Addon: cole com Ctrl+V.\n3. Em Gear, clique nos itens das suas bolsas que você quer comparar.\n4. Clique em Find Top Gear e espere alguns minutos.\n5. No topo do resultado está o seu melhor conjunto: equipe-o.\n\"Unverified Input\" no Raidbots é normal. Passo a passo: midnighthelper.com/pt/raidbots",
+	CHARPANEL_RAIDBOTS = "Melhor conjunto das suas bolsas: Raidbots (teste)",
 	RAIDBOTS_DONE_FMT = "Texto do Raidbots pronto, com %d item(ns) das suas bolsas. Cole em raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Escolha uma especialização primeiro: o Raidbots precisa de uma.",
 	RAIDBOTS_TALENTVERSION = "A exportação de talentos do jogo mudou e o Midnight Helper ainda não conhece a nova versão. O Raidbots pode ler seus talentos errado: avise a gente.",
@@ -11532,7 +11536,8 @@ fill("ptBR", {
 fill("itIT", {
 	CMDLIST_RAIDBOTS = "Il tuo personaggio, i talenti e l'equipaggiamento come testo SimulationCraft, da incollare su Raidbots Top Gear per il miglior set esatto.",
 	RAIDBOTS_TITLE = "Per Raidbots Top Gear",
-	RAIDBOTS_HINT = "Premi Ctrl+C e incollalo su raidbots.com/simbot/topgear. Raidbots simula, quindi contano anche gli effetti dei monili e i bonus di set.",
+	RAIDBOTS_HINT = "|cffff9900Fase di test: novità di Midnight Helper, usala a tuo rischio.|r\n1. Premi Ctrl+C (il testo è già selezionato).\n2. Su raidbots.com/simbot/topgear, scheda SimC Addon: incolla con Ctrl+V.\n3. Sotto Gear, clicca gli oggetti delle tue borse che vuoi confrontare.\n4. Clicca Find Top Gear e aspetta qualche minuto.\n5. In cima al risultato c'è il tuo set migliore: indossalo.\n\"Unverified Input\" su Raidbots è normale. Passo passo: midnighthelper.com/it/raidbots",
+	CHARPANEL_RAIDBOTS = "Miglior set dalle tue borse: Raidbots (test)",
 	RAIDBOTS_DONE_FMT = "Testo per Raidbots pronto, con %d oggetto/i dalle tue borse. Incollalo su raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Scegli prima una specializzazione: Raidbots ne ha bisogno.",
 	RAIDBOTS_TALENTVERSION = "L'export dei talenti del gioco è cambiato e Midnight Helper non conosce ancora la nuova versione. Raidbots potrebbe leggere male i tuoi talenti: faccelo sapere.",

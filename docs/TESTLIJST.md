@@ -23,6 +23,11 @@ er is niets weggegooid.
 
 ## 🆕 30 sep — `/mh raidbots`: tekst voor Raidbots Top Gear (`SimcExport.lua`)
 
+- [ ] 🆕 `/reload`, open je karakterscherm (C) → onderaan het MH-paneel ernaast: *"Best set from your bags: Raidbots
+      (test)"*. Klik → het Raidbots-venster opent, bovenaan een **oranje** testfase-regel en 5 stappen. Past alles erin?
+- [ ] Site: midnighthelper.com/raidbots (en /nl/raidbots) → 7 stappen met gouden nummers en een oranje testfase-blok;
+      Armory → Best set → knop *Step by step* gaat erheen.
+
 - [ ] `/reload`, `/mh raidbots` → venster *"For Raidbots Top Gear"*, chat *"Raidbots text ready, with N item(s)…"*.
       Bovenaan `paladin="Twelveinchy"`, `spec=protection`, een regel `talents=…` (lange code), dan per slot
       `head=,id=…,bonus_id=…`, onder *### Gear from Bags* de tas-items met `# ` ervoor, onderaan `# Checksum: …`.
