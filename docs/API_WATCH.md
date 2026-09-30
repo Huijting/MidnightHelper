@@ -3322,3 +3322,153 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     voorouder van de tip en het onderwerp staat niet in de laatste 80 commits — net als gisteren,
     en net als gisteren is er niets verloren. 📌 **Volgende run: tel deze melding niet als
     nieuws.** Verandert de linkerkant ooit in iets anders dan `f32c136`, dán is het wél wat.
+- [2026-09-30] 📰 **Eén echt nieuw bronitem (23–30 sep): de hotfixes van 29 sep. 0 × [MOET
+  GEFIKST].** En één **gereedschapscorrectie die zwaarder weegt dan de vondst zelf**:
+  `news.blizzard.com` is via Exa **wél** leesbaar — zeven runs op rij hebben hier het tegendeel
+  beweerd.
+  - 🔴 **CORRECTIE — `news.blizzard.com` is NIET onleesbaar. GEMETEN vandaag.**
+    `web_fetch_exa` op `news.blizzard.com/en-us/article/24296142/hotfixes-september-29-2026
+    ?nocache=20260930` gaf **de volledige artikeltekst**, niet alleen de titel: de hele
+    september-lijst tot en met 22 sep, secties en developers' notes incl. Sinds 24 sep staat er in
+    dit logboek elke dag *"`news.blizzard.com` blijft `EGRESS_BLOCKED`"* (`:2710`, `:2787`,
+    `:2873`, `:2978`, `:3110`, `:3215`, `:3288`) en is de hotfixtekst daarom uit de wiki of uit
+    een `WebSearch`-samenvatting gehaald. Dat was **waar voor `WebFetch` en voor directe `curl`**
+    — die blijven geblokkeerd — maar het is als *"de pagina is onbereikbaar"* opgeschreven, en dat
+    is iets anders. 📌 **Volgende run: eerst `web_fetch_exa` op het hotfix-artikel zelf, mét
+    cache-buster; pas daarna terugvallen op `WebSearch`.** Een samenvatting laat nu juist de
+    sectiekoppen weg, en de sectiekoppen zijn precies waar ik op zoek (*"User Interface"*,
+    *"Addons"*).
+    ⚠️ **En dit is dezelfde fout als de cache-val, alleen omgekeerd:** daar telde ik oud
+    materiaal als nieuw, hier telde ik leesbaar materiaal als onleesbaar. Beide keren was de
+    aantekening van gisteren het bewijs dat ik niet meer opnieuw controleerde.
+  - 📰 **Hotfixes: September 29, 2026 — ZELF GELEZEN, geen UI-, Addon- of API-sectie.**
+    De sectie van 29 sep heeft precies drie groepen: *Dungeons and Raids* (The Venomous Abyss /
+    Ula'tek — *"Fixed an issue with Ula'tek's Mother's Wrath where it can be cast at a target that
+    isn't the current target if a non-target has higher threat but hasn't passed the threat
+    threshold to force a target change."*), *Events* (Brewfest — *"Items that drop from Coren
+    Direbrew should now have the required level set to the player who receives the item."*) en
+    *The Burning Crusade Classic* (*"Honorary Brewer Hand Stamp can now be purchased."*).
+    **[RAAKT ONS NIET]** op mijn terrein: geen API, geen secure frame, geen taint, geen secret
+    value. De Brewfest- en delve-kant is voor `CONTENT_WATCH.md`, niet voor mij.
+    📌 **Let op de article-ID:** `24296142` is dezelfde als die gisteren *"Hotfixes: September 24,
+    2026"* heette. Blizzard houdt één doorlopend hotfix-artikel bij en hertitelt het; een
+    onveranderde ID betekent dus **niet** een onveranderde pagina. Dat de titel nu **nieuwer** is
+    dan gisteren is het omgekeerde van de cache-val en dus geen verdenking.
+  - 🔇 **Wiki: zes gevolgde pagina's byte-voor-byte onveranderd — dag drie.** Identieke revid én
+    bytegrootte als gisteren én eergisteren: `TOC format` (`6889071`, Zeal, 26 sep 18:57:25Z,
+    27396 b — nu **81 uur** stil), `Hotfixes` (`6886643`, Dark T Zeratul, 25 sep 00:42:51Z,
+    364493 b — de wiki heeft de hotfix van 29 sep dus **nog niet** opgepikt, wat precies de reden
+    is dat de wiki geen vervanging voor Blizzards eigen pagina is), `Patch 12.1.0/API changes`
+    (`6886719`, Ketho, 25 sep 01:45:50Z, 102481 b), `Patch 12.1.5/API changes` (`6886717`, Ketho,
+    25 sep 01:45:29Z, 34466 b), `Patch 12.0.7/API changes` (`6794100`, Ketho, 4 aug, 34044 b),
+    `API change summaries` (`6883777`, Ketho, 22 sep, 7280 b).
+  - 🧹 **Veegactie `Patch 12*` (ns 0): 25 pagina's, exact dezelfde lijst als gisteren.**
+    **`Patch 12.1.6` bestaat in geen enkele vorm**, en van de vier 12.2-titels (`Patch 12.2`,
+    `12.2.0`, `12.2.5`, `12.2.7`) heeft er **geen één** een `/API changes`-subpagina. 📌 Deze
+    enumeratie is sterker bewijs dan de `titles=`-query die ik daarvoor gebruikte: `allpages`
+    somt op wat er ís, in plaats van te bevestigen wat ik zelf al bedacht had.
+  - 🆕 **NIEUWE VAL, en hij is vannacht bijna in mijn gezicht ontploft: een golf van
+    API-genaamde nieuwe wiki-pagina's die géén API-nieuws is.** `list=recentchanges` gaf 60
+    `"type":"new"`-regels tussen 03:21Z en 03:37Z, alle van gebruiker `Kaydeethree`, met titels
+    als `C UnitAuras.GetUnitAuras`, `IsActionInRange`, `IsAuraFilteredOutByInstanceID`,
+    `SetStatusBarTexture`, `GetClassInfo`, `OnEnter`, `OnShow`, `ColorCurve`, `CurveConstants`.
+    Dat leest als een lijst verse API-documentatie. **GEMETEN wat het echt is** — de inhoud van
+    drie ervan opgehaald (`pageids=709373|709374|709361`): het zijn `#REDIRECT`-stubs van 33, 42
+    en 59 bytes die de hoofd-namespace naar `API:` doorsturen, bv.
+    `#REDIRECT [[API:C UnitAuras.IsAuraFilteredOutByInstanceID]]`. Wiki-onderhoud. Dat `OnEnter`,
+    `OnShow` en `GetClassInfo` ertussen staan — stokoude namen — bevestigt het.
+    📌 **Voor de volgende run: een pagina-CREATIE in ns 0 met een API-naam is per se geen
+    API-wijziging.** Haal de inhoud op vóór je iets meldt; een redirect van 42 bytes en een nieuwe
+    functiedocumentatie zien er in `recentchanges` identiek uit.
+  - 🗣️ **Forum (categorie 35): de stilte is verbroken, maar niet door een blue post.**
+    Nieuw sinds gisteren: topic `2366363` *"Artwork end cap layers"* (Kierthos, **29 sep
+    20:19:41Z**, 1 post, `reply_count` 0, geen antwoord) en een reactie in topic `2306913`
+    (`30242159`, Xabo, **28 sep 19:39:25Z**, post 11, een macro-vraag). Beide zijn
+    spelersvragen, **geen API-wijziging en geen Blizzard-reactie**.
+  - 🆕 **En hier staat eindelijk een HARDE meting waar ik voorheen een zwakke had: geen blue post
+    in categorie 35 sinds 22 sep.** `search.json?q=#ui-macro @Kaivax after:2026-09-22` → `posts:
+    []`, idem voor `@Vrakthris`. **Twee positieve controles in dezelfde run, op dezelfde scope:**
+    (a) `#ui-macro @Kierthos-3132 after:2026-09-22` levert het topic van gisteren op — de
+    categorie-filter én de `after:`-filter werken dus; (b) `@Kaivax after:2026-09-22` zonder
+    categorie levert 5 posts van hem elders op — hij is dus wél actief. Het lege resultaat is
+    daarmee een **echte afwezigheid** en niet [[silence-is-not-absence]].
+    📌 **Dit vervangt `latest.json` als methode.** Die dumpt eerst een `users`-array waarin
+    `Kaivax` (`community-manager`) en `Vrakthris` (`cs-support-sse`) wél voorkomen, maar
+    **ongedateerd** — die array bevat iedere deelnemer aan iedere gelijste thread, dus hij bewijst
+    noch aanwezigheid vandaag noch afwezigheid. Vorige runs concludeerden er *"geen
+    community-manager-post"* uit; dat was toevallig juist, niet gemeten.
+  - 🔁 **De 12.1.5-samenvatting uit `WebSearch` is voor de derde dag oud nieuws, gemeten tegen het
+    logboek.** Vijf items: `SetCooldown`/`Clear`/`SetCooldownFromDurationObject` als protected,
+    de `UnitFrameUtil`-library (`UpdateUnitPvPIndicator`), `C_Intl` met secret strings,
+    chat-tabs die `UIFrameFlash` niet meer gebruiken, en `GetTextureMetatable`. GEMETEN in
+    `docs/API_WATCH.md`: `SetCooldown` 22×, `SetCooldownFromDurationObject` 5×, `UIFrameFlash` 3×
+    (met de afdekking al uitgeschreven op `:2477`). **Geen nieuwe vondst** — de 12.1.5-pagina is
+    sinds 25 sep niet bewogen.
+  - ✅ **[AL AFGEDEKT] — toch opnieuw IN DE CODE gemeten, niet uit mijn eigen aantekening
+    geciteerd.** De protected-cooldown-regel van 12.1.5 is de enige 12.1.5-wijziging die MH
+    überhaupt raakt, dus die verdient een verse lezing:
+    - `Modules/CombatSafety.lua:598-602` — `f._cd:SetCooldownFromDurationObject(duration)` staat
+      achter `if duration and f._cd.SetCooldownFromDurationObject then` **én** in een `pcall`.
+      Dubbel afgedekt.
+    - `Modules/CombatSafety.lua:700-701` — `f._cd:SetCooldown(GetTime(), 8)` staat achter
+      `if f._cd.SetCooldown then`, **zonder** `pcall`. Die guard bewijst alleen dat de methode
+      bestaat, niet dat de aanroep mag. Maar de 12.1.5-regel bijt alleen op een **protected**
+      cooldown-frame vanuit tainted code, en `f._cd` is dat niet: `f = CreateFrame("Button",
+      "MidnightHelperCombatSafety", UIParent)` (`:114`) en `cd = CreateFrame("Cooldown", nil, f,
+      "CooldownFrameTemplate")` (`:184`) — een kale, niet-secure Button aan `UIParent`. De énige
+      treffer op `secure` in dat hele bestand is de comment op `:105`: *"niet-secure → geen
+      combat-beperkingen"*. Geen `SecureActionButtonTemplate`, geen `SecureHandler`, geen
+      `SetParent` naar iets beschermds.
+    - 📌 **Dit is GEEN nieuwe bevinding.** Dezelfde conclusie staat al op `:380` en `:681-689`
+      (22 sep) en is op `:1908-1913` (16 sep) al eens aangehaald. Het verschil is dat ik hem
+      vandaag in `CombatSafety.lua` heb nagelezen in plaats van in mijn eigen regel erover.
+  - ✅ **[RAAKT ONS NIET] — vier namen, nul treffers, met controle.** `UIFrameFlash` 0,
+    `ChatFrameUtil` 0, `UpdateUnitPvPIndicator` 0, `GetTextureMetatable` 0 (scope: hele addon,
+    zonder `.git`/`docs`/`tools`/`dist`). **Positieve controle op dezelfde scope in dezelfde run:**
+    `CreateFrame` 722, `issecretvalue` 196, `InCombatLockdown` 197, `C_UnitAuras` 77,
+    `SecureActionButtonTemplate` 15. **Negatieve controle:** een verzonnen
+    `C_ZzzNietBestaand.Foo` geeft 0. Patroon én scope deugen.
+  - ⚠️ **De gemeten namespace-lijst in `docs/WATCHER_API_PROMPT.md` is flink verouderd, en dat is
+    een filter dat de verkeerde dingen doorlaat.** Die lijst is van 18 aug en noemt `CreateFrame`
+    618×, `issecretvalue` 112×, `InCombatLockdown` 162×, `C_UnitAuras` 29. Vandaag gemeten:
+    **722 / 196 / 197 / 77** — `issecretvalue` is bijna verdubbeld en `C_UnitAuras` ruim
+    verdrievoudigd. Het document zegt zelf dat je hem moet verversen *"als de addon flink
+    gegroeid is"*. Dat is nu zo. 🔴 **Ik raak dat bestand niet aan** — ik schrijf alleen
+    `API_WATCH.md`. Dit is een punt voor Rob: één `tools/_probe.py`-run volstaat.
+  - 🔒 **Cache-val uitgesloten op beide domeinen, elk met eigen bewijs in deze run.** (a) Wiki:
+    `list=recentchanges` (ns 0) loopt tot **vandaag 03:37:02Z** (`6895368`, *Heritage quest*,
+    Kaydeethree). (b) Forum: `posts.json` geeft als nieuwste post **vandaag 03:36:43Z**
+    (`30261181`, topic `2366700`, categorie 347). Beide servers leveren vers materiaal; de stilte
+    op mijn zes pagina's is echt. ⚠️ `recentchanges` blijft géén veegactie — `rclimit=60` dekt
+    vandaag maar **16 minuten** (03:21–03:37Z, door de redirect-golf), en dient alleen als
+    versheidsbewijs.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `wowhead.com/blue-tracker` opnieuw **niet geprobeerd**: vijf runs op rij gaven alleen de
+      paginatitel en een lege body (JS-gerenderd). Nu `news.blizzard.com` zelf via Exa blijkt te
+      werken, is die spiegel ook minder nodig.
+    - `warcraft.wiki.gg` via directe `curl` **niet opnieuw geprobeerd** (gisteren:
+      `CONNECT tunnel failed, response 403`). Alle wiki- en forumdata komt via `web_fetch_exa`.
+    - De 12.1.5-**PTR-buildnotes** zelf niet opgehaald; ik leun daar op `WebSearch`. Wat de PTR
+      nog gaat brengen is `PTR_12.1_WATCH.md`'s terrein.
+  - 🔧 **Gereedschapsnotitie: de wiki-API via Exa is wisselvallig, en `rvslots=main` is geen
+    remedie.** Vijf van de negen `api.php`-aanroepen faalden eerst met
+    `CRAWL_UNEXPECTED_CONTENT_TYPE` of `CRAWL_UNKNOWN_ERROR` en slaagden daarna ongewijzigd.
+    Ik dacht een patroon te zien (de geslaagde calls hadden `rvslots=main`), maar dat is
+    **weerlegd**: dezelfde query mét `rvslots=main` faalde alsnog, en `allpages` — dat die
+    parameter niet eens kent — slaagde. **Het is ruis, geen parameterprobleem: opnieuw proberen,
+    niet herschrijven.**
+  - **Bronnen, alle met cache-buster:** `warcraft.wiki.gg/api.php` — `prop=revisions` op 6 titels,
+    `prop=revisions&rvprop=content` op `pageids=709373|709374|709361`, `list=recentchanges`
+    (ns 0, 60), `list=allpages&apprefix=Patch 12` (60); `news.blizzard.com` artikel `24296142`
+    (**volledig gelezen**); `us.forums.blizzard.com` — `posts.json`, categorie-JSON 35,
+    `35/l/latest.json`, topic-JSON `2366363`, en 4 × `search.json` (2 metingen + 2 positieve
+    controles); 2 × `WebSearch`. De wiki-API blijft *"Unrecognized parameter: nocache"*
+    waarschuwen — een MediaWiki-waarschuwing, geen fout.
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Geen van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit (`git status` leeg bij aanvang). ⚠️ Zesde dag **detached HEAD**, nu
+    op `5910c3f` (= `origin/main`, *"Translate /mh export into German, French, Spanish, Portuguese
+    and Italian"*), dus gecommit op de detached HEAD en gepusht met `git push origin HEAD:main`.
+    ✅ **De `forced update` gedroeg zich zoals gisteren voorspeld en is dus géén nieuws:**
+    `+ f32c136...5910c3f main -> origin/main (forced update)`, met **exact dezelfde `f32c136`**
+    links als de twee dagen ervoor. De voorspelling was *"verandert de linkerkant ooit in iets
+    anders dan `f32c136`, dán is het wél wat"* — dat is niet gebeurd.
