@@ -488,6 +488,17 @@ ns.TeamMacrosByClassSpec = {
 			macro = [=[#showtooltip Hand of Reckoning
 /cast [@mouseover,harm,nodead][] Hand of Reckoning]=],
 			},
+			-- Rob, 30 Sep 2026, on his Prot Paladin: Bubble Cancel was only under Holy and Retribution.
+			-- Protection has Divine Shield too (TankToolkit.lua, TANK_COOLDOWNS[66]).
+			{
+			id = "bubble_cancel",
+			name = "Bubble Cancel",
+			descNl = "Zet Divine Shield aan, en druk nog een keer om hem weg te halen zodra het gevaar voorbij is.",
+			descEn = "Turn Divine Shield on, and press again to drop it once the danger has passed.",
+			macro = [=[#showtooltip Divine Shield
+/cast Divine Shield
+/cancelaura Divine Shield]=],
+			},
 		},
 		[3] = {
 			{

@@ -27,7 +27,7 @@ er is niets weggegooid.
       shared charges only in a Mythic+ key…"*, geel *"Nobody in your group can revive in combat."*, groen
       *"Bloodlust: ready"*, *"Can cast Bloodlust: Earthshammy (Shaman)"* in klassekleur.
 - [x] ✅ (Rob, 30 sep, Twelveinchy) *"Can revive in combat: Twelveinchy (Paladin)"*.
-- [ ] 🆕 (Rob, 30 sep: "ook de knop erbij") `/reload`, `/mh lust test` op Twelveinchy → onder *Can revive* een regel
+- [x] ✅ (Rob, 30 sep: "toets klopt") 🆕 (Rob, 30 sep: "ook de knop erbij") `/reload`, `/mh lust test` op Twelveinchy → onder *Can revive* een regel
       *"Intercession: Your key: <toets>"* (of oranje *"Not on a key on your action bars yet."*). Klopt de toets? Sleep
       Intercession naar een andere knop terwijl het paneel open is → de toets verandert mee. Op de Shaman: dezelfde regel
       onder *Can cast Bloodlust* met Bloodlust/Heroism.
@@ -292,6 +292,7 @@ Spelers melden sinds 17 sep dat `/cancelaura` bij sommige spells stil niets meer
 Dance). Geen reactie van Blizzard. Of een buff weg te klikken is, beslist de server; dat kan ik niet meten.
 MH levert acht van zulke macro's (`Modules/TeamMacrosData.lua`): Bubble Cancel (Paladin, 2×), Ice Block
 Cancel (Mage, 3×), Turtle Cancel + Aimed Shot (Hunter), Hover Cancel (Evoker).
+- [x] ✅ (Rob, 30 sep, Prot) Bubble Cancel stond **niet** bij Protection (alleen Holy + Ret) → toegevoegd aan Prot.
 - [ ] **Paladin**: Macros → Utility → **Bubble Cancel**, op een knop zetten. Klik: Divine Shield gaat aan.
       Klik nog een keer: **verdwijnt de bubbel?** Zo niet, dan is de macro stuk en haal ik hem eraf.
 - [ ] (Als je een Mage of Hunter langsloopt) hetzelfde met **Ice Block Cancel** of **Turtle Cancel**.
