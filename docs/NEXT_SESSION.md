@@ -9,10 +9,14 @@ Raidbots, Feedback, elk met het in-game commando). Labels `.tag.new` / `.tag.tes
 Gecontroleerd lokaal: desktop + 375px, geen horizontale scroll. Vaste regel: memory `site-follows-every-feature`.
 ✅ **Fase 2 live (Rob zag screenshots: "zet het live"):** `shared.css` heeft nu palet, `.sh` (kop: logo, menu, taalkiezer;
 huidige pagina `aria-current="page"` goud onderstreept), `.sf` (voettekst), `.tag`. Alle 6 pagina's gebruiken ze (met de
-hand in elke Engelse bronpagina, geen i18n-marker). Link = `/shared.css?v=20260930` — **verhoog dat getal bij elke
+hand in elke Engelse bronpagina, geen i18n-marker). Link = `/shared.css?v=20260930b` — **verhoog dat getal bij elke
 shared.css-wijziging**, anders toont een browser met oude cache een reusachtig logo (gezien in de preview). Armory-knoppen
-gelijkgetrokken. Nog open uit het ontwerpadvies: tekstmaat/breedtes per pagina (15 vs 16px), "Next"-link onderaan
-tool-pagina's, 6 verouderde vertalingen van de oude "fan-made … Blizzard Entertainment."-zin opruimen (build-melding).
+gelijkgetrokken.
+✅ **De drie open ontwerppunten af en live (30 sep laat, Rob: "doe die drie open punten ook maar"):** alle pagina's
+16px/1.6; twee breedtes — 1080 (home, Armory) en 720 (Raidbots, Feedback, Privacy); `.next`-kaart in shared.css onderaan
+Armory → Raidbots → Feedback → `/#features`, 6 zinnen zelf vertaald (niet door moedertaalspreker nagekeken); de 6
+verouderde "fan-made"-vertalingen weg via merge, build `problems: 0`. GEMETEN in lokale preview (nl/raidbots: vertaald,
+25.6px regelhoogte, 720 breed). Live-controle op midnighthelper.com nog niet gedaan.
 Ook 30 sep: Raidbots-stappen stonden één woord per regel (2e `<p>` in de 40px-kolom) → `grid-column:2`, live.
 
 ## 📝 30 sep avond — Raidbots-uitleg op drie plekken + knop (Rob: "ja, maak die drie maar … testfase, eigen risico")
