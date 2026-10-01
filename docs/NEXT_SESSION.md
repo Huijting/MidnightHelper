@@ -14,8 +14,13 @@ losse reactie ("Sorry, just see this now") — níét als Reply in het draadje, 
 🔔 **CF-reacties sneller zien (Rob: "17 dagen is veel te lang"):** `tools/gh_inbox.py` leest nu eerst
 `curseforge.com/api/v1/mods/1528577/comments` (geen login nodig; HTML-pagina geeft 403) en zet 🔴 bij draadjes waar het
 laatste bericht niet van twelveinchy is. CLAUDE.md ochtendstap 4 bijgewerkt. **Open:** dit helpt alleen op dagen dat er
-een sessie is → Rob kiest: CF-e-mailmeldingen aanzetten (zijn account), en/of de regel in een cloud-wachter (eerst testen of
-de cloud de CF-API mag bereiken).
+een sessie is → Rob: "Ja doe maar" (cloud testen). GEMETEN 1 okt: de cloud-sandbox mag niet naar curseforge.com
+(curl + Python: `connect_rejected` door de egress-proxy; eenmalige test-routine `trig_01BbGKaW2vkaCHWBb8HbPKCF`, staat
+nu uit). Via **Exa** (`web_fetch_exa` + `&nocache=`) komt de JSON wél door, vers. ✅ Content-wachter
+`trig_01JYW9gqzFNe8MkY3x3tQzh6` kreeg een dagelijkse sectie *"PEOPLE WRITING TO US ON CURSEFORGE"*: eerste alinea van zijn
+entry in `docs/CONTENT_WATCH.md` begint met `💬 CurseForge:` (open draadjes, of "geen open reacties (N gelezen)", of
+"NIET gecontroleerd"). Script bevestigde: opdracht = oud + alleen die sectie; cron/model/repo/connectoren gelijk. Eerste run
+met de sectie: 2 okt 06:00. **Morgen nakijken** of die alinea er staat. CF-e-mail aanzetten blijft Robs eigen keuze.
 
 ## 🚀 30 sep laat — 4.3.0 als Release getagd (Rob: "go, zet 4.3.0 maar live")
 
