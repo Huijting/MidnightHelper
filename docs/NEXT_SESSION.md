@@ -21,6 +21,11 @@ nu uit). Via **Exa** (`web_fetch_exa` + `&nocache=`) komt de JSON wél door, ver
 entry in `docs/CONTENT_WATCH.md` begint met `💬 CurseForge:` (open draadjes, of "geen open reacties (N gelezen)", of
 "NIET gecontroleerd"). Script bevestigde: opdracht = oud + alleen die sectie; cron/model/repo/connectoren gelijk. Eerste run
 met de sectie: 2 okt 06:00. **Morgen nakijken** of die alinea er staat. CF-e-mail aanzetten blijft Robs eigen keuze.
+✍️ **Concept-antwoorden (Rob: "Ka je ook automatisch antwoorden op cf?" → nee, wel concepten → "Ja graag"):** zelfde routine
+kreeg *"DRAFT REPLIES"*: per open draadje een regel `Concept-antwoord:` (Engels, 2-4 zinnen, alleen GEMETEN feiten, nooit
+een belofte) + `Basis:` (bestand/regel). Rob plaatst zelf met Reply; de routine post nooit. Script: alleen die sectie erbij.
+Automatisch plaatsen kan/mag niet: schrijven vraagt Robs CF-login, en een publiek antwoord in zijn naam gaat nooit
+ongezien weg.
 
 ## 🚀 30 sep laat — 4.3.0 als Release getagd (Rob: "go, zet 4.3.0 maar live")
 
