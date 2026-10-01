@@ -4,6 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+- **TOC `## Interface: 120007, 120100, 120105`** (1 okt 2026): 12.1.5 (live 13/14 okt) draagt TOC 120105; zonder dat
+  nummer heet de addon "verouderd". Zie `docs/PATCH_12_1_5_CHECKLIST.md` (A1).
+
 - **Karakteroverzicht als kolommen** (`Modules/AltBoardView.lua`, 1 okt 2026; idee uit Allemano AltBoard, geen code):
   characters naast elkaar, gegevens als rijen onder inklapbare kopjes (Overzicht: level/XP, spec, ilvl, goud, rested XP,
   laatst gezien · Deze week: Vault wereld/dungeons/raid, shards · Valuta (zelfde lijst als het Currencies-blok) ·
