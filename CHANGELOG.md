@@ -4,6 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+- **Geen "Debug: Found profession (none)" meer in de chat** (`Modules/Profession.lua`, 1 okt 2026): een vergeten
+  debug-print die bij elke login verscheen op een character zonder beroepen (CurseForge-reactie van MrsBoojiePanda).
+
 ## 4.3.0
 
 📌 **2026-09-30, als release (Rob: "go, zet 4.3.0 maar live").** Notitie in `docs/CURSEFORGE_4.3.0.md` (identiek aan

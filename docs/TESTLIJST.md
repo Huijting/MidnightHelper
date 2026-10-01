@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 1 okt — debug-regel weg (CurseForge-reactie)
+
+- [ ] Log in (of `/reload`) op een character **zonder beroepen**, of open MH → beroepen: er staat géén
+      *"Debug: Found profession …"* meer in de chat.
+
 ## 🆕 30 sep laat — Armory-knop + "snel of precies" in beide vensters
 
 - [x] ✅ (Rob, 30 sep laat: "reload gedaan, beide knoppen werken") 🆕 `/reload`, karakterscherm (C) → onderaan het MH-paneel nu **twee** knoppen: eerst *"Quick advice: Armory

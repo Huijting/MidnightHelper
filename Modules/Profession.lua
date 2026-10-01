@@ -1057,22 +1057,8 @@ local function UpdateProfessionTracker()
 	leftColumn:Show()
 	rightColumn:Show()
 	trackerContent:SetHeight(math.max(24, hL, hR))
-
-	-- Debug: no MIDNIGHT_DATA rows matched the player's primaries
-	local matchedRows = 0
-	for _, row in ipairs(MIDNIGHT_DATA) do
-		if PrimaryProfessionMatchesDataColumn(row[6], primary) then
-			matchedRows = matchedRows + 1
-		end
-	end
-	if matchedRows == 0 then
-		for _, L in ipairs(primary) do
-			print("Debug: Found profession " .. tostring(L.name))
-		end
-		if #primary == 0 then
-			print("Debug: Found profession (none)")
-		end
-	end
+	-- A "Debug: Found profession …" print stood here and fired on every login for a character
+	-- with no professions (CurseForge comment by MrsBoojiePanda, Sep 2026). Removed 1 Oct 2026.
 end
 
 local function RefreshProfessionPanel()

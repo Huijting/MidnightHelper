@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 💬 1 okt ochtend — twee CurseForge-reacties die Rob nu pas zag
+
+1. **MrsBoojiePanda (±17 dagen oud):** *"Debug: Found profession (none)"* bij elke login. GEMETEN: stond nog in
+   `Profession.lua:1061-1075` (print als geen enkele MIDNIGHT_DATA-rij bij je beroepen past, dus ook bij géén beroepen).
+   ✅ Blok verwijderd; geen andere `print("Debug…")` in de addon (positieve controle: dezelfde zoekvorm vindt 16 gewone
+   prints in dat bestand). Lint 0 HARD. In Unreleased; Rob kiest of het een 4.3.1 wordt.
+2. **gadrinonturalyon (±3 maanden oud):** shard-popup uitzetten. GEMETEN: al gedaan op 21 jun 2026 (1.8.5, commit noemt
+   hem): schakelaar `mh_shardCap` *"Show the shard cap popup"*, gecheckt in `ShardCapAlert.lua:55`. Alleen antwoorden.
+Reageren op CF doet Rob zelf (concept-antwoorden in de chat gegeven).
+
 ## 🚀 30 sep laat — 4.3.0 als Release getagd (Rob: "go, zet 4.3.0 maar live")
 
 `.toc` 4.3.0; `Changelog.lua` + `CHANGELOG_430_1..6` (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.3.0.md` (byte-gelijk,
