@@ -25,8 +25,8 @@ er is niets weggegooid.
 
 - [ ] Open de tips van de Twin Fangs (Raids → Venomous Abyss, of het tipvenster bij de pull): staat er onderaan
       *"Middle (at full energy): … The orbs spinning around her head show which way it turns. Walk against it…"*?
-- [ ] In de raid: klopt het dat de straal **niet** helemaal rondgaat en dat je erachter veilig bent (Method)? Eén
-      videogids zegt van wel — wat zag jij?
+- [x] ✅ (Rob, 1 okt, Normal: "Hij gaat niet helemaal 360 graden rond") de straal gaat **niet** helemaal rond —
+      Method had gelijk, de tip ("achter de straal ben je veilig") klopt zo.
 
 ## 🆕 1 okt — karakteroverzicht als kolommen (`AltBoardView.lua`, idee van AltBoard)
 
