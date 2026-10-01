@@ -2334,7 +2334,8 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
-	CHANGELOG_430_1 = "NEW - Battle res & Hero panel: in a group in a dungeon, delve or raid, a small panel shows the shared battle res charges (in a key and during a raid boss), whether Hero is ready or counting down, and who in your group can res or give Hero, with the name of their spell.",
+	CHANGELOG_431_1 = "Fixed: a leftover \"Debug: Found profession (none)\" line no longer appears in chat at every login. Thanks to MrsBoojiePanda for the report.",
+	CHANGELOG_430_1 ="NEW - Battle res & Hero panel: in a group in a dungeon, delve or raid, a small panel shows the shared battle res charges (in a key and during a raid boss), whether Hero is ready or counting down, and who in your group can res or give Hero, with the name of their spell.",
 	CHANGELOG_430_2 = "The panel also shows your own battle res, Hero and normal res with the key they are on. The X hides it until your next dungeon. In Settings, Dungeon help you can limit it to Mythic+ keys and raids, or turn it off.",
 	CHANGELOG_430_3 = "NEW - /mh export: your gear and the usable items in your bags as text for the Armory on midnighthelper.com, which picks the best item for every slot. Or click Quick advice: Armory website next to your character sheet.",
 	CHANGELOG_430_4 = "NEW, test phase - /mh raidbots: your character as text for Raidbots Top Gear, which simulates every combination of your items for the exact best set. Button next to your character sheet; the window shows the steps. Use it at your own risk.",

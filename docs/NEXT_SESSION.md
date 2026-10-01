@@ -5,7 +5,7 @@
 1. **MrsBoojiePanda (±17 dagen oud):** *"Debug: Found profession (none)"* bij elke login. GEMETEN: stond nog in
    `Profession.lua:1061-1075` (print als geen enkele MIDNIGHT_DATA-rij bij je beroepen past, dus ook bij géén beroepen).
    ✅ Blok verwijderd; geen andere `print("Debug…")` in de addon (positieve controle: dezelfde zoekvorm vindt 16 gewone
-   prints in dat bestand). Lint 0 HARD. In Unreleased; Rob kiest of het een 4.3.1 wordt.
+   prints in dat bestand). Lint 0 HARD. ✅ Uitgebracht als **4.3.1** (Rob: "Go"), tag `v4.3.1`.
 2. **gadrinonturalyon (±3 maanden oud):** shard-popup uitzetten. GEMETEN: al gedaan op 21 jun 2026 (1.8.5, commit noemt
    hem): schakelaar `mh_shardCap` *"Show the shard cap popup"*, gecheckt in `ShardCapAlert.lua:55`. Alleen antwoorden.
 Reageren op CF doet Rob zelf (concept-antwoorden in de chat gegeven).
