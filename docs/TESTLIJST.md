@@ -99,7 +99,10 @@ er is niets weggegooid.
       gevecht leesbaar mét eindtijd (841×); raidbaas-pot 99/99 (→ nu "no real limit in this fight").
 - [ ] **In een M+-key** (de echte krappe pot): *"Battle res: 1 of 1 left"* of zo, en na een brez *"next in m:ss"*. Daarna
       `/mh lust` + `/reload`. En: welke raid/difficulty gaf 99 ladingen? (vanaf nu staat de difficulty in de log)
-- [ ] 🆕 (Rob, 30 sep avond: "wordt gewoon hero genoemd … voor elke spec zijn eigen naam") `/reload`, `/mh lust test`
+- [x] ✅ (Rob, 1 okt, screenshot in LFR op de Shaman) titel *"Battle res & Hero"*, spreuknaam per speler
+      (Intercession, Rebirth, Primal Rage), **gemengde factie GEMETEN**: Earthshammy (Horde) *Bloodlust*, Ferosta
+      (Alliance) *Heroism*; eigen regels *Ancestral Spirit (out of combat): 0* en *Bloodlust: 5*.
+      Oorspronkelijke test: (Rob, 30 sep avond: "wordt gewoon hero genoemd … voor elke spec zijn eigen naam") `/reload`, `/mh lust test`
       → titel *"Battle res & Hero"*, regels *"Hero: ready"*, *"Can cast Hero: Twelveinchy…"* ontbreekt (Paladin kan geen
       Hero) maar *"Can revive in combat: Twelveinchy (Paladin) - Intercession"* staat er met de spreuknaam. Op de Shaman:
       *"Earthshammy (Shaman) - Heroism"* (Alliance) of *Bloodlust* (Horde). Beweeg erover: uitleg begint met *"Hero (Bloodlust,
