@@ -1532,3 +1532,53 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   op beide bevindingen. Vandaag is woensdag, dus de wekelijkse kaarten- en consumables-check
   (alleen maandag) is overgeslagen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
   beslist.
+
+---
+
+- [2026-10-01] 🟡 **Geen nieuwe hotfix-sectie sinds 29 sep; wél één eigen tegenspraak gevonden,
+  aangereikt door de data-wachter van vandaag.** `news.blizzard.com`'s doorlopende hotfix-artikel
+  **volledig zelf gelezen** via Exa `web_fetch_exa` met `?nocache=20261001a`: bovenste sectie is nog
+  steeds "September 29, 2026" (Ula'tek Mother's Wrath-targetingfix, Brewfest-Direbrew-loot), byte-
+  voor-byte gelijk aan wat al volledig gelogd staat op [2026-09-30]. **Positieve controle tegen de
+  cache-val, zelfde run:** een gerichte `web_search_exa` op "hotfixes September 30 OR October 1
+  2026 Delves Professions Quests Dungeons Raids Items" geeft een publicnow.com-spiegel van dezelfde
+  29-sep-lijst (eigen publicatiedatum 30 sep) en verder alleen al bekend materiaal (de 12.1.5-
+  aankondiging van 29 sep, al als terzijde gelogd) — geen nieuwere sectie bestaat, geen kapotte
+  zoekvorm. Een losse `web_search_exa` specifiek op "October 1 2026 blue post Delves Professions
+  Quests" vond niets nieuws, alleen de (al bekende) Midnight Deep Dive/Q&A-livestream van vandaag,
+  die PTR/roadmap-terrein is, niet het mijne. Vandaag is donderdag, dus geen wekelijkse kaarten- of
+  consumables-check (alleen maandag).
+
+  **Eigen vondst, niet uit de data-wachter overgenomen als feit maar zelf getoetst op tegenspraak:**
+  de data-wachter van vandaag (`docs/PTR_12.0.7_DATA.md`, entry [2026-10-01]) meldt, zelf gelezen op
+  Wowhead/Icy Veins/Blizzardwatch, dat de wekelijkse Housing-quest (93769, "Midnight: Housing") wordt
+  uitgedeeld door **Vaeli**, buiten de Silvermoon-bank, en noemt dat dichter bij API-terrein (NPC/
+  gossip-matching) te liggen dan bij de zijne. Voor mijn lane is dat precies de vraag: spreekt dit
+  een geshipte claim tegen? **Ja.** `Modules/ResetRoutine.lua:114-128` zet quest 93769 onder
+  `GIVER_WEEKLIES["liadrin"]` (`name = "Lady Liadrin"`), in dezelfde pool als de andere twaalf
+  Liadrin-weeklies, zonder uitzondering voor 93769. Die naam komt rechtstreeks in de speler-UI
+  terecht: `HOME_ROUTINE_GIVER_PICKUP_FMT`/`_DONE_FMT`/`_TURNIN_FMT`/`_INLOG_FMT`/`_LOCKED_FMT`
+  (`Locales/enUS.lua:1327-1330`) formatteren allemaal met `def.name`, dus de weekreset-routine toont
+  letterlijk "Weekly (Lady Liadrin): pick it up next to the vault." voor de Housing-quest — terwijl
+  geen van de drie bronnen Liadrin ergens noemt voor deze quest. Dezelfde naam staat ook in
+  `Modules/SMCChecklistData.lua:23-26`/`UI.lua:1306` als label "Weekly Quest Givers" voor de
+  gecombineerde kaartpin (map 2393, 48.95/64.92) die alle dertien Liadrin-quests samen bedient.
+  MEASURED (code zelf gelezen, regelnummers hierboven). ⚠️ Wat ik NIET controleer: of 48.95/64.92
+  ook Vaeli's eigen plek is — ik gok geen coördinaat, en de drie bronnen geven alleen "buiten de
+  Silvermoon-bank/mailbox", geen in-game-coördinaat. **[RAAKT ONS]** — dit is een naam die de speler
+  letterlijk op het scherm ziet en die drie onafhankelijke bronnen tegenspreken; geen actie van mij,
+  een mens beslist of 93769 uit de Liadrin-pool moet of een eigen giver-naam/pin verdient.
+
+  📌 **Positieve controle, zelfde repo-brede scope:** `grep -i liadrin` (hele repo) geeft 36
+  bestanden met treffers terug — het patroon vindt dus ruimschoots iets op deze schaal; de claim
+  hierboven komt uit die treffers zelf, niet uit een leeg resultaat.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261001a (volledig gelezen via
+  Exa) · `web_search_exa` "World of Warcraft Midnight hotfixes September 30 OR October 1 2026
+  Delves Professions Quests Dungeons Raids Items" en "WoW Midnight hotfixes October 1 2026 blue
+  post Delves Professions Quests" (nieuwste inhoudelijke sectie blijft 29 sep) · `docs/
+  PTR_12.0.7_DATA.md` entry [2026-10-01] als aanleiding (feit niet herhaald, alleen zelf getoetst op
+  tegenspraak met geshipte MH-tekst) · codebase: gerichte reads van `Modules/ResetRoutine.lua:59-128`,
+  `Locales/enUS.lua:1327-1330`, `Modules/SMCChecklistData.lua:23-26`, `UI.lua:1306`,
+  `Modules/WeeklyHubProbe.lua` — allemaal vandaag gelezen, plus `grep -i liadrin` repo-breed. Geen
+  actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
