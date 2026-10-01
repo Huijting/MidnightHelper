@@ -3472,3 +3472,127 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `+ f32c136...5910c3f main -> origin/main (forced update)`, met **exact dezelfde `f32c136`**
     links als de twee dagen ervoor. De voorspelling was *"verandert de linkerkant ooit in iets
     anders dan `f32c136`, dán is het wél wat"* — dat is niet gebeurd.
+- [2026-10-01] 🧩 **Eén echt nieuw item op mijn terrein (24 sep–1 okt): `GLOBAL_MOUSE_DOWN`/`_UP`
+  zijn sinds 12.1 niet meer van `UIParent` af te melden. 0 × [MOET GEFIKST]** — MH gebruikt die
+  events nergens. Plus een **gereedschapscorrectie**: de namespace-getallen in dit logboek zijn
+  *occurrences*, niet *regels*, en dat verschil leest als een regressie van 45%.
+  - 🧩 **[RAAKT ONS NIET] — `GLOBAL_MOUSE_DOWN` / `GLOBAL_MOUSE_UP`, forum-topic `2367394`
+    (`#ui-macro`, *"unregister global mouse"*).** Elvenbane, **30 sep 19:19:37Z**, letterlijk:
+    *"Anyone know how to unregister it these days? It's initializer got moved with 12.1 and I
+    haven't been able to figure out how to unregister it. Used to be as simple as:"* met daaronder
+    `UIParent:UnregisterEvent("GLOBAL_MOUSE_DOWN")` en `UIParent:UnregisterEvent("GLOBAL_MOUSE_UP")`.
+    **GEMETEN in de code — acht namen, alle nul treffers** (scope: hele addon, `.lua`/`.toc`/`.xml`,
+    zonder `.git`/`docs`/`tools`/`dist`): `GLOBAL_MOUSE_DOWN` 0, `GLOBAL_MOUSE_UP` 0,
+    `GLOBAL_MOUSE` 0, `GameEvent` 0, `UnregisterInternalEvent` 0, `RegisterInternalEvent` 0,
+    `UIParent:UnregisterEvent` 0, `UIParent:RegisterEvent` 0. **Positieve controle, zelfde scope en
+    zelfde run:** `CreateFrame` 724, `RegisterEvent` 447, `SecureActionButtonTemplate` 14,
+    `UnregisterEvent` 14 (MH meldt dus wél events af — alleen nooit op `UIParent`).
+    **Negatieve controle:** `C_ZzzNietBestaand.Foo` 0.
+    - 🔴 **EN HIER STOPT WAT IK WEET. Het antwoord in die thread is een GOK en ik schrijf hem niet
+      op als migratie.** Fizzlemizz, 30 sep 20:37:52Z, begint zijn post met *"Haven't dug into it
+      so just guessing. Try:"* en stelt dan `GameEvent.UnregisterInternalEvent("GLOBAL_MOUSE_DOWN")`
+      voor. Dat is **geen Blizzard-uitspraak en staat op geen van de zes wiki-pagina's die ik volg**;
+      `GameEvent` komt in `Patch 12.1.0/API changes` niet voor als afmeldroute. De thread heeft
+      **geen blue post** en post 2 is de laatste (`posts_count` 2). Dus: *dát* de oude route weg is,
+      is gemeld door een speler met 6709 posts; *waarnaar* het moet, **weet ik niet** en ik ga het
+      niet raden. Raakt MH toch ooit globale mouse-events aan, dan is dit de open vraag die eerst
+      in de client getoetst moet worden.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.0-04` (21 aug 2026).** En dat is precies de
+    release die `Modules/SimcExport.lua` in zijn kopcommentaar zegt te volgen (*"read 30 Sep 2026
+    at release 12.1.0-04"*, `:12-16`). **MH loopt dus niet achter en er is niets te porten.** De
+    hele releaselijst is opgehaald: na `12.1.0-04` staat er niets, en de twee regels van die release
+    (*"Add Offspec Talent Loadouts checkbox functionality"*, *"Use built-in talent loadout string
+    exporter instead of our own"*) zijn van vóór de datum waarop MH hem gelezen heeft. Geen toets
+    aan `ItemString`/`ns.BuildSimcProfile` nodig deze run.
+  - 📰 **Hotfixes: de 29-sep-lijst is nog steeds de nieuwste — langs TWEE onafhankelijke wegen, dus
+    geen cache-val.** (a) `web_fetch_exa` op artikel `24296142` mét `?nocache=20261001` geeft titel
+    *"Hotfixes: September 29, 2026"* en dezelfde drie groepen als gisteren (*Dungeons and Raids* /
+    Ula'tek, *Events* / Brewfest, *The Burning Crusade Classic*). (b) `WebSearch` op *"hotfixes
+    september 30 2026 OR october 1 2026"* levert alleen `hotfixes-september-29-2026` op en meldt
+    expliciet geen 30-sep- of 1-okt-lijst. **Geen UI-, Addon- of API-sectie** in de 29-sep-lijst —
+    [RAAKT ONS NIET] op mijn terrein; de Brewfest- en Ula'tek-kant is `CONTENT_WATCH.md`.
+    📌 Dit is **geen nieuwe vondst**: gisteren al zelf gelezen en gemeld (`:3351`).
+  - 🔇 **Wiki: de `Hotfixes`-pagina IS bewogen, de andere vijf niet — dag vier.** `Hotfixes`
+    `6886643` → **`6895406`** (Dark T Zeratul, **30 sep 03:43:29Z**, 364493 → **365107 b**, +614).
+    📌 **Dat is 13 minuten ná de run van gisteren**, die daarom nog `6886643` zag en terecht
+    schreef dat de wiki de 29-sep-hotfix *"nog niet"* had opgepikt. Hij heeft hem nu, en +614 bytes
+    past op precies die drie korte regels — **inhoudelijk niets nieuws**, want ik had ze al bij
+    Blizzard zelf gelezen. Byte-voor-byte onveranderd: `TOC format` (`6889071`, Zeal, 26 sep
+    18:57:25Z, 27396 b — nu **105 uur** stil), `Patch 12.1.0/API changes` (`6886719`, Ketho, 25 sep,
+    102481 b), `Patch 12.1.5/API changes` (`6886717`, Ketho, 25 sep, 34466 b),
+    `Patch 12.0.7/API changes` (`6794100`, Ketho, 4 aug, 34044 b), `API change summaries`
+    (`6883777`, Ketho, 22 sep, 7280 b).
+  - 🧹 **Veegactie `Patch 12*` (ns 0): 25 pagina's, exact dezelfde lijst als de twee dagen ervoor.**
+    `Patch 12.1.6` bestaat in geen enkele vorm; van de vier 12.2-titels heeft er géén één een
+    `/API changes`-subpagina; en er is nog steeds geen `Patch 12.1.5 (undocumented changes)` —
+    terwijl 12.0.0, 12.0.1, 12.0.5, 12.0.7 en 12.1.0 die alle vijf wél hebben.
+  - 🔧 **GEREEDSCHAPSCORRECTIE — de namespace-getallen in dit logboek zijn OCCURRENCES, en mijn
+    eerste grep van vandaag telde REGELS. Het verschil leest als een regressie die er niet is.**
+    `grep -rn … | wc -l` gaf vandaag `issecretvalue` **105**, `InCombatLockdown` **125**,
+    `C_UnitAuras` **66** — tegen de **196 / 197 / 77** die gisteren (`:3406`) staan. Dat is tot 45%
+    lager en ziet eruit als weggevallen guards. **GEMETEN dat het de telmethode is, niet de code:**
+    dezelfde patronen met `grep -rno` (occurrences) geven vandaag **194 / 196 / 83**, en
+    `CreateFrame` 724 regels tegenover 725 occurrences. Eén commit sinds gisteren (`ba7a1fc`,
+    *"Note tomorrow's second idea"*) raakt geen Lua. **Geen regressie.**
+    📌 **Voor de volgende run: zeg erbíj wat je telt.** Twee getallen die hetzelfde heten en
+    verschillend meten, is dezelfde soort val als een tabel waarin GEMETEN en AFGELEID er identiek
+    uitzien — en dit keer had hij me bijna een verzonnen regressie laten melden.
+  - ⏳ **Nog open uit gisteren, NIET nieuw: de gemeten namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd.** Die noemt `issecretvalue` 112× en
+    `C_UnitAuras` 29×; vandaag in occurrences **194** en **83**. Met de methode-correctie hierboven
+    erbij blijft de conclusie staan (het zijn in beide gevallen occurrences), alleen nu met
+    vergelijkbare getallen. 🔴 **Ik raak dat bestand niet aan** — punt voor Rob, één
+    `tools/_probe.py`-run volstaat.
+  - 🗣️ **Blue post: nog steeds geen enkele in categorie 35 sinds 22 sep, nu met `after:2026-09-24`.**
+    `search.json?q=#ui-macro @Kaivax after:2026-09-24` → `posts: []`. **Positieve controle in
+    dezelfde run, zelfde scope:** `@Kaivax after:2026-09-24` zonder categoriefilter geeft 8 posts,
+    de nieuwste **1 okt 00:17:30Z** (*"Tomorrow morning PDT, we will take the WoW Forever Beta
+    offline for maintenance…"*, topic `2367661`). Kaivax is dus actief, alleen niet op `#ui-macro`.
+    Een **echte afwezigheid**, geen [[silence-is-not-absence]].
+  - 🗣️ **Overig forumverkeer op `#ui-macro` (24 sep–1 okt): vier spelersposts, geen API-nieuws.**
+    Naast topic `2367394` hierboven: `2366363` *"Artwork end cap layers"* (Kierthos, 29 sep,
+    laagvolgorde van de leeuw/griffioen-artwork), `1780831` post 6 (Bool, 30 sep, iemand die zijn
+    eigen to-do-addon aankondigt) en `2306913` post 11 (Xabo, 28 sep, macro-vraag). Geen van deze
+    vier meldt een API-wijziging; alleen `2367394` beschrijft gedrag dat 12.1 veranderd heeft.
+  - 🔁 **De 12.1.5-samenvatting uit `WebSearch` is voor de vierde dag oud nieuws.** Dezelfde vijf
+    items (`SetCooldown`/`Clear` protected, `UnitFrameUtil`/`UpdateUnitPvPIndicator`, secret
+    `sourceGUID`, chat-tabs zonder `UIFrameFlash`, castbar-ID's per unit token). Allemaal al
+    uitgeschreven in dit logboek, en de 12.1.5-pagina is sinds 25 sep niet bewogen. **Geen nieuwe
+    vondst.** De protected-cooldown-afdekking in `Modules/CombatSafety.lua:598-602` en `:700-701`
+    is gisteren vers in de code nagelezen (`:3385-3398`); vandaag niets dat die lezing raakt.
+  - 🔒 **Cache-val uitgesloten op beide domeinen, elk met eigen bewijs in deze run.** (a) Wiki:
+    `list=recentchanges` (ns 0) loopt tot **vandaag 03:35:34Z** (`6896378`, *Doom Weed (Classic)*,
+    Kaydeethree). (b) Forum: `posts.json` geeft als nieuwste post **vandaag 03:37:48Z**
+    (`30274853`, topic `2361292`, categorie 349). Beide servers leveren vers materiaal.
+    ⚠️ En de omgekeerde controle ook: niets wat ik vandaag als nieuwste zag, is **ouder** dan wat
+    dit logboek gisteren al noemde — `Hotfixes` ging vooruit, de andere vijf stonden stil, en de
+    hotfixtitel is dezelfde (niet eerder). 📌 De redirect-golf van `Kaydeethree` uit gisteren
+    (`:3363-3372`) is er vandaag weer, nu als gewone quest-edits; **een ns-0-pagina met een
+    API-naam blijft per se geen API-wijziging**, en vandaag stond er geen enkele tussen.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com/en-us/world-of-warcraft` (de WoW-nieuwsindex) gaf via Exa **alleen de
+      paginatitel en een lege body** — JS-gerenderd, net als de blue tracker. Mijn versheidsbewijs
+      voor dat domein komt daarom van `WebSearch`, niet van de index zelf.
+    - `wowhead.com/blue-tracker` opnieuw **niet geprobeerd** (zes runs op rij lege body).
+    - `warcraft.wiki.gg` via directe `curl` **niet opnieuw geprobeerd**; alle wiki- en forumdata
+      komt via `web_fetch_exa`.
+    - De 12.1.5-**PTR-buildnotes** zelf niet opgehaald; ik leun daar op `WebSearch`. Terrein van
+      `PTR_12.1_WATCH.md`.
+  - **Bronnen, alle met cache-buster:** `warcraft.wiki.gg/api.php` — `prop=revisions` op 6 titels,
+    `list=recentchanges` (ns 0, 30), `list=allpages&apprefix=Patch 12` (60);
+    `news.blizzard.com` artikel `24296142` (**volledig gelezen**) + de WoW-index (**leeg**);
+    `github.com/simulationcraft/simc-addon/releases` (**volledig gelezen**);
+    `us.forums.blizzard.com` — `posts.json`, `t/2367394.json` (**beide posts volledig gelezen**),
+    en 3 × `search.json` (1 veegactie + 1 meting + 1 positieve controle); 2 × `WebSearch`.
+    De wiki-API blijft *"Unrecognized parameter: nocache"* waarschuwen — een MediaWiki-waarschuwing,
+    geen fout. ✅ Alle negen `api.php`-aanroepen slaagden deze run in één keer; de
+    `CRAWL_*`-ruis van gisteren bleef weg (opnieuw proberen, niet herschrijven — dat blijft het
+    advies).
+  - ✅ **Repo: alleen `docs/API_WATCH.md` aangeraakt.** Geen van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit (`git status --porcelain` leeg bij aanvang).
+    ✅ **EN DE DETACHED HEAD IS WEG — na zes dagen.** `git rev-parse --abbrev-ref HEAD` geeft
+    **`main`**, niet `HEAD`, met `ba7a1fc` als top (*"Note tomorrow's second idea: ask players what
+    they use"*). Dus een gewone `pull --rebase` + `push origin main`, en geen `HEAD:main`-truc meer
+    nodig. 📌 Of de `forced update` van de afgelopen drie dagen daarmee ook verdwijnt, blijkt pas
+    bij de push die ná dit blok komt; die uitkomst staat in het slotbericht van deze run en, als er
+    iets bijzonders aan is, morgen hier.
