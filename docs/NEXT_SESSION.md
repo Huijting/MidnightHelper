@@ -1,6 +1,12 @@
 # Midnight Helper — waar we staan
 
-## 📚 1 okt — gidsen verhuisd naar midnighthelper.com/guides/ (Rob: "Begin maar") — KLAAR, WACHT OP ROBS "LIVE"
+## 📚 1 okt — gidsen verhuisd naar midnighthelper.com/guides/ (Rob: "Begin maar") — ✅ LIVE (Rob: "you can live gaan")
+
+✅ Site gepusht; GEMETEN live: `/guides/knowledge-points/` en `/nl/guides/delves/` geven 200. Daarna `site/*.html`
+(github.io → doorverwijzing) gepusht. **Banner:** `cf-banner.png` (2400×600, uit `drafts/cf-banner.html` via headless Edge
+2×, `--virtual-time-budget` nodig anders Georgia i.p.v. Marcellus) bovenaan `CURSEFORGE_DESCRIPTION.md` + regel met links
+→ **Rob plakt de beschrijving opnieuw.** CF-mail: GEMETEN dat Robs authors-meldingencentrum geen comment-meldingen
+toont; mailvoorkeuren alleen nog (misschien) op `legacy.curseforge.com/account/notifications` (AFGELEID, niet nagekeken).
 
 `tools/build_site.py` herschreven: schrijft nu `guides/` (overzicht + knowledge-points, delves, start, weekly, currencies,
 coiled-isle) in de site-repo (`MH_SITE_REPO`, standaard `C:\Users\RobHu\Downloads\midnighthelper-site`), met kop/voet
