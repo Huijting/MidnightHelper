@@ -1,100 +1,82 @@
-[![New: our own website. Guides, gear advice, and a place to tell us anything. midnighthelper.com](https://midnighthelper.com/cf-banner.png)](https://midnighthelper.com/)
-
-**New: [midnighthelper.com](https://midnighthelper.com/)** — [guides in seven languages](https://midnighthelper.com/guides/), the [Armory gear check](https://midnighthelper.com/armory/), [Raidbots in 7 steps](https://midnighthelper.com/raidbots/), and a [feedback form](https://midnighthelper.com/feedback/) for bugs, wishes and anything you want to tell us. No account needed. Got two minutes? [Tell us what you use, what you never use and what annoys you](https://midnighthelper.com/survey/).
-
-## Midnight Helper
+[![Midnight Helper: plain-language help for WoW Midnight. Guides, gear advice and feedback at midnighthelper.com](https://midnighthelper.com/cf-banner.png)](https://midnighthelper.com/)
 
 Your gear says "Champion 4/6" and the game never tells you what that means. Your Great Vault has three empty slots and nothing says how to fill them. Your profession window has six numbers on it and no one has ever explained a single one.
 
-Midnight Helper answers those questions in plain language — in your own language — and then takes you there.
+**Midnight Helper answers those questions in plain language — in your own language — and then takes you there.**
 
-**Current for patch 12.1 and Season 2**, Coiled Isle included — measured on the test realm, not copied from anywhere.
+It is for you if you have just hit 90, or if you are coming back after a few expansions away and half the game has been renamed. Veterans will know much of it already.
 
-**It is for you if you have just hit 90, or if you are coming back after a few expansions away and half the game has been renamed.** If you already know your week by heart, most of this will be telling you things you know.
-
-Free, open source (MIT), no dependencies, no ads, seven languages built in — no second addon to install.
-
-### Start with these four
-
-- **How you play** — every spec (all 40) explained on one short card: the idea in one sentence, your buttons in order with their icons, what changes on a pack, and the biggest beginner mistake. Each icon shows **the key that spell is on right now**, read live from your bars. Tabs for **staying alive**, your spec's **consumables** and **what you can dispel**. The gold button in the search bar, or `/mh play`.
-- **Professions 101** — a fourteen-chapter beginner course, not a help page. Why the same recipe gives two players different results. What those six numbers on your screen actually do. When Concentration is worth spending. How work orders really work, and why there are two counters rather than one. It reads in a window of its own beside the game, because half the chapters end by telling you to go and press something. A **Guided mode** walks a total newcomer through learning and levelling any of the 11 professions, ticking steps off as your skill grows.
-- **"What should I do this week?"** — the This Week page opens with the single most useful thing you can do right now and a **Take me there** button that sets the route. While you are still levelling it never proposes endgame content you cannot do yet.
-- **Your class, on a keyboard** — your live spellbook drawn onto a clean keyboard layout, every ability on the key it belongs on, for all 13 classes and 40 specs. A new alt or a fresh spec becomes readable in about five seconds.
-
-### Read it before you install
-
-🌐 A good deal of the content is on [midnighthelper.com](https://midnighthelper.com/guides/), in seven languages, generated from the same text the addon ships, so the two do not drift: [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all fourteen Delves](https://midnighthelper.com/guides/delves/) · [where your Knowledge Points go](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/).
-
-### What it will not tell you
-
-This is the part most guide addons skip. Where the game will not tell us something, this one says so instead of guessing convincingly.
-
-- In combat, 12.1 hides some of your own buffs from addons and reports them as simply **absent**. Midnight Helper tells you it **cannot see**, rather than telling you that you are missing a buff you are holding.
-- Mounts that are pure RNG — a rare drop, a puzzle, a hidden chain — show **no progress bar at all**, because there is no honest number to show.
-- `/mh curios` describes what each of Valeera's curios does, read live from your own game, and deliberately **does not rank them**: which one wins depends on your spec and your delve, and nobody has measured that.
-- It will not estimate how many delve runs Valeera still needs. How much a single run gives is not something anyone can honestly pin down.
-- Season 2 content stays hidden until the season genuinely **opens**, not merely until the patch lands. Those are a week apart.
-- The maps do **not** show where your group is. Inside a dungeon or raid the game hides everyone's position from addons, your own included — so there is no arrow to your group, only the floor plan.
+Up to date for patch 12.1 and Season 2, checked in the live game. Free, no ads, [open source](https://github.com/Huijting/MidnightHelper) (MIT), seven languages built in, and no other addons needed.
 
 ### Getting started
 
-Install it, log in, and type `/mh` in the chat box. That opens the main window on **This Week**, which is the only page you need on day one. On a character whose bars have never been set up, the front page offers to do it — **once**. Dismiss it and it stays dismissed.
+Install it, log in and type `/mh`. The window opens on **This Week**, the only page you need on day one. It starts with the most useful thing you can do right now, and a **Take me there** button sets the route. While you are still levelling, it never suggests endgame content you cannot do yet.
 
-Nothing is changed in your game unless you press a button, and the bar setup shows you exactly what would move before anything moves.
+Nothing in your game changes unless you press a button. On a character whose bars have never been set up, the front page offers to do it — once. It shows exactly what will move before anything moves, and one button puts it all back.
+
+### Start with these four
+
+- **How you play** — all 40 specs, each on one short card: the idea in one sentence, your buttons in order, and the most common beginner mistake. Every icon shows the key that spell is on for you right now. Extra tabs cover staying alive, consumables and what you can dispel. Open it with the gold button in the search bar or `/mh play`.
+- **Professions 101** — a beginner course that explains every number in your profession window, why the same recipe gives two players different results, and how work orders really work. It opens in its own window beside the game, so you can follow along. **Guided mode** walks you through learning and levelling any of the 11 professions and ticks off steps as your skill grows (English and Dutch for now).
+- **Your gear** — `/mh tracks` shows which items have reached their upgrade limit and how to go further, including that the best upgrade crests can be earned solo: no raid group needed. The **Great Vault Advisor** compares your choices with what you are wearing, right on Blizzard's vault screen. `/mh stats` explains your stats with your live numbers, and starts with the most important rule: higher item level almost always wins. And two buttons next to your character sheet answer "which items should I wear?" — quick advice on our [Armory](https://midnighthelper.com/armory/), or an exact answer from Raidbots, a website that simulates your gear (beta).
+- **Your class, on a keyboard** — your own spellbook drawn on a keyboard, every ability on the key it belongs on, for all 13 classes. A new alt or a fresh spec makes sense in about five seconds. `/mh setup` can put it on action bars 1–8 for you, shows every change first, and has an undo button.
 
 ### What else is in it
 
-**Your first hour, and your keys.** `/mh setup` does the whole bar-and-keybind job in one panel — and tells you which character you are on and whether your keybinds are **account-wide or this character's own** *before* it offers anything that changes them, because getting that wrong quietly rebinds every alt you have. Our recommended layout is a button, not a picture to copy: it touches action bars 1-8 and nothing else, and a second button restores what you had. `/mh binds` prints the keys you actually have — including anything you changed by hand — in a window you can copy and print.
-
-**Your week.** Weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores, Ritual Sites and Void Assaults with one-click routes. An **account snapshot** across your characters: keys, shards, item level, vault status, and a badge for anyone not logged in since reset — as rows, or **side by side in columns** with gold, rested XP, currencies and professions, a gear card per character, and a big window that shows them all at once.
-
-**Your gear.** `/mh tracks` names the slots at their upgrade ceiling and the two ways onward — and the part that is easy to miss: **top-tier crests are earnable solo**, through high Bountiful Delves and repeatable Tier 6 Ritual Sites. You do not need a raid group. The **Great Vault Advisor** ranks your loot choices against what you are wearing, on Blizzard's own vault screen. `/mh stats` explains what crit, haste, mastery and versatility do in your spec's order, with your live percentages — and opens by saying that higher item level almost always wins, because a beginner who has just learned about stats will otherwise turn down an upgrade to chase a colour. **Which items should you wear?** Two buttons next to your character sheet: quick advice on the [Armory at midnighthelper.com](https://midnighthelper.com/armory/) (`/mh export`), or the exact answer from a Raidbots Top Gear simulation (`/mh raidbots`, still in a test phase).
-
-**Coaching, in the content.** The **Delve Coach** covers all 14 Midnight delves with routes, bosses and 3D previews, and lists the avoidable damage for the instance you are actually in — 173 named hazards, in your own language, because the names come from your client. The **Raids** page has beginner steps for every boss, and the Raid Coach opens by itself when a pull starts. In a group, a small **Battle res & Hero** panel shows the charges left, whether Hero is ready, and who can cast them — with your own keys for each.
-
-**Maps of every raid, dungeon and delve.** The floor plan, floor by floor, with the bosses on it — click one for its tips — and the stairs and portals between floors, which take you to the next floor with a click. Walk through a raid before you go in, or type `/mh map` inside to see the floor you are on. They are the game's own maps, so the addon did not get bigger for them. And before you pull: a big warning with a sound when your gear is badly worn.
-
-**Getting there.** A route arrow that rotates, shows live distance and drives the game's own waypoint. `/mh plan` lays out the whole journey as clickable steps, takes the door when a door beats a flight, and says why. If you run **TomTom**, it stands aside; alongside **WaypointUI** you get both.
-
-**Collecting.** The 19 new Midnight mounts as a checklist with live progress and a 3D preview. Rares with per-character weekly tracking, routes, and an alert when one is up near you that steers you there and then puts you back on your route. Midnight's treasure, telescope and lore hunts with every coordinate measured.
-
-**Reference.** The **Midnight Codex** in-game handbook, a **Role Academy** for tank, heal and DPS, macro templates, per-spec consumables, and a Silvermoon City guide. A global search takes a word you type to the page that answers it.
+- **Your week** — reset countdown, Great Vault status for all your characters, this week's world boss, weekly chores, and Ritual Sites and Void Assaults with one-click routes.
+- **All your characters** — keys, shards, item level and vault status as rows, or side by side in columns with gold, rested XP, currencies, professions and a gear card per character.
+- **Delves** — all 14 Midnight delves with routes, bosses and 3D previews, plus the avoidable damage in the delve or dungeon you are in, named in your own language.
+- **Raids and dungeons** — beginner steps for every boss, and a Raid Coach that opens by itself when a pull starts. In a group, a small panel shows how many battle resurrections are left, whether Heroism is ready, and who can cast them. Before you pull, a loud warning if your gear is badly worn.
+- **Maps** — floor plans of raids and dungeons with the bosses on them. Click a boss for its tips, or the stairs to change floor. Type `/mh map` inside to see the floor you are on.
+- **Getting there** — a route arrow with live distance that drives the game's own waypoint. `/mh plan` lays out the whole trip as clickable steps and takes a portal when one goes your way. If you use TomTom, its arrow takes over; with WaypointUI you get both.
+- **Collecting** — the 20 new Midnight mounts as a checklist with progress and a 3D preview. Rares with weekly tracking, routes, and an alert when one is up nearby. Treasure and lore hunts with checked coordinates.
+- **Reference** — the Midnight Codex handbook, a Role Academy for tank, healer and DPS, macro templates, a Silvermoon City guide, and a search box that takes a word to the page that answers it.
 
 ### New in patch 12.1
 
-The **Coiled Isle**: rares mapped with the hidden kill quests that let the list tick itself off, treasure and lore hunts with measured coordinates, and the seven treasures that need something done first now name the step that unlocks them. A Coiled Isle shelf in the Codex with clickable waypoints on every coordinate. **Altar of Fangs** and the two new delves, **Gnarldor Isle** and **The Ring of Glory**, in the coach. The **Mysterious Mix Master**'s ten offerings with their ingredients.
+The **Coiled Isle**: rares, treasures and lore hunts with checked coordinates, and the seven treasures that need something done first now name the step that unlocks them. **Altar of Fangs** and the two new delves, **Gnarldor Isle** and **The Ring of Glory**, in the coach. The **Mysterious Mix Master**'s 10 offerings with their ingredients.
 
-⚠️ Since 12.1 the **Catalyst keeps** the secondary stats, tertiaries and item level of whatever you feed it — a badly rolled piece comes back badly rolled — which is the opposite of the old habit of converting your leftovers.
+### When the game stays silent
+
+Where the game will not tell us something, Midnight Helper says so instead of guessing.
+
+- In combat, 12.1 hides some of your own buffs from addons. Midnight Helper says it **cannot see** them, instead of telling you a buff is missing.
+- Mounts that are pure luck — a rare drop, a puzzle, a hidden chain — get no progress bar, because there is no honest number to show.
+- Inside a dungeon or raid the game hides everyone's position, yours included. The maps show the floor plan, not your group.
 
 ### What this does not replace
 
-It is not a boss-mod, a damage meter, a bag addon or a unit-frame replacement, and it does not try to be. If you already run DBM, Details! or HandyNotes, keep them.
+It is not a boss mod, a damage meter, a bag addon or a unit-frame replacement, and it does not try to be. If you already run DBM, Details! or HandyNotes, keep them.
+
+### More on the website
+
+[midnighthelper.com](https://midnighthelper.com/) has the guides in seven languages — [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all 14 delves](https://midnighthelper.com/guides/delves/) · [Knowledge Points](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/) — plus the [Armory gear check](https://midnighthelper.com/armory/) and [Raidbots in seven steps](https://midnighthelper.com/raidbots/). No account needed.
+
+Got two minutes? [Tell us what you use, what you never use and what annoys you](https://midnighthelper.com/survey/).
 
 ### Languages
 
-Full UI, coach tips and guide content in English, Deutsch, Français, Español, Português (BR), Italiano and Nederlands. Your WoW client's language is picked up automatically; Dutch is chosen by hand with `/mh lang nl`, since there is no Dutch client. Other locales fall back to English.
+English, Deutsch, Français, Español, Português (BR), Italiano and Nederlands; Guided mode is English and Dutch for now. Your client's language is picked up automatically. Choose Dutch with `/mh lang nl`, since there is no Dutch client. Other languages fall back to English.
 
-Short labels — stat names, `DPS`, `Flask`, `Bountiful` — stay English on purpose, because your tooltips do too. Something reading wrong in your language is exactly the report worth making.
+Short labels such as stat names, `DPS` and `Bountiful` stay English on purpose, because your tooltips do too.
 
-### Requirements
+### Help and feedback
 
-WoW Retail. No dependencies. TomTom and WaypointUI are optional and supported if you have them.
-
-> 🌙 **One person writes this, in their spare time.** Everything in here is checked against the live client before it ships, and where the game will not tell us something the addon says so. That does mean updates arrive in bursts rather than on a schedule — and it is open source under MIT, so the work does not vanish if I do.
+> 🌙 Midnight Helper is a one-person project, built in spare time and checked in the live game before every release.
 >
-> Found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ) — beginners very welcome. **`/mh report` in game** writes down what you were doing and where, so "it told me something wrong" is a report worth sending rather than a feeling you cannot pin down.
+> Found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ) — beginners very welcome — or use the [feedback form](https://midnighthelper.com/feedback/). Type `/mh report` in game first: it writes down what you were doing and where, ready to paste.
 
 ### Slash commands
 
-`/mh` opens the window · `/mh play` how you play your spec · `/mh map` the map of the dungeon or raid you are in · `/mh setup` bars and keybinds · `/mh course` the professions course · `/mh report` send a bug report.
+`/mh` opens the window · `/mh play` how to play your spec · `/mh map` the map of the dungeon or raid you are in · `/mh setup` bars and keybinds · `/mh course` the professions course · `/mh report` a bug report to paste.
 
-Around forty more are listed and explained inside the addon, under **Tools**, where they cannot drift from what it actually answers to.
+About 70 more are listed and explained in the addon, under **Tools**.
 
-### Credits and References
+### Credits and references
 
-Guide data cross-checked against Wowhead and Icy Veins. Boss, spell and item names come from the game's own data. Thanks to everyone who has reported something that read wrong.
+Guide data cross-checked against Wowhead and Icy Veins; boss, spell and item names come from the game's own data. Thanks to everyone who reported something that read wrong.
 
-The screen icons were generated locally with an open image model (Z-Image Turbo) from text prompts, then picked and cropped by us; the logo was made with Google Gemini. No Blizzard artwork was used as input for the icons.
+The screen icons were generated locally with an open image model (Z-Image Turbo) and picked by us; the logo was made with Google Gemini. No Blizzard artwork was used as input for the icons.
 
 ### Disclaimer
 

@@ -9,6 +9,13 @@ van eerder vandaag). Daarmee is 12.1.5-checklist A1 ook UITGEBRACHT.
 ✅ Upload run 36927697651 **success** (1m41s), GitHub Release v4.4.0 gepubliceerd (→ Discord). Site: "New in 4.3.0"-labels
 weg (Raidbots houdt "Test phase"), hero-lijst + tegel "Weekly plan and Great Vault" met "New in 4.4.0" en een zin over de
 kolommen; GEMETEN live `/nl/`: 2× "Nieuw in 4.4.0", 0× 4.3.0. Eén release later (4.5.0) die labels weer weg.
+✅ **CF-beschrijving herschreven (1 okt)** na review door 4 agents (CF-kenner, beginner, redacteur, feitencheck tegen
+de code). Addon eerst, website één blok lager, "Getting started" boven, "What else" = 8 korte regels, ±25% korter.
+Feiten GEMETEN rechtgezet: 20 mounts (niet 19, `MountProgress.lua` TRACKED), ~70 commando's (niet 40,
+`CommandList.lua`), Guided mode alleen en/nl, geen bazen op delve-kaarten, `/mh plan` zegt geen "waarom",
+`/mh report` = plaktekst. GitHub-link toegevoegd (repo GEMETEN PUBLIC). Weggelaten: Catalyst-tip, curios/Valeera,
+season-week, account-wide-binds, "173 hazards". 🔲 Rob plakt hem op CF. Open idee: banner zelf zegt nog "New: our
+own website" — eventueel nieuwe banner met de addonnaam.
 
 ## 🗓️ 12.1.5 live 13 okt (VS) / 14 okt (EU) → afvinklijst `docs/PATCH_12_1_5_CHECKLIST.md` (1 okt, Rob: "Ja doe maar")
 
