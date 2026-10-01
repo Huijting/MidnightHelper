@@ -78,8 +78,12 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    (claude.ai → Routines, of desktopapp → Cowork → Scheduled), niet alleen de naam.
 2. `git -C "<repo>" pull --rebase origin main`
 3. Lees wat er nieuw in staat: de vier bestanden uit de tabel hierboven.
-4. Kijk op GitHub: `python "<repo>/tools/_probe.py" run gh_inbox`. Geen enkele wachter dekt mensen
-   die ons willen helpen — Andy's vijf PR's lagen daardoor 17 dagen ongelezen.
+4. Kijk op CurseForge én GitHub: `run gh_inbox` (via `probe_job.txt`). Geen enkele wachter dekt mensen
+   die ons willen helpen — Andy's vijf PR's lagen daardoor 17 dagen ongelezen, en op 1 okt 2026 bleek een
+   CF-bugmelding (MrsBoojiePanda, debug-regel in de chat) óók 17 dagen ongezien. Sindsdien leest gh_inbox
+   eerst de CF-reacties (open JSON: `curseforge.com/api/v1/mods/1528577/comments`; de gewone pagina geeft
+   403). **Een 🔴 WAITING FOR AN ANSWER meld je Rob altijd, ook als de rest "niets" is.** Een draadje telt
+   als beantwoord zodra Rob (twelveinchy) er met *Reply* in reageert; een losse nieuwe reactie telt niet.
 4b. **Kijk welke van Robs andere addons zijn bijgewerkt:** `python "<repo>/tools/_probe.py" run
    addon_updates`. Sinds 22 sep 2026 (Rob: *"hebben we addons die geupdate zijn ook getest?"* → *"ja doe
    maar"*). Hij vergelijkt `## Version` met de vorige keer en print de top van elke changelog; **jij**

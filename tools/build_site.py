@@ -1,24 +1,42 @@
 #!/usr/bin/env python3
-"""Generate site/index.html from the addon's own route data.
+"""Generate the guide pages of midnighthelper.com from the addon's own data.
 
     python "<repo>/tools/_probe.py" run build_site
 
-🔴 GENERATED, NEVER HAND-EDITED, and that is the whole point. This page answers the same
-question the in-game advisor answers, so a hand-written copy would drift from it the moment a
-route changed -- and a public page that contradicts the addon is worse than no page. On 31 Aug
-we found four language packs asserting things the English had stopped saying; this is that same
-failure with a bigger audience.
+then, in the site repo, the usual i18n round (extract -> translate the new units -> merge -> build).
 
-⚠️ It reads Modules/ProfessionAcademyData.lua. If that file's shape changes, this fails loudly
-(assert) rather than emitting a half-empty page. Silence is the failure mode to avoid.
+🔴 GENERATED, NEVER HAND-EDITED, and that is the whole point. These pages answer the same
+questions the addon answers in game, so a hand-written copy would drift from it the moment a
+route or a tip changed -- and a public page that contradicts the addon is worse than no page.
+On 31 Aug we found four language packs asserting things the English had stopped saying; this is
+that same failure with a bigger audience.
 
-📌 Why a page at all: MEASURED 30 Aug -- CurseForge indexes only the project name and a ~200
-character summary. Our 28,000-character description counts for nothing, so searching for a word
-that appears in it finds twenty other addons and not us. A website is the part Google can read.
+📌 Why pages at all: MEASURED 30 Aug -- CurseForge indexes only the project name and a ~200
+character summary. Our 28,000-character description counts for nothing in search. A website is
+the part Google can read.
+
+WHERE THINGS GO (moved 1 Oct 2026, Rob: "Begin maar met de pagina's naar de website verhuizen")
+  - The guides now live on midnighthelper.com/guides/ (the site repo, SITE_REPO below), in the
+    site's own header, footer and language picker. They used to be a separate-looking site at
+    huijting.github.io/MidnightHelper, generated into this repo's site/ folder.
+  - site/ now only holds small "this page moved" pages for the old addresses, so old links and
+    Google's index follow us. 🔴 site/google9f04431797b34db7.html (Search Console) stays.
+  - Seven languages, and the addon's text is NOT translated again: every element that carries
+    addon text is written translate="no" data-addon="<LOCALE_KEY>", and i18n/addon.json holds
+    what the addon itself shows in each language. The site's i18n build swaps it in. The page
+    furniture (titles, headings, the Knowledge Points prose) goes through the site's normal
+    translation round like every other page.
+
+⚠️ The texts come from tools/locale_probe.lua --dump: the locale files loaded the way the client
+loads them, once per language. Reading the Lua files with regexes is how this project kept
+missing text that lived in a second file (see the notes below); the loader cannot miss it.
 """
+import html as htmllib
 import io
+import json
 import os
 import re
+import subprocess
 import sys
 
 try:
@@ -28,8 +46,27 @@ except Exception:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "Modules", "ProfessionAcademyData.lua")
-OUT_DIR = os.path.join(ROOT, "site")
-OUT = os.path.join(OUT_DIR, "index.html")
+OLD_DIR = os.path.join(ROOT, "site")   # the old github.io site: redirect pages only
+
+# The midnighthelper.com repo (Huijting/midnighthelper-site). Override with MH_SITE_REPO.
+SITE_REPO = os.environ.get("MH_SITE_REPO") or r"C:\Users\RobHu\Downloads\midnighthelper-site"
+assert os.path.isfile(os.path.join(SITE_REPO, "tools", "i18n.py")), \
+    "site repo not found at %s -- set MH_SITE_REPO" % SITE_REPO
+BASE = "https://midnighthelper.com"
+
+# site language -> addon pack, and what a bare link word says in that language
+LANGS = {"en": "enUS", "nl": "nlNL", "de": "deDE", "fr": "frFR", "es": "esES", "pt": "ptBR", "it": "itIT"}
+WOWHEAD = {"en": "", "nl": "", "de": "de/", "fr": "fr/", "es": "es/", "pt": "pt/", "it": "it/"}
+WORDS = {
+    "en": ("spell", "item", "currency"), "nl": ("spreuk", "item", "valuta"),
+    "de": ("Zauber", "Gegenstand", "Währung"), "fr": ("sort", "objet", "monnaie"),
+    "es": ("hechizo", "objeto", "moneda"), "pt": ("feitiço", "item", "moeda"),
+    "it": ("incantesimo", "oggetto", "valuta"),
+}
+
+# Google Search Console verification for the OLD github.io address. Kept on the redirect pages
+# so the property stays verified while Google follows the move.
+GSC_TOKEN = "Xwv2TOPNGBTt-OPD1AEI0z3znYlSIymCaNcyC_uF8N8"
 
 PROF = {164: "Blacksmithing", 165: "Leatherworking", 171: "Alchemy", 182: "Herbalism",
         186: "Mining", 197: "Tailoring", 202: "Engineering", 333: "Enchanting",
@@ -52,13 +89,229 @@ FINDINGS = [
      "Inscription's first tree caps at rank 10, where most guides print 30. Ten fills the root "
      "and unlocks all three sub-specialisations."),
     ("The same name can be two different things",
-     "<code>Lasting Leather</code> is a <strong>tab</strong> in Leatherworking and a "
+     "<em>Lasting Leather</em> is a <strong>tab</strong> in Leatherworking and a "
      "<strong>node</strong> in Skinning. No guide records which is which, because that layer "
      "only exists in the game client. It is also why advice that matches on names alone "
      "quietly points at nothing."),
 ]
 
 
+def esc(s):
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def write(path, text):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    io.open(path + ".tmp", "w", encoding="utf-8", newline="\n").write(text)
+    os.replace(path + ".tmp", path)
+
+
+# ── The addon's texts, per language, the way the client loads them ────────────────────
+def load_packs():
+    p = subprocess.run(["lua", "tools/locale_probe.lua", "--dump"], cwd=ROOT,
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    assert p.returncode == 0, "locale_probe.lua --dump failed:\n" + p.stderr[:800]
+    assert "PROBLEM" not in p.stderr, "locale_probe reported problems:\n" + p.stderr[:800]
+
+    def unesc(s):
+        return re.sub(r"\\(\\|n|t)", lambda m: {"\\": "\\", "n": "\n", "t": "\t"}[m.group(1)], s)
+    packs = {code: {} for code in LANGS.values()}
+    for line in p.stdout.splitlines():
+        parts = line.split("\t", 2)
+        if len(parts) == 3 and parts[0] in packs:
+            packs[parts[0]][parts[1]] = unesc(parts[2])
+    for code, pack in packs.items():
+        assert len(pack) > 3000, "only %d keys for %s -- refusing to publish" % (len(pack), code)
+    return packs
+
+
+PACKS = load_packs()
+EN = PACKS["enUS"]
+
+spell_ids = dict(re.findall(r'^\t([a-z0-9_]+)\s*=\s*(\d+),',
+                            io.open(os.path.join(ROOT, "Modules", "DelveSpellIds.lua"),
+                                    encoding="utf-8", errors="replace").read(), re.M))
+
+
+def markup(text, lang):
+    """Addon markup -> HTML. Escape FIRST, then substitute, so our own tags survive."""
+    spell_w, item_w, cur_w = WORDS[lang]
+    wh = "https://www.wowhead.com/" + WOWHEAD[lang]
+    t = esc(text)
+    # A spell we have an id for becomes a real link; one we do not becomes plain words --
+    # the same honest fallback the addon uses in game rather than a dead link.
+    t = re.sub(r'\{SPELL:(\d+)\}', lambda m: '<a href="%sspell=%s">%s</a>' % (wh, m.group(1), spell_w), t)
+    t = re.sub(r'\{SPELL:@([a-z0-9_]+)\}',
+               lambda m: ('<a href="%sspell=%s">%s</a>' % (wh, spell_ids[m.group(1)], m.group(1).replace("_", " ")))
+               if m.group(1) in spell_ids else m.group(1).replace("_", " "), t)
+    t = re.sub(r'\{ITEM:(\d+)\}', lambda m: '<a href="%sitem=%s">%s</a>' % (wh, m.group(1), item_w), t)
+    t = re.sub(r'\{CURRENCY:(\d+)\}', cur_w, t)
+    t = re.sub(r'\{WAY:\d+:([\d.]+):([\d.]+):([^}]+)\}',
+               lambda m: "%s (%s, %s)" % (m.group(3), m.group(1), m.group(2)), t)
+    t = re.sub(r'\|cff[0-9a-fA-F]{6}(.*?)\|r', r"<strong>\1</strong>", t)
+    t = re.sub(r'\|cn[A-Z_]+:(.*?)\|R', r"<strong>\1</strong>", t)
+    return t
+
+
+def bullets(text, lang):
+    out = []
+    for line in markup(text, lang).replace("\n", "|n").split("|n"):
+        line = line.strip()
+        if line.startswith("&bull;") or line.startswith("•"):
+            line = line.lstrip("•").lstrip()
+        if line:
+            out.append("<li>%s</li>" % line)
+    return "<ul>%s</ul>" % "".join(out) if out else ""
+
+
+# key -> {lang: html}; the English html goes into the page, the rest into i18n/addon.json
+ADDON = {}
+
+
+def addon(key, kind, tag, attrs=""):
+    """An element carrying addon text: English in the page, every language in ADDON."""
+    render = (lambda v, lang: esc(v)) if kind == "text" else bullets
+    ADDON[key] = {lang: render(PACKS[code].get(key, EN[key]), lang) for lang, code in LANGS.items()}
+    return '<%s%s translate="no" data-addon="%s">%s</%s>' % (tag, attrs, key, ADDON[key]["en"], tag)
+
+
+# ── The page shell: the site's own header and footer ──────────────────────────────────
+#
+# Copied from a live page rather than written here, so the guides cannot drift into looking
+# like a different site -- which is exactly what the github.io pages had become.
+_shell_src = io.open(os.path.join(SITE_REPO, "raidbots", "index.html"), encoding="utf-8").read()
+_m_head = re.search(r'(<div class="uc".*?</header>)', _shell_src, re.S)
+_m_foot = re.search(r'(<footer class="sf">.*?</footer>)', _shell_src, re.S)
+_m_css = re.search(r'href="(/shared\.css\?v=[^"]+)"', _shell_src)
+assert _m_head and _m_foot and _m_css, "raidbots/index.html lost its header, footer or stylesheet link"
+HEADER = _m_head.group(1).replace(' aria-current="page"', "")
+assert '<a href="/guides/">Guides</a>' in HEADER, "the site menu has no Guides link yet"
+HEADER = HEADER.replace('<a href="/guides/">Guides</a>', '<a href="/guides/" aria-current="page">Guides</a>')
+HEADER = re.sub(r"<!--i18n:picker-->.*?<!--/i18n:picker-->", "<!--i18n:picker--><!--/i18n:picker-->", HEADER, flags=re.S)
+FOOTER = _m_foot.group(1)
+SHARED_CSS = _m_css.group(1)
+
+GUIDE_CSS = """\
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--night)}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+a{color:var(--gold)}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:720px;margin:0 auto;padding-block:28px 64px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,6vw,44px);line-height:1.1;margin:36px 0 8px;text-wrap:balance}
+.lead{color:var(--muted);margin:0 0 22px;max-width:62ch}
+.guides{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
+.guides a,.guides span{display:inline-block;padding:4px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--muted);font-size:14px;font-weight:600}
+.guides a:hover{color:var(--ink);border-color:var(--gold)}
+.guides span{color:var(--night);background:var(--gold);border-color:var(--gold)}
+.toc{columns:2 220px;column-gap:28px;padding-left:20px;margin:0 0 8px;font-size:15px}
+.toc li{margin:2px 0;break-inside:avoid}
+section{border-top:1px solid var(--line);margin-top:32px;padding-top:4px}
+h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.2;margin:18px 0 8px;text-wrap:balance}
+h3{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:20px 0 4px}
+p{margin:0 0 12px;max-width:65ch}
+ul{padding-left:20px;margin:0 0 8px}
+li{margin:5px 0;max-width:65ch}
+.tablewrap{overflow-x:auto;margin:12px 0 20px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{color:var(--muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+tbody th{white-space:nowrap}
+.note{background:var(--night-2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:24px 0}
+.note p{margin:0}
+.from{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14.5px}
+.cards{list-style:none;padding:0;margin:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.cards a{display:block;height:100%;background:var(--night-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink)}
+.cards a:hover{border-color:var(--gold)}
+.cards b{display:block;font-family:var(--display);font-weight:400;font-size:21px;line-height:1.25;margin-bottom:4px}
+.cards span{display:block;color:var(--muted);font-size:14.5px}
+"""
+
+# ── The guides, in ONE place ──────────────────────────────────────────────────────────
+#
+# 🔴 This list is the section. The pill menu on every guide, the cards on /guides/ and the
+# redirects from the old addresses are all derived from it, so a page cannot quietly drop out
+# of the menu -- which is how Rob once lost the delve page on the old site.
+GUIDES = [
+    # slug, menu label, card blurb, old github.io file
+    ("knowledge-points", "Knowledge Points",
+     "Which profession tree to fill first, for all eleven professions.", "index.html"),
+    ("delves", "Delves",
+     "Route, trash and bosses for every Midnight delve.", "delves.html"),
+    ("start", "New at max level",
+     "What the game never sits you down and explains.", "start.html"),
+    ("weekly", "Your week",
+     "What resets, what is worth doing, and the Great Vault.", "weekly.html"),
+    ("currencies", "Currencies",
+     "Crests, coins, sparks and shards, and what each is for.", "currencies.html"),
+    ("coiled-isle", "The Coiled Isle",
+     "The 12.1 zone and the Vaults of Atal'Utek.", "coiled-isle.html"),
+]
+
+
+def pills(current):
+    items = []
+    for slug, label, _b, _o in GUIDES:
+        if slug == current:
+            items.append('<li><span aria-current="page">%s</span></li>' % esc(label))
+        else:
+            items.append('<li><a href="/guides/%s/">%s</a></li>' % (slug, esc(label)))
+    return '<ul class="guides" aria-label="Guides">%s</ul>' % "".join(items)
+
+
+FROM_NOTE = ('<div class="from"><p>Generated from the data inside <strong>Midnight Helper</strong>, '
+             'a free World of Warcraft addon. In game the same text sits one click away, in your own '
+             'language. <a href="https://www.curseforge.com/wow/addons/midnight-helper">Get it on '
+             'CurseForge</a>.</p><p>Some of this is measured in game and some comes from other '
+             'guides; where we are unsure, the text says so. Something wrong? '
+             '<a href="/feedback/">Tell us</a>.</p></div>')
+
+
+def page(path, title, desc, body):
+    return """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>%s · Midnight Helper</title>
+<meta name="description" content="%s">
+<link rel="canonical" href="%s%s">
+<!--i18n:alternates--><!--/i18n:alternates-->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="%s">
+<!-- GENERATED by MidnightHelper/tools/build_site.py from the addon's data. Do not edit by hand. -->
+<style>
+%s</style>
+</head>
+<body>
+
+%s
+
+<div class="wrap">
+  <main>
+%s
+  </main>
+</div>
+
+%s
+
+<script src="/lang.js" defer></script>
+</body>
+</html>
+""" % (esc(title), htmllib.escape(desc, quote=True), BASE, path, SHARED_CSS, GUIDE_CSS,
+       HEADER, body, FOOTER)
+
+
+def write_page(slug, title, desc, body):
+    path = "/guides/%s/" % slug if slug else "/guides/"
+    out = os.path.join(SITE_REPO, "guides", slug, "index.html") if slug else \
+        os.path.join(SITE_REPO, "guides", "index.html")
+    write(out, page(path, title, desc, body))
+
+
+# ── Knowledge Points ──────────────────────────────────────────────────────────────────
 def steps_for(body):
     out = []
     for m in re.finditer(r'\{\s*(tree|node|anyOf|anyOfNodes)\s*=\s*(.*?)\s*[,}]', body, re.S):
@@ -68,16 +321,11 @@ def steps_for(body):
     return out
 
 
-def esc(s):
-    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-
 data = io.open(DATA, encoding="utf-8", errors="replace").read()
 assert "advisorRoutes = {" in data, "route table not found -- has the data file changed shape?"
-body = data[data.index("advisorRoutes = {"):]
-
+route_src = data[data.index("advisorRoutes = {"):]
 routes = []
-for m in re.finditer(r'\n\t\t\[(\d+)\]\s*=\s*\{(.*?)\n\t\t\},', body, re.S):
+for m in re.finditer(r'\n\t\t\[(\d+)\]\s*=\s*\{(.*?)\n\t\t\},', route_src, re.S):
     sid = int(m.group(1))
     if sid in PROF:
         st = steps_for(m.group(2))
@@ -89,374 +337,119 @@ assert len(routes) >= 10, "only %d routes parsed -- refusing to publish a half p
 rows = []
 for name, st in routes:
     kind, names = st[0]
-    first = " <em>or</em> ".join(esc(n) for n in names)
+    # Profession, tree and node names are the English client's: there is no Dutch client, and
+    # these names come from the game's own data, not from a translation of ours.
+    first = " / ".join(esc(n) for n in names)
     what = "tree" if kind in ("tree", "anyOf") else "node"
-    rows.append("<tr><th scope=\"row\">%s</th><td>%s</td><td>%s</td></tr>"
+    rows.append('<tr><th scope="row" translate="no">%s</th><td translate="no">%s</td><td>%s</td></tr>'
                 % (esc(name), first, what))
 
-finds = "\n".join(
-    "<section><h3>%s</h3><p>%s</p></section>" % (esc(t), b) for t, b in FINDINGS)
+kp_body = """    <h1>Where do your Knowledge Points go?</h1>
+    <p class="lead">Profession specializations in World of Warcraft: Midnight, for all eleven professions, and what nobody can tell you from outside the game.</p>
+    %s
+    <p>Knowledge Points are scarce and the reset is once only, so the order you spend them in matters more than most guides admit. Below is the tree each profession is worth filling <strong>first</strong>.</p>
+    <h2>The first step, per profession</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th scope="col">Profession</th><th scope="col">Fill this first</th><th scope="col">It is a</th></tr></thead>
+      <tbody>%s</tbody>
+    </table></div>
+    <p>Names are shown as the English game client writes them.</p>
+    <div class="note"><p><strong>How this was checked.</strong> Every step above was verified against a real game client rather than copied between guides: four characters, one profession window at a time, reading the identifiers the game itself reports. On the first pass twelve steps across five professions turned out to name the wrong kind of thing.</p></div>
+    <h2>Four things worth knowing before you spend</h2>
+    %s
+    <h2>What we do not know</h2>
+    <p>The <em>structure</em> above is measured for all eleven professions. The <em>content</em>, whether a given tree is the best first pick rather than merely a legal one, is verified for the professions we play, and open for Engineering, Jewelcrafting and Inscription. Where guides disagree with each other, we would rather say so than pick a winner and sound certain.</p>
+    %s""" % (pills("knowledge-points"), "".join(rows),
+             "".join("<h3>%s</h3><p>%s</p>" % (esc(t), b) for t, b in FINDINGS), FROM_NOTE)
+write_page("knowledge-points", "Where do your Knowledge Points go?",
+           "Which profession specialization tree to fill first in World of Warcraft Midnight, for all "
+           "eleven professions, checked against a live game client.", kp_body)
 
-HTML = """<!doctype html>
-<html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Where do your Knowledge Points go? WoW Midnight professions</title>
-<meta name="description" content="Which profession specialization tree to fill first in World of\
- Warcraft Midnight, for all eleven professions -- checked against a live game client, with what\
- we could not verify said out loud.">
-<link rel="canonical" href="https://huijting.github.io/MidnightHelper/">
-<link rel="stylesheet" href="style.css">
-<main>
-<h1>Where do your Knowledge Points go?</h1>
-<p class="lede">Profession specializations in World of Warcraft: Midnight, for all eleven
-professions &mdash; and what nobody can tell you from outside the game.</p>
-
-<!-- Rob came back from the delve page and could not find his way there again: the link sat
-     under a heading past the halfway mark, and nobody scrolls a page they have already read.
-     Moved to the top, where a reader who arrives or returns can see it without looking. -->
-<nav aria-label="Pages"><ul class="toc">
-<li><strong>Knowledge Points</strong> &mdash; you are here</li>
-<li><a href="delves.html">Every Midnight delve &rarr;</a></li>
-</ul></nav>
-
-<p>Knowledge Points are scarce and the reset is once only, so the order you spend them in
-matters more than most guides admit. Below is the tree each profession is worth filling
-<strong>first</strong>.</p>
-
-<h2>The first step, per profession</h2>
-<table>
-<thead><tr><th scope="col">Profession</th><th scope="col">Fill this first</th><th scope="col">It is a</th></tr></thead>
-<tbody>
-__ROWS__
-</tbody>
-</table>
-
-<div class="note"><p><strong>How this was checked.</strong> Every step above was verified against
-a real game client rather than copied between guides: four characters, one profession window at
-a time, reading the identifiers the game itself reports. On the first pass twelve steps across
-five professions turned out to name the wrong kind of thing.</p></div>
-
-<h2>Four things worth knowing before you spend</h2>
-__FINDS__
-
-<h2>What we do not know</h2>
-<p>The <em>structure</em> above is measured for all eleven professions. The <em>content</em>
-&mdash; whether a given tree is the best first pick rather than merely a legal one &mdash; is
-verified for the professions we play, and open for Engineering, Jewelcrafting and Inscription.
-Where guides disagree with each other, we would rather say so than pick a winner and sound
-certain.</p>
-
-<footer>
-<p>This page is generated from the data inside <strong>Midnight Helper</strong>, a free World of
-Warcraft addon that explains <em>why</em> rather than only <em>what</em> &mdash; weekly planning,
-Great Vault advice, Delve coaching, a beginner professions course and a class keybind coach, in
-seven languages.</p>
-<p><a href="https://www.curseforge.com/wow/addons/midnight-helper">Get it on CurseForge</a>
-&middot; <a href="https://github.com/Huijting/MidnightHelper">Source on GitHub</a></p>
-<p>Written and maintained by one person. If something here is wrong, saying so is genuinely
-welcome.</p>
-</footer>
-</main>
-</html>
-"""
-
-html = HTML.replace("__ROWS__", "\n".join(rows)).replace("__FINDS__", finds)
-
-# Google Search Console verification. Rob owns the Google side; this is the one line our
-# side needs. He pastes the token here, it deploys, Google reads it.
-# ⚠️ Empty means no tag is emitted at all -- an empty content="" would fail verification
-# while looking like it was set up, which is the worst of both.
-GSC_TOKEN = "Xwv2TOPNGBTt-OPD1AEI0z3znYlSIymCaNcyC_uF8N8"
-if GSC_TOKEN:
-    html = html.replace("<title>", '<meta name="google-site-verification" content="%s">\n<title>'
-                        % GSC_TOKEN, 1)
-
-if not os.path.isdir(OUT_DIR):
-    os.mkdir(OUT_DIR)
-
-# ⚠️ This generator WRITES its own files and never clears the folder, which matters:
-# site/google9f04431797b34db7.html was placed there by hand for Google Search Console and
-# is not generated. If this ever grows a "clean the output directory first" step, that file
-# has to survive it -- deleting it silently un-verifies the site.
-
-
-def write(path, text):
-    io.open(path + ".tmp", "w", encoding="utf-8", newline="").write(text)
-    os.replace(path + ".tmp", path)
-
-
-# ── The navigation, in ONE place ──────────────────────────────────────────────────────
+# ── Delves ────────────────────────────────────────────────────────────────────────────
 #
-# 🔴 It used to be hand-written into each page, which was survivable at two pages and is a
-# trap at six: the failure is not a broken link but a page that quietly stops appearing in
-# the menu, and nothing reports that. Rob already lost the delve page once when the link
-# merely sat too far down.
+# Same rule as above: generated from the tips the addon ships. They are also the part the
+# content watch checks against Blizzard's hotfixes every morning, which is the reason this
+# subject is safe to publish at all.
 #
-# So: this list is the site. Adding a page here adds it to every menu AND to the sitemap,
-# because PAGES is derived from it further down rather than maintained beside it.
-NAV = [
-    ("", "Knowledge Points"),
-    ("delves.html", "Delves"),
-    ("start.html", "New at max level"),
-    ("weekly.html", "Your week"),
-    ("currencies.html", "Currencies"),
-    ("coiled-isle.html", "The Coiled Isle"),
-]
-
-
-def nav_html(current):
-    items = []
-    for path, label in NAV:
-        if path == current:
-            items.append("<li><strong>%s</strong> &mdash; you are here</li>" % esc(label))
-        else:
-            items.append('<li><a href="%s">%s</a></li>' % (path or "./", esc(label)))
-    return '<nav aria-label="Pages"><ul class="toc">%s</ul></nav>' % "".join(items)
-
-
-NAV_RE = re.compile(r'<nav aria-label="Pages">.*?</nav>', re.S)
-
-
-def inject_nav(page_html, current):
-    """Swap the placeholder nav for the generated one.
-
-    ⚠️ Asserts rather than silently doing nothing: a template that loses its nav marker would
-    otherwise publish a page with no way back, and look fine to the generator.
-    """
-    assert NAV_RE.search(page_html), "no <nav aria-label=\"Pages\"> block to replace"
-    return NAV_RE.sub(nav_html(current), page_html, count=1)
-
-
-write(OUT, inject_nav(html, ""))
-
-# One stylesheet for every page, so a second page cannot drift into looking like a different
-# site. Dark mode follows the reader's own setting rather than a toggle nobody would find.
-write(os.path.join(OUT_DIR, "style.css"), """\
-:root{color-scheme:light dark;--fg:#1a1a1a;--bg:#fff;--dim:#5b5b5b;--rule:#e2e2e2;--accent:#7a4fbf}
-@media(prefers-color-scheme:dark){:root{--fg:#e8e6e3;--bg:#17161a;--dim:#a09aa8;--rule:#2f2c35;--accent:#c0a4f0}}
-*{box-sizing:border-box}
-body{margin:0;padding:2rem 1.15rem 4rem;background:var(--bg);color:var(--fg);
- font:1.05rem/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:44rem;margin:0 auto}
-h1{font-size:1.9rem;line-height:1.2;margin:0 0 .4rem}
-h2{font-size:1.3rem;margin:2.6rem 0 .6rem;border-bottom:1px solid var(--rule);padding-bottom:.3rem}
-h3{font-size:1rem;margin:1.4rem 0 .2rem;color:var(--dim);text-transform:uppercase;
- letter-spacing:.05em;font-size:.8rem}
-p{margin:.7rem 0}
-ul{margin:.4rem 0;padding-left:1.2rem}
-li{margin:.35rem 0}
-.lede{color:var(--dim);font-size:1.1rem;margin-bottom:1.6rem}
-.back{font-size:.9rem;margin:0 0 1.4rem}
-.toc{list-style:none;padding:0;margin:0 0 1rem;display:flex;flex-wrap:wrap;gap:.4rem .9rem}
-.toc li{margin:0;font-size:.95rem}
-table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.97rem}
-th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--rule);vertical-align:top}
-thead th{color:var(--dim);font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
-tbody th{font-weight:600;white-space:nowrap}
-code{background:color-mix(in srgb,var(--fg) 8%, transparent);padding:.1em .35em;border-radius:3px;font-size:.9em}
-.note{border-left:3px solid var(--accent);padding:.1rem 0 .1rem 1rem;margin:1.6rem 0;color:var(--dim)}
-footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--rule);color:var(--dim);font-size:.9rem}
-a{color:var(--accent)}
-""")
-
-# ── The delve page ────────────────────────────────────────────────────────────────────
-#
-# Same rule as the page above: generated from the tips the addon ships, so the two cannot
-# disagree. The delve tips are also the part a content watch checks against Blizzard's
-# hotfixes every morning, which is the reason this subject is safe to publish at all.
-#
-# ⚠️ Three source files, because the tips grew in three places: DelveTips.lua holds eleven
-# in per-language blocks, enUS.lua holds Gnarldor Isle and The Ring of Glory, and Venomfall
-# Deeps has only the short CHAT form. Reading one file and reporting what is missing is
-# exactly the mistake the content watch made on 1 Sep -- so this reads all of them and
-# asserts on the total.
-
-TIPS_FILE = os.path.join(ROOT, "Locales", "DelveTips.lua")
-ENUS_FILE = os.path.join(ROOT, "Locales", "enUS.lua")
-IDS_FILE = os.path.join(ROOT, "Modules", "DelveSpellIds.lua")
-
+# ⚠️ The tips grew in three places (DelveTips.lua per language, enUS.lua for Gnarldor Isle and
+# The Ring of Glory, and only the short CHAT form for Venomfall Deeps). The loader sees all of
+# them; the assert on the total stays, because a page that looks finished while a delve is
+# missing is the failure mode this project keeps paying for.
 PART_ORDER = ["OVERVIEW", "ROUTE", "TRASH", "DANGER", "BOSS"]
-
-# 🔴 ONE DELVE, TWO KEY PREFIXES -- found by building this page, and it is a fault in our own
-# data rather than in the generator: DelveTips.lua writes DELVE_CHAT_VENOMFALL_DEEPS_* while
-# enUS.lua writes DELVE_TIP_VENOMFALL_*. Without this fold the page listed the same delve
-# twice, under two names. Worth repairing in the addon; folded here so the page is right
-# meanwhile.
-SLUG_ALIAS = {"VENOMFALL_DEEPS": "VENOMFALL"}
-# Delves whose tips live outside DelveTips.lua have no DELVE_NAME_ key, so the slug would be
-# shown raw ("Ringofglory"). Names as Blizzard writes them.
-DISPLAY = {"VENOMFALL": "Venomfall Deeps", "GNARLDOR": "Gnarldor Isle",
-           "RINGOFGLORY": "The Ring of Glory"}
 PART_TITLE = {"OVERVIEW": "The short version", "ROUTE": "Route",
               "TRASH": "Trash", "DANGER": "Watch out", "BOSS": "Bosses"}
+# 🔴 ONE DELVE, TWO KEY PREFIXES: DELVE_CHAT_VENOMFALL_DEEPS_* and DELVE_TIP_VENOMFALL_*.
+SLUG_ALIAS = {"VENOMFALL_DEEPS": "VENOMFALL"}
+# Delves whose tips live outside DelveTips.lua have no DELVE_NAME_ key. Names as Blizzard writes them.
+DISPLAY = {"VENOMFALL": "Venomfall Deeps", "GNARLDOR": "Gnarldor Isle", "RINGOFGLORY": "The Ring of Glory"}
 
-spell_ids = dict(re.findall(r'^\t([a-z0-9_]+)\s*=\s*(\d+),',
-                            io.open(IDS_FILE, encoding="utf-8", errors="replace").read(), re.M))
-
-tips_src = io.open(TIPS_FILE, encoding="utf-8", errors="replace").read()
-en_start = tips_src.find("merge(ns._mhLocales and ns._mhLocales.enUS, {")
-en_end = tips_src.find("\n})", en_start)
-assert en_start >= 0 and en_end > en_start, "enUS block not found in DelveTips.lua"
-sources = [tips_src[en_start:en_end], io.open(ENUS_FILE, encoding="utf-8", errors="replace").read()]
-
-delves, names = {}, {}
-for src in sources:
-    for m in re.finditer(r'DELVE_(TIP|CHAT)_([A-Z0-9_]+?)_(%s)\s*=\s*"((?:[^"\\]|\\.)*)"'
-                         % "|".join(PART_ORDER), src):
-        kind, slug, part, text = m.groups()
-        slug = SLUG_ALIAS.get(slug, slug)
-        # TIP is the long form; never let the short CHAT line overwrite it.
-        if kind == "CHAT" and delves.get(slug, {}).get(part):
-            continue
-        delves.setdefault(slug, {})[part] = text
-    for m in re.finditer(r'DELVE_NAME_([A-Z0-9_]+)\s*=\s*"([^"]*)"', src):
-        names.setdefault(m.group(1), m.group(2))
-
+delves = {}
+part_re = re.compile(r'^DELVE_(TIP|CHAT)_([A-Z0-9_]+?)_(%s)$' % "|".join(PART_ORDER))
+for key in sorted(EN):
+    m = part_re.match(key)
+    if not m:
+        continue
+    kind, slug, part = m.groups()
+    slug = SLUG_ALIAS.get(slug, slug)
+    # TIP is the long form; never let the short CHAT line take its place.
+    have = delves.setdefault(slug, {}).get(part)
+    if have and kind == "CHAT":
+        continue
+    delves[slug][part] = key
 assert len(delves) >= 13, "only %d delves parsed -- refusing to publish a partial page" % len(delves)
 
 
-def markup(text):
-    """Addon markup -> HTML. Escape FIRST, then substitute, so our own tags survive."""
-    t = esc(text)
-    # A spell we have an id for becomes a real link; one we do not becomes plain words --
-    # the same honest fallback the addon uses in game rather than a dead link.
-    t = re.sub(r'\{SPELL:(\d+)\}',
-               lambda m: '<a href="https://www.wowhead.com/spell=%s">spell</a>' % m.group(1), t)
-    t = re.sub(r'\{SPELL:@([a-z0-9_]+)\}',
-               lambda m: ('<a href="https://www.wowhead.com/spell=%s">%s</a>'
-                          % (spell_ids[m.group(1)], m.group(1).replace("_", " ")))
-               if m.group(1) in spell_ids else m.group(1).replace("_", " "), t)
-    t = re.sub(r'\{ITEM:(\d+)\}',
-               lambda m: '<a href="https://www.wowhead.com/item=%s">item</a>' % m.group(1), t)
-    t = re.sub(r'\{CURRENCY:(\d+)\}', "currency", t)
-    t = re.sub(r'\{WAY:\d+:([\d.]+):([\d.]+):([^}]+)\}',
-               lambda m: "%s (%s, %s)" % (m.group(3), m.group(1), m.group(2)), t)
-    t = re.sub(r'\|cff[0-9a-fA-F]{6}(.*?)\|r', r"<strong>\1</strong>", t)
-    t = re.sub(r'\|cn[A-Z_]+:(.*?)\|R', r"<strong>\1</strong>", t)
-    return t
-
-
-def bullets(text):
-    out = []
-    for line in markup(text).split("|n"):
-        line = line.strip()
-        if line.startswith("&bull;") or line.startswith("•"):
-            line = line.lstrip("•").lstrip()
-        if line:
-            out.append("<li>%s</li>" % line)
-    return "<ul>%s</ul>" % "".join(out) if out else ""
+def delve_name_key(slug):
+    k = "DELVE_NAME_" + slug
+    return k if k in EN else None
 
 
 def pretty(slug):
-    return DISPLAY.get(slug) or names.get(slug) or slug.replace("_", " ").title()
+    k = delve_name_key(slug)
+    return DISPLAY.get(slug) or (EN[k] if k else slug.replace("_", " ").title())
 
 
 secs, toc = [], []
 for slug in sorted(delves, key=pretty):
-    parts = delves[slug]
-    body = "".join("<h3>%s</h3>%s" % (PART_TITLE[p], bullets(parts[p]))
-                   for p in PART_ORDER if parts.get(p))
     anchor = slug.lower().replace("_", "-")
-    toc.append('<li><a href="#%s">%s</a></li>' % (anchor, esc(pretty(slug))))
-    secs.append('<section id="%s"><h2>%s</h2>%s</section>' % (anchor, esc(pretty(slug)), body))
+    nk = delve_name_key(slug)
+    if nk and slug not in DISPLAY:
+        h2 = addon(nk, "text", "h2")
+        toc.append('<li><a href="#%s">%s</a></li>' % (anchor, addon(nk, "text", "span")))
+    else:
+        h2 = '<h2 translate="no">%s</h2>' % esc(pretty(slug))
+        toc.append('<li><a href="#%s" translate="no">%s</a></li>' % (anchor, esc(pretty(slug))))
+    parts = "".join("<h3>%s</h3>%s" % (PART_TITLE[p], addon(delves[slug][p], "list", "div"))
+                    for p in PART_ORDER if delves[slug].get(p))
+    secs.append('<section id="%s">%s%s</section>' % (anchor, h2, parts))
 
-DELVE_HTML = """<!doctype html>
-<html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Every Midnight delve, and what to do in each</title>
-<meta name="description" content="Route, trash and boss notes for every World of Warcraft\
- Midnight delve -- the short version, per delve, with what is confirmed and what is not.">
-<link rel="canonical" href="https://huijting.github.io/MidnightHelper/delves.html">
-<link rel="stylesheet" href="style.css">
-<main>
-<h1>Every Midnight delve, and what to do in each</h1>
-<p class="lede">__COUNT__ delves, with the route, the trash and the bosses &mdash; the same notes
-the addon shows you in game, in seven languages.</p>
-
-<nav aria-label="Pages"><ul class="toc">
-<li><a href="./">&larr; Knowledge Points</a></li>
-<li><strong>Delves</strong> &mdash; you are here</li>
-</ul></nav>
-
-<nav aria-label="Delves"><ul class="toc">__TOC__</ul></nav>
-__SECS__
-<footer>
-<p>These notes come from <strong>Midnight Helper</strong>, a free World of Warcraft addon that
-explains <em>why</em> rather than only <em>what</em>. In game they appear for the delve you are
-actually standing in, in your own language.</p>
-<p><a href="https://www.curseforge.com/wow/addons/midnight-helper">Get it on CurseForge</a>
-&middot; <a href="https://github.com/Huijting/MidnightHelper">Source on GitHub</a></p>
-<p>Some of this is measured in game and some comes from other guides; where we are unsure, the
-text says so rather than sounding certain. If something here is wrong, saying so is genuinely
-welcome.</p>
-</footer>
-</main>
-</html>
-"""
-
-write(os.path.join(OUT_DIR, "delves.html"),
-      inject_nav(DELVE_HTML.replace("__TOC__", "".join(toc)).replace("__SECS__", "".join(secs))
-                 .replace("__COUNT__", str(len(delves))), "delves.html"))
+delve_body = """    <h1>Every Midnight delve, and what to do in each</h1>
+    <p class="lead">%d delves, with the route, the trash and the bosses: the same notes the addon shows you in game.</p>
+    %s
+    <ol class="toc">%s</ol>
+    %s
+    %s""" % (len(delves), pills("delves"), "".join(toc), "".join(secs), FROM_NOTE)
+write_page("delves", "Every Midnight delve, and what to do in each",
+           "Route, trash and boss notes for every World of Warcraft Midnight delve, per delve, with "
+           "what is confirmed and what is not.", delve_body)
 
 # ── The Codex pages ───────────────────────────────────────────────────────────────────
 #
-# The addon's Codex is ~44 short articles that were written for a player who just hit max
-# level and were checked against the client. They are the best prose this project has, and
-# until now they existed only inside the addon -- unreadable by anyone deciding whether to
-# install it, and invisible to search.
+# The addon's Codex is ~44 short articles written for a player who just hit max level and
+# checked against the client. One page per category.
 #
-# One page per category, generated the same way as everything else here: if the addon's text
-# changes, the page changes with it, and neither can quietly contradict the other.
+# ⚠️ "delves" and "professions" are deliberately skipped -- they would compete with the two
+# pages above and say it worse. Categories are opted IN.
 #
-# ⚠️ Not every category is published. "delves" and "professions" are deliberately skipped --
-# they would compete with the two pages above and say it worse. Categories are opted IN.
-#
-# 🔴 AND THE GENERATOR COPIES THE TEXT BUT NOT THE CONDITIONS IT IS SHOWN UNDER. Found within
-# an hour of publishing, by Rob, on the live site: the Season 1 world boss article went up as
-# current advice. In game it does not -- Modules/WorldBoss.lua:517 returns nil the moment
-# Season 2 is visible, deliberately, because "four Season 1 bosses times a rotation anchor of
-# 18 March always produces a confident answer, including for weeks in which those bosses are
-# no longer what the game is running".
-#
-# That gate lives in Lua, not in the data this script reads, so the page cheerfully published
-# what the addon refuses to say. A reader arriving from a search engine cannot know that.
-#
-# 📌 The general rule, worth more than this one entry: an article is only safe to publish if
-# the addon would show it unconditionally. Anything the addon gates on season, patch or player
-# state must be gated here too -- or left out until someone measures it.
-# ✅ Empty again since 2 Sep. CODEX_WORLDBOSS_TITLE was held here for about an hour, until
-# `/mh worldboss` on live measured that the four Season 1 bosses ARE still rotating in Season
-# 2 (Lu'ashal active, the other three idle) and that Lairs exist alongside them rather than
-# instead of them. The article is true, so it is published again, and the gate it tripped over
-# has been removed from Modules/WorldBoss.lua as well.
-#
-# 📌 Keep the mechanism. An hour of a wrong public page was caught because a reader looked;
-# the next one might not be, and this is where it gets parked while someone measures.
+# 🔴 THE GENERATOR COPIES THE TEXT BUT NOT THE CONDITIONS IT IS SHOWN UNDER. Found within an
+# hour of the first publication, by Rob: the Season 1 world boss article went up as current
+# advice while the addon (then) refused to show it. An article is only safe to publish if the
+# addon would show it unconditionally; park anything gated on season, patch or player state in
+# SKIP_ARTICLES until someone measures it. (Empty since 2 Sep: that article turned out true.)
 SKIP_ARTICLES = set()
 
-CODEX_DATA = os.path.join(ROOT, "Modules", "MidnightCodexData.lua")
-CODEX_LOC = os.path.join(ROOT, "Locales", "Codex.lua")
-
-codex_src = io.open(CODEX_DATA, encoding="utf-8", errors="replace").read()
-loc_src = io.open(CODEX_LOC, encoding="utf-8", errors="replace").read()
-
-# 🔴 TWO FILES, and finding that out cost a silent gap. Codex.lua holds most articles in
-# per-language blocks, but CODEX_STATS_*, CODEX_127_FOLIO_* and CODEX_127_TIMEWAYS_* live in
-# enUS.lua instead. Reading only the obvious file dropped three articles and the pages still
-# looked finished -- the same shape as the delve tips above, and the same shape as the content
-# watch's first mistake. Read both; let the dedicated file win where they overlap.
-KEY_RE = re.compile(r'([A-Z0-9_]+)\s*=\s*"((?:[^"\\]|\\.)*)"')
-
-loc_start = loc_src.find("merge(ns._mhLocales and ns._mhLocales.enUS, {")
-loc_end = loc_src.find("\nmerge(", loc_start + 1)
-assert loc_start >= 0 and loc_end > loc_start, "enUS block not found in Codex.lua"
-
-CODEX_TEXT = dict(KEY_RE.findall(io.open(ENUS_FILE, encoding="utf-8", errors="replace").read()))
-CODEX_TEXT.update(KEY_RE.findall(loc_src[loc_start:loc_end]))
-
-# Entries are table literals; split on the opening brace and read each one on its own.
+codex_src = io.open(os.path.join(ROOT, "Modules", "MidnightCodexData.lua"), encoding="utf-8",
+                    errors="replace").read()
 entries = []
 for chunk in codex_src.split("\n\t{"):
     cat = re.search(r'category\s*=\s*"(\w+)"', chunk)
@@ -465,117 +458,96 @@ for chunk in codex_src.split("\n\t{"):
     if not (cat and tk and bk):
         continue
     sort = re.search(r'sort\s*=\s*(\d+)', chunk)
-    entries.append((cat.group(1), int(sort.group(1)) if sort else 999,
-                    tk.group(1), bk.group(1)))
-
+    entries.append((cat.group(1), int(sort.group(1)) if sort else 999, tk.group(1), bk.group(1)))
 assert len(entries) >= 35, "only %d codex entries parsed -- refusing to publish" % len(entries)
 
 CODEX_PAGES = [
-    ("start.html", "start", "New to max level in WoW Midnight? Start here",
-     "The things the game never sits you down and explains &mdash; what to do first, what the "
-     "numbers on your gear mean, and which of the many blinking things actually matter."),
-    ("weekly.html", "weekly", "Your week in Midnight: the Great Vault and the rest",
+    ("start", "start", "New to max level in WoW Midnight? Start here",
+     "The things the game never sits you down and explains: what to do first, what the numbers on "
+     "your gear mean, and which of the many blinking things actually matter."),
+    ("weekly", "weekly", "Your week in Midnight: the Great Vault and the rest",
      "What resets, what is worth doing before it does, and how the Great Vault decides what it "
      "offers you."),
-    ("currencies.html", "currencies", "Midnight currencies and crests, explained",
-     "Crests, coins, sparks and shards &mdash; what each one is for, where it comes from, and "
-     "which ones you are allowed to stop worrying about."),
-    ("coiled-isle.html", "coiledisle", "The Coiled Isle and the Vaults of Atal'Utek",
+    ("currencies", "currencies", "Midnight currencies and crests, explained",
+     "Crests, coins, sparks and shards: what each one is for, where it comes from, and which ones "
+     "you are allowed to stop worrying about."),
+    ("coiled-isle", "coiledisle", "The Coiled Isle and the Vaults of Atal'Utek",
      "A 12.1 zone with its own map, its own currency and very little explanation. What is in "
      "there, and where."),
 ]
 
-CODEX_HTML = """<!doctype html>
-<html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>__TITLE__</title>
-<meta name="description" content="__DESC__">
-<link rel="canonical" href="https://huijting.github.io/MidnightHelper/__PATH__">
-<link rel="stylesheet" href="style.css">
-<main>
-<h1>__TITLE__</h1>
-<p class="lede">__LEDE__</p>
-
-<nav aria-label="Pages"></nav>
-
-<nav aria-label="Sections"><ul class="toc">__TOC__</ul></nav>
-__SECS__
-<footer>
-<p>This is <strong>Midnight Helper</strong>'s own Codex, a free World of Warcraft addon that
-explains <em>why</em> rather than only <em>what</em>. In game these articles sit one click away
-while you play, in seven languages.</p>
-<p><a href="https://www.curseforge.com/wow/addons/midnight-helper">Get it on CurseForge</a>
-&middot; <a href="https://github.com/Huijting/MidnightHelper">Source on GitHub</a></p>
-<p>Some of this is measured in game and some comes from other guides; where we are unsure, the
-text says so rather than sounding certain. If something here is wrong, saying so is genuinely
-welcome.</p>
-</footer>
-</main>
-</html>
-"""
-
 codex_counts, skipped, held = [], [], []
-for path, cat, title, lede in CODEX_PAGES:
-    rows = sorted((e for e in entries if e[0] == cat), key=lambda e: e[1])
-    # 🔴 A category that parses to nothing must not publish an empty page that looks finished.
-    assert rows, "no codex entries for category %r" % cat
+for slug, cat, title, lede in CODEX_PAGES:
+    rows_c = sorted((e for e in entries if e[0] == cat), key=lambda e: e[1])
+    assert rows_c, "no codex entries for category %r" % cat
     csecs, ctoc = [], []
-    for _cat, _sort, tkey, bkey in rows:
+    for _cat, _sort, tkey, bkey in rows_c:
         if tkey in SKIP_ARTICLES:
             held.append((cat, tkey))
             continue
-        title_txt = CODEX_TEXT.get(tkey)
-        body_txt = CODEX_TEXT.get(bkey)
-        if not title_txt or not body_txt:
-            # A key with no English text is a data gap, and skipping it QUIETLY is the failure
-            # this project keeps paying for: the page would look complete while an article
-            # vanished. Name it instead -- the first run of this dropped one and only the
-            # article count gave it away.
-            skipped.append((cat, tkey if not title_txt else bkey))
+        if not EN.get(tkey) or not EN.get(bkey):
+            # Name the gap instead of skipping it quietly: the page would look complete while an
+            # article vanished.
+            skipped.append((cat, tkey if not EN.get(tkey) else bkey))
             continue
         anchor = tkey.lower().replace("codex_", "").replace("_title", "").replace("_", "-")
-        ctoc.append('<li><a href="#%s">%s</a></li>' % (anchor, esc(title_txt)))
-        csecs.append('<section id="%s"><h2>%s</h2>%s</section>'
-                     % (anchor, esc(title_txt), bullets(body_txt)))
-    assert csecs, "category %r produced no sections -- locale keys missing?" % cat
-    page = (CODEX_HTML.replace("__TITLE__", esc(title)).replace("__LEDE__", lede)
-            .replace("__DESC__", esc(re.sub("<[^>]+>", "", lede)))
-            .replace("__PATH__", path)
-            .replace("__TOC__", "".join(ctoc)).replace("__SECS__", "".join(csecs)))
-    if GSC_TOKEN:
-        page = page.replace("<title>", '<meta name="google-site-verification" content="%s">\n<title>'
-                            % GSC_TOKEN, 1)
-    write(os.path.join(OUT_DIR, path), inject_nav(page, path))
-    codex_counts.append((path, len(csecs)))
+        ctoc.append('<li><a href="#%s">%s</a></li>' % (anchor, addon(tkey, "text", "span")))
+        csecs.append('<section id="%s">%s%s</section>'
+                     % (anchor, addon(tkey, "text", "h2"), addon(bkey, "list", "div")))
+    assert csecs, "category %r produced no sections" % cat
+    body = """    <h1>%s</h1>
+    <p class="lead">%s</p>
+    %s
+    <ol class="toc">%s</ol>
+    %s
+    %s""" % (esc(title), esc(lede), pills(slug), "".join(ctoc), "".join(csecs), FROM_NOTE)
+    write_page(slug, title, lede, body)
+    codex_counts.append((slug, len(csecs)))
 
-# A sitemap is close to pointless for one page and is exactly what Search Console asks for
-# the moment there are several -- so it is generated from the same list the pages are, and
-# cannot fall behind them.
-# 📌 Derived from NAV, never maintained beside it: a page that is in the menu is in the
-# sitemap, and one that is not in the menu cannot be silently left out of search either.
-PAGES = [(path, "weekly") for path, _label in NAV]
-today = __import__("datetime").date.today().isoformat()
-sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
-           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-for path, freq in PAGES:
-    sitemap.append("  <url><loc>https://huijting.github.io/MidnightHelper/%s</loc>"
-                   "<lastmod>%s</lastmod><changefreq>%s</changefreq></url>" % (path, today, freq))
-sitemap.append("</urlset>")
-write(os.path.join(OUT_DIR, "sitemap.xml"), "\n".join(sitemap) + "\n")
+# ── /guides/ itself ───────────────────────────────────────────────────────────────────
+cards = "".join('<li><a href="/guides/%s/"><b>%s</b><span>%s</span></a></li>' % (s, esc(l), esc(b))
+                for s, l, b, _o in GUIDES)
+index_body = """    <h1>Guides</h1>
+    <p class="lead">Short, plain answers to the questions World of Warcraft: Midnight does not answer for you. Every page is made from the text inside the Midnight Helper addon, so the site and the game always say the same thing.</p>
+    <ul class="cards">%s</ul>
+    %s""" % (cards, FROM_NOTE)
+write_page("", "Guides", "Plain-language guides to World of Warcraft Midnight: Knowledge Points, "
+           "delves, your week, currencies and more, from the Midnight Helper addon.", index_body)
 
-write(os.path.join(OUT_DIR, "robots.txt"),
-      "User-agent: *\nAllow: /\nSitemap: https://huijting.github.io/MidnightHelper/sitemap.xml\n")
+# ── The addon's own translations, for the site's i18n build ───────────────────────────
+addon_json = {lang: {k: v[lang] for k, v in sorted(ADDON.items())} for lang in LANGS if lang != "en"}
+write(os.path.join(SITE_REPO, "i18n", "addon.json"),
+      json.dumps(addon_json, ensure_ascii=False, indent=1, sort_keys=True) + "\n")
 
-print("wrote %s -- %d professions, %d findings, %d bytes"
-      % (os.path.relpath(OUT, ROOT), len(routes), len(FINDINGS), len(html)))
-print("wrote site/delves.html -- %d delves" % len(delves))
-for path, n in codex_counts:
-    print("wrote site/%-16s -- %d codex article(s)" % (path, n))
+# ── The old addresses: "this page moved" ──────────────────────────────────────────────
+#
+# GitHub Pages cannot send a real redirect, so each old page becomes a tiny page that points
+# search engines at the new address (canonical) and sends people there at once (refresh).
+# 🔴 site/google9f04431797b34db7.html is not written here and must never be removed: it keeps
+# the old address verified in Search Console while Google follows the move.
+for slug, _l, _b, old in GUIDES:
+    new = "%s/guides/%s/" % (BASE, slug)
+    write(os.path.join(OLD_DIR, old), """<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="google-site-verification" content="%s">
+<title>This page moved to midnighthelper.com</title>
+<link rel="canonical" href="%s">
+<meta http-equiv="refresh" content="0; url=%s">
+<p>This page moved to <a href="%s">%s</a>.</p>
+</html>
+""" % (GSC_TOKEN, new, new, new, new))
+
+print("wrote %s/guides/ -- %d pages" % (SITE_REPO, len(GUIDES) + 1))
+print("  knowledge-points: %d professions, %d findings" % (len(routes), len(FINDINGS)))
+print("  delves: %d delves" % len(delves))
+for slug, n in codex_counts:
+    print("  %-16s %d codex article(s)" % (slug, n))
 for cat, key in skipped:
     print("  !! SKIPPED in %-12s no enUS text for %s" % (cat, key))
 for cat, key in held:
-    print("  .. HELD BACK in %-9s %s (in SKIP_ARTICLES, see the note above it)" % (cat, key))
-print("wrote site/sitemap.xml (%d page(s)) and site/robots.txt" % len(PAGES))
-print("google-site-verification: %s"
-      % ("set" if GSC_TOKEN else "NOT set -- paste the token into GSC_TOKEN in this file"))
+    print("  .. HELD BACK in %-9s %s (in SKIP_ARTICLES)" % (cat, key))
+print("wrote i18n/addon.json -- %d addon texts x %d languages" % (len(ADDON), len(addon_json)))
+untranslated = {lang: sum(1 for k in ADDON if PACKS[LANGS[lang]].get(k) == EN.get(k)) for lang in addon_json}
+print("  still English in the addon itself (shown as English, like in game): %s" % untranslated)
+print("wrote %d 'moved' pages in site/ (old github.io addresses)" % len(GUIDES))

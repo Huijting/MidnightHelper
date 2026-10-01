@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 📚 1 okt — gidsen verhuisd naar midnighthelper.com/guides/ (Rob: "Begin maar") — KLAAR, WACHT OP ROBS "LIVE"
+
+`tools/build_site.py` herschreven: schrijft nu `guides/` (overzicht + knowledge-points, delves, start, weekly, currencies,
+coiled-isle) in de site-repo (`MH_SITE_REPO`, standaard `C:\Users\RobHu\Downloads\midnighthelper-site`), met kop/voet
+gekopieerd uit `raidbots/index.html`. Teksten via `lua tools/locale_probe.lua --dump` (zoals de client laadt). Addon-tekst =
+`translate="no" data-addon="<KEY>"` + `i18n/addon.json` (115 teksten × 6 talen); de site-`tools/i18n.py` kreeg `ADDON_RE` en
+de 7 gidspagina's in `PAGES`. Nog Engels in de addon zelf (dus ook op de site, net als in het spel): nl 24, es/pt 11, it 3,
+de/fr 1. 66 nieuwe site-zinnen vertaald (6 agents + 4 zelf), build `problems: 0`. "Guides" in het menu van alle pagina's,
+tegel op de hoofdpagina (`.tools` nu 2 kolommen). GEMETEN in lokale preview: nl-delves = addon-NL-tekst, de-start =
+addon-DE-tekst, links/taalkiezer per taal goed, 375px geen zijscroll. `site/*.html` (github.io) = doorverwijs-pagina's
+(canonical + refresh, GSC-meta blijft; `google9f04…html` onaangeroerd).
+**Nog NIET gecommit/gepusht (bewust):** de site-repo (guides + i18n) én `site/*.html` in deze repo — eerst Robs ja, dan
+site pushen, live controleren, pas daarna `site/*.html` pushen (anders verwijst github.io naar 404's).
+`CURSEFORGE_DESCRIPTION.md` heeft de nieuwe links al → Rob plakt pas na live. Later: sitemap.xml/robots.txt voor
+midnighthelper.com (bestaat nog niet) en Search Console voor dat domein (Rob).
+
 ## 💬 1 okt ochtend — twee CurseForge-reacties die Rob nu pas zag
 
 1. **MrsBoojiePanda (±17 dagen oud):** *"Debug: Found profession (none)"* bij elke login. GEMETEN: stond nog in

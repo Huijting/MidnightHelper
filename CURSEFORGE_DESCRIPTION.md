@@ -19,7 +19,7 @@ Free, open source (MIT), no dependencies, no ads, seven languages built in — n
 
 ### Read it before you install
 
-🌐 A good deal of the content is on the web, generated from the same data the addon ships, so the two do not drift: [new at max level](https://huijting.github.io/MidnightHelper/start.html) · [your week and the Great Vault](https://huijting.github.io/MidnightHelper/weekly.html) · [currencies and crests](https://huijting.github.io/MidnightHelper/currencies.html) · [all fourteen Delves](https://huijting.github.io/MidnightHelper/delves.html) · [where your Knowledge Points go](https://huijting.github.io/MidnightHelper/) · [the Coiled Isle](https://huijting.github.io/MidnightHelper/coiled-isle.html).
+🌐 A good deal of the content is on [midnighthelper.com](https://midnighthelper.com/guides/), in seven languages, generated from the same text the addon ships, so the two do not drift: [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all fourteen Delves](https://midnighthelper.com/guides/delves/) · [where your Knowledge Points go](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/).
 
 ### What it will not tell you
 
