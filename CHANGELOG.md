@@ -4,6 +4,11 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+## 4.4.0
+
+📌 **2026-10-01, als release (Rob: "go, zet 4.4.0 maar live").** Notitie in `docs/CURSEFORGE_4.4.0.md` (identiek aan
+`RELEASE_NOTES.md`). Alles hieronder door Rob in het spel getest (TESTLIJST, 1 okt).
+
 - **Twin Fangs-tip** (`Locales/RaidTips.lua`, 1 okt 2026; Rob vroeg het tijdens een Normal-raid): de snelle tip kreeg
   een regel over de tussenfase — de slang in het midden draait een gifstraal rond, de draaiende bolletjes rond haar kop
   tonen de richting; loop ertegenin en steek vroeg over. Bron: Method (geschreven gids + video), Wowhead, drie andere

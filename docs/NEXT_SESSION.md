@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🚀 1 okt avond — 4.4.0 als Release getagd (Rob: "go, zet 4.4.0 maar live")
+
+Kolommen + gear-kaart + Big window, vragenlijst-uitnodiging, Twin Fangs-tip, TOC 120105 — alles door Rob getest.
+`.toc` 4.4.0, `CHANGELOG_440_1..5`, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.4.0.md` (byte-gelijk GEMETEN),
+`CURSEFORGE_DESCRIPTION.md` noemt de kolommen → **Rob plakt de beschrijving opnieuw** (ook banner + vragenlijst-link
+van eerder vandaag). Daarmee is 12.1.5-checklist A1 ook UITGEBRACHT.
+
 ## 🗓️ 12.1.5 live 13 okt (VS) / 14 okt (EU) → afvinklijst `docs/PATCH_12_1_5_CHECKLIST.md` (1 okt, Rob: "Ja doe maar")
 
 Kort: **vóór 13 okt** TOC `120105` erbij (A1: ✅ in de code 1 okt, nog niet in een release) + Robs PTR-sessie op build 70077 (A2/A4); de rest van de

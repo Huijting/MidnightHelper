@@ -20,7 +20,7 @@ Codex-zin, het 6/13/20-okt-schema). GEMETEN = in bron of code gezien; AFGELEID =
 
 | # | Wat | Status | Wie |
 |---|---|---|---|
-| A1 | **TOC: `120105` toevoegen** aan `## Interface: 120007, 120100` (`MidnightHelper.toc:1`). Zonder heet de addon "verouderd" (AFGELEID; `API_WATCH.md:709` noemt het "compat-nummer, geen API-breuk"). | ✅ in de code sinds 1 okt (Rob: "Zet die 120105 er maar alvast in") — moet nog mee in een release vóór 13 okt | ik |
+| A1 | **TOC: `120105` toevoegen** aan `## Interface: 120007, 120100` (`MidnightHelper.toc:1`). Zonder heet de addon "verouderd" (AFGELEID; `API_WATCH.md:709` noemt het "compat-nummer, geen API-breuk"). | ✅ in de code sinds 1 okt (Rob: "Zet die 120105 er maar alvast in") en ✅ uitgebracht in **4.4.0** (1 okt) | ik |
 | A2 | `GetItemCooldown` verdwijnt → alles loopt via `ns.GetItemCooldownSafe` (`Delves.lua:349-360`). | ✅ gerepareerd 5 sep (`0de3443`); in de client nog nooit met `/dump` bevestigd | Rob (PTR) |
 | A3 | `tostring` op secret values kon crashen. | ✅ afgedekt (`DundunShrine.lua`, `c4ba893`; overige aanroepen achter leesbaarheidscheck) — GEMETEN | — |
 | A4 | **Auras opsommen in combat geeft een fout** ("Auras cannot be accessed when secret while tainted"). Overal in `pcall` → geen Lua-fout, maar dispel/purge-prompts zwijgen in combat. GEMETEN op build 69594 (`NEXT_SESSION.md:6746`). | ⚠️ ontwerp-gat; hermeten op 70077 | Rob (PTR) |
