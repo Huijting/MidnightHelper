@@ -8,7 +8,14 @@
    prints in dat bestand). Lint 0 HARD. ✅ Uitgebracht als **4.3.1** (Rob: "Go"), tag `v4.3.1`.
 2. **gadrinonturalyon (±3 maanden oud):** shard-popup uitzetten. GEMETEN: al gedaan op 21 jun 2026 (1.8.5, commit noemt
    hem): schakelaar `mh_shardCap` *"Show the shard cap popup"*, gecheckt in `ShardCapAlert.lua:55`. Alleen antwoorden.
-Reageren op CF doet Rob zelf (concept-antwoorden in de chat gegeven).
+Reageren op CF doet Rob zelf. GEMETEN via de CF-JSON: gadrinonturalyon had in juni al antwoord; Rob schreef 1 okt een
+losse reactie ("Sorry, just see this now") — níét als Reply in het draadje, dus gh_inbox markeert het nog als wachtend.
+✅ 4.3.1-upload run 36820198419 success (54s).
+🔔 **CF-reacties sneller zien (Rob: "17 dagen is veel te lang"):** `tools/gh_inbox.py` leest nu eerst
+`curseforge.com/api/v1/mods/1528577/comments` (geen login nodig; HTML-pagina geeft 403) en zet 🔴 bij draadjes waar het
+laatste bericht niet van twelveinchy is. CLAUDE.md ochtendstap 4 bijgewerkt. **Open:** dit helpt alleen op dagen dat er
+een sessie is → Rob kiest: CF-e-mailmeldingen aanzetten (zijn account), en/of de regel in een cloud-wachter (eerst testen of
+de cloud de CF-API mag bereiken).
 
 ## 🚀 30 sep laat — 4.3.0 als Release getagd (Rob: "go, zet 4.3.0 maar live")
 
