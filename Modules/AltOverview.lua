@@ -399,6 +399,50 @@ local function GetPlayerProfessionsText()
 	return s
 end
 
+--- Column view (AltBoardView.lua, 1 Oct 2026): what the character wears, slot by slot, as item link
+--- plus item level. Shirt (4) and tabard (19) are left out; they say nothing about a character's
+--- power. ~16 short records per character, so it does not grow the saved file in any way that
+--- matters. nil (not {}) when nothing could be read, so the caller can keep the previous record.
+local GEAR_SLOTS = { 1, 2, 3, 15, 5, 9, 10, 6, 7, 8, 11, 12, 13, 14, 16, 17 }
+local function GetPlayerGearSnapshot()
+	if not GetInventoryItemLink then
+		return nil
+	end
+	local out, n = {}, 0
+	for _, slot in ipairs(GEAR_SLOTS) do
+		local link = GetInventoryItemLink("player", slot)
+		if type(link) == "string" and link ~= "" then
+			local ilvl
+			if C_Item and C_Item.GetDetailedItemLevelInfo then
+				local ok, v = pcall(C_Item.GetDetailedItemLevelInfo, link)
+				ilvl = ok and tonumber(v) or nil
+			end
+			out[slot] = { l = link, i = ilvl and math.floor(ilvl) or nil }
+			n = n + 1
+		end
+	end
+	return n > 0 and out or nil
+end
+
+--- Professions with the skill the client reports through GetProfessionInfo, for the column view.
+--- ⚠️ Not yet checked against the profession window in game (TESTLIJST, 1 Oct 2026).
+local function GetPlayerProfessionsList()
+	if not GetProfessions or not GetProfessionInfo then
+		return nil
+	end
+	local out = {}
+	local p1, p2, archaeology, fishing, cooking = GetProfessions()
+	for _, slot in ipairs({ p1, p2, cooking, fishing, archaeology }) do
+		if slot then
+			local ok, name, _, rank, maxRank = pcall(GetProfessionInfo, slot)
+			if ok and type(name) == "string" and name ~= "" then
+				out[#out + 1] = { n = name, r = tonumber(rank), m = tonumber(maxRank) }
+			end
+		end
+	end
+	return out
+end
+
 local function GetShortProfessionsText(fullText)
 	local s = tostring(fullText or "")
 	-- Per character, not per byte (Spec 38 §3.4): the " · " between professions is a two-byte dot.
@@ -509,6 +553,19 @@ local function SaveCurrentSnapshot()
 		-- Spec 39 (11 Sep 2026): every currency the Currencies tab lists, keyed by id, with the
 		-- amount earned this week and in total. Added, never renamed; old records have no `cur`.
 		cur = (ns.MH_CurrencySnapshotExtra and ns.MH_CurrencySnapshotExtra()) or (prev and prev.cur) or nil,
+		-- Column view (AltBoardView.lua, 1 Oct 2026). Added, never renamed; older records lack them
+		-- and the view shows a dash. `seen` is the real last login: `ts` can be carried over from the
+		-- previous record below (vault data not loaded yet) and is about data freshness, not presence.
+		class = select(2, UnitClass("player")),
+		specID = GetSpecialization and GetSpecializationInfo and GetSpecialization()
+			and select(1, GetSpecializationInfo(GetSpecialization())) or (prev and prev.specID) or nil,
+		gold = GetMoney and GetMoney() or nil,
+		restXP = GetXPExhaustion and (GetXPExhaustion() or 0) or nil,
+		xp = UnitXP and UnitXP("player") or nil,
+		xpMax = UnitXPMax and UnitXPMax("player") or nil,
+		gear = GetPlayerGearSnapshot() or (prev and prev.gear) or nil,
+		profs = GetPlayerProfessionsList() or (prev and prev.profs) or nil,
+		seen = time(),
 		ts = time(),
 	}
 	local snap = GetVaultSnapshot()
@@ -1312,6 +1369,17 @@ function ns:_mhAltOverviewCollectEntries()
 				saActive = tonumber(snap.saActive) or 0,
 				saMax = tonumber(snap.saMax) or 3,
 				ts = tonumber(snap.ts) or 0,
+				-- Column view (AltBoardView.lua): nil when the record predates them.
+				class = type(snap.class) == "string" and snap.class or nil,
+				specID = tonumber(snap.specID),
+				gold = tonumber(snap.gold),
+				restXP = tonumber(snap.restXP),
+				xp = tonumber(snap.xp),
+				xpMax = tonumber(snap.xpMax),
+				seen = tonumber(snap.seen) or tonumber(snap.ts),
+				gear = type(snap.gear) == "table" and snap.gear or nil,
+				profs = type(snap.profs) == "table" and snap.profs or nil,
+				cur = type(snap.cur) == "table" and snap.cur or nil,
 			}
 		end
 	end
@@ -1361,6 +1429,21 @@ function ns:_mhAltOverviewRefreshRows()
 	local entries = FilterSnapshotEntries(allEntries, settings)
 	local curGuid = UnitGUID("player")
 	SortSnapshotEntries(entries, curGuid, settings)
+
+	-- 1 Oct 2026 (Rob, after seeing Allemano AltBoard): the same characters, filtered and sorted
+	-- the same way, as COLUMNS. AltBoardView.lua draws them; the rows below stay exactly as they
+	-- were for everyone who keeps "Rows".
+	if ns.MhAltBoardIsActive and ns.MhAltBoardIsActive() and ns.MhAltBoardRefresh and ui.expandPanel then
+		scroll:Hide()
+		ns.MhAltBoardRefresh(ui.expandPanel, entries, curGuid, #allEntries)
+		self:_mhAltOverviewSyncExpandState()
+		return
+	end
+	scroll:Show()
+	if ns.MhAltBoardHide then
+		ns.MhAltBoardHide()
+	end
+
 	local isResetDay = IsResetDayNow()
 
 	local cw = content:GetWidth()
@@ -2083,6 +2166,9 @@ function ns:_mhAltOverviewRefreshTexts()
 		ns.RefreshAccountWeeklyChecklist()
 	end
 	RefreshAccountSnapshotToolbar()
+	if ns._mhAltOverviewUpdateViewBtn then
+		ns._mhAltOverviewUpdateViewBtn()
+	end
 	do
 		local list = self:_mhAltOverviewCollectEntries()
 		self:_mhAltOverviewApplyTitle(#list)
@@ -2159,6 +2245,44 @@ local function BuildAccountSnapshotHost(host)
 			GameTooltip:Hide()
 		end
 	end)
+
+	-- Rows / Columns (AltBoardView.lua, 1 Oct 2026). The player picks; the choice is remembered.
+	ui.viewBtn = CreateFrame("Button", nil, ui.toolbar, "UIPanelButtonTemplate")
+	ui.viewBtn:SetSize(120, 22)
+	ui.viewBtn:SetPoint("RIGHT", ui.toolbar, "RIGHT", 0, 0)
+	ui.viewBtn:SetScript("OnClick", function()
+		if ns.MhAltBoardSetActive and ns.MhAltBoardIsActive then
+			ns.MhAltBoardSetActive(not ns.MhAltBoardIsActive())
+		end
+		if ns._mhAltOverviewUpdateViewBtn then
+			ns._mhAltOverviewUpdateViewBtn()
+		end
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	end)
+	ui.viewBtn:SetScript("OnEnter", function(self)
+		if not GameTooltip then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+		GameTooltip:SetText(ns:L("ALTBOARD_VIEW_HINT"), 1, 0.92, 0.55, 1, true)
+		GameTooltip:Show()
+	end)
+	ui.viewBtn:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	function ns._mhAltOverviewUpdateViewBtn()
+		if not ui.viewBtn then
+			return
+		end
+		local board = ns.MhAltBoardIsActive and ns.MhAltBoardIsActive()
+		ui.viewBtn:SetText(ns:L(board and "ALTBOARD_VIEW_ROWS" or "ALTBOARD_VIEW_COLUMNS"))
+		FitToolbarButton(ui.viewBtn, 96)
+	end
+	ns._mhAltOverviewUpdateViewBtn()
 
 	RefreshAccountSnapshotToolbar()
 

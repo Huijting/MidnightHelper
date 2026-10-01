@@ -243,6 +243,7 @@ Modules\DelverCallData.lua
 Modules\DelveWeeklyTrackers.lua
 Modules\AccountWeeklyChecklist.lua
 Modules\AltOverview.lua
+Modules\AltBoardView.lua
 Modules\MidnightCodexData.lua
 Modules\MidnightCodex.lua
 Modules\MountProgress.lua

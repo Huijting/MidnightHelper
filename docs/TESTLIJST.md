@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 1 okt — karakteroverzicht als kolommen (`AltBoardView.lua`, idee van AltBoard)
+
+- [ ] `/reload`, open MH → het karakteroverzicht (Account). Staan je characters nu **naast elkaar** als kolommen, met
+      kopjes Overzicht / Deze week / Valuta / Beroepen? Rechts in de knoppenbalk de knop *Rows* (= terug naar rijen).
+- [ ] Klik op een kopje → klapt in/uit. Klik op een naam → kaart met **gear** (icoontjes, namen in kleur, ilvl rechts);
+      muis over een item → tooltip. Verplaatsbaar, Esc sluit.
+- [ ] Goud, rested XP, spec en gear verschijnen pas bij een character nadat je er **één keer op hebt ingelogd** (oudere
+      records tonen een streepje). Klopt dat bij een alt die je nog niet opnieuw opende?
+- [ ] **Beroepen:** komen de getallen (bv. 85/100) overeen met je beroepenvenster? Dat is nog niet gemeten.
+- [ ] Veel characters: verschijnen < en > met "1-5 van 9", en bladert het?
+
 ## 🆕 1 okt — vragenlijst: uitnodiging in het spel (`SurveyInvite.lua`)
 
 - [ ] `/reload`, dan `/mh survey` → het kopieervenster met **midnighthelper.com/survey/?from=game** (in het Nederlands

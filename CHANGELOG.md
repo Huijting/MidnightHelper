@@ -4,6 +4,13 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+- **Karakteroverzicht als kolommen** (`Modules/AltBoardView.lua`, 1 okt 2026; idee uit Allemano AltBoard, geen code):
+  characters naast elkaar, gegevens als rijen onder inklapbare kopjes (Overzicht: level/XP, spec, ilvl, goud, rested XP,
+  laatst gezien · Deze week: Vault wereld/dungeons/raid, shards · Valuta (zelfde lijst als het Currencies-blok) ·
+  Beroepen met skill). Klik op een naam: kaart met de gedragen gear (icoon, naam, ilvl, tooltip) en de Vault. Knop
+  *Rijen/Kolommen* in de knoppenbalk (onthouden; standaard Kolommen). Bij veel characters bladeren met < >. Snapshot krijgt
+  `class`, `specID`, `gold`, `restXP`, `xp`, `xpMax`, `gear`, `profs`, `seen` (alleen toegevoegd). 7 talen.
+
 - **Vragenlijst-uitnodiging** (`Modules/SurveyInvite.lua`, 1 okt 2026): Rob wil weten wat spelers gebruiken, nooit
   gebruiken en wat irriteert. Kaartje op This Week + vaste regel in de instellingen (nudge-framework) en één keer een
   pop-up bij het inloggen ("Toon de link" / "Later" / "Nee, bedankt"), pas nadat de addon de speler iets heeft opgeleverd

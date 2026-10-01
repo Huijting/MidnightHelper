@@ -9,6 +9,11 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
 De rest, bewaard voor later (≈ prioriteit):
 
+- [ ] **Zoeken in tassen en bank van alle karakters (Rob, 1 okt 2026: "in het achterhoofd houden")** — gezien bij
+      Allemano AltBoard (WoW Forever; alleen idee, geen code). Bewust NIET nu: Altoholic/AltVault/Alts Forever/Syndicator
+      doen het al, onze kracht is uitleggen (memory `mh-market-position`), en het vergroot de SavedVariables flink (Robs
+      SV is al ~30 MB). Wel gebouwd uit hetzelfde idee: de kolommen-weergave + klik-kaart met gear in het karakteroverzicht.
+
 - [~] **GEBOUWD 30 sep als optie B (`Modules/SimcExport.lua`, `/mh raidbots`) — wacht op Robs eerste plak op Raidbots.**
       **Raidbots-route voor de Armory (Rob, 30 sep: "zet de Raidbots-route op de ideeënlijst, en begin maar
       met uitwerken")** — MH maakt een tekst in het SimulationCraft-formaat (karakter, talenten, gear met bonus-ids,

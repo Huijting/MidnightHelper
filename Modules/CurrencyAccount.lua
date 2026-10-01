@@ -136,15 +136,6 @@ end
 --------------------------------------------------------------------------------
 -- Per character
 
-local function Label(rec)
-	local nm = tostring(rec.name or "?")
-	local realm = rec.realm
-	if type(realm) == "string" and realm ~= "" then
-		return nm .. "-" .. realm
-	end
-	return nm
-end
-
 --- @return q, w, t, known  - known=false means this record was saved before we tracked it
 local function RecordAmount(rec, c)
 	local cur = type(rec.cur) == "table" and rec.cur[c.id]
@@ -159,6 +150,32 @@ local function RecordAmount(rec, c)
 		end
 	end
 	return nil, nil, nil, false
+end
+
+--- Shared with the column view (AltBoardView.lua, 1 Oct 2026), so both show the same currencies
+--- read the same way: the tracked list plus this season's crests, and one record's amount.
+function ns.MH_TrackedCurrencies()
+	local out = {}
+	for _, c in ipairs(TRACKED) do
+		out[#out + 1] = c
+	end
+	for _, c in ipairs(CrestCurrencies()) do
+		out[#out + 1] = c
+	end
+	return out
+end
+
+function ns.MH_RecordCurrencyAmount(rec, c)
+	return RecordAmount(rec, c)
+end
+
+local function Label(rec)
+	local nm = tostring(rec.name or "?")
+	local realm = rec.realm
+	if type(realm) == "string" and realm ~= "" then
+		return nm .. "-" .. realm
+	end
+	return nm
 end
 
 --- Every saved character's amount of one currency, the current character read live.

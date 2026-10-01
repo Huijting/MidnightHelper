@@ -10,8 +10,12 @@ mijn eerste versie gebruikte installatiedatum — herschreven na het lezen van d
 Lint 0 HARD. Nog niet in het spel gezien → TESTLIJST. **Tellen:** als er antwoorden zijn, Gmail zoeken op
 `subject:"[MH vragenlijst]"` en de DATA-regels optellen. Node.js ontbreekt op deze pc → worker.js niet lokaal
 syntax-gecontroleerd; live getest met een honeypot-verzoek (stuurt geen mail).
-📌 **Rob vroeg erna:** Allemano AltBoard (WoW Forever) bekijken — layout van het alt-overzicht; vergelijken met
-`Modules/AltOverview.lua`.
+✅ **AltBoard (Rob koos: kolommen-layout, klik-kaart met gear, goud/rested/laatst gezien; tassen/bank-zoeken "in het
+achterhoofd" → ROADMAP):** gebouwd als `Modules/AltBoardView.lua` (TOC na AltOverview). AltOverview levert dezelfde
+gefilterde+gesorteerde lijst (`ns.MhAltBoardRefresh` in `_mhAltOverviewRefreshRows`, rijen-code onaangeroerd), knop
+`ui.viewBtn` (Rows/Columns, `ns.db.altBoardView`, standaard kolommen), snapshot +class/specID/gold/restXP/xp/xpMax/gear/
+profs/seen. Valuta via `ns.MH_TrackedCurrencies` + `ns.MH_RecordCurrencyAmount` (uit CurrencyAccount.lua). Bladeren i.p.v.
+zijwaarts scrollen. Lint 0 HARD. NIET in het spel gezien → TESTLIJST (o.a. beroepen-skill uit `GetProfessionInfo` ongemeten).
 
 ## 📚 1 okt — gidsen verhuisd naar midnighthelper.com/guides/ (Rob: "Begin maar") — ✅ LIVE (Rob: "you can live gaan")
 
