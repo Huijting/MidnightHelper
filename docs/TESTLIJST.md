@@ -40,18 +40,20 @@ er is niets weggegooid.
       en de kolommen staan weer in het hoofdvenster.
 - [ ] Goud, rested XP, spec en gear verschijnen pas bij een character nadat je er **één keer op hebt ingelogd** (oudere
       records tonen een streepje). Klopt dat bij een alt die je nog niet opnieuw opende?
-- [ ] **Beroepen:** komen de getallen (bv. 85/100) overeen met je beroepenvenster? Dat is nog niet gemeten.
+- [x] ✅ (Rob, 1 okt: "die kloppen") **Beroepen:** de getallen uit `GetProfessionInfo` komen overeen met het
+      beroepenvenster — GEMETEN.
 - [ ] Veel characters: verschijnen < en > met "1-5 van 9", en bladert het?
 
 ## 🆕 1 okt — vragenlijst: uitnodiging in het spel (`SurveyInvite.lua`)
 
 - [ ] `/reload`, dan `/mh survey` → het kopieervenster met **midnighthelper.com/survey/?from=game** (in het Nederlands
       `/nl/survey/`). Plak de link in je browser: opent de vragenlijst?
-- [ ] `/mh survey popup` → de pop-up zoals spelers hem zien, met drie knoppen: *Show the link* / *Later* / *No thanks*.
+- [x] ✅ (Rob, 1 okt, screenshots: "alles goed") `/mh survey popup` → de pop-up zoals spelers hem zien, met drie knoppen: *Show the link* / *Later* / *No thanks*.
       Doen alle drie wat ze zeggen? (Later = chatregel; No thanks = kaartje op This Week weg.)
 - [ ] `/mh survey why` → zegt het of de pop-up zou verschijnen en waarom niet. Open This Week: staat er een kaartje
       *"Two minutes for Midnight Helper?"*?
-- [ ] Vul de vragenlijst één keer zelf in → er komt een mail *"[MH vragenlijst] cijfer …"* in je inbox.
+- [x] ✅ (Rob, 1 okt 23:09, screenshot) Zelf ingevuld via de link uit het spel → mail *"[MH vragenlijst] cijfer 5 ·
+      en · via game"* met alle antwoorden en de `DATA:`-regel; site toont *"Thank you!"*. Hele keten GEMETEN.
 
 ## 🆕 1 okt — debug-regel weg (CurseForge-reactie)
 

@@ -14,7 +14,9 @@ Site: `survey/index.html` (7 vragen, alles optioneel, anoniem), `POST /api/surve
 HA-ping `-survey`. Privacy-pagina + link vanaf feedback. 7 talen, build 0 problemen. Addon: `Modules/SurveyInvite.lua` =
 derde nudge (kaart op This Week + Settings-rij) + één pop-up per installatie na een milestone (gate uit DiscordNudge;
 mijn eerste versie gebruikte installatiedatum — herschreven na het lezen van die notitie). `/mh survey [why|popup]`.
-Lint 0 HARD. Nog niet in het spel gezien → TESTLIJST. **Tellen:** als er antwoorden zijn, Gmail zoeken op
+Lint 0 HARD. ✅ GEMETEN 1 okt (Rob): pop-up + drie knoppen, en de hele keten spel → site → mail (`cijfer 5 · en · via
+game`, DATA-regel). Kolommen, Big window en beroepen-skill ook ✅. **Klaar voor de release met 120105 (wacht op Robs
+"go").** De eerste mail is Robs eigen test — niet meetellen. **Tellen:** als er antwoorden zijn, Gmail zoeken op
 `subject:"[MH vragenlijst]"` en de DATA-regels optellen. Node.js ontbreekt op deze pc → worker.js niet lokaal
 syntax-gecontroleerd; live getest met een honeypot-verzoek (stuurt geen mail).
 ✅ **AltBoard (Rob koos: kolommen-layout, klik-kaart met gear, goud/rested/laatst gezien; tassen/bank-zoeken "in het
