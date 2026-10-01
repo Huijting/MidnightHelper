@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 1 okt — Twin Fangs-tip: de draaiende gifstraal (`RaidTips.lua`)
+
+- [ ] Open de tips van de Twin Fangs (Raids → Venomous Abyss, of het tipvenster bij de pull): staat er onderaan
+      *"Middle (at full energy): … The orbs spinning around her head show which way it turns. Walk against it…"*?
+- [ ] In de raid: klopt het dat de straal **niet** helemaal rondgaat en dat je erachter veilig bent (Method)? Eén
+      videogids zegt van wel — wat zag jij?
+
 ## 🆕 1 okt — karakteroverzicht als kolommen (`AltBoardView.lua`, idee van AltBoard)
 
 - [x] ✅ (Rob, 1 okt, screenshot: "kolommen werken") kolommen naast elkaar met kopjes; knop *Rows* rechts.
@@ -97,6 +104,9 @@ er is niets weggegooid.
       in 0:41"** zonder "~" (= echte eindtijd van de Sated-debuff GEMETEN leesbaar), *"Sizle (Shaman) - Bloodlust,
       Magedobby (Mage) - Time Warp"* in klassekleur (Horde → Bloodlust klopt). ✅ Log gelezen na `/reload`: Sated in
       gevecht leesbaar mét eindtijd (841×); raidbaas-pot 99/99 (→ nu "no real limit in this fight").
+- [x] ✅ **Raid, GEMETEN 1 okt (Rob, Normal Venomous Abyss, log + 2 screenshots):** difficulty 14 = **9 ladingen**,
+      herladen **330 s**; paneel *"1 of 9 left · next in 1:58"*, op nul **rood** *"0 of 9 left · next in 3:23"* (898
+      metingen, alle "ok"). LFR gaf eerder 99/99, 108 s. Hero herkent Sated (57724) én Exhaustion (57723).
 - [ ] **In een M+-key** (de echte krappe pot): *"Battle res: 1 of 1 left"* of zo, en na een brez *"next in m:ss"*. Daarna
       `/mh lust` + `/reload`. En: welke raid/difficulty gaf 99 ladingen? (vanaf nu staat de difficulty in de log)
 - [x] ✅ (Rob, 1 okt, screenshot in LFR op de Shaman) titel *"Battle res & Hero"*, spreuknaam per speler

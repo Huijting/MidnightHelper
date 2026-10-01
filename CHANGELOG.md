@@ -4,6 +4,12 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+- **Twin Fangs-tip** (`Locales/RaidTips.lua`, 1 okt 2026; Rob vroeg het tijdens een Normal-raid): de snelle tip kreeg
+  een regel over de tussenfase — de slang in het midden draait een gifstraal rond, de draaiende bolletjes rond haar kop
+  tonen de richting; loop ertegenin en steek vroeg over. Bron: Method (geschreven gids + video), Wowhead, drie andere
+  gidsen; één video zegt dat de straal wél helemaal rondgaat → in-game nakijken. Spreuknaam bewust weggelaten (heet
+  anders in de/fr-clients; geen geverifieerd spell-id). 7 talen.
+
 - **TOC `## Interface: 120007, 120100, 120105`** (1 okt 2026): 12.1.5 (live 13/14 okt) draagt TOC 120105; zonder dat
   nummer heet de addon "verouderd". Zie `docs/PATCH_12_1_5_CHECKLIST.md` (A1).
 
