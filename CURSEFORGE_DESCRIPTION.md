@@ -1,6 +1,6 @@
 [![New: our own website. Guides, gear advice, and a place to tell us anything. midnighthelper.com](https://midnighthelper.com/cf-banner.png)](https://midnighthelper.com/)
 
-**New: [midnighthelper.com](https://midnighthelper.com/)** — [guides in seven languages](https://midnighthelper.com/guides/), the [Armory gear check](https://midnighthelper.com/armory/), [Raidbots in 7 steps](https://midnighthelper.com/raidbots/), and a [feedback form](https://midnighthelper.com/feedback/) for bugs, wishes and anything you want to tell us. No account needed.
+**New: [midnighthelper.com](https://midnighthelper.com/)** — [guides in seven languages](https://midnighthelper.com/guides/), the [Armory gear check](https://midnighthelper.com/armory/), [Raidbots in 7 steps](https://midnighthelper.com/raidbots/), and a [feedback form](https://midnighthelper.com/feedback/) for bugs, wishes and anything you want to tell us. No account needed. Got two minutes? [Tell us what you use, what you never use and what annoys you](https://midnighthelper.com/survey/).
 
 ## Midnight Helper
 

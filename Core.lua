@@ -1008,6 +1008,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh survey [why|popup] — the link to the two-minute survey (SurveyInvite.lua, 1 Oct 2026).
+	if msg == "survey" or msg == "survey why" or msg == "survey popup" then
+		if ns.HandleSurveyCommand then
+			ns.HandleSurveyCommand(msg:match("^survey%s+(%a+)$"))
+		end
+		return
+	end
+
 	if msg == "export" then
 		if ns.ShowGearExport then
 			ns.ShowGearExport()

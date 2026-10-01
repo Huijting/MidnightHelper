@@ -263,6 +263,7 @@ Modules\FirstRun.lua
 Modules\Nudges.lua
 Modules\TranslateNudge.lua
 Modules\DiscordNudge.lua
+Modules\SurveyInvite.lua
 Modules\SetupNudge.lua
 Modules\SidePanel.lua
 Modules\ProfessionNextStep.lua

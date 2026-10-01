@@ -11705,3 +11705,77 @@ fill("ptBR", {
 fill("itIT", {
 	REZLUST_CLOSE_TIP = "Chiudi finché non lasci questo dungeon, delve o raid. Per disattivarlo del tutto: impostazioni, Aiuto dungeon.",
 })
+
+-- Survey invitation (SurveyInvite.lua), 1 Oct 2026. Our own translations, not native-reviewed; address
+-- forms as the packs use them (de du, fr tu, es tú, pt você, it tu). SURVEY_URL points at each
+-- language's own page on the site.
+fill("deDE", {
+	SURVEY_URL = "midnighthelper.com/de/survey/?from=game",
+	SURVEY_NUDGE_TITLE = "Zwei Minuten für Midnight Helper?",
+	SURVEY_NUDGE_BODY = "Midnight Helper wird von einer Person gemacht, die keine Ahnung hat, was du nutzt und was du nie anrührst. Sieben kurze Fragen auf unserer Website, anonym.",
+	SURVEY_NUDGE_BTN = "Link zur Umfrage zeigen",
+	SURVEY_POPUP_TEXT = "Zwei Minuten für Midnight Helper?\n\nMidnight Helper wird von einer Person gemacht, die keine Ahnung hat, welche Teile du nutzt und welche du nie anrührst. Sieben kurze, anonyme Fragen auf unserer Website entscheiden, was als Nächstes besser wird.",
+	SURVEY_SHOW_LINK = "Link zeigen",
+	SURVEY_LATER = "Später",
+	SURVEY_NEVER = "Nein, danke",
+	SURVEY_COPY_TITLE = "Umfrage: zwei Minuten für Midnight Helper",
+	SURVEY_COPY_HINT = "Drücke Strg+C und füge den Link in deinen Browser ein. Danke!",
+	SURVEY_CHAT_LATER = "Kein Problem. Der Link zur Umfrage ist immer nur einen Befehl entfernt: /mh survey",
+	CMDLIST_SURVEY = "Der Link zu unserer Zwei-Minuten-Umfrage: was du nutzt, was nie, was dich nervt.",
+})
+fill("frFR", {
+	SURVEY_URL = "midnighthelper.com/fr/survey/?from=game",
+	SURVEY_NUDGE_TITLE = "Deux minutes pour Midnight Helper ?",
+	SURVEY_NUDGE_BODY = "Midnight Helper est fait par une seule personne, qui n'a aucune idée de ce que tu utilises et de ce que tu ne touches jamais. Sept petites questions sur notre site, anonymes.",
+	SURVEY_NUDGE_BTN = "Afficher le lien du sondage",
+	SURVEY_POPUP_TEXT = "Deux minutes pour Midnight Helper ?\n\nMidnight Helper est fait par une seule personne, qui n'a aucune idée des parties que tu utilises et de celles que tu ne touches jamais. Sept petites questions anonymes sur notre site décident de ce qui s'améliore ensuite.",
+	SURVEY_SHOW_LINK = "Afficher le lien",
+	SURVEY_LATER = "Plus tard",
+	SURVEY_NEVER = "Non merci",
+	SURVEY_COPY_TITLE = "Sondage : deux minutes pour Midnight Helper",
+	SURVEY_COPY_HINT = "Appuie sur Ctrl+C et colle le lien dans ton navigateur. Merci !",
+	SURVEY_CHAT_LATER = "Pas de souci. Le lien du sondage est toujours à une commande : /mh survey",
+	CMDLIST_SURVEY = "Le lien de notre sondage de deux minutes : ce que tu utilises, ce que tu n'utilises jamais, ce qui t'agace.",
+})
+fill("esES", {
+	SURVEY_URL = "midnighthelper.com/es/survey/?from=game",
+	SURVEY_NUDGE_TITLE = "¿Dos minutos para Midnight Helper?",
+	SURVEY_NUDGE_BODY = "Midnight Helper lo hace una sola persona que no tiene ni idea de qué usas y qué no tocas nunca. Siete preguntas cortas en nuestra web, anónimas.",
+	SURVEY_NUDGE_BTN = "Mostrar el enlace de la encuesta",
+	SURVEY_POPUP_TEXT = "¿Dos minutos para Midnight Helper?\n\nMidnight Helper lo hace una sola persona que no tiene ni idea de qué partes usas y cuáles no tocas nunca. Siete preguntas cortas y anónimas en nuestra web deciden qué mejora a continuación.",
+	SURVEY_SHOW_LINK = "Mostrar el enlace",
+	SURVEY_LATER = "Más tarde",
+	SURVEY_NEVER = "No, gracias",
+	SURVEY_COPY_TITLE = "Encuesta: dos minutos para Midnight Helper",
+	SURVEY_COPY_HINT = "Pulsa Ctrl+C y pega el enlace en tu navegador. ¡Gracias!",
+	SURVEY_CHAT_LATER = "Sin problema. El enlace de la encuesta siempre está a un comando: /mh survey",
+	CMDLIST_SURVEY = "El enlace a nuestra encuesta de dos minutos: qué usas, qué no usas nunca, qué te molesta.",
+})
+fill("ptBR", {
+	SURVEY_URL = "midnighthelper.com/pt/survey/?from=game",
+	SURVEY_NUDGE_TITLE = "Dois minutos para o Midnight Helper?",
+	SURVEY_NUDGE_BODY = "O Midnight Helper é feito por uma pessoa só, que não faz ideia do que você usa e do que nunca toca. Sete perguntas curtas no nosso site, anônimas.",
+	SURVEY_NUDGE_BTN = "Mostrar o link da pesquisa",
+	SURVEY_POPUP_TEXT = "Dois minutos para o Midnight Helper?\n\nO Midnight Helper é feito por uma pessoa só, que não faz ideia de quais partes você usa e quais nunca toca. Sete perguntas curtas e anônimas no nosso site decidem o que melhora em seguida.",
+	SURVEY_SHOW_LINK = "Mostrar o link",
+	SURVEY_LATER = "Mais tarde",
+	SURVEY_NEVER = "Não, obrigado",
+	SURVEY_COPY_TITLE = "Pesquisa: dois minutos para o Midnight Helper",
+	SURVEY_COPY_HINT = "Pressione Ctrl+C e cole o link no seu navegador. Obrigado!",
+	SURVEY_CHAT_LATER = "Sem problema. O link da pesquisa está sempre a um comando: /mh survey",
+	CMDLIST_SURVEY = "O link da nossa pesquisa de dois minutos: o que você usa, o que nunca usa, o que te incomoda.",
+})
+fill("itIT", {
+	SURVEY_URL = "midnighthelper.com/it/survey/?from=game",
+	SURVEY_NUDGE_TITLE = "Due minuti per Midnight Helper?",
+	SURVEY_NUDGE_BODY = "Midnight Helper è fatto da una sola persona che non ha idea di cosa usi e di cosa non tocchi mai. Sette domande brevi sul nostro sito, anonime.",
+	SURVEY_NUDGE_BTN = "Mostra il link del sondaggio",
+	SURVEY_POPUP_TEXT = "Due minuti per Midnight Helper?\n\nMidnight Helper è fatto da una sola persona che non ha idea di quali parti usi e quali non tocchi mai. Sette domande brevi e anonime sul nostro sito decidono cosa migliorare dopo.",
+	SURVEY_SHOW_LINK = "Mostra il link",
+	SURVEY_LATER = "Più tardi",
+	SURVEY_NEVER = "No, grazie",
+	SURVEY_COPY_TITLE = "Sondaggio: due minuti per Midnight Helper",
+	SURVEY_COPY_HINT = "Premi Ctrl+C e incolla il link nel tuo browser. Grazie!",
+	SURVEY_CHAT_LATER = "Nessun problema. Il link del sondaggio è sempre a un comando di distanza: /mh survey",
+	CMDLIST_SURVEY = "Il link al nostro sondaggio di due minuti: cosa usi, cosa non usi mai, cosa ti dà fastidio.",
+})

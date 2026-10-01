@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 1 okt — vragenlijst: uitnodiging in het spel (`SurveyInvite.lua`)
+
+- [ ] `/reload`, dan `/mh survey` → het kopieervenster met **midnighthelper.com/survey/?from=game** (in het Nederlands
+      `/nl/survey/`). Plak de link in je browser: opent de vragenlijst?
+- [ ] `/mh survey popup` → de pop-up zoals spelers hem zien, met drie knoppen: *Show the link* / *Later* / *No thanks*.
+      Doen alle drie wat ze zeggen? (Later = chatregel; No thanks = kaartje op This Week weg.)
+- [ ] `/mh survey why` → zegt het of de pop-up zou verschijnen en waarom niet. Open This Week: staat er een kaartje
+      *"Two minutes for Midnight Helper?"*?
+- [ ] Vul de vragenlijst één keer zelf in → er komt een mail *"[MH vragenlijst] cijfer …"* in je inbox.
+
 ## 🆕 1 okt — debug-regel weg (CurseForge-reactie)
 
 - [ ] Log in (of `/reload`) op een character **zonder beroepen**, of open MH → beroepen: er staat géén

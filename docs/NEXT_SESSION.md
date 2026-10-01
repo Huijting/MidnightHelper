@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 📋 1 okt — vragenlijst (Rob koos "Vragenlijst + uitnodiging")
+
+Site: `survey/index.html` (7 vragen, alles optioneel, anoniem), `POST /api/survey` in `src/worker.js` → mail aan Rob
+(NL, onderwerp `[MH vragenlijst] cijfer …`, laatste regel `DATA: {json}` om later te tellen via Gmail), niets opgeslagen;
+HA-ping `-survey`. Privacy-pagina + link vanaf feedback. 7 talen, build 0 problemen. Addon: `Modules/SurveyInvite.lua` =
+derde nudge (kaart op This Week + Settings-rij) + één pop-up per installatie na een milestone (gate uit DiscordNudge;
+mijn eerste versie gebruikte installatiedatum — herschreven na het lezen van die notitie). `/mh survey [why|popup]`.
+Lint 0 HARD. Nog niet in het spel gezien → TESTLIJST. **Tellen:** als er antwoorden zijn, Gmail zoeken op
+`subject:"[MH vragenlijst]"` en de DATA-regels optellen. Node.js ontbreekt op deze pc → worker.js niet lokaal
+syntax-gecontroleerd; live getest met een honeypot-verzoek (stuurt geen mail).
+📌 **Rob vroeg erna:** Allemano AltBoard (WoW Forever) bekijken — layout van het alt-overzicht; vergelijken met
+`Modules/AltOverview.lua`.
+
 ## 📚 1 okt — gidsen verhuisd naar midnighthelper.com/guides/ (Rob: "Begin maar") — ✅ LIVE (Rob: "you can live gaan")
 
 ✅ Site gepusht; GEMETEN live: `/guides/knowledge-points/` en `/nl/guides/delves/` geven 200. Daarna `site/*.html`

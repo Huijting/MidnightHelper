@@ -606,6 +606,7 @@ local function BuildNavIndex()
 		arrowsize = "route arrow size bigger smaller resize",
 		bagarrows = "bag upgrade arrows green item better",
 		export = "export gear bags armory website best set copy paste items",
+		survey = "survey questionnaire opinion feedback what do you use poll website",
 	}
 	for _, group in ipairs(ns.MH_COMMANDS or {}) do
 		for _, item in ipairs(group.items or {}) do

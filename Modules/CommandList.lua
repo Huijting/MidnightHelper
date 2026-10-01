@@ -88,7 +88,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
-	"socket", "souls", "spell", "stat", "stop", "surges", "survival", "tier", "tierread", "tierscan", "tips",
+	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 }
 
@@ -131,6 +131,8 @@ ns.MH_COMMANDS = {
 		-- Sits with the other two on purpose: this is the third door out of the addon,
 		-- and the only one a player uses when something is WRONG rather than missing.
 		{ cmd = "/mh report", descKey = "CMDLIST_REPORT" },
+		-- 1 Oct 2026: the two-minute survey on midnighthelper.com (SurveyInvite.lua).
+		{ cmd = "/mh survey", descKey = "CMDLIST_SURVEY" },
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },

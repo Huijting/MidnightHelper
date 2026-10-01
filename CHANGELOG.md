@@ -4,6 +4,12 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+- **Vragenlijst-uitnodiging** (`Modules/SurveyInvite.lua`, 1 okt 2026): Rob wil weten wat spelers gebruiken, nooit
+  gebruiken en wat irriteert. Kaartje op This Week + vaste regel in de instellingen (nudge-framework) en één keer een
+  pop-up bij het inloggen ("Toon de link" / "Later" / "Nee, bedankt"), pas nadat de addon de speler iets heeft opgeleverd
+  (milestone, zelfde regel als de Discord-uitnodiging). `/mh survey` toont altijd de link naar
+  midnighthelper.com/<taal>/survey/. 7 talen.
+
 ## 4.3.1
 
 📌 **2026-10-01, als release (Rob: "Go").** Notitie in `docs/CURSEFORGE_4.3.1.md` (identiek aan `RELEASE_NOTES.md`).
