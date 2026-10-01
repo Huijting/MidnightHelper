@@ -33,9 +33,9 @@ er is niets weggegooid.
 - [x] ✅ (Rob, 1 okt, screenshot: "kolommen werken") kolommen naast elkaar met kopjes; knop *Rows* rechts.
 - [x] ✅ (Rob, idem) klik op een naam → kaart met gear (icoontjes, namen in kleur, ilvl rechts).
       ⚠️ Zijn klacht: de kolommen kregen maar een smal strookje onder het weekblok → gerepareerd, zie hieronder.
-- [ ] 🆕 `/reload`: het blok *This week* klapt **één keer** vanzelf in zodra de kolommen verschijnen (daarna blijft jouw
+- [x] ✅ (Rob, 1 okt: "kolommen en big window werken, ben ik ook blij mee") `/reload`: het blok *This week* klapt **één keer** vanzelf in zodra de kolommen verschijnen (daarna blijft jouw
       eigen +/- staan). Krijgen de kolommen nu de ruimte?
-- [ ] 🆕 Knop **Big window** boven de kolommen → een groot venster van bijna je hele scherm met alle kolommen en rijen in
+- [x] ✅ (Rob, idem) Knop **Big window** boven de kolommen → een groot venster van bijna je hele scherm met alle kolommen en rijen in
       één keer. Meer characters naast elkaar? In het hoofdvenster staat dan een korte zin. *Back here* of Esc sluit het,
       en de kolommen staan weer in het hoofdvenster.
 - [ ] Goud, rested XP, spec en gear verschijnen pas bij een character nadat je er **één keer op hebt ingelogd** (oudere
