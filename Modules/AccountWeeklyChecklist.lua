@@ -302,6 +302,20 @@ local function SetCollapsed(collapsed)
 	uiDb.accountSnapshot.weeklyChecklistCollapsed = collapsed and true or false
 end
 
+--- For the column view (AltBoardView.lua, 1 Oct 2026): Rob found the columns squeezed into a strip
+--- under this block. The column view folds it ONCE when it is first used; after that the player's
+--- own +/- choice stands.
+function ns.IsAccountWeeklyChecklistCollapsed()
+	return GetCollapsed()
+end
+
+function ns.SetAccountWeeklyChecklistCollapsed(v)
+	SetCollapsed(v)
+	if ns.RefreshAccountWeeklyChecklist then
+		ns.RefreshAccountWeeklyChecklist()
+	end
+end
+
 local function SetLine(line, show, text, r, g, b, onClick, tooltipFn)
 	if not line or not line.fs then
 		return

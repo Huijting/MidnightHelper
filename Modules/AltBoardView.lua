@@ -32,6 +32,8 @@ local BAR_H = 22
 
 local board -- the frame, created on first use
 local card -- the click card
+local bigWin -- the board in a window of its own (Rob, 1 Oct: "in één keer een overzicht")
+local placeholder -- text left in the panel while the board lives in that window
 local page = 1
 local rowPool, rowUsed = {}, 0
 local headPool = {}
@@ -487,6 +489,19 @@ local function EnsureBoard(parent)
 	b.pageFs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	b.pageFs:SetPoint("RIGHT", b.next, "LEFT", -6, 0)
 	b.prev:SetPoint("RIGHT", b.pageFs, "LEFT", -6, 0)
+
+	-- 1 Oct 2026, after Rob's first look: in the main window the columns got a strip under the
+	-- weekly checklist. This opens them in a window of their own, nearly the size of the screen.
+	b.big = CreateFrame("Button", nil, b, "UIPanelButtonTemplate")
+	b.big:SetHeight(20)
+	b.big:SetPoint("RIGHT", b.prev, "LEFT", -10, 0)
+	b.big:SetScript("OnClick", function()
+		if bigWin and bigWin:IsShown() then
+			bigWin:Hide()
+		elseif ns.MhAltBoardOpenBig then
+			ns.MhAltBoardOpenBig()
+		end
+	end)
 	b.next:SetScript("OnClick", function()
 		page = page + 1
 		if lastArgs then
@@ -583,6 +598,69 @@ function ns.MhAltBoardHide()
 	if board then
 		board:Hide()
 	end
+	if placeholder then
+		placeholder:Hide()
+	end
+	-- Back to rows while the big window is open: close it too (its OnHide refreshes once more,
+	-- finds it hidden and stops there).
+	if bigWin and bigWin:IsShown() then
+		bigWin:Hide()
+	end
+end
+
+local function EnsureBig()
+	if bigWin then
+		return bigWin
+	end
+	local f = CreateFrame("Frame", "MidnightHelperAltBoardWindow", UIParent, "BackdropTemplate")
+	f:SetFrameStrata("DIALOG")
+	f:SetBackdrop({
+		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+		tile = true, tileSize = 32, edgeSize = 32,
+		insets = { left = 11, right = 12, top = 12, bottom = 11 },
+	})
+	f:SetBackdropColor(0.05, 0.05, 0.08, 0.97)
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	f.title:SetPoint("TOPLEFT", 20, -18)
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", -4, -4)
+	f.inner = CreateFrame("Frame", nil, f)
+	f.inner:SetPoint("TOPLEFT", 18, -44)
+	f.inner:SetPoint("BOTTOMRIGHT", -18, 16)
+	-- Closing hands the board back to the panel it came from.
+	f:SetScript("OnHide", function()
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	end)
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	else
+		tinsert(UISpecialFrames, f:GetName())
+	end
+	bigWin = f
+	return f
+end
+
+function ns.MhAltBoardOpenBig()
+	local f = EnsureBig()
+	local w = math.min((UIParent:GetWidth() or 1600) * 0.92, 1700)
+	local h = (UIParent:GetHeight() or 900) * 0.86
+	f:SetSize(w, h)
+	f:ClearAllPoints()
+	f:SetPoint("CENTER")
+	f.title:SetText(ns:L("ALT_OVERVIEW_TITLE"))
+	f:Show()
+	page = 1
+	if lastArgs then
+		ns.MhAltBoardRefresh(unpack(lastArgs))
+	end
 end
 
 --- Draw the characters as columns.
@@ -592,8 +670,35 @@ end
 --- @param allCount number how many characters exist before filtering (for the empty text)
 function ns.MhAltBoardRefresh(parent, entries, curGuid, allCount)
 	lastArgs = { parent, entries, curGuid, allCount }
+
+	-- First time the columns are used: fold the weekly checklist above them once, so they get the
+	-- room (Rob's first look, 1 Oct 2026). After that the player's own +/- choice stands.
+	if ns.db and not ns.db.altBoardFoldedWeekly and ns.SetAccountWeeklyChecklistCollapsed then
+		ns.db.altBoardFoldedWeekly = true
+		if not (ns.IsAccountWeeklyChecklistCollapsed and ns.IsAccountWeeklyChecklistCollapsed()) then
+			ns.SetAccountWeeklyChecklistCollapsed(true)
+		end
+	end
+
+	-- While the big window is open the board lives there; the panel shows a short note instead.
+	local home = parent
+	if bigWin and bigWin:IsShown() then
+		parent = bigWin.inner
+		if not placeholder then
+			placeholder = home:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+			placeholder:SetPoint("TOPLEFT", 4, -8)
+			placeholder:SetJustifyH("LEFT")
+		end
+		placeholder:SetText(ns:L("ALTBOARD_IN_WINDOW"))
+		placeholder:Show()
+	elseif placeholder then
+		placeholder:Hide()
+	end
+
 	local b = EnsureBoard(parent)
 	b:Show()
+	b.big:SetText(ns:L((bigWin and bigWin:IsShown()) and "ALTBOARD_BIG_CLOSE" or "ALTBOARD_BIG"))
+	b.big:SetWidth(math.max(90, (b.big:GetFontString() and b.big:GetFontString():GetStringWidth() or 80) + 24))
 	local s = Scale()
 	local rowH, secH, headH = ROW_H * s, SECTION_H * s, HEAD_H * s
 

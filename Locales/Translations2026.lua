@@ -11731,6 +11731,9 @@ fill("deDE", {
 	ALTBOARD_CARD_GEAR = "Was dieser Charakter trägt",
 	ALTBOARD_CARD_EMPTY_SLOT = "leer",
 	ALTBOARD_CARD_NO_GEAR = "Noch keine Ausrüstung gespeichert. Logg dich einmal mit diesem Charakter ein, dann erscheint sie hier.",
+	ALTBOARD_BIG = "Großes Fenster",
+	ALTBOARD_BIG_CLOSE = "Zurück hierher",
+	ALTBOARD_IN_WINDOW = "Deine Charaktere sind in einem eigenen Fenster offen. Schließ es, um sie wieder hier zu sehen.",
 })
 fill("frFR", {
 	ALTBOARD_VIEW_ROWS = "Lignes",
@@ -11755,6 +11758,9 @@ fill("frFR", {
 	ALTBOARD_CARD_GEAR = "Ce que porte ce personnage",
 	ALTBOARD_CARD_EMPTY_SLOT = "vide",
 	ALTBOARD_CARD_NO_GEAR = "Aucun équipement enregistré. Connecte-toi une fois avec ce personnage et il apparaîtra ici.",
+	ALTBOARD_BIG = "Grande fenêtre",
+	ALTBOARD_BIG_CLOSE = "Revenir ici",
+	ALTBOARD_IN_WINDOW = "Tes personnages sont ouverts dans leur propre fenêtre. Ferme-la pour les revoir ici.",
 })
 fill("esES", {
 	ALTBOARD_VIEW_ROWS = "Filas",
@@ -11779,6 +11785,9 @@ fill("esES", {
 	ALTBOARD_CARD_GEAR = "Lo que lleva este personaje",
 	ALTBOARD_CARD_EMPTY_SLOT = "vacío",
 	ALTBOARD_CARD_NO_GEAR = "Aún no hay equipo guardado. Entra una vez con este personaje y aparecerá aquí.",
+	ALTBOARD_BIG = "Ventana grande",
+	ALTBOARD_BIG_CLOSE = "Volver aquí",
+	ALTBOARD_IN_WINDOW = "Tus personajes están abiertos en su propia ventana. Ciérrala para verlos aquí de nuevo.",
 })
 fill("ptBR", {
 	ALTBOARD_VIEW_ROWS = "Linhas",
@@ -11803,6 +11812,9 @@ fill("ptBR", {
 	ALTBOARD_CARD_GEAR = "O que este personagem usa",
 	ALTBOARD_CARD_EMPTY_SLOT = "vazio",
 	ALTBOARD_CARD_NO_GEAR = "Nenhum equipamento salvo ainda. Entre uma vez com este personagem e ele aparece aqui.",
+	ALTBOARD_BIG = "Janela grande",
+	ALTBOARD_BIG_CLOSE = "Voltar aqui",
+	ALTBOARD_IN_WINDOW = "Seus personagens estão abertos em uma janela própria. Feche-a para vê-los aqui de novo.",
 })
 fill("itIT", {
 	ALTBOARD_VIEW_ROWS = "Righe",
@@ -11827,6 +11839,9 @@ fill("itIT", {
 	ALTBOARD_CARD_GEAR = "Cosa indossa questo personaggio",
 	ALTBOARD_CARD_EMPTY_SLOT = "vuoto",
 	ALTBOARD_CARD_NO_GEAR = "Nessun equipaggiamento salvato. Entra una volta con questo personaggio e apparirà qui.",
+	ALTBOARD_BIG = "Finestra grande",
+	ALTBOARD_BIG_CLOSE = "Torna qui",
+	ALTBOARD_IN_WINDOW = "I tuoi personaggi sono aperti in una finestra a parte. Chiudila per rivederli qui.",
 })
 
 -- Survey invitation (SurveyInvite.lua), 1 Oct 2026. Our own translations, not native-reviewed; address

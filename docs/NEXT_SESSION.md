@@ -15,7 +15,11 @@ achterhoofd" → ROADMAP):** gebouwd als `Modules/AltBoardView.lua` (TOC na AltO
 gefilterde+gesorteerde lijst (`ns.MhAltBoardRefresh` in `_mhAltOverviewRefreshRows`, rijen-code onaangeroerd), knop
 `ui.viewBtn` (Rows/Columns, `ns.db.altBoardView`, standaard kolommen), snapshot +class/specID/gold/restXP/xp/xpMax/gear/
 profs/seen. Valuta via `ns.MH_TrackedCurrencies` + `ns.MH_RecordCurrencyAmount` (uit CurrencyAccount.lua). Bladeren i.p.v.
-zijwaarts scrollen. Lint 0 HARD. NIET in het spel gezien → TESTLIJST (o.a. beroepen-skill uit `GetProfessionInfo` ongemeten).
+zijwaarts scrollen. Lint 0 HARD. ✅ GEMETEN door Rob: kolommen + gear-kaart werken (screenshot). ❌ Zijn klacht: smal
+strookje onder het weekblok, "ik wil in één keer een overzicht" → (1) eerste gebruik klapt `AccountWeeklyChecklist` één
+keer in (`ns.SetAccountWeeklyChecklistCollapsed`, vlag `ns.db.altBoardFoldedWeekly`), (2) knop *Big window* →
+`MidnightHelperAltBoardWindow` (92% × 86% van het scherm, Esc/sluiten zet het bord terug). Nog niet in het spel gezien;
+beroepen-skill uit `GetProfessionInfo` ook nog ongemeten.
 
 ## 📚 1 okt — gidsen verhuisd naar midnighthelper.com/guides/ (Rob: "Begin maar") — ✅ LIVE (Rob: "you can live gaan")
 
