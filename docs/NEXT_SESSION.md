@@ -6,6 +6,9 @@ Kolommen + gear-kaart + Big window, vragenlijst-uitnodiging, Twin Fangs-tip, TOC
 `.toc` 4.4.0, `CHANGELOG_440_1..5`, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.4.0.md` (byte-gelijk GEMETEN),
 `CURSEFORGE_DESCRIPTION.md` noemt de kolommen → **Rob plakt de beschrijving opnieuw** (ook banner + vragenlijst-link
 van eerder vandaag). Daarmee is 12.1.5-checklist A1 ook UITGEBRACHT.
+✅ Upload run 36927697651 **success** (1m41s), GitHub Release v4.4.0 gepubliceerd (→ Discord). Site: "New in 4.3.0"-labels
+weg (Raidbots houdt "Test phase"), hero-lijst + tegel "Weekly plan and Great Vault" met "New in 4.4.0" en een zin over de
+kolommen; GEMETEN live `/nl/`: 2× "Nieuw in 4.4.0", 0× 4.3.0. Eén release later (4.5.0) die labels weer weg.
 
 ## 🗓️ 12.1.5 live 13 okt (VS) / 14 okt (EU) → afvinklijst `docs/PATCH_12_1_5_CHECKLIST.md` (1 okt, Rob: "Ja doe maar")
 
