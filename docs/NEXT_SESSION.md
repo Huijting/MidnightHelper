@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🗓️ 12.1.5 live 13 okt (VS) / 14 okt (EU) → afvinklijst `docs/PATCH_12_1_5_CHECKLIST.md` (1 okt, Rob: "Ja doe maar")
+
+Kort: **vóór 13 okt** TOC `120105` erbij (A1, open) + Robs PTR-sessie op build 70077 (A2/A4); de rest van de
+API-kant is al afgedekt (GEMETEN). **Patchweek:** Labyrinth of Kindo'jan, Kith'ix, Aqir Invasion, Keystone Myth,
+campagne — pas bouwen na meten in de client. **20 okt:** crest cap weg → `CODEX_CUR_DAWN_BODY` ("It goes up every
+week") moet mee.
+
 ## 📋 1 okt — vragenlijst (Rob koos "Vragenlijst + uitnodiging")
 
 Site: `survey/index.html` (7 vragen, alles optioneel, anoniem), `POST /api/survey` in `src/worker.js` → mail aan Rob
