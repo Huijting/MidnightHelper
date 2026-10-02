@@ -16,15 +16,30 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 3 | 2 okt 01:57 | US / en | dps | weken | 4 | play, weekly, prof, brez, route, collect, gear | boss, delves, mplus, keys, site | — |
 | 4 | 2 okt 02:39 | US / en | mixed | weken | 5 | alle 13 | maps, weekly, prof, route, collect, gear | — |
 | 5 | 2 okt 04:16 | DE / de | dps | weken | 4 | maps, delves, weekly, prof, brez, gear | boss, mplus, keys | — |
+| 6 | 2 okt 05:18 | DE / de | — | weken | — | prof, route | play | — |
+| 7 | 2 okt 08:23 | IN / en | dps | weken | 5 | boss, delves, weekly, prof | mplus, keys, brez, route, collect, gear, site | — |
+| 8 | 2 okt 11:31 | NL / nl | dps | maanden | 5 | maps, route, collect, gear, site | — | — |
+| 9 | 2 okt 11:34 | US / en | dps | maanden | 5 | play, maps, delves | mplus, gear | — (zie ⚠️ "from") |
+| 10 | 2 okt 11:37 | NZ / en | dps | weken | 5 | play, maps, weekly, prof, collect, gear | site | 💬 wil een vrij vak voor "extra gedachten" — om te zeggen *"you're a freaking legend … elite, perfection"* |
+| 11 | 2 okt 14:35 | NL / en | mixed | net geïnstalleerd | 4 | weekly, prof, gear | play, boss, keys, site | irriteert: *"nope, lovely addon!"* · mist: **weekplan beknopter / op maat; speelt vooral solo** |
+| 12 | 2 okt 15:19 | NO / en | mixed | weken | 4 | boss, delves, mplus, weekly | play, maps, prof, keys, brez, route, collect, gear, site | — |
 
 📌 #4 vinkte zes onderdelen in **beide** lijsten aan; de vragenlijst liet dat toe. Sinds 2 okt (site-commit
 "Survey: use often and never use exclude each other") kan dat niet meer. #4 telt hieronder alleen mee voor het
-cijfer.
+cijfer. #6 gaf geen cijfer en geen rol.
 
-## Stand (2 okt, 4 bruikbare antwoorden + #4 alleen voor het cijfer)
+⚠️ **#9 heeft `from: "gamehttpsmidnighthelpercomsurveyf"`** — "game" met de survey-URL eraan geplakt, zonder
+leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
+`from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
 
-- **Cijfer:** gemiddeld 4,4 (4, 5, 4, 5, 4). Niemand schreef iets bij "irriteert" of "mist".
-- **Meest gebruikt:** Weekplan & Great Vault 3×, Gear check 3×; dan Beroepencursus, Battle res & Hero, Delve-coach,
-  Verzamelen elk 2×.
-- **Meest "nooit / onbekend":** Keybind-coach **4 van 4**; Bazentips 3×, Mythic+-feedback 3×; Website 2×.
-- **Wie:** 3× Noord-Amerika, 1× Duitsland; 2 tanks, 2 dps; iedereen gebruikt MH "een paar weken".
+## Stand (2 okt 17:50 lokaal, 12 antwoorden: 10 bruikbaar voor gebruik, 11 met een cijfer)
+
+- **Cijfer:** gemiddeld **4,5** (11 cijfers: 6× 5, 5× 4). Niemand lager dan 4.
+- **Meest gebruikt:** Weekplan & Great Vault **7×**, Gear check 6×, Beroepencursus 6×, Delve-coach 5×; Kaarten en
+  Verzamelen 4×; Bazentips, Route & pijl en *Zo speel je* 3×.
+- **Meest "nooit / onbekend":** Keybind-coach **7×** (niemand gebruikt hem vaak), Website 6×, Mythic+-feedback 5×,
+  *Zo speel je* 5×, Bazentips 4×, Gear check 4×.
+- **Wie:** 12 mensen uit 8 landen (US 4, NL 2, DE 2, CA, IN, NZ, NO); 6 dps, 2 tanks, 3 mixed; 9× "een paar weken",
+  2× "maanden", 1× net geïnstalleerd. 11 kwamen via de uitnodiging in het spel.
+- **Wensen (eerste twee):** (1) een **vrij opmerkingenvak** onderaan de vragenlijst (#10); (2) het **weekplan
+  beknopter en op maat**, bijv. voor solospelers (#11). Rob kiest of en wat.

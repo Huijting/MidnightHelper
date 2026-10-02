@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## 🚀 2 okt avond — 4.5.0 uitgebracht (delves, solo-schakelaar, alles van vandaag)
+
+- **Delves + Valeera** (naloop-lijst #3, Rob koos delves eerst): 5 helpers op Opus xhigh (scratchpad
+  `a6ab1f08…\scratchpad\delves\d1-d4.json`, `valeera.json`). GEMETEN sessie 56→76%, week 77→80%. Oordeel: 34 fout,
+  5 verouderd, 60 ontbreekt, 15 onzeker → 54 teksten (enUS/nlNL), Rob: *"vertrouw op jou"*. 162 vertalingen waar al
+  een vertaling bestond (108 combinaties waren nooit vertaald → blijven Engels, zoals voorheen). Drift --mark 59
+  sleutels. Lint #19: 2 delve-ids in `tools/tip_baseline.json` (geen DBM-mod voor delves, bron in `_delve_caveat`).
+- **Speed Grade weg** uit de delve-tooltip (`Delves.lua`, was quest-id modulo 6).
+- 🔲 **8 code-punten uit de Valeera-review, NIET gedaan** (`scratchpad\delves\delve_code_items.json`):
+  Vault-getallen in de tooltip (`Delves.lua:929` telt elke World-rij-regel als delve → "Vault 305" op tier 1),
+  "End" ook op niet-Bountiful rijen (`Delves.lua:~2609`), Coffer Keys per personage i.p.v. account
+  (`HOME_ROUTINE_SCOPE_NOTE`-tekst is gecorrigeerd, de telling in code niet nagekeken), Delver's Call als weekly in
+  `DelverCallData.lua:2`, `DelveBossShowcase.lua` "luminibulb" vs in-game "Luminbulbs". Rob kiest.
+- **Solo-schakelaar** (`mh_homeSolo`, `ns.IsHomeSoloMode` in `HomeDashboard.lua`): verbergt Mythic+ en Raids op Home,
+  grijze regel `HOME_SOLO_HIDDEN_NOTE`. Uit de vragenlijst (#11). 7 talen (eigen vertaling).
+- **Vragenlijst:** 12 antwoorden, gemiddeld 4,5 (`docs/SURVEY_RESULTS.md`). Site: vraag 8 vrij vak (`extra`,
+  worker → "Verder nog:"). In-game uitnodiging zegt nu "acht vragen" (7 talen).
+- ⚠️ `Modules/KeybindingData.lua` gewijzigd-ongecommit, herkomst onbekend, NIET meegenomen in 4.5.0.
+
 ## ✅ 2 okt eind middag — alle 8 M+-dungeons, lange raidtips en Mythic+-gids ERIN
 
 - **Dungeons 8/8** (7 talen): VA/BV/AF/TS/RL (13 sleutels) + DN (Fable+Opus samengevoegd)/MR/KR (10). MR, KR en de

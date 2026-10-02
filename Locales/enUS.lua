@@ -188,7 +188,7 @@ ns._mhLocales.enUS = {
 	LVL8090_UNLOCK_1 = "Skyriding is available right from the start of Midnight (no Pathfinder or reputation grind).",
 	LVL8090_UNLOCK_2 = "Chromie Time in Midnight covers 10-70; at 70 you get the sped-up TWW catch-up.",
 	LVL8090_UNLOCK_3 = "Adventure Mode opens for alts only after you finish the campaign on one character.",
-	LVL8090_UNLOCK_4 = "Delves are capped at Tier 3 below level 90; at 90 all tiers plus Bountiful Delves unlock.",
+	LVL8090_UNLOCK_4 = "Delves are capped at Tier 3 below level 90. At 90 Bountiful Delves open, and Tier 4 too once the Midnight campaign is finished on your Warband; each higher tier then opens when you clear the one below it.",
 	LVL8090_UNLOCK_5 = "You can pick up professions while leveling (Mining/Herbalism for gold; first crafts give XP).",
 	LVL8090_UNLOCK_6 = "Ritual Sites open via renown (warband-wide) plus a short intro questline, not at a fixed level.",
 	LVL8090_SEC_CONS_TITLE = "4. Consumables while leveling",
@@ -320,9 +320,9 @@ ns._mhLocales.enUS = {
 	-- Survey invitation (SurveyInvite.lua, 1 Oct 2026). SURVEY_URL differs per language (the site's /<lang>/ page).
 	SURVEY_URL = "midnighthelper.com/survey/?from=game",
 	SURVEY_NUDGE_TITLE = "Two minutes for Midnight Helper?",
-	SURVEY_NUDGE_BODY = "Midnight Helper is made by one person who has no idea what you use and what you never touch. Seven short questions on our website, anonymous.",
+	SURVEY_NUDGE_BODY = "Midnight Helper is made by one person who has no idea what you use and what you never touch. Eight short questions on our website, anonymous.",
 	SURVEY_NUDGE_BTN = "Show the survey link",
-	SURVEY_POPUP_TEXT = "Two minutes for Midnight Helper?\n\nMidnight Helper is made by one person who has no idea which parts you use and which you never touch. Seven short, anonymous questions on our website decide what gets better next.",
+	SURVEY_POPUP_TEXT = "Two minutes for Midnight Helper?\n\nMidnight Helper is made by one person who has no idea which parts you use and which you never touch. Eight short, anonymous questions on our website decide what gets better next.",
 	SURVEY_SHOW_LINK = "Show the link",
 	SURVEY_LATER = "Later",
 	SURVEY_NEVER = "No thanks",
@@ -394,7 +394,7 @@ ns._mhLocales.enUS = {
 	CMDLIST_GRP_LOOK = "Size and position",
 	CMDLIST_GRP_LOOKUP = "Look something up",
 	CMDLIST_SETUP = "Set up your bars and keybinds, with the state shown first.",
-	CMDLIST_CURIOS = "Which curios to give Valeera, for your role.",
+	CMDLIST_CURIOS = "What Valeera's curios and poisons do, with a star on what most guides pick.",
 	CMDLIST_CURIOINFO = "What each of Valeera's delve curios does, read from your own game.",
 	CMDLIST_HAZARDS = "What does avoidable damage where you are standing.",
 	CMDLIST_KEYS = "The four Altar of Corrosion nodes that need a treasure hunt first.",
@@ -507,6 +507,7 @@ ns._mhLocales.enUS = {
 	TAB_RAIDS = "Raids",
 	RAIDS_PANEL_SUBTITLE = "Boss steps for this season's raids — click a raid to open it. Spell names are clickable links. The coach also opens by itself when a boss pull starts.",
 	HOME_SECTION_RAIDS = "Raids",
+	HOME_SOLO_HIDDEN_NOTE = "Solo mode: Mythic+ and raids are hidden from this plan. Turn it off in the settings (‘I mostly play solo’).",
 	HOME_RAIDS_LIST_FMT = "Boss steps for %d raids (%d bosses): %s.",
 	HOME_RAIDS_AUTOOPEN = "The coach opens by itself when a boss pull starts.",
 	HOME_RAIDS_OPEN_BTN = "Open Raid Coach",
@@ -828,7 +829,7 @@ ns._mhLocales.enUS = {
 	-- lists still do not cover your keystone, so a line implying "together we have it all"
 	-- would repeat the same false promise one level up. Click-through, because a note that
 	-- tells you where to look and then makes you find it is half a fix.
-	HOME_ROUTINE_SCOPE_NOTE = "This is this character's week. Your Delver's Call, Catalyst charges, coffer keys and the Omnium Folio are account-wide — click to open the Account snapshot.",
+	HOME_ROUTINE_SCOPE_NOTE = "This is this character's week. Your other characters' Delver's Call, Catalyst charges, coffer keys and Omnium Folio are in the Account snapshot — click to open it.",
 	ACCOUNT_WEEKLY_SCOPE_NOTE = "This list is account-wide. The Silvermoon weekly quest givers, the world boss and Void Assaults are on This Week — click to open it.",
 	-- Spec 20: Mythic+ gain advisor (measured Great Vault M+ slots; no guessed rating math).
 	HOME_MPLUS_HEADER = "Great Vault — Mythic+",
@@ -1738,7 +1739,7 @@ ns._mhLocales.enUS = {
 	CURACC_USE_KEYS = "Opens the Bountiful Coffer at the end of a Bountiful delve; up to four delves are Bountiful each day.",
 	CURACC_USE_SHARDS = "100 shards make one Restored Coffer Key; entering a delve converts them for you.",
 	CURACC_USE_MANAFLUX = "Catalyst charges: one turns one piece into its tier-set version at the Matrix Catalyst in Silvermoon. Per character; it stops filling at 8.",
-	CURACC_USE_UNDERCOIN = "Spent at Naleidea Rivergleam in the Delver's HQ (two extra Coffer Keys a week from Delver's Journey rank 6, cosmetics), and at Zah'ran after a Tier 6+ delve (Champion gear).",
+	CURACC_USE_UNDERCOIN = "Spent at Naleidea Rivergleam in the Delver's HQ (two extra Coffer Keys a week from Delver's Journey rank 6, cosmetics), and at Zah'ran, who appears after a Tier 6+ delve from Delver's Journey rank 5 (Champion gear).",
 	CURACC_USE_MANA = "Buys Hero-track gear from Zah'ran at the end of a delve, from Delver's Journey rank 9.",
 	CURACC_USE_CORRCOIN = "Spent in the Vaults of Atal'Utek: at Er'inye on Altar of Corrosion points, and at the Skull of Er'inye (mount, pets, cosmetics). It does not buy Corrosive Gifts — those take Corrosive Souls.",
 	CURACC_USE_MARL = "Spent at the Renown Quartermasters, including Jan'sari the Watchful on the Coiled Isle (new in Season 2).",
@@ -2080,7 +2081,7 @@ ns._mhLocales.enUS = {
 	TRACKCEIL_WHATNOW = "What raises a slot from here",
 	TRACKCEIL_ROUTE_VAULT = "Great Vault: a completed higher key offers a higher track on reset day than the dungeon chest did. Heroic raid feeds it too.",
 	TRACKCEIL_ROUTE_CRAFT = "Crafting: sparks plus top-tier crests make a piece at the highest track with no drop luck - and crafted gear is the only kind that can carry an embellishment.",
-	TRACKCEIL_ROUTE_SOLO = "You do not need a raid group to keep climbing: a Tier 11 Bountiful Delve pays |cffffffffHero Mistcrest|r — measured on this client, not copied from a guide. Myth Mistcrest is the one rung solo play does not reach: its only confirmed sources are Mythic raid and Mythic+ 9 and above. Ritual Sites are still repeatable, but they no longer award top-tier crests.",
+	TRACKCEIL_ROUTE_SOLO = "You do not need a raid group to keep climbing: a Tier 11 Bountiful Delve pays |cffffffffHero Mistcrest|r — measured on this client, not copied from a guide. From Delver's Journey rank 4, a Tier 11 delve finished with lives left also leaves a |cffffffffGilded Stash|r with |cffffffffMyth Mistcrest|r, up to four a week. Ritual Sites are still repeatable, but they no longer award top-tier crests.",
 	TRACKCEIL_NOT_CRESTS = "Crests never move a piece to a higher track - they raise it within the track it already has.",
 	TRACKCEIL_SEE_CODEX = "Codex > Professions > '%s' walks through a crafting order step by step.",
 	SIDEPANEL_RESET_DONE = "Side panels are back beside their windows.",
@@ -2115,8 +2116,8 @@ ns._mhLocales.enUS = {
 	OPEN_TIP_HINT = "Left-click: open · right-drag: move · arrow: toggle list · Shift+scroll: resize",
 	OPEN_TIP_CAPPED = "Season total reached, so this will not open. Spending does not help — the cap counts what you have earned. It rises at the weekly reset.",
 	DELVE_TIP_UNMEASURED = "New in patch 12.1, on the Coiled Isle. Midnight Helper found this delve on your own client, but nobody has walked it yet — so there is no route, no trash list and no boss plan here rather than a borrowed one. It fills in once it has been run. Walk it? /mh report puts what you met into one paste.",
-	DELVE_REWARDS_VAULT_LEARNED = "A vault figure marked * is not from a table — it is what your own Great Vault has actually offered for that tier. It fills in as you play. The vault uses the LOWEST of your best two activities that week, so treat a learned number as a floor rather than a promise.",
-	DELVE_REWARDS_CAP_AT_8 ="|cffffffffThe gear is the same|r: tiers 9, 10 and 11 hand out exactly what tier 8 does, read off the delve entrance itself rather than from a guide.|n|cffffffffThe crests are not.|r Measured on this client on 19 August: a tier 8 run paid |cffffffffChampion|r Mistcrest, a tier 11 run paid |cffffffffHero|r Mistcrest. So climbing past 8 does buy you something — just not out of the chest.|nVault numbers are still unmeasured; that row is a separate ceiling the entrance does not show.",
+	DELVE_REWARDS_VAULT_LEARNED = "A vault figure marked * is not from a table — it is what your own Great Vault has shown. It fills in as you play. Your first World choice uses the lower of your best 2 activities that week, the second your 4th best and the third your 8th best, so treat a learned number as a floor rather than a promise.",
+	DELVE_REWARDS_CAP_AT_8 ="|cffffffffThe gear is the same|r: tiers 9, 10 and 11 hand out exactly what tier 8 does, read off the delve entrance itself rather than from a guide. The 'End' number is the |cffffffffBountiful Coffer|r, which needs a Restored Coffer Key.|n|cffffffffThe crests are not.|r Measured on this client on 19 August: a tier 8 run paid |cffffffffChampion|r Mistcrest, a tier 11 run paid |cffffffffHero|r Mistcrest. So climbing past 8 does buy you something — just not out of the chest.|nThe Great Vault stops at tier 8 too: 305, Hero 1/6 (Wowhead's table).",
 	DELVE_REWARDS_UNMEASURED = "Season 2 changed these item levels and Midnight Helper has not measured the new ones yet. Rather than show you Season 1 numbers that are now too low, this list stays empty until a real run fills it in. Your end-of-delve chest and your Great Vault are the honest answer. Run one? /mh report puts what your chest gave into one paste.",
 	WAY_SET_HERE = "Waypoint set: %s.",
 	WAY_SET_ELSEWHERE = "Waypoint set: %s, in %s. You are in %s — travel there first and the arrow will pick you up.",
@@ -2155,7 +2156,7 @@ ns._mhLocales.enUS = {
 	-- passed as an argument to one, or concatenated - so "%%" would print literally.
 	CURIO_NOTE_FROSTHEART = "The strongest defensive one in words: melee, ranged AND casting speed all down 20%.",
 	CURIO_NOTE_SPORE = "The only one that interrupts. Worth a look if you run alone and a caster is what kills you.",
-	CURIO_GUIDE_NOTE = "About the stars: that is what most guides agree on - we have NOT tested it ourselves. What we did check is that every starred option really is in your companion's window, because the popular \"best curios\" articles name curios that belong to Brann and are not there at all.",
+	CURIO_GUIDE_NOTE = "About the stars: that is what most guides agree on - we have NOT tested it ourselves. What we did check is that every starred option really is in your companion's window, because some 'best curios' articles still name Season 1 curios, such as Sanctum's Edict, that are not in it any more.",
 	CURIO_GUIDE_MISSING_FMT = "Recommended elsewhere but NOT in your companion's tree, so not starred: %s. Treat any guide naming these with care.",
 	CURIO_CHOICE_FMT = "A choice of %d",
 	-- Blizzard's own slot names, read off Valeera's window 2 sep 2026. Deliberately
@@ -2214,10 +2215,10 @@ ns._mhLocales.enUS = {
 	CMDLIST_STATS = "What your stats do, for the spec you are in.",
 	CODEX_STATS_TITLE = "Stats, without the jargon",
 	CODEX_STATS_BODY = "Your gear carries two kinds of number.|n|n|cffffcc00Your main stat|r - Strength, Agility or Intellect, whichever your spec uses - is the engine. You never pick it: it arrives with item level, and the game only puts the right one on armour you can wear.|n|n|cffffcc00The four secondary stats|r are the flavour, and they are the same four for everyone:|n• |cffffffffCritical Strike|r - the chance a hit lands twice as hard.|n• |cffffffffHaste|r - everything happens faster, so you press more buttons.|n• |cffffffffMastery|r - a different effect for every spec. Yours is the one your character sheet describes.|n• |cffffffffVersatility|r - a little more damage and healing, a little less damage taken.|n|nSpecs prefer them in different orders, and that order is the only reason to care. |cffffcc00The rule that matters more than the order: a higher item level is almost always the better item.|r Stats settle it when two pieces are close, not when one is clearly bigger.|n|nType |cffffffff/mh stats|r for your own spec - your four numbers, in your order, with your Mastery explained in the game's own words.",
-	DELVE_TIP_GNARLDOR_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:64.3:77.7:Gnarldor Isle}. Scrollmaster Ruma at the entrance starts a short quest chain.|n• Three stories, two bosses. Olds and Ends and Speaking Their Language end at Gralka Snake-Eater. Minchi's Osseous Adventure ends at Osseous Amalgamation.|n• Click the Tortollan Scrolls you pass — buffs, some with a catch.",
-	DELVE_TIP_GNARLDOR_ROUTE = "• Three Sturdy Chests — click to set a waypoint: {WAY:2635:60.44:68.12:Sturdy Chest 1} · {WAY:2635:52.41:40.84:Sturdy Chest 2} · {WAY:2635:28.67:41.69:Sturdy Chest 3}.|n• You arrive at about 77, 46; the exit portal stands right there — sweep the chests and you end where you began.|n• Olds and Ends: talk to Tormunda, then rescue 8 tortollan elders and collect their relics. Relics drop from gnarldin, lie on the ground and sit in bags, so loot every bag you pass.|n• Speaking Their Language: talk to Artolla, free 3 turtles and pick up the ship supplies: powder, cannon shot and swivel guns. The yellow minimap markers lead you to them.|n• Speaking Their Language: then ride a War Turtle and kill 50 gnarldin. You fight Gralka Snake-Eater on foot; the turtle does not come with you.|n• Minchi's Osseous Adventure: click 6 bone piles. Each one calls waves of enemies, so heal up first. There are more piles than you need.|n• Minchi's Osseous Adventure: take 6 Gnarldin Hearts from gnarldin corpses, then go to the bridge for Minchi's ritual. The boss appears there.",
+	DELVE_TIP_GNARLDOR_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:64.3:77.7:Gnarldor Isle}. Scrollmaster Ruma stands at the entrance. Her quest It's a Satchel, Not a Bag sends you inside once, for her satchel: {WAY:2635:25.40:34.73:Ruma's Satchel}.|n• Three stories, two bosses. Olds and Ends and Speaking Their Language end at Gralka Snake-Eater. Minchi's Osseous Adventure ends at Osseous Amalgamation.|n• Click the Tortollan Scrolls you pass — buffs, some with a catch.",
+	DELVE_TIP_GNARLDOR_ROUTE = "• Three Sturdy Chests — click to set a waypoint: {WAY:2635:60.44:68.12:Sturdy Chest 1} · {WAY:2635:52.41:40.84:Sturdy Chest 2} · {WAY:2635:28.67:41.69:Sturdy Chest 3}.|n• You arrive at about 77, 46; the exit portal stands right there — sweep the chests and you end where you began.|n• Olds and Ends: talk to Tormunda, then rescue 8 tortollan elders and collect their relics. Relics drop from gnarldin, lie on the ground and sit in bags, so loot every bag you pass.|n• Speaking Their Language: talk to Artolla, free 3 turtles and pick up the ship supplies: powder, cannon shot and swivel guns. The yellow minimap markers lead you to them.|n• Speaking Their Language: then ride a War Turtle and kill 50 gnarldin. You fight Gralka Snake-Eater on foot; the turtle does not come with you.|n• Minchi's Osseous Adventure: click 4 bone piles. Each one calls waves of enemies, so heal up first. There are more piles than you need.|n• Minchi's Osseous Adventure: take 6 Gnarldin Hearts from gnarldin corpses, then go to the bridge for Minchi's ritual. The boss appears there.",
 	DELVE_TIP_GNARLDOR_TRASH = "• Stonerender Raider: its charge stuns you for 2.5 seconds. Then comes {SPELL:@muckwave}, a 4 second cone. Step out of the front.|n• Tuskcrusher Outrider: Stampede hits hard and knocks you away. Fight it where the knockback cannot throw you into another pack.|n• Earthcaller Shaman: interrupt Mud Bolt.",
-	DELVE_TIP_GNARLDOR_BOSS = "• Gralka Snake-Eater: {SPELL:@snake_eater}: she eats two snakes and poison splashes on the floor. Pull her out of it. Each snake makes her take 15% more damage.|n• Gralka Snake-Eater: {SPELL:@venomblade_slash} poisons her target. It hurts more for every snake she has eaten. Heal through it.|n• Gralka Snake-Eater: {SPELL:@purging_breath} is a 6 second channel: she breathes at her target every 2 seconds. Sidestep every wave.|n• Gralka Snake-Eater: do not interrupt Purging Breath. Let it run and keep dodging; a wave can kill you in one hit.|n• Osseous Amalgamation: {SPELL:@bone_armor_osseous} is a 2 second cast that gives him a big shield. Interrupt it.|n• Osseous Amalgamation: {SPELL:@bonestorm_osseous} hits everyone within 8 yards for 8 seconds. Run out and wait for it to end.|n• Osseous Amalgamation: {SPELL:@bone_spike_osseous} raises spikes under your feet, and they stun. Keep moving and step off the marks.|n• Osseous Amalgamation: {SPELL:@frost_strike_osseous} slows you by 50% for 6 seconds. Keep a movement ability ready so Bonestorm cannot catch you.",
+	DELVE_TIP_GNARLDOR_BOSS = "• Gralka Snake-Eater: {SPELL:@snake_eater}: she eats two snakes and poison splashes on the floor. Pull her out of it. Each snake makes her take 15% more damage.|n• Gralka Snake-Eater: {SPELL:@venomblade_slash} poisons her target. It hurts more for every snake she has eaten. Heal through it.|n• Gralka Snake-Eater: {SPELL:@purging_breath} is a 6 second channel: she breathes at her target every 2 seconds. Sidestep every wave.|n• Gralka Snake-Eater: do not interrupt Purging Breath. Let it run and keep dodging; a wave can kill you in one hit.|n• Gralka Snake-Eater: put Valeera on Healer for this fight. On DPS she interrupts, and then she also interrupts Purging Breath.|n• Osseous Amalgamation: {SPELL:@bone_armor_osseous} is a 2 second cast that gives him a big shield. Interrupt it.|n• Osseous Amalgamation: {SPELL:@bonestorm_osseous} hits everyone within 8 yards for 8 seconds. Run out and wait for it to end.|n• Osseous Amalgamation: {SPELL:@bone_spike_osseous} raises spikes under your feet, and they stun. Keep moving and step off the marks.|n• Osseous Amalgamation: {SPELL:@frost_strike_osseous} slows you by 50% for 6 seconds. Keep a movement ability ready so Bonestorm cannot catch you.",
 	-- ⚠️ The golem's own NAME is not in here on purpose. Rob reported the cast as
 	-- "Fishure Slam ofzoiets" and the rest came from guides, and 12.1 has made the
 	-- name unverifiable in the client — an enemy's cast text is secret. So the tip
@@ -2227,7 +2228,7 @@ ns._mhLocales.enUS = {
 	-- delve we can speak about from our own measurement; the rest is one guide video and
 	-- says so, because a player deserves to know which half is which.
 	DELVE_TIP_VENOMFALL_DANGER = "• |cffffffffWrath of Ula'tek kills you from full health.|r Nature damage, and your own death recap marks it |cffffffffAvoidable|r — so there is a way out and no defensive to press.|n• It fires during the intermission, when the room is split into four quarters and three of them flood. Being caught also leaves you with +500% Nature damage taken for the rest of the fight, so a single miss ends the attempt even if you survive it.|n• |cffffffffThis delve gives out no coordinates.|r Blizzard blocked position tracking in here, so the route arrow and every waypoint stay silent — that is not Midnight Helper failing.",
-	DELVE_TIP_VENOMFALL_OVERVIEW = "• The Season 2 Nemesis delve, in the middle of the northern island on the Coiled Isle. Azta'rec is the boss.|n• Bring the recommended item level or the fight is not close: |cffffffff290|r for ? and |cffffffff309|r for ??. Those two numbers come from the delve entrance itself, so they are the game's own advice.|n• Do a normal delve first if you are short. A Tier 8 Bountiful Coffer is 295, and its heavy chest can leave you with |cffffffffBlessing of Potency|r — +10% secondary stats for a full day, until your next delve. Coming in with that is a different fight.|n• |cffffffffValeera goes on Healer|r for almost everyone: she removes Void Toxin, which most specs cannot. Set her to DPS only if you heal yourself, and never to Tank here.|n• Sources: the ability names are confirmed in the game data and in DBM. How to play the intermission still comes from community guides.",
+	DELVE_TIP_VENOMFALL_OVERVIEW = "• The Season 2 Nemesis delve, in the north of the Coiled Isle — entrance at {WAY:2512:51.2:31.0:Venomfall Deeps}. Azta'rec is the boss.|n• The door stays shut until you finish a Tier 7 or higher delve with lives left. For ?? you need Tier 10, also with lives left.|n• Bring the recommended item level or the fight is not close: |cffffffff290|r for ? and |cffffffff309|r for ??. Those two numbers come from the delve entrance itself, so they are the game's own advice.|n• Do a normal delve first if you are short. A Tier 8 Bountiful Coffer is 295, and its heavy chest can leave you with |cffffffffBlessing of Potency|r — +10% to all your stats inside delves, for 24 hours or until you finish your next delve. Coming in with that is a different fight.|n• |cffffffffValeera goes on Healer|r for almost everyone: she removes Void Toxin, which most specs cannot. Set her to DPS only if you heal yourself, and never to Tank here.|n• Sources: the ability names are confirmed in the game data and in DBM. How to play the intermission still comes from community guides.",
 	DELVE_TIP_VENOMFALL_BOSS = "• |cffffffffHis abilities repeat in a fixed order|r: Noxious Bile, Void Toxin, Soul Extinction, Venom Storm. So you always know the third one is the kick.|n• |cffffffffSoul Extinction|r is the one-shot. Interrupt it every time. Save your kick for it and let Valeera dispel Void Toxin instead of spending the interrupt there.|n• |cffffffffNoxious Bile|r is a frontal that leaves pools. Aim it at the edge of the room and step out, so the middle stays clean for the intermission.|n• {SPELL:@venom_storm} sends slow waves of poison across the room. Walk through a gap, and do not step into old {SPELL:@noxious_bile} pools while you do.|n• At 90%, 60% and 30% he channels Sermon of Ula'tek and takes almost no damage. He shows one safe quarter per step, then repeats the same order with nothing shown. Remember the order, not just the first one.|n• Move to the middle before each of those thresholds; he is fast and you can be caught outside. Four ground markers turn the pattern into numbers — type |cffffffff/mh mark|r before you pull.|n• On ?? an Echo of Azta'rec appears at every intermission. Kill it before the sequence ends. You can stun the Echo, but not Azta'rec himself.|n• The hidden sequence is 3, 4 and 5 steps long on ?, and 5, 6 and 7 steps long on ??.|n• If you play a tank spec, he also casts {SPELL:@serpents_strike}, a heavy physical hit. Keep a defensive ready for it.",
 	-- ⚠️ These two are picked by name at runtime (DelveTipsData's bodyFn chooses between
 	-- them from CanSelfRemoveMagic), so the linter's key check cannot see them referenced
@@ -2376,7 +2377,12 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
-	CHANGELOG_440_1 = "NEW - Account snapshot as columns: your characters side by side, with level, spec, item level, gold, rested XP, last seen, this week's Vault, currencies and professions under headings you can fold. A Rows/Columns button switches back.",
+	CHANGELOG_450_1 = "NEW - Mythic+, from your first key: a guide in the Codex (Dungeons & M+) on getting a keystone, finding or starting a group, and what the timer, deaths and weekly rules mean. Button names come from your own game client. /mh mplus points to it if you have no runs yet.",
+	CHANGELOG_450_2 = "NEW - I mostly play solo (Settings): hides the Mythic+ and Raids blocks from the weekly plan on Home.",
+	CHANGELOG_450_3 = "Boss tips checked again for Season 2: the short tips of all 8 Mythic+ dungeons, and the long tips of all 17 raid bosses.",
+	CHANGELOG_450_4 = "Delves: every delve and Valeera's texts checked against 12.1. New stories added and wrong facts fixed, such as what a Coffer Key opens and Delver's Call being once per character.",
+	CHANGELOG_450_5 = "The delve tooltip no longer shows a Speed Grade. It was a placeholder, not a measurement.",
+	CHANGELOG_440_1 ="NEW - Account snapshot as columns: your characters side by side, with level, spec, item level, gold, rested XP, last seen, this week's Vault, currencies and professions under headings you can fold. A Rows/Columns button switches back.",
 	CHANGELOG_440_2 = "Click a character's name for a card with the gear they wear: icon, item, item level and the item tooltip. Big window opens all your characters at once, nearly full screen.",
 	CHANGELOG_440_3 = "Two minutes for Midnight Helper? A short, anonymous survey on our website: what you use, what you never use, what annoys you. /mh survey shows the link.",
 	CHANGELOG_440_4 = "The Twin Fangs: the tip now explains the poison beam in the middle. The orbs around her head show which way it turns; walk against it and cross early.",
@@ -2902,6 +2908,8 @@ ns._mhLocales.enUS = {
 	SETTINGS_BETA_TAB_ACADEMY_TT = "Role Academy tab.",
 	SETTINGS_SECTION_VAULT = "Great Vault",
 	SETTINGS_OPEN_ON_LOGIN = "Open Midnight Helper on login",
+	SET_HOMESOLO_TITLE = "I mostly play solo",
+	SET_HOMESOLO_DESC = "Hides the Mythic+ and Raids blocks from the weekly plan on Home. Delves, world quests, professions and the Great Vault stay.",
 	SETTINGS_COMBAT_BLOCKED = "Can't open settings during combat — try again once you're out of the fight.",
 	SETTINGS_MINIMAP_ICON = "Show minimap icon",
 	SETTINGS_MINIMAP_ICON_TT = "Show the Midnight Helper button on the minimap. Turn it off to declutter — you can still open it from the addon compartment (top-right) or with /mh.",
@@ -3072,7 +3080,7 @@ ns._mhLocales.enUS = {
 	ACCOUNT_WEEKLY_DELVER_BANKED_SUFFIX = " · %d banked",
 	ACCOUNT_WEEKLY_DELVER_BANKED_ALTS_FMT = "Delver's Call banked on alts: %d (%s)",
 	ACCOUNT_WEEKLY_DELVER_ALTS_FMT = "Delver's Call incomplete on alts: %d (%s)",
-	DELVER_TOOLTIP_TITLE = "Delver's Call — this week",
+	DELVER_TOOLTIP_TITLE = "Delver's Call — this character",
 	DELVER_TOOLTIP_HINT = "Banked = objectives done, not turned in. Hold them and cash in near max level for a burst of XP.",
 	DELVER_STATE_COMPLETED = "Turned in",
 	DELVER_STATE_READY = "Banked",
@@ -3082,7 +3090,7 @@ ns._mhLocales.enUS = {
 	ACCOUNT_WEEKLY_GILDED_UNDERLEVEL_FMT = "Gilded Stash (this character): requires level %d",
 	ACCOUNT_WEEKLY_GILDED_ALTS_FMT = "Gilded Stash incomplete on alts: %d (%s)",
 	GILDED_TOOLTIP_TITLE = "Gilded Stash — this week",
-	GILDED_TOOLTIP_HINT = "Complete 4 Tier 11 Bountiful Delves this week. Counted from your Delve Log (no live API).",
+	GILDED_TOOLTIP_HINT = "From Delver's Journey rank 4: each Tier 11 Bountiful Delve you finish with lives left leaves a Gilded Stash (Hero and Myth Mistcrest), up to 4 a week. Counted from your Delve Log (no live API).",
 	ACCOUNT_WEEKLY_TROVE_AVAILABLE = "Trovehunter's Bounty (this character): still available this week",
 	ACCOUNT_WEEKLY_TROVE_UNDERLEVEL_FMT = "Trovehunter's Bounty (this character): requires level %d",
 	ACCOUNT_WEEKLY_TROVE_LOOTED = "Trovehunter's Bounty (this character): looted — use it!",
@@ -3094,9 +3102,9 @@ ns._mhLocales.enUS = {
 	ACCOUNT_WEEKLY_SA_UNDERLEVEL_FMT = "Special Assignments (this character): requires level %d",
 	ACCOUNT_WEEKLY_SA_ACTIVE_SUFFIX = " · %d active",
 	ACCOUNT_WEEKLY_SA_ALTS_FMT = "Special Assignments incomplete on alts: %d (%s)",
-	DELVE_WEEKLY_UNDERLEVEL_HINT = "Bountiful Delves and these weekly rewards unlock at level %d (max level for the current expansion). Until then, Delves are capped at Tier 3.",
+	DELVE_WEEKLY_UNDERLEVEL_HINT = "Bountiful Delves and these weekly rewards unlock at level %d (max level for the current expansion). Tier 4 and up also needs the Midnight campaign finished once on your Warband. Until then, Delves are capped at Tier 3.",
 	SA_TOOLTIP_TITLE = "Special Assignments — this week",
-	SA_TOOLTIP_HINT = "Up to 3 Special Assignments per week from bountiful delves.",
+	SA_TOOLTIP_HINT = "Special Assignments are world quests that unlock after you finish 3 other world quests in the same zone. They do not come from delves.",
 	SA_STATE_COMPLETED = "Completed",
 	SA_STATE_ACTIVE = "Active",
 	SA_STATE_AVAILABLE = "Available",
@@ -3277,7 +3285,7 @@ ns._mhLocales.enUS = {
 	-- ⚠️ This used to end at "yet", which was true and useless — the panel announced a
 	-- gap and left the player there. /mh curios reads her actual options live, so the
 	-- line now points at the thing that does work instead of at the thing that does not.
-	DELVE_CURIO_NO_SEASON_DATA = "Valeera — no ranking for this season. Use /mh curios to see what each of her options does.",
+	DELVE_CURIO_NO_SEASON_DATA = "Valeera — /mh curios shows what each of her curios and poisons does, with a star on what most guides pick.",
 	DELVE_CURIO_POPUP_TITLE = "Valeera — curio picks",
 	DELVE_CURIO_POPUP_TITLE_ROLE = "Valeera — %s curios",
 	DELVE_CURIO_POPUP_HINT = "Equip on Valeera at the repair post. Drag the title bar to move.",

@@ -345,6 +345,13 @@ local function Build()
 	end, function(v)
 		if ns.db and ns.db.ui then ns.db.ui.openOnLogin = v end
 	end, false) -- expliciete default (uit); niet de toevallige login-waarde (F4.6)
+	-- 2 Oct 2026, from the survey: "make the weekly plan … tailored … i like to play solo mostly".
+	-- Hides the Mythic+ and Raids blocks on Home; a grey line says they are hidden and where.
+	Toggle("mh_homeSolo", "SET_HOMESOLO_TITLE", "SET_HOMESOLO_DESC", function()
+		return ns.IsHomeSoloMode and ns.IsHomeSoloMode()
+	end, function(v)
+		if ns.SetHomeSoloMode then ns.SetHomeSoloMode(v) end
+	end, false)
 	Toggle("mh_compact", "SETTINGS_COMPACT_MODE", nil, function()
 		return ns.IsCompactModeEnabled and ns:IsCompactModeEnabled()
 	end, function(v)

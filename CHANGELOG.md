@@ -2,11 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
-## Unreleased
+## 4.5.0
+
+📌 **2026-10-02, als release (Rob: "daarna een cf release", versie 4.5.0 gekozen).** Notitie in
+`docs/CURSEFORGE_4.5.0.md` (identiek aan `RELEASE_NOTES.md`). Nog NIET in het spel getest: zie TESTLIJST 2 okt.
 
 - **Raid tips, second pass (2 Oct 2026).** All 17 raid bosses re-checked one by one (extra-high effort helpers,
   DBM on disk + live guides): 10 short-tip lines were wrong and 42 missed what a beginner needs most, usually how to
   see an attack coming. 37 keys rewritten in all seven languages (`Locales/RaidTips.lua`); drift marked.
+- **Long raid tips:** 29 `_STEPS`/role texts corrected where a source proved them wrong; 16 unsure points left
+  unchanged and put on the TESTLIJST.
+- **All 8 Season 2 Mythic+ dungeons** re-checked (23 short tips, `Locales/DungeonTips.lua`, 7 languages).
+- **NEW: "Mythic+, from your first key"** — Codex chapter (Dungeons & M+, first), `/mh mplus` points to it at 0 runs,
+  button names read from the client (`{UI:NAME}`, `/mh uinames`), site guide `/guides/mythic-plus/`.
+  `MPLUS_CMD_GEAR_HINT` corrected (end chest stops at Hero; only the Vault gives Myth from +10).
+- **Delves:** 14 delves + Valeera/delve system re-checked on Opus xhigh; 54 texts corrected (Coffer Keys, Delver's
+  Call once per character, Great Vault article, Myth Mistcrest, new 12.1 stories). "Speed Grade" removed from the
+  delve tooltip (it was quest id modulo 6, never a measurement).
+- **NEW: "I mostly play solo"** (Settings → Window): hides the Mythic+ and Raids blocks on Home, with a grey line
+  saying so.
+- Survey invitation now says eight questions (the website survey got a free "anything else?" box).
 
 ## 4.4.0
 

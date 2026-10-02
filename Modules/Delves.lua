@@ -2654,13 +2654,9 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 			GameTooltip:AddLine(ns:L("DELVE_REWARDS_UNMEASURED"), 1, 0.5, 0.5, true)
 		end
 
-		-- 2. Speed grade (MidnightHelper only; placeholder from quest id)
-		local qid = tonumber(item.questID) or 0
-		local grades = { "S", "A", "A", "B", "B", "C" }
-		local myGrade = grades[(qid % #grades) + 1] or "B"
-
-		GameTooltip:AddLine(" ")
-		GameTooltip:AddDoubleLine("|cff00ffffMidnightHelper:|r Speed Grade:", "|cffffcc00" .. myGrade .. "|r")
+		-- 2 Oct 2026: a "Speed Grade" (S/A/B/C) used to sit here. It was the quest id modulo 6,
+		-- a placeholder that shipped as if it were advice. Removed on Rob's word; do not bring a
+		-- grade back without a real measurement behind it.
 		GameTooltip:AddLine(" ")
 		if item.isBountiful then
 			GameTooltip:AddLine(ns:L("DELVES_ROW_ROUTE_BTN"), 1, 0.88, 0.45, true)

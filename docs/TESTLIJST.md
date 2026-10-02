@@ -21,6 +21,76 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 2 okt avond — 4.5.0: delves + Valeera, solo-schakelaar, Speed Grade weg
+
+Rob: *"delfpagina's is goed, want ik vertrouw op jou"*. 54 teksten (enUS/nlNL; 162 vertalingen waar al een
+vertaling bestond — delves die in de/fr/es/pt nooit vertaald waren blijven Engels, zoals vóór vandaag).
+- [ ] `/reload` zonder fout (BugSack leeg).
+- [ ] **Instellingen → Window → "Ik speel vooral solo"** aan: op Home verdwijnen de blokken Mythic+ en Raids, en
+      er staat een grijze regel *"Solo-stand: Mythic+ en raids zijn verborgen…"*. Uit: alles weer terug.
+- [ ] Delve-tooltip (Delves-tab, hover een rij): géén *"MidnightHelper: Speed Grade"* meer.
+- [ ] Survey-uitnodiging zegt nu *acht* vragen; op de site staat vraag 8 *"Anything else you want to tell us?"*.
+      Stuur hem één keer zelf in en kijk of de mail een blok *"Verder nog:"* heeft.
+- [ ] Kaartlabels in `{WAY:}`: in de/fr/it staat nu het Engelse label (bv. *Sturdy Chest 1*), in es/pt vertaald.
+      Alleen als het een Duitse/Franse speler stoort.
+**Vragen uit de delve-review — niets veranderd, jij bent de meting:**
+- [ ] The Shadow Enclave: Shadow Enclave, Infiltrate and Ameliorate: zie je daar ook zwevende Eyes of Antenorian? Ja = de Eyes-regel mag voor alle varianten behalve Mirror Shine gelden; nee = zo laten.
+- [ ] The Shadow Enclave: Shadow Enclave, Traitor's Due of Shadowy Supplies: heet de zware shadow-cast van de Twilight Ogre Mage 'Sullen Shadowball' en kun je hem kicken? Ja = regel klopt; andere naam = die naam doorgeven.
+- [ ] Collegiate Calamity: Collegiate Calamity, Academy Under Siege: zegt de tracker 'Arcane Wards activated 0/4'? Ja = nieuwe ROUTE klopt; staat er iets over portals = melden.
+- [ ] Collegiate Calamity: Collegiate Calamity, Faculty of Fear: vallen onthulde studenten je zelf aan ('ambush')? Ja = regel blijft; nee = 'vóór de ambush' kan weg.
+- [ ] Collegiate Calamity: Collegiate Calamity, boss: helpen de studenten in 12.1 nog mee, en zitten ze bij Garand aan het begin vast in een paarse cirkel? Ja = nieuwe BOSS-regels kloppen; nee = die twee regels schrappen.
+- [ ] The Darkway: The Darkway: wie cast Twilight Seekers, trash of alleen Infiltrator Gulkat? Alleen Gulkat = 'Twilight Seekers' kan uit de TRASH-regel; ook trash = zo laten.
+- [ ] The Darkway: The Darkway, Eggsplosive Growth: verdwijnen er eieren als je een Venom Clogged Ley Line reinigt, en zegt de tracker 7 / 45? Ja = nieuwe ROUTE klopt.
+- [ ] The Darkway: The Darkway: moet je bij Shadowfuse Sentinels een cast kicken (Method noemt Discharge, een grote cirkel)? Ja = naam van de cast doorgeven, dan komt er een TRASH-regel bij.
+- [ ] Parhelion Plaza: Parhelion Plaza, Caustic Crush: wat gebeurt er aan het eind? Alleen de Ritual Pillar = MH klopt; verschijnt er ook Replicating Venomborne (Icy Veins zegt dat) = dan krijgt BOSS de Venomborne-regels die al bij The Darkway staan.
+- [ ] Parhelion Plaza: Parhelion Plaza, Caustic Crush: heeft de Ritual Pillar zelf aanvallen (het is in de DB2 een eigen 'encounter')? Ja = beschrijf wat je zag, dan komt er een BOSS-regel bij.
+- [ ] Parhelion Plaza: Parhelion Plaza: klopt de ingang (torengebouw, tweede verdieping, trap omlaag)? Ja = nieuwe OVERVIEW-regel blijft.
+- [ ] Atal'Aman: Ritual Interrupted: komt er na het redden van de furbolgs een stap bij Nalorakk's Shrine met golven vijanden? Ja = nieuwe ROUTE-regel 2 klopt. Nee = die regel eruit.
+- [ ] Atal'Aman: Totem Annihilation: zie je bliksemcirkels op de grond die snel afgaan? Ja = nieuwe TRASH-regel klopt. Nee = eruit.
+- [ ] Atal'Aman: Jin'Ma: loop meteen na Flaying Knife naar je spirits. Gaan ze dood of krijgt Jin'Ma een buff? Ja = de 6-secondenregel klopt.
+- [ ] Atal'Aman: Disciple of Vashnik: ga achter een schedelbeeld staan als hij Toxic Froth doet. Krijg je het gif toch = 'helpt niet meer' klopt. Krijg je het niet = die zin moet eruit.
+- [ ] Atal'Aman: Toadly Unbecoming: vallen beesten de gehexte Amani aan? Nee = TRASH-regel 'Beasts weg van NPCs' schrappen.
+- [ ] Atal'Aman: Venomous Vapors: DB2 heeft een stap 'Tunnels exited' (CriteriaTree 222621) die de tip niet noemt. Wat moet je daar doen (springen met de Springstep Rune?)? Zeg het, dan komt er een route-regel bij.
+- [ ] Twilight Crypts: Blademaster Darza: blijf op een lage tier vlak bij haar staan als ze Bask in the Twilight doet. Raakt het je hard = nieuwe regel 'ren 10 yards weg' klopt. Raakt het je niet = de regel moet anders.
+- [ ] Twilight Crypts: Loosed Loa: zie je Mot'amra rood door de muren heen, en maakt het Evasive Elixir je 4 seconden een pot? Ja = nieuwe ROUTE-regels kloppen.
+- [ ] Twilight Crypts: Party Crasher: casten de Twilight Summoners iets dat je kunt onderbreken? Nee = TRASH-regel 3 aanpassen.
+- [ ] Twilight Crypts: Zie je in de crypten Fleshwarped Abominations die zich healen (Reconstitution) en Hexbound Necrowraiths met Necrotic Bolt? Ja = nieuwe TRASH-regels kloppen.
+- [ ] The Gulf of Memory: Stap in een cirkel op de vloer (geen kaarslicht). Word je opgetild en gestund door een Sapstick Lurker? Ja = nieuwe TRASH-regel klopt.
+- [ ] The Gulf of Memory: Mul'tha'ul: zet Valeera op healer. Haalt ze Hopeless Curse van je af? Ja = nieuwe regel klopt. Nee = regel eruit.
+- [ ] The Gulf of Memory: Kies in de coach Mul'tha'ul (Descent of the Haranir): staan de Searing Light- en Sporbit-regels er nog tussen? Met de nieuwe tekst horen ze weg te zijn; staan ze er wel, dan is het filter de oorzaak.
+- [ ] The Grudge Pit: Fungal Pharmacon: welke stappen toont je tracker? DB2 (live) heeft twee versies: (a) 3 Ula'tek Burrows in + 4 Lesser Ritual Pillars + slangen killen, of (b) 10 Pharmacon verzamelen + 4 pillars + vijanden. Zeg welke, dan maken we de route precies. Staan de pillars níét in de burrows, dan moet 'go down into the Ula'tek Burrows' anders.
+- [ ] The Grudge Pit: Lightbloom Invasion: blaas je de 3 Unstoppable Thornmaws op door op Bomb Spores (of tonnen) te klikken? Ja = nieuwe regel klopt. Blazen bevrijde fighters ook spawn points op (zoals Icy Veins zegt), dan komt dat er weer bij.
+- [ ] The Grudge Pit: Dastardly Rotstalk: werkt taunten alleen in een van de bewegende spotlights? Ja = nieuwe regel klopt.
+- [ ] The Grudge Pit: Dastardly Rotstalk: doen de Angry Fans pijn als je ze negeert? Nee = TRASH-regel 3 aanpassen.
+- [ ] The Grudge Pit: Zie je ooit een Disciple of Vashnik in de Grudge Pit? DB2 heeft daar een encounter (3522), maar geen verhaal eindigt bij hem; waarschijnlijk ongebruikt. Nee = niets doen.
+- [ ] Sunkiller Sanctum: Esuritus: lees de castbalk van de bolt die hij op je richt. Heet hij Calling Bolt of Singular Bolt, en lukt een interrupt? Lukt het = de bullet 'Interrupt Calling Bolt' blijft, maar check of de tooltip in de coach 'Instant' zegt (dan hoort er een andere id bij). Lukt het niet = de bullet moet weg.
+- [ ] Sunkiller Sanctum: Esuritus: onderbreek of stun een Voidcaller terwijl hij channelt. Gaat hij meteen dood? Ja = waardevolle tip om toe te voegen (alleen de video van Roguery zegt dit). Nee = niets doen.
+- [ ] Sunkiller Sanctum: Gravitational Effect: zijn het precies 5 coils in de lucht en 5 Stabilizers op de grond? Ja = nieuwe ROUTE-tekst klopt. Ander getal = getal aanpassen.
+- [ ] Shadowguard Point: Chief-Arcanist Patram: hoe heet de add die na Dark Communion verschijnt (Icy Veins: Void Emissary, Method: Dark Harbinger)? Naam gezien = die naam in de BOSS-bullet zetten.
+- [ ] Shadowguard Point: Chief-Arcanist Patram: lukt een interrupt op Submit to the Void? Ja = nieuwe bullet klopt. Nee = 'Interrupt it' weghalen; de tooltip zegt Magic, kijk dan of een dispel hem weghaalt.
+- [ ] Shadowguard Point: Disciple of Vashnik: ga tijdens Toxic Froth achter een muur of pilaar staan. Krijg je toch de volle 8 seconden schade, en liggen er daarna healing orbs? Allebei ja = bullet blijft. Muur helpt wel = die zin schrappen. Geen orbs = 'pak daarna de healing orbs' schrappen.
+- [ ] Shadowguard Point: Disciple of Vashnik op Tier 11: vind jij hem de zwaarste delve-baas van dit seizoen? Nee = de zin over 'many players' schrappen (Icy Veins noemt hem 'not too bad').
+- [ ] Shadowguard Point: Captured Wildlife: krijg je na de kooien echt aas van Lysikas, met een extra knop bij de Void Researchers? Ja = nieuwe ROUTE-bullet klopt.
+- [ ] Torment's Rise: Vlieg naar de ingang van Torment's Rise in Voidstorm (61.2, 71.3) en loop de rookmuur in. Kom je binnen bij Nullaeus? Ja = de nieuwe BOSS-tekst is nuttig en de kaart blijft. Je wordt naar Silvermoon gezet (zoals een speler op 13 aug meldde) = de hele kaart is seizoen 1-geschiedenis; kies dan of hij weg mag of alleen de OVERVIEW houdt.
+- [ ] Torment's Rise: Heb je nog een Beacon of Hope in je tassen: kun je hem in een delve nog gebruiken? Ja = de ROUTE-bullet moet zeggen wat hij nu oproept. Nee = de nieuwe ROUTE-tekst klopt.
+- [ ] Torment's Rise: Alleen als je binnenkomt: probeer Devouring Essence te onderbreken. Lukt het = je kunt 'Dispel it' aanvullen met 'or interrupt it' (Icy Veins zegt ja, Method zegt nee).
+- [ ] Venomfall Deeps: Ga solo naar binnen in Venomfall Deeps en typ /mh mark vóór de pull. Verschijnt de markerbalk en kun je 4 world markers neerzetten? Ja: de tip klopt zoals hij staat. Nee: de balk wacht op een groep (FastMark.lua vraagt IsInGroup), en de BOSS-tip moet dan Blizzards eigen world markers noemen in plaats van /mh mark.
+- [ ] Venomfall Deeps: Klik de nieuwe waypoint 51.2, 31.0 op de Coiled Isle. Kom je bij de deur van Venomfall Deeps uit? Ja: waypoint mag erin. Nee: noteer waar de deur echt staat (/mh here buiten de deur).
+- [ ] Venomfall Deeps: Haal Blessing of Potency uit een zware kist en lees de tooltip van de buff. Staat er 'all of your stats'? Dan klopt de nieuwe tekst. Staat er 'secondary stats'? Dan was de oude tekst goed en vervalt deze correctie.
+- [ ] Gnarldor Isle: Sturdy Chest 3 in Gnarldor Isle: staat de kist bij onze pijl (28.67, 41.69) of zo'n 3 eenheden noordelijker (rond 28.4, 38.2, 'achter blokken links van de trap naar boven' volgens Icy Veins)? Bij onze pijl: laten staan. Noordelijker: waypoint aanpassen naar wat /mh here bij de kist zegt.
+- [ ] Gnarldor Isle: Minchi's Osseous Adventure: wat staat er in het doel bij de bottenhopen, 0/4 of 0/6? 0/4: de nieuwe tekst klopt (hotfix eind augustus). 0/6: de hotfix is teruggedraaid en de oude tekst was goed.
+- [ ] Gnarldor Isle: Gralka met Valeera op DPS: onderbreekt ze Purging Breath, en wat gebeurt er dan? Onderbreekt ze hem en ga je dood of komt er iets ergs: de nieuwe Healer-regel klopt en verdient misschien de reden erbij. Onderbreekt ze hem niet: de nieuwe regel kan weg.
+- [ ] Gnarldor Isle: Bij Scrollmaster Ruma bij de ingang: geeft ze It's a Satchel, Not a Bag, en ligt Ruma's Satchel binnen op 25.40, 34.73? Ja: de nieuwe OVERVIEW-regel klopt. Nee: noteer welke quest ze wél geeft.
+- [ ] The Ring of Glory: Crushfoot (Open Night): zie je in de toren noordoost en zuidwest een blauw gloeiende bol die je naar de andere toren teleporteert, en stopt het zijn charge als je erin stapt? Ja: de zin 'dat hebben wij zelf niet getest' mag eruit. Nee: laten staan zoals hij is.
+- [ ] The Ring of Glory: Gnok, eerste fase (Adopt-a-thon): wat doet Pulverize? Gooit hij je weg en vertraagt hij je (Icy Veins), of is het alleen een klap (Method)? Wegslaan: er hoort een regel bij ('vecht hem waar de knockback je niet in een pack gooit'). Alleen een klap: niets toevoegen.
+- [ ] Valeera/systeem: Delves-tabblad, beweeg over een delve-rij: staat er bij Tier 1, 6 of 7 'Vault 305*'? Volgens Wowhead hoort dat 279, 298 en 302 te zijn. Kijk ook wat de drie vault-vakjes tonen ('Tier X (ilvl Y)') in een week waarin je een Nightmare Prey-hunt deed.
+- [ ] Valeera/systeem: In een delve met Valeera's venster open: dood één vijand en loot NIETS. Gaat 'XP tot nu toe' omhoog? (test voor 'doden telt ook')
+- [ ] Valeera/systeem: Doe een Tier 11-delve die NIET Bountiful is, met levens over, op Delver's Journey rank 4 of hoger. Verschijnt er een Gilded Stash in de schatkamer?
+- [ ] Valeera/systeem: Doe een gewone (niet-Bountiful) delve op Tier 4 of hoger en kijk naar het item level uit de eindkist. Blijft dat op het Tier 3-niveau (272 of lager), zoals Icy Veins zegt?
+- [ ] Valeera/systeem: Hover bij de ingang van een delve op Tier 11 over het Gilded Stash-icoon: staat er 'x/4' per week?
+- [ ] Valeera/systeem: Kijk op de kaart hoeveel Special Assignments je deze week kunt doen, over alle zones samen. Klopt 3?
+- [ ] Valeera/systeem: Kill een rare in Eversong of Zul'Aman (niet Coiled Isle) en lees /mh shards: hoeveel shards gaf hij (25, 50 of 75)?
+
 ## 🆕 2 okt middag — Mythic+ voor beginners (Codex + `/mh mplus`, enUS + nlNL)
 
 Rob: *"ik keur het goed"* (pagina `mplus_review.html`). Nu in 7 talen; knopnamen komen uit de client zelf (Rob koos

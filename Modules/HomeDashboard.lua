@@ -547,7 +547,15 @@ local function BuildLayout()
 	end
 
 	------------------------------------------------------------------ Great Vault — Mythic+ gain (Spec 20)
-	if ns.GetMythicGainSteps then
+	-- Solo mode hides the group blocks (Mythic+ here, Raids below) and says so in their place,
+	-- so a hidden block never looks like a missing one.
+	local solo = ns.IsHomeSoloMode()
+	if solo then
+		addFull(function(rows)
+			line(rows, ns:L("HOME_SOLO_HIDDEN_NOTE"), COLOR_DIM)
+		end)
+	end
+	if ns.GetMythicGainSteps and not solo then
 		local okM, mSteps = pcall(ns.GetMythicGainSteps)
 		if okM and type(mSteps) == "table" and #mSteps > 0 then
 			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
@@ -633,7 +641,7 @@ local function BuildLayout()
 	-- The Raid Coach has existed since 15 jun but only lived behind /mh bosswin, the
 	-- Tools launchpad and NavSearch — nobody found it (Rob had forgotten it himself).
 	-- Surface it here, where the weekly content already lives.
-	if ns.GetRaidCoachSummary then
+	if ns.GetRaidCoachSummary and not solo then
 		addFull(function(rows)
 			local okSummary, names, bossCount = pcall(ns.GetRaidCoachSummary)
 			if okSummary and type(names) == "table" and #names > 0 then
@@ -1118,6 +1126,18 @@ local function LayoutColumnSpecs(specs, blockY, column, colWidth)
 	end
 	ui._layoutRowIndex = rowIndex
 	return colY
+end
+
+-- "I mostly play solo" (Settings → Window). Off by default; stored per account in ns.db.ui.
+function ns.IsHomeSoloMode()
+	return ns.db and ns.db.ui and ns.db.ui.homeSolo == true or false
+end
+
+function ns.SetHomeSoloMode(v)
+	if ns.db and ns.db.ui then
+		ns.db.ui.homeSolo = v and true or nil
+	end
+	ns.RefreshHomePanel()
 end
 
 function ns.RefreshHomePanel()
