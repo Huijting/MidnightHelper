@@ -1008,6 +1008,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh uinames — the client's own button names the Codex fills in for {UI:NAME} (2 Oct 2026).
+	if msg == "uinames" then
+		if ns.PrintClientUINames then
+			ns.PrintClientUINames()
+		end
+		return
+	end
+
 	-- /mh survey [why|popup] — the link to the two-minute survey (SurveyInvite.lua, 1 Oct 2026).
 	if msg == "survey" or msg == "survey why" or msg == "survey popup" then
 		if ns.HandleSurveyCommand then

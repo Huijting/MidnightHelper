@@ -3949,6 +3949,22 @@
    "nlNL": "bf440229087a7e0c",
    "ptBR": "bf440229087a7e0c"
   },
+  "CODEX_MPLUS_START_BODY": {
+   "deDE": "03cf46a7fdaff617",
+   "esES": "03cf46a7fdaff617",
+   "frFR": "03cf46a7fdaff617",
+   "itIT": "03cf46a7fdaff617",
+   "nlNL": "03cf46a7fdaff617",
+   "ptBR": "03cf46a7fdaff617"
+  },
+  "CODEX_MPLUS_START_TITLE": {
+   "deDE": "00f50604bfd45932",
+   "esES": "00f50604bfd45932",
+   "frFR": "00f50604bfd45932",
+   "itIT": "00f50604bfd45932",
+   "nlNL": "00f50604bfd45932",
+   "ptBR": "00f50604bfd45932"
+  },
   "CODEX_MPLUS_TITLE": {
    "deDE": "fe482d452b222e04",
    "esES": "fe482d452b222e04",
@@ -16125,6 +16141,14 @@
    "nlNL": "4f10f0e3667ea42d",
    "ptBR": "4f10f0e3667ea42d"
   },
+  "MPLUS_CMD_FIRST_KEY": {
+   "deDE": "5be0596c32471f9c",
+   "esES": "5be0596c32471f9c",
+   "frFR": "5be0596c32471f9c",
+   "itIT": "5be0596c32471f9c",
+   "nlNL": "5be0596c32471f9c",
+   "ptBR": "5be0596c32471f9c"
+  },
   "MPLUS_CMD_GAIN_NOTE": {
    "deDE": "9ea9125ca628994c",
    "esES": "9ea9125ca628994c",
@@ -16134,12 +16158,12 @@
    "ptBR": "9ea9125ca628994c"
   },
   "MPLUS_CMD_GEAR_HINT": {
-   "deDE": "a4a93c13bf2ced7b",
-   "esES": "a4a93c13bf2ced7b",
-   "frFR": "a4a93c13bf2ced7b",
-   "itIT": "a4a93c13bf2ced7b",
-   "nlNL": "a4a93c13bf2ced7b",
-   "ptBR": "a4a93c13bf2ced7b"
+   "deDE": "38bd5bfe84e9891c",
+   "esES": "38bd5bfe84e9891c",
+   "frFR": "38bd5bfe84e9891c",
+   "itIT": "38bd5bfe84e9891c",
+   "nlNL": "38bd5bfe84e9891c",
+   "ptBR": "38bd5bfe84e9891c"
   },
   "MPLUS_CMD_HEADER": {
    "deDE": "d0d0ea49e931cbd8",

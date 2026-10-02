@@ -14,10 +14,14 @@
   Dungeons, sort 1; `mplus_vault` → sort 2), gele regel `MPLUS_CMD_FIRST_KEY` in `/mh mplus` bij 0 runs
   (`MythicGain.lua`), `MPLUS_CMD_GEAR_HINT` gecorrigeerd (kist max Hero, alleen Vault geeft Myth vanaf +10).
   Feiten: scratchpad `mplus\facts.json` (10/11 zeker; starter-ilvl niet gevonden). **Alleen enUS + nlNL.**
-- 🔲 **Volgende stap Mythic+-gids (Rob koos "uit het spel zelf"):** knopnamen in de gids vullen uit de client
-  (`_G.START_A_GROUP` enz., GlobalStrings-namen GEMETEN in facts.json q3/q4), zodat een Duitse speler zijn eigen
-  scherm leest; dán pas de/fr/es/pt/it vertalen + `GEAR_HINT`/`FIRST_KEY` in `Translations2026.lua`.
-- 🔲 **Sitegids** Mythic+ (regel "site volgt elke functie") — na de vertalingen.
+- ✅ **Knopnamen uit de client (Rob koos "uit het spel zelf"):** `{UI:NAAM}` in een Codex-tekst wordt `_G[NAAM]`
+  (`ns.ExpandClientUIText`, `MidnightCodex.lua`; Engelse terugval in `UI_FALLBACK`). 10 namen in de gids.
+  Diagnose **`/mh uinames`** (route `Core.lua`, unlisted in `CommandList.lua`). Daarna 5 vertalers: hoofdstuk in
+  `Codex.lua` (5 blokken), `GEAR_HINT` + `FIRST_KEY` in `Translations2026.lua`. Drift --mark 4 sleutels, locale_probe
+  OK in 7 talen (GEMETEN). FIRST_KEY noemde "Dungeons", de categorie heet **"Dungeons & M+"** → gerepareerd.
+  ⚠️ `GROUP_FINDER_GENERAL_PLAYSTYLE1` = Learning is AFGELEID → TESTLIJST (`/mh uinames`).
+- 🔲 **Sitegids** Mythic+ (regel "site volgt elke functie"). ⚠️ De sitegenerator moet `{UI:NAAM}` vervangen (Engels uit
+  `UI_FALLBACK`), anders staan de tokens letterlijk op de site.
 
 ## 🏰 2 okt middag — M+-dungeontips op Fable: 5 van 8 ERIN (enUS + nlNL), vertalingen volgen
 

@@ -29,6 +29,61 @@ local function CodexL(key)
 	return ns:L(key)
 end
 
+-- {UI:NAME} in a Codex body becomes the client's own word for that button or tab, read
+-- from Blizzard's GlobalStrings, so a German player reads what is on a German screen.
+-- 2 Oct 2026, the Mythic+ beginner chapter: we do not know the de/fr/es/pt/it button
+-- names for sure, and Rob chose "take them from the game itself" over guessing. The
+-- English is the fallback, used when the client has no such string. GlobalString names
+-- and their English values were read from wago.tools GlobalStrings (build 12.1.5.70077);
+-- `/mh uinames` prints what THIS client returns, because a wrong name would otherwise
+-- show a wrong word without any error.
+local UI_FALLBACK = {
+	GROUP_FINDER = "Dungeons & Raids",
+	LFGLIST_NAME = "Premade Groups",
+	START_A_GROUP = "Start a Group",
+	LIST_GROUP = "List Group",
+	SIGN_UP = "Sign Up",
+	CHALLENGES = "Mythic+ Dungeons",
+	CHALLENGE_MODE_START_CHALLENGE = "Activate",
+	COMMUNITIES_GUILD_FINDER = "Guild Finder",
+	DUNGEON_SCORE = "Mythic+ Rating",
+	GROUP_FINDER_GENERAL_PLAYSTYLE1 = "Learning",
+}
+ns.CODEX_UI_FALLBACK = UI_FALLBACK
+
+local function ClientUIName(name)
+	local v = _G[name]
+	-- Only a plain string counts: a format string or a nil would print garbage.
+	if type(v) == "string" and v ~= "" and not v:find("%%") then
+		return v, true
+	end
+	return UI_FALLBACK[name] or name, false
+end
+
+function ns.ExpandClientUIText(text)
+	if type(text) ~= "string" or not text:find("{UI:", 1, true) then
+		return text
+	end
+	return (text:gsub("{UI:([%w_]+)}", function(name)
+		return (ClientUIName(name))
+	end))
+end
+
+-- /mh uinames: per name, the client's word, or that we fell back to English.
+function ns.PrintClientUINames()
+	local names = {}
+	for name in pairs(UI_FALLBACK) do
+		names[#names + 1] = name
+	end
+	table.sort(names)
+	print(("|cffffcc00%s|r %s (%s)"):format(ns:L("PRINT_PREFIX"), "UI names", GetLocale and GetLocale() or "?"))
+	for _, name in ipairs(names) do
+		local v, fromClient = ClientUIName(name)
+		print(("   %s = |cffffffff%s|r %s"):format(name, v,
+			fromClient and "" or "|cffff6060(missing in this client, English fallback)|r"))
+	end
+end
+
 local function GetCodexSettings()
 	local s = ns.db and ns.db.ui
 	if type(s) ~= "table" then
@@ -471,7 +526,7 @@ local function ApplyArticleToBlock(block, article)
 	-- Breedte vóór SetText: een EditBox wikkelt bij het zetten, en een meting op
 	-- de oude breedte is precies de overlap-bug van 15 jul in een nieuw jasje.
 	block.bodyFs:SetWidth(ui.child:GetWidth() or 300)
-	local bodyText = CodexL(article.bodyKey)
+	local bodyText = ns.ExpandClientUIText(CodexL(article.bodyKey))
 	if ns.ExpandDelveTipMarkup then
 		bodyText = ns:ExpandDelveTipMarkup(bodyText) -- {WAY:}/{SPELL:} → klikbaar
 	end

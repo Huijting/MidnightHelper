@@ -23,9 +23,18 @@ er is niets weggegooid.
 
 ## 🆕 2 okt middag — Mythic+ voor beginners (Codex + `/mh mplus`, enUS + nlNL)
 
-Rob: *"ik keur het goed"* (pagina `mplus_review.html`). de/fr/es/pt/it volgen na "knopnamen uit het spel zelf".
+Rob: *"ik keur het goed"* (pagina `mplus_review.html`). Nu in 7 talen; knopnamen komen uit de client zelf (Rob koos
+"uit het spel zelf"): `{UI:NAAM}` in de tekst wordt Blizzards eigen woord, Engels als terugval.
 - [ ] `/reload` zonder fout (BugSack leeg).
-- [ ] `/mh codex` → **Dungeons**: staat bovenaan *"Mythic+, vanaf je eerste key"*, en leest het prettig?
+- [ ] **`/mh uinames`**: 10 regels. Staat er achter elke naam het Engels dat je op je scherm ziet (Dungeons & Raids,
+      Premade Groups, Start a Group, List Group, Sign Up, Mythic+ Dungeons, Activate, Guild Finder, Mythic+ Rating,
+      **Learning**)? Rood "missing" = die naam bestaat niet in jouw client. ⚠️ Vooral **Learning**: dat
+      `GROUP_FINDER_GENERAL_PLAYSTYLE1` Learning is (en niet Relaxed) is AFGELEID uit de volgorde, niet gemeten.
+- [ ] `/mh codex` → **Dungeons & M+**: staat bovenaan *"Mythic+, vanaf je eerste key"*, en staan de knopnamen er netjes
+      in (geen `{UI:…}` meer zichtbaar)?
+- [ ] Niet-getokeniseerde schermwoorden zijn in de/fr/es/pt/it door de vertalers gekozen, NIET in een client gezien:
+      *Find a Community*, het venster *Guild & Communities*, de categorie *Dungeons* en de moeilijkheid *Mythic*. Pas
+      als iemand met zo'n client meekijkt.
 - [ ] Zoekvak: typ *first key* of *premade* → vindt hij het hoofdstuk?
 - [ ] Op een personage **zonder** M+-runs dit seizoen: `/mh mplus` toont onder "Nog geen keystone-runs" een gele regel
       *"Nog nooit een key gelopen? Typ /mh codex en open Dungeons…"*. Met runs hoort die regel er NIET te staan.
