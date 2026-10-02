@@ -18,6 +18,10 @@
 - **Vragenlijst:** 12 antwoorden, gemiddeld 4,5 (`docs/SURVEY_RESULTS.md`). Site: vraag 8 vrij vak (`extra`,
   worker → "Verder nog:"). In-game uitnodiging zegt nu "acht vragen" (7 talen).
 - ⚠️ `Modules/KeybindingData.lua` gewijzigd-ongecommit, herkomst onbekend, NIET meegenomen in 4.5.0.
+- ✅ Upload 4.5.0 geslaagd (workflow exit 0). Na een beginnerslezing: CF-omschrijving (Mythic+-gids, solo, sitelink)
+  en duidelijkere release notes — **Rob heeft beide op CurseForge geplakt** (2 okt). 🔲 In de geüploade 4.5.0 zegt de
+  solo-uitleg nog "Home" i.p.v. de tabnaam "This Week"; gerepareerd in `main` (commit b2cf393), gaat mee in de
+  volgende versie.
 
 ## ✅ 2 okt eind middag — alle 8 M+-dungeons, lange raidtips en Mythic+-gids ERIN
 
