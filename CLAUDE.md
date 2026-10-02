@@ -89,6 +89,13 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    maar"*). Hij vergelijkt `## Version` met de vorige keer en print de top van elke changelog; **jij**
    oordeelt of iets MH raakt (taint, markers, secret values, TomTom, DBM-formaat, JustAC-data). Lezen is
    geen testen: zeg dat erbij, Robs `/reload` + BugSack is de test.
+4c. **Lees de mail van de site:** Gmail-connector, `search_threads` met
+   `subject:(MH feedback OR MH vragenlijst) newer_than:3d` (afzender `feedback@midnighthelper.com`). Sinds 2 okt
+   2026 (Rob: *"ik weet niet of we automatisch kijken in onze mail … anders moet deze alsnog in de
+   ochtendroutine"*) — tot dan keek niemand: de cloud-wachters hebben geen Gmail. `[MH feedback]` = bug of wens
+   (altijd melden, zoals een CF-reactie); `[MH vragenlijst]` = tel hem bij in `docs/SURVEY_RESULTS.md`. Robs eigen
+   tests tellen niet mee (1 okt 21:09 UTC, "winnend staatslot"). Alleen lezen: nooit antwoorden, labelen of
+   archiveren.
 5. Vertel hem alleen wat hém raakt. De meeste dagen is dat "niets" — zeg dat dan ook, mét wat er
    gelezen is, zodat stilte te onderscheiden is van niet-kijken.
 

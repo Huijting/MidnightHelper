@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 📬 2 okt ochtend — mail van de site zit nu in de ochtendroutine; eerste 5 vragenlijsten binnen
+
+Rob: *"ik weet niet of we automatisch kijken in onze mail"*. GEMETEN: niemand keek (cloud-wachters hebben geen Gmail).
+Nu CLAUDE.md stap **4c**: Gmail `subject:(MH feedback OR MH vragenlijst) newer_than:3d`, alleen lezen. Eerste nacht:
+**5 echte vragenlijsten** (+ Robs test), allemaal via de in-game uitnodiging, gemiddeld 4,4; niemand vulde
+"irriteert"/"mist" in; Keybind-coach 4/4 "nooit/onbekend". Telling en tabel in **`docs/SURVEY_RESULTS.md`**.
+Eén antwoord vinkte 6 onderdelen in beide lijsten → site-fix: "vaak" en "nooit" sluiten elkaar uit (alle 7 talen).
+Ochtendronde verder: 4 wachters gedraaid, niets dat MH raakt; CF 0 open (1 draadje, beantwoord); GitHub 0 open.
+WIM meldt "WoW removed deprecated `IsMouseOver`": MH gebruikt alleen de frame-methode `:IsMouseOver()` (5×) en
+nergens de globale `MouseIsOver` (GEMETEN 0, positieve controle: WIM zelf 1 treffer) → AFGELEID niet geraakt.
+📌 Officiële **12.1.5 Content Update Notes** staan online (`news.blizzard.com/en-us/article/24304162`, 1 okt) —
+bron voor de patchweek-lijst.
+
 ## 🚀 1 okt avond — 4.4.0 als Release getagd (Rob: "go, zet 4.4.0 maar live")
 
 Kolommen + gear-kaart + Big window, vragenlijst-uitnodiging, Twin Fangs-tip, TOC 120105 — alles door Rob getest.
