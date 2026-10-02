@@ -23,10 +23,10 @@ Nothing in your game changes unless you press a button. On a character whose bar
 
 ### What else is in it
 
-- **Your week** — reset countdown, Great Vault status for all your characters, this week's world boss, weekly chores, and Ritual Sites and Void Assaults with one-click routes.
+- **Your week** — reset countdown, Great Vault status for all your characters, this week's world boss, weekly chores, and Ritual Sites and Void Assaults with one-click routes. Play mostly solo? One switch in the settings hides raids and Mythic+ from the plan.
 - **All your characters** — keys, shards, item level and vault status as rows, or side by side in columns with gold, rested XP, currencies, professions and a gear card per character.
 - **Delves** — all 14 Midnight delves with routes, bosses and 3D previews, plus the avoidable damage in the delve or dungeon you are in, named in your own language.
-- **Raids and dungeons** — beginner steps for every boss, and a Raid Coach that opens by itself when a pull starts. In a group, a small panel shows how many battle resurrections are left, whether Heroism is ready, and who can cast them. Before you pull, a loud warning if your gear is badly worn.
+- **Raids and dungeons** — beginner steps for every boss, and a Raid Coach that opens by itself when a pull starts. Never done Mythic+? A step-by-step guide explains how to get your first key, where to find a group and what happens during the run. In a group, a small panel shows how many battle resurrections are left, whether Heroism is ready, and who can cast them. Before you pull, a loud warning if your gear is badly worn.
 - **Maps** — floor plans of raids and dungeons with the bosses on them. Click a boss for its tips, or the stairs to change floor. Type `/mh map` inside to see the floor you are on.
 - **Getting there** — a route arrow with live distance that drives the game's own waypoint. `/mh plan` lays out the whole trip as clickable steps and takes a portal when one goes your way. If you use TomTom, its arrow takes over; with WaypointUI you get both.
 - **Collecting** — the 20 new Midnight mounts as a checklist with progress and a 3D preview. Rares with weekly tracking, routes, and an alert when one is up nearby. Treasure and lore hunts with checked coordinates.
@@ -50,7 +50,7 @@ It is not a boss mod, a damage meter, a bag addon or a unit-frame replacement, a
 
 ### More on the website
 
-[midnighthelper.com](https://midnighthelper.com/) has the guides in seven languages — [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all 14 delves](https://midnighthelper.com/guides/delves/) · [Knowledge Points](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/) — plus the [Armory gear check](https://midnighthelper.com/armory/) and [Raidbots in seven steps](https://midnighthelper.com/raidbots/). No account needed.
+[midnighthelper.com](https://midnighthelper.com/) has the guides in seven languages — [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all 14 delves](https://midnighthelper.com/guides/delves/) · [Knowledge Points](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/) · [Mythic+ from your first key](https://midnighthelper.com/guides/mythic-plus/) — plus the [Armory gear check](https://midnighthelper.com/armory/) and [Raidbots in seven steps](https://midnighthelper.com/raidbots/). No account needed.
 
 Got two minutes? [Tell us what you use, what you never use and what annoys you](https://midnighthelper.com/survey/).
 

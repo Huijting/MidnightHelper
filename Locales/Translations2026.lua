@@ -11925,26 +11925,26 @@ fill("itIT", {
 -- 2 Oct 2026: solo toggle for the weekly plan (SettingsDefs mh_homeSolo, HomeDashboard).
 fill("deDE", {
 	SET_HOMESOLO_TITLE = "Ich spiele meist solo",
-	SET_HOMESOLO_DESC = "Blendet die Blöcke Mythic+ und Raids im Wochenplan auf Home aus. Delves, Weltquests, Berufe und die Große Schatzkammer bleiben.",
+	SET_HOMESOLO_DESC = "Blendet die Blöcke Mythic+ und Raids im Wochenplan auf Diese Woche aus. Delves, Weltquests, Berufe und die Große Schatzkammer bleiben.",
 	HOME_SOLO_HIDDEN_NOTE = "Solo-Modus: Mythic+ und Raids sind in diesem Plan ausgeblendet. Schalte es in den Einstellungen aus („Ich spiele meist solo“).",
 })
 fill("frFR", {
 	SET_HOMESOLO_TITLE = "Je joue surtout en solo",
-	SET_HOMESOLO_DESC = "Masque les blocs Mythic+ et Raids du plan de la semaine sur Home. Les gouffres, les expéditions, les métiers et la Grande chambre forte restent.",
+	SET_HOMESOLO_DESC = "Masque les blocs Mythic+ et Raids du plan de la semaine sur Cette semaine. Les gouffres, les expéditions, les métiers et la Grande chambre forte restent.",
 	HOME_SOLO_HIDDEN_NOTE = "Mode solo : Mythic+ et les raids sont masqués dans ce plan. Désactive-le dans les options (« Je joue surtout en solo »).",
 })
 fill("esES", {
 	SET_HOMESOLO_TITLE = "Juego sobre todo en solitario",
-	SET_HOMESOLO_DESC = "Oculta los bloques de Mythic+ y Raids del plan semanal en Home. Las profundidades, las misiones de mundo, las profesiones y la Gran Bóveda se quedan.",
+	SET_HOMESOLO_DESC = "Oculta los bloques de Mythic+ y Raids del plan semanal en Esta semana. Las profundidades, las misiones de mundo, las profesiones y la Gran Bóveda se quedan.",
 	HOME_SOLO_HIDDEN_NOTE = "Modo solitario: Mythic+ y las raids están ocultos en este plan. Desactívalo en los ajustes («Juego sobre todo en solitario»).",
 })
 fill("ptBR", {
 	SET_HOMESOLO_TITLE = "Jogo mais solo",
-	SET_HOMESOLO_DESC = "Esconde os blocos de Mythic+ e Raids do plano semanal em Home. Profundezas, missões mundiais, profissões e a Grande Câmara continuam.",
+	SET_HOMESOLO_DESC = "Esconde os blocos de Mythic+ e Raids do plano semanal em Esta semana. Profundezas, missões mundiais, profissões e a Grande Câmara continuam.",
 	HOME_SOLO_HIDDEN_NOTE = "Modo solo: Mythic+ e raids estão escondidos neste plano. Desative nas configurações (“Jogo mais solo”).",
 })
 fill("itIT", {
 	SET_HOMESOLO_TITLE = "Gioco soprattutto da solo",
-	SET_HOMESOLO_DESC = "Nasconde i blocchi Mythic+ e Raid dal piano settimanale in Home. Delve, missioni mondiali, professioni e la Great Vault restano.",
+	SET_HOMESOLO_DESC = "Nasconde i blocchi Mythic+ e Raid dal piano settimanale in Questa settimana. Delve, missioni mondiali, professioni e la Great Vault restano.",
 	HOME_SOLO_HIDDEN_NOTE = "Modalità solo: Mythic+ e raid sono nascosti in questo piano. Disattivala nelle impostazioni («Gioco soprattutto da solo»).",
 })

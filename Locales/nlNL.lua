@@ -2464,7 +2464,7 @@ ns._mhLocales.nlNL = {
 	SETTINGS_SECTION_VAULT = "Great Vault",
 	SETTINGS_OPEN_ON_LOGIN = "Open Midnight Helper bij inloggen",
 	SET_HOMESOLO_TITLE = "Ik speel vooral solo",
-	SET_HOMESOLO_DESC = "Verbergt de blokken Mythic+ en Raids in het weekplan op Home. Delves, world quests, beroepen en de Great Vault blijven staan.",
+	SET_HOMESOLO_DESC = "Verbergt de blokken Mythic+ en Raids in het weekplan op Deze week. Delves, world quests, beroepen en de Great Vault blijven staan.",
 	SETTINGS_COMBAT_BLOCKED = "Instellingen kunnen niet tijdens gevecht openen — probeer het opnieuw zodra je uit gevecht bent.",
 	SETTINGS_MINIMAP_ICON = "Toon minimap-icoon",
 	SETTINGS_MINIMAP_ICON_TT = "Toon de Midnight Helper-knop op de minimap. Uit = minder rommel — je opent 'm nog steeds via het addon-compartiment (rechtsboven) of met /mh.",

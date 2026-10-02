@@ -2378,7 +2378,7 @@ ns._mhLocales.enUS = {
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
 	CHANGELOG_450_1 = "NEW - Mythic+, from your first key: a guide in the Codex (Dungeons & M+) on getting a keystone, finding or starting a group, and what the timer, deaths and weekly rules mean. Button names come from your own game client. /mh mplus points to it if you have no runs yet.",
-	CHANGELOG_450_2 = "NEW - I mostly play solo (Settings): hides the Mythic+ and Raids blocks from the weekly plan on Home.",
+	CHANGELOG_450_2 = "NEW - I mostly play solo (Settings): hides the Mythic+ and Raids blocks from the weekly plan on This Week.",
 	CHANGELOG_450_3 = "Boss tips checked again for Season 2: the short tips of all 8 Mythic+ dungeons, and the long tips of all 17 raid bosses.",
 	CHANGELOG_450_4 = "Delves: every delve and Valeera's texts checked against 12.1. New stories added and wrong facts fixed, such as what a Coffer Key opens and Delver's Call being once per character.",
 	CHANGELOG_450_5 = "The delve tooltip no longer shows a Speed Grade. It was a placeholder, not a measurement.",
@@ -2909,7 +2909,7 @@ ns._mhLocales.enUS = {
 	SETTINGS_SECTION_VAULT = "Great Vault",
 	SETTINGS_OPEN_ON_LOGIN = "Open Midnight Helper on login",
 	SET_HOMESOLO_TITLE = "I mostly play solo",
-	SET_HOMESOLO_DESC = "Hides the Mythic+ and Raids blocks from the weekly plan on Home. Delves, world quests, professions and the Great Vault stay.",
+	SET_HOMESOLO_DESC = "Hides the Mythic+ and Raids blocks from the weekly plan on This Week. Delves, world quests, professions and the Great Vault stay.",
 	SETTINGS_COMBAT_BLOCKED = "Can't open settings during combat — try again once you're out of the fight.",
 	SETTINGS_MINIMAP_ICON = "Show minimap icon",
 	SETTINGS_MINIMAP_ICON_TT = "Show the Midnight Helper button on the minimap. Turn it off to declutter — you can still open it from the addon compartment (top-right) or with /mh.",
