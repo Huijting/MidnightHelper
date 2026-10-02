@@ -128,6 +128,13 @@ def load_packs():
 PACKS = load_packs()
 EN = PACKS["enUS"]
 
+# The English fallbacks for {UI:NAME}, read from the addon so the two can never disagree.
+_codex_lua = io.open(os.path.join(ROOT, "Modules", "MidnightCodex.lua"), encoding="utf-8").read()
+_m_ui = re.search(r"local UI_FALLBACK = \{(.*?)\n\}", _codex_lua, re.S)
+assert _m_ui, "MidnightCodex.lua lost its UI_FALLBACK table"
+UI_FALLBACK = dict(re.findall(r'\t([A-Z0-9_]+) = "([^"]+)",', _m_ui.group(1)))
+assert len(UI_FALLBACK) >= 10, "only %d UI_FALLBACK names parsed" % len(UI_FALLBACK)
+
 spell_ids = dict(re.findall(r'^\t([a-z0-9_]+)\s*=\s*(\d+),',
                             io.open(os.path.join(ROOT, "Modules", "DelveSpellIds.lua"),
                                     encoding="utf-8", errors="replace").read(), re.M))
@@ -146,6 +153,10 @@ def markup(text, lang):
                if m.group(1) in spell_ids else m.group(1).replace("_", " "), t)
     t = re.sub(r'\{ITEM:(\d+)\}', lambda m: '<a href="%sitem=%s">%s</a>' % (wh, m.group(1), item_w), t)
     t = re.sub(r'\{CURRENCY:(\d+)\}', cur_w, t)
+    # {UI:NAME}: in game the client's own button name (MidnightCodex.lua); here the English one,
+    # because the site cannot know which client the reader has. Unknown name -> refuse, never print
+    # a raw token on a public page.
+    t = re.sub(r'\{UI:([A-Z0-9_]+)\}', lambda m: esc(UI_FALLBACK[m.group(1)]), t)
     t = re.sub(r'\{WAY:\d+:([\d.]+):([\d.]+):([^}]+)\}',
                lambda m: "%s (%s, %s)" % (m.group(3), m.group(1), m.group(2)), t)
     t = re.sub(r'\|cff[0-9a-fA-F]{6}(.*?)\|r', r"<strong>\1</strong>", t)
@@ -247,6 +258,9 @@ GUIDES = [
      "Crests, coins, sparks and shards, and what each is for.", "currencies.html"),
     ("coiled-isle", "The Coiled Isle",
      "The 12.1 zone and the Vaults of Atal'Utek.", "coiled-isle.html"),
+    # 2 Oct 2026. Never on github.io, so no old address to redirect (None).
+    ("mythic-plus", "Mythic+",
+     "Your first key: getting one, finding a group, and what happens in the run.", None),
 ]
 
 
@@ -446,7 +460,11 @@ write_page("delves", "Every Midnight delve, and what to do in each",
 # advice while the addon (then) refused to show it. An article is only safe to publish if the
 # addon would show it unconditionally; park anything gated on season, patch or player state in
 # SKIP_ARTICLES until someone measures it. (Empty since 2 Sep: that article turned out true.)
-SKIP_ARTICLES = set()
+SKIP_ARTICLES = {
+    # 2 Oct 2026: says a vault slot is higher "if you time the key"; not checked for Season 2. The
+    # Mythic+ page carries only the beginner chapter until someone measures it.
+    "CODEX_MPLUS_TITLE",
+}
 
 codex_src = io.open(os.path.join(ROOT, "Modules", "MidnightCodexData.lua"), encoding="utf-8",
                     errors="replace").read()
@@ -474,6 +492,9 @@ CODEX_PAGES = [
     ("coiled-isle", "coiledisle", "The Coiled Isle and the Vaults of Atal'Utek",
      "A 12.1 zone with its own map, its own currency and very little explanation. What is in "
      "there, and where."),
+    ("mythic-plus", "dungeons", "Mythic+ in Midnight, from your very first key",
+     "How to get a keystone, how to sign up for a group or start your own, and what the timer, "
+     "deaths and the weekly rules mean for a beginner."),
 ]
 
 codex_counts, skipped, held = [], [], []
@@ -526,6 +547,8 @@ write(os.path.join(SITE_REPO, "i18n", "addon.json"),
 # 🔴 site/google9f04431797b34db7.html is not written here and must never be removed: it keeps
 # the old address verified in Search Console while Google follows the move.
 for slug, _l, _b, old in GUIDES:
+    if not old:
+        continue
     new = "%s/guides/%s/" % (BASE, slug)
     write(os.path.join(OLD_DIR, old), """<!doctype html>
 <html lang="en">
@@ -550,4 +573,4 @@ for cat, key in held:
 print("wrote i18n/addon.json -- %d addon texts x %d languages" % (len(ADDON), len(addon_json)))
 untranslated = {lang: sum(1 for k in ADDON if PACKS[LANGS[lang]].get(k) == EN.get(k)) for lang in addon_json}
 print("  still English in the addon itself (shown as English, like in game): %s" % untranslated)
-print("wrote %d 'moved' pages in site/ (old github.io addresses)" % len(GUIDES))
+print("wrote %d 'moved' pages in site/ (old github.io addresses)" % sum(1 for g in GUIDES if g[3]))

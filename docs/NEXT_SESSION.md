@@ -20,8 +20,11 @@
   `Codex.lua` (5 blokken), `GEAR_HINT` + `FIRST_KEY` in `Translations2026.lua`. Drift --mark 4 sleutels, locale_probe
   OK in 7 talen (GEMETEN). FIRST_KEY noemde "Dungeons", de categorie heet **"Dungeons & M+"** → gerepareerd.
   ⚠️ `GROUP_FINDER_GENERAL_PLAYSTYLE1` = Learning is AFGELEID → TESTLIJST (`/mh uinames`).
-- 🔲 **Sitegids** Mythic+ (regel "site volgt elke functie"). ⚠️ De sitegenerator moet `{UI:NAAM}` vervangen (Engels uit
-  `UI_FALLBACK`), anders staan de tokens letterlijk op de site.
+- ✅ **Sitegids** `/guides/mythic-plus/` (7 talen, site-commit 7e07e07). `build_site.py`: nieuwe `GUIDES`/`CODEX_PAGES`
+  (categorie `dungeons`), `{UI:NAAM}` → Engels uit `UI_FALLBACK` (gelezen uit `MidnightCodex.lua`), GEMETEN 0 tokens op de
+  site. `CODEX_MPLUS_TITLE` ("Mythic+ & dungeon vault") staat in `SKIP_ARTICLES`: zijn "if you time the key" is niet
+  gecontroleerd voor S2. Site-`tools/i18n.py`: pagina in `PAGES`. ⚠️ `site/*.html` in deze repo kregen alleen andere
+  regeleindes door build_site; niet meegecommit.
 
 ## 🏰 2 okt middag — M+-dungeontips op Fable: 5 van 8 ERIN (enUS + nlNL), vertalingen volgen
 
