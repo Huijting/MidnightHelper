@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+- **Raid tips, second pass (2 Oct 2026).** All 17 raid bosses re-checked one by one (extra-high effort helpers,
+  DBM on disk + live guides): 10 short-tip lines were wrong and 42 missed what a beginner needs most, usually how to
+  see an attack coming. 37 keys rewritten in all seven languages (`Locales/RaidTips.lua`); drift marked.
+
 ## 4.4.0
 
 📌 **2026-10-01, als release (Rob: "go, zet 4.4.0 maar live").** Notitie in `docs/CURSEFORGE_4.4.0.md` (identiek aan

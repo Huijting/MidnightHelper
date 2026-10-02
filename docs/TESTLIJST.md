@@ -21,7 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
-## 🆕 1 okt — Twin Fangs-tip: de draaiende gifstraal (`RaidTips.lua`)
+## 🆕 2 okt — 17 raidbazen: nieuwe korte tips (extra high-ronde, `RaidTips.lua`, 7 talen)
+
+Rob: *"alles goed, zet ze er maar in"* (beoordeeld op https://claude.ai/artifact/CWjDGP9K3dqGtsjoZGMgCz).
+- [ ] `/reload` zonder fout (BugSack leeg).
+- [ ] Bij je volgende raid: staat in het tipvenster bij de pull het nieuwe korte blok? Herkenbaar voorbeeld:
+      Chimaerus begint met *"Soak: A circle appears on the tank. When it is your group's turn, all of you stand in it
+      at once."* De Twin Fangs-tip is ook herschreven.
+- [ ] Klopt het advies in het gevecht zelf? Zeg per baas wat niet klopte — jij bent de meting.
+- [ ] Past het blok nog in het venster? De nieuwe tips zijn soms langer (tot 2 zinnen per regel).
+
+## 1 okt — Twin Fangs-tip: de draaiende gifstraal (`RaidTips.lua`)
 
 - [ ] Open de tips van de Twin Fangs (Raids → Venomous Abyss, of het tipvenster bij de pull): staat er onderaan
       *"Middle (at full energy): … The orbs spinning around her head show which way it turns. Walk against it…"*?

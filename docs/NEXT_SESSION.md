@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🛡️ 2 okt — raidtips tweede ronde op extra high: 17 bazen, 37 sleutels × 7 talen ERIN
+
+- **Effort-test** (Chimaerus, 5 standen; pagina https://claude.ai/artifact/LbdS4vozqX4mAvFWZR5vpP): low gaf FOUT
+  advies, medium≈high, **xhigh = keuze**, max 4× trager. Helper `tips-xhigh` staat in `AddOns/.claude/agents/`.
+- **Ronde:** 17 helpers, brief `scratchpad/raid_xhigh/BRIEF.md`, uitvoer `raid_xhigh/<key>.json`. GEMETEN: 3,46M
+  tokens (gem. 204k, 6,8 min per baas); Robs plan-meter sessie 0% → **28%**, week 58% → **61%**, ±$44
+  API-equivalent. Oordeel: **10 fout, 42 ontbreekt, 2 onzeker, 50 klopt**. Reviewpagina
+  https://claude.ai/artifact/CWjDGP9K3dqGtsjoZGMgCz → Rob: *"alles goed, zet ze er maar in"*.
+- **Erin:** `raid_xhigh/apply.py` (weigert bij |n/{SPELL}-verschil of dubbele sleutel) → 259 waarden, 253 echt anders;
+  5 vertaalhulpen (de/fr/es/pt/it). Syntax OK, lint 0 HARD / 4 SOFT, `check_drift --mark` 37 sleutels,
+  locale_probe: 3 sleutels OK in alle 7 talen (GEMETEN). TESTLIJST 2 okt.
+- 🔲 **Lange tips (`_STEPS`/rollen) NIET herschreven** — per baas 1-6 "steps_problems" in de JSON's (bv. Lura: Heroic
+  1 soak i.p.v. 2 sinds 16 jun; Chimaerus: Caustic Phlegm 12 vs 20 s). Volgende ronde, Rob kiest.
+- 🔲 **Volgende rondes (voorstel, Rob kiest):** morgen na 11:00 (weekreset) de 8 S2-M+-dungeons (28 bazen, ≈45% sessie)
+  + 14 delves (≈23%); de 8 andere dungeons (29 bazen, ≈48%) later.
+
 ## 📬 2 okt ochtend — mail van de site zit nu in de ochtendroutine; eerste 5 vragenlijsten binnen
 
 Rob: *"ik weet niet of we automatisch kijken in onze mail"*. GEMETEN: niemand keek (cloud-wachters hebben geen Gmail).
