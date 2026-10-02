@@ -15,6 +15,18 @@
   1 soak i.p.v. 2 sinds 16 jun; Chimaerus: Caustic Phlegm 12 vs 20 s). Volgende ronde, Rob kiest.
 - 🔲 **Volgende rondes (voorstel, Rob kiest):** morgen na 11:00 (weekreset) de 8 S2-M+-dungeons (28 bazen, ≈45% sessie)
   + 14 delves (≈23%); de 8 andere dungeons (29 bazen, ≈48%) later.
+- 🧪 **Fable vs Opus, Den of Nalorakk (2 okt, één helper per DUNGEON, brief `scratchpad/dgn_xhigh/BRIEF.md`):**
+  GEMETEN Fable 11,7 min/260k tokens (1 fout, 5 ontbreekt, 11 steps), Opus 16,5 min/293k (2 fout, 3 ontbreekt,
+  2 onzeker, 13 steps). Zelfde kernvondsten (Sentinel: oog van de storm 12.1; Nalorakk: Onslaught raakt sinds 12.1
+  de hele groep → healer-tip FOUT, slam-soak tank ontbreekt); elk 1-2 eigen vondsten. Oordeel: **Fable even goed**.
+  Per dungeon ≈ 100k/baas vs 204k/baas per baas (raid) — AFGELEID, dungeons kunnen simpeler zijn.
+  Rob-meter: Fable-pot 0→**3%**, week 62→63%, sessie 35→45% (±7% Opus volgens $; ±3% onverklaard, mogelijk Fable).
+  Uitvoer `dgn_xhigh/dn_fable.json` + `dn_opus.json` — **nog NIET toegepast**; morgen samenvoegen (beste regels van beide).
+- 🔲 **Plan 3 okt na 11:00 (Rob akkoord met voorstel):** VERSE chat; eerst 1 dungeon alleen op Fable met sessie-% vóór/na
+  (raakt Fable de sessie?); dan alle dungeons op Fable (`tips-xhigh` + `model: fable`), één helper per dungeon:
+  8 M+-dungeons → 14 delves → 8 overige. ⚠️ Een verse chat heeft een ándere scratchpad: de brief en de
+  Nalorakk-uitvoer staan in `C:\Users\RobHu\AppData\Local\Temp\claude\E--World-of-Warcraft--retail--Interface-AddOns\bce6ed51-8e43-40f6-af21-fb6760973c6f\scratchpad\dgn_xhigh\`
+  (raid-ronde: `...\raid_xhigh\`, met `apply.py`/`merge_new.py` als voorbeeld voor DungeonTips.lua + Translations2026.lua).
 
 ## 📬 2 okt ochtend — mail van de site zit nu in de ochtendroutine; eerste 5 vragenlijsten binnen
 
