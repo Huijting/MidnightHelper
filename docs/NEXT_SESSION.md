@@ -15,6 +15,12 @@
   `_COIL_QUICK` hebben in fr/es/pt/it geen waarde in DungeonTips.lua: die staan in `Translations2026.lua`.
 - 🔲 **Na 15:40 (sessiereset):** Murder Row + Kings' Rest op Fable; Den of Nalorakk samenvoegen (fable+opus);
   vertaalronde 5 talen; `check_drift --mark`; locale_probe; TESTLIJST; B (lange raidtips) en C (`NALOOP_LIJST.md`).
+- 🔲 **Nieuw, Rob akkoord met voorstel (2 okt):** beginnersuitleg *"Mythic+, from your first key"*. GEMETEN: MH heeft
+  niets over Group Finder / Premade Groups / aanmelden (`/mh mplus` toont alleen runs en score). Plan: Codex-hoofdstuk
+  (6 delen: wat is M+, eerste Keystone, aansluiten via I → Premade Groups, zelf groep + Font of Power, timer/deaths/
+  affixes, hulp + etiquette) + knop in `/mh mplus` bij 0 runs + sitegids. Eerst 1 helper die de 12.1-feiten uitzoekt
+  (eerste Keystone, +0 queue of niet, death-/timerstraf, S2-affixes, starter-ilvl; bronnen na 18 aug), dan
+  beoordelingspagina EN/NL → Robs ja → bouwen + 7 talen + site.
 - ⚠️ `Modules/KeybindingData.lua` stond al gewijzigd-ongecommit vóór deze chat; herkomst onbekend, NIET meegecommit.
 
 ## 🛡️ 2 okt — raidtips tweede ronde op extra high: 17 bazen, 37 sleutels × 7 talen ERIN
