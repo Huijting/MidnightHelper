@@ -7682,12 +7682,12 @@
    "ptBR": "d54f55835214d774"
   },
   "DGN_TIP_AF_COIL_QUICK": {
-   "deDE": "fe90c4825b0be33a",
-   "esES": "fe90c4825b0be33a",
-   "frFR": "fe90c4825b0be33a",
-   "itIT": "fe90c4825b0be33a",
-   "nlNL": "fe90c4825b0be33a",
-   "ptBR": "fe90c4825b0be33a"
+   "deDE": "d698b1085d2ef024",
+   "esES": "d698b1085d2ef024",
+   "frFR": "d698b1085d2ef024",
+   "itIT": "d698b1085d2ef024",
+   "nlNL": "d698b1085d2ef024",
+   "ptBR": "d698b1085d2ef024"
   },
   "DGN_TIP_AF_COIL_QUICK_DPS": {
    "deDE": "fc2651df5e489069",
@@ -7746,12 +7746,12 @@
    "ptBR": "64d3797442935353"
   },
   "DGN_TIP_AF_RAVI_QUICK": {
-   "deDE": "25c9506709743125",
-   "esES": "25c9506709743125",
-   "frFR": "25c9506709743125",
-   "itIT": "25c9506709743125",
-   "nlNL": "25c9506709743125",
-   "ptBR": "25c9506709743125"
+   "deDE": "383ad24b097a414b",
+   "esES": "383ad24b097a414b",
+   "frFR": "383ad24b097a414b",
+   "itIT": "383ad24b097a414b",
+   "nlNL": "383ad24b097a414b",
+   "ptBR": "383ad24b097a414b"
   },
   "DGN_TIP_AF_RAVI_QUICK_DPS": {
    "deDE": "831cc788be38032c",
@@ -7874,12 +7874,12 @@
    "ptBR": "073639333cd0c217"
   },
   "DGN_TIP_BV_IKUZZ_QUICK": {
-   "deDE": "82e86f8fbc67efd1",
-   "esES": "82e86f8fbc67efd1",
-   "frFR": "82e86f8fbc67efd1",
-   "itIT": "82e86f8fbc67efd1",
-   "nlNL": "82e86f8fbc67efd1",
-   "ptBR": "82e86f8fbc67efd1"
+   "deDE": "be812320cf85a6da",
+   "esES": "be812320cf85a6da",
+   "frFR": "be812320cf85a6da",
+   "itIT": "be812320cf85a6da",
+   "nlNL": "be812320cf85a6da",
+   "ptBR": "be812320cf85a6da"
   },
   "DGN_TIP_BV_IKUZZ_QUICK_DPS": {
    "deDE": "4c6282762a46b77d",
@@ -7938,12 +7938,12 @@
    "ptBR": "4db3b45f18c8940c"
   },
   "DGN_TIP_BV_RUIA_QUICK": {
-   "deDE": "1a3165002bdcde29",
-   "esES": "1a3165002bdcde29",
-   "frFR": "1a3165002bdcde29",
-   "itIT": "1a3165002bdcde29",
-   "nlNL": "1a3165002bdcde29",
-   "ptBR": "1a3165002bdcde29"
+   "deDE": "d7efe9b178025b36",
+   "esES": "d7efe9b178025b36",
+   "frFR": "d7efe9b178025b36",
+   "itIT": "d7efe9b178025b36",
+   "nlNL": "d7efe9b178025b36",
+   "ptBR": "d7efe9b178025b36"
   },
   "DGN_TIP_BV_RUIA_QUICK_DPS": {
    "deDE": "a9278cddf1990db1",
@@ -8066,12 +8066,12 @@
    "ptBR": "e49b81c786e30f4c"
   },
   "DGN_TIP_BV_ZIEKKET_QUICK": {
-   "deDE": "9d5dd0881399ff5d",
-   "esES": "9d5dd0881399ff5d",
-   "frFR": "9d5dd0881399ff5d",
-   "itIT": "9d5dd0881399ff5d",
-   "nlNL": "9d5dd0881399ff5d",
-   "ptBR": "9d5dd0881399ff5d"
+   "deDE": "71bbfeb025d63f76",
+   "esES": "71bbfeb025d63f76",
+   "frFR": "71bbfeb025d63f76",
+   "itIT": "71bbfeb025d63f76",
+   "nlNL": "71bbfeb025d63f76",
+   "ptBR": "71bbfeb025d63f76"
   },
   "DGN_TIP_BV_ZIEKKET_QUICK_DPS": {
    "deDE": "1a88f3f5385173e2",
@@ -8194,12 +8194,12 @@
    "ptBR": "ce27a6ab77e5374d"
   },
   "DGN_TIP_DN_NALORAKK_QUICK": {
-   "deDE": "426de1745ee31eab",
-   "esES": "426de1745ee31eab",
-   "frFR": "426de1745ee31eab",
-   "itIT": "426de1745ee31eab",
-   "nlNL": "426de1745ee31eab",
-   "ptBR": "426de1745ee31eab"
+   "deDE": "f8022b581436f645",
+   "esES": "f8022b581436f645",
+   "frFR": "f8022b581436f645",
+   "itIT": "f8022b581436f645",
+   "nlNL": "f8022b581436f645",
+   "ptBR": "f8022b581436f645"
   },
   "DGN_TIP_DN_NALORAKK_QUICK_DPS": {
    "deDE": "7f61d27227f2ea75",
@@ -8210,20 +8210,20 @@
    "ptBR": "7f61d27227f2ea75"
   },
   "DGN_TIP_DN_NALORAKK_QUICK_HEALER": {
-   "deDE": "f709f6d99e80412c",
-   "esES": "f709f6d99e80412c",
-   "frFR": "f709f6d99e80412c",
-   "itIT": "f709f6d99e80412c",
-   "nlNL": "f709f6d99e80412c",
-   "ptBR": "f709f6d99e80412c"
+   "deDE": "1163340df505ca2d",
+   "esES": "1163340df505ca2d",
+   "frFR": "1163340df505ca2d",
+   "itIT": "1163340df505ca2d",
+   "nlNL": "1163340df505ca2d",
+   "ptBR": "1163340df505ca2d"
   },
   "DGN_TIP_DN_NALORAKK_QUICK_TANK": {
-   "deDE": "e88ecef0b2a38047",
-   "esES": "e88ecef0b2a38047",
-   "frFR": "e88ecef0b2a38047",
-   "itIT": "e88ecef0b2a38047",
-   "nlNL": "e88ecef0b2a38047",
-   "ptBR": "e88ecef0b2a38047"
+   "deDE": "6be03e8809ca8df7",
+   "esES": "6be03e8809ca8df7",
+   "frFR": "6be03e8809ca8df7",
+   "itIT": "6be03e8809ca8df7",
+   "nlNL": "6be03e8809ca8df7",
+   "ptBR": "6be03e8809ca8df7"
   },
   "DGN_TIP_DN_NALORAKK_STEPS": {
    "deDE": "8293fc72ba21427e",
@@ -8258,20 +8258,20 @@
    "ptBR": "e689ec022a534059"
   },
   "DGN_TIP_DN_SENTINEL_QUICK": {
-   "deDE": "e8b795c7d5be1b50",
-   "esES": "e8b795c7d5be1b50",
-   "frFR": "e8b795c7d5be1b50",
-   "itIT": "e8b795c7d5be1b50",
-   "nlNL": "e8b795c7d5be1b50",
-   "ptBR": "e8b795c7d5be1b50"
+   "deDE": "003826a4550f6950",
+   "esES": "003826a4550f6950",
+   "frFR": "003826a4550f6950",
+   "itIT": "003826a4550f6950",
+   "nlNL": "003826a4550f6950",
+   "ptBR": "003826a4550f6950"
   },
   "DGN_TIP_DN_SENTINEL_QUICK_DPS": {
-   "deDE": "9801c54502f33d29",
-   "esES": "9801c54502f33d29",
-   "frFR": "9801c54502f33d29",
-   "itIT": "9801c54502f33d29",
-   "nlNL": "9801c54502f33d29",
-   "ptBR": "9801c54502f33d29"
+   "deDE": "61807f0ce0ed99e1",
+   "esES": "61807f0ce0ed99e1",
+   "frFR": "61807f0ce0ed99e1",
+   "itIT": "61807f0ce0ed99e1",
+   "nlNL": "61807f0ce0ed99e1",
+   "ptBR": "61807f0ce0ed99e1"
   },
   "DGN_TIP_DN_SENTINEL_QUICK_HEALER": {
    "deDE": "06cd227b59410333",
@@ -8282,12 +8282,12 @@
    "ptBR": "06cd227b59410333"
   },
   "DGN_TIP_DN_SENTINEL_QUICK_TANK": {
-   "deDE": "1837e0ba9f1bc9fb",
-   "esES": "1837e0ba9f1bc9fb",
-   "frFR": "1837e0ba9f1bc9fb",
-   "itIT": "1837e0ba9f1bc9fb",
-   "nlNL": "1837e0ba9f1bc9fb",
-   "ptBR": "1837e0ba9f1bc9fb"
+   "deDE": "5261e32ce10cadea",
+   "esES": "5261e32ce10cadea",
+   "frFR": "5261e32ce10cadea",
+   "itIT": "5261e32ce10cadea",
+   "nlNL": "5261e32ce10cadea",
+   "ptBR": "5261e32ce10cadea"
   },
   "DGN_TIP_DN_SENTINEL_STEPS": {
    "deDE": "a52a75a037ebe424",
@@ -8386,12 +8386,12 @@
    "ptBR": "4303875375cf9e0f"
   },
   "DGN_TIP_KR_DAZAR_QUICK": {
-   "deDE": "8a8df8c0d282848c",
-   "esES": "8a8df8c0d282848c",
-   "frFR": "8a8df8c0d282848c",
-   "itIT": "8a8df8c0d282848c",
-   "nlNL": "8a8df8c0d282848c",
-   "ptBR": "8a8df8c0d282848c"
+   "deDE": "07901d801c78b52c",
+   "esES": "07901d801c78b52c",
+   "frFR": "07901d801c78b52c",
+   "itIT": "07901d801c78b52c",
+   "nlNL": "07901d801c78b52c",
+   "ptBR": "07901d801c78b52c"
   },
   "DGN_TIP_KR_DAZAR_QUICK_DPS": {
    "deDE": "582566cfb498765e",
@@ -8450,12 +8450,12 @@
    "ptBR": "db2d41e3b1369cc6"
   },
   "DGN_TIP_KR_MCHIMBA_QUICK": {
-   "deDE": "5a707dff89311b09",
-   "esES": "5a707dff89311b09",
-   "frFR": "5a707dff89311b09",
-   "itIT": "5a707dff89311b09",
-   "nlNL": "5a707dff89311b09",
-   "ptBR": "5a707dff89311b09"
+   "deDE": "c126eaeadb5df3d4",
+   "esES": "c126eaeadb5df3d4",
+   "frFR": "c126eaeadb5df3d4",
+   "itIT": "c126eaeadb5df3d4",
+   "nlNL": "c126eaeadb5df3d4",
+   "ptBR": "c126eaeadb5df3d4"
   },
   "DGN_TIP_KR_MCHIMBA_QUICK_DPS": {
    "deDE": "2e2a143d76597df0",
@@ -8922,12 +8922,12 @@
    "ptBR": "f03139e6d0f6673c"
   },
   "DGN_TIP_MR_XATHUUX_QUICK_TANK": {
-   "deDE": "f45e86320384dde4",
-   "esES": "f45e86320384dde4",
-   "frFR": "f45e86320384dde4",
-   "itIT": "f45e86320384dde4",
-   "nlNL": "f45e86320384dde4",
-   "ptBR": "f45e86320384dde4"
+   "deDE": "4049aaa557f8b45a",
+   "esES": "4049aaa557f8b45a",
+   "frFR": "4049aaa557f8b45a",
+   "itIT": "4049aaa557f8b45a",
+   "nlNL": "4049aaa557f8b45a",
+   "ptBR": "4049aaa557f8b45a"
   },
   "DGN_TIP_MR_XATHUUX_STEPS": {
    "deDE": "cd8827804059105d",
@@ -8962,12 +8962,12 @@
    "ptBR": "0c92d63956a48b40"
   },
   "DGN_TIP_MR_ZAEN_QUICK": {
-   "deDE": "d2faab195adc1014",
-   "esES": "d2faab195adc1014",
-   "frFR": "d2faab195adc1014",
-   "itIT": "d2faab195adc1014",
-   "nlNL": "d2faab195adc1014",
-   "ptBR": "d2faab195adc1014"
+   "deDE": "d8c1fe12b9f2f7e2",
+   "esES": "d8c1fe12b9f2f7e2",
+   "frFR": "d8c1fe12b9f2f7e2",
+   "itIT": "d8c1fe12b9f2f7e2",
+   "nlNL": "d8c1fe12b9f2f7e2",
+   "ptBR": "d8c1fe12b9f2f7e2"
   },
   "DGN_TIP_MR_ZAEN_QUICK_DPS": {
    "deDE": "343b06b672951d97",
@@ -9666,12 +9666,12 @@
    "ptBR": "328b8af817685c53"
   },
   "DGN_TIP_RL_KOKIA_QUICK": {
-   "deDE": "4e49ca81f75f23ff",
-   "esES": "4e49ca81f75f23ff",
-   "frFR": "4e49ca81f75f23ff",
-   "itIT": "4e49ca81f75f23ff",
-   "nlNL": "4e49ca81f75f23ff",
-   "ptBR": "4e49ca81f75f23ff"
+   "deDE": "a81edc86971fefff",
+   "esES": "a81edc86971fefff",
+   "frFR": "a81edc86971fefff",
+   "itIT": "a81edc86971fefff",
+   "nlNL": "a81edc86971fefff",
+   "ptBR": "a81edc86971fefff"
   },
   "DGN_TIP_RL_KOKIA_QUICK_DPS": {
    "deDE": "98037adec5648f13",
@@ -9682,12 +9682,12 @@
    "ptBR": "98037adec5648f13"
   },
   "DGN_TIP_RL_KOKIA_QUICK_HEALER": {
-   "deDE": "ea712771828e9e74",
-   "esES": "ea712771828e9e74",
-   "frFR": "ea712771828e9e74",
-   "itIT": "ea712771828e9e74",
-   "nlNL": "ea712771828e9e74",
-   "ptBR": "ea712771828e9e74"
+   "deDE": "953edd7147e13ea2",
+   "esES": "953edd7147e13ea2",
+   "frFR": "953edd7147e13ea2",
+   "itIT": "953edd7147e13ea2",
+   "nlNL": "953edd7147e13ea2",
+   "ptBR": "953edd7147e13ea2"
   },
   "DGN_TIP_RL_KOKIA_QUICK_TANK": {
    "deDE": "187c245c5a69df6b",
@@ -9810,12 +9810,12 @@
    "ptBR": "7ba18fc3a1a3f610"
   },
   "DGN_TIP_RL_MELIDRUSSA_QUICK_HEALER": {
-   "deDE": "3c1e079272edd558",
-   "esES": "3c1e079272edd558",
-   "frFR": "3c1e079272edd558",
-   "itIT": "3c1e079272edd558",
-   "nlNL": "3c1e079272edd558",
-   "ptBR": "3c1e079272edd558"
+   "deDE": "30c85257d00665b9",
+   "esES": "30c85257d00665b9",
+   "frFR": "30c85257d00665b9",
+   "itIT": "30c85257d00665b9",
+   "nlNL": "30c85257d00665b9",
+   "ptBR": "30c85257d00665b9"
   },
   "DGN_TIP_RL_MELIDRUSSA_QUICK_TANK": {
    "deDE": "553937ba4ad10b6c",
@@ -10370,12 +10370,12 @@
    "ptBR": "28da63a3f5e21573"
   },
   "DGN_TIP_TS_ADDERIS_QUICK": {
-   "deDE": "e1f4e9c6bb1df34a",
-   "esES": "e1f4e9c6bb1df34a",
-   "frFR": "e1f4e9c6bb1df34a",
-   "itIT": "e1f4e9c6bb1df34a",
-   "nlNL": "e1f4e9c6bb1df34a",
-   "ptBR": "e1f4e9c6bb1df34a"
+   "deDE": "7cbaa896f14395a5",
+   "esES": "7cbaa896f14395a5",
+   "frFR": "7cbaa896f14395a5",
+   "itIT": "7cbaa896f14395a5",
+   "nlNL": "7cbaa896f14395a5",
+   "ptBR": "7cbaa896f14395a5"
   },
   "DGN_TIP_TS_ADDERIS_QUICK_DPS": {
    "deDE": "9e4e4b3fbf872624",
@@ -10434,12 +10434,12 @@
    "ptBR": "dbd7b57b26e5ebc0"
   },
   "DGN_TIP_TS_AVATAR_QUICK": {
-   "deDE": "5e58151026dbb893",
-   "esES": "5e58151026dbb893",
-   "frFR": "5e58151026dbb893",
-   "itIT": "5e58151026dbb893",
-   "nlNL": "5e58151026dbb893",
-   "ptBR": "5e58151026dbb893"
+   "deDE": "bd3ae4c4d4a906cf",
+   "esES": "bd3ae4c4d4a906cf",
+   "frFR": "bd3ae4c4d4a906cf",
+   "itIT": "bd3ae4c4d4a906cf",
+   "nlNL": "bd3ae4c4d4a906cf",
+   "ptBR": "bd3ae4c4d4a906cf"
   },
   "DGN_TIP_TS_AVATAR_QUICK_DPS": {
    "deDE": "10b4ee6db17d7a90",
@@ -10498,12 +10498,12 @@
    "ptBR": "bcbe0dc5eeb7b251"
   },
   "DGN_TIP_TS_GALVAZZT_QUICK": {
-   "deDE": "ca9a1369328c3bf1",
-   "esES": "ca9a1369328c3bf1",
-   "frFR": "ca9a1369328c3bf1",
-   "itIT": "ca9a1369328c3bf1",
-   "nlNL": "ca9a1369328c3bf1",
-   "ptBR": "ca9a1369328c3bf1"
+   "deDE": "2535b5d74910fe88",
+   "esES": "2535b5d74910fe88",
+   "frFR": "2535b5d74910fe88",
+   "itIT": "2535b5d74910fe88",
+   "nlNL": "2535b5d74910fe88",
+   "ptBR": "2535b5d74910fe88"
   },
   "DGN_TIP_TS_GALVAZZT_QUICK_DPS": {
    "deDE": "608acdd868fbe9bc",
@@ -10562,12 +10562,12 @@
    "ptBR": "94ce5e63e2608e50"
   },
   "DGN_TIP_TS_MEREKTHA_QUICK": {
-   "deDE": "3b522f00bba4f863",
-   "esES": "3b522f00bba4f863",
-   "frFR": "3b522f00bba4f863",
-   "itIT": "3b522f00bba4f863",
-   "nlNL": "3b522f00bba4f863",
-   "ptBR": "3b522f00bba4f863"
+   "deDE": "90fbafa428dfa5f9",
+   "esES": "90fbafa428dfa5f9",
+   "frFR": "90fbafa428dfa5f9",
+   "itIT": "90fbafa428dfa5f9",
+   "nlNL": "90fbafa428dfa5f9",
+   "ptBR": "90fbafa428dfa5f9"
   },
   "DGN_TIP_TS_MEREKTHA_QUICK_DPS": {
    "deDE": "b5023bce639f7903",
@@ -10690,12 +10690,12 @@
    "ptBR": "3d5a94e6205edb41"
   },
   "DGN_TIP_VA_CHARONUS_QUICK": {
-   "deDE": "54792eb83f9e58fa",
-   "esES": "54792eb83f9e58fa",
-   "frFR": "54792eb83f9e58fa",
-   "itIT": "54792eb83f9e58fa",
-   "nlNL": "54792eb83f9e58fa",
-   "ptBR": "54792eb83f9e58fa"
+   "deDE": "39f3ae15a817b87f",
+   "esES": "39f3ae15a817b87f",
+   "frFR": "39f3ae15a817b87f",
+   "itIT": "39f3ae15a817b87f",
+   "nlNL": "39f3ae15a817b87f",
+   "ptBR": "39f3ae15a817b87f"
   },
   "DGN_TIP_VA_CHARONUS_QUICK_DPS": {
    "deDE": "fa16b652e60833ff",
@@ -19565,20 +19565,20 @@
    "ptBR": "d2b3b7a2e0936081"
   },
   "RAID_BOSS_AVERZIAN_DPS": {
-   "deDE": "24de8a534c17a7a3",
-   "esES": "24de8a534c17a7a3",
-   "frFR": "24de8a534c17a7a3",
-   "itIT": "24de8a534c17a7a3",
-   "nlNL": "24de8a534c17a7a3",
-   "ptBR": "24de8a534c17a7a3"
+   "deDE": "1aba4c9057759a09",
+   "esES": "1aba4c9057759a09",
+   "frFR": "1aba4c9057759a09",
+   "itIT": "1aba4c9057759a09",
+   "nlNL": "1aba4c9057759a09",
+   "ptBR": "1aba4c9057759a09"
   },
   "RAID_BOSS_AVERZIAN_HEALER": {
-   "deDE": "ff8e913a4f0ac160",
-   "esES": "ff8e913a4f0ac160",
-   "frFR": "ff8e913a4f0ac160",
-   "itIT": "ff8e913a4f0ac160",
-   "nlNL": "ff8e913a4f0ac160",
-   "ptBR": "ff8e913a4f0ac160"
+   "deDE": "66b80de0ec452751",
+   "esES": "66b80de0ec452751",
+   "frFR": "66b80de0ec452751",
+   "itIT": "66b80de0ec452751",
+   "nlNL": "66b80de0ec452751",
+   "ptBR": "66b80de0ec452751"
   },
   "RAID_BOSS_AVERZIAN_QUICK": {
    "deDE": "ee79517f0142e3cd",
@@ -19613,12 +19613,12 @@
    "ptBR": "077dbf0d4aa5aeed"
   },
   "RAID_BOSS_AVERZIAN_STEPS": {
-   "deDE": "34fae00487babb12",
-   "esES": "34fae00487babb12",
-   "frFR": "34fae00487babb12",
-   "itIT": "34fae00487babb12",
-   "nlNL": "34fae00487babb12",
-   "ptBR": "34fae00487babb12"
+   "deDE": "286ae207d6c92887",
+   "esES": "286ae207d6c92887",
+   "frFR": "286ae207d6c92887",
+   "itIT": "286ae207d6c92887",
+   "nlNL": "286ae207d6c92887",
+   "ptBR": "286ae207d6c92887"
   },
   "RAID_BOSS_AVERZIAN_TANK": {
    "deDE": "c3760d0951ba3727",
@@ -19677,12 +19677,12 @@
    "ptBR": "177008c9a30f7017"
   },
   "RAID_BOSS_BELOREN_STEPS": {
-   "deDE": "7bdec55b6ccdd4e2",
-   "esES": "7bdec55b6ccdd4e2",
-   "frFR": "7bdec55b6ccdd4e2",
-   "itIT": "7bdec55b6ccdd4e2",
-   "nlNL": "7bdec55b6ccdd4e2",
-   "ptBR": "7bdec55b6ccdd4e2"
+   "deDE": "18c3c856b1426f77",
+   "esES": "18c3c856b1426f77",
+   "frFR": "18c3c856b1426f77",
+   "itIT": "18c3c856b1426f77",
+   "nlNL": "18c3c856b1426f77",
+   "ptBR": "18c3c856b1426f77"
   },
   "RAID_BOSS_BELOREN_TANK": {
    "deDE": "2a425930b58faaf5",
@@ -19805,12 +19805,12 @@
    "ptBR": "29af0fe7546bb9e7"
   },
   "RAID_BOSS_COILEDALTAR_STEPS": {
-   "deDE": "77aa9f9a381e4196",
-   "esES": "77aa9f9a381e4196",
-   "frFR": "77aa9f9a381e4196",
-   "itIT": "77aa9f9a381e4196",
-   "nlNL": "77aa9f9a381e4196",
-   "ptBR": "77aa9f9a381e4196"
+   "deDE": "6686311530fefed7",
+   "esES": "6686311530fefed7",
+   "frFR": "6686311530fefed7",
+   "itIT": "6686311530fefed7",
+   "nlNL": "6686311530fefed7",
+   "ptBR": "6686311530fefed7"
   },
   "RAID_BOSS_COILEDALTAR_TANK": {
    "deDE": "91219df8b4aefb74",
@@ -19869,20 +19869,20 @@
    "ptBR": "a5e8f0645ce39298"
   },
   "RAID_BOSS_CROWN_STEPS": {
-   "deDE": "175984c4090970b6",
-   "esES": "175984c4090970b6",
-   "frFR": "175984c4090970b6",
-   "itIT": "175984c4090970b6",
-   "nlNL": "175984c4090970b6",
-   "ptBR": "175984c4090970b6"
+   "deDE": "b8b91911db724fc9",
+   "esES": "b8b91911db724fc9",
+   "frFR": "b8b91911db724fc9",
+   "itIT": "b8b91911db724fc9",
+   "nlNL": "b8b91911db724fc9",
+   "ptBR": "b8b91911db724fc9"
   },
   "RAID_BOSS_CROWN_TANK": {
-   "deDE": "e26e4ba176f3e1e9",
-   "esES": "e26e4ba176f3e1e9",
-   "frFR": "e26e4ba176f3e1e9",
-   "itIT": "e26e4ba176f3e1e9",
-   "nlNL": "e26e4ba176f3e1e9",
-   "ptBR": "e26e4ba176f3e1e9"
+   "deDE": "d8eac8697151338c",
+   "esES": "d8eac8697151338c",
+   "frFR": "d8eac8697151338c",
+   "itIT": "d8eac8697151338c",
+   "nlNL": "d8eac8697151338c",
+   "ptBR": "d8eac8697151338c"
   },
   "RAID_BOSS_ENTOMBEDSENT_DPS": {
    "deDE": "4c8c42ca306e7a7f",
@@ -19933,28 +19933,28 @@
    "ptBR": "887a0e7fbb2d83c5"
   },
   "RAID_BOSS_ENTOMBEDSENT_STEPS": {
-   "deDE": "84e8c6a3b3822d36",
-   "esES": "84e8c6a3b3822d36",
-   "frFR": "84e8c6a3b3822d36",
-   "itIT": "84e8c6a3b3822d36",
-   "nlNL": "84e8c6a3b3822d36",
-   "ptBR": "84e8c6a3b3822d36"
+   "deDE": "a7f7f57346124e2c",
+   "esES": "a7f7f57346124e2c",
+   "frFR": "a7f7f57346124e2c",
+   "itIT": "a7f7f57346124e2c",
+   "nlNL": "a7f7f57346124e2c",
+   "ptBR": "a7f7f57346124e2c"
   },
   "RAID_BOSS_ENTOMBEDSENT_TANK": {
-   "deDE": "f799d943b81dcaa6",
-   "esES": "f799d943b81dcaa6",
-   "frFR": "f799d943b81dcaa6",
-   "itIT": "f799d943b81dcaa6",
-   "nlNL": "f799d943b81dcaa6",
-   "ptBR": "f799d943b81dcaa6"
+   "deDE": "2f72b86bb7bb189c",
+   "esES": "2f72b86bb7bb189c",
+   "frFR": "2f72b86bb7bb189c",
+   "itIT": "2f72b86bb7bb189c",
+   "nlNL": "2f72b86bb7bb189c",
+   "ptBR": "2f72b86bb7bb189c"
   },
   "RAID_BOSS_LOSTEXPLORERS_DPS": {
-   "deDE": "d8d2379b35848679",
-   "esES": "d8d2379b35848679",
-   "frFR": "d8d2379b35848679",
-   "itIT": "d8d2379b35848679",
-   "nlNL": "d8d2379b35848679",
-   "ptBR": "d8d2379b35848679"
+   "deDE": "fb9e57a0294176f7",
+   "esES": "fb9e57a0294176f7",
+   "frFR": "fb9e57a0294176f7",
+   "itIT": "fb9e57a0294176f7",
+   "nlNL": "fb9e57a0294176f7",
+   "ptBR": "fb9e57a0294176f7"
   },
   "RAID_BOSS_LOSTEXPLORERS_HEALER": {
    "deDE": "94f38083030ad591",
@@ -20013,12 +20013,12 @@
    "ptBR": "0c3978b6f6f2fd47"
   },
   "RAID_BOSS_LURA_DPS": {
-   "deDE": "854792d7fb944f70",
-   "esES": "854792d7fb944f70",
-   "frFR": "854792d7fb944f70",
-   "itIT": "854792d7fb944f70",
-   "nlNL": "854792d7fb944f70",
-   "ptBR": "854792d7fb944f70"
+   "deDE": "cdaadec029cd752e",
+   "esES": "cdaadec029cd752e",
+   "frFR": "cdaadec029cd752e",
+   "itIT": "cdaadec029cd752e",
+   "nlNL": "cdaadec029cd752e",
+   "ptBR": "cdaadec029cd752e"
   },
   "RAID_BOSS_LURA_HEALER": {
    "deDE": "e10a1d60b9ec3af4",
@@ -20061,12 +20061,12 @@
    "ptBR": "b2afd809c70e5d08"
   },
   "RAID_BOSS_LURA_STEPS": {
-   "deDE": "fe97359503b915c8",
-   "esES": "fe97359503b915c8",
-   "frFR": "fe97359503b915c8",
-   "itIT": "fe97359503b915c8",
-   "nlNL": "fe97359503b915c8",
-   "ptBR": "fe97359503b915c8"
+   "deDE": "1ce8e410accf420c",
+   "esES": "1ce8e410accf420c",
+   "frFR": "1ce8e410accf420c",
+   "itIT": "1ce8e410accf420c",
+   "nlNL": "1ce8e410accf420c",
+   "ptBR": "1ce8e410accf420c"
   },
   "RAID_BOSS_LURA_TANK": {
    "deDE": "4c4351b10836b1c1",
@@ -20077,12 +20077,12 @@
    "ptBR": "4c4351b10836b1c1"
   },
   "RAID_BOSS_NEKZALI_DPS": {
-   "deDE": "2172b6c34ed846db",
-   "esES": "2172b6c34ed846db",
-   "frFR": "2172b6c34ed846db",
-   "itIT": "2172b6c34ed846db",
-   "nlNL": "2172b6c34ed846db",
-   "ptBR": "2172b6c34ed846db"
+   "deDE": "b0daa4c1263e6c9a",
+   "esES": "b0daa4c1263e6c9a",
+   "frFR": "b0daa4c1263e6c9a",
+   "itIT": "b0daa4c1263e6c9a",
+   "nlNL": "b0daa4c1263e6c9a",
+   "ptBR": "b0daa4c1263e6c9a"
   },
   "RAID_BOSS_NEKZALI_HEALER": {
    "deDE": "12179f0eb6ec4c7d",
@@ -20133,12 +20133,12 @@
    "ptBR": "91f6ee93a6072acb"
   },
   "RAID_BOSS_NEKZALI_TANK": {
-   "deDE": "b48c31b857f6c46a",
-   "esES": "b48c31b857f6c46a",
-   "frFR": "b48c31b857f6c46a",
-   "itIT": "b48c31b857f6c46a",
-   "nlNL": "b48c31b857f6c46a",
-   "ptBR": "b48c31b857f6c46a"
+   "deDE": "655e1ac873fae90a",
+   "esES": "655e1ac873fae90a",
+   "frFR": "655e1ac873fae90a",
+   "itIT": "655e1ac873fae90a",
+   "nlNL": "655e1ac873fae90a",
+   "ptBR": "655e1ac873fae90a"
   },
   "RAID_BOSS_NYMRISSA_DPS": {
    "deDE": "15d74db56b3a8e04",
@@ -20237,12 +20237,12 @@
    "ptBR": "568a0e0e14e99c5a"
   },
   "RAID_BOSS_SALHADAAR_DPS": {
-   "deDE": "2581362b41b7a2ab",
-   "esES": "2581362b41b7a2ab",
-   "frFR": "2581362b41b7a2ab",
-   "itIT": "2581362b41b7a2ab",
-   "nlNL": "2581362b41b7a2ab",
-   "ptBR": "2581362b41b7a2ab"
+   "deDE": "259549a06cc71487",
+   "esES": "259549a06cc71487",
+   "frFR": "259549a06cc71487",
+   "itIT": "259549a06cc71487",
+   "nlNL": "259549a06cc71487",
+   "ptBR": "259549a06cc71487"
   },
   "RAID_BOSS_SALHADAAR_HEALER": {
    "deDE": "166f44c9f1e1e9d1",
@@ -20309,12 +20309,12 @@
    "ptBR": "8942bdb47d77b37b"
   },
   "RAID_BOSS_SSZORAK_HEALER": {
-   "deDE": "cd60e92725e679bd",
-   "esES": "cd60e92725e679bd",
-   "frFR": "cd60e92725e679bd",
-   "itIT": "cd60e92725e679bd",
-   "nlNL": "cd60e92725e679bd",
-   "ptBR": "cd60e92725e679bd"
+   "deDE": "a9b52e401b71cf2b",
+   "esES": "a9b52e401b71cf2b",
+   "frFR": "a9b52e401b71cf2b",
+   "itIT": "a9b52e401b71cf2b",
+   "nlNL": "a9b52e401b71cf2b",
+   "ptBR": "a9b52e401b71cf2b"
   },
   "RAID_BOSS_SSZORAK_QUICK": {
    "deDE": "c7c909f9550832dd",
@@ -20349,20 +20349,20 @@
    "ptBR": "4b3b202e949f5f14"
   },
   "RAID_BOSS_SSZORAK_STEPS": {
-   "deDE": "068a3227577654e3",
-   "esES": "068a3227577654e3",
-   "frFR": "068a3227577654e3",
-   "itIT": "068a3227577654e3",
-   "nlNL": "068a3227577654e3",
-   "ptBR": "068a3227577654e3"
+   "deDE": "b3a226227e4aade4",
+   "esES": "b3a226227e4aade4",
+   "frFR": "b3a226227e4aade4",
+   "itIT": "b3a226227e4aade4",
+   "nlNL": "b3a226227e4aade4",
+   "ptBR": "b3a226227e4aade4"
   },
   "RAID_BOSS_SSZORAK_TANK": {
-   "deDE": "5cb885a42ea69d0a",
-   "esES": "5cb885a42ea69d0a",
-   "frFR": "5cb885a42ea69d0a",
-   "itIT": "5cb885a42ea69d0a",
-   "nlNL": "5cb885a42ea69d0a",
-   "ptBR": "5cb885a42ea69d0a"
+   "deDE": "59afdad7debbf8c4",
+   "esES": "59afdad7debbf8c4",
+   "frFR": "59afdad7debbf8c4",
+   "itIT": "59afdad7debbf8c4",
+   "nlNL": "59afdad7debbf8c4",
+   "ptBR": "59afdad7debbf8c4"
   },
   "RAID_BOSS_TWINFANGS_DPS": {
    "deDE": "501b9562714deecf",
@@ -20413,12 +20413,12 @@
    "ptBR": "00938d9f3995cca4"
   },
   "RAID_BOSS_TWINFANGS_STEPS": {
-   "deDE": "0b83b8c21c32e9f5",
-   "esES": "0b83b8c21c32e9f5",
-   "frFR": "0b83b8c21c32e9f5",
-   "itIT": "0b83b8c21c32e9f5",
-   "nlNL": "0b83b8c21c32e9f5",
-   "ptBR": "0b83b8c21c32e9f5"
+   "deDE": "2a4e36ba16885d8a",
+   "esES": "2a4e36ba16885d8a",
+   "frFR": "2a4e36ba16885d8a",
+   "itIT": "2a4e36ba16885d8a",
+   "nlNL": "2a4e36ba16885d8a",
+   "ptBR": "2a4e36ba16885d8a"
   },
   "RAID_BOSS_TWINFANGS_TANK": {
    "deDE": "423dddbeb3fe865d",
@@ -20437,12 +20437,12 @@
    "ptBR": "16daf11cd142cfb9"
   },
   "RAID_BOSS_ULATEK_HEALER": {
-   "deDE": "6c43085d49f082d0",
-   "esES": "6c43085d49f082d0",
-   "frFR": "6c43085d49f082d0",
-   "itIT": "6c43085d49f082d0",
-   "nlNL": "6c43085d49f082d0",
-   "ptBR": "6c43085d49f082d0"
+   "deDE": "1e54d1c66c2d77f3",
+   "esES": "1e54d1c66c2d77f3",
+   "frFR": "1e54d1c66c2d77f3",
+   "itIT": "1e54d1c66c2d77f3",
+   "nlNL": "1e54d1c66c2d77f3",
+   "ptBR": "1e54d1c66c2d77f3"
   },
   "RAID_BOSS_ULATEK_QUICK": {
    "deDE": "92c5a0061dd00826",
@@ -20493,20 +20493,20 @@
    "ptBR": "028b035a7afe4e4c"
   },
   "RAID_BOSS_VAELGOR_DPS": {
-   "deDE": "05a231c744ac1796",
-   "esES": "05a231c744ac1796",
-   "frFR": "05a231c744ac1796",
-   "itIT": "05a231c744ac1796",
-   "nlNL": "05a231c744ac1796",
-   "ptBR": "05a231c744ac1796"
+   "deDE": "ed80367ad5b80251",
+   "esES": "ed80367ad5b80251",
+   "frFR": "ed80367ad5b80251",
+   "itIT": "ed80367ad5b80251",
+   "nlNL": "ed80367ad5b80251",
+   "ptBR": "ed80367ad5b80251"
   },
   "RAID_BOSS_VAELGOR_HEALER": {
-   "deDE": "0fe23ae444d86fed",
-   "esES": "0fe23ae444d86fed",
-   "frFR": "0fe23ae444d86fed",
-   "itIT": "0fe23ae444d86fed",
-   "nlNL": "0fe23ae444d86fed",
-   "ptBR": "0fe23ae444d86fed"
+   "deDE": "ed02da50642d79ee",
+   "esES": "ed02da50642d79ee",
+   "frFR": "ed02da50642d79ee",
+   "itIT": "ed02da50642d79ee",
+   "nlNL": "ed02da50642d79ee",
+   "ptBR": "ed02da50642d79ee"
   },
   "RAID_BOSS_VAELGOR_QUICK": {
    "deDE": "e938823d1b0607f5",
@@ -20541,36 +20541,36 @@
    "ptBR": "bf803e8e73ac50b6"
   },
   "RAID_BOSS_VAELGOR_STEPS": {
-   "deDE": "92442e259923c695",
-   "esES": "92442e259923c695",
-   "frFR": "92442e259923c695",
-   "itIT": "92442e259923c695",
-   "nlNL": "92442e259923c695",
-   "ptBR": "92442e259923c695"
+   "deDE": "0161b8f956dbed18",
+   "esES": "0161b8f956dbed18",
+   "frFR": "0161b8f956dbed18",
+   "itIT": "0161b8f956dbed18",
+   "nlNL": "0161b8f956dbed18",
+   "ptBR": "0161b8f956dbed18"
   },
   "RAID_BOSS_VAELGOR_TANK": {
-   "deDE": "5eb6b44beb5dca58",
-   "esES": "5eb6b44beb5dca58",
-   "frFR": "5eb6b44beb5dca58",
-   "itIT": "5eb6b44beb5dca58",
-   "nlNL": "5eb6b44beb5dca58",
-   "ptBR": "5eb6b44beb5dca58"
+   "deDE": "3e5f8038cb63a881",
+   "esES": "3e5f8038cb63a881",
+   "frFR": "3e5f8038cb63a881",
+   "itIT": "3e5f8038cb63a881",
+   "nlNL": "3e5f8038cb63a881",
+   "ptBR": "3e5f8038cb63a881"
   },
   "RAID_BOSS_VANGUARD_DPS": {
-   "deDE": "00c6aa05d051fd91",
-   "esES": "00c6aa05d051fd91",
-   "frFR": "00c6aa05d051fd91",
-   "itIT": "00c6aa05d051fd91",
-   "nlNL": "00c6aa05d051fd91",
-   "ptBR": "00c6aa05d051fd91"
+   "deDE": "5a7ee520c1354366",
+   "esES": "5a7ee520c1354366",
+   "frFR": "5a7ee520c1354366",
+   "itIT": "5a7ee520c1354366",
+   "nlNL": "5a7ee520c1354366",
+   "ptBR": "5a7ee520c1354366"
   },
   "RAID_BOSS_VANGUARD_HEALER": {
-   "deDE": "8057426f44dfb81e",
-   "esES": "8057426f44dfb81e",
-   "frFR": "8057426f44dfb81e",
-   "itIT": "8057426f44dfb81e",
-   "nlNL": "8057426f44dfb81e",
-   "ptBR": "8057426f44dfb81e"
+   "deDE": "1921c0f7d09a2c3e",
+   "esES": "1921c0f7d09a2c3e",
+   "frFR": "1921c0f7d09a2c3e",
+   "itIT": "1921c0f7d09a2c3e",
+   "nlNL": "1921c0f7d09a2c3e",
+   "ptBR": "1921c0f7d09a2c3e"
   },
   "RAID_BOSS_VANGUARD_QUICK": {
    "deDE": "01b44188ff146888",
@@ -20733,12 +20733,12 @@
    "ptBR": "194e52524c786043"
   },
   "RAID_BOSS_VORASIUS_STEPS": {
-   "deDE": "50e4ee77c43c823e",
-   "esES": "50e4ee77c43c823e",
-   "frFR": "50e4ee77c43c823e",
-   "itIT": "50e4ee77c43c823e",
-   "nlNL": "50e4ee77c43c823e",
-   "ptBR": "50e4ee77c43c823e"
+   "deDE": "9bf4108edc6df1d2",
+   "esES": "9bf4108edc6df1d2",
+   "frFR": "9bf4108edc6df1d2",
+   "itIT": "9bf4108edc6df1d2",
+   "nlNL": "9bf4108edc6df1d2",
+   "ptBR": "9bf4108edc6df1d2"
   },
   "RAID_BOSS_VORASIUS_TANK": {
    "deDE": "f5662e21b32530fc",

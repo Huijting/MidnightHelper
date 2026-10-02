@@ -263,6 +263,8 @@ function ns.PrintMythicGain()
 	-- down where it looked like a contradiction rather than the explanation.
 	if bests and #bests > 0 and not anyRun then
 		print("   " .. ns:L("MPLUS_CMD_NORUNS_SEASON"))
+		-- 2 Oct 2026: no runs yet is exactly when "how do I even start" is the question.
+		print("   |cffffcc00" .. ns:L("MPLUS_CMD_FIRST_KEY") .. "|r")
 	end
 
 	-- This week's vault slots — or a gentle "none yet" that still falls through to

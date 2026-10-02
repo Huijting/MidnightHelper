@@ -365,6 +365,21 @@ ns.CODEX_ARTICLES = {
 	},
 
 	-- Dungeons
+	-- 2 Oct 2026: Rob, an expert player, asked how you even sign up for Mythic+ and MH had
+	-- no answer anywhere (nothing on the Group Finder or Premade Groups). First in the
+	-- category because it is the step before everything else here. Facts researched for
+	-- 12.1 / Season 2; `/mh mplus` points here when you have no runs yet.
+	{
+		id = "mplus_first_key",
+		category = "dungeons",
+		titleKey = "CODEX_MPLUS_START_TITLE",
+		bodyKey = "CODEX_MPLUS_START_BODY",
+		sort = 1,
+		-- English on purpose: the words someone types before they know the game's terms.
+		searchKeys = "mythic plus m+ mythic+ keystone key first key start begin beginner how to sign up "
+			.. "group finder premade groups lfg queue font of power timer death abandon deserter "
+			.. "learning playstyle lindormi rating raider.io eerste key aanmelden beginnen",
+	},
 	{
 		id = "mplus_vault",
 		category = "dungeons",
@@ -374,7 +389,7 @@ ns.CODEX_ARTICLES = {
 		tabLabelKey = "TAB_DELVES",
 		navLabelKey = "CODEX_NAV_DELVES_VAULT",
 		delvesSection = "vault",
-		sort = 1,
+		sort = 2,
 	},
 
 	-- Raid

@@ -21,7 +21,55 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
-## 🆕 2 okt — 17 raidbazen: nieuwe korte tips (extra high-ronde, `RaidTips.lua`, 7 talen)
+## 🆕 2 okt middag — Mythic+ voor beginners (Codex + `/mh mplus`, enUS + nlNL)
+
+Rob: *"ik keur het goed"* (pagina `mplus_review.html`). de/fr/es/pt/it volgen na "knopnamen uit het spel zelf".
+- [ ] `/reload` zonder fout (BugSack leeg).
+- [ ] `/mh codex` → **Dungeons**: staat bovenaan *"Mythic+, vanaf je eerste key"*, en leest het prettig?
+- [ ] Zoekvak: typ *first key* of *premade* → vindt hij het hoofdstuk?
+- [ ] Op een personage **zonder** M+-runs dit seizoen: `/mh mplus` toont onder "Nog geen keystone-runs" een gele regel
+      *"Nog nooit een key gelopen? Typ /mh codex en open Dungeons…"*. Met runs hoort die regel er NIET te staan.
+- [ ] `/mh mplus` onderaan: de gear-regel zegt nu *"De kist aan het eind gaat van Champion naar Hero; alleen de Great Vault
+      geeft Myth, vanaf +10."*
+- [ ] Group Finder → Start a Group: heet het keuzevak echt **"Select Playstyle (required)"** met **Learning** erbij?
+      (Naam komt uit build 12.1.5 op wago.tools, niet uit live 12.1.0.)
+- [ ] Silvermoon: waar staat **Lindormi** precies? Bronnen zeggen 42.1, 58.8 (wiki) óf 53.3, 66.1 (Icy Veins). Het
+      hoofdstuk zegt nu alleen "naast het portaal naar The Timeways".
+
+## 🆕 2 okt middag — 8 M+-dungeons (korte tips) + lange raidtips (7 talen)
+
+Rob keurde beide pagina's goed. Dungeons: VA, BV, AF, TS, RL (13 tips) + DN, MR, KR (10 tips). Raid: 29 lange teksten
+(`_STEPS`/`_TANK`/`_HEALER`/`_DPS`).
+- [ ] `/reload` zonder fout.
+- [ ] Bij je volgende M+-run: klopt de korte tip van die dungeon? Zeg per baas wat niet klopte.
+- [ ] **Den of Nalorakk, Nalorakk op Heroic:** springt Zul'jarra achter de tank met een schild, en raken de drie klappen
+      dan iedereen? (De 12.1-journal zet dit deel alleen op Mythic. Ja = tip klopt overal; nee = er komt "Op Mythic:" voor.)
+- [ ] **Kings' Rest, Mchimba (de-/fr-/es-/pt-/it-client, als je iemand kent):** hoe heet de knop om uit de kist te komen?
+      Alle vijf vertalingen zeggen nu "Struggle" in het Engels.
+- [ ] **Afgeleid, niet gemeten** (de helper zei het zelf): de nieuwe Mythic-regel bij **Vaelgor** (*"de draken vliegen nog
+      op, Astral Reflection-klonen blijven casten"*) en de DPS-zin bij **Averzian** (*"de soak stopt twee Voidshapers"*).
+**Vragen uit de lange raidtips — niets veranderd, jij bent de meting:**
+- [ ] Entombed Sentinels, Normal, pauze: twee spelers raken elkaar aan onder de 4 groene bollen — worden ze alleen uit
+      elkaar geduwd (tekst klopt), smelten de bollen samen (zin anders), of gaat er iemand dood (zin eruit)?
+- [ ] Vashnik, Caustic Explosion na een dispel: zelfde schade dichtbij en ver weg (dan mag "step away" weg) of minder ver
+      weg (tekst klopt)? Kijk in Details.
+- [ ] Vashnik, Dripping Fangs (tank): staat er 100% (klopt "verdubbelt") of 200% meer fysieke schade?
+- [ ] Twin Fangs, Normal, Ravenous Feast: straf als er minder dan drie in een klap staan? Geen straf = die zin kan weg.
+- [ ] Twin Fangs, Normal, Ravenous Feast: tel je Eternal Venom-stacks vóór en na alle drie de klappen (1 minder = per
+      Feast, 3 minder = per klap).
+- [ ] Coiled Altar, Normal, Gloombomb: laten óók niet-gemarkeerde geraakte spelers zielkopieën vallen (Gravebound)?
+- [ ] Coiled Altar, Normal, Eternal Nightfall: stopt de cast vanzelf als het schild breekt, of moet er nog een kick?
+- [ ] Vorasius: staat de stack Primordial Power na een Roar op JOU (raid-DoT) of alleen op de BAAS?
+- [ ] Vaelgor & Ezzorak, Normal: krijgt iemand Shadowmark in de intermission? Ja = hoort bij alle moeilijkheden.
+- [ ] Vaelgor & Ezzorak, Normal: grote klap op de raid bij de laatste Nullzone-tether (oude tekst klopte) of kleine tik?
+- [ ] Crown of the Cosmos, Normal, eerste tussenfase: debuff na een pijl (8 s, meer pijlschade)? Ja = geldt ook op Normal.
+- [ ] Belo'ren, healer: krijgt IEDEREEN de heal absorb + DoT, of maar een paar spelers?
+- [ ] Belo'ren, tank: krijgt de baas een stack als de frontal de tank van de VERKEERDE kleur raakt?
+- [ ] Chimaerus, healer: duurt Caustic Phlegm ±12 s (tekst klopt) of ±20 s?
+- [ ] Chimaerus, Consume (100 energie): heeft dicht op elkaar staan nut?
+- [ ] Chimaerus, na de soak: blijf je in dezelfde zaal (dan worden "boven/omlaag" herschreven) of ga je echt omlaag?
+
+## 2 okt — 17 raidbazen: nieuwe korte tips (extra high-ronde, `RaidTips.lua`, 7 talen)
 
 Rob: *"alles goed, zet ze er maar in"* (beoordeeld op https://claude.ai/artifact/CWjDGP9K3dqGtsjoZGMgCz).
 - [ ] `/reload` zonder fout (BugSack leeg).

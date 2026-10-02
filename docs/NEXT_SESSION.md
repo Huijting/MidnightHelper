@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## ✅ 2 okt eind middag — alle 8 M+-dungeons, lange raidtips en Mythic+-gids ERIN
+
+- **Dungeons 8/8** (7 talen): VA/BV/AF/TS/RL (13 sleutels) + DN (Fable+Opus samengevoegd)/MR/KR (10). MR, KR en de
+  Mythic+-feiten liepen nog op Fable.
+- **B — lange raidtips:** 4 helpers (Opus, normale stand) → 29 teksten, 16 onzekere punten NIET veranderd maar
+  TESTLIJST-vragen. Rob: *"ik keur het goed"*. 2 zinnen AFGELEID (Vaelgor Mythic, Averzian DPS) → TESTLIJST.
+- **Vertalingen:** 5 helpers, 52 sleutels × 5 talen (260 waarden; 8 AF-waarden in `Translations2026.lua`).
+  `check_drift --mark` 52 sleutels (312 regels), locale_probe OK in 7 talen (GEMETEN), syntax OK, lint 0 HARD / 4 SOFT.
+- **C — `docs/NALOOP_LIJST.md`:** 13 onderdelen, belangrijkste eerst. GEMETEN: dezelfde 17 bazen kostten op Fable
+  45% sessie/5% week/11% Fable, op Opus-xhigh 28%/3%. **Volgende rondes op Opus xhigh.** Rob kiest de volgorde.
+- **Mythic+ voor beginners:** Codex-hoofdstuk `mplus_first_key` (`CODEX_MPLUS_START_*` in `Codex.lua`, categorie
+  Dungeons, sort 1; `mplus_vault` → sort 2), gele regel `MPLUS_CMD_FIRST_KEY` in `/mh mplus` bij 0 runs
+  (`MythicGain.lua`), `MPLUS_CMD_GEAR_HINT` gecorrigeerd (kist max Hero, alleen Vault geeft Myth vanaf +10).
+  Feiten: scratchpad `mplus\facts.json` (10/11 zeker; starter-ilvl niet gevonden). **Alleen enUS + nlNL.**
+- 🔲 **Volgende stap Mythic+-gids (Rob koos "uit het spel zelf"):** knopnamen in de gids vullen uit de client
+  (`_G.START_A_GROUP` enz., GlobalStrings-namen GEMETEN in facts.json q3/q4), zodat een Duitse speler zijn eigen
+  scherm leest; dán pas de/fr/es/pt/it vertalen + `GEAR_HINT`/`FIRST_KEY` in `Translations2026.lua`.
+- 🔲 **Sitegids** Mythic+ (regel "site volgt elke functie") — na de vertalingen.
+
 ## 🏰 2 okt middag — M+-dungeontips op Fable: 5 van 8 ERIN (enUS + nlNL), vertalingen volgen
 
 - **Meting (Robs plan-meter, GEMETEN):** Fable raakt de sessie WÉL. Voidscar Arena alleen: sessie 46→55%, week 64→65%,
