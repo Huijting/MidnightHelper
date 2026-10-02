@@ -3596,3 +3596,82 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     nodig. 📌 Of de `forced update` van de afgelopen drie dagen daarmee ook verdwijnt, blijkt pas
     bij de push die ná dit blok komt; die uitkomst staat in het slotbericht van deze run en, als er
     iets bijzonders aan is, morgen hier.
+- [2026-10-02] ✅ **Geen relevante API-wijzigingen.** Eén bronitem is écht nieuw sinds gisteren — de
+  hotfixlijst van **1 okt** — maar die heeft geen UI-, Addon- of API-sectie. Alle zes de
+  wiki-API-pagina's staan byte-voor-byte stil, en de acht forumposts in `#ui-macro` sinds 24 sep
+  stonden alle acht al in dit logboek. **Geen enkel [MOET GEFIKST].**
+  - 📰 **[RAAKT ONS NIET] — `Hotfixes: October 1, 2026` (news.blizzard.com, artikel `24296142`).**
+    Volledig gelezen mét `?nocache=20261002`. De nieuwe 1-okt-sectie bevat drie regels: Druid/Feral
+    (*"Fixed an issue that could cause Rampant Ferocity to trigger incorrectly against a single
+    target"*), Hunter/Survival (*"Wildfire Bomb's periodic damage increased by 20%"*, met de
+    developers' note dat de tuning van de week van 22 sep *"did not properly increase the periodic
+    damage of an untalented variant"*) en The Venomous Abyss/Ula'tek (*"Fixed an issue where the
+    Venomous Heart would sometimes melee a player"*). **Geen UI-, Addon- of API-sectie, en geen
+    enkele API-naam** — class tuning en een raid-fix. Dat is terrein van `CONTENT_WATCH.md`, niet
+    het mijne.
+    ✅ **En dit is de correctie op gisteren, expliciet:** gisteren stond hier dat *"de 29-sep-lijst
+    nog steeds de nieuwste"* was (`:3507`). Dat was toen waar; vandaag geeft **dezelfde article-ID**
+    de titel *"Hotfixes: October 1, 2026"*. De lijst is dus vooruit gegaan, niet achteruit.
+  - 🔇 **Wiki: vijf van de zes gevolgde pagina's byte-voor-byte onveranderd; alleen `Hotfixes`
+    bewoog.** `Hotfixes` `6895406` → **`6897455`** (Dark T Zeratul, **2 okt 00:25:50Z**,
+    365107 → **365799 b**, +692, comment `/* September 2026 */`). Dat is de 1-okt-lijst die ik
+    hierboven al bij Blizzard zelf gelezen had — **inhoudelijk niets nieuws**. Onveranderd:
+    `Patch 12.1.0/API changes` (`6886719`, Ketho, 25 sep, 102481 b), `Patch 12.1.5/API changes`
+    (`6886717`, Ketho, 25 sep, 34466 b), `Patch 12.0.7/API changes` (`6794100`, Ketho, 4 aug,
+    34044 b), `API change summaries` (`6883777`, Ketho, 22 sep, 7280 b), `TOC format` (`6889071`,
+    Zeal, 26 sep 18:57:25Z, 27396 b — nu **129 uur** stil). 📌 De twee 12.1.x-API-pagina's staan
+    sinds 25 sep stil; dat is vandaag precies de rand van het 7-dagenvenster en het stond al
+    uitgeschreven in dit logboek, dus **geen nieuwe vondst**.
+  - 🧩 **[RAAKT ONS NIET] — forumcategorie 35 (`#ui-macro`): acht posts sinds 24 sep, alle acht al
+    bekend.** Gemeten met `search.json?q=#ui-macro after:2026-09-24`: topics `2367394`
+    (*Unregister Global Mouse*, 30 sep), `2366363` (*Artwork end cap layers*, 29 sep), `1780831`
+    (*account-wide to-do list*, 30 sep), `2306913` (*Cant make macros*, 28 sep), `2362999`
+    (*WoW Forever Addons*, 26 sep), `2362846` (*Raid markers … WAY too big*, 26 sep), `1911888`
+    (*ONLY show characters on a specific realm?*, 25 sep), `2349301` (*ChromaChat*, 24 sep).
+    **Alle acht staan al in dit logboek** (geteld: 4/3/2/4/2/4/—/4 treffers op hun topic-ID), en
+    `2367394` kreeg géén nieuwe reactie (`posts_count` 2, `last_posted_at` 30 sep 20:37:52Z).
+    ✅ **Het `GLOBAL_MOUSE`-item van gisteren opnieuw gemeten en nog steeds nul:**
+    `GLOBAL_MOUSE_DOWN` **0** bestanden, `GameEvent` **0**, `UnregisterInternalEvent` **0**
+    (scope: hele addon zonder `.git`/`docs`/`tools`/`dist`). Blijft [RAAKT ONS NIET].
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.0-04` (21 aug 2026).** Hele releaselijst
+    opgehaald mét cache-buster; na `12.1.0-04` staat er niets. En dat is exact de release die
+    `Modules/SimcExport.lua:12-16` in zijn kopcommentaar zegt te volgen (*"read 30 Sep 2026 at
+    release 12.1.0-04"*). **MH loopt niet achter; er is niets te porten**, dus geen toets aan
+    `ItemString` (`Modules/SimcExport.lua:234`) of `ns.BuildSimcProfile` (`:424`) nodig deze run.
+  - 🧹 **Veegactie `Patch 12*` (ns 0): 25 pagina's, exact dezelfde lijst als de dagen ervoor.**
+    `Patch 12.1.6` bestaat in geen enkele vorm; van de vier 12.2-titels (`Patch 12.2`, `12.2.0`,
+    `12.2.5`, `12.2.7`) heeft er géén één een `/API changes`-subpagina — `Patch 12.2.0/API changes`
+    geeft nog altijd `"missing":true`; en er is nog steeds geen `Patch 12.1.5 (undocumented
+    changes)`, terwijl 12.0.0, 12.0.1, 12.0.5, 12.0.7 en 12.1.0 die alle vijf wél hebben.
+  - 🔒 **Cache-val uitgesloten op beide domeinen, met eigen bewijs in deze run.** (a) Wiki:
+    `list=recentchanges` (ns 0) loopt tot **vandaag 03:39:41Z** (*Commander Louis Philips*,
+    Kaamara). (b) Forum: `posts.json` geeft als nieuwste post **vandaag 03:39:39Z** (`30297485`,
+    topic `2359874`). Beide servers leveren vers materiaal.
+    ⚠️ **En de omgekeerde controle:** niets wat ik vandaag als nieuwste zag is **ouder** dan wat dit
+    logboek gisteren noemde — de hotfixtitel ging van *29 sep* naar *1 okt* en `Hotfixes` van
+    `6895406` naar `6897455`; de vijf andere wikipagina's stonden stil op dezelfde revid's.
+  - ✅ **Positieve controle, zelfde scope als mijn nul-beweringen** (verplicht, want een lege grep
+    bewijst niets): `C_UnitAuras` **12** bestanden, `issecretvalue` **54**,
+    `SecureActionButtonTemplate` **11** — alle drie niet-nul, dus het patroon en de scope werken.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `warcraft.wiki.gg` en `us.forums.blizzard.com` via directe `curl` **niet bruikbaar**: de
+      agent-proxy geeft `CONNECT tunnel failed, response 403` (gemeten deze run). Alle wiki- en
+      forumdata komt daarom via `web_fetch_exa`.
+    - De categoriepagina `c/guides/ui-macro/35.json` zelf gaf via Exa **alleen de `users`-array**
+      binnen de tekenlimiet; de topiclijst komt daarom uit `search.json`, niet uit de categorie-JSON.
+    - `wowhead.com/blue-tracker` opnieuw **niet geprobeerd** (zeven runs op rij lege body).
+    - De 12.1.5-**PTR-buildnotes** niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+  - 🔧 **Repo-staat: `HEAD` stond weer detached, nu hersteld.** Bij aanvang gaf
+    `git rev-parse --abbrev-ref HEAD` **`HEAD`** in plaats van `main`, op commit `7f9369d` — maar
+    **exact gelijk aan `origin/main`**, dus er was niets kwijt en de working tree was schoon
+    (`git status --porcelain` leeg). Opgelost met `git checkout -B main origin/main`. 📌 Gisteren
+    was de detached head juist weg; hij is dus **terug**, en de oorzaak zit niet in deze wachter.
+    ✅ Geen van de vier wachter-bestanden stond gewijzigd-maar-ongecommit.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw: de gemeten namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd.** Die noemt `issecretvalue` 112× en
+    `C_UnitAuras` 29×; vandaag **GEMETEN als occurrences** (`grep -rno`, zelfde scope):
+    `issecretvalue` **198**, `InCombatLockdown` **201**, `C_UnitAuras` **83**, `CreateFrame` **741**,
+    `C_Secrets` **27**, `C_SuperTrack` **29**. 🔴 **Ik raak dat bestand niet aan** — punt voor Rob,
+    één `tools/_probe.py`-run volstaat.
+    📌 **En de meetmethode staat er bewust bij** (occurrences, niet regels): dat verschil liet
+    gisteren bijna een verzonnen regressie melden.
