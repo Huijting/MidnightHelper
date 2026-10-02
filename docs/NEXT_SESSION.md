@@ -10,6 +10,11 @@ Eén antwoord vinkte 6 onderdelen in beide lijsten → site-fix: "vaak" en "nooi
 Ochtendronde verder: 4 wachters gedraaid, niets dat MH raakt; CF 0 open (1 draadje, beantwoord); GitHub 0 open.
 WIM meldt "WoW removed deprecated `IsMouseOver`": MH gebruikt alleen de frame-methode `:IsMouseOver()` (5×) en
 nergens de globale `MouseIsOver` (GEMETEN 0, positieve controle: WIM zelf 1 treffer) → AFGELEID niet geraakt.
+🏠 **MH HQ live maken (Rob: "zoveel mogelijk live")** — GEMETEN: HA-automatisering luisterde níét naar de
+`-survey`-webhook. Site-kant gedaan + live: survey-webhook stuurt nu de vinkjes (use/never/role/since/country,
+nooit vrije tekst), stats-webhook stuurt `top_pages` (HA wachtte erop); privacy-tekst aangepast (7 talen, 2 okt).
+HA-kant = opdracht voor de HA-chat: **`docs/HA_MH_HQ_OPDRACHT.md`** (vragenlijst-telling met startwaarden,
+cfwidget-downloads 16741, CF-reacties-wachtend-melding, GitHub-versie). 🔲 Rob plakt hem in de HA-chat.
 📌 Officiële **12.1.5 Content Update Notes** staan online (`news.blizzard.com/en-us/article/24304162`, 1 okt) —
 bron voor de patchweek-lijst.
 
