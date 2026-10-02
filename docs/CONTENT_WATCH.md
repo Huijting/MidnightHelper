@@ -1582,3 +1582,52 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Locales/enUS.lua:1327-1330`, `Modules/SMCChecklistData.lua:23-26`, `UI.lua:1306`,
   `Modules/WeeklyHubProbe.lua` — allemaal vandaag gelezen, plus `grep -i liadrin` repo-breed. Geen
   actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-02] 💬 **CurseForge: geen open reacties (2 draadjes gelezen).** `curseforge.com/api/v1/
+  mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261002z` via Exa (JSON, `pagination.
+  totalCount` = 6 berichten = alle berichten in deze ene pagina). Draadje van **MrsBoojiePanda**
+  (debug-regel in de chat bij elke login) kreeg een reply van `twelveinchy` als laatste bericht —
+  beantwoord. Draadje van **gadrinonturalyon** (coffer-key-shards-popup, 3D-bossmodel) heeft
+  `twelveinchy` tweemaal in de keten, met zijn eigen bericht als laatste (na een bedankje) —
+  ook beantwoord. Geen enkel draadje heeft als laatste bericht iemand anders dan de maintainer, dus
+  🔴 WAITING FOR AN ANSWER is niet van toepassing vandaag.
+
+- [2026-10-02] 🟢 **Niets nieuws in mijn lane sinds [2026-10-01]; de ene echte wijziging (1 okt-
+  hotfixsectie) is al getoetst door de API- en data-wachter van vandaag, en zelf herbevestigd.**
+  Officiële hotfixpagina volledig gelezen via Exa (`news.blizzard.com/en-us/article/24296142
+  ?nocache=20261002z`): de nieuwe sectie **"October 1, 2026"** telt drie regels — Druid/Feral en
+  Hunter/Survival (class tuning, buiten mijn lane: Delves/Professions/Quests/Dungeons en Raids/
+  Items, geen van die vijf) en, onder *Dungeons and Raids → The Venomous Abyss → Ula'tek*: *"Fixed
+  an issue where the Venomous Heart would sometimes melee a player."* **Zelf getoetst, niet enkel
+  overgenomen:** spell-ID **1286860** (Venomous Heart) staat in `Locales/RaidTips.lua:93,99,100`
+  (en de zes andere taalvarianten) als *"Each {SPELL:1286860} exposes her Heart for 20 seconds:
+  burn it and dodge the falling rocks"* (DPS/healer-regels erbij) — een generieke "venster om te
+  burnen"-instructie, geen claim over wélke speler de Heart tijdens dat venster in melee raakt. De
+  bugfix verandert gedrag van de cast, niet wat onze tip zegt te doen. MEASURED (zelf de hotfix-
+  pagina gelezen, zelf `Locales/RaidTips.lua` gegrept op de spell-ID). **[RAAKT ONS NIET]**
+
+  De **"September 24, 2026"**-sectie (Delves: Shadow Enclave/Oddball "Ingredient"-teleport) is de
+  oudste nog getoonde sectie op de pagina en staat al uitgebreid gelogd op [2026-09-24] t/m
+  [2026-09-30] hierboven (regels 1251-1328) — geen nieuwe informatie, 0 treffers op een tweede
+  doorzoeking van die regels vandaag.
+
+  📌 **Niet mijn terrein, alleen ter kennisgeving:** de **"12.1.5 Content Update Notes"**
+  (`news.blizzard.com/en-us/article/24304162`), door de data-wachter van vandaag zelf gelezen voor
+  de ACHIEVEMENTS-sectie, is 12.1.5-materiaal (releasedatum 13 okt, nog niet live) — er is dus nog
+  niets geshipt om tegen te spreken. Zodra 12.1.5 live gaat, is dit precies de content die deze
+  watch moet controleren tegen `Achievements.lua` en de delve/profession/quest-bestanden.
+
+  ✅ **Positieve controle, zelfde scope als de nul-bevinding hierboven:** `grep -rn "1286860"
+  Locales/` geeft treffers in alle zeven taalvarianten (niet nul) — het patroon en de scope werken
+  dus, en de afwezigheid van een tegensprekende claim is gemeten, niet een kapotte grep.
+
+  Vandaag is donderdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261002z (volledig gelezen via
+  Exa) · `docs/PTR_12.0.7_DATA.md` entry [2026-10-02] en `docs/API_WATCH.md` entry [2026-10-02] als
+  kruiscontrole (feiten niet herhaald, alleen zelf getoetst op tegenspraak met geshipte MH-tekst) ·
+  codebase: gerichte read van `Locales/RaidTips.lua:93-100` plus repo-brede grep op "1286860". Geen
+  actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
