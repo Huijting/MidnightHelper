@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🏰 2 okt middag — M+-dungeontips op Fable: 5 van 8 ERIN (enUS + nlNL), vertalingen volgen
+
+- **Meting (Robs plan-meter, GEMETEN):** Fable raakt de sessie WÉL. Voidscar Arena alleen: sessie 46→55%, week 64→65%,
+  Fable 3→5%. Daarna 4 tegelijk (BV, AF, TS, RL): sessie 55→**91%** (+36), week 65→69%, Fable 5→14%.
+  Vuistregel: **1 dungeon op Fable ≈ 9% sessie + 2% Fable-week**. Fable spaart de week, niet de sessie.
+- **5 dungeons, 17 bazen** (`tips-xhigh` + `model: fable`, brief van de vorige chat). Uitvoer + `dgn_page.py`,
+  `dgn_new.json`, `tr_in_*.json` in scratchpad
+  `C:\Users\RobHu\AppData\Local\Temp\claude\E--World-of-Warcraft--retail--Interface-AddOns\a6ab1f08-859d-473d-a2ad-49982eb90f3f\scratchpad\`
+  (`dgn\va|bv|af|ts|rl.json`). Oordeel: 5 fout, 11 ontbreekt, 2 onzeker, 85 klopt. Reviewpagina → Rob: *"alles goed"*.
+- **Erin:** 13 sleutels in enUS + nlNL van `Locales/DungeonTips.lua` (`dgn_apply_ennl.py`, 26 waarden). Syntax OK,
+  lint 0 HARD / 4 SOFT.
+- 🔲 **de/fr/es/pt/it nog OUD** voor die 13 sleutels (drift tot de vertaalronde). ⚠️ `DGN_TIP_AF_RAVI_QUICK` en
+  `_COIL_QUICK` hebben in fr/es/pt/it geen waarde in DungeonTips.lua: die staan in `Translations2026.lua`.
+- 🔲 **Na 15:40 (sessiereset):** Murder Row + Kings' Rest op Fable; Den of Nalorakk samenvoegen (fable+opus);
+  vertaalronde 5 talen; `check_drift --mark`; locale_probe; TESTLIJST; B (lange raidtips) en C (`NALOOP_LIJST.md`).
+- ⚠️ `Modules/KeybindingData.lua` stond al gewijzigd-ongecommit vóór deze chat; herkomst onbekend, NIET meegecommit.
+
 ## 🛡️ 2 okt — raidtips tweede ronde op extra high: 17 bazen, 37 sleutels × 7 talen ERIN
 
 - **Effort-test** (Chimaerus, 5 standen; pagina https://claude.ai/artifact/LbdS4vozqX4mAvFWZR5vpP): low gaf FOUT
