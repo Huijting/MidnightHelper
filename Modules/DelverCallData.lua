@@ -1,12 +1,14 @@
 --[[
-	Delver's Call — Midnight weekly "World Tour" quests.
+	Delver's Call — one Midnight quest per delve, ONCE PER CHARACTER.
 
-	One rotational Delver's Call quest per delve. Each can sit in four states
+	⚠️ Not a weekly (this header said "weekly" until 3 Oct 2026). Measured in Rob's
+	SV: Iceicebaby showed 10/10 turned in on 2 Oct with only 1 World activity that
+	week, so the completions survived the reset. Each quest can sit in four states
 	on the live character:
 	  fresh      — not in log, not turned in (pick it up at the delve)
 	  inProgress — accepted, objectives not finished
 	  ready      — objectives finished, NOT turned in yet ("banked")
-	  completed  — turned in this week
+	  completed  — turned in (stays done)
 
 	"Banked" is the alt-leveling sweet spot: turn-in XP scales to your level,
 	so holding all of them until you are a few levels from cap pays off.

@@ -171,7 +171,6 @@ function ns.ComputeAccountWeeklyChecklist()
 		if total > 0 then
 			local completed = tonumber(e.delverCompleted) or 0
 			local banked = tonumber(e.delverBanked) or 0
-			local level = tonumber(e.level) or 0
 			local stale = ns.MhAccountEntryIsStale and ns:MhAccountEntryIsStale(e)
 			if isCurrent and delverCurrent then
 				completed = delverCurrent.completed
@@ -182,11 +181,11 @@ function ns.ComputeAccountWeeklyChecklist()
 			-- has its own dedicated line.
 			if not stale and not isCurrent then
 				local label = FormatCharLabel(e.name, e.realm)
-				-- Only max-level alts count as a real chore. Leveling alts that
-				-- hold quests show up under the banked line instead.
-				if completed < total and level >= delverCapLevel then
-					delverIncompleteLabels[#delverIncompleteLabels + 1] = label
-				end
+				-- 3 Oct 2026: no "incomplete on alts" chore any more. Delver's Call is a
+				-- ONE-TIME set per character, not a weekly: measured in Rob's SV, Iceicebaby
+				-- showed 10/10 turned in on 2 Oct with only 1 World activity that week.
+				-- A max-level alt that never did them has no weekly job here. The banked
+				-- line below stays: holding them for levelling XP is the real use.
 				if banked > 0 then
 					delverBankedTotal = delverBankedTotal + banked
 					delverBankedLabels[#delverBankedLabels + 1] = ("%s (%d)"):format(label, banked)

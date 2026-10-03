@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🔧 3 okt — delve-codepunten gedaan (in `main`, GEEN release: Rob "we brengen 4.5.1 nog niet uit")
+
+- **Vault in de delve-tooltip:** geleerde getallen worden niet meer getoond (`Delves.lua`, tooltip). GEMETEN in Robs SV:
+  level 1 = 305 en level 6 = 305 → `row.level` van een World-rij is niet altijd de delve-tier. `LearnVaultIlvlByTier`
+  slaat nog wel op. `DELVE_REWARDS_VAULT_LEARNED` wordt niet meer gebruikt (lint #18 SOFT).
+- **"End" alleen op Bountiful rijen**, anders nieuwe regel `DELVE_REWARDS_END_BOUNTIFUL_ONLY` (7 talen, eigen vertaling;
+  locale_probe OK in 7 talen, GEMETEN).
+- **Delver's Call is géén weekly:** GEMETEN in de SV, Iceicebaby 10/10 ingeleverd op 2 okt met 1 World-activiteit die week.
+  Regel "incomplete on alts" weg (`AccountWeeklyChecklist.lua`), "banked on alts" blijft; header `DelverCallData.lua`.
+- **Luminibulb → Luminbulb** (wago CriteriaTree 216252) in `DelveTips.lua` (15×, alle talen) en `DelveBossShowcase.lua`
+  storyHints. `check_drift --mark DELVE_CHAT_COLLEGIATE_CALAMITY_ROUTE`.
+- **Coffer Keys: geen wijziging nodig.** GEMETEN: de sleutels verschillen per personage (0/2/6/5/3/2/11/5) → per personage;
+  de telling telt ze op met het aantal personages erbij, dat klopt.
+- **Onzeker, al op TESTLIJST:** Gilded Stash alleen Bountiful?, Special Assignments 3/week?, Valeera-XP van doden?, shards
+  per rare buiten Coiled Isle. Syntax OK, lint 0 HARD. Testvragen: TESTLIJST 3 okt.
+- 🔲 Volgende: na de reset de 8 overige dungeons (naloop #4) op Opus xhigh.
+
 ## 🚀 2 okt avond — 4.5.0 uitgebracht (delves, solo-schakelaar, alles van vandaag)
 
 - **Delves + Valeera** (naloop-lijst #3, Rob koos delves eerst): 5 helpers op Opus xhigh (scratchpad
@@ -8,7 +25,7 @@
   een vertaling bestond (108 combinaties waren nooit vertaald → blijven Engels, zoals voorheen). Drift --mark 59
   sleutels. Lint #19: 2 delve-ids in `tools/tip_baseline.json` (geen DBM-mod voor delves, bron in `_delve_caveat`).
 - **Speed Grade weg** uit de delve-tooltip (`Delves.lua`, was quest-id modulo 6).
-- 🔲 **8 code-punten uit de Valeera-review, NIET gedaan** (`scratchpad\delves\delve_code_items.json`):
+- ✅ (3 okt, zie boven) **8 code-punten uit de Valeera-review** (`scratchpad\delves\delve_code_items.json`):
   Vault-getallen in de tooltip (`Delves.lua:929` telt elke World-rij-regel als delve → "Vault 305" op tier 1),
   "End" ook op niet-Bountiful rijen (`Delves.lua:~2609`), Coffer Keys per personage i.p.v. account
   (`HOME_ROUTINE_SCOPE_NOTE`-tekst is gecorrigeerd, de telling in code niet nagekeken), Delver's Call als weekly in

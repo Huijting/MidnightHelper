@@ -156,7 +156,7 @@ ns.DELVE_BOSS_SHOWCASE = {
 			"Invasive Glow", "Invasive Growth", "Invasives Leuchten", "Lueur envahissante",
 			"Resplandor invasivo", "Brilho Invasivo",
 		}, storySpellIds = { 1253664 }, tipLineMatch = { "Hydrangea", "Hortensie", "Hortensia", "Hortênsia", "Invasive Glow", "Invasives Leuchten", "Lueur envahissante", "Resplandor invasivo", "Brilho Invasivo" },
-			storyHints = { "deweeder", "luminibulb", "weedling", "glaring glowcap" } },
+			storyHints = { "deweeder", "luminbulb", "weedling", "glaring glowcap" } },
 	},
 	the_darkway = {
 		-- 256817 = live delve showcase (CF); 251600 = Wowhead NPC fallback.

@@ -2605,7 +2605,10 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 				local loot = lootTable[t]
 				if loot then
 					local parts = {}
-					if loot.endChest then
+					--- 3 Oct 2026: endChest is the BOUNTIFUL Coffer (see the S2 table's notes), so
+					--- it only belongs on a Bountiful row. "End 295" on an ordinary delve read as
+					--- that delve's own chest, which nobody has measured.
+					if loot.endChest and item.isBountiful then
 						parts[#parts + 1] = ("End %d"):format(loot.endChest)
 					end
 					if loot.bounty then
@@ -2615,11 +2618,14 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 					--- ever gets one, then what this player's OWN vault has offered for
 					--- that tier, then an honest question mark. A learned value is marked
 					--- so nobody mistakes one week's observation for a published table.
-					local learned = ns.db and ns.db.vaultIlvlByTier and ns.db.vaultIlvlByTier[t]
+					---
+					--- ⚠️ 3 Oct 2026: the learned value is NO LONGER SHOWN. Measured in Rob's SV:
+					--- level 1 = 305, level 6 = 305 — impossible for delve tiers 1 and 6. So a
+					--- World row's `level` is not always the delve tier (other world activities
+					--- share the row), and LearnVaultIlvlByTier's one written-down assumption
+					--- failed. It still records, so a later measurement can work out the rule.
 					if loot.vault then
 						parts[#parts + 1] = ("Vault %d"):format(loot.vault)
-					elseif tonumber(learned) then
-						parts[#parts + 1] = ("Vault %d*"):format(learned)
 					else
 						parts[#parts + 1] = "Vault ?"
 					end
@@ -2643,10 +2649,9 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 				and eight.bounty == eleven.bounty then
 				GameTooltip:AddLine(ns:L("DELVE_REWARDS_CAP_AT_8"), 0.6, 0.9, 0.6, true)
 			end
-			--- Only say what the star means when a star is actually on screen.
-			if ns.db and type(ns.db.vaultIlvlByTier) == "table"
-				and next(ns.db.vaultIlvlByTier) ~= nil then
-				GameTooltip:AddLine(ns:L("DELVE_REWARDS_VAULT_LEARNED"), 0.6, 0.8, 1, true)
+			--- The End figures above are Bountiful-only; say so where they are missing.
+			if not item.isBountiful then
+				GameTooltip:AddLine(ns:L("DELVE_REWARDS_END_BOUNTIFUL_ONLY"), 0.6, 0.8, 1, true)
 			end
 		else
 			-- Season 2 with nothing measured. Say that, rather than quote Season 1's

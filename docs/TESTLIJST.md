@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt — delve-foutjes (in `main`, nog niet uitgebracht)
+
+- [ ] Delve-tooltip: hover in het Delves-tabblad over een delve die **niet** Bountiful is. Staat er bij de tiers géén
+  "End …" meer, en onderaan een blauwe regel *"End-chest numbers only apply to Bountiful delves…"*?
+- [ ] Delve-tooltip: hover over een **Bountiful** delve. Staat "End 266 … End 295" er nog wel, en is de blauwe regel weg?
+- [ ] Delve-tooltip: staat er in de Vault-kolom overal "Vault ?" (geen "Vault 305*" meer bij Tier 1)?
+- [ ] Weekoverzicht (This Week / Account snapshot): is de regel *"Delver's Call incomplete on alts"* weg? De regel
+  *"Delver's Call banked on alts"* mag blijven als een alt quests bewaart.
+- [ ] Collegiate Calamity: zegt de route-regel in chat nu **Luminbulb** (zonder i)?
+
 ## 🆕 2 okt avond — 4.5.0: delves + Valeera, solo-schakelaar, Speed Grade weg
 
 Rob: *"delfpagina's is goed, want ik vertrouw op jou"*. 54 teksten (enUS/nlNL; 162 vertalingen waar al een
