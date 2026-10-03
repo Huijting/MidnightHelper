@@ -90,9 +90,12 @@ ns.DPS_DEFENSIVES = {
 	[251] = { { id = 48792, cd = 120 }, { id = 48707, cd = 60 } }, -- Frost DK: Icebound Fortitude, Anti-Magic Shell
 	[252] = { { id = 48792, cd = 120 }, { id = 48707, cd = 60 } }, -- Unholy DK: Icebound Fortitude, Anti-Magic Shell
 	[577] = { { id = 198589 }, { id = 196718, cd = 300 } }, -- Havoc DH: Blur, Darkness
-	[102] = { { id = 22812, cd = 60 }, { id = 108238, cd = 90 } }, -- Balance Druid: Barkskin, Renewal
+	-- 3 Oct 2026: Renewal (108238) and Renewing Blaze (374348) dropped here - both removed from
+	-- KeybindRoles on 17 Sep (Renewal gone in 12.0, Renewing Blaze passive; audit BRON). Nothing renders
+	-- this table now (RoleAcademy.lua:736). Dampen Harm (Windwalker) is NOT checked against 12.1.
+	[102] = { { id = 22812, cd = 60 } }, -- Balance Druid: Barkskin
 	[103] = { { id = 22812, cd = 60 }, { id = 61336, cd = 180 } }, -- Feral Druid: Barkskin, Survival Instincts
-	[1467] = { { id = 363916, cd = 90 }, { id = 374348 } }, -- Devastation Evoker: Obsidian Scales, Renewing Blaze
+	[1467] = { { id = 363916, cd = 90 } }, -- Devastation Evoker: Obsidian Scales
 	[1473] = { { id = 363916, cd = 90 }, { id = 374227, cd = 120 } }, -- Augmentation Evoker: Obsidian Scales, Zephyr
 	[253] = { { id = 186265, cd = 180 }, { id = 109304, cd = 120 } }, -- BM Hunter: Aspect of the Turtle, Exhilaration
 	[254] = { { id = 186265, cd = 180 }, { id = 109304, cd = 120 } }, -- MM Hunter: Aspect of the Turtle, Exhilaration

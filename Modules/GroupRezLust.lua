@@ -51,15 +51,39 @@ local SATED = {
 }
 
 --- Classes with a battle res: Rebirth 20484, Raise Ally 61999, Soulstone 20707, Intercession
---- (461622 in 12.0, `KeybindingData.lua`). JustAC's battle-res category lists exactly these four.
+--- 391054. JustAC's battle-res category lists exactly these four.
+--- 📌 Intercession was written as 461622 here until 3 Oct 2026. GEMETEN that day (mh-research):
+--- wago build 12.1.0.69933 has 391054 as a Paladin spell and finds nothing for 461622; Wowhead
+--- lists 461622 as "Uncategorized" with a script-only effect. Rob's own bar holds 391054.
 local BREZ_CLASSES = { DRUID = true, DEATHKNIGHT = true, WARLOCK = true, PALADIN = true }
+
+--- A hunter's spec, or nil when unknown: yours from the spec API, someone else's only when the
+--- client already has their inspect data (0 = not inspected yet, so nil).
+local function HunterSpec(unit)
+	if UnitIsUnit and UnitIsUnit(unit, "player") then
+		local idx = ns.GetSpecialization and ns.GetSpecialization()
+		return idx and ns.GetSpecializationInfo and ns.GetSpecializationInfo(idx) or nil
+	end
+	if ns.GetInspectSpecialization then
+		local ok, id = pcall(ns.GetInspectSpecialization, unit)
+		if ok and type(id) == "number" and not (issecretvalue and issecretvalue(id)) and id > 0 then
+			return id
+		end
+	end
+	return nil
+end
 
 --- The spell each class uses, so the panel can say "Druid - Rebirth" (Rob, 30 Sep: "voor elke spec
 --- zijn eigen naam"). Names come from the client, so they are in the player's own language.
 --- A Shaman's is Heroism for the Alliance and Bloodlust for the Horde (KeybindingData.lua:50).
 local CLASS_SPELL = {
-	DRUID = 20484, DEATHKNIGHT = 61999, WARLOCK = 20707, PALADIN = 461622,
-	MAGE = 80353, EVOKER = 390386, HUNTER = 264667,
+	DRUID = 20484, DEATHKNIGHT = 61999, WARLOCK = 20707, PALADIN = 391054,
+	MAGE = 80353, EVOKER = 390386,
+	-- Marksmanship has its own Bloodlust without a pet: Harrier's Cry 466904 (mh-research 3 Oct 2026,
+	-- Method MM 5 Sep + Icy Veins MM 22 Aug). The others need a Ferocity pet for Primal Rage.
+	HUNTER = function(unit)
+		return HunterSpec(unit) == 254 and 466904 or 264667
+	end,
 	SHAMAN = function(unit)
 		local ok, faction = pcall(UnitFactionGroup, unit)
 		return (ok and faction == "Alliance") and 32182 or 2825
@@ -67,15 +91,16 @@ local CLASS_SPELL = {
 }
 
 --- Classes with a Bloodlust: Bloodlust/Heroism 2825/32182, Time Warp 80353, Fury of the
---- Aspects 390386, and the hunter's pet (Primal Rage 264667). "pet" = only with the right pet,
---- which we cannot see on somebody else, so the panel says so instead of promising it.
+--- Aspects 390386, and the hunter: Harrier's Cry 466904 for Marksmanship, the pet's Primal Rage
+--- 264667 for the others. "pet" = only with the right pet, which we cannot see on somebody else,
+--- so the panel says so instead of promising it - unless we know the hunter is Marksmanship.
 local LUST_CLASSES = { SHAMAN = true, MAGE = true, EVOKER = true, HUNTER = "pet" }
 
 --- Your own spell for each, tried in order; the first one you know is shown with its key
---- (Rob, 30 Sep: "zodat ik niet eerst moet zoeken bij mijn spells"). Intercession is 461622 in
---- 12.0 and was 391054 in Dragonflight (`KeybindingData.lua`); Primal Rage is the pet's spell.
-local MY_BREZ = { 20484, 61999, 20707, 461622, 391054 }
-local MY_LUST = { 2825, 32182, 80353, 390386, 272678, 264667 }
+--- (Rob, 30 Sep: "zodat ik niet eerst moet zoeken bij mijn spells"). Intercession is 391054 (see
+--- BREZ_CLASSES); Primal Rage is the pet's spell; Harrier's Cry is Marksmanship's own.
+local MY_BREZ = { 20484, 61999, 20707, 391054 }
+local MY_LUST = { 2825, 32182, 80353, 390386, 466904, 272678, 264667 }
 --- The ordinary resurrection, out of combat (Rob, 30 Sep: "ook de normale res buiten combat").
 --- Redemption, Resurrection, Ancestral Spirit, Revive, Resuscitate, Return: JustAC's resurrect list.
 local MY_RES = { 7328, 2006, 2008, 50769, 115178, 361227 }
@@ -446,7 +471,7 @@ local function WhoCan(classes)
 						label = label .. " - " .. sname
 					end
 				end
-				if classes[classFile] == "pet" then
+				if classes[classFile] == "pet" and HunterSpec(u) ~= 254 then
 					label = label .. " " .. ns:L("REZLUST_PET")
 				end
 				parts[#parts + 1] = Colour(classFile, label)

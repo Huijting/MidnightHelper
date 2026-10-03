@@ -36,6 +36,10 @@ Op je **Prot Paladin**, `/mh play`:
 - [ ] Bekijk je via de spec-knoppen een andere spec en heb je die knoppen niet: dan staat er "Geen van deze knoppen
   zit nu op dit personage…", geen lege lijst.
 - [ ] In het Duits/Frans: passen vijf tabs nog naast elkaar?
+- [ ] Rez/Bloodlust-paneel (`/mh lust test`) op je **Prot Paladin**: staat Intercession er nog met je toets? (het
+  oude nummer 461622 is eruit, alleen 391054 blijft).
+- [ ] Op een **Marksmanship-hunter**: toont het paneel Harrier's Cry als jouw Bloodlust-knop, zonder "(met de juiste pet)"?
+- [ ] Op een **Survival-hunter**: krijgt Primal Rage nu een plek in het toetsenschema (eerst alleen Beast Mastery)?
 
 ## 🆕 3 okt middag — "Zo speel je": 4 kaarten bijgewerkt
 

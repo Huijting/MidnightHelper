@@ -18,7 +18,7 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	                                          Banish (710), Fear (118699), Spell Lock (19647),
 	                                          Axe Toss (89766), Call Felhunter (212619).
 	                                          UTILITY: Demonic Gateway (111771), Burning Rush (111400),
-	                                          Command Demon (272651), Singe Magic (132411).
+	                                          Command Demon (id unchecked; 272651 is the hunter's Command Pet), Singe Magic (132411).
 	                                          Soulstone (20707) = utility (battle-res), NOOIT heal.
 	  - JustAC\Data\SpellArchetypes.lua    -> ranged builders/spenders per spec (Agony 980, Corruption 172,
 	                                          Unstable Affliction, Haunt 48181, Malefic Rapture 1254057,
@@ -105,7 +105,9 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	-- Utility (rez / raid-mobility / pet-command). Soulstone = battle-res, NOOIT heal.
 	["Soulstone"] = { category = "utility", priority = 1 }, -- SpellCategories UTILITY-context [20707] (combat-res, geen heal)
 	["Demonic Gateway"] = { category = "utility", priority = 2 }, -- SpellCategories UTILITY [111771] (raid-mobility, X)
-	["Command Demon"] = { category = "utility", priority = 3 }, -- SpellCategories UTILITY [272651] (pet-ability-trigger)
+	-- 272651 in these comments is the HUNTER's Command Pet (Wowhead, 3 Oct 2026); Command Demon's own id is not
+	-- checked. The entry is keyed by name, so only the comments were wrong.
+	["Command Demon"] = { category = "utility", priority = 3 }, -- pet-ability-trigger (id unchecked, see above)
 	["Create Healthstone"] = { category = "utility", priority = 4 }, -- levert het Healthstone-item (utility-cast, out-of-combat)
 	["Create Soulwell"] = { category = "utility", priority = 5 }, -- raid-Healthstone-well (utility)
 

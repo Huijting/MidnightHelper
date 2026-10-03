@@ -372,12 +372,13 @@ ns.KeybindingReference.specsById = {
 			--- 403876 is Ret's; 498 is Holy's (W-SPEC, docs/audit_2026-09-17/audit_paladin_warrior_dk.md).
 			{ id = 403876, minLevel = 10, categoryLocaleKey = PCAT .. "DEFENSIVES" },
 			--- Battle rez — spellbook unlock (not on Midnight letter grid); shown in Training unlock list at 19.
-			--- 12.0.x spell id (was 391054 in DF); keep in sync with spellbook tooltip.
-			{ id = 461622, minLevel = 19, categoryLocaleKey = PCAT .. "UTILITY" },
+			--- Intercession 391054. This said 461622 ("12.0.x id") until 3 Oct 2026; mh-research measured
+			--- that 461622 is no Paladin spell in wago build 12.1.0.69933, and Rob's own bar holds 391054.
+			{ id = 391054, minLevel = 19, categoryLocaleKey = PCAT .. "UTILITY" },
 		},
 		guideSpellsWithoutKeycap = {
 			[7328] = true,
-			[461622] = true,
+			[391054] = true,
 			[633] = true,
 			[403876] = true,
 			[230332] = true,

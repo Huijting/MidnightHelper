@@ -92,7 +92,9 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- Card: 30% DR for 8 s, 2 charges — pressed before a hit, not kept up (IV).
 	["Survival of the Fittest"] = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 2 }, -- kleine def, 30% DR (264735), baseline (talent)
 	["Aspect of the Turtle"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- grote def, immune (186265), baseline
-	["Primal Rage"] = { category = "cooldown", priority = 5, specs = { 253 } }, -- BM pet-Bloodlust/Heroism-equivalent (JustAC SpellCategories 264667); analoog aan Shaman Bloodlust
+	-- Survival too (3 Oct 2026, mh-research: Icy Veins SV pets guide 10 Aug - SV takes a Ferocity pet when it must be
+	-- the group's Bloodlust). Not Marksmanship: that spec has Harrier's Cry and no pet by default.
+	["Primal Rage"] = { category = "cooldown", priority = 5, specs = { 253, 255 } }, -- pet-Bloodlust/Heroism-equivalent (JustAC SpellCategories 264667); analoog aan Shaman Bloodlust
 	["Camouflage"] = { category = "utility", priority = 5 }, -- baseline stealth/reset-utility (JustAC SpellCooldowns 199483)
 	-- Card: self-castable in Midnight (IV-SVguide); 15% DR, the pet takes half — the smallest button.
 	["Roar of Sacrifice"] = { category = "defensive", priority = 2, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PET" }, -- externe pet-def (53480), baseline (talent)

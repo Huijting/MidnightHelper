@@ -31,10 +31,12 @@
   Pet-spells (Primal Rage, Master's Call) via `pet = true` + `IsSpellKnown(id, true)` (zoals GroupRezLust). `GROUP_INTRO`
   algemener (grond/zelf-spells), `GROUP_STEP_FREE` noemt nu fear, `GROUP_NONE` = "niets van dit op dit personage".
   🔲 Open voor Rob: Mage (Time Warp + Mass Invisibility, die alleen buiten gevecht) en Brew/WW (2 dunne rijen) houden?
-  Create Soulwell (vóór het gevecht) houden? Rogue/DH echt verbergen? 🔲 Bijvangst (niet gerepareerd): Intercession
-  461622 in `KeybindingData.lua:375-376,380` + `GroupRezLust.lua:61` is fout (391054 klopt; paneel veilig, probeert
-  beide); Harrier's Cry (MM-Bloodlust) mist in GroupRezLust (`:72` zegt "alleen met pet"); Primal Rage `specs={253}` in
-  KeybindRoles_Hunter mist 255; DpsToolkit noemt Renewing Blaze/Renewal/Dampen Harm die passief/weg zijn.
+  Create Soulwell (vóór het gevecht) houden? Rogue/DH echt verbergen?
+  ✅ **Bijvangst gerepareerd (Rob: "repareer alles"):** Intercession overal 391054 (KeybindingData + GroupRezLust;
+  461622 weg). GroupRezLust kent Harrier's Cry 466904: eigen knop in MY_LUST, en een hunter waarvan de spec bekend is
+  als MM (jijzelf, of inspect-data) krijgt Harrier's Cry zonder "(met de juiste pet)". Primal Rage `specs = {253, 255}`
+  (⚠️ verandert de toetsindeling van Survival). DpsToolkit: Renewal + Renewing Blaze weg (tabel wordt nergens
+  getoond); Dampen Harm NIET nagemeten. Warlock-commentaar 272651 rechtgezet (= hunter Command Pet).
 
 ## 🔧 3 okt middag — spec-API: één deur (`ns.GetSpecialization` c.s.), Rob: "begin dan met het eerste punt"
 
