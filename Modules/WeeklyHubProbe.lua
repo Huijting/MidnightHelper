@@ -42,6 +42,10 @@ local LIADRIN = {
 	{ 93913, "World Boss" },
 	{ 94457, "Battlegrounds" },
 	{ 95842, "Void Assaults" }, -- the only one MH already knew (VoidAssaults.lua)
+	{ 93767, "Arcantina" }, -- Wowhead, 3 Oct 2026 (mh-research); not yet seen in the client
+	{ 96727, "Offworld Showdowns" }, -- idem
+	{ 93912, "Raid" }, -- idem
+	{ 98232, "Vaults of Atal'Utek" }, -- idem
 }
 
 --- The Void Assault zone rotation: one zone is active per week, each with its own

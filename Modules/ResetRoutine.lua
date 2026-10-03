@@ -88,9 +88,10 @@ end
 -- dus géén minLevel daar; dat quest-ID toevoegen zodra gedumpt, dan krijgen
 -- levelaars ook echte done/opgepakt-status bij hem.
 local GIVER_WEEKLIES = {
-	-- 3 Oct 2026 (mh-research, Warcraft Wiki): the pool is now SIXTEEN. Missing here, ids not found
-	-- yet: Arcantina, Offworld Showdowns, Raid, Vaults of Atal'Utek. Never guess them: when one is in
-	-- the log, `/mh weeklies` names it as unknown with its id. The wiki also says 93891 has not been
+	-- 3 Oct 2026 (mh-research, Warcraft Wiki): the pool is now SIXTEEN. The four that were missing
+	-- (Arcantina, Offworld Showdowns, Raid, Vaults of Atal'Utek) were found on Wowhead the same
+	-- evening (mh-research, quest pages); not yet seen in the client. If one is still wrong,
+	-- `/mh weeklies` names the real one as unknown with its id. The wiki also says 93891 has not been
 	-- offered since the 9 Apr 2026 hotfix; it stays, a dead id costs nothing (see below).
 	--
 	-- Liadrin offers FOUR of a twelve-quest pool per character per week, so a list of
@@ -130,6 +131,10 @@ local GIVER_WEEKLIES = {
 		94457, -- Battlegrounds
 		95842, -- Void Assaults (also the Void meta quest below)
 		95843, -- Ritual Sites (Rob's pick, measured 29 jul 2026)
+		93767, -- Arcantina (Wowhead, 3 Oct 2026)
+		96727, -- Offworld Showdowns (Wowhead, 3 Oct 2026)
+		93912, -- Raid (Wowhead, 3 Oct 2026)
+		98232, -- Vaults of Atal'Utek (Wowhead, 3 Oct 2026)
 	} },
 	-- Dungeon-of-the-week (rotates; add each week's confirmed ID here):
 	--   93761 "Windrunner Spire" (10 jun 2026), 93164 "Maisara Caverns"

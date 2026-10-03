@@ -102,6 +102,9 @@ ns.KeybindRoleClassifier.MONK = {
     ["Rushing Jade Wind"]            = { category = "main_rotation", priority = 7, bindKey = "Shift+3", specs = { 268 } }, -- AoE (talent)
     -- Kleine defensive (absorb-shield)
     ["Celestial Brew"]               = { role = "defensive_1", priority = 1, specs = { 268 }, survival = "small", survivalOrder = 1 }, -- Z: absorb (MONK_1); card: 8 s on 1.5 min (wiki)
+    -- Celestial Infusion: keuzeknoop met Celestial Brew (IV 12.1: de standaardkeuze). Alleen voor de kaart: `specs = {}`
+    -- matcht nergens in KeybindAutoMap (SpecMatches), dus geen toets; `survivalSpecs` zet hem op de Brewmaster-kaart.
+    ["Celestial Infusion"]           = { id = 1241059, specs = {}, survivalSpecs = { 268 }, survival = "small", survivalOrder = 1 }, -- 3 okt 2026, Wowhead-tooltip
     -- Extra CD's (Weapons of Order verwijderd 17 sep: weg in 12.0.0, wiki)
     ["Exploding Keg"]                = { category = "cooldown", priority = 3, specs = { 268 } },      -- MONK_1 burst-CD (60s)
     -- Grootste CD (F1)

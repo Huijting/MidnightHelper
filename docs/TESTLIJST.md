@@ -21,6 +21,24 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt laat — "Stay alive" nagelopen + Liadrin/Stormarion (niet uitgebracht)
+
+`/mh play` → tab **Stay alive**. Alleen kijken op de klassen die je hebt:
+- [ ] **Druid:** Guardian heeft géén Heart of the Wild meer en géén Wild Charge bij "wegkomen". Balance heeft nu
+  **Frenzied Regeneration** en **Regrowth** bij heal, en Wild Charge met "jumps you backwards". Resto: Ironbark staat
+  bij de kleine knoppen, ná Barkskin.
+- [ ] **Evoker:** Obsidian Scales staat bij de **grote** knop, Zephyr bij de kleine.
+- [ ] **Brewmaster:** staat **Celestial Infusion** erop als je dat talent hebt (anders Celestial Brew)? En verandert
+  er níéts aan je toetsen (Layout-tab)?
+- [ ] **Arcane Mage** met Refractive Images: **Mirror Image** bij de kleine knoppen.
+- [ ] **Death Knight:** Lichborne bij de kleine knoppen. **Demon Hunter:** geen Darkness meer. **Rogue:** geen Shadowstep.
+- [ ] **Marksmanship:** Roar of Sacrifice zonder "your pet takes part of the damage".
+- [ ] Meten met `/mh survival` (zegt per knop waarom hij wel/niet op de kaart staat): **Warlock** — staan Spell Lock /
+  Axe Toss erop? **Devourer** — staat Shift erop? **Windwalker** met Combat Wisdom — is Expel Harm weg?
+- [ ] Liadrin: pak je **Arcantina, Offworld Showdowns, Raid** of **Vaults of Atal'Utek**, zegt "Your week" dan dat
+  hij in je log staat (niet "ga ophalen")? `/mh weeklies` noemt hem dan niet meer als onbekend.
+- [ ] Void & Rituals-tab: heeft de Stormarion-regel nu in **elke** fase een tooltip (ook bij "bouwen" en "verdedigen")?
+
 ## 🆕 3 okt avond — kaarten, achievements, gear, wereld
 
 - [ ] Arcane Mage-kaart: 5 stappen, stap 3 = **Prismatic Bolt** met icoon (id 1295924, alleen op Wowhead gezien).
@@ -29,8 +47,11 @@ er is niets weggegooid.
   andere kwaliteit (278 i.p.v. 295) als "heb je"?
 - [ ] Wapen-enchantadvies op een DK: geen voorstel meer. Op andere specs staat **Rite of the Hash'ey** als laatste optie.
 - [ ] Showdowns (Maella): biedt ze in seizoen 2 de **Showdown-weekly** nog aan? Zo ja, dan moet MH's S2-blokkade weg — zeg het me.
-- [ ] Na een Stormarion Assault-run: `/run print(C_QuestLog.IsQuestFlaggedCompleted(90962), C_QuestLog.IsQuestFlaggedCompleted(94581))`
-  — welke staat op true? En `/mh events`: welk POI-nummer heeft Stormarion?
+  🌐 Online 3 okt (mh-research, `scratchpad\online\answers.json`): **waarschijnlijk ja** — Wowhead 3 aug + Icy Veins 15 aug/29 sep;
+  de hotfix waar de blokkade op rust ging over *Sparks of War* (96725/96726, Zerella), niet over Maella. AFGELEID: geen
+  spelersreactie na 18 aug gevonden. Eén blik in het spel beslist het.
+- [x] 🌐 Online 3 okt, GEMETEN (Wowhead-questtype + wago AreaPOI): Stormarion weekly = **90962**, 94581 = herhaalbaar.
+  POI 8419/8421/8422 = één event in drie fases. ✅ Gebouwd 3 okt laat (`EventInfoData.lua`), test staat hierboven.
 - [ ] Rares: dood een rare op een niet-resetdag, typ de volgende dag `/mh rarequests`: staat hij weer op "--"? Dan is het dagelijks.
 
 ## 🆕 3 okt avond — beroepen
@@ -48,9 +69,10 @@ er is niets weggegooid.
 
 ## 🆕 3 okt avond — world boss
 
-- [ ] Biedt Lady Liadrin je **Arcantina**, **Offworld Showdowns**, **Raid** of **Vaults of Atal'Utek** aan? Pak hem op
-  en typ `/mh weeklies`: die noemt het onbekende quest-nummer. Stuur me dat nummer, dan zet ik hem erbij.
-- [ ] Adventure Guide → world boss van deze week → welk itemlevel heeft de buit in seizoen 2?
+- [x] 🌐 Online 3 okt, GEMETEN (Wowhead): Liadrin-ids Arcantina 93767, Offworld Showdowns 96727, Raid 93912, Vaults of
+  Atal'Utek 98232 (+ World Boss 93913, Stormarion 93892). ✅ Gebouwd 3 okt laat (ResetRoutine + WeeklyHubProbe).
+- [x] 🌐 Online 3 okt: Nymrissa 279/292/305/318 (GEMETEN); Pertinax/Leth'ir houden S1-buit (±259, AFGELEID); de vier oudere
+  bazen onbeslist (246 of 256).
 - [ ] Codex "World boss (Midnight)": staat Liadrins quest erin?
 
 ## 🆕 3 okt avond — Ritual Sites nagelopen
@@ -61,8 +83,8 @@ er is niets weggegooid.
   stap (eerst Ritual Problems)?
 - [ ] In Daggerspine Point, fase 2: heet de baas in het MH-venster **Void-Infused Mindbreaker**, en staan er nu korte
   tips (ook bij Lady Selen'vjar)? Kloppen ze met wat je ziet?
-- [ ] Broken Throne zonder Malevolent Boons: zie je inderdaad **geen** nebula en geen spiegels bij de Dragonhawk?
-- [ ] Heet de eindbaas op de naamplaat "Lady Selen'vjar" of alleen "Selen'vjar"?
+- [x] 🌐 Online 3 okt (AFGELEID): nebula en spiegels alleen met Malevolent Boons.
+- [x] 🌐 Online 3 okt, GEMETEN: npc 257498 heet **"Selen'vjar"**; scenario-tekst en kist zeggen "Lady Selen'vjar".
 
 ## 🆕 3 okt middag — "Zo speel je": vijfde tab "Group" (eerst Prot Paladin)
 
@@ -178,8 +200,7 @@ Niets hoort er anders uit te zien; dit is onderhoud zodat MH de volgende uitbrei
   *Current Season Maximum*? (Daarna pas de crest-telling in `CurrencyAccount.lua:495` ombouwen.)
 - [ ] **21 okt (EU)**, na het wegvallen van de crest-cap: `/mh curscan` en `/mh crests save` — zakt het crest-maximum
   naar 0? Zo niet, dan toont MH nog een cap die niet meer bestaat.
-- [ ] Devourer Demon Hunter: `/run print(GetSpecializationInfo(GetSpecialization()))` — welk spec-ID? (Nodig om
-  Devourer eigen stat-gewichten te geven; nu valt hij terug op algemene DPS.)
+- [x] 🌐 Online 3 okt, GEMETEN (wago ChrSpecialization): Devourer = **1480** → eigen stat-gewichten is een code-punt.
 
 ## 🆕 3 okt — 8 overige dungeons: nieuwe korte tips (7 talen)
 

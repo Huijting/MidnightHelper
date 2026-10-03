@@ -23,10 +23,15 @@ local _, ns = ...
 -- gebruikt voor de weekly-status-tag. Alleen invullen waar de koppeling zeker is.
 ns.EVENT_INFO = {
 	-- Stormarion Assault (Voidstorm) — tower defense, elk half uur.
+	-- 3 okt 2026 (mh-research, wago AreaPOI live 12.1.0.69933 = PTR 12.1.5): 8419/8421/8422 zijn
+	-- één event in drie fases (cores verzamelen / verdediging bouwen / verdedigen), zelfde plek.
+	-- MH kende alleen 8419, dus in twee van de drie fases had de regel geen uitleg. Zie onder.
+	-- weeklyQuest: 90962 "Stormarion Assault" = Wowhead-type "Weekly Rare Elite World Quest";
+	-- 94581 "Stand Your Ground" is de herhaalbare (type World Quest). Was 94581.
 	[8419] = {
 		descKey = "EVENT_INFO_STORMARION_DESC",
 		rewardKey = "EVENT_INFO_STORMARION_REWARD",
-		weeklyQuest = 94581, -- "Stand Your Ground"
+		weeklyQuest = 90962,
 		-- Shift-klik → roteerbare preview: mount Contained Stormarion Defender +
 		-- pet Kai (web-gedataminede item-IDs, 15 jun).
 		rewards = { 257180, 265030 },
@@ -38,6 +43,9 @@ ns.EVENT_INFO = {
 		weeklyQuest = 89268, -- "Lost Legends"
 	},
 }
+-- Stormarion: de twee andere fases delen dezelfde uitleg.
+ns.EVENT_INFO[8421] = ns.EVENT_INFO[8419]
+ns.EVENT_INFO[8422] = ns.EVENT_INFO[8419]
 
 -- Info voor een event-POI (of nil als we het event nog niet beschreven hebben).
 function ns.GetEventInfo(areaPoiID)

@@ -1,5 +1,29 @@
 # Midnight Helper — waar we staan
 
+## 🌐 3 okt laat — testlijst online beslist + naloop #13 "alleen Stay alive" (Rob koos) — GEBOUWD (Rob: "Ik neem jouw adviezen over")
+
+- **Gebouwd:** alle 6 fouten + 5 ontbrekers uit `findings.md`; Evoker Scales big / Zephyr small; Ironbark small (order 2);
+  Shadowstep van de kaart (mijn keuze, geen advies gegeven — net als Harpoon). Celestial Infusion = nieuwe entry met
+  `specs = {}` (matcht nergens in KeybindAutoMap → geen toets) + `survivalSpecs = {268}`. Mirror Image `survival = {[62]="small"}`.
+  0 nieuwe teksten. Liadrin-ids 93767/96727/93912/98232 in ResetRoutine + WeeklyHubProbe; EventInfoData weekly 94581 →
+  90962 en 8421/8422 delen de 8419-info. Syntax OK, lint 0 HARD. Niet in het spel gezien → TESTLIJST "3 okt laat".
+- **NIET gedaan:** Showdown-gate (eerst Robs blik bij Maella), Devourer-stat-gewichten (vraagt eigen onderzoek naar
+  stat-prioriteit), de "optioneel"-lijst in `findings.md` (notes/commentaar-ids). Naloop #13 daarmee af; NALOOP_LIJST bijwerken.
+
+- **Online (1× mh-research, `fcdcd4fe…\scratchpad\online\answers.json`):** Maella biedt de Showdown-weekly in S2
+  waarschijnlijk nog aan (AFGELEID; de hotfix achter de gate in `Showdowns.lua:71-73` ging over Sparks of War 96725/96726)
+  → gate weg na één in-game blik. GEMETEN: Stormarion weekly 90962, POI 8419/8421/8422 = drie fases (MH kent alleen 8419);
+  Liadrin-ids 93767/96727/93912/98232 (+93892); Nymrissa 279-318; Devourer 1480; currency 3376 = Shard of Dundun (8/wk);
+  Mist-ids kloppen (62416 = gem. ilvl 331); Prismatic Bolt 1295924 klopt; npc heet "Selen'vjar". Rares daily/weekly: onbeslist.
+  TESTLIJST bijgewerkt. Code-punten (Liadrin-ids, POI's, Devourer-gewichten, Showdown-gate) wachten op Robs ja.
+- **Stay alive (naloop #13, Rob: "Doe alleen Stay alive maar"):** 136 `survival`-rijen in 13 KeybindRoles-bestanden, 5
+  onderzoekers (het hulpje splitste zichzelf; niet gevraagd). 122 klopt, 6 fout, 8 onzeker, 5 ontbreken. Fout: Heart of the
+  Wild (Guardian eraf), Wild Charge (alleen 102/105), Lichborne big→small, Darkness eraf (grondzone), Spellwarding alleen 66,
+  Roar of Sacrifice pet-note niet voor 254. Ontbreekt: Frenzied Regen 102/105, Regrowth 102, Celestial Infusion 268
+  (1241059), Mirror Image 62 small. Rob kiest: Evoker Scales/Zephyr omdraaien, Ironbark small, Shadowstep. In-game meten:
+  Spell Lock/Axe Toss (pet-spells), Shift 1234796, Expel Harm + Combat Wisdom. Alle niet-kloppende rijen met regelnummer en
+  voorstel: `fcdcd4fe…\scratchpad\survival\findings.md`.
+
 ## 🗂️ 3 okt avond — naloop #7 (27 kaarten), #9 achievements, #11 gear, #12 wereld ERIN (Rob: "ik vertrouw op jou")
 
 - 7× mh-research (briefs `scratchpad\cards2\BRIEF.md`, `sys2\BRIEF.md`; uitvoer `cards2\p1-4.json`, `sys2\ach|gear|world.json`):

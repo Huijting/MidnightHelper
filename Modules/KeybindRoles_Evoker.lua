@@ -72,10 +72,10 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Deep Breath"] = { role = "utility_primary", priority = 2 },        -- Shift+Q (movement, ook major damage-CD)
 	-- Kleine defensive (Z)
 	-- Card: 30% for 12 s on 1.5 min (IV-Dev, WH-spell) — the main defensive, a cooldown, not a keep-up.
-	["Obsidian Scales"] = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1 }, -- Z (kleine def, baseline)
+	["Obsidian Scales"] = { role = "defensive_1", priority = 1, survival = "big", survivalOrder = 1 }, -- Z (kleine def, baseline); card: big sinds 3 okt 2026 (30% DR 12 s, sterkste eigen def; IV 12.1)
 	-- Grote defensive (C)
 	-- Card: -20% AREA damage for you + 4 allies, 2 min (WH-spell 374227); no help against one big hit.
-	["Zephyr"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline)
+	["Zephyr"] = { role = "defensive_3", priority = 1, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline); card: small sinds 3 okt 2026 (alleen tegen AoE)
 	-- Dispel / CC (V-cluster)
 	["Sleep Walk"] = { category = "dispel_cc", priority = 1 },           -- V (incapacitate CC, baseline)
 	["Expunge"] = { category = "dispel_cc", priority = 2 },              -- Shift+V (poison-dispel, baseline)

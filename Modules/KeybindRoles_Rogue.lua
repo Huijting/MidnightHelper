@@ -117,7 +117,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Kick"]             = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
     -- Movement / gap-closers
     ["Sprint"]           = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q op Assa/Sub; Shift+Q op Outlaw
-    ["Shadowstep"]       = { role = "utility_primary", priority = 1, specs = { 259, 261 }, survival = "escape", survivalOrder = 2 }, -- gap-closer; niet Outlaw (heeft Grappling Hook)
+    ["Shadowstep"]       = { role = "utility_primary", priority = 1, specs = { 259, 261 } }, -- gap-closer; niet Outlaw (heeft Grappling Hook); card: weg sinds 3 okt 2026 (vooral naar de vijand, net als Harpoon)
     -- Self-heal
     ["Crimson Vial"]     = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 primaire combat self-heal (instant HoT). NIET F4.
     -- Kleine defensive

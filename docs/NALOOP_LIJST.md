@@ -44,7 +44,9 @@ raid-ronde). Een sessie is 100%, dus ±60 eenheden per sessievenster als je niet
 - ✅ 3 okt: delves + Valeera (#3) en de 8 overige dungeons (#4, korte + lange tips, 7 talen).
 - ✅ 3 okt middag: #1 valuta & crests en #2 Great Vault (teksten + code; 3 meetpunten op de TESTLIJST).
 - ✅ 3 okt avond: #7 speelkaarten (alle 40 nu nagelopen), #9 achievements, #11 tier/consumables/enchants, #12 wereld.
-  Open: #10 (12.1.5, komt 13/14 okt) en #13 keybind-rollen.
+  Open: #10 (12.1.5, komt 13/14 okt).
+- ✅ 3 okt laat: #13 keybind-rollen — Rob koos **alleen "Stay alive"** (136 getagde rijen: 122 klopt, 6 fout, 8 onzeker,
+  5 ontbreekt; gerepareerd). De rest van de keybind-rollen (Layout-tab) bewust niet nagelopen.
 - ✅ 3 okt avond: #8 beroepencursus (21 teksten, 7 talen; Dundun-valuta, boekprijzen, wizard-weekly, routes).
   Meetpunten (currency-ids, weekvoortgang) open.
 - ✅ 3 okt avond: #6 Codex (±45 hoofdstukken, 28 teksten, 7 talen; Howling Ridge). Alleen de 3 beroepen-HOOFDSTUKKEN;

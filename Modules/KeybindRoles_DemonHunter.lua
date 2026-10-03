@@ -104,7 +104,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- Card: 25% DR for 10 s on a 1 min cooldown — press it before a hit (IV-HAV, IV-DEV).
 	["Blur"]              = { role = "defensive_1", priority = 1, specs = { 577, 1480 }, survival = "small", survivalOrder = 1 }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
 	-- Grote def (SpellDB fallback DEMONHUNTER {198589,196718}; Darkness = raid-wall)
-	["Darkness"]          = { category = "defensive", priority = 4, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_GROUND" }, -- AoE avoidance-koepel; baseline beide specs (SpellDB DEMONHUNTER class-level 196718). category=defensive i.p.v. defensive_3, zodat de persoonlijke C-def (Blur/Fiery Brand) het anker houdt en Darkness naar een overflow-slot gaat -- card: 5 min, stand in the dome
+	["Darkness"]          = { category = "defensive", priority = 4 }, -- card: weg sinds 3 okt 2026 (grondzone, geen persoonlijke noodknop; zelfde regel als Anti-Magic Zone). -- AoE avoidance-koepel; baseline beide specs (SpellDB DEMONHUNTER class-level 196718). category=defensive i.p.v. defensive_3, zodat de persoonlijke C-def (Blur/Fiery Brand) het anker houdt en Darkness naar een overflow-slot gaat -- card: 5 min, stand in the dome
 	["Sigil of Silence"]  = { category = "dispel_cc", priority = 1, specs = { 581 }, alsoStop = "silence" }, -- Veng AoE-silence sigil (JustAC SpellCategories CROWD_CONTROL 202137) -> Spec 08 alsoStop
 	-- Netherwalk deleted 17 Sep 2026: not in the 12.1 Havoc trees (IV-HAV).
 	-- Grootste CD / cooldown_bar F1 (SpellDB BURST DEMONHUNTER_1 = {191427})

@@ -169,7 +169,8 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Lunar Beam"]                       = { id = 204066, category = "cooldown", priority = 1, specs = { 104 }, survival = "small", survivalOrder = 2 }, -- regel 1 van de Elune's Chosen-prioriteitslijst (Method/Icy Veins/Maxroll); JustAC SimcRotations DRUID_3 burst+st+aoe, SpellCooldowns 60s; card: IV 12.1 "survivability tool"
     -- Heart of the Wild: klassentalent (patchnotes, Method "class tree") -> baseline sinds 17 sep.
     -- ⚠️ id 1261867 is gemeten op Guardian; op de andere specs niet gemeten.
-    ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 104 }, survivalSpecs = { 102, 103, 104, 105 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst; card: Bear Form +30% max health
+    -- Card: NIET op Guardian (3 okt 2026, mh-research: de Guardian-tooltip heeft geen Bear Form-effect, daar is het een aanvalsknop).
+    ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 104 }, survivalSpecs = { 102, 103, 105 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst; card: Bear Form +30% max health
     ["Incarnation: Guardian of Ursoc"]   = { category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
     -- Rage of the Sleeper: verwijderd 17 sep (weg in 12.0.0, wiki).
     -- Utility
@@ -184,7 +185,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Skull Bash"]                       = { role = "interrupt", priority = 1, specs = { 103, 104 }, survival = "interrupt", survivalOrder = 1 }, -- charge+interrupt (melee-specs)
     ["Stampeding Roar"]                  = { role = "utility_primary", priority = 2, specs = { 103, 104 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q (raid-speed)
     ["Survival Instincts"]               = { role = "defensive_3", priority = 1, specs = { 103, 104 }, survival = "big", survivalOrder = 2 }, -- grote def (-50% dmg), C
-    ["Frenzied Regeneration"]            = { role = "heal_quick", priority = 2, specs = { 103, 104 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- self-heal (Guardian spender/Feral noodheal), F2/5; Bear Form only (Feral Cat only with Druid of the Claw)
+    ["Frenzied Regeneration"]            = { role = "heal_quick", priority = 2, specs = { 103, 104 }, survivalSpecs = { 102, 103, 104, 105 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- self-heal (Guardian spender/Feral noodheal), F2/5; Bear Form only (Feral Cat only with Druid of the Claw); card: klassentalent, ook Balance/Resto (IV 12.1, 3 okt 2026)
     ["Berserk"]                          = { role = "cooldown_bar", priority = 1, specs = { 103, 104 } }, -- Feral 106951 + Guardian 50334, zelfde naam, F1
     ["Tiger's Fury"]                     = { category = "cooldown", priority = 3, specs = { 103 } }, -- Feral signature 30s energy/dmg-CD (JustAC SpellCooldowns 5217=30s; SimC core)
 
@@ -201,13 +202,13 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Ontbrekende ST-heals + ST-HoTs -> click_cast (mouseover, GEEN toets). Regrowth is
     -- Resto-only en bestaat NIET als aparte Lua-key elders -> veilig toegevoegd.
     ["Rejuvenation"]                     = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-HoT (Resto-only) -> mouseover/click-cast
-    ["Regrowth"]                         = { role = "click_cast", priority = 1, specs = { 105 }, survival = "heal", survivalOrder = 2 }, -- ST-heal + kort HoT -> mouseover/click-cast; card: Resto's own self-heal
+    ["Regrowth"]                         = { role = "click_cast", priority = 1, specs = { 105 }, survivalSpecs = { 102, 105 }, survival = "heal", survivalOrder = 2 }, -- ST-heal + kort HoT -> mouseover/click-cast; card: Resto's own self-heal, en Balance (baseline, castbaar in Moonkin Form; 3 okt 2026)
     ["Lifebloom"]                        = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-HoT op tank (Resto-only) -> mouseover/click-cast
     -- Cenarion Ward: verwijderd 17 sep (weg in 12.0, patchnotes).
     ["Wild Growth"]                      = { category = "raid_heal", priority = 2, bindKey = "Shift+4", specs = { 105 } }, -- AoE-raidheal BLIJFT op toets (Shift+4)
     ["Efflorescence"]                    = { category = "raid_heal", priority = 4, specs = { 105 } }, -- grond-AoE-raidheal (bloom) -> toets
     -- Kleine defensive (extern)
-    ["Ironbark"]                         = { category = "defensive", priority = 2, specs = { 105 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- extern -20% dmg (C since 19 Sep 2026: it was a second defensive_1 behind Barkskin, so it fell to Shift+Z while C held Mass Entanglement); ook raid-CD-slot; card: 1.5 min, not a keep-up (wiki)
+    ["Ironbark"]                         = { category = "defensive", priority = 2, specs = { 105 }, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- extern -20% dmg (C since 19 Sep 2026: it was a second defensive_1 behind Barkskin, so it fell to Shift+Z while C held Mass Entanglement); ook raid-CD-slot; card: 1.5 min, not a keep-up (wiki); small achter Barkskin sinds 3 okt 2026 (-20% = even sterk als Barkskin)
     -- Raid-heal cooldowns (op cooldown-slots)
     ["Tranquility"]                      = { role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
     -- Flourish en Grove Guardians: verwijderd 17 sep (nu passief, patchnotes/IV Resto).
@@ -223,7 +224,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- BASELINE (alle 4 Druid-specs; geen specs=)
     -- =================================================================
     -- Movement
-    ["Wild Charge"]                      = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 3 }, -- Q (vorm-afhankelijke gap-closer)
+    ["Wild Charge"]                      = { role = "utility_primary", priority = 1, survivalSpecs = { 102, 105 }, survival = "escape", survivalOrder = 3, survivalNote = { [102] = "SURVIVAL_NOTE_BACKWARDS" } }, -- Q (vorm-afhankelijke gap-closer); card: alleen Balance (Moonkin: sprong achteruit) en Resto (zonder vorm: naar een bondgenoot) — Cat/Bear chargen NAAR het doel (IV 12.1, 3 okt 2026)
     ["Dash"]                             = { role = "utility_primary", priority = 3, survival = "escape", survivalOrder = 1 }, -- Cat Form sprint (baseline movement)
     ["Travel Form"]                      = { role = "mobility", priority = 1, survival = "escape", survivalOrder = 5 }, -- R (snelle reis-vorm: outdoor speed / zwem / vlieg; alle specs, out-of-combat); card: last, limited indoors
     -- Kleine defensive
