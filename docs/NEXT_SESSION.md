@@ -30,8 +30,7 @@
   (alleen Darkness) en Rogue (Shroud alleen buiten gevecht, Tricks is talentkeuze) — onderzoeksadvies, Rob kiest.
   Pet-spells (Primal Rage, Master's Call) via `pet = true` + `IsSpellKnown(id, true)` (zoals GroupRezLust). `GROUP_INTRO`
   algemener (grond/zelf-spells), `GROUP_STEP_FREE` noemt nu fear, `GROUP_NONE` = "niets van dit op dit personage".
-  🔲 Open voor Rob: Mage (Time Warp + Mass Invisibility, die alleen buiten gevecht) en Brew/WW (2 dunne rijen) houden?
-  Create Soulwell (vóór het gevecht) houden? Rogue/DH echt verbergen?
+  ✅ Rob 3 okt: *"de groep tabs behouden"* — Mage, Brew/WW en Create Soulwell blijven; DH/Rogue blijven zonder tab.
   ✅ **Bijvangst gerepareerd (Rob: "repareer alles"):** Intercession overal 391054 (KeybindingData + GroupRezLust;
   461622 weg). GroupRezLust kent Harrier's Cry 466904: eigen knop in MY_LUST, en een hunter waarvan de spec bekend is
   als MM (jijzelf, of inspect-data) krijgt Harrier's Cry zonder "(met de juiste pet)". Primal Rage `specs = {253, 255}`
