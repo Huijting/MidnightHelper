@@ -1631,3 +1631,47 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   kruiscontrole (feiten niet herhaald, alleen zelf getoetst op tegenspraak met geshipte MH-tekst) ·
   codebase: gerichte read van `Locales/RaidTips.lua:93-100` plus repo-brede grep op "1286860". Geen
   actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-03] 💬 **CurseForge: geen open reacties (2 draadjes gelezen, ongewijzigd t.o.v.
+  gisteren).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261003` via Exa (JSON, `pagination.totalCount` = 6 berichten — zelfde aantal als
+  [2026-10-02]). Draadje van **MrsBoojiePanda** (debug-regel bij login) eindigt met een reply van
+  `twelveinchy` — beantwoord. Draadje van **gadrinonturalyon** (coffer-key-shards-popup, 3D-
+  bossmodel) eindigt chronologisch ook met `twelveinchy`'s laatste bericht (ná gadrinonturalyon's
+  bedankje) — beantwoord. Geen enkel draadje heeft als laatste bericht iemand anders dan de
+  maintainer, dus 🔴 WAITING FOR AN ANSWER is niet van toepassing vandaag. Geen nieuwe berichten
+  sinds [2026-10-02].
+
+- [2026-10-03] 🔁 **Nog steeds niets nieuws sinds [2026-10-02] — zelf opnieuw gemeten, convergeert
+  met de API- en data-wachter van vandaag.** `news.blizzard.com`'s doorlopende hotfix-artikel
+  **volledig zelf gelezen** via Exa `web_fetch_exa` met `?nocache=20261003z`: bovenste sectie is nog
+  steeds **"October 1, 2026"** (Druid/Feral *Rampant Ferocity*-bugfix, Hunter/Survival *Wildfire
+  Bomb*-periodieke-schadecorrectie — beide class-balans, buiten mijn lane — en, onder *Dungeons and
+  Raids → The Venomous Abyss → Ula'tek*: *"Fixed an issue where the Venomous Heart would sometimes
+  melee a player"*, al getoetst en [RAAKT ONS NIET] bevonden op [2026-10-02]), byte-voor-byte gelijk
+  aan wat toen gelogd staat. **Positieve controle tegen de cache-val, zelfde run:** een gerichte
+  `web_search_exa` op "hotfixes October 2 OR October 3 2026 Delves Professions Quests Dungeons Raids
+  Items" vindt uitsluitend al-bekend materiaal over de Oct-1-sectie (o.a. patchbot.io, gepubliceerd
+  2 okt, toont nog steeds "Hotfixes: October 1, 2026" als nieuwste titel; een forumthread-spiegel
+  waarvan de laatste post van vandaag (Linxy, 2 okt 00:02) nog steeds de Oct-1-inhoud citeert zonder
+  vervolg) — dus geen kapotte zoekvorm, een echte afwezigheid van een nieuwere sectie. Delves,
+  Professions en Quests zijn (en blijven) leeg in de Oct-1-sectie — niets om tegen de repo te
+  toetsen. Dit convergeert met `docs/API_WATCH.md` ([2026-10-03]) en `docs/PTR_12.0.7_DATA.md`
+  ([2026-10-03]), beiden vandaag onafhankelijk ook nog op "October 1" — niet overgenomen, zelf
+  gelezen.
+
+  📌 **Kruiscontrole, niet mijn feit:** de PTR-wachter bevestigt vandaag
+  (`docs/PTR_12.1_WATCH.md:489-490`) dat 12.1.5 nog niet live is (releasedatum 13/14 okt) — dus geen
+  trigger voor "elke kaart moet gecontroleerd worden" vandaag.
+
+  Vandaag is zaterdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261003z (volledig gelezen via
+  Exa) · `web_search_exa` "World of Warcraft Midnight hotfixes October 2 OR October 3 2026 Delves
+  Professions Quests Dungeons Raids Items" (nieuwste sectie blijft 1 okt) · `docs/API_WATCH.md`
+  entry [2026-10-03] en `docs/PTR_12.0.7_DATA.md` entry [2026-10-03] als kruiscontrole (feiten niet
+  herhaald) · `docs/PTR_12.1_WATCH.md` entries [2026-10-03] voor de 12.1.5-livestatus. Geen
+  actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
