@@ -33,8 +33,10 @@ local CARDS = {
 		source = "Icy Veins 25 Aug · Method 27 Aug 2026", -- rechecked 25 Sep: still right
 	},
 	[66] = { -- Protection Paladin
-		steps = 4, aoe = true, hero = 2,
-		source = "Method 3 Sep · Wowhead 12 Aug · Icy Veins 21 Sep 2026", -- rechecked 25 Sep: still right
+		-- 3 Oct 2026: fifth step = Hand of Reckoning (Rob's choice; Icy Veins' opener pulls with it,
+		-- and it was on none of the four tabs). HERO2 now says Lightsmith is ONE button.
+		steps = 5, aoe = true, hero = 2,
+		source = "Method 3 Sep · Wowhead 12 Aug · Icy Veins 21 Sep 2026", -- rechecked 25 Sep + 3 Oct
 	},
 	[62] = { -- Arcane Mage
 		steps = 4, aoe = true, hero = 2,

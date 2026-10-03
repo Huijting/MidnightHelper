@@ -67,7 +67,9 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Extra defensives (category="defensive"; overflow-slots). Allen SpellCategories DEFENSIVE.
 	-- Divine Protection: 403876 is the Ret spell, Holy owns 498 (W-SPEC); the card asks per spec.
-	["Divine Protection"] = { id = 403876, category = "defensive", priority = 2, survival = "small", survivalOrder = 1, survivalId = { [65] = 498 } }, -- DEFENSIVE [403876] (kleine DR)
+	-- 3 Oct 2026: not Prot. Protection has no Divine Protection in 12.1 (absent from Icy Veins' full
+	-- 12.1 spell list, positive control Crusader Strike on the same page; play-card audit 3 Oct).
+	["Divine Protection"] = { id = 403876, category = "defensive", priority = 2, specs = { 65, 70 }, survival = "small", survivalOrder = 1, survivalId = { [65] = 498 } }, -- DEFENSIVE [403876] (kleine DR)
 	["Blessing of Protection"] = { id = 1022, category = "defensive", priority = 3, survival = "big", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- DEFENSIVE [1022] (fysieke immunity, op ally/self)
 	["Blessing of Sacrifice"] = { id = 6940, category = "defensive", priority = 4 }, -- DEFENSIVE [6940] (external DR-transfer); NOT on the card: ally only
 	["Blessing of Spellwarding"] = { id = 204018, category = "defensive", priority = 5, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- DEFENSIVE [204018] (magic immunity, talent)
@@ -83,7 +85,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Self-heals (F2 = heal_quick snelle combat-heal; F3 = heal_ooc out-of-combat).
 	-- Word of Glory = instant Holy-Power-noodheal, baseline alle specs (SpellCategories HEALING [85673]).
-	["Word of Glory"] = { id = 85673, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2; baseline (85673) instant self-heal
+	["Word of Glory"] = { id = 85673, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = { [66] = "SURVIVAL_NOTE_WOG_PROT" } }, -- F2; baseline (85673) instant self-heal. Prot note 3 Oct 2026: same Holy Power as Shield of the Righteous; free with Shining Light (Icy Veins "Active Mitigation", 21 Sep; Method 3 Sep)
 	-- Lay on Hands = full heal on a 10 min cooldown with Forbearance (W-CD 600) — after Word of Glory.
 	["Lay on Hands"] = { id = 633, role = "heal_ooc", priority = 1, survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_LAST_RESORT" }, -- F3; baseline (633)
 
@@ -135,7 +137,9 @@ ns.KeybindRoleClassifier.PALADIN = {
 	--- dat onze data een gat heeft.
 	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66 }, survival = "keepup", survivalOrder = 1 }, -- card: active mitigation you keep rolling (IV-ProtPal) -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
 	["Consecration"] = { id = 26573, category = "main_rotation", priority = 4, specs = { 66 } }, -- guide.lua Prot-rotatie; [26573] castbare id (JustAC SpellCooldowns); ground-AoE, on-cooldown houden
-	["Hammer of Wrath"] = { id = 24275, category = "spender", priority = 2, specs = { 66, 70 } }, -- SpellArchetypes [24275] ranged; execute-spender (Prot/Ret)
+	-- 3 Oct 2026: Prot dropped. Icy Veins' 12.1 spell list (10 Aug): "Hammer of Wrath is now a passive
+	-- ability. While you have Avenging Wrath active Hammer of Wrath will replace Judgment" — no own button.
+	["Hammer of Wrath"] = { id = 24275, category = "spender", priority = 2, specs = { 70 } }, -- SpellArchetypes [24275] ranged; execute-spender (Ret)
 	--- 🔴 STOND OP `{ 66 }` EN DAT WAS ONZE FOUT, NIET DIE VAN HET SPEL — 7 sep 2026.
 	--- Robs Ret-paladin (lvl 70) meldde `Hand of Reckoning` als `unclassified`. Dat is geen
 	--- lekkage uit een Prot-tabblad: `ReadKnownActiveSpells` slaat off-spec skill lines expliciet
@@ -169,6 +173,10 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- ook heeft is NIET gecontroleerd; heeft een Holy-paladin ze wel, dan komen ze bij hem als
 	-- `unclassified` in `/mh binds` te staan en horen we het vanzelf. Dat is precies waarvoor
 	-- die teller gebouwd is - een gat dat zichzelf meldt is beter dan een gok die dat niet doet.
+	-- 📌 3 Oct 2026: Sacred Weapon (432472) has NO entry of its own, on purpose. Icy Veins (12.1): "This
+	-- ability rotates Holy Bulwark and Sacred Weapon. You start with 2 charges … It will start the
+	-- cycle as Holy Bulwark." It is ONE button (Method calls it Holy Armaments); a second entry would
+	-- ask the allocator for a second key. AFGELEID that the slot reads 432459 while on Holy Bulwark.
 	["Holy Bulwark"] = { id = 432459, category = "defensive", priority = 3, specs = { 66 } }, -- [432459] gemeten in Robs client; Lightsmith, staat in Methods prioriteitslijst
 	["Rite of Sanctification"] = { id = 433568, category = "utility", priority = 1, specs = { 66 } }, -- [433568] gemeten in Robs client; Lightsmith-build
 

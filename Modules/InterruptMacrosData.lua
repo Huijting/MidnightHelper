@@ -11,15 +11,21 @@
 
 local addonName, ns = ...
 
+--- 3 Oct 2026: three healer specs offered a kick they no longer have in 12.1 — Restoration Druid
+--- (Skull Bash is Feral/Guardian, KeybindRoles_Druid.lua:184), Preservation Evoker (lost Quell in
+--- 12.0, KeybindRoles_Evoker.lua:56,68-69) and Mistweaver (Spear Hand Strike is BM/WW,
+--- KeybindRoles_Monk.lua:62,173). Now false, like Discipline and Holy Priest.
 local SPELLS = {
 	DEATHKNIGHT = { [1] = "Mind Freeze", [2] = "Mind Freeze", [3] = "Mind Freeze" },
 	DEMONHUNTER = { [1] = "Disrupt", [2] = "Disrupt" },
-	DRUID = { [1] = "Solar Beam", [2] = "Skull Bash", [3] = "Skull Bash", [4] = "Skull Bash" },
+	--- Balance, Feral, Guardian, Restoration (client spec order).
+	DRUID = { [1] = "Solar Beam", [2] = "Skull Bash", [3] = "Skull Bash", [4] = false },
 	--- Devastation, Preservation, Augmentation (client spec order).
-	EVOKER = { [1] = "Quell", [2] = "Quell", [3] = "Quell" },
+	EVOKER = { [1] = "Quell", [2] = false, [3] = "Quell" },
 	HUNTER = { [1] = "Counter Shot", [2] = "Counter Shot", [3] = "Muzzle" },
 	MAGE = { [1] = "Counterspell", [2] = "Counterspell", [3] = "Counterspell" },
-	MONK = { [1] = "Spear Hand Strike", [2] = "Spear Hand Strike", [3] = "Spear Hand Strike" },
+	--- Brewmaster, Mistweaver, Windwalker (client spec order).
+	MONK = { [1] = "Spear Hand Strike", [2] = false, [3] = "Spear Hand Strike" },
 	PALADIN = { [1] = "Rebuke", [2] = "Rebuke", [3] = "Rebuke" },
 	PRIEST = { [1] = false, [2] = false, [3] = "Silence" },
 	ROGUE = { [1] = "Kick", [2] = "Kick", [3] = "Kick" },

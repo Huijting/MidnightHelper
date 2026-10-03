@@ -85,6 +85,7 @@ local _, ns = ...
 ---     survival      = "keepup" | "small" | "big" | "heal" | "escape" | "interrupt"
 ---     survivalOrder = number, lower first within the step (never `priority`)
 ---     survivalNote  = locale key, a short "only against magic"-style remark
+---                     (or { [specID] = key } when the remark is true for one spec only)
 ---     survivalId    = { [specID] = spellID } where one spec owns a different id
 ---     survival may also be { [specID] = step } when one entry means different things per spec
 ---     (Ignore Pain: small on Arms, keepup on Prot)
@@ -420,11 +421,17 @@ local function TaggedPlan(tbl, specID, trace)
 			local shown = name and not already[dedupe]
 			if shown then
 				already[dedupe] = true
+				-- survivalNote may be { [specID] = key } like survival itself (3 Oct 2026: Word of
+				-- Glory's Holy Power clash with Shield of the Righteous is a Prot-only remark).
+				local note = item.entry.survivalNote
+				if type(note) == "table" then
+					note = note[specID]
+				end
 				steps[#steps + 1] = {
 					text = name,
 					spellID = id,
 					whenKey = step.key,
-					noteKey = item.entry.survivalNote,
+					noteKey = note,
 					bindKey = item.entry.bindKey,
 				}
 			end

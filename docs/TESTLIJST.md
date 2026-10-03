@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — "Zo speel je": Prot Paladin + interrupt-macro's
+
+Op je **Prot Paladin**, `/mh play` (of de knop "How you play"):
+- [ ] Tab "Your buttons" heeft nu **5** stappen; de vijfde: *"Pull with Hand of Reckoning, and taunt with it whenever an
+  enemy hits someone else."* Met het taunt-icoon.
+- [ ] De Lightsmith-regel zegt nu dat het **één knop met 2 charges** is (Holy Bulwark ↔ Sacred Weapon).
+- [ ] Tab "Stay alive": bij **Word of Glory** staat *"uses the same Holy Power as Shield of the Righteous: press it when
+  it is free (Shining Light)"*. Op je Ret/Holy hoort die opmerking NIET te staan.
+- [ ] "Stay alive" toont op Prot geen **Divine Protection** meer (die heeft Prot niet in 12.1).
+- [ ] Interrupt-macro's (Macros-tab): op een **Resto Druid**, **Preservation Evoker** of **Mistweaver** wordt geen
+  kick-macro meer aangeboden (die specs hebben er geen in 12.1). Op Feral/Guardian/Dev/Aug/BM/WW wel.
+
 ## 🆕 3 okt middag — drie kleine dingen (Account snapshot / This Week)
 
 - [ ] Account snapshot: de regel heet nu **"Silvermoon quest givers (this character): N / M done"** (was "SMC weekly

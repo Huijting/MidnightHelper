@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🃏 3 okt middag — "Zo speel je"-opdracht (Downloads\OPDRACHT_BOUWCHAT_playcards.md), deel 1
+
+- Stap 0 ✅ rapporten → `docs/playcards_audit_2026-10-03/` (protpal_card_check.md, play_cards_system.md).
+- **D ✅** `InterruptMacrosData.lua`: Resto Druid [4], Preservation [2], Mistweaver [2] → `false` (bronnen in
+  KeybindRoles_Druid:184, _Evoker:56/68-69, _Monk:62/173).
+- **B ✅ spec 66:** `steps = 5`, `PLAYCARD_66_S5` = Hand of Reckoning (62124; Robs keuze); `PLAYCARD_66_HERO2` herschreven
+  (Lightsmith = één knop, 2 charges); Word of Glory krijgt op "Stay alive" `survivalNote = { [66] = "SURVIVAL_NOTE_WOG_PROT" }`
+  (SurvivalPlan.lua accepteert nu een spec-tabel, zoals `survival`). 7 talen (eigen vertaling), drift --mark HERO2,
+  locale_probe OK.
+- **C ✅ deels:** Hammer of Wrath `{70}` (passief voor Prot), Divine Protection `specs = {65,70}`, Sacred Weapon bewust
+  géén eigen entry (één knop met Holy Bulwark; commentaar). 🔲 Open: `paladin_protection`-layout in KeybindingData.lua.
+- 🔲 **E** (4 oudste kaarten 64/72/264/266 + 7 overgeslagen 103/104/259/260/261/1467/1473; 255 bron 12.0.7) en **G** (tab 5
+  "Voor je groep" — eerst schets van één spec aan Rob) volgen.
+
 ## 🔧 3 okt middag — spec-API: één deur (`ns.GetSpecialization` c.s.), Rob: "begin dan met het eerste punt"
 
 - GEMETEN (mh-research tegen Blizzards live-bron 12.1.0.69933, `scratchpad\sys\api_claims.json`): `GetSpecialization`,
