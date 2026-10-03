@@ -24,14 +24,14 @@ er is niets weggegooid.
 ## 🆕 3 okt middag — spec-functies via de nieuwe Blizzard-naam (31 modules)
 
 Niets hoort er anders uit te zien; dit is onderhoud zodat MH de volgende uitbreiding overleeft.
-- [ ] Na `/reload` (live én PTR): geen nieuwe fouten in BugSack. (3 okt: BugSack + BugGrabber stonden niet in `_xptr_`;
-  gekopieerd uit live, beide ondersteunen 120105.)
+- [x] Na `/reload` op de 12.1.5-PTR: BugSack "You have no bugs, yay!" — Rob 3 okt (screenshot). (BugSack + BugGrabber
+  stonden niet in `_xptr_`; gekopieerd uit live.) Live nog te zien.
 - [x] `/run print(C_CVar.GetCVar('loadDeprecationFallbacks'),GetSpecialization==C_SpecializationInfo.GetSpecialization,C_SpecializationInfo.GetSpecialization())`
   — Rob 3 okt, 12.1.5-PTR, Frost Mage: "true" en 3. ✅
 - [x] *Zo speel je*-kaart (Frost) en `/mh stats` (mastery "Freeze and Shatter" met tekst uit het spel) werken op de PTR —
   Rob 3 okt (screenshot + plak). Tank-toolkit als Prot Paladin nog niet gezien.
 - [x] `/mh simc`: `role=spell` staat erin — Rob 3 okt. Daarbij gezien: `region=` was leeg op de PTR → gerepareerd
-  (lege regionaam telt nu als ontbrekend). Nog eens `/mh simc`: staat er nu een regio?
+  (lege regionaam telt nu als ontbrekend). ✅ Daarna `region=us` — Rob 3 okt.
 
 ## 🆕 3 okt middag — valuta, crests en Great Vault (7 talen, nog niet uitgebracht)
 

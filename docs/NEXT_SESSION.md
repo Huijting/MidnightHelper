@@ -13,6 +13,10 @@
   *Zo speel je* + `/mh stats`-mastery + `/mh simc role=spell` werken. Gezien: `region=` leeg op PTR → gerepareerd.
   BugSack/BugGrabber ontbraken in `_xptr_` → gekopieerd uit live.
 - Volgende uit de addon-analyse (Robs keuze): A threat-indicator als voorstel; B bronbestanden; G bij een schermklus.
+- **A threat — voorstel klaar** (mh-research, `scratchpad\sys\threat.json`): https://claude.ai/artifact/MuumGaPHySUSJkvgEDiEqJ.
+  MH heeft 0 threat-code (GEMETEN). Threat-API bestaat, secret per unit-paar (niet per combat); in instances NIET gemeten.
+  Blizzard heeft Aggro Display (nameplates), raid-highlight, Audio Assist "Say If Targeted". Advies: optie 1 wegwijzer nu,
+  optie 2 (opt-in DPS/healer-melding + `/mh aggro`) pas na Robs /run-meting in een dungeon. 🔲 Wacht op Robs keuze.
 
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
 
