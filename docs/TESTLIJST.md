@@ -23,9 +23,14 @@ er is niets weggegooid.
 
 ## 🆕 3 okt middag — aggro: wegwijzer naar Blizzards eigen opties (threat-optie 1)
 
-- [ ] `/mh aggro`: vier regels met aan/uit. Kloppen de **menunamen** met wat je in Settings ziet, en klopt aan/uit met je
-  eigen instellingen (Nameplates > Aggro Display, Display Aggro Highlight, Audio Assist > Combat Audio Alerts)?
-  "unknown" mag niet voorkomen.
+- [x] `/mh aggro`: vier regels, menunamen uit de client, geen "unknown" — Rob 3 okt live (screenshot): Aggro Display on,
+  Aggro Highlight on, Combat Audio Alerts off, frame-gloed on. Nog niet naast het Settings-paneel gelegd.
+- [x] ✅ Rob 3 okt na `/reload`: tip toont de titel goed. Solo-stand aan: grijze regel + geen Mythic+/Raids (screenshot).
+  Solo-stand uit: Raids-blok terug, grijze regel weg (Mythic+-blok ontbreekt omdat er voor dit personage niets te melden
+  is). ✅ Solo-schakelaar (4.5.0) daarmee GEMETEN door Rob.
+  Na `/reload`: zegt de dagtip "Today's tip: Aggro: who is the enemy hitting?" (Rob zag eerst de ruwe sleutel
+  `CODEX_AGGRO_TITLE` — AFGELEID: zijn client laadde in het gat tussen het Codex-item en de teksten; tekst staat GEMETEN
+  in alle 7 Codex-blokken). Staat er na een reload nog een sleutel: echte bug.
 - [ ] Codex > Dungeons & M+ > **Aggro: who is the enemy hitting?**: staan de menunamen er netjes in (geen `{UI:…}`)?
 - [ ] Zet Aggro Display > Flash aan en trek in een dungeon als DPS een mob: flitst de nameplate? (Zo weten we dat de uitleg klopt.)
 - [ ] **Meting voor optie 2** (staat op de voorstelpagina): de twee `/run`-regels op een trainingspop en in een dungeon
@@ -50,7 +55,9 @@ Niets hoort er anders uit te zien; dit is onderhoud zodat MH de volgende uitbrei
   klopt hij)? ID's 62410/62411/62412/62414/62416 komen van Wowhead.
 - [ ] Valuta-gids: past de **vijfde** knop *Zul'jarra* nog op de rij, en zet hij de pijl bij **Jan'sari the Watchful**
   op Tokka's Landing (Coiled Isle)?
-- [ ] De upgrade-NPC heet in het spel **Cuzolth** (niet Cuzoth)? Werkt de klikbare naam in de crests-tekst nog?
+- [x] ✅ Rob 3 okt (screenshot): de NPC heet in het spel **Cuzolth** <Item Upgrades>. Klikbare naam in de crests-tekst nog niet gezien.
+- [x] ✅ Rob 3 okt: valuta-gids noemt Jan'sari the Watchful (Tokka's Landing, Coiled Isle) als vijfde QM; de knop zelf nog niet gezien.
+- [x] ✅ Rob 3 okt: Codex-hoofdstuk Aggro toont alle menunamen netjes.
 - [ ] Vault-adviseur als **Resto Druid/Holy Paladin/Disc/Holy Priest/Mistweaver** met profiel M+: staat er "M+ stat
   profile" en een M+-volgorde (Resto Druid: Mastery > Haste > Vers > Crit)?
 - [ ] `/mh curscan` op een character dat crests heeft **uitgegeven**: is "totalEarned" het getal uit de tooltip
@@ -64,17 +71,24 @@ Niets hoort er anders uit te zien; dit is onderhoud zodat MH de volgende uitbrei
 
 Antwoorden van een helper via Wowhead (GEMETEN op de site, niet in het spel): Windrunner Spire en Maisara Caverns
 alleen Normal; Saprish heeft op Normal/Heroic alleen Darkfang, Shadewing alleen Mythic/M+.
-- [ ] Dungeon Finder op **Heroic** zetten: staan Windrunner Spire en Maisara Caverns er inderdaad NIET bij?
-- [ ] Encounter Journal (Shift-J) → Saprish: verschijnt Shadewing alleen bij Mythic?
+- [x] ✅ Rob 3 okt (screenshot): "Midnight Heroic: Season 2" = DN, MR, BV, AF, VA, KR, RLP, TS — Windrunner Spire en
+  Maisara Caverns staan er niet bij. GEMETEN.
+- [ ] Encounter Journal (Shift-J) → Saprish: verschijnt Shadewing alleen bij Mythic? (Rob 3 okt: op **Heroic** staat
+  Shadewing niet in het overzicht ✅; Mythic nog bekijken. Seat heeft in het journal alleen Heroic en Mythic.)
+- [ ] Na `/reload`: het MH-zijpaneel naast het Adventure Guide toont bij Saprish een spreuknaam i.p.v. `{SPELL:1263523}`
+  (bug gezien door Rob 3 okt, gerepareerd in `EncounterJournalSidePanel.lua`).
 - [ ] Open de dungeontips van een van deze bazen in MH: staan de korte tips er netjes, met maximaal 3 regels?
 
 ## 🆕 3 okt — delve-foutjes (in `main`, nog niet uitgebracht)
 
+- [x] ✅ Rob 3 okt (screenshots Torment's Rise / Gnarldor Isle): niet-Bountiful = geen End + blauwe regel; Bountiful =
+  End 266…295 zonder blauwe regel; overal "Vault ?". De drie tooltip-vragen hieronder zijn daarmee beantwoord.
 - [ ] Delve-tooltip: hover in het Delves-tabblad over een delve die **niet** Bountiful is. Staat er bij de tiers géén
   "End …" meer, en onderaan een blauwe regel *"End-chest numbers only apply to Bountiful delves…"*?
 - [ ] Delve-tooltip: hover over een **Bountiful** delve. Staat "End 266 … End 295" er nog wel, en is de blauwe regel weg?
 - [ ] Delve-tooltip: staat er in de Vault-kolom overal "Vault ?" (geen "Vault 305*" meer bij Tier 1)?
-- [ ] Weekoverzicht (This Week / Account snapshot): is de regel *"Delver's Call incomplete on alts"* weg? De regel
+- [x] ✅ Rob 3 okt (screenshots This Week): alleen "Delver's Call banked on alts" staat er, "incomplete on alts" is weg.
+  Weekoverzicht (This Week / Account snapshot): is de regel *"Delver's Call incomplete on alts"* weg? De regel
   *"Delver's Call banked on alts"* mag blijven als een alt quests bewaart.
 - [ ] Collegiate Calamity: zegt de route-regel in chat nu **Luminbulb** (zonder i)?
 

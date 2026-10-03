@@ -161,7 +161,16 @@ local function BuildLines()
 	local out = {}
 	out[#out + 1] = { text = boss.name or "", color = "good" }
 	if roleKey then
-		out[#out + 1] = { text = ns:L(roleKey), color = "soft" }
+		-- 3 Oct 2026: role tips carry {SPELL:id} placeholders; the boss window expands them,
+		-- this panel printed them raw (Rob's screenshot: "{SPELL:1263523}" under Saprish).
+		local text = ns:L(roleKey)
+		if ns.ExpandDelveTipMarkup then
+			local ok, expanded = pcall(ns.ExpandDelveTipMarkup, ns, text)
+			if ok and type(expanded) == "string" then
+				text = expanded
+			end
+		end
+		out[#out + 1] = { text = text, color = "soft" }
 	end
 	out[#out + 1] = {
 		text = ns:SafeL("EJPANEL_OPEN") or "",

@@ -20,7 +20,14 @@
   ✅ **Optie 1 gebouwd (Rob: "Doe optie 1 maar"):** Codex `aggro_display` (Dungeons & M+, sort 3, `CODEX_AGGRO_*`, menunamen
   via `{UI:…}`: 7 nieuwe `UI_FALLBACK`-namen uit GlobalStrings 69933) + `/mh aggro` (alias `threat`, unlisted;
   `Modules/AggroSettings.lua`, leest alleen CVars, zet niets om; onbekende CVar = "unknown"). 7 talen (mh-writer),
-  locale_probe OK, lint 0 HARD. 🔲 Rob: meting voor optie 2 (TESTLIJST).
+  locale_probe OK, lint 0 HARD. 🔲 Rob: meting voor optie 2 (TESTLIJST). ✅ Rob 3 okt: `/mh aggro` + Codex-hoofdstuk +
+  dagtip werken (na reload).
+- **Bug gerepareerd (Rob-screenshot):** MH-zijpaneel naast het Adventure Guide toonde `{SPELL:id}` ruw →
+  `EncounterJournalSidePanel.lua` haalt de rol-tip nu door `ns:ExpandDelveTipMarkup`.
+- **This Week te lang (Rob):** 2 helpers (`scratchpad\week\player.json`, `code.json`) → voorstel
+  https://claude.ai/artifact/4tNogtDHUWx3uz1exhCxQ8. ±68 regels, ±1/6 open taak. Advies C (dubbels eruit, taken boven,
+  afgevinkte seizoenskaart weg, alt-regels naar Account snapshot; klein, alleen HomeDashboard.lua, geen vertalingen), dan A
+  ("Klaar: N"), D (Kort/Volledig) pas als nodig. 🔲 Wacht op Robs keuze (C of B voor de alt-regels).
 
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
 
