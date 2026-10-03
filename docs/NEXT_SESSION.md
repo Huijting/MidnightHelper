@@ -5,8 +5,8 @@
 - **8 helpers `tips-xhigh` op Opus** (brief `bce6ed51…\scratchpad\dgn_xhigh\BRIEF.md`), uitvoer scratchpad `dgn2\<code>.json`
   (ws/mc/nx/mt/sr/ps/st/aa). 29 bazen: **7 fout, 11 ontbreekt, 1 onzeker, 158 klopt** → 17 nieuwe sleutels. Reviewpagina
   https://claude.ai/artifact/JGHueDszCfkJjy9PdvhFhP → Rob: *"Alles goed."*
-- Kosten: GEMETEN ±2,05M tokens (gem. 256k/dungeon, 7-10 min). Robs meter vóór: sessie 18%, week 86% (09:36); ná niet
-  gemeten (sessie-reset 10:30, week-reset 11:00).
+- Kosten: GEMETEN ±2,05M tokens (gem. 256k/dungeon, 7-10 min). Robs meter sessie 18→38% (+20), week 86→89% (+3),
+  incl. 5 vertalers en eigen werk; ComfyUI-chat liep tegelijk → bovengrens. ≈0,7% sessie per dungeonbaas.
 - **Erin:** enUS + nlNL (`dgn_apply_ennl.py` op `dgn_new3.json`, 34 waarden) + 5 vertalers (`tr3\`, `apply_tr3.py`, 85
   waarden, alles in `DungeonTips.lua`). `check_drift --mark` 17 sleutels, locale_probe 3 sleutels OK in 7 talen (GEMETEN),
   syntax OK, lint 0 HARD.
