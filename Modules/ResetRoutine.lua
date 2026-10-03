@@ -909,6 +909,29 @@ end
 -- Public API
 --------------------------------------------------------------------------------
 
+--- The Silvermoon quest-giver weeklies for THIS character, counted the way "Your week" shows
+--- them: done = handed in this week; total = every giver this character can act on now
+--- (done, in the log, ready to hand in, or ready to pick up). Locked, ended and untracked
+--- givers are left out, so the number never asks for something that cannot be done.
+---
+--- 🔴 3 Oct 2026: the Account snapshot's "SMC weekly checklist" counted its own list of
+--- Season 1 quest ids (SMCChecklistData.lua, 10 Jun) and read 0/1 on Rob's screen while
+--- this list showed Liadrin and Halduron done. One count now, from one place.
+--- @return number done, number total
+function ns.GetGiverWeeklyTally()
+	local done, total = 0, 0
+	for _, def in ipairs(GIVER_WEEKLIES) do
+		local ok, gs = pcall(GiverState, def)
+		if ok and (gs == "done" or gs == "turnin" or gs == "inlog" or gs == "pickup") then
+			total = total + 1
+			if gs == "done" then
+				done = done + 1
+			end
+		end
+	end
+	return done, total
+end
+
 function ns.GetResetRoutineSteps()
 	local steps = {}
 

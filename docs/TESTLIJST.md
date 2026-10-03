@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — This Week stap A + SMC-teller
+
+- [ ] "Your week": de groene vinkjes zijn weg en er staat één regel **"Done this week: N (click to show)"**. Klik erop:
+  komen de vinkjes terug en wordt het "(click to hide)"? Blijft je keuze na `/reload`?
+- [ ] "Next up" en "N of M weekly things done" kloppen nog (die telling is niet aangeraakt).
+- [ ] Weekly chores op This Week: de regel "SMC weekly checklist" is weg (de quest-gevers staan al in "Your week").
+- [ ] **Account snapshot**: "SMC weekly checklist (this character)" telt nu de quest-gevers zoals "Your week"
+  (bv. 4 / 6 als Liadrin, Halduron, Vereesa en Maella klaar zijn). Klopt het getal met wat je in "Your week" ziet?
+
 ## 🆕 3 okt middag — This Week korter (optie C)
 
 Na `/reload`, op This Week:
@@ -32,6 +41,8 @@ Na `/reload`, op This Week:
   "Open Account snapshot". Geen alt-namen meer. Staan ze nog wel op de **Account snapshot**?
 - [ ] Ritual Sites en Void Assaults: geen "Weekly: done / not yet" meer.
 - [ ] Hoeveel korter voelt het? (Voor: ±68 regels.)
+- [x] ✅ Rob 3 okt (3 screenshots na reload): volgorde, Professions alleen Knowledge, Weekly chores alleen dit personage +
+  link, Void zonder "Weekly", naslag onderaan — alles zoals bedoeld. Seizoenskaart-top niet in beeld.
 
 ## 🆕 3 okt middag — aggro: wegwijzer naar Blizzards eigen opties (threat-optie 1)
 
@@ -56,7 +67,8 @@ Niets hoort er anders uit te zien; dit is onderhoud zodat MH de volgende uitbrei
 - [x] `/run print(C_CVar.GetCVar('loadDeprecationFallbacks'),GetSpecialization==C_SpecializationInfo.GetSpecialization,C_SpecializationInfo.GetSpecialization())`
   — Rob 3 okt, 12.1.5-PTR, Frost Mage: "true" en 3. ✅
 - [x] *Zo speel je*-kaart (Frost) en `/mh stats` (mastery "Freeze and Shatter" met tekst uit het spel) werken op de PTR —
-  Rob 3 okt (screenshot + plak). Tank-toolkit als Prot Paladin nog niet gezien.
+  Rob 3 okt (screenshot + plak). ✅ Tank-toolkit op live als Prot Paladin (Rob 3 okt, screenshot Role Academy): "Logged in:
+  Paladin - Protection", SotR + 5 defensives, geen preview-regel.
 - [x] `/mh simc`: `role=spell` staat erin — Rob 3 okt. Daarbij gezien: `region=` was leeg op de PTR → gerepareerd
   (lege regionaam telt nu als ontbrekend). ✅ Daarna `region=us` — Rob 3 okt.
 

@@ -477,19 +477,40 @@ local function BuildLayout()
 						now[#now + 1] = st
 					end
 				end
+				-- 3 Oct 2026 (Rob, option A): finished stops fold into ONE clickable line,
+				-- "Done this week: N (click to show)". Folded, never silently hidden: the count
+				-- stays on screen and one click brings the ticks back (remembered per account in
+				-- ns.db.ui.homeShowDone). The headline tally "N of M" is untouched.
+				local doneCount = 0
+				for _, st in ipairs(now) do
+					if st.color == "good" then
+						doneCount = doneCount + 1
+					end
+				end
+				local showDone = ns.db and ns.db.ui and ns.db.ui.homeShowDone == true
 				local shown = 0
 				for _, st in ipairs(now) do
 					-- A tick for what is finished, the running number for what is not, so
 					-- done-vs-todo is scannable and the list visibly shrinks as the week
 					-- fills up. (Unicode ticks render as boxes in the WoW fonts.)
-					local prefix
 					if st.color == "good" then
-						prefix = ICON_DONE .. " "
+						if showDone then
+							line(rows, ICON_DONE .. " " .. (st.text or ""), colorMap.good, st.onClick)
+						end
 					else
 						shown = shown + 1
-						prefix = ("%d. "):format(shown)
+						line(rows, ("%d. "):format(shown) .. (st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
 					end
-					line(rows, prefix .. (st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
+				end
+				if doneCount > 0 then
+					local key = showDone and "HOME_ROUTINE_DONE_SHOWN_FMT" or "HOME_ROUTINE_DONE_FOLDED_FMT"
+					line(rows, ICON_DONE .. " " .. ns:L(key):format(doneCount), COLOR_GOOD, function()
+						ns.db.ui = ns.db.ui or {}
+						ns.db.ui.homeShowDone = (not showDone) or nil
+						if ns.RefreshHomePanel then
+							ns.RefreshHomePanel()
+						end
+					end)
 				end
 				if #later > 0 then
 					line(rows, ns:L("HOME_ROUTINE_LATER_HEADER"), COLOR_DIM)
@@ -754,15 +775,8 @@ local function BuildLayout()
 		header(rows, ns:L("HOME_SECTION_CHORES"), "chores")
 		if data and data.charCount and data.charCount > 0 then
 			local any = false
-			if data.smcTotal then
-				any = true
-				local done = data.smcDone or 0
-				if done >= data.smcTotal then
-					line(rows, ns:L("ACCOUNT_WEEKLY_SMC_DONE_FMT"):format(done, data.smcTotal), COLOR_GOOD)
-				else
-					line(rows, ns:L("ACCOUNT_WEEKLY_SMC_FMT"):format(done, data.smcTotal), COLOR_SOFT)
-				end
-			end
+			-- 3 Oct 2026: no "SMC weekly checklist" line here any more. Those are the quest
+			-- givers, and "Your week" already lists each one by name with its state.
 			local dc = data.delverCurrent
 			if dc and (tonumber(dc.total) or 0) > 0 then
 				any = true

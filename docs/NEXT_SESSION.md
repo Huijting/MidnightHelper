@@ -32,8 +32,14 @@
   seizoenskaart verborgen; Professions zonder trainer-weekly (`kind = "weekly"` in `ProfessionNextStep.lua`, zijpaneel
   ongewijzigd); Weekly chores alleen dit personage (alt-/accountregels + dode Delver-incomplete-regel weg; staan op Account
   snapshot); Ritual/Void zonder "Weekly: done/not yet". 0 nieuwe teksten, lint 0 HARD. Niet in het spel gezien → TESTLIJST.
-  🔲 Volgende (Rob kiest): A "Klaar: N"; bijvangsten in `week\code.json` (SMC 0/1-tegenspraak, "Wednesday reset" vast,
-  vault-herinnering uit = groen "niets wachtend", tooltip voor SMC/Dundun/T11).
+  ✅ Rob zag C in het spel (3 screenshots). ✅ **A gebouwd** (Rob: "doe A en zoek die SMC uit"): afgevinkte stops in
+  "Your week" vouwen tot één klikbare regel `HOME_ROUTINE_DONE_FOLDED_FMT`/`_SHOWN_FMT` (7 talen, eigen vertaling),
+  keuze in `ns.db.ui.homeShowDone`; headline-telling ongewijzigd.
+  ✅ **SMC 0/1 opgehelderd (GEMETEN in code):** `SMCChecklistData.lua` telde één rij met S1-quest-ids van 10 jun, terwijl
+  "Your week" de givers per staat volgt (`GiverState`). Nu: `ns.GetGiverWeeklyTally()` (ResetRoutine.lua) voedt de
+  SMC-teller op de Account snapshot; de oude lijst is terugval en kleurt nog de SMC-kaartpins. SMC-regel van This Week weg.
+  🔲 Nog open uit `week\code.json`: "Wednesday reset" vast in ACCOUNT_WEEKLY_STALE/ALL_CURRENT, vault-herinnering uit =
+  groen "niets wachtend", tooltip/uitleg voor SMC/Dundun/T11 op de Account snapshot, oude S1-ids in SMCChecklistData.
 
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
 
