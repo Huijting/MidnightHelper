@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 📖 3 okt avond — naloop #6 Codex-hoofdstukken ERIN (Rob: "Alles goed")
+
+- 4× mh-research (brief `scratchpad\codex\BRIEF.md`, uitvoer `codex\a-d.json`), ±45 hoofdstukken: 128 klopt, 27 fout,
+  10 verouderd, 7 ontbreekt, 18 onzeker (onzeker NIET veranderd). Reviewpagina
+  https://claude.ai/artifact/YFfKiYzHq8PcdSopWofkME.
+- **Teksten:** 28 sleutels enUS+nlNL (`apply_texts.py`), 5 talen via mh-writer (`codex\tr\`).
+- **Code:** "Screaming Ridge" → **Howling Ridge** overal (ShowdownsData + 8 locale-bestanden, 29×; Zygor LibTaxi/LibRover +
+  Icy Veins); rares `sort = 5` (gelijk aan prey, geen tie-break); Prey-zoekwoorden + S2-titel; commentaren
+  MidnightCodexData (S2 live, Folio, Cuzolth, Atal'Utek-keten + To sons-coördinaat).
+- **Niet gedaan:** een schakelaar voor de Delve Coach (`ui.delveCoach.autoShow` staat vast aan); de tekst zegt nu
+  niet meer "optional". Kandidaat voor "spelers kiezen" — Rob beslist.
+- ⚠️ 12.1.5 komt 13/14 okt (Labyrinth, Kith'ix-raid, mid-season refresh) → seizoenshoofdstukken dan opnieuw nalopen.
+- Rob vroeg of "alle beroepen" zijn nagelopen: **nee**, alleen de 3 Codex-hoofdstukken over beroepen. De
+  beroepencursus zelf (naloop #8: ProfessionAcademy/Guided/GuideData) is nog niet gedaan.
+
 ## ⛩️ 3 okt avond — naloop #5 Ritual Sites ERIN (Rob: "Alles goed")
 
 - 2 helpers (tips-xhigh BOSSES, mh-research SYSTEM; brief `scratchpad\ritual\BRIEF.md`, uitvoer `ritual\bosses.json`,

@@ -51,7 +51,7 @@ ns.CODEX_CATEGORIES = {
 
 ns.CODEX_ARTICLES = {
 	-- Season 2 / patch 12.1 beginner layer (Spec 09) — framing of confirmed
-	-- systems, no invented IDs/numbers; browsable now, relevant at the S2 flip.
+	-- systems, no invented IDs/numbers. Season 2 is live since 18 Aug 2026 (EU 19 Aug).
 	{
 		id = "s2_new_season",
 		category = "start",
@@ -86,7 +86,7 @@ ns.CODEX_ARTICLES = {
 			.. "carry over carryover currency deadline expire expires last week "
 			.. "seizoen einde afloopt reset overgang",
 	},
-	-- 12.0.7 nieuw (datamined; in-game bevestigen bij launch)
+	-- Omnium Folio: live since 12.0.7, still active in 12.1 (checked 3 Oct 2026).
 	{
 		id = "omnium_folio",
 		category = "weekly",
@@ -302,7 +302,7 @@ ns.CODEX_ARTICLES = {
 		tabLabelKey = "TAB_REFERENCE",
 		-- The article IS the gear-tracks content; there is no separate "Gear tracks"
 		-- page. Its Open button leads to the Dawncrests page (live crest counts +
-		-- Cuzoth/Vaskarn waypoints), so it must be labelled for THAT destination —
+		-- Cuzolth/Vaskarn waypoints), so it must be labelled for THAT destination —
 		-- reusing the same nav label the currency_dawncrest article uses.
 		navLabelKey = "CODEX_NAV_BASICS_DAWN",
 		referenceSubTab = "crest",
@@ -463,7 +463,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_PREY_BODY",
 		sort = 4,
 		searchKeys = "prey hunt hunts astalor bloodsworn murder row nightmare hard mode "
-			.. "preyseeker title war mode great vault world row jacht",
+			.. "preyseeker title war mode great vault world row jacht "
+			.. "servant of astalor preyhunter journey",
 	},
 	{
 		id = "rares",
@@ -472,7 +473,9 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_RARES_BODY",
 		tabId = "rares",
 		tabLabelKey = "TAB_RARES",
-		sort = 4,
+		-- Was 4, the same as prey_hunts: the comparator has no tie-break, so their order
+		-- was not guaranteed (mh-research 3 Oct 2026).
+		sort = 5,
 	},
 
 	-- Professions
@@ -582,7 +585,7 @@ ns.CODEX_ARTICLES = {
 	--- idea what I can all do there and above all where."
 	---
 	--- ⚠️ EVERY NUMBER IN THIS ARTICLE IS MEASURED. Map 2509 (child of 2512, The Coiled
-	--- Isle), the Underbelly 2613, the chain 98388 -> 97640 -> 98428 and Corrosive Coin
+	--- Isle), the Underbelly 2613, the chain 98388 -> 97640 + 98515 (A Toxic Tour, given together) -> 98428 and Corrosive Coin
 	--- 3448 come from /mh atal on Rob's own client, 13 Aug. The twelve memorials, the
 	--- Underbelly entrance and Szarith come from HandyNotes_Midnight 150. Nothing here
 	--- is from a guide site.
@@ -596,8 +599,10 @@ ns.CODEX_ARTICLES = {
 	---     98031/116409 To parents    55.31 48.45   98037/116415 To a sister       46.79  7.51
 	---     98032/116410 To a dream    55.62 40.60   98038/116416 To Comrades       38.50 47.66
 	---     98033/116411 To a captain  52.91 33.90   98039/116417 To a stranger     42.57 33.18
-	---     98034/116412 To sons       42.91 41.23   98040/116418 To a shield-bearer 56.49 22.88
-	--- Underbelly achievement 62601 (Szarith the Fanged, quest 96030, 38.40/17.69);
+	---     98034/116412 To sons       42.84 39.93   98040/116418 To a shield-bearer 56.49 22.88
+	--- (To sons: Rob's measurement of 15 Aug; was 42.91 41.23 here.)
+--- Underbelly achievement 62601 (Szarith the Fanged, quest 96030, 38.40/17.69; per mh-research
+--- 3 Oct 2026 it has five criteria, Szarith plus four named elites - unsure, HandyNotes comments it out);
 	--- the three rare elites on 2509 are achievement 63601.
 	---
 	--- ⚠️ AND FOUR THINGS ARE LEFT OUT ON PURPOSE.

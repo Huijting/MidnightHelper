@@ -1,7 +1,7 @@
 --[[
 	Showdowns (12.0.7 "Revelations") — data only, geen UI.
 	Rotating Void worlds: Naigtal & Val. Wekelijkse rotatie via portaal in de
-	Voidstorm (Screaming Ridge ~51.4, 71.3) of het vaste portaal in Silvermoon
+	Voidstorm (Howling Ridge ~51.4, 71.3) of het vaste portaal in Silvermoon
 	(Bazaar, zelfde verdieping als de weekly-quest-hub, iets verderop). Weekly "Showdown on <zone>"
 	beloont een Riftstalker's Cache en telt mee voor de Great Vault World-rij.
 	Heroic World Tier: geen unlock-vereiste, keuze bij het portaal;
@@ -54,12 +54,12 @@ ns.SHOWDOWNS = {
 	-- zone-events i.p.v. reguliere WQ's).
 
 	-- Toegang.
-	portalVoidstorm = { mapID = 2405, x = 51.42, y = 71.3 }, -- Voidstorm uiMapID 2405 (PTR-verified); Screaming Ridge = de échte Showdown-intro (expeditie-questlijn → "Prepared for a Showdown" → portaal activeert).
+	portalVoidstorm = { mapID = 2405, x = 51.42, y = 71.3 }, -- Voidstorm uiMapID 2405 (PTR-verified); Howling Ridge = de échte Showdown-intro (expeditie-questlijn → "Prepared for a Showdown" → portaal activeert).
 	portalSilvermoon = { mapID = 2393, x = 47.93, y = 48.09 }, -- vast portaal (exact midden), zelfde verdieping als de weekly-quest-hub in de Bazaar, iets verderop (PTR-verified 7 juni 2026, Rob)
-	-- ⚠️ De Showdown-intro start bij Screaming Ridge in VOIDSTORM (zie portalVoidstorm),
+	-- ⚠️ De Showdown-intro start bij Howling Ridge in VOIDSTORM (zie portalVoidstorm),
 	-- NIET bij de "Riftblade Maella" in Silvermoon op 27.48/76.51 — dat bleek de
 	-- Decor Duels-NPC (housing-minigame), zelfde naam, andere NPC (Rob, PTR 16 jun).
-	introNpc = { name = "Showdown expedition (Screaming Ridge)", mapID = 2405, x = 51.42, y = 71.3 },
+	introNpc = { name = "Showdown expedition (Howling Ridge)", mapID = 2405, x = 51.42, y = 71.3 },
 	-- Riftblade Maella op de Val-Outpost (vervolg na aankomst; quest "Through the
 	-- Cold Rift"). PTR-verified 16 juni 2026, Rob: Val 2599, 59.56/19.33.
 	valOutpostNpc = { name = "Riftblade Maella", mapID = 2599, x = 59.56, y = 19.33 },
