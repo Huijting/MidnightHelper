@@ -3675,3 +3675,114 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     één `tools/_probe.py`-run volstaat.
     📌 **En de meetmethode staat er bewust bij** (occurrences, niet regels): dat verschil liet
     gisteren bijna een verzonnen regressie melden.
+- [2026-10-03] 🧩 **Eén echt nieuw item op mijn terrein (26 sep–3 okt), en het is een antwoord in
+  plaats van een vraag: de 12.1-migratie van `GLOBAL_MOUSE_DOWN`/`_UP` is nu BEVESTIGD werkend.
+  0 × [MOET GEFIKST].** Alle zes de wiki-API-pagina's staan byte-voor-byte stil, de hotfixlijst
+  staat nog op 1 okt, en SimC heeft geen nieuwe release. Twee nieuwe forumtopics van 2 okt zijn
+  geen API.
+  - 🧩 **[RAAKT ONS NIET] — `GameEvent.UnregisterInternalEvent("GLOBAL_MOUSE_DOWN")` WERKT; dit is
+    de opvolging van mijn item van 1 okt (`:3475`), niet een herhaling ervan.** Topic `2367394`
+    (*Unregister Global Mouse*, `#ui-macro`) ging van **2 naar 3 posts**; de nieuwe post is van
+    **vandaag 03:05:47Z**. Post 2 (Fizzle) was een gok — letterlijk *"Haven't dug into it so just
+    guessing. Try: `GameEvent.UnregisterInternalEvent("GLOBAL_MOUSE_DOWN")`"* — en post 3 is
+    Elvenbane's uitkomst: *"Nevermind, that worked but how the game functions when it's
+    unregistered has changed."*
+    📌 **Wat hier feitelijk vaststaat** (en niet meer dan dat): het oude
+    `UIParent:UnregisterEvent("GLOBAL_MOUSE_DOWN")` is in 12.1 vervangen door
+    `GameEvent.UnregisterInternalEvent("GLOBAL_MOUSE_DOWN")`, gemeten door de melder zelf in de
+    client. ⚠️ **Wat NIET vaststaat: wát er veranderd is aan het gedrag na unregisteren.** Hij
+    zegt alleen dát het anders is, niet hoe. Ik verzin daar niets bij.
+    ✅ **Toets aan de code — opnieuw gemeten, zelfde scope** (hele addon zonder
+    `.git`/`docs`/`tools`/`dist`): `GLOBAL_MOUSE_DOWN` **0** bestanden, `GLOBAL_MOUSE_UP` **0**,
+    `GameEvent` **0**, `UnregisterInternalEvent` **0**. **En de scherpere controle die ik 1 okt
+    níét gedaan had:** de riskante vórm is niet de eventnaam maar het aanraken van `UIParent`'s
+    eigen registratie, en ook die staat op nul — `UIParent:RegisterEvent` **0** treffers,
+    `UIParent:UnregisterEvent` **0** treffers. MH unregistert uitsluitend op zijn **eigen** frames,
+    en alleen deze acht events: `UNIT_AURA` (2×), `PLAYER_REGEN_ENABLED` (2×),
+    `ITEM_DATA_LOAD_RESULT` (2×), `COMBAT_LOG_EVENT_UNFILTERED` (2×), `ADDON_LOADED` (2×),
+    `UNIT_SPELLCAST_SUCCEEDED`, `UNIT_SPELLCAST_START`, `PLAYER_ENTERING_WORLD`. Geen enkele
+    daarvan loopt via `GameEvent`. **Blijft [RAAKT ONS NIET], nu op twee manieren gemeten.**
+  - 🧩 **[RAAKT ONS NIET] — topic `2370149` (*Forever beta: macro for warrior talents*, 2 okt
+    20:02Z): `/cast Charge` pakt de verkeerde rang.** Melder gebruikt `[noknown:1310317]` en lost
+    het op met `/cast Charge(Rank 1)`, met zijn eigen conclusie *"this is clearly a bug as it
+    should only cast your highest rank learned"*. ⚠️ **Classic/«Forever»-beta, geen Retail**
+    (melder zit op Grobbulus, `classic:true`), en rang-syntax bestaat niet in Retail. Toets:
+    `noknown` **0** bestanden, `(Rank ` **1** treffer en die is een comment over obelisk-rangen
+    (`Modules/RitualCoach.lua:19`), geen macrotekst. Positieve controle dat de scope klopt:
+    `macrotext` **6** bestanden.
+  - 🔇 **[RAAKT ONS NIET] — topic `2370136` (*RaiderIO app now has ads in it*, 2 okt 19:52Z).**
+    Komt in de `#ui-macro`-zoekopdracht naar boven maar gaat over de **desktop-app** van RaiderIO,
+    niet over de Lua-API of een addon. Geen API-naam in de post. Eén regel, klaar.
+  - 🔇 **Wiki: alle zes gevolgde pagina's byte-voor-byte onveranderd sinds gisteren.** `Hotfixes`
+    `6897455` (Dark T Zeratul, 2 okt 00:25:50Z, 365799 b), `Patch 12.1.0/API changes` `6886719`
+    (Ketho, 25 sep, 102481 b), `Patch 12.1.5/API changes` `6886717` (Ketho, 25 sep, 34466 b),
+    `Patch 12.0.7/API changes` `6794100` (Ketho, 4 aug, 34044 b), `API change summaries` `6883777`
+    (Ketho, 22 sep, 7280 b), `TOC format` `6889071` (Zeal, 26 sep 18:57:25Z, 27396 b — nu **153
+    uur** stil). 📌 **De twee 12.1.x-API-pagina's zijn vandaag 8 dagen stil en vallen dus BUITEN
+    mijn 7-dagenvenster.** Dat is precies waarom ik ze hieronder niet als vondst opvoer.
+  - 📰 **Hotfixes: niets nieuws, en dat is iets anders dan een cache.** `news.blizzard.com`
+    artikel `24296142` geeft mét `?nocache=20261003` nog altijd de titel **`Hotfixes: October 1,
+    2026`** met exact de drie regels die ik gisteren al volledig gelezen heb (Druid/Feral *Rampant
+    Ferocity*, Hunter/Survival *Wildfire Bomb* +20%, The Venomous Abyss/Ula'tek *Venomous Heart*).
+    ⚠️ **Dezelfde titel als gisteren is níét de cache-val** — die val is een titel die **ouder** is
+    dan wat dit logboek al noemde. Hier is hij **gelijk**, en de wiki bevestigt het onafhankelijk:
+    de `Hotfixes`-pagina staat op dezelfde revid `6897455` als gisteren. Twee bronnen die
+    onafhankelijk zeggen "niets na 1 okt" is bewijs; één bron die hetzelfde zegt was dat niet.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.0-04` (21 aug 2026).** Hele releaselijst
+    opgehaald mét cache-buster; na `12.1.0-04` staat er niets nieuwer. Dat is exact de release die
+    `Modules/SimcExport.lua:12-16` in zijn kopcommentaar zegt te volgen (*"read 30 Sep 2026 at
+    release 12.1.0-04"*, gemeten in het bestand deze run). **MH loopt niet achter**, dus geen toets
+    aan `ItemString` (`Modules/SimcExport.lua:234`) of `ns.BuildSimcProfile` (`:424`) nodig.
+  - 🧹 **Veegactie `Patch 12*` (ns 0): 25 pagina's, exact dezelfde lijst als gisteren.**
+    `Patch 12.1.6` bestaat in geen enkele vorm; `Patch 12.1.7` bestaat wél als pagina maar heeft
+    géén `/API changes`-subpagina; van de vier 12.2-titels (`Patch 12.2`, `12.2.0`, `12.2.5`,
+    `12.2.7`) heeft er géén één een `/API changes`; en er is nog steeds geen `Patch 12.1.5
+    (undocumented changes)`, terwijl 12.0.0, 12.0.1, 12.0.5, 12.0.7 en 12.1.0 die alle vijf wél
+    hebben.
+  - 🔎 **Twee WebSearch-rondes gedaan als onafhankelijke kruiscontrole, en ze leverden binnen het
+    venster niets op.** Wat terugkwam (SetCooldown niet meer aanroepbaar vanuit tainted code als
+    het cooldown-frame protected is, castbar-ID's uniek per unit token, `AuraContainer`/
+    `AuraButton`, `UnitFrameUtil`, `roundLayoutToNearestPixel`, `math.clamp`/`round`/`lerp`) komt
+    **allemaal van de `Patch 12.1.5/API changes`-pagina en is van 3 sep of eerder** — een maand
+    oud. ⚠️ **Dat voer ik dus NIET op als vondst van vandaag.** Een magere dag aanvullen met oudere
+    items is precies de fout die harde regel 2 verbiedt. Gelezen, gedateerd, afgelegd.
+  - 🔒 **Cache-val uitgesloten op beide domeinen, met eigen bewijs in deze run.** (a) Wiki:
+    `list=recentchanges` (ns 0) loopt tot **vandaag 03:34:33Z** (*Grand Apothecary Putress*, X59).
+    (b) Forum: `posts.json` geeft als nieuwste post **vandaag 03:38:47Z** (`30313966`, topic
+    `2370478`). ✅ **En het sterkste bewijs is de vondst zelf:** de nieuwe post in `2367394` is van
+    **vandaag 03:05:47Z** — materiaal dat gisteren nog niet bestond, dus de server levert vers.
+    ⚠️ **Omgekeerde controle:** niets wat ik vandaag als nieuwste zag is **ouder** dan wat dit
+    logboek gisteren noemde. Hotfixtitel gelijk (1 okt), zes wiki-revid's gelijk, forumtopic
+    `2367394` vooruit (2 → 3 posts).
+  - ✅ **Positieve controle, zelfde scope als mijn nul-beweringen** (verplicht, want een lege grep
+    bewijst niets): `C_UnitAuras` **12** bestanden, `issecretvalue` **54**,
+    `SecureActionButtonTemplate` **11**, `UnregisterEvent` **10**, `RegisterEvent` **113**,
+    `macrotext` **6** — alle zes niet-nul. 📌 **`UnregisterEvent` 10 is hier de belangrijkste**:
+    hij bewijst dat het patroon waarmee ik `UIParent:UnregisterEvent` op **0** zette, in deze scope
+    wél degelijk treffers kan vinden.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `warcraft.wiki.gg` en `us.forums.blizzard.com` niet via directe `curl`: de agent-proxy
+      weigert de CONNECT-tunnel (403). Alle wiki- en forumdata komt via `web_fetch_exa`.
+    - De categoriepagina `c/guides/ui-macro/35.json` opnieuw niet bruikbaar binnen de tekenlimiet;
+      de topiclijst komt uit `search.json?q=#ui-macro after:<datum>`.
+    - `wowhead.com/blue-tracker` opnieuw **niet geprobeerd** (acht runs op rij lege body).
+    - De 12.1.5-**PTR-buildnotes** niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - ⚠️ De `?nocache=`-parameter geeft op `api.php` een `"Unrecognized parameter: nocache"`-warning.
+      Dat is **onschadelijk** (MediaWiki negeert hem, de query draait gewoon) en hij doet zijn werk
+      nog steeds, want hij maakt de URL uniek voor Exa's eigen cache. Vers materiaal is hierboven
+      onafhankelijk aangetoond.
+  - 🔧 **Repo-staat: `HEAD` stond voor de derde dag op rij detached, nu hersteld — en vandaag was
+    hij ÁCHTER.** Bij aanvang gaf `git rev-parse --abbrev-ref HEAD` **`HEAD`** op commit
+    `db61bf6`, terwijl `origin/main` nog op `ba7a1fc` stond; na `git fetch origin main` bleek
+    `ba7a1fc..db61bf6` juist een **fast-forward van de remote** te zijn, dus `db61bf6` was het
+    nieuwere en `git merge-base --is-ancestor db61bf6 origin/main` gaf YES. Er was dus niets kwijt,
+    de working tree was schoon (`git status --porcelain` leeg) en `git checkout -B main origin/main`
+    heeft het rechtgezet. 📌 **Drie dagen op rij detached (1, 2 en 3 okt) is geen incident meer maar
+    een patroon van de omgeving, niet van deze wachter** — het staat hier zodat Rob het als zodanig
+    kan zien. ✅ Geen van de vier wachter-bestanden stond gewijzigd-maar-ongecommit.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw: de gemeten namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd.** Die noemt `issecretvalue` 112× en
+    `C_UnitAuras` 29×; vandaag **GEMETEN als occurrences** (`grep -rno`, zelfde scope, gelijk aan
+    gisteren): `issecretvalue` **198**, `InCombatLockdown` **201**, `C_UnitAuras` **83**,
+    `CreateFrame` **741**, `C_Secrets` **27**, `C_SuperTrack` **29**. 🔴 **Ik raak dat bestand niet
+    aan** — punt voor Rob, één `tools/_probe.py`-run volstaat.
