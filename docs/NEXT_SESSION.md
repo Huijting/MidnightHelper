@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ⛩️ 3 okt avond — naloop #5 Ritual Sites ERIN (Rob: "Alles goed")
+
+- 2 helpers (tips-xhigh BOSSES, mh-research SYSTEM; brief `scratchpad\ritual\BRIEF.md`, uitvoer `ritual\bosses.json`,
+  `system.json`). Reviewpagina https://claude.ai/artifact/NTUQASKHJU96pzo51Q9pSU. BROKENTHRONE_PHASES zelf rechtgezet
+  (SYSTEM noemde nebula/spiegels vast; BOSSES mat: alleen Malevolent Boons).
+- **Teksten:** 18 bestaande sleutels enUS+nlNL (`apply_texts.py`, nu ook RitualTips.lua), 2 nieuwe
+  (`RITUAL_BOSS_MINDBREAKER_QUICK`, `_SELENVJAR_QUICK`, `ritual_insert.py`); 5 talen via mh-writer (`ritual\tr\`).
+- **Code:** introketen stap 4/5 omgedraaid (94383 Interest vóór 94382 Problems; teller stopt bij de poort, `IntroTotal`);
+  weekly 95843 = keuze van Liadrin → regel alleen geel als hij in je log staat; ALERT_SPELLS ids gecorrigeerd
+  (1284106, 1284083, 1277559) mét notitie dat vijandelijke spell-ids in 12.1 secret zijn (alert gaat vrijwel zeker
+  nooit af); Daggerspine-baas heet "Void-Infused Mindbreaker"; commentaren RitualCoachData/RitualBossCoach bijgewerkt.
+- **NIET gedaan:** `DetectActiveSite` matcht Engelse POI-namen (op een vertaalde client mogelijk nooit) — AFGELEID,
+  eerst een client-dump; "wat MH nog niet zegt" (Hero-advies → Delve T8, renown-rares/shrines, Pinnacle Ritual Work,
+  gevaarlijke fase-1-elites met boons) staat in de JSON's voor later.
+
 ## 🃏 3 okt middag — "Zo speel je"-opdracht (Downloads\OPDRACHT_BOUWCHAT_playcards.md), deel 1
 
 - Stap 0 ✅ rapporten → `docs/playcards_audit_2026-10-03/` (protpal_card_check.md, play_cards_system.md).

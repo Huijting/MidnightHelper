@@ -5,8 +5,8 @@
 	als scenario-bosses geen ENCOUNTER_START blijken af te vuren (nog
 	onbevestigd; de spy hieronder beantwoordt precies die vraag).
 
-	Never-lie: alleen de Corrupted Amani Dragonhawk heeft geverifieerde
-	stappen (Robs death recaps 12 jun + Wowhead-tooltips). Andere stages
+	Never-lie: de Corrupted Amani Dragonhawk en Ger'lok hebben stappen
+	(3 okt 2026 nagelopen door mh-research tegen Wowhead + wago 12.1). Andere stages
 	komen pas in beeld zodra we ze écht kennen; de spy verzamelt daarvoor
 	automatisch data tijdens Robs runs (stages, encounter-IDs, boss-npcIDs)
 	in SavedVariables — geen /dump-huiswerk meer.
@@ -84,12 +84,17 @@ local RegisterCombatEvents, UnregisterCombatEvents
 -- een bekende spell cast. We luisteren via UNIT_SPELLCAST_START/_SUCCEEDED op de
 -- gewone f-frame (niet CLEU — dat geeft ADDON_ACTION_FORBIDDEN in 12.x) en gaten
 -- op inScenario zodat het buiten het scenario niets doet. Per spell ~3s throttle.
+--
+-- ⚠️ 3 Oct 2026: in 12.1 an enemy cast's spell id is secret (GEMETEN 4 Sep on the 12.1.5 PTR, memory
+-- enemy-casts-unidentifiable), so LookupAlert below almost certainly never matches and no alert flashes.
+-- Kept because it costs nothing and fails silently; do not count on it. Ids corrected the same day
+-- (mh-research, Wowhead + wago 12.1.0.69933): the old "live/PTR" pairs were all live, 1284125/1284085
+-- are auras, and the cast you interrupt is Dissonant Realities 1284083. All of these except the
+-- Volley are Malevolent Boons (Dark Obelisk challenge), not fixed boss spells.
 local ALERT_SPELLS = {
-	[1284125] = "RITUAL_ALERT_BINDING_NEBULA", -- Binding Nebula (live)
-	[1284106] = "RITUAL_ALERT_BINDING_NEBULA", -- Binding Nebula (PTR)
-	[1284081] = "RITUAL_ALERT_DISSONANT", -- Dissonant Reflections (live)
-	[1284085] = "RITUAL_ALERT_DISSONANT", -- Dissonant Reflections (PTR)
-	[1273031] = "RITUAL_ALERT_SHADOWBOLT", -- Ger'lok Shadowbolt Volley (interrupt)
+	[1284106] = "RITUAL_ALERT_BINDING_NEBULA", -- Binding Nebula
+	[1284083] = "RITUAL_ALERT_DISSONANT", -- Dissonant Realities (the mirror's 12 s cast)
+	[1277559] = "RITUAL_ALERT_SHADOWBOLT", -- Ger'lok Shadowbolt Volley (was 1273031: no NPC has that one)
 }
 local alertFrame
 local lastAlertAt = {}

@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt avond — Ritual Sites nagelopen
+
+- [ ] Ritual-tab (Silvermoon → Ritual Sites): de weekly-regel noemt nu **Lady Liadrin** en is grijs als de quest niet
+  in je log staat, geel als hij er wél in staat.
+- [ ] Op een alt die de intro nog niet af heeft: noemt de hint na **Void Strike** nu **Ritual Interest** als volgende
+  stap (eerst Ritual Problems)?
+- [ ] In Daggerspine Point, fase 2: heet de baas in het MH-venster **Void-Infused Mindbreaker**, en staan er nu korte
+  tips (ook bij Lady Selen'vjar)? Kloppen ze met wat je ziet?
+- [ ] Broken Throne zonder Malevolent Boons: zie je inderdaad **geen** nebula en geen spiegels bij de Dragonhawk?
+- [ ] Heet de eindbaas op de naamplaat "Lady Selen'vjar" of alleen "Selen'vjar"?
+
 ## 🆕 3 okt middag — "Zo speel je": vijfde tab "Group" (eerst Prot Paladin)
 
 Op je **Prot Paladin**, `/mh play`:

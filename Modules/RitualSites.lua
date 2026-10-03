@@ -8,7 +8,10 @@
 	Data (verified via Wowhead / guides, May 2026):
 	  - Daggerspine Point — Eversong Woods (map 2395) — 37.59, 65.20 (Curious Obelisk)
 	  - Broken Throne     — Zul'Aman      (map 2437) — 29.7, 78.2
-	  - Weekly meta-quest "Midnight: Ritual Sites" — quest 95843
+	  - Weekly meta-quest "Midnight: Ritual Sites" — quest 95843. NOT from the Bazaar hub: it is one
+	    of Lady Liadrin's weekly choices ("Unity Against the Void"), so not every week (3 Oct 2026).
+	  - DetectActiveSite matches English POI names; on a translated client it may never match
+	    (AFGELEID, not measured; candidate areaPoiIDs 8615/8614 need a client dump first).
 
 	Active-site detection is best-effort: we scan the map POIs for each site
 	and match the one near the known obelisk spot. When the API gives us no
@@ -21,7 +24,8 @@ local _, ns = ...
 local RITUAL_WEEKLY_QUEST = 95843
 -- "Ritual Interest" (94383) — final step of the per-character Void Assaults
 -- intro chain (94380 Ranger Captain's Summons → 94381 Outfitting and Allies →
--- 96080 Void Strike → 94382 Ritual Problems → 94383). The hub only offers the
+-- 96080 Void Strike → 94383 → 94382 Ritual Problems; order fixed 3 Oct 2026 by
+-- mh-research, Wowhead quest chain: Interest is step 4, Problems step 5). The hub only offers the
 -- weekly after this is done on THIS character (renown unlock is warband-wide,
 -- the chain is not — verified via Rob's druid dump, 10 Jun 2026).
 local RITUAL_INTRO_FINAL_QUEST = 94383
@@ -33,8 +37,8 @@ local RITUAL_INTRO_CHAIN = {
 	{ quest = 94380, key = "RITUAL_INTRO_STEP_SUMMONS" },
 	{ quest = 94381, key = "RITUAL_INTRO_STEP_ALLIES" },
 	{ quest = 96080, key = "RITUAL_INTRO_STEP_VOIDSTRIKE" },
-	{ quest = 94382, key = "RITUAL_INTRO_STEP_PROBLEMS" },
 	{ quest = 94383, key = "RITUAL_INTRO_STEP_INTEREST" },
+	{ quest = 94382, key = "RITUAL_INTRO_STEP_PROBLEMS" },
 }
 -- Field Accolade — the Midnight 12.0.5 currency earned from Ritual Sites /
 -- Void Assaults (per character, not warbound).
@@ -125,6 +129,17 @@ local function DetectActiveSite()
 		end
 	end
 	return nil
+end
+
+-- Steps up to the gate (94383, step 4 since the order fix of 3 Oct 2026): the hint stops at the gate,
+-- so it never says "step 4 of 5" for the last step it will ever show.
+local function IntroTotal()
+	for i, s in ipairs(RITUAL_INTRO_CHAIN) do
+		if s.quest == RITUAL_INTRO_FINAL_QUEST then
+			return i
+		end
+	end
+	return #RITUAL_INTRO_CHAIN
 end
 
 local function IsWeeklyDone()
@@ -323,7 +338,7 @@ function ns.GetRitualWeeklyHint()
 				end
 				local step = RITUAL_INTRO_CHAIN[nextIdx]
 				if step then
-					local txt = ns:L("RITUAL_INTRO_STEP_FMT"):format(nextIdx, #RITUAL_INTRO_CHAIN, ns:L(step.key))
+					local txt = ns:L("RITUAL_INTRO_STEP_FMT"):format(nextIdx, IntroTotal(), ns:L(step.key))
 					if C_QuestLog.GetLogIndexForQuestID
 						and C_QuestLog.GetLogIndexForQuestID(step.quest) then
 						txt = txt .. " " .. ns:L("RITUAL_INTRO_STEP_INLOG")
@@ -436,8 +451,16 @@ function ns.RefreshRitualPanel()
 			ui.weeklyFs:SetText(ns:L("RITUAL_WEEKLY_DONE"))
 			ui.weeklyFs:SetTextColor(0.45, 0.95, 0.5)
 		else
+			-- 95843 is one of Lady Liadrin's weekly choices, not on offer every week (mh-research
+			-- 3 Oct 2026; ResetRoutine.lua's Liadrin pool). Yellow only when it is in your log.
 			ui.weeklyFs:SetText(ns:L("RITUAL_WEEKLY_TODO"))
-			ui.weeklyFs:SetTextColor(0.9, 0.82, 0.45)
+			local inLog = C_QuestLog and C_QuestLog.GetLogIndexForQuestID
+				and C_QuestLog.GetLogIndexForQuestID(RITUAL_WEEKLY_QUEST)
+			if inLog then
+				ui.weeklyFs:SetTextColor(0.9, 0.82, 0.45)
+			else
+				ui.weeklyFs:SetTextColor(0.62, 0.6, 0.56)
+			end
 		end
 	end
 

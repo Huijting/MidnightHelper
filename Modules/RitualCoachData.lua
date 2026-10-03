@@ -29,10 +29,12 @@
 	  whether a second scenario layout exists are still to confirm.
 	  ✅ Model-seed re-verified (24 Jun 2026): Selen'vjar = npc 257498 (Wowhead, Elite,
 	     Midnight, has a 3D model). NB: dit is al GEWIRED — `DaggerspineCoach.lua` heeft
-	     beide bosses met seeds (Selen'vjar 257498 stepID 16533, Empowered Mindbreaker
-	     stand-in 260022 stepID 16532; scenarioID 3267). Broken Throne idem
-	     (RitualBossCoach.lua: 255653 / 257284). Open: de EXACTE empowered-Mindbreaker
-	     npc (260022 = stand-in) en een evt. 3e scenario "Speaker's Rest" (Gurrtack, npc ⬜).
+	     beide bosses met seeds (Selen'vjar 257498 stepID 16533, Void-Infused Mindbreaker
+	     260022 stepID 16532; scenarioID 3267). Broken Throne idem
+	     (RitualBossCoach.lua: 255653 / 257284).
+	  ✅ 3 Oct 2026 (mh-research): 260022 IS the stage-2 boss and Selen'vjar the end boss.
+	     No third scenario: live DB2 (12.1.0.69933) has only 3236, 3267 and Ritual Trove 3420
+	     with the Ritual UI kit; "Speaker's Rest" (3212) has no Ritual kit and never went live.
 ]]
 
 local _, ns = ...
@@ -75,7 +77,8 @@ ns.RITUAL_SITE_ENTRIES = {
 }
 
 -- B. Challenges (the 8 modifiers) ---------------------------------------------
--- spoilsPctCandidate = value from the Blizzard 12.0.5 news post; NOT displayed.
+-- spoilsPct = value from the Blizzard 12.0.5 news post; shown (RitualCoach.lua, RitualShare.lua).
+-- All eight values and spellIds re-checked against the spell data on 3 Oct 2026 (mh-research).
 ns.RITUAL_CHALLENGES = {
 	{
 		id = "tendrils",

@@ -12,7 +12,7 @@
 
 	Auto-trigger ACTIEF (Rob in-game 17 jun, beide stages gevangen):
 	  SCENARIO_ID = 3267 (Broken Throne = 3236)
-	  stage 2 "Beast From the Deep" (Empowered Mindbreaker) = stepID 16532 ✅
+	  stage 2 "Beast From the Deep" (Void-Infused Mindbreaker) = stepID 16532 ✅
 	  stage 3 "Summoner's Fall" (eindboss Lady Selen'vjar)   = stepID 16533 ✅
 	Zelfde stage-trigger als RitualBossCoach (OnScenarioTick): bij een nieuwe
 	boss-step het venster auto-openen + meebladeren; X = stil voor díé boss.
@@ -26,11 +26,10 @@ local ENTRY = {
 	bosses = {
 		{
 			key = "mindbreaker",
-			name = "Empowered Mindbreaker",
-			-- Stage 2 "Beast From the Deep" (stepID 16532, Rob 17 jun). De exacte
-			-- boss-npcID is nog niet gedataminet; als stand-in tonen we het model
-			-- van de Void-Infused Mindbreaker (npc 260022) zodat het paneel niet
-			-- leeg is. Een in-game geleerd ID wint altijd van de seed.
+			name = "Void-Infused Mindbreaker",
+			-- Stage 2 "Beast From the Deep" (stepID 16532, Rob 17 jun). npc 260022 IS the
+			-- stage-2 boss (mh-research 3 Oct 2026, Wowhead); "Empowered Mindbreaker" was
+			-- a name no source uses. Een in-game geleerd ID wint altijd van de seed.
 			stepIDs = { [16532] = true },
 			seedCreatureId = 260022,
 		},
@@ -52,7 +51,7 @@ if type(ns.DUNGEON_TIPS) == "table" then
 		mindbreaker = { steps = "RITUAL_BOSS_MINDBREAKER_STEPS" },
 		selenvjar = { steps = "RITUAL_BOSS_SELENVJAR_STEPS" },
 	}
-	-- Short tips by name, only once a source exists for them (15 Sep 2026: none yet).
+	-- Short tips by name (3 Oct 2026: written from Wowhead's ability lists, RitualTips.lua).
 	if ns.AttachQuickTips then
 		ns.AttachQuickTips(ns.DUNGEON_TIPS[ENTRY.key].mindbreaker, "RITUAL_BOSS_MINDBREAKER")
 		ns.AttachQuickTips(ns.DUNGEON_TIPS[ENTRY.key].selenvjar, "RITUAL_BOSS_SELENVJAR")
