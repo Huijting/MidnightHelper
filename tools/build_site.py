@@ -461,9 +461,8 @@ write_page("delves", "Every Midnight delve, and what to do in each",
 # addon would show it unconditionally; park anything gated on season, patch or player state in
 # SKIP_ARTICLES until someone measures it. (Empty since 2 Sep: that article turned out true.)
 SKIP_ARTICLES = {
-    # 2 Oct 2026: says a vault slot is higher "if you time the key"; not checked for Season 2. The
-    # Mythic+ page carries only the beginner chapter until someone measures it.
-    "CODEX_MPLUS_TITLE",
+    # (3 Oct 2026: CODEX_MPLUS_TITLE released again — the Vault review corrected "if you time the
+    # key" to "any finished key counts" for Season 2.)
 }
 
 codex_src = io.open(os.path.join(ROOT, "Modules", "MidnightCodexData.lua"), encoding="utf-8",
