@@ -1,5 +1,32 @@
 # Midnight Helper — waar we staan
 
+## 🗂️ 3 okt avond — naloop #7 (27 kaarten), #9 achievements, #11 gear, #12 wereld ERIN (Rob: "ik vertrouw op jou")
+
+- 7× mh-research (briefs `scratchpad\cards2\BRIEF.md`, `sys2\BRIEF.md`; uitvoer `cards2\p1-4.json`, `sys2\ach|gear|world.json`):
+  316 klopt, 42 fout, 13 verouderd, 11 ontbreekt, 19 onzeker. Reviewpagina https://claude.ai/artifact/RtDAZGRupUDXjd2AWaLpS1.
+- **Teksten:** 28 sleutels (kaarten 70/252/62/63/262/263/257/1480, ACH_NOTE_*, CONS_NOTE_01/05/11, INFO_DRAWER_BODY_ENCHANTS,
+  EVENT_INFO_*, RARES_TIP_DONE, SHOWDOWNS_BTN_MAELLA, OMNIUM_*); `apply_texts.py` kent nu ook OmniumFolio.lua en
+  ConsumablesNotes.lua. Arcane krijgt stap 5 (Prismatic Bolt, `PLAYCARD_62_S5`, `steps = 5`). 27 nieuwe bronregels.
+- **Code:** consumables (Light's Potential 295 vóór 278, healing-rang, DK krijgt weapon oil, Enhancement omitWeaponOil,
+  DK-flasks, Subtlety/Prot Warrior/Brewmaster-potions, meta S2) — ⚠️ alleen in `ConsumablesWowheadData.lua`, NIET in
+  `data/consumables_wowhead.json`: eerst de JSON gelijktrekken vóór een volgende generator-run. Ready-check telt de andere
+  kwaliteitsrang mee (`RANK_SIBLING`). Wapen-enchant: DK krijgt geen voorstel (runeforge), Rite of the Hash'ey als laatste
+  optie. Achievements: client-"completed"-vlag telt (Slugger 6/10, 15/19), 63359 feedsMeta=false, Stellar Stash 94005,
+  Exaliburn 93569, Tattered Page, Ash'an, Garsecg crit 118221, Heroic Slugger-elites. Showdowns: Val weeklyHeroic 96714,
+  wereldbaas "killed" = any of WQ + oude killquest, Leth'ir npc 260875. Folio-unlock 96224+96225.
+- **Gear-tracknamen:** clients vertalen ze (DB2 12.1.5): de Abenteurer/Veteran/Champion/Held/Mythos, fr vétéran/champion/
+  héros/mythique, es veterano/campeón/héroe/mito, pt Veterano/Campeão/Herói/Mito, it Veterano/Campione/Eroe/Mito. De
+  Codex-ronde had ze in 5 talen naar Engels gezet → teruggezet (mh-writer, `codex\tr2\`).
+- **NIET gedaan (Rob kiest / eerst meten):** Showdown-S2-gate (`Showdowns.lua:71-73`; weeklies worden mogelijk nog aangeboden),
+  Stormarion-weeklyQuest 94581 vs 90962 en POI 8419 vs 8421/8422, rare-band B dagelijks of wekelijks — alle drie TESTLIJST.
+  Mount-beloning 63359 (mountID-tak in RewardCollected), meta-rijen Ula'tek Uncoiled/Assault the Vault, kaart 63358 Coiled
+  to Strike, `ACH_META_TIP_COILED`, verouderde commentaren in AchievementsData (lijst in `sys2\ach.json` → code #13).
+  🔲 Vertaler-vondst (niet gerepareerd): `Locales/ConsumablesNotes.lua:135` merged `FR`, maar `FR` bestaat niet →
+  Franse spelers zien alle CONS_NOTE in het Engels (behalve wat Translations2026 vult). OmniumFolio fr zegt "vous", pt "tu".
+  ✅ Bijvangst gedaan: Void Metamorphosis 1217607 → 1217605 (DpsToolkit + KeybindRoles_DH, echte id-velden);
+  Arcane Missiles 7268 → 5143 in de KeybindRoles_Mage-commentaren (entry gaat op naam). Open: Warlock-commentaar-ids
+  157898/194831.
+
 ## 🔨 3 okt avond — naloop #8 beroepencursus ERIN (Rob: "Alles goed", Overload ja, Skinning op ons advies)
 
 - 2× mh-research (brief `scratchpad\prof\BRIEF.md`, uitvoer `prof\academy.json` + `weekly.json`): 63 klopt, 23 fout,

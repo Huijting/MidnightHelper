@@ -28,10 +28,9 @@ ns.OMNIUM_FOLIO = {
 	-- (Rommath overhandigt de Folio). Daarna ontgrendelen de weekly
 	-- "Seeking Knowledge"-quests hieronder de rijen. Folio-item: spell 1302265.
 	-- Eenmalige unlock-storyline (voltooien -> Folio-overhandiging bij 96410):
-	-- OPEN CHECK (24 jun 2026): Method's gids (14 jun) noemt 96224 "The Magister's
-	-- Conundrum" als 2e stap, waar wij 96225 hebben. Eén van beide is de verkeerde
-	-- tussenstap -> in-game verifiëren welke quest na 96223 komt (niet week-2-kritiek).
-	unlockStoryQuests = { 96223, 96225, 96226, 96227, 96228, 96229, 96230, 96231, 96232, 96233 },
+	-- ✅ 3 Oct 2026 (mh-research): both are right — "The Magister's Conundrum" is 96224 for the
+	-- Alliance and 96225 for the Horde. Both are listed now.
+	unlockStoryQuests = { 96223, 96224, 96225, 96226, 96227, 96228, 96229, 96230, 96231, 96232, 96233 },
 
 	-- Per-week objective van de wekelijkse "Seeking Knowledge"-quest (Wowhead-gids
 	-- 12 jun + in-game). Index = week (1..5). De checklist toont het objective van

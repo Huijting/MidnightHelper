@@ -204,10 +204,18 @@ function ns.GetShowdownWorldBossStatus()
 	if not (zone and zone.bossName) then
 		return nil
 	end
-	if not (zone.worldBossQuest and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
+	local ids = zone.worldBossQuests or (zone.worldBossQuest and { zone.worldBossQuest })
+	if not (ids and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
 		return zone.bossName, nil
 	end
-	return zone.bossName, C_QuestLog.IsQuestFlaggedCompleted(zone.worldBossQuest) and true or false
+	-- "Any of": the weekly world quest and the old killquest (ShowdownsData.lua, 3 Oct 2026).
+	for _, qid in ipairs(ids) do
+		local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, qid)
+		if ok and done then
+			return zone.bossName, true
+		end
+	end
+	return zone.bossName, false
 end
 
 -- Returns inZone, hasWorldTier. hasWorldTier is GetInstanceInfo() ret11

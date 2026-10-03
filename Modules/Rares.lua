@@ -111,7 +111,7 @@ local ZONES = {
 			{ 89580, 2437, 47.44, 34.35, "Tiny Vermin", 242033 },
 			{ 89583, 2437, 39.49, 20.32, "The Devouring Invader", 242035 },
 			{ 89573, 2437, 47.73, 20.73, "Depthborn Eelamental", 242027 },
-			{ 91073, 2437, 45.29, 41.70, "Asha the Empowered", 245692, elite = true }, -- naam "Asha" per HandyNotes-node + achievement (het drop-item heet wél "Ash'an's ...")
+			{ 91073, 2437, 45.29, 41.70, "Ash'an the Empowered", 245692, elite = true }, -- 3 Oct 2026: "Ash'an" (mh-research; achievement criterion + drop item). Was "Asha" after a HandyNotes node.
 			{ 89570, 2437, 51.61, 18.63, "The Snapping Scourge", 242024 },
 			{ 89575, 2437, 28.73, 24.03, "Lightwood Borer", 242028 },
 			{ 91634, 2437, 38.99, 50.01, "Poacher Rav'ik", 247976 },
@@ -238,7 +238,7 @@ local ZONES = {
 			{ 96208, 2600, 68.50, 62.20, "Lomelith", 263955 },
 			{ 96319, 2600, 70.30, 76.40, "Warp Agent Xi'grivr", 264574 },
 			{ 96320, 2600, 55.20, 62.00, "Slaipaan", 264576 },
-			{ 97014, 2600, 29.70, 19.20, "Warbringer Thal'kuur", 267422 }, -- extra rare (niet in Slugger-meta)
+			{ 97014, 2600, 29.70, 19.20, "Warbringer Thal'kuur", 267422 }, -- not in Showdown Slugger: Naigtal (62883); see mh-research 3 Oct 2026 for Heroic Slugger 63348
 			{ 96566, 2600, 48.80, 47.40, "Voidwarped Sporebat", 265698 }, -- extra rare (niet in Slugger-meta)
 		},
 	},
@@ -391,7 +391,7 @@ local COILED_ISLE = {
 		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
 		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
 		--- that says 10/10 says nothing.
-		{ 94856, 2512, 70.17, 45.29, "Garsecg", 258916, ach = 63358, crit = 110172, acct = 98350 }, -- 🔎 WATCHED
+		{ 94856, 2512, 70.17, 45.29, "Garsecg", 258916, ach = 63358, crit = 118221, acct = 98350 }, -- crit was 110172 (Lady Liminus, 61507); mh-research 3 Oct 2026 -- 🔎 WATCHED
 		{ 95452, 2512, 52.05, 32.29, "Destra", 261142, ach = 63358, crit = 115288, acct = 98355 }, -- 🔎 WATCHED
 		{ 96464, 2512, 43.85, 50.86, "Hisstara", 265262, ach = 63358, crit = 115281, acct = 98348 },
 		{ 97122, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090, ach = 63358, crit = 115784, acct = 98346 },

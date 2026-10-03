@@ -24,8 +24,11 @@ ns.SHOWDOWNS = {
 			uiMapID = 2600, -- PTR-verified; hele zone (WQ-dump bevestigde dit). Kaart-pad: EK > Quel'Thalas > Voidstorm > Naigtal
 			weekly = 96717, -- "Showdown on Naigtal" (PTR-verified). Percentage-quest ("Ethereal Operations Disrupted"): voortgang via GetQuestProgressBarPercent. Questlog-categorie: "Void Assaults"
 			weeklyHeroic = 96718, -- "Showdown on Naigtal (Heroic)" — IN-GAME gemeten 29 jul 2026 via /mh showdown (Rob had 'm aangenomen; beloning "Riftstalker's Overflowing Cache", niet de gewone Cache). Heroic is een vrije keuze bij het portaal, dus dit is geen randgeval.
-			worldBossNpcID = 263843, -- Nexus-Captain Leth'ir (Wowhead)
-			worldBossQuest = 96472, -- "The Nexus-Captain" killquest (Wowhead PTR-2)
+			worldBossNpcID = 260875, -- Nexus-Captain Leth'ir (was 263843; mh-research 3 Oct 2026, not read by code)
+			-- Any of these flagged = killed this week. 96472 was the PTR killquest; the weekly world
+			-- quest is 96522 "Oh Captain, Die Captain!" (mh-research 3 Oct 2026). Which id belongs to
+			-- which tier is NOT measured (/mh questsnap around a kill would settle it); a dead id costs nothing.
+			worldBossQuests = { 96522, 96472 },
 			bossName = "Nexus-Captain Leth'ir",
 		},
 		{
@@ -33,12 +36,13 @@ ns.SHOWDOWNS = {
 			name = "Val",
 			uiMapID = 2599, -- PTR-verified 16 jun 2026 (Rob stond in Val: kaart-pad EK > Quel'Thalas > Voidstorm > Val). Naast Naigtal 2600.
 			weekly = 96713, -- "Showdown on Val" — IN-GAME bevestigd 16 jun 2026 (Rob accepteerde 'm; questlog 96713). Web-datamine zei 96716 → in-game wint (96713).
-			-- weeklyHeroic voor Val is NIET bekend. Naigtal bleek 96717 → 96718, dus 96714
-			-- ligt voor de hand — maar bij Val zat de datamine er al eens naast (96716 vs
-			-- 96713), dus dit wordt gemeten en niet geraden. Draai `/mh showdown` zodra Val
-			-- weer aan de beurt is en de Heroic-weekly is aangenomen.
+			-- 3 Oct 2026: 96714 = "Showdown on Val (Heroic)" — Wowhead has its own quest page with that
+			-- title (mh-research), and ResetRoutine.lua already used it. Not yet seen in Rob's log.
+			weeklyHeroic = 96714,
 			worldBossNpcID = 261072, -- Imperator Pertinax (Zygor 9.6 DB, 17 jun: 261072; de eerdere 263670 bestaat NIET in Zygor = was fout)
-			worldBossQuest = 96473, -- "Imperator Pertinax" killquest (Zygor 9.6 Quests_enUS, 17 jun)
+			-- 96473 = Zygor's killquest; 96295 / 96941 "A Pertinent Punishment" = the weekly world quest
+			-- (mh-research 3 Oct 2026). Any flagged = killed this week; tiers not measured.
+			worldBossQuests = { 96295, 96941, 96473 },
 			bossName = "Imperator Pertinax",
 		},
 	},

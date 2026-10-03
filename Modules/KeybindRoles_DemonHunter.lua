@@ -170,5 +170,6 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- Cooldowns
 	["Soul Immolation"]   = { id = 1241937, category = "cooldown", priority = 3, specs = { 1480 }, survival = "heal", survivalOrder = 1 }, -- 60s-CD setup/buff (SpellCooldowns 1241937=60000; SelfAuras 1241937) -- card: heals 24% of max HP (IV-DEV); id not measured in the client
 	-- Grootste CD / cooldown_bar F1 (Void Metamorphosis = burst-vorm; soul-driven, geen timer)
-	["Void Metamorphosis"] = { id = 1217607, role = "cooldown_bar", priority = 1, specs = { 1480 } },    -- burst-vorm (Wowhead 1217607; analoog aan Havoc Metamorphosis)
+	-- id 1217605 = the button; 1217607 (used until 3 Oct 2026) is the buff it applies (mh-research, Wowhead).
+	["Void Metamorphosis"] = { id = 1217605, role = "cooldown_bar", priority = 1, specs = { 1480 } },    -- burst-vorm (analoog aan Havoc Metamorphosis)
 }

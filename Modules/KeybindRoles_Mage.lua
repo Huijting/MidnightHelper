@@ -27,7 +27,7 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	                                            DPS-cooldown, NIET defensive (nooit als heal).
 	  - JustAC\Data\SpellArchetypes.lua      -> damage-builders/spenders per spec (Frostbolt 116,
 	                                            Fireball 133, Arcane Blast 30451, Pyroblast 11366,
-	                                            Ice Lance 30455, Glacial Spike, Arcane Missiles 7268,
+	                                            Ice Lance 30455, Glacial Spike, Arcane Missiles 5143,
 	                                            Arcane Barrage 44425, Nether Tempest 114923,
 	                                            Supernova 157980, Living Bomb 44461, Phoenix Flames
 	                                            257542, Blizzard 190357, Frozen Orb 84721, etc.).
@@ -133,7 +133,7 @@ ns.KeybindRoleClassifier.MAGE = {
 
 	["Arcane Blast"] = { category = "main_rotation", priority = 1, specs = { 62 } }, -- SpellArchetypes [30451] ranged; kern-builder (Arcane Charges)
 	["Arcane Orb"] = { category = "main_rotation", priority = 2, specs = { 62 } }, -- charge-builder / AoE-opener
-	["Arcane Missiles"] = { category = "main_rotation", priority = 3, specs = { 62 } }, -- SpellArchetypes [7268] ranged; Clearcasting-spender-filler
+	["Arcane Missiles"] = { category = "main_rotation", priority = 3, specs = { 62 } }, -- [5143] the button (7268 = the hidden damage spell; mh-research 3 Oct 2026); Clearcasting-spender-filler
 	["Arcane Barrage"] = { category = "spender", priority = 1, specs = { 62 } }, -- SpellArchetypes [44425] ranged; Arcane-Charge-spender
 	["Nether Tempest"] = { category = "main_rotation", priority = 4, specs = { 62 } }, -- SpellArchetypes [114923] ranged; DoT (talent)
 	["Supernova"] = { category = "main_rotation", priority = 5, specs = { 62 } }, -- SpellArchetypes [157980] ranged; utility-nuke (talent)

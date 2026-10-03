@@ -70,7 +70,8 @@ ns.DPS_COOLDOWNS = {
 	-- Devourer (Midnight's Int DH). Until 17 Sep it had no row and fell back to Havoc's list.
 	-- Void Metamorphosis has no timer (50 Soul Fragments), so no cd. Ids from the classifier
 	-- (JustAC SpellCooldowns); The Hunt is assumed to be the class talent Havoc uses (AFGELEID).
-	[1480] = { { id = 1217607 }, { id = 370965, cd = 90 }, { id = 1241937, cd = 60 }, { id = 1245412, cd = 30 } }, -- Devourer DH: Void Metamorphosis, The Hunt, Soul Immolation, Voidblade
+	-- Void Metamorphosis 1217605 = the button; was 1217607, the buff (mh-research 3 Oct 2026).
+	[1480] = { { id = 1217605 }, { id = 370965, cd = 90 }, { id = 1241937, cd = 60 }, { id = 1245412, cd = 30 } }, -- Devourer DH: Void Metamorphosis, The Hunt, Soul Immolation, Voidblade
 }
 
 local DPS_SPECS = {

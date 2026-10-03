@@ -30,7 +30,7 @@ local _, ns = ...
 local CARDS = {
 	[70] = { -- Retribution Paladin
 		steps = 4, aoe = false, hero = 2,
-		source = "Icy Veins 25 Aug · Method 27 Aug 2026", -- rechecked 25 Sep: still right
+		source = "Icy Veins 25 Aug · Method 27 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[66] = { -- Protection Paladin
 		-- 3 Oct 2026: fifth step = Hand of Reckoning (Rob's choice; Icy Veins' opener pulls with it,
@@ -39,16 +39,16 @@ local CARDS = {
 		source = "Method 3 Sep · Wowhead 12 Aug · Icy Veins 21 Sep 2026", -- rechecked 25 Sep + 3 Oct
 	},
 	[62] = { -- Arcane Mage
-		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 15 Aug · Method 13 Sep 2026",
+		steps = 5, aoe = true, hero = 2,
+		source = "Icy Veins 15 Aug · Method 13 Sep · Wowhead 4 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[262] = { -- Elemental Shaman
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 1 Sep · Wowhead 20 Sep 2026", -- rechecked 25 Sep: still right
+		source = "Icy Veins 10 Aug · Method 1 Sep · Wowhead 20 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[63] = { -- Fire Mage
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 17 Aug 2026",
+		source = "Icy Veins 10 Aug · Method 17 Aug · Wowhead 16 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[64] = { -- Frost Mage
 		steps = 5, aoe = true, hero = 2,
@@ -56,11 +56,11 @@ local CARDS = {
 	},
 	[65] = { -- Holy Paladin
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 27 Aug · Wowhead 20 Sep 2026",
+		source = "Method 27 Aug · Wowhead 20 Sep · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[71] = { -- Arms Warrior
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 25 Aug 2026",
+		source = "Icy Veins 10 + 25 Aug · Method 25 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[72] = { -- Fury Warrior
 		steps = 4, aoe = true, hero = 2,
@@ -68,11 +68,11 @@ local CARDS = {
 	},
 	[73] = { -- Protection Warrior
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 18 Aug · Method 11 Aug 2026",
+		source = "Icy Veins 18 Aug · Method 11 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[102] = { -- Balance Druid
 		steps = 5, aoe = true, hero = 2,
-		source = "Method 15 Aug · Wowhead 3 Sep 2026",
+		source = "Icy Veins 10 Aug · Method 15 Aug · Wowhead 3 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[103] = { -- Feral Druid
 		steps = 5, aoe = true, hero = 2,
@@ -84,27 +84,27 @@ local CARDS = {
 	},
 	[105] = { -- Restoration Druid
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 13 Sep · Wowhead 12 Aug 2026",
+		source = "Icy Veins 10 Aug · Method 13 Sep · Wowhead 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[250] = { -- Blood Death Knight
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 4 Sep 2026",
+		source = "Icy Veins 10 Aug · Method 4 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[251] = { -- Frost Death Knight
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 14 Sep · Method 20 Sep 2026",
+		source = "Icy Veins 25 Sep · Method 27 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[252] = { -- Unholy Death Knight
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 8 Sep · Method 24 Sep 2026",
+		source = "Icy Veins 8 Sep · Method 24 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[253] = { -- Beast Mastery Hunter
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 24 Aug · Method 15 Aug 2026",
+		source = "Icy Veins 7 Sep · Method 5 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[254] = { -- Marksmanship Hunter
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 31 Aug · Method 5 Sep 2026",
+		source = "Icy Veins 31 Aug · Method 5 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[255] = { -- Survival Hunter
 		steps = 4, aoe = true, hero = 2,
@@ -112,15 +112,15 @@ local CARDS = {
 	},
 	[256] = { -- Discipline Priest
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 17 Aug · Method 17 Sep 2026",
+		source = "Icy Veins 17 Aug · Method 17 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[257] = { -- Holy Priest
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 25 Aug · Method 17 Sep 2026",
+		source = "Icy Veins 25 Aug · Method 17 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[258] = { -- Shadow Priest
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 11 Aug · Method 27 Aug 2026",
+		source = "Method 27 Aug · Wowhead 12 Aug · Icy Veins 11 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[259] = { -- Assassination Rogue
 		steps = 4, aoe = true, hero = 2,
@@ -136,7 +136,7 @@ local CARDS = {
 	},
 	[263] = { -- Enhancement Shaman
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 23 Aug · Method 24 Aug 2026",
+		source = "Icy Veins 23 Aug · Method 24 Aug · Wowhead 22 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[264] = { -- Restoration Shaman
 		steps = 4, aoe = true, hero = 2,
@@ -144,7 +144,7 @@ local CARDS = {
 	},
 	[265] = { -- Affliction Warlock
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 31 Aug · Method 12 Aug 2026",
+		source = "Wowhead 7 Sep · Icy Veins 31 Aug · Method 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[266] = { -- Demonology Warlock
 		steps = 5, aoe = true, hero = 2,
@@ -152,27 +152,27 @@ local CARDS = {
 	},
 	[267] = { -- Destruction Warlock
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 31 Aug · Method 15 Aug 2026",
+		source = "Icy Veins 31 Aug · Method 15 Aug · Wowhead 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[268] = { -- Brewmaster Monk
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 11 Aug · Wowhead 12 Aug 2026",
+		source = "Method 11 Aug · Wowhead 12 Aug · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[269] = { -- Windwalker Monk
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 11 Aug · Method 18 Aug 2026",
+		source = "Icy Veins 25 Aug · Wowhead 25 Aug · Method 18 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[270] = { -- Mistweaver Monk
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 12 Aug · Method 27 Aug 2026",
+		source = "Wowhead 30 Sep · Method 27 Aug · Icy Veins 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[577] = { -- Havoc Demon Hunter
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 30 Aug · Method 17 Sep 2026",
+		source = "Method 17 Sep · Icy Veins 30 Aug · Wowhead 17 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[581] = { -- Vengeance Demon Hunter
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 26 Aug · Method 11 Aug · Wowhead 12 Aug 2026",
+		source = "Method 27 Aug · Wowhead 12 Aug · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[1467] = { -- Devastation Evoker
 		steps = 4, aoe = true, hero = 2,
@@ -180,7 +180,7 @@ local CARDS = {
 	},
 	[1468] = { -- Preservation Evoker
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 13 Aug · Method 20 Aug · Wowhead 21 Sep 2026",
+		source = "Icy Veins 13 Aug · Method 20 Aug · Wowhead 21 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 	[1473] = { -- Augmentation Evoker
 		steps = 5, aoe = true, hero = 2,
@@ -188,7 +188,7 @@ local CARDS = {
 	},
 	[1480] = { -- Devourer Demon Hunter
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 17 Aug · Wowhead 2 Sep · Method 18 Sep 2026",
+		source = "Method 18 Sep · Wowhead 2 Sep · Icy Veins 18 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 	},
 }
 

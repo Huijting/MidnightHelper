@@ -64,10 +64,11 @@ local RING_EFFECT = { sid = 1236059, ah = "Enchant Ring - Eyes of the Eagle" }
 --- modelled — better to say nothing than to offer a Death Knight an enchant their guide
 --- does not mention.
 ---
---- ⏳ Rite of the Hash'ey (12.1, new) is deliberately absent. It shipped on 11 August and
---- the spec pages were updated on the 10th, so not one of them has adopted it yet. Adding
---- it would be us front-running our own source.
+--- Rite of the Hash'ey (12.1): absent until 3 Oct 2026, because no spec page had adopted it
+--- yet. mh-research found it in the Season 2 guides that day, so it is offered as the LAST
+--- option — the per-stat and primary picks above still lead.
 local WEAPON_PRIMARY = { sid = 1236095, ah = "Enchant Weapon - Acuity of the Ren'dorei" }
+local WEAPON_HASHEY = { sid = 1291694, ah = "Enchant Weapon - Rite of the Hash'ey" }
 local WEAPON_BY_STAT = {
 	haste = { sid = 1236067, ah = "Enchant Weapon - Berserker's Rage" },
 	crit = { sid = 1236066, ah = "Enchant Weapon - Jan'alai's Precision" },
@@ -573,7 +574,14 @@ end
 -- Aanbevolen enchant-tekst (gerenderde links) per slot, of nil = geen suggestie.
 local function Recommend(slotId, stat, map)
 	if slotId == 16 then
+		-- Death Knights use class runeforges, not weapon enchants (see the Blood DK note above;
+		-- mh-research 3 Oct 2026 found the code offering them Acuity/Berserker's anyway).
+		local _, classToken = UnitClass("player")
+		if classToken == "DEATHKNIGHT" then
+			return nil
+		end
 		local byStat = stat and WEAPON_BY_STAT[stat] and LinkOf(map, WEAPON_BY_STAT[stat]) or nil
+		local hashey = " / " .. LinkOf(map, WEAPON_HASHEY)
 		-- Tanks and healers lead with the primary-stat proc; damage specs lead with their
 		-- secondary. Both are offered either way — one guide's survey is a strong hint and
 		-- the footer still points at a class guide for true best-in-slot.
@@ -581,14 +589,14 @@ local function Recommend(slotId, stat, map)
 		if role == "tank" or role == "heal" then
 			local first = LinkOf(map, WEAPON_PRIMARY)
 			if byStat then
-				return ns:L("ENCHANT_PICK") .. " " .. first .. " / " .. byStat
+				return ns:L("ENCHANT_PICK") .. " " .. first .. " / " .. byStat .. hashey
 			end
-			return first
+			return ns:L("ENCHANT_PICK") .. " " .. first .. hashey
 		end
 		if byStat then
-			return ns:L("ENCHANT_PICK") .. " " .. byStat .. " / " .. LinkOf(map, WEAPON_PRIMARY)
+			return ns:L("ENCHANT_PICK") .. " " .. byStat .. " / " .. LinkOf(map, WEAPON_PRIMARY) .. hashey
 		end
-		return LinkOf(map, WEAPON_PRIMARY)
+		return ns:L("ENCHANT_PICK") .. " " .. LinkOf(map, WEAPON_PRIMARY) .. hashey
 	elseif slotId == 11 or slotId == 12 then
 		--- ⚠️ THE WHOLE RING MODEL WAS THE WRONG SHAPE, not merely missing a row. We picked
 		--- a ring by your best secondary stat, so a ring enchant that grants no secondary

@@ -255,16 +255,39 @@ local function PlayerSpecData()
 	return byClass and byClass[specIndex]
 end
 
--- Best + alternates van een categorie als één id-lijst (voor de tas-telling).
+-- The other quality rank of the same consumable (ilvl 278 vs 295 items are separate item ids).
+-- 3 Oct 2026 (mh-research, Wowhead): the data names one rank, so a player carrying the other rank
+-- was told they had none. Counted both ways; listed once per pair.
+local RANK_SIBLING = {
+	[241320] = 241321, [241322] = 241323, [241324] = 241325, [241326] = 241327, -- flasks
+	[241288] = 241289, -- Potion of Recklessness
+	[241292] = 241293, -- Draught
+	[241309] = 241308, -- Light's Potential
+	[243734] = 243733, -- weapon oil
+}
+for a, b in pairs(RANK_SIBLING) do
+	if RANK_SIBLING[b] == nil then
+		RANK_SIBLING[b] = a
+	end
+end
+
+-- Best + alternates van een categorie als één id-lijst (voor de tas-telling), plus de andere rang.
 local function CategoryItemIDs(specData, catName)
 	local cat = specData and specData[catName]
 	if type(cat) ~= "table" then
 		return nil
 	end
-	local ids = {}
+	local ids, seen = {}, {}
+	local function add(id)
+		if id and not seen[id] then
+			seen[id] = true
+			ids[#ids + 1] = id
+		end
+	end
 	for _, list in ipairs({ cat.best or {}, cat.alternates or {} }) do
 		for i = 1, #list do
-			ids[#ids + 1] = list[i]
+			add(list[i])
+			add(RANK_SIBLING[list[i]])
 		end
 	end
 	return ids
@@ -787,8 +810,9 @@ function ns.GetConsumableReadyData()
 		local _, fN = presence(FoodItemIDs(specData))
 		local hsHas = presence(HEALTHSTONE_IDS)
 		local ctoken = ClassToken("player")
-		-- Weapon-olie: alleen specs die 'm gebruiken (Shamans e.d. = omitWeaponOil,
-		-- die hebben eigen weapon-imbues). Buff = de tijdelijke wapen-enchant.
+		-- Weapon-olie: alleen specs die 'm gebruiken. Sinds 3 okt 2026 staat omitWeaponOil alleen
+		-- bij Enhancement (Windfury/Flametongue overschrijven olie); DK's gebruiken wél olie.
+		-- Buff = de tijdelijke wapen-enchant.
 		local weapon = nil
 		if specData and not specData.omitWeaponOil then
 			local hasEnchant = false

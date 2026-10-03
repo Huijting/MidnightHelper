@@ -46,6 +46,9 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 63359, -- Treasures of the Coiled Isle
 		nameKey = "ACH_TREASURE_COILEDISLE",
+		-- 3 Oct 2026 (mh-research): 63359 counts for Ula'tek Uncoiled 63639, not for Light Up the Night
+		-- 62386. Measured 22/22 criteria on Rob's client 16 Sep, so the "nog te verifiëren" above is done.
+		feedsMeta = false,
 		nodes = {
 			{ criteria = 115295, mapID = 2512, x = 31.43, y = 83.49 },
 			{ criteria = 115314, mapID = 2512, x = 64.91, y = 78.89 },
@@ -493,7 +496,7 @@ ns.ACHIEVEMENT_TREASURES = {
 					{ name = "Malignant Node 3", mapID = 2405, x = 53.53, y = 43.91, quest = 93814 },
 					{ name = "Malignant Node 4", mapID = 2405, x = 53.23, y = 42.68, quest = 93815 },
 				} },
-			{ criteria = 111868, mapID = 2444, x = 53.18, y = 32.21, name = "Stellar Stash", quest = 93996,
+			{ criteria = 111868, mapID = 2444, x = 53.18, y = 32.21, name = "Stellar Stash", quest = 94005, -- was 93996; 94005 is the quest the achievement counts (mh-research 3 Oct 2026)
 				note = "ACH_NOTE_STELLAR",
 				prereqs = {
 					{ name = "ACH_STEP_CAVE_DOOR", mapID = 2444, x = 52.21, y = 31.16 },
@@ -504,7 +507,7 @@ ns.ACHIEVEMENT_TREASURES = {
 				note = "ACH_NOTE_SCOUTPACK" },
 			{ criteria = 111871, mapID = 2405, x = 55.37, y = 75.42, name = "Embedded Spear", quest = 93553 },
 			{ criteria = 111872, mapID = 2405, x = 31.50, y = 44.51, name = "Quivering Egg", quest = 93500 },
-			{ criteria = 111873, mapID = 2405, x = 28.33, y = 72.90, name = "Exaliburn", quest = 93498,
+			{ criteria = 111873, mapID = 2405, x = 28.33, y = 72.90, name = "Exaliburn", quest = 93569, -- was 93498 (mh-research 3 Oct 2026)
 				note = "ACH_NOTE_EXALIBURN" },
 			{ criteria = 111874, mapID = 2405, x = 35.77, y = 41.41, name = "Discarded Energy Pike", quest = 93496 },
 			{ criteria = 111875, mapID = 2405, x = 43.01, y = 81.94, name = "Faindel's Quiver", quest = 93493 },
@@ -598,7 +601,7 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111834, mapID = 2405, x = 63.42, y = 78.22, name = "Void Armor", quest = 94389 },
 			{ criteria = 111835, mapID = 2405, x = 50.32, y = 87.68, name = "Ancient Tablet", quest = 94394 },
 			{ criteria = 111836, mapID = 2405, x = 40.48, y = 58.63, name = "Abandoned Telescope", quest = 94395 },
-			{ criteria = 111837, mapID = 2405, x = 60.38, y = 45.50, name = "Tainted Page", quest = 94397 },
+			{ criteria = 111837, mapID = 2405, x = 60.38, y = 45.50, name = "Tattered Page", quest = 94397 }, -- was "Tainted Page" (mh-research 3 Oct 2026)
 			{ criteria = 111838, mapID = 2405, x = 27.83, y = 54.02, name = "Shadowgraft Harness", quest = 94398 },
 		},
 	},
@@ -647,7 +650,7 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111850, mapID = 2437, x = 33.71, y = 88.97, name = "Elder Oaktalon", quest = 89572 },
 			{ criteria = 111851, mapID = 2437, x = 47.68, y = 20.56, name = "Depthborn Eelamental", quest = 89573 },
 			{ criteria = 111852, mapID = 2437, x = 46.39, y = 43.39, name = "The Decaying Diamondback", quest = 91072 },
-			{ criteria = 111853, mapID = 2437, x = 45.29, y = 41.70, name = "Asha the Empowered", quest = 91073 },
+			{ criteria = 111853, mapID = 2437, x = 45.29, y = 41.70, name = "Ash'an the Empowered", quest = 91073 }, -- was "Asha" (mh-research 3 Oct 2026)
 		},
 	},
 	{
@@ -867,4 +870,6 @@ ns.ELITE_RARE_CRITERIA = {
 	[113997] = true,                                   -- Val (Glacial Broodmother)
 	-- Coiled Isle, the five Curse Surge bosses (63390). HandyNotes files all five as RareElite.
 	[115368] = true, [115369] = true, [115370] = true, [115371] = true, [111353] = true,
+	-- The same two Showdown elites as criteria of Heroic Slugger 63348 (mh-research 3 Oct 2026).
+	[115255] = true, [115259] = true, -- Indomitable Mk XII, Glacial Broodmother
 }

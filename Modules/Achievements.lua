@@ -1894,6 +1894,21 @@ local function RefreshMetaDetail(st, metaComplete)
 	box:SetHeight(math.max(1, y))
 end
 
+--- The client's own "completed" flag. 3 Oct 2026 (mh-research): the Slugger cards sat at 6/10
+--- and 15/19 although the achievement was earned — criteria counts can lag or disagree, the flag
+--- does not. Done = all criteria OR the client says so.
+local function ClientSaysComplete(entry)
+	if not (entry and entry.achievementID and GetAchievementInfo) then
+		return false
+	end
+	local ok, _, _, _, completed = pcall(GetAchievementInfo, entry.achievementID)
+	return ok and completed == true
+end
+
+local function EntryComplete(entry, done, total)
+	return (total > 0 and done >= total) or ClientSaysComplete(entry)
+end
+
 -- Top-of-tab summary: tracked-achievement count, collectibles owned, and the
 -- "Light Up the Night" meta progress + its mount reward.
 local function RefreshAchSummary()
@@ -1905,7 +1920,7 @@ local function RefreshAchSummary()
 	for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES or {}) do
 		achTotal = achTotal + 1
 		local done, total = ns.GetTreasureProgress(entry)
-		local complete = (total > 0 and done >= total)
+		local complete = EntryComplete(entry, done, total)
 		if complete then
 			achDone = achDone + 1
 		end
@@ -1946,7 +1961,7 @@ local function RefreshAchPanel()
 	RefreshAchSummary()
 	for _, card in ipairs(st.cards) do
 		local done, total = ns.GetTreasureProgress(card.entry)
-		local complete = (total > 0 and done >= total)
+		local complete = EntryComplete(card.entry, done, total)
 		card.complete = complete -- cached for LayoutAchPanel (sorting + auto-hide)
 		local nm = AchievementName(card.entry)
 		local tag = CardTypeTag(card.entry) -- coloured [Treasure]/[Telescope]/[Lore]/[Rare]

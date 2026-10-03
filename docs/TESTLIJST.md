@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt avond — kaarten, achievements, gear, wereld
+
+- [ ] Arcane Mage-kaart: 5 stappen, stap 3 = **Prismatic Bolt** met icoon (id 1295924, alleen op Wowhead gezien).
+- [ ] Achievements: staan de **Slugger**-kaarten nu op klaar als je ze echt hebt (eerst 6/10 en 15/19)?
+- [ ] Ready-check op een DK: vraagt hij nu om **weapon oil**? Op Enhancement niet meer. Telt hij een flask/potion van de
+  andere kwaliteit (278 i.p.v. 295) als "heb je"?
+- [ ] Wapen-enchantadvies op een DK: geen voorstel meer. Op andere specs staat **Rite of the Hash'ey** als laatste optie.
+- [ ] Showdowns (Maella): biedt ze in seizoen 2 de **Showdown-weekly** nog aan? Zo ja, dan moet MH's S2-blokkade weg — zeg het me.
+- [ ] Na een Stormarion Assault-run: `/run print(C_QuestLog.IsQuestFlaggedCompleted(90962), C_QuestLog.IsQuestFlaggedCompleted(94581))`
+  — welke staat op true? En `/mh events`: welk POI-nummer heeft Stormarion?
+- [ ] Rares: dood een rare op een niet-resetdag, typ de volgende dag `/mh rarequests`: staat hij weer op "--"? Dan is het dagelijks.
+
 ## 🆕 3 okt avond — beroepen
 
 - [ ] Alt-overzicht → tooltip van een personage met beroepen: staat er een **Dundun**-regel met een echt getal? (MH leest
