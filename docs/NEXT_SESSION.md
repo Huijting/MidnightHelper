@@ -11,8 +11,12 @@
   locale_probe OK.
 - **C ✅ deels:** Hammer of Wrath `{70}` (passief voor Prot), Divine Protection `specs = {65,70}`, Sacred Weapon bewust
   géén eigen entry (één knop met Holy Bulwark; commentaar). 🔲 Open: `paladin_protection`-layout in KeybindingData.lua.
-- 🔲 **E** (4 oudste kaarten 64/72/264/266 + 7 overgeslagen 103/104/259/260/261/1467/1473; 255 bron 12.0.7) en **G** (tab 5
-  "Voor je groep" — eerst schets van één spec aan Rob) volgen.
+- **E + G onderzocht** (3× mh-research, scratchpad `cards\oldest4.json`, `skipped8.json`, `group_tab_sketch.json`):
+  12 kaarten → 8 kloppen (alleen nieuwere bronregel), 4 met nieuwe regels (264 AOE+S3, 260 S4, 261 S2+MISTAKE, 1473 S3;
+  6 sleutels in `cards\cards_new.json`). 255: Icy Veins heeft nu een 12.1-pagina (30 aug), kaart klopt. G-schets Prot Pal:
+  9 knoppen, `group`-tag op KeybindRoles; 27/40 specs vulbaar, 13 met één knop; tabnaam past waarschijnlijk niet (de).
+  Intercession-ids 391054 vs 461622 dubbel in MH. Reviewpagina https://claude.ai/artifact/1xPgBDvJHYvqhTnmr6SkjW.
+  🔲 Wacht op Robs oordeel (E) en vorm + tabnaam (G).
 
 ## 🔧 3 okt middag — spec-API: één deur (`ns.GetSpecialization` c.s.), Rob: "begin dan met het eerste punt"
 
