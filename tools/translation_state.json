@@ -21188,11 +21188,11 @@
    "ptBR": "8b7f5f864db25a1a"
   },
   "RITUAL_ALERT_DISSONANT": {
-   "deDE": "cff603deb05b7353",
-   "esES": "cff603deb05b7353",
-   "frFR": "cff603deb05b7353",
-   "itIT": "cff603deb05b7353",
-   "ptBR": "cff603deb05b7353"
+   "deDE": "eb51e343bfdc23e7",
+   "esES": "eb51e343bfdc23e7",
+   "frFR": "eb51e343bfdc23e7",
+   "itIT": "eb51e343bfdc23e7",
+   "ptBR": "eb51e343bfdc23e7"
   },
   "RITUAL_ALERT_SHADOWBOLT": {
    "deDE": "faabe83d05d81887",
@@ -21202,20 +21202,20 @@
    "ptBR": "faabe83d05d81887"
   },
   "RITUAL_BOSS_DRAGONHAWK_QUICK": {
-   "deDE": "2f6438e57f48ca16",
-   "esES": "2f6438e57f48ca16",
-   "frFR": "2f6438e57f48ca16",
-   "itIT": "2f6438e57f48ca16",
-   "nlNL": "2f6438e57f48ca16",
-   "ptBR": "2f6438e57f48ca16"
+   "deDE": "f3afa8d0dcc5a6e8",
+   "esES": "f3afa8d0dcc5a6e8",
+   "frFR": "f3afa8d0dcc5a6e8",
+   "itIT": "f3afa8d0dcc5a6e8",
+   "nlNL": "f3afa8d0dcc5a6e8",
+   "ptBR": "f3afa8d0dcc5a6e8"
   },
   "RITUAL_BOSS_DRAGONHAWK_STEPS": {
-   "deDE": "1674a783a7940c04",
-   "esES": "1674a783a7940c04",
-   "frFR": "1674a783a7940c04",
-   "itIT": "1674a783a7940c04",
-   "nlNL": "1674a783a7940c04",
-   "ptBR": "1674a783a7940c04"
+   "deDE": "7cf4f58f3c2332f5",
+   "esES": "7cf4f58f3c2332f5",
+   "frFR": "7cf4f58f3c2332f5",
+   "itIT": "7cf4f58f3c2332f5",
+   "nlNL": "7cf4f58f3c2332f5",
+   "ptBR": "7cf4f58f3c2332f5"
   },
   "RITUAL_BOSS_GERLOK_QUICK": {
    "deDE": "40dab97a6bd728ab",
@@ -21226,36 +21226,52 @@
    "ptBR": "40dab97a6bd728ab"
   },
   "RITUAL_BOSS_GERLOK_STEPS": {
-   "deDE": "08577010220f6210",
-   "esES": "08577010220f6210",
-   "frFR": "08577010220f6210",
-   "itIT": "08577010220f6210",
-   "nlNL": "08577010220f6210",
-   "ptBR": "08577010220f6210"
+   "deDE": "1875d9e56e5da847",
+   "esES": "1875d9e56e5da847",
+   "frFR": "1875d9e56e5da847",
+   "itIT": "1875d9e56e5da847",
+   "nlNL": "1875d9e56e5da847",
+   "ptBR": "1875d9e56e5da847"
+  },
+  "RITUAL_BOSS_MINDBREAKER_QUICK": {
+   "deDE": "35652f6451b19a71",
+   "esES": "35652f6451b19a71",
+   "frFR": "35652f6451b19a71",
+   "itIT": "35652f6451b19a71",
+   "nlNL": "35652f6451b19a71",
+   "ptBR": "35652f6451b19a71"
   },
   "RITUAL_BOSS_MINDBREAKER_STEPS": {
-   "deDE": "963f980343645c8d",
-   "esES": "963f980343645c8d",
-   "frFR": "963f980343645c8d",
-   "itIT": "963f980343645c8d",
-   "nlNL": "963f980343645c8d",
-   "ptBR": "963f980343645c8d"
+   "deDE": "3fa5c6cb9bbf87cb",
+   "esES": "3fa5c6cb9bbf87cb",
+   "frFR": "3fa5c6cb9bbf87cb",
+   "itIT": "3fa5c6cb9bbf87cb",
+   "nlNL": "3fa5c6cb9bbf87cb",
+   "ptBR": "3fa5c6cb9bbf87cb"
+  },
+  "RITUAL_BOSS_SELENVJAR_QUICK": {
+   "deDE": "2b90174d0ce93df2",
+   "esES": "2b90174d0ce93df2",
+   "frFR": "2b90174d0ce93df2",
+   "itIT": "2b90174d0ce93df2",
+   "nlNL": "2b90174d0ce93df2",
+   "ptBR": "2b90174d0ce93df2"
   },
   "RITUAL_BOSS_SELENVJAR_STEPS": {
-   "deDE": "7c52045bf2055e27",
-   "esES": "7c52045bf2055e27",
-   "frFR": "7c52045bf2055e27",
-   "itIT": "7c52045bf2055e27",
-   "nlNL": "7c52045bf2055e27",
-   "ptBR": "7c52045bf2055e27"
+   "deDE": "d5139a7bb4bf0f1a",
+   "esES": "d5139a7bb4bf0f1a",
+   "frFR": "d5139a7bb4bf0f1a",
+   "itIT": "d5139a7bb4bf0f1a",
+   "nlNL": "d5139a7bb4bf0f1a",
+   "ptBR": "d5139a7bb4bf0f1a"
   },
   "RITUAL_BTN_HUB": {
-   "deDE": "d425f50b498429a9",
-   "esES": "d425f50b498429a9",
-   "frFR": "d425f50b498429a9",
-   "itIT": "d425f50b498429a9",
-   "nlNL": "d425f50b498429a9",
-   "ptBR": "d425f50b498429a9"
+   "deDE": "153587aa7fcdc611",
+   "esES": "153587aa7fcdc611",
+   "frFR": "153587aa7fcdc611",
+   "itIT": "153587aa7fcdc611",
+   "nlNL": "153587aa7fcdc611",
+   "ptBR": "153587aa7fcdc611"
   },
   "RITUAL_CHAL_ALARMBELLS": {
    "deDE": "7e1eb4a144355210",
@@ -21505,20 +21521,20 @@
    "ptBR": "c51bf3f761e212a7"
   },
   "RITUAL_INFO_PICKUP": {
-   "deDE": "6b59ca56dc025aae",
-   "esES": "6b59ca56dc025aae",
-   "frFR": "6b59ca56dc025aae",
-   "itIT": "6b59ca56dc025aae",
-   "nlNL": "6b59ca56dc025aae",
-   "ptBR": "6b59ca56dc025aae"
+   "deDE": "58b1c5bcf7b15810",
+   "esES": "58b1c5bcf7b15810",
+   "frFR": "58b1c5bcf7b15810",
+   "itIT": "58b1c5bcf7b15810",
+   "nlNL": "58b1c5bcf7b15810",
+   "ptBR": "58b1c5bcf7b15810"
   },
   "RITUAL_INFO_RENOWN_REWARDS": {
-   "deDE": "0b86e04551f0b38e",
-   "esES": "0b86e04551f0b38e",
-   "frFR": "0b86e04551f0b38e",
-   "itIT": "0b86e04551f0b38e",
-   "nlNL": "0b86e04551f0b38e",
-   "ptBR": "0b86e04551f0b38e"
+   "deDE": "a4359abbca040a34",
+   "esES": "a4359abbca040a34",
+   "frFR": "a4359abbca040a34",
+   "itIT": "a4359abbca040a34",
+   "nlNL": "a4359abbca040a34",
+   "ptBR": "a4359abbca040a34"
   },
   "RITUAL_INFO_TIERS": {
    "deDE": "9fd82293eecbc43c",
@@ -21529,12 +21545,12 @@
    "ptBR": "9fd82293eecbc43c"
   },
   "RITUAL_INFO_VAULT": {
-   "deDE": "43c6e62fd87c0e07",
-   "esES": "43c6e62fd87c0e07",
-   "frFR": "43c6e62fd87c0e07",
-   "itIT": "43c6e62fd87c0e07",
-   "nlNL": "43c6e62fd87c0e07",
-   "ptBR": "43c6e62fd87c0e07"
+   "deDE": "b1cb4100f1d682a7",
+   "esES": "b1cb4100f1d682a7",
+   "frFR": "b1cb4100f1d682a7",
+   "itIT": "b1cb4100f1d682a7",
+   "nlNL": "b1cb4100f1d682a7",
+   "ptBR": "b1cb4100f1d682a7"
   },
   "RITUAL_INFO_VENDOR": {
    "deDE": "caf1c1687e6fac82",
@@ -21752,12 +21768,12 @@
    "ptBR": "979e0ef60428f796"
   },
   "RITUAL_TIP_BROKENTHRONE_NOTES": {
-   "deDE": "e76180cbdf5e9d9e",
-   "esES": "e76180cbdf5e9d9e",
-   "frFR": "e76180cbdf5e9d9e",
-   "itIT": "e76180cbdf5e9d9e",
-   "nlNL": "e76180cbdf5e9d9e",
-   "ptBR": "e76180cbdf5e9d9e"
+   "deDE": "317846a5f865676f",
+   "esES": "317846a5f865676f",
+   "frFR": "317846a5f865676f",
+   "itIT": "317846a5f865676f",
+   "nlNL": "317846a5f865676f",
+   "ptBR": "317846a5f865676f"
   },
   "RITUAL_TIP_BROKENTHRONE_OVERVIEW": {
    "deDE": "63466fa5f539cbf5",
@@ -21768,12 +21784,12 @@
    "ptBR": "63466fa5f539cbf5"
   },
   "RITUAL_TIP_BROKENTHRONE_PHASES": {
-   "deDE": "122da83895b285d4",
-   "esES": "122da83895b285d4",
-   "frFR": "122da83895b285d4",
-   "itIT": "122da83895b285d4",
-   "nlNL": "122da83895b285d4",
-   "ptBR": "122da83895b285d4"
+   "deDE": "43c5ed1bc8c2be05",
+   "esES": "43c5ed1bc8c2be05",
+   "frFR": "43c5ed1bc8c2be05",
+   "itIT": "43c5ed1bc8c2be05",
+   "nlNL": "43c5ed1bc8c2be05",
+   "ptBR": "43c5ed1bc8c2be05"
   },
   "RITUAL_TIP_DAGGERSPINE_NOTES": {
    "deDE": "c13838db53f4c168",
@@ -21792,12 +21808,12 @@
    "ptBR": "18a05cb0cf290939"
   },
   "RITUAL_TIP_DAGGERSPINE_PHASES": {
-   "deDE": "046557dcd2b8e8ec",
-   "esES": "046557dcd2b8e8ec",
-   "frFR": "046557dcd2b8e8ec",
-   "itIT": "046557dcd2b8e8ec",
-   "nlNL": "046557dcd2b8e8ec",
-   "ptBR": "046557dcd2b8e8ec"
+   "deDE": "ee2f176805d52178",
+   "esES": "ee2f176805d52178",
+   "frFR": "ee2f176805d52178",
+   "itIT": "ee2f176805d52178",
+   "nlNL": "ee2f176805d52178",
+   "ptBR": "ee2f176805d52178"
   },
   "RITUAL_TIP_EMBERS_MECHANIC": {
    "deDE": "4278979ed941a0e0",
@@ -21832,20 +21848,20 @@
    "ptBR": "c599f2df7fc7dccd"
   },
   "RITUAL_TIP_INTRO_TIERS": {
-   "deDE": "97dc95c340104aac",
-   "esES": "97dc95c340104aac",
-   "frFR": "97dc95c340104aac",
-   "itIT": "97dc95c340104aac",
-   "nlNL": "97dc95c340104aac",
-   "ptBR": "97dc95c340104aac"
+   "deDE": "37ee0028d1400a72",
+   "esES": "37ee0028d1400a72",
+   "frFR": "37ee0028d1400a72",
+   "itIT": "37ee0028d1400a72",
+   "nlNL": "37ee0028d1400a72",
+   "ptBR": "37ee0028d1400a72"
   },
   "RITUAL_TIP_INTRO_WEEKLY": {
-   "deDE": "3ea8c305cb0ce494",
-   "esES": "3ea8c305cb0ce494",
-   "frFR": "3ea8c305cb0ce494",
-   "itIT": "3ea8c305cb0ce494",
-   "nlNL": "3ea8c305cb0ce494",
-   "ptBR": "3ea8c305cb0ce494"
+   "deDE": "16ea771019707571",
+   "esES": "16ea771019707571",
+   "frFR": "16ea771019707571",
+   "itIT": "16ea771019707571",
+   "nlNL": "16ea771019707571",
+   "ptBR": "16ea771019707571"
   },
   "RITUAL_TIP_MALEVOLENTBOONS_MECHANIC": {
    "deDE": "e56f9c27aa2f3412",
@@ -21864,12 +21880,12 @@
    "ptBR": "e700720f8a1664cc"
   },
   "RITUAL_TIP_MANIFESTATIONS_MECHANIC": {
-   "deDE": "94b1d33bcd55c11c",
-   "esES": "94b1d33bcd55c11c",
-   "frFR": "94b1d33bcd55c11c",
-   "itIT": "94b1d33bcd55c11c",
-   "nlNL": "94b1d33bcd55c11c",
-   "ptBR": "94b1d33bcd55c11c"
+   "deDE": "aaea9c15f3d55eaa",
+   "esES": "aaea9c15f3d55eaa",
+   "frFR": "aaea9c15f3d55eaa",
+   "itIT": "aaea9c15f3d55eaa",
+   "nlNL": "aaea9c15f3d55eaa",
+   "ptBR": "aaea9c15f3d55eaa"
   },
   "RITUAL_TIP_MANIFESTATIONS_UNLOCK": {
    "deDE": "5ac5c62b4fe4547e",
@@ -21991,20 +22007,20 @@
    "ptBR": "c412ef3b3b6ba9bd"
   },
   "RITUAL_WEEKLY_HINT_PICKUP": {
-   "deDE": "912edbcb17d3c45a",
-   "esES": "912edbcb17d3c45a",
-   "frFR": "912edbcb17d3c45a",
-   "itIT": "912edbcb17d3c45a",
-   "nlNL": "912edbcb17d3c45a",
-   "ptBR": "912edbcb17d3c45a"
+   "deDE": "a9102b93a66acbd2",
+   "esES": "a9102b93a66acbd2",
+   "frFR": "a9102b93a66acbd2",
+   "itIT": "a9102b93a66acbd2",
+   "nlNL": "a9102b93a66acbd2",
+   "ptBR": "a9102b93a66acbd2"
   },
   "RITUAL_WEEKLY_TODO": {
-   "deDE": "792c131aaae8e3b4",
-   "esES": "792c131aaae8e3b4",
-   "frFR": "792c131aaae8e3b4",
-   "itIT": "792c131aaae8e3b4",
-   "nlNL": "792c131aaae8e3b4",
-   "ptBR": "792c131aaae8e3b4"
+   "deDE": "a806a2c961d8f8fc",
+   "esES": "a806a2c961d8f8fc",
+   "frFR": "a806a2c961d8f8fc",
+   "itIT": "a806a2c961d8f8fc",
+   "nlNL": "a806a2c961d8f8fc",
+   "ptBR": "a806a2c961d8f8fc"
   },
   "ROUTE_CLEARED": {
    "deDE": "f7b4961da78698b1",

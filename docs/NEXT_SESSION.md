@@ -6,7 +6,13 @@
   `system.json`). Reviewpagina https://claude.ai/artifact/NTUQASKHJU96pzo51Q9pSU. BROKENTHRONE_PHASES zelf rechtgezet
   (SYSTEM noemde nebula/spiegels vast; BOSSES mat: alleen Malevolent Boons).
 - **Teksten:** 18 bestaande sleutels enUS+nlNL (`apply_texts.py`, nu ook RitualTips.lua), 2 nieuwe
-  (`RITUAL_BOSS_MINDBREAKER_QUICK`, `_SELENVJAR_QUICK`, `ritual_insert.py`); 5 talen via mh-writer (`ritual\tr\`).
+  (`RITUAL_BOSS_MINDBREAKER_QUICK`, `_SELENVJAR_QUICK`, `ritual_insert.py`); 5 talen via mh-writer (`ritual\tr\`) ✅ erin:
+  drift --mark 20 sleutels, locale_probe 4 sleutels OK in 7 talen (GEMETEN), lint 0 HARD. Vertaler: oudere packregels
+  vertaalden NPC/quest-namen en ptBR zei "Luenargente"; nu Engels per regel (niet verder gelijkgetrokken).
+- **World boss (Robs vraag, mh-research `scratchpad\worldboss.json`):** de 4 bazen roteren nog als world quest (geen
+  ophaal-NPC); Liadrins "Midnight: World Boss" 93913 is één van haar keuzes, niet elke week. 🔲 Verouderd in MH (niet
+  gerepareerd): Codex-titel "World boss (Midnight S1)", kop van `WorldBossProbe.lua` (Lairs vervangen bazen), en
+  Liadrins pool in `ResetRoutine.lua` mist 4 van 16 quests (ids niet gevonden). S2-ilvl van de buit onbekend.
 - **Code:** introketen stap 4/5 omgedraaid (94383 Interest vóór 94382 Problems; teller stopt bij de poort, `IntroTotal`);
   weekly 95843 = keuze van Liadrin → regel alleen geel als hij in je log staat; ALERT_SPELLS ids gecorrigeerd
   (1284106, 1284083, 1277559) mét notitie dat vijandelijke spell-ids in 12.1 secret zijn (alert gaat vrijwel zeker
