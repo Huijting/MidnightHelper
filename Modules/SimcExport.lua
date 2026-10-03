@@ -433,7 +433,13 @@ function ns.BuildSimcProfile()
 	local _, classFile = UnitClass("player")
 	local level = UnitLevel("player")
 	local realm = GetRealmName and GetRealmName() or "?"
-	local region = (GetCurrentRegionName and Call(GetCurrentRegionName))
+	-- 3 Oct 2026: on the 12.1.5 PTR GetCurrentRegionName returned "" and the export said
+	-- `region=` (Rob's paste). An empty string is truthy in Lua, so treat it as missing.
+	local regionName = GetCurrentRegionName and Call(GetCurrentRegionName)
+	if regionName == "" then
+		regionName = nil
+	end
+	local region = regionName
 		or REGION_BY_ID[GetCurrentRegion and Call(GetCurrentRegion) or 0] or "us"
 
 	local _, raceFile = UnitRace("player")

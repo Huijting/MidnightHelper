@@ -9,7 +9,9 @@
   aanroepen in 31 modules (alleen code, geen commentaar/strings). Positieve controle: 0 oude aanroepen over, 31× `ns.`.
 - **Bijvangst gerepareerd:** `StatCoach` mastery via `C_SpecializationInfo.GetSpecializationMasterySpells` (tabel) eerst;
   `SimcExport` las de 6e return als rol, rol is de 5e.
-- Syntax OK, lint 0 HARD. Niet in het spel getest → TESTLIJST 3 okt middag.
+- Syntax OK, lint 0 HARD. ✅ GEMETEN door Rob op de 12.1.5-PTR (Frost Mage): alias = C_-functie ("true", spec 3),
+  *Zo speel je* + `/mh stats`-mastery + `/mh simc role=spell` werken. Gezien: `region=` leeg op PTR → gerepareerd.
+  BugSack/BugGrabber ontbraken in `_xptr_` → gekopieerd uit live.
 - Volgende uit de addon-analyse (Robs keuze): A threat-indicator als voorstel; B bronbestanden; G bij een schermklus.
 
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
