@@ -38,8 +38,13 @@
   ✅ **SMC 0/1 opgehelderd (GEMETEN in code):** `SMCChecklistData.lua` telde één rij met S1-quest-ids van 10 jun, terwijl
   "Your week" de givers per staat volgt (`GiverState`). Nu: `ns.GetGiverWeeklyTally()` (ResetRoutine.lua) voedt de
   SMC-teller op de Account snapshot; de oude lijst is terugval en kleurt nog de SMC-kaartpins. SMC-regel van This Week weg.
-  🔲 Nog open uit `week\code.json`: "Wednesday reset" vast in ACCOUNT_WEEKLY_STALE/ALL_CURRENT, vault-herinnering uit =
-  groen "niets wachtend", tooltip/uitleg voor SMC/Dundun/T11 op de Account snapshot, oude S1-ids in SMCChecklistData.
+  ✅ **Drie bijvangsten gedaan (Rob: "doe die drie ook maar"):** (1) "Wednesday reset" → "the weekly reset" in STALE_FMT
+  en ALL_CURRENT (7 talen); (2) `GetVaultReminderState(ignoreEnabled)` — de overzichten (AccountWeeklyChecklist) lezen de
+  Vault ook als de herinnering-popup uit staat; (3) jargon: SMC_FMT/SMC_DONE_FMT → "Silvermoon quest givers", DUNDUN_FMT →
+  "fewer than 8 Dundun shards" (= item Shard of Dundun, `Profession.lua:1547`), GILDED_FMT "T11" → "Tier 11". GEMETEN: de
+  helper zei dat SMC/Dundun op de Account snapshot een tooltip hadden — dat klopte niet (geen tooltipFn op die regels).
+  Drift --mark 6 sleutels, locale_probe OK, lint 0 HARD. 🔲 Nog open: oude S1-ids in `SMCChecklistData.lua` (alleen terugval
+  + kaartpin-kleur).
 
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
 

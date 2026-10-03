@@ -90,7 +90,9 @@ function ns.ComputeAccountWeeklyChecklist()
 	local entries = ns._mhAltOverviewCollectEntries and ns:_mhAltOverviewCollectEntries() or {}
 	local vaultReady, vaultLikely = {}, {}
 	if ns.GetVaultReminderState then
-		local state = ns.GetVaultReminderState()
+		-- true: this is an overview, not the reminder popup — read the vault even when the
+		-- popup is switched off (3 Oct 2026; otherwise a green "nothing waiting" could lie).
+		local state = ns.GetVaultReminderState(true)
 		if type(state) == "table" and type(state.entries) == "table" then
 			for i = 1, #state.entries do
 				local ent = state.entries[i]

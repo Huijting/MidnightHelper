@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — drie kleine dingen (Account snapshot / This Week)
+
+- [ ] Account snapshot: de regel heet nu **"Silvermoon quest givers (this character): N / M done"** (was "SMC weekly
+  checklist"), en **"Professions: fewer than 8 Dundun shards this week: …"** (was "Profession Dundun weekly below 8").
+- [ ] "Gilded Stash (this character): N / 4 Bountiful delves on Tier 11" (was "T11 bountiful runs").
+- [ ] Een alt die je deze week nog niet hebt ingelogd: "Needs a relog since the weekly reset" (geen "Wednesday" meer).
+- [ ] Zet in de MH-instellingen de **Vault-herinnering uit** en open This Week: klopt het Great Vault-blok nog (staat er
+  iets klaar, dan hoort het dat te zeggen)? Daarna weer aanzetten.
+
 ## 🆕 3 okt middag — This Week stap A + SMC-teller
 
 - [ ] "Your week": de groene vinkjes zijn weg en er staat één regel **"Done this week: N (click to show)"**. Klik erop:

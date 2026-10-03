@@ -107,8 +107,15 @@ local function AddEntry(entries, seen, guid, name, realm, kind, isCurrent)
 	}
 end
 
-function ns.GetVaultReminderState()
+--- @param ignoreEnabled boolean|nil  true = read the vault even with the reminder switched off.
+--- 3 Oct 2026: the "Vault reminder" setting is about the POPUP. Without this flag, switching it
+--- off emptied the lists and the Great Vault block on This Week / Account snapshot said a green
+--- "No vault rewards waiting" even with rewards ready. Those overviews pass true.
+function ns.GetVaultReminderState(ignoreEnabled)
 	local settings = GetVaultReminderSettings()
+	if ignoreEnabled then
+		settings = setmetatable({ enabled = true }, { __index = settings })
+	end
 	local entries = {}
 	local seen = {}
 	local resetDay = IsResetDayNow()
