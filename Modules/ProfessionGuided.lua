@@ -98,8 +98,8 @@ local GENERIC_PRE = {
 	{ key = "open",
 		title = { en = "Open your profession window", nl = "Open je beroepsvenster" },
 		body = {
-			en = "Open your {prof} window (default key: P, or click it in your spellbook). This is your home base for this profession.",
-			nl = "Open je {prof}-venster (standaardtoets: P, of klik het aan in je spellbook). Dit is je thuisbasis voor dit beroep.",
+			en = "Open your {prof} window (default key: K, the Professions book). This is your home base for this profession.",
+			nl = "Open je {prof}-venster (standaardtoets: K, het Professions-boek). Dit is je thuisbasis voor dit beroep.",
 		},
 		detectKind = "window" },
 	{ key = "tool",
@@ -115,26 +115,26 @@ local STEP_SPEC = {
 	key = "spec",
 	title = { en = "Spend your Knowledge (spec trees)", nl = "Geef je Knowledge uit (spec-bomen)" },
 	body = {
-		en = "As you skill up you earn Knowledge points. Open the spec trees and spend them — the Course tab's advisor shows a safe next pick. Tap Done once you've spent some.",
-		nl = "Naarmate je skill stijgt verdien je Knowledge-punten. Open de spec-bomen en geef ze uit — de adviseur in de Course-tab wijst een veilige keuze aan. Tik op Klaar zodra je wat hebt uitgegeven.",
+		en = "From skill 25 you can spend Knowledge points. You earn them from first crafts, treasures and your weekly tasks (Herbalism and Mining also from gathering a new kind of node for the first time). Open the spec trees and spend them — the Course tab's advisor shows a safe next pick. Tap Done once you've spent some.",
+		nl = "Vanaf skill 25 kun je Knowledge-punten uitgeven. Je krijgt ze van first crafts, schatten en je wekelijkse taken (Herbalism en Mining ook als je een nieuw soort node voor het eerst verzamelt). Open de spec-bomen en geef ze uit — de adviseur in de Course-tab wijst een veilige keuze aan. Tik op Klaar zodra je wat hebt uitgegeven.",
 	},
 }
 
 local STEP_WEEKLY_STATION = {
-	key = "weekly", waypoint = "station",
+	key = "weekly", waypoint = "station", detectKind = "weekly",
 	title = { en = "Your weekly Knowledge", nl = "Je wekelijkse Knowledge" },
 	body = {
-		en = "Each week, pick up your {prof} service quest at the Work Order station (use the waypoint) for extra Knowledge — the main way to grow long-term. Tap Done for this week.",
-		nl = "Haal elke week je {prof}-service-quest op bij het Work Order-station (gebruik de waypoint) voor extra Knowledge — dé manier om op lange termijn te groeien. Tik op Klaar voor deze week.",
+		en = "Each week, pick up your {prof} Services Requested quest from Captain Flaresworn at the Work Order station (use the waypoint), fill the crafting orders it asks for, and hand it in to him. The first time, do his short intro quest first. Most of your weekly Knowledge comes from Patron Orders on the crafting table, so check those too. This step ticks itself once this week's quest is handed in.",
+		nl = "Haal elke week je {prof}-quest Services Requested op bij Captain Flaresworn bij het Work Order-station (gebruik de waypoint), vul de crafting orders die hij vraagt en lever hem bij hem in. De eerste keer doe je eerst zijn korte intro-quest. Het meeste wekelijkse Knowledge komt uit Patron Orders aan de crafting-tafel, dus check die ook. Deze stap vinkt zichzelf af zodra de quest van deze week is ingeleverd.",
 	},
 }
 
 local STEP_WEEKLY_TRAINER = {
-	key = "weekly", waypoint = "trainer",
+	key = "weekly", waypoint = "trainer", detectKind = "weekly",
 	title = { en = "Your weekly Knowledge", nl = "Je wekelijkse Knowledge" },
 	body = {
-		en = "Each week, pick up your {prof} weekly quest at the trainer (use the waypoint) for extra Knowledge — the main way to grow long-term. Tap Done for this week.",
-		nl = "Haal elke week je {prof}-weekly op bij de trainer (gebruik de waypoint) voor extra Knowledge — dé manier om op lange termijn te groeien. Tik op Klaar voor deze week.",
+		en = "From skill 25, pick up your {prof} weekly quest at the trainer each week (use the waypoint) and hand in the materials it asks for. Most of your weekly Knowledge comes from simply playing your profession: gathering (or disenchanting, for Enchanting) drops 5 small Knowledge items and then 1 bigger one each week. This step ticks itself once this week's quest is handed in.",
+		nl = "Haal vanaf skill 25 elke week je {prof}-weekly op bij de trainer (gebruik de waypoint) en lever de gevraagde materialen in. Het meeste wekelijkse Knowledge krijg je door gewoon je beroep te doen: verzamelen (of disenchanten, bij Enchanting) geeft elke week 5 kleine Knowledge-items en daarna 1 grotere. Deze stap vinkt zichzelf af zodra de quest van deze week is ingeleverd.",
 	},
 }
 
@@ -191,6 +191,15 @@ local function StepAutoDone(step, guide)
 		return s ~= nil and s > 1
 	elseif k == "tool" then
 		return ToolEquipped()
+	elseif k == "weekly" then
+		-- 3 Oct 2026: the same quest-flag check as This Week (ProfessionNextStep.lua), which resets
+		-- weekly by itself. It used to be a manual Done that stayed ticked forever. nil (no verified
+		-- id) falls back to the manual Done in StepDone.
+		local state = ns.GetTrainerWeeklyState and ns.GetTrainerWeeklyState(guide.skillLine)
+		if state == nil then
+			return nil
+		end
+		return state == "done"
 	end
 	if type(step.gate) == "number" then
 		local s = SkillFor(guide.skillLine)
@@ -241,7 +250,7 @@ local function StepDone(step)
 	if auto then
 		return true
 	end
-	if step.detectKind or type(step.gate) == "number" then
+	if (step.detectKind and not (step.detectKind == "weekly" and auto == nil)) or type(step.gate) == "number" then
 		return false -- an auto step that isn't satisfied yet
 	end
 	local bag = ProgressBag(activeGuide.skillLine)

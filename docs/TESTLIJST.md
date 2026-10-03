@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt avond — beroepen
+
+- [ ] Alt-overzicht → tooltip van een personage met beroepen: staat er een **Dundun**-regel met een echt getal? (MH leest
+  nu de valuta, mét naamcontrole.) Staat er géén Dundun-regel, typ dan `/dump C_CurrencyInfo.GetCurrencyInfo(3376)` en
+  stuur me de naam die eruit komt.
+- [ ] Professions → boeken-kaart: tooltip van een **Anomander/Caeris/Magovu**-boek zegt nu "Voidlight Marl: 750" + renown;
+  een **Echo of Abundance**-boek nog steeds Abundance.
+- [ ] Beroepen-wizard: zegt de "open je venster"-stap **K**? Vinkt de weekly-stap zichzelf af als je de weekquest hebt
+  ingeleverd (en volgende week weer open)?
+- [ ] Herbalism-advies: noemt het eerst **Midnight Overload openen (0 punten)**? Skinning: eerst 10 in Thorough Tanning,
+  dan Lasting Leather of Superb Scales?
+- [ ] This Week op een alt met een verzamelberoep onder skill 25: géén "weekly nog niet opgepakt"-regel meer.
+
 ## 🆕 3 okt avond — world boss
 
 - [ ] Biedt Lady Liadrin je **Arcantina**, **Offworld Showdowns**, **Raid** of **Vaults of Atal'Utek** aan? Pak hem op

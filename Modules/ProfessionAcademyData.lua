@@ -313,7 +313,12 @@ ns.PROF_ACADEMY = {
 		-- Nothing was destroyed (both filled trees are on the route, and Mulching still
 		-- takes points), but the payoff the comment below describes was delayed for
 		-- weeks by a one-word mistake in a table nobody re-read.
+		-- 3 Oct 2026 (Rob: "bij 1 ja"): open Midnight Overload at zero points first, exactly like
+		-- Over-LODED for Mining below — opening it already shortens the Overload cooldown (Wowhead
+		-- Herbalism overview, Method Herbalism guide; mh-research). Herbalism has only three trees
+		-- (25/50/75), so the third gets opened anyway.
 		[182] = {
+			{ tree = "Midnight Overload", points = 0 },
 			{ tree = "Botany", skipIfClass = "DRUID", points = 40 },
 			{ node = "Mulching", points = 20 },
 			{ tree = "Bountiful Harvests" },
@@ -426,11 +431,18 @@ ns.PROF_ACADEMY = {
 		-- being learned.
 		-- ⚠️ `Lasting Leather` here is the SKINNING trait 106088, not the Leatherworking
 		-- namesake in [165]. See the warning at the top of this table.
+		--
+		-- 3 Oct 2026: the route used to fill Thorough Tanning and Gainful Gathering first, while our
+		-- own chapter text and level route said 10 root -> 40 in Lasting Leather or Superb Scales ->
+		-- back to the root. mh-research found the guides on the text's side (wow-professions
+		-- Skinning guide 10/40/30; Wowhead: both are sub-nodes of Thorough Tanning). Rob left the
+		-- choice to us, so the route now follows the guides and the text.
 		[393] = {
+			{ tree = "Thorough Tanning", points = 10 },
+			{ anyOfNodes = { "Lasting Leather", "Superb Scales" } },
 			{ tree = "Thorough Tanning" },
 			{ tree = "Gainful Gathering" },
 			goals = {
-				self = { { anyOfNodes = { "Lasting Leather", "Superb Scales" } } },
 				gold = { { tree = "Talented Tracker" }, { node = "Majestic Materials" } },
 			},
 		},

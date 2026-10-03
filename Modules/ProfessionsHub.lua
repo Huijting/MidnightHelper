@@ -96,10 +96,12 @@ local function BuildWeeklyText()
 				local icon = isDone and ICON_DONE or ICON_OPEN
 				local line = ("%s %s: %s"):format(icon, name, SL("PROFHUB_WEEKLY_TRAINER"))
 				if not isDone and skillLine == 333 then
-					-- Only Enchanting has a distinct, verified extra gate (needs skill 25
-					-- first). Every other profession is already named on its own line, so
-					-- we keep those clean — no generic unlock hint (Rob, 25 jun).
+					-- Enchanting: needs skill 25 AND the Flaresworn intro.
 					line = line .. " |cff8a8f98" .. SL("PROFHUB_WEEKLY_TRAINER_REQ_ENCH") .. "|r"
+				elseif not isDone and (skillLine == 182 or skillLine == 186 or skillLine == 393) then
+					-- 3 Oct 2026 (mh-research, Wowhead quest pages 93700/93705/93710): the
+					-- gatherers' trainer weekly also opens at skill 25, not just Enchanting's.
+					line = line .. " |cff8a8f98" .. SL("PROFHUB_WEEKLY_TRAINER_REQ_25") .. "|r"
 				end
 				lines[#lines + 1] = line
 			end

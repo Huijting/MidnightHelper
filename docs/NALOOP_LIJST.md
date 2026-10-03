@@ -43,6 +43,8 @@ raid-ronde). Een sessie is 100%, dus ±60 eenheden per sessievenster als je niet
 - M+-dungeons S2: 8 van 8 nagelopen (5 erin enUS/nlNL; MR, KR, DN wachten op Robs ja + vertalingen).
 - ✅ 3 okt: delves + Valeera (#3) en de 8 overige dungeons (#4, korte + lange tips, 7 talen).
 - ✅ 3 okt middag: #1 valuta & crests en #2 Great Vault (teksten + code; 3 meetpunten op de TESTLIJST).
+- ✅ 3 okt avond: #8 beroepencursus (21 teksten, 7 talen; Dundun-valuta, boekprijzen, wizard-weekly, routes).
+  Meetpunten (currency-ids, weekvoortgang) open.
 - ✅ 3 okt avond: #6 Codex (±45 hoofdstukken, 28 teksten, 7 talen; Howling Ridge). Alleen de 3 beroepen-HOOFDSTUKKEN;
   #8 beroepencursus nog open.
 - ✅ 3 okt avond: #5 Ritual Sites (bazen + uitleg + code; 20 teksten, 7 talen). NB: de bestanden heten

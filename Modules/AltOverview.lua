@@ -750,7 +750,10 @@ EntryDundunIncomplete = function(e)
 	if not EntryHasProfessionSnapshot(e) or SnapshotEntryIsStale(e) then
 		return false
 	end
-	return (tonumber(e.profDundun) or 0) < DUNDUN_WEEKLY_CAP
+	-- nil = the client did not confirm the Dundun currency (Profession.lua GetDundunThisWeek):
+	-- unknown is not "under 8". Before 3 Oct 2026 a junk item id made every alt read 0 here.
+	local d = tonumber(e.profDundun)
+	return d ~= nil and d < DUNDUN_WEEKLY_CAP
 end
 
 --- Spec 38 option B §4 (11 Sep 2026, Rob chose points 4 and 6): characters below the game's max
@@ -1355,7 +1358,7 @@ function ns:_mhAltOverviewCollectEntries()
 				professionsFull = type(snap.professionsFull) == "string" and snap.professionsFull
 					or (type(snap.professions) == "string" and snap.professions or ""),
 				profAbundance = tonumber(snap.profAbundance) or 0,
-				profDundun = tonumber(snap.profDundun) or 0,
+				profDundun = tonumber(snap.profDundun), -- nil = unknown, see EntryDundunIncomplete
 				profMoxie = type(snap.profMoxie) == "string" and snap.profMoxie or "",
 				delverCompleted = tonumber(snap.delverCompleted) or 0,
 				delverBanked = tonumber(snap.delverBanked) or 0,
@@ -1710,7 +1713,7 @@ function ns:_mhAltOverviewRefreshRows()
 			likelyClaim = false,
 			professionsFull = e.professionsFull or "",
 			profAbundance = tonumber(e.profAbundance) or 0,
-			profDundun = tonumber(e.profDundun) or 0,
+			profDundun = tonumber(e.profDundun), -- nil = unknown
 			profMoxie = type(e.profMoxie) == "string" and e.profMoxie or "",
 			shardsTotal = tonumber(e.shards) or 0,
 			shardsWeekly = shardsWeekly,
@@ -1817,14 +1820,16 @@ function ns:_mhAltOverviewRefreshRows()
 					GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROFESSIONS_SYNC_HINT"), 0.8, 0.8, 0.8, true)
 				end
 				local abund = tonumber(self.vaultTip.profAbundance) or 0
-				local dundun = tonumber(self.vaultTip.profDundun) or 0
+				local dundun = tonumber(self.vaultTip.profDundun) -- nil = unknown: no line
 				local moxie = self.vaultTip.profMoxie or ""
-				if abund > 0 or dundun > 0 or moxie ~= "" then
+				if abund > 0 or (dundun or 0) > 0 or moxie ~= "" then
 					GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_WEEKLY_TITLE"), 0.9, 0.9, 0.5)
 					if abund > 0 then
 						GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_ABUND_FMT"):format(abund), 0.75, 0.88, 1)
 					end
-					GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_DUNDUN_FMT"):format(dundun), 0.75, 0.88, 1)
+					if dundun then
+						GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_DUNDUN_FMT"):format(dundun), 0.75, 0.88, 1)
+					end
 					if moxie ~= "" then
 						GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_MOXIE_FMT"):format(moxie), 0.75, 0.88, 1, true)
 					end

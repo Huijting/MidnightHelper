@@ -64,6 +64,26 @@ local function TrainerWeeklyState(baseSkillLine)
 	end
 	return picked and "picked" or "todo"
 end
+ns.GetTrainerWeeklyState = TrainerWeeklyState
+
+--- The weekly of Enchanting and the three gatherers opens at skill 25 (mh-research 3 Oct 2026,
+--- Wowhead quest pages). Below that a "not picked up yet" line is advice nobody can follow.
+local GATED_25 = { [333] = true, [182] = true, [186] = true, [393] = true }
+--- Reads the Midnight skill (p.midnightLine, the same field skillLevel /mh profdump prints in
+--- ProfessionAcademy.lua). Unknown → false, so the line stays rather than vanishing on a guess.
+local function BelowWeeklyGate(p)
+	if not (p and GATED_25[p.baseSkillLine] and p.midnightLine) then
+		return false
+	end
+	if not (C_TradeSkillUI and C_TradeSkillUI.GetProfessionInfoBySkillLineID) then
+		return false
+	end
+	local ok, info = pcall(C_TradeSkillUI.GetProfessionInfoBySkillLineID, p.midnightLine)
+	if ok and type(info) == "table" and type(info.skillLevel) == "number" then
+		return info.skillLevel < 25
+	end
+	return false
+end
 
 --- Where a Knowledge line sends you: MH's own Professions tab.
 ---
@@ -139,10 +159,15 @@ function ns.GetProfessionNextSteps()
 		if #steps < MAX_LINES then
 			local state = TrainerWeeklyState(p.baseSkillLine)
 			local key, colour
+			local service = ns.PROF_ACADEMY and ns.PROF_ACADEMY.weekly and ns.PROF_ACADEMY.weekly.serviceProfs
 			if state == "done" then
 				key, colour = "PROFNEXT_WEEKLY_DONE_FMT", "good"
 			elseif state == "picked" then
-				key, colour = "PROFNEXT_WEEKLY_PICKED_FMT", "warn"
+				-- Service quests are handed in to Captain Flaresworn, not a trainer (3 Oct 2026).
+				key, colour = (service and service[p.baseSkillLine]) and "PROFNEXT_WEEKLY_PICKED_STATION_FMT"
+					or "PROFNEXT_WEEKLY_PICKED_FMT", "warn"
+			elseif state == "todo" and BelowWeeklyGate(p) then
+				key = nil -- opens at skill 25: no line until it can be done
 			elseif state == "todo" then
 				key, colour = "PROFNEXT_WEEKLY_TODO_FMT", "prog"
 			end

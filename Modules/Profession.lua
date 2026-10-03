@@ -85,6 +85,13 @@ end
 -- bookCost (books only): { abundanceAmount, "Abundance", moxieAmount, "Moxie" }
 --------------------------------------------------------------------------------
 local BOOK_ABUNDANCE_MOXIE_COST = { 1600, "Abundance", 75, "Moxie" }
+-- 3 Oct 2026 (mh-research, Wowhead): only the four Echo of Abundance books cost Abundance. The nine
+-- renown books cost 750 Voidlight Marl + 75 Moxie and need a renown rank (5th field): Anomander
+-- (Singularity) 9, Caeris (Silvermoon Court) 6, Magovu (Amani Tribe) 6. Marl's currency id is a
+-- candidate only (3316), so the tooltip names the price without claiming a balance.
+local BOOK_MARL_SINGULARITY = { 750, "Marl", 75, "Moxie", 9 }
+local BOOK_MARL_COURT = { 750, "Marl", 75, "Moxie", 6 }
+local BOOK_MARL_AMANI = { 750, "Marl", 75, "Moxie", 6 }
 
 local MIDNIGHT_DATA = {
 	-- Alchemy
@@ -200,20 +207,20 @@ local MIDNIGHT_DATA = {
 	{ 89083, 2444, 61.4, 85.0, "Satin Throw Pillow", "Tailoring" },
 
 	-- Profession books (Abundance + Artisan's Moxie costs; IDs from ns.Config / Config.lua)
-	{ 93794, 2405, 52.4, 72.8, "Book: Alchemy (Anomander)", "Alchemy", BOOK_ABUNDANCE_MOXIE_COST },
-	{ 93795, 2405, 52.4, 72.8, "Book: Blacksmithing (Anomander)", "Blacksmithing", BOOK_ABUNDANCE_MOXIE_COST },
-	{ 92374, 2395, 43.4, 47.4, "Book: Enchanting (Caeris)", "Enchanting", BOOK_ABUNDANCE_MOXIE_COST },
+	{ 93794, 2405, 52.4, 72.8, "Book: Alchemy (Anomander)", "Alchemy", BOOK_MARL_SINGULARITY },
+	{ 93795, 2405, 52.4, 72.8, "Book: Blacksmithing (Anomander)", "Blacksmithing", BOOK_MARL_SINGULARITY },
+	{ 92374, 2395, 43.4, 47.4, "Book: Enchanting (Caeris)", "Enchanting", BOOK_MARL_COURT },
 	-- Echo of Abundance (Chel) — Abundance world event books (replaces legacy Chel pins)
 	{ 95101, 2395, 56.78, 65.79, "Echo of Abundance: Enchanting (Chel)", "Enchanting", BOOK_ABUNDANCE_MOXIE_COST },
 	{ 95102, 2437, 31.62, 26.14, "Echo of Abundance: Skinning (Chel)", "Skinning", BOOK_ABUNDANCE_MOXIE_COST },
 	{ 95103, 2413, 66.14, 61.69, "Echo of Abundance: Herbalism (Chel)", "Herbalism", BOOK_ABUNDANCE_MOXIE_COST },
 	{ 95104, 2405, 38.82, 53.31, "Echo of Abundance: Mining (Chel)", "Mining", BOOK_ABUNDANCE_MOXIE_COST },
-	{ 93796, 2405, 52.4, 72.8, "Book: Engineering (Anomander)", "Engineering", BOOK_ABUNDANCE_MOXIE_COST },
-	{ 93222, 2395, 43.4, 47.4, "Book: Jewelcrafting (Caeris)", "Jewelcrafting", BOOK_ABUNDANCE_MOXIE_COST },
-	{ 92371, 2437, 45.8, 65.8, "Book: Leatherworking (Magovu)", "Leatherworking", BOOK_ABUNDANCE_MOXIE_COST },
-	{ 92372, 2437, 45.8, 65.8, "Book: Mining (Magovu)", "Mining", BOOK_ABUNDANCE_MOXIE_COST },
-	{ 92373, 2437, 45.8, 65.8, "Book: Skinning (Magovu)", "Skinning", BOOK_ABUNDANCE_MOXIE_COST },
-	{ 93201, 2395, 43.4, 47.4, "Book: Tailoring (Caeris)", "Tailoring", BOOK_ABUNDANCE_MOXIE_COST },
+	{ 93796, 2405, 52.4, 72.8, "Book: Engineering (Anomander)", "Engineering", BOOK_MARL_SINGULARITY },
+	{ 93222, 2395, 43.4, 47.4, "Book: Jewelcrafting (Caeris)", "Jewelcrafting", BOOK_MARL_COURT },
+	{ 92371, 2437, 45.8, 65.8, "Book: Leatherworking (Magovu)", "Leatherworking", BOOK_MARL_AMANI },
+	{ 92372, 2437, 45.8, 65.8, "Book: Mining (Magovu)", "Mining", BOOK_MARL_AMANI },
+	{ 92373, 2437, 45.8, 65.8, "Book: Skinning (Magovu)", "Skinning", BOOK_MARL_AMANI },
+	{ 93201, 2395, 43.4, 47.4, "Book: Tailoring (Caeris)", "Tailoring", BOOK_MARL_COURT },
 }
 
 --------------------------------------------------------------------------------
@@ -339,6 +346,29 @@ function ns.PrintMoxieProbe()
 	print("   A name that is not what the label says means the id is wrong.")
 end
 
+
+--- Shards of Dundun this week, or nil when the client does not confirm the currency.
+---
+--- 3 Oct 2026 (mh-research): this read item 258901 with GetItemCount, and 258901 is a junk
+--- paintbrush — so every alt counted as "under 8". Shard of Dundun is currency 3376 per Wowhead.
+--- Same rule as UNALLOYED_ABUNDANCE in Config.lua: the id is only trusted when the name the
+--- client returns says "Dundun". Otherwise nil, and callers show nothing rather than a guess.
+local function GetDundunThisWeek()
+	local id = Config.SHARD_OF_DUNDUN_CURRENCY_ID
+	if not (id and C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
+		return nil
+	end
+	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+	if not (ok and type(info) == "table" and type(info.name) == "string" and info.name:find("Dundun", 1, true)) then
+		return nil
+	end
+	local maxW = tonumber(info.maxWeeklyQuantity) or 0
+	if maxW > 0 then
+		return tonumber(info.quantityEarnedThisWeek) or 0
+	end
+	return tonumber(info.quantity) or 0
+end
+ns.GetDundunThisWeek = GetDundunThisWeek
 
 local function GetItemQuantityByID(itemID)
 	local id = tonumber(itemID)
@@ -690,9 +720,8 @@ local function UpdateKnowledgeSummary()
 		end
 	end
 
-	local shardItemId = Config.SHARD_OF_DUNDUN_ITEM_ID
-	if shardItemId then
-		local dq = GetItemQuantityByID(shardItemId)
+	local dq = GetDundunThisWeek()
+	if dq then
 		table.insert(
 			currencyLines,
 			string.format("|cffccffccShards of Dundun:|r  %d / 8 earned this week.", dq)
@@ -716,11 +745,20 @@ local function UpdateKnowledgeSummary()
 			local shQ = GetItemQuantityByID(267655) or 0
 			local essName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(267654)) or "Swirling Arcane Essence"
 			local shName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(267655)) or "Brimming Mana Shard"
+			-- 3 Oct 2026: no "x/5" any more. These are BAG counts, not weekly progress (the same
+			-- reasoning as ProfessionsHub.lua), so a fraction read as "3 of 5 done". Only what is
+			-- actually in the bags, and nothing when that is nothing.
+			local parts = {}
+			if essQ > 0 then
+				parts[#parts + 1] = ("%s ×%d"):format(essName, essQ)
+			end
+			if shQ > 0 then
+				parts[#parts + 1] = ("%s ×%d"):format(shName, shQ)
+			end
 			local fmt = (ns.SafeL and ns:SafeL("PROF_ESSENCE_FMT")) or "Weekly disenchant mats in bags: %s"
-			table.insert(
-				currencyLines,
-				"|cffccffcc" .. fmt:format(string.format("%s %d/5 · %s %d/1", essName, essQ, shName, shQ)) .. "|r"
-			)
+			if #parts > 0 then
+				table.insert(currencyLines, "|cffccffcc" .. fmt:format(table.concat(parts, " · ")) .. "|r")
+			end
 		end
 	end
 
@@ -870,7 +908,13 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 				local abundID = Config.UNALLOYED_ABUNDANCE_CURRENCY_CODE
 				local profEnum = ProfessionLabelToEnum(rd[6])
 				local moxieID = profEnum and Config.ARTISANS_MOXIE_CURRENCY_CODES and Config.ARTISANS_MOXIE_CURRENCY_CODES[profEnum]
-				if abundID then
+				if cost[2] == "Marl" then
+					-- Renown book: the price and the renown rank, no balance (Marl id unverified).
+					GameTooltip:AddLine(("Voidlight Marl: %d"):format(needA), 0.82, 0.82, 0.78, false)
+					if tonumber(cost[5]) then
+						GameTooltip:AddLine(("Needs renown %d with the vendor's faction"):format(cost[5]), 0.82, 0.82, 0.78, true)
+					end
+				elseif abundID then
 					local haveA = GetCurrencyQuantity(abundID)
 					local nameA = GetCurrencyDisplayName(abundID) or "Unalloyed Abundance"
 					local okA = haveA >= needA
@@ -1544,10 +1588,7 @@ function ns.GetProfessionWeeklySnapshot()
 		abund = GetCurrencyQuantity(abundID) or 0
 	end
 
-	local shardItemId = Config.SHARD_OF_DUNDUN_ITEM_ID
-	if shardItemId then
-		dundun = GetItemQuantityByID(shardItemId) or 0
-	end
+	dundun = GetDundunThisWeek() -- nil = unconfirmed; the alt board then treats it as unknown
 
 	local moxTable = Config.ARTISANS_MOXIE_CURRENCY_CODES
 	if moxTable then

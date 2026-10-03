@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## 🔨 3 okt avond — naloop #8 beroepencursus ERIN (Rob: "Alles goed", Overload ja, Skinning op ons advies)
+
+- 2× mh-research (brief `scratchpad\prof\BRIEF.md`, uitvoer `prof\academy.json` + `weekly.json`): 63 klopt, 23 fout,
+  5 verouderd, 15 ontbreekt, 25 onzeker (onzeker NIET veranderd). Alle vinkje-ids GEMETEN goed (25 weeklies, 88
+  treasures, essences, skill lines). Reviewpagina https://claude.ai/artifact/CRftJEGyriPq7pRCvnkPED.
+- **Teksten:** 19 bestaande + 2 nieuwe (`PROFHUB_WEEKLY_TRAINER_REQ_25`, `PROFNEXT_WEEKLY_PICKED_STATION_FMT`) enUS+nlNL;
+  5 talen via mh-writer (`prof\tr\`). Alinea's nu als `|n|n` (was `\n\n`; ziet er hetzelfde uit). Wizard-teksten in
+  `ProfessionGuided.lua` (alleen en/nl): toets **K** i.p.v. P, KP-bronnen, Flaresworn-inleveren.
+- **Code:** Dundun leest nu currency **3376** met naamcontrole ("Dundun"), was item 258901 (junk-penseel) →
+  `Config.SHARD_OF_DUNDUN_CURRENCY_ID`, `ns.GetDundunThisWeek`; onbevestigd = nil = geen regel en geen "onder 8" op het
+  alt-bord. Renown-boeken: eigen prijs 750 Voidlight Marl + 75 Moxie + renown 9/6/6 (Echo-boeken houden Abundance).
+  Essence-regel zonder "x/5". Weekly-stap in de wizard vinkt zichzelf af (`ns.GetTrainerWeeklyState`, reset elke
+  week; was een handmatige Klaar die voor altijd bleef). This Week: gatherers/Enchanting onder skill 25 geen
+  weekly-regel; service-beroepen "inleveren bij Flaresworn". Hub: skill-25-hint ook voor Herbalism/Mining/Skinning.
+  Routes: Herbalism opent eerst **Midnight Overload** (0 punten); Skinning 10 root → Lasting Leather/Superb Scales →
+  root → Gainful Gathering. 2 gids-URL's (wow-professions /guides/…).
+- **NIET gedaan (meten eerst):** Voidlight Marl 3316 / Unalloyed Abundance 3377 / Moxie-ids invullen; weekvoortgang
+  via verborgen currencies 3189-3199 en vlaggen 93528-93543 in `/mh kp`; ontbrekende boeken (Haranir, 11
+  Demystifyin'); grijze treasure-hint "rechtsklik het item". Kandidaten staan in `prof\weekly.json` → `code`.
+
 ## 📖 3 okt avond — naloop #6 Codex-hoofdstukken ERIN (Rob: "Alles goed")
 
 - 4× mh-research (brief `scratchpad\codex\BRIEF.md`, uitvoer `codex\a-d.json`), ±45 hoofdstukken: 128 klopt, 27 fout,

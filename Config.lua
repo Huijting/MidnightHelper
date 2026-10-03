@@ -21,8 +21,10 @@ local Config = {
 	--- Do NOT fill this in from a wiki or a plausible-looking number. Confirm in-game first:
 	--- the name GetCurrencyInfo returns must actually read "Unalloyed Abundance".
 	UNALLOYED_ABUNDANCE_CURRENCY_CODE = nil,
-	--- Weekly tracker: Shards of Dundun (bags / weekly progress display).
-	SHARD_OF_DUNDUN_ITEM_ID = 258901,
+	--- Weekly tracker: Shards of Dundun. Currency 3376 (Wowhead, mh-research 3 Oct 2026); only
+	--- trusted when the client's name for it contains "Dundun" (Profession.lua GetDundunThisWeek).
+	--- Was item 258901 until 3 Oct 2026 — a junk paintbrush, not the shard.
+	SHARD_OF_DUNDUN_CURRENCY_ID = 3376,
 	--- Delve consumables (minimap quick-use + Delves tab currency line).
 	DELVE_ITEM_RAID_R_MINI = 244193, -- L00T RAID-R Mini — highlights Mislaid Curiosities
 	--- On-use spell from item tooltip (Scan the environment… for rest of delve).

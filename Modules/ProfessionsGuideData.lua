@@ -43,14 +43,15 @@ ns.PROFESSIONS_GUIDE_SECTIONS = {
 		key = "herbalism",
 		titleKey = "PROFGUIDE_SEC_HERBALISM_TITLE",
 		bodyKey = "PROFGUIDE_SEC_HERBALISM_BODY",
-		wowheadUrl = "https://www.wow-professions.com/midnight/herbalism-guide",
+		-- URL changed 3 Oct 2026 to the page mh-research found the current guide on.
+		wowheadUrl = "https://www.wow-professions.com/guides/wow-herbalism-leveling-guide",
 		smcPin = "herbalism_trainer",
 	},
 	{
 		key = "skinning",
 		titleKey = "PROFGUIDE_SEC_SKINNING_TITLE",
 		bodyKey = "PROFGUIDE_SEC_SKINNING_BODY",
-		wowheadUrl = "https://www.wow-professions.com/midnight/skinning-guide",
+		wowheadUrl = "https://www.wow-professions.com/guides/wow-skinning-leveling-guide",
 		smcPin = "skinning_trainer",
 	},
 	{
