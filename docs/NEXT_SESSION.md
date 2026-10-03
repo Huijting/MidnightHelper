@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🏰 3 okt ochtend — 8 overige dungeons (naloop #4) ERIN, 7 talen
+
+- **8 helpers `tips-xhigh` op Opus** (brief `bce6ed51…\scratchpad\dgn_xhigh\BRIEF.md`), uitvoer scratchpad `dgn2\<code>.json`
+  (ws/mc/nx/mt/sr/ps/st/aa). 29 bazen: **7 fout, 11 ontbreekt, 1 onzeker, 158 klopt** → 17 nieuwe sleutels. Reviewpagina
+  https://claude.ai/artifact/JGHueDszCfkJjy9PdvhFhP → Rob: *"Alles goed."*
+- Kosten: GEMETEN ±2,05M tokens (gem. 256k/dungeon, 7-10 min). Robs meter vóór: sessie 18%, week 86% (09:36); ná niet
+  gemeten (sessie-reset 10:30, week-reset 11:00).
+- **Erin:** enUS + nlNL (`dgn_apply_ennl.py` op `dgn_new3.json`, 34 waarden) + 5 vertalers (`tr3\`, `apply_tr3.py`, 85
+  waarden, alles in `DungeonTips.lua`). `check_drift --mark` 17 sleutels, locale_probe 3 sleutels OK in 7 talen (GEMETEN),
+  syntax OK, lint 0 HARD.
+- 🔲 **Lange tips (`_STEPS`/rollen) NIET herschreven** — `steps_problems` per baas in `dgn2\*.json` (bv. Saprish lange
+  tank/DPS: tweede pet alleen Mythic/M+; WS Heart-tank "doubles" moet 40%; AA: moeilijkheids-kopjes ontbreken).
+- ⚠️ Helpers (Wowhead): **Windrunner Spire en Maisara Caverns zijn in S2 alleen Normal (+ Followers)** — AFGELEID uit bronnen,
+  niet in de client gezien → TESTLIJST.
+
 ## 🔧 3 okt — delve-codepunten gedaan (in `main`, GEEN release: Rob "we brengen 4.5.1 nog niet uit")
 
 - **Vault in de delve-tooltip:** geleerde getallen worden niet meer getoond (`Delves.lua`, tooltip). GEMETEN in Robs SV:

@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt — 8 overige dungeons: nieuwe korte tips (7 talen)
+
+- [ ] Group Finder → Dungeons: kun je **Windrunner Spire** en **Maisara Caverns** nog op Heroic of Mythic kiezen, of
+  alleen Normal/Followers? (Wowhead zegt alleen Normal.)
+- [ ] Seat of the Triumvirate op Normal of Heroic: heeft Saprish echt maar **één** pet (geen Shadewing)?
+- [ ] Open de dungeontips van een van deze bazen in MH: staan de korte tips er netjes, met maximaal 3 regels?
+
 ## 🆕 3 okt — delve-foutjes (in `main`, nog niet uitgebracht)
 
 - [ ] Delve-tooltip: hover in het Delves-tabblad over een delve die **niet** Bountiful is. Staat er bij de tiers géén
