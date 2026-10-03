@@ -151,6 +151,9 @@ function ns.GetProfessionNextSteps()
 					text = (ns:L(key)):format(p.baseName or p.name),
 					color = colour,
 					onClick = OpenProfession,
+					-- 3 Oct 2026: This Week skips these (the weekly plan already lists them);
+					-- the profession side panel ignores the tag and still shows them.
+					kind = "weekly",
 				}
 			end
 		end

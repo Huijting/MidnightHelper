@@ -27,7 +27,13 @@
 - **This Week te lang (Rob):** 2 helpers (`scratchpad\week\player.json`, `code.json`) → voorstel
   https://claude.ai/artifact/4tNogtDHUWx3uz1exhCxQ8. ±68 regels, ±1/6 open taak. Advies C (dubbels eruit, taken boven,
   afgevinkte seizoenskaart weg, alt-regels naar Account snapshot; klein, alleen HomeDashboard.lua, geen vertalingen), dan A
-  ("Klaar: N"), D (Kort/Volledig) pas als nodig. 🔲 Wacht op Robs keuze (C of B voor de alt-regels).
+  ("Klaar: N"), D (Kort/Volledig) pas als nodig. ✅ **C gebouwd** (Rob: "Doe C maar, alt-regels mogen weg"):
+  `HomeDashboard.lua` — naslag (wishlist, collectibles, raids, tip) via `reference`/`REFERENCE_ORDER` onderaan; volle
+  seizoenskaart verborgen; Professions zonder trainer-weekly (`kind = "weekly"` in `ProfessionNextStep.lua`, zijpaneel
+  ongewijzigd); Weekly chores alleen dit personage (alt-/accountregels + dode Delver-incomplete-regel weg; staan op Account
+  snapshot); Ritual/Void zonder "Weekly: done/not yet". 0 nieuwe teksten, lint 0 HARD. Niet in het spel gezien → TESTLIJST.
+  🔲 Volgende (Rob kiest): A "Klaar: N"; bijvangsten in `week\code.json` (SMC 0/1-tegenspraak, "Wednesday reset" vast,
+  vault-herinnering uit = groen "niets wachtend", tooltip voor SMC/Dundun/T11).
 
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
 

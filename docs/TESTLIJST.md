@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — This Week korter (optie C)
+
+Na `/reload`, op This Week:
+- [ ] Volgorde: Next up → Your week → Professions → Great Vault | World Boss → Weekly chores → Rares/Ritual/Void, en pas
+  **onderaan** Mount wishlist → Collectible mounts → Raids → de dagtip.
+- [ ] **Get ready for Season 2** is weg (alles was afgevinkt).
+- [ ] **Professions** toont alleen nog "Knowledge unspent"; de trainer-weekly staat alleen in "Your week".
+- [ ] **Weekly chores** heeft alleen regels voor dít personage (SMC, Delver's Call, Gilded, Trove, Special Assignments) +
+  "Open Account snapshot". Geen alt-namen meer. Staan ze nog wel op de **Account snapshot**?
+- [ ] Ritual Sites en Void Assaults: geen "Weekly: done / not yet" meer.
+- [ ] Hoeveel korter voelt het? (Voor: ±68 regels.)
+
 ## 🆕 3 okt middag — aggro: wegwijzer naar Blizzards eigen opties (threat-optie 1)
 
 - [x] `/mh aggro`: vier regels, menunamen uit de client, geen "unknown" — Rob 3 okt live (screenshot): Aggro Display on,

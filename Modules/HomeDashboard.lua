@@ -235,6 +235,13 @@ local function BuildLayout()
 
 	local data = ns.ComputeAccountWeeklyChecklist and ns.ComputeAccountWeeklyChecklist() or nil
 
+	-- 🔴 3 Oct 2026, Rob: "nog steeds een hele lange lijst, onoverzichtelijk" → option C of the
+	-- review (scratchpad week\player.json + code.json): ~68 rows, about 1 in 6 a to-do. Reference
+	-- blocks (mount wishlist, collectible mounts, raids, the daily tip) are built where they always
+	-- were but PLACED at the bottom, in this fixed order, so the week's work comes first.
+	local reference = {}
+	local REFERENCE_ORDER = { "wishlist", "collectibles", "raids", "tip" }
+
 	------------------------------------------------------------------ Next action (headline; never collapsible)
 	-- The single question this addon exists to answer: "what should I do right now?"
 	-- The reset routine already computes a priority-ordered, live, per-character list
@@ -363,7 +370,18 @@ local function BuildLayout()
 	local seasonDismissed = ns.IsSeasonCardDismissed and ns.IsSeasonCardDismissed()
 	if ns.GetSeasonTransitionSteps and not seasonDismissed then
 		local okS, sSteps = pcall(ns.GetSeasonTransitionSteps)
-		if okS and type(sSteps) == "table" and #sSteps > 0 then
+		-- 3 Oct 2026: a card with every row ticked is not a to-do; it stays away until the
+		-- phase gate brings a new item or phase (SeasonTransition.lua phaseGate).
+		local allDone = okS and type(sSteps) == "table" and #sSteps > 0
+		if allDone then
+			for _, st in ipairs(sSteps) do
+				if st.color ~= "good" then
+					allDone = false
+					break
+				end
+			end
+		end
+		if okS and type(sSteps) == "table" and #sSteps > 0 and not allDone then
 			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
 			local phase = ns.GetSeasonPhase and ns.GetSeasonPhase() or "closing"
 			local headerKey = (phase == "closing") and "ST_CLOSE_HEADER" or "ST_PREP_HEADER"
@@ -403,12 +421,14 @@ local function BuildLayout()
 		local okW, wSteps = pcall(ns.GetMountWishlistSteps)
 		if okW and type(wSteps) == "table" and #wSteps > 0 then
 			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
-			addFull(function(rows)
-				header(rows, ns:L("MOUNTWISH_HEADER"))
-				for _, st in ipairs(wSteps) do
-					line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
-				end
-			end)
+			reference.wishlist = function()
+				addFull(function(rows)
+					header(rows, ns:L("MOUNTWISH_HEADER"))
+					for _, st in ipairs(wSteps) do
+						line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
+					end
+				end)
+			end
 		end
 	end
 
@@ -522,27 +542,40 @@ local function BuildLayout()
 		local okPr, prSteps = pcall(ns.GetProfessionNextSteps)
 		if okPr and type(prSteps) == "table" and #prSteps > 0 then
 			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
-			addFull(function(rows)
-				header(rows, ns:L("PROFNEXT_PANEL_TITLE"))
-				for _, st in ipairs(prSteps) do
-					line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
+			-- 3 Oct 2026: the trainer weekly is already a numbered stop in "Your week" (same
+			-- quests, ResetRoutine.lua), so here only what lives nowhere else: unspent
+			-- Knowledge. The profession side panel still shows the weekly (kind is only a tag).
+			local own = {}
+			for _, st in ipairs(prSteps) do
+				if st.kind ~= "weekly" then
+					own[#own + 1] = st
 				end
-			end)
+			end
+			if #own > 0 then
+				addFull(function(rows)
+					header(rows, ns:L("PROFNEXT_PANEL_TITLE"))
+					for _, st in ipairs(own) do
+						line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
+					end
+				end)
+			end
 		end
 	end
 
 	------------------------------------------------------------------ Codex tip of the day
-	-- Deliberately headerless and last-but-one: it is a nudge toward reading, not a
-	-- chore, and it must never push the actual week's work down the page.
+	-- Deliberately headerless and LAST (3 Oct 2026: placed via `reference`): it is a nudge
+	-- toward reading, not a chore, and it must never push the week's work down the page.
 	if ns.GetDailyTipSteps then
 		local okT, tSteps = pcall(ns.GetDailyTipSteps)
 		if okT and type(tSteps) == "table" and #tSteps > 0 then
 			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
-			addFull(function(rows)
-				for _, st in ipairs(tSteps) do
-					line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
-				end
-			end)
+			reference.tip = function()
+				addFull(function(rows)
+					for _, st in ipairs(tSteps) do
+						line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
+					end
+				end)
+			end
 		end
 	end
 
@@ -642,15 +675,17 @@ local function BuildLayout()
 	-- Tools launchpad and NavSearch — nobody found it (Rob had forgotten it himself).
 	-- Surface it here, where the weekly content already lives.
 	if ns.GetRaidCoachSummary and not solo then
-		addFull(function(rows)
-			local okSummary, names, bossCount = pcall(ns.GetRaidCoachSummary)
-			if okSummary and type(names) == "table" and #names > 0 then
-				header(rows, ns:L("HOME_SECTION_RAIDS"), "raids")
-				line(rows, ns:L("HOME_RAIDS_LIST_FMT"):format(#names, bossCount or 0, table.concat(names, ", ")), COLOR_DIM)
-				line(rows, ns:L("HOME_RAIDS_AUTOOPEN"), COLOR_SOFT)
-				navLine(rows, "raids", "TAB_RAIDS")
-			end
-		end)
+		reference.raids = function()
+			addFull(function(rows)
+				local okSummary, names, bossCount = pcall(ns.GetRaidCoachSummary)
+				if okSummary and type(names) == "table" and #names > 0 then
+					header(rows, ns:L("HOME_SECTION_RAIDS"), "raids")
+					line(rows, ns:L("HOME_RAIDS_LIST_FMT"):format(#names, bossCount or 0, table.concat(names, ", ")), COLOR_DIM)
+					line(rows, ns:L("HOME_RAIDS_AUTOOPEN"), COLOR_SOFT)
+					navLine(rows, "raids", "TAB_RAIDS")
+				end
+			end)
+		end
 	end
 
 	------------------------------------------------------------------ Quest-chain lead-ins (Ula'tek, Vaults of Atal'Utek)
@@ -701,16 +736,18 @@ local function BuildLayout()
 	------------------------------------------------------------------ Collectible mounts (summary → own tab)
 	-- The full list lives on its own "Collectible mounts" tab (Modules/MountsPanel.lua);
 	-- Home only shows how many are in progress plus a link, so it never grows long again.
-	addFull(function(rows)
-		if ns.GetWeeklyMountProgress then
-			local mounts = ns.GetWeeklyMountProgress()
-			if mounts and #mounts > 0 then
-				header(rows, ns:L("HOME_SECTION_COLLECTIBLES"), "collectibles")
-				line(rows, ns:L("HOME_COLLECTIBLES_SUMMARY_FMT"):format(#mounts), COLOR_SOFT)
-				navLine(rows, "mounts", "TAB_MOUNTS")
+	reference.collectibles = function()
+		addFull(function(rows)
+			if ns.GetWeeklyMountProgress then
+				local mounts = ns.GetWeeklyMountProgress()
+				if mounts and #mounts > 0 then
+					header(rows, ns:L("HOME_SECTION_COLLECTIBLES"), "collectibles")
+					line(rows, ns:L("HOME_COLLECTIBLES_SUMMARY_FMT"):format(#mounts), COLOR_SOFT)
+					navLine(rows, "mounts", "TAB_MOUNTS")
+				end
 			end
-		end
-	end)
+		end)
+	end
 
 	------------------------------------------------------------------ Weekly chores (full width)
 	local function buildChores(rows)
@@ -747,27 +784,13 @@ local function BuildLayout()
 						ns.SelectTab("account")
 					end
 				end)
-				if data.delverBankedTotal and data.delverBankedTotal > 0 then
-					line(
-						rows,
-						ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_ALTS_FMT"):format(
-							data.delverBankedTotal,
-							FormatNamePreview(data.delverBankedLabels)
-						),
-						COLOR_WARN
-					)
-				end
-				if data.delverIncompleteLabels and #data.delverIncompleteLabels > 0 then
-					line(
-						rows,
-						ns:L("ACCOUNT_WEEKLY_DELVER_ALTS_FMT"):format(
-							#data.delverIncompleteLabels,
-							FormatNamePreview(data.delverIncompleteLabels)
-						),
-						COLOR_SOFT
-					)
-				end
 			end
+			-- 🔴 3 Oct 2026 (Rob: "alt-regels mogen weg"): This Week is THIS character's week. Every
+			-- alt and account-wide line (Delver's Call banked on alts, Gilded/Trove/Special
+			-- Assignment alts, coffer keys, shards, Dundun, stale snapshots) lives on the Account
+			-- snapshot, which already showed all of them (AccountWeeklyChecklist.lua). One link
+			-- below the block leads there, and HOME_ROUTINE_SCOPE_NOTE ("your other characters'
+			-- … are in the Account snapshot") is finally true.
 			local gs = data.gildedCurrent
 			if gs and (tonumber(gs.max) or 0) > 0 then
 				any = true
@@ -786,16 +809,6 @@ local function BuildLayout()
 						ns.SelectTab("account")
 					end
 				end)
-				if data.gildedIncompleteLabels and #data.gildedIncompleteLabels > 0 then
-					line(
-						rows,
-						ns:L("ACCOUNT_WEEKLY_GILDED_ALTS_FMT"):format(
-							#data.gildedIncompleteLabels,
-							FormatNamePreview(data.gildedIncompleteLabels)
-						),
-						COLOR_SOFT
-					)
-				end
 			end
 			local trove = data.troveCurrent
 			if trove then
@@ -817,26 +830,6 @@ local function BuildLayout()
 						ns.SelectTab("account")
 					end
 				end)
-				if data.troveUnusedLabels and #data.troveUnusedLabels > 0 then
-					line(
-						rows,
-						ns:L("ACCOUNT_WEEKLY_TROVE_UNUSED_ALTS_FMT"):format(
-							#data.troveUnusedLabels,
-							FormatNamePreview(data.troveUnusedLabels)
-						),
-						COLOR_WARN
-					)
-				end
-				if data.troveNeedLabels and #data.troveNeedLabels > 0 then
-					line(
-						rows,
-						ns:L("ACCOUNT_WEEKLY_TROVE_NEED_ALTS_FMT"):format(
-							#data.troveNeedLabels,
-							FormatNamePreview(data.troveNeedLabels)
-						),
-						COLOR_SOFT
-					)
-				end
 			end
 			local sa = data.saCurrent
 			if sa and (tonumber(sa.max) or 0) > 0 then
@@ -860,52 +853,9 @@ local function BuildLayout()
 						ns.SelectTab("account")
 					end
 				end)
-				if data.saIncompleteLabels and #data.saIncompleteLabels > 0 then
-					line(
-						rows,
-						ns:L("ACCOUNT_WEEKLY_SA_ALTS_FMT"):format(
-							#data.saIncompleteLabels,
-							FormatNamePreview(data.saIncompleteLabels)
-						),
-						COLOR_SOFT
-					)
-				end
 			end
-			if data.keysTotal and data.keysTotal > 0 then
-				any = true
-				line(rows, ns:L("ACCOUNT_WEEKLY_KEYS_FMT"):format(data.keysTotal, data.altsWithKeys), COLOR_DIM, function()
-					if ns.SelectTab then
-						ns.SelectTab("account")
-					end
-				end)
-			end
-			if #data.shardBelowLabels > 0 then
-				any = true
-				line(
-					rows,
-					ns:L("ACCOUNT_WEEKLY_SHARDS_FMT"):format(#data.shardBelowLabels, FormatNamePreview(data.shardBelowLabels)),
-					COLOR_SOFT
-				)
-			end
-			if #data.dundunLabels > 0 then
-				any = true
-				line(
-					rows,
-					ns:L("ACCOUNT_WEEKLY_DUNDUN_FMT"):format(#data.dundunLabels, FormatNamePreview(data.dundunLabels)),
-					COLOR_SOFT
-				)
-			end
-			if #data.staleLabels > 0 then
-				any = true
-				line(
-					rows,
-					ns:L("ACCOUNT_WEEKLY_STALE_FMT"):format(#data.staleLabels, FormatNamePreview(data.staleLabels)),
-					COLOR_SOFT
-				)
-			end
-			if not any then
-				line(rows, ns:L("ACCOUNT_WEEKLY_ALL_CURRENT"), COLOR_GOOD)
-			end
+			-- (No "all characters up to date" fallback any more: that line was about alts.
+			-- With no current-character line the block is just its link to the snapshot.)
 		else
 			line(rows, ns:L("ACCOUNT_WEEKLY_NO_SNAPSHOTS"), COLOR_DIM)
 		end
@@ -940,11 +890,8 @@ local function BuildLayout()
 		else
 			line(rows, ns:L("HOME_RITUAL_UNKNOWN"), COLOR_DIM)
 		end
-		if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
-			line(rows, ns:L("HOME_RITUAL_WEEKLY_DONE"), COLOR_GOOD)
-		else
-			line(rows, ns:L("HOME_RITUAL_WEEKLY_TODO"), COLOR_WARN)
-		end
+		-- 3 Oct 2026: the "Weekly: done / not yet" line is gone — the Ritual weekly is a stop in
+		-- "Your week" with the better answer (e.g. "finish the intro first"). Same for Void.
 		local renownText = ns.GetRitualRenownText and ns.GetRitualRenownText() or nil
 		if renownText and renownText ~= "" then
 			line(rows, ns:L("HOME_RITUAL_RENOWN_FMT"):format(renownText), COLOR_DIM)
@@ -971,18 +918,12 @@ local function BuildLayout()
 		else
 			line(rows, ns:L("HOME_VOID_UNKNOWN"), COLOR_DIM)
 		end
-		if ns.IsVoidAssaultWeeklyDone and ns.IsVoidAssaultWeeklyDone() then
-			line(rows, ns:L("HOME_VOID_WEEKLY_DONE"), COLOR_GOOD)
-		else
-			line(rows, ns:L("HOME_VOID_WEEKLY_TODO"), COLOR_WARN)
-		end
 		navLine(rows, "world", "TAB_WORLD")
 	end
 
 	-- Collapsed, each of these is one header row, so packing them into two balanced
 	-- columns gives a tidy grid instead of a ragged L (Rob, 10 jul). Weekly chores
-	-- keeps a full-width row when EXPANDED: its alt rollup lines are far too long
-	-- for half a panel.
+	-- keeps a full-width row when EXPANDED.
 	local browse = {}
 	if IsSectionCollapsed("chores") then
 		browse[#browse + 1] = { key = "chores", build = buildChores }
@@ -993,6 +934,15 @@ local function BuildLayout()
 	browse[#browse + 1] = { key = "ritual", build = buildRitual }
 	browse[#browse + 1] = { key = "void", build = buildVoid }
 	addBalancedSections(browse)
+
+	-- Reference last, in a fixed order (see `reference` at the top): mounts together, then
+	-- raids, then the tip.
+	for _, key in ipairs(REFERENCE_ORDER) do
+		local build = reference[key]
+		if build then
+			build()
+		end
+	end
 
 	return blocks
 end
