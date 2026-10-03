@@ -160,7 +160,10 @@ ns.KeybindingReference.specsById = {
 	--- Frost Mage — keybind standard v6, full map incl. Shift layer (AoE = Shift-twin of the
 	--- ST key). IDs in-game confirmed (Rob) — see docs/KEYBIND_MAP_frost-mage_enh-shaman.md.
 	--- Cold Snap on X (v6 utility prefers X over T — easier reach from WASD; Rob 2026-07-02).
-	--- Glacial Spike now on its map-bind 5. No G bind (team rule).
+	--- No G bind (team rule).
+	--- 17 Sep 2026: Glacial Spike (5), Comet Storm (Shift+4) and Icy Veins (F1) removed — gone in
+	--- Midnight (docs/audit_2026-09-17/audit_mage_warlock_priest.md, BRON Icy Veins Frost 12.1).
+	--- Ray of Frost is now the big cooldown; it stays on 3 until the classifier moves it too.
 	frost_mage = {
 		display_name = "Frost Mage",
 		abilities = {},
@@ -169,11 +172,9 @@ ns.KeybindingReference.specsById = {
 			["2"] = { id = 44614, minLevel = 1 }, -- Flurry (Brain Freeze)
 			["3"] = { id = 205021, minLevel = 1 }, -- Ray of Frost
 			["4"] = { id = 30455, minLevel = 1 }, -- Ice Lance (Shatter)
-			["5"] = { id = 199786, minLevel = 1 }, -- Glacial Spike (finisher)
 			["Shift+1"] = { id = 84714, minLevel = 1 }, -- Frozen Orb (AoE / cooldown)
 			["Shift+2"] = { id = 190356, minLevel = 1 }, -- Blizzard (AoE)
 			["Shift+3"] = { id = 120, minLevel = 1 }, -- Cone of Cold (AoE)
-			["Shift+4"] = { id = 153595, minLevel = 1 }, -- Comet Storm (AoE spender)
 			["Q"] = { id = 1953, minLevel = 1 }, -- Blink (or Shimmer 212653)
 			["E"] = { id = 2139, minLevel = 1 }, -- Counterspell
 			["F"] = { id = 30449, minLevel = 1 }, -- Spellsteal
@@ -184,7 +185,6 @@ ns.KeybindingReference.specsById = {
 			["C"] = { id = 45438, minLevel = 1 }, -- Ice Block (big defensive)
 			["V"] = { id = 122, minLevel = 1 }, -- Frost Nova (CC root)
 			["Shift+V"] = { id = 475, minLevel = 1 }, -- Remove Curse (dispel)
-			["F1"] = { id = 12472, minLevel = 1 }, -- Icy Veins (burst)
 		},
 	},
 	--- Enhancement Shaman — keybind standard v6 incl. heal anchors (upd. 2026-07-02:
@@ -194,6 +194,9 @@ ns.KeybindingReference.specsById = {
 	--- Lightning Bolt (no own key). Healing Surge = the F2 heal (was on Z; Enh has no separate
 	--- small defensive, so Z stays empty — Astral Shift on C is the def). Stormkeeper moved
 	--- F2→R, Primordial Wave F3→Shift+R. Cisca = Stormbringer hero tree → Alt+F1 = Ascendance.
+	--- 17 Sep 2026 (docs/audit_2026-09-17/audit_shaman_evoker.md): Feral Spirit (F1, passive in
+	--- 12.1; IV-Enh, WH-Enh-rot) and Primordial Wave (Shift+R, removed; IV-Enh, WH-pp-Ele) are
+	--- gone. Ascendance is 114051 on Enh; 114050 is Elemental's (WH-spell pages).
 	enh_shaman = {
 		display_name = "Enhancement",
 		abilities = {},
@@ -217,10 +220,8 @@ ns.KeybindingReference.specsById = {
 			["V"] = { id = 51514, minLevel = 1 }, -- Hex (CC)
 			["Shift+V"] = { id = 370, minLevel = 1 }, -- Purge (enemy dispel)
 			["R"] = { id = 205495, minLevel = 1 }, -- Stormkeeper (talent; moved from F2)
-			["Shift+R"] = { id = 375982, minLevel = 1 }, -- Primordial Wave (talent; moved from F3)
-			["F1"] = { id = 51533, minLevel = 1 }, -- Feral Spirit (wolves)
 			["Shift+F1"] = { id = 384352, minLevel = 1 }, -- Doom Winds (burst)
-			["Alt+F1"] = { id = 114050, minLevel = 1 }, -- Ascendance (Stormbringer)
+			["Alt+F1"] = { id = 114051, minLevel = 1 }, -- Ascendance (Stormbringer; Enh id)
 			["F2"] = { id = 8004, minLevel = 1 }, -- Healing Surge (quick combat heal anchor)
 			["Shift+F2"] = { id = BLOODLUST_HEROISM_ID, minLevel = 1 }, -- Bloodlust 2825 / Heroism 32182 (faction; raid-haste boven de heal-toets)
 		},
@@ -368,7 +369,8 @@ ns.KeybindingReference.specsById = {
 			{ id = 7328, minLevel = 13, categoryLocaleKey = PCAT .. "BLESSINGS" },
 			{ id = 633, minLevel = 9, categoryLocaleKey = PCAT .. "BLESSINGS" },
 			--- Divine Protection: learned early but Midnight layout has no **G** bind — park on bar where you like.
-			{ id = 498, minLevel = 10, categoryLocaleKey = PCAT .. "DEFENSIVES" },
+			--- 403876 is Ret's; 498 is Holy's (W-SPEC, docs/audit_2026-09-17/audit_paladin_warrior_dk.md).
+			{ id = 403876, minLevel = 10, categoryLocaleKey = PCAT .. "DEFENSIVES" },
 			--- Battle rez — spellbook unlock (not on Midnight letter grid); shown in Training unlock list at 19.
 			--- 12.0.x spell id (was 391054 in DF); keep in sync with spellbook tooltip.
 			{ id = 461622, minLevel = 19, categoryLocaleKey = PCAT .. "UTILITY" },
@@ -377,7 +379,7 @@ ns.KeybindingReference.specsById = {
 			[7328] = true,
 			[461622] = true,
 			[633] = true,
-			[498] = true,
+			[403876] = true,
 			[230332] = true,
 			[383342] = true,
 			[234299] = true,
