@@ -53,10 +53,10 @@ function ns.MH_GetMacroClassSpecContext()
 		return nil, 0, false, nil, nil
 	end
 	local token = string.upper(classFile)
-	local specIdx = (GetSpecialization and GetSpecialization()) or 0
+	local specIdx = (ns.GetSpecialization and ns.GetSpecialization()) or 0
 	local specName
-	if specIdx > 0 and GetSpecializationInfo then
-		local ok, _, name = pcall(GetSpecializationInfo, specIdx)
+	if specIdx > 0 and ns.GetSpecializationInfo then
+		local ok, _, name = pcall(ns.GetSpecializationInfo, specIdx)
 		if ok and name and name ~= "" then
 			specName = name
 		end

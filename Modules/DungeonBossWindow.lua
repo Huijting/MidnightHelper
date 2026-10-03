@@ -1041,7 +1041,7 @@ end
 local COLOR_QUICK = "c9a8ff"
 
 local function PlayerSpecRole()
-	local spec = GetSpecialization and GetSpecialization()
+	local spec = ns.GetSpecialization and ns.GetSpecialization()
 	return spec and GetSpecializationRole and GetSpecializationRole(spec) or nil -- TANK / HEALER / DAMAGER
 end
 

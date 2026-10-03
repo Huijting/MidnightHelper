@@ -17,8 +17,8 @@ end
 
 local function SpecCountForClass(classToken)
 	local cid = ClassFileToClassID(classToken)
-	if cid and GetNumSpecializationsForClassID then
-		local ok, n = pcall(GetNumSpecializationsForClassID, cid)
+	if cid and ns.GetNumSpecializationsForClassID then
+		local ok, n = pcall(ns.GetNumSpecializationsForClassID, cid)
 		if ok and n and n > 0 then
 			return n
 		end

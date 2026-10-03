@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🔧 3 okt middag — spec-API: één deur (`ns.GetSpecialization` c.s.), Rob: "begin dan met het eerste punt"
+
+- GEMETEN (mh-research tegen Blizzards live-bron 12.1.0.69933, `scratchpad\sys\api_claims.json`): `GetSpecialization`,
+  `GetSpecializationInfo`, `GetNumSpecializationsForClassID`, `GetActiveSpecGroup`, `GetInspectSpecialization` zijn
+  deprecated aliassen achter `loadDeprecationFallbacks`; weg bij de volgende uitbreiding. Vervanging `C_SpecializationInfo`.
+- **Gebouwd:** wrapper bovenin `Core.lua` (`ns.<naam>` = C_-versie, anders global, anders no-op). Script verving 132
+  aanroepen in 31 modules (alleen code, geen commentaar/strings). Positieve controle: 0 oude aanroepen over, 31× `ns.`.
+- **Bijvangst gerepareerd:** `StatCoach` mastery via `C_SpecializationInfo.GetSpecializationMasterySpells` (tabel) eerst;
+  `SimcExport` las de 6e return als rol, rol is de 5e.
+- Syntax OK, lint 0 HARD. Niet in het spel getest → TESTLIJST 3 okt middag.
+- Volgende uit de addon-analyse (Robs keuze): A threat-indicator als voorstel; B bronbestanden; G bij een schermklus.
+
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
 
 - **Rondes:** 2 helpers `tips-xhigh` (Opus xhigh, brief scratchpad `sys\BRIEF.md`) → `sys\currency.json` (8 fout, 4

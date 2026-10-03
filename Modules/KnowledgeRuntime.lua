@@ -1038,10 +1038,10 @@ local function PlayerState()
 		state.item_level = math.floor(ilvl + 0.5)
 	end
 
-	if GetSpecialization and GetSpecializationInfo then
-		local idx = safe(GetSpecialization)
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local idx = safe(ns.GetSpecialization)
 		if idx and idx > 0 then
-			local _, name, _, _, role = safe(GetSpecializationInfo, idx)
+			local _, name, _, _, role = safe(ns.GetSpecializationInfo, idx)
 			if type(name) == "string" and name ~= "" then
 				state.specialization = name
 			end

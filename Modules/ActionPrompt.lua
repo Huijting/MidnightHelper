@@ -179,8 +179,8 @@ local function RefreshInterrupt()
 		local okS, s = pcall(C_SpecializationInfo.GetSpecialization)
 		idx = okS and s or nil
 	end
-	if idx == nil and GetSpecialization then
-		local okG, g = pcall(GetSpecialization)
+	if idx == nil and ns.GetSpecialization then
+		local okG, g = pcall(ns.GetSpecialization)
 		idx = okG and g or nil
 	end
 	if not (token and idx) then

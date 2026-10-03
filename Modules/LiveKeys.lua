@@ -122,9 +122,9 @@ function ns.PrintPlayKeys()
 	cache = Build()
 	print(("%s live keys: %d bound action buttons hold a spell or macro"):format(prefix, #cache))
 	local specID
-	if GetSpecialization and GetSpecializationInfo then
-		local idx = GetSpecialization()
-		specID = idx and GetSpecializationInfo(idx) or nil
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local idx = ns.GetSpecialization()
+		specID = idx and ns.GetSpecializationInfo(idx) or nil
 	end
 	local ids, seen = {}, {}
 	local card = specID and ns.GetPlayCard and ns.GetPlayCard(specID)

@@ -98,16 +98,16 @@ local PRIMARY_BY_STAT = {
 }
 
 local function GetSpecBasics()
-	if not (GetSpecialization and GetSpecializationInfo) then
+	if not (ns.GetSpecialization and ns.GetSpecializationInfo) then
 		return nil
 	end
-	local idx = GetSpecialization()
+	local idx = ns.GetSpecialization()
 	if not idx or idx < 1 then
 		-- Fresh or low-level characters have no spec at all. Say so; do not fall
 		-- back to a "generic" order, because that is advice nobody asked for.
 		return nil
 	end
-	local ok, specID, specName, _, _, _, primaryStat = pcall(GetSpecializationInfo, idx)
+	local ok, specID, specName, _, _, _, primaryStat = pcall(ns.GetSpecializationInfo, idx)
 	if not ok or not specID then
 		return nil
 	end
@@ -141,7 +141,20 @@ end
 --- rather than left in "just in case": a fallback nobody can trigger is untested code
 --- that reads like a safety net.
 --- @return number|nil spellID
+---
+--- 🔴 3 Oct 2026: the 27 Aug probe asked for the WRONG new name. The real one is
+--- C_SpecializationInfo.GetSpecializationMasterySpells and it returns a TABLE of spell ids
+--- (Blizzard's SpecializationInfoDocumentation, live 12.1.0.69933). The global that worked
+--- is only a deprecated wrapper (Blizzard_DeprecatedSpecialization) that turns that table
+--- into two numbers, and it goes away at the next expansion. New name first, wrapper second.
 local function GetMasterySpellID(specIndex)
+	local C = C_SpecializationInfo
+	if C and type(C.GetSpecializationMasterySpells) == "function" then
+		local ok, t = pcall(C.GetSpecializationMasterySpells, specIndex)
+		if ok and type(t) == "table" and type(t[1]) == "number" then
+			return t[1]
+		end
+	end
 	if type(GetSpecializationMasterySpells) ~= "function" then
 		return nil
 	end

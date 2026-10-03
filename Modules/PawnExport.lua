@@ -45,14 +45,14 @@ end
 --- Build the Pawn scale string for the player's current spec.
 --- @return string|nil tag, string|nil reason  ("nospec" | "nodata")
 function ns.BuildPawnString()
-	if not (GetSpecialization and GetSpecializationInfo) then
+	if not (ns.GetSpecialization and ns.GetSpecializationInfo) then
 		return nil, "nospec"
 	end
-	local idx = GetSpecialization()
+	local idx = ns.GetSpecialization()
 	if not idx then
 		return nil, "nospec"
 	end
-	local _, specName = GetSpecializationInfo(idx)
+	local _, specName = ns.GetSpecializationInfo(idx)
 
 	local w, key = nil, nil
 	if ns.GetCurrentSpecWeights then

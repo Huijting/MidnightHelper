@@ -285,10 +285,10 @@ function ns.BuildGearExport()
 	local charName = (UnitName and UnitName("player")) or "?"
 	local classFile = UnitClass and select(2, UnitClass("player")) or "?"
 	local specName, primary = "?", nil
-	if GetSpecialization and GetSpecializationInfo then
-		local idx = GetSpecialization()
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local idx = ns.GetSpecialization()
 		if idx then
-			local ok, _, sname, _, _, _, primaryStat = pcall(GetSpecializationInfo, idx)
+			local ok, _, sname, _, _, _, primaryStat = pcall(ns.GetSpecializationInfo, idx)
 			if ok and ns.CanAccessText(sname) then
 				specName = sname
 			end

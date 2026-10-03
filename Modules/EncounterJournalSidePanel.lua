@@ -124,8 +124,8 @@ local function RoleTipKey(tips)
 			role = r
 		end
 	end
-	if (not role or role == "NONE") and GetSpecialization and GetSpecializationRole then
-		local spec = GetSpecialization()
+	if (not role or role == "NONE") and ns.GetSpecialization and GetSpecializationRole then
+		local spec = ns.GetSpecialization()
 		if spec then
 			local okR, r = pcall(GetSpecializationRole, spec)
 			if okR then

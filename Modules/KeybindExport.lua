@@ -128,10 +128,10 @@ function ns.BuildKeybindExportText()
 		class = okC and localized or nil
 	end
 	local specName
-	if GetSpecialization and GetSpecializationInfo then
-		local okS, idx = pcall(GetSpecialization)
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local okS, idx = pcall(ns.GetSpecialization)
 		if okS and idx then
-			local okI, _, sname = pcall(GetSpecializationInfo, idx)
+			local okI, _, sname = pcall(ns.GetSpecializationInfo, idx)
 			specName = okI and sname or nil
 		end
 	end

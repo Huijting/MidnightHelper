@@ -247,7 +247,7 @@ end
 
 local function PlayerSpecData()
 	local classToken = ClassToken("player")
-	local specIndex = GetSpecialization and GetSpecialization()
+	local specIndex = ns.GetSpecialization and ns.GetSpecialization()
 	if not classToken or not specIndex then
 		return nil
 	end

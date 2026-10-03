@@ -291,9 +291,9 @@ function ns.SaveSurvivalProbe()
 		return
 	end
 	local specID
-	if GetSpecialization and GetSpecializationInfo then
-		local idx = GetSpecialization()
-		specID = idx and GetSpecializationInfo(idx) or nil
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local idx = ns.GetSpecialization()
+		specID = idx and ns.GetSpecializationInfo(idx) or nil
 	end
 
 	local out = { specID = specID, keys = {} }
@@ -457,9 +457,9 @@ function ns.GetSurvivalPlan(specID, trace)
 	if not tbl then
 		return nil
 	end
-	if not specID and GetSpecialization and GetSpecializationInfo then
-		local idx = GetSpecialization()
-		specID = idx and GetSpecializationInfo(idx) or nil
+	if not specID and ns.GetSpecialization and ns.GetSpecializationInfo then
+		local idx = ns.GetSpecialization()
+		specID = idx and ns.GetSpecializationInfo(idx) or nil
 	end
 	if IsTagged(token) then
 		local steps = TaggedPlan(tbl, specID, trace)

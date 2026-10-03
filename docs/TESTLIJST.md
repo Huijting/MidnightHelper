@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — spec-functies via de nieuwe Blizzard-naam (31 modules)
+
+Niets hoort er anders uit te zien; dit is onderhoud zodat MH de volgende uitbreiding overleeft.
+- [ ] Na `/reload` (live én PTR): geen nieuwe fouten in BugSack.
+- [ ] `/run print(C_CVar.GetCVar('loadDeprecationFallbacks'),GetSpecialization==C_SpecializationInfo.GetSpecialization,C_SpecializationInfo.GetSpecialization())`
+  — verwacht `1 true <specnummer>`.
+- [ ] Een paar spec-afhankelijke schermen kloppen nog: *Zo speel je*-kaart opent voor jouw spec, Vault-adviseur noemt jouw
+  stats, Tank-toolkit kent je als Prot Paladin, `/mh stats` toont je mastery.
+- [ ] `/mh simc` (SimC-export): staat er een rol in voor je spec? (Bug gerepareerd: las de verkeerde waarde.)
+
 ## 🆕 3 okt middag — valuta, crests en Great Vault (7 talen, nog niet uitgebracht)
 
 - [ ] Crests-tab (Dawncrest-gids): staat onderaan de regel *«…of the Mist» achievements halve the crest cost…*? En

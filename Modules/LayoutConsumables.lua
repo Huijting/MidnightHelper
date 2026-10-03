@@ -38,8 +38,8 @@ local function SpecIndex()
 			return s
 		end
 	end
-	if GetSpecialization then
-		local ok, s = pcall(GetSpecialization)
+	if ns.GetSpecialization then
+		local ok, s = pcall(ns.GetSpecialization)
 		if ok and s then
 			return s
 		end

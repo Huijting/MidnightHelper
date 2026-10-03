@@ -45,7 +45,7 @@ local function RefreshMyInterrupt()
 	myInterrupt = nil
 	myInterruptName = nil
 	local token = select(2, UnitClass("player"))
-	local specIdx = GetSpecialization and GetSpecialization()
+	local specIdx = ns.GetSpecialization and ns.GetSpecialization()
 	if token and specIdx and ns.MH_GetInterruptSpell then
 		local name = ns.MH_GetInterruptSpell(token, specIdx)
 		if type(name) == "string" and name ~= "" then

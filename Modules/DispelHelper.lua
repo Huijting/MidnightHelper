@@ -98,10 +98,10 @@ function ns.GetDispellableSchools()
 	end
 
 	-- The healing-spec dispel, when this character is in that spec.
-	if ns.HEALER_DISPELS and GetSpecialization and GetSpecializationInfo then
-		local okIdx, idx = pcall(GetSpecialization)
+	if ns.HEALER_DISPELS and ns.GetSpecialization and ns.GetSpecializationInfo then
+		local okIdx, idx = pcall(ns.GetSpecialization)
 		if okIdx and idx then
-			local okID, specID = pcall(GetSpecializationInfo, idx)
+			local okID, specID = pcall(ns.GetSpecializationInfo, idx)
 			local d = okID and specID and ns.HEALER_DISPELS[specID]
 			if d then
 				-- Only if the character really has the spell. Same honesty bar as

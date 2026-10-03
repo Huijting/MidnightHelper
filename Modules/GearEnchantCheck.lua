@@ -272,14 +272,14 @@ local DIAMOND_IDS = {
 --------------------------------------------------------------------------------
 
 local function SpecWeightKey()
-	if not (GetSpecialization and GetSpecializationInfo and UnitClass) then
+	if not (ns.GetSpecialization and ns.GetSpecializationInfo and UnitClass) then
 		return nil
 	end
-	local specIndex = GetSpecialization()
+	local specIndex = ns.GetSpecialization()
 	if not specIndex then
 		return nil
 	end
-	local specID = GetSpecializationInfo(specIndex)
+	local specID = ns.GetSpecializationInfo(specIndex)
 	local classFile = select(2, UnitClass("player"))
 	if not (specID and classFile) then
 		return nil

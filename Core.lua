@@ -32,6 +32,38 @@
 local addonName, ns = ... ---@type string, MidnightHelperNS
 
 --------------------------------------------------------------------------------
+-- Specialization API: one door, so the old globals can disappear without us noticing
+--------------------------------------------------------------------------------
+-- 🔴 3 Oct 2026, measured against Blizzard's own live 12.1.0.69933 source: the globals
+-- GetSpecialization, GetSpecializationInfo, GetNumSpecializationsForClassID and
+-- GetActiveSpecGroup exist only as aliases in Blizzard_DeprecatedSpecialization, which
+-- stops loading when the CVar loadDeprecationFallbacks is off and "will be removed at the
+-- next expansion"; GetInspectSpecialization the same, "in a future patch". The alias is
+-- literally C_SpecializationInfo.<same name>, same arguments and returns.
+-- Most callers guard with `X and X()`, so losing the alias would not error — spec info
+-- would just go silently missing in ~30 modules. Every module calls ns.<name> instead.
+-- Not wrapped (not deprecated): GetSpecializationRole, GetSpecializationInfoByID,
+-- GetNumSpecializations.
+do
+	local C = C_SpecializationInfo
+	local function pick(name)
+		local f = C and C[name]
+		if type(f) ~= "function" then
+			f = _G[name]
+		end
+		if type(f) ~= "function" then
+			return function() return nil end
+		end
+		return f
+	end
+	ns.GetSpecialization = pick("GetSpecialization")
+	ns.GetSpecializationInfo = pick("GetSpecializationInfo")
+	ns.GetNumSpecializationsForClassID = pick("GetNumSpecializationsForClassID")
+	ns.GetActiveSpecGroup = pick("GetActiveSpecGroup")
+	ns.GetInspectSpecialization = pick("GetInspectSpecialization")
+end
+
+--------------------------------------------------------------------------------
 -- Secret values: one shared pair, because six copies were not enough
 --------------------------------------------------------------------------------
 --- ⚠️ THE HELPER EXISTED SIX TIMES AND NONE OF THEM WAS REACHABLE.

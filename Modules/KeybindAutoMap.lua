@@ -231,10 +231,10 @@ function ns.MH_AutoMapBuild()
 	local known = ReadKnownActiveSpells()
 
 	local specID
-	if GetSpecialization and GetSpecializationInfo then
-		local s = GetSpecialization()
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local s = ns.GetSpecialization()
 		if s and s > 0 then
-			specID = GetSpecializationInfo(s)
+			specID = ns.GetSpecializationInfo(s)
 		end
 	end
 
@@ -388,10 +388,10 @@ local autoCache = {}
 local function CurrentSpecKey()
 	local _, class = UnitClass("player")
 	local specID
-	if GetSpecialization and GetSpecializationInfo then
-		local s = GetSpecialization()
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local s = ns.GetSpecialization()
 		if s and s > 0 then
-			specID = GetSpecializationInfo(s)
+			specID = ns.GetSpecializationInfo(s)
 		end
 	end
 	return (class or "?") .. "-" .. tostring(specID or 0), class

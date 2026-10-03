@@ -170,10 +170,10 @@ local function RefreshClassLine(panel)
 	end
 	local classLocalized = UnitClass("player") or "?"
 	local specName = "-"
-	if GetSpecialization and GetSpecializationInfo then
-		local idx = GetSpecialization()
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local idx = ns.GetSpecialization()
 		if idx and idx > 0 then
-			local _, name = GetSpecializationInfo(idx)
+			local _, name = ns.GetSpecializationInfo(idx)
 			if name and name ~= "" then
 				specName = name
 			end

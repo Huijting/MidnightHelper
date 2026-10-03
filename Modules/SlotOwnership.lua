@@ -44,8 +44,8 @@ local function CharKey()
 	if C_SpecializationInfo and C_SpecializationInfo.GetSpecialization then
 		local ok, s = pcall(C_SpecializationInfo.GetSpecialization)
 		spec = (ok and tonumber(s)) or 0
-	elseif GetSpecialization then
-		local ok, s = pcall(GetSpecialization)
+	elseif ns.GetSpecialization then
+		local ok, s = pcall(ns.GetSpecialization)
 		spec = (ok and tonumber(s)) or 0
 	end
 	return ("%s-%s-%d"):format(name, realm, spec)

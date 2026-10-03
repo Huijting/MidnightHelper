@@ -459,14 +459,14 @@ end
 
 --- The player's current spec id IF it is a healer spec we have data for, else nil.
 function ns.GetPlayerHealerSpecID()
-	if not (GetSpecialization and GetSpecializationInfo) then
+	if not (ns.GetSpecialization and ns.GetSpecializationInfo) then
 		return nil
 	end
-	local idx = GetSpecialization()
+	local idx = ns.GetSpecialization()
 	if not idx then
 		return nil
 	end
-	local id = GetSpecializationInfo(idx)
+	local id = ns.GetSpecializationInfo(idx)
 	if id and ns.HEALER_COOLDOWNS[id] then
 		return id
 	end
@@ -477,12 +477,12 @@ end
 --- the class has no healing spec. Lets the Academy preview e.g. a Prot Paladin's
 --- Holy toolkit instead of showing nothing.
 function ns.GetClassHealerSpecID()
-	if not (GetNumSpecializations and GetSpecializationInfo) then
+	if not (GetNumSpecializations and ns.GetSpecializationInfo) then
 		return nil
 	end
 	local n = GetNumSpecializations() or 0
 	for i = 1, n do
-		local id = GetSpecializationInfo(i)
+		local id = ns.GetSpecializationInfo(i)
 		if id and ns.HEALER_COOLDOWNS[id] then
 			return id
 		end

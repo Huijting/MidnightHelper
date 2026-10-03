@@ -40,24 +40,24 @@ local function Font(fs, base)
 end
 
 local function ActiveSpecID()
-	if not (GetSpecialization and GetSpecializationInfo) then
+	if not (ns.GetSpecialization and ns.GetSpecializationInfo) then
 		return nil
 	end
-	local idx = GetSpecialization()
+	local idx = ns.GetSpecialization()
 	if not idx then
 		return nil
 	end
-	return (GetSpecializationInfo(idx))
+	return (ns.GetSpecializationInfo(idx))
 end
 
 --- The specs of the player's own class: { {id, name, icon}, ... }.
 local function ClassSpecs()
 	local out = {}
-	if not (GetNumSpecializations and GetSpecializationInfo) then
+	if not (GetNumSpecializations and ns.GetSpecializationInfo) then
 		return out
 	end
 	for i = 1, (GetNumSpecializations() or 0) do
-		local id, name, _, icon = GetSpecializationInfo(i)
+		local id, name, _, icon = ns.GetSpecializationInfo(i)
 		if id then
 			out[#out + 1] = { id = id, name = name or "", icon = icon }
 		end
@@ -363,11 +363,11 @@ local CONS_CATEGORIES = {
 
 --- The consumables table is keyed by class token + spec INDEX; the window works in spec ids.
 local function SpecIndexOf(specID)
-	if not (specID and GetNumSpecializations and GetSpecializationInfo) then
+	if not (specID and GetNumSpecializations and ns.GetSpecializationInfo) then
 		return nil
 	end
 	for i = 1, (GetNumSpecializations() or 0) do
-		if GetSpecializationInfo(i) == specID then
+		if ns.GetSpecializationInfo(i) == specID then
 			return i
 		end
 	end

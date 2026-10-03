@@ -440,12 +440,14 @@ function ns.BuildSimcProfile()
 	local race = raceFile == "Scourge" and "Undead" or FormatRace(raceFile)
 
 	local SI = C_SpecializationInfo
-	local specIndex = SI and Call(SI.GetSpecialization) or (GetSpecialization and GetSpecialization())
+	local specIndex = SI and Call(SI.GetSpecialization) or (ns.GetSpecialization and ns.GetSpecialization())
 	local specID, roleName
 	if specIndex then
-		local getInfo = SI and SI.GetSpecializationInfo or GetSpecializationInfo
-		local a, _, _, _, _, f = Call(getInfo, specIndex)
-		specID, roleName = a, f
+		local getInfo = SI and SI.GetSpecializationInfo or ns.GetSpecializationInfo
+		-- 3 Oct 2026: the role is the 5th return; the 6th is primaryStat (Blizzard's
+		-- SpecializationInfoDocumentation), so the fallback below never got a role.
+		local a, _, _, _, r = Call(getInfo, specIndex)
+		specID, roleName = a, r
 	end
 	if not specID then
 		return nil, "nospec"

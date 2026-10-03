@@ -89,8 +89,8 @@ function ns.PrintPetTauntProbe()
 		local ok, r = pcall(UnitGroupRolesAssigned, "player")
 		unitRole = ok and r or nil
 	end
-	if GetSpecialization and GetSpecializationRole then
-		local s = GetSpecialization()
+	if ns.GetSpecialization and GetSpecializationRole then
+		local s = ns.GetSpecialization()
 		if s then
 			local ok, r = pcall(GetSpecializationRole, s)
 			specRole = ok and r or nil
@@ -337,10 +337,10 @@ local function ShouldWarn()
 	end
 
 	-- Am I the tank? Spec route only -- see the note above.
-	if not (GetSpecialization and GetSpecializationRole) then
+	if not (ns.GetSpecialization and GetSpecializationRole) then
 		return nil, nil, "no spec API on this client"
 	end
-	local spec = GetSpecialization()
+	local spec = ns.GetSpecialization()
 	if not spec then
 		return nil, nil, "no specialization selected"
 	end

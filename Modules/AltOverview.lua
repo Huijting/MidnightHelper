@@ -557,8 +557,8 @@ local function SaveCurrentSnapshot()
 		-- and the view shows a dash. `seen` is the real last login: `ts` can be carried over from the
 		-- previous record below (vault data not loaded yet) and is about data freshness, not presence.
 		class = select(2, UnitClass("player")),
-		specID = GetSpecialization and GetSpecializationInfo and GetSpecialization()
-			and select(1, GetSpecializationInfo(GetSpecialization())) or (prev and prev.specID) or nil,
+		specID = ns.GetSpecialization and ns.GetSpecializationInfo and ns.GetSpecialization()
+			and select(1, ns.GetSpecializationInfo(ns.GetSpecialization())) or (prev and prev.specID) or nil,
 		gold = GetMoney and GetMoney() or nil,
 		restXP = GetXPExhaustion and (GetXPExhaustion() or 0) or nil,
 		xp = UnitXP and UnitXP("player") or nil,

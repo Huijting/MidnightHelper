@@ -87,10 +87,10 @@ end
 local function CharacterLine()
 	local _, class = UnitClass("player")
 	local spec
-	if GetSpecialization then
-		local idx = GetSpecialization()
-		if idx and GetSpecializationInfo then
-			local _, name = GetSpecializationInfo(idx)
+	if ns.GetSpecialization then
+		local idx = ns.GetSpecialization()
+		if idx and ns.GetSpecializationInfo then
+			local _, name = ns.GetSpecializationInfo(idx)
 			spec = Safe(name)
 		end
 	end

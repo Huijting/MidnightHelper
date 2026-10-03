@@ -227,11 +227,11 @@ end
 
 local function GetSpecWeightKey(activityHints)
 	local classID = select(3, UnitClass("player"))
-	local specIndex = GetSpecialization and GetSpecialization()
+	local specIndex = ns.GetSpecialization and ns.GetSpecialization()
 	if not classID or not specIndex then
 		return nil
 	end
-	local specID = GetSpecializationInfo(specIndex)
+	local specID = ns.GetSpecializationInfo(specIndex)
 	if not specID then
 		return nil
 	end
@@ -334,7 +334,7 @@ local function GetGenericRoleWeights()
 	-- Generic fallback when we do not have curated per-spec weights yet.
 	-- These are intentionally conservative and only influence secondary stats;
 	-- ilvl still dominates via ILVL_WEIGHT.
-	local role = GetSpecializationRole and GetSpecializationRole(GetSpecialization and GetSpecialization() or 0)
+	local role = GetSpecializationRole and GetSpecializationRole(ns.GetSpecialization and ns.GetSpecialization() or 0)
 	if role == "HEALER" then
 		return { haste = 1.0, crit = 0.9, mastery = 0.85, vers = 0.75 }, "GENERIC_HEALER"
 	elseif role == "TANK" then
@@ -1520,9 +1520,9 @@ function ns.RefreshBlizzardVaultBanner()
 	end
 	local gear, token, status = ns.ScanVaultAdvisorChoices(weights, weightKey)
 
-	local specIndex = GetSpecialization and GetSpecialization()
+	local specIndex = ns.GetSpecialization and ns.GetSpecialization()
 	-- Guard: spec-less characters (fresh/low-level) return nil; GetSpecializationInfo(nil) errors.
-	local specName = specIndex and GetSpecializationInfo and select(2, GetSpecializationInfo(specIndex)) or nil
+	local specName = specIndex and ns.GetSpecializationInfo and select(2, ns.GetSpecializationInfo(specIndex)) or nil
 	local heroLabel = GetActiveHeroTalentLabel()
 	local displaySpec = specName or "?"
 	if heroLabel then
@@ -1833,9 +1833,9 @@ function ns.RefreshVaultAdvisorPanel(parent, innerWidth, claimReady)
 		lastScanKey = scanKey
 	end
 
-	local specIndex = GetSpecialization and GetSpecialization()
+	local specIndex = ns.GetSpecialization and ns.GetSpecialization()
 	-- Guard: spec-less characters (fresh/low-level) return nil; GetSpecializationInfo(nil) errors.
-	local specName = specIndex and GetSpecializationInfo and select(2, GetSpecializationInfo(specIndex)) or nil
+	local specName = specIndex and ns.GetSpecializationInfo and select(2, ns.GetSpecializationInfo(specIndex)) or nil
 	local heroLabel = GetActiveHeroTalentLabel()
 	local displaySpec = specName or "?"
 	if heroLabel then

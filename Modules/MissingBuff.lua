@@ -51,11 +51,11 @@ local function HasBuff(spellID)
 end
 
 local function CurrentSpecID()
-	local idx = GetSpecialization and GetSpecialization()
+	local idx = ns.GetSpecialization and ns.GetSpecialization()
 	if not idx then
 		return nil
 	end
-	local ok, sid = pcall(GetSpecializationInfo, idx)
+	local ok, sid = pcall(ns.GetSpecializationInfo, idx)
 	return ok and sid or nil
 end
 
