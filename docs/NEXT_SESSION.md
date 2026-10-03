@@ -16,7 +16,10 @@
   6 sleutels in `cards\cards_new.json`). 255: Icy Veins heeft nu een 12.1-pagina (30 aug), kaart klopt. G-schets Prot Pal:
   9 knoppen, `group`-tag op KeybindRoles; 27/40 specs vulbaar, 13 met één knop; tabnaam past waarschijnlijk niet (de).
   Intercession-ids 391054 vs 461622 dubbel in MH. Reviewpagina https://claude.ai/artifact/1xPgBDvJHYvqhTnmr6SkjW.
-  🔲 Wacht op Robs oordeel (E) en vorm + tabnaam (G).
+  ✅ **Rob: "E en G zijn goedgekeurd", tabnaam "Group"/"Groep".** E erin: 6 regels enUS/nlNL + 5 talen (mh-writer, tr5),
+  12 `source`-regels in PlayCards.lua, drift --mark 6, locale_probe OK, lint 0 HARD.
+  G: 4× mh-research loopt (`cards\GROUP_BRIEF.md` → `group_a..d.json`: alle 12 andere klassen + Paladin 65/70, met ids en
+  bronnen); tab wordt per spec alleen getoond als er rijen zijn (anders weg, met reden via `/mh group`).
 
 ## 🔧 3 okt middag — spec-API: één deur (`ns.GetSpecialization` c.s.), Rob: "begin dan met het eerste punt"
 

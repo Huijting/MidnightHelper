@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — "Zo speel je": 4 kaarten bijgewerkt
+
+- [ ] Resto Shaman (AOE): Ascendance-regel + Healing Rain; S3 zegt "als je Unleash Life hebt".
+- [ ] Outlaw Rogue (S4): Pistol Shot pas bij 6 stacks. Subtlety (S2 + MISTAKE) en Augmentation (S3: Breath of Eons op
+  cooldown) — lees ze één keer als je die specs speelt; de bronregel onderaan elke kaart heeft nu nieuwere datums.
+
 ## 🆕 3 okt middag — "Zo speel je": Prot Paladin + interrupt-macro's
 
 Op je **Prot Paladin**, `/mh play` (of de knop "How you play"):

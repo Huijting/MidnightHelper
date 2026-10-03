@@ -52,7 +52,7 @@ local CARDS = {
 	},
 	[64] = { -- Frost Mage
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 11 Aug 2026",
+		source = "Icy Veins 10 Aug · Method 11 Aug · Wowhead 29 Aug 2026",
 	},
 	[65] = { -- Holy Paladin
 		steps = 4, aoe = true, hero = 2,
@@ -64,7 +64,7 @@ local CARDS = {
 	},
 	[72] = { -- Fury Warrior
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 11 Aug 2026",
+		source = "Icy Veins 10 + 25 Aug · Method 11 Aug · Wowhead 12 Aug 2026",
 	},
 	[73] = { -- Protection Warrior
 		steps = 4, aoe = true, hero = 2,
@@ -76,11 +76,11 @@ local CARDS = {
 	},
 	[103] = { -- Feral Druid
 		steps = 5, aoe = true, hero = 2,
-		source = "Method 20 Sep · Wowhead 12 Aug 2026",
+		source = "Method 1 Oct · Icy Veins 10 Aug · Wowhead 12 Aug 2026",
 	},
 	[104] = { -- Guardian Druid
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 3 Sep · Wowhead 12 Aug 2026",
+		source = "Method 3 Sep · Icy Veins 10 Aug · Wowhead 12 Aug 2026",
 	},
 	[105] = { -- Restoration Druid
 		steps = 4, aoe = true, hero = 2,
@@ -108,7 +108,7 @@ local CARDS = {
 	},
 	[255] = { -- Survival Hunter
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 30 Aug · Method 3 Sep 2026",
+		source = "Wowhead 23 Sep · Method 3 Sep · Icy Veins 30 Aug 2026",
 	},
 	[256] = { -- Discipline Priest
 		steps = 4, aoe = true, hero = 2,
@@ -124,15 +124,15 @@ local CARDS = {
 	},
 	[259] = { -- Assassination Rogue
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 12 Aug · Wowhead 6 Sep 2026",
+		source = "Wowhead 6 Sep · Method 12 Aug · Icy Veins 10 Aug 2026",
 	},
 	[260] = { -- Outlaw Rogue
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 12 Aug · Wowhead 27 Aug 2026",
+		source = "Wowhead 27 Aug · Method 12 Aug · Icy Veins 10 Aug 2026",
 	},
 	[261] = { -- Subtlety Rogue
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 19 Aug · Wowhead 24 Aug 2026",
+		source = "Wowhead 24 Aug · Method 19 Aug · Icy Veins 10 Aug 2026",
 	},
 	[263] = { -- Enhancement Shaman
 		steps = 4, aoe = true, hero = 2,
@@ -140,7 +140,7 @@ local CARDS = {
 	},
 	[264] = { -- Restoration Shaman
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 11 Aug 2026",
+		source = "Icy Veins 10 Aug · Method 11 Aug · Wowhead 5 Sep 2026",
 	},
 	[265] = { -- Affliction Warlock
 		steps = 5, aoe = true, hero = 2,
@@ -148,7 +148,7 @@ local CARDS = {
 	},
 	[266] = { -- Demonology Warlock
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 11 Aug 2026",
+		source = "Icy Veins 10 Aug · Wowhead 12 Aug · Method 27 Sep 2026",
 	},
 	[267] = { -- Destruction Warlock
 		steps = 5, aoe = true, hero = 2,
@@ -176,7 +176,7 @@ local CARDS = {
 	},
 	[1467] = { -- Devastation Evoker
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 25 Aug · Wowhead 9 Sep 2026",
+		source = "Wowhead 9 Sep · Method 25 Aug · Icy Veins 10 Aug 2026",
 	},
 	[1468] = { -- Preservation Evoker
 		steps = 5, aoe = true, hero = 2,
@@ -184,7 +184,7 @@ local CARDS = {
 	},
 	[1473] = { -- Augmentation Evoker
 		steps = 5, aoe = true, hero = 2,
-		source = "Method 25 Aug · Wowhead 17 Aug 2026",
+		source = "Method 25 Aug · Wowhead 17 Aug · Icy Veins 10 Aug 2026",
 	},
 	[1480] = { -- Devourer Demon Hunter
 		steps = 5, aoe = true, hero = 2,
