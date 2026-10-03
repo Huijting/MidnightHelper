@@ -43,8 +43,9 @@
   Vault ook als de herinnering-popup uit staat; (3) jargon: SMC_FMT/SMC_DONE_FMT → "Silvermoon quest givers", DUNDUN_FMT →
   "fewer than 8 Dundun shards" (= item Shard of Dundun, `Profession.lua:1547`), GILDED_FMT "T11" → "Tier 11". GEMETEN: de
   helper zei dat SMC/Dundun op de Account snapshot een tooltip hadden — dat klopte niet (geen tooltipFn op die regels).
-  Drift --mark 6 sleutels, locale_probe OK, lint 0 HARD. 🔲 Nog open: oude S1-ids in `SMCChecklistData.lua` (alleen terugval
-  + kaartpin-kleur).
+  Drift --mark 6 sleutels, locale_probe OK, lint 0 HARD. ✅ Oude S1-ids uit `SMCChecklistData.lua` weg (Rob: "ruim die
+  oude SMC-nummers maar vast op"): `weekly_hub` heeft `source = "givers"`; `SMCChecklist.lua` beantwoordt die via
+  `ns.GetGiverWeeklyTally` (kaartpin + Silvermoon-checklist); de terugval in AccountWeeklyChecklist is weg.
 
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
 

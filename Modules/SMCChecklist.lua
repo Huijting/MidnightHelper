@@ -20,7 +20,23 @@ local function FilterQuestIds(ids)
 	return out
 end
 
+--- Entries with source = "givers" are answered by the reset routine's giver states
+--- (ns.GetGiverWeeklyTally), not by quest ids (3 Oct 2026; see SMCChecklistData.lua).
+local function GiverTally()
+	if not ns.GetGiverWeeklyTally then
+		return nil, nil
+	end
+	local ok, done, total = pcall(ns.GetGiverWeeklyTally)
+	if ok and type(total) == "number" and total > 0 then
+		return done, total
+	end
+	return nil, nil
+end
+
 function ns.SMC_IsChecklistEntryTracked(entry)
+	if entry and entry.source == "givers" then
+		return (select(2, GiverTally())) ~= nil
+	end
 	return #FilterQuestIds(entry and entry.questIds) > 0
 end
 
@@ -28,6 +44,13 @@ end
 function ns.SMC_IsChecklistEntryDone(entry)
 	if type(entry) ~= "table" then
 		return nil
+	end
+	if entry.source == "givers" then
+		local done, total = GiverTally()
+		if not total then
+			return nil
+		end
+		return done >= total
 	end
 	local ids = FilterQuestIds(entry.questIds)
 	if #ids == 0 then

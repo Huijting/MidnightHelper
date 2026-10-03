@@ -232,30 +232,12 @@ function ns.ComputeAccountWeeklyChecklist()
 		end
 	end
 
+	-- 3 Oct 2026: count the Silvermoon quest givers the way "Your week" does (ResetRoutine.lua).
+	-- The Season 1 quest ids in SMCChecklistData.lua are gone; that file now asks the same tally.
 	local smcDone, smcTotal
-	local defs = ns.SMC_CHECKLIST_DEF
-	-- 3 Oct 2026: count the givers the way "Your week" does (ResetRoutine.lua), not from the
-	-- Season 1 quest ids in SMCChecklistData.lua, which read 0/1 while the week showed them done.
-	-- The old list stays as a fallback (and still tints the SMC map pins).
 	if ns.GetGiverWeeklyTally then
 		local ok, done, total = pcall(ns.GetGiverWeeklyTally)
 		if ok and type(total) == "number" and total > 0 then
-			smcDone, smcTotal = done, total
-		end
-	end
-	if not smcTotal and type(defs) == "table" and ns.SMC_IsChecklistEntryTracked and ns.SMC_IsChecklistEntryDone then
-		local done, total = 0, 0
-		for i = 1, #defs do
-			local entry = defs[i]
-			if ns.SMC_IsChecklistEntryTracked(entry) then
-				total = total + 1
-				local ok = ns.SMC_IsChecklistEntryDone(entry)
-				if ok == true then
-					done = done + 1
-				end
-			end
-		end
-		if total > 0 then
 			smcDone, smcTotal = done, total
 		end
 	end
