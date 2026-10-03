@@ -21,11 +21,29 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — valuta, crests en Great Vault (7 talen, nog niet uitgebracht)
+
+- [ ] Crests-tab (Dawncrest-gids): staat onderaan de regel *«…of the Mist» achievements halve the crest cost…*? En
+  heb je een «…of the Mist»-achievement, staat die dan als "gehaald" bij de juiste tier (de NAAM komt uit het spel —
+  klopt hij)? ID's 62410/62411/62412/62414/62416 komen van Wowhead.
+- [ ] Valuta-gids: past de **vijfde** knop *Zul'jarra* nog op de rij, en zet hij de pijl bij **Jan'sari the Watchful**
+  op Tokka's Landing (Coiled Isle)?
+- [ ] De upgrade-NPC heet in het spel **Cuzolth** (niet Cuzoth)? Werkt de klikbare naam in de crests-tekst nog?
+- [ ] Vault-adviseur als **Resto Druid/Holy Paladin/Disc/Holy Priest/Mistweaver** met profiel M+: staat er "M+ stat
+  profile" en een M+-volgorde (Resto Druid: Mastery > Haste > Vers > Crit)?
+- [ ] `/mh curscan` op een character dat crests heeft **uitgegeven**: is "totalEarned" het getal uit de tooltip
+  *Current Season Maximum*? (Daarna pas de crest-telling in `CurrencyAccount.lua:495` ombouwen.)
+- [ ] **21 okt (EU)**, na het wegvallen van de crest-cap: `/mh curscan` en `/mh crests save` — zakt het crest-maximum
+  naar 0? Zo niet, dan toont MH nog een cap die niet meer bestaat.
+- [ ] Devourer Demon Hunter: `/run print(GetSpecializationInfo(GetSpecialization()))` — welk spec-ID? (Nodig om
+  Devourer eigen stat-gewichten te geven; nu valt hij terug op algemene DPS.)
+
 ## 🆕 3 okt — 8 overige dungeons: nieuwe korte tips (7 talen)
 
-- [ ] Group Finder → Dungeons: kun je **Windrunner Spire** en **Maisara Caverns** nog op Heroic of Mythic kiezen, of
-  alleen Normal/Followers? (Wowhead zegt alleen Normal.)
-- [ ] Seat of the Triumvirate op Normal of Heroic: heeft Saprish echt maar **één** pet (geen Shadewing)?
+Antwoorden van een helper via Wowhead (GEMETEN op de site, niet in het spel): Windrunner Spire en Maisara Caverns
+alleen Normal; Saprish heeft op Normal/Heroic alleen Darkfang, Shadewing alleen Mythic/M+.
+- [ ] Dungeon Finder op **Heroic** zetten: staan Windrunner Spire en Maisara Caverns er inderdaad NIET bij?
+- [ ] Encounter Journal (Shift-J) → Saprish: verschijnt Shadewing alleen bij Mythic?
 - [ ] Open de dungeontips van een van deze bazen in MH: staan de korte tips er netjes, met maximaal 3 regels?
 
 ## 🆕 3 okt — delve-foutjes (in `main`, nog niet uitgebracht)

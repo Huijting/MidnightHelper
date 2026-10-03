@@ -430,11 +430,13 @@ function ns.RefreshDawncrestGuide()
 		-- Its own key rather than a sentence buried mid-paragraph, because it had to
 		-- disappear in seven languages without disturbing the two sentences around it.
 		local text = ns:L("DAWNCREST_GUIDE_SUMMARY")
-		if not (ns.IsSeason2Live and ns.IsSeason2Live()) then
-			local dawn = ns:L("DAWNCREST_GUIDE_DAWN_DISCOUNT")
-			if dawn and dawn ~= "" and dawn ~= "DAWNCREST_GUIDE_DAWN_DISCOUNT" then
-				text = text .. "|n|n" .. dawn
-			end
+		-- 3 Oct 2026: Season 2 has its own discount («…of the Mist», Wowhead Mistcrest guide
+		-- 13 aug), so it gets its own line instead of silence.
+		local discountKey = (ns.IsSeason2Live and ns.IsSeason2Live()) and "DAWNCREST_GUIDE_MIST_DISCOUNT"
+			or "DAWNCREST_GUIDE_DAWN_DISCOUNT"
+		local discount = ns:L(discountKey)
+		if discount and discount ~= "" and discount ~= discountKey then
+			text = text .. "|n|n" .. discount
 		end
 		summary:SetText(text)
 	end

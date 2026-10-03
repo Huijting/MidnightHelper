@@ -241,6 +241,13 @@ local function GetSpecWeightKey(activityHints)
 	end
 	local base = ApplyProfileSuffix(("%s_%d"):format(classFile, specID), ResolveContentProfile(activityHints))
 
+	-- 3 Oct 2026: an M+ profile that has its own weights wins over a hero-talent row. Before,
+	-- the hero lookup stripped _MPLUS and returned the raid-oriented hero key, so the M+
+	-- profile was dead for 5 of the 7 healer specs that have one (Vault review, 3 Oct).
+	if base:find("_MPLUS$") and ns.VAULT_ADVISOR_SPEC_WEIGHTS and ns.VAULT_ADVISOR_SPEC_WEIGHTS[base] then
+		return base
+	end
+
 	-- Hero talent overrides when we have a matching entry (e.g. Enhancement Totemic vs Stormbringer).
 	if C_ClassTalents and C_ClassTalents.GetActiveHeroTalentSpec then
 		local ok, heroID = pcall(C_ClassTalents.GetActiveHeroTalentSpec)
@@ -312,10 +319,10 @@ local function GetGuideStatHint(weightKey, pawnScaleName)
 		parts[#parts + 1] = VL("VAULT_ADVISOR_PROFILE_MPLUS")
 	end
 	local profileMode = GetVaultAdvisorSettings().profileMode or "auto"
+	-- 3 Oct 2026: "M+ stat profile" is only said when the weights really are M+ weights (the
+	-- _MPLUS check above). Saying it for a spec without M+ weights claimed something untrue.
 	if profileMode == "raid" and #parts > 0 then
 		parts[#parts + 1] = VL("VAULT_ADVISOR_PROFILE_RAID")
-	elseif profileMode == "mplus" and #parts > 0 and not (weightKey and weightKey:find("_MPLUS$")) then
-		parts[#parts + 1] = VL("VAULT_ADVISOR_PROFILE_MPLUS")
 	end
 	if #parts == 0 then
 		return nil
@@ -524,9 +531,8 @@ local function InferTierSetFromItemName(name)
 	if not name or name == "" then
 		return nil
 	end
-	if name:find("Voidbreaker", 1, true) then
-		return "Voidbreaker's Accord"
-	end
+	-- 3 Oct 2026: the "Voidbreaker" match (a Season 1 Mage set, really "Voidbreaker's Accordance")
+	-- is gone: it matched nothing in Season 2, and setID + tooltip already catch tier pieces.
 	return nil
 end
 
@@ -1074,10 +1080,10 @@ end
 -- reaches the button. A player who does not notice simply stops getting bonus
 -- rolls without ever being told why.
 --
--- ⚠ The THRESHOLD below is the one unverified part. It comes from the 12.1 PTR
--- (Wowhead, 28 Jul 2026) and has not been confirmed on a live realm. It is a
--- named constant precisely so that a single edit corrects everything if Blizzard
--- ships a different number. The slot COUNT is read live from the player's own
+-- ✅ The THRESHOLD below came from the 12.1 PTR (Wowhead, 28 Jul 2026); live sources
+-- confirm it for Season 2 (Wowhead bonus-roll guide; masterofwarcraft.net 25 Aug 2026):
+-- 3 rewards, from any row. It stays a named constant so a single edit corrects
+-- everything if Blizzard changes the number. The slot COUNT is read live from the player's own
 -- vault and is not a guess. Gated behind IsSeason2Live so nothing is claimed
 -- before the mechanic exists at all.
 --------------------------------------------------------------------------------

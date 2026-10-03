@@ -45,9 +45,10 @@ local _, ns = ...
 -- what made this wrong quietly instead of loudly: 3437 EXISTS as a currency, so the
 -- lookup stopped there and returned its 0 without ever consulting 3442.
 --
--- Season 2 ACHIEVEMENT ids are unknown and deliberately absent. The "of the Dawn" ids
--- below are Season 1 only; showing them as a Season 2 goal would name a reward that
--- no longer exists.
+-- The "of the Dawn" ids below are Season 1 only. 3 Oct 2026: the Season 2 «…of the Mist»
+-- ids are filled in as `season2AchievementId` (Wowhead, read 3 Oct: 62410 Adventurer,
+-- 62411 Veteran, 62412 Champion, 62414 Hero, 62416 Myth). Not yet seen in the client —
+-- TESTLIJST; the row shows the game's own achievement name, so a wrong id shows a wrong name.
 ns.DAWNCREST_TIERS = {
 	{
 		key = "adventurer",
@@ -63,6 +64,7 @@ ns.DAWNCREST_TIERS = {
 		--- value because it can only compare whole strings.
 		hintKey = "DAWNCREST_TIER_ADVENTURER_HINT",
 		achievementId = 61809,
+		season2AchievementId = 62410,
 		achLabelKey = "DAWNCREST_ACH_ADVENTURER",
 	},
 	{
@@ -76,6 +78,7 @@ ns.DAWNCREST_TIERS = {
 		season2AlternateCurrencyIds = { 3438 },
 		labelKey = "DAWNCREST_TIER_VETERAN",
 		achievementId = 42767,
+		season2AchievementId = 62411,
 		achLabelKey = "DAWNCREST_ACH_VETERAN",
 	},
 	{
@@ -86,6 +89,7 @@ ns.DAWNCREST_TIERS = {
 		season2AlternateCurrencyIds = { 3439 },
 		labelKey = "DAWNCREST_TIER_CHAMPION",
 		achievementId = 42768,
+		season2AchievementId = 62412,
 		achLabelKey = "DAWNCREST_ACH_CHAMPION",
 	},
 	{
@@ -95,6 +99,7 @@ ns.DAWNCREST_TIERS = {
 		season2AlternateCurrencyIds = { 3440 },
 		labelKey = "DAWNCREST_TIER_HERO",
 		achievementId = 42769,
+		season2AchievementId = 62414,
 		achLabelKey = "DAWNCREST_ACH_HERO",
 	},
 	{
@@ -104,6 +109,7 @@ ns.DAWNCREST_TIERS = {
 		season2AlternateCurrencyIds = { 3441 },
 		labelKey = "DAWNCREST_TIER_MYTH",
 		achievementId = 42770,
+		season2AchievementId = 62416,
 		achLabelKey = "DAWNCREST_ACH_MYTH",
 	},
 }

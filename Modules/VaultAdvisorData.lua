@@ -144,15 +144,6 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.55,
 		vers = 0.92,
 	},
-	--- Guardian Druid (Keeper of the Grove): Agility > Haste > Vers > Crit > Mastery
-	--- Icy Veins: https://www.icy-veins.com/wow/guardian-druid-pve-tank-stat-priority
-	--- Wowhead: https://www.wowhead.com/guide/classes/druid/guardian/stat-priority-pve-tank
-	["DRUID_104_HERO_23"] = {
-		mastery = 0.55,
-		haste = 1.00,
-		crit = 0.84,
-		vers = 0.92,
-	},
 	--- Restoration Druid: Intellect > Haste > Mastery > Vers > Crit
 	--- Icy Veins: https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/druid/restoration/stat-priority-pve-healing
@@ -162,12 +153,12 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.55,
 		vers = 0.84,
 	},
-	--- Restoration Druid (M+): Intellect > Haste > Vers > Crit > Mastery (M+)
+	--- Restoration Druid (M+): Intellect > Mastery > Haste > Vers > Crit (M+)
 	--- Icy Veins: https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/druid/restoration/stat-priority-pve-healing
 	["DRUID_105_MPLUS"] = {
-		mastery = 0.92,
-		haste = 1.00,
+		mastery = 1.00,
+		haste = 0.92,
 		crit = 0.55,
 		vers = 0.84,
 	},
@@ -177,15 +168,6 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 	["DRUID_105_HERO_23"] = {
 		mastery = 0.92,
 		haste = 1.00,
-		crit = 0.55,
-		vers = 0.84,
-	},
-	--- Restoration Druid (Elune's Chosen): Intellect > Mastery > Haste > Vers > Crit
-	--- Icy Veins: https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority
-	--- Wowhead: https://www.wowhead.com/guide/classes/druid/restoration/stat-priority-pve-healing
-	["DRUID_105_HERO_24"] = {
-		mastery = 1.00,
-		haste = 0.92,
 		crit = 0.55,
 		vers = 0.84,
 	},
@@ -360,7 +342,7 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.84,
 		vers = 0.55,
 	},
-	--- Holy Paladin (M+): Intellect > Mastery > Crit > Haste > Vers (M+)
+	--- Holy Paladin (M+): Intellect > Mastery > Haste > Crit > Vers (M+)
 	--- Icy Veins: https://www.icy-veins.com/wow/holy-paladin-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/paladin/holy/stat-priority-pve-healing
 	["PALADIN_65_MPLUS"] = {
@@ -439,15 +421,6 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		mastery = 0.84,
 		haste = 1.00,
 		crit = 0.92,
-		vers = 0.55,
-	},
-	--- Discipline Priest (Archon): Intellect > Haste > Mastery > Crit > Vers
-	--- Icy Veins: https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority
-	--- Wowhead: https://www.wowhead.com/guide/classes/priest/discipline/stat-priority-pve-healing
-	["PRIEST_256_HERO_19"] = {
-		mastery = 0.92,
-		haste = 1.00,
-		crit = 0.84,
 		vers = 0.55,
 	},
 	--- Discipline Priest (Oracle): Intellect > Haste > Mastery > Crit > Vers
@@ -736,28 +709,18 @@ ns.VAULT_ADVISOR_SPEC_META = {
 		sources = "Icy Veins, Wowhead",
 		patch = "12.1",
 	},
-	["DRUID_104_HERO_23"] = {
-		priorityText = "Agility > Haste > Vers > Crit > Mastery",
-		sources = "Icy Veins, Wowhead",
-		patch = "12.1",
-	},
 	["DRUID_105"] = {
 		priorityText = "Intellect > Haste > Mastery > Vers > Crit",
 		sources = "Icy Veins, Wowhead",
 		patch = "12.1",
 	},
 	["DRUID_105_MPLUS"] = {
-		priorityText = "Intellect > Haste > Vers > Crit > Mastery (M+)",
+		priorityText = "Intellect > Mastery > Haste > Vers > Crit (M+)",
 		sources = "Icy Veins, Wowhead",
 		patch = "12.1",
 	},
 	["DRUID_105_HERO_23"] = {
 		priorityText = "Intellect > Haste > Mastery > Vers > Crit",
-		sources = "Icy Veins, Wowhead",
-		patch = "12.1",
-	},
-	["DRUID_105_HERO_24"] = {
-		priorityText = "Intellect > Mastery > Haste > Vers > Crit",
 		sources = "Icy Veins, Wowhead",
 		patch = "12.1",
 	},
@@ -857,7 +820,7 @@ ns.VAULT_ADVISOR_SPEC_META = {
 		patch = "12.1",
 	},
 	["PALADIN_65_MPLUS"] = {
-		priorityText = "Intellect > Mastery > Crit > Haste > Vers (M+)",
+		priorityText = "Intellect > Mastery > Haste > Crit > Vers (M+)",
 		sources = "Icy Veins, Wowhead",
 		patch = "12.1",
 	},
@@ -898,11 +861,6 @@ ns.VAULT_ADVISOR_SPEC_META = {
 	},
 	["PRIEST_256_MPLUS"] = {
 		priorityText = "Intellect > Haste > Crit > Mastery > Vers (M+)",
-		sources = "Icy Veins, Wowhead",
-		patch = "12.1",
-	},
-	["PRIEST_256_HERO_19"] = {
-		priorityText = "Intellect > Haste > Mastery > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
 		patch = "12.1",
 	},

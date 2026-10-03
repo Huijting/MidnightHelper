@@ -23,6 +23,8 @@ local QMS = {
 	{ key = "amani", labelKey = "CURRENCY_QM_AMANI", map = 2437, x = 45.95, y = 65.92, who = "Magovu" },
 	{ key = "harati", labelKey = "CURRENCY_QM_HARATI", map = 2413, x = 50.99, y = 50.75, who = "Naynar" },
 	{ key = "singularity", labelKey = "CURRENCY_QM_SINGULARITY", map = 2405, x = 52.57, y = 72.89, who = "Void Researcher Anomander" },
+	-- 3 Oct 2026: fifth QM (12.1, Coiled Isle). Warcraft Wiki QM table; map 2512 = COILED_ISLE_MAP. In-game te bevestigen.
+	{ key = "zuljarra", labelKey = "CURRENCY_QM_ZULJARRA", map = 2512, x = 58.8, y = 46.0, who = "Jan'sari the Watchful" },
 }
 
 -- Saldo van een currency, of nil.
@@ -90,7 +92,7 @@ local function BodyText()
 		end
 		return link
 	end)
-	-- Bekende vendor-namen klikbaar maken (Maren, Triam, QM's, Cuzoth/Vaskarn, PvP).
+	-- Bekende vendor-namen klikbaar maken (Maren, Triam, QM's, Cuzolth/Vaskarn, PvP).
 	if ns.LinkifyVendors then
 		text = ns:LinkifyVendors(text)
 	end

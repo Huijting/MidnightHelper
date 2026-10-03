@@ -355,30 +355,6 @@
       "heroID": 21
     },
     {
-      "key": "DRUID_104_HERO_23",
-      "class": "DRUID",
-      "specID": 104,
-      "label": "Guardian Druid (Keeper of the Grove)",
-      "priority": [
-        "haste",
-        "vers",
-        "crit",
-        "mastery"
-      ],
-      "priorityText": "Agility > Haste > Vers > Crit > Mastery",
-      "sources": [
-        {
-          "name": "Icy Veins",
-          "url": "https://www.icy-veins.com/wow/guardian-druid-pve-tank-stat-priority"
-        },
-        {
-          "name": "Wowhead",
-          "url": "https://www.wowhead.com/guide/classes/druid/guardian/stat-priority-pve-tank"
-        }
-      ],
-      "heroID": 23
-    },
-    {
       "key": "DRUID_105",
       "class": "DRUID",
       "specID": 105,
@@ -407,12 +383,12 @@
       "specID": 105,
       "label": "Restoration Druid (M+)",
       "priority": [
-        "haste",
         "mastery",
+        "haste",
         "vers",
         "crit"
       ],
-      "priorityText": "Intellect > Haste > Vers > Crit > Mastery (M+)",
+      "priorityText": "Intellect > Mastery > Haste > Vers > Crit (M+)",
       "sources": [
         {
           "name": "Icy Veins",
@@ -447,30 +423,6 @@
         }
       ],
       "heroID": 23
-    },
-    {
-      "key": "DRUID_105_HERO_24",
-      "class": "DRUID",
-      "specID": 105,
-      "label": "Restoration Druid (Elune's Chosen)",
-      "priority": [
-        "mastery",
-        "haste",
-        "vers",
-        "crit"
-      ],
-      "priorityText": "Intellect > Mastery > Haste > Vers > Crit",
-      "sources": [
-        {
-          "name": "Icy Veins",
-          "url": "https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority"
-        },
-        {
-          "name": "Wowhead",
-          "url": "https://www.wowhead.com/guide/classes/druid/restoration/stat-priority-pve-healing"
-        }
-      ],
-      "heroID": 24
     },
     {
       "key": "EVOKER_1467",
@@ -930,7 +882,7 @@
         "crit",
         "vers"
       ],
-      "priorityText": "Intellect > Mastery > Crit > Haste > Vers (M+)",
+      "priorityText": "Intellect > Mastery > Haste > Crit > Vers (M+)",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1129,30 +1081,6 @@
           "url": "https://www.wowhead.com/guide/classes/priest/discipline/stat-priority-pve-healing"
         }
       ]
-    },
-    {
-      "key": "PRIEST_256_HERO_19",
-      "class": "PRIEST",
-      "specID": 256,
-      "label": "Discipline Priest (Archon)",
-      "priority": [
-        "haste",
-        "mastery",
-        "crit",
-        "vers"
-      ],
-      "priorityText": "Intellect > Haste > Mastery > Crit > Vers",
-      "sources": [
-        {
-          "name": "Icy Veins",
-          "url": "https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority"
-        },
-        {
-          "name": "Wowhead",
-          "url": "https://www.wowhead.com/guide/classes/priest/discipline/stat-priority-pve-healing"
-        }
-      ],
-      "heroID": 19
     },
     {
       "key": "PRIEST_256_HERO_20",

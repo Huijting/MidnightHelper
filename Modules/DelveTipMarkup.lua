@@ -150,12 +150,16 @@ ns.VENDOR_WAYPOINTS = {
 	-- Matrix Catalyst-steward (ontgrendelt de catalyst via quest 93687 "Taste
 	-- True Power"); Wowhead 9 jun: /way #2393 40.6 64.6 (neutrale catalyst).
 	["Eldara Dawnrunner"] = { 2393, 40.60, 64.60 },
-	["Cuzoth"] = { 2393, 48.23, 61.75 },
+	-- 3 Oct 2026: the NPC is Cuzolth (Wowhead npc=239675), not "Cuzoth"; the key must match the text.
+	["Cuzolth"] = { 2393, 48.23, 61.75 },
 	["Vaskarn"] = { 2393, 48.28, 61.75 },
 	["Caeris Fairdawn"] = { 2395, 43.46, 47.42 },
 	["Magovu"] = { 2437, 45.95, 65.92 },
 	["Naynar"] = { 2413, 50.99, 50.75 },
 	["Void Researcher Anomander"] = { 2405, 52.57, 72.89 },
+	-- 3 Oct 2026: fifth Renown Quartermaster (Zul'jarra's Forces), Tokka's Landing on the Coiled Isle.
+	-- Warcraft Wiki [58.8, 46]; map 2512 = COILED_ISLE_MAP (AtalUtekProbe.lua). "Bevestig in-game".
+	["Jan'sari the Watchful"] = { 2512, 58.80, 46.00 },
 	["Captain Dawnrunner"] = { 2393, 34.66, 81.10 },
 	["Irissa Bloodstar"] = { 2393, 34.66, 81.10 },
 	["Knight-Lord Bloodvalor"] = { 2393, 34.66, 81.10 },

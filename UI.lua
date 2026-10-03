@@ -1213,7 +1213,7 @@ local SMC_CATEGORIES = {
 		titleKey = "SMC_CAT_ESSENTIAL",
 		items = {
 			{ id = "bank", label = "Bank & Vault", atlas = "services-icon-bank", x = 50.36, y = 65.19 },
-			{ id = "item_upgrades", label = "Cuzoth — Item Upgrades", descKey = "SMC_PIN_ITEM_UPGRADES", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
+			{ id = "item_upgrades", label = "Cuzolth — Item Upgrades", descKey = "SMC_PIN_ITEM_UPGRADES", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
 			{ id = "crest_exchange", label = "Vaskarn — Crest Exchange", descKey = "SMC_PIN_CREST_EXCHANGE", atlas = "WarWithin-Icon-Crest", x = 48.28, y = 61.75 },
 			{ id = "ah", label = "Auction House", atlas = "services-icon-auctioneer", x = 51.50, y = 74.68 },
 			{ id = "mailbox", label = "Mailbox", atlas = "services-icon-mailroom", x = 49.41, y = 65.92 },

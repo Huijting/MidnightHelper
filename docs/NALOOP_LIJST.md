@@ -41,7 +41,8 @@ raid-ronde). Een sessie is 100%, dus ±60 eenheden per sessievenster als je niet
 
 - Raid: 17 bazen, korte tips (ochtend). Lange tips: helpers lopen (middag).
 - M+-dungeons S2: 8 van 8 nagelopen (5 erin enUS/nlNL; MR, KR, DN wachten op Robs ja + vertalingen).
-- ✅ 3 okt: delves + Valeera (#3) en de 8 overige dungeons (#4, korte tips, 7 talen; lange tips nog niet).
+- ✅ 3 okt: delves + Valeera (#3) en de 8 overige dungeons (#4, korte + lange tips, 7 talen).
+- ✅ 3 okt middag: #1 valuta & crests en #2 Great Vault (teksten + code; 3 meetpunten op de TESTLIJST).
 
 ## Voorstel volgorde (Rob kiest)
 

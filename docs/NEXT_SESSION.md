@@ -1,5 +1,30 @@
 # Midnight Helper — waar we staan
 
+## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
+
+- **Rondes:** 2 helpers `tips-xhigh` (Opus xhigh, brief scratchpad `sys\BRIEF.md`) → `sys\currency.json` (8 fout, 4
+  verouderd, 12 onzeker) en `sys\vault.json` (18 fout, 4 onzeker). Lange tips: 1 herschrijver → `dgn2\steps_new.json`
+  (29 sleutels, 9 twijfelgevallen bewust niet). Reviewpagina's https://claude.ai/artifact/PPWgRSmzqtXPMy7fffbFKx en
+  https://claude.ai/artifact/EL6seBfvfoQ4WgwDg9q1yn → Rob: *"Alles goed."*
+- **Teksten:** 50 sleutels enUS+nlNL (`apply_texts.py`, schrijft elke plek waar een taal de sleutel heeft), 5 vertalers
+  `mh-writer` (`tr4\`). Nieuw: `DAWNCREST_GUIDE_MIST_DISCOUNT`, `CURRENCY_QM_ZULJARRA`. **Cuzoth → Cuzolth** overal
+  (Wowhead npc=239675), ook `VENDOR_WAYPOINTS`-sleutel en `UI.lua`-pin. Drift --mark 45 sleutels; locale_probe 5 OK in
+  7 talen (GEMETEN); syntax OK; lint 0 HARD (itIT-pack teruggezet naar Engels voor 2 ACH-namen: de fill vertaalt).
+- **Code:** `DawncrestData` `season2AchievementId` 62410-62416 (Wowhead, niet in client gezien); `DawncrestGuide`
+  Mist-kortingsregel in S2; vijfde QM Jan'sari (map 2512, 58.8/46.0); `VaultAdvisor`: M+-profiel wint van hero-rij,
+  "M+ stat profile" alleen bij echte M+-gewichten, Voidbreaker-match weg, Voidcore-drempel-commentaar bevestigd;
+  `data/vault_stat_priorities.json`: Resto Druid M+ (Mastery>Haste>Vers>Crit), Holy Pal M+-tekst, 3 hero-regels bij de
+  verkeerde spec weg → `generate_vault_stat_weights` (69 specs).
+- **NIET gedaan (meten eerst, TESTLIJST):** crest-telling `CurrencyAccount.lua:495` (totalEarned vs saldo), Devourer-
+  gewichten (spec-ID), 21 okt cap-check. Onzekere feiten staan in `sys\*.json`.
+- ⚠️ Vertalers meldden: achievement-namen in de/fr/es/pt-packs vertaald («…der Morgendämmerung» e.d., Engels ongewijzigd
+  dus niet aangeraakt); ptBR-Codex deels "tu" i.p.v. "você" (`CODEX_PROFRESET_BODY`, `CODEX_ATALUTEK_*`); fr "Nebulous
+  Voidcore" nu Engels in de tekst. Open voor later.
+- **Helperregel (Rob: "kunnen we dat niet meer fout doen?"):** agents `mh-research` (xhigh) en `mh-writer` (medium) in
+  `AddOns/.claude/agents/`; regel in CLAUDE.md. Bleken direct beschikbaar, zonder herstart.
+- **Addon-analyse** (andere chat): rapporten in `docs/addon_analyse_2026-10-03/`; 4 API-claims worden gemeten door
+  `mh-research` → `sys\api_claims.json`.
+
 ## 🏰 3 okt ochtend — 8 overige dungeons (naloop #4) ERIN, 7 talen
 
 - **8 helpers `tips-xhigh` op Opus** (brief `bce6ed51…\scratchpad\dgn_xhigh\BRIEF.md`), uitvoer scratchpad `dgn2\<code>.json`

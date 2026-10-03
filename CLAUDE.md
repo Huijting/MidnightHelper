@@ -145,6 +145,14 @@ dat is precies het verschil dat dit project al drie keer verkeerd om heeft gelez
 - **Version bumps & releases only when Rob says "af"/"go".** Don't bump the version or write release docs pre-emptively.
 - **Big releases: consider Beta-first on CurseForge** (Cisca-test) before Release — Rob decides.
 
+## 🔴 3 okt 2026: welke helper voor welk werk
+
+Rob: *"kunnen we dat niet meer fout doen?"* Helpers (subagents) altijd uit `AddOns/.claude/agents/`, nooit
+`general-purpose` — die heeft geen vaste denkstand.
+- **Uitzoeken** (spelmechaniek, getallen, bronnen, klopt-deze-tekst, testvragen): `mh-research`, of `tips-xhigh` voor
+  bazen-rondes. Opus, **extra high** (gekozen na de effort-test van 2 okt).
+- **Herschrijven uit een klaar onderzoek en vertalen**: `mh-writer`. Opus, medium.
+
 ## 🔴 26 sep 2026: `_probe.py` krijgt GEEN argumenten meer
 
 GEMETEN: `settings.local.json` bevat 192 losse "Always allow"-regels voor `_probe.py" scratch <x>` en 66 voor
