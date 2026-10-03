@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt avond — world boss
+
+- [ ] Biedt Lady Liadrin je **Arcantina**, **Offworld Showdowns**, **Raid** of **Vaults of Atal'Utek** aan? Pak hem op
+  en typ `/mh weeklies`: die noemt het onbekende quest-nummer. Stuur me dat nummer, dan zet ik hem erbij.
+- [ ] Adventure Guide → world boss van deze week → welk itemlevel heeft de buit in seizoen 2?
+- [ ] Codex "World boss (Midnight)": staat Liadrins quest erin?
+
 ## 🆕 3 okt avond — Ritual Sites nagelopen
 
 - [ ] Ritual-tab (Silvermoon → Ritual Sites): de weekly-regel noemt nu **Lady Liadrin** en is grijs als de quest niet

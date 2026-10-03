@@ -10,9 +10,11 @@
   drift --mark 20 sleutels, locale_probe 4 sleutels OK in 7 talen (GEMETEN), lint 0 HARD. Vertaler: oudere packregels
   vertaalden NPC/quest-namen en ptBR zei "Luenargente"; nu Engels per regel (niet verder gelijkgetrokken).
 - **World boss (Robs vraag, mh-research `scratchpad\worldboss.json`):** de 4 bazen roteren nog als world quest (geen
-  ophaal-NPC); Liadrins "Midnight: World Boss" 93913 is één van haar keuzes, niet elke week. 🔲 Verouderd in MH (niet
-  gerepareerd): Codex-titel "World boss (Midnight S1)", kop van `WorldBossProbe.lua` (Lairs vervangen bazen), en
-  Liadrins pool in `ResetRoutine.lua` mist 4 van 16 quests (ids niet gevonden). S2-ilvl van de buit onbekend.
+  ophaal-NPC); Liadrins "Midnight: World Boss" 93913 is één van haar keuzes, niet elke week. ✅ Gerepareerd (Rob: "eerst
+  repareren"): Codex-titel zonder "S1" + Liadrin-regel in de body, `WB_DETECTED_LIVE` noemt de world quest,
+  `HOME_WB_CHAR_*` "verslagen" i.p.v. "gelooted" (code leest de questvlag), kop van WorldBoss.lua/WorldBossProbe.lua,
+  ResetRoutine-commentaar (pool = 16). 🔲 4 Liadrin-ids ontbreken nog (Arcantina, Offworld Showdowns, Raid, Vaults
+  of Atal'Utek) → TESTLIJST `/mh weeklies`. S2-ilvl van de buit onbekend → TESTLIJST.
 - **Code:** introketen stap 4/5 omgedraaid (94383 Interest vóór 94382 Problems; teller stopt bij de poort, `IntroTotal`);
   weekly 95843 = keuze van Liadrin → regel alleen geel als hij in je log staat; ALERT_SPELLS ids gecorrigeerd
   (1284106, 1284083, 1277559) mét notitie dat vijandelijke spell-ids in 12.1 secret zijn (alert gaat vrijwel zeker

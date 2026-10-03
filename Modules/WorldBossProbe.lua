@@ -9,6 +9,10 @@ local _, ns = ...
 	The Tidebound Grotto, only opens 18 Aug. That leaves a gap where the panel would be
 	confidently wrong.
 
+	✅ ANSWERED (3 Oct 2026): that is not how it turned out. The four bosses still rotate in
+	Season 2, next to the Lairs (WorldBoss.lua, the comment near the Lairs; Blizzard calls Lairs
+	"an evolution of world bosses", not a replacement). Kept for when the next patch asks again.
+
 	⚠️ This probe does not decide anything. It asks the client and writes down the
 	answers; the conclusion is drawn afterwards, by a person, from the file. Three
 	separate questions, because "the bosses are gone" and "our quest ids are stale" and

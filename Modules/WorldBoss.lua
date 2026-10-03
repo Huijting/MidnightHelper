@@ -1,5 +1,7 @@
 --[[
-	Midnight Season 1 world bosses — Blizzard client data + account-week cache (SavedVariables).
+	Midnight world bosses — Blizzard client data + account-week cache (SavedVariables).
+	The same four rotate in Season 2 too (GEMETEN in Rob's client 2 Sep, 16 Sep, 30 Sep and 3 Oct 2026).
+	Lady Liadrin's "Midnight: World Boss" (93913) is a separate, optional weekly choice (ResetRoutine.lua).
 	UI lives on the Delves & Vault tab (not SMC City Guide).
 ]]
 
@@ -544,6 +546,7 @@ end
 --- And the arithmetic the gate distrusted would have been RIGHT this week — 18 March to
 --- 2 September is exactly 168 days, 24 weeks, 24 % 4 = 0, index 1, Lu'ashal. One week of
 --- agreement is corroboration, not proof; TESTLIJST item 10 checks 9 Sep for Cragpine.
+--- 3 Oct 2026: also matched on 16 Sep (Thorm'belan) and 30 Sep (Lu'ashal) in Rob's client.
 local function GetScheduledWorldBoss()
 	local anchor = ROTATION_ANCHOR
 	if not anchor or anchor <= 0 then

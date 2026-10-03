@@ -88,6 +88,11 @@ end
 -- dus géén minLevel daar; dat quest-ID toevoegen zodra gedumpt, dan krijgen
 -- levelaars ook echte done/opgepakt-status bij hem.
 local GIVER_WEEKLIES = {
+	-- 3 Oct 2026 (mh-research, Warcraft Wiki): the pool is now SIXTEEN. Missing here, ids not found
+	-- yet: Arcantina, Offworld Showdowns, Raid, Vaults of Atal'Utek. Never guess them: when one is in
+	-- the log, `/mh weeklies` names it as unknown with its id. The wiki also says 93891 has not been
+	-- offered since the 9 Apr 2026 hotfix; it stays, a dead id costs nothing (see below).
+	--
 	-- Liadrin offers FOUR of a twelve-quest pool per character per week, so a list of
 	-- four could only ever recognise a third of what she hands out. Rob picked
 	-- "Midnight: World Boss" (93913) and the routine kept telling him to go and get a
