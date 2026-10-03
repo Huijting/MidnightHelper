@@ -20,6 +20,11 @@
   12 `source`-regels in PlayCards.lua, drift --mark 6, locale_probe OK, lint 0 HARD.
   G: 4× mh-research loopt (`cards\GROUP_BRIEF.md` → `group_a..d.json`: alle 12 andere klassen + Paladin 65/70, met ids en
   bronnen); tab wordt per spec alleen getoond als er rijen zijn (anders weg, met reden via `/mh group`).
+  ✅ **G stap 1 gebouwd:** `Modules/GroupPlan.lua` (eigen data `ns.GROUP_PLAN[specID] = { source, rows{step,id,name,note} }`,
+  géén KeybindRoles-tags → verschuift geen toetsen), `ns.SurvivalLiveName` gedeeld met Stay alive, `DrawGroup` +
+  vijfde tab `PLAYCARD_TAB_GROUP` alleen bij data (PlayCardWindow.lua; overtollige tabknoppen worden verborgen),
+  `/mh group` (+ alias `grouptab`). Data: alleen 66 (9 rijen uit de schets). Teksten enUS + nlNL; de/fr/es/pt/it volgen
+  samen met de andere klassen. 🔲 Rest: rijen uit `group_a..d.json` → GROUP_PLAN + notes + vertalingen.
 
 ## 🔧 3 okt middag — spec-API: één deur (`ns.GetSpecialization` c.s.), Rob: "begin dan met het eerste punt"
 

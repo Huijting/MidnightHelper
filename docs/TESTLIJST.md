@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — "Zo speel je": vijfde tab "Group" (eerst Prot Paladin)
+
+Op je **Prot Paladin**, `/mh play`:
+- [ ] Er is een vijfde tab **Group** (nl "Groep"). Past de rij tabs nog in de breedte?
+- [ ] Group toont: Blessing of Sacrifice, Blessing of Protection, Blessing of Spellwarding, Word of Glory, Lay on Hands,
+  Blessing of Freedom, Devotion Aura, Intercession, Redemption — elk met icoon, je toets, en een korte uitleg. Een talent
+  dat je niet hebt, hoort weg te vallen. Onderaan een bronregel met datums.
+- [ ] `/mh group`: per knop + of − en waarom. Staat **Intercession** op + (id 391054)?
+- [ ] Op je Ret of Holy (bekijken mag via de spec-knoppen bovenaan): daar is (nog) **geen** Group-tab. Dat klopt tot het
+  onderzoek voor die specs erin zit.
+
 ## 🆕 3 okt middag — "Zo speel je": 4 kaarten bijgewerkt
 
 - [ ] Resto Shaman (AOE): Ascendance-regel + Healing Rain; S3 zegt "als je Unleash Life hebt".

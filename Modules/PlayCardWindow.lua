@@ -256,7 +256,7 @@ end
 local function CurrentTab()
 	local ui = ns.db and ns.db.ui
 	local t = ui and ui.playCardTab
-	return (t == "alive" or t == "cons" or t == "dispel") and t or "play"
+	return (t == "alive" or t == "cons" or t == "dispel" or t == "group") and t or "play"
 end
 
 local function SetTab(id)
@@ -699,6 +699,52 @@ local function DrawStayAlive(specID, y, inner)
 	return y
 end
 
+--- The "Group" tab (3 Oct 2026, Modules/GroupPlan.lua): buttons for someone else, drawn like Stay alive
+--- plus the dated source line. Only reached for a spec that has rows (the tab is hidden otherwise).
+local function DrawGroup(specID, y, inner)
+	local t = 0
+	local low, grey, max = Greying(specID)
+	y, t = LevelBanner(y, t, inner, low, grey, max)
+	t = t + 1
+	local intro = Text(t, "GameFontHighlight")
+	intro:SetWidth(inner)
+	intro:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+	intro:SetTextColor(0.62, 0.6, 0.56)
+	local steps = ns.GetGroupPlan and ns.GetGroupPlan(specID)
+	intro:SetText(L(steps and "GROUP_INTRO" or "GROUP_NONE"))
+	y = y - intro:GetStringHeight() - 12
+	for i, s in ipairs(steps or {}) do
+		local row = StepRow(i)
+		row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		row:SetWidth(inner)
+		row.num:SetText(i)
+		local missing = StepIcon(row, s.spellID, grey, specID == ActiveSpecID())
+		row.fs:ClearAllPoints()
+		row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
+		row.fs:SetWidth(inner - (20 + ICON + 10))
+		row.fs:SetTextColor(0.9, 0.88, 0.82)
+		row.fs:SetText(("|cff%s%s|r|n%s%s"):format(
+			missing and "8a8a8a" or "ffd100",
+			s.text or "",
+			L(s.whenKey),
+			s.noteKey and (" |cff9d9d9d(" .. L(s.noteKey) .. ")|r") or ""))
+		local h = math.max(ICON, row.fs:GetStringHeight() + 4)
+		row:SetHeight(h)
+		y = y - h - 10
+	end
+	local source = ns.GetGroupPlanSource and ns.GetGroupPlanSource(specID)
+	if source then
+		t = t + 1
+		local src = Text(t, "GameFontHighlightSmall")
+		src:SetWidth(inner)
+		src:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y - 2)
+		src:SetTextColor(0.55, 0.53, 0.5)
+		src:SetText((L("PLAYCARD_SOURCE_FMT")):format(source))
+		y = y - src:GetStringHeight() - 8
+	end
+	return y
+end
+
 --------------------------------------------------------------------------------
 -- Drawing
 --------------------------------------------------------------------------------
@@ -757,6 +803,14 @@ local function Redraw()
 		{ id = "cons", key = "TAB_CONSUMABLES" },
 		{ id = "dispel", key = "PLAYCARD_TAB_DISPEL" },
 	}
+	-- Fifth tab, Group (3 Oct 2026): only for a spec that has group rows; a spec without them gets
+	-- no tab rather than an empty one. Viewing such a spec while on "group" falls back to the card.
+	local hasGroup = ns.HasGroupPlan and ns.HasGroupPlan(specID)
+	if hasGroup then
+		tabs[#tabs + 1] = { id = "group", key = "PLAYCARD_TAB_GROUP" }
+	elseif tab == "group" then
+		tab = "play"
+	end
 	local tx = 0
 	for i, def in ipairs(tabs) do
 		local b = TabButton(i)
@@ -773,10 +827,15 @@ local function Redraw()
 		end)
 		tx = tx + b:GetWidth() + 4
 	end
+	-- The tab count changes per spec now (Group only where there are rows): hide leftovers.
+	for i = #tabs + 1, #(win._tabBtns or {}) do
+		win._tabBtns[i]:Hide()
+	end
 	y = y - 26 - 10
 
-	if tab == "alive" or tab == "cons" or tab == "dispel" then
-		local draw = (tab == "alive" and DrawStayAlive) or (tab == "cons" and DrawConsumables) or DrawDispel
+	if tab == "alive" or tab == "cons" or tab == "dispel" or tab == "group" then
+		local draw = (tab == "alive" and DrawStayAlive) or (tab == "cons" and DrawConsumables)
+			or (tab == "group" and DrawGroup) or DrawDispel
 		y = draw(specID, y, inner)
 		win:SetHeight(32 + 32 - y + 16 + 8)
 		return

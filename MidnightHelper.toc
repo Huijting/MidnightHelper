@@ -95,6 +95,7 @@ Modules\PlayCards.lua
 Modules\LiveKeys.lua
 Modules\PlayCardWindow.lua
 Modules\SurvivalPlan.lua
+Modules\GroupPlan.lua
 Modules\TankPullSummary.lua
 Modules\DispelCapture.lua
 Modules\SMCChecklistData.lua

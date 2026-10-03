@@ -268,6 +268,9 @@ local function LiveName(key, entry, specID)
 	return name, id
 end
 
+--- Shared with the "Group" tab (GroupPlan.lua, 3 Oct 2026): same ownership + override rules.
+ns.SurvivalLiveName = LiveName
+
 --- `/mh survival` — why is a spell missing from the card?
 ---
 --- Ice Block did not appear on Rob's Frost Mage. It is talented, rank 1/1, and the

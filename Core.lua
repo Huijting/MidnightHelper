@@ -1040,6 +1040,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh group — the "Group" tab of How you play: each row shown or why not (3 Oct 2026).
+	if msg == "group" or msg == "grouptab" then
+		if ns.PrintGroupPlanTrace then
+			ns.PrintGroupPlanTrace()
+		end
+		return
+	end
 	-- /mh aggro — how the game's own aggro warnings are set (3 Oct 2026; changes nothing).
 	if msg == "aggro" or msg == "threat" then
 		if ns.PrintAggroSettings then

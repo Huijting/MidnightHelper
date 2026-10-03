@@ -88,7 +88,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
-	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat",
+	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 }
 
