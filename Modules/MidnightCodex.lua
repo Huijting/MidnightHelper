@@ -48,6 +48,14 @@ local UI_FALLBACK = {
 	COMMUNITIES_GUILD_FINDER = "Guild Finder",
 	DUNGEON_SCORE = "Mythic+ Rating",
 	GROUP_FINDER_GENERAL_PLAYSTYLE1 = "Learning",
+	-- 3 Oct 2026, aggro chapter: enUS GlobalStrings of live 12.1.0.69933 (wago.tools).
+	NAMEPLATE_OPTIONS_LABEL = "Nameplates",
+	UNIT_NAMEPLATES_THREAT_DISPLAY = "Aggro Display",
+	UNIT_NAMEPLATES_THREAT_DISPLAY_FLASH = "Flash",
+	COMPACT_UNIT_FRAME_PROFILE_DISPLAYAGGROHIGHLIGHT = "Display Aggro Highlight",
+	ACCESSIBILITY_AUDIO_LABEL = "Audio Assist",
+	CAA_COMBAT_AUDIO_ALERTS_LABEL = "Combat Audio Alerts",
+	CAA_SAY_IF_TARGETED_LABEL = "Say If Targeted",
 }
 ns.CODEX_UI_FALLBACK = UI_FALLBACK
 

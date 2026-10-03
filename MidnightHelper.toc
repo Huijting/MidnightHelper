@@ -246,6 +246,7 @@ Modules\AltOverview.lua
 Modules\AltBoardView.lua
 Modules\MidnightCodexData.lua
 Modules\MidnightCodex.lua
+Modules\AggroSettings.lua
 Modules\MountProgress.lua
 Modules\MountsPanel.lua
 Modules\MountCollector.lua

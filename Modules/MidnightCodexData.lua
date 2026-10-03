@@ -391,6 +391,17 @@ ns.CODEX_ARTICLES = {
 		delvesSection = "vault",
 		sort = 2,
 	},
+	-- 3 Oct 2026, threat proposal option 1: point players at the game's own aggro warnings.
+	-- `/mh aggro` prints how they are set right now.
+	{
+		id = "aggro_display",
+		category = "dungeons",
+		titleKey = "CODEX_AGGRO_TITLE",
+		bodyKey = "CODEX_AGGRO_BODY",
+		sort = 3,
+		searchKeys = "aggro threat tank taunt nameplate flash highlight targeted say if targeted audio assist "
+			.. "enemy attacking me who is the enemy hitting wie slaat de vijand",
+	},
 
 	-- Raid
 	{

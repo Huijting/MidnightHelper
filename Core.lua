@@ -1040,6 +1040,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh aggro — how the game's own aggro warnings are set (3 Oct 2026; changes nothing).
+	if msg == "aggro" or msg == "threat" then
+		if ns.PrintAggroSettings then
+			ns.PrintAggroSettings()
+		end
+		return
+	end
 	-- /mh uinames — the client's own button names the Codex fills in for {UI:NAME} (2 Oct 2026).
 	if msg == "uinames" then
 		if ns.PrintClientUINames then

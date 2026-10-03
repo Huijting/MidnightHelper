@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 okt middag — aggro: wegwijzer naar Blizzards eigen opties (threat-optie 1)
+
+- [ ] `/mh aggro`: vier regels met aan/uit. Kloppen de **menunamen** met wat je in Settings ziet, en klopt aan/uit met je
+  eigen instellingen (Nameplates > Aggro Display, Display Aggro Highlight, Audio Assist > Combat Audio Alerts)?
+  "unknown" mag niet voorkomen.
+- [ ] Codex > Dungeons & M+ > **Aggro: who is the enemy hitting?**: staan de menunamen er netjes in (geen `{UI:…}`)?
+- [ ] Zet Aggro Display > Flash aan en trek in een dungeon als DPS een mob: flitst de nameplate? (Zo weten we dat de uitleg klopt.)
+- [ ] **Meting voor optie 2** (staat op de voorstelpagina): de twee `/run`-regels op een trainingspop en in een dungeon
+  (trash én baas). SECRET of `true` = optie 2 kan daar niet.
+
 ## 🆕 3 okt middag — spec-functies via de nieuwe Blizzard-naam (31 modules)
 
 Niets hoort er anders uit te zien; dit is onderhoud zodat MH de volgende uitbreiding overleeft.

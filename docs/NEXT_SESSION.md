@@ -16,7 +16,11 @@
 - **A threat — voorstel klaar** (mh-research, `scratchpad\sys\threat.json`): https://claude.ai/artifact/MuumGaPHySUSJkvgEDiEqJ.
   MH heeft 0 threat-code (GEMETEN). Threat-API bestaat, secret per unit-paar (niet per combat); in instances NIET gemeten.
   Blizzard heeft Aggro Display (nameplates), raid-highlight, Audio Assist "Say If Targeted". Advies: optie 1 wegwijzer nu,
-  optie 2 (opt-in DPS/healer-melding + `/mh aggro`) pas na Robs /run-meting in een dungeon. 🔲 Wacht op Robs keuze.
+  optie 2 (opt-in DPS/healer-melding + `/mh aggro`) pas na Robs /run-meting in een dungeon.
+  ✅ **Optie 1 gebouwd (Rob: "Doe optie 1 maar"):** Codex `aggro_display` (Dungeons & M+, sort 3, `CODEX_AGGRO_*`, menunamen
+  via `{UI:…}`: 7 nieuwe `UI_FALLBACK`-namen uit GlobalStrings 69933) + `/mh aggro` (alias `threat`, unlisted;
+  `Modules/AggroSettings.lua`, leest alleen CVars, zet niets om; onbekende CVar = "unknown"). 7 talen (mh-writer),
+  locale_probe OK, lint 0 HARD. 🔲 Rob: meting voor optie 2 (TESTLIJST).
 
 ## 💰 3 okt middag — valuta/crests + Great Vault (naloop #1 en #2) + lange dungeontips ERIN, 7 talen
 
