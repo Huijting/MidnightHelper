@@ -29,8 +29,13 @@ Op je **Prot Paladin**, `/mh play`:
   Blessing of Freedom, Devotion Aura, Intercession, Redemption — elk met icoon, je toets, en een korte uitleg. Een talent
   dat je niet hebt, hoort weg te vallen. Onderaan een bronregel met datums.
 - [ ] `/mh group`: per knop + of − en waarom. Staat **Intercession** op + (id 391054)?
-- [ ] Op je Ret of Holy (bekijken mag via de spec-knoppen bovenaan): daar is (nog) **geen** Group-tab. Dat klopt tot het
-  onderzoek voor die specs erin zit.
+- [ ] Nu hebben bijna alle specs een Group-tab. Kijk ook even op een **alt van een andere klasse** (vooral een
+  hunter met pet: staat **Primal Rage** erbij met een Ferocity-pet? Master's Call met een Cunning-pet?). Een shaman
+  hoort alleen Bloodlust (Horde) óf Heroism (Alliance) te zien, niet allebei.
+- [ ] Demon Hunter en Rogue horen **geen** Group-tab te hebben (`/mh group` zegt dan "no group list yet").
+- [ ] Bekijk je via de spec-knoppen een andere spec en heb je die knoppen niet: dan staat er "Geen van deze knoppen
+  zit nu op dit personage…", geen lege lijst.
+- [ ] In het Duits/Frans: passen vijf tabs nog naast elkaar?
 
 ## 🆕 3 okt middag — "Zo speel je": 4 kaarten bijgewerkt
 

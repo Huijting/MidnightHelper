@@ -24,7 +24,17 @@
   géén KeybindRoles-tags → verschuift geen toetsen), `ns.SurvivalLiveName` gedeeld met Stay alive, `DrawGroup` +
   vijfde tab `PLAYCARD_TAB_GROUP` alleen bij data (PlayCardWindow.lua; overtollige tabknoppen worden verborgen),
   `/mh group` (+ alias `grouptab`). Data: alleen 66 (9 rijen uit de schets). Teksten enUS + nlNL; de/fr/es/pt/it volgen
-  samen met de andere klassen. 🔲 Rest: rijen uit `group_a..d.json` → GROUP_PLAN + notes + vertalingen.
+  samen met de andere klassen.
+  ✅ **G stap 2 gebouwd:** alle 4 onderzoeken (`group_a..d.json`, mh-research xhigh, Wowhead-tooltip per id gelezen 3 okt)
+  → `ns.GROUP_PLAN` voor 33 specs + 66 = 34 van de 40 (generator `scratchpad\gen_group.py`); 65 nieuwe `GROUP_NOTE_*`. Géén tab: Demon Hunter
+  (alleen Darkness) en Rogue (Shroud alleen buiten gevecht, Tricks is talentkeuze) — onderzoeksadvies, Rob kiest.
+  Pet-spells (Primal Rage, Master's Call) via `pet = true` + `IsSpellKnown(id, true)` (zoals GroupRezLust). `GROUP_INTRO`
+  algemener (grond/zelf-spells), `GROUP_STEP_FREE` noemt nu fear, `GROUP_NONE` = "niets van dit op dit personage".
+  🔲 Open voor Rob: Mage (Time Warp + Mass Invisibility, die alleen buiten gevecht) en Brew/WW (2 dunne rijen) houden?
+  Create Soulwell (vóór het gevecht) houden? Rogue/DH echt verbergen? 🔲 Bijvangst (niet gerepareerd): Intercession
+  461622 in `KeybindingData.lua:375-376,380` + `GroupRezLust.lua:61` is fout (391054 klopt; paneel veilig, probeert
+  beide); Harrier's Cry (MM-Bloodlust) mist in GroupRezLust (`:72` zegt "alleen met pet"); Primal Rage `specs={253}` in
+  KeybindRoles_Hunter mist 255; DpsToolkit noemt Renewing Blaze/Renewal/Dampen Harm die passief/weg zijn.
 
 ## 🔧 3 okt middag — spec-API: één deur (`ns.GetSpecialization` c.s.), Rob: "begin dan met het eerste punt"
 
