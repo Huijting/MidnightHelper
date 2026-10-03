@@ -120,7 +120,7 @@
 - **Erin:** enUS + nlNL (`dgn_apply_ennl.py` op `dgn_new3.json`, 34 waarden) + 5 vertalers (`tr3\`, `apply_tr3.py`, 85
   waarden, alles in `DungeonTips.lua`). `check_drift --mark` 17 sleutels, locale_probe 3 sleutels OK in 7 talen (GEMETEN),
   syntax OK, lint 0 HARD.
-- 🔲 **Lange tips (`_STEPS`/rollen) NIET herschreven** — `steps_problems` per baas in `dgn2\*.json` (bv. Saprish lange
+- ✅ (3 okt middag, zie 💰 hierboven: 29 sleutels erin, 9 twijfelgevallen bewust niet) **Lange tips (`_STEPS`/rollen) NIET herschreven** — `steps_problems` per baas in `dgn2\*.json` (bv. Saprish lange
   tank/DPS: tweede pet alleen Mythic/M+; WS Heart-tank "doubles" moet 40%; AA: moeilijkheids-kopjes ontbreken).
 - ⚠️ Helpers (Wowhead): **Windrunner Spire en Maisara Caverns zijn in S2 alleen Normal (+ Followers)** — AFGELEID uit bronnen,
   niet in de client gezien → TESTLIJST.
@@ -140,7 +140,7 @@
   de telling telt ze op met het aantal personages erbij, dat klopt.
 - **Onzeker, al op TESTLIJST:** Gilded Stash alleen Bountiful?, Special Assignments 3/week?, Valeera-XP van doden?, shards
   per rare buiten Coiled Isle. Syntax OK, lint 0 HARD. Testvragen: TESTLIJST 3 okt.
-- 🔲 Volgende: na de reset de 8 overige dungeons (naloop #4) op Opus xhigh.
+- ✅ (3 okt ochtend, zie 🏰 hierboven) Volgende: na de reset de 8 overige dungeons (naloop #4) op Opus xhigh.
 
 ## 🚀 2 okt avond — 4.5.0 uitgebracht (delves, solo-schakelaar, alles van vandaag)
 
