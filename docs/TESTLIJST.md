@@ -67,6 +67,13 @@ er is niets weggegooid.
 - [ ] Liadrin bood Rob 4 okt: World Quests, Saltheril's Soiree, **Vaults of Atal'Utek**, Dungeons (screenshot). Kies
   Vaults → zegt "Your week" dat hij in je log staat?
 
+## 🆕 4 okt — link van de kaart naar de site (Rob: "do the link to the site")
+
+- [x] ✅ Rob 4 okt (Guardian): onder de bronregel op "Your buttons" staat **"This card on the website: click for the
+  link."**; eerst te klein (raw font) → nu normale grootte; klikken opent het kopieervenster.
+- [ ] Plak de link in je browser: opent `midnighthelper.com/play/<spec>/` de juiste pagina? (Slugs GEMETEN uit de live
+  sitemap; op een Duitse/Franse… client wordt het `/de/play/…` enz.)
+
 ## 🆕 4 okt — Delve Coach: vinkje "vanzelf openen" (Rob: "bouw die knop maar")
 
 - [x] ✅ Rob 4 okt (screenshot All settings): **"Open the Delve Coach by itself"** staat er, aangevinkt.

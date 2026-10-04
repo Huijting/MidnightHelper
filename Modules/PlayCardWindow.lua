@@ -764,6 +764,9 @@ local function Redraw()
 	for _, b in ipairs(win._specBtns) do
 		b:Hide()
 	end
+	if win._siteBtn then
+		win._siteBtn:Hide()
+	end
 	-- Read the bars afresh for every draw: the keys are whatever they are right now.
 	if ns.LiveKeysInvalidate then
 		ns.LiveKeysInvalidate()
@@ -920,6 +923,48 @@ local function Redraw()
 		src:SetTextColor(0.62, 0.6, 0.56)
 		src:SetText((L("PLAYCARD_SOURCE_FMT")):format(card.source))
 		y = y - 4 - src:GetStringHeight()
+
+		-- The same card on midnighthelper.com (Rob, 4 Oct 2026: "do the link to the site").
+		local url = ns.PlayCardSiteURL and ns.PlayCardSiteURL(specID)
+		if url then
+			local b = win._siteBtn
+			if not b then
+				b = CreateFrame("Button", nil, win.body)
+				b.fs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+				b.fs:SetPoint("TOPLEFT")
+				b.fs:SetJustifyH("LEFT")
+				b:SetScript("OnEnter", function(self)
+					self.fs:SetTextColor(1, 1, 1)
+				end)
+				b:SetScript("OnLeave", function(self)
+					self.fs:SetTextColor(0.45, 0.75, 1)
+				end)
+				win._siteBtn = b
+			end
+			-- Rob, 4 Oct 2026: "het staat wel heel erg klein" — the raw small font skipped MH's own
+			-- font; Font() gives it the size the card's own lines have.
+			Font(b.fs, "GameFontHighlight")
+			b.fs:SetWidth(inner)
+			b.fs:SetTextColor(0.45, 0.75, 1)
+			b.fs:SetText(L("PLAYCARD_SITE_LINK"))
+			b:SetSize(inner, b.fs:GetStringHeight() + 2)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y - 6)
+			b:SetScript("OnClick", function()
+				if ns.ShowShareCopyDialog then
+					ns.ShowShareCopyDialog({
+						id = "playcard-site",
+						text = url,
+						titleKey = "PLAYCARD_SITE_TITLE",
+						hintKey = "PLAYCARD_SITE_HINT",
+						closeKey = "DELVE_SHARE_COPY_CLOSE",
+						width = 460, height = 170,
+					})
+				end
+			end)
+			b:Show()
+			y = y - 6 - b:GetHeight()
+		end
 	end
 
 	-- Frame = content inset (32, DialogPopup.lua) + body offset under the title (32) + the rows

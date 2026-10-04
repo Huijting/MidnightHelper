@@ -192,6 +192,35 @@ local CARDS = {
 	},
 }
 
+--- The same card on midnighthelper.com (Rob, 4 Oct 2026). Slugs GEMETEN from the live sitemap that day:
+--- 40 pages, English slug in every language; English at /play/<slug>/, the other six at /<xx>/play/<slug>/.
+--- Written out rather than built from a spec name, so a translated or renamed spec never breaks a link.
+local SITE_SLUGS = {
+	[62] = "arcane-mage", [63] = "fire-mage", [64] = "frost-mage",
+	[65] = "holy-paladin", [66] = "protection-paladin", [70] = "retribution-paladin",
+	[71] = "arms-warrior", [72] = "fury-warrior", [73] = "protection-warrior",
+	[102] = "balance-druid", [103] = "feral-druid", [104] = "guardian-druid", [105] = "restoration-druid",
+	[250] = "blood-death-knight", [251] = "frost-death-knight", [252] = "unholy-death-knight",
+	[253] = "beast-mastery-hunter", [254] = "marksmanship-hunter", [255] = "survival-hunter",
+	[256] = "discipline-priest", [257] = "holy-priest", [258] = "shadow-priest",
+	[259] = "assassination-rogue", [260] = "outlaw-rogue", [261] = "subtlety-rogue",
+	[262] = "elemental-shaman", [263] = "enhancement-shaman", [264] = "restoration-shaman",
+	[265] = "affliction-warlock", [266] = "demonology-warlock", [267] = "destruction-warlock",
+	[268] = "brewmaster-monk", [269] = "windwalker-monk", [270] = "mistweaver-monk",
+	[577] = "havoc-demon-hunter", [581] = "vengeance-demon-hunter", [1480] = "devourer-demon-hunter",
+	[1467] = "devastation-evoker", [1468] = "preservation-evoker", [1473] = "augmentation-evoker",
+}
+local SITE_LANG = { nlNL = "nl/", deDE = "de/", frFR = "fr/", esES = "es/", esMX = "es/", ptBR = "pt/", itIT = "it/" }
+
+function ns.PlayCardSiteURL(specID)
+	local slug = specID and SITE_SLUGS[specID]
+	if not slug then
+		return nil
+	end
+	local code = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode() or "enUS"
+	return ("https://midnighthelper.com/%splay/%s/"):format(SITE_LANG[code] or "", slug)
+end
+
 local function SpellName(id)
 	if ns.HealerCooldownSpellName then
 		return ns.HealerCooldownSpellName(id)

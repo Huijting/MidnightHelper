@@ -13,7 +13,11 @@ ConsumablesWowheadData.lua, HealerCooldowns.lua, DispelHelper.lua. Wijzigingen h
 - **Punt 2 (7 door de maandagwachter overgeslagen specs)**: 103, 104, 259, 260, 261, 1467, 1473 zitten alle 7 in die
   E-ronde → gedaan.
 - **Punt 4 (gidsen: datum + og:/twitter-tags in `tools/build_site.py`)**: nog te doen.
-- **Punt 3 (link vanaf de kaart in het spel naar `/play/<slug>/`)**: alleen na Robs ja.
+- ✅ **Punt 3 gebouwd** (Rob: "do the link to the site"): `ns.PlayCardSiteURL` in PlayCards.lua (40 slugs GEMETEN uit
+  de live sitemap, taalprefix nl/de/fr/es/pt/it), blauwe klikregel `PLAYCARD_SITE_LINK` onder de bron op "Your buttons"
+  → kopieervenster (`ns.ShowShareCopyDialog`). 7 talen. Gezien door Rob ✅.
+- 🐛 Gevonden 4 okt: **`/sitemap.xml` is ongeldige XML** (`--` in het commentaar van regel 2) — gemeld via Rob aan de
+  site-chat (`tools/i18n.py`).
 - ⚠️ **Meld aan de site-chat:** de survival-velden zijn vandaag uitgebreid — `survivalSpecs`, `survivalId`,
   `survivalOverride` (Warlock: Command Demon 119898 → alleen tonen als override 119914/119910), `survivalRequires`
   (Mirror Image alleen met talent 1309497), `survival` als tabel per spec, en `specs = {}` + `survivalSpecs` (Celestial
