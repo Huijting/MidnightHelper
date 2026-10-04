@@ -124,7 +124,8 @@ er is niets weggegooid.
 - [x] ✅ **GEMETEN door Rob 4 okt (Redisch):** Maella bood eerst de intro "Through the Cold Rift"; de portal toonde Val
   (Normal/Heroic); op Val bood ze **"Showdown on Val"** (Riftstalker's Cache) + "Surveying the Frozen Wastes". De
   S2-blokkade in `Showdowns.lua` is weg → Maella is weer een gewone stop in "Your week" en de Showdowns-sectie toont
-  weer. → Na `/reload`: staat Maella in "Your week" en de Showdowns-regel op het Void & Rituals-tab?
+  weer. ✅ Rob 4 okt (Purlymixanox na `/reload`): **Riftblade Maella staat weer in "Your week"** (stap 7, portaltekst),
+  naast Zerella en Zela; "3 of 14". Void & Rituals-regel nog niet bekeken.
   🌐 Online 3 okt (mh-research, `scratchpad\online\answers.json`): **waarschijnlijk ja** — Wowhead 3 aug + Icy Veins 15 aug/29 sep;
   de hotfix waar de blokkade op rust ging over *Sparks of War* (96725/96726, Zerella), niet over Maella. AFGELEID: geen
   spelersreactie na 18 aug gevonden. Eén blik in het spel beslist het.
