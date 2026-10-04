@@ -14,9 +14,12 @@
   Void & Rituals ritual-regel nu grijs/geel zoals RitualSites.lua.
 - **Lor'themar uit de weekly-gevers** (Rob: "A"): 95245 is eenmalig (mh-research 4 okt). GiverState kent nu een
   `zeroOfferIsNone`-vlag + grijze regel `HOME_ROUTINE_GIVER_NONE_FMT` (7 talen) voor gevers waarvan het venster
-  aantoonbaar leeg opengaat; nog door niemand gebruikt. 🔲 Loopt: mh-research naar **Zerella** (Sparks of War,
-  Silvermoon) en **Talon Commander Zela** (Turn Back the Surge, Coiled Isle) → `scratchpad\sparkgivers.json`; Rob wil
-  ze erbij. Let op tegenstrijdigheid: hotfix zegt Sparks of War Val/Naigtal (96725/96726) weg in S2. Edit Mode-import mogelijk zonder presets (KEYBLOCK_PLAN, eerst testen).
+  aantoonbaar leeg opengaat; nog door niemand gebruikt. ✅ **Zerella** (93423-93426 + 96808, pin 2393 36.2/81.0, War
+  Mode) en **Talon Commander Zela** (96995, pin 2512 58.71/45.83) toegevoegd als gevers met `noLearn` (beiden geven ook
+  andere recurring quests) + eigen tekst (7 talen, eigen vertaling) + probe-pool. Coördinaten niet in het spel gemeten.
+  Opgehelderd: de S2-hotfix schrapte alleen Sparks of War Val/Naigtal (96725/96726, Zerella) — **niet** Maella's
+  Showdowns. De Showdown-S2-gate in `Showdowns.lua` rust dus op een misverstand (commentaar bijgewerkt); hij gaat weg
+  zodra Rob één keer bij Maella heeft gekeken. Edit Mode-import mogelijk zonder presets (KEYBLOCK_PLAN, eerst testen).
 - Ochtendronde 4 okt: wachters niets voor MH; CF/GitHub 0 open; 2 nieuwe vragenlijsten (4 en 3) in SURVEY_RESULTS;
   Keybind-coach 8× nooit, 0× vaak.
 

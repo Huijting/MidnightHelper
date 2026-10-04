@@ -50,7 +50,14 @@ er is niets weggegooid.
 - [x] Lor'themar Theron: "pick it up next to the vault" was fout. Rob vond hem 4 okt boven in zijn gebouw (2393
   45.4/70.3), zonder quest. mh-research: 95245 "Midnight: World Tour" is **eenmalig**, geen weekly; Lor'themar geeft
   in S2 geen weekly. Rob koos **A: uit de lijst**. Weg uit ResetRoutine + WeeklyHubProbe.
-- [ ] Na `/reload`: staat Lor'themar niet meer in "Your week"? (Telling wordt "x of 11".)
+- [ ] Na `/reload`: staat Lor'themar niet meer in "Your week"?
+- [ ] **Nieuw: twee Spark-gevers** in "Your week" (ids van Wowhead + Blizzard-hotfixes, coördinaten NIET in het spel
+  gemeten):
+  - **Zerella** — "Sparks of War", elke week een andere zone. Klik de regel: zet de pijl haar op **Silvermoon 36.2,
+    81.0**? Staat ze daar echt? Biedt ze een Sparks of War aan (War Mode aan)?
+  - **Talon Commander Zela** — "Turn Back the Surge" op de **Coiled Isle 58.7, 45.8**. Staat ze daar?
+  - `/mh weeklies full`: het blok "Spark givers" geeft per id de titel uit het spel. Klopt elke titel met het label?
+  - Telling bovenaan wordt nu "x of 13" (−Lor'themar, +2).
 - [ ] Dundun-regel zit niet in het alt-overzicht maar in **MH → beroepen-overzicht** (Knowledge-blok bovenaan, dit
   personage): "Shards of Dundun: N / 8 earned this week". Mijn testvraag noemde de verkeerde plek.
 - [ ] Liadrin bood Rob 4 okt: World Quests, Saltheril's Soiree, **Vaults of Atal'Utek**, Dungeons (screenshot). Kies

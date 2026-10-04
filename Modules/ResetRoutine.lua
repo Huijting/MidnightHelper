@@ -182,6 +182,25 @@ local GIVER_WEEKLIES = {
 	--- (Wowhead News 12 Aug, Icy Veins, Method), and Lor'themar (npc 235787, upstairs at 2393
 	--- 45.4/70.4) gives no weekly in Season 2. Rob stood there that day: no quest, "Silvermoon is
 	--- grateful for your aid." The line told every level-90 to fetch it "next to the vault", weekly.
+	---
+	--- ✅ THE TWO SPARK GIVERS THAT WERE MISSING — added 4 Oct 2026 (Rob: "zoek dat maar uit en voeg
+	--- dat maar toe"; mh-research, `scratchpad\sparkgivers.json`). Both have a pin of their own
+	--- because neither stands next to the vault; both coordinates come from Wowhead/Zygor and are
+	--- NOT measured in game yet (TESTLIJST).
+	--- • Zerella (npc 254971), "Sparks of War", one zone per week: 93423 Eversong Woods, 93424
+	---   Zul'Aman, 93425 Harandar, 93426 Voidstorm, 96808 The Coiled Isle. NOT 96725/96726 — those are
+	---   the Val/Naigtal versions Blizzard dropped for Season 2. Progress only in War Mode (quest text).
+	--- • Talon Commander Zela (npc 267635), 96995 "Turn Back the Surge" (Wowhead: Weekly Meta Quest),
+	---   on the Coiled Isle; needs the Curse of Ula'tek campaign that far (Zygor), not measured.
+	--- `noLearn`: both also hand out OTHER recurring quests (Zerella: PvP weeklies 47148, 93499,
+	--- 93502-93506; Zela: "Purging the Vaults"). Learning those under them would let a non-Spark
+	--- quest tick the giver "done", which is the 92916 bug again from the other side.
+	{ key = "zerella", name = "Zerella", quests = { 93423, 93424, 93425, 93426, 96808 }, minLevel = 90,
+		noLearn = true, pickupKey = "HOME_ROUTINE_GIVER_PICKUP_ZERELLA_FMT",
+		pin = { 2393, 36.2, 81.0, "HOME_ROUTINE_PIN_ZERELLA" } },
+	{ key = "zela", name = "Talon Commander Zela", quests = { 96995 }, minLevel = 90,
+		noLearn = true, pickupKey = "HOME_ROUTINE_GIVER_PICKUP_ZELA_FMT",
+		pin = { 2512, 58.71, 45.83, "HOME_ROUTINE_PIN_ZELA" } },
 	-- Showdown weekly, from Riftblade Maella in the active Void world. MH already
 	-- had both zone ids (ShowdownsData.lua, Rob verified 96713 in-game on 16 jun)
 	-- but only used them in the Void & Rituals tab and the account snapshot -- never
@@ -689,6 +708,11 @@ local function LearnGiverQuest(questID)
 	end
 	if npcID then
 		s.npc[npcID] = key -- learn NPC -> giver for future rotations
+	end
+	for _, def in ipairs(GIVER_WEEKLIES) do
+		if def.key == key and def.noLearn then
+			return -- this giver's pool is closed: other quests from them are not part of it
+		end
 	end
 	local recurring = QuestIsRecurring(questID)
 	if recurring == false then

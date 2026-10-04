@@ -36,11 +36,13 @@ local _, ns = ...
 --- their list. So the season closes the door for new pickups and an open quest keeps it
 --- open for whoever is already through it — the player, not the calendar.
 ---
---- ⚠️ AND WHICH QUESTS ARE MEANT IS NOT SETTLED. Blizzard says "Sparks of War quests";
---- we ship "Showdown on Naigtal/Val" (96717 / 96718 / 96713, all measured in-game). They
---- are very likely the same weekly under its reward's name, but likely is not measured.
---- If on 18 Aug Rob can still pick one up, this gate is wrong and should come out —
---- which is why it hides rather than deletes, and why nothing below it changed.
+--- 🔴 SETTLED 4 Oct 2026 (mh-research, twice): THE HOTFIX IS NOT ABOUT THESE QUESTS. "Sparks of
+--- War" are separate PvP weeklies from Zerella in Silvermoon (npc 254971): 96725 "Sparks of War:
+--- Val" and 96726 "...: Naigtal" were dropped, while 93423-93426 and 96808 run on in Season 2
+--- (Blizzard hotfixes 18 Aug, 25 Aug, 3 Sep). Maella's "Showdown on Val/Naigtal" (96713 / 96714 /
+--- 96717 / 96718) are a different quest line. So this gate rests on a misread; Wowhead (3 Aug) and
+--- Icy Veins (15 Aug, 29 Sep) say the Showdown weekly continues in S2. It stays until Rob has
+--- looked at Maella once (Rob's choice, 3 Oct) — then it comes out.
 local function HasOpenShowdownWeekly()
 	if not (ns.SHOWDOWNS and ns.SHOWDOWNS.zones and C_QuestLog and C_QuestLog.IsOnQuest) then
 		return false
