@@ -72,6 +72,28 @@ local DE = {
 	CONS_NOTE_16 = "Zwei Flasks, und der Guide nennt eine Abwägung statt eines Siegers — welcher besser ist, hängt von deinem Heldentalent, deinem Content oder der fehlenden Sekundärwertung ab. Schau in einen Klassenguide, bevor du Gold ausgibst.",
 }
 
+-- FR was merged below but never defined (vertaler-vondst 3 Oct 2026), so French players saw every
+-- CONS_NOTE in English. Added 4 Oct 2026 — our own translation, same shape as DE (item and spell
+-- names stay English, "tu" like the other French strings); not checked by a native speaker.
+local FR = {
+	CONS_NOTE_01 = "Le flacon indiqué est le choix par défaut du guide pour cette spé. Les quatre flacons de caractéristique secondaire sont proches : simule ton personnage si tes stats diffèrent.",
+	CONS_NOTE_02 = "Rune d'augmentation actuelle de Midnight.",
+	CONS_NOTE_03 = "La Hâte est le flacon de soigneur par défaut ; simule ton personnage si tes stats secondaires sont proches.",
+	CONS_NOTE_04 = "La Concentrated Silvermoon Health Potion de la Saison 2. L'ancienne Silvermoon Health Potion compte toujours — la recette en consomme 25.",
+	CONS_NOTE_05 = "Le flacon indiqué est le choix par défaut du guide pour cette spé. Les quatre flacons de caractéristique secondaire sont proches : simule ton personnage si tes stats diffèrent.",
+	CONS_NOTE_06 = "Le festin à caractéristique principale est le choix de groupe sûr pour les spés Intelligence.",
+	CONS_NOTE_07 = "Le festin à caractéristique principale est le choix de groupe sûr.",
+	CONS_NOTE_08 = "Nourriture personnelle à caractéristique principale quand il n'y a pas de festin.",
+	CONS_NOTE_09 = "Le festin à caractéristique secondaire est un bon choix pour les tanks ; le festin à caractéristique principale reste une alternative sûre.",
+	CONS_NOTE_10 = "Utilise Thalassian Phoenix Oil, sauf si Flametongue Weapon convient mieux à ton build.",
+	CONS_NOTE_11 = "Amélioration ne peut pas utiliser d'huiles d'arme : Windfury et Flametongue Weapon les remplacent. Garde ton or.",
+	CONS_NOTE_12 = "Bonus d'arme temporaire par défaut, sauf si ta classe ou ta spé utilise son propre enchantement d'arme.",
+	CONS_NOTE_13 = "Utilise le flacon de tank indiqué ; passe à Polyvalence pour plus de sécurité défensive.",
+	CONS_NOTE_14 = "Utilise la potion indiquée comme choix de burst/dégâts par défaut en JcE.",
+	CONS_NOTE_15 = "Potion de tank par défaut, avec des dégâts et un risque maîtrisé.",
+	CONS_NOTE_16 = "Deux flacons, et le guide donne un critère plutôt qu'un gagnant — le meilleur dépend de ton talent de héros, de ton contenu ou de la caractéristique secondaire qui te manque. Consulte un guide de classe avant de dépenser ton or.",
+}
+
 local ES = {
 	CONS_NOTE_01 = "El frasco indicado es la opción por defecto de la guía para esta especialización. Los cuatro frascos de stat secundaria están muy parejos, así que simula tu personaje si tus stats son distintas.",
 	CONS_NOTE_02 = "Runa de aumento Midnight actual.",

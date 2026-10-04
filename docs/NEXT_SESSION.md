@@ -70,8 +70,8 @@
   Stormarion-weeklyQuest 94581 vs 90962 en POI 8419 vs 8421/8422, rare-band B dagelijks of wekelijks — alle drie TESTLIJST.
   Mount-beloning 63359 (mountID-tak in RewardCollected), meta-rijen Ula'tek Uncoiled/Assault the Vault, kaart 63358 Coiled
   to Strike, `ACH_META_TIP_COILED`, verouderde commentaren in AchievementsData (lijst in `sys2\ach.json` → code #13).
-  🔲 Vertaler-vondst (niet gerepareerd): `Locales/ConsumablesNotes.lua:135` merged `FR`, maar `FR` bestaat niet →
-  Franse spelers zien alle CONS_NOTE in het Engels (behalve wat Translations2026 vult). OmniumFolio fr zegt "vous", pt "tu".
+  ✅ Vertaler-vondst gerepareerd 4 okt: `Locales/ConsumablesNotes.lua` heeft nu een `FR`-tabel (16 notes, eigen
+  vertaling, niet door een moedertaalspreker gezien); locale_probe frFR OK. OmniumFolio fr zegt "vous", pt "tu".
   ✅ Bijvangst gedaan: Void Metamorphosis 1217607 → 1217605 (DpsToolkit + KeybindRoles_DH, echte id-velden);
   Arcane Missiles 7268 → 5143 in de KeybindRoles_Mage-commentaren (entry gaat op naam). Open: Warlock-commentaar-ids
   157898/194831.
