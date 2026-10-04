@@ -69,8 +69,7 @@ er is niets weggegooid.
 
 ## 🆕 4 okt — Delve Coach: vinkje "vanzelf openen" (Rob: "bouw die knop maar")
 
-- [ ] Instellingen → **Dungeon-hulp**: staat er **"Open the Delve Coach by itself"** (nl "Delve Coach vanzelf openen"),
-  standaard **aan**?
+- [x] ✅ Rob 4 okt (screenshot All settings): **"Open the Delve Coach by itself"** staat er, aangevinkt.
 - [ ] Zet hem uit en loop een delve in: gaat de coach níét vanzelf open, en ook geen "open coach?"-knopje bij de baas?
   `/mh coach` opent hem dan nog wel. Daarna weer aan.
 
