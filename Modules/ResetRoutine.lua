@@ -193,6 +193,8 @@ local GIVER_WEEKLIES = {
 	--- • Zerella (npc 254971), "Sparks of War", one zone per week: 93423 Eversong Woods, 93424
 	---   Zul'Aman, 93425 Harandar, 93426 Voidstorm, 96808 The Coiled Isle. NOT 96725/96726 — those are
 	---   the Val/Naigtal versions Blizzard dropped for Season 2. Progress only in War Mode (quest text).
+	--- ✅ GEMETEN 4 Oct 2026 (Rob): Zela stands at the pin and offers 96995; MH shows it "in your log"
+	--- after accepting. Rewards seen: Spark of Tides, Venom-Covered Chest, 1K Zul'jarra's Forces.
 	--- • Talon Commander Zela (npc 267635), 96995 "Turn Back the Surge" (Wowhead: Weekly Meta Quest),
 	---   on the Coiled Isle; needs the Curse of Ula'tek campaign that far (Zygor), not measured.
 	--- `noLearn`: both also hand out OTHER recurring quests (Zerella: PvP weeklies 47148, 93499,

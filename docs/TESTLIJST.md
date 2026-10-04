@@ -59,7 +59,9 @@ er is niets weggegooid.
   - `/mh weeklies full`: het blok "Spark givers" geeft per id de titel uit het spel. Klopt elke titel met het label?
   - Telling bovenaan wordt nu "x of 13" (−Lor'themar, +2).
   - ✅ Rob 4 okt: "7 of 13", Lor'themar weg, Zerella + Zela in de lijst. **Zerella staat op de pin** en bood "Sparks
-    of War: Eversong Woods" aan (= 93423). Open: Zela op de Coiled Isle; titels in `/mh weeklies full`.
+    of War: Eversong Woods" aan (= 93423). ✅ **Zela staat op de pin** (Coiled Isle) en biedt "Turn Back the Surge"
+    (Spark of Tides + Venom-Covered Chest + 1K Zul'jarra's Forces); MH ziet hem in je log na aannemen. Open: titels in
+    `/mh weeklies full`.
 - [ ] Dundun-regel zit niet in het alt-overzicht maar in **MH → beroepen-overzicht** (Knowledge-blok bovenaan, dit
   personage): "Shards of Dundun: N / 8 earned this week". Mijn testvraag noemde de verkeerde plek.
 - [ ] Liadrin bood Rob 4 okt: World Quests, Saltheril's Soiree, **Vaults of Atal'Utek**, Dungeons (screenshot). Kies
