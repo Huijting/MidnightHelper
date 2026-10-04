@@ -23,8 +23,11 @@
    de survival-test. Lint 0 HARD, luac OK.
 5. ✅ **Toetsenblok balk C: voorstel als plaatje** https://claude.ai/artifact/TPZsR3V5EWmKuqA4LFq78U — "Shift = de
    tweede van dezelfde soort"; druid-vormen naar Ctrl-1-3 (botsen nu met ⇧T/⇧R van balk B). Details in
-   `docs/KEYBLOCK_PLAN.md`. ✅ Rob koos het voorstel ("ik ga helemaal op jouw expertise af"). Niets gebouwd; open
-   blijven de taak van Q, de standaard-balknummers en de Edit Mode-importtest.
+   `docs/KEYBLOCK_PLAN.md`. ✅ Rob koos het voorstel ("ik ga helemaal op jouw expertise af").
+6. ✅ **Toetsenblok stap 1 gebouwd** (Rob: "Je mag gaan bouwen"; Q = grote cooldown, balknummers mijn keuze 5/6/7):
+   `Modules/KeyBlock.lua`, `/mh block` + `/mh block why`, teksten enUS + nlNL (de/fr/es/pt/it nog Engels). Alleen het
+   plaatje, zet niets neer. 🔲 `blockQ`-data per spec: 1× mh-research loopt (`scratchpad\bigcd.json`). Niet in het spel
+   gezien → TESTLIJST "4 okt middag" (+ de Edit Mode-proef). Stap 2 ("zet neer") pas na die proef.
 
 ## 🌐 4 okt laat — opdracht van de site-chat (`/play/`-pagina's lezen uit deze repo), GECONTROLEERD
 

@@ -63,8 +63,26 @@ Scratchpad van sessie fcdcd4fe: `keyblock\research.md` (onderzoek), `sim.md`/`si
     Blizzards preset-layouts vooraan in de lijst voordat ze `SaveLayouts` aanroepen; MH's import/restore doet dat niet
     (`EditModeBackup.lua:493`, `:552`). Eerst één keer in het spel testen, vóór we hierop bouwen.
 
+## Besloten 4 okt middag (Rob, via telefoon: "Je mag gaan bouwen")
+
+- **Q = de grote cooldown** ("zoiets als Ascendance voor een Shaman", per klasse een andere). Data-veld `blockQ` op de
+  KeybindRoles-entry (`true` of `{ [specID] = true }`); zonder tag valt Q op de eerste `cooldown_bar`. Lijst per spec:
+  mh-research `2138325d…\scratchpad\bigcd.json`.
+- **Balknummers: ik koos 5, 6, 7** (A, B, C). Balk 1 wisselt met vormen/stealth, 2-4 houden de meeste spelers hun eigen
+  spells, 8 = Robs muistoetsen. Instelbaar via `ns.db.keyBlock.bars` (nog geen knop).
+- Edit Mode-proef: vanavond (TESTLIJST "4 okt middag").
+
+## Gebouwd 4 okt middag: het plaatje (stap 1)
+
+`Modules/KeyBlock.lua`, `/mh block` (venster) en `/mh block why` (chat + `ns.db.keyBlockProbe`). Leest de spreuklijst
+uit `ns.MH_AutoMapBuild` (8e/9e return: `spells`, `specID`, vóór toewijzing) en verdeelt die met de regels van
+sim2-variant C + balk C. Druid-vormen via `blockForm = 1/2/3` (Bear/Cat/Moonkin, KeybindRoles_Druid). **Zet niets
+neer.** GEMETEN buiten het spel (scratch `kb_test.lua`, echte data, 40 specs): bij 32 past alles; de 25 die niet passen
+zijn vooral utility (Mark of the Wild, Revive, Prowl, Flare, Misdirection; Prot Warrior 3, MM/SV Hunter 4-5, Guardian 5).
+⚠️ Bekend: overloop vult óók plekken met een eigen taak (Shift-E racial, Shift-4) als die op dit personage leeg zijn.
+
 ## Open
 
-1. ✅ Toetsen van balk C (4 okt, optie 1). 2. Taak van Q. 3. ✅ uitgezocht (zie Techniek): Blizzard zelf, EllesmereUI uitleg.
+1. ✅ Toetsen van balk C (4 okt, optie 1). 2. ✅ Taak van Q (grote cooldown; data volgt). 3. ✅ uitgezocht (zie Techniek): Blizzard zelf, EllesmereUI uitleg.
    Wel eerst de import-test. 4. Welke balken (nummers) standaard.
 5. Bouwvolgorde: eerst het plaatje, dan "zet neer".

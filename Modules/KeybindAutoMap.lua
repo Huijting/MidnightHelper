@@ -292,6 +292,9 @@ function ns.MH_AutoMapBuild()
 					priority = r.priority,
 					bindKey = r.bindKey,
 					alsoStop = r.alsoStop, -- Spec 08: dual-role stop tag, carried through for cross-listing
+					-- Key block (KeyBlock.lua, 4 Oct 2026): read only there; the allocator ignores them.
+					blockForm = r.blockForm,
+					blockQ = r.blockQ,
 				}
 			end
 			matched = matched + 1
@@ -321,7 +324,9 @@ function ns.MH_AutoMapBuild()
 	table.sort(clickCast, function(a, b)
 		return (a.name or "") < (b.name or "")
 	end)
-	return map, matched, unmatched, class, clickCast, unplaced, unmatchedIds
+	-- 8th: the classified spells BEFORE allocation, for the key block (KeyBlock.lua), which
+	-- places them by its own rules. Callers that take seven values are unaffected.
+	return map, matched, unmatched, class, clickCast, unplaced, unmatchedIds, spells, specID
 end
 
 --------------------------------------------------------------------------------

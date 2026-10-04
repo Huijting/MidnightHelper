@@ -186,6 +186,7 @@ Modules\EditModeBackup.lua
 Modules\BarPreset.lua
 Modules\SlotOwnership.lua
 Modules\ApplyLayout.lua
+Modules\KeyBlock.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua
 Modules\LayoutWizard.lua

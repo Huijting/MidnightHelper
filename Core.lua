@@ -1047,6 +1047,19 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block — the fixed key block as a picture (KeyBlock.lua, 4 Oct 2026; changes nothing).
+	if msg == "block" or msg == "keyblock" then
+		if ns.ShowKeyBlock then
+			ns.ShowKeyBlock()
+		end
+		return
+	end
+	if msg == "block why" then
+		if ns.PrintKeyBlockTrace then
+			ns.PrintKeyBlockTrace()
+		end
+		return
+	end
 	-- /mh aggro — how the game's own aggro warnings are set (3 Oct 2026; changes nothing).
 	if msg == "aggro" or msg == "threat" then
 		if ns.PrintAggroSettings then

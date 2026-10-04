@@ -88,7 +88,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
-	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab",
+	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 }
 
@@ -120,6 +120,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh settings", descKey = "CMDLIST_SETTINGS" },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
 		{ cmd = "/mh apply", descKey = "CMDLIST_APPLY" },
+		-- 4 Oct 2026: the fixed key block, as a picture (KeyBlock.lua).
+		{ cmd = "/mh block", descKey = "CMDLIST_BLOCK" },
 		{ cmd = "/mh changelog", descKey = "CMDLIST_CHANGELOG" },
 		{ cmd = "/mh lang", descKey = "CMDLIST_LANG" },
 		-- Both carry NavSearch keyword blocks ("community help support invite chat

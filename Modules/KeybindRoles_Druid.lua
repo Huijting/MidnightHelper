@@ -243,9 +243,10 @@ ns.KeybindRoleClassifier.DRUID = {
     -- de vormen makkelijk terugvindt ("Shift+R/T/X = kat/beer/uil"). Travel Form
     -- blijft op R (base, mobility). bindKey forceert de plek (base R/T/X telt mee
     -- op het keyboard, geen overflow naar de situational-lijst).
-    ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T" }, -- tank/def-vorm (nood-mitigation)
-    ["Cat Form"]                         = { category = "utility", priority = 5, bindKey = "Shift+R" }, -- melee-DPS-vorm
-    ["Moonkin Form"]                     = { category = "utility", priority = 6, bindKey = "Shift+X" }, -- caster-vorm (Balance/Resto Affinity)
+    -- blockForm (4 Oct 2026): the key block puts forms on Ctrl-1/2/3 (KeyBlock.lua; Shift-T/R belong to bar B there).
+    ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T", blockForm = 1 }, -- tank/def-vorm (nood-mitigation)
+    ["Cat Form"]                         = { category = "utility", priority = 5, bindKey = "Shift+R", blockForm = 2 }, -- melee-DPS-vorm
+    ["Moonkin Form"]                     = { category = "utility", priority = 6, bindKey = "Shift+X", blockForm = 3 }, -- caster-vorm (Balance/Resto Affinity)
     -- Out-of-combat, achteraan gezet: ze horen in de tabel zodat de coach ze KENT, maar ze
     -- mogen geen gevechtsknop verdringen. Revive gaat bewust NIET op heal_ooc/F3 -- die rol is
     -- de out-of-combat SELF-heal (Paladin Lay on Hands, Monk Vivify), en een rez is dat niet.

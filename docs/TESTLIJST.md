@@ -41,6 +41,25 @@ Per personage (hoe meer klassen, hoe beter; vooral **Druid, Mage, Monk, Warrior,
   geen toets verschuiven; AFGELEID, niet gemeten.)
 - [ ] Alles goed → zeg het, dan mag de site-chat de bouwer draaien (37 nieuwe "Blijf leven"-blokken).
 
+## 🆕 4 okt middag — toetsenblok: het plaatje (`/mh block`) en de Edit Mode-proef
+
+Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets op je balken.
+- [ ] `/mh block`: opent een venster met **3 balken van 3×4**, elke plek met toets, icoon en naam. Klopt het met het
+  plan (1 hoofdknop, E kick, Z/X/C verdediging, T potion, G trinket)? Muis over een plek = tooltip met de taak.
+- [ ] Onderaan: "Geen plek in het blok (…)": wat staat daar? (Verwacht: hulp-spells zoals Mark of the Wild of Revive.)
+- [ ] **Druid:** staan Bear/Cat/Moonkin Form op **Ctrl 1/2/3**?
+- [ ] **Q = grote cooldown.** Komt pas goed als het onderzoek per spec erin zit (zie NEXT_SESSION). Tot dan staat er de
+  eerste cooldown van de spec.
+- [ ] `/mh block why`: één regel per plek met de reden. Schrijft ook naar je SavedVariables (`keyBlockProbe`).
+
+**Edit Mode-proef** (vóór MH ooit zelf balken op 3 rijen zet; zorg dat je NIET in een gevecht bent):
+1. Esc → Edit Mode: staat bovenaan **jouw eigen** layout (niet "Modern" of "Classic")? Sluit Edit Mode.
+2. `/mh editmode export` → er opent een vak met een tekst. Kopieer die (Ctrl+C).
+3. `/mh editmode import` → plak dezelfde tekst (Ctrl+V) → knop **Apply bars**. Dan `/reload`.
+4. [ ] Staan al je balken nog precies waar ze stonden? Bestaan "Modern" en "Classic" nog in de lijst van Edit Mode?
+   Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
+5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
+
 ## 🆕 4 okt middag — 4.6.0 klaargezet (NIET gepusht, NIET getagd)
 
 - [ ] `/reload`, open de changelog (`/mh changelog`): staat **4.6.0** bovenaan met 6 regels?
