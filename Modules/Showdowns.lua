@@ -41,24 +41,12 @@ local _, ns = ...
 --- Val" and 96726 "...: Naigtal" were dropped, while 93423-93426 and 96808 run on in Season 2
 --- (Blizzard hotfixes 18 Aug, 25 Aug, 3 Sep). Maella's "Showdown on Val/Naigtal" (96713 / 96714 /
 --- 96717 / 96718) are a different quest line. So this gate rests on a misread; Wowhead (3 Aug) and
---- Icy Veins (15 Aug, 29 Sep) say the Showdown weekly continues in S2. It stays until Rob has
---- looked at Maella once (Rob's choice, 3 Oct) — then it comes out.
-local function HasOpenShowdownWeekly()
-	if not (ns.SHOWDOWNS and ns.SHOWDOWNS.zones and C_QuestLog and C_QuestLog.IsOnQuest) then
-		return false
-	end
-	for _, zone in ipairs(ns.SHOWDOWNS.zones) do
-		for _, qid in ipairs({ zone.weekly, zone.weeklyHeroic }) do
-			if qid then
-				local ok, on = pcall(C_QuestLog.IsOnQuest, qid)
-				if ok and on then
-					return true
-				end
-			end
-		end
-	end
-	return false
-end
+--- Icy Veins (15 Aug, 29 Sep) say the Showdown weekly continues in S2.
+---
+--- ✅ GEMETEN 4 Oct 2026, AND THE GATE IS GONE. Rob on Redisch: Maella offered the intro "Through
+--- the Cold Rift", the portal showed Val with Normal/Heroic, and on Val she offered "Showdown on Val"
+--- (Riftstalker's Cache) next to "Surveying the Frozen Wastes". The Season 2 hide had kept this
+--- weekly out of every list since 18 Aug.
 
 -- 12.0.7 clients only: the zones, quests and APIs (GetInstanceInfo ret11) do
 -- not exist on 12.0.5 live, so the UI section hides itself entirely there.
@@ -69,9 +57,6 @@ function ns.IsShowdownsAvailable()
 	local toc = select(4, GetBuildInfo())
 	if (tonumber(toc) or 0) < 120007 then
 		return false
-	end
-	if ns.IsSeason2Live and ns.IsSeason2Live() then
-		return HasOpenShowdownWeekly()
 	end
 	return true
 end

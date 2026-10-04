@@ -946,6 +946,9 @@ local function GiverState(def)
 	--- posting Riftblade Maella as an open to-do with a waypoint, on every level-90
 	--- character, every week. One addon, two answers, and the one people actually read was
 	--- the wrong one. It also costs a portal trip rather than merely misinforming.
+	--- ✅ 4 Oct 2026: that hotfix was about Zerella's Sparks of War, not the Showdowns — Rob was
+	--- offered "Showdown on Val" by Maella in Season 2 (GEMETEN). The gate in Showdowns.lua is gone,
+	--- so Maella is a normal stop again; the `available` hook stays for the next real retirement.
 	---
 	--- The gate is `IsShowdownsAvailable` itself rather than a copy of its reasoning, so
 	--- the two cannot drift apart again. Note the ordering matters: a weekly already in

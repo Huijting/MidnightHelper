@@ -25,8 +25,9 @@
 - **Delve Coach-vinkje** (Rob: "bouw die knop maar"): `ui.delveCoach.autoShow` werd gelezen maar nergens gezet;
   nu Toggle `mh_delveCoachAuto` in SettingsDefs (Dungeon-hulp), `ns.Is/SetDelveCoachAutoShow` in DelveCoach.lua,
   `SET_DELVECOACH_AUTO_*` in 7 talen (eigen vertaling). Standaard aan. Niet in het spel gezien → TESTLIJST.
-- Maella (Rob 4 okt op Redisch): bood eerst de intro "Through the Cold Rift"; Rob volgt haar naar Val om te zien of
-  daarna een Showdown-weekly komt → beslist de Showdown-S2-gate.
+- ✅ **Showdown-S2-gate weg** (GEMETEN, Rob op Redisch 4 okt): intro "Through the Cold Rift" → portal Val
+  (Normal/Heroic) → Maella biedt **"Showdown on Val"** + "Surveying the Frozen Wastes". `IsShowdownsAvailable` hangt niet
+  meer aan `IsSeason2Live`; de `available`-hook in ResetRoutine blijft voor een volgende echte afschaffing.
 - Ochtendronde 4 okt: wachters niets voor MH; CF/GitHub 0 open; 2 nieuwe vragenlijsten (4 en 3) in SURVEY_RESULTS;
   Keybind-coach 8× nooit, 0× vaak.
 
