@@ -45,6 +45,12 @@ except Exception:
     pass
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# MH_ADDON (4 Oct 2026, asked by the site chat): read the addon from another folder, e.g. an export
+# of the latest v*-tag, so the site's nightly job builds the guides from the RELEASE and not from
+# this working folder. Same variable name as the site repo's build_play_pages.py uses.
+ROOT = os.path.abspath(os.environ.get("MH_ADDON") or ROOT)
+assert os.path.isfile(os.path.join(ROOT, "MidnightHelper.toc")), \
+    "no MidnightHelper.toc in %s -- MH_ADDON must point at the addon folder" % ROOT
 DATA = os.path.join(ROOT, "Modules", "ProfessionAcademyData.lua")
 OLD_DIR = os.path.join(ROOT, "site")   # the old github.io site: redirect pages only
 

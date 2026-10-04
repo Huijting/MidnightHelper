@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🌐 4 okt middag — antwoord site-chat (via Rob)
+
+- ⚠️ **Survival-ids staan AL LIVE op de site** (site-chat bouwde vóór Robs seintje; Rob: "laten staan"). Vindt de test
+  vanavond een foute id → repareren in de addon, de site bouwt mee.
+- 🔴 **/play/ volgt voortaan de addon-RELEASE** (nachttaak 04:07 in de site-repo, `tools/nightly.py`: nieuwste v*-tag,
+  bouwt, commit lokaal, pusht pas na Robs ja). Dus: **4.6.0 pas taggen als de survival-test goed is.** Alles wat in de
+  tag zit (ook `/mh block`) komt na Robs ja op de site.
+- ✅ `build_site.py` leest de addon nu ook uit een andere map: omgevingsvariabele **`MH_ADDON`** (zelfde naam als hun
+  bouwer). Getest met een `git archive HEAD`-export in de scratchpad: 8 pagina's, werkmap `site/` niet aangeraakt.
+  De `.checked`-stijl zit al in de eigen `<style>` van elke gidspagina (GUIDE_CSS); shared.css is niet nodig.
+
 ## 🔧 4 okt middag — Rob aan het werk, niets in het spel getest. Vijf opdrachten.
 
 1. ✅ **Survival-ids gebouwd** (site-chat-verzoek): 136/136 rijen hebben nu `id` (131) of `survivalId` (5: Blink, Roll,
