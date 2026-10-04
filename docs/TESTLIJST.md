@@ -60,6 +60,17 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 4 okt middag — achievements (Coiled Isle) en Q voor Windwalker
+
+- [ ] **Achievements-tab**, bovenaan bij de meta's: staan er twee nieuwe uitklapbare rijen, **Ula'tek Uncoiled** en
+  **Assault the Vault**, met een teller (x/y)? (Alleen zichtbaar zolang ze niet af zijn.) Klopt de naam? Een rare naam
+  = fout nummer.
+- [ ] Kaart **Treasures of the Coiled Isle**: staat er nu een beloningsregel **Auriferous Venomfang**, met "collected"
+  als je hem al hebt?
+- [ ] Nieuwe kaart **Coiled to Strike** (12 rares): klopt je teller met wat het spel zegt? Route-knop: wijst de pijl
+  naar de dichtstbijzijnde rare die je nog mist? Szarith zit in de Underbelly (eerst de ingang).
+- [ ] **Windwalker Monk** (als je die hebt): `/mh block` → staat **Zenith** op Q?
+
 ## 🆕 4 okt middag — 4.6.0 klaargezet (NIET gepusht, NIET getagd)
 
 - [ ] `/reload`, open de changelog (`/mh changelog`): staat **4.6.0** bovenaan met 6 regels?

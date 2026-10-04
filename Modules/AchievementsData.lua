@@ -40,15 +40,16 @@ ns.ACHIEVEMENT_TREASURES = {
 	-- definitie in overeenstemming met het spel.
 	--
 	-- Volgorde is een looproute van noord naar zuid, zodat de pijl niet kriskras stuurt.
-	-- Nog te verifiëren: `/mh ach id 63359` op Robs client bevestigt of de 22 criteria
-	-- kloppen. Staan ze fout, dan blijft de kaart stil op 0/22 staan — dat is precies
-	-- de stille fout waar dit bestand vaker last van had.
+	-- ✅ Geverifieerd: 22/22 criteria in Robs client (achCheck, 16 sep 2026).
 	{
 		achievementID = 63359, -- Treasures of the Coiled Isle
 		nameKey = "ACH_TREASURE_COILEDISLE",
 		-- 3 Oct 2026 (mh-research): 63359 counts for Ula'tek Uncoiled 63639, not for Light Up the Night
-		-- 62386. Measured 22/22 criteria on Rob's client 16 Sep, so the "nog te verifiëren" above is done.
+		-- 62386; that meta has its own row since 4 Oct (Achievements.lua SHOWDOWN_METAS).
 		feedsMeta = false,
+		-- Reward measured in Rob's client 16 Aug (`/mh ach id 63359`, `/mh mount venomfang`): mount 3023,
+		-- spell 1297224 (MountProgress.lua). Name and "collected" are read from the Mount Journal.
+		reward = { kind = "mount", mountID = 3023, name = "Auriferous Venomfang" },
 		nodes = {
 			{ criteria = 115295, mapID = 2512, x = 31.43, y = 83.49 },
 			{ criteria = 115314, mapID = 2512, x = 64.91, y = 78.89 },
@@ -233,6 +234,33 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 116327, note = "ACH_NOTE_ANCIENT_FOE" },
 		},
 	},
+	--- ✅ ADDED 4 Oct 2026 (Rob: "nummer vijf moet er ook gebeuren") — the island's rare hunt.
+	--- The 12 criteria were read from Rob's client (SV atalProbe, Season 2); Garsecg is 118221, not
+	--- the 110172 that once sat in Rares.lua. Coordinates are Rares.lua's own (same rows, `ach = 63358`),
+	--- which the WORLD round of 3 Oct checked. The Rares tab tracks these too; this card is the same
+	--- hunt in the shape of the other Coiled Isle hunts. Order north to south; Szarith sits in the
+	--- Underbelly (2613) and Nar'zira on an interior map (2642).
+	{
+		achievementID = 63358, -- Coiled to Strike (client supplies the title)
+		feedsMeta = false, -- an island hunt, not part of Light Up the Night
+		nodes = {
+			{ criteria = 115282, mapID = 2613, x = 38.40, y = 17.69,
+				prereqs = {
+					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 45.19, y = 11.15 },
+				} }, -- Szarith the Fanged
+			{ criteria = 115288, mapID = 2512, x = 52.05, y = 32.29 }, -- Destra
+			{ criteria = 115287, mapID = 2512, x = 58.01, y = 40.13 }, -- Sss'alik, The Rotten Claw
+			{ criteria = 118221, mapID = 2512, x = 70.17, y = 45.29 }, -- Garsecg
+			{ criteria = 115281, mapID = 2512, x = 43.85, y = 50.86 }, -- Hisstara
+			{ criteria = 115284, mapID = 2512, x = 31.72, y = 56.82 }, -- Lockjaw the Snapper
+			{ criteria = 115286, mapID = 2512, x = 70.03, y = 63.44 }, -- Big Mon
+			{ criteria = 115283, mapID = 2642, x = 66.40, y = 62.90 }, -- Nar'zira (interior map)
+			{ criteria = 115285, mapID = 2512, x = 57.67, y = 68.54 }, -- Coin-Eye Skully (roams)
+			{ criteria = 115280, mapID = 2512, x = 50.00, y = 69.07 }, -- Siltmouth, the Unflappable
+			{ criteria = 115279, mapID = 2512, x = 54.03, y = 72.22 }, -- Farthik the Plunderer
+			{ criteria = 115784, mapID = 2512, x = 24.89, y = 73.54 }, -- Kari'zah the Forgotten
+		},
+	},
 	--- ✅ ADDED 18 aug, from a HandyNotes_Midnight update that morning — and only
 	--- because Rob asked "waren ook de handynotes niet geupdate?". The addon sweep had
 	--- reported nothing useful, from a list truncated at sixteen entries with
@@ -290,8 +318,9 @@ ns.ACHIEVEMENT_TREASURES = {
 		--- ⚠️ HandyNotes and the client disagree on one number worth not merging:
 		--- HandyNotes annotates criterion 115810 as "3x item 276117", while the client
 		--- reports assetID 277946 for that same criterion. Those are two different
-		--- items — plausibly the thing you gather versus the offering it becomes — and
-		--- nobody has established which is which.
+		--- items — plausibly the thing you gather versus the offering it becomes.
+		--- ✅ Settled 3 Oct 2026 (Wowhead item tooltips): 276117 = Clouded Blood-Pearl, the
+		--- ingredient; 277946 = Choleric Offering, what the criterion counts.
 		feedsMeta = false,
 		nodes = {
 			{ criteria = 115813, note = "ACH_NOTE_MIX_MASTER", recipe = true,
@@ -356,7 +385,8 @@ ns.ACHIEVEMENT_TREASURES = {
 		achievementID = 63390, -- Turn the Surge (client supplies the title)
 		kind = "event", -- not [Rare]: Rob, 10 Sep, "deze dingen staan onder Rare kopjes, klopt dat??"
 		--- A kill list, so EntryKind calls it "rare", and rares roll up into Light Up the Night
-		--- by default. Nobody has checked which meta this one feeds, so it claims none.
+		--- by default. ✅ 3 Oct 2026 (Wowhead tooltips of 62386, 63639, 63630): it feeds none
+		--- of the three, so claiming none is right.
 		feedsMeta = false,
 		nodes = {
 			-- North to south, like the other hunts.
@@ -769,6 +799,8 @@ ns.ACHIEVEMENT_TREASURES = {
 	--- list got on 15 Aug). Its twin Voidwarped Sporebat has no heroic criterion in HandyNotes
 	--- at all. Filling 115249 with it would be a guess; `/mh ach check` in the game counts the
 	--- real criteria and settles it -- the same command that found the ordinary list's gap.
+	--- ✅ SETTLED: 19/19 in Rob's client (achCheck, 16 Sep 2026), and Wowhead's tooltip says
+	--- "Defeat 15" of 19 (3 Oct). Nothing is missing; the hole at 115249 is simply unused.
 	---
 	--- ⚠️ ONE CARD, TWO ROTATING ZONES. Val and Naigtal take turns, and nothing in this table
 	--- knows which one is open. The route takes the nearest open row, so standing in the active
@@ -816,6 +848,8 @@ ns.ACHIEVEMENT_TREASURES = {
 	--- fires on a kill; ours (98344..98354) was. That ruling was about rares, and these
 	--- are quest objectives rather than kills, so it does not automatically carry over —
 	--- but it is the reason both bands below are still unconfirmed rather than assumed.
+	--- ✅ 3 Oct 2026: the 12 quest ids 98029-98040 match Wowhead's tooltips, and the criteria
+	--- were in Rob's client check of 16 Sep with no wrong or missing id.
 	---
 	--- The failure mode is mild either way: NodeDone prefers the criteria id and falls
 	--- back to the quest, so wrong ids leave the card stuck at 0/12 instead of claiming
@@ -829,9 +863,10 @@ ns.ACHIEVEMENT_TREASURES = {
 	---
 	--- nameKey is ACH_LORE_* deliberately. These are memorials you visit, not chests, so
 	--- [Lore] is the honest tag; it also makes feedsMeta default to false, which is
-	--- right, because nobody has measured whether 63610 rolls into a zone meta.
+	--- right: ✅ 63610 feeds Assault the Vault 63630 (Wowhead tooltip, 3 Oct 2026), not a zone meta.
 	---
-	--- No `faction`: the Coiled Isle's major-faction id has never been measured here.
+	--- No `faction`: HandyNotes gives the Coiled Isle 2772 (the id Mix Master's gateRenown uses),
+	--- but it has not been read from the client for this card.
 	--- RenownLineText omits the line when it is nil, which beats naming the wrong one.
 	{
 		achievementID = 63610, -- The Honored Dead

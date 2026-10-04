@@ -33,6 +33,17 @@
    (Subtlety, Preservation, Prot Warrior, Survival Takedown = `spender`, Frost Ray of Frost = `main_rotation`) staan
    in bigcd.json; Avenging Wrath 31884 en Guardian Incarnation 50334 AFGELEID. Niet in het spel
    gezien → TESTLIJST "4 okt middag" (+ de Edit Mode-proef). Stap 2 ("zet neer") pas na die proef.
+7. ✅ **Rob: "je mag ze alle vijf doen"** (onderweg-lijst):
+   - Zenith 1249625 als entry (KeybindRoles_Monk, category cooldown, blockQ 269) → Q klopt nu voor 40/40.
+   - **Consumables-JSON gelijkgetrokken** met de Lua (89 verschillen); generator kent nu `noteKey` + optioneel
+     uitvoerpad. Bewijs: nieuwe JSON → generator → Lua-body byte-gelijk (GEMETEN). De ⚠️-waarschuwing bovenaan
+     ConsumablesWowheadData.lua is weg; de generator mag weer gedraaid worden.
+   - **Achievements (#9-rest, uit `a6ab1f08…\scratchpad\sys2\ach.json`)**: meta-rijen Ula'tek Uncoiled 63639 + Assault
+     the Vault 63630 (in `SHOWDOWN_METAS`), beloning 63359 = mount 3023 (nieuwe `mountID`-tak in RewardName/
+     RewardCollected), nieuwe kaart Coiled to Strike 63358 (12 criteria uit Robs atalProbe, coördinaten uit
+     Rares.lua), 6 verouderde commentaren. Niet gedaan: eigen tip `ACH_META_TIP_COILED` (de meta-rij zegt het nu).
+   - Vertalingen KEYBLOCK_* + CMDLIST_BLOCK: mh-writer loopt.
+   - Bericht voor de site-chat: in de chat aan Rob gegeven.
 
 ## 🌐 4 okt laat — opdracht van de site-chat (`/play/`-pagina's lezen uit deze repo), GECONTROLEERD
 

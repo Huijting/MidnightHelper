@@ -262,6 +262,13 @@ local function RewardName(reward)
 			return nm
 		end
 	end
+	-- A mount known by its journal id rather than an item (Auriferous Venomfang, 4 Oct 2026).
+	if reward.mountID and C_MountJournal and C_MountJournal.GetMountInfoByID then
+		local ok, nm = pcall(C_MountJournal.GetMountInfoByID, reward.mountID)
+		if ok and nm and nm ~= "" then
+			return nm
+		end
+	end
 	if reward.kind == "pet" and reward.speciesID and C_PetJournal and C_PetJournal.GetPetInfoBySpeciesID then
 		local ok, nm = pcall(C_PetJournal.GetPetInfoBySpeciesID, reward.speciesID)
 		if ok and nm and nm ~= "" then
@@ -285,6 +292,11 @@ local function RewardCollected(reward, achievementDone)
 		if ok and mountID and C_MountJournal.GetMountInfoByID then
 			local info = { C_MountJournal.GetMountInfoByID(mountID) }
 			return info[11] and true or false -- 11th return = isCollected
+		end
+	elseif reward.kind == "mount" and reward.mountID and C_MountJournal and C_MountJournal.GetMountInfoByID then
+		local info = { pcall(C_MountJournal.GetMountInfoByID, reward.mountID) }
+		if info[1] then
+			return info[12] and true or false -- pcall's ok first, so isCollected (11th) is [12]
 		end
 	elseif reward.kind == "pet" and reward.speciesID and C_PetJournal and C_PetJournal.GetNumCollectedInfo then
 		local ok, n = pcall(C_PetJournal.GetNumCollectedInfo, reward.speciesID)
@@ -1589,7 +1601,11 @@ local LIGHT_UP_META = 62386
 -- sub-achievement progress — rares, world quests, storms, questlines — straight from
 -- the criteria API. IDs from Wowhead; GetAchievementInfo reads the real name live, so
 -- a wrong ID shows a wrong/blank name (never fabricated data) and gets caught in-game.
-local SHOWDOWN_METAS = { 62874, 62873 }
+-- 4 Oct 2026 (Rob: "nummer vijf moet er ook gebeuren"): the two Season 2 metas of the Coiled Isle
+-- join them, same rows: Ula'tek Uncoiled 63639 (Treasures of the Coiled Isle feeds it) and Assault the
+-- Vault 63630 (reward Venomous Coiler; 62601, 63601 and 63610 feed it). Ids from Wowhead tooltips,
+-- 3 Oct (sys2/ach.json); names and progress read live, so a wrong id shows a wrong name in game.
+local SHOWDOWN_METAS = { 62874, 62873, 63639, 63630 }
 local PETALWING_ITEM = 252011
 
 local function MetaProgress(achievementID)

@@ -253,7 +253,8 @@ end
 ---
 --- ✅ THE REAL GAP IS THE RECIPES. Ten offerings, each an exact three-ingredient
 --- combination, chosen through dialogue with NO visual feedback, and the ingredients
---- are only consumed on the THIRD choice. Get it wrong and the day is spent. That is
+--- are only consumed on the THIRD choice. Get it wrong and the day was spent (until 21 Aug 2026:
+--- since then the quest repeats without a daily limit, Wowhead News 27 Aug). That is
 --- precisely the shape this addon exists for — explaining rather than tracking.
 ---
 --- Source: Wowhead comment 6389799 (Lazey), decoded from the raw HTML rather than a
