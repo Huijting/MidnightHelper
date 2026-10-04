@@ -26,6 +26,7 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 13 | 2 okt 22:45 | NZ / en | dps | weken | 4 | play, delves, weekly, prof, collect | site | 💬 verder nog: *"Thank you for this really useful add-on especially the 'I mostly play solo' switch."* |
 | 14 | 3 okt 06:43 | NL / nl | healer | weken | **3** | boss, weekly, prof, gear | play, maps, delves, mplus, keys, brez, site | — (eerste cijfer onder de 4, zonder uitleg) |
 | 15 | 3 okt 17:37 | FR / fr | healer | maanden | 4 | mplus, weekly, collect, gear | maps | — |
+| 16 | 4 okt 12:45 | FR / fr | dps | weken | 5 | weekly, collect, gear | brez | irriteert: *"non pas du tout"* (niets) · mist: **"les hauts faits non accomplis"** (de achievements die je nog niet hebt) · 💬 *"merci pour tout, vous êtes au top"* |
 
 📌 **2 okt 18:47 (nl/NL, via game) NIET meegeteld:** *mist: "mijn man"*, *verder nog: "dat ik van je hou. en wie zijn
 ons?"* — AFGELEID een persoonlijk bericht uit Robs eigen kring (vermoedelijk Cisca), geen spelersantwoord. Wel het
@@ -39,9 +40,10 @@ cijfer. #6 gaf geen cijfer en geen rol.
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
 
-## Stand (4 okt ochtend, 15 antwoorden: 13 bruikbaar voor gebruik, 14 met een cijfer)
+## Stand (4 okt middag, 16 antwoorden: 14 bruikbaar voor gebruik, 15 met een cijfer)
 
-- **Cijfer:** gemiddeld **4,4** (14 cijfers: 6× 5, 7× 4, 1× 3). #14 (nl, healer) gaf de eerste 3, zonder tekst erbij.
+- **Cijfer:** gemiddeld **4,4** (15 cijfers: 7× 5, 7× 4, 1× 3). #14 (nl, healer) gaf de eerste 3, zonder tekst erbij.
+- **#16 (4 okt middag):** Keybind-coach niet genoemd (telling hieronder blijft 8×).
 - **Keybind-coach** (GEMETEN 4 okt over #1-#15, #4 niet meegeteld): **8× "nooit / onbekend", 0× "vaak"**. Eerste twee
   healers (#14, #15) sinds 3 okt. (Overige tellingen hieronder nog van 2 okt, zonder #13-#15.)
 - **Meest gebruikt:** Weekplan & Great Vault **7×**, Gear check 6×, Beroepencursus 6×, Delve-coach 5×; Kaarten en
@@ -50,5 +52,6 @@ leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een
   *Zo speel je* 5×, Bazentips 4×, Gear check 4×.
 - **Wie:** 12 mensen uit 8 landen (US 4, NL 2, DE 2, CA, IN, NZ, NO); 6 dps, 2 tanks, 3 mixed; 9× "een paar weken",
   2× "maanden", 1× net geïnstalleerd. 11 kwamen via de uitnodiging in het spel.
-- **Wensen (eerste twee):** (1) een **vrij opmerkingenvak** onderaan de vragenlijst (#10); (2) het **weekplan
-  beknopter en op maat**, bijv. voor solospelers (#11). Rob kiest of en wat.
+- **Wensen:** (1) een **vrij opmerkingenvak** onderaan de vragenlijst (#10, gebouwd); (2) het **weekplan
+  beknopter en op maat**, bijv. voor solospelers (#11, gebouwd: "I mostly play solo"); (3) **de achievements die je
+  nog niet hebt** (#16, fr). Rob kiest of en wat.
