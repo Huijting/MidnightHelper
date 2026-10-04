@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## ⌨️ 4 okt — brainstorm "vast toetsenblok" (Robs idee), NOG NIETS GEBOUWD
+
+- Keuzes + metingen staan in **`docs/KEYBLOCK_PLAN.md`**. Kort: 3 balken van 3×4 = 36 vaste plekken, hoofdknop op 1,
+  MH zet standaard niets op de muis, plaatje + "zet neer" (bouwt op `/mh apply`). Open: toetsen van balk C, taak van Q,
+  of MH balken zelf op 3 rijen kan zetten.
+- Ochtendronde 4 okt: wachters niets voor MH; CF/GitHub 0 open; 2 nieuwe vragenlijsten (4 en 3) in SURVEY_RESULTS;
+  Keybind-coach 8× nooit, 0× vaak.
+
 ## 🌐 3 okt laat — testlijst online beslist + naloop #13 "alleen Stay alive" (Rob koos) — GEBOUWD (Rob: "Ik neem jouw adviezen over")
 
 - **Gebouwd:** alle 6 fouten + 5 ontbrekers uit `findings.md`; Evoker Scales big / Zephyr small; Ironbark small (order 2);

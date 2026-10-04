@@ -24,6 +24,8 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 11 | 2 okt 14:35 | NL / en | mixed | net geïnstalleerd | 4 | weekly, prof, gear | play, boss, keys, site | irriteert: *"nope, lovely addon!"* · mist: **weekplan beknopter / op maat; speelt vooral solo** |
 | 12 | 2 okt 15:19 | NO / en | mixed | weken | 4 | boss, delves, mplus, weekly | play, maps, prof, keys, brez, route, collect, gear, site | — |
 | 13 | 2 okt 22:45 | NZ / en | dps | weken | 4 | play, delves, weekly, prof, collect | site | 💬 verder nog: *"Thank you for this really useful add-on especially the 'I mostly play solo' switch."* |
+| 14 | 3 okt 06:43 | NL / nl | healer | weken | **3** | boss, weekly, prof, gear | play, maps, delves, mplus, keys, brez, site | — (eerste cijfer onder de 4, zonder uitleg) |
+| 15 | 3 okt 17:37 | FR / fr | healer | maanden | 4 | mplus, weekly, collect, gear | maps | — |
 
 📌 **2 okt 18:47 (nl/NL, via game) NIET meegeteld:** *mist: "mijn man"*, *verder nog: "dat ik van je hou. en wie zijn
 ons?"* — AFGELEID een persoonlijk bericht uit Robs eigen kring (vermoedelijk Cisca), geen spelersantwoord. Wel het
@@ -37,10 +39,11 @@ cijfer. #6 gaf geen cijfer en geen rol.
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
 
-## Stand (3 okt ochtend, 13 antwoorden: 11 bruikbaar voor gebruik, 12 met een cijfer)
+## Stand (4 okt ochtend, 15 antwoorden: 13 bruikbaar voor gebruik, 14 met een cijfer)
 
-- **Cijfer:** gemiddeld **4,5** (12 cijfers: 6× 5, 6× 4). Niemand lager dan 4. (Tellingen hieronder nog van 2 okt,
-  zonder #13.)
+- **Cijfer:** gemiddeld **4,4** (14 cijfers: 6× 5, 7× 4, 1× 3). #14 (nl, healer) gaf de eerste 3, zonder tekst erbij.
+- **Keybind-coach** (GEMETEN 4 okt over #1-#15, #4 niet meegeteld): **8× "nooit / onbekend", 0× "vaak"**. Eerste twee
+  healers (#14, #15) sinds 3 okt. (Overige tellingen hieronder nog van 2 okt, zonder #13-#15.)
 - **Meest gebruikt:** Weekplan & Great Vault **7×**, Gear check 6×, Beroepencursus 6×, Delve-coach 5×; Kaarten en
   Verzamelen 4×; Bazentips, Route & pijl en *Zo speel je* 3×.
 - **Meest "nooit / onbekend":** Keybind-coach **7×** (niemand gebruikt hem vaak), Website 6×, Mythic+-feedback 5×,
