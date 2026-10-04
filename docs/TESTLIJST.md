@@ -94,7 +94,9 @@ er is niets weggegooid.
 
 ## 🆕 3 okt avond — kaarten, achievements, gear, wereld
 
-- [ ] Arcane Mage-kaart: 5 stappen, stap 3 = **Prismatic Bolt** met icoon (id 1295924, alleen op Wowhead gezien).
+- [x] ✅ Rob 4 okt: Arcane Mage-kaart 5 stappen, stap 3 = **Prismatic Bolt** met icoon. Frost- en Fire-kaart ook gezien,
+  in orde. (Opgevallen: "Arcane Pulse" en "Arcane Soul" niet geel/gelinkt in de Arcane-tekst — geen fout, wel een
+  mogelijke verbetering.)
 - [ ] Achievements: staan de **Slugger**-kaarten nu op klaar als je ze echt hebt (eerst 6/10 en 15/19)?
 - [ ] Ready-check op een DK: vraagt hij nu om **weapon oil**? Op Enhancement niet meer. Telt hij een flask/potion van de
   andere kwaliteit (278 i.p.v. 295) als "heb je"?
