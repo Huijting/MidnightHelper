@@ -259,6 +259,27 @@ function ns.PrintWeeklyHubProbe(mode)
 	local a4, b4 = PrintPool("Lor'themar Theron (Spark weekly)", LORTHEMAR, turned)
 	inLog, completed = a1 + a2 + a3 + a4, b1 + b2 + b3 + b4
 
+	--- 🔴 THE LEARNED IDS, PRINTED (4 Oct 2026). Liadrin read "done" while this probe said
+	--- "0 completed": the cause was a learned story quest (92916, flag never clears) that the
+	--- pools above never showed. "weekly" = the client confirmed it recurs and it may tick a giver
+	--- done; "unverified" = learned before that check, only used for "in your log".
+	if ns.GetLearnedGiverQuests then
+		say("   |cff8fd3ffLearned by MH from your own pick-ups|r |cff9d9d9d(only 'weekly' can make a giver done)|r")
+		local any = false
+		for key, set in pairs(ns.GetLearnedGiverQuests() or {}) do
+			for qid, how in pairs(set) do
+				any = true
+				local done, onQuest = QuestState(qid)
+				local flag = onQuest and "|cffffd100in your log|r" or (done and "|cff40c040completed|r" or "|cff9d9d9d-|r")
+				local kind = how == "weekly" and "|cff40c040weekly|r" or "|cff9d9d9dunverified|r"
+				say(("      %-10s %d  %-16s %s"):format(key, qid, flag, kind))
+			end
+		end
+		if not any then
+			say("      |cff9d9d9dnothing learned yet|r")
+		end
+	end
+
 	-- Cross-check: walk the quest log the way /mh questscan does and report anything
 	-- whose IsOnQuest answer contradicts its presence in the log. That contradiction
 	-- is the open question right now, so let the game settle it rather than reasoning

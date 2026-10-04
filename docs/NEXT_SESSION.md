@@ -6,8 +6,12 @@
   MH zet standaard niets op de muis, plaatje + "zet neer" (bouwt op `/mh apply`). Open: toetsen van balk C, taak van Q,
   of MH balken zelf op 3 rijen kan zetten.
 - Rob testte 4 okt live (TESTLIJST "4 okt"): play card/Group/This Week/Account snapshot ✅. Bug "…" i.p.v. 10 op
-  Stay alive gerepareerd (`PlayCardWindow.lua` StepRow) en gezien ✅. Open: Liadrin "done this week" terwijl Rob haar
-  keuzescherm kreeg (vraag uitgezet); Edit Mode-import mogelijk zonder presets (KEYBLOCK_PLAN, eerst testen).
+  Stay alive gerepareerd (`PlayCardWindow.lua` StepRow) en gezien ✅. Liadrin "done this week" terwijl ze nog aanbood:
+  GEMETEN oorzaak = geleerde verhaalquest 92916 (flag permanent true) in `giverLearn`; gerepareerd (`QuestIsRecurring`,
+  alleen "weekly" telt voor done; probe toont geleerde ids). GEMETEN: weekly 94385 meldt `frequency` 3 =
+  `ResetByScheduler`. Turn-in log (sinds 11 sep) nu AAN voor "done": inlevering deze week wint van een even oud of ouder
+  aanbod (Halduron viel anders terug op "pick it up").
+  Void & Rituals ritual-regel nu grijs/geel zoals RitualSites.lua. Edit Mode-import mogelijk zonder presets (KEYBLOCK_PLAN, eerst testen).
 - Ochtendronde 4 okt: wachters niets voor MH; CF/GitHub 0 open; 2 nieuwe vragenlijsten (4 en 3) in SURVEY_RESULTS;
   Keybind-coach 8× nooit, 0× vaak.
 

@@ -173,7 +173,15 @@ function ns.RefreshWorldPanel()
 			ritualText = ritualText .. " " .. ns:L("WEEKLY_PROGRESS_PCT_FMT"):format(ritualPct)
 		end
 		ui.ritualWeeklyFs:SetText(ritualText)
-		ui.ritualWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
+		-- Same rule as RitualSites.lua (3 Oct 2026): 95843 is one of Lady Liadrin's choices, not
+		-- on offer every week, so yellow only when it is in your log, grey otherwise. This tab had
+		-- been missed and stayed yellow (Rob's screenshot, 4 Oct 2026).
+		local inLog = C_QuestLog and C_QuestLog.GetLogIndexForQuestID and C_QuestLog.GetLogIndexForQuestID(95843)
+		if inLog then
+			ui.ritualWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
+		else
+			ui.ritualWeeklyFs:SetTextColor(0.62, 0.6, 0.56)
+		end
 	end
 
 	-- Why isn't the weekly done? (locked / pick-up-at-hub / in-progress). Hidden

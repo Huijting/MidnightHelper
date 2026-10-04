@@ -644,7 +644,37 @@ local function GiverKeyByName(name)
 	return nil
 end
 
+--- Does the game call this quest a recurring one (weekly, or reset by Blizzard's scheduler)?
+--- true / false / nil (unreadable). Only answerable while the quest is in the log, which it is
+--- on QUEST_ACCEPTED.
+---
+--- 🔴 WHY THIS EXISTS — GEMETEN 4 Oct 2026. Liadrin's step read "done this week" on Rob's Prot
+--- Paladin while she was still offering her choice of four. The learn store had filed every quest
+--- ever accepted from her NPCs under her pool, story quests included, and one of them (92916)
+--- answers IsQuestFlaggedCompleted = true forever. One permanent flag made her "done" every week,
+--- on every character that had done that story. `/mh weeklies` showed "0 completed" because it
+--- only printed the static pool. Enum values are read from the client, never written as numbers.
+local function QuestIsRecurring(questID)
+	local F = Enum and Enum.QuestFrequency
+	if not (F and C_QuestLog and C_QuestLog.GetLogIndexForQuestID and C_QuestLog.GetInfo) then
+		return nil
+	end
+	local okI, idx = pcall(C_QuestLog.GetLogIndexForQuestID, questID)
+	if not (okI and idx) then
+		return nil
+	end
+	local okQ, info = pcall(C_QuestLog.GetInfo, idx)
+	local freq = okQ and type(info) == "table" and info.frequency or nil
+	if freq == nil or (issecretvalue and issecretvalue(freq)) then
+		return nil
+	end
+	return freq == F.Weekly or (F.ResetByScheduler ~= nil and freq == F.ResetByScheduler)
+end
+
 -- Called on QUEST_ACCEPTED: attribute the quest to a giver and remember it.
+-- Stored value: "weekly" = the client confirmed it recurs (counts for "done"); true = learned before
+-- 4 Oct 2026 or unreadable (still used for "in your log", never for "done"). A quest the client says
+-- is NOT recurring (a story quest from the same NPC) is not stored at all.
 local function LearnGiverQuest(questID)
 	questID = tonumber(questID)
 	-- Consume the pending NPC (set on the preceding QUEST_DETAIL) so a later
@@ -668,8 +698,17 @@ local function LearnGiverQuest(questID)
 	if npcID then
 		s.npc[npcID] = key -- learn NPC -> giver for future rotations
 	end
+	local recurring = QuestIsRecurring(questID)
+	if recurring == false then
+		return -- a one-time quest from this NPC (story, intro): not part of the weekly pool
+	end
 	s.quests[key] = s.quests[key] or {}
-	s.quests[key][questID] = true
+	s.quests[key][questID] = recurring and "weekly" or true
+end
+
+--- For `/mh weeklies`: the learned ids per giver key ("weekly" = confirmed, true = unverified).
+function ns.GetLearnedGiverQuests()
+	return LearnStore().quests
 end
 
 --- Which known giver is this gossip window? GUID first, name only as a fallback.
@@ -820,13 +859,32 @@ local function GiverState(def)
 	--- letting the comment above oversell it: this can correct a wrong "done" when a giver
 	--- really does have work waiting. It cannot confirm a right one. That is the half that
 	--- costs you loot, so it is the half worth having — but it is a half.
-	local offered = OfferThisWeek(def.key)
+	local offered, offeredAt = OfferThisWeek(def.key)
+	--- A turn-in that is NOT older than the offer wins: the gossip window you open to hand a
+	--- quest in is itself counted as an offer (Aethas, Wed 11:39 both, 4 Oct 2026).
+	local tl = ns.GetTurnInLogReport and ns.GetTurnInLogReport()
+	local turnedAt = tl and type(tl.givers) == "table" and tonumber(tl.givers[def.key]) or nil
+	if turnedAt and not (offeredAt and offeredAt > turnedAt) then
+		return "done"
+	end
 	if offered and offered > 0 then
 		return "pickup"
 	end
 
-	for _, qid in ipairs(ids) do
+	--- "done" listens only to the static pool and to learned ids the client confirmed as weekly.
+	--- An unverified learned id (stored as `true`) can be a story quest whose flag never clears —
+	--- 92916 on Rob's Prot Paladin, 4 Oct 2026 — so it may say "in your log" but never "done".
+	--- 📌 The turn-in check above (turn-in log, recorded since 11 Sep 2026) was switched on 4 Oct 2026:
+	--- once old learned ids stopped counting, Halduron fell back to "pick it up" although the log held
+	--- his turn-in of Wed 20:48. The log resets with the week by itself.
+	local learned = LearnStore().quests[def.key] or {}
+	for _, qid in ipairs(def.quests) do
 		if Flagged(qid) then
+			return "done"
+		end
+	end
+	for qid, how in pairs(learned) do
+		if how == "weekly" and Flagged(qid) then
 			return "done"
 		end
 	end

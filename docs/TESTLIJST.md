@@ -33,7 +33,20 @@ er is niets weggegooid.
 - 🐛 **Gevonden en gerepareerd:** Stay alive met 11 rijen toonde "…" i.p.v. **10** (nummerkolom 18 px). Rij 10+ krijgt nu
   het normale lettertype (`PlayCardWindow.lua`, StepRow). ✅ Rob 4 okt na `/reload`: "de tien past nu wel".
 - [ ] Liadrin: "Your week" zegt **"Weekly (Lady Liadrin): done this week"** (screenshot 4 okt), terwijl Rob eerder die
-  dag haar keuzescherm kreeg. Vraag aan Rob: al een Liadrin-quest ingeleverd deze week op dit personage? Zo niet = bug.
+  dag haar keuzescherm kreeg. Rob: nee, nog niets bij haar ingeleverd → **bug**. GEMETEN (`/run`, 4 okt): geleerde
+  verhaalquest **92916 = true** (flag wist nooit), door de leer-opslag onder Liadrin gezet. 🐛 Gerepareerd in
+  `ResetRoutine.lua`: alleen quests die de client "weekly" noemt worden nog geleerd en mogen "done" maken; oude geleerde
+  ids alleen nog voor "in je log". `/mh weeklies` toont nu ook de geleerde ids.
+  ✅ Rob 4 okt na `/reload`: Liadrin "picked up — finish and turn it in" (hij koos een quest), ritual-regel grijs.
+  GEMETEN: Void Assaults-weekly `frequency` = 3 = `ResetByScheduler` (Weekly = 2) → het leren werkt.
+  ❌ Daarna viel **Halduron** terug op "pick it up" (hij leverde wo 20:48 in; oude geleerde ids telden niet meer).
+  🐛 Gerepareerd: een inlevering deze week (turn-in log) maakt een gever "done", tenzij er daarna nog een aanbod is
+  gezien (Aethas: aanbod en inlevering allebei wo 11:39). ✅ Rob 4 okt na `/reload`: Halduron én Aethas "done this
+  week", Liadrin "picked up", 7 of 12. (Aethas stond 's ochtends, vóór alle wijzigingen, ook al ten onrechte op
+  "pick it up" — die fout is mee opgelost.)
+- [x] Void & Rituals-tab (screenshot 4 okt): weekly-regel noemt Lady Liadrin ✅. Maar hij was **geel** terwijl de quest
+  niet in de log staat: de grijs/geel-regel zat alleen in `RitualSites.lua`, niet in `WorldContent.lua` (dit tabblad).
+  🐛 Gerepareerd. → Na `/reload`: is de regel nu **grijs**?
 - [ ] Dundun-regel zit niet in het alt-overzicht maar in **MH → beroepen-overzicht** (Knowledge-blok bovenaan, dit
   personage): "Shards of Dundun: N / 8 earned this week". Mijn testvraag noemde de verkeerde plek.
 - [ ] Liadrin bood Rob 4 okt: World Quests, Saltheril's Soiree, **Vaults of Atal'Utek**, Dungeons (screenshot). Kies
