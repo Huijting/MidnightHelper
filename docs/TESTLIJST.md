@@ -82,7 +82,11 @@ er is niets weggegooid.
 - [x] ✅ Rob 4 okt (Purlymixanox, Skinning 100/100): Skinning-advies "Lasting Leather (0/40), Superb Scales (0/40)" klopt.
   🐛 Maar "Skinning: trainer weekly **(needs skill 25 first)**" bij skill 100: de zin werd ALTIJD achter de
   gatherer-weekly gezet. Gerepareerd in `ProfessionsHub.lua` (alleen als de Midnight-skill < 25 of onleesbaar).
-- [ ] → Op Purlymixanox na `/reload`: Tools → Professions → Overview, "This week": staat Skinning nu zónder die zin?
+- [x] ✅ Rob 4 okt na tweede poging: Skinning nu zónder die zin. (Eerste poging las `C_TradeSkillUI` → zei niets bij
+  gesloten beroepenvenster. GEMETEN `/run`: GetProfessionInfo geeft "Skinning 100 100 393" → die bron gebruikt.)
+  Zelfde bron nu ook in `ProfessionNextStep.lua` (This Week, gatherer-weekly onder 25 verbergen).
+- [ ] This Week op Purlymixanox: staat "Trainer weekly (Skinning)" er nog (skill 100 = hoort te blijven)? En op een alt
+  met een verzamelberoep ónder 25: valt die regel weg?
 - [x] ✅ Rob 4 okt (Redisch, Blacksmithing + Enchanting): overzicht met advies per beroep, Enchanting-weekly afgevinkt.
 - [x] Rob 4 okt, Redisch (BM Hunter 90): Group-tab leeg op alle 3 specs ("None of these buttons…"). GEMETEN met `/run`:
   `C_Spell.GetSpellInfo("Misdirection")` en `("Roar of Sacrifice")` = **nil**, IsPlayerSpell 34477/53480 false → hij heeft

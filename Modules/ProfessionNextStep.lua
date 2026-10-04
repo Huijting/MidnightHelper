@@ -69,18 +69,27 @@ ns.GetTrainerWeeklyState = TrainerWeeklyState
 --- The weekly of Enchanting and the three gatherers opens at skill 25 (mh-research 3 Oct 2026,
 --- Wowhead quest pages). Below that a "not picked up yet" line is advice nobody can follow.
 local GATED_25 = { [333] = true, [182] = true, [186] = true, [393] = true }
---- Reads the Midnight skill (p.midnightLine, the same field skillLevel /mh profdump prints in
---- ProfessionAcademy.lua). Unknown → false, so the line stays rather than vanishing on a guess.
+--- Reads the skill from GetProfessionInfo's rank. GEMETEN 4 Oct 2026 on Rob's druid: "Skinning 100
+--- 100 393" — the number the Account snapshot shows. The first version asked C_TradeSkillUI's
+--- skillLevel for the Midnight line, which does not answer while the profession window is closed
+--- (the same source left "(needs skill 25 first)" on his 100-skill Skinning in ProfessionsHub).
+--- Unknown → false, so the line stays rather than vanishing on a guess.
 local function BelowWeeklyGate(p)
-	if not (p and GATED_25[p.baseSkillLine] and p.midnightLine) then
+	if not (p and GATED_25[p.baseSkillLine] and GetProfessions and GetProfessionInfo) then
 		return false
 	end
-	if not (C_TradeSkillUI and C_TradeSkillUI.GetProfessionInfoBySkillLineID) then
+	local okP, a, b = pcall(GetProfessions)
+	if not okP then
 		return false
 	end
-	local ok, info = pcall(C_TradeSkillUI.GetProfessionInfoBySkillLineID, p.midnightLine)
-	if ok and type(info) == "table" and type(info.skillLevel) == "number" then
-		return info.skillLevel < 25
+	for _, slot in ipairs({ a, b }) do
+		if slot then
+			-- pcall shifts by one: ok, name, icon, rank, maxRank, numSpells, spellOffset, skillLine.
+			local ok, _, _, rank, _, _, _, skillLine = pcall(GetProfessionInfo, slot)
+			if ok and skillLine == p.baseSkillLine and type(rank) == "number" then
+				return rank < 25
+			end
+		end
 	end
 	return false
 end
