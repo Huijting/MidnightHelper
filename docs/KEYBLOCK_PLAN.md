@@ -45,9 +45,19 @@ Scratchpad van sessie fcdcd4fe: `keyblock\research.md` (onderzoek), `sim.md`/`si
 - Blok op balk 2-8 (balk 1 pagineert bij vormen/stealth). Niet EUI-balk 9/10 (botst met page 2 en Moonkin).
 - `/mh apply` zet al spells én toetsen (balk 1-6, undo). Maar de taak zit nu in de **toets**, niet in de **plek**:
   de indeling moet opnieuw. De checks "balk staat uit/te kort" kijken naar Blizzard-knoppen die EUI verbergt.
-- Balken op 3 rijen zetten: **nog uitzoeken** of MH dat zelf kan (Edit Mode / EUI), anders uitleg aan de speler.
+- Balken op 3 rijen zetten (mh-research 4 okt, `keyblock\rows.md`):
+  - **Blizzard: MH kan het zelf.** Edit Mode kent rijen 1-4 en iconen 6-12, dus 3 rijen × 12 iconen = 4 per rij
+    (GEMETEN in Blizzards 12.1-code). Schrijven via `C_EditMode.SaveLayouts`: niet protected, wel niet in combat,
+    niet op een preset-layout, en daarna `/reload`. MH heeft hier al `EditModeBackup.lua` voor (import met backup +
+    `/mh editmode restore`).
+  - **EllesmereUI: de speler doet het zelf**, met uitleg: `/eab` → balk → Icons 12, Rows 3 → "Apply to all Bars",
+    plaatsen met `/unlock`. EUI heeft geen API; MH schrijft niet in EUI's gegevens (hun code verandert nu snel).
+  - ⚠️ **Mogelijk probleem in de bestaande import (AFGELEID, niet getest):** EUI, OakUI en LibEditModeOverride zetten
+    Blizzards preset-layouts vooraan in de lijst voordat ze `SaveLayouts` aanroepen; MH's import/restore doet dat niet
+    (`EditModeBackup.lua:493`, `:552`). Eerst één keer in het spel testen, vóór we hierop bouwen.
 
 ## Open
 
-1. Toetsen van balk C. 2. Taak van Q. 3. Of MH balken zelf op 3 rijen kan zetten. 4. Welke balken (nummers) standaard.
+1. Toetsen van balk C. 2. Taak van Q. 3. ✅ uitgezocht (zie Techniek): Blizzard zelf, EllesmereUI uitleg.
+   Wel eerst de import-test. 4. Welke balken (nummers) standaard.
 5. Bouwvolgorde: eerst het plaatje, dan "zet neer".

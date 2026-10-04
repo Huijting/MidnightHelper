@@ -213,7 +213,9 @@ local function StepRow(i)
 		ForwardDrag(row)
 		win._rows[i] = row
 	end
-	Font(row.num, "GameFontNormalLarge")
+	-- Row 10+ in the large font is wider than the 18 px number column and showed as "..."
+	-- (Rob's Prot Paladin Stay alive, 4 Oct 2026: 11 rows). Two digits get the normal font.
+	Font(row.num, i >= 10 and "GameFontNormal" or "GameFontNormalLarge")
 	Font(row.fs, "GameFontHighlight")
 	row:ClearAllPoints()
 	row:Show()

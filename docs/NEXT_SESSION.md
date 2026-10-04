@@ -5,6 +5,9 @@
 - Keuzes + metingen staan in **`docs/KEYBLOCK_PLAN.md`**. Kort: 3 balken van 3×4 = 36 vaste plekken, hoofdknop op 1,
   MH zet standaard niets op de muis, plaatje + "zet neer" (bouwt op `/mh apply`). Open: toetsen van balk C, taak van Q,
   of MH balken zelf op 3 rijen kan zetten.
+- Rob testte 4 okt live (TESTLIJST "4 okt"): play card/Group/This Week/Account snapshot ✅. Bug "…" i.p.v. 10 op
+  Stay alive gerepareerd (`PlayCardWindow.lua` StepRow) en gezien ✅. Open: Liadrin "done this week" terwijl Rob haar
+  keuzescherm kreeg (vraag uitgezet); Edit Mode-import mogelijk zonder presets (KEYBLOCK_PLAN, eerst testen).
 - Ochtendronde 4 okt: wachters niets voor MH; CF/GitHub 0 open; 2 nieuwe vragenlijsten (4 en 3) in SURVEY_RESULTS;
   Keybind-coach 8× nooit, 0× vaak.
 

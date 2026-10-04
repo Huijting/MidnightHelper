@@ -21,6 +21,24 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## ✅ 4 okt — Rob testte live (7 screenshots, Prot Paladin)
+
+- [x] `/mh play` Prot: 5 tabs passen (Your buttons/Stay alive/Consumables/Dispel/Group); stap 5 = Hand of Reckoning;
+  Lightsmith "one button with 2 charges"; Stay alive: WoG met Shining Light-zin, géén Divine Protection; Group: alle 9
+  rijen met icoon, toets en uitleg.
+- [x] This Week: "Done this week: 7 (click to show)" klapt open en dicht, en blijft na `/reload` onthouden.
+- [x] Account snapshot: "Silvermoon quest givers (this character): 3 / 5 done" en "Professions: fewer than 8 Dundun
+  shards this week: 10 (…)". ⚠️ AFGELEID: die 10 kan nog oude nullen van vóór 3 okt bevatten (alts die sinds de reset
+  maar vóór de fix inlogden; de oude code las een junk-item). Klopt pas zeker na de volgende reset.
+- 🐛 **Gevonden en gerepareerd:** Stay alive met 11 rijen toonde "…" i.p.v. **10** (nummerkolom 18 px). Rij 10+ krijgt nu
+  het normale lettertype (`PlayCardWindow.lua`, StepRow). ✅ Rob 4 okt na `/reload`: "de tien past nu wel".
+- [ ] Liadrin: "Your week" zegt **"Weekly (Lady Liadrin): done this week"** (screenshot 4 okt), terwijl Rob eerder die
+  dag haar keuzescherm kreeg. Vraag aan Rob: al een Liadrin-quest ingeleverd deze week op dit personage? Zo niet = bug.
+- [ ] Dundun-regel zit niet in het alt-overzicht maar in **MH → beroepen-overzicht** (Knowledge-blok bovenaan, dit
+  personage): "Shards of Dundun: N / 8 earned this week". Mijn testvraag noemde de verkeerde plek.
+- [ ] Liadrin bood Rob 4 okt: World Quests, Saltheril's Soiree, **Vaults of Atal'Utek**, Dungeons (screenshot). Kies
+  Vaults → zegt "Your week" dat hij in je log staat?
+
 ## 🆕 3 okt laat — "Stay alive" nagelopen + Liadrin/Stormarion (niet uitgebracht)
 
 `/mh play` → tab **Stay alive**. Alleen kijken op de klassen die je hebt:
