@@ -1675,3 +1675,44 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   entry [2026-10-03] en `docs/PTR_12.0.7_DATA.md` entry [2026-10-03] als kruiscontrole (feiten niet
   herhaald) · `docs/PTR_12.1_WATCH.md` entries [2026-10-03] voor de 12.1.5-livestatus. Geen
   actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-04] 💬 **CurseForge: geen open reacties (2 draadjes, 6 berichten — ongewijzigd t.o.v.
+  gisteren).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261004d` via Exa (JSON, `pagination.totalCount` = 6 — zelfde aantal als [2026-10-03]).
+  Draadje van **MrsBoojiePanda** (debug-regel bij login) eindigt met een reply van `twelveinchy` —
+  beantwoord. Draadje van **gadrinonturalyon** (coffer-key-shards-popup, 3D-bossmodel) eindigt
+  chronologisch ook met `twelveinchy`'s laatste bericht — beantwoord. Geen enkel draadje heeft als
+  laatste bericht iemand anders dan de maintainer, dus 🔴 WAITING FOR AN ANSWER is niet van
+  toepassing vandaag. Geen nieuwe berichten sinds [2026-10-03].
+
+- [2026-10-04] 🟢 **Niets nieuws in mijn lane sinds [2026-10-03] — zelf opnieuw gemeten, vijfde dag
+  op rij op "October 1".** Officiële hotfix-pagina volledig gelezen via Exa
+  (`news.blizzard.com/en-us/article/24296142?nocache=20261004d`): nieuwste sectie blijft
+  **"October 1, 2026"**, byte-voor-byte dezelfde drie regels als al verwerkt op [2026-10-02]/
+  [2026-10-03] — Druid/Feral *Rampant Ferocity* en Hunter/Survival *Wildfire Bomb* (class-tuning,
+  buiten mijn lane: Delves/Professions/Quests/Dungeons en Raids/Items) en, onder *Dungeons and
+  Raids → The Venomous Abyss → Ula'tek*: de **Venomous Heart**-meleefix, al eerder zelf getoetst
+  tegen spell-ID **1286860** in `Locales/RaidTips.lua:93,99,100` (zeven taalvarianten) op
+  [2026-10-02] en [RAAKT ONS NIET] bevonden — geen nieuwe toetsing nodig, de tekst is ongewijzigd.
+  De oudere secties (29 sep: Mother's Wrath-fix; 24 sep: Shadow Enclave Oddball-teleport) staan al
+  uitgebreid gelogd in dit bestand op [2026-09-24] t/m [2026-09-30] en [2026-10-02] — geen nieuwe
+  informatie bij herhaalde doorzoeking vandaag. Delves, Professions en Quests zijn leeg in alle vier
+  getoonde secties — niets nieuws om tegen de repo te toetsen.
+
+  📌 **Kruiscontrole, niet mijn feit, niet overgenomen als eigen vondst:** `docs/API_WATCH.md`
+  ([2026-10-04]) en `docs/PTR_12.0.7_DATA.md` ([2026-10-04]) bevestigen onafhankelijk hetzelfde beeld
+  (hotfixpagina op 1 okt, PTR-build 70077 nu 5 dagen oud, officiële 12.1.5 content-notes nog niet
+  live — releasedatum 13/14 okt) — convergentie van vier onafhankelijke lezingen, geen reden om
+  "elke kaart moet gecontroleerd worden" vandaag te triggeren.
+
+  Vandaag is zondag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261004d (volledig gelezen via
+  Exa) · https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261004d (volledig gelezen via Exa) · `docs/API_WATCH.md` entry [2026-10-04] en
+  `docs/PTR_12.0.7_DATA.md` entry [2026-10-04] als kruiscontrole (feiten niet herhaald, alleen zelf
+  getoetst op tegenspraak met geshipte MH-tekst). Geen actiepunt dat ík kan oppakken — ik
+  rapporteer, een mens beslist.
