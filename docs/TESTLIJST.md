@@ -78,6 +78,10 @@ er is niets weggegooid.
   gatherer-weekly gezet. Gerepareerd in `ProfessionsHub.lua` (alleen als de Midnight-skill < 25 of onleesbaar).
 - [ ] → Op Purlymixanox na `/reload`: Tools → Professions → Overview, "This week": staat Skinning nu zónder die zin?
 - [x] ✅ Rob 4 okt (Redisch, Blacksmithing + Enchanting): overzicht met advies per beroep, Enchanting-weekly afgevinkt.
+- [x] Rob 4 okt, Redisch (BM Hunter 90): Group-tab leeg op alle 3 specs ("None of these buttons…"). GEMETEN met `/run`:
+  `C_Spell.GetSpellInfo("Misdirection")` en `("Roar of Sacrifice")` = **nil**, IsPlayerSpell 34477/53480 false → hij heeft
+  ze niet (talenten niet gekozen); Primal Rage/Master's Call: pet niet van het juiste type. **MH klopt.** Niet te testen
+  op deze hunter: Group-rijen en de pet-note van Roar of Sacrifice — wacht op een hunter mét die talenten.
 - [ ] (oud punt, deels afgevinkt hierboven) **Druid:** Guardian heeft géén Heart of the Wild meer en géén Wild Charge bij "wegkomen". Balance heeft nu
   **Frenzied Regeneration** en **Regrowth** bij heal, en Wild Charge met "jumps you backwards". Resto: Ironbark staat
   bij de kleine knoppen, ná Barkskin.
