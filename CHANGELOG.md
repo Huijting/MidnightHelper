@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.6.0
+
+📌 **2026-10-04, KLAARGEZET, NIET GETAGD** (Rob: "Release 4.6.0 klaarzetten … NIET pushen of taggen tot ik go zeg").
+Notitie in `docs/CURSEFORGE_4.6.0.md` (identiek aan `RELEASE_NOTES.md`). Open testpunten: TESTLIJST 3 en 4 okt.
+
+- **NEW: Group tab** op de speelkaart (`Modules/GroupPlan.lua`, `/mh group`): 34 van 40 specs, 65 notes, 7 talen.
+- **Speelkaarten:** alle 40 nagelopen (naloop #7 + E-ronde), Prot Paladin stap 5 Hand of Reckoning, Arcane stap 5
+  Prismatic Bolt, link naar `midnighthelper.com/play/<slug>/` onder de bron (`ns.PlayCardSiteURL`); rij 10 toont "10"
+  i.p.v. "…".
+- **Stay alive (naloop #13):** 6 fouten + 5 ontbrekers gerepareerd; `survivalOverride` (Warlock Command Demon),
+  `survivalRequires` (Mirror Image ↔ Refractive Images). 4 okt: alle 136 rijen een expliciete `id` (of `survivalId`
+  voor Blink/Roll/Dash), voor de site — ids uit de mh-research-ronde van 3 okt en wago SpellName 12.1.5.70077.
+- **This Week:** to-dos eerst, "Done this week" ingeklapt, alts naar Account snapshot; Liadrin-fout (geleerde
+  verhaalquest 92916), Lor'themar weg, Zerella + Talon Commander Zela erbij, Showdown-S2-gate weg.
+- **NEW: `/mh aggro`** + Codex-hoofdstuk over de eigen aggro-waarschuwingen van het spel.
+- **Delve Coach:** vinkje "Open the Delve Coach by itself" (`mh_delveCoachAuto`).
+- Naloop #1/#2/#5/#6/#8/#9/#11/#12: valuta, Vault, Ritual Sites, Codex, beroepencursus (Dundun = currency 3376),
+  achievements, consumables/gear (vertaalde tracknamen terug), wereld. Franse consumable-notes.
+- Intern: spec-API via één deur (`ns.GetSpecialization`), SimC-export lege regio, profession skill via
+  `GetProfessionInfo`.
+
 ## 4.5.0
 
 📌 **2026-10-02, als release (Rob: "daarna een cf release", versie 4.5.0 gekozen).** Notitie in

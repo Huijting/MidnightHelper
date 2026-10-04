@@ -2482,6 +2482,13 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
+	CHANGELOG_460_1 = "NEW - Group tab on the play card (/mh play): the buttons you have that help the whole group, each with a short note. For 34 of the 40 specs.",
+	CHANGELOG_460_2 = "Play cards: all 40 checked against Season 2 guides, with a few new steps (Prot Paladin taunt, Arcane Prismatic Bolt). Each card links to its page on midnighthelper.com.",
+	CHANGELOG_460_3 = "Stay alive: every row checked again. Fixes per spec, Warlock pet interrupts through Command Demon, and Mirror Image only with Refractive Images.",
+	CHANGELOG_460_4 = "This Week is shorter: to-dos first, finished stops folded away, alts on the Account snapshot. Quest givers: Liadrin no longer shows done by mistake, Lor'themar removed, Zerella and Talon Commander Zela added, Maella's Showdown weekly back.",
+	CHANGELOG_460_5 = "NEW - /mh aggro and a Codex chapter: where the game's own aggro warnings are, and whether yours are on.",
+	CHANGELOG_460_6 = "Settings: the Delve Coach can stop opening by itself. Codex, currencies, Great Vault, profession course, Ritual Sites and world content checked against Season 2.",
+
 	CHANGELOG_450_1 = "NEW - Mythic+, from your first key: a guide in the Codex (Dungeons & M+) on getting a keystone, finding or starting a group, and what the timer, deaths and weekly rules mean. Button names come from your own game client. /mh mplus points to it if you have no runs yet.",
 	CHANGELOG_450_2 = "NEW - I mostly play solo (Settings): hides the Mythic+ and Raids blocks from the weekly plan on This Week.",
 	CHANGELOG_450_3 = "Boss tips checked again for Season 2: the short tips of all 8 Mythic+ dungeons, and the long tips of all 17 raid bosses.",
