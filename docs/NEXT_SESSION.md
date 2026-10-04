@@ -42,7 +42,10 @@
      the Vault 63630 (in `SHOWDOWN_METAS`), beloning 63359 = mount 3023 (nieuwe `mountID`-tak in RewardName/
      RewardCollected), nieuwe kaart Coiled to Strike 63358 (12 criteria uit Robs atalProbe, coördinaten uit
      Rares.lua), 6 verouderde commentaren. Niet gedaan: eigen tip `ACH_META_TIP_COILED` (de meta-rij zegt het nu).
-   - Vertalingen KEYBLOCK_* + CMDLIST_BLOCK: mh-writer loopt.
+   - ✅ Vertalingen KEYBLOCK_* + CMDLIST_BLOCK (40 sleutels × de/fr/es/pt/it, mh-writer, Translations2026.lua; eigen
+     vertaling, niet door een moedertaalspreker gezien). Healthstone/Recuperate in de clientnaam per taal (Wowhead
+     de/fr/es/pt/it gelezen). locale_probe OK, lint 0 HARD. Open: past "dif. piccola, seconda" (21 tekens) onder een
+     icoon van 66 px? Een paar labels zijn bewust gelijk aan het Engels (AoE, cooldown) → evt. KeepEnglish.lua.
    - Bericht voor de site-chat: in de chat aan Rob gegeven.
 
 ## 🌐 4 okt laat — opdracht van de site-chat (`/play/`-pagina's lezen uit deze repo), GECONTROLEERD
