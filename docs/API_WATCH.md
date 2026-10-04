@@ -3786,3 +3786,151 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     gisteren): `issecretvalue` **198**, `InCombatLockdown` **201**, `C_UnitAuras` **83**,
     `CreateFrame` **741**, `C_Secrets` **27**, `C_SuperTrack` **29**. 🔴 **Ik raak dat bestand niet
     aan** — punt voor Rob, één `tools/_probe.py`-run volstaat.
+- [2026-10-04] 🧩 **Eén echt nieuw item op mijn terrein (27 sep–4 okt): de wikipagina `TOC format` —
+  die ons manifest-formaat definieert — is vannacht grondig HERSCHREVEN. 0 × [MOET GEFIKST].** Vier
+  regels uit die herschrijving zijn toetsbaar aan onze `.toc`; alle vier komen uit op [RAAKT ONS
+  NIET]. De vijf andere gevolgde wikipagina's staan byte-voor-byte stil, de hotfixlijst staat nog op
+  1 okt, en SimC heeft geen nieuwe release.
+  - 🧩 **[RAAKT ONS NIET] — `TOC format` ging van revid `6889071` (26 sep 18:57:25Z, 27396 b) naar
+    `6899537` (vandaag 03:22:38Z, 25788 b), in negen revisies van **Zeal** op 3 en 4 okt.** De
+    laatste draagt als bewerkingssamenvatting letterlijk *"Copied in changes from User:P3lim/TOC"*;
+    de pagina is herordend (secties `Rules`, `Naming`, `Conditional directives`, `TOC variables`
+    opnieuw ingedeeld) en netto 1608 bytes korter.
+    🔴 **DIT IS EEN DOCUMENTATIE-HERSCHRIJVING, GEEN GEMETEN CLIENT-WIJZIGING, en ik voer het ook
+    niet op als zoiets.** Nergens in de nieuwe tekst staat dat gedrag in 12.1.x veranderd is; de
+    enige versie-annotaties in de nieuwe conditie-tabel zijn historisch — *"Added for files in
+    11.1.5. Added for metadata in 12.0.7"* — en dus van ruim vóór mijn venster. Wat er wél is: de
+    pagina bevat nu vier regels die je hard aan een `.toc` kunt houden, en die heb ik alle vier
+    gemeten.
+    ⚠️ **Wat ik NIET weet: of die regels nieuw zijn in de CLIENT of alleen nieuw op de PAGINA.** De
+    diff bewijst uitsluitend het tweede. Ik verzin daar geen client-wijziging bij.
+    - **(a) De 1024-tekenregel.** Nieuw op de pagina: *"The game reads up to the first 1024
+      characters of each line only."* met daaronder *"Any additional characters are silently
+      ignored."* → **GEMETEN in `MidnightHelper.toc`:** de langste regel is **171 tekens** (regel 8,
+      `## Notes-frFR`), daarna 169 (regel 11, `## Notes-itIT`) en 157 (regel 10). Ruim een factor
+      vijf onder de grens, en het gevaarlijke woord hier is *silently* — dit is precies het soort
+      fout dat geen foutmelding geeft. **Niets te doen.**
+    - **(b) De aangescherpte waarschuwing bij `[AllowLoadGameType ...]`** (revid `6899326`, 3 okt
+      23:10:51Z, samenvatting *"Changed allowloadgametype unrecognised behaviour description to
+      match warning for non-conditional directive"*): *"If at least 1 game type is specified and
+      none of the game types in the condition are recognized by the client, the condition will be
+      satisfied. For this reason, you should additionally use `[ExcludeLoadGameType ...]` to exclude
+      game types that are not universally recognized yet."* → **GEMETEN:** `MidnightHelper.toc`
+      bevat **nul** conditional directives — geen `AllowLoad`, `AllowLoadGameType`,
+      `ExcludeLoadGameType`, `LoadIntoEnvironment` of `Bootstrap`. Sterker: het bestand bevat **nul
+      rechte haken** in zijn geheel.
+    - **(c) De `[Game]`-TOC-variabele kreeg een voorbehoud bij `Camelot`** (revid `6899282`, 3 okt
+      22:12:57Z, samenvatting *"Added note about camelot change"*): de voetnoot zegt *"The Camelot
+      variable may change before launch."* → **GEMETEN:** MH gebruikt **geen enkele** TOC-variabele
+      (`[Game]`, `[Build]`, `[TextLocale]`, `[Flavor]`, `[Expansion]`: alle nul). ⚠️ Dit is
+      bovendien WoW *Forever*-terrein, niet Retail.
+    - **(d) Client-specifieke TOC-bestanden met familie-suffixen** zijn opnieuw beschreven, inclusief
+      de voorrangsregel dat `AddOnName_Standard.toc` wint van `AddOnName_Mainline.toc`, plus de
+      nieuwe aanbeveling *"Comma-delimited interface versions or conditional directives should be
+      preferred over the use of game type specific TOC files where possible."* → **GEMETEN:** de
+      repo bevat **precies één** `.toc` (`MidnightHelper.toc`), zonder suffix — en MH doet al wat
+      daar wordt aanbevolen, namelijk komma-gescheiden interface-versies.
+  - 📌 **Terzijde, GEMETEN terwijl ik toch in dat bestand zat, en NADRUKKELIJK géén actiepunt:**
+    `MidnightHelper.toc` begint met een UTF-8 **BOM**. De eerste acht bytes zijn
+    `ef bb bf 23 23 20 49 6e`, dus op schijf staat er `<BOM>## Interface: 120007, 120100, 120105`.
+    ⚠️ **Dat hij onschadelijk is, is AFGELEID en niet GEMETEN:** MH draait live op 4.5.0 en zou als
+    *out of date* in de addonlijst verschijnen als de client die regel niet las, maar ik heb het niet
+    in een client getest en de nieuwe wikitekst zegt er niets over (hij noemt alleen *whitespace*
+    vóór `#`). **Niet aanraken op mijn gezag** — ik meld het omdat het er staat, niet omdat het stuk
+    is.
+  - 📌 **En een stille afwijking in `CLAUDE.md` zelf, GEMETEN vandaag:** daar staat dat de `.toc`
+    *"`## Interface: 120007, 120100`"* declareert, maar het bestand zegt inmiddels
+    **`120007, 120100, 120105`** — er is een derde versie (12.1.5) bij gekomen. 🔴 **Ik raak dat
+    bestand niet aan**; punt voor Rob, één regel werk.
+  - 🔇 **[RAAKT ONS NIET] — één forumpost binnen het venster die nog niet in dit logboek stond:
+    topic `2276297` (*Changing an item icon*), post 2 van helojumper, 3 okt 17:06:27Z.** De
+    oorspronkelijke vraag is van 20 maart en valt buiten het venster; de nieuwe post is een klacht
+    zonder enige API-inhoud: *"It is horrific, how many issues Blizzards creates that force you to
+    use more addons to play their game. They could not even foresee using a different color for the
+    icons."* Geen API-naam, niets te greppen.
+    ✅ **De andere treffers van `#ui-macro` sinds 27 sep staan hier al in** — op topic-id
+    gecontroleerd, niet op titel: `2367394` (9×), `2366363` (4×), `2306913` (3×), `1780831` (2×),
+    plus `2370149` en `2370136` die ik gisteren zelf heb afgehandeld.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.0-04` (21 aug 2026).** De hele releaselijst mét
+    cache-buster opgehaald; bovenaan staat `12.1.0-04`, daaronder `12.1.0-03` (20 aug). **GEMETEN in
+    de code deze run, niet geciteerd uit mijn eigen aantekening:** `Modules/SimcExport.lua:12-16`
+    zegt in het kopcommentaar *"read 30 Sep 2026 at release 12.1.0-04"*. **MH loopt dus niet
+    achter**, en een toets aan `ItemString` (`Modules/SimcExport.lua:234`) of `ns.BuildSimcProfile`
+    (`Modules/SimcExport.lua:424`) is deze week niet nodig.
+  - 📰 **Hotfixes: niets na 1 okt, en dat is op twee ONAFHANKELIJKE manieren vastgesteld.**
+    `news.blizzard.com` artikel `24296142` geeft mét `?nocache=20261004` nog altijd de titel
+    **`Hotfixes: October 1, 2026`**, met exact de drie regels die ik eerder al volledig gelezen heb
+    (Druid/Feral *Rampant Ferocity*, Hunter/Survival *Wildfire Bomb* +20%, The Venomous Abyss /
+    Ula'tek *Venomous Heart*). Daarnaast staat de wikipagina `Hotfixes` nog op dezelfde revid
+    `6897455`. ⚠️ **Een gelijke titel is niet de cache-val** — die val is een titel die *ouder* is
+    dan wat dit logboek al noemde. Twee bronnen die onafhankelijk "niets na 1 okt" zeggen is bewijs;
+    één bron die dat zegt was dat niet.
+  - 🔇 **Wiki: vijf van de zes gevolgde pagina's byte-voor-byte onveranderd.** `Hotfixes` `6897455`
+    (Dark T Zeratul, 2 okt 00:25:50Z, 365799 b), `Patch 12.1.0/API changes` `6886719` (Ketho, 25 sep
+    01:45:50Z, 102481 b), `Patch 12.1.5/API changes` `6886717` (Ketho, 25 sep 01:45:29Z, 34466 b),
+    `Patch 12.0.7/API changes` `6794100` (Ketho, 4 aug, 34044 b), `API change summaries` `6883777`
+    (Ketho, 22 sep, 7280 b). 📌 **De twee 12.1.x-API-pagina's zijn vandaag negen dagen stil en vallen
+    dus BUITEN mijn 7-dagenvenster** — daarom voer ik ze niet als vondst op.
+  - 🔎 **Eén WebSearch-ronde als onafhankelijke kruiscontrole, en die leverde binnen het venster
+    niets op.** Wat terugkwam (aura's niet meer direct leesbaar in 12.1, secret values bij cooldown-
+    en unitdata, taint-cascades bij `SecureHandlerStateTemplate`-actionbars, de nieuwe
+    `UnitFrameUtil`-library met `UpdateUnitPvPIndicator`) staat allemaal op `Patch 12.1.5/API
+    changes` en is van 3 sep of eerder — een maand oud. Het enige forumtopic dat bovenkwam,
+    `2333938`, is eveneens oud. ⚠️ **Dat voer ik dus NIET op als vondst van vandaag**; harde regel 2
+    verbiedt een magere dag aanvullen met oudere items. Gelezen, gedateerd, afgelegd.
+  - 🔒 **Cache-val uitgesloten op beide domeinen, met eigen bewijs in deze run.** (a) Wiki:
+    `list=recentchanges` (ns 0) loopt tot **vandaag 03:35:31Z** (*Conversing With the Depths*,
+    SirWeltschmerz). (b) Forum: `posts.json` geeft als nieuwste post **vandaag 03:38:56Z**
+    (`30325899`, topic `2371628`). ✅ **En het sterkste bewijs is de vondst zelf:** revisie `6899537`
+    van `TOC format` is van **vandaag 03:22:38Z** — materiaal dat gisteren nog niet bestond, dus de
+    server levert vers. ⚠️ **Omgekeerde controle:** niets wat ik vandaag als nieuwste zag is *ouder*
+    dan wat dit logboek gisteren noemde — hotfixtitel gelijk (1 okt), vijf wiki-revid's gelijk,
+    `TOC format` vooruit (`6889071` → `6899537`), forum vooruit (`30313966` → `30325899`).
+  - ✅ **Positieve controle, zelfde scope als mijn nul-beweringen** (verplicht, want een lege grep
+    bewijst niets). Mijn nullen gaan hier over één bestand, `MidnightHelper.toc`, dus daar meet ik
+    ook de controle: `## Interface:` **1** treffer, `## `-directives **18**, opgesomde bestanden
+    **279** waarvan **0** ontbreken op schijf. En de haakjes-grep die (b) en (c) op nul zette vindt
+    er **11** in `Modules/NativeArrow.lua` — het patroon kán dus treffers vinden.
+    🔴 **En ik ben er deze run zelf één keer ingelopen, wat precies bewijst waarom deze stap
+    bestaat:** `grep -c "^## Interface" MidnightHelper.toc` gaf **0**. Niet omdat de regel ontbreekt,
+    maar omdat de BOM tussen regelbegin en `##` staat. Zonder positieve controle had hier gestaan dat
+    MH geen `## Interface` declareert.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `warcraft.wiki.gg` en `us.forums.blizzard.com` **niet via directe `curl` geprobeerd** deze run;
+      ik ben meteen op `web_fetch_exa` ingestoken op grond van de meting van eerdere runs (agent-proxy
+      weigert de CONNECT-tunnel met 403). Alle wiki- en forumdata komt dus via Exa.
+    - De categoriepagina `c/guides/ui-macro/35.json` opnieuw niet geprobeerd; de topiclijst komt uit
+      `search.json?q=#ui-macro after:2026-09-27`.
+    - `wowhead.com/blue-tracker` opnieuw **niet geprobeerd** (negen runs op rij lege body).
+    - De 12.1.5-**PTR-buildnotes** niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - De volledige nieuwe tekst van `TOC format` is **niet integraal** gelezen: ik heb de diff
+      `6889071` → `6899537` gelezen plus twee losse revisie-diffs. Een regel die in beide versies
+      identiek staat maar die ik nooit eerder toetste, zou ik zo kunnen missen.
+    - ⚠️ De `?nocache=`-parameter geeft op `api.php` een `"Unrecognized parameter: nocache"`-warning.
+      Onschadelijk (MediaWiki negeert hem, de query draait), en hij doet zijn werk nog steeds omdat
+      hij de URL uniek maakt voor Exa's eigen cache. Vers materiaal is hierboven onafhankelijk
+      aangetoond.
+  - 🔧 **Repo-staat: `HEAD` stond voor de VIERDE dag op rij detached, nu hersteld — en de "forced
+    update" bij het fetchen was vals alarm, wat ik hier expliciet neerzet zodat niemand er morgen
+    van schrikt.** Bij aanvang: `git rev-parse --abbrev-ref HEAD` gaf **`HEAD`** op `0f39f26`,
+    `git status --porcelain` leeg, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit.
+    `git fetch origin main` meldde **`+ ba7a1fc...0f39f26 main (forced update)`**, en daarna gaf
+    `git merge-base ba7a1fc origin/main` **niets** terwijl beide kanten precies **50** commits
+    toonden — wat eruitziet als een herschreven `main` waar 50 commits (inclusief *Release 4.3.0*)
+    uit verdwenen zijn. 🔴 **Dat is het NIET.** GEMETEN: `.git/shallow` bestaat, met 2 grafts — dit
+    is een **shallow clone van diepte 50**, en "50 commits aan beide kanten zonder merge-base" is
+    exact wat een afgekapte historie oplevert. `ba7a1fc` is via de GitHub-API opgevraagd en bestaat
+    gewoon (Rob, 30 sep 21:38:32Z, *"Note tomorrow's second idea"*), en de `.toc` staat inmiddels op
+    **4.5.0** — dus `main` is normaal vooruitgelopen en er is niets kwijt. `git checkout -B main
+    origin/main` heeft de detached HEAD rechtgezet. 📌 **Vier dagen op rij detached is een patroon
+    van de omgeving, niet van deze wachter.**
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw: de gemeten namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd.** Die noemt `issecretvalue` 112× en
+    `C_UnitAuras` 29×; vandaag **GEMETEN als occurrences** (`grep -rno`, hele addon zonder
+    `.git`/`docs`/`tools`/`dist`): `issecretvalue` **196**, `InCombatLockdown` **198**, `C_UnitAuras`
+    **83**, `CreateFrame` **741**, `C_Secrets` **26**, `C_SuperTrack` **29**. 🔴 **Ik raak dat bestand
+    niet aan** — punt voor Rob, één `tools/_probe.py`-run volstaat.
+    📌 **Drie van die zes zijn sinds gisteren GEDAALD** (`issecretvalue` 198 → 196, `InCombatLockdown`
+    201 → 198, `C_Secrets` 27 → 26) door Robs commits van 3 okt. Dat is geen bevinding, maar wel het
+    bewijs dat deze getallen elke run opnieuw gemeten horen te worden in plaats van overgeschreven
+    uit de regel van gisteren — wat ik vandaag bijna deed.
