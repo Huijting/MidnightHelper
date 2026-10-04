@@ -105,7 +105,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Pyre"] = { category = "spender", priority = 6, bindKey = "Shift+4", specs = { 1467 } },               -- AoE-spender (Shift-tweeling Disintegrate)
 	-- Firestorm removed 17 Sep: passive in 12.0 (WH-pp-Dev).
 	-- Grootste CD (F1) + extra CD's
-	["Dragonrage"] = { role = "cooldown_bar", priority = 1, specs = { 1467 } },          -- F1 (grootste CD: burst-venster)
+	["Dragonrage"] = { blockQ = { [1467] = true }, role = "cooldown_bar", priority = 1, specs = { 1467 } },          -- F1 (grootste CD: burst-venster)
 	-- Utility (F3)
 	["Oppressing Roar"] = { category = "utility", priority = 2, specs = { 1467 } },      -- F3 (groeps-fear/CC-duur-extender)
 
@@ -132,7 +132,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Dream Flight"] = { role = "cooldown_bar", priority = 1, specs = { 1468 } },        -- F1 (grootste heal-CD: grote burst-raid-heal)
 	["Stasis"] = { category = "cooldown", priority = 2, specs = { 1468 } },              -- Shift+F1 (banked-heals major CD)
 	-- Emerald Communion removed 17 Sep: PvP talent only in 12.0 (Wiki-EC).
-	["Rewind"] = { category = "cooldown", priority = 4, specs = { 1468 } },              -- F1-familie (grote heal-CD: rewind group-health; vorige ronde -> laten)
+	["Rewind"] = { blockQ = { [1468] = true }, category = "cooldown", priority = 4, specs = { 1468 } },              -- F1-familie (grote heal-CD: rewind group-health; vorige ronde -> laten)
 	["Time Dilation"] = { category = "cooldown", priority = 5, specs = { 1468 } },       -- external heal-CD (357170, damage-delay op ally; SpellCategories defensive)
 	-- Utility
 	["Source of Magic"] = { category = "utility", priority = 2, specs = { 1468 } },      -- R (mana-support op ally)
@@ -147,7 +147,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Eruption"] = { category = "spender", priority = 1, specs = { 1473 } },             -- 4 (Essence-spender, vervangt Disintegrate)
 	["Upheaval"] = { category = "spender", priority = 2, specs = { 1473 } },             -- 5 (empower-spender/AoE-launch)
 	-- Grootste CD (F1) + extra CD's
-	["Breath of Eons"] = { role = "cooldown_bar", priority = 1, specs = { 1473 } },      -- F1 (grootste CD: gebundelde raid-damage)
+	["Breath of Eons"] = { blockQ = { [1473] = true }, role = "cooldown_bar", priority = 1, specs = { 1473 } },      -- F1 (grootste CD: gebundelde raid-damage)
 	-- Defy Fate removed 17 Sep: a passive cheat-death, not a button (IV-Aug).
 	-- Utility
 	["Blistering Scales"] = { category = "utility", priority = 2, specs = { 1473 } },    -- R (ally-defensive-buff + thorns)

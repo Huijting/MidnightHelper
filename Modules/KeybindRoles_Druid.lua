@@ -136,8 +136,8 @@ ns.KeybindRoleClassifier.DRUID = {
     -- CC
     ["Typhoon"]                          = { category = "dispel_cc", priority = 1, specs = { 102, 104, 105 } }, -- knockback+daze (Balance V; Guardian/Resto talent)
     -- Cooldowns
-    ["Celestial Alignment"]              = { role = "cooldown_bar", priority = 1, specs = { 102 } }, -- grootste CD (F1)
-    ["Incarnation: Chosen of Elune"]     = { category = "cooldown", priority = 2, specs = { 102 } }, -- talent-alternatief (Shift+F1)
+    ["Celestial Alignment"]              = { blockQ = { [102] = true }, role = "cooldown_bar", priority = 1, specs = { 102 } }, -- grootste CD (F1)
+    ["Incarnation: Chosen of Elune"]     = { blockQ = { [102] = true }, category = "cooldown", priority = 2, specs = { 102 } }, -- talent-alternatief (Shift+F1)
 
     -- =================================================================
     -- FERAL (103)
@@ -152,7 +152,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- CC (Cat Form finisher-stun)
     ["Maim"]                             = { category = "dispel_cc", priority = 1, specs = { 103 } },
     -- Cooldowns
-    ["Incarnation: Avatar of Ashamane"]  = { category = "cooldown", priority = 2, specs = { 103 } }, -- talent-alternatief voor Berserk (Shift+F1)
+    ["Incarnation: Avatar of Ashamane"]  = { blockQ = { [103] = true }, category = "cooldown", priority = 2, specs = { 103 } }, -- talent-alternatief voor Berserk (Shift+F1)
 
     -- =================================================================
     -- GUARDIAN (104)
@@ -171,7 +171,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- ⚠️ id 1261867 is gemeten op Guardian; op de andere specs niet gemeten.
     -- Card: NIET op Guardian (3 okt 2026, mh-research: de Guardian-tooltip heeft geen Bear Form-effect, daar is het een aanvalsknop).
     ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 104 }, survivalSpecs = { 102, 103, 105 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst; card: Bear Form +30% max health
-    ["Incarnation: Guardian of Ursoc"]   = { category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
+    ["Incarnation: Guardian of Ursoc"]   = { blockQ = { [104] = true }, category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
     -- Rage of the Sleeper: verwijderd 17 sep (weg in 12.0.0, wiki).
     -- Utility
     ["Growl"]                            = { category = "taunt", priority = 1, specs = { 104 } }, -- taunt (F, eigen kaart)
@@ -186,7 +186,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Stampeding Roar"]                  = { id = 106898, role = "utility_primary", priority = 2, specs = { 103, 104 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q (raid-speed)
     ["Survival Instincts"]               = { id = 61336, role = "defensive_3", priority = 1, specs = { 103, 104 }, survival = "big", survivalOrder = 2 }, -- grote def (-50% dmg), C
     ["Frenzied Regeneration"]            = { id = 22842, role = "heal_quick", priority = 2, specs = { 103, 104 }, survivalSpecs = { 102, 103, 104, 105 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- self-heal (Guardian spender/Feral noodheal), F2/5; Bear Form only (Feral Cat only with Druid of the Claw); card: klassentalent, ook Balance/Resto (IV 12.1, 3 okt 2026)
-    ["Berserk"]                          = { role = "cooldown_bar", priority = 1, specs = { 103, 104 } }, -- Feral 106951 + Guardian 50334, zelfde naam, F1
+    ["Berserk"]                          = { blockQ = { [103] = true, [104] = true }, role = "cooldown_bar", priority = 1, specs = { 103, 104 } }, -- Feral 106951 + Guardian 50334, zelfde naam, F1
     ["Tiger's Fury"]                     = { category = "cooldown", priority = 3, specs = { 103 } }, -- Feral signature 30s energy/dmg-CD (JustAC SpellCooldowns 5217=30s; SimC core)
 
     -- =================================================================
@@ -210,7 +210,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Kleine defensive (extern)
     ["Ironbark"]                         = { id = 102342, category = "defensive", priority = 2, specs = { 105 }, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- extern -20% dmg (C since 19 Sep 2026: it was a second defensive_1 behind Barkskin, so it fell to Shift+Z while C held Mass Entanglement); ook raid-CD-slot; card: 1.5 min, not a keep-up (wiki); small achter Barkskin sinds 3 okt 2026 (-20% = even sterk als Barkskin)
     -- Raid-heal cooldowns (op cooldown-slots)
-    ["Tranquility"]                      = { role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
+    ["Tranquility"]                      = { blockQ = { [105] = true }, role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
     -- Flourish en Grove Guardians: verwijderd 17 sep (nu passief, patchnotes/IV Resto).
     ["Incarnation: Tree of Life"]        = { category = "cooldown", priority = 2, specs = { 105 } }, -- Resto heal-vorm CD (talent)
     ["Convoke the Spirits"]              = { category = "cooldown", priority = 2, specs = { 105 } }, -- burst heal/dmg CD (talent)

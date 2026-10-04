@@ -118,10 +118,10 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- GROTE COOLDOWN (F1) + extra CD's
 	--==================================================================================
 	-- Beast Mastery
-	["Bestial Wrath"] = { role = "cooldown_bar", priority = 1, specs = { 253 } }, -- BM grote CD (19574)
+	["Bestial Wrath"] = { blockQ = { [253] = true }, role = "cooldown_bar", priority = 1, specs = { 253 } }, -- BM grote CD (19574)
 	-- Call of the Wild (removed) and Bloodshed (passive now) deleted 17 Sep 2026 (M-BM, hackmd).
 	-- Marksmanship
-	["Trueshot"] = { role = "cooldown_bar", priority = 1, specs = { 254 } }, -- MM grote CD (288613)
+	["Trueshot"] = { blockQ = { [254] = true }, role = "cooldown_bar", priority = 1, specs = { 254 } }, -- MM grote CD (288613)
 	-- Survival: Fury of the Eagle deleted 17 Sep 2026, folded into Boomstick (WH-SV, IV-SV).
 	-- Gedeeld (talent-CD's die op meerdere specs kunnen zitten)
 	["Stampede"] = { category = "cooldown", priority = 4 }, -- pet-charge CD (baseline talent)
@@ -154,7 +154,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- Survival
 	["Boomstick"] = { category = "spender", priority = 1, specs = { 255 } }, -- SV ranged filler (1261215, Midnight)
 	["Flamefang Pitch"] = { category = "spender", priority = 2, specs = { 255 } }, -- SV hero-talent spender (1251592)
-	["Takedown"] = { category = "spender", priority = 3, specs = { 255 } }, -- SV Midnight spender/proc
+	["Takedown"] = { blockQ = { [255] = true }, category = "spender", priority = 3, specs = { 255 } }, -- SV Midnight spender/proc
 
 	--==================================================================================
 	-- AoE (Shift+N)

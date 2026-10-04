@@ -71,7 +71,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Fan of Knives"]    = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 259 } }, -- AoE builder
     ["Crimson Tempest"]  = { category = "spender", priority = 7, bindKey = "Shift+5", specs = { 259 } },       -- AoE spender (bleed-spread)
     -- Cooldowns
-    ["Deathmark"]        = { role = "cooldown_bar", priority = 1, specs = { 259 } }, -- grootste CD (F1, 2 min)
+    ["Deathmark"]        = { blockQ = { [259] = true }, role = "cooldown_bar", priority = 1, specs = { 259 } }, -- grootste CD (F1, 2 min)
     ["Kingsbane"]        = { category = "cooldown", priority = 2, specs = { 259 } }, -- extra CD (Shift+F1, 1 min)
 
     -- =================================================================
@@ -89,7 +89,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     -- Movement (Outlaw-exclusief)
     ["Grappling Hook"]   = { id = 195457, role = "utility_primary", priority = 1, specs = { 260 }, survival = "escape", survivalOrder = 2 },
     -- Cooldowns
-    ["Adrenaline Rush"]  = { role = "cooldown_bar", priority = 1, specs = { 260 } }, -- grootste CD (F1)
+    ["Adrenaline Rush"]  = { blockQ = { [260] = true }, role = "cooldown_bar", priority = 1, specs = { 260 } }, -- grootste CD (F1)
     ["Killing Spree"]    = { category = "cooldown", priority = 2, specs = { 260 } }, -- extra CD (Shift+F1)
     ["Keep It Rolling"]  = { category = "cooldown", priority = 3, specs = { 260 } }, -- herrolt RtB (Ctrl+F1; talent)
 
@@ -108,7 +108,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Black Powder"]     = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 261 } },       -- AoE spender (3+)
     -- Cooldowns
     ["Shadow Dance"]     = { role = "cooldown_bar", priority = 1, specs = { 261 } }, -- grootste CD (F1, definierend)
-    ["Shadow Blades"]    = { category = "cooldown", priority = 2, specs = { 261 } }, -- extra CD (Shift+F1, 90s)
+    ["Shadow Blades"]    = { blockQ = { [261] = true }, category = "cooldown", priority = 2, specs = { 261 } }, -- extra CD (Shift+F1, 90s)
 
     -- =================================================================
     -- BASELINE (alle 3 Rogue-specs; geen specs=)

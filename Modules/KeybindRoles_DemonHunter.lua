@@ -108,7 +108,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Sigil of Silence"]  = { category = "dispel_cc", priority = 1, specs = { 581 }, alsoStop = "silence" }, -- Veng AoE-silence sigil (JustAC SpellCategories CROWD_CONTROL 202137) -> Spec 08 alsoStop
 	-- Netherwalk deleted 17 Sep 2026: not in the 12.1 Havoc trees (IV-HAV).
 	-- Grootste CD / cooldown_bar F1 (SpellDB BURST DEMONHUNTER_1 = {191427})
-	["Metamorphosis"]     = { role = "cooldown_bar", priority = 1, specs = { 577 } },      -- Havoc burst-vorm (SpellDB DEMONHUNTER_1 191427)
+	["Metamorphosis"]     = { blockQ = { [577] = true }, role = "cooldown_bar", priority = 1, specs = { 577 } },      -- Havoc burst-vorm (SpellDB DEMONHUNTER_1 191427)
 	-- Extra CD's (guide.lua {258860} Essence Break Fel-Scarred; {213241} Sigil of Doom; {442294} Reaver's Glaive)
 	["Essence Break"]     = { category = "cooldown", priority = 3, specs = { 577 } },      -- burst-window-talent (SpellArchetypes 258860; guide.lua {258860})
 	["Sigil of Doom"]     = { category = "main_rotation", priority = 5, specs = { 577 } }, -- Fel-Scarred sigil-proc (SpellArchetypes 213241; guide.lua {213241})
@@ -130,7 +130,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- Grote def (DEFENSE_TIER 204021 = tier2; SpellCategories DEFENSIVE 187827)
 	["Fiery Brand"]       = { id = 204021, role = "defensive_3", priority = 1, specs = { 581 }, survival = "small", survivalOrder = 2 }, -- 40% DR-brand (DEFENSE_TIER 204021 tier2) -- card: 40% for 12 s, the shorter one next to Meta
 	-- The key is not a spell name (in game 187827 is just "Metamorphosis"), so the card needs the id (audit).
-	["Metamorphosis (Vengeance)"] = { id = 187827, role = "defensive_3", priority = 2, bindKey = "Shift+C", specs = { 581 }, survival = "big", survivalOrder = 1 }, -- health + armor wall (SpellCategories DEFENSIVE 187827) -- card: +40% HP, 15 s, 2 min (IV-VEN)
+	["Metamorphosis (Vengeance)"] = { blockQ = { [581] = true }, id = 187827, role = "defensive_3", priority = 2, bindKey = "Shift+C", specs = { 581 }, survival = "big", survivalOrder = 1 }, -- health + armor wall (SpellCategories DEFENSIVE 187827) -- card: +40% HP, 15 s, 2 min (IV-VEN)
 	-- Extra def / major (SpellArchetypes 212084; guide.lua {212084} heal + AoE damage)
 	["Fel Devastation"]   = { id = 212084, category = "defensive", priority = 4, specs = { 581 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- heal-over-time + AoE (SpellArchetypes 212084; guide.lua {212084}) -- card: heals while channeling (IV-VEN)
 	-- Grootste CD's Vengeance (guide.lua {207407} Soul Carver; {390163} Sigil of Spite)
@@ -171,5 +171,5 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Soul Immolation"]   = { id = 1241937, category = "cooldown", priority = 3, specs = { 1480 }, survival = "heal", survivalOrder = 1 }, -- 60s-CD setup/buff (SpellCooldowns 1241937=60000; SelfAuras 1241937) -- card: heals 24% of max HP (IV-DEV); id not measured in the client
 	-- Grootste CD / cooldown_bar F1 (Void Metamorphosis = burst-vorm; soul-driven, geen timer)
 	-- id 1217605 = the button; 1217607 (used until 3 Oct 2026) is the buff it applies (mh-research, Wowhead).
-	["Void Metamorphosis"] = { id = 1217605, role = "cooldown_bar", priority = 1, specs = { 1480 } },    -- burst-vorm (analoog aan Havoc Metamorphosis)
+	["Void Metamorphosis"] = { blockQ = { [1480] = true }, id = 1217605, role = "cooldown_bar", priority = 1, specs = { 1480 } },    -- burst-vorm (analoog aan Havoc Metamorphosis)
 }

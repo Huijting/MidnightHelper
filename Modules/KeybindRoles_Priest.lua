@@ -115,7 +115,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- Cooldowns (raid-heal-enablers / burst) - grote raid-saves op cooldown-slots:
 	["Rapture"] = { category = "cooldown", priority = 1, specs = { 256 } },                     -- heal-enabler-CD (raid-save)
 	-- Spirit Shell removed 17 Sep: gone since Dragonflight (audit).
-	["Ultimate Penitence"] = { role = "cooldown_bar", priority = 1, specs = { 256 } },          -- F1: grootste heal-CD
+	["Ultimate Penitence"] = { blockQ = { [256] = true }, role = "cooldown_bar", priority = 1, specs = { 256 } },          -- F1: grootste heal-CD
 
 	-- Penance: Disc drukt Penance-DAMAGE actief voor Atonement -> BLIJFT main_rotation (haar rotatie).
 	-- De heal-toepassing loopt via mouseover/click-cast op hetzelfde spell, geen aparte toets.
@@ -132,7 +132,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- Defensives:
 	["Guardian Spirit"] = { id = 47788, role = "defensive_3", priority = 1, specs = { 257 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- C: cheat-death external, also on yourself (Method Holy)
 	-- Cooldowns (grote raid-saves op cooldown-slots):
-	["Apotheosis"] = { role = "cooldown_bar", priority = 1, specs = { 257 } },                  -- F1: reset Holy Words (grootste heal-CD)
+	["Apotheosis"] = { blockQ = { [257] = true }, role = "cooldown_bar", priority = 1, specs = { 257 } },                  -- F1: reset Holy Words (grootste heal-CD)
 	["Divine Hymn"] = { category = "cooldown", priority = 2, specs = { 257 } },                 -- Shift+F1: raid-heal-CD
 	["Holy Word: Salvation"] = { category = "cooldown", priority = 3, specs = { 257 } },        -- grote raid-save-CD (combineert Holy Words)
 	-- Symbol of Hope removed 17 Sep (audit, BRON Icy Veins Holy 12.1).
@@ -197,7 +197,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	--
 	-- 📌 Daarom draagt hij nu een `id`: een hernoeming had dan niets gebroken, en het getal
 	-- stond al op deze regel in het commentaar.
-	["Voidform"] = { id = 228260, role = "cooldown_bar", priority = 1, specs = { 258 } }, -- F1: burst-CD
+	["Voidform"] = { blockQ = { [258] = true }, id = 228260, role = "cooldown_bar", priority = 1, specs = { 258 } }, -- F1: burst-CD
 	["Void Torrent"] = { category = "cooldown", priority = 2, specs = { 258 } }, -- extra burst-CD (channel)
 	-- Mindbender removed 17 Sep: passive now (audit, BRON Icy Veins Shadow 12.1).
 

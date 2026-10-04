@@ -198,9 +198,9 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Avenging Wrath = grootste offensieve/heal-CD, baseline alle specs (BliZzi OffensiveCDAlert +
 	-- guide.lua). F1 = cooldown_bar. (Holy kan Avenging Crusader als vervanger talenten - zie boven.)
-	["Avenging Wrath"] = { id = 31884, role = "cooldown_bar", priority = 1 }, -- F1; baseline (31884) grote CD
+	["Avenging Wrath"] = { blockQ = { [65] = true, [66] = true, [70] = true }, id = 31884, role = "cooldown_bar", priority = 1 }, -- F1; baseline (31884) grote CD
 	-- Sentinel (Prot/Ret cooldown) - SpellCategories/SpellCooldowns [389539]. NB: de "hero-Templar-lijn"-
 	-- duiding is onbevestigd (review F1.4); het id 389539 is wél addon-geverifieerd.
 	-- 17 Sep 2026: Prot only (W-TREE 790, not on IV-Ret); up to 30% less damage taken (IV-ProtPal).
-	["Sentinel"] = { id = 389539, category = "cooldown", priority = 4, specs = { 66 }, survival = "big", survivalOrder = 2 },
+	["Sentinel"] = { blockQ = { [66] = true }, id = 389539, category = "cooldown", priority = 4, specs = { 66 }, survival = "big", survivalOrder = 2 },
 }

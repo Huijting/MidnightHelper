@@ -26,7 +26,12 @@
    `docs/KEYBLOCK_PLAN.md`. ✅ Rob koos het voorstel ("ik ga helemaal op jouw expertise af").
 6. ✅ **Toetsenblok stap 1 gebouwd** (Rob: "Je mag gaan bouwen"; Q = grote cooldown, balknummers mijn keuze 5/6/7):
    `Modules/KeyBlock.lua`, `/mh block` + `/mh block why`, teksten enUS + nlNL (de/fr/es/pt/it nog Engels). Alleen het
-   plaatje, zet niets neer. 🔲 `blockQ`-data per spec: 1× mh-research loopt (`scratchpad\bigcd.json`). Niet in het spel
+   plaatje, zet niets neer. ✅ `blockQ` op 41 entries (mh-research `2138325d…\scratchpad\bigcd.json`: 39 zeker, alle
+   40 keuzes GEMETEN op Icy Veins 12.1; Mistweaver Yu'lon/Chi-Ji onzeker). Talent-tweelingen ook getagd (Incarnation
+   ×2, Berserk Guardian, Chi-Ji, Sentinel). 🔲 **Windwalker: Zenith heeft geen entry** → Q valt op Invoke Xuen (alleen
+   nog Conduit-boom); entry toevoegen = nieuwe spell in de keybind-data (id meten). Afwijkingen van `cooldown_bar`
+   (Subtlety, Preservation, Prot Warrior, Survival Takedown = `spender`, Frost Ray of Frost = `main_rotation`) staan
+   in bigcd.json; Avenging Wrath 31884 en Guardian Incarnation 50334 AFGELEID. Niet in het spel
    gezien → TESTLIJST "4 okt middag" (+ de Edit Mode-proef). Stap 2 ("zet neer") pas na die proef.
 
 ## 🌐 4 okt laat — opdracht van de site-chat (`/play/`-pagina's lezen uit deze repo), GECONTROLEERD

@@ -90,9 +90,9 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Grote def (DEFENSE_TIER 118038 = tier2)
 	["Die by the Sword"]   = { id = 118038, role = "defensive_3", priority = 1, specs = { 71 }, survival = "big", survivalOrder = 1 }, -- 2 min (W-CD), Arms' big one
 	-- Grootste CD / cooldown_bar (guide.lua opener {167105}; SpellArchetypes 167105)
-	["Colossus Smash"]     = { role = "cooldown_bar", priority = 1, specs = { 71 } },
+	["Colossus Smash"]     = { blockQ = { [71] = true }, role = "cooldown_bar", priority = 1, specs = { 71 } },
 	-- Extra CD's (guide.lua {107574} Avatar; {227847} Bladestorm; {228920} Ravager; {436358} Demolish)
-	["Avatar"]             = { category = "cooldown", priority = 2, bindKey = "Shift+F1", specs = { 71, 73 } }, -- Arms/Prot major CD (guide.lua)
+	["Avatar"]             = { blockQ = { [73] = true }, category = "cooldown", priority = 2, bindKey = "Shift+F1", specs = { 71, 73 } }, -- Arms/Prot major CD (guide.lua)
 	-- Utility (SpellArchetypes 394354 anti-shield; 132169 CC-talent)
 	["Wrecking Throw"]     = { category = "utility", priority = 5 },              -- anti-shield/immuniteit (geen heal); baseline throw-utility
 	["Storm Bolt"]         = { category = "dispel_cc", priority = 6, specs = { 71, 72 }, alsoStop = "stun" }, -- single-target stun/CC (InterruptAbilities 107570 kind="cc" mech=12) → Spec 08 alsoStop
@@ -111,7 +111,7 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Kleine/vangnet def + self-heal-DR (DEFENSE_TIER 184364 = tier2 DR-over-time)
 	["Enraged Regeneration"]  = { id = 184364, role = "defensive_3", priority = 1, specs = { 72 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_STUNNED" }, -- 30% DR + heal-over-time (tier2 wall van Fury); geen instant-heal-anker; usable while stunned (IV-Fury)
 	-- Grootste CD / cooldown_bar (guide.lua {385059}=Recklessness variant; SpellDB burst)
-	["Recklessness"]          = { role = "cooldown_bar", priority = 1, specs = { 72 } },
+	["Recklessness"]          = { blockQ = { [72] = true }, role = "cooldown_bar", priority = 1, specs = { 72 } },
 	-- Extra CD's (guide.lua {227847} Bladestorm; Odyn's Fury Fury-talent)
 	-- ⚠️ GEEN bindKey meer op Bladestorm, Ravager en Demolish (7 aug 2026). Alle drie
 	-- vroegen om Ctrl+F1, en dat is dubbel fout: ze kunnen daar niet alle drie op, én

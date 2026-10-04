@@ -104,7 +104,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	-- ============================================================
 	-- Gedeeld Enh + Ele: grootste extra CD
 	-- ============================================================
-	["Ascendance"] = { category = "cooldown", priority = 3, specs = { 262, 263, 264 } }, -- Alt+F1. Per spec een eigen id (WH-spell): Ele 114050, Enh 114051, Resto 114052 (heal-CD)
+	["Ascendance"] = { blockQ = { [262] = true, [263] = true }, category = "cooldown", priority = 3, specs = { 262, 263, 264 } }, -- Alt+F1. Per spec een eigen id (WH-spell): Ele 114050, Enh 114051, Resto 114052 (heal-CD)
 
 	-- ============================================================
 	-- Restoration (264) -- healer (v6 6-splitsing; Midnight 12.0.7 bevestigd via Method-gids).
@@ -126,7 +126,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Downpour"] = { category = "raid_heal", priority = 3, specs = { 264 } }, -- Resto (AoE-burst-heal, toets; 462486)
 	["Surging Totem"] = { category = "raid_heal", priority = 4, specs = { 264 } }, -- Resto (heal/damage-totem, on cooldown, toets; 444995)
 	["Purify Spirit"] = { category = "dispel_cc", priority = 1, specs = { 264 } }, -- Resto V (curse/magic dispel; JustAC DefensiveEngine 77130)
-	["Healing Tide Totem"] = { role = "cooldown_bar", priority = 1, specs = { 264 } }, -- Resto F1 (raid-heal-burst; JustAC DefensiveEngine 108280)
+	["Healing Tide Totem"] = { blockQ = { [264] = true }, role = "cooldown_bar", priority = 1, specs = { 264 } }, -- Resto F1 (raid-heal-burst; JustAC DefensiveEngine 108280)
 	["Spirit Link Totem"] = { category = "cooldown", priority = 2, specs = { 264 } }, -- Resto R (HP-verdeling raid-CD; JustAC DefensiveEngine 98008)
 	-- Class talent for all three specs (IV-Ele, IV-Enh); `specs` stays { 264 } for the keys, the card widens.
 	-- Card: a heal you drop often, after the first heal.

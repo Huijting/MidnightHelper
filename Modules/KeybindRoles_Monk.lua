@@ -108,7 +108,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- Extra CD's (Weapons of Order verwijderd 17 sep: weg in 12.0.0, wiki)
     ["Exploding Keg"]                = { category = "cooldown", priority = 3, specs = { 268 } },      -- MONK_1 burst-CD (60s)
     -- Grootste CD (F1)
-    ["Invoke Niuzao, the Black Ox"]  = { role = "cooldown_bar", priority = 1, specs = { 268 } },      -- F1: tank-CD (celestial)
+    ["Invoke Niuzao, the Black Ox"]  = { blockQ = { [268] = true }, role = "cooldown_bar", priority = 1, specs = { 268 } },      -- F1: tank-CD (celestial)
     -- Taunt / utility
     ["Provoke"]                      = { category = "taunt", priority = 1, specs = { 268 } }, -- F: taunt (eigen kaart)
 
@@ -163,8 +163,8 @@ ns.KeybindRoleClassifier.MONK = {
     -- HEAL-COOLDOWNS -> cooldown-slots (grootste = cooldown_bar)
     -- -----------------------------------------------------------------
     ["Revival"]                      = { role = "cooldown_bar", priority = 1, specs = { 270 } },      -- F1/C: AoE raid-heal + dispel (grootste CD)
-    ["Invoke Chi-Ji, the Red Crane"] = { category = "cooldown", priority = 2, specs = { 270 } },     -- celestial raid-heal (Ctrl+F1)
-    ["Invoke Yu'lon, the Jade Serpent"] = { category = "cooldown", priority = 3, specs = { 270 } },  -- celestial raid-heal-CD (alt van Chi-Ji)
+    ["Invoke Chi-Ji, the Red Crane"] = { blockQ = { [270] = true }, category = "cooldown", priority = 2, specs = { 270 } },     -- celestial raid-heal (Ctrl+F1)
+    ["Invoke Yu'lon, the Jade Serpent"] = { blockQ = { [270] = true }, category = "cooldown", priority = 3, specs = { 270 } },  -- celestial raid-heal-CD (alt van Chi-Ji)
     -- Zen Meditation: verwijderd 17 sep (geen MW-spell, weg in 11.2.0; wiki).
     -- Dispel / CC
     ["Detox"]                        = { category = "dispel_cc", priority = 1, specs = { 270 } },     -- V: magic/poison/disease dispel

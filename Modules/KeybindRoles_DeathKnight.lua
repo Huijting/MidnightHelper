@@ -92,7 +92,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- Grote defensive (Shift+C)
 	["Vampiric Blood"] = { id = 55233, role = "defensive_4", priority = 1, specs = { 250 }, survival = "big", survivalOrder = 1 }, -- grote def (extra, Blood-only); 90 s (W-CD), before the 2 min Icebound
 	-- Grootste CD (F1) + extra CD's
-	["Dancing Rune Weapon"] = { role = "cooldown_bar", priority = 1, specs = { 250 } }, -- F1 (grootste CD: burst/mitigatie)
+	["Dancing Rune Weapon"] = { blockQ = { [250] = true }, role = "cooldown_bar", priority = 1, specs = { 250 } }, -- F1 (grootste CD: burst/mitigatie)
 	["Consumption"] = { category = "cooldown", priority = 2, specs = { 250 } },         -- Shift+F1 (major CD, talent)
 	-- Bonestorm / Blooddrinker / Tombstone removed 17 Sep: in no 12.1 tree node, not on IV-Blood.
 
@@ -117,7 +117,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Frostscythe"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 251 } },    -- AoE-talent (vervangt Obliterate)
 	["Glacial Advance"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 251 } },      -- AoE-spender
 	-- Grootste CD (F1) + extra CD's
-	["Pillar of Frost"] = { role = "cooldown_bar", priority = 1, specs = { 251 } },        -- F1 (grootste CD: burst)
+	["Pillar of Frost"] = { blockQ = { [251] = true }, role = "cooldown_bar", priority = 1, specs = { 251 } },        -- F1 (grootste CD: burst)
 	["Frostwyrm's Fury"] = { category = "cooldown", priority = 2, specs = { 251 } },       -- Shift+F1 (major CD, extra)
 	["Breath of Sindragosa"] = { category = "cooldown", priority = 3, specs = { 251 } },   -- Ctrl+F1 (major CD, talent-kanaal)
 
@@ -133,7 +133,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- AoE (Shift-tweelingen)
 	["Epidemic"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 252 } }, -- AoE-spender
 	-- Grootste CD (F1) + extra CD's
-	["Army of the Dead"] = { role = "cooldown_bar", priority = 1, specs = { 252 } },       -- F1 (grootste CD: burst-opener)
+	["Army of the Dead"] = { blockQ = { [252] = true }, role = "cooldown_bar", priority = 1, specs = { 252 } },       -- F1 (grootste CD: burst-opener)
 	-- Summon Gargoyle removed 17 Sep (now talent 1242147 on Army of the Dead, W-DESC); Apocalypse and
 	-- Unholy Assault removed 17 Sep (IV-UHnews: removed in Midnight; Maxroll).
 	["Outbreak"] = { category = "main_rotation", priority = 3, specs = { 252 } },          -- disease-applicatie (builder-onderhoud)

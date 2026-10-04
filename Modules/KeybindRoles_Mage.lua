@@ -146,7 +146,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- Zonder wens zoekt hij per spec zelf een vrije rotatie-plek.
 	["Arcane Explosion"] = { category = "main_rotation", priority = 6 }, -- SpellArchetypes [1449] melee; baseline PBAoE
 	["Prismatic Barrier"] = { id = 235450, role = "defensive_1", priority = 1, specs = { 62 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235450] (kleine def, magic-absorb)
-	["Arcane Surge"] = { role = "cooldown_bar", priority = 1, specs = { 62 } }, -- F1; SpellArchetypes [365350]; Arcane grootste burst-CD
+	["Arcane Surge"] = { blockQ = { [62] = true }, role = "cooldown_bar", priority = 1, specs = { 62 } }, -- F1; SpellArchetypes [365350]; Arcane grootste burst-CD
 	["Touch of the Magi"] = { category = "cooldown", priority = 2, specs = { 62 } }, -- extra CD; burst-window-opener
 	["Presence of Mind"] = { category = "utility", priority = 5, specs = { 62 } }, -- guide.lua; instant-cast-CD (geen movement -> utility)
 	["Evocation"] = { category = "utility", priority = 6, specs = { 62 } }, -- guide.lua; mana-regen-channel
@@ -168,7 +168,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Dragon's Breath"] = { category = "dispel_cc", priority = 6 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (achter Spellsteal, zie daar)
 	["Blazing Barrier"] = { id = 235313, role = "defensive_1", priority = 1, specs = { 63 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
 	["Cauterize"] = { category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow. Card: off (passive, not a button)
-	["Combustion"] = { role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD
+	["Combustion"] = { blockQ = { [63] = true }, role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD
 	["Meteor"] = { category = "cooldown", priority = 2, specs = { 63 } }, -- guide.lua / SpellArchetypes [351140] ranged; extra CD (talent, ook Frost)
 
 	--==============================================================================
@@ -181,7 +181,7 @@ ns.KeybindRoleClassifier.MAGE = {
 
 	["Frostbolt"] = { category = "main_rotation", priority = 1, specs = { 64 } }, -- KeybindingData "1" [116]; kern-builder (Fingers of Frost / Icicles)
 	["Flurry"] = { category = "main_rotation", priority = 2, specs = { 64 } }, -- KeybindingData "2" [44614]; Brain-Freeze-proc, Winter's Chill
-	["Ray of Frost"] = { category = "main_rotation", priority = 3, specs = { 64 } }, -- KeybindingData "3" [205021]; channel-nuke damage-knop (talent) -> main_rotation, geen cooldown
+	["Ray of Frost"] = { blockQ = { [64] = true }, category = "main_rotation", priority = 3, specs = { 64 } }, -- KeybindingData "3" [205021]; channel-nuke damage-knop (talent) -> main_rotation, geen cooldown
 	["Ice Lance"] = { category = "main_rotation", priority = 4, specs = { 64 } }, -- KeybindingData "4" [30455]; Shatter-spender (instant)
 	-- Glacial Spike removed 17 Sep: no longer a spell, it changes Frostbolt (audit, BRON Icy Veins Frost 12.1).
 	["Frozen Orb"] = { category = "main_rotation", priority = 2, bindKey = "Shift+1", specs = { 64 } }, -- KeybindingData "Shift+1" [84714]; AoE + Fingers-of-Frost-CD (AoE-slot)

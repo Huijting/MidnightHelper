@@ -138,7 +138,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	["Seed of Corruption"] = { category = "spender", priority = 3, bindKey = "Shift+4", specs = { 265 } }, -- SpellArchetypes [27243] ranged; AoE-spender (AoE-slot, Shift-tweeling van Malefic Rapture slot 4)
 
 	-- Cooldowns.
-	["Summon Darkglare"] = { role = "cooldown_bar", priority = 1, specs = { 265 } }, -- F1; SpellDB/Archetypes [205180] grootste burst-CD (extendt DoTs)
+	["Summon Darkglare"] = { blockQ = { [265] = true }, role = "cooldown_bar", priority = 1, specs = { 265 } }, -- F1; SpellDB/Archetypes [205180] grootste burst-CD (extendt DoTs)
 	-- Soul Rot, Phantom Singularity, Vile Taint removed 17 Sep: "have been removed" (audit, BRON Icy Veins Affliction 12.1).
 	-- Malevolence: Hellcaller is also a Destruction hero tree (audit, BRON Method Destruction), but `specs`
 	-- stays { 265 }: adding 267 would give Destruction a new key, and the 17 Sep pass moves no binds.
@@ -173,7 +173,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	["Doom"] = { category = "main_rotation", priority = 4, specs = { 266 } }, -- SpellArchetypes [460555] ranged; AoE-DoT (talent)
 
 	-- Cooldowns.
-	["Summon Demonic Tyrant"] = { role = "cooldown_bar", priority = 1, specs = { 266 } }, -- F1; SpellArchetypes [265187] grootste burst-CD (buft alle demons)
+	["Summon Demonic Tyrant"] = { blockQ = { [266] = true }, role = "cooldown_bar", priority = 1, specs = { 266 } }, -- F1; SpellArchetypes [265187] grootste burst-CD (buft alle demons)
 
 	--==============================================================================
 	-- DESTRUCTION (spec 267) - direct-damage ranged DPS.
@@ -197,7 +197,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	["Soul Fire"] = { category = "main_rotation", priority = 4, specs = { 267 } }, -- SpellArchetypes [6353] ranged; mini-cooldown-builder (talent)
 
 	-- Burst-cooldown (F1). Alleen de grote summon hoort in het F1-burst-cluster.
-	["Summon Infernal"] = { role = "cooldown_bar", priority = 1, specs = { 267 } }, -- F1; SpellArchetypes [157898] grootste burst-CD (Meteor + haste)
+	["Summon Infernal"] = { blockQ = { [267] = true }, role = "cooldown_bar", priority = 1, specs = { 267 } }, -- F1; SpellArchetypes [157898] grootste burst-CD (Meteor + haste)
 
 	-- Korte rotatie-CD's (op-CD gecast, geen F1-burst-slot).
 	["Cataclysm"] = { category = "main_rotation", priority = 5, specs = { 267 } }, -- SpellArchetypes [152108] ranged; korte AoE-Immolate-applicator (~30s), rotatie op-CD, geen F1-burst (talent)
