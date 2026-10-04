@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🏆 4 okt middag — wens #16 (fr): "les hauts faits non accomplis" → alleen Midnight (Rob: "Ja doe maar")
+
+Plan: lijst "Midnight-achievements die je nog niet hebt", gegroepeerd per Blizzard-categorie, naam/voortgang/punten
+uit de client, klik opent Blizzards venster. Stap 1 gebouwd: **`/mh ach cats`** (`ns.SaveAchievementCategoryProbe`,
+AchievementFind.lua) → hele categorieboom + `EXPANSION_NAME*` naar `ns.db.achCatProbe`, chat noemt categorieën met
+"Midnight" (of de clientnaam van de huidige uitbreiding) in titel/ouder. Welke categorieën Midnight zijn = nog NIET
+gemeten. 🔲 Rob draait het vanavond → dan de lijst bouwen.
+
 ## 🌐 4 okt middag — antwoord site-chat (via Rob)
 
 - ⚠️ **Survival-ids staan AL LIVE op de site** (site-chat bouwde vóór Robs seintje; Rob: "laten staan"). Vindt de test

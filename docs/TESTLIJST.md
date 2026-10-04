@@ -70,6 +70,9 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 - [ ] Nieuwe kaart **Coiled to Strike** (12 rares): klopt je teller met wat het spel zegt? Route-knop: wijst de pijl
   naar de dichtstbijzijnde rare die je nog mist? Szarith zit in de Underbelly (eerst de ingang).
 - [ ] **Windwalker Monk** (als je die hebt): `/mh block` → staat **Zenith** op Q?
+- [ ] **Meting voor "Midnight-achievements die je nog mist"** (wens van de Franse speler, #16): typ `/mh ach cats`.
+  In de chat: hoeveel categorieën, en een lijstje "… > Midnight" met tellers. Dan `/reload` en zeg "gedaan"; ik lees
+  het bestand (`achCatProbe`). Er verandert niets.
 
 ## 🆕 4 okt middag — 4.6.0 klaargezet (NIET gepusht, NIET getagd)
 

@@ -1668,6 +1668,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			end
 			return
 		end
+		-- /mh ach cats — the category tree, to find which ones are Midnight (4 Oct 2026, survey #16).
+		if msg == "ach cats" then
+			if ns.SaveAchievementCategoryProbe then
+				ns.SaveAchievementCategoryProbe()
+			end
+			return
+		end
 		local detailIDs = msg:match("^ach%s+id%s+([%d%s]+)$")
 		if detailIDs then
 			if ns.PrintAchievementDetail then

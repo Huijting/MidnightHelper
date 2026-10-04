@@ -24,6 +24,95 @@ local _, ns = ...
 
 local PREFIX = "|cffffcc00Midnight Helper|r"
 
+--- /mh ach cats — the achievement category tree as the client has it (4 Oct 2026).
+---
+--- Survey #16 (fr) misses "les hauts faits non accomplis"; Rob: only the Midnight ones. Which
+--- categories ARE Midnight is not known from outside the client (most likely a "Midnight"
+--- sub-category under Quests, Exploration, Delves ...), and guessing ids is what this addon does
+--- not do. So this records every category with its parent, flags and counts, plus the client's own
+--- expansion names, to ns.db.achCatProbe. The list feature is built on what this measures.
+function ns.SaveAchievementCategoryProbe()
+	if not (GetCategoryList and GetCategoryInfo and GetCategoryNumAchievements and GetAchievementInfo) then
+		print(PREFIX .. " achievement category API not available on this client.")
+		return
+	end
+	local okCats, categories = pcall(GetCategoryList)
+	if not okCats or type(categories) ~= "table" then
+		print(PREFIX .. " GetCategoryList returned nothing usable.")
+		return
+	end
+	local out = { categories = {}, expansionNames = {}, locale = GetLocale and GetLocale() or nil }
+	for lvl = 0, 14 do
+		local s = _G["EXPANSION_NAME" .. lvl]
+		if type(s) == "string" then
+			out.expansionNames[lvl] = s
+		end
+	end
+	if GetExpansionLevel then
+		out.expansionLevel = GetExpansionLevel()
+	end
+	if GetServerExpansionLevel then
+		out.serverExpansionLevel = GetServerExpansionLevel()
+	end
+	local current = out.serverExpansionLevel and out.expansionNames[out.serverExpansionLevel]
+
+	local titles = {}
+	for _, id in ipairs(categories) do
+		local ok, title, parentID, flags = pcall(GetCategoryInfo, id)
+		titles[id] = ok and title or nil
+		local rec = { id = id, title = ok and title or nil, parent = ok and parentID or nil, flags = ok and flags or nil }
+		local okN, total, done, todo = pcall(GetCategoryNumAchievements, id, true)
+		if okN then
+			rec.total, rec.done, rec.todo = total, done, todo
+		end
+		-- A few ids and names, so the era of a category can be read off its ids.
+		rec.sample = {}
+		local n = okN and tonumber(total) or 0
+		local minId, maxId
+		for i = 1, n do
+			local okA, aid, name = pcall(GetAchievementInfo, id, i)
+			if okA and aid then
+				minId = math.min(minId or aid, aid)
+				maxId = math.max(maxId or aid, aid)
+				if #rec.sample < 3 then
+					rec.sample[#rec.sample + 1] = { id = aid, name = name }
+				end
+			end
+		end
+		rec.minId, rec.maxId = minId, maxId
+		out.categories[#out.categories + 1] = rec
+	end
+	for _, rec in ipairs(out.categories) do
+		rec.parentTitle = rec.parent and titles[rec.parent] or nil
+	end
+
+	local function isMidnight(t)
+		if type(t) ~= "string" then
+			return false
+		end
+		return (current and t == current) or t:lower():find("midnight", 1, true) ~= nil
+	end
+	local hits = 0
+	print(("%s %d achievement categories read (expansion name here: %s)."):format(
+		PREFIX, #out.categories, tostring(current)))
+	for _, rec in ipairs(out.categories) do
+		if isMidnight(rec.title) or isMidnight(rec.parentTitle) then
+			hits = hits + 1
+			out.midnightGuess = out.midnightGuess or {}
+			out.midnightGuess[#out.midnightGuess + 1] = rec.id
+			print(("   %s > %s  |cff9d9d9d(id %s, %s/%s done)|r"):format(tostring(rec.parentTitle or "-"),
+				tostring(rec.title), tostring(rec.id), tostring(rec.done), tostring(rec.total)))
+		end
+	end
+	if hits == 0 then
+		print("   |cffff9900no category named after the expansion|r — the full tree is in SavedVariables.")
+	end
+	if ns.db then
+		ns.db.achCatProbe = out
+	end
+	print("   |cff9d9d9dEverything is saved; |cffffffff/reload|r|cff9d9d9d and send me MidnightHelper.lua (or just say done).|r")
+end
+
 -- Enough to see what you searched for without flooding chat when someone types "a".
 local MAX_HITS = 40
 
