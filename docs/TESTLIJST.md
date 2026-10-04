@@ -47,6 +47,10 @@ er is niets weggegooid.
 - [x] Void & Rituals-tab (screenshot 4 okt): weekly-regel noemt Lady Liadrin ✅. Maar hij was **geel** terwijl de quest
   niet in de log staat: de grijs/geel-regel zat alleen in `RitualSites.lua`, niet in `WorldContent.lua` (dit tabblad).
   🐛 Gerepareerd. → Na `/reload`: is de regel nu **grijs**?
+- [x] Lor'themar Theron: "pick it up next to the vault" was fout. Rob vond hem 4 okt boven in zijn gebouw (2393
+  45.4/70.3), zonder quest. mh-research: 95245 "Midnight: World Tour" is **eenmalig**, geen weekly; Lor'themar geeft
+  in S2 geen weekly. Rob koos **A: uit de lijst**. Weg uit ResetRoutine + WeeklyHubProbe.
+- [ ] Na `/reload`: staat Lor'themar niet meer in "Your week"? (Telling wordt "x of 11".)
 - [ ] Dundun-regel zit niet in het alt-overzicht maar in **MH → beroepen-overzicht** (Knowledge-blok bovenaan, dit
   personage): "Shards of Dundun: N / 8 earned this week". Mijn testvraag noemde de verkeerde plek.
 - [ ] Liadrin bood Rob 4 okt: World Quests, Saltheril's Soiree, **Vaults of Atal'Utek**, Dungeons (screenshot). Kies

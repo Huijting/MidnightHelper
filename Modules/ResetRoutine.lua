@@ -176,20 +176,12 @@ local GIVER_WEEKLIES = {
 	--- which is the safe direction to be wrong in. Correct it if a levelling character is
 	--- offered the quest.
 	{ key = "vereesa", name = "Vereesa Windrunner", quests = { 98172 }, minLevel = 90 },
-	--- 🔴 A SECOND SPARK WEEKLY THIS LIST DID NOT KNOW — found the same way as Vereesa's.
-	---
-	--- Rob picked up his weeklies on 16 Sep 2026 and `/mh weeklies` listed **95245 "Midnight:
-	--- World Tour"** as sitting in his log with NOT IN OUR DATA, while `MidnightHelperDB.giverLearn`
-	--- had never seen the id either — both MEASURED in his own saved variables. So the quest id is
-	--- measured (it was in his log); that **Lor'themar Theron** starts and ends it in Silvermoon
-	--- City, for a Spark of Tides, is AFGELEID from Wowhead's quest page, one source.
-	---
-	--- ⚠️ Not the "World Tour" of `DelverCallData.lua` — that one is the per-delve Delver's Call.
-	---
-	--- ⚠️ minLevel 90 is the same ASSUMPTION as Liadrin, Aethas, Vereesa and Maella: endgame
-	--- Silvermoon content, sub-90 never tested. Wrong in the safe direction — a levelling
-	--- character then reads "later, as you level" instead of losing the line entirely.
-	{ key = "lorthemar", name = "Lor'themar Theron", quests = { 95245 }, minLevel = 90 },
+	--- ❌ LOR'THEMAR THERON WAS HERE (16 Sep – 4 Oct 2026) AND IS GONE ON PURPOSE (Rob: "A").
+	--- 95245 "Midnight: World Tour" was in Rob's log on 16 Sep and got filed as a "Spark weekly" from
+	--- one Wowhead page. mh-research, 4 Oct: it is a ONE-TIME quest from the start of the expansion
+	--- (Wowhead News 12 Aug, Icy Veins, Method), and Lor'themar (npc 235787, upstairs at 2393
+	--- 45.4/70.4) gives no weekly in Season 2. Rob stood there that day: no quest, "Silvermoon is
+	--- grateful for your aid." The line told every level-90 to fetch it "next to the vault", weekly.
 	-- Showdown weekly, from Riftblade Maella in the active Void world. MH already
 	-- had both zone ids (ShowdownsData.lua, Rob verified 96713 in-game on 16 jun)
 	-- but only used them in the Void & Rituals tab and the account snapshot -- never
@@ -900,6 +892,14 @@ local function GiverState(def)
 			return "inlog"
 		end
 	end
+	--- A giver whose window opens even with nothing to give (`zeroOfferIsNone`) can tell us "none
+	--- this week". GEMETEN 4 Oct 2026: Lor'themar opened "Silvermoon is grateful for your aid." with
+	--- no quest (he was then removed as a giver; no entry carries the flag yet — kept for the next
+	--- giver whose window measurably opens empty). Liadrin and the hub givers do NOT get this flag: an NPC with nothing opens no window
+	--- at all (9 Sep), and Liadrin's choice of four is not a gossip window, so a 0 there proves nothing.
+	if def.zeroOfferIsNone and offered == 0 then
+		return "none"
+	end
 	if def.minLevel and UnitLevel then
 		local ok, lvl = pcall(UnitLevel, "player")
 		if ok and tonumber(lvl) and lvl < def.minLevel then
@@ -1065,6 +1065,12 @@ function ns.GetResetRoutineSteps()
 		elseif gs == "locked" then
 			steps[#steps + 1] = {
 				text = ns:L("HOME_ROUTINE_GIVER_LOCKED_FMT"):format(def.name, def.minLevel),
+				color = "dim",
+			}
+		elseif gs == "none" then
+			-- You stood there this week and the window had no quest: grey, not a stop.
+			steps[#steps + 1] = {
+				text = ns:L("HOME_ROUTINE_GIVER_NONE_FMT"):format(def.name),
 				color = "dim",
 			}
 		elseif gs == "pickup" then

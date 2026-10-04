@@ -1413,6 +1413,7 @@ ns._mhLocales.nlNL = {
 	HOME_ROUTINE_GIVER_PICKUP_FMT = "Weekly (%s): ophalen naast de vault.",
 	HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT = "Weekly (%s): neem het Voidstorm-portaal in de Bazaar. Zij staat aan de overkant, in de wereld van deze week — niet in Silvermoon. Portaal niet actief? Sluit je eerst aan bij haar expeditie op Howling Ridge in de Voidstorm.",
 	HOME_ROUTINE_PIN_SHOWDOWN = "Voidstorm-portaal (Silvermoon Bazaar)",
+	HOME_ROUTINE_GIVER_NONE_FMT = "Weekly (%s): geen quest toen je er deze week was.",
 	HOME_ROUTINE_GIVER_LOCKED_FMT = "Weekly (%s): beschikbaar vanaf level %d.",
 	VOID_TITLE = "Void Assaults",
 	VOID_SUBTITLE = "Midnight wereld-event. De Void valt elke week één van twee zones aan — ruim Void Strikes op om een Void Incursion te triggeren voor Field Accolades, gear en je Great Vault-wereldrij.",

@@ -1460,6 +1460,7 @@ ns._mhLocales.enUS = {
 	HOME_ROUTINE_GIVER_PICKUP_FMT = "Weekly (%s): pick it up next to the vault.",
 	HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT = "Weekly (%s): take the Voidstorm portal in the Bazaar. She is on the other side, in this week's world — not in Silvermoon. Portal inactive? Join her expedition at Howling Ridge in the Voidstorm first.",
 	HOME_ROUTINE_PIN_SHOWDOWN = "Voidstorm portal (Silvermoon Bazaar)",
+	HOME_ROUTINE_GIVER_NONE_FMT = "Weekly (%s): no quest on offer when you visited this week.",
 	HOME_ROUTINE_GIVER_LOCKED_FMT = "Weekly (%s): available from level %d.",
 	VOID_TITLE = "Void Assaults",
 	VOID_SUBTITLE = "Midnight world event. The Void attacks one of two zones each week — clear Void Strikes to trigger a Void Incursion for Field Accolades, gear and your Great Vault world row.",

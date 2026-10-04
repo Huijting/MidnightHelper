@@ -67,20 +67,8 @@ local SHOWDOWN = {
 	{ 96054, "Surveying the Mana-Bog" },
 }
 
---- Lor'themar Theron's own weekly, and the reason this probe exists.
----
---- GEMETEN 16 Sep 2026: after Rob picked up his weeklies, the probe listed **95245
---- "Midnight: World Tour"** under "in your log" with NOT IN OUR DATA — no pool here knew it,
---- and `MidnightHelperDB.giverLearn` had never seen it either. Wowhead's quest page names
---- Lor'themar Theron as both start and end, in Silvermoon City, rewarding a Spark of Tides
---- (AFGELEID: one source, not the client).
----
---- ✅ Rob, 16 Sep 2026: "ja doe Lor'themar er maar bij", so he is a giver in the reset routine
---- now (`ResetRoutine.lua`, key `lorthemar`). This pool stays, because it asks the game for the
---- quest's own title — the check that catches a wrong id before a route step does.
-local LORTHEMAR = {
-	{ 95245, "World Tour (Spark)" },
-}
+--- ❌ The Lor'themar pool (95245 "Midnight: World Tour") is gone since 4 Oct 2026: a ONE-TIME
+--- quest, not a weekly (mh-research; see the note where his giver entry was in ResetRoutine.lua).
 
 local function QuestState(id)
 	local done, onQuest
@@ -256,8 +244,7 @@ function ns.PrintWeeklyHubProbe(mode)
 	local a1, b1 = PrintPool("Lady Liadrin's weekly pool", LIADRIN, turned)
 	local a2, b2 = PrintPool("Void Assault zone rotation", VOID_ZONES, turned)
 	local a3, b3 = PrintPool("Showdown (Riftblade Maella)", SHOWDOWN, turned)
-	local a4, b4 = PrintPool("Lor'themar Theron (Spark weekly)", LORTHEMAR, turned)
-	inLog, completed = a1 + a2 + a3 + a4, b1 + b2 + b3 + b4
+	inLog, completed = a1 + a2 + a3, b1 + b2 + b3
 
 	--- 🔴 THE LEARNED IDS, PRINTED (4 Oct 2026). Liadrin read "done" while this probe said
 	--- "0 completed": the cause was a learned story quest (92916, flag never clears) that the
@@ -309,7 +296,7 @@ function ns.PrintWeeklyHubProbe(mode)
 		-- So: name every "Midnight:" quest in the log and say whether we know it.
 		-- An unknown id here is the answer, not a puzzle.
 		local known = {}
-		for _, pool in ipairs({ LIADRIN, VOID_ZONES, SHOWDOWN, LORTHEMAR }) do
+		for _, pool in ipairs({ LIADRIN, VOID_ZONES, SHOWDOWN }) do
 			for _, row in ipairs(pool) do
 				known[row[1]] = true
 			end
