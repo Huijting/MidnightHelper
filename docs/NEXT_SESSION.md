@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## 🌐 4 okt laat — opdracht van de site-chat (`/play/`-pagina's lezen uit deze repo), GECONTROLEERD
+
+De site (`Huijting/midnighthelper-site`) genereert `/play/<slug>/` uit `Modules/PlayCards.lua` + `PLAYCARD_*` in 7
+packs, en straks ook Stay alive / Group / Consumables / Dispel uit KeybindRoles_*.lua, GroupPlan.lua,
+ConsumablesWowheadData.lua, HealerCooldowns.lua, DispelHelper.lua. Wijzigingen hier komen dus op de site.
+- **Punt 1 ("vijf kaarten te oud, niets nieuwer dan 11 aug") klopt NIET meer** — GEMETEN in PlayCards.lua 4 okt: 64 =
+  Wowhead 29 Aug, 72 = Icy Veins 25 Aug, 264 = Wowhead 5 Sep, 266 = Method 27 Sep, 255 = Wowhead 23 Sep. Die 12 kaarten
+  zonder "rechecked 3 Oct"-commentaar (64, 72, 103, 104, 255, 259, 260, 261, 264, 266, 1467, 1473) zijn de "E"-ronde van
+  3 okt middag (12 nagelopen, 4 met nieuwe regels). De site-chat mat vóór die ronde. Open: Survival 255 — site zegt de
+  Icy Veins-pagina draagt "Jul 16, 2026 / 12.0.7", onze bron zegt "Icy Veins 30 Aug" → nog niet nagekeken.
+- **Punt 2 (7 door de maandagwachter overgeslagen specs)**: 103, 104, 259, 260, 261, 1467, 1473 zitten alle 7 in die
+  E-ronde → gedaan.
+- **Punt 4 (gidsen: datum + og:/twitter-tags in `tools/build_site.py`)**: nog te doen.
+- **Punt 3 (link vanaf de kaart in het spel naar `/play/<slug>/`)**: alleen na Robs ja.
+- ⚠️ **Meld aan de site-chat:** de survival-velden zijn vandaag uitgebreid — `survivalSpecs`, `survivalId`,
+  `survivalOverride` (Warlock: Command Demon 119898 → alleen tonen als override 119914/119910), `survivalRequires`
+  (Mirror Image alleen met talent 1309497), `survival` als tabel per spec, en `specs = {}` + `survivalSpecs` (Celestial
+  Infusion: alleen voor de kaart). Een site-bouwer die alleen `survival` + naam leest, toont daardoor rijen die het spel
+  niet toont.
+
 ## ⌨️ 4 okt — brainstorm "vast toetsenblok" (Robs idee), NOG NIETS GEBOUWD
 
 - Keuzes + metingen staan in **`docs/KEYBLOCK_PLAN.md`**. Kort: 3 balken van 3×4 = 36 vaste plekken, hoofdknop op 1,

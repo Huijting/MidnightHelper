@@ -85,8 +85,9 @@ er is niets weggegooid.
 - [x] ✅ Rob 4 okt na tweede poging: Skinning nu zónder die zin. (Eerste poging las `C_TradeSkillUI` → zei niets bij
   gesloten beroepenvenster. GEMETEN `/run`: GetProfessionInfo geeft "Skinning 100 100 393" → die bron gebruikt.)
   Zelfde bron nu ook in `ProfessionNextStep.lua` (This Week, gatherer-weekly onder 25 verbergen).
-- [ ] This Week op Purlymixanox: staat "Trainer weekly (Skinning)" er nog (skill 100 = hoort te blijven)? En op een alt
-  met een verzamelberoep ónder 25: valt die regel weg?
+- [x] ✅ Rob 4 okt: This Week op Purlymixanox toont nog "Trainer weekly (Skinning): pick it up at your profession
+  trainer" (skill 100 = hoort te blijven).
+- [ ] Op een alt met een verzamelberoep ónder skill 25: valt die regel in This Week weg?
 - [x] ✅ Rob 4 okt (Redisch, Blacksmithing + Enchanting): overzicht met advies per beroep, Enchanting-weekly afgevinkt.
 - [x] Rob 4 okt, Redisch (BM Hunter 90): Group-tab leeg op alle 3 specs ("None of these buttons…"). GEMETEN met `/run`:
   `C_Spell.GetSpellInfo("Misdirection")` en `("Roar of Sacrifice")` = **nil**, IsPlayerSpell 34477/53480 false → hij heeft
