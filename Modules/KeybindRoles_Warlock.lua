@@ -116,8 +116,8 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	--==============================================================================
 
 	-- Interrupt (E). Geen eigen kick -> via Felhunter (Spell Lock). Command Demon proct de pet-cast.
-	-- Card: same Command Demon route as Axe Toss below. 119910 as the Felhunter's override is AFGELEID
-	-- (mh-research, Wowhead "Requires Warlock"), not measured — if wrong the row stays off, never wrong.
+	-- Card: same Command Demon route as Axe Toss below. 119910 as the Felhunter's override came from
+	-- mh-research; GEMETEN 4 Oct 2026: Spell Lock showed on Rob's Affliction card, so the filter matched.
 	["Spell Lock"] = { role = "interrupt", priority = 1, specs = { 265, 267 }, survival = "interrupt", survivalOrder = 1,
 		survivalId = { [265] = 119898, [267] = 119898 }, survivalOverride = { [119910] = true } }, -- InterruptAbilities [19647] kind=interrupt pri=1 (Felhunter)
 	["Call Felhunter"] = { role = "interrupt", priority = 2, specs = { 265, 267 } }, -- InterruptAbilities [212619] interrupt pri=2 (summon+kick)

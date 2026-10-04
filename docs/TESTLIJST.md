@@ -83,8 +83,11 @@ er is niets weggegooid.
   override 119914, IsPlayerSpell 119898 true / 119914 false / 89766 false. Gebouwd: `survivalId` = 119898 +
   `survivalOverride` (alleen tonen als de override echt Axe Toss is). Na `/reload`: **Axe Toss staat er als 7**, `/mh
   survival` zegt "+". Spell Lock (Affli/Destro, override 119910 AFGELEID) nog niet gezien.
-- [ ] Meten met `/mh survival` (zegt per knop waarom hij wel/niet op de kaart staat): **Warlock Affliction/Destruction**
-  met Felhunter — staat Spell Lock erop? **Devourer** — staat Shift erop? **Windwalker** met Combat Wisdom — is Expel Harm weg?
+- [x] ✅ Rob 4 okt, Affliction: **Spell Lock staat erop** (rij 6) → override 119910 daarmee GEMETEN.
+- [x] ✅ Rob 4 okt, Elemental (Horde): Group-tab toont alleen **Bloodlust**, geen Heroism (+ Wind Rush Totem,
+  Ancestral Spirit).
+- [x] ✅ Rob 4 okt: "Shards of Dundun: 0 / 8 earned this week" in Tools → Professions → Treasures & Books (Engineering +
+  Jewelcrafting-alt). Currency 3376 + naamcontrole werkt. **Devourer** — staat Shift erop? **Windwalker** met Combat Wisdom — is Expel Harm weg?
 - [ ] Liadrin: pak je **Arcantina, Offworld Showdowns, Raid** of **Vaults of Atal'Utek**, zegt "Your week" dan dat
   hij in je log staat (niet "ga ophalen")? `/mh weeklies` noemt hem dan niet meer als onbekend.
 - [ ] Void & Rituals-tab: heeft de Stormarion-regel nu in **elke** fase een tooltip (ook bij "bouwen" en "verdedigen")?
