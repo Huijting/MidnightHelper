@@ -66,16 +66,16 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- ============================================================
 	-- Interrupt (E) - enige Evoker-entry in InterruptAbilities.lua
 	-- Dev/Aug only: Preservation lost Quell in 12.0 (WH-pp-Pres).
-	["Quell"] = { role = "interrupt", priority = 1, specs = { 1467, 1473 }, survival = "interrupt", survivalOrder = 1 },
+	["Quell"] = { id = 351338, role = "interrupt", priority = 1, specs = { 1467, 1473 }, survival = "interrupt", survivalOrder = 1 },
 	-- Movement (Q / Shift+Q)
-	["Hover"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q (movement, baseline)
+	["Hover"] = { id = 358267, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q (movement, baseline)
 	["Deep Breath"] = { role = "utility_primary", priority = 2 },        -- Shift+Q (movement, ook major damage-CD)
 	-- Kleine defensive (Z)
 	-- Card: 30% for 12 s on 1.5 min (IV-Dev, WH-spell) — the main defensive, a cooldown, not a keep-up.
-	["Obsidian Scales"] = { role = "defensive_1", priority = 1, survival = "big", survivalOrder = 1 }, -- Z (kleine def, baseline); card: big sinds 3 okt 2026 (30% DR 12 s, sterkste eigen def; IV 12.1)
+	["Obsidian Scales"] = { id = 363916, role = "defensive_1", priority = 1, survival = "big", survivalOrder = 1 }, -- Z (kleine def, baseline); card: big sinds 3 okt 2026 (30% DR 12 s, sterkste eigen def; IV 12.1)
 	-- Grote defensive (C)
 	-- Card: -20% AREA damage for you + 4 allies, 2 min (WH-spell 374227); no help against one big hit.
-	["Zephyr"] = { role = "defensive_3", priority = 1, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline); card: small sinds 3 okt 2026 (alleen tegen AoE)
+	["Zephyr"] = { id = 374227, role = "defensive_3", priority = 1, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline); card: small sinds 3 okt 2026 (alleen tegen AoE)
 	-- Dispel / CC (V-cluster)
 	["Sleep Walk"] = { category = "dispel_cc", priority = 1 },           -- V (incapacitate CC, baseline)
 	["Expunge"] = { category = "dispel_cc", priority = 2 },              -- Shift+V (poison-dispel, baseline)
@@ -83,9 +83,9 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Landslide"] = { category = "dispel_cc", priority = 4 },            -- T (root-CC, baseline; draft: Interrupt_CCAndCD_Tracker)
 	-- Self-heals (heal-ankers)
 	-- Card: the strongest instant heal first; on an ally it flies you to them (IV-Dev).
-	["Verdant Embrace"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- F2 heal-anker: instant self-heal (baseline)
+	["Verdant Embrace"] = { id = 360995, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- F2 heal-anker: instant self-heal (baseline)
 	-- Card: a cast, so after the instant heals.
-	["Living Flame"] = { role = "heal_ooc", priority = 1, survival = "heal", survivalOrder = 3 }, -- F3 heal-anker: out-of-combat/filler self-heal (baseline)
+	["Living Flame"] = { id = 361469, role = "heal_ooc", priority = 1, survival = "heal", survivalOrder = 3 }, -- F3 heal-anker: out-of-combat/filler self-heal (baseline)
 	-- Renewing Blaze removed 17 Sep: passive since 12.0 (Wiki-RB), see the header.
 	-- Utility (R / F / T)
 	["Blessing of the Bronze"] = { category = "utility", priority = 1 }, -- R/F (raid-buff, baseline)
@@ -127,7 +127,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Temporal Anomaly"] = { category = "raid_heal", priority = 2, specs = { 1468 } }, -- raid-AoE-shield, Echo-generator
 	-- Raid/AoE-heal (op toets)
 	-- Card: it heals you too (IV-Pres). Baseline for Dev/Aug per IV-Dev, but widening specs would move keys.
-	["Emerald Blossom"] = { category = "raid_heal", priority = 3, specs = { 1468 }, survival = "heal", survivalOrder = 2 }, -- Essence-spender, AoE-heal
+	["Emerald Blossom"] = { id = 355913, category = "raid_heal", priority = 3, specs = { 1468 }, survival = "heal", survivalOrder = 2 }, -- Essence-spender, AoE-heal
 	-- Heal-COOLDOWNS (v6 SS6): grootste = cooldown_bar, rest category="cooldown"
 	["Dream Flight"] = { role = "cooldown_bar", priority = 1, specs = { 1468 } },        -- F1 (grootste heal-CD: grote burst-raid-heal)
 	["Stasis"] = { category = "cooldown", priority = 2, specs = { 1468 } },              -- Shift+F1 (banked-heals major CD)

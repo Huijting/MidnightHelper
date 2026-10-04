@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## 🔧 4 okt middag — Rob aan het werk, niets in het spel getest. Vijf opdrachten.
+
+1. ✅ **Survival-ids gebouwd** (site-chat-verzoek): 136/136 rijen hebben nu `id` (131) of `survivalId` (5: Blink, Roll,
+   Dash voor álle specs + de 2 Warlock-pets die al hadden). Ids: 83 uit de mh-research-ronde van 3 okt (rows.json was
+   weg; teruggehaald uit de subagent-transcripts van sessie fcdcd4fe), 31 zelf opgezocht in wago SpellName
+   **12.1.5.70077** (naam bij id GEMETEN; dat het de speler-versie is AFGELEID). Ignore Pain `id = 190456` met de hand.
+   ⚠️ Blink/Roll/Dash bewust `survivalId`: KeybindAutoMap `byId` zou Shimmer/Chi Torpedo/Tiger Dash (zelfde base-id
+   in het spellbook) op de base-entry matchen, met andere priority → mogelijk andere toets. Victory Rush mocht wél `id`
+   (Impending Victory heeft identieke role/priority). Andere override-paren: AFGELEID dat er geen zijn.
+   → TESTLIJST "4 okt middag": `/mh survival` op zoveel mogelijk klassen. **Pas na Robs ok seintje aan de site-chat.**
+2. ✅ **Gidsen: og/twitter + "Last checked"** in `tools/build_site.py`: zelfde og-set als de site (geen og:title, de
+   site vertaalt og:url zelf), `REVIEWED`-dict per gids (alle 7: 3 okt, bron NALOOP_LIJST) met een assert dat elke
+   gids een datum heeft. Getest tegen een KOPIE van de site-repo (scratch `site_test.py`): 8 pagina's, regels zitten
+   goed. De echte site-repo NIET aangeraakt; de site-chat draait de bouwer. Meld: nieuwe zin "Last checked:" gaat
+   door hun vertaalronde.
+3. ✅ **Survival Hunter 255 bron klopt** (GEMETEN 4 okt in de browser): IV-rotatiepagina "12.1, Last Updated Aug 30,
+   2026"; guide-hoofdpagina Sep 30 (talentpagina: Wallop i.p.v. Bloody Claws — kaart 255 noemt geen van beide). Geen
+   "Jul 16 / 12.0.7" gezien; de site-chat las vermoedelijk een Exa-cache.
+4. ✅ **4.6.0 klaargezet, NIET gepusht/getagd**: `.toc` 4.6.0, `Changelog.lua` + `CHANGELOG_460_1..6` (enUS),
+   `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.6.0.md` (byte-identiek, GEMETEN), `CHANGELOG.md`. Wacht op Robs "go" ná
+   de survival-test. Lint 0 HARD, luac OK.
+5. Toetsenblok balk C: zie onder (als gedaan).
+
 ## 🌐 4 okt laat — opdracht van de site-chat (`/play/`-pagina's lezen uit deze repo), GECONTROLEERD
 
 De site (`Huijting/midnighthelper-site`) genereert `/play/<slug>/` uit `Modules/PlayCards.lua` + `PLAYCARD_*` in 7

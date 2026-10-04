@@ -21,6 +21,31 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 4 okt middag — Stay alive: elke rij heeft nu een spell-id (verzoek site-chat)
+
+Wat er veranderde: 113 rijen kregen `id = …`, Ignore Pain (Prot) ook; Blink, Roll en Dash kregen `survivalId`
+(zodat je toetsen niet verschuiven). Paladin en Warlock veranderden niet. Het spel zoekt de spell nu op **nummer**
+in plaats van op naam. Een fout nummer laat een rij **stil verdwijnen** — daarom deze test vóór de release.
+
+Per personage (hoe meer klassen, hoe beter; vooral **Druid, Mage, Monk, Warrior, Priest, Evoker, Shaman, Demon Hunter**):
+- [ ] `/mh play` → **Stay alive**: staan dezelfde rijen er als gisteren? Niets weg dat je wél hebt?
+- [ ] `/mh survival`: kijk naar de **rode `-`-regels**. Staat er `not known (<getal>)` of `not found by id <getal>` bij
+  een spreuk die je **wel** op je balk hebt? Dan is dat nummer fout → stuur me die regel (screenshot mag).
+- [ ] **Mage:** met Shimmer gekozen: staat er **één** Shimmer-regel (niet ook Blink)? Mirror Image alleen met
+  Refractive Images.
+- [ ] **Monk** met Chi Torpedo / **Druid** met Tiger Dash: één regel, niet twee.
+- [ ] **Warrior** met Impending Victory: één heal-regel, niet Victory Rush én Impending Victory.
+- [ ] **Demon Hunter Devourer** (als je die hebt): staat **Shift** er nu (id 1234796, uit Blizzards data, nooit in
+  het spel gezien)?
+- [ ] **Toetsen:** `/mh apply` dry run op een Mage, Monk of Druid: zelfde voorstel als vóór vandaag? (De ids mogen
+  geen toets verschuiven; AFGELEID, niet gemeten.)
+- [ ] Alles goed → zeg het, dan mag de site-chat de bouwer draaien (37 nieuwe "Blijf leven"-blokken).
+
+## 🆕 4 okt middag — 4.6.0 klaargezet (NIET gepusht, NIET getagd)
+
+- [ ] `/reload`, open de changelog (`/mh changelog`): staat **4.6.0** bovenaan met 6 regels?
+- [ ] Lees `RELEASE_NOTES.md` (= de CurseForge-tekst). Klopt het voor jou? Pas daarna "go".
+
 ## ✅ 4 okt — Rob testte live (7 screenshots, Prot Paladin)
 
 - [x] `/mh play` Prot: 5 tabs passen (Your buttons/Stay alive/Consumables/Dispel/Group); stap 5 = Hand of Reckoning;

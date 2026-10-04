@@ -60,13 +60,13 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- BASELINE (beide specs 577+581) - geen specs = {}
 	--==============================================================
 	-- Interrupt (InterruptAbilities [183752] kind="interrupt" pri=1; SpellCategories CC)
-	["Disrupt"]            = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
+	["Disrupt"]            = { id = 183752, role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
 
 	-- Movement / utility_primary (GAP_CLOSER + guide.lua both specs)
-	["Vengeful Retreat"]   = { role = "utility_primary", priority = 2, bindKey = "Shift+Q", survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- backward jump (guide.lua havoc + venge)
+	["Vengeful Retreat"]   = { id = 198793, role = "utility_primary", priority = 2, bindKey = "Shift+Q", survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- backward jump (guide.lua havoc + venge)
 	["Felblade"]           = { role = "utility_primary", priority = 3, bindKey = "Ctrl+Q" },  -- gap-closer/builder (GAP_CLOSER 232893; RangeReferences)
-	["Fel Rush"]           = { role = "utility_primary", priority = 1, specs = { 577 }, survival = "escape", survivalOrder = 1 }, -- Havoc kern-movement/dash (GAP_CLOSER DEMONHUNTER_1 = 195072; ontbrak, toegevoegd)
-	["Infernal Strike"]    = { role = "utility_primary", priority = 1, specs = { 581 }, survival = "escape", survivalOrder = 1 }, -- Vengeance kern-movement/gap-closer (GAP_CLOSER DEMONHUNTER_2 = 189110; ontbrak, toegevoegd)
+	["Fel Rush"]           = { id = 195072, role = "utility_primary", priority = 1, specs = { 577 }, survival = "escape", survivalOrder = 1 }, -- Havoc kern-movement/dash (GAP_CLOSER DEMONHUNTER_1 = 195072; ontbrak, toegevoegd)
+	["Infernal Strike"]    = { id = 189110, role = "utility_primary", priority = 1, specs = { 581 }, survival = "escape", survivalOrder = 1 }, -- Vengeance kern-movement/gap-closer (GAP_CLOSER DEMONHUNTER_2 = 189110; ontbrak, toegevoegd)
 
 	-- Grote CD / cooldown_bar F1 (SpellDB THE_HUNT DEMONHUNTER_1/2 = {370965})
 	["The Hunt"]           = { role = "cooldown_bar", priority = 2, bindKey = "Shift+F1" }, -- baseline major CD (beide specs)
@@ -102,7 +102,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Death Sweep"]       = { excludes = "Blade Dance", category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- Meta-vorm van Blade Dance (SpellArchetypes 210152; guide.lua {210152})
 	-- Kleine def (SpellCategories DEFENSIVE 198589; SpellDB fallback DEMONHUNTER {198589,...})
 	-- Card: 25% DR for 10 s on a 1 min cooldown — press it before a hit (IV-HAV, IV-DEV).
-	["Blur"]              = { role = "defensive_1", priority = 1, specs = { 577, 1480 }, survival = "small", survivalOrder = 1 }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
+	["Blur"]              = { id = 198589, role = "defensive_1", priority = 1, specs = { 577, 1480 }, survival = "small", survivalOrder = 1 }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
 	-- Grote def (SpellDB fallback DEMONHUNTER {198589,196718}; Darkness = raid-wall)
 	["Darkness"]          = { category = "defensive", priority = 4 }, -- card: weg sinds 3 okt 2026 (grondzone, geen persoonlijke noodknop; zelfde regel als Anti-Magic Zone). -- AoE avoidance-koepel; baseline beide specs (SpellDB DEMONHUNTER class-level 196718). category=defensive i.p.v. defensive_3, zodat de persoonlijke C-def (Blur/Fiery Brand) het anker houdt en Darkness naar een overflow-slot gaat -- card: 5 min, stand in the dome
 	["Sigil of Silence"]  = { category = "dispel_cc", priority = 1, specs = { 581 }, alsoStop = "silence" }, -- Veng AoE-silence sigil (JustAC SpellCategories CROWD_CONTROL 202137) -> Spec 08 alsoStop
@@ -126,13 +126,13 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- AoE (guide.lua {247454} Spirit Bomb; Shift+N-anker)
 	["Spirit Bomb"]       = { category = "spender", priority = 6, bindKey = "Shift+4", specs = { 581 } }, -- soul-spender AoE (SpellArchetypes 247454; guide.lua {247454})
 	-- Kleine def (SpellCategories DEFENSIVE 203720; SpellDB DEMONHUNTER_2 mitigatie-lijst)
-	["Demon Spikes"]      = { role = "defensive_1", priority = 1, specs = { 581 }, survival = "keepup", survivalOrder = 1 }, -- armor + parry mitigatie (SpellCategories 203720) -- card: active mitigation you keep rolling (IV-VEN)
+	["Demon Spikes"]      = { id = 203720, role = "defensive_1", priority = 1, specs = { 581 }, survival = "keepup", survivalOrder = 1 }, -- armor + parry mitigatie (SpellCategories 203720) -- card: active mitigation you keep rolling (IV-VEN)
 	-- Grote def (DEFENSE_TIER 204021 = tier2; SpellCategories DEFENSIVE 187827)
-	["Fiery Brand"]       = { role = "defensive_3", priority = 1, specs = { 581 }, survival = "small", survivalOrder = 2 }, -- 40% DR-brand (DEFENSE_TIER 204021 tier2) -- card: 40% for 12 s, the shorter one next to Meta
+	["Fiery Brand"]       = { id = 204021, role = "defensive_3", priority = 1, specs = { 581 }, survival = "small", survivalOrder = 2 }, -- 40% DR-brand (DEFENSE_TIER 204021 tier2) -- card: 40% for 12 s, the shorter one next to Meta
 	-- The key is not a spell name (in game 187827 is just "Metamorphosis"), so the card needs the id (audit).
 	["Metamorphosis (Vengeance)"] = { id = 187827, role = "defensive_3", priority = 2, bindKey = "Shift+C", specs = { 581 }, survival = "big", survivalOrder = 1 }, -- health + armor wall (SpellCategories DEFENSIVE 187827) -- card: +40% HP, 15 s, 2 min (IV-VEN)
 	-- Extra def / major (SpellArchetypes 212084; guide.lua {212084} heal + AoE damage)
-	["Fel Devastation"]   = { category = "defensive", priority = 4, specs = { 581 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- heal-over-time + AoE (SpellArchetypes 212084; guide.lua {212084}) -- card: heals while channeling (IV-VEN)
+	["Fel Devastation"]   = { id = 212084, category = "defensive", priority = 4, specs = { 581 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- heal-over-time + AoE (SpellArchetypes 212084; guide.lua {212084}) -- card: heals while channeling (IV-VEN)
 	-- Grootste CD's Vengeance (guide.lua {207407} Soul Carver; {390163} Sigil of Spite)
 	["Soul Carver"]       = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 581 } }, -- souls/burst-talent (SpellArchetypes 207407; guide.lua {207407})
 	["Sigil of Spite"]    = { category = "cooldown", priority = 4, specs = { 581 } },      -- souls-burst sigil (SpellArchetypes 389860; guide.lua {390163})
@@ -154,7 +154,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	--   geen geverifieerd spell-ID -> naam-keyed; vul id aan uit Rob's in-game spellbook-dump.
 	--==============================================================
 	-- Movement / utility_primary (Icy Veins: "Shift" = targeted 30yd dash, 20s CD, Devourer-signatuur)
-	["Shift"]             = { role = "utility_primary", priority = 1, specs = { 1480 }, survival = "escape", survivalOrder = 1 }, -- naam-keyed (id volgt uit dump) -- card: only shows if the name resolves
+	["Shift"]             = { id = 1234796, role = "utility_primary", priority = 1, specs = { 1480 }, survival = "escape", survivalOrder = 1 }, -- naam-keyed (id volgt uit dump) -- card: only shows if the name resolves
 	-- Builders / kernrotatie (guide.lua devourer; JustAC SpellArchetypes "ranged")
 	["Consume"]           = { id = 473662,  category = "main_rotation", priority = 1, specs = { 1480 } }, -- core builder/filler (SpellArchetypes 473662 "ranged"; guide.lua opener)
 	["Voidblade"]         = { id = 1245412, category = "main_rotation", priority = 2, specs = { 1480 } }, -- rotational (SpellCooldowns 1245412=30000; guide.lua)

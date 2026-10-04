@@ -75,12 +75,12 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- -----------------------------------------------------------------
 	-- BASELINE (alle 3 specs: 256, 257, 258)
 	-- -----------------------------------------------------------------
-	["Fade"] = { role = "utility_primary", priority = 1, survival = "small", survivalOrder = 1 }, -- Q: threat-drop/movement, kleine DR via talent (card: "early and often", Icy Veins)
-	["Angelic Feather"] = { role = "mobility", priority = 1, survival = "escape", survivalOrder = 1 }, -- R: canonieke Priest-movement (JustAC SpellCooldowns 121536, 3 charges); baseline alle specs
+	["Fade"] = { id = 586, role = "utility_primary", priority = 1, survival = "small", survivalOrder = 1 }, -- Q: threat-drop/movement, kleine DR via talent (card: "early and often", Icy Veins)
+	["Angelic Feather"] = { id = 121536, role = "mobility", priority = 1, survival = "escape", survivalOrder = 1 }, -- R: canonieke Priest-movement (JustAC SpellCooldowns 121536, 3 charges); baseline alle specs
 	-- 17 Sep: Holy (257) dropped, "removed … Power Word: Shield" (audit, BRON Icy Veins Holy 12.1).
 	-- Card: small, a shield before the hit, not a keep-up.
-	["Power Word: Shield"] = { role = "defensive_1", priority = 1, specs = { 256, 258 }, survival = "small", survivalOrder = 2 }, -- Z: self-shield (Disc perst 'm ook als atonement-builder)
-	["Desperate Prayer"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2: persoonlijke noodheal (GEEN defensive -> heal-slot)
+	["Power Word: Shield"] = { id = 17, role = "defensive_1", priority = 1, specs = { 256, 258 }, survival = "small", survivalOrder = 2 }, -- Z: self-shield (Disc perst 'm ook als atonement-builder)
+	["Desperate Prayer"] = { id = 19236, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2: persoonlijke noodheal (GEEN defensive -> heal-slot)
 	["Psychic Scream"] = { category = "dispel_cc", priority = 1 },               -- V: AoE-fear (CC)
 	["Mass Dispel"] = { category = "dispel_cc", priority = 3 },                  -- T: enemy-magic dispel / raid-dispel
 	-- ✅ 7 sep 2026 — ID's GEMETEN in Robs eigen spellbook (`ns.db.autoMapDump.scannedIds`,
@@ -110,7 +110,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Evangelism"] = { category = "cooldown", priority = 3, bindKey = "Shift+4", specs = { 256 } }, -- ramp-CD: casts Power Word: Radiance (12.1 no longer extends Atonement, audit)
 	-- Defensives:
 	["Power Word: Barrier"] = { role = "defensive_3", priority = 1, specs = { 256 } },          -- C: raid-DR. Card: off (raid ground circle, not a personal button)
-	["Pain Suppression"] = { category = "defensive", priority = 2, specs = { 256 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- Shift+C: tank-external; "use it selfishly" (Method Disc)
+	["Pain Suppression"] = { id = 33206, category = "defensive", priority = 2, specs = { 256 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- Shift+C: tank-external; "use it selfishly" (Method Disc)
 	["Purify"] = { category = "dispel_cc", priority = 2, specs = { 256, 257 } },                -- Shift+V: friendly-dispel
 	-- Cooldowns (raid-heal-enablers / burst) - grote raid-saves op cooldown-slots:
 	["Rapture"] = { category = "cooldown", priority = 1, specs = { 256 } },                     -- heal-enabler-CD (raid-save)
@@ -130,7 +130,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Smite"] = { category = "main_rotation", priority = 2, specs = { 257 } },                  -- filler-damage (voedt Chastise)
 	["Holy Word: Chastise"] = { role = "utility_secondary", priority = 1, specs = { 257 } },    -- F: damage/CC
 	-- Defensives:
-	["Guardian Spirit"] = { role = "defensive_3", priority = 1, specs = { 257 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- C: cheat-death external, also on yourself (Method Holy)
+	["Guardian Spirit"] = { id = 47788, role = "defensive_3", priority = 1, specs = { 257 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- C: cheat-death external, also on yourself (Method Holy)
 	-- Cooldowns (grote raid-saves op cooldown-slots):
 	["Apotheosis"] = { role = "cooldown_bar", priority = 1, specs = { 257 } },                  -- F1: reset Holy Words (grootste heal-CD)
 	["Divine Hymn"] = { category = "cooldown", priority = 2, specs = { 257 } },                 -- Shift+F1: raid-heal-CD
@@ -178,8 +178,8 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- ⚠️ Niet verwarren met Void BLAST (450405), een andere spell die naast Void Volley
 	-- bestaat in de Voidweaver-build.
 	["Void Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 258 } }, -- Voidform-spender
-	["Silence"] = { role = "interrupt", priority = 1, specs = { 258 }, survival = "interrupt", survivalOrder = 1 }, -- E: interrupt + silence
-	["Dispersion"] = { role = "defensive_3", priority = 1, specs = { 258 }, survival = "big", survivalOrder = 1 }, -- C: grote defensive
+	["Silence"] = { id = 15487, role = "interrupt", priority = 1, specs = { 258 }, survival = "interrupt", survivalOrder = 1 }, -- E: interrupt + silence
+	["Dispersion"] = { id = 47585, role = "defensive_3", priority = 1, specs = { 258 }, survival = "big", survivalOrder = 1 }, -- C: grote defensive
 	-- 🔴 HERNOEMD, NIET VERDWENEN — gerepareerd 6 sep 2026 (Spec 32 §1c).
 	-- De aantekening van 7 aug had het net omgekeerd: het ID (228260) klopte, de NAAM niet.
 	-- 12.0.0 heeft "Void Eruption" hernoemd naar "Voidform" (Warcraft Wiki: *"renamed to

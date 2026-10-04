@@ -79,26 +79,26 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	--==============================================================================
 
 	-- Movement (Q). Burning Rush + Demonic Circle: Teleport zijn class-brede mobility.
-	["Burning Rush"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_COSTS_HP" }, -- Q; SpellCategories UTILITY [111400] (movement, hp-drain)
-	["Demonic Circle: Teleport"] = { role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 1 }, -- Q-overflow; teleport naar geplaatste Circle (movement)
+	["Burning Rush"] = { id = 111400, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_COSTS_HP" }, -- Q; SpellCategories UTILITY [111400] (movement, hp-drain)
+	["Demonic Circle: Teleport"] = { id = 48020, role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 1 }, -- Q-overflow; teleport naar geplaatste Circle (movement)
 
 	-- Kleine defensive (Z). Dark Pact = instant hp-shield (offert een deel van pet/eigen hp).
 	-- Card: not a keep-up — it takes 20% of your current health, so press it high, just before the hit (Method).
-	["Dark Pact"] = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_COSTS_HP" }, -- Z; SpellCategories DEFENSIVE [108416] (shield)
+	["Dark Pact"] = { id = 108416, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_COSTS_HP" }, -- Z; SpellCategories DEFENSIVE [108416] (shield)
 
 	-- Grote defensive (C). Unending Resolve = grote persoonlijke DR (panic-button), alle specs.
-	["Unending Resolve"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- C; SpellCategories DEFENSIVE [104773]
+	["Unending Resolve"] = { id = 104773, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- C; SpellCategories DEFENSIVE [104773]
 
 	-- Dispel / CC (V) + overflow. Alle addon-bevestigd (SpellCategories CROWD_CONTROL / Interrupt).
 	-- Fear: card off (crowd control; defensive_2 is only its key slot).
 	["Fear"] = { category = "dispel_cc", priority = 1 }, -- V; CROWD_CONTROL [118699] (single-target fear). Was role defensive_2 (= key X) until 19 Sep 2026: a CC on the defensive key, on all three specs
 	-- Mortal Coil: stays dispel_cc for the key, but on the card it is a heal (20%, 45 s; Method).
-	["Mortal Coil"] = { category = "dispel_cc", priority = 2, survival = "heal", survivalOrder = 1 }, -- CROWD_CONTROL [6789] (horror-fear + 20% self-heal; talent)
+	["Mortal Coil"] = { id = 6789, category = "dispel_cc", priority = 2, survival = "heal", survivalOrder = 1 }, -- CROWD_CONTROL [6789] (horror-fear + 20% self-heal; talent)
 	["Howl of Terror"] = { category = "dispel_cc", priority = 3 }, -- InterruptAbilities [5484] kind=cc mech=5 (AoE-fear; talent)
 	["Banish"] = { category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [710] (banish demon/elemental)
 
 	-- Self-heals. Drain Life = snelle combat-self-heal-kanaal (F2). Healthstone = OOC-noodheal (F3).
-	["Drain Life"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_STAND_STILL" }, -- F2; SpellArchetypes [234153] kanaal, heelt de caster
+	["Drain Life"] = { id = 234153, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_STAND_STILL" }, -- F2; SpellArchetypes [234153] kanaal, heelt de caster
 	-- Healthstone: card off — an item, not a spell; the name lookup cannot pass IsPlayerSpell (audit TWIJFEL).
 	["Healthstone"] = { role = "heal_ooc", priority = 1 }, -- F3; HealingItems [5512] (spell "Create Healthstone" -> item); instant noodheal
 

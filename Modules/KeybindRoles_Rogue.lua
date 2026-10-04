@@ -87,7 +87,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     -- AoE
     ["Blade Flurry"]     = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 260 } }, -- cleave-toggle
     -- Movement (Outlaw-exclusief)
-    ["Grappling Hook"]   = { role = "utility_primary", priority = 1, specs = { 260 }, survival = "escape", survivalOrder = 2 },
+    ["Grappling Hook"]   = { id = 195457, role = "utility_primary", priority = 1, specs = { 260 }, survival = "escape", survivalOrder = 2 },
     -- Cooldowns
     ["Adrenaline Rush"]  = { role = "cooldown_bar", priority = 1, specs = { 260 } }, -- grootste CD (F1)
     ["Killing Spree"]    = { category = "cooldown", priority = 2, specs = { 260 } }, -- extra CD (Shift+F1)
@@ -114,17 +114,17 @@ ns.KeybindRoleClassifier.ROGUE = {
     -- BASELINE (alle 3 Rogue-specs; geen specs=)
     -- =================================================================
     -- Interrupt
-    ["Kick"]             = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
+    ["Kick"]             = { id = 1766, role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
     -- Movement / gap-closers
-    ["Sprint"]           = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q op Assa/Sub; Shift+Q op Outlaw
+    ["Sprint"]           = { id = 2983, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q op Assa/Sub; Shift+Q op Outlaw
     ["Shadowstep"]       = { role = "utility_primary", priority = 1, specs = { 259, 261 } }, -- gap-closer; niet Outlaw (heeft Grappling Hook); card: weg sinds 3 okt 2026 (vooral naar de vijand, net als Harpoon)
     -- Self-heal
-    ["Crimson Vial"]     = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 primaire combat self-heal (instant HoT). NIET F4.
+    ["Crimson Vial"]     = { id = 185311, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 primaire combat self-heal (instant HoT). NIET F4.
     -- Kleine defensive
-    ["Feint"]            = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1 }, -- kleine def (AoE dmg-reductie); kaart: vlak voor een klap
+    ["Feint"]            = { id = 1966, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1 }, -- kleine def (AoE dmg-reductie); kaart: vlak voor een klap
     -- Grote defensieven
-    ["Cloak of Shadows"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- magic immunity
-    ["Evasion"]          = { category = "defensive", priority = 2, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- dodge (grote def), alleen van voren
+    ["Cloak of Shadows"] = { id = 31224, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- magic immunity
+    ["Evasion"]          = { id = 5277, category = "defensive", priority = 2, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- dodge (grote def), alleen van voren
     -- Dispel / CC
     ["Blind"]            = { category = "dispel_cc", priority = 1 }, -- disorient
     ["Kidney Shot"]      = { category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- finisher-stun (JustAC 408 mech=12)
@@ -132,7 +132,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Sap"]              = { category = "dispel_cc", priority = 4 }, -- incapacitate (uit combat/stealth)
     ["Gouge"]            = { category = "dispel_cc", priority = 5, alsoStop = "incap" }, -- incapacitate (frontaal) (JustAC 1776 mech=14)
     -- Utility
-    ["Vanish"]           = { category = "cooldown", priority = 1, survival = "escape", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- stealth-CD (reset/opener), geen zuivere utility
+    ["Vanish"]           = { id = 1856, category = "cooldown", priority = 1, survival = "escape", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- stealth-CD (reset/opener), geen zuivere utility
     ["Stealth"]          = { category = "utility", priority = 2 },                    -- pre-pull/openers
     ["Distract"]         = { category = "utility", priority = 3 },                    -- misdirect/aggro
     ["Tricks of the Trade"] = { category = "utility", priority = 4 },                 -- threat transfer

@@ -96,12 +96,12 @@ ns.KeybindRoleClassifier.MONK = {
     -- Builders / rotatie (SpellArchetypes: Keg Smash/Tiger Palm/Blackout Kick)
     ["Keg Smash"]                    = { category = "main_rotation", priority = 1, specs = { 268 } }, -- 1: AoE-builder + snare
     -- Actieve mitigation (Stagger purge, verbruikt brew-charges)
-    ["Purifying Brew"]               = { category = "defensive", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 1 }, -- 4: purge Stagger (actieve mitigation, GEEN dmg-spender); card: on a rhythm (IV BM)
+    ["Purifying Brew"]               = { id = 119582, category = "defensive", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 1 }, -- 4: purge Stagger (actieve mitigation, GEEN dmg-spender); card: on a rhythm (IV BM)
     -- AoE
     ["Breath of Fire"]               = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 268 } }, -- AoE/DoT (cleave)
     ["Rushing Jade Wind"]            = { category = "main_rotation", priority = 7, bindKey = "Shift+3", specs = { 268 } }, -- AoE (talent)
     -- Kleine defensive (absorb-shield)
-    ["Celestial Brew"]               = { role = "defensive_1", priority = 1, specs = { 268 }, survival = "small", survivalOrder = 1 }, -- Z: absorb (MONK_1); card: 8 s on 1.5 min (wiki)
+    ["Celestial Brew"]               = { id = 322507, role = "defensive_1", priority = 1, specs = { 268 }, survival = "small", survivalOrder = 1 }, -- Z: absorb (MONK_1); card: 8 s on 1.5 min (wiki)
     -- Celestial Infusion: keuzeknoop met Celestial Brew (IV 12.1: de standaardkeuze). Alleen voor de kaart: `specs = {}`
     -- matcht nergens in KeybindAutoMap (SpecMatches), dus geen toets; `survivalSpecs` zet hem op de Brewmaster-kaart.
     ["Celestial Infusion"]           = { id = 1241059, specs = {}, survivalSpecs = { 268 }, survival = "small", survivalOrder = 1 }, -- 3 okt 2026, Wowhead-tooltip
@@ -121,10 +121,10 @@ ns.KeybindRoleClassifier.MONK = {
     ["Whirling Dragon Punch"]        = { category = "main_rotation", priority = 8, specs = { 269 } }, -- burst-window-nuke (guide.lua {152175})
     -- Movement (Q vervangt Roll bij talent)
     -- Chi Torpedo: klassentalent (audit); toetsen blijven { 269 }, de kaart toont hem bij alle specs.
-    ["Chi Torpedo"]                  = { role = "utility_primary", priority = 2, specs = { 269 }, survivalSpecs = { 268, 269, 270 }, survival = "escape", survivalOrder = 2 }, -- Shift+Q (MONK_3 gap-closer, vervangt Roll)
-    ["Flying Serpent Kick"]          = { role = "utility_secondary", priority = 1, specs = { 269 }, survival = "escape", survivalOrder = 3 }, -- F: movement/gap-closer (MONK_3)
+    ["Chi Torpedo"]                  = { id = 115008, role = "utility_primary", priority = 2, specs = { 269 }, survivalSpecs = { 268, 269, 270 }, survival = "escape", survivalOrder = 2 }, -- Shift+Q (MONK_3 gap-closer, vervangt Roll)
+    ["Flying Serpent Kick"]          = { id = 101545, role = "utility_secondary", priority = 1, specs = { 269 }, survival = "escape", survivalOrder = 3 }, -- F: movement/gap-closer (MONK_3)
     -- Kleine defensive
-    ["Touch of Karma"]               = { role = "defensive_1", priority = 1, specs = { 269 }, survival = "small", survivalOrder = 1 }, -- Z: dmg-redirect (MONK_3); card: 10 s on 1.5 min, before a big hit (Method)
+    ["Touch of Karma"]               = { id = 122470, role = "defensive_1", priority = 1, specs = { 269 }, survival = "small", survivalOrder = 1 }, -- Z: dmg-redirect (MONK_3); card: 10 s on 1.5 min, before a big hit (Method)
     -- Diffuse Magic: verwijderd 17 sep (sinds 12.0 passief via Fortifying Brew, wiki/IV WW).
     -- Grootste CD (F1)
     ["Invoke Xuen, the White Tiger"] = { role = "cooldown_bar", priority = 1, specs = { 269 } },      -- F1: WW-celestial (MONK_3 burst-CD)
@@ -156,9 +156,9 @@ ns.KeybindRoleClassifier.MONK = {
     ["Thunder Focus Tea"]            = { category = "utility", priority = 6, bindKey = "Shift+1", specs = { 270 } }, -- versterkt volgende cast (healing-CD, geen directe heal)
     -- Movement / utility
     -- Transcendence: Transfer: klassentalent (audit); toetsen blijven { 270 }, de kaart toont hem bij alle specs.
-    ["Transcendence: Transfer"]      = { role = "utility_primary", priority = 2, specs = { 270 }, survivalSpecs = { 268, 269, 270 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q: teleport-terug
+    ["Transcendence: Transfer"]      = { id = 119996, role = "utility_primary", priority = 2, specs = { 270 }, survivalSpecs = { 268, 269, 270 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q: teleport-terug
     -- Kleine externe defensive
-    ["Life Cocoon"]                  = { role = "defensive_1", priority = 1, specs = { 270 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- Z: extern shield (SpellCategories); card: 12 s on 2 min (wiki)
+    ["Life Cocoon"]                  = { id = 116849, role = "defensive_1", priority = 1, specs = { 270 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- Z: extern shield (SpellCategories); card: 12 s on 2 min (wiki)
     -- -----------------------------------------------------------------
     -- HEAL-COOLDOWNS -> cooldown-slots (grootste = cooldown_bar)
     -- -----------------------------------------------------------------
@@ -173,7 +173,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- =================================================================
     -- GEDEELD (meerdere Monk-specs, geen 3-way-baseline)
     -- =================================================================
-    ["Spear Hand Strike"]            = { role = "interrupt", priority = 1, specs = { 268, 269 }, survival = "interrupt", survivalOrder = 1 }, -- E: interrupt; BM+WW (MW heeft geen kick)
+    ["Spear Hand Strike"]            = { id = 116705, role = "interrupt", priority = 1, specs = { 268, 269 }, survival = "interrupt", survivalOrder = 1 }, -- E: interrupt; BM+WW (MW heeft geen kick)
     ["Leg Sweep"]                    = { category = "dispel_cc", priority = 2, alsoStop = "stun" },                      -- Shift+V: AoE-stun (alle 3 specs); JustAC 119381 mech=12 → Spec 08
 
     -- =================================================================
@@ -183,13 +183,13 @@ ns.KeybindRoleClassifier.MONK = {
     ["Tiger Palm"]                   = { category = "main_rotation", priority = 1 }, -- meest-voorkomend p1
     ["Blackout Kick"]                = { category = "main_rotation", priority = 3 }, -- BM builder / MW filler / WW spender -> meest voorkomend main_rotation
     -- Movement
-    ["Roll"]                         = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q: gap-closer (SpellCategories + gap-closer-lijsten)
+    ["Roll"]                         = { survivalId = { [268] = 109132, [269] = 109132, [270] = 109132 }, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q: gap-closer (SpellCategories + gap-closer-lijsten)
     -- Self-heals
     -- Expel Harm: was baseline, nu { 268, 269 } sinds 17 sep (weg voor MW in 12.0.0, wiki/Method).
-    ["Expel Harm"]                   = { role = "heal_quick", priority = 1, specs = { 268, 269 }, survival = "heal", survivalOrder = 1 }, -- F2: snelle self-heal (SpellArchetypes 115129 + MONK/MONK_1/MONK_3 322101)
-    ["Vivify"]                       = { role = "heal_ooc", priority = 1, survival = "heal", survivalOrder = 2 }, -- F3: out-of-combat/direct heal (SpellCategories 116670)
+    ["Expel Harm"]                   = { id = 322101, role = "heal_quick", priority = 1, specs = { 268, 269 }, survival = "heal", survivalOrder = 1 }, -- F2: snelle self-heal (SpellArchetypes 115129 + MONK/MONK_1/MONK_3 322101)
+    ["Vivify"]                       = { id = 116670, role = "heal_ooc", priority = 1, survival = "heal", survivalOrder = 2 }, -- F3: out-of-combat/direct heal (SpellCategories 116670)
     -- Grote defensive
-    ["Fortifying Brew"]              = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- C: grote defensive (115203 basis; 120954 BM / 201318 WW / 243435 MW-varianten, zelfde naam); card: 6 min (Wowhead), after Life Cocoon
+    ["Fortifying Brew"]              = { id = 115203, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- C: grote defensive (115203 basis; 120954 BM / 201318 WW / 243435 MW-varianten, zelfde naam); card: 6 min (Wowhead), after Life Cocoon
     ["Touch of Death"]               = { category = "cooldown", priority = 4 }, -- iconische baseline execute-CD, alle specs (JustAC SpellCooldowns 322109=180s; SimC WW core)
     -- CC / dispel
     ["Paralysis"]                    = { category = "dispel_cc", priority = 1, alsoStop = "incap" }, -- V (BM/WW) / F (MW): single-target incapacitate (InterruptAbilities 115078 mech=14)

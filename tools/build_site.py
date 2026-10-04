@@ -212,6 +212,7 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4
 .wrap{max-width:720px;margin:0 auto;padding-block:28px 64px}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,6vw,44px);line-height:1.1;margin:36px 0 8px;text-wrap:balance}
 .lead{color:var(--muted);margin:0 0 22px;max-width:62ch}
+.checked{color:var(--muted);font-size:14px;margin:-14px 0 22px}
 .guides{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
 .guides a,.guides span{display:inline-block;padding:4px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--muted);font-size:14px;font-weight:600}
 .guides a:hover{color:var(--ink);border-color:var(--gold)}
@@ -264,6 +265,31 @@ GUIDES = [
 ]
 
 
+# When each guide's CONTENT was last checked against the game and current guides (4 Oct 2026,
+# site-chat point 4). Hand-kept on purpose: a review is something people do, and the date a file
+# last changed is not the date anyone checked it. Source: docs/NALOOP_LIJST.md, "Al gedaan".
+# 🔴 Every slug in GUIDES needs a date here; a new guide without one stops the build.
+REVIEWED = {
+    "knowledge-points": "2026-10-03",  # naloop #8, profession course + KP routes
+    "delves": "2026-10-03",            # naloop #3, delves + Valeera
+    "start": "2026-10-03",             # naloop #6, Codex
+    "weekly": "2026-10-03",            # naloop #6 + #2 Great Vault
+    "currencies": "2026-10-03",        # naloop #6 + #1 currencies & crests
+    "coiled-isle": "2026-10-03",       # naloop #6
+    "mythic-plus": "2026-10-03",       # naloop #6
+}
+assert set(REVIEWED) == {g[0] for g in GUIDES}, \
+    "REVIEWED and GUIDES disagree: %s" % sorted(set(REVIEWED) ^ {g[0] for g in GUIDES})
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+          "October", "November", "December"]
+
+
+def checked_line(slug):
+    y, m, d = (int(x) for x in REVIEWED[slug].split("-"))
+    return '<p class="checked">Last checked: <time datetime="%s">%d %s %d</time></p>' % (
+        REVIEWED[slug], d, MONTHS[m - 1], y)
+
+
 def pills(current):
     items = []
     for slug, label, _b, _o in GUIDES:
@@ -291,6 +317,15 @@ def page(path, title, desc, body):
 <title>%s · Midnight Helper</title>
 <meta name="description" content="%s">
 <link rel="canonical" href="%s%s">
+<!-- Shared link previews, the same set as the site's own pages (feedback/index.html explains why
+     there is no og:title/og:description: the translated <title> and description are used). -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Midnight Helper">
+<meta property="og:url" content="%s%s">
+<meta property="og:image" content="https://midnighthelper.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <!--i18n:alternates--><!--/i18n:alternates-->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/fonts/fonts.css">
@@ -314,12 +349,16 @@ def page(path, title, desc, body):
 <script src="/lang.js" defer></script>
 </body>
 </html>
-""" % (esc(title), htmllib.escape(desc, quote=True), BASE, path, SHARED_CSS, GUIDE_CSS,
+""" % (esc(title), htmllib.escape(desc, quote=True), BASE, path, BASE, path, SHARED_CSS, GUIDE_CSS,
        HEADER, body, FOOTER)
 
 
 def write_page(slug, title, desc, body):
     path = "/guides/%s/" % slug if slug else "/guides/"
+    if slug:
+        # Right under the lead paragraph: the first </p> on every guide page closes the lead.
+        assert '<p class="lead">' in body, "guide %s has no lead paragraph for the date" % slug
+        body = body.replace("</p>", "</p>\n    " + checked_line(slug), 1)
     out = os.path.join(SITE_REPO, "guides", slug, "index.html") if slug else \
         os.path.join(SITE_REPO, "guides", "index.html")
     write(out, page(path, title, desc, body))

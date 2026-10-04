@@ -87,6 +87,11 @@ local _, ns = ...
 ---     survivalNote  = locale key, a short "only against magic"-style remark
 ---                     (or { [specID] = key } when the remark is true for one spec only)
 ---     survivalId    = { [specID] = spellID } where one spec owns a different id
+---                     4 Oct 2026: every survival row now carries `id` (or survivalId), so the site can name
+---                     it without a spellbook. Blink, Roll and Dash use survivalId for ALL specs on purpose:
+---                     a talent replaces them (Shimmer, Chi Torpedo, Tiger Dash) and the spellbook files the
+---                     replacement under the base id, so a plain `id` would let KeybindAutoMap's byId match
+---                     the replacement to the base entry — different priority, possibly a different key.
 ---     survival may also be { [specID] = step } when one entry means different things per spec
 ---     (Ignore Pain: small on Arms, keepup on Prot)
 ---     survivalSpecs = { specID, ... } widens WHO sees the row, for the card only. `specs` is what

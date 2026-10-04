@@ -78,12 +78,12 @@ ns.KeybindRoleClassifier.MAGE = {
 	--==============================================================================
 
 	-- Interrupt (E). Counterspell = enige mage-interrupt (InterruptAbilities [2139]).
-	["Counterspell"] = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities.lua [2139] kind=interrupt pri=1
+	["Counterspell"] = { id = 2139, role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities.lua [2139] kind=interrupt pri=1
 
 	-- Movement (Q). Blink = baseline; Shimmer = talent-vervanger (Shift+Q / 2e charge-variant).
 	-- Card: one of the two shows (the name lookup dedupes a replaced Blink).
-	["Blink"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- SpellCategories UTILITY [1953]; GapCloser
-	["Shimmer"] = { role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 2 }, -- SpellCategories UTILITY [212653]; GapCloser (talent)
+	["Blink"] = { survivalId = { [62] = 1953, [63] = 1953, [64] = 1953 }, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- SpellCategories UTILITY [1953]; GapCloser
+	["Shimmer"] = { id = 212653, role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 2 }, -- SpellCategories UTILITY [212653]; GapCloser (talent)
 	-- Ice Floes removed 17 Sep: gone in Midnight (audit, BRON Icy Veins Frost 12.1).
 
 	-- Grote defensive (C). Ice Block = full immunity, baseline alle specs (DEFENSIVE [45438]).
@@ -95,9 +95,9 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- sterkste defensive van de klasse van de overlevingskaart, als "je hebt hem niet".
 
 	-- Extra defensives (category="defensive"; overflow-slots).
-	["Alter Time"] = { category = "defensive", priority = 2, survival = "small", survivalOrder = 1 }, -- Frost Shift+Z; DEFENSIVE [342245] (reset HP/pos)
+	["Alter Time"] = { id = 342245, category = "defensive", priority = 2, survival = "small", survivalOrder = 1 }, -- Frost Shift+Z; DEFENSIVE [342245] (reset HP/pos)
 	-- Card: NOT a defensive any more (damage reduction removed in Midnight, audit BRON) -> escape, aggro drop.
-	["Greater Invisibility"] = { category = "defensive", priority = 3, survival = "escape", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- [110959]; def + threatdrop. GEEN specs-lijst: het is een MAGE-klassentalent, dus alle drie.
+	["Greater Invisibility"] = { id = 110959, category = "defensive", priority = 3, survival = "escape", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- [110959]; def + threatdrop. GEEN specs-lijst: het is een MAGE-klassentalent, dus alle drie.
 	-- Stond hier als specs={62,63}, en drie geinstalleerde bronnen zeggen zelfs Arcane-only
 	-- (BliZzi PartyCooldowns spec=MAGE_ARCANE; LibOpenRaid Dragonflight en MIDNIGHT allebei
 	-- specs={62}). Rob liet 4 aug zijn talentboom zien op een FROST mage: Greater Invisibility
@@ -107,7 +107,7 @@ ns.KeybindRoleClassifier.MAGE = {
 
 	-- Dispel / CC (V). Frost Nova (root) + Polymorph (CC) baseline; Remove Curse = dispel;
 	-- Ring of Frost = AoE-CC; Dragon's Breath = cone-disorient.
-	["Frost Nova"] = { category = "dispel_cc", priority = 1, survival = "escape", survivalOrder = 3 }, -- CROWD_CONTROL [122]; baseline root
+	["Frost Nova"] = { id = 122, category = "dispel_cc", priority = 1, survival = "escape", survivalOrder = 3 }, -- CROWD_CONTROL [122]; baseline root
 	["Polymorph"] = { category = "dispel_cc", priority = 2 }, -- CROWD_CONTROL [118]; baseline CC
 	["Remove Curse"] = { category = "dispel_cc", priority = 3 }, -- UTILITY [475]; baseline curse-dispel
 	["Ring of Frost"] = { category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [113724]; AoE-CC (talent)
@@ -120,7 +120,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- onmisbaar, Dragon's Breath is op Frost bijvangst van de heldenboom. Hij gaat voor.
 	["Spellsteal"] = { category = "dispel_cc", priority = 5 }, -- [30449]; offensieve dispel (steelt enemy-buff) -> dispel_cc, geen zuivere utility
 	-- Card: off. No damage reduction in Midnight (audit BRON); Arcane's Refractive Images is a talent the card cannot see.
-	["Mirror Image"] = { category = "defensive", priority = 5, survival = "small", survivalOrder = 2, survivalRequires = 1309497 }, -- card: alleen MET Refractive Images 1309497 (Method/IV 12.1, 3 okt 2026), elke spec die hem heeft; 4 okt GEMETEN: Rob's Frost heeft hem niet (false) en kreeg Mirror Image toch op de Arcane-kaart -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
+	["Mirror Image"] = { id = 55342, category = "defensive", priority = 5, survival = "small", survivalOrder = 2, survivalRequires = 1309497 }, -- card: alleen MET Refractive Images 1309497 (Method/IV 12.1, 3 okt 2026), elke spec die hem heeft; 4 okt GEMETEN: Rob's Frost heeft hem niet (false) en kreeg Mirror Image toch op de Arcane-kaart -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
 	["Time Warp"] = { category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
 	-- Card: off since 17 Sep (was escape). You fade after 3 s, too slow to get away in a fight (audit TWIJFEL).
 	["Invisibility"] = { category = "utility", priority = 4 }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
@@ -145,7 +145,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- wensen op dezelfde toets binnen één spec is precies wat lint-controle [11] afvangt.
 	-- Zonder wens zoekt hij per spec zelf een vrije rotatie-plek.
 	["Arcane Explosion"] = { category = "main_rotation", priority = 6 }, -- SpellArchetypes [1449] melee; baseline PBAoE
-	["Prismatic Barrier"] = { role = "defensive_1", priority = 1, specs = { 62 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235450] (kleine def, magic-absorb)
+	["Prismatic Barrier"] = { id = 235450, role = "defensive_1", priority = 1, specs = { 62 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235450] (kleine def, magic-absorb)
 	["Arcane Surge"] = { role = "cooldown_bar", priority = 1, specs = { 62 } }, -- F1; SpellArchetypes [365350]; Arcane grootste burst-CD
 	["Touch of the Magi"] = { category = "cooldown", priority = 2, specs = { 62 } }, -- extra CD; burst-window-opener
 	["Presence of Mind"] = { category = "utility", priority = 5, specs = { 62 } }, -- guide.lua; instant-cast-CD (geen movement -> utility)
@@ -166,7 +166,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026 — zelfde reden als Arcane Explosion hierboven. Stond
 	-- op 63, maar Robs Frost mage heeft hem (Frostfire-heldenboom) en kreeg dus geen toets.
 	["Dragon's Breath"] = { category = "dispel_cc", priority = 6 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (achter Spellsteal, zie daar)
-	["Blazing Barrier"] = { role = "defensive_1", priority = 1, specs = { 63 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
+	["Blazing Barrier"] = { id = 235313, role = "defensive_1", priority = 1, specs = { 63 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
 	["Cauterize"] = { category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow. Card: off (passive, not a button)
 	["Combustion"] = { role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD
 	["Meteor"] = { category = "cooldown", priority = 2, specs = { 63 } }, -- guide.lua / SpellArchetypes [351140] ranged; extra CD (talent, ook Frost)
@@ -188,7 +188,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Blizzard"] = { category = "main_rotation", priority = 5, bindKey = "Shift+2", specs = { 64 } }, -- KeybindingData "Shift+2" [190356]; ground-AoE
 	["Cone of Cold"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 64 } }, -- KeybindingData "Shift+3" [120]; PBAoE-frost
 	-- Comet Storm removed 17 Sep: no longer a spell, it changes Ray of Frost (audit, BRON Icy Veins Frost 12.1).
-	["Ice Barrier"] = { role = "defensive_1", priority = 1, specs = { 64 }, survival = "keepup", survivalOrder = 1 }, -- KeybindingData "Z" [11426]; kleine def (absorb)
+	["Ice Barrier"] = { id = 11426, role = "defensive_1", priority = 1, specs = { 64 }, survival = "keepup", survivalOrder = 1 }, -- KeybindingData "Z" [11426]; kleine def (absorb)
 	-- Card: after Ice Block — it resets Ice Block/Ice Cold and Ice Barrier (audit BRON Icy Veins Frost).
 	-- 17 Sep 2026, GEMETEN in Robs client: C_Spell.GetSpellInfo("Cold Snap") is nil (he has not
 	-- talented it, and a name only resolves from your own spellbook), while 235219 answers

@@ -75,30 +75,30 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	-- INTERRUPT (E)
 	--==================================================================================
-	["Counter Shot"] = { role = "interrupt", priority = 1, specs = { 253, 254 }, survival = "interrupt", survivalOrder = 1 }, -- BM/MM kick (147362); SV = Muzzle
-	["Muzzle"] = { role = "interrupt", priority = 1, specs = { 255 }, survival = "interrupt", survivalOrder = 1 }, -- SV kick (187707)
+	["Counter Shot"] = { id = 147362, role = "interrupt", priority = 1, specs = { 253, 254 }, survival = "interrupt", survivalOrder = 1 }, -- BM/MM kick (147362); SV = Muzzle
+	["Muzzle"] = { id = 187707, role = "interrupt", priority = 1, specs = { 255 }, survival = "interrupt", survivalOrder = 1 }, -- SV kick (187707)
 
 	--==================================================================================
 	-- MOVEMENT (Q)
 	--==================================================================================
-	["Disengage"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- baseline retreat (781); alle 3 specs
+	["Disengage"] = { id = 781, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- baseline retreat (781); alle 3 specs
 	["Harpoon"] = { role = "mobility", priority = 1, specs = { 255 } }, -- SV engage/gap-closer (190925); NOT on the card: pulls you TOWARDS the enemy
-	["Aspect of the Cheetah"] = { role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 3 }, -- baseline sprint/movement (186257); movement -> utility_primary
+	["Aspect of the Cheetah"] = { id = 186257, role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 3 }, -- baseline sprint/movement (186257); movement -> utility_primary
 
 	--==================================================================================
 	-- DEFENSIVES
 	--==================================================================================
-	["Exhilaration"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 heal-anker: self+pet quick heal (109304), baseline; 1 min (IV)
+	["Exhilaration"] = { id = 109304, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 heal-anker: self+pet quick heal (109304), baseline; 1 min (IV)
 	-- Card: 30% DR for 8 s, 2 charges — pressed before a hit, not kept up (IV).
-	["Survival of the Fittest"] = { role = "defensive_1", priority = 1, survival = "small", survivalOrder = 2 }, -- kleine def, 30% DR (264735), baseline (talent)
-	["Aspect of the Turtle"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- grote def, immune (186265), baseline
+	["Survival of the Fittest"] = { id = 264735, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 2 }, -- kleine def, 30% DR (264735), baseline (talent)
+	["Aspect of the Turtle"] = { id = 186265, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- grote def, immune (186265), baseline
 	-- Survival too (3 Oct 2026, mh-research: Icy Veins SV pets guide 10 Aug - SV takes a Ferocity pet when it must be
 	-- the group's Bloodlust). Not Marksmanship: that spec has Harrier's Cry and no pet by default.
 	["Primal Rage"] = { category = "cooldown", priority = 5, specs = { 253, 255 } }, -- pet-Bloodlust/Heroism-equivalent (JustAC SpellCategories 264667); analoog aan Shaman Bloodlust
 	["Camouflage"] = { category = "utility", priority = 5 }, -- baseline stealth/reset-utility (JustAC SpellCooldowns 199483)
 	-- Card: self-castable in Midnight (IV-SVguide); 15% DR, the pet takes half — the smallest button.
-	["Roar of Sacrifice"] = { category = "defensive", priority = 2, survival = "small", survivalOrder = 1, survivalNote = { [253] = "SURVIVAL_NOTE_PET", [255] = "SURVIVAL_NOTE_PET" } }, -- externe pet-def (53480), baseline (talent); card: pet-note niet voor MM (speelt meestal zonder pet; IV 12.1, 3 okt 2026)
-	["Feign Death"] = { category = "utility", priority = 4, survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- baseline threat-drop (5384); 30 s
+	["Roar of Sacrifice"] = { id = 53480, category = "defensive", priority = 2, survival = "small", survivalOrder = 1, survivalNote = { [253] = "SURVIVAL_NOTE_PET", [255] = "SURVIVAL_NOTE_PET" } }, -- externe pet-def (53480), baseline (talent); card: pet-note niet voor MM (speelt meestal zonder pet; IV 12.1, 3 okt 2026)
+	["Feign Death"] = { id = 5384, category = "utility", priority = 4, survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- baseline threat-drop (5384); 30 s
 
 	--==================================================================================
 	-- DISPEL / CC (V + overflow)

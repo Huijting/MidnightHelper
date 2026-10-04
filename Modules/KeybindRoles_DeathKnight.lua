@@ -57,23 +57,23 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- BASELINE (alle 3 specs: 250 Blood, 251 Frost, 252 Unholy)
 	-- ============================================================
 	-- Interrupt (E)
-	["Mind Freeze"] = { role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
+	["Mind Freeze"] = { id = 47528, role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
 	-- Movement (Q / Shift+Q)
-	["Death's Advance"] = { role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q (movement, baseline); 1 charge, 45 s (W-CD cat. 1941)
-	["Wraith Walk"] = { role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 2 }, -- Shift+Q (movement, talent-alternatief); 60 s, breaks roots (IV-Blood)
+	["Death's Advance"] = { id = 48265, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q (movement, baseline); 1 charge, 45 s (W-CD cat. 1941)
+	["Wraith Walk"] = { id = 212552, role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 2 }, -- Shift+Q (movement, talent-alternatief); 60 s, breaks roots (IV-Blood)
 	-- Grote defensive (C)
-	["Icebound Fortitude"] = { role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- grote def (baseline); -30%, 2 min (W-CD)
+	["Icebound Fortitude"] = { id = 48792, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- grote def (baseline); -30%, 2 min (W-CD)
 	-- Dispel/CC (V) - Death Grip als threat/gap-tool op de dispel/CC-anker
 	["Death Grip"] = { category = "dispel_cc", priority = 1 },        -- V (CC/threat, baseline)
 	["Chains of Ice"] = { category = "dispel_cc", priority = 2 },     -- Shift+V (slow/CC; Frost/Unholy binden dit, baseline spell)
 	-- Self-heals (F2 heal-anker)
-	["Death Pact"] = { role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2 }, -- F2 heal-anker: instant self-heal (talent, baseline beschikbaar); card: emergency, after Death Strike
+	["Death Pact"] = { id = 48743, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2 }, -- F2 heal-anker: instant self-heal (talent, baseline beschikbaar); card: emergency, after Death Strike
 	-- Spender (rotatie) - Death Strike BLIJFT spender, NIET dupliceren naar heal
-	["Death Strike"] = { category = "spender", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- rotatie-spender (heal is bijproduct, geen heal_quick); card: "our primary means of healing" (IV)
+	["Death Strike"] = { id = 49998, category = "spender", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- rotatie-spender (heal is bijproduct, geen heal_quick); card: "our primary means of healing" (IV)
 	-- Extra defensive (Shift+Z)
-	["Lichborne"] = { role = "defensive_1", priority = 2, survival = "small", survivalOrder = 9, survivalNote = "SURVIVAL_NOTE_CC_BREAK" }, -- kleine def / CC-immuniteit (baseline); card: CC break, last; small sinds 3 okt 2026 (geen DR, IV 12.1)
+	["Lichborne"] = { id = 49039, role = "defensive_1", priority = 2, survival = "small", survivalOrder = 9, survivalNote = "SURVIVAL_NOTE_CC_BREAK" }, -- kleine def / CC-immuniteit (baseline); card: CC break, last; small sinds 3 okt 2026 (geen DR, IV 12.1)
 	-- Utility (R / F)
-	["Anti-Magic Shell"] = { category = "utility", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- R (magische mitigatie, baseline); 60 s (W-CD)
+	["Anti-Magic Shell"] = { id = 48707, category = "utility", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- R (magische mitigatie, baseline); 60 s (W-CD)
 	["Anti-Magic Zone"] = { category = "defensive", priority = 5 },   -- groeps-magie-DR-koepel, baseline (JustAC SpellCategories DEFENSIVE 51052); NOT on the card (TWIJFEL)
 	["Gorefiend's Grasp"] = { category = "dispel_cc", priority = 3, specs = { 250 } }, -- Blood AoE mass-grip (M+ control; JustAC SpellCooldowns 108199=90s)
 	["Dark Command"] = { category = "taunt", priority = 1 },          -- F: taunt (baseline, eigen kaart)
@@ -90,7 +90,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Blood Boil"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 250 } },      -- AoE
 	["Death and Decay"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 250, 252 } }, -- AoE-grondeffect (Blood + Unholy)
 	-- Grote defensive (Shift+C)
-	["Vampiric Blood"] = { role = "defensive_4", priority = 1, specs = { 250 }, survival = "big", survivalOrder = 1 }, -- grote def (extra, Blood-only); 90 s (W-CD), before the 2 min Icebound
+	["Vampiric Blood"] = { id = 55233, role = "defensive_4", priority = 1, specs = { 250 }, survival = "big", survivalOrder = 1 }, -- grote def (extra, Blood-only); 90 s (W-CD), before the 2 min Icebound
 	-- Grootste CD (F1) + extra CD's
 	["Dancing Rune Weapon"] = { role = "cooldown_bar", priority = 1, specs = { 250 } }, -- F1 (grootste CD: burst/mitigatie)
 	["Consumption"] = { category = "cooldown", priority = 2, specs = { 250 } },         -- Shift+F1 (major CD, talent)
