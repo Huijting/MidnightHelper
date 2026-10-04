@@ -76,7 +76,9 @@ er is niets weggegooid.
 - [ ] **Evoker:** Obsidian Scales staat bij de **grote** knop, Zephyr bij de kleine.
 - [ ] **Brewmaster:** staat **Celestial Infusion** erop als je dat talent hebt (anders Celestial Brew)? En verandert
   er níéts aan je toetsen (Layout-tab)?
-- [ ] **Arcane Mage** met Refractive Images: **Mirror Image** bij de kleine knoppen.
+- [x] Mirror Image: Rob 4 okt (Frost) `IsPlayerSpell(1309497)` = **false**, maar de Arcane-kaart toonde Mirror Image
+  toch. 🐛 Gerepareerd: nieuw veld `survivalRequires` — alleen met Refractive Images, elke spec. ✅ Na `/reload`:
+  `/mh survival` "needs talent 1309497, which you do not have". Open: iemand MÉT het talent ziet hem wel.
 - [ ] **Death Knight:** Lichborne bij de kleine knoppen. **Demon Hunter:** geen Darkness meer. **Rogue:** geen Shadowstep.
 - [ ] **Marksmanship:** Roar of Sacrifice zonder "your pet takes part of the damage".
 - [x] ✅ Rob 4 okt, Demonology lvl 82: Axe Toss ontbrak ("not found by name"). GEMETEN: Command Demon 119898 →

@@ -426,6 +426,16 @@ local function TaggedPlan(tbl, specID, trace)
 				name, idOrWhy = nil, ("behind this button now: %s (%s), not the spell this row is for")
 					:format(tostring(name), tostring(idOrWhy))
 			end
+			-- `survivalRequires` (4 Oct 2026): a spell that is only a defensive WITH a talent. Mirror
+			-- Image showed as "a small one" on Rob's card while IsPlayerSpell(1309497) Refractive Images
+			-- was false (GEMETEN) — without it the images are a distraction, not damage reduction.
+			local req = item.entry.survivalRequires
+			if name and req and IsPlayerSpell then
+				local okR, has = pcall(IsPlayerSpell, req)
+				if okR and has == false then
+					name, idOrWhy = nil, ("needs talent %s, which you do not have"):format(tostring(req))
+				end
+			end
 			local id = name and idOrWhy or nil
 			local dedupe = id or name
 			local shown = name and not already[dedupe]

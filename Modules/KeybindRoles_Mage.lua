@@ -120,7 +120,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- onmisbaar, Dragon's Breath is op Frost bijvangst van de heldenboom. Hij gaat voor.
 	["Spellsteal"] = { category = "dispel_cc", priority = 5 }, -- [30449]; offensieve dispel (steelt enemy-buff) -> dispel_cc, geen zuivere utility
 	-- Card: off. No damage reduction in Midnight (audit BRON); Arcane's Refractive Images is a talent the card cannot see.
-	["Mirror Image"] = { category = "defensive", priority = 5, survival = { [62] = "small" }, survivalOrder = 2 }, -- card: alleen Arcane, defensief met Refractive Images 1309497 (Method/IV 12.1, 3 okt 2026) -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
+	["Mirror Image"] = { category = "defensive", priority = 5, survival = "small", survivalOrder = 2, survivalRequires = 1309497 }, -- card: alleen MET Refractive Images 1309497 (Method/IV 12.1, 3 okt 2026), elke spec die hem heeft; 4 okt GEMETEN: Rob's Frost heeft hem niet (false) en kreeg Mirror Image toch op de Arcane-kaart -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
 	["Time Warp"] = { category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
 	-- Card: off since 17 Sep (was escape). You fade after 3 s, too slow to get away in a fight (audit TWIJFEL).
 	["Invisibility"] = { category = "utility", priority = 4 }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
