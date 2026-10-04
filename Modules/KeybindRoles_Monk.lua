@@ -67,6 +67,7 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 --     and Fire". De draft-doc vermoedt vervanging door "Zenith" (1249625, alleen
 --     ClassCodex-rotatietekst). Hier gevolgd: addon-bevestigde naam SEF.
 --     -> 17 sep: SEF is verwijderd (weg in 12.0.0; Zenith heeft geen entry).
+--     -> 4 okt: Zenith 1249625 heeft nu een entry (WINDWALKER-blok).
 --
 -- ---------------------------------------------------------------------
 -- STAY ALIVE CARD (17 Sep 2026)
@@ -129,6 +130,10 @@ ns.KeybindRoleClassifier.MONK = {
     -- Grootste CD (F1)
     ["Invoke Xuen, the White Tiger"] = { role = "cooldown_bar", priority = 1, specs = { 269 } },      -- F1: WW-celestial (MONK_3 burst-CD)
     -- Storm, Earth, and Fire: verwijderd 17 sep (weg in 12.0.0, vervangen door Zenith; wiki).
+    -- Zenith (4 okt 2026): WW's grote cooldown (IV 12.1, 11 aug: eerste in de cooldownlijst, 2 charges; Xuen alleen nog
+    -- in de Conduit-boom). Id 1249625 GEMETEN in wago SpellName 12.1.5.70077 (enige "Zenith"). Category cooldown, zodat
+    -- Xuen's cooldown_bar-plek niet verschuift; blockQ = Q in het toetsenblok.
+    ["Zenith"]                       = { id = 1249625, blockQ = { [269] = true }, category = "cooldown", priority = 1, specs = { 269 } },
 
     -- =================================================================
     -- MISTWEAVER (270)  -- healer

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "gameVersion": "12.0.5",
-    "contentPhase": "Midnight Season 1",
+    "gameVersion": "12.1",
+    "contentPhase": "Midnight Season 2",
     "primarySource": "https://www.wowhead.com",
     "generatedAt": "2026-05-18",
     "localeItemNames": "enUS",
@@ -12,7 +12,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/death-knight/blood/enchants-gems-pve-tank"
       ],
-      "omitWeaponOil": true,
       "flask": {
         "best": [
           {
@@ -33,7 +32,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+        "noteKey": "CONS_NOTE_13"
       },
       "combatPotion": {
         "best": [
@@ -44,6 +43,11 @@
           }
         ],
         "alternates": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -55,19 +59,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241297"
           }
         ],
-        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+        "noteKey": "CONS_NOTE_15"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -82,7 +86,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -93,7 +97,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -115,7 +119,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+        "noteKey": "CONS_NOTE_09"
       },
       "personalFood": {
         "best": [
@@ -142,28 +146,37 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
-      "weaponOil": null
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteKey": "CONS_NOTE_12"
+      }
     },
     "Frost": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/death-knight/frost/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": true,
       "flask": {
         "best": [
-          {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
-          }
-        ],
-        "alternates": [
           {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
           },
           {
             "id": 241324,
@@ -176,7 +189,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -188,6 +201,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -198,19 +216,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -225,7 +243,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -236,7 +254,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -258,7 +276,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -285,33 +303,42 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
-      "weaponOil": null
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteKey": "CONS_NOTE_12"
+      }
     },
     "Unholy": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/death-knight/unholy/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": true,
       "flask": {
         "best": [
-          {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
-          }
-        ],
-        "alternates": [
-          {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
-          },
           {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
             "id": 241320,
@@ -319,7 +346,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -331,6 +358,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -341,19 +373,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -368,7 +400,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -379,7 +411,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -401,7 +433,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -428,9 +460,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
-      "weaponOil": null
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteKey": "CONS_NOTE_12"
+      }
     }
   },
   "Demon Hunter": {
@@ -438,7 +480,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/demon-hunter/havoc/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -464,7 +505,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -476,6 +517,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -486,19 +532,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -513,7 +559,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -524,7 +570,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -546,7 +592,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -573,7 +619,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -584,14 +630,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Vengeance": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/demon-hunter/vengeance/enchants-gems-pve-tank"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -612,7 +657,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241326"
           }
         ],
-        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+        "noteKey": "CONS_NOTE_13"
       },
       "combatPotion": {
         "best": [
@@ -629,6 +674,11 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           },
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -639,19 +689,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241288"
           }
         ],
-        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+        "noteKey": "CONS_NOTE_15"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -666,7 +716,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -677,7 +727,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -709,7 +759,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=242273"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -736,7 +786,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -747,7 +797,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Devourer": {
@@ -777,7 +827,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
@@ -789,6 +839,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -799,19 +854,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -826,7 +881,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "weaponOil": {
         "best": [
@@ -837,7 +892,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       },
       "augmentRune": {
         "best": [
@@ -848,7 +903,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -870,7 +925,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -897,7 +952,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       }
     }
   },
@@ -906,7 +961,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/druid/balance/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -932,10 +986,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -954,19 +1013,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -981,7 +1040,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -992,7 +1051,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -1014,7 +1073,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -1041,7 +1100,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -1052,14 +1111,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Feral": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/druid/feral/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -1085,7 +1143,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
+        "noteKey": "CONS_NOTE_16"
       },
       "combatPotion": {
         "best": [
@@ -1097,6 +1155,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -1107,19 +1170,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -1134,7 +1197,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -1145,7 +1208,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -1167,7 +1230,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -1194,7 +1257,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -1205,14 +1268,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Guardian": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/druid/guardian/enchants-gems-pve-tank"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -1238,10 +1300,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241326"
           }
         ],
-        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+        "noteKey": "CONS_NOTE_13"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -1255,6 +1322,11 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           },
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -1265,19 +1337,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241288"
           }
         ],
-        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+        "noteKey": "CONS_NOTE_15"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -1292,7 +1364,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -1303,7 +1375,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -1335,7 +1407,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=242273"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -1362,7 +1434,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -1373,14 +1445,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Restoration": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/druid/restoration/enchants-gems-pve-healer"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -1406,7 +1477,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_03"
       },
       "combatPotion": {
         "best": [
@@ -1428,19 +1499,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -1455,7 +1526,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -1466,7 +1537,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -1488,7 +1559,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -1515,7 +1586,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -1526,7 +1597,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -1535,7 +1606,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/evoker/devastation/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -1561,10 +1631,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
+        "noteKey": "CONS_NOTE_16"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -1583,19 +1658,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -1610,7 +1685,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -1621,7 +1696,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -1643,7 +1718,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -1670,7 +1745,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -1681,14 +1756,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Preservation": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/evoker/preservation/enchants-gems-pve-healer"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -1714,7 +1788,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_03"
       },
       "combatPotion": {
         "best": [
@@ -1725,6 +1799,11 @@
           }
         ],
         "alternates": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -1741,19 +1820,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -1768,7 +1847,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -1779,7 +1858,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -1801,7 +1880,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -1828,7 +1907,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -1839,14 +1918,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Augmentation": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/evoker/augmentation/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -1872,10 +1950,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -1894,19 +1977,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -1921,7 +2004,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -1932,7 +2015,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -1954,7 +2037,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -1981,7 +2064,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -1992,7 +2075,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -2001,7 +2084,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/hunter/beast-mastery/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -2032,7 +2114,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -2044,6 +2126,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -2054,19 +2141,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -2081,7 +2168,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -2092,7 +2179,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -2114,7 +2201,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -2141,7 +2228,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -2152,14 +2239,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Marksmanship": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/hunter/marksmanship/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -2185,7 +2271,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -2197,6 +2283,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -2207,19 +2298,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -2234,7 +2325,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -2245,7 +2336,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -2267,7 +2358,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -2294,7 +2385,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -2305,14 +2396,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Survival": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/hunter/survival/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -2343,7 +2433,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -2355,6 +2445,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -2365,19 +2460,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -2392,7 +2487,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -2403,7 +2498,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -2425,7 +2520,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -2452,7 +2547,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -2463,7 +2558,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -2472,7 +2567,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/mage/arcane/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -2503,10 +2597,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -2525,19 +2624,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -2552,7 +2651,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -2563,7 +2662,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -2585,7 +2684,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -2612,7 +2711,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -2623,14 +2722,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Fire": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/mage/fire/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -2661,10 +2759,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -2683,19 +2786,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -2710,7 +2813,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -2721,7 +2824,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -2743,7 +2846,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -2770,7 +2873,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -2781,14 +2884,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Frost": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/mage/frost/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -2819,7 +2921,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
@@ -2830,6 +2932,11 @@
           }
         ],
         "alternates": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -2846,19 +2953,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -2873,7 +2980,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -2884,7 +2991,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -2906,7 +3013,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -2933,7 +3040,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -2944,7 +3051,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -2953,7 +3060,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/monk/brewmaster/enchants-gems-pve-tank"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -2974,21 +3080,26 @@
             "wowheadUrl": "https://www.wowhead.com/item=241326"
           }
         ],
-        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+        "noteKey": "CONS_NOTE_13"
       },
       "combatPotion": {
         "best": [
           {
-            "id": 241292,
-            "name": "Draught of Rampant Abandon",
-            "wowheadUrl": "https://www.wowhead.com/item=241292"
+            "id": 271887,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271887"
+          },
+          {
+            "id": 271886,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271886"
           }
         ],
         "alternates": [
           {
-            "id": 241309,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241309"
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
           },
           {
             "id": 241288,
@@ -2996,19 +3107,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241288"
           }
         ],
-        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+        "noteKey": "CONS_NOTE_15"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -3023,7 +3134,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -3034,7 +3145,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -3066,7 +3177,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=242273"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -3093,7 +3204,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -3104,14 +3215,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Mistweaver": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/monk/mistweaver/enchants-gems-pve-healer"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -3137,10 +3247,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_03"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -3159,19 +3274,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -3186,7 +3301,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -3197,7 +3312,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -3219,7 +3334,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -3246,7 +3361,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -3257,14 +3372,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Windwalker": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/monk/windwalker/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -3290,7 +3404,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -3302,6 +3416,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -3312,19 +3431,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -3339,7 +3458,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -3350,7 +3469,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -3372,7 +3491,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -3399,7 +3518,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -3410,7 +3529,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -3419,7 +3538,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/paladin/holy/enchants-gems-pve-healer"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -3445,7 +3563,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_03"
       },
       "combatPotion": {
         "best": [
@@ -3456,6 +3574,11 @@
           }
         ],
         "alternates": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -3472,19 +3595,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -3499,7 +3622,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -3510,7 +3633,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -3532,7 +3655,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -3559,7 +3682,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -3570,14 +3693,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Protection": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/paladin/protection/enchants-gems-pve-tank"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -3603,10 +3725,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241326"
           }
         ],
-        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+        "noteKey": "CONS_NOTE_13"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -3620,6 +3747,11 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           },
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -3630,19 +3762,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241288"
           }
         ],
-        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+        "noteKey": "CONS_NOTE_15"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -3657,7 +3789,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -3668,7 +3800,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -3690,7 +3822,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+        "noteKey": "CONS_NOTE_09"
       },
       "personalFood": {
         "best": [
@@ -3717,7 +3849,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -3728,14 +3860,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Retribution": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/paladin/retribution/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -3766,7 +3897,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -3778,6 +3909,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -3788,19 +3924,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -3815,7 +3951,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -3826,7 +3962,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -3848,7 +3984,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -3875,7 +4011,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -3886,7 +4022,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -3895,7 +4031,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/priest/discipline/enchants-gems-pve-healer"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -3921,10 +4056,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_03"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -3943,19 +4083,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -3970,7 +4110,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -3981,7 +4121,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -4003,7 +4143,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -4030,7 +4170,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -4041,14 +4181,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Holy": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/priest/holy/enchants-gems-pve-healer"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -4074,10 +4213,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241322"
           }
         ],
-        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
+        "noteKey": "CONS_NOTE_16"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -4096,19 +4240,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -4123,7 +4267,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -4134,7 +4278,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -4156,7 +4300,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -4183,7 +4327,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -4194,14 +4338,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Shadow": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/priest/shadow/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -4227,10 +4370,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -4249,19 +4397,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -4276,7 +4424,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -4287,7 +4435,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -4309,7 +4457,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -4336,7 +4484,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -4347,7 +4495,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -4356,7 +4504,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/rogue/assassination/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -4382,10 +4529,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -4399,6 +4551,11 @@
             "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -4409,19 +4566,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -4436,7 +4593,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -4447,7 +4604,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -4469,7 +4626,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -4496,7 +4653,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -4507,14 +4664,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Outlaw": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/rogue/outlaw/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -4540,7 +4696,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -4552,6 +4708,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -4562,19 +4723,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -4589,7 +4750,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -4600,7 +4761,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -4622,7 +4783,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -4649,7 +4810,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -4660,14 +4821,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Subtlety": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/rogue/subtlety/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -4693,41 +4853,41 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
           {
             "id": 241288,
             "name": "Potion of Recklessness",
             "wowheadUrl": "https://www.wowhead.com/item=241288"
           }
         ],
-        "alternates": [
-          {
-            "id": 241309,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241309"
-          },
-          {
-            "id": 241292,
-            "name": "Draught of Rampant Abandon",
-            "wowheadUrl": "https://www.wowhead.com/item=241292"
-          }
-        ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -4742,7 +4902,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -4753,7 +4913,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -4775,7 +4935,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -4802,7 +4962,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -4813,7 +4973,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -4822,7 +4982,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/shaman/elemental/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -4848,10 +5007,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -4870,19 +5034,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -4897,7 +5061,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -4908,7 +5072,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -4930,7 +5094,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -4957,7 +5121,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -4968,14 +5132,14 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use Thalassian Phoenix Oil unless Flametongue Weapon is preferred by your current build."
+        "noteKey": "CONS_NOTE_10"
       }
     },
     "Enhancement": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/shaman/enhancement/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
+      "omitWeaponOil": true,
       "flask": {
         "best": [
           {
@@ -5001,7 +5165,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
+        "noteKey": "CONS_NOTE_16"
       },
       "combatPotion": {
         "best": [
@@ -5013,6 +5177,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -5023,19 +5192,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -5050,7 +5219,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -5061,7 +5230,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -5083,7 +5252,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -5110,25 +5279,13 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
-      },
-      "weaponOil": {
-        "best": [
-          {
-            "id": 243734,
-            "name": "Thalassian Phoenix Oil",
-            "wowheadUrl": "https://www.wowhead.com/item=243734"
-          }
-        ],
-        "alternates": [],
-        "noteEn": "Use Thalassian Phoenix Oil unless Windfury/Flametongue weapon imbues are required by your build."
+        "noteKey": "CONS_NOTE_08"
       }
     },
     "Restoration": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/shaman/restoration/enchants-gems-pve-healer"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -5154,10 +5311,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241322"
           }
         ],
-        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
+        "noteKey": "CONS_NOTE_16"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -5176,19 +5338,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -5203,7 +5365,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -5214,7 +5376,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -5236,7 +5398,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -5263,7 +5425,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -5274,7 +5436,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -5283,7 +5445,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/warlock/affliction/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -5314,10 +5475,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -5336,19 +5502,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -5363,7 +5529,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -5374,7 +5540,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -5396,7 +5562,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -5423,7 +5589,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -5434,14 +5600,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Demonology": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/warlock/demonology/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -5472,10 +5637,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -5494,19 +5664,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -5521,7 +5691,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -5532,7 +5702,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -5554,7 +5724,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -5581,7 +5751,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -5592,14 +5762,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Destruction": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/warlock/destruction/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -5625,10 +5794,15 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_05"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
           {
             "id": 241309,
             "name": "Light's Potential",
@@ -5647,19 +5821,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -5674,7 +5848,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -5685,7 +5859,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -5707,7 +5881,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+        "noteKey": "CONS_NOTE_06"
       },
       "personalFood": {
         "best": [
@@ -5734,7 +5908,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -5745,7 +5919,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   },
@@ -5754,7 +5928,6 @@
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/warrior/arms/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -5780,7 +5953,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -5792,6 +5965,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -5802,19 +5980,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -5829,7 +6007,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -5840,7 +6018,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -5862,7 +6040,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -5889,7 +6067,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -5900,14 +6078,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Fury": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/warrior/fury/enchants-gems-pve-dps"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -5933,7 +6110,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -5945,6 +6122,11 @@
         ],
         "alternates": [
           {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
@@ -5955,19 +6137,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+        "noteKey": "CONS_NOTE_14"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -5982,7 +6164,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -5993,7 +6175,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -6015,7 +6197,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Primary-stat feast is the safe group default."
+        "noteKey": "CONS_NOTE_07"
       },
       "personalFood": {
         "best": [
@@ -6042,7 +6224,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -6053,14 +6235,13 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     },
     "Protection": {
       "sourcePages": [
         "https://www.wowhead.com/guide/classes/warrior/protection/enchants-gems-pve-tank"
       ],
-      "omitWeaponOil": false,
       "flask": {
         "best": [
           {
@@ -6081,41 +6262,46 @@
             "wowheadUrl": "https://www.wowhead.com/item=241326"
           }
         ],
-        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+        "noteKey": "CONS_NOTE_13"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241308,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241308"
+          },
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
           {
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
           }
         ],
-        "alternates": [
-          {
-            "id": 241309,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241309"
-          },
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
-          }
-        ],
-        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+        "noteKey": "CONS_NOTE_15"
       },
       "healingPotion": {
         "best": [
           {
-            "id": 271883,
-            "name": "Concentrated Silvermoon Health Potion",
-            "wowheadUrl": "https://www.wowhead.com/item=271883"
-          },
-          {
             "id": 271884,
             "name": "Concentrated Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=271884"
+          },
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
           }
         ],
         "alternates": [
@@ -6130,7 +6316,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "noteEn": "Highest verified Midnight health potion."
+        "noteKey": "CONS_NOTE_04"
       },
       "augmentRune": {
         "best": [
@@ -6141,7 +6327,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Current Midnight Season 1 augment rune."
+        "noteKey": "CONS_NOTE_02"
       },
       "feast": {
         "best": [
@@ -6163,7 +6349,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
-        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+        "noteKey": "CONS_NOTE_09"
       },
       "personalFood": {
         "best": [
@@ -6190,7 +6376,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
-        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+        "noteKey": "CONS_NOTE_08"
       },
       "weaponOil": {
         "best": [
@@ -6201,7 +6387,7 @@
           }
         ],
         "alternates": [],
-        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+        "noteKey": "CONS_NOTE_12"
       }
     }
   }
