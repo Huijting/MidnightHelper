@@ -22,6 +22,11 @@
   zodra Rob één keer bij Maella heeft gekeken. Edit Mode-import mogelijk zonder presets (KEYBLOCK_PLAN, eerst testen).
 - Stay alive Warlock: Axe Toss via Command Demon (`survivalId` 119898 + nieuw veld `survivalOverride` in
   SurvivalPlan.lua) — GEMETEN en gezien ✅. Spell Lock zelfde route, override 119910 AFGELEID (nog te zien).
+- **Delve Coach-vinkje** (Rob: "bouw die knop maar"): `ui.delveCoach.autoShow` werd gelezen maar nergens gezet;
+  nu Toggle `mh_delveCoachAuto` in SettingsDefs (Dungeon-hulp), `ns.Is/SetDelveCoachAutoShow` in DelveCoach.lua,
+  `SET_DELVECOACH_AUTO_*` in 7 talen (eigen vertaling). Standaard aan. Niet in het spel gezien → TESTLIJST.
+- Maella (Rob 4 okt op Redisch): bood eerst de intro "Through the Cold Rift"; Rob volgt haar naar Val om te zien of
+  daarna een Showdown-weekly komt → beslist de Showdown-S2-gate.
 - Ochtendronde 4 okt: wachters niets voor MH; CF/GitHub 0 open; 2 nieuwe vragenlijsten (4 en 3) in SURVEY_RESULTS;
   Keybind-coach 8× nooit, 0× vaak.
 

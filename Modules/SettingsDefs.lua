@@ -208,6 +208,12 @@ local function Build()
 	end, function(v)
 		if ns.SetBossWindowAutoOpenEnabledFor then ns.SetBossWindowAutoOpenEnabledFor("raid", v) end
 	end, true)
+	-- Rob, 4 Oct 2026: the Delve Coach opened by itself with no way to turn that off.
+	Toggle("mh_delveCoachAuto", "SET_DELVECOACH_AUTO_TITLE", "SET_DELVECOACH_AUTO_DESC", function()
+		return ns.IsDelveCoachAutoShow and ns.IsDelveCoachAutoShow()
+	end, function(v)
+		if ns.SetDelveCoachAutoShow then ns.SetDelveCoachAutoShow(v) end
+	end, true)
 	-- Recommended OFF since 14 Sep 2026: the module's own default is off
 	-- (IsBossWindowModelEnabled reads showModel == true), and Recommended used to switch it back on.
 	Toggle("mh_bossModel", "SET_BOSSWIN_MODEL_TITLE", "SET_BOSSWIN_MODEL_DESC", function()

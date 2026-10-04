@@ -67,6 +67,13 @@ er is niets weggegooid.
 - [ ] Liadrin bood Rob 4 okt: World Quests, Saltheril's Soiree, **Vaults of Atal'Utek**, Dungeons (screenshot). Kies
   Vaults → zegt "Your week" dat hij in je log staat?
 
+## 🆕 4 okt — Delve Coach: vinkje "vanzelf openen" (Rob: "bouw die knop maar")
+
+- [ ] Instellingen → **Dungeon-hulp**: staat er **"Open the Delve Coach by itself"** (nl "Delve Coach vanzelf openen"),
+  standaard **aan**?
+- [ ] Zet hem uit en loop een delve in: gaat de coach níét vanzelf open, en ook geen "open coach?"-knopje bij de baas?
+  `/mh coach` opent hem dan nog wel. Daarna weer aan.
+
 ## 🆕 3 okt laat — "Stay alive" nagelopen + Liadrin/Stormarion (niet uitgebracht)
 
 `/mh play` → tab **Stay alive**. Alleen kijken op de klassen die je hebt:

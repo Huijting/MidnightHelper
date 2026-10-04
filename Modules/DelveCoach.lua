@@ -105,6 +105,20 @@ local function GetSettings()
 	return s
 end
 
+--- Settings toggle "open the Delve Coach by itself" (Rob, 4 Oct 2026: "bouw die knop maar").
+--- `autoShow` existed and was read in four places, but no control ever wrote it, so it was on for
+--- everyone with no way out. Default stays ON; off = no auto-open and no boss prompt, `/mh coach`
+--- still opens it by hand.
+function ns.IsDelveCoachAutoShow()
+	local s = GetSettings()
+	return s.autoShow ~= false
+end
+
+function ns.SetDelveCoachAutoShow(on)
+	local s = GetSettings()
+	s.autoShow = on and true or false
+end
+
 local function ClampCoachSize(w, h)
 	w = math.max(COACH_MIN_W, math.min(COACH_MAX_W, tonumber(w) or COACH_DEFAULT_W))
 	h = math.max(COACH_MIN_H, math.min(COACH_MAX_H, tonumber(h) or COACH_DEFAULT_H))
