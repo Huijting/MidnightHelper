@@ -16,6 +16,13 @@ ConsumablesWowheadData.lua, HealerCooldowns.lua, DispelHelper.lua. Wijzigingen h
 - ✅ **Punt 3 gebouwd** (Rob: "do the link to the site"): `ns.PlayCardSiteURL` in PlayCards.lua (40 slugs GEMETEN uit
   de live sitemap, taalprefix nl/de/fr/es/pt/it), blauwe klikregel `PLAYCARD_SITE_LINK` onder de bron op "Your buttons"
   → kopieervenster (`ns.ShowShareCopyDialog`). 7 talen. Gezien door Rob ✅.
+- 🔲 **Verzoek site-chat (4 okt laat): expliciete `id` op de survival-regels** in KeybindRoles_*.lua — 114 van 134
+  hebben alleen een naam; de site kan geen spellbook lezen (SkillLineAbility loste 26/114 op) en toont Stay alive nu
+  bij 3 van 40 specs. ⚠️ `id` werkt ook in het spel (LiveName zoekt dan op nummer; KeybindAutoMap byId) → een id dat per
+  spec verschilt laat de rij stil verdwijnen. Aanpak (Rob kiest moment): ids uit de mh-research-uitvoer van 3 okt (5
+  groepen, per rij wago/Wowhead-id), per-spec-verschil via `survivalId`, daarna `/mh survival` op Robs chars: geen
+  rij mag wegvallen. De site negeert `survivalOverride` bewust (Warlock wordt één regel "Command Demon") en laat
+  `survivalRequires`-rijen weg. Sitemap: door de site-chat gerepareerd en nagemeten (385 adressen, geldig).
 - 🐛 Gevonden 4 okt: **`/sitemap.xml` is ongeldige XML** (`--` in het commentaar van regel 2) — gemeld via Rob aan de
   site-chat (`tools/i18n.py`).
 - ⚠️ **Meld aan de site-chat:** de survival-velden zijn vandaag uitgebreid — `survivalSpecs`, `survivalId`,
