@@ -116,7 +116,10 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	--==============================================================================
 
 	-- Interrupt (E). Geen eigen kick -> via Felhunter (Spell Lock). Command Demon proct de pet-cast.
-	["Spell Lock"] = { role = "interrupt", priority = 1, specs = { 265, 267 }, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities [19647] kind=interrupt pri=1 (Felhunter)
+	-- Card: same Command Demon route as Axe Toss below. 119910 as the Felhunter's override is AFGELEID
+	-- (mh-research, Wowhead "Requires Warlock"), not measured — if wrong the row stays off, never wrong.
+	["Spell Lock"] = { role = "interrupt", priority = 1, specs = { 265, 267 }, survival = "interrupt", survivalOrder = 1,
+		survivalId = { [265] = 119898, [267] = 119898 }, survivalOverride = { [119910] = true } }, -- InterruptAbilities [19647] kind=interrupt pri=1 (Felhunter)
 	["Call Felhunter"] = { role = "interrupt", priority = 2, specs = { 265, 267 } }, -- InterruptAbilities [212619] interrupt pri=2 (summon+kick)
 
 	-- Builders (DoT-opbouw / shard-generatie).
@@ -146,7 +149,12 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	--==============================================================================
 
 	-- Interrupt (E). Geen eigen kick -> via Felguard (Axe Toss).
-	["Axe Toss"] = { role = "interrupt", priority = 1, specs = { 266 }, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities [89766] kind=cc mech=12 (stun, Felguard-interrupt)
+	-- Card: the pet's button lives behind Command Demon (119898). GEMETEN 4 Oct 2026 on Rob's Demonology
+	-- warlock, Felguard out: GetOverrideSpell(119898) = 119914, IsPlayerSpell 119898 true, 119914 false,
+	-- 89766 false — so the name lookup found nothing. The card asks the base and shows the override,
+	-- and only when the override IS Axe Toss (another demon puts a non-interrupt behind the same button).
+	["Axe Toss"] = { role = "interrupt", priority = 1, specs = { 266 }, survival = "interrupt", survivalOrder = 1,
+		survivalId = { [266] = 119898 }, survivalOverride = { [119914] = true } }, -- InterruptAbilities [89766] kind=cc mech=12 (stun, Felguard-interrupt)
 
 	-- Builders (shard-generatie / Demonic Core).
 	["Shadow Bolt"] = { category = "main_rotation", priority = 1, specs = { 266 } }, -- SpellArchetypes [686] ranged; shard-generatie-filler

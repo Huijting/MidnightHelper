@@ -419,6 +419,13 @@ local function TaggedPlan(tbl, specID, trace)
 		end)
 		for _, item in ipairs(bucket) do
 			local name, idOrWhy = LiveName(item.key, item.entry, specID)
+			-- `survivalOverride` (4 Oct 2026, warlock pets): the base button (Command Demon) shows a
+			-- different spell per demon, so the row only counts when the override is the one we mean.
+			local want = item.entry.survivalOverride
+			if name and type(want) == "table" and not want[idOrWhy] then
+				name, idOrWhy = nil, ("behind this button now: %s (%s), not the spell this row is for")
+					:format(tostring(name), tostring(idOrWhy))
+			end
 			local id = name and idOrWhy or nil
 			local dedupe = id or name
 			local shown = name and not already[dedupe]

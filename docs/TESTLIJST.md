@@ -79,8 +79,12 @@ er is niets weggegooid.
 - [ ] **Arcane Mage** met Refractive Images: **Mirror Image** bij de kleine knoppen.
 - [ ] **Death Knight:** Lichborne bij de kleine knoppen. **Demon Hunter:** geen Darkness meer. **Rogue:** geen Shadowstep.
 - [ ] **Marksmanship:** Roar of Sacrifice zonder "your pet takes part of the damage".
-- [ ] Meten met `/mh survival` (zegt per knop waarom hij wel/niet op de kaart staat): **Warlock** — staan Spell Lock /
-  Axe Toss erop? **Devourer** — staat Shift erop? **Windwalker** met Combat Wisdom — is Expel Harm weg?
+- [x] ✅ Rob 4 okt, Demonology lvl 82: Axe Toss ontbrak ("not found by name"). GEMETEN: Command Demon 119898 →
+  override 119914, IsPlayerSpell 119898 true / 119914 false / 89766 false. Gebouwd: `survivalId` = 119898 +
+  `survivalOverride` (alleen tonen als de override echt Axe Toss is). Na `/reload`: **Axe Toss staat er als 7**, `/mh
+  survival` zegt "+". Spell Lock (Affli/Destro, override 119910 AFGELEID) nog niet gezien.
+- [ ] Meten met `/mh survival` (zegt per knop waarom hij wel/niet op de kaart staat): **Warlock Affliction/Destruction**
+  met Felhunter — staat Spell Lock erop? **Devourer** — staat Shift erop? **Windwalker** met Combat Wisdom — is Expel Harm weg?
 - [ ] Liadrin: pak je **Arcantina, Offworld Showdowns, Raid** of **Vaults of Atal'Utek**, zegt "Your week" dan dat
   hij in je log staat (niet "ga ophalen")? `/mh weeklies` noemt hem dan niet meer als onbekend.
 - [ ] Void & Rituals-tab: heeft de Stormarion-regel nu in **elke** fase een tooltip (ook bij "bouwen" en "verdedigen")?
