@@ -31,7 +31,8 @@ rij 1 `G` trinket · `Ctrl-1/2/3` druid-vormen (anders rotatie-overloop); rij 2 
 GEMETEN: `Shift+4` vragen 22 `bindKey`s nu al, `Shift+F1`/`Shift+C`/`Shift+V` elk 2 (Warrior, DH); `F3` en `Shift-E`
 gebruikt het toetsschema al (`KeybindSchema.lua:134`, `:189-195`). ⚠️ Botsing: druid-vormen staan nu op `Shift+T/R/X`
 (`KeybindRoles_Druid.lua:246-248`); ⇧T en ⇧R zijn in balk B bezet → vormen naar Ctrl-1-3. Alternatieven op de pagina:
-losse letters (G B H N F5 6 7) of een hele Ctrl-laag. Rob kiest.
+losse letters (G B H N F5 6 7) of een hele Ctrl-laag. ✅ **BESLOTEN 4 okt** (Rob: "Wat betreft blok C ga ik helemaal
+op jouw expertise af") → optie 1, het voorstel hierboven.
 
 ## Wat de metingen zeggen (GEMETEN, proefvulling uit MH's KeybindRoles-data, 4 okt)
 
@@ -64,6 +65,6 @@ Scratchpad van sessie fcdcd4fe: `keyblock\research.md` (onderzoek), `sim.md`/`si
 
 ## Open
 
-1. Toetsen van balk C. 2. Taak van Q. 3. ✅ uitgezocht (zie Techniek): Blizzard zelf, EllesmereUI uitleg.
+1. ✅ Toetsen van balk C (4 okt, optie 1). 2. Taak van Q. 3. ✅ uitgezocht (zie Techniek): Blizzard zelf, EllesmereUI uitleg.
    Wel eerst de import-test. 4. Welke balken (nummers) standaard.
 5. Bouwvolgorde: eerst het plaatje, dan "zet neer".

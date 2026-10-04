@@ -23,7 +23,8 @@
    de survival-test. Lint 0 HARD, luac OK.
 5. ✅ **Toetsenblok balk C: voorstel als plaatje** https://claude.ai/artifact/TPZsR3V5EWmKuqA4LFq78U — "Shift = de
    tweede van dezelfde soort"; druid-vormen naar Ctrl-1-3 (botsen nu met ⇧T/⇧R van balk B). Details in
-   `docs/KEYBLOCK_PLAN.md`. Rob kiest; niets gebouwd.
+   `docs/KEYBLOCK_PLAN.md`. ✅ Rob koos het voorstel ("ik ga helemaal op jouw expertise af"). Niets gebouwd; open
+   blijven de taak van Q, de standaard-balknummers en de Edit Mode-importtest.
 
 ## 🌐 4 okt laat — opdracht van de site-chat (`/play/`-pagina's lezen uit deze repo), GECONTROLEERD
 
