@@ -25,7 +25,13 @@ toets, zodat je spiergeheugen op elk personage werkt. Moet werken op de Blizzard
 | rij 2 | Shift-1/2 AoE · **Shift-3 cooldown 3** · F1 cooldown 2 | F taunt/hulp · T potion · F2 snelle heal · F4 Recuperate | overloop |
 | rij 3 | Z klein def · X def 2 · C groot def · **V CC/dispel** | Shift-Q/Shift-F CC/dispel · Shift-R beweging 2 · Shift-T healthstone | overloop |
 
-Toetsen van balk C: nog niet gekozen.
+Toetsen van balk C: nog niet gekozen. **Voorstel 4 okt middag** (plaatje: https://claude.ai/artifact/TPZsR3V5EWmKuqA4LFq78U):
+rij 1 `G` trinket · `Ctrl-1/2/3` druid-vormen (anders rotatie-overloop); rij 2 `F3` cooldown 4 · `Shift-E` racial ·
+`Shift-4` AoE-spender · `Shift-F1` cooldown 2-tweede; rij 3 `Shift-Z/X/C/V` tweede van dezelfde soort.
+GEMETEN: `Shift+4` vragen 22 `bindKey`s nu al, `Shift+F1`/`Shift+C`/`Shift+V` elk 2 (Warrior, DH); `F3` en `Shift-E`
+gebruikt het toetsschema al (`KeybindSchema.lua:134`, `:189-195`). ⚠️ Botsing: druid-vormen staan nu op `Shift+T/R/X`
+(`KeybindRoles_Druid.lua:246-248`); ⇧T en ⇧R zijn in balk B bezet → vormen naar Ctrl-1-3. Alternatieven op de pagina:
+losse letters (G B H N F5 6 7) of een hele Ctrl-laag. Rob kiest.
 
 ## Wat de metingen zeggen (GEMETEN, proefvulling uit MH's KeybindRoles-data, 4 okt)
 

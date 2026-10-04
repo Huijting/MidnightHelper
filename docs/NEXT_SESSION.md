@@ -21,7 +21,9 @@
 4. ✅ **4.6.0 klaargezet, NIET gepusht/getagd**: `.toc` 4.6.0, `Changelog.lua` + `CHANGELOG_460_1..6` (enUS),
    `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.6.0.md` (byte-identiek, GEMETEN), `CHANGELOG.md`. Wacht op Robs "go" ná
    de survival-test. Lint 0 HARD, luac OK.
-5. Toetsenblok balk C: zie onder (als gedaan).
+5. ✅ **Toetsenblok balk C: voorstel als plaatje** https://claude.ai/artifact/TPZsR3V5EWmKuqA4LFq78U — "Shift = de
+   tweede van dezelfde soort"; druid-vormen naar Ctrl-1-3 (botsen nu met ⇧T/⇧R van balk B). Details in
+   `docs/KEYBLOCK_PLAN.md`. Rob kiest; niets gebouwd.
 
 ## 🌐 4 okt laat — opdracht van de site-chat (`/play/`-pagina's lezen uit deze repo), GECONTROLEERD
 
