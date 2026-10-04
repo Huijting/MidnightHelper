@@ -187,6 +187,9 @@ local GIVER_WEEKLIES = {
 	--- dat maar toe"; mh-research, `scratchpad\sparkgivers.json`). Both have a pin of their own
 	--- because neither stands next to the vault; both coordinates come from Wowhead/Zygor and are
 	--- NOT measured in game yet (TESTLIJST).
+	--- ✅ GEMETEN 4 Oct 2026 (Rob, screenshot): Zerella stands at the pin and offered "Sparks of War:
+	--- Eversong Woods" (93423) that week. Her quest list is a quest-greeting window, not gossip, so
+	--- `/mh weeklies` does not record her offer (last gossip stayed on another NPC) — ids still work.
 	--- • Zerella (npc 254971), "Sparks of War", one zone per week: 93423 Eversong Woods, 93424
 	---   Zul'Aman, 93425 Harandar, 93426 Voidstorm, 96808 The Coiled Isle. NOT 96725/96726 — those are
 	---   the Val/Naigtal versions Blizzard dropped for Season 2. Progress only in War Mode (quest text).
