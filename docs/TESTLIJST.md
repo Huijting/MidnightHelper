@@ -70,7 +70,10 @@ er is niets weggegooid.
 ## 🆕 3 okt laat — "Stay alive" nagelopen + Liadrin/Stormarion (niet uitgebracht)
 
 `/mh play` → tab **Stay alive**. Alleen kijken op de klassen die je hebt:
-- [ ] **Druid:** Guardian heeft géén Heart of the Wild meer en géén Wild Charge bij "wegkomen". Balance heeft nu
+- [x] ✅ Rob 4 okt (Guardian Purlymixanox, alle 4 specs via de knopjes): Guardian zonder HotW en zonder Wild Charge;
+  Feral zonder Wild Charge; Balance + Resto met Frenzied Regeneration en Regrowth. NIET te zien vanaf een Guardian
+  (de kaart kijkt in het eigen spellbook): Wild Charge op Balance, Ironbark op Resto — pas op een Balance/Resto-druid.
+- [ ] (oud punt, deels afgevinkt hierboven) **Druid:** Guardian heeft géén Heart of the Wild meer en géén Wild Charge bij "wegkomen". Balance heeft nu
   **Frenzied Regeneration** en **Regrowth** bij heal, en Wild Charge met "jumps you backwards". Resto: Ironbark staat
   bij de kleine knoppen, ná Barkskin.
 - [ ] **Evoker:** Obsidian Scales staat bij de **grote** knop, Zephyr bij de kleine.
