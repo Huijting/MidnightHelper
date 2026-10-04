@@ -65,6 +65,25 @@ end
 local ICON_DONE = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12:0:0|t"
 local ICON_OPEN = "|TInterface\\RaidFrame\\ReadyCheck-Waiting:12:12:0:0|t"
 
+--- Is this profession's MIDNIGHT skill below 25? true / false / nil (unreadable). Same source as
+--- ProfessionNextStep.BelowWeeklyGate: the expansion line from GetProfessionKnowledgeStatus, then
+--- C_TradeSkillUI's skillLevel for it (base line 393 = Skinning, expansion line = Midnight Skinning).
+local function MidnightSkillBelow25(baseSkillLine)
+	if not (ns.GetProfessionKnowledgeStatus and C_TradeSkillUI and C_TradeSkillUI.GetProfessionInfoBySkillLineID) then
+		return nil
+	end
+	for _, p in ipairs(ns.GetProfessionKnowledgeStatus() or {}) do
+		if p.baseSkillLine == baseSkillLine and p.midnightLine then
+			local ok, info = pcall(C_TradeSkillUI.GetProfessionInfoBySkillLineID, p.midnightLine)
+			if ok and type(info) == "table" and type(info.skillLevel) == "number" then
+				return info.skillLevel < 25
+			end
+			return nil
+		end
+	end
+	return nil
+end
+
 --- Weekly KP block (concept B): only rows with in-game verified IDs show —
 --- trainer weeklies via quest flag, Enchanting disenchant mats via bag count.
 local function BuildWeeklyText()
@@ -98,9 +117,12 @@ local function BuildWeeklyText()
 				if not isDone and skillLine == 333 then
 					-- Enchanting: needs skill 25 AND the Flaresworn intro.
 					line = line .. " |cff8a8f98" .. SL("PROFHUB_WEEKLY_TRAINER_REQ_ENCH") .. "|r"
-				elseif not isDone and (skillLine == 182 or skillLine == 186 or skillLine == 393) then
+				elseif not isDone and (skillLine == 182 or skillLine == 186 or skillLine == 393)
+					and MidnightSkillBelow25(skillLine) ~= false then
 					-- 3 Oct 2026 (mh-research, Wowhead quest pages 93700/93705/93710): the
 					-- gatherers' trainer weekly also opens at skill 25, not just Enchanting's.
+					-- 4 Oct 2026: only said when the skill is below 25 (or unreadable). Rob's
+					-- Skinning at 100/100 read "(needs skill 25 first)" — it was appended always.
 					line = line .. " |cff8a8f98" .. SL("PROFHUB_WEEKLY_TRAINER_REQ_25") .. "|r"
 				end
 				lines[#lines + 1] = line

@@ -73,6 +73,11 @@ er is niets weggegooid.
 - [x] ✅ Rob 4 okt (Guardian Purlymixanox, alle 4 specs via de knopjes): Guardian zonder HotW en zonder Wild Charge;
   Feral zonder Wild Charge; Balance + Resto met Frenzied Regeneration en Regrowth. NIET te zien vanaf een Guardian
   (de kaart kijkt in het eigen spellbook): Wild Charge op Balance, Ironbark op Resto — pas op een Balance/Resto-druid.
+- [x] ✅ Rob 4 okt (Purlymixanox, Skinning 100/100): Skinning-advies "Lasting Leather (0/40), Superb Scales (0/40)" klopt.
+  🐛 Maar "Skinning: trainer weekly **(needs skill 25 first)**" bij skill 100: de zin werd ALTIJD achter de
+  gatherer-weekly gezet. Gerepareerd in `ProfessionsHub.lua` (alleen als de Midnight-skill < 25 of onleesbaar).
+- [ ] → Op Purlymixanox na `/reload`: Tools → Professions → Overview, "This week": staat Skinning nu zónder die zin?
+- [x] ✅ Rob 4 okt (Redisch, Blacksmithing + Enchanting): overzicht met advies per beroep, Enchanting-weekly afgevinkt.
 - [ ] (oud punt, deels afgevinkt hierboven) **Druid:** Guardian heeft géén Heart of the Wild meer en géén Wild Charge bij "wegkomen". Balance heeft nu
   **Frenzied Regeneration** en **Regrowth** bij heal, en Wild Charge met "jumps you backwards". Resto: Ironbark staat
   bij de kleine knoppen, ná Barkskin.
