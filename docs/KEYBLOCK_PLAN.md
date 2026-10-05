@@ -105,7 +105,8 @@ Regels in de code (`ns.MH_EditModeApplyKeyBlock`, `EditModeBackup.lua`):
 - Back-up onder `before-bars-import`, dus `/mh editmode restore` en de knop "Bars back as they were" draaien het terug.
 - Weigert: in combat, Edit Mode open, preset-layout. Waarschuwt bij een account-layout. EllesmereUIActionBars → uitleg.
 - Pas na `/reload` zichtbaar; het venster toont dan een knop "Reload now".
-- Open: of knop 1 linksboven zit in een 3×4 (niet gemeten). Balk 6/7 aanzetten (Options) doet MH niet.
+- GEMETEN 5 okt (Rob, screenshot): knop 1 zit LINKSONDER, het spel vult van onder naar boven. `ButtonFor()` keert de
+  rijen om, zodat 1 2 3 4 bovenaan staat zoals op het plaatje. Balk 6/7 aanzetten (Options) doet MH niet.
 ⚠️ Pet bar heeft standaard Ctrl 1-10; het blok neemt Ctrl 1-3 over.
 
 ## Open

@@ -435,6 +435,15 @@ local function FixedWant(fixed)
 	return nil
 end
 
+--- Which button of the bar a block place uses. MEASURED 5 Oct 2026 on Rob's bars 5/6/7 as 3 x 4
+--- (Edit Mode via step 2b): the game fills a multi-row bar from the BOTTOM — buttons 1-4 are the bottom
+--- row, 9-12 the top. The picture Rob approved has 1 2 3 4 on top and Z X C V at the bottom, like the
+--- keyboard, so picture row 1 goes on buttons 9-12 and picture row 3 on buttons 1-4.
+local function ButtonFor(i)
+	local r, c = math.floor((i - 1) / 4), (i - 1) % 4
+	return (2 - r) * 4 + c + 1
+end
+
 --- The full plan: one row per block place.
 --- row = { key, slot, command, want = {kind,id}|nil, action = "place"|"keep"|"refuse"|"skip", why, replaces }
 local function PlacePlan()
@@ -450,9 +459,10 @@ local function PlacePlan()
 			return nil, ("action bar %s has no binding command"):format(tostring(bars[bar.id]))
 		end
 		for i, slotDef in ipairs(bar.slots) do
+			local btnNo = ButtonFor(i)
 			local row = {
 				key = slotDef.key, bar = bar.id, barNo = bars[bar.id],
-				slot = info.first + i - 1, command = info.prefix .. i,
+				slot = info.first + btnNo - 1, command = info.prefix .. btnNo,
 			}
 			local hit = res.occ[slotDef.key]
 			local want, why

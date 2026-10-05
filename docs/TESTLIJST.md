@@ -72,8 +72,10 @@ Niet in een gevecht, Edit Mode dicht. Eerst `/reload` (je screenshot van 5 okt t
 - [ ] **Balk 8** (je muistoetsen) staat nog precies waar hij stond, en het blok ligt er niet overheen?
 - [ ] Je **cooldown-balken** (Essential/Utility/Buffs) en de rest staan nog waar ze stonden? (Eén ervan hing aan balk 4;
   MH zet die eerst vast op zijn plek.)
-- [ ] **Belangrijk:** zit knop 1 van een blok **linksboven**? Dus op balk A: 1 2 3 4 bovenaan, Z X C V onderaan, zoals op
-  het plaatje? Of staat het ondersteboven? (Niet gemeten; zeg wat je ziet.)
+- [x] Rob 5 okt: blok, kolommen en terugzetten werken. GEMETEN: het spel vult van **onder** naar boven (knop 1 linksonder),
+  dus het blok stond ondersteboven t.o.v. het plaatje. Gerepareerd: plek 1-4 van het plaatje gaat nu op knop 9-12.
+- [ ] **Na de reparatie:** eerst **Terugzetten**, `/reload`, dan **Zet het op balk 5, 6 en 7**. Staat nu **1 2 3 4 bovenaan** en
+  **Z X C V onderaan**, net als op het plaatje (en je toetsenbord)?
 - [ ] Zijn balk 6 en 7 zichtbaar? Zo niet: Options → Action Bars → Action Bar 6 en 7 aanzetten.
 - [ ] Daarna **Bars back as they were** → Reload now → alles weer zoals vanochtend?
 
