@@ -60,6 +60,16 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — speelkaart: toets achter elke spreuk + "Zo heal je" (Rob: "ik snap er helemaal niks van")
+
+- [x] Rob 5 okt: Holy- en Prot-blok staan goed. ✅
+- [ ] Holy: "Zo speel je Holy" → **Jouw knoppen**: staat achter elke gele spreuknaam de toets, bv. *Holy Shock [1]*,
+  *Divine Toll [Shift 3]*, *Word of Glory [Alt E]*? Spreuken die niet op je balken staan: geen toets.
+- [ ] Bovenaan bij een healer: groene regel **"Zo heal je:"** (klik op de balk van je vriend, dan de toets; niemand
+  gekozen = jezelf). Niet bij Prot/Ret.
+- [ ] Een andere spec bekijken (niet je actieve): geen [toetsen] achter de namen.
+- Nieuwe teksten PLAYCARD_HEAL_HOW* alleen enUS + nlNL.
+
 ## 🆕 5 okt avond — terugzet-geheugen per spec (balken zijn per spec)
 
 GEMETEN: Prot had het blok op de balken, Holy niet — actiebalken zijn per spec. Het geheugen is nu per personage + spec.

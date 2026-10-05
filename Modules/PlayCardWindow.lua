@@ -315,6 +315,35 @@ local function LevelBanner(y, t, inner, low, grey, max)
 	return y - fs:GetStringHeight() - 10, t
 end
 
+--- "s-3" -> "Shift 3": the short key the icon badge uses, written out for a sentence.
+local function ReadableKey(short)
+	if type(short) ~= "string" then
+		return nil
+	end
+	local mod, base = short:match("^(%a)%-(.+)$")
+	local word = mod and ({ s = "Shift", c = "Ctrl", a = "Alt" })[mod:lower()]
+	return word and (word .. " " .. base) or short
+end
+
+--- Every spell name the card colours (|cffffd100Name|r) gets the key it is really on, right behind it.
+--- Rob, 5 Oct 2026, first time on a healer: the card named Divine Toll, Holy Shock, Word of Glory … but
+--- only the first icon of a line carried a key ("s-3", "a-R"), so "with my buttons I understand nothing".
+--- Only names the client resolves to a spell this character has, and only keys found on its bars.
+local function WithKeys(text)
+	if type(text) ~= "string" or not ns.LiveKeyForSpell or not (C_Spell and C_Spell.GetSpellInfo) then
+		return text
+	end
+	return (text:gsub("(|c[fF][fF][fF][fF][dD]100)(.-)(|r)", function(open, name, close)
+		local ok, info = pcall(C_Spell.GetSpellInfo, name)
+		local id = ok and type(info) == "table" and info.spellID
+		local key = id and ReadableKey((ns.LiveKeyForSpell(id)))
+		if key then
+			return open .. name .. close .. " |cffffffff[" .. key .. "]|r"
+		end
+		return open .. name .. close
+	end))
+end
+
 --- A step's icon, greyed like its name when the character does not have that spell yet.
 --- `live`: show the key the spell is really on (only for your active spec; another spec's
 --- spells are not on your bars, so a "not on your bars" there would be noise).
@@ -920,6 +949,13 @@ local function Redraw()
 	if card then
 		y, t = LevelBanner(y, t, inner, low, grey, max)
 	end
+	-- Keys only for the spec you are playing: another spec's spells are not on your bars.
+	local live = specID ~= nil and specID == ActiveSpecID()
+	local isHealer = false
+	if specID and GetSpecializationRoleByID then
+		local okR, role = pcall(GetSpecializationRoleByID, specID)
+		isHealer = okR and role == "HEALER"
+	end
 	if not card then
 		t = t + 1
 		local fs = Text(t, "GameFontHighlight")
@@ -935,8 +971,20 @@ local function Redraw()
 		idea:SetWidth(inner)
 		idea:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
 		idea:SetTextColor(1, 1, 1)
-		idea:SetText(card.idea)
+		idea:SetText(live and WithKeys(card.idea) or card.idea)
 		y = y - idea:GetStringHeight() - 12
+
+		-- A healer has never been told HOW healing picks its target (Rob, 5 Oct 2026: "nog nooit van
+		-- mijn leven geheald"). One line, healer specs only.
+		if isHealer then
+			t = t + 1
+			local how = Text(t, "GameFontHighlight")
+			how:SetWidth(inner)
+			how:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+			how:SetTextColor(0.9, 0.88, 0.82)
+			how:SetText("|cff66ddaa" .. L("PLAYCARD_HEAL_HOW_HEAD") .. "|r " .. L("PLAYCARD_HEAL_HOW"))
+			y = y - how:GetStringHeight() - 10
+		end
 
 		t = t + 1
 		local stepsHead = Text(t, "GameFontNormal")
@@ -958,7 +1006,7 @@ local function Redraw()
 			row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
 			row.fs:SetWidth(inner - (20 + ICON + 10))
 			row.fs:SetTextColor(0.9, 0.88, 0.82)
-			row.fs:SetText(s.text)
+			row.fs:SetText(live and WithKeys(s.text) or s.text)
 			local h = math.max(ICON, row.fs:GetStringHeight() + 4)
 			row:SetHeight(h)
 			y = y - h - 10
@@ -974,7 +1022,7 @@ local function Redraw()
 			fs:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
 			fs:SetTextColor(0.9, 0.88, 0.82)
 			fs:SetText(("|cff%02x%02x%02x%s|r %s"):format(
-				math.floor(r * 255), math.floor(g * 255), math.floor(b * 255), label, body))
+				math.floor(r * 255), math.floor(g * 255), math.floor(b * 255), label, live and WithKeys(body) or body))
 			y = y - fs:GetStringHeight() - 8
 		end
 
