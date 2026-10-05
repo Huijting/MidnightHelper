@@ -162,6 +162,10 @@ local function Ensure()
 		return win
 	end
 	local f = CreateFrame("Frame", "MidnightHelperMidnightAchList", UIParent, "BackdropTemplate")
+	-- A new frame is SHOWN by default. The first version only anchored it "if not shown", so it never
+	-- got a point and drew nowhere, silently (Rob, 5 Oct 2026: "ik zie nog steeds niks"). Anchor here, hide.
+	f:Hide()
+	f:SetPoint("CENTER")
 	f:SetSize(560, 600)
 	f:SetFrameStrata("DIALOG")
 	f:SetBackdrop({
@@ -293,7 +297,7 @@ end
 
 function ns.ShowMidnightAchList()
 	local f = Ensure()
-	if not f:IsShown() then
+	if not f:IsShown() or not f:GetPoint() then
 		f:ClearAllPoints()
 		f:SetPoint("CENTER")
 	end

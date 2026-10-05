@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🌍 5 okt — woordkeus per taal: packs naar de clienttermen (Rob: "a", NA 4.6.0)
+
+GEMETEN in wago GlobalStrings (5 okt) wat de client toont; site is al omgezet (live). Packs nog niet. Te doen (mh-writer,
+5 talen): Great Vault → de Große Schatzkammer / fr Grande chambre forte / es Gran cámara (37× "Gran Bóveda" fout) / pt
+Grande Cofre (33× "Grande Câmara" fout) / it **Gran Banca** (85× "Great Vault"); Raids → de Schlachtzüge (±175× Raid) /
+es Bandas / pt Raides / it Incursioni (TAB_RAIDS overal); it TAB_PROFESSIONS → Professioni (+19× "Professions");
+Knowledge → de Wissen, fr connaissances ("points de savoir" bij unspent), es Conocimiento, pt Conhecimento, it Conoscenza.
+Plus "Vault Advisor" vertalen in pt/it (site-chat). Meetscript: scratch `terms.py` (locale_probe --dump).
+nl: Rob koos "beroepen" in zinnen, tab "Beroepen".
+
 ## 🤝 5 okt — bouwchat ⇄ site-chat praten rechtstreeks (SendMessage), Rob keurde het goed in beide chats
 
 Sessie "Midnight Helper site" (`C:\Users\RobHu\Downloads\midnighthelper-site`). Verzoeken van elkaar: doen als je het
