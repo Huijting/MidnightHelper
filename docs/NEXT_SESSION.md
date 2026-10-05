@@ -8,6 +8,9 @@ Grande Cofre (33× "Grande Câmara" fout) / it **Gran Banca** (85× "Great Vault
 es Bandas / pt Raides / it Incursioni (TAB_RAIDS overal); it TAB_PROFESSIONS → Professioni (+19× "Professions");
 Knowledge → de Wissen, fr connaissances ("points de savoir" bij unspent), es Conocimiento, pt Conhecimento, it Conoscenza.
 Plus "Vault Advisor" vertalen in pt/it (site-chat). Meetscript: scratch `terms.py` (locale_probe --dump).
+Ook meenemen (mh-writer 5 okt): de oude fr `SURVIVAL_NOTE_*` zeggen "vous", de nieuwe en de rest van het pack "tu";
+"Skyriding" staat in bestaande teksten Engels, de client zegt Himmelsreiten/Vol/Surcacielos/Pilotagem Aérea/Volo
+Dinamico; "stapel" afwisselend charges/cumuls in fr/es/pt/it.
 nl: Rob koos "beroepen" in zinnen, tab "Beroepen".
 
 ## 🤝 5 okt — bouwchat ⇄ site-chat praten rechtstreeks (SendMessage), Rob keurde het goed in beide chats
