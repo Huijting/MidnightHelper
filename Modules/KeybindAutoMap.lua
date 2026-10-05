@@ -452,15 +452,17 @@ function ns.KeybindUnclassified()
 	if not ok or type(unmatched) ~= "table" then
 		return {}, 0
 	end
-	local out = {}
+	local out, outIds = {}, {}
 	local general = ns._mhGeneralSpells or {}
 	for i = 1, #unmatched do
 		local sid = ids and ids[i]
 		if not (sid and KEYBIND_NOISE[sid]) and not general[unmatched[i]] and not NO_KEY_ON_PURPOSE[unmatched[i]] then
 			out[#out + 1] = unmatched[i]
+			outIds[#outIds + 1] = sid
 		end
 	end
-	return out, #unmatched
+	-- Third return (5 Oct 2026): the ids, same order, so the key block can put these on block D.
+	return out, #unmatched, outIds
 end
 
 --- Cache: herbouwen kost een spellbook-scan; alleen opnieuw bij spec/talent-wissel.

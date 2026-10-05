@@ -374,7 +374,23 @@ local function Build()
 		return nil, class
 	end
 	local occ, unplaced, trace = ns.KeyBlockAllocate(spells, specID)
-	return { occ = occ, unplaced = unplaced, trace = trace, specID = specID, class = class }
+	-- Spells this character knows that are in none of our lists also get a key: a free Alt place on block D
+	-- (Rob, 5 Oct 2026, after testing three Druid specs: "moeten we dit voor elke spec gaan doen?" — no: what MH
+	-- does not know goes to D by itself, and never pushes anything off A/B/C). Noise and the spells left keyless
+	-- on purpose are filtered out by KeybindUnclassified first.
+	local unknown = 0
+	if ns.KeybindUnclassified then
+		local okU, names, _, ids = pcall(ns.KeybindUnclassified)
+		if okU and type(names) == "table" and type(ids) == "table" then
+			for i, n in ipairs(names) do
+				if ids[i] then
+					unplaced[#unplaced + 1] = { id = ids[i], name = n, unknown = true }
+					unknown = unknown + 1
+				end
+			end
+		end
+	end
+	return { occ = occ, unplaced = unplaced, trace = trace, specID = specID, class = class, unknown = unknown }
 end
 
 --------------------------------------------------------------------------------
@@ -1941,11 +1957,14 @@ Refresh = function(f)
 			unknownTxt = "  " .. ns:L("KEYBLOCK_UNKNOWN_FMT"):format(#unknown, table.concat(unknown, ", "))
 		end
 	end
-	if res and #res.unplaced > 0 then
-		local names = {}
-		for _, s in ipairs(res.unplaced) do
+	-- The unknown ones are in res.unplaced too (they go to block D), but the red line already names them.
+	local names = {}
+	for _, s in ipairs(res and res.unplaced or {}) do
+		if not s.unknown then
 			names[#names + 1] = (SpellView(s.id))
 		end
+	end
+	if res and #names > 0 then
 		f.unplaced:SetText(ns:L("KEYBLOCK_UNPLACED_FMT"):format(#names, table.concat(names, ", ")) .. unknownTxt)
 	elseif res then
 		f.unplaced:SetText((unknownTxt ~= "" and "" or ns:L("KEYBLOCK_UNPLACED_NONE")) .. unknownTxt)

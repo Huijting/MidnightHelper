@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🌙 STAND EIND 5 OKT (nacht) — alles LOKAAL, 4.7.2 klaar om te testen/uit te brengen op Robs "go"
+
+Sinds tag v4.7.1 (91f999f) lokaal, NIET gepusht. Inhoud voor 4.7.2:
+- Gatenronde alle klassen (zie hieronder) + Balance-spreuken (Fury of Elune c.s.).
+- Blok D: wat op A/B/C geen plek heeft gaat naar een VRIJE Alt-plek op D (na parkeren; D-plekken met een kopie van een
+  blokspreuk tellen als vrij; wat naar D geparkeerd wordt niet nog eens). `blockAs[spec].onlyD` = alleen D (Resto/Balance:
+  Heart of the Wild, Stampeding Roar, Frenzied Regeneration). Chatregel "block D: …" + `ns.db.keyBlockLeftoverProbe`.
+- Spreuken die MH niet kent (ook na alle filters) gaan óók naar een vrije D-plek (Rob: "moeten we dit voor elke spec
+  gaan doen?" → nee). Rode regel zegt dat nu. Filters: General-tab, KEYBIND_NOISE (+SBA 1229376), NO_KEY_ON_PURPOSE.
+- `/mh ready` = venster "Klaar voor de raid?" (leren/farm); Fleeting + Demonic Healthstone tellen mee.
+- Speelkaart-toetsen: blok vóór balk 1, naamterugval. Gedeelde layout-knop "(alle personages)".
+Rob getest 5 okt (Guardian/Resto/Reddish): blok D-leftovers, dubbelen weg, rode regel. NIET getest: de laatste stap
+(onbekende spreuken → D), Balance/Feral na de ronde, andere klassen, `/mh ready`-venster.
+Vertalen (mh-writer): RAIDSHOP_*, KEYBLOCK_UNKNOWN_FMT, KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT, CMDLIST_READY (gewijzigd).
+Release: CHANGELOG/RELEASE_NOTES/CURSEFORGE_4.7.2/.toc nog niet gemaakt; na tag site-chat seinen (16 oude spreuken van site).
+
 ## 🧩 5 okt laat — gatenronde ALLE klassen (Rob: "ja doe maar") — GEBOUWD, NIET GETEST, NIET UITGEBRACHT
 
 Aanleiding: Carola's Balance (Fury of Elune) en Robs Warlock (Summon Felguard, Shadowfury, ...) hadden castbare spreuken

@@ -77,6 +77,12 @@ staat de spreuk al op D, dan niet nog eens. Undo haalt ze eraf. Tekst onderaan z
 - [ ] Je eigen spul op D (macro's, Healthstone, Flask) blijft gewoon staan?
 - [ ] Undo: verdwijnen ze weer van D?
 
+## 🆕 5 okt nacht — onbekende spreuken gaan vanzelf naar een vrije Alt-plek op blok D (Rob: "ja, bouw het zo")
+
+- [ ] Op een personage met een rode regel: `/reload` → Undo → neerzetten. Staan de genoemde spreuken nu op Alt-toetsen?
+  Chat "block D: …" noemt ze. Komt er rommel op D (skyriding, Warband)? Dan screenshot.
+- [ ] Of zonder Undo: komt het venster "Nieuw voor je toetsenblok: … -> Alt …" en werkt Place it?
+
 ## 🆕 5 okt laat — Resto Druid: blok goed; Heart of the Wild + Stampeding Roar alleen op blok D
 
 GEMETEN (Robs Resto): heals 1-4, Wild Growth/Nature's Swiftness, Moonfire Shift-2, Sunfire Shift-C, Innervate F3, Revive
