@@ -52,6 +52,9 @@ De packager uploadt dit bestand **letterlijk en volledig** (`.pkgmeta` →
 - `/reload` op een schone install: geen Lua-errors bij login, óók direct in combat.
 - Nieuwe features openen (tabs renderen, taal wisselen = geen blokjes).
 - Bij een grote release: **eerst Beta** (`v<ver>-beta1`) voor Cisca, dan pas Release.
+  🔴 **Sinds 5 okt 2026 de vaste regel (Rob, bij 4.7.2):** een nieuwe functie of grotere wijziging gaat ALTIJD eerst als
+  beta uit; spelers die mee willen testen zetten in de CurseForge-app het release type op Beta. Aanleiding: de
+  toetsenblok-gaten werden pas ná 4.7.0 gevonden. Kleine reparaties mogen direct.
 
 ## 3. Taggen (dit publiceert)
 

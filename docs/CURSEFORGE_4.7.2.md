@@ -1,5 +1,17 @@
 # Midnight Helper 4.7.2: a complete key block for every class
 
+## An honest word first
+
+We found these gaps **after** releasing the key block in 4.7.0. That is not how we want to work: a new feature should
+be tested on many classes before it reaches you. So from now on, bigger changes will first come out as a **beta**
+release.
+
+**Want to help test new things before everyone else?** In the CurseForge app, set the release type for Midnight
+Helper to **Beta**. You will then get beta versions as soon as they are out. Feedback is very welcome: `/mh report` in
+game, or a comment here. Prefer only finished versions? Then you do not have to change anything.
+
+## What this update fixes
+
 The key block from 4.7.0 knew most of your spells, but not all of them. Some talents and class spells had no place, for
 example Fury of Elune for Balance Druids or Shadowfury for Warlocks. This update fills those gaps.
 

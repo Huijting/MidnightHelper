@@ -2630,6 +2630,7 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
+	CHANGELOG_472_0 = "An honest word: we found these key block gaps AFTER releasing 4.7.0, and that is not how we want to work. Bigger changes now come out as a beta first. Want to test early? In the CurseForge app, set the release type for Midnight Helper to Beta.",
 	CHANGELOG_472_1 = "Key block for every class: about 100 spells added (checked against Blizzard's 12.1 data), about 20 that no longer exist removed. Open /mh block: it offers the new spells by itself.",
 	CHANGELOG_472_2 = "Key block: spells with no place on A, B and C, and spells MH does not know yet, go on a free Alt key in block D. Nothing is pushed off your main keys.",
 	CHANGELOG_472_3 = "Key block: no more double copies on block D; characters sharing one Edit Mode layout are offered a layout of their own.",
