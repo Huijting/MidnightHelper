@@ -694,8 +694,23 @@ end
 --- Paladin's buttons back onto the alt's bars and "Place it" refused because "already placed".
 --- The one snapshot from before this fix has no owner; it is claimed by the character whose bars prove
 --- it: a macro the snapshot moved aside still sits, by name, on the button it was moved to.
-local function MyKey()
+--- 🔴 PER CHARACTER AND SPEC (5 Oct 2026). Action bars belong to a spec: MEASURED on Rob's Paladin the
+--- same evening — Prot had the block on its bars while Holy's bars were still his old ones. Keyed on the
+--- character alone, Prot's window said "Update" with Holy's snapshot, and Undo there would have put
+--- Holy's old buttons onto Prot's bars.
+local function MyGUID()
 	return UnitGUID and UnitGUID("player") or "?"
+end
+
+local function MyKey()
+	local spec = "?"
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local ok, id = pcall(ns.GetSpecializationInfo, ns.GetSpecialization())
+		if ok and id then
+			spec = tostring(id)
+		end
+	end
+	return MyGUID() .. ":" .. spec
 end
 
 --- Do this character's bars prove the snapshot is theirs? EVERY thing it moved aside must still sit on the
@@ -742,6 +757,15 @@ local function GetSnap()
 		end
 		db.keyBlockSnapshots[MyKey()] = nil
 		db.keyBlockSnapshot = db.keyBlockSnapshot or mine
+	end
+	-- A snapshot keyed by the character alone (before the spec was part of the key): it belongs to the
+	-- spec whose bars prove it, and moves under that spec's key.
+	local byChar = db.keyBlockSnapshots[MyGUID()]
+	if byChar and ProvesMine(byChar) then
+		byChar.owner = MyKey()
+		db.keyBlockSnapshots[MyKey()] = byChar
+		db.keyBlockSnapshots[MyGUID()] = nil
+		return byChar
 	end
 	local old = db.keyBlockSnapshot
 	if old and ProvesMine(old) then

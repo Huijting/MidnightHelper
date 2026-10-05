@@ -60,6 +60,13 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — terugzet-geheugen per spec (balken zijn per spec)
+
+GEMETEN: Prot had het blok op de balken, Holy niet — actiebalken zijn per spec. Het geheugen is nu per personage + spec.
+- [ ] Holy: `/reload`, `/mh block`. Staat er "Zet het op balk 5, 6 en 7" of "Bijwerken"? (Het oude geheugen gaat naar
+  de spec waarvan de balken het bewijzen.) Wissel naar Prot: zegt het venster daar iets anders, passend bij Prot's balken?
+- [ ] Per spec: blok neerzetten + Terugzetten raakt alleen de balken van die spec.
+
 ## 🆕 5 okt avond — volgende stap groot in beeld (Rob: "een noob weet niet wat hij nu moet doen")
 
 - [ ] Na **Eigen layout + blok**, **Zet mijn balken als blok**, **Zet "…" terug** of **Toon/Verberg oude balken**: komt er
