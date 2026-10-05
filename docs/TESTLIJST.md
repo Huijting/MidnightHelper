@@ -67,8 +67,13 @@ Pet, Recuperate, Flare ...): blok neergezet vóór de opruim-reparatie van vanav
 De rode lijst noemde nog skyriding/Warband (General-tab-filter ving ze NIET, of Rob had nog niet herladen — onbekend) en
 Hunter-dingen die bewust geen toets krijgen. Nu ook een namenlijst `NO_KEY_ON_PURPOSE` (KeybindAutoMap.lua).
 Rob 5 okt: demonen/curses/buffs/out-of-combat **"laat zoals het is"** (mijn advies).
-- [ ] Reddish: Undo → Zet het op balk 5, 6 en 7 → staan Exhilaration, Bestial Wrath enz. nog maar één keer?
-- [ ] Rode regel na `/reload`: geen skyriding, Warband of Feed Pet meer? (Leeg = de regel verdwijnt.)
+- [x] Rob 5 okt ✅ (screenshot: D houdt alleen eigen spul — flyouts, Healthstone, Disenchant) Reddish: Undo → Zet het op
+  balk 5, 6 en 7 → staan Exhilaration, Bestial Wrath enz. nog maar één keer?
+- [x] Rob 5 okt ✅ ("Every spell Midnight Helper knows for this spec has a place", geen rode regel) Rode regel na
+  `/reload`: geen skyriding, Warband of Feed Pet meer?
+- [x] Rob 5 okt ✅ Nieuwe-spreuk-venster na reload: "Wing Clip -> Shift Z" (Wing Clip kwam uit de gatenronde). Na Undo +
+  opnieuw neerzetten staat hij op Ctrl 1: Bijwerken zet een nieuwe spreuk op de eerste vrije overloopplek, een volledige
+  plaatsing rekent alles opnieuw. Verwacht gedrag.
 
 ## 🆕 5 okt laat — gatenronde alle klassen: ~100 spreuken erbij, ~20 oude eruit
 
