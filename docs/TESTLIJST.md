@@ -60,6 +60,16 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## ✅ 5 okt middag — Rob testte (Mage, Druid, achievement-lijst)
+
+- [x] Mage (Frost): Stay alive 7 regels, Shimmer één keer, `/mh survival` geen "not found by id" (Cold Snap "not known"
+  = niet getalenteerd, Mirror Image = geen Refractive Images). Nieuwe ids werken.
+- [x] Guardian: Stay alive 10 regels, **Thrash** regel 2 met Rend and Tear-note, geen rode regels. `/mh block`: Q =
+  Incarnation, Bear/Cat op Ctrl 1/2. 🐛 Ctrl 3 kreeg Remove Corruption (Guardian kent Moonkin Form niet) → gerepareerd:
+  Druids houden Ctrl 1-3 voor vormen, ook leeg. → na `/reload`: Ctrl 3 leeg?
+- [x] `/mh achlist`: 🐛 eerst geen venster (geen ankerpunt) → gerepareerd; venster werkt: 284 van 435, groepen klappen
+  open, tooltip klopt (screenshot).
+
 ## 🆕 5 okt — consumables-wissels en tank-regels op Stay alive
 
 - [ ] **Prot Paladin** `/mh play` → **Consumables**: flask = **Flask of the Blood Knights** (was Shattered Sun).

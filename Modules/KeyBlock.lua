@@ -266,9 +266,27 @@ function ns.KeyBlockAllocate(spells, specID)
 		end
 		return ByPriority(a, b)
 	end)
+	-- A class with forms keeps Ctrl-1/2/3 for its forms, also the one it does not know. Rob, 5 Oct
+	-- 2026, Guardian without Moonkin Form: Ctrl 3 got Remove Corruption, so "Ctrl 3 = form 3" stopped
+	-- being true. An empty form key is better than a key that means something else on this druid.
+	local overflow = OVERFLOW
+	local hasForms = false
+	for _, s in ipairs(list) do
+		if type(s.blockForm) == "number" then
+			hasForms = true
+		end
+	end
+	if hasForms then
+		overflow = {}
+		for _, k in ipairs(OVERFLOW) do
+			if not k:find("^CTRL%-") then
+				overflow[#overflow + 1] = k
+			end
+		end
+	end
 	local unplaced = {}
 	for _, s in ipairs(left) do
-		if not try(s, OVERFLOW, "overflow (" .. Family(s) .. ")") then
+		if not try(s, overflow, "overflow (" .. Family(s) .. ")") then
 			unplaced[#unplaced + 1] = s
 			trace[#trace + 1] = { id = s.id, why = "no room (" .. Family(s) .. ")" }
 		end
