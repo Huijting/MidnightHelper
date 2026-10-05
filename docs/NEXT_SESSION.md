@@ -18,8 +18,9 @@ Assistant verplaatsen/verwijderen; zonder vrije knop of bij mislukte verplaatsin
 parkeren op zichtbare balken; stap 2 advies = c (balk 1-4 laten staan, alleen verschuiven bij overlap); stap 3 = alleen
 dubbele SPELLS weg, nooit items/macro's/vormpagina's. Volledig rapport: task-output van 5 okt in de sessie.
 🔴 Gevonden 5 okt: snapshot stond account-breed (MidnightHelperDB) → nu `keyBlockSnapshots[UnitGUID]`; de oude wordt
-geclaimd door het personage waar een opzij gezette macro op naam op zijn `movedTo`-knop staat (Robs Paladin: "Justice",
-GEMETEN in SV). Open: toetsen zijn account-breed als character-specific bindings uit staan — blok-toetsen gelden dan ook
+geclaimd door het personage waar ALLES wat hij opzij zette nog op zijn `movedTo`-knop staat (`ProvesMine`). GEMETEN 5 okt:
+de eerste versie (één macronaam genoeg) liet Robs Hunter Ikprikjou (Player-1080-0B57FC67) de Paladin-snapshot claimen;
+een geclaimde snapshot zonder `owner` wordt nu opnieuw bewezen en anders teruggegeven. Open: toetsen zijn account-breed als character-specific bindings uit staan — blok-toetsen gelden dan ook
 op alts. Rob "1 ja": lege blokplekken worden ook leeggemaakt (actie `clear`, zelfde opzij-zetten). OPEN, wacht op red team
 (mh-research, voor/nadelen): 2a/b/c kolommen over de questlijst; Robs vraag "balk 1-4 helemaal leeg?" (mijn tegenvoorstel:
 alleen dubbelen weg, met undo).

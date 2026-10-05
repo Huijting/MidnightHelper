@@ -613,6 +613,31 @@ local function MyKey()
 	return UnitGUID and UnitGUID("player") or "?"
 end
 
+--- Do this character's bars prove the snapshot is theirs? EVERY thing it moved aside must still sit on the
+--- button it was moved to: a spell by id, an item by id, a macro by name.
+--- ⚠️ MEASURED 5 Oct 2026: the first version accepted ONE matching macro name, and Rob's level-11 Hunter
+--- claimed his Paladin's snapshot (a macro of the same name on the same button, account-wide macros).
+local function ProvesMine(snap)
+	local checked = 0
+	for _, s in ipairs(snap.slots or {}) do
+		if s.movedTo then
+			local kind, id = Occupant(s.movedTo)
+			if kind ~= s.kind then
+				return false
+			end
+			if kind == "macro" then
+				if GetActionText(s.movedTo) ~= s.name then
+					return false
+				end
+			elseif id ~= s.id then
+				return false
+			end
+			checked = checked + 1
+		end
+	end
+	return checked > 0
+end
+
 local function GetSnap()
 	local db = ns.db
 	if not db then
@@ -620,18 +645,25 @@ local function GetSnap()
 	end
 	db.keyBlockSnapshots = db.keyBlockSnapshots or {}
 	local mine = db.keyBlockSnapshots[MyKey()]
-	if mine then
+	-- Made on this character (owner stamped): trust it. Claimed from the old shared slot: prove it again,
+	-- and hand it back unowned if this character's bars do not.
+	if mine and mine.owner == MyKey() then
 		return mine
 	end
-	local old = db.keyBlockSnapshot
-	if old then
-		for _, s in ipairs(old.slots or {}) do
-			if s.kind == "macro" and s.movedTo and s.name and GetActionText(s.movedTo) == s.name then
-				db.keyBlockSnapshots[MyKey()] = old
-				db.keyBlockSnapshot = nil
-				return old
-			end
+	if mine then
+		if ProvesMine(mine) then
+			mine.owner = MyKey()
+			return mine
 		end
+		db.keyBlockSnapshots[MyKey()] = nil
+		db.keyBlockSnapshot = db.keyBlockSnapshot or mine
+	end
+	local old = db.keyBlockSnapshot
+	if old and ProvesMine(old) then
+		old.owner = MyKey()
+		db.keyBlockSnapshots[MyKey()] = old
+		db.keyBlockSnapshot = nil
+		return old
 	end
 	return nil
 end
@@ -639,6 +671,9 @@ end
 local function SetSnap(v)
 	ns.db = ns.db or {}
 	ns.db.keyBlockSnapshots = ns.db.keyBlockSnapshots or {}
+	if v then
+		v.owner = MyKey()
+	end
 	ns.db.keyBlockSnapshots[MyKey()] = v
 end
 
