@@ -77,7 +77,10 @@ leeg bij de andere zes, bewust. Doorgerekend (data/keyblock_specs.json):
 
 GEMETEN: `/mh mbuff` gaf "Beacon of Light [ally]: pass=true active=false" terwijl Rob hem gaf. AFGELEID oorzaak: een
 verborgen (secret) spell-id op een ander werd overgeslagen en daarna als "afwezig" gerekend. Nu: verborgen = "weet niet".
-- [ ] `/reload`, Beacon op Valeera, `/mh mbuff`: onder Beacon of Light staat nu "per unit: <jij>=… Valeera=…". Wat staat
+- [x] Rob 5 okt: BUFF ALLY weg; `/mh mbuff` "per unit: Twelveinchy=false  Valeera Sanguinar=nil" → GEMETEN: Valeera's
+  buffs zijn onleesbaar (geheim), dus de oorzaak klopte. Keerzijde, bewust: zonder Beacon blijft de melding bij een
+  onleesbare groepsgenoot óók weg (nooit iets beweren wat MH niet ziet).
+- [ ] (oud) `/reload`, Beacon op Valeera, `/mh mbuff`: onder Beacon of Light staat nu "per unit: <jij>=… Valeera=…". Wat staat
   er bij Valeera (true / false / nil)? Is BUFF ALLY weg? Stuur de regel als hij er nog staat.
 
 ## 🆕 5 okt avond — oud vlaggetje weg + balk 8 als 3 × 2 rechts van C
