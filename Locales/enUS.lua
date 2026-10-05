@@ -2630,6 +2630,10 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
+	CHANGELOG_472_1 = "Key block for every class: about 100 spells added (checked against Blizzard's 12.1 data), about 20 that no longer exist removed. Open /mh block: it offers the new spells by itself.",
+	CHANGELOG_472_2 = "Key block: spells with no place on A, B and C, and spells MH does not know yet, go on a free Alt key in block D. Nothing is pushed off your main keys.",
+	CHANGELOG_472_3 = "Key block: no more double copies on block D; characters sharing one Edit Mode layout are offered a layout of their own.",
+	CHANGELOG_472_4 = "NEW - /mh ready: Ready for the raid? A shopping list for a raid night, for learning a new boss or for farm. Cauldron flasks and the Demonic Healthstone now count.",
 	CHANGELOG_471_1 = "Key block fix: mounts, pets and toys on bars 5, 6 and 7 now move aside to block D, so your spells land where the picture shows them. Placed the block in 4.7.0 and see a mount where a spell belongs? /mh block, Undo, then place it again.",
 	CHANGELOG_471_2 = "Play card: shows your key block key when a spell sits on two buttons, and finds a spec's own version of a spell (like Balance Wrath).",
 	CHANGELOG_471_3 = "About 360 spells now carry their exact spell ID, so the key block finds them in German, French, Spanish, Portuguese and Italian game clients too.",

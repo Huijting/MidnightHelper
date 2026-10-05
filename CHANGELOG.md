@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.7.2
+
+📌 **Klaargezet 2026-10-05 (nacht), wacht op Robs "go".** Notitie in `docs/CURSEFORGE_4.7.2.md` (identiek aan
+`RELEASE_NOTES.md`). Rob getest 5 okt: Guardian/Resto Druid, Reddish (BM), Warlockie (Demo, eigen layout). NIET getest:
+andere klassen na de gatenronde, het `/mh ready`-venster.
+
+- **Gatenronde alle klassen** (4 × mh-research, wago 12.1.0.69933; `docs/id_round_2026-10-05/`): ~100 toevoegingen,
+  ~20 entries weg/smaller; drie voor/na-vergelijkingen van alle 40 blokken.
+- **Blok D:** leftovers en onbekende spreuken naar een vrije Alt-plek; `blockAs[spec].onlyD`; probe `keyBlockLeftoverProbe`.
+- **Rode regel** zonder General-tab, SBA en bewust-zonder-toets (`NO_KEY_ON_PURPOSE`).
+- **Gedeelde layout:** stap 2 nooit "klaar" op een preset/accountlayout; knop zegt "(alle personages)".
+- **`/mh ready`** = venster "Klaar voor de raid?" (leren/farm, `docs/RAID_CONSUMABLES_2026-10-05.md`); Fleeting + Demonic
+  Healthstone tellen mee.
+- **Speelkaart-toetsen:** blok vóór balk 1, naamterugval (4.7.1-commits ná de tag).
+
 ## 4.7.1
 
 📌 **2026-10-05 avond, als release (Rob: "bring die maar uit dan, want dit is best belangrijk").** Notitie in

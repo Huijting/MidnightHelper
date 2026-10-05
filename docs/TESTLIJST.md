@@ -83,8 +83,8 @@ GEMETEN (Rob, inloggen op Warlockie, lvl 82): venster "Grimoire: Fel Ravager -> 
 Circle -> Shift C". Rob: "als we vaker twelve retro tegen komen op een andere character dan moeten we dat zien te
 voorkomen!!" → stap 2 van het stappenplan is op een preset of GEDEELDE layout nooit meer afgevinkt, ook niet als die
 layout al een blok is; de knop biedt dan "Eigen layout + blok".
-- [ ] Warlockie: stap 2 staat open met "Eigen layout + blok"? Druk → "Warlockie Demonology" + herladen → stap 2 groen,
-  en je Paladin merkt niets.
+- [x] Rob 5 okt ✅ (screenshot: knop "Put "Warlockie Demonology" back", blok met Fel Ravager Shift-3, Summon Doomguard
+  F1, Shadowfury Shift-F, Demonic Circle; geen rode regel) Warlockie: eigen layout + blok.
 
 ## 🆕 5 okt nacht — onbekende spreuken gaan vanzelf naar een vrije Alt-plek op blok D (Rob: "ja, bouw het zo")
 
