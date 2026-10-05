@@ -49,6 +49,23 @@ local PAD_KEYS = { "6", "7", "8", "9", "0", "-" }
 --- discovered afterwards — and `/mh apply undo` puts it back.
 local HOME_BUTTONS = { 9, 10, 5, 6, 1, 2 }
 
+--- The key block arranges bar 8 as 3 rows of 2 (Rob, 5 Oct 2026). Still numbered from the bottom: 1-2
+--- bottom, 3-4 middle, 5-6 top — so 6 7 / 8 9 / 0 - is 5 6 / 3 4 / 1 2. Measured on Rob's screen that
+--- evening: in the 3 x 2 his keys showed 8 9 on top and 0 - at the bottom, with 6 and 7 on buttons 9
+--- and 10, which a six-button bar no longer shows.
+local HOME_BUTTONS_COMPACT = { 5, 6, 3, 4, 1, 2 }
+
+--- Bar 8 shown with six buttons (button 6 visible, button 7 not)?
+local function Homes()
+	local b6, b7 = _G.MultiBar7Button6, _G.MultiBar7Button7
+	if b6 and b7 and b6:IsShown() and not b7:IsShown() then
+		return HOME_BUTTONS_COMPACT
+	end
+	return HOME_BUTTONS
+end
+
+local BAR8_FIRST_SLOT = 169 -- MULTIACTIONBAR7 = slots 169-180 (see the header)
+
 local BAR8_PREFIX = "MULTIACTIONBAR7BUTTON"
 local BAR8_BUTTONS = 12
 
@@ -208,8 +225,9 @@ function ns.MH_PadKeysApply(confirmed)
 	--- "On bar 8 somewhere" is not good enough — being on the wrong button of the right
 	--- bar is exactly the state Rob is trying to fix.
 	local todo, already = {}, 0
+	local homes = Homes()
 	for i, key in ipairs(PAD_KEYS) do
-		local want = CommandFor(HOME_BUTTONS[i] or i)
+		local want = CommandFor(homes[i] or i)
 		local command = Current(key)
 		if command == want then
 			already = already + 1
@@ -265,6 +283,54 @@ function ns.MH_PadKeysApply(confirmed)
 
 	--- Same snapshot slot `/mh apply undo` uses, so one undo covers this too rather
 	--- than leaving a second kind of change with its own way back.
+	-- The spell travels with its key: a key that moves from one bar 8 button to another takes what
+	-- stood under it along, so the thumb still presses the same thing (the reason this file exists:
+	-- "every one of them has a spell under it that his hands already know"). A swap, so whatever stood
+	-- on the target lands on the old button instead of being dropped. Targets that are another move's
+	-- source go last, so a chain of moves never overwrites what has yet to move.
+	local moves = {}
+	for _, row in ipairs(todo) do
+		local from = row.was and row.was:match("^" .. BAR8_PREFIX .. "(%d+)$")
+		local to = row.target and row.target:match("^" .. BAR8_PREFIX .. "(%d+)$")
+		if from and to and from ~= to then
+			moves[#moves + 1] = { from = BAR8_FIRST_SLOT + tonumber(from) - 1, to = BAR8_FIRST_SLOT + tonumber(to) - 1 }
+		end
+	end
+	local guard = 0
+	while #moves > 0 and guard < 20 do
+		guard = guard + 1
+		local pick = 1
+		for i, m in ipairs(moves) do
+			local targetIsSource = false
+			for j, o in ipairs(moves) do
+				if j ~= i and o.from == m.to then
+					targetIsSource = true
+				end
+			end
+			if not targetIsSource then
+				pick = i
+				break
+			end
+		end
+		local m = table.remove(moves, pick)
+		pcall(function()
+			ClearCursor()
+			PickupAction(m.from)
+			PlaceAction(m.to)
+			if GetCursorInfo and GetCursorInfo() then
+				PlaceAction(m.from)
+			end
+			ClearCursor()
+		end)
+		pcall(ClearCursor)
+		-- What used to sit on m.to is now on m.from: any later move from m.to now starts at m.from.
+		for _, o in ipairs(moves) do
+			if o.from == m.to then
+				o.from = m.from
+			end
+		end
+	end
+
 	local snap = {}
 	local done = 0
 	for _, row in ipairs(todo) do

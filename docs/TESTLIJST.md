@@ -60,6 +60,13 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — muistoetsen op balk 8 als 3 × 2 (Rob: "6 7 / 8 9 / 0 -")
+
+- [x] Rob 5 okt: layout op Holy goed (balk 1 zonder versiering, balk 8 rechts van C als 3 × 2). ✅
+- [ ] `/mh padkeys` (plan, verandert niets): 6 -> knop 5, 7 -> 6, 8 -> 3, 9 -> 4; 0 en - staan al goed.
+  Dan `/mh padkeys go`: bovenaan **6 7**, midden **8 9**, onder **0 -**? En staat onder elke toets nog dezelfde spreuk
+  als ervoor (de spreuken verhuizen mee)?
+
 ## 🆕 5 okt avond — healers: schade op het blok (Rob: "ik volg jouw advies")
 
 Onderzoek mh-research (wago.tools build 12.1.5.70077 + Icy Veins 12.1): alleen Resto Shaman heeft nog een kick; E blijft
