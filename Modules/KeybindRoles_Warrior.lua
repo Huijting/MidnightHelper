@@ -92,10 +92,10 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Grootste CD / cooldown_bar (guide.lua opener {167105}; SpellArchetypes 167105)
 	["Colossus Smash"]     = { id = 167105, blockQ = { [71] = true }, role = "cooldown_bar", priority = 1, specs = { 71 } },
 	-- Extra CD's (guide.lua {107574} Avatar; {227847} Bladestorm; {228920} Ravager; {436358} Demolish)
-	["Avatar"]             = { id = 107574, blockQ = { [73] = true }, category = "cooldown", priority = 2, bindKey = "Shift+F1", specs = { 71, 73 } }, -- Arms/Prot major CD (guide.lua)
+	["Avatar"]             = { id = 107574, blockQ = { [73] = true }, category = "cooldown", priority = 2, bindKey = "Shift+F1", specs = { 71, 73, 72 }, blockAs = { [72] = { category = "cooldown", priority = 2 } } }, -- Arms/Prot major CD (guide.lua)
 	-- Utility (SpellArchetypes 394354 anti-shield; 132169 CC-talent)
 	["Wrecking Throw"]     = { id = 384110, category = "utility", priority = 5 },              -- anti-shield/immuniteit (geen heal); baseline throw-utility
-	["Storm Bolt"]         = { id = 107570, category = "dispel_cc", priority = 6, specs = { 71, 72 }, alsoStop = "stun" }, -- single-target stun/CC (InterruptAbilities 107570 kind="cc" mech=12) → Spec 08 alsoStop
+	["Storm Bolt"]         = { id = 107570, category = "dispel_cc", priority = 6, specs = { 71, 72, 73 }, alsoStop = "stun" }, -- single-target stun/CC (InterruptAbilities 107570 kind="cc" mech=12) → Spec 08 alsoStop
 
 	--==============================================================
 	-- FURY (72)
@@ -105,7 +105,7 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Raging Blow"]           = { id = 85288, category = "main_rotation", priority = 2, specs = { 72 } },
 	["Rampage"]               = { id = 184367, category = "main_rotation", priority = 3, specs = { 72 } }, -- Enrage-trigger (guide.lua {184367})
 	-- AoE (guide.lua {190411} Whirlwind; {6343} Thunder Clap MT; {435607} Thunder Blast)
-	["Whirlwind"]             = { id = 190411, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 72 } },
+	["Whirlwind"]             = { id = 190411, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 72, 71 }, blockAs = { [71] = { category = "spender", priority = 7 } } },
 	["Thunder Clap"]          = { id = 6343, category = "main_rotation", priority = 3, specs = { 72, 73 } }, -- Fury AoE-builder (Mountain Thane) + Prot kernbuilder (guide.lua {6343})
 	["Thunder Blast"]         = { id = 435222, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 72, 73 } }, -- Mountain Thane proc (guide.lua {435607})
 	-- Kleine/vangnet def + self-heal-DR (DEFENSE_TIER 184364 = tier2 DR-over-time)
@@ -141,22 +141,27 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Card: reflects the next spell, so press it as the cast comes (W-DESC 23920), not when health drops.
 	["Spell Reflection"]   = { id = 23920, category = "defensive", priority = 4, bindKey = "Shift+C", survival = "small", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_SPELL_AT_YOU" }, -- alle specs kunnen dit; anker Shift+C
 	-- Threat-taunt (SpellCategories UTILITY 355 Taunt)
-	["Taunt"]              = { id = 355, category = "taunt", priority = 1, specs = { 73 } },
+	["Taunt"]              = { id = 355, category = "taunt", priority = 1, specs = { 73, 71, 72 } },
 	-- Grootste CD / cooldown_bar (guide.lua Prot: {107574} Avatar als burst-opener -> zie Avatar hierboven)
 	-- Extra CD's (guide.lua {436358} Demolish; SpellArchetypes 228920 Ravager; 376080 Champion's Spear)
-	["Champion's Spear"]   = { id = 376079, role = "cooldown_bar", priority = 1, specs = { 73 } }, -- F1 Prot burst-anker (SpellArchetypes 376080). Avatar is bij Prot op de gedeelde 'Avatar'-key category=cooldown (die key is Arms' cooldown terwijl Arms' cooldown_bar Colossus Smash is); één key = één rol, dus Prot krijgt hier zijn eigen cooldown_bar-anker.
+	["Champion's Spear"]   = { id = 376079, role = "cooldown_bar", priority = 1, specs = { 73, 71, 72 }, blockAs = { [71] = { category = "cooldown", priority = 5 }, [72] = { category = "cooldown", priority = 5 } } }, -- F1 Prot burst-anker (SpellArchetypes 376080). Avatar is bij Prot op de gedeelde 'Avatar'-key category=cooldown (die key is Arms' cooldown terwijl Arms' cooldown_bar Colossus Smash is); één key = één rol, dus Prot krijgt hier zijn eigen cooldown_bar-anker.
 	["Ravager"]            = { id = 228920, excludes = "Bladestorm", category = "cooldown", priority = 3, specs = { 71, 73 } }, -- SpellArchetypes 228920 (Arms/Prot Colossus-alt)
 	["Demolish"]           = { id = 436358, category = "cooldown", priority = 3, specs = { 71, 73 } }, -- guide.lua {436358} (Colossus hero-tree)
 	-- Utility CC (InterruptAbilities 46968 Shockwave kind="cc"; talent stun)
-	["Shockwave"]          = { id = 46968, category = "dispel_cc", priority = 3, specs = { 73 }, alsoStop = "stun" }, -- AoE-stun (InterruptAbilities 46968 mech=12) → Spec 08 alsoStop
+	["Shockwave"]          = { id = 46968, category = "dispel_cc", priority = 3, specs = { 73, 71, 72 }, alsoStop = "stun" }, -- AoE-stun (InterruptAbilities 46968 mech=12) → Spec 08 alsoStop
 	-- Utility (SpellArchetypes 394352 Shattering Throw anti-immuniteit)
 	-- 17 Sep: a class talent for all three specs (W-TREE 850), but widening `specs` would hand out
 	-- new keys; left for a keybind pass (the audit lists it).
-	["Shattering Throw"]   = { id = 64382, category = "utility", priority = 5, specs = { 73 } }, -- anti-immuniteit (geen heal)
+	["Shattering Throw"]   = { id = 64382, category = "utility", priority = 5, specs = { 73, 71, 72 } }, -- anti-immuniteit (geen heal)
 	-- Shout-utility talenten (ExwindCore Midnight: Challenging Shout 1161 / Disrupting Shout 386071, specs={73})
 	["Challenging Shout"]  = { id = 1161, category = "utility", priority = 6, specs = { 73 } }, -- AoE-taunt (Prot-talent)
 	-- A true AoE interrupt (JustAC InterruptAbilities [386071] kind=interrupt, 14 yd; ExwindCore agrees
 	-- on the id). Was category utility at priority 7 and got NO key at all (unplaced on every Prot
 	-- sheet). 21 Sep 2026: moved to the stop family, next to Shockwave, and cross-listed as a stop.
 	["Disrupting Shout"]   = { id = 386071, category = "dispel_cc", priority = 4, specs = { 73 }, alsoStop = "aoekick" },
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Interpose"] = { id = 1244088, category = "defensive", priority = 5, specs = { 71, 72 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice nodes 108676 (Arms) / 108674 (Fury) Intervene|Interpose; IV Arms+Fury 12.1 list
+    ["Berserker Shout"] = { id = 384100, category = "dispel_cc", priority = 2, specs = { 71, 72, 73 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 node 90348 choice Berserker Shout|Fearless(P); TraitDefinition overrides Berserker Rag
+    ["Devastate"] = { id = 20243, category = "main_rotation", priority = 4, specs = { 73 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 SpecializationSpells spec 73; DB2 AssistedCombatStep Prot has 20243; IV Prot baseline.
 }

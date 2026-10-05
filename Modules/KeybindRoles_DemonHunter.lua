@@ -96,7 +96,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Immolation Aura"]   = { id = 258920, category = "main_rotation", priority = 3 },                  -- AoE + fury (SpellArchetypes 258920; BEIDE specs -> geen specs-tag)
 	["Eye Beam"]          = { id = 198013, category = "main_rotation", priority = 4, specs = { 577 } }, -- channel + Meta-trigger (SpellArchetypes 198013; guide.lua {198013})
 	-- Spenders (guide.lua {185123} ranged filler)
-	["Throw Glaive"]      = { id = 185123, category = "spender", priority = 1, specs = { 577 } },       -- ranged filler-spender (SpellArchetypes 185123; guide.lua {185123})
+	["Throw Glaive"]      = { id = 185123, category = "spender", priority = 1, specs = { 577, 581, 1480 }, blockAs = { [581] = { category = "main_rotation", priority = 7 }, [1480] = { category = "main_rotation", priority = 7 } } },       -- ranged filler-spender (SpellArchetypes 185123; guide.lua {185123})
 	-- AoE (guide.lua {188499}/{210152} Blade Dance/Death Sweep; Shift+N-anker)
 	["Blade Dance"]       = { id = 188499, category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- AoE (SpellArchetypes 188499; guide.lua {188499})
 	["Death Sweep"]       = { id = 210152, excludes = "Blade Dance", category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- Meta-vorm van Blade Dance (SpellArchetypes 210152; guide.lua {210152})
@@ -138,7 +138,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Sigil of Spite"]    = { id = 390163, category = "cooldown", priority = 4, specs = { 581 } },      -- souls-burst sigil (SpellArchetypes 389860; guide.lua {390163})
 	-- CC extra (SpellCategories UTILITY/CROWD 202138 Sigil of Chains; 211881 Fel Eruption)
 	["Sigil of Chains"]   = { id = 202138, category = "dispel_cc", priority = 5, specs = { 581 } },     -- pull/knock (SpellCategories 202138)
-	["Fel Eruption"]      = { category = "dispel_cc", priority = 6, specs = { 581 }, alsoStop = "stun" },     -- single-target stun (InterruptAbilities 211881 kind="cc"; talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Fel Eruption"]      = { category = "dispel_cc", priority = 6, specs = { 581 }, alsoStop = "stun" },     -- single-target stun (InterruptAbilities 211881 kind="cc"; talent)
 
 	--==============================================================
 	-- DEVOURER (1480) — nieuwe Midnight 12.0.7 Void Int-caster DPS-spec.

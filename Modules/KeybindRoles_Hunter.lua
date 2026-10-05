@@ -107,12 +107,12 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Freezing Trap"] = { id = 187650, category = "dispel_cc", priority = 2 }, -- incapacitate (187650), baseline
 	["Binding Shot"] = { id = 109248, category = "dispel_cc", priority = 3 }, -- root/stun (117405), baseline (talent)
 	["Intimidation"] = { id = 19577, category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- pet-stun; JustAC InterruptAbilities [24394] cc mech=12 → Spec 08 alsoStop
-	["Scatter Shot"] = { id = 213691, category = "dispel_cc", priority = 4 }, -- disorient (213691), baseline (talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Scatter Shot"] = { id = 213691, category = "dispel_cc", priority = 4 }, -- disorient (213691), baseline (talent)
 	["Concussive Shot"] = { id = 5116, category = "dispel_cc", priority = 4 }, -- slow (5116), baseline
-	["Bursting Shot"] = { category = "dispel_cc", priority = 5 }, -- disorient/knockback (186387), MM/baseline
-	["Wyvern Sting"] = { category = "dispel_cc", priority = 5 }, -- sleep (19386), baseline (talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Bursting Shot"] = { category = "dispel_cc", priority = 5 }, -- disorient/knockback (186387), MM/baseline
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Wyvern Sting"] = { category = "dispel_cc", priority = 5 }, -- sleep (19386), baseline (talent)
 	["Scare Beast"] = { id = 1513, category = "dispel_cc", priority = 6 }, -- beast fear (1513), baseline
-	["Steel Trap"] = { category = "dispel_cc", priority = 5, specs = { 255 } }, -- SV root+bleed (162488, talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Steel Trap"] = { category = "dispel_cc", priority = 5, specs = { 255 } }, -- SV root+bleed (162488, talent)
 
 	--==================================================================================
 	-- GROTE COOLDOWN (F1) + extra CD's
@@ -124,7 +124,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Trueshot"] = { id = 288613, blockQ = { [254] = true }, role = "cooldown_bar", priority = 1, specs = { 254 } }, -- MM grote CD (288613)
 	-- Survival: Fury of the Eagle deleted 17 Sep 2026, folded into Boomstick (WH-SV, IV-SV).
 	-- Gedeeld (talent-CD's die op meerdere specs kunnen zitten)
-	["Stampede"] = { category = "cooldown", priority = 4 }, -- pet-charge CD (baseline talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Stampede"] = { category = "cooldown", priority = 4 }, -- pet-charge CD (baseline talent)
 
 	--==================================================================================
 	-- BUILDERS (main_rotation)
@@ -138,7 +138,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Aimed Shot"] = { id = 19434, category = "main_rotation", priority = 1, specs = { 254 } }, -- MM builder (19434)
 	["Rapid Fire"] = { id = 257044, category = "main_rotation", priority = 2, specs = { 254 } }, -- MM channel builder (257044)
 	["Wailing Arrow"] = { id = 392060, category = "main_rotation", priority = 3, specs = { 254 }, alsoStop = "silence" }, -- MM Dark Ranger; JustAC InterruptAbilities [355589/392060] cc mech=9 (silence) → Spec 08 cross-list (stays rotational)
-	["Chimaera Shot"] = { category = "main_rotation", priority = 4, specs = { 254 } }, -- MM builder (talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Chimaera Shot"] = { category = "main_rotation", priority = 4, specs = { 254 } }, -- MM builder (talent)
 	-- Survival
 	["Raptor Strike"] = { id = 186270, category = "main_rotation", priority = 2, specs = { 255 } }, -- SV melee builder (186270)
 	["Wildfire Bomb"] = { id = 259495, category = "main_rotation", priority = 3, specs = { 255 } }, -- SV builder (DoT + directe schade)
@@ -147,10 +147,10 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- SPENDERS
 	--==================================================================================
 	-- Beast Mastery / gedeeld
-	["Kill Shot"] = { id = 53351, category = "spender", priority = 4 }, -- execute damage (53351 BM/MM, 320976 SV), baseline; damage -> spender
+	["Kill Shot"] = { id = 53351, category = "spender", priority = 4, specs = { 254 } }, -- execute damage (53351 BM/MM, 320976 SV), baseline; damage -> spender
 	-- Marksmanship
 	["Arcane Shot"] = { id = 185358, category = "spender", priority = 1, specs = { 254 } }, -- MM spender (Precise Shots)
-	["Black Arrow"] = { id = 466930, category = "spender", priority = 2, specs = { 254 } }, -- MM Dark Ranger spender
+	["Black Arrow"] = { id = 466930, category = "spender", priority = 2, specs = { 254, 253 } }, -- MM Dark Ranger spender
 	-- Survival
 	["Boomstick"] = { id = 1261193, category = "spender", priority = 1, specs = { 255 } }, -- SV ranged filler (1261215, Midnight)
 	["Flamefang Pitch"] = { category = "spender", priority = 2, specs = { 255 } }, -- SV hero-talent spender (1251592)
@@ -195,4 +195,10 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- in BM and MM until taken. No `specs` field stays right: every hunter spec can take it.
 	["Misdirection"] = { id = 34477, category = "utility", priority = 3 }, -- threat-transfer (34477), class talent
 	["Flare"] = { id = 1543, category = "utility", priority = 5 }, -- reveal/dispel-stealth (baseline)
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Harrier's Cry"] = { id = 466904, category = "cooldown", priority = 5, specs = { 254 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): MM baseline Bloodlust (DB2 SpecializationSpells 254). Wowhead tooltip: 6 min, +30% haste f
+    ["Tar Trap"] = { id = 187698, category = "dispel_cc", priority = 5, specs = { 253, 254, 255 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class tree choice node 102393. IV BM 12.1 lists it (30 s slow pool).
+    ["Aspect of the Eagle"] = { id = 186289, category = "cooldown", priority = 3, specs = { 255 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): SV baseline (DB2 SpecializationSpells 255). IV SV 12.1, Wowhead (1.5 min). In the SimC SV 
+    ["Wing Clip"] = { id = 195645, category = "dispel_cc", priority = 6, specs = { 253, 254, 255 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Baseline (DB2 SkillLineAbility, AcquireMethod 2). The class talent Concussive Shot overrid
 }

@@ -225,7 +225,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Tranquility"]                      = { id = 740, blockQ = { [105] = true }, role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
     -- Flourish en Grove Guardians: verwijderd 17 sep (nu passief, patchnotes/IV Resto).
     ["Incarnation: Tree of Life"]        = { id = 33891, category = "cooldown", priority = 2, specs = { 105 } }, -- Resto heal-vorm CD (talent)
-    ["Convoke the Spirits"]              = { id = 391528, category = "cooldown", priority = 2, specs = { 102, 105 } }, -- burst heal/dmg CD (talent); Balance 5 okt 2026 (keuze met Incarnation, SBA, wago)
+    ["Convoke the Spirits"]              = { id = 391528, category = "cooldown", priority = 2, specs = { 102, 105, 103, 104 } }, -- burst heal/dmg CD (talent); Balance 5 okt 2026 (keuze met Incarnation, SBA, wago)
     -- Dispel / CC
     ["Nature's Cure"]                    = { id = 88423, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 105 } }, -- magic/curse/poison dispel
     ["Mass Entanglement"]                = { id = 102359, category = "dispel_cc", priority = 2, specs = { 102, 105 } }, -- AoE-root; Balance 5 okt 2026 (klassentalent, keuze met Ursol's Vortex, wago)
@@ -264,4 +264,9 @@ ns.KeybindRoleClassifier.DRUID = {
     -- de out-of-combat SELF-heal (Paladin Lay on Hands, Monk Vivify), en een rez is dat niet.
     ["Mark of the Wild"]                 = { id = 1126, category = "utility", priority = 7 }, -- klassenbuff
     ["Revive"]                           = { id = 50769, category = "utility", priority = 8 }, -- rez buiten gevecht (Rebirth = de battle-res, staat op utility_secondary)
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Chomp"] = { id = 1244258, category = "main_rotation", priority = 4, specs = { 103 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Feral node 82108. SBA step 5. WH: only usable below 30% Energy, 20 s cd. IV Feral lists it
+    ["Feral Frenzy"] = { id = 274837, category = "cooldown", priority = 4, specs = { 103 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Feral node 82112. SBA step 13. IV Feral: on cooldown. Frantic Frenzy replaces it when take
+    ["Sundering Roar"] = { id = 1253799, category = "cooldown", priority = 3, specs = { 104 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Guardian node 92588. WH: 1 min cd. IV Guardian lists it as an active talent
 }

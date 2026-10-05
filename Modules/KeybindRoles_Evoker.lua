@@ -107,7 +107,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- Grootste CD (F1) + extra CD's
 	["Dragonrage"] = { id = 375087, blockQ = { [1467] = true }, role = "cooldown_bar", priority = 1, specs = { 1467 } },          -- F1 (grootste CD: burst-venster)
 	-- Utility (F3)
-	["Oppressing Roar"] = { id = 372048, category = "utility", priority = 2, specs = { 1467 } },      -- F3 (groeps-fear/CC-duur-extender)
+	["Oppressing Roar"] = { id = 372048, category = "utility", priority = 2, specs = { 1467, 1468, 1473 } },      -- F3 (groeps-fear/CC-duur-extender)
 
 	-- ============================================================
 	-- PRESERVATION (1468) - healer
@@ -127,7 +127,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Temporal Anomaly"] = { id = 373861, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 1468 } }, -- raid-AoE-shield, Echo-generator
 	-- Raid/AoE-heal (op toets)
 	-- Card: it heals you too (IV-Pres). Baseline for Dev/Aug per IV-Dev, but widening specs would move keys.
-	["Emerald Blossom"] = { id = 355913, category = "raid_heal", priority = 1, bindKey = "4", specs = { 1468 }, survival = "heal", survivalOrder = 2 }, -- Essence-spender, AoE-heal
+	["Emerald Blossom"] = { id = 355913, category = "raid_heal", priority = 1, bindKey = "4", specs = { 1468, 1467, 1473 }, survival = "heal", survivalOrder = 2, blockAs = { [1467] = { role = "heal_quick", priority = 3 }, [1473] = { role = "heal_quick", priority = 3 } } }, -- Essence-spender, AoE-heal
 	-- Heal-COOLDOWNS (v6 SS6): grootste = cooldown_bar, rest category="cooldown"
 	["Dream Flight"] = { id = 359816, role = "cooldown_bar", priority = 1, specs = { 1468 } },        -- F1 (grootste heal-CD: grote burst-raid-heal)
 	["Stasis"] = { id = 370537, category = "cooldown", priority = 2, specs = { 1468 } },              -- Shift+F1 (banked-heals major CD)
@@ -135,7 +135,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Rewind"] = { id = 363534, blockQ = { [1468] = true }, category = "cooldown", priority = 4, specs = { 1468 } },              -- F1-familie (grote heal-CD: rewind group-health; vorige ronde -> laten)
 	["Time Dilation"] = { id = 357170, category = "cooldown", priority = 5, specs = { 1468 } },       -- external heal-CD (357170, damage-delay op ally; SpellCategories defensive)
 	-- Utility
-	["Source of Magic"] = { id = 369459, category = "utility", priority = 2, specs = { 1468 } },      -- R (mana-support op ally)
+	["Source of Magic"] = { id = 369459, category = "utility", priority = 2, specs = { 1468, 1467, 1473 } },      -- R (mana-support op ally)
 
 	-- ============================================================
 	-- AUGMENTATION (1473) - support/buff dps
@@ -159,6 +159,18 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- Living Flame doet dubbel dienst als filler-damage (Deva/Aug 3, Pres 5) EN als heal_ooc-anker
 	-- hierboven. Als filler-damage staat het onder heal_ooc (baseline) verwerkt; hier geen dubbele key.
 	-- Azure Strike is Devastation-builder (2) en Augmentation-AoE-tweeling (Shift+3) - zelfde spell:
-	["Azure Strike"] = { id = 362969, category = "main_rotation", priority = 1, specs = { 1467, 1473 } }, -- Deva builder / Aug AoE-tweeling
+	["Azure Strike"] = { id = 362969, category = "main_rotation", priority = 1, specs = { 1467, 1473, 1468 } }, -- Deva builder / Aug AoE-tweeling
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Naturalize"] = { id = 360823, category = "dispel_cc", priority = 1, specs = { 1468 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Pres spec spell with OverridesSpellID 365585 (Expunge) in DB2 SpecializationSpells. The bo
+    ["Temporal Barrier"] = { id = 1291636, category = "raid_heal", priority = 1, specs = { 1468 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Pres choice node 93258, OverridesSpellID 373861 (Temporal Anomaly). May already match the 
+    ["Rescue"] = { id = 370665, category = "utility", priority = 6, specs = { 1467, 1468, 1473 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class talent node 93288 (WH)
+    ["Spatial Paradox"] = { id = 406732, category = "utility", priority = 5, specs = { 1467, 1468, 1473 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class choice node 93351 (DB2). 3 min cd (WH)
+    ["Time Spiral"] = { id = 374968, category = "utility", priority = 7, specs = { 1467, 1468, 1473 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class choice node 93351 (DB2). 2 min cd (WH)
+    ["Return"] = { id = 361227, category = "utility", priority = 8, specs = { 1467, 1468, 1473 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class baseline (AcquireMethod 4). Out-of-combat rez (WH)
+    ["Timelessness"] = { id = 412710, category = "utility", priority = 7, specs = { 1473 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Aug spec talent node 93360. 1 h buff on an ally (WH)
+    ["Bestow Weyrnstone"] = { id = 408233, category = "utility", priority = 8, specs = { 1473 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Aug spec talent node 93382 (WH)
+    ["Black Attunement"] = { id = 403264, category = "utility", priority = 8, specs = { 1473 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Draconic Attunements 403208 (node 93218) teaches both attunements (DB2 SpellLearnSpell). T
+    ["Bronze Attunement"] = { id = 403265, category = "utility", priority = 8, specs = { 1473 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Same source as Black Attunement
 }
 

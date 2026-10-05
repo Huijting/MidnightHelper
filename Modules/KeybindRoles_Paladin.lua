@@ -75,14 +75,14 @@ ns.KeybindRoleClassifier.PALADIN = {
 	["Divine Protection"] = { id = 403876, category = "defensive", priority = 2, specs = { 65, 70 }, survival = "small", survivalOrder = 1, survivalId = { [65] = 498 } }, -- DEFENSIVE [403876] (kleine DR)
 	["Blessing of Protection"] = { id = 1022, category = "defensive", priority = 3, survival = "big", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- DEFENSIVE [1022] (fysieke immunity, op ally/self)
 	["Blessing of Sacrifice"] = { id = 6940, category = "defensive", priority = 4 }, -- DEFENSIVE [6940] (external DR-transfer); NOT on the card: ally only
-	["Blessing of Spellwarding"] = { id = 204018, category = "defensive", priority = 5, survivalSpecs = { 66 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- DEFENSIVE [204018] (magic immunity, talent)
+	["Blessing of Spellwarding"] = { id = 204018, category = "defensive", priority = 5, survivalSpecs = { 66 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_MAGIC", specs = { 66 } }, -- DEFENSIVE [204018] (magic immunity, talent)
 
 	-- Dispel / CC (V). Cleanse=dispel; Hammer of Justice/Blinding Light/Repentance=CC/stun.
-	["Cleanse"] = { id = 4987, category = "dispel_cc", priority = 1 }, -- SpellCategories HEALING [4987] (poison/disease/magic dispel)
+	["Cleanse"] = { id = 4987, category = "dispel_cc", priority = 1, specs = { 65 } }, -- SpellCategories HEALING [4987] (poison/disease/magic dispel)
 	["Cleanse Toxins"] = { id = 213644, category = "dispel_cc", priority = 2 }, -- SpellCategories UTILITY [213644] (Prot/Ret dispel-variant)
 	["Hammer of Justice"] = { id = 853, category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- CROWD_CONTROL [853]; JustAC InterruptAbilities [853] kind=cc mech=12 (stun-interrupt) → Spec 08 alsoStop
 	["Blinding Light"] = { id = 115750, category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [115750] (AoE disorient; castbare id per JustAC SpellCooldowns/SpellCategories, 105421 = effect)
-	["Repentance"] = { id = 20066, category = "dispel_cc", priority = 5 }, -- CROWD_CONTROL [20066] (incapacitate, talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Repentance"] = { id = 20066, category = "dispel_cc", priority = 5 }, -- CROWD_CONTROL [20066] (incapacitate, talent)
 	["Turn Evil"] = { id = 10326, category = "dispel_cc", priority = 6 }, -- CROWD_CONTROL [10326] (fear undead/demon)
 	["Blessing of Freedom"] = { id = 1044, category = "dispel_cc", priority = 7 }, -- UTILITY [1044] (root/snare-cleanse op ally/self)
 
@@ -112,7 +112,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- Holy's own Shield of the Righteous (wago SpecializationSpells: spec 65, overrides 53600): a damage
 	-- Holy Power spender for Holy, active mitigation for Prot (that entry is below). Matches ONLY by id.
 	["Shield of the Righteous (Holy)"] = { id = 415091, category = "spender", priority = 3, specs = { 65 } },
-	["Flash of Light"] = { id = 19750, category = "main_rotation", priority = 1, bindKey = "2", specs = { 65 } }, -- HEALING [19750]; snelle ST-heal (instant bij Infusion of Light)
+	["Flash of Light"] = { id = 19750, category = "main_rotation", priority = 1, bindKey = "2", specs = { 65, 66, 70 }, blockAs = { [66] = { role = "heal_ooc", priority = 2 }, [70] = { role = "heal_ooc", priority = 2 } } }, -- HEALING [19750]; snelle ST-heal (instant bij Infusion of Light)
 	["Holy Light"] = { id = 82326, category = "main_rotation", priority = 1, bindKey = "3", specs = { 65 } }, -- HEALING [82326]; grote (dure) ST-filler-heal
 	-- Beacons = buff-op-target (kies doelwit) -> ook click_cast/mouseover.
 	["Beacon of Light"] = { id = 53563, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 65 } }, -- HEALING [53563]; beacon-plaatsing op target
@@ -213,4 +213,8 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- duiding is onbevestigd (review F1.4); het id 389539 is wél addon-geverifieerd.
 	-- 17 Sep 2026: Prot only (W-TREE 790, not on IV-Ret); up to 30% less damage taken (IV-ProtPal).
 	["Sentinel"] = { blockQ = { [66] = true }, id = 389539, category = "cooldown", priority = 4, specs = { 66 }, survival = "big", survivalOrder = 2 },
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Execution Sentence"] = { id = 343527, category = "cooldown", priority = 1, specs = { 70 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 Ret node 109373; DB2 AssistedCombatStep Ret has it (rank 2, right after Avenging Wrath
+    ["Eternal Flame"] = { id = 156322, role = "heal_quick", priority = 1, specs = { 65, 70 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Herald of the Sun node 95095 (65,70); TraitDefinition overrides Word of Glory 85673. IV Ho
 }

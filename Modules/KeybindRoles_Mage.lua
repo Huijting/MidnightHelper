@@ -135,8 +135,8 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Arcane Orb"] = { id = 153626, category = "main_rotation", priority = 2, specs = { 62 } }, -- charge-builder / AoE-opener
 	["Arcane Missiles"] = { id = 5143, category = "main_rotation", priority = 3, specs = { 62 } }, -- [5143] the button (7268 = the hidden damage spell; mh-research 3 Oct 2026); Clearcasting-spender-filler
 	["Arcane Barrage"] = { id = 44425, category = "spender", priority = 1, specs = { 62 } }, -- SpellArchetypes [44425] ranged; Arcane-Charge-spender
-	["Nether Tempest"] = { category = "main_rotation", priority = 4, specs = { 62 } }, -- SpellArchetypes [114923] ranged; DoT (talent)
-	["Supernova"] = { id = 157980, category = "main_rotation", priority = 5, specs = { 62 } }, -- SpellArchetypes [157980] ranged; utility-nuke (talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Nether Tempest"] = { category = "main_rotation", priority = 4, specs = { 62 } }, -- SpellArchetypes [114923] ranged; DoT (talent)
+	["Supernova"] = { id = 157980, category = "main_rotation", priority = 5, specs = { 62, 63, 64 }, blockAs = { [63] = { category = "dispel_cc", priority = 6 }, [64] = { category = "dispel_cc", priority = 6 } } }, -- SpellArchetypes [157980] ranged; utility-nuke (talent)
 	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026. Stond op `specs = { 62 }`, maar Arcane Explosion is
 	-- een baseline mage-spell: Robs FROST mage kent hem, en de spellbook-scan slaat
 	-- off-spec-regels over, dus dat is echt van zijn eigen spec. Met de grendel erop viel
@@ -161,13 +161,13 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Scorch"] = { id = 2948, category = "main_rotation", priority = 3, specs = { 63 } }, -- SpellArchetypes [2948] ranged; execute/move-filler
 	["Pyroblast"] = { id = 11366, category = "spender", priority = 1, specs = { 63 } }, -- SpellArchetypes [11366] ranged; Hot-Streak-spender
 	-- Phoenix Flames removed 17 Sep: gone in Midnight (audit, BRON Method Fire intro + Wowhead pre-patch).
-	["Living Bomb"] = { category = "main_rotation", priority = 5, specs = { 63 } }, -- SpellArchetypes [44461] ranged; AoE-DoT (talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Living Bomb"] = { category = "main_rotation", priority = 5, specs = { 63 } }, -- SpellArchetypes [44461] ranged; AoE-DoT (talent)
 	["Flamestrike"] = { category = "spender", priority = 2, bindKey = "Shift+4", specs = { 63 } }, -- SpellArchetypes [2120] ranged; AoE-Hot-Streak-spender (AoE-slot)
 	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026 — zelfde reden als Arcane Explosion hierboven. Stond
 	-- op 63, maar Robs Frost mage heeft hem (Frostfire-heldenboom) en kreeg dus geen toets.
 	["Dragon's Breath"] = { id = 31661, category = "dispel_cc", priority = 6 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (achter Spellsteal, zie daar)
 	["Blazing Barrier"] = { id = 235313, role = "defensive_1", priority = 1, specs = { 63 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
-	["Cauterize"] = { id = 86949, category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow. Card: off (passive, not a button)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Cauterize"] = { id = 86949, category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow. Card: off (passive, not a button)
 	["Combustion"] = { id = 190319, blockQ = { [63] = true }, role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD
 	["Meteor"] = { id = 153561, category = "cooldown", priority = 2, specs = { 63 } }, -- guide.lua / SpellArchetypes [351140] ranged; extra CD (talent, ook Frost)
 
@@ -195,4 +195,12 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- "Cold Snap". Without the id the card said "no spell found" for every mage, talented or not.
 	["Cold Snap"] = { id = 235219, category = "cooldown", priority = 3, specs = { 64 }, survival = "big", survivalOrder = 2 }, -- KeybindingData "X" [235219]; reset-CD (Ice Block/Barrier/Nova/Cone of Cold) -> cooldown, geen utility
 	-- Icy Veins removed 17 Sep: "Icy Veins has been removed, and our main cooldown is now Ray of Frost" (audit, BRON Icy Veins Frost 12.1).
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Arcane Intellect"] = { id = 1459, category = "utility", priority = 8, specs = { 62, 63, 64 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): baseline SLA 904; SBA step in all 3 specs; Icy Veins 'keep this active'. File header skips
+    ["Frostfire Bolt"] = { id = 431044, category = "main_rotation", priority = 1, specs = { 64, 63 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Frostfire hero n94636: TraitDefinition OverridesSpellID 116 -> takes Frostbolt's button (m
+    ["Arcane Pulse"] = { id = 1241462, category = "main_rotation", priority = 6, specs = { 62 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Arcane node n102439: OverridesSpellID 1449 -> takes Arcane Explosion's button (main_rotati
+    ["Ice Cold"] = { id = 414658, role = "defensive_3", priority = 1, specs = { 62, 63, 64 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): class node n62085 (not a choice): replaces Ice Block (aura 332) - same slot as Ice Block; 
+    ["Ice Nova"] = { id = 157997, category = "main_rotation", priority = 6, specs = { 64 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): same node; on Frost mirror Cone of Cold (main_rotation 6, bindKey Shift+3)
+    ["Mass Invisibility"] = { id = 414664, category = "utility", priority = 7, specs = { 62, 63, 64 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): class node n62092; Wowhead live; Icy Veins class actives
 }

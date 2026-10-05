@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🧩 5 okt laat — gatenronde ALLE klassen (Rob: "ja doe maar") — GEBOUWD, NIET GETEST, NIET UITGEBRACHT
+
+Aanleiding: Carola's Balance (Fury of Elune) en Robs Warlock (Summon Felguard, Shadowfury, ...) hadden castbare spreuken
+zonder entry → geen plek op het blok. 4 × mh-research (wago 12.1.0.69933 + Wowhead/IV): 241 regels in
+`docs/id_round_2026-10-05/gaps_g1..g4.tsv`; toegepast met `apply_gaps.py` (zelfde map; start vanaf HEAD, regels in de kop).
+Resultaat: ~100 toevoegingen/verbredingen, 20 entries weg/smaller (Repentance, Strangulate, Doom, Dimensional Rift, Call
+Felhunter, Nether Tempest, Living Bomb, Cauterize, 6 Hunter-spreuken, Fel Eruption; Cleanse→65, Spellwarding→66, Kill
+Shot→254, Elemental Blast/Stormkeeper→262, The Hunt −581, Felblade −1480). Drie rondes voor/na-vergelijking
+(`diff_blocks.py`): wat core-spreuken van het blok duwde is er weer uit (o.a. Druid cat-weave voor Resto, Shaman-totems
+en -buffs, Mass Polymorph, Curse of Exhaustion). Rest-"verlies" in het standaardblok = beide kanten van een talentkeuze.
+**Rob kiest (bewust NIET gedaan):** Warlock-demonen oproepen (Summon Felguard/Imp/Felhunter/Sayaad), Curses, Fel
+Domination; Monk Chi Torpedo/Transcendence/Celestial Infusion; Hunter Master's Call/Hatchet Toss; Hibernate; Shaman-
+imbues/Lightning Shield; Warrior-stances; poisons; alles voor buiten gevecht (rez, portals, Eye of Kilrogg).
+Ook: rode "onbekend"-lijst zonder General-tab en zonder Single-Button Assistant (1229376 in KEYBIND_NOISE).
+
 ## 🚀 5 okt avond — 4.7.1 UITGEBRACHT (Rob: "bring die maar uit dan, want dit is best belangrijk")
 
 Mount-fix (alles mag opzij), speelkaart-toetsen (blok > balk 1, naamterugval), id-ronde. ⚠️ Uitgebracht vóór Robs eigen

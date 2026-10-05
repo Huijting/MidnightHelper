@@ -102,7 +102,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Secret Technique"] = { id = 280719, category = "main_rotation", priority = 3, specs = { 261 } }, -- spender/CD-hybride
     -- Spenders (finishers)
     ["Eviscerate"]       = { id = 196819, category = "spender", priority = 1, specs = { 261 } }, -- kern-finisher
-    ["Mark for Death"]   = { category = "utility", priority = 2, specs = { 261 } }, -- combo-point enabler, geen directe damage-spender
+    ["Mark for Death"]   = { category = "utility", priority = 2, specs = { 261, 259 } }, -- combo-point enabler, geen directe damage-spender
     -- AoE
     ["Shuriken Storm"]   = { id = 197835, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 261 } }, -- AoE builder
     ["Black Powder"]     = { id = 319175, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 261 } },       -- AoE spender (3+)
@@ -136,4 +136,15 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Stealth"]          = { id = 1784, category = "utility", priority = 2 },                    -- pre-pull/openers
     ["Distract"]         = { id = 1725, category = "utility", priority = 3 },                    -- misdirect/aggro
     ["Tricks of the Trade"] = { id = 57934, category = "utility", priority = 4 },                 -- threat transfer
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Slice and Dice"] = { id = 315496, category = "spender", priority = 5, specs = { 259, 260, 261 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Baseline (DB2 SkillLineAbility, AcquireMethod 2). SBA lists it for 259 only. IV AS/OU/SU 1
+    ["Ambush"] = { id = 8676, category = "main_rotation", priority = 4, specs = { 259, 260 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Baseline stealth builder. Sub sees Shadowstrike instead (entry exists). SBA ROGUE_1/ROGUE_
+    ["Poisoned Knife"] = { id = 185565, category = "main_rotation", priority = 5, specs = { 259 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 SpecializationSpells 259. IV AS, SBA ROGUE_1. Ranged builder.
+    ["Shuriken Toss"] = { id = 114014, category = "main_rotation", priority = 5, specs = { 261 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 SpecializationSpells 261. IV SU, SBA ROGUE_3. Ranged builder.
+    ["Goremaw's Bite"] = { id = 426591, category = "cooldown", priority = 3, specs = { 261 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 trait node 90724 (261). IV SU, SBA ROGUE_3, SimC. Wowhead: 45 s cooldown.
+    ["Blade Rush"] = { id = 271877, category = "cooldown", priority = 4, specs = { 260 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 trait node 90649 (260). IV OU, SBA ROGUE_2, SimC. Wowhead: 1 min cooldown.
+    ["Preparation"] = { id = 1277933, category = "cooldown", priority = 5, specs = { 260 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 trait node 90665 (260). Wowhead: resets Adrenaline Rush, Between the Eyes, Blade Flurr
+    ["Thistle Tea"] = { id = 1298826, category = "cooldown", priority = 6, specs = { 259, 260, 261 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class choice node 90756. IV AS/OU/SU. SimC Assa uses 1298826. Match by name catches both i
+    ["Shroud of Concealment"] = { id = 114018, category = "utility", priority = 6, specs = { 259, 260, 261 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Baseline (DB2 SkillLineAbility). IV AS/OU/SU. 6 min group stealth.
 }

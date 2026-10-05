@@ -111,14 +111,14 @@ ns.KeybindRoleClassifier.MONK = {
     -- Grootste CD (F1)
     ["Invoke Niuzao, the Black Ox"]  = { id = 132578, blockQ = { [268] = true }, role = "cooldown_bar", priority = 1, specs = { 268 } },      -- F1: tank-CD (celestial)
     -- Taunt / utility
-    ["Provoke"]                      = { id = 115546, category = "taunt", priority = 1, specs = { 268 } }, -- F: taunt (eigen kaart)
+    ["Provoke"]                      = { id = 115546, category = "taunt", priority = 1, specs = { 268, 269 } }, -- F: taunt (eigen kaart)
 
     -- =================================================================
     -- WINDWALKER (269)  -- melee-dps
     -- =================================================================
     -- Builders / rotatie (SpellArchetypes)
     ["Fists of Fury"]                = { id = 113656, category = "spender", priority = 1, specs = { 269 } },       -- 4: channeled finisher
-    ["Spinning Crane Kick"]          = { id = 101546, category = "main_rotation", priority = 3, bindKey = "Shift+2", specs = { 269, 270 } }, -- AoE-builder (ook ST-relevant); MW baseline AoE too (IV MW 12.1, 5 Oct 2026)
+    ["Spinning Crane Kick"]          = { id = 101546, category = "main_rotation", priority = 3, bindKey = "Shift+2", specs = { 269, 270, 268 }, blockAs = { [268] = { category = "main_rotation", priority = 4 } } }, -- AoE-builder (ook ST-relevant); MW baseline AoE too (IV MW 12.1, 5 Oct 2026)
     ["Rushing Wind Kick"]            = { id = 467307, excludes = "Rising Sun Kick", category = "main_rotation", priority = 2, bindKey = "4", specs = { 270 } }, -- MW talent over Rising Sun Kick 107428 (wago TraitDefinition 133028, 5 Oct 2026)
     ["Whirling Dragon Punch"]        = { id = 152175, category = "main_rotation", priority = 8, specs = { 269 } }, -- burst-window-nuke (guide.lua {152175})
     -- Movement (Q vervangt Roll bij talent)
@@ -150,7 +150,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- (Vivify staat als baseline heal_ooc; geldt ook voor MW.)
     -- -----------------------------------------------------------------
     ["Enveloping Mist"]              = { id = 124682, category = "main_rotation", priority = 1, bindKey = "3", specs = { 270 } },        -- ST-HoT (grote channel-heal, mouseover)
-    ["Soothing Mist"]                = { id = 115175, category = "main_rotation", priority = 5, specs = { 270 } },        -- ST channel-heal (mouseover)
+    ["Soothing Mist"]                = { id = 115175, category = "main_rotation", priority = 5, specs = { 270, 268, 269 }, blockAs = { [268] = { category = "utility", priority = 8 }, [269] = { category = "utility", priority = 8 } } },        -- ST channel-heal (mouseover)
     ["Renewing Mist"]                = { id = 115151, category = "main_rotation", priority = 1, bindKey = "1", specs = { 270 } },
     ["Mana Tea"]                     = { id = 115294, role = "utility_secondary", priority = 1, specs = { 270 } },
     ["Celestial Conduit"]            = { id = 443028, category = "cooldown", priority = 3, specs = { 270 } },        -- ST-HoT (springt naar laagste, mouseover)
@@ -175,8 +175,8 @@ ns.KeybindRoleClassifier.MONK = {
     ["Invoke Yu'lon, the Jade Serpent"] = { id = 322118, blockQ = { [270] = true }, category = "cooldown", priority = 3, specs = { 270 } },  -- celestial raid-heal-CD (alt van Chi-Ji)
     -- Zen Meditation: verwijderd 17 sep (geen MW-spell, weg in 11.2.0; wiki).
     -- Dispel / CC
-    ["Detox"]                        = { id = 115450, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 270 } },     -- V: magic/poison/disease dispel
-    ["Ring of Peace"]                = { id = 116844, category = "dispel_cc", priority = 2, specs = { 270 } },     -- Shift+V: displacement-CC
+    ["Detox"]                        = { id = 115450, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 270, 268, 269 }, blockAs = { [268] = { category = "dispel_cc", priority = 2 }, [269] = { category = "dispel_cc", priority = 2 } } },     -- V: magic/poison/disease dispel
+    ["Ring of Peace"]                = { id = 116844, category = "dispel_cc", priority = 2, specs = { 270, 268, 269 } },     -- Shift+V: displacement-CC
 
     -- =================================================================
     -- GEDEELD (meerdere Monk-specs, geen 3-way-baseline)
@@ -203,4 +203,17 @@ ns.KeybindRoleClassifier.MONK = {
     ["Paralysis"]                    = { id = 115078, category = "dispel_cc", priority = 1, alsoStop = "incap" }, -- V (BM/WW) / F (MW): single-target incapacitate (InterruptAbilities 115078 mech=14)
     -- Utility
     ["Transcendence"]                = { id = 101643, category = "utility", priority = 3 }, -- plaats-anker (Transcendence: Transfer = de terugkeer); NOT on the card: Transfer is the escape
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Crackling Jade Lightning"] = { id = 117952, category = "main_rotation", priority = 7, specs = { 268, 269 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Baseline (DB2 SkillLineAbility). SBA MONK_2/MONK_3. IV BrM/MW/WW 12.1: ranged filler/pull.
+    ["Strike of the Windlord"] = { id = 392983, category = "main_rotation", priority = 8, specs = { 269 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice node 101207. IV WW, SBA MONK_3 (rank 2), SimC. Same priority as its partner WDP
+    ["Chi Burst"] = { id = 123986, category = "main_rotation", priority = 5, specs = { 268 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice node 102433, visible for 268 only. IV BrM, SBA MONK_1. Wowhead tooltip still sa
+    ["Tiger's Lust"] = { id = 116841, category = "utility", priority = 4, specs = { 268, 269 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class talent node 101147. IV BrM/MW/WW.
+    ["Disable"] = { id = 116095, category = "dispel_cc", priority = 5, specs = { 268, 269 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class choice node 101149. IV BrM/MW/WW.
+    ["Song of Chi-Ji"] = { id = 198898, category = "dispel_cc", priority = 2, specs = { 268, 269 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Class choice node 101136. IV BrM/MW/WW.
+    ["Summon Black Ox Statue"] = { id = 115315, category = "utility", priority = 5, specs = { 268 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 node 101172 (268). IV BrM.
+    ["Summon Jade Serpent Statue"] = { id = 115313, category = "utility", priority = 5, specs = { 270 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice node 101164 (270). IV MW.
+    ["Black Ox Brew"] = { id = 115399, category = "defensive", priority = 3, specs = { 268 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice node 101190. IV BrM, Wowhead (2 min).
+    ["Restoral"] = { id = 388615, role = "cooldown_bar", priority = 1, specs = { 270 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice node 101131. IV MW, Wowhead.
+    ["Resuscitate"] = { id = 115178, category = "utility", priority = 8, specs = { 268, 269 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Baseline rez, out of combat. Same as Druid Revive / Paladin Redemption.
 }

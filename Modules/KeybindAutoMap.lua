@@ -403,6 +403,7 @@ local KEYBIND_NOISE = {
 	[382499] = true,  -- Anomaly Detection Mark I  (Warband)
 	[382501] = true,  -- Mechanism Bypass          (Warband)
 	[1250491] = true, -- Find High-Value Beasts    (Warband)
+	[1229376] = true, -- Single-Button Assistant (every spec; mh-research 5 Oct 2026, wago DB2 12.1.0.69933)
 }
 
 --- Wat kent deze spec dat wij niet classificeren, ruis eruit?

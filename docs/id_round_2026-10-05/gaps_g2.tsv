@@ -1,0 +1,63 @@
+class	specs	name	id	sba	suggest	priority	choice_with	confidence	note
+HUNTER	253	Black Arrow	466930	yes	category=spender	2	hero tree: Dark Ranger (vs Pack Leader)	sure	extend Black Arrow (now {254}). DB2 trait node 109961 (Dark Ranger) visible for 253; IV BM 12.1 lists it; JustAC SBA HUNTER_1 rank 5. MM gets it as a Kill Shot override (466932: 53351->466930), which already matches.
+HUNTER	254	Harrier's Cry	466904	no	category=cooldown	5	-	sure	MM baseline Bloodlust (DB2 SpecializationSpells 254). Wowhead tooltip: 6 min, +30% haste for the group, Sated. Same role as Primal Rage for BM/SV.
+HUNTER	253,254,255	Master's Call	272651	no	category=utility	5	MM: Cunning vs Tenacious (node 103986). BM/SV: only with a Cunning pet	sure	Spellbook button = Command Pet 272651; it shows Master's Call 272682 (Cunning pet) or 1241871 (MM talent Cunning, aura override 272651->1241871). Primal Rage uses the same base id 272651, so do NOT give both entries id 272651 (byId keeps one); match by name. Wowhead tooltips + JustAC SpellTransforms.
+HUNTER	253,254,255	Tar Trap	187698	no	category=dispel_cc	5	Scare Beast	sure	Class tree choice node 102393. IV BM 12.1 lists it (30 s slow pool).
+HUNTER	255	Aspect of the Eagle	186289	no	category=cooldown	3	-	sure	SV baseline (DB2 SpecializationSpells 255). IV SV 12.1, Wowhead (1.5 min). In the SimC SV list (JustAC SimcRotations), not in Blizzard's SBA list.
+HUNTER	255	Hatchet Toss	193265	yes	category=utility	6	-	sure	SV override of Arcane Shot (DB2 SpecializationSpells 255, OverridesSpellID 185358). Spellbook base id 185358 already belongs to the Arcane Shot entry {254}, so on a non-English client it stays unmatched. SBA HUNTER_3 lists base 185358 (= this button on SV). IV: mostly for pulling.
+HUNTER	253,254,255	Wing Clip	195645	no	category=dispel_cc	6	-	sure	Baseline (DB2 SkillLineAbility, AcquireMethod 2). The class talent Concussive Shot overrides it, so you only see it without that talent. IV BM lists it.
+HUNTER	253,254,255	Call Pet 2	83242	no	category=utility	9	-	sure	Flyout "Call Pet" (DB2 SpellFlyout 9). Call Pet 1 has an entry. Niche; or keep it off like Feed Pet.
+HUNTER	253,254,255	Call Pet 3	83243	no	category=utility	9	-	sure	Flyout 9, as Call Pet 2.
+HUNTER	253,254,255	Call Pet 4	83244	no	category=utility	9	-	sure	Flyout 9, as Call Pet 2.
+HUNTER	253,254,255	Call Pet 5	83245	no	category=utility	9	-	sure	Flyout 9, as Call Pet 2.
+HUNTER	253,254,255	Feed Pet	6991	no	skip	-	-	sure	Flyout "Pet Utility" 103. Left out on purpose by file policy (Hunter.lua:188, out of combat).
+HUNTER	253,254,255	Beast Lore	1462	no	skip	-	-	sure	Flyout 103. File policy, out of combat.
+HUNTER	253,254,255	Tame Beast	1515	no	skip	-	-	sure	Flyout 103. File policy, out of combat.
+HUNTER	253,254,255	Dismiss Pet	2641	no	skip	-	-	sure	Flyout 103. File policy, out of combat.
+HUNTER	253,255	Eyes of the Beast	321297	no	skip	-	-	sure	DB2 SpecializationSpells 253/255. Out-of-combat scouting.
+HUNTER	254	Eagle Eye	6197	no	skip	-	-	sure	DB2 SpecializationSpells 254. Out-of-combat scouting.
+HUNTER	254	Fetch: Eagle	1232995	no	skip	-	Avian Specialization vs Unbreakable Bond (node 104127)	sure	Learned via Avian Specialization (DB2 SpellLearnSpell). Wowhead: eagle loots a corpse. Out of combat.
+HUNTER	253,254,255	Track Beasts (+7 other Track spells)	1494	no	skip	-	-	sure	Flyout "Hunter Tracking" (225), 8 spells 1494/19878-19885. Tracking toggles, out of combat.
+ROGUE	259,260,261	Slice and Dice	315496	yes	category=spender	5	-	sure	Baseline (DB2 SkillLineAbility, AcquireMethod 2). SBA lists it for 259 only. IV AS/OU/SU 12.1 list it; IV Sub says it is applied passively there.
+ROGUE	259,260	Ambush	8676	yes	category=main_rotation	4	-	sure	Baseline stealth builder. Sub sees Shadowstrike instead (entry exists). SBA ROGUE_1/ROGUE_2, SimC, IV AS/OU.
+ROGUE	259	Poisoned Knife	185565	yes	category=main_rotation	5	-	sure	DB2 SpecializationSpells 259. IV AS, SBA ROGUE_1. Ranged builder.
+ROGUE	261	Shuriken Toss	114014	yes	category=main_rotation	5	-	sure	DB2 SpecializationSpells 261. IV SU, SBA ROGUE_3. Ranged builder.
+ROGUE	261	Goremaw's Bite	426591	yes	category=cooldown	3	-	sure	DB2 trait node 90724 (261). IV SU, SBA ROGUE_3, SimC. Wowhead: 45 s cooldown.
+ROGUE	260	Blade Rush	271877	yes	category=cooldown	4	-	sure	DB2 trait node 90649 (260). IV OU, SBA ROGUE_2, SimC. Wowhead: 1 min cooldown.
+ROGUE	260	Preparation	1277933	yes	category=cooldown	5	-	sure	DB2 trait node 90665 (260). Wowhead: resets Adrenaline Rush, Between the Eyes, Blade Flurry, Blade Rush, Killing Spree; 4 min. SBA ROGUE_2 + SimC. Not on the IV OU page.
+ROGUE	259,260,261	Thistle Tea	1298826	no	category=cooldown	6	no real either/or: both options are castable (1298826, or passive 469779 which teaches 381623, the auto-drink version)	sure	Class choice node 90756. IV AS/OU/SU. SimC Assa uses 1298826. Match by name catches both ids.
+ROGUE	259,260,261	Shroud of Concealment	114018	no	category=utility	6	-	sure	Baseline (DB2 SkillLineAbility). IV AS/OU/SU. 6 min group stealth.
+ROGUE	259	Mark for Death	1293340	no	category=utility	2	hero tree: Deathstalker (vs Fatebound)	sure	extend Mark for Death (now {261}, no id: add id 1293340). Learned via Deathstalker's Mark 457052 (DB2 SpellLearnSpell), trait node visible for 259 and 261. Wowhead: moves your active Deathstalker's Mark to the target, 20 s. The entry comment "combo-point enabler" is outdated.
+ROGUE	259,260,261	Instant Poison	315584	yes	skip	-	-	sure	Flyout "Poisons" (66). File policy excludes pre-combat poisons, but Blizzard's SBA lists every poison: Rob's call. Otherwise category=utility 9.
+ROGUE	259,260,261	Wound Poison	8679	yes	skip	-	-	sure	As Instant Poison.
+ROGUE	259,260,261	Crippling Poison	3408	yes	skip	-	-	sure	As Instant Poison.
+ROGUE	259	Deadly Poison	2823	yes	skip	-	-	sure	Assa talent node 90783. As Instant Poison.
+ROGUE	259	Amplifying Poison	381664	yes	skip	-	-	sure	Assa talent node 90771. As Instant Poison.
+ROGUE	259,260,261	Numbing Poison	5761	yes	skip	-	Atrophic Poison	sure	Class choice node 90763. As Instant Poison.
+ROGUE	259,260,261	Atrophic Poison	381637	yes	skip	-	Numbing Poison	sure	Class choice node 90763. As Instant Poison.
+ROGUE	259,260,261	Pick Pocket	921	no	skip	-	-	sure	Baseline. Out of combat.
+ROGUE	259,260,261	Pick Lock	1804	no	skip	-	-	sure	Baseline. Out of combat.
+ROGUE	260	Find Treasure	199736	no	skip	-	-	sure	DB2 SpecializationSpells 260. Out of combat.
+MONK	268,269,270	Crackling Jade Lightning	117952	yes	category=main_rotation	7	-	sure	Baseline (DB2 SkillLineAbility). SBA MONK_2/MONK_3. IV BrM/MW/WW 12.1: ranged filler/pull.
+MONK	269	Strike of the Windlord	392983	yes	category=main_rotation	8	Whirling Dragon Punch	sure	DB2 choice node 101207. IV WW, SBA MONK_3 (rank 2), SimC. Same priority as its partner WDP.
+MONK	268	Chi Burst	123986	yes	category=main_rotation	5	Chi Wave (passive)	sure	DB2 choice node 102433, visible for 268 only. IV BrM, SBA MONK_1. Wowhead tooltip still says "Windwalker, Mistweaver": stale there, no 12.1 node for 269/270.
+MONK	268	Spinning Crane Kick	322729	yes	category=main_rotation	4	-	sure	extend Spinning Crane Kick (now {269,270}). BrM version 322729 overrides 101546 (DB2 SpecializationSpells 268). SBA MONK_1. The entry has bindKey Shift+2, and Breath of Fire already holds Shift+2 on BrM: use blockAs or drop the bindKey for 268.
+MONK	268,269	Detox	218164	no	category=dispel_cc	2	-	sure	extend Detox (now {270}, id 115450). BrM/WW version 218164 = poison/disease (DB2 nodes 101090/101150). IV BrM/WW. The entry has bindKey V; on BrM/WW V belongs to Paralysis.
+MONK	268,269,270	Tiger's Lust	116841	no	category=utility	4	-	sure	Class talent node 101147. IV BrM/MW/WW.
+MONK	268,269,270	Disable	116095	no	category=dispel_cc	5	Crashing Momentum (passive)	sure	Class choice node 101149. IV BrM/MW/WW.
+MONK	268,269	Ring of Peace	116844	no	category=dispel_cc	2	Song of Chi-Ji	sure	extend Ring of Peace (now {270}). Class choice node 101136.
+MONK	268,269,270	Song of Chi-Ji	198898	no	category=dispel_cc	2	Ring of Peace	sure	Class choice node 101136. IV BrM/MW/WW.
+MONK	268	Summon Black Ox Statue	115315	no	category=utility	5	-	sure	DB2 node 101172 (268). IV BrM.
+MONK	270	Summon Jade Serpent Statue	115313	no	category=utility	5	Jade Infusion (passive)	sure	DB2 choice node 101164 (270). IV MW.
+MONK	268	Black Ox Brew	115399	no	category=defensive	3	Bob and Weave (passive)	sure	DB2 choice node 101190. IV BrM, Wowhead (2 min).
+MONK	268	Celestial Infusion	1241059	no	role=defensive_1	1	Celestial Brew	sure	The entry exists but with specs = {} (card only), so it never gets a key. IV BrM 12.1 calls it the standard pick. Suggest specs {268}, same slot as Celestial Brew.
+MONK	270	Restoral	388615	no	role=cooldown_bar	1	Revival	sure	DB2 choice node 101131. IV MW, Wowhead.
+MONK	268,270	Chi Torpedo	115008	no	role=utility_primary	2	Celerity (passive)	sure	extend Chi Torpedo (now {269}). Overrides Roll 109132. The Roll entry has no id, so the base-id fallback cannot catch it either. File kept {269} on purpose on 17 Sep: Rob's call.
+MONK	268,269	Transcendence: Transfer	119996	no	role=utility_primary	2	-	sure	extend Transcendence: Transfer (now {270}). Learned via Transcendence (DB2 SpellLearnSpell 101643->119996); Linked Spirits variant 434766. File kept {270} on purpose on 17 Sep: Rob's call.
+MONK	269,270	Provoke	115546	no	category=taunt	1	-	sure	extend Provoke (now {268}). Baseline for all monks (DB2 SkillLineAbility AcquireMethod 2). IV WW/MW list it. Same case as Hand of Reckoning {66,70} for Ret.
+MONK	268,269	Soothing Mist	115175	no	category=utility	8	-	sure	extend Soothing Mist (MW keeps main_rotation 5). Class talent node 101143 (all specs). IV BrM/WW list it.
+MONK	268,269,270	Resuscitate	115178	no	category=utility	8	-	sure	Baseline rez, out of combat. Same as Druid Revive / Paladin Redemption.
+MONK	270	Reawaken	212051	no	category=utility	9	-	sure	DB2 SpecializationSpells 270. Mass rez, out of combat.
+MONK	269	Celestial Conduit	443028	yes	category=cooldown	3	hero tree: Conduit of the Celestials (vs Shado-Pan)	unsure	extend Celestial Conduit (now {270}). DB2: WW gets it through passive 1248989 -> proc 1248992 -> override to 443028, so maybe no own spellbook entry. IV WW and SBA MONK_3 list it. Extending is free if it is not in the spellbook.
+MONK	268,269,270	Zen Pilgrimage	126892	no	skip	-	-	sure	Teleport, out of combat.
+MONK	268,269,270	Zen Flight	125883	no	skip	-	-	sure	Flying cloud, out of combat.

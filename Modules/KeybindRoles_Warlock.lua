@@ -120,12 +120,12 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	-- mh-research; GEMETEN 4 Oct 2026: Spell Lock showed on Rob's Affliction card, so the filter matched.
 	["Spell Lock"] = { role = "interrupt", priority = 1, specs = { 265, 267 }, survival = "interrupt", survivalOrder = 1,
 		survivalId = { [265] = 119898, [267] = 119898 }, survivalOverride = { [119910] = true } }, -- InterruptAbilities [19647] kind=interrupt pri=1 (Felhunter)
-	["Call Felhunter"] = { role = "interrupt", priority = 2, specs = { 265, 267 } }, -- InterruptAbilities [212619] interrupt pri=2 (summon+kick)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Call Felhunter"] = { role = "interrupt", priority = 2, specs = { 265, 267 } }, -- InterruptAbilities [212619] interrupt pri=2 (summon+kick)
 
 	-- Builders (DoT-opbouw / shard-generatie).
 	["Agony"] = { id = 980, category = "main_rotation", priority = 1, specs = { 265 } }, -- SpellArchetypes [980] ranged; kern-DoT + shard-generatie
 	["Corruption"] = { id = 172, category = "main_rotation", priority = 2, specs = { 265 } }, -- SpellArchetypes [172] ranged; kern-DoT
-	["Wither"] = { id = 445468, category = "main_rotation", priority = 2, specs = { 265 } }, -- SpellArchetypes ranged; Corruption-vervanger bij Hellcaller
+	["Wither"] = { id = 445468, category = "main_rotation", priority = 2, specs = { 265, 267 } }, -- SpellArchetypes ranged; Corruption-vervanger bij Hellcaller
 	["Unstable Affliction"] = { id = 1259790, category = "main_rotation", priority = 3, specs = { 265 } }, -- SpellArchetypes ranged; ST shard-spender-DoT
 	["Haunt"] = { id = 48181, category = "main_rotation", priority = 4, specs = { 265 } }, -- SpellArchetypes [48181] ranged; cooldown-DoT (damage-amp)
 	["Drain Soul"] = { id = 198590, category = "main_rotation", priority = 5, specs = { 265 } }, -- SpellArchetypes ranged; ST-filler/execute-kanaal
@@ -142,7 +142,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	-- Soul Rot, Phantom Singularity, Vile Taint removed 17 Sep: "have been removed" (audit, BRON Icy Veins Affliction 12.1).
 	-- Malevolence: Hellcaller is also a Destruction hero tree (audit, BRON Method Destruction), but `specs`
 	-- stays { 265 }: adding 267 would give Destruction a new key, and the 17 Sep pass moves no binds.
-	["Malevolence"] = { id = 442726, role = "cooldown_bar", priority = 2, specs = { 265 } }, -- SpellArchetypes [446285] ranged; Hellcaller-hoofd-CD (Shift+F1)
+	["Malevolence"] = { id = 442726, role = "cooldown_bar", priority = 2, specs = { 265, 267 }, blockAs = { [267] = { role = "cooldown_bar", priority = 2 } } }, -- SpellArchetypes [446285] ranged; Hellcaller-hoofd-CD (Shift+F1)
 
 	--==============================================================================
 	-- DEMONOLOGY (spec 266) - pet/demon-DPS.
@@ -157,7 +157,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 		survivalId = { [266] = 119898 }, survivalOverride = { [119914] = true } }, -- InterruptAbilities [89766] kind=cc mech=12 (stun, Felguard-interrupt)
 
 	-- Builders (shard-generatie / Demonic Core).
-	["Shadow Bolt"] = { id = 686, category = "main_rotation", priority = 1, specs = { 266 } }, -- SpellArchetypes [686] ranged; shard-generatie-filler
+	["Shadow Bolt"] = { id = 686, category = "main_rotation", priority = 1, specs = { 266, 265 } }, -- SpellArchetypes [686] ranged; shard-generatie-filler
 	["Demonbolt"] = { category = "main_rotation", priority = 2, specs = { 266 } }, -- SpellArchetypes [264178] ranged; Demonic-Core-proc-builder
 	["Call Dreadstalkers"] = { id = 104316, category = "main_rotation", priority = 3, specs = { 266 } }, -- SpellArchetypes [104316] ranged; kern-cooldown-pets
 
@@ -170,7 +170,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	["Implosion"] = { id = 196277, category = "spender", priority = 4, bindKey = "Shift+4", specs = { 266 } }, -- SpellArchetypes [196278] ranged; Wild-Imp-AoE-detonatie (AoE-slot, Shift-tweeling van Hand of Gul'dan slot 4)
 
 	-- DoT / extra.
-	["Doom"] = { category = "main_rotation", priority = 4, specs = { 266 } }, -- SpellArchetypes [460555] ranged; AoE-DoT (talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Doom"] = { category = "main_rotation", priority = 4, specs = { 266 } }, -- SpellArchetypes [460555] ranged; AoE-DoT (talent)
 
 	-- Cooldowns.
 	["Summon Demonic Tyrant"] = { id = 265187, blockQ = { [266] = true }, role = "cooldown_bar", priority = 1, specs = { 266 } }, -- F1; SpellArchetypes [265187] grootste burst-CD (buft alle demons)
@@ -202,5 +202,14 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	-- Korte rotatie-CD's (op-CD gecast, geen F1-burst-slot).
 	["Cataclysm"] = { id = 152108, category = "main_rotation", priority = 5, specs = { 267 } }, -- SpellArchetypes [152108] ranged; korte AoE-Immolate-applicator (~30s), rotatie op-CD, geen F1-burst (talent)
 	["Channel Demonfire"] = { id = 196447, category = "main_rotation", priority = 6, specs = { 267 } }, -- SpellArchetypes [196448] ranged; korte kanaal-CD (~25s), rotatie op-CD, geen F1-burst
-	["Dimensional Rift"] = { category = "main_rotation", priority = 7, specs = { 267 } }, -- SpellArchetypes [387976]; korte rotatie-CD (~45s), op-CD-filler, geen F1-burst (talent)
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Dimensional Rift"] = { category = "main_rotation", priority = 7, specs = { 267 } }, -- SpellArchetypes [387976]; korte rotatie-CD (~45s), op-CD-filler, geen F1-burst (talent)
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Demonic Circle"] = { id = 48018, category = "utility", priority = 7, specs = { 265, 266, 267 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): learned via class node n100941 (SpellLearnSpell 268358 -> 48018 + 48020); on Rob's list. P
+    ["Shadowfury"] = { id = 30283, category = "dispel_cc", priority = 3, specs = { 265, 266, 267 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): class choice node n71947 with Howl of Terror (dispel_cc 3) - mutually exclusive, so same p
+    ["Dark Harvest"] = { id = 1257052, category = "cooldown", priority = 1, specs = { 265 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Aff spec node n109860 (1 min channel); SBA step ac60; Icy Veins Aff spec actives
+    ["Summon Doomguard"] = { id = 1276672, category = "cooldown", priority = 1, specs = { 266 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Demo spec node n101917 (2 min CD, 1 shard); Wowhead live; Icy Veins Demo spec actives. Not
+    ["Grimoire: Fel Ravager"] = { id = 1276467, category = "cooldown", priority = 2, specs = { 266 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Demo choice node n110197; on Rob's list. While on cooldown the button turns into Devour Ma
+    ["Grimoire: Imp Lord"] = { id = 1276452, category = "cooldown", priority = 2, specs = { 266 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Demo choice node n110197; Wowhead live: turns into Singe Magic while on cooldown
+    ["Power Siphon"] = { id = 264130, category = "main_rotation", priority = 5, specs = { 266 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Demo choice node n101893 with Implosion (spender 4 Shift+4); SBA step ac272; Icy Veins Dem
 }

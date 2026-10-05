@@ -141,7 +141,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- Raid/AoE/smart-heals - BLIJVEN op toetsen (v6 sectie 6):
 	["Prayer of Healing"] = { id = 596, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 257 } },      -- AoE-groepsheal (toets)
 	["Holy Word: Sanctify"] = { id = 34861, category = "raid_heal", priority = 1, bindKey = "Shift+2", specs = { 257 } },    -- AoE-grondheal (toets)
-	["Halo"] = { id = 120517, category = "cooldown", priority = 3, specs = { 257 } },                   -- AoE dmg/heal-puls (toets)
+	["Halo"] = { id = 120517, category = "cooldown", priority = 3, specs = { 257, 258 } },                   -- AoE dmg/heal-puls (toets)
 	-- ST-heals + ST-HoTs (click-cast op raidframes, GEEN toets - v6 sectie 6):
 	-- Heal removed 17 Sep (audit, BRON Icy Veins Holy 12.1).
 	["Holy Word: Serenity"] = { id = 2050, category = "main_rotation", priority = 1, bindKey = "2", specs = { 257 } },           -- ST-burst-heal (click-cast)
@@ -201,5 +201,9 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- Mindbender removed 17 Sep: passive now (audit, BRON Icy Veins Shadow 12.1).
 
 	-- Gedeelde healer-click_cast (Disc + Holy):
-	["Flash Heal"] = { id = 2061, category = "main_rotation", priority = 1, bindKey = "3", specs = { 256, 257 }, survivalSpecs = { 256, 257, 258 }, survival = "small", survivalOrder = 3, survivalRequires = 193063, survivalId = { [256] = 2061, [257] = 2061, [258] = 2061 }, survivalNote = "SURVIVAL_NOTE_PROTECTIVE_LIGHT" }, -- snelle ST-heal (click-cast); card 5 Oct 2026: with Protective Light 193063 a small defensive, 10% less damage (Method Disc/Holy 17 Sep, IV Shadow); ids Wowhead, not client-measured
+	["Flash Heal"] = { id = 2061, category = "main_rotation", priority = 1, bindKey = "3", specs = { 256, 257, 258 }, survivalSpecs = { 256, 257, 258 }, survival = "small", survivalOrder = 3, survivalRequires = 193063, survivalId = { [256] = 2061, [257] = 2061, [258] = 2061 }, survivalNote = "SURVIVAL_NOTE_PROTECTIVE_LIGHT", blockAs = { [258] = { role = "heal_ooc", priority = 1 } } }, -- snelle ST-heal (click-cast); card 5 Oct 2026: with Protective Light 193063 a small defensive, 10% less damage (Method Disc/Holy 17 Sep, IV Shadow); ids Wowhead, not client-measured
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Shadow Mend"] = { id = 186263, category = "main_rotation", priority = 1, specs = { 256 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): mirror Flash Heal's Disc entry (priority 1, bindKey "3"): Disc node n82567 passive 1252217
+    ["Plea"] = { id = 200829, role = "click_cast", priority = 1, specs = { 256 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Disc SpecializationSpells (replaced Renew); Wowhead live; Icy Veins Disc. Single-target he
 }

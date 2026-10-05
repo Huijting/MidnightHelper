@@ -60,6 +60,16 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt laat — gatenronde alle klassen: ~100 spreuken erbij, ~20 oude eruit
+
+AFGELEID uit het standaardblok (alle talenten tegelijk); in het spel heeft een speler maar één kant van elke keuze.
+- [ ] Op elk personage dat je hebt: Terugzetten → Zet het op balk 5, 6 en 7. Staat de rode regel "MH kent deze nog
+  niet" er nog? Welke namen? (Verwacht: alleen dingen die we bewust lieten liggen, zoals Summon Felguard.)
+- [ ] Is er een BELANGRIJKE spreuk van je blok verdwenen die er eerst wél op stond? (Kijk vooral: Feral Prowl/Dash,
+  Destruction Havoc, Mistweaver Mana Tea, Resto Shaman Ghost Wolf.)
+- [ ] Je Warlock (Demonology): Summon Doomguard, Grimoire: Fel Ravager/Imp Lord, Power Siphon, Demonic Circle,
+  Shadowfury op het blok?
+
 ## 🔍 5 okt avond — Robs Warlock (Demonology, level 82, "twelve retro"): "Put twelve retro back" + 30 onbekende spreuken
 
 GEMETEN (screenshot): de rode regel werkt al lokaal: "Not known to Midnight Helper yet (30)". De helft is ruis uit het

@@ -88,7 +88,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Death's Caress"] = { id = 195292, category = "main_rotation", priority = 3, specs = { 250 } }, -- 3 (ranged tag)
 	-- AoE (Shift-tweelingen)
 	["Blood Boil"] = { id = 50842, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 250 } },      -- AoE
-	["Death and Decay"] = { id = 43265, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 250, 252 } }, -- AoE-grondeffect (Blood + Unholy)
+	["Death and Decay"] = { id = 43265, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 250, 252, 251 }, blockAs = { [251] = { category = "utility", priority = 6 } } }, -- AoE-grondeffect (Blood + Unholy)
 	-- Grote defensive (Shift+C)
 	["Vampiric Blood"] = { id = 55233, role = "defensive_4", priority = 1, specs = { 250 }, survival = "big", survivalOrder = 1 }, -- grote def (extra, Blood-only); 90 s (W-CD), before the 2 min Icebound
 	-- Grootste CD (F1) + extra CD's
@@ -129,7 +129,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Scourge Strike"] = { id = 55090, category = "main_rotation", priority = 2, specs = { 252 } },    -- 2 (wounds-burst)
 	["Dark Transformation"] = { id = 1233448, category = "cooldown", priority = 4, specs = { 252 } },    -- pet-CD (getransformeerde ghoul)
 	-- Spender (RP-dump)
-	["Death Coil"] = { id = 47541, category = "spender", priority = 1, specs = { 252 } },              -- 4 (RP-spender)
+	["Death Coil"] = { id = 47541, category = "spender", priority = 1, specs = { 252, 250, 251 }, blockAs = { [250] = { category = "utility", priority = 8 }, [251] = { category = "utility", priority = 8 } } },              -- 4 (RP-spender)
 	-- AoE (Shift-tweelingen)
 	["Epidemic"] = { id = 207317, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 252 } }, -- AoE-spender
 	-- Grootste CD (F1) + extra CD's
@@ -142,7 +142,14 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- CC-EXTRA (dispel_cc) - Asphyxiate / Blinding Sleet / Strangulate
 	-- ============================================================
 	-- Both are class talents (IV-Blood/IV-Frost/IV-Unholy); `specs` kept for the keys (see header).
-	["Asphyxiate"] = { id = 221562, category = "dispel_cc", priority = 3, specs = { 250, 252 }, alsoStop = "stun" }, -- stun (Blood 221562 / Unholy 108194); JustAC cc mech=12 → Spec 08 alsoStop
-	["Blinding Sleet"] = { id = 207167, category = "dispel_cc", priority = 3, specs = { 251 } },  -- AoE disorient
-	["Strangulate"] = { id = 47476, category = "dispel_cc", priority = 4, alsoStop = "silence" },                      -- silence (talent, baseline beschikbaar)
+	["Asphyxiate"] = { id = 221562, category = "dispel_cc", priority = 3, specs = { 250, 252, 251 }, alsoStop = "stun" }, -- stun (Blood 221562 / Unholy 108194); JustAC cc mech=12 → Spec 08 alsoStop
+	["Blinding Sleet"] = { id = 207167, category = "dispel_cc", priority = 3, specs = { 251, 250, 252 } },  -- AoE disorient
+    -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Strangulate"] = { id = 47476, category = "dispel_cc", priority = 4, alsoStop = "silence" },                      -- silence (talent, baseline beschikbaar)
+
+    -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
+    ["Reaper's Mark"] = { id = 439843, category = "cooldown", priority = 3, specs = { 250, 251 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Deathbringer hero node 95062 (250,251); DB2 AssistedCombatStep Blood (rank 2) and Frost (r
+    ["Putrefy"] = { id = 1247378, category = "main_rotation", priority = 4, specs = { 252 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 Unholy node 108129; AssistedCombatStep Unholy; IV Unholy: core rotation.
+    ["Soul Reaper"] = { id = 343294, category = "main_rotation", priority = 5, specs = { 252 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 Unholy node 76179 (visible 252 only); AssistedCombatStep Unholy; IV Unholy (execute). 
+    ["Abomination Limb"] = { id = 1263569, category = "dispel_cc", priority = 3, specs = { 250 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 Blood choice node 76042 Gorefiend's Grasp|Abomination Limb; Wowhead 1263569: 2 min, ad
+    ["Raise Ally"] = { id = 61999, role = "utility_secondary", priority = 2, specs = { 250, 251, 252 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): SkillLineAbility 796 am2 class baseline; IV all 3 specs (battle res). Same role/priority a
 }
