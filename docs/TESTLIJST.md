@@ -65,7 +65,10 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 Rob: "het zijn inderdaad 2 macros" (Moonfire/Dispel op D = macro's, MH laat macro's staan). Gebouwd in `PlacePlan`:
 na het opzij zetten krijgen spreuken zonder plek (Mark of the Wild, Revive, Arcane Intellect, rez...) een LEGE plek op D;
 staat de spreuk al op D, dan niet nog eens. Undo haalt ze eraf. Tekst onderaan zegt het nu ("komen op een vrije Alt-toets").
-- [ ] Guardian: Undo → Zet het op balk 5, 6 en 7 → staan Mark of the Wild en Revive nu op een Alt-toets in D?
+- GEMETEN 5 okt (chat-probe op Robs Guardian): "block D: nothing placed — Mark of the Wild: no free place left on D
+  (free on D: 0)". Oorzaak: bij het plannen zit D nog vol (Undo zette alles terug); de 14 dubbelen gaan pas eraf bij
+  Place. Gerepareerd: een D-plek met een kopie van een blokspreuk telt als vrij.
+- [ ] Guardian: Undo → Zet het op balk 5, 6 en 7 → staan Mark of the Wild en Revive nu op een Alt-toets in D? Chatregel "block D: …"?
 - [ ] Je eigen spul op D (macro's, Healthstone, Flask) blijft gewoon staan?
 - [ ] Undo: verdwijnen ze weer van D?
 

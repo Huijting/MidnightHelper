@@ -703,6 +703,17 @@ local function PlacePlan()
 				freeD[spot.slot] = true
 			end
 		end
+		-- A D place holding a copy of a block spell is emptied by Place (the doubles step runs before the
+		-- buttons are placed), so it counts as free too. MEASURED 5 Oct 2026 on Rob's Guardian: "free on D: 0"
+		-- at planning time, and after placing D had 14 doubles removed and many empty places.
+		for b = 1, 12 do
+			local slot = dInfo.first + b - 1
+			local kind, id = Occupant(slot)
+			if kind == "spell" and id and wanted[id] and not IsAssist(slot) then
+				freeD[slot] = true
+				onD[id] = nil -- that copy leaves; it is no reason to skip a spell
+			end
+		end
 		for slot in pairs(freeD) do
 			probe.freeD[#probe.freeD + 1] = slot
 		end
