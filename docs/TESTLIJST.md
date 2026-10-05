@@ -60,6 +60,14 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🔍 5 okt laat — Robs Guardian Druid (Purlymixanox): blok goed, 2 zonder plek, 5 "onbekend"
+
+GEMETEN (screenshot): bear-rotatie op 1-4, Barkskin/Ironfur/Survival Instincts, Prowl F3, Dash Shift-F1 — goed.
+Rode regel: "geen plek (2): Mark of the Wild, Revive" terwijl 5, Shift-2 en Ctrl-3 leeg zijn (overloop kent alleen vaste
+plekken; ontwerpvraag aan Rob, 2e keer gesteld). "Onbekend (5): Rake, Regrowth, Sharpen Your Knife, Shred, Wrath" →
+bewust zonder toets voor Guardian → in `NO_KEY_ON_PURPOSE`. Moonfire staat ook op D Alt 2: Undo gedaan? (gevraagd)
+- [ ] Guardian na `/reload`: rode "onbekend"-regel weg?
+
 ## 🔍 5 okt laat — Reddish (BM): dubbelen op blok D + ruis in de rode lijst
 
 GEMETEN (screenshot): D (Alt) houdt kopieën van blokspreuken (Exhilaration Alt 3 + F2, Bestial Wrath Alt 1 + Q, Mend

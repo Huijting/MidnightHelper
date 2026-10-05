@@ -433,6 +433,9 @@ for _, n in ipairs({
 	"Resurrection", "Conjure Refreshment", "Teleport", "Portal", "Ancestral Vision", "Astral Recall", "Far Sight",
 	"Water Walking", "Mass Return", "Sense Power", "Revitalize", "Teleport: Moonglade", "Zen Pilgrimage", "Zen Flight",
 	"Reawaken", "Defensive Stance", "Battle Stance", "Berserker Stance",
+	-- Druid: cat/caster spells the gap round kept off Guardian and Balance on purpose (MEASURED 5 Oct 2026 on
+	-- Rob's Guardian: Rake, Shred, Wrath, Regrowth in the red line), and a profession spell from the same run.
+	"Rake", "Shred", "Wrath", "Regrowth", "Sharpen Your Knife",
 }) do
 	NO_KEY_ON_PURPOSE[n] = true
 end
