@@ -60,6 +60,15 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🔍 5 okt avond — Druid Balance (Duckiesan, pc van Robs zusje): Revive op F3? Kaart zei "F8"
+
+Rob las op de speelkaart (tabblad Groep) "Revive [F8]", terwijl het blok Revive op **F3** zet. AFGELEID uit de tweede
+screenshot: het kleine hoeklabel op het icoon is vrijwel zeker **F3** (Rebirth ernaast staat goed op **F**), en de echte
+balk-knop F3 (blok C, rij 2) toont het Revive-icoon. Dus waarschijnlijk geen fout. Wel open: **G** (trinket) lijkt op
+de echte balk leeg terwijl het plaatje een trinket toont.
+- [ ] Op Duckiesan: `/mh playkeys` → staat bij Revive **F3**?
+- [ ] `/mh block why` → regel bij **C G**: welk trinket, en heeft ze een trinket met Use: aan?
+
 ## 🆕 5 okt avond — id-ronde: 361 spreuken kregen een nummer, en de addon zoekt nu eerst op NAAM
 
 Wat er veranderde: 361 regels in `KeybindRoles_*.lua` kregen `id = …` (wago.tools 12.1.0.69933 + Wowhead, 3 × mh-research).
