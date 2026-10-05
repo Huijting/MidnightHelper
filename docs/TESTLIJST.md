@@ -60,6 +60,11 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — na "Nu herladen" opent het blokvenster vanzelf weer (Rob)
+
+- [ ] Druk een layout-knop → **Nu herladen** (in het venstertje of rechtsonder). Na het laden opent `/mh block` vanzelf,
+  met het stappenplan, zodat je bij de volgende stap verder kunt. Een gewone `/reload` opent hem níet.
+
 ## 🆕 5 okt avond — gedeelde layout krijgt ook een eigen kopie (Rob, Reddish op "twelve retro")
 
 - [ ] Reddish (op "twelve retro", een account-layout): de middelste knop heet nu **Eigen layout + blok**. Druk →

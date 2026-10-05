@@ -1500,7 +1500,7 @@ local function Ensure()
 				local d = StaticPopupDialogs["MH_KEYBLOCK_RELOAD"] or {
 					text = "%s",
 					OnAccept = function()
-						ReloadUI()
+						ns.KeyBlockReloadAndReopen()
 					end,
 					timeout = 0,
 					whileDead = true,
@@ -1553,7 +1553,7 @@ local function Ensure()
 		ns.ShowKeyBlockExport()
 	end)
 	f.reloadBtn = Btn("KEYBLOCK_BTN_RELOAD", 22 + 5 * 210, function()
-		ReloadUI()
+		ns.KeyBlockReloadAndReopen()
 	end)
 	f.reloadBtn:SetWidth(120)
 	f.reloadBtn:Hide()
@@ -2044,12 +2044,29 @@ function ns.KeyBlockBar1Status()
 		bar1Armed and "armed" or "off", bar1Count, bar1Source, tostring(state))
 end
 
+--- "Reload now" from the key block: reload, and open the window again afterwards so the player can go on
+--- with the next step. Rob, 5 Oct 2026, on Reddish: after step 2 he had to find the window again himself
+--- ("met het tandwieltje rechtsboven") — "kunnen we hem automatisch opnieuw open laten doen?"
+function ns.KeyBlockReloadAndReopen()
+	ns.db = ns.db or {}
+	ns.db.keyBlockReopen = true
+	ReloadUI()
+end
+
 local bar1Events = CreateFrame("Frame")
 bar1Events:RegisterEvent("PLAYER_ENTERING_WORLD")
 bar1Events:RegisterEvent("PLAYER_REGEN_ENABLED")
 bar1Events:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_ENTERING_WORLD" and C_Timer and C_Timer.After then
 		C_Timer.After(1, ns.KeyBlockArmBar1)
+		if ns.db and ns.db.keyBlockReopen then
+			ns.db.keyBlockReopen = nil
+			C_Timer.After(2, function()
+				if not (InCombatLockdown and InCombatLockdown()) and ns.ShowKeyBlock then
+					ns.ShowKeyBlock()
+				end
+			end)
+		end
 	elseif event == "PLAYER_REGEN_ENABLED" and not bar1Armed then
 		ns.KeyBlockArmBar1()
 	end
