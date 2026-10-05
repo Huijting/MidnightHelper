@@ -60,6 +60,13 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — BUFF ALLY bleef staan (Holy, Beacon op Valeera)
+
+GEMETEN: `/mh mbuff` gaf "Beacon of Light [ally]: pass=true active=false" terwijl Rob hem gaf. AFGELEID oorzaak: een
+verborgen (secret) spell-id op een ander werd overgeslagen en daarna als "afwezig" gerekend. Nu: verborgen = "weet niet".
+- [ ] `/reload`, Beacon op Valeera, `/mh mbuff`: onder Beacon of Light staat nu "per unit: <jij>=… Valeera=…". Wat staat
+  er bij Valeera (true / false / nil)? Is BUFF ALLY weg? Stuur de regel als hij er nog staat.
+
 ## 🆕 5 okt avond — oud vlaggetje weg + balk 8 als 3 × 2 rechts van C
 
 GEMETEN in de SV: na terug naar Modern en opnieuw "Eigen layout + blok" werd "Twelveinchy Holy" wel actief, maar niet

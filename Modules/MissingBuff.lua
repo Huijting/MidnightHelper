@@ -400,6 +400,18 @@ function ns.PrintMissingBuffDebug()
 			print(("  %s [%s]: pass=%s active=%s → ADD=%s"):format(
 				SpellName(d.spell) or ("#" .. tostring(d.spell)), tostring(d.kind),
 				tostring(pass), tostring(active), tostring(pass and not active)))
+			-- Per group member what the read said: true = seen, false = searched and absent, nil = could
+			-- not tell (refused or a secret id). Rob, 5 Oct 2026: Beacon on his companion read false.
+			if d.kind == "ally" and pass then
+				local parts = {}
+				for _, u in ipairs(GroupUnits()) do
+					local okN, uname = pcall(UnitName, u)
+					local nm = (okN and type(uname) == "string" and not (ns.IsSecretValue and ns.IsSecretValue(uname)))
+						and uname or u
+					parts[#parts + 1] = ("%s=%s"):format(nm, tostring(ns.Aura.HasUnitBuff(u, d.buff or d.spell)))
+				end
+				print("      per unit: " .. table.concat(parts, "  "))
+			end
 		end
 	end
 	local missing = ns.GetMissingBuffs()

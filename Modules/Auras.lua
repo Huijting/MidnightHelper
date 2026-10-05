@@ -183,18 +183,28 @@ function Aura.HasUnitBuff(unit, spellID)
 	if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then
 		return nil
 	end
+	-- 🔴 A SECRET spellId is not "another buff", it is "a buff we may not identify" (5 Oct 2026). Rob
+	-- gave his Delve companion Beacon of Light and BUFF ALLY stayed, whatever he did: `/mh mbuff` read
+	-- Beacon of Light active=false. This loop skipped secret ids and then reported the list as
+	-- searched-and-absent. If any id was secret and ours was not found, the answer is unknown.
+	local sawSecret = false
 	for i = 1, MAX_SCAN do
 		local ok, aura = pcall(C_UnitAuras.GetAuraDataByIndex, unit, i, "HELPFUL")
 		if not ok then
 			return nil -- the API refused: unknown, not absent
 		end
 		if not aura then
-			return false -- ran off the end of the list: genuinely absent
+			return (not sawSecret) and false or nil -- end of the list: absent, unless something was hidden
 		end
 		local sid = aura.spellId
-		if sid and not Secret(sid) and sid == spellID then
+		if sid and Secret(sid) then
+			sawSecret = true
+		elseif sid == spellID then
 			return true
 		end
+	end
+	if sawSecret then
+		return nil
 	end
 	--- Same rule as HasPlayerAura: running off the end of somebody's aura list only
 	--- means "absent" if the list itself can be believed. On 12.1 a truncated or
