@@ -544,7 +544,7 @@ ns._mhLocales.nlNL = {
 	KEYBLOCK_GUIDE_OPEN = "Open",
 	KEYBLOCK_GUIDE_1 = "Zet je spreuken en toetsen op het blok. (Op het plaatje: groen = komt hier, oranje = gaat opzij naar blok D.)",
 	KEYBLOCK_GUIDE_2 = "Zet je balken als blok op je scherm, en herlaad daarna.",
-	KEYBLOCK_GUIDE_2_PRESET = "Je staat op een standaard-layout: MH maakt een eigen layout voor deze spec en zet je balken daarin als blok. Daarna herladen.",
+	KEYBLOCK_GUIDE_2_PRESET = "Je staat op een standaard-layout of een layout die je met andere personages deelt: MH maakt een eigen layout voor dit personage en deze spec en zet je balken daarin als blok. Daarna herladen.",
 	KEYBLOCK_GUIDE_3 = "Optioneel: muistoetsen 6 7 8 9 0 - op balk 8 (alleen als je muis die knoppen heeft).",
 	KEYBLOCK_GUIDE_4 = "Leer je toetsen: open \"Zo speel je\". Achter elke spreuk staat de toets.",
 	KEYBLOCK_GUIDE_5 = "Optioneel: een spiekbrief om te printen of op je telefoon te zetten.",

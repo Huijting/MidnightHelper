@@ -60,6 +60,14 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — gedeelde layout krijgt ook een eigen kopie (Rob, Reddish op "twelve retro")
+
+- [ ] Reddish (op "twelve retro", een account-layout): de middelste knop heet nu **Eigen layout + blok**. Druk →
+  "Redisch Beast Mastery" (kopie van twelve retro), alleen voor Reddish/BM; je Paladin merkt niets. Nu herladen.
+- [ ] Je Cooldown Manager blijft bij zo'n kopie waar jij hem had (alleen kopieën van Modern/Classic tillen hem op).
+- [ ] Stappenplan: groene **vinkjes** zijn nu echte plaatjes (geen "|TI…").
+- [ ] Spiekbrief: klik eerst in de tekst, dan Ctrl+A, Ctrl+C (deed Ctrl+C iets anders, dan had het vak de focus niet).
+
 ## 🆕 5 okt avond — stappenplan boven het blokvenster (Rob: "waar moet ik beginnen?")
 
 - [ ] `/mh block` op Reddish: boven het venster een paneel **"Zo begin je, stap voor stap"** in grote letters, 6 stappen.

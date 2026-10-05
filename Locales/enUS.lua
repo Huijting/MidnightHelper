@@ -552,7 +552,7 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_GUIDE_OPEN = "Open",
 	KEYBLOCK_GUIDE_1 = "Put your spells and keys on the block. (On the picture: green = goes here, orange = moves aside to block D.)",
 	KEYBLOCK_GUIDE_2 = "Arrange your bars as a block on your screen, then reload.",
-	KEYBLOCK_GUIDE_2_PRESET = "You are on a standard layout: MH makes a layout of your own for this spec and arranges the block in it. Then reload.",
+	KEYBLOCK_GUIDE_2_PRESET = "You are on a standard layout or one shared with your other characters: MH makes a layout of your own for this character and spec and arranges the block in it. Then reload.",
 	KEYBLOCK_GUIDE_3 = "Optional: mouse keys 6 7 8 9 0 - on bar 8 (only if your mouse has those buttons).",
 	KEYBLOCK_GUIDE_4 = "Learn your keys: open \"How to play\". Every spell name shows its key.",
 	KEYBLOCK_GUIDE_5 = "Optional: a cheat sheet to print or keep on your phone.",

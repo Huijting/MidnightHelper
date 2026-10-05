@@ -714,7 +714,7 @@ end
 --- For the key block window: active layout, whether MH arranged it, whether bars 2/3 are hidden in it,
 --- and whether this spec sits on one of Blizzard's presets (Modern/Classic), which cannot be edited.
 function ns.MH_EditModeKeyBlockState()
-	local name = ActiveLayout()
+	local name, target = ActiveLayout()
 	local on = KeyBlockLayoutIsOn(name)
 	local hidden = on and ns.db and ns.db.keyBlockOldBarsHiddenBy and ns.db.keyBlockOldBarsHiddenBy[name]
 	if on and hidden == nil then
@@ -726,6 +726,14 @@ function ns.MH_EditModeKeyBlockState()
 		local presets = PresetCount()
 		onPreset = okG and type(info) == "table" and presets and (tonumber(info.activeLayout) or 0) <= presets
 			and true or false
+	end
+	-- 🔴 An ACCOUNT layout counts as shared too (5 Oct 2026). Rob's level-90 Hunter uses "twelve retro",
+	-- the account layout his Paladin had already arranged — so the Hunter was offered "put twelve retro
+	-- back" and never got a layout of its own, and anything it changed would change the Paladin as well.
+	-- A shared layout gets a character copy, exactly like a preset. (The 4th result keeps its name.)
+	local accountType = Enum and Enum.EditModeLayoutType and Enum.EditModeLayoutType.Account or 1
+	if target and target.layoutType == accountType then
+		onPreset = true
 	end
 	return name, on, hidden and true or false, onPreset
 end
@@ -786,7 +794,16 @@ function ns.MH_EditModeMakeOwnLayout()
 		return false, "Edit Mode returned no layouts."
 	end
 	local active = tonumber(info.activeLayout) or 0
+	-- The source: a preset, or an ACCOUNT layout (shared with other characters). A character layout is
+	-- already this character's own: arrange that one directly.
 	local preset = presetList[active]
+	if not preset then
+		local shared = info.layouts[active - #presetList]
+		local accountType = Enum and Enum.EditModeLayoutType and Enum.EditModeLayoutType.Account or 1
+		if shared and shared.layoutType == accountType then
+			preset = shared
+		end
+	end
 	if not preset then
 		return false, ns:L("KEYBLOCK_OWN_NOT_PRESET")
 	end
@@ -840,13 +857,18 @@ function ns.MH_EditModeMakeOwnLayout()
 	end
 
 	ns.db.keyBlockPresetBack = ns.db.keyBlockPresetBack or {}
-	ns.db.keyBlockPresetBack[SpecKey()] = { preset = active, presetName = preset.layoutName, layout = name }
-	-- Remember that MH made this one: arranging it later may still lift the Cooldown Manager.
-	ns.db.keyBlockMadeLayouts = ns.db.keyBlockMadeLayouts or {}
-	ns.db.keyBlockMadeLayouts[name] = true
+	ns.db.keyBlockPresetBack[SpecKey()] = { preset = active, presetName = preset.layoutName, layout = name,
+		fromPreset = presetList[active] ~= nil }
+	-- Remember that MH made this one from a PRESET: arranging it later may still lift the Cooldown
+	-- Manager. A copy of the player's own account layout keeps their Cooldown Manager where they put it.
+	local fromPreset = presetList[active] ~= nil
+	if fromPreset then
+		ns.db.keyBlockMadeLayouts = ns.db.keyBlockMadeLayouts or {}
+		ns.db.keyBlockMadeLayouts[name] = true
+	end
 
 	-- And arrange the block in it straight away: one /reload for the whole thing.
-	local okA, msg = ns.MH_EditModeApplyKeyBlock(true)
+	local okA, msg = ns.MH_EditModeApplyKeyBlock(fromPreset)
 	local head = ns:L("KEYBLOCK_OWN_DONE_FMT"):format(name, tostring(preset.layoutName or "Modern"))
 	return true, head .. (okA and ("|n" .. msg) or ("|n" .. tostring(msg)))
 end
@@ -1147,15 +1169,23 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	-- same pattern, checked at run time.
 	-- "Made by MH" also covers a layout copied before this flag existed: Rob's "Twelveinchy Holy" (the
 	-- name pattern "<character> <spec>" of a character layout MH's preset back-up points at).
+	-- A copy of the player's own ACCOUNT layout (fromPreset == false) is not "made from a preset": its
+	-- Cooldown Manager is where the player put it.
 	local made = ns.db and ns.db.keyBlockMadeLayouts and ns.db.keyBlockMadeLayouts[layoutName]
-	if not made and ns.db and ns.db.keyBlockPresetBack then
+	local copiedFromAccount = false
+	if ns.db and ns.db.keyBlockPresetBack then
 		for _, b in pairs(ns.db.keyBlockPresetBack) do
 			if b.layout == layoutName then
-				made = true
+				if b.fromPreset == false then
+					copiedFromAccount = true
+				else
+					made = true
+				end
 			end
 		end
 	end
-	if not made and UnitName and layoutName == ((UnitName("player") or "") .. " " .. SpecName()):sub(1, 30) then
+	if not made and not copiedFromAccount and UnitName
+		and layoutName == ((UnitName("player") or "") .. " " .. SpecName()):sub(1, 30) then
 		made = true
 	end
 	if fromPreset or made then

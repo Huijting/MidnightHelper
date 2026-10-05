@@ -1605,6 +1605,13 @@ local function Ensure()
 		r.mark = r:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
 		r.mark:SetPoint("LEFT", 0, 0)
 		r.mark:SetWidth(34)
+		-- The tick as a real texture: a |T…|t escape in a 34-px font string was cut off and showed as
+		-- "|TI…" on Rob's screen (5 Oct 2026).
+		r.check = r:CreateTexture(nil, "OVERLAY")
+		r.check:SetSize(26, 26)
+		r.check:SetPoint("LEFT", 4, 0)
+		r.check:SetTexture("Interface\\RaidFrame\\ReadyCheck-Ready")
+		r.check:Hide()
 		r.text = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 		r.text:SetPoint("LEFT", 40, 0)
 		r.text:SetPoint("RIGHT", -150, 0)
@@ -1665,8 +1672,9 @@ local function UpdateGuide(f)
 		if isNext then
 			current = i
 		end
+		r.check:SetShown(s.done and true or false)
 		if s.done then
-			r.mark:SetText("|TInterface\\RaidFrame\\ReadyCheck-Ready:24|t")
+			r.mark:SetText("")
 		else
 			r.mark:SetText(isNext and ("|cffffd100" .. i .. "|r") or ("|cff9d9d9d" .. i .. "|r"))
 		end
