@@ -445,14 +445,37 @@ local function PotionInBags()
 	return nil
 end
 
+--- The trinkets you can PRESS, in slot order (13, then 14). Rob, 5 Oct 2026, on TwelveInchy: G held a
+--- passive trinket, which does nothing on a button, and the second trinket slot was never looked at.
+--- An item with a Use: effect reports its spell via GetItemSpell; a passive one reports none. If the
+--- client offers no way to ask, every equipped trinket counts (the old behaviour, both slots).
+local function UsableTrinkets()
+	local out = {}
+	local ask = (C_Item and C_Item.GetItemSpell) or GetItemSpell
+	for _, invSlot in ipairs({ 13, 14 }) do
+		local id = GetInventoryItemID and GetInventoryItemID("player", invSlot)
+		if id then
+			local usable = true
+			if ask then
+				local ok, spellName, spellID = pcall(ask, id)
+				usable = ok and (spellName ~= nil or spellID ~= nil)
+			end
+			if usable then
+				out[#out + 1] = id
+			end
+		end
+	end
+	return out
+end
+
 --- What each fixed place should hold: { kind = "item", id = n } or nil plus a reason.
 local function FixedWant(fixed)
 	if fixed == "trinket" then
-		local id = GetInventoryItemID and GetInventoryItemID("player", 13)
+		local id = UsableTrinkets()[1]
 		if id then
 			return { kind = "item", id = id }
 		end
-		return nil, "no trinket in your first trinket slot"
+		return nil, "no trinket with a Use: effect equipped"
 	elseif fixed == "potion" then
 		local id = PotionInBags()
 		if id then
@@ -545,6 +568,31 @@ local function PlacePlan()
 			rows[#rows + 1] = row
 		end
 	end
+	-- A second trinket you can press: the first free place of bar C, in overflow order (Rob, 5 Oct 2026:
+	-- "normaal hebben we twee trinkets, worden die ook allebei neergezet?"). Classes with forms keep Ctrl.
+	local trinkets = UsableTrinkets()
+	if trinkets[2] then
+		local hasForms = false
+		for _, o in pairs(res.occ) do
+			if type(o.why) == "string" and o.why:find("^form") then
+				hasForms = true
+			end
+		end
+		local byKey = {}
+		for _, r in ipairs(rows) do
+			byKey[r.key] = r
+		end
+		for _, k in ipairs(OVERFLOW) do
+			local r = byKey[k]
+			if r and not r.want and not (hasForms and k:find("^CTRL%-"))
+				and (r.action == "clear" or (r.action == "skip" and Occupant(r.slot) == nil)) then
+				r.want = { kind = "item", id = trinkets[2] }
+				r.action, r.why = "place", nil
+				break
+			end
+		end
+	end
+
 	-- Give everything that gets replaced a free button elsewhere, so nothing leaves the bars. Block D (bar 4,
 	-- the player's own) is the first place to park: what is moved aside is exactly "your own stuff".
 	local isBlockBar = { [bars.A] = true, [bars.B] = true, [bars.C] = true }

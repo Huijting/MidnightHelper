@@ -60,6 +60,13 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — trinkets: alleen te gebruiken, en allebei (Rob op TwelveInchy)
+
+- [ ] `/mh block` (Terugzetten → opnieuw neerzetten): staat op **G** een trinket met een **Use:**-effect, niet de
+  passieve? Heb je er twee met Use:, dan staat de tweede op de eerste vrije plek van blok C (muis erop = welke).
+  Twee passieve trinkets: G blijft leeg, en de tooltip zegt "no trinket with a Use: effect equipped".
+- Tip: OPie op Shift G werkt; G blijft voor de trinket.
+
 ## 🆕 5 okt avond — elke layout zijn eigen weg terug (Rob op TwelveInchy: "Oak staat al als blok")
 
 - [ ] Paladin: `/reload`, `/mh block`. De knop heet nu **Zet "<jouw layout>" terug** (grijs zolang MH die layout niet
