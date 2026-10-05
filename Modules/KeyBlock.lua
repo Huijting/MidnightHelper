@@ -697,6 +697,13 @@ local function PlacePlan()
 				onD[id] = true
 			end
 		end
+		-- A spell that is being moved aside onto D already lands there: MEASURED 5 Oct 2026 on Rob's Guardian,
+		-- Mark of the Wild stood on bar 6, was parked on Alt X AND placed again as a leftover on Alt Q.
+		for _, r in ipairs(rows) do
+			if r.moveTo and r.moveTo.bar == bars.D and r.replaces and r.replaces.kind == "spell" and r.replaces.id then
+				onD[r.replaces.id] = true
+			end
+		end
 		local freeD = {}
 		for _, spot in ipairs(free) do
 			if spot.bar == bars.D then

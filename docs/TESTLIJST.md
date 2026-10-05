@@ -68,7 +68,11 @@ staat de spreuk al op D, dan niet nog eens. Undo haalt ze eraf. Tekst onderaan z
 - GEMETEN 5 okt (chat-probe op Robs Guardian): "block D: nothing placed — Mark of the Wild: no free place left on D
   (free on D: 0)". Oorzaak: bij het plannen zit D nog vol (Undo zette alles terug); de 14 dubbelen gaan pas eraf bij
   Place. Gerepareerd: een D-plek met een kopie van een blokspreuk telt als vrij.
-- [ ] Guardian: Undo → Zet het op balk 5, 6 en 7 → staan Mark of the Wild en Revive nu op een Alt-toets in D? Chatregel "block D: …"?
+- [x] Rob 5 okt ✅ (chat: "block D: Mark of the Wild -> ALT-Q, Revive -> ALT-E (free on D: 7)") Guardian: Undo → Zet het
+  op balk 5, 6 en 7 → staan Mark of the Wild en Revive nu op een Alt-toets in D?
+- GEMETEN: Mark of the Wild daarna TWEE keer (Alt Q + Alt X): hij werd ook als oude knop van balk 6 naar Alt X geparkeerd.
+  Gerepareerd: een spreuk die naar D geparkeerd wordt, telt als "al op D".
+- [ ] Guardian nog eens Undo → neerzetten: Mark of the Wild nog maar één keer?
 - [ ] Je eigen spul op D (macro's, Healthstone, Flask) blijft gewoon staan?
 - [ ] Undo: verdwijnen ze weer van D?
 
