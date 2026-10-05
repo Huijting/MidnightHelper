@@ -63,7 +63,9 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 ## 🆕 5 okt avond — muistoetsen op balk 8 als 3 × 2 (Rob: "6 7 / 8 9 / 0 -")
 
 - [x] Rob 5 okt: layout op Holy goed (balk 1 zonder versiering, balk 8 rechts van C als 3 × 2). ✅
-- [ ] `/mh padkeys` (plan, verandert niets): 6 -> knop 5, 7 -> 6, 8 -> 3, 9 -> 4; 0 en - staan al goed.
+- [x] Rob 5 okt (screenshot): balk 8 toont 6 7 / 8 9 / 0 -; "4 toetsen wijzen nu naar balk 8". ✅ Meeverhuizen van
+  spreuken niet te zien geweest (zijn knoppen waren leeg). Cooldown Manager staat boven het blok. ✅
+- [ ] (oud) `/mh padkeys` (plan, verandert niets): 6 -> knop 5, 7 -> 6, 8 -> 3, 9 -> 4; 0 en - staan al goed.
   Dan `/mh padkeys go`: bovenaan **6 7**, midden **8 9**, onder **0 -**? En staat onder elke toets nog dezelfde spreuk
   als ervoor (de spreuken verhuizen mee)?
 
