@@ -2541,7 +2541,11 @@ ns._mhLocales.enUS = {
 	CHANGELOG_460_5 = "NEW - /mh aggro and a Codex chapter: where the game's own aggro warnings are, and whether yours are on.",
 	CHANGELOG_460_6 = "Settings: the Delve Coach can stop opening by itself. Codex, currencies, Great Vault, profession course, Ritual Sites and world content checked against Season 2.",
 
-	CHANGELOG_450_1 = "NEW - Mythic+, from your first key: a guide in the Codex (Dungeons & M+) on getting a keystone, finding or starting a group, and what the timer, deaths and weekly rules mean. Button names come from your own game client. /mh mplus points to it if you have no runs yet.",
+	CHANGELOG_460_7 = "NEW - Midnight achievements you miss (Achievements tab, or /mh achlist): every Midnight achievement you do not have yet, by group, with progress. Click one to open it in the game's own window.",
+	CHANGELOG_460_8 = "NEW - /mh block: a first look at a fixed key block, the same job on the same key on every character. Nothing on your bars changes yet.",
+	CHANGELOG_460_9 = "Stay alive: tank rotation buttons that keep you alive (Consecration, Marrowrend, Blackout Kick, Keg Smash, Thrash, Soul Cleave). Consumables: 15 flask and potion picks changed after checking three guides.",
+
+	CHANGELOG_450_1 ="NEW - Mythic+, from your first key: a guide in the Codex (Dungeons & M+) on getting a keystone, finding or starting a group, and what the timer, deaths and weekly rules mean. Button names come from your own game client. /mh mplus points to it if you have no runs yet.",
 	CHANGELOG_450_2 = "NEW - I mostly play solo (Settings): hides the Mythic+ and Raids blocks from the weekly plan on This Week.",
 	CHANGELOG_450_3 = "Boss tips checked again for Season 2: the short tips of all 8 Mythic+ dungeons, and the long tips of all 17 raid bosses.",
 	CHANGELOG_450_4 = "Delves: every delve and Valeera's texts checked against 12.1. New stories added and wrong facts fixed, such as what a Coffer Key opens and Delver's Call being once per character.",

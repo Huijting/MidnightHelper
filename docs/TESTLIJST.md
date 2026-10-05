@@ -67,6 +67,10 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 - [x] Guardian: Stay alive 10 regels, **Thrash** regel 2 met Rend and Tear-note, geen rode regels. `/mh block`: Q =
   Incarnation, Bear/Cat op Ctrl 1/2. 🐛 Ctrl 3 kreeg Remove Corruption (Guardian kent Moonkin Form niet) → gerepareerd:
   Druids houden Ctrl 1-3 voor vormen, ook leeg. → na `/reload`: Ctrl 3 leeg?
+- [x] Guardian na fix: Ctrl 3 leeg ✅; Remove Corruption kwam op Shift C (overloop), Mark of the Wild + Revive "no room".
+  ⚠️ Open voor stap 2: overloop zet knoppen op plekken met een andere taak (Shift C = "big def., second").
+- [x] Prot Paladin: Stay alive regel 2 = Consecration (note klopt); Consumables flask = Blood Knights ✅. Cosmetisch:
+  "Silvermoon Health Potion / Silvermoon Health Potion" (twee rangen) bij Health Potion → later.
 - [x] `/mh achlist`: 🐛 eerst geen venster (geen ankerpunt) → gerepareerd; venster werkt: 284 van 435, groepen klappen
   open, tooltip klopt (screenshot).
 

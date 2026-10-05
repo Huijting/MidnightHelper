@@ -18,6 +18,31 @@ a raid-wide defensive or a speed boost, each with a short note on when to press 
 - **Stay alive** was checked row by row for every spec. Wrong entries are fixed or removed, a few missing defensives
   were added, and Warlocks now see their pet's interrupt (Spell Lock, Axe Toss) behind the Command Demon button where
   it really lives. Mirror Image only shows as a defensive if you have Refractive Images.
+- **Tanks:** Stay alive now also lists the rotation buttons that keep you alive, as the guides teach them:
+  Consecration (stand in it), Marrowrend (Bone Shield), Blackout Kick and Keg Smash (Shuffle), Thrash (with Rend and
+  Tear) and Soul Cleave (it heals you).
+- **Consumables:** every flask and combat potion checked against three guides (Icy Veins, Wowhead, Method). 15
+  picks changed where the guides agree on something else, for example Flask of the Blood Knights for Protection
+  Paladin and Potion of Recklessness for Balance, Shadow and Demonology.
+
+## NEW: the Midnight achievements you still miss
+
+In the **Achievements** tab there is a new button, **Midnight achievements you miss** (or type `/mh achlist`). It
+lists every Midnight achievement you do not have yet, in the game's own groups: Delves, Quests, Exploration,
+Reputation, Midnight Dungeon, Midnight Raid, Prey, Void Assaults, Ritual Sites and Housing. Each group shows how many
+you have, folds open to the ones you miss with their progress, and one click opens the game's own achievement window
+on that achievement. Names come from your own game client, so they are in your language. Asked for in our survey,
+merci!
+
+Not in the list yet: Midnight achievements that share a group with older expansions (professions, pet battles,
+skyriding, fishing, holidays).
+
+## NEW: your key block (a first look)
+
+`/mh block` shows a fixed block of 36 keys where every place has the same job on every character: 1 is always your
+main button, E your interrupt, Z your small defensive, Q your big cooldown (Ascendance on a Shaman, Avenging Wrath
+on a Paladin, and so on). It shows where **this** character's spells would go. **Nothing on your bars changes yet**;
+placing it for you comes in a later version, with a dry run and an undo.
 
 ## This Week: shorter, to-dos first
 

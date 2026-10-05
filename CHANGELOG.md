@@ -22,6 +22,11 @@ Notitie in `docs/CURSEFORGE_4.6.0.md` (identiek aan `RELEASE_NOTES.md`). Open te
   achievements, consumables/gear (vertaalde tracknamen terug), wereld. Franse consumable-notes.
 - Intern: spec-API via één deur (`ns.GetSpecialization`), SimC-export lege regio, profession skill via
   `GetProfessionInfo`.
+- **5 okt erbij (Rob koos "eerst bouwen, dan samen releasen"):** `/mh achlist` (Midnight-achievements die je mist,
+  10 groepen, gemeten met `/mh ach cats`), `/mh block` (toetsenblok, alleen het plaatje; Q = `blockQ` per spec,
+  Zenith-entry), tank-rotatieknoppen op Stay alive (Consecration, Marrowrend, Blackout Kick, Keg Smash, Thrash, Soul
+  Cleave), 15 consumables-wissels na een drie-bronnencheck + JSON weer bron, Coiled Isle-achievements (meta-rijen,
+  Venomfang, Coiled to Strike), `/mh shots` ruimt per scène op. Getest door Rob 5 okt (TESTLIJST).
 
 ## 4.5.0
 
