@@ -11,6 +11,12 @@ keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn
 ⚠️ Rob 5 okt: blok C "absoluut anders dan voorgesteld" door zijn 8 macro's → GEBOUWD, NIET GETEST: macro's niet meer
 geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
 undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
+Red team (mh-research, 5 okt) — gerepareerd: restore op naam i.p.v. index; before-bars-import wordt niet meer weggetrimd.
+Open uit het red team (Rob kiest): toetsen 1-5 weg van ACTIONBUTTON1-5 → skyriding/voertuig-knoppen? (testen); bindings
+account-breed → blok-toetsen op alle alts; layout-vlag `keyBlockLayoutOn` nog account-breed; nooit de Single-Button
+Assistant verplaatsen/verwijderen; zonder vrije knop of bij mislukte verplaatsing niet overschrijven maar rood; alleen
+parkeren op zichtbare balken; stap 2 advies = c (balk 1-4 laten staan, alleen verschuiven bij overlap); stap 3 = alleen
+dubbele SPELLS weg, nooit items/macro's/vormpagina's. Volledig rapport: task-output van 5 okt in de sessie.
 🔴 Gevonden 5 okt: snapshot stond account-breed (MidnightHelperDB) → nu `keyBlockSnapshots[UnitGUID]`; de oude wordt
 geclaimd door het personage waar een opzij gezette macro op naam op zijn `movedTo`-knop staat (Robs Paladin: "Justice",
 GEMETEN in SV). Open: toetsen zijn account-breed als character-specific bindings uit staan — blok-toetsen gelden dan ook
