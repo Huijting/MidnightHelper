@@ -60,6 +60,11 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — waarschuwing in het venster als balk 5/6/7 uit staat
+
+- [ ] Hunter (balk 5-7 niet te zien): `/mh block` toont bovenaan de voetregel in **rood** "Actiebalk 5, 6, 7 staat uit …".
+  Klopt de weg "Options > Gameplay > Action Bars"? (AFGELEID, niet nagekeken in 12.1.) Na aanzetten: rode regel weg?
+
 ## 🆕 5 okt avond — het oude paneel "Je balken inrichten" is kort (Rob: optie A)
 
 - [ ] `/mh setup` (of de MH-knop "Je balken inrichten"): nog maar 3 knoppen: **Je toetsenblok** (opent `/mh block`),

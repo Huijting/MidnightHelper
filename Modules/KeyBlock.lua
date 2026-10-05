@@ -1112,11 +1112,24 @@ Refresh = function(f)
 		f.unplaced:SetText("")
 	end
 	-- Say up front what "Place it" would do, so the button is never a surprise.
+	local foot
 	if placed then
-		f.foot:SetText(ns:L("KEYBLOCK_PLACED_STATE"))
+		foot = ns:L("KEYBLOCK_PLACED_STATE")
 	else
-		f.foot:SetText(ns.KeyBlockPreview(true) .. "|n" .. ns:L("KEYBLOCK_LEGEND"))
+		foot = ns.KeyBlockPreview(true) .. "|n" .. ns:L("KEYBLOCK_LEGEND")
 	end
+	-- A hidden block bar means keys that press buttons nobody can see (Rob's Hunter, 5 Oct 2026). That
+	-- warning was chat-only; it belongs where the player is looking.
+	local hidden = {}
+	for _, id in ipairs({ "A", "B", "C" }) do
+		if BarShown(bars[id]) == false then
+			hidden[#hidden + 1] = tostring(bars[id])
+		end
+	end
+	if #hidden > 0 then
+		foot = "|cffff6060" .. ns:L("KEYBLOCK_BARS_HIDDEN_FMT"):format(table.concat(hidden, ", ")) .. "|r|n" .. foot
+	end
+	f.foot:SetText(foot)
 end
 
 function ns.ShowKeyBlock()
