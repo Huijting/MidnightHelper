@@ -553,6 +553,7 @@ function ns.MH_EditModeRestore()
 		print(Prefix() .. " |cffff9900Edit Mode refused the restore.|r")
 		return
 	end
+	ns.db.keyBlockLayoutOn = nil
 	local msg = (ns:L("MH_SAY_BARS_RESTORED")):format(tostring(undo.layoutName))
 	print(Prefix() .. " " .. msg)
 	if ns.MH_SetupSay then
@@ -655,6 +656,11 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 	if EditModeManagerFrame and EditModeManagerFrame:IsShown() then
 		return false, ns:L("KEYBLOCK_LAYOUT_EDITMODE_OPEN")
+	end
+	-- A second press would back up the BLOCK as "before", and the undo could never reach the
+	-- player's own layout again. So: undo first.
+	if ns.db and ns.db.keyBlockLayoutOn then
+		return false, ns:L("KEYBLOCK_LAYOUT_ALREADY")
 	end
 	-- EllesmereUI draws its own bars and ignores Edit Mode rows: explain instead of writing.
 	local loaded = C_AddOns and C_AddOns.IsAddOnLoaded
@@ -798,6 +804,7 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 
 	if ns.db then
+		ns.db.keyBlockLayoutOn = true
 		ns.db.keyBlockLayoutProbe = { size = size, pad = pad, shift = shift, pinned = pinned,
 			layout = target.layoutName, at = time() }
 	end
