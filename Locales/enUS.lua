@@ -517,7 +517,7 @@ ns._mhLocales.enUS = {
 	-- Key block step 2: placing it (5 Oct 2026)
 	KEYBLOCK_BTN_PLACE = "Place it on bars 5, 6 and 7",
 	KEYBLOCK_BTN_UNDO = "Undo",
-	KEYBLOCK_PLACE_SUMMARY_FMT = "Place it would put %d buttons on your bars (%d of them replace something) and leave %d that are already right. %d places hold something MH cannot put back, so they are left alone; %d stay free. Undo puts everything back.",
+	KEYBLOCK_PLACE_SUMMARY_FMT = "Place it would put %d buttons on your bars, move %d things aside to bars 2-4, and leave %d that are already right. %d places hold something MH cannot put back, so they are left alone; %d stay free. Undo puts everything back.",
 	KEYBLOCK_LEGEND = "|cff40d95agreen|r = goes here · |cffff8c1aorange|r = what is there now moves to a free button on bar 2, 3 or 4 (point at it to see where) · |cffff4040red|r = left alone, MH cannot put it back · grey = already right or free",
 	KEYBLOCK_TIP_MOVES_FMT = "Place it: %s moves to action bar %d, button %d. Undo puts it back here.",
 	KEYBLOCK_TIP_PLACE = "Place it: goes on this button.",

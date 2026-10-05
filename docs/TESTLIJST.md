@@ -72,6 +72,8 @@ Niet in een gevecht.
   Rebuke, Taunt, Prot …) op balk 2, 3 of 4? Werken ze nog als je erop klikt?
 - [ ] **Terugzetten**: staan je macro's weer precies op hun oude plek op balk 7?
 - Let op: een macro die opzij gaat, houdt zijn oude toets niet. De toets hoort nu bij het blok.
+- [ ] (Rob "1 ja") Plekken waar MH niets voor heeft (Paladin: Shift 1, Shift 2, Shift 3, 4, Shift 4, Shift T) worden nu
+  **echt leeg**: wat er stond (het blaadje, Clean) gaat ook naar balk 2-4. Oranje rand op het plaatje vóór het neerzetten.
 
 ## 🆕 5 okt avond — toetsenblok stap 2b: de balken als blok op je scherm (Rob: "1 advies, 2 advies, 3 advies")
 

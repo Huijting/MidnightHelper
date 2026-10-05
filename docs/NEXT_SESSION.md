@@ -11,6 +11,9 @@ keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn
 ⚠️ Rob 5 okt: blok C "absoluut anders dan voorgesteld" door zijn 8 macro's → GEBOUWD, NIET GETEST: macro's niet meer
 geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
 undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
+Rob "1 ja": lege blokplekken worden ook leeggemaakt (actie `clear`, zelfde opzij-zetten). OPEN, wacht op red team
+(mh-research, voor/nadelen): 2a/b/c kolommen over de questlijst; Robs vraag "balk 1-4 helemaal leeg?" (mijn tegenvoorstel:
+alleen dubbelen weg, met undo).
 Oorspronkelijk (Rob: "1 advies, 2 advies, 3 advies"; plaatje https://claude.ai/artifact/8Qy5EfdBVTrU6dmvTQK5xR):
 `ns.MH_EditModeApplyKeyBlock` in `EditModeBackup.lua`, knop in `/mh block`, ook `/mh block layout`. Balk 5/6/7 = 3×4 naast
 elkaar onderaan (B midden, A/C eraan vast), 1-4 verticaal rechts, stance/possess boven A, extra (systeem 5) boven B, pet

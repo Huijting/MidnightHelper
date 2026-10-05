@@ -511,7 +511,7 @@ ns._mhLocales.nlNL = {
 	-- Toetsenblok stap 2: neerzetten (5 okt 2026)
 	KEYBLOCK_BTN_PLACE = "Zet het op balk 5, 6 en 7",
 	KEYBLOCK_BTN_UNDO = "Terugzetten",
-	KEYBLOCK_PLACE_SUMMARY_FMT = "Neerzetten zou %d knoppen op je balken zetten (%d daarvan vervangen iets) en %d laten staan die al goed zijn. %d plekken houden iets wat MH niet kan terugzetten, die blijven ongemoeid; %d blijven leeg. Terugzetten maakt alles weer zoals het was.",
+	KEYBLOCK_PLACE_SUMMARY_FMT = "Neerzetten zou %d knoppen op je balken zetten, %d dingen opzij zetten naar balk 2-4, en %d laten staan die al goed zijn. %d plekken houden iets wat MH niet kan terugzetten, die blijven ongemoeid; %d blijven leeg. Terugzetten maakt alles weer zoals het was.",
 	KEYBLOCK_LEGEND = "|cff40d95agroen|r = komt hier · |cffff8c1aoranje|r = wat er nu staat gaat naar een vrije knop op balk 2, 3 of 4 (wijs het aan om te zien waar) · |cffff4040rood|r = blijft ongemoeid, MH kan het niet terugzetten · grijs = staat al goed of blijft leeg",
 	KEYBLOCK_TIP_MOVES_FMT = "Neerzetten: %s gaat naar actiebalk %d, knop %d. Terugzetten zet het hier terug.",
 	KEYBLOCK_TIP_PLACE = "Neerzetten: komt op deze knop.",

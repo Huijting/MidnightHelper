@@ -483,6 +483,14 @@ local function PlacePlan()
 			row.want = want
 			if not want then
 				row.action, row.why = "skip", why or "nothing for this place on this character"
+				-- Rob, 5 Oct 2026 ("1 ja"): an empty place on the picture is empty on the bar too. What
+				-- stands there now moves aside like anything else the block replaces.
+				local kind, id = Occupant(row.slot)
+				if kind and RESTORABLE[kind] then
+					row.action = "clear"
+					row.replaces = { kind = kind, id = id, name = (kind == "macro" and GetActionText(row.slot))
+						or OccupantName(kind, id) }
+				end
 			else
 				local kind, id = Occupant(row.slot)
 				if kind == want.kind and id == want.id then
@@ -522,7 +530,7 @@ local function PlacePlan()
 		end
 	end
 	for _, r in ipairs(rows) do
-		if r.action == "place" and r.replaces then
+		if (r.action == "place" or r.action == "clear") and r.replaces then
 			local spot = table.remove(free, 1)
 			if spot then
 				r.moveTo = spot
@@ -560,10 +568,10 @@ function ns.KeyBlockPreview(quiet)
 		end
 		return ns:L("KEYBLOCK_PLACE_NOTHING")
 	end
-	local n = { place = 0, keep = 0, refuse = 0, skip = 0, replace = 0 }
+	local n = { place = 0, keep = 0, refuse = 0, skip = 0, replace = 0, clear = 0 }
 	for _, r in ipairs(rows) do
 		n[r.action] = n[r.action] + 1
-		if r.action == "place" and r.replaces then
+		if r.replaces then
 			n.replace = n.replace + 1
 		end
 	end
@@ -577,6 +585,8 @@ function ns.KeyBlockPreview(quiet)
 					r.replaces and (" |cffffcc00(replaces " .. r.replaces.name .. ")|r") or "")
 			elseif r.action == "keep" then
 				line = ("|cff9d9d9dalready there|r %s"):format(WantName(r.want))
+			elseif r.action == "clear" then
+				line = ("|cffffcc00made empty|r %s: %s moves aside"):format(where, r.replaces.name or "?")
 			elseif r.action == "refuse" then
 				line = ("|cffff8080left alone|r %s: %s"):format(where, r.why)
 			else
@@ -614,7 +624,7 @@ function ns.KeyBlockPlace()
 	local snap = { slots = {}, binds = {}, at = time and time() or nil }
 	-- Snapshot everything we are about to touch, before touching anything.
 	for _, r in ipairs(rows) do
-		if r.action == "place" then
+		if r.action == "place" or r.action == "clear" then
 			local kind, id = Occupant(r.slot)
 			snap.slots[#snap.slots + 1] = { slot = r.slot, kind = kind, id = id,
 				name = r.replaces and r.replaces.name, movedTo = r.moveTo and r.moveTo.slot }
@@ -627,6 +637,22 @@ function ns.KeyBlockPlace()
 
 	local placed, bound, failed, moved = 0, 0, {}, 0
 	for _, r in ipairs(rows) do
+		-- An empty place: move what is there aside (or, with no free button left, just lift it off;
+		-- the undo then puts it back by kind).
+		if r.action == "clear" then
+			pcall(function()
+				ClearCursor()
+				PickupAction(r.slot)
+				if r.moveTo then
+					PlaceAction(r.moveTo.slot)
+				end
+				ClearCursor()
+			end)
+			pcall(ClearCursor)
+			if r.moveTo and HasAction(r.moveTo.slot) then
+				moved = moved + 1
+			end
+		end
 		if r.action == "place" then
 			-- Move what is there now to its free button first: a plain drag, so a macro stays itself.
 			if r.moveTo then
@@ -790,7 +816,7 @@ local function SlotTooltip(btn)
 	local r = d.plan
 	if r then
 		GameTooltip:AddLine(" ")
-		if r.action == "place" and r.replaces and r.moveTo then
+		if (r.action == "place" or r.action == "clear") and r.replaces and r.moveTo then
 			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_MOVES_FMT"):format(r.replaces.name or "?", r.moveTo.bar, r.moveTo.button),
 				1, 0.6, 0.2, true)
 		elseif r.action == "place" and r.replaces then
@@ -991,7 +1017,7 @@ Refresh = function(f)
 			end
 			local r = planBy[slot.key]
 			data.plan = r
-			local col = r and ((r.action == "place" and r.replaces and PLAN_BORDER.replace)
+			local col = r and (((r.action == "place" or r.action == "clear") and r.replaces and PLAN_BORDER.replace)
 				or PLAN_BORDER[r.action])
 			if col then
 				b:SetBackdropBorderColor(col[1], col[2], col[3], 1)
