@@ -83,7 +83,10 @@ GEMETEN (Robs Resto): heals 1-4, Wild Growth/Nature's Swiftness, Moonfire Shift-
 Alt 1. Rode regel: 7 bewust weggelaten spreuken. Gebouwd: `blockAs[spec].onlyD` (KeyBlockAllocate) = nooit A/B/C, meteen
 naar een vrije Alt-plek op D; Heart of the Wild + Stampeding Roar krijgen dat voor 105. Cat/bear-aanvallen en Starfire in
 `NO_KEY_ON_PURPOSE`. Standaardblok Resto: nog steeds 29 plekken (niets weggeduwd).
-- [ ] Resto: /reload, Undo → neerzetten: Heart of the Wild en Stampeding Roar op een Alt-toets? Rode regel weg?
+- [x] Rob 5 okt ✅ (nieuwe-spreuk-venster "Stampeding Roar -> Alt 2, Heart of the Wild -> Alt 3", daarna op het blok)
+  Resto: Heart of the Wild en Stampeding Roar op een Alt-toets?
+- Rode regel noemde nog Frenzied Regeneration → nu ook onlyD voor 102 en 105 (staat op hun Stay alive-kaart).
+- [ ] Resto en Balance na /reload: Frenzied Regeneration aangeboden voor een Alt-toets? Rode regel weg?
 
 ## 🔍 5 okt laat — Robs Guardian Druid (Purlymixanox): blok goed, 2 zonder plek, 5 "onbekend"
 
