@@ -77,6 +77,15 @@ staat de spreuk al op D, dan niet nog eens. Undo haalt ze eraf. Tekst onderaan z
 - [ ] Je eigen spul op D (macro's, Healthstone, Flask) blijft gewoon staan?
 - [ ] Undo: verdwijnen ze weer van D?
 
+## 🆕 5 okt nacht — Warlockie: nieuwe spreuken aangeboden; gedeelde layout niet meer "klaar"
+
+GEMETEN (Rob, inloggen op Warlockie, lvl 82): venster "Grimoire: Fel Ravager -> Shift 3, Shadowfury -> Shift F, Demonic
+Circle -> Shift C". Rob: "als we vaker twelve retro tegen komen op een andere character dan moeten we dat zien te
+voorkomen!!" → stap 2 van het stappenplan is op een preset of GEDEELDE layout nooit meer afgevinkt, ook niet als die
+layout al een blok is; de knop biedt dan "Eigen layout + blok".
+- [ ] Warlockie: stap 2 staat open met "Eigen layout + blok"? Druk → "Warlockie Demonology" + herladen → stap 2 groen,
+  en je Paladin merkt niets.
+
 ## 🆕 5 okt nacht — onbekende spreuken gaan vanzelf naar een vrije Alt-plek op blok D (Rob: "ja, bouw het zo")
 
 - [ ] Op een personage met een rode regel: `/reload` → Undo → neerzetten. Staan de genoemde spreuken nu op Alt-toetsen?

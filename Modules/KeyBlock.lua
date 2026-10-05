@@ -1834,7 +1834,11 @@ local function UpdateGuide(f)
 	end
 	local steps = {
 		{ text = "KEYBLOCK_GUIDE_1", done = placed, which = "place", btn = "KEYBLOCK_GUIDE_DO" },
-		{ text = onPreset and "KEYBLOCK_GUIDE_2_PRESET" or "KEYBLOCK_GUIDE_2", done = layoutOn, which = "layout",
+		-- Not done on a preset or a SHARED account layout, even when that layout is a block (Rob, 5 Oct 2026,
+		-- on Warlockie and Reddish, both on his Paladin's "twelve retro": "als we vaker twelve retro tegen komen
+		-- op een andere character dan moeten we dat zien te voorkomen!"). The step then offers a layout of this
+		-- character's own, so nothing it changes reaches the others.
+		{ text = onPreset and "KEYBLOCK_GUIDE_2_PRESET" or "KEYBLOCK_GUIDE_2", done = layoutOn and not onPreset, which = "layout",
 			btn = "KEYBLOCK_GUIDE_DO" },
 		{ text = "KEYBLOCK_GUIDE_3", which = "pad", btn = "KEYBLOCK_GUIDE_DO", optional = true },
 		{ text = "KEYBLOCK_GUIDE_4", which = "card", btn = "KEYBLOCK_GUIDE_OPEN" },
