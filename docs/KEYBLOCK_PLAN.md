@@ -87,8 +87,8 @@ A1 overloop blijft vrije plekken van balk C vullen; B1 balk 5/6/7 mag overschrev
 trinket (slot 13), healing potion (eerste uit de consumables-data in je tas) en Healthstone (5512, als in tas) erop.
 `ns.KeyBlockPreview/Place/Undo` in KeyBlock.lua, knoppen in het venster + `/mh block place|go|undo`. Regels van
 ApplyLayout overgenomen: alleen spell/item overschrijven (macro/flyout/mount = "left alone"), elke plaatsing teruggelezen,
-snapshot per slot en per toets in `ns.db.keyBlockSnapshot`, één keer neerzetten tot undo. Toetsen zonder iets eronder
-worden NIET gekoppeld (Shift 2 houdt zijn oude functie). Waarschuwt als balk 5/6/7 verborgen is.
+snapshot per slot en per toets in `ns.db.keyBlockSnapshot`, één keer neerzetten tot undo. ⚠️ Gewijzigd 5 okt avond: ALLE 36
+toetsen worden aan hun plek gekoppeld, ook lege (Robs Hunter: Shift Z/X/C/V drukten nog oude knoppen op balk 3/4). Waarschuwt als balk 5/6/7 verborgen is.
 
 ## Stap 2b: balken zelf neerzetten via Edit Mode — GEBOUWD 5 okt, niet getest
 

@@ -702,9 +702,10 @@ function ns.KeyBlockPlace()
 			snap.slots[#snap.slots + 1] = { slot = r.slot, kind = kind, id = id,
 				name = r.replaces and r.replaces.name, movedTo = r.moveTo and r.moveTo.slot }
 		end
-		if r.action == "place" or r.action == "keep" then
-			snap.binds[#snap.binds + 1] = { key = r.key, was = GetBindingAction and GetBindingAction(r.key) or "" }
-		end
+		-- EVERY block key goes to its own place, also an empty one (Rob's Hunter, 5 Oct 2026: Shift Z/X/C/V
+		-- still pressed old buttons on bars 3 and 4, because only filled places were bound). An empty
+		-- place's key now does nothing until something lands there — the same key, the same place.
+		snap.binds[#snap.binds + 1] = { key = r.key, was = GetBindingAction and GetBindingAction(r.key) or "" }
 	end
 	SetSnap(snap)
 
@@ -766,7 +767,7 @@ function ns.KeyBlockPlace()
 				failed[#failed + 1] = WantName(r.want)
 			end
 		end
-		if r.action == "place" or r.action == "keep" then
+		do
 			if SetBinding(r.key, r.command) then
 				bound = bound + 1
 			end

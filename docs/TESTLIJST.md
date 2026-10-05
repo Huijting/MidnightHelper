@@ -60,6 +60,11 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — alle 36 toetsen horen bij het blok, ook lege plekken
+
+- [ ] Hunter: **Terugzetten**, dan **Zet het op balk 5, 6 en 7**. Staan de labels Shift Z/X/C/V, Shift 4, Shift F1 nu op
+  de lege plekken van blok C (en niet meer op de kolommen rechts)? Doet een lege toets niets?
+
 ## 🆕 5 okt avond — waarschuwing in het venster als balk 5/6/7 uit staat
 
 - [ ] Hunter (balk 5-7 niet te zien): `/mh block` toont bovenaan de voetregel in **rood** "Actiebalk 5, 6, 7 staat uit …".
