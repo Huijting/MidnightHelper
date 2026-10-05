@@ -74,7 +74,8 @@ gaan eraf (alleen spreuken; macro's en items blijven). Undo zet alles terug.
 - [x] Rob 6 okt ✅ (screenshot: D houdt alleen Resurrection, Mass Resurrection, Healthstone, Plea) Discipline: **Undo** → **Zet het op balk 5, 6 en 7**. Staan Flash Heal, Power Word: Shield, Evangelism, Desperate
   Prayer, Angelic Feather, Psychic Scream, Mass Dispel en Recuperate nu maar **één** keer (in het blok, niet ook op D)?
 - [ ] Chat: "… doubles off bar 1 and block D" met een getal.
-- [ ] **Undo** daarna: staat balk D weer zoals vóór het neerzetten?
+- [x] Rob 6 okt ✅ **Undo** daarna: staat balk D weer zoals vóór het neerzetten?
+- [x] Rob 6 okt ✅ Priest **Holy**: blok neergezet, heals op 1-4, niets dubbel op D, speelkaart-toetsen kloppen.
 - [ ] Zonder blok (ander personage): dezelfde toetsen als vóór vandaag.
 
 ## 🆕 6 okt — `/mh export` geeft nu ook het item-nummer (voor Wowhead-tooltips op de Armory)

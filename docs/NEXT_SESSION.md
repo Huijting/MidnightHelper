@@ -31,7 +31,8 @@ balk 1, dan A/B/C eerst. ✅ Rob getest (screenshot): Flash Heal [3], PW:S [2], 
 Daarna (Rob: "dubbele kopieën gelijk opruimen") — GEBOUWD, NIET GETEST: `PlacePlan` parkeert een vervangen spell niet
 als het blok hem zelf plaatst (`r.double`, `WantedSpells`), en Place haalt spell-dubbelen ook van balk D (bar 4) af,
 naast balk 1. Snapshot-regel zonder movedTo → Undo zet terug op id. Al geplaatste blokken: pas na Undo + opnieuw.
-✅ Rob getest op Discipline (screenshot): D zonder dubbelen. Undo-na-opruimen en Holy nog open.
+✅ Rob getest op Discipline (screenshot): D zonder dubbelen. ✅ Undo-na-opruimen en Priest Holy ook goed (Rob 6 okt).
+Toetsenblok-tests van Rob daarmee rond; Rob vroeg wat er nog open staat vóór "go".
 **Nog te testen (zie bovenaan `docs/TESTLIJST.md`):** Reddish (Hunter 90) met stappenplan + "Eigen layout + blok" op
 gedeelde layout + heropenen na herladen; healer-blok in het spel op Holy (`/mh block why`: Holy Bulwark F3? Beacon of
 Virtue Shift 1? — AFGELEID, niet gemeten); vinkjes als plaatje.
