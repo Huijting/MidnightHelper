@@ -1,5 +1,45 @@
 # Midnight Helper — waar we staan
 
+## 🧭 STAND EIND 5 OKT (start hier in een nieuwe chat) — toetsenblok bijna af, NIETS gepusht
+
+Laatste commit: `git -C "<repo>" log --oneline -1` (5 okt avond ~471165d). Alles sinds tag `v4.6.0` (7cc2174) is LOKAAL;
+push/tag/release alleen op Robs "go". Rob test nog; release-nummer nog niet gekozen (voorstel 4.7.0).
+
+**Wat er staat (code: `Modules/KeyBlock.lua`, `Modules/EditModeBackup.lua`; plan `docs/KEYBLOCK_PLAN.md`):**
+- `/mh block`: 5 blokken van 3×4 — **1** (balk 1), **D** (balk 4, eigen spullen, Alt-toetsen), **A/B/C** (balk 5/6/7) —
+  plus **balk 8 als 3×2** rechts (muistoetsen 6 7 / 8 9 / 0 -, `/mh padkeys go`). Stappenplan-paneel bovenaan
+  (aan/uit), herlaad-venster midden in beeld, venster opent vanzelf weer na "Nu herladen".
+- Neerzetten / Terugzetten / Bijwerken: snapshot **per personage + spec** (`keyBlockSnapshots["GUID:spec"]`), alle 48
+  toetsen gekoppeld, macro's/oude knoppen gaan opzij (eerst naar D), dubbelen van balk 1 af, Blizzards auto-push uit.
+- Layout via Edit Mode: per layout een eigen weg terug; staat een spec op **Modern/Classic of een gedeelde account-layout**
+  → knop "Eigen layout + blok" maakt "<Naam> <Spec>" (character-layout, alleen die spec; GEMETEN: actieve layout is per spec).
+- Nieuwe spreuk → venstertje "Nieuw voor je toetsenblok" (schakelaar vraag/vanzelf/nooit). Skyriding/voertuig: 1-5 =
+  balk 1-knoppen 1-5 (Rob getest). Trinkets: alleen met Use:, beide. Pet-spreuken via flyouts (Rob getest).
+- **Healers**: elke spreuk van de speelkaart heeft een toets, heals op 1-4/Shift 1-2 (commit "Healer key blocks";
+  `blockAs`-veld in classifiers = per-spec betekenis alleen op het blok). E leeg bij 6 van 7 healers (geen kick in Midnight).
+- Speelkaart ("Zo speel je"): [toets] achter elke spreuknaam + bij healers "Zo heal je".
+- Spiekbrief: `/mh block export` → `MH-KEYBLOCK 1` (contract, zie functie-header). Site-pagina /keyblock/ staat op
+  branch "keyblock" van de site-repo, NIET live (pas bij release). `data/keyblock_specs.json` via `run keyblock_specs`.
+- Oude paneel `/mh setup` = 3 knoppen (optie A). BUFF ALLY-fix: geheime aura-id = "weet niet" (Rob getest).
+
+**Rob getest ✅:** Hunter laag level, Paladin Prot + Holy (layout, blok, padkeys, skyriding), Holy eigen layout, BUFF ALLY.
+**Nog te testen (zie bovenaan `docs/TESTLIJST.md`):** Reddish (Hunter 90) met stappenplan + "Eigen layout + blok" op
+gedeelde layout + heropenen na herladen; healer-blok in het spel op Holy (`/mh block why`: Holy Bulwark F3? Beacon of
+Virtue Shift 1? — AFGELEID, niet gemeten); vinkjes als plaatje.
+
+**Open (niet blokkerend):**
+- Vertalen de/fr/es/pt/it: nieuwste keys alleen en/nl — KEYBLOCK_GUIDE_*, KEYBLOCK_RELOAD_POPUP, KEYBLOCK_OWN_* (deels),
+  PLAYCARD_HEAL_HOW*, gewijzigde KEYBLOCK_GUIDE_2_PRESET. mh-writer, alleen Translations2026.lua.
+- Id-ronde voor de site: `data/keyblock_specs.json` 415/1064 plekken met id (GEMETEN). NIET uit commentaar invullen
+  (lint [20]-regel) — per klasse via wago.tools (mh-research). Rob moet starten.
+- Kleine tekstpuntjes: KEYBLOCK_TIP_REFUSE_FMT krijgt Engelse redenen; LAYOUT_DONE noemt oude knopnaam.
+- Preservation-dispel (Naturalize) niet op V: geen geverifieerd id.
+- Release: CHANGELOG/RELEASE_NOTES/docs/CURSEFORGE_<ver>.md/.toc nog niet gemaakt; bij tag site-chat seinen.
+
+Site-chat = sessie "Midnight Helper site" (ListAgents + SendMessage); die wacht op id-ronde en release-seintje.
+
+---
+
 ## ⌨️ 5 okt — volgende release pas met toetsenblok stap 2 (Rob: "De volgende wijzigingen gaan door als we ook het blok en de keys dat gedeelte af hebben")
 
 Stap 2a (neerzetten + undo): ✅ Rob getest (Place + Undo werken); proefrit staat nu als gekleurde randen op het plaatje
