@@ -202,7 +202,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Ontbrekende ST-heals + ST-HoTs -> click_cast (mouseover, GEEN toets). Regrowth is
     -- Resto-only en bestaat NIET als aparte Lua-key elders -> veilig toegevoegd.
     ["Rejuvenation"]                     = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-HoT (Resto-only) -> mouseover/click-cast
-    ["Regrowth"]                         = { id = 8936, role = "click_cast", priority = 1, specs = { 105 }, survivalSpecs = { 102, 105 }, survival = "heal", survivalOrder = 2 }, -- ST-heal + kort HoT -> mouseover/click-cast; card: Resto's own self-heal, en Balance (baseline, castbaar in Moonkin Form; 3 okt 2026)
+    ["Regrowth"]                         = { id = 8936, role = "click_cast", priority = 1, specs = { 105 }, survivalSpecs = { 102, 103, 105 }, survival = "heal", survivalOrder = 2, survivalNote = { [103] = "SURVIVAL_NOTE_INSTANT_REGROWTH" } }, -- Feral 5 Oct 2026: free instant after a finisher (Predatory Swiftness, IV Feral Easy Mode) -- ST-heal + kort HoT -> mouseover/click-cast; card: Resto's own self-heal, en Balance (baseline, castbaar in Moonkin Form; 3 okt 2026)
     ["Lifebloom"]                        = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-HoT op tank (Resto-only) -> mouseover/click-cast
     -- Cenarion Ward: verwijderd 17 sep (weg in 12.0, patchnotes).
     ["Wild Growth"]                      = { category = "raid_heal", priority = 2, bindKey = "Shift+4", specs = { 105 } }, -- AoE-raidheal BLIJFT op toets (Shift+4)
@@ -244,7 +244,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- blijft op R (base, mobility). bindKey forceert de plek (base R/T/X telt mee
     -- op het keyboard, geen overflow naar de situational-lijst).
     -- blockForm (4 Oct 2026): the key block puts forms on Ctrl-1/2/3 (KeyBlock.lua; Shift-T/R belong to bar B there).
-    ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T", blockForm = 1 }, -- tank/def-vorm (nood-mitigation)
+    ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T", blockForm = 1, survival = { [102] = "big", [103] = "big", [105] = "big" }, survivalOrder = 3, survivalId = { [102] = 5487, [103] = 5487, [105] = 5487 }, survivalNote = "SURVIVAL_NOTE_BEAR_FORM" }, -- tank/def-vorm (nood-mitigation); card 5 Oct 2026: emergency button without a cooldown for Balance/Feral/Resto (IV Easy Mode, Method Resto); not Guardian (always in it); id Wowhead, not client-measured
     ["Cat Form"]                         = { category = "utility", priority = 5, bindKey = "Shift+R", blockForm = 2 }, -- melee-DPS-vorm
     ["Moonkin Form"]                     = { category = "utility", priority = 6, bindKey = "Shift+X", blockForm = 3 }, -- caster-vorm (Balance/Resto Affinity)
     -- Out-of-combat, achteraan gezet: ze horen in de tabel zodat de coach ze KENT, maar ze

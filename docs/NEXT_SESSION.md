@@ -2,6 +2,10 @@
 
 ## 🚀 5 okt — 4.6.0 uitgebracht (Rob: "beide goed, go")
 
+✅ Healers/DPS op Stay alive GEBOUWD voor 4.6.1 (Rob: "advies volgen"): Flash Heal (Priests, survivalRequires 193063
+Protective Light), Bear Form (102/103/105 big), Regrowth ook Feral (note), Deep Breath (1467, survivalRequires 410352
+Stretch Time). Niet: Bloodthirst, Blade Dance, Preservation Deep Breath (onzeker). 4 nieuwe notes enUS+nlNL; de/fr/es/
+pt/it in de vertaalronde van 4.6.1. Talent-ids via IsPlayerSpell NIET gemeten (passieve talenten) → TESTLIJST.
 Gepusht + tag `v4.6.0` (start de CurseForge-upload). Site-chat geseind (nachttaak bouwt /play/ uit de tag). Volgende:
 4.6.1 = woordkeus per taal (hieronder) + healers/DPS op Stay alive (`scratchpad\dpsheal_survival.json`, Rob kiest);
 4.7.0 = toetsenblok stap 2 ("zet neer"; eerst beslissen wat overloop doet), Defensive Stance/Earth Shield/Soulburn,

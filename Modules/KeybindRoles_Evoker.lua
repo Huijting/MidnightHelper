@@ -69,7 +69,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Quell"] = { id = 351338, role = "interrupt", priority = 1, specs = { 1467, 1473 }, survival = "interrupt", survivalOrder = 1 },
 	-- Movement (Q / Shift+Q)
 	["Hover"] = { id = 358267, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q (movement, baseline)
-	["Deep Breath"] = { role = "utility_primary", priority = 2 },        -- Shift+Q (movement, ook major damage-CD)
+	["Deep Breath"] = { role = "utility_primary", priority = 2, survival = { [1467] = "big" }, survivalOrder = 2, survivalRequires = 410352, survivalId = { [1467] = 357210 }, survivalNote = "SURVIVAL_NOTE_STRETCH_TIME" },        -- Shift+Q (movement, ook major damage-CD); card 5 Oct 2026, Devastation only: with Stretch Time 410352 hits arrive slowly (IV Dev Easy Mode); ids Wowhead, not client-measured
 	-- Kleine defensive (Z)
 	-- Card: 30% for 12 s on 1.5 min (IV-Dev, WH-spell) — the main defensive, a cooldown, not a keep-up.
 	["Obsidian Scales"] = { id = 363916, role = "defensive_1", priority = 1, survival = "big", survivalOrder = 1 }, -- Z (kleine def, baseline); card: big sinds 3 okt 2026 (30% DR 12 s, sterkste eigen def; IV 12.1)

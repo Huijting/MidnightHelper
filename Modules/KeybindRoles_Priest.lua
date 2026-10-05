@@ -202,5 +202,5 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- Mindbender removed 17 Sep: passive now (audit, BRON Icy Veins Shadow 12.1).
 
 	-- Gedeelde healer-click_cast (Disc + Holy):
-	["Flash Heal"] = { role = "click_cast", priority = 1, specs = { 256, 257 } }, -- snelle ST-heal (click-cast)
+	["Flash Heal"] = { role = "click_cast", priority = 1, specs = { 256, 257 }, survivalSpecs = { 256, 257, 258 }, survival = "small", survivalOrder = 3, survivalRequires = 193063, survivalId = { [256] = 2061, [257] = 2061, [258] = 2061 }, survivalNote = "SURVIVAL_NOTE_PROTECTIVE_LIGHT" }, -- snelle ST-heal (click-cast); card 5 Oct 2026: with Protective Light 193063 a small defensive, 10% less damage (Method Disc/Holy 17 Sep, IV Shadow); ids Wowhead, not client-measured
 }
