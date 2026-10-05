@@ -74,9 +74,9 @@ Niet in een gevecht, Edit Mode dicht. Eerst `/reload` (je screenshot van 5 okt t
   MH zet die eerst vast op zijn plek.)
 - [x] Rob 5 okt: blok, kolommen en terugzetten werken. GEMETEN: het spel vult van **onder** naar boven (knop 1 linksonder),
   dus het blok stond ondersteboven t.o.v. het plaatje. Gerepareerd: plek 1-4 van het plaatje gaat nu op knop 9-12.
-- [ ] **Na de reparatie:** eerst **Terugzetten**, `/reload`, dan **Zet het op balk 5, 6 en 7**. Staat nu **1 2 3 4 bovenaan** en
+- [x] (Rob 5 okt, screenshot: klopt) **Na de reparatie:** eerst **Terugzetten**, `/reload`, dan **Zet het op balk 5, 6 en 7**. Staat nu **1 2 3 4 bovenaan** en
   **Z X C V onderaan**, net als op het plaatje (en je toetsenbord)?
-- [ ] Daarna ook **Balken terug zoals ze waren** → herladen → **Zet mijn balken als blok** → herladen: zijn de **lege
+- [x] (Rob 5 okt, screenshot: lege knoppen zichtbaar) Daarna ook **Balken terug zoals ze waren** → herladen → **Zet mijn balken als blok** → herladen: zijn de **lege
   knoppen** in het blok nu zichtbaar, zodat elk blok een strak 3 × 4 is?
 - [ ] Zijn balk 6 en 7 zichtbaar? Zo niet: Options → Action Bars → Action Bar 6 en 7 aanzetten.
 - [ ] Daarna **Bars back as they were** → Reload now → alles weer zoals vanochtend?
