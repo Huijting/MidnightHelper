@@ -103,7 +103,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	OMNIUM_FOOTER = "Le raccomandazioni sono linee guida generali, non BiS per spec — la tooltip della spell in gioco fa fede. Gli sblocchi (linea di quest + Mote settimanali) sono per account; solo la scelta della runa è per personaggio. Saltata una settimana? Recupera facendo le quest mancanti una dopo l'altra.",
 
 	OMNIUM_MODE_MPLUS = "Mythic+",
-	OMNIUM_MODE_RAID = "Raid",
+	OMNIUM_MODE_RAID = "Incursione",
 	OMNIUM_MODE_PVP = "PvP",
 	OMNIUM_MODE_WORLD = "Mondo",
 
@@ -120,7 +120,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	OMNIUM_RUNE_SELFMEND = "Rune of Self-Mending",
 	OMNIUM_RUNE_SELFMEND_DESC = "Ti cura ogni volta che la tua Core Rune infligge danni o cure mentre sei sotto il 75% di vita. La scelta predefinita per il gioco casual / contenuto mondo.",
 	OMNIUM_RUNE_SHELL = "Rune of Void-Tainted Shell",
-	OMNIUM_RUNE_SHELL_DESC = "Scudo di assorbimento contro ogni colpo oltre il 10% della vita massima; il 50% torna come sanguinamento in 10s. CD 30s. Migliore per Raid/M+ (contrasta i one-shot).",
+	OMNIUM_RUNE_SHELL_DESC = "Scudo di assorbimento contro ogni colpo oltre il 10% della vita massima; il 50% torna come sanguinamento in 10s. CD 30s. Migliore per Incursione/M+ (contrasta i one-shot).",
 	OMNIUM_RUNE_LYNX = "Rune of Lynxlike Reflexes",
 	OMNIUM_RUNE_LYNX_DESC = "Subire danni dà velocità di movimento per 10s. CD 30s. Scelta di nicchia per mobilità / PvP.",
 	OMNIUM_RUNE_LINGERING = "Rune of Lingering",
@@ -138,7 +138,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	OMNIUM_RUNE_RESIDUAL = "Rune of Residual Energy",
 	OMNIUM_RUNE_RESIDUAL_DESC = "Raddoppia l'effetto Lingering. Migliore in qualsiasi build basata sugli effetti nel tempo (spec DoT, single-target lunghi).",
 	OMNIUM_RUNE_ECHOES = "Rune of Echoes",
-	OMNIUM_RUNE_ECHOES_DESC = "Dopo 10s, ripete tutto l'output Core + Lingering al 50%. Il tetto più alto, ma solo con ~90%+ di uptime (combattimenti raid lunghi).",
+	OMNIUM_RUNE_ECHOES_DESC = "Dopo 10s, ripete tutto l'output Core + Lingering al 50%. Il tetto più alto, ma solo con ~90%+ di uptime (lunghi combattimenti in incursione).",
 })
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
@@ -237,7 +237,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	OMNIUM_RUNE_ORBS_DESC = "Erhält alle 10s 1 Void-Kugel (max. 5); Schaden an einem Gegner schickt alle Kugeln auf ihn (Kosmosschaden), Heilung schickt sie zum am schwersten verletzten Verbündeten in der Nähe. Sicherste Allround-Wahl.",
 	OMNIUM_RUNE_FIRE_DESC = "Zauber lösen Feuersäulen aus (Schaden oder Heilung für nahe Verbündete). Braucht gute Positions-Uptime.",
 	OMNIUM_RUNE_SELFMEND_DESC = "Heilt dich jedes Mal, wenn deine Kernrune Schaden oder Heilung verursacht, während du unter 75% Leben bist. Standard für entspanntes Spielen / Weltinhalte.",
-	OMNIUM_RUNE_SHELL_DESC = "Absorbschild gegen jeden Treffer über 10% max. Leben; 50% bluten über 10s nach. 30s AZ. Beste Wahl für Raid/M+ (kontert One-Shots).",
+	OMNIUM_RUNE_SHELL_DESC = "Absorbschild gegen jeden Treffer über 10% max. Leben; 50% bluten über 10s nach. 30s AZ. Beste Wahl für Schlachtzug/M+ (kontert One-Shots).",
 	OMNIUM_RUNE_LYNX_DESC = "Erlittener Schaden gewährt 10s Bewegungstempo. 30s AZ. Nischen-Mobilität / PvP-Wahl.",
 	OMNIUM_RUNE_LINGERING_DESC = "Fügt nach jedem Kernrunen-Proc einen 8s-Effekt über Zeit hinzu — verdoppelt grob den Gesamtdurchsatz bei guter Überlappung.",
 	OMNIUM_RUNE_CRIT_DESC = "Jeder Kern-Proc stapelt kritische Trefferwertung.",
@@ -246,7 +246,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	OMNIUM_RUNE_VERS_DESC = "Jeder Kern-Proc stapelt Vielseitigkeitswertung. Sichere Allround-Wahl (Schaden und Überleben).",
 	OMNIUM_RUNE_OVERLOAD_DESC = "Verdoppelt den Effekt der Kernrune (+100% pro Proc). Sicherste Wahl, ohne Aufbau oder Uptime.",
 	OMNIUM_RUNE_RESIDUAL_DESC = "Verdoppelt den Lingering-Effekt. Am besten in Builds rund um Effekte über Zeit (DoT-Specs, lange Einzelziele).",
-	OMNIUM_RUNE_ECHOES_DESC = "Wiederholt nach 10s alle Kern- + Lingering-Effekte zu 50%. Höchstes Potenzial, aber nur bei ~90%+ Uptime (lange Raidkämpfe).",
+	OMNIUM_RUNE_ECHOES_DESC = "Wiederholt nach 10s alle Kern- + Lingering-Effekte zu 50%. Höchstes Potenzial, aber nur bei ~90%+ Uptime (lange Schlachtzugskämpfe).",
 })
 
 merge(ns._mhLocales and ns._mhLocales.frFR, {
@@ -357,7 +357,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	OMNIUM_RUNE_ORBS_DESC = "Ganha 1 orbe do Vazio a cada 10s (máx. 5); causar dano a um inimigo manda todos os orbes nele (dano cósmico), curar manda os orbes para o aliado próximo mais ferido. A escolha geral mais segura.",
 	OMNIUM_RUNE_FIRE_DESC = "Feitiços ativam pilares de fogo (dano ou cura a aliados próximos). Precisa de boa uptime de posição.",
 	OMNIUM_RUNE_SELFMEND_DESC = "Cura você toda vez que a sua runa principal causa dano ou cura enquanto você está abaixo de 75% de vida. O padrão para jogo casual / conteúdo de mundo.",
-	OMNIUM_RUNE_SHELL_DESC = "Escudo de absorção contra qualquer golpe acima de 10% da vida máx.; 50% volta ao longo de 10s. Recarga 30s. Melhor para Raid/M+ (contra one-shots).",
+	OMNIUM_RUNE_SHELL_DESC = "Escudo de absorção contra qualquer golpe acima de 10% da vida máx.; 50% volta ao longo de 10s. Recarga 30s. Melhor para Raide/M+ (contra one-shots).",
 	OMNIUM_RUNE_LYNX_DESC = "Sofrer dano concede velocidade de movimento por 10s. Recarga 30s. Escolha de mobilidade de nicho / PvP.",
 	OMNIUM_RUNE_LINGERING_DESC = "Adiciona um efeito ao longo de 8s após cada proc da runa principal — quase duplica o rendimento total com boa sobreposição.",
 	OMNIUM_RUNE_CRIT_DESC = "Cada proc principal acumula índice de acerto crítico.",
@@ -366,5 +366,5 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	OMNIUM_RUNE_VERS_DESC = "Cada proc principal acumula índice de versatilidade. Opção curinga segura (dano e sobrevivência).",
 	OMNIUM_RUNE_OVERLOAD_DESC = "Duplica o efeito da runa principal (+100% por proc). A escolha mais segura, sem preparação ou uptime.",
 	OMNIUM_RUNE_RESIDUAL_DESC = "Duplica o efeito de Lingering. Melhor em builds centradas em efeitos ao longo do tempo (specs de DoT, alvo único longo).",
-	OMNIUM_RUNE_ECHOES_DESC = "Após 10s, repete todo o efeito principal + Lingering a 50%. O maior teto, mas só com ~90%+ de uptime (combates de raid longos).",
+	OMNIUM_RUNE_ECHOES_DESC = "Após 10s, repete todo o efeito principal + Lingering a 50%. O maior teto, mas só com ~90%+ de uptime (combates de raide longos).",
 })

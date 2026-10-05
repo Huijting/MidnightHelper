@@ -112,7 +112,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	START_SUBTITLE = "Appena arrivato al livello massimo e non sai cosa fare? Questo è tutto l'endgame, in ordine. Clicca un passo per saltare direttamente allo strumento giusto; quelli settimanali si spuntano da soli.",
 
 	START_INTRO_HEADER = "Il loop di Midnight in breve",
-	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi il Great Vault con Delves, Ritual Sites e Void Assaults. Renown, professioni e valute si aggiungono una volta che il loop diventa routine.",
+	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi la Gran Banca con Delves, Ritual Sites e Void Assaults. Renown, professioni e valute si aggiungono una volta che il loop diventa routine.",
 
 	START_S1_TITLE = "1. Alza prima il tuo item level",
 	START_S1_BODY = "Comincia con le vittorie facili: fai la campagna di Midnight, prendi equipaggiamento dalle world quest e dalle quest di traguardo Renown, e fai Delves normali (più le cacce Prey e i dungeon Heroic) per salire di item level. Anche qualche pezzo craftato/dell'AH economico aiuta. Un item level più alto apre poi i tier superiori, dove ci sono le ricompense vere.",
@@ -122,8 +122,8 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	START_S2_BODY = "Prima dei contenuti più impegnativi: scegli i talenti, prendi la flask, il cibo, la pozione e gli enchant/gemme giusti per la tua spec, e imposta una macro di interrupt + una difensiva. MH ha una checklist dei consumabili, macro pronte all'uso (Toolbox) e aiuto sulla rotazione (Role Academy).",
 	START_S2_NAV = "Apri Consumables",
 
-	START_S3_TITLE = "3. Punta tutto al Great Vault",
-	START_S3_BODY = "Il Great Vault ti regala una ricompensa gratuita ogni settimana. La sua riga World si riempie con Delves, Ritual Sites e Prey; i dungeon e il raid riempiono le altre righe. Sblocca più slot possibile prima del reset.",
+	START_S3_TITLE = "3. Punta tutto alla Gran Banca",
+	START_S3_BODY = "La Gran Banca ti regala una ricompensa gratuita ogni settimana. La sua riga World si riempie con Delves, Ritual Sites e Prey; i dungeon e l'incursione riempiono le altre righe. Sblocca più slot possibile prima del reset.",
 	START_S3_NAV = "Apri Home",
 
 	START_S4_TITLE = "4. Fai le tue Delves",
@@ -136,10 +136,10 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 
 	START_S6_TITLE = "6. Vai più a fondo: Renown, professioni e valute",
 	START_S6_BODY = "Renown sblocca vantaggi e cosmetici; le professioni producono equipaggiamento, consumabili e oro (MH ha un corso completo per principianti); e i vendor del Bazaar a Silvermoon trasformano le tue valute in upgrade. Dedicati a questi una volta che il loop settimanale è routine.",
-	START_S6_NAV = "Apri Professions 101",
+	START_S6_NAV = "Apri Professioni 101",
 
 	START_RESET_TITLE = "Giorno del reset: si ricomincia",
-	START_RESET_BODY = "Le settimanali e il Great Vault si resettano ogni settimana — mercoledì sui realm EU, martedì su quelli US. Riscatta prima il vault della settimana scorsa, poi rifai il loop. Questo è tutto il gioco — benvenuto in Midnight!",
+	START_RESET_BODY = "Le settimanali e la Gran Banca si resettano ogni settimana — mercoledì sui realm EU, martedì su quelli US. Riscatta prima il vault della settimana scorsa, poi rifai il loop. Questo è tutto il gioco — benvenuto in Midnight!",
 
 	START_WEEKLY_RITUAL = "Settimanale Ritual Sites",
 	START_WEEKLY_VOID = "Settimanale Void Assaults",
@@ -147,7 +147,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	START_STATUS_TODO = "ancora da fare questa settimana",
 
 	START_WEEKLY_SUMMARY_FMT = "Questa settimana: %d/%d obiettivi settimanali completati",
-	START_VAULT_READY = "C'è una ricompensa del Great Vault che ti aspetta — riscattala!",
+	START_VAULT_READY = "C'è una ricompensa della Gran Banca che ti aspetta — riscattala!",
 	START_VAULT_NONE = "Nessuna ricompensa del vault ancora — continua a riempirlo prima del reset.",
 	START_DELVERCALL_FMT = "Delver's Call: %d/%d completate questa settimana",
 })
@@ -247,7 +247,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_SUBTITLE = "Gerade Maximalstufe erreicht und unsicher, was jetzt? Das hier ist das ganze Endgame, der Reihe nach. Klick einen Schritt, um direkt zum passenden Tool zu springen; die wöchentlichen Schritte haken sich von selbst ab.",
 
 	START_INTRO_HEADER = "Der Midnight-Loop in Kürze",
-	START_INTRO_BODY = "Endgame ist ein wöchentlicher Rhythmus: Heb deine Gegenstandsstufe an, stimm deinen Charakter ab und füll dann jede Woche deinen Great Vault über Tiefen, Ritual Sites und Void Assaults. Ansehen, Berufe und Währungen kommen obendrauf, sobald dieser Loop Routine ist.",
+	START_INTRO_BODY = "Endgame ist ein wöchentlicher Rhythmus: Heb deine Gegenstandsstufe an, stimm deinen Charakter ab und füll dann jede Woche deine Große Schatzkammer über Tiefen, Ritual Sites und Void Assaults. Ansehen, Berufe und Währungen kommen obendrauf, sobald dieser Loop Routine ist.",
 
 	START_S1_TITLE = "1. Heb zuerst deine Gegenstandsstufe an",
 	START_S1_BODY = "Fang mit den leichten Erfolgen an: Spiel die Midnight-Kampagne, hol dir Ausrüstung aus Weltquests und den Ansehen-Meilenstein-Quests und lauf normale Tiefen (plus Prey-Jagden und heroische Dungeons), um deine Gegenstandsstufe zu steigern. Ein paar günstige hergestellte/AH-Teile helfen auch. Mit höherer Gegenstandsstufe öffnen sich dann die höheren Stufen mit den echten Belohnungen.",
@@ -257,8 +257,8 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_S2_BODY = "Vor härterem Content: Wähl deine Talente, besorg das richtige Fläschchen, Essen, den richtigen Trank und Verzauberungen/Edelsteine für deine Spezialisierung und richte ein Unterbrechungs- und Defensiv-Makro ein. MH hat eine Verbrauchsmaterial-Checkliste, fertige Makros (Werkzeugkiste) und Rotationshilfe (Role Academy).",
 	START_S2_NAV = "Verbrauchsmaterial öffnen",
 
-	START_S3_TITLE = "3. Richte alles auf den Great Vault aus",
-	START_S3_BODY = "Der Great Vault schenkt dir jede Woche eine Belohnung. Seine Welt-Reihe füllt sich über Tiefen, Ritual Sites und Prey; Dungeons und Schlachtzug füllen die anderen Reihen. Schalte vor dem Reset so viele Plätze frei wie möglich.",
+	START_S3_TITLE = "3. Richte alles auf die Große Schatzkammer aus",
+	START_S3_BODY = "Die Große Schatzkammer schenkt dir jede Woche eine Belohnung. Ihre Welt-Reihe füllt sich über Tiefen, Ritual Sites und Prey; Dungeons und Schlachtzug füllen die anderen Reihen. Schalte vor dem Reset so viele Plätze frei wie möglich.",
 	START_S3_NAV = "Start öffnen",
 
 	START_S4_TITLE = "4. Lauf deine Tiefen",
@@ -274,7 +274,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_S6_NAV = "Berufe 101 öffnen",
 
 	START_RESET_TITLE = "Reset-Tag: alles noch einmal",
-	START_RESET_BODY = "Wochenquests und der Great Vault setzen sich jede Woche zurück — Mittwoch auf EU-Realms, Dienstag auf US. Hol zuerst die Vault-Belohnung der Vorwoche ab und lauf dann den Loop erneut. Das ist das ganze Spiel — willkommen in Midnight!",
+	START_RESET_BODY = "Wochenquests und die Große Schatzkammer setzen sich jede Woche zurück — Mittwoch auf EU-Realms, Dienstag auf US. Hol zuerst die Vault-Belohnung der Vorwoche ab und lauf dann den Loop erneut. Das ist das ganze Spiel — willkommen in Midnight!",
 
 	START_WEEKLY_RITUAL = "Ritual-Sites-Weekly",
 	START_WEEKLY_VOID = "Void-Assaults-Weekly",
@@ -293,7 +293,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_SUBTITLE = "Tout juste niveau max et pas sûr de quoi faire ? Voici tout l'endgame, dans l'ordre. Clique une étape pour aller droit à l'outil correspondant ; les étapes hebdomadaires se cochent toutes seules.",
 
 	START_INTRO_HEADER = "La boucle Midnight en bref",
-	START_INTRO_BODY = "L'endgame est un rythme hebdomadaire : monte ton niveau d'objet, règle ton personnage, puis remplis chaque semaine ton Great Vault avec les Gouffres, les Ritual Sites et les Void Assaults. La renommée, les métiers et les devises viennent par-dessus une fois cette boucle devenue routinière.",
+	START_INTRO_BODY = "L'endgame est un rythme hebdomadaire : monte ton niveau d'objet, règle ton personnage, puis remplis chaque semaine ta Grande chambre forte avec les Gouffres, les Ritual Sites et les Void Assaults. La renommée, les métiers et les devises viennent par-dessus une fois cette boucle devenue routinière.",
 
 	START_S1_TITLE = "1. Monte d'abord ton niveau d'objet",
 	START_S1_BODY = "Commence par les gains faciles : fais la campagne de Midnight, récupère de l'équipement via les expéditions mondiales et les quêtes de palier de renommée, et enchaîne des Gouffres normaux (plus les chasses Prey et les donjons héroïques) pour grimper en niveau d'objet. Quelques pièces craftées/HV pas chères aident aussi. Un niveau d'objet plus haut ouvre ensuite les paliers supérieurs, là où sont les vraies récompenses.",
@@ -303,8 +303,8 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_S2_BODY = "Avant le contenu plus dur : choisis tes talents, prends le bon flacon, la bonne nourriture, la bonne potion et les enchantements/gemmes pour ta spécialisation, et configure une macro d'interruption + une défensive. MH a une checklist de consommables, des macros prêtes à l'emploi (Boîte à outils) et de l'aide à la rotation (Role Academy).",
 	START_S2_NAV = "Ouvrir Consommables",
 
-	START_S3_TITLE = "3. Vise tout sur le Great Vault",
-	START_S3_BODY = "Le Great Vault t'offre une récompense gratuite chaque semaine. Sa ligne Monde se remplit avec les Gouffres, les Ritual Sites et Prey ; les donjons et le raid remplissent les autres lignes. Débloque autant d'emplacements que possible avant le reset.",
+	START_S3_TITLE = "3. Vise tout sur la Grande chambre forte",
+	START_S3_BODY = "La Grande chambre forte t'offre une récompense gratuite chaque semaine. Sa ligne Monde se remplit avec les Gouffres, les Ritual Sites et Prey ; les donjons et le raid remplissent les autres lignes. Débloque autant d'emplacements que possible avant le reset.",
 	START_S3_NAV = "Ouvrir Accueil",
 
 	START_S4_TITLE = "4. Fais tes Gouffres",
@@ -320,7 +320,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_S6_NAV = "Ouvrir Métiers 101",
 
 	START_RESET_TITLE = "Jour de reset : on recommence",
-	START_RESET_BODY = "Les hebdos et le Great Vault se réinitialisent chaque semaine — mercredi sur les royaumes EU, mardi sur les US. Réclame d'abord le Vault de la semaine passée, puis relance la boucle. C'est tout le jeu — bienvenue dans Midnight !",
+	START_RESET_BODY = "Les hebdos et la Grande chambre forte se réinitialisent chaque semaine — mercredi sur les royaumes EU, mardi sur les US. Réclame d'abord le Vault de la semaine passée, puis relance la boucle. C'est tout le jeu — bienvenue dans Midnight !",
 
 	START_WEEKLY_RITUAL = "Hebdo Ritual Sites",
 	START_WEEKLY_VOID = "Hebdo Void Assaults",
@@ -328,7 +328,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_STATUS_TODO = "encore à faire cette semaine",
 
 	START_WEEKLY_SUMMARY_FMT = "Cette semaine : %d/%d objectifs hebdo faits",
-	START_VAULT_READY = "Une récompense du Great Vault t'attend — réclame-la !",
+	START_VAULT_READY = "Une récompense de la Grande chambre forte t'attend — réclame-la !",
 	START_VAULT_NONE = "Pas encore de récompense de Vault — continue de le remplir avant le reset.",
 	START_DELVERCALL_FMT = "Delver's Call : %d/%d faits cette semaine",
 })
@@ -339,7 +339,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	START_SUBTITLE = "¿Acabas de llegar al nivel máximo y no sabes qué hacer? Esto es todo el endgame, en orden. Haz clic en un paso para saltar directo a su herramienta; los semanales se marcan solos.",
 
 	START_INTRO_HEADER = "El bucle de Midnight en resumen",
-	START_INTRO_BODY = "El endgame es un ritmo semanal: sube tu nivel de objeto, ajusta tu personaje y luego llena cada semana tu Great Vault con Profundidades, Ritual Sites y Void Assaults. El renombre, las profesiones y las monedas vienen encima cuando ese bucle ya sea rutina.",
+	START_INTRO_BODY = "El endgame es un ritmo semanal: sube tu nivel de objeto, ajusta tu personaje y luego llena cada semana tu Gran cámara con Profundidades, Ritual Sites y Void Assaults. El renombre, las profesiones y las monedas vienen encima cuando ese bucle ya sea rutina.",
 
 	START_S1_TITLE = "1. Sube primero tu nivel de objeto",
 	START_S1_BODY = "Empieza por las victorias fáciles: haz la campaña de Midnight, consigue equipo en las misiones de mundo y en las misiones de hito de renombre, y corre Profundidades normales (más cacerías Prey y mazmorras heroicas) para subir tu nivel de objeto. Unas cuantas piezas baratas crafteadas o de la casa de subastas también ayudan. Un nivel de objeto más alto abre luego los tiers superiores, donde están las recompensas de verdad.",
@@ -349,8 +349,8 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	START_S2_BODY = "Antes del contenido más duro: elige tus talentos, hazte con el frasco, la comida, la poción y los encantamientos/gemas adecuados para tu especialización, y prepara una macro de interrupción + una defensiva. MH tiene una lista de consumibles, macros listas para usar (Herramientas) y ayuda con la rotación (Role Academy).",
 	START_S2_NAV = "Abrir Consumibles",
 
-	START_S3_TITLE = "3. Apunta todo al Great Vault",
-	START_S3_BODY = "El Great Vault te da una recompensa gratis cada semana. Su fila de Mundo se llena con Profundidades, Ritual Sites y Prey; las mazmorras y la banda llenan las otras filas. Desbloquea tantas casillas como puedas antes del reinicio.",
+	START_S3_TITLE = "3. Apunta todo a la Gran cámara",
+	START_S3_BODY = "La Gran cámara te da una recompensa gratis cada semana. Su fila de Mundo se llena con Profundidades, Ritual Sites y Prey; las mazmorras y la banda llenan las otras filas. Desbloquea tantas casillas como puedas antes del reinicio.",
 	START_S3_NAV = "Abrir Inicio",
 
 	START_S4_TITLE = "4. Haz tus Profundidades",
@@ -366,7 +366,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	START_S6_NAV = "Abrir Profesiones 101",
 
 	START_RESET_TITLE = "Día de reinicio: vuelta a empezar",
-	START_RESET_BODY = "Las semanales y el Great Vault se reinician cada semana — miércoles en reinos de EU, martes en US. Reclama primero el vault de la semana pasada y vuelve a correr el bucle. Ese es todo el juego — ¡bienvenido a Midnight!",
+	START_RESET_BODY = "Las semanales y la Gran cámara se reinician cada semana — miércoles en reinos de EU, martes en US. Reclama primero el vault de la semana pasada y vuelve a correr el bucle. Ese es todo el juego — ¡bienvenido a Midnight!",
 
 	START_WEEKLY_RITUAL = "Semanal de Ritual Sites",
 	START_WEEKLY_VOID = "Semanal de Void Assaults",
@@ -374,7 +374,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	START_STATUS_TODO = "pendiente esta semana",
 
 	START_WEEKLY_SUMMARY_FMT = "Esta semana: %d/%d objetivos semanales hechos",
-	START_VAULT_READY = "Hay una recompensa del Great Vault esperando — ¡reclámala!",
+	START_VAULT_READY = "Hay una recompensa de la Gran cámara esperando — ¡reclámala!",
 	START_VAULT_NONE = "Aún no hay recompensa del vault — sigue llenándolo antes del reinicio.",
 	START_DELVERCALL_FMT = "Delver's Call: %d/%d hechas esta semana",
 })
@@ -385,7 +385,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_SUBTITLE = "Acabou de chegar ao nível máximo e não sabe o que fazer? Este é todo o endgame, em ordem. Clique em um passo para ir direto à ferramenta certa; os semanais se marcam sozinhos.",
 
 	START_INTRO_HEADER = "O loop do Midnight em resumo",
-	START_INTRO_BODY = "O endgame é um ritmo semanal: suba seu item level, ajuste seu personagem e depois encha o Great Vault toda semana com Profundidades, Ritual Sites e Void Assaults. Renome, profissões e moedas vêm por cima quando esse loop virar rotina.",
+	START_INTRO_BODY = "O endgame é um ritmo semanal: suba seu item level, ajuste seu personagem e depois encha o Grande Cofre toda semana com Profundidades, Ritual Sites e Void Assaults. Renome, profissões e moedas vêm por cima quando esse loop virar rotina.",
 
 	START_S1_TITLE = "1. Suba primeiro o seu item level",
 	START_S1_BODY = "Comece pelas vitórias fáceis: faça a campanha do Midnight, pegue equipamento nas missões de mundo e nas missões de marco de renome, e rode Profundidades normais (mais caçadas Prey e masmorras heroicas) para subir o item level. Algumas peças baratas craftadas ou da casa de leilões também ajudam. Um item level mais alto abre os tiers maiores, onde estão as recompensas de verdade.",
@@ -395,8 +395,8 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_S2_BODY = "Antes do conteúdo mais difícil: escolha seus talentos, pegue o frasco, a comida, a poção e os encantamentos/gemas certos para a sua especialização, e monte uma macro de interrupção + uma defensiva. O MH tem uma checklist de consumíveis, macros prontas (Ferramentas) e ajuda de rotação (Role Academy).",
 	START_S2_NAV = "Abrir Consumíveis",
 
-	START_S3_TITLE = "3. Mire tudo no Great Vault",
-	START_S3_BODY = "O Great Vault te dá uma recompensa grátis por semana. A fileira de Mundo enche com Profundidades, Ritual Sites e Prey; masmorras e raide enchem as outras fileiras. Desbloqueie o máximo de espaços que conseguir antes do reset.",
+	START_S3_TITLE = "3. Mire tudo no Grande Cofre",
+	START_S3_BODY = "O Grande Cofre te dá uma recompensa grátis por semana. A fileira de Mundo enche com Profundidades, Ritual Sites e Prey; masmorras e raide enchem as outras fileiras. Desbloqueie o máximo de espaços que conseguir antes do reset.",
 	START_S3_NAV = "Abrir Início",
 
 	START_S4_TITLE = "4. Rode suas Profundidades",
@@ -412,7 +412,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_S6_NAV = "Abrir Profissões 101",
 
 	START_RESET_TITLE = "Dia de reset: tudo de novo",
-	START_RESET_BODY = "As semanais e o Great Vault resetam toda semana — quarta nos reinos da EU, terça nos dos EUA. Resgate primeiro o vault da semana passada e rode o loop de novo. Esse é o jogo inteiro — bem-vindo ao Midnight!",
+	START_RESET_BODY = "As semanais e o Grande Cofre resetam toda semana — quarta nos reinos da EU, terça nos dos EUA. Resgate primeiro o vault da semana passada e rode o loop de novo. Esse é o jogo inteiro — bem-vindo ao Midnight!",
 
 	START_WEEKLY_RITUAL = "Semanal de Ritual Sites",
 	START_WEEKLY_VOID = "Semanal de Void Assaults",
@@ -420,7 +420,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_STATUS_TODO = "ainda a fazer esta semana",
 
 	START_WEEKLY_SUMMARY_FMT = "Esta semana: %d/%d objetivos semanais feitos",
-	START_VAULT_READY = "Há uma recompensa do Great Vault esperando — resgate-a!",
+	START_VAULT_READY = "Há uma recompensa do Grande Cofre esperando — resgate-a!",
 	START_VAULT_NONE = "Nenhuma recompensa do vault ainda — continue enchendo antes do reset.",
 	START_DELVERCALL_FMT = "Delver's Call: %d/%d feitas esta semana",
 })

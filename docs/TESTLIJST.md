@@ -62,8 +62,8 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 
 ## 🆕 5 okt — voor 4.6.1: healers/DPS op Stay alive (Rob: "advies volgen")
 
-- [ ] **Druid Balance/Feral/Resto:** Stay alive heeft **Bear Form** als grote noodknop ("no cooldown, but you deal almost
-  no damage in it"). Guardian NIET.
+- [x] **Druid Balance/Feral/Resto:** Stay alive heeft **Bear Form** als grote noodknop ("no cooldown, but you deal almost
+  no damage in it"). Guardian NIET. ✅ Rob 5 okt: Resto regel 3 Bear Form (vóór Heart of the Wild), Guardian zonder.
 - [ ] **Feral:** **Regrowth** bij de heals ("when it is free and instant, after a finisher").
 - [ ] **Priest (Disc/Holy/Shadow) MET het talent Protective Light:** **Flash Heal** als kleine verdediging. Zonder het
   talent: niet op de kaart, en `/mh survival` zegt "needs talent 193063". Heb je het talent en staat hij er tóch niet?

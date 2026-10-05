@@ -84,7 +84,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_SHARE_NONE = "No boss engaged yet — pull first, then share.",
 	DGN_SHARE_QUEUED = "In combat — the steps will be shared automatically the moment the fight ends.",
 	DGN_WIN_CHAT = "Chat",
-	DGN_WIN_SHARE = "Share",
+	DGN_WIN_SHARE = "Share",
 	DGN_WIN_ROUTE = "Route",
 	DGN_WIN_ROUTE_LIVE = "Your client puts this entrance on your map. Whether the content is open is a separate question.",
 	DGN_WIN_ROUTE_NOT_LIVE = "Your client does not show this entrance yet — the arrow points there regardless.",
@@ -120,8 +120,8 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_WEEKDGN_UNKNOWN = "Dungeon della settimana (Halduron): prendi la sua quest accanto al vault per vederlo qui.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mythic+): completato.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythic+): cade da una ricompensa Delve di Tier 11 — una volta a season.",
-	DGN_VAULT_FMT = "Great Vault — riga Dungeons: %d/%d slot sbloccati (progresso %d).",
-	DGN_VAULT_UNKNOWN = "Great Vault — riga Dungeons: i dati si caricano dopo il login o aprendo il vault.",
+	DGN_VAULT_FMT = "Gran Banca — riga Dungeons: %d/%d slot sbloccati (progresso %d).",
+	DGN_VAULT_UNKNOWN = "Gran Banca — riga Dungeons: i dati si caricano dopo il login o aprendo il vault.",
 	DGN_FOLLOWER_HINT = "Nuovo nei dungeon? Avvia un Follower Dungeon (Group Finder): giochi in difficoltà Normal da solo con compagni NPC — nessuna pressione, pratica perfetta. Il corso qui sotto ti guida in ogni cosa.",
 
 	-- Dungeons 101 ------------------------------------------------------------
@@ -131,7 +131,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_CH_DONE = "Fatto — clicca per annullare.",
 
 	DGN_CH1_TITLE = "1. Cos'è un dungeon?",
-	DGN_CH1_BODY = "• Un dungeon è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normal (tutti i dungeon di Midnight, sempre disponibili), Heroic (la rotazione di questa season, loot migliore) e Mythic/Mythic+ (trattati più avanti in questo corso).|n• Le run nei dungeon riempiono la riga Dungeons della tua Great Vault — una ricompensa settimanale gratuita.",
+	DGN_CH1_BODY = "• Un dungeon è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normal (tutti i dungeon di Midnight, sempre disponibili), Heroic (la rotazione di questa season, loot migliore) e Mythic/Mythic+ (trattati più avanti in questo corso).|n• Le run nei dungeon riempiono la riga Dungeons della tua Gran Banca — una ricompensa settimanale gratuita.",
 
 	DGN_CH2_TITLE = "2. Come entrare",
 	DGN_CH2_BODY = "• Premi I (Group Finder) e scegli il Dungeon Finder.|n• Spunta il ruolo che vuoi giocare; le code per tank e healer partono più in fretta.|n• Vuoi zero pressione? Scegli prima un Follower Dungeon: difficoltà Normal, compagni NPC che seguono il tuo ritmo, disponibile mentre sali di livello 80-90 (c'è un limite giornaliero di avvii).|n• Quando la coda è pronta, clicca Accetta — vieni teletrasportato dentro, e di nuovo fuori al termine.",
@@ -166,7 +166,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_SHARE_NONE = "Nessun boss ancora ingaggiato — prima pulla, poi condividi.",
 	DGN_SHARE_QUEUED = "In combattimento — i passi verranno condivisi automaticamente nel momento in cui il combattimento finisce.",
 	DGN_WIN_CHAT = "Chat",
-	DGN_WIN_SHARE = "Condividi",
+	DGN_WIN_SHARE = "Condividi",
 	DGN_WIN_ROUTE = "Percorso",
 	DGN_WIN_ROUTE_LIVE = "Il tuo client mette questo ingresso sulla tua mappa. Se il contenuto sia aperto è un’altra questione.",
 	DGN_WIN_ROUTE_NOT_LIVE = "Il tuo client non mostra ancora questo ingresso — la freccia punta comunque lì.",
@@ -244,7 +244,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_SHARE_NONE = "Nog geen boss aangevallen — pull eerst, deel daarna.",
 	DGN_SHARE_QUEUED = "In gevecht — de stappen worden automatisch gedeeld zodra het gevecht eindigt.",
 	DGN_WIN_CHAT = "Chat",
-	DGN_WIN_SHARE = "Deel",
+	DGN_WIN_SHARE = "Deel",
 	DGN_WIN_ROUTE = "Route",
 	DGN_WIN_ROUTE_LIVE = "Je client zet deze ingang op je kaart. Of de content al open is, is een andere vraag.",
 	DGN_WIN_ROUTE_NOT_LIVE = "Je client toont deze ingang nog niet — de pijl wijst er hoe dan ook naartoe.",
@@ -280,8 +280,8 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_WEEKDGN_UNKNOWN = "Dungeon der Woche (Halduron): nimm seine Quest neben dem Vault an, um ihn hier zu sehen.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (Mythic+-Einstieg): erledigt.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (Mythic+-Einstieg): droppt aus einer Tier-11-Tiefen-Belohnung — einmal pro Saison.",
-	DGN_VAULT_FMT = "Great Vault — Dungeon-Reihe: %d/%d Plätze freigeschaltet (Fortschritt %d).",
-	DGN_VAULT_UNKNOWN = "Great Vault — Dungeon-Reihe: Daten laden nach dem Login oder beim Öffnen des Vaults.",
+	DGN_VAULT_FMT = "Große Schatzkammer — Dungeon-Reihe: %d/%d Plätze freigeschaltet (Fortschritt %d).",
+	DGN_VAULT_UNKNOWN = "Große Schatzkammer — Dungeon-Reihe: Daten laden nach dem Login oder beim Öffnen des Vaults.",
 	DGN_FOLLOWER_HINT = "Neu in Dungeons? Starte einen Follower Dungeon (Gruppensuche): du läufst Normal solo mit NPC-Begleitern — kein Druck, perfekt zum Üben. Der Kurs unten führt dich durch alles.",
 
 	-- Dungeons 101 --------------------------------------------------------------
@@ -291,7 +291,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_CH_DONE = "Erledigt — klicke zum Rückgängigmachen.",
 
 	DGN_CH1_TITLE = "1. Was ist ein Dungeon?",
-	DGN_CH1_BODY = "• Ein Dungeon ist ein instanziiertes Abenteuer für 5 Spieler: 1 Tank, 1 Heiler, 3 Schadensausteiler.|n• Schwierigkeiten, von leicht bis schwer: Follower (solo mit NPC-Begleitern — Übungsmodus), Normal (alle Midnight-Dungeons, immer verfügbar), Heroic (die Saisonrotation, bessere Beute) und Mythic/Mythic+ (kommt später in diesem Kurs).|n• Dungeon-Läufe füllen die Dungeon-Reihe deines Great Vault — eine kostenlose Wochenbelohnung.",
+	DGN_CH1_BODY = "• Ein Dungeon ist ein instanziiertes Abenteuer für 5 Spieler: 1 Tank, 1 Heiler, 3 Schadensausteiler.|n• Schwierigkeiten, von leicht bis schwer: Follower (solo mit NPC-Begleitern — Übungsmodus), Normal (alle Midnight-Dungeons, immer verfügbar), Heroic (die Saisonrotation, bessere Beute) und Mythic/Mythic+ (kommt später in diesem Kurs).|n• Dungeon-Läufe füllen die Dungeon-Reihe deiner Großen Schatzkammer — eine kostenlose Wochenbelohnung.",
 
 	DGN_CH2_TITLE = "2. So kommst du rein",
 	DGN_CH2_BODY = "• Drücke I (Gruppensuche) und wähle den Dungeonbrowser.|n• Hake die Rolle an, die du spielen willst; Tank- und Heiler-Warteschlangen ploppen am schnellsten.|n• Null Druck? Wähle zuerst einen Follower Dungeon: Normal-Schwierigkeit, NPC-Begleiter in deinem Tempo, verfügbar beim Leveln 80-90 (es gibt ein tägliches Start-Limit).|n• Ploppt die Warteschlange, klicke Annehmen — du wirst hineinteleportiert und am Ende wieder hinaus.",
@@ -326,15 +326,15 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_SHARE_NONE = "Noch kein Boss angegriffen — erst pullen, dann teilen.",
 	DGN_SHARE_QUEUED = "Im Kampf — die Schritte werden automatisch geteilt, sobald der Kampf endet.",
 	DGN_WIN_CHAT = "Chat",
-	DGN_WIN_SHARE = "Teilen",
+	DGN_WIN_SHARE = "Teilen",
 	DGN_WIN_ROUTE = "Route",
 	DGN_WIN_ROUTE_LIVE = "Dein Client setzt diesen Eingang auf deine Karte. Ob der Inhalt offen ist, ist eine andere Frage.",
 	DGN_WIN_ROUTE_NOT_LIVE = "Dein Client zeigt diesen Eingang noch nicht — der Pfeil zeigt trotzdem dorthin.",
 	DGN_WIN_PANEL_HINT = "Modell ausgeblendet — klicke auf das Boss-Porträt in der Fensterkopfzeile, um es zurückzuholen.",
 	DGN_WIN_PICK_HINT = "Klicke, um einen anderen Dungeon (oder das Ritual) zu wählen.",
-	DGN_WIN_PICK_RITUALRAID = "Rituale & Raids",
+	DGN_WIN_PICK_RITUALRAID = "Rituale & Schlachtzüge",
 	DGN_WIN_PICK_RITUALS = "Rituale",
-	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_RAIDS = "Schlachtzüge",
 	DGN_WIN_PICK_DUNGEONS = "Dungeons",
 	DGN_SHARE_SENT_FMT = "Schritte für %s mit der Gruppe geteilt.",
 })
@@ -358,8 +358,8 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_WEEKDGN_UNKNOWN = "Donjon de la semaine (Halduron) : prends sa quête à côté du Vault pour le voir ici.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mythic+) : fait.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythic+) : tombe d'une récompense de gouffre Tier 11 — une fois par saison.",
-	DGN_VAULT_FMT = "Great Vault — rangée Donjons : %d/%d emplacements débloqués (progression %d).",
-	DGN_VAULT_UNKNOWN = "Great Vault — rangée Donjons : les données se chargent après la connexion ou à l'ouverture du Vault.",
+	DGN_VAULT_FMT = "Grande chambre forte — rangée Donjons : %d/%d emplacements débloqués (progression %d).",
+	DGN_VAULT_UNKNOWN = "Grande chambre forte — rangée Donjons : les données se chargent après la connexion ou à l'ouverture du Vault.",
 	DGN_FOLLOWER_HINT = "Nouveau en donjon ? Lance un Follower Dungeon (Recherche de groupe) : tu joues en Normal, en solo avec des PNJ — zéro pression, parfait pour s'entraîner. Le cours ci-dessous t'accompagne pas à pas.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
@@ -369,7 +369,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_CH_DONE = "Fait — clique pour annuler.",
 
 	DGN_CH1_TITLE = "1. C'est quoi, un donjon ?",
-	DGN_CH1_BODY = "• Un donjon est une aventure instanciée pour 5 joueurs : 1 tank, 1 soigneur, 3 DPS.|n• Difficultés, du plus simple au plus dur : Follower (solo avec des PNJ — mode entraînement), Normal (tous les donjons Midnight, toujours disponibles), Heroic (la rotation de la saison, meilleur butin) et Mythic/Mythic+ (abordés plus tard dans ce cours).|n• Les donjons remplissent la rangée Donjons de ton Great Vault — une récompense hebdomadaire gratuite.",
+	DGN_CH1_BODY = "• Un donjon est une aventure instanciée pour 5 joueurs : 1 tank, 1 soigneur, 3 DPS.|n• Difficultés, du plus simple au plus dur : Follower (solo avec des PNJ — mode entraînement), Normal (tous les donjons Midnight, toujours disponibles), Heroic (la rotation de la saison, meilleur butin) et Mythic/Mythic+ (abordés plus tard dans ce cours).|n• Les donjons remplissent la rangée Donjons de ta Grande chambre forte — une récompense hebdomadaire gratuite.",
 
 	DGN_CH2_TITLE = "2. Comment entrer",
 	DGN_CH2_BODY = "• Appuie sur I (Recherche de groupe) et choisis l'outil Donjons.|n• Coche le rôle que tu veux jouer ; les files tank et soigneur partent le plus vite.|n• Zéro pression ? Choisis d'abord un Follower Dungeon : difficulté Normal, des PNJ qui suivent ton rythme, disponible pendant le leveling 80-90 (avec une limite de lancements par jour).|n• Quand la file sonne, clique Accepter — tu es téléporté dedans, puis dehors à la fin.",
@@ -404,7 +404,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_SHARE_NONE = "Aucun boss engagé pour l'instant — pull d'abord, partage ensuite.",
 	DGN_SHARE_QUEUED = "En combat — les étapes seront partagées automatiquement dès la fin du combat.",
 	DGN_WIN_CHAT = "Chat",
-	DGN_WIN_SHARE = "Partager",
+	DGN_WIN_SHARE = "Partager",
 	DGN_WIN_ROUTE = "Itinéraire",
 	DGN_WIN_ROUTE_LIVE = "Votre client place cette entrée sur votre carte. Savoir si le contenu est ouvert est une autre question.",
 	DGN_WIN_ROUTE_NOT_LIVE = "Votre client n’affiche pas encore cette entrée — la flèche y pointe quand même.",
@@ -436,8 +436,8 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_WEEKDGN_UNKNOWN = "Mazmorra de la semana (Halduron): acepta su misión junto al Vault para verla aquí.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (introducción a Mythic+): hecho.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (introducción a Mythic+): cae de una recompensa de profundidad Tier 11 — una vez por temporada.",
-	DGN_VAULT_FMT = "Great Vault — fila de Mazmorras: %d/%d casillas desbloqueadas (progreso %d).",
-	DGN_VAULT_UNKNOWN = "Great Vault — fila de Mazmorras: los datos cargan tras iniciar sesión o abrir el Vault.",
+	DGN_VAULT_FMT = "Gran cámara — fila de Mazmorras: %d/%d casillas desbloqueadas (progreso %d).",
+	DGN_VAULT_UNKNOWN = "Gran cámara — fila de Mazmorras: los datos cargan tras iniciar sesión o abrir el Vault.",
 	DGN_FOLLOWER_HINT = "¿Nuevo en mazmorras? Inicia una Follower Dungeon (Buscador de grupos): juegas en Normal en solitario con PNJ de equipo — sin presión, perfecto para practicar. El curso de abajo te guía por todo.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
@@ -447,7 +447,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_CH_DONE = "Hecho — haz clic para deshacer.",
 
 	DGN_CH1_TITLE = "1. ¿Qué es una mazmorra?",
-	DGN_CH1_BODY = "• Una mazmorra es una aventura instanciada para 5 jugadores: 1 tanque, 1 sanador, 3 DPS.|n• Dificultades, de fácil a difícil: Follower (en solitario con PNJ — modo práctica), Normal (todas las mazmorras de Midnight, siempre disponibles), Heroic (la rotación de la temporada, mejor botín) y Mythic/Mythic+ (se tratan más adelante en este curso).|n• Las mazmorras llenan la fila de Mazmorras de tu Great Vault — una recompensa semanal gratuita.",
+	DGN_CH1_BODY = "• Una mazmorra es una aventura instanciada para 5 jugadores: 1 tanque, 1 sanador, 3 DPS.|n• Dificultades, de fácil a difícil: Follower (en solitario con PNJ — modo práctica), Normal (todas las mazmorras de Midnight, siempre disponibles), Heroic (la rotación de la temporada, mejor botín) y Mythic/Mythic+ (se tratan más adelante en este curso).|n• Las mazmorras llenan la fila de Mazmorras de tu Gran cámara — una recompensa semanal gratuita.",
 
 	DGN_CH2_TITLE = "2. Cómo entrar",
 	DGN_CH2_BODY = "• Pulsa I (Buscador de grupos) y elige el Buscador de mazmorras.|n• Marca el rol que quieres jugar; las colas de tanque y sanador salen más rápido.|n• ¿Cero presión? Elige primero una Follower Dungeon: dificultad Normal, PNJ que siguen tu ritmo, disponible mientras subes de 80 a 90 (hay un límite diario de inicios).|n• Cuando salte la cola, haz clic en Aceptar — te teletransporta dentro, y fuera al terminar.",
@@ -482,15 +482,15 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_SHARE_NONE = "Aún no has atacado a ningún jefe — primero el pull, luego comparte.",
 	DGN_SHARE_QUEUED = "En combate — los pasos se compartirán automáticamente en cuanto termine el combate.",
 	DGN_WIN_CHAT = "Chat",
-	DGN_WIN_SHARE = "Compartir",
+	DGN_WIN_SHARE = "Compartir",
 	DGN_WIN_ROUTE = "Ruta",
 	DGN_WIN_ROUTE_LIVE = "Tu cliente pone esta entrada en tu mapa. Si el contenido está abierto es otra cuestión.",
 	DGN_WIN_ROUTE_NOT_LIVE = "Tu cliente aún no muestra esta entrada — la flecha apunta allí igualmente.",
 	DGN_WIN_PANEL_HINT = "Modelo oculto — haz clic en el retrato del jefe en la cabecera de la ventana para recuperarlo.",
 	DGN_WIN_PICK_HINT = "Haz clic para elegir otra mazmorra (o el ritual).",
-	DGN_WIN_PICK_RITUALRAID = "Rituales y raids",
+	DGN_WIN_PICK_RITUALRAID = "Rituales y bandas",
 	DGN_WIN_PICK_RITUALS = "Rituales",
-	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_RAIDS = "Bandas",
 	DGN_WIN_PICK_DUNGEONS = "Mazmorras",
 	DGN_SHARE_SENT_FMT = "Pasos de %s compartidos con el grupo.",
 })
@@ -514,8 +514,8 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_WEEKDGN_UNKNOWN = "Masmorra da semana (Halduron): aceite a missão dele ao lado do Vault para vê-la aqui.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (introdução ao Mythic+): feito.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (introdução ao Mythic+): cai de uma recompensa de profundidade Tier 11 — uma vez por temporada.",
-	DGN_VAULT_FMT = "Great Vault — fileira de Masmorras: %d/%d espaços desbloqueados (progresso %d).",
-	DGN_VAULT_UNKNOWN = "Great Vault — fileira de Masmorras: os dados carregam após o login ou ao abrir o Vault.",
+	DGN_VAULT_FMT = "Grande Cofre — fileira de Masmorras: %d/%d espaços desbloqueados (progresso %d).",
+	DGN_VAULT_UNKNOWN = "Grande Cofre — fileira de Masmorras: os dados carregam após o login ou ao abrir o Vault.",
 	DGN_FOLLOWER_HINT = "Novo em masmorras? Inicie uma Follower Dungeon (Localizador de grupos): você joga no Normal sozinho com NPCs na equipe — sem pressão, perfeito para praticar. O curso abaixo te guia por tudo.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
@@ -525,7 +525,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_CH_DONE = "Feito — clique para desfazer.",
 
 	DGN_CH1_TITLE = "1. O que é uma masmorra?",
-	DGN_CH1_BODY = "• Uma masmorra é uma aventura instanciada para 5 jogadores: 1 tanque, 1 curandeiro, 3 DPS.|n• Dificuldades, da mais fácil à mais difícil: Follower (solo com NPCs — modo treino), Normal (todas as masmorras de Midnight, sempre disponíveis), Heroic (a rotação da temporada, melhor saque) e Mythic/Mythic+ (tratados mais adiante neste curso).|n• Masmorras enchem a fileira de Masmorras do seu Great Vault — uma recompensa semanal grátis.",
+	DGN_CH1_BODY = "• Uma masmorra é uma aventura instanciada para 5 jogadores: 1 tanque, 1 curandeiro, 3 DPS.|n• Dificuldades, da mais fácil à mais difícil: Follower (solo com NPCs — modo treino), Normal (todas as masmorras de Midnight, sempre disponíveis), Heroic (a rotação da temporada, melhor saque) e Mythic/Mythic+ (tratados mais adiante neste curso).|n• Masmorras enchem a fileira de Masmorras do seu Grande Cofre — uma recompensa semanal grátis.",
 
 	DGN_CH2_TITLE = "2. Como entrar",
 	DGN_CH2_BODY = "• Pressione I (Localizador de grupos) e escolha o Localizador de masmorras.|n• Marque a função que você quer jogar; filas de tanque e curandeiro saem mais rápido.|n• Zero pressão? Escolha primeiro uma Follower Dungeon: dificuldade Normal, NPCs que seguem o seu ritmo, disponível ao upar do 80 ao 90 (há um limite diário de inícios).|n• Quando a fila estourar, clique em Aceitar — você é teleportado para dentro, e para fora quando acabar.",
@@ -560,15 +560,15 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_SHARE_NONE = "Nenhum chefe enfrentado ainda — primeiro o pull, depois compartilhe.",
 	DGN_SHARE_QUEUED = "Em combate — os passos serão compartilhados automaticamente assim que o combate terminar.",
 	DGN_WIN_CHAT = "Chat",
-	DGN_WIN_SHARE = "Enviar",
+	DGN_WIN_SHARE = "Enviar",
 	DGN_WIN_ROUTE = "Rota",
 	DGN_WIN_ROUTE_LIVE = "Seu cliente coloca esta entrada no seu mapa. Se o conteúdo está aberto é outra questão.",
 	DGN_WIN_ROUTE_NOT_LIVE = "Seu cliente ainda não mostra esta entrada — a seta aponta para lá mesmo assim.",
 	DGN_WIN_PANEL_HINT = "Modelo oculto — clique no retrato do chefe no topo da janela para trazê-lo de volta.",
 	DGN_WIN_PICK_HINT = "Clique para escolher outra masmorra (ou o ritual).",
-	DGN_WIN_PICK_RITUALRAID = "Rituais e raids",
+	DGN_WIN_PICK_RITUALRAID = "Rituais e raides",
 	DGN_WIN_PICK_RITUALS = "Rituais",
-	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_RAIDS = "Raides",
 	DGN_WIN_PICK_DUNGEONS = "Masmorras",
 	DGN_SHARE_SENT_FMT = "Passos de %s compartilhados com o grupo.",
 })

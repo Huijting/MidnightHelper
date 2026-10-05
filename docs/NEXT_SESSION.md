@@ -11,6 +11,17 @@ Gepusht + tag `v4.6.0` (start de CurseForge-upload). Site-chat geseind (nachttaa
 4.7.0 = toetsenblok stap 2 ("zet neer"; eerst beslissen wat overloop doet), Defensive Stance/Earth Shield/Soulburn,
 achievement-lijst deel 2 (gemengde groepen). 13/14 okt 12.1.5, 20 okt crest-cap.
 
+## 🌍 5 okt — ✅ GEDAAN (voor 4.6.1): woordkeus per taal
+
+mh-writer, 738 sleutels (de 126, fr 73, es 182, pt 159, it 198), lijst in `2138325d…\scratchpad\terms_changes.tsv`.
+Ook in Codex/DungeonGuide/MythicPlus/OmniumFolio/SettingsPage/StartHere (waar de tekst vandaan komt). GEMETEN na afloop
+(dump): es "Gran Bóveda" 37→0, pt "Grande Câmara" 33→0, it "Great Vault" 85→3, it Gran Banca 0→83, TAB_RAIDS de/es/pt/it
+en TAB_PROFESSIONS it omgezet, 4 nieuwe SURVIVAL_NOTE in 5 talen, fr SURVIVAL_NOTE nu "tu". Lint 0 HARD, markup 0.
+Eigen vertaling, niet door moedertaalsprekers gezien. Bewust NIET: baastips (RaidTips/RitualTips/DungeonTips/DelveTips,
+"Raid" = de groep; eigen ronde), losse "Vault" (30-55 sleutels/taal), Engelse eigennamen. "Vault Advisor": alleen fr
+vertaalt het → pt/it gelaten. 🔲 Open: `SURVIVAL_NOTE_WOG_PROT` in 5 talen achter op enUS (drift); mogelijk te lange
+knoppen in de/it (Schlachtzug/Incursioni) — niet in het spel gezien.
+
 ## 🌍 5 okt — woordkeus per taal: packs naar de clienttermen (Rob: "a", NA 4.6.0)
 
 GEMETEN in wago GlobalStrings (5 okt) wat de client toont; site is al omgezet (live). Packs nog niet. Te doen (mh-writer,

@@ -87,7 +87,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	MPLUS_POOL_NOTE = "Normal & Follower usano tutti i dungeon di lancio; Heroic, Mythic 0 e Mythic+ usano questo pool. Apri un dungeon nella scheda Dungeon Coach per i passaggi boss per boss.",
 
 	MPLUS_SYSTEM_HEADER = "Utile da sapere",
-	MPLUS_SYSTEM = "• Le key partono da +2 (non da +4 come prima).|n• Resilient Keystones: completa nei tempi tutti gli 8 dungeon a +12 e la tua key non scende mai sotto +12 a un depletion (e da lì in poi scala verso l'alto).|n• Le Dungeon Waystones sono checkpoint a metà run — i giocatori morti rinascono all'ultima che hai sbloccato.|n• Loot e crest scalano con il livello di key: crest di tier Champion alle key basse fino a Myth Crest a +10 e oltre, più uno slot dungeon della Great Vault per averne completati otto.",
+	MPLUS_SYSTEM = "• Le key partono da +2 (non da +4 come prima).|n• Resilient Keystones: completa nei tempi tutti gli 8 dungeon a +12 e la tua key non scende mai sotto +12 a un depletion (e da lì in poi scala verso l'alto).|n• Le Dungeon Waystones sono checkpoint a metà run — i giocatori morti rinascono all'ultima che hai sbloccato.|n• Loot e crest scalano con il livello di key: crest di tier Champion alle key basse fino a Myth Crest a +10 e oltre, più uno slot dungeon della Gran Banca per averne completati otto.",
 
 	MPLUS_KICK_HEADER = "Cast da interrompere obbligatoriamente (per dungeon)",
 	MPLUS_KICK_NOTE = "I grossi da tenere d'occhio — nomi confermati dalle guide, confermare in-game. Aggiungiamo altri dungeon man mano che verifichiamo le loro liste di cast.",
@@ -166,7 +166,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	MPLUS_POOL_NOTE = "Normal & Follower nutzen alle Launch-Dungeons; Heroisch, Mythisch 0 und Mythic+ nutzen diesen Pool. Öffne einen Dungeon im Dungeon-Coach-Tab für Schritte je Boss.",
 
 	MPLUS_SYSTEM_HEADER = "Gut zu wissen",
-	MPLUS_SYSTEM = "• Keys starten bei +2 (nicht bei +4 wie früher).|n• Resilient Keystones: time alle 8 Dungeons auf +12, und dein Key fällt bei einer Abwertung nie unter +12 (und skaliert von dort aus weiter hoch).|n• Dungeon Waystones sind Checkpoints mitten im Run — tote Spieler respawnen am letzten, den du freigeschaltet hast.|n• Beute und Wappen skalieren mit der Keystufe: Champion-Stufe-Wappen bei niedrigen Keys bis hoch zu Myth Crest bei +10 und höher, plus ein Great Vault Dungeon-Slot für das Abschließen von acht.",
+	MPLUS_SYSTEM = "• Keys starten bei +2 (nicht bei +4 wie früher).|n• Resilient Keystones: time alle 8 Dungeons auf +12, und dein Key fällt bei einer Abwertung nie unter +12 (und skaliert von dort aus weiter hoch).|n• Dungeon Waystones sind Checkpoints mitten im Run — tote Spieler respawnen am letzten, den du freigeschaltet hast.|n• Beute und Wappen skalieren mit der Keystufe: Champion-Stufe-Wappen bei niedrigen Keys bis hoch zu Myth Crest bei +10 und höher, plus ein Dungeon-Platz in der Großen Schatzkammer für das Abschließen von acht.",
 
 	MPLUS_KICK_HEADER = "Pflicht-Unterbrechungen (je Dungeon)",
 	MPLUS_KICK_NOTE = "Die großen, auf die man achten muss — Namen aus Guides bestätigt, im Spiel bestätigen. Weitere Dungeons werden hinzugefügt, sobald wir ihre Zauberlisten verifizieren.",
@@ -205,7 +205,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	MPLUS_POOL_NOTE = "Normal & Suiveur utilisent tous les donjons de lancement ; Héroïque, Mythique 0 et Mythic+ utilisent ce pool. Ouvrez un donjon dans l'onglet Dungeon Coach pour les étapes par boss.",
 
 	MPLUS_SYSTEM_HEADER = "Bon à savoir",
-	MPLUS_SYSTEM = "• Les clés commencent à +2 (et non +4 comme avant).|n• Resilient Keystones : chronométrez les 8 donjons en +12 et votre clé ne descend jamais sous +12 lors d'une déplétion (et elle monte à partir de là).|n• Les Dungeon Waystones sont des points de contrôle en milieu de run — les joueurs morts réapparaissent au dernier que vous avez débloqué.|n• Le butin et les écussons évoluent avec le niveau de clé : écussons de palier Champion aux clés basses jusqu'à Myth Crest en +10 et au-delà, plus un emplacement de donjon de Great Vault pour en avoir terminé huit.",
+	MPLUS_SYSTEM = "• Les clés commencent à +2 (et non +4 comme avant).|n• Resilient Keystones : chronométrez les 8 donjons en +12 et votre clé ne descend jamais sous +12 lors d'une déplétion (et elle monte à partir de là).|n• Les Dungeon Waystones sont des points de contrôle en milieu de run — les joueurs morts réapparaissent au dernier que vous avez débloqué.|n• Le butin et les écussons évoluent avec le niveau de clé : écussons de palier Champion aux clés basses jusqu'à Myth Crest en +10 et au-delà, plus un emplacement de donjon dans la Grande chambre forte pour en avoir terminé huit.",
 
 	MPLUS_KICK_HEADER = "Incantations à interrompre obligatoirement (par donjon)",
 	MPLUS_KICK_NOTE = "Les grosses à surveiller — noms confirmés d'après les guides, à confirmer en jeu. D'autres donjons seront ajoutés à mesure que nous vérifions leurs listes d'incantations.",
@@ -244,7 +244,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	MPLUS_POOL_NOTE = "Normal y Seguidor usan todas las mazmorras de lanzamiento; Heroico, Mítico 0 y Mythic+ usan este pool. Abre cualquier mazmorra en la pestaña Dungeon Coach para los pasos por jefe.",
 
 	MPLUS_SYSTEM_HEADER = "Bueno saberlo",
-	MPLUS_SYSTEM = "• Las llaves empiezan en +2 (no en +4 como antes).|n• Resilient Keystones: cronometra las 8 mazmorras en +12 y tu llave nunca baja de +12 en una degradación (y escala hacia arriba desde ahí).|n• Las Dungeon Waystones son puntos de control a mitad de run — los jugadores muertos reaparecen en el último que hayas desbloqueado.|n• El botín y los blasones escalan con el nivel de llave: blasones de nivel Champion en llaves bajas hasta Myth Crest en +10 y superiores, más una ranura de mazmorra de Great Vault por completar ocho.",
+	MPLUS_SYSTEM = "• Las llaves empiezan en +2 (no en +4 como antes).|n• Resilient Keystones: cronometra las 8 mazmorras en +12 y tu llave nunca baja de +12 en una degradación (y escala hacia arriba desde ahí).|n• Las Dungeon Waystones son puntos de control a mitad de run — los jugadores muertos reaparecen en el último que hayas desbloqueado.|n• El botín y los blasones escalan con el nivel de llave: blasones de nivel Champion en llaves bajas hasta Myth Crest en +10 y superiores, más una ranura de mazmorra de la Gran cámara por completar ocho.",
 
 	MPLUS_KICK_HEADER = "Lanzamientos de interrupción obligatoria (por mazmorra)",
 	MPLUS_KICK_NOTE = "Los grandes a vigilar — nombres confirmados de las guías, confirmar en el juego. Se añaden más mazmorras a medida que verificamos sus listas de lanzamientos.",
@@ -283,7 +283,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	MPLUS_POOL_NOTE = "Normal e Seguidor usam todas as masmorras de lançamento; Heroico, Mítico 0 e Mythic+ usam este pool. Abra qualquer masmorra na aba Dungeon Coach para os passos por chefe.",
 
 	MPLUS_SYSTEM_HEADER = "Bom saber",
-	MPLUS_SYSTEM = "• As chaves começam em +2 (não em +4 como antes).|n• Resilient Keystones: cronometre todas as 8 masmorras em +12 e sua chave nunca cai abaixo de +12 em uma depleção (e escala para cima a partir daí).|n• As Dungeon Waystones são checkpoints no meio do run — jogadores mortos renascem no último que você desbloqueou.|n• O loot e os brasões escalam com o nível de chave: brasões de nível Champion em chaves baixas até Myth Crest em +10 e acima, mais um slot de masmorra do Great Vault por completar oito.",
+	MPLUS_SYSTEM = "• As chaves começam em +2 (não em +4 como antes).|n• Resilient Keystones: cronometre todas as 8 masmorras em +12 e sua chave nunca cai abaixo de +12 em uma depleção (e escala para cima a partir daí).|n• As Dungeon Waystones são checkpoints no meio do run — jogadores mortos renascem no último que você desbloqueou.|n• O loot e os brasões escalam com o nível de chave: brasões de nível Champion em chaves baixas até Myth Crest em +10 e acima, mais um slot de masmorra do Grande Cofre por completar oito.",
 
 	MPLUS_KICK_HEADER = "Conjurações de interrupção obrigatória (por masmorra)",
 	MPLUS_KICK_NOTE = "As grandes para ficar de olho — nomes confirmados pelos guias, confirmar no jogo. Mais masmorras são adicionadas conforme verificamos suas listas de conjurações.",
@@ -535,7 +535,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	MPLUS_GLOSS_BIS = "BiS (best in slot) — el mejor objeto posible para una ranura de equipo. \"Ese abalorio es BiS\" significa que nada lo supera ahí.",
 	MPLUS_GLOSS_PROC = "Proc — un efecto extra que se activa al azar de un hechizo u objeto. Valor gratis cuando se enciende, así que úsalo.",
 	MPLUS_GLOSS_UPTIME = "Uptime — cuánto del combate está activo un efecto o mejora. Más uptime en tus mejoras clave es mejor.",
-	MPLUS_GLOSS_VAULT = "Ranura de cámara — una opción de recompensa en la Gran Cámara. Haz actividades durante la semana para desbloquear más ranuras.",
+	MPLUS_GLOSS_VAULT = "Ranura de cámara — una opción de recompensa en la Gran cámara. Haz actividades durante la semana para desbloquear más ranuras.",
 
 	MPLUS_WEEK_HEADER = "Esta semana, solo para ti",
 	MPLUS_WEEK_BODY = "• Abre el buscador de grupos y elige una mazmorra en Follower o Normal.|n• No hay reloj y no puedes \"fallar\" — tómate todo el tiempo que necesites.|n• Puedes salir en cualquier momento; no se pierde nada.|n• Morir es normal y aquí no cuesta nada — solo vuelve andando y sigue.|n• ¿Quieres los pasos de cada jefe? Abre la pestaña Dungeon Coach.",

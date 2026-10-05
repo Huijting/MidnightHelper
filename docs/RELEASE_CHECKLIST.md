@@ -66,6 +66,9 @@ git push origin v<ver>
   legacy.curseforge.com/account/api-tokens) — een Core/Eternal-key faalt met
   "Error fetching game version info" en slaat de upload stil over.
 - Run controleren zonder `gh` CLI: `https://api.github.com/repos/Huijting/MidnightHelper/actions/runs?per_page=3`.
+- **Seintje aan de site-chat** (sessie "Midnight Helper site", SendMessage; afspraak Rob 5 okt 2026): versie, tag-commit
+  en wat de site raakt. Zij werken de cijferstrook op de homepage bij (versie, datum, downloads) en draaien de
+  nachtbouw van /play/ en de gidsen uit die tag. Live zetten blijft Robs ja.
 
 ## 4. Screenshots (als er nieuwe features zijn)
 
