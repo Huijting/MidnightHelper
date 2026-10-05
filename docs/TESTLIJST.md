@@ -60,6 +60,18 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — `/mh ready` = venstertje "Klaar voor de raid?" (Rob: "ja doe maar")
+
+Nieuw: `Modules/RaidShoppingList.lua`. Bovenaan twee knoppen **Nieuwe baas leren** / **Farm (bekende bazen)**. Per rij:
+icoon, het item voor jouw spec, *wat je hebt / wat je nodig hebt*, en rood **Koop N**. Aantallen (4 uur, AFGELEID):
+leren = healing 30, combat 30, flask 4, food 4, rune 30 (optioneel); farm = 15 / 16 / 4 / 4 / 0. Healthstone: "gratis
+van een Warlock". De oude chatregels: `/mh readycheck`. Ook: ketel-flasks (Fleeting) en Demonic Healthstone tellen nu mee.
+- [ ] `/mh ready`: opent het venster? Klopt het aantal healing potions met je tas?
+- [ ] Wissel **Farm** ↔ **Nieuwe baas leren**: veranderen de aantallen? Onthoudt hij je keus na `/reload`?
+- [ ] Muis op een rij: tooltip van het item dat je moet kopen (beste kwaliteit)?
+- [ ] Escape sluit het venster; slepen werkt.
+- [ ] Teksten alleen Engels + Nederlands; CMDLIST_READY is in de/fr/es/pt/it nu verouderd (vertaalronde).
+
 ## 🐛 5 okt avond — mounts op balk 7 bleven staan (Carola's Duckiesan, 4.7.0)
 
 GEMETEN (Robs screenshot van de balken): op blok C staan nog Carola's **mounts** waar het plaatje Revive (F3), War Stomp,

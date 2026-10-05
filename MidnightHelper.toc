@@ -117,6 +117,7 @@ Modules\GearEnchantCheck.lua
 Modules\ConsumableReadyCheck.lua
 Modules\ConsumableReadyComms.lua
 Modules\ConsumableReadyBoard.lua
+Modules\RaidShoppingList.lua
 Modules\DurabilityWarn.lua
 Modules\GroupRezLust.lua
 Modules\GroupFloorProbe.lua

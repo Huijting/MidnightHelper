@@ -3264,7 +3264,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "readycheck" or msg == "ready" or msg == "consready" then
+	-- 5 Oct 2026 (Rob: "een schermpje in plaats van alleen in de tekst"): /mh ready opens the raid
+	-- shopping list window; the old chat lines stay under /mh readycheck and /mh consready.
+	if msg == "ready" then
+		if ns.ShowRaidShoppingList then
+			ns.ShowRaidShoppingList()
+		end
+		return
+	end
+
+	if msg == "readycheck" or msg == "consready" then
 		if ns.PrintConsumableReadyCheck then
 			ns.PrintConsumableReadyCheck()
 		end

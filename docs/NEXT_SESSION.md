@@ -4,7 +4,10 @@
 
 Mount-fix (alles mag opzij), speelkaart-toetsen (blok > balk 1, naamterugval), id-ronde. ⚠️ Uitgebracht vóór Robs eigen
 test van de mount-fix (zijn keuze) → TESTLIJST 5 okt avond. Carola (4.7.0) moet na de update Terugzetten + opnieuw.
-Lopend: mh-research "hoeveel consumables voor een raidavond" (voor het /mh ready-venster, ROADMAP).
+Daarna GEBOUWD, NIET GETEST, NIET GEPUSHT (Rob: "ja doe maar"): `/mh ready` = venster "Klaar voor de raid?"
+(`Modules/RaidShoppingList.lua`, `ns.GetRaidShoppingData` in ConsumableReadyCheck.lua, keuze leren/farm in
+`ns.db.ui.raidShopMode`); chat blijft onder `/mh readycheck`. Fleeting-flasks + Demonic Healthstone tellen mee.
+Onderzoek: `docs/RAID_CONSUMABLES_2026-10-05.md`. Nog doen: RAIDSHOP_* + gewijzigde CMDLIST_READY vertalen (mh-writer).
 
 ## 🚀 5 okt — 4.7.0 UITGEBRACHT (Rob: "een hele dikke go"): main + tag `v4.7.0` (45fd060) gepusht, site-chat geseind
 

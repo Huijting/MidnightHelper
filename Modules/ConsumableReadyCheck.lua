@@ -29,7 +29,9 @@ local _, ns = ...
 -- Healthstone (Warlock): klassieke item-ID, al jaren stabiel. Staat niet in de
 -- consumables-data (geen class/spec-consumable), dus hier apart. Te verifiëren
 -- met /mh auradump-broertje GetItemCount als Blizzard 'm ooit hernummert.
-local HEALTHSTONE_IDS = { 5512 }
+-- 224464 = Demonic Healthstone (Warlock talent version, 3 charges, own cooldown): mh-research 5 Oct 2026,
+-- wago DB2 12.1.0.69933 + Wowhead. Without it a player holding one was told "no healthstone".
+local HEALTHSTONE_IDS = { 5512, 224464 }
 
 -- Markeringskleuren (zelfde palet als GearEnchantCheck).
 local C_OK, C_BAD, C_UNK = "8cd98c", "e66b6b", "9aa0a8"
@@ -271,6 +273,18 @@ for a, b in pairs(RANK_SIBLING) do
 	end
 end
 
+-- "Fleeting" versions from a raid cauldron: same buff, other item ids (mh-research 5 Oct 2026, wago DB2
+-- 12.1.0.69933 + Wowhead, paired by name). Without them a player with only cauldron flasks was told
+-- "none". Fleeting COMBAT potions are left out: which fleeting id belongs to which potion was not sure.
+local FLEETING = {
+	[241320] = { 245926, 245927 }, [241321] = { 245926, 245927 }, -- Thalassian Resistance
+	[241326] = { 245928, 245929 }, [241327] = { 245928, 245929 }, -- Shattered Sun
+	[241324] = { 245930, 245931 }, [241325] = { 245930, 245931 }, -- Blood Knights
+	[241322] = { 245932, 245933 }, [241323] = { 245932, 245933 }, -- Magisters
+}
+-- Any healing potion heals: the Fleeting Silvermoon Health Potion counts for every spec.
+local EXTRA_BY_CAT = { healingPotion = { 245918, 245919 } }
+
 -- Best + alternates van een categorie als één id-lijst (voor de tas-telling), plus de andere rang.
 local function CategoryItemIDs(specData, catName)
 	local cat = specData and specData[catName]
@@ -288,7 +302,13 @@ local function CategoryItemIDs(specData, catName)
 		for i = 1, #list do
 			add(list[i])
 			add(RANK_SIBLING[list[i]])
+			for _, f in ipairs(FLEETING[list[i]] or {}) do
+				add(f)
+			end
 		end
+	end
+	for _, id in ipairs(EXTRA_BY_CAT[catName] or {}) do
+		add(id)
 	end
 	return ids
 end
@@ -318,11 +338,23 @@ local function BagTier(specData, catName)
 	if type(cat) ~= "table" then
 		return nil
 	end
-	local hasBest = BagCount(cat.best or {})
+	-- The other rank and the Fleeting cauldron version count as the same item.
+	local function expand(list)
+		local out = {}
+		for _, id in ipairs(list or {}) do
+			out[#out + 1] = id
+			out[#out + 1] = RANK_SIBLING[id]
+			for _, f in ipairs(FLEETING[id] or {}) do
+				out[#out + 1] = f
+			end
+		end
+		return out
+	end
+	local hasBest = BagCount(expand(cat.best))
 	if hasBest == true then
 		return "best"
 	end
-	local hasAlt = BagCount(cat.alternates or {})
+	local hasAlt = BagCount(expand(cat.alternates))
 	if hasAlt == true then
 		return "alt"
 	end
@@ -536,6 +568,56 @@ function ns.GetOwnConsumableItemIDs()
 		food = firstOwned(FoodItemIDs(specData)),
 		hs = firstOwned(HEALTHSTONE_IDS),
 	}
+end
+
+--------------------------------------------------------------------------------
+-- Boodschappenlijstje voor een raidavond (Rob, 5 okt 2026: "een knop waarbij ik in één keer zie
+-- welke consumables ik nog moet halen", en "een schermpje in plaats van alleen tekst").
+-- Aantallen: docs/RAID_CONSUMABLES_2026-10-05.md (mh-research). Rob: reken op 3 à 4 uur; flasks
+-- blijven na de dood; healing potions zijn belangrijk, beste kwaliteit. Wat na de dood blijft
+-- (flask, Hearty food) telt per uur, wat weg is (potions, rune) per pull. AFGELEID, een vuistregel.
+--------------------------------------------------------------------------------
+
+local RAID_NEED = {
+	prog = { flask = 4, food = 4, hpot = 30, cpot = 30, rune = 30 },
+	farm = { flask = 4, food = 4, hpot = 15, cpot = 16, rune = 0 },
+}
+
+--- @param mode "prog"|"farm"
+--- @return table rows { key, labelKey, itemID (to buy), have (number|nil), need, optional, info }
+function ns.GetRaidShoppingData(mode)
+	local need = RAID_NEED[mode] or RAID_NEED.prog
+	local specData = PlayerSpecData()
+	local function bestID(cat)
+		local t = specData and specData[cat]
+		if type(t) ~= "table" then
+			return nil
+		end
+		return (t.best and t.best[1]) or (t.alternates and t.alternates[1]) or nil
+	end
+	-- nil = unknown (no data for this spec, or the client did not answer): never a made-up zero.
+	local function have(ids)
+		local has, n = BagCount(ids)
+		if has == nil then
+			return nil
+		end
+		return n or 0
+	end
+	local rows = {
+		{ key = "hpot", labelKey = "CONSREADY_HPOT", itemID = bestID("healingPotion"),
+			have = have(CategoryItemIDs(specData, "healingPotion")), need = need.hpot },
+		{ key = "cpot", labelKey = "CONSREADY_CPOT", itemID = bestID("combatPotion"),
+			have = have(CategoryItemIDs(specData, "combatPotion")), need = need.cpot },
+		{ key = "flask", labelKey = "CONSREADY_FLASK", itemID = bestID("flask"),
+			have = have(CategoryItemIDs(specData, "flask")), need = need.flask },
+		{ key = "food", labelKey = "CONSREADY_FOOD", itemID = bestID("personalFood") or bestID("feast"),
+			have = have(FoodItemIDs(specData)), need = need.food },
+		{ key = "rune", labelKey = "CONSREADY_RUNE", itemID = bestID("augmentRune"),
+			have = have(CategoryItemIDs(specData, "augmentRune")), need = need.rune, optional = true },
+		{ key = "hs", labelKey = "CONSREADY_HS", itemID = HEALTHSTONE_IDS[1],
+			have = have(HEALTHSTONE_IDS), need = 0, info = "RAIDSHOP_HS_NOTE" },
+	}
+	return rows, specData ~= nil
 end
 
 -- Representatief icoon (fileID) per categorie voor de icoon-stijl van het bord.
