@@ -60,6 +60,13 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — blok C verborgen en kleiner op de Hunter (layout Oak)
+
+GEMETEN in de SV: in "Oak" stond balk 7 op Visible = Hidden (alleen te zien met het spellboek open) en de drie balken
+hadden icoongrootte 3/2/0. "Zet mijn balken als blok" zet nu alle drie op "altijd zichtbaar" en op de grootste van de drie.
+- [ ] Hunter: **Zet "Oak" terug** → Nu herladen → **Zet mijn balken als blok** → Nu herladen. Is blok C nu altijd zichtbaar,
+  en zijn A, B en C even groot?
+
 ## 🆕 5 okt avond — alle 36 toetsen horen bij het blok, ook lege plekken
 
 - [ ] Hunter: **Terugzetten**, dan **Zet het op balk 5, 6 en 7**. Staan de labels Shift Z/X/C/V, Shift 4, Shift F1 nu op

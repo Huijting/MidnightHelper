@@ -794,6 +794,15 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 
 	-- 1. The block: B in the middle, A left of it, C right of it. 3 rows of 4, horizontal.
+	-- One icon size for all three (MEASURED 5 Oct 2026, Rob's Hunter layout "Oak": bars 5/6/7 had icon
+	-- size 3/2/0, so block C was half the size of A). The largest wins, so nothing the player sized up shrinks.
+	local iconSize
+	for _, idx in ipairs({ 5, 6, 7 }) do
+		local v = sysBy[idx] and tonumber(GetSetting(sysBy[idx], 3))
+		if v and (not iconSize or v > iconSize) then
+			iconSize = v
+		end
+	end
 	for _, idx in ipairs({ 5, 6, 7 }) do
 		local s = sysBy[idx]
 		if s then
@@ -803,6 +812,12 @@ function ns.MH_EditModeApplyKeyBlock()
 			-- AlwaysShowButtons on: an empty place stays visible, so the block keeps its 3 x 4 shape.
 			-- Rob, 5 Oct 2026: "ja, lege knoppen tonen in het blok" (his bars had it off: gaps).
 			SetSetting(s, 9, 1)
+			-- Visible: Always (value 0, as on every bar Rob can see). MEASURED: "Oak" had bar 7 on 3 =
+			-- Hidden, which the game shows only while the spellbook is open — Rob: block C appeared only then.
+			SetSetting(s, 5, 0)
+			if iconSize then
+				SetSetting(s, 3, iconSize)
+			end
 		end
 	end
 	if sysBy[6] then Anchor(sysBy[6], "BOTTOM", "UIParent", "BOTTOM", shift, bottom) end
