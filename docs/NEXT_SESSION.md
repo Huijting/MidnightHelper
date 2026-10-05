@@ -38,11 +38,13 @@ gedeelde layout + heropenen na herladen; healer-blok in het spel op Holy (`/mh b
 Virtue Shift 1? — AFGELEID, niet gemeten); vinkjes als plaatje.
 
 **Open (niet blokkerend):**
-- Vertalen de/fr/es/pt/it: nieuwste keys alleen en/nl — KEYBLOCK_GUIDE_*, KEYBLOCK_RELOAD_POPUP, KEYBLOCK_OWN_* (deels),
-  PLAYCARD_HEAL_HOW*, gewijzigde KEYBLOCK_GUIDE_2_PRESET. mh-writer, alleen Translations2026.lua.
+- ✅ 6 okt vertaald (mh-writer, eigen vertaling, niet nagekeken): 17 keys × de/fr/es/pt/it (KEYBLOCK_GUIDE_*,
+  RELOAD_POPUP, REFUSE_*, PLAYCARD_HEAL_HOW*); LAYOUT_DONE/ALREADY door mij herschreven (noemen nu 'Put "%s" back').
+  Open: "Single-Button Assistant" overal Engels gelaten — of de/fr-clients een vertaalde naam tonen is NIET gemeten
+  (wago.tools GlobalStrings). enUS GUIDE_4 noemde "How to play", knop heet "How you play" → gerepareerd.
 - Id-ronde voor de site: `data/keyblock_specs.json` 415/1064 plekken met id (GEMETEN). NIET uit commentaar invullen
   (lint [20]-regel) — per klasse via wago.tools (mh-research). Rob moet starten.
-- Kleine tekstpuntjes: KEYBLOCK_TIP_REFUSE_FMT krijgt Engelse redenen; LAYOUT_DONE noemt oude knopnaam.
+- ✅ 6 okt: KEYBLOCK_TIP_REFUSE_FMT krijgt nu vertaalde redenen (KEYBLOCK_REFUSE_*); LAYOUT_DONE noemt de echte knop.
 - Preservation-dispel (Naturalize) niet op V: geen geverifieerd id.
 - Release: CHANGELOG/RELEASE_NOTES/docs/CURSEFORGE_<ver>.md/.toc nog niet gemaakt; bij tag site-chat seinen.
 
