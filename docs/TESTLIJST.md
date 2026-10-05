@@ -63,7 +63,9 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 ## 🆕 5 okt avond — pet-spreuken (Mend Pet, Revive Pet, Call Pet) in het blok
 
 Oorzaak (mh-research): ze zitten in de spellboek-groepjes "Pet Utility" en "Call Pet"; MH las zo'n groepje niet uit.
-- [ ] Hunter: `/reload`. Komt het venstertje "Nieuw voor je toetsenblok: Mend Pet -> …, Revive Pet -> …"? (Call Pet
+- [x] (Rob 5 okt, screenshots) Venstertje "Mend Pet -> Ctrl 2, Call Pet 1 -> Shift V", knoppen "Zet neer / Later";
+  na Zet neer staan ze op het blok. Revive Pet niet gevraagd: stond al in blok D (Alt R). ✅
+- [ ] (oude regel) Hunter: `/reload`. Komt het venstertje "Nieuw voor je toetsenblok: Mend Pet -> …, Revive Pet -> …"? (Call Pet
   alleen als je hem kent; MM pas met het talent Unbreakable Bond.) Zet neer → staan ze op het blok en werkt de toets?
 - [ ] Optioneel, als het niet komt: plak deze in de chat en stuur me de uitkomst:
   `/run for i=1,6 do print(GetFlyoutSlotInfo(103,i)) end`
