@@ -5,7 +5,7 @@
     "primarySource": "https://www.wowhead.com",
     "generatedAt": "2026-05-18",
     "localeItemNames": "enUS",
-    "patchedSince": "2026-08-19: Season 2 health potion (Concentrated Silvermoon); 2026-09-14: checked against Icy Veins 12.1 - flask and combat potion agree for all specs, primary-stat feast first for Vengeance, Guardian and Brewmaster"
+    "patchedSince": "2026-08-19: Season 2 health potion (Concentrated Silvermoon); 2026-09-14: checked against Icy Veins 12.1 - flask and combat potion agree for all specs, primary-stat feast first for Vengeance, Guardian and Brewmaster; 2026-10-05: 15 flask/potion picks swapped after a three-source check (Icy Veins, Wowhead, Method), duplicates removed, Zealotry dropped, Liquid Luster added as alternate (mh-research cons_review)"
   },
   "Death Knight": {
     "Blood": {
@@ -52,11 +52,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          },
-          {
-            "id": 241297,
-            "name": "Potion of Zealotry",
-            "wowheadUrl": "https://www.wowhead.com/item=241297"
           }
         ],
         "noteKey": "CONS_NOTE_15"
@@ -324,16 +319,16 @@
       "flask": {
         "best": [
           {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
           }
         ],
         "alternates": [
           {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
           },
           {
             "id": 241324,
@@ -682,11 +677,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          },
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           }
         ],
         "noteKey": "CONS_NOTE_15"
@@ -991,6 +981,13 @@
       "combatPotion": {
         "best": [
           {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241308,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241308"
@@ -999,13 +996,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          }
-        ],
-        "alternates": [
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -1168,6 +1158,16 @@
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
+          },
+          {
+            "id": 271887,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271887"
+          },
+          {
+            "id": 271886,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271886"
           }
         ],
         "noteKey": "CONS_NOTE_14"
@@ -1290,11 +1290,6 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           },
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
-          },
-          {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
@@ -1320,16 +1315,6 @@
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
-          },
-          {
-            "id": 241308,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241308"
-          },
-          {
-            "id": 241309,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241309"
           },
           {
             "id": 241288,
@@ -1489,11 +1474,6 @@
         ],
         "alternates": [
           {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
-          },
-          {
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
@@ -1609,17 +1589,17 @@
       "flask": {
         "best": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
-          },
-          {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
           }
         ],
         "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
           {
             "id": 241322,
             "name": "Flask of the Magisters",
@@ -1631,10 +1611,17 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteKey": "CONS_NOTE_16"
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
           {
             "id": 241308,
             "name": "Light's Potential",
@@ -1644,13 +1631,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          }
-        ],
-        "alternates": [
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -1766,16 +1746,16 @@
       "flask": {
         "best": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
           }
         ],
         "alternates": [
           {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
             "id": 241326,
@@ -1788,7 +1768,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteKey": "CONS_NOTE_03"
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -1808,11 +1788,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          },
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -1955,6 +1930,13 @@
       "combatPotion": {
         "best": [
           {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241308,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241308"
@@ -1963,13 +1945,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          }
-        ],
-        "alternates": [
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -2099,11 +2074,6 @@
             "wowheadUrl": "https://www.wowhead.com/item=241326"
           },
           {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
-          },
-          {
             "id": 241324,
             "name": "Flask of the Blood Knights",
             "wowheadUrl": "https://www.wowhead.com/item=241324"
@@ -2139,6 +2109,16 @@
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
+          },
+          {
+            "id": 271887,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271887"
+          },
+          {
+            "id": 271886,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271886"
           }
         ],
         "noteKey": "CONS_NOTE_14"
@@ -2296,6 +2276,16 @@
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
+          },
+          {
+            "id": 271887,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271887"
+          },
+          {
+            "id": 271886,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271886"
           }
         ],
         "noteKey": "CONS_NOTE_14"
@@ -2416,11 +2406,6 @@
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
-          },
-          {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
           },
           {
             "id": 241324,
@@ -2582,11 +2567,6 @@
             "wowheadUrl": "https://www.wowhead.com/item=241322"
           },
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
-          },
-          {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
@@ -2742,11 +2722,6 @@
             "id": 241322,
             "name": "Flask of the Magisters",
             "wowheadUrl": "https://www.wowhead.com/item=241322"
-          },
-          {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
             "id": 241326,
@@ -2911,11 +2886,6 @@
             "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
-          },
-          {
             "id": 241320,
             "name": "Flask of Thalassian Resistance",
             "wowheadUrl": "https://www.wowhead.com/item=241320"
@@ -2941,11 +2911,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          },
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -3382,21 +3347,21 @@
       "flask": {
         "best": [
           {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           }
         ],
         "alternates": [
           {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
             "id": 241322,
             "name": "Flask of the Magisters",
             "wowheadUrl": "https://www.wowhead.com/item=241322"
-          },
-          {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
             "id": 241320,
@@ -3541,16 +3506,16 @@
       "flask": {
         "best": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
           }
         ],
         "alternates": [
           {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
             "id": 241326,
@@ -3563,7 +3528,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteKey": "CONS_NOTE_03"
+        "noteKey": "CONS_NOTE_01"
       },
       "combatPotion": {
         "best": [
@@ -3583,11 +3548,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          },
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -3703,26 +3663,21 @@
       "flask": {
         "best": [
           {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           }
         ],
         "alternates": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
           },
           {
             "id": 241320,
             "name": "Flask of Thalassian Resistance",
             "wowheadUrl": "https://www.wowhead.com/item=241320"
-          },
-          {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
           }
         ],
         "noteKey": "CONS_NOTE_13"
@@ -3745,16 +3700,6 @@
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
-          },
-          {
-            "id": 241308,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241308"
-          },
-          {
-            "id": 241309,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241309"
           },
           {
             "id": 241288,
@@ -3880,11 +3825,6 @@
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
-          },
-          {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
           },
           {
             "id": 241324,
@@ -4375,6 +4315,13 @@
       "combatPotion": {
         "best": [
           {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241308,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241308"
@@ -4383,13 +4330,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          }
-        ],
-        "alternates": [
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -4551,16 +4491,6 @@
             "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
-            "id": 241308,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241308"
-          },
-          {
-            "id": 241309,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241309"
-          },
-          {
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
@@ -4701,13 +4631,6 @@
       "combatPotion": {
         "best": [
           {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
-          }
-        ],
-        "alternates": [
-          {
             "id": 241308,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241308"
@@ -4716,6 +4639,13 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -5143,14 +5073,14 @@
       "flask": {
         "best": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
-          },
-          {
             "id": 241322,
             "name": "Flask of the Magisters",
             "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           }
         ],
         "alternates": [
@@ -5190,6 +5120,16 @@
             "id": 241292,
             "name": "Draught of Rampant Abandon",
             "wowheadUrl": "https://www.wowhead.com/item=241292"
+          },
+          {
+            "id": 271887,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271887"
+          },
+          {
+            "id": 271886,
+            "name": "Liquid Luster",
+            "wowheadUrl": "https://www.wowhead.com/item=271886"
           }
         ],
         "noteKey": "CONS_NOTE_14"
@@ -5460,11 +5400,6 @@
             "wowheadUrl": "https://www.wowhead.com/item=241322"
           },
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
-          },
-          {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
@@ -5627,11 +5562,6 @@
             "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
-          },
-          {
             "id": 241320,
             "name": "Flask of Thalassian Resistance",
             "wowheadUrl": "https://www.wowhead.com/item=241320"
@@ -5642,6 +5572,13 @@
       "combatPotion": {
         "best": [
           {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241308,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241308"
@@ -5650,13 +5587,6 @@
             "id": 241309,
             "name": "Light's Potential",
             "wowheadUrl": "https://www.wowhead.com/item=241309"
-          }
-        ],
-        "alternates": [
-          {
-            "id": 241288,
-            "name": "Potion of Recklessness",
-            "wowheadUrl": "https://www.wowhead.com/item=241288"
           },
           {
             "id": 241292,
@@ -5772,21 +5702,21 @@
       "flask": {
         "best": [
           {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
           }
         ],
         "alternates": [
           {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
             "id": 241324,
             "name": "Flask of the Blood Knights",
             "wowheadUrl": "https://www.wowhead.com/item=241324"
-          },
-          {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
           },
           {
             "id": 241320,
@@ -5931,21 +5861,21 @@
       "flask": {
         "best": [
           {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           }
         ],
         "alternates": [
           {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
             "id": 241322,
             "name": "Flask of the Magisters",
             "wowheadUrl": "https://www.wowhead.com/item=241322"
-          },
-          {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
             "id": 241320,
