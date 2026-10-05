@@ -90,22 +90,30 @@ local function Build()
 	-- buttons on bar 4 (block D, slots 25-36), which sorts before bar 5 (37-48). MEASURED 5 Oct 2026
 	-- on Rob's Discipline Priest: Flash Heal on block 3 and its parked copy on Alt C, and the card
 	-- said [Alt C]. Without the block: main bar first, then slot order, as before.
+	-- 5 Oct 2026 evening, Rob's sister's Balance Druid: the card said Revive [F8] while the block has
+	-- Revive on F3 (Rob: "er staat echt F8"). Where F8 comes from is NOT measured; /mh playkeys shows it.
+	-- What is sure: with the block placed, the block IS the main bar (keys 1-5 left bar 1), so a copy on
+	-- bar 1 with some other key must not win. Block first, then bar 1, then the rest.
 	local rank = {}
-	if ns.KeyBlockIsPlaced and ns.KeyBlockIsPlaced() and ns.KeyBlockBars then
+	local blockPlaced = ns.KeyBlockIsPlaced and ns.KeyBlockIsPlaced() and ns.KeyBlockBars and true or false
+	if blockPlaced then
 		local bars = ns.KeyBlockBars()
 		for _, letter in ipairs({ "A", "B", "C" }) do
 			local bar = (ns.KEYBIND_BAR_COMMANDS or {})[bars[letter]]
 			if bar then
-				rank[bar.prefix] = 1
+				rank[bar.prefix] = 0
 			end
 		end
 	end
 	local function Rank(s)
 		local prefix = s.cmd:match("^(.-)%d+$") or ""
-		if prefix == "ACTIONBUTTON" then
-			return 0
+		if rank[prefix] then
+			return rank[prefix]
 		end
-		return rank[prefix] or 2
+		if prefix == "ACTIONBUTTON" then
+			return blockPlaced and 1 or 0
+		end
+		return 2
 	end
 	for _, s in ipairs(slots) do
 		s.rank = Rank(s)

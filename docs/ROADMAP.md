@@ -15,6 +15,8 @@ De rest, bewaard voor later (≈ prioriteit):
   :3267): tas-telling + buff per categorie, als chatregels. Wat ontbreekt: één knop (bv. op het Consumables-tabblad van
   de speelkaart) die ALLEEN toont wat je mist of te weinig hebt, met hoeveel en waar te halen. Ontwerpvraag: hoeveel is
   "genoeg" voor een raidavond (aantal flasks/potions/food)?
+  Rob, zelfde avond, na `/mh ready` in de chat: *"kunnen we van de MH Ready niet een schermpje maken in plaats van alleen
+  in de tekst?"* → het wordt een venster, niet een chatregel.
 
 - [ ] **Zoeken in tassen en bank van alle karakters (Rob, 1 okt 2026: "in het achterhoofd houden")** — gezien bij
       Allemano AltBoard (WoW Forever; alleen idee, geen code). Bewust NIET nu: Altoholic/AltVault/Alts Forever/Syndicator
