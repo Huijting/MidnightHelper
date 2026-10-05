@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.7.1
+
+📌 **2026-10-05 avond, als release (Rob: "bring die maar uit dan, want dit is best belangrijk").** Notitie in
+`docs/CURSEFORGE_4.7.1.md` (identiek aan `RELEASE_NOTES.md`). ⚠️ Rob koos uitbrengen vóór zijn eigen test van de
+mount-fix; de reparaties zijn alleen statisch gecontroleerd (lint/syntax). Testlijst 5 okt avond.
+
+- **Toetsenblok:** alles mag opzij (`Movable`), niet alleen spell/item/macro — Carola's mounts op balk 7 hielden 7
+  blok-C-plekken bezet (GEMETEN, screenshot). Mountnamen in de dry run.
+- **Speelkaart-toetsen (`LiveKeys`):** met het blok neergezet wint het blok van balk 1; laatste terugval = zelfde
+  spreuknaam (Balance Wrath stond op 1, kaart zei "geen toets", GEMETEN via `/mh playkeys`).
+- **Id-ronde:** 361 `id`'s in `KeybindRoles_*` (wago 12.1.0.69933 + Wowhead, 3 × mh-research); `KeybindAutoMap` zoekt
+  nu naam eerst, dan id. Site-data 1019/1064 plekken met id.
+
 ## 4.7.0
 
 📌 **2026-10-05, als release (Rob: "een hele dikke go"), tag `v4.7.0` op 45fd060.** Rob koos "release eerst, spell-ids daarna".

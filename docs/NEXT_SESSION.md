@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## 🚀 5 okt avond — 4.7.1 UITGEBRACHT (Rob: "bring die maar uit dan, want dit is best belangrijk")
+
+Mount-fix (alles mag opzij), speelkaart-toetsen (blok > balk 1, naamterugval), id-ronde. ⚠️ Uitgebracht vóór Robs eigen
+test van de mount-fix (zijn keuze) → TESTLIJST 5 okt avond. Carola (4.7.0) moet na de update Terugzetten + opnieuw.
+Lopend: mh-research "hoeveel consumables voor een raidavond" (voor het /mh ready-venster, ROADMAP).
+
 ## 🚀 5 okt — 4.7.0 UITGEBRACHT (Rob: "een hele dikke go"): main + tag `v4.7.0` (45fd060) gepusht, site-chat geseind
 
 ⚠️ Datums in deze sessie stonden eerst als "6 okt"; het was 5 okt (GEMETEN: GitHub run created_at 2026-10-05). Verbeterd.

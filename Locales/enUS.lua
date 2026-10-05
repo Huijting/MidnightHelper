@@ -2615,6 +2615,9 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
+	CHANGELOG_471_1 = "Key block fix: mounts, pets and toys on bars 5, 6 and 7 now move aside to block D, so your spells land where the picture shows them. Placed the block in 4.7.0 and see a mount where a spell belongs? /mh block, Undo, then place it again.",
+	CHANGELOG_471_2 = "Play card: shows your key block key when a spell sits on two buttons, and finds a spec's own version of a spell (like Balance Wrath).",
+	CHANGELOG_471_3 = "About 360 spells now carry their exact spell ID, so the key block finds them in German, French, Spanish, Portuguese and Italian game clients too.",
 	CHANGELOG_470_1 = "THIS RELEASE IS ALL ABOUT YOUR NEW KEY BLOCK. Type /mh block and follow the steps at the top of the window: the same job on the same key, on every character. 1 is your main button, E your interrupt, Z your small defensive, Q your big cooldown.",
 	CHANGELOG_470_2 = "Key block: puts your spells on bars 5, 6 and 7 for you, arranges them as a block on screen, and Undo puts every button and key back. Per character and per spec. Nothing changes until you press a button.",
 	CHANGELOG_470_3 = "Key block: new spells get a place (it asks, does it by itself, or never: your choice), keys 1-5 still work while skyriding, healers get their heals on 1-4, optional mouse keys on bar 8, and a cheat sheet for midnighthelper.com.",
