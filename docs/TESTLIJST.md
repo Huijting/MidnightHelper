@@ -62,8 +62,8 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 
 ## 🆕 6 okt — `/mh export` geeft nu ook het item-nummer (voor Wowhead-tooltips op de Armory)
 
-- [ ] `/mh export`: elke regel eindigt nu op een nummer, bv. `…|0|0|||250123:12345:6789`. Geen foutmelding?
-- [ ] Plak het op de Armory (oude site-versie): rekent hij nog precies zoals gisteren? (Hij hoort het nieuwe veld te negeren.)
+- [x] Rob 6 okt ✅ `/mh export`: elke regel eindigt nu op een nummer, bv. `…|0|0|||250123:12345:6789`. Geen foutmelding?
+- [x] Rob 6 okt ✅ ("ik krijg het keurig te zien") Plak het op de Armory (oude site-versie): rekent hij nog precies zoals gisteren? (Hij hoort het nieuwe veld te negeren.)
 - [ ] Pas als de site-kant er is: muis over een item → toont Wowhead **hetzelfde** item, met jouw item level?
 
 ## 🆕 5 okt avond — na "Nu herladen" opent het blokvenster vanzelf weer (Rob)
@@ -75,9 +75,9 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 
 - [x] Rob 6 okt ✅ Reddish (op "twelve retro", een account-layout): de middelste knop heet nu **Eigen layout + blok**. Druk →
   "Redisch Beast Mastery" (kopie van twelve retro), alleen voor Reddish/BM; je Paladin merkt niets. Nu herladen.
-- [ ] Je Cooldown Manager blijft bij zo'n kopie waar jij hem had (alleen kopieën van Modern/Classic tillen hem op).
+- [x] Rob 6 okt ✅ Je Cooldown Manager blijft bij zo'n kopie waar jij hem had (alleen kopieën van Modern/Classic tillen hem op).
 - [x] Rob 6 okt ✅ Stappenplan: groene **vinkjes** zijn nu echte plaatjes (geen "|TI…").
-- [ ] Spiekbrief: klik eerst in de tekst, dan Ctrl+A, Ctrl+C (deed Ctrl+C iets anders, dan had het vak de focus niet).
+- [x] Rob 6 okt ✅ (Ctrl+C werkte meteen, zonder klikken) Spiekbrief: klik eerst in de tekst, dan Ctrl+A, Ctrl+C (deed Ctrl+C iets anders, dan had het vak de focus niet).
 
 ## 🆕 5 okt avond — stappenplan boven het blokvenster (Rob: "waar moet ik beginnen?")
 

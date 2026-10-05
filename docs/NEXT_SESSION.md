@@ -40,7 +40,8 @@ Virtue Shift 1? — AFGELEID, niet gemeten); vinkjes als plaatje.
 
 Site-chat = sessie "Midnight Helper site" (ListAgents + SendMessage); die wacht op id-ronde en release-seintje.
 
-**6 okt — `/mh export` veld 15 (verzoek site-chat, Wowhead-tooltips op de Armory) — GEBOUWD, NIET GETEST:**
+**6 okt — `/mh export` veld 15 (verzoek site-chat, Wowhead-tooltips op de Armory) — Rob getest: export zonder fout,
+live Armory leest hem goed. Tooltip zelf (site-branch keyblock) nog niet met een echte regel gecontroleerd:**
 `GearExport.lua` schrijft op elke regel `<itemID>[:<bonusID>...]` uit de itemlink; velden 12-14 dan leeg ("|||").
 Oude site-parser negeert het (GEMETEN in armory/index.html fromExport: regex op 12-14, lengte ≥ 11). Bonus-ids op
 linkveld 13+ = AFGELEID uit 3 addons, niet gemeten. Gaat mee in de volgende release.
