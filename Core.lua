@@ -1092,6 +1092,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block update — add newly learned spells to a placed block (5 Oct 2026).
+	if msg == "block update" then
+		if ns.KeyBlockUpdate then
+			ns.KeyBlockUpdate()
+		end
+		return
+	end
 	-- /mh block layout — step 2b: bars 5/6/7 as a block via Edit Mode (undo: /mh editmode restore).
 	if msg == "block layout" then
 		if ns.MH_EditModeApplyKeyBlock then

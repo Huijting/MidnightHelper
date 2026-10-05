@@ -853,6 +853,238 @@ function ns.KeyBlockUndo()
 end
 
 --------------------------------------------------------------------------------
+-- New spells after placing (5 Oct 2026, Rob levelled his Hunter 11 -> 12: "hoe gaan we daarmee om?").
+-- Agreed: a "Bijwerken" button, a question when a new spell is learned (never in combat), and a switch
+-- ask / automatic / never (default ask). Update only ADDS: what stands on the block keeps its place, so a
+-- key never changes meaning. A new spell goes to its own place if that is empty, else to the first empty
+-- place of bar C.
+--------------------------------------------------------------------------------
+
+local win -- the picture window (built further down)
+local Refresh -- forward: the window's buttons redraw after placing, undoing or updating
+
+--- What the plan wants that is on no block button yet, with where it would go.
+--- @return table list of { row = planRow, target = planRow } (target = the place it lands on)
+local function MissingRows()
+	local rows = PlacePlan()
+	if not rows then
+		return {}
+	end
+	local present, empty, byKey = {}, {}, {}
+	for _, r in ipairs(rows) do
+		byKey[r.key] = r
+		local kind, id = Occupant(r.slot)
+		if kind and id then
+			present[kind .. ":" .. tostring(id)] = true
+		else
+			empty[r.key] = true
+		end
+	end
+	local function isPresent(want)
+		if present[want.kind .. ":" .. tostring(want.id)] then
+			return true
+		end
+		if want.kind == "spell" and C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+			local ok, over = pcall(C_SpellBook.FindSpellOverrideByID, want.id)
+			if ok and over and present["spell:" .. tostring(over)] then
+				return true
+			end
+		end
+		return false
+	end
+	local out = {}
+	for _, r in ipairs(rows) do
+		if r.want and not isPresent(r.want) then
+			local target
+			if empty[r.key] then
+				target = r
+			else
+				for _, k in ipairs(OVERFLOW) do
+					if empty[k] and byKey[k] then
+						target = byKey[k]
+						break
+					end
+				end
+			end
+			if target then
+				empty[target.key] = nil
+			end
+			out[#out + 1] = { row = r, target = target }
+		end
+	end
+	return out
+end
+ns.KeyBlockMissing = MissingRows
+
+local function MissingName(m)
+	return OccupantName(m.row.want.kind, m.row.want.id)
+end
+
+--- `Bijwerken`: add what is new, nothing else. Recorded in the same snapshot, so Undo takes it off too.
+function ns.KeyBlockUpdate()
+	local p = "|cffffcc00Midnight Helper:|r "
+	if InCombatLockdown and InCombatLockdown() then
+		print(p .. "not in combat.")
+		return false
+	end
+	local snap = GetSnap()
+	if not snap then
+		print(p .. "the key block is not placed on this character yet — use \"Place it\" first.")
+		return false
+	end
+	local added, names = 0, {}
+	for _, m in ipairs(MissingRows()) do
+		local t = m.target
+		if t then
+			local want = m.row.want
+			pcall(function()
+				ClearCursor()
+				if want.kind == "spell" then
+					if C_Spell and C_Spell.PickupSpell then
+						C_Spell.PickupSpell(want.id)
+					else
+						PickupSpell(want.id)
+					end
+				elseif C_Item and C_Item.PickupItem then
+					C_Item.PickupItem(want.id)
+				else
+					PickupItem(want.id)
+				end
+				PlaceAction(t.slot)
+				ClearCursor()
+			end)
+			pcall(ClearCursor)
+			if Occupant(t.slot) == want.kind then
+				-- First in the list: the undo must lift this off BEFORE it puts back what stood here before.
+				table.insert(snap.slots, 1, { slot = t.slot })
+				added = added + 1
+				names[#names + 1] = ("%s (%s)"):format(MissingName(m), KeyLabel(t.key))
+			end
+		end
+	end
+	ns.db.keyBlockAsked = ns.db.keyBlockAsked or {}
+	ns.db.keyBlockAsked[MyKey()] = nil
+	if added == 0 then
+		print(p .. "key block: nothing new to add.")
+	else
+		print(p .. ("key block updated: %s."):format(table.concat(names, ", ")))
+	end
+	if win and win:IsShown() and Refresh then
+		Refresh(win)
+	end
+	return true, added, names
+end
+
+--- Ask / automatic / never. Per account: it is how this player wants to be treated, not a character fact.
+local NEW_MODES = { "ask", "auto", "never" }
+function ns.KeyBlockNewMode()
+	local m = ns.db and ns.db.keyBlockNewMode
+	return (m == "auto" or m == "never") and m or "ask"
+end
+
+local function NextMode()
+	local cur = ns.KeyBlockNewMode()
+	for i, m in ipairs(NEW_MODES) do
+		if m == cur then
+			ns.db = ns.db or {}
+			ns.db.keyBlockNewMode = NEW_MODES[i % #NEW_MODES + 1]
+			return ns.db.keyBlockNewMode
+		end
+	end
+end
+
+local function AskKey(list)
+	local ids = {}
+	for _, m in ipairs(list) do
+		ids[#ids + 1] = m.row.want.kind .. ":" .. tostring(m.row.want.id)
+	end
+	table.sort(ids)
+	return table.concat(ids, ",")
+end
+
+if StaticPopupDialogs then
+	StaticPopupDialogs["MH_KEYBLOCK_NEW"] = {
+		text = "%s",
+		button1 = OKAY,
+		button2 = CANCEL,
+		OnShow = function(self)
+			if self.button1 then self.button1:SetText(ns:L("KEYBLOCK_NEW_PLACE")) end
+			if self.button2 then self.button2:SetText(ns:L("KEYBLOCK_NEW_LATER")) end
+		end,
+		OnAccept = function()
+			ns.KeyBlockUpdate()
+		end,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+end
+
+local pending = false
+local watcher = CreateFrame("Frame")
+
+--- Look for new spells. Never acts in combat: it waits for the fight to end.
+local function CheckNew()
+	pending = false
+	if not GetSnap() then
+		return
+	end
+	local mode = ns.KeyBlockNewMode()
+	if mode == "never" then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		watcher:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+	local list = {}
+	for _, m in ipairs(MissingRows()) do
+		if m.target then
+			list[#list + 1] = m
+		end
+	end
+	if #list == 0 then
+		return
+	end
+	if mode == "auto" then
+		ns.KeyBlockUpdate()
+		return
+	end
+	-- "Later" means: not again for this same set. Something newer asks again; the button always works.
+	ns.db.keyBlockAsked = ns.db.keyBlockAsked or {}
+	local key = AskKey(list)
+	if ns.db.keyBlockAsked[MyKey()] == key then
+		return
+	end
+	ns.db.keyBlockAsked[MyKey()] = key
+	local parts = {}
+	for _, m in ipairs(list) do
+		parts[#parts + 1] = ("%s → %s"):format(MissingName(m), KeyLabel(m.target.key))
+	end
+	if StaticPopup_Show then
+		StaticPopup_Show("MH_KEYBLOCK_NEW", ns:L("KEYBLOCK_NEW_POPUP_FMT"):format(table.concat(parts, "\n")))
+	end
+end
+
+watcher:RegisterEvent("SPELLS_CHANGED")
+watcher:SetScript("OnEvent", function(self, event)
+	if event == "PLAYER_REGEN_ENABLED" then
+		self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+	end
+	-- SPELLS_CHANGED comes in bursts (login, level-up, talents): one look, two seconds after the last.
+	if pending then
+		return
+	end
+	pending = true
+	if C_Timer and C_Timer.After then
+		C_Timer.After(2, CheckNew)
+	else
+		CheckNew()
+	end
+end)
+
+--------------------------------------------------------------------------------
 -- The picture
 --------------------------------------------------------------------------------
 
@@ -860,8 +1092,6 @@ end
 -- gets its own strip at the top, the icon sits under it, the name under that, and the place is wider.
 local SLOT_W, SLOT_H, GAP = 84, 80, 6
 local KEY_STRIP = 16
-local win
-local Refresh -- forward: the window's buttons redraw after placing or undoing
 
 -- What "Place it" will do to each place, shown ON the picture (Rob, 5 Oct 2026: the dry run in chat was
 -- "een lange lijst … geen idee wat ik daar op zou moeten letten"). Border colour per action.
@@ -1001,11 +1231,28 @@ local function Ensure()
 		b:SetScript("OnClick", onClick)
 		return b
 	end
+	-- Once placed, the same button adds what is new ("Bijwerken"): one place to look, never both at once.
 	f.placeBtn = Btn("KEYBLOCK_BTN_PLACE", 22, function()
-		if ns.KeyBlockPlace() then
+		if GetSnap() then
+			local ok, added, names = ns.KeyBlockUpdate()
+			if ok then
+				Refresh(f)
+				f.foot:SetText(added and added > 0
+					and ns:L("KEYBLOCK_UPDATE_DONE_FMT"):format(table.concat(names, ", "))
+					or ns:L("KEYBLOCK_UPDATE_NOTHING"))
+			end
+		elseif ns.KeyBlockPlace() then
 			Refresh(f)
 			f.foot:SetText(ns:L("KEYBLOCK_PLACED_DONE"))
 		end
+	end)
+	-- New spells: ask / automatic / never. Click to switch.
+	f.modeBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.modeBtn:SetSize(300, 20)
+	f.modeBtn:SetPoint("TOPRIGHT", -120, -16)
+	f.modeBtn:SetScript("OnClick", function()
+		NextMode()
+		Refresh(f)
 	end)
 	f.undoBtn = Btn("KEYBLOCK_BTN_UNDO", 22 + 210, function()
 		if ns.KeyBlockUndo() then
@@ -1072,6 +1319,8 @@ Refresh = function(f)
 		end
 	end
 	f.title:SetText(ns:L("KEYBLOCK_TITLE"))
+	f.placeBtn:SetText(ns:L(GetSnap() and "KEYBLOCK_BTN_UPDATE" or "KEYBLOCK_BTN_PLACE"))
+	f.modeBtn:SetText(ns:L("KEYBLOCK_MODE_FMT"):format(ns:L("KEYBLOCK_MODE_" .. ns.KeyBlockNewMode():upper())))
 	f.intro:SetText(res and ns:L("KEYBLOCK_INTRO") or ns:L("KEYBLOCK_NO_DATA"))
 	for _, bar in ipairs(BLOCK) do
 		f.bars[bar.id].head:SetText(ns:L("KEYBLOCK_BAR_FMT"):format(bar.id, bars[bar.id]))

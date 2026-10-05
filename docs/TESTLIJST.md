@@ -60,6 +60,17 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — nieuwe spreuken: Bijwerken, vraagje, schakelaar (Rob: "Ik volg jouw voorstel")
+
+Op de Hunter (blok staat al neer):
+- [ ] `/mh block`: de eerste knop heet nu **Bijwerken (nieuwe spreuken erbij)**. Rechtsboven een knop **Nieuwe spreuken: vraag
+  het me**; klikken wisselt naar "zet ze vanzelf neer" en "vraag het nooit". Zet hem terug op "vraag het me".
+- [ ] Level 12 gehaald: kwam er (na een paar seconden, buiten gevecht) een venstertje **"Nieuw voor je toetsenblok: … → toets"**?
+  Zo niet: druk **Bijwerken** — komt de nieuwe spreuk dan op het blok? Bleef al het andere op zijn plek?
+- [ ] "Later" in het venstertje: vraagt hij het daarna niet steeds opnieuw (pas weer bij een volgende nieuwe spreuk)?
+- [ ] Na Bijwerken **Terugzetten**: gaat ook de nieuwe spreuk eraf en komt alles van vóór het blok terug?
+- [ ] In een gevecht levelen: het venstertje komt pas ná het gevecht.
+
 ## 🆕 5 okt avond — optie C: balk 1-4 blijven staan
 
 - [ ] **Zet "…" terug** → herladen → **Zet mijn balken als blok** → herladen. Balk 1-4 staan nog waar ze stonden (geen
