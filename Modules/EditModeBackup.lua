@@ -159,8 +159,24 @@ function ns.MH_EditModeCapture(label)
 		table.insert(list, 1, entry)
 	end
 	FoldLoginDuplicates(list)
+	-- The newest "before-bars-import" is the undo; trimming must never push it out (red team, 5 Oct 2026:
+	-- an apply plus two logins on another layout evicted it). Drop the oldest OTHER entry instead.
+	local keep
+	for i, b in ipairs(list) do
+		if b.label == "before-bars-import" then
+			keep = i
+			break
+		end
+	end
 	while #list > MAX_KEPT do
-		table.remove(list)
+		local drop = #list
+		if drop == keep then
+			drop = drop - 1
+		end
+		table.remove(list, drop)
+		if keep and drop < keep then
+			keep = keep - 1
+		end
 	end
 
 	--- Does this client have an export-to-string function? `ConvertStringToLayoutInfo`
@@ -533,16 +549,27 @@ function ns.MH_EditModeRestore()
 		print(Prefix() .. " nothing to restore — no pre-import backup saved.")
 		return
 	end
-	local was = snap.data.layouts[undo.savedIndex]
+	--- 🔴 BY NAME, NOT BY INDEX (red team, 5 Oct 2026). GetLayouts lists the account layouts plus THIS
+	--- character's own, so index N on an alt can be a different layout than index N where the backup was
+	--- made. Writing by index could pour one layout's bars into another. Match the name on both sides.
+	local function ByName(list, name)
+		for i, l in ipairs(list or {}) do
+			if l.layoutName == name then
+				return l, i
+			end
+		end
+	end
+	local was = ByName(snap.data.layouts, undo.layoutName)
 	if not (was and was.systems) then
 		print(Prefix() .. " the backup does not hold that layout. Nothing changed.")
 		return
 	end
 
 	local okG, info = pcall(C_EditMode.GetLayouts)
-	local target = okG and info and info.layouts and info.layouts[undo.savedIndex]
+	local target = okG and info and info.layouts and ByName(info.layouts, undo.layoutName)
 	if not target then
-		print(Prefix() .. " that layout is gone. Nothing changed.")
+		print(("%s layout \"%s\" is not available on this character. Nothing changed."):format(Prefix(),
+			tostring(undo.layoutName)))
 		return
 	end
 	target.systems = was.systems
