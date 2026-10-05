@@ -72,6 +72,9 @@ Niet in een gevecht.
   Rebuke, Taunt, Prot …) op balk 2, 3 of 4? Werken ze nog als je erop klikt?
 - [ ] **Terugzetten**: staan je macro's weer precies op hun oude plek op balk 7?
 - Let op: een macro die opzij gaat, houdt zijn oude toets niet. De toets hoort nu bij het blok.
+- [ ] **Per personage** (5 okt, Rob op een laag alt): het terugzetten-geheugen is nu per personage. Op het alt: `/mh block`
+  laat de randen zien (niet "staat al op je balken"), en "Terugzetten" zegt "nothing to undo". Terug op de Paladin:
+  `/mh block` zegt "staat op je balken", en "Terugzetten" zet zijn macro's terug op balk 7.
 - [ ] (Rob "1 ja") Plekken waar MH niets voor heeft (Paladin: Shift 1, Shift 2, Shift 3, 4, Shift 4, Shift T) worden nu
   **echt leeg**: wat er stond (het blaadje, Clean) gaat ook naar balk 2-4. Oranje rand op het plaatje vóór het neerzetten.
 

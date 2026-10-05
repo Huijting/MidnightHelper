@@ -11,7 +11,10 @@ keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn
 ⚠️ Rob 5 okt: blok C "absoluut anders dan voorgesteld" door zijn 8 macro's → GEBOUWD, NIET GETEST: macro's niet meer
 geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
 undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
-Rob "1 ja": lege blokplekken worden ook leeggemaakt (actie `clear`, zelfde opzij-zetten). OPEN, wacht op red team
+🔴 Gevonden 5 okt: snapshot stond account-breed (MidnightHelperDB) → nu `keyBlockSnapshots[UnitGUID]`; de oude wordt
+geclaimd door het personage waar een opzij gezette macro op naam op zijn `movedTo`-knop staat (Robs Paladin: "Justice",
+GEMETEN in SV). Open: toetsen zijn account-breed als character-specific bindings uit staan — blok-toetsen gelden dan ook
+op alts. Rob "1 ja": lege blokplekken worden ook leeggemaakt (actie `clear`, zelfde opzij-zetten). OPEN, wacht op red team
 (mh-research, voor/nadelen): 2a/b/c kolommen over de questlijst; Robs vraag "balk 1-4 helemaal leeg?" (mijn tegenvoorstel:
 alleen dubbelen weg, met undo).
 Oorspronkelijk (Rob: "1 advies, 2 advies, 3 advies"; plaatje https://claude.ai/artifact/8Qy5EfdBVTrU6dmvTQK5xR):

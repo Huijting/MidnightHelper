@@ -604,6 +604,44 @@ function ns.KeyBlockPreview(quiet)
 	return ns:L("KEYBLOCK_PLACE_SUMMARY_FMT"):format(n.place, n.replace, n.keep, n.refuse, n.skip)
 end
 
+--- 🔴 ONE SNAPSHOT PER CHARACTER. MidnightHelperDB is account-wide, and until 5 Oct 2026 so was the
+--- snapshot: Rob logged a low-level alt with his Paladin's block placed, where "Undo" would have put the
+--- Paladin's buttons back onto the alt's bars and "Place it" refused because "already placed".
+--- The one snapshot from before this fix has no owner; it is claimed by the character whose bars prove
+--- it: a macro the snapshot moved aside still sits, by name, on the button it was moved to.
+local function MyKey()
+	return UnitGUID and UnitGUID("player") or "?"
+end
+
+local function GetSnap()
+	local db = ns.db
+	if not db then
+		return nil
+	end
+	db.keyBlockSnapshots = db.keyBlockSnapshots or {}
+	local mine = db.keyBlockSnapshots[MyKey()]
+	if mine then
+		return mine
+	end
+	local old = db.keyBlockSnapshot
+	if old then
+		for _, s in ipairs(old.slots or {}) do
+			if s.kind == "macro" and s.movedTo and s.name and GetActionText(s.movedTo) == s.name then
+				db.keyBlockSnapshots[MyKey()] = old
+				db.keyBlockSnapshot = nil
+				return old
+			end
+		end
+	end
+	return nil
+end
+
+local function SetSnap(v)
+	ns.db = ns.db or {}
+	ns.db.keyBlockSnapshots = ns.db.keyBlockSnapshots or {}
+	ns.db.keyBlockSnapshots[MyKey()] = v
+end
+
 --- Do it. Snapshot first; one undo puts back every slot and key we touched.
 function ns.KeyBlockPlace()
 	local p = "|cffffcc00Midnight Helper:|r "
@@ -617,7 +655,7 @@ function ns.KeyBlockPlace()
 		return false
 	end
 	ns.db = ns.db or {}
-	if ns.db.keyBlockSnapshot then
+	if GetSnap() then
 		print(p .. "the key block is already placed. |cffffffff/mh block undo|r first, then place again.")
 		return false
 	end
@@ -633,7 +671,7 @@ function ns.KeyBlockPlace()
 			snap.binds[#snap.binds + 1] = { key = r.key, was = GetBindingAction and GetBindingAction(r.key) or "" }
 		end
 	end
-	ns.db.keyBlockSnapshot = snap
+	SetSnap(snap)
 
 	local placed, bound, failed, moved = 0, 0, {}, 0
 	for _, r in ipairs(rows) do
@@ -711,7 +749,7 @@ end
 
 function ns.KeyBlockUndo()
 	local p = "|cffffcc00Midnight Helper:|r "
-	local snap = ns.db and ns.db.keyBlockSnapshot
+	local snap = GetSnap()
 	if not snap then
 		print(p .. "nothing to undo — the key block was not placed.")
 		return false
@@ -773,7 +811,7 @@ function ns.KeyBlockUndo()
 	if SaveBindings and GetCurrentBindingSet then
 		pcall(SaveBindings, GetCurrentBindingSet())
 	end
-	ns.db.keyBlockSnapshot = nil
+	SetSnap(nil)
 	print(p .. ("key block undone: %d slots and %d keys back as they were."):format(restored, #(snap.binds or {})))
 	return true
 end
@@ -973,7 +1011,7 @@ Refresh = function(f)
 	local res, class = Build()
 	local bars = ns.KeyBlockBars()
 	-- Before placing: what "Place it" would do, per place. After placing, the picture is just the block.
-	local placed = ns.db and ns.db.keyBlockSnapshot
+	local placed = GetSnap()
 	local planBy = {}
 	if not placed then
 		local rows = PlacePlan()
