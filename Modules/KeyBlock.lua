@@ -679,6 +679,16 @@ local function PlacePlan()
 	-- player's own bar, so only places that are empty AFTER parking are used, and a spell that already sits
 	-- somewhere on D is not added again. Undo lifts it off like any placed button.
 	local dInfo = BarInfo(bars.D)
+	-- Probe (5 Oct 2026, Rob's Guardian: Revive did NOT land on D and the code reads fine): what this step saw
+	-- and decided, in SavedVariables and as one chat line at Place. Silence must be tellable from broken.
+	local probe = { dBar = bars.D, hasInfo = dInfo and true or false, unplaced = {}, freeD = {}, dRows = {},
+		assigned = {}, skipped = {} }
+	ns.db = ns.db or {}
+	ns.db.keyBlockLeftoverProbe = probe
+	for _, s in ipairs(res.unplaced or {}) do
+		probe.unplaced[#probe.unplaced + 1] = tostring(s.name) .. ":" .. tostring(s.id)
+	end
+	res.leftoverProbe = probe
 	if dInfo and res.unplaced and #res.unplaced > 0 then
 		local onD = {}
 		for b = 1, 12 do
@@ -693,23 +703,37 @@ local function PlacePlan()
 				freeD[spot.slot] = true
 			end
 		end
+		for slot in pairs(freeD) do
+			probe.freeD[#probe.freeD + 1] = slot
+		end
+		table.sort(probe.freeD)
 		local dRows = {}
 		for _, r in ipairs(rows) do
+			if r.bar == "D" then
+				probe.dRows[#probe.dRows + 1] = ("%s slot %d action %s free %s"):format(r.key, r.slot, tostring(r.action),
+					tostring(freeD[r.slot] and true or false))
+			end
 			if r.bar == "D" and r.action == "own" and freeD[r.slot] then
 				dRows[#dRows + 1] = r
 			end
 		end
 		local n = 0
 		for _, s in ipairs(res.unplaced) do
-			if s.id and not onD[s.id] then
+			if not s.id then
+				probe.skipped[#probe.skipped + 1] = tostring(s.name) .. ": no id"
+			elseif onD[s.id] then
+				probe.skipped[#probe.skipped + 1] = tostring(s.name) .. ": already on D"
+			else
 				n = n + 1
 				local r = dRows[n]
 				if not r then
+					probe.skipped[#probe.skipped + 1] = tostring(s.name) .. ": no free place left on D"
 					break
 				end
 				r.want = { kind = "spell", id = s.id }
 				r.action, r.leftover = "place", true
 				onD[s.id] = true
+				probe.assigned[#probe.assigned + 1] = tostring(s.name) .. " -> " .. r.key
 			end
 		end
 	end
@@ -1029,6 +1053,14 @@ function ns.KeyBlockPlace()
 	print(p .. ("key block placed: %d buttons, %d keys, %d moved aside (block D first), %d doubles off bar 1 and block D. |cffffffff/mh block undo|r puts everything back."):format(placed, bound, moved, doubles))
 	if #failed > 0 then
 		print("   |cffff8080did not land:|r " .. table.concat(failed, ", "))
+	end
+	-- What went to block D, or why not (probe, 5 Oct 2026). Full detail: ns.db.keyBlockLeftoverProbe.
+	local lp = res and res.leftoverProbe
+	if lp and (#lp.assigned > 0 or #lp.skipped > 0 or #lp.unplaced > 0) then
+		print(("   block D: %s%s  |cff9d9d9d(free on D: %d, no place on A/B/C: %d)|r"):format(
+			#lp.assigned > 0 and table.concat(lp.assigned, ", ") or "nothing placed",
+			#lp.skipped > 0 and (" |cffffcc00— " .. table.concat(lp.skipped, ", ") .. "|r") or "",
+			#lp.freeD, #lp.unplaced))
 	end
 	if ns.KeyBlockArmBar1 then
 		ns.KeyBlockArmBar1()
