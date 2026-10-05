@@ -67,7 +67,11 @@ in klein font") was FOUT: Rob keek van dichtbij, er staat echt **F8**. Waar F8 v
 wat zeker fout was: met het blok neergezet won een kopie op balk 1 (ACTIONBUTTON, rang 0) van het blok; nu blok eerst,
 dan balk 1, dan de rest (`LiveKeys.lua`). Of dat de F8 verklaart, zegt alleen `/mh playkeys`. Ook open: **G** (trinket)
 lijkt op de echte balk leeg terwijl het plaatje een trinket toont.
-- [ ] Op Duckiesan: `/mh playkeys` → screenshot. Bij Revive staat de toets, het knopnummer (slot) en de balk (cmd).
+- GEMETEN 5 okt (Rob op Carola's Duckiesan, `/mh playkeys`): **Wrath** "not on a bound button of the standard bars",
+  terwijl het blok Wrath op 1 heeft. Gerepareerd (`LiveKeys.lua`): laatste terugval = dezelfde spreuknaam in deze client.
+  Revive-regel stond niet op de screenshots.
+- [ ] Na de volgende update op Duckiesan: Wrath **[1]** op de kaart? En `/mh playkeys`, de regel bij **Revive**?
+- [ ] (oud) Op Duckiesan: `/mh playkeys` → screenshot. Bij Revive staat de toets, het knopnummer (slot) en de balk (cmd).
   Zegt hij nu F3, dan was het de balk-1-kopie. Zegt hij nog F8, dan staat Revive niet echt op F3 → `/mh block why`.
   ⚠️ Haar pc heeft deze reparatie pas na de volgende release (of als ze MH van GitHub haalt).
 - [ ] `/mh block why` → regel bij **C G**: welk trinket, en heeft ze een trinket met Use: aan?

@@ -17,6 +17,9 @@ De rest, bewaard voor later (≈ prioriteit):
   "genoeg" voor een raidavond (aantal flasks/potions/food)?
   Rob, zelfde avond, na `/mh ready` in de chat: *"kunnen we van de MH Ready niet een schermpje maken in plaats van alleen
   in de tekst?"* → het wordt een venster, niet een chatregel.
+  Rob over "genoeg" (zelfde avond): reken op een raid van **3 à 4 uur**. Flasks gaan volgens hem door de dood heen
+  (dus weinig nodig); **healing potions zijn belangrijk**, en dan **de beste kwaliteit**. Te meten (mh-research):
+  flaskduur + blijft hij na een dood, potion-cooldown, pulls per uur in een raidavond.
 
 - [ ] **Zoeken in tassen en bank van alle karakters (Rob, 1 okt 2026: "in het achterhoofd houden")** — gezien bij
       Allemano AltBoard (WoW Forever; alleen idee, geen code). Bewust NIET nu: Altoholic/AltVault/Alts Forever/Syndicator

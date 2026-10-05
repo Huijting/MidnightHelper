@@ -32,6 +32,18 @@ local function Base(id)
 	return id
 end
 
+--- The client's own name for a spell id (localised, so it compares within one client only).
+local function SpellName(id)
+	if not (id and C_Spell and C_Spell.GetSpellName) then
+		return nil
+	end
+	local ok, n = pcall(C_Spell.GetSpellName, id)
+	if ok and type(n) == "string" and n ~= "" and not (issecretvalue and issecretvalue(n)) then
+		return n
+	end
+	return nil
+end
+
 --- binding command -> slot, as the buttons themselves report it (this follows the main bar's
 --- page and a druid's forms); the fixed table when a button frame is missing.
 local function CommandSlots()
@@ -82,7 +94,8 @@ local function Build()
 			end
 			if okA and (kind == "spell" or kind == "macro") and id and not assisted
 				and not (issecretvalue and issecretvalue(id)) then
-				slots[#slots + 1] = { slot = slot, cmd = cmd, key = key, kind = kind, id = id, base = Base(id) }
+				slots[#slots + 1] = { slot = slot, cmd = cmd, key = key, kind = kind, id = id, base = Base(id),
+					name = SpellName(id) }
 			end
 		end
 	end
@@ -134,7 +147,12 @@ function ns.LiveKeyForSpell(spellID)
 	end
 	cache = cache or Build()
 	local base = Base(spellID)
-	local byBase
+	-- Last resort, the same name in this client: a spec can carry its own spell under the same name.
+	-- MEASURED 5 Oct 2026 on Carola's Balance Druid: Wrath sat on block key 1 and /mh playkeys said
+	-- "not on a bound button". DERIVED, not measured: Balance Wrath is its own id (190984 per
+	-- mh-research) and the card asks for another. Same shape: Intimidation, Kill Command, Execute.
+	local name = SpellName(spellID)
+	local byBase, byName
 	for _, s in ipairs(cache) do
 		if s.id == spellID then
 			return ShortKey(s.key), s
@@ -142,9 +160,13 @@ function ns.LiveKeyForSpell(spellID)
 		if not byBase and s.base == base then
 			byBase = s
 		end
+		if not byName and name and s.kind == "spell" and s.name == name then
+			byName = s
+		end
 	end
-	if byBase then
-		return ShortKey(byBase.key), byBase
+	local hit = byBase or byName
+	if hit then
+		return ShortKey(hit.key), hit
 	end
 	return nil
 end
