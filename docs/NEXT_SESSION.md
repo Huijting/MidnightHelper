@@ -3,6 +3,9 @@
 ## 🚀 5 okt nacht — 4.7.2 UITGEBRACHT (Rob: "Go"), tag v4.7.2 op 310822c, site-chat geseind
 
 Upload-run stond om 21:19 UTC nog "queued" bij GitHub — in de ochtend nakijken of hij geslaagd is (actions-API).
+🔴 GEMETEN 5 okt ~21:25 UTC: githubstatus.com "Actions: major_outage" (incident sinds 21:09 UTC); ALLE runs queued
+(release run 37375103688, lint, syntax). Rob zag 4.7.2 nog niet op CF. Ochtend: run geslaagd? Zo niet → opnieuw
+starten (Robs ok) of terugval: `tools\package.ps1` → zip met de hand op CF + RELEASE_NOTES.md plakken.
 Notitie begint met Robs eerlijke boodschap + beta-oproep. Vanaf nu: grotere wijzigingen eerst als `-beta`-tag
 (RELEASE_CHECKLIST, memory beta-first-releases). Open: vertaalronde (RAIDSHOP_*, KEYBLOCK_UNKNOWN_FMT,
 KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT, KEYBLOCK_UNPLACED_FMT-nl ok, CMDLIST_READY); tests andere klassen + `/mh ready`.
