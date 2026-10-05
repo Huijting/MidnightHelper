@@ -67,7 +67,7 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
   **1, D, A, B, C**, met A in het midden? Balk 1 even groot als de rest, lege plekken zichtbaar?
 - [x] Rob 5 okt: na afstijgen werken 1-4 gewoon weer op het blok. ✅ Tijdens het vliegen liep de volgorde door elkaar
   (oude toets-indeling uit de snapshot) → nu altijd 1 = knop 1, 2 = knop 2 … 5 = knop 5.
-- [ ] Skyriding-mount: doen 1-5 nu de skyriding-knoppen **in volgorde**? (Knop 6 en hoger: geen blok-toets, dus geen
+- [x] (Rob 5 okt: "in principe werkt het"; knop 1 linksonder, zo gelaten) Skyriding-mount: doen 1-5 nu de skyriding-knoppen **in volgorde**? (Knop 6 en hoger: geen blok-toets, dus geen
   toets — jouw 6-0 zijn je muistoetsen op balk 8.)
 
 ## 🆕 5 okt avond — pet-spreuken (Mend Pet, Revive Pet, Call Pet) in het blok

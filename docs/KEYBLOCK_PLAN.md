@@ -116,6 +116,8 @@ Regels in de code (`ns.MH_EditModeApplyKeyBlock`, `EditModeBackup.lua`):
   speler zelf: MH koppelt alleen de toetsen. Wat het blok opzij zet, gaat eerst naar D.
 - Neerzetten zet Blizzards "nieuwe spreuk op balk 1" uit en haalt dubbelen van balk 1; Terugzetten draait beide terug.
 - Balk 1 wordt ook een 3 × 4-blok, links van D (Rob, 5 okt avond). Volgorde 1, D, A, B, C, gecentreerd op A.
+  Skyriding-knoppen vult het spel van ONDER naar boven (knop 1 linksonder, Rob gemeten 5 okt); MH kan die volgorde
+  niet omkeren. Rob koos: zo laten (niet 1 rij van 12). Niet opnieuw voorstellen.
 - Als blok zetten verbergt balk 2 en 3 (zichtbaar met spellboek open); knop om ze weer te tonen.
 
 ## Open
