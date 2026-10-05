@@ -4,7 +4,7 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.2
 
-📌 **Klaargezet 2026-10-05 (nacht), wacht op Robs "go".** Notitie in `docs/CURSEFORGE_4.7.2.md` (identiek aan
+📌 **2026-10-05 (nacht), als release (Rob: "Go"), tag `v4.7.2` op 310822c.** Notitie in `docs/CURSEFORGE_4.7.2.md` (identiek aan
 `RELEASE_NOTES.md`). Rob getest 5 okt: Guardian/Resto Druid, Reddish (BM), Warlockie (Demo, eigen layout). NIET getest:
 andere klassen na de gatenronde, het `/mh ready`-venster.
 

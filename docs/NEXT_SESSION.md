@@ -1,6 +1,13 @@
 # Midnight Helper — waar we staan
 
-## 🌙 STAND EIND 5 OKT (nacht) — alles LOKAAL, 4.7.2 klaar om te testen/uit te brengen op Robs "go"
+## 🚀 5 okt nacht — 4.7.2 UITGEBRACHT (Rob: "Go"), tag v4.7.2 op 310822c, site-chat geseind
+
+Upload-run stond om 21:19 UTC nog "queued" bij GitHub — in de ochtend nakijken of hij geslaagd is (actions-API).
+Notitie begint met Robs eerlijke boodschap + beta-oproep. Vanaf nu: grotere wijzigingen eerst als `-beta`-tag
+(RELEASE_CHECKLIST, memory beta-first-releases). Open: vertaalronde (RAIDSHOP_*, KEYBLOCK_UNKNOWN_FMT,
+KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT, KEYBLOCK_UNPLACED_FMT-nl ok, CMDLIST_READY); tests andere klassen + `/mh ready`.
+
+## 🌙 STAND EIND 5 OKT (nacht) — (was: klaar om uit te brengen)
 
 Sinds tag v4.7.1 (91f999f) lokaal, NIET gepusht. Inhoud voor 4.7.2:
 - Gatenronde alle klassen (zie hieronder) + Balance-spreuken (Fury of Elune c.s.).
