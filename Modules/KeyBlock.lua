@@ -682,7 +682,10 @@ end
 -- The picture
 --------------------------------------------------------------------------------
 
-local SLOT, GAP = 66, 6
+-- Rob, 5 Oct 2026 (screenshot): "Shift F1" ran through the icon and long names were cut. So the key
+-- gets its own strip at the top, the icon sits under it, the name under that, and the place is wider.
+local SLOT_W, SLOT_H, GAP = 84, 80, 6
+local KEY_STRIP = 16
 local win
 local Refresh -- forward: the window's buttons redraw after placing or undoing
 
@@ -728,19 +731,28 @@ end
 
 local function MakeSlot(parent)
 	local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
-	b:SetSize(SLOT, SLOT)
+	b:SetSize(SLOT_W, SLOT_H)
 	b:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8x8", edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1 })
 	b:SetBackdropColor(0.10, 0.11, 0.14, 0.95)
 	b:SetBackdropBorderColor(0.30, 0.32, 0.38, 1)
-	b.icon = b:CreateTexture(nil, "ARTWORK")
-	b.icon:SetSize(34, 34)
-	b.icon:SetPoint("TOP", 0, -5)
+	-- The key on its own strip, so nothing is ever drawn over it.
+	b.keyBg = b:CreateTexture(nil, "BACKGROUND", nil, 1)
+	b.keyBg:SetPoint("TOPLEFT", 1, -1)
+	b.keyBg:SetPoint("TOPRIGHT", -1, -1)
+	b.keyBg:SetHeight(KEY_STRIP)
+	b.keyBg:SetColorTexture(0, 0, 0, 0.45)
 	b.key = b:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	b.key:SetPoint("TOPLEFT", 3, -3)
+	b.key:SetPoint("TOPLEFT", 4, -3)
+	b.key:SetPoint("TOPRIGHT", -4, -3)
+	b.key:SetJustifyH("LEFT")
+	b.key:SetWordWrap(false)
 	b.key:SetTextColor(1, 0.82, 0)
+	b.icon = b:CreateTexture(nil, "ARTWORK")
+	b.icon:SetSize(36, 36)
+	b.icon:SetPoint("TOP", 0, -(KEY_STRIP + 5))
 	b.task = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	b.task:SetPoint("BOTTOMLEFT", 2, 3)
-	b.task:SetPoint("BOTTOMRIGHT", -2, 3)
+	b.task:SetPoint("BOTTOMLEFT", 3, 5)
+	b.task:SetPoint("BOTTOMRIGHT", -3, 5)
 	b.task:SetJustifyH("CENTER")
 	b.task:SetWordWrap(false)
 	b:SetScript("OnEnter", SlotTooltip)
@@ -775,11 +787,11 @@ local function Ensure()
 	f.intro:SetPoint("RIGHT", -22, 0)
 	f.intro:SetJustifyH("LEFT")
 
-	local barW = 4 * SLOT + 3 * GAP
+	local barW = 4 * SLOT_W + 3 * GAP
 	f.bars, f.slots = {}, {}
 	for i, bar in ipairs(BLOCK) do
 		local col = CreateFrame("Frame", nil, f)
-		col:SetSize(barW, 3 * SLOT + 2 * GAP + 18)
+		col:SetSize(barW, 3 * SLOT_H + 2 * GAP + 18)
 		col:SetPoint("TOPLEFT", 22 + (i - 1) * (barW + 22), -86)
 		col.head = col:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		col.head:SetPoint("TOPLEFT", 0, 0)
@@ -787,11 +799,11 @@ local function Ensure()
 		for n, slot in ipairs(bar.slots) do
 			local b = MakeSlot(col)
 			local r, c = math.floor((n - 1) / 4), (n - 1) % 4
-			b:SetPoint("TOPLEFT", c * (SLOT + GAP), -18 - r * (SLOT + GAP))
+			b:SetPoint("TOPLEFT", c * (SLOT_W + GAP), -18 - r * (SLOT_H + GAP))
 			f.slots[slot.key] = b
 		end
 	end
-	f:SetSize(22 * 2 + 3 * barW + 2 * 22, 86 + 3 * SLOT + 2 * GAP + 18 + 170)
+	f:SetSize(22 * 2 + 3 * barW + 2 * 22, 86 + 3 * SLOT_H + 2 * GAP + 18 + 170)
 
 	f.unplaced = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	f.unplaced:SetPoint("BOTTOMLEFT", 22, 124)
