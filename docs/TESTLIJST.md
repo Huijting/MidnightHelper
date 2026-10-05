@@ -60,6 +60,14 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 6 okt — speelkaart noemt de bloktoets, niet de reservekopie op balk D
+
+GEMETEN op Robs screenshot (Discipline, Umbrion): Flash Heal op blok **3** én op D **Alt C**; de kaart zei [Alt C].
+Ook Power Word: Shield (2 / Alt X) en Evangelism (Shift 4 / Alt E). Nu: met het blok neergezet tellen balk 1 en de
+blokbalken A/B/C eerst.
+- [ ] `/reload`, "Zo speel je Discipline": Flash Heal **[3]**, Power Word: Shield **[2]**, Evangelism **[Shift 4]**?
+- [ ] Zonder blok (ander personage): dezelfde toetsen als vóór vandaag.
+
 ## 🆕 6 okt — `/mh export` geeft nu ook het item-nummer (voor Wowhead-tooltips op de Armory)
 
 - [x] Rob 6 okt ✅ `/mh export`: elke regel eindigt nu op een nummer, bv. `…|0|0|||250123:12345:6789`. Geen foutmelding?

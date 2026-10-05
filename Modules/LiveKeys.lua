@@ -86,8 +86,34 @@ local function Build()
 			end
 		end
 	end
-	-- Main bar first, then the rest in slot order, so the answer is stable.
+	-- With the key block placed, its bars come right after the main bar: placing parks the old
+	-- buttons on bar 4 (block D, slots 25-36), which sorts before bar 5 (37-48). MEASURED 6 Oct 2026
+	-- on Rob's Discipline Priest: Flash Heal on block 3 and its parked copy on Alt C, and the card
+	-- said [Alt C]. Without the block: main bar first, then slot order, as before.
+	local rank = {}
+	if ns.KeyBlockIsPlaced and ns.KeyBlockIsPlaced() and ns.KeyBlockBars then
+		local bars = ns.KeyBlockBars()
+		for _, letter in ipairs({ "A", "B", "C" }) do
+			local bar = (ns.KEYBIND_BAR_COMMANDS or {})[bars[letter]]
+			if bar then
+				rank[bar.prefix] = 1
+			end
+		end
+	end
+	local function Rank(s)
+		local prefix = s.cmd:match("^(.-)%d+$") or ""
+		if prefix == "ACTIONBUTTON" then
+			return 0
+		end
+		return rank[prefix] or 2
+	end
+	for _, s in ipairs(slots) do
+		s.rank = Rank(s)
+	end
 	table.sort(slots, function(a, b)
+		if a.rank ~= b.rank then
+			return a.rank < b.rank
+		end
 		return a.slot < b.slot
 	end)
 	return slots

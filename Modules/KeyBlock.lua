@@ -794,6 +794,11 @@ local function SetSnap(v)
 	ns.db.keyBlockSnapshots[MyKey()] = v
 end
 
+--- True when the block is placed on this character + spec's bars (there is an undo snapshot).
+function ns.KeyBlockIsPlaced()
+	return GetSnap() ~= nil
+end
+
 --- Do it. Snapshot first; one undo puts back every slot and key we touched.
 function ns.KeyBlockPlace()
 	local p = "|cffffcc00Midnight Helper:|r "
