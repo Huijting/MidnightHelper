@@ -60,6 +60,14 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — oud vlaggetje weg + balk 8 als 3 × 2 rechts van C
+
+GEMETEN in de SV: na terug naar Modern en opnieuw "Eigen layout + blok" werd "Twelveinchy Holy" wel actief, maar niet
+aangepast (balk 1 nog 6=0): een oud account-vlaggetje noemde hem nog "al een blok". Gerepareerd.
+- [ ] Holy: `/reload` → **Zet "Twelveinchy Holy" terug** → Nu herladen → **Eigen layout + blok** → Nu herladen.
+  Balk 1 zonder versiering? **Balk 8** (je muistoetsen) rechts naast C als **3 rijen van 2**, even groot?
+  (Het spel vult van onder: 6 7 onderaan, 8 9 midden, 0 - boven.) Cooldown Manager boven het blok?
+
 ## 🆕 5 okt avond — eigen layout: Rob getest + twee reparaties
 
 - [x] Rob 5 okt: "Twelveinchy Holy" gemaakt, actief in Edit Mode, melding klopt. ✅

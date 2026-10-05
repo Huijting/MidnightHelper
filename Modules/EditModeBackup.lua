@@ -582,9 +582,8 @@ function ns.MH_EditModeRestore()
 	end
 	ns.db.keyBlockLayoutOn = nil
 	ns.db.keyBlockOldBarsHidden = nil
-	if ns.db.keyBlockLayoutsOn then
-		ns.db.keyBlockLayoutsOn[tostring(undo.layoutName)] = nil
-	end
+	ns.db.keyBlockLayoutsOn = ns.db.keyBlockLayoutsOn or {}
+	ns.db.keyBlockLayoutsOn[tostring(undo.layoutName)] = false
 	local msg = (ns:L("MH_SAY_BARS_RESTORED")):format(tostring(undo.layoutName))
 	print(Prefix() .. " " .. msg)
 	if ns.MH_SetupSay then
@@ -696,9 +695,14 @@ local function KeyBlockLayoutIsOn(name)
 	if not (db and name) then
 		return false
 	end
-	if db.keyBlockLayoutsOn and db.keyBlockLayoutsOn[name] then
-		return true
+	local per = db.keyBlockLayoutsOn and db.keyBlockLayoutsOn[name]
+	if per ~= nil then
+		-- Decided by the per-layout flags: true = arranged, false = put back since.
+		return per and true or false
 	end
+	-- Only a layout the per-layout flags never saw falls back to the single old flag. MEASURED 5 Oct 2026:
+	-- without this, "Twelveinchy Holy" stayed "already a block" after going back to Modern — the old flag
+	-- still named it — and arranging it again was refused.
 	local u = db.editModeBarsUndo
 	return db.keyBlockLayoutOn and u and u.by == "keyblock" and u.layoutName == name and true or false
 end
@@ -869,11 +873,14 @@ function ns.MH_EditModeRestoreKeyBlock()
 	end
 	-- Made from a preset by MH: going back means the preset this spec was on. The MH layout itself stays
 	-- in the list (the player may want it again, or delete it in Edit Mode).
+	-- "Put back" is remembered as false (not nil), so the single old flag can never claim this layout again.
+	local function MarkBack()
+		ns.db.keyBlockLayoutsOn = ns.db.keyBlockLayoutsOn or {}
+		ns.db.keyBlockLayoutsOn[name] = false
+	end
 	local wentBack, back = BackToPreset(name)
 	if wentBack then
-		if ns.db.keyBlockLayoutsOn then
-			ns.db.keyBlockLayoutsOn[name] = nil
-		end
+		MarkBack()
 		if ns.db.keyBlockLayoutSaved then
 			ns.db.keyBlockLayoutSaved[name] = nil
 		end
@@ -884,9 +891,7 @@ function ns.MH_EditModeRestoreKeyBlock()
 		-- Arranged before 5 Oct evening: the old account-wide undo, but only for the layout it names.
 		local u = ns.db and ns.db.editModeBarsUndo
 		if u and u.layoutName == name and ns.MH_EditModeRestore and ns.MH_EditModeRestore() then
-			if ns.db.keyBlockLayoutsOn then
-				ns.db.keyBlockLayoutsOn[name] = nil
-			end
+			MarkBack()
 			return true, ns:L("KEYBLOCK_LAYOUT_RESTORED")
 		end
 		return false, ns:L("KEYBLOCK_LAYOUT_NO_UNDO")
@@ -899,9 +904,7 @@ function ns.MH_EditModeRestoreKeyBlock()
 		return false, "Edit Mode refused the restore."
 	end
 	ns.db.keyBlockLayoutSaved[name] = nil
-	if ns.db.keyBlockLayoutsOn then
-		ns.db.keyBlockLayoutsOn[name] = nil
-	end
+	MarkBack()
 	if ns.db.keyBlockOldBarsHiddenBy then
 		ns.db.keyBlockOldBarsHiddenBy[name] = nil
 	end
@@ -989,9 +992,10 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	local blockH = 3 * size + 2 * pad
 	local bottom = 24
 
-	-- Bar 8 stays where it is (Rob's mouse keys). If it sits where the block would go, step aside.
+	-- Bar 8 used to stay where it was (Rob's mouse keys) and the block stepped aside for it. Since 5 Oct
+	-- evening it joins the row (see below), so nothing needs to step aside any more.
 	local shift = 0
-	local l8, r8, b8, t8 = Rect(_G.MultiBar7)
+	local l8, r8, b8, t8
 	if l8 then
 		local ucx = UIParent:GetWidth() / 2
 		local bl, br = ucx - totalW / 2, ucx + totalW / 2
@@ -1008,7 +1012,8 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 
 	-- Which frames move. Anything else that hangs on one of them is pinned where it is now, so it
 	-- does not travel along (Rob's cooldown viewer hangs on bar 4, measured 5 Oct 2026).
-	local moving = { [1] = true, [4] = true, [5] = true, [6] = true, [7] = true, [11] = true, [12] = true, [13] = true }
+	local moving = { [1] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true,
+		[11] = true, [12] = true, [13] = true }
 
 	-- Bars 1-4 stay where the player put them (Rob, 5 Oct 2026: "We doen C", after the red team: columns on
 	-- the right lay over his quest tracker). Only a bar that would lie OVER the block moves, to a row just
@@ -1101,6 +1106,20 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	if sysBy[6] then Anchor(sysBy[6], "BOTTOM", "UIParent", "BOTTOM", shift + bOffset, bottom) end
 	if sysBy[5] then Anchor(sysBy[5], "BOTTOMRIGHT", BAR_FRAME_NAMES[6], "BOTTOMLEFT", -BLOCK_GAP, 0) end
 	if sysBy[7] then Anchor(sysBy[7], "BOTTOMLEFT", BAR_FRAME_NAMES[6], "BOTTOMRIGHT", BLOCK_GAP, 0) end
+	-- Bar 8 (mouse keys) right of C, as 3 rows of 2 — Rob, 5 Oct 2026: "rechts naast blokje C … drie rijen
+	-- van twee, want zo gebruik ik ze altijd … op de goede maat". Six buttons shown; what stands on
+	-- buttons 7-12 stays there, just not on screen.
+	if sysBy[8] then
+		SetSetting(sysBy[8], 0, 0)  -- horizontal
+		SetSetting(sysBy[8], 1, 3)  -- 3 rows
+		SetSetting(sysBy[8], 2, 6)  -- 6 buttons -> 3 x 2
+		SetSetting(sysBy[8], 5, 0)  -- always visible
+		SetSetting(sysBy[8], 9, 1)  -- empty places shown, like the blocks
+		if iconSize then
+			SetSetting(sysBy[8], 3, iconSize)
+		end
+		Anchor(sysBy[8], "BOTTOMLEFT", BAR_FRAME_NAMES[7], "BOTTOMRIGHT", BLOCK_GAP, 0)
+	end
 	-- Block D, left of A (Rob, 5 Oct 2026: "links van A").
 	if sysBy[4] then Anchor(sysBy[4], "BOTTOMRIGHT", BAR_FRAME_NAMES[5], "BOTTOMLEFT", -BLOCK_GAP, 0) end
 	-- Bar 1, left of D. Its frame is "MainActionBar" (MEASURED as a relativeTo in Rob's own layout).
