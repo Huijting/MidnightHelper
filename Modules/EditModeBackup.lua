@@ -700,9 +700,13 @@ local function KeyBlockLayoutIsOn(name)
 		-- Decided by the per-layout flags: true = arranged, false = put back since.
 		return per and true or false
 	end
-	-- Only a layout the per-layout flags never saw falls back to the single old flag. MEASURED 5 Oct 2026:
-	-- without this, "Twelveinchy Holy" stayed "already a block" after going back to Modern — the old flag
-	-- still named it — and arranging it again was refused.
+	-- The single old flag only speaks for a player who never used the per-layout flags at all. MEASURED
+	-- 5 Oct 2026, twice: "Twelveinchy Holy" stayed "already a block" after going back to Modern because
+	-- the old flag still named it, and arranging it again was refused. Once the per-layout table exists,
+	-- the old flag is history.
+	if db.keyBlockLayoutsOn then
+		return false
+	end
 	local u = db.editModeBarsUndo
 	return db.keyBlockLayoutOn and u and u.by == "keyblock" and u.layoutName == name and true or false
 end
@@ -837,6 +841,9 @@ function ns.MH_EditModeMakeOwnLayout()
 
 	ns.db.keyBlockPresetBack = ns.db.keyBlockPresetBack or {}
 	ns.db.keyBlockPresetBack[SpecKey()] = { preset = active, presetName = preset.layoutName, layout = name }
+	-- Remember that MH made this one: arranging it later may still lift the Cooldown Manager.
+	ns.db.keyBlockMadeLayouts = ns.db.keyBlockMadeLayouts or {}
+	ns.db.keyBlockMadeLayouts[name] = true
 
 	-- And arrange the block in it straight away: one /reload for the whole thing.
 	local okA, msg = ns.MH_EditModeApplyKeyBlock(true)
@@ -1138,7 +1145,20 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	-- top of it. In a layout the player built, it stays where the player put it.
 	-- Frame names: "UtilityCooldownViewer" MEASURED as a relativeTo in Rob's layout; "Essential…" by the
 	-- same pattern, checked at run time.
-	if fromPreset then
+	-- "Made by MH" also covers a layout copied before this flag existed: Rob's "Twelveinchy Holy" (the
+	-- name pattern "<character> <spec>" of a character layout MH's preset back-up points at).
+	local made = ns.db and ns.db.keyBlockMadeLayouts and ns.db.keyBlockMadeLayouts[layoutName]
+	if not made and ns.db and ns.db.keyBlockPresetBack then
+		for _, b in pairs(ns.db.keyBlockPresetBack) do
+			if b.layout == layoutName then
+				made = true
+			end
+		end
+	end
+	if not made and UnitName and layoutName == ((UnitName("player") or "") .. " " .. SpecName()):sub(1, 30) then
+		made = true
+	end
+	if fromPreset or made then
 		for _, s in ipairs(target.systems or {}) do
 			if s.system == 20 and s.systemIndex == 1 and _G.EssentialCooldownViewer then
 				-- Over block A, which is the centre of the five (1, D, A, B, C).
