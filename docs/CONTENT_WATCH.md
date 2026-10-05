@@ -1716,3 +1716,137 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `docs/PTR_12.0.7_DATA.md` entry [2026-10-04] als kruiscontrole (feiten niet herhaald, alleen zelf
   getoetst op tegenspraak met geshipte MH-tekst). Geen actiepunt dat ík kan oppakken — ik
   rapporteer, een mens beslist.
+
+---
+
+- [2026-10-05] 💬 **CurseForge: geen open reacties (2 draadjes, 6 berichten — ongewijzigd t.o.v.
+  gisteren).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261005a` via Exa (JSON, `pagination.totalCount` = 6 — zelfde aantal als [2026-10-04]).
+  Draadje van **MrsBoojiePanda** (debug-regel bij login) eindigt met een reply van `twelveinchy` —
+  beantwoord. Draadje van **gadrinonturalyon** (coffer-key-shards-popup, 3D-bossmodel) eindigt
+  chronologisch ook met `twelveinchy`'s laatste bericht — beantwoord. Geen enkel draadje heeft als
+  laatste bericht iemand anders dan de maintainer, dus 🔴 WAITING FOR AN ANSWER is niet van
+  toepassing vandaag. Geen nieuwe berichten sinds [2026-10-04].
+
+- [2026-10-05] 🟡 **Geen nieuwe hotfix-sectie sinds [2026-10-04] (zesde dag op "October 1, 2026") —
+  wél de wekelijkse kaarten- en consumables-check (vandaag is maandag), met een flink aantal
+  consumable-afwijkingen om aan Rob te melden.** `news.blizzard.com`'s doorlopende hotfix-artikel
+  **volledig zelf gelezen** via Exa `web_fetch_exa` met `?nocache=20261005a`: bovenste sectie blijft
+  **"October 1, 2026"** — Druid/Feral *Rampant Ferocity*-bugfix, Hunter/Survival *Wildfire Bomb*-
+  periodieke-schadecorrectie (beide class-tuning, buiten mijn lane) en, onder *Dungeons and Raids →
+  The Venomous Abyss → Ula'tek*: de **Venomous Heart**-meleefix, al eerder getoetst tegen spell-ID
+  **1286860** in `Locales/RaidTips.lua:93,99,100` (zeven taalvarianten) op [2026-10-02] en [RAAKT ONS
+  NIET] bevonden — tekst ongewijzigd, geen nieuwe toetsing nodig. Oudere secties (29/24/23/22 sep)
+  staan al uitgebreid gelogd in dit bestand. Delves, Professions en Quests zijn en blijven leeg in
+  alle getoonde secties — niets nieuws om tegen de repo te toetsen.
+
+  📌 **Positieve controle tegen de cache-val, zelfde run:** `web_search_exa` op "World of Warcraft
+  Midnight hotfixes October 4 OR October 5 2026 Delves Professions Quests Dungeons Raids Items"
+  vindt geen hotfix-sectie nieuwer dan 1 okt — wel een pcgamesn.com-artikel (gepubliceerd 4 okt) dat
+  zelf bevestigt: *"The next World of Warcraft Midnight class tuning patch goes live with weekly
+  maintenance on Tuesday October 6."* De afwezigheid van een nieuwe sectie vandaag is dus verwacht,
+  geen gok — en geen cache-val, want dezelfde zoekvorm vindt moeiteloos de 1-okt- en 29-sep-artikelen
+  los van elkaar, dus hij kán nieuwere datums vinden als ze bestonden. ⚠️ **Niet mijn terrein, alleen
+  ter kennisgeving:** datzelfde artikel en Blizzard's eigen "12.1.5 Content Update Notes" (24304162)
+  beschrijven uitsluitend nog niet live content (Kith'ix-raid, Labyrinth of Kindo'jan, mid-season
+  refresh vanaf week van 6 okt, Prey-catch-up-mechanics, drie achievements die niet meer vereist zijn
+  voor "Glory of the Wartorn Hero") — releasedatum 13/14 okt, dus nog niets om tegen te spreken.
+  PTR-wachter-terrein, hier niet als eigen feit herhaald.
+
+  🃏 **Kaarten:** wekelijkse frisheidscheck van 2 okt t/m 5 okt 2026, specs uit `Modules/PlayCards.lua`
+  (40 totaal). GEMETEN: voor Fury Warrior (72), Guardian Druid (104) en Demonology Warlock (266) zijn
+  alle drie genoemde gidsen (Icy Veins/Method/Wowhead) rechtstreeks bij de bron opgehaald en hun
+  "last updated"-datum komt exact overeen met wat in `source` staat — niets gewijzigd, kaart klopt
+  nog. Voor Frost Mage (64), Feral Druid (103), Survival Hunter (255), Assassination/Outlaw/Subtlety
+  Rogue (259/260/261), Restoration Shaman (264), Devastation Evoker (1467) en Augmentation Evoker
+  (1473) is minstens één tot twee van de drie gidsen gemeten en kwam geen datum ná onze aantekening
+  boven water (Augmentation Evokers Wowhead-rotatiepagina toonde zelfs "2026/04/25", ouder dan onze
+  "17 Aug" — vermoedelijk een andere/stillere pagina, geen aanwijzing voor iets nieuwers). Conclusie
+  voor deze 12 van de 40 specs: GEMETEN, geen update ná de datum die al in `source` staat, dus geen
+  regel in `enUS.lua` hoeft aangepast. Bijzonderheid (GEMETEN, nocache-herhaald op Icy Veins Frost
+  Mage): de "(Xd ago)"-labels kloppen structureel niet met vandaag (5 okt), maar de absolute datum
+  zelf bleef identiek na `?nocache=20261005`, dus dat is een kalenderbugje op de bronsite zelf, geen
+  Exa-cacheprobleem dat de inhoud vervalst. Hotfixes (GEMETEN via Wowhead/Icy Veins/1vX.gg): sinds
+  28 sep 2026 is er geen LIVE 12.1-hotfix die een knop toevoegt/verwijdert of een drempelwaarde in de
+  rotatie verandert — de enige wijzigingen van deze week staan in de 12.1.5-PTR-notes (29 sep, nog
+  niet live; o.a. Protection Warrior Colossus Execute/Revenge -10 rage, Evoker/Hunter/Mage/Monk/
+  Rogue/Shaman bugfixes) en tellen dus niet mee zolang ze op PTR staan. **Niet gecontroleerd** (28 van
+  de 40 specs; vertrouwt op de interne aantekening "rechecked 3 Oct 2026 (mh-research)" in de code,
+  niet vandaag zelf opnieuw bij de bron gemeten): Retribution Paladin (70), Protection Paladin (66),
+  Arcane Mage (62), Elemental Shaman (262), Fire Mage (63), Holy Paladin (65), Arms Warrior (71),
+  Protection Warrior (73), Balance Druid (102), Restoration Druid (105), Blood DK (250), Frost DK
+  (251), Unholy DK (252), Beast Mastery Hunter (253), Marksmanship Hunter (254), Discipline Priest
+  (256), Holy Priest (257), Shadow Priest (258), Enhancement Shaman (263), Affliction Warlock (265),
+  Destruction Warlock (267), Brewmaster Monk (268), Windwalker Monk (269), Mistweaver Monk (270),
+  Havoc DH (577), Vengeance DH (581), Preservation Evoker (1468), Devourer DH (1480).
+
+  🧪 **Consumables:** `tools/check_consumables.py` kon niet bellen (EGRESS_BLOCKED/403 Forbidden op
+  alle 39 Icy Veins-URL's, GEMETEN) — uitgeweken naar Exa met `?nocache=20261005` op elke URL; de
+  "Last Updated"-datums op de pagina's liepen netjes door tot en met 15 sep 2026, geen aanwijzing voor
+  een stale cache. Alle 39 specs uit `vault_stat_catalog.json` zijn bekeken, met twee uitzonderingen
+  (zie onder). GEMETEN verschillen tussen pagina (eerste vermelding) en onze `best`-pick:
+  - Death Knight Frost flask: pagina zegt "Flask of the Shattered Sun" ("you generally want to use …
+    in all content"), wij zeggen Flask of the Magisters.
+  - Death Knight Unholy flask: pagina zegt "Use Flask of the Shattered Sun as your go-to choice",
+    wij zeggen Flask of the Magisters.
+  - Druid Balance potion: pagina zegt "The best DPS potion is Potion of Recklessness", wij zeggen
+    Light's Potential.
+  - Evoker Devastation potion: pagina noemt alleen Potion of Recklessness of Draught of Rampant
+    Abandon; Light's Potential (onze pick) komt op die pagina niet eens voor.
+  - Evoker Preservation flask: pagina zegt "Flask of the Magisters will be your go-to choice", wij
+    zeggen Flask of the Blood Knights (Magisters staat bij ons alleen als alternate).
+  - Evoker Augmentation potion: pagina zegt "we recommend using … Potion of Recklessness in all
+    content if Mastery is your highest stat" (het normale geval), wij zeggen Light's Potential.
+  - Monk Brewmaster potion: pagina's algemene aanbeveling is "Liquid Luster is your general
+    recommended potion" — dat item bestaat helemaal niet in onze data (0 treffers, nieuw/ongeshipt
+    item); wij zeggen Draught of Rampant Abandon, dat de pagina zelf alleen als beperkte
+    single-target uitzondering noemt.
+  - Monk Windwalker flask: pagina zegt "Flask of the Blood Knights is the recommended choice for all
+    content", wij zeggen Flask of the Shattered Sun.
+  - Priest Shadow potion: pagina zegt "Our theoretical best combat potion in all content is Potion
+    of Recklessness … If you are not using this potion, Light's Potential is a solid alternative",
+    wij zeggen Light's Potential (de pagina's fallback, niet de hoofdkeuze).
+  - Paladin Holy flask: pagina zegt "Flask of the Magisters will be your go-to choice for maximizing
+    your healing output", wij zeggen Flask of the Blood Knights.
+  - Rogue Subtlety potion: pagina zegt "The best general stat potion is Light's Potential", wij
+    zeggen Potion of Recklessness (dat de pagina alleen als AoE-uitzondering noemt).
+  - Warlock Affliction potion: pagina zegt "Potion of Recklessness should be the first choice if your
+    gearset has little to no Versatility" (de normale situatie), wij zeggen Light's Potential.
+  - Warlock Demonology potion: zelfde patroon/zelfde zin op de pagina, wij zeggen Light's Potential.
+  - Warlock Destruction flask: pagina zegt "Flask of the Shattered Sun is the default choice", wij
+    zeggen Flask of the Magisters. Potion bij Destruction: zelfde Recklessness-eerst-zin als bij de
+    andere twee Warlock-specs (tekst afgebroken in de fetch, AFGELEID uit het identieke patroon op
+    Affliction/Demonology), wij zeggen Light's Potential.
+  - Warrior Protection potion: pagina zegt "Light's Potential is your best potion in every scenario"
+    en noemt Draught of Rampant Abandon expliciet als de risicovolle, niet-aangeraden optie
+    (voidzones die silencen), wij zeggen Draught of Rampant Abandon.
+
+  Food/feast-namen (Hearty Harandar Celebration vs Hearty Silvermoon Parade, "Hearty" vs niet) kwamen
+  overal voor maar zijn per opdracht dezelfde buff — geen van die gevallen gerapporteerd. Geen enkele
+  spec miste zijn augment rune (Void-Touched Augment Rune overal consistent) of personal food (Hearty
+  Royal Roast overal consistent). **Niet te checken:** Demon Hunter Devourer (derde DH-spec,
+  bevestigd bestaand via de hotfix van 1 okt 2026 "Devourer … Annihilator hero talent", maar staat
+  niet in `vault_stat_catalog.json`'s 39 URL's en heeft `sourcePages: []` — geen Icy Veins-pagina om
+  tegen te toetsen); Shaman Enhancement combat-potion (pagina brak af net vóór de potion-sectie, flask
+  kon wel gecheckt worden en komt overeen met onze dubbele Blood Knights/Magisters-pick). Hotfixes
+  afgelopen week (sinds 28 sep): GEMETEN via news.blizzard.com (met nocache) — hotfixes 29 sep en
+  1 okt 2026 bevatten alleen class-tuning en dungeon-fixes, geen enkele wijziging aan een flask,
+  potion, food of augment rune.
+
+  ⚠️ **Zijspoor, het melden waard:** `data/consumables_wowhead.json`'s `patchedSince`-notitie claimt
+  dat op 14 sep 2026 "flask and combat potion agree for all specs" — dat klopt niet meer met wat
+  vandaag GEMETEN is op minstens dertien specs hierboven, waarvan meerdere pagina's hun huidige tekst
+  al vóór 14 sep droegen. Of de controle destijds te losjes was, of de pagina's zijn sindsdien
+  herschreven zonder hun datum te veranderen — dit is niet uitgezocht, puur de tegenspraak met onze
+  eigen aantekening gemeld. Niets in de repo aangepast; dit is alleen een rapport, een mens beslist.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261005a (volledig gelezen via
+  Exa) · https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261005a (volledig gelezen via Exa) · `web_search_exa` "World of Warcraft Midnight
+  hotfixes October 4 OR October 5 2026 Delves Professions Quests Dungeons Raids Items" (nieuwste
+  sectie blijft 1 okt) · pcgamesn.com-artikel 4 okt 2026 (bevestigt volgende tuning-patch op 6 okt) ·
+  Blizzard's "12.1.5 Content Update Notes" (24304162, ter kennisgeving, nog niet live) · wekelijkse
+  kaartencheck: Icy Veins/Method/Wowhead rotatiepagina's voor 12 van 40 specs, via Exa met
+  `?nocache=20261005` · wekelijkse consumables-check: `tools/check_consumables.py` (EGRESS_BLOCKED,
+  uitgeweken naar Exa) op 39 Icy Veins gems-enchants-consumables-pagina's, `?nocache=20261005` op elke
+  URL. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
