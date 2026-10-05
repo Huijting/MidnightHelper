@@ -1013,10 +1013,6 @@ if StaticPopupDialogs then
 		text = "%s",
 		button1 = OKAY,
 		button2 = CANCEL,
-		OnShow = function(self)
-			if self.button1 then self.button1:SetText(ns:L("KEYBLOCK_NEW_PLACE")) end
-			if self.button2 then self.button2:SetText(ns:L("KEYBLOCK_NEW_LATER")) end
-		end,
 		OnAccept = function()
 			ns.KeyBlockUpdate()
 		end,
@@ -1066,7 +1062,15 @@ local function CheckNew()
 	ns.db.keyBlockAsked[MyKey()] = key
 	local parts = {}
 	for _, m in ipairs(list) do
-		parts[#parts + 1] = ("%s → %s"):format(MissingName(m), KeyLabel(m.target.key))
+		-- "->", not an arrow glyph: the popup font has no "→" (Rob's screenshot showed a box).
+		parts[#parts + 1] = ("%s -> %s"):format(MissingName(m), KeyLabel(m.target.key))
+	end
+	-- Labels set on the dialog itself before showing: renaming the buttons in OnShow did not take on
+	-- 12.1 (Rob saw Okay/Cancel).
+	local dlg = StaticPopupDialogs and StaticPopupDialogs["MH_KEYBLOCK_NEW"]
+	if dlg then
+		dlg.button1 = ns:L("KEYBLOCK_NEW_PLACE")
+		dlg.button2 = ns:L("KEYBLOCK_NEW_LATER")
 	end
 	if StaticPopup_Show then
 		StaticPopup_Show("MH_KEYBLOCK_NEW", ns:L("KEYBLOCK_NEW_POPUP_FMT"):format(table.concat(parts, "\n")))
