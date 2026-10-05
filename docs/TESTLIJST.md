@@ -60,6 +60,13 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — balk 1 als blok, links van D (Rob: "drie rijen van vier, links ernaast")
+
+- [x] Rob 5 okt: Terugzetten → opnieuw neerzetten deelt alles netjes in (Mend Pet op zijn plek). ✅
+- [ ] **Zet "Oak" terug** → herladen → **Zet mijn balken als blok** → herladen. Vijf blokjes van 3 × 4 naast elkaar:
+  **1, D, A, B, C**, met A in het midden? Balk 1 even groot als de rest, lege plekken zichtbaar?
+- [ ] Skyriding-mount: verschijnen de skyriding-knoppen in blok 1, en doen 1-5 ze nog?
+
 ## 🆕 5 okt avond — pet-spreuken (Mend Pet, Revive Pet, Call Pet) in het blok
 
 Oorzaak (mh-research): ze zitten in de spellboek-groepjes "Pet Utility" en "Call Pet"; MH las zo'n groepje niet uit.

@@ -115,6 +115,7 @@ Regels in de code (`ns.MH_EditModeApplyKeyBlock`, `EditModeBackup.lua`):
 - Blok D = actiebalk 4, links van A, Alt-1..4 / Alt-Q E R F / Alt-X C V G (Alt-Z niet: interface verbergen). Van de
   speler zelf: MH koppelt alleen de toetsen. Wat het blok opzij zet, gaat eerst naar D.
 - Neerzetten zet Blizzards "nieuwe spreuk op balk 1" uit en haalt dubbelen van balk 1; Terugzetten draait beide terug.
+- Balk 1 wordt ook een 3 × 4-blok, links van D (Rob, 5 okt avond). Volgorde 1, D, A, B, C, gecentreerd op A.
 - Als blok zetten verbergt balk 2 en 3 (zichtbaar met spellboek open); knop om ze weer te tonen.
 
 ## Open

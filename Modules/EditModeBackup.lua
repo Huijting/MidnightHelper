@@ -740,8 +740,10 @@ function ns.MH_EditModeApplyKeyBlock()
 	local blockW = 4 * size + 3 * pad
 	-- Four blocks since 5 Oct 2026: D (bar 4, own stuff) left of A, then A, B, C. Centred as a group, so
 	-- B sits half a block right of the screen centre.
-	local totalW = 4 * blockW + 3 * BLOCK_GAP
-	local bOffset = (blockW + BLOCK_GAP) / 2
+	-- Five since the same evening: bar 1 as a 3 x 4 block left of D (Rob: "bar 1 op hetzelfde formaat …
+	-- links ernaast"). Order 1, D, A, B, C, centred on A, so B sits one block right of the centre.
+	local totalW = 5 * blockW + 4 * BLOCK_GAP
+	local bOffset = blockW + BLOCK_GAP
 	local blockH = 3 * size + 2 * pad
 	local bottom = 24
 
@@ -764,7 +766,7 @@ function ns.MH_EditModeApplyKeyBlock()
 
 	-- Which frames move. Anything else that hangs on one of them is pinned where it is now, so it
 	-- does not travel along (Rob's cooldown viewer hangs on bar 4, measured 5 Oct 2026).
-	local moving = { [4] = true, [5] = true, [6] = true, [7] = true, [11] = true, [12] = true, [13] = true }
+	local moving = { [1] = true, [4] = true, [5] = true, [6] = true, [7] = true, [11] = true, [12] = true, [13] = true }
 
 	-- Bars 1-4 stay where the player put them (Rob, 5 Oct 2026: "We doen C", after the red team: columns on
 	-- the right lay over his quest tracker). Only a bar that would lie OVER the block moves, to a row just
@@ -774,8 +776,9 @@ function ns.MH_EditModeApplyKeyBlock()
 	local zoneR = UIParent:GetWidth() / 2 + shift + totalW / 2 + BLOCK_GAP
 	local zoneT = bottom + blockH + extraH
 	local inTheWay = {}
-	-- Only bar 1 can still be in the way: 2 and 3 get hidden below, 4 becomes block D.
-	for _, idx in ipairs({ 1 }) do
+	-- Nothing of 1-4 can be in the way any more: 1 and 4 become blocks, 2 and 3 get hidden. The loop stays
+	-- (empty) so a future bar that is not arranged still gets the same check.
+	for _, idx in ipairs({}) do
 		local l, r, b, t = Rect(_G[BAR_FRAME_NAMES[idx]] or (sysBy[idx] and LiveFrame(sysBy[idx])))
 		if sysBy[idx] and l and l < zoneR and r > zoneL and b < zoneT and t > bottom then
 			inTheWay[#inTheWay + 1] = idx
@@ -824,13 +827,13 @@ function ns.MH_EditModeApplyKeyBlock()
 	-- One icon size for all three (MEASURED 5 Oct 2026, Rob's Hunter layout "Oak": bars 5/6/7 had icon
 	-- size 3/2/0, so block C was half the size of A). The largest wins, so nothing the player sized up shrinks.
 	local iconSize
-	for _, idx in ipairs({ 4, 5, 6, 7 }) do
+	for _, idx in ipairs({ 1, 4, 5, 6, 7 }) do
 		local v = sysBy[idx] and tonumber(GetSetting(sysBy[idx], 3))
 		if v and (not iconSize or v > iconSize) then
 			iconSize = v
 		end
 	end
-	for _, idx in ipairs({ 4, 5, 6, 7 }) do
+	for _, idx in ipairs({ 1, 4, 5, 6, 7 }) do
 		local s = sysBy[idx]
 		if s then
 			SetSetting(s, 0, 0)  -- Orientation: horizontal
@@ -841,7 +844,10 @@ function ns.MH_EditModeApplyKeyBlock()
 			SetSetting(s, 9, 1)
 			-- Visible: Always (value 0, as on every bar Rob can see). MEASURED: "Oak" had bar 7 on 3 =
 			-- Hidden, which the game shows only while the spellbook is open — Rob: block C appeared only then.
-			SetSetting(s, 5, 0)
+			-- Bar 1 has no Visible setting at all (measured); never add one it does not have.
+			if idx ~= 1 then
+				SetSetting(s, 5, 0)
+			end
 			if iconSize then
 				SetSetting(s, 3, iconSize)
 			end
@@ -852,6 +858,8 @@ function ns.MH_EditModeApplyKeyBlock()
 	if sysBy[7] then Anchor(sysBy[7], "BOTTOMLEFT", BAR_FRAME_NAMES[6], "BOTTOMRIGHT", BLOCK_GAP, 0) end
 	-- Block D, left of A (Rob, 5 Oct 2026: "links van A").
 	if sysBy[4] then Anchor(sysBy[4], "BOTTOMRIGHT", BAR_FRAME_NAMES[5], "BOTTOMLEFT", -BLOCK_GAP, 0) end
+	-- Bar 1, left of D. Its frame is "MainActionBar" (MEASURED as a relativeTo in Rob's own layout).
+	if sysBy[1] then Anchor(sysBy[1], "BOTTOMRIGHT", BAR_FRAME_NAMES[4], "BOTTOMLEFT", -BLOCK_GAP, 0) end
 
 	-- Bars 2 and 3 hidden (Rob: "standaard verborgen", advice 2). Visible = Hidden (3) still shows them
 	-- while the spellbook is open — measured on Oak's bar 7 — so spells can still be dragged off them.
@@ -864,12 +872,9 @@ function ns.MH_EditModeApplyKeyBlock()
 	notes[#notes + 1] = ns:L("KEYBLOCK_LAYOUT_HIDDEN_HELP")
 
 	-- Bar 1 cannot be hidden (it has no Visible setting, measured in Rob's layouts) and must stay: skyriding,
-	-- vehicles and pet battles put their buttons there. With its doubles taken off by "Place it", empty
-	-- buttons hidden (AlwaysShowButtons 0) makes it near-invisible until the game fills it. Rob, 5 Oct 2026,
-	-- on the bar 1 row above his block full of old spells and empty frames: "ik weet niet of dat handig is".
-	if sysBy[1] then
-		SetSetting(sysBy[1], 9, 0)
-	end
+	-- vehicles and pet battles put their buttons there. First its empty buttons were hidden; then Rob asked
+	-- for it "op hetzelfde formaat … drie rijen van vier, links ernaast", so it is a block like the others,
+	-- empty places shown (set in the loop above).
 
 	-- 2. Only the bars 1-4 that were in the way: one horizontal row each, stacked above the extra bars.
 	local rowH = size + pad + 6
