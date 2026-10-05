@@ -1642,7 +1642,12 @@ local function UpdateGuide(f)
 		return
 	end
 	local placed = GetSnap() ~= nil
-	local _, layoutOn, _, onPreset = ns.MH_EditModeKeyBlockState and ns.MH_EditModeKeyBlockState()
+	-- Not `a and a()`: the `and` would keep only the first of the four results (lint [12]).
+	local layoutOn, onPreset = false, false
+	if ns.MH_EditModeKeyBlockState then
+		local _, on, _, preset = ns.MH_EditModeKeyBlockState()
+		layoutOn, onPreset = on, preset
+	end
 	local steps = {
 		{ text = "KEYBLOCK_GUIDE_1", done = placed, which = "place", btn = "KEYBLOCK_GUIDE_DO" },
 		{ text = onPreset and "KEYBLOCK_GUIDE_2_PRESET" or "KEYBLOCK_GUIDE_2", done = layoutOn, which = "layout",
