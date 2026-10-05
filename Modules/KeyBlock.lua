@@ -1019,6 +1019,22 @@ local function Ensure()
 		if ok then
 			f.reloadBtn:Show()
 		end
+		if f.UpdateLayoutUndo then
+			f.UpdateLayoutUndo()
+		end
+	end
+	-- The way back NAMES the layout it puts back. Rob, 5 Oct 2026, pressing it on his Hunter: "waarom zegt
+	-- hij iets over twelve retro?" — the block layout he undid was his Paladin's account layout, and a
+	-- button called "my bars back" gave no hint of that. Grey when there is nothing to put back.
+	function f.UpdateLayoutUndo()
+		local u = ns.db and ns.db.editModeBarsUndo
+		if ns.db and ns.db.keyBlockLayoutOn and u and u.layoutName then
+			f.layoutUndoBtn:SetText(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO_FMT"):format(tostring(u.layoutName)))
+			f.layoutUndoBtn:Enable()
+		else
+			f.layoutUndoBtn:SetText(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO"))
+			f.layoutUndoBtn:Disable()
+		end
 	end
 	f.layoutBtn = Btn("KEYBLOCK_BTN_LAYOUT", 22 + 2 * 210, function()
 		NeedReload(ns.MH_EditModeApplyKeyBlock())
@@ -1130,6 +1146,9 @@ Refresh = function(f)
 		foot = "|cffff6060" .. ns:L("KEYBLOCK_BARS_HIDDEN_FMT"):format(table.concat(hidden, ", ")) .. "|r|n" .. foot
 	end
 	f.foot:SetText(foot)
+	if f.UpdateLayoutUndo then
+		f.UpdateLayoutUndo()
+	end
 end
 
 function ns.ShowKeyBlock()
