@@ -180,7 +180,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- =================================================================
     -- GEDEELD: Feral + Guardian (melee-vormen)
     -- =================================================================
-    ["Thrash"]                           = { category = "main_rotation", priority = 2, specs = { 104 } }, -- Guardian AoE-builder; Feral kwijt in 12.1 (IV Feral: "removed from the tree")
+    ["Thrash"]                           = { category = "main_rotation", priority = 2, specs = { 104 }, survival = "keepup", survivalOrder = 2, survivalId = { [104] = 77758 }, survivalNote = "SURVIVAL_NOTE_REND_TEAR" }, -- Guardian AoE-builder; Feral kwijt in 12.1 (IV Feral: "removed from the tree"); card 5 Oct 2026: 3 stacks + Rend and Tear = less damage (Method 3 Sep); id Wowhead, not client-measured
     ["Swipe"]                            = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 103, 104 } }, -- AoE-builder (Shift-tweeling van primaire builder Shred/Mangle, builder 1)
     ["Skull Bash"]                       = { id = 106839, role = "interrupt", priority = 1, specs = { 103, 104 }, survival = "interrupt", survivalOrder = 1 }, -- charge+interrupt (melee-specs)
     ["Stampeding Roar"]                  = { id = 106898, role = "utility_primary", priority = 2, specs = { 103, 104 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q (raid-speed)

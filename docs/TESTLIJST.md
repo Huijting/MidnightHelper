@@ -60,6 +60,15 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt — consumables-wissels en tank-regels op Stay alive
+
+- [ ] **Prot Paladin** `/mh play` → **Consumables**: flask = **Flask of the Blood Knights** (was Shattered Sun).
+- [ ] **Prot Paladin** → **Stay alive**: nieuwe regel 2 **Consecration** ("put it on the ground and stay inside"), onder
+  Shield of the Righteous. Geen rode regel in `/mh survival`.
+- [ ] Andere tanks als je ze hebt: Blood DK **Marrowrend** bovenaan; Brewmaster **Blackout Kick** + **Keg Smash**;
+  Guardian **Thrash**; Vengeance **Soul Cleave** bij de heals. Verschijnen ze (ids van Wowhead, niet in het spel gemeten)?
+- [ ] Een DPS met een gewisselde potion (Balance, Shadow, Demonology, Devastation, Augmentation → Potion of Recklessness).
+
 ## 🆕 5 okt — "Midnight-achievements die je nog mist" (wens #16)
 
 - [ ] `/reload`, open MH → **Achievements**: naast "Route nearest open" staat een knop **"Midnight achievements you

@@ -122,7 +122,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Fracture"]          = { category = "main_rotation", priority = 1, specs = { 581 } }, -- fury + 2 souls (SpellArchetypes 263642; guide.lua {263642})
 	["Sigil of Flame"]    = { category = "main_rotation", priority = 3, specs = { 581 } }, -- AoE threat-builder (guide.lua {204596})
 	-- Spender (SpellArchetypes/RangeReferences 228477; guide.lua {228477} heal+damage spender)
-	["Soul Cleave"]       = { category = "spender", priority = 1, specs = { 581 } },       -- spender-heal (DEFENSE_TIER 228477 tier2, MAAR rotatie-spender -> geen los heal-anker; never-lie)
+	["Soul Cleave"]       = { category = "spender", priority = 1, specs = { 581 }, survival = "heal", survivalOrder = 2, survivalId = { [581] = 228477 }, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" },       -- spender-heal (DEFENSE_TIER 228477 tier2, MAAR rotatie-spender -> geen los heal-anker; never-lie); card 5 Oct 2026: damage and healing (IV Easy Mode 26 Aug), like Death Strike
 	-- AoE (guide.lua {247454} Spirit Bomb; Shift+N-anker)
 	["Spirit Bomb"]       = { category = "spender", priority = 6, bindKey = "Shift+4", specs = { 581 } }, -- soul-spender AoE (SpellArchetypes 247454; guide.lua {247454})
 	-- Kleine def (SpellCategories DEFENSIVE 203720; SpellDB DEMONHUNTER_2 mitigatie-lijst)

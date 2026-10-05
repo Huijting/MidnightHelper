@@ -95,7 +95,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- BREWMASTER (268)  -- tank
     -- =================================================================
     -- Builders / rotatie (SpellArchetypes: Keg Smash/Tiger Palm/Blackout Kick)
-    ["Keg Smash"]                    = { category = "main_rotation", priority = 1, specs = { 268 } }, -- 1: AoE-builder + snare
+    ["Keg Smash"]                    = { category = "main_rotation", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 3, survivalId = { [268] = 121253 }, survivalNote = "SURVIVAL_NOTE_SHUFFLE" }, -- 1: AoE-builder + snare; card 5 Oct 2026: Shuffle + brew cooldowns (IV/Wowhead); id Wowhead, not client-measured
     -- Actieve mitigation (Stagger purge, verbruikt brew-charges)
     ["Purifying Brew"]               = { id = 119582, category = "defensive", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 1 }, -- 4: purge Stagger (actieve mitigation, GEEN dmg-spender); card: on a rhythm (IV BM)
     -- AoE
@@ -186,7 +186,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- =================================================================
     -- Rotatie-basis (BM 2 / MW 1 / WW 1)
     ["Tiger Palm"]                   = { category = "main_rotation", priority = 1 }, -- meest-voorkomend p1
-    ["Blackout Kick"]                = { category = "main_rotation", priority = 3 }, -- BM builder / MW filler / WW spender -> meest voorkomend main_rotation
+    ["Blackout Kick"]                = { category = "main_rotation", priority = 3, survival = { [268] = "keepup" }, survivalOrder = 2, survivalId = { [268] = 205523 }, survivalNote = "SURVIVAL_NOTE_SHUFFLE" }, -- BM builder / MW filler / WW spender -> meest voorkomend main_rotation; card 5 Oct 2026, Brewmaster only: "Stay Shuffling" (IV Easy Mode); 205523 = BrM version (Wowhead), not client-measured
     -- Movement
     ["Roll"]                         = { survivalId = { [268] = 109132, [269] = 109132, [270] = 109132 }, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q: gap-closer (SpellCategories + gap-closer-lijsten)
     -- Self-heals

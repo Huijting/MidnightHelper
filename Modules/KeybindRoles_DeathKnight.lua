@@ -84,7 +84,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- ============================================================
 	-- Builders (main_rotation)
 	["Heart Strike"] = { category = "main_rotation", priority = 1, specs = { 250 } },   -- 1 (kernbuilder)
-	["Marrowrend"] = { category = "main_rotation", priority = 2, specs = { 250 } },     -- 2 (Bone Shield-onderhoud)
+	["Marrowrend"] = { category = "main_rotation", priority = 2, specs = { 250 }, survival = "keepup", survivalOrder = 1, survivalId = { [250] = 195182 }, survivalNote = "SURVIVAL_NOTE_BONE_SHIELD" },     -- 2 (Bone Shield-onderhoud); card 5 Oct 2026: Bone Shield above 5 stacks, one of two active mitigations (IV Easy Mode); id from Wowhead + TankToolkit.lua, not client-measured
 	["Death's Caress"] = { category = "main_rotation", priority = 3, specs = { 250 } }, -- 3 (ranged tag)
 	-- AoE (Shift-tweelingen)
 	["Blood Boil"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 250 } },      -- AoE
