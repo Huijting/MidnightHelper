@@ -20,6 +20,18 @@ local _, ns = ...
 
 -- WoW binding notation, so step two can hand these straight to SetBinding.
 local BLOCK = {
+	-- Block D (5 Oct 2026, Rob: "extra blok D, aan, links van A, vaste toetsen bedenken"): the player's OWN
+	-- place on action bar 4 — toys, hearthstone, macros, whatever the block pushed aside. MH binds the keys
+	-- and never fills or clears it. Alt + the same pattern as A, except Alt-Z: Blizzard's default for
+	-- hiding the whole interface, so the last place is Alt-G.
+	{ id = "D", own = true, slots = {
+		{ key = "ALT-1", task = "KEYBLOCK_T_OWN" }, { key = "ALT-2", task = "KEYBLOCK_T_OWN" },
+		{ key = "ALT-3", task = "KEYBLOCK_T_OWN" }, { key = "ALT-4", task = "KEYBLOCK_T_OWN" },
+		{ key = "ALT-Q", task = "KEYBLOCK_T_OWN" }, { key = "ALT-E", task = "KEYBLOCK_T_OWN" },
+		{ key = "ALT-R", task = "KEYBLOCK_T_OWN" }, { key = "ALT-F", task = "KEYBLOCK_T_OWN" },
+		{ key = "ALT-X", task = "KEYBLOCK_T_OWN" }, { key = "ALT-C", task = "KEYBLOCK_T_OWN" },
+		{ key = "ALT-V", task = "KEYBLOCK_T_OWN" }, { key = "ALT-G", task = "KEYBLOCK_T_OWN" },
+	} },
 	{ id = "A", slots = {
 		{ key = "1", task = "KEYBLOCK_T_MAIN" }, { key = "2", task = "KEYBLOCK_T_ROT" },
 		{ key = "3", task = "KEYBLOCK_T_ROT" }, { key = "4", task = "KEYBLOCK_T_SPENDER" },
@@ -51,7 +63,7 @@ ns.KEYBLOCK_LAYOUT = BLOCK
 --- balknummers, kies maar"): bar 1 pages with forms and stealth, 2-4 are where most players already
 --- keep their own spells, and 8 holds Rob's mouse keys (MULTIACTIONBAR7). Shown on the picture only;
 --- nothing is placed yet.
-local DEFAULT_BARS = { A = 5, B = 6, C = 7 }
+local DEFAULT_BARS = { A = 5, B = 6, C = 7, D = 4 }
 
 function ns.KeyBlockBars()
 	local saved = ns.db and ns.db.keyBlock and ns.db.keyBlock.bars
@@ -59,6 +71,7 @@ function ns.KeyBlockBars()
 		A = (saved and saved.A) or DEFAULT_BARS.A,
 		B = (saved and saved.B) or DEFAULT_BARS.B,
 		C = (saved and saved.C) or DEFAULT_BARS.C,
+		D = (saved and saved.D) or DEFAULT_BARS.D,
 	}
 end
 
@@ -326,7 +339,7 @@ end
 local function KeyLabel(k)
 	local mod, base = k:match("^(%u+)%-(.+)$")
 	if mod then
-		return (mod == "SHIFT" and "Shift" or mod == "CTRL" and "Ctrl" or mod) .. " " .. base
+		return (mod == "SHIFT" and "Shift" or mod == "CTRL" and "Ctrl" or mod == "ALT" and "Alt" or mod) .. " " .. base
 	end
 	return k
 end
@@ -365,9 +378,10 @@ end
 -- back BY ID after its index had shifted; the swap never uses the id. Taking a macro off a bar does not
 -- delete it from the macro list either.
 local RESTORABLE = { spell = true, item = true, macro = true }
+local AUTOPUSH_CVAR = "AutoPushSpellToActionBar"
 -- Bars that may receive what the block pushes aside, in this order. Never bar 1 (it pages with forms and
 -- stealth), never bar 8 (Rob's mouse keys), never a block bar.
-local MOVE_BARS = { 2, 3, 4 }
+local MOVE_BARS = { 4, 2, 3 } -- bar 4 is block D (own stuff) since 5 Oct 2026, so it fills first
 local HEALTHSTONE_ITEM = 5512 -- "Healthstone" (Wowhead item 5512, per language read 4 Oct 2026)
 
 --- Bar number (1-8) -> binding prefix and first action slot (shared table from ApplyLayout.lua).
@@ -382,6 +396,16 @@ local function Occupant(slot)
 		return "?", nil
 	end
 	return kind, id
+end
+
+--- Is this button Blizzard's Single-Button Assistant? It reports as the spell it suggests, so only this
+--- call can tell (same check as ApplyLayout.lua SlotIsAssistant).
+local function IsAssist(slot)
+	if not (slot and C_ActionBar and C_ActionBar.IsAssistedCombatAction) then
+		return false
+	end
+	local ok, v = pcall(C_ActionBar.IsAssistedCombatAction, slot)
+	return (ok and v) and true or false
 end
 
 local function OccupantName(kind, id)
@@ -481,7 +505,16 @@ local function PlacePlan()
 				want, why = FixedWant(slotDef.fixed)
 			end
 			row.want = want
-			if not want then
+			if bar.own then
+				-- Block D: the player's own place. MH binds the key and leaves the button alone.
+				row.want = nil
+				row.action = "own"
+			elseif IsAssist(row.slot) then
+				-- Never move or cover the Single-Button Assistant: an addon cannot put it back
+				-- (ApplyLayout.lua, 10 Aug 2026; red team 5 Oct 2026).
+				row.action = "refuse"
+				row.why = "holds the Single-Button Assistant"
+			elseif not want then
 				row.action, row.why = "skip", why or "nothing for this place on this character"
 				-- Rob, 5 Oct 2026 ("1 ja"): an empty place on the picture is empty on the bar too. What
 				-- stands there now moves aside like anything else the block replaces.
@@ -512,11 +545,9 @@ local function PlacePlan()
 			rows[#rows + 1] = row
 		end
 	end
-	-- Give everything that gets replaced a free button elsewhere, so nothing leaves the bars.
-	local isBlockBar = {}
-	for _, n in pairs(bars) do
-		isBlockBar[n] = true
-	end
+	-- Give everything that gets replaced a free button elsewhere, so nothing leaves the bars. Block D (bar 4,
+	-- the player's own) is the first place to park: what is moved aside is exactly "your own stuff".
+	local isBlockBar = { [bars.A] = true, [bars.B] = true, [bars.C] = true }
 	local free = {}
 	for _, n in ipairs(MOVE_BARS) do
 		local info = BarInfo(n)
@@ -534,6 +565,12 @@ local function PlacePlan()
 			local spot = table.remove(free, 1)
 			if spot then
 				r.moveTo = spot
+			else
+				-- No free button left: leave it alone rather than drop it (red team, 5 Oct 2026).
+				r.action = "refuse"
+				r.why = ("holds %s and there is no free button left on bars 2-4 to move it to"):format(
+					tostring(r.replaces.name))
+				r.replaces = nil
 			end
 		end
 	end
@@ -568,7 +605,7 @@ function ns.KeyBlockPreview(quiet)
 		end
 		return ns:L("KEYBLOCK_PLACE_NOTHING")
 	end
-	local n = { place = 0, keep = 0, refuse = 0, skip = 0, replace = 0, clear = 0 }
+	local n = { place = 0, keep = 0, refuse = 0, skip = 0, replace = 0, clear = 0, own = 0 }
 	for _, r in ipairs(rows) do
 		n[r.action] = n[r.action] + 1
 		if r.replaces then
@@ -709,6 +746,49 @@ function ns.KeyBlockPlace()
 	end
 	SetSnap(snap)
 
+	-- Rob, 5 Oct 2026 ("ik volg het advies"): with the block placed, Blizzard stops pushing new spells onto
+	-- bar 1 — MH's own question puts them on the block. The old value is kept and Undo puts it back.
+	-- CVar name MEASURED by mh-research (Blizzard forums: "/console AutoPushSpellToActionBar 0").
+	if C_CVar and C_CVar.GetCVar then
+		local okV, v = pcall(C_CVar.GetCVar, AUTOPUSH_CVAR)
+		if okV and v ~= nil then
+			snap.autoPush = v
+			pcall(C_CVar.SetCVar, AUTOPUSH_CVAR, "0")
+		end
+	end
+
+	-- And the doubles leave bar 1 (buttons 1-12 only — never the form/stealth pages, never the Single-
+	-- Button Assistant, spells only; red team 5 Oct 2026). Each is recorded, so Undo puts it back.
+	local wanted = {}
+	for _, r in ipairs(rows) do
+		if r.want and r.want.kind == "spell" and (r.action == "place" or r.action == "keep") then
+			wanted[r.want.id] = true
+			if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+				local okO, over = pcall(C_SpellBook.FindSpellOverrideByID, r.want.id)
+				if okO and over then
+					wanted[over] = true
+				end
+			end
+		end
+	end
+	local doubles = 0
+	for slot = 1, 12 do
+		local kind, id = Occupant(slot)
+		if kind == "spell" and wanted[id] and not IsAssist(slot) then
+			pcall(function()
+				ClearCursor()
+				PickupAction(slot)
+				ClearCursor()
+			end)
+			pcall(ClearCursor)
+			if Occupant(slot) == nil then
+				snap.slots[#snap.slots + 1] = { slot = slot, kind = "spell", id = id, name = OccupantName("spell", id) }
+				doubles = doubles + 1
+			end
+		end
+	end
+	snap.bar1Doubles = doubles
+
 	local placed, bound, failed, moved = 0, 0, {}, 0
 	for _, r in ipairs(rows) do
 		-- An empty place: move what is there aside (or, with no free button left, just lift it off;
@@ -776,7 +856,7 @@ function ns.KeyBlockPlace()
 	if SaveBindings and GetCurrentBindingSet then
 		pcall(SaveBindings, GetCurrentBindingSet())
 	end
-	print(p .. ("key block placed: %d buttons, %d keys, %d moved aside to bars 2-4. |cffffffff/mh block undo|r puts everything back."):format(placed, bound, moved))
+	print(p .. ("key block placed: %d buttons, %d keys, %d moved aside (block D first), %d doubles off bar 1. |cffffffff/mh block undo|r puts everything back."):format(placed, bound, moved, doubles))
 	if #failed > 0 then
 		print("   |cffff8080did not land:|r " .. table.concat(failed, ", "))
 	end
@@ -849,6 +929,9 @@ function ns.KeyBlockUndo()
 	end
 	if SaveBindings and GetCurrentBindingSet then
 		pcall(SaveBindings, GetCurrentBindingSet())
+	end
+	if snap.autoPush ~= nil and C_CVar and C_CVar.SetCVar then
+		pcall(C_CVar.SetCVar, AUTOPUSH_CVAR, snap.autoPush)
 	end
 	SetSnap(nil)
 	print(p .. ("key block undone: %d slots and %d keys back as they were."):format(restored, #(snap.binds or {})))
@@ -938,7 +1021,7 @@ function ns.KeyBlockUpdate()
 		print(p .. "the key block is not placed on this character yet — use \"Place it\" first.")
 		return false
 	end
-	local added, names = 0, {}
+	local added, names, rebound = 0, {}, false
 	for _, m in ipairs(MissingRows()) do
 		local t = m.target
 		if t then
@@ -964,9 +1047,46 @@ function ns.KeyBlockUpdate()
 				-- First in the list: the undo must lift this off BEFORE it puts back what stood here before.
 				table.insert(snap.slots, 1, { slot = t.slot })
 				added = added + 1
+				-- And the key goes with it. Rob, 5 Oct 2026: Rapid Fire landed on block A place 3, but "3"
+				-- still pressed bar 1 (placed before every key was bound). Remember the old binding once.
+				if GetBindingAction(t.key) ~= t.command then
+					local known = false
+					for _, b in ipairs(snap.binds or {}) do
+						if b.key == t.key then
+							known = true
+						end
+					end
+					if not known then
+						snap.binds = snap.binds or {}
+						snap.binds[#snap.binds + 1] = { key = t.key, was = GetBindingAction(t.key) or "" }
+					end
+					SetBinding(t.key, t.command)
+					rebound = true
+				end
 				names[#names + 1] = ("%s (%s)"):format(MissingName(m), KeyLabel(t.key))
 			end
 		end
+	end
+	-- Every block key on its own place, also on a block placed before 5 Oct evening (when empty places
+	-- were not bound yet): bind any block key that still points elsewhere.
+	local rows = PlacePlan()
+	for _, r in ipairs(rows or {}) do
+		if r.action ~= "refuse" and GetBindingAction(r.key) ~= r.command then
+			local known = false
+			for _, b in ipairs(snap.binds or {}) do
+				if b.key == r.key then
+					known = true
+				end
+			end
+			if not known then
+				snap.binds[#snap.binds + 1] = { key = r.key, was = GetBindingAction(r.key) or "" }
+			end
+			SetBinding(r.key, r.command)
+			rebound = true
+		end
+	end
+	if rebound and SaveBindings and GetCurrentBindingSet then
+		pcall(SaveBindings, GetCurrentBindingSet())
 	end
 	ns.db.keyBlockAsked = ns.db.keyBlockAsked or {}
 	ns.db.keyBlockAsked[MyKey()] = nil
@@ -1100,7 +1220,8 @@ end)
 
 -- Rob, 5 Oct 2026 (screenshot): "Shift F1" ran through the icon and long names were cut. So the key
 -- gets its own strip at the top, the icon sits under it, the name under that, and the place is wider.
-local SLOT_W, SLOT_H, GAP = 84, 80, 6
+-- 76 since block D made it four blocks wide; the window also shrinks to fit the screen (ShowKeyBlock).
+local SLOT_W, SLOT_H, GAP = 76, 80, 6
 local KEY_STRIP = 16
 
 -- What "Place it" will do to each place, shown ON the picture (Rob, 5 Oct 2026: the dry run in chat was
@@ -1220,7 +1341,7 @@ local function Ensure()
 			f.slots[slot.key] = b
 		end
 	end
-	f:SetSize(22 * 2 + 3 * barW + 2 * 22, 86 + 3 * SLOT_H + 2 * GAP + 18 + 170)
+	f:SetSize(22 * 2 + #BLOCK * barW + (#BLOCK - 1) * 22, 86 + 3 * SLOT_H + 2 * GAP + 18 + 170)
 
 	f.unplaced = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	f.unplaced:SetPoint("BOTTOMLEFT", 22, 124)
@@ -1263,6 +1384,21 @@ local function Ensure()
 	f.modeBtn:SetScript("OnClick", function()
 		NextMode()
 		Refresh(f)
+	end)
+	-- Bars 2 and 3 back on screen, or hidden again (only while the block layout is on).
+	f.oldBarsBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.oldBarsBtn:SetSize(240, 20)
+	f.oldBarsBtn:SetPoint("RIGHT", f.modeBtn, "LEFT", -10, 0)
+	f.oldBarsBtn:SetScript("OnClick", function()
+		if not ns.MH_EditModeOldBars then
+			return
+		end
+		local ok, msg = ns.MH_EditModeOldBars(ns.db and ns.db.keyBlockOldBarsHidden)
+		Refresh(f)
+		f.foot:SetText(msg or "")
+		if ok then
+			f.reloadBtn:Show()
+		end
 	end)
 	f.undoBtn = Btn("KEYBLOCK_BTN_UNDO", 22 + 210, function()
 		if ns.KeyBlockUndo() then
@@ -1331,10 +1467,16 @@ Refresh = function(f)
 	f.title:SetText(ns:L("KEYBLOCK_TITLE"))
 	f.placeBtn:SetText(ns:L(GetSnap() and "KEYBLOCK_BTN_UPDATE" or "KEYBLOCK_BTN_PLACE"))
 	f.modeBtn:SetText(ns:L("KEYBLOCK_MODE_FMT"):format(ns:L("KEYBLOCK_MODE_" .. ns.KeyBlockNewMode():upper())))
+	if ns.db and ns.db.keyBlockLayoutOn then
+		f.oldBarsBtn:SetText(ns:L(ns.db.keyBlockOldBarsHidden and "KEYBLOCK_BTN_OLDBARS_SHOW" or "KEYBLOCK_BTN_OLDBARS_HIDE"))
+		f.oldBarsBtn:Show()
+	else
+		f.oldBarsBtn:Hide()
+	end
 	f.intro:SetText(res and ns:L("KEYBLOCK_INTRO") or ns:L("KEYBLOCK_NO_DATA"))
 	for _, bar in ipairs(BLOCK) do
 		f.bars[bar.id].head:SetText(ns:L("KEYBLOCK_BAR_FMT"):format(bar.id, bars[bar.id]))
-		for _, slot in ipairs(bar.slots) do
+		for n, slot in ipairs(bar.slots) do
 			local b = f.slots[slot.key]
 			local hit = res and res.occ[slot.key]
 			local data = { key = slot.key, task = slot.task, fixed = slot.fixed }
@@ -1342,7 +1484,18 @@ Refresh = function(f)
 			b.icon:SetTexture(nil)
 			b.icon:SetDesaturated(false)
 			b.icon:SetAlpha(1)
-			if hit then
+			local info = bar.own and BarInfo(bars[bar.id])
+			if info then
+				-- Block D shows what really stands on that button of your bar 4: it is yours, MH only binds.
+				local actSlot = info.first + ButtonFor(n) - 1
+				local tex = GetActionTexture and GetActionTexture(actSlot)
+				local kind, id = Occupant(actSlot)
+				b.icon:SetTexture(tex)
+				b.task:SetText(kind and ((kind == "macro" and GetActionText(actSlot)) or OccupantName(kind, id))
+					or ns:L(slot.task))
+				b.task:SetTextColor(kind and 0.9 or 0.5, kind and 0.9 or 0.5, kind and 0.9 or 0.5)
+				b:SetBackdropBorderColor(0.45, 0.35, 0.6, 1)
+			elseif hit then
 				local name, icon, shown = SpellView(hit.spell.id)
 				data.spellID = shown
 				b.icon:SetTexture(icon or 134400)
@@ -1397,7 +1550,7 @@ Refresh = function(f)
 	-- A hidden block bar means keys that press buttons nobody can see (Rob's Hunter, 5 Oct 2026). That
 	-- warning was chat-only; it belongs where the player is looking.
 	local hidden = {}
-	for _, id in ipairs({ "A", "B", "C" }) do
+	for _, id in ipairs({ "D", "A", "B", "C" }) do
 		if BarShown(bars[id]) == false then
 			hidden[#hidden + 1] = tostring(bars[id])
 		end
@@ -1413,6 +1566,10 @@ end
 
 function ns.ShowKeyBlock()
 	local f = Ensure()
+	-- Four blocks are wide: never wider than the screen.
+	local w = f:GetWidth()
+	local room = UIParent:GetWidth() * 0.96
+	f:SetScale((w > room) and (room / w) or 1)
 	f:ClearAllPoints()
 	f:SetPoint("CENTER")
 	Refresh(f)

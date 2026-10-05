@@ -12,6 +12,12 @@ keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn
 geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
 undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
 Rob koos C voor balk 1-4 (blijven staan; alleen wie over het blok ligt gaat naar een rij erboven) — gebouwd, niet getest.
+Blok D + opruimen (Rob 5 okt: 1 ja, 2 ja, 3 ja, D links van A met vaste toetsen) — GEBOUWD, NIET GETEST: BLOCK heeft
+D (own=true, balk 4, Alt-1..4/Q/E/R/F/X/C/V/G; Alt-Z bewust niet), parkeren eerst in D (`MOVE_BARS {4,2,3}`), zonder vrije
+knop → rood i.p.v. weggooien; Single-Button Assistant nooit aangeraakt (`IsAssist`); bij Place: CVar
+AutoPushSpellToActionBar → 0 (oude waarde in snapshot, undo zet terug) en dubbelen van balk 1 (knop 1-12, alleen spells)
+eraf; Bijwerken koppelt nu ook de toets (Rob: Rapid Fire op plek 3, "3" drukte nog balk 1). Edit Mode: 4 blokken
+gecentreerd (D links), balk 2/3 Visible=Hidden + `ns.MH_EditModeOldBars` + knop "Toon mijn oude balken 2 en 3".
 Skyriding/voertuig/petbattle — GEBOUWD, NIET GETEST: secure state-frame `MidnightHelperKeyBlockBar1`, driver
 `[petbattle][vehicleui][overridebar][possessbar][shapeshift][bonusbar:5]`, zet priority-override-bindings van blok-toets →
 `was` (ACTIONBUTTONn) uit de snapshot; zonder snapshot maar met blok-toetsen (account-set, alt) cijfer n → ACTIONBUTTONn.

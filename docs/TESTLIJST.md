@@ -60,6 +60,21 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — blok D, oude balken weg, Blizzard zet niets meer bij (Rob: 1 ja, 2 ja, 3 ja, D links van A)
+
+Op de Hunter, niet in een gevecht. Eerst `/reload`.
+- [ ] **Bijwerken** (blok staat al): toets **3** drukt nu op Rapid Fire in blok A (niet meer op balk 1)? En Alt 1-4,
+  Alt Q/E/R/F, Alt X/C/V/G zijn gekoppeld aan blok D?
+- [ ] Voor een schone proef: **Terugzetten**, `/reload`, **Zet het op balk 5, 6 en 7**. Chat noemt "doubles off bar 1":
+  zijn de dubbele spreuken van balk 1 weg? Spullen die opzij gingen staan nu eerst in **blok D** (balk 4)?
+- [ ] Daarna een nieuwe spreuk leren: zet Blizzard hem NIET meer op balk 1? (`AutoPushSpellToActionBar` = 0.)
+- [ ] `/mh block`: vier blokken, **D links**, met wat er echt op je balk 4 staat; het venster past op je scherm.
+- [ ] **Zet "Oak" terug** → herladen → **Zet mijn balken als blok** → herladen: D links naast A, de vier samen in het midden?
+  Balk 2 en 3 weg (te zien als je spellboek open is)? De uitleg over "spellboek / blok D" staat in de melding.
+- [ ] Knop **Toon mijn oude balken 2 en 3** → Nu herladen → ze staan er weer; knop heet dan "Verberg …".
+- [ ] **Terugzetten**: dubbelen terug op balk 1, en Blizzards "nieuwe spreuk op balk 1" weer aan.
+- Alt-Z is bewust niet gebruikt: dat is Blizzards toets om de hele interface te verbergen (AFGELEID, niet gemeten).
+
 ## 🆕 5 okt avond — skyriding, voertuig, petbattle: toetsen even terug naar balk 1
 
 Rob: op een vliegmount kregen de skyriding-knoppen op balk 1 geen toetsen meer. Nu: zolang balk 1 door het spel wordt

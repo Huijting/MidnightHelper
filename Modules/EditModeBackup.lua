@@ -581,6 +581,7 @@ function ns.MH_EditModeRestore()
 		return
 	end
 	ns.db.keyBlockLayoutOn = nil
+	ns.db.keyBlockOldBarsHidden = nil
 	local msg = (ns:L("MH_SAY_BARS_RESTORED")):format(tostring(undo.layoutName))
 	print(Prefix() .. " " .. msg)
 	if ns.MH_SetupSay then
@@ -737,7 +738,10 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 	local pad = tonumber(sysBy[5] and GetSetting(sysBy[5], 4)) or 2
 	local blockW = 4 * size + 3 * pad
-	local totalW = 3 * blockW + 2 * BLOCK_GAP
+	-- Four blocks since 5 Oct 2026: D (bar 4, own stuff) left of A, then A, B, C. Centred as a group, so
+	-- B sits half a block right of the screen centre.
+	local totalW = 4 * blockW + 3 * BLOCK_GAP
+	local bOffset = (blockW + BLOCK_GAP) / 2
 	local blockH = 3 * size + 2 * pad
 	local bottom = 24
 
@@ -760,7 +764,7 @@ function ns.MH_EditModeApplyKeyBlock()
 
 	-- Which frames move. Anything else that hangs on one of them is pinned where it is now, so it
 	-- does not travel along (Rob's cooldown viewer hangs on bar 4, measured 5 Oct 2026).
-	local moving = { [5] = true, [6] = true, [7] = true, [11] = true, [12] = true, [13] = true }
+	local moving = { [4] = true, [5] = true, [6] = true, [7] = true, [11] = true, [12] = true, [13] = true }
 
 	-- Bars 1-4 stay where the player put them (Rob, 5 Oct 2026: "We doen C", after the red team: columns on
 	-- the right lay over his quest tracker). Only a bar that would lie OVER the block moves, to a row just
@@ -770,7 +774,8 @@ function ns.MH_EditModeApplyKeyBlock()
 	local zoneR = UIParent:GetWidth() / 2 + shift + totalW / 2 + BLOCK_GAP
 	local zoneT = bottom + blockH + extraH
 	local inTheWay = {}
-	for _, idx in ipairs({ 1, 2, 3, 4 }) do
+	-- Only bar 1 can still be in the way: 2 and 3 get hidden below, 4 becomes block D.
+	for _, idx in ipairs({ 1 }) do
 		local l, r, b, t = Rect(_G[BAR_FRAME_NAMES[idx]] or (sysBy[idx] and LiveFrame(sysBy[idx])))
 		if sysBy[idx] and l and l < zoneR and r > zoneL and b < zoneT and t > bottom then
 			inTheWay[#inTheWay + 1] = idx
@@ -819,13 +824,13 @@ function ns.MH_EditModeApplyKeyBlock()
 	-- One icon size for all three (MEASURED 5 Oct 2026, Rob's Hunter layout "Oak": bars 5/6/7 had icon
 	-- size 3/2/0, so block C was half the size of A). The largest wins, so nothing the player sized up shrinks.
 	local iconSize
-	for _, idx in ipairs({ 5, 6, 7 }) do
+	for _, idx in ipairs({ 4, 5, 6, 7 }) do
 		local v = sysBy[idx] and tonumber(GetSetting(sysBy[idx], 3))
 		if v and (not iconSize or v > iconSize) then
 			iconSize = v
 		end
 	end
-	for _, idx in ipairs({ 5, 6, 7 }) do
+	for _, idx in ipairs({ 4, 5, 6, 7 }) do
 		local s = sysBy[idx]
 		if s then
 			SetSetting(s, 0, 0)  -- Orientation: horizontal
@@ -842,9 +847,21 @@ function ns.MH_EditModeApplyKeyBlock()
 			end
 		end
 	end
-	if sysBy[6] then Anchor(sysBy[6], "BOTTOM", "UIParent", "BOTTOM", shift, bottom) end
+	if sysBy[6] then Anchor(sysBy[6], "BOTTOM", "UIParent", "BOTTOM", shift + bOffset, bottom) end
 	if sysBy[5] then Anchor(sysBy[5], "BOTTOMRIGHT", BAR_FRAME_NAMES[6], "BOTTOMLEFT", -BLOCK_GAP, 0) end
 	if sysBy[7] then Anchor(sysBy[7], "BOTTOMLEFT", BAR_FRAME_NAMES[6], "BOTTOMRIGHT", BLOCK_GAP, 0) end
+	-- Block D, left of A (Rob, 5 Oct 2026: "links van A").
+	if sysBy[4] then Anchor(sysBy[4], "BOTTOMRIGHT", BAR_FRAME_NAMES[5], "BOTTOMLEFT", -BLOCK_GAP, 0) end
+
+	-- Bars 2 and 3 hidden (Rob: "standaard verborgen", advice 2). Visible = Hidden (3) still shows them
+	-- while the spellbook is open — measured on Oak's bar 7 — so spells can still be dragged off them.
+	-- "Show my old bars" in the window turns them back on.
+	for _, idx in ipairs({ 2, 3 }) do
+		if sysBy[idx] then
+			SetSetting(sysBy[idx], 5, 3)
+		end
+	end
+	notes[#notes + 1] = ns:L("KEYBLOCK_LAYOUT_HIDDEN_HELP")
 
 	-- 2. Only the bars 1-4 that were in the way: one horizontal row each, stacked above the extra bars.
 	local rowH = size + pad + 6
@@ -870,6 +887,7 @@ function ns.MH_EditModeApplyKeyBlock()
 
 	if ns.db then
 		ns.db.keyBlockLayoutOn = true
+		ns.db.keyBlockOldBarsHidden = true
 		ns.db.keyBlockLayoutProbe = { size = size, pad = pad, shift = shift, pinned = pinned,
 			layout = target.layoutName, at = time() }
 	end
@@ -879,6 +897,41 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 	print(Prefix() .. " " .. msg)
 	return true, msg
+end
+
+--- "Show my old bars" / "Hide my old bars": bars 2 and 3 of the ACTIVE layout, Visible Always (0) or
+--- Hidden (3). Rob, 5 Oct 2026: players must be able to get them back, and know how. Needs a /reload.
+--- @return boolean ok, string message
+function ns.MH_EditModeOldBars(show)
+	local ok, why = Ready()
+	if not ok then
+		return false, tostring(why)
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return false, ns:L("KEYBLOCK_LAYOUT_COMBAT")
+	end
+	if EditModeManagerFrame and EditModeManagerFrame:IsShown() then
+		return false, ns:L("KEYBLOCK_LAYOUT_EDITMODE_OPEN")
+	end
+	local okG, info = pcall(C_EditMode.GetLayouts)
+	local presets = PresetCount()
+	if not (okG and type(info) == "table" and info.layouts and presets) then
+		return false, "Edit Mode returned no layouts."
+	end
+	local target = info.layouts[(tonumber(info.activeLayout) or 0) - presets]
+	if not target then
+		return false, ns:L("MH_SAY_PRESET_LAYOUT")
+	end
+	for _, s in ipairs(target.systems or {}) do
+		if s.system == BAR_SYSTEM and (s.systemIndex == 2 or s.systemIndex == 3) then
+			SetSetting(s, 5, show and 0 or 3)
+		end
+	end
+	if not pcall(C_EditMode.SaveLayouts, info) then
+		return false, "Edit Mode refused the change."
+	end
+	ns.db.keyBlockOldBarsHidden = not show
+	return true, ns:L(show and "KEYBLOCK_OLDBARS_SHOWN" or "KEYBLOCK_OLDBARS_HIDDEN")
 end
 
 --- ⚠️ A SLASH COMMAND CANNOT CARRY THIS. WoW's chat box stops at 255 characters and

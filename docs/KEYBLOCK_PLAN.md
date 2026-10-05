@@ -110,6 +110,13 @@ Regels in de code (`ns.MH_EditModeApplyKeyBlock`, `EditModeBackup.lua`):
   rijen om, zodat 1 2 3 4 bovenaan staat zoals op het plaatje. Balk 6/7 aanzetten (Options) doet MH niet.
 ⚠️ Pet bar heeft standaard Ctrl 1-10; het blok neemt Ctrl 1-3 over.
 
+## Blok D en opruimen (5 okt avond, Rob: "1 ja, 2 ja, 3 ja, D links van A")
+
+- Blok D = actiebalk 4, links van A, Alt-1..4 / Alt-Q E R F / Alt-X C V G (Alt-Z niet: interface verbergen). Van de
+  speler zelf: MH koppelt alleen de toetsen. Wat het blok opzij zet, gaat eerst naar D.
+- Neerzetten zet Blizzards "nieuwe spreuk op balk 1" uit en haalt dubbelen van balk 1; Terugzetten draait beide terug.
+- Als blok zetten verbergt balk 2 en 3 (zichtbaar met spellboek open); knop om ze weer te tonen.
+
 ## Open
 
 1. ✅ Toetsen van balk C (4 okt, optie 1). 2. ✅ Taak van Q (grote cooldown; data volgt). 3. ✅ uitgezocht (zie Techniek): Blizzard zelf, EllesmereUI uitleg.
