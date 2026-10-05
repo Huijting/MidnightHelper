@@ -2615,6 +2615,12 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
+	CHANGELOG_470_1 = "THIS RELEASE IS ALL ABOUT YOUR NEW KEY BLOCK. Type /mh block and follow the steps at the top of the window: the same job on the same key, on every character. 1 is your main button, E your interrupt, Z your small defensive, Q your big cooldown.",
+	CHANGELOG_470_2 = "Key block: puts your spells on bars 5, 6 and 7 for you, arranges them as a block on screen, and Undo puts every button and key back. Per character and per spec. Nothing changes until you press a button.",
+	CHANGELOG_470_3 = "Key block: new spells get a place (it asks, does it by itself, or never: your choice), keys 1-5 still work while skyriding, healers get their heals on 1-4, optional mouse keys on bar 8, and a cheat sheet for midnighthelper.com.",
+	CHANGELOG_470_4 = "Play card: every spell name on Your buttons shows its key, for example Flash Heal [3]. Healers get a short line on how to heal a friend.",
+	CHANGELOG_470_5 = "Stay alive: Flash Heal for Priests with Protective Light, Bear Form for Balance, Feral and Resto, Regrowth for Feral, Deep Breath for Devastation with Stretch Time.",
+	CHANGELOG_470_6 = "German, French, Spanish, Portuguese and Italian use your client's own game terms. Fix: the buff-an-ally reminder no longer sticks with Beacon on a Delve companion. /mh export sends item IDs for Wowhead tooltips on the Armory.",
 	CHANGELOG_460_1 = "NEW - Group tab on the play card (/mh play): the buttons you have that help the whole group, each with a short note. For 34 of the 40 specs.",
 	CHANGELOG_460_2 = "Play cards: all 40 checked against Season 2 guides, with a few new steps (Prot Paladin taunt, Arcane Prismatic Bolt). Each card links to its page on midnighthelper.com.",
 	CHANGELOG_460_3 = "Stay alive: every row checked again. Fixes per spec, Warlock pet interrupts through Command Demon, and Mirror Image only with Refractive Images.",

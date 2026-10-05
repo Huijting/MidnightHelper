@@ -374,7 +374,7 @@ Niet in een gevecht. Begin met je **Paladin** (zijn balken ken je het best).
 - [x] **Druid Balance/Feral/Resto:** Stay alive heeft **Bear Form** als grote noodknop ("no cooldown, but you deal almost
   no damage in it"). Guardian NIET. ✅ Rob 5 okt: Resto regel 3 Bear Form (vóór Heart of the Wild), Guardian zonder.
 - [ ] **Feral:** **Regrowth** bij de heals ("when it is free and instant, after a finisher").
-- [ ] **Priest (Disc/Holy/Shadow) MET het talent Protective Light:** **Flash Heal** als kleine verdediging. Zonder het
+- [x] Rob 6 okt ✅ (Disc zonder talent: "needs talent 193063, which you do not have", rij weg) **Priest (Disc/Holy/Shadow) MET het talent Protective Light:** **Flash Heal** als kleine verdediging. Zonder het
   talent: niet op de kaart, en `/mh survival` zegt "needs talent 193063". Heb je het talent en staat hij er tóch niet?
   Dan meldt het spel het talent anders (niet gemeten) → screenshot van `/mh survival`.
 - [ ] **Devastation Evoker MET Stretch Time:** **Deep Breath** als grote noodknop. Zelfde test als bij de Priest

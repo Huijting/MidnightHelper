@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🚀 6 okt — 4.7.0 KLAARGEZET, wacht op Robs "go" (Rob: "doe de release maar eerst", spell-ids daarna)
+
+.toc 4.7.0, Changelog.lua + CHANGELOG_470_1..6 (enUS), RELEASE_NOTES.md = docs/CURSEFORGE_4.7.0.md, CHANGELOG.md,
+CURSEFORGE_DESCRIPTION.md (bullet "Your key block" + /mh block; Rob plakt die zelf). Rob: de release draait om het
+toetsenblok, dat moet vooraan staan — ook op de site (site-chat seinen bij de tag). Na "go": commit, tag v4.7.0, push,
+site-chat seinen (keyblock-branch + Armory-tooltips live, Robs ja). Daarna: id-ronde (KeybindRoles, ±650 plekken).
+
 ## 🧭 STAND EIND 5 OKT (start hier in een nieuwe chat) — toetsenblok bijna af, NIETS gepusht
 
 Laatste commit: `git -C "<repo>" log --oneline -1` (5 okt avond ~471165d). Alles sinds tag `v4.6.0` (7cc2174) is LOKAAL;

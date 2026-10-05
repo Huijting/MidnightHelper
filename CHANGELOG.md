@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.7.0
+
+📌 **Klaargezet 2026-10-06, nog NIET uitgebracht (wacht op Robs "go").** Rob koos "release eerst, spell-ids daarna".
+Rob: de release draait om het toetsenblok, en dat moet in changelog en notitie vooraan staan. Notitie in
+`docs/CURSEFORGE_4.7.0.md` (identiek aan `RELEASE_NOTES.md`). Getest door Rob 5-6 okt (TESTLIJST).
+
+- **Toetsenblok `/mh block` (stap 2):** neerzetten op balk 5/6/7 + blok D (balk 4), Edit Mode-layout als blok (eigen
+  kopie voor Modern/Classic/gedeelde layout, per spec), Undo per personage + spec, stappenplan, herlaad-venster en
+  heropenen, nieuwe spreuken (vraag/vanzelf/nooit, AutoPush uit), skyriding/voertuig/petbattle via balk 1, healer-blok,
+  muistoetsen balk 8 (3×2), spiekbrief `MH-KEYBLOCK 1`, trinkets met Use:, pet-spreuken via flyouts, geen dubbelen op D.
+- **Speelkaart:** [toets] achter elke spreuk (blok gaat vóór de geparkeerde kopie op D), "Zo heal je" voor healers.
+- **Stay alive:** Flash Heal (Protective Light), Bear Form (Balance/Feral/Resto), Regrowth (Feral), Deep Breath
+  (Stretch Time).
+- **Vertalingen:** spelbegrippen in de/fr/es/pt/it zoals de client ze toont (738 keys); toetsenblok-teksten in alle talen.
+- **Fix:** BUFF ALLY bleef staan met Beacon op een Delve-companion (geheime aura-id = onbekend).
+- **`/mh export`:** veld 15 = item-id + bonus-ids (Wowhead-tooltips op de Armory).
+
 ## 4.6.0
 
 📌 **2026-10-05, als release (Rob: "beide goed, go").** Klaargezet 4 okt, aangevuld 5 okt. Notitie in

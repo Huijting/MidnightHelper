@@ -19,7 +19,7 @@ Nothing in your game changes unless you press a button. On a character whose bar
 - **How you play** — all 40 specs, each on one short card: the idea in one sentence, your buttons in order, and the most common beginner mistake. Every icon shows the key that spell is on for you right now. Extra tabs cover staying alive, consumables and what you can dispel. Open it with the gold button in the search bar or `/mh play`.
 - **Professions 101** — a beginner course that explains every number in your profession window, why the same recipe gives two players different results, and how work orders really work. It opens in its own window beside the game, so you can follow along. **Guided mode** walks you through learning and levelling any of the 11 professions and ticks off steps as your skill grows (English and Dutch for now).
 - **Your gear** — `/mh tracks` shows which items have reached their upgrade limit and how to go further, including that the best upgrade crests can be earned solo: no raid group needed. The **Great Vault Advisor** compares your choices with what you are wearing, right on Blizzard's vault screen. `/mh stats` explains your stats with your live numbers, and starts with the most important rule: higher item level almost always wins. And two buttons next to your character sheet answer "which items should I wear?" — quick advice on our [Armory](https://midnighthelper.com/armory/), or an exact answer from Raidbots, a website that simulates your gear (beta).
-- **Your class, on a keyboard** — your own spellbook drawn on a keyboard, every ability on the key it belongs on, for all 13 classes. A new alt or a fresh spec makes sense in about five seconds. `/mh setup` can put it on action bars 1–8 for you, shows every change first, and has an undo button.
+- **Your key block (new in 4.7)** — the same job on the same key, on every character: 1 is your main button, E your interrupt, Z your small defensive, Q your big cooldown. Type `/mh block` and follow the steps at the top of the window: it puts your spells on bars 5, 6 and 7, arranges them as a block on your screen, and one Undo puts every button and key back. Healers get their heals on 1 to 4, new spells get a place when you learn them, and your play card shows the key behind every spell name.
 
 ### What else is in it
 
@@ -68,7 +68,7 @@ Short labels such as stat names, `DPS` and `Bountiful` stay English on purpose, 
 
 ### Slash commands
 
-`/mh` opens the window · `/mh play` how to play your spec · `/mh map` the map of the dungeon or raid you are in · `/mh setup` bars and keybinds · `/mh course` the professions course · `/mh report` a bug report to paste.
+`/mh` opens the window · `/mh play` how to play your spec · `/mh map` the map of the dungeon or raid you are in · `/mh block` your key block · `/mh setup` bars and keybinds · `/mh course` the professions course · `/mh report` a bug report to paste.
 
 About 70 more are listed and explained in the addon, under **Tools**.
 
