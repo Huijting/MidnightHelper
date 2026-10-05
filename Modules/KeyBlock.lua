@@ -1824,14 +1824,24 @@ Refresh = function(f)
 			b.data = data
 		end
 	end
+	-- Spells this character knows that MH has no role for. 5 Oct 2026, Carola's Balance Druid: Fury of
+	-- Elune (in the Single-Button Assistant) had no place, and the window said "every spell MH knows has a
+	-- place" -- true and useless, because MH did not know it. Same list as /mh binds (Spec 32 §1e).
+	local unknownTxt = ""
+	if res and ns.KeybindUnclassified then
+		local okU, unknown = pcall(ns.KeybindUnclassified)
+		if okU and type(unknown) == "table" and #unknown > 0 then
+			unknownTxt = "  " .. ns:L("KEYBLOCK_UNKNOWN_FMT"):format(#unknown, table.concat(unknown, ", "))
+		end
+	end
 	if res and #res.unplaced > 0 then
 		local names = {}
 		for _, s in ipairs(res.unplaced) do
 			names[#names + 1] = (SpellView(s.id))
 		end
-		f.unplaced:SetText(ns:L("KEYBLOCK_UNPLACED_FMT"):format(#names, table.concat(names, ", ")))
+		f.unplaced:SetText(ns:L("KEYBLOCK_UNPLACED_FMT"):format(#names, table.concat(names, ", ")) .. unknownTxt)
 	elseif res then
-		f.unplaced:SetText(ns:L("KEYBLOCK_UNPLACED_NONE"))
+		f.unplaced:SetText((unknownTxt ~= "" and "" or ns:L("KEYBLOCK_UNPLACED_NONE")) .. unknownTxt)
 	else
 		f.unplaced:SetText("")
 	end

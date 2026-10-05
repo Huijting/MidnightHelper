@@ -60,6 +60,14 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🐛 5 okt avond — Fury of Elune (Balance) kreeg geen plek; het blokvenster zei toch "elke spell heeft een plek"
+
+GEMETEN (Rob, Carola's pc, tooltip): Fury of Elune staat in de Single-Button Assistant, maar niet in
+`KeybindRoles_Druid.lua` → geen rol → geen plek. Gebouwd: het blokvenster noemt nu onderaan in het rood welke spreuken MH
+nog niet kent (`KEYBLOCK_UNKNOWN_FMT`, zelfde lijst als `/mh binds`). mh-research zoekt alle ontbrekende Balance-spreuken.
+- [ ] Op Carola's pc (4.7.1): `/mh binds` → de regel met de spreuken die MH niet kent → screenshot.
+- [ ] Na de volgende update: `/mh block` op een Balance Druid → rode regel onderaan met Fury of Elune (tot hij erin staat).
+
 ## 🆕 5 okt avond — `/mh ready` = venstertje "Klaar voor de raid?" (Rob: "ja doe maar")
 
 Nieuw: `Modules/RaidShoppingList.lua`. Bovenaan twee knoppen **Nieuwe baas leren** / **Farm (bekende bazen)**. Per rij:

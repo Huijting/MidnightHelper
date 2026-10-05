@@ -499,6 +499,7 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_BAR_FMT = "Bar %s · action bar %d",
 	KEYBLOCK_UNPLACED_FMT = "No room in the block (%d): %s. Put these anywhere you like.",
 	KEYBLOCK_UNPLACED_NONE = "Every spell Midnight Helper knows for this spec has a place.",
+	KEYBLOCK_UNKNOWN_FMT = "|cffff8080Not known to Midnight Helper yet (%d), so no place on the block:|r %s. Tell us with /mh report.",
 	KEYBLOCK_FOOT = "Placing it on your bars for you comes later, with a dry run and undo like /mh apply. /mh block why lists every place and why.",
 	KEYBLOCK_FIXED_HINT = "An item, not a spell: you put this one on the key yourself.",
 	KEYBLOCK_FREE_HINT = "Free on this character. Another class or spec uses this place for this task.",
