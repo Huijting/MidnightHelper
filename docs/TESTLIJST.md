@@ -60,7 +60,15 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
-## 🆕 5 okt — toetsenblok stap 2a: neerzetten (Rob: "A1 B1 C1")
+## 🆕 5 okt — toetsenblok: de proefrit staat nu op het plaatje
+
+Rob 5 okt over de vorige versie: Place en Undo werken ✅; de proefrit was "een lange lijst in de chat en eigenlijk geen idee
+wat ik daar op zou moeten letten". Nu: geen lijst-knop meer, de randen op het plaatje tonen het.
+- [ ] `/reload`, `/mh block` (niet neergezet): randen **groen** (komt hier), **oranje** (vervangt iets — muis erop zegt
+  wat), **rood** (blijft ongemoeid, bv. een macro), **grijs** (staat al goed / leeg). Onderaan de uitleg van de kleuren.
+- [ ] Na "Place it": randen weer gewoon, onderaan "The key block is on your bars". Na "Undo": kleuren terug.
+
+## 🆕 5 okt — toetsenblok stap 2a: neerzetten (Rob: "A1 B1 C1") — ✅ Rob: "de rest werken" (Place + Undo)
 
 Niet in een gevecht. Begin met je **Paladin** (zijn balken ken je het best).
 - [ ] `/mh block`: onderaan staan 3 knoppen. Daarboven een regel "Place it would put N buttons on your bars…". Klopt

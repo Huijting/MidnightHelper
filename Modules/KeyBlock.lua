@@ -684,6 +684,15 @@ end
 
 local SLOT, GAP = 66, 6
 local win
+local Refresh -- forward: the window's buttons redraw after placing or undoing
+
+-- What "Place it" will do to each place, shown ON the picture (Rob, 5 Oct 2026: the dry run in chat was
+-- "een lange lijst … geen idee wat ik daar op zou moeten letten"). Border colour per action.
+local PLAN_BORDER = {
+	place = { 0.25, 0.85, 0.35 },   -- green: goes here
+	replace = { 1.0, 0.55, 0.1 },   -- orange: replaces what is there now
+	refuse = { 0.95, 0.25, 0.25 },  -- red: left alone, MH cannot put it back
+}
 
 local function SlotTooltip(btn)
 	local d = btn.data
@@ -700,6 +709,19 @@ local function SlotTooltip(btn)
 		GameTooltip:AddLine(ns:L("KEYBLOCK_FIXED_HINT"), 0.8, 0.8, 0.8, true)
 	elseif not d.spellID then
 		GameTooltip:AddLine(ns:L("KEYBLOCK_FREE_HINT"), 0.8, 0.8, 0.8, true)
+	end
+	local r = d.plan
+	if r then
+		GameTooltip:AddLine(" ")
+		if r.action == "place" and r.replaces then
+			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_REPLACES_FMT"):format(r.replaces.name or "?"), 1, 0.6, 0.2, true)
+		elseif r.action == "place" then
+			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_PLACE"), 0.4, 0.9, 0.45, true)
+		elseif r.action == "refuse" then
+			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_REFUSE_FMT"):format(r.why or ""), 1, 0.35, 0.35, true)
+		elseif r.action == "keep" then
+			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_KEEP"), 0.7, 0.7, 0.7, true)
+		end
 	end
 	GameTooltip:Show()
 end
@@ -769,10 +791,10 @@ local function Ensure()
 			f.slots[slot.key] = b
 		end
 	end
-	f:SetSize(22 * 2 + 3 * barW + 2 * 22, 86 + 3 * SLOT + 2 * GAP + 18 + 130)
+	f:SetSize(22 * 2 + 3 * barW + 2 * 22, 86 + 3 * SLOT + 2 * GAP + 18 + 170)
 
 	f.unplaced = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	f.unplaced:SetPoint("BOTTOMLEFT", 22, 84)
+	f.unplaced:SetPoint("BOTTOMLEFT", 22, 124)
 	f.unplaced:SetPoint("RIGHT", -22, 0)
 	f.unplaced:SetJustifyH("LEFT")
 	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -790,16 +812,15 @@ local function Ensure()
 		b:SetScript("OnClick", onClick)
 		return b
 	end
-	f.previewBtn = Btn("KEYBLOCK_BTN_PREVIEW", 22, function()
-		f.foot:SetText(ns.KeyBlockPreview(false))
-	end)
-	f.placeBtn = Btn("KEYBLOCK_BTN_PLACE", 22 + 210, function()
+	f.placeBtn = Btn("KEYBLOCK_BTN_PLACE", 22, function()
 		if ns.KeyBlockPlace() then
+			Refresh(f)
 			f.foot:SetText(ns:L("KEYBLOCK_PLACED_DONE"))
 		end
 	end)
-	f.undoBtn = Btn("KEYBLOCK_BTN_UNDO", 22 + 420, function()
+	f.undoBtn = Btn("KEYBLOCK_BTN_UNDO", 22 + 210, function()
 		if ns.KeyBlockUndo() then
+			Refresh(f)
 			f.foot:SetText(ns:L("KEYBLOCK_UNDO_DONE"))
 		end
 	end)
@@ -813,9 +834,18 @@ local function Ensure()
 	return f
 end
 
-local function Refresh(f)
+Refresh = function(f)
 	local res, class = Build()
 	local bars = ns.KeyBlockBars()
+	-- Before placing: what "Place it" would do, per place. After placing, the picture is just the block.
+	local placed = ns.db and ns.db.keyBlockSnapshot
+	local planBy = {}
+	if not placed then
+		local rows = PlacePlan()
+		for _, r in ipairs(rows or {}) do
+			planBy[r.key] = r
+		end
+	end
 	f.title:SetText(ns:L("KEYBLOCK_TITLE"))
 	f.intro:SetText(res and ns:L("KEYBLOCK_INTRO") or ns:L("KEYBLOCK_NO_DATA"))
 	for _, bar in ipairs(BLOCK) do
@@ -850,6 +880,15 @@ local function Refresh(f)
 				b.task:SetTextColor(0.5, 0.5, 0.5)
 				b:SetBackdropBorderColor(0.25, 0.27, 0.32, 1)
 			end
+			local r = planBy[slot.key]
+			data.plan = r
+			local col = r and ((r.action == "place" and r.replaces and PLAN_BORDER.replace)
+				or PLAN_BORDER[r.action])
+			if col then
+				b:SetBackdropBorderColor(col[1], col[2], col[3], 1)
+			elseif r and (r.action == "keep" or r.action == "skip") then
+				b:SetBackdropBorderColor(0.4, 0.4, 0.42, 1)
+			end
 			b.data = data
 		end
 	end
@@ -865,10 +904,10 @@ local function Refresh(f)
 		f.unplaced:SetText("")
 	end
 	-- Say up front what "Place it" would do, so the button is never a surprise.
-	if ns.db and ns.db.keyBlockSnapshot then
+	if placed then
 		f.foot:SetText(ns:L("KEYBLOCK_PLACED_STATE"))
 	else
-		f.foot:SetText(ns.KeyBlockPreview(true))
+		f.foot:SetText(ns.KeyBlockPreview(true) .. "|n" .. ns:L("KEYBLOCK_LEGEND"))
 	end
 end
 
