@@ -90,6 +90,13 @@ ns.KeybindRoleClassifierGlobal["Recuperate"] = { id = 1231411, role = "heal_sust
 --- override at render time, so a bar showing "Ice Cold" still matches.
 local function ReadKnownActiveSpells()
 	local out = {}
+	-- Spells from the spellbook's first skill line ("General": Auto Attack, skyriding, Warband and pet-battle
+	-- spells, racials). Kept apart only for the "MH does not know these yet" list (ns.KeybindUnclassified):
+	-- MEASURED 5 Oct 2026 on Rob's Warlock, that list was 30 long and half of it was Aerial Halt, Skyriding
+	-- Basics and Warband Bank Distance Inhibitor. Line 1 = General is DERIVED (the book's order), not measured.
+	local general = {}
+	ns._mhGeneralSpells = general
+	local inGeneral = false
 	if not (C_SpellBook and C_SpellBook.GetSpellBookItemInfo and Enum and Enum.SpellBookSpellBank) then
 		return out
 	end
@@ -149,6 +156,9 @@ local function ReadKnownActiveSpells()
 		end
 		if known and not out[info.name] then
 			out[info.name] = base or override
+			if inGeneral then
+				general[info.name] = true
+			end
 		end
 	end
 
@@ -180,9 +190,11 @@ local function ReadKnownActiveSpells()
 					offSpecID = offSpec,
 				}
 				if line.itemIndexOffset and line.numSpellBookItems and not hidden and not offSpec then
+					inGeneral = (li == 1)
 					for si = line.itemIndexOffset + 1, line.itemIndexOffset + line.numSpellBookItems do
 						Take(si)
 					end
+					inGeneral = false
 				else
 					scan.skipped[#scan.skipped + 1] = {
 						name = line.name,
@@ -404,9 +416,10 @@ function ns.KeybindUnclassified()
 		return {}, 0
 	end
 	local out = {}
+	local general = ns._mhGeneralSpells or {}
 	for i = 1, #unmatched do
 		local sid = ids and ids[i]
-		if not (sid and KEYBIND_NOISE[sid]) then
+		if not (sid and KEYBIND_NOISE[sid]) and not general[unmatched[i]] then
 			out[#out + 1] = unmatched[i]
 		end
 	end

@@ -594,6 +594,7 @@ ns._mhLocales.nlNL = {
 	KEYBLOCK_MODE_AUTO = "zet ze vanzelf neer",
 	KEYBLOCK_MODE_NEVER = "vraag het nooit",
 	KEYBLOCK_BTN_LAYOUT_UNDO_FMT ="Zet \"%s\" terug",
+	KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT = "Zet \"%s\" terug (alle personages)",
 	KEYBLOCK_BARS_HIDDEN_FMT ="Actiebalk %s staat uit op dit personage: die toetsen drukken op knoppen die je niet ziet. Zet hem aan via Options > Gameplay > Action Bars.",
 	KEYBLOCK_LAYOUT_ALREADY_FMT ="Je Edit Mode-layout \"%s\" staat al als blok. Wil je hem opnieuw zetten, druk dan eerst op \"Zet \"%s\" terug\".",
 	KEYBLOCK_LAYOUT_NO_UNDO ="Niets terug te zetten: MH heeft je balken-layout niet veranderd.",

@@ -1581,9 +1581,13 @@ local function Ensure()
 	-- Per layout since 5 Oct evening: it names THIS character's active layout, and is grey unless MH
 	-- arranged that one (Rob's Paladin was offered "Put Oak back", his Hunter's layout).
 	function f.UpdateLayoutUndo()
-		local name, on = ns.MH_EditModeKeyBlockState()
+		local name, on, _, shared = ns.MH_EditModeKeyBlockState()
 		if on then
-			f.layoutUndoBtn:SetText(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO_FMT"):format(tostring(name)))
+			-- A shared (account) layout arranged by another character: Rob, 5 Oct 2026 on his Warlock on
+			-- "twelve retro" ("ik zal iets verkeerd hebben, maar ik snap het niet"). Nothing was wrong, but the
+			-- button never said that putting it back changes every character on that layout.
+			local key = shared and "KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT" or "KEYBLOCK_BTN_LAYOUT_UNDO_FMT"
+			f.layoutUndoBtn:SetText(ns:L(key):format(tostring(name)))
 			f.layoutUndoBtn:Enable()
 		else
 			f.layoutUndoBtn:SetText(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO"))

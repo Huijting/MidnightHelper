@@ -602,6 +602,7 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_MODE_AUTO = "place automatically",
 	KEYBLOCK_MODE_NEVER = "never ask",
 	KEYBLOCK_BTN_LAYOUT_UNDO_FMT ="Put \"%s\" back",
+	KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT = "Put \"%s\" back (all characters)",
 	KEYBLOCK_BARS_HIDDEN_FMT ="Action bar %s is switched off on this character: its keys press buttons you cannot see. Turn it on in Options > Gameplay > Action Bars.",
 	KEYBLOCK_LAYOUT_ALREADY_FMT ="Your Edit Mode layout \"%s\" is already arranged as a block. To arrange it again, press \"Put \"%s\" back\" first.",
 	KEYBLOCK_LAYOUT_NO_UNDO ="Nothing to undo: MH has not changed your bar layout.",

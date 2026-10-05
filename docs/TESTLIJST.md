@@ -60,6 +60,18 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🔍 5 okt avond — Robs Warlock (Demonology, level 82, "twelve retro"): "Put twelve retro back" + 30 onbekende spreuken
+
+GEMETEN (screenshot): de rode regel werkt al lokaal: "Not known to Midnight Helper yet (30)". De helft is ruis uit het
+algemene tabblad (Auto Attack, skyriding, Warband, Revive Battle Pets); de rest zijn echte Warlock-gaten: o.a. **Summon
+Felguard**, Shadowfury, Curse of Weakness/Tongues/Exhaustion, Fel Domination, Grimoire: Fel Ravager, Demonic Circle,
+Summon Imp/Felhunter/Sayaad, Subjugate Demon, Unending Breath, Ritual of Summoning/Doom, Eye of Kilrogg.
+Gebouwd: de rode lijst slaat het eerste spellbook-tabblad (General) over (AFGELEID: regel 1 = General).
+"Put twelve retro back": geen fout van Rob — twelve retro is een gedeelde layout die zijn Paladin al als blok had gezet;
+de knop zegt nu **(alle personages)**.
+- [ ] Warlock na `/reload`: rode regel zonder skyriding/Auto Attack/Warband? Alleen echte Warlock-spreuken?
+- [ ] Knop heet nu "Zet "twelve retro" terug (alle personages)".
+
 ## 🐛 5 okt avond — Fury of Elune (Balance) kreeg geen plek; het blokvenster zei toch "elke spell heeft een plek"
 
 GEMETEN (Rob, Carola's pc, tooltip): Fury of Elune staat in de Single-Button Assistant, maar niet in
