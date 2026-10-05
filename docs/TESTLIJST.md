@@ -65,7 +65,7 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 Wat er veranderde: 361 regels in `KeybindRoles_*.lua` kregen `id = …` (wago.tools 12.1.0.69933 + Wowhead, 3 × mh-research).
 En de volgorde in `KeybindAutoMap.lua`: eerst naam, dan nummer (was: eerst nummer). Op een Engelse client hoort er dus
 NIETS te veranderen. AFGELEID, niet gemeten.
-- [ ] Paladin **Prot**: `/mh block why` — staat **Blessed Hammer** nog op zijn plek (de oude valkuil met id 35395)?
+- [x] Rob 5 okt ✅ (screenshot: A 1 Judgment, A 2 Avenger's Shield, A 3 Blessed Hammer (35395)) Paladin **Prot**: `/mh block why` — staat **Blessed Hammer** nog op zijn plek (de oude valkuil met id 35395)?
 - [ ] Op 2-3 andere personages: `/mh block` → zelfde plaatje als vóór vanavond? Iets verdwenen of verschoven?
 - [ ] Druid (als je die hebt) met **Incarnation**: staat hij als Incarnation, niet als Berserk / Celestial Alignment?
 
