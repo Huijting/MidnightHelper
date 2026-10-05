@@ -686,8 +686,11 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 	-- A second press would back up the BLOCK as "before", and the undo could never reach the
 	-- player's own layout again. So: undo first.
+	-- One undo slot for the whole account (the backup holds every layout, the undo names one), so one
+	-- block layout at a time. Say WHICH layout: on an alt with its own layout "already a block" is false.
 	if ns.db and ns.db.keyBlockLayoutOn then
-		return false, ns:L("KEYBLOCK_LAYOUT_ALREADY")
+		local name = ns.db.editModeBarsUndo and ns.db.editModeBarsUndo.layoutName or "?"
+		return false, ns:L("KEYBLOCK_LAYOUT_ALREADY_FMT"):format(tostring(name))
 	end
 	-- EllesmereUI draws its own bars and ignores Edit Mode rows: explain instead of writing.
 	local loaded = C_AddOns and C_AddOns.IsAddOnLoaded
