@@ -60,6 +60,16 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🔍 5 okt laat — Reddish (BM): dubbelen op blok D + ruis in de rode lijst
+
+GEMETEN (screenshot): D (Alt) houdt kopieën van blokspreuken (Exhilaration Alt 3 + F2, Bestial Wrath Alt 1 + Q, Mend
+Pet, Recuperate, Flare ...): blok neergezet vóór de opruim-reparatie van vanavond → Undo + opnieuw neerzetten.
+De rode lijst noemde nog skyriding/Warband (General-tab-filter ving ze NIET, of Rob had nog niet herladen — onbekend) en
+Hunter-dingen die bewust geen toets krijgen. Nu ook een namenlijst `NO_KEY_ON_PURPOSE` (KeybindAutoMap.lua).
+Rob 5 okt: demonen/curses/buffs/out-of-combat **"laat zoals het is"** (mijn advies).
+- [ ] Reddish: Undo → Zet het op balk 5, 6 en 7 → staan Exhilaration, Bestial Wrath enz. nog maar één keer?
+- [ ] Rode regel na `/reload`: geen skyriding, Warband of Feed Pet meer? (Leeg = de regel verdwijnt.)
+
 ## 🆕 5 okt laat — gatenronde alle klassen: ~100 spreuken erbij, ~20 oude eruit
 
 AFGELEID uit het standaardblok (alle talenten tegelijk); in het spel heeft een speler maar één kant van elke keuze.

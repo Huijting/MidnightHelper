@@ -406,6 +406,37 @@ local KEYBIND_NOISE = {
 	[1229376] = true, -- Single-Button Assistant (every spec; mh-research 5 Oct 2026, wago DB2 12.1.0.69933)
 }
 
+--- Names that are no gap: the General tab when the skill-line filter misses it, and spells left without a key
+--- ON PURPOSE in the 5 Oct 2026 gap round (docs/id_round_2026-10-05: out of combat, pet care, poisons, stances).
+--- MEASURED 5 Oct on Rob's Hunter (Reddish): the red "not known" line still held Aerial Halt, Skyward Ascent, Warband
+--- Map to Everywhere All At Once, Feed Pet, Call Pet 2 ... English names: on other clients these show up again,
+--- which only makes the diagnostic line longer there, never a wrong key.
+local NO_KEY_ON_PURPOSE = {}
+for _, n in ipairs({
+	-- General tab: skyriding, Warband, pets, misc
+	"Aerial Halt", "Lift Off", "Second Wind", "Skyriding Basics", "Skyward Ascent", "Switch Flight Style",
+	"Thrill of the Skies", "Whirling Surge", "Surge Forward", "Skyriding Charges", "Warband Bank Distance Inhibitor",
+	"Warband Map to Everywhere All At Once", "Revive Battle Pets", "Auto Attack", "Single-Button Assistant",
+	-- Hunter pet care and tracking
+	"Beast Lore", "Call Pet 2", "Call Pet 3", "Call Pet 4", "Call Pet 5", "Dismiss Pet", "Eyes of the Beast",
+	"Feed Pet", "Tame Beast", "Eagle Eye", "Fetch", "Track Beasts", "Track Humanoids", "Track Undead", "Track Demons",
+	"Track Dragonkin", "Track Elementals", "Track Giants", "Track Hidden", "Track Mechanicals",
+	-- Rogue poisons and out-of-combat
+	"Instant Poison", "Wound Poison", "Crippling Poison", "Deadly Poison", "Amplifying Poison", "Numbing Poison",
+	"Atrophic Poison", "Pick Pocket", "Pick Lock", "Find Treasure",
+	-- Warlock out-of-combat (summons and curses: Rob's choice, 5 Oct 2026, "laat zoals het is")
+	"Eye of Kilrogg", "Ritual of Summoning", "Ritual of Doom", "Unending Breath", "Subjugate Demon",
+	"Summon Felguard", "Summon Felhunter", "Summon Imp", "Summon Sayaad", "Summon Voidwalker", "Fel Domination",
+	"Curse of Weakness", "Curse of Tongues", "Curse of Exhaustion", "Curse of the Satyr", "Soulburn",
+	-- Other classes, out of combat or travel
+	"Death Gate", "Path of Frost", "Control Undead", "Sense Undead", "Absolution", "Mind Vision", "Mass Resurrection",
+	"Resurrection", "Conjure Refreshment", "Teleport", "Portal", "Ancestral Vision", "Astral Recall", "Far Sight",
+	"Water Walking", "Mass Return", "Sense Power", "Revitalize", "Teleport: Moonglade", "Zen Pilgrimage", "Zen Flight",
+	"Reawaken", "Defensive Stance", "Battle Stance", "Berserker Stance",
+}) do
+	NO_KEY_ON_PURPOSE[n] = true
+end
+
 --- Wat kent deze spec dat wij niet classificeren, ruis eruit?
 --- @return table names, number rawCount
 function ns.KeybindUnclassified()
@@ -420,7 +451,7 @@ function ns.KeybindUnclassified()
 	local general = ns._mhGeneralSpells or {}
 	for i = 1, #unmatched do
 		local sid = ids and ids[i]
-		if not (sid and KEYBIND_NOISE[sid]) and not general[unmatched[i]] then
+		if not (sid and KEYBIND_NOISE[sid]) and not general[unmatched[i]] and not NO_KEY_ON_PURPOSE[unmatched[i]] then
 			out[#out + 1] = unmatched[i]
 		end
 	end
