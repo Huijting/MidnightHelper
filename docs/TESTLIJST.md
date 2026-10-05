@@ -72,7 +72,8 @@ staat de spreuk al op D, dan niet nog eens. Undo haalt ze eraf. Tekst onderaan z
   op balk 5, 6 en 7 → staan Mark of the Wild en Revive nu op een Alt-toets in D?
 - GEMETEN: Mark of the Wild daarna TWEE keer (Alt Q + Alt X): hij werd ook als oude knop van balk 6 naar Alt X geparkeerd.
   Gerepareerd: een spreuk die naar D geparkeerd wordt, telt als "al op D".
-- [ ] Guardian nog eens Undo → neerzetten: Mark of the Wild nog maar één keer?
+- [x] Rob 5 okt ✅ (screenshot: Mark of the Wild alleen Alt X, Revive Alt Q) Guardian nog eens Undo → neerzetten: Mark of
+  the Wild nog maar één keer?
 - [ ] Je eigen spul op D (macro's, Healthstone, Flask) blijft gewoon staan?
 - [ ] Undo: verdwijnen ze weer van D?
 
