@@ -835,7 +835,7 @@ function ns.MH_EditModeMakeOwnLayout()
 	ns.db.keyBlockPresetBack[SpecKey()] = { preset = active, presetName = preset.layoutName, layout = name }
 
 	-- And arrange the block in it straight away: one /reload for the whole thing.
-	local okA, msg = ns.MH_EditModeApplyKeyBlock()
+	local okA, msg = ns.MH_EditModeApplyKeyBlock(true)
 	local head = ns:L("KEYBLOCK_OWN_DONE_FMT"):format(name, tostring(preset.layoutName or "Modern"))
 	return true, head .. (okA and ("|n" .. msg) or ("|n" .. tostring(msg)))
 end
@@ -912,8 +912,10 @@ function ns.MH_EditModeRestoreKeyBlock()
 	return true, ns:L("KEYBLOCK_LAYOUT_RESTORED")
 end
 
+--- @param fromPreset boolean  the layout was just copied from Modern/Classic by MH: nothing in it was
+---                            placed by the player, so MH may also lift the Cooldown Manager off the block
 --- @return boolean ok, string message (said in the key block window)
-function ns.MH_EditModeApplyKeyBlock()
+function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	local ok, why = Ready()
 	if not ok then
 		return false, tostring(why)
@@ -1102,7 +1104,31 @@ function ns.MH_EditModeApplyKeyBlock()
 	-- Block D, left of A (Rob, 5 Oct 2026: "links van A").
 	if sysBy[4] then Anchor(sysBy[4], "BOTTOMRIGHT", BAR_FRAME_NAMES[5], "BOTTOMLEFT", -BLOCK_GAP, 0) end
 	-- Bar 1, left of D. Its frame is "MainActionBar" (MEASURED as a relativeTo in Rob's own layout).
-	if sysBy[1] then Anchor(sysBy[1], "BOTTOMRIGHT", BAR_FRAME_NAMES[4], "BOTTOMLEFT", -BLOCK_GAP, 0) end
+	if sysBy[1] then
+		Anchor(sysBy[1], "BOTTOMRIGHT", BAR_FRAME_NAMES[4], "BOTTOMLEFT", -BLOCK_GAP, 0)
+		-- Without the bar art (gryphons, page arrows), so bar 1 looks like the other blocks. MEASURED 5 Oct
+		-- 2026: a copy of "Modern" has 6=0 8=0 and showed the art on Rob's Paladin; his own layouts have
+		-- 6=1 8=1 on bar 1 and no art. 6 = HideBarArt; 8 is copied from his layout, meaning not looked up.
+		SetSetting(sysBy[1], 6, 1)
+		SetSetting(sysBy[1], 8, 1)
+	end
+
+	-- A layout MH just copied from a preset: the Cooldown Manager sits in Blizzard's default spot, bottom
+	-- centre — exactly where the block goes (Rob, 5 Oct 2026, Twelveinchy Holy: "cooldown manager staat
+	-- waarschijnlijk aan en die staat onder de knoppen"). Lift Essential above the block row, Utility on
+	-- top of it. In a layout the player built, it stays where the player put it.
+	-- Frame names: "UtilityCooldownViewer" MEASURED as a relativeTo in Rob's layout; "Essential…" by the
+	-- same pattern, checked at run time.
+	if fromPreset then
+		for _, s in ipairs(target.systems or {}) do
+			if s.system == 20 and s.systemIndex == 1 and _G.EssentialCooldownViewer then
+				-- Over block A, which is the centre of the five (1, D, A, B, C).
+				Anchor(s, "BOTTOM", BAR_FRAME_NAMES[5], "TOP", 0, extraH + BLOCK_GAP)
+			elseif s.system == 20 and s.systemIndex == 2 and _G.UtilityCooldownViewer and _G.EssentialCooldownViewer then
+				Anchor(s, "BOTTOM", "EssentialCooldownViewer", "TOP", 0, 4)
+			end
+		end
+	end
 
 	-- Bars 2 and 3 hidden (Rob: "standaard verborgen", advice 2). Visible = Hidden (3) still shows them
 	-- while the spellbook is open — measured on Oak's bar 7 — so spells can still be dragged off them.

@@ -60,6 +60,13 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — eigen layout: Rob getest + twee reparaties
+
+- [x] Rob 5 okt: "Twelveinchy Holy" gemaakt, actief in Edit Mode, melding klopt. ✅
+- [ ] Reparatie 1: balk 1 zonder versiering (griffioenen, pijltjes). Reparatie 2: in een layout die MH net uit Modern/
+  Classic maakte, gaat de Cooldown Manager boven het blok. Test: **Zet "Twelveinchy Holy" terug** → herladen →
+  **Eigen layout + blok** (hergebruikt de layout) → herladen. Balk 1 zonder versiering, Cooldown Manager boven het blok?
+
 ## 🆕 5 okt avond — eigen layout per spec (Rob: "12-inch prot … voor tank")
 
 GEMETEN door Rob: WoW onthoudt de layout per spec (Prot 5, Ret 7, Holy 1 = Modern). Niet in een gevecht, Edit Mode dicht.
