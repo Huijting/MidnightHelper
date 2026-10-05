@@ -1092,6 +1092,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block layout — step 2b: bars 5/6/7 as a block via Edit Mode (undo: /mh editmode restore).
+	if msg == "block layout" then
+		if ns.MH_EditModeApplyKeyBlock then
+			local ok, said = ns.MH_EditModeApplyKeyBlock()
+			if not ok then
+				print("|cffffcc00Midnight Helper:|r " .. tostring(said))
+			end
+		end
+		return
+	end
 	-- /mh aggro — how the game's own aggro warnings are set (3 Oct 2026; changes nothing).
 	if msg == "aggro" or msg == "threat" then
 		if ns.PrintAggroSettings then

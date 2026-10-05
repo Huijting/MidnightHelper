@@ -60,6 +60,23 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — toetsenblok stap 2b: de balken als blok op je scherm (Rob: "1 advies, 2 advies, 3 advies")
+
+Niet in een gevecht, Edit Mode dicht. Eerst `/reload` (je screenshot van 5 okt toonde nog de oude versie).
+- [ ] `/mh block`: de toets staat nu op een **eigen donker strookje** bovenin elk vakje; niets loopt meer door het icoon.
+  Namen zijn minder vaak afgekapt.
+- [ ] Onderaan staan nu **4 knoppen**: Place it · Undo · **Arrange my bars as a block** · **Bars back as they were**.
+- [ ] Druk **Arrange my bars as a block**. Onderaan komt een uitleg + knop **Reload now**. Druk die.
+- [ ] Na het herladen: balk **5, 6, 7** staan als **drie blokjes van 3 × 4** naast elkaar onderaan in het midden?
+  Balk **1-4** als kolommen rechts? Stance boven blok A, pet bar boven C, extra knop boven B?
+- [ ] **Balk 8** (je muistoetsen) staat nog precies waar hij stond, en het blok ligt er niet overheen?
+- [ ] Je **cooldown-balken** (Essential/Utility/Buffs) en de rest staan nog waar ze stonden? (Eén ervan hing aan balk 4;
+  MH zet die eerst vast op zijn plek.)
+- [ ] **Belangrijk:** zit knop 1 van een blok **linksboven**? Dus op balk A: 1 2 3 4 bovenaan, Z X C V onderaan, zoals op
+  het plaatje? Of staat het ondersteboven? (Niet gemeten; zeg wat je ziet.)
+- [ ] Zijn balk 6 en 7 zichtbaar? Zo niet: Options → Action Bars → Action Bar 6 en 7 aanzetten.
+- [ ] Daarna **Bars back as they were** → Reload now → alles weer zoals vanochtend?
+
 ## 🆕 5 okt — toetsenblok: de proefrit staat nu op het plaatje
 
 Rob 5 okt over de vorige versie: Place en Undo werken ✅; de proefrit was "een lange lijst in de chat en eigenlijk geen idee

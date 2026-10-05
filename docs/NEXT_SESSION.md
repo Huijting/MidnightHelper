@@ -2,8 +2,17 @@
 
 ## ⌨️ 5 okt — volgende release pas met toetsenblok stap 2 (Rob: "De volgende wijzigingen gaan door als we ook het blok en de keys dat gedeelte af hebben")
 
-Stap 2a (neerzetten + undo) gebouwd, niet getest → TESTLIJST. Stap 2b (Edit Mode: 3×4, pet/stance-balken) volgt, eerst
-een plaatje. Details in `docs/KEYBLOCK_PLAN.md`.
+Stap 2a (neerzetten + undo): ✅ Rob getest (Place + Undo werken); proefrit staat nu als gekleurde randen op het plaatje
+(niet getest). Vakjes 5 okt avond breder, toets op eigen strookje (Rob: toets liep door het icoon).
+Stap 2b GEBOUWD, NIET GETEST (Rob: "1 advies, 2 advies, 3 advies"; plaatje https://claude.ai/artifact/8Qy5EfdBVTrU6dmvTQK5xR):
+`ns.MH_EditModeApplyKeyBlock` in `EditModeBackup.lua`, knop in `/mh block`, ook `/mh block layout`. Balk 5/6/7 = 3×4 naast
+elkaar onderaan (B midden, A/C eraan vast), 1-4 verticaal rechts, stance/possess boven A, extra (systeem 5) boven B, pet
+boven C. Balk 8 blijft; blok schuift opzij als balk 8 overlapt. Onderdelen die aan een verplaatste balk hingen worden
+eerst vastgezet op hun huidige plek (Robs Utility-cooldownviewer hangt aan balk 4, GEMETEN in zijn back-up). Undo =
+dezelfde back-up als de bars-import (`before-bars-import`, `/mh editmode restore`, knop in het venster). EllesmereUI-
+ActionBars geladen → alleen uitleg. Meting na toepassen in `ns.db.keyBlockLayoutProbe`. OPEN: knopvolgorde in een 3×4
+(linksboven = knop 1?) niet gemeten; balk 6/7 aanzetten doet MH niet. Nieuwe KEYBLOCK_*-keys alleen enUS+nlNL.
+Details in `docs/KEYBLOCK_PLAN.md`.
 
 ## 🚀 5 okt — 4.6.0 uitgebracht (Rob: "beide goed, go")
 

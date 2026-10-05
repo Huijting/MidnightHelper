@@ -558,6 +558,252 @@ function ns.MH_EditModeRestore()
 	if ns.MH_SetupSay then
 		ns.MH_SetupSay("ok", msg)
 	end
+	return true, msg
+end
+
+--------------------------------------------------------------------------------
+-- Key block step 2b (5 Oct 2026, Rob: "1 advies, 2 advies, 3 advies"; picture in
+-- docs/KEYBLOCK_PLAN.md). Bars 5, 6 and 7 become three blocks of 3 x 4 side by side, bottom
+-- centre; bars 1-4 become columns on the right; stance/possess above A, the extra button above B,
+-- the pet bar above C. Bar 8 is never moved, and the block steps aside if bar 8 is in its way.
+--
+-- Same safety as the bars import above: back-up first under the label the restore looks for, so
+-- `/mh editmode restore` undoes it; not in combat, not with Edit Mode open, never on a preset.
+--------------------------------------------------------------------------------
+
+local BLOCK_GAP = 10 -- between the three blocks and between a block and the bar above it
+
+-- Frame names per action-bar index, for anchoring and for the live measurements. Bars 1-8 were
+-- read from Rob's own layout (5 Oct 2026: MultiBarBottomLeft, MultiBar5, MultiBarRight, MultiBarLeft
+-- appear there as relativeTo); MultiBar6/7 follow the same pattern and are checked at run time.
+local BAR_FRAME_NAMES = { [1] = "MainActionBar", [2] = "MultiBarBottomLeft", [3] = "MultiBarBottomRight",
+	[4] = "MultiBarRight", [5] = "MultiBarLeft", [6] = "MultiBar5", [7] = "MultiBar6", [8] = "MultiBar7",
+	[11] = "StanceBar", [12] = "PetActionBar", [13] = "PossessActionBar" }
+local EXTRA_SYSTEM = 5 -- Enum.EditModeSystem.ExtraAbilities (warcraft.wiki.gg, read 5 Oct 2026)
+
+local function SetSetting(sys, setting, value)
+	sys.settings = sys.settings or {}
+	for _, s in ipairs(sys.settings) do
+		if s.setting == setting then
+			s.value = value
+			return
+		end
+	end
+	sys.settings[#sys.settings + 1] = { setting = setting, value = value }
+end
+
+local function GetSetting(sys, setting)
+	for _, s in ipairs(sys.settings or {}) do
+		if s.setting == setting then
+			return s.value
+		end
+	end
+end
+
+local function Anchor(sys, point, relTo, relPoint, x, y)
+	sys.anchorInfo = { point = point, relativeTo = relTo, relativePoint = relPoint,
+		offsetX = x, offsetY = y }
+	sys.isInDefaultPosition = false
+end
+
+--- The live frame of a system, for "where is it now". Registered frames first, names as fallback.
+local function LiveFrame(sys)
+	local reg = EditModeManagerFrame and EditModeManagerFrame.registeredSystemFrames
+	for _, fr in ipairs(reg or {}) do
+		if fr.system == sys.system and (fr.systemIndex == sys.systemIndex or sys.systemIndex == nil) then
+			return fr
+		end
+	end
+	if sys.system == BAR_SYSTEM then
+		return _G[BAR_FRAME_NAMES[sys.systemIndex] or ""]
+	end
+end
+
+--- Pin a system to UIParent at the spot it occupies right now (centre on centre).
+local function PinWhereItIs(sys)
+	local fr = LiveFrame(sys)
+	if not (fr and fr.GetCenter) then
+		return false
+	end
+	local cx, cy = fr:GetCenter()
+	local ux, uy = UIParent:GetCenter()
+	if not (cx and ux) then
+		return false
+	end
+	local k = UIParent:GetEffectiveScale() / fr:GetEffectiveScale()
+	Anchor(sys, "CENTER", "UIParent", "CENTER", cx - ux * k, cy - uy * k)
+	return true
+end
+
+--- Screen rectangle of a frame in UIParent units, or nil.
+local function Rect(fr)
+	if not (fr and fr:IsShown() and fr:GetLeft()) then
+		return nil
+	end
+	local k = fr:GetEffectiveScale() / UIParent:GetEffectiveScale()
+	return fr:GetLeft() * k, fr:GetRight() * k, fr:GetBottom() * k, fr:GetTop() * k
+end
+
+--- @return boolean ok, string message (said in the key block window)
+function ns.MH_EditModeApplyKeyBlock()
+	local ok, why = Ready()
+	if not ok then
+		return false, tostring(why)
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return false, ns:L("KEYBLOCK_LAYOUT_COMBAT")
+	end
+	if EditModeManagerFrame and EditModeManagerFrame:IsShown() then
+		return false, ns:L("KEYBLOCK_LAYOUT_EDITMODE_OPEN")
+	end
+	-- EllesmereUI draws its own bars and ignores Edit Mode rows: explain instead of writing.
+	local loaded = C_AddOns and C_AddOns.IsAddOnLoaded
+	if loaded and loaded("EllesmereUIActionBars") then
+		return false, ns:L("KEYBLOCK_LAYOUT_ELLESMERE")
+	end
+	for _, n in ipairs({ 5, 6, 7 }) do
+		if not _G[BAR_FRAME_NAMES[n]] then
+			return false, ("action bar %d (%s) does not exist on this client"):format(n, BAR_FRAME_NAMES[n])
+		end
+	end
+
+	local okG, info = pcall(C_EditMode.GetLayouts)
+	if not (okG and type(info) == "table" and info.layouts) then
+		return false, "Edit Mode returned no layouts."
+	end
+	local presets = PresetCount()
+	if not presets then
+		return false, "cannot tell which layout is active (preset list unavailable). Nothing was changed."
+	end
+	local savedIndex = (tonumber(info.activeLayout) or 0) - presets
+	local target = info.layouts[savedIndex]
+	if not target then
+		return false, ns:L("MH_SAY_PRESET_LAYOUT")
+	end
+	local notes = {}
+	if Enum and Enum.EditModeLayoutType and target.layoutType == Enum.EditModeLayoutType.Account then
+		notes[#notes + 1] = (ns:L("MH_SAY_ACCOUNT_LAYOUT")):format(tostring(target.layoutName))
+	end
+
+	-- Measure before changing anything: button size and padding of bar A as it is now.
+	local btn = _G.MultiBarLeftButton1
+	local size = 45
+	if btn and btn:GetWidth() and btn:GetWidth() > 0 then
+		size = btn:GetWidth() * btn:GetEffectiveScale() / UIParent:GetEffectiveScale()
+	end
+	local sysBy = {}
+	for _, s in ipairs(target.systems or {}) do
+		if s.system == BAR_SYSTEM and s.systemIndex then
+			sysBy[s.systemIndex] = s
+		elseif s.system == EXTRA_SYSTEM then
+			sysBy.extra = s
+		end
+	end
+	local pad = tonumber(sysBy[5] and GetSetting(sysBy[5], 4)) or 2
+	local blockW = 4 * size + 3 * pad
+	local totalW = 3 * blockW + 2 * BLOCK_GAP
+	local blockH = 3 * size + 2 * pad
+	local bottom = 24
+
+	-- Bar 8 stays where it is (Rob's mouse keys). If it sits where the block would go, step aside.
+	local shift = 0
+	local l8, r8, b8, t8 = Rect(_G.MultiBar7)
+	if l8 then
+		local ucx = UIParent:GetWidth() / 2
+		local bl, br = ucx - totalW / 2, ucx + totalW / 2
+		local overlapsY = b8 < bottom + blockH + 60 and t8 > bottom
+		if overlapsY and l8 < br + BLOCK_GAP and r8 > bl - BLOCK_GAP then
+			if (l8 + r8) / 2 >= ucx then
+				shift = (l8 - BLOCK_GAP) - br
+			else
+				shift = (r8 + BLOCK_GAP) - bl
+			end
+			notes[#notes + 1] = ns:L("KEYBLOCK_LAYOUT_SHIFTED")
+		end
+	end
+
+	-- Which frames move. Anything else that hangs on one of them is pinned where it is now, so it
+	-- does not travel along (Rob's cooldown viewer hangs on bar 4, measured 5 Oct 2026).
+	local moving = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true,
+		[11] = true, [12] = true, [13] = true }
+	local movingNames = {}
+	for idx in pairs(moving) do
+		local s = sysBy[idx]
+		local fr = s and LiveFrame(s)
+		movingNames[BAR_FRAME_NAMES[idx]] = true
+		if fr and fr.GetName and fr:GetName() then
+			movingNames[fr:GetName()] = true
+		end
+	end
+	local extraFrame = sysBy.extra and LiveFrame(sysBy.extra)
+	if extraFrame and extraFrame.GetName and extraFrame:GetName() then
+		movingNames[extraFrame:GetName()] = true
+	end
+
+	-- Back-up first. This is the undo (`/mh editmode restore`).
+	if not ns.MH_EditModeCapture("before-bars-import") then
+		return false, "could not back up your layout, so nothing was changed."
+	end
+	ns.db.editModeBarsUndo = { savedIndex = savedIndex, layoutName = target.layoutName, by = "keyblock" }
+
+	local pinned = 0
+	for _, s in ipairs(target.systems or {}) do
+		local isMoving = (s.system == BAR_SYSTEM and moving[s.systemIndex]) or s == sysBy.extra
+		local rel = s.anchorInfo and s.anchorInfo.relativeTo
+		if not isMoving and rel and movingNames[rel] then
+			if PinWhereItIs(s) then
+				pinned = pinned + 1
+			end
+		end
+	end
+
+	-- 1. The block: B in the middle, A left of it, C right of it. 3 rows of 4, horizontal.
+	for _, idx in ipairs({ 5, 6, 7 }) do
+		local s = sysBy[idx]
+		if s then
+			SetSetting(s, 0, 0)  -- Orientation: horizontal
+			SetSetting(s, 1, 3)  -- NumRows
+			SetSetting(s, 2, 12) -- NumIcons
+		end
+	end
+	if sysBy[6] then Anchor(sysBy[6], "BOTTOM", "UIParent", "BOTTOM", shift, bottom) end
+	if sysBy[5] then Anchor(sysBy[5], "BOTTOMRIGHT", BAR_FRAME_NAMES[6], "BOTTOMLEFT", -BLOCK_GAP, 0) end
+	if sysBy[7] then Anchor(sysBy[7], "BOTTOMLEFT", BAR_FRAME_NAMES[6], "BOTTOMRIGHT", BLOCK_GAP, 0) end
+
+	-- 2. Bars 1-4: vertical columns on the right, bar 1 outermost.
+	local colW = size + pad + 6
+	for k, idx in ipairs({ 1, 2, 3, 4 }) do
+		local s = sysBy[idx]
+		if s then
+			SetSetting(s, 0, 1) -- Orientation: vertical
+			SetSetting(s, 1, 1) -- one column
+			Anchor(s, "RIGHT", "UIParent", "RIGHT", -(6 + (k - 1) * colW), 0)
+		end
+	end
+
+	-- 3. The game's extra bars, just above the block.
+	if sysBy[11] then Anchor(sysBy[11], "BOTTOMLEFT", BAR_FRAME_NAMES[5], "TOPLEFT", 0, BLOCK_GAP) end
+	if sysBy[13] then Anchor(sysBy[13], "BOTTOMLEFT", BAR_FRAME_NAMES[5], "TOPLEFT", 0, BLOCK_GAP) end
+	if sysBy[12] then Anchor(sysBy[12], "BOTTOMRIGHT", BAR_FRAME_NAMES[7], "TOPRIGHT", 0, BLOCK_GAP) end
+	if sysBy.extra then Anchor(sysBy.extra, "BOTTOM", BAR_FRAME_NAMES[6], "TOP", 0, BLOCK_GAP) end
+
+	if EditModeManagerFrame and EditModeManagerFrame.ReconcileWithModern then
+		pcall(EditModeManagerFrame.ReconcileWithModern, EditModeManagerFrame, target)
+	end
+	if not pcall(C_EditMode.SaveLayouts, info) then
+		return false, "Edit Mode refused the change. Your layout is untouched."
+	end
+
+	if ns.db then
+		ns.db.keyBlockLayoutProbe = { size = size, pad = pad, shift = shift, pinned = pinned,
+			layout = target.layoutName, at = time() }
+	end
+	local msg = ns:L("KEYBLOCK_LAYOUT_DONE_FMT"):format(tostring(target.layoutName), pinned)
+	if #notes > 0 then
+		msg = table.concat(notes, " ") .. "|n" .. msg
+	end
+	print(Prefix() .. " " .. msg)
+	return true, msg
 end
 
 --- ⚠️ A SLASH COMMAND CANNOT CARRY THIS. WoW's chat box stops at 255 characters and

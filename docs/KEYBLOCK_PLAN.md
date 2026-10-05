@@ -90,11 +90,23 @@ ApplyLayout overgenomen: alleen spell/item overschrijven (macro/flyout/mount = "
 snapshot per slot en per toets in `ns.db.keyBlockSnapshot`, één keer neerzetten tot undo. Toetsen zonder iets eronder
 worden NIET gekoppeld (Shift 2 houdt zijn oude functie). Waarschuwt als balk 5/6/7 verborgen is.
 
-## Stap 2b (volgende): balken zelf neerzetten via Edit Mode
+## Stap 2b: balken zelf neerzetten via Edit Mode — GEBOUWD 5 okt, niet getest
 
-3 rijen × 4 per balk, A-B-C naast elkaar; pet bar, stance bar, possess/extra action button/zone ability een vaste
-plek eromheen (Rob 5 okt: "ook de game extra balken in ogenschouw nemen"). Eerst een plaatje voor Rob. Edit Mode-proef
-(export → import → reload) is 5 okt geslaagd. ⚠️ Pet bar heeft standaard Ctrl 1-10; het blok neemt Ctrl 1-3 over.
+Rob koos op het plaatje (https://claude.ai/artifact/8Qy5EfdBVTrU6dmvTQK5xR) drie keer het advies:
+1. Blok onderaan in het midden: B (balk 6) op BOTTOM van UIParent, A (5) links en C (7) rechts eraan vast, 10 px tussen.
+   Instellingen per balk: Orientation 0, NumRows 3, NumIcons 12. Icoongrootte en padding blijven van de speler.
+2. Balk 1-4 als verticale kolommen rechts (Orientation 1, NumRows 1), balk 1 buitenste.
+3. Stance (11) en possess (13) boven A, ExtraAbilities (systeem 5) boven B, pet (12) boven C.
+
+Regels in de code (`ns.MH_EditModeApplyKeyBlock`, `EditModeBackup.lua`):
+- Balk 8 wordt nooit verplaatst; ligt hij waar het blok komt, dan schuift het blok opzij (gemeten met de live frames).
+- Een ander onderdeel dat met `relativeTo` aan een verplaatste balk hangt, wordt eerst op zijn huidige schermplek
+  vastgezet (CENTER op UIParent). Reden: Robs Utility-cooldownviewer hangt aan MultiBarRight (balk 4).
+- Back-up onder `before-bars-import`, dus `/mh editmode restore` en de knop "Bars back as they were" draaien het terug.
+- Weigert: in combat, Edit Mode open, preset-layout. Waarschuwt bij een account-layout. EllesmereUIActionBars → uitleg.
+- Pas na `/reload` zichtbaar; het venster toont dan een knop "Reload now".
+- Open: of knop 1 linksboven zit in een 3×4 (niet gemeten). Balk 6/7 aanzetten (Options) doet MH niet.
+⚠️ Pet bar heeft standaard Ctrl 1-10; het blok neemt Ctrl 1-3 over.
 
 ## Open
 

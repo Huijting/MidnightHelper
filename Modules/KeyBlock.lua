@@ -836,6 +836,26 @@ local function Ensure()
 			f.foot:SetText(ns:L("KEYBLOCK_UNDO_DONE"))
 		end
 	end)
+	-- Step 2b: the bars themselves, through Edit Mode. Both ways need a /reload, so after either
+	-- the button turns into one: a change that only settles after a reload must say so where you click.
+	local function NeedReload(ok, msg)
+		f.foot:SetText(msg or "")
+		if ok then
+			f.reloadBtn:Show()
+		end
+	end
+	f.layoutBtn = Btn("KEYBLOCK_BTN_LAYOUT", 22 + 2 * 210, function()
+		NeedReload(ns.MH_EditModeApplyKeyBlock())
+	end)
+	f.layoutUndoBtn = Btn("KEYBLOCK_BTN_LAYOUT_UNDO", 22 + 3 * 210, function()
+		local ok = ns.MH_EditModeRestore and ns.MH_EditModeRestore()
+		NeedReload(ok, ok and ns:L("KEYBLOCK_LAYOUT_RESTORED") or ns:L("KEYBLOCK_LAYOUT_NO_UNDO"))
+	end)
+	f.reloadBtn = Btn("KEYBLOCK_BTN_RELOAD", 22 + 4 * 210, function()
+		ReloadUI()
+	end)
+	f.reloadBtn:SetWidth(120)
+	f.reloadBtn:Hide()
 
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)
