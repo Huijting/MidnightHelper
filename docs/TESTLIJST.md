@@ -60,12 +60,23 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🐛 5 okt avond — mounts op balk 7 bleven staan (Carola's Duckiesan, 4.7.0)
+
+GEMETEN (Robs screenshot van de balken): op blok C staan nog Carola's **mounts** waar het plaatje Revive (F3), War Stomp,
+Starfall, Prowl, Dash, Ursol's Vortex en Remove Corruption zet. Oorzaak (code): alleen spell/item/macro mochten opzij;
+een mount gaf "left alone". Nu mag alles opzij (een gewone sleep), Undo ruilt het terug. Ook bar 8 vol mounts = haar eigen.
+Werkt pas na een update op haar pc. Tot dan: Terugzetten → mounts zelf van balk 7 af slepen → opnieuw neerzetten.
+- [ ] Een personage met een **mount** (of toy) op balk 5, 6 of 7: Terugzetten → Zet het op balk 5, 6 en 7. Gaat de
+  mount naar blok D en komt de spreuk op zijn plek? En **Terugzetten**: staat de mount weer waar hij stond?
+
 ## 🔍 5 okt avond — Druid Balance (Duckiesan, pc van Robs zusje): Revive op F3? Kaart zei "F8"
 
 Rob las op de speelkaart (tabblad Groep) "Revive [F8]", terwijl het blok Revive op **F3** zet. Mijn eerste gok ("een 3
 in klein font") was FOUT: Rob keek van dichtbij, er staat echt **F8**. Waar F8 vandaan komt is NIET gemeten. Gerepareerd
 wat zeker fout was: met het blok neergezet won een kopie op balk 1 (ACTIONBUTTON, rang 0) van het blok; nu blok eerst,
-dan balk 1, dan de rest (`LiveKeys.lua`). Of dat de F8 verklaart, zegt alleen `/mh playkeys`. Ook open: **G** (trinket)
+dan balk 1, dan de rest (`LiveKeys.lua`). Of dat de F8 verklaart, zegt alleen `/mh playkeys`.
+AFGELEID na de balk-screenshot: op F3 staat een MOUNT, niet Revive (zie hierboven). Revive staat dus alleen op een
+eigen knop van Carola met F8 — de kaart had gelijk. Ook open: **G** (trinket)
 lijkt op de echte balk leeg terwijl het plaatje een trinket toont.
 - GEMETEN 5 okt (Rob op Carola's Duckiesan, `/mh playkeys`): **Wrath** "not on a bound button of the standard bars",
   terwijl het blok Wrath op 1 heeft. Gerepareerd (`LiveKeys.lua`): laatste terugval = dezelfde spreuknaam in deze client.

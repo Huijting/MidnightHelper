@@ -386,6 +386,15 @@ end
 -- back BY ID after its index had shifted; the swap never uses the id. Taking a macro off a bar does not
 -- delete it from the macro list either.
 local RESTORABLE = { spell = true, item = true, macro = true }
+--- 🔴 5 Oct 2026, Carola's Balance Druid: her bar 7 was full of MOUNTS. A mount is not RESTORABLE (Undo
+--- cannot re-create it by id), so every block C place holding one was refused and kept the mount: Revive,
+--- Prowl, Dash, Starfall, Ursol's Vortex and Remove Corruption never landed, while the picture showed them.
+--- Moving aside is a plain drag (PickupAction + PlaceAction) and works for any action -- mount, pet, toy,
+--- flyout, equipment set -- and Undo swaps it back the same way. So anything moves when it gets a free
+--- button; only the by-id fallback in Undo (the moved thing is no longer where we put it) needs RESTORABLE.
+local function Movable(kind)
+	return kind ~= nil
+end
 local AUTOPUSH_CVAR = "AutoPushSpellToActionBar"
 -- Bars that may receive what the block pushes aside, in this order. Never bar 1 (it pages with forms and
 -- stealth), never bar 8 (Rob's mouse keys), never a block bar.
@@ -424,6 +433,9 @@ local function OccupantName(kind, id)
 	elseif kind == "macro" and GetMacroInfo then
 		local ok, n = pcall(GetMacroInfo, id)
 		return (ok and n) or "macro"
+	elseif kind == "summonmount" and C_MountJournal and C_MountJournal.GetMountInfoByID then
+		local ok, n = pcall(C_MountJournal.GetMountInfoByID, id)
+		return (ok and type(n) == "string" and n) or "mount"
 	end
 	return tostring(kind)
 end
@@ -568,7 +580,7 @@ local function PlacePlan()
 				-- Rob, 5 Oct 2026 ("1 ja"): an empty place on the picture is empty on the bar too. What
 				-- stands there now moves aside like anything else the block replaces.
 				local kind, id = Occupant(row.slot)
-				if kind and RESTORABLE[kind] then
+				if kind and Movable(kind) then
 					row.action = "clear"
 					row.replaces = { kind = kind, id = id, name = (kind == "macro" and GetActionText(row.slot))
 						or OccupantName(kind, id) }
@@ -582,7 +594,7 @@ local function PlacePlan()
 					row.action = "keep" -- the talent replacement of the same button
 				elseif kind == nil then
 					row.action = "place"
-				elseif RESTORABLE[kind] then
+				elseif Movable(kind) then
 					row.action = "place"
 					row.replaces = { kind = kind, id = id, name = (kind == "macro" and GetActionText(row.slot))
 						or OccupantName(kind, id) }
