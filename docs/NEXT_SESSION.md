@@ -7,9 +7,10 @@ Stap 2a (neerzetten + undo): ✅ Rob getest (Place + Undo werken); proefrit staa
 Stap 2b ✅ Rob getest 5 okt (blok + kolommen + terugzetten werken; balk 8 vastgezet op zijn plek, GEMETEN in SV).
 GEMETEN: een 3×4-balk vult van onder (knop 1 linksonder) → `ButtonFor()` in KeyBlock.lua zet plaatje-rij 1 op knop 9-12;
 ✅ Rob getest (screenshot 5 okt): 1 2 3 4 boven, Z X C V onder, lege knoppen zichtbaar (AlwaysShowButtons = 1, Robs
-keuze). Op balk C staan 8 eigen macro's van Rob (Justice, Hands, Clean, Keys, Rebuke, Taunt, Prot, +1) → die plekken blijven
-bewust ongemoeid. Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn`). Toetsenblok stap 2 = AF →
-volgende release mag (Rob beslist; push/tag alleen op zijn "go").
+keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn`).
+⚠️ Rob 5 okt: blok C "absoluut anders dan voorgesteld" door zijn 8 macro's → GEBOUWD, NIET GETEST: macro's niet meer
+geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
+undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
 Oorspronkelijk (Rob: "1 advies, 2 advies, 3 advies"; plaatje https://claude.ai/artifact/8Qy5EfdBVTrU6dmvTQK5xR):
 `ns.MH_EditModeApplyKeyBlock` in `EditModeBackup.lua`, knop in `/mh block`, ook `/mh block layout`. Balk 5/6/7 = 3×4 naast
 elkaar onderaan (B midden, A/C eraan vast), 1-4 verticaal rechts, stance/possess boven A, extra (systeem 5) boven B, pet

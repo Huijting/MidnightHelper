@@ -60,6 +60,19 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — toetsenblok: macro's gaan opzij, het blok is overal compleet
+
+Rob: "Blok C is absoluut anders dan wat wij voorgesteld hebben … die macro's moeten dan maar ergens anders komen."
+Nu: wat op een blokplek staat (ook een macro) gaat eerst naar een **vrije knop op balk 2, 3 of 4**, dan komt het blok.
+Niet in een gevecht.
+- [ ] Eerst **Terugzetten** (de oude stand), dan `/reload`.
+- [ ] `/mh block`: blok C heeft nu **oranje** randen waar je macro's staan, geen rode meer. Muis erop: "Keys gaat naar
+  actiebalk 2, knop 5" (of zoiets). Klopt dat?
+- [ ] **Zet het op balk 5, 6 en 7.** Staat blok C nu zoals op het plaatje? Staan je macro's (Justice, Hands, Clean, Keys,
+  Rebuke, Taunt, Prot …) op balk 2, 3 of 4? Werken ze nog als je erop klikt?
+- [ ] **Terugzetten**: staan je macro's weer precies op hun oude plek op balk 7?
+- Let op: een macro die opzij gaat, houdt zijn oude toets niet. De toets hoort nu bij het blok.
+
 ## 🆕 5 okt avond — toetsenblok stap 2b: de balken als blok op je scherm (Rob: "1 advies, 2 advies, 3 advies")
 
 Niet in een gevecht, Edit Mode dicht. Eerst `/reload` (je screenshot van 5 okt toonde nog de oude versie).

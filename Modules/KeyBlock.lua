@@ -358,7 +358,16 @@ end
 -- is refused and reported, never overwritten.
 --------------------------------------------------------------------------------
 
-local RESTORABLE = { spell = true, item = true }
+-- Rob, 5 Oct 2026: "Blok C is absoluut anders dan wat wij voorgesteld hebben … die macro's moeten dan
+-- maar ergens anders komen." So a macro is no longer refused: whatever a block place holds is first MOVED
+-- to a free button on another bar (PickupAction + PlaceAction, a plain drag, so a macro travels as itself
+-- and its id never needs looking up), and the undo swaps it straight back. The 7 Aug loss was a macro put
+-- back BY ID after its index had shifted; the swap never uses the id. Taking a macro off a bar does not
+-- delete it from the macro list either.
+local RESTORABLE = { spell = true, item = true, macro = true }
+-- Bars that may receive what the block pushes aside, in this order. Never bar 1 (it pages with forms and
+-- stealth), never bar 8 (Rob's mouse keys), never a block bar.
+local MOVE_BARS = { 2, 3, 4 }
 local HEALTHSTONE_ITEM = 5512 -- "Healthstone" (Wowhead item 5512, per language read 4 Oct 2026)
 
 --- Bar number (1-8) -> binding prefix and first action slot (shared table from ApplyLayout.lua).
@@ -485,13 +494,39 @@ local function PlacePlan()
 					row.action = "place"
 				elseif RESTORABLE[kind] then
 					row.action = "place"
-					row.replaces = { kind = kind, id = id, name = OccupantName(kind, id) }
+					row.replaces = { kind = kind, id = id, name = (kind == "macro" and GetActionText(row.slot))
+						or OccupantName(kind, id) }
 				else
 					row.action = "refuse"
 					row.why = ("holds a %s (%s) that could not be put back"):format(tostring(kind), OccupantName(kind, id))
 				end
 			end
 			rows[#rows + 1] = row
+		end
+	end
+	-- Give everything that gets replaced a free button elsewhere, so nothing leaves the bars.
+	local isBlockBar = {}
+	for _, n in pairs(bars) do
+		isBlockBar[n] = true
+	end
+	local free = {}
+	for _, n in ipairs(MOVE_BARS) do
+		local info = BarInfo(n)
+		if info and not isBlockBar[n] then
+			for b = 1, 12 do
+				local slot = info.first + b - 1
+				if not HasAction(slot) then
+					free[#free + 1] = { slot = slot, bar = n, button = b }
+				end
+			end
+		end
+	end
+	for _, r in ipairs(rows) do
+		if r.action == "place" and r.replaces then
+			local spot = table.remove(free, 1)
+			if spot then
+				r.moveTo = spot
+			end
 		end
 	end
 	return rows, res
@@ -581,7 +616,8 @@ function ns.KeyBlockPlace()
 	for _, r in ipairs(rows) do
 		if r.action == "place" then
 			local kind, id = Occupant(r.slot)
-			snap.slots[#snap.slots + 1] = { slot = r.slot, kind = kind, id = id }
+			snap.slots[#snap.slots + 1] = { slot = r.slot, kind = kind, id = id,
+				name = r.replaces and r.replaces.name, movedTo = r.moveTo and r.moveTo.slot }
 		end
 		if r.action == "place" or r.action == "keep" then
 			snap.binds[#snap.binds + 1] = { key = r.key, was = GetBindingAction and GetBindingAction(r.key) or "" }
@@ -589,9 +625,22 @@ function ns.KeyBlockPlace()
 	end
 	ns.db.keyBlockSnapshot = snap
 
-	local placed, bound, failed = 0, 0, {}
+	local placed, bound, failed, moved = 0, 0, {}, 0
 	for _, r in ipairs(rows) do
 		if r.action == "place" then
+			-- Move what is there now to its free button first: a plain drag, so a macro stays itself.
+			if r.moveTo then
+				pcall(function()
+					ClearCursor()
+					PickupAction(r.slot)
+					PlaceAction(r.moveTo.slot)
+					ClearCursor()
+				end)
+				pcall(ClearCursor)
+				if HasAction(r.moveTo.slot) then
+					moved = moved + 1
+				end
+			end
 			local ok = pcall(function()
 				ClearCursor()
 				if r.want.kind == "spell" then
@@ -627,7 +676,7 @@ function ns.KeyBlockPlace()
 	if SaveBindings and GetCurrentBindingSet then
 		pcall(SaveBindings, GetCurrentBindingSet())
 	end
-	print(p .. ("key block placed: %d buttons, %d keys. |cffffffff/mh block undo|r puts everything back."):format(placed, bound))
+	print(p .. ("key block placed: %d buttons, %d keys, %d moved aside to bars 2-4. |cffffffff/mh block undo|r puts everything back."):format(placed, bound, moved))
 	if #failed > 0 then
 		print("   |cffff8080did not land:|r " .. table.concat(failed, ", "))
 	end
@@ -654,11 +703,26 @@ function ns.KeyBlockUndo()
 	end
 	local restored = 0
 	for _, s in ipairs(snap.slots or {}) do
+		-- Moved aside: pick it up from where it went and drop it on its own button. That swap puts ours
+		-- on the cursor, which is then dropped. No id lookup, so a macro comes back as itself.
+		local movedKind = s.movedTo and Occupant(s.movedTo)
 		local ok = pcall(function()
 			ClearCursor()
+			if s.movedTo and movedKind == s.kind then
+				PickupAction(s.movedTo)
+				PlaceAction(s.slot)
+				ClearCursor()
+				return
+			end
 			PickupAction(s.slot) -- lift ours off
 			ClearCursor()
-			if s.kind == "spell" and s.id then
+			if s.kind == "macro" and s.name and GetMacroIndexByName then
+				local idx = GetMacroIndexByName(s.name)
+				if idx and idx > 0 then
+					PickupMacro(idx)
+					PlaceAction(s.slot)
+				end
+			elseif s.kind == "spell" and s.id then
 				if C_Spell and C_Spell.PickupSpell then
 					C_Spell.PickupSpell(s.id)
 				else
@@ -726,7 +790,10 @@ local function SlotTooltip(btn)
 	local r = d.plan
 	if r then
 		GameTooltip:AddLine(" ")
-		if r.action == "place" and r.replaces then
+		if r.action == "place" and r.replaces and r.moveTo then
+			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_MOVES_FMT"):format(r.replaces.name or "?", r.moveTo.bar, r.moveTo.button),
+				1, 0.6, 0.2, true)
+		elseif r.action == "place" and r.replaces then
 			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_REPLACES_FMT"):format(r.replaces.name or "?"), 1, 0.6, 0.2, true)
 		elseif r.action == "place" then
 			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_PLACE"), 0.4, 0.9, 0.45, true)
