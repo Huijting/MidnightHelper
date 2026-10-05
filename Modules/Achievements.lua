@@ -2121,6 +2121,9 @@ local function RelocalizeAchPanel()
 	if st.routeBtn then
 		st.routeBtn:SetText(TL("ACH_TAB_ROUTE_NEAREST"))
 	end
+	if st.missingBtn then
+		st.missingBtn:SetText(TL("MIDACH_BTN"))
+	end
 	RefreshAchPanel()
 end
 
@@ -2421,6 +2424,17 @@ function ns.BuildAchievementsPanel(panel)
 		end
 	end)
 
+	-- 5 Oct 2026 (survey #16): every Midnight achievement you still miss, not only the hunts below.
+	local missingBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	missingBtn:SetSize(240, 20)
+	missingBtn:SetPoint("LEFT", routeNearestBtn, "RIGHT", 8, 0)
+	missingBtn:SetText(TL("MIDACH_BTN"))
+	missingBtn:SetScript("OnClick", function()
+		if ns.ShowMidnightAchList then
+			ns.ShowMidnightAchList()
+		end
+	end)
+
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", routeNearestBtn, "BOTTOMLEFT", 0, -8)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -28, 12)
@@ -2431,7 +2445,7 @@ function ns.BuildAchievementsPanel(panel)
 		LayoutAchPanel()
 	end)
 
-	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, summary = summary, metaBox = metaBox, metaRows = {}, routeBtn = routeNearestBtn, cards = {} }
+	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, summary = summary, metaBox = metaBox, metaRows = {}, routeBtn = routeNearestBtn, missingBtn = missingBtn, cards = {} }
 
 	local list = ns.ACHIEVEMENT_TREASURES or {}
 	if #list == 0 then

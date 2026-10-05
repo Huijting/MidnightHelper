@@ -88,7 +88,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
-	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why",
+	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why", "achlist why",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 }
 
@@ -138,6 +138,8 @@ ns.MH_COMMANDS = {
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },
+		-- 5 Oct 2026 (survey #16): every Midnight achievement you still miss (MidnightAchList.lua).
+		{ cmd = "/mh achlist", descKey = "CMDLIST_ACHLIST" },
 		-- 🔴 `/mh season stats`, NOT `/mh season`. This row promised "Season stats for
 		-- this character" and pointed at the developer diagnostic, which prints the
 		-- season-transition checklist with its raw ids and ends by telling the reader to

@@ -465,7 +465,15 @@ ns._mhLocales.enUS = {
 	CMDLIST_GOTO = "Point the arrow at a spot: /mh goto 47.0 62.2 [name]",
 	CMDLIST_MOUSE = "How many thumb buttons your mouse has (0-6); /mh mouse detect finds out what they send.",
 	CMDLIST_APPLY = "Set the keys this layout suggests. Shows them first; /mh apply undo puts them back.",
-	CMDLIST_BLOCK = "Your key block: the same task on the same key, on every character. A picture; nothing changes.",
+	CMDLIST_ACHLIST = "Every Midnight achievement you still miss, by group. Click one to open it in the game's own window.",
+	-- Midnight achievements you still miss (MidnightAchList.lua, 5 Oct 2026)
+	MIDACH_BTN = "Midnight achievements you miss",
+	MIDACH_TITLE = "Midnight achievements you still miss",
+	MIDACH_SUMMARY_FMT = "%d of %d still open. Click a group to fold it open; click an achievement to open it in the game's own window.",
+	MIDACH_GROUP_DONE = "Nothing open here.",
+	MIDACH_CLICK_HINT = "Click: open it in the game's achievement window.",
+	MIDACH_NOTE_MIXED = "Not in this list yet: Midnight achievements in mixed groups (professions, pet battles, skyriding, fishing, holidays).",
+	CMDLIST_BLOCK ="Your key block: the same task on the same key, on every character. A picture; nothing changes.",
 	-- Key block (KeyBlock.lua, 4 Oct 2026)
 	KEYBLOCK_TITLE = "Your key block",
 	KEYBLOCK_INTRO = "The same task on the same key, on every character: 1 is always your main button, E your interrupt, Z your small defensive. This is a picture of where this character's spells would go. Nothing on your bars changes.",

@@ -1047,6 +1047,19 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh achlist — the Midnight achievements you still miss (MidnightAchList.lua, 5 Oct 2026).
+	if msg == "achlist" then
+		if ns.ShowMidnightAchList then
+			ns.ShowMidnightAchList()
+		end
+		return
+	end
+	if msg == "achlist why" then
+		if ns.PrintMidnightAchList then
+			ns.PrintMidnightAchList()
+		end
+		return
+	end
 	-- /mh block — the fixed key block as a picture (KeyBlock.lua, 4 Oct 2026; changes nothing).
 	if msg == "block" or msg == "keyblock" then
 		if ns.ShowKeyBlock then

@@ -459,7 +459,15 @@ ns._mhLocales.nlNL = {
 	CMDLIST_GOTO = "Zet de pijl op een plek: /mh goto 47.0 62.2 [naam]",
 	CMDLIST_MOUSE = "Hoeveel duimknoppen je muis heeft (0-6); /mh mouse detect zoekt uit wat ze versturen.",
 	CMDLIST_APPLY = "Zet de toetsen die deze layout voorstelt. Toont ze eerst; /mh apply undo zet alles terug.",
-	CMDLIST_BLOCK = "Je toetsenblok: dezelfde taak op dezelfde toets, op elk personage. Een plaatje; er verandert niets.",
+	CMDLIST_ACHLIST = "Elke Midnight-achievement die je nog mist, per groep. Klik er een aan om hem in het eigen venster van het spel te openen.",
+	-- Midnight-achievements die je nog mist (MidnightAchList.lua, 5 okt 2026)
+	MIDACH_BTN = "Midnight-achievements die je mist",
+	MIDACH_TITLE = "Midnight-achievements die je nog mist",
+	MIDACH_SUMMARY_FMT = "Nog %d van %d open. Klik een groep om hem open te klappen; klik een achievement om hem in het eigen venster van het spel te openen.",
+	MIDACH_GROUP_DONE = "Hier staat niets meer open.",
+	MIDACH_CLICK_HINT = "Klik: open hem in het achievement-venster van het spel.",
+	MIDACH_NOTE_MIXED = "Nog niet in deze lijst: Midnight-achievements in gemengde groepen (beroepen, pet battles, skyriding, vissen, feestdagen).",
+	CMDLIST_BLOCK ="Je toetsenblok: dezelfde taak op dezelfde toets, op elk personage. Een plaatje; er verandert niets.",
 	-- Toetsenblok (KeyBlock.lua, 4 okt 2026)
 	KEYBLOCK_TITLE = "Je toetsenblok",
 	KEYBLOCK_INTRO = "Dezelfde taak op dezelfde toets, op elk personage: 1 is altijd je hoofdknop, E je kick, Z je kleine defensive. Dit is een plaatje van waar de spells van dit personage zouden komen. Er verandert niets op je balken.",

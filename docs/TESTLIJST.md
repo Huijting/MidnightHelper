@@ -60,6 +60,31 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt — "Midnight-achievements die je nog mist" (wens #16)
+
+- [ ] `/reload`, open MH → **Achievements**: naast "Route nearest open" staat een knop **"Midnight achievements you
+  miss"**. Klik: er opent een venster met 10 groepen (Delves, Quests, Exploration, Reputation, Midnight Dungeon,
+  Midnight Raid, Prey, Void Assaults, Ritual Sites, Housing), elk met "x / y".
+- [ ] Klik een groep: klapt hij open met de achievements die je mist (+ voortgang, bv. 3/8)? Klopt het getal met
+  Blizzards eigen achievement-venster (bv. Delves > Midnight 43/51)?
+- [ ] Klik een achievement: opent Blizzards venster op die plek?
+- [ ] `/mh achlist why`: één regel per groep in de chat.
+
+## ✅ 5 okt ochtend — Rob testte (Prot Paladin, screenshots)
+
+- [x] Stay alive Prot: 11 rijen, geen rode regel in `/mh survival`. ⚠️ Paladin-rijen kregen 4 okt GEEN nieuwe id (hadden
+  ze al) → dit bewijst de nieuwe ids nog niet. Nog nodig: minstens Mage (Shimmer/Blink, Mirror Image) en liefst
+  Druid/Monk/Warrior/Priest.
+- [x] `/mh block` Prot: venster klopt; Q = Sentinel (Rob: "q staat hier goed"), Shift-E = Arcane Torrent, Consecration op 5,
+  toets 4 leeg (SotR = defensief op X, bewust), "Every spell … has a place". `/mh block why`: regels komen.
+- [x] **Edit Mode-proef geslaagd**: export → import (Umbrion, account-layout) → `/reload`: "alles staat nog op zijn plek".
+- [x] Achievements: Ula'tek Uncoiled 2/4 en Assault the Vault 3/10 als meta-rij (goede namen), Coiled to Strike 11/12,
+  Treasures of the Coiled Isle toont "Reward: Auriferous Venomfang".
+- [x] `/mh ach cats`: 169 categorieën, 6 × "Midnight" (Delves 15571, Reputation 15600, Quests 15547, Exploration 15553,
+  Midnight Dungeon 15541, Midnight Raid 15566) — GEMETEN in SV `achCatProbe`.
+- [x] `/mh changelog`: 4.6.0 bovenaan met 6 regels.
+- [x] `/mh shots` (08:30, ultrawide 5120x1440): 14 shots; 10 en 14 zonder zoeklijst/coach (GEMETEN, plaatjes bekeken).
+
 ## 🆕 4 okt middag — achievements (Coiled Isle) en Q voor Windwalker
 
 - [ ] **Achievements-tab**, bovenaan bij de meta's: staan er twee nieuwe uitklapbare rijen, **Ula'tek Uncoiled** en

@@ -19,7 +19,14 @@ Dundun-/SMC-regels (nu "Professions: fewer than 8 Dundun shards…" en "Silvermo
 
 ## 🏆 4 okt middag — wens #16 (fr): "les hauts faits non accomplis" → alleen Midnight (Rob: "Ja doe maar")
 
-Plan: lijst "Midnight-achievements die je nog niet hebt", gegroepeerd per Blizzard-categorie, naam/voortgang/punten
+✅ **5 okt gemeten + gebouwd.** Rob draaide `/mh ach cats` (SV `achCatProbe`): 6 categorieën "Midnight" (15571 Delves,
+15547 Quests, 15553 Exploration, 15600 Reputation, 15541 Midnight Dungeon, 15566 Midnight Raid); Rob koos er Prey 15605,
+Void Assaults 15610, Ritual Sites 15608 en Housing 15606 bij. `Modules/MidnightAchList.lua`: venster `/mh achlist`
+(+ knop "Midnight achievements you miss" in het Achievements-tabblad, + `/mh achlist why`), 10 groepen + hun
+subcategorieën live, naam/punten/voortgang uit de client, klik → `ns.OpenAchievementWindow`. Teksten enUS + nlNL
+(de/fr/es/pt/it nog Engels — vertaalronde). 🔲 Gemengde groepen (beroepen, pet battles, skyriding, vissen, PvP,
+feestdagen) NIET: nummers lopen door elkaar, aparte meting nodig. Niet in het spel gezien → TESTLIJST 5 okt.
+Oorspronkelijk plan: lijst "Midnight-achievements die je nog niet hebt", gegroepeerd per Blizzard-categorie, naam/voortgang/punten
 uit de client, klik opent Blizzards venster. Stap 1 gebouwd: **`/mh ach cats`** (`ns.SaveAchievementCategoryProbe`,
 AchievementFind.lua) → hele categorieboom + `EXPANSION_NAME*` naar `ns.db.achCatProbe`, chat noemt categorieën met
 "Midnight" (of de clientnaam van de huidige uitbreiding) in titel/ouder. Welke categorieën Midnight zijn = nog NIET
