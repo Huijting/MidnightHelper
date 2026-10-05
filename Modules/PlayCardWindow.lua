@@ -646,8 +646,22 @@ local function DrawConsumables(specID, y, inner)
 			local haveText = have > 0 and ("  |cff8cd98c×%d|r"):format(have)
 				or ("  |cff9d9d9d(" .. L("CONSREADY_NOT_IN_BAG") .. ")|r")
 			local alts = {}
+			-- One line per NAME: two quality ranks of one potion share a name, and the card read
+			-- "Silvermoon Health Potion / Silvermoon Health Potion" (Rob, 5 Oct 2026). Only a known
+			-- name is folded; an uncached item still shows, so nothing silently disappears.
+			local seenName = {}
+			local bestName = ItemName(best)
+			if bestName then
+				seenName[bestName] = true
+			end
 			for _, id in ipairs(cat.alternates or {}) do
-				alts[#alts + 1] = ItemLink(id)
+				local nm = ItemName(id)
+				if not (nm and seenName[nm]) then
+					if nm then
+						seenName[nm] = true
+					end
+					alts[#alts + 1] = ItemLink(id)
+				end
 			end
 			local altText = #alts > 0 and ("|n|cff9d9d9d" .. (L("GUIDE_CONS_ALSO_FMT")):format(table.concat(alts, " / ")) .. "|r") or ""
 			row.fs:ClearAllPoints()
@@ -751,6 +765,58 @@ end
 -- Drawing
 --------------------------------------------------------------------------------
 
+-- Tab id -> the anchor of the same tab on midnighthelper.com/play/<slug>/ (site chat, 5 Oct 2026).
+local SITE_ANCHOR = { alive = "alive", cons = "cons", dispel = "dispel", group = "group" }
+
+--- The same card on midnighthelper.com (Rob, 4 Oct 2026: "do the link to the site"), under the
+--- current tab. @return y below the link (unchanged when there is no page for this spec)
+local function SiteLink(specID, y, inner, tab)
+	local url = ns.PlayCardSiteURL and ns.PlayCardSiteURL(specID)
+	if not url then
+		return y
+	end
+	if tab and SITE_ANCHOR[tab] then
+		url = url .. "#" .. SITE_ANCHOR[tab]
+	end
+	local b = win._siteBtn
+	if not b then
+		b = CreateFrame("Button", nil, win.body)
+		b.fs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		b.fs:SetPoint("TOPLEFT")
+		b.fs:SetJustifyH("LEFT")
+		b:SetScript("OnEnter", function(self)
+			self.fs:SetTextColor(1, 1, 1)
+		end)
+		b:SetScript("OnLeave", function(self)
+			self.fs:SetTextColor(0.45, 0.75, 1)
+		end)
+		win._siteBtn = b
+	end
+	-- Rob, 4 Oct 2026: "het staat wel heel erg klein" — the raw small font skipped MH's own
+	-- font; Font() gives it the size the card's own lines have.
+	Font(b.fs, "GameFontHighlight")
+	b.fs:SetWidth(inner)
+	b.fs:SetTextColor(0.45, 0.75, 1)
+	b.fs:SetText(L("PLAYCARD_SITE_LINK"))
+	b:SetSize(inner, b.fs:GetStringHeight() + 2)
+	b:ClearAllPoints()
+	b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y - 6)
+	b:SetScript("OnClick", function()
+		if ns.ShowShareCopyDialog then
+			ns.ShowShareCopyDialog({
+				id = "playcard-site",
+				text = url,
+				titleKey = "PLAYCARD_SITE_TITLE",
+				hintKey = "PLAYCARD_SITE_HINT",
+				closeKey = "DELVE_SHARE_COPY_CLOSE",
+				width = 460, height = 170,
+			})
+		end
+	end)
+	b:Show()
+	return y - 6 - b:GetHeight()
+end
+
 local function Redraw()
 	if not win then
 		return
@@ -842,6 +908,9 @@ local function Redraw()
 		local draw = (tab == "alive" and DrawStayAlive) or (tab == "cons" and DrawConsumables)
 			or (tab == "group" and DrawGroup) or DrawDispel
 		y = draw(specID, y, inner)
+		-- 5 Oct 2026: the site's /play/ pages have the same tabs, each with an anchor (site chat), so
+		-- every tab links to its own part of the page.
+		y = SiteLink(specID, y, inner, tab)
 		win:SetHeight(32 + 32 - y + 16 + 8)
 		return
 	end
@@ -924,47 +993,7 @@ local function Redraw()
 		src:SetText((L("PLAYCARD_SOURCE_FMT")):format(card.source))
 		y = y - 4 - src:GetStringHeight()
 
-		-- The same card on midnighthelper.com (Rob, 4 Oct 2026: "do the link to the site").
-		local url = ns.PlayCardSiteURL and ns.PlayCardSiteURL(specID)
-		if url then
-			local b = win._siteBtn
-			if not b then
-				b = CreateFrame("Button", nil, win.body)
-				b.fs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-				b.fs:SetPoint("TOPLEFT")
-				b.fs:SetJustifyH("LEFT")
-				b:SetScript("OnEnter", function(self)
-					self.fs:SetTextColor(1, 1, 1)
-				end)
-				b:SetScript("OnLeave", function(self)
-					self.fs:SetTextColor(0.45, 0.75, 1)
-				end)
-				win._siteBtn = b
-			end
-			-- Rob, 4 Oct 2026: "het staat wel heel erg klein" — the raw small font skipped MH's own
-			-- font; Font() gives it the size the card's own lines have.
-			Font(b.fs, "GameFontHighlight")
-			b.fs:SetWidth(inner)
-			b.fs:SetTextColor(0.45, 0.75, 1)
-			b.fs:SetText(L("PLAYCARD_SITE_LINK"))
-			b:SetSize(inner, b.fs:GetStringHeight() + 2)
-			b:ClearAllPoints()
-			b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y - 6)
-			b:SetScript("OnClick", function()
-				if ns.ShowShareCopyDialog then
-					ns.ShowShareCopyDialog({
-						id = "playcard-site",
-						text = url,
-						titleKey = "PLAYCARD_SITE_TITLE",
-						hintKey = "PLAYCARD_SITE_HINT",
-						closeKey = "DELVE_SHARE_COPY_CLOSE",
-						width = 460, height = 170,
-					})
-				end
-			end)
-			b:Show()
-			y = y - 6 - b:GetHeight()
-		end
+		y = SiteLink(specID, y, inner, nil)
 	end
 
 	-- Frame = content inset (32, DialogPopup.lua) + body offset under the title (32) + the rows

@@ -60,6 +60,13 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt middag — laatste twee voor 4.6.0
+
+- [ ] `/reload`, `/mh play` → **Consumables** (Prot Paladin): Health Potion zegt nog maar één keer "Silvermoon Health
+  Potion" bij "Also"?
+- [ ] Op **Stay alive**, **Consumables**, **Dispel** en **Group** staat nu onderaan ook de blauwe regel "This card on
+  the website". Klik op Stay alive: eindigt de link op **`#alive`**? (Op "Your buttons" zonder `#`.)
+
 ## ✅ 5 okt middag — Rob testte (Mage, Druid, achievement-lijst)
 
 - [x] Mage (Frost): Stay alive 7 regels, Shimmer één keer, `/mh survival` geen "not found by id" (Cold Snap "not known"
