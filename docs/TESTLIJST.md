@@ -73,6 +73,10 @@ Op de Hunter, niet in een gevecht. Eerst `/reload`.
   Balk 2 en 3 weg (te zien als je spellboek open is)? De uitleg over "spellboek / blok D" staat in de melding.
 - [ ] Knop **Toon mijn oude balken 2 en 3** → Nu herladen → ze staan er weer; knop heet dan "Verberg …".
 - [ ] **Terugzetten**: dubbelen terug op balk 1, en Blizzards "nieuwe spreuk op balk 1" weer aan.
+- [x] (Rob 5 okt, screenshot) Vier blokken D-A-B-C naast elkaar, D met Revive Pet op Alt R. ✅
+- [ ] Balk 1 (de rij boven het blok): na **Terugzetten → Zet het op balk 5, 6 en 7** zijn de dubbelen eraf; na opnieuw
+  **als blok zetten** zijn de lege knoppen van balk 1 onzichtbaar. Blijft er alleen over wat níet op het blok staat
+  (bv. de Single-Button Assistant)? Op een skyriding-mount verschijnen daar de skyriding-knoppen?
 - Alt-Z is bewust niet gebruikt: dat is Blizzards toets om de hele interface te verbergen (AFGELEID, niet gemeten).
 
 ## 🆕 5 okt avond — skyriding, voertuig, petbattle: toetsen even terug naar balk 1

@@ -863,6 +863,14 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 	notes[#notes + 1] = ns:L("KEYBLOCK_LAYOUT_HIDDEN_HELP")
 
+	-- Bar 1 cannot be hidden (it has no Visible setting, measured in Rob's layouts) and must stay: skyriding,
+	-- vehicles and pet battles put their buttons there. With its doubles taken off by "Place it", empty
+	-- buttons hidden (AlwaysShowButtons 0) makes it near-invisible until the game fills it. Rob, 5 Oct 2026,
+	-- on the bar 1 row above his block full of old spells and empty frames: "ik weet niet of dat handig is".
+	if sysBy[1] then
+		SetSetting(sysBy[1], 9, 0)
+	end
+
 	-- 2. Only the bars 1-4 that were in the way: one horizontal row each, stacked above the extra bars.
 	local rowH = size + pad + 6
 	for k, idx in ipairs(inTheWay) do
