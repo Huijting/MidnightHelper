@@ -3934,3 +3934,152 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     201 → 198, `C_Secrets` 27 → 26) door Robs commits van 3 okt. Dat is geen bevinding, maar wel het
     bewijs dat deze getallen elke run opnieuw gemeten horen te worden in plaats van overgeschreven
     uit de regel van gisteren — wat ik vandaag bijna deed.
+- [2026-10-05] 🧩 **Eén echt nieuw item op mijn terrein (28 sep–5 okt): `TOC format` is voor de
+  TWEEDE nacht op rij herschreven, en deze keer zit er een expliciete CORRECTIE in — de regel die
+  bepaalt wanneer een addon *out of date* heet. 0 × [MOET GEFIKST].** Vier toetsbare punten, alle
+  vier [RAAKT ONS NIET]. De vijf andere gevolgde wikipagina's staan byte-voor-byte stil, de
+  hotfixlijst staat nog op 1 okt, en SimC heeft geen nieuwe release.
+  - 🔄 **[RAAKT ONS NIET] — CORRECTIE, en ik zet hem vooraan omdat harde regel 3 dat eist: de
+    `Interface`-regel HEETTE EERST "lager dan de client" en IS NU "matcht de client niet".** Revid
+    `6900516` (vandaag 04 okt 20:56:46Z), bewerkingssamenvatting letterlijk *"Corrected interface
+    version matching behaviour"*. Letterlijk, uit `action=parse&section=6` van de huidige revisie
+    (dus niet uit de diff, want die splitst woorden):
+    - **oud:** *"If an addon has a lower interface version than the client's, or it doesn't specify
+      this directive, the addon is classified as out of date."* — met daaronder een zichtbare
+      HTML-commentaarregel `<!-- TODO: Test if lower only is strictly true, or if it's some other
+      behaviour -->`.
+    - **nieuw:** *"If an addon doesn't set an interface version that matches the client's, then it's
+      classified as out-of-date."* — en die TODO is **weg**, dus de schrijver beschouwt het als
+      uitgezocht.
+    📌 **Het verschil dat telt:** de oude tekst liet ruimte voor "een hoger nummer is ook goed", de
+    nieuwe zegt dat er een **exacte treffer** in de lijst moet staan.
+    → **GEMETEN, beide kanten in dezelfde run:** `{{API LatestInterface}}` expandeert op de wiki naar
+    **`120100`** (via `action=expandtemplates`; `{{API LatestVersion}}` geeft `12.1.0`), en
+    `MidnightHelper.toc:1` declareert **`## Interface: 120007, 120100, 120105`**. `120100` zit er
+    dus in → MH matcht → **niet** out of date. **Niets te doen.**
+    ⚠️ **Wat dit wél betekent voor later, en het is een punt voor Rob en niet voor mij:** als "exact
+    matchen" waar is, dan houdt het vooruit-gezette **`120105`** MH níét actueel op een volgende
+    12.1.x-client — elk nieuw live interfacenummer moet er zelf bij. Dat is precies het soort fout
+    dat *stil* is: de addon werkt, hij staat alleen rood in de addonlijst. 🔴 **Ik raak
+    `docs/RELEASE_CHECKLIST.md` niet aan**; als dat ergens hoort te staan, is dat Robs beslissing.
+    ⚠️ **En het blijft een WIKI-bewering, geen gemeten client-gedrag.** De samenvatting zegt
+    *corrected*, maar niemand heeft hier een client getoond; de pagina citeert ook geen test. Ik
+    verzin daar geen client-wijziging bij.
+  - 🧩 **[RAAKT ONS NIET] — `AddonCompartmentFunc` kreeg een voorwaarde erbij** (revid `6900433`,
+    4 okt 19:29:03Z, samenvatting *"Added condition for when it's required"*). Oud: *"This directive
+    is '''required''' to show the addon in the addon compartment dropdown."* Nieuw: idem, maar met
+    **`when using automatic registration`** erachter. → **GEMETEN:** `MidnightHelper.toc:14` zet
+    `## AddonCompartmentFunc: MidnightHelper_OnAddonCompartmentClick`, en die global bestaat op
+    `Modules/Broker.lua:16`. MH gebruikt dus precies de automatische weg die de directive vereist.
+    **Niets te doen.**
+  - 🧩 **[RAAKT ONS NIET] — de "mag meerdere keren"-regel is van één algemene zin uitgesplitst naar
+    notes per directive** (revid `6900470`, 4 okt 19:51:24Z). De sectie-intro luidde *"If a directive
+    is specified multiple times, the last one … will be used."* en luidt nu *"**Generally**, if a
+    directive is specified multiple times, the last one … will be used. Directives that have
+    exceptions to this rule are noted."* Die uitzondering staat nu bij `Dependencies`, `LoadWith`,
+    `LoadManagers`, `AllowLoadGameType`, `ExcludeLoadGameType`, `SavedVariables` en
+    `SavedVariablesPerCharacter`, telkens als *"This directive may be specified multiple times, with
+    later instances appending to the list."* → **GEMETEN:** `MidnightHelper.toc` bevat **18**
+    `##`-directives en **elk precies één keer** (geteld met `uniq -c`: alle achttien op 1). De enige
+    directive uit dat rijtje die MH heeft is `SavedVariables`, op regel 13, één keer. Er valt dus
+    niets te stapelen en niets te verliezen. **Niets te doen.**
+  - 🧩 **[RAAKT ONS NIET] — conditional directives opnieuw: nu mét de claim dat álle actieve game
+    types ze ondersteunen** (revid `6900068`, 4 okt 15:33:43Z, samenvatting *"Update patch changes -
+    confirmed all active game types support all directives from 12.0.7 or newer"*), plus een nieuw
+    voorbeeld `ForeverOnly.lua [AllowLoadGameType camelot][ExcludeLoadGameType standard, classic]`.
+    → **GEMETEN, opnieuw vandaag en niet overgeschreven uit de regel van gisteren:**
+    `MidnightHelper.toc` bevat **nul** conditional directives en **nul rechte haken** in zijn geheel.
+    **Niets te doen.**
+  - ⚠️ **Eén nieuwe wikiregel is KAPOT GESCHREVEN, en ik noteer dat zodat een volgende run er geen
+    betekenis in zoekt.** Bij `AllowAddOnTableAccess` staat sinds `6900470`: *"If this is set to
+    `1`, and further instances of it will be ignored."* Dat is geen zin — de oude tekst zei *"If
+    this is set to `1` it cannot be turned off later in the file."* Vermoedelijk is er bij het
+    opsplitsen een halve zin blijven staan. **GEMETEN:** MH gebruikt `AllowAddOnTableAccess` niet.
+    [RAAKT ONS NIET], en de bewering zelf is onbruikbaar tot iemand hem repareert.
+  - 📌 **Terzijde, GEMETEN maar NADRUKKELIJK géén bevinding van vandaag en géén actiepunt: MH heeft
+    twéé wegen naar de addon compartment.** De nieuwe woorden *"when using automatic registration"*
+    maken dat onderscheid voor het eerst expliciet, dus ik heb het nageslagen. Naast de directive
+    bestaat de handmatige weg in `Libs/LibDBIcon-1.0.lua:637` (`lib:AddButtonToCompartment`), die
+    afgaat als `db.showInCompartment` waar is (`LibDBIcon-1.0.lua:312`) — en dat zet LibDBIcon zélf,
+    uit zijn eigen rechtsklikmenu (`LibDBIcon-1.0.lua:642`). **GEMETEN:** MH roept
+    `AddButtonToCompartment` nérgens zelf aan (nul call-sites buiten `Libs/`), zet
+    `showInCompartment` nergens, en registreert alleen `iconLib:Register(addonName, obj, db)` op
+    `Modules/Broker.lua:455`.
+    ⚠️ **Of een speler die dat vinkje aanzet dan twee regels in de compartment krijgt, is AFGELEID en
+    NIET GEMETEN** — dat vergt een client, en ik heb er geen. Ik meld het omdat het bestaat, niet
+    omdat het stuk is. Het is bovendien bestaand LibDBIcon-gedrag en niet iets dat deze week
+    veranderd is.
+  - 🔇 **[RAAKT ONS NIET] — één forumpost binnen het venster die nog niet in dit logboek stond:
+    topic `1989252` (*Group lead badge missing from raid frames*), post 2 van Brytallica, 4 okt
+    22:28:59Z.** Volledige inhoud: *"I have the same issue. Can't find a way to fix it without a
+    mod."* De openingspost is van **21 okt 2024** (Nuck) en valt ruim buiten het venster; de nieuwe
+    post bevat geen enkele API-naam en niets om te greppen.
+    ✅ **De andere `#ui-macro`-treffers sinds 28 sep staan hier al in** — op topic-id gecontroleerd,
+    niet op titel: `2276297`, `2367394`, `2366363`, `1780831`, `2370149`, `2370136`.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.0-04` (gepubliceerd 21 aug 2026 23:15:56Z).**
+    Opgehaald via `api.github.com/repos/simulationcraft/simc-addon/releases` mét cache-buster;
+    bovenaan `12.1.0-04`, daaronder `12.1.0-03` (20 aug). **GEMETEN in de code deze run:**
+    `Modules/SimcExport.lua:12-16` zegt in het kopcommentaar *"read 30 Sep 2026 at release
+    12.1.0-04"* — MH loopt dus niet achter, en een toets aan `ItemString` of `ns.BuildSimcProfile` is
+    deze week niet nodig.
+    📌 Terzijde: de **GitHub-MCP-tool weigert deze repo** (*"not configured for this session.
+    Allowed repositories: huijting/midnighthelper"*), dus dit loopt noodzakelijk via Exa op de
+    publieke API. Dat werkt; het staat hier zodat niemand morgen opnieuw op die muur loopt.
+  - 📰 **Hotfixes: niets na 1 okt, op twee ONAFHANKELIJKE manieren vastgesteld.** `news.blizzard.com`
+    artikel `24296142` geeft mét `?nocache=20261005` nog altijd de titel **`Hotfixes: October 1,
+    2026`** met exact de drie al eerder gelezen regels (Druid/Feral *Rampant Ferocity*,
+    Hunter/Survival *Wildfire Bomb* +20%, The Venomous Abyss / Ula'tek *Venomous Heart*); daarnaast
+    staat de wikipagina `Hotfixes` nog op dezelfde revid `6897455` (Dark T Zeratul, 2 okt
+    00:25:50Z, 365799 b). ⚠️ Een **gelijke** titel is niet de cache-val; die val is een titel die
+    *ouder* is dan wat dit logboek al noemde.
+  - 🔇 **Wiki: vijf van de zes gevolgde pagina's byte-voor-byte onveranderd t.o.v. gisteren.**
+    `Patch 12.1.0/API changes` `6886719` (Ketho, 25 sep, 102481 b), `Patch 12.1.5/API changes`
+    `6886717` (Ketho, 25 sep, 34466 b), `Patch 12.0.7/API changes` `6794100` (Ketho, 4 aug, 34044 b),
+    `API change summaries` `6883777` (Ketho, 22 sep, 7280 b), `Hotfixes` `6897455`. 📌 **De twee
+    12.1.x-API-pagina's zijn nu tien dagen stil en vallen dus BUITEN mijn 7-dagenvenster** — daarom
+    voer ik ze niet als vondst op.
+  - 🔎 **Eén WebSearch-ronde als onafhankelijke kruiscontrole, binnen het venster nul.** Wat
+    terugkwam — Forbidden Aspects / `UntrustedScriptExecution`, AuraButtons die *forbidden* worden
+    zodra aura's secret zijn, de nieuwe `AuraContainer`/`AuraButton`-widgets, en `SetCooldown`/`Clear`
+    die in 12.1.5 niet meer vanuit tainted code mogen als het cooldown-frame protected is — staat
+    allemaal op `Patch 12.1.0/API changes` of `Patch 12.1.5/API changes` en is van 3 sep of eerder.
+    ⚠️ **Dat voer ik dus NIET op als vondst van vandaag**; harde regel 2 verbiedt een magere dag
+    aanvullen met oudere items. Gelezen, gedateerd, afgelegd.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `warcraft.wiki.gg` **wél via directe `curl` geprobeerd** deze run, anders dan de vorige keren:
+      de agent-proxy weigert de CONNECT-tunnel met **403** (`curl: (56) CONNECT tunnel failed`).
+      Daarmee is de aanname van eerdere runs nu gemeten in plaats van overgenomen. Alle wiki-, forum-
+      en GitHub-data komt dus via Exa.
+    - De categoriepagina `c/guides/ui-macro/35.json` opnieuw niet geprobeerd; de topiclijst komt uit
+      `search.json?q=#ui-macro after:2026-09-28`.
+    - `wowhead.com/blue-tracker` opnieuw **niet geprobeerd** (tien runs op rij lege body).
+    - De 12.1.5-**PTR-buildnotes** niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - De interfacenummers **per game type** uit de tabel in de `Interface`-sectie zijn niet
+      opgelost: `action=expandtemplates` geeft op `{{LatestPatchInfo|interface=…}}` alleen de
+      onverwerkte `#switch`-body terug. Voor Standard was dat niet nodig — `{{API LatestInterface}}`
+      gaf rechtstreeks `120100` — maar voor Beta/Test heb ik dus géén nummer.
+    - ⚠️ De `?nocache=`-parameter geeft op `api.php` een `"Unrecognized parameter: nocache"`-warning.
+      Onschadelijk (MediaWiki negeert hem, de query draait) en hij doet zijn werk nog steeds omdat
+      hij de URL uniek maakt voor Exa's eigen cache. Vers materiaal is hierboven onafhankelijk
+      aangetoond: `TOC format` kwam met **zeventien** nieuwe revisies boven die gisteren nog niet
+      bestonden.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw — en alle drie met vandaag opnieuw gemeten cijfers:**
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. **GEMETEN
+      vandaag** (`grep -rno`, hele addon zonder `.git`/`docs`/`tools`/`dist`): `issecretvalue`
+      **196**, `InCombatLockdown` **198**, `C_UnitAuras` **83**, `CreateFrame` **741**, `C_Secrets`
+      **26**, `C_SuperTrack` **29**. 📌 **Alle zes exact gelijk aan gisteren** — er is dus sinds Robs
+      commits van 3 okt geen code bijgekomen die deze namen raakt. 🔴 Ik raak dat bestand niet aan.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat
+      er `120007, 120100, 120105`. Dat punt is vandaag extra relevant geworden door de
+      `Interface`-correctie hierboven. 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM** (`ef bb bf`). Onschadelijkheid blijft
+      AFGELEID, niet gemeten.
+  - 🔧 **Repo-staat: `HEAD` stond voor de VIJFDE dag op rij detached, nu hersteld — en de "forced
+    update" was wéér vals alarm.** Bij aanvang `git rev-parse --abbrev-ref HEAD` → **`HEAD`** op
+    `0f39f26`, `git status --porcelain` leeg, geen van de vier wachter-bestanden
+    gewijzigd-maar-ongecommit. `git fetch origin main` meldde
+    **`+ ba7a1fc...1a1d608 main (forced update)`**; `.git/shallow` bestaat, dus dat is de bekende
+    afgekapte-historie-illusie van een shallow clone en niet een herschreven `main`.
+    `git checkout -B main origin/main` heeft het rechtgezet. 📌 **Vijf dagen op rij is geen incident
+    meer maar een eigenschap van de omgeving** — wie hier ooit iets automatiseert, moet er dus niet
+    op rekenen dat de werkmap op een branch staat.
