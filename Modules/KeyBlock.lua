@@ -780,6 +780,9 @@ function ns.KeyBlockPlace()
 	if #failed > 0 then
 		print("   |cffff8080did not land:|r " .. table.concat(failed, ", "))
 	end
+	if ns.KeyBlockArmBar1 then
+		ns.KeyBlockArmBar1()
+	end
 	return true
 end
 
@@ -849,6 +852,9 @@ function ns.KeyBlockUndo()
 	end
 	SetSnap(nil)
 	print(p .. ("key block undone: %d slots and %d keys back as they were."):format(restored, #(snap.binds or {})))
+	if ns.KeyBlockArmBar1 then
+		ns.KeyBlockArmBar1()
+	end
 	return true
 end
 
@@ -1441,4 +1447,107 @@ function ns.PrintKeyBlockTrace()
 	if ns.db then
 		ns.db.keyBlockProbe = dump
 	end
+	if ns.KeyBlockBar1Status then
+		print("  " .. ns.KeyBlockBar1Status())
+	end
 end
+
+--------------------------------------------------------------------------------
+-- Bar 1 keys while the game swaps bar 1 (5 Oct 2026, Rob on a flying mount: the skyriding buttons on
+-- bar 1 had no keys, because 1-5 now press the block). Checked by mh-research against Blizzard's 12.1.0
+-- source: ActionButtonDown(id) presses whatever bar 1 shows (skyriding, vehicle, override, possess,
+-- temporary shapeshift) and handles pet battles; a secure state handler may set override bindings in
+-- combat (RestrictedFrames.lua: SetBinding -> SetOverrideBinding). [bonusbar:5] is skyriding; plain
+-- [bonusbar] would also catch Cat Form and stealth, which must keep the block.
+-- While one of those states is on, a block key that pressed ACTIONBUTTONn before the block presses it
+-- again; afterwards the block is back. Override bindings are never saved, so nothing here touches the
+-- player's binding file.
+--------------------------------------------------------------------------------
+
+local BAR1_DRIVER = "[petbattle][vehicleui][overridebar][possessbar][shapeshift][bonusbar:5] on; off"
+local bar1 = CreateFrame("Frame", "MidnightHelperKeyBlockBar1", UIParent, "SecureHandlerStateTemplate")
+bar1:SetAttribute("_onstate-mhbar1", [[
+	self:ClearBindings()
+	if newstate ~= "on" then return end
+	for i = 1, (self:GetAttribute("n") or 0) do
+		local k, c = self:GetAttribute("k" .. i), self:GetAttribute("c" .. i)
+		if k and c then
+			self:SetBinding(true, k, c)
+		end
+	end
+]])
+local bar1Armed, bar1Count, bar1Source = false, 0, "none"
+
+--- Do the live bindings point a block key at a block bar? Also true on an alt that shares the account
+--- binding set but never placed the block itself (red team / mh-research: arm on the bindings, not on
+--- the snapshot).
+local function BlockKeysLive()
+	local bars = ns.KeyBlockBars()
+	local info = BarInfo(bars.A)
+	local cmd = GetBindingAction and GetBindingAction("1")
+	return info and type(cmd) == "string" and cmd:find("^" .. info.prefix) ~= nil
+end
+
+function ns.KeyBlockArmBar1()
+	if InCombatLockdown and InCombatLockdown() then
+		return false -- attributes and drivers cannot change in combat; PLAYER_REGEN_ENABLED retries
+	end
+	local pairs_ = {}
+	local snap = GetSnap()
+	if snap then
+		bar1Source = "snapshot"
+		for _, b in ipairs(snap.binds or {}) do
+			if type(b.was) == "string" and b.was:match("^ACTIONBUTTON%d+$") then
+				pairs_[#pairs_ + 1] = { b.key, b.was }
+			end
+		end
+	elseif BlockKeysLive() then
+		-- No snapshot here: Blizzard's default, digit n presses bar 1 button n.
+		bar1Source = "default"
+		for _, bar in ipairs(BLOCK) do
+			for _, slot in ipairs(bar.slots) do
+				local d = tonumber(slot.key)
+				if d and d >= 1 and d <= 9 then
+					pairs_[#pairs_ + 1] = { slot.key, "ACTIONBUTTON" .. d }
+				end
+			end
+		end
+	else
+		bar1Source = "none"
+	end
+	if #pairs_ == 0 then
+		UnregisterStateDriver(bar1, "mhbar1")
+		ClearOverrideBindings(bar1)
+		bar1Armed, bar1Count = false, 0
+		return true
+	end
+	for i, p in ipairs(pairs_) do
+		bar1:SetAttribute("k" .. i, p[1])
+		bar1:SetAttribute("c" .. i, p[2])
+	end
+	bar1:SetAttribute("n", #pairs_)
+	RegisterStateDriver(bar1, "mhbar1", BAR1_DRIVER)
+	bar1Armed, bar1Count = true, #pairs_
+	return true
+end
+
+--- For /mh block why: armed or not, how many keys, from where, and the state right now.
+function ns.KeyBlockBar1Status()
+	local state = bar1:GetAttribute("state-mhbar1") or "?"
+	if ns.db then
+		ns.db.keyBlockBar1Probe = { armed = bar1Armed, keys = bar1Count, source = bar1Source, state = state }
+	end
+	return ("bar 1 keys during skyriding/vehicle/pet battle: %s, %d key(s) (%s), now %s"):format(
+		bar1Armed and "armed" or "off", bar1Count, bar1Source, tostring(state))
+end
+
+local bar1Events = CreateFrame("Frame")
+bar1Events:RegisterEvent("PLAYER_ENTERING_WORLD")
+bar1Events:RegisterEvent("PLAYER_REGEN_ENABLED")
+bar1Events:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_ENTERING_WORLD" and C_Timer and C_Timer.After then
+		C_Timer.After(1, ns.KeyBlockArmBar1)
+	elseif event == "PLAYER_REGEN_ENABLED" and not bar1Armed then
+		ns.KeyBlockArmBar1()
+	end
+end)

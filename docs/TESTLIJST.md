@@ -60,6 +60,19 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — skyriding, voertuig, petbattle: toetsen even terug naar balk 1
+
+Rob: op een vliegmount kregen de skyriding-knoppen op balk 1 geen toetsen meer. Nu: zolang balk 1 door het spel wordt
+vervangen (skyriding, voertuig, override, possess, petbattle), drukken de blok-toetsen die vroeger op balk 1 zaten weer
+op balk 1. Na afstijgen weer het blok. Nagekeken in Blizzards 12.1-code (mh-research), NIET in het spel.
+- [ ] `/reload`, `/mh block why`: onderaan "bar 1 keys during skyriding…: armed, N key(s)". Hoeveel?
+- [ ] Skyriding-mount, op de grond en in de lucht: doen 1-5 de skyriding-knoppen? (Het cijfer op de knop kan ontbreken.)
+- [ ] Afstijgen: drukt 1 weer op het blok?
+- [ ] Opstijgen ná een pull (in gevecht): werkt het ook dan?
+- [ ] Cat Form / stealth (als je die hebt): 1-5 blijven op het blok.
+- [ ] Een voertuig-quest of een petbattle, als je er een tegenkomt.
+- [ ] `/reload` terwijl je op de mount zit.
+
 ## 🆕 5 okt avond — nieuwe spreuken: Bijwerken, vraagje, schakelaar (Rob: "Ik volg jouw voorstel")
 
 Op de Hunter (blok staat al neer):

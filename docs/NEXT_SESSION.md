@@ -12,6 +12,11 @@ keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn
 geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
 undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
 Rob koos C voor balk 1-4 (blijven staan; alleen wie over het blok ligt gaat naar een rij erboven) — gebouwd, niet getest.
+Skyriding/voertuig/petbattle — GEBOUWD, NIET GETEST: secure state-frame `MidnightHelperKeyBlockBar1`, driver
+`[petbattle][vehicleui][overridebar][possessbar][shapeshift][bonusbar:5]`, zet priority-override-bindings van blok-toets →
+`was` (ACTIONBUTTONn) uit de snapshot; zonder snapshot maar met blok-toetsen (account-set, alt) cijfer n → ACTIONBUTTONn.
+Bron mh-research 5 okt (Blizzard 12.1.0 source: ActionButton.lua, RestrictedFrames.lua). Status in `/mh block why` +
+`ns.db.keyBlockBar1Probe`. OPie op G: Rob zet OPie op Shift G (vrij in BLOCK, gemeten).
 Nieuwe spreuken (Rob: "Ik volg jouw voorstel") — GEBOUWD, NIET GETEST: `ns.KeyBlockUpdate` (knop "Bijwerken" = de
 Place-knop zodra het blok staat; `/mh block update`) voegt alleen toe: eigen plek als die leeg is, anders eerste lege
 OVERFLOW-plek; snapshot-entry vooraan zodat undo hem eerst eraf haalt. SPELLS_CHANGED (2 s debounce) → StaticPopup
