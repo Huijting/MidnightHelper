@@ -1073,6 +1073,25 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block place (dry run) · /mh block go · /mh block undo — step 2, 5 Oct 2026.
+	if msg == "block place" then
+		if ns.KeyBlockPreview then
+			ns.KeyBlockPreview(false)
+		end
+		return
+	end
+	if msg == "block go" then
+		if ns.KeyBlockPlace then
+			ns.KeyBlockPlace()
+		end
+		return
+	end
+	if msg == "block undo" then
+		if ns.KeyBlockUndo then
+			ns.KeyBlockUndo()
+		end
+		return
+	end
 	-- /mh aggro — how the game's own aggro warnings are set (3 Oct 2026; changes nothing).
 	if msg == "aggro" or msg == "threat" then
 		if ns.PrintAggroSettings then

@@ -345,6 +345,340 @@ local function Build()
 end
 
 --------------------------------------------------------------------------------
+-- Step 2: put it on the bars (5 Oct 2026, Rob: "A1 B1 C1")
+--
+-- A1: extra spells keep filling free places of bar C (what the picture shows is what gets placed).
+-- B1: what stands on action bars 5/6/7 may be overwritten; a dry run says what first, and undo puts
+--     every slot and every key back exactly.
+-- C1: MH places the trinket you wear, and a healing potion / Healthstone from your bags.
+--
+-- Built on what /mh apply proved on Rob's characters (ApplyLayout.lua): PickupSpell/PlaceAction for
+-- spells, PickupItem for items, a per-key binding snapshot, and NEVER a macro slot — on 7 Aug 2026 a
+-- macro could not be restored by its id and was lost. A slot holding anything but a spell or an item
+-- is refused and reported, never overwritten.
+--------------------------------------------------------------------------------
+
+local RESTORABLE = { spell = true, item = true }
+local HEALTHSTONE_ITEM = 5512 -- "Healthstone" (Wowhead item 5512, per language read 4 Oct 2026)
+
+--- Bar number (1-8) -> binding prefix and first action slot (shared table from ApplyLayout.lua).
+local function BarInfo(n)
+	local t = ns.KEYBIND_BAR_COMMANDS
+	return t and t[n] or nil
+end
+
+local function Occupant(slot)
+	local ok, kind, id = pcall(GetActionInfo, slot)
+	if not ok then
+		return "?", nil
+	end
+	return kind, id
+end
+
+local function OccupantName(kind, id)
+	if kind == "spell" then
+		return (SpellView(id))
+	elseif kind == "item" and C_Item and C_Item.GetItemNameByID then
+		return C_Item.GetItemNameByID(id) or ("item " .. tostring(id))
+	elseif kind == "macro" and GetMacroInfo then
+		local ok, n = pcall(GetMacroInfo, id)
+		return (ok and n) or "macro"
+	end
+	return tostring(kind)
+end
+
+local function InBags(itemID)
+	local count = (C_Item and C_Item.GetItemCount) or GetItemCount
+	local ok, n = pcall(count, itemID)
+	return ok and type(n) == "number" and n > 0
+end
+
+--- The healing potion this spec's consumables data names, first one you carry.
+local function PotionInBags()
+	local _, token = UnitClass("player")
+	local idx = ns.GetSpecialization and ns.GetSpecialization()
+	local spec = token and idx and ns.ConsumablesWowheadByClassSpec and ns.ConsumablesWowheadByClassSpec[token]
+	local cat = spec and spec[idx] and spec[idx].healingPotion
+	if not cat then
+		return nil
+	end
+	for _, list in ipairs({ cat.best or {}, cat.alternates or {} }) do
+		for _, id in ipairs(list) do
+			if InBags(id) then
+				return id
+			end
+		end
+	end
+	return nil
+end
+
+--- What each fixed place should hold: { kind = "item", id = n } or nil plus a reason.
+local function FixedWant(fixed)
+	if fixed == "trinket" then
+		local id = GetInventoryItemID and GetInventoryItemID("player", 13)
+		if id then
+			return { kind = "item", id = id }
+		end
+		return nil, "no trinket in your first trinket slot"
+	elseif fixed == "potion" then
+		local id = PotionInBags()
+		if id then
+			return { kind = "item", id = id }
+		end
+		return nil, "no healing potion in your bags"
+	elseif fixed == "healthstone" then
+		if InBags(HEALTHSTONE_ITEM) then
+			return { kind = "item", id = HEALTHSTONE_ITEM }
+		end
+		return nil, "no Healthstone in your bags"
+	end
+	return nil
+end
+
+--- The full plan: one row per block place.
+--- row = { key, slot, command, want = {kind,id}|nil, action = "place"|"keep"|"refuse"|"skip", why, replaces }
+local function PlacePlan()
+	local res, class = Build()
+	if not res then
+		return nil, "no classified spells for " .. tostring(class)
+	end
+	local bars = ns.KeyBlockBars()
+	local rows = {}
+	for _, bar in ipairs(BLOCK) do
+		local info = BarInfo(bars[bar.id])
+		if not info then
+			return nil, ("action bar %s has no binding command"):format(tostring(bars[bar.id]))
+		end
+		for i, slotDef in ipairs(bar.slots) do
+			local row = {
+				key = slotDef.key, bar = bar.id, barNo = bars[bar.id],
+				slot = info.first + i - 1, command = info.prefix .. i,
+			}
+			local hit = res.occ[slotDef.key]
+			local want, why
+			if hit then
+				want = { kind = "spell", id = hit.spell.id }
+			elseif slotDef.fixed then
+				want, why = FixedWant(slotDef.fixed)
+			end
+			row.want = want
+			if not want then
+				row.action, row.why = "skip", why or "nothing for this place on this character"
+			else
+				local kind, id = Occupant(row.slot)
+				if kind == want.kind and id == want.id then
+					row.action = "keep"
+				elseif kind == "spell" and want.kind == "spell" and C_SpellBook and C_SpellBook.FindSpellOverrideByID
+					and id == select(2, pcall(C_SpellBook.FindSpellOverrideByID, want.id)) then
+					row.action = "keep" -- the talent replacement of the same button
+				elseif kind == nil then
+					row.action = "place"
+				elseif RESTORABLE[kind] then
+					row.action = "place"
+					row.replaces = { kind = kind, id = id, name = OccupantName(kind, id) }
+				else
+					row.action = "refuse"
+					row.why = ("holds a %s (%s) that could not be put back"):format(tostring(kind), OccupantName(kind, id))
+				end
+			end
+			rows[#rows + 1] = row
+		end
+	end
+	return rows, res
+end
+
+local function WantName(want)
+	if not want then
+		return "-"
+	end
+	return OccupantName(want.kind, want.id)
+end
+
+--- Is the Blizzard frame of this action bar on screen? (Bars 6/7 are off for most players.)
+local BAR_FRAME = { [2] = "MultiBarBottomLeft", [3] = "MultiBarBottomRight", [4] = "MultiBarRight",
+	[5] = "MultiBarLeft", [6] = "MultiBar5", [7] = "MultiBar6", [8] = "MultiBar7" }
+local function BarShown(n)
+	local f = BAR_FRAME[n] and _G[BAR_FRAME[n]]
+	if not f then
+		return nil
+	end
+	return f:IsShown() and true or false
+end
+
+--- @return string summary for the window, and prints the detail in chat
+function ns.KeyBlockPreview(quiet)
+	local rows, res = PlacePlan()
+	local p = "|cffffcc00Midnight Helper:|r "
+	if not rows then
+		if not quiet then
+			print(p .. "key block: " .. tostring(res))
+		end
+		return ns:L("KEYBLOCK_PLACE_NOTHING")
+	end
+	local n = { place = 0, keep = 0, refuse = 0, skip = 0, replace = 0 }
+	for _, r in ipairs(rows) do
+		n[r.action] = n[r.action] + 1
+		if r.action == "place" and r.replaces then
+			n.replace = n.replace + 1
+		end
+	end
+	if not quiet then
+		print(p .. "key block, dry run — nothing changed yet:")
+		for _, r in ipairs(rows) do
+			local where = ("bar %d button %d"):format(r.barNo, r.slot - BarInfo(r.barNo).first + 1)
+			local line
+			if r.action == "place" then
+				line = ("|cff40ff40place|r %s on %s%s"):format(WantName(r.want), where,
+					r.replaces and (" |cffffcc00(replaces " .. r.replaces.name .. ")|r") or "")
+			elseif r.action == "keep" then
+				line = ("|cff9d9d9dalready there|r %s"):format(WantName(r.want))
+			elseif r.action == "refuse" then
+				line = ("|cffff8080left alone|r %s: %s"):format(where, r.why)
+			else
+				line = ("|cff9d9d9dfree|r (%s)"):format(r.why or "")
+			end
+			print(("  %-8s %s"):format(KeyLabel(r.key), line))
+		end
+		local bars = ns.KeyBlockBars()
+		for _, id in ipairs({ "A", "B", "C" }) do
+			if BarShown(bars[id]) == false then
+				print(("  |cffff8080action bar %d is hidden|r — turn it on in Options > Action Bars, or the keys work on an invisible bar."):format(bars[id]))
+			end
+		end
+	end
+	return ns:L("KEYBLOCK_PLACE_SUMMARY_FMT"):format(n.place, n.replace, n.keep, n.refuse, n.skip)
+end
+
+--- Do it. Snapshot first; one undo puts back every slot and key we touched.
+function ns.KeyBlockPlace()
+	local p = "|cffffcc00Midnight Helper:|r "
+	if InCombatLockdown and InCombatLockdown() then
+		print(p .. "not in combat.")
+		return false
+	end
+	local rows, res = PlacePlan()
+	if not rows then
+		print(p .. "key block: " .. tostring(res))
+		return false
+	end
+	ns.db = ns.db or {}
+	if ns.db.keyBlockSnapshot then
+		print(p .. "the key block is already placed. |cffffffff/mh block undo|r first, then place again.")
+		return false
+	end
+	local snap = { slots = {}, binds = {}, at = time and time() or nil }
+	-- Snapshot everything we are about to touch, before touching anything.
+	for _, r in ipairs(rows) do
+		if r.action == "place" then
+			local kind, id = Occupant(r.slot)
+			snap.slots[#snap.slots + 1] = { slot = r.slot, kind = kind, id = id }
+		end
+		if r.action == "place" or r.action == "keep" then
+			snap.binds[#snap.binds + 1] = { key = r.key, was = GetBindingAction and GetBindingAction(r.key) or "" }
+		end
+	end
+	ns.db.keyBlockSnapshot = snap
+
+	local placed, bound, failed = 0, 0, {}
+	for _, r in ipairs(rows) do
+		if r.action == "place" then
+			local ok = pcall(function()
+				ClearCursor()
+				if r.want.kind == "spell" then
+					if C_Spell and C_Spell.PickupSpell then
+						C_Spell.PickupSpell(r.want.id)
+					else
+						PickupSpell(r.want.id)
+					end
+				elseif C_Item and C_Item.PickupItem then
+					C_Item.PickupItem(r.want.id)
+				else
+					PickupItem(r.want.id)
+				end
+				PlaceAction(r.slot)
+				ClearCursor()
+			end)
+			pcall(ClearCursor)
+			-- Verify by reading the slot back: the Single-Button Assistant taught us that a pickup
+			-- can silently do nothing (ApplyLayout.lua, 10 Aug 2026).
+			local kind = Occupant(r.slot)
+			if ok and kind == r.want.kind then
+				placed = placed + 1
+			else
+				failed[#failed + 1] = WantName(r.want)
+			end
+		end
+		if r.action == "place" or r.action == "keep" then
+			if SetBinding(r.key, r.command) then
+				bound = bound + 1
+			end
+		end
+	end
+	if SaveBindings and GetCurrentBindingSet then
+		pcall(SaveBindings, GetCurrentBindingSet())
+	end
+	print(p .. ("key block placed: %d buttons, %d keys. |cffffffff/mh block undo|r puts everything back."):format(placed, bound))
+	if #failed > 0 then
+		print("   |cffff8080did not land:|r " .. table.concat(failed, ", "))
+	end
+	return true
+end
+
+function ns.KeyBlockUndo()
+	local p = "|cffffcc00Midnight Helper:|r "
+	local snap = ns.db and ns.db.keyBlockSnapshot
+	if not snap then
+		print(p .. "nothing to undo — the key block was not placed.")
+		return false
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		print(p .. "not in combat.")
+		return false
+	end
+	for _, b in ipairs(snap.binds or {}) do
+		if b.was and b.was ~= "" then
+			SetBinding(b.key, b.was)
+		else
+			SetBinding(b.key)
+		end
+	end
+	local restored = 0
+	for _, s in ipairs(snap.slots or {}) do
+		local ok = pcall(function()
+			ClearCursor()
+			PickupAction(s.slot) -- lift ours off
+			ClearCursor()
+			if s.kind == "spell" and s.id then
+				if C_Spell and C_Spell.PickupSpell then
+					C_Spell.PickupSpell(s.id)
+				else
+					PickupSpell(s.id)
+				end
+				PlaceAction(s.slot)
+			elseif s.kind == "item" and s.id then
+				if C_Item and C_Item.PickupItem then
+					C_Item.PickupItem(s.id)
+				else
+					PickupItem(s.id)
+				end
+				PlaceAction(s.slot)
+			end
+			ClearCursor()
+		end)
+		pcall(ClearCursor)
+		if ok then
+			restored = restored + 1
+		end
+	end
+	if SaveBindings and GetCurrentBindingSet then
+		pcall(SaveBindings, GetCurrentBindingSet())
+	end
+	ns.db.keyBlockSnapshot = nil
+	print(p .. ("key block undone: %d slots and %d keys back as they were."):format(restored, #(snap.binds or {})))
+	return true
+end
+
+--------------------------------------------------------------------------------
 -- The picture
 --------------------------------------------------------------------------------
 
@@ -435,16 +769,40 @@ local function Ensure()
 			f.slots[slot.key] = b
 		end
 	end
-	f:SetSize(22 * 2 + 3 * barW + 2 * 22, 86 + 3 * SLOT + 2 * GAP + 18 + 96)
+	f:SetSize(22 * 2 + 3 * barW + 2 * 22, 86 + 3 * SLOT + 2 * GAP + 18 + 130)
 
 	f.unplaced = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	f.unplaced:SetPoint("BOTTOMLEFT", 22, 44)
+	f.unplaced:SetPoint("BOTTOMLEFT", 22, 84)
 	f.unplaced:SetPoint("RIGHT", -22, 0)
 	f.unplaced:SetJustifyH("LEFT")
-	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-	f.foot:SetPoint("BOTTOMLEFT", 22, 20)
+	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.foot:SetPoint("BOTTOMLEFT", 22, 48)
 	f.foot:SetPoint("RIGHT", -22, 0)
 	f.foot:SetJustifyH("LEFT")
+
+	-- Step 2 (5 Oct 2026): the dry run, the real thing, and the way back — in the window, where the
+	-- player decides, with the outcome said here too (chat is a record, not an answer in place).
+	local function Btn(key, x, onClick)
+		local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+		b:SetSize(200, 22)
+		b:SetPoint("BOTTOMLEFT", x, 18)
+		b:SetText(ns:L(key))
+		b:SetScript("OnClick", onClick)
+		return b
+	end
+	f.previewBtn = Btn("KEYBLOCK_BTN_PREVIEW", 22, function()
+		f.foot:SetText(ns.KeyBlockPreview(false))
+	end)
+	f.placeBtn = Btn("KEYBLOCK_BTN_PLACE", 22 + 210, function()
+		if ns.KeyBlockPlace() then
+			f.foot:SetText(ns:L("KEYBLOCK_PLACED_DONE"))
+		end
+	end)
+	f.undoBtn = Btn("KEYBLOCK_BTN_UNDO", 22 + 420, function()
+		if ns.KeyBlockUndo() then
+			f.foot:SetText(ns:L("KEYBLOCK_UNDO_DONE"))
+		end
+	end)
 
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)
@@ -506,7 +864,12 @@ local function Refresh(f)
 	else
 		f.unplaced:SetText("")
 	end
-	f.foot:SetText(ns:L("KEYBLOCK_FOOT"))
+	-- Say up front what "Place it" would do, so the button is never a surprise.
+	if ns.db and ns.db.keyBlockSnapshot then
+		f.foot:SetText(ns:L("KEYBLOCK_PLACED_STATE"))
+	else
+		f.foot:SetText(ns.KeyBlockPreview(true))
+	end
 end
 
 function ns.ShowKeyBlock()

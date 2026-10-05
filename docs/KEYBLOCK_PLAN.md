@@ -81,6 +81,21 @@ neer.** GEMETEN buiten het spel (scratch `kb_test.lua`, echte data, 40 specs): b
 zijn vooral utility (Mark of the Wild, Revive, Prowl, Flare, Misdirection; Prot Warrior 3, MM/SV Hunter 4-5, Guardian 5).
 ⚠️ Bekend: overloop vult óók plekken met een eigen taak (Shift-E racial, Shift-4) als die op dit personage leeg zijn.
 
+## Stap 2a gebouwd 5 okt (Rob: "A1 B1 C1") — NIET in het spel getest
+
+A1 overloop blijft vrije plekken van balk C vullen; B1 balk 5/6/7 mag overschreven worden met proefrit + undo; C1 MH zet
+trinket (slot 13), healing potion (eerste uit de consumables-data in je tas) en Healthstone (5512, als in tas) erop.
+`ns.KeyBlockPreview/Place/Undo` in KeyBlock.lua, knoppen in het venster + `/mh block place|go|undo`. Regels van
+ApplyLayout overgenomen: alleen spell/item overschrijven (macro/flyout/mount = "left alone"), elke plaatsing teruggelezen,
+snapshot per slot en per toets in `ns.db.keyBlockSnapshot`, één keer neerzetten tot undo. Toetsen zonder iets eronder
+worden NIET gekoppeld (Shift 2 houdt zijn oude functie). Waarschuwt als balk 5/6/7 verborgen is.
+
+## Stap 2b (volgende): balken zelf neerzetten via Edit Mode
+
+3 rijen × 4 per balk, A-B-C naast elkaar; pet bar, stance bar, possess/extra action button/zone ability een vaste
+plek eromheen (Rob 5 okt: "ook de game extra balken in ogenschouw nemen"). Eerst een plaatje voor Rob. Edit Mode-proef
+(export → import → reload) is 5 okt geslaagd. ⚠️ Pet bar heeft standaard Ctrl 1-10; het blok neemt Ctrl 1-3 over.
+
 ## Open
 
 1. ✅ Toetsen van balk C (4 okt, optie 1). 2. ✅ Taak van Q (grote cooldown; data volgt). 3. ✅ uitgezocht (zie Techniek): Blizzard zelf, EllesmereUI uitleg.

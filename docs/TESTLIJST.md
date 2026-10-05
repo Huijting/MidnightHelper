@@ -60,6 +60,19 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt — toetsenblok stap 2a: neerzetten (Rob: "A1 B1 C1")
+
+Niet in een gevecht. Begin met je **Paladin** (zijn balken ken je het best).
+- [ ] `/mh block`: onderaan staan 3 knoppen. Daarboven een regel "Place it would put N buttons on your bars…". Klopt
+  die met wat je verwacht?
+- [ ] Klik **"Show what would change"**: in de chat per toets wat er gebeurt (place / already there / left alone / free).
+  Staat er "action bar 6 is hidden"? Zet die balken dan aan (Options → Action Bars) en kijk opnieuw.
+- [ ] Klik **"Place it on bars 5, 6 and 7"**. Staan de spreuken op balk 5-7 zoals op het plaatje? Werken de toetsen
+  (1 = Judgment, E = Rebuke, Q = Sentinel, T = je potion als je er een hebt, G = je trinket)?
+- [ ] Klik **"Undo"**: staat alles weer zoals het was (balken én toetsen, ook Shift 1-6 en Ctrl 1-3)? Een macro die op
+  balk 5-7 stond hoort er nooit afgehaald te zijn ("left alone").
+- ⚠️ Balken staan nog in hun oude vorm (1 rij van 12); 3 rijen × 4 naast elkaar is stap 2b.
+
 ## 🆕 5 okt — voor 4.6.1: healers/DPS op Stay alive (Rob: "advies volgen")
 
 - [x] **Druid Balance/Feral/Resto:** Stay alive heeft **Bear Form** als grote noodknop ("no cooldown, but you deal almost

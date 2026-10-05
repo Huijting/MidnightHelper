@@ -1,5 +1,10 @@
 # Midnight Helper — waar we staan
 
+## ⌨️ 5 okt — volgende release pas met toetsenblok stap 2 (Rob: "De volgende wijzigingen gaan door als we ook het blok en de keys dat gedeelte af hebben")
+
+Stap 2a (neerzetten + undo) gebouwd, niet getest → TESTLIJST. Stap 2b (Edit Mode: 3×4, pet/stance-balken) volgt, eerst
+een plaatje. Details in `docs/KEYBLOCK_PLAN.md`.
+
 ## 🚀 5 okt — 4.6.0 uitgebracht (Rob: "beide goed, go")
 
 ✅ Healers/DPS op Stay alive GEBOUWD voor 4.6.1 (Rob: "advies volgen"): Flash Heal (Priests, survivalRequires 193063
