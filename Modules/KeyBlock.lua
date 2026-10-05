@@ -672,6 +672,47 @@ local function PlacePlan()
 			end
 		end
 	end
+
+	-- What found no place on A, B or C goes on a FREE Alt key of block D (Rob, 5 Oct 2026, on his Guardian:
+	-- "ja, bouw het zo met blok D"). Mark of the Wild and Revive had "no room" while A/B/C still had empty
+	-- places; putting them there would break "same job, same key" (5 is always a rotation button). D is the
+	-- player's own bar, so only places that are empty AFTER parking are used, and a spell that already sits
+	-- somewhere on D is not added again. Undo lifts it off like any placed button.
+	local dInfo = BarInfo(bars.D)
+	if dInfo and res.unplaced and #res.unplaced > 0 then
+		local onD = {}
+		for b = 1, 12 do
+			local kind, id = Occupant(dInfo.first + b - 1)
+			if kind == "spell" and id then
+				onD[id] = true
+			end
+		end
+		local freeD = {}
+		for _, spot in ipairs(free) do
+			if spot.bar == bars.D then
+				freeD[spot.slot] = true
+			end
+		end
+		local dRows = {}
+		for _, r in ipairs(rows) do
+			if r.bar == "D" and r.action == "own" and freeD[r.slot] then
+				dRows[#dRows + 1] = r
+			end
+		end
+		local n = 0
+		for _, s in ipairs(res.unplaced) do
+			if s.id and not onD[s.id] then
+				n = n + 1
+				local r = dRows[n]
+				if not r then
+					break
+				end
+				r.want = { kind = "spell", id = s.id }
+				r.action, r.leftover = "place", true
+				onD[s.id] = true
+			end
+		end
+	end
 	return rows, res
 end
 

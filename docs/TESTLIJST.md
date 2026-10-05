@@ -60,6 +60,15 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt laat — wat op A/B/C geen plek heeft, gaat naar een VRIJE Alt-toets op blok D (Rob: "ja, bouw het zo")
+
+Rob: "het zijn inderdaad 2 macros" (Moonfire/Dispel op D = macro's, MH laat macro's staan). Gebouwd in `PlacePlan`:
+na het opzij zetten krijgen spreuken zonder plek (Mark of the Wild, Revive, Arcane Intellect, rez...) een LEGE plek op D;
+staat de spreuk al op D, dan niet nog eens. Undo haalt ze eraf. Tekst onderaan zegt het nu ("komen op een vrije Alt-toets").
+- [ ] Guardian: Undo → Zet het op balk 5, 6 en 7 → staan Mark of the Wild en Revive nu op een Alt-toets in D?
+- [ ] Je eigen spul op D (macro's, Healthstone, Flask) blijft gewoon staan?
+- [ ] Undo: verdwijnen ze weer van D?
+
 ## 🔍 5 okt laat — Robs Guardian Druid (Purlymixanox): blok goed, 2 zonder plek, 5 "onbekend"
 
 GEMETEN (screenshot): bear-rotatie op 1-4, Barkskin/Ironfur/Survival Instincts, Prowl F3, Dash Shift-F1 — goed.
