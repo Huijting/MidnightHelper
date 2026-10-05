@@ -17,7 +17,10 @@ Character, SaveLayouts + OnLayoutAdded + SetActiveLayout, indexen tellen presets
 EditModeManager.lua). Rob MAT: actieve layout is per spec (Prot 5, Ret 7, Holy 1). Terug = SetActiveLayout(preset), per
 GUID:spec in `keyBlockPresetBack`. Elke layout eigen weg terug: `keyBlockLayoutSaved[naam]`, `keyBlockLayoutsOn[naam]`.
 OPEN: Unmeasured of het invoegen werkt met de GetLayouts-lijst zonder presets (MH's vorm) — Robs test beslist.
-Vertaalronde KEYBLOCK_* (mh-writer) gestart 5 okt; daarna site-chat de 5 vertalingen van KEYBLOCK_BTN_EXPORT sturen.
+Vertaalronde KEYBLOCK_* (mh-writer) KLAAR 5 okt: alle 91 KEYBLOCK_* + 4 MH_SETUP_*_BLOCK in de/fr/es/pt/it
+(Translations2026.lua, eigen vertaling, niet door moedertaalsprekers nagekeken; fr: setup-venster "vous", blok "tu").
+Open van de vertaler: KEYBLOCK_TIP_REFUSE_FMT krijgt Engelse redenen uit KeyBlock.lua; LAYOUT_DONE/ALREADY noemen de
+oude knopnaam BTN_LAYOUT_UNDO terwijl de knop BTN_LAYOUT_UNDO_FMT toont. Nieuwe KEYBLOCK-keys na dit punt: opnieuw vertalen.
 Spiekbrief (Rob 5 okt: route 1 + 3; route 2 = het /mh block-venster zelf) — addon-kant GEBOUWD, NIET GETEST:
 `ns.BuildKeyBlockExport` / `/mh block export` / knop in het venster, formaat `MH-KEYBLOCK 1` (contract met de site,
 beschreven bovenaan die functie). Site-kant (plakpagina + per-spec standaardblok voor wie geen addon heeft) = site-chat.
