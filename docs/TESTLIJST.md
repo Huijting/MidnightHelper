@@ -62,10 +62,10 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 
 ## 🆕 5 okt middag — laatste twee voor 4.6.0
 
-- [ ] `/reload`, `/mh play` → **Consumables** (Prot Paladin): Health Potion zegt nog maar één keer "Silvermoon Health
-  Potion" bij "Also"?
-- [ ] Op **Stay alive**, **Consumables**, **Dispel** en **Group** staat nu onderaan ook de blauwe regel "This card on
-  the website". Klik op Stay alive: eindigt de link op **`#alive`**? (Op "Your buttons" zonder `#`.)
+- [x] `/reload`, `/mh play` → **Consumables** (Prot Paladin): Health Potion zegt nog maar één keer "Silvermoon Health
+  Potion" bij "Also"? ✅ Rob 5 okt (screenshot).
+- [x] Op **Stay alive**, **Consumables**, **Dispel** en **Group** staat nu onderaan ook de blauwe regel "This card on
+  the website". Klik op Stay alive: eindigt de link op **`#alive`**? ✅ Rob 5 okt: "beide goed, go".
 
 ## ✅ 5 okt middag — Rob testte (Mage, Druid, achievement-lijst)
 

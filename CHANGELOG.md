@@ -4,8 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## 4.6.0
 
-📌 **2026-10-04, KLAARGEZET, NIET GETAGD** (Rob: "Release 4.6.0 klaarzetten … NIET pushen of taggen tot ik go zeg").
-Notitie in `docs/CURSEFORGE_4.6.0.md` (identiek aan `RELEASE_NOTES.md`). Open testpunten: TESTLIJST 3 en 4 okt.
+📌 **2026-10-05, als release (Rob: "beide goed, go").** Klaargezet 4 okt, aangevuld 5 okt. Notitie in
+`docs/CURSEFORGE_4.6.0.md` (identiek aan `RELEASE_NOTES.md`). Getest door Rob 5 okt (TESTLIJST 5 okt).
 
 - **NEW: Group tab** op de speelkaart (`Modules/GroupPlan.lua`, `/mh group`): 34 van 40 specs, 65 notes, 7 talen.
 - **Speelkaarten:** alle 40 nagelopen (naloop #7 + E-ronde), Prot Paladin stap 5 Hand of Reckoning, Arcane stap 5

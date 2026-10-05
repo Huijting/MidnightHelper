@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🚀 5 okt — 4.6.0 uitgebracht (Rob: "beide goed, go")
+
+Gepusht + tag `v4.6.0` (start de CurseForge-upload). Site-chat geseind (nachttaak bouwt /play/ uit de tag). Volgende:
+4.6.1 = woordkeus per taal (hieronder) + healers/DPS op Stay alive (`scratchpad\dpsheal_survival.json`, Rob kiest);
+4.7.0 = toetsenblok stap 2 ("zet neer"; eerst beslissen wat overloop doet), Defensive Stance/Earth Shield/Soulburn,
+achievement-lijst deel 2 (gemengde groepen). 13/14 okt 12.1.5, 20 okt crest-cap.
+
 ## 🌍 5 okt — woordkeus per taal: packs naar de clienttermen (Rob: "a", NA 4.6.0)
 
 GEMETEN in wago GlobalStrings (5 okt) wat de client toont; site is al omgezet (live). Packs nog niet. Te doen (mh-writer,
