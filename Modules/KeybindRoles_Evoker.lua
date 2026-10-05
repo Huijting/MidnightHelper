@@ -77,10 +77,10 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- Card: -20% AREA damage for you + 4 allies, 2 min (WH-spell 374227); no help against one big hit.
 	["Zephyr"] = { id = 374227, role = "defensive_3", priority = 1, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline); card: small sinds 3 okt 2026 (alleen tegen AoE)
 	-- Dispel / CC (V-cluster)
-	["Sleep Walk"] = { category = "dispel_cc", priority = 1 },           -- V (incapacitate CC, baseline)
-	["Expunge"] = { category = "dispel_cc", priority = 2 },              -- Shift+V (poison-dispel, baseline)
-	["Cauterizing Flame"] = { category = "dispel_cc", priority = 3 },    -- Ctrl+V (bleed/poison/curse/disease-dispel, overflow)
-	["Landslide"] = { category = "dispel_cc", priority = 4 },            -- T (root-CC, baseline; draft: Interrupt_CCAndCD_Tracker)
+	["Sleep Walk"] = { id = 360806, category = "dispel_cc", priority = 1 },           -- V (incapacitate CC, baseline)
+	["Expunge"] = { id = 365585, category = "dispel_cc", priority = 2 },              -- Shift+V (poison-dispel, baseline)
+	["Cauterizing Flame"] = { id = 374251, category = "dispel_cc", priority = 3 },    -- Ctrl+V (bleed/poison/curse/disease-dispel, overflow)
+	["Landslide"] = { id = 358385, category = "dispel_cc", priority = 4 },            -- T (root-CC, baseline; draft: Interrupt_CCAndCD_Tracker)
 	-- Self-heals (heal-ankers)
 	-- Card: the strongest instant heal first; on an ally it flies you to them (IV-Dev).
 	["Verdant Embrace"] = { id = 360995, role = "heal_quick", priority = 1, blockAs = { [1468] = { category = "main_rotation", priority = 1, bindKey = "3" } }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- F2 heal-anker: instant self-heal (baseline)
@@ -88,26 +88,26 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Living Flame"] = { id = 361469, role = "heal_ooc", priority = 1, blockAs = { [1468] = { category = "main_rotation", priority = 2, bindKey = "5" } }, survival = "heal", survivalOrder = 3 }, -- F3 heal-anker: out-of-combat/filler self-heal (baseline)
 	-- Renewing Blaze removed 17 Sep: passive since 12.0 (Wiki-RB), see the header.
 	-- Utility (R / F / T)
-	["Blessing of the Bronze"] = { category = "utility", priority = 1 }, -- R/F (raid-buff, baseline)
-	["Fury of the Aspects"] = { category = "cooldown", priority = 5 },   -- Shift+F1 (groeps-Bloodlust, baseline)
-	["Tip the Scales"] = { category = "cooldown", priority = 6 },        -- F1-familie (empower-instant-modifier, ~2min offensive CD; baseline)
+	["Blessing of the Bronze"] = { id = 364342, category = "utility", priority = 1 }, -- R/F (raid-buff, baseline)
+	["Fury of the Aspects"] = { id = 390386, category = "cooldown", priority = 5 },   -- Shift+F1 (groeps-Bloodlust, baseline)
+	["Tip the Scales"] = { id = 370553, category = "cooldown", priority = 6 },        -- F1-familie (empower-instant-modifier, ~2min offensive CD; baseline)
 
 	-- ============================================================
 	-- DEVASTATION (1467) - ranged dps
 	-- ============================================================
 	-- Builders / main_rotation (Azure Strike is Deva-builder + Aug-AoE-tweeling; zie gedeeld blok onderaan)
-	["Fire Breath"] = { category = "main_rotation", priority = 2, specs = { 1467, 1468, 1473 } }, -- 3/Shift+4 (empower-builder; ook Pres/Aug)
+	["Fire Breath"] = { id = 357208, category = "main_rotation", priority = 2, specs = { 1467, 1468, 1473 } }, -- 3/Shift+4 (empower-builder; ook Pres/Aug)
 	-- Spenders
-	["Disintegrate"] = { category = "spender", priority = 1, specs = { 1467, 1468 } }, -- Pres too since 5 Oct 2026 (IV Pres 12.1; wago 356995)         -- 4 (Essence-spender, channel)
-	["Eternity Surge"] = { category = "spender", priority = 2, specs = { 1467 } },       -- 5 (empower-spender, ST-piercing)
+	["Disintegrate"] = { id = 356995, category = "spender", priority = 1, specs = { 1467, 1468 } }, -- Pres too since 5 Oct 2026 (IV Pres 12.1; wago 356995)         -- 4 (Essence-spender, channel)
+	["Eternity Surge"] = { id = 359073, category = "spender", priority = 2, specs = { 1467 } },       -- 5 (empower-spender, ST-piercing)
 	-- AoE (Shift-tweelingen)
 	["Azure Sweep"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 1467 } },  -- AoE (Shift-tweeling Azure Strike)
-	["Pyre"] = { category = "spender", priority = 6, bindKey = "Shift+4", specs = { 1467 } },               -- AoE-spender (Shift-tweeling Disintegrate)
+	["Pyre"] = { id = 357211, category = "spender", priority = 6, bindKey = "Shift+4", specs = { 1467 } },               -- AoE-spender (Shift-tweeling Disintegrate)
 	-- Firestorm removed 17 Sep: passive in 12.0 (WH-pp-Dev).
 	-- Grootste CD (F1) + extra CD's
-	["Dragonrage"] = { blockQ = { [1467] = true }, role = "cooldown_bar", priority = 1, specs = { 1467 } },          -- F1 (grootste CD: burst-venster)
+	["Dragonrage"] = { id = 375087, blockQ = { [1467] = true }, role = "cooldown_bar", priority = 1, specs = { 1467 } },          -- F1 (grootste CD: burst-venster)
 	-- Utility (F3)
-	["Oppressing Roar"] = { category = "utility", priority = 2, specs = { 1467 } },      -- F3 (groeps-fear/CC-duur-extender)
+	["Oppressing Roar"] = { id = 372048, category = "utility", priority = 2, specs = { 1467 } },      -- F3 (groeps-fear/CC-duur-extender)
 
 	-- ============================================================
 	-- PRESERVATION (1468) - healer
@@ -129,29 +129,29 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- Card: it heals you too (IV-Pres). Baseline for Dev/Aug per IV-Dev, but widening specs would move keys.
 	["Emerald Blossom"] = { id = 355913, category = "raid_heal", priority = 1, bindKey = "4", specs = { 1468 }, survival = "heal", survivalOrder = 2 }, -- Essence-spender, AoE-heal
 	-- Heal-COOLDOWNS (v6 SS6): grootste = cooldown_bar, rest category="cooldown"
-	["Dream Flight"] = { role = "cooldown_bar", priority = 1, specs = { 1468 } },        -- F1 (grootste heal-CD: grote burst-raid-heal)
-	["Stasis"] = { category = "cooldown", priority = 2, specs = { 1468 } },              -- Shift+F1 (banked-heals major CD)
+	["Dream Flight"] = { id = 359816, role = "cooldown_bar", priority = 1, specs = { 1468 } },        -- F1 (grootste heal-CD: grote burst-raid-heal)
+	["Stasis"] = { id = 370537, category = "cooldown", priority = 2, specs = { 1468 } },              -- Shift+F1 (banked-heals major CD)
 	-- Emerald Communion removed 17 Sep: PvP talent only in 12.0 (Wiki-EC).
-	["Rewind"] = { blockQ = { [1468] = true }, category = "cooldown", priority = 4, specs = { 1468 } },              -- F1-familie (grote heal-CD: rewind group-health; vorige ronde -> laten)
-	["Time Dilation"] = { category = "cooldown", priority = 5, specs = { 1468 } },       -- external heal-CD (357170, damage-delay op ally; SpellCategories defensive)
+	["Rewind"] = { id = 363534, blockQ = { [1468] = true }, category = "cooldown", priority = 4, specs = { 1468 } },              -- F1-familie (grote heal-CD: rewind group-health; vorige ronde -> laten)
+	["Time Dilation"] = { id = 357170, category = "cooldown", priority = 5, specs = { 1468 } },       -- external heal-CD (357170, damage-delay op ally; SpellCategories defensive)
 	-- Utility
-	["Source of Magic"] = { category = "utility", priority = 2, specs = { 1468 } },      -- R (mana-support op ally)
+	["Source of Magic"] = { id = 369459, category = "utility", priority = 2, specs = { 1468 } },      -- R (mana-support op ally)
 
 	-- ============================================================
 	-- AUGMENTATION (1473) - support/buff dps
 	-- ============================================================
 	-- "Builders" / kernbuffs (hoofdrotatie, elke GCD-cyclus)
-	["Ebon Might"] = { category = "main_rotation", priority = 1, specs = { 1473 } },     -- 1 (kern-supportbuff)
-	["Prescience"] = { category = "main_rotation", priority = 2, specs = { 1473 } },     -- 2 (target-buff)
+	["Ebon Might"] = { id = 395152, category = "main_rotation", priority = 1, specs = { 1473 } },     -- 1 (kern-supportbuff)
+	["Prescience"] = { id = 409311, category = "main_rotation", priority = 2, specs = { 1473 } },     -- 2 (target-buff)
 	-- Spenders
-	["Eruption"] = { category = "spender", priority = 1, specs = { 1473 } },             -- 4 (Essence-spender, vervangt Disintegrate)
-	["Upheaval"] = { category = "spender", priority = 2, specs = { 1473 } },             -- 5 (empower-spender/AoE-launch)
+	["Eruption"] = { id = 395160, category = "spender", priority = 1, specs = { 1473 } },             -- 4 (Essence-spender, vervangt Disintegrate)
+	["Upheaval"] = { id = 396286, category = "spender", priority = 2, specs = { 1473 } },             -- 5 (empower-spender/AoE-launch)
 	-- Grootste CD (F1) + extra CD's
-	["Breath of Eons"] = { blockQ = { [1473] = true }, role = "cooldown_bar", priority = 1, specs = { 1473 } },      -- F1 (grootste CD: gebundelde raid-damage)
+	["Breath of Eons"] = { id = 403631, blockQ = { [1473] = true }, role = "cooldown_bar", priority = 1, specs = { 1473 } },      -- F1 (grootste CD: gebundelde raid-damage)
 	-- Defy Fate removed 17 Sep: a passive cheat-death, not a button (IV-Aug).
 	-- Utility
-	["Blistering Scales"] = { category = "utility", priority = 2, specs = { 1473 } },    -- R (ally-defensive-buff + thorns)
-	["Time Skip"] = { category = "utility", priority = 3, specs = { 1473 } },            -- T (groep-cooldown-reset support)
+	["Blistering Scales"] = { id = 360827, category = "utility", priority = 2, specs = { 1473 } },    -- R (ally-defensive-buff + thorns)
+	["Time Skip"] = { id = 404977, category = "utility", priority = 3, specs = { 1473 } },            -- T (groep-cooldown-reset support)
 
 	-- ============================================================
 	-- GEDEELDE DPS-SPELLS over meerdere specs
@@ -159,6 +159,6 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- Living Flame doet dubbel dienst als filler-damage (Deva/Aug 3, Pres 5) EN als heal_ooc-anker
 	-- hierboven. Als filler-damage staat het onder heal_ooc (baseline) verwerkt; hier geen dubbele key.
 	-- Azure Strike is Devastation-builder (2) en Augmentation-AoE-tweeling (Shift+3) - zelfde spell:
-	["Azure Strike"] = { category = "main_rotation", priority = 1, specs = { 1467, 1473 } }, -- Deva builder / Aug AoE-tweeling
+	["Azure Strike"] = { id = 362969, category = "main_rotation", priority = 1, specs = { 1467, 1473 } }, -- Deva builder / Aug AoE-tweeling
 }
 

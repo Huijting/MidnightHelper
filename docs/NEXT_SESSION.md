@@ -3,7 +3,17 @@
 ## 🚀 5 okt — 4.7.0 UITGEBRACHT (Rob: "een hele dikke go"): main + tag `v4.7.0` (45fd060) gepusht, site-chat geseind
 
 ⚠️ Datums in deze sessie stonden eerst als "6 okt"; het was 5 okt (GEMETEN: GitHub run created_at 2026-10-05). Verbeterd.
-Volgende: id-ronde (KeybindRoles, ±650 plekken, per klasse mh-research via wago.tools, daarna testronde per klasse).
+✅ Id-ronde GEDAAN 5 okt avond (Rob: "begin maar"): 3 × mh-research (wago.tools live 12.1.0.69933 + Wowhead), 387
+regels: 361 sure → toegepast, 10 unsure + 16 notfound NIET. Lijsten: scratchpad ids_g1/g2/g3.tsv (sessie eae6b59e) —
+kopie in `docs/id_round_2026-10-05/`. `KeybindAutoMap` nu NAAM eerst, dan id (een override meldt zich onder het base-id
+en zou met een nieuw id de verkeerde entry pakken). keyblock_specs.json: 1019/1064 plekken met id (was 415; GEMETEN),
+tool valt terug op survivalId[spec]. Lint #20: 137 → 19.
+OPEN (Rob kiest): 16 notfound = spreuken die niet meer bestaan in Midnight (Steel Trap, Stampede, Chimaera Shot, Bursting
+Shot, Living Bomb, Nether Tempest, Shear, Fel Eruption, Call Felhunter, Doom, Dimensional Rift, Jadefire Stomp MW,
+Flamefang Pitch, Wyvern Sting, Sigil of Doom, Healthstone=item) staan nog als entries en dus ook op het site-standaardblok.
+Opruimen = aparte ronde. Unsure (keuze-talenten met 2 ids, per-spec ids): Flamestrike, Blizzard, Earthquake, Rain of Fire,
+Ascendance, Execute, Primal Rage, Azure Sweep, Mark for Death, Demonbolt. Mogelijk foute `specs`: Stormkeeper/Elemental
+Blast (alleen Elemental gelinkt), Meteor (alleen Fire). Na Robs test: site-chat seinen om /keyblock/ te herbouwen.
 
 (Oorspronkelijke klaarzet-notitie:) Rob: "doe de release maar eerst", spell-ids daarna.
 

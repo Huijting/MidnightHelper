@@ -64,67 +64,67 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 
 	-- Movement / utility_primary (GAP_CLOSER + guide.lua both specs)
 	["Vengeful Retreat"]   = { id = 198793, role = "utility_primary", priority = 2, bindKey = "Shift+Q", survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- backward jump (guide.lua havoc + venge)
-	["Felblade"]           = { role = "utility_primary", priority = 3, bindKey = "Ctrl+Q" },  -- gap-closer/builder (GAP_CLOSER 232893; RangeReferences)
+	["Felblade"]           = { id = 232893, role = "utility_primary", priority = 3, bindKey = "Ctrl+Q" },  -- gap-closer/builder (GAP_CLOSER 232893; RangeReferences)
 	["Fel Rush"]           = { id = 195072, role = "utility_primary", priority = 1, specs = { 577 }, survival = "escape", survivalOrder = 1 }, -- Havoc kern-movement/dash (GAP_CLOSER DEMONHUNTER_1 = 195072; ontbrak, toegevoegd)
 	["Infernal Strike"]    = { id = 189110, role = "utility_primary", priority = 1, specs = { 581 }, survival = "escape", survivalOrder = 1 }, -- Vengeance kern-movement/gap-closer (GAP_CLOSER DEMONHUNTER_2 = 189110; ontbrak, toegevoegd)
 
 	-- Grote CD / cooldown_bar F1 (SpellDB THE_HUNT DEMONHUNTER_1/2 = {370965})
-	["The Hunt"]           = { role = "cooldown_bar", priority = 2, bindKey = "Shift+F1" }, -- baseline major CD (beide specs)
+	["The Hunt"]           = { id = 370965, role = "cooldown_bar", priority = 2, bindKey = "Shift+F1" }, -- baseline major CD (beide specs)
 
 	-- CC / dispel_cc (InterruptAbilities 179057/211881; SpellCategories CROWD_CONTROL)
 	-- Chaos Nova is Havoc/Vengeance only since 21 Sep 2026: Devourer gets Void Nova instead
 	-- ("only available to Devourer; Havoc and Vengeance demon hunters instead have access to
 	-- Chaos Nova", warcraft.wiki.gg/wiki/Void_Nova). Without `specs` it also handed Devourer a key
 	-- for a spell that spec cannot learn.
-	["Chaos Nova"]         = { category = "dispel_cc", priority = 1, specs = { 577, 581 }, alsoStop = "stun" }, -- AoE stun (InterruptAbilities kind="cc" mech=12)
+	["Chaos Nova"]         = { id = 179057, category = "dispel_cc", priority = 1, specs = { 577, 581 }, alsoStop = "stun" }, -- AoE stun (InterruptAbilities kind="cc" mech=12)
 	["Sigil of Misery"]    = { id = 207684, category = "dispel_cc", priority = 2, bindKey = "Shift+V", alsoStop = "fear" },  -- AoE fear (SpellCategories 207684; beide specs); stops a cast too (JustAC 5.5.0 interrupt list, mech=2)
-	["Imprison"]           = { category = "dispel_cc", priority = 3, bindKey = "Ctrl+V" },   -- cage (SpellCategories 217832)
-	["Consume Magic"]      = { category = "dispel_cc", priority = 4 },                       -- offensieve magic-dispel (SpellArchetypes 1277738; beide specs)
+	["Imprison"]           = { id = 217832, category = "dispel_cc", priority = 3, bindKey = "Ctrl+V" },   -- cage (SpellCategories 217832)
+	["Consume Magic"]      = { id = 278326, category = "dispel_cc", priority = 4 },                       -- offensieve magic-dispel (SpellArchetypes 1277738; beide specs)
 
 	-- Utility (SpellCategories UTILITY 185245 Torment / 131347 Glide)
-	["Torment"]            = { category = "taunt", priority = 1 }, -- F: taunt (baseline; eigen kaart)
-	["Spectral Sight"]     = { category = "utility", priority = 5 },       -- see-through-walls utility (baseline)
-	["Glide"]              = { category = "utility", priority = 8 },       -- val-vertraging (SpellCategories UTILITY 131347)
+	["Torment"]            = { id = 185245, category = "taunt", priority = 1 }, -- F: taunt (baseline; eigen kaart)
+	["Spectral Sight"]     = { id = 188501, category = "utility", priority = 5 },       -- see-through-walls utility (baseline)
+	["Glide"]              = { id = 131347, category = "utility", priority = 8 },       -- val-vertraging (SpellCategories UTILITY 131347)
 
 	--==============================================================
 	-- HAVOC (577)
 	--==============================================================
 	-- Builders / kernrotatie (SpellArchetypes 162794/201427/198013/258920; guide.lua havoc)
-	["Demon's Bite"]      = { category = "main_rotation", priority = 1, specs = { 577 } }, -- fury-builder (baseline Havoc generator; Felblade-alt buiten meta)
-	["Chaos Strike"]      = { category = "main_rotation", priority = 2, specs = { 577 } }, -- fury-spender ST (SpellArchetypes 162794; guide.lua {162794})
-	["Annihilation"]      = { category = "main_rotation", priority = 2, specs = { 577 } }, -- Meta-vorm van Chaos Strike (SpellArchetypes 201427; guide.lua {201427})
-	["Immolation Aura"]   = { category = "main_rotation", priority = 3 },                  -- AoE + fury (SpellArchetypes 258920; BEIDE specs -> geen specs-tag)
-	["Eye Beam"]          = { category = "main_rotation", priority = 4, specs = { 577 } }, -- channel + Meta-trigger (SpellArchetypes 198013; guide.lua {198013})
+	["Demon's Bite"]      = { id = 162243, category = "main_rotation", priority = 1, specs = { 577 } }, -- fury-builder (baseline Havoc generator; Felblade-alt buiten meta)
+	["Chaos Strike"]      = { id = 162794, category = "main_rotation", priority = 2, specs = { 577 } }, -- fury-spender ST (SpellArchetypes 162794; guide.lua {162794})
+	["Annihilation"]      = { id = 201427, category = "main_rotation", priority = 2, specs = { 577 } }, -- Meta-vorm van Chaos Strike (SpellArchetypes 201427; guide.lua {201427})
+	["Immolation Aura"]   = { id = 258920, category = "main_rotation", priority = 3 },                  -- AoE + fury (SpellArchetypes 258920; BEIDE specs -> geen specs-tag)
+	["Eye Beam"]          = { id = 198013, category = "main_rotation", priority = 4, specs = { 577 } }, -- channel + Meta-trigger (SpellArchetypes 198013; guide.lua {198013})
 	-- Spenders (guide.lua {185123} ranged filler)
-	["Throw Glaive"]      = { category = "spender", priority = 1, specs = { 577 } },       -- ranged filler-spender (SpellArchetypes 185123; guide.lua {185123})
+	["Throw Glaive"]      = { id = 185123, category = "spender", priority = 1, specs = { 577 } },       -- ranged filler-spender (SpellArchetypes 185123; guide.lua {185123})
 	-- AoE (guide.lua {188499}/{210152} Blade Dance/Death Sweep; Shift+N-anker)
-	["Blade Dance"]       = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- AoE (SpellArchetypes 188499; guide.lua {188499})
-	["Death Sweep"]       = { excludes = "Blade Dance", category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- Meta-vorm van Blade Dance (SpellArchetypes 210152; guide.lua {210152})
+	["Blade Dance"]       = { id = 188499, category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- AoE (SpellArchetypes 188499; guide.lua {188499})
+	["Death Sweep"]       = { id = 210152, excludes = "Blade Dance", category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- Meta-vorm van Blade Dance (SpellArchetypes 210152; guide.lua {210152})
 	-- Kleine def (SpellCategories DEFENSIVE 198589; SpellDB fallback DEMONHUNTER {198589,...})
 	-- Card: 25% DR for 10 s on a 1 min cooldown — press it before a hit (IV-HAV, IV-DEV).
 	["Blur"]              = { id = 198589, role = "defensive_1", priority = 1, specs = { 577, 1480 }, survival = "small", survivalOrder = 1 }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
 	-- Grote def (SpellDB fallback DEMONHUNTER {198589,196718}; Darkness = raid-wall)
-	["Darkness"]          = { category = "defensive", priority = 4 }, -- card: weg sinds 3 okt 2026 (grondzone, geen persoonlijke noodknop; zelfde regel als Anti-Magic Zone). -- AoE avoidance-koepel; baseline beide specs (SpellDB DEMONHUNTER class-level 196718). category=defensive i.p.v. defensive_3, zodat de persoonlijke C-def (Blur/Fiery Brand) het anker houdt en Darkness naar een overflow-slot gaat -- card: 5 min, stand in the dome
-	["Sigil of Silence"]  = { category = "dispel_cc", priority = 1, specs = { 581 }, alsoStop = "silence" }, -- Veng AoE-silence sigil (JustAC SpellCategories CROWD_CONTROL 202137) -> Spec 08 alsoStop
+	["Darkness"]          = { id = 196718, category = "defensive", priority = 4 }, -- card: weg sinds 3 okt 2026 (grondzone, geen persoonlijke noodknop; zelfde regel als Anti-Magic Zone). -- AoE avoidance-koepel; baseline beide specs (SpellDB DEMONHUNTER class-level 196718). category=defensive i.p.v. defensive_3, zodat de persoonlijke C-def (Blur/Fiery Brand) het anker houdt en Darkness naar een overflow-slot gaat -- card: 5 min, stand in the dome
+	["Sigil of Silence"]  = { id = 202137, category = "dispel_cc", priority = 1, specs = { 581 }, alsoStop = "silence" }, -- Veng AoE-silence sigil (JustAC SpellCategories CROWD_CONTROL 202137) -> Spec 08 alsoStop
 	-- Netherwalk deleted 17 Sep 2026: not in the 12.1 Havoc trees (IV-HAV).
 	-- Grootste CD / cooldown_bar F1 (SpellDB BURST DEMONHUNTER_1 = {191427})
-	["Metamorphosis"]     = { blockQ = { [577] = true }, role = "cooldown_bar", priority = 1, specs = { 577 } },      -- Havoc burst-vorm (SpellDB DEMONHUNTER_1 191427)
+	["Metamorphosis"]     = { id = 191427, blockQ = { [577] = true }, role = "cooldown_bar", priority = 1, specs = { 577 } },      -- Havoc burst-vorm (SpellDB DEMONHUNTER_1 191427)
 	-- Extra CD's (guide.lua {258860} Essence Break Fel-Scarred; {213241} Sigil of Doom; {442294} Reaver's Glaive)
-	["Essence Break"]     = { category = "cooldown", priority = 3, specs = { 577 } },      -- burst-window-talent (SpellArchetypes 258860; guide.lua {258860})
+	["Essence Break"]     = { id = 258860, category = "cooldown", priority = 3, specs = { 577 } },      -- burst-window-talent (SpellArchetypes 258860; guide.lua {258860})
 	["Sigil of Doom"]     = { category = "main_rotation", priority = 5, specs = { 577 } }, -- Fel-Scarred sigil-proc (SpellArchetypes 213241; guide.lua {213241})
-	["Reaver's Glaive"]   = { category = "cooldown", priority = 4, specs = { 577 } },      -- Aldrachi Reaver-buffvenster (SpellArchetypes 442294; guide.lua {442294})
+	["Reaver's Glaive"]   = { id = 442294, category = "cooldown", priority = 4, specs = { 577 } },      -- Aldrachi Reaver-buffvenster (SpellArchetypes 442294; guide.lua {442294})
 
 	--==============================================================
 	-- VENGEANCE (581)
 	--==============================================================
 	-- Builders / kernrotatie (SpellArchetypes 263642/204596; guide.lua vengeance)
 	["Shear"]             = { category = "main_rotation", priority = 1, specs = { 581 } }, -- baseline fury+soul-builder (Fracture-alt zonder talent)
-	["Fracture"]          = { category = "main_rotation", priority = 1, specs = { 581 } }, -- fury + 2 souls (SpellArchetypes 263642; guide.lua {263642})
-	["Sigil of Flame"]    = { category = "main_rotation", priority = 3, specs = { 581 } }, -- AoE threat-builder (guide.lua {204596})
+	["Fracture"]          = { id = 263642, category = "main_rotation", priority = 1, specs = { 581 } }, -- fury + 2 souls (SpellArchetypes 263642; guide.lua {263642})
+	["Sigil of Flame"]    = { id = 204596, category = "main_rotation", priority = 3, specs = { 581 } }, -- AoE threat-builder (guide.lua {204596})
 	-- Spender (SpellArchetypes/RangeReferences 228477; guide.lua {228477} heal+damage spender)
 	["Soul Cleave"]       = { category = "spender", priority = 1, specs = { 581 }, survival = "heal", survivalOrder = 2, survivalId = { [581] = 228477 }, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" },       -- spender-heal (DEFENSE_TIER 228477 tier2, MAAR rotatie-spender -> geen los heal-anker; never-lie); card 5 Oct 2026: damage and healing (IV Easy Mode 26 Aug), like Death Strike
 	-- AoE (guide.lua {247454} Spirit Bomb; Shift+N-anker)
-	["Spirit Bomb"]       = { category = "spender", priority = 6, bindKey = "Shift+4", specs = { 581 } }, -- soul-spender AoE (SpellArchetypes 247454; guide.lua {247454})
+	["Spirit Bomb"]       = { id = 247454, category = "spender", priority = 6, bindKey = "Shift+4", specs = { 581 } }, -- soul-spender AoE (SpellArchetypes 247454; guide.lua {247454})
 	-- Kleine def (SpellCategories DEFENSIVE 203720; SpellDB DEMONHUNTER_2 mitigatie-lijst)
 	["Demon Spikes"]      = { id = 203720, role = "defensive_1", priority = 1, specs = { 581 }, survival = "keepup", survivalOrder = 1 }, -- armor + parry mitigatie (SpellCategories 203720) -- card: active mitigation you keep rolling (IV-VEN)
 	-- Grote def (DEFENSE_TIER 204021 = tier2; SpellCategories DEFENSIVE 187827)
@@ -134,10 +134,10 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- Extra def / major (SpellArchetypes 212084; guide.lua {212084} heal + AoE damage)
 	["Fel Devastation"]   = { id = 212084, category = "defensive", priority = 4, specs = { 581 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- heal-over-time + AoE (SpellArchetypes 212084; guide.lua {212084}) -- card: heals while channeling (IV-VEN)
 	-- Grootste CD's Vengeance (guide.lua {207407} Soul Carver; {390163} Sigil of Spite)
-	["Soul Carver"]       = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 581 } }, -- souls/burst-talent (SpellArchetypes 207407; guide.lua {207407})
-	["Sigil of Spite"]    = { category = "cooldown", priority = 4, specs = { 581 } },      -- souls-burst sigil (SpellArchetypes 389860; guide.lua {390163})
+	["Soul Carver"]       = { id = 207407, category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 581 } }, -- souls/burst-talent (SpellArchetypes 207407; guide.lua {207407})
+	["Sigil of Spite"]    = { id = 390163, category = "cooldown", priority = 4, specs = { 581 } },      -- souls-burst sigil (SpellArchetypes 389860; guide.lua {390163})
 	-- CC extra (SpellCategories UTILITY/CROWD 202138 Sigil of Chains; 211881 Fel Eruption)
-	["Sigil of Chains"]   = { category = "dispel_cc", priority = 5, specs = { 581 } },     -- pull/knock (SpellCategories 202138)
+	["Sigil of Chains"]   = { id = 202138, category = "dispel_cc", priority = 5, specs = { 581 } },     -- pull/knock (SpellCategories 202138)
 	["Fel Eruption"]      = { category = "dispel_cc", priority = 6, specs = { 581 }, alsoStop = "stun" },     -- single-target stun (InterruptAbilities 211881 kind="cc"; talent)
 
 	--==============================================================

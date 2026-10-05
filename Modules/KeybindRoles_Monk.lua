@@ -99,28 +99,28 @@ ns.KeybindRoleClassifier.MONK = {
     -- Actieve mitigation (Stagger purge, verbruikt brew-charges)
     ["Purifying Brew"]               = { id = 119582, category = "defensive", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 1 }, -- 4: purge Stagger (actieve mitigation, GEEN dmg-spender); card: on a rhythm (IV BM)
     -- AoE
-    ["Breath of Fire"]               = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 268 } }, -- AoE/DoT (cleave)
-    ["Rushing Jade Wind"]            = { category = "main_rotation", priority = 7, bindKey = "Shift+3", specs = { 268 } }, -- AoE (talent)
+    ["Breath of Fire"]               = { id = 115181, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 268 } }, -- AoE/DoT (cleave)
+    ["Rushing Jade Wind"]            = { id = 116847, category = "main_rotation", priority = 7, bindKey = "Shift+3", specs = { 268 } }, -- AoE (talent)
     -- Kleine defensive (absorb-shield)
     ["Celestial Brew"]               = { id = 322507, role = "defensive_1", priority = 1, specs = { 268 }, survival = "small", survivalOrder = 1 }, -- Z: absorb (MONK_1); card: 8 s on 1.5 min (wiki)
     -- Celestial Infusion: keuzeknoop met Celestial Brew (IV 12.1: de standaardkeuze). Alleen voor de kaart: `specs = {}`
     -- matcht nergens in KeybindAutoMap (SpecMatches), dus geen toets; `survivalSpecs` zet hem op de Brewmaster-kaart.
     ["Celestial Infusion"]           = { id = 1241059, specs = {}, survivalSpecs = { 268 }, survival = "small", survivalOrder = 1 }, -- 3 okt 2026, Wowhead-tooltip
     -- Extra CD's (Weapons of Order verwijderd 17 sep: weg in 12.0.0, wiki)
-    ["Exploding Keg"]                = { category = "cooldown", priority = 3, specs = { 268 } },      -- MONK_1 burst-CD (60s)
+    ["Exploding Keg"]                = { id = 325153, category = "cooldown", priority = 3, specs = { 268 } },      -- MONK_1 burst-CD (60s)
     -- Grootste CD (F1)
-    ["Invoke Niuzao, the Black Ox"]  = { blockQ = { [268] = true }, role = "cooldown_bar", priority = 1, specs = { 268 } },      -- F1: tank-CD (celestial)
+    ["Invoke Niuzao, the Black Ox"]  = { id = 132578, blockQ = { [268] = true }, role = "cooldown_bar", priority = 1, specs = { 268 } },      -- F1: tank-CD (celestial)
     -- Taunt / utility
-    ["Provoke"]                      = { category = "taunt", priority = 1, specs = { 268 } }, -- F: taunt (eigen kaart)
+    ["Provoke"]                      = { id = 115546, category = "taunt", priority = 1, specs = { 268 } }, -- F: taunt (eigen kaart)
 
     -- =================================================================
     -- WINDWALKER (269)  -- melee-dps
     -- =================================================================
     -- Builders / rotatie (SpellArchetypes)
-    ["Fists of Fury"]                = { category = "spender", priority = 1, specs = { 269 } },       -- 4: channeled finisher
-    ["Spinning Crane Kick"]          = { category = "main_rotation", priority = 3, bindKey = "Shift+2", specs = { 269, 270 } }, -- AoE-builder (ook ST-relevant); MW baseline AoE too (IV MW 12.1, 5 Oct 2026)
+    ["Fists of Fury"]                = { id = 113656, category = "spender", priority = 1, specs = { 269 } },       -- 4: channeled finisher
+    ["Spinning Crane Kick"]          = { id = 101546, category = "main_rotation", priority = 3, bindKey = "Shift+2", specs = { 269, 270 } }, -- AoE-builder (ook ST-relevant); MW baseline AoE too (IV MW 12.1, 5 Oct 2026)
     ["Rushing Wind Kick"]            = { id = 467307, excludes = "Rising Sun Kick", category = "main_rotation", priority = 2, bindKey = "4", specs = { 270 } }, -- MW talent over Rising Sun Kick 107428 (wago TraitDefinition 133028, 5 Oct 2026)
-    ["Whirling Dragon Punch"]        = { category = "main_rotation", priority = 8, specs = { 269 } }, -- burst-window-nuke (guide.lua {152175})
+    ["Whirling Dragon Punch"]        = { id = 152175, category = "main_rotation", priority = 8, specs = { 269 } }, -- burst-window-nuke (guide.lua {152175})
     -- Movement (Q vervangt Roll bij talent)
     -- Chi Torpedo: klassentalent (audit); toetsen blijven { 269 }, de kaart toont hem bij alle specs.
     ["Chi Torpedo"]                  = { id = 115008, role = "utility_primary", priority = 2, specs = { 269 }, survivalSpecs = { 268, 269, 270 }, survival = "escape", survivalOrder = 2 }, -- Shift+Q (MONK_3 gap-closer, vervangt Roll)
@@ -129,7 +129,7 @@ ns.KeybindRoleClassifier.MONK = {
     ["Touch of Karma"]               = { id = 122470, role = "defensive_1", priority = 1, specs = { 269 }, survival = "small", survivalOrder = 1 }, -- Z: dmg-redirect (MONK_3); card: 10 s on 1.5 min, before a big hit (Method)
     -- Diffuse Magic: verwijderd 17 sep (sinds 12.0 passief via Fortifying Brew, wiki/IV WW).
     -- Grootste CD (F1)
-    ["Invoke Xuen, the White Tiger"] = { role = "cooldown_bar", priority = 1, specs = { 269 } },      -- F1: WW-celestial (MONK_3 burst-CD)
+    ["Invoke Xuen, the White Tiger"] = { id = 123904, role = "cooldown_bar", priority = 1, specs = { 269 } },      -- F1: WW-celestial (MONK_3 burst-CD)
     -- Storm, Earth, and Fire: verwijderd 17 sep (weg in 12.0.0, vervangen door Zenith; wiki).
     -- Zenith (4 okt 2026): WW's grote cooldown (IV 12.1, 11 aug: eerste in de cooldownlijst, 2 charges; Xuen alleen nog
     -- in de Conduit-boom). Id 1249625 GEMETEN in wago SpellName 12.1.5.70077 (enige "Zenith"). Category cooldown, zodat
@@ -143,7 +143,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- utility / dispel / defensives + F2/F3 + raid-heal-CD's op CD-slots.
     -- =================================================================
     -- Damage-rotatie (SpellArchetypes: Rising Sun Kick) -- Fistweaving-damage BLIJFT main_rotation
-    ["Rising Sun Kick"]              = { category = "main_rotation", priority = 3, specs = { 269, 270 }, blockAs = { [270] = { category = "main_rotation", priority = 2, bindKey = "4" } } }, -- WW-builder (2) + MW-damage (3)
+    ["Rising Sun Kick"]              = { id = 107428, category = "main_rotation", priority = 3, specs = { 269, 270 }, blockAs = { [270] = { category = "main_rotation", priority = 2, bindKey = "4" } } }, -- WW-builder (2) + MW-damage (3)
     -- -----------------------------------------------------------------
     -- ST-HEALS + ST-HoTs -> click_cast (mouseover/click-cast, GEEN toets)
     -- v6 6: single-target smart-heals lopen via mouseover-frames.
@@ -154,14 +154,14 @@ ns.KeybindRoleClassifier.MONK = {
     ["Renewing Mist"]                = { id = 115151, category = "main_rotation", priority = 1, bindKey = "1", specs = { 270 } },
     ["Mana Tea"]                     = { id = 115294, role = "utility_secondary", priority = 1, specs = { 270 } },
     ["Celestial Conduit"]            = { id = 443028, category = "cooldown", priority = 3, specs = { 270 } },        -- ST-HoT (springt naar laagste, mouseover)
-    ["Sheilun's Gift"]               = { role = "click_cast", priority = 1, specs = { 270 } },        -- grote ST/smart-heal (verplaatst van spender -> click_cast)
+    ["Sheilun's Gift"]               = { id = 399491, role = "click_cast", priority = 1, specs = { 270 } },        -- grote ST/smart-heal (verplaatst van spender -> click_cast)
     -- -----------------------------------------------------------------
     -- RAID/AoE-heals -> toets-slots
     -- -----------------------------------------------------------------
     -- Essence Font (weg in 11.0.0) en Refreshing Jade Wind (weg in 12.0.0): verwijderd 17 sep (wiki).
     ["Jadefire Stomp"]               = { category = "raid_heal", priority = 3, specs = { 270 } }, -- AoE damage+heal ground-slam (talent)
     -- Rotationeel-versterkende utility
-    ["Thunder Focus Tea"]            = { category = "utility", priority = 6, bindKey = "Shift+1", specs = { 270 } }, -- versterkt volgende cast (healing-CD, geen directe heal)
+    ["Thunder Focus Tea"]            = { id = 116680, category = "utility", priority = 6, bindKey = "Shift+1", specs = { 270 } }, -- versterkt volgende cast (healing-CD, geen directe heal)
     -- Movement / utility
     -- Transcendence: Transfer: klassentalent (audit); toetsen blijven { 270 }, de kaart toont hem bij alle specs.
     ["Transcendence: Transfer"]      = { id = 119996, role = "utility_primary", priority = 2, specs = { 270 }, survivalSpecs = { 268, 269, 270 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q: teleport-terug
@@ -170,25 +170,25 @@ ns.KeybindRoleClassifier.MONK = {
     -- -----------------------------------------------------------------
     -- HEAL-COOLDOWNS -> cooldown-slots (grootste = cooldown_bar)
     -- -----------------------------------------------------------------
-    ["Revival"]                      = { role = "cooldown_bar", priority = 1, specs = { 270 } },      -- F1/C: AoE raid-heal + dispel (grootste CD)
-    ["Invoke Chi-Ji, the Red Crane"] = { blockQ = { [270] = true }, category = "cooldown", priority = 2, specs = { 270 } },     -- celestial raid-heal (Ctrl+F1)
-    ["Invoke Yu'lon, the Jade Serpent"] = { blockQ = { [270] = true }, category = "cooldown", priority = 3, specs = { 270 } },  -- celestial raid-heal-CD (alt van Chi-Ji)
+    ["Revival"]                      = { id = 115310, role = "cooldown_bar", priority = 1, specs = { 270 } },      -- F1/C: AoE raid-heal + dispel (grootste CD)
+    ["Invoke Chi-Ji, the Red Crane"] = { id = 325197, blockQ = { [270] = true }, category = "cooldown", priority = 2, specs = { 270 } },     -- celestial raid-heal (Ctrl+F1)
+    ["Invoke Yu'lon, the Jade Serpent"] = { id = 322118, blockQ = { [270] = true }, category = "cooldown", priority = 3, specs = { 270 } },  -- celestial raid-heal-CD (alt van Chi-Ji)
     -- Zen Meditation: verwijderd 17 sep (geen MW-spell, weg in 11.2.0; wiki).
     -- Dispel / CC
     ["Detox"]                        = { id = 115450, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 270 } },     -- V: magic/poison/disease dispel
-    ["Ring of Peace"]                = { category = "dispel_cc", priority = 2, specs = { 270 } },     -- Shift+V: displacement-CC
+    ["Ring of Peace"]                = { id = 116844, category = "dispel_cc", priority = 2, specs = { 270 } },     -- Shift+V: displacement-CC
 
     -- =================================================================
     -- GEDEELD (meerdere Monk-specs, geen 3-way-baseline)
     -- =================================================================
     ["Spear Hand Strike"]            = { id = 116705, role = "interrupt", priority = 1, specs = { 268, 269 }, survival = "interrupt", survivalOrder = 1 }, -- E: interrupt; BM+WW (MW heeft geen kick)
-    ["Leg Sweep"]                    = { category = "dispel_cc", priority = 2, alsoStop = "stun" },                      -- Shift+V: AoE-stun (alle 3 specs); JustAC 119381 mech=12 → Spec 08
+    ["Leg Sweep"]                    = { id = 119381, category = "dispel_cc", priority = 2, alsoStop = "stun" },                      -- Shift+V: AoE-stun (alle 3 specs); JustAC 119381 mech=12 → Spec 08
 
     -- =================================================================
     -- BASELINE (alle 3 Monk-specs; geen specs=)
     -- =================================================================
     -- Rotatie-basis (BM 2 / MW 1 / WW 1)
-    ["Tiger Palm"]                   = { category = "main_rotation", priority = 1 }, -- meest-voorkomend p1
+    ["Tiger Palm"]                   = { id = 100780, category = "main_rotation", priority = 1 }, -- meest-voorkomend p1
     ["Blackout Kick"]                = { category = "main_rotation", priority = 3, survival = { [268] = "keepup" }, survivalOrder = 2, survivalId = { [268] = 205523 }, survivalNote = "SURVIVAL_NOTE_SHUFFLE" }, -- BM builder / MW filler / WW spender -> meest voorkomend main_rotation; card 5 Oct 2026, Brewmaster only: "Stay Shuffling" (IV Easy Mode); 205523 = BrM version (Wowhead), not client-measured
     -- Movement
     ["Roll"]                         = { survivalId = { [268] = 109132, [269] = 109132, [270] = 109132 }, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q: gap-closer (SpellCategories + gap-closer-lijsten)
@@ -198,9 +198,9 @@ ns.KeybindRoleClassifier.MONK = {
     ["Vivify"]                       = { id = 116670, role = "heal_ooc", priority = 1, blockAs = { [270] = { category = "main_rotation", priority = 1, bindKey = "2" } }, survival = "heal", survivalOrder = 2 }, -- F3: out-of-combat/direct heal (SpellCategories 116670)
     -- Grote defensive
     ["Fortifying Brew"]              = { id = 115203, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- C: grote defensive (115203 basis; 120954 BM / 201318 WW / 243435 MW-varianten, zelfde naam); card: 6 min (Wowhead), after Life Cocoon
-    ["Touch of Death"]               = { category = "cooldown", priority = 4 }, -- iconische baseline execute-CD, alle specs (JustAC SpellCooldowns 322109=180s; SimC WW core)
+    ["Touch of Death"]               = { id = 322109, category = "cooldown", priority = 4 }, -- iconische baseline execute-CD, alle specs (JustAC SpellCooldowns 322109=180s; SimC WW core)
     -- CC / dispel
-    ["Paralysis"]                    = { category = "dispel_cc", priority = 1, alsoStop = "incap" }, -- V (BM/WW) / F (MW): single-target incapacitate (InterruptAbilities 115078 mech=14)
+    ["Paralysis"]                    = { id = 115078, category = "dispel_cc", priority = 1, alsoStop = "incap" }, -- V (BM/WW) / F (MW): single-target incapacitate (InterruptAbilities 115078 mech=14)
     -- Utility
-    ["Transcendence"]                = { category = "utility", priority = 3 }, -- plaats-anker (Transcendence: Transfer = de terugkeer); NOT on the card: Transfer is the escape
+    ["Transcendence"]                = { id = 101643, category = "utility", priority = 3 }, -- plaats-anker (Transcendence: Transfer = de terugkeer); NOT on the card: Transfer is the escape
 }

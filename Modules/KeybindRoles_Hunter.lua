@@ -82,7 +82,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- MOVEMENT (Q)
 	--==================================================================================
 	["Disengage"] = { id = 781, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- baseline retreat (781); alle 3 specs
-	["Harpoon"] = { role = "mobility", priority = 1, specs = { 255 } }, -- SV engage/gap-closer (190925); NOT on the card: pulls you TOWARDS the enemy
+	["Harpoon"] = { id = 190925, role = "mobility", priority = 1, specs = { 255 } }, -- SV engage/gap-closer (190925); NOT on the card: pulls you TOWARDS the enemy
 	["Aspect of the Cheetah"] = { id = 186257, role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 3 }, -- baseline sprint/movement (186257); movement -> utility_primary
 
 	--==================================================================================
@@ -95,7 +95,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- Survival too (3 Oct 2026, mh-research: Icy Veins SV pets guide 10 Aug - SV takes a Ferocity pet when it must be
 	-- the group's Bloodlust). Not Marksmanship: that spec has Harrier's Cry and no pet by default.
 	["Primal Rage"] = { category = "cooldown", priority = 5, specs = { 253, 255 } }, -- pet-Bloodlust/Heroism-equivalent (JustAC SpellCategories 264667); analoog aan Shaman Bloodlust
-	["Camouflage"] = { category = "utility", priority = 5 }, -- baseline stealth/reset-utility (JustAC SpellCooldowns 199483)
+	["Camouflage"] = { id = 199483, category = "utility", priority = 5 }, -- baseline stealth/reset-utility (JustAC SpellCooldowns 199483)
 	-- Card: self-castable in Midnight (IV-SVguide); 15% DR, the pet takes half — the smallest button.
 	["Roar of Sacrifice"] = { id = 53480, category = "defensive", priority = 2, survival = "small", survivalOrder = 1, survivalNote = { [253] = "SURVIVAL_NOTE_PET", [255] = "SURVIVAL_NOTE_PET" } }, -- externe pet-def (53480), baseline (talent); card: pet-note niet voor MM (speelt meestal zonder pet; IV 12.1, 3 okt 2026)
 	["Feign Death"] = { id = 5384, category = "utility", priority = 4, survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- baseline threat-drop (5384); 30 s
@@ -103,25 +103,25 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	-- DISPEL / CC (V + overflow)
 	--==================================================================================
-	["Tranquilizing Shot"] = { category = "dispel_cc", priority = 1 }, -- enrage/magic dispel (19801), baseline
-	["Freezing Trap"] = { category = "dispel_cc", priority = 2 }, -- incapacitate (187650), baseline
-	["Binding Shot"] = { category = "dispel_cc", priority = 3 }, -- root/stun (117405), baseline (talent)
-	["Intimidation"] = { category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- pet-stun; JustAC InterruptAbilities [24394] cc mech=12 → Spec 08 alsoStop
-	["Scatter Shot"] = { category = "dispel_cc", priority = 4 }, -- disorient (213691), baseline (talent)
-	["Concussive Shot"] = { category = "dispel_cc", priority = 4 }, -- slow (5116), baseline
+	["Tranquilizing Shot"] = { id = 19801, category = "dispel_cc", priority = 1 }, -- enrage/magic dispel (19801), baseline
+	["Freezing Trap"] = { id = 187650, category = "dispel_cc", priority = 2 }, -- incapacitate (187650), baseline
+	["Binding Shot"] = { id = 109248, category = "dispel_cc", priority = 3 }, -- root/stun (117405), baseline (talent)
+	["Intimidation"] = { id = 19577, category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- pet-stun; JustAC InterruptAbilities [24394] cc mech=12 → Spec 08 alsoStop
+	["Scatter Shot"] = { id = 213691, category = "dispel_cc", priority = 4 }, -- disorient (213691), baseline (talent)
+	["Concussive Shot"] = { id = 5116, category = "dispel_cc", priority = 4 }, -- slow (5116), baseline
 	["Bursting Shot"] = { category = "dispel_cc", priority = 5 }, -- disorient/knockback (186387), MM/baseline
 	["Wyvern Sting"] = { category = "dispel_cc", priority = 5 }, -- sleep (19386), baseline (talent)
-	["Scare Beast"] = { category = "dispel_cc", priority = 6 }, -- beast fear (1513), baseline
+	["Scare Beast"] = { id = 1513, category = "dispel_cc", priority = 6 }, -- beast fear (1513), baseline
 	["Steel Trap"] = { category = "dispel_cc", priority = 5, specs = { 255 } }, -- SV root+bleed (162488, talent)
 
 	--==================================================================================
 	-- GROTE COOLDOWN (F1) + extra CD's
 	--==================================================================================
 	-- Beast Mastery
-	["Bestial Wrath"] = { blockQ = { [253] = true }, role = "cooldown_bar", priority = 1, specs = { 253 } }, -- BM grote CD (19574)
+	["Bestial Wrath"] = { id = 19574, blockQ = { [253] = true }, role = "cooldown_bar", priority = 1, specs = { 253 } }, -- BM grote CD (19574)
 	-- Call of the Wild (removed) and Bloodshed (passive now) deleted 17 Sep 2026 (M-BM, hackmd).
 	-- Marksmanship
-	["Trueshot"] = { blockQ = { [254] = true }, role = "cooldown_bar", priority = 1, specs = { 254 } }, -- MM grote CD (288613)
+	["Trueshot"] = { id = 288613, blockQ = { [254] = true }, role = "cooldown_bar", priority = 1, specs = { 254 } }, -- MM grote CD (288613)
 	-- Survival: Fury of the Eagle deleted 17 Sep 2026, folded into Boomstick (WH-SV, IV-SV).
 	-- Gedeeld (talent-CD's die op meerdere specs kunnen zitten)
 	["Stampede"] = { category = "cooldown", priority = 4 }, -- pet-charge CD (baseline talent)
@@ -129,32 +129,32 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	-- BUILDERS (main_rotation)
 	--==================================================================================
-	["Steady Shot"] = { category = "main_rotation", priority = 1 }, -- baseline generieke builder
+	["Steady Shot"] = { id = 56641, category = "main_rotation", priority = 1 }, -- baseline generieke builder
 	-- Beast Mastery
-	["Barbed Shot"] = { category = "main_rotation", priority = 2, specs = { 253 } }, -- BM builder (Frenzy)
-	["Cobra Shot"] = { category = "main_rotation", priority = 3, specs = { 253 } }, -- BM builder/dump
-	["Kill Command"] = { category = "main_rotation", priority = 1, specs = { 253, 255 } }, -- BM (34026) + SV (259489) core
+	["Barbed Shot"] = { id = 217200, category = "main_rotation", priority = 2, specs = { 253 } }, -- BM builder (Frenzy)
+	["Cobra Shot"] = { id = 193455, category = "main_rotation", priority = 3, specs = { 253 } }, -- BM builder/dump
+	["Kill Command"] = { id = 34026, category = "main_rotation", priority = 1, specs = { 253, 255 } }, -- BM (34026) + SV (259489) core
 	-- Marksmanship
-	["Aimed Shot"] = { category = "main_rotation", priority = 1, specs = { 254 } }, -- MM builder (19434)
-	["Rapid Fire"] = { category = "main_rotation", priority = 2, specs = { 254 } }, -- MM channel builder (257044)
-	["Wailing Arrow"] = { category = "main_rotation", priority = 3, specs = { 254 }, alsoStop = "silence" }, -- MM Dark Ranger; JustAC InterruptAbilities [355589/392060] cc mech=9 (silence) → Spec 08 cross-list (stays rotational)
+	["Aimed Shot"] = { id = 19434, category = "main_rotation", priority = 1, specs = { 254 } }, -- MM builder (19434)
+	["Rapid Fire"] = { id = 257044, category = "main_rotation", priority = 2, specs = { 254 } }, -- MM channel builder (257044)
+	["Wailing Arrow"] = { id = 392060, category = "main_rotation", priority = 3, specs = { 254 }, alsoStop = "silence" }, -- MM Dark Ranger; JustAC InterruptAbilities [355589/392060] cc mech=9 (silence) → Spec 08 cross-list (stays rotational)
 	["Chimaera Shot"] = { category = "main_rotation", priority = 4, specs = { 254 } }, -- MM builder (talent)
 	-- Survival
-	["Raptor Strike"] = { category = "main_rotation", priority = 2, specs = { 255 } }, -- SV melee builder (186270)
-	["Wildfire Bomb"] = { category = "main_rotation", priority = 3, specs = { 255 } }, -- SV builder (DoT + directe schade)
+	["Raptor Strike"] = { id = 186270, category = "main_rotation", priority = 2, specs = { 255 } }, -- SV melee builder (186270)
+	["Wildfire Bomb"] = { id = 259495, category = "main_rotation", priority = 3, specs = { 255 } }, -- SV builder (DoT + directe schade)
 
 	--==================================================================================
 	-- SPENDERS
 	--==================================================================================
 	-- Beast Mastery / gedeeld
-	["Kill Shot"] = { category = "spender", priority = 4 }, -- execute damage (53351 BM/MM, 320976 SV), baseline; damage -> spender
+	["Kill Shot"] = { id = 53351, category = "spender", priority = 4 }, -- execute damage (53351 BM/MM, 320976 SV), baseline; damage -> spender
 	-- Marksmanship
-	["Arcane Shot"] = { category = "spender", priority = 1, specs = { 254 } }, -- MM spender (Precise Shots)
-	["Black Arrow"] = { category = "spender", priority = 2, specs = { 254 } }, -- MM Dark Ranger spender
+	["Arcane Shot"] = { id = 185358, category = "spender", priority = 1, specs = { 254 } }, -- MM spender (Precise Shots)
+	["Black Arrow"] = { id = 466930, category = "spender", priority = 2, specs = { 254 } }, -- MM Dark Ranger spender
 	-- Survival
-	["Boomstick"] = { category = "spender", priority = 1, specs = { 255 } }, -- SV ranged filler (1261215, Midnight)
+	["Boomstick"] = { id = 1261193, category = "spender", priority = 1, specs = { 255 } }, -- SV ranged filler (1261215, Midnight)
 	["Flamefang Pitch"] = { category = "spender", priority = 2, specs = { 255 } }, -- SV hero-talent spender (1251592)
-	["Takedown"] = { blockQ = { [255] = true }, category = "spender", priority = 3, specs = { 255 } }, -- SV Midnight spender/proc
+	["Takedown"] = { id = 1250646, blockQ = { [255] = true }, category = "spender", priority = 3, specs = { 255 } }, -- SV Midnight spender/proc
 
 	--==================================================================================
 	-- AoE (Shift+N)
@@ -173,11 +173,11 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- klopt de entry. Heeft MM hem óók niet meer, dan is hij inert: de pijplijn loopt over de
 	-- live spellbook en zoekt daarin op, dus een regel voor een spell die niet bestaat matcht
 	-- nooit. Zie §2 — een spell die verdwijnt kost niets, een spell die erbij komt kost een toets.
-	["Multi-Shot"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 254 } }, -- MM AoE (2643), Shift-tweeling van Steady Shot (1)
+	["Multi-Shot"] = { id = 257620, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 254 } }, -- MM AoE (2643), Shift-tweeling van Steady Shot (1)
 	["Wild Thrash"] = { id = 1264359, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 253 } }, -- BM AoE sinds Midnight; bron van Beast Cleave
-	["Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 254 } }, -- MM AoE-CD (260243), Shift-tweeling van Rapid Fire (2)
-	["Explosive Shot"] = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 254 } }, -- MM AoE/ST (talent), Shift-tweeling van Arcane Shot (4)
-	["Raptor Swipe"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 255 } }, -- SV AoE-variant Raptor Strike, Shift-tweeling van Raptor Strike (2)
+	["Volley"] = { id = 260243, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 254 } }, -- MM AoE-CD (260243), Shift-tweeling van Rapid Fire (2)
+	["Explosive Shot"] = { id = 212431, category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 254 } }, -- MM AoE/ST (talent), Shift-tweeling van Arcane Shot (4)
+	["Raptor Swipe"] = { id = 1262293, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 255 } }, -- SV AoE-variant Raptor Strike, Shift-tweeling van Raptor Strike (2)
 
 	--==================================================================================
 	-- UTILITY
@@ -189,10 +189,10 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Mend Pet"] = { id = 136, category = "utility", priority = 1 }, -- pet-heal, flyout Pet Utility
 	["Revive Pet"] = { id = 982, category = "utility", priority = 4 }, -- flyout Pet Utility
 	["Call Pet 1"] = { id = 883, category = "utility", priority = 6 }, -- flyout Call Pet; MM only with Unbreakable Bond
-	["Hunter's Mark"] = { category = "utility", priority = 2 }, -- target-marker (baseline)
+	["Hunter's Mark"] = { id = 257284, category = "utility", priority = 2 }, -- target-marker (baseline)
 	-- ⚠️ NOT baseline: a CLASS-TREE TALENT in Midnight. Measured 10 Sep 2026 - Rob's hunter showed
 	-- Misdirection as a talent node at Rank 0/1 (spell 34477), and /mh macrocheck read it "not found"
 	-- in BM and MM until taken. No `specs` field stays right: every hunter spec can take it.
-	["Misdirection"] = { category = "utility", priority = 3 }, -- threat-transfer (34477), class talent
-	["Flare"] = { category = "utility", priority = 5 }, -- reveal/dispel-stealth (baseline)
+	["Misdirection"] = { id = 34477, category = "utility", priority = 3 }, -- threat-transfer (34477), class talent
+	["Flare"] = { id = 1543, category = "utility", priority = 5 }, -- reveal/dispel-stealth (baseline)
 }

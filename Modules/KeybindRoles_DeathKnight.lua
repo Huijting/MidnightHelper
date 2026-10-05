@@ -64,8 +64,8 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- Grote defensive (C)
 	["Icebound Fortitude"] = { id = 48792, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- grote def (baseline); -30%, 2 min (W-CD)
 	-- Dispel/CC (V) - Death Grip als threat/gap-tool op de dispel/CC-anker
-	["Death Grip"] = { category = "dispel_cc", priority = 1 },        -- V (CC/threat, baseline)
-	["Chains of Ice"] = { category = "dispel_cc", priority = 2 },     -- Shift+V (slow/CC; Frost/Unholy binden dit, baseline spell)
+	["Death Grip"] = { id = 49576, category = "dispel_cc", priority = 1 },        -- V (CC/threat, baseline)
+	["Chains of Ice"] = { id = 45524, category = "dispel_cc", priority = 2 },     -- Shift+V (slow/CC; Frost/Unholy binden dit, baseline spell)
 	-- Self-heals (F2 heal-anker)
 	["Death Pact"] = { id = 48743, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2 }, -- F2 heal-anker: instant self-heal (talent, baseline beschikbaar); card: emergency, after Death Strike
 	-- Spender (rotatie) - Death Strike BLIJFT spender, NIET dupliceren naar heal
@@ -74,39 +74,39 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Lichborne"] = { id = 49039, role = "defensive_1", priority = 2, survival = "small", survivalOrder = 9, survivalNote = "SURVIVAL_NOTE_CC_BREAK" }, -- kleine def / CC-immuniteit (baseline); card: CC break, last; small sinds 3 okt 2026 (geen DR, IV 12.1)
 	-- Utility (R / F)
 	["Anti-Magic Shell"] = { id = 48707, category = "utility", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- R (magische mitigatie, baseline); 60 s (W-CD)
-	["Anti-Magic Zone"] = { category = "defensive", priority = 5 },   -- groeps-magie-DR-koepel, baseline (JustAC SpellCategories DEFENSIVE 51052); NOT on the card (TWIJFEL)
-	["Gorefiend's Grasp"] = { category = "dispel_cc", priority = 3, specs = { 250 } }, -- Blood AoE mass-grip (M+ control; JustAC SpellCooldowns 108199=90s)
-	["Dark Command"] = { category = "taunt", priority = 1 },          -- F: taunt (baseline, eigen kaart)
-	["Raise Dead"] = { category = "utility", priority = 3 },          -- T/F (pet, baseline alle 3 specs)
+	["Anti-Magic Zone"] = { id = 51052, category = "defensive", priority = 5 },   -- groeps-magie-DR-koepel, baseline (JustAC SpellCategories DEFENSIVE 51052); NOT on the card (TWIJFEL)
+	["Gorefiend's Grasp"] = { id = 108199, category = "dispel_cc", priority = 3, specs = { 250 } }, -- Blood AoE mass-grip (M+ control; JustAC SpellCooldowns 108199=90s)
+	["Dark Command"] = { id = 56222, category = "taunt", priority = 1 },          -- F: taunt (baseline, eigen kaart)
+	["Raise Dead"] = { id = 46585, category = "utility", priority = 3 },          -- T/F (pet, baseline alle 3 specs)
 
 	-- ============================================================
 	-- BLOOD (250) - tank
 	-- ============================================================
 	-- Builders (main_rotation)
-	["Heart Strike"] = { category = "main_rotation", priority = 1, specs = { 250 } },   -- 1 (kernbuilder)
+	["Heart Strike"] = { id = 206930, category = "main_rotation", priority = 1, specs = { 250 } },   -- 1 (kernbuilder)
 	["Marrowrend"] = { category = "main_rotation", priority = 2, specs = { 250 }, survival = "keepup", survivalOrder = 1, survivalId = { [250] = 195182 }, survivalNote = "SURVIVAL_NOTE_BONE_SHIELD" },     -- 2 (Bone Shield-onderhoud); card 5 Oct 2026: Bone Shield above 5 stacks, one of two active mitigations (IV Easy Mode); id from Wowhead + TankToolkit.lua, not client-measured
-	["Death's Caress"] = { category = "main_rotation", priority = 3, specs = { 250 } }, -- 3 (ranged tag)
+	["Death's Caress"] = { id = 195292, category = "main_rotation", priority = 3, specs = { 250 } }, -- 3 (ranged tag)
 	-- AoE (Shift-tweelingen)
-	["Blood Boil"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 250 } },      -- AoE
-	["Death and Decay"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 250, 252 } }, -- AoE-grondeffect (Blood + Unholy)
+	["Blood Boil"] = { id = 50842, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 250 } },      -- AoE
+	["Death and Decay"] = { id = 43265, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 250, 252 } }, -- AoE-grondeffect (Blood + Unholy)
 	-- Grote defensive (Shift+C)
 	["Vampiric Blood"] = { id = 55233, role = "defensive_4", priority = 1, specs = { 250 }, survival = "big", survivalOrder = 1 }, -- grote def (extra, Blood-only); 90 s (W-CD), before the 2 min Icebound
 	-- Grootste CD (F1) + extra CD's
-	["Dancing Rune Weapon"] = { blockQ = { [250] = true }, role = "cooldown_bar", priority = 1, specs = { 250 } }, -- F1 (grootste CD: burst/mitigatie)
-	["Consumption"] = { category = "cooldown", priority = 2, specs = { 250 } },         -- Shift+F1 (major CD, talent)
+	["Dancing Rune Weapon"] = { id = 49028, blockQ = { [250] = true }, role = "cooldown_bar", priority = 1, specs = { 250 } }, -- F1 (grootste CD: burst/mitigatie)
+	["Consumption"] = { id = 1263824, category = "cooldown", priority = 2, specs = { 250 } },         -- Shift+F1 (major CD, talent)
 	-- Bonestorm / Blooddrinker / Tombstone removed 17 Sep: in no 12.1 tree node, not on IV-Blood.
 
 	-- ============================================================
 	-- FROST (251) - dps
 	-- ============================================================
 	-- Builders (main_rotation)
-	["Obliterate"] = { category = "main_rotation", priority = 1, specs = { 251 } },        -- 1 (kernbuilder)
-	["Remorseless Winter"] = { category = "main_rotation", priority = 2, specs = { 251 } },-- 3 (rotationeel, AoE-grond)
-	["Empower Rune Weapon"] = { category = "cooldown", priority = 5, specs = { 251 } },    -- resource-CD (Frost, 2 charges); 17 Sep: Blood dropped, not on IV-Blood
+	["Obliterate"] = { id = 49020, category = "main_rotation", priority = 1, specs = { 251 } },        -- 1 (kernbuilder)
+	["Remorseless Winter"] = { id = 196770, category = "main_rotation", priority = 2, specs = { 251 } },-- 3 (rotationeel, AoE-grond)
+	["Empower Rune Weapon"] = { id = 47568, category = "cooldown", priority = 5, specs = { 251 } },    -- resource-CD (Frost, 2 charges); 17 Sep: Blood dropped, not on IV-Blood
 	-- Spender (RP-dump)
-	["Frost Strike"] = { category = "spender", priority = 1, specs = { 251 } },            -- 4 (RP-spender)
+	["Frost Strike"] = { id = 49143, category = "spender", priority = 1, specs = { 251 } },            -- 4 (RP-spender)
 	-- AoE (Shift-tweelingen)
-	["Howling Blast"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 251 } },  -- AoE
+	["Howling Blast"] = { id = 49184, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 251 } },  -- AoE
 	-- ⚠️ Shift+2, NIET Shift+1 (gewijzigd 7 aug 2026). Stond op Shift+1 naast Howling
 	-- Blast, en dat is geen alternatief maar een echte botsing: Howling Blast is de
 	-- Rime-spender die je in élke build drukt, en Frostscythe is een AoE-talent dat
@@ -114,35 +114,35 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- voorwaarde vóór Frostscythe. Maxroll's M+-lijst heeft ze allebei in dezelfde
 	-- rotatie ("Cast Frostscythe if you have 2 stacks of Killing Machine" naast "Cast
 	-- Howling Blast with Rime"), dus twee toetsen.
-	["Frostscythe"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 251 } },    -- AoE-talent (vervangt Obliterate)
-	["Glacial Advance"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 251 } },      -- AoE-spender
+	["Frostscythe"] = { id = 207230, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 251 } },    -- AoE-talent (vervangt Obliterate)
+	["Glacial Advance"] = { id = 194913, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 251 } },      -- AoE-spender
 	-- Grootste CD (F1) + extra CD's
-	["Pillar of Frost"] = { blockQ = { [251] = true }, role = "cooldown_bar", priority = 1, specs = { 251 } },        -- F1 (grootste CD: burst)
-	["Frostwyrm's Fury"] = { category = "cooldown", priority = 2, specs = { 251 } },       -- Shift+F1 (major CD, extra)
-	["Breath of Sindragosa"] = { category = "cooldown", priority = 3, specs = { 251 } },   -- Ctrl+F1 (major CD, talent-kanaal)
+	["Pillar of Frost"] = { id = 51271, blockQ = { [251] = true }, role = "cooldown_bar", priority = 1, specs = { 251 } },        -- F1 (grootste CD: burst)
+	["Frostwyrm's Fury"] = { id = 279302, category = "cooldown", priority = 2, specs = { 251 } },       -- Shift+F1 (major CD, extra)
+	["Breath of Sindragosa"] = { id = 1249658, category = "cooldown", priority = 3, specs = { 251 } },   -- Ctrl+F1 (major CD, talent-kanaal)
 
 	-- ============================================================
 	-- UNHOLY (252) - dps
 	-- ============================================================
 	-- Builders (main_rotation)
-	["Festering Strike"] = { category = "main_rotation", priority = 1, specs = { 252 } },  -- 1 (wounds-builder)
-	["Scourge Strike"] = { category = "main_rotation", priority = 2, specs = { 252 } },    -- 2 (wounds-burst)
-	["Dark Transformation"] = { category = "cooldown", priority = 4, specs = { 252 } },    -- pet-CD (getransformeerde ghoul)
+	["Festering Strike"] = { id = 85948, category = "main_rotation", priority = 1, specs = { 252 } },  -- 1 (wounds-builder)
+	["Scourge Strike"] = { id = 55090, category = "main_rotation", priority = 2, specs = { 252 } },    -- 2 (wounds-burst)
+	["Dark Transformation"] = { id = 1233448, category = "cooldown", priority = 4, specs = { 252 } },    -- pet-CD (getransformeerde ghoul)
 	-- Spender (RP-dump)
-	["Death Coil"] = { category = "spender", priority = 1, specs = { 252 } },              -- 4 (RP-spender)
+	["Death Coil"] = { id = 47541, category = "spender", priority = 1, specs = { 252 } },              -- 4 (RP-spender)
 	-- AoE (Shift-tweelingen)
-	["Epidemic"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 252 } }, -- AoE-spender
+	["Epidemic"] = { id = 207317, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 252 } }, -- AoE-spender
 	-- Grootste CD (F1) + extra CD's
-	["Army of the Dead"] = { blockQ = { [252] = true }, role = "cooldown_bar", priority = 1, specs = { 252 } },       -- F1 (grootste CD: burst-opener)
+	["Army of the Dead"] = { id = 42650, blockQ = { [252] = true }, role = "cooldown_bar", priority = 1, specs = { 252 } },       -- F1 (grootste CD: burst-opener)
 	-- Summon Gargoyle removed 17 Sep (now talent 1242147 on Army of the Dead, W-DESC); Apocalypse and
 	-- Unholy Assault removed 17 Sep (IV-UHnews: removed in Midnight; Maxroll).
-	["Outbreak"] = { category = "main_rotation", priority = 3, specs = { 252 } },          -- disease-applicatie (builder-onderhoud)
+	["Outbreak"] = { id = 77575, category = "main_rotation", priority = 3, specs = { 252 } },          -- disease-applicatie (builder-onderhoud)
 
 	-- ============================================================
 	-- CC-EXTRA (dispel_cc) - Asphyxiate / Blinding Sleet / Strangulate
 	-- ============================================================
 	-- Both are class talents (IV-Blood/IV-Frost/IV-Unholy); `specs` kept for the keys (see header).
-	["Asphyxiate"] = { category = "dispel_cc", priority = 3, specs = { 250, 252 }, alsoStop = "stun" }, -- stun (Blood 221562 / Unholy 108194); JustAC cc mech=12 → Spec 08 alsoStop
-	["Blinding Sleet"] = { category = "dispel_cc", priority = 3, specs = { 251 } },  -- AoE disorient
-	["Strangulate"] = { category = "dispel_cc", priority = 4, alsoStop = "silence" },                      -- silence (talent, baseline beschikbaar)
+	["Asphyxiate"] = { id = 221562, category = "dispel_cc", priority = 3, specs = { 250, 252 }, alsoStop = "stun" }, -- stun (Blood 221562 / Unholy 108194); JustAC cc mech=12 → Spec 08 alsoStop
+	["Blinding Sleet"] = { id = 207167, category = "dispel_cc", priority = 3, specs = { 251 } },  -- AoE disorient
+	["Strangulate"] = { id = 47476, category = "dispel_cc", priority = 4, alsoStop = "silence" },                      -- silence (talent, baseline beschikbaar)
 }

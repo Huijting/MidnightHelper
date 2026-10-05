@@ -1,0 +1,119 @@
+file	name	id	confidence	source	note
+KeybindRoles_Hunter.lua	Harpoon	190925	sure	wago SpellName + SpecializationSpells 255, build 12.1.0.69933; Wowhead tooltip live 2026-10-05 (Hunter)	SV baseline
+KeybindRoles_Hunter.lua	Primal Rage	272678	unsure	wago SpellName build 12.1.0.69933 (272678 "[Command Pet Ability]", dummy -> pet spell 264667); Wowhead tooltip live (Hunter); warcraft.wiki.gg (Command Pet hotfix 2026-04-01)	Not a spellbook spell. Player button = Command Pet 272651 (Hunter SLA baseline) which turns into Primal Rage 272678 with a Ferocity pet (server-side, no DB2 link). Pet-bar version = 264667 (pet spec Ferocity 74/535). Pick depends on how MH resolves ids.
+KeybindRoles_Hunter.lua	Camouflage	199483	sure	wago SpellName + TraitDefinition (Hunter class talent), build 12.1.0.69933; Wowhead tooltip live (Hunter)	class talent
+KeybindRoles_Hunter.lua	Tranquilizing Shot	19801	sure	wago SpellName + TraitDefinition (Hunter class talent), build 12.1.0.69933; Wowhead tooltip live (Hunter)	class talent
+KeybindRoles_Hunter.lua	Freezing Trap	187650	sure	wago SpellName + SkillLineAbility Hunter (795), build 12.1.0.69933; Wowhead tooltip live (Hunter)	baseline
+KeybindRoles_Hunter.lua	Binding Shot	109248	sure	wago SpellName + TraitDefinition (Hunter class talent), build 12.1.0.69933; Wowhead tooltip live (Hunter)	class talent; 117526 = stun effect, 117405 (JustAC) = tether aura, not the cast
+KeybindRoles_Hunter.lua	Intimidation	19577	sure	wago SpellName + TraitDefinition (nodes for BM 253 and SV 255), build 12.1.0.69933; Wowhead tooltip live (Hunter)	PER-SPEC: 19577 = BM/SV (pet stun). MM has its own Intimidation 474421 (Spotting Eagle, node for 254; Wowhead confirms). 24394 (JustAC) = pet's stun effect.
+KeybindRoles_Hunter.lua	Scatter Shot	213691	sure	wago PvpTalent (specs 253/254/255) build 12.1.0.69933; Wowhead tooltip live (PvP Talent, Hunter); warcraft.wiki.gg: 12.1.0 re-added as level 45 PvP talent	PvP talent only (removed from talent tree in 12.0.0)
+KeybindRoles_Hunter.lua	Concussive Shot	5116	sure	wago SpellName + TraitDefinition (Hunter class talent), build 12.1.0.69933; Wowhead tooltip live (Hunter)	class talent; trait def overrides Wing Clip 195645
+KeybindRoles_Hunter.lua	Bursting Shot		notfound	wago build 12.1.0.69933: 186387 has no SLA/Spec/Trait/PvpTalent/learn/override link; warcraft.wiki.gg: Removed in patch 12.0.0	gone in Midnight (old id 186387)
+KeybindRoles_Hunter.lua	Wyvern Sting		notfound	wago build 12.1.0.69933: none of 13 "Wyvern Sting" ids has a class/trait/PvP link; warcraft.wiki.gg page: removed (8.0.1, classic version)	no player version in 12.1 (old id 19386)
+KeybindRoles_Hunter.lua	Scare Beast	1513	sure	wago SpellName + TraitDefinition (Hunter class talent), build 12.1.0.69933; Wowhead tooltip live (Hunter)	class talent
+KeybindRoles_Hunter.lua	Steel Trap		notfound	wago build 12.1.0.69933: 162488 no link, 162487 SLA AcquireMethod 3 (never learned); warcraft.wiki.gg: Removed in patch 11.0.0	gone (old ids 162487/162488)
+KeybindRoles_Hunter.lua	Bestial Wrath	19574	sure	wago SpellName + TraitDefinition (spec 253), build 12.1.0.69933; Wowhead tooltip live (Hunter)	344572 = old SLA row, AcquireMethod 3
+KeybindRoles_Hunter.lua	Trueshot	288613	sure	wago SpellName + TraitDefinition (spec 254), build 12.1.0.69933; Wowhead tooltip live (Hunter)
+KeybindRoles_Hunter.lua	Stampede		notfound	wago build 12.1.0.69933: no "Stampede" id has a Hunter SLA/Spec/Trait/PvP link; warcraft.wiki.gg: Removed in patch 11.0.0	not a button in 12.1 (old 201430); Midnight's Stampede is a Bestial Wrath/Kill Command effect per search results
+KeybindRoles_Hunter.lua	Steady Shot	56641	sure	wago SpellName + SkillLineAbility Hunter (795), build 12.1.0.69933; Wowhead tooltip live (Hunter)	Baseline, but replaced by Barbed Shot 217200 (BM) and Kill Command 259489 (SV) via trait overrides; in practice MM only
+KeybindRoles_Hunter.lua	Barbed Shot	217200	sure	wago SpellName + TraitDefinition (spec 253), build 12.1.0.69933; Wowhead tooltip live (Hunter)	overrides Steady Shot 56641
+KeybindRoles_Hunter.lua	Cobra Shot	193455	sure	wago SpellName + TraitDefinition (spec 253), build 12.1.0.69933; Wowhead tooltip live (Hunter)	overrides Arcane Shot 185358
+KeybindRoles_Hunter.lua	Kill Command	34026	sure	wago SpellName + TraitDefinition (spec 253), build 12.1.0.69933; Wowhead tooltip live (Hunter)	PER-SPEC: 34026 = BM. SV Kill Command = 259489 (node spec 255, overrides Steady Shot; Wowhead confirms)
+KeybindRoles_Hunter.lua	Aimed Shot	19434	sure	wago SpellName + TraitDefinition (spec 254), build 12.1.0.69933; Wowhead tooltip live (Hunter)
+KeybindRoles_Hunter.lua	Rapid Fire	257044	sure	wago SpellName + TraitDefinition (spec 254), build 12.1.0.69933; Wowhead tooltip live (Hunter)
+KeybindRoles_Hunter.lua	Wailing Arrow	392060	sure	wago build 12.1.0.69933: Wailing Dead 1264290 (Dark Ranger hero, BM/MM) -> 459808 override aura: Trueshot 288613 / Bestial Wrath 19574 -> 392060; Wowhead tooltip live (Hunter); warcraft.wiki.gg 12.0.0 re-added via Wailing Dead	Not a spellbook spell: Trueshot temporarily becomes Wailing Arrow (Dark Ranger only). Own keybind will not work. 355589/354831 = old SL versions.
+KeybindRoles_Hunter.lua	Chimaera Shot		notfound	wago build 12.1.0.69933: no "Chimaera Shot" id linked; warcraft.wiki.gg: Removed in patch 11.1.0	gone (old 342049/53209)
+KeybindRoles_Hunter.lua	Raptor Strike	186270	sure	wago SpellName + TraitDefinition (spec 255), build 12.1.0.69933; Wowhead tooltip live (Hunter)	ranged Aspect-of-the-Eagle variant is 265189
+KeybindRoles_Hunter.lua	Wildfire Bomb	259495	sure	wago SpellName + TraitDefinition (spec 255), build 12.1.0.69933; Wowhead tooltip live (Hunter)
+KeybindRoles_Hunter.lua	Kill Shot	53351	sure	wago SpellName + TraitDefinition (spec 254 only), build 12.1.0.69933; Wowhead tooltip live (Hunter); warcraft.wiki.gg 12.0.0 now a MM talent	Entry is baseline but only MM has it in 12.1; Dark Ranger Black Arrow replaces it. 320976 (SV, file comment) has no link.
+KeybindRoles_Hunter.lua	Arcane Shot	185358	sure	wago SpellName + SkillLineAbility Hunter (795), build 12.1.0.69933; Wowhead tooltip live (Hunter)	baseline; replaced by Cobra Shot (BM) and Hatchet Toss 193265 (SV)
+KeybindRoles_Hunter.lua	Black Arrow	466930	sure	wago build 12.1.0.69933: TraitDefinition Dark Ranger (BM node) + MM talent 466932 override Kill Shot 53351 -> 466930; Wowhead tooltip live (Hunter, 10 Focus cast)	the castable Black Arrow for BM and MM; 466932 = MM passive talent "Kill Shot is replaced with Black Arrow"
+KeybindRoles_Hunter.lua	Boomstick	1261193	sure	wago SpellName + TraitDefinition (spec 255), build 12.1.0.69933; Wowhead tooltip live (Hunter); warcraft.wiki.gg added 12.0.0	1261215 (file comment) = damage effect, not the cast
+KeybindRoles_Hunter.lua	Flamefang Pitch		notfound	wago build 12.1.0.69933: 1251592 exists but has no SLA/Spec/Trait/PvP/learn/override link; warcraft.wiki.gg: Removed in patch 12.1.0	removed in 12.1 (old 1251592)
+KeybindRoles_Hunter.lua	Takedown	1250646	sure	wago SpellName + TraitDefinition (spec 255), build 12.1.0.69933; Wowhead tooltip live (Hunter)
+KeybindRoles_Hunter.lua	Multi-Shot	257620	sure	wago SpellName + SpecializationSpells 254, build 12.1.0.69933; Wowhead tooltip live (Hunter, level 10); warcraft.wiki.gg 12.0.0 removed from BM	2643 (file comment) = old version, no link in 12.1
+KeybindRoles_Hunter.lua	Volley	260243	sure	wago SpellName + TraitDefinition (spec 254), build 12.1.0.69933; Wowhead tooltip live (Hunter)
+KeybindRoles_Hunter.lua	Explosive Shot	212431	sure	wago SpellName + TraitDefinition (spec 254), build 12.1.0.69933; Wowhead tooltip live (Hunter); warcraft.wiki.gg 12.1.0 redesigned, row 5	still a MM talent in 12.1
+KeybindRoles_Hunter.lua	Raptor Swipe	1262293	sure	wago build 12.1.0.69933: "Raptor Swipe!" 1273155 override aura Raptor Strike 186270 -> 1262293 (proc from talent 1259003, spec 255); Wowhead tooltip live (Hunter); warcraft.wiki.gg added 12.0.1	Not a spellbook spell: Raptor Strike turns into it on proc, own keybind will not work. Eagle-range variant 1262343 (overrides 265189). 1259003/1259017/1259019 are passive talents.
+KeybindRoles_Hunter.lua	Hunter's Mark	257284	sure	wago SpellName + SkillLineAbility Hunter (795), build 12.1.0.69933; Wowhead tooltip live (Hunter)	baseline
+KeybindRoles_Hunter.lua	Misdirection	34477	sure	wago SpellName + TraitDefinition (Hunter class talent), build 12.1.0.69933; Wowhead tooltip live (Hunter)	class talent
+KeybindRoles_Hunter.lua	Flare	1543	sure	wago SpellName + SkillLineAbility Hunter (795), build 12.1.0.69933; Wowhead tooltip live (Hunter)	baseline
+KeybindRoles_Mage.lua	Polymorph	118	sure	wago SpellName + SkillLineAbility Mage (904), build 12.1.0.69933; Wowhead tooltip live (Mage)	other Polymorph ids are variants (glyph forms)
+KeybindRoles_Mage.lua	Remove Curse	475	sure	wago SpellName + TraitDefinition (Mage class talent), build 12.1.0.69933; Wowhead tooltip live (Mage)	class talent
+KeybindRoles_Mage.lua	Ring of Frost	113724	sure	wago SpellName + TraitDefinition (Mage class talent), build 12.1.0.69933; Wowhead tooltip live (Mage)	class talent
+KeybindRoles_Mage.lua	Spellsteal	30449	sure	wago SpellName + TraitDefinition (Mage class talent), build 12.1.0.69933; Wowhead tooltip live (Mage)	class talent
+KeybindRoles_Mage.lua	Time Warp	80353	sure	wago SpellName + SkillLineAbility Mage (904), build 12.1.0.69933; Wowhead tooltip live (Mage)	baseline
+KeybindRoles_Mage.lua	Invisibility	66	sure	wago SpellName + SkillLineAbility Mage (904), build 12.1.0.69933; Wowhead tooltip live (Mage)	baseline
+KeybindRoles_Mage.lua	Slow Fall	130	sure	wago SpellName + SkillLineAbility Mage (904), build 12.1.0.69933; Wowhead tooltip live (Mage)	baseline
+KeybindRoles_Mage.lua	Arcane Blast	30451	sure	wago SpellName + SpecializationSpells 62, build 12.1.0.69933; Wowhead tooltip live (Mage)	overrides Frostbolt for Arcane
+KeybindRoles_Mage.lua	Arcane Orb	153626	sure	wago SpellName + TraitDefinition (spec 62), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Arcane Missiles	5143	sure	wago SpellName + TraitDefinition (spec 62), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Arcane Barrage	44425	sure	wago SpellName + SpecializationSpells 62, build 12.1.0.69933; Wowhead tooltip live (Mage)	overrides Fire Blast 319836 for Arcane
+KeybindRoles_Mage.lua	Nether Tempest		notfound	wago build 12.1.0.69933: 114923 has no class/trait link; warcraft.wiki.gg: Removed in patch 11.0.0	gone (old 114923)
+KeybindRoles_Mage.lua	Supernova	157980	sure	wago SpellName + TraitDefinition (Mage class talent), build 12.1.0.69933; Wowhead tooltip live (Mage)	class CHOICE node with Dragon's Breath (node 101883): a mage has one or the other; not Arcane-only
+KeybindRoles_Mage.lua	Arcane Explosion	1449	sure	wago SpellName + SkillLineAbility Mage (904), build 12.1.0.69933; Wowhead tooltip live (Mage)	baseline (22271 = NPC version)
+KeybindRoles_Mage.lua	Arcane Surge	365350	sure	wago SpellName + TraitDefinition (spec 62), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Touch of the Magi	321507	sure	wago SpellName + TraitDefinition (spec 62), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Presence of Mind	205025	sure	wago SpellName + TraitDefinition (spec 62), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Evocation	12051	sure	wago SpellName + TraitDefinition (spec 62), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Fireball	133	sure	wago SpellName + SpecializationSpells 63, build 12.1.0.69933; Wowhead tooltip live (Mage)	overrides Frostbolt for Fire
+KeybindRoles_Mage.lua	Fire Blast	108853	sure	wago SpellName + TraitDefinition (spec 63, overrides 319836), build 12.1.0.69933; Wowhead tooltip live (Mage)	Fire version (always crits). Base 319836 (Mage SLA) is what it overrides; Arcane Barrage / Ice Lance override 319836 on the other specs
+KeybindRoles_Mage.lua	Scorch	2948	sure	wago SpellName + TraitDefinition (spec 63), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Pyroblast	11366	sure	wago SpellName + TraitDefinition (spec 63), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Living Bomb		notfound	wago build 12.1.0.69933: no "Living Bomb" id has a class/trait link; warcraft.wiki.gg: Removed in patch 11.0.0, effect now from Lit Fuse	not a button (old 44457/44461)
+KeybindRoles_Mage.lua	Flamestrike	2120	unsure	wago SpellName + TraitDefinition (spec 63, CHOICE node 109409), build 12.1.0.69933; Wowhead tooltip live (Mage); warcraft.wiki.gg 12.0.0 unit-targeted variant via choice node	CHOICE node: 2120 = ground-targeted; 1254851 = cast on your target. Player has one of the two, same name.
+KeybindRoles_Mage.lua	Dragon's Breath	31661	sure	wago SpellName + TraitDefinition (Mage class talent), build 12.1.0.69933; Wowhead tooltip live (Mage)	class CHOICE node with Supernova (node 101883)
+KeybindRoles_Mage.lua	Cauterize	86949	sure	wago SpellName + TraitDefinition (spec 63), build 12.1.0.69933; Wowhead tooltip live (Mage)	PASSIVE talent, not a button
+KeybindRoles_Mage.lua	Combustion	190319	sure	wago SpellName + TraitDefinition (spec 63), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Meteor	153561	sure	wago SpellName + TraitDefinition (spec 63), build 12.1.0.69933; Wowhead tooltip live (Mage)	node is Fire-only in 12.1 DB2 (entry comment "ook Frost" not seen); 351140 = damage effect
+KeybindRoles_Mage.lua	Frostbolt	116	sure	wago SpellName + SkillLineAbility Mage (904), build 12.1.0.69933; Wowhead tooltip live (Mage)	baseline
+KeybindRoles_Mage.lua	Flurry	44614	sure	wago SpellName + TraitDefinition (spec 64), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Ray of Frost	205021	sure	wago SpellName + TraitDefinition (spec 64), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Ice Lance	30455	sure	wago SpellName + TraitDefinition (spec 64), build 12.1.0.69933; Wowhead tooltip live (Mage)	overrides Fire Blast 319836 for Frost
+KeybindRoles_Mage.lua	Frozen Orb	84714	sure	wago SpellName + TraitDefinition (spec 64), build 12.1.0.69933; Wowhead tooltip live (Mage)
+KeybindRoles_Mage.lua	Blizzard	190356	unsure	wago SpellName + TraitDefinition (spec 64, CHOICE node 108864), build 12.1.0.69933; Wowhead tooltip live (Mage)	CHOICE node: 190356 = cast at selected location; 1248829 = cast at your target. Player has one of the two, same name.
+KeybindRoles_Mage.lua	Cone of Cold	120	sure	wago SpellName + SkillLineAbility Mage (904), build 12.1.0.69933; Wowhead tooltip live (Mage)	class baseline (entry says Frost only)
+KeybindRoles_Monk.lua	Breath of Fire	115181	sure	wago SpellName + TraitDefinition (spec 268), build 12.1.0.69933; Wowhead tooltip live (Monk)
+KeybindRoles_Monk.lua	Rushing Jade Wind	116847	sure	wago SpellName + TraitDefinition (spec 268), build 12.1.0.69933; Wowhead tooltip live (Monk)
+KeybindRoles_Monk.lua	Exploding Keg	325153	sure	wago SpellName + TraitDefinition (spec 268), build 12.1.0.69933; Wowhead tooltip live (Monk)
+KeybindRoles_Monk.lua	Invoke Niuzao, the Black Ox	132578	sure	wago SpellName + TraitDefinition (spec 268), build 12.1.0.69933; Wowhead tooltip live (Monk)
+KeybindRoles_Monk.lua	Provoke	115546	sure	wago SpellName + SkillLineAbility Monk (829), build 12.1.0.69933; Wowhead tooltip live (Monk)	baseline all monks
+KeybindRoles_Monk.lua	Fists of Fury	113656	sure	wago SpellName + TraitDefinition (spec 269), build 12.1.0.69933; Wowhead tooltip live (Monk)	117418 = damage effect
+KeybindRoles_Monk.lua	Spinning Crane Kick	101546	sure	wago SpellName + SkillLineAbility Monk (829), build 12.1.0.69933; Wowhead tooltip live (Monk)	WW + MW; Brewmaster gets 322729 instead; 343730 = WW passive rank 2
+KeybindRoles_Monk.lua	Whirling Dragon Punch	152175	sure	wago SpellName + TraitDefinition (spec 269), build 12.1.0.69933; Wowhead tooltip live (Monk)
+KeybindRoles_Monk.lua	Invoke Xuen, the White Tiger	123904	sure	wago SpellName + TraitDefinition (hero Conduit of the Celestials, spec 269), build 12.1.0.69933; Wowhead tooltip live (Monk); warcraft.wiki.gg 12.0.0 hero talent	only with the Conduit of the Celestials hero tree
+KeybindRoles_Monk.lua	Rising Sun Kick	107428	sure	wago SpellName + TraitDefinition (spec 269/270, granted), build 12.1.0.69933; Wowhead tooltip live (Monk)	MW: Rushing Wind Kick 467307 replaces it when talented
+KeybindRoles_Monk.lua	Sheilun's Gift	399491	sure	wago SpellName + TraitDefinition (spec 270, overrides Vivify 116670), build 12.1.0.69933; Wowhead tooltip live (Monk); warcraft.wiki.gg 12.0.0 "Overrides Vivify when learned"	NOTE: replaces Vivify for MW when talented (affects the Vivify entry)
+KeybindRoles_Monk.lua	Jadefire Stomp		notfound	wago build 12.1.0.69933: 388193 only in an old Monk tree (781), not the current one (1000); 457974 = WW passive; warcraft.wiki.gg 12.0.0 removed from the Mistweaver tree	not a MW button in 12.1 (entry specs 270); WW 457974 is passive (end of Fists of Fury)
+KeybindRoles_Monk.lua	Thunder Focus Tea	116680	sure	wago SpellName + TraitDefinition (spec 270), build 12.1.0.69933; Wowhead tooltip live (Monk)
+KeybindRoles_Monk.lua	Revival	115310	sure	wago SpellName + TraitDefinition (spec 270), build 12.1.0.69933; Wowhead tooltip live (Monk)
+KeybindRoles_Monk.lua	Invoke Chi-Ji, the Red Crane	325197	sure	wago SpellName + TraitDefinition (spec 270), build 12.1.0.69933; Wowhead tooltip live (Monk)	same node as Yu'lon (101129): one or the other
+KeybindRoles_Monk.lua	Invoke Yu'lon, the Jade Serpent	322118	sure	wago SpellName + TraitDefinition (spec 270), build 12.1.0.69933; Wowhead tooltip live (Monk)	same node as Chi-Ji (101129)
+KeybindRoles_Monk.lua	Ring of Peace	116844	sure	wago SpellName + TraitDefinition (Monk class talent), build 12.1.0.69933; Wowhead tooltip live (Monk)	class talent, not MW-only
+KeybindRoles_Monk.lua	Leg Sweep	119381	sure	wago SpellName + SkillLineAbility Monk (829), build 12.1.0.69933; Wowhead tooltip live (Monk)	baseline
+KeybindRoles_Monk.lua	Tiger Palm	100780	sure	wago SpellName + SkillLineAbility Monk (829), build 12.1.0.69933; Wowhead tooltip live (Monk)	baseline
+KeybindRoles_Monk.lua	Touch of Death	322109	sure	wago SpellName + SkillLineAbility Monk (829), build 12.1.0.69933; Wowhead tooltip live (Monk)	baseline; 325095 (BrM) and 325215 (WW) are passive rank 3s
+KeybindRoles_Monk.lua	Paralysis	115078	sure	wago SpellName + TraitDefinition (granted for 268/269/270), build 12.1.0.69933; Wowhead tooltip live (Monk)
+KeybindRoles_Monk.lua	Transcendence	101643	sure	wago SpellName + TraitDefinition (Monk class talent), build 12.1.0.69933; Wowhead tooltip live (Monk)	class talent
+KeybindRoles_Priest.lua	Psychic Scream	8122	sure	wago SpellName + TraitDefinition (class tree, granted for 258), build 12.1.0.69933; Wowhead tooltip live (Priest)	class talent, free for Shadow
+KeybindRoles_Priest.lua	Mass Dispel	32375	sure	wago SpellName + TraitDefinition (Priest class talent), build 12.1.0.69933; Wowhead tooltip live (Priest)	class talent
+KeybindRoles_Priest.lua	Leap of Faith	73325	sure	wago SpellName + TraitDefinition (Priest class talent), build 12.1.0.69933; Wowhead tooltip live (Priest)	class talent
+KeybindRoles_Priest.lua	Power Infusion	10060	sure	wago SpellName + TraitDefinition (Priest class talent), build 12.1.0.69933; Wowhead tooltip live (Priest)	class talent
+KeybindRoles_Priest.lua	Mind Control	605	sure	wago SpellName + TraitDefinition (Priest class talent), build 12.1.0.69933; Wowhead tooltip live (Priest)	class talent
+KeybindRoles_Priest.lua	Levitate	1706	sure	wago SpellName + SkillLineAbility Priest (804), build 12.1.0.69933; Wowhead tooltip live (Priest)	baseline
+KeybindRoles_Priest.lua	Shadow Word: Pain	589	sure	wago SpellName + SkillLineAbility Priest (804), build 12.1.0.69933; Wowhead tooltip live (Priest)	baseline; Holy Fire 14914 replaces it for Holy when talented
+KeybindRoles_Priest.lua	Shadow Word: Death	32379	sure	wago SpellName + TraitDefinition (Priest class talent), build 12.1.0.69933; Wowhead tooltip live (Priest)	class talent
+KeybindRoles_Priest.lua	Mind Blast	8092	sure	wago SpellName + TraitDefinition (spec 256/258), build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Evangelism	472433	sure	wago SpellName + TraitDefinition (spec 256), build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Power Word: Barrier	62618	sure	wago SpellName + TraitDefinition (spec 256), build 12.1.0.69933; Wowhead tooltip live (Priest)	same node as Ultimate Penitence (82564): one or the other
+KeybindRoles_Priest.lua	Purify	527	sure	wago SpellName + SpecializationSpells 256/257, build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Ultimate Penitence	421453	sure	wago SpellName + TraitDefinition (spec 256), build 12.1.0.69933; Wowhead tooltip live (Priest)	same node as Power Word: Barrier (82564)
+KeybindRoles_Priest.lua	Smite	585	sure	wago SpellName + SkillLineAbility Priest (804), build 12.1.0.69933; Wowhead tooltip live (Priest)	baseline; Mind Flay replaces it for Shadow
+KeybindRoles_Priest.lua	Holy Word: Chastise	88625	sure	wago SpellName + TraitDefinition (spec 257), build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Apotheosis	200183	sure	wago SpellName + TraitDefinition (spec 257), build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Divine Hymn	64843	sure	wago SpellName + TraitDefinition (spec 257), build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Vampiric Touch	34914	sure	wago SpellName + SpecializationSpells 258, build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Shadow Word: Madness	335467	sure	wago SpellName + TraitDefinition (spec 258), build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Mind Flay	15407	sure	wago SpellName + SpecializationSpells 258 (overrides Smite 585), build 12.1.0.69933; Wowhead tooltip live (Priest)
+KeybindRoles_Priest.lua	Void Volley	1242173	sure	wago build 12.1.0.69933: Voidform aura 1242171 override -> 1242173; Wowhead tooltip live (Priest); warcraft.wiki.gg 12.0.0 replacement spell during Voidform	Not a spellbook spell: appears in place of a button during Voidform. Own keybind will not work.
+KeybindRoles_Priest.lua	Void Torrent	263165	sure	wago SpellName + TraitDefinition (hero Voidweaver, spec 258), build 12.1.0.69933; Wowhead tooltip live (Priest); warcraft.wiki.gg 12.0.0 Voidweaver hero talent	only with the Voidweaver hero tree; 205065 = old SLA row (AcquireMethod 3)

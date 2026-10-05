@@ -81,8 +81,8 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- Card: small, a shield before the hit, not a keep-up.
 	["Power Word: Shield"] = { id = 17, role = "defensive_1", priority = 1, specs = { 256, 258 }, blockAs = { [256] = { category = "main_rotation", priority = 1, bindKey = "2" } }, survival = "small", survivalOrder = 2 }, -- Z: self-shield (Disc perst 'm ook als atonement-builder)
 	["Desperate Prayer"] = { id = 19236, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2: persoonlijke noodheal (GEEN defensive -> heal-slot)
-	["Psychic Scream"] = { category = "dispel_cc", priority = 1 },               -- V: AoE-fear (CC)
-	["Mass Dispel"] = { category = "dispel_cc", priority = 3 },                  -- T: enemy-magic dispel / raid-dispel
+	["Psychic Scream"] = { id = 8122, category = "dispel_cc", priority = 1 },               -- V: AoE-fear (CC)
+	["Mass Dispel"] = { id = 32375, category = "dispel_cc", priority = 3 },                  -- T: enemy-magic dispel / raid-dispel
 	-- ✅ 7 sep 2026 — ID's GEMETEN in Robs eigen spellbook (`ns.db.autoMapDump.scannedIds`,
 	-- Shadow Priest), niet van het web. Positieve controle in dezelfde uitlezing: 228260 kwam
 	-- terug als `Voidform`, wat meteen de hernoem-reparatie van 6 sep in de client bevestigt.
@@ -93,28 +93,28 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Dispel Magic"] = { id = 528, category = "dispel_cc", priority = 4 },       -- offensieve magic-dispel; wij hadden Mass Dispel wél en deze niet
 	["Shackle Horror"] = { id = 9484, category = "dispel_cc", priority = 5 },    -- 📌 stond sinds dag 1 in het bronnen-commentaar op :25, nooit als entry
 	["Power Word: Fortitude"] = { id = 21562, category = "utility", priority = 7 }, -- klassenbuff
-	["Leap of Faith"] = { category = "utility", priority = 4 },                  -- X: ally-pull
-	["Power Infusion"] = { role = "cooldown_bar", priority = 2 },                -- F1-familie: haste-burst-CD (self/ally)
-	["Mind Control"] = { role = "utility_secondary", priority = 2 },             -- E-utility (Disc/Holy hebben geen interrupt)
-	["Levitate"] = { category = "utility", priority = 6 },                       -- out-of-combat mobility-utility
+	["Leap of Faith"] = { id = 73325, category = "utility", priority = 4 },                  -- X: ally-pull
+	["Power Infusion"] = { id = 10060, role = "cooldown_bar", priority = 2 },                -- F1-familie: haste-burst-CD (self/ally)
+	["Mind Control"] = { id = 605, role = "utility_secondary", priority = 2 },             -- E-utility (Disc/Holy hebben geen interrupt)
+	["Levitate"] = { id = 1706, category = "utility", priority = 6 },                       -- out-of-combat mobility-utility
 	-- Shadowfiend removed 17 Sep: passive now for Disc and Shadow, gone for Holy (audit, BRON Icy Veins Shadow/Disc/Holy 12.1).
 
 	-- -----------------------------------------------------------------
 	-- DISCIPLINE (256) - healer
 	-- -----------------------------------------------------------------
 	-- Damage/atonement-rotatie (builders/spenders die je actief drukt):
-	["Shadow Word: Pain"] = { category = "main_rotation", priority = 3, specs = { 256, 257, 258 }, blockAs = { [256] = { category = "main_rotation", priority = 1, bindKey = "5" } } }, -- DoT/Atonement (Shadow 1); Holy baseline since 5 Oct 2026 (IV Holy 12.1), Holy Fire replaces it when talented
+	["Shadow Word: Pain"] = { id = 589, category = "main_rotation", priority = 3, specs = { 256, 257, 258 }, blockAs = { [256] = { category = "main_rotation", priority = 1, bindKey = "5" } } }, -- DoT/Atonement (Shadow 1); Holy baseline since 5 Oct 2026 (IV Holy 12.1), Holy Fire replaces it when talented
 	["Power Word: Radiance"] = { id = 194509, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 256 } },         -- AoE-atonement (getimed spender)
-	["Shadow Word: Death"] = { category = "spender", priority = 2, specs = { 256, 257, 258 } }, -- execute; Holy too (IV Holy 12.1, 5 Oct 2026)
-	["Mind Blast"] = { category = "main_rotation", priority = 2, specs = { 256, 258 }, blockAs = { [256] = { category = "main_rotation", priority = 2, bindKey = "4" } } },        -- burst-builder (Disc/Shadow)
-	["Evangelism"] = { category = "cooldown", priority = 3, bindKey = "Shift+4", specs = { 256 } }, -- ramp-CD: casts Power Word: Radiance (12.1 no longer extends Atonement, audit)
+	["Shadow Word: Death"] = { id = 32379, category = "spender", priority = 2, specs = { 256, 257, 258 } }, -- execute; Holy too (IV Holy 12.1, 5 Oct 2026)
+	["Mind Blast"] = { id = 8092, category = "main_rotation", priority = 2, specs = { 256, 258 }, blockAs = { [256] = { category = "main_rotation", priority = 2, bindKey = "4" } } },        -- burst-builder (Disc/Shadow)
+	["Evangelism"] = { id = 472433, category = "cooldown", priority = 3, bindKey = "Shift+4", specs = { 256 } }, -- ramp-CD: casts Power Word: Radiance (12.1 no longer extends Atonement, audit)
 	-- Defensives:
-	["Power Word: Barrier"] = { role = "defensive_3", priority = 1, specs = { 256 } },          -- C: raid-DR. Card: off (raid ground circle, not a personal button)
+	["Power Word: Barrier"] = { id = 62618, role = "defensive_3", priority = 1, specs = { 256 } },          -- C: raid-DR. Card: off (raid ground circle, not a personal button)
 	["Pain Suppression"] = { id = 33206, category = "defensive", priority = 2, specs = { 256 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- Shift+C: tank-external; "use it selfishly" (Method Disc)
-	["Purify"] = { category = "dispel_cc", priority = 2, bindKey = "V", specs = { 256, 257 } },                -- Shift+V: friendly-dispel
+	["Purify"] = { id = 527, category = "dispel_cc", priority = 2, bindKey = "V", specs = { 256, 257 } },                -- Shift+V: friendly-dispel
 	-- Cooldowns (raid-heal-enablers / burst) - grote raid-saves op cooldown-slots:
 	-- Spirit Shell removed 17 Sep: gone since Dragonflight (audit).
-	["Ultimate Penitence"] = { blockQ = { [256] = true }, role = "cooldown_bar", priority = 1, specs = { 256 } },          -- F1: grootste heal-CD
+	["Ultimate Penitence"] = { id = 421453, blockQ = { [256] = true }, role = "cooldown_bar", priority = 1, specs = { 256 } },          -- F1: grootste heal-CD
 
 	-- Penance: Disc drukt Penance-DAMAGE actief voor Atonement -> BLIJFT main_rotation (haar rotatie).
 	-- De heal-toepassing loopt via mouseover/click-cast op hetzelfde spell, geen aparte toets.
@@ -126,16 +126,16 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- -----------------------------------------------------------------
 	-- HOLY (257) - healer
 	-- -----------------------------------------------------------------
-	["Smite"] = { category = "main_rotation", priority = 2, specs = { 256, 257 } },             -- filler-damage (voedt Chastise); Disc baseline too (IV Disc 12.1, 5 Oct 2026)
+	["Smite"] = { id = 585, category = "main_rotation", priority = 2, specs = { 256, 257 } },             -- filler-damage (voedt Chastise); Disc baseline too (IV Disc 12.1, 5 Oct 2026)
 	-- Healers DPS too (Rob, 5 Oct 2026; mh-research, ids from wago.tools DB2 build 12.1.5.70077):
 	["Holy Fire"] = { id = 14914, category = "main_rotation", priority = 2, bindKey = "4", specs = { 257 } }, -- talent, overrides SW:Pain 589 (wago TraitDefinition 139056)
 	["Holy Nova"] = { id = 132157, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 256, 257 }, blockAs = { [257] = { category = "main_rotation", priority = 6, bindKey = "Shift+4" } } }, -- class talent, AoE damage+heal (wago TraitDefinition 108875; IV)
-	["Holy Word: Chastise"] = { role = "utility_secondary", priority = 1, specs = { 257 } },    -- F: damage/CC
+	["Holy Word: Chastise"] = { id = 88625, role = "utility_secondary", priority = 1, specs = { 257 } },    -- F: damage/CC
 	-- Defensives:
 	["Guardian Spirit"] = { id = 47788, role = "defensive_3", priority = 1, specs = { 257 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- C: cheat-death external, also on yourself (Method Holy)
 	-- Cooldowns (grote raid-saves op cooldown-slots):
-	["Apotheosis"] = { blockQ = { [257] = true }, role = "cooldown_bar", priority = 1, specs = { 257 } },                  -- F1: reset Holy Words (grootste heal-CD)
-	["Divine Hymn"] = { category = "cooldown", priority = 2, specs = { 257 } },                 -- Shift+F1: raid-heal-CD
+	["Apotheosis"] = { id = 200183, blockQ = { [257] = true }, role = "cooldown_bar", priority = 1, specs = { 257 } },                  -- F1: reset Holy Words (grootste heal-CD)
+	["Divine Hymn"] = { id = 64843, category = "cooldown", priority = 2, specs = { 257 } },                 -- Shift+F1: raid-heal-CD
 	-- Symbol of Hope removed 17 Sep (audit, BRON Icy Veins Holy 12.1).
 	-- Holy self/low-hp heal (naast Flash Heal): niet vereist als apart heal-anker, blijft utility.
 	-- Raid/AoE/smart-heals - BLIJVEN op toetsen (v6 sectie 6):
@@ -151,7 +151,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- -----------------------------------------------------------------
 	-- SHADOW (258) - DPS: volledige rotatie op builders/spenders
 	-- -----------------------------------------------------------------
-	["Vampiric Touch"] = { category = "main_rotation", priority = 2, specs = { 258 } },         -- DoT + self-heal
+	["Vampiric Touch"] = { id = 34914, category = "main_rotation", priority = 2, specs = { 258 } },         -- DoT + self-heal
 	-- 🔴 Tentacle Slam was de grootste omissie van Spec 32 §1c: Method gebruikt hem als
 	-- AoE-motor om Vampiric Touch op 6-12 doelen te krijgen, en wij kenden hem niet.
 	-- Priority 3 = een kale cijfertoets; Shift+1 en Shift+3 zijn al bezet door Mind Flay en
@@ -166,8 +166,8 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- ⚠️ `Cantrips` (255661) staat WEL in Robs spellbook en is hier bewust NIET toegevoegd.
 	-- Spec 32 §1c zegt het zelf: onbekend wat het in 12.1 doet. Een entry zonder rol is een
 	-- gok met een toets eraan, en die kost een echte knop.
-	["Shadow Word: Madness"] = { category = "spender", priority = 1, specs = { 258 } }, -- Insanity-spender
-	["Mind Flay"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 258 } }, -- filler (AoE-tweeling Shift+1)
+	["Shadow Word: Madness"] = { id = 335467, category = "spender", priority = 1, specs = { 258 } }, -- Insanity-spender
+	["Mind Flay"] = { id = 15407, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 258 } }, -- filler (AoE-tweeling Shift+1)
 	-- ⚠️ Void Bolt is HIER WEGGEHAALD op 7 aug 2026: hij bestaat niet meer. Void Volley
 	-- (1242173) heeft zijn plek in Voidform overgenomen -- "instead of granting access to
 	-- Void Bolt, Voidform now gives you access to Void Volley, which does not refresh
@@ -176,7 +176,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- opvolger, en de "botsing" om Shift+3 was een dode spell tegen een levende.
 	-- ⚠️ Niet verwarren met Void BLAST (450405), een andere spell die naast Void Volley
 	-- bestaat in de Voidweaver-build.
-	["Void Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 258 } }, -- Voidform-spender
+	["Void Volley"] = { id = 1242173, category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 258 } }, -- Voidform-spender
 	["Silence"] = { id = 15487, role = "interrupt", priority = 1, specs = { 258 }, survival = "interrupt", survivalOrder = 1 }, -- E: interrupt + silence
 	["Dispersion"] = { id = 47585, role = "defensive_3", priority = 1, specs = { 258 }, survival = "big", survivalOrder = 1 }, -- C: grote defensive
 	-- 🔴 HERNOEMD, NIET VERDWENEN — gerepareerd 6 sep 2026 (Spec 32 §1c).
@@ -197,7 +197,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- 📌 Daarom draagt hij nu een `id`: een hernoeming had dan niets gebroken, en het getal
 	-- stond al op deze regel in het commentaar.
 	["Voidform"] = { blockQ = { [258] = true }, id = 228260, role = "cooldown_bar", priority = 1, specs = { 258 } }, -- F1: burst-CD
-	["Void Torrent"] = { category = "cooldown", priority = 2, specs = { 258 } }, -- extra burst-CD (channel)
+	["Void Torrent"] = { id = 263165, category = "cooldown", priority = 2, specs = { 258 } }, -- extra burst-CD (channel)
 	-- Mindbender removed 17 Sep: passive now (audit, BRON Icy Veins Shadow 12.1).
 
 	-- Gedeelde healer-click_cast (Disc + Holy):

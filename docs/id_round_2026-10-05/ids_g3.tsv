@@ -1,0 +1,142 @@
+file	name	id	confidence	source	note
+KeybindRoles_Rogue.lua	Mutilate	1329	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 259; Wowhead tooltip 5 Oct 2026 Requires Rogue	replaces Sinister Strike 1752 for Assassination
+KeybindRoles_Rogue.lua	Shiv	5938	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921 + class trait node 90740 (tree 852); Wowhead Requires Rogue	class talent node; granted for 259
+KeybindRoles_Rogue.lua	Garrote	703	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 259; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Envenom	32645	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 259; Wowhead Requires Rogue	replaces Eviscerate 196819 for Assassination
+KeybindRoles_Rogue.lua	Rupture	1943	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 259; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Fan of Knives	51723	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 259; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Crimson Tempest	1247227	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 852 node 94557 spec 259; Wowhead Requires Rogue	only Crimson Tempest id with a 12.1 learn link
+KeybindRoles_Rogue.lua	Deathmark	360194	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 852 node 90769 spec 259; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Kingsbane	385627	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 852 node 90770 spec 259; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Sinister Strike	193315	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 260 (overrides 1752); Wowhead Requires Rogue	Outlaw's own spellbook id; class base 1752 (SkillLineAbility 921) is what it overrides
+KeybindRoles_Rogue.lua	Pistol Shot	185763	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 260; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Roll the Bones	1214909	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 260; Wowhead Requires Rogue	new 12.x id
+KeybindRoles_Rogue.lua	Between the Eyes	315341	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 260; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Dispatch	2098	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 260; Wowhead Requires Rogue	replaces Eviscerate 196819 for Outlaw
+KeybindRoles_Rogue.lua	Blade Flurry	13877	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 260; Wowhead Requires Rogue	22482 (same name) is a damage effect, not the button
+KeybindRoles_Rogue.lua	Adrenaline Rush	13750	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 852 node 90659 spec 260; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Killing Spree	51690	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 852 node 94565 spec 260; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Keep It Rolling	381989	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 852 node 90652 spec 260; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Shadowstrike	185438	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 261 (overrides Ambush 8676); Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Backstab	53	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 261 (overrides 1752); Wowhead Requires Rogue	talent Gloomblade 200758 (node 90699) replaces Backstab
+KeybindRoles_Rogue.lua	Secret Technique	280719	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 261; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Eviscerate	196819	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921; Wowhead Requires Rogue	Assa/Outlaw override it (Envenom/Dispatch); Subtlety keeps 196819
+KeybindRoles_Rogue.lua	Mark for Death	1293340	unsure	wago 12.1.0.69933 SpellName + SpellClassOptions set 8 (Rogue), NO SkillLineAbility/Trait/PvpTalent row; Wowhead page: Rogue, added 12.0.5	different ability now: "Move your active Deathstalker's Mark to your target" (20 s cd); presumably granted by Deathstalker hero tree (457052, specs 259/261) - AFGELEID; not the old combo-point enabler the comment describes
+KeybindRoles_Rogue.lua	Shuriken Storm	197835	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 261; Wowhead Requires Rogue	1279401 (same name, spec 261) is a passive, not the button
+KeybindRoles_Rogue.lua	Black Powder	319175	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 261; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Shadow Dance	185313	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 261; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Shadow Blades	121471	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 852 node 90726 spec 261; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Shadowstep	36554	sure	wago 12.1.0.69933 SpellName + SpellClassOptions set 8; SpecializationSpells 259/261 carry passives 394932/394935 named Shadowstep (charges); Wowhead 36554 Requires Rogue	no direct learn row for 36554 in DB2 (learned via the spec passives, AFGELEID from Wowhead text); NOT in the 12.1 class tree
+KeybindRoles_Rogue.lua	Blind	2094	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921 + class trait node 90684; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Kidney Shot	408	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Cheap Shot	1833	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Sap	6770	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Gouge	1776	sure	wago 12.1.0.69933 SpellName + class trait node 90741 (tree 852); Wowhead Requires Rogue	choice node with passive Airborne Irritant 200733
+KeybindRoles_Rogue.lua	Stealth	1784	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921; Wowhead Requires Rogue	Subterfuge 108208 overrides it with 115191 (SpellEffect aura 332)
+KeybindRoles_Rogue.lua	Distract	1725	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921; Wowhead Requires Rogue	-
+KeybindRoles_Rogue.lua	Tricks of the Trade	57934	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 921 + class trait node 90686; Wowhead Requires Rogue	-
+KeybindRoles_Shaman.lua	Hex	51514	sure	wago 12.1.0.69933 SpellName + class trait node 103623 (tree 786); Wowhead Requires Shaman	other Hex ids in SkillLineAbility 924 (210873 etc.) are variant forms, not this button
+KeybindRoles_Shaman.lua	Purge	370	sure	wago 12.1.0.69933 SpellName + class trait node 103624; Wowhead Requires Shaman	choice node with Greater Purge 378773
+KeybindRoles_Shaman.lua	Capacitor Totem	192058	sure	wago 12.1.0.69933 SpellName + class trait node 103579; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Bloodlust	2825	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 924; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Heroism	32182	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 924; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Nature's Swiftness	378081	sure	wago 12.1.0.69933 SpellName + class trait node 103620; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Lava Burst	51505	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 103598 specs 262/264; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Voltaic Blaze	470057	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 nodes 81007 (262) / 80954 (263); Wowhead Requires Shaman	trait overrides Flame Shock 470411
+KeybindRoles_Shaman.lua	Lightning Bolt	188196	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 924; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Elemental Blast	117014	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 80984 spec 262; Wowhead Requires Shaman	choice node with Earth Shock 8042. Enhancement: no link in tree 786 (only in unmapped trees 1033/1034), though Wowhead tooltip still names Enhancement - Enh availability unverified; same id either way
+KeybindRoles_Shaman.lua	Chain Lightning	188443	sure	wago 12.1.0.69933 SpellName + class trait node 103583; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Earthquake	462620	unsure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 80985 spec 262; Wowhead both ids Requires Shaman	choice node 80985: 462620 (cast at your target, entry 1) OR 61882 (cast at selected location, entry 2); the player picks one, one id cannot cover both
+KeybindRoles_Shaman.lua	Spiritwalker's Grace	79206	sure	wago 12.1.0.69933 SpellName + class trait node 103584; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Skyfury	462854	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 924; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Cleanse Spirit	51886	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 103608 specs 262/263; Wowhead Requires Shaman	440012 is Resto's Cleanse Spirit, overridden by Purify Spirit 77130
+KeybindRoles_Shaman.lua	Stormkeeper	191634	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 80988 spec 262; Wowhead Requires Shaman	Elemental only: no Enhancement Stormkeeper found in tree 786; 205495 is the Legion artifact (Wowhead: Requires The Fist of Ra-den)
+KeybindRoles_Shaman.lua	Stormstrike	17364	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 263; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Lava Lash	60103	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 109389 spec 263; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Crash Lightning	187874	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 80974 spec 263; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Sundering	197214	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 80975 spec 263; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Frost Shock	196840	sure	wago 12.1.0.69933 SpellName + class trait node 109492; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Tremor Totem	8143	sure	wago 12.1.0.69933 SpellName + class trait node 103599; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Wind Rush Totem	192077	sure	wago 12.1.0.69933 SpellName + class trait node 103627; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Doom Winds	384352	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 80959 spec 263; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Ascendance	114050	unsure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786; Wowhead all three Requires Shaman	one id per spec: 262=114050 (node 80989), 263=114051 (node 92219, choice vs Deeply Rooted Elements, overrides Doom Winds), 264=114052 (node 81032, choice vs Healing Tide Totem); entry covers 262/263/264 so a single id drops two specs
+KeybindRoles_Shaman.lua	Downpour	207778	sure	wago 12.1.0.69933 SpellName + talent 462486 in tree 786 node 103436 spec 264; Wowhead 207778 + 462486 Requires Shaman	207778 is the cast button; talent 462486: casting Healing Rain grants a use of Downpour for 16 sec, so 207778 is only usable in that window
+KeybindRoles_Shaman.lua	Healing Tide Totem	108280	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 81032 spec 264; Wowhead Requires Shaman	choice node with Ascendance 114052
+KeybindRoles_Shaman.lua	Spirit Link Totem	98008	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 786 node 81041 spec 264; Wowhead Requires Shaman	-
+KeybindRoles_Shaman.lua	Ancestral Spirit	2008	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 924; Wowhead Requires Shaman	-
+KeybindRoles_Warlock.lua	Fear	5782	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 849; Wowhead Requires Warlock	118699 (JustAC id in the comment) is the fear aura, not the button
+KeybindRoles_Warlock.lua	Howl of Terror	5484	sure	wago 12.1.0.69933 SpellName + class trait node 71947 (tree 720); Wowhead Requires Warlock	choice node with Shadowfury 30283
+KeybindRoles_Warlock.lua	Banish	710	sure	wago 12.1.0.69933 SpellName + class trait node 71944; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Healthstone		notfound	wago 12.1.0.69933 SpellName: 6262 has no SkillLineAbility/Trait row; Wowhead 6262 = "Item Effect"	an item, not a spellbook spell; 6262 is the item's use effect
+KeybindRoles_Warlock.lua	Soulstone	20707	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 849; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Demonic Gateway	111771	sure	wago 12.1.0.69933 SpellName + class trait node 71955; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Command Demon	119898	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 849; Wowhead Requires Warlock	the only spell with this name; the button the pet abilities override (see Spell Lock / Axe Toss survivalOverride)
+KeybindRoles_Warlock.lua	Create Healthstone	6201	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 849; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Create Soulwell	29893	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 849; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Call Felhunter		notfound	wago 12.1.0.69933: 212619 has no SkillLineAbility, TraitDefinition or PvpTalent row; Wowhead 212619 Requires Warlock, added 7.0.3	212619 exists but nothing in the 12.1 data lets a player learn it
+KeybindRoles_Warlock.lua	Agony	980	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 72049 spec 265; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Corruption	172	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 849; Wowhead Requires Warlock	Destruction overrides it with Immolate 348, Demonology with Hand of Gul'dan; Hellcaller Wither replaces it
+KeybindRoles_Warlock.lua	Wither	445468	sure	wago 12.1.0.69933 SpellName + VisibleSpellID of talent 445465 (Hellcaller, tree 720 node 94840, specs 265/267); Wowhead Requires Warlock	445465 is the passive talent; 445468 is the cast button
+KeybindRoles_Warlock.lua	Unstable Affliction	1259790	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 109862 spec 265; Wowhead Requires Warlock	new 12.x id
+KeybindRoles_Warlock.lua	Haunt	48181	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 72032 spec 265; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Drain Soul	198590	sure	wago 12.1.0.69933 SpellName; talent 388667 (tree 720 node 72045 spec 265, choice vs Improved Shadow Bolt) overrides Shadow Bolt 686 (aura 332); Wowhead 198590 Requires Warlock	198590 is the channel on the Shadow Bolt button; talent id 388667
+KeybindRoles_Warlock.lua	Malefic Grasp	1261153	sure	wago 12.1.0.69933 SpellName; talent 1261149 (tree 720 node 109858 spec 265); Wowhead 1261153 + 1261149 Requires Warlock	temporary: "While Darkglare is active, your Shadow Bolt becomes Malefic Grasp"; talent id 1261149 (passive)
+KeybindRoles_Warlock.lua	Seed of Corruption	27243	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 72050 spec 265; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Summon Darkglare	205180	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 72034 spec 265; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Malevolence	442726	sure	wago 12.1.0.69933 SpellName + VisibleSpellID of talent 430014 (Hellcaller, node 94842, specs 265/267); Wowhead Requires Warlock	430014 is the passive talent; 442726 is the cast button
+KeybindRoles_Warlock.lua	Shadow Bolt	686	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 849; Wowhead Requires Warlock	Destruction overrides it with Incinerate 29722
+KeybindRoles_Warlock.lua	Demonbolt	264178	unsure	wago 12.1.0.69933 SpellName + SpellClassOptions set 5, effect triggers Doom 460553; Wowhead page Warlock, Demonology bracket	no SkillLineAbility/Trait/SpecializationSpells row for 264178; Demo having it is AFGELEID from the Doom talent (tree 720, spec 266) text; only damage spell with this name
+KeybindRoles_Warlock.lua	Call Dreadstalkers	104316	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 101894 spec 266; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Hand of Gul'dan	105174	sure	wago 12.1.0.69933 SpellName + VisibleSpellID of def 130665 (spell 1250273, overrides Corruption 172; node 101891 spec 266); Wowhead Requires Warlock	sits on the Corruption button for Demonology
+KeybindRoles_Warlock.lua	Implosion	196277	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 101893 spec 266; Wowhead Requires Warlock	choice node with Power Siphon 264130; 196278 (file comment) is the damage effect
+KeybindRoles_Warlock.lua	Doom		notfound	wago 12.1.0.69933: only 460551 has a learn link (talent, entry type passive, node 110200 spec 266); Wowhead 460551 = passive talent text	no Doom button in 12.1: Demonbolt applies it; 460555 (file comment) is the damage effect
+KeybindRoles_Warlock.lua	Summon Demonic Tyrant	265187	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 101905 spec 266; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Incinerate	29722	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 267 (overrides Shadow Bolt 686); Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Immolate	348	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 267 (overrides Corruption 172); Wowhead Requires Warlock	Hellcaller Wither replaces it
+KeybindRoles_Warlock.lua	Conflagrate	17962	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 72068 spec 267; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Chaos Bolt	116858	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 110282 spec 267; Wowhead Requires Warlock	215279 (same name, SkillLineAbility acq3) is a damage effect
+KeybindRoles_Warlock.lua	Shadowburn	17877	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 72060 spec 267; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Rain of Fire	5740	unsure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 72069 spec 267; Wowhead both ids Requires Warlock	choice node 72069: 5740 (selected location, entry 1) OR 1214467 (cast at your target, entry 2); one id cannot cover both
+KeybindRoles_Warlock.lua	Havoc	80240	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 71979 spec 267; Wowhead Requires Warlock	choice node with passive Mayhem 387506; 194831 in the file comment is a Demon Hunter spell (SpellClassOptions set 7)
+KeybindRoles_Warlock.lua	Soul Fire	6353	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 108681 spec 267; Wowhead Requires Warlock	choice node with passive Dimensional Rift 1280868
+KeybindRoles_Warlock.lua	Summon Infernal	1122	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 71985 spec 267; Wowhead Requires Warlock	157898 (file comment) has no learn link in 12.1
+KeybindRoles_Warlock.lua	Cataclysm	152108	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 71974 spec 267; Wowhead Requires Warlock	-
+KeybindRoles_Warlock.lua	Channel Demonfire	196447	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 720 node 72064 spec 267; Wowhead Requires Warlock	choice node with passive Demonfire Infusion; 196448 (file comment) is the damage effect
+KeybindRoles_Warlock.lua	Dimensional Rift		notfound	wago 12.1.0.69933: 12.1 talent 1280868 is passive (node 108681, choice vs Soul Fire); 196586 only via SkillLineAbility acq3; Wowhead 196586 "Requires Scepter of Sargeras" (Legion artifact)	no button in 12.1: Chaos Bolt/Shadowburn proc it
+KeybindRoles_Warrior.lua	Charge	100	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Intimidating Shout	5246	sure	wago 12.1.0.69933 SpellName + class trait node 108705 (tree 850); Wowhead Requires Warrior	choice node with Piercing Howl 12323
+KeybindRoles_Warrior.lua	Berserker Rage	18499	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; Wowhead Requires Warrior	talent Berserker Shout 384100 (node 90348) overrides it
+KeybindRoles_Warrior.lua	Battle Shout	6673	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Intervene	3411	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 nodes for 71/72/73; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Heroic Throw	57755	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Hamstring	1715	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Mortal Strike	12294	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90270 spec 71; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Overpower	7384	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90271 spec 71; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Rend	772	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 109391 spec 71; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Execute	163201	unsure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; SpecializationSpells 72 overrides with 5308; Wowhead both Requires Warrior	baseline entry, two ids: Arms/Prot 163201, Fury 5308
+KeybindRoles_Warrior.lua	Slam	1464	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; Wowhead Requires Warrior	Fury (Rampage) and Prot (Revenge) override it; Arms keeps it
+KeybindRoles_Warrior.lua	Sweeping Strikes	260708	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 71; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Cleave	845	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90293 spec 71; Wowhead Requires Warrior	replaces Whirlwind 1680 for Arms
+KeybindRoles_Warrior.lua	Colossus Smash	167105	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90290 spec 71; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Avatar	107574	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 nodes 110176 (71) / 90433 (73) / 90415 (72); Wowhead Requires Warrior	same id for all specs; Fury node 90415 is a choice with Bladestorm
+KeybindRoles_Warrior.lua	Wrecking Throw	384110	sure	wago 12.1.0.69933 SpellName + class trait node 90351; Wowhead Requires Warrior	choice node with Shattering Throw 64382
+KeybindRoles_Warrior.lua	Storm Bolt	107570	sure	wago 12.1.0.69933 SpellName + class trait node 90337; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Bloodthirst	23881	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90392 spec 72; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Raging Blow	85288	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90396 spec 72; Wowhead Requires Warrior	85384/96103 are its damage effects
+KeybindRoles_Warrior.lua	Rampage	184367	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90408 spec 72; Wowhead Requires Warrior	replaces Slam 1464 for Fury
+KeybindRoles_Warrior.lua	Whirlwind	190411	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 72 (overrides 1680); Wowhead Requires Warrior	Fury's own id; class base 1680
+KeybindRoles_Warrior.lua	Thunder Clap	6343	sure	wago 12.1.0.69933 SpellName + class trait node 90343; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Thunder Blast	435222	sure	wago 12.1.0.69933 SpellName; talent 435607 (Mountain Thane, node 94785, specs 72/73); Wowhead 435222 + 435607 Requires Warrior	proc: next Thunder Clap becomes Thunder Blast; talent id 435607 (passive)
+KeybindRoles_Warrior.lua	Recklessness	1719	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90412 spec 72; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Bladestorm	227847	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 nodes 90441 (71) / 90415 (72); Wowhead Requires Warrior	choice nodes: vs Ravager (71), vs Avatar (72); 50622 is the damage effect
+KeybindRoles_Warrior.lua	Odyn's Fury	385059	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 110203 spec 72; Wowhead Requires Warrior	205545 (same name, SkillLineAbility acq3) is not in the 12.1 tree
+KeybindRoles_Warrior.lua	Shield Slam	23922	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Revenge	6572	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90298 spec 73; Wowhead Requires Warrior	replaces Slam 1464 for Prot
+KeybindRoles_Warrior.lua	Shield Charge	385952	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 90317 spec 73; Wowhead Requires Warrior	385954 (file comment) is a damage effect
+KeybindRoles_Warrior.lua	Taunt	355	sure	wago 12.1.0.69933 SpellName + SkillLineAbility 840; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Champion's Spear	376079	sure	wago 12.1.0.69933 SpellName + class trait node 90380; Wowhead Requires Warrior	376080 (file comment) is the damage effect triggered by 376079
+KeybindRoles_Warrior.lua	Ravager	228920	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 nodes 90432 (73) / 90441 (71); Wowhead Requires Warrior	choice nodes: vs Whirling Blade (73), vs Bladestorm (71)
+KeybindRoles_Warrior.lua	Demolish	436358	sure	wago 12.1.0.69933 SpellName + TraitDefinition tree 850 node 94818 (Colossus, specs 71/73); Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Shockwave	46968	sure	wago 12.1.0.69933 SpellName + class trait node 90375; Wowhead Requires Warrior	-
+KeybindRoles_Warrior.lua	Shattering Throw	64382	sure	wago 12.1.0.69933 SpellName + class trait node 90351; Wowhead Requires Warrior	choice node with Wrecking Throw 384110
+KeybindRoles_Warrior.lua	Challenging Shout	1161	sure	wago 12.1.0.69933 SpellName + SpecializationSpells 73; Wowhead Requires Warrior	-

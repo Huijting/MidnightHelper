@@ -60,6 +60,15 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — id-ronde: 361 spreuken kregen een nummer, en de addon zoekt nu eerst op NAAM
+
+Wat er veranderde: 361 regels in `KeybindRoles_*.lua` kregen `id = …` (wago.tools 12.1.0.69933 + Wowhead, 3 × mh-research).
+En de volgorde in `KeybindAutoMap.lua`: eerst naam, dan nummer (was: eerst nummer). Op een Engelse client hoort er dus
+NIETS te veranderen. AFGELEID, niet gemeten.
+- [ ] Paladin **Prot**: `/mh block why` — staat **Blessed Hammer** nog op zijn plek (de oude valkuil met id 35395)?
+- [ ] Op 2-3 andere personages: `/mh block` → zelfde plaatje als vóór vanavond? Iets verdwenen of verschoven?
+- [ ] Druid (als je die hebt) met **Incarnation**: staat hij als Incarnation, niet als Berserk / Celestial Alignment?
+
 ## 🆕 5 okt — speelkaart noemt de bloktoets, niet de reservekopie op balk D
 
 GEMETEN op Robs screenshot (Discipline, Umbrion): Flash Heal op blok **3** én op D **Alt C**; de kaart zei [Alt C].

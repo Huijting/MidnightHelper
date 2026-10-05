@@ -108,7 +108,15 @@ for _, sp in ipairs(SPECS) do
 		local r = roles[name]
 		if type(r) == "table" and SpecMatches(r.specs, specID) and r.role ~= "click_cast" and r.category ~= "click_cast"
 			and (r.role or r.category) then
-			spells[#spells + 1] = { id = r.id, name = name, role = r.role, category = r.category, priority = r.priority,
+			-- No `id` but a per-spec `survivalId` (Blink, Roll, Dash, Bear Form...): that is this spec's
+			-- own spell id, checked in the Stay alive round, so the site can show it too.
+			local sid = r.id
+			if not sid and type(r.survivalId) == "table" then
+				sid = r.survivalId[specID]
+			elseif not sid and type(r.survivalId) == "number" then
+				sid = r.survivalId
+			end
+			spells[#spells + 1] = { id = sid, name = name, role = r.role, category = r.category, priority = r.priority,
 				bindKey = r.bindKey, blockForm = r.blockForm, blockQ = r.blockQ, blockAs = r.blockAs }
 		end
 	end

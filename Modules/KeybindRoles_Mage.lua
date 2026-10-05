@@ -108,9 +108,9 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- Dispel / CC (V). Frost Nova (root) + Polymorph (CC) baseline; Remove Curse = dispel;
 	-- Ring of Frost = AoE-CC; Dragon's Breath = cone-disorient.
 	["Frost Nova"] = { id = 122, category = "dispel_cc", priority = 1, survival = "escape", survivalOrder = 3 }, -- CROWD_CONTROL [122]; baseline root
-	["Polymorph"] = { category = "dispel_cc", priority = 2 }, -- CROWD_CONTROL [118]; baseline CC
-	["Remove Curse"] = { category = "dispel_cc", priority = 3 }, -- UTILITY [475]; baseline curse-dispel
-	["Ring of Frost"] = { category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [113724]; AoE-CC (talent)
+	["Polymorph"] = { id = 118, category = "dispel_cc", priority = 2 }, -- CROWD_CONTROL [118]; baseline CC
+	["Remove Curse"] = { id = 475, category = "dispel_cc", priority = 3 }, -- UTILITY [475]; baseline curse-dispel
+	["Ring of Frost"] = { id = 113724, category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [113724]; AoE-CC (talent)
 
 	-- Utility. Spellsteal (F) = enemy-buff-steal; Mirror Image = DPS/utility-clones (NOOIT heal);
 	-- Time Warp = raid-haste; Invisibility = OOC-utility/threatdrop; Slow = ranged snare.
@@ -118,25 +118,25 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- die `Shift+X` voor Spellsteals neus weg (5 slaat 6) en werd Spellsteal naar een
 	-- duimknop geduwd. Rob, die deze klasse speelt: Spellsteal is voor een goede speler
 	-- onmisbaar, Dragon's Breath is op Frost bijvangst van de heldenboom. Hij gaat voor.
-	["Spellsteal"] = { category = "dispel_cc", priority = 5 }, -- [30449]; offensieve dispel (steelt enemy-buff) -> dispel_cc, geen zuivere utility
+	["Spellsteal"] = { id = 30449, category = "dispel_cc", priority = 5 }, -- [30449]; offensieve dispel (steelt enemy-buff) -> dispel_cc, geen zuivere utility
 	-- Card: off. No damage reduction in Midnight (audit BRON); Arcane's Refractive Images is a talent the card cannot see.
 	["Mirror Image"] = { id = 55342, category = "defensive", priority = 5, survival = "small", survivalOrder = 2, survivalRequires = 1309497 }, -- card: alleen MET Refractive Images 1309497 (Method/IV 12.1, 3 okt 2026), elke spec die hem heeft; 4 okt GEMETEN: Rob's Frost heeft hem niet (false) en kreeg Mirror Image toch op de Arcane-kaart -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
-	["Time Warp"] = { category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
+	["Time Warp"] = { id = 80353, category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
 	-- Card: off since 17 Sep (was escape). You fade after 3 s, too slow to get away in a fight (audit TWIJFEL).
-	["Invisibility"] = { category = "utility", priority = 4 }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
-	["Slow Fall"] = { category = "utility", priority = 9 }, -- UTILITY [130]; val-utility, bewust laatste prioriteit (buiten combat)
+	["Invisibility"] = { id = 66, category = "utility", priority = 4 }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
+	["Slow Fall"] = { id = 130, category = "utility", priority = 9 }, -- UTILITY [130]; val-utility, bewust laatste prioriteit (buiten combat)
 
 	--==============================================================================
 	-- ARCANE (spec 62) - ranged DPS. Builder = Arcane Blast; spenders = Arcane Barrage /
 	-- Arcane Missiles; Arcane Orb = charge-builder; AoE = Arcane Explosion.
 	--==============================================================================
 
-	["Arcane Blast"] = { category = "main_rotation", priority = 1, specs = { 62 } }, -- SpellArchetypes [30451] ranged; kern-builder (Arcane Charges)
-	["Arcane Orb"] = { category = "main_rotation", priority = 2, specs = { 62 } }, -- charge-builder / AoE-opener
-	["Arcane Missiles"] = { category = "main_rotation", priority = 3, specs = { 62 } }, -- [5143] the button (7268 = the hidden damage spell; mh-research 3 Oct 2026); Clearcasting-spender-filler
-	["Arcane Barrage"] = { category = "spender", priority = 1, specs = { 62 } }, -- SpellArchetypes [44425] ranged; Arcane-Charge-spender
+	["Arcane Blast"] = { id = 30451, category = "main_rotation", priority = 1, specs = { 62 } }, -- SpellArchetypes [30451] ranged; kern-builder (Arcane Charges)
+	["Arcane Orb"] = { id = 153626, category = "main_rotation", priority = 2, specs = { 62 } }, -- charge-builder / AoE-opener
+	["Arcane Missiles"] = { id = 5143, category = "main_rotation", priority = 3, specs = { 62 } }, -- [5143] the button (7268 = the hidden damage spell; mh-research 3 Oct 2026); Clearcasting-spender-filler
+	["Arcane Barrage"] = { id = 44425, category = "spender", priority = 1, specs = { 62 } }, -- SpellArchetypes [44425] ranged; Arcane-Charge-spender
 	["Nether Tempest"] = { category = "main_rotation", priority = 4, specs = { 62 } }, -- SpellArchetypes [114923] ranged; DoT (talent)
-	["Supernova"] = { category = "main_rotation", priority = 5, specs = { 62 } }, -- SpellArchetypes [157980] ranged; utility-nuke (talent)
+	["Supernova"] = { id = 157980, category = "main_rotation", priority = 5, specs = { 62 } }, -- SpellArchetypes [157980] ranged; utility-nuke (talent)
 	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026. Stond op `specs = { 62 }`, maar Arcane Explosion is
 	-- een baseline mage-spell: Robs FROST mage kent hem, en de spellbook-scan slaat
 	-- off-spec-regels over, dus dat is echt van zijn eigen spec. Met de grendel erop viel
@@ -144,32 +144,32 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- De `bindKey = "Shift+1"` ging mee weg: op Frost zit Frozen Orb daar al, en twee
 	-- wensen op dezelfde toets binnen één spec is precies wat lint-controle [11] afvangt.
 	-- Zonder wens zoekt hij per spec zelf een vrije rotatie-plek.
-	["Arcane Explosion"] = { category = "main_rotation", priority = 6 }, -- SpellArchetypes [1449] melee; baseline PBAoE
+	["Arcane Explosion"] = { id = 1449, category = "main_rotation", priority = 6 }, -- SpellArchetypes [1449] melee; baseline PBAoE
 	["Prismatic Barrier"] = { id = 235450, role = "defensive_1", priority = 1, specs = { 62 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235450] (kleine def, magic-absorb)
-	["Arcane Surge"] = { blockQ = { [62] = true }, role = "cooldown_bar", priority = 1, specs = { 62 } }, -- F1; SpellArchetypes [365350]; Arcane grootste burst-CD
-	["Touch of the Magi"] = { category = "cooldown", priority = 2, specs = { 62 } }, -- extra CD; burst-window-opener
-	["Presence of Mind"] = { category = "utility", priority = 5, specs = { 62 } }, -- guide.lua; instant-cast-CD (geen movement -> utility)
-	["Evocation"] = { category = "utility", priority = 6, specs = { 62 } }, -- guide.lua; mana-regen-channel
+	["Arcane Surge"] = { id = 365350, blockQ = { [62] = true }, role = "cooldown_bar", priority = 1, specs = { 62 } }, -- F1; SpellArchetypes [365350]; Arcane grootste burst-CD
+	["Touch of the Magi"] = { id = 321507, category = "cooldown", priority = 2, specs = { 62 } }, -- extra CD; burst-window-opener
+	["Presence of Mind"] = { id = 205025, category = "utility", priority = 5, specs = { 62 } }, -- guide.lua; instant-cast-CD (geen movement -> utility)
+	["Evocation"] = { id = 12051, category = "utility", priority = 6, specs = { 62 } }, -- guide.lua; mana-regen-channel
 
 	--==============================================================================
 	-- FIRE (spec 63) - ranged DPS. Builder = Fireball; spender = Pyroblast; Fire Blast =
 	-- crit-guarantee; Scorch = execute/move-filler; AoE = Flamestrike.
 	--==============================================================================
 
-	["Fireball"] = { category = "main_rotation", priority = 1, specs = { 63 } }, -- SpellArchetypes [133] ranged; kern-builder (Heating Up)
-	["Fire Blast"] = { category = "main_rotation", priority = 2, specs = { 63 } }, -- SpellArchetypes [13341] ranged; instant crit (Hot Streak)
-	["Scorch"] = { category = "main_rotation", priority = 3, specs = { 63 } }, -- SpellArchetypes [2948] ranged; execute/move-filler
-	["Pyroblast"] = { category = "spender", priority = 1, specs = { 63 } }, -- SpellArchetypes [11366] ranged; Hot-Streak-spender
+	["Fireball"] = { id = 133, category = "main_rotation", priority = 1, specs = { 63 } }, -- SpellArchetypes [133] ranged; kern-builder (Heating Up)
+	["Fire Blast"] = { id = 108853, category = "main_rotation", priority = 2, specs = { 63 } }, -- SpellArchetypes [13341] ranged; instant crit (Hot Streak)
+	["Scorch"] = { id = 2948, category = "main_rotation", priority = 3, specs = { 63 } }, -- SpellArchetypes [2948] ranged; execute/move-filler
+	["Pyroblast"] = { id = 11366, category = "spender", priority = 1, specs = { 63 } }, -- SpellArchetypes [11366] ranged; Hot-Streak-spender
 	-- Phoenix Flames removed 17 Sep: gone in Midnight (audit, BRON Method Fire intro + Wowhead pre-patch).
 	["Living Bomb"] = { category = "main_rotation", priority = 5, specs = { 63 } }, -- SpellArchetypes [44461] ranged; AoE-DoT (talent)
 	["Flamestrike"] = { category = "spender", priority = 2, bindKey = "Shift+4", specs = { 63 } }, -- SpellArchetypes [2120] ranged; AoE-Hot-Streak-spender (AoE-slot)
 	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026 — zelfde reden als Arcane Explosion hierboven. Stond
 	-- op 63, maar Robs Frost mage heeft hem (Frostfire-heldenboom) en kreeg dus geen toets.
-	["Dragon's Breath"] = { category = "dispel_cc", priority = 6 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (achter Spellsteal, zie daar)
+	["Dragon's Breath"] = { id = 31661, category = "dispel_cc", priority = 6 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (achter Spellsteal, zie daar)
 	["Blazing Barrier"] = { id = 235313, role = "defensive_1", priority = 1, specs = { 63 }, survival = "keepup", survivalOrder = 1 }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
-	["Cauterize"] = { category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow. Card: off (passive, not a button)
-	["Combustion"] = { blockQ = { [63] = true }, role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD
-	["Meteor"] = { category = "cooldown", priority = 2, specs = { 63 } }, -- guide.lua / SpellArchetypes [351140] ranged; extra CD (talent, ook Frost)
+	["Cauterize"] = { id = 86949, category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow. Card: off (passive, not a button)
+	["Combustion"] = { id = 190319, blockQ = { [63] = true }, role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD
+	["Meteor"] = { id = 153561, category = "cooldown", priority = 2, specs = { 63 } }, -- guide.lua / SpellArchetypes [351140] ranged; extra CD (talent, ook Frost)
 
 	--==============================================================================
 	-- FROST (spec 64) - ranged DPS. LEIDEND uit KeybindingData.lua (frost_mage), toetsen/rollen
@@ -179,14 +179,14 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- big cooldown but stays main_rotation here until the lead moves it (moving it moves binds).
 	--==============================================================================
 
-	["Frostbolt"] = { category = "main_rotation", priority = 1, specs = { 64 } }, -- KeybindingData "1" [116]; kern-builder (Fingers of Frost / Icicles)
-	["Flurry"] = { category = "main_rotation", priority = 2, specs = { 64 } }, -- KeybindingData "2" [44614]; Brain-Freeze-proc, Winter's Chill
-	["Ray of Frost"] = { blockQ = { [64] = true }, category = "main_rotation", priority = 3, specs = { 64 } }, -- KeybindingData "3" [205021]; channel-nuke damage-knop (talent) -> main_rotation, geen cooldown
-	["Ice Lance"] = { category = "main_rotation", priority = 4, specs = { 64 } }, -- KeybindingData "4" [30455]; Shatter-spender (instant)
+	["Frostbolt"] = { id = 116, category = "main_rotation", priority = 1, specs = { 64 } }, -- KeybindingData "1" [116]; kern-builder (Fingers of Frost / Icicles)
+	["Flurry"] = { id = 44614, category = "main_rotation", priority = 2, specs = { 64 } }, -- KeybindingData "2" [44614]; Brain-Freeze-proc, Winter's Chill
+	["Ray of Frost"] = { id = 205021, blockQ = { [64] = true }, category = "main_rotation", priority = 3, specs = { 64 } }, -- KeybindingData "3" [205021]; channel-nuke damage-knop (talent) -> main_rotation, geen cooldown
+	["Ice Lance"] = { id = 30455, category = "main_rotation", priority = 4, specs = { 64 } }, -- KeybindingData "4" [30455]; Shatter-spender (instant)
 	-- Glacial Spike removed 17 Sep: no longer a spell, it changes Frostbolt (audit, BRON Icy Veins Frost 12.1).
-	["Frozen Orb"] = { category = "main_rotation", priority = 2, bindKey = "Shift+1", specs = { 64 } }, -- KeybindingData "Shift+1" [84714]; AoE + Fingers-of-Frost-CD (AoE-slot)
+	["Frozen Orb"] = { id = 84714, category = "main_rotation", priority = 2, bindKey = "Shift+1", specs = { 64 } }, -- KeybindingData "Shift+1" [84714]; AoE + Fingers-of-Frost-CD (AoE-slot)
 	["Blizzard"] = { category = "main_rotation", priority = 5, bindKey = "Shift+2", specs = { 64 } }, -- KeybindingData "Shift+2" [190356]; ground-AoE
-	["Cone of Cold"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 64 } }, -- KeybindingData "Shift+3" [120]; PBAoE-frost
+	["Cone of Cold"] = { id = 120, category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 64 } }, -- KeybindingData "Shift+3" [120]; PBAoE-frost
 	-- Comet Storm removed 17 Sep: no longer a spell, it changes Ray of Frost (audit, BRON Icy Veins Frost 12.1).
 	["Ice Barrier"] = { id = 11426, role = "defensive_1", priority = 1, specs = { 64 }, survival = "keepup", survivalOrder = 1 }, -- KeybindingData "Z" [11426]; kleine def (absorb)
 	-- Card: after Ice Block — it resets Ice Block/Ice Cold and Ice Barrier (audit BRON Icy Veins Frost).

@@ -61,54 +61,54 @@ ns.KeybindRoleClassifier.ROGUE = {
     -- ASSASSINATION (259)
     -- =================================================================
     -- Builders / DoT-onderhoud
-    ["Mutilate"]         = { category = "main_rotation", priority = 1, specs = { 259 } },
-    ["Shiv"]             = { category = "dispel_cc", priority = 2 }, -- offensive dispel (enrage/magic); baseline alle 3 specs (JustAC InterruptAbilities 5938 soothe), geen builder
-    ["Garrote"]          = { category = "main_rotation", priority = 3, specs = { 259 } },
+    ["Mutilate"]         = { id = 1329, category = "main_rotation", priority = 1, specs = { 259 } },
+    ["Shiv"]             = { id = 5938, category = "dispel_cc", priority = 2 }, -- offensive dispel (enrage/magic); baseline alle 3 specs (JustAC InterruptAbilities 5938 soothe), geen builder
+    ["Garrote"]          = { id = 703, category = "main_rotation", priority = 3, specs = { 259 } },
     -- Spenders (finishers)
-    ["Envenom"]          = { category = "spender", priority = 1, specs = { 259 } },
-    ["Rupture"]          = { category = "spender", priority = 2, specs = { 259 } },
+    ["Envenom"]          = { id = 32645, category = "spender", priority = 1, specs = { 259 } },
+    ["Rupture"]          = { id = 1943, category = "spender", priority = 2, specs = { 259 } },
     -- AoE
-    ["Fan of Knives"]    = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 259 } }, -- AoE builder
-    ["Crimson Tempest"]  = { category = "spender", priority = 7, bindKey = "Shift+5", specs = { 259 } },       -- AoE spender (bleed-spread)
+    ["Fan of Knives"]    = { id = 51723, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 259 } }, -- AoE builder
+    ["Crimson Tempest"]  = { id = 1247227, category = "spender", priority = 7, bindKey = "Shift+5", specs = { 259 } },       -- AoE spender (bleed-spread)
     -- Cooldowns
-    ["Deathmark"]        = { blockQ = { [259] = true }, role = "cooldown_bar", priority = 1, specs = { 259 } }, -- grootste CD (F1, 2 min)
-    ["Kingsbane"]        = { category = "cooldown", priority = 2, specs = { 259 } }, -- extra CD (Shift+F1, 1 min)
+    ["Deathmark"]        = { id = 360194, blockQ = { [259] = true }, role = "cooldown_bar", priority = 1, specs = { 259 } }, -- grootste CD (F1, 2 min)
+    ["Kingsbane"]        = { id = 385627, category = "cooldown", priority = 2, specs = { 259 } }, -- extra CD (Shift+F1, 1 min)
 
     -- =================================================================
     -- OUTLAW (260)
     -- =================================================================
     -- Builders
-    ["Sinister Strike"]  = { category = "main_rotation", priority = 1, specs = { 260 } },
-    ["Pistol Shot"]      = { category = "main_rotation", priority = 2, specs = { 260 } },
-    ["Roll the Bones"]   = { category = "main_rotation", priority = 3, specs = { 260 } }, -- builder/buff (4-stage)
+    ["Sinister Strike"]  = { id = 193315, category = "main_rotation", priority = 1, specs = { 260 } },
+    ["Pistol Shot"]      = { id = 185763, category = "main_rotation", priority = 2, specs = { 260 } },
+    ["Roll the Bones"]   = { id = 1214909, category = "main_rotation", priority = 3, specs = { 260 } }, -- builder/buff (4-stage)
     -- Spenders (finishers)
-    ["Between the Eyes"] = { category = "spender", priority = 1, specs = { 260 } }, -- finisher/stun
-    ["Dispatch"]         = { category = "spender", priority = 2, specs = { 260 } },
+    ["Between the Eyes"] = { id = 315341, category = "spender", priority = 1, specs = { 260 } }, -- finisher/stun
+    ["Dispatch"]         = { id = 2098, category = "spender", priority = 2, specs = { 260 } },
     -- AoE
-    ["Blade Flurry"]     = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 260 } }, -- cleave-toggle
+    ["Blade Flurry"]     = { id = 13877, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 260 } }, -- cleave-toggle
     -- Movement (Outlaw-exclusief)
     ["Grappling Hook"]   = { id = 195457, role = "utility_primary", priority = 1, specs = { 260 }, survival = "escape", survivalOrder = 2 },
     -- Cooldowns
-    ["Adrenaline Rush"]  = { blockQ = { [260] = true }, role = "cooldown_bar", priority = 1, specs = { 260 } }, -- grootste CD (F1)
-    ["Killing Spree"]    = { category = "cooldown", priority = 2, specs = { 260 } }, -- extra CD (Shift+F1)
-    ["Keep It Rolling"]  = { category = "cooldown", priority = 3, specs = { 260 } }, -- herrolt RtB (Ctrl+F1; talent)
+    ["Adrenaline Rush"]  = { id = 13750, blockQ = { [260] = true }, role = "cooldown_bar", priority = 1, specs = { 260 } }, -- grootste CD (F1)
+    ["Killing Spree"]    = { id = 51690, category = "cooldown", priority = 2, specs = { 260 } }, -- extra CD (Shift+F1)
+    ["Keep It Rolling"]  = { id = 381989, category = "cooldown", priority = 3, specs = { 260 } }, -- herrolt RtB (Ctrl+F1; talent)
 
     -- =================================================================
     -- SUBTLETY (261)
     -- =================================================================
     -- Builders
-    ["Shadowstrike"]     = { category = "main_rotation", priority = 1, specs = { 261 } }, -- vanuit Stealth/Shadow Dance
-    ["Backstab"]         = { category = "main_rotation", priority = 2, specs = { 261 } }, -- buiten Shadow Dance
-    ["Secret Technique"] = { category = "main_rotation", priority = 3, specs = { 261 } }, -- spender/CD-hybride
+    ["Shadowstrike"]     = { id = 185438, category = "main_rotation", priority = 1, specs = { 261 } }, -- vanuit Stealth/Shadow Dance
+    ["Backstab"]         = { id = 53, category = "main_rotation", priority = 2, specs = { 261 } }, -- buiten Shadow Dance
+    ["Secret Technique"] = { id = 280719, category = "main_rotation", priority = 3, specs = { 261 } }, -- spender/CD-hybride
     -- Spenders (finishers)
-    ["Eviscerate"]       = { category = "spender", priority = 1, specs = { 261 } }, -- kern-finisher
+    ["Eviscerate"]       = { id = 196819, category = "spender", priority = 1, specs = { 261 } }, -- kern-finisher
     ["Mark for Death"]   = { category = "utility", priority = 2, specs = { 261 } }, -- combo-point enabler, geen directe damage-spender
     -- AoE
-    ["Shuriken Storm"]   = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 261 } }, -- AoE builder
-    ["Black Powder"]     = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 261 } },       -- AoE spender (3+)
+    ["Shuriken Storm"]   = { id = 197835, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 261 } }, -- AoE builder
+    ["Black Powder"]     = { id = 319175, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 261 } },       -- AoE spender (3+)
     -- Cooldowns
-    ["Shadow Dance"]     = { role = "cooldown_bar", priority = 1, specs = { 261 } }, -- grootste CD (F1, definierend)
-    ["Shadow Blades"]    = { blockQ = { [261] = true }, category = "cooldown", priority = 2, specs = { 261 } }, -- extra CD (Shift+F1, 90s)
+    ["Shadow Dance"]     = { id = 185313, role = "cooldown_bar", priority = 1, specs = { 261 } }, -- grootste CD (F1, definierend)
+    ["Shadow Blades"]    = { id = 121471, blockQ = { [261] = true }, category = "cooldown", priority = 2, specs = { 261 } }, -- extra CD (Shift+F1, 90s)
 
     -- =================================================================
     -- BASELINE (alle 3 Rogue-specs; geen specs=)
@@ -117,7 +117,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Kick"]             = { id = 1766, role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 },
     -- Movement / gap-closers
     ["Sprint"]           = { id = 2983, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q op Assa/Sub; Shift+Q op Outlaw
-    ["Shadowstep"]       = { role = "utility_primary", priority = 1, specs = { 259, 261 } }, -- gap-closer; niet Outlaw (heeft Grappling Hook); card: weg sinds 3 okt 2026 (vooral naar de vijand, net als Harpoon)
+    ["Shadowstep"]       = { id = 36554, role = "utility_primary", priority = 1, specs = { 259, 261 } }, -- gap-closer; niet Outlaw (heeft Grappling Hook); card: weg sinds 3 okt 2026 (vooral naar de vijand, net als Harpoon)
     -- Self-heal
     ["Crimson Vial"]     = { id = 185311, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 primaire combat self-heal (instant HoT). NIET F4.
     -- Kleine defensive
@@ -126,14 +126,14 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Cloak of Shadows"] = { id = 31224, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- magic immunity
     ["Evasion"]          = { id = 5277, category = "defensive", priority = 2, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- dodge (grote def), alleen van voren
     -- Dispel / CC
-    ["Blind"]            = { category = "dispel_cc", priority = 1 }, -- disorient
-    ["Kidney Shot"]      = { category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- finisher-stun (JustAC 408 mech=12)
-    ["Cheap Shot"]       = { category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- stun vanuit stealth (JustAC 1833 mech=12)
-    ["Sap"]              = { category = "dispel_cc", priority = 4 }, -- incapacitate (uit combat/stealth)
-    ["Gouge"]            = { category = "dispel_cc", priority = 5, alsoStop = "incap" }, -- incapacitate (frontaal) (JustAC 1776 mech=14)
+    ["Blind"]            = { id = 2094, category = "dispel_cc", priority = 1 }, -- disorient
+    ["Kidney Shot"]      = { id = 408, category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- finisher-stun (JustAC 408 mech=12)
+    ["Cheap Shot"]       = { id = 1833, category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- stun vanuit stealth (JustAC 1833 mech=12)
+    ["Sap"]              = { id = 6770, category = "dispel_cc", priority = 4 }, -- incapacitate (uit combat/stealth)
+    ["Gouge"]            = { id = 1776, category = "dispel_cc", priority = 5, alsoStop = "incap" }, -- incapacitate (frontaal) (JustAC 1776 mech=14)
     -- Utility
     ["Vanish"]           = { id = 1856, category = "cooldown", priority = 1, survival = "escape", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- stealth-CD (reset/opener), geen zuivere utility
-    ["Stealth"]          = { category = "utility", priority = 2 },                    -- pre-pull/openers
-    ["Distract"]         = { category = "utility", priority = 3 },                    -- misdirect/aggro
-    ["Tricks of the Trade"] = { category = "utility", priority = 4 },                 -- threat transfer
+    ["Stealth"]          = { id = 1784, category = "utility", priority = 2 },                    -- pre-pull/openers
+    ["Distract"]         = { id = 1725, category = "utility", priority = 3 },                    -- misdirect/aggro
+    ["Tricks of the Trade"] = { id = 57934, category = "utility", priority = 4 },                 -- threat transfer
 }

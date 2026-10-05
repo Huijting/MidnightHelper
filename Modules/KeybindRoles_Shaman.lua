@@ -51,43 +51,43 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Ghost Wolf"] = { id = 2645, role = "utility_primary", priority = 2, survival = "escape", survivalOrder = 3 }, -- Shift+Q (travel; 2645)
 	-- Card: 40% for 12 s on a 2 min cooldown (WH-spell 108271) — the first big button.
 	["Astral Shift"] = { id = 108271, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- C (grote def, 40% DR; JustAC DefensiveEngine 108271)
-	["Hex"] = { category = "dispel_cc", priority = 1 }, -- V (CC; JustAC SpellCategories 51514) -- alleen Enh bindt Hex live; baseline utility
-	["Purge"] = { category = "dispel_cc", priority = 1 }, -- Ele V / Enh Shift+V (enemy dispel; JustAC SpellCategories 370)
-	["Capacitor Totem"] = { category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- T (AoE stun; JustAC InterruptAbilities [192058] cc mech=12) → Spec 08 alsoStop
+	["Hex"] = { id = 51514, category = "dispel_cc", priority = 1 }, -- V (CC; JustAC SpellCategories 51514) -- alleen Enh bindt Hex live; baseline utility
+	["Purge"] = { id = 370, category = "dispel_cc", priority = 1 }, -- Ele V / Enh Shift+V (enemy dispel; JustAC SpellCategories 370)
+	["Capacitor Totem"] = { id = 192058, category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- T (AoE stun; JustAC InterruptAbilities [192058] cc mech=12) → Spec 08 alsoStop
 	-- Removed for Restoration in 12.0 (WH-pp-Resto), so Ele/Enh only.
 	["Healing Surge"] = { id = 8004, role = "heal_quick", priority = 1, specs = { 262, 263 }, survival = "heal", survivalOrder = 1 }, -- F2 (snelle combat self-heal-anker; JustAC SpellCategories 8004)
-	["Bloodlust"] = { category = "cooldown", priority = 4 }, -- Shift+F2 (raid-haste, Horde; JustAC SpellCategories 2825)
-	["Heroism"] = { category = "cooldown", priority = 4 }, -- Shift+F2 (raid-haste, Alliance; JustAC SpellCategories 32182)
+	["Bloodlust"] = { id = 2825, category = "cooldown", priority = 4 }, -- Shift+F2 (raid-haste, Horde; JustAC SpellCategories 2825)
+	["Heroism"] = { id = 32182, category = "cooldown", priority = 4 }, -- Shift+F2 (raid-haste, Alliance; JustAC SpellCategories 32182)
 	["Gust of Wind"] = { id = 192063, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Ele Q (movement; JustAC GapCloserEngine 192063)
-	["Nature's Swiftness"] = { category = "utility", priority = 5 }, -- Ele Shift+R (instant next cast; 378081)
+	["Nature's Swiftness"] = { id = 378081, category = "utility", priority = 5 }, -- Ele Shift+R (instant next cast; 378081)
 
 	-- ============================================================
 	-- Elemental (262) -- KeybindingData live-bevestigd (leidend)
 	-- ============================================================
-	["Lava Burst"] = { category = "main_rotation", priority = 1, specs = { 262, 264 } }, -- Ele 1 (kern-nuke, Lava Surge; 51505); Resto 1 since 5 Oct 2026 (healers DPS too, IV Resto 12.1)
-	["Voltaic Blaze"] = { category = "main_rotation", priority = 2, specs = { 262, 263 } }, -- Ele 2 + Enh 3 (instant filler, past FS toe; 470057)
-	["Lightning Bolt"] = { category = "main_rotation", priority = 3, specs = { 262, 263, 264 } }, -- Ele 3; Enh 4 (Maelstrom-builder; 188196)
-	["Elemental Blast"] = { category = "spender", priority = 1, specs = { 262, 263 } }, -- Ele 4; Enh 5 (ST-spender; 117014)
-	["Chain Lightning"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 262, 263, 264 }, blockAs = { [264] = { category = "main_rotation", priority = 6, bindKey = "Shift+4" } } }, -- Ele + Enh (AoE builder; 188443); Resto since 5 Oct 2026
+	["Lava Burst"] = { id = 51505, category = "main_rotation", priority = 1, specs = { 262, 264 } }, -- Ele 1 (kern-nuke, Lava Surge; 51505); Resto 1 since 5 Oct 2026 (healers DPS too, IV Resto 12.1)
+	["Voltaic Blaze"] = { id = 470057, category = "main_rotation", priority = 2, specs = { 262, 263 } }, -- Ele 2 + Enh 3 (instant filler, past FS toe; 470057)
+	["Lightning Bolt"] = { id = 188196, category = "main_rotation", priority = 3, specs = { 262, 263, 264 } }, -- Ele 3; Enh 4 (Maelstrom-builder; 188196)
+	["Elemental Blast"] = { id = 117014, category = "spender", priority = 1, specs = { 262, 263 } }, -- Ele 4; Enh 5 (ST-spender; 117014)
+	["Chain Lightning"] = { id = 188443, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 262, 263, 264 }, blockAs = { [264] = { category = "main_rotation", priority = 6, bindKey = "Shift+4" } } }, -- Ele + Enh (AoE builder; 188443); Resto since 5 Oct 2026
 	-- Resto's own Flame Shock (wago SkillLineAbility 924, build 12.1.5.70077; 188389 has no learnable link
 	-- there). 5 Oct 2026, healers DPS too.
 	["Flame Shock"] = { id = 470411, category = "main_rotation", priority = 4, specs = { 264 } },
 	["Earthquake"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 262 } }, -- Ele Shift+4 (AoE-spender; live 462620)
-	["Spiritwalker's Grace"] = { role = "utility_secondary", priority = 1, specs = { 262, 264 } }, -- Ele+Resto F (cast-while-moving; JustAC GapCloserEngine 79206)
-	["Skyfury"] = { category = "utility", priority = 2, specs = { 262 } }, -- Ele R (raid-buff, pre-combat; 462854)
+	["Spiritwalker's Grace"] = { id = 79206, role = "utility_secondary", priority = 1, specs = { 262, 264 } }, -- Ele+Resto F (cast-while-moving; JustAC GapCloserEngine 79206)
+	["Skyfury"] = { id = 462854, category = "utility", priority = 2, specs = { 262 } }, -- Ele R (raid-buff, pre-combat; 462854)
 	-- Card: knocks enemies away and works while stunned (IV-Ele).
 	["Thunderstorm"] = { id = 51490, category = "utility", priority = 4, specs = { 262 }, survival = "escape", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_STUNNED" }, -- Ele X (AoE knockback + slow; JustAC SpellCategories 51490)
 	-- Class talent for all three specs (IV-Ele/Enh/Resto); `specs` stays { 262 } for the keys, the card widens.
 	-- Card: an emergency tank on a 3 min cooldown (WH-spell 198103), after Astral Shift.
 	["Earth Elemental"] = { id = 198103, category = "defensive", priority = 4, specs = { 262, 263, 264 }, survival = "big", survivalOrder = 2 }, -- Z on all three (extra def/pet; JustAC DefensiveEngine 198103). Widened from Ele only on 19 Sep 2026: Enh and Resto had nothing on Z, and the card already listed it for all three
-	["Cleanse Spirit"] = { category = "dispel_cc", priority = 3, specs = { 262 } }, -- Ele Shift+V (friendly dispel; JustAC SpellCategories 51886)
-	["Stormkeeper"] = { role = "cooldown_bar", priority = 1, specs = { 262, 263 } }, -- Ele F1 (burst-CD, live); Enh R (191634 Ele / 205495 Enh talent)
+	["Cleanse Spirit"] = { id = 51886, category = "dispel_cc", priority = 3, specs = { 262 } }, -- Ele Shift+V (friendly dispel; JustAC SpellCategories 51886)
+	["Stormkeeper"] = { id = 191634, role = "cooldown_bar", priority = 1, specs = { 262, 263 } }, -- Ele F1 (burst-CD, live); Enh R (191634 Ele / 205495 Enh talent)
 
 	-- ============================================================
 	-- Enhancement (263) -- KeybindingData live-bevestigd (leidend)
 	-- ============================================================
-	["Stormstrike"] = { category = "main_rotation", priority = 1, specs = { 263 } }, -- Enh 1 (17364; Windstrike via Ascendance-macro)
-	["Lava Lash"] = { category = "main_rotation", priority = 2, specs = { 263 } }, -- Enh 2 (Hot Hand; JustAC SpellArchetypes 60103)
+	["Stormstrike"] = { id = 17364, category = "main_rotation", priority = 1, specs = { 263 } }, -- Enh 1 (17364; Windstrike via Ascendance-macro)
+	["Lava Lash"] = { id = 60103, category = "main_rotation", priority = 2, specs = { 263 } }, -- Enh 2 (Hot Hand; JustAC SpellArchetypes 60103)
 	-- ⚠️ Shift+3, NIET Shift+1 (gewijzigd 7 aug 2026). Botste met Chain Lightning, en
 	-- dat zijn twee echte knoppen: Crash Lightning is een melee-cleave die je óók op één
 	-- doelwit drukt (Icy Veins zet 'm op stap 9 van de single-target-rotatie, en Storm
@@ -95,14 +95,14 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	-- twee doelen. Chain Lightning houdt Shift+1 omdat die entry ook Elemental bedient;
 	-- Crash Lightning is Enhancement-only en kon dus als enige verschuiven zonder een
 	-- tweede spec te raken. Shift+2 was al van Sundering.
-	["Crash Lightning"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 263 } }, -- Enh melee-cleave (187874)
-	["Sundering"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 263 } }, -- Enh Shift+2 (AoE frontal; 197214)
-	["Frost Shock"] = { role = "utility_secondary", priority = 1, specs = { 263 } }, -- Enh F (ranged slow; 196840)
-	["Tremor Totem"] = { category = "utility", priority = 4 }, -- baseline alle specs (fear/charm break; 8143) — Ele/Resto binden 'm net zo goed
-	["Wind Rush Totem"] = { category = "utility", priority = 3, specs = { 263 } }, -- Enh Shift+T (movement-speed utility; JustAC 192077)
+	["Crash Lightning"] = { id = 187874, category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 263 } }, -- Enh melee-cleave (187874)
+	["Sundering"] = { id = 197214, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 263 } }, -- Enh Shift+2 (AoE frontal; 197214)
+	["Frost Shock"] = { id = 196840, role = "utility_secondary", priority = 1, specs = { 263 } }, -- Enh F (ranged slow; 196840)
+	["Tremor Totem"] = { id = 8143, category = "utility", priority = 4 }, -- baseline alle specs (fear/charm break; 8143) — Ele/Resto binden 'm net zo goed
+	["Wind Rush Totem"] = { id = 192077, category = "utility", priority = 3, specs = { 263 } }, -- Enh Shift+T (movement-speed utility; JustAC 192077)
 	["Spirit Walk"] = { id = 58875, role = "utility_primary", priority = 1, specs = { 263 }, survival = "escape", survivalOrder = 2 }, -- Enh Q (snare-break movement; JustAC GapCloserEngine 58875)
 	-- Feral Spirit (passive in 12.1) and Primordial Wave (removed) are gone: see the header.
-	["Doom Winds"] = { category = "cooldown", priority = 3, specs = { 263 } }, -- Enh Shift+F1 (burst; 384352)
+	["Doom Winds"] = { id = 384352, category = "cooldown", priority = 3, specs = { 263 } }, -- Enh Shift+F1 (burst; 384352)
 
 	-- ============================================================
 	-- Gedeeld Enh + Ele: grootste extra CD
@@ -127,13 +127,13 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	-- Raid/AoE/smart-heals -> toets.
 	["Chain Heal"] = { id = 1064, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 264 } }, -- Resto (smart multi-target heal, toets; 1064)
 	["Healing Rain"] = { id = 73920, category = "raid_heal", priority = 1, bindKey = "Shift+2", specs = { 264 } }, -- Resto (ground-AoE heal, toets; JustAC SpellCategories 73920)
-	["Downpour"] = { category = "raid_heal", priority = 3, specs = { 264 } }, -- Resto (AoE-burst-heal, toets; 462486)
+	["Downpour"] = { id = 207778, category = "raid_heal", priority = 3, specs = { 264 } }, -- Resto (AoE-burst-heal, toets; 462486)
 	["Surging Totem"] = { id = 455630, excludes = "Healing Rain", category = "raid_heal", priority = 1, bindKey = "Shift+2", specs = { 264 } }, -- Resto (heal/damage-totem, on cooldown); replaces Healing Rain (IV Resto 12.1). 455630 = the talent spell (wago, 5 Oct 2026); the old 444995 has no learnable link
 	["Purify Spirit"] = { id = 77130, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 264 } }, -- Resto V (curse/magic dispel; JustAC DefensiveEngine 77130)
-	["Healing Tide Totem"] = { blockQ = { [264] = true }, role = "cooldown_bar", priority = 1, specs = { 264 } }, -- Resto F1 (raid-heal-burst; JustAC DefensiveEngine 108280)
-	["Spirit Link Totem"] = { category = "cooldown", priority = 2, specs = { 264 } }, -- Resto R (HP-verdeling raid-CD; JustAC DefensiveEngine 98008)
+	["Healing Tide Totem"] = { id = 108280, blockQ = { [264] = true }, role = "cooldown_bar", priority = 1, specs = { 264 } }, -- Resto F1 (raid-heal-burst; JustAC DefensiveEngine 108280)
+	["Spirit Link Totem"] = { id = 98008, category = "cooldown", priority = 2, specs = { 264 } }, -- Resto R (HP-verdeling raid-CD; JustAC DefensiveEngine 98008)
 	-- Class talent for all three specs (IV-Ele, IV-Enh); `specs` stays { 264 } for the keys, the card widens.
 	-- Card: a heal you drop often, after the first heal.
 	["Healing Stream Totem"] = { id = 5394, category = "main_rotation", priority = 1, bindKey = "3", specs = { 264 }, survivalSpecs = { 262, 263, 264 }, survival = "heal", survivalOrder = 2 }, -- Resto F (passieve group-heal; JustAC SpellCategories 5394)
-	["Ancestral Spirit"] = { category = "utility", priority = 3, specs = { 264 } }, -- Resto T (out-of-combat rez; JustAC SpellCategories 2008)
+	["Ancestral Spirit"] = { id = 2008, category = "utility", priority = 3, specs = { 264 } }, -- Resto T (out-of-combat rez; JustAC SpellCategories 2008)
 }

@@ -91,11 +91,11 @@ ns.KeybindRoleClassifier.WARLOCK = {
 
 	-- Dispel / CC (V) + overflow. Alle addon-bevestigd (SpellCategories CROWD_CONTROL / Interrupt).
 	-- Fear: card off (crowd control; defensive_2 is only its key slot).
-	["Fear"] = { category = "dispel_cc", priority = 1 }, -- V; CROWD_CONTROL [118699] (single-target fear). Was role defensive_2 (= key X) until 19 Sep 2026: a CC on the defensive key, on all three specs
+	["Fear"] = { id = 5782, category = "dispel_cc", priority = 1 }, -- V; CROWD_CONTROL [118699] (single-target fear). Was role defensive_2 (= key X) until 19 Sep 2026: a CC on the defensive key, on all three specs
 	-- Mortal Coil: stays dispel_cc for the key, but on the card it is a heal (20%, 45 s; Method).
 	["Mortal Coil"] = { id = 6789, category = "dispel_cc", priority = 2, survival = "heal", survivalOrder = 1 }, -- CROWD_CONTROL [6789] (horror-fear + 20% self-heal; talent)
-	["Howl of Terror"] = { category = "dispel_cc", priority = 3 }, -- InterruptAbilities [5484] kind=cc mech=5 (AoE-fear; talent)
-	["Banish"] = { category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [710] (banish demon/elemental)
+	["Howl of Terror"] = { id = 5484, category = "dispel_cc", priority = 3 }, -- InterruptAbilities [5484] kind=cc mech=5 (AoE-fear; talent)
+	["Banish"] = { id = 710, category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [710] (banish demon/elemental)
 
 	-- Self-heals. Drain Life = snelle combat-self-heal-kanaal (F2). Healthstone = OOC-noodheal (F3).
 	["Drain Life"] = { id = 234153, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_STAND_STILL" }, -- F2; SpellArchetypes [234153] kanaal, heelt de caster
@@ -103,13 +103,13 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	["Healthstone"] = { role = "heal_ooc", priority = 1 }, -- F3; HealingItems [5512] (spell "Create Healthstone" -> item); instant noodheal
 
 	-- Utility (rez / raid-mobility / pet-command). Soulstone = battle-res, NOOIT heal.
-	["Soulstone"] = { category = "utility", priority = 1 }, -- SpellCategories UTILITY-context [20707] (combat-res, geen heal)
-	["Demonic Gateway"] = { category = "utility", priority = 2 }, -- SpellCategories UTILITY [111771] (raid-mobility, X)
+	["Soulstone"] = { id = 20707, category = "utility", priority = 1 }, -- SpellCategories UTILITY-context [20707] (combat-res, geen heal)
+	["Demonic Gateway"] = { id = 111771, category = "utility", priority = 2 }, -- SpellCategories UTILITY [111771] (raid-mobility, X)
 	-- 272651 in these comments is the HUNTER's Command Pet (Wowhead, 3 Oct 2026); Command Demon's own id is not
 	-- checked. The entry is keyed by name, so only the comments were wrong.
-	["Command Demon"] = { category = "utility", priority = 3 }, -- pet-ability-trigger (id unchecked, see above)
-	["Create Healthstone"] = { category = "utility", priority = 4 }, -- levert het Healthstone-item (utility-cast, out-of-combat)
-	["Create Soulwell"] = { category = "utility", priority = 5 }, -- raid-Healthstone-well (utility)
+	["Command Demon"] = { id = 119898, category = "utility", priority = 3 }, -- pet-ability-trigger (id unchecked, see above)
+	["Create Healthstone"] = { id = 6201, category = "utility", priority = 4 }, -- levert het Healthstone-item (utility-cast, out-of-combat)
+	["Create Soulwell"] = { id = 29893, category = "utility", priority = 5 }, -- raid-Healthstone-well (utility)
 
 	--==============================================================================
 	-- AFFLICTION (spec 265) - ranged DoT DPS.
@@ -123,26 +123,26 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	["Call Felhunter"] = { role = "interrupt", priority = 2, specs = { 265, 267 } }, -- InterruptAbilities [212619] interrupt pri=2 (summon+kick)
 
 	-- Builders (DoT-opbouw / shard-generatie).
-	["Agony"] = { category = "main_rotation", priority = 1, specs = { 265 } }, -- SpellArchetypes [980] ranged; kern-DoT + shard-generatie
-	["Corruption"] = { category = "main_rotation", priority = 2, specs = { 265 } }, -- SpellArchetypes [172] ranged; kern-DoT
-	["Wither"] = { category = "main_rotation", priority = 2, specs = { 265 } }, -- SpellArchetypes ranged; Corruption-vervanger bij Hellcaller
-	["Unstable Affliction"] = { category = "main_rotation", priority = 3, specs = { 265 } }, -- SpellArchetypes ranged; ST shard-spender-DoT
-	["Haunt"] = { category = "main_rotation", priority = 4, specs = { 265 } }, -- SpellArchetypes [48181] ranged; cooldown-DoT (damage-amp)
-	["Drain Soul"] = { category = "main_rotation", priority = 5, specs = { 265 } }, -- SpellArchetypes ranged; ST-filler/execute-kanaal
+	["Agony"] = { id = 980, category = "main_rotation", priority = 1, specs = { 265 } }, -- SpellArchetypes [980] ranged; kern-DoT + shard-generatie
+	["Corruption"] = { id = 172, category = "main_rotation", priority = 2, specs = { 265 } }, -- SpellArchetypes [172] ranged; kern-DoT
+	["Wither"] = { id = 445468, category = "main_rotation", priority = 2, specs = { 265 } }, -- SpellArchetypes ranged; Corruption-vervanger bij Hellcaller
+	["Unstable Affliction"] = { id = 1259790, category = "main_rotation", priority = 3, specs = { 265 } }, -- SpellArchetypes ranged; ST shard-spender-DoT
+	["Haunt"] = { id = 48181, category = "main_rotation", priority = 4, specs = { 265 } }, -- SpellArchetypes [48181] ranged; cooldown-DoT (damage-amp)
+	["Drain Soul"] = { id = 198590, category = "main_rotation", priority = 5, specs = { 265 } }, -- SpellArchetypes ranged; ST-filler/execute-kanaal
 
 	-- Spenders (Soul Shard-dump).
 	-- Malefic Rapture removed 17 Sep: gone in Midnight (audit, BRON Icy Veins Affliction 12.1).
-	["Malefic Grasp"] = { category = "spender", priority = 2, specs = { 265 } }, -- SpellArchetypes [1261153] ranged; kanaal-spender-variant
+	["Malefic Grasp"] = { id = 1261153, category = "spender", priority = 2, specs = { 265 } }, -- SpellArchetypes [1261153] ranged; kanaal-spender-variant
 
 	-- AoE-tweeling (Shift+N).
-	["Seed of Corruption"] = { category = "spender", priority = 3, bindKey = "Shift+4", specs = { 265 } }, -- SpellArchetypes [27243] ranged; AoE-spender (AoE-slot, Shift-tweeling van Malefic Rapture slot 4)
+	["Seed of Corruption"] = { id = 27243, category = "spender", priority = 3, bindKey = "Shift+4", specs = { 265 } }, -- SpellArchetypes [27243] ranged; AoE-spender (AoE-slot, Shift-tweeling van Malefic Rapture slot 4)
 
 	-- Cooldowns.
-	["Summon Darkglare"] = { blockQ = { [265] = true }, role = "cooldown_bar", priority = 1, specs = { 265 } }, -- F1; SpellDB/Archetypes [205180] grootste burst-CD (extendt DoTs)
+	["Summon Darkglare"] = { id = 205180, blockQ = { [265] = true }, role = "cooldown_bar", priority = 1, specs = { 265 } }, -- F1; SpellDB/Archetypes [205180] grootste burst-CD (extendt DoTs)
 	-- Soul Rot, Phantom Singularity, Vile Taint removed 17 Sep: "have been removed" (audit, BRON Icy Veins Affliction 12.1).
 	-- Malevolence: Hellcaller is also a Destruction hero tree (audit, BRON Method Destruction), but `specs`
 	-- stays { 265 }: adding 267 would give Destruction a new key, and the 17 Sep pass moves no binds.
-	["Malevolence"] = { role = "cooldown_bar", priority = 2, specs = { 265 } }, -- SpellArchetypes [446285] ranged; Hellcaller-hoofd-CD (Shift+F1)
+	["Malevolence"] = { id = 442726, role = "cooldown_bar", priority = 2, specs = { 265 } }, -- SpellArchetypes [446285] ranged; Hellcaller-hoofd-CD (Shift+F1)
 
 	--==============================================================================
 	-- DEMONOLOGY (spec 266) - pet/demon-DPS.
@@ -157,23 +157,23 @@ ns.KeybindRoleClassifier.WARLOCK = {
 		survivalId = { [266] = 119898 }, survivalOverride = { [119914] = true } }, -- InterruptAbilities [89766] kind=cc mech=12 (stun, Felguard-interrupt)
 
 	-- Builders (shard-generatie / Demonic Core).
-	["Shadow Bolt"] = { category = "main_rotation", priority = 1, specs = { 266 } }, -- SpellArchetypes [686] ranged; shard-generatie-filler
+	["Shadow Bolt"] = { id = 686, category = "main_rotation", priority = 1, specs = { 266 } }, -- SpellArchetypes [686] ranged; shard-generatie-filler
 	["Demonbolt"] = { category = "main_rotation", priority = 2, specs = { 266 } }, -- SpellArchetypes [264178] ranged; Demonic-Core-proc-builder
-	["Call Dreadstalkers"] = { category = "main_rotation", priority = 3, specs = { 266 } }, -- SpellArchetypes [104316] ranged; kern-cooldown-pets
+	["Call Dreadstalkers"] = { id = 104316, category = "main_rotation", priority = 3, specs = { 266 } }, -- SpellArchetypes [104316] ranged; kern-cooldown-pets
 
 	-- Spenders (shard-dump / pet-summon).
-	["Hand of Gul'dan"] = { category = "spender", priority = 1, specs = { 266 } }, -- SpellArchetypes [86040] ranged; hoofd-shard-spender (Wild Imps)
+	["Hand of Gul'dan"] = { id = 105174, category = "spender", priority = 1, specs = { 266 } }, -- SpellArchetypes [86040] ranged; hoofd-shard-spender (Wild Imps)
 	-- Summon Vilefiend removed 17 Sep: now part of Call Dreadstalkers (audit, BRON Icy Veins Demonology 12.1).
 	-- Grimoire: Felguard removed 17 Sep: "has been removed" (audit, BRON Icy Veins Demonology 12.1).
 
 	-- AoE-tweeling (Shift+N).
-	["Implosion"] = { category = "spender", priority = 4, bindKey = "Shift+4", specs = { 266 } }, -- SpellArchetypes [196278] ranged; Wild-Imp-AoE-detonatie (AoE-slot, Shift-tweeling van Hand of Gul'dan slot 4)
+	["Implosion"] = { id = 196277, category = "spender", priority = 4, bindKey = "Shift+4", specs = { 266 } }, -- SpellArchetypes [196278] ranged; Wild-Imp-AoE-detonatie (AoE-slot, Shift-tweeling van Hand of Gul'dan slot 4)
 
 	-- DoT / extra.
 	["Doom"] = { category = "main_rotation", priority = 4, specs = { 266 } }, -- SpellArchetypes [460555] ranged; AoE-DoT (talent)
 
 	-- Cooldowns.
-	["Summon Demonic Tyrant"] = { blockQ = { [266] = true }, role = "cooldown_bar", priority = 1, specs = { 266 } }, -- F1; SpellArchetypes [265187] grootste burst-CD (buft alle demons)
+	["Summon Demonic Tyrant"] = { id = 265187, blockQ = { [266] = true }, role = "cooldown_bar", priority = 1, specs = { 266 } }, -- F1; SpellArchetypes [265187] grootste burst-CD (buft alle demons)
 
 	--==============================================================================
 	-- DESTRUCTION (spec 267) - direct-damage ranged DPS.
@@ -181,26 +181,26 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	--==============================================================================
 
 	-- Builders (Ember-generatie / DoT).
-	["Incinerate"] = { category = "main_rotation", priority = 1, specs = { 267 } }, -- SpellArchetypes [29722] ranged; Ember-generatie-filler
-	["Immolate"] = { category = "main_rotation", priority = 2, specs = { 267 } }, -- SpellArchetypes [348] ranged; DoT (on-target houden)
-	["Conflagrate"] = { category = "main_rotation", priority = 3, specs = { 267 } }, -- SpellArchetypes [17962] ranged; charge-builder (Backdraft)
+	["Incinerate"] = { id = 29722, category = "main_rotation", priority = 1, specs = { 267 } }, -- SpellArchetypes [29722] ranged; Ember-generatie-filler
+	["Immolate"] = { id = 348, category = "main_rotation", priority = 2, specs = { 267 } }, -- SpellArchetypes [348] ranged; DoT (on-target houden)
+	["Conflagrate"] = { id = 17962, category = "main_rotation", priority = 3, specs = { 267 } }, -- SpellArchetypes [17962] ranged; charge-builder (Backdraft)
 
 	-- Spenders (Soul Shard / Ember-dump).
-	["Chaos Bolt"] = { category = "spender", priority = 1, specs = { 267 } }, -- SpellArchetypes [116858] ranged; hoofd-shard-spender (ST-nuke)
-	["Shadowburn"] = { category = "spender", priority = 2, specs = { 267 } }, -- SpellArchetypes [17877] ranged; execute-spender (shard-efficient)
+	["Chaos Bolt"] = { id = 116858, category = "spender", priority = 1, specs = { 267 } }, -- SpellArchetypes [116858] ranged; hoofd-shard-spender (ST-nuke)
+	["Shadowburn"] = { id = 17877, category = "spender", priority = 2, specs = { 267 } }, -- SpellArchetypes [17877] ranged; execute-spender (shard-efficient)
 
 	-- AoE-tweeling (Shift+N).
 	["Rain of Fire"] = { category = "spender", priority = 3, bindKey = "Shift+4", specs = { 267 } }, -- SpellArchetypes [5740] ranged; AoE-shard-spender (AoE-slot, Shift-tweeling van Chaos Bolt slot 4)
 
 	-- Cleave / extra.
-	["Havoc"] = { category = "utility", priority = 6, specs = { 267 } }, -- SpellArchetypes [194831] ranged; cleave-target-tag (dupliceert single-target-schade)
-	["Soul Fire"] = { category = "main_rotation", priority = 4, specs = { 267 } }, -- SpellArchetypes [6353] ranged; mini-cooldown-builder (talent)
+	["Havoc"] = { id = 80240, category = "utility", priority = 6, specs = { 267 } }, -- SpellArchetypes [194831] ranged; cleave-target-tag (dupliceert single-target-schade)
+	["Soul Fire"] = { id = 6353, category = "main_rotation", priority = 4, specs = { 267 } }, -- SpellArchetypes [6353] ranged; mini-cooldown-builder (talent)
 
 	-- Burst-cooldown (F1). Alleen de grote summon hoort in het F1-burst-cluster.
-	["Summon Infernal"] = { blockQ = { [267] = true }, role = "cooldown_bar", priority = 1, specs = { 267 } }, -- F1; SpellArchetypes [157898] grootste burst-CD (Meteor + haste)
+	["Summon Infernal"] = { id = 1122, blockQ = { [267] = true }, role = "cooldown_bar", priority = 1, specs = { 267 } }, -- F1; SpellArchetypes [157898] grootste burst-CD (Meteor + haste)
 
 	-- Korte rotatie-CD's (op-CD gecast, geen F1-burst-slot).
-	["Cataclysm"] = { category = "main_rotation", priority = 5, specs = { 267 } }, -- SpellArchetypes [152108] ranged; korte AoE-Immolate-applicator (~30s), rotatie op-CD, geen F1-burst (talent)
-	["Channel Demonfire"] = { category = "main_rotation", priority = 6, specs = { 267 } }, -- SpellArchetypes [196448] ranged; korte kanaal-CD (~25s), rotatie op-CD, geen F1-burst
+	["Cataclysm"] = { id = 152108, category = "main_rotation", priority = 5, specs = { 267 } }, -- SpellArchetypes [152108] ranged; korte AoE-Immolate-applicator (~30s), rotatie op-CD, geen F1-burst (talent)
+	["Channel Demonfire"] = { id = 196447, category = "main_rotation", priority = 6, specs = { 267 } }, -- SpellArchetypes [196448] ranged; korte kanaal-CD (~25s), rotatie op-CD, geen F1-burst
 	["Dimensional Rift"] = { category = "main_rotation", priority = 7, specs = { 267 } }, -- SpellArchetypes [387976]; korte rotatie-CD (~45s), op-CD-filler, geen F1-burst (talent)
 }

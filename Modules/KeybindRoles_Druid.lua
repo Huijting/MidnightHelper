@@ -121,73 +121,73 @@ ns.KeybindRoleClassifier.DRUID = {
     -- BALANCE (102)
     -- =================================================================
     -- Builders / DoT-onderhoud
-    ["Wrath"]                            = { category = "main_rotation", priority = 1, specs = { 102, 105 } }, -- Balance builder / Resto filler
-    ["Starfire"]                         = { category = "main_rotation", priority = 2, specs = { 102 } },      -- cleave-builder
-    ["Moonfire"]                         = { category = "main_rotation", priority = 3, specs = { 102, 104, 105 } }, -- Balance/Guardian/Resto DoT
-    ["Sunfire"]                          = { category = "main_rotation", priority = 4, specs = { 102, 105 } }, -- AoE-DoT (Balance/Resto)
+    ["Wrath"]                            = { id = 5176, category = "main_rotation", priority = 1, specs = { 102, 105 } }, -- Balance builder / Resto filler
+    ["Starfire"]                         = { id = 194153, category = "main_rotation", priority = 2, specs = { 102 } },      -- cleave-builder
+    ["Moonfire"]                         = { id = 8921, category = "main_rotation", priority = 3, specs = { 102, 104, 105 } }, -- Balance/Guardian/Resto DoT
+    ["Sunfire"]                          = { id = 93402, category = "main_rotation", priority = 4, specs = { 102, 105 } }, -- AoE-DoT (Balance/Resto)
     -- Spenders
-    ["Starsurge"]                        = { category = "spender", priority = 1, specs = { 102, 105 } }, -- Resto too since 5 Oct 2026 (IV Resto 12.1; Resto id 197626, wago)
+    ["Starsurge"]                        = { id = 78674, category = "spender", priority = 1, specs = { 102, 105 } }, -- Resto too since 5 Oct 2026 (IV Resto 12.1; Resto id 197626, wago)
     -- AoE
-    ["Starfall"]                         = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 102 } }, -- AoE-spender (Shift-tweeling van Starsurge, spender 4)
+    ["Starfall"]                         = { id = 191034, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 102 } }, -- AoE-spender (Shift-tweeling van Starsurge, spender 4)
     -- Interrupt
     ["Solar Beam"]                       = { id = 78675, role = "interrupt", priority = 1, specs = { 102 }, survival = "interrupt", survivalOrder = 1 }, -- Balance ranged AoE-silence
     -- Movement (klassentalent volgens de audit; toetsen blijven { 102 }, de kaart toont hem bij alle specs)
     ["Tiger Dash"]                       = { id = 252216, role = "utility_primary", priority = 2, specs = { 102 }, survivalSpecs = { 102, 103, 104, 105 }, survival = "escape", survivalOrder = 2 }, -- Shift+Q (Cat Form sprint)
     -- CC
-    ["Typhoon"]                          = { category = "dispel_cc", priority = 1, specs = { 102, 104, 105 } }, -- knockback+daze (Balance V; Guardian/Resto talent)
+    ["Typhoon"]                          = { id = 132469, category = "dispel_cc", priority = 1, specs = { 102, 104, 105 } }, -- knockback+daze (Balance V; Guardian/Resto talent)
     -- Cooldowns
-    ["Celestial Alignment"]              = { blockQ = { [102] = true }, role = "cooldown_bar", priority = 1, specs = { 102 } }, -- grootste CD (F1)
-    ["Incarnation: Chosen of Elune"]     = { blockQ = { [102] = true }, category = "cooldown", priority = 2, specs = { 102 } }, -- talent-alternatief (Shift+F1)
+    ["Celestial Alignment"]              = { id = 194223, blockQ = { [102] = true }, role = "cooldown_bar", priority = 1, specs = { 102 } }, -- grootste CD (F1)
+    ["Incarnation: Chosen of Elune"]     = { id = 102560, blockQ = { [102] = true }, category = "cooldown", priority = 2, specs = { 102 } }, -- talent-alternatief (Shift+F1)
 
     -- =================================================================
     -- FERAL (103)
     -- =================================================================
     -- Builders
-    ["Shred"]                            = { category = "main_rotation", priority = 1, specs = { 103 } },
-    ["Rake"]                             = { category = "main_rotation", priority = 2, specs = { 103 } },
+    ["Shred"]                            = { id = 5221, category = "main_rotation", priority = 1, specs = { 103 } },
+    ["Rake"]                             = { id = 1822, category = "main_rotation", priority = 2, specs = { 103 } },
     -- Spenders
-    ["Rip"]                              = { category = "spender", priority = 1, specs = { 103 } },
-    ["Ferocious Bite"]                   = { category = "spender", priority = 2, specs = { 103 } },
-    ["Primal Wrath"]                     = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 103 } }, -- AoE-finisher (bleed-spread; Shift-tweeling van Rip, spender 4)
+    ["Rip"]                              = { id = 1079, category = "spender", priority = 1, specs = { 103 } },
+    ["Ferocious Bite"]                   = { id = 22568, category = "spender", priority = 2, specs = { 103 } },
+    ["Primal Wrath"]                     = { id = 285381, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 103 } }, -- AoE-finisher (bleed-spread; Shift-tweeling van Rip, spender 4)
     -- CC (Cat Form finisher-stun)
-    ["Maim"]                             = { category = "dispel_cc", priority = 1, specs = { 103 } },
+    ["Maim"]                             = { id = 22570, category = "dispel_cc", priority = 1, specs = { 103 } },
     -- Cooldowns
-    ["Incarnation: Avatar of Ashamane"]  = { blockQ = { [103] = true }, category = "cooldown", priority = 2, specs = { 103 } }, -- talent-alternatief voor Berserk (Shift+F1)
+    ["Incarnation: Avatar of Ashamane"]  = { id = 102543, blockQ = { [103] = true }, category = "cooldown", priority = 2, specs = { 103 } }, -- talent-alternatief voor Berserk (Shift+F1)
 
     -- =================================================================
     -- GUARDIAN (104)
     -- =================================================================
     -- Builders
-    ["Mangle"]                           = { category = "main_rotation", priority = 1, specs = { 104 } }, -- primaire Rage-generator
+    ["Mangle"]                           = { id = 33917, category = "main_rotation", priority = 1, specs = { 104 } }, -- primaire Rage-generator
     -- Spenders (mitigation / self-heal)
     ["Ironfur"]                          = { id = 192081, category = "defensive", priority = 1, specs = { 104 }, survival = "keepup", survivalOrder = 1 }, -- actieve mitigation (armor), GEEN damage-spender -> Defensive-kaart; card: keep one stack up (Wowhead)
-    ["Maul"]                             = { category = "spender", priority = 3, specs = { 104 } }, -- Rage-dump
+    ["Maul"]                             = { id = 6807, category = "spender", priority = 3, specs = { 104 } }, -- Rage-dump
     -- CC
-    ["Mighty Bash"]                      = { category = "dispel_cc", priority = 1, specs = { 102, 104 }, alsoStop = "stun" }, -- JustAC InterruptAbilities [5211] cc mech=12 (stun) → Spec 08 alsoStop
-    ["Incapacitating Roar"]              = { category = "dispel_cc", priority = 2, specs = { 103, 104 }, alsoStop = "incap" }, -- JustAC InterruptAbilities [99] cc mech=14 (incapacitate) → Spec 08 alsoStop
+    ["Mighty Bash"]                      = { id = 5211, category = "dispel_cc", priority = 1, specs = { 102, 104 }, alsoStop = "stun" }, -- JustAC InterruptAbilities [5211] cc mech=12 (stun) → Spec 08 alsoStop
+    ["Incapacitating Roar"]              = { id = 99, category = "dispel_cc", priority = 2, specs = { 103, 104 }, alsoStop = "incap" }, -- JustAC InterruptAbilities [99] cc mech=14 (incapacitate) → Spec 08 alsoStop
     -- Cooldowns
     ["Lunar Beam"]                       = { id = 204066, category = "cooldown", priority = 1, specs = { 104 }, survival = "small", survivalOrder = 2 }, -- regel 1 van de Elune's Chosen-prioriteitslijst (Method/Icy Veins/Maxroll); JustAC SimcRotations DRUID_3 burst+st+aoe, SpellCooldowns 60s; card: IV 12.1 "survivability tool"
     -- Heart of the Wild: klassentalent (patchnotes, Method "class tree") -> baseline sinds 17 sep.
     -- ⚠️ id 1261867 is gemeten op Guardian; op de andere specs niet gemeten.
     -- Card: NIET op Guardian (3 okt 2026, mh-research: de Guardian-tooltip heeft geen Bear Form-effect, daar is het een aanvalsknop).
     ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 104 }, survivalSpecs = { 102, 103, 105 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst; card: Bear Form +30% max health
-    ["Incarnation: Guardian of Ursoc"]   = { blockQ = { [104] = true }, category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
+    ["Incarnation: Guardian of Ursoc"]   = { id = 102558, blockQ = { [104] = true }, category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
     -- Rage of the Sleeper: verwijderd 17 sep (weg in 12.0.0, wiki).
     -- Utility
-    ["Growl"]                            = { category = "taunt", priority = 1, specs = { 104 } }, -- taunt (F, eigen kaart)
-    ["Bristling Fur"]                    = { category = "defensive", priority = 4, specs = { 104 } }, -- Rage-on-damage def-talent; NOT on the card: a Rage generator
+    ["Growl"]                            = { id = 6795, category = "taunt", priority = 1, specs = { 104 } }, -- taunt (F, eigen kaart)
+    ["Bristling Fur"]                    = { id = 155835, category = "defensive", priority = 4, specs = { 104 } }, -- Rage-on-damage def-talent; NOT on the card: a Rage generator
 
     -- =================================================================
     -- GEDEELD: Feral + Guardian (melee-vormen)
     -- =================================================================
     ["Thrash"]                           = { category = "main_rotation", priority = 2, specs = { 104 }, survival = "keepup", survivalOrder = 2, survivalId = { [104] = 77758 }, survivalNote = "SURVIVAL_NOTE_REND_TEAR" }, -- Guardian AoE-builder; Feral kwijt in 12.1 (IV Feral: "removed from the tree"); card 5 Oct 2026: 3 stacks + Rend and Tear = less damage (Method 3 Sep); id Wowhead, not client-measured
-    ["Swipe"]                            = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 103, 104 } }, -- AoE-builder (Shift-tweeling van primaire builder Shred/Mangle, builder 1)
+    ["Swipe"]                            = { id = 213764, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 103, 104 } }, -- AoE-builder (Shift-tweeling van primaire builder Shred/Mangle, builder 1)
     ["Skull Bash"]                       = { id = 106839, role = "interrupt", priority = 1, specs = { 103, 104 }, survival = "interrupt", survivalOrder = 1 }, -- charge+interrupt (melee-specs)
     ["Stampeding Roar"]                  = { id = 106898, role = "utility_primary", priority = 2, specs = { 103, 104 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q (raid-speed)
     ["Survival Instincts"]               = { id = 61336, role = "defensive_3", priority = 1, specs = { 103, 104 }, survival = "big", survivalOrder = 2 }, -- grote def (-50% dmg), C
     ["Frenzied Regeneration"]            = { id = 22842, role = "heal_quick", priority = 2, specs = { 103, 104 }, survivalSpecs = { 102, 103, 104, 105 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- self-heal (Guardian spender/Feral noodheal), F2/5; Bear Form only (Feral Cat only with Druid of the Claw); card: klassentalent, ook Balance/Resto (IV 12.1, 3 okt 2026)
-    ["Berserk"]                          = { blockQ = { [103] = true, [104] = true }, role = "cooldown_bar", priority = 1, specs = { 103, 104 } }, -- Feral 106951 + Guardian 50334, zelfde naam, F1
-    ["Tiger's Fury"]                     = { category = "cooldown", priority = 3, specs = { 103 } }, -- Feral signature 30s energy/dmg-CD (JustAC SpellCooldowns 5217=30s; SimC core)
+    ["Berserk"]                          = { id = 106951, blockQ = { [103] = true, [104] = true }, role = "cooldown_bar", priority = 1, specs = { 103, 104 } }, -- Feral 106951 + Guardian 50334, zelfde naam, F1
+    ["Tiger's Fury"]                     = { id = 5217, category = "cooldown", priority = 3, specs = { 103 } }, -- Feral signature 30s energy/dmg-CD (JustAC SpellCooldowns 5217=30s; SimC core)
 
     -- =================================================================
     -- RESTORATION (105) - healer
@@ -211,15 +211,15 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Kleine defensive (extern)
     ["Ironbark"]                         = { id = 102342, category = "defensive", priority = 2, specs = { 105 }, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- extern -20% dmg (C since 19 Sep 2026: it was a second defensive_1 behind Barkskin, so it fell to Shift+Z while C held Mass Entanglement); ook raid-CD-slot; card: 1.5 min, not a keep-up (wiki); small achter Barkskin sinds 3 okt 2026 (-20% = even sterk als Barkskin)
     -- Raid-heal cooldowns (op cooldown-slots)
-    ["Tranquility"]                      = { blockQ = { [105] = true }, role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
+    ["Tranquility"]                      = { id = 740, blockQ = { [105] = true }, role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
     -- Flourish en Grove Guardians: verwijderd 17 sep (nu passief, patchnotes/IV Resto).
-    ["Incarnation: Tree of Life"]        = { category = "cooldown", priority = 2, specs = { 105 } }, -- Resto heal-vorm CD (talent)
-    ["Convoke the Spirits"]              = { category = "cooldown", priority = 2, specs = { 105 } }, -- burst heal/dmg CD (talent)
+    ["Incarnation: Tree of Life"]        = { id = 33891, category = "cooldown", priority = 2, specs = { 105 } }, -- Resto heal-vorm CD (talent)
+    ["Convoke the Spirits"]              = { id = 391528, category = "cooldown", priority = 2, specs = { 105 } }, -- burst heal/dmg CD (talent)
     -- Dispel / CC
     ["Nature's Cure"]                    = { id = 88423, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 105 } }, -- magic/curse/poison dispel
-    ["Mass Entanglement"]                = { category = "dispel_cc", priority = 2, specs = { 105 } }, -- AoE-root
+    ["Mass Entanglement"]                = { id = 102359, category = "dispel_cc", priority = 2, specs = { 105 } }, -- AoE-root
     -- Utility
-    ["Innervate"]                        = { category = "utility", priority = 2, specs = { 102, 105 }, blockAs = { [105] = { category = "cooldown", priority = 4 } } }, -- mana-utility (Balance+Resto), R
+    ["Innervate"]                        = { id = 29166, category = "utility", priority = 2, specs = { 102, 105 }, blockAs = { [105] = { category = "cooldown", priority = 4 } } }, -- mana-utility (Balance+Resto), R
 
     -- =================================================================
     -- BASELINE (alle 4 Druid-specs; geen specs=)
@@ -232,22 +232,22 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Barkskin"]                         = { id = 22812, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_STUNNED" }, -- -20% dmg, alle vormen (Z); card: 8 s on 45 s, not a keep-up (wiki)
     -- Self-heal: Renewal verwijderd 17 sep (weg in 12.0.0, patchnotes).
     -- Dispel / CC (class-gedeeld)
-    ["Cyclone"]                          = { category = "dispel_cc", priority = 3 }, -- banish-CC (1 doel)
-    ["Entangling Roots"]                 = { category = "dispel_cc", priority = 4 }, -- single-target root
-    ["Soothe"]                           = { category = "dispel_cc", priority = 5 }, -- enrage-dispel
-    ["Remove Corruption"]                = { category = "dispel_cc", priority = 6, specs = { 102, 103, 104 } }, -- curse/poison-dispel; non-Resto only (Resto uses Nature's Cure -> anders dubbel + overflow op C)
+    ["Cyclone"]                          = { id = 33786, category = "dispel_cc", priority = 3 }, -- banish-CC (1 doel)
+    ["Entangling Roots"]                 = { id = 339, category = "dispel_cc", priority = 4 }, -- single-target root
+    ["Soothe"]                           = { id = 2908, category = "dispel_cc", priority = 5 }, -- enrage-dispel
+    ["Remove Corruption"]                = { id = 2782, category = "dispel_cc", priority = 6, specs = { 102, 103, 104 } }, -- curse/poison-dispel; non-Resto only (Resto uses Nature's Cure -> anders dubbel + overflow op C)
     ["Ursol's Vortex"]                   = { id = 102793, category = "dispel_cc", priority = 7 }, -- AoE-knockback/slow; staat sinds dag 1 in het bronnen-commentaar hierboven (CROWD_CONTROL) maar was nooit een entry. Priority 7 = ACHTER de bestaande zes, zodat niemands huidige indeling verschuift
     -- Utility / vormen (class-gedeeld)
-    ["Rebirth"]                          = { role = "utility_secondary", priority = 2 }, -- battle-res (F/R)
-    ["Prowl"]                            = { category = "utility", priority = 3 }, -- stealth (Cat Form openers)
+    ["Rebirth"]                          = { id = 20484, role = "utility_secondary", priority = 2 }, -- battle-res (F/R)
+    ["Prowl"]                            = { id = 5215, category = "utility", priority = 3 }, -- stealth (Cat Form openers)
     -- Vaste vormen-cluster: in ELKE Druid-spec dezelfde toets, zodat een beginner
     -- de vormen makkelijk terugvindt ("Shift+R/T/X = kat/beer/uil"). Travel Form
     -- blijft op R (base, mobility). bindKey forceert de plek (base R/T/X telt mee
     -- op het keyboard, geen overflow naar de situational-lijst).
     -- blockForm (4 Oct 2026): the key block puts forms on Ctrl-1/2/3 (KeyBlock.lua; Shift-T/R belong to bar B there).
     ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T", blockForm = 1, survival = { [102] = "big", [103] = "big", [105] = "big" }, survivalOrder = 3, survivalId = { [102] = 5487, [103] = 5487, [105] = 5487 }, survivalNote = "SURVIVAL_NOTE_BEAR_FORM" }, -- tank/def-vorm (nood-mitigation); card 5 Oct 2026: emergency button without a cooldown for Balance/Feral/Resto (IV Easy Mode, Method Resto); not Guardian (always in it); id Wowhead, not client-measured
-    ["Cat Form"]                         = { category = "utility", priority = 5, bindKey = "Shift+R", blockForm = 2 }, -- melee-DPS-vorm
-    ["Moonkin Form"]                     = { category = "utility", priority = 6, bindKey = "Shift+X", blockForm = 3 }, -- caster-vorm (Balance/Resto Affinity)
+    ["Cat Form"]                         = { id = 768, category = "utility", priority = 5, bindKey = "Shift+R", blockForm = 2 }, -- melee-DPS-vorm
+    ["Moonkin Form"]                     = { id = 24858, category = "utility", priority = 6, bindKey = "Shift+X", blockForm = 3 }, -- caster-vorm (Balance/Resto Affinity)
     -- Out-of-combat, achteraan gezet: ze horen in de tabel zodat de coach ze KENT, maar ze
     -- mogen geen gevechtsknop verdringen. Revive gaat bewust NIET op heal_ooc/F3 -- die rol is
     -- de out-of-combat SELF-heal (Paladin Lay on Hands, Monk Vivify), en een rez is dat niet.

@@ -285,14 +285,22 @@ function ns.MH_AutoMapBuild()
 		---
 		--- 📌 De volgorde blijft ongewijzigd, dus een spell die vandaag matcht matcht morgen
 		--- op dezelfde entry. Deze lus kan alleen méér classificeren, nooit anders.
+		---
+		--- 🔴 NAAM EERST, DAN ID — 5 okt 2026, id-ronde (389 nieuwe ids). Het spellbook meldt een
+		--- talent-override onder het id van de spell die hij vervangt (Blessed Hammer onder 35395,
+		--- hierboven). Met id-eerst wijst een NIEUW id dan de verkeerde entry aan zodra de override
+		--- zijn eigen entry heeft (mh-research: Soul Immolation -> Immolation Aura 258920,
+		--- Incarnation -> Berserk / Celestial Alignment). Op een Engelse client matcht de naam
+		--- precies zoals vóór de ids; op een anderstalige client matcht de naam nooit en beslist
+		--- het id, wat daar de enige weg is. Zo kan een id alleen toevoegen, nooit verschuiven.
 		local r
 		local c1 = byId[sid]
 		local c2 = roles and roles[name]
 		local c3 = globalRoles and globalRoles[name]
-		if c1 and SpecMatches(c1.specs, specID) then
-			r = c1
-		elseif c2 and SpecMatches(c2.specs, specID) then
+		if c2 and SpecMatches(c2.specs, specID) then
 			r = c2
+		elseif c1 and SpecMatches(c1.specs, specID) then
+			r = c1
 		elseif c3 and SpecMatches(c3.specs, specID) then
 			r = c3
 		end
