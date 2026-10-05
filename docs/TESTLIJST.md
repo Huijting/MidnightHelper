@@ -85,7 +85,7 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
   De eerstvolgende stap is wit met een gouden cijfer; gedane stappen krijgen een groen vinkje en een grijze knop.
 - [x] Rob 6 okt ✅ **Doe dit** bij stap 1 = hetzelfde als "Zet het op balk 5, 6 en 7"; stap 2 = layout-knop (+ Nu herladen-venster);
   stap 3 = muistoetsen; **Open** bij 4 = "Zo speel je"; bij 5 = spiekbrief.
-- [ ] Knop **Stappenplan verbergen** (bovenaan het venster) → paneel weg, venster weer in het midden; **tonen** → terug.
+- [x] Rob 6 okt ✅ Knop **Stappenplan verbergen** (bovenaan het venster) → paneel weg, venster weer in het midden; **tonen** → terug.
 - [x] Rob 6 okt ✅ Past alles op je scherm (venster onderaan, paneel erboven)?
 
 ## 🆕 5 okt avond — healer-blok: elke spreuk van de speelkaart heeft een toets (Rob: "ja, advies")
