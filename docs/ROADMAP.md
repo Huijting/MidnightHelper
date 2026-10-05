@@ -9,6 +9,13 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
 De rest, bewaard voor later (≈ prioriteit):
 
+- [ ] **Eén knop "klaar voor de raid?" = boodschappenlijstje (Rob, 5 okt 2026, avond voor een raid)** — *"een knop
+  waarbij ik in één keer druk, dan kan zien welke consumables ik nog even snel moet halen voor de raid, in plaats van
+  alleen maar het hele overzicht te bekijken."* GEMETEN: MH heeft al `/mh ready` (`ConsumableReadyCheck.lua`, Core.lua
+  :3267): tas-telling + buff per categorie, als chatregels. Wat ontbreekt: één knop (bv. op het Consumables-tabblad van
+  de speelkaart) die ALLEEN toont wat je mist of te weinig hebt, met hoeveel en waar te halen. Ontwerpvraag: hoeveel is
+  "genoeg" voor een raidavond (aantal flasks/potions/food)?
+
 - [ ] **Zoeken in tassen en bank van alle karakters (Rob, 1 okt 2026: "in het achterhoofd houden")** — gezien bij
       Allemano AltBoard (WoW Forever; alleen idee, geen code). Bewust NIET nu: Altoholic/AltVault/Alts Forever/Syndicator
       doen het al, onze kracht is uitleggen (memory `mh-market-position`), en het vergroot de SavedVariables flink (Robs
