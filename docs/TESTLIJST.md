@@ -86,8 +86,10 @@ GEMETEN (Robs screenshot van de balken): op blok C staan nog Carola's **mounts**
 Starfall, Prowl, Dash, Ursol's Vortex en Remove Corruption zet. Oorzaak (code): alleen spell/item/macro mochten opzij;
 een mount gaf "left alone". Nu mag alles opzij (een gewone sleep), Undo ruilt het terug. Ook bar 8 vol mounts = haar eigen.
 Werkt pas na een update op haar pc. Tot dan: Terugzetten → mounts zelf van balk 7 af slepen → opnieuw neerzetten.
-- [ ] Een personage met een **mount** (of toy) op balk 5, 6 of 7: Terugzetten → Zet het op balk 5, 6 en 7. Gaat de
-  mount naar blok D en komt de spreuk op zijn plek? En **Terugzetten**: staat de mount weer waar hij stond?
+- [x] Rob 5 okt ✅ (Carola's Duckiesan op 4.7.1, `/mh binds`-venster: balk 7 = Revive F3, Prowl, Dash, Ursol's Vortex,
+  Remove Corruption, Starfall, War Stomp; mounts op Alt 2/3/4 = blok D) Een personage met een **mount** (of toy) op balk
+  5, 6 of 7: Terugzetten → Zet het op balk 5, 6 en 7. Gaat de mount naar blok D en komt de spreuk op zijn plek?
+- [ ] En **Terugzetten**: staat de mount weer waar hij stond?
 
 ## 🔍 5 okt avond — Druid Balance (Duckiesan, pc van Robs zusje): Revive op F3? Kaart zei "F8"
 
