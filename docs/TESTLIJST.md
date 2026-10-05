@@ -71,6 +71,11 @@ nog niet kent (`KEYBLOCK_UNKNOWN_FMT`, zelfde lijst als `/mh binds`). mh-researc
   Growth/Frenzied Regeneration) die in Bear/Cat werken of al op de Stay alive-kaart staan.
   ⚠️ Het site-standaardblok rekent met ALLE talenten (ook beide kanten van 6 keuzes): 10 zonder plek. Een echte Balance
   Druid heeft er ~6 minder. AFGELEID.
+- Stampeding Roar voor 102 weer eruit: hij pakte Shift-X en Revive viel van het blok (doorgerekend met Carola's spreuken).
+  Doorgerekend (`ns.KeyBlockAllocate`, haar spreuken uit `/mh binds` + Fury of Elune): **Fury of Elune → F1**, **Heart of
+  the Wild → X**, rest gelijk (Revive F3). Met Solar Eclipse: **Shift-3**. ⚠️ Met Solar Eclipse + Force of Nature valt
+  Revive van het blok terwijl C, F2 en Shift-2 leeg blijven (de overloop gebruikt alleen vaste plekken) — ontwerpvraag Rob.
+  Rob zet het vanavond met de hand op Carola's pc (geen update daar).
 - [ ] Na de volgende update, Carola: Terugzetten → opnieuw neerzetten. Staat **Fury of Elune** nu op het blok
   (verwacht F3 of een andere cooldown-plek)? En staan Revive, Dash, Prowl er nog?
 - [ ] Op Carola's pc (4.7.1): `/mh binds` → de regel met de spreuken die MH niet kent → screenshot.
