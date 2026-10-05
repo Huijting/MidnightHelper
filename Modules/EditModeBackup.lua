@@ -760,8 +760,30 @@ function ns.MH_EditModeApplyKeyBlock()
 
 	-- Which frames move. Anything else that hangs on one of them is pinned where it is now, so it
 	-- does not travel along (Rob's cooldown viewer hangs on bar 4, measured 5 Oct 2026).
-	local moving = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true,
-		[11] = true, [12] = true, [13] = true }
+	local moving = { [5] = true, [6] = true, [7] = true, [11] = true, [12] = true, [13] = true }
+
+	-- Bars 1-4 stay where the player put them (Rob, 5 Oct 2026: "We doen C", after the red team: columns on
+	-- the right lay over his quest tracker). Only a bar that would lie OVER the block moves, to a row just
+	-- above it. Measured against the live frames, before anything changes.
+	local extraH = size + 2 * BLOCK_GAP
+	local zoneL = UIParent:GetWidth() / 2 + shift - totalW / 2 - BLOCK_GAP
+	local zoneR = UIParent:GetWidth() / 2 + shift + totalW / 2 + BLOCK_GAP
+	local zoneT = bottom + blockH + extraH
+	local inTheWay = {}
+	for _, idx in ipairs({ 1, 2, 3, 4 }) do
+		local l, r, b, t = Rect(_G[BAR_FRAME_NAMES[idx]] or (sysBy[idx] and LiveFrame(sysBy[idx])))
+		if sysBy[idx] and l and l < zoneR and r > zoneL and b < zoneT and t > bottom then
+			inTheWay[#inTheWay + 1] = idx
+			moving[idx] = true
+		end
+	end
+	if #inTheWay > 0 then
+		local names = {}
+		for _, idx in ipairs(inTheWay) do
+			names[#names + 1] = tostring(idx)
+		end
+		notes[#notes + 1] = ns:L("KEYBLOCK_LAYOUT_LIFTED_FMT"):format(table.concat(names, ", "))
+	end
 	local movingNames = {}
 	for idx in pairs(moving) do
 		local s = sysBy[idx]
@@ -824,15 +846,13 @@ function ns.MH_EditModeApplyKeyBlock()
 	if sysBy[5] then Anchor(sysBy[5], "BOTTOMRIGHT", BAR_FRAME_NAMES[6], "BOTTOMLEFT", -BLOCK_GAP, 0) end
 	if sysBy[7] then Anchor(sysBy[7], "BOTTOMLEFT", BAR_FRAME_NAMES[6], "BOTTOMRIGHT", BLOCK_GAP, 0) end
 
-	-- 2. Bars 1-4: vertical columns on the right, bar 1 outermost.
-	local colW = size + pad + 6
-	for k, idx in ipairs({ 1, 2, 3, 4 }) do
+	-- 2. Only the bars 1-4 that were in the way: one horizontal row each, stacked above the extra bars.
+	local rowH = size + pad + 6
+	for k, idx in ipairs(inTheWay) do
 		local s = sysBy[idx]
-		if s then
-			SetSetting(s, 0, 1) -- Orientation: vertical
-			SetSetting(s, 1, 1) -- one column
-			Anchor(s, "RIGHT", "UIParent", "RIGHT", -(6 + (k - 1) * colW), 0)
-		end
+		SetSetting(s, 0, 0) -- Orientation: horizontal
+		SetSetting(s, 1, 1) -- one row
+		Anchor(s, "BOTTOM", "UIParent", "BOTTOM", shift, zoneT + BLOCK_GAP + (k - 1) * rowH)
 	end
 
 	-- 3. The game's extra bars, just above the block.

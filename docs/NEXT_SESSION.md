@@ -11,6 +11,8 @@ keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn
 ⚠️ Rob 5 okt: blok C "absoluut anders dan voorgesteld" door zijn 8 macro's → GEBOUWD, NIET GETEST: macro's niet meer
 geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
 undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
+Rob koos C voor balk 1-4 (blijven staan; alleen wie over het blok ligt gaat naar een rij erboven) — gebouwd, niet getest.
+OPEN (Rob vroeg 5 okt na level 11→12): wat doet het blok met een NIEUWE spell (level-up/talent)? Voorstel bij Rob.
 Rob koos optie A: `LayoutWizard.lua` (/mh setup) heeft nog 3 knoppen (blok, Quick Keybind, oude Terugdraaien — die laatste
 één release). De oude stappen zijn van het paneel af; hun slash-commando's werken nog. Bindings GEMETEN account-breed
 (paneel). GEMETEN in SV: Hunter Ikprikjou heeft een eigen snapshot (owner gestempeld, ProvesMine slaagde) met Paladin-

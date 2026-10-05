@@ -95,7 +95,8 @@ toetsen worden aan hun plek gekoppeld, ook lege (Robs Hunter: Shift Z/X/C/V druk
 Rob koos op het plaatje (https://claude.ai/artifact/8Qy5EfdBVTrU6dmvTQK5xR) drie keer het advies:
 1. Blok onderaan in het midden: B (balk 6) op BOTTOM van UIParent, A (5) links en C (7) rechts eraan vast, 10 px tussen.
    Instellingen per balk: Orientation 0, NumRows 3, NumIcons 12. Icoongrootte en padding blijven van de speler.
-2. Balk 1-4 als verticale kolommen rechts (Orientation 1, NumRows 1), balk 1 buitenste.
+2. ~~Balk 1-4 als verticale kolommen rechts~~ → 5 okt avond Rob: optie **C** (kolommen lagen over de questlijst; red
+   team-advies). Balk 1-4 blijven staan; alleen een balk die over het blok zou liggen, gaat naar een rij boven het blok.
 3. Stance (11) en possess (13) boven A, ExtraAbilities (systeem 5) boven B, pet (12) boven C.
 
 Regels in de code (`ns.MH_EditModeApplyKeyBlock`, `EditModeBackup.lua`):

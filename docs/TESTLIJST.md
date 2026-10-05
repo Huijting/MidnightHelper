@@ -60,6 +60,12 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — optie C: balk 1-4 blijven staan
+
+- [ ] **Zet "…" terug** → herladen → **Zet mijn balken als blok** → herladen. Balk 1-4 staan nog waar ze stonden (geen
+  kolommen meer over je questlijst)? Lag een van die balken over het blok, dan staat hij nu als rij boven het blok, en de
+  melding noemt hem.
+
 ## 🆕 5 okt avond — blok C verborgen en kleiner op de Hunter (layout Oak)
 
 GEMETEN in de SV: in "Oak" stond balk 7 op Visible = Hidden (alleen te zien met het spellboek open) en de drie balken
