@@ -60,6 +60,15 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — stappenplan boven het blokvenster (Rob: "waar moet ik beginnen?")
+
+- [ ] `/mh block` op Reddish: boven het venster een paneel **"Zo begin je, stap voor stap"** in grote letters, 6 stappen.
+  De eerstvolgende stap is wit met een gouden cijfer; gedane stappen krijgen een groen vinkje en een grijze knop.
+- [ ] **Doe dit** bij stap 1 = hetzelfde als "Zet het op balk 5, 6 en 7"; stap 2 = layout-knop (+ Nu herladen-venster);
+  stap 3 = muistoetsen; **Open** bij 4 = "Zo speel je"; bij 5 = spiekbrief.
+- [ ] Knop **Stappenplan verbergen** (bovenaan het venster) → paneel weg, venster weer in het midden; **tonen** → terug.
+- [ ] Past alles op je scherm (venster onderaan, paneel erboven)?
+
 ## 🆕 5 okt avond — healer-blok: elke spreuk van de speelkaart heeft een toets (Rob: "ja, advies")
 
 Doorgerekend (data/keyblock_specs.json): Holy Pal 1 Holy Shock, 2 Flash of Light, 3 Holy Light, 4 Word of Glory, 5 Judgment,

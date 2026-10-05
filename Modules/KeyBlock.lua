@@ -1558,6 +1558,68 @@ local function Ensure()
 	f.reloadBtn:SetWidth(120)
 	f.reloadBtn:Hide()
 
+	-- Step-by-step guide (Rob, 5 Oct 2026, first look on his level-90 Hunter: "hele kleine letters … ik
+	-- weet eigenlijk niet zo goed waar ik moet beginnen. Kan er een scherm komen die we aan of uit kunnen
+	-- zetten met de stappen?"). A panel above the window in large type: each step, a tick once it is done,
+	-- and a button that does exactly what the window's own button does.
+	f.guideBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.guideBtn:SetSize(200, 20)
+	f.guideBtn:SetPoint("TOPLEFT", 260, -16)
+	f.guideBtn:SetScript("OnClick", function()
+		ns.db = ns.db or {}
+		ns.db.keyBlockGuideHidden = not ns.db.keyBlockGuideHidden
+		Refresh(f)
+	end)
+
+	local g = CreateFrame("Frame", "MidnightHelperKeyBlockGuide", f, "BackdropTemplate")
+	g:SetSize(760, 60)
+	g:SetPoint("BOTTOM", f, "TOP", 0, 6)
+	g:SetBackdrop({
+		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+		tile = true, tileSize = 32, edgeSize = 32,
+		insets = { left = 11, right = 12, top = 12, bottom = 11 },
+	})
+	g:SetBackdropColor(0.05, 0.05, 0.08, 0.97)
+	g.title = g:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
+	g.title:SetPoint("TOPLEFT", 22, -18)
+	g.rows = {}
+	local function DoStep(which)
+		if which == "place" then
+			f.placeBtn:Click()
+		elseif which == "layout" then
+			f.layoutBtn:Click()
+		elseif which == "pad" and ns.MH_PadKeysApply then
+			ns.MH_PadKeysApply(true)
+			Refresh(f)
+		elseif which == "card" and ns.ShowPlayCardWindow then
+			ns.ShowPlayCardWindow()
+		elseif which == "sheet" then
+			ns.ShowKeyBlockExport()
+		end
+	end
+	for i = 1, 6 do
+		local r = CreateFrame("Frame", nil, g)
+		r:SetSize(716, 40)
+		r:SetPoint("TOPLEFT", 22, -54 - (i - 1) * 44)
+		r.mark = r:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
+		r.mark:SetPoint("LEFT", 0, 0)
+		r.mark:SetWidth(34)
+		r.text = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+		r.text:SetPoint("LEFT", 40, 0)
+		r.text:SetPoint("RIGHT", -150, 0)
+		r.text:SetJustifyH("LEFT")
+		r.btn = CreateFrame("Button", nil, r, "UIPanelButtonTemplate")
+		r.btn:SetSize(140, 26)
+		r.btn:SetPoint("RIGHT", 0, 0)
+		r.btn:SetScript("OnClick", function(self)
+			DoStep(self.which)
+		end)
+		g.rows[i] = r
+	end
+	g:SetHeight(54 + 6 * 44 + 16)
+	f.guide = g
+
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)
 	else
@@ -1565,6 +1627,55 @@ local function Ensure()
 	end
 	win = f
 	return f
+end
+
+--- Fill the guide: what is done, what is next. The first step not done is the one to do now (gold).
+local function UpdateGuide(f)
+	local g = f.guide
+	if not g then
+		return
+	end
+	local hide = ns.db and ns.db.keyBlockGuideHidden
+	f.guideBtn:SetText(ns:L(hide and "KEYBLOCK_GUIDE_SHOW" or "KEYBLOCK_GUIDE_HIDE"))
+	g:SetShown(not hide)
+	if hide then
+		return
+	end
+	local placed = GetSnap() ~= nil
+	local _, layoutOn, _, onPreset = ns.MH_EditModeKeyBlockState and ns.MH_EditModeKeyBlockState()
+	local steps = {
+		{ text = "KEYBLOCK_GUIDE_1", done = placed, which = "place", btn = "KEYBLOCK_GUIDE_DO" },
+		{ text = onPreset and "KEYBLOCK_GUIDE_2_PRESET" or "KEYBLOCK_GUIDE_2", done = layoutOn, which = "layout",
+			btn = "KEYBLOCK_GUIDE_DO" },
+		{ text = "KEYBLOCK_GUIDE_3", which = "pad", btn = "KEYBLOCK_GUIDE_DO", optional = true },
+		{ text = "KEYBLOCK_GUIDE_4", which = "card", btn = "KEYBLOCK_GUIDE_OPEN" },
+		{ text = "KEYBLOCK_GUIDE_5", which = "sheet", btn = "KEYBLOCK_GUIDE_OPEN", optional = true },
+		{ text = "KEYBLOCK_GUIDE_6" },
+	}
+	g.title:SetText(ns:L("KEYBLOCK_GUIDE_TITLE"))
+	local current
+	for i, s in ipairs(steps) do
+		local r = g.rows[i]
+		local isNext = not current and not s.done and not s.optional and s.which ~= nil
+		if isNext then
+			current = i
+		end
+		if s.done then
+			r.mark:SetText("|TInterface\\RaidFrame\\ReadyCheck-Ready:24|t")
+		else
+			r.mark:SetText(isNext and ("|cffffd100" .. i .. "|r") or ("|cff9d9d9d" .. i .. "|r"))
+		end
+		local col = s.done and "|cff9d9d9d" or (isNext and "|cffffffff" or "|cffd0d0d0")
+		r.text:SetText(col .. ns:L(s.text) .. "|r")
+		if s.which then
+			r.btn.which = s.which
+			r.btn:SetText(ns:L(s.btn))
+			r.btn:Show()
+			r.btn:SetEnabled(not s.done)
+		else
+			r.btn:Hide()
+		end
+	end
 end
 
 Refresh = function(f)
@@ -1679,6 +1790,7 @@ Refresh = function(f)
 	if f.UpdateLayoutUndo then
 		f.UpdateLayoutUndo()
 	end
+	UpdateGuide(f)
 end
 
 function ns.ShowKeyBlock()
@@ -1688,7 +1800,12 @@ function ns.ShowKeyBlock()
 	local room = UIParent:GetWidth() * 0.96
 	f:SetScale((w > room) and (room / w) or 1)
 	f:ClearAllPoints()
-	f:SetPoint("CENTER")
+	-- With the guide shown above it, the window sits low so both fit on the screen.
+	if ns.db and ns.db.keyBlockGuideHidden then
+		f:SetPoint("CENTER")
+	else
+		f:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 30)
+	end
 	Refresh(f)
 	f:Show()
 end
