@@ -68,25 +68,25 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 
 ## 🆕 5 okt avond — na "Nu herladen" opent het blokvenster vanzelf weer (Rob)
 
-- [ ] Druk een layout-knop → **Nu herladen** (in het venstertje of rechtsonder). Na het laden opent `/mh block` vanzelf,
+- [x] Rob 6 okt (Reddish): "alles goed gegaan". ✅ Druk een layout-knop → **Nu herladen** (in het venstertje of rechtsonder). Na het laden opent `/mh block` vanzelf,
   met het stappenplan, zodat je bij de volgende stap verder kunt. Een gewone `/reload` opent hem níet.
 
 ## 🆕 5 okt avond — gedeelde layout krijgt ook een eigen kopie (Rob, Reddish op "twelve retro")
 
-- [ ] Reddish (op "twelve retro", een account-layout): de middelste knop heet nu **Eigen layout + blok**. Druk →
+- [x] Rob 6 okt ✅ Reddish (op "twelve retro", een account-layout): de middelste knop heet nu **Eigen layout + blok**. Druk →
   "Redisch Beast Mastery" (kopie van twelve retro), alleen voor Reddish/BM; je Paladin merkt niets. Nu herladen.
 - [ ] Je Cooldown Manager blijft bij zo'n kopie waar jij hem had (alleen kopieën van Modern/Classic tillen hem op).
-- [ ] Stappenplan: groene **vinkjes** zijn nu echte plaatjes (geen "|TI…").
+- [x] Rob 6 okt ✅ Stappenplan: groene **vinkjes** zijn nu echte plaatjes (geen "|TI…").
 - [ ] Spiekbrief: klik eerst in de tekst, dan Ctrl+A, Ctrl+C (deed Ctrl+C iets anders, dan had het vak de focus niet).
 
 ## 🆕 5 okt avond — stappenplan boven het blokvenster (Rob: "waar moet ik beginnen?")
 
-- [ ] `/mh block` op Reddish: boven het venster een paneel **"Zo begin je, stap voor stap"** in grote letters, 6 stappen.
+- [x] Rob 6 okt ✅ `/mh block` op Reddish: boven het venster een paneel **"Zo begin je, stap voor stap"** in grote letters, 6 stappen.
   De eerstvolgende stap is wit met een gouden cijfer; gedane stappen krijgen een groen vinkje en een grijze knop.
-- [ ] **Doe dit** bij stap 1 = hetzelfde als "Zet het op balk 5, 6 en 7"; stap 2 = layout-knop (+ Nu herladen-venster);
+- [x] Rob 6 okt ✅ **Doe dit** bij stap 1 = hetzelfde als "Zet het op balk 5, 6 en 7"; stap 2 = layout-knop (+ Nu herladen-venster);
   stap 3 = muistoetsen; **Open** bij 4 = "Zo speel je"; bij 5 = spiekbrief.
 - [ ] Knop **Stappenplan verbergen** (bovenaan het venster) → paneel weg, venster weer in het midden; **tonen** → terug.
-- [ ] Past alles op je scherm (venster onderaan, paneel erboven)?
+- [x] Rob 6 okt ✅ Past alles op je scherm (venster onderaan, paneel erboven)?
 
 ## 🆕 5 okt avond — healer-blok: elke spreuk van de speelkaart heeft een toets (Rob: "ja, advies")
 

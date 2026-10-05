@@ -23,6 +23,8 @@ push/tag/release alleen op Robs "go". Rob test nog; release-nummer nog niet geko
 - Oude paneel `/mh setup` = 3 knoppen (optie A). BUFF ALLY-fix: geheime aura-id = "weet niet" (Rob getest).
 
 **Rob getest ✅:** Hunter laag level, Paladin Prot + Holy (layout, blok, padkeys, skyriding), Holy eigen layout, BUFF ALLY.
+**6 okt ✅:** Reddish (Hunter 90) "alles goed gegaan": stappenplan, Eigen layout + blok op gedeelde layout, heropenen na
+herladen. Priest Shadow werkt "tot nu toe"; andere Priest-specs (Discipline/Holy = healer-blok) test Rob nu.
 **Nog te testen (zie bovenaan `docs/TESTLIJST.md`):** Reddish (Hunter 90) met stappenplan + "Eigen layout + blok" op
 gedeelde layout + heropenen na herladen; healer-blok in het spel op Holy (`/mh block why`: Holy Bulwark F3? Beacon of
 Virtue Shift 1? — AFGELEID, niet gemeten); vinkjes als plaatje.
