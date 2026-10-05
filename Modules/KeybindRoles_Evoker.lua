@@ -98,7 +98,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	-- Builders / main_rotation (Azure Strike is Deva-builder + Aug-AoE-tweeling; zie gedeeld blok onderaan)
 	["Fire Breath"] = { category = "main_rotation", priority = 2, specs = { 1467, 1468, 1473 } }, -- 3/Shift+4 (empower-builder; ook Pres/Aug)
 	-- Spenders
-	["Disintegrate"] = { category = "spender", priority = 1, specs = { 1467 } },         -- 4 (Essence-spender, channel)
+	["Disintegrate"] = { category = "spender", priority = 1, specs = { 1467, 1468 } }, -- Pres too since 5 Oct 2026 (IV Pres 12.1; wago 356995)         -- 4 (Essence-spender, channel)
 	["Eternity Surge"] = { category = "spender", priority = 2, specs = { 1467 } },       -- 5 (empower-spender, ST-piercing)
 	-- AoE (Shift-tweelingen)
 	["Azure Sweep"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 1467 } },  -- AoE (Shift-tweeling Azure Strike)

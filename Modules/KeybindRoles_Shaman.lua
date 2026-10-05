@@ -64,11 +64,14 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	-- ============================================================
 	-- Elemental (262) -- KeybindingData live-bevestigd (leidend)
 	-- ============================================================
-	["Lava Burst"] = { category = "main_rotation", priority = 1, specs = { 262 } }, -- Ele 1 (kern-nuke, Lava Surge; 51505)
+	["Lava Burst"] = { category = "main_rotation", priority = 1, specs = { 262, 264 } }, -- Ele 1 (kern-nuke, Lava Surge; 51505); Resto 1 since 5 Oct 2026 (healers DPS too, IV Resto 12.1)
 	["Voltaic Blaze"] = { category = "main_rotation", priority = 2, specs = { 262, 263 } }, -- Ele 2 + Enh 3 (instant filler, past FS toe; 470057)
-	["Lightning Bolt"] = { category = "main_rotation", priority = 3, specs = { 262, 263 } }, -- Ele 3; Enh 4 (Maelstrom-builder; 188196)
+	["Lightning Bolt"] = { category = "main_rotation", priority = 3, specs = { 262, 263, 264 } }, -- Ele 3; Enh 4 (Maelstrom-builder; 188196)
 	["Elemental Blast"] = { category = "spender", priority = 1, specs = { 262, 263 } }, -- Ele 4; Enh 5 (ST-spender; 117014)
-	["Chain Lightning"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 262, 263 } }, -- Ele + Enh (AoE builder; 188443)
+	["Chain Lightning"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 262, 263, 264 } }, -- Ele + Enh (AoE builder; 188443); Resto since 5 Oct 2026
+	-- Resto's own Flame Shock (wago SkillLineAbility 924, build 12.1.5.70077; 188389 has no learnable link
+	-- there). 5 Oct 2026, healers DPS too.
+	["Flame Shock"] = { id = 470411, category = "main_rotation", priority = 4, specs = { 264 } },
 	["Earthquake"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 262 } }, -- Ele Shift+4 (AoE-spender; live 462620)
 	["Spiritwalker's Grace"] = { role = "utility_secondary", priority = 1, specs = { 262, 264 } }, -- Ele+Resto F (cast-while-moving; JustAC GapCloserEngine 79206)
 	["Skyfury"] = { category = "utility", priority = 2, specs = { 262 } }, -- Ele R (raid-buff, pre-combat; 462854)
@@ -124,7 +127,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Chain Heal"] = { category = "raid_heal", priority = 2, specs = { 264 } }, -- Resto (smart multi-target heal, toets; 1064)
 	["Healing Rain"] = { category = "raid_heal", priority = 2, specs = { 264 } }, -- Resto (ground-AoE heal, toets; JustAC SpellCategories 73920)
 	["Downpour"] = { category = "raid_heal", priority = 3, specs = { 264 } }, -- Resto (AoE-burst-heal, toets; 462486)
-	["Surging Totem"] = { category = "raid_heal", priority = 4, specs = { 264 } }, -- Resto (heal/damage-totem, on cooldown, toets; 444995)
+	["Surging Totem"] = { id = 455630, category = "raid_heal", priority = 2, specs = { 264 } }, -- Resto (heal/damage-totem, on cooldown); replaces Healing Rain (IV Resto 12.1). 455630 = the talent spell (wago, 5 Oct 2026); the old 444995 has no learnable link
 	["Purify Spirit"] = { category = "dispel_cc", priority = 1, specs = { 264 } }, -- Resto V (curse/magic dispel; JustAC DefensiveEngine 77130)
 	["Healing Tide Totem"] = { blockQ = { [264] = true }, role = "cooldown_bar", priority = 1, specs = { 264 } }, -- Resto F1 (raid-heal-burst; JustAC DefensiveEngine 108280)
 	["Spirit Link Totem"] = { category = "cooldown", priority = 2, specs = { 264 } }, -- Resto R (HP-verdeling raid-CD; JustAC DefensiveEngine 98008)

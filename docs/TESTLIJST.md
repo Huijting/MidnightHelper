@@ -60,6 +60,19 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — healers: schade op het blok (Rob: "ik volg jouw advies")
+
+Onderzoek mh-research (wago.tools build 12.1.5.70077 + Icy Veins 12.1): alleen Resto Shaman heeft nog een kick; E blijft
+leeg bij de andere zes, bewust. Doorgerekend (data/keyblock_specs.json):
+- Holy Paladin: 1 Holy Shock, 2 Judgment, 3 Consecration, 4 Shield of the Righteous (Holy), 5 Holy Prism.
+- Disc: 1 Penance, 2 Smite, 3 Mind Blast, 4 SW:Death, 5 SW:Pain, Shift 1 Radiance, Shift 2 Holy Nova.
+- Holy Priest: 1 Smite, 2 Holy Fire, 4 SW:Death, Shift 1 Sanctify, Shift 2 Holy Nova, 5 Prayer of Healing.
+- Resto Shaman: 1 Lava Burst, 2 Lightning Bolt, 3 Flame Shock, Shift 1 Chain Lightning, 5 Chain Heal, E Wind Shear.
+- Mistweaver: + Spinning Crane Kick Shift 2; Resto Druid: + Starsurge 4; Preservation: + Disintegrate 4.
+- [ ] TwelveInchy **Holy**: Terugzetten → Zet het op balk 5, 6 en 7. Staat Holy Shock op 1, Judgment 2, Consecration 3?
+  En **4 = Shield of the Righteous**? (AFGELEID: lukt alleen als het spellboek id 415091 meldt.) Holy Shock is nu geen
+  klik-heal meer.
+
 ## 🆕 5 okt avond — BUFF ALLY bleef staan (Holy, Beacon op Valeera)
 
 GEMETEN: `/mh mbuff` gaf "Beacon of Light [ally]: pass=true active=false" terwijl Rob hem gaf. AFGELEID oorzaak: een

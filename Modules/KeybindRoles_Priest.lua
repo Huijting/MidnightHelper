@@ -103,9 +103,9 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- DISCIPLINE (256) - healer
 	-- -----------------------------------------------------------------
 	-- Damage/atonement-rotatie (builders/spenders die je actief drukt):
-	["Shadow Word: Pain"] = { category = "main_rotation", priority = 3, specs = { 256, 258 } }, -- DoT/Atonement (Shadow 1)
+	["Shadow Word: Pain"] = { category = "main_rotation", priority = 3, specs = { 256, 257, 258 } }, -- DoT/Atonement (Shadow 1); Holy baseline since 5 Oct 2026 (IV Holy 12.1), Holy Fire replaces it when talented
 	["Power Word: Radiance"] = { category = "raid_heal", priority = 1, specs = { 256 } },         -- AoE-atonement (getimed spender)
-	["Shadow Word: Death"] = { category = "spender", priority = 2, specs = { 256, 258 } },      -- execute
+	["Shadow Word: Death"] = { category = "spender", priority = 2, specs = { 256, 257, 258 } }, -- execute; Holy too (IV Holy 12.1, 5 Oct 2026)
 	["Mind Blast"] = { category = "main_rotation", priority = 2, specs = { 256, 258 } },        -- burst-builder (Disc/Shadow)
 	["Evangelism"] = { category = "cooldown", priority = 3, bindKey = "Shift+4", specs = { 256 } }, -- ramp-CD: casts Power Word: Radiance (12.1 no longer extends Atonement, audit)
 	-- Defensives:
@@ -127,7 +127,10 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- -----------------------------------------------------------------
 	-- HOLY (257) - healer
 	-- -----------------------------------------------------------------
-	["Smite"] = { category = "main_rotation", priority = 2, specs = { 257 } },                  -- filler-damage (voedt Chastise)
+	["Smite"] = { category = "main_rotation", priority = 2, specs = { 256, 257 } },             -- filler-damage (voedt Chastise); Disc baseline too (IV Disc 12.1, 5 Oct 2026)
+	-- Healers DPS too (Rob, 5 Oct 2026; mh-research, ids from wago.tools DB2 build 12.1.5.70077):
+	["Holy Fire"] = { id = 14914, category = "main_rotation", priority = 2, specs = { 257 } }, -- talent, overrides SW:Pain 589 (wago TraitDefinition 139056)
+	["Holy Nova"] = { id = 132157, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 256, 257 } }, -- class talent, AoE damage+heal (wago TraitDefinition 108875; IV)
 	["Holy Word: Chastise"] = { role = "utility_secondary", priority = 1, specs = { 257 } },    -- F: damage/CC
 	-- Defensives:
 	["Guardian Spirit"] = { id = 47788, role = "defensive_3", priority = 1, specs = { 257 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- C: cheat-death external, also on yourself (Method Holy)

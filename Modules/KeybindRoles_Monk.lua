@@ -118,7 +118,8 @@ ns.KeybindRoleClassifier.MONK = {
     -- =================================================================
     -- Builders / rotatie (SpellArchetypes)
     ["Fists of Fury"]                = { category = "spender", priority = 1, specs = { 269 } },       -- 4: channeled finisher
-    ["Spinning Crane Kick"]          = { category = "main_rotation", priority = 3, bindKey = "Shift+2", specs = { 269 } }, -- AoE-builder (ook ST-relevant)
+    ["Spinning Crane Kick"]          = { category = "main_rotation", priority = 3, bindKey = "Shift+2", specs = { 269, 270 } }, -- AoE-builder (ook ST-relevant); MW baseline AoE too (IV MW 12.1, 5 Oct 2026)
+    ["Rushing Wind Kick"]            = { id = 467307, category = "main_rotation", priority = 3, specs = { 270 } }, -- MW talent over Rising Sun Kick 107428 (wago TraitDefinition 133028, 5 Oct 2026)
     ["Whirling Dragon Punch"]        = { category = "main_rotation", priority = 8, specs = { 269 } }, -- burst-window-nuke (guide.lua {152175})
     -- Movement (Q vervangt Roll bij talent)
     -- Chi Torpedo: klassentalent (audit); toetsen blijven { 269 }, de kaart toont hem bij alle specs.

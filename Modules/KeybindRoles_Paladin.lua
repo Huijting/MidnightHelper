@@ -53,7 +53,10 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Interrupt (E). Rebuke is spellbook-baseline; BliZzi assigneert 'm actief aan Prot/Ret,
 	-- Holy noKick, maar de spell is leerbaar door alle Paladins -> baseline.
-	["Rebuke"] = { id = 96231, role = "interrupt", priority = 1, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities.lua [96231] kind=interrupt pri=1
+	-- specs since 5 Oct 2026: Holy lost Rebuke in Midnight (Method 12.1 Holy talents; Blizzard alpha note,
+	-- via mh-research). In the game it never matched for Holy anyway; this keeps the site's standard block
+	-- (tools/keyblock_specs.lua, which assumes every listed spell is known) from showing it on E.
+	["Rebuke"] = { id = 96231, role = "interrupt", priority = 1, specs = { 66, 70 }, survival = "interrupt", survivalOrder = 1 }, -- InterruptAbilities.lua [96231] kind=interrupt pri=1
 
 	-- Movement (Q). Divine Steed = enige class-brede mobility (SpellCategories UTILITY [190784]).
 	["Divine Steed"] = { id = 190784, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q; baseline movement
@@ -101,7 +104,14 @@ ns.KeybindRoleClassifier.PALADIN = {
 	--==============================================================================
 
 	-- ST-heals (v6 S6) -> click_cast: geen toets, mouseover/click-cast op raid-frame.
-	["Holy Shock"] = { id = 20473, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [20473]; Holy single-target heal (bouwt ook Holy Power). Ret/Prot hebben geen Holy Shock -> Holy-only, veilig click_cast.
+	-- 5 Oct 2026 (Rob: healers DPS too, "ik volg jouw advies"): Holy Shock is heal OR damage (IV Holy 12.1),
+	-- so it leaves click-cast and takes the main button. Talent over Crusader Strike 35395 (wago
+	-- TraitDefinition 107539, build 12.1.5.70077, via mh-research): the book may report 35395, so the name
+	-- matches too. bindKey "1" so a tie with Judgment never decides by spellbook order.
+	["Holy Shock"] = { id = 20473, category = "main_rotation", priority = 1, bindKey = "1", specs = { 65 } },
+	-- Holy's own Shield of the Righteous (wago SpecializationSpells: spec 65, overrides 53600): a damage
+	-- Holy Power spender for Holy, active mitigation for Prot (that entry is below). Matches ONLY by id.
+	["Shield of the Righteous (Holy)"] = { id = 415091, category = "spender", priority = 1, specs = { 65 } },
 	["Flash of Light"] = { id = 19750, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [19750]; snelle ST-heal (instant bij Infusion of Light)
 	["Holy Light"] = { id = 82326, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [82326]; grote (dure) ST-filler-heal
 	-- Beacons = buff-op-target (kies doelwit) -> ook click_cast/mouseover.
@@ -119,7 +129,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- PROTECTION (spec 66) - tank.
 	--==============================================================================
 
-	["Judgment"] = { id = 20271, category = "main_rotation", priority = 1, specs = { 66, 70 } }, -- SpellArchetypes [20271] ranged builder; Prot 1 / Ret builder
+	["Judgment"] = { id = 20271, category = "main_rotation", priority = 1, specs = { 65, 66, 70 } }, -- 65 since 5 Oct 2026 (IV Holy 12.1; Holy's version 275773, wago) -- SpellArchetypes [20271] ranged builder; Prot 1 / Ret builder
 	["Avenger's Shield"] = { id = 31935, category = "main_rotation", priority = 2, specs = { 66 }, alsoStop = "silence" }, -- InterruptAbilities [31935] kind=interrupt pri2 (silences); rotational builder; alsoStop → Spec 08 cross-list (stays on 2)
 	["Hammer of the Righteous"] = { id = 88263, category = "main_rotation", priority = 3, specs = { 66 } }, -- SpellArchetypes [88263] ranged; AoE-cleave builder
 	["Blessed Hammer"] = { id = 204019, category = "main_rotation", priority = 3, specs = { 66 } }, -- SpellArchetypes [204019]; talent-alternatief voor Hammer of the Righteous
@@ -136,7 +146,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	--- Een `unclassified`-melding is dus een AANWIJZING om te kijken, nooit op zichzelf een bewijs
 	--- dat onze data een gat heeft.
 	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66 }, survival = "keepup", survivalOrder = 1 }, -- card: active mitigation you keep rolling (IV-ProtPal) -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
-	["Consecration"] = { id = 26573, category = "main_rotation", priority = 4, specs = { 66 }, survival = "keepup", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_GROUND" }, -- guide.lua Prot-rotatie; [26573] castbare id (JustAC SpellCooldowns); ground-AoE, on-cooldown houden; card 5 Oct 2026 (Rob): "Stay in your Consecration" = less damage via Sanctuary (IV Easy Mode 21 Sep)
+	["Consecration"] = { id = 26573, category = "main_rotation", priority = 4, specs = { 65, 66 }, survivalSpecs = { 66 }, survival = "keepup", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_GROUND" }, -- guide.lua Prot-rotatie; [26573] castbare id (JustAC SpellCooldowns); ground-AoE, on-cooldown houden; card 5 Oct 2026 (Rob): "Stay in your Consecration" = less damage via Sanctuary (IV Easy Mode 21 Sep)
 	-- 3 Oct 2026: Prot dropped. Icy Veins' 12.1 spell list (10 Aug): "Hammer of Wrath is now a passive
 	-- ability. While you have Avenging Wrath active Hammer of Wrath will replace Judgment" — no own button.
 	["Hammer of Wrath"] = { id = 24275, category = "spender", priority = 2, specs = { 70 } }, -- SpellArchetypes [24275] ranged; execute-spender (Ret)

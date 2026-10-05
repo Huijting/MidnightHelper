@@ -126,7 +126,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Moonfire"]                         = { category = "main_rotation", priority = 3, specs = { 102, 104, 105 } }, -- Balance/Guardian/Resto DoT
     ["Sunfire"]                          = { category = "main_rotation", priority = 4, specs = { 102, 105 } }, -- AoE-DoT (Balance/Resto)
     -- Spenders
-    ["Starsurge"]                        = { category = "spender", priority = 1, specs = { 102 } },
+    ["Starsurge"]                        = { category = "spender", priority = 1, specs = { 102, 105 } }, -- Resto too since 5 Oct 2026 (IV Resto 12.1; Resto id 197626, wago)
     -- AoE
     ["Starfall"]                         = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 102 } }, -- AoE-spender (Shift-tweeling van Starsurge, spender 4)
     -- Interrupt
