@@ -1,6 +1,11 @@
 # Midnight Helper — waar we staan
 
-## 🚀 6 okt — 4.7.0 KLAARGEZET, wacht op Robs "go" (Rob: "doe de release maar eerst", spell-ids daarna)
+## 🚀 5 okt — 4.7.0 UITGEBRACHT (Rob: "een hele dikke go"): main + tag `v4.7.0` (45fd060) gepusht, site-chat geseind
+
+⚠️ Datums in deze sessie stonden eerst als "6 okt"; het was 5 okt (GEMETEN: GitHub run created_at 2026-10-05). Verbeterd.
+Volgende: id-ronde (KeybindRoles, ±650 plekken, per klasse mh-research via wago.tools, daarna testronde per klasse).
+
+(Oorspronkelijke klaarzet-notitie:) Rob: "doe de release maar eerst", spell-ids daarna.
 
 .toc 4.7.0, Changelog.lua + CHANGELOG_470_1..6 (enUS), RELEASE_NOTES.md = docs/CURSEFORGE_4.7.0.md, CHANGELOG.md,
 CURSEFORGE_DESCRIPTION.md (bullet "Your key block" + /mh block; Rob plakt die zelf). Rob: de release draait om het
@@ -30,7 +35,7 @@ push/tag/release alleen op Robs "go". Rob test nog; release-nummer nog niet geko
 - Oude paneel `/mh setup` = 3 knoppen (optie A). BUFF ALLY-fix: geheime aura-id = "weet niet" (Rob getest).
 
 **Rob getest ✅:** Hunter laag level, Paladin Prot + Holy (layout, blok, padkeys, skyriding), Holy eigen layout, BUFF ALLY.
-**6 okt ✅:** Reddish (Hunter 90) "alles goed gegaan": stappenplan, Eigen layout + blok op gedeelde layout, heropenen na
+**5 okt ✅:** Reddish (Hunter 90) "alles goed gegaan": stappenplan, Eigen layout + blok op gedeelde layout, heropenen na
 herladen. Priest Shadow werkt "tot nu toe"; andere Priest-specs (Discipline/Holy = healer-blok) test Rob nu.
 Discipline-blok staat (screenshot). Bug gevonden + gerepareerd, NIET GETEST: speelkaart koos de geparkeerde kopie op
 balk D (slots 25-36 sorteren vóór balk 5); `LiveKeys.lua` zet nu bij een geplaatst blok (`ns.KeyBlockIsPlaced`)
@@ -38,26 +43,26 @@ balk 1, dan A/B/C eerst. ✅ Rob getest (screenshot): Flash Heal [3], PW:S [2], 
 Daarna (Rob: "dubbele kopieën gelijk opruimen") — GEBOUWD, NIET GETEST: `PlacePlan` parkeert een vervangen spell niet
 als het blok hem zelf plaatst (`r.double`, `WantedSpells`), en Place haalt spell-dubbelen ook van balk D (bar 4) af,
 naast balk 1. Snapshot-regel zonder movedTo → Undo zet terug op id. Al geplaatste blokken: pas na Undo + opnieuw.
-✅ Rob getest op Discipline (screenshot): D zonder dubbelen. ✅ Undo-na-opruimen en Priest Holy ook goed (Rob 6 okt).
+✅ Rob getest op Discipline (screenshot): D zonder dubbelen. ✅ Undo-na-opruimen en Priest Holy ook goed (Rob 5 okt).
 Toetsenblok-tests van Rob daarmee rond; Rob vroeg wat er nog open staat vóór "go".
 **Nog te testen (zie bovenaan `docs/TESTLIJST.md`):** Reddish (Hunter 90) met stappenplan + "Eigen layout + blok" op
 gedeelde layout + heropenen na herladen; healer-blok in het spel op Holy (`/mh block why`: Holy Bulwark F3? Beacon of
 Virtue Shift 1? — AFGELEID, niet gemeten); vinkjes als plaatje.
 
 **Open (niet blokkerend):**
-- ✅ 6 okt vertaald (mh-writer, eigen vertaling, niet nagekeken): 17 keys × de/fr/es/pt/it (KEYBLOCK_GUIDE_*,
+- ✅ 5 okt vertaald (mh-writer, eigen vertaling, niet nagekeken): 17 keys × de/fr/es/pt/it (KEYBLOCK_GUIDE_*,
   RELOAD_POPUP, REFUSE_*, PLAYCARD_HEAL_HOW*); LAYOUT_DONE/ALREADY door mij herschreven (noemen nu 'Put "%s" back').
   Open: "Single-Button Assistant" overal Engels gelaten — of de/fr-clients een vertaalde naam tonen is NIET gemeten
   (wago.tools GlobalStrings). enUS GUIDE_4 noemde "How to play", knop heet "How you play" → gerepareerd.
 - Id-ronde voor de site: `data/keyblock_specs.json` 415/1064 plekken met id (GEMETEN). NIET uit commentaar invullen
   (lint [20]-regel) — per klasse via wago.tools (mh-research). Rob moet starten.
-- ✅ 6 okt: KEYBLOCK_TIP_REFUSE_FMT krijgt nu vertaalde redenen (KEYBLOCK_REFUSE_*); LAYOUT_DONE noemt de echte knop.
+- ✅ 5 okt: KEYBLOCK_TIP_REFUSE_FMT krijgt nu vertaalde redenen (KEYBLOCK_REFUSE_*); LAYOUT_DONE noemt de echte knop.
 - Preservation-dispel (Naturalize) niet op V: geen geverifieerd id.
 - Release: CHANGELOG/RELEASE_NOTES/docs/CURSEFORGE_<ver>.md/.toc nog niet gemaakt; bij tag site-chat seinen.
 
 Site-chat = sessie "Midnight Helper site" (ListAgents + SendMessage); die wacht op id-ronde en release-seintje.
 
-**6 okt — `/mh export` veld 15 (verzoek site-chat, Wowhead-tooltips op de Armory) — Rob getest: export zonder fout,
+**5 okt — `/mh export` veld 15 (verzoek site-chat, Wowhead-tooltips op de Armory) — Rob getest: export zonder fout,
 live Armory leest hem goed. Tooltip zelf (site-branch keyblock) nog niet met een echte regel gecontroleerd:**
 `GearExport.lua` schrijft op elke regel `<itemID>[:<bonusID>...]` uit de itemlink; velden 12-14 dan leeg ("|||").
 Oude site-parser negeert het (GEMETEN in armory/index.html fromExport: regex op 12-14, lengte ≥ 11). Bonus-ids op

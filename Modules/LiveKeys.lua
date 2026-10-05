@@ -87,7 +87,7 @@ local function Build()
 		end
 	end
 	-- With the key block placed, its bars come right after the main bar: placing parks the old
-	-- buttons on bar 4 (block D, slots 25-36), which sorts before bar 5 (37-48). MEASURED 6 Oct 2026
+	-- buttons on bar 4 (block D, slots 25-36), which sorts before bar 5 (37-48). MEASURED 5 Oct 2026
 	-- on Rob's Discipline Priest: Flash Heal on block 3 and its parked copy on Alt C, and the card
 	-- said [Alt C]. Without the block: main bar first, then slot order, as before.
 	local rank = {}

@@ -4,9 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.0
 
-📌 **Klaargezet 2026-10-06, nog NIET uitgebracht (wacht op Robs "go").** Rob koos "release eerst, spell-ids daarna".
+📌 **2026-10-05, als release (Rob: "een hele dikke go"), tag `v4.7.0` op 45fd060.** Rob koos "release eerst, spell-ids daarna".
 Rob: de release draait om het toetsenblok, en dat moet in changelog en notitie vooraan staan. Notitie in
-`docs/CURSEFORGE_4.7.0.md` (identiek aan `RELEASE_NOTES.md`). Getest door Rob 5-6 okt (TESTLIJST).
+`docs/CURSEFORGE_4.7.0.md` (identiek aan `RELEASE_NOTES.md`). Getest door Rob 5 okt (TESTLIJST).
 
 - **Toetsenblok `/mh block` (stap 2):** neerzetten op balk 5/6/7 + blok D (balk 4), Edit Mode-layout als blok (eigen
   kopie voor Modern/Classic/gedeelde layout, per spec), Undo per personage + spec, stappenplan, herlaad-venster en

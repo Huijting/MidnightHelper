@@ -60,51 +60,51 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
-## 🆕 6 okt — speelkaart noemt de bloktoets, niet de reservekopie op balk D
+## 🆕 5 okt — speelkaart noemt de bloktoets, niet de reservekopie op balk D
 
 GEMETEN op Robs screenshot (Discipline, Umbrion): Flash Heal op blok **3** én op D **Alt C**; de kaart zei [Alt C].
 Ook Power Word: Shield (2 / Alt X) en Evangelism (Shift 4 / Alt E). Nu: met het blok neergezet tellen balk 1 en de
 blokbalken A/B/C eerst.
-- [x] Rob 6 okt ✅ (screenshot) `/reload`, "Zo speel je Discipline": Flash Heal **[3]**, Power Word: Shield **[2]**, Evangelism **[Shift 4]**?
+- [x] Rob 5 okt ✅ (screenshot) `/reload`, "Zo speel je Discipline": Flash Heal **[3]**, Power Word: Shield **[2]**, Evangelism **[Shift 4]**?
 
-## 🆕 6 okt — geen dubbele kopieën meer op balk D (Rob: "laat die dubbele kopieën gelijk opruimen")
+## 🆕 5 okt — geen dubbele kopieën meer op balk D (Rob: "laat die dubbele kopieën gelijk opruimen")
 
 Bij neerzetten: een spreuk die het blok zelf krijgt wordt niet meer naar D geparkeerd, en dubbelen die al op D stonden
 gaan eraf (alleen spreuken; macro's en items blijven). Undo zet alles terug.
-- [x] Rob 6 okt ✅ (screenshot: D houdt alleen Resurrection, Mass Resurrection, Healthstone, Plea) Discipline: **Undo** → **Zet het op balk 5, 6 en 7**. Staan Flash Heal, Power Word: Shield, Evangelism, Desperate
+- [x] Rob 5 okt ✅ (screenshot: D houdt alleen Resurrection, Mass Resurrection, Healthstone, Plea) Discipline: **Undo** → **Zet het op balk 5, 6 en 7**. Staan Flash Heal, Power Word: Shield, Evangelism, Desperate
   Prayer, Angelic Feather, Psychic Scream, Mass Dispel en Recuperate nu maar **één** keer (in het blok, niet ook op D)?
 - [ ] Chat: "… doubles off bar 1 and block D" met een getal.
-- [x] Rob 6 okt ✅ **Undo** daarna: staat balk D weer zoals vóór het neerzetten?
-- [x] Rob 6 okt ✅ Priest **Holy**: blok neergezet, heals op 1-4, niets dubbel op D, speelkaart-toetsen kloppen.
+- [x] Rob 5 okt ✅ **Undo** daarna: staat balk D weer zoals vóór het neerzetten?
+- [x] Rob 5 okt ✅ Priest **Holy**: blok neergezet, heals op 1-4, niets dubbel op D, speelkaart-toetsen kloppen.
 - [ ] Zonder blok (ander personage): dezelfde toetsen als vóór vandaag.
 
-## 🆕 6 okt — `/mh export` geeft nu ook het item-nummer (voor Wowhead-tooltips op de Armory)
+## 🆕 5 okt — `/mh export` geeft nu ook het item-nummer (voor Wowhead-tooltips op de Armory)
 
-- [x] Rob 6 okt ✅ `/mh export`: elke regel eindigt nu op een nummer, bv. `…|0|0|||250123:12345:6789`. Geen foutmelding?
-- [x] Rob 6 okt ✅ ("ik krijg het keurig te zien") Plak het op de Armory (oude site-versie): rekent hij nog precies zoals gisteren? (Hij hoort het nieuwe veld te negeren.)
+- [x] Rob 5 okt ✅ `/mh export`: elke regel eindigt nu op een nummer, bv. `…|0|0|||250123:12345:6789`. Geen foutmelding?
+- [x] Rob 5 okt ✅ ("ik krijg het keurig te zien") Plak het op de Armory (oude site-versie): rekent hij nog precies zoals gisteren? (Hij hoort het nieuwe veld te negeren.)
 - [ ] Pas als de site-kant er is: muis over een item → toont Wowhead **hetzelfde** item, met jouw item level?
 
 ## 🆕 5 okt avond — na "Nu herladen" opent het blokvenster vanzelf weer (Rob)
 
-- [x] Rob 6 okt (Reddish): "alles goed gegaan". ✅ Druk een layout-knop → **Nu herladen** (in het venstertje of rechtsonder). Na het laden opent `/mh block` vanzelf,
+- [x] Rob 5 okt (Reddish): "alles goed gegaan". ✅ Druk een layout-knop → **Nu herladen** (in het venstertje of rechtsonder). Na het laden opent `/mh block` vanzelf,
   met het stappenplan, zodat je bij de volgende stap verder kunt. Een gewone `/reload` opent hem níet.
 
 ## 🆕 5 okt avond — gedeelde layout krijgt ook een eigen kopie (Rob, Reddish op "twelve retro")
 
-- [x] Rob 6 okt ✅ Reddish (op "twelve retro", een account-layout): de middelste knop heet nu **Eigen layout + blok**. Druk →
+- [x] Rob 5 okt ✅ Reddish (op "twelve retro", een account-layout): de middelste knop heet nu **Eigen layout + blok**. Druk →
   "Redisch Beast Mastery" (kopie van twelve retro), alleen voor Reddish/BM; je Paladin merkt niets. Nu herladen.
-- [x] Rob 6 okt ✅ Je Cooldown Manager blijft bij zo'n kopie waar jij hem had (alleen kopieën van Modern/Classic tillen hem op).
-- [x] Rob 6 okt ✅ Stappenplan: groene **vinkjes** zijn nu echte plaatjes (geen "|TI…").
-- [x] Rob 6 okt ✅ (Ctrl+C werkte meteen, zonder klikken) Spiekbrief: klik eerst in de tekst, dan Ctrl+A, Ctrl+C (deed Ctrl+C iets anders, dan had het vak de focus niet).
+- [x] Rob 5 okt ✅ Je Cooldown Manager blijft bij zo'n kopie waar jij hem had (alleen kopieën van Modern/Classic tillen hem op).
+- [x] Rob 5 okt ✅ Stappenplan: groene **vinkjes** zijn nu echte plaatjes (geen "|TI…").
+- [x] Rob 5 okt ✅ (Ctrl+C werkte meteen, zonder klikken) Spiekbrief: klik eerst in de tekst, dan Ctrl+A, Ctrl+C (deed Ctrl+C iets anders, dan had het vak de focus niet).
 
 ## 🆕 5 okt avond — stappenplan boven het blokvenster (Rob: "waar moet ik beginnen?")
 
-- [x] Rob 6 okt ✅ `/mh block` op Reddish: boven het venster een paneel **"Zo begin je, stap voor stap"** in grote letters, 6 stappen.
+- [x] Rob 5 okt ✅ `/mh block` op Reddish: boven het venster een paneel **"Zo begin je, stap voor stap"** in grote letters, 6 stappen.
   De eerstvolgende stap is wit met een gouden cijfer; gedane stappen krijgen een groen vinkje en een grijze knop.
-- [x] Rob 6 okt ✅ **Doe dit** bij stap 1 = hetzelfde als "Zet het op balk 5, 6 en 7"; stap 2 = layout-knop (+ Nu herladen-venster);
+- [x] Rob 5 okt ✅ **Doe dit** bij stap 1 = hetzelfde als "Zet het op balk 5, 6 en 7"; stap 2 = layout-knop (+ Nu herladen-venster);
   stap 3 = muistoetsen; **Open** bij 4 = "Zo speel je"; bij 5 = spiekbrief.
-- [x] Rob 6 okt ✅ Knop **Stappenplan verbergen** (bovenaan het venster) → paneel weg, venster weer in het midden; **tonen** → terug.
-- [x] Rob 6 okt ✅ Past alles op je scherm (venster onderaan, paneel erboven)?
+- [x] Rob 5 okt ✅ Knop **Stappenplan verbergen** (bovenaan het venster) → paneel weg, venster weer in het midden; **tonen** → terug.
+- [x] Rob 5 okt ✅ Past alles op je scherm (venster onderaan, paneel erboven)?
 
 ## 🆕 5 okt avond — healer-blok: elke spreuk van de speelkaart heeft een toets (Rob: "ja, advies")
 
@@ -374,7 +374,7 @@ Niet in een gevecht. Begin met je **Paladin** (zijn balken ken je het best).
 - [x] **Druid Balance/Feral/Resto:** Stay alive heeft **Bear Form** als grote noodknop ("no cooldown, but you deal almost
   no damage in it"). Guardian NIET. ✅ Rob 5 okt: Resto regel 3 Bear Form (vóór Heart of the Wild), Guardian zonder.
 - [ ] **Feral:** **Regrowth** bij de heals ("when it is free and instant, after a finisher").
-- [x] Rob 6 okt ✅ (Disc zonder talent: "needs talent 193063, which you do not have", rij weg) **Priest (Disc/Holy/Shadow) MET het talent Protective Light:** **Flash Heal** als kleine verdediging. Zonder het
+- [x] Rob 5 okt ✅ (Disc zonder talent: "needs talent 193063, which you do not have", rij weg) **Priest (Disc/Holy/Shadow) MET het talent Protective Light:** **Flash Heal** als kleine verdediging. Zonder het
   talent: niet op de kaart, en `/mh survival` zegt "needs talent 193063". Heb je het talent en staat hij er tóch niet?
   Dan meldt het spel het talent anders (niet gemeten) → screenshot van `/mh survival`.
 - [ ] **Devastation Evoker MET Stretch Time:** **Deep Breath** als grote noodknop. Zelfde test als bij de Priest

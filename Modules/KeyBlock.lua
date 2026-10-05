@@ -636,7 +636,7 @@ local function PlacePlan()
 		end
 	end
 	-- A spell the block itself places is not parked: it would only be a second copy on block D with a
-	-- second key (Rob, 6 Oct 2026, Discipline: Flash Heal on 3 and on Alt C — "die dubbele kopieën gelijk
+	-- second key (Rob, 5 Oct 2026, Discipline: Flash Heal on 3 and on Alt C — "die dubbele kopieën gelijk
 	-- opruimen"). It is lifted off instead; the snapshot keeps it, so Undo puts it back by id.
 	local wanted = WantedSpells(rows)
 	for _, r in ipairs(rows) do
@@ -875,7 +875,7 @@ function ns.KeyBlockPlace()
 
 	-- And the doubles leave bar 1 (buttons 1-12 only — never the form/stealth pages, never the Single-
 	-- Button Assistant, spells only; red team 5 Oct 2026). Each is recorded, so Undo puts it back.
-	-- 6 Oct 2026 (Rob: "die dubbele kopieën gelijk opruimen"): the same for block D's bar, the player's own
+	-- 5 Oct 2026 (Rob: "die dubbele kopieën gelijk opruimen"): the same for block D's bar, the player's own
 	-- bar 4, so a block spell has one key. Spells only; items and macros stay.
 	local wanted = WantedSpells(rows)
 	local doubleSlots = {}
