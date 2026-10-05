@@ -1481,8 +1481,14 @@ local function Ensure()
 			f.layoutUndoBtn:Disable()
 		end
 	end
+	-- On a preset (Modern/Classic) the same button first makes this spec a layout of its own.
 	f.layoutBtn = Btn("KEYBLOCK_BTN_LAYOUT", 22 + 2 * 210, function()
-		NeedReload(ns.MH_EditModeApplyKeyBlock())
+		local _, _, _, onPreset = ns.MH_EditModeKeyBlockState()
+		if onPreset and ns.MH_EditModeMakeOwnLayout then
+			NeedReload(ns.MH_EditModeMakeOwnLayout())
+		else
+			NeedReload(ns.MH_EditModeApplyKeyBlock())
+		end
 	end)
 	f.layoutUndoBtn = Btn("KEYBLOCK_BTN_LAYOUT_UNDO", 22 + 3 * 210, function()
 		NeedReload(ns.MH_EditModeRestoreKeyBlock())
@@ -1521,7 +1527,8 @@ Refresh = function(f)
 	f.title:SetText(ns:L("KEYBLOCK_TITLE"))
 	f.placeBtn:SetText(ns:L(GetSnap() and "KEYBLOCK_BTN_UPDATE" or "KEYBLOCK_BTN_PLACE"))
 	f.modeBtn:SetText(ns:L("KEYBLOCK_MODE_FMT"):format(ns:L("KEYBLOCK_MODE_" .. ns.KeyBlockNewMode():upper())))
-	local _, layoutOn, oldHidden = ns.MH_EditModeKeyBlockState()
+	local _, layoutOn, oldHidden, onPreset = ns.MH_EditModeKeyBlockState()
+	f.layoutBtn:SetText(ns:L(onPreset and "KEYBLOCK_BTN_OWN_LAYOUT" or "KEYBLOCK_BTN_LAYOUT"))
 	if layoutOn then
 		f.oldBarsBtn:SetText(ns:L(oldHidden and "KEYBLOCK_BTN_OLDBARS_SHOW" or "KEYBLOCK_BTN_OLDBARS_HIDE"))
 		f.oldBarsBtn:Show()

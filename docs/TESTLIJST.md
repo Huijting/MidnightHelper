@@ -60,6 +60,18 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — eigen layout per spec (Rob: "12-inch prot … voor tank")
+
+GEMETEN door Rob: WoW onthoudt de layout per spec (Prot 5, Ret 7, Holy 1 = Modern). Niet in een gevecht, Edit Mode dicht.
+- [ ] TwelveInchy **Holy** (staat op Modern): `/mh block` → de knop heet **Eigen layout + blok**. Druk → melding "Deze
+  spec heeft nu een eigen Edit Mode-layout "TwelveInchy Holy" (een kopie van "Modern" …)" → **Nu herladen**.
+- [ ] Na het herladen: Esc → Edit Mode: staat "TwelveInchy Holy" bovenaan bij de personage-layouts en is hij actief?
+  Staan de vijf blokken er?
+- [ ] Wissel naar Prot en terug naar Holy: houdt Prot zijn eigen layout, en komt Holy weer op "TwelveInchy Holy"?
+- [ ] Holy: **Zet "TwelveInchy Holy" terug** → Nu herladen → Holy staat weer op **Modern**; "TwelveInchy Holy" staat
+  nog in de lijst van Edit Mode (zelf weggooien mag).
+- [ ] Nog eens **Eigen layout + blok**: maakt hij geen tweede kopie, maar gebruikt hij "TwelveInchy Holy" opnieuw?
+
 ## 🆕 5 okt avond — trinkets: alleen te gebruiken, en allebei (Rob op TwelveInchy)
 
 - [ ] `/mh block` (Terugzetten → opnieuw neerzetten): staat op **G** een trinket met een **Use:**-effect, niet de

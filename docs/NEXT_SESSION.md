@@ -12,6 +12,12 @@ keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn
 geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
 undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
 Rob koos C voor balk 1-4 (blijven staan; alleen wie over het blok ligt gaat naar een rij erboven) — gebouwd, niet getest.
+Eigen layout per spec — GEBOUWD, NIET GETEST: `ns.MH_EditModeMakeOwnLayout` (preset → kopie "<Naam> <Spec>", type
+Character, SaveLayouts + OnLayoutAdded + SetActiveLayout, indexen tellen presets mee; mh-research uit Blizzard 12.1.0
+EditModeManager.lua). Rob MAT: actieve layout is per spec (Prot 5, Ret 7, Holy 1). Terug = SetActiveLayout(preset), per
+GUID:spec in `keyBlockPresetBack`. Elke layout eigen weg terug: `keyBlockLayoutSaved[naam]`, `keyBlockLayoutsOn[naam]`.
+OPEN: Unmeasured of het invoegen werkt met de GetLayouts-lijst zonder presets (MH's vorm) — Robs test beslist.
+Vertaalronde KEYBLOCK_* (mh-writer) gestart 5 okt; daarna site-chat de 5 vertalingen van KEYBLOCK_BTN_EXPORT sturen.
 Spiekbrief (Rob 5 okt: route 1 + 3; route 2 = het /mh block-venster zelf) — addon-kant GEBOUWD, NIET GETEST:
 `ns.BuildKeyBlockExport` / `/mh block export` / knop in het venster, formaat `MH-KEYBLOCK 1` (contract met de site,
 beschreven bovenaan die functie). Site-kant (plakpagina + per-spec standaardblok voor wie geen addon heeft) = site-chat.

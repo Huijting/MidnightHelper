@@ -703,7 +703,8 @@ local function KeyBlockLayoutIsOn(name)
 	return db.keyBlockLayoutOn and u and u.by == "keyblock" and u.layoutName == name and true or false
 end
 
---- For the key block window: active layout, whether MH arranged it, whether bars 2/3 are hidden in it.
+--- For the key block window: active layout, whether MH arranged it, whether bars 2/3 are hidden in it,
+--- and whether this spec sits on one of Blizzard's presets (Modern/Classic), which cannot be edited.
 function ns.MH_EditModeKeyBlockState()
 	local name = ActiveLayout()
 	local on = KeyBlockLayoutIsOn(name)
@@ -711,7 +712,145 @@ function ns.MH_EditModeKeyBlockState()
 	if on and hidden == nil then
 		hidden = true -- arranged before the per-layout flags: arranging always hid them
 	end
-	return name, on, hidden and true or false
+	local onPreset = false
+	if not name and C_EditMode and C_EditMode.GetLayouts then
+		local okG, info = pcall(C_EditMode.GetLayouts)
+		local presets = PresetCount()
+		onPreset = okG and type(info) == "table" and presets and (tonumber(info.activeLayout) or 0) <= presets
+			and true or false
+	end
+	return name, on, hidden and true or false, onPreset
+end
+
+--------------------------------------------------------------------------------
+-- A layout of your own, for a spec on a preset (5 Oct 2026, Rob: "wat als mensen nog de standaard
+-- indeling hebben … dat elke karakter zijn eigen naam krijgt, 12-inch prot, …"). mh-research read
+-- Blizzard's 12.1.0 source: the "Copy layout" button makes a layout the same way — copy the preset,
+-- type Character, SaveLayouts, C_EditMode.OnLayoutAdded(index, activate) — with indexes that count the
+-- presets first. Rob MEASURED the active layout per spec the same evening (Prot 5, Ret 7, Holy 1), so
+-- the copy is named after the character AND the spec, and only this spec switches to it.
+-- The way back is the preset this spec came from (stored per character and spec).
+--------------------------------------------------------------------------------
+
+local MAX_CHARACTER_LAYOUTS = 5 -- EditModeMaxLayoutsPerType (EditModeManagerConstantsDocumentation.lua)
+
+local function SpecKey()
+	local guid = UnitGUID and UnitGUID("player") or "?"
+	local specID = "?"
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local ok, id = pcall(ns.GetSpecializationInfo, ns.GetSpecialization())
+		if ok and id then
+			specID = tostring(id)
+		end
+	end
+	return guid .. ":" .. specID
+end
+
+local function SpecName()
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local ok, _, name = pcall(ns.GetSpecializationInfo, ns.GetSpecialization())
+		if ok and type(name) == "string" and (not ns.CanAccessText or ns.CanAccessText(name)) then
+			return name
+		end
+	end
+	return "MH"
+end
+
+--- Copy the preset this spec is on into "<Name> <Spec>", make it active, then arrange the block in it.
+--- @return boolean ok, string message (a /reload is needed either way when ok)
+function ns.MH_EditModeMakeOwnLayout()
+	local ok, why = Ready()
+	if not ok then
+		return false, tostring(why)
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return false, ns:L("KEYBLOCK_LAYOUT_COMBAT")
+	end
+	if EditModeManagerFrame and EditModeManagerFrame:IsShown() then
+		return false, ns:L("KEYBLOCK_LAYOUT_EDITMODE_OPEN")
+	end
+	local okG, info = pcall(C_EditMode.GetLayouts)
+	local okP, presetList = false, nil
+	if EditModePresetLayoutManager and EditModePresetLayoutManager.GetCopyOfPresetLayouts then
+		okP, presetList = pcall(EditModePresetLayoutManager.GetCopyOfPresetLayouts, EditModePresetLayoutManager)
+	end
+	if not (okG and type(info) == "table" and info.layouts and okP and type(presetList) == "table") then
+		return false, "Edit Mode returned no layouts."
+	end
+	local active = tonumber(info.activeLayout) or 0
+	local preset = presetList[active]
+	if not preset then
+		return false, ns:L("KEYBLOCK_OWN_NOT_PRESET")
+	end
+	local charType = Enum and Enum.EditModeLayoutType and Enum.EditModeLayoutType.Character or 2
+	local name = ((UnitName and UnitName("player") or "MH") .. " " .. SpecName()):sub(1, 30)
+
+	-- Already made before (this spec switched back to the preset since): just use it again.
+	local idx
+	local mine = 0
+	for i, l in ipairs(info.layouts) do
+		if l.layoutType == charType then
+			mine = mine + 1
+		end
+		if l.layoutName == name then
+			idx = #presetList + i
+		end
+	end
+	if not idx then
+		if mine >= MAX_CHARACTER_LAYOUTS then
+			return false, ns:L("KEYBLOCK_OWN_FULL")
+		end
+		if C_EditMode.IsValidLayoutName then
+			local okN, valid = pcall(C_EditMode.IsValidLayoutName, name)
+			if okN and valid == false then
+				name = ("MH " .. SpecName()):sub(1, 30)
+			end
+		end
+		local new = Sanitize(preset, 0)
+		new.layoutName = name
+		new.layoutType = charType
+		-- Account layouts come first, then this character's own (measured in Rob's list), so a new
+		-- character layout goes at the end; its index counts the presets first.
+		table.insert(info.layouts, new)
+		idx = #presetList + #info.layouts
+		if not pcall(C_EditMode.SaveLayouts, info) then
+			return false, "Edit Mode refused the new layout. Nothing changed."
+		end
+		if C_EditMode.OnLayoutAdded then
+			pcall(C_EditMode.OnLayoutAdded, idx, true, false)
+		end
+	end
+	if C_EditMode.SetActiveLayout then
+		pcall(C_EditMode.SetActiveLayout, idx)
+	end
+
+	-- Check before going on: is the new layout really the active one?
+	local okC, now = pcall(C_EditMode.GetLayouts)
+	local nowName = okC and now and now.layouts and now.layouts[(tonumber(now.activeLayout) or 0) - #presetList]
+	if not (nowName and nowName.layoutName == name) then
+		return false, ns:L("KEYBLOCK_OWN_NOT_ACTIVE_FMT"):format(name)
+	end
+
+	ns.db.keyBlockPresetBack = ns.db.keyBlockPresetBack or {}
+	ns.db.keyBlockPresetBack[SpecKey()] = { preset = active, presetName = preset.layoutName, layout = name }
+
+	-- And arrange the block in it straight away: one /reload for the whole thing.
+	local okA, msg = ns.MH_EditModeApplyKeyBlock()
+	local head = ns:L("KEYBLOCK_OWN_DONE_FMT"):format(name, tostring(preset.layoutName or "Modern"))
+	return true, head .. (okA and ("|n" .. msg) or ("|n" .. tostring(msg)))
+end
+
+--- Back to the preset this spec came from, if MH moved it off one. @return true when it did.
+local function BackToPreset(activeName)
+	local back = ns.db and ns.db.keyBlockPresetBack and ns.db.keyBlockPresetBack[SpecKey()]
+	if not (back and back.layout == activeName and C_EditMode.SetActiveLayout) then
+		return false
+	end
+	if not pcall(C_EditMode.SetActiveLayout, back.preset) then
+		return false
+	end
+	ns.db.keyBlockPresetBack[SpecKey()] = nil
+	return true, back
 end
 
 --- "Put <layout> back": the ACTIVE layout returns to its own copy from before arranging.
@@ -727,6 +866,18 @@ function ns.MH_EditModeRestoreKeyBlock()
 	local name, target, info = ActiveLayout()
 	if not name then
 		return false, ns:L("KEYBLOCK_LAYOUT_NO_UNDO")
+	end
+	-- Made from a preset by MH: going back means the preset this spec was on. The MH layout itself stays
+	-- in the list (the player may want it again, or delete it in Edit Mode).
+	local wentBack, back = BackToPreset(name)
+	if wentBack then
+		if ns.db.keyBlockLayoutsOn then
+			ns.db.keyBlockLayoutsOn[name] = nil
+		end
+		if ns.db.keyBlockLayoutSaved then
+			ns.db.keyBlockLayoutSaved[name] = nil
+		end
+		return true, ns:L("KEYBLOCK_OWN_BACK_FMT"):format(tostring(back.presetName or "Modern"))
 	end
 	local saved = ns.db and ns.db.keyBlockLayoutSaved and ns.db.keyBlockLayoutSaved[name]
 	if not saved then
