@@ -27,7 +27,10 @@ push/tag/release alleen op Robs "go". Rob test nog; release-nummer nog niet geko
 herladen. Priest Shadow werkt "tot nu toe"; andere Priest-specs (Discipline/Holy = healer-blok) test Rob nu.
 Discipline-blok staat (screenshot). Bug gevonden + gerepareerd, NIET GETEST: speelkaart koos de geparkeerde kopie op
 balk D (slots 25-36 sorteren vóór balk 5); `LiveKeys.lua` zet nu bij een geplaatst blok (`ns.KeyBlockIsPlaced`)
-balk 1, dan A/B/C eerst.
+balk 1, dan A/B/C eerst. ✅ Rob getest (screenshot): Flash Heal [3], PW:S [2], Evangelism [Shift 4].
+Daarna (Rob: "dubbele kopieën gelijk opruimen") — GEBOUWD, NIET GETEST: `PlacePlan` parkeert een vervangen spell niet
+als het blok hem zelf plaatst (`r.double`, `WantedSpells`), en Place haalt spell-dubbelen ook van balk D (bar 4) af,
+naast balk 1. Snapshot-regel zonder movedTo → Undo zet terug op id. Al geplaatste blokken: pas na Undo + opnieuw.
 **Nog te testen (zie bovenaan `docs/TESTLIJST.md`):** Reddish (Hunter 90) met stappenplan + "Eigen layout + blok" op
 gedeelde layout + heropenen na herladen; healer-blok in het spel op Holy (`/mh block why`: Holy Bulwark F3? Beacon of
 Virtue Shift 1? — AFGELEID, niet gemeten); vinkjes als plaatje.

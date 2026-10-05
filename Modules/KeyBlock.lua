@@ -508,6 +508,23 @@ local function ButtonFor(i)
 	return (2 - r) * 4 + c + 1
 end
 
+--- The spells the block will hold after placing (placed or already there), with their talent overrides.
+local function WantedSpells(rows)
+	local wanted = {}
+	for _, r in ipairs(rows) do
+		if r.want and r.want.kind == "spell" and (r.action == "place" or r.action == "keep") then
+			wanted[r.want.id] = true
+			if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+				local okO, over = pcall(C_SpellBook.FindSpellOverrideByID, r.want.id)
+				if okO and over then
+					wanted[over] = true
+				end
+			end
+		end
+	end
+	return wanted
+end
+
 --- The full plan: one row per block place.
 --- row = { key, slot, command, want = {kind,id}|nil, action = "place"|"keep"|"refuse"|"skip", why, replaces }
 local function PlacePlan()
@@ -616,8 +633,18 @@ local function PlacePlan()
 			end
 		end
 	end
+	-- A spell the block itself places is not parked: it would only be a second copy on block D with a
+	-- second key (Rob, 6 Oct 2026, Discipline: Flash Heal on 3 and on Alt C — "die dubbele kopieën gelijk
+	-- opruimen"). It is lifted off instead; the snapshot keeps it, so Undo puts it back by id.
+	local wanted = WantedSpells(rows)
 	for _, r in ipairs(rows) do
-		if (r.action == "place" or r.action == "clear") and r.replaces then
+		if (r.action == "place" or r.action == "clear") and r.replaces and r.replaces.kind == "spell"
+			and wanted[r.replaces.id] then
+			r.double = true
+		end
+	end
+	for _, r in ipairs(rows) do
+		if (r.action == "place" or r.action == "clear") and r.replaces and not r.double then
 			local spot = table.remove(free, 1)
 			if spot then
 				r.moveTo = spot
@@ -675,11 +702,12 @@ function ns.KeyBlockPreview(quiet)
 			local line
 			if r.action == "place" then
 				line = ("|cff40ff40place|r %s on %s%s"):format(WantName(r.want), where,
-					r.replaces and (" |cffffcc00(replaces " .. r.replaces.name .. ")|r") or "")
+					r.replaces and (" |cffffcc00(replaces " .. r.replaces.name .. (r.double and ", a double" or "") .. ")|r") or "")
 			elseif r.action == "keep" then
 				line = ("|cff9d9d9dalready there|r %s"):format(WantName(r.want))
 			elseif r.action == "clear" then
-				line = ("|cffffcc00made empty|r %s: %s moves aside"):format(where, r.replaces.name or "?")
+				line = ("|cffffcc00made empty|r %s: %s %s"):format(where, r.replaces.name or "?",
+				r.double and "is a double and goes off" or "moves aside")
 			elseif r.action == "refuse" then
 				line = ("|cffff8080left alone|r %s: %s"):format(where, r.why)
 			else
@@ -844,20 +872,21 @@ function ns.KeyBlockPlace()
 
 	-- And the doubles leave bar 1 (buttons 1-12 only — never the form/stealth pages, never the Single-
 	-- Button Assistant, spells only; red team 5 Oct 2026). Each is recorded, so Undo puts it back.
-	local wanted = {}
-	for _, r in ipairs(rows) do
-		if r.want and r.want.kind == "spell" and (r.action == "place" or r.action == "keep") then
-			wanted[r.want.id] = true
-			if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
-				local okO, over = pcall(C_SpellBook.FindSpellOverrideByID, r.want.id)
-				if okO and over then
-					wanted[over] = true
-				end
-			end
+	-- 6 Oct 2026 (Rob: "die dubbele kopieën gelijk opruimen"): the same for block D's bar, the player's own
+	-- bar 4, so a block spell has one key. Spells only; items and macros stay.
+	local wanted = WantedSpells(rows)
+	local doubleSlots = {}
+	for slot = 1, 12 do
+		doubleSlots[#doubleSlots + 1] = slot
+	end
+	local dInfo = BarInfo(ns.KeyBlockBars().D)
+	if dInfo then
+		for b = 1, 12 do
+			doubleSlots[#doubleSlots + 1] = dInfo.first + b - 1
 		end
 	end
 	local doubles = 0
-	for slot = 1, 12 do
+	for _, slot in ipairs(doubleSlots) do
 		local kind, id = Occupant(slot)
 		if kind == "spell" and wanted[id] and not IsAssist(slot) then
 			pcall(function()
@@ -941,7 +970,7 @@ function ns.KeyBlockPlace()
 	if SaveBindings and GetCurrentBindingSet then
 		pcall(SaveBindings, GetCurrentBindingSet())
 	end
-	print(p .. ("key block placed: %d buttons, %d keys, %d moved aside (block D first), %d doubles off bar 1. |cffffffff/mh block undo|r puts everything back."):format(placed, bound, moved, doubles))
+	print(p .. ("key block placed: %d buttons, %d keys, %d moved aside (block D first), %d doubles off bar 1 and block D. |cffffffff/mh block undo|r puts everything back."):format(placed, bound, moved, doubles))
 	if #failed > 0 then
 		print("   |cffff8080did not land:|r " .. table.concat(failed, ", "))
 	end

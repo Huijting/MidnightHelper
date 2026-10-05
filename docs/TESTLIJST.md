@@ -65,7 +65,16 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 GEMETEN op Robs screenshot (Discipline, Umbrion): Flash Heal op blok **3** én op D **Alt C**; de kaart zei [Alt C].
 Ook Power Word: Shield (2 / Alt X) en Evangelism (Shift 4 / Alt E). Nu: met het blok neergezet tellen balk 1 en de
 blokbalken A/B/C eerst.
-- [ ] `/reload`, "Zo speel je Discipline": Flash Heal **[3]**, Power Word: Shield **[2]**, Evangelism **[Shift 4]**?
+- [x] Rob 6 okt ✅ (screenshot) `/reload`, "Zo speel je Discipline": Flash Heal **[3]**, Power Word: Shield **[2]**, Evangelism **[Shift 4]**?
+
+## 🆕 6 okt — geen dubbele kopieën meer op balk D (Rob: "laat die dubbele kopieën gelijk opruimen")
+
+Bij neerzetten: een spreuk die het blok zelf krijgt wordt niet meer naar D geparkeerd, en dubbelen die al op D stonden
+gaan eraf (alleen spreuken; macro's en items blijven). Undo zet alles terug.
+- [ ] Discipline: **Undo** → **Zet het op balk 5, 6 en 7**. Staan Flash Heal, Power Word: Shield, Evangelism, Desperate
+  Prayer, Angelic Feather, Psychic Scream, Mass Dispel en Recuperate nu maar **één** keer (in het blok, niet ook op D)?
+- [ ] Chat: "… doubles off bar 1 and block D" met een getal.
+- [ ] **Undo** daarna: staat balk D weer zoals vóór het neerzetten?
 - [ ] Zonder blok (ander personage): dezelfde toetsen als vóór vandaag.
 
 ## 🆕 6 okt — `/mh export` geeft nu ook het item-nummer (voor Wowhead-tooltips op de Armory)
