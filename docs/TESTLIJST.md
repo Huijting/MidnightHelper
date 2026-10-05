@@ -71,7 +71,7 @@ blokbalken A/B/C eerst.
 
 Bij neerzetten: een spreuk die het blok zelf krijgt wordt niet meer naar D geparkeerd, en dubbelen die al op D stonden
 gaan eraf (alleen spreuken; macro's en items blijven). Undo zet alles terug.
-- [ ] Discipline: **Undo** → **Zet het op balk 5, 6 en 7**. Staan Flash Heal, Power Word: Shield, Evangelism, Desperate
+- [x] Rob 6 okt ✅ (screenshot: D houdt alleen Resurrection, Mass Resurrection, Healthstone, Plea) Discipline: **Undo** → **Zet het op balk 5, 6 en 7**. Staan Flash Heal, Power Word: Shield, Evangelism, Desperate
   Prayer, Angelic Feather, Psychic Scream, Mass Dispel en Recuperate nu maar **één** keer (in het blok, niet ook op D)?
 - [ ] Chat: "… doubles off bar 1 and block D" met een getal.
 - [ ] **Undo** daarna: staat balk D weer zoals vóór het neerzetten?
