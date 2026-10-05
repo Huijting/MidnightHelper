@@ -182,7 +182,13 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	-- UTILITY
 	--==================================================================================
-	["Mend Pet"] = { category = "utility", priority = 1 }, -- pet-heal (136), baseline
+	-- Pet spells live in spellbook FLYOUTS since Midnight ("Pet Utility" 103, "Call Pet" 9; mh-research
+	-- 5 Oct 2026, wago.tools DB2 12.1.0.69933). KeybindAutoMap now reads flyout slots. By id, because Call
+	-- Pet takes the pet's name ("Call Balou", MissingBuff.lua:729). Rob, 5 Oct 2026: "het healen van je pet
+	-- … die mis ik eigenlijk". Feed Pet, Beast Lore, Tame Beast and Dismiss Pet stay off: out of combat only.
+	["Mend Pet"] = { id = 136, category = "utility", priority = 1 }, -- pet-heal, flyout Pet Utility
+	["Revive Pet"] = { id = 982, category = "utility", priority = 4 }, -- flyout Pet Utility
+	["Call Pet 1"] = { id = 883, category = "utility", priority = 6 }, -- flyout Call Pet; MM only with Unbreakable Bond
 	["Hunter's Mark"] = { category = "utility", priority = 2 }, -- target-marker (baseline)
 	-- ⚠️ NOT baseline: a CLASS-TREE TALENT in Midnight. Measured 10 Sep 2026 - Rob's hunter showed
 	-- Misdirection as a talent node at Rank 0/1 (spell 34477), and /mh macrocheck read it "not found"

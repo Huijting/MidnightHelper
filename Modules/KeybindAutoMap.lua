@@ -103,6 +103,22 @@ local function ReadKnownActiveSpells()
 		if not info.name or info.isPassive then
 			return
 		end
+		--- A FLYOUT is a group, not a spell (mh-research 5 Oct 2026, wago.tools DB2 build 12.1.0.69933:
+		--- Hunter "Pet Utility" = flyout 103 with Mend Pet 136, Revive Pet 982, Dismiss Pet 2641 ...; "Call
+		--- Pet" = flyout 9). Its actionID is the FLYOUT id, so asking IsSpellKnown about it dropped the
+		--- whole group and Rob's hunter never saw Mend Pet. Walk its slots and take every known spell by id —
+		--- the same GetFlyoutSlotInfo Blizzard's own flyout uses (SpellFlyout.lua:266).
+		local flyoutType = Enum.SpellBookItemType and Enum.SpellBookItemType.Flyout
+		if flyoutType and info.itemType == flyoutType and info.actionID and GetFlyoutInfo and GetFlyoutSlotInfo then
+			local okF, _, _, numSlots = pcall(GetFlyoutInfo, info.actionID)
+			for i = 1, (okF and tonumber(numSlots)) or 0 do
+				local okS, spellID, _, isKnown, spellName = pcall(GetFlyoutSlotInfo, info.actionID, i)
+				if okS and isKnown and spellID and spellName and not out[spellName] then
+					out[spellName] = spellID
+				end
+			end
+			return
+		end
 		local override = info.spellID
 		local base = info.actionID or override
 		if not (override or base) then

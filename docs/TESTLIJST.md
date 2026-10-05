@@ -60,6 +60,14 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — pet-spreuken (Mend Pet, Revive Pet, Call Pet) in het blok
+
+Oorzaak (mh-research): ze zitten in de spellboek-groepjes "Pet Utility" en "Call Pet"; MH las zo'n groepje niet uit.
+- [ ] Hunter: `/reload`. Komt het venstertje "Nieuw voor je toetsenblok: Mend Pet -> …, Revive Pet -> …"? (Call Pet
+  alleen als je hem kent; MM pas met het talent Unbreakable Bond.) Zet neer → staan ze op het blok en werkt de toets?
+- [ ] Optioneel, als het niet komt: plak deze in de chat en stuur me de uitkomst:
+  `/run for i=1,6 do print(GetFlyoutSlotInfo(103,i)) end`
+
 ## 🆕 5 okt avond — blok D, oude balken weg, Blizzard zet niets meer bij (Rob: 1 ja, 2 ja, 3 ja, D links van A)
 
 Op de Hunter, niet in een gevecht. Eerst `/reload`.
