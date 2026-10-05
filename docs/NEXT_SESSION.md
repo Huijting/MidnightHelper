@@ -38,6 +38,11 @@ Virtue Shift 1? — AFGELEID, niet gemeten); vinkjes als plaatje.
 
 Site-chat = sessie "Midnight Helper site" (ListAgents + SendMessage); die wacht op id-ronde en release-seintje.
 
+**6 okt — `/mh export` veld 15 (verzoek site-chat, Wowhead-tooltips op de Armory) — GEBOUWD, NIET GETEST:**
+`GearExport.lua` schrijft op elke regel `<itemID>[:<bonusID>...]` uit de itemlink; velden 12-14 dan leeg ("|||").
+Oude site-parser negeert het (GEMETEN in armory/index.html fromExport: regex op 12-14, lengte ≥ 11). Bonus-ids op
+linkveld 13+ = AFGELEID uit 3 addons, niet gemeten. Gaat mee in de volgende release.
+
 ---
 
 ## ⌨️ 5 okt — volgende release pas met toetsenblok stap 2 (Rob: "De volgende wijzigingen gaan door als we ook het blok en de keys dat gedeelte af hebben")

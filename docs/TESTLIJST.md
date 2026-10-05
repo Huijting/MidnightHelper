@@ -60,6 +60,12 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 6 okt — `/mh export` geeft nu ook het item-nummer (voor Wowhead-tooltips op de Armory)
+
+- [ ] `/mh export`: elke regel eindigt nu op een nummer, bv. `…|0|0|||250123:12345:6789`. Geen foutmelding?
+- [ ] Plak het op de Armory (oude site-versie): rekent hij nog precies zoals gisteren? (Hij hoort het nieuwe veld te negeren.)
+- [ ] Pas als de site-kant er is: muis over een item → toont Wowhead **hetzelfde** item, met jouw item level?
+
 ## 🆕 5 okt avond — na "Nu herladen" opent het blokvenster vanzelf weer (Rob)
 
 - [ ] Druk een layout-knop → **Nu herladen** (in het venstertje of rechtsonder). Na het laden opent `/mh block` vanzelf,

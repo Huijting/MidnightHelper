@@ -35,6 +35,13 @@ local _, ns = ...
 	           that spans other slots (embellishments) is not handled.
 	  effect   14th field, rings and trinkets only (30 Sep 2026): "e" when the tooltip has a Use:, Equip:
 	           or proc line. The site cannot score an effect, so it never advises swapping such an item.
+	  item     15th field, every line (5 Oct 2026, asked by the site chat for Wowhead tooltips on the
+	           Armory): "<itemID>" or "<itemID>:<bonusID>:<bonusID>...", read from the item link.
+	           Fields 12-14 are then written empty where they do not apply ("|||"), so field 15 is
+	           always the 15th; the site's parser already treats an empty 12/13/14 as absent.
+	           Link layout: itemID is field 1, numBonusIDs field 13, the bonus IDs follow. AFGELEID from
+	           three installed addons that agree (AskMrRobot-Serializer.lua:317, EllesmereUIBags.lua:286,
+	           ClassCodex Crafting.lua:174). VERIFY: Wowhead's tooltip matching the item in the game.
 
 	Bag items you cannot use are left out (red-team review, 28 Sep 2026: the first version summed all
 	three primaries and never looked at armour type, so a Protection Paladin could be told to wear an
@@ -175,16 +182,42 @@ local function EquipLoc(link)
 	return nil
 end
 
---- The "hands" field for a weapon line ("|2" or "|1"), empty for every other slot.
+--- The "hands" field for a weapon line ("2" or "1"), empty for every other slot.
 local function Hands(slot, link)
 	if slot ~= "mainhand" and slot ~= "offhand" then
 		return ""
 	end
 	local loc, _, subClassID = EquipLoc(link)
 	if loc and TWO_HAND_LOCS[loc] and not (loc == "INVTYPE_RANGEDRIGHT" and subClassID == WAND) then
-		return "|2"
+		return "2"
 	end
-	return "|1"
+	return "1"
+end
+
+--- The "item" field: "<itemID>" or "<itemID>:<bonusID>:...", empty when the link has no item string.
+local function ItemField(link)
+	local body = link:match("item:([%-%d:]*)")
+	if not body then
+		return ""
+	end
+	-- Split keeping empty fields: "item:123::::" has empty slots between the colons.
+	local f = {}
+	for v in (body .. ":"):gmatch("([^:]*):") do
+		f[#f + 1] = v
+	end
+	local id = tonumber(f[1])
+	if not id then
+		return ""
+	end
+	local out = { tostring(id) }
+	local n = tonumber(f[13]) or 0
+	for i = 1, math.min(n, 40) do
+		local b = tonumber(f[13 + i])
+		if b then
+			out[#out + 1] = tostring(b)
+		end
+	end
+	return table.concat(out, ":")
 end
 
 local function StartsWith(text, global)
@@ -192,8 +225,8 @@ local function StartsWith(text, global)
 	return type(tag) == "string" and tag ~= "" and text:sub(1, #tag) == tag
 end
 
---- The "unique" and "effect" fields for a ring or trinket line, empty for other slots:
---- "||<key>:<max>" for Unique-Equipped, then "|e" when the item has a Use:/Equip:/proc effect.
+--- The "unique" and "effect" fields for a ring or trinket line, both "" for other slots:
+--- "<key>:<max>" for Unique-Equipped, and "e" when the item has a Use:/Equip:/proc effect.
 --- The tooltip is the source Pawn and AskMrRobot read (`ITEM_UNIQUE_EQUIPPABLE`, localised by the
 --- game, so it matches every client language). `C_Item.GetItemUniqueness` is Zygor's route and only
 --- the fallback. MEASURED 30 Sep 2026 on Rob's Twelveinchy: every ring and trinket came back i<id>:1.
@@ -203,7 +236,7 @@ end
 --- VERIFY: the effect flag is not measured yet.
 local function Extras(slot, link)
 	if slot ~= "finger" and slot ~= "trinket" then
-		return ""
+		return "", ""
 	end
 	local tag = rawget(_G, "ITEM_UNIQUE_EQUIPPABLE")
 	local id = tonumber(link:match("item:(%d+)"))
@@ -237,14 +270,7 @@ local function Extras(slot, link)
 			key, max = "f" .. fam, (type(n) == "number" and not ns.IsSecretValue(n) and n > 0) and n or 1
 		end
 	end
-	local uniq = key and ("%s:%d"):format(key, max or 1) or ""
-	if effect then
-		return "||" .. uniq .. "|e"
-	end
-	if uniq ~= "" then
-		return "||" .. uniq
-	end
-	return ""
+	return key and ("%s:%d"):format(key, max or 1) or "", effect and "e" or ""
 end
 
 --- One line, or nil plus "pending" when the client has not cached the item yet, or nil plus
@@ -268,9 +294,13 @@ local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	if skipOtherPrimary and s.otherPrimary then
 		return nil, "unusable"
 	end
-	return ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d%s%s"):format(
+	local uniq, effect = Extras(slot, link)
+	-- Fields 12-15 always written, then trailing empties trimmed: without an item id the line is
+	-- exactly what it was before field 15 existed.
+	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s"):format(
 		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers,
-		Hands(slot, link), Extras(slot, link))
+		Hands(slot, link), uniq, effect, ItemField(link))
+	return (line:gsub("|+$", ""))
 end
 
 local function Link(ok, v)
@@ -304,7 +334,7 @@ function ns.BuildGearExport()
 	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s"):format(
 		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
 		primary and primary.name or "?")
-	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect (rings, trinkets)"
+	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect (rings, trinkets)|item"
 
 	local function Add(where, slot, link)
 		-- Only bag items are filtered: what you wear is written whatever it is.
