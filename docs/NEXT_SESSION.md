@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🤝 5 okt — bouwchat ⇄ site-chat praten rechtstreeks (SendMessage), Rob keurde het goed in beide chats
+
+Sessie "Midnight Helper site" (`C:\Users\RobHu\Downloads\midnighthelper-site`). Verzoeken van elkaar: doen als je het
+eens bent, daarna melden; twijfel of Robs keuze → Rob vragen; pushen/taggen/releases alleen op Robs eigen ja (memory
+`site-chat-messages-approved`). 🔴 **Zet je een release-tag (v*), stuur de site-chat een seintje**: hun nachttaak
+(04:07) bouwt /play/ uit de nieuwste tag. Open bij hen: homepage-foto's, wachten op Robs `/mh shots` met de fix.
+
 ## 📸 5 okt — `/mh shots` ruimt per scène op (verzoek site-chat)
 
 GEMETEN door de site-chat op de set van 16 sep (`Screenshots\mh-shots`): 10 en 14 toonden de zoeklijst van scène 08,
