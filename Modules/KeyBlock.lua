@@ -1437,7 +1437,11 @@ local function Ensure()
 		local ok = ns.MH_EditModeRestore and ns.MH_EditModeRestore()
 		NeedReload(ok, ok and ns:L("KEYBLOCK_LAYOUT_RESTORED") or ns:L("KEYBLOCK_LAYOUT_NO_UNDO"))
 	end)
-	f.reloadBtn = Btn("KEYBLOCK_BTN_RELOAD", 22 + 4 * 210, function()
+	-- Cheat sheet: a code for midnighthelper.com, to print or keep on a phone (route 1, 5 Oct 2026).
+	f.exportBtn = Btn("KEYBLOCK_BTN_EXPORT", 22 + 4 * 210, function()
+		ns.ShowKeyBlockExport()
+	end)
+	f.reloadBtn = Btn("KEYBLOCK_BTN_RELOAD", 22 + 5 * 210, function()
 		ReloadUI()
 	end)
 	f.reloadBtn:SetWidth(120)
@@ -1578,6 +1582,106 @@ end
 
 --- `/mh block why` — every place and why, in chat and in SavedVariables (Spec 30: a picture that
 --- leaves a place empty must be able to say why).
+--------------------------------------------------------------------------------
+-- Cheat sheet for the website (5 Oct 2026, Rob: "iets wat ze kunnen uitprinten of op een ander scherm
+-- zetten, zodat ze het kunnen leren" → route 1: a code to paste on midnighthelper.com).
+--
+-- 🔴 THE FORMAT IS A CONTRACT WITH THE WEBSITE, like MH-EXPORT (GearExport.lua):
+--
+--     MH-KEYBLOCK 1
+--     char=<name>;class=<CLASSFILE>;specid=<id>;spec=<spec name>;bars=<D>,<A>,<B>,<C>
+--     # block|key|task|kind|id|name
+--     A|1|KEYBLOCK_T_MAIN|spell|19434|Aimed Shot
+--
+--   block  D A B C (picture order; D = the player's own, bar 4)
+--   key    WoW binding notation: 1, SHIFT-1, CTRL-1, ALT-Q, F1 ...
+--   task   the place's task as a locale KEY (KEYBLOCK_T_*), so the site can label it in any language
+--   kind   spell | item | macro | empty
+--   id     spell or item id (empty for a macro or an empty place)
+--   name   as the client shows it; "|" becomes "/"
+--
+-- What a place holds: once the block is placed, what really stands on that button; before that, what
+-- "Place it" would put there.
+--------------------------------------------------------------------------------
+
+function ns.BuildKeyBlockExport()
+	local rows, res = PlacePlan()
+	if not rows then
+		return nil
+	end
+	local placed = GetSnap() ~= nil
+	local taskBy = {}
+	for _, bar in ipairs(BLOCK) do
+		for _, slot in ipairs(bar.slots) do
+			taskBy[slot.key] = slot.task
+		end
+	end
+	local function clean(s)
+		return (tostring(s or ""):gsub("[|\n]", "/"))
+	end
+	local specName = "?"
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local idx = ns.GetSpecialization()
+		local ok, _, sname = pcall(ns.GetSpecializationInfo, idx)
+		if ok and sname and (not ns.CanAccessText or ns.CanAccessText(sname)) then
+			specName = sname
+		end
+	end
+	local bars = ns.KeyBlockBars()
+	local lines = {
+		"MH-KEYBLOCK 1",
+		("char=%s;class=%s;specid=%s;spec=%s;bars=%d,%d,%d,%d"):format(
+			(tostring(UnitName and UnitName("player") or "?"):gsub("[;|=]", "")),
+			tostring(res and res.class or (UnitClass and select(2, UnitClass("player"))) or "?"),
+			tostring(res and res.specID or "?"), (specName:gsub("[;|=]", "")),
+			bars.D, bars.A, bars.B, bars.C),
+		"# block|key|task|kind|id|name",
+	}
+	for _, r in ipairs(rows) do
+		local kind, id, name
+		if placed or r.action == "own" then
+			kind, id = Occupant(r.slot)
+			if kind == "macro" then
+				name, id = GetActionText(r.slot), nil
+			elseif kind then
+				name = OccupantName(kind, id)
+			end
+		elseif r.want then
+			kind, id = r.want.kind, r.want.id
+			name = OccupantName(kind, id)
+		end
+		if kind ~= "spell" and kind ~= "item" and kind ~= "macro" then
+			kind, id, name = "empty", nil, nil
+		end
+		lines[#lines + 1] = ("%s|%s|%s|%s|%s|%s"):format(r.bar, r.key, taskBy[r.key] or "", kind,
+			id and tostring(id) or "", clean(name))
+	end
+	return table.concat(lines, "\n")
+end
+
+--- `/mh block export` and the window's button: the code in the copy box everyone already knows.
+function ns.ShowKeyBlockExport()
+	local text = ns.BuildKeyBlockExport()
+	if not text then
+		print("|cffffcc00Midnight Helper:|r key block: no classified spells for this character.")
+		return
+	end
+	if not ns.ShowShareCopyDialog then
+		print(text)
+		return
+	end
+	ns.ShowShareCopyDialog({
+		id = "keyblockexport:" .. tostring(time and time() or 0),
+		-- "|" is WoW's escape character in an edit box (GearExport.lua, 28 Sep 2026): written as "||".
+		text = (text:gsub("|", "||")),
+		titleKey = "KEYBLOCK_EXPORT_TITLE",
+		hintKey = "KEYBLOCK_EXPORT_HINT",
+		closeKey = "DELVE_SHARE_COPY_CLOSE",
+		width = 560,
+		height = 380,
+	})
+end
+
 function ns.PrintKeyBlockTrace()
 	local res, class = Build()
 	local p = "|cffffcc00Midnight Helper:|r "

@@ -60,6 +60,12 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — spiekbrief: code voor de site (Rob: route 1 + 3)
+
+- [ ] `/mh block` → knop **Spiekbrief (code voor de site)** (of `/mh block export`): een kopieervak met een tekst die
+  begint met `MH-KEYBLOCK 1`, daarna één regel per plek (48 plekken: D, A, B, C). Staan de namen goed, ook bij macro's?
+- [ ] De site-pagina om hem te plakken bouwt de site-chat (opdracht verstuurd); pas daarna te testen.
+
 ## 🆕 5 okt avond — balk 1 als blok, links van D (Rob: "drie rijen van vier, links ernaast")
 
 - [x] Rob 5 okt: Terugzetten → opnieuw neerzetten deelt alles netjes in (Mend Pet op zijn plek). ✅

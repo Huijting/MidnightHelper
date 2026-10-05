@@ -1092,6 +1092,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block export — the cheat-sheet code for the website (5 Oct 2026).
+	if msg == "block export" then
+		if ns.ShowKeyBlockExport then
+			ns.ShowKeyBlockExport()
+		end
+		return
+	end
 	-- /mh block update — add newly learned spells to a placed block (5 Oct 2026).
 	if msg == "block update" then
 		if ns.KeyBlockUpdate then

@@ -12,6 +12,9 @@ keuze). Dubbel "als blok" wordt geweigerd tot het terugzetten (`keyBlockLayoutOn
 geweigerd; alles wat vervangen wordt gaat eerst naar een vrije knop op balk 2/3/4 (`MOVE_BARS`, PickupAction+PlaceAction),
 undo ruilt het terug zonder id (macro-terugval op naam via GetMacroIndexByName). Pas na Robs test is stap 2 af → release.
 Rob koos C voor balk 1-4 (blijven staan; alleen wie over het blok ligt gaat naar een rij erboven) — gebouwd, niet getest.
+Spiekbrief (Rob 5 okt: route 1 + 3; route 2 = het /mh block-venster zelf) — addon-kant GEBOUWD, NIET GETEST:
+`ns.BuildKeyBlockExport` / `/mh block export` / knop in het venster, formaat `MH-KEYBLOCK 1` (contract met de site,
+beschreven bovenaan die functie). Site-kant (plakpagina + per-spec standaardblok voor wie geen addon heeft) = site-chat.
 Pet-spreuken — GEBOUWD, NIET GETEST: `KeybindAutoMap.ReadKnownActiveSpells` leest nu flyout-slots (GetFlyoutSlotInfo);
 Hunter kreeg Mend Pet id 136, Revive Pet 982, Call Pet 1 883 (wago.tools DB2 12.1.0.69933 via mh-research). Raakt alle
 klassen met flyouts (bv. Mage-portals): die spreuken komen nu in de scan; alleen relevant als een KeybindRoles-regel ze noemt.
