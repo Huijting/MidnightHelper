@@ -1620,8 +1620,8 @@ end
 -- temporary shapeshift) and handles pet battles; a secure state handler may set override bindings in
 -- combat (RestrictedFrames.lua: SetBinding -> SetOverrideBinding). [bonusbar:5] is skyriding; plain
 -- [bonusbar] would also catch Cat Form and stealth, which must keep the block.
--- While one of those states is on, a block key that pressed ACTIONBUTTONn before the block presses it
--- again; afterwards the block is back. Override bindings are never saved, so nothing here touches the
+-- While one of those states is on, the digit keys of the block (1-5) press bar 1 buttons 1-5 in order;
+-- afterwards the block is back. Override bindings are never saved, so nothing here touches the
 -- player's binding file.
 --------------------------------------------------------------------------------
 
@@ -1654,17 +1654,12 @@ function ns.KeyBlockArmBar1()
 		return false -- attributes and drivers cannot change in combat; PLAYER_REGEN_ENABLED retries
 	end
 	local pairs_ = {}
-	local snap = GetSnap()
-	if snap then
-		bar1Source = "snapshot"
-		for _, b in ipairs(snap.binds or {}) do
-			if type(b.was) == "string" and b.was:match("^ACTIONBUTTON%d+$") then
-				pairs_[#pairs_ + 1] = { b.key, b.was }
-			end
-		end
-	elseif BlockKeysLive() then
-		-- No snapshot here: Blizzard's default, digit n presses bar 1 button n.
-		bar1Source = "default"
+	-- Always Blizzard's order: digit n presses bar 1 button n. Rob, 5 Oct 2026, skyriding on his Hunter:
+	-- the buttons came out of order, because the first version gave each key back what it did BEFORE the
+	-- block — and on his hunter that was an old layout where 2 pressed button 3 and 3 pressed button 4.
+	-- Skyriding and vehicle buttons are numbered for 1, 2, 3 ..., so that is what the keys must do.
+	if GetSnap() or BlockKeysLive() then
+		bar1Source = "1-to-1"
 		for _, bar in ipairs(BLOCK) do
 			for _, slot in ipairs(bar.slots) do
 				local d = tonumber(slot.key)
