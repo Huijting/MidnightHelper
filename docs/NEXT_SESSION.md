@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 📸 5 okt — `/mh shots` ruimt per scène op (verzoek site-chat)
+
+GEMETEN door de site-chat op de set van 16 sep (`Screenshots\mh-shots`): 10 en 14 toonden de zoeklijst van scène 08,
+14 ook de Delve Coach van scène 13. ✅ `ClearSceneLeftovers()` in DevShots.lua (zoeklijst via nieuwe
+`ns.DevHideNavResults`, coach, mount-preview) vóór elke scène en aan het eind. Niet in het spel gedraaid. Daarna maakt
+Rob een nieuwe set (02, 07, 10, 14 voor de site). Wat 02/10 van 16 sep (v3.11.1) nog tonen dat sindsdien anders is:
+Lor'themar-regel (weg 4 okt), losse ✓-regels (nu ingeklapt "Done this week: N", GEMETEN `HOME_ROUTINE_DONE_FOLDED_FMT`),
+seizoenskaart met alles ✓ (verbergt zich nu, AFGELEID uit 37ce3ae), Mount wishlist bovenaan (nu onderaan, AFGELEID),
+Dundun-/SMC-regels (nu "Professions: fewer than 8 Dundun shards…" en "Silvermoon quest givers…", GEMETEN enUS:3225-3226).
+
 ## 🏆 4 okt middag — wens #16 (fr): "les hauts faits non accomplis" → alleen Midnight (Rob: "Ja doe maar")
 
 Plan: lijst "Midnight-achievements die je nog niet hebt", gegroepeerd per Blizzard-categorie, naam/voortgang/punten

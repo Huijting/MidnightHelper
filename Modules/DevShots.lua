@@ -329,6 +329,25 @@ local function ParkWindow(main)
 	CenterWindow(main)
 end
 
+--- Close what an earlier scene opened, before the next one is set up. GEMETEN by the site chat
+--- on the 16 Sep set (5 Oct 2026): 10-alts and 14-professions-advice both still showed scene 08's
+--- "Chimaerus" search list, and 14 had scene 13's Delve Coach over it — those two were only ever
+--- closed (or never) at the end of the run.
+local function ClearSceneLeftovers()
+	if ns.DevHideNavResults then
+		pcall(ns.DevHideNavResults)
+	end
+	if ns.HideDelveCoach then
+		pcall(ns.HideDelveCoach, ns, true)
+	end
+	if ns.DevGetMountPreviewFrame then
+		local ok, f = pcall(ns.DevGetMountPreviewFrame)
+		if ok and f then
+			f:Hide()
+		end
+	end
+end
+
 local function RestoreWindow(main, savedFormat)
 	if savedFormat and SetCVar then
 		pcall(SetCVar, "screenshotFormat", savedFormat)
@@ -398,10 +417,12 @@ function ns.RunDevShots()
 		i = i + 1
 		local shot = SHOTS[i]
 		if not shot then
+			ClearSceneLeftovers()
 			RestoreWindow(main, savedFormat)
 			Say(("done — %d/%d shots. /reload, then run tools\\Crop-Shots.bat."):format(taken, #SHOTS))
 			return
 		end
+		ClearSceneLeftovers()
 
 		-- Every step is guarded: one bad scene must never take the rest of the run with
 		-- it (a hidden tab did exactly that on the first outing).

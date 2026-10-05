@@ -879,6 +879,16 @@ function ns.DevShowNavResults(query)
 	ShowNavResults(query)
 end
 
+--- And the way back (5 Oct 2026, site chat): scene 08's list stayed open through 10 and 14 of the
+--- 16 Sep set, because nothing ever closed it.
+function ns.DevHideNavResults()
+	if ns.mhSearchEdit then
+		ns.mhSearchEdit:SetText("")
+		ns.mhSearchEdit:ClearFocus()
+	end
+	HideNavDrop()
+end
+
 function ns.MHNavSearchTryJump(query)
 	query = (query or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
 	if #query < 2 then
