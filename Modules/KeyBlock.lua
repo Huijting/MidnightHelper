@@ -186,17 +186,25 @@ function ns.KeyBlockAllocate(spells, specID)
 
 	local left = {}
 	local list = {}
+	-- blockAs[spec].onlyD (5 Oct 2026, Rob's Resto Druid): useful but off-role on this spec (Heart of the Wild,
+	-- Stampeding Roar). It never competes for A/B/C; it goes straight to the "no place" list, which Place puts
+	-- on a free Alt key of block D.
+	local onlyD = {}
 	for _, s in ipairs(spells or {}) do
 		-- blockAs (healer round, 5 Oct 2026): one classifier entry that means something else on THIS spec's
 		-- block (Word of Glory: Holy's spender on 4, Prot's self-heal on F2). Only the block reads it; the
 		-- v7 allocator keeps the entry's own role. A copy, so the caller's table is never changed.
 		local as = type(s.blockAs) == "table" and specID and s.blockAs[specID]
-		if type(as) == "table" then
-			s = { id = s.id, name = s.name, role = as.role, category = as.category,
-				priority = as.priority or s.priority, bindKey = as.bindKey, blockForm = s.blockForm, blockQ = s.blockQ }
+		if type(as) == "table" and as.onlyD then
+			onlyD[#onlyD + 1] = { id = s.id, name = s.name, role = s.role, category = s.category, priority = s.priority }
+		else
+			if type(as) == "table" then
+				s = { id = s.id, name = s.name, role = as.role, category = as.category,
+					priority = as.priority or s.priority, bindKey = as.bindKey, blockForm = s.blockForm, blockQ = s.blockQ }
+			end
+			list[#list + 1] = s
+			s._done = nil
 		end
-		list[#list + 1] = s
-		s._done = nil
 	end
 	table.sort(list, ByPriority)
 
@@ -311,6 +319,10 @@ function ns.KeyBlockAllocate(spells, specID)
 			unplaced[#unplaced + 1] = s
 			trace[#trace + 1] = { id = s.id, why = "no room (" .. Family(s) .. ")" }
 		end
+	end
+	for _, s in ipairs(onlyD) do
+		unplaced[#unplaced + 1] = s
+		trace[#trace + 1] = { id = s.id, why = "block D only on this spec (blockAs onlyD)" }
 	end
 	return occ, unplaced, trace
 end

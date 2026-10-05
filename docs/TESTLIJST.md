@@ -77,6 +77,14 @@ staat de spreuk al op D, dan niet nog eens. Undo haalt ze eraf. Tekst onderaan z
 - [ ] Je eigen spul op D (macro's, Healthstone, Flask) blijft gewoon staan?
 - [ ] Undo: verdwijnen ze weer van D?
 
+## 🆕 5 okt laat — Resto Druid: blok goed; Heart of the Wild + Stampeding Roar alleen op blok D
+
+GEMETEN (Robs Resto): heals 1-4, Wild Growth/Nature's Swiftness, Moonfire Shift-2, Sunfire Shift-C, Innervate F3, Revive
+Alt 1. Rode regel: 7 bewust weggelaten spreuken. Gebouwd: `blockAs[spec].onlyD` (KeyBlockAllocate) = nooit A/B/C, meteen
+naar een vrije Alt-plek op D; Heart of the Wild + Stampeding Roar krijgen dat voor 105. Cat/bear-aanvallen en Starfire in
+`NO_KEY_ON_PURPOSE`. Standaardblok Resto: nog steeds 29 plekken (niets weggeduwd).
+- [ ] Resto: /reload, Undo → neerzetten: Heart of the Wild en Stampeding Roar op een Alt-toets? Rode regel weg?
+
 ## 🔍 5 okt laat — Robs Guardian Druid (Purlymixanox): blok goed, 2 zonder plek, 5 "onbekend"
 
 GEMETEN (screenshot): bear-rotatie op 1-4, Barkskin/Ironfur/Survival Instincts, Prowl F3, Dash Shift-F1 — goed.

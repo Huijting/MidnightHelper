@@ -436,6 +436,8 @@ for _, n in ipairs({
 	-- Druid: cat/caster spells the gap round kept off Guardian and Balance on purpose (MEASURED 5 Oct 2026 on
 	-- Rob's Guardian: Rake, Shred, Wrath, Regrowth in the red line), and a profession spell from the same run.
 	"Rake", "Shred", "Wrath", "Regrowth", "Sharpen Your Knife",
+	-- Rob's Resto Druid, same evening: cat/bear attacks and Starfire, kept off Resto in the gap round.
+	"Ferocious Bite", "Growl", "Mangle", "Thrash", "Starfire",
 }) do
 	NO_KEY_ON_PURPOSE[n] = true
 end
