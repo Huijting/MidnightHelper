@@ -65,6 +65,14 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
 GEMETEN (Rob, Carola's pc, tooltip): Fury of Elune staat in de Single-Button Assistant, maar niet in
 `KeybindRoles_Druid.lua` → geen rol → geen plek. Gebouwd: het blokvenster noemt nu onderaan in het rood welke spreuken MH
 nog niet kent (`KEYBLOCK_UNKNOWN_FMT`, zelfde lijst als `/mh binds`). mh-research zoekt alle ontbrekende Balance-spreuken.
+- GEBOUWD (mh-research, wago 12.1.0.69933): Balance kreeg Fury of Elune, New Moon, Force of Nature, Wild Mushroom, Solar
+  Eclipse, Symbiotic Relationship; Convoke, Mass Entanglement, Incapacitating Roar, Stampeding Roar en Heart of the Wild
+  (op het blok als defensive) gelden nu ook voor 102. Bewust niet: Hibernate, en heals (Regrowth/Rejuvenation/Wild
+  Growth/Frenzied Regeneration) die in Bear/Cat werken of al op de Stay alive-kaart staan.
+  ⚠️ Het site-standaardblok rekent met ALLE talenten (ook beide kanten van 6 keuzes): 10 zonder plek. Een echte Balance
+  Druid heeft er ~6 minder. AFGELEID.
+- [ ] Na de volgende update, Carola: Terugzetten → opnieuw neerzetten. Staat **Fury of Elune** nu op het blok
+  (verwacht F3 of een andere cooldown-plek)? En staan Revive, Dash, Prowl er nog?
 - [ ] Op Carola's pc (4.7.1): `/mh binds` → de regel met de spreuken die MH niet kent → screenshot.
 - [ ] Na de volgende update: `/mh block` op een Balance Druid → rode regel onderaan met Fury of Elune (tot hij erin staat).
 

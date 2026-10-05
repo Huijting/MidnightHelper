@@ -138,6 +138,17 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Cooldowns
     ["Celestial Alignment"]              = { id = 194223, blockQ = { [102] = true }, role = "cooldown_bar", priority = 1, specs = { 102 } }, -- grootste CD (F1)
     ["Incarnation: Chosen of Elune"]     = { id = 102560, blockQ = { [102] = true }, category = "cooldown", priority = 2, specs = { 102 } }, -- talent-alternatief (Shift+F1)
+    -- 5 okt 2026 (Rob op Carola's Balance Druid: "deze knop wordt ook geadviseerd, maar die hebben we niet neergezet").
+    -- mh-research, wago DB2 12.1.0.69933: castbare Balance-spreuken zonder entry; de eerste 5 staan in de
+    -- Single-Button Assistant. Ids GEMETEN (DB2), rollen AFGELEID. Keuzes: Fury of Elune OF New Moon,
+    -- Wild Mushroom OF (passief) Sunseeker Mushroom.
+    ["Fury of Elune"]                    = { id = 202770, category = "cooldown", priority = 3, specs = { 102 } }, -- 60 s, IV: belangrijke CD
+    ["New Moon"]                         = { id = 274281, category = "main_rotation", priority = 5, specs = { 102 } }, -- 3 ladingen; wordt Half Moon 274282 / Full Moon 274283
+    ["Force of Nature"]                  = { id = 205636, category = "cooldown", priority = 4, specs = { 102 } }, -- 60 s, treants
+    ["Wild Mushroom"]                    = { id = 88747, category = "main_rotation", priority = 6, specs = { 102 } }, -- 3 ladingen, builder
+    ["Solar Eclipse"]                    = { id = 1233346, category = "cooldown", priority = 5, specs = { 102 } }, -- Eclipse-talent; wordt Lunar Eclipse 1233272
+    ["Symbiotic Relationship"]           = { id = 474750, category = "utility", priority = 4, specs = { 102 } }, -- band met een bondgenoot vóór de pull
+    -- Hibernate (2637) bewust NIET: alleen op beasts/dragonkin, en als cc gaat hij in de overloop vóór Dash.
 
     -- =================================================================
     -- FERAL (103)
@@ -164,13 +175,13 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Maul"]                             = { id = 6807, category = "spender", priority = 3, specs = { 104 } }, -- Rage-dump
     -- CC
     ["Mighty Bash"]                      = { id = 5211, category = "dispel_cc", priority = 1, specs = { 102, 104 }, alsoStop = "stun" }, -- JustAC InterruptAbilities [5211] cc mech=12 (stun) → Spec 08 alsoStop
-    ["Incapacitating Roar"]              = { id = 99, category = "dispel_cc", priority = 2, specs = { 103, 104 }, alsoStop = "incap" }, -- JustAC InterruptAbilities [99] cc mech=14 (incapacitate) → Spec 08 alsoStop
+    ["Incapacitating Roar"]              = { id = 99, category = "dispel_cc", priority = 2, specs = { 102, 103, 104 }, alsoStop = "incap" }, -- JustAC InterruptAbilities [99] cc mech=14 (incapacitate) → Spec 08 alsoStop
     -- Cooldowns
     ["Lunar Beam"]                       = { id = 204066, category = "cooldown", priority = 1, specs = { 104 }, survival = "small", survivalOrder = 2 }, -- regel 1 van de Elune's Chosen-prioriteitslijst (Method/Icy Veins/Maxroll); JustAC SimcRotations DRUID_3 burst+st+aoe, SpellCooldowns 60s; card: IV 12.1 "survivability tool"
     -- Heart of the Wild: klassentalent (patchnotes, Method "class tree") -> baseline sinds 17 sep.
     -- ⚠️ id 1261867 is gemeten op Guardian; op de andere specs niet gemeten.
     -- Card: NIET op Guardian (3 okt 2026, mh-research: de Guardian-tooltip heeft geen Bear Form-effect, daar is het een aanvalsknop).
-    ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 104 }, survivalSpecs = { 102, 103, 105 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst; card: Bear Form +30% max health
+    ["Heart of the Wild"]                = { id = 1261867, category = "cooldown", priority = 3, specs = { 102, 104 }, blockAs = { [102] = { category = "defensive", priority = 3 } }, survivalSpecs = { 102, 103, 105 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- Icy Veins: cast in Cat Form, staat in de ST- EN de AoE-lijst; card: Bear Form +30% max health
     ["Incarnation: Guardian of Ursoc"]   = { id = 102558, blockQ = { [104] = true }, category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
     -- Rage of the Sleeper: verwijderd 17 sep (weg in 12.0.0, wiki).
     -- Utility
@@ -183,7 +194,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Thrash"]                           = { category = "main_rotation", priority = 2, specs = { 104 }, survival = "keepup", survivalOrder = 2, survivalId = { [104] = 77758 }, survivalNote = "SURVIVAL_NOTE_REND_TEAR" }, -- Guardian AoE-builder; Feral kwijt in 12.1 (IV Feral: "removed from the tree"); card 5 Oct 2026: 3 stacks + Rend and Tear = less damage (Method 3 Sep); id Wowhead, not client-measured
     ["Swipe"]                            = { id = 213764, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 103, 104 } }, -- AoE-builder (Shift-tweeling van primaire builder Shred/Mangle, builder 1)
     ["Skull Bash"]                       = { id = 106839, role = "interrupt", priority = 1, specs = { 103, 104 }, survival = "interrupt", survivalOrder = 1 }, -- charge+interrupt (melee-specs)
-    ["Stampeding Roar"]                  = { id = 106898, role = "utility_primary", priority = 2, specs = { 103, 104 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q (raid-speed)
+    ["Stampeding Roar"]                  = { id = 106898, role = "utility_primary", priority = 2, specs = { 102, 103, 104 }, survivalSpecs = { 103, 104 }, survival = "escape", survivalOrder = 4 }, -- Shift+Q (raid-speed)
     ["Survival Instincts"]               = { id = 61336, role = "defensive_3", priority = 1, specs = { 103, 104 }, survival = "big", survivalOrder = 2 }, -- grote def (-50% dmg), C
     ["Frenzied Regeneration"]            = { id = 22842, role = "heal_quick", priority = 2, specs = { 103, 104 }, survivalSpecs = { 102, 103, 104, 105 }, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_BEAR" }, -- self-heal (Guardian spender/Feral noodheal), F2/5; Bear Form only (Feral Cat only with Druid of the Claw); card: klassentalent, ook Balance/Resto (IV 12.1, 3 okt 2026)
     ["Berserk"]                          = { id = 106951, blockQ = { [103] = true, [104] = true }, role = "cooldown_bar", priority = 1, specs = { 103, 104 } }, -- Feral 106951 + Guardian 50334, zelfde naam, F1
@@ -214,10 +225,10 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Tranquility"]                      = { id = 740, blockQ = { [105] = true }, role = "cooldown_bar", priority = 1, specs = { 105 } }, -- grote raid-heal (C/F1)
     -- Flourish en Grove Guardians: verwijderd 17 sep (nu passief, patchnotes/IV Resto).
     ["Incarnation: Tree of Life"]        = { id = 33891, category = "cooldown", priority = 2, specs = { 105 } }, -- Resto heal-vorm CD (talent)
-    ["Convoke the Spirits"]              = { id = 391528, category = "cooldown", priority = 2, specs = { 105 } }, -- burst heal/dmg CD (talent)
+    ["Convoke the Spirits"]              = { id = 391528, category = "cooldown", priority = 2, specs = { 102, 105 } }, -- burst heal/dmg CD (talent); Balance 5 okt 2026 (keuze met Incarnation, SBA, wago)
     -- Dispel / CC
     ["Nature's Cure"]                    = { id = 88423, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 105 } }, -- magic/curse/poison dispel
-    ["Mass Entanglement"]                = { id = 102359, category = "dispel_cc", priority = 2, specs = { 105 } }, -- AoE-root
+    ["Mass Entanglement"]                = { id = 102359, category = "dispel_cc", priority = 2, specs = { 102, 105 } }, -- AoE-root; Balance 5 okt 2026 (klassentalent, keuze met Ursol's Vortex, wago)
     -- Utility
     ["Innervate"]                        = { id = 29166, category = "utility", priority = 2, specs = { 102, 105 }, blockAs = { [105] = { category = "cooldown", priority = 4 } } }, -- mana-utility (Balance+Resto), R
 
