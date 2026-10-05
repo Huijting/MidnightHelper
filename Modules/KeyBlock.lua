@@ -1461,6 +1461,29 @@ local function Ensure()
 		f.foot:SetText(msg or "")
 		if ok then
 			f.reloadBtn:Show()
+			-- The next step in the middle of the screen, not only in small print under the picture and in
+			-- chat. Rob, 5 Oct 2026, on his Prot: "iemand anders is absoluut een noob … chat leest bijna
+			-- niemand … ik weet niet wat ik moet doen nu".
+			if StaticPopupDialogs and StaticPopup_Show then
+				local d = StaticPopupDialogs["MH_KEYBLOCK_RELOAD"] or {
+					text = "%s",
+					OnAccept = function()
+						ReloadUI()
+					end,
+					timeout = 0,
+					whileDead = true,
+					hideOnEscape = true,
+					preferredIndex = 3,
+				}
+				d.button1 = ns:L("KEYBLOCK_BTN_RELOAD")
+				d.button2 = ns:L("KEYBLOCK_NEW_LATER")
+				StaticPopupDialogs["MH_KEYBLOCK_RELOAD"] = d
+				local pop = StaticPopup_Show("MH_KEYBLOCK_RELOAD", ns:L("KEYBLOCK_RELOAD_POPUP"))
+				-- Above the key block window (both are DIALOG strata otherwise).
+				if pop and pop.SetFrameStrata then
+					pop:SetFrameStrata("FULLSCREEN_DIALOG")
+				end
+			end
 		end
 		if f.UpdateLayoutUndo then
 			f.UpdateLayoutUndo()
