@@ -68,7 +68,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Voltaic Blaze"] = { category = "main_rotation", priority = 2, specs = { 262, 263 } }, -- Ele 2 + Enh 3 (instant filler, past FS toe; 470057)
 	["Lightning Bolt"] = { category = "main_rotation", priority = 3, specs = { 262, 263, 264 } }, -- Ele 3; Enh 4 (Maelstrom-builder; 188196)
 	["Elemental Blast"] = { category = "spender", priority = 1, specs = { 262, 263 } }, -- Ele 4; Enh 5 (ST-spender; 117014)
-	["Chain Lightning"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 262, 263, 264 } }, -- Ele + Enh (AoE builder; 188443); Resto since 5 Oct 2026
+	["Chain Lightning"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 262, 263, 264 }, blockAs = { [264] = { category = "main_rotation", priority = 6, bindKey = "Shift+4" } } }, -- Ele + Enh (AoE builder; 188443); Resto since 5 Oct 2026
 	-- Resto's own Flame Shock (wago SkillLineAbility 924, build 12.1.5.70077; 188389 has no learnable link
 	-- there). 5 Oct 2026, healers DPS too.
 	["Flame Shock"] = { id = 470411, category = "main_rotation", priority = 4, specs = { 264 } },
@@ -119,20 +119,21 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	-- ============================================================
 	-- ST-heals + ST-HoTs -> click_cast (mouseover/click-cast; GEEN toets). v6 6.
 	-- Card: click_cast, but on yourself these are the Resto self-heals (IV-Resto).
-	["Riptide"] = { id = 61295, role = "click_cast", priority = 1, specs = { 264 }, survival = "heal", survivalOrder = 1 }, -- Resto ST-HoT (instant HoT; mouseover/click-cast; 61295)
-	["Healing Wave"] = { id = 77472, role = "click_cast", priority = 1, specs = { 264 }, survival = "heal", survivalOrder = 3 }, -- Resto ST-heal (mana-efficiente filler; mouseover/click-cast; 77472)
+	["Riptide"] = { id = 61295, category = "main_rotation", priority = 1, bindKey = "1", specs = { 264 }, survival = "heal", survivalOrder = 1 }, -- Resto ST-HoT (instant HoT; mouseover/click-cast; 61295)
+	["Healing Wave"] = { id = 77472, category = "main_rotation", priority = 1, bindKey = "2", specs = { 264 }, survival = "heal", survivalOrder = 3 }, -- Resto ST-heal (mana-efficiente filler; mouseover/click-cast; 77472)
 	-- Healing Surge bestaat niet meer voor Resto (WH-pp-Resto); de baseline-entry hierboven is nu { 262, 263 }.
-	["Unleash Life"] = { role = "click_cast", priority = 1, specs = { 264 } }, -- Resto ST-heal-buff (buft next cast op doel; mouseover/click-cast; 73685)
+	["Unleash Life"] = { id = 73685, category = "main_rotation", priority = 1, bindKey = "4", specs = { 264 } },
+	["Earth Shield"] = { id = 974, role = "heal_quick", priority = 1, specs = { 264 } }, -- Resto ST-heal-buff (buft next cast op doel; mouseover/click-cast; 73685)
 	-- Raid/AoE/smart-heals -> toets.
-	["Chain Heal"] = { category = "raid_heal", priority = 2, specs = { 264 } }, -- Resto (smart multi-target heal, toets; 1064)
-	["Healing Rain"] = { category = "raid_heal", priority = 2, specs = { 264 } }, -- Resto (ground-AoE heal, toets; JustAC SpellCategories 73920)
+	["Chain Heal"] = { id = 1064, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 264 } }, -- Resto (smart multi-target heal, toets; 1064)
+	["Healing Rain"] = { id = 73920, category = "raid_heal", priority = 1, bindKey = "Shift+2", specs = { 264 } }, -- Resto (ground-AoE heal, toets; JustAC SpellCategories 73920)
 	["Downpour"] = { category = "raid_heal", priority = 3, specs = { 264 } }, -- Resto (AoE-burst-heal, toets; 462486)
-	["Surging Totem"] = { id = 455630, category = "raid_heal", priority = 2, specs = { 264 } }, -- Resto (heal/damage-totem, on cooldown); replaces Healing Rain (IV Resto 12.1). 455630 = the talent spell (wago, 5 Oct 2026); the old 444995 has no learnable link
-	["Purify Spirit"] = { category = "dispel_cc", priority = 1, specs = { 264 } }, -- Resto V (curse/magic dispel; JustAC DefensiveEngine 77130)
+	["Surging Totem"] = { id = 455630, excludes = "Healing Rain", category = "raid_heal", priority = 1, bindKey = "Shift+2", specs = { 264 } }, -- Resto (heal/damage-totem, on cooldown); replaces Healing Rain (IV Resto 12.1). 455630 = the talent spell (wago, 5 Oct 2026); the old 444995 has no learnable link
+	["Purify Spirit"] = { id = 77130, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 264 } }, -- Resto V (curse/magic dispel; JustAC DefensiveEngine 77130)
 	["Healing Tide Totem"] = { blockQ = { [264] = true }, role = "cooldown_bar", priority = 1, specs = { 264 } }, -- Resto F1 (raid-heal-burst; JustAC DefensiveEngine 108280)
 	["Spirit Link Totem"] = { category = "cooldown", priority = 2, specs = { 264 } }, -- Resto R (HP-verdeling raid-CD; JustAC DefensiveEngine 98008)
 	-- Class talent for all three specs (IV-Ele, IV-Enh); `specs` stays { 264 } for the keys, the card widens.
 	-- Card: a heal you drop often, after the first heal.
-	["Healing Stream Totem"] = { id = 5394, role = "utility_secondary", priority = 1, specs = { 264 }, survivalSpecs = { 262, 263, 264 }, survival = "heal", survivalOrder = 2 }, -- Resto F (passieve group-heal; JustAC SpellCategories 5394)
+	["Healing Stream Totem"] = { id = 5394, category = "main_rotation", priority = 1, bindKey = "3", specs = { 264 }, survivalSpecs = { 262, 263, 264 }, survival = "heal", survivalOrder = 2 }, -- Resto F (passieve group-heal; JustAC SpellCategories 5394)
 	["Ancestral Spirit"] = { category = "utility", priority = 3, specs = { 264 } }, -- Resto T (out-of-combat rez; JustAC SpellCategories 2008)
 }

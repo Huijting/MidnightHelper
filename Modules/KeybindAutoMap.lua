@@ -311,6 +311,8 @@ function ns.MH_AutoMapBuild()
 					-- Key block (KeyBlock.lua, 4 Oct 2026): read only there; the allocator ignores them.
 					blockForm = r.blockForm,
 					blockQ = r.blockQ,
+					blockAs = r.blockAs, -- healer round 5 Oct 2026: per-spec meaning on the block only
+					name = name,
 				}
 			end
 			matched = matched + 1

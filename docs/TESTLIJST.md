@@ -60,6 +60,15 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — healer-blok: elke spreuk van de speelkaart heeft een toets (Rob: "ja, advies")
+
+Doorgerekend (data/keyblock_specs.json): Holy Pal 1 Holy Shock, 2 Flash of Light, 3 Holy Light, 4 Word of Glory, 5 Judgment,
+Shift 1 Beacon, Shift 4 Light of Dawn, F1 Divine Toll, Q Avenging Wrath, F3 Holy Bulwark, F Beacon of Faith, F2 Lay on Hands.
+- [ ] Holy: **Terugzetten → Zet het op balk 5, 6 en 7**. Klopt dit in het spel? `/mh block why`: krijgt **Holy Bulwark** F3
+  (of meldt het spel hem onder Holy Prism's id 114165?), en **Beacon of Virtue** Shift 1? (AFGELEID, nog niet gemeten.)
+- [ ] Speelkaart Holy: staat achter elke gele naam nu een [toets]?
+- [ ] Het oude `/mh apply` geeft single-target heals nu ook een toets (bewust, Rob akkoord).
+
 ## 🆕 5 okt avond — speelkaart: toets achter elke spreuk + "Zo heal je" (Rob: "ik snap er helemaal niks van")
 
 - [x] Rob 5 okt: Holy- en Prot-blok staan goed. ✅

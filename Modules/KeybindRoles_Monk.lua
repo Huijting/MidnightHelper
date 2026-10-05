@@ -119,7 +119,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- Builders / rotatie (SpellArchetypes)
     ["Fists of Fury"]                = { category = "spender", priority = 1, specs = { 269 } },       -- 4: channeled finisher
     ["Spinning Crane Kick"]          = { category = "main_rotation", priority = 3, bindKey = "Shift+2", specs = { 269, 270 } }, -- AoE-builder (ook ST-relevant); MW baseline AoE too (IV MW 12.1, 5 Oct 2026)
-    ["Rushing Wind Kick"]            = { id = 467307, category = "main_rotation", priority = 3, specs = { 270 } }, -- MW talent over Rising Sun Kick 107428 (wago TraitDefinition 133028, 5 Oct 2026)
+    ["Rushing Wind Kick"]            = { id = 467307, excludes = "Rising Sun Kick", category = "main_rotation", priority = 2, bindKey = "4", specs = { 270 } }, -- MW talent over Rising Sun Kick 107428 (wago TraitDefinition 133028, 5 Oct 2026)
     ["Whirling Dragon Punch"]        = { category = "main_rotation", priority = 8, specs = { 269 } }, -- burst-window-nuke (guide.lua {152175})
     -- Movement (Q vervangt Roll bij talent)
     -- Chi Torpedo: klassentalent (audit); toetsen blijven { 269 }, de kaart toont hem bij alle specs.
@@ -143,15 +143,17 @@ ns.KeybindRoleClassifier.MONK = {
     -- utility / dispel / defensives + F2/F3 + raid-heal-CD's op CD-slots.
     -- =================================================================
     -- Damage-rotatie (SpellArchetypes: Rising Sun Kick) -- Fistweaving-damage BLIJFT main_rotation
-    ["Rising Sun Kick"]              = { category = "main_rotation", priority = 3, specs = { 269, 270 } }, -- WW-builder (2) + MW-damage (3)
+    ["Rising Sun Kick"]              = { category = "main_rotation", priority = 3, specs = { 269, 270 }, blockAs = { [270] = { category = "main_rotation", priority = 2, bindKey = "4" } } }, -- WW-builder (2) + MW-damage (3)
     -- -----------------------------------------------------------------
     -- ST-HEALS + ST-HoTs -> click_cast (mouseover/click-cast, GEEN toets)
     -- v6 6: single-target smart-heals lopen via mouseover-frames.
     -- (Vivify staat als baseline heal_ooc; geldt ook voor MW.)
     -- -----------------------------------------------------------------
-    ["Enveloping Mist"]              = { role = "click_cast", priority = 1, specs = { 270 } },        -- ST-HoT (grote channel-heal, mouseover)
-    ["Soothing Mist"]                = { role = "click_cast", priority = 1, specs = { 270 } },        -- ST channel-heal (mouseover)
-    ["Renewing Mist"]                = { role = "click_cast", priority = 1, specs = { 270 } },        -- ST-HoT (springt naar laagste, mouseover)
+    ["Enveloping Mist"]              = { id = 124682, category = "main_rotation", priority = 1, bindKey = "3", specs = { 270 } },        -- ST-HoT (grote channel-heal, mouseover)
+    ["Soothing Mist"]                = { id = 115175, category = "main_rotation", priority = 5, specs = { 270 } },        -- ST channel-heal (mouseover)
+    ["Renewing Mist"]                = { id = 115151, category = "main_rotation", priority = 1, bindKey = "1", specs = { 270 } },
+    ["Mana Tea"]                     = { id = 115294, role = "utility_secondary", priority = 1, specs = { 270 } },
+    ["Celestial Conduit"]            = { id = 443028, category = "cooldown", priority = 3, specs = { 270 } },        -- ST-HoT (springt naar laagste, mouseover)
     ["Sheilun's Gift"]               = { role = "click_cast", priority = 1, specs = { 270 } },        -- grote ST/smart-heal (verplaatst van spender -> click_cast)
     -- -----------------------------------------------------------------
     -- RAID/AoE-heals -> toets-slots
@@ -173,7 +175,7 @@ ns.KeybindRoleClassifier.MONK = {
     ["Invoke Yu'lon, the Jade Serpent"] = { blockQ = { [270] = true }, category = "cooldown", priority = 3, specs = { 270 } },  -- celestial raid-heal-CD (alt van Chi-Ji)
     -- Zen Meditation: verwijderd 17 sep (geen MW-spell, weg in 11.2.0; wiki).
     -- Dispel / CC
-    ["Detox"]                        = { category = "dispel_cc", priority = 1, specs = { 270 } },     -- V: magic/poison/disease dispel
+    ["Detox"]                        = { id = 115450, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 270 } },     -- V: magic/poison/disease dispel
     ["Ring of Peace"]                = { category = "dispel_cc", priority = 2, specs = { 270 } },     -- Shift+V: displacement-CC
 
     -- =================================================================
@@ -193,7 +195,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- Self-heals
     -- Expel Harm: was baseline, nu { 268, 269 } sinds 17 sep (weg voor MW in 12.0.0, wiki/Method).
     ["Expel Harm"]                   = { id = 322101, role = "heal_quick", priority = 1, specs = { 268, 269 }, survival = "heal", survivalOrder = 1 }, -- F2: snelle self-heal (SpellArchetypes 115129 + MONK/MONK_1/MONK_3 322101)
-    ["Vivify"]                       = { id = 116670, role = "heal_ooc", priority = 1, survival = "heal", survivalOrder = 2 }, -- F3: out-of-combat/direct heal (SpellCategories 116670)
+    ["Vivify"]                       = { id = 116670, role = "heal_ooc", priority = 1, blockAs = { [270] = { category = "main_rotation", priority = 1, bindKey = "2" } }, survival = "heal", survivalOrder = 2 }, -- F3: out-of-combat/direct heal (SpellCategories 116670)
     -- Grote defensive
     ["Fortifying Brew"]              = { id = 115203, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- C: grote defensive (115203 basis; 120954 BM / 201318 WW / 243435 MW-varianten, zelfde naam); card: 6 min (Wowhead), after Life Cocoon
     ["Touch of Death"]               = { category = "cooldown", priority = 4 }, -- iconische baseline execute-CD, alle specs (JustAC SpellCooldowns 322109=180s; SimC WW core)

@@ -88,7 +88,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Self-heals (F2 = heal_quick snelle combat-heal; F3 = heal_ooc out-of-combat).
 	-- Word of Glory = instant Holy-Power-noodheal, baseline alle specs (SpellCategories HEALING [85673]).
-	["Word of Glory"] = { id = 85673, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = { [66] = "SURVIVAL_NOTE_WOG_PROT" } }, -- F2; baseline (85673) instant self-heal. Prot note 3 Oct 2026: same Holy Power as Shield of the Righteous; free with Shining Light (Icy Veins "Active Mitigation", 21 Sep; Method 3 Sep)
+	["Word of Glory"] = { id = 85673, role = "heal_quick", priority = 1, blockAs = { [65] = { category = "spender", priority = 1, bindKey = "4" } }, survival = "heal", survivalOrder = 1, survivalNote = { [66] = "SURVIVAL_NOTE_WOG_PROT" } }, -- F2; baseline (85673) instant self-heal. Prot note 3 Oct 2026: same Holy Power as Shield of the Righteous; free with Shining Light (Icy Veins "Active Mitigation", 21 Sep; Method 3 Sep)
 	-- Lay on Hands = full heal on a 10 min cooldown with Forbearance (W-CD 600) — after Word of Glory.
 	["Lay on Hands"] = { id = 633, role = "heal_ooc", priority = 1, survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_LAST_RESORT" }, -- F3; baseline (633)
 
@@ -111,19 +111,19 @@ ns.KeybindRoleClassifier.PALADIN = {
 	["Holy Shock"] = { id = 20473, category = "main_rotation", priority = 1, bindKey = "1", specs = { 65 } },
 	-- Holy's own Shield of the Righteous (wago SpecializationSpells: spec 65, overrides 53600): a damage
 	-- Holy Power spender for Holy, active mitigation for Prot (that entry is below). Matches ONLY by id.
-	["Shield of the Righteous (Holy)"] = { id = 415091, category = "spender", priority = 1, specs = { 65 } },
-	["Flash of Light"] = { id = 19750, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [19750]; snelle ST-heal (instant bij Infusion of Light)
-	["Holy Light"] = { id = 82326, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [82326]; grote (dure) ST-filler-heal
+	["Shield of the Righteous (Holy)"] = { id = 415091, category = "spender", priority = 3, specs = { 65 } },
+	["Flash of Light"] = { id = 19750, category = "main_rotation", priority = 1, bindKey = "2", specs = { 65 } }, -- HEALING [19750]; snelle ST-heal (instant bij Infusion of Light)
+	["Holy Light"] = { id = 82326, category = "main_rotation", priority = 1, bindKey = "3", specs = { 65 } }, -- HEALING [82326]; grote (dure) ST-filler-heal
 	-- Beacons = buff-op-target (kies doelwit) -> ook click_cast/mouseover.
-	["Beacon of Light"] = { id = 53563, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [53563]; beacon-plaatsing op target
-	["Beacon of Faith"] = { id = 156910, role = "click_cast", priority = 1, specs = { 65 } }, -- HEALING [156910]; tweede beacon-op-target (talent)
+	["Beacon of Light"] = { id = 53563, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 65 } }, -- HEALING [53563]; beacon-plaatsing op target
+	["Beacon of Faith"] = { id = 156910, category = "utility", priority = 1, specs = { 65 } }, -- HEALING [156910]; tweede beacon-op-target (talent)
 	-- Raid/AoE-heals BLIJVEN op toetsen.
 	["Light of Dawn"] = { id = 85222, category = "raid_heal", priority = 1, bindKey = "Shift+4", specs = { 65 } }, -- HEALING [85222]; AoE-heal-spender (AoE-slot)
-	["Holy Prism"] = { id = 114165, category = "raid_heal", priority = 2, specs = { 65 } }, -- HEALING [114165]; AoE-heal/damage
-	["Beacon of Virtue"] = { id = 200025, category = "utility", priority = 4, specs = { 65 } }, -- HEALING [200025]; multi-beacon-AoE (talent)
+	["Holy Prism"] = { id = 114165, category = "cooldown", priority = 3, specs = { 65 } }, -- HEALING [114165]; AoE-heal/damage
+	["Beacon of Virtue"] = { id = 200025, excludes = "Beacon of Light", category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 65 } }, -- HEALING [200025]; multi-beacon-AoE (talent)
 	-- Heal-cooldowns: grootste = cooldown_bar, rest category="cooldown".
 	["Divine Toll"] = { id = 375576, category = "cooldown", priority = 2, specs = { 65, 66, 70 } }, -- [375576] instant Holy-Power-burst; baseline-CD op alle 3 specs (Holy heal / Prot / Ret). Eén entry: dubbele-key zou anders 2 specs verliezen.
-	["Aura Mastery"] = { id = 31821, role = "cooldown_bar", priority = 2, specs = { 65 } }, -- HEALING [31821]; raid-defensive-CD (F1-familie)
+	["Aura Mastery"] = { id = 31821, category = "cooldown", priority = 4, specs = { 65 } }, -- HEALING [31821]; raid-defensive-CD (F1-familie)
 
 	--==============================================================================
 	-- PROTECTION (spec 66) - tank.
@@ -187,7 +187,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- ability rotates Holy Bulwark and Sacred Weapon. You start with 2 charges … It will start the
 	-- cycle as Holy Bulwark." It is ONE button (Method calls it Holy Armaments); a second entry would
 	-- ask the allocator for a second key. AFGELEID that the slot reads 432459 while on Holy Bulwark.
-	["Holy Bulwark"] = { id = 432459, category = "defensive", priority = 3, specs = { 66 } }, -- [432459] gemeten in Robs client; Lightsmith, staat in Methods prioriteitslijst
+	["Holy Bulwark"] = { id = 432459, category = "defensive", priority = 3, specs = { 65, 66 }, blockAs = { [65] = { category = "cooldown", priority = 3 } } }, -- [432459] gemeten in Robs client; Lightsmith, staat in Methods prioriteitslijst
 	["Rite of Sanctification"] = { id = 433568, category = "utility", priority = 1, specs = { 66 } }, -- [433568] gemeten in Robs client; Lightsmith-build
 
 	--==============================================================================

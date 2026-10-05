@@ -109,7 +109,7 @@ for _, sp in ipairs(SPECS) do
 		if type(r) == "table" and SpecMatches(r.specs, specID) and r.role ~= "click_cast" and r.category ~= "click_cast"
 			and (r.role or r.category) then
 			spells[#spells + 1] = { id = r.id, name = name, role = r.role, category = r.category, priority = r.priority,
-				bindKey = r.bindKey, blockForm = r.blockForm, blockQ = r.blockQ }
+				bindKey = r.bindKey, blockForm = r.blockForm, blockQ = r.blockQ, blockAs = r.blockAs }
 		end
 	end
 	if recup then

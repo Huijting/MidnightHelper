@@ -187,6 +187,14 @@ function ns.KeyBlockAllocate(spells, specID)
 	local left = {}
 	local list = {}
 	for _, s in ipairs(spells or {}) do
+		-- blockAs (healer round, 5 Oct 2026): one classifier entry that means something else on THIS spec's
+		-- block (Word of Glory: Holy's spender on 4, Prot's self-heal on F2). Only the block reads it; the
+		-- v7 allocator keeps the entry's own role. A copy, so the caller's table is never changed.
+		local as = type(s.blockAs) == "table" and specID and s.blockAs[specID]
+		if type(as) == "table" then
+			s = { id = s.id, name = s.name, role = as.role, category = as.category,
+				priority = as.priority or s.priority, bindKey = as.bindKey, blockForm = s.blockForm, blockQ = s.blockQ }
+		end
 		list[#list + 1] = s
 		s._done = nil
 	end

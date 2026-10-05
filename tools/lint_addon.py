@@ -841,28 +841,44 @@ def check_keybind_wish_conflicts(root):
         # a non-greedy match stops at the FIRST closing brace and truncates the spec
         # list to nothing -- which is exactly how the first version of this check
         # reported zero conflicts while a harness was finding eight.
-        entries = []          # (name, bindKey, [specs] or None)
+        # `blockAs = { [spec] = { ..., bindKey = "x" } }` (healer round, 5 Oct 2026): on that spec the
+        # block's wish REPLACES the entry's own one, so the plain bindKey must not count there, and the
+        # blockAs key counts for that spec only. Without this the check read the first bindKey on the
+        # line and reported two false conflicts (Priest 257 Shift+2, Shaman 264 Shift+1).
+        entries = []          # (name, bindKey, [specs] or None, excludes, specs that blockAs overrides)
         all_specs = set()
         for line in src.splitlines():
             m = re.match(r'\s*\["([^"]+)"\]\s*=\s*\{(.*)\}', line)
             if not m:
                 continue
             name, body = m.group(1), m.group(2)
-            specs_m = re.search(r'specs\s*=\s*\{([^}]*)\}', body)
+            blk = re.search(r'blockAs\s*=\s*\{.*?\}\s*\}', body)
+            plain = body.replace(blk.group(0), "") if blk else body
+            as_specs = {}
+            if blk:
+                for sid, inner in re.findall(r'\[(\d+)\]\s*=\s*\{([^}]*)\}', blk.group(0)):
+                    bk = re.search(r'bindKey\s*=\s*"([^"]+)"', inner)
+                    as_specs[int(sid)] = bk.group(1) if bk else None
+            specs_m = re.search(r'specs\s*=\s*\{([^}]*)\}', plain)
             specs = None
             if specs_m:
                 specs = [int(x) for x in re.findall(r'\d+', specs_m.group(1))]
                 all_specs.update(specs)
-            excl_m = re.search(r'excludes\s*=\s*"([^"]+)"', body)
-            bind_m = re.search(r'bindKey\s*=\s*"([^"]+)"', body)
+            excl_m = re.search(r'excludes\s*=\s*"([^"]+)"', plain)
+            excl_name = excl_m.group(1) if excl_m else None
+            bind_m = re.search(r'bindKey\s*=\s*"([^"]+)"', plain)
             if bind_m:
-                entries.append((name, bind_m.group(1), specs, excl_m.group(1) if excl_m else None))
+                entries.append((name, bind_m.group(1), specs, excl_name, set(as_specs)))
+            for sid, bk in as_specs.items():
+                all_specs.add(sid)
+                if bk:
+                    entries.append((name, bk, [sid], excl_name, set()))
 
         for spec in sorted(all_specs):
             seen = {}
             excl = {}
-            for name, key, specs, excludes in entries:
-                if specs is None or spec in specs:
+            for name, key, specs, excludes, skip in entries:
+                if (specs is None or spec in specs) and spec not in skip:
                     seen.setdefault(key, []).append(name)
                     if excludes:
                         excl[name] = excludes

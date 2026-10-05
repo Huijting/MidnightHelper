@@ -198,15 +198,16 @@ ns.KeybindRoleClassifier.DRUID = {
     -- gaan naar category="cooldown" (grootste = cooldown_bar). Resto krijgt
     -- daarnaast damage/utility/dispel/defensives + persoonlijke self-heal.
     -- Swiftmend = ST -> click_cast; Wild Growth = AoE-raidheal -> toets:
-    ["Swiftmend"]                        = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-heal (instant, consumeert HoT) -> mouseover/click-cast, GEEN toets (v6 6)
+    ["Swiftmend"]                        = { id = 18562, category = "main_rotation", priority = 1, bindKey = "3", specs = { 105 } }, -- ST-heal (instant, consumeert HoT) -> mouseover/click-cast, GEEN toets (v6 6)
     -- Ontbrekende ST-heals + ST-HoTs -> click_cast (mouseover, GEEN toets). Regrowth is
     -- Resto-only en bestaat NIET als aparte Lua-key elders -> veilig toegevoegd.
-    ["Rejuvenation"]                     = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-HoT (Resto-only) -> mouseover/click-cast
-    ["Regrowth"]                         = { id = 8936, role = "click_cast", priority = 1, specs = { 105 }, survivalSpecs = { 102, 103, 105 }, survival = "heal", survivalOrder = 2, survivalNote = { [103] = "SURVIVAL_NOTE_INSTANT_REGROWTH" } }, -- Feral 5 Oct 2026: free instant after a finisher (Predatory Swiftness, IV Feral Easy Mode) -- ST-heal + kort HoT -> mouseover/click-cast; card: Resto's own self-heal, en Balance (baseline, castbaar in Moonkin Form; 3 okt 2026)
-    ["Lifebloom"]                        = { role = "click_cast", priority = 1, specs = { 105 } }, -- ST-HoT op tank (Resto-only) -> mouseover/click-cast
+    ["Rejuvenation"]                     = { id = 774, category = "main_rotation", priority = 1, bindKey = "1", specs = { 105 } }, -- ST-HoT (Resto-only) -> mouseover/click-cast
+    ["Regrowth"]                         = { id = 8936, category = "main_rotation", priority = 1, bindKey = "2", specs = { 105 }, survivalSpecs = { 102, 103, 105 }, survival = "heal", survivalOrder = 2, survivalNote = { [103] = "SURVIVAL_NOTE_INSTANT_REGROWTH" } }, -- Feral 5 Oct 2026: free instant after a finisher (Predatory Swiftness, IV Feral Easy Mode) -- ST-heal + kort HoT -> mouseover/click-cast; card: Resto's own self-heal, en Balance (baseline, castbaar in Moonkin Form; 3 okt 2026)
+    ["Lifebloom"]                        = { id = 33763, category = "main_rotation", priority = 1, bindKey = "4", specs = { 105 } },
+    ["Nature's Swiftness"]               = { id = 132158, category = "cooldown", priority = 2, specs = { 105 } }, -- ST-HoT op tank (Resto-only) -> mouseover/click-cast
     -- Cenarion Ward: verwijderd 17 sep (weg in 12.0, patchnotes).
-    ["Wild Growth"]                      = { category = "raid_heal", priority = 2, bindKey = "Shift+4", specs = { 105 } }, -- AoE-raidheal BLIJFT op toets (Shift+4)
-    ["Efflorescence"]                    = { category = "raid_heal", priority = 4, specs = { 105 } }, -- grond-AoE-raidheal (bloom) -> toets
+    ["Wild Growth"]                      = { id = 48438, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 105 } }, -- AoE-raidheal BLIJFT op toets (Shift+4)
+    ["Efflorescence"]                    = { id = 145205, category = "raid_heal", priority = 1, bindKey = "Shift+2", specs = { 105 } }, -- grond-AoE-raidheal (bloom) -> toets
     -- Kleine defensive (extern)
     ["Ironbark"]                         = { id = 102342, category = "defensive", priority = 2, specs = { 105 }, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- extern -20% dmg (C since 19 Sep 2026: it was a second defensive_1 behind Barkskin, so it fell to Shift+Z while C held Mass Entanglement); ook raid-CD-slot; card: 1.5 min, not a keep-up (wiki); small achter Barkskin sinds 3 okt 2026 (-20% = even sterk als Barkskin)
     -- Raid-heal cooldowns (op cooldown-slots)
@@ -215,10 +216,10 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Incarnation: Tree of Life"]        = { category = "cooldown", priority = 2, specs = { 105 } }, -- Resto heal-vorm CD (talent)
     ["Convoke the Spirits"]              = { category = "cooldown", priority = 2, specs = { 105 } }, -- burst heal/dmg CD (talent)
     -- Dispel / CC
-    ["Nature's Cure"]                    = { category = "dispel_cc", priority = 1, specs = { 105 } }, -- magic/curse/poison dispel
+    ["Nature's Cure"]                    = { id = 88423, category = "dispel_cc", priority = 1, bindKey = "V", specs = { 105 } }, -- magic/curse/poison dispel
     ["Mass Entanglement"]                = { category = "dispel_cc", priority = 2, specs = { 105 } }, -- AoE-root
     -- Utility
-    ["Innervate"]                        = { category = "utility", priority = 2, specs = { 102, 105 } }, -- mana-utility (Balance+Resto), R
+    ["Innervate"]                        = { category = "utility", priority = 2, specs = { 102, 105 }, blockAs = { [105] = { category = "cooldown", priority = 4 } } }, -- mana-utility (Balance+Resto), R
 
     -- =================================================================
     -- BASELINE (alle 4 Druid-specs; geen specs=)
