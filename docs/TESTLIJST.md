@@ -60,6 +60,12 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — het oude paneel "Je balken inrichten" is kort (Rob: optie A)
+
+- [ ] `/mh setup` (of de MH-knop "Je balken inrichten"): nog maar 3 knoppen: **Je toetsenblok** (opent `/mh block`),
+  **Toetsen handmatig zetten**, **Terugdraaien**. Bovenaan: "Je keybindings zijn account-breed: het toetsenblok geeft elk
+  personage dezelfde toetsen." Past alles in het (kleinere) venster?
+
 ## 🆕 5 okt avond — toetsenblok: macro's gaan opzij, het blok is overal compleet
 
 Rob: "Blok C is absoluut anders dan wat wij voorgesteld hebben … die macro's moeten dan maar ergens anders komen."

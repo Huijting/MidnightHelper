@@ -33,6 +33,11 @@ ns._mhLocales.enUS = {
 	MH_SETUP_NOTE_BARSBACK = "Undoes the bar layout above \194\183 not your spells.",
 	MH_SETUP_CONFIRM = "Sure? Click again",
 	MH_SETUP_FOOT = "Starting over? Step 3, then step 2. Read step 1 if in doubt.",
+	-- 5 Oct 2026: the panel became the way into the key block (Rob chose option A)
+	MH_SETUP_BTN_BLOCK = "Your key block",
+	MH_SETUP_NOTE_BLOCK = "Same task on the same key, on every character. Shows it first, places it on request.",
+	MH_SETUP_ACCOUNT_BLOCK = "Your keybindings are account-wide: the key block gives every character the same keys.\nPlace the block on each character, or its keys press empty buttons there.",
+	MH_SETUP_FOOT_BLOCK = "\"Undo\" reverses the last step of the old layout steps. The key block has its own undo in its window.",
 	FPS_TITLE = "Your graphics settings",
 	FPS_NOW = "Framerate right now: |cffffffff%s|r fps",
 	FPS_RAIDSET = "Separate raid/battleground settings: |cffffffff%s|r",

@@ -23,7 +23,7 @@ local _, ns = ...
 
 -- Wider than it looks like it needs: the buttons size themselves to the longest
 -- translated label (see Build), and the notes sit to their right.
-local PANEL_W, PANEL_H = 520, 620
+local PANEL_W, PANEL_H = 520, 300
 
 local panel
 
@@ -119,7 +119,8 @@ local function StatusText()
 		tostring(name), tostring(className or "?"), LayoutSize())
 
 	if set == "account" then
-		lines[#lines + 1] = ns:L("MH_SETUP_ACCOUNT_WARN")
+		-- With the key block this is a feature, not a warning: the same keys on every character.
+		lines[#lines + 1] = ns:L("MH_SETUP_ACCOUNT_BLOCK")
 	elseif set == "character" then
 		lines[#lines + 1] = ns:L("MH_SETUP_CHARACTER_OK")
 	else
@@ -234,171 +235,26 @@ local function Build()
 		return btn, fs
 	end
 
-	--- The switch itself, because the warning alone was not enough.
-	---
-	--- Rob read "your keybindings are account-wide", went to the options and set this
-	--- character to its own keys "voor de zekerheid" — and the panel still said
-	--- account-wide. It was right: `Account\...\bindings-cache.wtf` was rewritten at the
-	--- moment of his reload while `...\Redisch\bindings-cache.wtf` sat at 0 bytes and
-	--- untouched since March. The switch had not taken. A panel that names a problem and
-	--- then sends the player elsewhere to fix it is where that goes wrong.
-	---
-	--- `SaveBindings` is the same call the options screen makes, and MH already uses it
-	--- after every apply. It copies the keys you have into the chosen set — nothing is
-	--- lost either way, and pressing it again on the account set puts you back.
-	f.charBtn, f.charNote = Row(MakeButton(f, ns:L("MH_SETUP_BTN_CHARSET"), function()
-		if not SaveBindings then
-			return
+	--- 5 Oct 2026, Rob chose option A: the key block (`/mh block`) is the way in now. The old v7 steps
+	--- (own keys, plan, place, clear, dead keys, bar plan, thumb keys, bar preset, bars back, export) left
+	--- this panel: "niemand heeft hem aangegeven als zijnde gebruikt … wat we nu gebouwd hebben is vele
+	--- malen beter". Their slash commands still work. What stays: the block, Blizzard's Quick Keybind
+	--- ("iets wat ik wel vaak gebruikt heb"), and the old undo for one release, so nobody who used the
+	--- old steps is stranded without a way back.
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_BLOCK"), function()
+		if ns.ShowKeyBlock then
+			f:Hide()
+			ns.ShowKeyBlock()
 		end
-		--- ⚠️ 2 is MEASURED, not assumed. `ACCOUNT_BINDINGS`/`CHARACTER_BINDINGS` are gone
-		--- on 12.x (the probe recorded both as nil), so the constants cannot be asked.
-		--- What is known: `GetCurrentBindingSet()` returned 1 on Rob's Hunter while the
-		--- account file was the one being written, so 1 is the account set and 2 is the
-		--- only other value the call takes. And we verify rather than trust it — if the
-		--- game does not come back reading "character", the panel says so.
-		--- ⚠️ ONE PRESS IS NOT ENOUGH, AND THAT IS MEASURED TWICE.
-		---
-		--- `SaveBindings(2)` flips what `GetCurrentBindingSet()` reports straight away,
-		--- so the panel turns green and it looks finished. On the PTR it then fell back:
-		--- Rob pressed this, ran `/mh apply go`, reloaded — and the ACCOUNT file had
-		--- grown from 0 to 664 bytes with no character file in sight, reading 1 again.
-		--- His keys went to every character, the exact thing this button prevents.
-		---
-		--- What DID stick, found by Rob trying his own order: this button, then step 3
-		--- (clear and refill), then 1 and 2, then a reload. That left
-		--- `Mageme\bindings-cache.wtf` at 680 bytes and the set on 2.
-		---
-		--- ⚠️ Why that order works is NOT established. Two observations, no mechanism —
-		--- most likely the set only persists once real keys are written into it, but
-		--- that has not been isolated. So the note under the button tells the player to
-		--- follow up with step 2 rather than pretending one click settles it, and no
-		--- theory has been coded in. `LoadBindings` sat here briefly on the reasoning
-		--- that switching and saving are different verbs; it was removed again because
-		--- untested code that rewrites somebody's keybindings is not worth a hunch. The
-		--- probe records whether that function exists, for when this is worth finishing.
-		pcall(SaveBindings, 2)
+	end), ns:L("MH_SETUP_NOTE_BLOCK"))
 
-		--- ⚠️ Ask again a moment later, not immediately.
-		---
-		--- Measured on the PTR: after Rob pressed this, `ns.db.bindingSetProbe` came back
-		--- `raw = 2`, so the switch worked — but the panel still read "account-wide" and
-		--- the button stayed enabled. The read straight after `SaveBindings` is too early;
-		--- the client has not finished with it yet. A verification that runs before the
-		--- thing it verifies is worse than none, because it reports a false failure.
-		local function verify()
-			local now = ns.Keybind_BindingSet and ns.Keybind_BindingSet()
-			if now == "character" then
-				print(Prefix() .. " " .. ns:L("MH_SETUP_CHARSET_DONE"))
-				ns.MH_SetupSay("ok", ns:L("MH_SETUP_CHARSET_DONE"))
-			else
-				local msg = (ns:L("MH_SETUP_CHARSET_FAIL")):format(tostring(now or "?"))
-				print(Prefix() .. " " .. msg)
-				ns.MH_SetupSay("warn", msg)
-			end
-			if panel and panel.Refresh then
-				panel:Refresh()
-			end
-		end
-		if C_Timer and C_Timer.After then
-			C_Timer.After(0.5, verify)
-		else
-			verify()
-		end
-	end), ns:L("MH_SETUP_NOTE_CHARSET"))
-
-	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PREVIEW"), function()
-		if ns.MH_ApplyLayout then
-			ns.MH_ApplyLayout()
-		end
-	end), ns:L("MH_SETUP_NOTE_PREVIEW"))
-
-	Row(MakeButton(f, ns:L("MH_SETUP_BTN_APPLY"), function()
-		if ns.MH_ApplyLayout then
-			ns.MH_ApplyLayout("go")
-		end
-	end), ns:L("MH_SETUP_NOTE_APPLY"))
-
-	Row(MakeArmedButton(f, ns:L("MH_SETUP_BTN_CLEAR"), ns:L("MH_SETUP_CONFIRM"),
-		function()
-			if ns.MH_ApplyLayout then
-				ns.MH_ApplyLayout("full go")
-			end
-		end), ns:L("MH_SETUP_NOTE_CLEAR"))
-
-	Row(MakeArmedButton(f, ns:L("MH_SETUP_BTN_CLEAN"), ns:L("MH_SETUP_CONFIRM"),
-		function()
-			if ns.MH_ApplyLayout then
-				ns.MH_ApplyLayout("clean go")
-			end
-		end), ns:L("MH_SETUP_NOTE_CLEAN"))
-
-	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PLAN"), function()
-		if ns.MH_ShowBarPlan then
-			ns.MH_ShowBarPlan()
-		end
-	end), ns:L("MH_SETUP_NOTE_PLAN"))
-
-	--- The thumb-pad keys, for the mice that send numbers instead of mouse buttons.
-	---
-	--- Rob's Naga sends 6 7 8 9 0 - and he keeps them on bar 8 permanently. Doing that
-	--- by hand in Blizzard's keybinding screen on every character is exactly the chore
-	--- this panel exists to remove. Two presses, like the destructive ones: the first
-	--- prints what would move, the second moves it.
-	Row(MakeArmedButton(f, ns:L("MH_SETUP_BTN_PADKEYS"), ns:L("MH_SETUP_CONFIRM"),
-		function()
-			if ns.MH_PadKeysApply then
-				ns.MH_PadKeysApply(true)
-			end
-		end,
-		function()
-			-- First press: print what the second one would move.
-			if ns.MH_PadKeysApply then
-				ns.MH_PadKeysApply(false)
-			end
-		end), ns:L("MH_SETUP_NOTE_PADKEYS"))
-
-	--- Blizzard's own Quick Keybind Mode, next to our button rather than three menus
-	--- away. Ours handles the six keys it knows; everything else is bound by hovering
-	--- and pressing, which is faster than any list we could draw.
+	--- Blizzard's own Quick Keybind Mode: hover a button, press a key.
 	Row(MakeButton(f, ns:L("MH_SETUP_BTN_QUICKBIND"), function()
 		if ns.MH_OpenQuickKeybind then
 			ns.MH_OpenQuickKeybind()
 		end
 	end), ns:L("MH_SETUP_NOTE_QUICKBIND"))
 
-	--- The bars themselves, which the panel could describe but never hand over.
-	---
-	--- Rob went looking for the export string here first, which is the right instinct
-	--- and it was not here — it lived behind `/mh editmode export`, a command you have
-	--- to know exists. The panel is where somebody is already standing when they wonder
-	--- about their bars.
-	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PRESET"), function()
-		if ns.MH_ApplyBarPreset then
-			ns.MH_ApplyBarPreset(false)
-		end
-	end), ns:L("MH_SETUP_NOTE_PRESET"))
-
-	--- ⚠️ TWO UNDOS, AND THEY ARE NOT THE SAME UNDO.
-	---
-	--- The panel already had a button called "Undo" — it reverses the last spell/key
-	--- action. Applying the bar preset is a different kind of change, and its way back
-	--- is `/mh editmode restore`, a command that appeared nowhere on screen. Rob asked
-	--- for exactly this: if it does not suit you, there has to be a button.
-	---
-	--- So the bar undo sits directly under the bar preset, where somebody who just
-	--- pressed one looks for the other. Both keep their own wording so nobody has to
-	--- guess which of the two they are pressing.
-	Row(MakeButton(f, ns:L("MH_SETUP_BTN_BARSBACK"), function()
-		if ns.MH_EditModeRestore then
-			ns.MH_EditModeRestore()
-		end
-	end), ns:L("MH_SETUP_NOTE_BARSBACK"))
-
-	Row(MakeButton(f, ns:L("MH_SETUP_BTN_EXPORT"), function()
-		if ns.MH_EditModeExport then
-			ns.MH_EditModeExport()
-		end
-	end), ns:L("MH_SETUP_NOTE_EXPORT"))
 
 	Row(MakeButton(f, ns:L("MH_SETUP_BTN_UNDO"), function()
 		if ns.MH_ApplyLayout then
@@ -437,7 +293,7 @@ local function Build()
 	f.foot:SetPoint("BOTTOMLEFT", 16, 14)
 	f.foot:SetPoint("BOTTOMRIGHT", -16, 14)
 	f.foot:SetJustifyH("LEFT")
-	f.foot:SetText(ns:L("MH_SETUP_FOOT"))
+	f.foot:SetText(ns:L("MH_SETUP_FOOT_BLOCK"))
 
 	--- Anchored to the BOTTOM so it grows upward into empty space. Anchored to the top it
 	--- would push every button down the moment a three-line answer arrived, and a panel
@@ -457,13 +313,6 @@ local function Build()
 		else
 			self.result:SetText("")
 		end
-		-- Greyed out rather than hidden: a row that appears and disappears moves every
-		-- button under it, and these buttons do different things.
-		local set = ns.Keybind_BindingSet and ns.Keybind_BindingSet()
-		local already = (set == "character")
-		self.charBtn:SetEnabled(not already)
-		self.charNote:SetText(already and ns:L("MH_SETUP_NOTE_CHARSET_OK")
-			or ns:L("MH_SETUP_NOTE_CHARSET"))
 	end
 
 	if ns.AttachMidnightDialogCloseButton then
