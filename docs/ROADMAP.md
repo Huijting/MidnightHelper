@@ -20,6 +20,7 @@ De rest, bewaard voor later (≈ prioriteit):
   Rob over "genoeg" (zelfde avond): reken op een raid van **3 à 4 uur**. Flasks gaan volgens hem door de dood heen
   (dus weinig nodig); **healing potions zijn belangrijk**, en dan **de beste kwaliteit**. Te meten (mh-research):
   flaskduur + blijft hij na een dood, potion-cooldown, pulls per uur in een raidavond.
+  ✅ Onderzocht 5 okt: `docs/RAID_CONSUMABLES_2026-10-05.md` (vuistregel progressie/farm + 3 gaten in `/mh ready`).
 
 - [ ] **Zoeken in tassen en bank van alle karakters (Rob, 1 okt 2026: "in het achterhoofd houden")** — gezien bij
       Allemano AltBoard (WoW Forever; alleen idee, geen code). Bewust NIET nu: Altoholic/AltVault/Alts Forever/Syndicator
