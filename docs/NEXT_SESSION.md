@@ -6,7 +6,7 @@ Stap 2a (neerzetten + undo): ✅ Rob getest (Place + Undo werken); proefrit staa
 (niet getest). Vakjes 5 okt avond breder, toets op eigen strookje (Rob: toets liep door het icoon).
 Stap 2b ✅ Rob getest 5 okt (blok + kolommen + terugzetten werken; balk 8 vastgezet op zijn plek, GEMETEN in SV).
 GEMETEN: een 3×4-balk vult van onder (knop 1 linksonder) → `ButtonFor()` in KeyBlock.lua zet plaatje-rij 1 op knop 9-12;
-die reparatie is nog niet getest. Open keuze voor Rob: lege knoppen tonen in het blok (AlwaysShowButtons, setting 9)?
+die reparatie is nog niet getest. Rob koos "lege knoppen tonen": blokbalken krijgen AlwaysShowButtons (setting 9) = 1.
 Oorspronkelijk (Rob: "1 advies, 2 advies, 3 advies"; plaatje https://claude.ai/artifact/8Qy5EfdBVTrU6dmvTQK5xR):
 `ns.MH_EditModeApplyKeyBlock` in `EditModeBackup.lua`, knop in `/mh block`, ook `/mh block layout`. Balk 5/6/7 = 3×4 naast
 elkaar onderaan (B midden, A/C eraan vast), 1-4 verticaal rechts, stance/possess boven A, extra (systeem 5) boven B, pet

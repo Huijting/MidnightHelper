@@ -764,6 +764,9 @@ function ns.MH_EditModeApplyKeyBlock()
 			SetSetting(s, 0, 0)  -- Orientation: horizontal
 			SetSetting(s, 1, 3)  -- NumRows
 			SetSetting(s, 2, 12) -- NumIcons
+			-- AlwaysShowButtons on: an empty place stays visible, so the block keeps its 3 x 4 shape.
+			-- Rob, 5 Oct 2026: "ja, lege knoppen tonen in het blok" (his bars had it off: gaps).
+			SetSetting(s, 9, 1)
 		end
 	end
 	if sysBy[6] then Anchor(sysBy[6], "BOTTOM", "UIParent", "BOTTOM", shift, bottom) end
