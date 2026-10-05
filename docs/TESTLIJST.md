@@ -60,6 +60,12 @@ Rob: "Je mag gaan bouwen." Gebouwd: alleen het **plaatje**. Er verandert niets o
    Foutmelding? (Je hebt je eigen balken teruggezet, dus er hoort **niets** te veranderen.)
 5. Als er wél iets veranderde: `/mh editmode restore` en `/reload`, en stuur me een screenshot.
 
+## 🆕 5 okt avond — elke layout zijn eigen weg terug (Rob op TwelveInchy: "Oak staat al als blok")
+
+- [ ] Paladin: `/reload`, `/mh block`. De knop heet nu **Zet "<jouw layout>" terug** (grijs zolang MH die layout niet
+  als blok zette) — niet meer "Oak". **Zet mijn balken als blok** werkt, ook al staat Oak op de Hunter als blok.
+- [ ] Daarna **Zet "<jouw layout>" terug** → herladen: alles terug? En op de Hunter staat Oak nog steeds als blok?
+
 ## 🆕 5 okt avond — spiekbrief: code voor de site (Rob: route 1 + 3)
 
 - [ ] `/mh block` → knop **Spiekbrief (code voor de site)** (of `/mh block export`): een kopieervak met een tekst die

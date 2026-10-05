@@ -582,6 +582,9 @@ function ns.MH_EditModeRestore()
 	end
 	ns.db.keyBlockLayoutOn = nil
 	ns.db.keyBlockOldBarsHidden = nil
+	if ns.db.keyBlockLayoutsOn then
+		ns.db.keyBlockLayoutsOn[tostring(undo.layoutName)] = nil
+	end
 	local msg = (ns:L("MH_SAY_BARS_RESTORED")):format(tostring(undo.layoutName))
 	print(Prefix() .. " " .. msg)
 	if ns.MH_SetupSay then
@@ -673,6 +676,91 @@ local function Rect(fr)
 	return fr:GetLeft() * k, fr:GetRight() * k, fr:GetBottom() * k, fr:GetTop() * k
 end
 
+--- The name of this character's ACTIVE saved layout, or nil on a preset (Modern/Classic).
+local function ActiveLayout()
+	if not (C_EditMode and C_EditMode.GetLayouts) then
+		return nil
+	end
+	local okG, info = pcall(C_EditMode.GetLayouts)
+	local presets = PresetCount()
+	if not (okG and type(info) == "table" and info.layouts and presets) then
+		return nil
+	end
+	local target = info.layouts[(tonumber(info.activeLayout) or 0) - presets]
+	return target and tostring(target.layoutName) or nil, target, info
+end
+
+--- Is this layout arranged as a block by MH? Also reads the single flag from before 5 Oct evening.
+local function KeyBlockLayoutIsOn(name)
+	local db = ns.db
+	if not (db and name) then
+		return false
+	end
+	if db.keyBlockLayoutsOn and db.keyBlockLayoutsOn[name] then
+		return true
+	end
+	local u = db.editModeBarsUndo
+	return db.keyBlockLayoutOn and u and u.by == "keyblock" and u.layoutName == name and true or false
+end
+
+--- For the key block window: active layout, whether MH arranged it, whether bars 2/3 are hidden in it.
+function ns.MH_EditModeKeyBlockState()
+	local name = ActiveLayout()
+	local on = KeyBlockLayoutIsOn(name)
+	local hidden = on and ns.db and ns.db.keyBlockOldBarsHiddenBy and ns.db.keyBlockOldBarsHiddenBy[name]
+	if on and hidden == nil then
+		hidden = true -- arranged before the per-layout flags: arranging always hid them
+	end
+	return name, on, hidden and true or false
+end
+
+--- "Put <layout> back": the ACTIVE layout returns to its own copy from before arranging.
+--- @return boolean ok, string message
+function ns.MH_EditModeRestoreKeyBlock()
+	local ok, why = Ready()
+	if not ok then
+		return false, tostring(why)
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return false, ns:L("KEYBLOCK_LAYOUT_COMBAT")
+	end
+	local name, target, info = ActiveLayout()
+	if not name then
+		return false, ns:L("KEYBLOCK_LAYOUT_NO_UNDO")
+	end
+	local saved = ns.db and ns.db.keyBlockLayoutSaved and ns.db.keyBlockLayoutSaved[name]
+	if not saved then
+		-- Arranged before 5 Oct evening: the old account-wide undo, but only for the layout it names.
+		local u = ns.db and ns.db.editModeBarsUndo
+		if u and u.layoutName == name and ns.MH_EditModeRestore and ns.MH_EditModeRestore() then
+			if ns.db.keyBlockLayoutsOn then
+				ns.db.keyBlockLayoutsOn[name] = nil
+			end
+			return true, ns:L("KEYBLOCK_LAYOUT_RESTORED")
+		end
+		return false, ns:L("KEYBLOCK_LAYOUT_NO_UNDO")
+	end
+	target.systems = Sanitize(saved, 0)
+	if EditModeManagerFrame and EditModeManagerFrame.ReconcileWithModern then
+		pcall(EditModeManagerFrame.ReconcileWithModern, EditModeManagerFrame, target)
+	end
+	if not pcall(C_EditMode.SaveLayouts, info) then
+		return false, "Edit Mode refused the restore."
+	end
+	ns.db.keyBlockLayoutSaved[name] = nil
+	if ns.db.keyBlockLayoutsOn then
+		ns.db.keyBlockLayoutsOn[name] = nil
+	end
+	if ns.db.keyBlockOldBarsHiddenBy then
+		ns.db.keyBlockOldBarsHiddenBy[name] = nil
+	end
+	local u = ns.db.editModeBarsUndo
+	if u and u.layoutName == name then
+		ns.db.keyBlockLayoutOn = nil
+	end
+	return true, ns:L("KEYBLOCK_LAYOUT_RESTORED")
+end
+
 --- @return boolean ok, string message (said in the key block window)
 function ns.MH_EditModeApplyKeyBlock()
 	local ok, why = Ready()
@@ -684,14 +772,6 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 	if EditModeManagerFrame and EditModeManagerFrame:IsShown() then
 		return false, ns:L("KEYBLOCK_LAYOUT_EDITMODE_OPEN")
-	end
-	-- A second press would back up the BLOCK as "before", and the undo could never reach the
-	-- player's own layout again. So: undo first.
-	-- One undo slot for the whole account (the backup holds every layout, the undo names one), so one
-	-- block layout at a time. Say WHICH layout: on an alt with its own layout "already a block" is false.
-	if ns.db and ns.db.keyBlockLayoutOn then
-		local name = ns.db.editModeBarsUndo and ns.db.editModeBarsUndo.layoutName or "?"
-		return false, ns:L("KEYBLOCK_LAYOUT_ALREADY_FMT"):format(tostring(name))
 	end
 	-- EllesmereUI draws its own bars and ignores Edit Mode rows: explain instead of writing.
 	local loaded = C_AddOns and C_AddOns.IsAddOnLoaded
@@ -716,6 +796,15 @@ function ns.MH_EditModeApplyKeyBlock()
 	local target = info.layouts[savedIndex]
 	if not target then
 		return false, ns:L("MH_SAY_PRESET_LAYOUT")
+	end
+	-- 🔴 ONE WAY BACK PER LAYOUT (5 Oct 2026). There was one undo slot for the whole account: Rob arranged
+	-- his Hunter's character layout "Oak", went to his Paladin, and could neither arrange there ("Oak is
+	-- already a block") nor undo ("Oak" exists only on the Hunter). Each layout now keeps its own copy of
+	-- its systems from before; a second press on the same layout is still refused, because it would save
+	-- the BLOCK as "before".
+	local layoutName = tostring(target.layoutName)
+	if KeyBlockLayoutIsOn(layoutName) then
+		return false, ns:L("KEYBLOCK_LAYOUT_ALREADY_FMT"):format(layoutName)
 	end
 	local notes = {}
 	if Enum and Enum.EditModeLayoutType and target.layoutType == Enum.EditModeLayoutType.Account then
@@ -811,6 +900,9 @@ function ns.MH_EditModeApplyKeyBlock()
 		return false, "could not back up your layout, so nothing was changed."
 	end
 	ns.db.editModeBarsUndo = { savedIndex = savedIndex, layoutName = target.layoutName, by = "keyblock" }
+	-- This layout's own way back: a copy of its systems as they are now, under its name.
+	ns.db.keyBlockLayoutSaved = ns.db.keyBlockLayoutSaved or {}
+	ns.db.keyBlockLayoutSaved[layoutName] = Sanitize(target.systems, 0)
 
 	local pinned = 0
 	for _, s in ipairs(target.systems or {}) do
@@ -899,8 +991,10 @@ function ns.MH_EditModeApplyKeyBlock()
 	end
 
 	if ns.db then
-		ns.db.keyBlockLayoutOn = true
-		ns.db.keyBlockOldBarsHidden = true
+		ns.db.keyBlockLayoutsOn = ns.db.keyBlockLayoutsOn or {}
+		ns.db.keyBlockLayoutsOn[layoutName] = true
+		ns.db.keyBlockOldBarsHiddenBy = ns.db.keyBlockOldBarsHiddenBy or {}
+		ns.db.keyBlockOldBarsHiddenBy[layoutName] = true
 		ns.db.keyBlockLayoutProbe = { size = size, pad = pad, shift = shift, pinned = pinned,
 			layout = target.layoutName, at = time() }
 	end
@@ -943,7 +1037,8 @@ function ns.MH_EditModeOldBars(show)
 	if not pcall(C_EditMode.SaveLayouts, info) then
 		return false, "Edit Mode refused the change."
 	end
-	ns.db.keyBlockOldBarsHidden = not show
+	ns.db.keyBlockOldBarsHiddenBy = ns.db.keyBlockOldBarsHiddenBy or {}
+	ns.db.keyBlockOldBarsHiddenBy[tostring(target.layoutName)] = not show
 	return true, ns:L(show and "KEYBLOCK_OLDBARS_SHOWN" or "KEYBLOCK_OLDBARS_HIDDEN")
 end
 

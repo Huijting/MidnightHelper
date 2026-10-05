@@ -1393,7 +1393,8 @@ local function Ensure()
 		if not ns.MH_EditModeOldBars then
 			return
 		end
-		local ok, msg = ns.MH_EditModeOldBars(ns.db and ns.db.keyBlockOldBarsHidden)
+		local _, _, hidden = ns.MH_EditModeKeyBlockState()
+		local ok, msg = ns.MH_EditModeOldBars(hidden)
 		Refresh(f)
 		f.foot:SetText(msg or "")
 		if ok then
@@ -1420,10 +1421,12 @@ local function Ensure()
 	-- The way back NAMES the layout it puts back. Rob, 5 Oct 2026, pressing it on his Hunter: "waarom zegt
 	-- hij iets over twelve retro?" — the block layout he undid was his Paladin's account layout, and a
 	-- button called "my bars back" gave no hint of that. Grey when there is nothing to put back.
+	-- Per layout since 5 Oct evening: it names THIS character's active layout, and is grey unless MH
+	-- arranged that one (Rob's Paladin was offered "Put Oak back", his Hunter's layout).
 	function f.UpdateLayoutUndo()
-		local u = ns.db and ns.db.editModeBarsUndo
-		if ns.db and ns.db.keyBlockLayoutOn and u and u.layoutName then
-			f.layoutUndoBtn:SetText(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO_FMT"):format(tostring(u.layoutName)))
+		local name, on = ns.MH_EditModeKeyBlockState()
+		if on then
+			f.layoutUndoBtn:SetText(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO_FMT"):format(tostring(name)))
 			f.layoutUndoBtn:Enable()
 		else
 			f.layoutUndoBtn:SetText(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO"))
@@ -1434,8 +1437,7 @@ local function Ensure()
 		NeedReload(ns.MH_EditModeApplyKeyBlock())
 	end)
 	f.layoutUndoBtn = Btn("KEYBLOCK_BTN_LAYOUT_UNDO", 22 + 3 * 210, function()
-		local ok = ns.MH_EditModeRestore and ns.MH_EditModeRestore()
-		NeedReload(ok, ok and ns:L("KEYBLOCK_LAYOUT_RESTORED") or ns:L("KEYBLOCK_LAYOUT_NO_UNDO"))
+		NeedReload(ns.MH_EditModeRestoreKeyBlock())
 	end)
 	-- Cheat sheet: a code for midnighthelper.com, to print or keep on a phone (route 1, 5 Oct 2026).
 	f.exportBtn = Btn("KEYBLOCK_BTN_EXPORT", 22 + 4 * 210, function()
@@ -1471,8 +1473,9 @@ Refresh = function(f)
 	f.title:SetText(ns:L("KEYBLOCK_TITLE"))
 	f.placeBtn:SetText(ns:L(GetSnap() and "KEYBLOCK_BTN_UPDATE" or "KEYBLOCK_BTN_PLACE"))
 	f.modeBtn:SetText(ns:L("KEYBLOCK_MODE_FMT"):format(ns:L("KEYBLOCK_MODE_" .. ns.KeyBlockNewMode():upper())))
-	if ns.db and ns.db.keyBlockLayoutOn then
-		f.oldBarsBtn:SetText(ns:L(ns.db.keyBlockOldBarsHidden and "KEYBLOCK_BTN_OLDBARS_SHOW" or "KEYBLOCK_BTN_OLDBARS_HIDE"))
+	local _, layoutOn, oldHidden = ns.MH_EditModeKeyBlockState()
+	if layoutOn then
+		f.oldBarsBtn:SetText(ns:L(oldHidden and "KEYBLOCK_BTN_OLDBARS_SHOW" or "KEYBLOCK_BTN_OLDBARS_HIDE"))
 		f.oldBarsBtn:Show()
 	else
 		f.oldBarsBtn:Hide()
