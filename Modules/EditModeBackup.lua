@@ -989,7 +989,7 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	-- the BLOCK as "before".
 	local layoutName = tostring(target.layoutName)
 	if KeyBlockLayoutIsOn(layoutName) then
-		return false, ns:L("KEYBLOCK_LAYOUT_ALREADY_FMT"):format(layoutName)
+		return false, ns:L("KEYBLOCK_LAYOUT_ALREADY_FMT"):format(layoutName, layoutName)
 	end
 	local notes = {}
 	if Enum and Enum.EditModeLayoutType and target.layoutType == Enum.EditModeLayoutType.Account then
@@ -1244,7 +1244,8 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 		ns.db.keyBlockLayoutProbe = { size = size, pad = pad, shift = shift, pinned = pinned,
 			layout = target.layoutName, at = time() }
 	end
-	local msg = ns:L("KEYBLOCK_LAYOUT_DONE_FMT"):format(tostring(target.layoutName), pinned)
+	-- The name twice: the undo button is labelled with it (KEYBLOCK_BTN_LAYOUT_UNDO_FMT).
+	local msg = ns:L("KEYBLOCK_LAYOUT_DONE_FMT"):format(tostring(target.layoutName), pinned, tostring(target.layoutName))
 	if #notes > 0 then
 		msg = table.concat(notes, " ") .. "|n" .. msg
 	end

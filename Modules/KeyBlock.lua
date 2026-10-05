@@ -562,6 +562,7 @@ local function PlacePlan()
 				-- (ApplyLayout.lua, 10 Aug 2026; red team 5 Oct 2026).
 				row.action = "refuse"
 				row.why = "holds the Single-Button Assistant"
+				row.whyKey = "KEYBLOCK_REFUSE_ASSIST"
 			elseif not want then
 				row.action, row.why = "skip", why or "nothing for this place on this character"
 				-- Rob, 5 Oct 2026 ("1 ja"): an empty place on the picture is empty on the bar too. What
@@ -588,6 +589,7 @@ local function PlacePlan()
 				else
 					row.action = "refuse"
 					row.why = ("holds a %s (%s) that could not be put back"):format(tostring(kind), OccupantName(kind, id))
+					row.whyKey, row.whyArg = "KEYBLOCK_REFUSE_KIND_FMT", OccupantName(kind, id)
 				end
 			end
 			rows[#rows + 1] = row
@@ -653,6 +655,7 @@ local function PlacePlan()
 				r.action = "refuse"
 				r.why = ("holds %s and there is no free button left on bars 2-4 to move it to"):format(
 					tostring(r.replaces.name))
+				r.whyKey, r.whyArg = "KEYBLOCK_REFUSE_NOROOM_FMT", tostring(r.replaces.name)
 				r.replaces = nil
 			end
 		end
@@ -1373,7 +1376,12 @@ local function SlotTooltip(btn)
 		elseif r.action == "place" then
 			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_PLACE"), 0.4, 0.9, 0.45, true)
 		elseif r.action == "refuse" then
-			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_REFUSE_FMT"):format(r.why or ""), 1, 0.35, 0.35, true)
+			-- The player's language; `why` stays English for /mh block why and the chat dry run.
+			local why = r.why or ""
+			if r.whyKey then
+				why = ns:L(r.whyKey):format(r.whyArg or "?")
+			end
+			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_REFUSE_FMT"):format(why), 1, 0.35, 0.35, true)
 		elseif r.action == "keep" then
 			GameTooltip:AddLine(ns:L("KEYBLOCK_TIP_KEEP"), 0.7, 0.7, 0.7, true)
 		end
