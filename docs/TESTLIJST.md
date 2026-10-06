@@ -28,9 +28,23 @@ Robs screenshot daarna: nog steeds Warband Map / Lift Off / Aerial Halt op Alt 1
 - [x] Rob 6 okt ✅ (screenshot na `/reload`: Concentration/Crusader/Devotion Aura + 3 Overload-herbs op D, juiste
   iconen) `/reload` → staan de onbekende spreuken zelf op D?
 - Rob: "ja doe maar geen toets" → auras en Overload-herbs in NO_KEY_ON_PURPOSE.
-- [ ] Prot Paladin `/reload` → Undo → neerzetten: blok D zonder auras/herbs, rode regel weg, geen popup meer?
+- [x] Rob 6 okt ✅ (screenshot: D leeg op zijn macro DUNDUN na, "Every spell Midnight Helper knows for this spec has a
+  place", geen rode regel) Prot Paladin `/reload` → Undo → neerzetten: blok D zonder auras/herbs?
+
+## 🆕 6 okt — `/mh ready`: "Je gear" (enchants + lege sockets) en "onderweg" (Rob: "1 en het onderweg-trucje ook")
+
+Gebouwd, niet getest. Onder de consumables een kopje met alleen wat ONTBREEKT: per slot zonder enchant de eerste keus
+van de Enchants-tab ("(keuze)" als er meer opties zijn), en lege sockets (Eversong Diamond als je er geen draagt + de
+gem voor je stats). Zelfde klik/shift-klik/Auctionator. Onderweg: wat je op de AH koopt telt meteen als "+N in je post".
+- [ ] Personage met een ontbrekende enchant of lege socket: staat het kopje er, met de goede naam en "Koop 1"?
+- [ ] Klik bij het veilinghuis op een enchant-rij → zoekt "Enchant Ring - Eyes of the Eagle" (bv.)?
+- [ ] Naar Auctionator: staan de enchants/gems ook in de lijst?
+- [ ] Koop iets op de AH en kijk METEEN (zonder brievenbus) in `/mh ready`: "+N in je post"?
+- [ ] Alles in orde → is het kopje weg?
 
 ## 🆕 6 okt — `/mh ready`: brievenbus en bank tellen mee (Rob: "ja doe maar allebei")
+- [x] Rob 6 okt ✅ (screenshot Hunter Redisch: "+30 in mail" bij beide potions, "+7 in bank" bij Food, status "Pick it
+  up"; Flask "Enough") brievenbus en bank.
 
 Gebouwd, niet getest. Per rij een klein regeltje "+N in je post" / "+N op de bank" (bank = bank + Warband-bank). Ligt
 genoeg klaar, dan staat er geel **Ophalen** in plaats van **Koop**. De post kent MH pas na één bezoek aan de brievenbus.

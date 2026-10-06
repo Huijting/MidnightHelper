@@ -790,6 +790,92 @@ function ns.GetGearEnchantSummary()
 	return missing, sockets
 end
 
+--- The shopping rows for `/mh ready` (Rob, 6 Oct 2026: "kunnen we zo een lijst ook maken voor onze enchants en
+--- empty sockets?" -> one list for the whole raid night). One row per thing to BUY, with the FIRST pick of the
+--- same advice the Enchants tab gives (Recommend/RecommendGem above), so the two can never disagree about the lead
+--- choice. Where the tab offers a choice (head, feet, legs, ring, weapon), `choice` says so: the window shows it
+--- and the Enchants tab keeps all options. Shoulders stay out: optional there too.
+--- @return table rows { label, name (AH name), iid|nil, sid|nil, need, choice }
+function ns.GetGearShoppingRows()
+	local rows = {}
+	if not GetInventoryItemLink then
+		return rows
+	end
+	local stat = TopStat()
+	local _, classToken = UnitClass("player")
+	local role = ns.GetPlayerRoleKey and ns.GetPlayerRoleKey()
+	local function pick(slotId)
+		if slotId == 16 then
+			if classToken == "DEATHKNIGHT" then
+				return nil
+			end
+			if role == "tank" or role == "heal" then
+				return WEAPON_PRIMARY, true
+			end
+			return (stat and WEAPON_BY_STAT[stat]) or WEAPON_PRIMARY, true
+		elseif slotId == 11 or slotId == 12 then
+			return RING_EFFECT, true
+		elseif slotId == 5 then
+			return CHEST_PRIMARY, false
+		elseif slotId == 1 then
+			return HEAD_TERTIARY[1], true
+		elseif slotId == 8 then
+			return FEET_TERTIARY[1], true
+		elseif slotId == 7 then
+			local p = PrimaryStat()
+			if p == "int" then
+				return LEG_INT[1], true
+			elseif p == "agi" or p == "str" then
+				return LEG_AGISTR[1], true
+			end
+		end
+		return nil
+	end
+	local byName = {}
+	local function add(label, e, n, choice)
+		if not (e and e.ah) then
+			return
+		end
+		local r = byName[e.ah]
+		if r then
+			r.need = r.need + n
+			r.label = r.label .. ", " .. label
+			return
+		end
+		r = { label = label, name = e.ah, iid = e.iid, sid = e.sid, need = n, choice = choice }
+		byName[e.ah] = r
+		rows[#rows + 1] = r
+	end
+	for _, s in ipairs(SLOTS) do
+		if s.id ~= 3 then
+			local hasItem, enchanted = SlotState(s.id)
+			if hasItem and not enchanted then
+				local e, choice = pick(s.id)
+				local label = (s.id == 16 and (_G.WEAPON or "Weapon")) or _G[s.label] or s.label
+				add(label, e, 1, choice)
+			end
+		end
+	end
+	-- Empty sockets: one gets the unique diamond if none is worn, the rest the dual-stat gem.
+	local empty = 0
+	for _, gs in ipairs(GEM_SLOTS) do
+		empty = empty + EmptySocketCount(gs.id)
+	end
+	if empty > 0 then
+		local label = ns:L("GEM_SOCKETS_LABEL")
+		if not HasDiamondEquipped() then
+			add(label, DIAMOND_REC, 1, false)
+			empty = empty - 1
+		end
+		local r = RankedStats()
+		local gem = r and GEM_BY_PAIR[r[1] .. "|" .. r[2]]
+		if empty > 0 and gem then
+			add(label, gem, empty, false)
+		end
+	end
+	return rows
+end
+
 function ns.PrintGearEnchantCheck()
 	print(("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX")))
 	for _, line in ipairs(BuildReportLines(nil)) do

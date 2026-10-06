@@ -94,7 +94,8 @@ local function ScanMail()
 	if not g then
 		return
 	end
-	local items, complete, seen = {}, true, 0
+	-- byName: enchant scrolls are known to us by NAME only (GearEnchantCheck keeps spell ids for them).
+	local items, byName, complete, seen = {}, {}, true, 0
 	local ok = pcall(function()
 		local n, total = GetInboxNumItems()
 		n = n or 0
@@ -109,7 +110,7 @@ local function ScanMail()
 			if (itemCount or 0) > 0 and not isGM and (cod or 0) == 0 then
 				for a = 1, (ATTACHMENTS_MAX_RECEIVE or 16) do
 					if not HasInboxItem or HasInboxItem(i, a) then
-						local _, id, _, count, _, _, isCurrency = GetInboxItem(i, a)
+						local iname, id, _, count, _, _, isCurrency = GetInboxItem(i, a)
 						if ns.IsSecretValue and (ns.IsSecretValue(id) or ns.IsSecretValue(count)) then
 							complete = false
 						elseif type(id) == "number" and not isCurrency then
@@ -119,6 +120,9 @@ local function ScanMail()
 							rec.n = rec.n + (tonumber(count) or 1)
 							rec.e = math.min(rec.e, e)
 							items[id] = rec
+							if type(iname) == "string" and iname ~= "" then
+								byName[iname] = rec
+							end
 						elseif id == nil and HasInboxItem then
 							complete = false -- item data not cached yet
 						end
@@ -128,7 +132,9 @@ local function ScanMail()
 		end
 	end)
 	ns.db.raidShopMail = ns.db.raidShopMail or {}
-	ns.db.raidShopMail[g] = { t = time and time() or 0, items = items, complete = ok and complete, mails = seen }
+	-- A fresh look at the mailbox replaces everything, including what was "on its way" (bought, not yet seen).
+	ns.db.raidShopMail[g] = { t = time and time() or 0, items = items, byName = byName, complete = ok and complete,
+		mails = seen }
 	if win and win:IsShown() and Refresh then
 		Refresh()
 	end
@@ -139,7 +145,39 @@ local mailWatch = CreateFrame("Frame")
 mailWatch:RegisterEvent("MAIL_SHOW")
 mailWatch:RegisterEvent("MAIL_INBOX_UPDATE")
 mailWatch:RegisterEvent("MAIL_CLOSED")
-mailWatch:SetScript("OnEvent", function(_, event)
+-- "On its way" (Rob, 6 Oct 2026: "kunnen we dat niet op een of andere manier forceren?" — no addon can read the
+-- mailbox unopened, so we remember what you buy at the moment you buy it). Both events are in Blizzard's
+-- AuctionHouseDocumentation 12.1 (mh-research); never seen firing in Rob's client yet. pcall: an unknown event
+-- would otherwise break the file on load.
+pcall(mailWatch.RegisterEvent, mailWatch, "COMMODITY_PURCHASED")
+pcall(mailWatch.RegisterEvent, mailWatch, "ITEM_PURCHASED")
+
+local function NoteOnWay(itemID, qty)
+	local g = MyGuid()
+	if not (g and ns.db and type(itemID) == "number") then
+		return
+	end
+	ns.db.raidShopMail = ns.db.raidShopMail or {}
+	local s = ns.db.raidShopMail[g] or { t = 0, items = {}, byName = {} }
+	ns.db.raidShopMail[g] = s
+	s.onWay = s.onWay or {}
+	local rec = s.onWay[itemID] or { n = 0 }
+	rec.n = rec.n + (tonumber(qty) or 1)
+	rec.t = time and time() or 0
+	s.onWay[itemID] = rec
+	if win and win:IsShown() and Refresh then
+		Refresh()
+	end
+end
+
+mailWatch:SetScript("OnEvent", function(_, event, a1, a2)
+	if event == "COMMODITY_PURCHASED" then
+		NoteOnWay(a1, a2)
+		return
+	elseif event == "ITEM_PURCHASED" then
+		NoteOnWay(a1, 1)
+		return
+	end
 	if event == "MAIL_SHOW" then
 		mailOpen = true
 	elseif event == "MAIL_CLOSED" then
@@ -166,6 +204,50 @@ local function MailCount(ids)
 		local rec = s.items[id]
 		if rec and (rec.e or 0) > now then
 			n = n + (rec.n or 0)
+		end
+		-- Bought after the last look at the mailbox: on its way. (ScanMail replaces the snapshot, so this
+		-- disappears the moment the real count takes over.)
+		local w = s.onWay and s.onWay[id]
+		if w and (w.t or 0) >= (s.t or 0) then
+			n = n + (w.n or 0)
+		end
+	end
+	return n
+end
+
+--- The same, for an enchant scroll we only know by name.
+local function MailCountByName(name)
+	local s = MailSnap()
+	if not (s and name) then
+		return 0
+	end
+	local now = time and time() or 0
+	local n = 0
+	local rec = s.byName and s.byName[name]
+	if rec and (rec.e or 0) > now then
+		n = n + (rec.n or 0)
+	end
+	for id, w in pairs(s.onWay or {}) do
+		if (w.t or 0) >= (s.t or 0) and ItemName(id) == name then
+			n = n + (w.n or 0)
+		end
+	end
+	return n
+end
+
+--- Items in the bags by NAME (enchant scrolls). Bags 0-5: the four bags, the backpack and the reagent bag.
+local function BagCountByName(name)
+	if not (name and C_Container and C_Container.GetContainerNumSlots and C_Container.GetContainerItemInfo) then
+		return 0
+	end
+	local n = 0
+	for bag = 0, 5 do
+		local okN, slots = pcall(C_Container.GetContainerNumSlots, bag)
+		for slot = 1, (okN and tonumber(slots)) or 0 do
+			local ok, info = pcall(C_Container.GetContainerItemInfo, bag, slot)
+			if ok and type(info) == "table" and info.itemID and ItemName(info.itemID) == name then
+				n = n + (info.stackCount or 1)
+			end
 		end
 	end
 	return n
@@ -274,6 +356,19 @@ end
 local ShowCopy, SetStatus
 
 local function OnRowClick(row)
+	if row.gearName then
+		-- Gear rows: an enchant scroll we know by name (a gem also has its item id, for the chat link).
+		if IsModifiedClick and IsModifiedClick("CHATLINK") then
+			if row.itemID then
+				LinkInChat(row.itemID)
+			end
+			return
+		end
+		if not SearchAuctionHouse(row.gearName) then
+			ShowCopy(row.gearName)
+		end
+		return
+	end
 	local id = row.itemID
 	if not id or row.info then
 		return -- Healthstone: nothing to buy
@@ -302,7 +397,12 @@ local function ToAuctionator()
 	end
 	local terms = {}
 	for _, b in ipairs(win.buyList) do
-		local name, hearty = SearchName(b.id)
+		local name, hearty
+		if b.name then
+			name = b.name -- gear: enchant scroll or gem, by its AH name
+		else
+			name, hearty = SearchName(b.id)
+		end
 		if name and not name:find("[;^\"]") then
 			-- Hearty food: not exact, so Auctionator shows the plain dish and any Hearty one (see SearchName).
 			terms[#terms + 1] = { searchString = name, isExact = not hearty, quantity = b.qty }
@@ -379,6 +479,9 @@ local function Build()
 	f.intro:SetWordWrap(true)
 
 	f.rows = {}
+	f.gearHead = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.gearHead:SetTextColor(1, 0.82, 0.2)
+	f.gearHead:Hide()
 	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.foot:SetWidth(WIDTH - 32)
 	f.foot:SetJustifyH("LEFT")
@@ -422,6 +525,7 @@ local function Build()
 	-- C_Item.RequestLoadItemDataByID answers with this one, not GET_ITEM_INFO_RECEIVED. Rob's screenshot 6 Oct 2026:
 	-- Food stayed "…" while Auctionator already had the name, so the window never heard the answer. (AFGELEID)
 	f:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+	f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED") -- an enchant or gem applied: the gear rows change
 	f:Hide()
 	return f
 end
@@ -462,9 +566,17 @@ local function Row(i)
 		end
 	end)
 	r:SetScript("OnEnter", function(self)
-		if self.itemID and GameTooltip then
+		if not GameTooltip then
+			return
+		end
+		if self.itemID then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			pcall(GameTooltip.SetItemByID, GameTooltip, self.itemID)
+			GameTooltip:Show()
+		elseif self.gearName then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(self.gearName)
+			GameTooltip:AddLine(L("RAIDSHOP_GEAR_TIP"), 1, 1, 1, true)
 			GameTooltip:Show()
 		end
 	end)
@@ -513,6 +625,7 @@ Refresh = function()
 		r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
 		r.itemID = d.itemID
 		r.info = d.info
+		r.gearName = nil
 		r.icon:SetTexture(ItemIcon(d.itemID))
 		r.label:SetText(L(d.labelKey))
 		r.item:SetText(ItemName(d.itemID) or (d.itemID and "…" or L("RAIDSHOP_NO_DATA")))
@@ -556,7 +669,69 @@ Refresh = function()
 		r:Show()
 		y = y - ROW_H
 	end
-	for i = #rows + 1, #win.rows do
+
+	-- Your gear: missing enchants and empty sockets (Rob, 6 Oct 2026, option 1: one list for the whole night).
+	-- Same advice as the Enchants tab (ns.GetGearShoppingRows takes its first pick); only what is missing.
+	local gear = ns.GetGearShoppingRows and select(2, pcall(ns.GetGearShoppingRows)) or nil
+	if type(gear) ~= "table" then
+		gear = {}
+	end
+	local used = #rows
+	if #gear > 0 then
+		win.gearHead:SetText(L("RAIDSHOP_GEAR_HEAD"))
+		win.gearHead:ClearAllPoints()
+		win.gearHead:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y - 6)
+		win.gearHead:Show()
+		y = y - 6 - win.gearHead:GetStringHeight() - 4
+		for _, g in ipairs(gear) do
+			used = used + 1
+			local have = g.iid and (select(2, pcall(C_Item.GetItemCount, g.iid)) or 0) or BagCountByName(g.name)
+			have = tonumber(have) or 0
+			local ids = g.iid and { g.iid } or nil
+			local inMail = ids and MailCount(ids) or MailCountByName(g.name)
+			local inBank = ids and BankCount(ids) or 0
+			local toBuy = math.max(0, g.need - have - inMail - inBank)
+			if toBuy > 0 then
+				win.buyList[#win.buyList + 1] = { name = g.name, qty = toBuy }
+			end
+			local r = Row(used)
+			r:ClearAllPoints()
+			r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
+			r.itemID, r.info, r.gearName = g.iid, nil, g.name
+			local icon = g.iid and ItemIcon(g.iid)
+			if not icon and g.sid and C_Spell and C_Spell.GetSpellTexture then
+				local ok, tex = pcall(C_Spell.GetSpellTexture, g.sid)
+				icon = ok and tex or nil
+			end
+			r.icon:SetTexture(icon or 134400)
+			r.label:SetText(g.choice and (g.label .. " " .. L("RAIDSHOP_GEAR_CHOICE")) or g.label)
+			r.item:SetText(g.name)
+			r.count:SetText(("%d / %d"):format(have, g.need))
+			if have >= g.need then
+				r.status:SetText("|cff40ff40" .. L("RAIDSHOP_ENOUGH") .. "|r")
+			elseif toBuy == 0 then
+				r.status:SetText("|cffffd100" .. L("RAIDSHOP_PICKUP") .. "|r")
+			else
+				missing = missing + 1
+				r.status:SetText("|cffff5555" .. L("RAIDSHOP_BUY_FMT"):format(toBuy) .. "|r")
+			end
+			local where = {}
+			if inMail > 0 then
+				where[#where + 1] = L("RAIDSHOP_IN_MAIL_FMT"):format(inMail)
+			end
+			if inBank > 0 then
+				where[#where + 1] = L("RAIDSHOP_IN_BANK_FMT"):format(inBank)
+			end
+			r.where:SetText(table.concat(where, ", "))
+			r.count:ClearAllPoints()
+			r.count:SetPoint("RIGHT", r, "RIGHT", -110, #where > 0 and 6 or 0)
+			r:Show()
+			y = y - ROW_H
+		end
+	else
+		win.gearHead:Hide()
+	end
+	for i = used + 1, #win.rows do
 		win.rows[i]:Hide()
 	end
 	local foot = L("RAIDSHOP_FOOT") .. " " .. L("RAIDSHOP_CLICK_HINT")
