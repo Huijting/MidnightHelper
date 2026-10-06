@@ -60,7 +60,8 @@ en opgeslagen (`ns.db.craftShop[guid]`), dus de lijst heeft het beroepsvenster d
 - [ ] Open de lijst (paneel, `/mh craftshop` of Tools → Pop-out windows): recept met "20×" (en "ongeveer N gemaakt"
   als het recept er meer geeft), daaronder elke reagent met heb/nodig, "+N in je post / op de bank", Koop/Ophalen.
   Kloppen de aantallen met je tassen? Telt een reagent in zilver én goud samen?
-- [ ] Klik bij het veilinghuis op een reagent → zoekt hij? Naar Auctionator → lijst "MH craft - <naam>"?
+- [x] Rob 6 okt ✅ ("ja, keurig"; screenshot Auctionator-lijst "MH craft - Purlymixanox" met "Fantastic Fur" [x1])
+  Naar Auctionator → lijst "MH craft - <naam>". Paneel volgt het gekozen recept na de reparatie (Rob: "gaat nu goed").
 - [ ] Kruisje bij een recept haalt het weg; "Lijst leegmaken" werkt?
 - [ ] Iets mis: `/mh craftshop why` (beroep open, recept gekozen) → screenshot van de chat.
 
