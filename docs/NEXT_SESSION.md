@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🔴 6 okt — BUG IN 4.7.2: onbekende spreuken kregen het id van een ANDERE spreuk — GEREPAREERD, NIET GETEST
+GEMETEN in Robs SV (Prot Paladin, keyBlockLeftoverProbe): "Crusader Aura:431280" (= Warband Map), "Devotion Aura:32223"
+(= Crusader Aura). `MH_AutoMapBuild` sorteerde `unmatched` (namen) maar niet `unmatchedIds`. Sinds 4.7.2 zet het blok
+onbekende spreuken op id naar blok D → verkeerde spreuk achter een Alt-toets, en popup "Warband Map … -> Shift 4".
+Ook de ruisfilter op id (KEYBIND_NOISE, sinds 7 sep) keek naar verkeerde ids. Fix: namen en ids samen sorteren.
+Spelers die met 4.7.2 het blok neerzetten: Terugzetten + opnieuw (AFGELEID). Rob kiest: snelle (beta-)release?
+
 ## 🌐 6 okt — vertaalronde klaar (lokaal, NIET gepusht); site 4.7.2 live (site-chat GEMETEN)
 
 mh-writer: RAIDSHOP_* (13), KEYBLOCK_UNKNOWN_FMT, KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT in de/fr/es/pt/it (nieuw blok

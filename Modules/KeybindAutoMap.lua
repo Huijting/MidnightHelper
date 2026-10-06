@@ -358,7 +358,20 @@ function ns.MH_AutoMapBuild()
 		map, unplaced = ns.Keybind_AllocateSpells(spells, { hasInterrupt = hasInterrupt })
 		unplaced = unplaced or {}
 	end
-	table.sort(unmatched)
+	-- Sort names and ids TOGETHER. Rob, 6 Oct 2026 (Prot Paladin): the popup offered "Warband Map to Everywhere All
+	-- At Once -> Shift 4". MEASURED in his SavedVariables (keyBlockProbe): "Crusader Aura:431280", "Devotion
+	-- Aura:32223" — only the names were sorted, so every id belonged to a different name. Since 5 Oct the key
+	-- block places by these ids (unknown spells -> block D), so this put the wrong spell on a key.
+	local order = {}
+	for i = 1, #unmatched do
+		order[i] = { name = unmatched[i], id = unmatchedIds[i] }
+	end
+	table.sort(order, function(a, b)
+		return a.name < b.name
+	end)
+	for i = 1, #order do
+		unmatched[i], unmatchedIds[i] = order[i].name, order[i].id
+	end
 	table.sort(clickCast, function(a, b)
 		return (a.name or "") < (b.name or "")
 	end)
