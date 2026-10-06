@@ -137,6 +137,9 @@ Gebouwd, niet getest. Volgorde = Blizzards eigen Single-Button Assistant (`docs/
   [toets] 3. Starsurge 4. Wrath [5] 5. Starfire (alleen spells die je hebt)? Staat er "(niet op je balken)" bij iets?
 - [ ] `/mh block` op de healer: schade-spells met een **rode rand**, en onderaan de regel "Rode rand = een schade-spell"?
 - [ ] Een andere healer (Holy Paladin / Disc / Resto Shaman …): klopt de lijst daar ook?
+  GEMETEN Rob 6 okt (screenshot Earthshammy, Resto Shaman): kaart "Zo vecht je alleen: 1. Flame Shock [Ctrl 2] 2. Lava Burst
+  [5] 3. Lightning Bolt [Ctrl 1] 4. Chain Lightning [Shift 4]" ✅; legenda-regel onder het blok ✅. ✅ Rob: "de damage spells
+  hebben een rode rand". Print (site /keyblock/): site-chat gevraagd om een zwart-wit-bestendige markering.
 
 ## 🆕 6 okt avond — "welke van je personages kennen dit recept?" (Rob: "neem wel het idee over", zonder MyRecipeTracker)
 
