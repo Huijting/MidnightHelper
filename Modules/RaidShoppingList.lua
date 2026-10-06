@@ -172,6 +172,9 @@ end
 -- show it as on its way. Which purchase event 12.1 really fires, and with what, is not measured — so: a second
 -- road (remember what is confirmed, count it when the purchase succeeds) and a probe that writes down every
 -- candidate event with its arguments to ns.db.raidShopProbe. Rob buys one thing, /reload, and we read it.
+-- MEASURED 6 Oct 2026 (Rob's SV, two purchases through Auctionator): Start- and ConfirmCommoditiesPurchase(itemID,
+-- qty), then COMMODITY_PURCHASE_SUCCEEDED with NO arguments and AUCTION_HOUSE_PURCHASE_COMPLETED(0); COMMODITY_PURCHASED
+-- never fired. So the confirm + SUCCEEDED road is the one that counts; the others stay as a fallback, counted once.
 local PURCHASE_EVENTS = { "COMMODITY_PURCHASED", "COMMODITY_PURCHASE_SUCCEEDED", "COMMODITY_PURCHASE_FAILED",
 	"ITEM_PURCHASED", "AUCTION_HOUSE_PURCHASE_COMPLETED" }
 local function Probe(line)
