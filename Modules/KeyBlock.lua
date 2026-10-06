@@ -1308,6 +1308,11 @@ local function MissingRows()
 			local target
 			if empty[r.key] then
 				target = r
+			elseif r.leftover then
+				-- A block D thing (leftover, flyout, onlyD) never borrows a place on A/B/C. Rob, 6 Oct 2026: the
+				-- popup offered Cone of Cold -> Ctrl 2, Portal -> Ctrl 3, Teleport -> Shift C. Its D place is only
+				-- "free" because Place lifts loose copies off D first; Update does not, so it waits for Place.
+				target = nil
 			else
 				for _, k in ipairs(OVERFLOW) do
 					if empty[k] and byKey[k] then
