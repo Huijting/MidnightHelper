@@ -7,6 +7,7 @@ local CHANGELOG_ENTRIES = {
 		version = "4.7.3",
 		lines = {
 			"CHANGELOG_473_0",
+			"CHANGELOG_473_6",
 			"CHANGELOG_473_1",
 			"CHANGELOG_473_2",
 			"CHANGELOG_473_3",

@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.3
 
+📌 **2026-10-06, beta 2 (Rob: "doe maar een beta2"), tag `v4.7.3-beta2`.** Erbij sinds beta 1: knoppen i.p.v.
+commando's (All settings-schakelaars, 5 Pop-out-kaarten, Settings-knoppen, route-/vluchtmeesterknop op de snelbalk),
+de Pop-out-pagina scrollt, 5 commando-reparaties, Help translate als kopieervenster, vertaalronde 3. Rob getest.
+
 📌 **2026-10-06, eerst als beta (Rob: "eerst vertalen, dan go voor 4.7.3 beta"), tag `v4.7.3-beta1`.** Notitie in
 `docs/CURSEFORGE_4.7.3.md` (identiek aan `RELEASE_NOTES.md`), met een vriendelijke oproep om te reageren, ook als alles
 werkt. Rob getest 6 okt: Paladin blok D, Hunter-popup, `/mh ready` (klikken, Auctionator per personage, post/bank, gear,

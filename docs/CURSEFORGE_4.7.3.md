@@ -1,4 +1,4 @@
-# Midnight Helper 4.7.3 (beta): shopping for raid night, and a key block fix
+# Midnight Helper 4.7.3 (beta 2): shopping for raid night, buttons, and a key block fix
 
 ## You are testing a beta. Thank you!
 
@@ -13,6 +13,20 @@ report. It is the only way we know when a beta is ready for everyone. No need to
 - or the feedback form on midnighthelper.com.
 
 Something looks odd? A screenshot says more than a long story.
+
+## New in beta 2: buttons instead of commands
+
+Many things only worked if you knew the right `/mh` command. Now they have a button:
+
+- **All settings** (the first button on the Settings page) has new switches: the action prompt and its sound, the
+  dispel alert, upgrade arrows in your bags, the upgrade line in item tooltips, the scorecard after a delve, the tank
+  summary after each pull, and letting WaypointUI drive the arrow.
+- **Tools → Pop-out windows** has five more windows: your stats, Pawn weights, your keybinds, what your curios do,
+  and your graphics settings. The whole page now scrolls.
+- **Settings** has buttons for *Report a problem*, *What's new* and *Side panels back in place*. *Help translate* opens
+  a window with the links to copy.
+- **The quick bar** shows a **route button** while a route runs (click: skip a stop, right-click: stop, Shift-click:
+  the plan) and a **nearest flight master** button outside instances.
 
 ## Key block: the wrong spell on block D (please check)
 

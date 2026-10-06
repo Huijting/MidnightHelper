@@ -1,5 +1,10 @@
 # Midnight Helper — waar we staan
 
+## 🧪 6 okt — 4.7.3 BETA 2 (Rob: "push maar, en doe maar een beta2 … site chat krijgt gelijk een go")
+Notitie (RELEASE_NOTES.md = docs/CURSEFORGE_4.7.3.md, GEMETEN byte-gelijk) kreeg "New in beta 2"; CHANGELOG_473_6.
+Tag `v4.7.3-beta2`; site-chat geseind met Robs go. Daarna: reacties afwachten → gewone `v4.7.3` op Robs go
+(site-nightly pakt pas dan /keyblock/ en /play/).
+
 ## 🔘 6 okt — rondje /mh-commando's → knoppen (Rob: "doe het rondje langs de commando's")
 Inventaris in `docs/COMMANDS_AUDIT_2026-10-06.md` (mh-research): 25 nuttig zonder knop, 121 debug. Plus 5 gevonden
 fouten (o.a. `/mh scorecard` zet uit via de zoekbalk, `/mh delves` opent het verkeerde scherm). Rob koos ALLE 4 groepen
