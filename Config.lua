@@ -69,4 +69,11 @@ local Config = {
 -- empty table simply omits the Moxie line. Fill it ONLY with ids confirmed by
 -- `/mh moxie` naming the actual Artisan's Moxie for that profession.
 
+-- ✅ CONFIRMED BY THE CLIENT, 6 Oct 2026: Rob ran `/dump C_CurrencyInfo.GetCurrencyInfo(3256).name` and the game answered
+-- "Artisan Alchemist's Moxie". Lead: mh-research (wago CurrencyTypes 12.1.0.69933; 3256-3266 are the eleven Moxies, one
+-- per profession). Only Alchemy is in: the other ten wait for the same answer from the client (/mh moxie lists them).
+if E and E.Alchemy then
+	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Alchemy] = 3256
+end
+
 ns.Config = Config

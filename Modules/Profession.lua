@@ -330,6 +330,13 @@ function ns.PrintMoxieProbe()
 	if #rows == 0 then
 		print("   (table is empty on purpose - every guessed id proved wrong on 19 jul)")
 	end
+	-- 6 Oct 2026: the candidates for the other professions (wago CurrencyTypes 3256-3266, mh-research). Only the
+	-- game's own name decides which is which; 3256 = Alchemy is confirmed. Rob reads these lines, then we fill Config.
+	print(prefix .. " candidates 3256-3266 (the game's own names):")
+	for id = 3256, 3266 do
+		local nm = GetCurrencyDisplayName(id)
+		print(("   %5d  ->  %s"):format(id, nm and ("|cffffffff" .. nm .. "|r") or "|cffff5040does not resolve|r"))
+	end
 	-- Same batch of placeholders, still in use elsewhere in the profession UI.
 	local other = {
 		{ "Unalloyed Abundance (currency)", ns.Config and ns.Config.UNALLOYED_ABUNDANCE_CURRENCY_CODE },
