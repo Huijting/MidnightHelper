@@ -119,6 +119,14 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🆕 6 okt avond — healers: "Zo vecht je alleen" (Rob, Resto Druid: "hoe weet ik welke knop ik moet gebruiken?")
+
+Gebouwd, niet getest. Volgorde = Blizzards eigen Single-Button Assistant (`docs/HEALER_SOLO_DAMAGE_2026-10-06.md`).
+- [ ] Resto Druid → `/mh play`: onder "Zo heal je" een blokje **"Zo vecht je alleen:"** met 1. Sunfire [toets] 2. Moonfire
+  [toets] 3. Starsurge 4. Wrath [5] 5. Starfire (alleen spells die je hebt)? Staat er "(niet op je balken)" bij iets?
+- [ ] `/mh block` op de healer: schade-spells met een **rode rand**, en onderaan de regel "Rode rand = een schade-spell"?
+- [ ] Een andere healer (Holy Paladin / Disc / Resto Shaman …): klopt de lijst daar ook?
+
 ## 🆕 6 okt avond — "welke van je personages kennen dit recept?" (Rob: "neem wel het idee over", zonder MyRecipeTracker)
 
 Stap 1 gebouwd, niet getest: bij het openen van een beroep onthoudt MH per personage welke recepten het kent

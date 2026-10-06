@@ -986,6 +986,27 @@ local function Redraw()
 			y = y - how:GetStringHeight() - 10
 		end
 
+		-- And how a healer fights ALONE (Rob, 6 Oct 2026, Resto Druid in the open world: "hoe weet ik welke knop ik moet
+		-- gebruiken?"). Names from the client (the player's language), keys from the bars; HealerSolo.lua has the order.
+		local solo = ns.HealerSoloSteps and ns.HealerSoloSteps(specID, live)
+		if solo and #solo > 0 then
+			t = t + 1
+			local fight = Text(t, "GameFontHighlight")
+			fight:SetWidth(inner)
+			fight:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+			fight:SetTextColor(0.9, 0.88, 0.82)
+			local lines = { "|cffff7766" .. L("CARD_SOLO_HEAD") .. "|r " .. L("CARD_SOLO_INTRO") }
+			for i, s in ipairs(solo) do
+				local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(s.id) or ("#" .. s.id)
+				local key = live and ns.LiveKeyForSpell and ReadableKey((ns.LiveKeyForSpell(s.id)))
+				local keyTxt = key and (" |cffffffff[" .. key .. "]|r")
+					or (live and (" |cff9a9a9a" .. L("CARD_SOLO_NOKEY") .. "|r") or "")
+				lines[#lines + 1] = ("%d. |cffffd100%s|r%s - %s"):format(i, name, keyTxt, L(s.note))
+			end
+			fight:SetText(table.concat(lines, "\n"))
+			y = y - fight:GetStringHeight() - 10
+		end
+
 		t = t + 1
 		local stepsHead = Text(t, "GameFontNormal")
 		stepsHead:SetWidth(inner)

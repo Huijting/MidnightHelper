@@ -1,0 +1,315 @@
+itemID	item name	recipeID	recipe name	profession	skillLineID	itemClass	requiredSkill	status
+246671	Recipe: Sunsmoke Censer	1233135	Sunsmoke Censer	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+247423	Recipe: Silvermoon Spire Fountain	1233138	Silvermoon Spire Fountain	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+247425	Recipe: Riftstone	1233136	Riftstone	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+247498	Recipe: Entropic Illuminant	1233132	Entropic Illuminant	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+247499	Recipe: Haranir Preserving Agents	1233137	Haranir Preserving Agents	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+247500	Recipe: Rootbound Vat	1233133	Rootbound Vat	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+257417	Recipe: Vicious Thalassian Flask of Honor	1230883	Vicious Thalassian Flask of Honor	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+258141	Recipe: Haranir Phial of Perception	1230873	Haranir Phial of Perception	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+258305	Recipe: Amani Extract	1230864	Amani Extract	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+259459	Recipe: Potion of Recklessness	1230859	Potion of Recklessness	Alchemy	2906	9/6	2906/10	GEMETEN-DB2
+271885	Recipe: Concentrated Silvermoon Health Potion	1289744	Concentrated Silvermoon Health Potion	Alchemy	2906	9/6	2906/50	GEMETEN-DB2
+271888	Recipe: Liquid Luster	1289745	Liquid Luster	Alchemy	2906	9/6	2906/50	GEMETEN-DB2
+271891	Recipe: Alluring Nostrum	1289746	Alluring Nostrum	Alchemy	2906	9/6	2906/50	GEMETEN-DB2
+275275	Recipe: Ersatz Venom Splatter	1296429	Ersatz Venom Splatter	Alchemy	2906	9/0	2906/50	GEMETEN-DB2
+238218	Plans: Thalassian Competitor's Plate Breastplate	1229645	Thalassian Competitor's Plate Breastplate	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238219	Plans: Thalassian Competitor's Plate Sabatons	1229643	Thalassian Competitor's Plate Sabatons	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238220	Plans: Thalassian Competitor's Plate Gauntlets	1229642	Thalassian Competitor's Plate Gauntlets	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238221	Plans: Thalassian Competitor's Plate Helm	1229641	Thalassian Competitor's Plate Helm	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238222	Plans: Thalassian Competitor's Plate Greaves	1229644	Thalassian Competitor's Plate Greaves	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238223	Plans: Thalassian Competitor's Plate Pauldrons	1229640	Thalassian Competitor's Plate Pauldrons	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238224	Plans: Thalassian Competitor's Plate Waistguard	1229639	Thalassian Competitor's Plate Waistguard	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238225	Plans: Thalassian Competitor's Plate Armguards	1229638	Thalassian Competitor's Plate Armguards	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238226	Plans: Thalassian Competitor's Pickaxe	1229637	Thalassian Competitor's Pickaxe	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238227	Plans: Thalassian Competitor's Knife	1229636	Thalassian Competitor's Knife	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238228	Plans: Thalassian Competitor's Maxim	1229635	Thalassian Competitor's Maxim	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238229	Plans: Thalassian Competitor's Bulwark	1229634	Thalassian Competitor's Bulwark	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238230	Plans: Thalassian Competitor's Splitter	1229633	Thalassian Competitor's Splitter	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238231	Plans: Thalassian Competitor's Skewer	1229632	Thalassian Competitor's Skewer	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238232	Plans: Thalassian Competitor's Greatsword	1229631	Thalassian Competitor's Greatsword	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+238233	Plans: Thalassian Competitor's Sword	1229630	Thalassian Competitor's Sword	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+258487	Plans: Murder Row Fleet Feet	1230766	Murder Row Fleet Feet	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+258517	Plans: Knight-Commander's Palisade	1230767	Knight-Commander's Palisade	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+258518	Plans: Murder Row Fishhook	1230768	Murder Row Fishhook	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+258519	Plans: Magister's Valediction	1229647	Magister's Valediction	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+258520		1230766	Murder Row Fleet Feet	Blacksmithing	2907			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+258521	Plans: Blood Knight's Impetus	1229653	Blood Knight's Impetus	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+258522	Plans: Bloomforged Greataxe	1229655	Bloomforged Greataxe	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+259231	Plans: Sunforged Blacksmith's Toolbox	1264644	Sunforged Blacksmith's Toolbox	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+259233	Plans: Sunforged Leatherworker's Toolset	1264645	Sunforged Leatherworker's Toolset	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+259235	Plans: Sunforged Needle Set	1264646	Sunforged Needle Set	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+259237	Plans: Sunforged Blacksmith's Hammer	1230769	Sunforged Blacksmith's Hammer	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+259317	Plans: Sunforged Sickle	1264651	Sunforged Sickle	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+259318	Plans: Sunforged Leatherworker's Knife	1262899	Sunforged Leatherworker's Knife	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+259319	Plans: Sunforged Pickaxe	1262919	Sunforged Pickaxe	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+259322	Plans: Sunforged Skinning Knife	1262905	Sunforged Skinning Knife	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+260246	Plans: Thalassian Skeleton Key	1265906	Thalassian Skeleton Key	Blacksmithing	2907	9/4	2907/35	GEMETEN-DB2
+265528	Plans: Gilded Silvermoon Anvil	1276108	Gilded Silvermoon Anvil	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+265530	Plans: Ornamental Silvermoon Hanger	1276109	Ornamental Silvermoon Hanger	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+265532	Plans: Gilded Silvermoon Hanger	1276110	Gilded Silvermoon Hanger	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+265534	Plans: Ren'dorei Anvil	1276111	Ren'dorei Anvil	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+265536	Plans: Masterwork Crafting Hammer	1276112	Masterwork Crafting Hammer	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+267281	Plans: Blood Knight's Mercy	1229652	Blood Knight's Mercy	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+267282	Plans: Blood Knight's Warblade	1229648	Blood Knight's Warblade	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+267284	Plans: Bloomforged Claw	1229649	Bloomforged Claw	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+267285	Plans: Magister's Cleaver	1229654	Magister's Cleaver	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+267286	Plans: Magister's Mana Sword	1229651	Magister's Mana Sword	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+267287	Plans: Magister's Ritual Knife	1229650	Magister's Ritual Knife	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+273058		1291682	Odious Alloy	Blacksmithing	2907			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+273061	Plans: Hunter's Ritual Stone	1291683	Hunter's Ritual Stone	Blacksmithing	2907	9/4	2907/50	GEMETEN-DB2
+275304	Plans: Amani Forgemaster's Workbench	1296495	Amani Forgemaster's Workbench	Blacksmithing	2907	9/0	2907/50	GEMETEN-DB2
+275306	Plans: Amani Forgemaster's Decorative Spear	1296496	Amani Forgemaster's Decorative Spear	Blacksmithing	2907	9/0	2907/50	GEMETEN-DB2
+275308	Plans: Amani Forgemaster's Rack	1296497	Amani Forgemaster's Rack	Blacksmithing	2907	9/0	2907/50	GEMETEN-DB2
+251630	Recipe: Amani Cornucopia	1295534	Amani Cornucopia	Cooking	2908	9/5	2908/35	GEMETEN-DB2
+258490		1226194	Argentleaf Tea	Cooking	2908	9/5		GEMETEN-DB2 (naam ontbreekt in ItemSparse)
+263473	Recipe: Flora Frenzy	1259660	Flora Frenzy	Cooking	2908	9/5	2908/30	GEMETEN-DB2
+275087		1296257		Cooking	2908			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+275133		1296280		Cooking	2908			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+275271	Recipe: Venom-Spiced Cutlets	1295783	Venom-Spiced Cutlets	Cooking	2908	9/0	2908/35	GEMETEN-DB2
+275273	Recipe: Sweet-And-Sour Skewers	1296419	Sweet-And-Sour Skewers	Cooking	2908	9/5	2908/50	GEMETEN-DB2
+275300	Recipe: Loa's Gathering	1295776	Loa's Gathering	Cooking	2908	9/5	2908/35	GEMETEN-DB2
+275301	Recipe: Feast of Knowledge	1295777	Feast of Knowledge	Cooking	2908	9/5	2908/35	GEMETEN-DB2
+278331	Recipe: Sweet-And-Sour Skewers	1296419	Sweet-And-Sour Skewers	Cooking	2908	9/5	2908/35	GEMETEN-DB2
+278332	Recipe: Puffer Plate	1296418	Puffer Plate	Cooking	2908	9/5	2908/35	GEMETEN-DB2
+256737	Formula: Enchant Chest - Mark of Nalorakk	1236054	Enchant Chest - Mark of Nalorakk	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256738	Formula: Enchant Helm - Empowered Hex of Leeching	1236056	Enchant Helm - Empowered Hex of Leeching	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256739	Formula: Enchant Ring - Eyes of the Eagle	1236059	Enchant Ring - Eyes of the Eagle	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256740	Formula: Enchant Shoulders - Akil'zon's Swiftness	1236062	Enchant Shoulders - Akil'zon's Swiftness	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256741	Formula: Enchant Weapon - Strength of Halazzi	1236065	Enchant Weapon - Strength of Halazzi	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256742	Formula: Runed Dazzling Thorium Rod	1236488	Runed Dazzling Thorium Rod	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256743	Formula: Gleeful Glamour - Haranir	1236464	Gleeful Glamour - Haranir	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256744	Formula: Enchant Tool - Amani Perception	1236063	Enchant Tool - Amani Perception	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256745	Formula: Enchant Chest - Mark of the Rootwarden	1236068	Enchant Chest - Mark of the Rootwarden	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256746	Formula: Smuggler's Enchanted Edge	1236493	Smuggler's Enchanted Edge	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256747	Formula: Enchant Boots - Shaladrassil's Roots	1236072	Enchant Boots - Shaladrassil's Roots	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256748	Formula: Enchant Shoulders - Amirdrassil's Grace	1236076	Enchant Shoulders - Amirdrassil's Grace	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256749	Formula: Enchant Tool - Haranir Multicrafting	1236078	Enchant Tool - Haranir Multicrafting	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256750	Formula: Enchant Weapon - Worldsoul Cradle	1236079	Enchant Weapon - Worldsoul Cradle	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256751	Formula: Enchant Weapon - Worldsoul Tenacity	1236081	Enchant Weapon - Worldsoul Tenacity	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256752	Formula: Enchant Ring - Nature's Fury	1236074	Enchant Ring - Nature's Fury	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256753	Formula: Enchant Helm - Empowered Rune of Avoidance	1236084	Enchant Helm - Empowered Rune of Avoidance	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256754	Formula: Enchant Shoulders - Nature's Embrace	1236099	Illusory Adornment - Nature's Embrace	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256755	Formula: Enchant Chest - Mark of the Magister	1236082	Enchant Chest - Mark of the Magister	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256756	Formula: Enchant Boots - Farstrider's Hunt	1236085	Enchant Boots - Farstrider's Hunt	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256757	Formula: Enchant Weapon - Acuity of the Ren'dorei	1236095	Enchant Weapon - Acuity of the Ren'dorei	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256758	Formula: Enchant Tool - Ren'dorei Ingenuity	1236093	Enchant Tool - Ren'dorei Ingenuity	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256759	Formula: Enchant Weapon - Flames of the Sin'dorei	1236094	Enchant Weapon - Flames of the Sin'dorei	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256760	Formula: Enchant Ring - Silvermoon's Tenacity	1236089	Enchant Ring - Silvermoon's Tenacity	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+256761	Formula: Enchant Shoulders - Voidtouched	1236100	Illusory Adornment - Voidtouched	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+259364	Formula: Animated Sin'dorei Hammer	1246906	Animated Sin'dorei Hammer	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+259367	Formula: Animated Sin'dorei Pick	1246902	Animated Sin'dorei Pick	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+259370	Formula: Rootflame Campfire	1246908	Rootflame Campfire	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+259373	Formula: Ren'dorei Postal Repository	1246903	Ren'dorei Postal Repository	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+259374	Formula: Spellbound Tome of Thalassian Magics	1246907	Spellbound Tome of Thalassian Magics	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+259375	Formula: Self-Pouring Thalassian Sunwine	1246909	Self-Pouring Thalassian Sunwine	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+268042	Formula: Endless Codex of Blooming Light	1281342	Endless Codex of Blooming Light	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+268043	Formula: Endless Codex of Nature's Grace	1281348	Endless Codex of Nature's Grace	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+268044	Formula: Endless Codex of the Voidtouched	1281349	Endless Codex of the Voidtouched	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+273073	Formula: Rite of the Hash'ey	1291694	Enchant Weapon - Rite of the Hash'ey	Enchanting	2909	9/8	2909/50	GEMETEN-DB2
+275310	Formula: Keen Hex Mask	1296498	Keen Hex Mask	Enchanting	2909	9/0	2909/50	GEMETEN-DB2
+275312	Formula: Furious Tiki Mask	1296499	Furious Tiki Mask	Enchanting	2909	9/0	2909/50	GEMETEN-DB2
+275314	Formula: Enchanted Voidwell Fish	1296500	Enchanted Voidwell Fish	Enchanting	2909	9/0	2909/50	GEMETEN-DB2
+257298	Schematic: Thalassian Competitor's Plate Dunkers	1261493	Thalassian Competitor's Plate Dunkers	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257369	Schematic: Thalassian Competitor's Mail Footlinks	1261492	Thalassian Competitor's Mail Footlinks	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257370	Schematic: Thalassian Competitor's Leather Sliders	1261491	Thalassian Competitor's Leather Sliders	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257371	Schematic: Thalassian Competitor's Cloth Tip-Toes	1261490	Thalassian Competitor's Cloth Tip-Toes	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257407	Schematic: Thalassian Competitor's Plate Bindings	1229915	Thalassian Competitor's Plate Bindings	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257408	Schematic: Thalassian Competitor's Plate Guard	1229911	Thalassian Competitor's Plate Guard	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257410	Schematic: Thalassian Competitor's Cloth Cuffs	1229912	Thalassian Competitor's Cloth Cuffs	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257411	Schematic: Thalassian Competitor's Cloth Goggles	1229908	Thalassian Competitor's Cloth Goggles	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257413	Schematic: Thalassian Competitor's Leather Bands	1229913	Thalassian Competitor's Leather Bands	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257414	Schematic: Thalassian Competitor's Leather Optics	1229909	Thalassian Competitor's Leather Optics	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257415	Schematic: Thalassian Competitor's Mail Links	1229914	Thalassian Competitor's Mail Links	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+257416	Schematic: Thalassian Competitor's Mail Visor	1229910	Thalassian Competitor's Mail Visor	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+259172	Schematic: Head-Mounted Beam Bummer	1264523	Head-Mounted Beam Bummer	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+259174	Schematic: Rock Bonkin' Hardhat	1264524	Rock Bonkin' Hardhat	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+259176	Schematic: Heavy-Duty Rock Assister	1264525	Heavy-Duty Rock Assister	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+259178	Schematic: Self-Sharpening Sin'dorei Snippers	1264526	Self-Sharpening Sin'dorei Snippers	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+259180	Schematic: Sin'dorei Reeler's Rod	1264527	Sin'dorei Reeler's Rod	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+259182	Schematic: Giga-Gem Grippers	1264528	Giga-Gem Grippers	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+259184	Schematic: Turbo-Junker's Multitool v9	1264529	Turbo-Junker's Multitool v9	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+268476		1282455	Evercore Dome Dinger	Engineering	2910	0/0		GEMETEN-DB2 (naam ontbreekt in ItemSparse)
+268478		1282456	P.O.W. x3	Engineering	2910	0/0		GEMETEN-DB2 (naam ontbreekt in ItemSparse)
+268480	Schematic: Thalassian Competitor's Rifle	1282457	Thalassian Competitor's Rifle	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+273064	Schematic: Coiled Snake-Eye	1291687	Coiled Snake-Eye	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+275316	Schematic: Coiled Amani Hookshot	1296501	Coiled Amani Hookshot	Engineering	2910	9/0	2910/50	GEMETEN-DB2
+275318	Schematic: Proudmoore Ship-in-a-Bottle	1296502	Proudmoore Ship-in-a-Bottle	Engineering	2910	9/0	2910/50	GEMETEN-DB2
+275320	Schematic: Aetherlume Field Lamp	1296503	Aetherlume Field Lamp	Engineering	2910	9/0	2910/50	GEMETEN-DB2
+275684	Schematic: G-00	1297647	G-00	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+278330	Schematic: R0CKY	1297585	R0CKY	Engineering	2910	9/3	2910/35	GEMETEN-DB2
+278333	Schematic: R0CKY-To-Go	1305148	R0CKY-To-Go	Engineering	2910	9/3	2910/50	GEMETEN-DB2
+244791	Recipe: Amani Angler's Ward	1226159	Amani Angler's Ward	Fishing	2911	9/9	2911/1	GEMETEN-DB2
+244815	Recipe: Ominous Octopus Lure	1226161	Ominous Octopus Lure	Fishing	2911	9/9	2911/1	GEMETEN-DB2
+244816	Recipe: Lucky Loa Lure	1226157	Lucky Loa Lure	Fishing	2911	9/9	2911/1	GEMETEN-DB2
+244817	Recipe: Blood Hunter Lure	1235486	Blood Hunter Lure	Fishing	2911	9/9	2911/1	GEMETEN-DB2
+244818		1231090	Coiled Stargorger Lure	Fishing	2911	9/9		GEMETEN-DB2 (naam ontbreekt in ItemSparse)
+275012	Recipe: Tokka's Multi-Ward	1295922	Tokka's Multi-Ward	Fishing	2911	9/9	2911/1	GEMETEN-DB2
+275018	Recipe: Coiled Stargorger Lure	1231090	Coiled Stargorger Lure	Fishing	2911	9/9	2911/1	GEMETEN-DB2
+277820	Recipe: Ula'tek Snakehead Lure	1302819	Ula'tek Snakehead Lure	Fishing	2911	9/9	2911/1	GEMETEN-DB2
+251629	Technique: Contract: The Amani Tribe	1230052	Contract: The Amani Tribe	Inscription	2913	9/11	2913/35	GEMETEN-DB2
+257243	Technique: Thalassian Competitor's Lamp	1230064	Thalassian Competitor's Lamp	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+257258	Technique: Thalassian Competitor's Bow	1260760	Thalassian Competitor's Bow	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+257259	Technique: Thalassian Competitor's Pillar	1230066	Thalassian Competitor's Pillar	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+257260	Technique: Thalassian Competitor's Emblem	1230067	Thalassian Competitor's Emblem	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+257261	Technique: Thalassian Competitor's Insignia of Alacrity	1230068	Thalassian Competitor's Insignia of Alacrity	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+257262	Technique: Thalassian Competitor's Medallion	1230069	Thalassian Competitor's Medallion	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258489	Technique: Thalassian Missive of Deftness	1230043	Thalassian Missive of Deftness	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258491	Technique: Thalassian Missive of Perception	1230044	Thalassian Missive of Perception	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258492	Technique: Thalassian Missive of Finesse	1230045	Thalassian Missive of Finesse	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258493	Technique: Thalassian Missive of Crafting Speed	1230046	Thalassian Missive of Crafting Speed	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258494	Technique: Thalassian Missive of Multicraft	1230047	Thalassian Missive of Multicraft	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258495	Technique: Thalassian Missive of Resourcefulness	1230048	Thalassian Missive of Resourcefulness	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258496	Technique: Thalassian Missive of Ingenuity	1230049	Thalassian Missive of Ingenuity	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258498		1248619	Sturdy Ren'dorei Cask	Inscription	2913			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+258499	Technique: Restful Bronze Bench	1248620	Restful Bronze Bench	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258500	Technique: Floating Void-Touched Tome	1248621	Floating Void-Touched Tome	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258501		1248622	Homely Sin'dorei Shelf	Inscription	2913			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+258502	Technique: Lively Songwriter's Quill	1248623	Lively Songwriter's Quill	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258503	Technique: Opened Sin'dorei Scroll	1248624	Opened Sin'dorei Scroll	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258504	Technique: Gilded Eversong Book	1248625	Gilded Eversong Book	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258505	Technique: Sin'dorei Phoenix Quill	1248626	Sin'dorei Phoenix Quill	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258506		1248627	Homely Wall Shelves	Inscription	2913			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+258507		1248628	Wild Hanging Scroll	Inscription	2913			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+258509	Technique: Harandar Signpost	1248630	Harandar Signpost	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+258510	Technique: Magnificent Towering Bookcase	1248631	Magnificent Towering Bookcase	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+259206	Technique: Gilded Alchemist's Mixing Rod	1264550	Gilded Alchemist's Mixing Rod	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+259208	Technique: Gilded Sin'dorei Rolling Pin	1264551	Gilded Sin'dorei Rolling Pin	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+259210	Technique: Gilded Sin'dorei Quill	1264552	Gilded Sin'dorei Quill	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+263443	Technique: Contract: The Hara'ti	1230053	Contract: The Hara'ti	Inscription	2913	9/11	2913/35	GEMETEN-DB2
+263444	Technique: Contract: The Silvermoon Court	1230051	Contract: The Silvermoon Court	Inscription	2913	9/11	2913/35	GEMETEN-DB2
+263445	Technique: Contract: The Singularity	1230054	Contract: The Singularity	Inscription	2913	9/11	2913/35	GEMETEN-DB2
+267394	Technique: Homely Sin'dorei Shelf	1248622	Homely Sin'dorei Shelf	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+267395	Technique: Homely Wall Shelves	1248627	Homely Wall Shelves	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+267396		1248620	Restful Bronze Bench	Inscription	2913			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+267399	Technique: Sturdy Ren'dorei Cask	1248619	Sturdy Ren'dorei Cask	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+267400	Technique: Wild Hanging Scroll	1248628	Wild Hanging Scroll	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+268366	Technique: Thalassian Competitor's Staff	1230065	Thalassian Competitor's Staff	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+272193		1290560		Inscription	2913			DB2 zonder Item-rij (niet uitgebracht of versleuteld)
+272196	Technique: Vantus Rune: Tides	1290561	Vantus Rune: Tides	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+275324	Technique: "Cursed Gaze of Ula'tek" Mural	1296505	"Cursed Gaze of Ula'tek" Mural	Inscription	2913	9/0	2913/50	GEMETEN-DB2
+275326	Technique: Chiseled Amani Tablet	1296506	Chiseled Amani Tablet	Inscription	2913	9/0	2913/50	GEMETEN-DB2
+277967	Technique: Contract: Zul'jarra's Forces	1303151	Contract: Zul'jarra's Forces	Inscription	2913	9/11	2913/50	GEMETEN-DB2
+256699	Design: Sin'dorei Enchanter's Crystal	1230495	Sin'dorei Enchanter's Crystal	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256700	Design: Signet of Azerothian Blessings	1230487	Signet of Azerothian Blessings	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256701	Design: Attuned Thalassian Rune-Prism	1242464	Attuned Thalassian Rune-Prism	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256702	Design: Thalassian Competitor's Signet	1230503	Thalassian Competitor's Signet	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256703	Design: Sin'dorei Scribe's Spectacles	1230498	Sin'dorei Scribe's Spectacles	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256704	Design: Powerful Eversong Diamond	1230470	Powerful Eversong Diamond	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256705	Design: Flawless Text Scrutinizers	1242463	Flawless Text Scrutinizers	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256706	Design: Determined Heliotrope	1230500	Determined Heliotrope	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256707	Design: Mage-Eye Precision Loupes	1242461	Mage-Eye Precision Loupes	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256708	Design: Telluric Eversong Diamond	1230471	Telluric Eversong Diamond	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256709	Design: Sin'dorei Jeweler's Loupes	1230496	Sin'dorei Jeweler's Loupes	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256710	Design: Enduring Heliotrope	1230502	Enduring Heliotrope	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256711	Design: Thalassian Scribe's Crystalline Lens	1242462	Thalassian Scribe's Crystalline Lens	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256712	Design: Cognitive Heliotrope	1230501	Cognitive Heliotrope	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256713	Design: Improved Right-Handed Magnifying Glass	1230497	Improved Right-Handed Magnifying Glass	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256714	Design: Indecipherable Eversong Diamond	1230473	Indecipherable Eversong Diamond	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256715	Design: Thalassian Phoenix Torque	1230488	Thalassian Phoenix Torque	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256716	Design: Prismatic Focusing Iris	1230477	Prismatic Focusing Iris	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256717	Design: Loa Worshiper's Band	1230479	Loa Worshiper's Band	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256718	Design: Stabilizing Gemstone Bandolier	1230478	Stabilizing Gemstone Bandolier	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256719	Design: Thalassian Competitor's Amulet	1230504	Thalassian Competitor's Amulet	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256720	Design: Stoic Eversong Diamond	1230472	Stoic Eversong Diamond	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256721	Design: Voidstone Shielding Array	1251983	Voidstone Shielding Array	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+259363	Design: Bejeweled Sin'dorei Lyre	1246891	Bejeweled Sin'dorei Lyre	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+259366	Design: Replica Haranir Mural	1246893	Replica Haranir Mural	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+259369	Design: Resplendent Highborne Statue	1246892	Resplendent Highborne Statue	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+259372	Design: Shining Sin'dorei Hourglass	1246894	Shining Sin'dorei Hourglass	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+273067	Design: Polished Ammolite	1291690	Polished Ammolite	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+275693	Design: Opalescent Amani Peridot	1297679	Opalescent Amani Peridot	Jewelcrafting	2914	9/0	2914/50	GEMETEN-DB2
+275695	Design: Piercing Amani Lapis	1297680	Piercing Amani Lapis	Jewelcrafting	2914	9/0	2914/50	GEMETEN-DB2
+275697	Design: Roaring Amani Garnet	1297681	Roaring Amani Garnet	Jewelcrafting	2914	9/10	2914/50	GEMETEN-DB2
+256625	Pattern: Hexwoven Strand	1237489	Hexwoven Strand	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256626	Pattern: Thalassian Competitor's Leather Boots	1237490	Thalassian Competitor's Leather Boots	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256627	Pattern: Thalassian Competitor's Leather Chestpiece	1237491	Thalassian Competitor's Leather Chestpiece	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256628	Pattern: Thalassian Competitor's Leather Gloves	1237492	Thalassian Competitor's Leather Gloves	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256629	Pattern: Thalassian Competitor's Leather Trousers	1237494	Thalassian Competitor's Leather Trousers	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256630	Pattern: Thalassian Competitor's Leather Shoulderpads	1237495	Thalassian Competitor's Leather Shoulderpads	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256631	Pattern: Thalassian Competitor's Leather Belt	1237496	Thalassian Competitor's Leather Belt	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256632	Pattern: Thalassian Competitor's Leather Mask	1237493	Thalassian Competitor's Leather Mask	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256633	Pattern: Thalassian Competitor's Chain Stompers	1237521	Thalassian Competitor's Chain Stompers	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256634	Pattern: Thalassian Competitor's Chain Tunic	1237520	Thalassian Competitor's Chain Tunic	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256635	Pattern: Thalassian Competitor's Leather Wristwraps	1237497	Thalassian Competitor's Leather Wristwraps	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256636	Pattern: Row Walker's Deflectors	1237486	Row Walker's Deflectors	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256637	Pattern: Axe-Flingin' Bands	1237516	Axe-Flingin' Bands	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256638	Pattern: Row Walker's Swiftgrips	1237488	Row Walker's Swiftgrips	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256639	Pattern: World Tree Rootwraps	1237498	World Tree Rootwraps	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256640	Pattern: Row Walker's Insurance	1237487	Row Walker's Insurance	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256641	Pattern: Thalassian Competitor's Chain Leggings	1237524	Thalassian Competitor's Chain Leggings	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256642	Pattern: Primal Spore Binding	1237578	Primal Spore Binding	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256643	Pattern: Thalassian Competitor's Chain Grips	1237522	Thalassian Competitor's Chain Grips	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256644	Pattern: Thalassian Competitor's Chain Epaulets	1237525	Thalassian Competitor's Chain Epaulets	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256645	Pattern: Blessed Pango Charm	1237577	Blessed Pango Charm	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256646	Pattern: Thalassian Competitor's Chain Cowl	1237523	Thalassian Competitor's Chain Cowl	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256647	Pattern: Forest Hunter's Armor Kit	1237544	Forest Hunter's Armor Kit	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256649	Pattern: Thalassian Competitor's Chain Girdle	1237526	Thalassian Competitor's Chain Girdle	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256650	Pattern: World Tender's Rootslippers	1237518	World Tender's Rootslippers	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256652	Pattern: World Tender's Trunkplate	1237517	World Tender's Trunkplate	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256653	Pattern: Ranger-General's Grips	1237515	Ranger-General's Grips	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256654	Pattern: Thalassian Competitor's Chain Cuffs	1237527	Thalassian Competitor's Chain Cuffs	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256655	Pattern: Sin'dorei Alchemist's Hat	1237549	Sin'dorei Alchemist's Hat	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256656	Pattern: World Tender's Barkclasp	1237519	World Tender's Barkclasp	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256657	Pattern: Thalassian Ironbender's Regalia	1237553	Thalassian Ironbender's Regalia	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256658	Pattern: Thalassian Alchemist's Mixcap	1237550	Thalassian Alchemist's Mixcap	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256659	Pattern: Sin'dorei Forgemaster's Cover	1237552	Sin'dorei Forgemaster's Cover	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256660	Pattern: Sin'dorei Engineer's Gloves	1237555	Sin'dorei Engineer's Gloves	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256661	Pattern: Thalassian Scrapmaster's Gauntlets	1237556	Thalassian Scrapmaster's Gauntlets	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256662	Pattern: Sin'dorei Herbalist's Backpack	1237558	Sin'dorei Herbalist's Backpack	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256663	Pattern: Thalassian Herbtender's Cradle	1237559	Thalassian Herbtender's Cradle	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256664	Pattern: Thalassian Wildseeker's Stridercap	1237571	Thalassian Wildseeker's Stridercap	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256665	Pattern: Sin'dorei Leathershaper's Smock	1237564	Sin'dorei Leathershaper's Smock	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256666	Pattern: Sin'dorei Hunter's Pack	1237567	Sin'dorei Hunter's Pack	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256667	Pattern: Thalassian Gemshaper's Grand Cover	1237562	Thalassian Gemshaper's Grand Cover	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256668	Pattern: Thalassian Hideshaper's Regalia	1237565	Thalassian Hideshaper's Regalia	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256669	Pattern: Eversong Hunter's Headcover	1237570	Eversong Hunter's Headcover	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256670	Pattern: Sin'dorei Jeweler's Cover	1237561	Sin'dorei Jeweler's Cover	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+256671	Pattern: Thalassian Wildseeker's Workbag	1237568	Thalassian Wildseeker's Workbag	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+259362	Pattern: Haranir Canopy Bed	1246939	Haranir Canopy Bed	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+259365	Pattern: Plush Haranir Leather Pillow	1246943	Plush Haranir Leather Pillow	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+259368	Pattern: Sturdy Haranir Chair	1246942	Sturdy Haranir Chair	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+259371	Pattern: Stitched Haranir Rug	1246941	Stitched Haranir Rug	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+259457	Pattern: Simple Haranir Table	1246940	Simple Haranir Table	Leatherworking	2915	9/1	2915/80	GEMETEN-DB2
+262905		1237528	Scout's Scaled Vest	Leatherworking	2915	9/1		GEMETEN-DB2 (naam ontbreekt in ItemSparse)
+272391	Pattern: Rope Lynx Harness	1291046	Rope Lynx Harness	Leatherworking	2915	9/1	2915/90	GEMETEN-DB2
+273070	Pattern: Adorned Fang	1291691	Adorned Fang	Leatherworking	2915	9/1	2915/50	GEMETEN-DB2
+275332	Pattern: Flat Snakeskin Canopy	1296509	Flat Snakeskin Canopy	Leatherworking	2915	9/0	2915/50	GEMETEN-DB2
+275334	Pattern: Stretched Snakeskin Rack	1296510	Stretched Snakeskin Rack	Leatherworking	2915	9/0	2915/50	GEMETEN-DB2
+275336	Pattern: Mounted Moby	1296511	Mounted Moby	Leatherworking	2915	9/0	2915/50	GEMETEN-DB2
+256880	Pattern: Thalassian Competitor's Cloth Bands	1228989	Thalassian Competitor's Cloth Bands	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+256884	Pattern: Thalassian Competitor's Cloth Sash	1228994	Thalassian Competitor's Cloth Sash	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+256885	Pattern: Thalassian Competitor's Cloth Tunic	1228997	Thalassian Competitor's Cloth Tunic	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+256886	Pattern: Thalassian Competitor's Cloth Treads	1228996	Thalassian Competitor's Cloth Treads	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+256887	Pattern: Thalassian Competitor's Cloth Gloves	1228991	Thalassian Competitor's Cloth Gloves	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+256888	Pattern: Thalassian Competitor's Cloth Hood	1228992	Thalassian Competitor's Cloth Hood	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+256889	Pattern: Thalassian Competitor's Cloth Leggings	1228993	Thalassian Competitor's Cloth Leggings	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+256890	Pattern: Thalassian Competitor's Cloth Shoulderpads	1228995	Thalassian Competitor's Cloth Shoulderpads	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+256891	Pattern: Thalassian Competitor's Cloth Cloak	1228990	Thalassian Competitor's Cloth Cloak	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258025	Pattern: Sunfire Silk Lining	1228960	Sunfire Silk Lining	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258033	Pattern: Arcanoweave Lining	1228961	Arcanoweave Lining	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258035	Pattern: Elegant Artisan's Alchemy Coveralls	1228962	Elegant Artisan's Alchemy Coveralls	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258036	Pattern: Elegant Artisan's Cooking Hat	1228963	Elegant Artisan's Cooking Hat	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258037	Pattern: Elegant Artisan's Enchanting Hat	1228964	Elegant Artisan's Enchanting Hat	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258038	Pattern: Elegant Artisan's Fishing Hat	1228965	Elegant Artisan's Fishing Hat	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258039	Pattern: Elegant Artisan's Herbalism Hat	1228966	Elegant Artisan's Herbalism Hat	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258040	Pattern: Elegant Artisan's Tailoring Robe	1228967	Elegant Artisan's Tailoring Robe	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258123	Pattern: Sunfire Silk Spellthread	1228974	Sunfire Silk Spellthread	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258124	Pattern: Arcanoweave Spellthread	1228975	Arcanoweave Spellthread	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258125	Pattern: Sunfire Sash	1228987	Sunfire Sash	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258126	Pattern: Arcanoweave Cord	1228988	Arcanoweave Cord	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258127	Pattern: Silvermoon Curtains	1229000	Silvermoon Curtains	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258128	Pattern: Lush Telogrus Carpet	1229001	Lush Telogrus Carpet	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258131	Pattern: Luxurious Silvermoon Lounge Cushion	1229002	Luxurious Silvermoon Lounge Cushion	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258132	Pattern: Plush Silvermoon Bed	1229003	Plush Silvermoon Bed	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258133	Pattern: Chic Silvermoon Pillow	1246919	Chic Silvermoon Pillow	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+258134	Pattern: Voidstrider Saddlebag	1246929	Voidstrider Saddlebag	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+267053	Pattern: Thalassian Alchemy Coveralls	1279123	Thalassian Alchemy Coveralls	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+267055	Pattern: Thalassian Chef's Chapeau	1279124	Thalassian Chef's Chapeau	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+267057	Pattern: Thalassian Enchanter's Bonnet	1279125	Thalassian Enchanter's Bonnet	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+267059		1279126		Tailoring	2918	9/2		GEMETEN-DB2 (naam ontbreekt in ItemSparse)
+267061	Pattern: Thalassian Herbalist's Cowl	1279128	Thalassian Herbalist's Cowl	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+267063	Pattern: Thalassian Tailor's Threads	1279129	Thalassian Tailor's Threads	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+270900	Pattern: Snakeskin Lining	1288335	Snakeskin Lining	Tailoring	2918	9/2	2918/50	GEMETEN-DB2
+275338	Pattern: Twilight's Blade Bedroll	1296512	Twilight's Blade Bedroll	Tailoring	2918	9/0	2918/50	GEMETEN-DB2
+275342	Pattern: Tortollan Slingsack	1296514	Tortollan Slingsack	Tailoring	2918	9/2	2918/50	GEMETEN-DB2

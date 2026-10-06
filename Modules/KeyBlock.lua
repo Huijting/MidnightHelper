@@ -1996,14 +1996,24 @@ Refresh = function(f)
 				b.task:SetText(kind and ((kind == "macro" and GetActionText(actSlot)) or OccupantName(kind, id))
 					or ns:L(slot.task))
 				b.task:SetTextColor(kind and 0.9 or 0.5, kind and 0.9 or 0.5, kind and 0.9 or 0.5)
-				b:SetBackdropBorderColor(0.45, 0.35, 0.6, 1)
+				if kind == "spell" and ns.IsHealerSoloSpell and ns.IsHealerSoloSpell(id) then
+					b:SetBackdropBorderColor(0.85, 0.25, 0.2, 1) -- a healer's "fight alone" spell (HealerSolo.lua)
+				else
+					b:SetBackdropBorderColor(0.45, 0.35, 0.6, 1)
+				end
 			elseif hit then
 				local name, icon, shown = SpellView(hit.spell.id)
 				data.spellID = shown
 				b.icon:SetTexture(icon or 134400)
 				b.task:SetText(name)
 				b.task:SetTextColor(1, 1, 1)
-				b:SetBackdropBorderColor(0.55, 0.45, 0.15, 1)
+				-- Rob, 6 Oct 2026 (Resto Druid): "welke knop als ik alleen moet vechten?" A healer's damage spells get a red
+				-- border, from the same list as the play card's "How you fight alone" (HealerSolo.lua).
+				if ns.IsHealerSoloSpell and (ns.IsHealerSoloSpell(hit.spell.id) or ns.IsHealerSoloSpell(shown)) then
+					b:SetBackdropBorderColor(0.85, 0.25, 0.2, 1)
+				else
+					b:SetBackdropBorderColor(0.55, 0.45, 0.15, 1)
+				end
 			elseif slot.fixed == "trinket" then
 				local tex = GetInventoryItemTexture and GetInventoryItemTexture("player", 13)
 				b.icon:SetTexture(tex)
@@ -2061,6 +2071,10 @@ Refresh = function(f)
 		foot = ns:L("KEYBLOCK_PLACED_STATE")
 	else
 		foot = ns.KeyBlockPreview(true) .. "|n" .. ns:L("KEYBLOCK_LEGEND")
+	end
+	-- A healer: what the red border means (HealerSolo.lua). In the legend, where the other border colours are explained.
+	if res and ns.IsHealerSoloSpec and ns.IsHealerSoloSpec() then
+		foot = foot .. "|n|cffff7766" .. ns:L("KEYBLOCK_SOLO_LEGEND") .. "|r"
 	end
 	-- A hidden block bar means keys that press buttons nobody can see (Rob's Hunter, 5 Oct 2026). That
 	-- warning was chat-only; it belongs where the player is looking.
