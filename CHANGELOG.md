@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.3
 
+📌 **2026-10-06, als RELEASE (Rob: "go, breng 4.7.3 maar uit"), tag `v4.7.3`.** Meteen na beta 2, zonder beta-reacties:
+Robs keuze, vanwege de blok-D-fix uit 4.7.2. Notitie zegt dat eerlijk en blijft om reacties vragen. Niet getest: elke
+schakelaar afzonderlijk, de vertalingen in een de/fr-client, het blok op Mage/Monk/Warrior/Evoker na de fix.
+
 📌 **2026-10-06, beta 2 (Rob: "doe maar een beta2"), tag `v4.7.3-beta2`.** Erbij sinds beta 1: knoppen i.p.v.
 commando's (All settings-schakelaars, 5 Pop-out-kaarten, Settings-knoppen, route-/vluchtmeesterknop op de snelbalk),
 de Pop-out-pagina scrollt, 5 commando-reparaties, Help translate als kopieervenster, vertaalronde 3. Rob getest.

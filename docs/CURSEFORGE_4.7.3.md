@@ -1,20 +1,23 @@
-# Midnight Helper 4.7.3 (beta 2): shopping for raid night, buttons, and a key block fix
+# Midnight Helper 4.7.3: shopping for raid night, buttons, and a key block fix
 
-## You are testing a beta. Thank you!
+## Why this one comes quickly
 
-This is a **beta**: new things that we have tested on our own characters, but not yet on yours. That is where you come
-in, and we would love to hear from you.
+4.7.3 was a beta this morning. We release it to everyone now because it fixes a mistake in 4.7.2: on block D of the
+key block, some spells got **another spell's button** (see below). Thank you to everyone who tried the beta!
 
-**Tell us how it went, also when everything works.** A short "works fine on my Hunter" helps us as much as a bug
-report. It is the only way we know when a beta is ready for everyone. No need to write a lot:
+**Tell us how it goes, also when everything works.** A short "works fine on my Hunter" helps us as much as a bug
+report. No need to write a lot:
 
-- `/mh report` in game,
+- `/mh report` in game, or *Report a problem* in Settings,
 - a comment here on CurseForge,
 - or the feedback form on midnighthelper.com.
 
 Something looks odd? A screenshot says more than a long story.
 
-## New in beta 2: buttons instead of commands
+Want to try new things before everyone else? In the CurseForge app, set the release type for Midnight Helper to
+**Beta**.
+
+## Buttons instead of commands
 
 Many things only worked if you knew the right `/mh` command. Now they have a button:
 
@@ -47,7 +50,7 @@ Crusader Aura belonged.
 
 ## Ready for the raid? Now with shopping
 
-`/mh ready` shows what you need for a raid night. New in this beta:
+`/mh ready` shows what you need for a raid night. New in this version:
 
 - **Click a row at the auction house** and it searches for that item. Not at the auction house? You get the name to
   copy (Ctrl+C). **Shift-click** puts a link in chat.
@@ -64,4 +67,4 @@ Helper window, under **Tools → Pop-out windows**.
 
 Translated into German, French, Spanish, Portuguese and Italian (our own translations; corrections are welcome).
 
-Thanks for testing!
+Have a good raid night!

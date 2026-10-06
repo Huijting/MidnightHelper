@@ -1,5 +1,10 @@
 # Midnight Helper — waar we staan
 
+## 🚀 6 okt — 4.7.3 UITGEBRACHT als release (Rob: "go, breng 4.7.3 maar uit , samen met de site chat")
+Direct na beta 2, zonder beta-reacties (Robs keuze, om de blok-D-fix bij iedereen te krijgen). Notitie herschreven
+("Why this one comes quickly"), CHANGELOG_473_0/6 zonder "beta". Tag `v4.7.3`; site-chat geseind voor /keyblock/ + /play/.
+Niet getest (zie CHANGELOG.md): elke schakelaar apart, de/fr-client, blok op andere klassen na de fix.
+
 ## 🧪 6 okt — 4.7.3 BETA 2 (Rob: "push maar, en doe maar een beta2 … site chat krijgt gelijk een go")
 Notitie (RELEASE_NOTES.md = docs/CURSEFORGE_4.7.3.md, GEMETEN byte-gelijk) kreeg "New in beta 2"; CHANGELOG_473_6.
 Tag `v4.7.3-beta2` op 4779cb8; site-chat geseind met Robs go. ✅ Rob: upload gelukt, staat op CF ("onder review").
