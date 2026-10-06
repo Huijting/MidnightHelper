@@ -18,14 +18,63 @@ local _, ns = ...
 
 	Sources: mh-research 6 Oct 2026, Blizzard UI 12.1.0 (69933): Blizzard_ProfessionsRecipeTracker (have/need over
 	all ranks), Blizzard_ProfessionsCrafting (SchematicForm, OnRecipeSelected), ItemUtil.GetCraftingReagentCount.
-	Not in v1: which rank to buy, reagents you craft yourself, vendor reagents, where to farm.
+	v2 (Rob, 6 Oct 2026: "laten we gewoon die punten doen"; research docs/CRAFTSHOP_RESEARCH_2026-10-06.md, measured
+	with /mh craftshop probe on Rob's Leatherworking the same day):
+	  - Where you get a recipe: C_TradeSkillUI.GetRecipeSourceText, Blizzard's own line. MEASURED: 404 of 417 unlearned
+	    recipes have one, and it answers with the profession window closed. Stored with the entry anyway.
+	  - Vendor reagents: no API flag exists (research), so a short list of item ids below.
+	  - Where to farm: no API either; one sentence per gathered reagent, the same facts ProfessionGuidedData.lua uses.
+	  - Reagents you make yourself: while the profession is open we note which item each LEARNED recipe makes
+	    (ns.db.craftShop[guid].makes). MEASURED: 530 products readable, window open or closed. "+ Make" puts that recipe
+	    on the list, and what it will make counts against the reagent it makes.
+	Not yet: which rank to buy (Rob: later; GetCraftingOperationInfo refused our reagent table, see the probe).
 
 	Only Basic, required reagent slots are listed: optional and finishing reagents are a choice, not a need.
 ]]
 
 local WIDTH = 460
 local ROW_H = 30
+local ROW_H_NOTE = 36
 local CALLER_LIST = "MH craft - "
+
+-- Sold by a profession vendor for gold (research 6 Oct 2026: wago ItemSparse 12.1.0.69933, the item's own description
+-- says "vendor"/"purchase"). 244174 Refulgent Copper Rod is the one exception: its description does not say it, Zygor's
+-- levelling guide buys it (`buy 30 Refulgent Copper Rod##244174`). Fused Vitality is left out: it costs a currency.
+local VENDOR = {
+	[240991] = true, [240990] = true, -- Sunglass Vial (the vendor sells the lower rank)
+	[247811] = true, -- Oil of Heartwood
+	[243060] = true, -- Luminant Flux
+	[242641] = true, [242642] = true, [242643] = true, [242644] = true, -- Cooking Spirits, Thalassian Herbs, Butter, Mana-Wyrm Essence
+	[242645] = true, [242646] = true, [242647] = true, -- Vegetable Assortment, Pouch of Spices, Tavern Fixings
+	[245881] = true, [245882] = true, -- Lexicologist's Vellum, Thalassian Songwater
+	[251665] = true, [251691] = true, -- Silverleaf Thread, Embroidery Floss
+	[253302] = true, [253303] = true, -- Malleable Wireframe, Pile of Junk
+	[244174] = true, -- Refulgent Copper Rod (Zygor only, see above)
+}
+
+-- Gathered reagents: item id -> kind. Ids from Zygor's Midnight farming guides (research 6 Oct 2026); the WHERE is the
+-- fact ProfessionGuidedData.lua already states and limits ("grows in", never "densest in"; skinning = "start there").
+local FARM = {
+	[236770] = "herb", [236771] = "herb", -- Sanguithorn
+	[236774] = "herb", [236775] = "herb", -- Azeroot
+	[236778] = "herb", [236779] = "herb", -- Mana Lily
+	[236761] = "herb", [236767] = "herb", -- Tranquility Bloom
+	[236776] = "herb", [236777] = "herb", -- Argentleaf
+	[236780] = "lotus", -- Nocturnal Lotus ("Found rarely amongst the other herbs of Midnight", its own description)
+	[237359] = "ore", [237361] = "ore", -- Refulgent Copper
+	[237362] = "ore", [237363] = "ore", -- Umbral Tin
+	[237364] = "ore", [237365] = "ore", -- Brilliant Silver
+	[238511] = "leather", [238512] = "leather", -- Void-Tempered Leather
+	[238513] = "scales", [238514] = "scales", -- Void-Tempered Scales
+}
+local FARM_SKILL = { herb = 182, lotus = 182, ore = 186, leather = 393, scales = 393 }
+local FARM_KEYS = {
+	herb = { "CRAFTSHOP_NOTE_HERB", "CRAFTSHOP_TIP_HERB" },
+	lotus = { "CRAFTSHOP_NOTE_LOTUS", "CRAFTSHOP_TIP_LOTUS" },
+	ore = { "CRAFTSHOP_NOTE_ORE", "CRAFTSHOP_TIP_ORE" },
+	leather = { "CRAFTSHOP_NOTE_LEATHER", "CRAFTSHOP_TIP_LEATHER" },
+	scales = { "CRAFTSHOP_NOTE_SCALES", "CRAFTSHOP_TIP_SCALES" },
+}
 
 local win
 local Refresh
@@ -52,6 +101,48 @@ local function MyList()
 	ns.db.craftShop = ns.db.craftShop or {}
 	ns.db.craftShop[g] = ns.db.craftShop[g] or { list = {} }
 	return ns.db.craftShop[g].list
+end
+
+--- What this character can make: { [productItemID] = { r = recipeID, n = recipe name, q = made per craft } }.
+--- Kept apart from the list, so "Clear the list" does not forget it.
+local function MyMakes()
+	local g = MyGuid()
+	if not (g and ns.db) then
+		return {}
+	end
+	ns.db.craftShopMakes = ns.db.craftShopMakes or {}
+	ns.db.craftShopMakes[g] = ns.db.craftShopMakes[g] or {}
+	return ns.db.craftShopMakes[g]
+end
+
+--- Blizzard's source line is several lines with |n; one line reads better in our list.
+local function OneLine(s)
+	if type(s) ~= "string" or s == "" then
+		return nil
+	end
+	s = s:gsub("|n|n", "  /  "):gsub("|n", ", "):gsub(",%s*$", "")
+	return s
+end
+
+--- Which gathering professions this character has (skill line ids), for "you can pick this yourself".
+local function MyGatherSkills()
+	local have = {}
+	if not (GetProfessions and GetProfessionInfo) then
+		return have
+	end
+	local ok, a, b = pcall(GetProfessions)
+	if not ok then
+		return have
+	end
+	for _, idx in ipairs({ a, b }) do
+		if idx then
+			local okI, _, _, _, _, _, _, skillLine = pcall(GetProfessionInfo, idx)
+			if okI and skillLine then
+				have[skillLine] = true
+			end
+		end
+	end
+	return have
 end
 
 --------------------------------------------------------------------------------
@@ -107,14 +198,43 @@ local function ReadRecipe(info, level)
 			end
 		end
 	end
+	-- What it makes (all ranks), so a reagent this recipe makes counts as "being made", not "buy".
+	local out, seen = {}, {}
+	local function put(id)
+		if type(id) == "number" and not seen[id] then
+			seen[id] = true
+			out[#out + 1] = id
+		end
+	end
+	put(sch.outputItemID)
+	local okI, ri = pcall(C_TradeSkillUI.GetRecipeInfo, info.recipeID)
+	ri = okI and type(ri) == "table" and ri or nil
+	for _, q in ipairs(ri and ri.qualityItemIDs or {}) do
+		put(q)
+	end
+	-- Where you get it: Blizzard's own line (MEASURED 6 Oct 2026: also for learned recipes, also with the window shut).
+	local source
+	if C_TradeSkillUI.GetRecipeSourceText then
+		local okS, s = pcall(C_TradeSkillUI.GetRecipeSourceText, info.recipeID)
+		source = okS and OneLine(s) or nil
+	end
+	local learned = info.learned
+	if learned == nil and ri then
+		learned = ri.learned
+	end
 	return {
 		recipeID = info.recipeID,
 		name = info.name or sch.name or ("recipe " .. tostring(info.recipeID)),
 		icon = info.icon or sch.icon,
 		qmin = sch.quantityMin, qmax = sch.quantityMax,
 		slots = slots,
+		out = out,
+		source = source,
+		learned = learned,
 	}
 end
+
+local AddEntry
 
 --- Put the recipe on the list `times` times (added to it when it is there already).
 function ns.CraftShopAdd(times)
@@ -127,6 +247,27 @@ function ns.CraftShopAdd(times)
 		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), L("CRAFTSHOP_NO_RECIPE")))
 		return false
 	end
+	return AddEntry(info, level, times)
+end
+
+--- "+ Make" on a reagent row: put the recipe that makes it on the list, without the profession window.
+--- GetRecipeSchematic answers with the window shut (MEASURED 6 Oct 2026, /mh craftshop probe).
+function ns.CraftShopAddRecipe(recipeID, times, name)
+	local info = { recipeID = recipeID, name = name }
+	if C_TradeSkillUI and C_TradeSkillUI.GetRecipeInfo then
+		local ok, ri = pcall(C_TradeSkillUI.GetRecipeInfo, recipeID)
+		if ok and type(ri) == "table" then
+			info = { recipeID = recipeID, name = ri.name or name, icon = ri.icon, learned = ri.learned }
+		end
+	end
+	return AddEntry(info, nil, times)
+end
+
+AddEntry = function(info, level, times)
+	times = math.floor(tonumber(times) or 0)
+	if times < 1 then
+		return false
+	end
 	local entry, why = ReadRecipe(info, level)
 	ns.db = ns.db or {}
 	ns.db.craftShopProbe = { recipeID = info.recipeID, level = level, why = why,
@@ -135,11 +276,17 @@ function ns.CraftShopAdd(times)
 		print(("|cffffcc00%s|r %s (%s)"):format(L("PRINT_PREFIX"), L("CRAFTSHOP_NO_RECIPE"), tostring(why)))
 		return false
 	end
+	-- Measured on Rob's list: a "Knowledge" pseudo-recipe with no reagents at all. Nothing to shop for.
+	if #entry.slots == 0 then
+		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), L("CRAFTSHOP_NOTHING_TO_BUY"):format(entry.name)))
+		return false
+	end
 	local list = MyList()
 	for _, e in ipairs(list) do
 		if e.recipeID == entry.recipeID then
 			e.times = (e.times or 0) + times
 			e.slots = entry.slots -- the recipe may have changed with a patch: the newest read wins
+			e.out, e.source, e.learned = entry.out, entry.source, entry.learned
 			print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), L("CRAFTSHOP_ADDED_FMT"):format(e.times, e.name)))
 			if win and win:IsShown() then
 				Refresh()
@@ -253,7 +400,8 @@ local function ToAuctionator()
 	local terms = {}
 	for _, b in ipairs(win.buyList) do
 		local name = S.ItemName and S.ItemName(b.id)
-		if name and not name:find("[;^\"]") then
+		-- Vendor reagents stay off the auction-house list: the vendor next to the trainer is where they belong.
+		if name and not b.vendor and not name:find("[;^\"]") then
 			terms[#terms + 1] = { searchString = name, isExact = true, quantity = b.qty }
 		end
 	end
@@ -362,11 +510,17 @@ local function RecipeLine(i)
 	r = CreateFrame("Frame", nil, win)
 	r:SetSize(WIDTH - 32, 18)
 	r.text = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	r.text:SetPoint("LEFT", r, "LEFT", 0, 0)
+	r.text:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -2)
 	r.text:SetJustifyH("LEFT")
+	-- "You don't know this recipe yet" + Blizzard's own source line, under the recipe.
+	r.src = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	r.src:SetPoint("TOPLEFT", r.text, "BOTTOMLEFT", 12, -2)
+	r.src:SetWidth(WIDTH - 32 - 36)
+	r.src:SetJustifyH("LEFT")
+	r.src:SetWordWrap(true)
 	r.del = CreateFrame("Button", nil, r, "UIPanelCloseButton")
 	r.del:SetSize(20, 20)
-	r.del:SetPoint("RIGHT", r, "RIGHT", 0, 0)
+	r.del:SetPoint("TOPRIGHT", r, "TOPRIGHT", 0, 0)
 	r.del:SetScript("OnClick", function(self)
 		local list = MyList()
 		local idx = self:GetParent().index
@@ -390,10 +544,25 @@ local function Row(i)
 	r.icon:SetSize(24, 24)
 	r.icon:SetPoint("LEFT", r, "LEFT", 0, 0)
 	r.label = r:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	r.label:SetPoint("LEFT", r.icon, "RIGHT", 8, 0)
 	r.label:SetWidth(210)
 	r.label:SetJustifyH("LEFT")
 	r.label:SetWordWrap(false)
+	-- One short line under the name: vendor / where to gather / you make this. The long version is in the tooltip.
+	r.note = r:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	r.note:SetPoint("TOPLEFT", r.label, "BOTTOMLEFT", 0, -1)
+	r.note:SetWidth(210)
+	r.note:SetJustifyH("LEFT")
+	r.note:SetWordWrap(false)
+	r.make = CreateFrame("Button", nil, r, "UIPanelButtonTemplate")
+	r.make:SetSize(96, 20)
+	r.make:SetPoint("RIGHT", r, "RIGHT", 0, 0)
+	r.make:SetScript("OnClick", function(self)
+		local row = self:GetParent()
+		if row.makeRecipe and ns.CraftShopAddRecipe then
+			ns.CraftShopAddRecipe(row.makeRecipe, row.makeTimes or 1, row.makeName)
+		end
+	end)
+	r.make:Hide()
 	r.count = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	r.count:SetJustifyH("RIGHT")
 	r.where = r:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -413,6 +582,10 @@ local function Row(i)
 		if self.itemID and GameTooltip then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			pcall(GameTooltip.SetItemByID, GameTooltip, self.itemID)
+			if self.tip then
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddLine(self.tip, 0.4, 0.85, 1, true)
+			end
 			GameTooltip:Show()
 		end
 	end)
@@ -441,6 +614,24 @@ local function Totals(list)
 		end
 	end
 	return order
+end
+
+--- How many of this reagent the recipes on the list will MAKE (their lowest yield, so we never promise too many).
+local function Planned(t, list)
+	local ids = {}
+	for _, x in ipairs(t.ids) do
+		ids[x] = true
+	end
+	local n = 0
+	for _, e in ipairs(list) do
+		for _, o in ipairs(e.out or {}) do
+			if ids[o] then
+				n = n + (e.qmin or 1) * (e.times or 1)
+				break
+			end
+		end
+	end
+	return n
 end
 
 local function HaveInBags(ids)
@@ -473,10 +664,34 @@ Refresh = function()
 			yield = "  |cff9aa0a8" .. L("CRAFTSHOP_YIELD_FMT"):format(lo == hi and tostring(lo) or (lo .. "-" .. hi)) .. "|r"
 		end
 		r.text:SetText(("%d× %s%s"):format(e.times or 1, e.name or "?", yield))
+		-- Learned now? Ask again (a recipe learned since it was added should lose its red line); fall back to the stored
+		-- answer when the client does not know this profession right now.
+		local learned = e.learned
+		if C_TradeSkillUI and C_TradeSkillUI.GetRecipeInfo then
+			local ok, ri = pcall(C_TradeSkillUI.GetRecipeInfo, e.recipeID)
+			if ok and type(ri) == "table" and ri.learned ~= nil then
+				learned = ri.learned
+				e.learned = learned
+			end
+		end
+		-- Entries added before v2 never stored a source: ask now, once.
+		if learned == false and not e.source and C_TradeSkillUI and C_TradeSkillUI.GetRecipeSourceText then
+			local okS, s = pcall(C_TradeSkillUI.GetRecipeSourceText, e.recipeID)
+			e.source = okS and OneLine(s) or nil
+		end
+		local h = 20
+		if learned == false then
+			r.src:SetText("|cffff8080" .. L("CRAFTSHOP_UNLEARNED") .. "|r " .. (e.source or L("CRAFTSHOP_SOURCE_UNKNOWN")))
+			r.src:Show()
+			h = 20 + r.src:GetStringHeight() + 4
+		else
+			r.src:Hide()
+		end
+		r:SetHeight(h)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
 		r:Show()
-		y = y - 20
+		y = y - h
 	end
 	for i = #list + 1, #win.recipeLines do
 		win.recipeLines[i]:Hide()
@@ -493,24 +708,76 @@ Refresh = function()
 	else
 		win.reagHead:Hide()
 	end
+	local makes = MyMakes()
+	local gather = MyGatherSkills()
 	for i, t in ipairs(totals) do
 		local have = HaveInBags(t.ids)
 		local inMail = S.MailCount and S.MailCount(t.ids) or 0
 		local inBank = S.BankCount and S.BankCount(t.ids) or 0
-		local toBuy = math.max(0, t.need - have - inMail - inBank)
+		local planned = Planned(t, list)
+		local toBuy = math.max(0, t.need - have - inMail - inBank - planned)
 		local id = t.ids[1]
+		local vendor, farm, make = false, nil, nil
+		for _, x in ipairs(t.ids) do
+			vendor = vendor or VENDOR[x] == true
+			farm = farm or FARM[x]
+			make = make or makes[x]
+		end
 		if toBuy > 0 then
-			win.buyList[#win.buyList + 1] = { id = id, qty = toBuy }
+			win.buyList[#win.buyList + 1] = { id = id, qty = toBuy, vendor = vendor }
 		end
 		local r = Row(i)
 		r.itemID = id
 		r.icon:SetTexture(S.ItemIcon and S.ItemIcon(id) or 134400)
 		r.label:SetText((S.ItemName and S.ItemName(id)) or "…")
 		r.count:SetText(("%d / %d"):format(have, t.need))
+
+		-- The short line under the name, and the longer explanation for the tooltip.
+		local note, tip
+		if make then
+			note = L("CRAFTSHOP_NOTE_MAKE_FMT"):format(make.n or "?")
+			tip = L("CRAFTSHOP_TIP_MAKE")
+		end
+		if vendor then
+			note = note or L("CRAFTSHOP_NOTE_VENDOR")
+			tip = (tip and (tip .. "\n\n") or "") .. L("CRAFTSHOP_TIP_VENDOR")
+		end
+		if farm and not note then
+			local keys = FARM_KEYS[farm]
+			note, tip = L(keys[1]), L(keys[2])
+			if gather[FARM_SKILL[farm]] then
+				note = "|cff80ff80" .. note .. "|r"
+				tip = tip .. "\n\n" .. L("CRAFTSHOP_TIP_YOU_GATHER")
+			end
+		end
+		r.tip = tip
+		r.note:SetText(note or "")
+		r.label:ClearAllPoints()
+		if note then
+			r.label:SetPoint("BOTTOMLEFT", r.icon, "RIGHT", 8, 1)
+			r.note:Show()
+		else
+			r.label:SetPoint("LEFT", r.icon, "RIGHT", 8, 0)
+			r.note:Hide()
+		end
+
+		r.make:Hide()
+		r.status:Show()
 		if have >= t.need then
 			r.status:SetText("|cff40ff40" .. L("RAIDSHOP_ENOUGH") .. "|r")
+		elseif toBuy == 0 and planned > 0 and have + inMail + inBank < t.need then
+			r.status:SetText("|cff66ccff" .. L("CRAFTSHOP_MAKING") .. "|r")
 		elseif toBuy == 0 then
 			r.status:SetText("|cffffd100" .. L("RAIDSHOP_PICKUP") .. "|r")
+		elseif make then
+			-- You know the recipe: offer to put it on the list, as many times as covers what is missing.
+			r.makeRecipe, r.makeName = make.r, make.n
+			r.makeTimes = math.ceil(toBuy / math.max(1, make.q or 1))
+			r.make:SetText(L("CRAFTSHOP_BTN_MAKE"))
+			r.make:Show()
+			r.status:Hide()
+		elseif vendor then
+			r.status:SetText("|cffffd100" .. L("CRAFTSHOP_VENDOR_FMT"):format(toBuy) .. "|r")
 		else
 			r.status:SetText("|cffff5555" .. L("RAIDSHOP_BUY_FMT"):format(toBuy) .. "|r")
 		end
@@ -524,10 +791,12 @@ Refresh = function()
 		r.where:SetText(table.concat(where, ", "))
 		r.count:ClearAllPoints()
 		r.count:SetPoint("RIGHT", r, "RIGHT", -110, #where > 0 and 6 or 0)
+		local h = note and ROW_H_NOTE or ROW_H
+		r:SetHeight(h)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
 		r:Show()
-		y = y - ROW_H
+		y = y - h
 	end
 	for i = #totals + 1, #win.rows do
 		win.rows[i]:Hide()
@@ -615,6 +884,11 @@ function ns.CraftShopWhy()
 		print("   no recipe selected (open your profession and click a recipe)")
 	end
 	print(("   your list: %d recipe(s)"):format(#MyList()))
+	local nMakes = 0
+	for _ in pairs(MyMakes()) do
+		nMakes = nMakes + 1
+	end
+	print(("   items you can make (noted when a profession opens): %d"):format(nMakes))
 end
 
 --- `/mh craftshop probe`: ONE measurement before v2 is built (docs/CRAFTSHOP_RESEARCH_2026-10-06.md, "eerst te meten").
@@ -785,6 +1059,77 @@ function ns.CraftShopMeasure()
 	else
 		print("   Done with the window closed. Also once with it OPEN (profession + recipes on your list), then |cffffd100/reload|r.")
 	end
+end
+
+--- Note which item every LEARNED recipe of the open profession makes, so the list can say "you make this yourself".
+--- C_TradeSkillUI answers about the profession you opened (Profession.lua, 30 Aug); a linked or guild profession is
+--- someone else's, so those are skipped. MEASURED 6 Oct 2026: 504 recipes, 493 with an output item, 530 products.
+local function LearnMakes()
+	local T = C_TradeSkillUI
+	if not (T and T.GetAllRecipeIDs and T.GetRecipeInfo and T.GetRecipeSchematic) then
+		return 0
+	end
+	if T.IsTradeSkillReady then
+		local ok, ready = pcall(T.IsTradeSkillReady)
+		if not (ok and ready) then
+			return 0
+		end
+	end
+	for _, fn in ipairs({ "IsTradeSkillLinked", "IsTradeSkillGuild", "IsNPCCrafting" }) do
+		if T[fn] then
+			local ok, v = pcall(T[fn])
+			if ok and v then
+				return 0
+			end
+		end
+	end
+	local ok, ids = pcall(T.GetAllRecipeIDs)
+	if not ok or type(ids) ~= "table" then
+		return 0
+	end
+	local makes = MyMakes()
+	local n = 0
+	for _, id in ipairs(ids) do
+		local okI, ri = pcall(T.GetRecipeInfo, id)
+		if okI and type(ri) == "table" and ri.learned then
+			local okS, sch = pcall(T.GetRecipeSchematic, id, false)
+			if okS and type(sch) == "table" then
+				local function put(item)
+					if type(item) == "number" then
+						makes[item] = { r = id, n = ri.name, q = sch.quantityMin }
+						n = n + 1
+					end
+				end
+				put(sch.outputItemID)
+				for _, q in ipairs(ri.qualityItemIDs or {}) do
+					put(q)
+				end
+			end
+		end
+	end
+	if win and win:IsShown() then
+		Refresh()
+	end
+	return n
+end
+
+do
+	-- TRADE_SKILL_SHOW / TRADE_SKILL_LIST_UPDATE: both already registered by Profession.lua and ProfessionGuided.lua.
+	-- The list update fires in bursts while the window loads, so wait a moment and do it once.
+	local pending = false
+	local ev = CreateFrame("Frame")
+	ev:RegisterEvent("TRADE_SKILL_SHOW")
+	ev:RegisterEvent("TRADE_SKILL_LIST_UPDATE")
+	ev:SetScript("OnEvent", function()
+		if pending or not (C_Timer and C_Timer.After) then
+			return
+		end
+		pending = true
+		C_Timer.After(1.5, function()
+			pending = false
+			pcall(LearnMakes)
+		end)
+	end)
 end
 
 -- Side panel refresh when the player picks another recipe (Blizzard's own event; EventRegistry calls it securely).

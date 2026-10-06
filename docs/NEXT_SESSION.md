@@ -13,8 +13,15 @@
   client gecheckt); "Vaciar la lista"/"Svuota la lista" krap op de 110 px-knop (AFGELEID).
 - **Rob, 6 okt: eerst v2 van de lijst, dán pas de beta.** Bouwen: waar krijg je een recept, handelaar-spul, farmplekken,
   tussenproducten. Kwaliteit: later bespreken. Onderzoek + vergelijking met andere addons (CraftSim, PSL, GatherMate2):
-  `docs/CRAFTSHOP_RESEARCH_2026-10-06.md`. Meting `/mh craftshop probe` (open + dicht → `ns.db.craftShopMeasure`)
-  gebouwd, wacht op Robs run.
+  `docs/CRAFTSHOP_RESEARCH_2026-10-06.md`. Meting `/mh craftshop probe` (open + dicht → `ns.db.craftShopMeasure`).
+  ✅ GEMETEN (Rob, Leatherworking): GetRecipeSourceText 404/417 niet-geleerd + ook geleerd ("Trainer … 160g"), werkt met
+  venster dicht; 530 producten leesbaar (open én dicht); GetCraftingOperationInfo zonder reagents OK ("quality 2,
+  skill 61+48, diff 250"), mét reagents: vlakke tabel → fout "Current Field: [reagent]", geneste {reagent={itemID}} → nil
+  (vorm nog onbekend). GetDependentReagents bestaat (niet onderzocht). Tussenproduct: 0 gevonden op zijn LW-lijst.
+- **v2 GEBOUWD, NIET GETEST (lokaal):** rode regel + bron onder niet-geleerde recepten; handelaar-lijst (17 ids + Zygor
+  244174) → geel "Handelaar N", niet naar Auctionator; farm-regel (kruid/erts/leer/schubben/lotus, groen als je het
+  beroep hebt); "Maak je zelf" + "+ Maken" (makes-tabel per personage bij TRADE_SKILL_SHOW/LIST_UPDATE, `craftShopMakes`),
+  geplande opbrengst telt mee ("Je maakt het"). ~21 nieuwe keys alleen enUS + nlNL → vertaalronde vóór de beta.
 
 ## 📸 6 okt — na 4.7.3 (lokaal/gepusht, NIET in een release): screenshots, beschrijving, Holy, "spells"
 - Nieuwe screenshots: /mh shots heeft 17 scènes (key block, Ready, Pop-out windows); Rob schoot ze, 15 = zijn Prot-opname.

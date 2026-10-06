@@ -67,6 +67,22 @@ en opgeslagen (`ns.db.craftShop[guid]`), dus de lijst heeft het beroepsvenster d
 - [ ] (alleen met een de/fr/es/pt/it-client, of Cisca) Vertaald 6 okt: past "Vaciar la lista"/"Svuota la lista" op de
   knop "Lijst leegmaken"? Lopen de paneelregels netjes over twee regels bij een lange receptnaam?
 
+## 🆕 6 okt — boodschappenlijst v2: recept-bron, handelaar, farmplekken, zelf maken (Rob: "laten we gewoon die punten doen")
+
+Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op een reagent = de lange uitleg.
+- [ ] **Recept-bron:** zet een recept op je lijst dat je NOG NIET kent (grijs in je beroepsvenster). Staat eronder in
+  het rood "Dit recept ken je nog niet. Hier haal je het:" + Blizzards tekst (Drop/Quest/Vendor … Zone …)?
+- [ ] Een recept dat je wél kent: géén rode regel?
+- [ ] **Handelaar:** recept met Sunglass Vial / Silverleaf Thread / Luminant Flux e.d. Regeltje "Handelaar, naast je
+  trainer" en status geel "Handelaar N" (niet "Koop")? Naar Auctionator: staat dat item er NIET in?
+- [ ] **Farmen:** een kruid / erts / leer: "Herbalism - alle vier de gebieden" e.d.? Groen als je dat beroep zelf hebt?
+- [ ] **Zelf maken** (Alchemy is de beste test, bv. iets met Composite Flora): open eerst je beroep één keer. Staat bij
+  zo'n reagent "Maak je zelf: <recept>" en een knop **+ Maken**? Klik → komt dat recept op je lijst, met zijn eigen
+  reagents erbij, en wordt de status van de reagent blauw "Je maakt het"?
+  ⚠️ Bij Robs Leatherworking-lijst vond de meting GEEN tussenproduct; dit deel is dus nog nergens positief gezien.
+- [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
+- [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
+
 ## 🔍 6 okt — meting vóór boodschappenlijst v2 (`/mh craftshop probe`; Rob: "maak die meetcontrole maar")
 
 Voor: recept-bron, tussenproducten (en later kwaliteit). Schrijft naar `ns.db.craftShopMeasure` (open + closed).
