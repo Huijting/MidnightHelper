@@ -1456,6 +1456,57 @@ do
 	end)
 end
 
+--- Recipe item tooltip: which of your characters already know this recipe, and who has the profession but not the
+--- recipe (Rob, 6 Oct 2026: "neem wel het idee over" from MyRecipeTracker, without installing it or using its code).
+--- Item -> recipe comes from CraftShopRecipeItems.lua (Blizzard's DB2); who knows what from ns.db.craftShopKnown, which
+--- fills when a character opens its profession. Same hook as LootUpgrade.lua: GameTooltip and ItemRefTooltip only.
+local function ClassName(k)
+	local short = (k.name or "?"):match("^[^-]+") or "?"
+	local c = k.class and RAID_CLASS_COLORS and RAID_CLASS_COLORS[k.class]
+	return c and c.WrapTextInColorCode and c:WrapTextInColorCode(short) or short
+end
+
+local function AddRecipeOwners(tooltip, itemID)
+	local map = ns.CRAFTSHOP_RECIPE_ITEM and ns.CRAFTSHOP_RECIPE_ITEM[itemID]
+	if not map then
+		return
+	end
+	local recipeID, base = map[1], map[2]
+	local knows, lacks = {}, {}
+	for _, k in pairs(ns.db and ns.db.craftShopKnown or {}) do
+		if k.recipes and k.recipes[recipeID] then
+			knows[#knows + 1] = ClassName(k)
+		elseif k.profs and k.profs[base] then
+			lacks[#lacks + 1] = ClassName(k)
+		end
+	end
+	if #knows == 0 and #lacks == 0 then
+		return -- nobody with this profession noted yet: say nothing rather than "nobody knows it"
+	end
+	table.sort(knows)
+	table.sort(lacks)
+	if #knows > 0 then
+		tooltip:AddLine("|cffffcc00MH|r " .. L("CRAFTSHOP_TIP_KNOWN_FMT"):format(table.concat(knows, ", ")), 0.4, 1, 0.4, true)
+	end
+	if #lacks > 0 then
+		tooltip:AddLine("|cffffcc00MH|r " .. L("CRAFTSHOP_TIP_NOT_KNOWN_FMT"):format(table.concat(lacks, ", ")), 1, 0.82, 0.3, true)
+	end
+end
+
+if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType
+	and Enum.TooltipDataType.Item then
+	pcall(TooltipDataProcessor.AddTooltipPostCall, Enum.TooltipDataType.Item, function(tooltip, data)
+		if tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip then
+			return
+		end
+		local id = type(data) == "table" and data.id
+		if type(id) ~= "number" or (issecretvalue and issecretvalue(id)) then
+			return
+		end
+		pcall(AddRecipeOwners, tooltip, id)
+	end)
+end
+
 -- Side panel refresh when the player picks another recipe (Blizzard's own event; EventRegistry calls it securely).
 if EventRegistry and EventRegistry.RegisterCallback then
 	-- A moment LATER: our callback is registered at load, before Blizzard_Professions' own, so it runs first and read

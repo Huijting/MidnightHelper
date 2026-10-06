@@ -133,6 +133,10 @@ Stap 1 gebouwd, niet getest: bij het openen van een beroep onthoudt MH per perso
 (`ns.db.craftShopKnown`, account-breed). De tooltip zelf komt na het onderzoek (welk item leert welk recept).
 - [ ] Log op een paar personages in en open op elk één keer hun beroep(en). `/mh craftshop why` → regels "known recipes
   noted for <naam>: N" voor elk personage dat je zo langs ging?
+- [ ] **Tooltip** (stap 3 gebouwd: 314 recept-items uit Blizzards data, `Modules/CraftShopRecipeItems.lua`): muis op een
+  Midnight-recept (tas, veilinghuis, of een link in de chat) → groen "MH Kennen dit al: <namen in klassekleur>" en/of geel
+  "MH Hebben het beroep, dit recept nog niet: <namen>"? Bij een recept van een beroep dat niemand heeft: geen MH-regel.
+  Voorbeeld uit het onderzoek: item 256636 = Pattern: Row Walker's Deflectors (Leatherworking).
 
 ## 🔍 6 okt — meting vóór boodschappenlijst v2 (`/mh craftshop probe`; Rob: "maak die meetcontrole maar")
 

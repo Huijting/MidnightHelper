@@ -11,8 +11,13 @@ de kaart nog Engels "Pop-out windows" terwijl TAB_TOOLSLAUNCH vertaald is.
 - **MyRecipeTracker** (onderzocht: All Rights Reserved, 298 downloads, 2 weken oud): Rob installeert hem NIET, maar wil
   het idee "tooltip van een recept-item: welke van je personages kennen het al". Stap 1 GEBOUWD (lokaal):
   `ns.db.craftShopKnown[guid]` = naam, klasse, geleerde recipeIDs, beroepen; gevuld in LearnMakes. Stap 2 (item →
-  recipeID) loopt bij mh-research → `data/craftshop_recipe_items.tsv`. Stap 3: tooltip (TooltipDataProcessor, zoals
-  LootUpgrade.lua).
+  recipeID) → `data/craftshop_recipe_items.tsv` (mh-research, DB2: 298 compleet; 4 Wowhead-controles kloppen). Stap 3
+  GEBOUWD, NIET GETEST: `Modules/CraftShopRecipeItems.lua` (gegenereerd door `tools/gen_craftshop_recipe_items.py`,
+  314 items) + tooltip-haak in CraftShoppingList.lua. Open: of de client zelf item→recept geeft (twee /run-regels A/B in
+  `docs/CRAFTSHOP_RECIPE_ITEMS_2026-10-06.md`); 15 verborgen recept-items zonder naam.
+- **Healers "Zo vecht je alleen" GEBOUWD, NIET GETEST** (Rob, Resto Druid): `Modules/HealerSolo.lua` (volgorde = Blizzards
+  Single-Button Assistant, `docs/HEALER_SOLO_DAMAGE_2026-10-06.md`), blokje op de speelkaart + rode rand op `/mh block`.
+  Keys CARD_SOLO_* / KEYBLOCK_SOLO_LEGEND / CRAFTSHOP_TIP_(NOT_)KNOWN_FMT alleen enUS + nlNL → vertaalronde.
 
 ## 🌙 STAND EIND 6 OKT (start hier) — 4.7.3 live; daarna gebouwd en gepusht, NIET uitgebracht
 - **Boodschappen voor je beroep** (`/mh craftshop`, CraftShoppingList.lua; Cisca's wens). Rob getest: paneel volgt het
