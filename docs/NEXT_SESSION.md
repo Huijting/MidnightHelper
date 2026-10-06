@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🌙 STAND EIND 6 OKT (start hier) — 4.7.3 live; daarna gebouwd en gepusht, NIET uitgebracht
+- **Boodschappen voor je beroep** (`/mh craftshop`, CraftShoppingList.lua; Cisca's wens). Rob getest: paneel volgt het
+  recept, toevoegen werkt, Auctionator-lijst "MH craft - <naam>". Nog niet getest: aantallen/bank/post per reagent.
+- Ook sinds 4.7.3: Holy Paladin HoR/SotR op D, nl "spells", foto-rig 17 scènes, CF-beschrijving (live), screenshots (live).
+- **Volgende stap (Robs plan):** vertaalronde (CRAFTSHOP_* + CMDLIST_CRAFTSHOP, mh-writer) → **4.7.4 als beta** (nieuwe
+  functie = beta-regel) zodat Cisca test → daarna farmplekken / welke kwaliteit kopen / tussenproducten.
+- Rob, 6 okt avond: "de afgelopen twee dagen best wel een beetje stressvol" — rustig aan, geen haast.
+
 ## 📸 6 okt — na 4.7.3 (lokaal/gepusht, NIET in een release): screenshots, beschrijving, Holy, "spells"
 - Nieuwe screenshots: /mh shots heeft 17 scènes (key block, Ready, Pop-out windows); Rob schoot ze, 15 = zijn Prot-opname.
   Live op CF (Rob) en de site (fd57eb8). CURSEFORGE_DESCRIPTION.md bijgewerkt, door Rob geplakt.
