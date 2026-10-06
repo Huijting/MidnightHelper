@@ -46,8 +46,9 @@ Crusader Aura belonged.
 
 - **Hunters:** no more "New for your key block: Primal Rage" question every time you swap pets. Primal Rage now uses
   the button you really have: **Command Pet**.
-- **Mages:** portals and teleports no longer land one by one on block D. They already have their own fold-out
-  button. Cone of Cold now gets a free Alt key for Fire and Arcane too.
+- **Fold-out buttons** (like a Mage's Portals and Teleports): the fold-out button itself now goes on a free Alt key
+  of block D, instead of every portal one by one. Loose copies leave block D, and Undo puts them back. Mages: Cone of
+  Cold now gets a free Alt key for Fire and Arcane too.
 - **Paladin auras** and the **herbalism Overload** spells no longer get a key. You rarely switch them in a fight.
 - **Five spells that no longer exist** in Midnight are gone from the list, for example Shear and Sigil of Doom.
 - Every place on the standard key blocks now has its exact spell ID, so midnighthelper.com can show the right spell and

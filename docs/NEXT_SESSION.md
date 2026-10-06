@@ -3,8 +3,10 @@
 ## ⚠️ 6 okt — 4.7.3 door Rob WEER VAN CF GEHAALD (0 downloads); opnieuw als 4.7.3 (Robs wens) na de Mage-fix
 Mage: 30 portals/teleports uit de flyout-scan stonden als "onbekend" → kunnen los op D; gerepareerd (`ns._mhFlyoutSpells`),
 Rob getest (rode regel 31 → 1). Cone of Cold Fire/Arcane: blockAs onlyD (GEMETEN keyblock_specs: A/B/C ongewijzigd).
-Plan (wacht op Robs go): oude GitHub-release + tag v4.7.3 verwijderen, nieuwe tag v4.7.3 op de nieuwe commit; site-chat
-haalt WITHDRAWN {"v4.7.3"} weer uit nightly.py. Beta 2 blijft op CF staan.
+Daarna (Rob: "het uitschuif-icoontje gebruiken"): flyouts als geheel op D, losse kopieën eraf — Rob getest (Portal Alt E,
+Teleport Alt C, klappen open, Undo werkt). Alleen klasse-flyouts (General-tab "Frostbolt of Ages"/"Word of Recall (OLD)"
+eruit; NIET door Rob nagekeken vóór de go). Rob: "go" → oude GitHub-release + tag v4.7.3 verwijderd, nieuwe tag v4.7.3
+op de nieuwe commit; site-chat haalt WITHDRAWN {"v4.7.3"} weer uit nightly.py. Beta 2 blijft op CF staan.
 (Eerder:)
 ## 🚀 6 okt — 4.7.3 UITGEBRACHT als release (Rob: "go, breng 4.7.3 maar uit , samen met de site chat")
 Direct na beta 2, zonder beta-reacties (Robs keuze, om de blok-D-fix bij iedereen te krijgen). Notitie herschreven
