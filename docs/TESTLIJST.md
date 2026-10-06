@@ -29,7 +29,7 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
   Meldingen Scorecard + detail; bij Dungeon de 3 tank-samenvattingen; bij Route-pijl "Let WaypointUI drive". Zelfde
   stand als je `/mh`-commando's? Ook in Blizzards eigen Options → AddOns → Midnight Helper?
 - [x] Rob 6 okt ✅ ("de rest opent netjes"; screenshot toont alle 5 kaarten) **Pop-out windows**: 5 nieuwe kaarten.
-  Open-knop van "Your graphics settings" (/mh fps) nog niet bevestigd.
+  ✅ Ook "Your graphics settings" (/mh fps) opent (Rob 6 okt: "graphics opent ook netjes").
 - [x] Rob 6 okt ✅ (screenshot) **Settings-startpagina**: knoppen Report a problem, What's new, Side panels back in place staan er.
 - Rob 6 okt: "Open Midnight Helper settings" → hernoemd naar **All settings**; "Help translate" gaf alleen chat (en
   zei op een Engelse client "enUS needs its first pack") → nu een kopieervenster; "Show me" opende zonder uitleg de
