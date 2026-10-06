@@ -1,5 +1,9 @@
 # Midnight Helper — waar we staan
 
+## ✅ 6 okt — 4.7.3 (tag op 4f66c6b) LIVE: CF "R v4.7.3 Oct 6" + site e6a1a40 (site-chat GEMETEN, 7 talen, /keyblock/ uit 4f66c6b)
+Release-run 37445961805 success (57 s). Site-chat meldt: Rob laat de vertalingen van vandaag nakijken (mh-writer);
+correcties komen apart — die horen in de addon via de bouwchat.
+
 ## ⚠️ 6 okt — 4.7.3 door Rob WEER VAN CF GEHAALD (0 downloads); opnieuw als 4.7.3 (Robs wens) na de Mage-fix
 Mage: 30 portals/teleports uit de flyout-scan stonden als "onbekend" → kunnen los op D; gerepareerd (`ns._mhFlyoutSpells`),
 Rob getest (rode regel 31 → 1). Cone of Cold Fire/Arcane: blockAs onlyD (GEMETEN keyblock_specs: A/B/C ongewijzigd).
