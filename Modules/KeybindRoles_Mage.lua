@@ -162,7 +162,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Pyroblast"] = { id = 11366, category = "spender", priority = 1, specs = { 63 } }, -- SpellArchetypes [11366] ranged; Hot-Streak-spender
 	-- Phoenix Flames removed 17 Sep: gone in Midnight (audit, BRON Method Fire intro + Wowhead pre-patch).
     -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Living Bomb"] = { category = "main_rotation", priority = 5, specs = { 63 } }, -- SpellArchetypes [44461] ranged; AoE-DoT (talent)
-	["Flamestrike"] = { category = "spender", priority = 2, bindKey = "Shift+4", specs = { 63 } }, -- SpellArchetypes [2120] ranged; AoE-Hot-Streak-spender (AoE-slot)
+	["Flamestrike"] = { id = 2120, category = "spender", priority = 2, bindKey = "Shift+4", specs = { 63 } }, -- SpellArchetypes [2120] ranged; AoE-Hot-Streak-spender (AoE-slot)
 	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026 — zelfde reden als Arcane Explosion hierboven. Stond
 	-- op 63, maar Robs Frost mage heeft hem (Frostfire-heldenboom) en kreeg dus geen toets.
 	["Dragon's Breath"] = { id = 31661, category = "dispel_cc", priority = 6 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (achter Spellsteal, zie daar)
@@ -185,7 +185,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Ice Lance"] = { id = 30455, category = "main_rotation", priority = 4, specs = { 64 } }, -- KeybindingData "4" [30455]; Shatter-spender (instant)
 	-- Glacial Spike removed 17 Sep: no longer a spell, it changes Frostbolt (audit, BRON Icy Veins Frost 12.1).
 	["Frozen Orb"] = { id = 84714, category = "main_rotation", priority = 2, bindKey = "Shift+1", specs = { 64 } }, -- KeybindingData "Shift+1" [84714]; AoE + Fingers-of-Frost-CD (AoE-slot)
-	["Blizzard"] = { category = "main_rotation", priority = 5, bindKey = "Shift+2", specs = { 64 } }, -- KeybindingData "Shift+2" [190356]; ground-AoE
+	["Blizzard"] = { id = 190356, category = "main_rotation", priority = 5, bindKey = "Shift+2", specs = { 64 } }, -- KeybindingData "Shift+2" [190356]; ground-AoE
 	["Cone of Cold"] = { id = 120, category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 64 } }, -- KeybindingData "Shift+3" [120]; PBAoE-frost
 	-- Comet Storm removed 17 Sep: no longer a spell, it changes Ray of Frost (audit, BRON Icy Veins Frost 12.1).
 	["Ice Barrier"] = { id = 11426, role = "defensive_1", priority = 1, specs = { 64 }, survival = "keepup", survivalOrder = 1 }, -- KeybindingData "Z" [11426]; kleine def (absorb)

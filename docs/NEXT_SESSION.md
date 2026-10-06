@@ -14,7 +14,17 @@ de notfound daarvan horen eruit (opruimronde, Rob kiest) — lijst komt via de b
 Gepusht 6 okt op Robs "push maar, allebei" (3217788; site-chat pusht 359fbdf zelf).
 ✅ Armory veld 15 met Robs echte export (Theexodus, Prot) GEMETEN door site-chat: 30 items gelezen, 0 afgekeurd, Wowhead-
 links met alle bonus-ids, tooltips = export (Wailing Bulwark 315, Pledgebearer's Mask 295). Open: "Viridescent Crusher"
-staat 2× identiek in B — echt twee exemplaren of telt GearExport dubbel? (Rob gevraagd.)
+staat 2× identiek in B — ✅ Rob: hij heeft er echt twee.
+
+## 🔢 6 okt — id-lijst van de site-chat toegepast (Rob: "ja pas de nummerlijst toe, Fracture mag naar 1") — LOKAAL, NIET GEPUSHT
+Bron: site-chat mh-research, wago 12.1.0.69933. Ids erbij: Bear Form 104 (survivalId), Deep Breath 1468, Blackout Kick
+269/270 (survivalId 100784), Mark for Death 1293340, Ascendance 262/264, Demonbolt 264178, Execute (71/73 163201, 72 5308),
+Flamestrike 2120, Blizzard 190356, Earthquake 61882, Rain of Fire 5740. Weg: Sigil of Doom, Shear, Flamefang Pitch,
+Jadefire Stomp, Azure Sweep; Deep Breath niet voor 1473; Ascendance niet voor 263 (blockQ 263 weg); Healthstone alleen uit
+het site-blok (tools/keyblock_specs.lua; Warlock-entry blijft voor /mh apply). GEMETEN na `run keyblock_specs`: 1164
+plekken, 2 zonder id (Primal Rage 253 F1 / 255 Shift-3 — open, site-chat laat Rob testen), 581: Fracture op 1.
+In het spel: AFGELEID weinig effect (blok pakt alleen gekende spreuken); niet getest. Na release haalt de site het op.
+Niet vergeleken met docs/id_round_2026-10-05/ (de site-research las die niet).
 
 ## 🚀 5 okt nacht — 4.7.2 UITGEBRACHT (Rob: "Go"), tag v4.7.2 op 310822c, site-chat geseind
 

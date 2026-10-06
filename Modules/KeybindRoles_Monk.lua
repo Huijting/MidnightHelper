@@ -159,7 +159,6 @@ ns.KeybindRoleClassifier.MONK = {
     -- RAID/AoE-heals -> toets-slots
     -- -----------------------------------------------------------------
     -- Essence Font (weg in 11.0.0) en Refreshing Jade Wind (weg in 12.0.0): verwijderd 17 sep (wiki).
-    ["Jadefire Stomp"]               = { category = "raid_heal", priority = 3, specs = { 270 } }, -- AoE damage+heal ground-slam (talent)
     -- Rotationeel-versterkende utility
     ["Thunder Focus Tea"]            = { id = 116680, category = "utility", priority = 6, bindKey = "Shift+1", specs = { 270 } }, -- versterkt volgende cast (healing-CD, geen directe heal)
     -- Movement / utility
@@ -189,7 +188,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- =================================================================
     -- Rotatie-basis (BM 2 / MW 1 / WW 1)
     ["Tiger Palm"]                   = { id = 100780, category = "main_rotation", priority = 1 }, -- meest-voorkomend p1
-    ["Blackout Kick"]                = { category = "main_rotation", priority = 3, survival = { [268] = "keepup" }, survivalOrder = 2, survivalId = { [268] = 205523 }, survivalNote = "SURVIVAL_NOTE_SHUFFLE" }, -- BM builder / MW filler / WW spender -> meest voorkomend main_rotation; card 5 Oct 2026, Brewmaster only: "Stay Shuffling" (IV Easy Mode); 205523 = BrM version (Wowhead), not client-measured
+    ["Blackout Kick"]                = { category = "main_rotation", priority = 3, survival = { [268] = "keepup" }, survivalOrder = 2, survivalId = { [268] = 205523, [269] = 100784, [270] = 100784 }, survivalNote = "SURVIVAL_NOTE_SHUFFLE" }, -- BM builder / MW filler / WW spender -> meest voorkomend main_rotation; card 5 Oct 2026, Brewmaster only: "Stay Shuffling" (IV Easy Mode); 205523 = BrM version (Wowhead), not client-measured
     -- Movement
     ["Roll"]                         = { survivalId = { [268] = 109132, [269] = 109132, [270] = 109132 }, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q: gap-closer (SpellCategories + gap-closer-lijsten)
     -- Self-heals

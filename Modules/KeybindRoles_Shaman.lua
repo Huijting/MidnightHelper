@@ -72,7 +72,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	-- Resto's own Flame Shock (wago SkillLineAbility 924, build 12.1.5.70077; 188389 has no learnable link
 	-- there). 5 Oct 2026, healers DPS too.
 	["Flame Shock"] = { id = 470411, category = "main_rotation", priority = 4, specs = { 264, 262, 263 } },
-	["Earthquake"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 262 } }, -- Ele Shift+4 (AoE-spender; live 462620)
+	["Earthquake"] = { id = 61882, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 262 } }, -- Ele Shift+4 (AoE-spender; live 462620)
 	["Spiritwalker's Grace"] = { id = 79206, role = "utility_secondary", priority = 1, specs = { 262, 264 } }, -- Ele+Resto F (cast-while-moving; JustAC GapCloserEngine 79206)
 	["Skyfury"] = { id = 462854, category = "utility", priority = 2, specs = { 262, 263, 264 } }, -- Ele R (raid-buff, pre-combat; 462854)
 	-- Card: knocks enemies away and works while stunned (IV-Ele).
@@ -107,7 +107,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	-- ============================================================
 	-- Gedeeld Enh + Ele: grootste extra CD
 	-- ============================================================
-	["Ascendance"] = { blockQ = { [262] = true, [263] = true }, category = "cooldown", priority = 3, specs = { 262, 263, 264 } }, -- Alt+F1. Per spec een eigen id (WH-spell): Ele 114050, Enh 114051, Resto 114052 (heal-CD)
+	["Ascendance"] = { blockQ = { [262] = true }, survivalId = { [262] = 114050, [264] = 114052 }, category = "cooldown", priority = 3, specs = { 262, 264 } }, -- 6 Oct 2026: not Enhancement (114051 takes over Doom Winds' button, already on F1; site-chat mh-research, Rob ok) -- Alt+F1. Per spec een eigen id (WH-spell): Ele 114050, Enh 114051, Resto 114052 (heal-CD)
 
 	-- ============================================================
 	-- Restoration (264) -- healer (v6 6-splitsing; Midnight 12.0.7 bevestigd via Method-gids).

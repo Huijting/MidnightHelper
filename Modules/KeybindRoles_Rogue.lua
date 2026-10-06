@@ -102,7 +102,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Secret Technique"] = { id = 280719, category = "main_rotation", priority = 3, specs = { 261 } }, -- spender/CD-hybride
     -- Spenders (finishers)
     ["Eviscerate"]       = { id = 196819, category = "spender", priority = 1, specs = { 261 } }, -- kern-finisher
-    ["Mark for Death"]   = { category = "utility", priority = 2, specs = { 261, 259 } }, -- combo-point enabler, geen directe damage-spender
+    ["Mark for Death"]   = { id = 1293340, category = "utility", priority = 2, specs = { 261, 259 } }, -- combo-point enabler, geen directe damage-spender
     -- AoE
     ["Shuriken Storm"]   = { id = 197835, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 261 } }, -- AoE builder
     ["Black Powder"]     = { id = 319175, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 261 } },       -- AoE spender (3+)

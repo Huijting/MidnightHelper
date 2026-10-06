@@ -256,7 +256,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- blijft op R (base, mobility). bindKey forceert de plek (base R/T/X telt mee
     -- op het keyboard, geen overflow naar de situational-lijst).
     -- blockForm (4 Oct 2026): the key block puts forms on Ctrl-1/2/3 (KeyBlock.lua; Shift-T/R belong to bar B there).
-    ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T", blockForm = 1, survival = { [102] = "big", [103] = "big", [105] = "big" }, survivalOrder = 3, survivalId = { [102] = 5487, [103] = 5487, [105] = 5487 }, survivalNote = "SURVIVAL_NOTE_BEAR_FORM" }, -- tank/def-vorm (nood-mitigation); card 5 Oct 2026: emergency button without a cooldown for Balance/Feral/Resto (IV Easy Mode, Method Resto); not Guardian (always in it); id Wowhead, not client-measured
+    ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T", blockForm = 1, survival = { [102] = "big", [103] = "big", [105] = "big" }, survivalOrder = 3, survivalId = { [102] = 5487, [103] = 5487, [104] = 5487, [105] = 5487 }, survivalNote = "SURVIVAL_NOTE_BEAR_FORM" }, -- tank/def-vorm (nood-mitigation); card 5 Oct 2026: emergency button without a cooldown for Balance/Feral/Resto (IV Easy Mode, Method Resto); not Guardian (always in it); id Wowhead, not client-measured
     ["Cat Form"]                         = { id = 768, category = "utility", priority = 5, bindKey = "Shift+R", blockForm = 2 }, -- melee-DPS-vorm
     ["Moonkin Form"]                     = { id = 24858, category = "utility", priority = 6, bindKey = "Shift+X", blockForm = 3 }, -- caster-vorm (Balance/Resto Affinity)
     -- Out-of-combat, achteraan gezet: ze horen in de tabel zodat de coach ze KENT, maar ze

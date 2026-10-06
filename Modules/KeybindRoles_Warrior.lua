@@ -79,7 +79,7 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Overpower"]          = { id = 7384, category = "main_rotation", priority = 2, specs = { 71 } },
 	["Rend"]               = { id = 772, category = "main_rotation", priority = 3, specs = { 71 } },
 	-- Spenders (guide.lua {163201} execute-fase; {1464} filler)
-	["Execute"]            = { category = "spender", priority = 1 },              -- baseline execute (alle specs, guide.lua)
+	["Execute"]            = { survivalId = { [71] = 163201, [72] = 5308, [73] = 163201 }, category = "spender", priority = 1 },              -- baseline execute (alle specs, guide.lua)
 	["Slam"]               = { id = 1464, category = "spender", priority = 2, specs = { 71 } },
 	-- AoE (Shift-tweelingen; guide.lua Multitarget {260708},{845})
 	["Sweeping Strikes"]   = { id = 260708, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 71 } },

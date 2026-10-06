@@ -158,7 +158,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 
 	-- Builders (shard-generatie / Demonic Core).
 	["Shadow Bolt"] = { id = 686, category = "main_rotation", priority = 1, specs = { 266, 265 } }, -- SpellArchetypes [686] ranged; shard-generatie-filler
-	["Demonbolt"] = { category = "main_rotation", priority = 2, specs = { 266 } }, -- SpellArchetypes [264178] ranged; Demonic-Core-proc-builder
+	["Demonbolt"] = { id = 264178, category = "main_rotation", priority = 2, specs = { 266 } }, -- SpellArchetypes [264178] ranged; Demonic-Core-proc-builder
 	["Call Dreadstalkers"] = { id = 104316, category = "main_rotation", priority = 3, specs = { 266 } }, -- SpellArchetypes [104316] ranged; kern-cooldown-pets
 
 	-- Spenders (shard-dump / pet-summon).
@@ -190,7 +190,7 @@ ns.KeybindRoleClassifier.WARLOCK = {
 	["Shadowburn"] = { id = 17877, category = "spender", priority = 2, specs = { 267 } }, -- SpellArchetypes [17877] ranged; execute-spender (shard-efficient)
 
 	-- AoE-tweeling (Shift+N).
-	["Rain of Fire"] = { category = "spender", priority = 3, bindKey = "Shift+4", specs = { 267 } }, -- SpellArchetypes [5740] ranged; AoE-shard-spender (AoE-slot, Shift-tweeling van Chaos Bolt slot 4)
+	["Rain of Fire"] = { id = 5740, category = "spender", priority = 3, bindKey = "Shift+4", specs = { 267 } }, -- SpellArchetypes [5740] ranged; AoE-shard-spender (AoE-slot, Shift-tweeling van Chaos Bolt slot 4)
 
 	-- Cleave / extra.
 	["Havoc"] = { id = 80240, category = "utility", priority = 6, specs = { 267 } }, -- SpellArchetypes [194831] ranged; cleave-target-tag (dupliceert single-target-schade)

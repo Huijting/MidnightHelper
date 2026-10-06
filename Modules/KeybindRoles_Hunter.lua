@@ -153,7 +153,6 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Black Arrow"] = { id = 466930, category = "spender", priority = 2, specs = { 254, 253 } }, -- MM Dark Ranger spender
 	-- Survival
 	["Boomstick"] = { id = 1261193, category = "spender", priority = 1, specs = { 255 } }, -- SV ranged filler (1261215, Midnight)
-	["Flamefang Pitch"] = { category = "spender", priority = 2, specs = { 255 } }, -- SV hero-talent spender (1251592)
 	["Takedown"] = { id = 1250646, blockQ = { [255] = true }, category = "spender", priority = 3, specs = { 255 } }, -- SV Midnight spender/proc
 
 	--==================================================================================

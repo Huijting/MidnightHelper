@@ -69,7 +69,7 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Quell"] = { id = 351338, role = "interrupt", priority = 1, specs = { 1467, 1473 }, survival = "interrupt", survivalOrder = 1 },
 	-- Movement (Q / Shift+Q)
 	["Hover"] = { id = 358267, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q (movement, baseline)
-	["Deep Breath"] = { role = "utility_primary", priority = 2, survival = { [1467] = "big" }, survivalOrder = 2, survivalRequires = 410352, survivalId = { [1467] = 357210 }, survivalNote = "SURVIVAL_NOTE_STRETCH_TIME" },        -- Shift+Q (movement, ook major damage-CD); card 5 Oct 2026, Devastation only: with Stretch Time 410352 hits arrive slowly (IV Dev Easy Mode); ids Wowhead, not client-measured
+	["Deep Breath"] = { role = "utility_primary", priority = 2, specs = { 1467, 1468 }, survival = { [1467] = "big" }, survivalOrder = 2, survivalRequires = 410352, survivalId = { [1467] = 357210, [1468] = 357210 }, survivalNote = "SURVIVAL_NOTE_STRETCH_TIME" },        -- Shift+Q (movement, ook major damage-CD); 6 Oct 2026: not Augmentation (Breath of Eons 403631 replaces it, already on Q; wago 12.1.0.69933 via site-chat mh-research, Rob ok); card 5 Oct 2026, Devastation only: with Stretch Time 410352 hits arrive slowly (IV Dev Easy Mode); ids Wowhead, not client-measured
 	-- Kleine defensive (Z)
 	-- Card: 30% for 12 s on 1.5 min (IV-Dev, WH-spell) — the main defensive, a cooldown, not a keep-up.
 	["Obsidian Scales"] = { id = 363916, role = "defensive_1", priority = 1, survival = "big", survivalOrder = 1 }, -- Z (kleine def, baseline); card: big sinds 3 okt 2026 (30% DR 12 s, sterkste eigen def; IV 12.1)
@@ -101,7 +101,6 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Disintegrate"] = { id = 356995, category = "spender", priority = 1, specs = { 1467, 1468 } }, -- Pres too since 5 Oct 2026 (IV Pres 12.1; wago 356995)         -- 4 (Essence-spender, channel)
 	["Eternity Surge"] = { id = 359073, category = "spender", priority = 2, specs = { 1467 } },       -- 5 (empower-spender, ST-piercing)
 	-- AoE (Shift-tweelingen)
-	["Azure Sweep"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 1467 } },  -- AoE (Shift-tweeling Azure Strike)
 	["Pyre"] = { id = 357211, category = "spender", priority = 6, bindKey = "Shift+4", specs = { 1467 } },               -- AoE-spender (Shift-tweeling Disintegrate)
 	-- Firestorm removed 17 Sep: passive in 12.0 (WH-pp-Dev).
 	-- Grootste CD (F1) + extra CD's

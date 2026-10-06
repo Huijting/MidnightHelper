@@ -106,8 +106,10 @@ for _, sp in ipairs(SPECS) do
 	table.sort(names) -- stable order for ties without an id
 	for _, name in ipairs(names) do
 		local r = roles[name]
+		-- Healthstone is an item (5512), not a spell: the block puts it on its fixed SHIFT-T place itself
+		-- (KeyBlock.lua HEALTHSTONE_ITEM). The Warlock entry stays for /mh apply. (6 Oct 2026, site-chat id round, Rob ok)
 		if type(r) == "table" and SpecMatches(r.specs, specID) and r.role ~= "click_cast" and r.category ~= "click_cast"
-			and (r.role or r.category) then
+			and (r.role or r.category) and name ~= "Healthstone" then
 			-- No `id` but a per-spec `survivalId` (Blink, Roll, Dash, Bear Form...): that is this spec's
 			-- own spell id, checked in the Stay alive round, so the site can show it too.
 			local sid = r.id

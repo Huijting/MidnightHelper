@@ -111,14 +111,12 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Metamorphosis"]     = { id = 191427, blockQ = { [577] = true }, role = "cooldown_bar", priority = 1, specs = { 577 } },      -- Havoc burst-vorm (SpellDB DEMONHUNTER_1 191427)
 	-- Extra CD's (guide.lua {258860} Essence Break Fel-Scarred; {213241} Sigil of Doom; {442294} Reaver's Glaive)
 	["Essence Break"]     = { id = 258860, category = "cooldown", priority = 3, specs = { 577 } },      -- burst-window-talent (SpellArchetypes 258860; guide.lua {258860})
-	["Sigil of Doom"]     = { category = "main_rotation", priority = 5, specs = { 577 } }, -- Fel-Scarred sigil-proc (SpellArchetypes 213241; guide.lua {213241})
 	["Reaver's Glaive"]   = { id = 442294, category = "cooldown", priority = 4, specs = { 577 } },      -- Aldrachi Reaver-buffvenster (SpellArchetypes 442294; guide.lua {442294})
 
 	--==============================================================
 	-- VENGEANCE (581)
 	--==============================================================
 	-- Builders / kernrotatie (SpellArchetypes 263642/204596; guide.lua vengeance)
-	["Shear"]             = { category = "main_rotation", priority = 1, specs = { 581 } }, -- baseline fury+soul-builder (Fracture-alt zonder talent)
 	["Fracture"]          = { id = 263642, category = "main_rotation", priority = 1, specs = { 581 } }, -- fury + 2 souls (SpellArchetypes 263642; guide.lua {263642})
 	["Sigil of Flame"]    = { id = 204596, category = "main_rotation", priority = 3, specs = { 581 } }, -- AoE threat-builder (guide.lua {204596})
 	-- Spender (SpellArchetypes/RangeReferences 228477; guide.lua {228477} heal+damage spender)
