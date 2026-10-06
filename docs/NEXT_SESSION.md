@@ -43,7 +43,10 @@
   it "Prospecting" Engels (client zegt mogelijk "Prospezione"); "Désenchanter %d"/"+ Herstellen %d×" krap op 96 px.
   ⚠️ Open tegenspraak: `tools/lint_addon.py` r. 703-708 zegt dat Blizzard "Coiled Isle" WÉL vertaalt; CLAUDE.md en de
   packs houden zone-namen Engels. Niet uitgezocht.
-- **Klaar voor de beta zodra Rob "go" zegt** (eerst nog: aftellen, Wijs de weg, nieuwe regeltjes in het spel zien).
+- **4.7.4-beta1 KLAARGEZET, NIET GETAGD/GEPUSHT** (Rob: "Nee, is goed zo. Ga je gang."): .toc 4.7.4,
+  CHANGELOG_474_0..4, CHANGELOG.md, docs/CURSEFORGE_4.7.4.md = RELEASE_NOTES.md (GEMETEN byte-gelijk met cmp). Wacht op
+  Robs go voor push + tag `v4.7.4-beta1`; daarna site-chat seinen (nieuwe functie → hoofdpagina, memory
+  site-follows-every-feature).
 - **Wijs de weg GEBOUWD, NIET GETEST:** trainer-recept (bron-tekst bevat de beroepsnaam, taal-onafhankelijk; AFGELEID
   buiten Engels) → knop op de receptregel; handelaar-spul → knop "Handelaar N" → `ns.AddSmartTomTomWay` naar de
   trainer-pin uit ns.PROF_GUIDES (koken: SMC-pin "Inn & Cooking", AFGELEID dat de handelaar daar staat).

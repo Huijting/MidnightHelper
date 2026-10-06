@@ -2730,7 +2730,12 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured. Hit by something that is not listed here? /mh report and it goes in.",
 
-	CHANGELOG_473_0 = "Out quickly because it fixes a key block mistake from 4.7.2. Please tell us how it goes, also when everything works: Report a problem in Settings, a comment on CurseForge, or the form on midnighthelper.com. A short \"works fine on my Hunter\" helps a lot.",
+	CHANGELOG_474_0 = "A beta: thank you for testing! Please tell us how it goes, also when everything works: Report a problem in Settings, a comment on CurseForge, or the form on midnighthelper.com.",
+	CHANGELOG_474_1 = "New: Shopping for your profession (/mh craftshop). Click a recipe, use \"+ ... on your shopping list\" in the Midnight Helper panel beside it, and see what all your recipes need minus what you have, bank and mail included. Click a row to search the auction house; To Auctionator makes a list.",
+	CHANGELOG_474_2 = "Most reagent lines say where they come from: a vendor next to your trainer (with an arrow), gathering (\"Pick 3\" when you have Herbalism), or \"You make this\" with a + Make button that puts that recipe on the list too.",
+	CHANGELOG_474_3 = "Recipes you don't know yet show where to get them, and Show the way puts an arrow on the trainer, vendor, quest giver or dungeon entrance. Crafting a recipe on the list counts it down.",
+	CHANGELOG_474_4 = "Holy Paladin: Hand of Reckoning and Shield of the Righteous get a free Alt key on block D. Translations in German, French, Spanish, Portuguese and Italian.",
+	CHANGELOG_473_0 ="Out quickly because it fixes a key block mistake from 4.7.2. Please tell us how it goes, also when everything works: Report a problem in Settings, a comment on CurseForge, or the form on midnighthelper.com. A short \"works fine on my Hunter\" helps a lot.",
 	CHANGELOG_473_1 = "Key block fix: in 4.7.2 some spells MH does not know yet got another spell's button on block D (for example the Warband Map). See something strange on an Alt key? /mh block, Undo, then place it again.",
 	CHANGELOG_473_2 = "Key block: no more Primal Rage question on every pet swap (it is your Command Pet button now). Fold-out buttons (Mage portals and teleports) go whole on a free Alt key of block D instead of one by one. Paladin auras and herbalism Overload spells get no key. Five spells that no longer exist are gone.",
 	CHANGELOG_473_3 = "Ready for the raid? (/mh ready): click a row to search the auction house, or copy the name. Shift-click links it. With Auctionator: one button makes a shopping list per character, with the amounts.",

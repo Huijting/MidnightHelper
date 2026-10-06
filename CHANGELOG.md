@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.7.4
+
+📌 **2026-10-06, klaargezet als beta (Rob: "Ga je gang"), tag `v4.7.4-beta1` wacht op Robs go.** Notitie in
+`docs/CURSEFORGE_4.7.4.md` (identiek aan `RELEASE_NOTES.md`). Rob getest 6 okt: paneel + toevoegen, Auctionator-lijst,
+rode bron-regel, groene farm-regels, "+ Make" van begin tot eind, "Pick N", live bijwerken. NIET getest: aftellen bij
+craften, Wijs de weg (trainer, handelaar, 39 plekken), de regeltjes van de tweede onderzoeksronde, de vertalingen,
+Holy Paladin blok D.
+
+- **Boodschappen voor je beroep** (`/mh craftshop`, Cisca's wens): paneel naast het beroepsvenster, "hoe vaak", eigen
+  venster per personage, heb/nodig over alle rangen, bank/post, AH-klik, Auctionator-lijst "MH craft - <naam>".
+- **v2:** recept-bron (GetRecipeSourceText) + Wijs de weg (trainer-pins, handelaar, `CraftShopPlaces.lua`: 39 plekken,
+  266 recepten uit wago SourceInfo); handelaar-spul; farm-regels + Pluk/Delf/Vil/Verzamel/Prospect/Disenchant N;
+  "+ Maken N×" voor tussenproducten; aftellen bij craften; meting `/mh craftshop probe`.
+- **Holy Paladin:** Hand of Reckoning + Shield of the Righteous `onlyD`.
+- **nlNL:** "spreuk(en)" → "spells" overal.
+- **Vertalingen:** CRAFTSHOP_* (83 keys) in de/fr/es/pt/it.
+
 ## 4.7.3
 
 📌 **2026-10-06, als RELEASE (Rob: "go, breng 4.7.3 maar uit"), tag `v4.7.3`.** Meteen na beta 2, zonder beta-reacties:
