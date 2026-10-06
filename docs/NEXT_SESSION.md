@@ -1,6 +1,9 @@
 # Midnight Helper — waar we staan
 
-## 🧪 6 okt avond — 4.7.3 KLAAR ALS BETA (Rob: "eerst vertalen, dan go voor 4.7.3 beta"), NOG NIET GETAGD
+## 🧪 6 okt — 4.7.3 BETA UITGEBRACHT (Rob: "tekst is goed, go voor de beta"): tag `v4.7.3-beta1` op 65ddccf, gepusht
+Release-run 37423659919 stond 06:25 UTC op "in_progress" (GEMETEN, actions-API) — uitkomst nakijken. Site-chat
+("SITE_HANDOFF.md drafts", de opvolger) geseind. Volgende stap: reacties afwachten, dan `v4.7.3` op 65ddccf (Robs go).
+(Eerder:)
 .toc 4.7.3, CHANGELOG_473_0..5 (0 = vriendelijke beta-oproep), RELEASE_NOTES.md = docs/CURSEFORGE_4.7.3.md (GEMETEN
 byte-gelijk), CHANGELOG.md. Wacht op Robs ok op de notitietekst → tag `v4.7.3-beta1` + push; na Robs reload later `v4.7.3`
 op dezelfde commit (recept 4.0.1). Daarna site-chat seinen ("Midnight Helper site chat 06-10", of de opvolger).
