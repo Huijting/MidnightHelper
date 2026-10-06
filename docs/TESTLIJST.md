@@ -25,7 +25,10 @@ er is niets weggegooid.
 
 GEMETEN in SV: namen gesorteerd, ids niet → elk onbekend id hoorde bij een andere naam. Gerepareerd (56bab86).
 Robs screenshot daarna: nog steeds Warband Map / Lift Off / Aerial Halt op Alt 1/3/4 — AFGELEID: test vóór `/reload`.
-- [ ] `/reload` → Undo → neerzetten: staan Crusader Aura, Devotion Aura en de twee Overload-herbs zelf op Alt 1-4?
+- [x] Rob 6 okt ✅ (screenshot na `/reload`: Concentration/Crusader/Devotion Aura + 3 Overload-herbs op D, juiste
+  iconen) `/reload` → staan de onbekende spreuken zelf op D?
+- Rob: "ja doe maar geen toets" → auras en Overload-herbs in NO_KEY_ON_PURPOSE.
+- [ ] Prot Paladin `/reload` → Undo → neerzetten: blok D zonder auras/herbs, rode regel weg, geen popup meer?
 
 ## 🆕 6 okt — `/mh ready`: brievenbus en bank tellen mee (Rob: "ja doe maar allebei")
 

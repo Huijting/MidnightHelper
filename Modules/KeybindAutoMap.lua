@@ -451,6 +451,10 @@ for _, n in ipairs({
 	"Rake", "Shred", "Wrath", "Regrowth", "Sharpen Your Knife",
 	-- Rob's Resto Druid, same evening: cat/bear attacks and Starfire, kept off Resto in the gap round.
 	"Ferocious Bite", "Growl", "Mangle", "Thrash", "Starfire",
+	-- Rob's Prot Paladin, 6 Oct 2026 ("ja doe maar geen toets"): auras are rarely switched, and the herbalism
+	-- Overload spells are a profession, not a fight.
+	"Concentration Aura", "Crusader Aura", "Devotion Aura",
+	"Overload Elemental Herb", "Overload Empowered Herb", "Overload Infused Herb",
 }) do
 	NO_KEY_ON_PURPOSE[n] = true
 end
