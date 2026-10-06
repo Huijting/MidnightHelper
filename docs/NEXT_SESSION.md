@@ -11,7 +11,10 @@ ptBR mist CONSREADY_HS. RAIDSHOP-woorden naar site-chat ("Midnight Helper site c
 Site-chat 6 okt GEMETEN live: strip 4.7.2, /keyblock/ uit 310822c (1171 plekken, 28 zonder id), Armory veld 15 live
 maar nog niet met een echte exportregel getest (Rob: één `/mh export`-regel sturen). Site-chat onderzoekt de 28 id's;
 de notfound daarvan horen eruit (opruimronde, Rob kiest) — lijst komt via de bouwchat.
-Lokaal niet gepusht: f6bdc56, 53ba8bd, d3c9431 + deze commit (wacht op Robs ok).
+Gepusht 6 okt op Robs "push maar, allebei" (3217788; site-chat pusht 359fbdf zelf).
+✅ Armory veld 15 met Robs echte export (Theexodus, Prot) GEMETEN door site-chat: 30 items gelezen, 0 afgekeurd, Wowhead-
+links met alle bonus-ids, tooltips = export (Wailing Bulwark 315, Pledgebearer's Mask 295). Open: "Viridescent Crusher"
+staat 2× identiek in B — echt twee exemplaren of telt GearExport dubbel? (Rob gevraagd.)
 
 ## 🚀 5 okt nacht — 4.7.2 UITGEBRACHT (Rob: "Go"), tag v4.7.2 op 310822c, site-chat geseind
 
