@@ -62,6 +62,11 @@ local TOOLS = {
 		open = function() if ns.ShowRaidShoppingList then ns.ShowRaidShoppingList() end end,
 	},
 	{
+		nameKey = "CRAFTSHOP_TITLE", descKey = "CMDLIST_CRAFTSHOP",
+		icon = "Interface\\Icons\\INV_Misc_Book_09", slash = "/mh craftshop",
+		open = function() if ns.ShowCraftShoppingList then ns.ShowCraftShoppingList() end end,
+	},
+	{
 		nameKey = "KEYBLOCK_TITLE", descKey = "TOOLLP_KEYBLOCK_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Gear_01", slash = "/mh block",
 		open = function() if ns.ShowKeyBlock then ns.ShowKeyBlock() end end,

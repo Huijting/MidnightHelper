@@ -42,6 +42,18 @@ local function BuildLines()
 	if #out == 0 then
 		out[#out + 1] = { text = ns:L("PROFNEXT_NONE"), color = "good" }
 	end
+	-- The craft shopping list (CraftShoppingList.lua, 6 Oct 2026, Cisca's wish): add the recipe you are looking at,
+	-- and open the list. Here, because this panel already stands beside the profession window.
+	if ns.CraftShopCurrentRecipe then
+		local okR, info = pcall(ns.CraftShopCurrentRecipe)
+		if okR and info and info.name then
+			out[#out + 1] = { text = ns:L("CRAFTSHOP_PANEL_ADD_FMT"):format(info.name), color = "soft",
+				onClick = function() if ns.CraftShopAskAdd then ns.CraftShopAskAdd() end end }
+		end
+		local n = ns.CraftShopCount and ns.CraftShopCount() or 0
+		out[#out + 1] = { text = ns:L("CRAFTSHOP_PANEL_OPEN_FMT"):format(n), color = "soft",
+			onClick = function() if ns.ShowCraftShoppingList then ns.ShowCraftShoppingList() end end }
+	end
 	return out
 end
 
@@ -51,7 +63,7 @@ local panel = ns.CreateSidePanel({
 	width = 280,
 })
 
-ns.AttachSidePanel({
+local cfg = {
 	panel = panel,
 	getFrame = GetProfessionsFrame,
 	addon = "Blizzard_Professions",
@@ -59,4 +71,12 @@ ns.AttachSidePanel({
 	-- Spending Knowledge and turning in the weekly both change what belongs here,
 	-- and both happen while this window is open.
 	events = { "TRAIT_CONFIG_UPDATED", "QUEST_TURNED_IN", "QUEST_ACCEPTED", "SKILL_LINES_CHANGED" },
-})
+}
+ns.AttachSidePanel(cfg)
+
+--- Redraw on demand: picking another recipe changes the "+ on your shopping list" line (CraftShoppingList.lua).
+function ns.RefreshProfessionSidePanel()
+	if type(cfg.refresh) == "function" then
+		cfg.refresh()
+	end
+end

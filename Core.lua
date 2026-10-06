@@ -3276,6 +3276,20 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- 6 Oct 2026 (Cisca's wish): the shopping list for your profession (CraftShoppingList.lua).
+	if msg == "craftshop" or msg == "craft" then
+		if ns.ShowCraftShoppingList then
+			ns.ShowCraftShoppingList()
+		end
+		return
+	end
+	if msg == "craftshop why" then
+		if ns.CraftShopWhy then
+			ns.CraftShopWhy()
+		end
+		return
+	end
+
 	if msg == "readycheck" or msg == "consready" then
 		if ns.PrintConsumableReadyCheck then
 			ns.PrintConsumableReadyCheck()

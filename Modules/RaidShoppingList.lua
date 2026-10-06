@@ -454,6 +454,32 @@ local function OnRowClick(row)
 	end
 end
 
+--- Hand a list of search terms to Auctionator: at the auction house it searches at once, elsewhere it becomes the
+--- shopping list `listName` (replaced each time). Shared with the craft shopping list (6 Oct 2026).
+--- @return string "nothing" | "search" | "list" | "failed"
+local function SendTermsToAuctionator(terms, listName)
+	local api = Auctionator1()
+	if not api then
+		return "failed"
+	end
+	if #terms == 0 then
+		return "nothing"
+	end
+	if AuctionHouseOpen() and api.MultiSearchAdvanced then
+		return pcall(api.MultiSearchAdvanced, CALLER, terms) and "search" or "failed"
+	elseif api.CreateShoppingList and api.ConvertToSearchString then
+		local ok = pcall(function()
+			local strings = {}
+			for _, t in ipairs(terms) do
+				strings[#strings + 1] = api.ConvertToSearchString(CALLER, t)
+			end
+			api.CreateShoppingList(CALLER, listName, strings)
+		end)
+		return ok and "list" or "failed"
+	end
+	return "failed"
+end
+
 --- 4) Everything still to buy into Auctionator, with the amount filled in. At the auction house Auctionator
 --- searches right away (MultiSearchAdvanced); elsewhere it becomes a shopping list "MH raid - <character>",
 --- replaced each time (CreateShoppingList replaces a list of the same name, so it has our own name).
@@ -475,29 +501,14 @@ local function ToAuctionator()
 			terms[#terms + 1] = { searchString = name, isExact = not hearty, quantity = b.qty }
 		end
 	end
-	if #terms == 0 then
+	local result = SendTermsToAuctionator(terms, ListName())
+	if result == "nothing" then
 		SetStatus(L("RAIDSHOP_AUCTIONATOR_NOTHING"))
-		return
-	end
-	local ok
-	if AuctionHouseOpen() and api.MultiSearchAdvanced then
-		ok = pcall(api.MultiSearchAdvanced, CALLER, terms)
-		if ok then
-			SetStatus(L("RAIDSHOP_AUCTIONATOR_SEARCH"))
-		end
-	elseif api.CreateShoppingList and api.ConvertToSearchString then
-		ok = pcall(function()
-			local strings = {}
-			for _, t in ipairs(terms) do
-				strings[#strings + 1] = api.ConvertToSearchString(CALLER, t)
-			end
-			api.CreateShoppingList(CALLER, ListName(), strings)
-		end)
-		if ok then
-			SetStatus(L("RAIDSHOP_AUCTIONATOR_LIST_FMT"):format(ListName(), #terms))
-		end
-	end
-	if not ok then
+	elseif result == "search" then
+		SetStatus(L("RAIDSHOP_AUCTIONATOR_SEARCH"))
+	elseif result == "list" then
+		SetStatus(L("RAIDSHOP_AUCTIONATOR_LIST_FMT"):format(ListName(), #terms))
+	else
 		SetStatus("|cffff8080" .. L("RAIDSHOP_AUCTIONATOR_FAILED") .. "|r")
 	end
 end
@@ -876,3 +887,16 @@ function ns.ShowRaidShoppingList()
 	Refresh()
 	win:Show()
 end
+
+--- The proven helpers, shared with the craft shopping list (CraftShoppingList.lua, 6 Oct 2026) so both windows count,
+--- search and hand off to Auctionator the same way.
+ns.MHShop = {
+	ItemName = ItemName,
+	ItemIcon = ItemIcon,
+	MailCount = MailCount,
+	BankCount = BankCount,
+	SearchAuctionHouse = SearchAuctionHouse,
+	LinkInChat = LinkInChat,
+	HasAuctionator = function() return Auctionator1() ~= nil end,
+	SendTermsToAuctionator = SendTermsToAuctionator,
+}

@@ -50,6 +50,20 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
   in één schuifvak (ToolsLaunchpad.lua, CommandList.lua `flat`). NIET in de beta-zip van 65ddccf.
 - [x] Rob 6 okt ✅ ("scrollen werkt, alles goed te lezen") `/reload` → Tools → Pop-out windows: hele pagina scrollt?
 
+## 🆕 6 okt — Boodschappen voor je beroep (`/mh craftshop`, Cisca's wens; Rob: eigen venster, keer maken, per personage)
+
+Gebouwd, niet getest. Bron: mh-research 6 okt (Blizzard UI 12.1.0.69933). Reagents worden bij het toevoegen gelezen
+en opgeslagen (`ns.db.craftShop[guid]`), dus de lijst heeft het beroepsvenster daarna niet meer nodig.
+- [ ] Open Alchemy (of een ander beroep), klik op een recept. Staat in het MH-paneel ernaast "+ <recept> op je
+  boodschappenlijst" en "Open je boodschappenlijst (0)"? Verandert de eerste regel als je een ander recept kiest?
+- [ ] Klik "+ …" → vraag "Hoe vaak?" → 20 → OK. Chatregel "op je boodschappenlijst: 20× …"?
+- [ ] Open de lijst (paneel, `/mh craftshop` of Tools → Pop-out windows): recept met "20×" (en "ongeveer N gemaakt"
+  als het recept er meer geeft), daaronder elke reagent met heb/nodig, "+N in je post / op de bank", Koop/Ophalen.
+  Kloppen de aantallen met je tassen? Telt een reagent in zilver én goud samen?
+- [ ] Klik bij het veilinghuis op een reagent → zoekt hij? Naar Auctionator → lijst "MH craft - <naam>"?
+- [ ] Kruisje bij een recept haalt het weg; "Lijst leegmaken" werkt?
+- [ ] Iets mis: `/mh craftshop why` (beroep open, recept gekozen) → screenshot van de chat.
+
 ## 🆕 6 okt — Holy Paladin: Hand of Reckoning + Shield of the Righteous op blok D (Rob: "laat ze maar op de D blok staan")
 
 GEMETEN (screenshot 15-key-block, Twelveinchy Holy): rode regel "(2): Hand of Reckoning, Shield of the Righteous".

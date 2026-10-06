@@ -86,7 +86,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"profadvice", "profguide", "profids", "profweekly", "ptr", "questdiff", "questgate", "questscan", "range", "smcicons", "bossdiff",
 	"zonegate", "travelwhy", "questsnap",
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
-	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
+	"craft", "readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
 	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why", "block place", "block go", "block undo", "block layout", "block update", "block export", "achlist why",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
@@ -194,6 +194,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh arrowsize", descKey = "CMDLIST_ARROWSIZE" },
 		{ cmd = "/mh fp", descKey = "CMDLIST_FP" },
 		{ cmd = "/mh course", descKey = "CMDLIST_COURSE" },
+		{ cmd = "/mh craftshop", descKey = "CMDLIST_CRAFTSHOP" },
 		{ cmd = "/mh valeera", descKey = "CMDLIST_VALEERA" },
 		-- 2 sep: `/mh poisons` is een alias van `/mh curios` geworden en staat daarom
 		-- niet meer los in de lijst. Het stond hier bij de ROUTE-groep, wat het sowieso
