@@ -15,6 +15,10 @@ local _, ns = ...
 	A step lists one or more spell ids: the first one this character KNOWS is shown (talents differ: Resto's Starsurge
 	is 197626, Balance's 78674). A step nobody knows is left out, so the list never names a spell you do not have.
 	note = what the step is for; one of the CARD_SOLO_NOTE_* keys.
+
+	🔴 THE SITE READS THIS FILE. midnighthelper.com's build_keyblock.py pulls the ids per spec out of ns.HEALER_SOLO with a
+	regex on the shape `[spec] = { … ids = { … } … },` (site chat, 6 Oct 2026) to mark these spells on the /keyblock/ print.
+	Keep that shape; if it has to change, tell the site chat in the same round.
 ]]
 
 ns.HEALER_SOLO = {

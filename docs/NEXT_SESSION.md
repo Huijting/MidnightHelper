@@ -18,6 +18,9 @@ de kaart nog Engels "Pop-out windows" terwijl TAB_TOOLSLAUNCH vertaald is.
 - **Healers "Zo vecht je alleen" GEBOUWD, NIET GETEST** (Rob, Resto Druid): `Modules/HealerSolo.lua` (volgorde = Blizzards
   Single-Button Assistant, `docs/HEALER_SOLO_DAMAGE_2026-10-06.md`), blokje op de speelkaart + rode rand op `/mh block`.
   Keys CARD_SOLO_* / KEYBLOCK_SOLO_LEGEND / CRAFTSHOP_TIP_(NOT_)KNOWN_FMT alleen enUS + nlNL → vertaalronde.
+- Site-chat: healer-schadespells op /keyblock/ (rode gestippelde rand + zwaardje, zwart-wit-bestendig), lokale site-commit
+  4714ddb, niet gepusht. build_keyblock.py leest ns.HEALER_SOLO met een regex → vorm niet veranderen zonder seintje.
+  Verschijnt pas bij een GEWONE release met HealerSolo.lua (nightly bouwt geen beta's).
 - **Moxie (Rob: "hoe kom ik hier aan?")**: ✅ GEMETEN Rob `/dump C_CurrencyInfo.GetCurrencyInfo(3256).name` = "Artisan
   Alchemist's Moxie" → Config.lua ARTISANS_MOXIE_CURRENCY_CODES. ✅ Daarna `/mh moxie` (Rob, screenshot): 3256-3266 =
   Alchemist, Blacksmith, Enchanter, Engineer, Herbalist, Scribe, Jewelcrafter, Leatherworker, Miner, Skinner, Tailor →
