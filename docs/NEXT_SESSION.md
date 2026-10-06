@@ -10,7 +10,11 @@
 - ✅ **Vertaalronde craftshop KLAAR (lokaal, NIET gepusht):** mh-writer, 13 keys in de/fr/es/pt/it, blok
   "6 Oct 2026 (4): craft shopping list" onderaan Translations2026.lua. GEMETEN: syntax OK, lint 0 hard, locale_probe
   13/13 OK in 5 talen. Eigen vertaling, niet nagekeken. Twijfel: "finishing reagents" (eigen woordkeus, niet tegen de
-  client gecheckt); "Vaciar la lista"/"Svuota la lista" krap op de 110 px-knop (AFGELEID). Volgende: 4.7.4-beta op Robs go.
+  client gecheckt); "Vaciar la lista"/"Svuota la lista" krap op de 110 px-knop (AFGELEID).
+- **Rob, 6 okt: eerst v2 van de lijst, dán pas de beta.** Bouwen: waar krijg je een recept, handelaar-spul, farmplekken,
+  tussenproducten. Kwaliteit: later bespreken. Onderzoek + vergelijking met andere addons (CraftSim, PSL, GatherMate2):
+  `docs/CRAFTSHOP_RESEARCH_2026-10-06.md`. Meting `/mh craftshop probe` (open + dicht → `ns.db.craftShopMeasure`)
+  gebouwd, wacht op Robs run.
 
 ## 📸 6 okt — na 4.7.3 (lokaal/gepusht, NIET in een release): screenshots, beschrijving, Holy, "spells"
 - Nieuwe screenshots: /mh shots heeft 17 scènes (key block, Ready, Pop-out windows); Rob schoot ze, 15 = zijn Prot-opname.

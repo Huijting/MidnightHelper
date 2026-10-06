@@ -67,6 +67,12 @@ en opgeslagen (`ns.db.craftShop[guid]`), dus de lijst heeft het beroepsvenster d
 - [ ] (alleen met een de/fr/es/pt/it-client, of Cisca) Vertaald 6 okt: past "Vaciar la lista"/"Svuota la lista" op de
   knop "Lijst leegmaken"? Lopen de paneelregels netjes over twee regels bij een lange receptnaam?
 
+## 🔍 6 okt — meting vóór boodschappenlijst v2 (`/mh craftshop probe`; Rob: "maak die meetcontrole maar")
+
+Voor: recept-bron, tussenproducten (en later kwaliteit). Schrijft naar `ns.db.craftShopMeasure` (open + closed).
+- [ ] Zet 1-2 recepten op je lijst. Beroepsvenster OPEN → `/mh craftshop probe`. Chatregel met "window OPEN"?
+- [ ] Beroepsvenster DICHT → `/mh craftshop probe` opnieuw ("window CLOSED"). Dan `/reload` → ik lees het bestand.
+
 ## 🆕 6 okt — Holy Paladin: Hand of Reckoning + Shield of the Righteous op blok D (Rob: "laat ze maar op de D blok staan")
 
 GEMETEN (screenshot 15-key-block, Twelveinchy Holy): rode regel "(2): Hand of Reckoning, Shield of the Righteous".

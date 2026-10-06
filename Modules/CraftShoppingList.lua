@@ -617,6 +617,176 @@ function ns.CraftShopWhy()
 	print(("   your list: %d recipe(s)"):format(#MyList()))
 end
 
+--- `/mh craftshop probe`: ONE measurement before v2 is built (docs/CRAFTSHOP_RESEARCH_2026-10-06.md, "eerst te meten").
+--- Questions: which C_TradeSkillUI names exist on this build; does every recipe say where it comes from
+--- (GetRecipeSourceText); can we map "item -> the recipe that makes it" (outputItemID / qualityItemIDs); does any of it
+--- answer with the profession window CLOSED; and does GetCraftingOperationInfo accept reagents you do not own.
+--- Run it twice, window open and window closed: each run gets its own slot, so one /reload writes both.
+function ns.CraftShopMeasure()
+	local p = ("|cffffcc00%s|r"):format(L("PRINT_PREFIX"))
+	local T = C_TradeSkillUI
+	if not T then
+		print(p .. " craftshop probe: C_TradeSkillUI is missing.")
+		return
+	end
+	local function call(fn, ...)
+		if type(T[fn]) ~= "function" then
+			return nil, "absent"
+		end
+		local ok, a = pcall(T[fn], ...)
+		if not ok then
+			return nil, "error: " .. tostring(a)
+		end
+		return a
+	end
+	local pf = _G.ProfessionsFrame
+	local open = (pf and pf:IsShown()) and true or false
+	local m = { when = date and date("%Y-%m-%d %H:%M") or nil, windowOpen = open }
+
+	-- 1. Every function name on this build. Positive control: GetRecipeSchematic, which this module already uses.
+	local names = {}
+	for k, v in pairs(T) do
+		if type(v) == "function" then
+			names[#names + 1] = tostring(k)
+		end
+	end
+	table.sort(names)
+	m.api, m.apiCount = names, #names
+	m.control = type(T.GetRecipeSchematic) == "function"
+	m.ready = tostring(call("IsTradeSkillReady"))
+	local prof = call("GetBaseProfessionInfo")
+	if type(prof) == "table" then
+		m.profession = tostring(prof.professionName) .. " / " .. tostring(prof.professionID)
+	end
+
+	-- 2. All recipes: who makes what (intermediates) and who says where they come from (recipe source).
+	local ids, idsWhy = call("GetAllRecipeIDs")
+	local products = {}
+	local c = { total = 0, withOutput = 0, withQualityItems = 0, learned = 0, unlearned = 0, unlearnedWithSource = 0,
+		learnedWithNextRank = 0, nextRankWithSource = 0 }
+	local samples, sourceTypes = {}, {}
+	if type(ids) == "table" then
+		for _, id in ipairs(ids) do
+			c.total = c.total + 1
+			local info = call("GetRecipeInfo", id)
+			local sch = call("GetRecipeSchematic", id, false)
+			if type(sch) == "table" and sch.outputItemID then
+				c.withOutput = c.withOutput + 1
+				products[sch.outputItemID] = products[sch.outputItemID] or id
+			end
+			if type(info) == "table" then
+				if type(info.qualityItemIDs) == "table" and #info.qualityItemIDs > 0 then
+					c.withQualityItems = c.withQualityItems + 1
+					for _, q in ipairs(info.qualityItemIDs) do
+						products[q] = products[q] or id
+					end
+				end
+				if info.learned then
+					c.learned = c.learned + 1
+					if info.nextRecipeID then
+						c.learnedWithNextRank = c.learnedWithNextRank + 1
+						local s = call("GetRecipeSourceText", info.nextRecipeID)
+						if type(s) == "string" and s ~= "" then
+							c.nextRankWithSource = c.nextRankWithSource + 1
+						end
+					end
+				else
+					c.unlearned = c.unlearned + 1
+					local st = tostring(info.sourceType)
+					sourceTypes[st] = (sourceTypes[st] or 0) + 1
+					local s = call("GetRecipeSourceText", id)
+					if type(s) == "string" and s ~= "" then
+						c.unlearnedWithSource = c.unlearnedWithSource + 1
+						if #samples < 8 then
+							samples[#samples + 1] = { id = id, name = info.name, sourceType = info.sourceType, text = s }
+						end
+					end
+				end
+			end
+		end
+	end
+	local nProducts = 0
+	for _ in pairs(products) do
+		nProducts = nProducts + 1
+	end
+	m.recipes = c
+	m.recipesWhy = idsWhy
+	m.productItems = nProducts
+	m.sourceTypes = sourceTypes
+	m.sourceSamples = samples
+
+	-- 3. The recipes on your list, one by one: does each call answer (also with the window closed)?
+	local basic = Enum and Enum.CraftingReagentType and Enum.CraftingReagentType.Basic
+	local function reagentsAt(sch, last)
+		local flat, nested = {}, {}
+		for _, s in ipairs(sch.reagentSlotSchematics or {}) do
+			if s.required and (basic == nil or s.reagentType == basic) and s.reagents and #s.reagents > 0 then
+				local r = s.reagents[last and #s.reagents or 1]
+				if r and r.itemID then
+					flat[#flat + 1] = { itemID = r.itemID, dataSlotIndex = s.dataSlotIndex, quantity = s.quantityRequired }
+					nested[#nested + 1] = { reagent = { itemID = r.itemID }, dataSlotIndex = s.dataSlotIndex,
+						quantity = s.quantityRequired }
+				end
+			end
+		end
+		return flat, nested
+	end
+	local function quality(recipeID, reagents)
+		local op, why = call("GetCraftingOperationInfo", recipeID, reagents, nil, false)
+		if type(op) ~= "table" then
+			return tostring(why or op)
+		end
+		return ("quality %s, skill %s+%s, difficulty %s+%s, concentration %s"):format(tostring(op.craftingQuality),
+			tostring(op.baseSkill), tostring(op.bonusSkill), tostring(op.baseDifficulty), tostring(op.bonusDifficulty),
+			tostring(op.concentrationCost))
+	end
+	m.list = {}
+	for i, e in ipairs(MyList()) do
+		if i > 8 then
+			break
+		end
+		local r = { recipeID = e.recipeID, name = e.name }
+		local info, w1 = call("GetRecipeInfo", e.recipeID)
+		r.info = type(info) == "table" and ("learned=%s next=%s sourceType=%s"):format(tostring(info.learned),
+			tostring(info.nextRecipeID), tostring(info.sourceType)) or tostring(w1 or info)
+		local s, w3 = call("GetRecipeSourceText", e.recipeID)
+		r.sourceText = s or w3 or "nil"
+		local sch, w2 = call("GetRecipeSchematic", e.recipeID, false)
+		if type(sch) == "table" then
+			r.schematic = ("ok: output %s, %d slot(s)"):format(tostring(sch.outputItemID), #(sch.reagentSlotSchematics or {}))
+			local f1, n1 = reagentsAt(sch, false)
+			local f2, n2 = reagentsAt(sch, true)
+			r.qualityNone = quality(e.recipeID, {})
+			r.qualityLowFlat, r.qualityLowNested = quality(e.recipeID, f1), quality(e.recipeID, n1)
+			r.qualityHighFlat, r.qualityHighNested = quality(e.recipeID, f2), quality(e.recipeID, n2)
+		else
+			r.schematic = tostring(w2 or sch)
+		end
+		r.reagentsYouCanMake = {}
+		for _, slot in ipairs(e.slots or {}) do
+			for _, iid in ipairs(slot.ids) do
+				if products[iid] then
+					r.reagentsYouCanMake[#r.reagentsYouCanMake + 1] = iid .. " <- recipe " .. products[iid]
+					break
+				end
+			end
+		end
+		m.list[#m.list + 1] = r
+	end
+
+	ns.db = ns.db or {}
+	ns.db.craftShopMeasure = ns.db.craftShopMeasure or {}
+	ns.db.craftShopMeasure[open and "open" or "closed"] = m
+	print(("%s craftshop probe (window %s): %d API names, %s recipes, %d products, %d of %d unlearned say a source.")
+		:format(p, open and "OPEN" or "CLOSED", #names, tostring(type(ids) == "table" and #ids or idsWhy), nProducts,
+		c.unlearnedWithSource, c.unlearned))
+	if open then
+		print("   Now close the profession window and run |cffffd100/mh craftshop probe|r again, then |cffffd100/reload|r.")
+	else
+		print("   Done with the window closed. Also once with it OPEN (profession + recipes on your list), then |cffffd100/reload|r.")
+	end
+end
+
 -- Side panel refresh when the player picks another recipe (Blizzard's own event; EventRegistry calls it securely).
 if EventRegistry and EventRegistry.RegisterCallback then
 	-- A moment LATER: our callback is registered at load, before Blizzard_Professions' own, so it runs first and read

@@ -3289,6 +3289,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	if msg == "craftshop probe" then
+		if ns.CraftShopMeasure then
+			ns.CraftShopMeasure()
+		end
+		return
+	end
 
 	if msg == "readycheck" or msg == "consready" then
 		if ns.PrintConsumableReadyCheck then
