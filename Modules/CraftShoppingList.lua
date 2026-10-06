@@ -89,6 +89,28 @@ local function RouteToTrainer(skill, asVendor)
 	return ns.AddSmartTomTomWay(CITY_MAP, x, y, label) and true or false
 end
 
+--- The place a recipe comes from (CraftShopPlaces.lua, generated from Blizzard's own SourceInfo; 39 places).
+local function RecipePlace(recipeID)
+	local idx = ns.CRAFTSHOP_RECIPE_PLACE and ns.CRAFTSHOP_RECIPE_PLACE[recipeID]
+	return idx and ns.CRAFTSHOP_PLACES and ns.CRAFTSHOP_PLACES[idx] or nil
+end
+
+--- Arrow to a recipe's place: a vendor, a trainer (Jennara), a quest giver, or a dungeon/raid entrance.
+local function RouteToPlace(p)
+	if not (p and ns.AddSmartTomTomWay) then
+		return false
+	end
+	local label = p.name
+	if p.kind == "quest" then
+		label = ns:L("CRAFTSHOP_ROUTE_QUEST_FMT"):format(p.name)
+		-- Zygor gates "The Medicine Loa's Shrine" behind an earlier quest (research 6 Oct 2026): say so, once per click.
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CRAFTSHOP_ROUTE_QUEST_NOTE")))
+	elseif p.kind == "dungeon" or p.kind == "raid" then
+		label = ns:L("CRAFTSHOP_ROUTE_ENTRANCE_FMT"):format(p.name)
+	end
+	return ns.AddSmartTomTomWay(p.map, p.x, p.y, label) and true or false
+end
+
 -- Gathered reagents: item id -> kind. Ids from Zygor's Midnight farming guides (research 6 Oct 2026); the WHERE is the
 -- fact ProfessionGuidedData.lua already states and limits ("grows in", never "densest in"; skinning = "start there").
 local FARM = {
@@ -583,9 +605,24 @@ local function RecipeLine(i)
 	r.route:SetSize(110, 18)
 	r.route:SetPoint("RIGHT", r.del, "LEFT", -4, 0)
 	r.route:SetScript("OnClick", function(self)
-		local skill = self:GetParent().routeSkill
-		if skill then
-			RouteToTrainer(skill, false)
+		local row = self:GetParent()
+		if row.routePlace then
+			RouteToPlace(row.routePlace)
+		elseif row.routeSkill then
+			RouteToTrainer(row.routeSkill, false)
+		end
+	end)
+	r.route:SetScript("OnEnter", function(self)
+		local p = self:GetParent().routePlace
+		if GameTooltip and p and not p.checked then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(ns:L("CRAFTSHOP_ROUTE_UNCHECKED"), 1, 1, 1, 1, true)
+			GameTooltip:Show()
+		end
+	end)
+	r.route:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
 		end
 	end)
 	r.route:Hide()
@@ -771,10 +808,14 @@ Refresh = function()
 		end
 		-- A trainer recipe: Blizzard's line names the profession ("Profession Trainer: Midnight Leatherworking (40)"),
 		-- in the player's own language. That name is the test, not the English word "Trainer". AFGELEID for non-English.
-		r.routeSkill = nil
-		if learned == false and e.source and e.profName and e.profName ~= ""
-			and e.source:find(e.profName, 1, true) and TrainerPin(e.prof) then
-			r.routeSkill = e.prof
+		-- A known place (vendor, Jennara, quest giver, entrance) wins; else the plain trainer.
+		r.routeSkill, r.routePlace = nil, nil
+		if learned == false then
+			r.routePlace = RecipePlace(e.recipeID)
+			if not r.routePlace and e.source and e.profName and e.profName ~= ""
+				and e.source:find(e.profName, 1, true) and TrainerPin(e.prof) then
+				r.routeSkill = e.prof
+			end
 		end
 		local h = 20
 		if learned == false then
@@ -784,13 +825,14 @@ Refresh = function()
 		else
 			r.src:Hide()
 		end
-		if r.routeSkill then
+		local canRoute = r.routeSkill or r.routePlace
+		if canRoute then
 			r.route:SetText(L("CRAFTSHOP_BTN_ROUTE"))
 			r.route:Show()
 		else
 			r.route:Hide()
 		end
-		r.text:SetWidth(r.routeSkill and (WIDTH - 32 - 24 - 118) or (WIDTH - 32 - 24))
+		r.text:SetWidth(canRoute and (WIDTH - 32 - 24 - 118) or (WIDTH - 32 - 24))
 		r:SetHeight(h)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
@@ -1004,6 +1046,9 @@ function ns.CraftShopWhy()
 		for _, s in ipairs(entry and entry.slots or {}) do
 			print(("     %d× item %s (%d rank id(s))"):format(s.qty, tostring(s.ids[1]), #s.ids))
 		end
+		local place = RecipePlace(info.recipeID)
+		print(("   place for the arrow: %s"):format(place and ("%s (%s) %d %.2f/%.2f%s"):format(place.name, place.kind,
+			place.map, place.x, place.y, place.checked and "" or ", not walked yet") or "none in CraftShopPlaces.lua"))
 	else
 		print("   no recipe selected (open your profession and click a recipe)")
 	end

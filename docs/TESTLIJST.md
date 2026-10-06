@@ -95,6 +95,14 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [x] Rob 6 okt ✅ (screenshot: Tranquility Bloom "Pick 1", Azeroot "Pick 3", Nocturnal Lotus "Pick 1", groen)
   **Pluk N:** kruid te kort en jij hebt Herbalism → groene status "Pluk 23" in plaats van "Koop 23"? (Erts: "Delf",
   leer: "Vil".)
+- [ ] **Wijs de weg naar 39 plekken** (Rob: "bouw die pijlen maar naar 39 plekken"; `Modules/CraftShopPlaces.lua`, 266
+  recepten): zet Potion of Recklessness / Alluring Nostrum / Blessed Pango Charm (niet geleerd) op je lijst → knop
+  "Wijs de weg" → pijl naar Void Researcher Anomander (Voidstorm) / Second Mate Sluggs (Coiled Isle) / quest in Zul'Aman
+  (+ chatregel over een eerdere quest)? `/mh craftshop why` met dat recept gekozen noemt de plek.
+- [ ] **Nalopen in het spel** (KANDIDAAT, tooltip op de knop zegt dat): Lyrendal 2393 44.96/55.40, Mirvedon 2393 34.01/81.25,
+  Gelanthis 2393 48.01/55.03, Navigator Otoola 2512 57.2/48.2, Jennara Sunglow 2393 39.54/51.00 (boven), Sylann (koken)
+  2393 56.36/69.83, questgevers 2395 46.93/35.58 · 2437 38.78/44.85 · 2413 49.69/23.31, ingang Venomous Abyss (MH 20.51
+  vs DB2 22.86), ingang Altar of Fangs 2509 47.24/68.13. Herbataur (Stabilized Derivate?) 2393 45.2/80.4.
 - [ ] **Wijs de weg** (Rob: "kunnen we de weg wijzen?"): een NIET-geleerd recept van de trainer → knop "Wijs de weg"
   rechts op de receptregel → pijl naar je trainer in Silvermoon? Handelaar-spul → knop "Handelaar N" → pijl naar de
   handelaar naast je trainer (koken: de herberg)? Ook met TomTom aan?

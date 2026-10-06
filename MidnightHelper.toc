@@ -118,6 +118,7 @@ Modules\ConsumableReadyCheck.lua
 Modules\ConsumableReadyComms.lua
 Modules\ConsumableReadyBoard.lua
 Modules\RaidShoppingList.lua
+Modules\CraftShopPlaces.lua
 Modules\CraftShoppingList.lua
 Modules\DurabilityWarn.lua
 Modules\GroupRezLust.lua

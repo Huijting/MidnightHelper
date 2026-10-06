@@ -28,6 +28,14 @@
   "Pluk maar" — Willow, AFGELEID). UNIT_SPELLCAST_SUCCEEDED (player) spellID == recipeID (AFGELEID) → times −1, chatregel;
   geen match terwijl beroep open → `ns.db.craftShopCastProbe` + `/mh craftshop why`. Open idee (Rob niet gekozen): voorraad
   op andere personages ("+N op je alts").
+  ✅ Rob screenshot: "Pick 1/3/1" groen.
+- **Pijlen naar 39 recept-plekken GEBOUWD, NIET GETEST** (Rob: "ik volg jouw advies … bouw die pijlen maar"; 2 handelaren →
+  die naast de trainer, niet Lyrendal). Onderzoek `docs/CRAFTSHOP_RECIPE_PLACES_2026-10-06.md` (wago SourceInfo
+  12.1.0.69933). `Modules/CraftShopPlaces.lua` GEGENEREERD uit `data/craftshop_recipe_places.tsv` door
+  `tools/gen_craftshop_places.py` (`run gen_craftshop_places`): 39 plekken, 266 recepten. GEMETEN: Robs 3 voorbeelden
+  wijzen naar de juiste plek. Jennara-recepten (Enchanting Glamour) nu naar Jennara, niet Dolothos. ~11 plekken nog
+  nalopen (testlijst). Open: reagents zonder regeltje (Motes, Lumber, Tormented Tantalum, Petrified Root, prospect-
+  stenen, Coiled Isle) — lijst in het rapport, Rob kiest; Herbataur als handelaar eerst in het spel bekijken.
 - **Wijs de weg GEBOUWD, NIET GETEST:** trainer-recept (bron-tekst bevat de beroepsnaam, taal-onafhankelijk; AFGELEID
   buiten Engels) → knop op de receptregel; handelaar-spul → knop "Handelaar N" → `ns.AddSmartTomTomWay` naar de
   trainer-pin uit ns.PROF_GUIDES (koken: SMC-pin "Inn & Cooking", AFGELEID dat de handelaar daar staat).
