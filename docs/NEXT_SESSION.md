@@ -5,6 +5,9 @@ Tag `v4.7.4-beta2` (zie git). Erbij: healers "Zo vecht je alleen", recept-toolti
 (Professions-tab + onder elk beroep in de snapshot), Academy-Moxie, vertaalronde 3. Site-chat: go voor zijn push
 (/keyblock/-zwaardjes; zichtbaar pas na een gewone release). Open: ALTBOARD_MOXIE alleen enUS/nlNL; recept-tooltip en
 aftellen niet in het spel gezien. Daarna `v4.7.4` op Robs go.
+✅ Site-chat: beta 2 op CF (B, 6.3 MB) en live op de site (692dae6, 7 talen); /keyblock/-healercode live maar leeg tot
+de gewone 4.7.4. Open (volgende vertaalronde, samen met ALTBOARD_MOXIE): de/it noemen Moxie "Tatkraft des Handwerkers" /
+"Grinta dell'Artigiano" maar elders nog "Moxie" — clientnaam nakijken (wago CurrencyTypes per taal of `/dump` op een de-client).
 🔴 Bij die gewone v4.7.4: bovenaan de notitie de beta-alinea (Rob via site-chat; staat nu in RELEASE_CHECKLIST §2).
 
 ## 🧪 6 okt avond — 4.7.4-beta1 UITGEBRACHT (Rob: "Go"): tag `v4.7.4-beta1` op c5dc3c9, gepusht
