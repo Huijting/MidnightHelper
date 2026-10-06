@@ -1445,7 +1445,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_TIP_KR_COUNCIL_QUICK_DPS = "Sta in de stack bij de charge, kick het gif, en maak eerst de ontploffende totem dood.",
 	DGN_TIP_KR_COUNCIL_QUICK_HEALER = "Heal de bijl-bleed, en zorg dat iedereen vol staat vóór de charge.",
 	DGN_TIP_KR_COUNCIL_QUICK_TANK = "Slaat Aka'ali je weg, blijf dan uit haar buurt tot de debuff verdwenen is.",
-	DGN_TIP_KR_COUNCIL_QUICK = "Kula: Stap weg van haar draaiaanval en ontwijk de vliegende bijlen.|nAka'ali: Ze stormt op één speler af. Iedereen gaat op die speler staan om de klap te delen.|nZanazal: Kick zijn gifspreuk en maak eerst de ontploffende totem dood.",
+	DGN_TIP_KR_COUNCIL_QUICK = "Kula: Stap weg van haar draaiaanval en ontwijk de vliegende bijlen.|nAka'ali: Ze stormt op één speler af. Iedereen gaat op die speler staan om de klap te delen.|nZanazal: Kick zijn gif-spell en maak eerst de ontploffende totem dood.",
 	DGN_TIP_KR_COUNCIL_DPS = "DPS: sta in de stack van {SPELL:267494}, blijf {SPELL:267273} kicken, en wissel naar de Explosive Totem zodra hij verschijnt.",
 	DGN_TIP_KR_COUNCIL_HEALER = "Healer: heal de bleed van {SPELL:266231} en zet iedereen vol vóór {SPELL:267494}. Bij Zanazal springt {SPELL:1305810} tussen spelers, en Poison Nova tikt op iedereen als hij niet gekickt wordt.",
 	DGN_TIP_KR_COUNCIL_TANK = "Tank: {SPELL:266237} slaat je terug en laat je veel meer fysieke schade krijgen. Kite Aka'ali tot de debuff weg is, of gebruik een grote defensive.",

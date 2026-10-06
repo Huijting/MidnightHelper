@@ -467,7 +467,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	SET_DURA_LIMIT_TITLE = "Waarschuw onder",
 	SET_DURA_LIMIT_DESC = "Waarschuw als je meest versleten item onder dit percentage zit.",
 	SET_REZLUST_TOGGLE_TITLE = "Paneel battle res & Hero",
-	SET_REZLUST_TOGGLE_DESC = "Een klein paneel als je in een groep in een dungeon, delve of raid bent: de battle res-ladingen van de groep, of Hero klaar is, wie in je groep ze kan geven, en op welke toets je eigen res-spreuken staan. Beweeg erover voor uitleg. Waar EllesmereUI hetzelfde icoon al toont, blijft die regel weg. /mh lust toont wat het leest.",
+	SET_REZLUST_TOGGLE_DESC = "Een klein paneel als je in een groep in een dungeon, delve of raid bent: de battle res-ladingen van de groep, of Hero klaar is, wie in je groep ze kan geven, en op welke toets je eigen res-spells staan. Beweeg erover voor uitleg. Waar EllesmereUI hetzelfde icoon al toont, blijft die regel weg. /mh lust toont wat het leest.",
 	SET_REZLUST_ONLYKEY_TITLE = "Alleen in Mythic+-keys en raids",
 	SET_REZLUST_ONLYKEY_DESC = "Toon het paneel battle res & Hero alleen in Mythic-dungeons, Mythic+-keys en raids, niet in andere dungeons en delves.",
 	SET_MBUFF_TITLE = "Missende-buff-reminder",

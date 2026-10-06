@@ -396,7 +396,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_GLOSS_KEY = "Key / Keystone — een dungeon op een zwaardere stand met een klok. Een hoger getal betekent zwaarder.",
 	MPLUS_GLOSS_AFFIX = "Affix — een extra regel die de dungeon zwaarder maakt. Nieuwe komen erbij op bepaalde key-niveaus.",
 	MPLUS_GLOSS_PULL = "Pull — naar vijanden toe lopen om het gevecht te starten. Meestal bepaalt de tank wanneer.",
-	MPLUS_GLOSS_KICK = "Kick / Interrupt — met je interrupt-knop stop je een vijand midden in een spreuk. Gebruik hem bij de spreuken die belangrijk zijn.",
+	MPLUS_GLOSS_KICK = "Kick / Interrupt — met je interrupt-knop stop je een vijand midden in een spell. Gebruik hem bij de spells die belangrijk zijn.",
 	MPLUS_GLOSS_SOAK = "Soak — ga met opzet in een gemarkeerde cirkel staan om iets op te vangen, zodat de groep er geen last van heeft.",
 	MPLUS_GLOSS_TANK = "Tank — houdt de vijanden vast en draait ze van iedereen weg. Ga achter de tank staan.",
 	MPLUS_GLOSS_HEALER = "Healer — houdt iedereen in leven. Blijf dichtbij genoeg zodat ze je kunnen bereiken.",
@@ -407,7 +407,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_GLOSS_WIPE = "Wipe — de hele groep gaat dood en je probeert het opnieuw. Het overkomt iedereen; gewoon herstarten en weer gaan.",
 	MPLUS_GLOSS_ILVL = "Item level (ilvl) — een getal op gear dat aangeeft hoe sterk het is. Hoger is meestal beter.",
 	MPLUS_GLOSS_BIS = "BiS (best in slot) — het best mogelijke voorwerp voor een uitrustingsplek. \"Die trinket is BiS\" betekent dat niets het daar verslaat.",
-	MPLUS_GLOSS_PROC = "Proc — een bonuseffect dat willekeurig afgaat door een spreuk of voorwerp. Gratis waarde als het oplicht, dus gebruik het.",
+	MPLUS_GLOSS_PROC = "Proc — een bonuseffect dat willekeurig afgaat door een spell of voorwerp. Gratis waarde als het oplicht, dus gebruik het.",
 	MPLUS_GLOSS_UPTIME = "Uptime — hoeveel van het gevecht een effect of buff actief is. Meer uptime op je belangrijke buffs is beter.",
 	MPLUS_GLOSS_VAULT = "Vault-slot — een beloningskeuze in de Grote Kluis (Great Vault). Doe activiteiten door de week om meer slots te ontgrendelen.",
 

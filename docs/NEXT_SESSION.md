@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 📸 6 okt — na 4.7.3 (lokaal/gepusht, NIET in een release): screenshots, beschrijving, Holy, "spells"
+- Nieuwe screenshots: /mh shots heeft 17 scènes (key block, Ready, Pop-out windows); Rob schoot ze, 15 = zijn Prot-opname.
+  Live op CF (Rob) en de site (fd57eb8). CURSEFORGE_DESCRIPTION.md bijgewerkt, door Rob geplakt.
+- Holy Paladin: Hand of Reckoning + Shield of the Righteous blockAs onlyD (Rob). Niet getest.
+- nl: "spreuk(en)" → "spells" overal (21×, 4 locale-bestanden; Robs keuze voor de site, 6 okt). GEMETEN: 0× "spreuk" over.
+- Ideeën voor hierna (Rob: "denk er maar eens over na"): beroepen-boodschappenlijst (Cisca), één winkelvenster,
+  Ready-herinnering bij een raid, tank/DPS-toolkit, death-recap-venster. Rob koos nog niets.
+
 ## ✅ 6 okt — 4.7.3 (tag op 4f66c6b) LIVE: CF "R v4.7.3 Oct 6" + site e6a1a40 (site-chat GEMETEN, 7 talen, /keyblock/ uit 4f66c6b)
 Release-run 37445961805 success (57 s). Site-chat meldt: Rob laat de vertalingen van vandaag nakijken (mh-writer);
 correcties komen apart — die horen in de addon via de bouwchat.
