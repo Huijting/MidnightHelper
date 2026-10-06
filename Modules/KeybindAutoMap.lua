@@ -140,7 +140,9 @@ local function ReadKnownActiveSpells()
 					end
 				end
 			end
-			if next(fly.members) then
+			-- Only the class's own flyouts. Rob's Mage, 6 Oct 2026: "Frostbolt of Ages" and "Word of Recall (OLD)"
+			-- stood in the block's "no place" line — General-tab flyouts, not class buttons.
+			if next(fly.members) and not inGeneral then
 				flyouts[#flyouts + 1] = fly
 			end
 			return

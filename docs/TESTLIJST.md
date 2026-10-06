@@ -61,8 +61,11 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
   AFGELEID). Rob: "het uitschuif-icoontje gebruiken". Gebouwd, NIET getest: flyouts zonder geclassificeerde of
   bewust-toetsloze spreuk → het uitklapknopje op een vrije Alt-plek van D (PickupSpellBookItem); losse kopieën van
   hun spreuken gaan van balk 1 en D af zoals dubbelen (Undo zet terug). Cone of Cold Fire/Arcane = alleen D.
-- [ ] Mage `/reload` → `/mh block` → Undo → neerzetten: losse portals weg, Portal- en Teleport-uitklapknop op een Alt-toets,
-  Cone of Cold op een Alt-toets? Werken de uitklapknoppen? Undo zet alles terug?
+- [x] Rob 6 okt ✅ (2 screenshots) Undo → neerzetten: losse portals weg, Portal (Alt E) en Teleport (Alt C) als
+  uitklapknop (klappen open), Cone of Cold Alt Q. Undo zette alles terug.
+- GEMETEN zelfde screenshot: "no place"-regel noemde ook "Frostbolt of Ages" en "Word of Recall (OLD)" → AFGELEID
+  General-tab-flyouts; nu alleen flyouts buiten de General-lijn.
+- [ ] Mage `/reload` → `/mh block`: noemt de regel onderaan die twee nog?
 
 ## 🔴 6 okt — Prot Paladin: verkeerde spreuk op blok D (Warband Map op Alt 1)
 
