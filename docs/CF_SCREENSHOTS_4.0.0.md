@@ -54,9 +54,16 @@ het verbergt de rest van de UI zodat er geen actiebalk of questtracker in de fot
 3. `/reload` — WoW schrijft de bijsnij-rechthoeken pas dan naar schijf.
 4. Draai `tools\Crop-Shots.bat`. De bijgesneden foto's komen in `Screenshots\mh-shots\`.
 
-**Wat het script schiet (14 scènes, in galerijvolgorde):** Me-rooster, This Week, Codex-kamer,
+**Wat het script schiet (17 scènes, in galerijvolgorde):** Me-rooster, This Week, Codex-kamer,
 Tools-kamer, Rares, mount-voorbeeld, Raids, zoeken op een baas, klassecoach, alts, void-rituals,
-achievements, delve-coach, beroepenadvies.
+achievements, delve-coach, beroepenadvies, en sinds 6 okt 2026 (4.7.3): **toetsenblok** met het
+stappenplan, **Klaar voor de raid?** en **Pop-out windows**.
+
+⚠️ **De twee nieuwe 4.7.3-scènes hangen aan je personage** (zoals het beroepenadvies):
+- *Toetsenblok:* een personage waarop het blok netjes staat (Robs Prot Paladin is mooi). Zet het
+  stappenplan aan als je dat in de foto wilt.
+- *Klaar voor de raid?:* een personage dat potions tekortkomt en een enchant of gem mist, anders staat er
+  overal "Enough" en zie je het nut niet. Zet het op *Learning a new boss*.
 
 ⚠️ **Het script draait in de look die aan staat.** Wil je de Klassiek/Modern-vergelijking, draai hem
 dan twee keer: één keer in Modern en één keer in Klassiek. In Klassiek vallen de drie kamer-scènes

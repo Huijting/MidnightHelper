@@ -207,6 +207,40 @@ local SHOTS = {
 	--- on someone with Midnight professions and points to spend, or it photographs an honest
 	--- empty page. Rob's Tailoring/Enchanting characters are the ones to use.
 	{ name = "14-professions-advice", tab = "profoverview" },
+	--- 4.7 / 4.7.3 (Rob, 6 Oct 2026: "script weer even aanpassen met wat we nu nodig hebben, voor CurseForge
+	--- en de site"). The gallery had nothing of the key block, the raid shopping list or the buttons.
+	{
+		name = "15-key-block",
+		--- Its own window, with the step-by-step guide hanging above it (a child frame, so it reparents
+		--- with the window); `include` widens the crop to the guide without moving it.
+		setup = function()
+			if ns.ShowKeyBlock then
+				ns.ShowKeyBlock()
+			end
+		end,
+		base = function()
+			return _G.MidnightHelperKeyBlock
+		end,
+		include = function()
+			local g = _G.MidnightHelperKeyBlockGuide
+			return (g and g:IsShown()) and g or nil
+		end,
+	},
+	{
+		name = "16-ready-for-the-raid",
+		--- ⚠️ DEPENDS ON THE CHARACTER, like scene 14: run it on someone who is short of potions and
+		--- misses an enchant or gem, or the picture says "Enough" everywhere and hides the point.
+		setup = function()
+			local f = _G.MidnightHelperRaidShoppingList
+			if not (f and f:IsShown()) and ns.ShowRaidShoppingList then
+				ns.ShowRaidShoppingList() -- it toggles: only open it when it is closed
+			end
+		end,
+		base = function()
+			return _G.MidnightHelperRaidShoppingList
+		end,
+	},
+	{ name = "17-popout-windows", tab = "toolslaunch" },
 }
 
 local function Say(msg)
@@ -343,6 +377,13 @@ local function ClearSceneLeftovers()
 	if ns.DevGetMountPreviewFrame then
 		local ok, f = pcall(ns.DevGetMountPreviewFrame)
 		if ok and f then
+			f:Hide()
+		end
+	end
+	-- The 4.7 scenes' own windows (6 Oct 2026).
+	for _, name in ipairs({ "MidnightHelperKeyBlock", "MidnightHelperRaidShoppingList" }) do
+		local f = _G[name]
+		if f and f.IsShown and f:IsShown() then
 			f:Hide()
 		end
 	end
@@ -493,6 +534,14 @@ function ns.RunDevShots()
 				-- One more tick when a model had to reload after becoming visible.
 				C_Timer.After(extra and 0.5 or 0, function()
 					CenterWindow(subject) -- right before the shutter: nothing may drift
+					-- `include`: a frame that belongs in the crop but stays where it is (the key block's
+					-- guide). Unlike `frames`, it is not reparented.
+					if not extra and shot.include then
+						local iok, inc = pcall(shot.include)
+						if iok then
+							extra = inc
+						end
+					end
 					local rok, rect = pcall(PixelRect, subject, extra, shot.pad)
 					if rok and rect then
 						rect.name = shot.name

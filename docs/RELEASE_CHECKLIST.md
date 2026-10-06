@@ -79,7 +79,7 @@ git push origin v<ver>
    voor je kan doen: de wereld achter het venster is niet weg te poetsen.
 2. Zet de tekstgrootte van MH een stap hoger — leesbaarheid wint van informatiedichtheid
    in een thumbnail.
-3. `/mh shots` → de rig parkeert het venster op een vaste maat, loopt door **14 scènes**,
+3. `/mh shots` → de rig parkeert het venster op een vaste maat, loopt door **17 scènes**,
    schiet elke scène en onthoudt de bijbehorende bijsnij-rechthoek.
 4. `/reload` (WoW schrijft SavedVariables pas dan weg).
 5. `powershell -ExecutionPolicy Bypass -File tools\Crop-Shots.ps1` → identiek uitgesneden
