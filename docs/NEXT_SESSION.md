@@ -36,6 +36,14 @@
   wijzen naar de juiste plek. Jennara-recepten (Enchanting Glamour) nu naar Jennara, niet Dolothos. ~11 plekken nog
   nalopen (testlijst). Open: reagents zonder regeltje (Motes, Lumber, Tormented Tantalum, Petrified Root, prospect-
   stenen, Coiled Isle) — lijst in het rapport, Rob kiest; Herbataur als handelaar eerst in het spel bekijken.
+- ✅ Daarna zonder Rob (zijn vraag "wat kan je nu nog zonder mij doen?"): regeltjes voor ~20 extra reagent-soorten
+  (ddb74e0; 80/80 gebruikte keys bestaan in enUS+nlNL, GEMETEN met een script), zelfreview → LearnMakes één keer per
+  geopend venster (4951bc4), vertaalronde v2: 70 keys × 5 talen, blok "6 Oct 2026 (5)" (mh-writer; syntax/lint/
+  locale_probe 16 keys GEMETEN OK). Twijfels: knoop-namen (Wild/Primal/Lightfused/Voidbound/Cursed) Engels gelaten;
+  it "Prospecting" Engels (client zegt mogelijk "Prospezione"); "Désenchanter %d"/"+ Herstellen %d×" krap op 96 px.
+  ⚠️ Open tegenspraak: `tools/lint_addon.py` r. 703-708 zegt dat Blizzard "Coiled Isle" WÉL vertaalt; CLAUDE.md en de
+  packs houden zone-namen Engels. Niet uitgezocht.
+- **Klaar voor de beta zodra Rob "go" zegt** (eerst nog: aftellen, Wijs de weg, nieuwe regeltjes in het spel zien).
 - **Wijs de weg GEBOUWD, NIET GETEST:** trainer-recept (bron-tekst bevat de beroepsnaam, taal-onafhankelijk; AFGELEID
   buiten Engels) → knop op de receptregel; handelaar-spul → knop "Handelaar N" → `ns.AddSmartTomTomWay` naar de
   trainer-pin uit ns.PROF_GUIDES (koken: SMC-pin "Inn & Cooking", AFGELEID dat de handelaar daar staat).
