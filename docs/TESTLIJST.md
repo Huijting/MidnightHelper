@@ -28,7 +28,8 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
   kiezen speelt het geluid), Dispel alert; nieuw kopje **Gear** met upgrade-regel in tooltips en upgrade-pijltjes; bij
   Meldingen Scorecard + detail; bij Dungeon de 3 tank-samenvattingen; bij Route-pijl "Let WaypointUI drive". Zelfde
   stand als je `/mh`-commando's? Ook in Blizzards eigen Options → AddOns → Midnight Helper?
-- [ ] **Pop-out windows**: 5 nieuwe kaarten (Your stats, Pawn, Your keybinds, Curios, Your graphics settings). Open-knop werkt?
+- [x] Rob 6 okt ✅ ("de rest opent netjes"; screenshot toont alle 5 kaarten) **Pop-out windows**: 5 nieuwe kaarten.
+  Open-knop van "Your graphics settings" (/mh fps) nog niet bevestigd.
 - [x] Rob 6 okt ✅ (screenshot) **Settings-startpagina**: knoppen Report a problem, What's new, Side panels back in place staan er.
 - Rob 6 okt: "Open Midnight Helper settings" → hernoemd naar **All settings**; "Help translate" gaf alleen chat (en
   zei op een Engelse client "enUS needs its first pack") → nu een kopieervenster; "Show me" opende zonder uitleg de
@@ -39,7 +40,7 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
 - [x] Rob 6 okt ✅ (2 screenshots: tooltips "Nearest flight master" en "Your route" met klik/rechtsklik/Shift-klik)
   **Snelbalk**: met een route (bv. een rare-route) een kaartknop: klik = overslaan, rechtsklik = stoppen, Shift-klik =
   plan. Verdwijnt hij binnen ~2 s na stoppen? Buiten instances een vluchtmeester-knop.
-- [ ] Reparaties: `/mh debug` zegt nu "debug mode" (niet arrow-debug; dat is `/mh arrowdebug`). In de zoekbalk/lijst
+- [x] Rob 6 okt ✅ (screenshot "Debug mode ON") Reparaties: `/mh debug` zegt nu "debug mode" (niet arrow-debug; dat is `/mh arrowdebug`). In de zoekbalk/lijst
   zeggen delves/scorecard/size nu wat ze echt doen.
 
 ## 🆕 6 okt — Tools → Pop-out windows: knoppen voor Ready en Key block; de hele pagina schuift
