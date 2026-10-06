@@ -228,6 +228,30 @@ local function MyMakes()
 	return ns.db.craftShopMakes[g]
 end
 
+--- Which recipes this character knows, for "which of your characters know this recipe" in a recipe item's tooltip
+--- (Rob, 6 Oct 2026: the idea from MyRecipeTracker, no code of theirs; that addon is All Rights Reserved).
+--- MidnightHelperDB is account-wide, so every character reads every other character's entry.
+--- { name = "Name-Realm", class = "PALADIN", recipes = { [recipeID] = true }, profs = { [skillLine] = true }, t = time }
+local function MyKnown()
+	local g = MyGuid()
+	if not (g and ns.db) then
+		return { recipes = {} }
+	end
+	ns.db.craftShopKnown = ns.db.craftShopKnown or {}
+	local k = ns.db.craftShopKnown[g] or { recipes = {} }
+	ns.db.craftShopKnown[g] = k
+	local name = UnitName and UnitName("player")
+	local realm = GetNormalizedRealmName and GetNormalizedRealmName()
+	k.name = name and (realm and (name .. "-" .. realm) or name) or k.name
+	if UnitClass then
+		local _, class = UnitClass("player")
+		k.class = class or k.class
+	end
+	k.recipes = k.recipes or {}
+	k.t = time and time() or k.t
+	return k
+end
+
 --- Blizzard's source line is several lines with |n; one line reads better in our list.
 local function OneLine(s)
 	if type(s) ~= "string" or s == "" then
@@ -1111,6 +1135,13 @@ function ns.CraftShopWhy()
 		nMakes = nMakes + 1
 	end
 	print(("   items you can make (noted when a profession opens): %d"):format(nMakes))
+	for _, k in pairs(ns.db and ns.db.craftShopKnown or {}) do
+		local nRec = 0
+		for _ in pairs(k.recipes or {}) do
+			nRec = nRec + 1
+		end
+		print(("   known recipes noted for %s: %d"):format(tostring(k.name), nRec))
+	end
 	for _, c in ipairs(ns.db and ns.db.craftShopCastProbe or {}) do
 		print(("   craft NOT on your list: spell %s at %s"):format(tostring(c.spellID), tostring(c.t)))
 	end
@@ -1313,10 +1344,28 @@ local function LearnMakes()
 		return 0
 	end
 	local makes = MyMakes()
+	local known = MyKnown()
+	-- Every profession this character has (both primaries, cooking, fishing), so a tooltip can also say who has the
+	-- profession but not the recipe yet.
+	known.profs = {}
+	if GetProfessions and GetProfessionInfo then
+		local okP, p1, p2, arch, fish, cook = pcall(GetProfessions)
+		if okP then
+			for _, idx in ipairs({ p1 or false, p2 or false, arch or false, fish or false, cook or false }) do
+				if idx then
+					local okI, _, _, _, _, _, _, skillLine = pcall(GetProfessionInfo, idx)
+					if okI and skillLine then
+						known.profs[skillLine] = true
+					end
+				end
+			end
+		end
+	end
 	local n = 0
 	for _, id in ipairs(ids) do
 		local okI, ri = pcall(T.GetRecipeInfo, id)
 		if okI and type(ri) == "table" and ri.learned then
+			known.recipes[id] = true
 			local okS, sch = pcall(T.GetRecipeSchematic, id, false)
 			if okS and type(sch) == "table" then
 				local function put(item)

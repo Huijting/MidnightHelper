@@ -119,6 +119,13 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🆕 6 okt avond — "welke van je personages kennen dit recept?" (Rob: "neem wel het idee over", zonder MyRecipeTracker)
+
+Stap 1 gebouwd, niet getest: bij het openen van een beroep onthoudt MH per personage welke recepten het kent
+(`ns.db.craftShopKnown`, account-breed). De tooltip zelf komt na het onderzoek (welk item leert welk recept).
+- [ ] Log op een paar personages in en open op elk één keer hun beroep(en). `/mh craftshop why` → regels "known recipes
+  noted for <naam>: N" voor elk personage dat je zo langs ging?
+
 ## 🔍 6 okt — meting vóór boodschappenlijst v2 (`/mh craftshop probe`; Rob: "maak die meetcontrole maar")
 
 Voor: recept-bron, tussenproducten (en later kwaliteit). Schrijft naar `ns.db.craftShopMeasure` (open + closed).

@@ -7,6 +7,12 @@ Release-run 37499788595 stond 16:57 UTC in de wachtrij — uitkomst nakijken (ac
 ✅ Site-chat meldt later: v4.7.4-beta1 staat op CF (B, 6.3 MB, Oct 6) en het oranje beta-blok is live op
 midnighthelper.com in 7 talen (ddc7ada, Robs ja via de site-chat). Strip blijft 4.7.3. Open (volgende vertaalronde): VALEERA_OFF_HINT noemt in de/fr/es/pt/it
 de kaart nog Engels "Pop-out windows" terwijl TAB_TOOLSLAUNCH vertaald is.
+- Rob testte op de beta: Show the way (quest) → TomTom-pijl Zul'Aman + portal-tussenstap ✅; regeltjes ronde 2 ✅.
+- **MyRecipeTracker** (onderzocht: All Rights Reserved, 298 downloads, 2 weken oud): Rob installeert hem NIET, maar wil
+  het idee "tooltip van een recept-item: welke van je personages kennen het al". Stap 1 GEBOUWD (lokaal):
+  `ns.db.craftShopKnown[guid]` = naam, klasse, geleerde recipeIDs, beroepen; gevuld in LearnMakes. Stap 2 (item →
+  recipeID) loopt bij mh-research → `data/craftshop_recipe_items.tsv`. Stap 3: tooltip (TooltipDataProcessor, zoals
+  LootUpgrade.lua).
 
 ## 🌙 STAND EIND 6 OKT (start hier) — 4.7.3 live; daarna gebouwd en gepusht, NIET uitgebracht
 - **Boodschappen voor je beroep** (`/mh craftshop`, CraftShoppingList.lua; Cisca's wens). Rob getest: paneel volgt het
