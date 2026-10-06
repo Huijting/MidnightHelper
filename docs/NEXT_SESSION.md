@@ -4,6 +4,9 @@
 Release-run 37499788595 stond 16:57 UTC in de wachtrij — uitkomst nakijken (actions-API / `gh run list`). Site-chat
 ("Site-chat MH 06-10") geseind met de functie voor de hoofdpagina. Volgende stap: beta-reacties (Cisca!), Robs tests
 (aftellen, Wijs de weg, regeltjes ronde 2, nalopen 11 plekken), daarna `v4.7.4` op Robs go.
+Site-chat meldt: run = success, maar v4.7.4-beta1 stond nog niet in de CF-bestandenlijst (review?); oranje beta-blok
+lokaal (ddc7ada), pusht pas na CF + Robs ja. Open (volgende vertaalronde): VALEERA_OFF_HINT noemt in de/fr/es/pt/it
+de kaart nog Engels "Pop-out windows" terwijl TAB_TOOLSLAUNCH vertaald is.
 
 ## 🌙 STAND EIND 6 OKT (start hier) — 4.7.3 live; daarna gebouwd en gepusht, NIET uitgebracht
 - **Boodschappen voor je beroep** (`/mh craftshop`, CraftShoppingList.lua; Cisca's wens). Rob getest: paneel volgt het
