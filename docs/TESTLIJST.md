@@ -26,7 +26,7 @@ er is niets weggegooid.
 - [x] Rob 6 okt ✅ (screenshot, v4.7.3) beide knoppen staan erbij en werken.
 - GEMETEN (screenshot): "All commands" eronder platgedrukt, niet te lezen of te scrollen. Gerepareerd: kaarten + lijst
   in één schuifvak (ToolsLaunchpad.lua, CommandList.lua `flat`). NIET in de beta-zip van 65ddccf.
-- [ ] `/reload` → Tools → Pop-out windows: kun je de hele pagina doorscrollen tot onderaan "All commands"? Overlapt niets?
+- [x] Rob 6 okt ✅ ("scrollen werkt, alles goed te lezen") `/reload` → Tools → Pop-out windows: hele pagina scrollt?
 
 ## 🔴 6 okt — Prot Paladin: verkeerde spreuk op blok D (Warband Map op Alt 1)
 
