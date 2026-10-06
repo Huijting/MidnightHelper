@@ -2,8 +2,12 @@
 
 ## 🔘 6 okt — rondje /mh-commando's → knoppen (Rob: "doe het rondje langs de commando's")
 Inventaris in `docs/COMMANDS_AUDIT_2026-10-06.md` (mh-research): 25 nuttig zonder knop, 121 debug. Plus 5 gevonden
-fouten (o.a. `/mh scorecard` zet uit via de zoekbalk, `/mh delves` opent het verkeerde scherm). NIETS gebouwd: Rob kiest
-welke groepen. Site-chat: seintje als een knopnaam verandert (KEYBLOCK_BTN_UNDO, SIDEBAR_ROOM_TOOLS, TAB_TOOLSLAUNCH,
+fouten (o.a. `/mh scorecard` zet uit via de zoekbalk, `/mh delves` opent het verkeerde scherm). Rob koos ALLE 4 groepen
++ reparaties → GEBOUWD, NIET GETEST: 8 schakelaars in SettingsDefs.lua (rec nil = buiten Recommended; FlipTo voor
+modules die alleen een toggle hebben), 5 kaarten in ToolsLaunchpad.lua, 3 knoppen op SettingsPage.lua, route- en
+vluchtmeester-knop op QuickBar.lua (route-knop roept SlashCmdList zelf aan; 2s-ticker voor zichtbaarheid). Reparaties:
+Achievements.lua pakt alleen nog "arrowdebug"; Core `companion`, `kp weekly`; CMDLIST_DELVES/SCORECARD/SIZE/FRAMESIZE
+herschreven (enUS+nlNL) → drift in de/fr/es/pt/it + ~35 nieuwe keys alleen enUS/nlNL → vertaalronde (mh-writer). Site-chat: seintje als een knopnaam verandert (KEYBLOCK_BTN_UNDO, SIDEBAR_ROOM_TOOLS, TAB_TOOLSLAUNCH,
 RAIDSHOP_TITLE, KEYBLOCK_TITLE staan in hun beta-blok). Site toont /keyblock/ pas bij de gewone v4.7.3-tag.
 
 ## 🧪 6 okt — 4.7.3 BETA UITGEBRACHT (Rob: "tekst is goed, go voor de beta"): tag `v4.7.3-beta1` op 65ddccf, gepusht

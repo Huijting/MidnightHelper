@@ -301,6 +301,54 @@ local ACTIONS = {
 			end
 		end,
 	},
+	--- Route buttons (command audit, 6 Oct 2026; Rob chose all four groups). `/mh skip`, `/mh clear` and `/mh plan`
+	--- were slash-only (skip also a key binding). One button while a route runs; it calls the slash command itself,
+	--- so the button can never do something different from the command (skip also skips a rare during a rare hunt).
+	{
+		id = "route",
+		icon = "Interface\\Icons\\INV_Misc_Map_01",
+		titleKey = "QUICKBAR_ROUTE",
+		linesKey = { "QUICKBAR_ROUTE_L", "QUICKBAR_ROUTE_R", "QUICKBAR_ROUTE_S" },
+		when = function()
+			return ns._mhRouteOwner ~= nil or ns.lastTarget ~= nil
+		end,
+		OnClick = function(_, button)
+			local run = SlashCmdList and SlashCmdList["MIDNIGHTHELPER"]
+			if not run then
+				return
+			end
+			if IsShiftKeyDown and IsShiftKeyDown() then
+				run("plan")
+			elseif button == "RightButton" then
+				run("clear")
+			else
+				run("skip")
+			end
+			if ns.MH_RefreshQuickBar then
+				ns.MH_RefreshQuickBar()
+			end
+		end,
+	},
+	{
+		id = "fp",
+		icon = "Interface\\Icons\\Spell_Shadow_DemonicCircleTeleport",
+		titleKey = "QUICKBAR_FP",
+		linesKey = { "QUICKBAR_FP_L" },
+		when = function()
+			if not ns.RouteToNearestFlightPoint or not IsInInstance then
+				return false
+			end
+			return not IsInInstance()
+		end,
+		OnClick = function()
+			if ns.RouteToNearestFlightPoint then
+				ns.RouteToNearestFlightPoint()
+			end
+			if ns.MH_RefreshQuickBar then
+				ns.MH_RefreshQuickBar()
+			end
+		end,
+	},
 }
 
 --- Does this button belong on the bar right now? No `when` means always.
@@ -446,3 +494,18 @@ ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 ev:SetScript("OnEvent", function()
 	ns.MH_RefreshQuickBar()
 end)
+
+-- A route starts and ends without an event of its own (rares, treasures, achievements, the reset route all set
+-- ns._mhRouteOwner / ns.lastTarget). A cheap look every 2 s; the bar is only redrawn when that changes.
+if C_Timer and C_Timer.NewTicker then
+	local lastRoute
+	C_Timer.NewTicker(2, function()
+		local now = (ns._mhRouteOwner ~= nil or ns.lastTarget ~= nil)
+		if now ~= lastRoute then
+			lastRoute = now
+			if bar and bar:IsShown() then
+				ns.MH_RefreshQuickBar()
+			end
+		end
+	end)
+end

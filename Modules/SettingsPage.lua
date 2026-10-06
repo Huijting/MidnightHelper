@@ -964,9 +964,18 @@ function ns.BuildSettingsPanel(panel)
 		if ns.ShowConsumableBoard then ns.ShowConsumableBoard() end
 	end)
 	boardBtn:SetPoint("LEFT", testShardBtn, "RIGHT", 8, 0)
+	-- Command audit, 6 Oct 2026: report a problem and "what's new" were slash-only.
+	local reportBtn = MakeBtn(170, "SET_LAUNCH_REPORT", function()
+		if ns.ShowSupportReport then ns.ShowSupportReport() end
+	end)
+	reportBtn:SetPoint("TOPLEFT", testShardBtn, "BOTTOMLEFT", 0, -6)
+	local changelogBtn = MakeBtn(170, "SET_LAUNCH_CHANGELOG", function()
+		if ns.ShowChangelogWindow then ns:ShowChangelogWindow(true) end
+	end)
+	changelogBtn:SetPoint("LEFT", reportBtn, "RIGHT", 8, 0)
 
 	-- Geavanceerd (reset-knoppen).
-	local advH = MakeHeader("SET_CAT_ADVANCED", testShardBtn, -16)
+	local advH = MakeHeader("SET_CAT_ADVANCED", reportBtn, -16)
 	local forgetBtn = MakeBtn(170, "SET_LAUNCH_FORGET", function()
 		if ns.db then ns.db.rareNpcIds = {} end
 	end)
@@ -982,6 +991,16 @@ function ns.BuildSettingsPanel(panel)
 		end
 	end)
 	toastResetBtn:SetPoint("TOPLEFT", forgetBtn, "BOTTOMLEFT", 0, -6)
+	-- `/mh panelreset` (command audit, 6 Oct 2026): side panels back beside their window.
+	local panelResetBtn = MakeBtn(170, "SET_LAUNCH_PANELRESET", function()
+		if ns.ResetSidePanels then
+			ns.ResetSidePanels()
+		elseif ns.db then
+			ns.db.sidePanelOffsets = nil
+		end
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SIDEPANEL_RESET_DONE")))
+	end)
+	panelResetBtn:SetPoint("LEFT", toastResetBtn, "RIGHT", 8, 0)
 	ui.last = toastResetBtn -- the lowest widget, for the scroll height (nudges move it down)
 
 	-- Notifications & tips (Spec 15): permanent, findable home for nudges.

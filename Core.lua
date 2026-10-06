@@ -2980,7 +2980,8 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "valeera" or msg == "companion" then
+	-- "valeera" never reached this line: the Valeera popup above takes it. The tree probe is `/mh companion`.
+	if msg == "companion" then
 		if ns.PrintCompanionTreeProbe then ns.PrintCompanionTreeProbe() end
 		return
 	end
@@ -3145,7 +3146,9 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "kp" then
+	-- `/mh kp` is taken much earlier (ProbeKnowledgeCurrency), so this probe was unreachable (command audit,
+	-- 6 Oct 2026). It answers to its own name now.
+	if msg == "kp weekly" then
 		if ns.PrintKnowledgeProbe then ns.PrintKnowledgeProbe() end
 		return
 	end

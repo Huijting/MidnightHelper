@@ -66,6 +66,33 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_Gear_01", slash = "/mh block",
 		open = function() if ns.ShowKeyBlock then ns.ShowKeyBlock() end end,
 	},
+	-- Command audit, 6 Oct 2026 (docs/COMMANDS_AUDIT_2026-10-06.md; Rob: all four groups). Names and descriptions
+	-- reuse keys the packs already translate (the window's own title, the command list's line).
+	{
+		nameKey = "STATS_TITLE", descKey = "CMDLIST_STATS",
+		icon = "Interface\\Icons\\Achievement_Character_Human_Male", slash = "/mh stats",
+		open = function() if ns.ShowStatCoach then ns.ShowStatCoach() end end,
+	},
+	{
+		nameKey = "PAWN_TITLE", descKey = "CMDLIST_PAWN",
+		icon = "Interface\\Icons\\INV_Misc_Coin_01", slash = "/mh pawn",
+		open = function() if ns.ShowPawnExport then ns.ShowPawnExport() end end,
+	},
+	{
+		nameKey = "KEYBIND_EXPORT_TITLE", descKey = "CMDLIST_BINDS",
+		icon = "Interface\\Icons\\Trade_Engineering", slash = "/mh binds",
+		open = function() if ns.ShowKeybindExport then ns.ShowKeybindExport() end end,
+	},
+	{
+		nameKey = "CURIO_TITLE", descKey = "CMDLIST_CURIOINFO",
+		icon = "Interface\\Icons\\INV_Misc_QuestionMark", slash = "/mh curioinfo",
+		open = function() if ns.ShowCurioExplain then ns.ShowCurioExplain() end end,
+	},
+	{
+		nameKey = "FPS_TITLE", descKey = "CMDLIST_FPS",
+		icon = "Interface\\Icons\\INV_Misc_PocketWatch_01", slash = "/mh fps",
+		open = function() if ns.MH_ShowFpsPanel then ns.MH_ShowFpsPanel() end end,
+	},
 	-- ✅ 10 Sep 2026 (Spec 33 §2c): this hall named every helper but not the Macros tab, so the
 	-- one place that lists what the addon offers skipped a whole page of it.
 	{

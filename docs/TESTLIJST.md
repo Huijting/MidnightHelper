@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 okt — knoppen voor commando's die alleen via /mh gingen (Rob: alle 4 groepen + de 5 reparaties)
+
+Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
+- [ ] **All settings** (Settings → All settings): bij "In combat" Action prompt, Action prompt sound (Off/Spoken/Chime:
+  kiezen speelt het geluid), Dispel alert; nieuw kopje **Gear** met upgrade-regel in tooltips en upgrade-pijltjes; bij
+  Meldingen Scorecard + detail; bij Dungeon de 3 tank-samenvattingen; bij Route-pijl "Let WaypointUI drive". Zelfde
+  stand als je `/mh`-commando's? Ook in Blizzards eigen Options → AddOns → Midnight Helper?
+- [ ] **Pop-out windows**: 5 nieuwe kaarten (Your stats, Pawn, Your keybinds, Curios, Your graphics settings). Open-knop werkt?
+- [ ] **Settings-startpagina**: knoppen Report a problem, What's new (Snelle acties) en Side panels back in place (Geavanceerd).
+- [ ] **Snelbalk**: met een route (bv. een rare-route) een kaartknop: klik = overslaan, rechtsklik = stoppen, Shift-klik =
+  plan. Verdwijnt hij binnen ~2 s na stoppen? Buiten instances een vluchtmeester-knop.
+- [ ] Reparaties: `/mh debug` zegt nu "debug mode" (niet arrow-debug; dat is `/mh arrowdebug`). In de zoekbalk/lijst
+  zeggen delves/scorecard/size nu wat ze echt doen.
+
 ## 🆕 6 okt — Tools → Pop-out windows: knoppen voor Ready en Key block; de hele pagina schuift
 
 - [x] Rob 6 okt ✅ (screenshot, v4.7.3) beide knoppen staan erbij en werken.

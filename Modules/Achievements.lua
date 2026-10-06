@@ -2642,7 +2642,9 @@ function ns:RunAchievementSlashCommand(msg)
 		end
 		return true
 	end
-	if msg == "arrowdebug" or msg == "debug" then
+	-- Only "arrowdebug": "debug" here swallowed Core.lua's own `/mh debug` (the general debug mode, also a setting in
+	-- SettingsDefs) before it was ever reached. Found by the command audit, 6 Oct 2026.
+	if msg == "arrowdebug" then
 		DEBUG_ARROW = not DEBUG_ARROW
 		print(("|cffffff78Midnight Helper:|r arrow-debug %s"):format(DEBUG_ARROW and "AAN" or "UIT"))
 		return true

@@ -30,6 +30,17 @@ local _, ns = ...
 
 local defs
 
+--- For a switch whose module only offers a toggle (it also prints or redraws): flip only when the wanted state differs.
+local function FlipTo(isOn, toggle, want)
+	if type(isOn) ~= "function" or type(toggle) ~= "function" then
+		return
+	end
+	local ok, cur = pcall(isOn)
+	if ok and ((cur and true or false) ~= (want and true or false)) then
+		pcall(toggle)
+	end
+end
+
 local function Build()
 	local list = {}
 	local section
@@ -129,6 +140,46 @@ local function Build()
 	end, function(v)
 		if ns.SetMissingBuffEnabled then ns.SetMissingBuffEnabled(v) end
 	end, true)
+	-- 6 Oct 2026 (Rob: "dit soort dingen ook als handige knop in de MH", command audit): switches that were
+	-- slash-only. Not in the Recommended preset (rec nil): the player's own choice stays as it is.
+	Toggle("mh_actionPrompt", "SET_PROMPT_TITLE", "SET_PROMPT_DESC", function()
+		return ns.IsActionPromptEnabled and ns.IsActionPromptEnabled()
+	end, function(v)
+		FlipTo(ns.IsActionPromptEnabled, ns.ToggleActionPrompt, v)
+	end)
+	Dropdown("mh_actionPromptSound", "SET_PROMPT_SOUND_TITLE", "SET_PROMPT_SOUND_DESC", "off", {
+		{ value = "off", labelKey = "SET_PROMPT_SOUND_OFF" },
+		{ value = "speak", labelKey = "SET_PROMPT_SOUND_SPEAK" },
+		{ value = "chime", labelKey = "SET_PROMPT_SOUND_CHIME" },
+	}, function()
+		return (ns.db and ns.db.actionPromptSound) or "off"
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.actionPromptSound = (v ~= "off") and v or nil
+		if v ~= "off" and ns.PreviewActionPromptSound then pcall(ns.PreviewActionPromptSound) end -- choosing is the test
+	end)
+	Toggle("mh_dispelAlert", "SET_DISPELALERT_TITLE", "SET_DISPELALERT_DESC", function()
+		return ns.DispelAlertEnabled and ns.DispelAlertEnabled()
+	end, function(v)
+		FlipTo(ns.DispelAlertEnabled, ns.ToggleDispelAlert, v)
+	end)
+
+	----------------------------------------------------------------
+	-- Uitrusting (6 Oct 2026: two slash-only switches)
+	----------------------------------------------------------------
+	Header("SET_SEC_GEAR")
+	Toggle("mh_lootTips", "SET_LOOTTIPS_TITLE", "SET_LOOTTIPS_DESC", function()
+		return not (ns.db and ns.db.lootUpgradeTips == false)
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.lootUpgradeTips = v and true or false
+	end)
+	Toggle("mh_bagArrows", "SET_BAGARROWS_TITLE", "SET_BAGARROWS_DESC", function()
+		return not (ns.db and ns.db.bagUpgradeArrows == false)
+	end, function(v)
+		-- through the toggle: it also redraws the open bags
+		FlipTo(function() return not (ns.db and ns.db.bagUpgradeArrows == false) end, ns.ToggleBagUpgradeArrows, v)
+	end)
 
 	----------------------------------------------------------------
 	-- Meldingen & popups
@@ -183,11 +234,42 @@ local function Build()
 	end, function(v)
 		if ns.SetGrowthPopupEnabled then ns.SetGrowthPopupEnabled(v) end
 	end, false)
+	Toggle("mh_runScorecard", "SET_SCORECARD_TITLE", "SET_SCORECARD_DESC", function()
+		return not (ns.db and ns.db.runScorecard == false)
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.runScorecard = v and true or false
+	end)
+	Toggle("mh_scorecardDetail", "SET_SCORECARD_DETAIL_TITLE", "SET_SCORECARD_DETAIL_DESC", function()
+		return ns.db and ns.db.scorecardDetail == true
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.scorecardDetail = v and true or false
+	end)
 
 	----------------------------------------------------------------
 	-- Dungeon-hulp
 	----------------------------------------------------------------
 	Header("SET_SEC_DUNGEON")
+	-- Tank pull summary: three slash-only switches until 6 Oct 2026 (command audit).
+	Toggle("mh_pullSummary", "SET_PULLSUM_TITLE", "SET_PULLSUM_DESC", function()
+		return ns.db and ns.db.tankPullSummary == true
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.tankPullSummary = v and true or false
+	end)
+	Toggle("mh_pullSummaryBoss", "SET_PULLSUM_BOSS_TITLE", "SET_PULLSUM_BOSS_DESC", function()
+		return ns.db and ns.db.tankPullSummaryBossOnly == true
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.tankPullSummaryBossOnly = v and true or false
+	end)
+	Toggle("mh_pullSummaryPopup", "SET_PULLSUM_POPUP_TITLE", "SET_PULLSUM_POPUP_DESC", function()
+		return ns.db and ns.db.tankPullSummaryPopup == true
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.tankPullSummaryPopup = v and true or false
+	end)
 	Toggle("mh_liveTips", "SET_LIVETIPS_TITLE", "SET_LIVETIPS_DESC", function()
 		return ns.IsDungeonLiveTipsEnabled and ns.IsDungeonLiveTipsEnabled()
 	end, function(v)
@@ -341,6 +423,13 @@ local function Build()
 	end, function(v)
 		if ns.SetZoneGateBlockEnabled then ns.SetZoneGateBlockEnabled(v) end
 	end, false) -- expliciete default (uit); niet de toevallige login-waarde (F4.6)
+	-- `/mh arrow yield` (command audit, 6 Oct 2026). Only means something with WaypointUI; the tip says so.
+	Toggle("mh_arrowYield", "SET_ARROWYIELD_TITLE", "SET_ARROWYIELD_DESC", function()
+		return ns.db and ns.db.arrowYieldWaypointUI == true
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.arrowYieldWaypointUI = v and true or nil
+	end)
 
 	----------------------------------------------------------------
 	-- Venster & weergave
