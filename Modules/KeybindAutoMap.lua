@@ -96,6 +96,12 @@ local function ReadKnownActiveSpells()
 	-- Basics and Warband Bank Distance Inhibitor. Line 1 = General is DERIVED (the book's order), not measured.
 	local general = {}
 	ns._mhGeneralSpells = general
+	-- Spells that came out of a flyout (Mage portals and teleports, Hunter pet spells ...). Rob's Mage, 6 Oct 2026
+	-- (screenshots): the red "not in MH's list yet" line held 30 Portal/Teleport spells. They already have a button —
+	-- the flyout itself — so they are no gap; KeybindUnclassified leaves them out. By name of the spell as read here,
+	-- so it works on every client language.
+	local fromFlyout = {}
+	ns._mhFlyoutSpells = fromFlyout
 	local inGeneral = false
 	if not (C_SpellBook and C_SpellBook.GetSpellBookItemInfo and Enum and Enum.SpellBookSpellBank) then
 		return out
@@ -122,6 +128,7 @@ local function ReadKnownActiveSpells()
 				local okS, spellID, _, isKnown, spellName = pcall(GetFlyoutSlotInfo, info.actionID, i)
 				if okS and isKnown and spellID and spellName and not out[spellName] then
 					out[spellName] = spellID
+					fromFlyout[spellName] = true
 				end
 			end
 			return
@@ -471,9 +478,11 @@ function ns.KeybindUnclassified()
 	end
 	local out, outIds = {}, {}
 	local general = ns._mhGeneralSpells or {}
+	local flyout = ns._mhFlyoutSpells or {}
 	for i = 1, #unmatched do
 		local sid = ids and ids[i]
-		if not (sid and KEYBIND_NOISE[sid]) and not general[unmatched[i]] and not NO_KEY_ON_PURPOSE[unmatched[i]] then
+		if not (sid and KEYBIND_NOISE[sid]) and not general[unmatched[i]] and not NO_KEY_ON_PURPOSE[unmatched[i]]
+			and not flyout[unmatched[i]] then
 			out[#out + 1] = unmatched[i]
 			outIds[#outIds + 1] = sid
 		end

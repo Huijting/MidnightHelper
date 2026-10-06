@@ -50,6 +50,14 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
   in één schuifvak (ToolsLaunchpad.lua, CommandList.lua `flat`). NIET in de beta-zip van 65ddccf.
 - [x] Rob 6 okt ✅ ("scrollen werkt, alles goed te lezen") `/reload` → Tools → Pop-out windows: hele pagina scrollt?
 
+## 🆕 6 okt — Mage (Iceicebaby) na de blok-D-reparatie
+
+- [x] Rob 6 okt ✅ (2 screenshots) Frost: Blizzard op Shift 2; Fire: Flamestrike op Shift 4; blok D alleen eigen spul
+  (items, portal-macro's), geen vreemde spreuk.
+- GEMETEN: rode regel noemde 30/31 Portals en Teleports (komen uit de flyout-scan) + bij Fire "Cone of Cold".
+  Gerepareerd: spreuken uit een flyout tellen niet als "onbekend" (`ns._mhFlyoutSpells`). Cone of Cold bij Fire: Rob kiest.
+- [ ] Mage `/reload` → `/mh block`: rode regel zonder Portals/Teleports?
+
 ## 🔴 6 okt — Prot Paladin: verkeerde spreuk op blok D (Warband Map op Alt 1)
 
 GEMETEN in SV: namen gesorteerd, ids niet → elk onbekend id hoorde bij een andere naam. Gerepareerd (56bab86).
