@@ -119,6 +119,13 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🆕 6 okt avond — Moxie zichtbaar (alle 11 nummers door het spel bevestigd, `/mh moxie`)
+
+Deze regels stonden sinds 19 jul bewust UIT (alle geraden nummers waren fout). Nu voor het eerst aan:
+- [ ] Beroepenpaneel naast je beroepsvenster: regel "Artisan Alchemist's Moxie  25" (jouw saldo)?
+- [ ] Recept-tooltip bij een Moxie-recept (Camberon's Cauldron / renown-handelaar): kosten tegen je saldo — klopt het?
+- [ ] Alt-overzicht: muis over een personage → Moxie-regel in de tooltip?
+
 ## 🆕 6 okt avond — healers: "Zo vecht je alleen" (Rob, Resto Druid: "hoe weet ik welke knop ik moet gebruiken?")
 
 Gebouwd, niet getest. Volgorde = Blizzards eigen Single-Button Assistant (`docs/HEALER_SOLO_DAMAGE_2026-10-06.md`).

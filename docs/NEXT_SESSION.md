@@ -19,8 +19,10 @@ de kaart nog Engels "Pop-out windows" terwijl TAB_TOOLSLAUNCH vertaald is.
   Single-Button Assistant, `docs/HEALER_SOLO_DAMAGE_2026-10-06.md`), blokje op de speelkaart + rode rand op `/mh block`.
   Keys CARD_SOLO_* / KEYBLOCK_SOLO_LEGEND / CRAFTSHOP_TIP_(NOT_)KNOWN_FMT alleen enUS + nlNL → vertaalronde.
 - **Moxie (Rob: "hoe kom ik hier aan?")**: ✅ GEMETEN Rob `/dump C_CurrencyInfo.GetCurrencyInfo(3256).name` = "Artisan
-  Alchemist's Moxie" → Config.lua ARTISANS_MOXIE_CURRENCY_CODES[Alchemy] = 3256 (de andere 10 wachten; `/mh moxie` print nu
-  3256-3266 met de namen van het spel). PROFACAD_CH_MOXIE_BODY (+patron order 30, schatten 15, per personage, Cauldron) en
+  Alchemist's Moxie" → Config.lua ARTISANS_MOXIE_CURRENCY_CODES. ✅ Daarna `/mh moxie` (Rob, screenshot): 3256-3266 =
+  Alchemist, Blacksmith, Enchanter, Engineer, Herbalist, Scribe, Jewelcrafter, Leatherworker, Miner, Skinner, Tailor →
+  alle 11 ingevuld. Nog niet gezien: de Moxie-regel in het beroepenpaneel, de alt-tooltip, kosten-vergelijking in de
+  recept-tooltip (Profession.lua:910) — die gingen tot nu toe nooit aan. PROFACAD_CH_MOXIE_BODY (+patron order 30, schatten 15, per personage, Cauldron) en
   _WEEKLY_BODY (Darkmoon-Moxie onzeker) herschreven → drift in 5 talen.
 
 ## 🌙 STAND EIND 6 OKT (start hier) — 4.7.3 live; daarna gebouwd en gepusht, NIET uitgebracht

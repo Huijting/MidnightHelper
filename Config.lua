@@ -52,7 +52,7 @@ local Config = {
 	ARTISANS_MOXIE_CURRENCY_CODES = {},
 }
 
--- Artisan's Moxie currency ids — DELIBERATELY EMPTY.
+-- Artisan's Moxie currency ids — WAS deliberately empty; filled 6 Oct 2026 from the client (see below this note).
 --
 -- This table held 13 guessed ids (3402-3414): only Herbalism 3402 came from a
 -- spec and the rest were counted up alphabetically from it. Rob ran `/mh moxie`
@@ -71,9 +71,20 @@ local Config = {
 
 -- ✅ CONFIRMED BY THE CLIENT, 6 Oct 2026: Rob ran `/dump C_CurrencyInfo.GetCurrencyInfo(3256).name` and the game answered
 -- "Artisan Alchemist's Moxie". Lead: mh-research (wago CurrencyTypes 12.1.0.69933; 3256-3266 are the eleven Moxies, one
--- per profession). Only Alchemy is in: the other ten wait for the same answer from the client (/mh moxie lists them).
-if E and E.Alchemy then
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Alchemy] = 3256
+-- per profession). ✅ The other ten the same evening: `/mh moxie` printed the game's own name for each of 3256-3266
+-- (Rob's screenshot): Alchemist 3256, Blacksmith 3257, Enchanter 3258, Engineer 3259, Herbalist 3260, Scribe 3261,
+-- Jewelcrafter 3262, Leatherworker 3263, Miner 3264, Skinner 3265, Tailor 3266. Cooking and Fishing have none.
+if E then
+	local moxie = {
+		{ E.Alchemy, 3256 }, { E.Blacksmithing, 3257 }, { E.Enchanting, 3258 }, { E.Engineering, 3259 },
+		{ E.Herbalism, 3260 }, { E.Inscription, 3261 }, { E.Jewelcrafting, 3262 }, { E.Leatherworking, 3263 },
+		{ E.Mining, 3264 }, { E.Skinning, 3265 }, { E.Tailoring, 3266 },
+	}
+	for _, m in ipairs(moxie) do
+		if m[1] then
+			Config.ARTISANS_MOXIE_CURRENCY_CODES[m[1]] = m[2]
+		end
+	end
 end
 
 ns.Config = Config
