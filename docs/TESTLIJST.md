@@ -28,7 +28,11 @@ Gebouwd, niet getest. Onderaan het venster staat nu een regel die het uitlegt.
   (Concentrated Silvermoon Health Potion x30, Potion of Recklessness x30, Hearty Royal Roast x4) ✅. Maar: Hearty Royal
   Roast niet gevonden, en Food + Healthstone bleven "…" (klik deed dan niets). Gerepareerd: venster luistert nu ook naar
   ITEM_DATA_LOAD_RESULT; Healthstone-rij reageert bewust niet op klikken.
-- [ ] Food-rij na `/reload`: staat de naam er nu? Typ in Blizzards zoekbalk zelf "Royal Roast": bestaat hij op de AH?
+- GEMETEN Rob 6 okt: "royal roast" → Royal Roast + Impossibly Royal Roast, géén Hearty Royal Roast; Void-Touched Augment
+  Rune wel op de AH maar niet in de Auctionator-lijst (optioneel → bewust overgeslagen). Gerepareerd: Hearty-eten zoekt
+  zonder "Hearty " (Auctionator niet-exact), rune gaat mee in de lijst.
+- [ ] Food-rij na `/reload`: staat de naam er? Klik bij het veilinghuis → zoekt "Royal Roast"? Naar Auctionator: 4 regels
+  (ook de rune), food niet-exact?
 - [ ] **Bij het veilinghuis** (Blizzards eigen tab): klik op een rij → zoekbalk krijgt de naam en hij zoekt meteen?
   Ook als je op het Auctionator-tabblad stond (hij moet dan naar Buy springen)?
 - [ ] **Zonder veilinghuis:** klik op een rij → onderaan "Ctrl+C om te kopiëren:" met de naam geselecteerd? Ctrl+C en

@@ -85,6 +85,16 @@ local function ItemLink(id)
 	return nil
 end
 
+--- The name to search for. Rob, 6 Oct 2026 (screenshots): "Hearty Royal Roast" had no listing at all, while a
+--- search for "Royal Roast" found Royal Roast and Impossibly Royal Roast. So for Hearty food we search without the
+--- prefix: that finds the plain dish and, when someone sells one, the Hearty one too (Blizzard's search is a
+--- substring search). Only the English prefix is known; other clients search the full name.
+local function SearchName(id)
+	local name = ItemName(id)
+	local short = name and name:match("^Hearty (.+)$")
+	return short or name, short ~= nil
+end
+
 --- Blizzard_AuctionHouseUI is load-on-demand, so AuctionHouseFrame is nil until the first visit.
 local function AuctionHouseOpen()
 	return AuctionHouseFrame and AuctionHouseFrame:IsShown() and true or false
@@ -149,7 +159,7 @@ local function OnRowClick(row)
 		Refresh() -- the name was asked for; the event above redraws when it arrives
 		return
 	end
-	if not SearchAuctionHouse(name) then
+	if not SearchAuctionHouse((SearchName(id))) then
 		ShowCopy(name) -- 2) elsewhere: the name to copy
 	end
 end
@@ -164,9 +174,10 @@ local function ToAuctionator()
 	end
 	local terms = {}
 	for _, b in ipairs(win.buyList) do
-		local name = ItemName(b.id)
+		local name, hearty = SearchName(b.id)
 		if name and not name:find("[;^\"]") then
-			terms[#terms + 1] = { searchString = name, isExact = true, quantity = b.qty }
+			-- Hearty food: not exact, so Auctionator shows the plain dish and any Hearty one (see SearchName).
+			terms[#terms + 1] = { searchString = name, isExact = not hearty, quantity = b.qty }
 		end
 	end
 	if #terms == 0 then
@@ -356,7 +367,8 @@ Refresh = function()
 	local missing = 0
 	win.buyList = {}
 	for i, d in ipairs(rows) do
-		if d.itemID and not d.info and not d.optional and d.have and d.need > d.have then
+		-- Optional rows (the augment rune) go along too: Rob, 6 Oct 2026, "ook de rune kwam niet in de shopping list".
+		if d.itemID and not d.info and d.have and d.need > d.have then
 			win.buyList[#win.buyList + 1] = { id = d.itemID, qty = d.need - d.have }
 		end
 		local r = Row(i)
