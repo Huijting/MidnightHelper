@@ -125,16 +125,69 @@ local FARM = {
 	[237364] = "ore", [237365] = "ore", -- Brilliant Silver
 	[238511] = "leather", [238512] = "leather", -- Void-Tempered Leather
 	[238513] = "scales", [238514] = "scales", -- Void-Tempered Scales
+	-- Second research round, 6 Oct 2026 (docs/CRAFTSHOP_RECIPE_PLACES_2026-10-06.md, "Vraag 3"): the reagents Rob's lists
+	-- showed without a note, plus the most used ones. DB2 = the item's own description in wago 12.1.0.69933 (GEMETEN);
+	-- Wowhead = KANDIDAAT, so those notes say "mostly" and never "only".
+	[236951] = "mote_wild", -- Mote of Wild Magic (Wowhead: Wild nodes, nearly all Zul'Aman)
+	[236950] = "mote_primal", -- Mote of Primal Energy (Wowhead: Primal nodes, mostly Harandar)
+	[236949] = "mote_light", -- Mote of Light (Wowhead: Lightfused nodes)
+	[236952] = "mote_void", -- Mote of Pure Void (Wowhead: Voidbound nodes, Voidstorm)
+	[274781] = "cursed", -- Cursebound Globe (Wowhead: Cursed herbs and ore, Coiled Isle)
+	[256963] = "lumber", -- Thalassian Lumber (DB2 + Wowhead: wood in all zones)
+	[237366] = "thorium", -- Dazzling Thorium (DB2 + Wowhead: rare from ordinary ore)
+	[251285] = "delve", -- Petrified Root (Wowhead: delve chests). NOT 45911, an old Wrath item of the same name.
+	[274777] = "venom", -- Neutralized Venom Clot (DB2: neutralizing venom on the Coiled Isle)
+	[238522] = "feathers", -- Peerless Plumage (DB2: feathered creatures, Skinning)
+	[238518] = "skin", [238519] = "skin", -- Void-Tempered Hide (DB2)
+	[238520] = "skin", [238521] = "skin", -- Void-Tempered Plating (DB2)
+	[238525] = "skin", [238523] = "skin", -- Fantastic Fur, Carving Canine (DB2)
+	[238528] = "majestic", [238530] = "majestic", [238529] = "majestic", -- Majestic Claw, Fin, Hide (DB2)
+	[242788] = "prospect", [242789] = "prospect", -- Dusk-Shrouded Stone (DB2)
+	[242787] = "prospect", [242786] = "prospect", -- Crystalline Glass (DB2)
+	[243599] = "disenchant", [243600] = "disenchant", -- Eversinging Dust (DB2)
+	[243602] = "disenchant", [243603] = "disenchant", -- Radiant Shard (DB2)
+	[243605] = "disenchant", [243606] = "disenchant", -- Dawn Crystal (DB2)
+	[237015] = "cloth", [237016] = "cloth", -- Sunfire Silk (DB2)
+	[237018] = "cloth", [237017] = "cloth", -- Arcanoweave (DB2)
+	[236963] = "cloth", [236965] = "cloth", -- Bright Linen (DB2)
+	[242640] = "meat", [242639] = "meat", -- Plant Protein, Practically Pork (DB2 + Wowhead)
 }
-local FARM_SKILL = { herb = 182, lotus = 182, ore = 186, leather = 393, scales = 393 }
--- note, tooltip, and the status when you have that gathering profession yourself ("Pick 23" instead of "Buy 23").
-local FARM_KEYS = {
-	herb = { "CRAFTSHOP_NOTE_HERB", "CRAFTSHOP_TIP_HERB", "CRAFTSHOP_PICK_FMT" },
-	lotus = { "CRAFTSHOP_NOTE_LOTUS", "CRAFTSHOP_TIP_LOTUS", "CRAFTSHOP_PICK_FMT" },
-	ore = { "CRAFTSHOP_NOTE_ORE", "CRAFTSHOP_TIP_ORE", "CRAFTSHOP_MINE_FMT" },
-	leather = { "CRAFTSHOP_NOTE_LEATHER", "CRAFTSHOP_TIP_LEATHER", "CRAFTSHOP_SKIN_FMT" },
-	scales = { "CRAFTSHOP_NOTE_SCALES", "CRAFTSHOP_TIP_SCALES", "CRAFTSHOP_SKIN_FMT" },
+-- Per kind: the short note, the tooltip, which professions can collect it (any of them turns the note green), and the
+-- status when you have one of them ("Pick 23" instead of "Buy 23"). No skills = anyone can collect it.
+local HERB, MINE, SKIN, JC, ENCH = 182, 186, 393, 755, 333
+local FARM_DEF = {
+	herb = { "CRAFTSHOP_NOTE_HERB", "CRAFTSHOP_TIP_HERB", { HERB }, "CRAFTSHOP_PICK_FMT" },
+	lotus = { "CRAFTSHOP_NOTE_LOTUS", "CRAFTSHOP_TIP_LOTUS", { HERB }, "CRAFTSHOP_PICK_FMT" },
+	ore = { "CRAFTSHOP_NOTE_ORE", "CRAFTSHOP_TIP_ORE", { MINE }, "CRAFTSHOP_MINE_FMT" },
+	leather = { "CRAFTSHOP_NOTE_LEATHER", "CRAFTSHOP_TIP_LEATHER", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
+	scales = { "CRAFTSHOP_NOTE_SCALES", "CRAFTSHOP_TIP_SCALES", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
+	mote_wild = { "CRAFTSHOP_NOTE_MOTE_WILD", "CRAFTSHOP_TIP_MOTE_WILD", { HERB, MINE }, "CRAFTSHOP_GATHER_FMT" },
+	mote_primal = { "CRAFTSHOP_NOTE_MOTE_PRIMAL", "CRAFTSHOP_TIP_MOTE_PRIMAL", { HERB, MINE }, "CRAFTSHOP_GATHER_FMT" },
+	mote_light = { "CRAFTSHOP_NOTE_MOTE_LIGHT", "CRAFTSHOP_TIP_MOTE_LIGHT", { HERB, MINE }, "CRAFTSHOP_GATHER_FMT" },
+	mote_void = { "CRAFTSHOP_NOTE_MOTE_VOID", "CRAFTSHOP_TIP_MOTE_VOID", { HERB, MINE }, "CRAFTSHOP_GATHER_FMT" },
+	cursed = { "CRAFTSHOP_NOTE_CURSED", "CRAFTSHOP_TIP_CURSED", { HERB, MINE }, "CRAFTSHOP_GATHER_FMT" },
+	lumber = { "CRAFTSHOP_NOTE_LUMBER", "CRAFTSHOP_TIP_LUMBER" },
+	thorium = { "CRAFTSHOP_NOTE_THORIUM", "CRAFTSHOP_TIP_THORIUM", { MINE }, "CRAFTSHOP_MINE_FMT" },
+	delve = { "CRAFTSHOP_NOTE_DELVE", "CRAFTSHOP_TIP_DELVE" },
+	venom = { "CRAFTSHOP_NOTE_VENOM", "CRAFTSHOP_TIP_VENOM", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
+	feathers = { "CRAFTSHOP_NOTE_FEATHERS", "CRAFTSHOP_TIP_FEATHERS", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
+	skin = { "CRAFTSHOP_NOTE_SKIN", "CRAFTSHOP_TIP_SKIN", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
+	majestic = { "CRAFTSHOP_NOTE_MAJESTIC", "CRAFTSHOP_TIP_MAJESTIC", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
+	prospect = { "CRAFTSHOP_NOTE_PROSPECT", "CRAFTSHOP_TIP_PROSPECT", { JC }, "CRAFTSHOP_PROSPECT_FMT" },
+	disenchant = { "CRAFTSHOP_NOTE_DISENCHANT", "CRAFTSHOP_TIP_DISENCHANT", { ENCH }, "CRAFTSHOP_DISENCHANT_FMT" },
+	cloth = { "CRAFTSHOP_NOTE_CLOTH", "CRAFTSHOP_TIP_CLOTH" },
+	meat = { "CRAFTSHOP_NOTE_MEAT", "CRAFTSHOP_TIP_MEAT" },
 }
+
+--- Does this character have one of the professions that collect this kind?
+local function CanCollect(def, have)
+	for _, s in ipairs(def[3] or {}) do
+		if have[s] then
+			return true
+		end
+	end
+	return false
+end
 
 local win
 local Refresh
@@ -899,9 +952,9 @@ Refresh = function()
 			tip = (tip and (tip .. "\n\n") or "") .. L("CRAFTSHOP_TIP_VENDOR")
 		end
 		if farm and not note then
-			local keys = FARM_KEYS[farm]
-			note, tip = L(keys[1]), L(keys[2])
-			if gather[FARM_SKILL[farm]] then
+			local def = FARM_DEF[farm]
+			note, tip = L(def[1]), L(def[2])
+			if CanCollect(def, gather) then
 				note = "|cff80ff80" .. note .. "|r"
 				tip = tip .. "\n\n" .. L("CRAFTSHOP_TIP_YOU_GATHER")
 			end
@@ -941,9 +994,9 @@ Refresh = function()
 			r.status:Hide()
 		elseif vendor then
 			r.status:SetText("|cffffd100" .. L("CRAFTSHOP_VENDOR_FMT"):format(toBuy) .. "|r")
-		elseif farm and gather[FARM_SKILL[farm]] then
+		elseif farm and FARM_DEF[farm][4] and CanCollect(FARM_DEF[farm], gather) then
 			-- Rob, 6 Oct 2026: you have Herbalism, so the list should not tell you to buy herbs.
-			r.status:SetText("|cff80ff80" .. L(FARM_KEYS[farm][3]):format(toBuy) .. "|r")
+			r.status:SetText("|cff80ff80" .. L(FARM_DEF[farm][4]):format(toBuy) .. "|r")
 		else
 			r.status:SetText("|cffff5555" .. L("RAIDSHOP_BUY_FMT"):format(toBuy) .. "|r")
 		end

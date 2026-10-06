@@ -99,6 +99,10 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
   recepten): zet Potion of Recklessness / Alluring Nostrum / Blessed Pango Charm (niet geleerd) op je lijst → knop
   "Wijs de weg" → pijl naar Void Researcher Anomander (Voidstorm) / Second Mate Sluggs (Coiled Isle) / quest in Zul'Aman
   (+ chatregel over een eerdere quest)? `/mh craftshop why` met dat recept gekozen noemt de plek.
+- [ ] **Regeltjes voor meer reagents** (6 okt, uit het tweede onderzoek): Motes ("Wild-kruiden & erts - vooral Zul'Aman"
+  e.d.; groen + "Verzamel N" met Herbalism óf Mining), Thalassian Lumber, Dazzling Thorium, Petrified Root ("Delve-kisten"),
+  Cursebound Globe / Neutralized Venom Clot (Coiled Isle), Peerless Plumage, Skinning-spul, prospect-stenen ("Prospect N"
+  met Jewelcrafting), disenchant-stof, stof, vlees. Kloppen ze met wat je weet? (Motes/Cursed/Petrified = Wowhead, KANDIDAAT.)
 - [ ] **Nalopen in het spel** (KANDIDAAT, tooltip op de knop zegt dat): Lyrendal 2393 44.96/55.40, Mirvedon 2393 34.01/81.25,
   Gelanthis 2393 48.01/55.03, Navigator Otoola 2512 57.2/48.2, Jennara Sunglow 2393 39.54/51.00 (boven), Sylann (koken)
   2393 56.36/69.83, questgevers 2395 46.93/35.58 · 2437 38.78/44.85 · 2413 49.69/23.31, ingang Venomous Abyss (MH 20.51
