@@ -105,12 +105,13 @@ local FARM = {
 	[238513] = "scales", [238514] = "scales", -- Void-Tempered Scales
 }
 local FARM_SKILL = { herb = 182, lotus = 182, ore = 186, leather = 393, scales = 393 }
+-- note, tooltip, and the status when you have that gathering profession yourself ("Pick 23" instead of "Buy 23").
 local FARM_KEYS = {
-	herb = { "CRAFTSHOP_NOTE_HERB", "CRAFTSHOP_TIP_HERB" },
-	lotus = { "CRAFTSHOP_NOTE_LOTUS", "CRAFTSHOP_TIP_LOTUS" },
-	ore = { "CRAFTSHOP_NOTE_ORE", "CRAFTSHOP_TIP_ORE" },
-	leather = { "CRAFTSHOP_NOTE_LEATHER", "CRAFTSHOP_TIP_LEATHER" },
-	scales = { "CRAFTSHOP_NOTE_SCALES", "CRAFTSHOP_TIP_SCALES" },
+	herb = { "CRAFTSHOP_NOTE_HERB", "CRAFTSHOP_TIP_HERB", "CRAFTSHOP_PICK_FMT" },
+	lotus = { "CRAFTSHOP_NOTE_LOTUS", "CRAFTSHOP_TIP_LOTUS", "CRAFTSHOP_PICK_FMT" },
+	ore = { "CRAFTSHOP_NOTE_ORE", "CRAFTSHOP_TIP_ORE", "CRAFTSHOP_MINE_FMT" },
+	leather = { "CRAFTSHOP_NOTE_LEATHER", "CRAFTSHOP_TIP_LEATHER", "CRAFTSHOP_SKIN_FMT" },
+	scales = { "CRAFTSHOP_NOTE_SCALES", "CRAFTSHOP_TIP_SCALES", "CRAFTSHOP_SKIN_FMT" },
 }
 
 local win
@@ -898,6 +899,9 @@ Refresh = function()
 			r.status:Hide()
 		elseif vendor then
 			r.status:SetText("|cffffd100" .. L("CRAFTSHOP_VENDOR_FMT"):format(toBuy) .. "|r")
+		elseif farm and gather[FARM_SKILL[farm]] then
+			-- Rob, 6 Oct 2026: you have Herbalism, so the list should not tell you to buy herbs.
+			r.status:SetText("|cff80ff80" .. L(FARM_KEYS[farm][3]):format(toBuy) .. "|r")
 		else
 			r.status:SetText("|cffff5555" .. L("RAIDSHOP_BUY_FMT"):format(toBuy) .. "|r")
 		end
@@ -1009,6 +1013,9 @@ function ns.CraftShopWhy()
 		nMakes = nMakes + 1
 	end
 	print(("   items you can make (noted when a profession opens): %d"):format(nMakes))
+	for _, c in ipairs(ns.db and ns.db.craftShopCastProbe or {}) do
+		print(("   craft NOT on your list: spell %s at %s"):format(tostring(c.spellID), tostring(c.t)))
+	end
 end
 
 --- `/mh craftshop probe`: ONE measurement before v2 is built (docs/CRAFTSHOP_RESEARCH_2026-10-06.md, "eerst te meten").
@@ -1249,6 +1256,51 @@ do
 			pending = false
 			pcall(LearnMakes)
 		end)
+	end)
+end
+
+--- Count down: crafting a recipe that is on the list takes one off its "times", and at zero it leaves the list.
+--- Rob, 6 Oct 2026: after crafting 2× the list still said "2×" and kept asking for its reagents.
+--- AFGELEID that the cast's spell id IS the recipe id (recipe ids are spell ids). So every craft says in chat what it did,
+--- and a craft that matched nothing on the list is written to ns.db.craftShopCastProbe: silence must be visible.
+do
+	local cf = CreateFrame("Frame")
+	cf:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
+	cf:SetScript("OnEvent", function(_, _, unit, _, spellID)
+		if unit ~= "player" or type(spellID) ~= "number" then
+			return
+		end
+		if issecretvalue and issecretvalue(spellID) then
+			return
+		end
+		local list = MyList()
+		for i, e in ipairs(list) do
+			if e.recipeID == spellID then
+				e.times = (e.times or 1) - 1
+				local p = ("|cffffcc00%s|r"):format(L("PRINT_PREFIX"))
+				if e.times <= 0 then
+					table.remove(list, i)
+					print(p .. " " .. L("CRAFTSHOP_CRAFTED_DONE_FMT"):format(e.name or "?"))
+				else
+					print(p .. " " .. L("CRAFTSHOP_CRAFTED_LEFT_FMT"):format(e.name or "?", e.times))
+				end
+				if win and win:IsShown() then
+					Refresh()
+				end
+				return
+			end
+		end
+		-- Not on the list. Only worth noting while a profession window is open (a craft that did not match).
+		local pf = _G.ProfessionsFrame
+		if #list > 0 and pf and pf:IsShown() then
+			ns.db = ns.db or {}
+			local probe = ns.db.craftShopCastProbe or {}
+			table.insert(probe, 1, { spellID = spellID, t = date and date("%H:%M:%S") or nil })
+			while #probe > 5 do
+				table.remove(probe)
+			end
+			ns.db.craftShopCastProbe = probe
+		end
 	end)
 end
 

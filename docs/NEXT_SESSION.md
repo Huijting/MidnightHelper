@@ -24,6 +24,10 @@
   geplande opbrengst telt mee ("Je maakt het"). ~21 nieuwe keys alleen enUS + nlNL → vertaalronde vóór de beta.
   ✅ Rob screenshot: rode bron-regel + groene Skinning-regels werken.
   ✅ Rob screenshots (Alchemy): "zelf maken" van begin tot eind — "+ Make 2×" → recept erbij, reagents eronder, "Crafting".
+- **Aftellen + "Pluk N" GEBOUWD, NIET GETEST** (Rob: "ook dat het recept vanzelf aftelt"; "Ja, pauze maar" gelezen als
+  "Pluk maar" — Willow, AFGELEID). UNIT_SPELLCAST_SUCCEEDED (player) spellID == recipeID (AFGELEID) → times −1, chatregel;
+  geen match terwijl beroep open → `ns.db.craftShopCastProbe` + `/mh craftshop why`. Open idee (Rob niet gekozen): voorraad
+  op andere personages ("+N op je alts").
 - **Wijs de weg GEBOUWD, NIET GETEST:** trainer-recept (bron-tekst bevat de beroepsnaam, taal-onafhankelijk; AFGELEID
   buiten Engels) → knop op de receptregel; handelaar-spul → knop "Handelaar N" → `ns.AddSmartTomTomWay` naar de
   trainer-pin uit ns.PROF_GUIDES (koken: SMC-pin "Inn & Cooking", AFGELEID dat de handelaar daar staat).

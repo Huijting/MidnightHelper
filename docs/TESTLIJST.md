@@ -88,6 +88,12 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
   Knop toont nu het aantal ("+ Maken 1×").
 - [x] Rob 6 okt ✅ (2 screenshots: "+ Make 2×" bij 18/25 → "2× Silvermoon Health Potion (about 10 made)", eronder Sunglass
   Vial 10 + Tranquility Bloom 12, potion blauw "Crafting") Klik **+ Maken N×**: recept erbij, status blauw?
+- GEMETEN Rob 6 okt (screenshot): na het maken werkt het venster live bij ✅; tooltip met kruid-uitleg + "You have
+  this gathering profession" ✅. Maar het recept bleef "2×" staan → nu: aftellen.
+- [ ] **Aftellen:** recept 2× op de lijst, maak er één → chat "… gemaakt: nog 1× op je boodschappenlijst"? Tweede →
+  "klaar, van je lijst af" en het recept is weg? Gebeurt er niets: `/mh craftshop why` → regel "craft NOT on your list".
+- [ ] **Pluk N:** kruid te kort en jij hebt Herbalism → groene status "Pluk 23" in plaats van "Koop 23"? (Erts: "Delf",
+  leer: "Vil".)
 - [ ] **Wijs de weg** (Rob: "kunnen we de weg wijzen?"): een NIET-geleerd recept van de trainer → knop "Wijs de weg"
   rechts op de receptregel → pijl naar je trainer in Silvermoon? Handelaar-spul → knop "Handelaar N" → pijl naar de
   handelaar naast je trainer (koken: de herberg)? Ook met TomTom aan?
