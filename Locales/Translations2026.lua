@@ -13412,3 +13412,87 @@ fill("itIT", {
 	SETUPNUDGE_SETTINGS_BTN = "Sistema le tue barre e i tuoi tasti",
 	TRANSLATE_HELP_COPYHINT = "Seleziona un link, premi Ctrl+C e incollalo nel tuo browser.",
 })
+
+-- 6 Oct 2026 (4): craft shopping list (Modules/CraftShoppingList.lua, /mh craftshop) and its two lines in the
+-- profession side panel (Modules/ProfessionSidePanel.lua). Self-made translations, not reviewed by a native
+-- speaker. Shopping list, auction house and click words follow the RAIDSHOP blocks above (Einkaufsliste,
+-- liste de courses, lista de la compra, lista de compras, lista della spesa; tu in French, as RAIDSHOP).
+-- Reagents as each pack's crafting texts: Reagenzien, composants, componentes, reagentes, reagenti; quality
+-- ranks as Qualitätsstufe / rang de qualité / rango de calidad / nível de qualidade / livello di qualità.
+-- The quoted button in CRAFTSHOP_EMPTY matches CRAFTSHOP_PANEL_ADD_FMT word for word. CLEAR sits on a
+-- 110 px button. The "finishing reagents" term is not measured against the client in any language.
+fill("deDE", {
+	CRAFTSHOP_TITLE = "Einkaufen für deinen Beruf",
+	CRAFTSHOP_EMPTY = "Deine Liste ist leer. Öffne deinen Beruf, klick auf ein Rezept und nutze \"+ … auf deine Einkaufsliste\" im Midnight Helper-Panel daneben.",
+	CRAFTSHOP_INTRO = "Was deine Rezepte brauchen, abzüglich dessen, was du schon hast. Entferne ein Rezept mit dem Kreuz.",
+	CRAFTSHOP_YIELD_FMT = "(etwa %s hergestellt)",
+	CRAFTSHOP_REAGENTS = "Reagenzien",
+	CRAFTSHOP_FOOT = "Beide Qualitätsstufen eines Reagenz zählen zusammen. Optionale Reagenzien und Abschlussreagenzien stehen nicht in der Liste.",
+	CRAFTSHOP_CLEAR = "Liste leeren",
+	CRAFTSHOP_NO_RECIPE = "Öffne zuerst deinen Beruf und klick auf ein Rezept.",
+	CRAFTSHOP_ADDED_FMT = "auf deiner Einkaufsliste: %d× %s. /mh craftshop öffnet sie.",
+	CRAFTSHOP_ASK_FMT = "Wie oft willst du\n%s herstellen?",
+	CRAFTSHOP_PANEL_ADD_FMT = "+ %s auf deine Einkaufsliste",
+	CRAFTSHOP_PANEL_OPEN_FMT = "Deine Einkaufsliste öffnen (%d)",
+	CMDLIST_CRAFTSHOP = "Einkaufen für deinen Beruf: was deine Rezepte brauchen, abzüglich dessen, was du hast. Klick, um im Auktionshaus zu suchen.",
+})
+fill("frFR", {
+	CRAFTSHOP_TITLE = "Courses pour ton métier",
+	CRAFTSHOP_EMPTY = "Ta liste est vide. Ouvre ton métier, clique sur une recette et utilise \"+ … dans ta liste de courses\" dans le panneau Midnight Helper à côté.",
+	CRAFTSHOP_INTRO = "Ce dont tes recettes ont besoin, moins ce que tu as déjà. Retire une recette avec la croix.",
+	CRAFTSHOP_YIELD_FMT = "(environ %s fabriqués)",
+	CRAFTSHOP_REAGENTS = "Composants",
+	CRAFTSHOP_FOOT = "Les deux rangs de qualité d'un composant comptent ensemble. Les composants optionnels et de finition ne sont pas listés.",
+	CRAFTSHOP_CLEAR = "Vider la liste",
+	CRAFTSHOP_NO_RECIPE = "Ouvre d'abord ton métier et clique sur une recette.",
+	CRAFTSHOP_ADDED_FMT = "dans ta liste de courses : %d× %s. /mh craftshop l'ouvre.",
+	CRAFTSHOP_ASK_FMT = "Combien de fois veux-tu fabriquer\n%s ?",
+	CRAFTSHOP_PANEL_ADD_FMT = "+ %s dans ta liste de courses",
+	CRAFTSHOP_PANEL_OPEN_FMT = "Ouvrir ta liste de courses (%d)",
+	CMDLIST_CRAFTSHOP = "Courses pour ton métier : ce dont tes recettes ont besoin, moins ce que tu as. Clique pour chercher à l'Hôtel des ventes.",
+})
+fill("esES", {
+	CRAFTSHOP_TITLE = "Compras para tu profesión",
+	CRAFTSHOP_EMPTY = "Tu lista está vacía. Abre tu profesión, haz clic en una receta y usa \"+ … a tu lista de la compra\" en el panel de Midnight Helper que hay al lado.",
+	CRAFTSHOP_INTRO = "Lo que necesitan tus recetas, menos lo que ya tienes. Quita una receta con la cruz.",
+	CRAFTSHOP_YIELD_FMT = "(unos %s fabricados)",
+	CRAFTSHOP_REAGENTS = "Componentes",
+	CRAFTSHOP_FOOT = "Los dos rangos de calidad de un componente cuentan juntos. Los componentes opcionales y de acabado no aparecen.",
+	CRAFTSHOP_CLEAR = "Vaciar la lista",
+	CRAFTSHOP_NO_RECIPE = "Abre primero tu profesión y haz clic en una receta.",
+	CRAFTSHOP_ADDED_FMT = "en tu lista de la compra: %d× %s. /mh craftshop la abre.",
+	CRAFTSHOP_ASK_FMT = "¿Cuántas veces quieres fabricar\n%s?",
+	CRAFTSHOP_PANEL_ADD_FMT = "+ %s a tu lista de la compra",
+	CRAFTSHOP_PANEL_OPEN_FMT = "Abrir tu lista de la compra (%d)",
+	CMDLIST_CRAFTSHOP = "Compras para tu profesión: lo que necesitan tus recetas, menos lo que tienes. Haz clic para buscar en la Casa de Subastas.",
+})
+fill("ptBR", {
+	CRAFTSHOP_TITLE = "Compras para sua profissão",
+	CRAFTSHOP_EMPTY = "Sua lista está vazia. Abra sua profissão, clique numa receita e use \"+ … na sua lista de compras\" no painel do Midnight Helper ao lado.",
+	CRAFTSHOP_INTRO = "O que suas receitas precisam, menos o que você já tem. Remova uma receita com o X.",
+	CRAFTSHOP_YIELD_FMT = "(uns %s fabricados)",
+	CRAFTSHOP_REAGENTS = "Reagentes",
+	CRAFTSHOP_FOOT = "Os dois níveis de qualidade de um reagente contam juntos. Reagentes opcionais e de acabamento não aparecem.",
+	CRAFTSHOP_CLEAR = "Limpar a lista",
+	CRAFTSHOP_NO_RECIPE = "Primeiro abra sua profissão e clique numa receita.",
+	CRAFTSHOP_ADDED_FMT = "na sua lista de compras: %d× %s. /mh craftshop abre a lista.",
+	CRAFTSHOP_ASK_FMT = "Quantas vezes você quer fabricar\n%s?",
+	CRAFTSHOP_PANEL_ADD_FMT = "+ %s na sua lista de compras",
+	CRAFTSHOP_PANEL_OPEN_FMT = "Abrir sua lista de compras (%d)",
+	CMDLIST_CRAFTSHOP = "Compras para sua profissão: o que suas receitas precisam, menos o que você tem. Clique para buscar na Casa de Leilões.",
+})
+fill("itIT", {
+	CRAFTSHOP_TITLE = "Spesa per la tua professione",
+	CRAFTSHOP_EMPTY = "La tua lista è vuota. Apri la tua professione, clicca su una ricetta e usa \"+ … nella tua lista della spesa\" nel pannello di Midnight Helper lì accanto.",
+	CRAFTSHOP_INTRO = "Quello che serve alle tue ricette, meno quello che hai già. Togli una ricetta con la croce.",
+	CRAFTSHOP_YIELD_FMT = "(circa %s craftati)",
+	CRAFTSHOP_REAGENTS = "Reagenti",
+	CRAFTSHOP_FOOT = "I due livelli di qualità di un reagente contano insieme. I reagenti opzionali e di rifinitura non sono elencati.",
+	CRAFTSHOP_CLEAR = "Svuota la lista",
+	CRAFTSHOP_NO_RECIPE = "Prima apri la tua professione e clicca su una ricetta.",
+	CRAFTSHOP_ADDED_FMT = "nella tua lista della spesa: %d× %s. /mh craftshop la apre.",
+	CRAFTSHOP_ASK_FMT = "Quante volte vuoi craftare\n%s?",
+	CRAFTSHOP_PANEL_ADD_FMT = "+ %s nella tua lista della spesa",
+	CRAFTSHOP_PANEL_OPEN_FMT = "Apri la tua lista della spesa (%d)",
+	CMDLIST_CRAFTSHOP = "Spesa per la tua professione: quello che serve alle tue ricette, meno quello che hai. Clicca per cercare alla Casa d'Aste.",
+})

@@ -7,6 +7,10 @@
 - **Volgende stap (Robs plan):** vertaalronde (CRAFTSHOP_* + CMDLIST_CRAFTSHOP, mh-writer) → **4.7.4 als beta** (nieuwe
   functie = beta-regel) zodat Cisca test → daarna farmplekken / welke kwaliteit kopen / tussenproducten.
 - Rob, 6 okt avond: "de afgelopen twee dagen best wel een beetje stressvol" — rustig aan, geen haast.
+- ✅ **Vertaalronde craftshop KLAAR (lokaal, NIET gepusht):** mh-writer, 13 keys in de/fr/es/pt/it, blok
+  "6 Oct 2026 (4): craft shopping list" onderaan Translations2026.lua. GEMETEN: syntax OK, lint 0 hard, locale_probe
+  13/13 OK in 5 talen. Eigen vertaling, niet nagekeken. Twijfel: "finishing reagents" (eigen woordkeus, niet tegen de
+  client gecheckt); "Vaciar la lista"/"Svuota la lista" krap op de 110 px-knop (AFGELEID). Volgende: 4.7.4-beta op Robs go.
 
 ## 📸 6 okt — na 4.7.3 (lokaal/gepusht, NIET in een release): screenshots, beschrijving, Holy, "spells"
 - Nieuwe screenshots: /mh shots heeft 17 scènes (key block, Ready, Pop-out windows); Rob schoot ze, 15 = zijn Prot-opname.

@@ -64,6 +64,8 @@ en opgeslagen (`ns.db.craftShop[guid]`), dus de lijst heeft het beroepsvenster d
   Naar Auctionator → lijst "MH craft - <naam>". Paneel volgt het gekozen recept na de reparatie (Rob: "gaat nu goed").
 - [ ] Kruisje bij een recept haalt het weg; "Lijst leegmaken" werkt?
 - [ ] Iets mis: `/mh craftshop why` (beroep open, recept gekozen) → screenshot van de chat.
+- [ ] (alleen met een de/fr/es/pt/it-client, of Cisca) Vertaald 6 okt: past "Vaciar la lista"/"Svuota la lista" op de
+  knop "Lijst leegmaken"? Lopen de paneelregels netjes over twee regels bij een lange receptnaam?
 
 ## 🆕 6 okt — Holy Paladin: Hand of Reckoning + Shield of the Righteous op blok D (Rob: "laat ze maar op de D blok staan")
 
