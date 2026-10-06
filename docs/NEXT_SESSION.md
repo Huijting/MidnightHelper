@@ -22,6 +22,11 @@
   244174) → geel "Handelaar N", niet naar Auctionator; farm-regel (kruid/erts/leer/schubben/lotus, groen als je het
   beroep hebt); "Maak je zelf" + "+ Maken" (makes-tabel per personage bij TRADE_SKILL_SHOW/LIST_UPDATE, `craftShopMakes`),
   geplande opbrengst telt mee ("Je maakt het"). ~21 nieuwe keys alleen enUS + nlNL → vertaalronde vóór de beta.
+  ✅ Rob screenshot: rode bron-regel + groene Skinning-regels werken.
+- **Wijs de weg GEBOUWD, NIET GETEST:** trainer-recept (bron-tekst bevat de beroepsnaam, taal-onafhankelijk; AFGELEID
+  buiten Engels) → knop op de receptregel; handelaar-spul → knop "Handelaar N" → `ns.AddSmartTomTomWay` naar de
+  trainer-pin uit ns.PROF_GUIDES (koken: SMC-pin "Inn & Cooking", AFGELEID dat de handelaar daar staat).
+  Rest (quest/drop/andere handelaar): mh-research telt plekken + dekking → `docs/CRAFTSHOP_RECIPE_PLACES_2026-10-06.md`.
 
 ## 📸 6 okt — na 4.7.3 (lokaal/gepusht, NIET in een release): screenshots, beschrijving, Holy, "spells"
 - Nieuwe screenshots: /mh shots heeft 17 scènes (key block, Ready, Pop-out windows); Rob schoot ze, 15 = zijn Prot-opname.

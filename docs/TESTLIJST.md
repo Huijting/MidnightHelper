@@ -80,6 +80,11 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
   zo'n reagent "Maak je zelf: <recept>" en een knop **+ Maken**? Klik → komt dat recept op je lijst, met zijn eigen
   reagents erbij, en wordt de status van de reagent blauw "Je maakt het"?
   ⚠️ Bij Robs Leatherworking-lijst vond de meting GEEN tussenproduct; dit deel is dus nog nergens positief gezien.
+- GEMETEN Rob 6 okt (screenshot, Leatherworking): rode regel "Quest: The Medicine Loa's Shrine, Zone: Zul'Aman" ✅;
+  Skinning-regels groen ✅. Zonder regeltje: Mote of Wild Magic, Peerless Plumage, Dusk-Shrouded Stone (mh-research zoekt).
+- [ ] **Wijs de weg** (Rob: "kunnen we de weg wijzen?"): een NIET-geleerd recept van de trainer → knop "Wijs de weg"
+  rechts op de receptregel → pijl naar je trainer in Silvermoon? Handelaar-spul → knop "Handelaar N" → pijl naar de
+  handelaar naast je trainer (koken: de herberg)? Ook met TomTom aan?
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 

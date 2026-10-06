@@ -40,17 +40,54 @@ local CALLER_LIST = "MH craft - "
 -- Sold by a profession vendor for gold (research 6 Oct 2026: wago ItemSparse 12.1.0.69933, the item's own description
 -- says "vendor"/"purchase"). 244174 Refulgent Copper Rod is the one exception: its description does not say it, Zygor's
 -- levelling guide buys it (`buy 30 Refulgent Copper Rod##244174`). Fused Vitality is left out: it costs a currency.
+-- The value is the profession whose vendor sells it (from the description / Zygor); "Show the way" prefers the vendor of
+-- the recipe's OWN profession and falls back to this one.
 local VENDOR = {
-	[240991] = true, [240990] = true, -- Sunglass Vial (the vendor sells the lower rank)
-	[247811] = true, -- Oil of Heartwood
-	[243060] = true, -- Luminant Flux
-	[242641] = true, [242642] = true, [242643] = true, [242644] = true, -- Cooking Spirits, Thalassian Herbs, Butter, Mana-Wyrm Essence
-	[242645] = true, [242646] = true, [242647] = true, -- Vegetable Assortment, Pouch of Spices, Tavern Fixings
-	[245881] = true, [245882] = true, -- Lexicologist's Vellum, Thalassian Songwater
-	[251665] = true, [251691] = true, -- Silverleaf Thread, Embroidery Floss
-	[253302] = true, [253303] = true, -- Malleable Wireframe, Pile of Junk
-	[244174] = true, -- Refulgent Copper Rod (Zygor only, see above)
+	[240991] = 171, [240990] = 171, -- Sunglass Vial (the vendor sells the lower rank)
+	[247811] = 171, -- Oil of Heartwood
+	[243060] = 164, -- Luminant Flux
+	[242641] = 185, [242642] = 185, [242643] = 185, [242644] = 185, -- Cooking Spirits, Thalassian Herbs, Butter, Mana-Wyrm Essence
+	[242645] = 185, [242646] = 185, [242647] = 185, -- Vegetable Assortment, Pouch of Spices, Tavern Fixings
+	[245881] = 773, [245882] = 773, -- Lexicologist's Vellum, Thalassian Songwater
+	[251665] = 197, [251691] = 197, -- Silverleaf Thread, Embroidery Floss
+	[253302] = 202, [253303] = 202, -- Malleable Wireframe, Pile of Junk
+	[244174] = 333, -- Refulgent Copper Rod (Zygor only, see above)
 }
+
+-- Where "Show the way" points: the trainer pins MH already ships (ns.PROF_GUIDES, from the in-game-verified Silvermoon
+-- city-guide pins), the profession vendor standing next to each trainer. Cooking has no trainer pin there; the city
+-- guide's "Inn & Cooking" pin (UI.lua SMC_CATEGORIES) stands in for it. AFGELEID that the cooking supplies vendor is there.
+local CITY_MAP = 2393
+local COOKING_PIN = { x = 56.28, y = 70.33 }
+
+local function TrainerPin(skill)
+	if skill == 185 then
+		return COOKING_PIN.x, COOKING_PIN.y, nil
+	end
+	local g = ns.PROF_GUIDES and ns.PROF_GUIDES[skill]
+	if g and g.trainer and g.trainer.mapID == CITY_MAP then
+		return g.trainer.x, g.trainer.y, g.trainerName
+	end
+	return nil
+end
+
+--- Put an arrow on the trainer of `skill` (asVendor: on the vendor next to them). @return boolean
+local function RouteToTrainer(skill, asVendor)
+	local x, y, who = TrainerPin(skill)
+	if not (x and ns.AddSmartTomTomWay) then
+		return false
+	end
+	-- ns:L, not the local L: that one is declared further down this file.
+	local label
+	if skill == 185 then
+		label = ns:L("CRAFTSHOP_ROUTE_COOKING")
+	elseif asVendor then
+		label = ns:L("CRAFTSHOP_ROUTE_VENDOR_FMT"):format(who or "?")
+	else
+		label = ns:L("CRAFTSHOP_ROUTE_TRAINER_FMT"):format(who or "?")
+	end
+	return ns.AddSmartTomTomWay(CITY_MAP, x, y, label) and true or false
+end
 
 -- Gathered reagents: item id -> kind. Ids from Zygor's Midnight farming guides (research 6 Oct 2026); the WHERE is the
 -- fact ProfessionGuidedData.lua already states and limits ("grows in", never "densest in"; skinning = "start there").
@@ -122,6 +159,20 @@ local function OneLine(s)
 	end
 	s = s:gsub("|n|n", "  /  "):gsub("|n", ", "):gsub(",%s*$", "")
 	return s
+end
+
+--- The recipe's profession: base skill line (for the trainer pin) and the name the source line uses
+--- ("Profession Trainer: Midnight Leatherworking (40)", MEASURED 6 Oct 2026). @return number|nil, string|nil
+local function ProfessionOf(recipeID)
+	local T = C_TradeSkillUI
+	if not (T and T.GetProfessionInfoByRecipeID and recipeID) then
+		return nil
+	end
+	local ok, pi = pcall(T.GetProfessionInfoByRecipeID, recipeID)
+	if not ok or type(pi) ~= "table" then
+		return nil
+	end
+	return pi.parentProfessionID or pi.professionID, pi.professionName
 end
 
 --- Which gathering professions this character has (skill line ids), for "you can pick this yourself".
@@ -222,6 +273,7 @@ local function ReadRecipe(info, level)
 	if learned == nil and ri then
 		learned = ri.learned
 	end
+	local prof, profName = ProfessionOf(info.recipeID)
 	return {
 		recipeID = info.recipeID,
 		name = info.name or sch.name or ("recipe " .. tostring(info.recipeID)),
@@ -231,6 +283,8 @@ local function ReadRecipe(info, level)
 		out = out,
 		source = source,
 		learned = learned,
+		prof = prof,
+		profName = profName,
 	}
 end
 
@@ -287,6 +341,7 @@ AddEntry = function(info, level, times)
 			e.times = (e.times or 0) + times
 			e.slots = entry.slots -- the recipe may have changed with a patch: the newest read wins
 			e.out, e.source, e.learned = entry.out, entry.source, entry.learned
+			e.prof, e.profName = entry.prof, entry.profName
 			print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), L("CRAFTSHOP_ADDED_FMT"):format(e.times, e.name)))
 			if win and win:IsShown() then
 				Refresh()
@@ -512,6 +567,7 @@ local function RecipeLine(i)
 	r.text = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	r.text:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -2)
 	r.text:SetJustifyH("LEFT")
+	r.text:SetWordWrap(false)
 	-- "You don't know this recipe yet" + Blizzard's own source line, under the recipe.
 	r.src = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	r.src:SetPoint("TOPLEFT", r.text, "BOTTOMLEFT", 12, -2)
@@ -521,6 +577,17 @@ local function RecipeLine(i)
 	r.del = CreateFrame("Button", nil, r, "UIPanelCloseButton")
 	r.del:SetSize(20, 20)
 	r.del:SetPoint("TOPRIGHT", r, "TOPRIGHT", 0, 0)
+	-- "Show the way" for a recipe the trainer sells (the only source MH has a place for).
+	r.route = CreateFrame("Button", nil, r, "UIPanelButtonTemplate")
+	r.route:SetSize(110, 18)
+	r.route:SetPoint("RIGHT", r.del, "LEFT", -4, 0)
+	r.route:SetScript("OnClick", function(self)
+		local skill = self:GetParent().routeSkill
+		if skill then
+			RouteToTrainer(skill, false)
+		end
+	end)
+	r.route:Hide()
 	r.del:SetScript("OnClick", function(self)
 		local list = MyList()
 		local idx = self:GetParent().index
@@ -556,10 +623,26 @@ local function Row(i)
 	r.make = CreateFrame("Button", nil, r, "UIPanelButtonTemplate")
 	r.make:SetSize(96, 20)
 	r.make:SetPoint("RIGHT", r, "RIGHT", 0, 0)
+	-- One button, two jobs: "+ Make" (a recipe you know makes this) or "Vendor N" (click = arrow to the vendor).
 	r.make:SetScript("OnClick", function(self)
 		local row = self:GetParent()
 		if row.makeRecipe and ns.CraftShopAddRecipe then
 			ns.CraftShopAddRecipe(row.makeRecipe, row.makeTimes or 1, row.makeName)
+		elseif row.routeSkill then
+			RouteToTrainer(row.routeSkill, true)
+		end
+	end)
+	r.make:SetScript("OnEnter", function(self)
+		local row = self:GetParent()
+		if GameTooltip and row.routeSkill and not row.makeRecipe then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(L("CRAFTSHOP_ROUTE_TIP"), 1, 1, 1, 1, true)
+			GameTooltip:Show()
+		end
+	end)
+	r.make:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
 		end
 	end)
 	r.make:Hide()
@@ -606,11 +689,14 @@ local function Totals(list)
 			local key = s.ids[1]
 			local t = byKey[key]
 			if not t then
-				t = { ids = s.ids, need = 0 }
+				t = { ids = s.ids, need = 0, users = {} }
 				byKey[key] = t
 				order[#order + 1] = t
 			end
 			t.need = t.need + (s.qty or 0) * (e.times or 1)
+			if t.users[#t.users] ~= e then
+				t.users[#t.users + 1] = e -- the recipes that need it (for which profession's vendor to point at)
+			end
 		end
 	end
 	return order
@@ -679,6 +765,16 @@ Refresh = function()
 			local okS, s = pcall(C_TradeSkillUI.GetRecipeSourceText, e.recipeID)
 			e.source = okS and OneLine(s) or nil
 		end
+		if not e.prof then
+			e.prof, e.profName = ProfessionOf(e.recipeID)
+		end
+		-- A trainer recipe: Blizzard's line names the profession ("Profession Trainer: Midnight Leatherworking (40)"),
+		-- in the player's own language. That name is the test, not the English word "Trainer". AFGELEID for non-English.
+		r.routeSkill = nil
+		if learned == false and e.source and e.profName and e.profName ~= ""
+			and e.source:find(e.profName, 1, true) and TrainerPin(e.prof) then
+			r.routeSkill = e.prof
+		end
 		local h = 20
 		if learned == false then
 			r.src:SetText("|cffff8080" .. L("CRAFTSHOP_UNLEARNED") .. "|r " .. (e.source or L("CRAFTSHOP_SOURCE_UNKNOWN")))
@@ -687,6 +783,13 @@ Refresh = function()
 		else
 			r.src:Hide()
 		end
+		if r.routeSkill then
+			r.route:SetText(L("CRAFTSHOP_BTN_ROUTE"))
+			r.route:Show()
+		else
+			r.route:Hide()
+		end
+		r.text:SetWidth(r.routeSkill and (WIDTH - 32 - 24 - 118) or (WIDTH - 32 - 24))
 		r:SetHeight(h)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
@@ -717,11 +820,21 @@ Refresh = function()
 		local planned = Planned(t, list)
 		local toBuy = math.max(0, t.need - have - inMail - inBank - planned)
 		local id = t.ids[1]
-		local vendor, farm, make = false, nil, nil
+		local vendorSkill, farm, make = nil, nil, nil
 		for _, x in ipairs(t.ids) do
-			vendor = vendor or VENDOR[x] == true
+			vendorSkill = vendorSkill or VENDOR[x]
 			farm = farm or FARM[x]
 			make = make or makes[x]
+		end
+		local vendor = vendorSkill ~= nil
+		-- Which vendor: the one of the profession that needs it, when that one has a pin; else the item's own.
+		if vendor then
+			for _, e in ipairs(t.users or {}) do
+				if e.prof and TrainerPin(e.prof) then
+					vendorSkill = e.prof
+					break
+				end
+			end
 		end
 		if toBuy > 0 then
 			win.buyList[#win.buyList + 1] = { id = id, qty = toBuy, vendor = vendor }
@@ -763,6 +876,7 @@ Refresh = function()
 
 		r.make:Hide()
 		r.status:Show()
+		r.makeRecipe, r.routeSkill = nil, nil
 		if have >= t.need then
 			r.status:SetText("|cff40ff40" .. L("RAIDSHOP_ENOUGH") .. "|r")
 		elseif toBuy == 0 and planned > 0 and have + inMail + inBank < t.need then
@@ -774,6 +888,12 @@ Refresh = function()
 			r.makeRecipe, r.makeName = make.r, make.n
 			r.makeTimes = math.ceil(toBuy / math.max(1, make.q or 1))
 			r.make:SetText(L("CRAFTSHOP_BTN_MAKE"))
+			r.make:Show()
+			r.status:Hide()
+		elseif vendor and TrainerPin(vendorSkill) then
+			-- "Vendor N" as a button: click = an arrow to the vendor next to the trainer.
+			r.routeSkill = vendorSkill
+			r.make:SetText(L("CRAFTSHOP_VENDOR_FMT"):format(toBuy))
 			r.make:Show()
 			r.status:Hide()
 		elseif vendor then
