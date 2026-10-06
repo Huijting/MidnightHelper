@@ -1340,19 +1340,24 @@ end
 
 do
 	-- TRADE_SKILL_SHOW / TRADE_SKILL_LIST_UPDATE: both already registered by Profession.lua and ProfessionGuided.lua.
-	-- The list update fires in bursts while the window loads, so wait a moment and do it once.
-	local pending = false
+	-- The list update fires in bursts while the window loads AND after every craft, so: wait a moment, and once it has
+	-- worked, do not do it again until the window is opened anew (~600 API calls; no need to repeat them per craft).
+	local pending, done = false, false
 	local ev = CreateFrame("Frame")
 	ev:RegisterEvent("TRADE_SKILL_SHOW")
 	ev:RegisterEvent("TRADE_SKILL_LIST_UPDATE")
-	ev:SetScript("OnEvent", function()
-		if pending or not (C_Timer and C_Timer.After) then
+	ev:SetScript("OnEvent", function(_, event)
+		if event == "TRADE_SKILL_SHOW" then
+			done = false
+		end
+		if done or pending or not (C_Timer and C_Timer.After) then
 			return
 		end
 		pending = true
 		C_Timer.After(1.5, function()
 			pending = false
-			pcall(LearnMakes)
+			local ok, n = pcall(LearnMakes)
+			done = ok and (n or 0) > 0
 		end)
 	end)
 end
