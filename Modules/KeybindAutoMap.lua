@@ -102,6 +102,11 @@ local function ReadKnownActiveSpells()
 	-- so it works on every client language.
 	local fromFlyout = {}
 	ns._mhFlyoutSpells = fromFlyout
+	-- The flyouts themselves (Rob, 6 Oct 2026: "het uitschuif-icoontje gebruiken voor de portals en de teleports"):
+	-- the key block puts a flyout whose spells MH does not classify on a free Alt key of block D, instead of its
+	-- spells one by one. { flyoutID, index (spellbook slot, for PickupSpellBookItem), name, members = { [name] = id } }
+	local flyouts = {}
+	ns._mhFlyouts = flyouts
 	local inGeneral = false
 	if not (C_SpellBook and C_SpellBook.GetSpellBookItemInfo and Enum and Enum.SpellBookSpellBank) then
 		return out
@@ -124,12 +129,19 @@ local function ReadKnownActiveSpells()
 		local flyoutType = Enum.SpellBookItemType and Enum.SpellBookItemType.Flyout
 		if flyoutType and info.itemType == flyoutType and info.actionID and GetFlyoutInfo and GetFlyoutSlotInfo then
 			local okF, _, _, numSlots = pcall(GetFlyoutInfo, info.actionID)
+			local fly = { flyoutID = info.actionID, index = index, name = info.name, members = {} }
 			for i = 1, (okF and tonumber(numSlots)) or 0 do
 				local okS, spellID, _, isKnown, spellName = pcall(GetFlyoutSlotInfo, info.actionID, i)
-				if okS and isKnown and spellID and spellName and not out[spellName] then
-					out[spellName] = spellID
-					fromFlyout[spellName] = true
+				if okS and isKnown and spellID and spellName then
+					fly.members[spellName] = spellID
+					if not out[spellName] then
+						out[spellName] = spellID
+						fromFlyout[spellName] = true
+					end
 				end
+			end
+			if next(fly.members) then
+				flyouts[#flyouts + 1] = fly
 			end
 			return
 		end
@@ -465,6 +477,9 @@ for _, n in ipairs({
 }) do
 	NO_KEY_ON_PURPOSE[n] = true
 end
+-- KeyBlock.lua reads it too: a flyout holding a spell left keyless on purpose (Warlock demons, Rob's "laat zoals
+-- het is") is not put on block D either.
+ns.KeybindNoKeyOnPurpose = NO_KEY_ON_PURPOSE
 
 --- Wat kent deze spec dat wij niet classificeren, ruis eruit?
 --- @return table names, number rawCount

@@ -57,6 +57,12 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
 - GEMETEN: rode regel noemde 30/31 Portals en Teleports (komen uit de flyout-scan) + bij Fire "Cone of Cold".
   Gerepareerd: spreuken uit een flyout tellen niet als "onbekend" (`ns._mhFlyoutSpells`). Cone of Cold bij Fire: Rob kiest.
 - [x] Rob 6 okt ✅ (screenshot Fire: rode regel "(1): Cone of Cold") Mage `/reload` → rode regel zonder Portals/Teleports.
+- GEMETEN (SV, Fire-snapshot): de laatste Place raakte D niet; de 5 losse portals stonden er al (eerdere Place/4.7.2,
+  AFGELEID). Rob: "het uitschuif-icoontje gebruiken". Gebouwd, NIET getest: flyouts zonder geclassificeerde of
+  bewust-toetsloze spreuk → het uitklapknopje op een vrije Alt-plek van D (PickupSpellBookItem); losse kopieën van
+  hun spreuken gaan van balk 1 en D af zoals dubbelen (Undo zet terug). Cone of Cold Fire/Arcane = alleen D.
+- [ ] Mage `/reload` → `/mh block` → Undo → neerzetten: losse portals weg, Portal- en Teleport-uitklapknop op een Alt-toets,
+  Cone of Cold op een Alt-toets? Werken de uitklapknoppen? Undo zet alles terug?
 
 ## 🔴 6 okt — Prot Paladin: verkeerde spreuk op blok D (Warband Map op Alt 1)
 

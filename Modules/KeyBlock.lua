@@ -390,6 +390,28 @@ local function Build()
 			end
 		end
 	end
+	-- Flyouts whose spells MH does not classify (Mage Portals, Teleports): the flyout itself goes on a free Alt key of
+	-- block D, not its spells one by one (Rob, 6 Oct 2026). A flyout with a classified member (Hunter Mend Pet in Pet
+	-- Utility) is left alone: those spells get their own keys.
+	local classified = {}
+	for _, s in ipairs(spells) do
+		if s.name then
+			classified[s.name] = true
+		end
+	end
+	for _, fly in ipairs(ns._mhFlyouts or {}) do
+		local own = false
+		local noKey = ns.KeybindNoKeyOnPurpose or {}
+		for name in pairs(fly.members or {}) do
+			if classified[name] or noKey[name] then
+				own = true
+			end
+		end
+		if not own and fly.flyoutID and fly.index then
+			unplaced[#unplaced + 1] = { kind = "flyout", id = fly.flyoutID, book = fly.index, name = fly.name,
+				members = fly.members }
+		end
+	end
 	return { occ = occ, unplaced = unplaced, trace = trace, specID = specID, class = class, unknown = unknown }
 end
 
@@ -461,6 +483,9 @@ local function OccupantName(kind, id)
 	elseif kind == "macro" and GetMacroInfo then
 		local ok, n = pcall(GetMacroInfo, id)
 		return (ok and n) or "macro"
+	elseif kind == "flyout" and GetFlyoutInfo then
+		local ok, n = pcall(GetFlyoutInfo, id)
+		return (ok and type(n) == "string" and n) or "flyout"
 	elseif kind == "summonmount" and C_MountJournal and C_MountJournal.GetMountInfoByID then
 		local ok, n = pcall(C_MountJournal.GetMountInfoByID, id)
 		return (ok and type(n) == "string" and n) or "mount"
@@ -548,9 +573,16 @@ local function ButtonFor(i)
 	return (2 - r) * 4 + c + 1
 end
 
+--- Spells that sit inside a flyout the block places (or that already sits on D): loose copies of them leave bar 1
+--- and block D like doubles do. Filled by PlacePlan, read by WantedSpells. (Rob, 6 Oct 2026, Mage portals.)
+local flyoutMemberIds = {}
+
 --- The spells the block will hold after placing (placed or already there), with their talent overrides.
 local function WantedSpells(rows)
 	local wanted = {}
+	for id in pairs(flyoutMemberIds) do
+		wanted[id] = true
+	end
 	for _, r in ipairs(rows) do
 		if r.want and r.want.kind == "spell" and (r.action == "place" or r.action == "keep") then
 			wanted[r.want.id] = true
@@ -717,12 +749,22 @@ local function PlacePlan()
 		probe.unplaced[#probe.unplaced + 1] = tostring(s.name) .. ":" .. tostring(s.id)
 	end
 	res.leftoverProbe = probe
+	flyoutMemberIds = {}
+	for _, s in ipairs(res.unplaced or {}) do
+		if s.kind == "flyout" then
+			for _, mid in pairs(s.members or {}) do
+				flyoutMemberIds[mid] = true
+			end
+		end
+	end
 	if dInfo and res.unplaced and #res.unplaced > 0 then
-		local onD = {}
+		local onD, onDFly = {}, {}
 		for b = 1, 12 do
 			local kind, id = Occupant(dInfo.first + b - 1)
 			if kind == "spell" and id then
 				onD[id] = true
+			elseif kind == "flyout" and id then
+				onDFly[id] = true
 			end
 		end
 		-- A spell that is being moved aside onto D already lands there: MEASURED 5 Oct 2026 on Rob's Guardian,
@@ -744,7 +786,7 @@ local function PlacePlan()
 		for b = 1, 12 do
 			local slot = dInfo.first + b - 1
 			local kind, id = Occupant(slot)
-			if kind == "spell" and id and wanted[id] and not IsAssist(slot) then
+			if kind == "spell" and id and (wanted[id] or flyoutMemberIds[id]) and not IsAssist(slot) then
 				freeD[slot] = true
 				onD[id] = nil -- that copy leaves; it is no reason to skip a spell
 			end
@@ -765,7 +807,22 @@ local function PlacePlan()
 		end
 		local n = 0
 		for _, s in ipairs(res.unplaced) do
-			if not s.id then
+			if s.kind == "flyout" then
+				if onDFly[s.id] then
+					probe.skipped[#probe.skipped + 1] = tostring(s.name) .. ": flyout already on D"
+				else
+					n = n + 1
+					local r = dRows[n]
+					if not r then
+						probe.skipped[#probe.skipped + 1] = tostring(s.name) .. ": no free place left on D"
+						break
+					end
+					r.want = { kind = "flyout", id = s.id, book = s.book }
+					r.action, r.leftover = "place", true
+					onDFly[s.id] = true
+					probe.assigned[#probe.assigned + 1] = tostring(s.name) .. " (flyout) -> " .. r.key
+				end
+			elseif not s.id then
 				probe.skipped[#probe.skipped + 1] = tostring(s.name) .. ": no id"
 			elseif onD[s.id] then
 				probe.skipped[#probe.skipped + 1] = tostring(s.name) .. ": already on D"
@@ -1069,6 +1126,9 @@ function ns.KeyBlockPlace()
 					else
 						PickupSpell(r.want.id)
 					end
+				elseif r.want.kind == "flyout" then
+					-- A flyout is picked up from its spellbook slot (the index the scan saw this same moment).
+					C_SpellBook.PickupSpellBookItem(r.want.book, Enum.SpellBookSpellBank.Player)
 				elseif C_Item and C_Item.PickupItem then
 					C_Item.PickupItem(r.want.id)
 				else
@@ -1295,6 +1355,8 @@ function ns.KeyBlockUpdate()
 					else
 						PickupSpell(want.id)
 					end
+				elseif want.kind == "flyout" and want.book then
+					C_SpellBook.PickupSpellBookItem(want.book, Enum.SpellBookSpellBank.Player)
 				elseif C_Item and C_Item.PickupItem then
 					C_Item.PickupItem(want.id)
 				else
