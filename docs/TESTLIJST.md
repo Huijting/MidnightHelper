@@ -50,6 +50,13 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
   in één schuifvak (ToolsLaunchpad.lua, CommandList.lua `flat`). NIET in de beta-zip van 65ddccf.
 - [x] Rob 6 okt ✅ ("scrollen werkt, alles goed te lezen") `/reload` → Tools → Pop-out windows: hele pagina scrollt?
 
+## 🆕 6 okt — Holy Paladin: Hand of Reckoning + Shield of the Righteous op blok D (Rob: "laat ze maar op de D blok staan")
+
+GEMETEN (screenshot 15-key-block, Twelveinchy Holy): rode regel "(2): Hand of Reckoning, Shield of the Righteous".
+Nu `blockAs[65].onlyD` (geen rode regel meer, wel een Alt-toets op D); SotR's survival alleen voor Prot (tabel).
+keyblock_specs: A/B/C van 65/66/70 ongewijzigd (GEMETEN).
+- [ ] Holy `/reload` → `/mh block`: rode regel weg, de twee op een vrije Alt-toets van D? Stay alive-kaart van Holy zonder SotR?
+
 ## 🆕 6 okt — Mage (Iceicebaby) na de blok-D-reparatie
 
 - [x] Rob 6 okt ✅ (2 screenshots) Frost: Blizzard op Shift 2; Fire: Flamestrike op Shift 4; blok D alleen eigen spul

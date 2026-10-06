@@ -145,7 +145,10 @@ ns.KeybindRoleClassifier.PALADIN = {
 	--- verschil niet en kan het ook niet zien — de eis zit in de tooltip, niet in de spellbook-rij.
 	--- Een `unclassified`-melding is dus een AANWIJZING om te kijken, nooit op zichzelf een bewijs
 	--- dat onze data een gat heeft.
-	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66 }, survival = "keepup", survivalOrder = 1 }, -- card: active mitigation you keep rolling (IV-ProtPal) -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
+	-- Holy (65) too since 6 Oct 2026, on block D only (Rob: "laat ze maar op de D blok staan, je weet nooit"). Survival
+	-- stays Prot's: as a table keyed by spec, so Holy's Stay alive card does not gain it.
+	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66, 65 }, survival = { [66] = "keepup" }, survivalOrder = 1,
+		blockAs = { [65] = { onlyD = true } } }, -- card: active mitigation you keep rolling (IV-ProtPal) -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
 	["Consecration"] = { id = 26573, category = "main_rotation", priority = 4, specs = { 65, 66 }, survivalSpecs = { 66 }, survival = "keepup", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_GROUND" }, -- guide.lua Prot-rotatie; [26573] castbare id (JustAC SpellCooldowns); ground-AoE, on-cooldown houden; card 5 Oct 2026 (Rob): "Stay in your Consecration" = less damage via Sanctuary (IV Easy Mode 21 Sep)
 	-- 3 Oct 2026: Prot dropped. Icy Veins' 12.1 spell list (10 Aug): "Hammer of Wrath is now a passive
 	-- ability. While you have Avenging Wrath active Hammer of Wrath will replace Judgment" — no own button.
@@ -161,7 +164,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	--- heeft deze knop, en een DPS gebruikt hem juist wél: een losse mob oppakken, of overnemen
 	--- als de tank ligt. `{ 66, 70 }` is nu gemeten in twee dumps; **65 (Holy) is NIET gemeten**
 	--- en blijft er daarom af — heeft een Holy hem, dan meldt `/mh binds` dat vanzelf.
-	["Hand of Reckoning"] = { id = 62124, category = "taunt", priority = 1, specs = { 66, 70 } }, -- [62124] taunt (JustAC SpellCooldowns/SpellCategories); F, eigen kaart
+	["Hand of Reckoning"] = { id = 62124, category = "taunt", priority = 1, specs = { 66, 70, 65 }, blockAs = { [65] = { onlyD = true } } }, -- Holy: block D only (Rob, 6 Oct 2026) -- [62124] taunt (JustAC SpellCooldowns/SpellCategories); F, eigen kaart
 	["Ardent Defender"] = { id = 31850, category = "defensive", priority = 2, specs = { 66 }, survival = "small", survivalOrder = 2 }, -- DEFENSIVE [31850]; 90 s (W-CD), the smaller one next to Guardian
 
 	-- Lightsmith (hero-talent) - twee echte knoppen die tot 7 sep 2026 nergens gedekt waren en
