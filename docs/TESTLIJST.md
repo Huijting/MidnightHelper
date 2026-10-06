@@ -99,6 +99,10 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
   recepten): zet Potion of Recklessness / Alluring Nostrum / Blessed Pango Charm (niet geleerd) op je lijst → knop
   "Wijs de weg" → pijl naar Void Researcher Anomander (Voidstorm) / Second Mate Sluggs (Coiled Isle) / quest in Zul'Aman
   (+ chatregel over een eerdere quest)? `/mh craftshop why` met dat recept gekozen noemt de plek.
+- GEMETEN Rob 6 okt avond (screenshot, Leatherworker, 4.7.4-beta1): knop "Show the way" bij Blessed Pango Charm (quest) ✅,
+  geen knop bij een spec-recept ✅; regeltjes ronde 2 zichtbaar: Peerless Plumage groen + "Skin 2", Mote of Wild Magic,
+  Dusk-Shrouded Stone, Mote of Pure Void ("Pick it up", 36 op de bank), Sin'dorei Armor Banding "You make this" ✅.
+  Nog niet gezien: de pijl zelf na een klik.
 - [ ] **Regeltjes voor meer reagents** (6 okt, uit het tweede onderzoek): Motes ("Wild-kruiden & erts - vooral Zul'Aman"
   e.d.; groen + "Verzamel N" met Herbalism óf Mining), Thalassian Lumber, Dazzling Thorium, Petrified Root ("Delve-kisten"),
   Cursebound Globe / Neutralized Venom Clot (Coiled Isle), Peerless Plumage, Skinning-spul, prospect-stenen ("Prospect N"
