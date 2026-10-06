@@ -129,7 +129,7 @@ Deze regels stonden sinds 19 jul bewust UIT (alle geraden nummers waren fout). N
 - GEMETEN Rob 6 okt (2 screenshots): rijen "Artisan Alchemist's..." 25 en "Artisan Herbalist's M..." 460 stonden er,
   maar tussen de Mistcrests en afgekapt — Rob: "ik zie het niet zo snel die moxie hier". Nu: Moxie uit Valuta (in de
   snapshot), en een gouden regel **"Moxie"** direct onder elk beroep bij Beroepen.
-- [ ] `/reload` → Account snapshot → Beroepen: onder Alchemy een gouden "Moxie"-regel met 25 bij dit personage, onder
+- [x] Rob 6 okt ✅ ("ja die vallen direct op") `/reload` → Account snapshot → Beroepen: onder Alchemy een gouden "Moxie"-regel met 25 bij dit personage, onder
   Herbalism 460? Alts met dat beroep: "?" tot ze één keer ingelogd zijn. Geen Moxie-regel onder Cooking/Fishing.
 - [ ] **Account snapshot** (Rob: "Moxie-rij erbij"): onder Currencies een rij per Moxie-soort die iemand op je account heeft
   (bv. "Artisan Herbalist's Moxie" met 460 bij dit personage)? Een alt laat pas een getal zien nadat hij één keer
