@@ -54,6 +54,18 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_Head_Human_02", slash = "/mh valeera",
 		open = function() if ns.ToggleValeeraPopup then ns.ToggleValeeraPopup() end end,
 	},
+	-- 6 Oct 2026, Rob: "we moeten dit soort dingen ook als handige knop in de MH hebben ipv alleen maar slash mh en dan
+	-- een commando". Icons: paths MH already shows elsewhere (Openables, the sidebar), not guessed ones.
+	{
+		nameKey = "RAIDSHOP_TITLE", descKey = "TOOLLP_READY_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Bag_08", slash = "/mh ready",
+		open = function() if ns.ShowRaidShoppingList then ns.ShowRaidShoppingList() end end,
+	},
+	{
+		nameKey = "KEYBLOCK_TITLE", descKey = "TOOLLP_KEYBLOCK_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Gear_01", slash = "/mh block",
+		open = function() if ns.ShowKeyBlock then ns.ShowKeyBlock() end end,
+	},
 	-- ✅ 10 Sep 2026 (Spec 33 §2c): this hall named every helper but not the Macros tab, so the
 	-- one place that lists what the addon offers skipped a whole page of it.
 	{

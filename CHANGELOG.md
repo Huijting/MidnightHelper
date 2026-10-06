@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.7.3
+
+📌 **2026-10-06, eerst als beta (Rob: "eerst vertalen, dan go voor 4.7.3 beta"), tag `v4.7.3-beta1`.** Notitie in
+`docs/CURSEFORGE_4.7.3.md` (identiek aan `RELEASE_NOTES.md`), met een vriendelijke oproep om te reageren, ook als alles
+werkt. Rob getest 6 okt: Paladin blok D, Hunter-popup, `/mh ready` (klikken, Auctionator per personage, post/bank, gear,
+onderweg). NIET getest: de nieuwe knoppen in Tools → Pop-out windows, de vertalingen.
+
+- **Fix:** onbekende spreuken kregen het id van een andere spreuk (namen gesorteerd, ids niet) — sinds 4.7.2 op blok D.
+- **Toetsenblok:** override van een blok-knop telt als aanwezig (Primal Rage-popup); Primal Rage = Command Pet 272651;
+  auras en Overload-herbs zonder toets; id-ronde van de site-chat (26 plekken, 5 entries weg).
+- **`/mh ready`:** klik = AH-zoeken of kopieervakje, shift-klik = link, "To Auctionator" (lijst per personage), post-
+  en bank-telling met "Pick it up", "Je gear" (enchants/sockets), aankopen tellen meteen ("onderweg").
+- **Knoppen** in Tools → Pop-out windows voor `/mh ready` en `/mh block`.
+- **Vertalingen:** RAIDSHOP_*, KEYBLOCK_UNKNOWN_FMT, KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT, CMDLIST_READY en de nieuwe keys.
+
 ## 4.7.2
 
 📌 **2026-10-05 (nacht), als release (Rob: "Go"), tag `v4.7.2` op 310822c.** Notitie in `docs/CURSEFORGE_4.7.2.md` (identiek aan

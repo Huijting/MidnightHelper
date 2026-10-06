@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🧪 6 okt avond — 4.7.3 KLAAR ALS BETA (Rob: "eerst vertalen, dan go voor 4.7.3 beta"), NOG NIET GETAGD
+.toc 4.7.3, CHANGELOG_473_0..5 (0 = vriendelijke beta-oproep), RELEASE_NOTES.md = docs/CURSEFORGE_4.7.3.md (GEMETEN
+byte-gelijk), CHANGELOG.md. Wacht op Robs ok op de notitietekst → tag `v4.7.3-beta1` + push; na Robs reload later `v4.7.3`
+op dezelfde commit (recept 4.0.1). Daarna site-chat seinen ("Midnight Helper site chat 06-10", of de opvolger).
+Nieuw vandaag ook: knoppen voor `/mh ready` en `/mh block` in Tools → Pop-out windows (ToolsLaunchpad.lua, NIET getest).
+Vertaalronde 2 (mh-writer, 16 keys, blok "6 okt (2)"): locale_probe OK (Lua 5.4, geen 5.1 op deze pc). Twijfel: GEAR_TIP
+noemt de Enchants-tab niet letterlijk; fr "liste d'achats"/"liste de courses"; lengtes niet in het spel gezien.
+Rob vraagt: na de beta een rondje langs alle slash-only commando's → welke verdienen een knop (memory settings-inventory).
+Meting `raidShopProbe` in RaidShoppingList.lua: na één `/reload` lezen welke aankoop-event vuurde, dan opruimen.
+
 ## 🔴 6 okt — BUG IN 4.7.2: onbekende spreuken kregen het id van een ANDERE spreuk — GEREPAREERD, NIET GETEST
 GEMETEN in Robs SV (Prot Paladin, keyBlockLeftoverProbe): "Crusader Aura:431280" (= Warband Map), "Devotion Aura:32223"
 (= Crusader Aura). `MH_AutoMapBuild` sorteerde `unmatched` (namen) maar niet `unmatchedIds`. Sinds 4.7.2 zet het blok

@@ -13250,3 +13250,104 @@ fill("itIT", {
 	KEYBLOCK_UNKNOWN_FMT = "|cffff8080Non ancora nella lista di Midnight Helper (%d):|r %s. Vanno su un tasto Alt libero nel blocco D. Diccelo con /mh report.",
 	KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT = "Ripristina \"%s\" (tutti i personaggi)",
 })
+
+-- 6 Oct 2026 (2): the shopping list's click/copy line, the Auctionator button and its status lines,
+-- "pick it up" + "+%d in mail/bank" (Modules/RaidShoppingList.lua), and the gear rows with their
+-- "(a choice)" tooltip. GEM_SOCKETS_LABEL is also the row label in Modules/GearEnchantCheck.lua.
+-- Self-made translations, not reviewed by a native speaker. "Auctionator" and its "Shopping" tab stay
+-- English, so does /mh enchants. Terms follow each pack: sockets as ROOMCARD_SOCKETS_EMPTY_FMT
+-- (Sockel/châsses/engarces/engastes/castoni), gear as TAB_TAGLINE_ENCHANTS, mail as the crafting-order
+-- text (Post/courrier/correo/correio/posta), Ctrl+C as the other copy hints (de Strg+C), shift-click as
+-- CH_TAB_HINT_LINK, tab as CMDLIST_MACROS (Reiter/onglet/pestaña/aba/scheda). PICKUP sits in the
+-- 104 px status column, so it is one short word. Also the Tools cards TOOLLP_READY_DESC and
+-- TOOLLP_KEYBLOCK_DESC; "Undo" there is the pack's own KEYBLOCK_BTN_UNDO button name.
+fill("deDE", {
+	RAIDSHOP_CLICK_HINT = "Klick auf eine Zeile: Im Auktionshaus wird nach dem Gegenstand gesucht, anderswo bekommst du den Namen zum Kopieren. Umschalt-Klick: ein Link im Chat.",
+	RAIDSHOP_COPY_LABEL = "Strg+C zum Kopieren:",
+	RAIDSHOP_PICKUP = "Abholen",
+	RAIDSHOP_GEAR_HEAD = "Deine Ausrüstung: fehlende Verzauberungen und leere Sockel",
+	RAIDSHOP_GEAR_CHOICE = "(Auswahl)",
+	RAIDSHOP_GEAR_TIP = "Die erste Wahl von Midnight Helper. Für diesen Slot gibt es eine Auswahl: Der Reiter Verzauberungen (/mh enchants) zeigt alle Optionen.",
+	GEM_SOCKETS_LABEL = "Leere Sockel",
+	RAIDSHOP_IN_MAIL_FMT = "+%d in der Post",
+	RAIDSHOP_IN_BANK_FMT = "+%d in der Bank",
+	RAIDSHOP_BTN_AUCTIONATOR = "An Auctionator",
+	RAIDSHOP_AUCTIONATOR_SEARCH = "Auctionator sucht nach dem, was du noch kaufen musst.",
+	RAIDSHOP_AUCTIONATOR_LIST_FMT = "Auctionator: Die Einkaufsliste \"%s\" ist bereit (%d Gegenstände). Im Auktionshaus: Auctionator -> Shopping.",
+	RAIDSHOP_AUCTIONATOR_NOTHING = "Nichts zu kaufen: Du hast alles.",
+	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator hat die Liste nicht angenommen. Nutze stattdessen das Kopierfeld.",
+	TOOLLP_READY_DESC = "Deine Einkaufsliste für einen Schlachtzugsabend: Tränke, Fläschchen, Essen sowie fehlende Verzauberungen und Steine. Klick, um im Auktionshaus zu suchen.",
+	TOOLLP_KEYBLOCK_DESC = "Dieselbe Aufgabe auf derselben Taste, auf jedem Charakter. Setzt deine Zauber, und Rückgängig stellt alles wieder zurück.",
+})
+fill("frFR", {
+	RAIDSHOP_CLICK_HINT = "Clique sur une ligne : à l'Hôtel des ventes, l'objet est recherché ; ailleurs, tu obtiens le nom à copier. Maj-clic : un lien dans le chat.",
+	RAIDSHOP_COPY_LABEL = "Ctrl+C pour copier :",
+	RAIDSHOP_PICKUP = "Récupérer",
+	RAIDSHOP_GEAR_HEAD = "Ton équipement : enchantements manquants et châsses vides",
+	RAIDSHOP_GEAR_CHOICE = "(au choix)",
+	RAIDSHOP_GEAR_TIP = "Le premier choix de Midnight Helper. Pour cet emplacement, il y a un choix : l'onglet Enchantements (/mh enchants) montre toutes les options.",
+	GEM_SOCKETS_LABEL = "Châsses vides",
+	RAIDSHOP_IN_MAIL_FMT = "+%d au courrier",
+	RAIDSHOP_IN_BANK_FMT = "+%d à la banque",
+	RAIDSHOP_BTN_AUCTIONATOR = "Vers Auctionator",
+	RAIDSHOP_AUCTIONATOR_SEARCH = "Auctionator cherche ce qu'il te reste à acheter.",
+	RAIDSHOP_AUCTIONATOR_LIST_FMT = "Auctionator : la liste d'achats \"%s\" est prête (%d objets). À l'Hôtel des ventes : Auctionator -> Shopping.",
+	RAIDSHOP_AUCTIONATOR_NOTHING = "Rien à acheter : tu as tout.",
+	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator n'a pas accepté la liste. Utilise plutôt la case de copie.",
+	TOOLLP_READY_DESC = "Ta liste de courses pour une soirée de raid : potions, flacons, nourriture, et les enchantements et gemmes qui manquent. Clique pour chercher à l'Hôtel des ventes.",
+	TOOLLP_KEYBLOCK_DESC = "La même tâche sur la même touche, sur chaque personnage. Place tes sorts, et Annuler remet tout comme avant.",
+})
+fill("esES", {
+	RAIDSHOP_CLICK_HINT = "Haz clic en una fila: en la Casa de Subastas busca el objeto; en otro sitio obtienes el nombre para copiarlo. Mayús-clic: un enlace en el chat.",
+	RAIDSHOP_COPY_LABEL = "Ctrl+C para copiar:",
+	RAIDSHOP_PICKUP = "Recógelo",
+	RAIDSHOP_GEAR_HEAD = "Tu equipo: encantamientos que faltan y engarces vacíos",
+	RAIDSHOP_GEAR_CHOICE = "(a elegir)",
+	RAIDSHOP_GEAR_TIP = "La primera opción de Midnight Helper. Para este hueco hay donde elegir: la pestaña Encantamientos (/mh enchants) muestra todas las opciones.",
+	GEM_SOCKETS_LABEL = "Engarces vacíos",
+	RAIDSHOP_IN_MAIL_FMT = "+%d en el correo",
+	RAIDSHOP_IN_BANK_FMT = "+%d en el banco",
+	RAIDSHOP_BTN_AUCTIONATOR = "A Auctionator",
+	RAIDSHOP_AUCTIONATOR_SEARCH = "Auctionator busca lo que aún tienes que comprar.",
+	RAIDSHOP_AUCTIONATOR_LIST_FMT = "Auctionator: la lista de compra \"%s\" está lista (%d objetos). En la Casa de Subastas: Auctionator -> Shopping.",
+	RAIDSHOP_AUCTIONATOR_NOTHING = "Nada que comprar: lo tienes todo.",
+	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator no aceptó la lista. Usa la casilla de copiar en su lugar.",
+	TOOLLP_READY_DESC = "Tu lista de la compra para una noche de banda: pociones, frascos, comida, y los encantamientos y gemas que faltan. Haz clic para buscar en la Casa de Subastas.",
+	TOOLLP_KEYBLOCK_DESC = "La misma tarea en la misma tecla, en cada personaje. Coloca tus hechizos, y Deshacer lo deja todo como estaba.",
+})
+fill("ptBR", {
+	RAIDSHOP_CLICK_HINT = "Clique numa linha: na Casa de Leilões o item é buscado; em outro lugar você recebe o nome para copiar. Shift-clique: um link no chat.",
+	RAIDSHOP_COPY_LABEL = "Ctrl+C para copiar:",
+	RAIDSHOP_PICKUP = "Retire",
+	RAIDSHOP_GEAR_HEAD = "Seu equipamento: encantamentos faltando e engastes vazios",
+	RAIDSHOP_GEAR_CHOICE = "(à escolha)",
+	RAIDSHOP_GEAR_TIP = "A primeira escolha do Midnight Helper. Para este slot há uma escolha: a aba Encantamentos (/mh enchants) mostra todas as opções.",
+	GEM_SOCKETS_LABEL = "Engastes vazios",
+	RAIDSHOP_IN_MAIL_FMT = "+%d no correio",
+	RAIDSHOP_IN_BANK_FMT = "+%d no banco",
+	RAIDSHOP_BTN_AUCTIONATOR = "Para o Auctionator",
+	RAIDSHOP_AUCTIONATOR_SEARCH = "O Auctionator procura o que você ainda precisa comprar.",
+	RAIDSHOP_AUCTIONATOR_LIST_FMT = "Auctionator: a lista de compras \"%s\" está pronta (%d itens). Na Casa de Leilões: Auctionator -> Shopping.",
+	RAIDSHOP_AUCTIONATOR_NOTHING = "Nada para comprar: você tem tudo.",
+	RAIDSHOP_AUCTIONATOR_FAILED = "O Auctionator não aceitou a lista. Use a caixa de cópia no lugar.",
+	TOOLLP_READY_DESC = "Sua lista de compras para uma noite de raide: poções, frascos, comida, e os encantamentos e gemas que faltam. Clique para buscar na Casa de Leilões.",
+	TOOLLP_KEYBLOCK_DESC = "A mesma tarefa na mesma tecla, em cada personagem. Coloca seus feitiços, e Desfazer deixa tudo como estava.",
+})
+fill("itIT", {
+	RAIDSHOP_CLICK_HINT = "Clicca su una riga: alla Casa d'Aste cerca l'oggetto, altrove ottieni il nome da copiare. Maiusc-clic: un link in chat.",
+	RAIDSHOP_COPY_LABEL = "Ctrl+C per copiare:",
+	RAIDSHOP_PICKUP = "Ritira",
+	RAIDSHOP_GEAR_HEAD = "Il tuo equipaggiamento: enchant mancanti e castoni vuoti",
+	RAIDSHOP_GEAR_CHOICE = "(a scelta)",
+	RAIDSHOP_GEAR_TIP = "La prima scelta di Midnight Helper. Per questo slot c'è una scelta: la scheda Enchant (/mh enchants) mostra tutte le opzioni.",
+	GEM_SOCKETS_LABEL = "Castoni vuoti",
+	RAIDSHOP_IN_MAIL_FMT = "+%d nella posta",
+	RAIDSHOP_IN_BANK_FMT = "+%d in banca",
+	RAIDSHOP_BTN_AUCTIONATOR = "Ad Auctionator",
+	RAIDSHOP_AUCTIONATOR_SEARCH = "Auctionator cerca ciò che devi ancora comprare.",
+	RAIDSHOP_AUCTIONATOR_LIST_FMT = "Auctionator: la lista della spesa \"%s\" è pronta (%d oggetti). Alla Casa d'Aste: Auctionator -> Shopping.",
+	RAIDSHOP_AUCTIONATOR_NOTHING = "Niente da comprare: hai tutto.",
+	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator non ha accettato la lista. Usa invece il campo da copiare.",
+	TOOLLP_READY_DESC = "La tua lista della spesa per una serata di incursione: pozioni, flask, cibo, e gli enchant e le gemme che mancano. Clicca per cercare alla Casa d'Aste.",
+	TOOLLP_KEYBLOCK_DESC = "Lo stesso compito sullo stesso tasto, su ogni personaggio. Posiziona i tuoi spell, e Annulla rimette tutto com'era.",
+})
