@@ -16,6 +16,11 @@ Gepusht 6 okt op Robs "push maar, allebei" (3217788; site-chat pusht 359fbdf zel
 links met alle bonus-ids, tooltips = export (Wailing Bulwark 315, Pledgebearer's Mask 295). Open: "Viridescent Crusher"
 staat 2× identiek in B — ✅ Rob: hij heeft er echt twee.
 
+## 🐛 6 okt — popup "Primal Rage -> F1" bij elke huisdierwissel — GEREPAREERD, NIET GETEST, NIET GEPUSHT
+`MissingRows` (KeyBlock.lua) telt nu ook de override van een blok-knop als aanwezig (C_Spell.GetOverrideSpell, GEMETEN
+272651→272678 in Robs client door site-chat; + C_SpellBook.FindSpellOverrideByID). Testlijst bovenaan.
+Open (Rob kiest): Primal Rage-plek 253 F1 / 255 Shift-3 → (a) id 272651 Command Pet (advies) of (b) 272678 alleen site.
+
 ## 🔢 6 okt — id-lijst van de site-chat toegepast (Rob: "ja pas de nummerlijst toe, Fracture mag naar 1") — LOKAAL, NIET GEPUSHT
 Bron: site-chat mh-research, wago 12.1.0.69933. Ids erbij: Bear Form 104 (survivalId), Deep Breath 1468, Blackout Kick
 269/270 (survivalId 100784), Mark for Death 1293340, Ascendance 262/264, Demonbolt 264178, Execute (71/73 163201, 72 5308),

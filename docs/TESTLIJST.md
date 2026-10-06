@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🐛 6 okt — Hunter: "New for your key block: Primal Rage -> F1" bij elke huisdierwissel
+
+GEMETEN (Robs screenshot via site-chat). Oorzaak AFGELEID: de knop houdt Command Pet 272651, met een Ferocity-huisdier
+wordt die Primal Rage 272678, en MH zag 272678 als "nog niet op het blok". Gerepareerd in `MissingRows`: wat een knop
+wórdt (override) telt ook als aanwezig.
+- [ ] `/reload` op je Hunter, wissel een paar keer tussen Ferocity en Cunning: komt de popup nog?
+
 ## 🆕 4 okt middag — Stay alive: elke rij heeft nu een spell-id (verzoek site-chat)
 
 Wat er veranderde: 113 rijen kregen `id = …`, Ignore Pain (Prot) ook; Blink, Roll en Dash kregen `survivalId`

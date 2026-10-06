@@ -1213,6 +1213,19 @@ local function MissingRows()
 		local kind, id = Occupant(r.slot)
 		if kind and id then
 			present[kind .. ":" .. tostring(id)] = true
+			-- What this button turns into counts as present too. Rob, 6 Oct 2026 (Hunter): every pet swap asked
+			-- "New for your key block: Primal Rage -> F1". The button holds Command Pet 272651; with a Ferocity pet
+			-- the game overrides it to Primal Rage 272678 (MEASURED in his client by the site chat), and the scan
+			-- sees 272678. Place it put 272651 down again, so the question came back on every SPELLS_CHANGED.
+			-- C_Spell.GetOverrideSpell is the call measured in his client; the other is the one this file already uses.
+			if kind == "spell" then
+				for _, fn in pairs({ C_Spell and C_Spell.GetOverrideSpell, C_SpellBook and C_SpellBook.FindSpellOverrideByID }) do
+					local ok, over = pcall(fn, id)
+					if ok and type(over) == "number" and over ~= id then
+						present["spell:" .. tostring(over)] = true
+					end
+				end
+			end
 		else
 			empty[r.key] = true
 		end
