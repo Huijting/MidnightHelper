@@ -29,7 +29,11 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
   Meldingen Scorecard + detail; bij Dungeon de 3 tank-samenvattingen; bij Route-pijl "Let WaypointUI drive". Zelfde
   stand als je `/mh`-commando's? Ook in Blizzards eigen Options → AddOns → Midnight Helper?
 - [ ] **Pop-out windows**: 5 nieuwe kaarten (Your stats, Pawn, Your keybinds, Curios, Your graphics settings). Open-knop werkt?
-- [ ] **Settings-startpagina**: knoppen Report a problem, What's new (Snelle acties) en Side panels back in place (Geavanceerd).
+- [x] Rob 6 okt ✅ (screenshot) **Settings-startpagina**: knoppen Report a problem, What's new, Side panels back in place staan er.
+- Rob 6 okt: "Open Midnight Helper settings" → hernoemd naar **All settings**; "Help translate" gaf alleen chat (en
+  zei op een Engelse client "enUS needs its first pack") → nu een kopieervenster; "Show me" opende zonder uitleg de
+  balken-wizard → in Settings heet hij nu "Set up your bars and keys".
+- [ ] Na `/reload`: knop heet All settings? Help translate opent een venster met de links? Knop "Set up your bars and keys"?
 - [ ] **Snelbalk**: met een route (bv. een rare-route) een kaartknop: klik = overslaan, rechtsklik = stoppen, Shift-klik =
   plan. Verdwijnt hij binnen ~2 s na stoppen? Buiten instances een vluchtmeester-knop.
 - [ ] Reparaties: `/mh debug` zegt nu "debug mode" (niet arrow-debug; dat is `/mh arrowdebug`). In de zoekbalk/lijst

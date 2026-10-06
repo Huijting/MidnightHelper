@@ -1010,7 +1010,7 @@ function ns.BuildSettingsPanel(panel)
 			local nudgeH = MakeHeader("SET_CAT_NUDGES", toastResetBtn, -16)
 			local prev = nudgeH
 			for _, def in ipairs(sNudges) do
-				local b = MakeBtn(220, def.actionLabel, function()
+				local b = MakeBtn(220, def.settingsLabel or def.actionLabel, function()
 					if def.action then def.action() end
 				end)
 				b:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -6)

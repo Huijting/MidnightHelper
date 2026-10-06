@@ -71,6 +71,8 @@ ns.RegisterNudge({
 	title = "SETUPNUDGE_TITLE",
 	body = "SETUPNUDGE_BODY",
 	actionLabel = "SETUPNUDGE_BTN",
+	-- In Settings the button stands without its card, and "Show me" then says nothing (Rob, 6 Oct 2026).
+	settingsLabel = "SETUPNUDGE_SETTINGS_BTN",
 	action = function()
 		if ns.MH_ShowLayoutWizard then
 			ns.MH_ShowLayoutWizard()

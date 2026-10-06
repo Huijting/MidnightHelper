@@ -45,7 +45,6 @@ end
 -- Action: print a short how-to (also reachable via /mh translate).
 function ns.OpenTranslateHelp()
 	local loc = GetLocale()
-	print("|cffe8c36aMidnight Helper|r — " .. ns:L("TRANSLATE_HELP_HEADER"))
 	-- 🔴 GITHUB FIRST, AND IT USED TO BE DISCORD. The old comment here said the list of
 	-- what still needs translating was pinned in #translations (Rob posted it 29 jul).
 	-- Rob, 30 aug 2026: "er is nog helemaal niemand op Discord." That route was written
@@ -57,10 +56,36 @@ function ns.OpenTranslateHelp()
 	-- `tools/check_drift.py --workpackage` generates the paste-ready list on demand
 	-- instead of relying on someone remembering to re-pin it.
 	-- Discord stays, because Rob really is reachable there. It no longer claims a list.
-	print("  " .. ns:L("TRANSLATE_HELP_LINK") .. ": " .. TRANSLATE_URL)
-	print("  " .. ns:L("TRANSLATE_HELP_DISCORD") .. ": " .. DISCORD_INVITE)
-	print("  " .. string.format(ns:L("TRANSLATE_HELP_LANG"), loc))
-	print("  " .. ns:L("TRANSLATE_HELP_MEANWHILE"))
+	--
+	-- 6 Oct 2026, Rob (screenshot): the Settings button gave only chat lines, where a link cannot be copied, and it
+	-- told an English client "Your language (enUS) needs its first pack". Now: a window with the links ready to copy,
+	-- and the "needs its first pack" line only where that is true (a client language without a pack).
+	local lines = {
+		ns:L("TRANSLATE_HELP_LINK") .. ":",
+		TRANSLATE_URL,
+		"",
+		ns:L("TRANSLATE_HELP_DISCORD") .. ":",
+		DISCORD_INVITE,
+	}
+	if shouldNudge() then
+		lines[#lines + 1] = ""
+		lines[#lines + 1] = string.format(ns:L("TRANSLATE_HELP_LANG"), loc)
+		lines[#lines + 1] = ns:L("TRANSLATE_HELP_MEANWHILE")
+	end
+	if ns.ShowShareCopyDialog then
+		ns.ShowShareCopyDialog({
+			id = "translate",
+			text = table.concat(lines, "\n"),
+			titleKey = "TRANSLATE_HELP_HEADER",
+			hintKey = "TRANSLATE_HELP_COPYHINT",
+			closeKey = "DELVE_SHARE_COPY_CLOSE",
+			width = 520, height = 260,
+		})
+		return
+	end
+	for _, l in ipairs(lines) do
+		print("  " .. l)
+	end
 end
 
 --------------------------------------------------------------------------------

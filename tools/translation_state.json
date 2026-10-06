@@ -3086,12 +3086,12 @@
    "ptBR": "c8d5b0d27edd2ae3"
   },
   "CMDLIST_DELVES": {
-   "deDE": "113c107d0fee603b",
-   "esES": "113c107d0fee603b",
-   "frFR": "113c107d0fee603b",
-   "itIT": "113c107d0fee603b",
-   "nlNL": "113c107d0fee603b",
-   "ptBR": "113c107d0fee603b"
+   "deDE": "6fc95e9325a57471",
+   "esES": "6fc95e9325a57471",
+   "frFR": "6fc95e9325a57471",
+   "itIT": "6fc95e9325a57471",
+   "nlNL": "6fc95e9325a57471",
+   "ptBR": "6fc95e9325a57471"
   },
   "CMDLIST_DISPEL": {
    "deDE": "3d7b1ba5b68050b4",
@@ -3142,12 +3142,12 @@
    "ptBR": "fe5d03d238869547"
   },
   "CMDLIST_FRAMESIZE": {
-   "deDE": "4a4588261e5adf1b",
-   "esES": "4a4588261e5adf1b",
-   "frFR": "4a4588261e5adf1b",
-   "itIT": "4a4588261e5adf1b",
-   "nlNL": "4a4588261e5adf1b",
-   "ptBR": "4a4588261e5adf1b"
+   "deDE": "4718ab44ecdd266c",
+   "esES": "4718ab44ecdd266c",
+   "frFR": "4718ab44ecdd266c",
+   "itIT": "4718ab44ecdd266c",
+   "nlNL": "4718ab44ecdd266c",
+   "ptBR": "4718ab44ecdd266c"
   },
   "CMDLIST_GBUFFS": {
    "deDE": "ad4209394a938307",
@@ -3422,12 +3422,12 @@
    "ptBR": "b304581e76d1ccf0"
   },
   "CMDLIST_SCORECARD": {
-   "deDE": "b3022710d4bc063b",
-   "esES": "b3022710d4bc063b",
-   "frFR": "b3022710d4bc063b",
-   "itIT": "b3022710d4bc063b",
-   "nlNL": "b3022710d4bc063b",
-   "ptBR": "b3022710d4bc063b"
+   "deDE": "94c50861ff8f2451",
+   "esES": "94c50861ff8f2451",
+   "frFR": "94c50861ff8f2451",
+   "itIT": "94c50861ff8f2451",
+   "nlNL": "94c50861ff8f2451",
+   "ptBR": "94c50861ff8f2451"
   },
   "CMDLIST_SEASON": {
    "deDE": "632f300b876815f5",
@@ -3454,12 +3454,12 @@
    "ptBR": "9957224ed506de21"
   },
   "CMDLIST_SIZE": {
-   "deDE": "713cd0b3b17696ff",
-   "esES": "713cd0b3b17696ff",
-   "frFR": "713cd0b3b17696ff",
-   "itIT": "713cd0b3b17696ff",
-   "nlNL": "713cd0b3b17696ff",
-   "ptBR": "713cd0b3b17696ff"
+   "deDE": "367cc46e141e915e",
+   "esES": "367cc46e141e915e",
+   "frFR": "367cc46e141e915e",
+   "itIT": "367cc46e141e915e",
+   "nlNL": "367cc46e141e915e",
+   "ptBR": "367cc46e141e915e"
   },
   "CMDLIST_SKIP": {
    "deDE": "90bc248b3ec37e27",
@@ -23597,12 +23597,12 @@
    "ptBR": "1f775b1c421c6f39"
   },
   "SET_LAUNCH_OPEN": {
-   "deDE": "42d8e9998e8f9e7c",
-   "esES": "42d8e9998e8f9e7c",
-   "frFR": "42d8e9998e8f9e7c",
-   "itIT": "42d8e9998e8f9e7c",
-   "nlNL": "42d8e9998e8f9e7c",
-   "ptBR": "42d8e9998e8f9e7c"
+   "deDE": "04d2e8f940a5c79c",
+   "esES": "04d2e8f940a5c79c",
+   "frFR": "04d2e8f940a5c79c",
+   "itIT": "04d2e8f940a5c79c",
+   "nlNL": "04d2e8f940a5c79c",
+   "ptBR": "04d2e8f940a5c79c"
   },
   "SET_LAUNCH_PLACE": {
    "deDE": "9e7890b7d94ca3b7",
