@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 okt — Tools → Pop-out windows: knoppen voor Ready en Key block; de hele pagina schuift
+
+- [x] Rob 6 okt ✅ (screenshot, v4.7.3) beide knoppen staan erbij en werken.
+- GEMETEN (screenshot): "All commands" eronder platgedrukt, niet te lezen of te scrollen. Gerepareerd: kaarten + lijst
+  in één schuifvak (ToolsLaunchpad.lua, CommandList.lua `flat`). NIET in de beta-zip van 65ddccf.
+- [ ] `/reload` → Tools → Pop-out windows: kun je de hele pagina doorscrollen tot onderaan "All commands"? Overlapt niets?
+
 ## 🔴 6 okt — Prot Paladin: verkeerde spreuk op blok D (Warband Map op Alt 1)
 
 GEMETEN in SV: namen gesorteerd, ids niet → elk onbekend id hoorde bij een andere naam. Gerepareerd (56bab86).

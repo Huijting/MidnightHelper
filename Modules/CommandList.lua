@@ -255,21 +255,32 @@ ns.MH_COMMANDS = {
 --- Its own ScrollFrame because module panels do not scroll — each page that needs
 --- one builds it (Achievements.lua:2050, Changelog.lua:564). Forty rows will not
 --- fit otherwise, and a list that silently ends at row twenty is worse than none.
-function ns.BuildCommandList(panel, anchorTo)
+--- @param opts table|nil  { flat = true, onHeight = function(h) } — no scroll box of its own: the rows go straight
+---   into `panel` (which then is a page that scrolls as a whole), and onHeight hears the list's height. Rob, 6 Oct
+---   2026: with two more cards above it, the list's own scroll box was squeezed to nothing ("ik kan eronder niets
+---   meer lezen of doorscrollen").
+function ns.BuildCommandList(panel, anchorTo, opts)
 	if not panel or panel._mhCmdListBuilt then
 		return
 	end
 	panel._mhCmdListBuilt = true
+	local flat = opts and opts.flat
 
 	local head = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 	head:SetFontObject(SF("GameFontHighlightLarge"))
 	head:SetPoint("TOPLEFT", anchorTo or panel, anchorTo and "BOTTOMLEFT" or "TOPLEFT", 0, -16)
 	head:SetText(L("CMDLIST_TITLE"))
 
-	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, -8)
-	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 14)
-	local child = CreateFrame("Frame", nil, scroll)
+	local scroll, child
+	if flat then
+		child = CreateFrame("Frame", nil, panel)
+		child:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, -8)
+	else
+		scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
+		scroll:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, -8)
+		scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 14)
+		child = CreateFrame("Frame", nil, scroll)
+	end
 	-- ⚠️ WIDTH FIRST, BEFORE ANY TEXT IS MEASURED.
 	--
 	-- Rob, 6 Aug: while scrolling, the /mh mark row printed on top of the row above
@@ -281,9 +292,14 @@ function ns.BuildCommandList(panel, anchorTo)
 	--
 	-- Sizing the child first means the wrap width is true at measure time, which is
 	-- the only moment the height is asked for.
-	local width = math.max(200, (panel:GetWidth() or 400) - 44)
-	child:SetSize(width, 1)
-	scroll:SetScrollChild(child)
+	local function ListWidth()
+		local w = (panel:GetWidth() or 400) - (flat and 14 or 44)
+		return math.max(200, w)
+	end
+	child:SetSize(ListWidth(), 1)
+	if scroll then
+		scroll:SetScrollChild(child)
+	end
 
 	local y = 0
 	child._mhRows = {}
@@ -325,6 +341,13 @@ function ns.BuildCommandList(panel, anchorTo)
 		y = y - 8
 	end
 	child:SetHeight(math.abs(y) + 10)
+	local function Told(h)
+		if opts and opts.onHeight then
+			-- the head and its gap above the rows count too
+			pcall(opts.onHeight, h + 16 + (head:GetStringHeight() or 20) + 8)
+		end
+	end
+	Told(math.abs(y) + 10)
 
 	-- Second pass, one frame later. The width above is the panel's width AT BUILD
 	-- TIME, and the panel can still be laying itself out — so a row that wraps
@@ -336,8 +359,7 @@ function ns.BuildCommandList(panel, anchorTo)
 			if not (child and child.SetHeight) then
 				return
 			end
-			local w = math.max(200, (panel:GetWidth() or 400) - 44)
-			child:SetWidth(w)
+			child:SetWidth(ListWidth())
 			local yy = 0
 			for _, row in ipairs(child._mhRows or {}) do
 				-- ClearAllPoints first: SetPoint ADDS an anchor, so re-anchoring
@@ -357,6 +379,7 @@ function ns.BuildCommandList(panel, anchorTo)
 				end
 			end
 			child:SetHeight(math.abs(yy) + 10)
+			Told(math.abs(yy) + 10)
 		end)
 	end
 end

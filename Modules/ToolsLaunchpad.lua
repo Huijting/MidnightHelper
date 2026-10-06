@@ -130,12 +130,32 @@ function ns.BuildToolsLaunchpad(panel)
 	intro:SetTextColor(0.78, 0.8, 0.85)
 	loc(intro, "TOOLLP_INTRO")
 
-	local prev = intro
+	-- The whole page scrolls: cards and the command list in one scroll box. Rob, 6 Oct 2026 (screenshot): with ten
+	-- cards the command list's own scroll box was squeezed to nothing, "ik kan eronder niets meer lezen of
+	-- doorscrollen". One box for the page grows with every card that is added later.
+	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", intro, "BOTTOMLEFT", 0, -4)
+	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 14)
+	local page = CreateFrame("Frame", nil, scroll)
+	page:SetSize(math.max(300, (panel:GetWidth() or 600) - 58), 1)
+	scroll:SetScrollChild(page)
+	scroll:SetScript("OnSizeChanged", function(_, w)
+		if w and w > 0 then
+			page:SetWidth(w)
+		end
+	end)
+
+	local CARD_H, CARD_GAP = 50, 10
+	local prev
 	for _, tool in ipairs(TOOLS) do
-		local card = CreateFrame("Button", nil, panel)
-		card:SetHeight(50)
-		card:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -10)
-		card:SetPoint("RIGHT", panel, "RIGHT", -14, 0)
+		local card = CreateFrame("Button", nil, page)
+		card:SetHeight(CARD_H)
+		if prev then
+			card:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -CARD_GAP)
+		else
+			card:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -6)
+		end
+		card:SetPoint("RIGHT", page, "RIGHT", 0, 0)
 
 		local bg = card:CreateTexture(nil, "BACKGROUND")
 		bg:SetAllPoints()
@@ -181,8 +201,15 @@ function ns.BuildToolsLaunchpad(panel)
 	-- Every command, under the five cards. The cards are the tools you open; the
 	-- list is everything else the addon answers to, which until now lived only in
 	-- the source and half of it not even on the store page.
+	local cardsH = 6 + #TOOLS * (CARD_H + CARD_GAP)
+	page:SetHeight(cardsH + 10)
 	if ns.BuildCommandList then
-		ns.BuildCommandList(panel, prev)
+		ns.BuildCommandList(page, prev, {
+			flat = true,
+			onHeight = function(h)
+				page:SetHeight(cardsH + h + 20)
+			end,
+		})
 	end
 
 	-- Build may have run before the locale resolver set the active pack; re-apply
