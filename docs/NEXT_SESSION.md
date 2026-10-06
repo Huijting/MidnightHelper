@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## 🔘 6 okt — rondje /mh-commando's → knoppen (Rob: "doe het rondje langs de commando's")
+Inventaris in `docs/COMMANDS_AUDIT_2026-10-06.md` (mh-research): 25 nuttig zonder knop, 121 debug. Plus 5 gevonden
+fouten (o.a. `/mh scorecard` zet uit via de zoekbalk, `/mh delves` opent het verkeerde scherm). NIETS gebouwd: Rob kiest
+welke groepen. Site-chat: seintje als een knopnaam verandert (KEYBLOCK_BTN_UNDO, SIDEBAR_ROOM_TOOLS, TAB_TOOLSLAUNCH,
+RAIDSHOP_TITLE, KEYBLOCK_TITLE staan in hun beta-blok). Site toont /keyblock/ pas bij de gewone v4.7.3-tag.
+
 ## 🧪 6 okt — 4.7.3 BETA UITGEBRACHT (Rob: "tekst is goed, go voor de beta"): tag `v4.7.3-beta1` op 65ddccf, gepusht
 Release-run 37423659919 stond 06:25 UTC op "in_progress" (GEMETEN, actions-API) — uitkomst nakijken. Site-chat
 ("SITE_HANDOFF.md drafts", de opvolger) geseind. Volgende stap: reacties afwachten, dan `v4.7.3` op 65ddccf (Robs go).
