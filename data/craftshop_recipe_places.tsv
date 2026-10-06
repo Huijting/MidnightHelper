@@ -1,0 +1,392 @@
+recipeID	recipe name	profession	sourceType	place name	mapID	x	y	bron	status
+1296429	Ersatz Venom Splatter	Alchemy	vendor	Construct V'anore	2393	55.66	65.89	DB2	GEMETEN-DB2
+1289744	Concentrated Silvermoon Health Potion	Alchemy	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1233135	Sunsmoke Censer	Alchemy	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1233137	Haranir Preserving Agents	Alchemy	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230864	Amani Extract	Alchemy	vendor	Magovu	2437	45.95	65.92	DB2	GEMETEN-DB2
+1233135	Sunsmoke Censer	Alchemy	vendor	Melaris	2393	47.04	51.66	DB2	GEMETEN-DB2
+1233137	Haranir Preserving Agents	Alchemy	vendor	Melaris	2393	47.04	51.66	DB2	GEMETEN-DB2
+1230883	Vicious Thalassian Flask of Honor	Alchemy	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230873	Haranir Phial of Perception	Alchemy	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1233133	Rootbound Vat	Alchemy	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1289746	Alluring Nostrum	Alchemy	vendor	Second Mate Sluggs	2512	51.64	49.78	DB2	GEMETEN-DB2
+1289745	Liquid Luster	Alchemy	vendor	Skull of Er'inye	2509	51.24	62.39	DB2	GEMETEN-DB2
+1230859	Potion of Recklessness	Alchemy	vendor	Void Researcher Anomander	2405	52.59	72.90	DB2	GEMETEN-DB2
+1233136	Riftstone	Alchemy	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1233138	Silvermoon Spire Fountain	Alchemy	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1233132	Entropic Illuminant	Alchemy	schatten-zone	Drop: Voidstorm Treasures
+1276108	Gilded Silvermoon Anvil	Blacksmithing	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1276110	Gilded Silvermoon Hanger	Blacksmithing	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1291683	Hunter's Ritual Stone	Blacksmithing	vendor	Construct V'anore	2393	55.66	65.89	DB2	GEMETEN-DB2
+1229647	Magister's Valediction	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1229648	Blood Knight's Warblade	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1229649	Bloomforged Claw	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1229650	Magister's Ritual Knife	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1229651	Magister's Mana Sword	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1229652	Blood Knight's Mercy	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1229654	Magister's Cleaver	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1230769	Sunforged Blacksmith's Hammer	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1262899	Sunforged Leatherworker's Knife	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1262905	Sunforged Skinning Knife	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1262919	Sunforged Pickaxe	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1264644	Sunforged Blacksmith's Toolbox	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1264645	Sunforged Leatherworker's Toolset	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1264646	Sunforged Needle Set	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1264651	Sunforged Sickle	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1265906	Thalassian Skeleton Key	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1276112	Masterwork Crafting Hammer	Blacksmithing	vendor	Eriden	2393	43.64	51.48	DB2	GEMETEN-DB2
+1296495	Amani Forgemaster's Workbench	Blacksmithing	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1229647	Magister's Valediction	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229648	Blood Knight's Warblade	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229649	Bloomforged Claw	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229650	Magister's Ritual Knife	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229651	Magister's Mana Sword	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229652	Blood Knight's Mercy	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229654	Magister's Cleaver	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230769	Sunforged Blacksmith's Hammer	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1262899	Sunforged Leatherworker's Knife	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1262905	Sunforged Skinning Knife	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1262919	Sunforged Pickaxe	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264644	Sunforged Blacksmith's Toolbox	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264645	Sunforged Leatherworker's Toolset	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264646	Sunforged Needle Set	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264651	Sunforged Sickle	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1265906	Thalassian Skeleton Key	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1276112	Masterwork Crafting Hammer	Blacksmithing	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229630	Thalassian Competitor's Sword	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229631	Thalassian Competitor's Greatsword	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229632	Thalassian Competitor's Skewer	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229633	Thalassian Competitor's Splitter	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229634	Thalassian Competitor's Bulwark	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229635	Thalassian Competitor's Maxim	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229636	Thalassian Competitor's Knife	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229637	Thalassian Competitor's Pickaxe	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229638	Thalassian Competitor's Plate Armguards	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229639	Thalassian Competitor's Plate Waistguard	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229640	Thalassian Competitor's Plate Pauldrons	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229641	Thalassian Competitor's Plate Helm	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229642	Thalassian Competitor's Plate Gauntlets	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229643	Thalassian Competitor's Plate Sabatons	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229644	Thalassian Competitor's Plate Greaves	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229645	Thalassian Competitor's Plate Breastplate	Blacksmithing	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1276111	Ren'dorei Anvil	Blacksmithing	vendor	Void Researcher Anomander	2405	52.59	72.90	DB2	GEMETEN-DB2
+1230766	Murder Row Fleet Feet	Blacksmithing	dungeon-baas	Murder Row (ingang) - Drop: Lithiel Cinderfury	2393	57.22	61.05	DB2-AreaPOI	GEMETEN-DB2
+1230768	Murder Row Fishhook	Blacksmithing	dungeon-baas	Murder Row (ingang) - Drop: Lithiel Cinderfury	2393	57.22	61.05	DB2-AreaPOI	GEMETEN-DB2
+1230767	Knight-Commander's Palisade	Blacksmithing	raid-baas	The Voidspire (ingang) - Drop: General Amias Bellamy	2405	45.24	64.83	DB2-AreaPOI	GEMETEN-DB2
+1229653	Blood Knight's Impetus	Blacksmithing	raid-baas	The Voidspire (ingang) - Drop: Vaelgor	2405	45.24	64.83	DB2-AreaPOI	GEMETEN-DB2
+1229655	Bloomforged Greataxe	Blacksmithing	raid-baas	The Voidspire (ingang) - Drop: Vorasius	2405	45.24	64.83	DB2-AreaPOI	GEMETEN-DB2
+1276109	Ornamental Silvermoon Hanger	Blacksmithing	overal	Gather: World Nodes
+1296496	Amani Forgemaster's Decorative Spear	Blacksmithing	vis-fles	Fishing: Thalassian Recipe in a Bottle / Recipe: Purchasable on the Auction House
+1296497	Amani Forgemaster's Rack	Blacksmithing	vis-fles	Fishing: Thalassian Recipe in a Bottle / Recipe: Purchasable on the Auction House
+1295776	Loa's Gathering	Cooking	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1295783	Venom-Spiced Cutlets	Cooking	vendor	Navigator Otoola	2512	57.20	48.20	Wowhead	KANDIDAAT
+1295777	Feast of Knowledge	Cooking	vendor	Second Mate Sluggs	2512	51.64	49.78	DB2	GEMETEN-DB2
+1259660	Flora Frenzy	Cooking	quest	Gomphusta (questgever)	2413	49.69	23.31	Zygor+Wowhead	KANDIDAAT
+1246902	Animated Sin'dorei Pick	Enchanting	vendor	Apprentice Diell	2395	43.52	47.52	DB2	GEMETEN-DB2
+1246906	Animated Sin'dorei Hammer	Enchanting	vendor	Armorer Goldcrest	2395	43.54	47.49	DB2	GEMETEN-DB2
+1236089	Enchant Ring - Silvermoon's Tenacity	Enchanting	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1246907	Spellbound Tome of Thalassian Magics	Enchanting	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1281342	Endless Codex of Blooming Light	Enchanting	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1236085	Enchant Boots - Farstrider's Hunt	Enchanting	vendor	Construct V'anore	2393	55.66	65.89	DB2	GEMETEN-DB2
+1236099	Illusory Adornment - Nature's Embrace	Enchanting	vendor	Construct V'anore	2393	55.66	65.89	DB2	GEMETEN-DB2
+1296499	Furious Tiki Mask	Enchanting	vendor	Construct V'anore	2393	55.66	65.89	DB2	GEMETEN-DB2
+1291694	Enchant Weapon - Rite of the Hash'ey	Enchanting	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1296498	Keen Hex Mask	Enchanting	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1236488	Runed Dazzling Thorium Rod	Enchanting	vendor	Lyna	2393	47.92	53.44	DB2	GEMETEN-DB2
+1236488	Runed Dazzling Thorium Rod	Enchanting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1236063	Enchant Tool - Amani Perception	Enchanting	vendor	Magovu	2437	45.95	65.92	DB2	GEMETEN-DB2
+1236065	Enchant Weapon - Strength of Halazzi	Enchanting	vendor	Magovu	2437	45.95	65.92	DB2	GEMETEN-DB2
+1281348	Endless Codex of Nature's Grace	Enchanting	vendor	Magovu	2437	45.95	65.92	DB2	GEMETEN-DB2
+1296500	Enchanted Voidwell Fish	Enchanting	vendor	Navigator Otoola	2512	57.20	48.20	Wowhead	KANDIDAAT
+1236068	Enchant Chest - Mark of the Rootwarden	Enchanting	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1236078	Enchant Tool - Haranir Multicrafting	Enchanting	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1236081	Enchant Weapon - Worldsoul Tenacity	Enchanting	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1236464	Gleeful Glamour - Haranir	Enchanting	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1246909	Self-Pouring Thalassian Sunwine	Enchanting	vendor	Neriv	2395	43.49	47.65	DB2	GEMETEN-DB2
+1236093	Enchant Tool - Ren'dorei Ingenuity	Enchanting	vendor	Void Researcher Anomander	2405	52.59	72.90	DB2	GEMETEN-DB2
+1236095	Enchant Weapon - Acuity of the Ren'dorei	Enchanting	vendor	Void Researcher Anomander	2405	52.59	72.90	DB2	GEMETEN-DB2
+1281349	Endless Codex of the Voidtouched	Enchanting	vendor	Void Researcher Anomander	2405	52.59	72.90	DB2	GEMETEN-DB2
+1246902	Animated Sin'dorei Pick	Enchanting	vendor	World Vendors
+1246906	Animated Sin'dorei Hammer	Enchanting	vendor	World Vendors
+1236054	Enchant Chest - Mark of Nalorakk	Enchanting	dungeon-baas	Den of Nalorakk (ingang) - Treasure: Chest of Proven Valor	2437	29.83	84.50	DB2-AreaPOI	GEMETEN-DB2
+1236082	Enchant Chest - Mark of the Magister	Enchanting	dungeon-baas	Magisters' Terrace (ingang) - Drop: Degentrius + Treasure: Challenger's Cache	2424	63.46	15.39	DB2-AreaPOI	GEMETEN-DB2
+1236094	Enchant Weapon - Flames of the Sin'dorei	Enchanting	dungeon-baas	Magisters' Terrace (ingang) - Drop: Degentrius + Treasure: Challenger's Cache	2424	63.46	15.39	DB2-AreaPOI	GEMETEN-DB2
+1236493	Smuggler's Enchanted Edge	Enchanting	dungeon-baas	Murder Row (ingang) - Drop: Lithiel Cinderfury	2393	57.22	61.05	DB2-AreaPOI	GEMETEN-DB2
+1236079	Enchant Weapon - Worldsoul Cradle	Enchanting	raid-baas	The Dreamrift (ingang) - Drop: Chimaerus	2413	61.38	62.89	DB2-AreaPOI	GEMETEN-DB2
+1236461	Gleeful Glamour - Blood Elf	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236463	Gleeful Glamour - Dark Iron Dwarf	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236465	Gleeful Glamour - Draenei	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236466	Gleeful Glamour - Dwarf	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236467	Gleeful Glamour - Gnome	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236468	Gleeful Glamour - Goblin	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236469	Gleeful Glamour - Highmountain Tauren	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236470	Gleeful Glamour - Human	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236471	Gleeful Glamour - Kul Tiran	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236472	Gleeful Glamour - Lightforged Draenei	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236473	Gleeful Glamour - Mag'har Orc	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236474	Gleeful Glamour - Mechagnome	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236475	Gleeful Glamour - Night Elf	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236476	Gleeful Glamour - Nightborne	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236477	Gleeful Glamour - Orc	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236478	Gleeful Glamour - Pandaren	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236479	Gleeful Glamour - Tauren	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236480	Gleeful Glamour - Troll	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236481	Gleeful Glamour - Undead	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236482	Gleeful Glamour - Void Elf	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236483	Gleeful Glamour - Vulpera	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236484	Gleeful Glamour - Worgen	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236485	Gleeful Glamour - Zandalari Troll	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236594	Gleeful Glamour - Earthen	Enchanting	trainer (Jennara Sunglow)	Jennara Sunglow (254051), bovenverdieping	2393	39.54	51.00	Zygor+Wowhead	KANDIDAAT
+1236056	Enchant Helm - Empowered Hex of Leeching	Enchanting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1236062	Enchant Shoulders - Akil'zon's Swiftness	Enchanting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1236072	Enchant Boots - Shaladrassil's Roots	Enchanting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1236074	Enchant Ring - Nature's Fury	Enchanting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1236076	Enchant Shoulders - Amirdrassil's Grace	Enchanting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1236084	Enchant Helm - Empowered Rune of Avoidance	Enchanting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1246908	Rootflame Campfire	Enchanting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1246903	Ren'dorei Postal Repository	Enchanting	schatten-zone	Drop: Voidstorm Treasures
+1236059	Enchant Ring - Eyes of the Eagle	Enchanting	schatten-zone	Drop: Zul'Aman Treasures
+1236100	Illusory Adornment - Voidtouched	Enchanting	pinnacle-kist	Drop: Victorious Stormarion Pinnacle Cache
+1296501	Coiled Amani Hookshot	Engineering	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1264523	Head-Mounted Beam Bummer	Engineering	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264524	Rock Bonkin' Hardhat	Engineering	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264525	Heavy-Duty Rock Assister	Engineering	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264526	Self-Sharpening Sin'dorei Snippers	Engineering	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264527	Sin'dorei Reeler's Rod	Engineering	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264528	Giga-Gem Grippers	Engineering	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264529	Turbo-Junker's Multitool v9	Engineering	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229908	Thalassian Competitor's Cloth Goggles	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229909	Thalassian Competitor's Leather Optics	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229910	Thalassian Competitor's Mail Visor	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229911	Thalassian Competitor's Plate Guard	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229912	Thalassian Competitor's Cloth Cuffs	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229913	Thalassian Competitor's Leather Bands	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229914	Thalassian Competitor's Mail Links	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1229915	Thalassian Competitor's Plate Bindings	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1261490	Thalassian Competitor's Cloth Tip-Toes	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1261491	Thalassian Competitor's Leather Sliders	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1261492	Thalassian Competitor's Mail Footlinks	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1261493	Thalassian Competitor's Plate Dunkers	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1282457	Thalassian Competitor's Rifle	Engineering	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1296502	Proudmoore Ship-in-a-Bottle	Engineering	vendor	Second Mate Sluggs	2512	51.64	49.78	DB2	GEMETEN-DB2
+1264523	Head-Mounted Beam Bummer	Engineering	vendor	Yatheon	2393	43.47	53.74	DB2	GEMETEN-DB2
+1264524	Rock Bonkin' Hardhat	Engineering	vendor	Yatheon	2393	43.47	53.74	DB2	GEMETEN-DB2
+1264525	Heavy-Duty Rock Assister	Engineering	vendor	Yatheon	2393	43.47	53.74	DB2	GEMETEN-DB2
+1264526	Self-Sharpening Sin'dorei Snippers	Engineering	vendor	Yatheon	2393	43.47	53.74	DB2	GEMETEN-DB2
+1264527	Sin'dorei Reeler's Rod	Engineering	vendor	Yatheon	2393	43.47	53.74	DB2	GEMETEN-DB2
+1264528	Giga-Gem Grippers	Engineering	vendor	Yatheon	2393	43.47	53.74	DB2	GEMETEN-DB2
+1264529	Turbo-Junker's Multitool v9	Engineering	vendor	Yatheon	2393	43.47	53.74	DB2	GEMETEN-DB2
+1291687	Coiled Snake-Eye	Engineering	overal	Drop: World Creatures
+1296503	Aetherlume Field Lamp	Engineering	vis-fles	Fishing: Thalassian Recipe in a Bottle / Recipe: Purchasable on the Auction House
+1297585	R0CKY	Engineering	vis-fles	Fishing: Thalassian Recipe in a Bottle / Recipe: Purchasable on the Auction House
+1305148	R0CKY-To-Go	Engineering	vis-fles	Fishing: Thalassian Recipe in a Bottle / Recipe: Purchasable on the Auction House
+1302819	Ula'tek Snakehead Lure	Fishing	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1295922	Tokka's Multi-Ward	Fishing	vendor	Second Mate Sluggs	2512	51.64	49.78	DB2	GEMETEN-DB2
+1230051	Contract: The Silvermoon Court	Inscription	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1248619	Sturdy Ren'dorei Cask	Inscription	vendor	Construct V'anore	2393	55.66	65.89	DB2	GEMETEN-DB2
+1248628	Wild Hanging Scroll	Inscription	vendor	Construct V'anore	2393	55.66	65.89	DB2	GEMETEN-DB2
+1290561	Vantus Rune: Tides	Inscription	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1303151	Contract: Zul'jarra's Forces	Inscription	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1230043	Thalassian Missive of Deftness	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1230044	Thalassian Missive of Perception	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1230045	Thalassian Missive of Finesse	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1230046	Thalassian Missive of Crafting Speed	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1230047	Thalassian Missive of Multicraft	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1230048	Thalassian Missive of Resourcefulness	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1230049	Thalassian Missive of Ingenuity	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1248622	Homely Sin'dorei Shelf	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1248623	Lively Songwriter's Quill	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1248624	Opened Sin'dorei Scroll	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1248625	Gilded Eversong Book	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1264550	Gilded Alchemist's Mixing Rod	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1264551	Gilded Sin'dorei Rolling Pin	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1264552	Gilded Sin'dorei Quill	Inscription	vendor	Lelorian	2393	46.67	51.19	DB2	GEMETEN-DB2
+1230043	Thalassian Missive of Deftness	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230044	Thalassian Missive of Perception	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230045	Thalassian Missive of Finesse	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230046	Thalassian Missive of Crafting Speed	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230047	Thalassian Missive of Multicraft	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230048	Thalassian Missive of Resourcefulness	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230049	Thalassian Missive of Ingenuity	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1248622	Homely Sin'dorei Shelf	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1248623	Lively Songwriter's Quill	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1248624	Opened Sin'dorei Scroll	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1248625	Gilded Eversong Book	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264550	Gilded Alchemist's Mixing Rod	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264551	Gilded Sin'dorei Rolling Pin	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1264552	Gilded Sin'dorei Quill	Inscription	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230052	Contract: The Amani Tribe	Inscription	vendor	Magovu	2437	45.95	65.92	DB2	GEMETEN-DB2
+1230064	Thalassian Competitor's Lamp	Inscription	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230065	Thalassian Competitor's Staff	Inscription	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230066	Thalassian Competitor's Pillar	Inscription	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230067	Thalassian Competitor's Emblem	Inscription	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230068	Thalassian Competitor's Insignia of Alacrity	Inscription	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230069	Thalassian Competitor's Medallion	Inscription	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1260760	Thalassian Competitor's Bow	Inscription	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230053	Contract: The Hara'ti	Inscription	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1248630	Harandar Signpost	Inscription	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1248631	Magnificent Towering Bookcase	Inscription	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1248626	Sin'dorei Phoenix Quill	Inscription	vendor	Ranger Allorn	2395	43.44	47.56	DB2	GEMETEN-DB2
+1230054	Contract: The Singularity	Inscription	vendor	Void Researcher Anomander	2405	52.59	72.90	DB2	GEMETEN-DB2
+1248621	Floating Void-Touched Tome	Inscription	vendor	Void Researcher Anomander	2405	52.59	72.90	DB2	GEMETEN-DB2
+1248620	Restful Bronze Bench	Inscription	pinnacle-kist	Drop: Victorious Stormarion Pinnacle Cache
+1296505	"Cursed Gaze of Ula'tek" Mural	Inscription	vis-fles	Fishing: Thalassian Recipe in a Bottle / Recipe: Purchasable on the Auction House
+1246891	Bejeweled Sin'dorei Lyre	Jewelcrafting	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1230495	Sin'dorei Enchanter's Crystal	Jewelcrafting	vendor	Gelanthis	2393	48.01	55.03	Zygor+Wowhead	KANDIDAAT
+1230496	Sin'dorei Jeweler's Loupes	Jewelcrafting	vendor	Gelanthis	2393	48.01	55.03	Zygor+Wowhead	KANDIDAAT
+1230497	Improved Right-Handed Magnifying Glass	Jewelcrafting	vendor	Gelanthis	2393	48.01	55.03	Zygor+Wowhead	KANDIDAAT
+1230498	Sin'dorei Scribe's Spectacles	Jewelcrafting	vendor	Gelanthis	2393	48.01	55.03	Zygor+Wowhead	KANDIDAAT
+1242461	Mage-Eye Precision Loupes	Jewelcrafting	vendor	Gelanthis	2393	48.01	55.03	Zygor+Wowhead	KANDIDAAT
+1242462	Thalassian Scribe's Crystalline Lens	Jewelcrafting	vendor	Gelanthis	2393	48.01	55.03	Zygor+Wowhead	KANDIDAAT
+1242463	Flawless Text Scrutinizers	Jewelcrafting	vendor	Gelanthis	2393	48.01	55.03	Zygor+Wowhead	KANDIDAAT
+1242464	Attuned Thalassian Rune-Prism	Jewelcrafting	vendor	Gelanthis	2393	48.01	55.03	Zygor+Wowhead	KANDIDAAT
+1230495	Sin'dorei Enchanter's Crystal	Jewelcrafting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230496	Sin'dorei Jeweler's Loupes	Jewelcrafting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230497	Improved Right-Handed Magnifying Glass	Jewelcrafting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230498	Sin'dorei Scribe's Spectacles	Jewelcrafting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1242461	Mage-Eye Precision Loupes	Jewelcrafting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1242462	Thalassian Scribe's Crystalline Lens	Jewelcrafting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1242463	Flawless Text Scrutinizers	Jewelcrafting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1242464	Attuned Thalassian Rune-Prism	Jewelcrafting	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1230479	Loa Worshiper's Band	Jewelcrafting	vendor	Magovu	2437	45.95	65.92	DB2	GEMETEN-DB2
+1230500	Determined Heliotrope	Jewelcrafting	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230501	Cognitive Heliotrope	Jewelcrafting	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230502	Enduring Heliotrope	Jewelcrafting	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230503	Thalassian Competitor's Signet	Jewelcrafting	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1230504	Thalassian Competitor's Amulet	Jewelcrafting	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1297681	Roaring Amani Garnet	Jewelcrafting	vendor	Navigator Otoola	2512	57.20	48.20	Wowhead	KANDIDAAT
+1230487	Signet of Azerothian Blessings	Jewelcrafting	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1297679	Opalescent Amani Peridot	Jewelcrafting	vendor	Second Mate Sluggs	2512	51.64	49.78	DB2	GEMETEN-DB2
+1230477	Prismatic Focusing Iris	Jewelcrafting	dungeon-baas	Nexus-Point Xenas (ingang) - Drop: Lothraxion	2405	64.98	61.78	DB2-AreaPOI	GEMETEN-DB2
+1251983	Voidstone Shielding Array	Jewelcrafting	dungeon-baas	Voidscar Arena (ingang) - Drop: Charonus	2444	53.65	33.39	DB2-AreaPOI	GEMETEN-DB2
+1230488	Thalassian Phoenix Torque	Jewelcrafting	raid-baas	March on Quel'Danas (ingang) - Drop: Belo'ren	2424	52.61	85.30	DB2-AreaPOI	GEMETEN-DB2
+1230478	Stabilizing Gemstone Bandolier	Jewelcrafting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1246893	Replica Haranir Mural	Jewelcrafting	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1246892	Resplendent Highborne Statue	Jewelcrafting	schatten-zone	Drop: Eversong Treasures
+1230470	Powerful Eversong Diamond	Jewelcrafting	overal	Drop: Midnight Dungeons
+1230471	Telluric Eversong Diamond	Jewelcrafting	overal	Drop: Midnight Dungeons
+1230472	Stoic Eversong Diamond	Jewelcrafting	overal	Drop: Midnight Dungeons
+1230473	Indecipherable Eversong Diamond	Jewelcrafting	overal	Drop: Midnight Dungeons
+1291690	Polished Ammolite	Jewelcrafting	overal	Drop: World Creatures
+1246894	Shining Sin'dorei Hourglass	Jewelcrafting	overal	Treasure: Challenger's Cache (geen zone genoemd)
+1237486	Row Walker's Deflectors	Leatherworking	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1296509	Flat Snakeskin Canopy	Leatherworking	vendor	Jan'sari the Watchful	2512	58.78	45.95	DB2	GEMETEN-DB2
+1237549	Sin'dorei Alchemist's Hat	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237550	Thalassian Alchemist's Mixcap	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237552	Sin'dorei Forgemaster's Cover	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237553	Thalassian Ironbender's Regalia	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237555	Sin'dorei Engineer's Gloves	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237556	Thalassian Scrapmaster's Gauntlets	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237558	Sin'dorei Herbalist's Backpack	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237559	Thalassian Herbtender's Cradle	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237561	Sin'dorei Jeweler's Cover	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237562	Thalassian Gemshaper's Grand Cover	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237564	Sin'dorei Leathershaper's Smock	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237565	Thalassian Hideshaper's Regalia	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237567	Sin'dorei Hunter's Pack	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237568	Thalassian Wildseeker's Workbag	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237570	Eversong Hunter's Headcover	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237571	Thalassian Wildseeker's Stridercap	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1246941	Stitched Haranir Rug	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1246942	Sturdy Haranir Chair	Leatherworking	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1237544	Forest Hunter's Armor Kit	Leatherworking	vendor	Magovu	2437	45.95	65.92	DB2	GEMETEN-DB2
+1237490	Thalassian Competitor's Leather Boots	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237491	Thalassian Competitor's Leather Chestpiece	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237492	Thalassian Competitor's Leather Gloves	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237493	Thalassian Competitor's Leather Mask	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237494	Thalassian Competitor's Leather Trousers	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237495	Thalassian Competitor's Leather Shoulderpads	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237496	Thalassian Competitor's Leather Belt	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237497	Thalassian Competitor's Leather Wristwraps	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237520	Thalassian Competitor's Chain Tunic	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237521	Thalassian Competitor's Chain Stompers	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237522	Thalassian Competitor's Chain Grips	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237523	Thalassian Competitor's Chain Cowl	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237524	Thalassian Competitor's Chain Leggings	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237525	Thalassian Competitor's Chain Epaulets	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237526	Thalassian Competitor's Chain Girdle	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237527	Thalassian Competitor's Chain Cuffs	Leatherworking	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1237498	World Tree Rootwraps	Leatherworking	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1246940	Simple Haranir Table	Leatherworking	vendor	Naynar	2413	50.95	50.73	DB2	GEMETEN-DB2
+1296511	Mounted Moby	Leatherworking	vendor	Second Mate Sluggs	2512	51.64	49.78	DB2	GEMETEN-DB2
+1237549	Sin'dorei Alchemist's Hat	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237550	Thalassian Alchemist's Mixcap	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237552	Sin'dorei Forgemaster's Cover	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237553	Thalassian Ironbender's Regalia	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237555	Sin'dorei Engineer's Gloves	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237556	Thalassian Scrapmaster's Gauntlets	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237558	Sin'dorei Herbalist's Backpack	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237559	Thalassian Herbtender's Cradle	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237561	Sin'dorei Jeweler's Cover	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237562	Thalassian Gemshaper's Grand Cover	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237564	Sin'dorei Leathershaper's Smock	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237565	Thalassian Hideshaper's Regalia	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237567	Sin'dorei Hunter's Pack	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237568	Thalassian Wildseeker's Workbag	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237570	Eversong Hunter's Headcover	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237571	Thalassian Wildseeker's Stridercap	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1246941	Stitched Haranir Rug	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1246942	Sturdy Haranir Chair	Leatherworking	vendor	Zaralda	2393	43.04	55.99	DB2	GEMETEN-DB2
+1237577	Blessed Pango Charm	Leatherworking	quest	The Medicine Loa's Shrine (questgever)	2437	38.78	44.85	Zygor+Wowhead	KANDIDAAT
+1237489	Hexwoven Strand	Leatherworking	dungeon-baas	Maisara Caverns (ingang) - Drop: Rak'tul + Treasure: Challenger's Cache	2437	43.84	39.51	DB2-AreaPOI	GEMETEN-DB2
+1237487	Row Walker's Insurance	Leatherworking	dungeon-baas	Murder Row (ingang) - Drop: Lithiel Cinderfury	2393	57.22	61.05	DB2-AreaPOI	GEMETEN-DB2
+1237517	World Tender's Trunkplate	Leatherworking	dungeon-baas	The Blinding Vale (ingang) - Drop: Ziekket	2413	26.47	78.05	DB2-AreaPOI	GEMETEN-DB2
+1237578	Primal Spore Binding	Leatherworking	dungeon-baas	The Blinding Vale (ingang) - Drop: Ziekket	2413	26.47	78.05	DB2-AreaPOI	GEMETEN-DB2
+1237515	Ranger-General's Grips	Leatherworking	dungeon-baas	Windrunner Spire (ingang) - Drop: Restless Heart + Treasure: Challenger's Cache	2395	35.45	78.83	DB2-AreaPOI	GEMETEN-DB2
+1237519	World Tender's Barkclasp	Leatherworking	raid-baas	The Dreamrift (ingang) - Drop: Chimaerus	2413	61.38	62.89	DB2-AreaPOI	GEMETEN-DB2
+1291691	Adorned Fang	Leatherworking	raid-baas	The Venomous Abyss (ingang) - Drop: The Twin Fangs	2509	47.23	22.86	DB2-AreaPOI	GEMETEN-DB2
+1237488	Row Walker's Swiftgrips	Leatherworking	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1237516	Axe-Flingin' Bands	Leatherworking	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1237518	World Tender's Rootslippers	Leatherworking	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1246943	Plush Haranir Leather Pillow	Leatherworking	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1246939	Haranir Canopy Bed	Leatherworking	schatten-zone	Drop: Harandar Treasures
+1291046	Rope Lynx Harness	Leatherworking	schatten-zone	Ritual Sites: Treasures
+1296510	Stretched Snakeskin Rack	Leatherworking	vis-fles	Fishing: Thalassian Recipe in a Bottle / Recipe: Purchasable on the Auction House
+1228975	Arcanoweave Spellthread	Tailoring	vendor	Caeris Fairdawn	2395	43.46	47.42	DB2	GEMETEN-DB2
+1228962	Elegant Artisan's Alchemy Coveralls	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1228963	Elegant Artisan's Cooking Hat	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1228964	Elegant Artisan's Enchanting Hat	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1228965	Elegant Artisan's Fishing Hat	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1228966	Elegant Artisan's Herbalism Hat	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1228967	Elegant Artisan's Tailoring Robe	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1229003	Plush Silvermoon Bed	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1246919	Chic Silvermoon Pillow	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1279123	Thalassian Alchemy Coveralls	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1279124	Thalassian Chef's Chapeau	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1279125	Thalassian Enchanter's Bonnet	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1279128	Thalassian Herbalist's Cowl	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1279129	Thalassian Tailor's Threads	Tailoring	vendor	Deynna	2393	48.23	54.31	DB2	GEMETEN-DB2
+1228962	Elegant Artisan's Alchemy Coveralls	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1228963	Elegant Artisan's Cooking Hat	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1228964	Elegant Artisan's Enchanting Hat	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1228965	Elegant Artisan's Fishing Hat	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1228966	Elegant Artisan's Herbalism Hat	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1228967	Elegant Artisan's Tailoring Robe	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1229003	Plush Silvermoon Bed	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1246919	Chic Silvermoon Pillow	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1279123	Thalassian Alchemy Coveralls	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1279124	Thalassian Chef's Chapeau	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1279125	Thalassian Enchanter's Bonnet	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1279128	Thalassian Herbalist's Cowl	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1279129	Thalassian Tailor's Threads	Tailoring	vendor	Lyrendal	2393	44.96	55.40	Zygor+Wowhead	KANDIDAAT
+1228989	Thalassian Competitor's Cloth Bands	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1228990	Thalassian Competitor's Cloth Cloak	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1228991	Thalassian Competitor's Cloth Gloves	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1228992	Thalassian Competitor's Cloth Hood	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1228993	Thalassian Competitor's Cloth Leggings	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1228994	Thalassian Competitor's Cloth Sash	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1228995	Thalassian Competitor's Cloth Shoulderpads	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1228996	Thalassian Competitor's Cloth Treads	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1228997	Thalassian Competitor's Cloth Tunic	Tailoring	vendor	Mirvedon	2393	34.01	81.25	Zygor+Wowhead	KANDIDAAT
+1296514	Tortollan Slingsack	Tailoring	vendor	Navigator Otoola	2512	57.20	48.20	Wowhead	KANDIDAAT
+1229001	Lush Telogrus Carpet	Tailoring	vendor	Void Researcher Anomander	2405	52.59	72.90	DB2	GEMETEN-DB2
+1229000	Silvermoon Curtains	Tailoring	quest	Clothes Make the Man (questgever)	2395	46.93	35.58	Zygor+Wowhead	KANDIDAAT
+1288335	Snakeskin Lining	Tailoring	dungeon-baas	Altar of Fangs (ingang) - Treasure: Altar of Fangs	2509	47.24	68.13	DB2-AreaPOI	KANDIDAAT (coord DB2, koppeling recept->dungeon afgeleid)
+1228961	Arcanoweave Lining	Tailoring	dungeon-baas	Magisters' Terrace (ingang) - Drop: Degentrius + Treasure: Challenger's Cache	2424	63.46	15.39	DB2-AreaPOI	GEMETEN-DB2
+1228987	Sunfire Sash	Tailoring	dungeon-baas	Windrunner Spire (ingang) - Drop: Restless Heart + Treasure: Challenger's Cache	2395	35.45	78.83	DB2-AreaPOI	GEMETEN-DB2
+1228974	Sunfire Silk Spellthread	Tailoring	raid-baas	The Voidspire (ingang) - Drop: Fallen-King Salhadaar	2405	45.24	64.83	DB2-AreaPOI	GEMETEN-DB2
+1228960	Sunfire Silk Lining	Tailoring	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1228988	Arcanoweave Cord	Tailoring	delve-kist	Drop: Heavy Trunk / Zone: Delves
+1229002	Luxurious Silvermoon Lounge Cushion	Tailoring	schatten-zone	Drop: Eversong Treasures
+1246929	Voidstrider Saddlebag	Tailoring	pinnacle-kist	Drop: Victorious Stormarion Pinnacle Cache
+1296512	Twilight's Blade Bedroll	Tailoring	vis-fles	Drop: Thalassian Recipe in a Bottle
