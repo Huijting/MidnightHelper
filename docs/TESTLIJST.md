@@ -122,7 +122,8 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 ## 🆕 6 okt avond — Moxie zichtbaar (alle 11 nummers door het spel bevestigd, `/mh moxie`)
 
 Deze regels stonden sinds 19 jul bewust UIT (alle geraden nummers waren fout). Nu voor het eerst aan:
-- [ ] Beroepenpaneel naast je beroepsvenster: regel "Artisan Alchemist's Moxie  25" (jouw saldo)?
+- [ ] MH-hoofdvenster → tabblad **Professions** ("Profession Treasures and Books"; NIET het paneel naast je beroepsvenster,
+  GEMETEN in Profession.lua:707/1180): regel "Artisan Alchemist's Moxie  25" (jouw saldo)?
 - [ ] Recept-tooltip bij een Moxie-recept (Camberon's Cauldron / renown-handelaar): kosten tegen je saldo — klopt het?
 - [ ] Alt-overzicht: muis over een personage → Moxie-regel in de tooltip?
 
