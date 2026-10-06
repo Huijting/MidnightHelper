@@ -6372,7 +6372,7 @@ fill("deDE", {
 	VALEERA_RUN_OTHER_FMT = "%d andere Funde",
 	VALEERA_RUN_NONE = "Diese Tiefe: noch nichts aufgesammelt. Chunks of Companion Experience, Boons und ab und zu ein besonders ergiebiger Fund zahlen alle ein — und Töten zählt auch, es ist hier drin also nichts umsonst.",
 	VALEERA_LEFT_FMT = "Noch %s. Jede Tiefe zahlt darauf ein; |cffffffffBountiful|r-Tiefen bringen mehr.",
-	VALEERA_OFF_HINT = "Valeeras Tiefen-Fenster ist aus. Mit |cffffff00/mh valeera|r oder über die Karte \"Pop-out windows\" kommt es zurück.",
+	VALEERA_OFF_HINT = "Valeeras Tiefen-Fenster ist aus. Mit |cffffff00/mh valeera|r oder über die Karte \"Extrafenster\" kommt es zurück.",
 	VALEERA_LEVEL = "Stufe",
 	VALEERA_MAXED = "am Maximum — hier gibt es nichts mehr zu holen.",
 	VALEERA_UNREADABLE = "Valeeras Fortschritt lässt sich gerade nicht auslesen.",
@@ -6785,7 +6785,7 @@ fill("frFR", {
 	VALEERA_RUN_OTHER_FMT = "%d autres trouvailles",
 	VALEERA_RUN_NONE = "Ce gouffre : rien de ramassé pour l'instant. Les Chunks of Companion Experience, les Boons et de temps en temps une trouvaille généreuse comptent tous — et tuer compte aussi, donc rien de ce que tu fais ici n'est perdu.",
 	VALEERA_LEFT_FMT = "%s restant. Chaque gouffre y ajoute ; les gouffres |cffffffffBountiful|r rapportent plus.",
-	VALEERA_OFF_HINT = "La fenêtre de Valeera est désactivée. Pour la revoir : |cffffff00/mh valeera|r ou la carte \"Pop-out windows\".",
+	VALEERA_OFF_HINT = "La fenêtre de Valeera est désactivée. Pour la revoir : |cffffff00/mh valeera|r ou la carte \"Fenêtres détachées\".",
 	VALEERA_LEVEL = "Niveau",
 	VALEERA_MAXED = "au maximum — plus rien à gagner ici.",
 	VALEERA_UNREADABLE = "La progression de Valeera ne peut pas être lue en ce moment.",
@@ -7207,7 +7207,7 @@ fill("esES", {
 	VALEERA_RUN_OTHER_FMT = "%d otros hallazgos",
 	VALEERA_RUN_NONE = "Este delve: aún no has recogido nada. Los Chunks of Companion Experience, los Boons y de vez en cuando un hallazgo generoso suman todos — y matar también suma, así que nada de lo que hagas aquí se pierde.",
 	VALEERA_LEFT_FMT = "Falta %s. Todos los delves suman; los |cffffffffBountiful|r dan más.",
-	VALEERA_OFF_HINT = "La ventana de Valeera está desactivada. Vuelve a abrirla con |cffffff00/mh valeera|r o desde la tarjeta \"Pop-out windows\".",
+	VALEERA_OFF_HINT = "La ventana de Valeera está desactivada. Vuelve a abrirla con |cffffff00/mh valeera|r o desde la tarjeta \"Ventanas emergentes\".",
 	VALEERA_LEVEL = "Nivel",
 	VALEERA_MAXED = "al máximo — aquí ya no queda nada que ganar.",
 	VALEERA_UNREADABLE = "Ahora mismo no se puede leer el progreso de Valeera.",
@@ -7625,7 +7625,7 @@ fill("ptBR", {
 	VALEERA_RUN_OTHER_FMT = "%d outros achados",
 	VALEERA_RUN_NONE = "Este delve: ainda não recolheste nada. Os Chunks of Companion Experience, os Boons e de vez em quando um achado generoso contam todos — e matar também conta, por isso nada do que fazes aqui é desperdiçado.",
 	VALEERA_LEFT_FMT = "Faltam %s. Todo delve conta; os |cffffffffBountiful|r rendem mais.",
-	VALEERA_OFF_HINT = "A janela da Valira está desligada. Traga de volta com |cffffff00/mh valeera|r ou pelo cartão \"Pop-out windows\".",
+	VALEERA_OFF_HINT = "A janela da Valira está desligada. Traga de volta com |cffffff00/mh valeera|r ou pelo cartão \"Janelas destacadas\".",
 	VALEERA_LEVEL = "Nível",
 	VALEERA_MAXED = "no máximo — não sobrou nada para ganhar aqui.",
 	VALEERA_UNREADABLE = "Não dá para ler o progresso de Valira agora.",
@@ -8074,7 +8074,7 @@ fill("itIT", {
 	VALEERA_RUN_OTHER_FMT = "%d altri ritrovamenti",
 	VALEERA_RUN_NONE = "Questa delve: ancora niente raccolto. Chunks of Companion Experience, Boon e ogni tanto un ritrovamento generoso contribuiscono tutti — e anche uccidere conta, quindi niente di quel che fai qui è sprecato.",
 	VALEERA_LEFT_FMT = "Mancano %s. Ogni delve ci contribuisce; quelle |cffffffffBountiful|r rendono di più.",
-	VALEERA_OFF_HINT = "La finestra di Valeera è disattivata. Riportala con |cffffff00/mh valeera|r o dalla scheda \"Pop-out windows\".",
+	VALEERA_OFF_HINT = "La finestra di Valeera è disattivata. Riportala con |cffffff00/mh valeera|r o dalla scheda \"Finestre separate\".",
 	VALEERA_LEVEL = "Livello",
 	VALEERA_MAXED = "al massimo — non c'è più nulla da guadagnare qui.",
 	VALEERA_UNREADABLE = "I progressi di Valeera non si riescono a leggere in questo momento.",
@@ -13866,4 +13866,101 @@ fill("itIT", {
 	CRAFTSHOP_TIP_CLOTH = "Cade dai nemici umanoidi. Chiunque può raccoglierla.",
 	CRAFTSHOP_NOTE_MEAT = "Cade dalle bestie",
 	CRAFTSHOP_TIP_MEAT = "Cade dalle bestie. Chiunque può raccoglierlo.",
+})
+
+-- 6 Oct 2026 (6): healers fight alone, recipe tooltip, Moxie. The solo list on the play card
+-- (Modules/PlayCardWindow.lua), its legend on the key block, and the two alt lines in the recipe tooltip
+-- (Modules/CraftShoppingList.lua). Self-made translations, not reviewed by a native speaker.
+-- CARD_SOLO_NOTE_* sit behind "1. Spell [key] - " on one line, so they stay short. CARD_SOLO_INTRO starts
+-- lower-case: it follows CARD_SOLO_HEAD on the same line. Single-Button Assistant stays English (as
+-- KEYBLOCK_REFUSE_ASSIST, block above). Tiger Palm stays English: no pack names it. Holy Power as the
+-- PLAYCARD_65/66/70 lines: Heilige Kraft / Puissance sacrée / Poder Sagrado / Poder Sagrado / Potere Sacro.
+-- The play card is quoted by its button text, PLAYCARD_BTN, as KEYBLOCK_GUIDE_4 does.
+-- Same round, NOT in this block: PROFACAD_CH_MOXIE_BODY and PROFACAD_CH_WEEKLY_BODY were edited in the
+-- packs themselves (deDE/frFR/esES/ptBR/itIT.lua), because fill() never replaces a value that differs from
+-- enUS. And VALEERA_OFF_HINT above now quotes TAB_TOOLSLAUNCH per language instead of "Pop-out windows".
+fill("deDE", {
+	CARD_SOLO_HEAD = "So kämpfst du allein:",
+	CARD_SOLO_INTRO = "draußen in der Welt heilt oder tankt niemand für dich. Nimm den Gegner ins Ziel und geh dann diese Liste durch (dieselbe Reihenfolge, die Blizzards eigener Single-Button Assistant nutzt).",
+	CARD_SOLO_NOKEY = "(nicht auf deinen Leisten)",
+	CARD_SOLO_NOTE_DOT = "Schaden über Zeit: einmal auf jeden Gegner",
+	CARD_SOLO_NOTE_CD = "sobald er bereit ist",
+	CARD_SOLO_NOTE_FILL = "drück das, bis der Gegner tot ist",
+	CARD_SOLO_NOTE_AOE = "bei drei oder mehr Gegnern",
+	CARD_SOLO_NOTE_EXECUTE = "wenn der Gegner unter 20% Gesundheit hat",
+	CARD_SOLO_NOTE_RANGED = "wenn der Gegner zu weit weg ist",
+	CARD_SOLO_NOTE_X3 = "ein paar Mal, dann der nächste",
+	CARD_SOLO_NOTE_AFTER = "nach Tiger Palm",
+	CARD_SOLO_NOTE_SPEND = "wenn du kannst (kostet Heilige Kraft)",
+	KEYBLOCK_SOLO_LEGEND = "Roter Rand = ein Schadenszauber: das drückst du, wenn du allein kämpfst. \"So spielst du\" zeigt sie der Reihe nach.",
+	CRAFTSHOP_TIP_KNOWN_FMT = "Schon bekannt bei: %s",
+	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Haben den Beruf, dieses Rezept noch nicht: %s",
+})
+fill("frFR", {
+	CARD_SOLO_HEAD = "Comment tu combats seul :",
+	CARD_SOLO_INTRO = "dehors, dans le monde, personne ne te soigne ni ne tanke pour toi. Cible l'ennemi, puis suis cette liste (le même ordre que le Single-Button Assistant de Blizzard).",
+	CARD_SOLO_NOKEY = "(pas sur tes barres)",
+	CARD_SOLO_NOTE_DOT = "dégâts sur la durée : une fois sur chaque ennemi",
+	CARD_SOLO_NOTE_CD = "dès qu'il est prêt",
+	CARD_SOLO_NOTE_FILL = "appuie jusqu'à ce que l'ennemi meure",
+	CARD_SOLO_NOTE_AOE = "contre trois ennemis ou plus",
+	CARD_SOLO_NOTE_EXECUTE = "quand l'ennemi a moins de 20% de vie",
+	CARD_SOLO_NOTE_RANGED = "quand l'ennemi est trop loin",
+	CARD_SOLO_NOTE_X3 = "quelques fois, puis le suivant",
+	CARD_SOLO_NOTE_AFTER = "après Tiger Palm",
+	CARD_SOLO_NOTE_SPEND = "quand tu peux (utilise la Puissance sacrée)",
+	KEYBLOCK_SOLO_LEGEND = "Bordure rouge = un sort de dégâts : ce que tu presses quand tu combats seul. \"Comment jouer\" les donne dans l'ordre.",
+	CRAFTSHOP_TIP_KNOWN_FMT = "Déjà connue par : %s",
+	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Ont le métier, pas encore cette recette : %s",
+})
+fill("esES", {
+	CARD_SOLO_HEAD = "Cómo luchas solo:",
+	CARD_SOLO_INTRO = "ahí fuera, en el mundo, nadie te cura ni tanquea por ti. Selecciona al enemigo y sigue esta lista (el mismo orden que usa el propio Single-Button Assistant de Blizzard).",
+	CARD_SOLO_NOKEY = "(no está en tus barras)",
+	CARD_SOLO_NOTE_DOT = "daño en el tiempo: una vez en cada enemigo",
+	CARD_SOLO_NOTE_CD = "en cuanto esté listo",
+	CARD_SOLO_NOTE_FILL = "púlsalo hasta que el enemigo muera",
+	CARD_SOLO_NOTE_AOE = "con tres enemigos o más",
+	CARD_SOLO_NOTE_EXECUTE = "cuando el enemigo tenga menos del 20% de salud",
+	CARD_SOLO_NOTE_RANGED = "cuando el enemigo esté demasiado lejos",
+	CARD_SOLO_NOTE_X3 = "unas cuantas veces, luego el siguiente",
+	CARD_SOLO_NOTE_AFTER = "después de Tiger Palm",
+	CARD_SOLO_NOTE_SPEND = "cuando puedas (usa Poder Sagrado)",
+	KEYBLOCK_SOLO_LEGEND = "Borde rojo = un hechizo de daño: lo que pulsas cuando luchas solo. \"Cómo jugar\" los pone en orden.",
+	CRAFTSHOP_TIP_KNOWN_FMT = "Ya la conocen: %s",
+	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Tienen la profesión, aún no esta receta: %s",
+})
+fill("ptBR", {
+	CARD_SOLO_HEAD = "Como você luta sozinho:",
+	CARD_SOLO_INTRO = "lá fora no mundo ninguém cura nem tanka por você. Selecione o inimigo e siga esta lista (a mesma ordem que o próprio Single-Button Assistant da Blizzard usa).",
+	CARD_SOLO_NOKEY = "(não está nas suas barras)",
+	CARD_SOLO_NOTE_DOT = "dano ao longo do tempo: uma vez em cada inimigo",
+	CARD_SOLO_NOTE_CD = "sempre que estiver pronto",
+	CARD_SOLO_NOTE_FILL = "aperte até o inimigo morrer",
+	CARD_SOLO_NOTE_AOE = "com três ou mais inimigos",
+	CARD_SOLO_NOTE_EXECUTE = "quando o inimigo estiver abaixo de 20% de vida",
+	CARD_SOLO_NOTE_RANGED = "quando o inimigo estiver longe demais",
+	CARD_SOLO_NOTE_X3 = "algumas vezes, depois o próximo",
+	CARD_SOLO_NOTE_AFTER = "depois de Tiger Palm",
+	CARD_SOLO_NOTE_SPEND = "quando puder (usa Poder Sagrado)",
+	KEYBLOCK_SOLO_LEGEND = "Borda vermelha = um feitiço de dano: o que você aperta quando luta sozinho. \"Como jogar\" mostra a ordem.",
+	CRAFTSHOP_TIP_KNOWN_FMT = "Já conhecem: %s",
+	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Têm a profissão, ainda não esta receita: %s",
+})
+fill("itIT", {
+	CARD_SOLO_HEAD = "Come combatti da solo:",
+	CARD_SOLO_INTRO = "fuori nel mondo nessuno ti cura né fa da tank per te. Seleziona il nemico, poi segui questa lista (lo stesso ordine che usa il Single-Button Assistant di Blizzard).",
+	CARD_SOLO_NOKEY = "(non sulle tue barre)",
+	CARD_SOLO_NOTE_DOT = "danno nel tempo: una volta su ogni nemico",
+	CARD_SOLO_NOTE_CD = "appena è pronto",
+	CARD_SOLO_NOTE_FILL = "premilo finché il nemico non muore",
+	CARD_SOLO_NOTE_AOE = "con tre o più nemici",
+	CARD_SOLO_NOTE_EXECUTE = "quando il nemico è sotto il 20% di salute",
+	CARD_SOLO_NOTE_RANGED = "quando il nemico è troppo lontano",
+	CARD_SOLO_NOTE_X3 = "qualche volta, poi il successivo",
+	CARD_SOLO_NOTE_AFTER = "dopo Tiger Palm",
+	CARD_SOLO_NOTE_SPEND = "quando puoi (usa Potere Sacro)",
+	KEYBLOCK_SOLO_LEGEND = "Bordo rosso = una spell di danno: quello che premi quando combatti da solo. \"Come si gioca\" le mette in ordine.",
+	CRAFTSHOP_TIP_KNOWN_FMT = "Già conosciuta da: %s",
+	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Hanno la professione, non ancora questa ricetta: %s",
 })

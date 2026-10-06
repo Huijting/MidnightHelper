@@ -22,7 +22,12 @@ de kaart nog Engels "Pop-out windows" terwijl TAB_TOOLSLAUNCH vertaald is.
   Alchemist's Moxie" → Config.lua ARTISANS_MOXIE_CURRENCY_CODES. ✅ Daarna `/mh moxie` (Rob, screenshot): 3256-3266 =
   Alchemist, Blacksmith, Enchanter, Engineer, Herbalist, Scribe, Jewelcrafter, Leatherworker, Miner, Skinner, Tailor →
   alle 11 ingevuld. Nog niet gezien: de Moxie-regel in het beroepenpaneel, de alt-tooltip, kosten-vergelijking in de
-  recept-tooltip (Profession.lua:910) — die gingen tot nu toe nooit aan. PROFACAD_CH_MOXIE_BODY (+patron order 30, schatten 15, per personage, Cauldron) en
+  recept-tooltip (Profession.lua:910) — die gingen tot nu toe nooit aan.
+- ✅ Vertaalronde 3 (mh-writer): CARD_SOLO_*, KEYBLOCK_SOLO_LEGEND, CRAFTSHOP_TIP_(NOT_)KNOWN_FMT (blok "6 Oct 2026 (6)");
+  PROFACAD_CH_MOXIE_BODY/_WEEKLY_BODY direct in de 5 packs (fill() overschrijft geen echte vertaling) + `check_drift
+  --mark`; VALEERA_OFF_HINT kaartnaam vertaald (5 talen + nlNL "Losse vensters"). GEMETEN: syntax, lint 0 hard,
+  locale_probe 13 keys OK, drift alleen nog de 4 oude keys. Twijfel: Camberon's Cauldron/Camberon Engels in de/fr
+  terwijl die packs Silbermond enz. vertalen; Tiger Palm Engels in de notitie. PROFACAD_CH_MOXIE_BODY (+patron order 30, schatten 15, per personage, Cauldron) en
   _WEEKLY_BODY (Darkmoon-Moxie onzeker) herschreven → drift in 5 talen.
 
 ## 🌙 STAND EIND 6 OKT (start hier) — 4.7.3 live; daarna gebouwd en gepusht, NIET uitgebracht
