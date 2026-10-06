@@ -619,9 +619,15 @@ end
 
 -- Side panel refresh when the player picks another recipe (Blizzard's own event; EventRegistry calls it securely).
 if EventRegistry and EventRegistry.RegisterCallback then
+	-- A moment LATER: our callback is registered at load, before Blizzard_Professions' own, so it runs first and read
+	-- the previous recipe from the form. Rob, 6 Oct 2026 (screenshot): Hood selected, panel said Shoulderguards.
 	EventRegistry:RegisterCallback("ProfessionsRecipeListMixin.Event.OnRecipeSelected", function()
-		if ns.RefreshProfessionSidePanel then
-			pcall(ns.RefreshProfessionSidePanel)
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0.1, function()
+				if ns.RefreshProfessionSidePanel then
+					pcall(ns.RefreshProfessionSidePanel)
+				end
+			end)
 		end
 	end, "MidnightHelperCraftShop")
 end
