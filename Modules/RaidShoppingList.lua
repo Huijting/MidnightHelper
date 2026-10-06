@@ -149,8 +149,6 @@ mailWatch:RegisterEvent("MAIL_CLOSED")
 -- mailbox unopened, so we remember what you buy at the moment you buy it). Both events are in Blizzard's
 -- AuctionHouseDocumentation 12.1 (mh-research); never seen firing in Rob's client yet. pcall: an unknown event
 -- would otherwise break the file on load.
-pcall(mailWatch.RegisterEvent, mailWatch, "COMMODITY_PURCHASED")
-pcall(mailWatch.RegisterEvent, mailWatch, "ITEM_PURCHASED")
 
 local function NoteOnWay(itemID, qty)
 	local g = MyGuid()
@@ -170,12 +168,78 @@ local function NoteOnWay(itemID, qty)
 	end
 end
 
-mailWatch:SetScript("OnEvent", function(_, event, a1, a2)
-	if event == "COMMODITY_PURCHASED" then
-		NoteOnWay(a1, a2)
+-- Rob, 6 Oct 2026 (screenshot): bought Enchant Weapon - Arcane Mastery through Auctionator, and the window did NOT
+-- show it as on its way. Which purchase event 12.1 really fires, and with what, is not measured — so: a second
+-- road (remember what is confirmed, count it when the purchase succeeds) and a probe that writes down every
+-- candidate event with its arguments to ns.db.raidShopProbe. Rob buys one thing, /reload, and we read it.
+local PURCHASE_EVENTS = { "COMMODITY_PURCHASED", "COMMODITY_PURCHASE_SUCCEEDED", "COMMODITY_PURCHASE_FAILED",
+	"ITEM_PURCHASED", "AUCTION_HOUSE_PURCHASE_COMPLETED" }
+local function Probe(line)
+	if not ns.db then
 		return
-	elseif event == "ITEM_PURCHASED" then
-		NoteOnWay(a1, 1)
+	end
+	ns.db.raidShopProbe = ns.db.raidShopProbe or {}
+	local p = ns.db.raidShopProbe
+	p[#p + 1] = (date and date("%H:%M:%S ") or "") .. line
+	while #p > 30 do
+		table.remove(p, 1)
+	end
+end
+for _, ev in ipairs(PURCHASE_EVENTS) do
+	local ok = pcall(mailWatch.RegisterEvent, mailWatch, ev)
+	if not ok then
+		Probe("unknown event: " .. ev)
+	end
+end
+
+local confirmed -- { id, n, t }: what was confirmed last, counted once the purchase succeeds
+local lastCounted = 0
+if hooksecurefunc and C_AuctionHouse then
+	for _, fn in ipairs({ "StartCommoditiesPurchase", "ConfirmCommoditiesPurchase" }) do
+		if type(C_AuctionHouse[fn]) == "function" then
+			hooksecurefunc(C_AuctionHouse, fn, function(itemID, quantity)
+				Probe(("%s(%s, %s)"):format(fn, tostring(itemID), tostring(quantity)))
+				if type(itemID) == "number" then
+					confirmed = { id = itemID, n = tonumber(quantity) or 1, t = GetTime and GetTime() or 0 }
+				end
+			end)
+		end
+	end
+end
+
+--- Count one purchase once, whichever event reports it first.
+local function CountPurchase(itemID, qty)
+	local now = GetTime and GetTime() or 0
+	if now - lastCounted < 1 then
+		return -- the other event already counted this purchase
+	end
+	lastCounted = now
+	NoteOnWay(itemID, qty)
+end
+
+mailWatch:SetScript("OnEvent", function(_, event, a1, a2)
+	for _, ev in ipairs(PURCHASE_EVENTS) do
+		if ev == event then
+			Probe(("%s %s %s"):format(event, tostring(a1), tostring(a2)))
+		end
+	end
+	if event == "COMMODITY_PURCHASED" and type(a1) == "number" then
+		CountPurchase(a1, a2)
+		return
+	elseif event == "COMMODITY_PURCHASE_SUCCEEDED" then
+		local c = confirmed
+		confirmed = nil
+		if c then
+			CountPurchase(c.id, c.n)
+		end
+		return
+	elseif event == "ITEM_PURCHASED" and type(a1) == "number" then
+		CountPurchase(a1, 1)
+		return
+	elseif event == "COMMODITY_PURCHASE_FAILED" then
+		confirmed = nil
+		return
+	elseif event == "AUCTION_HOUSE_PURCHASE_COMPLETED" then
 		return
 	end
 	if event == "MAIL_SHOW" then

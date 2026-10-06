@@ -39,7 +39,11 @@ gem voor je stats). Zelfde klik/shift-klik/Auctionator. Onderweg: wat je op de A
 - [ ] Personage met een ontbrekende enchant of lege socket: staat het kopje er, met de goede naam en "Koop 1"?
 - [ ] Klik bij het veilinghuis op een enchant-rij → zoekt "Enchant Ring - Eyes of the Eagle" (bv.)?
 - [ ] Naar Auctionator: staan de enchants/gems ook in de lijst?
-- [ ] Koop iets op de AH en kijk METEEN (zonder brievenbus) in `/mh ready`: "+N in je post"?
+- GEMETEN Rob 6 okt (screenshot): gear-kopje staat er (8 rijen, "(a choice)", Buy 1/2/3) ✅, Auctionator-lijst met
+  enchants en gems ✅. Maar Enchant Weapon - Arcane Mastery gekocht → NIET als "+1 in je post". Tweede weg gebouwd
+  (Confirm/StartCommoditiesPurchase onthouden, tellen bij COMMODITY_PURCHASE_SUCCEEDED) + meting `ns.db.raidShopProbe`.
+- [ ] Koop iets op de AH en kijk METEEN (zonder brievenbus) in `/mh ready`: "+N in je post"? Daarna `/reload` → ik lees
+  `raidShopProbe`.
 - [ ] Alles in orde → is het kopje weg?
 
 ## 🆕 6 okt — `/mh ready`: brievenbus en bank tellen mee (Rob: "ja doe maar allebei")
