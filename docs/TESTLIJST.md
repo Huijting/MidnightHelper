@@ -126,6 +126,9 @@ Deze regels stonden sinds 19 jul bewust UIT (alle geraden nummers waren fout). N
   GEMETEN in Profession.lua:707/1180): regel "Artisan Alchemist's Moxie  25" (jouw saldo)?
 - [ ] Recept-tooltip bij een Moxie-recept (Camberon's Cauldron / renown-handelaar): kosten tegen je saldo — klopt het?
 - [ ] Alt-overzicht: muis over een personage → Moxie-regel in de tooltip?
+- [ ] **Account snapshot** (Rob: "Moxie-rij erbij"): onder Currencies een rij per Moxie-soort die iemand op je account heeft
+  (bv. "Artisan Herbalist's Moxie" met 460 bij dit personage)? Een alt laat pas een getal zien nadat hij één keer
+  ingelogd is na deze versie (tot dan een streepje). Ook in Tools → Currencies, met de uitleg "De eigen valuta van dat beroep…".
 
 ## 🆕 6 okt avond — healers: "Zo vecht je alleen" (Rob, Resto Druid: "hoe weet ik welke knop ik moet gebruiken?")
 

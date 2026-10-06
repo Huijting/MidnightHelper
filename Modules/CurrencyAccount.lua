@@ -38,6 +38,20 @@ local TRACKED = {
 	{ key = "corrcoin", id = 3448, name = "Corrosive Coin" },
 	{ key = "marl", id = 3316, name = "Voidlight Marl" },
 	{ key = "accolade", id = 3405, name = "Field Accolade" },
+	-- Artisan's Moxie, one per profession (Rob, 6 Oct 2026: "Moxie-rij erbij" in the Account snapshot). All eleven named by
+	-- the client itself that evening (/mh moxie: 3256 Alchemist ... 3266 Tailor; Config.lua). They share one "what it is
+	-- for" line. A Moxie nobody on the account holds is left out of both views, so only your own professions show.
+	{ key = "moxie", id = 3256, name = "Artisan Alchemist's Moxie" },
+	{ key = "moxie", id = 3257, name = "Artisan Blacksmith's Moxie" },
+	{ key = "moxie", id = 3258, name = "Artisan Enchanter's Moxie" },
+	{ key = "moxie", id = 3259, name = "Artisan Engineer's Moxie" },
+	{ key = "moxie", id = 3260, name = "Artisan Herbalist's Moxie" },
+	{ key = "moxie", id = 3261, name = "Artisan Scribe's Moxie" },
+	{ key = "moxie", id = 3262, name = "Artisan Jewelcrafter's Moxie" },
+	{ key = "moxie", id = 3263, name = "Artisan Leatherworker's Moxie" },
+	{ key = "moxie", id = 3264, name = "Artisan Miner's Moxie" },
+	{ key = "moxie", id = 3265, name = "Artisan Skinner's Moxie" },
+	{ key = "moxie", id = 3266, name = "Artisan Tailor's Moxie" },
 }
 
 local ROW_H = 18
