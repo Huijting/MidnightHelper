@@ -137,8 +137,8 @@ local ShowCopy, SetStatus
 
 local function OnRowClick(row)
 	local id = row.itemID
-	if not id then
-		return
+	if not id or row.info then
+		return -- Healthstone: nothing to buy
 	end
 	if IsModifiedClick and IsModifiedClick("CHATLINK") then
 		LinkInChat(id)
@@ -146,6 +146,7 @@ local function OnRowClick(row)
 	end
 	local name = ItemName(id)
 	if not name then
+		Refresh() -- the name was asked for; the event above redraws when it arrives
 		return
 	end
 	if not SearchAuctionHouse(name) then
@@ -279,6 +280,9 @@ local function Build()
 	end)
 	f:RegisterEvent("BAG_UPDATE_DELAYED")
 	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+	-- C_Item.RequestLoadItemDataByID answers with this one, not GET_ITEM_INFO_RECEIVED. Rob's screenshot 6 Oct 2026:
+	-- Food stayed "…" while Auctionator already had the name, so the window never heard the answer. (AFGELEID)
+	f:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 	f:Hide()
 	return f
 end
@@ -359,6 +363,7 @@ Refresh = function()
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
 		r.itemID = d.itemID
+		r.info = d.info
 		r.icon:SetTexture(ItemIcon(d.itemID))
 		r.label:SetText(L(d.labelKey))
 		r.item:SetText(ItemName(d.itemID) or (d.itemID and "…" or L("RAIDSHOP_NO_DATA")))

@@ -24,6 +24,11 @@ er is niets weggegooid.
 ## 🆕 6 okt — `/mh ready`: items klikbaar (Rob: "ik wil ze alle 4")
 
 Gebouwd, niet getest. Onderaan het venster staat nu een regel die het uitlegt.
+- GEMETEN Rob 6 okt (screenshot): klikken bij het veilinghuis zoekt meteen ✅; "Naar Auctionator" maakt de lijst
+  (Concentrated Silvermoon Health Potion x30, Potion of Recklessness x30, Hearty Royal Roast x4) ✅. Maar: Hearty Royal
+  Roast niet gevonden, en Food + Healthstone bleven "…" (klik deed dan niets). Gerepareerd: venster luistert nu ook naar
+  ITEM_DATA_LOAD_RESULT; Healthstone-rij reageert bewust niet op klikken.
+- [ ] Food-rij na `/reload`: staat de naam er nu? Typ in Blizzards zoekbalk zelf "Royal Roast": bestaat hij op de AH?
 - [ ] **Bij het veilinghuis** (Blizzards eigen tab): klik op een rij → zoekbalk krijgt de naam en hij zoekt meteen?
   Ook als je op het Auctionator-tabblad stond (hij moet dan naar Buy springen)?
 - [ ] **Zonder veilinghuis:** klik op een rij → onderaan "Ctrl+C om te kopiëren:" met de naam geselecteerd? Ctrl+C en
