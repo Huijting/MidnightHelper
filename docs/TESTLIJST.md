@@ -86,7 +86,8 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
   ~5 → 2 tekort) ✅ — eerste positieve zichting van "zelf maken". Bron "Vendor: Second Mate Sluggs, Zone: The Coiled Isle"
   ✅, Sunglass Vial "Vendor, next to your trainer" ✅. Zonder regeltje: Cursebound Globe, Neutralized Venom Clot.
   Knop toont nu het aantal ("+ Maken 1×").
-- [ ] Klik **+ Maken 1×**: wordt het recept 2×, en de status blauw "Je maakt het"?
+- [x] Rob 6 okt ✅ (2 screenshots: "+ Make 2×" bij 18/25 → "2× Silvermoon Health Potion (about 10 made)", eronder Sunglass
+  Vial 10 + Tranquility Bloom 12, potion blauw "Crafting") Klik **+ Maken N×**: recept erbij, status blauw?
 - [ ] **Wijs de weg** (Rob: "kunnen we de weg wijzen?"): een NIET-geleerd recept van de trainer → knop "Wijs de weg"
   rechts op de receptregel → pijl naar je trainer in Silvermoon? Handelaar-spul → knop "Handelaar N" → pijl naar de
   handelaar naast je trainer (koken: de herberg)? Ook met TomTom aan?
