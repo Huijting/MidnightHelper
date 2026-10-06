@@ -603,17 +603,21 @@ function ns.GetRaidShoppingData(mode)
 		end
 		return n or 0
 	end
+	-- `ids` (6 Oct 2026): the same id list the bag count uses, so the window can count mail and bank over it too.
+	local hpIds, cpIds = CategoryItemIDs(specData, "healingPotion"), CategoryItemIDs(specData, "combatPotion")
+	local flIds, foIds = CategoryItemIDs(specData, "flask"), FoodItemIDs(specData)
+	local ruIds = CategoryItemIDs(specData, "augmentRune")
 	local rows = {
 		{ key = "hpot", labelKey = "CONSREADY_HPOT", itemID = bestID("healingPotion"),
-			have = have(CategoryItemIDs(specData, "healingPotion")), need = need.hpot },
+			have = have(hpIds), need = need.hpot, ids = hpIds },
 		{ key = "cpot", labelKey = "CONSREADY_CPOT", itemID = bestID("combatPotion"),
-			have = have(CategoryItemIDs(specData, "combatPotion")), need = need.cpot },
+			have = have(cpIds), need = need.cpot, ids = cpIds },
 		{ key = "flask", labelKey = "CONSREADY_FLASK", itemID = bestID("flask"),
-			have = have(CategoryItemIDs(specData, "flask")), need = need.flask },
+			have = have(flIds), need = need.flask, ids = flIds },
 		{ key = "food", labelKey = "CONSREADY_FOOD", itemID = bestID("personalFood") or bestID("feast"),
-			have = have(FoodItemIDs(specData)), need = need.food },
+			have = have(foIds), need = need.food, ids = foIds },
 		{ key = "rune", labelKey = "CONSREADY_RUNE", itemID = bestID("augmentRune"),
-			have = have(CategoryItemIDs(specData, "augmentRune")), need = need.rune, optional = true },
+			have = have(ruIds), need = need.rune, optional = true, ids = ruIds },
 		{ key = "hs", labelKey = "CONSREADY_HS", itemID = HEALTHSTONE_IDS[1],
 			have = have(HEALTHSTONE_IDS), need = 0, info = "RAIDSHOP_HS_NOTE" },
 	}

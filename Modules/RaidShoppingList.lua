@@ -67,6 +67,127 @@ end
 local Refresh
 
 --------------------------------------------------------------------------------
+-- Mailbox and bank (Rob, 6 Oct 2026: "ik bedoelde de mail in wow om te kijken of ik niet al iets gekocht had",
+-- then "ja doe maar allebei"). Source: mh-research 6 Oct, Blizzard UI 12.1.0 (69933): GetInboxNumItems /
+-- GetInboxHeaderInfo / HasInboxItem / GetInboxItem are live globals (not deprecation aliases); the inbox can only
+-- be read after the mailbox was opened, so we keep a snapshot per character, rebuilt on every MAIL_INBOX_UPDATE
+-- while the mailbox is open. Bank and Warband bank: C_Item.GetItemCount with the flags Blizzard itself uses.
+-- Whether that count works with the bank CLOSED is NOT measured — Rob's test decides.
+--------------------------------------------------------------------------------
+
+local function MyGuid()
+	local g = UnitGUID and UnitGUID("player")
+	return type(g) == "string" and g or nil
+end
+
+local function MailSnap()
+	local g = MyGuid()
+	local all = ns.db and ns.db.raidShopMail
+	return g and all and all[g] or nil
+end
+
+local function ScanMail()
+	if not (GetInboxNumItems and GetInboxHeaderInfo and GetInboxItem and ns.db) then
+		return
+	end
+	local g = MyGuid()
+	if not g then
+		return
+	end
+	local items, complete, seen = {}, true, 0
+	local ok = pcall(function()
+		local n, total = GetInboxNumItems()
+		n = n or 0
+		seen = n -- in the SavedVariables, so a silent zero can be told apart from "never read"
+		if total and n < total then
+			complete = false -- more mail than the mailbox shows (100); counted what is visible
+		end
+		local now = time and time() or 0
+		for i = 1, n do
+			local _, _, _, _, _, cod, daysLeft, itemCount, _, _, _, _, isGM = GetInboxHeaderInfo(i)
+			-- Cash on delivery is not yours yet; GM mail is not a purchase.
+			if (itemCount or 0) > 0 and not isGM and (cod or 0) == 0 then
+				for a = 1, (ATTACHMENTS_MAX_RECEIVE or 16) do
+					if not HasInboxItem or HasInboxItem(i, a) then
+						local _, id, _, count, _, _, isCurrency = GetInboxItem(i, a)
+						if ns.IsSecretValue and (ns.IsSecretValue(id) or ns.IsSecretValue(count)) then
+							complete = false
+						elseif type(id) == "number" and not isCurrency then
+							-- AH mail is deleted after 30 days: remember when, so a stale snapshot stops counting it.
+							local e = now + (tonumber(daysLeft) or 30) * 86400
+							local rec = items[id] or { n = 0, e = e }
+							rec.n = rec.n + (tonumber(count) or 1)
+							rec.e = math.min(rec.e, e)
+							items[id] = rec
+						elseif id == nil and HasInboxItem then
+							complete = false -- item data not cached yet
+						end
+					end
+				end
+			end
+		end
+	end)
+	ns.db.raidShopMail = ns.db.raidShopMail or {}
+	ns.db.raidShopMail[g] = { t = time and time() or 0, items = items, complete = ok and complete, mails = seen }
+	if win and win:IsShown() and Refresh then
+		Refresh()
+	end
+end
+
+local mailOpen, mailPending = false, false
+local mailWatch = CreateFrame("Frame")
+mailWatch:RegisterEvent("MAIL_SHOW")
+mailWatch:RegisterEvent("MAIL_INBOX_UPDATE")
+mailWatch:RegisterEvent("MAIL_CLOSED")
+mailWatch:SetScript("OnEvent", function(_, event)
+	if event == "MAIL_SHOW" then
+		mailOpen = true
+	elseif event == "MAIL_CLOSED" then
+		mailOpen = false
+	elseif event == "MAIL_INBOX_UPDATE" and mailOpen and not mailPending then
+		-- "Open all" fires this many times: one scan, a moment after the last.
+		mailPending = true
+		C_Timer.After(0.3, function()
+			mailPending = false
+			ScanMail()
+		end)
+	end
+end)
+
+--- How many of these items wait in the mailbox (as seen on the last visit; expired mail not counted).
+local function MailCount(ids)
+	local s = MailSnap()
+	if not (s and s.items and type(ids) == "table") then
+		return 0
+	end
+	local now = time and time() or 0
+	local n = 0
+	for _, id in ipairs(ids) do
+		local rec = s.items[id]
+		if rec and (rec.e or 0) > now then
+			n = n + (rec.n or 0)
+		end
+	end
+	return n
+end
+
+--- Bank + Warband bank: total with everything minus what is in the bags.
+local function BankCount(ids)
+	if type(ids) ~= "table" or not (C_Item and C_Item.GetItemCount) then
+		return 0
+	end
+	local n = 0
+	for _, id in ipairs(ids) do
+		local ok1, bags = pcall(C_Item.GetItemCount, id)
+		local ok2, all = pcall(C_Item.GetItemCount, id, true, false, true, true)
+		if ok1 and ok2 and type(bags) == "number" and type(all) == "number" and all > bags then
+			n = n + (all - bags)
+		end
+	end
+	return n
+end
+
+--------------------------------------------------------------------------------
 -- Buying (Rob, 6 Oct 2026: "kunnen we de items clickable maken ... zodat ik die eenvoudig in de AH kan kopen?",
 -- and he wanted all four ways). Sources: mh-research 6 Oct, Blizzard UI source 12.1.0 (69933) and the installed
 -- Auctionator's public API (v1). MH never buys anything itself: it searches, the player buys.
@@ -326,6 +447,9 @@ local function Row(i)
 	r.count = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	r.count:SetPoint("RIGHT", r, "RIGHT", -110, 0)
 	r.count:SetJustifyH("RIGHT")
+	r.where = r:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	r.where:SetPoint("TOPRIGHT", r.count, "BOTTOMRIGHT", 0, -1)
+	r.where:SetJustifyH("RIGHT")
 	r.status = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	r.status:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.status:SetWidth(104)
@@ -374,9 +498,15 @@ Refresh = function()
 	local missing = 0
 	win.buyList = {}
 	for i, d in ipairs(rows) do
+		local inMail, inBank = 0, 0
+		if not d.info then
+			inMail, inBank = MailCount(d.ids), BankCount(d.ids)
+		end
+		local away = inMail + inBank
+		local toBuy = (d.have and d.need > d.have + away) and (d.need - d.have - away) or 0
 		-- Optional rows (the augment rune) go along too: Rob, 6 Oct 2026, "ook de rune kwam niet in de shopping list".
-		if d.itemID and not d.info and d.have and d.need > d.have then
-			win.buyList[#win.buyList + 1] = { id = d.itemID, qty = d.need - d.have }
+		if d.itemID and not d.info and toBuy > 0 then
+			win.buyList[#win.buyList + 1] = { id = d.itemID, qty = toBuy }
 		end
 		local r = Row(i)
 		r:ClearAllPoints()
@@ -401,13 +531,28 @@ Refresh = function()
 			r.status:SetText("|cff40ff40" .. L("RAIDSHOP_ENOUGH") .. "|r")
 		else
 			r.count:SetText(("%d / %d"):format(d.have, d.need))
-			if d.optional then
-				r.status:SetText("|cffe8c36a" .. L("RAIDSHOP_OPTIONAL_FMT"):format(d.need - d.have) .. "|r")
+			if toBuy == 0 then
+				-- Enough, but not all in the bags yet: go and get it. (Rob, 6 Oct 2026: "kijken of ik niet al iets
+				-- gekocht had" — what you bought waits in the mailbox.)
+				r.status:SetText("|cffffd100" .. L("RAIDSHOP_PICKUP") .. "|r")
+			elseif d.optional then
+				r.status:SetText("|cffe8c36a" .. L("RAIDSHOP_OPTIONAL_FMT"):format(toBuy) .. "|r")
 			else
 				missing = missing + 1
-				r.status:SetText("|cffff5555" .. L("RAIDSHOP_BUY_FMT"):format(d.need - d.have) .. "|r")
+				r.status:SetText("|cffff5555" .. L("RAIDSHOP_BUY_FMT"):format(toBuy) .. "|r")
 			end
 		end
+		-- Where the rest is, on its own small line: never silently added to "have".
+		local where = {}
+		if inMail > 0 then
+			where[#where + 1] = L("RAIDSHOP_IN_MAIL_FMT"):format(inMail)
+		end
+		if inBank > 0 then
+			where[#where + 1] = L("RAIDSHOP_IN_BANK_FMT"):format(inBank)
+		end
+		r.where:SetText(table.concat(where, ", "))
+		r.count:ClearAllPoints()
+		r.count:SetPoint("RIGHT", r, "RIGHT", -110, #where > 0 and 6 or 0)
 		r:Show()
 		y = y - ROW_H
 	end

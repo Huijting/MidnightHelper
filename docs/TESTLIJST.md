@@ -21,6 +21,21 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🔴 6 okt — Prot Paladin: verkeerde spreuk op blok D (Warband Map op Alt 1)
+
+GEMETEN in SV: namen gesorteerd, ids niet → elk onbekend id hoorde bij een andere naam. Gerepareerd (56bab86).
+Robs screenshot daarna: nog steeds Warband Map / Lift Off / Aerial Halt op Alt 1/3/4 — AFGELEID: test vóór `/reload`.
+- [ ] `/reload` → Undo → neerzetten: staan Crusader Aura, Devotion Aura en de twee Overload-herbs zelf op Alt 1-4?
+
+## 🆕 6 okt — `/mh ready`: brievenbus en bank tellen mee (Rob: "ja doe maar allebei")
+
+Gebouwd, niet getest. Per rij een klein regeltje "+N in je post" / "+N op de bank" (bank = bank + Warband-bank). Ligt
+genoeg klaar, dan staat er geel **Ophalen** in plaats van **Koop**. De post kent MH pas na één bezoek aan de brievenbus.
+- [ ] Koop iets op de AH, open de brievenbus (niet ophalen), dicht → `/mh ready`: "+N in je post"? Status "Ophalen"?
+- [ ] Haal het op: verdwijnt "+N in je post" en telt het bij je tas?
+- [ ] Iets op de bank / Warband-bank, bank DICHT, na `/reload`: "+N op de bank"? (Niet gemeten of dat dicht werkt.)
+- [ ] Naar Auctionator koopt alleen nog wat écht ontbreekt?
+
 ## 🆕 6 okt — `/mh ready`: items klikbaar (Rob: "ik wil ze alle 4")
 
 Gebouwd, niet getest. Onderaan het venster staat nu een regel die het uitlegt.
