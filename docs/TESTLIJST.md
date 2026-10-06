@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 okt — `/mh ready`: items klikbaar (Rob: "ik wil ze alle 4")
+
+Gebouwd, niet getest. Onderaan het venster staat nu een regel die het uitlegt.
+- [ ] **Bij het veilinghuis** (Blizzards eigen tab): klik op een rij → zoekbalk krijgt de naam en hij zoekt meteen?
+  Ook als je op het Auctionator-tabblad stond (hij moet dan naar Buy springen)?
+- [ ] **Zonder veilinghuis:** klik op een rij → onderaan "Ctrl+C om te kopiëren:" met de naam geselecteerd? Ctrl+C en
+  plakken in de AH-zoekbalk werkt?
+- [ ] **Shift-klik** op een rij → link in de chat?
+- [ ] Knop **Naar Auctionator** (alleen te zien met Auctionator): bij het veilinghuis → Auctionator zoekt alles wat je nog
+  moet kopen, met het aantal? Zonder veilinghuis → lijst "Midnight Helper raid" in Auctionator → Shopping?
+- [ ] Worden potions gevonden, of filtert iets ze weg (een gekozen categorie links, je eigen filters)?
+
 ## 🐛 6 okt — Hunter: "New for your key block: Primal Rage -> F1" bij elke huisdierwissel
 
 GEMETEN (Robs screenshot via site-chat). Oorzaak AFGELEID: de knop houdt Command Pet 272651, met een Ferocity-huisdier

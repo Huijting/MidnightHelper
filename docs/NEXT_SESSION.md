@@ -19,7 +19,17 @@ staat 2× identiek in B — ✅ Rob: hij heeft er echt twee.
 ## 🐛 6 okt — popup "Primal Rage -> F1" bij elke huisdierwissel — GEREPAREERD, NIET GETEST, NIET GEPUSHT
 `MissingRows` (KeyBlock.lua) telt nu ook de override van een blok-knop als aanwezig (C_Spell.GetOverrideSpell, GEMETEN
 272651→272678 in Robs client door site-chat; + C_SpellBook.FindSpellOverrideByID). Testlijst bovenaan.
-Open (Rob kiest): Primal Rage-plek 253 F1 / 255 Shift-3 → (a) id 272651 Command Pet (advies) of (b) 272678 alleen site.
+✅ Rob koos (a): Primal Rage-entry id = 272651 (Command Pet). keyblock_specs.json GEMETEN: 1164 plekken, 0 zonder id.
+
+## 🛒 6 okt — `/mh ready` items klikbaar, alle 4 manieren (Rob) — GEBOUWD, NIET GETEST, NIET GEPUSHT
+RaidShoppingList.lua, blok "Buying": klik = AH-zoekbalk (BuyTab → SetSearchText → categorie leeg → StartSearch) of
+kopieervakje; shift-klik = HandleModifiedItemClick / ChatFrameUtil.LinkItem; knop "To Auctionator" = Auctionator.API.v1
+MultiSearchAdvanced (AH open) of CreateShoppingList "Midnight Helper raid" (dicht), exact + aantal, geen tier
+(GetItemReagentQualityByItemInfo voor Midnight-consumables NIET gemeten → tier kan alles wegfilteren). Bron: mh-research
+6 okt, Blizzard UI 12.1.0.69933 + geïnstalleerde Auctionator 340 (alleen de publieke API aangeroepen, niets overgenomen;
+Auctionator = All Rights Reserved). Nieuwe keys RAIDSHOP_CLICK_HINT/COPY_LABEL/BTN_AUCTIONATOR/AUCTIONATOR_* alleen
+enUS + nlNL → vertaalronde. Ook gezien: Achievements.lua:1852/2201 gebruikt ChatEdit_InsertLink (alias achter
+loadDeprecationFallbacks) — shift-klik daar mogelijk stil kapot; niet aangeraakt.
 
 ## 🔢 6 okt — id-lijst van de site-chat toegepast (Rob: "ja pas de nummerlijst toe, Fracture mag naar 1") — LOKAAL, NIET GEPUSHT
 Bron: site-chat mh-research, wago 12.1.0.69933. Ids erbij: Bear Form 104 (survivalId), Deep Breath 1468, Blackout Kick
