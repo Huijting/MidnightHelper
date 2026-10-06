@@ -350,6 +350,7 @@ ns._mhLocales.nlNL = {
 	ALTBOARD_SHARDS_WEEK = "Shards deze week",
 	ALTBOARD_SEC_CURRENCY = "Valuta",
 	ALTBOARD_SEC_PROF = "Beroepen",
+	ALTBOARD_MOXIE = "Moxie",
 	ALTBOARD_CARD_GEAR = "Wat deze character draagt",
 	ALTBOARD_CARD_EMPTY_SLOT = "leeg",
 	ALTBOARD_CARD_NO_GEAR = "Nog geen gear vastgelegd. Log één keer in op deze character, dan staat het hier.",

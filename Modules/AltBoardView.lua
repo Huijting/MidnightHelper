@@ -238,16 +238,19 @@ local function BuildRows(entries, curGuid)
 	local list = ns.MH_TrackedCurrencies and ns.MH_TrackedCurrencies() or {}
 	local curRows = {}
 	for _, c in ipairs(list) do
-		local any = false
-		for _, e in ipairs(entries) do
-			local q = ns.MH_RecordCurrencyAmount and ns.MH_RecordCurrencyAmount(e, c)
-			if q and q > 0 then
-				any = true
-				break
+		-- Moxie is shown under its own profession below (Rob, 6 Oct 2026: "ik zie het niet zo snel die moxie hier").
+		if c.key ~= "moxie" then
+			local any = false
+			for _, e in ipairs(entries) do
+				local q = ns.MH_RecordCurrencyAmount and ns.MH_RecordCurrencyAmount(e, c)
+				if q and q > 0 then
+					any = true
+					break
+				end
 			end
-		end
-		if any then
-			curRows[#curRows + 1] = c
+			if any then
+				curRows[#curRows + 1] = c
+			end
 		end
 	end
 	if #curRows > 0 then
@@ -273,6 +276,26 @@ local function BuildRows(entries, curGuid)
 			end
 		end
 	end
+	-- Which skill line each profession name is (records saved since 6 Oct 2026 carry it as p.s), and that profession's
+	-- Moxie (the eleven ids the client named on 6 Oct 2026, Config.lua). Cooking, Fishing, Archaeology have none.
+	local MOXIE_BY_SKILL = { [171] = 3256, [164] = 3257, [333] = 3258, [202] = 3259, [182] = 3260, [773] = 3261,
+		[755] = 3262, [165] = 3263, [186] = 3264, [393] = 3265, [197] = 3266 }
+	local skillOf = {}
+	for _, e in ipairs(entries) do
+		for _, p in ipairs(type(e.profs) == "table" and e.profs or {}) do
+			if type(p.n) == "string" and tonumber(p.s) then
+				skillOf[p.n] = tonumber(p.s)
+			end
+		end
+	end
+	local function hasProf(e, pname)
+		for _, p in ipairs(type(e.profs) == "table" and e.profs or {}) do
+			if p.n == pname then
+				return true
+			end
+		end
+		return false
+	end
 	if #names > 0 then
 		section("prof", "ALTBOARD_SEC_PROF")
 		for _, pname in ipairs(names) do
@@ -293,6 +316,21 @@ local function BuildRows(entries, curGuid)
 				end
 				return ""
 			end)
+			-- Right under the profession: its Moxie, per character that has the profession.
+			local mid = MOXIE_BY_SKILL[skillOf[pname] or 0]
+			if mid then
+				local c = { id = mid }
+				line("prof", "   |cffffd100" .. ns:L("ALTBOARD_MOXIE") .. "|r", function(e)
+					if not hasProf(e, pname) then
+						return ""
+					end
+					local q, _, _, known = ns.MH_RecordCurrencyAmount(e, c)
+					if not known then
+						return "|cff6f6a80?|r" -- saved before Moxie was kept: log in once on that character
+					end
+					return "|cffffd100" .. ((BreakUpLargeNumbers and BreakUpLargeNumbers(q)) or tostring(q)) .. "|r"
+				end)
+			end
 		end
 	end
 	return rows

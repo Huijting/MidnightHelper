@@ -126,6 +126,11 @@ Deze regels stonden sinds 19 jul bewust UIT (alle geraden nummers waren fout). N
   GEMETEN in Profession.lua:707/1180): regel "Artisan Alchemist's Moxie  25" (jouw saldo)?
 - [ ] Recept-tooltip bij een Moxie-recept (Camberon's Cauldron / renown-handelaar): kosten tegen je saldo — klopt het?
 - [ ] Alt-overzicht: muis over een personage → Moxie-regel in de tooltip?
+- GEMETEN Rob 6 okt (2 screenshots): rijen "Artisan Alchemist's..." 25 en "Artisan Herbalist's M..." 460 stonden er,
+  maar tussen de Mistcrests en afgekapt — Rob: "ik zie het niet zo snel die moxie hier". Nu: Moxie uit Valuta (in de
+  snapshot), en een gouden regel **"Moxie"** direct onder elk beroep bij Beroepen.
+- [ ] `/reload` → Account snapshot → Beroepen: onder Alchemy een gouden "Moxie"-regel met 25 bij dit personage, onder
+  Herbalism 460? Alts met dat beroep: "?" tot ze één keer ingelogd zijn. Geen Moxie-regel onder Cooking/Fishing.
 - [ ] **Account snapshot** (Rob: "Moxie-rij erbij"): onder Currencies een rij per Moxie-soort die iemand op je account heeft
   (bv. "Artisan Herbalist's Moxie" met 460 bij dit personage)? Een alt laat pas een getal zien nadat hij één keer
   ingelogd is na deze versie (tot dan een streepje). Ook in Tools → Currencies, met de uitleg "De eigen valuta van dat beroep…".

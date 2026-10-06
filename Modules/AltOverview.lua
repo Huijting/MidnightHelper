@@ -434,9 +434,10 @@ local function GetPlayerProfessionsList()
 	local p1, p2, archaeology, fishing, cooking = GetProfessions()
 	for _, slot in ipairs({ p1, p2, cooking, fishing, archaeology }) do
 		if slot then
-			local ok, name, _, rank, maxRank = pcall(GetProfessionInfo, slot)
+			local ok, name, _, rank, maxRank, _, _, skillLine = pcall(GetProfessionInfo, slot)
 			if ok and type(name) == "string" and name ~= "" then
-				out[#out + 1] = { n = name, r = tonumber(rank), m = tonumber(maxRank) }
+				-- s = the base skill line (6 Oct 2026): the Account snapshot puts that profession's Moxie under it.
+				out[#out + 1] = { n = name, r = tonumber(rank), m = tonumber(maxRank), s = tonumber(skillLine) }
 			end
 		end
 	end

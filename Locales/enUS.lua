@@ -357,6 +357,7 @@ ns._mhLocales.enUS = {
 	ALTBOARD_SHARDS_WEEK = "Shards this week",
 	ALTBOARD_SEC_CURRENCY = "Currencies",
 	ALTBOARD_SEC_PROF = "Professions",
+	ALTBOARD_MOXIE = "Moxie",
 	ALTBOARD_CARD_GEAR = "What this character wears",
 	ALTBOARD_CARD_EMPTY_SLOT = "empty",
 	ALTBOARD_CARD_NO_GEAR = "No gear recorded yet. Log in on this character once and it shows up here.",
