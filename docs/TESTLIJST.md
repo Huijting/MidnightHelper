@@ -31,8 +31,12 @@ Gebouwd, niet getest. Onderaan het venster staat nu een regel die het uitlegt.
 - GEMETEN Rob 6 okt: "royal roast" → Royal Roast + Impossibly Royal Roast, géén Hearty Royal Roast; Void-Touched Augment
   Rune wel op de AH maar niet in de Auctionator-lijst (optioneel → bewust overgeslagen). Gerepareerd: Hearty-eten zoekt
   zonder "Hearty " (Auctionator niet-exact), rune gaat mee in de lijst.
-- [ ] Food-rij na `/reload`: staat de naam er? Klik bij het veilinghuis → zoekt "Royal Roast"? Naar Auctionator: 4 regels
-  (ook de rune), food niet-exact?
+- [x] Rob 6 okt ✅ (screenshot: lijst met 4 regels, Royal Roast niet-exact → Royal + Impossibly Royal Roast, rune x29)
+  Naar Auctionator: 4 regels (ook de rune), food niet-exact?
+- Rob: "andere char → wat gebeurt er met de lijst?" Gerepareerd: lijst heet nu "MH raid - <naam>" (zelfde naam wist
+  de oude lijst). De oude lijst "Midnight Helper raid" mag je zelf weggooien.
+- [ ] Op een tweede personage `/mh ready` → Naar Auctionator (zonder veilinghuis): eigen lijst "MH raid - <naam>",
+  en de lijst van het eerste personage staat er nog?
 - [ ] **Bij het veilinghuis** (Blizzards eigen tab): klik op een rij → zoekbalk krijgt de naam en hij zoekt meteen?
   Ook als je op het Auctionator-tabblad stond (hij moet dan naar Buy springen)?
 - [ ] **Zonder veilinghuis:** klik op een rij → onderaan "Ctrl+C om te kopiëren:" met de naam geselecteerd? Ctrl+C en

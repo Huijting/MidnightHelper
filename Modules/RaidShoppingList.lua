@@ -73,7 +73,14 @@ local Refresh
 --------------------------------------------------------------------------------
 
 local CALLER = "Midnight Helper"
-local LIST_NAME = "Midnight Helper raid"
+
+--- One list per character. Rob, 6 Oct 2026: "wat gebeurt er als ik naar een andere char ga ... moeten we misschien
+--- een naam meegeven?" — yes: CreateShoppingList replaces a list of the same name, so one shared name would let
+--- the next character wipe this one's list.
+local function ListName()
+	local me = UnitName and UnitName("player")
+	return (type(me) == "string" and me ~= "") and ("MH raid - " .. me) or "Midnight Helper raid"
+end
 
 local function ItemLink(id)
 	if id and C_Item and C_Item.GetItemInfo then
@@ -165,7 +172,7 @@ local function OnRowClick(row)
 end
 
 --- 4) Everything still to buy into Auctionator, with the amount filled in. At the auction house Auctionator
---- searches right away (MultiSearchAdvanced); elsewhere it becomes a shopping list "Midnight Helper raid",
+--- searches right away (MultiSearchAdvanced); elsewhere it becomes a shopping list "MH raid - <character>",
 --- replaced each time (CreateShoppingList replaces a list of the same name, so it has our own name).
 local function ToAuctionator()
 	local api = Auctionator1()
@@ -196,10 +203,10 @@ local function ToAuctionator()
 			for _, t in ipairs(terms) do
 				strings[#strings + 1] = api.ConvertToSearchString(CALLER, t)
 			end
-			api.CreateShoppingList(CALLER, LIST_NAME, strings)
+			api.CreateShoppingList(CALLER, ListName(), strings)
 		end)
 		if ok then
-			SetStatus(L("RAIDSHOP_AUCTIONATOR_LIST_FMT"):format(LIST_NAME, #terms))
+			SetStatus(L("RAIDSHOP_AUCTIONATOR_LIST_FMT"):format(ListName(), #terms))
 		end
 	end
 	if not ok then
