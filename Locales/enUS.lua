@@ -2649,7 +2649,7 @@ ns._mhLocales.enUS = {
 
 	CHANGELOG_473_0 = "Out quickly because it fixes a key block mistake from 4.7.2. Please tell us how it goes, also when everything works: Report a problem in Settings, a comment on CurseForge, or the form on midnighthelper.com. A short \"works fine on my Hunter\" helps a lot.",
 	CHANGELOG_473_1 = "Key block fix: in 4.7.2 some spells MH does not know yet got another spell's button on block D (for example the Warband Map). See something strange on an Alt key? /mh block, Undo, then place it again.",
-	CHANGELOG_473_2 = "Key block: no more Primal Rage question on every pet swap (it is your Command Pet button now). Paladin auras and herbalism Overload spells get no key. Five spells that no longer exist are gone.",
+	CHANGELOG_473_2 = "Key block: no more Primal Rage question on every pet swap (it is your Command Pet button now). Mage portals no longer land one by one on block D. Paladin auras and herbalism Overload spells get no key. Five spells that no longer exist are gone.",
 	CHANGELOG_473_3 = "Ready for the raid? (/mh ready): click a row to search the auction house, or copy the name. Shift-click links it. With Auctionator: one button makes a shopping list per character, with the amounts.",
 	CHANGELOG_473_4 = "Ready for the raid?: what waits in your mail or your (Warband) bank counts too, with \"Pick it up\" instead of \"Buy\". Missing enchants and empty sockets are on the same list.",
 	CHANGELOG_473_6 = "Buttons instead of commands. New switches in All settings (action prompt, dispel alert, bag upgrade arrows, scorecard, tank pull summary and more), five more Pop-out windows, Report a problem and What's new in Settings, and a route button on the quick bar.",

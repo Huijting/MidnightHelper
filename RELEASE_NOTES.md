@@ -5,6 +5,9 @@
 4.7.3 was a beta this morning. We release it to everyone now because it fixes a mistake in 4.7.2: on block D of the
 key block, some spells got **another spell's button** (see below). Thank you to everyone who tried the beta!
 
+**Placed the key block before?** Open `/mh block`, press **Undo**, then place it again. That clears out anything that
+landed on block D by mistake.
+
 **Tell us how it goes, also when everything works.** A short "works fine on my Hunter" helps us as much as a bug
 report. No need to write a lot:
 
@@ -43,6 +46,8 @@ Crusader Aura belonged.
 
 - **Hunters:** no more "New for your key block: Primal Rage" question every time you swap pets. Primal Rage now uses
   the button you really have: **Command Pet**.
+- **Mages:** portals and teleports no longer land one by one on block D. They already have their own fold-out
+  button. Cone of Cold now gets a free Alt key for Fire and Arcane too.
 - **Paladin auras** and the **herbalism Overload** spells no longer get a key. You rarely switch them in a fight.
 - **Five spells that no longer exist** in Midnight are gone from the list, for example Shear and Sigil of Doom.
 - Every place on the standard key blocks now has its exact spell ID, so midnighthelper.com can show the right spell and

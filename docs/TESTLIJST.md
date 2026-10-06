@@ -56,7 +56,7 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
   (items, portal-macro's), geen vreemde spreuk.
 - GEMETEN: rode regel noemde 30/31 Portals en Teleports (komen uit de flyout-scan) + bij Fire "Cone of Cold".
   Gerepareerd: spreuken uit een flyout tellen niet als "onbekend" (`ns._mhFlyoutSpells`). Cone of Cold bij Fire: Rob kiest.
-- [ ] Mage `/reload` → `/mh block`: rode regel zonder Portals/Teleports?
+- [x] Rob 6 okt ✅ (screenshot Fire: rode regel "(1): Cone of Cold") Mage `/reload` → rode regel zonder Portals/Teleports.
 
 ## 🔴 6 okt — Prot Paladin: verkeerde spreuk op blok D (Warband Map op Alt 1)
 

@@ -186,7 +186,12 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- Glacial Spike removed 17 Sep: no longer a spell, it changes Frostbolt (audit, BRON Icy Veins Frost 12.1).
 	["Frozen Orb"] = { id = 84714, category = "main_rotation", priority = 2, bindKey = "Shift+1", specs = { 64 } }, -- KeybindingData "Shift+1" [84714]; AoE + Fingers-of-Frost-CD (AoE-slot)
 	["Blizzard"] = { id = 190356, category = "main_rotation", priority = 5, bindKey = "Shift+2", specs = { 64 } }, -- KeybindingData "Shift+2" [190356]; ground-AoE
-	["Cone of Cold"] = { id = 120, category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 64 } }, -- KeybindingData "Shift+3" [120]; PBAoE-frost
+	-- Fire and Arcane (Rob's Mage, 6 Oct 2026): Cone of Cold is known there too and stood alone in the red "not in
+	-- MH's list" line. On their block it goes to a free Alt key on block D (onlyD): as a cc entry on A/B/C it pushed
+	-- Arcane Intellect off and moved four Arcane keys (measured with keyblock_specs before/after), and a key must not
+	-- change meaning for a player who already placed the block.
+	["Cone of Cold"] = { id = 120, category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 64, 62, 63 },
+		blockAs = { [62] = { onlyD = true }, [63] = { onlyD = true } } }, -- KeybindingData "Shift+3" [120]; PBAoE-frost
 	-- Comet Storm removed 17 Sep: no longer a spell, it changes Ray of Frost (audit, BRON Icy Veins Frost 12.1).
 	["Ice Barrier"] = { id = 11426, role = "defensive_1", priority = 1, specs = { 64 }, survival = "keepup", survivalOrder = 1 }, -- KeybindingData "Z" [11426]; kleine def (absorb)
 	-- Card: after Ice Block — it resets Ice Block/Ice Cold and Ice Barrier (audit BRON Icy Veins Frost).
