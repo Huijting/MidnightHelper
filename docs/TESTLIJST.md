@@ -33,8 +33,11 @@ Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:
 - Rob 6 okt: "Open Midnight Helper settings" → hernoemd naar **All settings**; "Help translate" gaf alleen chat (en
   zei op een Engelse client "enUS needs its first pack") → nu een kopieervenster; "Show me" opende zonder uitleg de
   balken-wizard → in Settings heet hij nu "Set up your bars and keys".
-- [ ] Na `/reload`: knop heet All settings? Help translate opent een venster met de links? Knop "Set up your bars and keys"?
-- [ ] **Snelbalk**: met een route (bv. een rare-route) een kaartknop: klik = overslaan, rechtsklik = stoppen, Shift-klik =
+- [x] Rob 6 okt ✅ ("ja klopt allemaal") Na `/reload`: knop heet All settings? Help translate opent een venster met de
+  links? Knop "Set up your bars and keys"? Nieuwe schakelaars staan bij All settings (of ze elk ook wérken: niet apart
+  gemeld).
+- [x] Rob 6 okt ✅ (2 screenshots: tooltips "Nearest flight master" en "Your route" met klik/rechtsklik/Shift-klik)
+  **Snelbalk**: met een route (bv. een rare-route) een kaartknop: klik = overslaan, rechtsklik = stoppen, Shift-klik =
   plan. Verdwijnt hij binnen ~2 s na stoppen? Buiten instances een vluchtmeester-knop.
 - [ ] Reparaties: `/mh debug` zegt nu "debug mode" (niet arrow-debug; dat is `/mh arrowdebug`). In de zoekbalk/lijst
   zeggen delves/scorecard/size nu wat ze echt doen.
