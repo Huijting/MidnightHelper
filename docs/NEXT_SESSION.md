@@ -3,7 +3,9 @@
 ## 🧪 6 okt — 4.7.3 BETA 2 (Rob: "push maar, en doe maar een beta2 … site chat krijgt gelijk een go")
 Notitie (RELEASE_NOTES.md = docs/CURSEFORGE_4.7.3.md, GEMETEN byte-gelijk) kreeg "New in beta 2"; CHANGELOG_473_6.
 Tag `v4.7.3-beta2` op 4779cb8; site-chat geseind met Robs go. ✅ Rob: upload gelukt, staat op CF ("onder review").
-Open bij site-chat: iconen op de /keyblock/-print groter, nog op één A4 (Robs vraag; voorstel + printvoorbeeld komt). Daarna: reacties afwachten → gewone `v4.7.3` op Robs go
+✅ Site live (b10d2e1): beta-blok beta 2, /keyblock/-print met iconen 13 mm — Rob geprint: past op één A4.
+Robs vraag "Cooldown Manager komt na reload terug": NIET MH (GEMETEN), maar CooldownManagerCentered (zet de CVar bij elke
+start op 1); Rob zette die uit, CVar blijft 0 (memory cooldown-manager-forced-on). Daarna: reacties afwachten → gewone `v4.7.3` op Robs go
 (site-nightly pakt pas dan /keyblock/ en /play/).
 
 ## 🔘 6 okt — rondje /mh-commando's → knoppen (Rob: "doe het rondje langs de commando's")
