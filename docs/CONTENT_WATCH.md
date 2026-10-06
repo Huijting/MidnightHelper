@@ -1850,3 +1850,136 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `?nocache=20261005` · wekelijkse consumables-check: `tools/check_consumables.py` (EGRESS_BLOCKED,
   uitgeweken naar Exa) op 39 Icy Veins gems-enchants-consumables-pagina's, `?nocache=20261005` op elke
   URL. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-06] 💬 **CurseForge: geen open reacties (2 draadjes, 6 berichten — ongewijzigd t.o.v.
+  gisteren).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261006a` via Exa (JSON, `pagination.totalCount` = 6 — zelfde aantal als [2026-10-05]).
+  Draadje van **MrsBoojiePanda** (debug-regel bij login) eindigt met een reply van `twelveinchy` —
+  beantwoord. Draadje van **gadrinonturalyon** (coffer-key-shards-popup, 3D-bossmodel) eindigt
+  chronologisch ook met `twelveinchy`'s laatste bericht — beantwoord. Geen enkel draadje heeft als
+  laatste bericht iemand anders dan de maintainer, dus 🔴 WAITING FOR AN ANSWER is niet van
+  toepassing vandaag. Geen nieuwe berichten sinds [2026-10-05].
+
+- [2026-10-06] 🔴 **Geen nieuwe rolling-hotfixsectie (zevende dag op "October 1, 2026"), MAAR een
+  aparte, vandaag geplaatste blue post — "Incoming Ula'tek Raid Encounter Tuning - October 6" — raakt
+  rechtstreeks meerdere spell-ID's uit onze geshipte `RAID_BOSS_ULATEK_*`-tips. Geen tegenspraak
+  gevonden, wel een stevige bevestiging én twee afgesloten open vragen uit deze watch's eigen
+  geschiedenis.** `news.blizzard.com`'s doorlopende hotfix-artikel **volledig zelf gelezen** via Exa
+  `web_fetch_exa` met `?nocache=20261006a`: bovenste sectie blijft **"October 1, 2026"**, byte-voor-
+  byte dezelfde drie regels (Druid/Feral, Hunter/Survival, Venomous-Heart-meleefix) als al verwerkt
+  — dat dekt zich met de data-wachter en PTR-wachter van vandaag, die hetzelfde zagen. **Positieve
+  controle tegen de cache-val:** `web_search_exa` op "World of Warcraft hotfixes October 5/6 2026"
+  vindt geen hotfixartikel nieuwer dan 1 okt, maar vindt wél correct gedateerde artikelen van
+  vandaag zelf — de zoekmethode kan dus wél nieuwere datums vinden, het ontbreken is dus een echte
+  afwezigheid.
+
+  ⚠️ **Twee aparte live tuningrondes gingen vandaag met de wekelijkse maintenance in, buiten de
+  rolling-hotfixpagina om (bevestigd: de PTR-wachter zag beide vanochtend als vers forumverkeer op
+  `arctium.io/blue-posts/875`):**
+  1. **"Incoming Class Tuning - October 6"** (Linxy, forumpost 2 okt, vandaag live) — pure class-/
+     PvP-balanspercentages (Unholy DK Blightfall 200%→100% plague damage, Devourer DH +8%/+10% op
+     een reeks abilities, Brewmaster Monk Quick Sip/Pretense of Instability, Mistweaver Monk
+     Invigorating Mists/Enveloping Mist +15%, Subtlety Rogue Trickster-knooppunt, Enhancement Shaman
+     +4%/+35%). Gevestigd patroon: Midnight Helper volgt geen rotatie-/balansgetallen
+     (`HealerCooldowns.lua`, `TankToolkit.lua`, `KeybindRoles_*.lua` registreren alleen spell-ID's
+     voor keybind-layout, geen percentages). Ook al bewust overgeslagen door de data-wachter vandaag
+     (`docs/PTR_12.0.7_DATA.md`, entry [2026-10-06]) — niet opnieuw als eigen vondst geteld.
+     **[RAAKT ONS NIET]**
+  2. **"Incoming Ula'tek Raid Encounter Tuning - October 6"** (Linxy, `us.forums.blizzard.com/en/wow/
+     t/incoming-ulatek-raid-encounter-tuning-october-6/2373623`, geplaatst vandaag 02:44 UTC) —
+     **volledig zelf gelezen, rechtstreeks op de officiële forumpagina, inclusief de reacties
+     eronder (geen samenvatting).** Dit is wél mijn lane: een encounter-tuningpas op precies de boss
+     waar `RAID_BOSS_ULATEK_*` (`Locales/RaidTips.lua:93-100`, zeven taalvarianten) tips over geeft.
+     Letterlijke inhoud: Spectral Coils-schade -20% (Heroic/Mythic); Warden's Protection-schade -80%,
+     minder grondmarkers bij Virulent Spit, Grasping Fangs periodieke schade -30% (Heroic/Mythic),
+     Blight Vein-duur 6→4s (Heroic/Mythic) (allemaal Stage 02); Blightscale Shrieker/Clutch- en
+     Slithering Clutch-HP -20%, Circling Prey raid-schade -30% (Heroic/Mythic), Serpent's Bite
+     Drain Rate aangepast zodat nooit meer dan 3 spelers hoeven te soaken ongeacht raidgrootte,
+     Toxic Burn-schade -30% (Mythic), Caustic Waves-golven van 7 naar 3 op Mythic (allemaal Stage 03).
+
+  📌 **Om dit te toetsen moest ik, zoals de opdracht vraagt, van onze eigen {SPELL:id}'s naar namen
+  — niet andersom.** `RAID_BOSS_ULATEK_STEPS/TANK/HEALER/DPS` noemen negen spell-ID's
+  (1300530, 1298559, 1292188, 1286860, 1301118, 1295905, 1312967, 1301510, 1300685); elk
+  opgezocht op Wowhead (`wowhead.com/spell=<id>`, via Exa, `?nocache=20261006d`, **rechtstreeks
+  gelezen, geen samenvatting**). Resultaat, MEASURED:
+  - **1300530 = Spectral Coils.** Staat in onze tip vier keer (STEPS: "a {SPELL:1300530} soak",
+    "the {SPELL:1300530} circles", "soak every {SPELL:1300530}"; HEALER: "cooldowns for
+    {SPELL:1300530}"). Vandaag -20% schade (Heroic/Mythic). Onze tekst noemt geen percentage, dus
+    niets om tegen te spreken — maar dit is wel de mechaniek waar onze tip het vaakst over gaat, nu
+    met een bevestigd cijfer erbij. **[RAAKT ONS]**
+  - **1301118 = Grasping Fangs.** STEPS: "Snap a {SPELL:1301118} chain by running away from its
+    anchor" (fase 2) en "Snap {SPELL:1301118} chains in a called order" (Heroic/Mythic fase 3).
+    Vandaag periodieke schade -30% (Heroic/Mythic). Bevestigt meteen dat `Modules/RaidCoachData.lua
+    :125-128`'s eigen herkomst-commentaar klopt: die noemt 1301118 expliciet als "Grasping Fangs"
+    via DBM, en Wowhead geeft dezelfde naam — twee onafhankelijke bronnen voor dezelfde ID, geen
+    gok. **[RAAKT ONS]**
+  - **1292188 = Caustic Waves** (niet "Phase 1 alleen" zoals de Wowhead-tekst zou doen vermoeden —
+    onze TANK-tip gebruikt hem ook los: "Swap during {SPELL:1292188}"). STEPS: "Dodge
+    {SPELL:1292188}: ... watch the tail's waves too." Vandaag: golvenaantal van 7 naar 3 op Mythic.
+    Onze tekst noemt geen aantal golven, dus geen tegenspraak — wel dezelfde mechaniek die vandaag
+    merkbaar milder wordt voor wie hem op Mythic al kent. **[RAAKT ONS]**
+  - **1286860 = Rage of the Shackled, NIET "Venomous Heart".** Wowhead: "Ula'tek rages ... Flying
+    into this rage exposes Ula'tek's Venomous Heart" — Venomous Heart is dus wat de spell blootlegt,
+    niet de naam van de spell zelf. 🔴 **Correctie op deze watch's eigen geschiedenis:** de entries
+    van [2026-09-02], [2026-09-03], [2026-10-02] en [2026-10-05] noemen 1286860 zelf steeds
+    "Venomous Heart". Onze geshipte tekst zelf beweert dit nooit (DPS-tip zegt alleen "hit {the}
+    exposed Heart", nooit de spell-ID's eigen naam) — dus geen addon-fout, puur een onnauwkeurigheid
+    in mijn eigen eerdere logboek, nu rechtgezet. Geen tuning vandaag op deze ID.
+  - **1295905 = Serpent's Bite, 1312967 = Volatile Purge — en dit sluit de "onbeslisbare" vraag van
+    [2026-09-05] af.** Die entry kon toen niet vaststellen of "Ingested Venom"/"Serpent's Bite" een
+    van de toen-geshipte soak-ID's (1300530, 1299757, 1300685) was — de tip-tekst is sindsdien
+    herschreven en gebruikt nu andere ID's. STEPS zegt nu: "{SPELL:1295905} marks three players:
+    split up and stand in their circles until it fades, then spread for {SPELL:1312967}." Wowhead
+    1295905: "shoots fangs into several players ... players within 7 yards may leech the venom to
+    remove it but become infected with Volatile Purge" — dat is "stand in hun circles" (samen
+    staan om te leechen) gevolgd door "spread" (Volatile Purge raakt spelers "near the purge").
+    Vandaags tuningregel noemt Serpent's Bite expliciet als een soak-mechaniek ("no longer need
+    more than 3 people to soak regardless of raid size"), wat bij deze lezing past. Niet 100%
+    woordelijk hetzelfde als Wowheads generieke tooltip, dus ⚠️ niet keihard bevestigd — maar wel
+    een aannemelijke match, en in elk geval geen tegenspraak. **[RAAKT ONS]**, geen actie.
+  - **1298559 = Gore Rattle, 1300685 = Soul Constrictor, 1301510 = Circling Prey.** Alle drie
+    kloppen met hun eigen tip-zinnen (staart/tank-swap, "stops a soaker from helping with the next
+    soak", "destroys the platform") — geen van deze drie kreeg vandaag een tuningregel. Ter
+    kennisgeving, geen bevinding.
+
+  **Wat vandaag WEL genoemd wordt maar NIET in onze geshipte tekst staat** (repo-breed gegrept,
+  case-insensitive, Locales/ én Modules/ én docs/): Warden's Protection (0 treffers buiten een oude
+  `docs/NEXT_SESSION_ARCHIVE.md`-regel), Virulent Spit (0 treffers, hele repo), Blight Vein (0
+  treffers in Locales/Modules, alleen in deze watch's eigen geschiedenis en `PTR_12.1_WATCH.md`),
+  Blightscale Clutch en Slithering Clutch (alleen in het dev-document `docs/PTR_S2_ENCOUNTERS.md`,
+  niet geshipt), Toxic Burn (alleen in deze watch's eigen geschiedenis). 📌 **Positieve controle,
+  zelfde repo-brede scope:** dezelfde zoekvorm vond zonder moeite "Spectral Coils", "Grasping
+  Fangs", "Caustic Waves" én "Blightscale Shrieker" (zie hierboven) — het patroon werkt dus op deze
+  schaal, de nul-treffers hierboven zijn gemeten afwezigheid. **[RAAKT ONS NIET]** voor deze zes.
+
+  ✅ **Eén naam troffen we wél aan, met NAAM in plaats van ID:** `RAID_BOSS_ULATEK_DPS`
+  (`Locales/RaidTips.lua:100`, zeven taalvarianten): "Interrupt Malice (Warden), Anguished Cry
+  (Weakened Doomscale) and, in phase 3, Vicious Echoes (Blightscale Shrieker); kill the Shriekers
+  fast." Vandaag: Blightscale Shrieker-HP -20% (Heroic/Mythic). Onze tip claimt geen HP-getal, dus
+  geen tegenspraak — een lagere HP-pool maakt "kill the Shriekers fast" eenvoudiger, niet fout.
+  MEASURED. **[RAAKT ONS]**
+
+  ⚠️ **Niet mijn terrein, alleen ter kennisgeving:** de "week van 6 okt"-start van Orin Straylights
+  extra Nebulous Voidcore (quest "Prismatic Potential" → "Umbral Blessings of the Catalyst") gaat
+  volgens Blizzards eigen 12.1.5-notes vandaag in. Dit staat al als open vraag #7 in
+  `docs/PATCH_12_1_5_CHECKLIST.md:66` ("telt de extra Voidcore van Orin mee in de bestaande
+  bonus-roll-regel van `VaultAdvisor`, of krijgt hij een eigen regel?") en als geplande rij
+  "week 6 okt" op regel 74 — niet opnieuw als eigen vondst gemeld, wel de vinger erbij dat vandaag
+  de dag is waarop dat venster opengaat. `VaultAdvisor.lua:1091`'s `VOIDCORE_SLOTS_REQUIRED = 3`
+  (het Great-Vault-knop-mechaniek) is een ander, apart systeem dan Orin's questketen en wordt door
+  vandaags nieuws niet tegengesproken. Geen actie van mij; een mens beslist.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261006a (volledig gelezen via
+  Exa) · https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261006a (volledig gelezen via Exa) ·
+  https://us.forums.blizzard.com/en/wow/t/incoming-ulatek-raid-encounter-tuning-october-6/2373623
+  (volledig gelezen via Exa, inclusief reacties) · negen Wowhead `spell=`-pagina's
+  (1300530, 1298559, 1292188, 1286860, 1301118, 1295905, 1312967, 1301510, 1300685), elk met
+  `?nocache=20261006d`, via Exa · codebase: `grep` case-insensitive over Locales/, Modules/ én
+  docs/ op alle hierboven genoemde namen, plus gerichte reads van `Locales/RaidTips.lua`,
+  `Modules/RaidCoachData.lua`, `Modules/VaultAdvisor.lua`, `docs/PATCH_12_1_5_CHECKLIST.md` —
+  allemaal vandaag gelezen · `docs/PTR_12.0.7_DATA.md` entry [2026-10-06] en `docs/PTR_12.1_WATCH.md`
+  entries [2026-10-06] als kruiscontrole (feiten niet herhaald, alleen zelf getoetst). Geen
+  actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
