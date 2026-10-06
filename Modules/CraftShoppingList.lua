@@ -887,7 +887,7 @@ Refresh = function()
 			-- You know the recipe: offer to put it on the list, as many times as covers what is missing.
 			r.makeRecipe, r.makeName = make.r, make.n
 			r.makeTimes = math.ceil(toBuy / math.max(1, make.q or 1))
-			r.make:SetText(L("CRAFTSHOP_BTN_MAKE"))
+			r.make:SetText(L("CRAFTSHOP_BTN_MAKE_FMT"):format(r.makeTimes))
 			r.make:Show()
 			r.status:Hide()
 		elseif vendor and TrainerPin(vendorSkill) then

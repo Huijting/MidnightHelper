@@ -82,6 +82,11 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
   ⚠️ Bij Robs Leatherworking-lijst vond de meting GEEN tussenproduct; dit deel is dus nog nergens positief gezien.
 - GEMETEN Rob 6 okt (screenshot, Leatherworking): rode regel "Quest: The Medicine Loa's Shrine, Zone: Zul'Aman" ✅;
   Skinning-regels groen ✅. Zonder regeltje: Mote of Wild Magic, Peerless Plumage, Dusk-Shrouded Stone (mh-research zoekt).
+- GEMETEN Rob 6 okt (screenshot, Alchemy): **+ Make** staat bij Silvermoon Health Potion (18/25, recept op de lijst maakt
+  ~5 → 2 tekort) ✅ — eerste positieve zichting van "zelf maken". Bron "Vendor: Second Mate Sluggs, Zone: The Coiled Isle"
+  ✅, Sunglass Vial "Vendor, next to your trainer" ✅. Zonder regeltje: Cursebound Globe, Neutralized Venom Clot.
+  Knop toont nu het aantal ("+ Maken 1×").
+- [ ] Klik **+ Maken 1×**: wordt het recept 2×, en de status blauw "Je maakt het"?
 - [ ] **Wijs de weg** (Rob: "kunnen we de weg wijzen?"): een NIET-geleerd recept van de trainer → knop "Wijs de weg"
   rechts op de receptregel → pijl naar je trainer in Silvermoon? Handelaar-spul → knop "Handelaar N" → pijl naar de
   handelaar naast je trainer (koken: de herberg)? Ook met TomTom aan?
