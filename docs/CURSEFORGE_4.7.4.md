@@ -14,6 +14,20 @@ report:
 
 Something looks odd? A screenshot says more than a long story.
 
+## New in beta 2
+
+- **Healers: how you fight alone.** Out in the world nobody heals or tanks for you. The play card (`/mh play`) of all
+  seven healer specs now has a short list of damage spells in order, with **your own key** behind each one. The order
+  is the one Blizzard's own Single-Button Assistant uses. On the key block picture (`/mh block`) those spells get a
+  **red border**.
+- **Which of your characters know this recipe?** Hover a Midnight recipe (in your bags, at the auction house, or a link
+  in chat): Midnight Helper lists who already knows it, and who has the profession but not the recipe yet. Each
+  character needs to open its profession once so Midnight Helper knows what it has learned.
+- **Your Moxie, finally.** Tools → Professions → Treasures & Books shows your Artisan's Moxie for each profession, and
+  the **Account snapshot** shows it right under each profession, per character. Moxie stays on the character that
+  earned it: an alt cannot send you theirs. The Profession Academy now also says where Moxie comes from (first crafts,
+  Patron Orders with a Moxie chest, the one-time profession treasures).
+
 ## Shopping for your profession (`/mh craftshop`)
 
 Asked for by one of our testers: "a list where I can see what I need for alchemy, and what I have to buy or farm".

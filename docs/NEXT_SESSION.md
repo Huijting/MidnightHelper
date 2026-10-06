@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## 🧪 6 okt avond — 4.7.4-beta2 (Rob: "go voor de beta en vertel de site chat dat ie ook mag gaan")
+Tag `v4.7.4-beta2` (zie git). Erbij: healers "Zo vecht je alleen", recept-tooltip "wie kent dit al", Moxie 11 beroepen
+(Professions-tab + onder elk beroep in de snapshot), Academy-Moxie, vertaalronde 3. Site-chat: go voor zijn push
+(/keyblock/-zwaardjes; zichtbaar pas na een gewone release). Open: ALTBOARD_MOXIE alleen enUS/nlNL; recept-tooltip en
+aftellen niet in het spel gezien. Daarna `v4.7.4` op Robs go.
+
 ## 🧪 6 okt avond — 4.7.4-beta1 UITGEBRACHT (Rob: "Go"): tag `v4.7.4-beta1` op c5dc3c9, gepusht
 Release-run 37499788595 stond 16:57 UTC in de wachtrij — uitkomst nakijken (actions-API / `gh run list`). Site-chat
 ("Site-chat MH 06-10") geseind met de functie voor de hoofdpagina. Volgende stap: beta-reacties (Cisca!), Robs tests

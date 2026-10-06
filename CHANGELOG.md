@@ -4,6 +4,12 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.4
 
+📌 **2026-10-06 (avond), beta 2 (Rob: "go voor de beta"), tag `v4.7.4-beta2`.** Erbij sinds beta 1: healers "Zo vecht je
+alleen" (`HealerSolo.lua`, speelkaart + rode rand op het blok; Rob gezien op Resto Druid en Resto Shaman); recept-tooltip
+"wie kent dit al" (`CraftShopRecipeItems.lua`, 314 items uit DB2; NIET getest); Moxie alle 11 beroepen door de client
+benoemd (Config.lua) → Professions-tab (Rob gezien: 25 / 460) en onder elk beroep in de Account snapshot (Rob: "vallen
+direct op"); Academy-Moxie-tekst; vertaalronde 3. Notitie kreeg "New in beta 2".
+
 📌 **2026-10-06, klaargezet als beta (Rob: "Ga je gang"), tag `v4.7.4-beta1` wacht op Robs go.** Notitie in
 `docs/CURSEFORGE_4.7.4.md` (identiek aan `RELEASE_NOTES.md`). Rob getest 6 okt: paneel + toevoegen, Auctionator-lijst,
 rode bron-regel, groene farm-regels, "+ Make" van begin tot eind, "Pick N", live bijwerken. NIET getest: aftellen bij
