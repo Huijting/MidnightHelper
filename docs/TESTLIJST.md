@@ -102,7 +102,9 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - GEMETEN Rob 6 okt avond (screenshot, Leatherworker, 4.7.4-beta1): knop "Show the way" bij Blessed Pango Charm (quest) ✅,
   geen knop bij een spec-recept ✅; regeltjes ronde 2 zichtbaar: Peerless Plumage groen + "Skin 2", Mote of Wild Magic,
   Dusk-Shrouded Stone, Mote of Pure Void ("Pick it up", 36 op de bank), Sin'dorei Armor Banding "You make this" ✅.
-  Nog niet gezien: de pijl zelf na een klik.
+  ✅ Rob 6 okt avond (screenshot chat): klik → "This recipe comes from a quest…" + TomTom "Quest: The Medicine Loa's
+  Shrine - 38.78, 44.85 in Zul'Aman", plus tussenstap "Portal to Silvermoon" (stond op de Coiled Isle). Quest-pijl werkt.
+  Nog niet gezien: pijl naar een handelaar, trainer of ingang.
 - [ ] **Regeltjes voor meer reagents** (6 okt, uit het tweede onderzoek): Motes ("Wild-kruiden & erts - vooral Zul'Aman"
   e.d.; groen + "Verzamel N" met Herbalism óf Mining), Thalassian Lumber, Dazzling Thorium, Petrified Root ("Delve-kisten"),
   Cursebound Globe / Neutralized Venom Clot (Coiled Isle), Peerless Plumage, Skinning-spul, prospect-stenen ("Prospect N"
