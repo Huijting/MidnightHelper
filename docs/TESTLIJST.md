@@ -38,7 +38,8 @@ Gebouwd, niet getest. Onderaan het venster staat nu een regel die het uitlegt.
 GEMETEN (Robs screenshot via site-chat). Oorzaak AFGELEID: de knop houdt Command Pet 272651, met een Ferocity-huisdier
 wordt die Primal Rage 272678, en MH zag 272678 als "nog niet op het blok". Gerepareerd in `MissingRows`: wat een knop
 wórdt (override) telt ook als aanwezig.
-- [ ] `/reload` op je Hunter, wissel een paar keer tussen Ferocity en Cunning: komt de popup nog?
+- [x] Rob 6 okt ✅ ("de popup bij de hunter komt niet meer terug") `/reload` op je Hunter, wissel een paar keer tussen
+  Ferocity en Cunning: komt de popup nog?
 
 ## 🆕 4 okt middag — Stay alive: elke rij heeft nu een spell-id (verzoek site-chat)
 

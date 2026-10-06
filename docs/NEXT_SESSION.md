@@ -16,7 +16,7 @@ Gepusht 6 okt op Robs "push maar, allebei" (3217788; site-chat pusht 359fbdf zel
 links met alle bonus-ids, tooltips = export (Wailing Bulwark 315, Pledgebearer's Mask 295). Open: "Viridescent Crusher"
 staat 2× identiek in B — ✅ Rob: hij heeft er echt twee.
 
-## 🐛 6 okt — popup "Primal Rage -> F1" bij elke huisdierwissel — GEREPAREERD, NIET GETEST, NIET GEPUSHT
+## 🐛 6 okt — popup "Primal Rage -> F1" bij elke huisdierwissel — GEREPAREERD, ✅ Rob getest ("komt niet meer terug"), NIET GEPUSHT
 `MissingRows` (KeyBlock.lua) telt nu ook de override van een blok-knop als aanwezig (C_Spell.GetOverrideSpell, GEMETEN
 272651→272678 in Robs client door site-chat; + C_SpellBook.FindSpellOverrideByID). Testlijst bovenaan.
 ✅ Rob koos (a): Primal Rage-entry id = 272651 (Command Pet). keyblock_specs.json GEMETEN: 1164 plekken, 0 zonder id.
