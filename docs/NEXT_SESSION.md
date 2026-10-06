@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🌐 6 okt — vertaalronde klaar (lokaal, NIET gepusht); site 4.7.2 live (site-chat GEMETEN)
+
+mh-writer: RAIDSHOP_* (13), KEYBLOCK_UNKNOWN_FMT, KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT in de/fr/es/pt/it (nieuw blok
+onderaan Translations2026.lua, eigen vertaling, niet nagekeken); CMDLIST_READY overschreven + `check_drift --mark`.
+GEMETEN: locale_probe alle 16 OK, syntax OK. Open (Rob kiest/test): "Hearty" Engels gelaten (clientnaam niet opgezocht);
+itIT "Stregone" vs Engelse klassennamen elders in itIT; statuskolom 104 px → "gratis vom Hexenmeister" mogelijk 2 regels,
+RAIDSHOP_NO_DATA mogelijk afgekapt (220 px) — in het spel kijken; nlNL MODE_PROG/FARM zegt "baas" (pack: 60× "boss");
+ptBR mist CONSREADY_HS. RAIDSHOP-woorden naar site-chat ("Midnight Helper site chat 06-10") gestuurd.
+Site-chat 6 okt GEMETEN live: strip 4.7.2, /keyblock/ uit 310822c (1171 plekken, 28 zonder id), Armory veld 15 live
+maar nog niet met een echte exportregel getest (Rob: één `/mh export`-regel sturen). Site-chat onderzoekt de 28 id's;
+de notfound daarvan horen eruit (opruimronde, Rob kiest) — lijst komt via de bouwchat.
+Lokaal niet gepusht: f6bdc56, 53ba8bd, d3c9431 + deze commit (wacht op Robs ok).
+
 ## 🚀 5 okt nacht — 4.7.2 UITGEBRACHT (Rob: "Go"), tag v4.7.2 op 310822c, site-chat geseind
 
 Upload-run stond om 21:19 UTC nog "queued" bij GitHub — in de ochtend nakijken of hij geslaagd is (actions-API).

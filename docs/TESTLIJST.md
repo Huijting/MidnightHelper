@@ -179,7 +179,8 @@ van een Warlock". De oude chatregels: `/mh readycheck`. Ook: ketel-flasks (Fleet
 - [ ] Wissel **Farm** ↔ **Nieuwe baas leren**: veranderen de aantallen? Onthoudt hij je keus na `/reload`?
 - [ ] Muis op een rij: tooltip van het item dat je moet kopen (beste kwaliteit)?
 - [ ] Escape sluit het venster; slepen werkt.
-- [ ] Teksten alleen Engels + Nederlands; CMDLIST_READY is in de/fr/es/pt/it nu verouderd (vertaalronde).
+- [ ] 6 okt vertaald (de/fr/es/pt/it). Op een andere taal (alleen als je zo'n client hebt): past "gratis vom
+  Hexenmeister" in de kolom, en wordt "Noch keine Empfehlung…" niet afgekapt?
 
 ## 🐛 5 okt avond — mounts op balk 7 bleven staan (Carola's Duckiesan, 4.7.0)
 
