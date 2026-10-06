@@ -5,6 +5,7 @@ Tag `v4.7.4-beta2` (zie git). Erbij: healers "Zo vecht je alleen", recept-toolti
 (Professions-tab + onder elk beroep in de snapshot), Academy-Moxie, vertaalronde 3. Site-chat: go voor zijn push
 (/keyblock/-zwaardjes; zichtbaar pas na een gewone release). Open: ALTBOARD_MOXIE alleen enUS/nlNL; recept-tooltip en
 aftellen niet in het spel gezien. Daarna `v4.7.4` op Robs go.
+🔴 Bij die gewone v4.7.4: bovenaan de notitie de beta-alinea (Rob via site-chat; staat nu in RELEASE_CHECKLIST §2).
 
 ## 🧪 6 okt avond — 4.7.4-beta1 UITGEBRACHT (Rob: "Go"): tag `v4.7.4-beta1` op c5dc3c9, gepusht
 Release-run 37499788595 stond 16:57 UTC in de wachtrij — uitkomst nakijken (actions-API / `gh run list`). Site-chat

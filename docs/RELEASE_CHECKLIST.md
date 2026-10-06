@@ -55,6 +55,12 @@ De packager uploadt dit bestand **letterlijk en volledig** (`.pkgmeta` →
   🔴 **Sinds 5 okt 2026 de vaste regel (Rob, bij 4.7.2):** een nieuwe functie of grotere wijziging gaat ALTIJD eerst als
   beta uit; spelers die mee willen testen zetten in de CurseForge-app het release type op Beta. Aanleiding: de
   toetsenblok-gaten werden pas ná 4.7.0 gevonden. Kleine reparaties mogen direct.
+- 🔴 **Bij elke GEWONE release (geen beta): bovenaan de notitie een korte alinea over de betas** (Rob, 6 okt 2026, via de
+  site-chat: *"wanneer we weer een echte release doen dan moet er ook boven aan de changelog komen dat er regelmatig
+  ook beta releases zijn en hoe mensen die aan kunnen zetten als ze sneller updates willen en evt helpen met testen"*).
+  In `RELEASE_NOTES.md` = `docs/CURSEFORGE_<ver>.md`, vóór de rest: er komen regelmatig betas; zo zet je ze aan
+  (CurseForge-app → Midnight Helper → release type op **Beta**); dan krijg je updates sneller en kun je helpen testen
+  (`/mh report`, een reactie op CurseForge, of het formulier op midnighthelper.com). Eerste keer: v4.7.4.
 
 ## 3. Taggen (dit publiceert)
 
