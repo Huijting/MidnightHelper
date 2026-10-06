@@ -92,7 +92,8 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
   this gathering profession" ✅. Maar het recept bleef "2×" staan → nu: aftellen.
 - [ ] **Aftellen:** recept 2× op de lijst, maak er één → chat "… gemaakt: nog 1× op je boodschappenlijst"? Tweede →
   "klaar, van je lijst af" en het recept is weg? Gebeurt er niets: `/mh craftshop why` → regel "craft NOT on your list".
-- [ ] **Pluk N:** kruid te kort en jij hebt Herbalism → groene status "Pluk 23" in plaats van "Koop 23"? (Erts: "Delf",
+- [x] Rob 6 okt ✅ (screenshot: Tranquility Bloom "Pick 1", Azeroot "Pick 3", Nocturnal Lotus "Pick 1", groen)
+  **Pluk N:** kruid te kort en jij hebt Herbalism → groene status "Pluk 23" in plaats van "Koop 23"? (Erts: "Delf",
   leer: "Vil".)
 - [ ] **Wijs de weg** (Rob: "kunnen we de weg wijzen?"): een NIET-geleerd recept van de trainer → knop "Wijs de weg"
   rechts op de receptregel → pijl naar je trainer in Silvermoon? Handelaar-spul → knop "Handelaar N" → pijl naar de
