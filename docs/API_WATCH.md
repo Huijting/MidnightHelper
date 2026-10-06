@@ -4083,3 +4083,140 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `git checkout -B main origin/main` heeft het rechtgezet. 📌 **Vijf dagen op rij is geen incident
     meer maar een eigenschap van de omgeving** — wie hier ooit iets automatiseert, moet er dus niet
     op rekenen dat de werkmap op een branch staat.
+
+- [2026-10-06] 🔊 **Eén echt nieuw item op mijn terrein (29 sep–6 okt): `Patch 12.1.5/API changes`
+  is na elf dagen stilte vannacht uitgebreid met de sectie `2026-09-29` — build 70077, "PTR
+  Changes 4" — met twee API-regels, waarvan één een harde GRENS op `C_UnitAuras.AddAuraSound`.
+  0 × [MOET GEFIKST].** Drie toetsbare punten, alle drie [RAAKT ONS NIET]. `TOC format` kreeg een
+  derde nacht op rij een revisie, maar dit keer is het een typefout-correctie zonder inhoud; de
+  vier andere gevolgde wikipagina's staan byte-voor-byte stil, de hotfixlijst staat nog op 1 okt,
+  en SimC heeft geen nieuwe release.
+  - 🔊 **[RAAKT ONS NIET] — `C_UnitAuras.AddAuraSound` krijgt een plafond van 5 seconden.** Nieuwe
+    sectie `===2026-09-29===` op `Patch 12.1.5/API changes`, revid **`6901394`** (Ketho, **6 okt
+    00:18:58Z**, 35432 b; was `6886717`, 25 sep, 34466 b — de pagina is dus vannacht voor het eerst
+    sinds 25 sep aangeraakt). Kopregel van de sectie letterlijk: *"Midnight 12.1.5 PTR Changes 4"*
+    **(Build 70077)**, met `{{apisummary.header|Coming in 12.1.5 PTR 4}}` en een link naar het
+    WoWUIDev-Discordkanaal. Onder de kop **`Addon Security`**, letterlijk uit de diff
+    (`action=compare&fromrev=6886717&torev=6901394`):
+    *"`C_UnitAuras.AddAuraSound` now limits any sound it plays to 5 seconds and rejects
+    throttleSeconds values greater than 5 seconds."*
+    → **GEMETEN deze run** (`grep -rn -o`, hele addon zonder `.git`/`docs`/`tools`/`dist`):
+    `AddAuraSound` **0**, `RemoveAuraSound` **0**, `throttleSeconds` **0**. 🔴 **Positieve controle
+    in dezelfde run, zelfde scope, zelfde commando:** `C_UnitAuras` **83**, `issecretvalue` **204**,
+    `CreateFrame` **766**, `C_Timer` **537**, `C_Spell` **406** — de nullen zijn echte nullen.
+    **Niets te doen.**
+    🔄 **Dit is een AANSCHERPING van het item van 22 sep** (build 69848), dat meldde dat
+    `AddAuraSound` een nieuwe *optionele* `throttleSeconds`-parameter kreeg. Toen was er geen grens
+    genoemd; nu is er één, en bovendien weigert de call een te hoge waarde in plaats van hem te
+    verlagen. 📌 **Waarom ik het ondanks nul treffers opschrijf:** dit is precies de API die op
+    24 aug als de énige weg naar een automatisch dispel-alarm is vastgelegd (zie die regel over
+    `UntrustedScriptExecution` op AuraButtons). Wordt die weg ooit alsnog gelopen, dan is 5 s het
+    plafond en is >5 s een *afwijzing*, geen clamp. Een kandidaat-ontwerp dat op een langere
+    throttle rekent, is daarmee dood vóór het geschreven is.
+  - 🔤 **[RAAKT ONS NIET] — `C_Intl.GetSortKey` geeft geen `nil` meer bij een lege string.** Zelfde
+    nieuwe sectie, kop **`Miscellaneous`**, letterlijk: *"`C_Intl.GetSortKey` no longer returns nil
+    when passed an empty string and `Enum.CollationStrength.Primary`."*
+    → **GEMETEN:** `GetSortKey` **0**, `CollationStrength` **0**, en `C_Intl` **1** — die ene is
+    `Modules/PtrProbe.lua:129`, waar de naam in de lijst `ADDED_GLOBALS` staat. Dat is géén
+    call-site: het commentaar erboven (`PtrProbe.lua:125-127`) zegt letterlijk *"Namespaces and
+    helpers 12.1.5 adds. None are in use; this records what became available, so a future feature
+    is chosen from what exists rather than from a guess."* MH noteert het bestaan van `C_Intl` dus
+    bewust en roept er niets in aan. **Niets te doen.**
+  - 🛒 **[RAAKT ONS NIET] — de bluepost die in dezelfde bewerking is bijgezet: Trading
+    Post-previews onthouden hun keuze.** `{{Bluepost}}`-blok, poster **Linxy**, datum **Sep 29,
+    2026**, titel *"Midnight: 12.1.5 PTR Development Notes"*, kop `USER INTERFACE AND
+    ACCESSIBILITY`, letterlijk: *"Preview settings on the Trading Post UI, such as "Combat
+    Animation", will now remember the player's choice when swapping between items."*
+    → **GEMETEN:** MH's `Modules/TradingPost.lua` leest uitsluitend `C_PerksProgram`, en elke
+    aanroep zit achter een `if C_PerksProgram and C_PerksProgram.<fn> then` **plus** een `pcall` —
+    `:41-42` (`GetCurrencyAmount`), `:67-68` (`GetTimeRemaining`), `:101-110`
+    (`GetAvailableVendorItemIDs`/`GetVendorItemInfo`), `:134-137`
+    (`GetAvailableCategoryIDs`/`GetCategoryInfo`). Verder **nul** treffers op
+    `hooksecurefunc.*[Tt]rading`, `Blizzard_PerksProgram` en `CombatAnimation`: MH hangt nérgens aan
+    Blizzards eigen Trading Post-frame en heeft geen preview. Dit is een gedragswijziging ín
+    Blizzards venster. **Niets te doen.**
+    📌 Deze regel stond op 1 okt al in `docs/PTR_12.1_WATCH.md` als content-item uit post #6; ik
+    voer hem hier op omdat hij vandaag voor het eerst op mijn eigen bron staat, en expliciet **niet**
+    als tweede vondst.
+  - 🔤 **[RAAKT ONS NIET] — `TOC format` is voor de derde nacht op rij bewerkt, maar deze keer is
+    het ALLEEN een typefout.** Revid **`6900914`** (P3lim, **5 okt 08:04:50Z**, 28046 b, parent
+    `6900516`) — **één byte kleiner**, en de diff bestaat uit precies één regel bij `LoadWith`:
+    *"Also causes this addon to **behaves** as LoadOnDemand"* → *"… to **behave** as
+    LoadOnDemand"*. Lege bewerkingssamenvatting. ⚠️ **Ik meld dit nadrukkelijk als niet-wijziging**,
+    want "derde nacht op rij herschreven" leest anders als nieuws terwijl er geen bewering is
+    veranderd. MH heeft `LoadWith` niet. **Niets te doen.**
+  - 🔇 **Wiki: vier van de zes gevolgde pagina's byte-voor-byte gelijk aan gisteren.**
+    `Patch 12.1.0/API changes` `6886719` (Ketho, 25 sep, 102481 b), `Patch 12.0.7/API changes`
+    `6794100` (Ketho, 4 aug, 34044 b), `API change summaries` `6883777` (Ketho, 22 sep, 7280 b),
+    `Hotfixes` `6897455` (Dark T Zeratul, 2 okt 00:25:50Z, 365799 b). 📌 **GEMETEN dat er nog geen
+    nieuwere variant bestaat:** `Patch 12.1.7/API changes` en `Patch 12.2.0/API changes` komen beide
+    terug als `"missing": true`.
+  - 📰 **Hotfixes: niets na 1 okt, op twee ONAFHANKELIJKE manieren vastgesteld.**
+    `news.blizzard.com` artikel `24296142` geeft mét `?nocache=20261006` nog altijd de titel
+    **`Hotfixes: October 1, 2026`** met exact de drie al eerder gelezen regels (Druid/Feral
+    *Rampant Ferocity*, Hunter/Survival *Wildfire Bomb* +20%, The Venomous Abyss / Ula'tek
+    *Venomous Heart*); daarnaast staat de wikipagina `Hotfixes` op dezelfde revid als gisteren.
+    ⚠️ Een **gelijke** titel is niet de cache-val; die val is een titel die *ouder* is dan wat dit
+    logboek al noemde.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.0-04` (gepubliceerd 21 aug 2026 23:15:56Z).**
+    Opgehaald via `api.github.com/repos/simulationcraft/simc-addon/releases` mét cache-buster;
+    bovenaan `12.1.0-04`, daaronder `12.1.0-03` (20 aug) en `12.1.0-02` (3 aug). **GEMETEN in de
+    code deze run:** het kopcommentaar van `Modules/SimcExport.lua:12-16` zegt *"read 30 Sep 2026 at
+    release 12.1.0-04"* — MH loopt dus niet achter, en een toets aan `ItemString` of
+    `ns.BuildSimcProfile` is deze week niet nodig.
+  - 🔇 **[RAAKT ONS NIET] — drie nieuwe `#ui-macro`-topics binnen het venster, alle drie
+    addon-aankondigingen zonder enige API-inhoud.** Op topic-id gecontroleerd, niet op titel:
+    `2373596` (*Warledger*, PvP-planner, 6 okt 02:12:54Z), `2373439` (*VoidScout*, 5 okt
+    23:20:20Z), `2373394` (*KinFolk*, 5 okt 22:23:54Z). Alle drie zijn eigen-addon-promotie voor
+    **WoW Forever**; geen van de drie noemt een API-naam, taint, een secure frame of een
+    gedragswijziging van de client. Niets om te greppen.
+    ⚠️ **Eén los detail dat ik nadrukkelijk NIET als vondst opvoer:** de Warledger-post beweert
+    *"the Field of Honor journey isn't visible to add-ons, so it can't count those Legacy points"*.
+    Dat is één spelersbewering over de **Forever**-client, niet over Retail, niet gedocumenteerd en
+    door niemand nagemeten. MH is Retail-only. Opgeschreven zodat een volgende run hem niet voor
+    nieuws aanziet.
+    ✅ **De andere `#ui-macro`-treffers sinds 29 sep staan hier al in** — op topic-id gecontroleerd:
+    `1989252`, `2276297`, `2367394`, `2366363`, `1780831`, `2370149`, `2370136`, `2306913`. Van de
+    laatste kwam post 13 (`30247959`, Xabo, 29 sep 04:25:00Z) deze keer boven; het topic is al
+    driemaal in dit logboek geteld en de post is een macro-werkomweg zonder API-naam.
+  - 🔎 **Eén WebSearch-ronde als onafhankelijke kruiscontrole, binnen het venster nul.** Wat
+    terugkwam — `SetCooldown`/`Clear` die in 12.1.5 niet meer vanuit tainted code mogen als het
+    cooldown-frame protected is, castbar-ID's die per unit-token uniek zijn, en secret sender
+    strings in `CHAT_MSG_SYSTEM` — staat allemaal op `Patch 12.1.5/API changes` of
+    `Patch 12.1.0/API changes` en is van 3 sep of eerder. ⚠️ **Dat voer ik dus NIET op als vondst
+    van vandaag**; harde regel 2 verbiedt een magere dag aanvullen met oudere items. Gelezen,
+    gedateerd, afgelegd.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `warcraft.wiki.gg` via directe `curl` deze keer **niet opnieuw geprobeerd**; op 5 okt is
+      gemeten dat de agent-proxy de CONNECT-tunnel met **403** weigert, en dat is niet iets dat
+      tussen twee runs verandert. Alle wiki-, forum- en GitHub-data komt dus via Exa.
+    - De categoriepagina `c/guides/ui-macro/35.json` opnieuw niet geprobeerd; de topiclijst komt uit
+      `search.json?q=#ui-macro after:2026-09-29`.
+    - `wowhead.com/blue-tracker` opnieuw **niet geprobeerd** (elf runs op rij lege body).
+    - De 12.1.5-**PTR-buildnotes** zelf niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost:
+      `action=expandtemplates` geeft op `{{LatestPatchInfo|interface=…}}` alleen de onverwerkte
+      `#switch`-body terug. Voor Beta/Test heb ik dus géén nummer.
+    - ⚠️ Een `?nocache=`/`&cb=`-parameter geeft op `api.php` een `"Unrecognized parameter"`-warning.
+      Onschadelijk (MediaWiki negeert hem, de query draait) en hij doet zijn werk nog steeds omdat
+      hij de URL uniek maakt voor Exa's eigen cache. Vers materiaal is hierboven onafhankelijk
+      aangetoond: de 12.1.5-pagina kwam met een revisie van **vannacht 00:18:58Z** boven die
+      gisteren nog niet bestond.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw — en met vandaag opnieuw gemeten cijfers:**
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. **GEMETEN
+      vandaag** (zelfde scope en commando als hierboven): `issecretvalue` **204** (was 196),
+      `InCombatLockdown` **221** (was 198), `CreateFrame` **766** (was 741), `C_Secrets` **27** (was
+      26), `C_UnitAuras` **83** (gelijk), `C_SuperTrack` **29** (gelijk). 📌 **Vier van de zes zijn
+      gestegen, en dat is verklaard, niet raar:** Rob heeft op 5 okt release **4.7.2** voorbereid met
+      acht commits aan het key-block-werk (`310822c` t/m `319cb40`). De stijging is dus nieuwe
+      MH-code, geen verschuiving in de meetmethode. 🔴 Ik raak dat bestand niet aan.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat
+      er `120007, 120100, 120105` (regel 1). 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM** (`ef bb bf`, vandaag opnieuw gemeten met
+      `cat -v`: `M-oM-;M-?`). Onschadelijkheid blijft AFGELEID, niet gemeten.
+  - 🔧 **Repo-staat: de detached-HEAD-reeks is na vijf dagen GEBROKEN.** Bij aanvang
+    `git rev-parse --abbrev-ref HEAD` → **`main`** op `310822c` (`## Version: 4.7.2`),
+    `git status --porcelain` leeg, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en
+    géén "forced update"-melding. `.git/shallow` bestaat nog, dus die illusie kan terugkomen.
+    📌 Ik weet niet waaróm het vandaag anders is — dat is AFGELEID noch GEMETEN, alleen
+    vastgelegd, zodat een volgende run weet dat de reeks niet onafgebroken was.
