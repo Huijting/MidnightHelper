@@ -8,7 +8,19 @@
   AFGELEID (niet getest): Grudge Pit → Hearthstone-knop + "dan Portal to Harandar"; CC → Hearthstone-knop (direct).
   Neveneffect, bewust: ook vanuit Eversong naar iets in Silvermoon City wordt nu de Hearthstone aangeboden.
 - Coiled Isle had geen regel in de log (niet gerouteerd na de reload) → zelfde test opnieuw, TESTLIJST.
-- ✅ Rob 7 okt laat: Grudge Pit geeft nu de Hearthstone-knop (screenshot). CC en Coiled Isle nog niet gemeld.
+- ✅ Rob 7 okt laat: Grudge Pit geeft nu de Hearthstone-knop (screenshot). ✅ CC vanuit Atal'Aman ook (screenshot,
+  retail). Coiled Isle nog niet gemeld.
+- ✅ Rob retail: Shift+scroll werkt op het boodschappenvenster; Academy Prot toont Consecration [5], Avenger's Shield [2],
+  Blessed Hammer [3] met toets; Venomfall Deeps staat 1× in de lijst (PTR). Open vraag aan Rob: de AoE-uitleg staat 3×
+  onder elkaar (per knop) — inkorten tot 1×?
+- Academy ronde 4 tekst AF (mh-writer 07l, 7 talen, zelfgemaakt): woordenlijst "op cooldown", één dungeon-advies +
+  uitnodigen + rol-icoon, Primary Stat, Physical via Dungeon Journal, jargon weg, /p en /i, "Your cooldowns", Regrowth
+  = directe heal, /mh healcds in heal-spec. "Great Vault Advisor" overal (de Berater für die Große Schatzkammer, fr
+  Conseiller de la Grande chambre forte, es Consejero de la Gran cámara, pt Conselheiro do Grande Cofre, it Consigliere
+  della Gran Banca). Codex: "This Week"/"Account snapshot" → tabnaam per pack; de "Kontoübersicht". KEYBLOCK_FOOT weg.
+  Open: toolkit-defensives klein/groot per knop (code, TankToolkit); TANKKIT_MITDESC_BLOCK "bijna altijd aan" geldt
+  ook voor Warrior Shield Block (niet gecontroleerd); deDE "Spontan"/"Sofort" niet gemeten. Volgende stap: herlezing 4
+  door een nieuweling (mh-research) voor het cijfer.
 - Rob: "alle schermen moeten Shift+scroll kunnen". Alleen 17 vensters met RegisterMidnightDialogPopup hadden het.
   Nu (DialogPopup.lua): `ns.MakeMidnightWindowScalable` + lijst SCALABLE_WINDOWS (30 namen) die een ticker van 2 s
   oppakt zodra het venster bestaat; scrollende kinderen worden ingepakt (Shift = venster schalen, anders hun eigen
