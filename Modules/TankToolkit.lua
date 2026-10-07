@@ -100,37 +100,39 @@ ns.TANK_MITIGATION = {
 -- 17 Sep 2026 (docs/audit_2026-09-17): removed Last Stand (passive on Shield Wall in 12.1), Dampen
 -- Harm and Zen Meditation (gone); added Sentinel, Blessing of Spellwarding, Demoralizing Shout and
 -- Darkness; Metamorphosis got its 2 min; Barkskin is 45 s. Shown filtered on your own spec now.
+-- size = the card's word for it (KeybindRoles_<Class>.lua `survival = "small"|"big"`, 7 Oct 2026). Dancing Rune
+-- Weapon has none on the card, so it keeps the shared sentence.
 ns.TANK_COOLDOWNS = {
 	[66] = { -- Protection Paladin
-		{ id = 31850, cd = 90, kind = "dr" }, -- Ardent Defender
-		{ id = 86659, cd = 180, kind = "dr" }, -- Guardian of Ancient Kings
-		{ id = 389539, cd = 120, kind = "dr" }, -- Sentinel (up to 30% less damage taken)
+		{ id = 31850, cd = 90, kind = "dr", size = "small" }, -- Ardent Defender
+		{ id = 86659, cd = 180, kind = "dr", size = "big" }, -- Guardian of Ancient Kings
+		{ id = 389539, cd = 120, kind = "dr", size = "big" }, -- Sentinel (up to 30% less damage taken)
 		{ id = 204018, kind = "magic" }, -- Blessing of Spellwarding (talent; shares its cooldown with Blessing of Protection)
 		{ id = 642, cd = 300, kind = "immunity" }, -- Divine Shield
 	},
 	[73] = { -- Protection Warrior
-		{ id = 1160, cd = 45, kind = "dr" }, -- Demoralizing Shout (enemies deal 20% less to you)
-		{ id = 871, cd = 180, kind = "dr" }, -- Shield Wall
+		{ id = 1160, cd = 45, kind = "dr", size = "small" }, -- Demoralizing Shout (enemies deal 20% less to you)
+		{ id = 871, cd = 180, kind = "dr", size = "big" }, -- Shield Wall
 		{ id = 97462, cd = 180, kind = "raid" }, -- Rallying Cry
 		{ id = 23920, cd = 25, kind = "magic" }, -- Spell Reflection
 	},
 	[104] = { -- Guardian Druid
-		{ id = 22812, cd = 45, kind = "dr" }, -- Barkskin
-		{ id = 61336, cd = 180, kind = "dr" }, -- Survival Instincts (2 charges baseline)
+		{ id = 22812, cd = 45, kind = "dr", size = "small" }, -- Barkskin
+		{ id = 61336, cd = 180, kind = "dr", size = "big" }, -- Survival Instincts (2 charges baseline)
 	},
 	[250] = { -- Blood Death Knight
 		{ id = 55233, cd = 90, kind = "selfheal" }, -- Vampiric Blood
-		{ id = 48792, cd = 120, kind = "dr" }, -- Icebound Fortitude
+		{ id = 48792, cd = 120, kind = "dr", size = "big" }, -- Icebound Fortitude
 		{ id = 48707, cd = 60, kind = "magic" }, -- Anti-Magic Shell
 		{ id = 49028, cd = 120, kind = "dr" }, -- Dancing Rune Weapon
 	},
 	[268] = { -- Brewmaster Monk
-		{ id = 115203, cd = 360, kind = "dr" }, -- Fortifying Brew
+		{ id = 115203, cd = 360, kind = "dr", size = "big" }, -- Fortifying Brew
 	},
 	[581] = { -- Vengeance Demon Hunter
-		{ id = 204021, cd = 60, kind = "dr" }, -- Fiery Brand
+		{ id = 204021, cd = 60, kind = "dr", size = "small" }, -- Fiery Brand
 		{ id = 212084, cd = 40, kind = "selfheal" }, -- Fel Devastation
-		{ id = 187827, cd = 120, kind = "dr" }, -- Metamorphosis (Vengeance)
+		{ id = 187827, cd = 120, kind = "dr", size = "big" }, -- Metamorphosis (Vengeance)
 		{ id = 196718, cd = 300, kind = "raid" }, -- Darkness
 	},
 }
@@ -203,7 +205,14 @@ end
 function ns.GetTankCooldownKindKey(kind)
 	return TCD[kind]
 end
-function ns.GetTankCooldownDescKey(kind)
+--- `size` (newcomer re-read 4): "small"/"big" as the card says it (KeybindRoles `survival`), so the three damage
+--- reducers no longer carry the same sentence. Without a size the shared sentence stays.
+function ns.GetTankCooldownDescKey(kind, size)
+	if kind == "dr" and size == "small" then
+		return "TANKKIT_CDDESC_DR_SMALL"
+	elseif kind == "dr" and size == "big" then
+		return "TANKKIT_CDDESC_DR_BIG"
+	end
 	return TCD_DESC[kind]
 end
 

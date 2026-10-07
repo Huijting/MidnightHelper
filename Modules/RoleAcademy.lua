@@ -732,7 +732,7 @@ local function RenderTankToolkit(panel, child, y, cw)
 				ns.TankCooldownKindLabel(c.kind),
 				ns.HealerCooldownSpellName(c.id),
 				cdText,
-				SL(ns.GetTankCooldownDescKey(c.kind) or "")
+				SL(ns.GetTankCooldownDescKey(c.kind, c.size) or "")
 			)
 			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
 		end
