@@ -347,7 +347,9 @@ function ns.MH_AutoMapBuild()
 					role = r.role,
 					category = r.category,
 					priority = r.priority,
-					bindKey = r.bindKey,
+					-- noBindKeyFor[spec]: drop the explicit key wish for that spec, so the allocator places it (7 Oct 2026,
+					-- Rob "ja": Brewmaster had Breath of Fire AND Spinning Crane Kick both asking for Shift+2).
+					bindKey = not (r.noBindKeyFor and r.noBindKeyFor[specID]) and r.bindKey or nil,
 					alsoStop = r.alsoStop, -- Spec 08: dual-role stop tag, carried through for cross-listing
 					-- Key block (KeyBlock.lua, 4 Oct 2026): read only there; the allocator ignores them.
 					blockForm = r.blockForm,

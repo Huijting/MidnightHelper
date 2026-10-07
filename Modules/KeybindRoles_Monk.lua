@@ -118,7 +118,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- =================================================================
     -- Builders / rotatie (SpellArchetypes)
     ["Fists of Fury"]                = { id = 113656, category = "spender", priority = 1, specs = { 269 } },       -- 4: channeled finisher
-    ["Spinning Crane Kick"]          = { id = 101546, category = "main_rotation", priority = 3, bindKey = "Shift+2", specs = { 269, 270, 268 }, blockAs = { [268] = { category = "main_rotation", priority = 4 } } }, -- AoE-builder (ook ST-relevant); MW baseline AoE too (IV MW 12.1, 5 Oct 2026)
+    ["Spinning Crane Kick"]          = { id = 101546, category = "main_rotation", priority = 3, bindKey = "Shift+2", noBindKeyFor = { [268] = true }, specs = { 269, 270, 268 }, blockAs = { [268] = { category = "main_rotation", priority = 4 } } }, -- AoE-builder (ook ST-relevant); MW baseline AoE too (IV MW 12.1, 5 Oct 2026)
     ["Rushing Wind Kick"]            = { id = 467307, excludes = "Rising Sun Kick", category = "main_rotation", priority = 2, bindKey = "4", specs = { 270 } }, -- MW talent over Rising Sun Kick 107428 (wago TraitDefinition 133028, 5 Oct 2026)
     ["Whirling Dragon Punch"]        = { id = 152175, category = "main_rotation", priority = 8, specs = { 269 } }, -- burst-window-nuke (guide.lua {152175})
     -- Movement (Q vervangt Roll bij talent)
