@@ -43,7 +43,8 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   route naar (a) iets in Harandar (Grudge Pit ✅ label 7 okt, knop nog testen), (b) iets in Voidstorm, (c) een Coiled
   Isle-delve (Gnarldor Isle / Ring of Glory) — alleen als je de Coiled Isle-portal hebt (quest 96004). Reisvenster met
   Hearthstone-knop + "Sneller: Hearthstone naar Silvermoon, dan …"? (d) iets in Eversong/Zul'Aman: daar GEEN aanbod
-  (geen stadsportaal erheen) — dat is bewust.
+  (geen stadsportaal erheen) — dat is bewust. (e) 7 okt laat: Collegiate Calamity (in Silvermoon) vanuit Atal'Aman →
+  reisvenster met alleen de Hearthstone-knop. Komt er iets niet: `/reload` en zeg het, dan lees ik `ns.db.travelWhy`.
 - [ ] **Live, in Silvermoon City:** route naar iets in Harandar of Voidstorm. De pijl wijst naar het portaal; de
   portaalKNOP mag nu NIET meer verschijnen (was dubbel). Ver van een portaal (andere zone) moet de knop er wél nog zijn.
 - [ ] **Live, 6 speelkaarten (`/mh play`):** Resto Shaman, Demonology, Survival, Prot Warrior, Windwalker, Discipline.

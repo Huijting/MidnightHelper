@@ -1207,8 +1207,7 @@ local MIDNIGHT_OVERWORLD_MAPS = {
 --- standing in Harandar or Voidstorm — same canvas, different third — counted as "already
 --- home" and the Hearthstone button was withheld at the moment it was worth offering.
 ---
---- 📌 Asks the sliced region, the same pair every other travel check uses, so this cannot
---- drift away from them again. Region 1 IS the Silvermoon group.
+--- ⚠️ 7 Oct 2026: it no longer asks the region — region 1 is all of Quel'Thalas, not the city (see below).
 --- @param currentMap number|nil
 --- @return boolean
 local function PlayerIsInSilvermoonHub(currentMap)
@@ -1218,12 +1217,18 @@ local function PlayerIsInSilvermoonHub(currentMap)
 	if tonumber(currentMap) == 2393 then
 		return true
 	end
-	if not (ns.GetEffectiveRegionGroupID and ns.GetPlayerHubContext) then
-		return false
+	-- 🔴 GEMETEN 7 Oct 2026 (ns.db.travelWhy, Rob in Atal'Aman): this used to answer "region group 1", which is ALL of
+	-- Quel'Thalas — Eversong and Zul'Aman too. So in Atal'Aman isHub=true hid the Hearthstone button, and hsRoute=false
+	-- kept the same-region silence on, while the arrow label (which never asked this) named the Hearthstone route.
+	-- Now: the city itself — map 2393 or a map inside it, or the Silvermoon part of the shared canvas 2576.
+	if ns.MHIsSelfOrAncestor and ns.MHIsSelfOrAncestor(2393, currentMap) then
+		return true
 	end
-	local okHub, hub = pcall(ns.GetPlayerHubContext, currentMap)
-	local okReg, reg = pcall(ns.GetEffectiveRegionGroupID, currentMap, okHub and hub or nil)
-	return (okReg and reg == 1) and true or false
+	if tonumber(currentMap) == 2576 and ns.GetPlayerHubContext then
+		local okHub, hub = pcall(ns.GetPlayerHubContext, currentMap)
+		return (okHub and hub == "Silvermoon") and true or false
+	end
+	return false
 end
 
 local TRAVEL_ARRIVAL_YARDS = 400

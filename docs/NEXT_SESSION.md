@@ -1,6 +1,15 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (7 okt avond, chat werd te lang) — reisvenster: geen Hearthstone-knop
+## ▶️ HIER VERDER (7 okt laat) — oorzaak geen Hearthstone-knop GEVONDEN en gerepareerd, wacht op Robs test
+- GEMETEN in `ns.db.travelWhy`: Grudge Pit → "nothing to offer" met `isHub=true` terwijl Rob in Atal'Aman (2536) stond;
+  Collegiate Calamity → "same region, silent" met `hsRoute=false`. Eén oorzaak: `PlayerIsInSilvermoonHub` vroeg
+  "regiogroep 1" = heel Quel'Thalas (Eversong + Zul'Aman), niet de stad. Nu: map 2393 of een map erbinnen, of het
+  Silvermoon-deel van canvas 2576. Wordt alleen door de twee Hearthstone-beslissingen gebruikt (gegrept).
+  AFGELEID (niet getest): Grudge Pit → Hearthstone-knop + "dan Portal to Harandar"; CC → Hearthstone-knop (direct).
+  Neveneffect, bewust: ook vanuit Eversong naar iets in Silvermoon City wordt nu de Hearthstone aangeboden.
+- Coiled Isle had geen regel in de log (niet gerouteerd na de reload) → zelfde test opnieuw, TESTLIJST.
+
+## (vorige stand) 7 okt avond — reisvenster: geen Hearthstone-knop
 - Rob staat in Atal'Aman (Zul'Aman), Hearthstone gebonden in Wayfarer's Rest (= Silvermoon City, area 16645 — nu
   herkend, `/mh portals` zegt "Yes"). Route naar The Grudge Pit (Harandar): de PIJLREGEL zegt nu "Sneller: Hearthstone
   naar Silvermoon, dan Portal to Harandar" ✅, maar het reisvenster met de Hearthstone-KNOP komt niet ❌. Naar Coiled
