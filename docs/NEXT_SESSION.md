@@ -22,8 +22,15 @@
   geeft = niet gemeten; `/mh eventspy` na release, dan opschonen). (2) DelveCoach: in een delve zonder tips 1 chatregel
   (DELVE_COACH_UNKNOWN_FMT, + Codex-verwijzing op map 3043) en ns.db.delveCoachUnknown; na 3 s hercheck tegen
   vals alarm. (3) Site-chat heeft concept drafts/ready-12-1-5.html, publiceert pas na release + 12.1.5 live; vroeg of de
-  kaartjes vóór 13 okt uitkomen → Rob beslist. (4) mh-writer herschrijft machinale de/fr-zinnen (loopt).
-  Nieuwe keys (4) nog alleen enUS/nlNL.
+  kaartjes vóór 13 okt uitkomen → Rob: "ik volg jouw advies" = mee in 4.7.4 vóór 13 okt (nog GEEN release-go); site
+  ingelicht. (4) Machinale de/fr-zinnen herschreven (mh-writer-script, toegepast): deDE.lua 124 regels, DelveTips frFR 10,
+  frFR.lua 1. De 92 regels van 30 aug bestonden niet meer (3.7.3 had DelveTips al herschreven); de rest zat in deDE.lua
+  (du+infinitief, Ihr, "Mitternacht", "Tresor", "Chef", "Müll" …). Een paar waarden nu bewust gelijk aan enUS (Utility,
+  Boss, Trash …). Niet door moedertaalspreker nagekeken.
+  OPEN, Rob kiest: CHANGELOG_1xx_* in de/fr/es/pt vol machinetekst (wissen → Engels, of herschrijven); frFR.lua zelfde
+  soort als deDE.lua + vous/tu-mix (RaidTips frFR = vous); es/pt "medianoche/meia-noite"; drift in de/fr DelveTips
+  (COLLEGIATE_CALAMITY_TRASH zegt nog "channel", feitelijk fout; TORMENTS_RISE_OVERVIEW = S1-tekst).
+  Nieuwe keys (4: DELVE_COACH_UNKNOWN_*, EVENT_INFO_AQIR_*) nog alleen enUS/nlNL.
 
 ## 🆕 7 okt — 12.1.5 komt 13 okt (VS) / 14 okt (EU): `docs/PATCH_12_1_5_PREP_2026-10-07.md` (mh-research)
 Nieuwe "mega-delve" The Labyrinth of Kindo'jan (9 kamers, Valeera, eindbaas Kindo'jan, Vault-credit per 3 kamers; wago 70077).
