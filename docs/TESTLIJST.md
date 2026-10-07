@@ -41,6 +41,10 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   er staat (dan voeg ik die naam toe).
 - [ ] **Live, in Silvermoon City:** route naar iets in Harandar of Voidstorm. De pijl wijst naar het portaal; de
   portaalKNOP mag nu NIET meer verschijnen (was dubbel). Ver van een portaal (andere zone) moet de knop er wél nog zijn.
+- [ ] **Live, spreuk-ID's voor 6 speelkaarten (één regel plakken, screenshot):**
+  `/run for _,i in ipairs({378081,1276452,1276467,1276672,1272696,186263,163201}) do print(i,C_Spell.GetSpellName(i)) end`
+  Verwacht: Nature's Swiftness, Grimoire: Imp Lord, Grimoire: Fel Ravager, Summon Doomguard, Zenith Stomp, Shadow Mend,
+  Execute. Klopt het, dan worden die namen op de kaarten klikbare spreuken en kan de vertaling erbij.
 - [ ] **PTR, Aqir Invasion:** Void & Rituals-tab → event-regel van de invasie: hover → uitleg + beloning?
 
 ## 🆕 6 okt — knoppen voor commando's die alleen via /mh gingen (Rob: alle 4 groepen + de 5 reparaties)

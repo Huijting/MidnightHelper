@@ -17658,6 +17658,12 @@
    "nlNL": "5c05f99c882a9dec",
    "ptBR": "5c05f99c882a9dec"
   },
+  "PLAYCARD_255_HERO1": {
+   "nlNL": "e21bbd7f8cf105a6"
+  },
+  "PLAYCARD_256_S4": {
+   "nlNL": "e514108fc3e5025e"
+  },
   "PLAYCARD_257_AOE": {
    "deDE": "d492f4b02b9f514d",
    "esES": "d492f4b02b9f514d",
@@ -17714,6 +17720,15 @@
    "nlNL": "d47aee72872a29a9",
    "ptBR": "d47aee72872a29a9"
   },
+  "PLAYCARD_264_HERO1": {
+   "nlNL": "bfc48429b74f569b"
+  },
+  "PLAYCARD_264_HERO2": {
+   "nlNL": "f5b957a3c0fef5fc"
+  },
+  "PLAYCARD_264_S1": {
+   "nlNL": "3c5042d6814276e7"
+  },
   "PLAYCARD_264_S3": {
    "deDE": "e552eda7ff44a33e",
    "esES": "e552eda7ff44a33e",
@@ -17721,6 +17736,12 @@
    "itIT": "e552eda7ff44a33e",
    "nlNL": "e552eda7ff44a33e",
    "ptBR": "e552eda7ff44a33e"
+  },
+  "PLAYCARD_266_S2": {
+   "nlNL": "8eda1b3e55164324"
+  },
+  "PLAYCARD_269_S1": {
+   "nlNL": "59d9b83ee7add034"
   },
   "PLAYCARD_62_HERO1": {
    "deDE": "237b0e49cabdb738",
@@ -17785,6 +17806,9 @@
    "itIT": "3c38beb49aa41a49",
    "nlNL": "3c38beb49aa41a49",
    "ptBR": "3c38beb49aa41a49"
+  },
+  "PLAYCARD_73_S4": {
+   "nlNL": "c1cb539ccdaa1b97"
   },
   "POISON_HEADER": {
    "deDE": "6628e79ad740cc95",
