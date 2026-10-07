@@ -384,12 +384,12 @@
    "ptBR": "c585ed72642d71bf"
   },
   "ACADEMY_HEAL_WHAT_BODY": {
-   "deDE": "2a66d1964c9b4342",
-   "esES": "2a66d1964c9b4342",
-   "frFR": "2a66d1964c9b4342",
-   "itIT": "2a66d1964c9b4342",
-   "nlNL": "2a66d1964c9b4342",
-   "ptBR": "2a66d1964c9b4342"
+   "deDE": "fc4294ed7719d407",
+   "esES": "fc4294ed7719d407",
+   "frFR": "fc4294ed7719d407",
+   "itIT": "fc4294ed7719d407",
+   "nlNL": "fc4294ed7719d407",
+   "ptBR": "fc4294ed7719d407"
   },
   "ACADEMY_HEAL_WIPE_BODY": {
    "deDE": "13d8ad9c3d74ca76",
@@ -18010,6 +18010,14 @@
    "nlNL": "f8d63dfdf88c7cd0",
    "ptBR": "f8d63dfdf88c7cd0"
   },
+  "PLAYCARD_65_EASY": {
+   "deDE": "397665b6642451ed",
+   "esES": "397665b6642451ed",
+   "frFR": "397665b6642451ed",
+   "itIT": "397665b6642451ed",
+   "nlNL": "397665b6642451ed",
+   "ptBR": "397665b6642451ed"
+  },
   "PLAYCARD_65_S2": {
    "deDE": "c7f85c7a8b2f4532",
    "esES": "c7f85c7a8b2f4532",
@@ -18017,6 +18025,14 @@
    "itIT": "c7f85c7a8b2f4532",
    "nlNL": "c7f85c7a8b2f4532",
    "ptBR": "c7f85c7a8b2f4532"
+  },
+  "PLAYCARD_65_S3": {
+   "deDE": "902c76801268475c",
+   "esES": "902c76801268475c",
+   "frFR": "902c76801268475c",
+   "itIT": "902c76801268475c",
+   "nlNL": "902c76801268475c",
+   "ptBR": "902c76801268475c"
   },
   "PLAYCARD_66_HERO2": {
    "deDE": "8cf18c7c83d6112d",
