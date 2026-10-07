@@ -28,7 +28,16 @@
   Silvermoon; interrupt = terwijl de balk volloopt; label "Efficient" → "Big"; dungeon-titels; PLAYCARD_66_S5 taunt;
   woordenlijst +9; chat-plakken (Ctrl+V). Open/twijfel: Sentinel-botsing (code, KeybindRoles_Paladin:218), Shift+J/Enter
   komen uit de wiki, esES/ptBR ACADEMY_TANK_CHAT_BODY nog machinetaal, ondertitel "prep-vinkjes/parse-guide".
-- Open: ACADEMY_HEAL_BOTH_BODY/TRACK_* achter in 6 talen; DPS-track niet herzien. Herlezing 3 loopt. Niet getest.
+- Herlezing 3 (docs/ROLE_SWITCH_REREAD3_NEWCOMER_2026-10-07.md): tank 8, heal 9. Voor 10: AoE-knop van de tank noemen,
+  Blessing of Protection (Blijf leven vs Groep), stap 7 vs hoofdstuk + rol kiezen in Group Finder, "op cooldown" uitleggen.
+- 🎮 7 okt avond, Rob TEST live: Academy tank klopt (stappen, auto-vinkjes, taunt/interrupt), kaart klopt. Zijn vragen,
+  meteen gebouwd: (a) Hammer of Justice → ns.TANK_TAUNT_KICK.stun per tankspec (TANKKIT_TK_STUN, alleen als je hem kent);
+  (b) toets achter ELKE toolkit-spreuk (WithLiveKey/toolkitLive, alleen eigen actieve spec; rood "(nog niet op een toets)");
+  (c) dubbele kop op healer-kaart weg (healer-AOE = bolletje); (d) "Zo heal je, in 3 stappen" PLAYCARD_<spec>_EASY voor 7
+  healers (mh-writer 07k, 7 talen) + kopje "Later" boven hero-regels; (e) Hearthstone: zijn bind "Wayfarer's Rest" = area
+  16645, parent 15969 Silvermoon City (wago AreaTable GEMETEN) → INN_AREAS_BY_ZONE in HearthstoneGoesTo; /mh portals print
+  het antwoord ook onderaan + ns.db.portalBindProbe.
+- Open: ACADEMY_HEAL_BOTH_BODY/TRACK_* achter in 6 talen; DPS-track niet herzien.
 
 ## 🧭 7 okt — Hearthstone → Silvermoon → portaal (Rob: "kleine eigen versie" i.p.v. Farstrider)
 - Farstrider = GPL3: code én de dataset overnemen mag niet; losse feiten nakijken wel. Rob koos een eigen kleine

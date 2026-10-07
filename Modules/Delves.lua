@@ -425,6 +425,14 @@ ns.MHPortalUsable = PortalUsable
 --- flight; a wrong one costs the cooldown and the trust. We take the first.
 --- 🔴 And it must fail CLOSED: no `GetBindLocation`, or an empty answer, means we do not
 --- know -- which is exactly the state that produced this bug, so it must not pass.
+--- Inns that sit INSIDE a zone under their own name. GEMETEN 7 Oct 2026: Rob's bind read "Wayfarer's Rest" and the
+--- Hearthstone was never offered for Silvermoon; wago AreaTable (12.1.0.69933) has Wayfarer's Rest = area 16645,
+--- parent 15969 Silvermoon City (zone "12SilvermoonSharedInn"). Keyed by AREA ID and resolved with C_Map.GetAreaInfo,
+--- so it matches the bind text in every client language. Add a row only after measuring the area's parent.
+local INN_AREAS_BY_ZONE = {
+	["silvermoon"] = { 16645 }, -- Wayfarer's Rest
+}
+
 local function HearthstoneGoesTo(targetZoneName)
 	if not GetBindLocation or not targetZoneName or targetZoneName == "" then
 		return false
@@ -434,7 +442,23 @@ local function HearthstoneGoesTo(targetZoneName)
 		return false
 	end
 	local b, t = bind:lower(), targetZoneName:lower()
-	return b == t or b:find(t, 1, true) ~= nil or t:find(b, 1, true) ~= nil
+	if b == t or b:find(t, 1, true) ~= nil or t:find(b, 1, true) ~= nil then
+		return true
+	end
+	for zoneWord, areas in pairs(INN_AREAS_BY_ZONE) do
+		local hubInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(2393)
+		local hubName = hubInfo and hubInfo.name and hubInfo.name:lower() or ""
+		-- The target is that zone (English word, or the client's own name for Silvermoon City)?
+		if t:find(zoneWord, 1, true) or (hubName ~= "" and t:find(hubName, 1, true)) then
+			for _, areaID in ipairs(areas) do
+				local okA, innName = pcall(C_Map.GetAreaInfo, areaID)
+				if okA and type(innName) == "string" and innName ~= "" and innName:lower() == b then
+					return true
+				end
+			end
+		end
+	end
+	return false
 end
 ns.MHHearthstoneGoesTo = HearthstoneGoesTo
 
@@ -460,9 +484,16 @@ function ns.PrintPortalAccess()
 		local okB, bind = pcall(GetBindLocation)
 		local hub = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(2393)
 		local hubName = hub and hub.name or "Silvermoon City"
-		print(("%s %s"):format(p, ns:L("TRAVEL_PORTALS_BIND_FMT"):format(
+		local bindLine = ns:L("TRAVEL_PORTALS_BIND_FMT"):format(
 			(okB and type(bind) == "string" and bind ~= "") and bind or "?",
-			HearthstoneGoesTo(hubName) and YES or NO)))
+			HearthstoneGoesTo(hubName) and YES or NO)
+		print(("%s %s"):format(p, bindLine))
+		-- Rob, 7 Oct evening: the line scrolled away under the long list. Kept for the next session to read after a
+		-- /reload (SavedVariables), and printed again at the bottom below.
+		ns.db = ns.db or {}
+		ns.db.portalBindProbe = { bind = okB and bind or nil, hub = hubName, ok = HearthstoneGoesTo(hubName),
+			at = time and time() or 0 }
+		ns._portalBindLine = bindLine
 	end
 	print(("%s portals, as this character sees them:"):format(p))
 	for _, portal in ipairs(ns.MIDNIGHT_PORTALS) do
@@ -575,8 +606,11 @@ function ns.PrintPortalAccess()
 	local bind = GetBindLocation and select(2, pcall(GetBindLocation)) or nil
 	if type(bind) == "string" and bind ~= "" then
 		print(("   |TInterface/ICONS/INV_Misc_Rune_01:0|t Hearthstone -> |cffffd100%s|r"):format(bind))
-		print("   |cff8a8f98It is offered only for a target at that place. Anywhere else it would")
-		print("   spend a 30-minute cooldown taking you somewhere you did not ask for.|r")
+		print("   |cff8a8f98It is offered for a target at that place, or (7 Oct 2026) when that place is Silvermoon")
+		print("   City and a city portal goes on to the target. Anywhere else it would waste the cooldown.|r")
+		if ns._portalBindLine then
+			print(("%s %s"):format(p, ns._portalBindLine)) -- the answer again, at the bottom where the eye lands
+		end
 	else
 		print("   |TInterface/ICONS/INV_Misc_Rune_01:0|t |cff8a8f98Hearthstone destination unreadable — never offered.|r")
 	end

@@ -452,7 +452,26 @@ end
 -- indented and carry the coloured [label] markup from HealerCooldowns.lua. When
 -- a spellID is given (spell rows), the row is wrapped in a mouse-enabled frame
 -- that shows the real spell tooltip on hover.
+--- True while a toolkit for YOUR active spec is being drawn: then every spell line gets the key it sits on, or a red
+--- "not on a key yet" (Rob, 7 Oct 2026 evening: "kunnen hier de keybinds bij zodat je in één keer ziet wat je mist?").
+--- Off for previews of another spec — its spells are not on your bars, and a column of red would be noise.
+local toolkitLive = false
+
+local function WithLiveKey(text, spellID)
+	if not (toolkitLive and spellID and ns.LiveKeyForSpell) then
+		return text
+	end
+	local ok, key = pcall(ns.LiveKeyForSpell, spellID)
+	local tag = (ok and key) and (" |cffffffff[" .. key .. "]|r") or (" |cffff6060" .. SL("TANKKIT_TK_NOKEY") .. "|r")
+	-- Right after the spell name, the first gold run in every toolkit line.
+	local out, n = text:gsub("(|cffffd100.-|r)", "%1" .. tag:gsub("%%", "%%%%"), 1)
+	return n > 0 and out or (text .. tag)
+end
+
 local function AddToolkitLine(panel, child, cw, y, text, header, spellID)
+	if spellID and not header then
+		text = WithLiveKey(text, spellID)
+	end
 	local font = header and "GameFontNormal" or "GameFontHighlightSmall"
 	local indent = header and 4 or 10
 	local width = cw - (header and 0 or 6)
@@ -665,15 +684,20 @@ local function RenderTankToolkit(panel, child, y, cw)
 	if tk then
 		y = y - 4
 		y = AddToolkitLine(panel, child, cw, y, SL("TANKKIT_TK_HEAD"), true)
-		for _, row in ipairs({ { tk.taunt, "TANKKIT_TK_TAUNT" }, { tk.kick, "TANKKIT_TK_KICK" } }) do
-			local key
-			if activeID and ns.LiveKeyForSpell then
-				local ok, k = pcall(ns.LiveKeyForSpell, row[1])
-				key = ok and k or nil
+		local rows = { { tk.taunt, "TANKKIT_TK_TAUNT" }, { tk.kick, "TANKKIT_TK_KICK" } }
+		if tk.stun then
+			local known = true
+			if activeID and IsPlayerSpell then
+				local ok, k = pcall(IsPlayerSpell, tk.stun)
+				known = not ok or k
 			end
-			local keyTxt = key and (" |cffffffff[" .. key .. "]|r")
-				or (activeID and (" |cff9d9d9d" .. SL("TANKKIT_TK_NOKEY") .. "|r") or "")
-			local line = ("|cffffd100%s|r%s — %s"):format(ns.HealerCooldownSpellName(row[1]), keyTxt, SL(row[2]))
+			if known then
+				rows[#rows + 1] = { tk.stun, "TANKKIT_TK_STUN" }
+			end
+		end
+		for _, row in ipairs(rows) do
+			-- The key is added by AddToolkitLine (WithLiveKey), like on every other toolkit line.
+			local line = ("|cffffd100%s|r — %s"):format(ns.HealerCooldownSpellName(row[1]), SL(row[2]))
 			y = AddToolkitLine(panel, child, cw, y, line, false, row[1])
 		end
 	end
@@ -952,19 +976,25 @@ local function RebuildScrollContent(panel)
 	if track == TRACK_HEAL then
 		y = RenderPlayCard(panel, child, y, cw,
 			(ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()) or (ns.GetClassHealerSpecID and ns.GetClassHealerSpecID()))
+		toolkitLive = (ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()) ~= nil
 		y = RenderHealerToolkit(panel, child, y, cw)
+		toolkitLive = false
 	elseif track == TRACK_TANK then
 		y = RenderPlayCard(panel, child, y, cw,
 			(ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()) or (ns.GetClassTankSpecID and ns.GetClassTankSpecID()))
+		toolkitLive = (ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()) ~= nil
 		y = RenderTankToolkit(panel, child, y, cw)
+		toolkitLive = false
 	elseif track == TRACK_DPS then
 		y = RenderPlayCard(panel, child, y, cw,
 			(ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()) or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID()))
 		-- Survival first, damage second. Carola dies to rares on a Frost Mage
 		-- (Rob, 4 Aug); the cooldown list below tells her how to kill faster,
 		-- which is not her problem. Order on the page is the advice.
-		y = RenderSurvivalPlan(panel, child, y, cw)
+		y = RenderSurvivalPlan(panel, child, y, cw) -- carries its own suggested keys: no live keys here
+		toolkitLive = (ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()) ~= nil
 		y = RenderDpsToolkit(panel, child, y, cw)
+		toolkitLive = false
 	end
 
 	RenderSections(sections)

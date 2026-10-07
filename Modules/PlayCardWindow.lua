@@ -1007,6 +1007,17 @@ local function Redraw()
 			y = y - fight:GetStringHeight() - 10
 		end
 
+		-- "How to heal as <spec>, in 3 steps" — plain words, before the full list (PlayCards.lua out.easy).
+		if card.easy then
+			t = t + 1
+			local easy = Text(t, "GameFontHighlight")
+			easy:SetWidth(inner)
+			easy:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+			easy:SetTextColor(1, 1, 1)
+			easy:SetText("|cff66ddaa" .. L("PLAYCARD_EASY_HEAD") .. "|r\n" .. (live and WithKeys(card.easy) or card.easy))
+			y = y - easy:GetStringHeight() - 12
+		end
+
 		t = t + 1
 		local stepsHead = Text(t, "GameFontNormal")
 		stepsHead:SetWidth(inner)
@@ -1048,9 +1059,19 @@ local function Redraw()
 		end
 
 		y = y - 4
-		-- A healer's "aoe" line is about many HURT friends, not more enemies (newcomer review, 7 Oct 2026).
-		Block(L(isHealer and "PLAYCARD_AOE_HEAL" or "PLAYCARD_AOE"), card.aoe, 1, 1, 1)
+		-- A healer's "aoe" line is about many HURT friends, not more enemies (newcomer review, 7 Oct 2026) — and every
+		-- healer line already opens with its own situation ("Hele groep geraakt: …"), so a heading doubled it (Rob's
+		-- screenshot, same evening). Healers get a plain bullet; PLAYCARD_AOE_HEAL stays defined but unused.
+		if isHealer then
+			Block("•", card.aoe, 1, 1, 1)
+		else
+			Block(L("PLAYCARD_AOE"), card.aoe, 1, 1, 1)
+		end
 		Block(L("PLAYCARD_MISTAKE"), card.mistake, 1, 0.38, 0.38)
+		-- The hero-talent lines are for later (Rob, same evening): say so, so a beginner can stop reading here.
+		if #card.hero > 0 and card.easy then
+			Block(L("PLAYCARD_LATER_HEAD"), " ", 0.62, 0.62, 1) -- Block skips an empty body
+		end
 		for _, h in ipairs(card.hero) do
 			Block("•", h.text, 0.62, 0.62, 1)
 		end

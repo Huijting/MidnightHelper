@@ -271,6 +271,12 @@ function ns.GetPlayCard(specID, known)
 		out.aoe = Expand(Part("AOE"), known)
 	end
 	out.mistake = Expand(Part("MISTAKE"), known)
+	-- "In 3 steps", plain words, for healer cards (Rob, 7 Oct 2026 evening: the Holy card assumed you already knew
+	-- Holy Power, Beacon, Dawnlight …). Only where the key exists in enUS, so other specs stay as they were.
+	local easyKey = ("PLAYCARD_%d_EASY"):format(specID)
+	if ns._mhLocales and ns._mhLocales.enUS and ns._mhLocales.enUS[easyKey] then
+		out.easy = Expand(ns:L(easyKey), known)
+	end
 	for i = 1, c.hero or 0 do
 		local t, id = Expand(Part("HERO" .. i), known)
 		out.hero[#out.hero + 1] = { text = t, spellID = id }
