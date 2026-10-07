@@ -986,6 +986,18 @@ local function Redraw()
 			y = y - how:GetStringHeight() - 10
 		end
 
+		-- "How to heal as <spec>, in 3 steps" — plain words, right under "how you heal" so the healing reads as one
+		-- block (Rob's screenshot, 7 Oct evening: "fight alone" sat between them). PlayCards.lua out.easy.
+		if card.easy then
+			t = t + 1
+			local easy = Text(t, "GameFontHighlight")
+			easy:SetWidth(inner)
+			easy:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+			easy:SetTextColor(1, 1, 1)
+			easy:SetText("|cff66ddaa" .. L("PLAYCARD_EASY_HEAD") .. "|r\n" .. (live and WithKeys(card.easy) or card.easy))
+			y = y - easy:GetStringHeight() - 12
+		end
+
 		-- And how a healer fights ALONE (Rob, 6 Oct 2026, Resto Druid in the open world: "hoe weet ik welke knop ik moet
 		-- gebruiken?"). Names from the client (the player's language), keys from the bars; HealerSolo.lua has the order.
 		local solo = ns.HealerSoloSteps and ns.HealerSoloSteps(specID, live)
@@ -1005,17 +1017,6 @@ local function Redraw()
 			end
 			fight:SetText(table.concat(lines, "\n"))
 			y = y - fight:GetStringHeight() - 10
-		end
-
-		-- "How to heal as <spec>, in 3 steps" — plain words, before the full list (PlayCards.lua out.easy).
-		if card.easy then
-			t = t + 1
-			local easy = Text(t, "GameFontHighlight")
-			easy:SetWidth(inner)
-			easy:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
-			easy:SetTextColor(1, 1, 1)
-			easy:SetText("|cff66ddaa" .. L("PLAYCARD_EASY_HEAD") .. "|r\n" .. (live and WithKeys(card.easy) or card.easy))
-			y = y - easy:GetStringHeight() - 12
 		end
 
 		t = t + 1
