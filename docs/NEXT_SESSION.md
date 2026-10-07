@@ -33,7 +33,16 @@
   2026-10-07.md): tank 9, heal 9 — de grote gaten van ronde 4 dicht, nieuwe kleinere punten: bijna dood Divine Shield of
   Lay on Hands; BoP "vooraf" vs "in nood"; tank-gear onder 90 in welke rol; Sentinel vervangt Avenging Wrath? (kaart vs
   toolkit); heal-gear waar halen; Engelse woordjes; [Block] uitleggen; s-3 vs Shift 3; kaart 66 Blessed Hammer vs HotR.
-  Rob kiest: nog een ronde of stoppen op 9/9.
+  Rob kiest: nog een ronde of stoppen op 9/9. → Rob: "nog één ronde, de laatste".
+- Ronde 6 (FACTS6, deeeabe Sentinel = klein/druk vaak, 36121c2 teksten, 0e9fb57 + 6e7138e click-casting-zin en
+  Eternal Flame). Herlezing 6 (docs/ROLE_SWITCH_REREAD6_NEWCOMER_2026-10-07.md): **tank 10/10, heal 9/10**, niets
+  blokkerends. ✅ GEMETEN Rob: Holy met Herald of the Sun heeft Eternal Flame op F2 (geen Word of Glory). Academy-rondes
+  hiermee AF (Robs afspraak). Kleine restjes voor later, alleen als iemand erover valt: kaart 65 noemt Holy Light niet
+  (toolkit wel) + Flash of Light twee momenten; heal-gearstap mist "queue als Damage / terug op Default"; Divine Shield
+  "immuniteit mag ook bijna dood" naast "health laag → Lay on Hands"; Forbearance-noot mist Spellwarding (1631, 3631);
+  kopje Templar/Lightsmith, SotR "vóór de pull", kaart 66 alleen Blessed Hammer, "buffen", "fatale debuff".
+- DandersFrames (Rob vroeg): click-casting = `/df` → tab BINDS → Click-Casting (GEMETEN, Robs screenshot); profielen per
+  talentindeling — Rob heeft 6 Holy-indelingen, elk een eigen profiel (SV gemeten). Voorstel gegeven, Rob kiest.
 - Rob: "alle schermen moeten Shift+scroll kunnen". Alleen 17 vensters met RegisterMidnightDialogPopup hadden het.
   Nu (DialogPopup.lua): `ns.MakeMidnightWindowScalable` + lijst SCALABLE_WINDOWS (30 namen) die een ticker van 2 s
   oppakt zodra het venster bestaat; scrollende kinderen worden ingepakt (Shift = venster schalen, anders hun eigen
