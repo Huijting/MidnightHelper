@@ -49,7 +49,7 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   de changelog en de beroepscursus. Houd Shift in en scroll met de muis BOVEN de lijst/tekst: het venster wordt groter
   of kleiner. Zonder Shift scrolt de lijst gewoon. Na `/reload` houdt elk venster zijn eigen grootte. In gevecht doet
   Shift+scroll bewust niets. Mist er een venster: noem het, dan zet ik het erbij.
-- [ ] **Live, consumables-bord sluiten (7 okt laat, Rob vond het):** open het bord, sluit het met het kruisje. Ga met je
+- [x] ✅ Rob 7 okt: "het werkt". **Live, consumables-bord sluiten (7 okt laat, Rob vond het):** open het bord, sluit het met het kruisje. Ga met je
   muis over de plek waar de vakjes stonden: GEEN tooltip meer ("Niet in je tas"), geen oplichtend vierkantje. Ook na een
   gevecht niet. Open het bord opnieuw: klikken op een flask/oil werkt nog?
 - [x] **Live, Holy Paladin: Infusion of Light** — ✅ Rob 7 okt (screenshot): buff bij je buffs, 10 s, tooltip "Flash of
