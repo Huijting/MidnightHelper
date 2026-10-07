@@ -63,6 +63,11 @@ local function AttachScaling(frame, name)
 		if not (IsShiftKeyDown and IsShiftKeyDown()) then
 			return
 		end
+		-- The travel popup parents the secure Hearthstone button: rescaling it in combat is a blocked action, and a
+		-- pcall does not stop Blizzard from reporting that. Out of combat only, for every window alike.
+		if InCombatLockdown and InCombatLockdown() then
+			return
+		end
 		local cur = (self.GetScale and self:GetScale()) or 1
 		local next_ = cur + (delta > 0 and SCALE_STEP or -SCALE_STEP)
 		if next_ < MIN_SCALE then
@@ -86,6 +91,78 @@ local function AttachScaling(frame, name)
 	else
 		frame:SetScript("OnMouseWheel", OnWheel)
 	end
+
+	--- 🔴 Rob, 7 Oct 2026, on the shopping list: "ik kan deze niet met shift en scroll groter maken". The wheel goes to
+	--- the TOPMOST frame under the cursor that takes it — a scroll list inside the window — so the window's own
+	--- handler never ran over its content. Wrap those children: Shift = resize the window, otherwise their own scroll.
+	--- Children made later (rows, a list built on first show) are picked up again on every show.
+	local function WrapChildren(parent, depth)
+		if depth > 6 or not parent.GetChildren then
+			return
+		end
+		for _, child in ipairs({ parent:GetChildren() }) do
+			if not child._mhScaleWrapped and child.IsMouseWheelEnabled and child:IsMouseWheelEnabled()
+				and not (child.IsProtected and child:IsProtected()) then
+				child._mhScaleWrapped = true
+				local orig = child:GetScript("OnMouseWheel")
+				child:SetScript("OnMouseWheel", function(c, delta, ...)
+					if IsShiftKeyDown and IsShiftKeyDown() then
+						OnWheel(frame, delta)
+						return
+					end
+					if orig then
+						return orig(c, delta, ...)
+					end
+				end)
+			end
+			WrapChildren(child, depth + 1)
+		end
+	end
+	WrapChildren(frame, 1)
+	frame:HookScript("OnShow", function(self)
+		WrapChildren(self, 1)
+	end)
+end
+
+--- Shift+scroll for a window that does not go through RegisterMidnightDialogPopup (no dock button, no Escape).
+ns.MakeMidnightWindowScalable = AttachScaling
+
+--- 🔴 "IK WIL DAT GEWOON ALLE SCHERMEN DIT MOETEN KUNNEN" — Rob, 7 Oct 2026, after the second time. Only the windows
+--- that call RegisterMidnightDialogPopup had it (17 of them); the shopping lists, the course, the changelog and the
+--- travel popup did not. Most windows are built lazily on first open, so a single pass at login finds almost none:
+--- a light sweep picks each one up the moment it exists. Name lookups only, every 2 seconds.
+--- ⚠️ NOT in this list, on purpose: windows with their OWN Shift+scroll (main window, boss window, delve coach,
+--- consumable board, party targets, toasts, missing-buff/openables icons), alerts and bars that do not take the mouse,
+--- secure bars, dropdown menus, and the tooltip-strata hover previews (mounts, rares, trading post).
+local SCALABLE_WINDOWS = {
+	"MidnightHelperBriefNotice", "MidnightHelperBarPlanCard", "MidnightHelperAltBoardCard",
+	"MidnightHelperAltBoardWindow", "MidnightHelperChangelogFrame", "MidnightHelperCurioAdvicePanel",
+	"MidnightHelperCraftShoppingList", "MidnightHelperRaidShoppingList", "MidnightHelperDelveCoachPicker",
+	"MidnightHelperDelveCuriosPopup", "MidnightHelperDelveShareCopy", "MidnightHelperDelveItemsPopup",
+	"MH_TravelPopup", "MidnightHelperDiscordCopyBox", "MidnightHelperFpsPanel", "MidnightHelperEditModeBox",
+	"MidnightHelperRezLust", "MidnightHelperKeyBlock", "MidnightHelperModelPreview", "MidnightHelperMidnightAchList",
+	"MidnightHelperLayoutWizard", "MidnightHelperGrowthPrompt", "MidnightHelperProfGuideUrlCopy",
+	"MidnightHelperProfGuide", "MidnightHelperCourseWindow", "MidnightHelperPawnCopyBox",
+	"MidnightHelperVaultReminderPopup", "MidnightHelperVaultAdvisorBanner", "MidnightHelperValeeraPopup",
+	"MidnightHelperMapProbe",
+}
+
+local function SweepScalableWindows()
+	for _, name in ipairs(SCALABLE_WINDOWS) do
+		local f = _G[name]
+		if f and not f._mhScalable and f.EnableMouseWheel then
+			AttachScaling(f, name)
+		end
+	end
+end
+
+if C_Timer and C_Timer.NewTicker then
+	C_Timer.NewTicker(2, function()
+		-- Attaching restores a remembered scale, and the travel popup is protected in combat.
+		if ns.db and not (InCombatLockdown and InCombatLockdown()) then
+			SweepScalableWindows()
+		end
+	end)
 end
 
 --------------------------------------------------------------------------------

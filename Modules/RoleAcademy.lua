@@ -612,7 +612,8 @@ local function RenderHealerToolkit(panel, child, y, cw)
 			-- The only toolkit line without a "what for" (newcomer review, 7 Oct 2026). The number in brackets is
 			-- the wait before you can press it again; the tank lines say so in their own descriptions.
 			local line = ("|cff40a0ff[%s]|r |cffffd100%s|r%s — %s"):format(
-				SL("DPSKIT_TAG_DEF"), ns.HealerCooldownSpellName(d.id), cdText, SL("HEALTOOLKIT_DEF_DESC")
+				SL(d.immune and "TANKKIT_CD_IMMUNITY" or "DPSKIT_TAG_DEF"), ns.HealerCooldownSpellName(d.id), cdText,
+				SL("HEALTOOLKIT_DEF_DESC")
 			)
 			y = AddToolkitLine(panel, child, cw, y, line, false, d.id)
 		end

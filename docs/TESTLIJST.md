@@ -45,6 +45,11 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   Hearthstone-knop + "Sneller: Hearthstone naar Silvermoon, dan …"? (d) iets in Eversong/Zul'Aman: daar GEEN aanbod
   (geen stadsportaal erheen) — dat is bewust. (e) 7 okt laat: Collegiate Calamity (in Silvermoon) vanuit Atal'Aman →
   reisvenster met alleen de Hearthstone-knop. Komt er iets niet: `/reload` en zeg het, dan lees ik `ns.db.travelWhy`.
+- [ ] **Live, Shift+scroll op elk venster (7 okt laat):** open het boodschappenvenster (Beroep én Raid), het reisvenster,
+  de changelog en de beroepscursus. Houd Shift in en scroll met de muis BOVEN de lijst/tekst: het venster wordt groter
+  of kleiner. Zonder Shift scrolt de lijst gewoon. Na `/reload` houdt elk venster zijn eigen grootte. In gevecht doet
+  Shift+scroll bewust niets. Mist er een venster: noem het, dan zet ik het erbij.
+- [ ] **Live, Holy Paladin heal-toolkit:** Divine Shield heet nu *[Immuniteit]*, Divine Protection blijft *[Defensive]*.
 - [ ] **Live, in Silvermoon City:** route naar iets in Harandar of Voidstorm. De pijl wijst naar het portaal; de
   portaalKNOP mag nu NIET meer verschijnen (was dubbel). Ver van een portaal (andere zone) moet de knop er wél nog zijn.
 - [ ] **Live, 6 speelkaarten (`/mh play`):** Resto Shaman, Demonology, Survival, Prot Warrior, Windwalker, Discipline.

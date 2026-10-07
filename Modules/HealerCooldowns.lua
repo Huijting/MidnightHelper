@@ -223,7 +223,8 @@ end
 -- these keep YOU alive. IDs verified in JustAC SpellCategories DEFENSIVE; cds
 -- from SpellCooldowns (nil where not listed — tooltip shows it). never-lie.
 ns.HEALER_DEFENSIVES = {
-	[65] = { { id = 498, cd = 60 }, { id = 642, cd = 300 } }, -- Holy Paladin: Divine Protection (498 is Holy's), Divine Shield
+	-- immune = labelled [Immunity] like the tank toolkit (newcomer review 3, H4, 7 Oct 2026).
+	[65] = { { id = 498, cd = 60 }, { id = 642, cd = 300, immune = true } }, -- Holy Paladin: Divine Protection (498 is Holy's), Divine Shield
 	[105] = { { id = 22812, cd = 45 } }, -- Resto Druid: Barkskin
 	[1468] = { { id = 363916, cd = 90 } }, -- Pres Evoker: Obsidian Scales (Renewing Blaze is passive on it now)
 	[270] = { { id = 243435 } }, -- Mistweaver: Fortifying Brew

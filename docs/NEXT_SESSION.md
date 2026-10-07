@@ -8,6 +8,14 @@
   AFGELEID (niet getest): Grudge Pit → Hearthstone-knop + "dan Portal to Harandar"; CC → Hearthstone-knop (direct).
   Neveneffect, bewust: ook vanuit Eversong naar iets in Silvermoon City wordt nu de Hearthstone aangeboden.
 - Coiled Isle had geen regel in de log (niet gerouteerd na de reload) → zelfde test opnieuw, TESTLIJST.
+- ✅ Rob 7 okt laat: Grudge Pit geeft nu de Hearthstone-knop (screenshot). CC en Coiled Isle nog niet gemeld.
+- Rob: "alle schermen moeten Shift+scroll kunnen". Alleen 17 vensters met RegisterMidnightDialogPopup hadden het.
+  Nu (DialogPopup.lua): `ns.MakeMidnightWindowScalable` + lijst SCALABLE_WINDOWS (30 namen) die een ticker van 2 s
+  oppakt zodra het venster bestaat; scrollende kinderen worden ingepakt (Shift = venster schalen, anders hun eigen
+  scroll) — dáárom deed het niets boven de lijst. Niet in combat. Bewust NIET: vensters met eigen schaal (hoofdvenster,
+  boss window, delve coach, consumables-bord, party targets), alerts/balken, hover-plaatjes. Niet getest → TESTLIJST.
+- Academy ronde 4: mh-research loopt (→ docs/ROLE_SWITCH_FACTS4_2026-10-07.md); Divine Shield in heal-toolkit = [Immunity].
+- PTR-kopie ververst (beide), 7 okt laat.
 
 ## (vorige stand) 7 okt avond — reisvenster: geen Hearthstone-knop
 - Rob staat in Atal'Aman (Zul'Aman), Hearthstone gebonden in Wayfarer's Rest (= Silvermoon City, area 16645 — nu
