@@ -3304,6 +3304,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 7 Oct 2026 (Rob's keypad): /mhrares, /mhdelves … one command per screen (KeypadCommands.lua); this lists them.
+	if msg == "keypad" then
+		if ns.PrintKeypadCommands then
+			ns.PrintKeypadCommands()
+		end
+		return
+	end
 	if msg == "craftshop quality" then
 		if ns.CraftShopQualityProbe then
 			ns.CraftShopQualityProbe()

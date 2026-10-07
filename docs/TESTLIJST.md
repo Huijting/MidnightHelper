@@ -119,6 +119,13 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🆕 7 okt — keypad-commando's: één per scherm (Rob: "/mhrares", veilige vorm)
+
+Gebouwd, niet getest (`Modules/KeypadCommands.lua`). 27 commando's: 24 schermen + /mhcraftshop, /mhready, /mhblock.
+- [ ] `/mh keypad` → lijst in de chat (/mhrares Rares · /mhdelves … )?
+- [ ] `/mhrares` (of via je keypad) → MH-venster opent op Rares? Ook `/mhaccount`, `/mhprofessions`, `/mhcraftshop`.
+- [ ] Botst er iets met een andere addon (een /mh…-commando dat iets anders doet)?
+
 ## 🔍 7 okt — meting: welke kwaliteit met zilver of goud? (`/mh craftshop quality`)
 
 Voor de keuze "welke kwaliteit kopen" (`docs/CRAFTSHOP_QUALITY_2026-10-07.md`, varianten a/b/c — Rob kiest daarna).

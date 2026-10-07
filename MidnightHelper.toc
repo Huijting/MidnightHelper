@@ -265,6 +265,7 @@ Modules\HomeDashboard.lua
 Modules\NavSearch.lua
 Modules\DevShots.lua
 Modules\CommandList.lua
+Modules\KeypadCommands.lua
 Modules\SupportReport.lua
 Modules\ToolsLaunchpad.lua
 Modules\RoomLauncher.lua

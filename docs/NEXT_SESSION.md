@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## ⌨️ 7 okt — keypad-commando's (memory keypad-window-shortcuts; Rob koos "/mhrares", niet "/rares")
+`Modules/KeypadCommands.lua`: 27 top-level slashes (/mh + schermnaam) via ns.ShowMainUI + ns.SelectTab (zelfde tab-ids
+als NavSearch), pop-outs via SlashCmdList.MIDNIGHTHELPER; `/mh keypad` (gelijst, CMDLIST_KEYPAD) print ze. GEMETEN: alle
+27 label-keys bestaan (5 in eigen locale-bestanden). Niet getest. Open-ideeën nagelopen in de code: death-recap,
+route-hervatten, groep-verlaten, tank/DPS-toolkit waren AL AF (index rechtgezet). Echt open: ready-herinnering bij een
+raid, één winkelvenster, vertaalronde van vandaag, dispel D (na 14 okt), WoW Forever-keus, Duitse machinevertalingen.
+
 ## 🧳 7 okt (Rob onderweg) — "+N op alts", dispel opgeruimd, tank/DPS-toolkit bleek al af
 - "+N op alts" GEBOUWD, NIET GETEST: `ns.db.craftShopStock[guid]` (tassen+bank, geen Warband) per personage bij login/
   BAG_UPDATE_DELAYED; regel "+N op alts" + tooltip per personage, alleen bij tekort; verlaagt "Koop N" niet.

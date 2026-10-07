@@ -195,6 +195,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh fp", descKey = "CMDLIST_FP" },
 		{ cmd = "/mh course", descKey = "CMDLIST_COURSE" },
 		{ cmd = "/mh craftshop", descKey = "CMDLIST_CRAFTSHOP" },
+		{ cmd = "/mh keypad", descKey = "CMDLIST_KEYPAD" },
 		{ cmd = "/mh valeera", descKey = "CMDLIST_VALEERA" },
 		-- 2 sep: `/mh poisons` is een alias van `/mh curios` geworden en staat daarom
 		-- niet meer los in de lijst. Het stond hier bij de ROUTE-groep, wat het sowieso
