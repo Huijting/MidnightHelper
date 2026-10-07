@@ -1735,10 +1735,26 @@ end
 -- (default 15). Pass 0 to keep the arrow on the target until something replaces it
 -- — used by the treasure route so the arrow stays on an urn while you fight/loot
 -- it, instead of vanishing the moment you get close.
+--- Why the travel popup did or did not appear, last 12 decisions, in ns.db.travelWhy (7 Oct 2026). Rob, Atal'Aman →
+--- The Grudge Pit: the arrow named the Hearthstone route, the popup never came, and nothing said which of eight exits
+--- it took. Read it from SavedVariables after a /reload.
+local function TravelWhy(where, reason, extra)
+	ns.db = ns.db or {}
+	local log = ns.db.travelWhy or {}
+	ns.db.travelWhy = log
+	table.insert(log, 1, { at = time and time() or 0, where = where, why = reason, extra = extra })
+	while #log > 12 do
+		table.remove(log)
+	end
+end
+ns.MHTravelWhy = TravelWhy
+
 function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, travelOnly, clearDist)
 	if not mapID then
 		return false
 	end
+	TravelWhy("AddSmartTomTomWay", "enter", ("map %s %s skipUI=%s travelOnly=%s leg=%s"):format(
+		tostring(mapID), tostring(name), tostring(skipTravelUI), tostring(travelOnly), tostring(ns._mhTravelLegBusy)))
 	local targetMap = tonumber(mapID)
 	local xPct, yPct = tonumber(x), tonumber(y)
 	if not targetMap or not xPct or not yPct then
@@ -1839,6 +1855,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	end
 
 	if skipTravelUI then
+		TravelWhy("AddSmartTomTomWay", "skipTravelUI")
 		return true
 	end
 
@@ -1866,6 +1883,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	end
 
 	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
+		TravelWhy("AddSmartTomTomWay", "ShouldSuppressTravelPopup", ("cur %s"):format(tostring(currentMap)))
 		SafeHideTravelPopup()
 		return true
 	end
@@ -1874,6 +1892,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	-- like the Altar of Malacrass toward an urn on the main map) you've effectively
 	-- arrived — don't nag a portal/HS just because the sub-map id differs.
 	if ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(currentMap, targetMap) then
+		TravelWhy("AddSmartTomTomWay", "MHSameZoneOrSub", ("cur %s"):format(tostring(currentMap)))
 		SafeHideTravelPopup()
 		return true
 	end
@@ -1884,16 +1903,25 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	local targetRegion = ns.GetTargetRegionGroupID(targetMap, xPct) -- was an undefined `targetX` until 12 Sep 2026
 	-- ...except when the Hearthstone-then-city-portal route applies (Rob, 7 Oct 2026 evening, Atal'Aman → The Grudge
 	-- Pit: the arrow label named the route but there was no button, because Zul'Aman and Harandar share a region group).
-	local hsRoute = ns.MHHearthRouteFor and not PlayerIsInSilvermoonHub(currentMap) and ns.MHHearthRouteFor(targetMap)
+	local hsRoute = ns.MHHearthRouteFor and not PlayerIsInSilvermoonHub(currentMap)
+		and (ns.MHHearthRouteFor(targetMap) or (HearthstoneGoesTo(targetZoneName) and "direct"))
+	TravelWhy("AddSmartTomTomWay", "region", ("cur %s reg %s → tgt %s reg %s, hsRoute=%s, bind HS→hub=%s"):format(
+		tostring(currentMap), tostring(currentRegion), tostring(targetMap), tostring(targetRegion), tostring(hsRoute),
+		tostring(HearthstoneGoesTo(GetZoneDisplayName(2393)))))
 	if currentMap and targetMap and currentRegion == targetRegion and currentRegion ~= 0 and not hsRoute then
+		TravelWhy("AddSmartTomTomWay", "same region, silent")
 		SafeHideTravelPopup()
 		return true
 	end
 
 	-- 2. Travel Assistant (with Hub Centroid Detection on Map 2576)
+	if not (currentMap and targetMap and tonumber(currentMap) ~= targetMap and currentZoneName ~= targetZoneName) then
+		TravelWhy("AddSmartTomTomWay", "same map or zone name", ("%s / %s"):format(tostring(currentZoneName), tostring(targetZoneName)))
+	end
 	if currentMap and targetMap and tonumber(currentMap) ~= targetMap and currentZoneName ~= targetZoneName then
 		local playerPos = C_Map.GetPlayerMapPosition(currentMap, "player")
 		if not playerPos then
+			TravelWhy("AddSmartTomTomWay", "no player position on current map")
 			return true
 		end
 
@@ -1904,6 +1932,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 
 		-- ARRIVAL CHECK: only when near waypoint — same zone after a portal still needs the arrow.
 		if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
+			TravelWhy("AddSmartTomTomWay", "ShouldSuppressTravelPopup (2)")
 			SafeHideTravelPopup()
 			return true
 		end
@@ -1914,6 +1943,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		-- already refuses in combat, so laying the buttons out bought nothing anyway. The
 		-- waypoint itself was set in step 1 and stays; only the portal/HS advice waits.
 		if InCombatLockdown() then
+			TravelWhy("AddSmartTomTomWay", "in combat")
 			return true
 		end
 
@@ -1995,6 +2025,11 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 			hsBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 15)
 		end
 
+		TravelWhy("AddSmartTomTomWay", (travelPopup.portalBtn:IsShown() or isHSVisible) and "SHOW" or "nothing to offer",
+			("hsCD=%s isHub=%s nearPortal=%s(%s) hsTarget=%s hsHub=%s portalBtn=%s"):format(
+				tostring(hsStartTime), tostring(isHub), tostring(isNearPortal), tostring(bestDist),
+				tostring(HearthstoneGoesTo(targetZoneName)), tostring(hsHubPortal and hsHubPortal.name),
+				tostring(travelPopup.portalBtn:IsShown())))
 		if travelPopup.portalBtn:IsShown() or isHSVisible then
 			local statusText = (hsStartTime == 0) and "" or "\n|cffff0000HS on Cooldown!|r"
 			ns:ShowTravelPopup(targetZoneName, "\n|cffaaaaaaDistance: Very Far|r" .. statusText .. portalAdvice)
@@ -2075,7 +2110,8 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
 	local targetRegion = ns.GetTargetRegionGroupID(targetMap, xPct) -- was an undefined `targetX` until 12 Sep 2026
 	-- Same exception as in AddSmartTomTomWay: the Hearthstone-then-city-portal route opens the popup.
-	local hsRoute = ns.MHHearthRouteFor and not PlayerIsInSilvermoonHub(currentMap) and ns.MHHearthRouteFor(targetMap)
+	local hsRoute = ns.MHHearthRouteFor and not PlayerIsInSilvermoonHub(currentMap)
+		and (ns.MHHearthRouteFor(targetMap) or (HearthstoneGoesTo(targetZoneName) and "direct"))
 	if currentMap and currentRegion == targetRegion and currentRegion ~= 0 and not hsRoute then
 		SafeHideTravelPopup()
 		return
@@ -4336,6 +4372,7 @@ function ns:ShowTravelPopup(targetMapName, extraInfo)
 	if IsInInstance then
 		local ok, inInstance = pcall(IsInInstance)
 		if ok and inInstance then
+			TravelWhy("ShowTravelPopup", "inside an instance: not shown")
 			return
 		end
 	end
