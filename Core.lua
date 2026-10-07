@@ -3284,6 +3284,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 7 Oct 2026: the raid reminder (RaidShoppingList.lua). "/mh ready remind [on|off]".
+	if msg == "ready remind" or msg:match("^ready remind%s") then
+		if ns.RaidReadyReminderCommand then
+			ns.RaidReadyReminderCommand(msg:match("^ready remind%s+(%a+)$"))
+		end
+		return
+	end
 
 	-- 6 Oct 2026 (Cisca's wish): the shopping list for your profession (CraftShoppingList.lua).
 	if msg == "craftshop" or msg == "craft" then

@@ -119,6 +119,14 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🆕 7 okt — raid-herinnering (Rob koos hem)
+
+Gebouwd, niet getest. Staat standaard AAN; `/mh ready remind off` zet hem uit, `/mh ready remind` zegt de stand + laatste check.
+- [ ] Ga een raid-instance binnen (of laat de raidleider een ready check doen in een raidgroep) terwijl je iets mist →
+  na ~3 s een toast "Klaar voor de raid? Je mist N ding(en) voor vanavond"? Klik → het venster opent?
+- [ ] Niets missen → geen toast (`/mh ready remind` zegt dan "last check …: 0 missing").
+- [ ] Niet vaker dan één keer per raid-bezoek, en bij ready checks hooguit eens per 10 minuten.
+
 ## 🆕 7 okt — keypad-commando's: één per scherm (Rob: "/mhrares", veilige vorm)
 
 Gebouwd, niet getest (`Modules/KeypadCommands.lua`). 27 commando's: 24 schermen + /mhcraftshop, /mhready, /mhblock.

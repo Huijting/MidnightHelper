@@ -888,6 +888,117 @@ function ns.ShowRaidShoppingList()
 	win:Show()
 end
 
+--- How many rows "Ready for the raid?" would mark Buy right now (consumables in the chosen mode + missing enchants and
+--- sockets). The same rules as the window above, without drawing it: mail and bank count as "have", optional rows and
+--- the Healthstone never count, an unknown count (nil) never counts.
+function ns.RaidShopMissingCount()
+	local missing = 0
+	local okR, rows = pcall(ns.GetRaidShoppingData, Mode())
+	for _, d in ipairs(okR and type(rows) == "table" and rows or {}) do
+		if not d.info and not d.optional and d.have and d.need and d.need > 0 then
+			local away = MailCount(d.ids) + BankCount(d.ids)
+			if d.need > d.have + away then
+				missing = missing + 1
+			end
+		end
+	end
+	local gear = ns.GetGearShoppingRows and select(2, pcall(ns.GetGearShoppingRows)) or nil
+	for _, g in ipairs(type(gear) == "table" and gear or {}) do
+		local have = g.iid and (select(2, pcall(C_Item.GetItemCount, g.iid)) or 0) or BagCountByName(g.name)
+		local ids = g.iid and { g.iid } or nil
+		local away = (ids and MailCount(ids) or MailCountByName(g.name)) + (ids and BankCount(ids) or 0)
+		if (tonumber(g.need) or 0) > (tonumber(have) or 0) + away then
+			missing = missing + 1
+		end
+	end
+	return missing
+end
+
+--------------------------------------------------------------------------------
+-- The raid reminder (Rob, 7 Oct 2026: "Ready-herinnering bij een raid"). The consumable board deliberately stays shut
+-- in a raid group (ConsumableReadyCheck.lua: "IsInRaid is precies de grens die het bord aankan"), so raid night had no
+-- nudge at all. Now: entering a raid instance, or a ready check while in a raid group, counts what "Ready for the
+-- raid?" would mark Buy; if anything is missing, ONE toast (click = the window). Once per raid visit, and once per
+-- ready check at most every 10 minutes. On by default; `/mh ready remind off` turns it off.
+--------------------------------------------------------------------------------
+
+local lastRemindKey, lastRemindAt = nil, 0
+
+local function RemindOn()
+	return not (ns.db and ns.db.raidReadyReminder == false)
+end
+
+local function Remind(key)
+	if not RemindOn() or InCombatLockdown and InCombatLockdown() then
+		return
+	end
+	local now = GetTime and GetTime() or 0
+	if key == lastRemindKey and now - lastRemindAt < 600 then
+		return
+	end
+	local n = ns.RaidShopMissingCount and ns.RaidShopMissingCount() or 0
+	ns.db = ns.db or {}
+	ns.db.raidReadyReminderProbe = { key = tostring(key), missing = n, t = date and date("%H:%M:%S") or nil }
+	if n <= 0 then
+		return -- nothing missing: silence is the right answer, and the probe above says it ran
+	end
+	lastRemindKey, lastRemindAt = key, now
+	if ns.QueueMidnightToast then
+		ns.QueueMidnightToast({
+			id = "mh_raidready",
+			icon = "Interface\\Icons\\INV_Misc_Bag_10",
+			title = L("RAIDSHOP_TITLE"),
+			body = L("RAIDSHOP_REMIND_FMT"):format(n),
+			displaySec = 8,
+			onClick = function()
+				if ns.ShowRaidShoppingList then
+					ns.ShowRaidShoppingList()
+				end
+			end,
+			clickHintKey = "RAIDSHOP_REMIND_HINT",
+		})
+	end
+end
+
+do
+	local rf = CreateFrame("Frame")
+	rf:RegisterEvent("PLAYER_ENTERING_WORLD")
+	-- READY_CHECK: a long-standing event (DBM registers it on 12.1); pcall so an unknown event can never throw here.
+	pcall(rf.RegisterEvent, rf, "READY_CHECK")
+	rf:SetScript("OnEvent", function(_, event)
+		if event == "READY_CHECK" then
+			if IsInRaid and IsInRaid() then
+				Remind("readycheck")
+			end
+			return
+		end
+		-- Entering a raid instance: once per instance visit (the key is the instance id).
+		if not (IsInInstance and GetInstanceInfo) then
+			return
+		end
+		local inInst, kind = IsInInstance()
+		if inInst and kind == "raid" and C_Timer and C_Timer.After then
+			local _, _, _, _, _, _, _, instID = GetInstanceInfo()
+			C_Timer.After(3, function()
+				Remind("raid:" .. tostring(instID))
+			end)
+		end
+	end)
+end
+
+--- `/mh ready remind [on|off]`
+function ns.RaidReadyReminderCommand(arg)
+	local p = ("|cffffcc00%s|r"):format(L("PRINT_PREFIX"))
+	if arg == "on" or arg == "off" then
+		ns.db = ns.db or {}
+		ns.db.raidReadyReminder = (arg == "on")
+	end
+	local probe = ns.db and ns.db.raidReadyReminderProbe
+	print(("%s %s (%s)"):format(p, L(RemindOn() and "RAIDSHOP_REMIND_ON" or "RAIDSHOP_REMIND_OFF"),
+		probe and ("last check " .. tostring(probe.t) .. ": " .. tostring(probe.missing) .. " missing, " .. tostring(probe.key))
+		or "no check yet"))
+end
+
 --- The proven helpers, shared with the craft shopping list (CraftShoppingList.lua, 6 Oct 2026) so both windows count,
 --- search and hand off to Auctionator the same way.
 ns.MHShop = {
