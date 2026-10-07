@@ -28,6 +28,9 @@ local SCHOOL = {
 
 local curEncID, curEncName
 
+-- The in-combat lookup probe (ProbeKnownIDs). Off: see the note where it was called.
+local PROBE_KNOWN_IDS = false
+
 local function isSecret(v)
 	return issecretvalue and v ~= nil and issecretvalue(v) == true
 end
@@ -594,7 +597,10 @@ local function Capture()
 
 	-- Enumeration just failed to tell us something. That is exactly the moment
 	-- worth asking the other way round, by id.
-	if unreadable or not scanned then
+	-- ⏸ OFF since 7 Oct 2026 (docs/DISPEL_RECHECK_2026-10-07.md, "Opruimen"): its question -- does asking by id work in
+	-- combat? -- is answered (no: secret auras answer nil, by design per the wiki), and it was asking about ~89 ids
+	-- up to once a second through every fight (44,839 rounds in Rob's SV). Flip PROBE_KNOWN_IDS to measure again.
+	if PROBE_KNOWN_IDS and (unreadable or not scanned) then
 		pcall(ProbeKnownIDs)
 	end
 

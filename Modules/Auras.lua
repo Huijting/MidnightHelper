@@ -76,23 +76,15 @@ end
 --- The player's own aura by spell ID, as a data table (nil when absent or unreadable).
 ---
 --- Both lookups take a spell ID, so neither compares a possibly-secret `aura.spellId`
---- addon-side. GetAuraDataBySpellID is tried first because it also finds auras the
---- player-specific call misses; it does not exist on every client, hence the fallback.
+--- addon-side. (This used to try GetAuraDataBySpellID first; that function does not exist -- see below, 7 Oct 2026.)
 --- @return table|nil auraData, boolean readable
 function Aura.GetPlayerAura(spellID)
 	if not (spellID and C_UnitAuras) then
 		return nil, false
 	end
 	local readable = false
-	if C_UnitAuras.GetAuraDataBySpellID then
-		local ok, data = pcall(C_UnitAuras.GetAuraDataBySpellID, "player", spellID)
-		if ok then
-			readable = true
-			if data then
-				return data, true
-			end
-		end
-	end
+	-- (A first branch asked C_UnitAuras.GetAuraDataBySpellID. That function DOES NOT EXIST -- mh-research, 7 Oct 2026,
+	-- docs/DISPEL_RECHECK_2026-10-07.md -- so it never ran. Removed; behaviour is unchanged.)
 	if C_UnitAuras.GetPlayerAuraBySpellID then
 		local ok, data = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
 		if ok then
@@ -129,6 +121,11 @@ end
 --- eight buffs out of combat, then the same eight in combat. Seven came back `nil` from
 --- `GetPlayerAuraBySpellID` — the same calm wrong answer as 12 Aug, so this is stable
 --- behaviour and not a one-off.
+---
+--- 🔴 CORRECTED 7 Oct 2026: the "two calls disagreed" below is WRONG. `GetAuraDataBySpellID` does not exist (mh-research,
+--- docs/DISPEL_RECHECK_2026-10-07.md); "absent" in that dump meant "no such function", not "no such aura". The
+--- conclusion of this block still stands on GetPlayerAuraBySpellID alone: in combat it answers nil for buffs you have
+--- (7 of 8), which the wiki now documents as intended for secret auras. Kept below as history, not as evidence.
 ---
 --- The new part is proof rather than inference. For 462854 the two calls DISAGREED inside
 --- a single run, at one instant:
@@ -337,7 +334,9 @@ local function SpellIdProbe(inCombat)
 	--- What one raw call did: threw, answered nothing, or answered with an aura.
 	local function Outcome(fn, ...)
 		if type(fn) ~= "function" then
-			return "absent"
+			-- Was "absent" until 7 Oct 2026, and on 31 Aug that word was read as "the aura is absent" for a function
+			-- (GetAuraDataBySpellID) that simply does not exist. Say what it means.
+			return "no-such-function"
 		end
 		local ok, data = pcall(fn, ...)
 		if not ok then
