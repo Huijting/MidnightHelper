@@ -42,7 +42,11 @@
   Midnight (+ usted → tú). "Dépense-en" zelf naar "Dépenses-en" gezet. Open, laag: 5 frFR-waarden nu gelijk aan enUS
   (TAB_GUIDE, TAB_MACROS, ALT_COL_UNDERCOINS, DELVE_SHARE_BTN_BOSS, DELVE_SHARE_TEST_MODE) — een toekomstige fill()
   kan ze overschrijven; ptBR "Sobrecarga da Meia-noite" (Translations2026:4201) = talentnaam?, niet aangeraakt;
-  frFR LAYOUT_LEGEND mist +N/M4-M9-regels; enUS ACADEMY_TANK_LADDER_BODY "Skip a step until it feels boring" onduidelijk.
+  frFR LAYOUT_LEGEND mist +N/M4-M9-regels.
+- Rob volgt advies (7 okt): de 5 frFR-waarden staan nu in KEEP_ENGLISH_FOR.frFR (KeepEnglish.lua); enUS
+  ACADEMY_TANK_LADDER_BODY → "Stay on each step until it feels boring, not terrifying. Then move up." in alle 7 talen
+  (drift gemarkeerd). Italiaans wordt nagelopen op machinetaal (mh-writer 07f, loopt). Bewust laten wachten:
+  ptBR "Sobrecarga da Meia-noite", frFR LAYOUT_LEGEND, RaidTips frFR "vous".
 
 ## 🆕 7 okt — 12.1.5 komt 13 okt (VS) / 14 okt (EU): `docs/PATCH_12_1_5_PREP_2026-10-07.md` (mh-research)
 Nieuwe "mega-delve" The Labyrinth of Kindo'jan (9 kamers, Valeera, eindbaas Kindo'jan, Vault-credit per 3 kamers; wago 70077).

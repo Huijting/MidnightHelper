@@ -2135,7 +2135,7 @@ ns._mhLocales.nlNL = {
 	ACADEMY_CHAT_COPY_TIP = "Selecteer deze regel (Ctrl+C)",
 	ACADEMY_TANK_CHAT_BODY = "\"Nog tank leren - rustig aan graag.\"\n\"Pull over 3...\"\n\"Even pauze voor mana.\"\n\"Interrupt op [spell] - ik pak volgende.\"\n\"Nog één try - die pull ken ik nu.\"",
 	ACADEMY_TANK_LADDER_TITLE = "Angst-ladder (aanbevolen volgorde)",
-	ACADEMY_TANK_LADDER_BODY = "1. Open world elites met een vriend\n2. Delves (kleinere instance - Delves-tab)\n3. Normal dungeon met mensen die je vertrouwt\n4. Heroic / LFR als het comfortabel voelt\n\nSla een stap over tot het saai wordt, niet eng.",
+	ACADEMY_TANK_LADDER_BODY = "1. Open world elites met een vriend\n2. Delves (kleinere instance - Delves-tab)\n3. Normal dungeon met mensen die je vertrouwt\n4. Heroic / LFR als het comfortabel voelt\n\nBlijf bij elke stap tot hij saai voelt, niet eng. Ga dan een stap hoger.",
 	ACADEMY_TANK_BOTH_TITLE = "Ook heal of DPS leren?",
 	ACADEMY_TANK_BOTH_BODY = "Top - maar kies één hoofdrol in dungeons voorlopig. Oefen de andere rol in delves of open world.\n\nTank én heal in dezelfde M+ pug verdubbelt stress; één rol eerst geeft vertrouwen voor de tweede.",
 

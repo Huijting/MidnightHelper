@@ -2210,7 +2210,7 @@ ns._mhLocales.enUS = {
 	ACADEMY_CHAT_COPY_TIP = "Select this line (Ctrl+C)",
 	ACADEMY_TANK_CHAT_BODY = "\"Still learning tank - go slow please.\"\n\"Pulling in 3...\"\n\"Need a breather for mana.\"\n\"Interrupt on [spell name] - I have it next.\"\n\"One more try - I know that pull now.\"",
 	ACADEMY_TANK_LADDER_TITLE = "Anxiety ladder (recommended order)",
-	ACADEMY_TANK_LADDER_BODY = "1. Open world elites with a friend\n2. Delves (smaller instance - Delves tab)\n3. Normal dungeon with people you trust\n4. Heroic / LFR when comfortable\n\nSkip a step until it feels boring, not terrifying.",
+	ACADEMY_TANK_LADDER_BODY = "1. Open world elites with a friend\n2. Delves (smaller instance - Delves tab)\n3. Normal dungeon with people you trust\n4. Heroic / LFR when comfortable\n\nStay on each step until it feels boring, not terrifying. Then move up.",
 	ACADEMY_TANK_BOTH_TITLE = "Learning heal or DPS too?",
 	ACADEMY_TANK_BOTH_BODY = "The DPS track is the gentlest second role - your rotation, kicks and positioning, with no group depending on you. Healing is the bigger jump, but you already read pulls, and that is half of it.\n\nPick one main role in dungeons for a while and practise the other in delves or open world. Switching roles in the same M+ pug doubles the stress; mastery in one first builds confidence for the second.",
 

@@ -524,7 +524,7 @@ ns._mhLocales.itIT = {
 	ACADEMY_CHAT_COPY_TIP = "Seleziona questa riga (Ctrl+C)",
 	ACADEMY_TANK_CHAT_BODY = "\"Sto ancora imparando a tankare - andate piano per favore.\"\n\"Pull tra 3...\"\n\"Mi serve un attimo per il mana.\"\n\"Interrupt su [nome spell] - ce l'ho il prossimo.\"\n\"Ancora un tentativo - ora conosco quel pull.\"",
 	ACADEMY_TANK_LADDER_TITLE = "Scala dell'ansia (ordine consigliato)",
-	ACADEMY_TANK_LADDER_BODY = "1. Elite del mondo aperto con un amico\n2. Delve (istanza più piccola - tab Delves)\n3. Dungeon normal con persone di cui ti fidi\n4. Heroic / LFR quando sei a tuo agio\n\nSalta un passo solo quando ti annoia, non quando ti terrorizza.",
+	ACADEMY_TANK_LADDER_BODY = "1. Elite del mondo aperto con un amico\n2. Delve (istanza più piccola - tab Delves)\n3. Dungeon normal con persone di cui ti fidi\n4. Heroic / LFR quando sei a tuo agio\n\nResta su ogni passo finché non ti annoia invece di spaventarti. Poi sali al successivo.",
 	ACADEMY_TANK_BOTH_TITLE = "Stai imparando anche a curare?",
 	ACADEMY_TANK_BOTH_BODY = "Ottimo - ma scegli un ruolo principale nei dungeon per un po'. Allena l'altro nelle delve o nel mondo aperto.\n\nAlternare tank e heal nello stesso pug M+ raddoppia lo stress; padroneggiare prima un ruolo crea fiducia per il secondo.",
 
