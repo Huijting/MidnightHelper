@@ -1,6 +1,16 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (7 okt, 22:12) — 4.7.4 GETAGD en gepusht (Rob: "Go"), tag `v4.7.4` op 62f33af
+## ▶️ HIER VERDER (8 okt) — 4.7.4 is LIVE; open: Resto Druid-PDF voor DandersFrames
+- ✅ 4.7.4 geüpload (log: CurseForge, Wago, GitHub "Success!"), Rob: changelog op CF goed, description geplakt
+  (b856cc8, gepusht). Site-chat heeft versie + tag.
+- OPEN (Rob, 7 okt laat): spiekbrief-PDF zoals de Holy-versie, nu voor Resto Druid + "een gaaf plaatje voor mijn druid".
+  Voorstel DF-binds gegeven (zelfde patroon als Holy): Shift+L Rejuvenation, Shift+R Lifebloom, Ctrl+L Regrowth, Ctrl+R
+  Nature's Cure, middel Ironbark, Shift+middel Wild Growth, Shift+Ctrl+L Swiftmend, Shift+Ctrl+R Rebirth. Wacht op Robs
+  screenshot van zijn echte Active Bindings. Plaatje = ComfyUI → EERST plan, pas draaien na zijn ja (comfy-regels);
+  gevraagd: naam/ras/geslacht druid, Robs gezicht ja/nee, druid- of Tree of Life-vorm, stijl (WoW-3D of strip), WoW dicht?
+  Holy-PDF-bron (HTML + Edge headless) staat in de scratchpad van sessie 945b4dfe: holy_sheet.html + make_holy_sheet.py.
+
+## (eerder) 7 okt, 22:12 — 4.7.4 GETAGD en gepusht (Rob: "Go"), tag `v4.7.4` op 62f33af
 - Release-run 37680209677 gestart. Daarna: CF → Files → Changelog nakijken; site-chat seintje gestuurd.
 
 ## (stap ervoor) 4.7.4 als GEWONE release klaargezet
