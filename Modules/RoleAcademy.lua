@@ -8,24 +8,34 @@ local TRACK_TANK = "tank"
 local TRACK_HEAL = "heal"
 local TRACK_DPS = "dps"
 
+--- 🔴 7 Oct 2026, Rob's point 5: the tank and heal "pre-flight checklist" (interrupt macro, defensive, flask, taunt
+--- key) became a route — "switch role, step by step". The old list asked a beginner to tick words nobody had explained
+--- yet, in a fixed box above every explanation (newcomer re-read, docs/ROLE_SWITCH_REREAD_NEWCOMER_2026-10-07.md).
+--- Steps the client can see tick themselves (AUTO_STEPS); the rest are your own ticks, saved as before.
 local PREFLIGHT_KEYS = {
-	tank = { "interrupt", "defensive", "consumables", "taunt" },
-	heal = { "macros", "defensive", "consumables", "practice" },
+	tank = { "spec", "gear", "keys", "card", "dummy", "follower", "normal" },
+	heal = { "spec", "frames", "keys", "card", "friend", "follower", "normal" },
 	dps = { "rotation", "cooldowns", "defensive", "interrupt" },
 }
 
 local PREFLIGHT_LABEL_KEYS = {
 	tank = {
-		interrupt = "ACADEMY_PREF_TANK_INTERRUPT",
-		defensive = "ACADEMY_PREF_TANK_DEFENSIVE",
-		consumables = "ACADEMY_PREF_TANK_CONSUMABLES",
-		taunt = "ACADEMY_PREF_TANK_TAUNT",
+		spec = "ACADEMY_STEP_TANK_SPEC",
+		gear = "ACADEMY_STEP_TANK_GEAR",
+		keys = "ACADEMY_STEP_TANK_KEYS",
+		card = "ACADEMY_STEP_CARD",
+		dummy = "ACADEMY_STEP_TANK_DUMMY",
+		follower = "ACADEMY_STEP_FOLLOWER",
+		normal = "ACADEMY_STEP_NORMAL",
 	},
 	heal = {
-		macros = "ACADEMY_PREF_HEAL_MACROS",
-		defensive = "ACADEMY_PREF_HEAL_DEFENSIVE",
-		consumables = "ACADEMY_PREF_HEAL_CONSUMABLES",
-		practice = "ACADEMY_PREF_HEAL_PRACTICE",
+		spec = "ACADEMY_STEP_HEAL_SPEC",
+		frames = "ACADEMY_STEP_HEAL_FRAMES",
+		keys = "ACADEMY_STEP_HEAL_KEYS",
+		card = "ACADEMY_STEP_CARD",
+		friend = "ACADEMY_STEP_HEAL_FRIEND",
+		follower = "ACADEMY_STEP_FOLLOWER",
+		normal = "ACADEMY_STEP_NORMAL",
 	},
 	dps = {
 		rotation = "ACADEMY_PREF_DPS_ROTATION",
@@ -37,19 +47,32 @@ local PREFLIGHT_LABEL_KEYS = {
 
 --- Read BEFORE the card button and the toolkit (7 Oct 2026, role-switch review): what the role is, the mindset,
 --- the words, and the route from zero to a first dungeon. A DPS player switching roles meets these first.
+--- Re-read (same day): the word list came after texts that already used the words, so it moved up, and the step plan
+--- now sits between "what is it" and the rest. Page order: BASICS_KEYS → step plan → BASICS_AFTER_KEYS → card +
+--- toolkit → SECTION_KEYS.
 local BASICS_KEYS = {
 	tank = {
 		{ "ACADEMY_TANK_WHAT_TITLE", "ACADEMY_TANK_WHAT_BODY" },
-		{ "ACADEMY_TANK_INTRO_TITLE", "ACADEMY_TANK_INTRO_BODY" },
-		{ "ACADEMY_TANK_LADDER_TITLE", "ACADEMY_TANK_LADDER_BODY" },
 		{ "ACADEMY_WORDS_TITLE", "ACADEMY_WORDS_BODY" },
 	},
 	heal = {
 		{ "ACADEMY_HEAL_WHAT_TITLE", "ACADEMY_HEAL_WHAT_BODY" },
+		{ "ACADEMY_WORDS_TITLE", "ACADEMY_WORDS_BODY" },
+	},
+}
+
+local BASICS_AFTER_KEYS = {
+	tank = {
+		{ "ACADEMY_TANK_INTRO_TITLE", "ACADEMY_TANK_INTRO_BODY" },
+		-- How you see a big hit coming (Boss Warnings, cast bar, Shift+J): six texts said "before the big hit" and none said how.
+		{ "ACADEMY_SEE_TITLE", "ACADEMY_SEE_BODY" },
+		{ "ACADEMY_TANK_LADDER_TITLE", "ACADEMY_TANK_LADDER_BODY" },
+	},
+	heal = {
 		{ "ACADEMY_HEAL_INTRO_TITLE", "ACADEMY_HEAL_INTRO_BODY" },
 		{ "ACADEMY_HEAL_TRIAGE_TITLE", "ACADEMY_HEAL_TRIAGE_BODY" },
+		{ "ACADEMY_SEE_TITLE", "ACADEMY_SEE_BODY" },
 		{ "ACADEMY_HEAL_LADDER_TITLE", "ACADEMY_HEAL_LADDER_BODY" },
-		{ "ACADEMY_WORDS_TITLE", "ACADEMY_WORDS_BODY" },
 	},
 }
 
@@ -148,7 +171,32 @@ local function EnsurePreflightBag()
 	return bag
 end
 
+--- Steps the client answers itself. Returns true when done; nil when it cannot tell (then your own tick counts).
+local function AutoStepDone(track, key)
+	if key == "spec" then
+		if track == TRACK_TANK then
+			return (ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()) ~= nil
+		elseif track == TRACK_HEAL then
+			return (ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()) ~= nil
+		end
+	elseif key == "keys" and track == TRACK_TANK then
+		local spec = ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()
+		local tk = spec and ns.TANK_TAUNT_KICK and ns.TANK_TAUNT_KICK[spec]
+		if tk and ns.LiveKeyForSpell then
+			local ok1, k1 = pcall(ns.LiveKeyForSpell, tk.taunt)
+			local ok2, k2 = pcall(ns.LiveKeyForSpell, tk.kick)
+			if ok1 and ok2 and k1 and k2 then
+				return true
+			end
+		end
+	end
+	return nil
+end
+
 local function GetPreflightChecked(track, key)
+	if AutoStepDone(track, key) then
+		return true
+	end
 	local bag = EnsurePreflightBag()
 	if not bag then
 		return false
@@ -195,7 +243,9 @@ local function RefreshClassLine(panel)
 	panel._classLine:SetText(SL("ACADEMY_CLASS_FMT"):format(classLocalized, specName))
 end
 
-local function RebuildPreflightChecks(panel)
+--- The step plan, drawn INSIDE the reading page (7 Oct 2026) instead of a fixed box above it, so it can sit after
+--- "What is a tank/healer" and the word list. Same saved ticks as the old checklist. Returns the new y.
+local function RenderStepPlan(panel, parent, y, boxW)
 	-- Content font scale: the per-row floor scales so checked rows don't crowd;
 	-- actual row height also follows the (scaled) label's GetStringHeight.
 	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
@@ -209,14 +259,19 @@ local function RebuildPreflightChecks(panel)
 	end
 	panel._preflightChecks = panel._preflightChecks or {}
 
-	local parent = panel._preflightBox
-	if not parent then
-		return
-	end
+	local titleFs = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	titleFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
+	titleFs:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, y)
+	titleFs:SetWidth(boxW)
+	titleFs:SetJustifyH("LEFT")
+	titleFs:SetTextColor(1, 0.88, 0.45)
+	titleFs:SetText(SL(track == TRACK_DPS and "ACADEMY_PREF_TITLE" or "ACADEMY_STEP_TITLE"))
+	titleFs:Show()
+	panel._academySectionFs[#panel._academySectionFs + 1] = titleFs
+	local _, th = titleFs:GetFont()
+	y = y - (th or 14) - 6
 
-	local boxW = math.max(280, (parent:GetWidth() or 400) - 16)
 	local labelW = boxW - 36
-	local y = -28
 	for i = 1, #keys do
 		local key = keys[i]
 		local chk = panel._preflightChecks[i]
@@ -225,9 +280,15 @@ local function RebuildPreflightChecks(panel)
 			panel._preflightChecks[i] = chk
 			chk:SetScript("OnClick", function(self)
 				SetPreflightChecked(GetTrack(), self._mhPrefKey, self:GetChecked())
+				-- A step the client already sees as done stays ticked; unticking it would only lie.
+				if AutoStepDone(GetTrack(), self._mhPrefKey) then
+					self:SetChecked(true)
+				end
 			end)
 		end
 		chk._mhPrefKey = key
+		chk:SetParent(parent)
+		chk:ClearAllPoints()
 		chk:Show()
 		chk:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, y)
 		chk:SetChecked(GetPreflightChecked(track, key))
@@ -255,15 +316,16 @@ local function RebuildPreflightChecks(panel)
 		y = y - rowH
 	end
 
-	if panel._preflightHint then
-		local hint = panel._preflightHint
-		hint:ClearAllPoints()
-		hint:SetWidth(boxW)
-		hint:SetText(SL("ACADEMY_PREF_HINT"))
-		hint:SetPoint("TOPLEFT", parent, "TOPLEFT", 8, y - 6)
-		local hintH = hint:GetStringHeight() or 14
-		parent:SetHeight(math.max(72, -y + hintH + 16))
-	end
+	local hint = parent:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	hint:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+	hint:SetJustifyH("LEFT")
+	hint:SetWordWrap(true)
+	hint:SetWidth(boxW)
+	hint:SetText(SL(track == TRACK_DPS and "ACADEMY_PREF_HINT" or "ACADEMY_STEP_HINT"))
+	hint:SetPoint("TOPLEFT", parent, "TOPLEFT", 8, y - 4)
+	hint:Show()
+	panel._academySectionFs[#panel._academySectionFs + 1] = hint
+	return y - (hint:GetStringHeight() or 14) - 18
 end
 
 local function IsChatBodyKey(bodyKey)
@@ -598,6 +660,23 @@ local function RenderTankToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, m.id)
 		end
 	end
+	-- Your taunt and your interrupt, with the key they sit on (7 Oct 2026; the re-read asked "which button is my taunt?").
+	local tk = ns.TANK_TAUNT_KICK and ns.TANK_TAUNT_KICK[specID]
+	if tk then
+		y = y - 4
+		y = AddToolkitLine(panel, child, cw, y, SL("TANKKIT_TK_HEAD"), true)
+		for _, row in ipairs({ { tk.taunt, "TANKKIT_TK_TAUNT" }, { tk.kick, "TANKKIT_TK_KICK" } }) do
+			local key
+			if activeID and ns.LiveKeyForSpell then
+				local ok, k = pcall(ns.LiveKeyForSpell, row[1])
+				key = ok and k or nil
+			end
+			local keyTxt = key and (" |cffffffff[" .. key .. "]|r")
+				or (activeID and (" |cff9d9d9d" .. SL("TANKKIT_TK_NOKEY") .. "|r") or "")
+			local line = ("|cffffd100%s|r%s — %s"):format(ns.HealerCooldownSpellName(row[1]), keyTxt, SL(row[2]))
+			y = AddToolkitLine(panel, child, cw, y, line, false, row[1])
+		end
+	end
 	local cds = OwnedOnly(ns.GetTankCooldowns and ns.GetTankCooldowns(specID), activeID)
 	if cds then
 		y = y - 4
@@ -861,6 +940,8 @@ local function RebuildScrollContent(panel)
 	-- full of words nobody had explained, and "what is a tank" or the route to a first dungeon came last. Now: the
 	-- basics first (BASICS_KEYS), then the card button and the toolkit, then the rest of the chapters.
 	RenderSections(BASICS_KEYS[track] or {})
+	y = RenderStepPlan(panel, child, y, cw)
+	RenderSections(BASICS_AFTER_KEYS[track] or {})
 
 	-- Spec-aware toolkits sit above the remaining chapters, per track.
 	-- The "How you play" button goes FIRST after the basics (Rob, 25 Sep 2026: it was hidden
@@ -946,8 +1027,7 @@ function ns.MH_RefreshRoleAcademyPanel(panel)
 	TintTrackBtn(panel._btnHeal, track == TRACK_HEAL)
 	TintTrackBtn(panel._btnDps, track == TRACK_DPS)
 	RefreshClassLine(panel)
-	RebuildPreflightChecks(panel)
-	RebuildScrollContent(panel)
+	RebuildScrollContent(panel) -- draws the step plan too (RenderStepPlan)
 end
 
 function ns.BuildRoleAcademyPanel(panel)
@@ -1043,8 +1123,11 @@ function ns.BuildRoleAcademyPanel(panel)
 
 	panel._preflightChecks = {}
 
+	-- 7 Oct 2026: the checklist lives in the page now (RenderStepPlan); the box stays built but hidden, and the
+	-- reading area starts right under the class line.
+	preflightBox:Hide()
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperAcademyScroll", panel, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", preflightBox, "BOTTOMLEFT", 0, -8)
+	scroll:SetPoint("TOPLEFT", classLine, "BOTTOMLEFT", -4, -8)
 	scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 8, SCROLL_BOTTOM)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -28, SCROLL_BOTTOM)
 	panel._academyScroll = scroll

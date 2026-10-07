@@ -12,8 +12,15 @@
   ACADEMY_WORDS (17 woorden). mh-writer 07h, alle 7 talen, menunamen per taal uit wago GlobalStrings.
 - (4) "(save these)" → vóór de klap; Divine Shield-tekst; follower dungeon in beide oefenroutes; mana-regel per spec;
   "Oom" → "OOM (out of mana)"; Brewmaster Celestial Infusion in TankToolkit (+ pull summary).
-- Open: esES/ptBR overige Academy-regels nog machinetaal (WIPE_BODY e.a.), ACADEMY_HEAL_BOTH_BODY/TRACK_* achter in 6 talen;
-  (5) stappenplan "Rol wisselen". Nieuweling-herlezing loopt. Niet getest in het spel.
+- Herlezing 1 (docs/ROLE_SWITCH_REREAD_NEWCOMER_2026-10-07.md): tank 3→6, heal 5→7. Ronde 2 (Rob "begin maar"):
+  (5) stappenplan "Rol wisselen" IN de pagina (RenderStepPlan; vaste preflight-box verborgen), tank/heal 7 stappen
+  (ACADEMY_STEP_*), "spec" en tank-"keys" vinken zichzelf (AutoStepDone: actieve spec; taunt+kick via LiveKeyForSpell).
+  Volgorde nu WHAT → WORDS → stappen → INTRO/(TRIAGE)/SEE/LADDER → kaart + toolkit → rest. Tank-toolkit: taunt +
+  interrupt met toets (ns.TANK_TAUNT_KICK, ids uit KeybindRoles). Nieuw ACADEMY_SEE (Boss Warnings, cast bar, Shift+J,
+  /mh bosswin). Heal-botsingen weg (triage-regel, HEALCORE_DESC_BIG, 105_S3/MISTAKE, mana → tooltip), laatste "bewaar"
+  (HEALCD_TITLE, HEALCD_WHEN_RAID, TANK_WIPE), woordenlijst + DPS/spec/HP/buff/LFR/Normal-Heroic-Mythic/M+. Feiten:
+  docs/ROLE_SWITCH_FACTS2_2026-10-07.md. mh-writer 07i, 7 talen. Twijfel: es/pt "Tu provocar"/"Seu provocar" leest stroef.
+- Open: ACADEMY_HEAL_BOTH_BODY/TRACK_* achter in 6 talen; DPS-track niet herzien. Herlezing 2 loopt. Niet getest.
 
 ## 🧭 7 okt — Hearthstone → Silvermoon → portaal (Rob: "kleine eigen versie" i.p.v. Farstrider)
 - Farstrider = GPL3: code én de dataset overnemen mag niet; losse feiten nakijken wel. Rob koos een eigen kleine

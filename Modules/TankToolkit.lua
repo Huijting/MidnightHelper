@@ -137,6 +137,18 @@ ns.TANK_COOLDOWNS = {
 
 local TANK_SPECS = { [66] = true, [73] = true, [104] = true, [250] = true, [268] = true, [581] = true }
 
+--- Taunt and interrupt per tank spec (7 Oct 2026). The newcomer re-read: "which button is my taunt, which my interrupt?"
+--- was answered nowhere in the Academy. Ids are the ones KeybindRoles_*.lua already carries (taunts: category "taunt";
+--- interrupts: role "interrupt"); the six taunts were re-checked in wago DB2 (docs/ROLE_SWITCH_FACTS_2026-10-07.md).
+ns.TANK_TAUNT_KICK = {
+	[66] = { taunt = 62124, kick = 96231 }, -- Hand of Reckoning, Rebuke
+	[73] = { taunt = 355, kick = 6552 }, -- Taunt, Pummel
+	[104] = { taunt = 6795, kick = 106839 }, -- Growl, Skull Bash
+	[250] = { taunt = 56222, kick = 47528 }, -- Dark Command, Mind Freeze
+	[268] = { taunt = 115546, kick = 116705 }, -- Provoke, Spear Hand Strike
+	[581] = { taunt = 185245, kick = 183752 }, -- Torment, Disrupt
+}
+
 function ns.GetTankMitigation(specID)
 	return specID and ns.TANK_MITIGATION[specID] or nil
 end

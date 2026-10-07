@@ -421,7 +421,7 @@ local OVERRIDES = {
 	ACADEMY_CLASS_OPEN_CHAT_FMT = "Makros geöffnet für %s - %s. Schau auch bei Verbrauchsmaterialien nach Flaschen und Töpfen.",
 	ACADEMY_PREF_TITLE = "Checkliste vor dem Start (abhaken, wenn du bereit bist)",
 	ACADEMY_PREF_HINT = "Häkchen werden in deinen Einstellungen gespeichert. Makros und Verbrauchsmaterial findest du im Raum Werkzeuge.",
-	ACADEMY_PREF_TANK_INTERRUPT = "Unterbrechungsmakro auf meiner Leiste (Registerkarte „Makros“)",
+	ACADEMY_PREF_TANK_INTERRUPT = "Meine Unterbrechung auf der Leiste: die Taste selbst oder ein fertiges Makro (Registerkarte „Makros“)",
 	ACADEMY_PREF_TANK_DEFENSIVE = "Eine Defensive bereit (deine Karte: /mh play -> Am Leben bleiben)",
 	ACADEMY_PREF_TANK_CONSUMABLES = "Flasche/Topf bereit (Registerkarte „Verbrauchsmaterialien“)",
 	-- ⚠️ Stand hier als „Verspottungsschlüssel“. Ein Schlüssel schließt eine Tür; eine
@@ -443,7 +443,7 @@ local OVERRIDES = {
 	ACADEMY_TANK_PULL_TITLE = "Während eines Pulls (erste 10 Sekunden)",
 	ACADEMY_TANK_PULL_BODY = "1. Schnapp dir das Pack: Triff alle mit deinen Angriffen, die viele Gegner auf einmal treffen (AoE). Spotte nur den Gegner, der zu jemand anderem läuft.\n2. Dreh Gegner von der Gruppe weg, wenn du kannst.\n3. Drück eine Defensive vor dem großen Schaden oder am Anfang eines großen Pulls – nicht erst, wenn du schon niedrig bist. Eine nach der anderen; heb eine für „Oh nein“ auf.\n4. Unterbrich den Cast, der am meisten wehtut (oft Heilung oder großer Treffer).\n\nDu musst nicht jede Fähigkeit sofort auf Cooldown haben.",
 	ACADEMY_TANK_WIPE_TITLE = "Wenn es schief geht",
-	ACADEMY_TANK_WIPE_BODY = "Ein Wipe ist Daten, kein Urteil. Frag: „War ich zu weit vorn?“ oder „Habe ich eine Defensive gespart?“\n\nReparieren, essen, nochmal versuchen.",
+	ACADEMY_TANK_WIPE_BODY = "Ein Wipe ist Daten, kein Urteil. Frag: „War ich zu weit vorn?“ oder „Habe ich vor dem großen Treffer eine Defensive gedrückt?“\n\nReparieren, essen, nochmal versuchen.",
 	ACADEMY_TANK_DUNGEON_TITLE = "Dein erster Dungeon (normal)",
 	ACADEMY_TANK_DUNGEON_BODY = "Starte normal mit Freunden oder Gildenmitgliedern, wenn du kannst. Pull langsam – zwei kleine Packs schlagen eine große Kette.\n\nAchte auf das Mana des Heilers; Pause zwischen Pulls. CC oder „noch kein großer Pull“ zu fragen ist ok.",
 	ACADEMY_TANK_RAID_TITLE = "Schlachtzüge und LFR (später)",
@@ -459,7 +459,7 @@ local OVERRIDES = {
 	ACADEMY_HEAL_INTRO_TITLE = "Heal-Mindset",
 	ACADEMY_HEAL_INTRO_BODY = "Du bist nicht dafür da, dass alle dauernd 100 % HP haben.\n\nDeine Aufgabe ist Triage: Tank am Leben halten, wer gleich stirbt retten, dann der Rest. Etwas Schaden ist normal – Panik-Overheal leert Mana.",
 	ACADEMY_HEAL_TRIAGE_TITLE = "Triage (Wer zuerst?)",
-	ACADEMY_HEAL_TRIAGE_BODY = "1. Du (wenn du stirbst – toter Heiler heilt niemanden)\n2. Tank (solange die Gegnergruppe noch an ihm dran ist)\n3. Jeder unter ~40 % oder mit einem tödlichen Debuff\n4. Alle anderen mit effizienten Heilungen\n\nGroße Heilung nach großem Schaden; kleine Heilungen zwischen Ereignissen.",
+	ACADEMY_HEAL_TRIAGE_BODY = "1. Du (wenn du stirbst – toter Heiler heilt niemanden)\n2. Tank (solange die Gegnergruppe noch an ihm dran ist)\n3. Jeder unter ~40 % oder mit einem tödlichen Debuff\n4. Alle anderen mit effizienten Heilungen\n\nJemand stirbt gleich: zuerst eine Heilung, die sofort ankommt (eine sofortige oder deine schnelle Heilung). Viel Schaden und Zeit zum Wirken: deine große Heilung. Ruhig: deine sparsame Heilung.",
 	ACADEMY_HEAL_WIPE_TITLE = "Wenn es schief geht",
 	ACADEMY_HEAL_WIPE_BODY = "„Hätte ich den Tank retten können?“ ist die nützliche Frage – nicht „Warum stand DPS im Feuer?“\n\nWar Mana leer, nutz beim nächsten Mal effizientere Zauber. Ein Wipe heißt nicht, dass du nicht heilen kannst.",
 	ACADEMY_HEAL_DUNGEON_TITLE = "Dein erster Dungeon (normal)",
@@ -475,7 +475,7 @@ local OVERRIDES = {
 	-- Dungeon-Tipps, und aus demselben Grund: die Kapitel kamen nach der
 	-- Übersetzungsrunde dazu.
 	ACADEMY_HEAL_MANA_TITLE = "Mana und Effizienz",
-	ACADEMY_HEAL_MANA_BODY = "Mana ist deine eigentliche Lebensanzeige. Ist es leer, kannst du gar nicht mehr heilen.\n\nWelche Heilung sparsam ist, hängt von der Spezialisierung ab: Bei manchen ist die langsame Heilung die sparsame, bei anderen die schnelle. Deine Karte sagt es für deine Spezialisierung (/mh play). Nicht jeder muss auf voll stehen – lass die Leute ruhig auf 80 % laufen.\n\nTrink zwischen jedem Pull. „OOM (out of mana), 5 Sek“ zu sagen ist normal und professionell.",
+	ACADEMY_HEAL_MANA_BODY = "Mana ist deine eigentliche Lebensanzeige. Ist es leer, kannst du gar nicht mehr heilen.\n\nWelche Heilung sparsam ist, hängt von der Spezialisierung ab: Bei manchen ist die langsame Heilung die sparsame, bei anderen die schnelle. Fahr mit der Maus über eine Heilung: Der Tooltip zeigt die Manakosten. Manche Tooltips sagen auch in Worten, ob die Heilung effizient oder teuer ist. Nicht jeder muss auf voll stehen – lass die Leute ruhig auf 80 % laufen.\n\nTrink zwischen jedem Pull. „OOM (out of mana), 5 Sek“ zu sagen ist normal und professionell.",
 	ACADEMY_HEAL_POSITION_TITLE = "Wo du stehst",
 	ACADEMY_HEAL_POSITION_BODY = "Bleib in Reichweite der ganzen Gruppe, aber nicht oben auf dem Boss. Eine hintere Ecke mit Sicht auf alle schlägt Ankleben am Tank.\n\nAusweichen musst du trotzdem. Ein toter Heiler heilt niemanden – geh aus dem Dreck raus, auch wenn es eine halbe Sekunde Zauberzeit kostet.\n\nAcht auf Sichtlinie: durch eine Wand oder Säule heilst du niemanden.",
 	ACADEMY_HEAL_COOLDOWNS_TITLE = "Nutz deine großen Cooldowns im richtigen Moment",

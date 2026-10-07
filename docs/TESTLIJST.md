@@ -48,6 +48,10 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   tank?" / "What is a healer?", de mindset, de oefenroute (met follower dungeon) en "Words you will hear"; pas dáárna de
   knop "How you play …" en de toolkit. Geen verwijzing meer naar "Guides" of "In groups". Brewmaster: Celestial
   Infusion staat in de toolkit als je dat talent hebt. Zoekbalk "leren tanken" → Academy.
+- [ ] **Live, Academy-stappenplan:** het vaste vinkblok bovenaan is weg; onder "What is a tank?" + "Words you will hear"
+  staat "Switch role, step by step" met 7 vinkjes. Op je Prot Paladin: "spec" staat vanzelf aan; "taunt en interrupt op
+  een toets" ook, als Hand of Reckoning en Rebuke op je balk staan. In de tank-toolkit: Hand of Reckoning [toets] en
+  Rebuke [toets]. Tikken/ontvinken werkt en blijft na /reload. Daaronder "How you see a big hit coming".
 - [ ] **Live, healer-kaart (`/mh play` op een healspec):** de kop boven groepsschade heet nu "Many people hurt at once".
 - [ ] **PTR, Aqir Invasion:** Void & Rituals-tab → event-regel van de invasie: hover → uitleg + beloning?
 
