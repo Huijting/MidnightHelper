@@ -119,6 +119,14 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🔍 7 okt — meting: welke kwaliteit met zilver of goud? (`/mh craftshop quality`)
+
+Voor de keuze "welke kwaliteit kopen" (`docs/CRAFTSHOP_QUALITY_2026-10-07.md`, varianten a/b/c — Rob kiest daarna).
+- [ ] `/reload`, beroepsvenster NIET openen, recepten op je lijst (bv. de Smuggler's Shoulderguards) → `/mh craftshop quality`.
+  Per recept een chatregel "none = … | silver = quality … | gold = quality …". Daarna nog eens met het venster OPEN.
+- [ ] `/reload` → ik lees `craftShopQuality`. Zeg erbij of je het gouden leer/de schubben zelf hebt (de regel noemt ook
+  "you own N" per gouden reagent).
+
 ## 🆕 7 okt — boodschappenlijst: "+N op alts" (Rob koos het, onderweg)
 
 Gebouwd, niet getest. Elk personage onthoudt bij inloggen (en als de tassen veranderen, max. 1× per 5 s) hoeveel het

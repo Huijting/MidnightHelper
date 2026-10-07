@@ -1230,6 +1230,79 @@ function ns.CraftShopWhy()
 	end
 end
 
+--- `/mh craftshop quality`: which quality you get with silver vs gold reagents, per recipe on your list (7 Oct 2026,
+--- docs/CRAFTSHOP_QUALITY_2026-10-07.md, its lines A-D folded into one command for Rob). The reagent table has the shape
+--- Blizzard's own SchematicForm builds, and ONLY the quality slots go in (dataSlotType 2, Basic, more than one rank):
+--- sending plain reagents too is what made GetCraftingOperationInfo answer nil on 6 Oct (CraftSim skips them for that
+--- reason; AFGELEID, strong). Unknown and measured here: does it answer for gold you do not own, and with the window shut.
+--- Results -> ns.db.craftShopQuality (read after /reload) + one chat line per recipe.
+function ns.CraftShopQualityProbe()
+	local p = ("|cffffcc00%s|r"):format(L("PRINT_PREFIX"))
+	local T = C_TradeSkillUI
+	if not (T and T.GetRecipeSchematic and T.GetCraftingOperationInfo) then
+		print(p .. " craftshop quality: the API is missing.")
+		return
+	end
+	local pf = _G.ProfessionsFrame
+	local out = { when = date and date("%Y-%m-%d %H:%M") or nil, windowOpen = (pf and pf:IsShown()) and true or false,
+		recipes = {} }
+	for i, e in ipairs(MyList()) do
+		if i > 8 then
+			break
+		end
+		local okS, sch = pcall(T.GetRecipeSchematic, e.recipeID, false)
+		local row = { recipeID = e.recipeID, name = e.name }
+		if okS and type(sch) == "table" then
+			local basicType = Enum and Enum.CraftingReagentType and Enum.CraftingReagentType.Basic or 1
+			local function tableFor(rank)
+				local t = {}
+				for _, x in ipairs(sch.reagentSlotSchematics or {}) do
+					if x.dataSlotType == 2 and x.reagentType == basicType and #(x.reagents or {}) > 1 then
+						t[#t + 1] = { reagent = x.reagents[math.min(rank, #x.reagents)], dataSlotIndex = x.dataSlotIndex,
+							quantity = x.quantityRequired }
+					end
+				end
+				return t
+			end
+			local function ask(t)
+				local okO, o = pcall(T.GetCraftingOperationInfo, e.recipeID, t, nil, false)
+				if not okO then
+					return "error: " .. tostring(o)
+				end
+				if type(o) ~= "table" then
+					return "nil"
+				end
+				return ("quality %s (skill %s+%s, difficulty %s, concentration %s)"):format(tostring(o.craftingQuality),
+					tostring(o.baseSkill), tostring(o.bonusSkill), tostring(o.baseDifficulty), tostring(o.concentrationCost))
+			end
+			local silver, gold = tableFor(1), tableFor(2)
+			row.slots = #gold
+			row.none = ask({})
+			row.silver = ask(silver)
+			row.gold = ask(gold)
+			-- Gold in one slot at a time, the rest silver: which reagent is worth buying in gold.
+			row.goldPerSlot = {}
+			for s = 1, #gold do
+				local t = tableFor(1)
+				t[s] = gold[s]
+				local id = gold[s].reagent and gold[s].reagent.itemID
+				local own = (id and C_Item and C_Item.GetItemCount) and C_Item.GetItemCount(id, true, false, true, true) or nil
+				row.goldPerSlot[#row.goldPerSlot + 1] = ("item %s x%s (you own %s): %s"):format(tostring(id),
+					tostring(gold[s].quantity), tostring(own), ask(t))
+			end
+			print(("%s %s: none = %s | silver = %s | gold = %s"):format(p, tostring(e.name), row.none, row.silver, row.gold))
+		else
+			row.error = "no schematic"
+			print(("%s %s: no schematic"):format(p, tostring(e.name)))
+		end
+		out.recipes[#out.recipes + 1] = row
+	end
+	ns.db = ns.db or {}
+	ns.db.craftShopQuality = out
+	print(p .. (" craftshop quality: %d recipe(s), window %s. /reload so it is written to the file."):format(#out.recipes,
+		out.windowOpen and "open" or "closed"))
+end
+
 --- `/mh craftshop probe`: ONE measurement before v2 is built (docs/CRAFTSHOP_RESEARCH_2026-10-06.md, "eerst te meten").
 --- Questions: which C_TradeSkillUI names exist on this build; does every recipe say where it comes from
 --- (GetRecipeSourceText); can we map "item -> the recipe that makes it" (outputItemID / qualityItemIDs); does any of it
