@@ -256,6 +256,67 @@ local function MyKnown()
 	return k
 end
 
+--- "+N on your other characters" (Rob, 7 Oct 2026). Each character, when it logs in or its bags change, notes how many
+--- it holds of every reagent on ANY character's shopping list (bags + bank + reagent bank, NOT the Warband bank: that is
+--- shared and already counted for whoever is online, RaidShoppingList BankCount). Account-wide, so the list can say what
+--- your alts have. A reagent added to a list after an alt last logged in is unknown for that alt until its next login.
+--- ns.db.craftShopStock[guid] = { name = "Name-Realm", class = "MAGE", t = time, counts = { [itemID] = n } }
+local function TrackedReagentIDs()
+	local ids = {}
+	for _, rec in pairs(ns.db and ns.db.craftShop or {}) do
+		for _, e in ipairs(type(rec) == "table" and rec.list or {}) do
+			for _, s in ipairs(e.slots or {}) do
+				for _, id in ipairs(s.ids or {}) do
+					ids[id] = true
+				end
+			end
+		end
+	end
+	return ids
+end
+
+local function SnapshotMyStock()
+	local g = MyGuid()
+	if not (g and ns.db and C_Item and C_Item.GetItemCount) then
+		return
+	end
+	local counts = {}
+	for id in pairs(TrackedReagentIDs()) do
+		local ok, n = pcall(C_Item.GetItemCount, id, true, false, true, false)
+		if ok and type(n) == "number" and n > 0 then
+			counts[id] = n
+		end
+	end
+	ns.db.craftShopStock = ns.db.craftShopStock or {}
+	local name = UnitName and UnitName("player")
+	local realm = GetNormalizedRealmName and GetNormalizedRealmName()
+	local _, class = UnitClass and UnitClass("player")
+	ns.db.craftShopStock[g] = { name = name and (realm and (name .. "-" .. realm) or name) or "?", class = class,
+		t = time and time() or 0, counts = counts }
+end
+
+--- What the OTHER characters hold of these ids (all ranks together). @return number total, table list {name, class, n}
+local function AltStock(ids)
+	local me = MyGuid()
+	local total, list = 0, {}
+	for g, rec in pairs(ns.db and ns.db.craftShopStock or {}) do
+		if g ~= me and type(rec) == "table" and type(rec.counts) == "table" then
+			local n = 0
+			for _, id in ipairs(ids) do
+				n = n + (tonumber(rec.counts[id]) or 0)
+			end
+			if n > 0 then
+				total = total + n
+				list[#list + 1] = { name = rec.name, class = rec.class, n = n }
+			end
+		end
+	end
+	table.sort(list, function(a, b)
+		return a.n > b.n
+	end)
+	return total, list
+end
+
 --- Blizzard's source line is several lines with |n; one line reads better in our list.
 local function OneLine(s)
 	if type(s) ~= "string" or s == "" then
@@ -1035,6 +1096,24 @@ Refresh = function()
 		if inBank > 0 then
 			where[#where + 1] = L("RAIDSHOP_IN_BANK_FMT"):format(inBank)
 		end
+		-- Your other characters (Rob, 7 Oct 2026). Shown only while you are short: it is a hint to mail it over, not stock
+		-- you have here, so it never lowers "Buy N".
+		if have + inMail + inBank < t.need then
+			local altN, altList = AltStock(t.ids)
+			if altN > 0 then
+				where[#where + 1] = L("CRAFTSHOP_ON_ALTS_FMT"):format(altN)
+				local parts = {}
+				for i, a in ipairs(altList) do
+					if i > 6 then
+						break
+					end
+					local c = a.class and RAID_CLASS_COLORS and RAID_CLASS_COLORS[a.class]
+					local nm = (a.name or "?"):match("^[^-]+") or "?"
+					parts[#parts + 1] = (c and c.WrapTextInColorCode and c:WrapTextInColorCode(nm) or nm) .. " " .. a.n
+				end
+				r.tip = (r.tip and (r.tip .. "\n\n") or "") .. L("CRAFTSHOP_TIP_ON_ALTS_FMT"):format(table.concat(parts, ", "))
+			end
+		end
 		r.where:SetText(table.concat(where, ", "))
 		r.count:ClearAllPoints()
 		r.count:SetPoint("RIGHT", r, "RIGHT", -110, #where > 0 and 6 or 0)
@@ -1392,6 +1471,23 @@ local function LearnMakes()
 end
 
 do
+	-- Stock snapshot for "+N on your alts": at login, and when the bags settle (BAG_UPDATE_DELAYED is the event the
+	-- window already refreshes on). Throttled: one snapshot per 5 seconds at most.
+	local stockPending = false
+	local sf = CreateFrame("Frame")
+	sf:RegisterEvent("PLAYER_ENTERING_WORLD")
+	sf:RegisterEvent("BAG_UPDATE_DELAYED")
+	sf:SetScript("OnEvent", function()
+		if stockPending or not (C_Timer and C_Timer.After) then
+			return
+		end
+		stockPending = true
+		C_Timer.After(5, function()
+			stockPending = false
+			pcall(SnapshotMyStock)
+		end)
+	end)
+
 	-- TRADE_SKILL_SHOW / TRADE_SKILL_LIST_UPDATE: both already registered by Profession.lua and ProfessionGuided.lua.
 	-- The list update fires in bursts while the window loads AND after every craft, so: wait a moment, and once it has
 	-- worked, do not do it again until the window is opened anew (~600 API calls; no need to repeat them per craft).

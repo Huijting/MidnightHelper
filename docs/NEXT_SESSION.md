@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🧳 7 okt (Rob onderweg) — "+N op alts", dispel opgeruimd, tank/DPS-toolkit bleek al af
+- "+N op alts" GEBOUWD, NIET GETEST: `ns.db.craftShopStock[guid]` (tassen+bank, geen Warband) per personage bij login/
+  BAG_UPDATE_DELAYED; regel "+N op alts" + tooltip per personage, alleen bij tekort; verlaagt "Koop N" niet.
+- Dispel opgeruimd (8b2b454): ProbeKnownIDs uit (PROBE_KNOWN_IDS=false), GetAuraDataBySpellID-tak weg, probe zegt nu
+  "no-such-function". Geheugen aura-facade + mh-market-position rechtgezet.
+- Tank/DPS-toolkit: GEMETEN dat TankToolkit.lua/DpsToolkit.lua/TankPullSummary.lua bestaan (juli); de MEMORY-index zei
+  nog "TODO" en dat gaf ik Rob op 6 okt door. Index rechtgezet. Geen onderzoek gestart.
+- Kwaliteit-kopen: mh-research loopt → `docs/CRAFTSHOP_QUALITY_2026-10-07.md`.
+
 ## 🛡️ 7 okt — dispel-hercontrole (gepland, `docs/DISPEL_RECHECK_2026-10-07.md`): deur blijft dicht; Rob koos A+B+C+D
 - A = Rob/Cisca kijkt in een dungeon met `/mh partytargets` (niets gebouwd).
 - B GEBOUWD (PartyTargets.lua AfterCombatDispelCheck): 3 filters naast elkaar (raid / rpd / any) → `dispelSelfLog`, 60 regels.

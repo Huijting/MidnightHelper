@@ -119,6 +119,14 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🆕 7 okt — boodschappenlijst: "+N op alts" (Rob koos het, onderweg)
+
+Gebouwd, niet getest. Elk personage onthoudt bij inloggen (en als de tassen veranderen, max. 1× per 5 s) hoeveel het
+heeft van de reagents op ALLE boodschappenlijsten: tassen + bank, níet de Warband-bank (die telt al mee).
+- [ ] Log één keer in op een alt die iets heeft van een reagent op je lijst (bv. Tranquility Bloom), terug naar je
+  alchemist → bij die reagent "+N op alts" (alleen als je tekortkomt)? Muis erop: "Op je andere personages … Iceicebaby 50"?
+- [ ] "Koop N" blijft gelijk (alts tellen niet als "heb je al", het is een tip om te posten).
+
 ## 🆕 7 okt — dispel-hercontrole: A, B, C (Rob koos alle vier; D pas na 14 okt)
 
 Achtergrond: `docs/DISPEL_RECHECK_2026-10-07.md`. De deur voor zelf debuffs lezen blijft dicht; dit zijn kleine metingen.
