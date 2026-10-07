@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🛒 7 okt middag — raid-herinnering, één winkelvenster, vertaalronde (Rob: "doe maar de eerste 3")
+- Raid-herinnering GEBOUWD (a79f00a): raid-instance binnen / READY_CHECK in raidgroep → ns.RaidShopMissingCount → toast;
+  1× per bezoek, ready check max 1×/10 min; `/mh ready remind on|off`; probe `ns.db.raidReadyReminderProbe`. READY_CHECK
+  via pcall (MH gebruikte hem nooit; DBM wel). Niet getest.
+- Eén winkelvenster GEBOUWD (f6ea575): tabbladen Raid | Beroep BOVEN beide vensters (ns.AddShopTabs), knop "Alles naar
+  Auctionator" → één lijst "MH - <naam>" (RaidTerms + ns.CraftShopTerms). Niet getest.
+- Vertaalronde (mh-writer-script, toegepast): 8 keys × 5 talen + PROFACAD_CH_QUALITY_ADVANCED (gemarkeerd). Nog alleen
+  enUS/nlNL: SHOPTAB_*, SHOP_ALL_AUCTIONATOR, RAIDSHOP_REMIND_*. Twijfel fr "argent" (= ook geld).
+- WoW Forever: Rob gevraagd of hij in de beta zit; besluit 22 sep blijft (wachten, anders rond 4 nov kijken).
+
 ## ⌨️ 7 okt — keypad-commando's (memory keypad-window-shortcuts; Rob koos "/mhrares", niet "/rares")
 `Modules/KeypadCommands.lua`: 27 top-level slashes (/mh + schermnaam) via ns.ShowMainUI + ns.SelectTab (zelfde tab-ids
 als NavSearch), pop-outs via SlashCmdList.MIDNIGHTHELPER; `/mh keypad` (gelijst, CMDLIST_KEYPAD) print ze. GEMETEN: alle
