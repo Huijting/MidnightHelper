@@ -136,6 +136,9 @@ local FARM = {
 	[256963] = "lumber", -- Thalassian Lumber (DB2 + Wowhead: wood in all zones)
 	[237366] = "thorium", -- Dazzling Thorium (DB2 + Wowhead: rare from ordinary ore)
 	[251285] = "delve", -- Petrified Root (Wowhead: delve chests). NOT 45911, an old Wrath item of the same name.
+	-- 7 Oct 2026 (docs/RESEARCH_2026-10-07_moxie_tantalum.md): players report delves give it far less in Season 2 and
+	-- name Prey and M+ too, so the "delve" note says chests in general (KANDIDAAT, loot tables live on the server).
+	[251283] = "prey", -- Tormented Tantalum: a chance from a Prey hunt's reward chest (6 sources, 2 after S2 start; KANDIDAAT)
 	[274777] = "venom", -- Neutralized Venom Clot (DB2: neutralizing venom on the Coiled Isle)
 	[238522] = "feathers", -- Peerless Plumage (DB2: feathered creatures, Skinning)
 	[238518] = "skin", [238519] = "skin", -- Void-Tempered Hide (DB2)
@@ -169,6 +172,7 @@ local FARM_DEF = {
 	lumber = { "CRAFTSHOP_NOTE_LUMBER", "CRAFTSHOP_TIP_LUMBER" },
 	thorium = { "CRAFTSHOP_NOTE_THORIUM", "CRAFTSHOP_TIP_THORIUM", { MINE }, "CRAFTSHOP_MINE_FMT" },
 	delve = { "CRAFTSHOP_NOTE_DELVE", "CRAFTSHOP_TIP_DELVE" },
+	prey = { "CRAFTSHOP_NOTE_PREY", "CRAFTSHOP_TIP_PREY" },
 	venom = { "CRAFTSHOP_NOTE_VENOM", "CRAFTSHOP_TIP_VENOM", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
 	feathers = { "CRAFTSHOP_NOTE_FEATHERS", "CRAFTSHOP_TIP_FEATHERS", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
 	skin = { "CRAFTSHOP_NOTE_SKIN", "CRAFTSHOP_TIP_SKIN", { SKIN }, "CRAFTSHOP_SKIN_FMT" },
