@@ -14,6 +14,16 @@
   oppakt zodra het venster bestaat; scrollende kinderen worden ingepakt (Shift = venster schalen, anders hun eigen
   scroll) — dáárom deed het niets boven de lijst. Niet in combat. Bewust NIET: vensters met eigen schaal (hoofdvenster,
   boss window, delve coach, consumables-bord, party targets), alerts/balken, hover-plaatjes. Niet getest → TESTLIJST.
+- Site-chat vergelijking site ↔ addon (verslag `C:\Users\RobHu\Downloads\midnighthelper-site\drafts\SITE_VS_ADDON_2026-10-07.md`
+  §6), addon-kant, NA de mh-writer-ronde: (1) Rob kiest per taal één naam "Vault Advisor" vs "Great Vault Advisor"
+  (paneel vs Codex); (2) Codex accountpagina noemt "This Week" Engels in 6 packs terwijl de tab vertaald is; (3) de:
+  Codex-titel "Account-Snapshot" vs tab "Kontoübersicht"; (4) KEYBLOCK_FOOT ongebruikt; (5) eerste /mh opent kamer "Me",
+  niet This Week (AFGELEID, UI.lua:4597) — Rob: zo laten?
+- ✅ Rob "bouw maar": Venomfall Deeps (Zul'Aman, 2437) = `pinOnly` — geen lijstregel, geen "dichtstbijzijnde delve"-route;
+  rij blijft voor POI/kaart-lookups. Rob volgde die route op de PTR: eilandje NO van Zul'Aman, het spel weigerde hem het
+  Coiled Isle-gebied → zelfde ingang (AFGELEID, eiland zelf niet bereikt). Niet getest → kijk of de lijst 1× toont.
+- Rob beslist nog: Brewmaster Shift+2 dubbel (Breath of Fire +
+  Spinning Crane Kick; lintcheck [11] zag het niet).
 - Academy ronde 4: mh-research loopt (→ docs/ROLE_SWITCH_FACTS4_2026-10-07.md); Divine Shield in heal-toolkit = [Immunity].
 - PTR-kopie ververst (beide), 7 okt laat.
 - CODEX_LABYRINTH_BODY (enUS + nlNL) gecorrigeerd na melding site-chat: "tier N → Delve N+1" gold alleen voor 1-8;

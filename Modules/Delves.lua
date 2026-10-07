@@ -103,7 +103,11 @@ local MIDNIGHT_DELVES = {
 	-- delve invisible on a map where the client says it is. Which is the real entrance and
 	-- which a second marker is NOT measured, so neither is presented as the main one.
 	{ 8779, 2512, 51.23, 30.36, "Venomfall Deeps" },
-	{ 8779, 2437, 87.81, 22.79, "Venomfall Deeps" },
+	-- pinOnly (7 Oct 2026, Rob: "bouw maar"): kept for the map and the POI lookups, but NOT a list row and NOT a route
+	-- target. Rob followed this row's route on the PTR: it points at an islet off Zul'Aman, and flying there the game
+	-- refused him the Coiled Isle area. So it is the same entrance seen from the Zul'Aman map (AFGELEID — the islet
+	-- itself was not reached), and a second route there only sends players the long way round to one door.
+	{ 8779, 2437, 87.81, 22.79, "Venomfall Deeps", pinOnly = true },
 }
 
 --- Is this one of the eleven we ship?
@@ -3356,7 +3360,10 @@ local function PaintDelvesPanel(fullRefresh)
 	end
 
 	local usedLeft, usedRight = 0, 0
-	for i, packed in ipairs(roster) do
+	local i = 0 -- own counter: a pinOnly row takes no place in the columns
+	for _, packed in ipairs(roster) do
+		if not packed.pinOnly then
+		i = i + 1
 		local bountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex =
 			GetDelvePoiStateCached(packed[5], packed[2], packed[1])
 		if packed[5] == DELVE_NEMESIS_NAME and not delveAtlas then
@@ -3411,6 +3418,7 @@ local function PaintDelvesPanel(fullRefresh)
 		local row = EnsureDelveRowButton(col, col.rows, colIdx, colW)
 		ApplyDelveRowVisuals(row, item, colIdx)
 		row:Show()
+		end -- not pinOnly
 	end
 
 	for j = usedLeft + 1, #leftColumn.rows do
@@ -3730,7 +3738,7 @@ function RouteNearestDelve(bountifulOnly)
 
 	for _, row in ipairs(MIDNIGHT_DELVES) do
 		local mapID, x, yPct, name = row[2], row[3], row[4], row[5]
-		if (not bountifulOnly) or select(1, GetDelveBountifulState(name, mapID)) then
+		if not row.pinOnly and ((not bountifulOnly) or select(1, GetDelveBountifulState(name, mapID))) then
 			fallback = fallback or { mapID = mapID, x = x, y = yPct, name = name }
 			if pwx and pwy then
 				local cont, wx, wy = DelveMapPosToWorld(mapID, (x or 0) / 100, (yPct or 0) / 100)
