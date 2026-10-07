@@ -627,7 +627,7 @@ fill("ptBR", {
 
 --========================================================================
 -- Professions beginner guides (PROFGUIDE_SEC) — the "Grundlagen" content.
--- Game systems stay English (Knowledge Points/KP, Moxie, Patron/Public/
+-- Game systems stay English (Knowledge Points/KP, Patron/Public/
 -- Personal Orders, Crafting Orders, profession names); prose is translated.
 --========================================================================
 fill("deDE", {
@@ -13560,8 +13560,8 @@ fill("deDE", {
 	CRAFTSHOP_TIP_LUMBER = "Gesammelt aus Holz, das du in allen vier Gebieten findest.",
 	CRAFTSHOP_NOTE_THORIUM = "Bergbau - selten",
 	CRAFTSHOP_TIP_THORIUM = "Bergleute finden das ab und zu in normalen Midnight-Erzvorkommen.",
-	CRAFTSHOP_NOTE_DELVE = "Delve-Truhen",
-	CRAFTSHOP_TIP_DELVE = "Kommt aus Truhen in Delves, etwa dem Bountiful Heavy Trunk. Es gibt keinen festen Ort, um es zu farmen.",
+	CRAFTSHOP_NOTE_DELVE = "Truhen: Delves, Beutejagden, M+",
+	CRAFTSHOP_TIP_DELVE = "Kommt aus Belohnungstruhen: Delves (etwa der Bountiful Heavy Trunk), und Spieler nennen auch Beutejagden und Mythic+. Es gibt keinen festen Ort, um es zu farmen.",
 	CRAFTSHOP_NOTE_VENOM = "Kürschnerei - Coiled Isle",
 	CRAFTSHOP_TIP_VENOM = "Kürschner bekommen das von Wildtieren auf der Coiled Isle.",
 	CRAFTSHOP_NOTE_FEATHERS = "Kürschnerei - gefiederte Wildtiere",
@@ -13632,8 +13632,8 @@ fill("frFR", {
 	CRAFTSHOP_TIP_LUMBER = "Récolté sur le bois que tu trouves dans les quatre zones.",
 	CRAFTSHOP_NOTE_THORIUM = "Minage - rare",
 	CRAFTSHOP_TIP_THORIUM = "Les mineurs en trouvent de temps en temps dans les gisements de minerai ordinaires de Midnight.",
-	CRAFTSHOP_NOTE_DELVE = "Coffres de delve",
-	CRAFTSHOP_TIP_DELVE = "Vient des coffres dans les delves, comme le Bountiful Heavy Trunk. Il n'y a pas d'endroit unique pour le farmer.",
+	CRAFTSHOP_NOTE_DELVE = "Coffres : delves, Traques, M+",
+	CRAFTSHOP_TIP_DELVE = "Vient des coffres de récompense : les delves (comme le Bountiful Heavy Trunk), et des joueurs citent aussi les Traques et le Mythic+. Il n'y a pas d'endroit unique pour le farmer.",
 	CRAFTSHOP_NOTE_VENOM = "Dépeçage - Coiled Isle",
 	CRAFTSHOP_TIP_VENOM = "Les dépeceurs l'obtiennent sur les bêtes de la Coiled Isle.",
 	CRAFTSHOP_NOTE_FEATHERS = "Dépeçage - bêtes à plumes",
@@ -13704,8 +13704,8 @@ fill("esES", {
 	CRAFTSHOP_TIP_LUMBER = "Se saca de la madera que encuentras en las cuatro zonas.",
 	CRAFTSHOP_NOTE_THORIUM = "Minería - raro",
 	CRAFTSHOP_TIP_THORIUM = "Los mineros lo encuentran de vez en cuando en depósitos normales de mineral de Midnight.",
-	CRAFTSHOP_NOTE_DELVE = "Cofres de delve",
-	CRAFTSHOP_TIP_DELVE = "Sale de cofres en las delves, como el Bountiful Heavy Trunk. No hay un único sitio para farmearlo.",
+	CRAFTSHOP_NOTE_DELVE = "Cofres: delves, Presa, M+",
+	CRAFTSHOP_TIP_DELVE = "Sale de cofres de recompensa: las delves (como el Bountiful Heavy Trunk), y los jugadores también mencionan las Cacerías de Presa y Mythic+. No hay un único sitio para farmearlo.",
 	CRAFTSHOP_NOTE_VENOM = "Desuello - Coiled Isle",
 	CRAFTSHOP_TIP_VENOM = "Los desolladores lo sacan de bestias en la Coiled Isle.",
 	CRAFTSHOP_NOTE_FEATHERS = "Desuello - bestias con plumas",
@@ -13776,8 +13776,8 @@ fill("ptBR", {
 	CRAFTSHOP_TIP_LUMBER = "Coletado da madeira que você encontra nas quatro zonas.",
 	CRAFTSHOP_NOTE_THORIUM = "Mineração - raro",
 	CRAFTSHOP_TIP_THORIUM = "Mineradores encontram isto de vez em quando em depósitos comuns de minério de Midnight.",
-	CRAFTSHOP_NOTE_DELVE = "Baús de delve",
-	CRAFTSHOP_TIP_DELVE = "Vem de baús em delves, como o Bountiful Heavy Trunk. Não existe um lugar fixo para farmar.",
+	CRAFTSHOP_NOTE_DELVE = "Baús: delves, Presa, M+",
+	CRAFTSHOP_TIP_DELVE = "Vem de baús de recompensa: delves (como o Bountiful Heavy Trunk), e jogadores também citam as Caçadas de Presa e Mythic+. Não existe um lugar fixo para farmar.",
 	CRAFTSHOP_NOTE_VENOM = "Esfolamento - Coiled Isle",
 	CRAFTSHOP_TIP_VENOM = "Esfoladores tiram isto de feras na Coiled Isle.",
 	CRAFTSHOP_NOTE_FEATHERS = "Esfolamento - feras com penas",
@@ -13848,8 +13848,8 @@ fill("itIT", {
 	CRAFTSHOP_TIP_LUMBER = "Si raccoglie dal legno che trovi in tutte e quattro le zone.",
 	CRAFTSHOP_NOTE_THORIUM = "Estrazione - raro",
 	CRAFTSHOP_TIP_THORIUM = "Chi ha l'Estrazione lo trova ogni tanto nei normali giacimenti di minerale di Midnight.",
-	CRAFTSHOP_NOTE_DELVE = "Forzieri delle delve",
-	CRAFTSHOP_TIP_DELVE = "Viene dai forzieri nelle delve, come il Bountiful Heavy Trunk. Non c'è un unico posto dove farmarlo.",
+	CRAFTSHOP_NOTE_DELVE = "Forzieri: delve, Preda, M+",
+	CRAFTSHOP_TIP_DELVE = "Viene dai forzieri ricompensa: le delve (come il Bountiful Heavy Trunk), e i giocatori citano anche le Cacce alla Preda e la Mythic+. Non c'è un unico posto dove farmarlo.",
 	CRAFTSHOP_NOTE_VENOM = "Scuoiatura - Coiled Isle",
 	CRAFTSHOP_TIP_VENOM = "Chi ha la Scuoiatura lo ottiene dalle bestie sulla Coiled Isle.",
 	CRAFTSHOP_NOTE_FEATHERS = "Scuoiatura - bestie con piume",
@@ -13963,4 +13963,45 @@ fill("itIT", {
 	KEYBLOCK_SOLO_LEGEND = "Bordo rosso = una spell di danno: quello che premi quando combatti da solo. \"Come si gioca\" le mette in ordine.",
 	CRAFTSHOP_TIP_KNOWN_FMT = "Già conosciuta da: %s",
 	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Hanno la professione, non ancora questa ricetta: %s",
+})
+
+-- 7 Oct 2026: Moxie as the client calls it. Words GEMETEN in wago DB2 12.1.0.69933 (CurrencyTypes
+-- 3256-3266 and item 237505 "Artisan's Moxie"); see docs/RESEARCH_2026-10-07_moxie_tantalum.md.
+-- de Tatkraft (f), fr Aplomb (m), es Arrojo (m; esMX says Energizante but shares this pack, Rob chose
+-- the esES word), pt Marra (f), it Grinta (f). Only keys that were nil or an enUS copy are here: every
+-- Moxie line that already had a translation was edited in its own pack, in Codex.lua (merge()) or in
+-- its existing block above, because fill() never replaces a value that differs from enUS.
+-- ALTBOARD_MOXIE is the fallback: the code shows the item name from the client when it has it.
+-- Same round: CRAFTSHOP_NOTE_PREY / CRAFTSHOP_TIP_PREY (new in enUS), Prey named as CODEX_PREY_TITLE.
+-- "Knowledge books" as Blizzard's own words in the 3256 description. Self-made translations, not
+-- reviewed by a native speaker.
+fill("deDE", {
+	ALTBOARD_MOXIE = "Tatkraft",
+	CURACC_USE_MOXIE = "Die eigene Währung dieses Berufs: Rezepte, Folianten des Wissens und Reagenzien bei seinen Händlern. Sie bleibt auf dem Charakter, der sie verdient hat.",
+	CRAFTSHOP_NOTE_PREY = "Beutejagden (mit Glück)",
+	CRAFTSHOP_TIP_PREY = "Kommt aus der Belohnungstruhe einer Beutejagd, auf jedem Schwierigkeitsgrad. Es ist eine Chance, kein sicherer Drop. Sonst: das Auktionshaus.",
+})
+fill("frFR", {
+	ALTBOARD_MOXIE = "Aplomb",
+	CURACC_USE_MOXIE = "La monnaie propre à ce métier : recettes, tomes de connaissance et composants chez ses vendeurs. Elle reste sur le personnage qui l'a gagnée.",
+	CRAFTSHOP_NOTE_PREY = "Traques (avec un peu de chance)",
+	CRAFTSHOP_TIP_PREY = "Vient du coffre de récompense d'une Traque, quelle que soit la difficulté. C'est une chance, pas un butin assuré. Sinon : l'Hôtel des ventes.",
+})
+fill("esES", {
+	ALTBOARD_MOXIE = "Arrojo",
+	CURACC_USE_MOXIE = "La moneda propia de esa profesión: recetas, tomos de conocimiento y componentes en sus vendedores. Se queda en el personaje que la ganó.",
+	CRAFTSHOP_NOTE_PREY = "Cacerías de Presa (con suerte)",
+	CRAFTSHOP_TIP_PREY = "Sale del cofre de recompensa de una Cacería de Presa, en cualquier dificultad. Es una probabilidad, no un botín seguro. Si no: la Casa de Subastas.",
+})
+fill("ptBR", {
+	ALTBOARD_MOXIE = "Marra",
+	CURACC_USE_MOXIE = "A moeda própria dessa profissão: receitas, tomos do Conhecimento e reagentes nos vendedores dela. Fica no personagem que a ganhou.",
+	CRAFTSHOP_NOTE_PREY = "Caçadas de Presa (com sorte)",
+	CRAFTSHOP_TIP_PREY = "Vem do baú de recompensa de uma Caçada de Presa, em qualquer dificuldade. É uma chance, não um drop garantido. Senão: a Casa de Leilões.",
+})
+fill("itIT", {
+	ALTBOARD_MOXIE = "Grinta",
+	CURACC_USE_MOXIE = "La valuta propria di quella professione: ricette, tomi della conoscenza e reagenti dai suoi vendor. Resta sul personaggio che l'ha guadagnata.",
+	CRAFTSHOP_NOTE_PREY = "Cacce alla Preda (con fortuna)",
+	CRAFTSHOP_TIP_PREY = "Viene dal forziere ricompensa di una Caccia alla Preda, a qualsiasi difficoltà. È una possibilità, non un drop sicuro. Altrimenti: la Casa d'Aste.",
 })
