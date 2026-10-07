@@ -455,6 +455,15 @@ function ns.PrintPortalAccess()
 		print(("%s |cffff5040no portal table loaded|r."):format(p))
 		return
 	end
+	-- 7 Oct 2026: the bind location, so a missed "Hearthstone then portal" offer shows its reason (HearthViaHubPortal).
+	do
+		local okB, bind = pcall(GetBindLocation)
+		local hub = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(2393)
+		local hubName = hub and hub.name or "Silvermoon City"
+		print(("%s %s"):format(p, ns:L("TRAVEL_PORTALS_BIND_FMT"):format(
+			(okB and type(bind) == "string" and bind ~= "") and bind or "?",
+			HearthstoneGoesTo(hubName) and YES or NO)))
+	end
 	print(("%s portals, as this character sees them:"):format(p))
 	for _, portal in ipairs(ns.MIDNIGHT_PORTALS) do
 		local usable = PortalUsable(portal)
@@ -1608,6 +1617,35 @@ local function MapWithAncestors(mapID)
 	return set
 end
 
+--- Hearthstone to Silvermoon, THEN a portal from there — the two-step the Travel Assistant never offered.
+---
+--- 🔴 Rob, July and again 7 Oct 2026: "hij laat me 3 km vliegen terwijl mijn Hearthstone sneller is". The
+--- popup only offered the Hearthstone when it lands IN the target zone (HearthstoneGoesTo, 3 Sep). A player bound
+--- in Silvermoon heading for Voidstorm or Harandar got a long flight, while Hearthstone + the city portal is two
+--- clicks. FarstriderLib's route from Harandar (measured 26 Jul, `/mh trail`) did exactly this; we cannot take its
+--- code or data (GPL3), but this one hop needs neither: the portals are already ours (MIDNIGHT_PORTALS, mapID 2393).
+---
+--- ⚠️ Same fail-closed rule as HearthstoneGoesTo: the bind must NAME Silvermoon City. Bound at an inn inside the
+--- city under another name = no offer (a missing shortcut costs a flight; a wrong one costs the cooldown).
+--- `/mh portals` prints the bind location, so a miss shows up as a name we can add after measuring it.
+--- @return table|nil the Silvermoon portal into the target's zone chain
+local HUB_MAP = 2393
+local function HearthViaHubPortal(targetChain, targetMap)
+	if not targetChain or tonumber(targetMap) == HUB_MAP or targetChain[HUB_MAP] then
+		return nil -- the target is Silvermoon itself: HearthstoneGoesTo answers that
+	end
+	if not HearthstoneGoesTo(GetZoneDisplayName(HUB_MAP)) then
+		return nil
+	end
+	for _, portal in ipairs(MIDNIGHT_PORTALS) do
+		if tonumber(portal.mapID) == HUB_MAP and targetChain[tonumber(portal.toID)] and PortalUsable(portal) then
+			return portal
+		end
+	end
+	return nil
+end
+ns.MHHearthViaHubPortal = HearthViaHubPortal
+
 --- Is `anc` this map itself, or one of the maps it sits inside?
 ---
 --- 🔴 ONE IDEA OF "WHERE A MAP BELONGS" — 12 Sep 2026. Rob routed from Silvermoon to an
@@ -1871,8 +1909,13 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		-- ...and only if the Hearthstone actually lands at the target. Both copies of this
 		-- line get the gate: the comment thirty lines up already warns that a gate applied
 		-- to one of two identical loops shows the wrong answer half the time.
+		-- 7 Oct 2026: or it lands in Silvermoon and a city portal goes on to the target (HearthViaHubPortal).
+		local hsHubPortal = (not HearthstoneGoesTo(targetZoneName)) and HearthViaHubPortal(targetChain, targetMap) or nil
 		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal
-			and HearthstoneGoesTo(targetZoneName))
+			and (HearthstoneGoesTo(targetZoneName) or hsHubPortal ~= nil))
+		if isHSVisible and hsHubPortal then
+			portalAdvice = portalAdvice .. "\n|cff00ffff" .. ns:L("TRAVEL_HS_THEN_PORTAL_FMT"):format(hsHubPortal.name) .. "|r"
+		end
 
 		if isHSVisible then
 			hsBtn:Show()
@@ -2033,8 +2076,13 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		-- ...and only if the Hearthstone actually lands at the target. Both copies of this
 		-- line get the gate: the comment thirty lines up already warns that a gate applied
 		-- to one of two identical loops shows the wrong answer half the time.
+		-- 7 Oct 2026: or it lands in Silvermoon and a city portal goes on to the target (HearthViaHubPortal).
+		local hsHubPortal = (not HearthstoneGoesTo(targetZoneName)) and HearthViaHubPortal(targetChain, targetMap) or nil
 		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal
-			and HearthstoneGoesTo(targetZoneName))
+			and (HearthstoneGoesTo(targetZoneName) or hsHubPortal ~= nil))
+		if isHSVisible and hsHubPortal then
+			portalAdvice = portalAdvice .. "\n|cff00ffff" .. ns:L("TRAVEL_HS_THEN_PORTAL_FMT"):format(hsHubPortal.name) .. "|r"
+		end
 
 		if isHSVisible then
 			hsBtn:Show()

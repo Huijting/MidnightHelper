@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🧭 7 okt — Hearthstone → Silvermoon → portaal (Rob: "kleine eigen versie" i.p.v. Farstrider)
+- Farstrider = GPL3: code én de dataset overnemen mag niet; losse feiten nakijken wel. Rob koos een eigen kleine
+  versie. GEMETEN vóór bouwen: het reisvenster bood de Hearthstone al (HearthstoneGoesTo, 3 sep), maar alleen als die
+  IN de doelzone landt; TravelPlan.lua kent geen Hearthstone.
+- Nieuw: `HearthViaHubPortal` (Delves.lua): Hearthstone noemt Silvermoon City + een bruikbaar portaal op map 2393 naar
+  de doelzone(-keten) → Hearthstone-knop + regel TRAVEL_HS_THEN_PORTAL_FMT. In BEIDE kopieën (AddSmartTomTomWay en
+  ShowTravelAssistFor). Fail-closed: een herberg met een andere naam = geen aanbod. `/mh portals` print nu bovenaan
+  de bind-plek + yes/no. Niet getest → TESTLIJST. TravelPlan (meerstappenplan) nog zonder Hearthstone.
+- Speelkaarten-verversing loopt (mh-research → docs/PLAYCARDS_REFRESH_2026-10-07.md).
+
 ## 📚 7 okt — 12.1.5-feiten + 4 Codex-kaartjes (punt 2 van de top-5)
 - `docs/PATCH_12_1_5_CONTENT_2026-10-07.md` + `data/patch_12_1_5_ids.tsv` (mh-research, wago 70077 + Blizzard 1 okt):
   Labyrinth (ingang 2395 62.99,72.18; Labyrinth-tier N → Delve-tier N+1; Kindo'jan 3548, geen journal/EncounterEvent,

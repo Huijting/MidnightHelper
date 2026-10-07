@@ -1768,6 +1768,8 @@ ns._mhLocales.enUS = {
 	EVENT_INFO_HARANIR_DESC = "A quieter story event in Harandar. Pick up the weekly 'Lost Legends', choose a relic, and play through its lore questline (solo-friendly).",
 	EVENT_INFO_HARANIR_REWARD = "A weekly cache, Hara'ti reputation and a housing decor piece tied to your relic. Finding every lore object inside the relic stories grants the 'Chronicler of the Haranir' title.",
 	-- 12.1.5 (7 Oct 2026). Blizzard's content notes of 1 Oct + wago 70077; see docs/PATCH_12_1_5_CONTENT_2026-10-07.md.
+	TRAVEL_HS_THEN_PORTAL_FMT = "Faster: Hearthstone to Silvermoon, then %s.",
+	TRAVEL_PORTALS_BIND_FMT = "Your Hearthstone: %s. Silvermoon portals after it: %s.",
 	DELVE_COACH_UNKNOWN_FMT = "%s: Midnight Helper has no delve tips for this one yet, so the coach stays closed. Not broken — just new.",
 	DELVE_COACH_UNKNOWN_LABYRINTH = "What we do know is in the Codex: Delves → The Labyrinth of Kindo'jan.",
 	EVENT_INFO_AQIR_DESC = "Patch 12.1.5: for 10 minutes every hour the whole zone does public tasks together, then a boss comes. Three of the six scenarios are fights with an affix. Interrupt the Webweaver and kill the Voidweaver first.",

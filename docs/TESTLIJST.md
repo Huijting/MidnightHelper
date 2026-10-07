@@ -34,6 +34,11 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   plus de Codex-verwijzing. Komt hij NIET, dan ziet MH het Labyrinth niet als delve (ook goed om te weten).
   Daarna `/reload` → ik lees `ns.db.delveCoachUnknown` (instance-ID).
 - [ ] **Live, gewone delve (bv. een Coiled Isle-delve):** die regel mag NIET verschijnen.
+- [ ] **Live, Hearthstone + portaal:** Hearthstone in Silvermoon gebonden en niet op cooldown? Ga ver van een portaal
+  staan (bv. Zul'Aman) en zet een route naar iets in Voidstorm of Harandar (rare/schat). Het reisvenster moet de
+  Hearthstone-knop tonen + "Faster: Hearthstone to Silvermoon, then Portal to …". Typ ook `/mh portals`: bovenste
+  regel = je Hearthstone-plek + yes/no. Staat er "no" terwijl je wél in Silvermoon gebonden bent → noem de plek die
+  er staat (dan voeg ik die naam toe).
 - [ ] **PTR, Aqir Invasion:** Void & Rituals-tab → event-regel van de invasie: hover → uitleg + beloning?
 
 ## 🆕 6 okt — knoppen voor commando's die alleen via /mh gingen (Rob: alle 4 groepen + de 5 reparaties)
