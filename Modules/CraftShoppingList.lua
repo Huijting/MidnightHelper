@@ -739,6 +739,12 @@ local function RecipeLine(i)
 	r.src:SetWidth(WIDTH - 32 - 36)
 	r.src:SetJustifyH("LEFT")
 	r.src:SetWordWrap(true)
+	-- "Quality: silver 2 · gold 4 (of 5) · only <reagent> in gold: 3" (QualityFor).
+	r.qual = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	r.qual:SetWidth(WIDTH - 32 - 36)
+	r.qual:SetJustifyH("LEFT")
+	r.qual:SetWordWrap(true)
+	r.qual:SetTextColor(0.75, 0.85, 1)
 	r.del = CreateFrame("Button", nil, r, "UIPanelCloseButton")
 	r.del:SetSize(20, 20)
 	r.del:SetPoint("TOPRIGHT", r, "TOPRIGHT", 0, 0)
@@ -900,6 +906,65 @@ local function Planned(t, list)
 	return n
 end
 
+--- What silver and gold reagents give for one recipe (variant b of docs/CRAFTSHOP_QUALITY_2026-10-07.md, Rob, 7 Oct 2026:
+--- "waarom niet ook b nu?"). The same call and table shape as `/mh craftshop quality`; only the quality slots go in.
+--- Returns nil whenever the client does not answer (no API, an error, nil, or a recipe without quality slots): the line
+--- then simply does not appear. Whether it answers for gold you do not own is what that probe measures.
+--- Cached 30 s per recipe: Refresh runs on every bag update.
+--- @return table|nil { silver = q, gold = q, max = m, bestItem = itemID, bestQ = q }
+local qualityCache = {}
+local function QualityFor(recipeID)
+	local now = GetTime and GetTime() or 0
+	local c = qualityCache[recipeID]
+	if c and now - c.t < 30 then
+		return c.res
+	end
+	local res
+	local T = C_TradeSkillUI
+	if T and T.GetRecipeSchematic and T.GetCraftingOperationInfo then
+		local okS, sch = pcall(T.GetRecipeSchematic, recipeID, false)
+		local basicType = Enum and Enum.CraftingReagentType and Enum.CraftingReagentType.Basic or 1
+		local slots = {}
+		for _, x in ipairs(okS and type(sch) == "table" and sch.reagentSlotSchematics or {}) do
+			if x.dataSlotType == 2 and x.reagentType == basicType and #(x.reagents or {}) > 1 then
+				slots[#slots + 1] = x
+			end
+		end
+		local function tableFor(goldSlot)
+			local t = {}
+			for i, x in ipairs(slots) do
+				local rank = (goldSlot == true or goldSlot == i) and #x.reagents or 1
+				t[#t + 1] = { reagent = x.reagents[rank], dataSlotIndex = x.dataSlotIndex, quantity = x.quantityRequired }
+			end
+			return t
+		end
+		local function q(t)
+			local ok, o = pcall(T.GetCraftingOperationInfo, recipeID, t, nil, false)
+			return ok and type(o) == "table" and tonumber(o.craftingQuality) or nil
+		end
+		if #slots > 0 then
+			local silver, gold = q(tableFor(false)), q(tableFor(true))
+			if silver and gold then
+				res = { silver = silver, gold = gold }
+				local okI, ri = pcall(T.GetRecipeInfo, recipeID)
+				res.max = okI and type(ri) == "table" and tonumber(ri.maxQuality) or nil
+				-- The one reagent worth buying in gold: the slot that alone lifts the result most (only if it lifts at all).
+				if gold > silver and #slots > 1 then
+					for i, x in ipairs(slots) do
+						local one = q(tableFor(i))
+						if one and one > silver and (not res.bestQ or one > res.bestQ) then
+							res.bestQ = one
+							res.bestItem = x.reagents[#x.reagents] and x.reagents[#x.reagents].itemID
+						end
+					end
+				end
+			end
+		end
+	end
+	qualityCache[recipeID] = { t = now, res = res }
+	return res
+end
+
 local function HaveInBags(ids)
 	local n = 0
 	for _, id in ipairs(ids) do
@@ -966,6 +1031,30 @@ Refresh = function()
 			h = 20 + r.src:GetStringHeight() + 4
 		else
 			r.src:Hide()
+		end
+		-- What silver and gold give (only for a recipe you know, and only when the client answers).
+		local qi = learned ~= false and QualityFor(e.recipeID) or nil
+		if qi then
+			local txt
+			if qi.gold <= qi.silver then
+				txt = L("CRAFTSHOP_QUALITY_SAME_FMT"):format(qi.silver)
+			else
+				txt = L("CRAFTSHOP_QUALITY_FMT"):format(qi.silver, qi.gold)
+				if qi.bestItem and qi.bestQ and qi.bestQ < qi.gold then
+					local nm = (Shop().ItemName and Shop().ItemName(qi.bestItem)) or ("item " .. qi.bestItem)
+					txt = txt .. "  ·  " .. L("CRAFTSHOP_QUALITY_BEST_FMT"):format(nm, qi.bestQ)
+				end
+			end
+			if qi.max then
+				txt = txt .. "  " .. L("CRAFTSHOP_QUALITY_MAX_FMT"):format(qi.max)
+			end
+			r.qual:SetText(txt)
+			r.qual:ClearAllPoints()
+			r.qual:SetPoint("TOPLEFT", r.src:IsShown() and r.src or r.text, "BOTTOMLEFT", r.src:IsShown() and 0 or 12, -2)
+			r.qual:Show()
+			h = h + r.qual:GetStringHeight() + 2
+		else
+			r.qual:Hide()
 		end
 		local canRoute = r.routeSkill or r.routePlace
 		if canRoute then

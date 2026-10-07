@@ -7,7 +7,10 @@
   "no-such-function". Geheugen aura-facade + mh-market-position rechtgezet.
 - Tank/DPS-toolkit: GEMETEN dat TankToolkit.lua/DpsToolkit.lua/TankPullSummary.lua bestaan (juli); de MEMORY-index zei
   nog "TODO" en dat gaf ik Rob op 6 okt door. Index rechtgezet. Geen onderzoek gestart.
-- Kwaliteit-kopen: mh-research loopt → `docs/CRAFTSHOP_QUALITY_2026-10-07.md`.
+- Kwaliteit-kopen: `docs/CRAFTSHOP_QUALITY_2026-10-07.md`. Meting `/mh craftshop quality` (a9cc032). Rob: "waarom niet
+  ook b nu?" → a (alinea in PROFACAD_CH_QUALITY_ADVANCED, drift in 5 talen) + b (QualityFor, blauw regeltje onder elk
+  gekend recept, 30 s cache, toont niets als de client niet antwoordt) GEBOUWD, NIET GETEST. c (prijzen) = CraftSim, niet bouwen.
+  Nieuwe keys CRAFTSHOP_QUALITY_*, CRAFTSHOP_ON_ALTS_FMT, CRAFTSHOP_TIP_ON_ALTS_FMT alleen enUS/nlNL → vertaalronde.
 
 ## 🛡️ 7 okt — dispel-hercontrole (gepland, `docs/DISPEL_RECHECK_2026-10-07.md`): deur blijft dicht; Rob koos A+B+C+D
 - A = Rob/Cisca kijkt in een dungeon met `/mh partytargets` (niets gebouwd).

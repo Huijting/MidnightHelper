@@ -126,6 +126,10 @@ Voor de keuze "welke kwaliteit kopen" (`docs/CRAFTSHOP_QUALITY_2026-10-07.md`, v
   Per recept een chatregel "none = … | silver = quality … | gold = quality …". Daarna nog eens met het venster OPEN.
 - [ ] `/reload` → ik lees `craftShopQuality`. Zeg erbij of je het gouden leer/de schubben zelf hebt (de regel noemt ook
   "you own N" per gouden reagent).
+- [ ] **Variant b, al gebouwd** (Rob: "waarom niet ook b nu?"): onder een recept dat je kent een blauw regeltje
+  "Kwaliteit met zilver: 2 · met goud: 4 · alleen <reagent> in goud: 3 (van 5)", of "… met zilver of goud: koop zilver".
+  Antwoordt het spel niet, dan staat er NIETS (zo bedoeld) — dan zegt `/mh craftshop quality` waarom.
+- [ ] **Variant a:** Academy → hoofdstuk Kwaliteit, onderaan "Welke koop je dan? …".
 
 ## 🆕 7 okt — boodschappenlijst: "+N op alts" (Rob koos het, onderweg)
 
