@@ -96,6 +96,51 @@ local function PlaceSecure(btn, f)
 	end
 end
 
+--- 🔴 The secure buttons must close WITH the board. Rob, 7 Oct 2026: he closed the board and hovering the empty spot
+--- still showed "Thalassian Phoenix Oil … Niet in je tas" — the click-catchers live on UIParent (see above), so the
+--- board's Hide never reached them, and their state driver shows them again after every fight. Closed = driver off +
+--- hidden; opened = driver back on (UpdateUseButtons then shows the ones with a cell). Secure frames cannot be touched
+--- in combat, so a close during a fight is applied when it ends.
+local SECURE_DRIVER = "[combat] hide; nil"
+local securePending, secureWaiter
+local function ForEachSecure(f, fn)
+	for _, b in pairs(f._useBtns or {}) do
+		fn(b)
+	end
+	if f._raidBtn then
+		fn(f._raidBtn)
+	end
+end
+local function SetSecureLive(f, on)
+	if not f then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		securePending = { f = f, on = on }
+		if not secureWaiter then
+			secureWaiter = CreateFrame("Frame")
+			secureWaiter:SetScript("OnEvent", function(self)
+				self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				local p = securePending
+				securePending = nil
+				if p then
+					SetSecureLive(p.f, p.f:IsShown())
+				end
+			end)
+		end
+		secureWaiter:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+	ForEachSecure(f, function(b)
+		if on then
+			RegisterStateDriver(b, "visibility", SECURE_DRIVER)
+		else
+			UnregisterStateDriver(b, "visibility")
+			b:Hide()
+		end
+	end)
+end
+
 --- Re-place every secure button after the board moves or its columns change.
 local function PlaceAllSecure(f)
 	if not f then
@@ -339,6 +384,10 @@ local function EnsureBoard()
 	local f = CreateFrame("Frame", "MidnightHelperConsumableBoard", UIParent, "BackdropTemplate")
 	f:HookScript("OnHide", function()
 		if ev then ev:UnregisterEvent("UNIT_AURA") end
+		SetSecureLive(f, false)
+	end)
+	f:HookScript("OnShow", function()
+		SetSecureLive(f, true)
 	end)
 	f:SetSize(300, 120)
 	f:SetFrameStrata("MEDIUM")
@@ -529,6 +578,9 @@ local function EnsureBoard()
 	hint:SetTextColor(0.55, 0.54, 0.5)
 	f._hint = hint
 
+	-- The board was hidden above before these buttons existed; give them the board's state now.
+	SetSecureLive(f, f:IsShown())
+
 	board = f
 	return f
 end
@@ -540,6 +592,10 @@ local function UpdateUseButtons(f)
 		return
 	end
 	if InCombatLockdown and InCombatLockdown() then
+		return
+	end
+	-- A closed board keeps its click-catchers hidden (SetSecureLive); a refresh must not show them again.
+	if not f:IsShown() then
 		return
 	end
 	local owned = ns.GetOwnConsumableItemIDs and ns.GetOwnConsumableItemIDs() or {}
@@ -777,6 +833,8 @@ function ns.ShowConsumableBoard()
 	-- the buttons first would park every one of them at the fallback position and leave
 	-- them there for the whole session.
 	PlaceAllSecure(f)
+	-- Render() ran while the board was still hidden, so the click-catchers were left alone; set them now.
+	UpdateUseButtons(f)
 	if ev then ev:RegisterEvent("UNIT_AURA") end
 	if hideTimer and hideTimer.Cancel then
 		pcall(hideTimer.Cancel, hideTimer)

@@ -46,6 +46,10 @@
   Rob kijkt in-game (TESTLIJST). Gedaan in 7 talen: PLAYCARD_65_S2/EASY (+ stap "niets klaar → FoL, Holy Light bij groot gat"),
   heal-gearstap = tank-stap, Divine Shield-noten "health laag → Lay on Hands", Spellwarding in Forbearance-noot (Prot).
   Open klein: SURVIVAL_STEP_BIG (alle klassen) zegt nog "immuniteit mag ook bijna dood"; HEALCORE_DESC_FAST gedeeld.
+- 🐞 Rob 7 okt laat: consumables-bord gesloten, maar hover op de lege plek gaf nog "Thalassian Phoenix Oil … Niet in je
+  tas". Oorzaak: de secure klik-knoppen staan op UIParent (bewust, 24 aug) en hun state driver "[combat] hide; nil" toont
+  ze weer na elk gevecht; board:Hide bereikte ze nooit. Nu SetSecureLive: dicht = driver uit + Hide (in combat uitgesteld
+  tot PLAYER_REGEN_ENABLED), open = driver aan + UpdateUseButtons ná Show. Niet getest → TESTLIJST.
 - Spiekbrief-PDF "TwelveInchy · Holy klik-heals" (DandersFrames-binds van Rob) gemaakt via HTML + Edge headless
   (reportlab niet geïnstalleerd); bron in de scratchpad van sessie 945b4dfe, niet in de repo.
 - DandersFrames (Rob vroeg): click-casting = `/df` → tab BINDS → Click-Casting (GEMETEN, Robs screenshot); profielen per

@@ -49,6 +49,9 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   de changelog en de beroepscursus. Houd Shift in en scroll met de muis BOVEN de lijst/tekst: het venster wordt groter
   of kleiner. Zonder Shift scrolt de lijst gewoon. Na `/reload` houdt elk venster zijn eigen grootte. In gevecht doet
   Shift+scroll bewust niets. Mist er een venster: noem het, dan zet ik het erbij.
+- [ ] **Live, consumables-bord sluiten (7 okt laat, Rob vond het):** open het bord, sluit het met het kruisje. Ga met je
+  muis over de plek waar de vakjes stonden: GEEN tooltip meer ("Niet in je tas"), geen oplichtend vierkantje. Ook na een
+  gevecht niet. Open het bord opnieuw: klikken op een flask/oil werkt nog?
 - [ ] **Live, Holy Paladin: Infusion of Light** — druk een paar keer Holy Shock. Als de buff komt: licht de knop Flash
   of Light op je balk op, of zie je alleen een plaatje midden op je scherm? (Kaart 65 zegt nu "op je scherm".)
 - [ ] **Live, Holy Paladin heal-toolkit:** Divine Shield heet nu *[Immuniteit]*, Divine Protection blijft *[Defensive]*.
