@@ -13,9 +13,11 @@
   portaal (x/y ±1) is gezet. Regel "Use: …" blijft; zonder knop en zonder Hearthstone verdwijnt het venster. Niet getest.
 - Speelkaarten nagelopen (mh-research, docs/PLAYCARDS_REFRESH_2026-10-07.md): 34 OK, 6 KLEIN, 0 GROOT. De 6 aanvullingen
   (264 Stormstream Totem, 266 Doomguard/Grimoire, 255 Sentinel's Mark → Wildfire Bomb, 73 Execute, 269 Zenith Stomp,
-  256 Shadow Mend) staan in enUS + nlNL, spreuknamen zonder bevestigd ID als gewone tekst. de/fr/es/pt/it BEWUST niet:
-  hun oude tekst klopt nog (alleen korter) en spreuknamen in die talen kunnen we zonder ID niet goed zetten. Na Robs
-  /run (TESTLIJST) → {SPELL:id} invullen + vertalen. Na 14 okt opnieuw: 1480 Devourer, 254 MM (Unload weg), 73 Prot.
+  256 Shadow Mend) staan in alle 7 talen. ID's GEMETEN in wago.tools SpellName 12.1.5.70077 (Rob: "toch online te
+  vinden?" — ja): 378081, 1276672, 163201, 1272696, 186263 als {SPELL:id}. Stormstream Totem (7 ID's) en Sentinel's
+  Mark (3 ID's) bleven tekst, met de clientnaam per taal uit wago. Na 14 okt opnieuw: 1480 Devourer, 254 MM, 73 Prot.
+  📌 Les: een spreuk-ID of clientnaam opzoeken kan via wago.tools (browservenster, Inertia-JSON met &locale=) — niet
+  meteen Rob laten /dumpen.
 
 ## 📚 7 okt — 12.1.5-feiten + 4 Codex-kaartjes (punt 2 van de top-5)
 - `docs/PATCH_12_1_5_CONTENT_2026-10-07.md` + `data/patch_12_1_5_ids.tsv` (mh-research, wago 70077 + Blizzard 1 okt):

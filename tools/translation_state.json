@@ -17659,10 +17659,20 @@
    "ptBR": "5c05f99c882a9dec"
   },
   "PLAYCARD_255_HERO1": {
-   "nlNL": "e21bbd7f8cf105a6"
+   "deDE": "e21bbd7f8cf105a6",
+   "esES": "e21bbd7f8cf105a6",
+   "frFR": "e21bbd7f8cf105a6",
+   "itIT": "e21bbd7f8cf105a6",
+   "nlNL": "e21bbd7f8cf105a6",
+   "ptBR": "e21bbd7f8cf105a6"
   },
   "PLAYCARD_256_S4": {
-   "nlNL": "e514108fc3e5025e"
+   "deDE": "84d6d3fecd42b186",
+   "esES": "84d6d3fecd42b186",
+   "frFR": "84d6d3fecd42b186",
+   "itIT": "84d6d3fecd42b186",
+   "nlNL": "84d6d3fecd42b186",
+   "ptBR": "84d6d3fecd42b186"
   },
   "PLAYCARD_257_AOE": {
    "deDE": "d492f4b02b9f514d",
@@ -17721,13 +17731,28 @@
    "ptBR": "d47aee72872a29a9"
   },
   "PLAYCARD_264_HERO1": {
-   "nlNL": "bfc48429b74f569b"
+   "deDE": "95a984c56a0e8aa0",
+   "esES": "95a984c56a0e8aa0",
+   "frFR": "95a984c56a0e8aa0",
+   "itIT": "95a984c56a0e8aa0",
+   "nlNL": "95a984c56a0e8aa0",
+   "ptBR": "95a984c56a0e8aa0"
   },
   "PLAYCARD_264_HERO2": {
-   "nlNL": "f5b957a3c0fef5fc"
+   "deDE": "f5b957a3c0fef5fc",
+   "esES": "f5b957a3c0fef5fc",
+   "frFR": "f5b957a3c0fef5fc",
+   "itIT": "f5b957a3c0fef5fc",
+   "nlNL": "f5b957a3c0fef5fc",
+   "ptBR": "f5b957a3c0fef5fc"
   },
   "PLAYCARD_264_S1": {
-   "nlNL": "3c5042d6814276e7"
+   "deDE": "3c5042d6814276e7",
+   "esES": "3c5042d6814276e7",
+   "frFR": "3c5042d6814276e7",
+   "itIT": "3c5042d6814276e7",
+   "nlNL": "3c5042d6814276e7",
+   "ptBR": "3c5042d6814276e7"
   },
   "PLAYCARD_264_S3": {
    "deDE": "e552eda7ff44a33e",
@@ -17738,10 +17763,20 @@
    "ptBR": "e552eda7ff44a33e"
   },
   "PLAYCARD_266_S2": {
-   "nlNL": "8eda1b3e55164324"
+   "deDE": "f94268a5d8e431c8",
+   "esES": "f94268a5d8e431c8",
+   "frFR": "f94268a5d8e431c8",
+   "itIT": "f94268a5d8e431c8",
+   "nlNL": "f94268a5d8e431c8",
+   "ptBR": "f94268a5d8e431c8"
   },
   "PLAYCARD_269_S1": {
-   "nlNL": "59d9b83ee7add034"
+   "deDE": "213ceacfd6ed37ec",
+   "esES": "213ceacfd6ed37ec",
+   "frFR": "213ceacfd6ed37ec",
+   "itIT": "213ceacfd6ed37ec",
+   "nlNL": "213ceacfd6ed37ec",
+   "ptBR": "213ceacfd6ed37ec"
   },
   "PLAYCARD_62_HERO1": {
    "deDE": "237b0e49cabdb738",
@@ -17808,7 +17843,12 @@
    "ptBR": "3c38beb49aa41a49"
   },
   "PLAYCARD_73_S4": {
-   "nlNL": "c1cb539ccdaa1b97"
+   "deDE": "9e6c2ba0201b9aee",
+   "esES": "9e6c2ba0201b9aee",
+   "frFR": "9e6c2ba0201b9aee",
+   "itIT": "9e6c2ba0201b9aee",
+   "nlNL": "9e6c2ba0201b9aee",
+   "ptBR": "9e6c2ba0201b9aee"
   },
   "POISON_HEADER": {
    "deDE": "6628e79ad740cc95",
