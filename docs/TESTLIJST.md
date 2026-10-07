@@ -49,6 +49,8 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   de changelog en de beroepscursus. Houd Shift in en scroll met de muis BOVEN de lijst/tekst: het venster wordt groter
   of kleiner. Zonder Shift scrolt de lijst gewoon. Na `/reload` houdt elk venster zijn eigen grootte. In gevecht doet
   Shift+scroll bewust niets. Mist er een venster: noem het, dan zet ik het erbij.
+- [ ] **Live, Holy Paladin: Infusion of Light** — druk een paar keer Holy Shock. Als de buff komt: licht de knop Flash
+  of Light op je balk op, of zie je alleen een plaatje midden op je scherm? (Kaart 65 zegt nu "op je scherm".)
 - [ ] **Live, Holy Paladin heal-toolkit:** Divine Shield heet nu *[Immuniteit]*, Divine Protection blijft *[Defensive]*.
 - [ ] **Live, in Silvermoon City:** route naar iets in Harandar of Voidstorm. De pijl wijst naar het portaal; de
   portaalKNOP mag nu NIET meer verschijnen (was dubbel). Ver van een portaal (andere zone) moet de knop er wél nog zijn.

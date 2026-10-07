@@ -41,6 +41,13 @@
   (toolkit wel) + Flash of Light twee momenten; heal-gearstap mist "queue als Damage / terug op Default"; Divine Shield
   "immuniteit mag ook bijna dood" naast "health laag → Lay on Hands"; Forbearance-noot mist Spellwarding (1631, 3631);
   kopje Templar/Lightsmith, SotR "vóór de pull", kaart 66 alleen Blessed Hammer, "buffen", "fatale debuff".
+- Rob "doe die laatste healpunten ook maar": FACTS7 (Flash of Light 1,5 s goedkoop, Holy Light 2 s duur, Infusion of Light
+  53576/54149 maakt FoL direct + sterker). Kaart 65 zei "FoL licht op je balk" — AFGELEID fout (plaatje op je scherm),
+  Rob kijkt in-game (TESTLIJST). Gedaan in 7 talen: PLAYCARD_65_S2/EASY (+ stap "niets klaar → FoL, Holy Light bij groot gat"),
+  heal-gearstap = tank-stap, Divine Shield-noten "health laag → Lay on Hands", Spellwarding in Forbearance-noot (Prot).
+  Open klein: SURVIVAL_STEP_BIG (alle klassen) zegt nog "immuniteit mag ook bijna dood"; HEALCORE_DESC_FAST gedeeld.
+- Spiekbrief-PDF "TwelveInchy · Holy klik-heals" (DandersFrames-binds van Rob) gemaakt via HTML + Edge headless
+  (reportlab niet geïnstalleerd); bron in de scratchpad van sessie 945b4dfe, niet in de repo.
 - DandersFrames (Rob vroeg): click-casting = `/df` → tab BINDS → Click-Casting (GEMETEN, Robs screenshot); profielen per
   talentindeling — Rob heeft 6 Holy-indelingen, elk een eigen profiel (SV gemeten). Voorstel gegeven, Rob kiest.
 - Rob: "alle schermen moeten Shift+scroll kunnen". Alleen 17 vensters met RegisterMidnightDialogPopup hadden het.
