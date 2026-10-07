@@ -18,6 +18,12 @@
   moedertaalspreker nagekeken. Twijfels: it "Gran Banca", "Exalted" vertaald zonder voorbeeld in het pack.
 - Kopie naar PTR gedaan (_ptr_ 12.1.0 en _xptr_ 12.1.5), vóór de vertaalronde.
 - Open: release-dag-meting (14 okt); Labyrinth op de PTR (TESTLIJST); 2 Codex-zinnen op release-dag.
+- Rob onderweg, "doe alles": (1) EventInfoData: Aqir-uitleg op alle 29 Aqir-POI's uit wago (welke de client echt
+  geeft = niet gemeten; `/mh eventspy` na release, dan opschonen). (2) DelveCoach: in een delve zonder tips 1 chatregel
+  (DELVE_COACH_UNKNOWN_FMT, + Codex-verwijzing op map 3043) en ns.db.delveCoachUnknown; na 3 s hercheck tegen
+  vals alarm. (3) Site-chat heeft concept drafts/ready-12-1-5.html, publiceert pas na release + 12.1.5 live; vroeg of de
+  kaartjes vóór 13 okt uitkomen → Rob beslist. (4) mh-writer herschrijft machinale de/fr-zinnen (loopt).
+  Nieuwe keys (4) nog alleen enUS/nlNL.
 
 ## 🆕 7 okt — 12.1.5 komt 13 okt (VS) / 14 okt (EU): `docs/PATCH_12_1_5_PREP_2026-10-07.md` (mh-research)
 Nieuwe "mega-delve" The Labyrinth of Kindo'jan (9 kamers, Valeera, eindbaas Kindo'jan, Vault-credit per 3 kamers; wago 70077).

@@ -1767,6 +1767,11 @@ ns._mhLocales.enUS = {
 	EVENT_INFO_STORMARION_REWARD = "Each completed run: a Victorious Stormarion Cache (Stormarion Cores, Voidlight Marl, gold). Your first completion each week gives the bigger Pinnacle Cache and The Singularity renown. Both caches can drop the Contained Stormarion Defender mount and the pet Kai.",
 	EVENT_INFO_HARANIR_DESC = "A quieter story event in Harandar. Pick up the weekly 'Lost Legends', choose a relic, and play through its lore questline (solo-friendly).",
 	EVENT_INFO_HARANIR_REWARD = "A weekly cache, Hara'ti reputation and a housing decor piece tied to your relic. Finding every lore object inside the relic stories grants the 'Chronicler of the Haranir' title.",
+	-- 12.1.5 (7 Oct 2026). Blizzard's content notes of 1 Oct + wago 70077; see docs/PATCH_12_1_5_CONTENT_2026-10-07.md.
+	DELVE_COACH_UNKNOWN_FMT = "%s: Midnight Helper has no delve tips for this one yet, so the coach stays closed. Not broken — just new.",
+	DELVE_COACH_UNKNOWN_LABYRINTH = "What we do know is in the Codex: Delves → The Labyrinth of Kindo'jan.",
+	EVENT_INFO_AQIR_DESC = "Patch 12.1.5: for 10 minutes every hour the whole zone does public tasks together, then a boss comes. Three of the six scenarios are fights with an affix. Interrupt the Webweaver and kill the Voidweaver first.",
+	EVENT_INFO_AQIR_REWARD = "Reputation with Aqir Research Enclave (warband, up to Exalted); its people are in Silvermoon. More in the Codex: World content → Aqir Invasion.",
 	EVENT_WEEKLY_DONE = "weekly done",
 	EVENT_WEEKLY_TURNIN = "weekly: turn in!",
 	EVENT_WEEKLY_ACTIVE = "weekly: in progress",

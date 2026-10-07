@@ -30,6 +30,11 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   zet een waypoint bij het portaal. Staat de ingang daar écht? Kith'ix-link (Underbelly 74.27, 5.91) idem.
 - [ ] **PTR, in het Labyrinth:** klopt "elke 3 kamers 2 Heavy Trunks + 1 Bountiful Coffer"? Vraagt de coffer een Restored
   Coffer Key? Zegt de delve-coach iets (of niets) — screenshot.
+- [ ] **PTR, Labyrinth binnenlopen:** na ~3 sec één chatregel "…: Midnight Helper has no delve tips for this one yet …"
+  plus de Codex-verwijzing. Komt hij NIET, dan ziet MH het Labyrinth niet als delve (ook goed om te weten).
+  Daarna `/reload` → ik lees `ns.db.delveCoachUnknown` (instance-ID).
+- [ ] **Live, gewone delve (bv. een Coiled Isle-delve):** die regel mag NIET verschijnen.
+- [ ] **PTR, Aqir Invasion:** Void & Rituals-tab → event-regel van de invasie: hover → uitleg + beloning?
 
 ## 🆕 6 okt — knoppen voor commando's die alleen via /mh gingen (Rob: alle 4 groepen + de 5 reparaties)
 

@@ -47,6 +47,24 @@ ns.EVENT_INFO = {
 ns.EVENT_INFO[8421] = ns.EVENT_INFO[8419]
 ns.EVENT_INFO[8422] = ns.EVENT_INFO[8419]
 
+-- Aqir Invasion (12.1.5, Eversong of Zul'Aman, elk uur 10 min). 7 okt 2026: welke POI de client in de
+-- event-lijst geeft is NIET gemeten, dus alle Aqir-POI's uit wago 70077 delen één uitleg
+-- (docs/PATCH_12_1_5_CONTENT_2026-10-07.md, data/patch_12_1_5_ids.tsv). Op 12.1.0 bestaat geen van deze
+-- POI's, dus live verandert er niets. Geen weeklyQuest: de invasie loopt via scenario's, quest-ID onbekend.
+-- Na release: `/mh eventspy` zegt welke ID's echt langskomen; ongebruikte mogen dan weg.
+do
+	local aqir = { descKey = "EVENT_INFO_AQIR_DESC", rewardKey = "EVENT_INFO_AQIR_REWARD" }
+	local ids = {
+		8812, 8813, 9026, 9027, 9045, -- aankondiging / "wordt voorbereid" (Zul'Aman, Eversong, Quel'Thalas)
+		8740, 8743, 8746, 8747, 8748, 8749, 8750, 8751, -- plekken Eversong
+		8801, 8802, 8803, 8804, 8805, 8806, 8807, 8808, -- plekken Zul'Aman
+		8752, 8753, 8754, 8809, 8810, 8811, 8904, 8905, -- Aqir Monstrosity
+	}
+	for _, id in ipairs(ids) do
+		ns.EVENT_INFO[id] = ns.EVENT_INFO[id] or aqir
+	end
+end
+
 -- Info voor een event-POI (of nil als we het event nog niet beschreven hebben).
 function ns.GetEventInfo(areaPoiID)
 	if not areaPoiID then

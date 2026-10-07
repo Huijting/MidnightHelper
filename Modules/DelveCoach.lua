@@ -1872,6 +1872,39 @@ local function OnDelveStateTick()
 		if not entry and ns.GetActiveDelveTipEntryForPlayer then
 			entry = ns:GetActiveDelveTipEntryForPlayer()
 		end
+		if not entry then
+			-- 7 Oct 2026: a delve MH has no tips for (12.1.5's Labyrinth of Kindo'jan, or the next new one)
+			-- used to get silence, which looks the same as a broken coach. Say it once per entry, and keep
+			-- the instance in ns.db.delveCoachUnknown so the next session can add it. Map 3043 = the
+			-- Labyrinth (wago 70077, docs/PATCH_12_1_5_CONTENT_2026-10-07.md); it has its own Codex card.
+			C_Timer.After(3, function()
+				pcall(function()
+					-- Re-check after the entry tick: a known delve can resolve a moment late.
+					if not ((ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress()) or IsDelveInProgress()) then
+						return
+					end
+					if ResolveActiveDelveEntry() or (ns.GetActiveDelveTipEntryForPlayer and ns:GetActiveDelveTipEntryForPlayer()) then
+						return
+					end
+					local name, _, _, _, _, _, _, instanceID = GetInstanceInfo()
+					if issecretvalue and issecretvalue(name) then
+						name = nil
+					end
+					ns.db = ns.db or {}
+					ns.db.delveCoachUnknown = ns.db.delveCoachUnknown or {}
+					local key = tostring(instanceID or "?")
+					local seen = ns.db.delveCoachUnknown[key]
+					ns.db.delveCoachUnknown[key] = { name = name, instanceID = instanceID,
+						count = ((type(seen) == "table" and seen.count) or 0) + 1, lastSeen = time and time() or 0 }
+					local p = ("|cffffcc00%s|r "):format(ns:L("PRINT_PREFIX"))
+					local line = ns:L("DELVE_COACH_UNKNOWN_FMT"):format(name or "?")
+					if instanceID == 3043 then
+						line = line .. " " .. ns:L("DELVE_COACH_UNKNOWN_LABYRINTH")
+					end
+					print(p .. line)
+				end)
+			end)
+		end
 		if entry and entry.id and ns.RefreshDelveStorySnapshot then
 			if ns.PrimeDelveStoryPoiCache then
 				ns.PrimeDelveStoryPoiCache(entry.id)
