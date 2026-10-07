@@ -272,7 +272,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	CODEX_RAID_VAULT_TITLE = "Raid Great Vault",
 	CODEX_RAID_VAULT_BODY = "• I boss d'incursione riempiono la riga Incursioni della vault: 2, 4 e 6 boss aprono una, due e tre scelte. Conta ogni difficoltà, anche Raid Finder, e anche il boss della Lair.|n• Nella Stagione 2 ogni scelta viene da una difficoltà sopra quella in cui hai ucciso i boss: Raid Finder dà Champion, Normale dà Hero, Eroico dà Myth, Mitico dà Myth a un livello più alto.|n• Difficoltà miste: ogni scelta usa la difficoltà più alta in cui hai raggiunto quel numero di boss. L'UI della vault mostra cosa hai questa settimana.|n• I crest sono ciò che spendi dopo per potenziare il gear d'incursione.",
 
-	CODEX_VAULT_ADVISOR_TITLE = "Great Vault Advisor",
+	CODEX_VAULT_ADVISOR_TITLE = "Vault Advisor della Gran Banca",
 	CODEX_VAULT_ADVISOR_BODY = "• Pannello laterale accanto alla finestra Gran Banca di Blizzard quando scegli la tua ricompensa alla Gran Banca a Silvermoon — non dentro le schede di Midnight Helper. SHIFT-J mostra solo un riepilogo, quindi lì il pannello non compare.|n• Classifica i pezzi della vault rispetto al gear equipaggiato usando le priorità di stat della guida (e Pawn opzionale).|n• Attiva/disattiva nelle impostazioni rapide della minimappa / Esc -> AddOns -> Midnight Helper.|n• Profilo Auto vs Incursione vs M+ per i pesi delle stat.",
 
 	CODEX_WORLD_HUB_TITLE = "Void & Rituals — un unico sistema",

@@ -45,7 +45,11 @@
   frFR LAYOUT_LEGEND mist +N/M4-M9-regels.
 - Rob volgt advies (7 okt): de 5 frFR-waarden staan nu in KEEP_ENGLISH_FOR.frFR (KeepEnglish.lua); enUS
   ACADEMY_TANK_LADDER_BODY → "Stay on each step until it feels boring, not terrifying. Then move up." in alle 7 talen
-  (drift gemarkeerd). Italiaans wordt nagelopen op machinetaal (mh-writer 07f, loopt). Bewust laten wachten:
+  (drift gemarkeerd). Italiaans nagelopen (mh-writer 07f, toegepast): pack was goed (0 "mezzanotte", overal tu);
+  24 losse woordfouten herschreven (pacchetto/profondità/cripta/curatore/dissolvenza/incantesimi …, + "Midnight
+  Hunter" → "di questa spec"). Open, Rob/client kiest: Translations2026 gebruikt Italiaanse plaatsnamen (Lunargenta,
+  Tempesta del Vuoto …) waar itIT.lua Engels houdt; "Avventuriero/Mito dell'Alba" naast Engelse achievementnamen;
+  Undercoin = "Sottomonete" via fill. Bewust laten wachten:
   ptBR "Sobrecarga da Meia-noite", frFR LAYOUT_LEGEND, RaidTips frFR "vous".
 
 ## 🆕 7 okt — 12.1.5 komt 13 okt (VS) / 14 okt (EU): `docs/PATCH_12_1_5_PREP_2026-10-07.md` (mh-research)

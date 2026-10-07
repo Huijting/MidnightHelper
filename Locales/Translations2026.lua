@@ -734,7 +734,7 @@ fill("itIT", {
 	TOUR_SECTION_HEADER = "Come funziona Midnight Helper",
 	TOUR_SECTION_BODY = "Un breve tour dell'addon stesso. Tocca \"Mostrami\" su qualsiasi parte per andarci subito.",
 	TOUR_START_BTN = "Avvia il tour interattivo",
-	TOUR_HOME_TITLE = "This Week — la tua cabina",
+	TOUR_HOME_TITLE = "This Week — il tuo cockpit",
 	TOUR_HOME_BODY = "La tua pagina iniziale settimanale: Gran Banca, il world boss attivo, le faccende della settimana e i rari, tutto a colpo d'occhio con salti in un clic.",
 	TOUR_HOME_NAV = "Apri This Week",
 	TOUR_CODEX_TITLE = "Codex — il manuale",
@@ -744,7 +744,7 @@ fill("itIT", {
 	TOUR_DELVES_BODY = "Tieni traccia della tua Gran Banca e ricevi consigli per ogni boss dai coach Delve, Dungeon e Ritual — condivisibili con il gruppo.",
 	TOUR_DELVES_NAV = "Apri Delves & Vault",
 	TOUR_ENCHANTS_TITLE = "Consulente Enchants & Gems",
-	TOUR_ENCHANTS_BODY = "Controlla l'equipaggiamento indossato per incantesimi mancanti e castoni vuoti, con un suggerimento adatto alle statistiche della tua spec.",
+	TOUR_ENCHANTS_BODY = "Controlla l'equipaggiamento indossato per enchant mancanti e castoni vuoti, con un suggerimento adatto alle statistiche della tua spec.",
 	TOUR_ENCHANTS_NAV = "Apri Enchants & Gems",
 	TOUR_TOOLS_TITLE = "Pannello strumenti",
 	TOUR_TOOLS_BODY = "Apri le finestre di aiuto fluttuanti — finestra del boss, board dei consumabili, curios e il coach del boss di rituale — da un solo posto.",
@@ -777,9 +777,9 @@ fill("itIT", {
 	TOOLLP_INTRO = "Apri le finestre di aiuto fluttuanti di Midnight Helper da un solo posto. Ognuna funziona ancora anche tramite il suo comando /mh.",
 	TOOLLP_BOARD_DESC = "I flask, le rune, il cibo e i buff del gruppo a colpo d'occhio.",
 	TOOLLP_BOSSWIN_DESC = "Una finestra di consigli fluttuante, boss per boss, per il dungeon in cui ti trovi.",
-	TOOLLP_COACH_DESC = "Tattiche dei boss in tempo reale per la profondità attuale, condivisibili con il gruppo.",
-	TOOLLP_CURIOS_DESC = "Migliori curio per il ruolo del tuo compagno di profondità.",
-	TOOLLP_RITUALBOSS_DESC = "Tattiche in tempo reale per i boss dei siti di rituale.",
+	TOOLLP_COACH_DESC = "Tattiche dei boss in tempo reale per la delve attuale, condivisibili con il gruppo.",
+	TOOLLP_CURIOS_DESC = "Migliori curio per il ruolo del tuo compagno delle delve.",
+	TOOLLP_RITUALBOSS_DESC = "Tattiche in tempo reale per i boss dei Siti Rituali.",
 	CODEX_WARBAND_TITLE = "Warband e la Banca della Warband",
 	CODEX_WARBAND_BODY = "|cffffcc00La tua Warband|r è ogni personaggio del tuo account, trattati come una squadra. Molte cose ora sono |cffffffffWarbound|r — condivise su tutto l'account — quindi spedisci molta meno posta tra gli alt.|n|n|cffffff78Oggetti e valute Warbound|r|n• Alcune valute sono condivise da tutto l'account o si possono spostare tra personaggi — la tua finestra delle valute mostra quali. Gli emblemi di potenziamento contano per personaggio.|n• L'equipaggiamento è spesso |cffffffffWarbound fino all'equipaggiamento|r — mandalo a un alt, ma una volta equipaggiato resta su quel personaggio.|n|n|cffffff78La Banca della Warband|r — una banca condivisa che usano tutti i tuoi personaggi.|n• Aprila da |cffffffffqualsiasi banchiere|r (o Jeeves) — è una scheda della tua banca normale, accanto alla banca del personaggio.|n• Conserva qualsiasi oggetto |cffffffffnon legato all'anima|r e deposita o preleva |cfffffffforo|r tra i personaggi (anche tra fazioni diverse).|n• Crea direttamente da essa — conta come fonte di reagenti.|n|n|cffffff78Schede e costo|r — 5 schede, 98 slot ciascuna (490 in totale). Inizi senza nessuna; comprale con l'oro:|n• Scheda 1: |cffffffff1.000g|r|n• Scheda 2: |cffffffff25.000g|r|n• Scheda 3: |cffffffff100.000g|r|n• Scheda 4: |cffffffff500.000g|r|n• Scheda 5: |cffffffff2.500.000g|r  (tutte e cinque = 3.126.000g)|n|n|cffffcc00Consiglio:|r 2-3 schede bastano alla maggior parte dei giocatori. Non confonderla con la tua |cffffffffbanca del personaggio|r (anch'essa con schede dal patch 11.2, molto più economica) — quella è per personaggio; la Banca della Warband è condivisa.",
 })
@@ -2499,7 +2499,7 @@ fill("itIT", {
 	HEALLENS_DISPEL_OTHER_FMT = "Qui arriva un debuff %s — non puoi dissolvere quel tipo da solo.",
 	HEALLENS_DISPEL_YOU_FMT = "Dissolvi qui il debuff %s con il tuo %s.",
 	HEALLENS_HEALFULL_FMT = "Un giocatore subisce qui una ferita cumulativa — curalo di nuovo al massimo per rimuoverla.",
-	HEALLENS_PREFIX = "Consiglio per il curatore",
+	HEALLENS_PREFIX = "Consiglio per il guaritore",
 	HEALLENS_PURGE_FMT = "Il boss ottiene qui un buff %s — rimuoviglielo dal boss (non è una dissoluzione su un alleato).",
 	HEALLENS_RAIDCD_FMT = "Qui arrivano grossi danni su tutto il gruppo — tieni da parte il tuo %s per questo momento.",
 	HEALTOOLKIT_DISPEL_FMT = "rimuove %s da un bersaglio alleato.",
@@ -2516,7 +2516,7 @@ fill("itIT", {
 	MPLUS_CMD_RATING_NOTE = "Una chiave completata in tempo sopra il tuo record in un dungeon alza il punteggio — il tooltip della chiave mostra la proiezione esatta.",
 	MPLUS_CMD_SLOT_FMT = "Slot %d (%d run): %d/%d fatto%s",
 	MPLUS_GAIN_FULL_FMT = "Tutti e 3 gli slot sono pieni (chiavi migliori %s). Fai chiavi più alte per migliorarli.",
-	MPLUS_GAIN_NEXT_FMT = "Prossimo slot della cripta: ancora %d run.",
+	MPLUS_GAIN_NEXT_FMT = "Prossimo slot della Gran Banca: ancora %d run.",
 })
 
 --------------------------------------------------------------------------------
@@ -2825,7 +2825,7 @@ fill("ptBR", {
 	PROMPT_OFF = "Aviso de ação DESLIGADO.",
 })
 fill("itIT", {
-	PROMPT_ON = "Suggerimento azione ATTIVO — la tua interruzione e la tua dissolvenza, mostrate quando servono. Trascinabile.",
+	PROMPT_ON = "Suggerimento azione ATTIVO — il tuo interrupt e il tuo dispel, mostrati quando servono. Trascinabile.",
 	PROMPT_OFF = "Suggerimento azione DISATTIVO.",
 })
 
@@ -3936,7 +3936,7 @@ fill("itIT", {
 	ICV_KEYS_TITLE = "I quattro nodi dell'Altar of Corrosion che non si possono comprare",
 	ICV_UNLOCK_ANCIENT_FOE = "Cade da qualsiasi Ancient Foe, alla fine di una Temple Incursion.",
 	ICV_UNLOCK_TEMPLE_STRIKE = "Cade dalle Temple Strikes.",
-	ICV_UNLOCK_TEMPLE_INCURSION = "Cade dalle Temple Incursioni.",
+	ICV_UNLOCK_TEMPLE_INCURSION = "Cade dalle Temple Incursions.",
 	ICV_UNLOCK_JINTAL = "Da High Priest Jin'tal, nel Vault of Restless Bones - compare nella linea di missioni secondaria The Med'jai Medallion.",
 	ICV_WHERE_TOKJARA = "Su una sporgenza a destra dell'ingresso dell'incursione Venomous Abyss.",
 	ICV_WHERE_LYNX = "In casse sotto le cascate di veleno.",
@@ -7799,7 +7799,7 @@ fill("itIT", {
 	INTERRUPT_ALERT_ON = "Avviso a vuoto ATTIVO — un suono e un suggerimento quando il tuo kick non prende nulla (prima della 12.1; la 12.1 ha il suo).",
 	INTERRUPT_GENERIC_WORD = "Il tuo interrupt",
 	INTERRUPT_KICKS_FMT = "Interrupt in questa run: %d andati a segno, %d sprecati.",
-	INTERRUPT_KICKS_HINT = "Interruttore: /mh kicks alert (suono) · /mh kicks reset.",
+	INTERRUPT_KICKS_HINT = "Attiva/disattiva: /mh kicks alert (suono) · /mh kicks reset.",
 	INTERRUPT_KICKS_NONE = "Ancora nessun interrupt registrato in questa run.",
 	INTERRUPT_MISS_HINT = "%s usato senza nessun cast in corso — tienilo per un cast interrompibile.",
 	INTERRUPT_MISS_PARTY_FMT = "Nooo — %s ha sbagliato quell'interrupt!",
