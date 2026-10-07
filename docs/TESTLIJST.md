@@ -44,6 +44,11 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
 - [ ] **Live, 6 speelkaarten (`/mh play`):** Resto Shaman, Demonology, Survival, Prot Warrior, Windwalker, Discipline.
   De nieuwe zin staat erin, en Nature's Swiftness / Summon Doomguard / Execute / Zenith Stomp / Shadow Mend zijn
   klikbare spreuken met tooltip (ID's GEMETEN in wago.tools SpellName 12.1.5.70077, 7 okt).
+- [ ] **Live, `/mh academy tank` en `/mh academy heal`:** de Academy opent op die track. Bovenaan nu eerst "What is a
+  tank?" / "What is a healer?", de mindset, de oefenroute (met follower dungeon) en "Words you will hear"; pas dáárna de
+  knop "How you play …" en de toolkit. Geen verwijzing meer naar "Guides" of "In groups". Brewmaster: Celestial
+  Infusion staat in de toolkit als je dat talent hebt. Zoekbalk "leren tanken" → Academy.
+- [ ] **Live, healer-kaart (`/mh play` op een healspec):** de kop boven groepsschade heet nu "Many people hurt at once".
 - [ ] **PTR, Aqir Invasion:** Void & Rituals-tab → event-regel van de invasie: hover → uitleg + beloning?
 
 ## 🆕 6 okt — knoppen voor commando's die alleen via /mh gingen (Rob: alle 4 groepen + de 5 reparaties)

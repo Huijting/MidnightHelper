@@ -1048,7 +1048,8 @@ local function Redraw()
 		end
 
 		y = y - 4
-		Block(L("PLAYCARD_AOE"), card.aoe, 1, 1, 1)
+		-- A healer's "aoe" line is about many HURT friends, not more enemies (newcomer review, 7 Oct 2026).
+		Block(L(isHealer and "PLAYCARD_AOE_HEAL" or "PLAYCARD_AOE"), card.aoe, 1, 1, 1)
 		Block(L("PLAYCARD_MISTAKE"), card.mistake, 1, 0.38, 0.38)
 		for _, h in ipairs(card.hero) do
 			Block("•", h.text, 0.62, 0.62, 1)

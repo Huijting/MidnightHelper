@@ -194,6 +194,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh arrowsize", descKey = "CMDLIST_ARROWSIZE" },
 		{ cmd = "/mh fp", descKey = "CMDLIST_FP" },
 		{ cmd = "/mh course", descKey = "CMDLIST_COURSE" },
+		{ cmd = "/mh academy", descKey = "CMDLIST_ACADEMY" },
 		{ cmd = "/mh craftshop", descKey = "CMDLIST_CRAFTSHOP" },
 		{ cmd = "/mh keypad", descKey = "CMDLIST_KEYPAD" },
 		{ cmd = "/mh valeera", descKey = "CMDLIST_VALEERA" },

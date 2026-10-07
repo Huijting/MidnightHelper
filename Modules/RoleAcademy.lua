@@ -35,20 +35,34 @@ local PREFLIGHT_LABEL_KEYS = {
 	},
 }
 
+--- Read BEFORE the card button and the toolkit (7 Oct 2026, role-switch review): what the role is, the mindset,
+--- the words, and the route from zero to a first dungeon. A DPS player switching roles meets these first.
+local BASICS_KEYS = {
+	tank = {
+		{ "ACADEMY_TANK_WHAT_TITLE", "ACADEMY_TANK_WHAT_BODY" },
+		{ "ACADEMY_TANK_INTRO_TITLE", "ACADEMY_TANK_INTRO_BODY" },
+		{ "ACADEMY_TANK_LADDER_TITLE", "ACADEMY_TANK_LADDER_BODY" },
+		{ "ACADEMY_WORDS_TITLE", "ACADEMY_WORDS_BODY" },
+	},
+	heal = {
+		{ "ACADEMY_HEAL_WHAT_TITLE", "ACADEMY_HEAL_WHAT_BODY" },
+		{ "ACADEMY_HEAL_INTRO_TITLE", "ACADEMY_HEAL_INTRO_BODY" },
+		{ "ACADEMY_HEAL_TRIAGE_TITLE", "ACADEMY_HEAL_TRIAGE_BODY" },
+		{ "ACADEMY_HEAL_LADDER_TITLE", "ACADEMY_HEAL_LADDER_BODY" },
+		{ "ACADEMY_WORDS_TITLE", "ACADEMY_WORDS_BODY" },
+	},
+}
+
 local SECTION_KEYS = {
 	tank = {
-		{ "ACADEMY_TANK_INTRO_TITLE", "ACADEMY_TANK_INTRO_BODY" },
 		{ "ACADEMY_TANK_PULL_TITLE", "ACADEMY_TANK_PULL_BODY" },
 		{ "ACADEMY_TANK_WIPE_TITLE", "ACADEMY_TANK_WIPE_BODY" },
 		{ "ACADEMY_TANK_DUNGEON_TITLE", "ACADEMY_TANK_DUNGEON_BODY" },
 		{ "ACADEMY_TANK_RAID_TITLE", "ACADEMY_TANK_RAID_BODY" },
 		{ "ACADEMY_TANK_CHAT_TITLE", "ACADEMY_TANK_CHAT_BODY" },
-		{ "ACADEMY_TANK_LADDER_TITLE", "ACADEMY_TANK_LADDER_BODY" },
 		{ "ACADEMY_TANK_BOTH_TITLE", "ACADEMY_TANK_BOTH_BODY" },
 	},
 	heal = {
-		{ "ACADEMY_HEAL_INTRO_TITLE", "ACADEMY_HEAL_INTRO_BODY" },
-		{ "ACADEMY_HEAL_TRIAGE_TITLE", "ACADEMY_HEAL_TRIAGE_BODY" },
 		{ "ACADEMY_HEAL_MANA_TITLE", "ACADEMY_HEAL_MANA_BODY" },
 		{ "ACADEMY_HEAL_POSITION_TITLE", "ACADEMY_HEAL_POSITION_BODY" },
 		{ "ACADEMY_HEAL_COOLDOWNS_TITLE", "ACADEMY_HEAL_COOLDOWNS_BODY" },
@@ -58,7 +72,6 @@ local SECTION_KEYS = {
 		{ "ACADEMY_HEAL_DUNGEON_TITLE", "ACADEMY_HEAL_DUNGEON_BODY" },
 		{ "ACADEMY_HEAL_RAID_TITLE", "ACADEMY_HEAL_RAID_BODY" },
 		{ "ACADEMY_HEAL_CHAT_TITLE", "ACADEMY_HEAL_CHAT_BODY" },
-		{ "ACADEMY_HEAL_LADDER_TITLE", "ACADEMY_HEAL_LADDER_BODY" },
 		{ "ACADEMY_HEAL_BOTH_TITLE", "ACADEMY_HEAL_BOTH_BODY" },
 	},
 	dps = {
@@ -515,8 +528,10 @@ local function RenderHealerToolkit(panel, child, y, cw)
 		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_DEF_HEAD"), true)
 		for _, d in ipairs(defs) do
 			local cdText = d.cd and (" |cff9d9d9d(" .. ns.FormatHealerCooldown(d.cd) .. ")|r") or ""
-			local line = ("|cff40a0ff[%s]|r |cffffd100%s|r%s"):format(
-				SL("DPSKIT_TAG_DEF"), ns.HealerCooldownSpellName(d.id), cdText
+			-- The only toolkit line without a "what for" (newcomer review, 7 Oct 2026). The number in brackets is
+			-- the wait before you can press it again; the tank lines say so in their own descriptions.
+			local line = ("|cff40a0ff[%s]|r |cffffd100%s|r%s — %s"):format(
+				SL("DPSKIT_TAG_DEF"), ns.HealerCooldownSpellName(d.id), cdText, SL("HEALTOOLKIT_DEF_DESC")
 			)
 			y = AddToolkitLine(panel, child, cw, y, line, false, d.id)
 		end
@@ -773,32 +788,9 @@ local function RebuildScrollContent(panel)
 	local y = -4
 	local cw = math.max(320, (scroll:GetWidth() or 400) - 28)
 
-	-- Spec-aware toolkits sit above the reading chapters, per track.
-	-- The "How you play" button goes FIRST on every track (Rob, 25 Sep 2026: it was hidden
-	-- halfway down). It hides itself when this track has no spec to show.
-	if panel._playCardBtn then
-		panel._playCardBtn:Hide()
-	end
-	if track == TRACK_HEAL then
-		y = RenderPlayCard(panel, child, y, cw,
-			(ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()) or (ns.GetClassHealerSpecID and ns.GetClassHealerSpecID()))
-		y = RenderHealerToolkit(panel, child, y, cw)
-	elseif track == TRACK_TANK then
-		y = RenderPlayCard(panel, child, y, cw,
-			(ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()) or (ns.GetClassTankSpecID and ns.GetClassTankSpecID()))
-		y = RenderTankToolkit(panel, child, y, cw)
-	elseif track == TRACK_DPS then
-		y = RenderPlayCard(panel, child, y, cw,
-			(ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()) or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID()))
-		-- Survival first, damage second. Carola dies to rares on a Frost Mage
-		-- (Rob, 4 Aug); the cooldown list below tells her how to kill faster,
-		-- which is not her problem. Order on the page is the advice.
-		y = RenderSurvivalPlan(panel, child, y, cw)
-		y = RenderDpsToolkit(panel, child, y, cw)
-	end
-
-	for i = 1, #sections do
-		local titleKey, bodyKey = sections[i][1], sections[i][2]
+	local function RenderSections(list)
+	for i = 1, #list do
+		local titleKey, bodyKey = list[i][1], list[i][2]
 		local titleFs = child:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		titleFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 		titleFs:SetPoint("TOPLEFT", child, "TOPLEFT", 4, y)
@@ -863,6 +855,38 @@ local function RebuildScrollContent(panel)
 			y = y - bh - 14
 		end
 	end
+	end
+
+	-- 🔴 7 Oct 2026, role-switch review (docs/ROLE_SWITCH_REVIEW_*): the page opened with a checklist and a spell list
+	-- full of words nobody had explained, and "what is a tank" or the route to a first dungeon came last. Now: the
+	-- basics first (BASICS_KEYS), then the card button and the toolkit, then the rest of the chapters.
+	RenderSections(BASICS_KEYS[track] or {})
+
+	-- Spec-aware toolkits sit above the remaining chapters, per track.
+	-- The "How you play" button goes FIRST after the basics (Rob, 25 Sep 2026: it was hidden
+	-- halfway down). It hides itself when this track has no spec to show.
+	if panel._playCardBtn then
+		panel._playCardBtn:Hide()
+	end
+	if track == TRACK_HEAL then
+		y = RenderPlayCard(panel, child, y, cw,
+			(ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()) or (ns.GetClassHealerSpecID and ns.GetClassHealerSpecID()))
+		y = RenderHealerToolkit(panel, child, y, cw)
+	elseif track == TRACK_TANK then
+		y = RenderPlayCard(panel, child, y, cw,
+			(ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()) or (ns.GetClassTankSpecID and ns.GetClassTankSpecID()))
+		y = RenderTankToolkit(panel, child, y, cw)
+	elseif track == TRACK_DPS then
+		y = RenderPlayCard(panel, child, y, cw,
+			(ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()) or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID()))
+		-- Survival first, damage second. Carola dies to rares on a Frost Mage
+		-- (Rob, 4 Aug); the cooldown list below tells her how to kill faster,
+		-- which is not her problem. Order on the page is the advice.
+		y = RenderSurvivalPlan(panel, child, y, cw)
+		y = RenderDpsToolkit(panel, child, y, cw)
+	end
+
+	RenderSections(sections)
 
 	child:SetSize(cw + 8, math.max(120, -y + 8))
 	if scroll.UpdateScrollChildRect then
@@ -870,6 +894,28 @@ local function RebuildScrollContent(panel)
 	end
 	if scroll.SetVerticalScroll then
 		scroll:SetVerticalScroll(0)
+	end
+end
+
+--- `/mh academy [tank|heal|dps]`: open the Academy, on a track when one is named (also "healer"/"healing").
+function ns.OpenRoleAcademy(which)
+	which = which and which:lower() or nil
+	if which == "tank" or which == "tanking" then
+		SetTrack(TRACK_TANK)
+	elseif which == "heal" or which == "healer" or which == "healing" then
+		SetTrack(TRACK_HEAL)
+	elseif which == "dps" or which == "damage" then
+		SetTrack(TRACK_DPS)
+	end
+	if ns.ShowMainUI then
+		ns:ShowMainUI()
+	end
+	if ns.SelectTab then
+		ns.SelectTab("academy")
+	end
+	-- Already open on another track: OnShow does not fire again, so redraw.
+	if ns._roleAcademyPanel and ns._roleAcademyPanel:IsShown() then
+		ns.MH_RefreshRoleAcademyPanel(ns._roleAcademyPanel)
 	end
 end
 
@@ -909,6 +955,7 @@ function ns.BuildRoleAcademyPanel(panel)
 		return
 	end
 	panel._academyBuilt = true
+	ns._roleAcademyPanel = panel
 
 	if panel._body then
 		panel._body:Hide()

@@ -265,7 +265,10 @@ local function BuildNavIndex()
 	-- search for when they do not know the name. Additive, like every keyword here.
 	tab("TAB_SETTINGS", "settings", "party target targets focus assist who is attacking")
 	tab("TAB_CONSUMABLES", "consumables", "flask rune food buff oil")
-	tab("TAB_ACADEMY", "academy", "role tank heal academy")
+	-- 7 Oct 2026 (role-switch review): "tanking", "healing", "how to tank" and "healer" did not find it, and
+	-- "healer"/"healing" led to /mh healcds, which tells a DPS player only to switch spec.
+	tab("TAB_ACADEMY", "academy", "role tank heal academy tanking healing healer how to tank how to heal "
+		.. "learn to tank learn to heal switch role aggro taunt threat leren tanken leren healen healer worden")
 	-- Search keywords are ADDITIVE, never renamed. The visible text dropped the season
 	-- name so it survives a flip, but "dawncrest" is the word a Season 1 player reads
 	-- in their own currency tab, and "mistcrest" is what a Season 2 player will read.

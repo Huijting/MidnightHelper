@@ -88,6 +88,9 @@ ns.TANK_MITIGATION = {
 	[268] = { -- Brewmaster Monk
 		{ id = 119582, tag = "brew" }, -- Purifying Brew
 		{ id = 322507, tag = "absorb" }, -- Celestial Brew
+		-- Choice node with Celestial Brew, one shared 90 s charge (docs/ROLE_SWITCH_FACTS_2026-10-07.md, wago
+		-- 12.1.0.69933). On your own spec OwnedOnly shows the one you picked; a preview shows both.
+		{ id = 1241059, tag = "absorb" }, -- Celestial Infusion
 	},
 	[581] = { -- Vengeance Demon Hunter
 		{ id = 203720, tag = "armor" }, -- Demon Spikes

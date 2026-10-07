@@ -1116,6 +1116,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh academy [tank|heal|dps] — open the Role Academy on a track (7 Oct 2026: it sat three clicks deep in
+	-- Tools with no command; role-switch review).
+	if msg == "academy" or msg:match("^academy%s") then
+		if ns.OpenRoleAcademy then
+			ns.OpenRoleAcademy(msg:match("^academy%s+(%a+)"))
+		end
+		return
+	end
 	-- /mh aggro — how the game's own aggro warnings are set (3 Oct 2026; changes nothing).
 	if msg == "aggro" or msg == "threat" then
 		if ns.PrintAggroSettings then

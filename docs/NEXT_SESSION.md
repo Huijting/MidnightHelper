@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🎓 7 okt — Role Academy voor DPS'ers die willen tanken/healen (Rob: "1 t/m 4", 5 = stappenplan later)
+- Twee reviews (docs/ROLE_SWITCH_REVIEW_EXPERT_/_NEWCOMER_2026-10-07.md): nieuweling gaf tank 3/10, heal 5/10. Feiten:
+  docs/ROLE_SWITCH_FACTS_2026-10-07.md (wago 12.1.0.69933: Click Casting-pad, follower dungeons 80-90 alle 9, taunt 6 s/8 s,
+  Celestial Infusion 1241059, defensives vóór de klap, "snel = goedkoop" geldt niet algemeen, Divine Shield).
+- (1) Kapotte verwijzingen "Guides -> Defensives / In groups" weg (7 talen); `/mh academy [tank|heal|dps]`
+  (ns.OpenRoleAcademy, CommandList); zoekwoorden (tanking, healing, leren tanken …); healer-kaart kop "Many people hurt at
+  once" (PLAYCARD_AOE_HEAL); healer-defensive kreeg uitleg (HEALTOOLKIT_DEF_DESC); nl-typo "healt".
+- (2) Volgorde: BASICS_KEYS (wat is tank/healer, mindset, [triage], oefenroute, woordenlijst) vóór kaart-knop + toolkit.
+- (3) Nieuw: ACADEMY_TANK_WHAT, ACADEMY_HEAL_WHAT (frame klikken, raid-style frames, Click Casting, spec/loot spec, gear),
+  ACADEMY_WORDS (17 woorden). mh-writer 07h, alle 7 talen, menunamen per taal uit wago GlobalStrings.
+- (4) "(save these)" → vóór de klap; Divine Shield-tekst; follower dungeon in beide oefenroutes; mana-regel per spec;
+  "Oom" → "OOM (out of mana)"; Brewmaster Celestial Infusion in TankToolkit (+ pull summary).
+- Open: esES/ptBR overige Academy-regels nog machinetaal (WIPE_BODY e.a.), ACADEMY_HEAL_BOTH_BODY/TRACK_* achter in 6 talen;
+  (5) stappenplan "Rol wisselen". Nieuweling-herlezing loopt. Niet getest in het spel.
+
 ## 🧭 7 okt — Hearthstone → Silvermoon → portaal (Rob: "kleine eigen versie" i.p.v. Farstrider)
 - Farstrider = GPL3: code én de dataset overnemen mag niet; losse feiten nakijken wel. Rob koos een eigen kleine
   versie. GEMETEN vóór bouwen: het reisvenster bood de Hearthstone al (HearthstoneGoesTo, 3 sep), maar alleen als die
