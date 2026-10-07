@@ -1,5 +1,10 @@
 # Midnight Helper — waar we staan
 
+## 🐛 7 okt ochtend — esMX kreeg Engels (CF-reactie 6 okt 21:34, nog te beantwoorden door Rob)
+Gerepareerd, lokaal: `Locales/esES.lua` laadt nu ook op een esMX-client (Locale.lua mapte esMX→esES al, maar de
+laad-gate van het pack liet alleen esES door). GEMETEN met een scratch-test (lua 5.4, GetLocale gestubd): esES 1003
+keys, esMX 1003 (was 0), frFR 0. Gaat mee in de volgende release; Rob antwoordt de speler op CF.
+
 ## 🧪 6 okt avond — 4.7.4-beta2 (Rob: "go voor de beta en vertel de site chat dat ie ook mag gaan")
 Tag `v4.7.4-beta2` (zie git). Erbij: healers "Zo vecht je alleen", recept-tooltip "wie kent dit al", Moxie 11 beroepen
 (Professions-tab + onder elk beroep in de snapshot), Academy-Moxie, vertaalronde 3. Site-chat: go voor zijn push

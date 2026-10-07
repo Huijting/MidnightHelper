@@ -14,7 +14,10 @@ ns._mhLocales = ns._mhLocales or {}
 -- Locale-gating (Spec 11 3a): only build this pack when the client is esES.
 -- enUS + nlNL always load, so auto-detect and forced Dutch keep working; forcing
 -- esES on another client shows a login notice and loads once the client is esES.
-if GetLocale() ~= "esES" then
+-- esMX (Latin America) gets this pack too: Locale.lua already maps esMX -> esES, but this gate let only esES through,
+-- so a Mexican client stayed English. Reported on CurseForge, 6 Oct 2026, by a player who patched this exact line.
+local clientLocale = GetLocale()
+if clientLocale ~= "esES" and clientLocale ~= "esMX" then
 	return
 end
 
