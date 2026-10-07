@@ -19,8 +19,13 @@
   Conseiller de la Grande chambre forte, es Consejero de la Gran cámara, pt Conselheiro do Grande Cofre, it Consigliere
   della Gran Banca). Codex: "This Week"/"Account snapshot" → tabnaam per pack; de "Kontoübersicht". KEYBLOCK_FOOT weg.
   Open: toolkit-defensives klein/groot per knop (code, TankToolkit); TANKKIT_MITDESC_BLOCK "bijna altijd aan" geldt
-  ook voor Warrior Shield Block (niet gecontroleerd); deDE "Spontan"/"Sofort" niet gemeten. Volgende stap: herlezing 4
-  door een nieuweling (mh-research) voor het cijfer.
+  ook voor Warrior Shield Block (niet gecontroleerd); deDE "Spontan"/"Sofort" niet gemeten.
+- Herlezing 4 (docs/ROLE_SWITCH_REREAD4_NEWCOMER_2026-10-07.md, las als DPS'er): tank 9, heal 9. Top 5 open: schild
+  halen + stat op je spullen zien; kaart 66 S5 "Taunt ermee" + AoE-knoppen niet genoemd; heal-stappenplan zonder
+  gear-stap; 3× zelfde zin onder Ardent Defender/GoAK/Sentinel (klein/groot per knop = code); heal-hoofdstuk +
+  /mh healcds zeggen nog "grote cooldowns". Vragen voor mh-research: Lay on Hands vlak na Divine Shield? Rol aanvinken
+  als je geen leider bent? Gedaan: Hammer of the Righteous 53595 in de Prot AoE-lijst. ⚠️ AFGELEID: als
+  IsPlayerSpell(53595) ook true geeft met Blessed Hammer gekozen, staan er twee hamers — Rob kijkt.
 - Rob: "alle schermen moeten Shift+scroll kunnen". Alleen 17 vensters met RegisterMidnightDialogPopup hadden het.
   Nu (DialogPopup.lua): `ns.MakeMidnightWindowScalable` + lijst SCALABLE_WINDOWS (30 namen) die een ticker van 2 s
   oppakt zodra het venster bestaat; scrollende kinderen worden ingepakt (Shift = venster schalen, anders hun eigen

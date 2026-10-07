@@ -146,7 +146,7 @@ local TANK_SPECS = { [66] = true, [73] = true, [104] = true, [250] = true, [268]
 --- many enemies, in pull order. Ids GEMETEN in wago SpellName 12.1.0.69933, order from Icy Veins/Method (after 18 Aug) —
 --- docs/ROLE_SWITCH_FACTS4_2026-10-07.md. Shown only when you know the spell (several are talents).
 ns.TANK_TAUNT_KICK = {
-	[66] = { taunt = 62124, kick = 96231, stun = 853, aoe = { 26573, 31935, 204019 } }, -- Hand of Reckoning, Rebuke, Hammer of Justice; Consecration, Avenger's Shield, Blessed Hammer
+	[66] = { taunt = 62124, kick = 96231, stun = 853, aoe = { 26573, 31935, 204019, 53595 } }, -- Hand of Reckoning, Rebuke, Hammer of Justice; Consecration, Avenger's Shield, Blessed Hammer, Hammer of the Righteous (the other choice on the same talent node; re-read 4 — you only see the one you know)
 	[73] = { taunt = 355, kick = 6552, stun = 46968, aoe = { 6343, 6572 } }, -- Taunt, Pummel, Shockwave; Thunder Clap, Revenge
 	[104] = { taunt = 6795, kick = 106839, stun = 5211, aoe = { 77758, 213764 } }, -- Growl, Skull Bash, Mighty Bash; Thrash, Swipe
 	[250] = { taunt = 56222, kick = 47528, stun = 221562, aoe = { 43265, 50842 } }, -- Dark Command, Mind Freeze, Asphyxiate; Death and Decay, Blood Boil
