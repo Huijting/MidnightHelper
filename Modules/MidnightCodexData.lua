@@ -21,6 +21,7 @@ local _, ns = ...
 ---@field delvesSection string|nil -- "vault" | "midnight" when tabId is delves (accordion)
 ---@field referenceSubTab string|nil -- "crest" | "professions" when tabId is reference
 ---@field currencyId number|nil
+---@field minInterface number|nil -- hidden until the client's interface number is at least this (e.g. 120105)
 ---@field searchKeys string|nil -- extra words NavSearch matches on. Without it an article
 ---                             -- is findable only by words already in its own title.
 ---@field sort number
@@ -363,6 +364,19 @@ ns.CODEX_ARTICLES = {
 		tabLabelKey = "TAB_DELVE_LOG",
 		sort = 5,
 	},
+	-- 12.1.5 (live 13/14 Oct 2026). Facts: docs/PATCH_12_1_5_CONTENT_2026-10-07.md (wago DB2 build 70077 +
+	-- Blizzard's content notes of 1 Oct). Entrance = AreaPOI 9035-9037 in uiMap 2395, computed; Zygor's portal
+	-- sits 0.2 away. Hidden until the client is 12.1.5 (minInterface, see the filter at the bottom).
+	{
+		id = "labyrinth_kindojan",
+		category = "delves",
+		titleKey = "CODEX_LABYRINTH_TITLE",
+		bodyKey = "CODEX_LABYRINTH_BODY",
+		sort = 6,
+		minInterface = 120105,
+		searchKeys = "labyrinth kindo'jan kindojan mega delve mega-delve hash'ey first hash'ey kinduru "
+			.. "amani loa zeb'tela eversong heavy trunk bountiful coffer soul fragment labyrint",
+	},
 
 	-- Dungeons
 	-- 2 Oct 2026: Rob, an expert player, asked how you even sign up for Mythic+ and MH had
@@ -422,6 +436,28 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_VAULT_ADVISOR_BODY",
 		sort = 2,
 	},
+	-- 12.1.5. Kith'ix: JournalInstance 1324, JournalEncounter 2896, DungeonEncounter 3513, entrance AreaPOI 9031
+	-- in uiMap 2613 (computed). Venomstones: item 280562; Orin's three quests have no id yet. Same research doc.
+	{
+		id = "kithix",
+		category = "raid",
+		titleKey = "CODEX_KITHIX_TITLE",
+		bodyKey = "CODEX_KITHIX_BODY",
+		sort = 3,
+		minInterface = 120105,
+		searchKeys = "kith'ix kithix unbinding c'thraxxi liadrin raid one boss underbelly refulgent bulwark "
+			.. "light's embrace suffocating darkness",
+	},
+	{
+		id = "venomstones",
+		category = "raid",
+		titleKey = "CODEX_VENOMSTONE_TITLE",
+		bodyKey = "CODEX_VENOMSTONE_BODY",
+		sort = 4,
+		minInterface = 120105,
+		searchKeys = "ascendant venomstone venomstones orin straylight catalyst upgrade item level weapon "
+			.. "trinket neck crest cap gifsteen",
+	},
 
 	-- World
 	{
@@ -476,6 +512,17 @@ ns.CODEX_ARTICLES = {
 		-- Was 4, the same as prey_hunts: the comparator has no tie-break, so their order
 		-- was not guaranteed (mh-research 3 Oct 2026).
 		sort = 5,
+	},
+	-- 12.1.5. Faction 2838, scenarios under achievement 63658, announcement POIs 8813 (2395) / 8812 (2437).
+	{
+		id = "aqir_invasion",
+		category = "world",
+		titleKey = "CODEX_AQIR_TITLE",
+		bodyKey = "CODEX_AQIR_BODY",
+		sort = 6,
+		minInterface = 120105,
+		searchKeys = "aqir invasion swarm eversong zul'aman hourly event research enclave webweaver voidweaver "
+			.. "corrupted swarmer invasie",
 	},
 
 	-- Professions
@@ -701,6 +748,23 @@ ns.CODEX_ARTICLES = {
 			.. "susarikk ancient foe temple incursion rares",
 	},
 }
+
+-- Articles about a patch that is not live yet (7 Oct 2026, 12.1.5 prep): `minInterface = 120105` keeps an article out
+-- until the client is that build. Removed from the list itself, so the Codex, NavSearch and the daily tip (which all
+-- read ns.CODEX_ARTICLES) agree. GetBuildInfo's 4th value is the interface number.
+do
+	local iface = 0
+	if GetBuildInfo then
+		local _, _, _, n = GetBuildInfo()
+		iface = tonumber(n) or 0
+	end
+	for i = #ns.CODEX_ARTICLES, 1, -1 do
+		local a = ns.CODEX_ARTICLES[i]
+		if a.minInterface and iface < a.minInterface then
+			table.remove(ns.CODEX_ARTICLES, i)
+		end
+	end
+end
 
 local articlesByCategory = {}
 for _, article in ipairs(ns.CODEX_ARTICLES) do

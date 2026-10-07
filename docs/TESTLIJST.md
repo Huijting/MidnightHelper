@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 okt — 12.1.5 Codex-kaartjes (pas zichtbaar vanaf 12.1.5)
+
+Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PTR** (12.1.5) wel.
+- [ ] **Live, `/mh codex`:** Delves heeft géén "The Labyrinth of Kindo'jan", Raid & crests géén Kith'ix/Venomstones,
+  World content géén Aqir Invasion. Zoekvak "labyrinth" vindt niets.
+- [ ] **PTR (na copy_to_ptr), `/mh codex`:** alle vier staan er; de pijl-link in het Labyrinth-kaartje (Eversong 62.99, 72.18)
+  zet een waypoint bij het portaal. Staat de ingang daar écht? Kith'ix-link (Underbelly 74.27, 5.91) idem.
+- [ ] **PTR, in het Labyrinth:** klopt "elke 3 kamers 2 Heavy Trunks + 1 Bountiful Coffer"? Vraagt de coffer een Restored
+  Coffer Key? Zegt de delve-coach iets (of niets) — screenshot.
+
 ## 🆕 6 okt — knoppen voor commando's die alleen via /mh gingen (Rob: alle 4 groepen + de 5 reparaties)
 
 Gebouwd, niet getest (`docs/COMMANDS_AUDIT_2026-10-06.md`). Na `/reload`:

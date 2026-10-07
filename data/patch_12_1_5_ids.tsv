@@ -1,0 +1,262 @@
+soort	naam (enUS)	id	mapID/x/y	bron	status
+# Bronnen: W = wago.tools DB2 build 12.1.5.70077 (gelezen 2026-10-07 via browservenster); WH = Wowhead ptr-2 database (gelezen 2026-10-07, geen paginadatum); B1 = Blizzard 12.1.5 Content Update Notes (2026-10-01); B2 = Blizzard "12.1.5 Content Update Arrives October 13" (datum niet in metadata); WIKI = warcraft.wiki.gg Patch_12.1.5/API_changes (2026-09-04, geconsolideerd t/m build 69952); DBM = DBM-Lairs-Midnight 12.1.12; ZY = ZygorGuidesViewer 9.6. Coordinaten "berekend" = AreaPOI-wereldpositie omgerekend met UiMapAssignment (methode gecontroleerd: Labyrinth-POI geeft 62.99/72.18, Zygor-portaal staat op 63.08/72.35).
+#
+# === 1. The Labyrinth of Kindo'jan ===
+instance-map	The Labyrinth of Kindo'jan	3043		W Map (InstanceType 5)	GEMETEN
+uimap	The Labyrinth of Kindo'jan	2647	parent 2395	W UiMap (Type 4)	GEMETEN
+uimap	The Labyrinth of Kindo'jan	2648	parent 2395	W UiMap (Type 4)	GEMETEN
+uimap	The Labyrinth of Kindo'jan	2671	parent 0	W UiMap (Type 3)	GEMETEN
+area	The Labyrinth of Kindo'jan	16913	continent 3043	W AreaTable	GEMETEN
+area	Chamber of Rites	17025	parent 16913	W AreaTable	GEMETEN
+area	The Reliquary	17026	parent 16913	W AreaTable	GEMETEN
+area	Central Chamber	17027	parent 16913	W AreaTable	GEMETEN
+area	The Catacombs	17028	parent 16913	W AreaTable	GEMETEN
+area	Halazzi's Lair	17029	parent 16913	W AreaTable	GEMETEN
+area	Jan'alai's Refuge	17030	parent 16913	W AreaTable	GEMETEN
+area	Akil'zon's Roost	17031	parent 16913	W AreaTable	GEMETEN
+area	Nalorakk's Rest	17032	parent 16913	W AreaTable	GEMETEN
+area	The Cave Towers	17033	parent 16913	W AreaTable	GEMETEN
+area	The Speaker's Chamber	17197	parent 16913	W AreaTable (10e gebied; functie onbekend)	GEMETEN
+area	Zeb'tela Ruins	16334	parent 15968 (Eversong Woods)	W AreaTable	GEMETEN
+areapoi	The Labyrinth of Kindo'jan (Bountiful Delve)	9035	2395/62.99/72.18	W AreaPOI + UiMapAssignment 68578, berekend	GEMETEN
+areapoi	The Labyrinth of Kindo'jan	9036	2395/62.99/72.18	W AreaPOI, berekend	GEMETEN
+areapoi	The Labyrinth of Kindo'jan (Bountiful Delve)	9037	2395/62.99/72.18	W AreaPOI (AreaID 2037 Quel'Thalas), berekend	GEMETEN
+portal	The Labyrinth of Kindo'jan (ingang)	-	2395/63.08/72.35	ZY Libs-Retail/LibRover-1.0/data_dungeons.lua:968	KANDIDAAT
+portal	The Labyrinth of Kindo'jan (uitgang binnen)	-	2647/44.42/99.42	ZY data_dungeons.lua:968	KANDIDAAT
+scenario	The Labyrinth of Kindo'jan	3342;3345;3349;3402;3403;3409;3413;3426;3430;3442;3443;3444;3446;3447;3464;3468;3470;3472;3474;3476;3512;3550;3615;3628;3678		W Scenario (eerste 25 treffers op naam; totaal niet geteld)	GEMETEN
+dungeonencounter	Kindo'jan	3548	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Jun'ala	3526	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Sullied Revenant	3527	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Sha'Kuro	3528	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Den'Zara	3556	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Drill Sergeant	3622	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	The Undead Trollbunal	3632	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Grukk	3636	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Treasure Hunter Taltrois	3642	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Shadowhunter Jo'din	3646	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	King of Souls	3648	map 3043	W DungeonEncounter	GEMETEN
+dungeonencounter	Cynthra Buttonsmasher	3653	map 3043	W DungeonEncounter	GEMETEN
+npc	Kindo'Jan <The First Hash'ey>	266500		WH npc=266500 (Elite, Undead)	KANDIDAAT
+npc	Kindo'Jan <The First Hash'ey>	266600		WH zoekresultaat	KANDIDAAT
+npc	Enter Labyrinth of Kindo'Jan	275658		WH zoekresultaat	KANDIDAAT
+spell	Crushing Blow (Kindo'jan: grondslag + Amani Juggernaut)	1299117		W Spell/SpellName (tekst noemt Kindo'jan)	GEMETEN
+spell	Crushing Blow (summon-deel)	1299144		W SpellName; Spell-tekst verwijst naar 1299117	GEMETEN
+spell	Hash'ey's Command (Kindo'Jan roept 4 Amani Headhunters op)	1298647		W Spell/SpellName	GEMETEN
+spell	Hash'ey's Command (tweede ID)	1298656		W Spell (tekst = spelldesc 1298647)	GEMETEN
+spell	Disgraceful Display (3 stacks = onwaardig voor de First Hash'ey)	1303494		W Spell/SpellName	GEMETEN
+spell	Kindo'jan (Vault-credit T8+ 1x/week/char)	1314916		W Spell/SpellName	GEMETEN
+spell	Kindo'jan (Vault-credit T8+, tweede ID)	1318593		W Spell/SpellName	GEMETEN
+spell	Labyrinth Chambers (regels 9 kamers / per 3 beloning)	1314915		W Spell/SpellName	GEMETEN
+spell	Labyrinth Treasure Room (tabel kisten per kamer)	1320600		W Spell/SpellName	GEMETEN
+spell	Labyrinth Soul Fragments (T8+ Heroic Soul Fragment)	1319741		W Spell/SpellName	GEMETEN
+spell	Archaic Amani Key (verborgen deur)	1319902		W Spell/SpellName	GEMETEN
+spell	Kinduru's Spiriting Quill (run stoppen -> schatkamer)	1320854		W Spell/SpellName	GEMETEN
+spell	Loa-Spirit Conduits (4 per Labyrinth, tijdelijke groepsboon)	1314910		W Spell/SpellName	GEMETEN
+spell	Akil'zon's Swiftness (snelheid per kamer)	1313862		W Spell/SpellName	GEMETEN
+spell	Akil'zon's Swiftness	1313937		W SpellName	GEMETEN
+spell	Nalorakk's Ferocity (primary stat per kamer)	1313875		W Spell/SpellName	GEMETEN
+spell	Nalorakk's Ferocity	1313938		W SpellName	GEMETEN
+spell	Halazzi's Shroud (1x cheat death in Labyrinth)	1314367		W Spell/SpellName	GEMETEN
+spell	Ancestral Vision (Amani-masker: verborgen geesten zien)	1309117		W Spell/SpellName (Labyrinth-verband AFGELEID)	GEMETEN
+spell	[DNT] 12.1.5 Labyrinth - Door - Final Boss Room - Kindo'jan Unlock	1319738		W SpellName	GEMETEN
+spell	Fabled Let Me Solo Him: Kindo'jan	1318449		W SpellName	GEMETEN
+spell	Akil'zon's Seal	1313723;1313740		W SpellName (doel onbekend)	GEMETEN
+spell	Jan'alai's Seal	1313724		W SpellName (doel onbekend)	GEMETEN
+spell	Nalorakk's Seal	1313739		W SpellName (doel onbekend)	GEMETEN
+spell	Halazzi's Seal	1313741		W SpellName (doel onbekend)	GEMETEN
+spell	Soul Shatter (Shadowhunter Jo'din; zielsfragmenten oprapen)	1317484		W Spell/SpellName	GEMETEN
+spell	Chaotic Impact (Grukk; springt rond)	1315287		W Spell/SpellName	GEMETEN
+spell	Mine Go Boom (Cynthra; mijnen niet aanraken)	1317950		W Spell/SpellName	GEMETEN
+spell	Glitching Shield (Drill Sergeant)	1312409		W Spell/SpellName	GEMETEN
+spell	Overcharge Engine (Drill Sergeant)	1312418		W Spell/SpellName	GEMETEN
+spell	Engine Fire (Drill Sergeant)	1312420		W Spell/SpellName	GEMETEN
+spell	Seismic Detonation (Drill Sergeant)	1312423		W Spell/SpellName	GEMETEN
+spell	Seismic Detonation (rotsen + knockback)	1313027		W SpellName	GEMETEN
+achievement	Knock Knock	63724		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan (9 kamers in 1 run)	63721		W Achievement	GEMETEN
+achievement	Whose Labyrinth? (9 kamers T11; titel Maze Runner)	63722		W Achievement	GEMETEN
+achievement	My Labyrinth (100 kamers)	63723		W Achievement	GEMETEN
+achievement	Kindo'jan's Labyrinth Discoveries (alle Sturdy Chests; titel Treasure Hound)	63717		W Achievement	GEMETEN
+achievement	Lock and Key	63718		W Achievement	GEMETEN
+achievement	Lock and Key Master (20x; titel Lockpickin')	63719		W Achievement	GEMETEN
+achievement	Happy Hexmask Collector (3 Elemental Hexmasks)	63720		W Achievement	GEMETEN
+achievement	Treasures Upon Treasures (10 Mislaid Oddities)	63727		W Achievement	GEMETEN
+achievement	A Few More Can't Hurt (50 Mislaid Oddities)	63728		W Achievement	GEMETEN
+achievement	The First Hash'ey (titel Loa-Blessed)	63716		W Achievement	GEMETEN
+achievement	Let Me Solo Him: Kindo'jan (T11 solo; Loa-Blessed Wayfarer)	63715		W Achievement	GEMETEN
+achievement	Fabled Let Me Solo Him: Kindo'jan (voor 1e reset)	64039		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: One-Champion Army (titel Lone Raider)	64118		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 1 (-> Delve T2)	63863		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 2 (-> Delve T3)	63864		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 3 (-> Delve T4)	63865		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 4 (-> Delve T5)	63846		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 5 (-> Delve T6)	63847		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 6 (-> Delve T7)	63848		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 7 (-> Delve T8)	63849		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 8 (-> Delve T9)	63850		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 9 (-> Delve T9, sic)	63851		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 10 (-> Delve T10)	63852		W Achievement	GEMETEN
+achievement	The Labyrinth of Kindo'jan: Tier 11 (-> Delve T11)	63853		W Achievement	GEMETEN
+statistic	Total Kindo'jan's Labyrinth Chambers completed	63730		W Achievement (Category 15533)	GEMETEN
+statistic	Total Kindo'jan Kills	63731		W Achievement (Category 15533)	GEMETEN
+faction	The Labyrinth of Kindo'jan	2836	parent 2698 Midnight	W Faction (RenownCurrencyID 3536, ReputationMax 2100)	GEMETEN
+currency	Renown - Season 2 Labyrinth	3536		W CurrencyTypes (MaxQty 9)	GEMETEN
+currency	Kindo'jan's Labyrinth Journey	3537		W CurrencyTypes	GEMETEN
+questline	The Labyrinth of Kindo'jan (6 stappen, wekelijks, 2 Myth-armor naar keuze)	6385		W QuestLine	GEMETEN
+quest	(naam onbekend) stap 1	98951		W QuestLineXQuest 6385 OrderIndex 0	GEMETEN
+quest	(naam onbekend) stap 2	98963		W QuestLineXQuest OrderIndex 1	GEMETEN
+quest	(naam onbekend) stap 3	98962		W QuestLineXQuest OrderIndex 2	GEMETEN
+quest	(naam onbekend) stap 4	98961		W QuestLineXQuest OrderIndex 3	GEMETEN
+quest	(naam onbekend) stap 5	98960		W QuestLineXQuest OrderIndex 4	GEMETEN
+quest	(naam onbekend) stap 6	98959		W QuestLineXQuest OrderIndex 5	GEMETEN
+item	Loa-Blessed Wayfarer (mount-item)	283363		WH zoekresultaat	KANDIDAAT
+mount-spell	Loa-Blessed Wayfarer	1314715		WH zoekresultaat (mounts)	KANDIDAAT
+item	Loa-Blessed Victory (toy)	280820		WH zoekresultaat; toy-functie volgens WGE 2026-10-04	KANDIDAAT
+item	Kindo'jan's Reward	285875		WH zoekresultaat	KANDIDAAT
+item	Delve-O-Bot 7001: The Labyrinth of Kindo'jan Software Update Chip	286558		WH zoekresultaat	KANDIDAAT
+title	Loa-Blessed %s	1335		WH zoekresultaat	KANDIDAAT
+#
+# === 2. Aqir Invasion ===
+faction	Aqir Research Enclave	2838	parent 2710 Silvermoon Court	W Faction (FriendshipRepID 527)	GEMETEN
+friendship	Aqir Research Enclave (Neutral 0/Friendly 500/Honored 1500/Revered 3000/Exalted 5000; warband)	527		W FriendshipReputation + FriendshipRepReaction	GEMETEN
+currency	Aqir Research Enclave	3544		WH zoekresultaat	KANDIDAAT
+achievement	Aqir Research Associate (Exalted)	63657		W Achievement (Category 15274)	GEMETEN
+achievement	No Hives Left Standing (alle 6 scenario's)	63658		W Achievement	GEMETEN
+achievement	Bane of the Swarm (meta; titel)	63659		W Achievement	GEMETEN
+achievement	Driving Back the Swarm (10 invasies)	63680		W Achievement	GEMETEN
+criteria	Disrupt Aqir	116674		W CriteriaTree 231690 (onder 63658)	GEMETEN
+criteria	Aid Defenders!	116675		W CriteriaTree 231691	GEMETEN
+criteria	Aqir Nesting Grounds	116676		W CriteriaTree 231692	GEMETEN
+criteria	Whack the Aqir	116677		W CriteriaTree 231693	GEMETEN
+criteria	Aerial Assault	116678		W CriteriaTree 231694	GEMETEN
+criteria	Reinforce Defenses	116679		W CriteriaTree 231695	GEMETEN
+scenario	Aqir Invasion	3343;3355;3365;3366;3369;3390;3394;3397		W Scenario	GEMETEN
+scenario	Aqir Attack	3361		W Scenario	GEMETEN
+areapoi	Aqir Invasion (Eversong-plek)	8740	2395/56.65/40.43	W AreaPOI (area 15968), berekend	GEMETEN
+areapoi	Aqir Invasion (Eversong-plek)	8743	2395/51.17/44.30	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Eversong-plek)	8746	2395/41.20/38.38	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Eversong-plek)	8747	2395/39.54/60.94	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Eversong-plek)	8748	2395/49.57/57.41	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Eversong-plek)	8749	2395/59.44/68.44	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Eversong-plek)	8750	2395/51.16/76.96	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Eversong-plek)	8751	2395/48.28/88.18	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman-plek)	8801	2437/29.43/29.43	W AreaPOI (area 15947), berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman-plek)	8802	2437/38.12/32.44	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman-plek)	8803	2437/51.42/31.88	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman-plek)	8804	2437/33.65/39.29	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman-plek)	8805	2437/41.64/44.47	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman-plek)	8806	2437/50.39/60.17	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman-plek)	8807	2437/33.58/66.14	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman-plek)	8808	2437/42.82/81.36	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Monstrosity	8752	2395/88.31/50.89	W AreaPOI (area 15968), berekend	GEMETEN
+areapoi	Aqir Monstrosity	8753	2395/39.33/55.25	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Monstrosity	8754	2395/49.33/42.85	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Monstrosity	8809	2437/26.89/63.95	W AreaPOI (area 15947), berekend	GEMETEN
+areapoi	Aqir Monstrosity	8810	2395/88.31/50.89	W AreaPOI (area 15968; zelfde positie als 8752), berekend	GEMETEN
+areapoi	Aqir Monstrosity	8811	2437/46.40/73.52	W AreaPOI (area 15968 maar ligt op Zul'Aman-kaart), berekend	GEMETEN
+areapoi	Aqir Monstrosity	8904	2437/50.60/22.28	W AreaPOI (area 15947), berekend	GEMETEN
+areapoi	Aqir Monstrosity	8905	2437/46.40/73.52	W AreaPOI (area 15947), berekend	GEMETEN
+areapoi	Aqir Invasion of Zul'Aman (aankondiging)	8812	2437/38.88/64.90	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion of Eversong (aankondiging)	8813	2395/50.57/36.36	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Zul'Aman wordt voorbereid)	9026	2437/44.15/66.37	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Eversong wordt voorbereid)	9027	2395/50.54/36.20	W AreaPOI, berekend	GEMETEN
+areapoi	Aqir Invasion (Quel'Thalas)	9045	2395/50.54/36.20	W AreaPOI (area 2037), berekend	GEMETEN
+areapoi	Aqir Researchers (beloningen)	8903	2393/39.20/80.03	W AreaPOI (area 15969 Silvermoon City), berekend	GEMETEN
+npc	Estelia Archtender <Aqir Researcher>	266188	2393/39.30/80.28	WH npc-zoekresultaat; coord mamytwink 2026-09-24	KANDIDAAT
+npc	Matildeux Osril <Assistant Aqir Researcher>	266905		WH zoekresultaat	KANDIDAAT
+item	Corrupted Swarmer (mount-item)	276926		WH zoekresultaat; Exalted 2500 Voidlight Marl volgens WGE/mamytwink	KANDIDAAT
+mount-spell	Corrupted Swarmer	1301331		WH zoekresultaat	KANDIDAAT
+item	Aqir Research Satchel	277283		WH zoekresultaat	KANDIDAAT
+spell	Curse of the Aqir	1312692		W SpellName (toy-functie volgens WGE/mamytwink)	GEMETEN
+spell	12.1.5 - Aqir Invasions - Scenario 01..06 Complete (tracking)	1308417;1308421;1308422;1308423;1308424;1308425		WH zoekresultaat	KANDIDAAT
+spell	12.1.5 - Aqir Invasions - Final Boss Kill (tracking)	1309365		WH zoekresultaat	KANDIDAAT
+tradingpost	Aqir Invasion-activiteiten	991;992;993;994;995;996;997		WH zoekresultaat	KANDIDAAT
+map	Silvermoon City (scenario-versie; vermoedelijk Aqir-aanval campagne)	3071	uimap 2605	W Map (InstanceType 5) + UiMapAssignment 69553; naam "Silvermoon City Aqir" in ZY data.lua:141	KANDIDAAT
+#
+# === 3. Venomstones / Orin ===
+item	Ascendant Venomstone	280562		W ItemSparse (kwaliteit 4)	GEMETEN
+item	Insidious Venomstone (doel onbekend)	279997		WH zoekresultaat	KANDIDAAT
+spell	Ascendant Venomstones	1309508		WH zoekresultaat	KANDIDAAT
+spell	Completed Quest - Venomstone Unlock	1310970		WH zoekresultaat	KANDIDAAT
+item-effect	Ascendant Venomstone	1309282		WH zoekresultaat	KANDIDAAT
+npc	Venomstone Cauldron	272642		WH zoekresultaat	KANDIDAAT
+npc	Orin Straylight <Voidforge Steward>	269987	2393/40.00/64.80	ZY ZygorLevelingCommonMID.lua:13284; WH-gids 2026-08-28 zegt 40.0/64.7	KANDIDAAT
+npc	Decimus	243907	Voidstorm/51.20/68.45	ZY ZygorLevelingCommonMID.lua:13281	KANDIDAAT
+quest	In the Catalyst's Shadow	97945		ZY ZygorLevelingCommonMID.lua:13282	KANDIDAAT
+quest	Prismatic Potential	97978		ZY ZygorLevelingCommonMID.lua:13286; WH npc=269987 Starts	KANDIDAAT
+item	Elementary Voidcore Shard	265695		ZY ZygorLevelingCommonMID.lua:13288	KANDIDAAT
+quest	Umbral Blessings of the Catalyst	NIET GEVONDEN		B1/B2 (naam); ID in WH en wago niet gevonden	-
+quest	Ancient Depths, Ancient Venom	NIET GEVONDEN		B1/B2 (naam); WH ptr-2 zoeken gaf niets	-
+quest	Ascending with Venomstones	NIET GEVONDEN		B1/B2 (naam)	-
+#
+# === 4. Kith'ix (single-boss raid) ===
+journalinstance	The Unbinding of Kith'ix	1324	map 3095	W JournalInstance	GEMETEN
+journalencounter	Kith'ix	2896	uimap 2669	W JournalEncounter (FirstSectionID 35706)	GEMETEN
+dungeonencounter	Kith'ix	3513	map 3095	W DungeonEncounter (CompleteWorldStateID 31375)	GEMETEN
+instance-map	The Unbinding of Kith'ix	3095		W Map (InstanceType 2)	GEMETEN
+uimap	The Unbinding of Kith'ix	2669	parent 2613	W UiMap	GEMETEN
+uimap	The Unbinding of Kith'ix	2670	parent 2613	W UiMap	GEMETEN
+areapoi	The Unbinding of Kith'ix (ingang)	9031	2613/74.27/5.91	W AreaPOI (area 16990 The Underbelly) + UiMapAssignment 2613, berekend	GEMETEN
+area	The Underbelly	16990	parent 16535	W AreaTable	GEMETEN
+area	The Unbinding of Kith'ix	17059		WH npc-locatie	KANDIDAAT
+npc	Kith'ix	267861		DBM Kithix.lua:8 + WH npc-zoekresultaat (location 17059)	KANDIDAAT
+journal-creature	Kith'ix / Venomous Hulk / Voidweaver	6213;6214;6216		W JournalEncounterCreature	GEMETEN
+spell	Voidswarm	1301511		W JournalEncounterSection + SpellName; EncounterEvent 859	GEMETEN
+spell	Suffocating Darkness	1302951		W idem; EncounterEvent 860	GEMETEN
+spell	Refulgent Bulwark (Liadrin)	1302952		W JournalEncounterSection + SpellName	GEMETEN
+spell	Suffocation	1303257		W idem	GEMETEN
+spell	Dark Frenzy	1303260		W idem	GEMETEN
+spell	Abyssal Grasp	1303406		W idem; EncounterEvent 864	GEMETEN
+spell	Divine Radiance (Liadrin)	1303169		W idem; EncounterEvent 951	GEMETEN
+spell	Exhausted (Liadrin)	1307662		W idem	GEMETEN
+spell	Extinguish	1304424		W idem; EncounterEvent 861	GEMETEN
+spell	Light's Embrace	1304508		W idem	GEMETEN
+spell	Dark Devastation (tank)	1304930		W idem; EncounterEvent 858	GEMETEN
+spell	Devastated	1304948		W idem	GEMETEN
+spell	Voidscar (Heroic/Mythic)	1304950		W idem	GEMETEN
+spell	Eclipse Fragment	1308674		W idem	GEMETEN
+spell	Lost Refulgence	1308675		W idem	GEMETEN
+spell	Commanding Presence	1305008		W idem	GEMETEN
+spell	Unspeakable Horrors	1304045		W idem; EncounterEvent 838	GEMETEN
+spell	Overwhelming Fear	1304046		W idem	GEMETEN
+spell	Twisted Appendage	1303681		W idem; EncounterEvent 862	GEMETEN
+spell	Stygian Howl	1301110		W idem	GEMETEN
+spell	Last Light (Liadrin)	1305427		W idem	GEMETEN
+spell	Luminous Grace	1305428		W idem	GEMETEN
+spell	Eightfold Eclipse	1301479;1301108		W idem; EncounterEvent 1003	GEMETEN
+spell	Null Gate	1308873		W idem; EncounterEvent 903	GEMETEN
+spell	Nullshards	1308881		W idem	GEMETEN
+spell	Nullify	1308875		W idem	GEMETEN
+spell	Negation (tank)	1318467		W idem; EncounterEvent 1002	GEMETEN
+spell	Explosive Restabilization	1318472		W idem	GEMETEN
+spell	Venom Roar (Venomous Hulk)	1302884		W idem	GEMETEN
+spell	Voidweave (Voidweaver)	1302333		W idem	GEMETEN
+spell	Nightfall (Voidweaver)	1302705		W idem	GEMETEN
+spell	Fixate (Bomber Beetle)	1302295		W idem	GEMETEN
+spell	Gut Reaction (Bomber Beetle)	1302117		W idem	GEMETEN
+spell	Digestive Juices	1302319		W idem	GEMETEN
+spell	Incubation (H/M: adds worden Mindstingers)	1307407		W idem	GEMETEN
+spell	Mindsting (Mindstinger)	1304040		W idem	GEMETEN
+encounterevent	Kith'ix timeline/alert-events	838;858;859;860;861;862;864;903;951;1002;1003	encounter 3513	W EncounterEvent (komt overeen met DBM Kithix.lua:63-86)	GEMETEN
+achievement	Kith'ix (elke moeilijkheid)	63692		W Achievement	GEMETEN
+achievement	Heroic: Kith'ix	63693		W Achievement	GEMETEN
+achievement	Mythic: Kith'ix	63694		W Achievement	GEMETEN
+achievement	Kith'ix Guild Run / Heroic / Mythic	64167;64168;64169		W Achievement	GEMETEN
+npc	Kith'ix (Dragonflight, Zaralek - NIET de 12.1.5-baas)	198952		ZY NPCs_enUS.lua:27242; WH	KANDIDAAT
+#
+# === 5. Keystone Myth ===
+achievement	Midnight Keystone Myth: Season 2 (3600 volgens B1; client-tekst nog [PH])	63690		W Achievement (titel The Venomous Contender + Timelost Saddle)	GEMETEN
+achievement	[DNT]Midnight Keystone Myth: Season 2 Personal Achievement	63689		W Achievement	GEMETEN
+achievement	Midnight Keystone Myth: Season 1 (3400)	63097		W Achievement (titel The Umbral Contender + Timelost Saddle)	GEMETEN
+#
+# === 6. Dispel-rand op raid frames + overige UI ===
+globalstring	Animated Border	COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY_ANIMATED_BORDER		W GlobalStrings 70077 (ontbreekt in 12.1.0.69933 = nieuw)	GEMETEN
+globalstring	Flashing Animation	COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY_FLASHING_ANIMATION		W GlobalStrings 70077 (staat OOK al in 12.1.0.69933)	GEMETEN
+globalstring	Color (dispel-overlay aan/uit)	COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY		W GlobalStrings 70077	GEMETEN
+globalstring	Dispellable Debuff Indicator (Disabled / Dispellable By Me / Show All)	COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_INDICATOR_TYPE		W GlobalStrings 70077	GEMETEN
+cvar	raidFramesDispelIndicatorAnimatedBorder (default 0, scope Character)	-		WIKI CVars-tabel (t/m build 69952)	KANDIDAAT
+cvar	minimapShowPlayerCoords (default 1)	-		WIKI	KANDIDAAT
+cvar	coordsByTenths (default 1)	-		WIKI	KANDIDAAT
+cvar	CAAPulsePlayerHealthPercent (default 0) / CAAPulsePlayerHealthVolume (default 100)	-		WIKI	KANDIDAAT
+cvar	tooltipShowAuraCasterNames (default 0)	-		WIKI	KANDIDAAT
+framexml	CompactUnitFrame_GetOptionDispelIndicatorAnimatedBorder; MarchingAnts_Create*	-		WIKI FrameXML-tabel	KANDIDAAT

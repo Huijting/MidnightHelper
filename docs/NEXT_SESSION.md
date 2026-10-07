@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 📚 7 okt — 12.1.5-feiten + 4 Codex-kaartjes (punt 2 van de top-5)
+- `docs/PATCH_12_1_5_CONTENT_2026-10-07.md` + `data/patch_12_1_5_ids.tsv` (mh-research, wago 70077 + Blizzard 1 okt):
+  Labyrinth (ingang 2395 62.99,72.18; Labyrinth-tier N → Delve-tier N+1; Kindo'jan 3548, geen journal/EncounterEvent,
+  3 spells), Aqir Invasion (faction 2838, 6 scenario's), Venomstones (item 280562; Orin-quest-ID's onbekend), Kith'ix
+  (1324/2896/3513, ingang 2613 74.27,5.91), Keystone Myth (ach 63690, tekst nog "[PH]"), dispel-rand CVar
+  `raidFramesDispelIndicatorAnimatedBorder` (wiki, NIET in client gemeten).
+- Codex: nieuw veld `minInterface` (MidnightCodexData.lua) haalt artikelen uit ns.CODEX_ARTICLES vóór groeperen →
+  Codex, NavSearch en DailyTip tegelijk. GEMETEN met stub: 120100 → 46 artikelen, 120105 → 50.
+- 4 kaartjes (enUS + nlNL; de/fr/es/pt/it nog niet): labyrinth_kindojan, aqir_invasion, kithix, venomstones. Gidsclaims
+  staan er als "guides say". Niet getest → TESTLIJST.
+- Codex-zin S2GLOSS (Orin-Voidcore, al live sinds 6 okt) aangevuld in enUS+nlNL → drift in 5 talen. De andere twee
+  zinnen (delve-tiers via Labyrinth, "derde stap") pas op release-dag: nu zouden ze iets beweren dat live nog niet bestaat.
+- Open: vertaalronde voor deze 8 keys + S2GLOSS; release-dag-meting; Labyrinth op de PTR.
+
 ## 🆕 7 okt — 12.1.5 komt 13 okt (VS) / 14 okt (EU): `docs/PATCH_12_1_5_PREP_2026-10-07.md` (mh-research)
 Nieuwe "mega-delve" The Labyrinth of Kindo'jan (9 kamers, Valeera, eindbaas Kindo'jan, Vault-credit per 3 kamers; wago 70077).
 MH heeft: TOC 120105, API-breuken gerepareerd, crest-cap-zin, meetcommando's. MH mist: Labyrinth, Kith'ix, Aqir Invasion,
