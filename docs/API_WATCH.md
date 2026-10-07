@@ -4220,3 +4220,197 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     géén "forced update"-melding. `.git/shallow` bestaat nog, dus die illusie kan terugkomen.
     📌 Ik weet niet waaróm het vandaag anders is — dat is AFGELEID noch GEMETEN, alleen
     vastgelegd, zodat een volgende run weet dat de reeks niet onafgebroken was.
+- [2026-10-07] 🆕 **Drie nieuwe API-documentatiepagina's en één bewerking binnen het venster
+  (30 sep–7 okt), gevonden via een bron die dit logboek niet eerder gebruikte: `recentchanges`
+  op de `API:`-namespace (ns **3000**). 0 × [MOET GEFIKST].** De zwaarste is
+  `C_Spell.GetItemCooldown` — een **derde** namespace voor precies de functie waar MH sinds 5 sep
+  een eigen migratie-helper voor heeft — en die is **GEMETEN géén Retail-API**. De hotfixlijst
+  schoof door naar 6 okt maar heeft geen enkele UI-/addon-sectie; de vijf andere gevolgde
+  wikipagina's staan byte-voor-byte stil en SimC heeft geen nieuwe release.
+  - 🔧 **NIEUWE BRON, en dat is de reden dat twee van de vier items van 2 en 3 okt zijn.** Tot nu
+    toe keek deze wachter per titel (`prop=revisions` op zes vaste pagina's). Vandaag ook
+    `list=recentchanges&rcnamespace=3000` over het hele venster. 📌 **GEMETEN dat de `API:`-pagina's
+    in ns 3000 zitten en niet in ns 0** — daardoor zag de ns-0-lijst ze nooit, en daardoor lagen
+    `SendAddonMessage` (3 okt) en `C_Item.GetItemStats` (2 okt) vier en vijf dagen onopgemerkt.
+    ⚠️ Ik voer ze op als *binnen het venster*, niet als *van vandaag*; harde regel 1 laat ze toe,
+    harde regel 2 verbiedt me ze als nieuws te verkopen. De volledige lijst over het venster is
+    **vier** wijzigingen, hieronder alle vier.
+  - 🆕 **[AL AFGEDEKT] — `C_Spell.GetItemCooldown(itemID)` bestaat op de wiki, maar NIET op
+    Retail.** Nieuwe pagina `API:C Spell.GetItemCooldown`, pageid **710170**, revid **`6901441`**
+    (`parentid: 0`, dus aanmaak), **KethoBot, 6 okt 01:28:18Z**, 280 b. Bewerkingssamenvatting
+    letterlijk: **`1.60.1 (70235)`**. Inhoud letterlijk:
+    *"Returns nil if the item is not found or on cooldown"*, met
+    `{{apisig|spellCooldownInfo = C_Spell.GetItemCooldown(itemID)}}`, argument `itemID` (number) en
+    één return `spellCooldownInfo` van type **`SpellCooldownInfo`**.
+    🔴 **GEMETEN dat dit WoW *Forever* is en niet Midnight.** Build **70235** hoort bij **1.60.1**,
+    niet bij 12.1.x. Onafhankelijk nagemeten in Blizzards eigen gegenereerde documentatie
+    (`Gethe/wow-ui-source`, branch **`live`**):
+    - `Blizzard_APIDocumentationGenerated/SpellDocumentation.lua` (`Namespace = "C_Spell"`) heeft
+      **geen** `GetItemCooldown`. De enige functie daar die met `GetItem` begint is
+      `GetItemModifiedAppearancesApplied`, en de lijst is alfabetisch (`GetDeadlyDebuffInfo` →
+      `GetItemModifiedAppearancesApplied`), dus er is geen plek waar hij zich kan verstoppen.
+    - **Positieve controle, zelfde run, zelfde methode:** `ItemDocumentation.lua` heeft
+      `C_Item.GetItemCooldown` wél, met één argument `itemInfo` en **drie** returns
+      `startTimeSeconds` / `durationSeconds` / `enableCooldownTimer` — exact de drie waarden die
+      `DelveItemsPopup.lua:278` uitpakt. De methode vindt dus iets dat er zeker is.
+    ⚠️ **Welke build `live` precies is, heb ik NIET vastgesteld** (de branchnaam zegt "live", geen
+    buildnummer). AFGELEID dat het Retail is, GEMETEN dat het de drie returns bevat.
+    → **Toets aan de code — afgedekt, en niet toevallig.** `ns.GetItemCooldownSafe`
+    (`Modules/Delves.lua:349-369`) probeert eerst `C_Item.GetItemCooldown` achter
+    `if C_Item and C_Item.GetItemCooldown then` **plus** een `pcall`, dan de kale global via
+    `rawget(_G, "GetItemCooldown")` achter een `type(bare) == "function"`-check **plus** `pcall`, en
+    geeft `nil` als geen van beide bestaat. Aanroepers: `Delves.lua:1830`, `Delves.lua:1992`,
+    `DelveItemsPopup.lua:278`. Een derde namespace kan dit niet laten crashen.
+    ⏳ **Wat ik NIET weet, en niet verzin.** De `C_Spell`-vorm geeft **één tabel**
+    (`SpellCooldownInfo`), niet drie losse waarden. Zou Retail ooit diezelfde kant op gaan, dan is
+    het géén derde `elseif` van één regel: `ns.GetItemCooldownSafe` belooft in zijn eigen annotatie
+    `@return number|nil start, number|nil duration, number|nil enabled`. Ik weet niet of Retail dit
+    overneemt, en ik weet niet hoe `SpellCooldownInfo` heet van veld tot veld — dat staat op
+    `Structure SpellCooldownInfo`, dat ik deze run niet heb gelezen. 🔴 **Niets te doen vandaag.**
+    📌 Eén observatie voor als het ooit wél moet: `Modules/PtrProbe.lua:160` heeft
+    `WATCH_TABLES = { "UIModeUtil", "C_UnitAuras", "PixelUtil", "C_Item" }` — **`C_Spell` staat er
+    niet in**, terwijl `C_Item` er in sep juist voor deze vraag is bijgezet. Dat is het bestaande
+    instrument dat "heeft Retail hem?" in één `/mh ptr` zou beantwoorden. **Rob beslist; ik raak
+    geen code aan.**
+  - 🔇 **[RAAKT ONS NIET] — `UnitUsesAmmo(unit)`.** Nieuwe pagina `API:UnitUsesAmmo`, pageid
+    **710169**, revid **`6901440`** (`parentid: 0`), **KethoBot, 6 okt
+    01:28:12Z**, 139 b, samenvatting **`1.60.1 (70235)`** — zes seconden vóór de vorige en dus uit
+    dezelfde Forever-build. `result = UnitUsesAmmo(unit)`, boolean.
+    → **GEMETEN:** `UnitUsesAmmo` **0** treffers over de hele addon (zonder
+    `.git`/`docs`/`tools`/`dist`). Munitie bestaat op Retail niet. **Niets te doen.**
+  - 📝 **[AL AFGEDEKT] — er is nu een wikipagina voor de KALE global `SendAddonMessage`, en dat is
+    documentatie, geen wijziging.** Nieuwe pagina `API:SendAddonMessage`, pageid **709939**, revid
+    **`6899146`** (`parentid: 0`), **Ketho** (mens, niet de bot), **3 okt 19:21:51Z**, 262 b.
+    Letterlijk: *"Sends a message over an addon comm channel."*, met
+    `SendAddonMessage(prefix, message [, chatType [, target]])`. ⚠️ **Geen deprecation, geen
+    gewijzigde signature, geen 12.1.x-buildtag** — er staat alleen wat de global doet.
+    → **GEMETEN:** MH roept de kale global **nul** keer aan; elke aanroep loopt via
+    `C_ChatInfo.SendAddonMessage` en staat achter een bestaanscheck **plus** `pcall`:
+    `Modules/Comms.lua:62-65` (de queue) en `:116-123` (de directe weg), `Modules/Comms.lua:49-50`
+    (`InChatMessagingLockdown`, ook gepcalld), `Modules/RitualShareSync.lua:36`,
+    `Modules/DelveShareSync.lua:45`, `Modules/ConsumableReadyComms.lua:101` en `:187`. De
+    prefix-registratie idem: `RitualShareSync.lua:78-79`, `DelveShareSync.lua:87-88`,
+    `ConsumableReadyComms.lua:236-237`. **Niets te doen.**
+  - 🔤 **NIET-WIJZIGING — `C_Item.GetItemStats` is bewerkt, maar alleen de voetnoot-URL.** Pagina
+    `API:C Item.GetItemStats`, pageid **575407**, revid **`6898001`** (Lotimar, **2 okt
+    11:52:21Z**, 2095 b; parent `6811846`, 10 aug, 2089 b). **+6 bytes.** De twee revisies
+    byte-voor-byte vergeleken: het enige verschil is de link achter *"A table whose fields are also
+    globalstrings"* — `townlong-yak.com/framexml/**10.2.0**/GlobalStrings.lua#**9909**` →
+    `townlong-yak.com/framexml/**69952/Helix**/GlobalStrings.lua#**12215**`. De signature, de
+    argumenten en de **hele veldtabel** (`ITEM_MOD_CRIT_RATING_SHORT`, `ITEM_MOD_HASTE_RATING_SHORT`,
+    `ITEM_MOD_INTELLECT_SHORT`, `ITEM_MOD_MASTERY_RATING_SHORT`, `ITEM_MOD_STAMINA_SHORT`,
+    `ITEM_MOD_VERSATILITY`, `RESISTANCE0_NAME`) zijn identiek. ⚠️ **Ik meld dit nadrukkelijk als
+    niet-wijziging**, want "`GetItemStats` is bijgewerkt" leest als nieuws over een functie die MH
+    op drie plekken gebruikt, terwijl er geen bewering over de API is veranderd. 📌 Wel een los
+    feitje: build **69952** is de 12.1.5-PTR-build van 23 sep, dus de referentie is naar een
+    PTR-dump verschoven.
+    → **Toets aan de code, voor de volledigheid:** alle drie de aanroepen zijn gedekt —
+    `Modules/GearEnchantCheck.lua:361-365` (`if C_Item and C_Item.GetItemStats then … elseif
+    GetItemStats then` — met de kale global als tweede tak), `Modules/GearExport.lua:134-137`
+    (bestaanscheck + `pcall`), `Modules/VaultAdvisor.lua:469-472` (idem). **Niets te doen.**
+  - 📰 **Hotfixes: de lijst is doorgeschoven naar 6 okt, en er staat GEEN UI-/addon-sectie in.**
+    Wikipagina `Hotfixes` revid **`6902226`** (Dark T Zeratul, **7 okt 03:33:19Z**, 374318 b;
+    was `6897455`, 2 okt, 365799 b — **+8519 b** in drie bewerkingen vannacht). De sectie
+    `===October 6===` integraal gelezen via `action=parse&section=2&prop=wikitext`, en
+    onafhankelijk hetzelfde artikel bij Blizzard zelf
+    (`news.blizzard.com/.../24296142/hotfixes-october-6-2026?nocache=20261007`).
+    **GEMETEN: de secties zijn `Classes`, `Dungeons and Raids` en `Player versus Player`. Er is geen
+    `User Interface`-, `Accessibility`- of `Addons`-kop.** Alles is tuning (Unholy DK *Blightfall*
+    terug naar 100%, Devourer +8/10%, Brewmaster *Quick Sip*/*Pretense of Instability*, Mistweaver
+    +15%, Subtlety *Trickster*, Enhancement +4% en *Lava Lash* +35%, Ula'tek-nerfs, en een brede
+    PvP-talentronde). 🔴 **Dat is terrein van `CONTENT_WATCH.md`, niet van mij** — ik voer er geen
+    enkele regel van op als API-vondst.
+    ✅ **Vers, niet gecachet, op twee manieren:** het Blizzard-artikel staat op **hetzelfde
+    artikel-id `24296142`** dat dit logboek gisteren nog las met de titel *"Hotfixes: October 1,
+    2026"*, en geeft vandaag *"Hotfixes: October 6, 2026"* met de October 1-sectie eronder. Blizzard
+    hertitelt dus een doorlopend artikel; een id dat gelijk blijft is hier géén cache-signaal, een
+    **titel die ouder wordt** zou dat zijn.
+    - 🔇 **[RAAKT ONS NIET] — één regel uit die lijst raakt iets wat op een nameplate staat.**
+      Letterlijk, onder `Player versus Player` → Druid → Balance: *"Moon and Stars now displays as
+      important on player nameplates."*
+      → **GEMETEN:** MH's hele nameplate-gebruik is zijn **eigen** skull-marker op rares —
+      `Modules/Rares.lua:901-962`, en elke aanroep zit achter
+      `if … C_NamePlate and C_NamePlate.GetNamePlateForUnit then` (`:907`, `:917`) respectievelijk
+      `C_NamePlate.GetNamePlates` (`:928`). Verder alleen `NAME_PLATE_UNIT_ADDED`/`_REMOVED` als
+      event (`Rares.lua:959-962`, `CombatSafety.lua:868`, en als naam in `EventProbe.lua:36`).
+      `SetNamePlate` **0**, en MH filtert of tekent **nergens** aura's op een nameplate. Dit is
+      gedrag ín Blizzards eigen nameplate. **Niets te doen.**
+  - 🔇 **Wiki: vijf van de zes gevolgde pagina's byte-voor-byte gelijk aan gisteren.**
+    `Patch 12.1.5/API changes` `6901394` (Ketho, 6 okt 00:18:58Z, 35432 b — de `2026-09-29`-sectie
+    van gisteren, ongewijzigd), `Patch 12.1.0/API changes` `6886719` (Ketho, 25 sep, 102481 b),
+    `Patch 12.0.7/API changes` `6794100` (Ketho, 4 aug, 34044 b), `API change summaries` `6883777`
+    (Ketho, 22 sep, 7280 b), `TOC format` `6900914` (P3lim, 5 okt 08:04:50Z, 28046 b — de
+    typefoutcorrectie van gisteren, en dus voor het eerst in vier nachten géén nieuwe revisie).
+    📌 **GEMETEN dat er nog geen nieuwere variant bestaat:** `Patch 12.1.7/API changes` en
+    `Patch 12.2.0/API changes` komen beide terug als `"missing": ""`.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.0-04`** (gepubliceerd 21 aug 2026 23:15:56Z,
+    release-id 374719356). Opgehaald via `api.github.com/repos/simulationcraft/simc-addon/releases`
+    mét cache-buster; de releasenotes zijn nog steeds de twee regels over *Offspec Talent Loadouts*
+    en de ingebouwde loadout-exporter. **GEMETEN in de code:** het kopcommentaar van
+    `Modules/SimcExport.lua:12-16` zegt *"read 30 Sep 2026 at release 12.1.0-04"* — MH loopt niet
+    achter, en een toets aan `ItemString` of `ns.BuildSimcProfile` is deze week niet nodig.
+  - 🔇 **[RAAKT ONS NIET] — `#ui-macro`: geen enkel nieuw topic, één nieuwe reactie zonder
+    API-inhoud.** Op topic-id gecontroleerd met `order:latest`: de nieuwste post in de categorie is
+    `30352616` (Elvenbane, **6 okt 05:42:36Z**) op topic `2373439` (*VoidScout*, al drie runs in dit
+    logboek), en de hele post is één regel: *"Interrupts, including Mind Freeze, are off the GCD."*
+    Dat is een spelmechaniek-correctie op de openingspost, geen API-naam, geen taint, geen secure
+    frame. De overige treffers binnen het venster staan hier al in: `2373596`, `2373394`, `1989252`,
+    `2276297`, `2367394`, `2370149`, `2370136`, `2366363`, `1780831`, `2306913`. Niets om te greppen.
+    ✅ **Correctie op mijn eigen regel van gisteren:** die noemde topic `2373439` "*VoidScout*" en
+    gaf er de tijdstempel 5 okt 23:20:20Z bij; de titel is voluit *"[Addon] VoidScout - player
+    scores that count kicks, dispels and mechanics, not just DPS"* en de openingspost is van
+    **5 okt 23:20:19.892Z**. Geen inhoudelijk verschil, wel preciezer.
+  - 🔎 **Eén WebSearch-ronde als onafhankelijke kruiscontrole, binnen het venster nul.** Wat
+    terugkwam was het 12.1-aura-verhaal (nieuwe gefilterde aura-API's, `COMBAT_LOG_EVENT_UNFILTERED`
+    geweigerd zodra er een tainted frame op de stack staat) en twee wikipagina's,
+    `API:Frame SetIgnoringChildrenForBounds` en `API:NamePlate SetStackingBoundsFrame`. ⚠️ **Die
+    twee heb ik op revisie nagemeten vóór ik ze zou melden, en ze zijn OUD:** `6846816` en
+    `6847108`, beide **KethoBot, 25 aug 2026**, een opruimbewerking (*"Remove whitespace summary
+    placeholder"*). Buiten het venster, dus geteld als niets. 📌 Opgeschreven omdat een zoekmachine
+    een pagina zonder datum teruggeeft en die dan nieuw lijkt — dezelfde val als een cache, zonder
+    tijdstempel om op te letten.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `warcraft.wiki.gg` via directe `curl` opnieuw niet geprobeerd; op 5 okt is gemeten dat de
+      agent-proxy de CONNECT-tunnel met **403** weigert. Alle wiki-, forum- en GitHub-data komt via
+      Exa, behalve de twee `raw.githubusercontent.com`-bestanden hierboven (via WebFetch).
+    - `api.php?action=compare` **faalde deze run twee keer** met `CRAWL_UNKNOWN_ERROR`, met én
+      zonder cache-buster. De Hotfixes-diff is daarom niet via `compare` gelezen maar via
+      `action=parse&section=2&prop=wikitext` (de volledige nieuwe sectie) plus
+      `prop=revisions&rvlimit=2&rvslots=main` voor `GetItemStats` (twee volledige revisies naast
+      elkaar). Dat is strikter dan een diff, niet losser.
+    - `api.github.com/search/code` gaf **HTTP 401** (zoeken in code vereist authenticatie). De
+      controle op Blizzards gegenereerde documentatie liep daarom via de ruwe bestanden zelf.
+    - `Structure SpellCooldownInfo` niet opgehaald — zie de open vraag bij het eerste item.
+    - `wowhead.com/blue-tracker` opnieuw niet geprobeerd (twaalf runs op rij lege body); de
+      Blizzard-artikelen kwamen direct binnen.
+    - De 12.1.5-**PTR-buildnotes** zelf niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+    - ⚠️ Een `?cb=`/`?z=`-parameter geeft op `api.php` een `"Unrecognized parameter"`-warning.
+      Onschadelijk (MediaWiki negeert hem, de query draait) en hij doet zijn werk omdat hij de URL
+      uniek maakt voor Exa's cache. Versheid is hierboven onafhankelijk aangetoond: de
+      Hotfixes-revisie van **vannacht 03:33:19Z** en drie aanmaakrevisies die gisteren nog niet in
+      dit logboek stonden.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw — met vandaag opnieuw gemeten cijfers:**
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. **GEMETEN
+      vandaag** (zelfde scope en commando): `issecretvalue` **208** (gisteren 204),
+      `InCombatLockdown` **223** (221), `CreateFrame` **784** (766), `C_Timer` **547** (537),
+      `C_Spell` **422** (406), `C_Secrets` **27** (gelijk), `C_UnitAuras` **83** (gelijk),
+      `C_SuperTrack` **29** (gelijk). 📌 Verklaard, niet raar: de `.toc` staat vandaag op
+      **4.7.4** (gisteren 4.7.2), dus er is nieuwe MH-code bij. 🔴 Ik raak dat bestand niet aan.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat
+      er `120007, 120100, 120105` (regel 1). 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM**. Onschadelijkheid blijft AFGELEID.
+  - 🔧 **Repo-staat: de detached HEAD is terug.** Bij aanvang `git rev-parse --abbrev-ref HEAD` →
+    **`HEAD`** (dus géén branch) op `87e443f` *"4.7.4 beta 2: healers fight alone, who knows this
+    recipe, your Moxie"* (6 okt 21:47:30 +0200), `## Version: 4.7.4`. `git status --porcelain`
+    leeg, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit. 📌 Gisteren stond hier
+    `main`; vandaag weer niet. Waaróm het wisselt is noch GEMETEN noch AFGELEID — alleen vastgelegd.
+    - ⚠️ **En de `git fetch` meldde een "forced update" (`+ 310822c...87e443f`), maar dat is hier
+      GEEN herschreven historie.** Nagemeten: de clone is **shallow** (`.git/shallow` met twee
+      randpunten, `git rev-list --count HEAD` = **50**) en de ondiepe rand ligt op **6 okt
+      11:17:29 +0200**, terwijl `310822c` (*"4.7.2 notes: an honest word, and beta releases from now
+      on"*) van **5 okt 23:18:06 +0200** is — dus **vóór** de rand. Het object bestaat wel
+      (`git cat-file -t` → `commit`), maar de afstamming is in deze clone principieel niet te
+      bepalen: `git merge-base --is-ancestor` geeft daarom 1. 🔴 **Dus niet lezen als "Rob heeft
+      main geforceerd"** — een shallow clone meldt dit routineus. Opgeschreven zodat een volgende
+      run er niet van schrikt.
