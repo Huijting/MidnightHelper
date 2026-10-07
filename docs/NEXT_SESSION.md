@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🆕 7 okt — 12.1.5 komt 13 okt (VS) / 14 okt (EU): `docs/PATCH_12_1_5_PREP_2026-10-07.md` (mh-research)
+Nieuwe "mega-delve" The Labyrinth of Kindo'jan (9 kamers, Valeera, eindbaas Kindo'jan, Vault-credit per 3 kamers; wago 70077).
+MH heeft: TOC 120105, API-breuken gerepareerd, crest-cap-zin, meetcommando's. MH mist: Labyrinth, Kith'ix, Aqir Invasion,
+Venomstones, Keystone Myth. Top-5: (1) ✅ DispelSound throttle als tabelveld (gedaan); (2) Codex-kaarten Labyrinth/Aqir/
+Venomstones uit Blizzards tekst, zichtbaar vanaf 12.1.5 + 3 Codex-zinnen; (3) meetronde release-dag (/mh ptr, atal,
+eventspy, instance, dundun + /dump nieuwe CVars, ook dispel D); (4) kandidaat-ID's klaarzetten, inbouwen na /dump;
+(5) delve-coach in de Labyrinth nakijken, liefst deze week op de PTR (copy_to_ptr.bat; PTR heeft nog MH 4.5.0). Rob kiest.
+
 ## 🛒 7 okt middag — raid-herinnering, één winkelvenster, vertaalronde (Rob: "doe maar de eerste 3")
 - Raid-herinnering GEBOUWD (a79f00a): raid-instance binnen / READY_CHECK in raidgroep → ns.RaidShopMissingCount → toast;
   1× per bezoek, ready check max 1×/10 min; `/mh ready remind on|off`; probe `ns.db.raidReadyReminderProbe`. READY_CHECK

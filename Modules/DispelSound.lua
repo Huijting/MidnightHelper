@@ -82,12 +82,12 @@ local function Register()
 	local newApi = Build() >= 120105
 	for _, id in ipairs(ids) do
 		local info = { spellID = id, unitToken = "player", soundFileID = SOUND_FILE, outputChannel = "Master" }
-		local good, handle
+		-- 12.1.5: throttleSeconds is a FIELD of this table (wiki API_C_UnitAuras.AddAuraSound, mh-research
+		-- docs/PATCH_12_1_5_PREP_2026-10-07.md), not a third argument as DBM passes it. Max 5.
 		if newApi then
-			good, handle = pcall(add, 0, info, THROTTLE)
-		else
-			good, handle = pcall(add, 0, info)
+			info.throttleSeconds = THROTTLE
 		end
+		local good, handle = pcall(add, 0, info)
 		if good and handle then
 			registered[#registered + 1] = handle
 			ok = ok + 1
