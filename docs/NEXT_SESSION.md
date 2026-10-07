@@ -12,7 +12,12 @@
   staan er als "guides say". Niet getest → TESTLIJST.
 - Codex-zin S2GLOSS (Orin-Voidcore, al live sinds 6 okt) aangevuld in enUS+nlNL → drift in 5 talen. De andere twee
   zinnen (delve-tiers via Labyrinth, "derde stap") pas op release-dag: nu zouden ze iets beweren dat live nog niet bestaat.
-- Open: vertaalronde voor deze 8 keys + S2GLOSS; release-dag-meting; Labyrinth op de PTR.
+- Vertaalronde GEDAAN (mh-writer-script 07c, toegepast): 8 Codex-keys + 7 shop-keys (SHOPTAB_*, SHOP_ALL_AUCTIONATOR,
+  RAIDSHOP_REMIND_*) × 5 talen, plus S2GLOSS-zin (drift gemarkeerd). Great Vault/Catalyst/Silvermoon volgen de
+  meerderheid per pack (de Große Schatzkammer/Katalysator/Silbermond …; pt/it "Catalyst"). Zelfgemaakt, niet door
+  moedertaalspreker nagekeken. Twijfels: it "Gran Banca", "Exalted" vertaald zonder voorbeeld in het pack.
+- Kopie naar PTR gedaan (_ptr_ 12.1.0 en _xptr_ 12.1.5), vóór de vertaalronde.
+- Open: release-dag-meting (14 okt); Labyrinth op de PTR (TESTLIJST); 2 Codex-zinnen op release-dag.
 
 ## 🆕 7 okt — 12.1.5 komt 13 okt (VS) / 14 okt (EU): `docs/PATCH_12_1_5_PREP_2026-10-07.md` (mh-research)
 Nieuwe "mega-delve" The Labyrinth of Kindo'jan (9 kamers, Valeera, eindbaas Kindo'jan, Vault-credit per 3 kamers; wago 70077).
