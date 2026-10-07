@@ -1983,3 +1983,72 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   allemaal vandaag gelezen · `docs/PTR_12.0.7_DATA.md` entry [2026-10-06] en `docs/PTR_12.1_WATCH.md`
   entries [2026-10-06] als kruiscontrole (feiten niet herhaald, alleen zelf getoetst). Geen
   actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-07] 💬 **CurseForge: 🔴 één nieuw, nog onbeantwoord draadje (esMX kiest geen Spaans) —
+  de twee bekende draadjes blijven beantwoord (3 draadjes, 7 berichten — was 2/6 op
+  [2026-10-05]/[2026-10-06]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0
+  &pageSize=20&nocache=20261007e` via Exa, volledig gelezen (JSON), `pagination.totalCount` = 7.
+
+  - 🔴 **Nieuw — 2026-10-06 21:34 UTC, `user_uvqy5939hswhgduu`:** meldt dat de addon in het Spaans
+    (Mexico) niet overschakelt naar Spaans en in Engels blijft staan. Zegt dat `GetLocale()` daar
+    `"esMX"` teruggeeft, niet `"esES"`, en heeft zelf `Locales/esES.lua` lokaal gepatcht met een
+    extra `or GetLocale() == "esMX"` om het werkend te krijgen — verliest die patch bij elke
+    update. Geen reply van `twelveinchy`. Nog open.
+  - **MrsBoojiePanda** (debug-regel bij login) en **gadrinonturalyon** (coffer-key-shards-popup /
+    3D-bossmodel): beide draadjes eindigen nog steeds met een reply van `twelveinchy` —
+    onveranderd beantwoord t.o.v. gisteren.
+
+  📌 **Zelf getoetst in de code, niet alleen de speler geloofd.** `Locales/Locale.lua:33` heeft al
+  een alias `esMX = "esES"`, bedoeld om `/mh lang auto` op een esMX-client naar het Spaanse pack
+  te sturen, en `CHANGELOG.md:1768` (versie **1.3.2**, 2026-05-23, released) claimt die
+  esMX-mapping al sinds die versie. Maar `Locales/esES.lua:17` gebruikt zijn eigen, kale
+  `if GetLocale() ~= "esES" then return end` als laad-gate op het bestand zelf — op een
+  esMX-client is dat waar, dus de hele pack-tabel `ns._mhLocales.esES` wordt nooit gevuld, en
+  `ns:HasLocalePack("esES")` (`Locale.lua:98-99`, vereist een niet-lege tabel) valt terug op
+  enUS. De alias in de taalkeuzelogica en de laad-gate in het packbestand spreken elkaar dus
+  tegen — de speler heeft precies de kant gepatcht die het probleem veroorzaakt. MEASURED.
+  **[RAAKT ONS]** — geen fix door mij, een mens beslist; de fix is vermoedelijk één regel
+  (dezelfde alias toepassen vóór de gate-check in `esES.lua:17`, zoals `Locale.lua:110` al doet).
+
+  Concept-antwoord: Thanks for the detailed report and the workaround, user_uvqy5939hswhgduu!
+  You found a real inconsistency: the addon does have logic meant to map the esMX client locale
+  to the Spanish pack, but the pack file's own loading check only recognizes esES, so on an esMX
+  client it never builds the Spanish text and silently falls back to English. We'll look into
+  fixing that properly so you won't need to reapply your patch after every update.
+  Basis: MEASURED — `Locales/esES.lua:17` (kale `GetLocale() ~= "esES"`-gate) negeert de
+  esMX→esES-alias die al in `Locales/Locale.lua:33` staat, waardoor `ns._mhLocales.esES` nooit
+  gevuld wordt op een esMX-client; niet gefixed in een released versie (`CHANGELOG.md:1768`,
+  v1.3.2, claimt alleen de taalkeuze-mapping, niet de pack-laad-gate).
+
+- [2026-10-07] 🔁 **Geen nieuwe hotfix-sectie sinds [2026-10-06] (nog steeds "October 6, 2026" als
+  bovenste sectie) — geen nieuwe Delves/Professions/Quests/Items-inhoud, niets nieuws om tegen de
+  repo te toetsen.** `news.blizzard.com`'s doorlopende hotfix-artikel **volledig zelf gelezen** via
+  Exa `web_fetch_exa` met `?nocache=20261007e`: bovenste sectie is nog steeds **"October 6, 2026"**
+  met dezelfde drie categorieën als gisteren al verwerkt — Classes (pure klassentuning, buiten mijn
+  lane), Dungeons and Raids (de Ula'tek-encountertuning die ik op [2026-10-06] al regel-voor-regel
+  tegen `RAID_BOSS_ULATEK_*` getoetst heb, byte-voor-byte dezelfde cijfers, geen nieuwe toetsing
+  nodig) en Player versus PvP (een brede PvP-talent-pass, buiten mijn lane). **Delves, Professions
+  en Quests: leeg** in deze sectie (Blizzard laat lege categorieën gewoon weg, zelfde patroon als
+  eerdere dagen) — niets om te vergelijken.
+
+  Dit convergeert met de API-, PTR- en data-wachter van vandaag, die onafhankelijk dezelfde
+  "October 6"-sectie als nieuwste zagen (niet overgenomen als feit, zelf opnieuw gelezen en
+  hierboven uit de eigen fetch geciteerd). De data-wachter ving vandaag ook terecht een eigen
+  cache/zoek-valkuil (twee "nieuwe" zoekresultaten die uit oudere secties van dezelfde rollende
+  pagina kwamen, 23 sep en 1 sep) — dat is zijn fact-check op zijn eigen methode, niet hier als
+  eigen vondst herhaald.
+
+  Vandaag is woensdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261007e (volledig gelezen via
+  Exa) · https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261007e (volledig gelezen via Exa) · codebase: gerichte reads van
+  `Locales/esES.lua`, `Locales/Locale.lua`, `CHANGELOG.md`, plus `grep` case-insensitive op
+  "esMX"/"esES" over de hele repo — allemaal vandaag gelezen · `docs/API_WATCH.md` entry
+  [2026-10-07], `docs/PTR_12.1_WATCH.md` entries [2026-10-07] en `docs/PTR_12.0.7_DATA.md` entry
+  [2026-10-07] als kruiscontrole (feiten niet herhaald, alleen zelf getoetst op tegenspraak met
+  geshipte MH-tekst). Geen actiepunt dat ík kan oppakken buiten het melden van de esMX-bug — ik
+  rapporteer, een mens beslist.
