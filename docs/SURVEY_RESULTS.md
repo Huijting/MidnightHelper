@@ -27,6 +27,12 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 14 | 3 okt 06:43 | NL / nl | healer | weken | **3** | boss, weekly, prof, gear | play, maps, delves, mplus, keys, brez, site | — (eerste cijfer onder de 4, zonder uitleg) |
 | 15 | 3 okt 17:37 | FR / fr | healer | maanden | 4 | mplus, weekly, collect, gear | maps | — |
 | 16 | 4 okt 12:45 | FR / fr | dps | weken | 5 | weekly, collect, gear | brez | irriteert: *"non pas du tout"* (niets) · mist: **"les hauts faits non accomplis"** (de achievements die je nog niet hebt) · 💬 *"merci pour tout, vous êtes au top"* |
+| 17 | 6 okt 11:00 | GB / en | dps | weken | 4 | weekly | maps, brez, route, collect | — |
+| 18 | 6 okt 11:04 | DE / de | dps | maanden | **3** | maps, weekly, route, collect | play, boss, delves, mplus, prof, keys, brez, gear | — (tweede 3, zonder uitleg) |
+| 19 | 6 okt 15:36 | GB / en | dps | weken | 4 | play, delves, weekly, route, collect, gear | mplus | irriteert: *"No"* · mist: *"Nothing - I am new to it"* |
+
+📌 #17 en #19 komen allebei uit GB, dps, "een paar weken", via het spel, 4½ uur na elkaar. Mogelijk dezelfde speler
+die het twee keer invulde (#19 kent veel meer onderdelen). AFGELEID, niet vast te stellen: beide tellen mee.
 
 📌 **2 okt 18:47 (nl/NL, via game) NIET meegeteld:** *mist: "mijn man"*, *verder nog: "dat ik van je hou. en wie zijn
 ons?"* — AFGELEID een persoonlijk bericht uit Robs eigen kring (vermoedelijk Cisca), geen spelersantwoord. Wel het
@@ -39,6 +45,13 @@ cijfer. #6 gaf geen cijfer en geen rol.
 ⚠️ **#9 heeft `from: "gamehttpsmidnighthelpercomsurveyf"`** — "game" met de survey-URL eraan geplakt, zonder
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
+
+## Bijgeteld 7 okt (ochtendronde): #17-#19, alle drie dps en via het spel
+
+- **Cijfer nu:** gemiddeld **4,3** (18 cijfers: 7× 5, 9× 4, 2× 3). De tweede 3 (#18, de/DE, "maanden") gebruikt alleen
+  kaarten, weekplan, route en verzamelen, en noemt 8 onderdelen "nooit / onbekend" — weer zonder uitleg.
+- **Keybind-coach:** nu **9× "nooit / onbekend"** (+#18), nog steeds 0× "vaak". *Zo speel je*: #18 nooit, #19 vaak.
+- De tellingen hieronder zijn van 4 okt en nog niet over #17-#19 heen gerekend.
 
 ## Stand (4 okt middag, 16 antwoorden: 14 bruikbaar voor gebruik, 15 met een cijfer)
 
