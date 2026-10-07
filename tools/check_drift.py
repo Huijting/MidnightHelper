@@ -319,7 +319,7 @@ def render_report(rows, state, en_total, scored):
     return "\n".join(o) + "\n"
 
 
-def mark(now, state, keys):
+def mark(now, state, keys, only=None):
     """Record that these keys were translated against the CURRENT English.
 
     🔴 THE VERB THAT WAS MISSING. `state.keys[KEY][code]` holds a hash of the English text as
@@ -346,6 +346,8 @@ def mark(now, state, keys):
             continue
         cur = h(env)
         for code in LANGS:
+            if only and code not in only:
+                continue
             val = now.get(code, {}).get(key)
             if val is None or val == env:
                 print("  %-46s %s  onvertaald, niet gemarkeerd" % (key, code))
@@ -360,6 +362,15 @@ def main():
     args = sys.argv[1:]
     now = dump(REPO)
     if "--mark" in args:
+        # `--lang deDE,frFR` (7 Oct 2026): mark only the languages that were actually brought in line.
+        # Without it a de/fr-only fix stamped es/pt/it too and hid their real drift.
+        only = None
+        if "--lang" in args:
+            i = args.index("--lang")
+            if i + 1 >= len(args):
+                sys.exit("STOP: --lang heeft een lijst nodig, bv. --lang deDE,frFR")
+            only = set(args[i + 1].split(","))
+            args = args[:i] + args[i + 2:]
         keys = [a for a in args[args.index("--mark") + 1:] if not a.startswith("--")]
         if not keys:
             sys.exit("STOP: --mark heeft minstens een KEY nodig. Dit stempelt dat JIJ die "
@@ -370,7 +381,7 @@ def main():
         with io.open(STATE, encoding="utf-8") as fh:
             st = json.load(fh)
         print("markeren als bijgewerkt tegen het huidige Engels:")
-        n = mark(now, st, keys)
+        n = mark(now, st, keys, only)
         if n:
             with io.open(STATE + ".tmp", "w", encoding="utf-8", newline="\n") as fh:
                 json.dump(st, fh, ensure_ascii=False, indent=1, sort_keys=True)

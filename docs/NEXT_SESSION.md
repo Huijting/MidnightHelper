@@ -31,6 +31,12 @@
   soort als deDE.lua + vous/tu-mix (RaidTips frFR = vous); es/pt "medianoche/meia-noite"; drift in de/fr DelveTips
   (COLLEGIATE_CALAMITY_TRASH zegt nog "channel", feitelijk fout; TORMENTS_RISE_OVERVIEW = S1-tekst).
   Nieuwe keys (4: DELVE_COACH_UNKNOWN_*, EVENT_INFO_AQIR_*) nog alleen enUS/nlNL.
+- Rob "alles" (7 okt): DelveTips de/fr: 27 keys gelijkgetrokken met enUS (o.a. Deweeder gegooid, Dazzled = crit
+  KRIJGEN, Torments Rise S1-tekst weg), gemarkeerd met nieuwe `check_drift --lang deDE,frFR --mark` (zonder --lang
+  stempelde --mark ook es/pt/it en verborg hun drift). 4 enUS-chatregels die de eigen tips tegenspraken herschreven
+  (COLLEGIATE_CALAMITY_TRASH, SHADOWGUARD_POINT_BOSS, TORMENTS_RISE_OVERVIEW/BOSS) + it/nl; de/fr/es/pt vallen daar
+  terug op enUS. Twijfel: "zweite Ebene"/"deuxième niveau" bij Parhelion Plaza (in-game nakijken), "Grollgrube".
+  Changelog-opruiming + frFR.lua + es/pt "medianoche" loopt nog (mh-writer 07d).
 
 ## 🆕 7 okt — 12.1.5 komt 13 okt (VS) / 14 okt (EU): `docs/PATCH_12_1_5_PREP_2026-10-07.md` (mh-research)
 Nieuwe "mega-delve" The Labyrinth of Kindo'jan (9 kamers, Valeera, eindbaas Kindo'jan, Vault-credit per 3 kamers; wago 70077).
