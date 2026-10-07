@@ -119,6 +119,15 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🆕 7 okt — "één winkelvenster" (Rob koos het): tabbladen + alles naar Auctionator
+
+Gebouwd, niet getest. De twee vensters bestaan nog, maar delen nu tabbladen BOVEN het venster.
+- [ ] `/mh ready` → boven het venster twee tabbladen **Raid | Beroep**. Klik Beroep → het boodschappenvenster opent op
+  dezelfde plek en het raid-venster gaat dicht? En terug?
+- [ ] Met Auctionator: onderaan beide vensters een knop **Alles naar Auctionator** → chat "lijst MH - <naam> met N"?
+  In Auctionator → Shopping één lijst met de raid-spullen én de beroeps-reagents (handelaar-spul niet)?
+- [ ] Vallen de tabbladen niet van je scherm als het venster helemaal bovenaan staat?
+
 ## 🆕 7 okt — raid-herinnering (Rob koos hem)
 
 Gebouwd, niet getest. Staat standaard AAN; `/mh ready remind off` zet hem uit, `/mh ready remind` zegt de stand + laatste check.

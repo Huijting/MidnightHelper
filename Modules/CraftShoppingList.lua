@@ -718,6 +718,9 @@ local function Build()
 	f:RegisterEvent("BAG_UPDATE_DELAYED")
 	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 	f:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+	if ns.AddShopTabs then
+		ns.AddShopTabs(f, "craft")
+	end
 	f:Hide()
 	return f
 end
@@ -974,6 +977,27 @@ local function HaveInBags(ids)
 		end
 	end
 	return n
+end
+
+--- What this list would send to Auctionator, computed without the window (the same rules as Refresh + ToAuctionator:
+--- bags, mail, bank and what the list itself makes all count; vendor reagents stay off). For "Everything to Auctionator".
+function ns.CraftShopTerms()
+	local S = Shop()
+	local list = MyList()
+	local terms = {}
+	for _, t in ipairs(Totals(list)) do
+		local away = (S.MailCount and S.MailCount(t.ids) or 0) + (S.BankCount and S.BankCount(t.ids) or 0)
+		local toBuy = t.need - HaveInBags(t.ids) - away - Planned(t, list)
+		local vendor = false
+		for _, x in ipairs(t.ids) do
+			vendor = vendor or VENDOR[x] ~= nil
+		end
+		local name = S.ItemName and S.ItemName(t.ids[1])
+		if toBuy > 0 and not vendor and name and not name:find("[;^\"]") then
+			terms[#terms + 1] = { searchString = name, isExact = true, quantity = toBuy }
+		end
+	end
+	return terms
 end
 
 Refresh = function()
@@ -1242,6 +1266,17 @@ Refresh = function()
 	end
 	local barH = (win.auct:IsShown() or win.clear:IsShown()) and 26 or 0
 	y = y - barH
+	-- One shop: both lists into one Auctionator list (ns.AddShopTabs in RaidShoppingList.lua made the button).
+	if win.shopAll then
+		if S.HasAuctionator and S.HasAuctionator() then
+			win.shopAll:ClearAllPoints()
+			win.shopAll:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y - 2)
+			win.shopAll:Show()
+			y = y - 26
+		else
+			win.shopAll:Hide()
+		end
+	end
 	if win.copyText then
 		win.copyLabel:SetText(L("RAIDSHOP_COPY_LABEL"))
 		win.copyLabel:ClearAllPoints()

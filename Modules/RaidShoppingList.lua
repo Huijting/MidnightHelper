@@ -604,6 +604,9 @@ local function Build()
 	-- Food stayed "…" while Auctionator already had the name, so the window never heard the answer. (AFGELEID)
 	f:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 	f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED") -- an enchant or gem applied: the gear rows change
+	if ns.AddShopTabs then
+		ns.AddShopTabs(f, "raid")
+	end
 	f:Hide()
 	return f
 end
@@ -852,6 +855,17 @@ Refresh = function()
 		win.copy:Hide()
 	end
 	y = y - barH
+	-- One shop: both lists into one Auctionator list (ns.AddShopTabs made the button).
+	if win.shopAll then
+		if Auctionator1() then
+			win.shopAll:ClearAllPoints()
+			win.shopAll:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y - 2)
+			win.shopAll:Show()
+			y = y - 26
+		else
+			win.shopAll:Hide()
+		end
+	end
 	if win.statusText then
 		win.status:SetText(win.statusText)
 		win.status:ClearAllPoints()
@@ -997,6 +1011,116 @@ function ns.RaidReadyReminderCommand(arg)
 	print(("%s %s (%s)"):format(p, L(RemindOn() and "RAIDSHOP_REMIND_ON" or "RAIDSHOP_REMIND_OFF"),
 		probe and ("last check " .. tostring(probe.t) .. ": " .. tostring(probe.missing) .. " missing, " .. tostring(probe.key))
 		or "no check yet"))
+end
+
+--------------------------------------------------------------------------------
+-- One shop (Rob, 7 Oct 2026: "één winkelvenster"). The raid list and the craft list stay two windows -- both work and
+-- are tested -- but they share a tab strip (Raid | Profession) that swaps one for the other in the same spot, and an
+-- "Everything to Auctionator" button that puts BOTH lists into one Auctionator list "MH - <character>".
+--------------------------------------------------------------------------------
+
+--- What "Ready for the raid?" would send to Auctionator, computed without the window (the same rules as ToAuctionator:
+--- consumables still to buy incl. the optional rune, plus missing enchants/gems by name).
+local function RaidTerms()
+	local terms = {}
+	local okR, rows = pcall(ns.GetRaidShoppingData, Mode())
+	for _, d in ipairs(okR and type(rows) == "table" and rows or {}) do
+		if d.itemID and not d.info and d.have and d.need then
+			local toBuy = d.need - d.have - MailCount(d.ids) - BankCount(d.ids)
+			if toBuy > 0 then
+				local name, hearty = SearchName(d.itemID)
+				if name and not name:find("[;^\"]") then
+					terms[#terms + 1] = { searchString = name, isExact = not hearty, quantity = toBuy }
+				end
+			end
+		end
+	end
+	local gear = ns.GetGearShoppingRows and select(2, pcall(ns.GetGearShoppingRows)) or nil
+	for _, g in ipairs(type(gear) == "table" and gear or {}) do
+		local have = g.iid and (select(2, pcall(C_Item.GetItemCount, g.iid)) or 0) or BagCountByName(g.name)
+		local ids = g.iid and { g.iid } or nil
+		local away = (ids and MailCount(ids) or MailCountByName(g.name)) + (ids and BankCount(ids) or 0)
+		local toBuy = (tonumber(g.need) or 0) - (tonumber(have) or 0) - away
+		if toBuy > 0 and g.name and not g.name:find("[;^\"]") then
+			terms[#terms + 1] = { searchString = g.name, isExact = true, quantity = toBuy }
+		end
+	end
+	return terms
+end
+
+--- Both lists into one Auctionator list. @return string result ("nothing"|"search"|"list"|"failed"), number terms, name
+function ns.ShopAllToAuctionator()
+	local terms = RaidTerms()
+	local craft = ns.CraftShopTerms and ns.CraftShopTerms() or {}
+	for _, t in ipairs(craft) do
+		terms[#terms + 1] = t
+	end
+	local me = UnitName and UnitName("player")
+	local listName = (type(me) == "string" and me ~= "") and ("MH - " .. me) or "Midnight Helper"
+	return SendTermsToAuctionator(terms, listName), #terms, listName
+end
+
+--- The tab strip, added to both windows by their Build. `which` = "raid" or "craft" (the one this frame is).
+--- Clicking the other tab hides this window and opens the other one with its top-left corner where this one was.
+function ns.AddShopTabs(frame, which)
+	local tabs = {}
+	local function swap(to)
+		if to == which then
+			return
+		end
+		local left, top = frame:GetLeft(), frame:GetTop()
+		frame:Hide()
+		-- Both Show functions TOGGLE: only call one when that window is not open yet, or the swap would close it.
+		local otherName = (to == "raid") and "MidnightHelperRaidShoppingList" or "MidnightHelperCraftShoppingList"
+		local other = _G[otherName]
+		if not (other and other:IsShown()) then
+			local show = (to == "raid") and ns.ShowRaidShoppingList or ns.ShowCraftShoppingList
+			if show then
+				show()
+			end
+			other = _G[otherName]
+		end
+		if other and left and top then
+			other:ClearAllPoints()
+			other:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+		end
+	end
+	for i, def in ipairs({ { "raid", "SHOPTAB_RAID" }, { "craft", "SHOPTAB_CRAFT" } }) do
+		-- Above the window, like real tabs: the titles are wide and must not be covered.
+		local b = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+		b:SetSize(110, 22)
+		b:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 12 + (i - 1) * 114, -2)
+		b:SetText(L(def[2]))
+		b:SetScript("OnClick", function()
+			swap(def[1])
+		end)
+		if def[1] == which then
+			b:LockHighlight()
+			b:Disable()
+		end
+		tabs[#tabs + 1] = b
+	end
+	-- "Everything to Auctionator": only shown when Auctionator is there (the windows decide where it goes).
+	local all = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	all:SetSize(170, 22)
+	all:SetText(L("SHOP_ALL_AUCTIONATOR"))
+	all:SetScript("OnClick", function()
+		local result, n, listName = ns.ShopAllToAuctionator()
+		local text
+		if result == "nothing" then
+			text = L("RAIDSHOP_AUCTIONATOR_NOTHING")
+		elseif result == "search" then
+			text = L("RAIDSHOP_AUCTIONATOR_SEARCH")
+		elseif result == "list" then
+			text = L("RAIDSHOP_AUCTIONATOR_LIST_FMT"):format(listName, n)
+		else
+			text = "|cffff8080" .. L("RAIDSHOP_AUCTIONATOR_FAILED") .. "|r"
+		end
+		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), text))
+	end)
+	all:Hide()
+	frame.shopAll = all
+	return tabs
 end
 
 --- The proven helpers, shared with the craft shopping list (CraftShoppingList.lua, 6 Oct 2026) so both windows count,
