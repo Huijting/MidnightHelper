@@ -1,6 +1,9 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (7 okt, laat op de avond) — 4.7.4 als GEWONE release klaargezet, wacht op Robs tweede go
+## ▶️ HIER VERDER (7 okt, 22:12) — 4.7.4 GETAGD en gepusht (Rob: "Go"), tag `v4.7.4` op 62f33af
+- Release-run 37680209677 gestart. Daarna: CF → Files → Changelog nakijken; site-chat seintje gestuurd.
+
+## (stap ervoor) 4.7.4 als GEWONE release klaargezet
 - Rob: "ik denk dat dit al wel een normale release kan worden" → na zijn testronde mijn advies ook release → "go".
   Klaar: RELEASE_NOTES.md = docs/CURSEFORGE_4.7.4.md (byte-gelijk, 80 regels, opent met de beta-alinea), CHANGELOG_474_*
   (enUS, 13 regels) + Changelog.lua, CHANGELOG.md. .toc stond al op 4.7.4. NIET gedaan: push + tag `v4.7.4` (Robs
