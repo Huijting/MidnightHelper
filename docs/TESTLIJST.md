@@ -39,13 +39,14 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   Hearthstone-knop tonen + "Faster: Hearthstone to Silvermoon, then Portal to …". Typ ook `/mh portals`: bovenste
   regel = je Hearthstone-plek + yes/no. Staat er "no" terwijl je wél in Silvermoon gebonden bent → noem de plek die
   er staat (dan voeg ik die naam toe).
-- [ ] **Live, Hearthstone-route per bestemming** (Hearthstone klaar, gebonden in Wayfarer's Rest, NIET in Silvermoon staan):
+- [x] ✅ Rob 7 okt: Grudge Pit, Collegiate Calamity én Coiled Isle geven de knop. (Voidstorm niet apart gemeld.)
+  **Live, Hearthstone-route per bestemming** (Hearthstone klaar, gebonden in Wayfarer's Rest, NIET in Silvermoon staan):
   route naar (a) iets in Harandar (Grudge Pit ✅ label 7 okt, knop nog testen), (b) iets in Voidstorm, (c) een Coiled
   Isle-delve (Gnarldor Isle / Ring of Glory) — alleen als je de Coiled Isle-portal hebt (quest 96004). Reisvenster met
   Hearthstone-knop + "Sneller: Hearthstone naar Silvermoon, dan …"? (d) iets in Eversong/Zul'Aman: daar GEEN aanbod
   (geen stadsportaal erheen) — dat is bewust. (e) 7 okt laat: Collegiate Calamity (in Silvermoon) vanuit Atal'Aman →
   reisvenster met alleen de Hearthstone-knop. Komt er iets niet: `/reload` en zeg het, dan lees ik `ns.db.travelWhy`.
-- [~] **Live, Shift+scroll op elk venster (7 okt laat):** ✅ boodschappenvenster (Rob, 7 okt). Rest nog: open het boodschappenvenster (Beroep én Raid), het reisvenster,
+- [x] **Live, Shift+scroll op elk venster (7 okt laat):** ✅ boodschappenvenster + ✅ "de andere vensters werken" (Rob, 7 okt). Was: open het boodschappenvenster (Beroep én Raid), het reisvenster,
   de changelog en de beroepscursus. Houd Shift in en scroll met de muis BOVEN de lijst/tekst: het venster wordt groter
   of kleiner. Zonder Shift scrolt de lijst gewoon. Na `/reload` houdt elk venster zijn eigen grootte. In gevecht doet
   Shift+scroll bewust niets. Mist er een venster: noem het, dan zet ik het erbij.
@@ -182,7 +183,7 @@ Gebouwd, niet getest. De twee vensters bestaan nog, maar delen nu tabbladen BOVE
 ## 🆕 7 okt — raid-herinnering (Rob koos hem)
 
 Gebouwd, niet getest. Staat standaard AAN; `/mh ready remind off` zet hem uit, `/mh ready remind` zegt de stand + laatste check.
-- [ ] Ga een raid-instance binnen (of laat de raidleider een ready check doen in een raidgroep) terwijl je iets mist →
+- [x] ✅ Rob 7 okt: "deed het toen ik in een raid ging". Ga een raid-instance binnen (of laat de raidleider een ready check doen in een raidgroep) terwijl je iets mist →
   na ~3 s een toast "Klaar voor de raid? Je mist N ding(en) voor vanavond"? Klik → het venster opent?
 - [ ] Niets missen → geen toast (`/mh ready remind` zegt dan "last check …: 0 missing").
 - [ ] Niet vaker dan één keer per raid-bezoek, en bij ready checks hooguit eens per 10 minuten.
@@ -191,7 +192,7 @@ Gebouwd, niet getest. Staat standaard AAN; `/mh ready remind off` zet hem uit, `
 
 Gebouwd, niet getest (`Modules/KeypadCommands.lua`). 27 commando's: 24 schermen + /mhcraftshop, /mhready, /mhblock.
 - [ ] `/mh keypad` → lijst in de chat (/mhrares Rares · /mhdelves … )?
-- [ ] `/mhrares` (of via je keypad) → MH-venster opent op Rares? Ook `/mhaccount`, `/mhprofessions`, `/mhcraftshop`.
+- [x] ✅ Rob 7 okt: "meerdere /mh geprobeerd en die werken". `/mhrares` (of via je keypad) → MH-venster opent op Rares? Ook `/mhaccount`, `/mhprofessions`, `/mhcraftshop`.
 - [ ] Botst er iets met een andere addon (een /mh…-commando dat iets anders doet)?
 
 ## 🔍 7 okt — meting: welke kwaliteit met zilver of goud? (`/mh craftshop quality`)
@@ -201,7 +202,8 @@ Voor de keuze "welke kwaliteit kopen" (`docs/CRAFTSHOP_QUALITY_2026-10-07.md`, v
   Per recept een chatregel "none = … | silver = quality … | gold = quality …". Daarna nog eens met het venster OPEN.
 - [ ] `/reload` → ik lees `craftShopQuality`. Zeg erbij of je het gouden leer/de schubben zelf hebt (de regel noemt ook
   "you own N" per gouden reagent).
-- [ ] **Variant b, al gebouwd** (Rob: "waarom niet ook b nu?"): onder een recept dat je kent een blauw regeltje
+- [x] ✅ Rob 7 okt (screenshot): "Codified Azeroot: Kwaliteit 1 met zilver of goud: koop zilver (van 2)" en "Hobbyist
+  Alchemist's Mixing Rod: met zilver 2 · met goud 4 · alleen Azeroot in goud 3 (van 5)". **Variant b, al gebouwd** (Rob: "waarom niet ook b nu?"): onder een recept dat je kent een blauw regeltje
   "Kwaliteit met zilver: 2 · met goud: 4 · alleen <reagent> in goud: 3 (van 5)", of "… met zilver of goud: koop zilver".
   Antwoordt het spel niet, dan staat er NIETS (zo bedoeld) — dan zegt `/mh craftshop quality` waarom.
 - [ ] **Variant a:** Academy → hoofdstuk Kwaliteit, onderaan "Welke koop je dan? …".
