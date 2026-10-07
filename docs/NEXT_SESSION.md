@@ -29,6 +29,11 @@
 - ✅ Rob (screenshot, retail): AoE-uitleg 1× met knoppen eronder; klein/groot per defensive (14d13be) staat goed.
   Craftshop "+N op alts" getest ✅ (TESTLIJST). Academy ronde 5 loopt: mh-research → FACTS5 (schild, Lay on Hands na
   Divine Shield, rol als niet-leider, Shield Block), dan mh-writer, dan herlezing 5.
+- Ronde 5 gedaan (a15d0d1 heal-gearstap, 7924408 teksten 7 talen). Herlezing 5 (docs/ROLE_SWITCH_REREAD5_NEWCOMER_
+  2026-10-07.md): tank 9, heal 9 — de grote gaten van ronde 4 dicht, nieuwe kleinere punten: bijna dood Divine Shield of
+  Lay on Hands; BoP "vooraf" vs "in nood"; tank-gear onder 90 in welke rol; Sentinel vervangt Avenging Wrath? (kaart vs
+  toolkit); heal-gear waar halen; Engelse woordjes; [Block] uitleggen; s-3 vs Shift 3; kaart 66 Blessed Hammer vs HotR.
+  Rob kiest: nog een ronde of stoppen op 9/9.
 - Rob: "alle schermen moeten Shift+scroll kunnen". Alleen 17 vensters met RegisterMidnightDialogPopup hadden het.
   Nu (DialogPopup.lua): `ns.MakeMidnightWindowScalable` + lijst SCALABLE_WINDOWS (30 namen) die een ticker van 2 s
   oppakt zodra het venster bestaat; scrollende kinderen worden ingepakt (Shift = venster schalen, anders hun eigen
