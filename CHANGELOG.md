@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.4
 
+📌 **2026-10-07 (avond), als RELEASE (Rob: "go"), tag `v4.7.4` wacht op Robs tweede go.** ~73 commits na beta 2. Rob
+testte die avond live: Hearthstone-knop (Grudge Pit, Collegiate Calamity, Coiled Isle), Shift+scroll (alle vensters),
+"+N op alts", kwaliteitsregel zilver/goud, raid-herinnering, keypad-commando's, Academy als Prot Paladin (AoE, één hamer,
+klein/groot), Venomfall 1×, consumables-bord sluit, Infusion of Light. NIET getest: Brewmaster Shift+2 (geen Monk),
+Aqir-naam op de PTR, de vertalingen (zelfgemaakt). Notitie opent met de beta-alinea (regel van 6 okt).
+
+- **Role Academy** (`/mh academy`): stappenplan, taunt/interrupt/stun/AoE met eigen toets, klein/groot, 6 rondes met
+  mh-research + mh-writer, herlezing 6: tank 10/10, heal 9/10 (daarna nog de laatste heal-punten).
+- **Boodschappen:** "+N op alts", kwaliteit zilver/goud (variant b), Raid | Beroep-tabs, Alles naar Auctionator.
+- **Reizen:** Hearthstone → Silvermoon → portaal; "in Silvermoon" = de stad (was: heel Quel'Thalas).
+- **Raid-herinnering**, **keypad-commando's**, **Shift+scroll op elk venster** (`SCALABLE_WINDOWS`).
+- **Fixes:** consumables-bord klik-knoppen sluiten mee; Venomfall Deeps `pinOnly`; HotR 53595; Sentinel klein;
+  Brewmaster `noBindKeyFor`; Eternal Flame op kaart 65; esMX laadt esES; "Great Vault Advisor" overal; Labyrinth tier 9-11.
+- **12.1.5:** 4 Codex-kaartjes met `minInterface` (verschijnen op patchdag).
+
 📌 **2026-10-06 (avond), beta 2 (Rob: "go voor de beta"), tag `v4.7.4-beta2`.** Erbij sinds beta 1: healers "Zo vecht je
 alleen" (`HealerSolo.lua`, speelkaart + rode rand op het blok; Rob gezien op Resto Druid en Resto Shaman); recept-tooltip
 "wie kent dit al" (`CraftShopRecipeItems.lua`, 314 items uit DB2; NIET getest); Moxie alle 11 beroepen door de client

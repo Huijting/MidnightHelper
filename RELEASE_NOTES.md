@@ -1,72 +1,80 @@
-# Midnight Helper 4.7.4 (beta): a shopping list for your profession
+# Midnight Helper 4.7.4: shopping for your profession, and learning to tank or heal
 
-## This is a beta
+## Want updates sooner? Try the betas
 
-This version is a **beta**: it goes to players who set the release type for Midnight Helper to **Beta** in the
-CurseForge app. Everyone else gets it a little later, once we know it works on more characters than ours.
+We put out **betas** regularly, before each bigger release. Want them? In the CurseForge app, open Midnight Helper and
+set the **release type to Beta**. You get new things a few days earlier, and you help us find what we missed.
 
-**Tell us how it goes, also when everything works.** A short "works fine on my alchemist" helps us as much as a bug
-report:
-
-- `/mh report` in game, or *Report a problem* in Settings,
-- a comment here on CurseForge,
-- or the feedback form on midnighthelper.com.
-
-Something looks odd? A screenshot says more than a long story.
-
-## New in beta 2
-
-- **Healers: how you fight alone.** Out in the world nobody heals or tanks for you. The play card (`/mh play`) of all
-  seven healer specs now has a short list of damage spells in order, with **your own key** behind each one. The order
-  is the one Blizzard's own Single-Button Assistant uses. On the key block picture (`/mh block`) those spells get a
-  **red border**.
-- **Which of your characters know this recipe?** Hover a Midnight recipe (in your bags, at the auction house, or a link
-  in chat): Midnight Helper lists who already knows it, and who has the profession but not the recipe yet. Each
-  character needs to open its profession once so Midnight Helper knows what it has learned.
-- **Your Moxie, finally.** Tools → Professions → Treasures & Books shows your Artisan's Moxie for each profession, and
-  the **Account snapshot** shows it right under each profession, per character. Moxie stays on the character that
-  earned it: an alt cannot send you theirs. The Profession Academy now also says where Moxie comes from (first crafts,
-  Patron Orders with a Moxie chest, the one-time profession treasures).
+**Tell us how it goes, also when everything works:** `/mh report` in game (or *Report a problem* in Settings), a
+comment here on CurseForge, or the feedback form on midnighthelper.com.
 
 ## Shopping for your profession (`/mh craftshop`)
 
-Asked for by one of our testers: "a list where I can see what I need for alchemy, and what I have to buy or farm".
+Asked for by one of our testers: "a list where I can see what I need, and what I have to buy or farm".
 
 - **Open your profession and click a recipe.** In the Midnight Helper panel beside it, click **+ … on your shopping
   list** and say how many times you want to craft it.
-- **One list per character**, in its own window (`/mh craftshop`, or Tools → Pop-out windows). It adds up every
-  reagent over all your recipes and shows what you have and what you need. Your bank, your Warband bank and your mail
-  count too.
-- **Click a row at the auction house** and it searches for that item. **To Auctionator** puts everything you still need
-  in a shopping list, with the amounts.
+- **One list per character**, in its own window. It adds up every reagent over all your recipes and shows what you
+  have and what you need. Your bank, your Warband bank and your mail count too.
+- **What your alts have:** short on a reagent that another character of yours carries? The row says **+31 on alts**,
+  and hovering it tells you who. A hint to mail it over; it never lowers what you still need.
+- **Silver or gold?** Under a recipe you know: which quality you get with silver reagents, with gold ones, or with
+  just one reagent in gold. Or simply "buy silver" when gold makes no difference.
+- **Where things come from:** "Vendor, next to your trainer" (with an arrow), which profession gathers it (and **Pick 3**
+  instead of "Buy" when you have Herbalism), or "You make this" with a **+ Make** button.
+- **Recipes you don't know yet** say where to get them, and **Show the way** puts an arrow on the trainer, vendor,
+  quest giver or dungeon entrance. Crafting something on the list counts it down.
+- **Raid | Profession tabs** on top of both shopping windows, and **Everything to Auctionator** puts both lists in one
+  Auctionator list.
+- **Which of your characters know this recipe?** Hover a Midnight recipe: Midnight Helper lists who knows it, and who
+  has the profession but not the recipe yet.
+- **Your Artisan's Moxie** per profession in Tools → Professions, and under each profession in the Account snapshot.
 
-### It explains the reagents
+## Role Academy: from DPS to tank or healer (`/mh academy`)
 
-Under most Midnight reagents, a short line says where it comes from. Hover it for the full story:
+For players who always played damage and want to try tanking or healing. Tools → Role Academy.
 
-- **Sold by a vendor** (like Sunglass Vial): "Vendor, next to your trainer". It stays off the Auctionator list, and the
-  **Vendor** button puts an arrow on that vendor.
-- **Gathered** (herbs, ore, leather, motes, ...): which profession and where. **Have that profession yourself?** The
-  line turns green and the list says **Pick 3**, **Mine 2** or **Skin 5** instead of "Buy".
-- **You can make it yourself:** "You make this: ..." with a **+ Make 2×** button. That puts the recipe on your list too:
-  its reagents join the list, and what it makes counts for the reagent.
+- **A route, step by step:** switch spec, gear (and where to get a shield), your keys, your play card, a training dummy,
+  a follower dungeon, your first real dungeon. Some steps tick themselves.
+- **Your important buttons, with your own key behind them:** taunt, interrupt, stun and the **AoE buttons** that start
+  every pull. Your damage reducers say whether they are a small one (press it often) or a big one (keep it for the
+  hardest hit).
+- **Clear answers to the questions beginners ask:** how to see a big hit coming, what "on cooldown" means, how to pick
+  your role in the Group Finder, what to press when you are nearly dead.
+- **Healers:** click casting explained (also when your frames addon has its own), who to heal first, and every healer
+  play card now has **"How you heal, in 3 steps"**.
+- **Healers fighting alone:** each healer play card has a short list of damage spells in order, with your keys.
 
-### Recipes you don't know yet
+## Travel and other new things
 
-A recipe you have not learned shows **where to get it**, in Blizzard's own words: a trainer, a vendor, a quest, a
-dungeon boss. For many of them a **Show the way** button puts an arrow on the place: the trainer, the vendor, the quest
-giver, or the entrance of the dungeon or raid.
+- **Hearthstone, then a city portal.** Bound in Silvermoon and heading for Harandar, Voidstorm or the Coiled Isle? The
+  travel window now offers your **Hearthstone** with "Faster: Hearthstone to Silvermoon, then the portal" (for the
+  Coiled Isle: once you have unlocked its portal). This works from anywhere outside the city itself, Zul'Aman and
+  Eversong included.
+- **Ready for the raid?** Enter a raid (or get a ready check) while you miss something: a reminder pops up. Off with
+  `/mh ready remind off`.
+- **One command per screen** for keypads and macros: `/mhrares`, `/mhdelves`, `/mhcraftshop` and more. `/mh keypad`
+  lists them all.
+- **Every window can be resized:** hold **Shift** and scroll, also over its list. Each window remembers its size.
 
-### It keeps up with you
+## Fixes
 
-**Crafted something on your list?** It counts down by itself, and when you are done it leaves the list. The chat says
-what happened.
+- **The consumables board** left invisible buttons behind after you closed it: hovering the empty spot still showed a
+  tooltip. They close with the board now.
+- **Venomfall Deeps** stood twice in the delve list. It is one delve with one entrance, so it is listed once.
+- **Protection Paladin:** Hammer of the Righteous was not recognised on your bars; Sentinel now says "press it often",
+  as the guides do. **Brewmaster:** Breath of Fire and Spinning Crane Kick no longer both ask for Shift+2.
+- **Holy Paladin:** with Herald of the Sun your Word of Glory is **Eternal Flame**, and the play card now says so.
+- **One name:** the Great Vault Advisor is called that everywhere.
+- **Spanish on Mexican clients:** an esMX client now gets the Spanish translation. Thank you for the report here on
+  CurseForge!
 
-## Smaller changes
+## Ready for patch 12.1.5
 
-- **Holy Paladin:** Hand of Reckoning and Shield of the Righteous now get a free Alt key on block D of the key block,
-  instead of the red "no place" line.
+The Codex has cards for **The Labyrinth of Kindo'jan**, the **Aqir Invasion**, **Kith'ix** and **Venomstones**. They stay
+hidden until your game is on 12.1.5, so they appear on patch day by themselves.
 
-Translated into German, French, Spanish, Portuguese and Italian (our own translations; corrections are welcome).
+Translated into German, French, Spanish, Portuguese and Italian. These are our own translations: native speakers,
+corrections are very welcome.
 
-Happy crafting!
+Have fun!

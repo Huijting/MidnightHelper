@@ -1,6 +1,13 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (7 okt laat) — oorzaak geen Hearthstone-knop GEVONDEN en gerepareerd, wacht op Robs test
+## ▶️ HIER VERDER (7 okt, laat op de avond) — 4.7.4 als GEWONE release klaargezet, wacht op Robs tweede go
+- Rob: "ik denk dat dit al wel een normale release kan worden" → na zijn testronde mijn advies ook release → "go".
+  Klaar: RELEASE_NOTES.md = docs/CURSEFORGE_4.7.4.md (byte-gelijk, 80 regels, opent met de beta-alinea), CHANGELOG_474_*
+  (enUS, 13 regels) + Changelog.lua, CHANGELOG.md. .toc stond al op 4.7.4. NIET gedaan: push + tag `v4.7.4` (Robs
+  tweede go), seintje site-chat ná de tag (cijferstrook + nachtbouw; "Vault Advisor" in de gidsen volgt dan vanzelf).
+  Na upload: CF → Files → Changelog nakijken.
+
+## (eerder) 7 okt laat — oorzaak geen Hearthstone-knop GEVONDEN en gerepareerd
 - GEMETEN in `ns.db.travelWhy`: Grudge Pit → "nothing to offer" met `isHub=true` terwijl Rob in Atal'Aman (2536) stond;
   Collegiate Calamity → "same region, silent" met `hsRoute=false`. Eén oorzaak: `PlayerIsInSilvermoonHub` vroeg
   "regiogroep 1" = heel Quel'Thalas (Eversong + Zul'Aman), niet de stad. Nu: map 2393 of een map erbinnen, of het
