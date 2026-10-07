@@ -19,6 +19,10 @@
 - CODEX_LABYRINTH_BODY (enUS + nlNL) gecorrigeerd na melding site-chat: "tier N → Delve N+1" gold alleen voor 1-8;
   in de data van build 70077 geven 9/10/11 dezelfde tier (stond al in PATCH_12_1_5_CONTENT r.65, de kaart nam het niet
   over). 🔴 de/fr/es/pt/it zeggen nog N+1 → mee in de mh-writer-ronde. Op release-dag controleren.
+- GEMETEN 12.1.5-PTR 19:10 (`/mh eventspy`, _xptr_ SV): Aqir Invasion = areaPoi **9045**, zone "Quel'Thalas" zonder
+  uiMapID, venster 900 s (15 min), volgende over ~49 min (= Blizzards tooltip "Aqir Invasion of Eversong"). 9045 stond al
+  in EventInfoData. MH toonde "Event in Quel'Thalas": EventScheduler.resolvePoi probeert nu de Midnight-kaarten
+  (2395 eerst) tot GetAreaPOIInfo een naam geeft. Niet getest. Open: 9045 staat 2× dubbel in "upcoming" (zelfde tijden).
 
 ## (vorige stand) 7 okt avond — reisvenster: geen Hearthstone-knop
 - Rob staat in Atal'Aman (Zul'Aman), Hearthstone gebonden in Wayfarer's Rest (= Silvermoon City, area 16645 — nu

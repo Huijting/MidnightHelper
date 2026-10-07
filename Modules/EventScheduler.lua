@@ -236,6 +236,19 @@ local function resolvePoi(areaPoiID)
 	if uiMapID then
 		info = safe(C_AreaPoiInfo and C_AreaPoiInfo.GetAreaPOIInfo, uiMapID, areaPoiID)
 	end
+	-- 🔴 GEMETEN 7 Oct 2026 on the 12.1.5 PTR: the Aqir Invasion (areaPoi 9045) comes with zone "Quel'Thalas" — the
+	-- region, not a zone — and no uiMapID, so this said "Event in Quel'Thalas" while Blizzard's own map tooltip on
+	-- Eversong (2395) read "Aqir Invasion of Eversong". Ask the Midnight zone maps in turn; first answer wins.
+	local foundByTrying = false
+	if not (info and info.name) then
+		for _, m in ipairs({ 2395, 2536, 2393, 2413, 2405, 2512, 2437, 2424 }) do
+			local try = safe(C_AreaPoiInfo and C_AreaPoiInfo.GetAreaPOIInfo, m, areaPoiID)
+			if try and try.name then
+				info, uiMapID, foundByTrying = try, m, true
+				break
+			end
+		end
+	end
 	local name = info and info.name
 	if not zone and info and info.zoneName then
 		zone = tostring(info.zoneName)
@@ -253,7 +266,9 @@ local function resolvePoi(areaPoiID)
 	if info and info.name then
 		nameCache()[areaPoiID] = info.name
 	end
-	if uiMapID and zone then
+	-- Not when the map was found by trying: "Quel'Thalas" holds three zones, and caching one would send the next
+	-- Quel'Thalas event to the wrong map first.
+	if uiMapID and zone and not foundByTrying then
 		zoneMap()[zone] = uiMapID
 	end
 
