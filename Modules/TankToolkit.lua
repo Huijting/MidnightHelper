@@ -106,7 +106,7 @@ ns.TANK_COOLDOWNS = {
 	[66] = { -- Protection Paladin
 		{ id = 31850, cd = 90, kind = "dr", size = "small" }, -- Ardent Defender
 		{ id = 86659, cd = 180, kind = "dr", size = "big" }, -- Guardian of Ancient Kings
-		{ id = 389539, cd = 120, kind = "dr", size = "big" }, -- Sentinel (up to 30% less damage taken)
+		{ id = 389539, cd = 120, kind = "dr", size = "small" }, -- Sentinel (up to 30% less damage taken); replaces Avenging Wrath, pressed on cooldown (FACTS6)
 		{ id = 204018, kind = "magic" }, -- Blessing of Spellwarding (talent; shares its cooldown with Blessing of Protection)
 		{ id = 642, cd = 300, kind = "immunity" }, -- Divine Shield
 	},

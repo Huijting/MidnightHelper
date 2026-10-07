@@ -215,7 +215,10 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- Sentinel (Prot/Ret cooldown) - SpellCategories/SpellCooldowns [389539]. NB: de "hero-Templar-lijn"-
 	-- duiding is onbevestigd (review F1.4); het id 389539 is wél addon-geverifieerd.
 	-- 17 Sep 2026: Prot only (W-TREE 790, not on IV-Ret); up to 30% less damage taken (IV-ProtPal).
-	["Sentinel"] = { blockQ = { [66] = true }, id = 389539, category = "cooldown", priority = 4, specs = { 66 }, survival = "big", survivalOrder = 2 },
+	-- 7 Oct 2026 (docs/ROLE_SWITCH_FACTS6_2026-10-07.md): Sentinel REPLACES Avenging Wrath on the bar (DB2 69933), and
+	-- Method/Icy Veins press it on cooldown. It was "big" (keep it) here while card 66 said "press it when ready": now
+	-- "small" (press it often), so the card, the Stay-alive tab and the toolkit say one thing.
+	["Sentinel"] = { blockQ = { [66] = true }, id = 389539, category = "cooldown", priority = 4, specs = { 66 }, survival = "small", survivalOrder = 2 },
 
     -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
     ["Execution Sentence"] = { id = 343527, category = "cooldown", priority = 1, specs = { 70 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 Ret node 109373; DB2 AssistedCombatStep Ret has it (rank 2, right after Avenging Wrath
