@@ -458,8 +458,18 @@ local function UpdateArrow()
 		--- Standing inside the Vaults, "head for Tokka's Landing" is where you end up;
 		--- the door out is what you do NEXT, and that is the difference between a label
 		--- and an instruction. Falls back to the flight point when no plan exists.
-		local aim
-		if ns.BuildTravelPlan then
+		local aim, hearthLine
+		-- First choice across continents: Hearthstone to Silvermoon, then the city portal (7 Oct 2026, Delves.lua
+		-- ns.MHHearthRouteFor). Only when the Hearthstone is ready and bound in Silvermoon. A whole sentence, so it
+		-- does not go through ARROW_FLY_TO ("head for …").
+		if ns.MHHearthRouteFor then
+			local okH, portalName = pcall(ns.MHHearthRouteFor, t.mapID)
+			if okH and portalName then
+				hearthLine = (ns:L("TRAVEL_HS_THEN_PORTAL_FMT")):format(portalName)
+				aim = hearthLine
+			end
+		end
+		if not aim and ns.BuildTravelPlan then
 			local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
 			if okP and type(steps) == "table" then
 				for _, s in ipairs(steps) do
@@ -480,6 +490,8 @@ local function UpdateArrow()
 			-- You are on it. One instruction, no direction, no distance.
 			f.label:SetText(("|cffffd100%s|r"):format(
 				(ns:L("ARROW_AT_STEP")):format(standingOnStep)))
+		elseif hearthLine then
+			f.label:SetText(("%s  %s  |cff8fd3ff%s|r"):format(t.name or "", other, hearthLine))
 		elseif aim then
 			f.label:SetText(("%s  %s  |cff8fd3ff%s|r"):format(
 				t.name or "", other, (ns:L("ARROW_FLY_TO")):format(aim)))

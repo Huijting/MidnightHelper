@@ -1680,6 +1680,22 @@ local function HearthViaHubPortal(targetChain, targetMap)
 end
 ns.MHHearthViaHubPortal = HearthViaHubPortal
 
+--- For the arrow's "other continent" label (NativeArrow.lua): the Silvermoon portal to take after a Hearthstone,
+--- or nil. Off when the Hearthstone is on cooldown. Rob, 7 Oct evening: "geen portal of fp advies?!" — the label
+--- named only the target's flight point while the popup knew the Hearthstone route.
+function ns.MHHearthRouteFor(targetMap)
+	targetMap = tonumber(targetMap)
+	if not targetMap then
+		return nil
+	end
+	if ns.GetItemCooldownSafe and (ns.GetItemCooldownSafe(6948) or 0) ~= 0 then
+		return nil
+	end
+	local chain = MapWithAncestors(targetMap)
+	local portal = HearthViaHubPortal(chain, targetMap)
+	return portal and portal.name or nil
+end
+
 --- Is `anc` this map itself, or one of the maps it sits inside?
 ---
 --- 🔴 ONE IDEA OF "WHERE A MAP BELONGS" — 12 Sep 2026. Rob routed from Silvermoon to an
