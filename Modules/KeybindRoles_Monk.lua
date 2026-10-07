@@ -95,7 +95,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- BREWMASTER (268)  -- tank
     -- =================================================================
     -- Builders / rotatie (SpellArchetypes: Keg Smash/Tiger Palm/Blackout Kick)
-    ["Keg Smash"]                    = { category = "main_rotation", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 3, survivalId = { [268] = 121253 }, survivalNote = "SURVIVAL_NOTE_SHUFFLE" }, -- 1: AoE-builder + snare; card 5 Oct 2026: Shuffle + brew cooldowns (IV/Wowhead); id Wowhead, not client-measured
+    ["Keg Smash"]                    = { id = 121253, category = "main_rotation", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 3, survivalId = { [268] = 121253 }, survivalNote = "SURVIVAL_NOTE_SHUFFLE" }, -- 1: AoE-builder + snare; card 5 Oct 2026: Shuffle + brew cooldowns (IV/Wowhead); id Wowhead, not client-measured
     -- Actieve mitigation (Stagger purge, verbruikt brew-charges)
     ["Purifying Brew"]               = { id = 119582, category = "defensive", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 1 }, -- 4: purge Stagger (actieve mitigation, GEEN dmg-spender); card: on a rhythm (IV BM)
     -- AoE

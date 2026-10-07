@@ -696,6 +696,17 @@ local function RenderTankToolkit(panel, child, y, cw)
 				rows[#rows + 1] = { tk.stun, "TANKKIT_TK_STUN" }
 			end
 		end
+		-- The AoE buttons, the first presses of every pull (newcomer re-read 3, T1). Same "only when you know it" rule.
+		for _, aoeID in ipairs(tk.aoe or {}) do
+			local known = true
+			if activeID and IsPlayerSpell then
+				local ok, k = pcall(IsPlayerSpell, aoeID)
+				known = not ok or k
+			end
+			if known then
+				rows[#rows + 1] = { aoeID, "TANKKIT_TK_AOE" }
+			end
+		end
 		for _, row in ipairs(rows) do
 			-- The key is added by AddToolkitLine (WithLiveKey), like on every other toolkit line.
 			local line = ("|cffffd100%s|r — %s"):format(ns.HealerCooldownSpellName(row[1]), SL(row[2]))

@@ -142,13 +142,16 @@ local TANK_SPECS = { [66] = true, [73] = true, [104] = true, [250] = true, [268]
 --- interrupts: role "interrupt"); the six taunts were re-checked in wago DB2 (docs/ROLE_SWITCH_FACTS_2026-10-07.md).
 --- `stun` (Rob, 7 Oct evening: "het enige wat ik mis is Hammer of Justice"): the stun KeybindRoles already marks with
 --- alsoStop = "stun" for that spec. Several are talents, so on your own spec the toolkit only shows it when you know it.
+--- `aoe` (newcomer re-read 3, T1: "welke knop is mijn AoE? Dit is de eerste knop van elke pull"): the buttons that hit
+--- many enemies, in pull order. Ids GEMETEN in wago SpellName 12.1.0.69933, order from Icy Veins/Method (after 18 Aug) —
+--- docs/ROLE_SWITCH_FACTS4_2026-10-07.md. Shown only when you know the spell (several are talents).
 ns.TANK_TAUNT_KICK = {
-	[66] = { taunt = 62124, kick = 96231, stun = 853 }, -- Hand of Reckoning, Rebuke, Hammer of Justice
-	[73] = { taunt = 355, kick = 6552, stun = 46968 }, -- Taunt, Pummel, Shockwave
-	[104] = { taunt = 6795, kick = 106839, stun = 5211 }, -- Growl, Skull Bash, Mighty Bash
-	[250] = { taunt = 56222, kick = 47528, stun = 221562 }, -- Dark Command, Mind Freeze, Asphyxiate
-	[268] = { taunt = 115546, kick = 116705, stun = 119381 }, -- Provoke, Spear Hand Strike, Leg Sweep
-	[581] = { taunt = 185245, kick = 183752, stun = 179057 }, -- Torment, Disrupt, Chaos Nova
+	[66] = { taunt = 62124, kick = 96231, stun = 853, aoe = { 26573, 31935, 204019 } }, -- Hand of Reckoning, Rebuke, Hammer of Justice; Consecration, Avenger's Shield, Blessed Hammer
+	[73] = { taunt = 355, kick = 6552, stun = 46968, aoe = { 6343, 6572 } }, -- Taunt, Pummel, Shockwave; Thunder Clap, Revenge
+	[104] = { taunt = 6795, kick = 106839, stun = 5211, aoe = { 77758, 213764 } }, -- Growl, Skull Bash, Mighty Bash; Thrash, Swipe
+	[250] = { taunt = 56222, kick = 47528, stun = 221562, aoe = { 43265, 50842 } }, -- Dark Command, Mind Freeze, Asphyxiate; Death and Decay, Blood Boil
+	[268] = { taunt = 115546, kick = 116705, stun = 119381, aoe = { 121253, 115181 } }, -- Provoke, Spear Hand Strike, Leg Sweep; Keg Smash, Breath of Fire
+	[581] = { taunt = 185245, kick = 183752, stun = 179057, aoe = { 258920, 204596, 247454 } }, -- Torment, Disrupt, Chaos Nova; Immolation Aura, Sigil of Flame, Spirit Bomb
 }
 
 function ns.GetTankMitigation(specID)

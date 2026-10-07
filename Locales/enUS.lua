@@ -1582,6 +1582,7 @@ ns._mhLocales.enUS = {
 	SURVIVAL_STEP_BIG = "a big one: press it just before the hardest hit you see coming (an immunity is also fine when you are about to die)",
 	-- Short remarks behind a row on the Stay alive card (17 Sep 2026). A fixed set, shared by all classes.
 	SURVIVAL_NOTE_PHYSICAL = "only against physical damage",
+	SURVIVAL_NOTE_PHYSICAL_TANK = "only against physical damage, and enemies turn to someone else: as a tank, only in an emergency, and taunt them back right after",
 	PLAYCARD_TAB_GROUP = "Group",
 	GROUP_INTRO = "Buttons you press for someone else or for the whole group. For one person: click their name first, then press the button. The grey note says when a button works differently.",
 	GROUP_NONE = "None of these buttons is on this character right now: another spec, or a talent you did not pick. /mh group shows why.",
@@ -1679,6 +1680,7 @@ ns._mhLocales.enUS = {
 	SURVIVAL_NOTE_COSTS_HP = "costs health: press it while you are still healthy",
 	SURVIVAL_NOTE_STAND_STILL = "stand still while it channels",
 	SURVIVAL_NOTE_FORBEARANCE = "gives Forbearance, which blocks your other immunity for a while",
+	SURVIVAL_NOTE_FORBEARANCE_TANK = "gives Forbearance, which blocks your other immunity for a while. Enemies turn to someone else while it is on: be ready to taunt when it ends",
 	SURVIVAL_NOTE_LAST_RESORT = "last resort, long cooldown",
 	SURVIVAL_NOTE_DAMAGE_HEALS = "heals you while it deals damage",
 	SURVIVAL_NOTE_BONE_SHIELD = "keeps Bone Shield up: stay above 5 stacks",
@@ -4095,7 +4097,8 @@ ns._mhLocales.enUS = {
 	-- Tank toolkit (Role Academy TANK track)
 	TANKKIT_HEAD = "Your tank toolkit",
 	TANKKIT_MIT_HEAD = "Your active mitigation (keep these up)",
-	TANKKIT_TK_HEAD = "Your taunt and your interrupt",
+	TANKKIT_TK_HEAD = "Your taunt, your interrupt and your AoE",
+	TANKKIT_TK_AOE = "AoE: hits several enemies at once. Start every pull with these, so the whole pack attacks you.",
 	TANKKIT_TK_TAUNT = "makes one enemy attack you. Press it when an enemy hits someone else.",
 	TANKKIT_TK_KICK = "stops an enemy spell while it is being cast. Watch the bar that fills up under its health bar.",
 	TANKKIT_TK_STUN = "stuns: the enemy cannot do anything for a few seconds, so it also stops a spell. Use it when your interrupt is still on cooldown.",

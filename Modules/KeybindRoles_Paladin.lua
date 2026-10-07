@@ -63,7 +63,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Kleine defensive (Z). Divine Shield = persoonlijke immunity (SpellCategories DEFENSIVE [642]).
 	-- Card: 8 s immunity on a 5 min cooldown with Forbearance — the LAST big button, not a keep-up.
-	["Divine Shield"] = { id = 642, role = "defensive_1", priority = 1, survival = "big", survivalOrder = 5, survivalNote = "SURVIVAL_NOTE_FORBEARANCE" }, -- Z; baseline (642)
+	["Divine Shield"] = { id = 642, role = "defensive_1", priority = 1, survival = "big", survivalOrder = 5, survivalNote = { [65] = "SURVIVAL_NOTE_FORBEARANCE", [66] = "SURVIVAL_NOTE_FORBEARANCE_TANK", [70] = "SURVIVAL_NOTE_FORBEARANCE" } }, -- Z; baseline (642). Prot: + "enemies leave you" (newcomer re-read 3, T2; Method/Icy Veins in FACTS4)
 
 	-- Grote defensive (C). Guardian of Ancient Kings (SpellCategories DEFENSIVE [86659]). Prot only (W-TREE 790).
 	["Guardian of Ancient Kings"] = { id = 86659, role = "defensive_3", priority = 1, specs = { 66 }, survival = "big", survivalOrder = 1 }, -- C; Prot (86659)
@@ -73,7 +73,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- 3 Oct 2026: not Prot. Protection has no Divine Protection in 12.1 (absent from Icy Veins' full
 	-- 12.1 spell list, positive control Crusader Strike on the same page; play-card audit 3 Oct).
 	["Divine Protection"] = { id = 403876, category = "defensive", priority = 2, specs = { 65, 70 }, survival = "small", survivalOrder = 1, survivalId = { [65] = 498 } }, -- DEFENSIVE [403876] (kleine DR)
-	["Blessing of Protection"] = { id = 1022, category = "defensive", priority = 3, survival = "big", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- DEFENSIVE [1022] (fysieke immunity, op ally/self)
+	["Blessing of Protection"] = { id = 1022, category = "defensive", priority = 3, survival = "big", survivalOrder = 4, survivalNote = { [65] = "SURVIVAL_NOTE_PHYSICAL", [66] = "SURVIVAL_NOTE_PHYSICAL_TANK", [70] = "SURVIVAL_NOTE_PHYSICAL" } }, -- DEFENSIVE [1022] (fysieke immunity, op ally/self). Prot: the Group tab says "not on a tank" — one answer now (re-read 3, T2)
 	["Blessing of Sacrifice"] = { id = 6940, category = "defensive", priority = 4 }, -- DEFENSIVE [6940] (external DR-transfer); NOT on the card: ally only
 	["Blessing of Spellwarding"] = { id = 204018, category = "defensive", priority = 5, survivalSpecs = { 66 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_MAGIC", specs = { 66 } }, -- DEFENSIVE [204018] (magic immunity, talent)
 
@@ -131,7 +131,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	["Judgment"] = { id = 20271, category = "main_rotation", priority = 1, specs = { 65, 66, 70 } }, -- 65 since 5 Oct 2026 (IV Holy 12.1; Holy's version 275773, wago) -- SpellArchetypes [20271] ranged builder; Prot 1 / Ret builder
 	["Avenger's Shield"] = { id = 31935, category = "main_rotation", priority = 2, specs = { 66 }, alsoStop = "silence" }, -- InterruptAbilities [31935] kind=interrupt pri2 (silences); rotational builder; alsoStop → Spec 08 cross-list (stays on 2)
-	["Hammer of the Righteous"] = { id = 88263, category = "main_rotation", priority = 3, specs = { 66 } }, -- SpellArchetypes [88263] ranged; AoE-cleave builder
+	["Hammer of the Righteous"] = { id = 53595, category = "main_rotation", priority = 3, specs = { 66 } }, -- AoE-cleave builder. 7 Oct 2026: was 88263 (SpellArchetypes), which is the hammer's AoE effect, not the button; the button is 53595 (wago SpellName 12.1.0.69933, docs/ROLE_SWITCH_FACTS4_2026-10-07.md), so an id match missed it on every client
 	["Blessed Hammer"] = { id = 204019, category = "main_rotation", priority = 3, specs = { 66 } }, -- SpellArchetypes [204019]; talent-alternatief voor Hammer of the Righteous
 	--- ⚠️ BLIJFT `{ 66 }`, EN DAT IS EEN GEMETEN BESLUIT — 7 sep 2026. Robs Ret meldde deze spell
 	--- als `unclassified`, en omdat onze scan off-spec regels overslaat leek dat te bewijzen dat
