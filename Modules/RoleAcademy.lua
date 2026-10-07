@@ -886,6 +886,10 @@ local function RebuildScrollContent(panel)
 	local chatRowH = CHAT_ROW_H * s
 	local chatCopyBtn = CHAT_COPY_BTN * s
 
+	-- Read the bars afresh on every draw (the toolkit shows live keys); same as PlayCardWindow.
+	if ns.LiveKeysInvalidate then
+		ns.LiveKeysInvalidate()
+	end
 	local track = GetTrack()
 	local sections = SECTION_KEYS[track] or SECTION_KEYS.tank
 	local y = -4
@@ -1181,6 +1185,32 @@ function ns.BuildRoleAcademyPanel(panel)
 	panel._mhRefreshAcademy = function()
 		ns.MH_RefreshRoleAcademyPanel(panel)
 	end
+
+	-- Rob, 7 Oct 2026 evening: he took Lay on Hands off F2 and the toolkit only turned red after closing and reopening
+	-- the window. Redraw on bar and binding changes while the page is open (one redraw per burst — dragging a spell
+	-- fires several events), keeping the scroll position so the page does not jump to the top.
+	local ev = CreateFrame("Frame")
+	for _, e in ipairs({ "ACTIONBAR_SLOT_CHANGED", "UPDATE_BINDINGS", "ACTIONBAR_PAGE_CHANGED", "UPDATE_BONUS_ACTIONBAR" }) do
+		ev:RegisterEvent(e)
+	end
+	local pending = false
+	ev:SetScript("OnEvent", function()
+		if pending or not panel:IsShown() or not (C_Timer and C_Timer.After) then
+			return
+		end
+		pending = true
+		C_Timer.After(0.3, function()
+			pending = false
+			if not panel:IsShown() or (InCombatLockdown and InCombatLockdown()) then
+				return
+			end
+			local keep = scroll.GetVerticalScroll and scroll:GetVerticalScroll() or 0
+			ns.MH_RefreshRoleAcademyPanel(panel)
+			if scroll.SetVerticalScroll then
+				scroll:SetVerticalScroll(keep)
+			end
+		end)
+	end)
 
 	ns.MH_RefreshRoleAcademyPanel(panel)
 end
