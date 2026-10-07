@@ -52,8 +52,9 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
 - [ ] **Live, consumables-bord sluiten (7 okt laat, Rob vond het):** open het bord, sluit het met het kruisje. Ga met je
   muis over de plek waar de vakjes stonden: GEEN tooltip meer ("Niet in je tas"), geen oplichtend vierkantje. Ook na een
   gevecht niet. Open het bord opnieuw: klikken op een flask/oil werkt nog?
-- [ ] **Live, Holy Paladin: Infusion of Light** — druk een paar keer Holy Shock. Als de buff komt: licht de knop Flash
-  of Light op je balk op, of zie je alleen een plaatje midden op je scherm? (Kaart 65 zegt nu "op je scherm".)
+- [x] **Live, Holy Paladin: Infusion of Light** — ✅ Rob 7 okt (screenshot): buff bij je buffs, 10 s, tooltip "Flash of
+  Light healing increased by 200% and becomes instant cast". Kaart 65 zegt nu "bij je buffs, 10 seconden" (7 talen).
+  Of de knop óók oplicht: niet gezien.
 - [ ] **Live, Holy Paladin heal-toolkit:** Divine Shield heet nu *[Immuniteit]*, Divine Protection blijft *[Defensive]*.
 - [ ] **Live, in Silvermoon City:** route naar iets in Harandar of Voidstorm. De pijl wijst naar het portaal; de
   portaalKNOP mag nu NIET meer verschijnen (was dubbel). Ver van een portaal (andere zone) moet de knop er wél nog zijn.
