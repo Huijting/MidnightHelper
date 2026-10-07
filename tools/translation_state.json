@@ -240,20 +240,20 @@
    "ptBR": "753c9be4f05347a2"
   },
   "ACADEMY_HEAL_COOLDOWNS_BODY": {
-   "deDE": "0cf2a2e9d866c993",
-   "esES": "0cf2a2e9d866c993",
-   "frFR": "0cf2a2e9d866c993",
-   "itIT": "0cf2a2e9d866c993",
-   "nlNL": "0cf2a2e9d866c993",
-   "ptBR": "0cf2a2e9d866c993"
+   "deDE": "de23192e50b146b1",
+   "esES": "de23192e50b146b1",
+   "frFR": "de23192e50b146b1",
+   "itIT": "de23192e50b146b1",
+   "nlNL": "de23192e50b146b1",
+   "ptBR": "de23192e50b146b1"
   },
   "ACADEMY_HEAL_COOLDOWNS_TITLE": {
-   "deDE": "d8acc9a266c8048c",
-   "esES": "d8acc9a266c8048c",
-   "frFR": "d8acc9a266c8048c",
-   "itIT": "d8acc9a266c8048c",
-   "nlNL": "d8acc9a266c8048c",
-   "ptBR": "d8acc9a266c8048c"
+   "deDE": "4a6efe1d858de5a3",
+   "esES": "4a6efe1d858de5a3",
+   "frFR": "4a6efe1d858de5a3",
+   "itIT": "4a6efe1d858de5a3",
+   "nlNL": "4a6efe1d858de5a3",
+   "ptBR": "4a6efe1d858de5a3"
   },
   "ACADEMY_HEAL_DUNGEON_BODY": {
    "deDE": "9804d8fc538e6e1f",
@@ -551,6 +551,14 @@
    "nlNL": "25bcc13f767c52a6",
    "ptBR": "25bcc13f767c52a6"
   },
+  "ACADEMY_STEP_HEAL_GEAR": {
+   "deDE": "f0eefc58f84d1a9f",
+   "esES": "f0eefc58f84d1a9f",
+   "frFR": "f0eefc58f84d1a9f",
+   "itIT": "f0eefc58f84d1a9f",
+   "nlNL": "f0eefc58f84d1a9f",
+   "ptBR": "f0eefc58f84d1a9f"
+  },
   "ACADEMY_STEP_HEAL_KEYS": {
    "deDE": "dbd344171511bd9b",
    "esES": "dbd344171511bd9b",
@@ -576,12 +584,12 @@
    "ptBR": "57304cf11ffcc259"
   },
   "ACADEMY_STEP_NORMAL": {
-   "deDE": "a7031b2987f37ab8",
-   "esES": "a7031b2987f37ab8",
-   "frFR": "a7031b2987f37ab8",
-   "itIT": "a7031b2987f37ab8",
-   "nlNL": "a7031b2987f37ab8",
-   "ptBR": "a7031b2987f37ab8"
+   "deDE": "13ede71538468765",
+   "esES": "13ede71538468765",
+   "frFR": "13ede71538468765",
+   "itIT": "13ede71538468765",
+   "nlNL": "13ede71538468765",
+   "ptBR": "13ede71538468765"
   },
   "ACADEMY_STEP_TANK_DUMMY": {
    "deDE": "83b81d1d70edaa73",
@@ -592,12 +600,12 @@
    "ptBR": "83b81d1d70edaa73"
   },
   "ACADEMY_STEP_TANK_GEAR": {
-   "deDE": "26656c2f56a7cfff",
-   "esES": "26656c2f56a7cfff",
-   "frFR": "26656c2f56a7cfff",
-   "itIT": "26656c2f56a7cfff",
-   "nlNL": "26656c2f56a7cfff",
-   "ptBR": "26656c2f56a7cfff"
+   "deDE": "7d7ab1b9f31336e0",
+   "esES": "7d7ab1b9f31336e0",
+   "frFR": "7d7ab1b9f31336e0",
+   "itIT": "7d7ab1b9f31336e0",
+   "nlNL": "7d7ab1b9f31336e0",
+   "ptBR": "7d7ab1b9f31336e0"
   },
   "ACADEMY_STEP_TANK_KEYS": {
    "deDE": "6fa04435e4a09efb",
@@ -655,12 +663,12 @@
    "ptBR": "284f6c26e6692a55"
   },
   "ACADEMY_TANK_DUNGEON_BODY": {
-   "deDE": "6d05f5cacfc9a22c",
-   "esES": "6d05f5cacfc9a22c",
-   "frFR": "6d05f5cacfc9a22c",
-   "itIT": "6d05f5cacfc9a22c",
-   "nlNL": "6d05f5cacfc9a22c",
-   "ptBR": "6d05f5cacfc9a22c"
+   "deDE": "afdb9cc8e3cc3e57",
+   "esES": "afdb9cc8e3cc3e57",
+   "frFR": "afdb9cc8e3cc3e57",
+   "itIT": "afdb9cc8e3cc3e57",
+   "nlNL": "afdb9cc8e3cc3e57",
+   "ptBR": "afdb9cc8e3cc3e57"
   },
   "ACADEMY_TANK_DUNGEON_TITLE": {
    "deDE": "392341c3f686d05e",
@@ -735,12 +743,12 @@
    "ptBR": "269e2142ebe17d3e"
   },
   "ACADEMY_TANK_WHAT_BODY": {
-   "deDE": "fcfdc4df3f712f7f",
-   "esES": "fcfdc4df3f712f7f",
-   "frFR": "fcfdc4df3f712f7f",
-   "itIT": "fcfdc4df3f712f7f",
-   "nlNL": "fcfdc4df3f712f7f",
-   "ptBR": "fcfdc4df3f712f7f"
+   "deDE": "9586f9c1a07d913b",
+   "esES": "9586f9c1a07d913b",
+   "frFR": "9586f9c1a07d913b",
+   "itIT": "9586f9c1a07d913b",
+   "nlNL": "9586f9c1a07d913b",
+   "ptBR": "9586f9c1a07d913b"
   },
   "ACADEMY_TANK_WIPE_BODY": {
    "deDE": "69d54a0ba0bd7683",
@@ -12285,6 +12293,14 @@
    "nlNL": "5a3893734096354a",
    "ptBR": "5a3893734096354a"
   },
+  "GROUP_NOTE_LOH": {
+   "deDE": "3122b574a0951d01",
+   "esES": "3122b574a0951d01",
+   "frFR": "3122b574a0951d01",
+   "itIT": "3122b574a0951d01",
+   "nlNL": "3122b574a0951d01",
+   "ptBR": "3122b574a0951d01"
+  },
   "GS_MOVE": {
    "deDE": "49c431e27d3e38e1",
    "esES": "49c431e27d3e38e1",
@@ -12496,12 +12512,12 @@
    "ptBR": "03b3e7466924cb34"
   },
   "HEALCD_TITLE": {
-   "deDE": "697df134a9878013",
-   "esES": "697df134a9878013",
-   "frFR": "697df134a9878013",
-   "itIT": "697df134a9878013",
-   "nlNL": "697df134a9878013",
-   "ptBR": "697df134a9878013"
+   "deDE": "ea96c0a298a56aa6",
+   "esES": "ea96c0a298a56aa6",
+   "frFR": "ea96c0a298a56aa6",
+   "itIT": "ea96c0a298a56aa6",
+   "nlNL": "ea96c0a298a56aa6",
+   "ptBR": "ea96c0a298a56aa6"
   },
   "HEALCD_WHEN_EMERG": {
    "deDE": "24d6752078f807d8",
@@ -18019,12 +18035,12 @@
    "ptBR": "9acd176891edb9e4"
   },
   "PLAYCARD_66_S5": {
-   "deDE": "61ae02e98c6b2d97",
-   "esES": "61ae02e98c6b2d97",
-   "frFR": "61ae02e98c6b2d97",
-   "itIT": "61ae02e98c6b2d97",
-   "nlNL": "61ae02e98c6b2d97",
-   "ptBR": "61ae02e98c6b2d97"
+   "deDE": "4c52d6a04bc29764",
+   "esES": "4c52d6a04bc29764",
+   "frFR": "4c52d6a04bc29764",
+   "itIT": "4c52d6a04bc29764",
+   "nlNL": "4c52d6a04bc29764",
+   "ptBR": "4c52d6a04bc29764"
   },
   "PLAYCARD_70_S4": {
    "deDE": "3c38beb49aa41a49",
@@ -18041,6 +18057,14 @@
    "itIT": "9e6c2ba0201b9aee",
    "nlNL": "9e6c2ba0201b9aee",
    "ptBR": "9e6c2ba0201b9aee"
+  },
+  "PLAYCARD_HEAL_HOW": {
+   "deDE": "371fc4fb24c51c2c",
+   "esES": "371fc4fb24c51c2c",
+   "frFR": "371fc4fb24c51c2c",
+   "itIT": "371fc4fb24c51c2c",
+   "nlNL": "371fc4fb24c51c2c",
+   "ptBR": "371fc4fb24c51c2c"
   },
   "POISON_HEADER": {
    "deDE": "6628e79ad740cc95",
@@ -25220,13 +25244,21 @@
    "nlNL": "b6cf06c70b73ee04",
    "ptBR": "b6cf06c70b73ee04"
   },
+  "SURVIVAL_NOTE_FORBEARANCE": {
+   "deDE": "febf3a57c4d41867",
+   "esES": "febf3a57c4d41867",
+   "frFR": "febf3a57c4d41867",
+   "itIT": "febf3a57c4d41867",
+   "nlNL": "febf3a57c4d41867",
+   "ptBR": "febf3a57c4d41867"
+  },
   "SURVIVAL_NOTE_FORBEARANCE_TANK": {
-   "deDE": "78a8bcf9bc589616",
-   "esES": "78a8bcf9bc589616",
-   "frFR": "78a8bcf9bc589616",
-   "itIT": "78a8bcf9bc589616",
-   "nlNL": "78a8bcf9bc589616",
-   "ptBR": "78a8bcf9bc589616"
+   "deDE": "a00ecf4f97e81c1b",
+   "esES": "a00ecf4f97e81c1b",
+   "frFR": "a00ecf4f97e81c1b",
+   "itIT": "a00ecf4f97e81c1b",
+   "nlNL": "a00ecf4f97e81c1b",
+   "ptBR": "a00ecf4f97e81c1b"
   },
   "SURVIVAL_NOTE_PHYSICAL_TANK": {
    "deDE": "105dd26667eadc25",
@@ -25541,6 +25573,22 @@
    "nlNL": "9408c1e0e1d48f06",
    "ptBR": "9408c1e0e1d48f06"
   },
+  "TANKKIT_CDDESC_DR_BIG": {
+   "deDE": "c668d1f56623203e",
+   "esES": "c668d1f56623203e",
+   "frFR": "c668d1f56623203e",
+   "itIT": "c668d1f56623203e",
+   "nlNL": "c668d1f56623203e",
+   "ptBR": "c668d1f56623203e"
+  },
+  "TANKKIT_CDDESC_DR_SMALL": {
+   "deDE": "c803e4dc7654f75d",
+   "esES": "c803e4dc7654f75d",
+   "frFR": "c803e4dc7654f75d",
+   "itIT": "c803e4dc7654f75d",
+   "nlNL": "c803e4dc7654f75d",
+   "ptBR": "c803e4dc7654f75d"
+  },
   "TANKKIT_CDDESC_IMMUNITY": {
    "deDE": "726a0c64176f3ae1",
    "esES": "726a0c64176f3ae1",
@@ -25637,12 +25685,12 @@
    "ptBR": "399b6e412d0b08a5"
   },
   "TANKKIT_MITDESC_BLOCK": {
-   "deDE": "ae5ab59254ebed9f",
-   "esES": "ae5ab59254ebed9f",
-   "frFR": "ae5ab59254ebed9f",
-   "itIT": "ae5ab59254ebed9f",
-   "nlNL": "ae5ab59254ebed9f",
-   "ptBR": "ae5ab59254ebed9f"
+   "deDE": "fc091a81e62bd585",
+   "esES": "fc091a81e62bd585",
+   "frFR": "fc091a81e62bd585",
+   "itIT": "fc091a81e62bd585",
+   "nlNL": "fc091a81e62bd585",
+   "ptBR": "fc091a81e62bd585"
   },
   "TANKKIT_MITDESC_BREW": {
    "deDE": "de3f82710912ce3d",
