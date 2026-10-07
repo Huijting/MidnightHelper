@@ -39,6 +39,8 @@ Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PT
   Hearthstone-knop tonen + "Faster: Hearthstone to Silvermoon, then Portal to …". Typ ook `/mh portals`: bovenste
   regel = je Hearthstone-plek + yes/no. Staat er "no" terwijl je wél in Silvermoon gebonden bent → noem de plek die
   er staat (dan voeg ik die naam toe).
+- [ ] **Live, in Silvermoon City:** route naar iets in Harandar of Voidstorm. De pijl wijst naar het portaal; de
+  portaalKNOP mag nu NIET meer verschijnen (was dubbel). Ver van een portaal (andere zone) moet de knop er wél nog zijn.
 - [ ] **PTR, Aqir Invasion:** Void & Rituals-tab → event-regel van de invasie: hover → uitleg + beloning?
 
 ## 🆕 6 okt — knoppen voor commando's die alleen via /mh gingen (Rob: alle 4 groepen + de 5 reparaties)

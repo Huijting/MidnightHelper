@@ -8,6 +8,9 @@
   de doelzone(-keten) → Hearthstone-knop + regel TRAVEL_HS_THEN_PORTAL_FMT. In BEIDE kopieën (AddSmartTomTomWay en
   ShowTravelAssistFor). Fail-closed: een herberg met een andere naam = geen aanbod. `/mh portals` print nu bovenaan
   de bind-plek + yes/no. Niet getest → TESTLIJST. TravelPlan (meerstappenplan) nog zonder Hearthstone.
+- Rob: in Silvermoon wijst de pijl al naar het portaal én kwam er een portaalknop (dubbel). RouteFirstToFlightPoint
+  zet nu `ns._mhArrowLedTo` (+ tijd); het reisvenster toont de knop niet als de pijl < 2 s geleden naar datzelfde
+  portaal (x/y ±1) is gezet. Regel "Use: …" blijft; zonder knop en zonder Hearthstone verdwijnt het venster. Niet getest.
 - Speelkaarten-verversing loopt (mh-research → docs/PLAYCARDS_REFRESH_2026-10-07.md).
 
 ## 📚 7 okt — 12.1.5-feiten + 4 Codex-kaartjes (punt 2 van de top-5)

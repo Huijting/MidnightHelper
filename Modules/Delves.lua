@@ -1898,7 +1898,18 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		local best = directPortal or hubPortal
 		if best then
 			travelPopup.portalBtn.mapID, travelPopup.portalBtn.x, travelPopup.portalBtn.y, travelPopup.portalBtn.name = best.p.mapID, best.p.x, best.p.y, best.p.name
-			travelPopup.portalBtn:Show()
+			-- 🔴 Rob, 7 Oct 2026: in Silvermoon, heading for Harandar, the arrow already pointed at the portal and the
+			-- popup still offered a button to "focus the portal" — the same thing twice. RouteFirstToFlightPoint
+			-- (DelveTipMarkup) records where it just led the arrow; when that is this portal, the advice line stays and
+			-- the button does not. Only a record from the last 2 seconds counts, so an old route cannot hide it.
+			local led = ns._mhArrowLedTo
+			-- No map-id test: the Silvermoon portals sit in MIDNIGHT_PORTALS twice (map 2393 and canvas 2576, same
+			-- x/y), and the plan and this loop may pick different rows of the same portal.
+			local arrowOnIt = led and GetTime and (GetTime() - (led.at or 0)) < 2
+				and math.abs((led.x or 0) - best.p.x) < 1 and math.abs((led.y or 0) - best.p.y) < 1
+			if not arrowOnIt then
+				travelPopup.portalBtn:Show()
+			end
 			portalAdvice, bestDist = string.format("\n|cff00ffffUse: %s (%dyd)|r", best.p.name, best.d), best.d
 		end
 
@@ -2065,7 +2076,18 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		local best = directPortal or hubPortal
 		if best then
 			travelPopup.portalBtn.mapID, travelPopup.portalBtn.x, travelPopup.portalBtn.y, travelPopup.portalBtn.name = best.p.mapID, best.p.x, best.p.y, best.p.name
-			travelPopup.portalBtn:Show()
+			-- 🔴 Rob, 7 Oct 2026: in Silvermoon, heading for Harandar, the arrow already pointed at the portal and the
+			-- popup still offered a button to "focus the portal" — the same thing twice. RouteFirstToFlightPoint
+			-- (DelveTipMarkup) records where it just led the arrow; when that is this portal, the advice line stays and
+			-- the button does not. Only a record from the last 2 seconds counts, so an old route cannot hide it.
+			local led = ns._mhArrowLedTo
+			-- No map-id test: the Silvermoon portals sit in MIDNIGHT_PORTALS twice (map 2393 and canvas 2576, same
+			-- x/y), and the plan and this loop may pick different rows of the same portal.
+			local arrowOnIt = led and GetTime and (GetTime() - (led.at or 0)) < 2
+				and math.abs((led.x or 0) - best.p.x) < 1 and math.abs((led.y or 0) - best.p.y) < 1
+			if not arrowOnIt then
+				travelPopup.portalBtn:Show()
+			end
 			portalAdvice, bestDist = string.format("\n|cff00ffffUse: %s (%dyd)|r", best.p.name, best.d), best.d
 		end
 

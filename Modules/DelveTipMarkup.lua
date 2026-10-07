@@ -510,6 +510,9 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 	if ns._mhTravelLegBusy or not ns.GetNearestFlightPoint then
 		return false -- re-entry: leg one sets its own waypoint through the same call
 	end
+	-- Where this call pointed the arrow, if it led to a plan step (a portal). The travel popup reads it so it
+	-- does not offer a "focus the portal" button for the portal the arrow already points at (Rob, 7 Oct 2026).
+	ns._mhArrowLedTo = nil
 	--- ⚠️ REMOVED 18 aug: a bail-out on "same zone or sub-zone".
 	---
 	--- Rob, standing in the Vaults with a delve on the isle above him: "ik wil gewoon
@@ -579,6 +582,7 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						ns._mhTravelLegBusy = true
 						pcall(ns.AddSmartTomTomWay, s.mapID, s.x, s.y, s.label or name, true)
 						ns._mhTravelLegBusy = nil
+						ns._mhArrowLedTo = { mapID = s.mapID, x = s.x, y = s.y, at = GetTime and GetTime() or 0 }
 						--- And arm the same hand-off the flight leg uses, so the arrow
 						--- picks the destination back up on the far side instead of
 						--- being spent the moment you step through.
