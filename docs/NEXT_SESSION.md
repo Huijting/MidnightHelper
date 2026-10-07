@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ▶️ HIER VERDER (7 okt avond, chat werd te lang) — reisvenster: geen Hearthstone-knop
+- Rob staat in Atal'Aman (Zul'Aman), Hearthstone gebonden in Wayfarer's Rest (= Silvermoon City, area 16645 — nu
+  herkend, `/mh portals` zegt "Yes"). Route naar The Grudge Pit (Harandar): de PIJLREGEL zegt nu "Sneller: Hearthstone
+  naar Silvermoon, dan Portal to Harandar" ✅, maar het reisvenster met de Hearthstone-KNOP komt niet ❌. Naar Coiled
+  Isle en Collegiate Calamity zegt de chat "vliegen via FP is sneller", ook geen knop.
+- Gebouwd (niet bewezen): region-stilte overslaan als ns.MHHearthRouteFor(target) of HearthstoneGoesTo(targetZone)
+  (beide kopieën: AddSmartTomTomWay + ShowTravelAssistFor). Oorzaak nog ONBEKEND.
+- 🔎 Meting staat klaar: `ns.db.travelWhy` (laatste 12 beslissingen van AddSmartTomTomWay + ShowTravelPopup, met
+  reden). EERSTE STAP nieuwe chat: Rob doet /reload → route Grudge Pit → route Collegiate Calamity → /reload; lees dan
+  `travelWhy` uit WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua en repareer de echte uitgang.
+  Let op: de delve-routeknoppen roepen AddSmartTomTomWay misschien aan met skipTravelUI — dan staat dat in de log.
+- Daarna open: laatste Academy-ronde voor 10/10 (docs/ROLE_SWITCH_REREAD3_NEWCOMER_2026-10-07.md: AoE-knop tank,
+  Blessing of Protection, stap 7 + rol kiezen, "op cooldown"); PTR-tests (Labyrinth, Codex 12.1.5-kaartjes);
+  craftshop-tests met een recept. Alles sinds beta2 lokaal, NIET gepusht — push/tag/release alleen op Robs go.
+
 ## 🎓 7 okt — Role Academy voor DPS'ers die willen tanken/healen (Rob: "1 t/m 4", 5 = stappenplan later)
 - Twee reviews (docs/ROLE_SWITCH_REVIEW_EXPERT_/_NEWCOMER_2026-10-07.md): nieuweling gaf tank 3/10, heal 5/10. Feiten:
   docs/ROLE_SWITCH_FACTS_2026-10-07.md (wago 12.1.0.69933: Click Casting-pad, follower dungeons 80-90 alle 9, taunt 6 s/8 s,
