@@ -8,7 +8,10 @@
   Auctionator" → één lijst "MH - <naam>" (RaidTerms + ns.CraftShopTerms). Niet getest.
 - Vertaalronde (mh-writer-script, toegepast): 8 keys × 5 talen + PROFACAD_CH_QUALITY_ADVANCED (gemarkeerd). Nog alleen
   enUS/nlNL: SHOPTAB_*, SHOP_ALL_AUCTIONATOR, RAIDSHOP_REMIND_*. Twijfel fr "argent" (= ook geld).
-- WoW Forever: Rob gevraagd of hij in de beta zit; besluit 22 sep blijft (wachten, anders rond 4 nov kijken).
+- 📅 **WoW Forever — HERINNERING 4 NOV 2026 (launch):** Rob, 7 okt: beta alleen via Epic Pack €59,99 → niet kopen. Plan
+  (Rob: "ja doe maar"): (1) 4 nov één 16001-TOC-regel zodat MH op Forever laadt, Rob kijkt een avond wat werkt;
+  (2) paar weken later drukte + downloads van Forever-addons bekijken; (3) dán kiezen: Forever-uitlegkaarten in MH of een
+  aparte "Forever Helper". Nu NIETS bouwen. Achtergrond: memory wow-forever-research.
 
 ## ⌨️ 7 okt — keypad-commando's (memory keypad-window-shortcuts; Rob koos "/mhrares", niet "/rares")
 `Modules/KeypadCommands.lua`: 27 top-level slashes (/mh + schermnaam) via ns.ShowMainUI + ns.SelectTab (zelfde tab-ids
