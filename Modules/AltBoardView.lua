@@ -320,7 +320,15 @@ local function BuildRows(entries, curGuid)
 			local mid = MOXIE_BY_SKILL[skillOf[pname] or 0]
 			if mid then
 				local c = { id = mid }
-				line("prof", "   |cffffd100" .. ns:L("ALTBOARD_MOXIE") .. "|r", function(e)
+				-- The word in the player's own language, from the game: item 237505 "Artisan's Moxie" is Blizzard's
+				-- generic name (Tatkraft des Handwerkers / Arrojo de artesano / Energizante de artesano on esMX ...;
+				-- docs/RESEARCH_2026-10-07_moxie_tantalum.md). Rob, 7 Oct 2026: "naam uit het spel". ALTBOARD_MOXIE is
+				-- the fallback while the item is not cached yet.
+				local moxieName = C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(237505)
+				if type(moxieName) ~= "string" or moxieName == "" then
+					moxieName = ns:L("ALTBOARD_MOXIE")
+				end
+				line("prof", "   |cffffd100" .. moxieName .. "|r", function(e)
 					if not hasProf(e, pname) then
 						return ""
 					end
