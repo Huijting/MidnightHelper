@@ -1882,7 +1882,10 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	local currentHub, px = ns.GetPlayerHubContext(currentMap)
 	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
 	local targetRegion = ns.GetTargetRegionGroupID(targetMap, xPct) -- was an undefined `targetX` until 12 Sep 2026
-	if currentMap and targetMap and currentRegion == targetRegion and currentRegion ~= 0 then
+	-- ...except when the Hearthstone-then-city-portal route applies (Rob, 7 Oct 2026 evening, Atal'Aman → The Grudge
+	-- Pit: the arrow label named the route but there was no button, because Zul'Aman and Harandar share a region group).
+	local hsRoute = ns.MHHearthRouteFor and not PlayerIsInSilvermoonHub(currentMap) and ns.MHHearthRouteFor(targetMap)
+	if currentMap and targetMap and currentRegion == targetRegion and currentRegion ~= 0 and not hsRoute then
 		SafeHideTravelPopup()
 		return true
 	end
@@ -2071,7 +2074,9 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 	local currentHub, px = ns.GetPlayerHubContext(currentMap)
 	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
 	local targetRegion = ns.GetTargetRegionGroupID(targetMap, xPct) -- was an undefined `targetX` until 12 Sep 2026
-	if currentMap and currentRegion == targetRegion and currentRegion ~= 0 then
+	-- Same exception as in AddSmartTomTomWay: the Hearthstone-then-city-portal route opens the popup.
+	local hsRoute = ns.MHHearthRouteFor and not PlayerIsInSilvermoonHub(currentMap) and ns.MHHearthRouteFor(targetMap)
+	if currentMap and currentRegion == targetRegion and currentRegion ~= 0 and not hsRoute then
 		SafeHideTravelPopup()
 		return
 	end
