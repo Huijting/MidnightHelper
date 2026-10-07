@@ -44,6 +44,9 @@ local WHEN = {
 	haste = "HEALCD_WHEN_HASTE",
 	mana = "HEALCD_WHEN_MANA",
 	flow = "HEALCD_WHEN_FLOW",
+	-- 7 Oct 2026 (docs/ROLE_SWITCH_FACTS3_2026-10-07.md §3): Holy Paladin's Avenging Wrath and Divine Toll are
+	-- "on cooldown" spells per the guides; "flow" told the toolkit reader to wait for heavy damage.
+	often = "HEALCD_WHEN_OFTEN",
 }
 
 -- Kind label + a scan colour per kind.
@@ -99,8 +102,8 @@ local TAG_COLOR = {
 ns.HEALER_COOLDOWNS = {
 	-- Holy Paladin (65)
 	[65] = {
-		{ id = 31884, cd = 120, kind = "heal", when = "flow" }, -- Avenging Wrath (boosts healing)
-		{ id = 375576, cd = 60, kind = "heal", when = "flow" }, -- Divine Toll
+		{ id = 31884, cd = 120, kind = "heal", when = "often" }, -- Avenging Wrath (boosts healing)
+		{ id = 375576, cd = 60, kind = "heal", when = "often" }, -- Divine Toll
 		{ id = 31821, cd = 180, kind = "mitig", when = "raid" }, -- Aura Mastery (raid magic DR)
 		{ id = 6940, cd = 120, kind = "ext", when = "ext" }, -- Blessing of Sacrifice
 		{ id = 633, cd = 600, kind = "heal", when = "emerg" }, -- Lay on Hands (full-HP emergency heal, ally OR self)

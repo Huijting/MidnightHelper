@@ -41,12 +41,12 @@
    "ptBR": "c45423f02b71b391"
   },
   "ACADEMY_CHAT_HINT": {
-   "deDE": "7716561e183427b8",
-   "esES": "7716561e183427b8",
-   "frFR": "7716561e183427b8",
-   "itIT": "7716561e183427b8",
-   "nlNL": "7716561e183427b8",
-   "ptBR": "7716561e183427b8"
+   "deDE": "828d3a844d9e7372",
+   "esES": "828d3a844d9e7372",
+   "frFR": "828d3a844d9e7372",
+   "itIT": "828d3a844d9e7372",
+   "nlNL": "828d3a844d9e7372",
+   "ptBR": "828d3a844d9e7372"
   },
   "ACADEMY_CLASS_FMT": {
    "deDE": "58f5ff24151c0560",
@@ -264,12 +264,12 @@
    "ptBR": "81e22eb39e2a4e94"
   },
   "ACADEMY_HEAL_DUNGEON_TITLE": {
-   "deDE": "3e301cb1c8ecef61",
-   "esES": "3e301cb1c8ecef61",
-   "frFR": "3e301cb1c8ecef61",
-   "itIT": "3e301cb1c8ecef61",
-   "nlNL": "3e301cb1c8ecef61",
-   "ptBR": "3e301cb1c8ecef61"
+   "deDE": "392341c3f686d05e",
+   "esES": "392341c3f686d05e",
+   "frFR": "392341c3f686d05e",
+   "itIT": "392341c3f686d05e",
+   "nlNL": "392341c3f686d05e",
+   "ptBR": "392341c3f686d05e"
   },
   "ACADEMY_HEAL_INTRO_BODY": {
    "deDE": "476e90a58229c345",
@@ -368,12 +368,12 @@
    "ptBR": "269e2142ebe17d3e"
   },
   "ACADEMY_HEAL_TRIAGE_BODY": {
-   "deDE": "3353107f92644e1a",
-   "esES": "3353107f92644e1a",
-   "frFR": "3353107f92644e1a",
-   "itIT": "3353107f92644e1a",
-   "nlNL": "3353107f92644e1a",
-   "ptBR": "3353107f92644e1a"
+   "deDE": "f7aac99cb4fc4e54",
+   "esES": "f7aac99cb4fc4e54",
+   "frFR": "f7aac99cb4fc4e54",
+   "itIT": "f7aac99cb4fc4e54",
+   "nlNL": "f7aac99cb4fc4e54",
+   "ptBR": "f7aac99cb4fc4e54"
   },
   "ACADEMY_HEAL_TRIAGE_TITLE": {
    "deDE": "c585ed72642d71bf",
@@ -519,6 +519,86 @@
    "nlNL": "0cce16fe2dd1806d",
    "ptBR": "0cce16fe2dd1806d"
   },
+  "ACADEMY_SEE_BODY": {
+   "deDE": "f1d4665bea4a4ef9",
+   "esES": "f1d4665bea4a4ef9",
+   "frFR": "f1d4665bea4a4ef9",
+   "itIT": "f1d4665bea4a4ef9",
+   "nlNL": "f1d4665bea4a4ef9",
+   "ptBR": "f1d4665bea4a4ef9"
+  },
+  "ACADEMY_STEP_CARD": {
+   "deDE": "d36850ffe32899e5",
+   "esES": "d36850ffe32899e5",
+   "frFR": "d36850ffe32899e5",
+   "itIT": "d36850ffe32899e5",
+   "nlNL": "d36850ffe32899e5",
+   "ptBR": "d36850ffe32899e5"
+  },
+  "ACADEMY_STEP_FOLLOWER": {
+   "deDE": "eb904ce6840bb2b2",
+   "esES": "eb904ce6840bb2b2",
+   "frFR": "eb904ce6840bb2b2",
+   "itIT": "eb904ce6840bb2b2",
+   "nlNL": "eb904ce6840bb2b2",
+   "ptBR": "eb904ce6840bb2b2"
+  },
+  "ACADEMY_STEP_HEAL_KEYS": {
+   "deDE": "dbd344171511bd9b",
+   "esES": "dbd344171511bd9b",
+   "frFR": "dbd344171511bd9b",
+   "itIT": "dbd344171511bd9b",
+   "nlNL": "dbd344171511bd9b",
+   "ptBR": "dbd344171511bd9b"
+  },
+  "ACADEMY_STEP_HEAL_SPEC": {
+   "deDE": "99665bb8ac22187b",
+   "esES": "99665bb8ac22187b",
+   "frFR": "99665bb8ac22187b",
+   "itIT": "99665bb8ac22187b",
+   "nlNL": "99665bb8ac22187b",
+   "ptBR": "99665bb8ac22187b"
+  },
+  "ACADEMY_STEP_HINT": {
+   "deDE": "57304cf11ffcc259",
+   "esES": "57304cf11ffcc259",
+   "frFR": "57304cf11ffcc259",
+   "itIT": "57304cf11ffcc259",
+   "nlNL": "57304cf11ffcc259",
+   "ptBR": "57304cf11ffcc259"
+  },
+  "ACADEMY_STEP_NORMAL": {
+   "deDE": "d38a1a68c2b4b550",
+   "esES": "d38a1a68c2b4b550",
+   "frFR": "d38a1a68c2b4b550",
+   "itIT": "d38a1a68c2b4b550",
+   "nlNL": "d38a1a68c2b4b550",
+   "ptBR": "d38a1a68c2b4b550"
+  },
+  "ACADEMY_STEP_TANK_DUMMY": {
+   "deDE": "83b81d1d70edaa73",
+   "esES": "83b81d1d70edaa73",
+   "frFR": "83b81d1d70edaa73",
+   "itIT": "83b81d1d70edaa73",
+   "nlNL": "83b81d1d70edaa73",
+   "ptBR": "83b81d1d70edaa73"
+  },
+  "ACADEMY_STEP_TANK_KEYS": {
+   "deDE": "6fa04435e4a09efb",
+   "esES": "6fa04435e4a09efb",
+   "frFR": "6fa04435e4a09efb",
+   "itIT": "6fa04435e4a09efb",
+   "nlNL": "6fa04435e4a09efb",
+   "ptBR": "6fa04435e4a09efb"
+  },
+  "ACADEMY_STEP_TANK_SPEC": {
+   "deDE": "2aee675d9f85d65d",
+   "esES": "2aee675d9f85d65d",
+   "frFR": "2aee675d9f85d65d",
+   "itIT": "2aee675d9f85d65d",
+   "nlNL": "2aee675d9f85d65d",
+   "ptBR": "2aee675d9f85d65d"
+  },
   "ACADEMY_SUBTITLE": {
    "deDE": "d1db368851e8e1fc",
    "esES": "d1db368851e8e1fc",
@@ -567,12 +647,12 @@
    "ptBR": "eeea9f490e35e22e"
   },
   "ACADEMY_TANK_DUNGEON_TITLE": {
-   "deDE": "3e301cb1c8ecef61",
-   "esES": "3e301cb1c8ecef61",
-   "frFR": "3e301cb1c8ecef61",
-   "itIT": "3e301cb1c8ecef61",
-   "nlNL": "3e301cb1c8ecef61",
-   "ptBR": "3e301cb1c8ecef61"
+   "deDE": "392341c3f686d05e",
+   "esES": "392341c3f686d05e",
+   "frFR": "392341c3f686d05e",
+   "itIT": "392341c3f686d05e",
+   "nlNL": "392341c3f686d05e",
+   "ptBR": "392341c3f686d05e"
   },
   "ACADEMY_TANK_INTRO_BODY": {
    "deDE": "aab5d9ccd454d0bf",
@@ -679,12 +759,12 @@
    "ptBR": "dd6e5703966975a5"
   },
   "ACADEMY_WORDS_BODY": {
-   "deDE": "4d51ca76e4919646",
-   "esES": "4d51ca76e4919646",
-   "frFR": "4d51ca76e4919646",
-   "itIT": "4d51ca76e4919646",
-   "nlNL": "4d51ca76e4919646",
-   "ptBR": "4d51ca76e4919646"
+   "deDE": "bf7016ee67733310",
+   "esES": "bf7016ee67733310",
+   "frFR": "bf7016ee67733310",
+   "itIT": "bf7016ee67733310",
+   "nlNL": "bf7016ee67733310",
+   "ptBR": "bf7016ee67733310"
   },
   "ACCOUNT_WEEKLY_ALL_CURRENT": {
    "deDE": "06db1ab725a942de",
@@ -12512,12 +12592,12 @@
    "ptBR": "34ca0e76608842ff"
   },
   "HEALCORE_TAG_BIG": {
-   "deDE": "9bd2448fa5cf6d62",
-   "esES": "9bd2448fa5cf6d62",
-   "frFR": "9bd2448fa5cf6d62",
-   "itIT": "9bd2448fa5cf6d62",
-   "nlNL": "9bd2448fa5cf6d62",
-   "ptBR": "9bd2448fa5cf6d62"
+   "deDE": "f69fd263467d47ac",
+   "esES": "f69fd263467d47ac",
+   "frFR": "f69fd263467d47ac",
+   "itIT": "f69fd263467d47ac",
+   "nlNL": "f69fd263467d47ac",
+   "ptBR": "f69fd263467d47ac"
   },
   "HEALCORE_TAG_BOUNCE": {
    "deDE": "9e6ad6db21dbc4cc",
@@ -12599,12 +12679,20 @@
    "ptBR": "b11400ed8c1338c1"
   },
   "HEALTOOLKIT_CDS_HEAD": {
-   "deDE": "11af1e3953a33cc1",
-   "esES": "11af1e3953a33cc1",
-   "frFR": "11af1e3953a33cc1",
-   "itIT": "11af1e3953a33cc1",
-   "nlNL": "11af1e3953a33cc1",
-   "ptBR": "11af1e3953a33cc1"
+   "deDE": "feff87a688df9090",
+   "esES": "feff87a688df9090",
+   "frFR": "feff87a688df9090",
+   "itIT": "feff87a688df9090",
+   "nlNL": "feff87a688df9090",
+   "ptBR": "feff87a688df9090"
+  },
+  "HEALTOOLKIT_DEF_DESC": {
+   "deDE": "92c935b464b704ef",
+   "esES": "92c935b464b704ef",
+   "frFR": "92c935b464b704ef",
+   "itIT": "92c935b464b704ef",
+   "nlNL": "92c935b464b704ef",
+   "ptBR": "92c935b464b704ef"
   },
   "HEALTOOLKIT_DEF_HEAD": {
    "deDE": "e05a5af3c4462816",
@@ -17865,6 +17953,14 @@
    "itIT": "96b5db910778390d",
    "nlNL": "96b5db910778390d",
    "ptBR": "96b5db910778390d"
+  },
+  "PLAYCARD_66_S5": {
+   "deDE": "61ae02e98c6b2d97",
+   "esES": "61ae02e98c6b2d97",
+   "frFR": "61ae02e98c6b2d97",
+   "itIT": "61ae02e98c6b2d97",
+   "nlNL": "61ae02e98c6b2d97",
+   "ptBR": "61ae02e98c6b2d97"
   },
   "PLAYCARD_70_S4": {
    "deDE": "3c38beb49aa41a49",
@@ -25056,6 +25152,14 @@
    "nlNL": "b6cf06c70b73ee04",
    "ptBR": "b6cf06c70b73ee04"
   },
+  "SURVIVAL_STEP_BIG": {
+   "deDE": "238d5d93f0fa51ac",
+   "esES": "238d5d93f0fa51ac",
+   "frFR": "238d5d93f0fa51ac",
+   "itIT": "238d5d93f0fa51ac",
+   "nlNL": "238d5d93f0fa51ac",
+   "ptBR": "238d5d93f0fa51ac"
+  },
   "SURVIVAL_STEP_ESCAPE": {
    "deDE": "7dd007c3bec24582",
    "esES": "7dd007c3bec24582",
@@ -25354,12 +25458,12 @@
    "ptBR": "47e2f4e528853564"
   },
   "TANKKIT_CDDESC_IMMUNITY": {
-   "deDE": "1b364f38c961c4da",
-   "esES": "1b364f38c961c4da",
-   "frFR": "1b364f38c961c4da",
-   "itIT": "1b364f38c961c4da",
-   "nlNL": "1b364f38c961c4da",
-   "ptBR": "1b364f38c961c4da"
+   "deDE": "726a0c64176f3ae1",
+   "esES": "726a0c64176f3ae1",
+   "frFR": "726a0c64176f3ae1",
+   "itIT": "726a0c64176f3ae1",
+   "nlNL": "726a0c64176f3ae1",
+   "ptBR": "726a0c64176f3ae1"
   },
   "TANKKIT_CDDESC_MAGIC": {
    "deDE": "218093f0756d42f0",

@@ -20,7 +20,15 @@
   /mh bosswin). Heal-botsingen weg (triage-regel, HEALCORE_DESC_BIG, 105_S3/MISTAKE, mana → tooltip), laatste "bewaar"
   (HEALCD_TITLE, HEALCD_WHEN_RAID, TANK_WIPE), woordenlijst + DPS/spec/HP/buff/LFR/Normal-Heroic-Mythic/M+. Feiten:
   docs/ROLE_SWITCH_FACTS2_2026-10-07.md. mh-writer 07i, 7 talen. Twijfel: es/pt "Tu provocar"/"Seu provocar" leest stroef.
-- Open: ACADEMY_HEAL_BOTH_BODY/TRACK_* achter in 6 talen; DPS-track niet herzien. Herlezing 2 loopt. Niet getest.
+- Herlezing 2 (docs/ROLE_SWITCH_REREAD2_NEWCOMER_2026-10-07.md): tank 7, heal 8. Rob: "we willen 10/10". Ronde 3
+  (feiten docs/ROLE_SWITCH_FACTS3_2026-10-07.md, mh-writer 07j, 7 talen): SURVIVAL_STEP_BIG (alle klassen, ±28 knoppen)
+  = net vóór de hardste klap, immuniteit ook als laatste redmiddel; één Divine Shield-uitleg (8 s immuun); Holy Paladin
+  Avenging Wrath/Divine Toll → nieuwe when "often" (HEALCD_WHEN_OFTEN; HEALCD_WHEN_FLOW ongemoeid voor 5 andere
+  cooldowns); "hoe" bij elke stap (tooltip van de knoppen rechtsonder toont de toets; slepen uit Spellbook); dummies
+  Silvermoon; interrupt = terwijl de balk volloopt; label "Efficient" → "Big"; dungeon-titels; PLAYCARD_66_S5 taunt;
+  woordenlijst +9; chat-plakken (Ctrl+V). Open/twijfel: Sentinel-botsing (code, KeybindRoles_Paladin:218), Shift+J/Enter
+  komen uit de wiki, esES/ptBR ACADEMY_TANK_CHAT_BODY nog machinetaal, ondertitel "prep-vinkjes/parse-guide".
+- Open: ACADEMY_HEAL_BOTH_BODY/TRACK_* achter in 6 talen; DPS-track niet herzien. Herlezing 3 loopt. Niet getest.
 
 ## 🧭 7 okt — Hearthstone → Silvermoon → portaal (Rob: "kleine eigen versie" i.p.v. Farstrider)
 - Farstrider = GPL3: code én de dataset overnemen mag niet; losse feiten nakijken wel. Rob koos een eigen kleine
