@@ -2139,6 +2139,7 @@ ns._mhLocales.nlNL = {
 	ACADEMY_STEP_TANK_GEAR = "Gear met de hoofdstat van je tank-spec (Protection Paladin en Warrior: ook een schild). Talents & Spellbook -> Specialization toont hem onder elke spec als \"Primary Stat\"; je karakterscherm toont alleen de hoofdstat van de spec waarin je zit.",
 	ACADEMY_STEP_TANK_KEYS = "Je taunt en je interrupt staan op een toets (de toolkit hieronder noemt ze): Talents & Spellbook -> Spellbook, sleep elke spreuk met de linkermuisknop naar je actiebalk",
 	ACADEMY_STEP_HEAL_SPEC = "Wissel naar je healer-spec: Talents & Spellbook (rechtsonder) -> Specialization -> Activate",
+	ACADEMY_STEP_HEAL_GEAR = "Gear met Intellect, de hoofdstat van elke healer-spec (Talents & Spellbook -> Specialization toont hem als \"Primary Stat\"). Vooral een wapen met Intellect. Een Paladin houdt zijn plate: er is plate met Intellect.",
 	ACADEMY_STEP_HEAL_FRAMES = "Raid-style party frames aan (Esc -> Edit Mode -> Party Frames)",
 	ACADEMY_STEP_HEAL_KEYS = "Je heals en je dispel staan op toetsen die je makkelijk raakt: sleep ze uit Talents & Spellbook -> Spellbook naar je actiebalk",
 	ACADEMY_STEP_CARD = "De kaart van je spec één keer gelezen: de knop \"Zo speel je\" hieronder, of druk Enter, typ /mh play, druk Enter",

@@ -14,7 +14,7 @@ local TRACK_DPS = "dps"
 --- Steps the client can see tick themselves (AUTO_STEPS); the rest are your own ticks, saved as before.
 local PREFLIGHT_KEYS = {
 	tank = { "spec", "gear", "keys", "card", "dummy", "follower", "normal" },
-	heal = { "spec", "frames", "keys", "card", "friend", "follower", "normal" },
+	heal = { "spec", "gear", "frames", "keys", "card", "friend", "follower", "normal" }, -- gear: re-read 4 (FACTS5 §5)
 	dps = { "rotation", "cooldowns", "defensive", "interrupt" },
 }
 
@@ -30,6 +30,7 @@ local PREFLIGHT_LABEL_KEYS = {
 	},
 	heal = {
 		spec = "ACADEMY_STEP_HEAL_SPEC",
+		gear = "ACADEMY_STEP_HEAL_GEAR",
 		frames = "ACADEMY_STEP_HEAL_FRAMES",
 		keys = "ACADEMY_STEP_HEAL_KEYS",
 		card = "ACADEMY_STEP_CARD",

@@ -2215,6 +2215,7 @@ ns._mhLocales.enUS = {
 	ACADEMY_STEP_TANK_GEAR = "Gear with your tank spec's main stat (Protection Paladin and Warrior: a shield too). Talents & Spellbook -> Specialization shows it under each spec as \"Primary Stat\"; your character screen only lists the main stat of the spec you are in.",
 	ACADEMY_STEP_TANK_KEYS = "Your taunt and your interrupt are on a key (the toolkit below names them): Talents & Spellbook -> Spellbook, drag each spell with the left mouse button onto your action bar",
 	ACADEMY_STEP_HEAL_SPEC = "Switch to your healer spec: Talents & Spellbook (bottom right) -> Specialization -> Activate",
+	ACADEMY_STEP_HEAL_GEAR = "Gear with Intellect, the main stat of every healer spec (Talents & Spellbook -> Specialization shows it as \"Primary Stat\"). Above all a weapon with Intellect. A Paladin keeps his plate: plate with Intellect exists.",
 	ACADEMY_STEP_HEAL_FRAMES = "Raid-style party frames on (Esc -> Edit Mode -> Party Frames)",
 	ACADEMY_STEP_HEAL_KEYS = "Your heals and your dispel are on keys you can reach: drag them from Talents & Spellbook -> Spellbook onto your action bar",
 	ACADEMY_STEP_CARD = "Read your spec's card once: the \"How you play\" button below, or press Enter, type /mh play, press Enter",
