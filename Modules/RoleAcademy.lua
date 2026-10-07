@@ -697,6 +697,7 @@ local function RenderTankToolkit(panel, child, y, cw)
 			end
 		end
 		-- The AoE buttons, the first presses of every pull (newcomer re-read 3, T1). Same "only when you know it" rule.
+		local aoeKnown = {}
 		for _, aoeID in ipairs(tk.aoe or {}) do
 			local known = true
 			if activeID and IsPlayerSpell then
@@ -704,13 +705,21 @@ local function RenderTankToolkit(panel, child, y, cw)
 				known = not ok or k
 			end
 			if known then
-				rows[#rows + 1] = { aoeID, "TANKKIT_TK_AOE" }
+				aoeKnown[#aoeKnown + 1] = aoeID
 			end
 		end
 		for _, row in ipairs(rows) do
 			-- The key is added by AddToolkitLine (WithLiveKey), like on every other toolkit line.
 			local line = ("|cffffd100%s|r — %s"):format(ns.HealerCooldownSpellName(row[1]), SL(row[2]))
 			y = AddToolkitLine(panel, child, cw, y, line, false, row[1])
+		end
+		-- Rob, 7 Oct 2026: the AoE sentence stood three times under each other. Now once, with the buttons below it.
+		if #aoeKnown > 0 then
+			y = AddToolkitLine(panel, child, cw, y, SL("TANKKIT_TK_AOE"), false)
+			for _, aoeID in ipairs(aoeKnown) do
+				y = AddToolkitLine(panel, child, cw, y, ("   • |cffffd100%s|r"):format(ns.HealerCooldownSpellName(aoeID)),
+					false, aoeID)
+			end
 		end
 	end
 	local cds = OwnedOnly(ns.GetTankCooldowns and ns.GetTankCooldowns(specID), activeID)
