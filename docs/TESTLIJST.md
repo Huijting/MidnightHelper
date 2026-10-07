@@ -204,9 +204,10 @@ Voor de keuze "welke kwaliteit kopen" (`docs/CRAFTSHOP_QUALITY_2026-10-07.md`, v
 
 Gebouwd, niet getest. Elk personage onthoudt bij inloggen (en als de tassen veranderen, max. 1× per 5 s) hoeveel het
 heeft van de reagents op ALLE boodschappenlijsten: tassen + bank, níet de Warband-bank (die telt al mee).
-- [ ] Log één keer in op een alt die iets heeft van een reagent op je lijst (bv. Tranquility Bloom), terug naar je
+- [x] Log één keer in op een alt die iets heeft van een reagent op je lijst (bv. Tranquility Bloom), terug naar je
   alchemist → bij die reagent "+N op alts" (alleen als je tekortkomt)? Muis erop: "Op je andere personages … Iceicebaby 50"?
-- [ ] "Koop N" blijft gelijk (alts tellen niet als "heb je al", het is een tip om te posten).
+  ✅ Rob 7 okt (screenshot): Tranquility Bloom 3/28 "+31 op alts", tooltip "Theexodus 31. Stuur het per post …".
+- [x] "Koop N" blijft gelijk (alts tellen niet als "heb je al", het is een tip om te posten). ✅ zelfde screenshot: "Pluk 25".
 
 ## 🆕 7 okt — dispel-hercontrole: A, B, C (Rob koos alle vier; D pas na 14 okt)
 

@@ -25,7 +25,10 @@
   gear-stap; 3× zelfde zin onder Ardent Defender/GoAK/Sentinel (klein/groot per knop = code); heal-hoofdstuk +
   /mh healcds zeggen nog "grote cooldowns". Vragen voor mh-research: Lay on Hands vlak na Divine Shield? Rol aanvinken
   als je geen leider bent? Gedaan: Hammer of the Righteous 53595 in de Prot AoE-lijst. ⚠️ AFGELEID: als
-  IsPlayerSpell(53595) ook true geeft met Blessed Hammer gekozen, staan er twee hamers — Rob kijkt.
+  IsPlayerSpell(53595) ook true geeft met Blessed Hammer gekozen, staan er twee hamers — ✅ Rob 7 okt: één hamer.
+- ✅ Rob (screenshot, retail): AoE-uitleg 1× met knoppen eronder; klein/groot per defensive (14d13be) staat goed.
+  Craftshop "+N op alts" getest ✅ (TESTLIJST). Academy ronde 5 loopt: mh-research → FACTS5 (schild, Lay on Hands na
+  Divine Shield, rol als niet-leider, Shield Block), dan mh-writer, dan herlezing 5.
 - Rob: "alle schermen moeten Shift+scroll kunnen". Alleen 17 vensters met RegisterMidnightDialogPopup hadden het.
   Nu (DialogPopup.lua): `ns.MakeMidnightWindowScalable` + lijst SCALABLE_WINDOWS (30 namen) die een ticker van 2 s
   oppakt zodra het venster bestaat; scrollende kinderen worden ingepakt (Shift = venster schalen, anders hun eigen
