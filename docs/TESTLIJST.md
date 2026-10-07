@@ -119,6 +119,19 @@ Gebouwd, niet getest. Teksten alleen enUS + nlNL (vertaalronde volgt). Muis op e
 - [ ] Het nep-recept "Knowledge" (geen reagents) toevoegen → chat zegt dat het niet op de lijst komt?
 - [ ] `/mh craftshop why`: regel "items you can make … N" met een getal boven 0 (na het openen van je beroep)?
 
+## 🆕 7 okt — dispel-hercontrole: A, B, C (Rob koos alle vier; D pas na 14 okt)
+
+Achtergrond: `docs/DISPEL_RECHECK_2026-10-07.md`. De deur voor zelf debuffs lezen blijft dicht; dit zijn kleine metingen.
+- [ ] **A (jij/Cisca, niets gebouwd):** een dungeon in een groep met `/mh partytargets` aan. Licht je eigen of andermans
+  rij rood op ("DISPEL")? Screenshot van de MH-rij én Blizzards raid frame op hetzelfde moment. Niet rood terwijl er iets
+  op zit: `/mh glow`.
+- [ ] **B (gebouwd, niet getest):** na elk gevecht in een groep (met `/mh partytargets` aan) bewaart MH je eigen debuffs door
+  drie filters: raid (= de rode rij), rpd (iemand in je groep kan het), any (heeft een dispel-type). Na een dungeon:
+  `/reload` → ik lees `dispelSelfLog` en zie welk filter de valse alarmen (Magic op een Prot Paladin) niet geeft.
+- [ ] **C (gebouwd, staat UIT):** `/mh dispelsound test` → hoor je een klok? `/mh dispelsound on` → chat "N of M spells
+  registered"? Dan in een dungeon: piept het als JIJ een debuff krijgt die je zelf kunt weghalen? `/mh dispelsound why`.
+  Werkt alleen met debuffs die MH al eens zag (dispelCapture, gevuld in dungeons). Uitzetten: `/mh dispelsound off`.
+
 ## 🆕 6 okt avond — Moxie zichtbaar (alle 11 nummers door het spel bevestigd, `/mh moxie`)
 
 Deze regels stonden sinds 19 jul bewust UIT (alle geraden nummers waren fout). Nu voor het eerst aan:

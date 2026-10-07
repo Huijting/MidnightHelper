@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🛡️ 7 okt — dispel-hercontrole (gepland, `docs/DISPEL_RECHECK_2026-10-07.md`): deur blijft dicht; Rob koos A+B+C+D
+- A = Rob/Cisca kijkt in een dungeon met `/mh partytargets` (niets gebouwd).
+- B GEBOUWD (PartyTargets.lua AfterCombatDispelCheck): 3 filters naast elkaar (raid / rpd / any) → `dispelSelfLog`, 60 regels.
+- C GEBOUWD, standaard UIT: `Modules/DispelSound.lua`, `/mh dispelsound on|off|test|why` — AddAuraSound op "player" voor de
+  dispelCapture-debuffs van de scholen die je spec weghaalt; geluid 566558 (DBM's raid warning, KANDIDAAT). Niet getest.
+- 🔴 D WACHT TOT NA 14 OKT: uitleg over Blizzards nieuwe dispel-rand op de raid frames (12.1.5). Eerst in de client nagaan
+  hoe de opties/CVars echt heten — niet eerder schrijven.
+- Opruimen (rapport §"Opruimen", nog niet gedaan): `DispelCapture.ProbeKnownIDs` vraagt in gevecht elke seconde 89 ids;
+  `Auras.lua:87-95,133-143` gaan over het niet-bestaande `GetAuraDataBySpellID`.
+- Tormented Tantalum = Prey-kist (kans), Petrified Root-regel verbreed (7f0e1f1); Moxie-label uit het spel (c4cab37);
+  mh-writer zet de Moxie-woorden recht in 5 talen (Rob: "naam uit het spel", lopende tekst es = "Arrojo").
+
 ## 🐛 7 okt ochtend — esMX kreeg Engels (CF-reactie 6 okt 21:34, nog te beantwoorden door Rob)
 Gerepareerd, lokaal: `Locales/esES.lua` laadt nu ook op een esMX-client (Locale.lua mapte esMX→esES al, maar de
 laad-gate van het pack liet alleen esES door). GEMETEN met een scratch-test (lua 5.4, GetLocale gestubd): esES 1003

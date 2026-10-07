@@ -1965,7 +1965,7 @@ f5:SetScript("OnEvent", ScheduleRefresh)
 --- red was seen to linger: which of YOUR debuffs does HARMFUL|RAID -- the glow's filter, "the
 --- player can dispel" -- still match, and with what dispel type? Your own auras are readable.
 ---
---- Everything goes to ns.db.dispelSelfLog (newest last, 30 kept). A match whose type your spec
+--- Everything goes to ns.db.dispelSelfLog (newest last, 60 kept since the three-filter version of 7 Oct 2026). A match whose type your spec
 --- cannot remove prints ONE chat line per debuff name per session: that is the suspected
 --- false alarm, stated as a measurement, not yet acted on.
 local suspectSaid = {}
@@ -1981,17 +1981,33 @@ local function AfterCombatDispelCheck()
 	if not next(schools) then
 		return
 	end
-	local found = {}
-	local ran = ns.Aura.ForEachPlayerAuraFiltered(DISPEL_FILTER, function(aura)
-		local nm, dn, sid = aura.name, aura.dispelName, aura.spellId
-		if issecretvalue and (issecretvalue(nm) or issecretvalue(dn) or issecretvalue(sid)) then
-			found[#found + 1] = { secret = true }
-			return
-		end
-		local t = (type(dn) == "string" and dn ~= "") and dn:lower() or nil
-		found[#found + 1] = { name = nm, type = t or "none", spellId = sid, youCan = t and schools[t] or false }
-	end)
-	if not ran or #found == 0 then
+	-- 7 Oct 2026 (docs/DISPEL_RECHECK_2026-10-07.md, option B, Rob chose it): the same debuffs through THREE filters side
+	-- by side, so we learn which one really means "you can remove this". 27-30 Sep, 4 of 7 HARMFUL|RAID matches were
+	-- Magic on a spec that cannot remove Magic. Wiki (API_types/AuraFilters): RAID = "the player can dispel",
+	-- RAID_PLAYER_DISPELLABLE = "someone in your group can", DISPELLABLE = "has any dispel type".
+	-- Per entry: raid / rpd / any = matched by that filter; filterRan records which filters the client accepted.
+	local FILTERS = { { "raid", DISPEL_FILTER }, { "rpd", "HARMFUL|RAID_PLAYER_DISPELLABLE" }, { "any", "HARMFUL|DISPELLABLE" } }
+	local byKey, found, filterRan = {}, {}, {}
+	for _, fdef in ipairs(FILTERS) do
+		local fk, filter = fdef[1], fdef[2]
+		filterRan[fk] = ns.Aura.ForEachPlayerAuraFiltered(filter, function(aura)
+			local nm, dn, sid = aura.name, aura.dispelName, aura.spellId
+			if issecretvalue and (issecretvalue(nm) or issecretvalue(dn) or issecretvalue(sid)) then
+				found[#found + 1] = { secret = true, [fk] = true }
+				return
+			end
+			local key = sid or nm
+			local e = byKey[key]
+			if not e then
+				local t = (type(dn) == "string" and dn ~= "") and dn:lower() or nil
+				e = { name = nm, type = t or "none", spellId = sid, youCan = t and schools[t] or false }
+				byKey[key] = e
+				found[#found + 1] = e
+			end
+			e[fk] = true
+		end) and true or false
+	end
+	if #found == 0 then
 		return
 	end
 	ns.db.dispelSelfLog = ns.db.dispelSelfLog or {}
@@ -1999,11 +2015,13 @@ local function AfterCombatDispelCheck()
 	for _, e in ipairs(found) do
 		e.at = date and date("%Y-%m-%d %H:%M:%S") or "?"
 		e.zone = GetRealZoneText and GetRealZoneText() or nil
+		e.filterRan = filterRan
 		log[#log + 1] = e
-		while #log > 30 do
+		while #log > 60 do
 			table.remove(log, 1)
 		end
-		if not e.secret and not e.youCan and e.name and not suspectSaid[e.name] then
+		-- The chat line is still about the row's own filter (HARMFUL|RAID): that is what turns the row red.
+		if e.raid and not e.secret and not e.youCan and e.name and not suspectSaid[e.name] then
 			suspectSaid[e.name] = true
 			print(("|cffffcc00%s|r dispel check: your row is red for |cffff8080%s|r (type: %s), which your spec cannot remove."):format(
 				(ns.L and ns:L("PRINT_PREFIX")) or "MH", tostring(e.name), e.type))

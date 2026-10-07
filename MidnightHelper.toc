@@ -99,6 +99,7 @@ Modules\SurvivalPlan.lua
 Modules\GroupPlan.lua
 Modules\TankPullSummary.lua
 Modules\DispelCapture.lua
+Modules\DispelSound.lua
 Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua
 UI.lua

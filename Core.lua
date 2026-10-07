@@ -1633,6 +1633,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh dispelsound [on|off|test|why] — Blizzard plays a sound when you get a debuff you can remove (DispelSound.lua,
+	-- 7 Oct 2026, option C of the dispel recheck). Off by default; a measurement before it is a feature.
+	if msg == "dispelsound" or msg:match("^dispelsound%s") then
+		if ns.DispelSoundCommand then
+			ns.DispelSoundCommand(msg:match("^dispelsound%s+(.+)$"))
+		end
+		return
+	end
+
 	-- /mh here [notitie] — schrijf op waar je staat (en wat je aanklikt). Lijst, geen
 	-- slot: een rondje lopen en daarna één reload is het hele idee.
 	if msg == "here" or msg:match("^here%s+") then

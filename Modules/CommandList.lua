@@ -78,7 +78,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"dundun", "sniff", "sniff dump", "sniff clear", "sniff quiet", "pet", "pet test", "pet sounds",
 	"codexkeys", "companion", "consready", "coord", "crest", "crestfind", "crestscan",
 	"curio", "curiodebug", "curscan", "death", "debug", "delve", "durability", "durability test", "delveexit", "delvescan", "dispellog",
-	"dispelprobe", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
+	"dispelprobe", "dispelsound", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "groupmap", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
 	"livetips", "lock", "lust", "lust test", "brez", "brez test", "macrocheck", "mapprobe", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
