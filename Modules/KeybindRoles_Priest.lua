@@ -132,7 +132,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Holy Nova"] = { id = 132157, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 256, 257 }, blockAs = { [257] = { category = "main_rotation", priority = 6, bindKey = "Shift+4" } } }, -- class talent, AoE damage+heal (wago TraitDefinition 108875; IV)
 	["Holy Word: Chastise"] = { id = 88625, role = "utility_secondary", priority = 1, specs = { 257 } },    -- F: damage/CC
 	-- Defensives:
-	["Guardian Spirit"] = { id = 47788, role = "defensive_3", priority = 1, specs = { 257 }, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- C: cheat-death external, also on yourself (Method Holy)
+	["Guardian Spirit"] = { id = 47788, role = "defensive_3", priority = 1, specs = { 257 }, survival = "big", survivalOrder = 1, survivalWhen = "SURVIVAL_WHEN_CHEAT_DEATH", survivalNote = "SURVIVAL_NOTE_SELF_CAST" }, -- C: cheat-death external, also on yourself (Method Holy)
 	-- Cooldowns (grote raid-saves op cooldown-slots):
 	["Apotheosis"] = { id = 200183, blockQ = { [257] = true }, role = "cooldown_bar", priority = 1, specs = { 257 } },                  -- F1: reset Holy Words (grootste heal-CD)
 	["Divine Hymn"] = { id = 64843, category = "cooldown", priority = 2, specs = { 257 } },                 -- Shift+F1: raid-heal-CD

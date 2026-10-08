@@ -66,8 +66,12 @@ local KIND_COLOR = {
 -- Core "bread-and-butter" heals (piece 1, beginner half): each spec's spammable
 -- everyday heals + a short tag for what it's FOR. Deliberately NOT in the /mh
 -- healcds cooldown sheet; the Academy healer toolkit shows both together.
+-- 8 Oct 2026 (docs/ROLE_SWITCH_FACTS8): `fast` used to hold instants AND 1.5 sec casts under one
+-- sentence. Now: instant (lands at once), fast (short cast), filler (weak as a heal; Living Flame).
 local TAG = {
+	instant = "HEALCORE_TAG_INSTANT",
 	fast = "HEALCORE_TAG_FAST",
+	filler = "HEALCORE_TAG_FILLER",
 	big = "HEALCORE_TAG_BIG",
 	hot = "HEALCORE_TAG_HOT",
 	aoe = "HEALCORE_TAG_AOE",
@@ -76,7 +80,9 @@ local TAG = {
 	bounce = "HEALCORE_TAG_BOUNCE",
 }
 local TAG_DESC = {
+	instant = "HEALCORE_DESC_INSTANT",
 	fast = "HEALCORE_DESC_FAST",
+	filler = "HEALCORE_DESC_FILLER",
 	big = "HEALCORE_DESC_BIG",
 	hot = "HEALCORE_DESC_HOT",
 	aoe = "HEALCORE_DESC_AOE",
@@ -85,7 +91,9 @@ local TAG_DESC = {
 	bounce = "HEALCORE_DESC_BOUNCE",
 }
 local TAG_COLOR = {
+	instant = "ff40ff80",
 	fast = "ff5fe0b0",
+	filler = "ff9d9d9d",
 	big = "ff70b0ff",
 	hot = "ff70d070",
 	aoe = "ffffd060",
@@ -159,10 +167,10 @@ ns.HEALER_COOLDOWNS = {
 ns.HEALER_CORE_HEALS = {
 	-- Holy Paladin (65)
 	[65] = {
-		{ id = 20473, tag = "fast" }, -- Holy Shock
-		{ id = 19750, tag = "fast" }, -- Flash of Light
+		{ id = 20473, tag = "instant" }, -- Holy Shock
+		{ id = 19750, tag = "fast" }, -- Flash of Light (1.5 s; instant with Infusion of Light)
 		{ id = 82326, tag = "big" }, -- Holy Light
-		{ id = 85673, tag = "fast" }, -- Word of Glory
+		{ id = 85673, tag = "instant" }, -- Word of Glory
 		{ id = 85222, tag = "aoe" }, -- Light of Dawn
 	},
 	-- Restoration Druid (105)
@@ -170,14 +178,14 @@ ns.HEALER_CORE_HEALS = {
 		{ id = 774, tag = "hot" }, -- Rejuvenation
 		{ id = 33763, tag = "hot" }, -- Lifebloom
 		{ id = 8936, tag = "fast" }, -- Regrowth
-		{ id = 18562, tag = "fast" }, -- Swiftmend
+		{ id = 18562, tag = "instant" }, -- Swiftmend
 		{ id = 48438, tag = "aoe" }, -- Wild Growth
 	},
 	-- Preservation Evoker (1468)
 	[1468] = {
-		{ id = 361469, tag = "fast" }, -- Living Flame
+		{ id = 361469, tag = "filler" }, -- Living Flame (2 s; for Essence Burst, weak as a heal)
 		{ id = 366155, tag = "hot" }, -- Reversion
-		{ id = 360995, tag = "fast" }, -- Verdant Embrace
+		{ id = 360995, tag = "instant" }, -- Verdant Embrace
 		{ id = 355913, tag = "aoe" }, -- Emerald Blossom
 	},
 	-- Mistweaver Monk (270)

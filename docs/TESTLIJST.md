@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 okt — "grote defensive"-zin en de heal-soorten (docs/ROLE_SWITCH_FACTS8)
+
+Gebouwd, niet getest.
+- [ ] **Paladin (elke spec), Zo speel je → tab Blijf leven:** onder Divine Shield staat "een grote: druk hem net vóór de
+  hardste klap die je ziet aankomen" — zónder "(een immuniteit mag ook als je bijna dood bent)". De Lay on Hands-noot
+  staat er nog achter.
+- [ ] **Holy Priest, zelfde tab:** onder Guardian Spirit een eigen zin: "als je health blijft zakken: ga je dood, dan redt
+  hij je één keer …". **Frost Mage:** onder Cold Snap "na je grote (Ice Block of Ice Cold): hij maakt die weer klaar …".
+- [ ] **Healer, Role Academy → heal-toolkit (Holy Paladin):** Holy Shock en Word of Glory hebben het label [Instant],
+  Flash of Light [Korte cast], Holy Light [Groot]. Resto Druid: Swiftmend [Instant], Regrowth [Korte cast]. Geen rauwe
+  sleutel (HEALCORE_…) te zien.
+
 ## 🆕 7 okt — 12.1.5 Codex-kaartjes (pas zichtbaar vanaf 12.1.5)
 
 Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PTR** (12.1.5) wel.

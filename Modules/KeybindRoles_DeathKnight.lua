@@ -38,7 +38,7 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	Every tag follows docs/audit_2026-09-17/audit_paladin_warrior_dk.md (Icy Veins 12.1 + wago.tools
 	12.1.0.69814). Beginner order from the audit: Anti-Magic Shell -> Death Strike -> Icebound
 	Fortitude -> Death Pact -> Lichborne (fear/charm only).
-	Lichborne is ON the card, last under "big", with the CC-break note: it is a 2 min button to get out
+	Lichborne is ON the card, last under "small" (was "big" until 3 Oct 2026), with the CC-break note: it is a 2 min button to get out
 	of fear/charm/sleep (IV-Blood/IV-Unholy), not a keep-up.
 	Left OFF on purpose: Anti-Magic Zone (TWIJFEL: a group zone against magic only), Dancing Rune
 	Weapon (a Blood burst/parry cooldown the audit does not put on the card), Consumption (TWIJFEL:

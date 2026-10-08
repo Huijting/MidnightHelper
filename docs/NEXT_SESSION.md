@@ -9,6 +9,16 @@
   screenshot van zijn echte Active Bindings. Plaatje = ComfyUI → EERST plan, pas draaien na zijn ja (comfy-regels);
   gevraagd: naam/ras/geslacht druid, Robs gezicht ja/nee, druid- of Tree of Life-vorm, stijl (WoW-3D of strip), WoW dicht?
   Holy-PDF-bron (HTML + Edge headless) staat in de scratchpad van sessie 945b4dfe: holy_sheet.html + make_holy_sheet.py.
+  Rob 8 okt ochtend: PDF pas VANAVOND; onderweg "doe 1 en 3". (1) Labyrinth 5 talen = al klaar (GEMETEN). (3)
+  SURVIVAL_STEP_BIG + HEALCORE_DESC_FAST: mh-research → docs/ROLE_SWITCH_FACTS8_2026-10-08.md. Daarnaast mh-research →
+  docs/IDEEEN_OPEN_2026-10-08.md ("wat hebben we überhaupt nog bedacht"; docs-deel door mij aangevuld, want mh-research
+  leest niets in docs/).
+- (3) GEBOUWD 8 okt, niet getest (TESTLIJST): SURVIVAL_STEP_BIG zonder "(immuniteit ook als je bijna dood bent)"; nieuw
+  veld `survivalWhen` (SurvivalPlan.lua) → Guardian Spirit SURVIVAL_WHEN_CHEAT_DEATH, Cold Snap SURVIVAL_WHEN_RESET.
+  Heal-tag `fast` gesplitst: `instant` (Holy Shock, WoG, Swiftmend, Verdant Embrace), `fast` = "Short cast" (FoL,
+  Regrowth, Vivify, Flash Heal), `filler` (Living Flame). 5 talen via mh-writer. OPEN, Rob kiest: Holy Word: Serenity
+  (2050) als [Instant] bij Holy Priest; Forbearance-noot voor BoP Holy/Ret + Spellwarding (nieuwe sleutels); Earth
+  Elemental alleen met Primordial Bond. (DK-commentaar r.41 Lichborne → "small": gedaan.)
 
 ## (eerder) 7 okt, 22:12 — 4.7.4 GETAGD en gepusht (Rob: "Go"), tag `v4.7.4` op 62f33af
 - Release-run 37680209677 gestart. Daarna: CF → Files → Changelog nakijken; site-chat seintje gestuurd.
@@ -97,7 +107,8 @@
 - PTR-kopie ververst (beide), 7 okt laat.
 - CODEX_LABYRINTH_BODY (enUS + nlNL) gecorrigeerd na melding site-chat: "tier N → Delve N+1" gold alleen voor 1-8;
   in de data van build 70077 geven 9/10/11 dezelfde tier (stond al in PATCH_12_1_5_CONTENT r.65, de kaart nam het niet
-  over). 🔴 de/fr/es/pt/it zeggen nog N+1 → mee in de mh-writer-ronde. Op release-dag controleren.
+  over). ✅ GEMETEN 8 okt: de/fr/es/pt/it zeggen nu ook "1 t/m 8 → volgende, 9/10/11 dezelfde" (Translations2026.lua
+  14073-14141). Op release-dag alleen nog kijken of de live data het bevestigt.
 - GEMETEN 12.1.5-PTR 19:10 (`/mh eventspy`, _xptr_ SV): Aqir Invasion = areaPoi **9045**, zone "Quel'Thalas" zonder
   uiMapID, venster 900 s (15 min), volgende over ~49 min (= Blizzards tooltip "Aqir Invasion of Eversong"). 9045 stond al
   in EventInfoData. MH toonde "Event in Quel'Thalas": EventScheduler.resolvePoi probeert nu de Midnight-kaarten

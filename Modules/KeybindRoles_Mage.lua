@@ -198,7 +198,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- 17 Sep 2026, GEMETEN in Robs client: C_Spell.GetSpellInfo("Cold Snap") is nil (he has not
 	-- talented it, and a name only resolves from your own spellbook), while 235219 answers
 	-- "Cold Snap". Without the id the card said "no spell found" for every mage, talented or not.
-	["Cold Snap"] = { id = 235219, category = "cooldown", priority = 3, specs = { 64 }, survival = "big", survivalOrder = 2 }, -- KeybindingData "X" [235219]; reset-CD (Ice Block/Barrier/Nova/Cone of Cold) -> cooldown, geen utility
+	["Cold Snap"] = { id = 235219, category = "cooldown", priority = 3, specs = { 64 }, survival = "big", survivalOrder = 2, survivalWhen = "SURVIVAL_WHEN_RESET" }, -- KeybindingData "X" [235219]; reset-CD (Ice Block/Barrier/Nova/Cone of Cold) -> cooldown, geen utility
 	-- Icy Veins removed 17 Sep: "Icy Veins has been removed, and our main cooldown is now Ray of Frost" (audit, BRON Icy Veins Frost 12.1).
 
     -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.

@@ -455,7 +455,10 @@ local function TaggedPlan(tbl, specID, trace)
 				steps[#steps + 1] = {
 					text = name,
 					spellID = id,
-					whenKey = step.key,
+					-- survivalWhen: a row whose spell the step text does not describe (8 Oct 2026,
+					-- docs/ROLE_SWITCH_FACTS8: Guardian Spirit cannot stop one giant hit, Cold Snap
+					-- protects against nothing itself). Same step and order, its own sentence.
+					whenKey = item.entry.survivalWhen or step.key,
 					noteKey = note,
 					bindKey = item.entry.bindKey,
 				}
