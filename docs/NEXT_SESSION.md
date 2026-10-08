@@ -33,6 +33,11 @@
   verzonnen advies); `.claude/rules/` per map (kleine winst). Versie: 2.1.293 staat sinds 8 okt 05:57 in de app-map.
 - Tactiek-concept 12.1.5 (Labyrinth/Kindo'jan/Kith'ix/Aqir): mh-research → docs/PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md.
   Pas op patchdag tegen DBM/BigWigs + het spel, dan in 7 talen. Klein erbij: Keystone Myth-regel (rating 3600).
+  🔴 MIJN FOUT 8 okt: ik meldde Rob "DBM heeft geen Kith'ix-module (GEMETEN)". Wél: `DBM-Lairs-Midnight\UnbindingofKithix\
+  Kithix.lua` (uit onder TOC 120105). Mijn grep zocht in de INHOUD; de baasnaam staat alleen in pad/localization, en
+  mijn positieve controle (Nalorakk) vond alleen DBM-Test/GUI/Core — dat had me moeten waarschuwen. Voor Kindo'jan
+  heeft DBM echt niets (helper, gemeten mét controle). Concept zegt: Headhunters hoeven NIET dood volgens Wowhead 7 okt
+  — botst met CODEX_LABYRINTH_BODY "kill them fast"; DBM-fout: Divine Radiance = 1303169, niet 1303406.
 - Spiekbrief-figuren GOEDGEKEURD: Druid 2 (Tauren) + Priest 1 (Blood Elf, MAN — Rob: alleen mannelijke chars) →
   `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (MANIFEST). Vanavond: de PDF's.
 - ComfyUI (Rob 8 okt, "volg jouw advies"): nieuwe figuren voor de spiekbrieven — Tauren Resto Druid "Purlymixanox",
