@@ -44,6 +44,14 @@
 - Spiekbrief-figuren: SET COMPLEET, 22 figuren voor elke spec van Robs 7 chars (Twelveinchy blijft apart) →
   `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (MANIFEST). Allemaal MAN. Vanavond: de PDF's (Resto Druid eerst;
   Demo Warlock-figuur staat laag → bovenkant bijsnijden). ComfyUI daarna afgesloten (GEMETEN).
+- Intro-filmpjes (Rob 8 okt middag): elke figuur stelt zich voor, Engels, eigen Breeze-stem per char, h3-praat 576x1024,
+  muziek Five Armies (CC BY, vermelding in beeld), −14 LUFS (Rob: "geluid erg zacht" → GEMETEN −20). Proef Purly/Umbrion
+  goed bevonden; 40 renders (20 specs × 2) gestart ~15:25. Alles in `E:\ComfyMCP\spiekbrieven\intro\` (jobs_fase1/2.json,
+  keuzes_takes.json, stem\, tekst\, film\definitief\). Scripts in scratchpad 0bd2edcc (intro_render/intro_af/luid.py).
+  ✅ AF 8 okt avond: alle 22 in `film\definitief\` (youtube + discord, −14 LUFS) + `ALLE_22_INTROS_{discord,telefoon}.mp4`.
+  ASR eindmix 0–16 % (namen), Demo 14 %, Destro 23 % (muziek daar −33 dB; "Chaos Bolt" al onduidelijk in de stem).
+  ✅ GOEDGEKEURD (Rob: "Ja, ze zijn goedgekeurd"), kluis `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\intro\`
+  (los 44, verzameld 2, stem 22, MANIFEST; GEMETEN). ComfyUI daarna uit (Rob gaat gamen).
 - ComfyUI (Rob 8 okt, "volg jouw advies"): nieuwe figuren voor de spiekbrieven — Tauren Resto Druid "Purlymixanox",
   Blood Elf Disc Priest "Umbrion" (Robs echte chars, gemeten in charCurrencies). TwelveInchy blijft zoals hij is.
 
