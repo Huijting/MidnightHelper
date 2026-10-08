@@ -4414,3 +4414,153 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
       bepalen: `git merge-base --is-ancestor` geeft daarom 1. 🔴 **Dus niet lezen als "Rob heeft
       main geforceerd"** — een shallow clone meldt dit routineus. Opgeschreven zodat een volgende
       run er niet van schrikt.
+- [2026-10-08] ✅ **Geen relevante API-wijzigingen (1–8 okt). 0 × [MOET GEFIKST].** De
+  `API:`-namespace op de wiki leverde over het hele venster **exact dezelfde vier** wijzigingen op
+  als gisteren, met dezelfde revid's — er is sinds mijn run van gisteren niets bij gekomen. De
+  hotfixlijst is ná mijn run nog acht keer bewerkt, maar alle acht in de `October 6`-sectie en
+  **zonder één UI-/addon-regel**; er is geen `October 7`- of `October 8`-sectie. Twee nieuwe
+  forum-topics, geen van beide API. SimC staat stil. 🔎 **Wel twee dingen die geen vondst zijn maar
+  wél opgeschreven horen: een onafhankelijke WebSearch gaf mij een pagina-fragment ZONDER datum dat
+  nieuw leek en 35 dagen oud blijkt — en bij het nameten daarvan bleek een echt GAT in mijn eigen
+  dekking van 4 sep.** Beide hieronder, expliciet niet geteld als nieuws.
+  - 🔇 **De `API:`-namespace (ns 3000) over 1–8 okt: vier wijzigingen, alle vier al in dit
+    logboek.** `list=recentchanges&rcnamespace=3000&rclimit=250` over het volle venster, met
+    cache-buster. Letterlijk teruggekregen, met de revid's die ik gisteren al noteerde:
+    `API:C Spell.GetItemCooldown` **`6901441`** (KethoBot, 6 okt 01:28:18Z), `API:UnitUsesAmmo`
+    **`6901440`** (KethoBot, 6 okt 01:28:12Z), `API:SendAddonMessage` **`6899146`** (Ketho, 3 okt
+    19:21:51Z) en `API:C Item.GetItemStats` **`6898001`** (Lotimar, 2 okt 11:52:21Z). 🔴 **Dat is
+    tegelijk de positieve controle op de methode:** de query vindt vier items die er zéker zijn,
+    dus de "niets nieuws" is een echte nul en geen stille mislukking. Geen van de vier is
+    opnieuw aangeraakt, geen vijfde item. **Niets te greppen, niets te doen.**
+  - 📰 **Hotfixes: acht bewerkingen na mijn vorige lezing, en GEEN ervan raakt de addon-kant.**
+    Wikipagina `Hotfixes` staat nu op revid **`6902337`** (Dark T Zeratul, **7 okt 04:45:05Z**,
+    374413 b); gisteren las ik `6902226` (7 okt 03:33:19Z, 374318 b). Daartussen zitten acht
+    revisies (`6902240`, `6902245`, `6902271`, `6902285`, `6902304`, `6902314`, `6902333`,
+    `6902337`), **alle acht met bewerkingssamenvatting `/* October 6 */`** en alle acht van
+    dezelfde bewerker. **GEMETEN via `action=compare&fromrev=6902226&torev=6902337`** — deze run
+    liep `compare` wél, in tegenstelling tot gisteren: de volledige diff bestaat uit niets anders
+    dan het aanbrengen en corrigeren van **wikilinks op PvP-talentnamen**. Letterlijk, de enige
+    soort regel die verandert: *"Death Knight's Murderous Intent"* → *"Death Knight's
+    `[[Murderous Intent]]`"*, *"`[[Price of Progress]]`"* → *"`[[Price of Progress (death knight
+    PvP talent)]]`"*, *"`[[Dire Beast]]`: Hawk"* → *"`[[Dire Beast: Hawk]]`"*, *"`[[Death from
+    Above]]`"* → *"`[[Death from Above (rogue ability)]]`"*, *"`[[Bloodstone]]`"* → *"`[[Bloodstones
+    (warlock PvP talent)|Bloodstone]]`"*, en bij `Focused Assault` is de link juist weggehaald.
+    ⚠️ **Ik meld dit nadrukkelijk als niet-wijziging:** "de hotfixpagina is vannacht acht keer
+    bewerkt" leest als nieuws, terwijl er geen enkele bewering over het spel of de API is
+    veranderd. **Niets te greppen.**
+    ✅ **Vers, niet gecachet, op twee manieren.** (1) Het nieuwste dat ik zie (`6902337`, 7 okt
+    04:45:05Z) is **nieuwer** dan het nieuwste dat mijn eigen regel van gisteren noemde
+    (`6902226`, 7 okt 03:33:19Z). (2) Blizzards eigen artikel, opgehaald mét cache-buster
+    (`news.blizzard.com/.../24296142/hotfixes-october-6-2026?nocache=20261008`), geeft titel
+    *"Hotfixes: October 6, 2026"* en is daarmee niet ouder geworden. 📌 **GEMETEN dat er geen
+    nieuwere hotfixdatum is:** de wikipagina heeft geen `===October 7===` of `===October 8===`, en
+    de laatste bewerking eraan is van 7 okt 04:45Z — ruim voorbij het moment waarop een
+    7-okt-sectie erin had gestaan als die bestond.
+  - 🔇 **Wiki: vijf van de zes gevolgde pagina's byte-voor-byte gelijk aan gisteren.**
+    `Patch 12.1.5/API changes` `6901394` (Ketho, 6 okt 00:18:58Z, 35432 b), `Patch 12.1.0/API
+    changes` `6886719` (Ketho, 25 sep, 102481 b), `Patch 12.0.7/API changes` `6794100` (Ketho,
+    4 aug, 34044 b), `API change summaries` `6883777` (Ketho, 22 sep, 7280 b), `TOC format`
+    `6900914` (P3lim, 5 okt 08:04:50Z, 28046 b — tweede nacht op rij géén nieuwe revisie, na vier
+    nachten op rij wél). 📌 **GEMETEN dat er nog geen nieuwere variant bestaat:** `Patch 12.1.7/API
+    changes` en `Patch 12.2.0/API changes` komen beide terug als `"missing": ""`.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.0-04`** (gepubliceerd 21 aug 2026 23:15:56Z,
+    release-id 374719356, 951 downloads van de zip). Opgehaald via
+    `api.github.com/repos/simulationcraft/simc-addon/releases?per_page=5` mét cache-buster; de
+    releasenotes zijn nog steeds de twee regels over *Offspec Talent Loadouts* en de ingebouwde
+    loadout-exporter, en de release daarvóór is `12.1.0-03` van 20 aug. Het kopcommentaar van
+    `Modules/SimcExport.lua:12-16` zegt *"read 30 Sep 2026 at release 12.1.0-04"* — MH loopt niet
+    achter, dus een toets aan `ItemString` of `ns.BuildSimcProfile` is deze week niet nodig.
+  - 🔇 **[RAAKT ONS NIET] — `#ui-macro`: twee nieuwe topics, geen van beide met API-inhoud.** Op
+    topic-id gecontroleerd met `order=created`, en beide openingsposts integraal gelezen:
+    - `2375480` *"Macro or Add On to only be dragon form during burst?"* (Velaethia, **7 okt
+      23:40:08.803Z**). Een spelersvraag over Dracthyr visage-vorm; de hele post is twee regels,
+      letterlijk: *"I know I can macro visage and it's ogcd. The problem is it won't automatically
+      end when the buff wears off."* Geen API-naam, geen taint, geen secure frame.
+    - `2375152` *"New Addon -DommUI"* (Dommon, **7 okt 17:22:56.793Z**). Een
+      aankondiging van `DommUI` 1.7.0 op CurseForge, met een modulelijst. Geen API-bewering.
+      📌 Eén regel erin raakt wél ons regime, maar zegt niets nieuws: *"Built for demanding
+      content: it works in arena, battlegrounds, Mythic+ and raids, where the game hides
+      information from addons."* Dat is een beschrijving van de secret-value-situatie die hier
+      al sinds 24 aug staat, geen nieuwe grens. **Niets te greppen.**
+    De overige treffers binnen het venster staan hier al in: `2373596`, `2373439`, `2373394`,
+    `2370149`, `2370136`, `2367394`, `2366363`. Het nieuwste dat ik zie (7 okt 23:40Z) is
+    **nieuwer** dan het nieuwste van gisteren (post `30352616`, 6 okt 05:42:36Z) — ook hier dus
+    geen cache.
+  - 🪤 **NIET GETELD — de WebSearch-kruiscontrole gaf mij een fragment ZONDER datum dat nieuw leek,
+    en het is 35 dagen oud.** De samenvatting die terugkwam beschreef *"New forbidden aspects for
+    Pandemic animations"* op `Patch 12.1.5/API changes`: twee nieuwe forbidden aspects
+    `QueryAnimationProgress` en `AddAnimations`, plus de bestaande `ChangeAnimationTarget` op
+    Pandemic-animaties. Dat lás als een vondst op mijn terrein. **GEMETEN door de wikitext van de
+    pagina zelf op te halen** (`action=parse&prop=wikitext`, niet de samenvatting): die tekst staat
+    onder kop `{{apisummary.heading|Aura Pandemic Animations}}` in sectie **`===2026-09-03===`**,
+    *"Midnight 12.1.5 PTR Changes 1"*, **build 69594** — en de pagina is sinds 6 okt niet meer
+    aangeraakt. Dus **35 dagen oud, ruim buiten het venster**, en harde regel 1 houdt hem eruit.
+    📌 Dit is precies de val die ik op 7 okt beschreef (*"een zoekmachine geeft een pagina zonder
+    datum terug en die lijkt dan nieuw"*) — nu voor de tweede keer gelopen en weer gevangen door
+    op de bron zelf na te meten in plaats van op de samenvatting.
+  - 🔴 **CORRECTIE OP MIJN EIGEN DEKKING — mijn regel van 4 sep heeft de kop `Aura Pandemic
+    Animations` overgeslagen, en dat is een echt gat.** Bij het nameten hierboven bleek dit, en
+    harde regel 3 verplicht me het te zeggen. **GEMETEN in dit logboek:** `Pandemic-triggered`
+    **0** treffers, `Aura Pandemic Animations` **0**, `AddPandemicActiveAnimation` **0**,
+    `QueryAnimationProgress` **0**, `AddAnimations` **0** — terwijl mijn regel van 4 sep
+    (`API_WATCH.md:344`) de aanmaak van die pagina juist uitgebreid verslaat, build 69594 twaalf
+    keer noemt, en de buurkop `Aura Containers` wél heeft gemeld (`AddDispelTypeTexture` /
+    `AddPandemicRegion` die geen index meer teruggeven). De kop ernaast is er stilletjes
+    doorheen geglipt. ⚠️ **Zeg ik dit op als nieuws? Nee** — harde regel 2 verbiedt een magere dag
+    te vullen met oudere items, en dit is een oud item. Ik voer het op als correctie op mijn
+    eigen dekking, zodat het niet een derde keer wegvalt.
+    → **En de toets aan de code, zodat Rob er níéts mee hoeft: [RAAKT ONS NIET].** GEMETEN deze
+    run, hele addon zonder `.git`/`docs`/`tools`/`dist`: `QueryAnimationProgress` **0**,
+    `AddAnimations` **0**, `ChangeAnimationTarget` **0**. De forbidden aspects gelden op
+    animatiegroepen die aan een `CustomAuraButton` worden gehangen; MH hangt daar niets aan.
+    `CreateAnimationGroup` geeft **8** treffers en **alle acht** staan op MH's eigen frames en
+    textures: `Modules/RitualBossCoach.lua:113`, `Modules/DurabilityWarn.lua:126`,
+    `Modules/PlayCardWindow.lua:1266`, `Modules/AltOverview.lua:1129` en `:1145`,
+    `Modules/AccessibleAlerts.lua:89`, `Libs/LibDBIcon-1.0.lua:294` en `:697` — geen enkele op een
+    AuraButton of een kind daarvan. MH's énige aura-container staat in
+    `Modules/PartyTargets.lua:354` (plus de probe in `Modules/PtrProbe.lua:393`), en die is **bij
+    ontwerp animatieloos**: het commentaar erboven zegt letterlijk *"⚠️ STATIC ARTWORK ONLY, NO
+    SCRIPTS. 12.1 puts UntrustedScriptExecution on AuraButtons, so an OnShow handler here is not a
+    reliable trigger."* (`PartyTargets.lua:121-124`). 🔴 **Positieve controle, zelfde run, zelfde
+    scope en commando:** `issecretvalue` **210**, `CreateFrame` **791**, `C_UnitAuras` **86**,
+    `C_Timer` **560**, `C_Spell` **422**, `C_Secrets` **27**, `C_SuperTrack` **29**,
+    `InCombatLockdown` **235** — de nullen zijn echte nullen. **Niets te doen.**
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `warcraft.wiki.gg` via directe `curl` opnieuw niet geprobeerd; op 5 okt is gemeten dat de
+      agent-proxy de CONNECT-tunnel met **403** weigert. Alle wiki-, forum- en GitHub-data van
+      vandaag komt via Exa.
+    - `wowhead.com/blue-tracker` opnieuw niet geprobeerd (dertien runs op rij lege body); het
+      Blizzard-artikel kwam direct binnen.
+    - De 12.1.5-**PTR-buildnotes** zelf niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald — zie de open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`. Vandaag geen aanleiding, want die pagina is niet aangeraakt.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+    - De `?nocache=`-parameter geeft op `api.php` een `"Unrecognized parameter"`-warning.
+      Onschadelijk (MediaWiki negeert hem, de query draait) en hij doet zijn werk omdat hij de URL
+      uniek maakt voor Exa's cache. Versheid is hierboven twee keer onafhankelijk aangetoond.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw — met vandaag opnieuw gemeten cijfers:**
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. **GEMETEN
+      vandaag** (zelfde scope en commando): `issecretvalue` **210** (gisteren 208),
+      `InCombatLockdown` **235** (223), `CreateFrame` **791** (784), `C_Timer` **560** (547),
+      `C_Spell` **422** (gelijk), `C_Secrets` **27** (gelijk), `C_UnitAuras` **86** (83),
+      `C_SuperTrack` **29** (gelijk). 📌 De `.toc` staat nog op **4.7.4**, dus de groei zit in
+      commits ná de tag. 🔴 Ik raak dat bestand niet aan.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat
+      er `120007, 120100, 120105` (regel 1). 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM**. Onschadelijkheid blijft AFGELEID.
+  - 🔧 **Repo-staat, en de "forced update" van gisteren is nu OPGELOST door te meten.** Bij
+    aanvang weer een **detached HEAD** op `b856cc8` *"CurseForge description for 4.7.4: profession
+    shopping list, Role Academy, keypad, Shift+scroll"*, `git status --porcelain` leeg, geen van de
+    vier wachter-bestanden gewijzigd-maar-ongecommit. Er bleek óók een lokale branch `main` te
+    bestaan, achtergebleven op `310822c` (5 okt), en `git switch main` meldde *"diverged, and have
+    50 and 50 different commits each"*. ✅ **Dat is geen divergentie.** `git fetch --deepen=300`
+    en daarna `git merge-base --is-ancestor 310822c origin/main` geeft **exit 0**: `310822c` is
+    gewoon een voorouder. De teller ging van 50 naar **350** commits lokaal en **508** op
+    `origin/main` — de "50 en 50" was puur de ondiepe horizon. 📌 **Dus de regel van gisteren, die
+    de afstamming "principieel niet te bepalen" noemde, is hiermee ingehaald: hij is wél te
+    bepalen, je moet eerst verdiepen.** Daarna was `git pull --rebase origin main` een schone
+    fast-forward zonder één replay.
+    - ⚠️ **Eén ding kon ik niet: `git checkout -B main origin/main` is geweigerd** door de
+      permissie-classificatie van deze sessie, met als reden *"Irreversible Local Destruction"*.
+      Opgelost zonder omweg via `git switch main` + `pull --rebase`, dus niets blijft liggen.
+      Opgeschreven omdat een volgende run dezelfde weigering zal zien.
