@@ -614,7 +614,9 @@ local function RenderHealerToolkit(panel, child, y, cw)
 			-- the wait before you can press it again; the tank lines say so in their own descriptions.
 			local line = ("|cff40a0ff[%s]|r |cffffd100%s|r%s — %s"):format(
 				SL(d.immune and "TANKKIT_CD_IMMUNITY" or "DPSKIT_TAG_DEF"), ns.HealerCooldownSpellName(d.id), cdText,
-				SL("HEALTOOLKIT_DEF_DESC")
+				-- 8 Oct 2026 (site-chat): the immunity sentence stood under Barkskin, Obsidian Scales and
+				-- Astral Shift too. Only an `immune` row gets it now (Divine Shield, HealerCooldowns.lua:237).
+				SL(d.immune and "HEALTOOLKIT_DEF_DESC_IMMUNE" or "HEALTOOLKIT_DEF_DESC")
 			)
 			y = AddToolkitLine(panel, child, cw, y, line, false, d.id)
 		end

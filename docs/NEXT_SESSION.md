@@ -21,6 +21,13 @@
   WoG direct onder Holy Shock; SURVIVAL_NOTE_PHYSICAL_FORBEARANCE / _MAGIC_FORBEARANCE (Paladin-only; de oude delen Rogue
   en DK) op BoP Holy/Ret + Spellwarding, 7 talen (zelf vertaald); Frans Blijf leven helemaal "tu" (INTRO, HURTS, ESCAPE,
   HEAL, BIG + "appuie dessus"). Nog open, lage prio: Earth Elemental alleen met Primordial Bond (eerst gids nakijken).
+- Site-chat bouwde /academy/ (lokaal, wacht op Robs ja in de site-chat) en meldde 4 addon-punten → gedaan: nlNL "spreuk"
+  → "spell" (ACADEMY_STEP_TANK_KEYS); HEALTOOLKIT_DEF_DESC zonder immuniteitszin + nieuw _IMMUNE alleen bij `d.immune`
+  (RoleAcademy.lua, = Divine Shield); ACADEMY_HEAL_TRIAGE_BODY noemt [Instant]/[Short cast] i.p.v. "fast heal" (7 talen;
+  de 5 packs staan in <taal>.lua, niet in Translations2026). deDE "Blocken" bewust gelaten. Gezien, niet gedaan: TRIAGE
+  in de 5 packs noemt Regrowth niet bij de druid-zin.
+- ComfyUI (Rob 8 okt, "volg jouw advies"): nieuwe figuren voor de spiekbrieven — Tauren Resto Druid "Purlymixanox",
+  Blood Elf Disc Priest "Umbrion" (Robs echte chars, gemeten in charCurrencies). TwelveInchy blijft zoals hij is.
 
 ## (eerder) 7 okt, 22:12 — 4.7.4 GETAGD en gepusht (Rob: "Go"), tag `v4.7.4` op 62f33af
 - Release-run 37680209677 gestart. Daarna: CF → Files → Changelog nakijken; site-chat seintje gestuurd.
