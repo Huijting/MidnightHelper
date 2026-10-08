@@ -26,6 +26,15 @@
   (RoleAcademy.lua, = Divine Shield); ACADEMY_HEAL_TRIAGE_BODY noemt [Instant]/[Short cast] i.p.v. "fast heal" (7 talen;
   de 5 packs staan in <taal>.lua, niet in Translations2026). deDE "Blocken" bewust gelaten. Gezien, niet gedaan: TRIAGE
   in de 5 packs noemt Regrowth niet bij de druid-zin.
+- Claude-updates 7 okt (Rob: "volg jouw advies"): GEDAAN — helper `mh-sweep` (Haiku, alleen lezen, mag docs/;
+  `AddOns/.claude/agents/mh-sweep.md`, buiten de repo) + mh-writer mag genoemde bestanden bewerken; CLAUDE.md
+  helperregel bijgewerkt. Nieuwe helper werkt pas na een herstart van de app (AFGELEID). BEWUST NIET: API-tegoed voor
+  een site-knop "leg mijn gear uit" (weinig bezoekers, voorwaarden voor openbaar gebruik niet gelezen, risico op
+  verzonnen advies); `.claude/rules/` per map (kleine winst). Versie: 2.1.293 staat sinds 8 okt 05:57 in de app-map.
+- Tactiek-concept 12.1.5 (Labyrinth/Kindo'jan/Kith'ix/Aqir): mh-research → docs/PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md.
+  Pas op patchdag tegen DBM/BigWigs + het spel, dan in 7 talen. Klein erbij: Keystone Myth-regel (rating 3600).
+- Spiekbrief-figuren GOEDGEKEURD: Druid 2 (Tauren) + Priest 1 (Blood Elf, MAN — Rob: alleen mannelijke chars) →
+  `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (MANIFEST). Vanavond: de PDF's.
 - ComfyUI (Rob 8 okt, "volg jouw advies"): nieuwe figuren voor de spiekbrieven — Tauren Resto Druid "Purlymixanox",
   Blood Elf Disc Priest "Umbrion" (Robs echte chars, gemeten in charCurrencies). TwelveInchy blijft zoals hij is.
 

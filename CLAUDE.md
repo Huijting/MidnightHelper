@@ -151,7 +151,11 @@ Rob: *"kunnen we dat niet meer fout doen?"* Helpers (subagents) altijd uit `AddO
 `general-purpose` — die heeft geen vaste denkstand.
 - **Uitzoeken** (spelmechaniek, getallen, bronnen, klopt-deze-tekst, testvragen): `mh-research`, of `tips-xhigh` voor
   bazen-rondes. Opus, **extra high** (gekozen na de effort-test van 2 okt).
-- **Herschrijven uit een klaar onderzoek en vertalen**: `mh-writer`. Opus, medium.
+- **Herschrijven uit een klaar onderzoek en vertalen**: `mh-writer`. Opus, medium. Mag sinds 8 okt de bestanden
+  bewerken die de opdracht noemt (daarvoor zei zijn eigen regel "alleen lezen" en weigerde hij soms).
+- **Status nalopen** ("staat dit nog open?", tellen, waar wordt X gebruikt — ook in `docs/`): `mh-sweep`. Haiku, goedkoop,
+  alleen lezen. Sinds 8 okt, omdat `mh-research` volgens zijn eigen regel niets in `docs/` leest. ⚠️ Haiku is zwakker:
+  elke "is af" van mh-sweep controleer ik zelf in de code voordat ik het aan Rob meld.
 
 ## 🔴 26 sep 2026: `_probe.py` krijgt GEEN argumenten meer
 
