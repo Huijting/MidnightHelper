@@ -167,10 +167,11 @@ ns.HEALER_COOLDOWNS = {
 ns.HEALER_CORE_HEALS = {
 	-- Holy Paladin (65)
 	[65] = {
+		-- Table order = screen order: the two instants first (8 Oct 2026, FACTS8).
 		{ id = 20473, tag = "instant" }, -- Holy Shock
+		{ id = 85673, tag = "instant" }, -- Word of Glory
 		{ id = 19750, tag = "fast" }, -- Flash of Light (1.5 s; instant with Infusion of Light)
 		{ id = 82326, tag = "big" }, -- Holy Light
-		{ id = 85673, tag = "instant" }, -- Word of Glory
 		{ id = 85222, tag = "aoe" }, -- Light of Dawn
 	},
 	-- Restoration Druid (105)
@@ -203,6 +204,7 @@ ns.HEALER_CORE_HEALS = {
 	},
 	-- Holy Priest (257)
 	[257] = {
+		{ id = 2050, tag = "instant" }, -- Holy Word: Serenity (8 Oct 2026, FACTS8: the first button when someone is low; each Flash Heal shortens its cd)
 		{ id = 2061, tag = "fast" }, -- Flash Heal
 		{ id = 33076, tag = "bounce" }, -- Prayer of Mending
 		{ id = 596, tag = "aoe" }, -- Prayer of Healing

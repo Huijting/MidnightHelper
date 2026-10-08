@@ -32,6 +32,11 @@ Gebouwd, niet getest.
 - [ ] **Healer, Role Academy → heal-toolkit (Holy Paladin):** Holy Shock en Word of Glory hebben het label [Instant],
   Flash of Light [Korte cast], Holy Light [Groot]. Resto Druid: Swiftmend [Instant], Regrowth [Korte cast]. Geen rauwe
   sleutel (HEALCORE_…) te zien.
+- [ ] **Holy Paladin, heal-toolkit:** volgorde Holy Shock, Word of Glory (of Eternal Flame), dan Flash of Light, Holy Light.
+  **Holy Priest:** Holy Word: Serenity staat er nu, met [Instant], vóór Flash Heal.
+- [ ] **Holy/Ret Paladin, Blijf leven:** achter Blessing of Protection staat "… Geeft Forbearance: 30 s geen Divine Shield of
+  Lay on Hands op jezelf". Prot met Spellwarding: zelfde zin bij Spellwarding. Rogue (Evasion, Cloak) zegt nog gewoon
+  "alleen tegen fysieke schade" / "alleen tegen magie", zonder Forbearance.
 
 ## 🆕 7 okt — 12.1.5 Codex-kaartjes (pas zichtbaar vanaf 12.1.5)
 

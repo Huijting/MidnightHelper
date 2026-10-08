@@ -73,9 +73,9 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- 3 Oct 2026: not Prot. Protection has no Divine Protection in 12.1 (absent from Icy Veins' full
 	-- 12.1 spell list, positive control Crusader Strike on the same page; play-card audit 3 Oct).
 	["Divine Protection"] = { id = 403876, category = "defensive", priority = 2, specs = { 65, 70 }, survival = "small", survivalOrder = 1, survivalId = { [65] = 498 } }, -- DEFENSIVE [403876] (kleine DR)
-	["Blessing of Protection"] = { id = 1022, category = "defensive", priority = 3, survival = "big", survivalOrder = 4, survivalNote = { [65] = "SURVIVAL_NOTE_PHYSICAL", [66] = "SURVIVAL_NOTE_PHYSICAL_TANK", [70] = "SURVIVAL_NOTE_PHYSICAL" } }, -- DEFENSIVE [1022] (fysieke immunity, op ally/self). Prot: the Group tab says "not on a tank" — one answer now (re-read 3, T2)
+	["Blessing of Protection"] = { id = 1022, category = "defensive", priority = 3, survival = "big", survivalOrder = 4, survivalNote = { [65] = "SURVIVAL_NOTE_PHYSICAL_FORBEARANCE", [66] = "SURVIVAL_NOTE_PHYSICAL_TANK", [70] = "SURVIVAL_NOTE_PHYSICAL_FORBEARANCE" } }, -- DEFENSIVE [1022] (fysieke immunity, op ally/self). Prot: the Group tab says "not on a tank" — one answer now (re-read 3, T2)
 	["Blessing of Sacrifice"] = { id = 6940, category = "defensive", priority = 4 }, -- DEFENSIVE [6940] (external DR-transfer); NOT on the card: ally only
-	["Blessing of Spellwarding"] = { id = 204018, category = "defensive", priority = 5, survivalSpecs = { 66 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_MAGIC", specs = { 66 } }, -- DEFENSIVE [204018] (magic immunity, talent)
+	["Blessing of Spellwarding"] = { id = 204018, category = "defensive", priority = 5, survivalSpecs = { 66 }, survival = "big", survivalOrder = 3, survivalNote = "SURVIVAL_NOTE_MAGIC_FORBEARANCE", specs = { 66 } }, -- DEFENSIVE [204018] (magic immunity, talent)
 
 	-- Dispel / CC (V). Cleanse=dispel; Hammer of Justice/Blinding Light/Repentance=CC/stun.
 	["Cleanse"] = { id = 4987, category = "dispel_cc", priority = 1, specs = { 65 } }, -- SpellCategories HEALING [4987] (poison/disease/magic dispel)

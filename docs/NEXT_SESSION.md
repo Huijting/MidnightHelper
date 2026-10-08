@@ -16,9 +16,11 @@
 - (3) GEBOUWD 8 okt, niet getest (TESTLIJST): SURVIVAL_STEP_BIG zonder "(immuniteit ook als je bijna dood bent)"; nieuw
   veld `survivalWhen` (SurvivalPlan.lua) → Guardian Spirit SURVIVAL_WHEN_CHEAT_DEATH, Cold Snap SURVIVAL_WHEN_RESET.
   Heal-tag `fast` gesplitst: `instant` (Holy Shock, WoG, Swiftmend, Verdant Embrace), `fast` = "Short cast" (FoL,
-  Regrowth, Vivify, Flash Heal), `filler` (Living Flame). 5 talen via mh-writer. OPEN, Rob kiest: Holy Word: Serenity
-  (2050) als [Instant] bij Holy Priest; Forbearance-noot voor BoP Holy/Ret + Spellwarding (nieuwe sleutels); Earth
-  Elemental alleen met Primordial Bond. (DK-commentaar r.41 Lichborne → "small": gedaan.)
+  Regrowth, Vivify, Flash Heal), `filler` (Living Flame). 5 talen via mh-writer (b3e6c6a).
+- Rob "ik volg jouw advies" → ook gebouwd, niet getest: Holy Word: Serenity (2050) [Instant] bij Holy Priest; Holy Pal
+  WoG direct onder Holy Shock; SURVIVAL_NOTE_PHYSICAL_FORBEARANCE / _MAGIC_FORBEARANCE (Paladin-only; de oude delen Rogue
+  en DK) op BoP Holy/Ret + Spellwarding, 7 talen (zelf vertaald); Frans Blijf leven helemaal "tu" (INTRO, HURTS, ESCAPE,
+  HEAL, BIG + "appuie dessus"). Nog open, lage prio: Earth Elemental alleen met Primordial Bond (eerst gids nakijken).
 
 ## (eerder) 7 okt, 22:12 — 4.7.4 GETAGD en gepusht (Rob: "Go"), tag `v4.7.4` op 62f33af
 - Release-run 37680209677 gestart. Daarna: CF → Files → Changelog nakijken; site-chat seintje gestuurd.

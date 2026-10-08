@@ -1669,6 +1669,10 @@ ns._mhLocales.enUS = {
 	GROUP_NOTE_ROAR_OF_SACRIFICE_2 = "a small help: 15% less damage",
 	SURVIVAL_NOTE_WOG_PROT ="uses the same Holy Power as Shield of the Righteous: press it when it is free (Shining Light)",
 	SURVIVAL_NOTE_MAGIC = "only against magic",
+	-- Paladin-only twins of PHYSICAL/MAGIC (8 Oct 2026, FACTS8): those two are shared with Rogue and DK,
+	-- and Blessing of Protection/Spellwarding give Forbearance (DB2 25771) like Divine Shield does.
+	SURVIVAL_NOTE_PHYSICAL_FORBEARANCE = "only against physical damage. Gives Forbearance: no Divine Shield or Lay on Hands on yourself for 30 sec",
+	SURVIVAL_NOTE_MAGIC_FORBEARANCE = "only against magic. Gives Forbearance: no Divine Shield or Lay on Hands on yourself for 30 sec",
 	SURVIVAL_NOTE_AOE = "only against area damage",
 	SURVIVAL_NOTE_FRONT = "only against attacks from the front",
 	SURVIVAL_NOTE_SPELL_AT_YOU = "press it as a spell is cast at you",
