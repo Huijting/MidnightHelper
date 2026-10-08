@@ -2052,3 +2052,63 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   [2026-10-07] als kruiscontrole (feiten niet herhaald, alleen zelf getoetst op tegenspraak met
   geshipte MH-tekst). Geen actiepunt dat ík kan oppakken buiten het melden van de esMX-bug — ik
   rapporteer, een mens beslist.
+
+---
+
+- [2026-10-08] 💬 **CurseForge: geen open reacties (3 draadjes gelezen) — het esMX-draadje van
+  gisteren is beantwoord.** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261008f` (en `&nocache=20261008g` als tweede, onafhankelijke fetch) via Exa, beide
+  volledig gelezen (JSON). `pagination.totalCount` = **8** (was 7 op [2026-10-07]); die ene
+  nieuwe regel is geen nieuw draadje maar Robs eigen reply.
+
+  - Het esMX-draadje (`user_uvqy5939hswhgduu`, gemeld als 🔴 open op [2026-10-07]) heeft nu een
+    reply van `twelveinchy` (datePosted 1791351710373, ≈ 6/7 okt 2026): *"your fix was exactly
+    right! The Spanish translation only loaded for 'esES', so Latin American clients ('esMX')
+    stayed in English. It is fixed for the next update..."* — bevestigt de eigen diagnose van
+    [2026-10-07] woordelijk. Niet meer open.
+  - **MrsBoojiePanda** (debug-regel bij login) en **gadrinonturalyon** (coffer-key-shards-popup /
+    3D-bossmodel): nog steeds onveranderd beantwoord, nieuwste bericht in beide draadjes blijft
+    van `twelveinchy`.
+
+  Geen nieuwe draadjes sinds gisteren. MEASURED. **[RAAKT ONS NIET]** als actiepunt vandaag — de
+  esMX-fix zelf staat nog open in de code (`Locales/esES.lua:17`), maar dat is al gemeld op
+  [2026-10-07] en een mens beslist wanneer dat wordt opgepakt.
+
+- [2026-10-08] 🔁 **Geen nieuwe hotfix-sectie sinds [2026-10-06] — Delves/Professions/Quests/
+  Items blijven leeg in de nieuwste sectie, niets om tegen de repo te toetsen.**
+  `news.blizzard.com`'s doorlopende hotfix-artikel **volledig zelf gelezen** via Exa
+  `web_fetch_exa` met `?nocache=20261008f` en, voor de hele pagina in één keer (groter
+  uittreksel dan de eerste fetch), `?nocache=20261008h`: de bovenste sectie is nog steeds
+  **"October 6, 2026"**, met uitsluitend **Classes** (klassen-/PvP-tuning, buiten mijn lane),
+  **Dungeons and Raids** (de Ula'tek-encountertuning die ik op [2026-10-06] al regel-voor-regel
+  tegen `RAID_BOSS_ULATEK_*`/`Locales/RaidTips.lua` getoetst heb, inclusief negen losse
+  Wowhead-spell-ID-opzoekingen — vandaag byte-voor-byte dezelfde cijfers, geen nieuwe toetsing
+  nodig) en een brede **Player versus PvP**-talentpas (buiten mijn lane). **Delves, Professions,
+  Quests en Items: leeg** in de "October 6"-sectie (Blizzard laat lege categorieën gewoon weg,
+  zelfde patroon als eerdere dagen) — niets om te vergelijken. De oudere secties die bij deze
+  volledige-pagina-fetch zichtbaar werden (1 okt: Feral Druid/Survival Hunter-classtuning +
+  Ula'tek Venomous-Heart-melee-fix; 29 sep: Mother's Wrath-fix; 24 sep: Shadow Enclave
+  Oddball-"Ingredient"-teleport) staan al eerder in deze log verwerkt (de Shadow-Enclave-fix
+  sinds [2026-09-25], regels 1251-1291) en zijn vandaag alleen herbevestigd als nog steeds
+  onveranderd, niet opnieuw als vondst geteld.
+
+  Dit convergeert met de API-, PTR- en data-wachter van vandaag (`docs/API_WATCH.md`
+  entry [2026-10-08], `docs/PTR_12.1_WATCH.md` entries [2026-10-08], `docs/PTR_12.0.7_DATA.md`
+  entry [2026-10-08]), die onafhankelijk dezelfde "October 6"-sectie als nieuwste zagen — niet
+  overgenomen als feit, zelf opnieuw gelezen en hierboven uit de eigen fetch geciteerd. De
+  data-wachter noemt vandaag ook een nieuwe NPC "Wah'du" bij de Labyrinths (Myth 1/6-gear via
+  3× Mythical Soul Fragment) — dat is 12.1.5-PTR-materiaal dat pas op 13/14 okt live gaat, dus
+  `docs/PTR_12.1_WATCH.md`'s terrein, niet het mijne; niet als eigen vondst herhaald.
+
+  Vandaag is donderdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261008f en
+  ?nocache=20261008h (beide volledig gelezen via Exa) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261008f/g (volledig gelezen via Exa) · `docs/API_WATCH.md` entry [2026-10-08],
+  `docs/PTR_12.1_WATCH.md` entries [2026-10-08] en `docs/PTR_12.0.7_DATA.md` entry [2026-10-08]
+  als kruiscontrole (feiten niet herhaald, alleen zelf getoetst op tegenspraak met geshipte
+  MH-tekst). **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van nieuwe)
+  spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
+  beslist.
