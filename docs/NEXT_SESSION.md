@@ -1,6 +1,35 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (8 okt) — 4.7.4 is LIVE; open: Resto Druid-PDF voor DandersFrames
+## ▶️ HIER VERDER (9 okt) — Rob: "morgen eerst werken, daarna testen; onderweg dingen uitzoeken zonder WoW"
+Stand eind 8 okt (alles gepusht, main = origin/main, laatste 4ec969b + deze handoff):
+- **Live: 4.7.4.** Op main, NIET uitgebracht (kandidaat **4.7.5**, vóór 12.1.5 op 13/14 okt): heal-tags Instant/Short
+  cast/Filler + Serenity (Holy Priest) + WoG onder Holy Shock; SURVIVAL_STEP_BIG zonder immuniteitszin + survivalWhen
+  (Guardian Spirit, Cold Snap); Forbearance-noten BoP/Spellwarding; frFR Blijf leven "tu"; Academy: DEF_DESC_IMMUNE,
+  TRIAGE noemt [Instant]/[Short cast], nlNL "spell"; Codex Keystone Myth (12.1.5-gated); Aqir niet meer 2× in upcoming;
+  Labyrinth "Headhunters appear" (geen "kill fast"). Alles 7 talen, lint 0 HARD. Version/changelog/RELEASE_NOTES NIET
+  gebumpt (pas op Robs go).
+- **Rob test (avond):** bovenaan `docs/TESTLIJST.md` de punten van 8 okt (Blijf leven-kaart, heal-toolkit labels,
+  Serenity, Forbearance-noot, Keystone Myth-kaart pas na patch). Daarna: 4.7.5 beta of release → Robs go.
+- **12.1.5 (13 okt VS / 14 okt EU):** Codex-kaarten klaar (Labyrinth, Kith'ix, Aqir, Venomstones, Keystone Myth;
+  minInterface 120105). Bazentips NIET in de addon; concept `docs/PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md` (Kith'ix
+  stevig: DB2 + DBM-module `DBM-Lairs-Midnight\UnbindingofKithix`; Kindo'jan alleen DB2 + 1 gids). Patchdag: meten +
+  DBM checken → dan bossvenster-tips 7 talen. 20 okt: crest-cap-zin Codex (CHECKLIST).
+- **Site:** /academy/ LIVE (site-chat d92dba2). Onze tekstfixes komen via de nachtbouw bij de volgende tag.
+- **Spiekbrief-PDF Resto Druid:** wacht op Robs screenshot Active Bindings (DandersFrames). Figuren: 22 goedgekeurd in
+  `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (+ intro-filmpjes in `intro\`). Holy-bron: scratchpad 945b4dfe.
+
+**Onderweg te doen (zonder WoW) — voorstellen, Rob kiest:**
+1. Kith'ix-bossvenstertips alvast UITSCHRIJVEN (enUS+nlNL) uit het concept, klaar om op patchdag te checken (niet
+   committen in Locales vóór de check, of achter minInterface 120105 — kiezen).
+2. 4.7.5 release-stukken voorbereiden (CHANGELOG_475_*, RELEASE_NOTES, CURSEFORGE_4.7.5) zónder bump/tag; Rob kiest
+   beta of release.
+3. Ideeën uit `docs/IDEEEN_OPEN_2026-10-08.md`: bv. "Midnight beginnen op een alt" (Codex, eerst quest-ID's meten),
+   Knowledge-drop-teller (eerst meetcommando), Renown in Account snapshot. Of mh-sweep (nieuw, Haiku) laten nalopen.
+4. Earth Elemental alleen met Primordial Bond (gids nakijken) — lage prio.
+⚠️ Nieuw in deze chat: helper `mh-sweep` (Haiku, mag docs/ lezen; werkt na app-herstart). Pushen naar main mag
+zelf (Rob 8 okt: "pushjes = veilig zetten"); tag/beta/release alleen op Robs go. Films: altijd −14 LUFS (`luid.py`).
+
+## (vorige) HIER VERDER (8 okt) — 4.7.4 is LIVE; open: Resto Druid-PDF voor DandersFrames
 - ✅ 4.7.4 geüpload (log: CurseForge, Wago, GitHub "Success!"), Rob: changelog op CF goed, description geplakt
   (b856cc8, gepusht). Site-chat heeft versie + tag.
 - OPEN (Rob, 7 okt laat): spiekbrief-PDF zoals de Holy-versie, nu voor Resto Druid + "een gaaf plaatje voor mijn druid".
