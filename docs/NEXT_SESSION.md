@@ -38,6 +38,9 @@
   mijn positieve controle (Nalorakk) vond alleen DBM-Test/GUI/Core — dat had me moeten waarschuwen. Voor Kindo'jan
   heeft DBM echt niets (helper, gemeten mét controle). Concept zegt: Headhunters hoeven NIET dood volgens Wowhead 7 okt
   — botst met CODEX_LABYRINTH_BODY "kill them fast"; DBM-fout: Divine Radiance = 1303169, niet 1303406.
+- Rob "ja op 1 t/m 3" — GEBOUWD, niet getest (TESTLIJST): (1) CODEX_LABYRINTH_BODY 7 talen "Headhunters — kill them
+  fast" → "Headhunters appear" (Wowhead 7 okt: hoeven niet dood); (2) EventScheduler: upcoming ontdubbeld op POI+eindtijd
+  (Aqir 9045 stond 2×); (3) Codex-kaartje "Keystone Myth is back" (dungeons, minInterface 120105, 7 talen, zelf vertaald).
 - Spiekbrief-figuren GOEDGEKEURD: Druid 2 (Tauren) + Priest 1 (Blood Elf, MAN — Rob: alleen mannelijke chars) →
   `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (MANIFEST). Vanavond: de PDF's.
 - ComfyUI (Rob 8 okt, "volg jouw advies"): nieuwe figuren voor de spiekbrieven — Tauren Resto Druid "Purlymixanox",

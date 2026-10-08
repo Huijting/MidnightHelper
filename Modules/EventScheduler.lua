@@ -363,6 +363,9 @@ local function rescan()
 			seenOngoing[e.areaPoiID] = true
 		end
 	end
+	-- 8 Oct 2026: the 12.1.5 PTR listed the Aqir Invasion (areaPoi 9045) twice in "upcoming" with the same
+	-- times (GEMETEN 7 Oct, /mh eventspy). Same POI + same end = one event; a later window of it stays.
+	local seenUpcoming = {}
 	local rawScheduled = safe(C_EventScheduler and C_EventScheduler.GetScheduledEvents) or {}
 	for _, ev in ipairs(rawScheduled) do
 		pcall(function()
@@ -388,7 +391,8 @@ local function rescan()
 								fromSchedule = true, -- running per its own window; the ongoing API did not list it
 							}
 						end
-					else
+					elseif not seenUpcoming[tostring(poiID) .. ":" .. tostring(endt)] then
+						seenUpcoming[tostring(poiID) .. ":" .. tostring(endt)] = true
 						upcoming[#upcoming + 1] = {
 							name = name,
 							zoneName = zone,

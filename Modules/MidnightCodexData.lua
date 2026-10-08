@@ -416,6 +416,18 @@ ns.CODEX_ARTICLES = {
 		searchKeys = "aggro threat tank taunt nameplate flash highlight targeted say if targeted audio assist "
 			.. "enemy attacking me who is the enemy hitting wie slaat de vijand",
 	},
+	-- 12.1.5: Keystone Myth returns. Achievement 63690 (wago 70077, text still "[PH]" there); 3600, title and
+	-- saddle from Blizzard's 12.1.5 notes + Wowhead (docs/PATCH_12_1_5_CONTENT_2026-10-07.md §5).
+	{
+		id = "keystone_myth",
+		category = "dungeons",
+		titleKey = "CODEX_KEYSTONE_MYTH_TITLE",
+		bodyKey = "CODEX_KEYSTONE_MYTH_BODY",
+		sort = 4,
+		minInterface = 120105,
+		searchKeys = "keystone myth mythic plus m+ rating 3600 venomous contender timelost saddle mount title "
+			.. "achievement season 2",
+	},
 
 	-- Raid
 	{

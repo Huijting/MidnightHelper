@@ -40,6 +40,13 @@ Gebouwd, niet getest.
 
 ## 🆕 7 okt — 12.1.5 Codex-kaartjes (pas zichtbaar vanaf 12.1.5)
 
+- [ ] **(8 okt) Patchdag, `/mh codex` → Dungeons:** nieuw kaartje "Keystone Myth is back (12.1.5)". Live vóór de patch: NIET
+  zichtbaar. Klopt 3600 in je eigen Achievements-venster (de testdata zei "[PH]")?
+- [ ] **(8 okt) Labyrinth, Kindo'jan:** moeten de 4 Amani Headhunters dood of niet? (Wowhead 7 okt: niet nodig, en hun bijlen
+  tellen niet voor Disgraceful Display.) Ons kaartje zegt nu alleen "4 Amani Headhunters appear". En: ben je je kamers kwijt
+  als je het Labyrinth verlaat? (bronnen spreken elkaar tegen)
+- [ ] **(8 okt) Events-scherm (PTR of na de patch):** Aqir Invasion staat maar 1× in "Coming up".
+
 Gebouwd, niet getest. Op de **live** client horen ze NIET te bestaan; op de **PTR** (12.1.5) wel.
 - [ ] **Live, `/mh codex`:** Delves heeft géén "The Labyrinth of Kindo'jan", Raid & crests géén Kith'ix/Venomstones,
   World content géén Aqir Invasion. Zoekvak "labyrinth" vindt niets.
