@@ -41,8 +41,9 @@
 - Rob "ja op 1 t/m 3" — GEBOUWD, niet getest (TESTLIJST): (1) CODEX_LABYRINTH_BODY 7 talen "Headhunters — kill them
   fast" → "Headhunters appear" (Wowhead 7 okt: hoeven niet dood); (2) EventScheduler: upcoming ontdubbeld op POI+eindtijd
   (Aqir 9045 stond 2×); (3) Codex-kaartje "Keystone Myth is back" (dungeons, minInterface 120105, 7 talen, zelf vertaald).
-- Spiekbrief-figuren GOEDGEKEURD: Druid 2 (Tauren) + Priest 1 (Blood Elf, MAN — Rob: alleen mannelijke chars) →
-  `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (MANIFEST). Vanavond: de PDF's.
+- Spiekbrief-figuren: SET COMPLEET, 22 figuren voor elke spec van Robs 7 chars (Twelveinchy blijft apart) →
+  `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (MANIFEST). Allemaal MAN. Vanavond: de PDF's (Resto Druid eerst;
+  Demo Warlock-figuur staat laag → bovenkant bijsnijden). ComfyUI daarna afgesloten (GEMETEN).
 - ComfyUI (Rob 8 okt, "volg jouw advies"): nieuwe figuren voor de spiekbrieven — Tauren Resto Druid "Purlymixanox",
   Blood Elf Disc Priest "Umbrion" (Robs echte chars, gemeten in charCurrencies). TwelveInchy blijft zoals hij is.
 
