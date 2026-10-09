@@ -1000,6 +1000,28 @@ function ns.CraftShopTerms()
 	return terms
 end
 
+--- How many reagents this list would mark to buy, for the auction house button. The same rules as CraftShopTerms,
+--- but without needing the item's NAME: Rob, 9 Oct 2026, saw "Profession: 0" and a moment later "Profession: 1" for
+--- the same Nocturnal Lotus - CraftShopTerms skips an item whose name the client has not loaded yet, which is right
+--- for an Auctionator search and wrong for a count.
+function ns.CraftShopToBuyCount()
+	local S = Shop()
+	local list = MyList()
+	local n = 0
+	for _, t in ipairs(Totals(list)) do
+		local away = (S.MailCount and S.MailCount(t.ids) or 0) + (S.BankCount and S.BankCount(t.ids) or 0)
+		local toBuy = t.need - HaveInBags(t.ids) - away - Planned(t, list)
+		local vendor = false
+		for _, x in ipairs(t.ids) do
+			vendor = vendor or VENDOR[x] ~= nil
+		end
+		if toBuy > 0 and not vendor then
+			n = n + 1
+		end
+	end
+	return n
+end
+
 Refresh = function()
 	if not win then
 		return

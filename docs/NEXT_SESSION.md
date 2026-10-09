@@ -16,7 +16,9 @@ Stand eind 9 okt (alles gepusht; main = origin/main; zie `git log v4.7.4..HEAD`)
   Changelog.lua, RELEASE_NOTES = CURSEFORGE_4.7.5, CHANGELOG.md). Komt er nog iets bij: eerst het concept aanvullen.
 - **Testuitslag 9 okt avond (Rob):** veilinghuis-knop werkt (zichtbaar, klik, uitzetten). Getal zakte pas na mail
   ophalen → gerepareerd (`ns.RefreshAhShopButton`, aangeroepen uit `NoteOnWay`); hertest ❌ (2 vóór en ná, met
-  reload). Tooltip-uitsplitsing Raid/Beroep + probe `ns.db.ahShopProbe` erin; wacht op Robs SV. Open vraag: telt
+  reload). Tooltip-uitsplitsing Raid/Beroep + probe `ns.db.ahShopProbe` erin. Meting Rob: Raid zakt nu meteen ✅;
+  Beroep flikkerde 0↔1 (naam niet geladen → CraftShopTerms sloeg hem over) → knop telt nu via
+  `ns.CraftShopToBuyCount`; hertest open. Open vraag: telt
   "Pluk" (verzamelbaar reagent, CraftShopTerms) terecht als "te kopen" op de knop?
 - **Rob test vanavond:** bovenaan `docs/TESTLIJST.md` (9 okt): veilinghuis-knop, `/mh presses`, schat-stappen,
   healer-cd's, schakelaars, Barkskin/Earth Elemental, Kith'ix nog ONzichtbaar op live.

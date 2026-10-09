@@ -11,7 +11,7 @@ local _, ns = ...
 
 	The number is the sum of what the two lists themselves count, with their own rules (mail and bank count as had,
 	optional rows and the Healthstone never count, vendor reagents stay off): ns.RaidShopMissingCount (rows) and
-	ns.CraftShopTerms (reagents to buy). Click = /mh ready, which has the Raid | Profession tabs on top.
+	ns.CraftShopToBuyCount (reagents to buy; not CraftShopTerms, which skips items whose name has not loaded yet). Click = /mh ready, which has the Raid | Profession tabs on top.
 
 	Not secure, nothing protected: a plain button parented to Blizzard's AuctionHouseFrame (load-on-demand, so it is
 	hooked when Blizzard_AuctionHouseUI loads). On by default; Settings -> Window, or ns.db.ahShopButton = false.
@@ -43,9 +43,9 @@ local function ToBuy()
 		local ok, c = pcall(ns.RaidShopMissingCount)
 		raid = ok and tonumber(c) or 0
 	end
-	if ns.CraftShopTerms then
-		local ok, t = pcall(ns.CraftShopTerms)
-		craft = ok and type(t) == "table" and #t or 0
+	if ns.CraftShopToBuyCount then
+		local ok, c = pcall(ns.CraftShopToBuyCount)
+		craft = ok and tonumber(c) or 0
 	end
 	return raid + craft, raid, craft
 end

@@ -51,6 +51,11 @@ Auctionator-tab en er niet overheen.
   vóór de koop had het dus 3 moeten zijn. Onopgelost. Nu: tooltip toont "Raid: X · Beroep: Y" en elke hertelling
   schrijft naar `ns.db.ahShopProbe` (reden open/bags/purchase). **Test:** veilinghuis open → muis op knop (noteer X/Y)
   → koop 1 ding van de lijst → muis erop → `/reload` → zeg het mij, ik lees de SV.
+  ✅ Meting Rob (zelfde avond): Raid 1 → koop Head-enchant → Raid 0, meteen. **Raid-deel werkt.** Maar Beroep sprong
+  0 → 1 zonder dat er iets veranderde: `CraftShopTerms` slaat een item over waarvan de naam nog niet geladen is
+  (Nocturnal Lotus). Dat verklaart ook de "2 vóór en 2 ná" van eerder. Gerepareerd: knop telt via
+  `ns.CraftShopToBuyCount` (zonder naam). **Hertest:** na `/reload` meteen veilinghuis open → muis op knop: Beroep
+  moet direct goed staan (niet eerst 0).
 - [x] **Instellingen → Venster → "Boodschappenknop bij het veilinghuis" uit:** knop weg (ook bij een open veilinghuis).
 
 ## 🆕 9 okt — twee schakelaars erbij, en Kith'ix staat klaar voor patchdag
