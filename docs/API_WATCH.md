@@ -4564,3 +4564,221 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
       permissie-classificatie van deze sessie, met als reden *"Irreversible Local Destruction"*.
       Opgelost zonder omweg via `git switch main` + `pull --rebase`, dus niets blijft liggen.
       Opgeschreven omdat een volgende run dezelfde weigering zal zien.
+- [2026-10-09] 🔴 **Eén [MOET GEFIKST], en het is de eerste op `SimcExport.lua`: de
+  SimulationCraft-addon heeft na zeven weken stilte een nieuwe release (`12.1.0-alpha-06`,
+  gepubliceerd 8 okt 23:05:42Z) en die verandert de `race=`-regel in het pad dat óók voor Retail
+  geldt.** Daarnaast drie echt nieuwe bronitems binnen 2–9 okt, alle drie **[RAAKT ONS NIET]**: de
+  nieuwe Lua-global `import()`, twaalf bewerkingen aan `TOC format` (met een nieuw game type
+  `Forever`), en twee forum-topics. De hotfixpagina is onveranderd. 🔎 En één ding dat geen vondst
+  is maar wél opgeschreven hoort: **ik heb deze run een eigen grep-fout gevangen die élke
+  "nul treffers" in dit logboek onbetrouwbaar kan maken** — onderaan, want hij is herbruikbaar.
+  - 🔴 **[MOET GEFIKST] — `Modules/SimcExport.lua:445-446` schrijft voor race-ID 95 en 96 een
+    ander `race=`-token dan de SimulationCraft-addon.** GEMETEN in de releasenotes én in de code
+    van upstream.
+    - **Wat upstream deed.** `12.1.0-alpha-06` (release-id 407330869, commit `703bc5c`, 605
+      toevoegingen / 51 verwijderingen) verving in `GetSimcProfile` de tweeweg-aanroep door een
+      drieweg en hing er twee takken onder. LETTERLIJK uit `core.lua` op die commit:
+      ```lua
+      local _, playerRace, playerRaceId = UnitRace('player')
+
+        -- fix some races to match SimC format
+        if playerRace == 'Scourge' then --lulz
+          playerRace = 'Undead'
+        elseif playerRaceId == 95 then
+          playerRace = "skyborne_alliance"
+        elseif playerRaceId == 96 then
+          playerRace = "skyborne_horde"
+        else
+          playerRace = FormatRace(playerRace)
+        end
+      ```
+      en daarna `playerRace = 'race=' .. Tokenize(playerRace)`.
+    - **Wat MH doet.** `Modules/SimcExport.lua:445-446`, letterlijk:
+      `local _, raceFile = UnitRace("player")` en
+      `local race = raceFile == "Scourge" and "Undead" or FormatRace(raceFile)`, met op `:487`
+      `add("race=" .. Tokenize(race))`. Dus: de derde teruggave wordt niet opgevraagd en
+      `FormatRace` loopt over élke race behalve Scourge.
+    - 🔴 **Waarom dit een echte fout is en niet alleen een gemist veld.** Upstreams `else`-tak ís
+      `FormatRace(playerRace)` — exact wat MH onvoorwaardelijk doet. Hadden race 95 en 96 via
+      `FormatRace` het juiste token opgeleverd, dan waren die twee nieuwe takken overbodig. Ze
+      staan er, dus levert `FormatRace` daar het juiste token **niet** op, en MH schrijft voor die
+      twee races iets anders dan `skyborne_alliance` / `skyborne_horde`.
+    - ⚠️ **Wat ik NIET weet, en niet ga verzinnen:** wát MH er dan precies van maakt. Dat hangt af
+      van de string die `UnitRace("player")` als tweede teruggave geeft voor race 95 en 96, en die
+      heb ik niet gemeten — daar heb ik de client voor nodig. Het token is fout; de foute waarde is
+      onbekend.
+    - **Wat er moet gebeuren:** de twee takken van upstream overnemen in `SimcExport.lua:445-446`.
+      Dat is geen gok naar een API-naam: `UnitRace`'s derde teruggave en de twee ID's komen
+      letterlijk uit upstream, en die addon is public domain (The Unlicense), net als de tabellen
+      die al in dit bestand staan. Daarna zijn de twee versiestempels aan de orde:
+      `SimcExport.lua:14` (*"read 30 Sep 2026 at release 12.1.0-04"*) en `:481`
+      (`add("# Midnight Helper " .. version .. " (SimulationCraft addon format, 12.1.0-04)")`).
+    - ⚠️ **Weeg dit mét de kleine lettertjes: `alpha-06` is een PRERELEASE.** GEMETEN in de
+      API-uitvoer: `"prerelease": true`, 0 downloads van de zip op het moment van lezen, tegenover
+      972 voor `12.1.0-04`. Het is wel de **eerste** release sinds `12.1.0-04` van 21 aug 2026
+      23:15:56Z. De commitboodschap is *"Experimental Forever support"*, maar de race-takken staan
+      **niet** achter de `IS_FOREVER`-schakelaar — ze staan in het gedeelde pad en gelden dus ook
+      op Retail. 📌 Rob beslist of we een alpha volgen; de vondst zelf verandert daar niet van.
+    - ✅ **De andere helft van de toets: `ItemString` is wél nog gelijk.** De
+      item-modifier-constanten in upstreams `core.lua` op deze commit zijn onveranderd
+      (`ITEM_MOD_TYPE_DROP_LEVEL = 9`, `CONTENT_TUNING = 28`, `CRAFT_STATS_1 = 29`,
+      `CRAFT_STATS_2 = 30`, `REDIRECTED_BASE_STATS = 64`) en staan één op één zo in
+      `Modules/SimcExport.lua:41-45`, met `OFFSET_BONUS_ID = 13` op `:37`. **Niets te doen aan
+      `ItemString`.**
+    - 📌 **Ter informatie, geen actiepunt:** upstreams `.toc` ging van
+      `## Interface: 120005, 120007, 120100` naar `## Interface: 120100, 120105, 16001`, en er
+      kwam één bestand bij (`forever\stats.lua`). Die `16001` is de Forever-client; MH's `.toc`
+      staat op `120007, 120100, 120105` en dat hoeft hier niets mee te doen.
+  - 🆕 **[RAAKT ONS NIET] — `import()` is een nieuwe Lua-global, en de wikipagina is vannacht
+    aangemaakt.** `API:require` werd aangemaakt 8 okt 21:57:22Z (Kaydeethree, pageid 707819) en
+    binnen drie minuten omgedoopt naar `API:import` (`s/require/import/g`, revid `6904617` om
+    21:57:51Z, daarna `6904622` om 22:00:34Z met als samenvatting *"siigh"*). De wikitext zegt
+    onderaan letterlijk `* {{Patch 1.60.1|note=Added.}}` — dezelfde buildreeks als de twee pagina's
+    van 6 okt (*"1.60.1 (70235)"*). Het is een echt modulesysteem voor addons:
+    `module = import(moduleName)`, absolute paden (`Addon.Module`) en relatieve (`.Startup`,
+    `..UI.Panel`), hoofdletterongevoelig, **laadt niets dynamisch** (alleen al geladen modules),
+    en een import over addon-grenzen eist een **directe** `## Dep:` of `## OptionalDeps:` in de
+    `.toc` (transitieve afhankelijkheden volstaan niet).
+    → **Toets aan de code: 0 treffers.** GEMETEN, addon-scope, `import` als kále identifier
+    (aanroep of toekenning) via `grep -rnE --exclude-dir=… -e '(^|[^%._[:alnum:]])import[[:space:]]*[=(]' --include='*.lua' .`:
+    **0**. 🔴 **Positieve controle in dezelfde run, zelfde regex, zelfde scope:** dezelfde regex met
+    `CreateFrame` in plaats van `import` geeft **781** treffers — de nul is een echte nul. Het woord
+    "import" komt wel 43 keer voor, maar uitsluitend in commentaar, labels en teksten
+    (`Modules/EditModeBackup.lua:122` *"before-bars-import"*, `Modules/KeyBlock.lua:11` over Robs
+    Edit Mode-importtest). 📌 Óók gecontroleerd op het gevaar dat een nieuwe global oplevert — een
+    botsing met een eigen naam `import` — en dat is er dus niet.
+  - 🔇 **[RAAKT ONS NIET] — `TOC format` is in één nacht twaalf keer bewerkt (28046 → 32649 b), en
+    het is vooral een herschrijving.** Alle twaalf door **Zeal**, van `6904641` (8 okt 22:53:50Z)
+    tot `6904790` (**9 okt 02:04:03Z**, *"/* Forever */ Corrected note"*). GEMETEN via
+    `action=compare&fromrev=6900914&torev=6904790`. Wat er echt verandert:
+    - **Terminologie, niet gedrag.** De sectie `==Conditional directives==` heet nu
+      `==Inline directives==`, `Metadata` heet `Directives`, en er is een nieuwe sectie
+      `==Addon directives==`. De namen van de directives zelf zijn **onveranderd**:
+      `AllowLoad`, `AllowLoadGameType`, `ExcludeLoadGameType`, `AllowLoadTextLocale`,
+      `AllowLoadEnvironment`, `LoadIntoEnvironment`, `Bootstrap`. Ook de variabelen `[Family]`,
+      `[Game]` en `[TextLocale]` blijven.
+    - **Het enige nieuwe feit:** er is een game type **`Forever`** bijgekomen (revid `6904647`,
+      *"Added new game type and alias added note"*), en bij de `[Game]`-variabele staat nu een
+      voetnoot die ik letterlijk teruglees als *"The `Camelot` value may be changed to `Forever`
+      in the future."* De opgesomde game types zijn `Standard`, `Vanilla`, `Camelot`, `TBC`,
+      `Wrath` en `Mists`. 📌 Dat `Forever` een apart product is met launch 4 nov staat al in
+      `docs/PTR_12.1_WATCH.md` van gisteren; ik meld hier alleen de **TOC-kant** ervan.
+    - **Eén verscherping die wél addon-relevant is**, en die stond er in mildere vorm al: de
+      waarschuwing bij `AllowLoadGameType` zegt nu *"If at least 1 game type is specified and none
+      of the game types are recognized by the client, the condition will still be satisfied"* —
+      vandaar het advies om `ExcludeLoadGameType` erbij te gebruiken voor game types die nog niet
+      overal bekend zijn.
+    → **Toets aan de code: niets van dit alles komt in MH voor.** GEMETEN, addon-scope:
+    `AllowLoadGameType` **0**, `ExcludeLoadGameType` **0**, `Camelot` **0**, `CamelotCombat` **0**,
+    `GetCombatConfigIDForSpecGroup` **0**. `Forever` geeft **11** treffers en **alle elf** zijn
+    iets anders: `db.hideForever` (`Modules/Changelog.lua:1142` en `:1185`, `Core.lua:25` en
+    `:282`), het achievement *Forever Song* (`Modules/Achievements.lua:1630` en `:1783`,
+    `Locales/enUS.lua:3167` en `:3189`, `CHANGELOG.md` 2×) en één commentaarregel over een
+    Forever-addon (`Modules/AltBoardView.lua:6`). MH's `.toc` gebruikt geen enkele inline
+    directive en geen game-type-suffix.
+  - 🔇 **De `API:`-namespace (ns 3000) over 2–9 okt: zeven regels, waarvan vier al in dit
+    logboek.** `list=recentchanges&rcnamespace=3000&rclimit=250&rcend=2026-10-02T00:00:00Z`, mét
+    cache-buster. De vier bekende, met dezelfde revid's als gisteren:
+    `API:C Spell.GetItemCooldown` `6901441`, `API:UnitUsesAmmo` `6901440` (beide KethoBot, 6 okt
+    01:28Z), `API:SendAddonMessage` `6899146` (Ketho, 3 okt 19:21:51Z) en
+    `API:C Item.GetItemStats` `6898001` (Lotimar, 2 okt 11:52:21Z). De drie nieuwe zijn de
+    aanmaak-log en de twee bewerkingen van `API:import` hierboven. **Geen vijfde onderwerp, en
+    geen van de vier bekende is opnieuw aangeraakt.**
+  - 🔇 **Wiki: de vijf andere gevolgde pagina's byte-voor-byte gelijk aan gisteren.**
+    `Patch 12.1.5/API changes` `6901394` (Ketho, 6 okt 00:18:58Z, 35432 b), `Patch 12.1.0/API
+    changes` `6886719` (25 sep, 102481 b), `Patch 12.0.7/API changes` `6794100` (4 aug, 34044 b),
+    `API change summaries` `6883777` (22 sep, 7280 b), `Hotfixes` `6902337` (Dark T Zeratul, 7 okt
+    04:45:05Z, 374413 b). 📌 **GEMETEN dat er nog geen nieuwere variant bestaat:**
+    `Patch 12.1.7/API changes` en `Patch 12.2.0/API changes` komen beide terug als `"missing": ""`.
+  - 📰 **Hotfixes: geen nieuwe sectie.** De wikipagina is sinds mijn vorige lezing niet meer
+    bewerkt (zelfde revid `6902337`, 7 okt 04:45:05Z) en heeft dus nog steeds geen
+    `===October 7===` of `===October 8===`. ⚠️ **En hier moest ik mijn eigen cache-regel
+    toepassen:** een onafhankelijke `WebSearch` naar *"hotfixes October 8 2026"* gaf als nieuwste
+    de hotfixes van **1 okt** — ouder dan de 6 okt die ik gisteren al had. Dat is precies het
+    patroon uit de opdracht, dus die zoekopdracht telt **niet** als bewijs dat er niets is.
+    ✅ **De versheid van de wiki-bron zelf is wél hard aangetoond, op hetzelfde `api.php`:** het
+    nieuwste dat ik vandaag terugkreeg is `TOC format` van **9 okt 02:04:03Z** en een `API:`-regel
+    van **8 okt 22:00:34Z**, beide **nieuwer** dan het nieuwste dat mijn regel van gisteren noemde
+    (`6902337`, 7 okt 04:45Z). Hetzelfde endpoint levert dus actuele data; de onveranderde
+    hotfixpagina is daarmee een gemeten nul en geen cache.
+  - 🔇 **[RAAKT ONS NIET] — `#ui-macro`: twee nieuwe topics, geen van beide met API-inhoud.**
+    Op topic-id gecontroleerd met `order=created`, beide openingsposts integraal gelezen:
+    - `2376572` *"Policy Clarification — Displaying Addon Statistics on a USB Screen"* (Jehnovah,
+      **8 okt 22:20:51.558Z**, 2 posts). Een speler vraagt of hij de cijfers van Titan Panel naar
+      een externe USB-LCD mag doorgeven en of daar *"an approved method for transferring this
+      information from the addon to an external application while the game is running"* voor
+      bestaat. **Geen blauw antwoord** — de tweede post is van een speler (No1UKnow), niet van
+      Blizzard. Geen API-naam, geen taint, geen secure frame. 📌 Het raakt wel dezelfde grens die
+      `Modules/SimcExport.lua:27-29` al beschrijft (een addon kan niets op het systeemklembord
+      zetten), maar het vóegt er niets aan toe: er staat geen antwoord in.
+    - `2375627` *"Transmog macro"* (Katie, **8 okt 04:06:16.083Z**, 1 post). De hele post is één
+      regel: *"Is there a way to get /outfit # to use a random number from 1-5 in a macro?"* Geen
+      API-bewering.
+    Het nieuwste dat ik zie (8 okt 22:20Z) is **nieuwer** dan het nieuwste van gisteren
+    (`2375480`, 7 okt 23:40Z) — ook hier dus geen cache.
+  - 🪤 **GEEN VONDST, MAAR HET BELANGRIJKSTE DAT IK DEZE RUN GELEERD HEB: `grep -rF -- "$n" .
+    --exclude-dir=docs` sluit `docs/` NIET uit, en zwijgt erover.** De `--` beëindigt het
+    optie-parsen, dus álles erna is een bestandsnaam: `--exclude-dir=.git`,
+    `--exclude-dir=docs`, `--exclude-dir=tools` en `--exclude-dir=dist` werden **vier
+    niet-bestaande bestanden**, en de foutmeldingen daarover verdwenen in de `2>/dev/null` die
+    ernaast stond. Het commando zocht dus door de hele repo, `docs/` en `.git/` inbegrepen.
+    **GEMETEN deze run:** zo gaf `Skyborne` **6** treffers; met de opties vóór het patroon
+    (`grep -rF --exclude-dir=… -e "Skyborne" .`) geeft het **0**, en alle zes blijken regels uit
+    `docs/API_WATCH.md` en `docs/PTR_12.1_WATCH.md` — mijn eigen logboeken en dat van de
+    PTR-wachter. 🔴 **Had ik dat niet gezien, dan had hier gestaan dat MH `Skyborne` al kent** —
+    het tegenovergestelde van de waarheid, en precies bij de vondst waar het om gaat.
+    📌 Het is [[silence-is-not-absence]] in spiegelbeeld: niet een nul die onterecht
+    gerust­stelt, maar een **treffer die onterecht geruststelt**. Ik ving het alleen doordat twee
+    van mijn eigen greps elkaar tegenspraken (6 tegen 0) en ik dat verschil ben uitgezocht in
+    plaats van de laatste uitkomst te geloven.
+    ⚠️ **Wat dit betekent voor oudere regels in dit logboek:** elke "0 treffers" die met een
+    `--` vóór het patroon is gemeten, is te hóóg gescoord en kan treffers uit `docs/` hebben
+    meegeteld; een nul blijft een nul, maar een **laag getal** kan deels uit `docs/` komen. Ik
+    heb níét nagemeten hoe vaak die vorm eerder is gebruikt — dat zou ik moeten doen door oude
+    runs te reconstrueren, en dat kan ik niet. Opgeschreven zodat de volgende run de juiste vorm
+    gebruikt: **opties vóór `-e <patroon>`, nooit `--`.**
+  - 🔴 **Positieve controle op de namespace-greps, en ze zijn exact gelijk aan gisteren.** Zelfde
+    scope (hele addon zonder `.git`, `docs`, `tools`, `dist`), geteld als **voorkomens** met
+    `grep -rFo --exclude-dir=… -e "<naam>" .`: `issecretvalue` **210**, `CreateFrame` **791**,
+    `InCombatLockdown` **235**, `C_UnitAuras` **86**, `C_Timer` **560**, `C_Spell` **422**,
+    `C_Secrets` **27**, `C_SuperTrack` **29** — alle acht **identiek** aan mijn regel van gisteren.
+    📌 En dat lost en passant een schijnbare tegenspraak op: als **regels** geteld geeft dezelfde
+    scope `issecretvalue` 115, `C_Timer` 388, `C_Spell` 281 — lager, omdat zo'n naam meermaals op
+    één regel staat. De cijfers van gisteren waren dus voorkomens, niet regels, en er is géén
+    verloop in het gebruik. GEMETEN dat de boom wel bewoog: `b856cc8` (gisteren) is een voorouder
+    van `55ab88c` (vandaag), met **14** commits ertussen.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `warcraft.wiki.gg`, `us.forums.blizzard.com` en **`api.github.com`** zijn alle drie via
+      directe `curl` onbereikbaar. GEMETEN deze run, drie proeven: de wiki en het forum geven
+      *"CONNECT tunnel failed, response 403"*, api.github.com geeft **403**. Alles hierboven komt
+      via Exa; de GitHub-cijfers dus ook.
+    - `github.com/.../703bc5c.patch` via Exa gaf **`CRAWL_HTTP_403`**. De volledige diff van
+      `core.lua` (152 toevoegingen / 49 verwijderingen) heb ik daarom **niet** integraal gelezen —
+      alleen de eerste hunks uit de commit-API en, voor het race-blok, de letterlijke regels uit
+      `raw.githubusercontent.com` op die commit. **Er kunnen dus meer gedeelde-pad-wijzigingen in
+      `GetSimcProfile` zitten die ik niet heb gezien.** Dat is een echt gat en het staat hier als
+      gat.
+    - De 12.1.5-**PTR-buildnotes** zelf niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald — zie de open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`. Die pagina is vandaag niet aangeraakt, dus geen aanleiding.
+    - `wowhead.com/blue-tracker` opnieuw niet geprobeerd (veertien runs op rij lege body).
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost. ⚠️ En er
+      is nu een reden bij om dat ooit te doen: upstream zet `16001` in zijn `.toc` als
+      Forever-client, en dat nummer staat in geen van mijn eerdere aantekeningen.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw:**
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. 🔴 Ik raak
+      dat bestand niet aan.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN**
+      staat er `120007, 120100, 120105` (regel 1). 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM** (vandaag opnieuw gemeten met `cat -A`:
+      `M-oM-;M-?## Interface: …`). Onschadelijkheid blijft AFGELEID.
+    - Het gat van 4 sep rond `Aura Pandemic Animations` is op 8 okt gemeld en getoetst
+      ([RAAKT ONS NIET]); niets nieuws vandaag.
+  - 🔧 **Repo-staat.** Bij aanvang opnieuw een **detached HEAD**, nu op `55ab88c` *"Handoff for
+    9 Oct: 4.7.5 candidate on main, 12.1.5 readiness, things to do away from the game"*,
+    `git status --porcelain` leeg, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit.
+    Lokale branch `main` stond weer achter (`310822c`, 5 okt) en `origin/main` kwam na
+    `fetch --deepen=300` binnen als *"forced update"* — net als gisteren **geen divergentie**:
+    `git merge-base --is-ancestor 310822c 55ab88c` geeft **exit 0**, en `git switch main` meldde
+    *"behind by 172 commits, and can be fast-forwarded"*. Daarna was `pull --rebase origin main`
+    een schone fast-forward. 📌 De `.toc` staat nog op **4.7.4**.
