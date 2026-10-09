@@ -13677,6 +13677,9 @@ fill("itIT", {
 fill("deDE", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s braucht nichts, was du kaufen kannst, also kommt es nicht auf die Liste.",
 	CRAFTSHOP_UNLEARNED = "Dieses Rezept kennst du noch nicht. Hier bekommst du es:",
+	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
+	CRAFTSHOP_DISCOVERY_HOW = "So geht's: Geh zu diesem Kessel und erledige seine Aufgabe (er zählt herunter, was noch fehlt), dann zahl Tatkraft. Kannst du die Aufgabe nicht beginnen? Dann brauchst du oft zuerst Punkte in einer Berufsspezialisierung.",
+	CRAFTSHOP_DISC_MAGISTERS = "So geht's: Stell zuerst 10 Sin'dorei Flasks her (der Kessel zählt herunter), dann zahl 50 Tatkraft des Alchemiefachmanns. Für Sin'dorei Flasks brauchst du Punkte in der Spezialisierung Fluent in Flasks -> Sin'dorei Specialist. Der Kessel steht in Silvermoon, neben Lehrer Camberon.",
 	CRAFTSHOP_SOURCE_UNKNOWN = "das sagt das Spiel nicht.",
 	CRAFTSHOP_NOTE_MAKE_FMT = "Stellst du selbst her: %s",
 	CRAFTSHOP_TIP_MAKE = "Du kennst ein Rezept, das dies herstellt. \"+ Herstellen\" setzt dieses Rezept auch auf deine Liste: seine Reagenzien kommen auf diese Liste, und was es herstellt, zählt hier mit.",
@@ -13749,6 +13752,9 @@ fill("deDE", {
 fill("frFR", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s n'a besoin de rien que tu puisses acheter, donc il reste hors de la liste.",
 	CRAFTSHOP_UNLEARNED = "Tu ne connais pas encore cette recette. Où l'obtenir :",
+	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
+	CRAFTSHOP_DISCOVERY_HOW = "Comment : va à ce chaudron et fais sa tâche (il décompte ce qui reste), puis paie en Aplomb. Tu ne peux pas commencer la tâche ? Il te faut alors souvent d'abord des points dans une spécialisation de métier.",
+	CRAFTSHOP_DISC_MAGISTERS = "Comment : fabrique d'abord 10 Sin'dorei Flasks (le chaudron décompte), puis paie 50 Aplomb d’artisanat en alchimie. Les Sin'dorei Flasks demandent des points dans la spécialisation Fluent in Flasks -> Sin'dorei Specialist. Le chaudron se trouve à Silvermoon, à côté du formateur Camberon.",
 	CRAFTSHOP_SOURCE_UNKNOWN = "le jeu ne le dit pas.",
 	CRAFTSHOP_NOTE_MAKE_FMT = "Tu le fabriques : %s",
 	CRAFTSHOP_TIP_MAKE = "Tu connais une recette qui fabrique ceci. \"+ Fabriquer\" ajoute aussi cette recette à ta liste : ses composants rejoignent cette liste, et ce qu'elle fabrique compte ici.",
@@ -13821,6 +13827,9 @@ fill("frFR", {
 fill("esES", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s no necesita nada que puedas comprar, así que se queda fuera de la lista.",
 	CRAFTSHOP_UNLEARNED = "Aún no conoces esta receta. Dónde conseguirla:",
+	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
+	CRAFTSHOP_DISCOVERY_HOW = "Cómo: ve a ese caldero y haz su tarea (cuenta lo que falta), luego paga Arrojo. ¿No puedes empezar la tarea? Entonces a menudo necesitas antes puntos en una especialización de profesión.",
+	CRAFTSHOP_DISC_MAGISTERS = "Cómo: primero fabrica 10 Sin'dorei Flasks (el caldero cuenta hacia atrás), luego paga 50 Arrojo de alquimista artesano. Las Sin'dorei Flasks necesitan puntos en la especialización Fluent in Flasks -> Sin'dorei Specialist. El caldero está en Silvermoon, junto al instructor Camberon.",
 	CRAFTSHOP_SOURCE_UNKNOWN = "el juego no lo dice.",
 	CRAFTSHOP_NOTE_MAKE_FMT = "Lo fabricas tú: %s",
 	CRAFTSHOP_TIP_MAKE = "Conoces una receta que fabrica esto. \"+ Fabricar\" pone también esa receta en tu lista: sus componentes se suman a esta lista, y lo que fabrica cuenta aquí.",
@@ -13893,6 +13902,9 @@ fill("esES", {
 fill("ptBR", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s não precisa de nada que você possa comprar, então fica fora da lista.",
 	CRAFTSHOP_UNLEARNED = "Você ainda não conhece esta receita. Onde conseguir:",
+	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
+	CRAFTSHOP_DISCOVERY_HOW = "Como: vá até esse caldeirão e faça a tarefa dele (ele conta o que falta), depois pague Marra. Não consegue começar a tarefa? Então muitas vezes você precisa antes de pontos numa especialização de profissão.",
+	CRAFTSHOP_DISC_MAGISTERS = "Como: primeiro fabrique 10 Sin'dorei Flasks (o caldeirão faz a contagem), depois pague 50 Marra do Alquimista Artífice. Os Sin'dorei Flasks precisam de pontos na especialização Fluent in Flasks -> Sin'dorei Specialist. O caldeirão fica em Silvermoon, ao lado do treinador Camberon.",
 	CRAFTSHOP_SOURCE_UNKNOWN = "o jogo não diz.",
 	CRAFTSHOP_NOTE_MAKE_FMT = "Você fabrica: %s",
 	CRAFTSHOP_TIP_MAKE = "Você conhece uma receita que fabrica isto. \"+ Fabricar\" coloca essa receita na sua lista também: os reagentes dela entram nesta lista, e o que ela fabrica conta aqui.",
@@ -13965,6 +13977,9 @@ fill("ptBR", {
 fill("itIT", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s non richiede nulla che puoi comprare, quindi resta fuori dalla lista.",
 	CRAFTSHOP_UNLEARNED = "Non conosci ancora questa ricetta. Dove trovarla:",
+	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
+	CRAFTSHOP_DISCOVERY_HOW = "Come: vai a quel calderone e fai il suo compito (conta quello che manca), poi paga in Grinta. Non riesci a iniziare il compito? Spesso ti servono prima punti in una specializzazione di professione.",
+	CRAFTSHOP_DISC_MAGISTERS = "Come: prima crafta 10 Sin'dorei Flasks (il calderone fa il conto alla rovescia), poi paga 50 Grinta da Alchimista Artigianale. Le Sin'dorei Flasks richiedono punti nella specializzazione Fluent in Flasks -> Sin'dorei Specialist. Il calderone si trova a Silvermoon, accanto all'addestratore Camberon.",
 	CRAFTSHOP_SOURCE_UNKNOWN = "il gioco non lo dice.",
 	CRAFTSHOP_NOTE_MAKE_FMT = "Lo crafti tu: %s",
 	CRAFTSHOP_TIP_MAKE = "Conosci una ricetta che crea questo. \"+ Crafta\" mette anche quella ricetta nella tua lista: i suoi reagenti si aggiungono a questa lista, e quello che crea conta qui.",

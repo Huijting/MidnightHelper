@@ -67,7 +67,10 @@ Rob koos (a + b). Gebouwd, niet getest.
   Specialist. ⚠️ Bronnen uit 12.0.x: **ga bij de ketel staan en kijk of de opdracht klopt** (10×? 50 Moxie? nog meer?).
 - [ ] **Een ander Discovery-recept op je lijst:** gele regel "Zo: ga naar die ketel en doe zijn opdracht …".
 - ⚠️ Op een niet-Engelse client zie je alleen de Magisters-regel (de algemene regel zoekt het Engelse woord
-  "Discovery"); de andere 5 talen tonen de tekst nu in het Engels.
+  "Discovery"). de/fr/es/pt/it vertaald door mh-writer (namen als Fluent in Flasks bleven Engels).
+
+✅ **Earth Elemental MET Primordial Bond** (Rob, Elemental, 9 okt avond): staat als grote knop op Blijf leven.
+(Dat hij het talent heeft is afgeleid uit de tooltip "+15% max health"; "zonder" niet getest.)
 - [x] **Instellingen → Venster → "Boodschappenknop bij het veilinghuis" uit:** knop weg (ook bij een open veilinghuis).
 
 ## 🆕 9 okt — twee schakelaars erbij, en Kith'ix staat klaar voor patchdag

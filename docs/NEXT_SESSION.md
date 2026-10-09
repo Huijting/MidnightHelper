@@ -22,8 +22,10 @@ Stand eind 9 okt (alles gepusht; main = origin/main; zie `git log v4.7.4..HEAD`)
   Pluk/Maak/Handelaar).
 - **Discovery-recepten (Rob koos a + b, 9 okt avond):** `DISCOVERY_HOW` in CraftShoppingList.lua; algemene regel
   `CRAFTSHOP_DISCOVERY_HOW` + Flask of the Magisters (recept 1230876, GEMETEN in Robs SV) `CRAFTSHOP_DISC_MAGISTERS`.
-  Feiten van de research-chat (12.0.x-bronnen) → Rob checkt bij de ketel. Alleen enUS + nlNL; de/fr/es/pt/it nog
-  Engels (spec-namen zijn in die clients vertaald, niet gemeten). Concept 4.7.5: CHANGELOG_475_14 + alinea erbij.
+  Feiten van de research-chat (12.0.x-bronnen) → Rob checkt bij de ketel. de/fr/es/pt/it door mh-writer (niet
+  nagekeken door moedertaalspreker); Sin'dorei Flasks / Fluent in Flasks / Sin'dorei Specialist / Camberon /
+  Silvermoon bleven Engels (geen vertaalde vorm in de packs; clientnamen niet gemeten). Open: CRAFTSHOP-module zegt
+  overal "Silvermoon", andere modules de clientnaam (Silbermond enz.) — keuze voor de hele module. Concept 4.7.5: CHANGELOG_475_14 + alinea erbij.
 - **Rob test vanavond:** bovenaan `docs/TESTLIJST.md` (9 okt): veilinghuis-knop, `/mh presses`, schat-stappen,
   healer-cd's, schakelaars, Barkskin/Earth Elemental, Kith'ix nog ONzichtbaar op live.
 - **PTR (12.1.5, `_xptr_`):** MH van vandaag staat erop (copy_to_ptr 9 okt). Labyrinth is daar volgens Wowhead/gidsen
