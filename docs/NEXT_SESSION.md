@@ -24,6 +24,11 @@ Stand eind 9 okt (alles gepusht; main = origin/main; zie `git log v4.7.4..HEAD`)
   Bartender4 + ElvUI voor LiveKeys: onderzocht → `docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md` (kan, klein, via
   LibActionButton; niet gebouwd, wacht op Robs keuze; testen kan alleen iemand mét die addon). Kith'ix onzichtbaar ✅.
   Brine-Crusted-volgorde: niet getest (Rob moet op de Isle eerst veel doen).
+- **PTR 9 okt avond: start NIET.** 12.1.5 build 70077 crasht: "Not enough memory", ERROR #8, vraagt 298 GB in
+  `CommentatorPlayerInfo` (GEMETEN, `_xptr_\Errors\2026-10-09_22.57.57_Error_1740.txt`); 2e crash na 24 s vóór
+  character-login (dus niet MH, AFGELEID). Pc had 9 GB RAM + 12 GB VRAM vrij (GEMETEN). Zelfde handtekening als de
+  11.2-PTR-bug (CommentatorPlayerInfo, ~306 GB), toen door Blizzard aan hun kant opgelost. Cache hernoemd naar
+  `_xptr_\Cache_old_2026-10-09` + Scan & Repair: hielp niet. PTR-punten → later of op patchdag (13/14 okt).
 - **Schakelaars 9 okt avond:** staan in Geavanceerd ✅; `/mh apply`-proefrun gaf de normale "bar te kort"-waarschuwing.
 - **Ook getest 9 okt avond:** Earth Elemental met Primordial Bond ✅, Barkskin "(1 min)" ✅. Academy-stappenlijst liep
   over elkaar (checkbox-tekst gecentreerd) → RenderStepPlan hangt tekst nu TOPLEFT; hertest open.
