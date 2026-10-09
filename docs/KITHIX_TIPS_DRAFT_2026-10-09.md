@@ -8,6 +8,10 @@
 
 Labels zoals in het concept: **W** = DB2 70077, **DBM** = `Kithix.lua`, **WGE-K** = één gids (worstguidesever, 4 okt).
 
+> ⚠️ **9 okt, bij het inbouwen:** lint-check [19] vond dat DBM **1303257 (Suffocation), 1304046 (Overwhelming Fear) en
+> 1304040 (Mindsting)** alleen als *aura* kent, niet als waarschuwing. Die drie staan in de addon daarom als gewone
+> naam zonder link. "STEVIG" hieronder betekende "staat in DBM", niet "DBM waarschuwt ervoor".
+
 ### STEVIG — mechaniek in DB2 én in de DBM-module (alleen deze krijgen een `{SPELL:id}`-link)
 
 | spell | ID | gebruikt in |

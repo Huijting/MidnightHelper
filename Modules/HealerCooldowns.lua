@@ -106,7 +106,7 @@ local TAG_COLOR = {
 -- Avenging Wrath now), Zen Meditation, Emerald Communion (PvP only), Mana Tide Totem, and from the
 -- core heals Spiritbloom, Essence Font, Heal, Renew and Shadow Mend (a passive Flash Heal upgrade);
 -- Healing Surge is gone for Restoration. Convoke is 391528 (323764 was the covenant spell), Holy's
--- Divine Protection is 498, Barkskin 45 s. These lists are now filtered on your own spec too.
+-- Divine Protection is 498, Barkskin 45 s (⚠️ 9 Oct 2026: that is Guardian's; Resto's is 60 s, fixed below). These lists are now filtered on your own spec too.
 ns.HEALER_COOLDOWNS = {
 	-- Holy Paladin (65)
 	[65] = {
@@ -240,7 +240,7 @@ end
 ns.HEALER_DEFENSIVES = {
 	-- immune = labelled [Immunity] like the tank toolkit (newcomer review 3, H4, 7 Oct 2026).
 	[65] = { { id = 498, cd = 60 }, { id = 642, cd = 300, immune = true } }, -- Holy Paladin: Divine Protection (498 is Holy's), Divine Shield
-	[105] = { { id = 22812, cd = 45 } }, -- Resto Druid: Barkskin
+	[105] = { { id = 22812, cd = 60 } }, -- Resto Druid: Barkskin. 60 s, not 45: 45 is Guardian's own -15 s (9 Oct 2026, docs/SMALL_FACTS_2026-10-09.md, wago 12.1.0.69933)
 	[1468] = { { id = 363916, cd = 90 } }, -- Pres Evoker: Obsidian Scales (Renewing Blaze is passive on it now)
 	[270] = { { id = 243435 } }, -- Mistweaver: Fortifying Brew
 	[256] = { { id = 19236, cd = 90 } }, -- Disc Priest: Desperate Prayer

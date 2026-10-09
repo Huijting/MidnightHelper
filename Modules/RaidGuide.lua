@@ -64,8 +64,9 @@ local function BuildRaidBody(raid)
 	-- S2-tips zijn geschreven vóór de opening van 18 aug, uit DBM- en journal-data.
 	-- Die herkomst hoort op het scherm tot iemand ze live heeft nagelopen — een tip
 	-- die stiekem uit een datamine komt is precies wat deze addon niet doet.
-	if raid.season == 2 then
-		lines[#lines + 1] = "|cff8a8f98" .. ns:L("RAID_PRERELEASE_NOTE") .. "|r"
+	-- A raid can carry its own note (noteKey, Kith'ix 9 Oct 2026: written before the patch, not yet fought).
+	if raid.noteKey or raid.season == 2 then
+		lines[#lines + 1] = "|cff8a8f98" .. ns:L(raid.noteKey or "RAID_PRERELEASE_NOTE") .. "|r"
 		lines[#lines + 1] = " "
 	end
 	local bosses = raid.bosses or {}

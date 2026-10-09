@@ -18,6 +18,17 @@ Stand eind 8 okt (alles gepusht, main = origin/main, laatste 4ec969b + deze hand
 - **Spiekbrief-PDF Resto Druid:** wacht op Robs screenshot Active Bindings (DandersFrames). Figuren: 22 goedgekeurd in
   `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (+ intro-filmpjes in `intro\`). Holy-bron: scratchpad 945b4dfe.
 
+**9 okt middag 2 — Rob koos alle 4 "onderweg"-punten, GEBOUWD, niet getest (TESTLIJST 9 okt):**
+- `docs/RELEASE_4.7.5_DRAFT.md` bijgewerkt met alles van 9 okt (13 changelog-regels, CF-notitie, CHANGELOG.md).
+- **Kith'ix klaargezet:** `RaidCoachData.lua` raid `raid_kithix` met `minInterface = 120105` (nieuwe patchpoort, zelfde
+  check als de Codex) en `noteKey = "RAID_KITHIX_NOTE"` (eigen grijze notitie i.p.v. de S2-notitie; `RaidGuide.lua`).
+  Tips 7 talen in RaidTips.lua (de/fr/es/pt/it door mh-writer). Lint [19] liet 3 links vallen (DBM kent ze alleen als
+  aura). Patchdag: `/mh ej save` → journalInstanceID + ingang; DBM-module; zwakke regels.
+- **B4:** schakelaars `mh_sbaForce` en `mh_mouseOverflow` onder Geavanceerd (mh-sweep: dit waren de 2 speler-toggles
+  zonder knop; `/mh kicks alert` bewust niet — doet op 12.1 niets zichtbaars; de rest zijn probes).
+- **Barkskin** Resto 60 s (`HealerCooldowns.lua`; 45 = Guardian, TankToolkit klopt al). **Earth Elemental**
+  `survivalRequires = 1279819` (Primordial Bond). Bron `docs/SMALL_FACTS_2026-10-09.md`.
+
 **9 okt middag — site-chat meldde 2 punten, gedaan:** TOUR_HOME_TITLE/_NAV + ACCOUNT_WEEKLY_SCOPE_NOTE in de/fr/es/pt/it
 zeiden nog Engels "This Week" terwijl TAB_HOME vertaald is → nu de tabnaam per taal (mh-writer, 15 regels, niet getest
 in het spel). `tools/build_site.py` WORDS nl: "spreuk"/"valuta" → "spell"/"currency" (Robs woordkeus; site pakt het op

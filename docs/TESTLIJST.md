@@ -36,6 +36,24 @@ Gebouwd, niet getest. Rob: "ik ga van 1 naar Ctrl 5 naar Shift 2 …".
 - [ ] **Duimknoppen:** jouw 6 7 8 9 0 - op balk 8 moeten "makkelijk" heten (MH weet van je pad via de bar-8-knop).
   Staat er "gaat"/"lastig" bij, zeg het.
 
+## 🆕 9 okt — twee schakelaars erbij, en Kith'ix staat klaar voor patchdag
+
+Gebouwd, niet getest.
+- [ ] **Instellingen → Geavanceerd:** twee nieuwe schakelaars: "Houd toets 1 vrij voor de Assisted Combat-knop" (= `/mh sba`)
+  en "Laat de toetsindeling mijn muisknoppen gebruiken" (= `/mh mouse fill`). Beide standaard UIT. Zet er één aan, dan
+  `/reload` en `/mh apply` (alleen kijken, niet uitvoeren): verandert de voorgestelde indeling zoals de uitleg zegt?
+- [ ] **NU (12.1):** Raids-pagina → "The Unbinding of Kith'ix" staat er NIET (verborgen tot 12.1.5). Staat hij er wél, zeg het.
+- [ ] **Patchdag 13/14 okt:** Kith'ix verschijnt vanzelf, met bovenaan de grijze notitie "Geschreven vóór patch 12.1.5…".
+  Kloppen de spell-links (namen)? Daarna: `/mh ej save` in de raid → journalInstanceID + ingang toevoegen; DBM-module
+  checken; zwakke regels nalopen (lijst in `docs/KITHIX_TIPS_DRAFT_2026-10-09.md`).
+
+## 🆕 9 okt — Barkskin 60 s, Earth Elemental alleen met Primordial Bond (docs/SMALL_FACTS_2026-10-09.md)
+
+Gebouwd, niet getest.
+- [ ] **Resto Druid, Role Academy (heal-route) → je defensives:** Barkskin zegt **(60s)**, niet meer (45s).
+- [ ] **Shaman, Zo speel je → Blijf leven:** ZONDER het talent Primordial Bond staat Earth Elemental er NIET meer bij;
+  MET Primordial Bond wel (als grote knop). Heb je geen Shaman met/zonder het talent: overslaan en zeggen.
+
 ## 🆕 9 okt — healer-cooldowns: 4 erbij, Salvation eruit (docs/HEALER_CDS_FACTS_2026-10-09.md)
 
 Gebouwd, niet getest. Typ `/mh healcds` op de healer.

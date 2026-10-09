@@ -106,6 +106,23 @@ local RAIDS = {
 			{ key = "ulatek",        name = "Ula'tek",                 encounterID = 2895 },
 		},
 	},
+	-- 12.1.5 (13/14 Oct 2026): The Unbinding of Kith'ix, one boss. Prepared 9 Oct 2026 from
+	-- docs/KITHIX_TIPS_DRAFT_2026-10-09.md (DB2 70077 + DBM-Lairs-Midnight\UnbindingofKithix\Kithix.lua:
+	-- NewMod(2896, ..., 1324), SetCreatureID(267861)). Hidden until the client is 12.1.5 (minInterface),
+	-- like the Codex cards. NOT season = 2: that would put the S2 "Rewritten on 15 Sep" note above it,
+	-- which is not true here; it gets its own note instead (noteKey).
+	-- ⚠️ No journalInstanceID and no entrance: DBM's 1324 is DBM's number, and the rule above is that only
+	-- a client-measured id goes in that field (a wrong one silently matches the wrong raid). Patch day:
+	-- `/mh ej save`, then add it. seedCreatureId 267861 is DBM's, not yet seen in the client.
+	{
+		key = "raid_kithix",
+		name = "The Unbinding of Kith'ix",
+		minInterface = 120105,
+		noteKey = "RAID_KITHIX_NOTE",
+		bosses = {
+			{ key = "kithix", name = "Kith'ix", seedCreatureId = 267861, encounterID = 2896 },
+		},
+	},
 }
 
 -- Stap-locale-keys per boss. Alleen velden die we ook echt schrijven (de UI
@@ -169,6 +186,9 @@ local TIPS = {
 	twinfangs     = { steps = "RAID_BOSS_TWINFANGS_STEPS",     tank = "RAID_BOSS_TWINFANGS_TANK",     healer = "RAID_BOSS_TWINFANGS_HEALER",     dps = "RAID_BOSS_TWINFANGS_DPS" },
 	coiledaltar   = { steps = "RAID_BOSS_COILEDALTAR_STEPS",   tank = "RAID_BOSS_COILEDALTAR_TANK",   healer = "RAID_BOSS_COILEDALTAR_HEALER",   dps = "RAID_BOSS_COILEDALTAR_DPS" },
 	ulatek        = { steps = "RAID_BOSS_ULATEK_STEPS",        tank = "RAID_BOSS_ULATEK_TANK",        healer = "RAID_BOSS_ULATEK_HEALER",        dps = "RAID_BOSS_ULATEK_DPS" },
+	-- 12.1.5, CONCEPT 9 Oct 2026 (docs/KITHIX_TIPS_DRAFT_2026-10-09.md): links only on spells in both DB2 and DBM;
+	-- seven weaker lines from one guide are listed there. Patch day: measure, then drop the "not fought yet" note.
+	kithix        = { steps = "RAID_BOSS_KITHIX_STEPS",        tank = "RAID_BOSS_KITHIX_TANK",        healer = "RAID_BOSS_KITHIX_HEALER",        dps = "RAID_BOSS_KITHIX_DPS" },
 }
 
 --- Short tips (Rob, 15 Sep 2026: "eli10 versie?" → B + C). Every raid boss above has
@@ -225,9 +245,17 @@ local function SeasonActive(season)
 	return false
 end
 
+-- Patch gate (9 Oct 2026, Kith'ix): a raid with minInterface stays out until the client's interface number reaches
+-- it, the same check as the Codex cards (MidnightCodexData.lua). GetBuildInfo's 4th value is the interface number.
+local IFACE = 0
+if GetBuildInfo then
+	local _, _, _, n = GetBuildInfo()
+	IFACE = tonumber(n) or 0
+end
+
 local ACTIVE_RAIDS = {}
 for _, raid in ipairs(RAIDS) do
-	if SeasonActive(raid.season) then
+	if SeasonActive(raid.season) and not (raid.minInterface and IFACE < raid.minInterface) then
 		ACTIVE_RAIDS[#ACTIVE_RAIDS + 1] = raid
 	end
 end

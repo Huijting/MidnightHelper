@@ -2752,6 +2752,10 @@ fill("itIT", {
 fill("deDE", {
 	SET_PARTYTARGETS_TITLE = "Gruppenziele anzeigen",
 	SET_PARTYTARGETS_DESC = "Ein kleines Fenster mit dem, was jedes Gruppenmitglied angreift. Zieh es hin, wo du willst. Erscheint nur in einer Gruppe, und kann die Namen zwar anzeigen, aber nicht lesen — Sortieren, Hervorheben oder Vergleichen ist deshalb nicht möglich.",
+	SET_SBA_TITLE = "Taste 1 für den Assisted-Combat-Button freihalten",
+	SET_SBA_DESC = "Für die Tastenbelegung (/mh apply): Taste 1 geht an Blizzards Ein-Tasten-Assistenten, und deine Rotation beginnt auf 2. Wirkt nur bei Charakteren, die diesen Button haben. Greift nach /reload und /mh apply. Dasselbe wie /mh sba.",
+	SET_MOUSEFILL_TITLE = "Die Tastenbelegung darf meine Maustasten nutzen",
+	SET_MOUSEFILL_DESC = "Aus: Deine zusätzlichen Maustasten bleiben deine, und die Belegung nutzt nur eine, die du selbst festlegst (/mh anchor). An: Zauber, die nirgendwo sonst passen, dürfen dorthin. Greift nach /reload und /mh apply. Dasselbe wie /mh mouse fill.",
 	SET_PRESSES_TITLE = "Zählen, welche Zauber du drückst",
 	SET_PRESSES_DESC = "Zählt im Kampf, wie oft du jeden Zauber drückst, pro Charakter und Spezialisierung. /mh presses zeigt dann deine am häufigsten gedrückten Zauber mit der Taste, auf der sie liegen, und welche Tausche sie auf leichtere Tasten legen würden. Von selbst wird nichts verschoben.",
 })
@@ -2759,6 +2763,10 @@ fill("deDE", {
 fill("frFR", {
 	SET_PARTYTARGETS_TITLE = "Afficher les cibles du groupe",
 	SET_PARTYTARGETS_DESC = "Un petit panneau listant ce que chaque membre attaque. Déplace-le où tu veux. Ne s'affiche qu'en groupe, et peut montrer les noms sans pouvoir les lire — impossible donc de trier, surligner ou comparer.",
+	SET_SBA_TITLE = "Garder la touche 1 pour le bouton Combat assisté",
+	SET_SBA_DESC = "Pour la disposition des touches (/mh apply) : la touche 1 va à l'assistant à un bouton de Blizzard et ta rotation commence sur 2. N'agit que sur les personnages qui ont ce bouton. Prend effet après /reload et /mh apply. Identique à /mh sba.",
+	SET_MOUSEFILL_TITLE = "Laisser la disposition des touches utiliser mes boutons de souris",
+	SET_MOUSEFILL_DESC = "Désactivé : tes boutons de souris supplémentaires restent à toi, et la disposition n'utilise que celui que tu fixes toi-même (/mh anchor). Activé : les sorts qui ne trouvent place nulle part ailleurs peuvent y aller. Prend effet après /reload et /mh apply. Identique à /mh mouse fill.",
 	SET_PRESSES_TITLE = "Compter les sorts sur lesquels tu appuies",
 	SET_PRESSES_DESC = "En combat, compte combien de fois tu appuies sur chaque sort, par personnage et spécialisation. /mh presses affiche ensuite les sorts sur lesquels tu appuies le plus, avec la touche où ils se trouvent, et quels échanges les mettraient sur des touches plus faciles. Rien ne bouge tout seul.",
 })
@@ -2766,6 +2774,10 @@ fill("frFR", {
 fill("esES", {
 	SET_PARTYTARGETS_TITLE = "Mostrar objetivos del grupo",
 	SET_PARTYTARGETS_DESC = "Un panel pequeño con lo que ataca cada miembro. Arrástralo donde quieras. Solo aparece en grupo, y puede mostrar los nombres sin poder leerlos, así que no puede ordenarlos, resaltarlos ni compararlos.",
+	SET_SBA_TITLE = "Reservar la tecla 1 para el botón de Combate asistido",
+	SET_SBA_DESC = "Para la distribución de teclas (/mh apply): la tecla 1 va al asistente de un botón de Blizzard y tu rotación empieza en el 2. Solo hace algo en personajes que tienen ese botón. Se aplica tras /reload y /mh apply. Igual que /mh sba.",
+	SET_MOUSEFILL_TITLE = "Dejar que la distribución de teclas use mis botones del ratón",
+	SET_MOUSEFILL_DESC = "Desactivado: tus botones extra del ratón siguen siendo tuyos, y la distribución solo usa uno que fijes tú mismo (/mh anchor). Activado: los hechizos que no caben en ningún otro sitio pueden ir ahí. Se aplica tras /reload y /mh apply. Igual que /mh mouse fill.",
 	SET_PRESSES_TITLE = "Contar qué hechizos pulsas",
 	SET_PRESSES_DESC = "En combate, cuenta cuántas veces pulsas cada hechizo, por personaje y especialización. /mh presses muestra luego tus hechizos más pulsados con la tecla en la que están, y qué cambios los pondrían en teclas más fáciles. Nada se mueve solo.",
 })
@@ -2773,6 +2785,10 @@ fill("esES", {
 fill("ptBR", {
 	SET_PARTYTARGETS_TITLE = "Mostrar alvos do grupo",
 	SET_PARTYTARGETS_DESC = "Um painel pequeno com o que cada membro está atacando. Arraste para onde quiser. Só aparece em grupo, e consegue mostrar os nomes sem conseguir lê-los — por isso não ordena, destaca nem compara.",
+	SET_SBA_TITLE = "Reservar a tecla 1 para o botão de Combate Assistido",
+	SET_SBA_DESC = "Para o layout de teclas (/mh apply): a tecla 1 vai para o assistente de um botão da Blizzard e sua rotação começa no 2. Só faz algo em personagens que têm esse botão. Vale depois de /reload e /mh apply. Igual a /mh sba.",
+	SET_MOUSEFILL_TITLE = "Deixar o layout de teclas usar meus botões do mouse",
+	SET_MOUSEFILL_DESC = "Desligado: seus botões extras do mouse continuam seus, e o layout só usa um que você mesmo fixar (/mh anchor). Ligado: feitiços que não cabem em nenhum outro lugar podem ir para lá. Vale depois de /reload e /mh apply. Igual a /mh mouse fill.",
 	SET_PRESSES_TITLE = "Contar quais feitiços você aperta",
 	SET_PRESSES_DESC = "Em combate, conta quantas vezes você aperta cada feitiço, por personagem e especialização. /mh presses mostra depois os seus feitiços mais apertados com a tecla em que ficam, e quais trocas os colocariam em teclas mais fáceis. Nada muda de lugar sozinho.",
 })
@@ -2780,6 +2796,10 @@ fill("ptBR", {
 fill("itIT", {
 	SET_PARTYTARGETS_TITLE = "Mostra i bersagli del gruppo",
 	SET_PARTYTARGETS_DESC = "Un piccolo pannello con ciò che ogni membro sta attaccando. Trascinalo dove preferisci. Appare solo in gruppo e può mostrare i nomi senza poterli leggere, quindi non può ordinarli, evidenziarli o confrontarli.",
+	SET_SBA_TITLE = "Tieni libero il tasto 1 per il pulsante Assisted Combat",
+	SET_SBA_DESC = "Per il layout dei tasti (/mh apply): il tasto 1 va all'assistente a un pulsante di Blizzard e la tua rotazione inizia dal 2. Ha effetto solo sui personaggi che hanno quel pulsante. Vale dopo /reload e /mh apply. Uguale a /mh sba.",
+	SET_MOUSEFILL_TITLE = "Lascia che il layout dei tasti usi i pulsanti del mouse",
+	SET_MOUSEFILL_DESC = "Disattivato: i tuoi pulsanti extra del mouse restano tuoi, e il layout ne usa solo uno che fissi tu (/mh anchor). Attivato: gli spell che non trovano posto altrove possono finire lì. Vale dopo /reload e /mh apply. Uguale a /mh mouse fill.",
 	SET_PRESSES_TITLE = "Conta quali spell premi",
 	SET_PRESSES_DESC = "In combattimento conta quante volte premi ogni spell, per personaggio e specializzazione. /mh presses mostra poi i tuoi spell più premuti con il tasto su cui si trovano, e quali scambi li metterebbero su tasti più comodi. Niente si sposta da solo.",
 })

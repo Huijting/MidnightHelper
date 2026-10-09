@@ -546,6 +546,22 @@ local function Build()
 	-- Geavanceerd
 	----------------------------------------------------------------
 	Header("SET_CAT_ADVANCED")
+	-- 9 Oct 2026 (idea B4): the two keybind-layout switches that only had a slash command (/mh sba, /mh mouse fill;
+	-- sweep of SettingsDefs vs Core.lua). Same fields as the commands; both take effect after /reload + /mh apply.
+	-- /mh kicks alert stays slash-only on purpose: on 12.1 it shows nothing (InterruptScore.lua:30-33).
+	Toggle("mh_sbaForce", "SET_SBA_TITLE", "SET_SBA_DESC", function()
+		return ns.db and ns.db.sbaForce == true
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.sbaForce = v and true or false
+		ns.db.sbaOff = not ns.db.sbaForce
+	end, false)
+	Toggle("mh_mouseOverflow", "SET_MOUSEFILL_TITLE", "SET_MOUSEFILL_DESC", function()
+		return ns.db and ns.db.mouseOverflow == true
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.mouseOverflow = v and true or false
+	end, false)
 	Toggle("mh_debug", "SET_ADV_DEBUG", "SET_ADV_DEBUG_DESC", function()
 		return ns.db and ns.db.ui and ns.db.ui.debug
 	end, function(v)
