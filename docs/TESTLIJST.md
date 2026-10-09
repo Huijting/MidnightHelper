@@ -33,6 +33,10 @@ Gebouwd, niet getest. Rob: "ik ga van 1 naar Ctrl 5 naar Shift 2 …".
 - [ ] **Per personage/spec:** wissel van spec of personage → `/mh presses` zegt "Nog niets geteld" (eigen lijst).
 - [ ] **Niets raars erin:** staan er spells in die je nooit drukt (passieve dingen, procs)? Typ dan `/mh presses why` en
   maak een screenshot — dan zie ik wat er geteld is.
+  ❌→🔧 Rob 9 okt avond, BM Hunter: "1. Auto Shot 16x not on a key" bovenaan. Gerepareerd: Auto Shot (75) en Auto
+  Attack (6603) tellen niet meer mee (soort "auto" in `/mh presses why`). Rest van zijn lijst klopte (toetsen,
+  makkelijk/gaat; Bestial Wrath op [0] = duimknop = makkelijk). **Hertest:** na `/reload` → `/mh presses` op de Hunter:
+  geen Auto Shot meer. Staat hij er tóch: `/mh presses why` → welk id?
 - [ ] **Duimknoppen:** jouw 6 7 8 9 0 - op balk 8 moeten "makkelijk" heten (MH weet van je pad via de bar-8-knop).
   Staat er "gaat"/"lastig" bij, zeg het.
 
@@ -83,7 +87,9 @@ Gebouwd, niet getest.
 - [ ] **Instellingen → Geavanceerd:** twee nieuwe schakelaars: "Houd toets 1 vrij voor de Assisted Combat-knop" (= `/mh sba`)
   en "Laat de toetsindeling mijn muisknoppen gebruiken" (= `/mh mouse fill`). Beide standaard UIT. Zet er één aan, dan
   `/reload` en `/mh apply` (alleen kijken, niet uitvoeren): verandert de voorgestelde indeling zoals de uitleg zegt?
-- [ ] **NU (12.1):** Raids-pagina → "The Unbinding of Kith'ix" staat er NIET (verborgen tot 12.1.5). Staat hij er wél, zeg het.
+- [x] **NU (12.1):** Raids-pagina → "The Unbinding of Kith'ix" staat er NIET (verborgen tot 12.1.5). Staat hij er wél, zeg het.
+  ✅ Rob 9 okt avond.
+- [x] **Schakelaars in Geavanceerd** staan er; `/mh apply`-proefrun gaf de normale "bar te kort"-melding. ✅ Rob 9 okt avond.
 - [ ] **Patchdag 13/14 okt:** Kith'ix verschijnt vanzelf, met bovenaan de grijze notitie "Geschreven vóór patch 12.1.5…".
   Kloppen de spell-links (namen)? Daarna: `/mh ej save` in de raid → journalInstanceID + ingang toevoegen; DBM-module
   checken; zwakke regels nalopen (lijst in `docs/KITHIX_TIPS_DRAFT_2026-10-09.md`).
@@ -108,10 +114,13 @@ Gebouwd, niet getest. Typ `/mh healcds` op de healer.
 ## 🆕 9 okt — schat-stappen vinken nu af (Gift of the Cycle, Brine-Crusted Chest)
 
 Gebouwd, niet getest. Alleen voor een personage dat de schat nog NIET heeft.
-- [ ] **Harandar, Gift of the Cycle:** zet de schat-route aan (Achievements → Treasures of Harandar). De pijl gaat eerst
+- [ ] **Harandar, Gift of the Cycle:** (Rob 9 okt avond: al gedaan op zijn personage → hier niet te testen) zet de schat-route aan (Achievements → Treasures of Harandar). De pijl gaat eerst
   naar het kussen, dan het altaar van Wisdom, dan het mes, enz. — nooit naar een altaar vóór je het voorwerp hebt. Na elk
   altaar vinkt die stap af in het hint-venster.
 - [ ] **Coiled Isle, Brine-Crusted Chest:** eerst de clam (pijl), en na het plaatsen van de parel vinken beide stappen af.
+  Rob 9 okt avond: pijl ging naar de kist, maar via de knop "-> the chest" in het hint-venster (die stuurt direct
+  naar de kist = goed). GEMETEN: quest 96001 false, parels 0. **Opnieuw:** start de route via Achievements.
+  ⏸ Rob: overgeslagen (moet op de Isle eerst nog veel doen); blijft open, niet blokkerend voor 4.7.5.
 
 ## 🆕 8 okt — "grote defensive"-zin en de heal-soorten (docs/ROLE_SWITCH_FACTS8)
 

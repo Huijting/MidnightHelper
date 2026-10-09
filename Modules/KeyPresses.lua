@@ -144,9 +144,17 @@ local function SpellName(id)
 	return tostring(id)
 end
 
+-- Auto-attacks fire UNIT_SPELLCAST_SUCCEEDED on every swing or shot, and nobody presses them. Rob, 9 Oct 2026, on a
+-- Beast Mastery Hunter: "1. Auto Shot 16x not on a key" topped the list. 75 = Auto Shot, 6603 = Auto Attack (the
+-- melee swing); `/mh presses why` prints the id, so a third one shows up there.
+local AUTO_ATTACK = { [75] = true, [6603] = true }
+
 --- Spells worth a row: on a bound button, or an active spell the player knows (clicked / unbound).
---- Passives and triggered effects also fire the cast event; those are left out, with the reason.
+--- Passives, auto-attacks and triggered effects also fire the cast event; those are left out, with the reason.
 local function Classify(id)
+	if AUTO_ATTACK[id] then
+		return "auto"
+	end
 	local short, hit = nil, nil
 	if ns.LiveKeyForSpell then
 		short, hit = ns.LiveKeyForSpell(id)
