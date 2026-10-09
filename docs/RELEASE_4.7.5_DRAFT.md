@@ -31,6 +31,7 @@ De Keystone Myth-kaart is pas op 12.1.5 te zien en dus vóór de patch niet te t
 	CHANGELOG_475_10 = "Fixes: Barkskin is 60 seconds for Restoration (45 is Guardian's). Earth Elemental is on a Shaman's Stay alive card only with Primordial Bond: without it, it reduces no damage.",
 	CHANGELOG_475_11 = "Settings -> Advanced: switches for Keep key 1 for the Assisted Combat button (/mh sba) and Let the key layout use my mouse buttons (/mh mouse fill).",
 	CHANGELOG_475_13 = "New: a Shopping list button under the auction house window opens Ready for the raid? and your profession list, with how many things you still have to buy. Hide it in Settings -> Window.",
+	CHANGELOG_475_14 = "Profession shopping list: a recipe you learn by Discovery now says how, not only where (do the cauldron's task, then pay Moxie). Flask of the Magisters gets the exact steps.",
 	CHANGELOG_475_12 = "Ready for 12.1.5: tips for Kith'ix in the Raids window, hidden until patch day. Written from the game's data and DBM before anyone fought him, and they say so.",
 ```
 
@@ -43,6 +44,7 @@ De Keystone Myth-kaart is pas op 12.1.5 te zien en dus vóór de patch niet te t
 				"CHANGELOG_475_0",
 				"CHANGELOG_475_6",
 				"CHANGELOG_475_13",
+				"CHANGELOG_475_14",
 				"CHANGELOG_475_1",
 				"CHANGELOG_475_7",
 				"CHANGELOG_475_2",
@@ -89,6 +91,10 @@ end up on Ctrl+5 while a once-a-fight button sits on 1.
 Open the auction house and there is a **Shopping list** button under the window. It says how many things you still have
 to buy, for raid night (consumables, enchants, gems) and for your profession recipes. One click opens the list:
 click a row to search, or send everything to Auctionator. Do not want it? Settings -> Window.
+
+The number counts only what you really have to **buy**: herbs you can pick yourself, reagents you make yourself and
+vendor items stay out. And a recipe you learn by **Discovery** now says *how*, not only *where*: do the cauldron's task
+(it counts down), then pay Moxie. For Flask of the Magisters the list gives the exact steps.
 
 ## Healers: which heal is which
 

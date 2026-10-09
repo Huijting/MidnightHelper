@@ -56,6 +56,18 @@ Auctionator-tab en er niet overheen.
   (Nocturnal Lotus). Dat verklaart ook de "2 vóór en 2 ná" van eerder. Gerepareerd: knop telt via
   `ns.CraftShopToBuyCount` (zonder naam). **Hertest:** na `/reload` meteen veilinghuis open → muis op knop: Beroep
   moet direct goed staan (niet eerst 0).
+  📌 Rob koos dezelfde avond: **"Pluk" telt niet mee.** Beroep telt nu alleen rijen met rode "Koop N" (niet Pluk, Maak,
+  Handelaar). **Test:** Beroep in de tooltip = aantal rode "Koop" in de tab Beroep.
+
+## 🆕 9 okt avond — Discovery-recepten: hoe, niet alleen waar (CraftShoppingList.lua)
+
+Rob koos (a + b). Gebouwd, niet getest.
+- [ ] **Flask of the Magisters op je lijst (Alchemy):** onder "Discovery: Camberon's Cauldron" staat een gele regel:
+  maak eerst 10 Sin'dorei Flasks, daarna 50 Artisan Alchemist's Moxie, specialisatie Fluent in Flasks -> Sin'dorei
+  Specialist. ⚠️ Bronnen uit 12.0.x: **ga bij de ketel staan en kijk of de opdracht klopt** (10×? 50 Moxie? nog meer?).
+- [ ] **Een ander Discovery-recept op je lijst:** gele regel "Zo: ga naar die ketel en doe zijn opdracht …".
+- ⚠️ Op een niet-Engelse client zie je alleen de Magisters-regel (de algemene regel zoekt het Engelse woord
+  "Discovery"); de andere 5 talen tonen de tekst nu in het Engels.
 - [x] **Instellingen → Venster → "Boodschappenknop bij het veilinghuis" uit:** knop weg (ook bij een open veilinghuis).
 
 ## 🆕 9 okt — twee schakelaars erbij, en Kith'ix staat klaar voor patchdag

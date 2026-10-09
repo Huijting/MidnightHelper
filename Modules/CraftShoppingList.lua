@@ -1004,22 +1004,50 @@ end
 --- but without needing the item's NAME: Rob, 9 Oct 2026, saw "Profession: 0" and a moment later "Profession: 1" for
 --- the same Nocturnal Lotus - CraftShopTerms skips an item whose name the client has not loaded yet, which is right
 --- for an Auctionator search and wrong for a count.
+--- Counts exactly the rows Refresh marks red "Buy N": not a reagent you make yourself ("Make N"), not a vendor one,
+--- and not one you can gather ("Pick N") - Rob, same evening: "Pluk niet meetellen".
 function ns.CraftShopToBuyCount()
 	local S = Shop()
 	local list = MyList()
+	local makes = MyMakes()
+	local gather = MyGatherSkills()
 	local n = 0
 	for _, t in ipairs(Totals(list)) do
 		local away = (S.MailCount and S.MailCount(t.ids) or 0) + (S.BankCount and S.BankCount(t.ids) or 0)
 		local toBuy = t.need - HaveInBags(t.ids) - away - Planned(t, list)
-		local vendor = false
+		local vendor, farm, make = false, nil, nil
 		for _, x in ipairs(t.ids) do
 			vendor = vendor or VENDOR[x] ~= nil
+			farm = farm or FARM[x]
+			make = make or makes[x]
 		end
-		if toBuy > 0 and not vendor then
+		local pick = farm and FARM_DEF[farm][4] and CanCollect(FARM_DEF[farm], gather)
+		if toBuy > 0 and not vendor and not make and not pick then
 			n = n + 1
 		end
 	end
 	return n
+end
+
+-- HOW to learn a Discovery recipe. Blizzard's source line says WHERE ("Discovery: Camberon's Cauldron") and nothing
+-- more; Rob, 9 Oct 2026, with Flask of the Magisters on his list, could not tell what to do there. Rob chose both:
+-- (a) one general line for every Discovery, (b) the exact task where we know it. The (b) facts come from mh-research
+-- (research chat, 9 Oct): Wowhead NPC 247420 comments, warcraft.wiki.gg, wow-professions - sources from 12.0.x, not yet
+-- confirmed for 12.1, so Rob checks at the cauldron (TESTLIJST). Recipe id 1230876 MEASURED in Rob's SavedVariables.
+-- ⚠️ (a) matches the English word "Discovery" in Blizzard's source text, so on a non-English client only the (b) rows
+-- show. The localized word is not measured.
+local DISCOVERY_HOW = {
+	[1230876] = "CRAFTSHOP_DISC_MAGISTERS", -- Flask of the Magisters
+}
+
+local function DiscoveryHow(e)
+	local key = e.recipeID and DISCOVERY_HOW[e.recipeID]
+	if key then
+		return L(key)
+	end
+	if e.source and e.source:find("Discovery", 1, true) then
+		return L("CRAFTSHOP_DISCOVERY_HOW")
+	end
 end
 
 Refresh = function()
@@ -1072,7 +1100,9 @@ Refresh = function()
 		end
 		local h = 20
 		if learned == false then
-			r.src:SetText("|cffff8080" .. L("CRAFTSHOP_UNLEARNED") .. "|r " .. (e.source or L("CRAFTSHOP_SOURCE_UNKNOWN")))
+			local how = DiscoveryHow(e)
+			r.src:SetText("|cffff8080" .. L("CRAFTSHOP_UNLEARNED") .. "|r " .. (e.source or L("CRAFTSHOP_SOURCE_UNKNOWN"))
+				.. (how and ("\n|cffffd100" .. how .. "|r") or ""))
 			r.src:Show()
 			h = 20 + r.src:GetStringHeight() + 4
 		else
