@@ -36,7 +36,7 @@ Gebouwd, niet getest. Rob: "ik ga van 1 naar Ctrl 5 naar Shift 2 …".
   ❌→🔧 Rob 9 okt avond, BM Hunter: "1. Auto Shot 16x not on a key" bovenaan. Gerepareerd: Auto Shot (75) en Auto
   Attack (6603) tellen niet meer mee (soort "auto" in `/mh presses why`). Rest van zijn lijst klopte (toetsen,
   makkelijk/gaat; Bestial Wrath op [0] = duimknop = makkelijk). **Hertest:** na `/reload` → `/mh presses` op de Hunter:
-  geen Auto Shot meer. Staat hij er tóch: `/mh presses why` → welk id?
+  geen Auto Shot meer. Staat hij er tóch: `/mh presses why` → welk id? ✅ Hertest Rob: Auto Shot weg.
 - [ ] **Duimknoppen:** jouw 6 7 8 9 0 - op balk 8 moeten "makkelijk" heten (MH weet van je pad via de bar-8-knop).
   Staat er "gaat"/"lastig" bij, zeg het.
 
