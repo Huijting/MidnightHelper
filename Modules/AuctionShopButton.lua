@@ -35,25 +35,43 @@ function ns.SetAhShopButtonEnabled(v)
 	end
 end
 
---- What both lists would mark Buy right now. pcall: a list that cannot answer counts as 0, never as an error.
+--- What both lists would mark Buy right now: total, raid part, profession part. pcall: a list that cannot answer
+--- counts as 0, never as an error.
 local function ToBuy()
-	local n = 0
+	local raid, craft = 0, 0
 	if ns.RaidShopMissingCount then
 		local ok, c = pcall(ns.RaidShopMissingCount)
-		n = n + (ok and tonumber(c) or 0)
+		raid = ok and tonumber(c) or 0
 	end
 	if ns.CraftShopTerms then
 		local ok, t = pcall(ns.CraftShopTerms)
-		n = n + (ok and type(t) == "table" and #t or 0)
+		craft = ok and type(t) == "table" and #t or 0
 	end
-	return n
+	return raid + craft, raid, craft
 end
 
-local function Update()
+-- Rob, 9 Oct 2026 evening: after a purchase the number stayed put, with the fix below in and after a /reload.
+-- Every recount writes why and what it found to ns.db.ahShopProbe (last 15), so his SavedVariables show whether
+-- the purchase reached the button at all.
+local function Probe(reason, n, raid, craft)
+	if not ns.db then
+		return
+	end
+	ns.db.ahShopProbe = ns.db.ahShopProbe or {}
+	local p = ns.db.ahShopProbe
+	p[#p + 1] = ("%s %s n=%d raid=%d craft=%d"):format(date and date("%H:%M:%S") or "", reason, n, raid, craft)
+	while #p > 15 do
+		table.remove(p, 1)
+	end
+end
+
+local function Update(reason)
 	if not btn then
 		return
 	end
-	local n = ToBuy()
+	local n, raid, craft = ToBuy()
+	btn.raid, btn.craft = raid, craft
+	Probe(reason or "?", n, raid, craft)
 	if n > 0 then
 		btn:SetText(ns:L("AHSHOP_BTN_FMT"):format(n))
 	else
@@ -67,7 +85,9 @@ end
 --- that, so BAG_UPDATE_DELAYED never fired.
 function ns.RefreshAhShopButton()
 	if btn and btn:IsShown() then
-		Update()
+		Update("purchase")
+	else
+		Probe(btn and "purchase-hidden" or "purchase-nobutton", -1, -1, -1)
 	end
 end
 
@@ -88,6 +108,11 @@ local function Build()
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:SetText(ns:L("AHSHOP_TIP_TITLE"))
 		GameTooltip:AddLine(ns:L("AHSHOP_TIP_BODY"), 1, 1, 1, true)
+		-- Where the number comes from (Rob, 9 Oct: "doe die tooltip maar"). The counts of the last recount, so the
+		-- tooltip agrees with the text on the button.
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(("%s: %d   ·   %s: %d"):format(ns:L("SHOPTAB_RAID"), self.raid or 0,
+			ns:L("SHOPTAB_CRAFT"), self.craft or 0), 1, 0.82, 0)
 		GameTooltip:Show()
 	end)
 	btn:SetScript("OnLeave", function()
@@ -102,7 +127,7 @@ local function OnShow()
 	end
 	btn:SetShown(Enabled())
 	if Enabled() then
-		Update()
+		Update("open")
 	end
 end
 
@@ -129,7 +154,7 @@ f:SetScript("OnEvent", function(_, event, name)
 	elseif event == "BAG_UPDATE_DELAYED" then
 		-- Buying something lowers the number while you stand there.
 		if btn and btn:IsShown() then
-			Update()
+			Update("bags")
 		end
 	end
 end)

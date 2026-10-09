@@ -15,7 +15,9 @@ Stand eind 9 okt (alles gepusht; main = origin/main; zie `git log v4.7.4..HEAD`)
   CHANGELOG_475_13). Bij de go: Robs testresultaat invullen, dan de 4 stappen bovenin dat bestand (toc, enUS-keys,
   Changelog.lua, RELEASE_NOTES = CURSEFORGE_4.7.5, CHANGELOG.md). Komt er nog iets bij: eerst het concept aanvullen.
 - **Testuitslag 9 okt avond (Rob):** veilinghuis-knop werkt (zichtbaar, klik, uitzetten). Getal zakte pas na mail
-  ophalen → gerepareerd (`ns.RefreshAhShopButton`, aangeroepen uit `NoteOnWay`); hertest open.
+  ophalen → gerepareerd (`ns.RefreshAhShopButton`, aangeroepen uit `NoteOnWay`); hertest ❌ (2 vóór en ná, met
+  reload). Tooltip-uitsplitsing Raid/Beroep + probe `ns.db.ahShopProbe` erin; wacht op Robs SV. Open vraag: telt
+  "Pluk" (verzamelbaar reagent, CraftShopTerms) terecht als "te kopen" op de knop?
 - **Rob test vanavond:** bovenaan `docs/TESTLIJST.md` (9 okt): veilinghuis-knop, `/mh presses`, schat-stappen,
   healer-cd's, schakelaars, Barkskin/Earth Elemental, Kith'ix nog ONzichtbaar op live.
 - **PTR (12.1.5, `_xptr_`):** MH van vandaag staat erop (copy_to_ptr 9 okt). Labyrinth is daar volgens Wowhead/gidsen

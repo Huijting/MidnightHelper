@@ -46,7 +46,11 @@ Auctionator-tab en er niet overheen.
 - [x] **Klik:** het venster "Klaar voor de raid?" gaat open, met de tabs Raid | Beroep.
 - [ ] **Koop iets van de lijst:** het getal op de knop zakt vanzelf. ❌ Rob 9 okt avond: zakte pas na mail ophalen
   (het venster zette het wél meteen "in de mail"). Gerepareerd dezelfde avond: de aankoop werkt nu ook de knop bij
-  (`ns.RefreshAhShopButton`). **Opnieuw testen:** koop iets → het getal moet zakken vóór je de mail haalt.
+  (`ns.RefreshAhShopButton`). ❌ Hertest (met /reload): stond op 2 vóór de Amethyst, bleef 2 erna. Screenshot
+  erna: raid-venster 1× Koop (Head), Beroep 1× "Pluk 1" (Nocturnal Lotus telt als te kopen) → 2 klopt ná de koop;
+  vóór de koop had het dus 3 moeten zijn. Onopgelost. Nu: tooltip toont "Raid: X · Beroep: Y" en elke hertelling
+  schrijft naar `ns.db.ahShopProbe` (reden open/bags/purchase). **Test:** veilinghuis open → muis op knop (noteer X/Y)
+  → koop 1 ding van de lijst → muis erop → `/reload` → zeg het mij, ik lees de SV.
 - [x] **Instellingen → Venster → "Boodschappenknop bij het veilinghuis" uit:** knop weg (ook bij een open veilinghuis).
 
 ## 🆕 9 okt — twee schakelaars erbij, en Kith'ix staat klaar voor patchdag
