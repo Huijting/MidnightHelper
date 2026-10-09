@@ -18,6 +18,22 @@ Stand eind 8 okt (alles gepusht, main = origin/main, laatste 4ec969b + deze hand
 - **Spiekbrief-PDF Resto Druid:** wacht op Robs screenshot Active Bindings (DandersFrames). Figuren: 22 goedgekeurd in
   `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (+ intro-filmpjes in `intro\`). Holy-bron: scratchpad 945b4dfe.
 
+**9 okt ochtend — gedaan (Rob koos 1 t/m 3 + SimC):**
+- Ochtendronde: 4 wachters gedraaid; CF 0 open, GitHub 0 open, mail 3 vragenlijsten (al geteld, rij 17-19);
+  addon_updates 6 (AggroCaller 4.9.0 heeft nu een eigen buff-herinnering bij Mythic-start → mogelijk dubbel met MH).
+- **4.7.5-stukken:** `docs/RELEASE_4.7.5_DRAFT.md` (changelog-keys, Changelog.lua-blok, CF-notitie, CHANGELOG.md) —
+  NIETS in de addon; bij Robs go plakken volgens de 4 stappen bovenin dat bestand.
+- **Kith'ix-tips:** `docs/KITHIX_TIPS_DRAFT_2026-10-09.md` (mh-writer; 8 keys enUS+nlNL, 7 zwakke regels gemarkeerd).
+  ⚠️ Er is nog GEEN raid-ingang voor Kith'ix in `RaidCoachData.lua` en geen `kithix` in TIPS → zonder die twee toont MH
+  niets. `season = 2` zou de oude S2-notitie erboven zetten. Patchdag: nameten, dan ingang + 7 talen.
+- **SimC race 95/96 (API-wachter "MOET GEFIKST"): NIETS DOEN.** mh-research GEMETEN op wago ChrRaces: op retail
+  12.1.0.69933 en PTR 70077 zijn 95/96 lege plaatshouders (`tbdNPCRaceX/Y`); alleen Forever 1.60.1 heeft Skyborne. MH
+  laadt niet op Forever. Bijvangst (niet onderzocht): Haranir = `Harronir` voor beide facties → `race=harronir`.
+- **Ideeënlijst:** mh-sweep liep `IDEEEN_OPEN_2026-10-08.md` na (verslag in de chat van 9 okt). Zonder WoW voor te
+  bereiden: A7 extra healer-cd's (Rapture e.a.; GEMETEN 0 in HealerCooldowns), A5 schat-tussenstappen (quest-ID's),
+  A10 keybind-opties. Bijvangst: `DpsToolkit.lua:53` heeft nog Living Bomb (onschuldig: onbekende ID's worden
+  weggefilterd). MEMORY "death-recap auto-open open" is verouderd (C9 = af).
+
 **Onderweg te doen (zonder WoW) — voorstellen, Rob kiest:**
 1. Kith'ix-bossvenstertips alvast UITSCHRIJVEN (enUS+nlNL) uit het concept, klaar om op patchdag te checken (niet
    committen in Locales vóór de check, of achter minInterface 120105 — kiezen).
