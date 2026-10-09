@@ -31,6 +31,7 @@ WHERE THINGS GO (moved 1 Oct 2026, Rob: "Begin maar met de pagina's naar de webs
 loads them, once per language. Reading the Lua files with regexes is how this project kept
 missing text that lived in a second file (see the notes below); the loader cannot miss it.
 """
+import datetime
 import html as htmllib
 import io
 import json
@@ -511,9 +512,22 @@ SKIP_ARTICLES = {
     # key" to "any finished key counts" for Season 2.)
 }
 
+# When each patch's interface number goes live, by EU date (the later region, so no article shows early anywhere).
+# A minInterface not listed here is held back until someone adds its date. The site chat's build_tips.py uses the
+# same date for the daily tip.
+PATCH_LIVE = {
+    120105: datetime.date(2026, 10, 14),  # 12.1.5: 13 Oct US, 14 Oct EU
+}
+
+
+def interface_live(iface):
+    day = PATCH_LIVE.get(iface)
+    return day is not None and datetime.date.today() >= day
+
+
 codex_src = io.open(os.path.join(ROOT, "Modules", "MidnightCodexData.lua"), encoding="utf-8",
                     errors="replace").read()
-entries = []
+entries, skipped, held = [], [], []
 for chunk in codex_src.split("\n\t{"):
     cat = re.search(r'category\s*=\s*"(\w+)"', chunk)
     tk = re.search(r'titleKey\s*=\s*"([A-Z0-9_]+)"', chunk)
@@ -521,6 +535,13 @@ for chunk in codex_src.split("\n\t{"):
     if not (cat and tk and bk):
         continue
     sort = re.search(r'sort\s*=\s*(\d+)', chunk)
+    mi = re.search(r'minInterface\s*=\s*(\d+)', chunk)
+    if mi and not interface_live(int(mi.group(1))):
+        # The addon hides this article until the client is that build (MidnightCodexData.lua, filter at the
+        # bottom). Site chat, 9 Oct 2026: the 4.7.5 nightly put "Keystone Myth is back (12.1.5)" on
+        # /guides/mythic-plus/ five days before the patch. Same gate here, by date.
+        held.append((cat.group(1), "%s (minInterface %s)" % (tk.group(1), mi.group(1))))
+        continue
     entries.append((cat.group(1), int(sort.group(1)) if sort else 999, tk.group(1), bk.group(1)))
 assert len(entries) >= 35, "only %d codex entries parsed -- refusing to publish" % len(entries)
 
@@ -542,7 +563,7 @@ CODEX_PAGES = [
      "deaths and the weekly rules mean for a beginner."),
 ]
 
-codex_counts, skipped, held = [], [], []
+codex_counts = []
 for slug, cat, title, lede in CODEX_PAGES:
     rows_c = sorted((e for e in entries if e[0] == cat), key=lambda e: e[1])
     assert rows_c, "no codex entries for category %r" % cat
@@ -614,7 +635,7 @@ for slug, n in codex_counts:
 for cat, key in skipped:
     print("  !! SKIPPED in %-12s no enUS text for %s" % (cat, key))
 for cat, key in held:
-    print("  .. HELD BACK in %-9s %s (in SKIP_ARTICLES)" % (cat, key))
+    print("  .. HELD BACK in %-9s %s (SKIP_ARTICLES or patch not live yet)" % (cat, key))
 print("wrote i18n/addon.json -- %d addon texts x %d languages" % (len(ADDON), len(addon_json)))
 untranslated = {lang: sum(1 for k in ADDON if PACKS[LANGS[lang]].get(k) == EN.get(k)) for lang in addon_json}
 print("  still English in the addon itself (shown as English, like in game): %s" % untranslated)
