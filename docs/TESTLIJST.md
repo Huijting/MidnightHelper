@@ -70,7 +70,7 @@ Rob koos (a + b). Gebouwd, niet getest.
   "Discovery"). de/fr/es/pt/it vertaald door mh-writer (namen als Fluent in Flasks bleven Engels).
 
 ✅ **Barkskin** (Rob, Resto Druid, 9 okt avond): Academy heal-route toont "(1 min)" = 60 s.
-❌→🔧 **Academy "Rol wisselen, stap voor stap":** lange stapteksten liepen over elkaar (tekst gecentreerd op het
+✅ (hertest Rob, screenshot: netjes onder elkaar) **Academy "Rol wisselen, stap voor stap":** lange stapteksten liepen over elkaar (tekst gecentreerd op het
 hokje). Gerepareerd: tekst hangt nu linksboven naast het hokje. **Test:** `/mh academy` → Tank-track → die lijst
 leest netjes onder elkaar, links uitgelijnd.
 ✅ **Earth Elemental MET Primordial Bond** (Rob, Elemental, 9 okt avond): staat als grote knop op Blijf leven.
@@ -98,9 +98,11 @@ Gebouwd, niet getest.
 ## 🆕 9 okt — healer-cooldowns: 4 erbij, Salvation eruit (docs/HEALER_CDS_FACTS_2026-10-09.md)
 
 Gebouwd, niet getest. Typ `/mh healcds` op de healer.
-- [ ] **Holy Priest:** Holy Word: Salvation staat er NIET meer (bestaat al sinds 11.1 niet). Bovenaan staat nu Divine Hymn.
-- [ ] **Resto Druid:** Innervate staat erbij (onderaan).
-- [ ] **Holy Paladin:** Avenging Crusader staat onder Avenging Wrath (het is een keuze: je hebt er één van).
+- [x] **Holy Priest:** Holy Word: Salvation staat er NIET meer (bestaat al sinds 11.1 niet). Bovenaan staat nu Divine Hymn.
+  ✅ Rob 9 okt avond, screenshot.
+- [x] **Resto Druid:** Innervate staat erbij (onderaan). ✅ Rob 9 okt avond, screenshot `/mh healcds`.
+- [x] **Holy Paladin:** Avenging Crusader staat onder Avenging Wrath (het is een keuze: je hebt er één van).
+  ✅ Rob 9 okt avond, screenshot (Wrath 2 min, Crusader 1 min, Divine Toll 1 min).
 - [ ] **Mistweaver / Preservation** (alleen als je die hebt): Restoral onder Revival; Zephyr bij de Evoker.
 
 ## 🆕 9 okt — schat-stappen vinken nu af (Gift of the Cycle, Brine-Crusted Chest)
