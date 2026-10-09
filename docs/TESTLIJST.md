@@ -69,6 +69,10 @@ Rob koos (a + b). Gebouwd, niet getest.
 - ⚠️ Op een niet-Engelse client zie je alleen de Magisters-regel (de algemene regel zoekt het Engelse woord
   "Discovery"). de/fr/es/pt/it vertaald door mh-writer (namen als Fluent in Flasks bleven Engels).
 
+✅ **Barkskin** (Rob, Resto Druid, 9 okt avond): Academy heal-route toont "(1 min)" = 60 s.
+❌→🔧 **Academy "Rol wisselen, stap voor stap":** lange stapteksten liepen over elkaar (tekst gecentreerd op het
+hokje). Gerepareerd: tekst hangt nu linksboven naast het hokje. **Test:** `/mh academy` → Tank-track → die lijst
+leest netjes onder elkaar, links uitgelijnd.
 ✅ **Earth Elemental MET Primordial Bond** (Rob, Elemental, 9 okt avond): staat als grote knop op Blijf leven.
 (Dat hij het talent heeft is afgeleid uit de tooltip "+15% max health"; "zonder" niet getest.)
 - [x] **Instellingen → Venster → "Boodschappenknop bij het veilinghuis" uit:** knop weg (ook bij een open veilinghuis).

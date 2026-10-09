@@ -20,6 +20,8 @@ Stand eind 9 okt (alles gepusht; main = origin/main; zie `git log v4.7.4..HEAD`)
   Beroep flikkerde 0↔1 (naam niet geladen → CraftShopTerms sloeg hem over) → knop telt nu via
   `ns.CraftShopToBuyCount`; hertest open. Rob: "Pluk niet meetellen" → telt nu alleen rode "Koop" (niet
   Pluk/Maak/Handelaar).
+- **Ook getest 9 okt avond:** Earth Elemental met Primordial Bond ✅, Barkskin "(1 min)" ✅. Academy-stappenlijst liep
+  over elkaar (checkbox-tekst gecentreerd) → RenderStepPlan hangt tekst nu TOPLEFT; hertest open.
 - **Discovery-recepten (Rob koos a + b, 9 okt avond):** `DISCOVERY_HOW` in CraftShoppingList.lua; algemene regel
   `CRAFTSHOP_DISCOVERY_HOW` + Flask of the Magisters (recept 1230876, GEMETEN in Robs SV) `CRAFTSHOP_DISC_MAGISTERS`.
   Feiten van de research-chat (12.0.x-bronnen) → Rob checkt bij de ketel. de/fr/es/pt/it door mh-writer (niet

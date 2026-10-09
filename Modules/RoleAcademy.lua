@@ -306,6 +306,19 @@ local function RenderStepPlan(panel, parent, y, boxW)
 			if txt.SetWordWrap then
 				txt:SetWordWrap(true)
 			end
+			-- UICheckButtonTemplate anchors its text LEFT-to-RIGHT, i.e. centred on the box: a label of several lines
+			-- then grows upward over the row above as well as down (Rob, 9 Oct 2026, screenshot of "Rol wisselen,
+			-- stap voor stap"). Hang it from the top instead, left-aligned, so it only grows down.
+			if txt.ClearAllPoints and txt.SetPoint then
+				txt:ClearAllPoints()
+				txt:SetPoint("TOPLEFT", chk, "TOPRIGHT", 2, -5)
+			end
+			if txt.SetJustifyH then
+				txt:SetJustifyH("LEFT")
+			end
+			if txt.SetJustifyV then
+				txt:SetJustifyV("TOP")
+			end
 			txt:SetText(SL(labelKey))
 			if txt.SetTextColor then
 				txt:SetTextColor(0.95, 0.9, 0.74)
