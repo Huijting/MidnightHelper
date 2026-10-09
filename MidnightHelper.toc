@@ -94,6 +94,7 @@ Modules\DpsToolkit.lua
 Modules\PlayCards.lua
 Modules\LiveKeys.lua
 Modules\KeyPresses.lua
+Modules\AuctionShopButton.lua
 Modules\HealerSolo.lua
 Modules\PlayCardWindow.lua
 Modules\SurvivalPlan.lua

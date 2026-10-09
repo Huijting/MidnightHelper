@@ -36,6 +36,15 @@ Gebouwd, niet getest. Rob: "ik ga van 1 naar Ctrl 5 naar Shift 2 …".
 - [ ] **Duimknoppen:** jouw 6 7 8 9 0 - op balk 8 moeten "makkelijk" heten (MH weet van je pad via de bar-8-knop).
   Staat er "gaat"/"lastig" bij, zeg het.
 
+## 🆕 9 okt — knop bij het veilinghuis (AuctionShopButton.lua)
+
+Gebouwd, niet getest. Rob, aan het veilinghuis: "hoe maakte ik ook alweer mijn raid lijstje voor ah?"
+- [ ] **Veilinghuis openen:** onder het venster, rechtsonder, een knop "Shopping list (MH)" — of "Shopping list: N to buy"
+  als je raid- of beroepenlijst iets mist. Staat hij niet over iets heen (Auctionator-tabs, Blizzards eigen knoppen)?
+- [ ] **Klik:** het venster "Klaar voor de raid?" gaat open, met de tabs Raid | Beroep.
+- [ ] **Koop iets van de lijst:** het getal op de knop zakt vanzelf.
+- [ ] **Instellingen → Venster → "Boodschappenknop bij het veilinghuis" uit:** knop weg (ook bij een open veilinghuis).
+
 ## 🆕 9 okt — twee schakelaars erbij, en Kith'ix staat klaar voor patchdag
 
 Gebouwd, niet getest.

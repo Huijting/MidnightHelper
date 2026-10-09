@@ -1,6 +1,44 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (9 okt) — Rob: "morgen eerst werken, daarna testen; onderweg dingen uitzoeken zonder WoW"
+## ▶️ HIER VERDER (9 okt avond) — Rob opent een frisse chat; hij test vanavond in retail + PTR
+Stand eind 9 okt (alles gepusht; main = origin/main; zie `git log v4.7.4..HEAD`):
+- **Live: 4.7.4.** Op main voor **4.7.5** (NIET gebumpt/getagd, Robs go; beta of release beslist hij na zijn test):
+  alles van 8 okt (heal-tags, Blijf leven, Academy, 12.1.5-Codex) + 9 okt:
+  - `/mh presses` (KeyPresses.lua): welke spells je drukt + op welke toets, ruil-tips. Opt-in.
+  - Schat-stappen Gift of the Cycle + Brine-Crusted Chest vinken af (quest/item-ID's, vaste volgorde).
+  - Healer-cd's: + Avenging Crusader/Innervate/Restoral/Zephyr, − Holy Word: Salvation. Barkskin Resto 60 s.
+    Earth Elemental alleen met Primordial Bond (`survivalRequires`).
+  - Kith'ix-raid klaargezet: `raid_kithix` met nieuwe patchpoort `minInterface = 120105` + eigen notitie; tips 7 talen.
+  - Schakelaars: `/mh sba`, `/mh mouse fill` (Geavanceerd); veilinghuis-knop "Shopping list (MH)" (Venster, standaard aan).
+  - "This Week" vertaald in de tour (5 talen); `tools/build_site.py` nl "spell"/"currency".
+- **Release-stukken:** `docs/RELEASE_4.7.5_DRAFT.md` is BIJGEWERKT met ALLES van 9 okt (ook de veilinghuis-knop,
+  CHANGELOG_475_13). Bij de go: Robs testresultaat invullen, dan de 4 stappen bovenin dat bestand (toc, enUS-keys,
+  Changelog.lua, RELEASE_NOTES = CURSEFORGE_4.7.5, CHANGELOG.md). Komt er nog iets bij: eerst het concept aanvullen.
+- **Rob test vanavond:** bovenaan `docs/TESTLIJST.md` (9 okt): veilinghuis-knop, `/mh presses`, schat-stappen,
+  healer-cd's, schakelaars, Barkskin/Earth Elemental, Kith'ix nog ONzichtbaar op live.
+- **PTR (12.1.5, `_xptr_`):** MH van vandaag staat erop (copy_to_ptr 9 okt). Labyrinth is daar volgens Wowhead/gidsen
+  speelbaar (AFGELEID). Rob test: Codex-kaarten zichtbaar, Labyrinth-ingang 62.99/72.18, delve-coach-chatregel
+  (dan `/reload` → `ns.db.delveCoachUnknown` lezen), 3 kamers = 2 Heavy Trunks + 1 coffer, kamers kwijt bij verlaten?,
+  Kith'ix zichtbaar met grijze notitie.
+- **12.1.5 patchdag (13 okt VS / 14 okt EU, Rob thuis):** checklist `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b;
+  Kith'ix: `/mh ej save` → journalInstanceID + ingang in RaidCoachData, DBM-module laadt?, 3 ongelinkte spells,
+  zwakke regels (`docs/KITHIX_TIPS_DRAFT_2026-10-09.md`). Kindo'jan-bossvenstertips: NIET gebouwd (alleen één gids,
+  geen DBM) — Rob vroeg 9 okt, ik bood aan; wacht op zijn keuze of op patchdag. Site-chat heeft
+  `drafts/ready-12-1-5.html` klaar (alleen als 4.7.5 op patchdag op CF staat).
+- **Open, klein:** 3 Coiled Isle-schatten (Privateer's Cache, Grave, Vul'zahn) alleen in de client te meten; deDE
+  "in der Account snapshot" (bewust Engels?); ideeënlijst `docs/IDEEEN_OPEN_2026-10-08.md` (mh-sweep-verslag 9 okt:
+  A1/A4/A6/A9/A11/A12/A14/B1/D1-D3 nog open); Resto Druid-spiekbrief wacht op Robs screenshot DandersFrames-binds.
+- **Volgende stap `/mh presses`** als Rob het goed vindt: "verplaats voor me" + undo (via `/mh apply`).
+- **Niet-MH vandaag:** herinneringsfilm voor René (Robs broertje, 9 okt jarig) — goedgekeurd, in de kluis
+  `E:\ComfyMCP\herinnering_broertje\00_KLUIS_goedgekeurd\`. ComfyUI bijgewerkt naar v0.39.0 (server draait via
+  comfy_start.py, wachtrij leeg, geheugen vrij).
+- **Site-chat** (sessie "Site chat 09-10"): weet van de 2 tour/site-fixes en dat de daily tip in het spel al filtert
+  (hun `build_tips.py` filtert minInterface nu zelf; 120105 telt vanaf 14 okt EU). 🔴 Komt er een NIEUWE
+  `minInterface` op een Codex-artikel (volgende patch): de site-chat seinen, anders lopen site en spel uit de pas.
+- Helpers: `mh-research` (uitzoeken), `mh-writer` (vertalen/herschrijven), `mh-sweep` (status nalopen, Haiku) — en
+  zeg erbij dat ze zelf geen helpers mogen starten.
+
+## (vorige) HIER VERDER (9 okt) — Rob: "morgen eerst werken, daarna testen; onderweg dingen uitzoeken zonder WoW"
 Stand eind 8 okt (alles gepusht, main = origin/main, laatste 4ec969b + deze handoff):
 - **Live: 4.7.4.** Op main, NIET uitgebracht (kandidaat **4.7.5**, vóór 12.1.5 op 13/14 okt): heal-tags Instant/Short
   cast/Filler + Serenity (Holy Priest) + WoG onder Holy Shock; SURVIVAL_STEP_BIG zonder immuniteitszin + survivalWhen

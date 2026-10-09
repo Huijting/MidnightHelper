@@ -30,6 +30,7 @@ De Keystone Myth-kaart is pas op 12.1.5 te zien en dus vóór de patch niet te t
 	CHANGELOG_475_9 = "German, French, Spanish, Portuguese and Italian: the tour and the weekly note call the This Week tab by its translated name.",
 	CHANGELOG_475_10 = "Fixes: Barkskin is 60 seconds for Restoration (45 is Guardian's). Earth Elemental is on a Shaman's Stay alive card only with Primordial Bond: without it, it reduces no damage.",
 	CHANGELOG_475_11 = "Settings -> Advanced: switches for Keep key 1 for the Assisted Combat button (/mh sba) and Let the key layout use my mouse buttons (/mh mouse fill).",
+	CHANGELOG_475_13 = "New: a Shopping list button under the auction house window opens Ready for the raid? and your profession list, with how many things you still have to buy. Hide it in Settings -> Window.",
 	CHANGELOG_475_12 = "Ready for 12.1.5: tips for Kith'ix in the Raids window, hidden until patch day. Written from the game's data and DBM before anyone fought him, and they say so.",
 ```
 
@@ -41,6 +42,7 @@ De Keystone Myth-kaart is pas op 12.1.5 te zien en dus vóór de patch niet te t
 			lines = {
 				"CHANGELOG_475_0",
 				"CHANGELOG_475_6",
+				"CHANGELOG_475_13",
 				"CHANGELOG_475_1",
 				"CHANGELOG_475_7",
 				"CHANGELOG_475_2",
@@ -81,6 +83,12 @@ end up on Ctrl+5 while a once-a-fight button sits on 1.
 - **A tip which two to swap** when a busy spell sits on a hard key and a quiet one on an easy key. Nothing moves by
   itself: change one or two at a time, your hands need a few days per change.
 - One list per character and spec. `/mh presses reset` clears it.
+
+## Your shopping list, right at the auction house
+
+Open the auction house and there is a **Shopping list** button under the window. It says how many things you still have
+to buy, for raid night (consumables, enchants, gems) and for your profession recipes. One click opens the list:
+click a row to search, or send everything to Auctionator. Do not want it? Settings -> Window.
 
 ## Healers: which heal is which
 
@@ -155,6 +163,7 @@ Have fun!
 - **This Week** vertaald in TOUR_HOME_* en ACCOUNT_WEEKLY_SCOPE_NOTE (de/fr/es/pt/it).
 - **Kith'ix:** `raid_kithix` in RaidCoachData (minInterface 120105, noteKey RAID_KITHIX_NOTE, geen journalInstanceID/
   ingang tot `/mh ej save`); tips 7 talen; 1303257/1304046/1304040 zonder link (DBM kent ze alleen als aura).
+- **Veilinghuis-knop** (AuctionShopButton.lua): telt RaidShopMissingCount + #CraftShopTerms; mh_ahShopButton (Venster).
 - **Schakelaars:** mh_sbaForce, mh_mouseOverflow (Geavanceerd). **Barkskin** Resto 60 s; **Earth Elemental**
   `survivalRequires = 1279819`.
 ```
