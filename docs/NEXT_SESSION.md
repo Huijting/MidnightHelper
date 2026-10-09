@@ -14,6 +14,8 @@ Stand eind 9 okt (alles gepusht; main = origin/main; zie `git log v4.7.4..HEAD`)
 - **Release-stukken:** `docs/RELEASE_4.7.5_DRAFT.md` is BIJGEWERKT met ALLES van 9 okt (ook de veilinghuis-knop,
   CHANGELOG_475_13). Bij de go: Robs testresultaat invullen, dan de 4 stappen bovenin dat bestand (toc, enUS-keys,
   Changelog.lua, RELEASE_NOTES = CURSEFORGE_4.7.5, CHANGELOG.md). Komt er nog iets bij: eerst het concept aanvullen.
+- **Testuitslag 9 okt avond (Rob):** veilinghuis-knop werkt (zichtbaar, klik, uitzetten). Getal zakte pas na mail
+  ophalen → gerepareerd (`ns.RefreshAhShopButton`, aangeroepen uit `NoteOnWay`); hertest open.
 - **Rob test vanavond:** bovenaan `docs/TESTLIJST.md` (9 okt): veilinghuis-knop, `/mh presses`, schat-stappen,
   healer-cd's, schakelaars, Barkskin/Earth Elemental, Kith'ix nog ONzichtbaar op live.
 - **PTR (12.1.5, `_xptr_`):** MH van vandaag staat erop (copy_to_ptr 9 okt). Labyrinth is daar volgens Wowhead/gidsen

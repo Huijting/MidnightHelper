@@ -62,6 +62,15 @@ local function Update()
 	btn:SetWidth(math.max(150, (btn:GetFontString() and btn:GetFontString():GetStringWidth() or 120) + 28))
 end
 
+--- Called by RaidShoppingList when a purchase is noted as "on its way". Rob, 9 Oct 2026: the window showed the bought
+--- item in the mail at once, but the button only dropped after he took the mail - nothing changes in the bags before
+--- that, so BAG_UPDATE_DELAYED never fired.
+function ns.RefreshAhShopButton()
+	if btn and btn:IsShown() then
+		Update()
+	end
+end
+
 local function Build()
 	if btn or not AuctionHouseFrame then
 		return

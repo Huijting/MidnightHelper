@@ -166,6 +166,9 @@ local function NoteOnWay(itemID, qty)
 	if win and win:IsShown() and Refresh then
 		Refresh()
 	end
+	if ns.RefreshAhShopButton then
+		ns.RefreshAhShopButton()
+	end
 end
 
 -- Rob, 6 Oct 2026 (screenshot): bought Enchant Weapon - Arcane Mastery through Auctionator, and the window did NOT

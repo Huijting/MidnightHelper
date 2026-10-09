@@ -38,12 +38,16 @@ Gebouwd, niet getest. Rob: "ik ga van 1 naar Ctrl 5 naar Shift 2 …".
 
 ## 🆕 9 okt — knop bij het veilinghuis (AuctionShopButton.lua)
 
-Gebouwd, niet getest. Rob, aan het veilinghuis: "hoe maakte ik ook alweer mijn raid lijstje voor ah?"
-- [ ] **Veilinghuis openen:** onder het venster, rechtsonder, een knop "Shopping list (MH)" — of "Shopping list: N to buy"
+Gebouwd. Rob, aan het veilinghuis: "hoe maakte ik ook alweer mijn raid lijstje voor ah?"
+✅ **Rob 9 okt avond: "deze werkt".** Screenshot: nlNL-tekst "Boodschappen: 4 te kopen", rechtsonder, naast de
+Auctionator-tab en er niet overheen.
+- [x] **Veilinghuis openen:** onder het venster, rechtsonder, een knop "Shopping list (MH)" — of "Shopping list: N to buy"
   als je raid- of beroepenlijst iets mist. Staat hij niet over iets heen (Auctionator-tabs, Blizzards eigen knoppen)?
-- [ ] **Klik:** het venster "Klaar voor de raid?" gaat open, met de tabs Raid | Beroep.
-- [ ] **Koop iets van de lijst:** het getal op de knop zakt vanzelf.
-- [ ] **Instellingen → Venster → "Boodschappenknop bij het veilinghuis" uit:** knop weg (ook bij een open veilinghuis).
+- [x] **Klik:** het venster "Klaar voor de raid?" gaat open, met de tabs Raid | Beroep.
+- [ ] **Koop iets van de lijst:** het getal op de knop zakt vanzelf. ❌ Rob 9 okt avond: zakte pas na mail ophalen
+  (het venster zette het wél meteen "in de mail"). Gerepareerd dezelfde avond: de aankoop werkt nu ook de knop bij
+  (`ns.RefreshAhShopButton`). **Opnieuw testen:** koop iets → het getal moet zakken vóór je de mail haalt.
+- [x] **Instellingen → Venster → "Boodschappenknop bij het veilinghuis" uit:** knop weg (ook bij een open veilinghuis).
 
 ## 🆕 9 okt — twee schakelaars erbij, en Kith'ix staat klaar voor patchdag
 
