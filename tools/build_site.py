@@ -64,7 +64,8 @@ BASE = "https://midnighthelper.com"
 LANGS = {"en": "enUS", "nl": "nlNL", "de": "deDE", "fr": "frFR", "es": "esES", "pt": "ptBR", "it": "itIT"}
 WOWHEAD = {"en": "", "nl": "", "de": "de/", "fr": "fr/", "es": "es/", "pt": "pt/", "it": "it/"}
 WORDS = {
-    "en": ("spell", "item", "currency"), "nl": ("spreuk", "item", "valuta"),
+    # nl: Rob wil "spell", nooit "spreuk" (9 okt 2026, via de site-chat); nlNL houdt ook "currency" Engels (CLAUDE.md)
+    "en": ("spell", "item", "currency"), "nl": ("spell", "item", "currency"),
     "de": ("Zauber", "Gegenstand", "Währung"), "fr": ("sort", "objet", "monnaie"),
     "es": ("hechizo", "objeto", "moneda"), "pt": ("feitiço", "item", "moeda"),
     "it": ("incantesimo", "oggetto", "valuta"),

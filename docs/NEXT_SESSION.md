@@ -18,6 +18,11 @@ Stand eind 8 okt (alles gepusht, main = origin/main, laatste 4ec969b + deze hand
 - **Spiekbrief-PDF Resto Druid:** wacht op Robs screenshot Active Bindings (DandersFrames). Figuren: 22 goedgekeurd in
   `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (+ intro-filmpjes in `intro\`). Holy-bron: scratchpad 945b4dfe.
 
+**9 okt middag — site-chat meldde 2 punten, gedaan:** TOUR_HOME_TITLE/_NAV + ACCOUNT_WEEKLY_SCOPE_NOTE in de/fr/es/pt/it
+zeiden nog Engels "This Week" terwijl TAB_HOME vertaald is → nu de tabnaam per taal (mh-writer, 15 regels, niet getest
+in het spel). `tools/build_site.py` WORDS nl: "spreuk"/"valuta" → "spell"/"currency" (Robs woordkeus; site pakt het op
+bij de volgende bouw). Gezien, niet gedaan: deDE regel ~1266 "in der Account snapshot" (Engelse schermnaam, bewust?).
+
 **9 okt later — Rob: "werk de ideeën af" + toetsen springen (1 → Ctrl 5 → Shift 2) sinds hij de SBA weghaalde:**
 - **`/mh presses` GEBOUWD** (`Modules/KeyPresses.lua`, Spec 07 fase 2 / idee A10): opt-in teller (`/mh presses on` of
   Instellingen → Gevecht), telt eigen casts in combat per personage+spec (`ns.db.keyPresses`), rapport = top 8 met echte
