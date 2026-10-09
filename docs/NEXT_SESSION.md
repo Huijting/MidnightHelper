@@ -1,6 +1,10 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (9 okt laat) — 4.7.5 KLAAR als RELEASE, tag wacht op Robs laatste ja
+## ▶️ HIER VERDER (9 okt laat) — 4.7.5 is LIVE (RELEASE)
+✅ Rob "ja, taggen" → tag `v4.7.5` (c9dd4f8) gepusht; Actions-run 37993511043 success: CurseForge, Wago en GitHub
+release allemaal "Success!" (GEMETEN in de log, 21:28 UTC). Site-chat geseind (zij doen cijferstrook, #new, /play/,
+ready-12-1-5.html; live zetten = Robs ja). Nog te doen door Rob: CF → Files → 4.7.5 → Changelog: opmaak goed?
+Hieronder de stand van vlak vóór de tag:
 - Rob: "ga maar voor een release" (presses gaat mee; Bartender/ElvUI later in een beta). Gebumpt naar 4.7.5: toc,
   CHANGELOG_475_0..14 (enUS), Changelog.lua, RELEASE_NOTES.md = docs/CURSEFORGE_4.7.5.md (byte-gelijk, GEMETEN),
   CHANGELOG.md met wat Rob testte en wat niet. Syntax OK, lint 0 HARD, `package.ps1` bouwde `dist/MidnightHelper-4.7.5.zip`.
