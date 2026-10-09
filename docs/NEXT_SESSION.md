@@ -1,6 +1,15 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (9 okt laat) — 4.7.5 is LIVE (RELEASE)
+## ▶️ MORGEN (Rob, 9 okt laat): `/mh presses` in een VENSTER
+Rob: *"de presses ding moet ook in een venster komen want in een chat is het onoverzichtelijk"*. Nu print
+KeyPresses.lua (`PrintReport`, `PrintWhy`) alles in de chat. Bouwen: een eigen venster (spell, aantal, toets,
+makkelijk/gaat/lastig, ruil-tips, de regel onderaan). 🔴 Nieuw venster → in `SCALABLE_WINDOWS` of
+RegisterMidnightDialogPopup (Shift+scroll, memory every-window-shift-scroll). `/mh presses why` mag in de chat blijven
+(diagnose). Samen met Bartender/ElvUI (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`) in een volgende BETA. Site-chat
+seinen als het af is (site volgt elke functie).
+
+## (vorige) HIER VERDER (9 okt laat) — 4.7.5 is LIVE (RELEASE)
+Site ook live (site-chat 2abd9fd: strip 4.7.5, "New in 4.7.5", gidsen uit build_site main).
 ✅ Rob "ja, taggen" → tag `v4.7.5` (c9dd4f8) gepusht; Actions-run 37993511043 success: CurseForge, Wago en GitHub
 release allemaal "Success!" (GEMETEN in de log, 21:28 UTC). Site-chat geseind (zij doen cijferstrook, #new, /play/,
 ready-12-1-5.html; live zetten = Robs ja). Rob bevestigde: 4.7.5 staat in de CF-bestandenlijst ✅.
