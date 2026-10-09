@@ -2112,3 +2112,53 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   MH-tekst). **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van nieuwe)
   spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
   beslist.
+
+---
+
+- [2026-10-09] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-08]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261009a` (en `&nocache=20261009b` als tweede, onafhankelijke fetch) via Exa, beide
+  volledig gelezen (JSON). `pagination.totalCount` = **8**, zelfde als gisteren. Alle drie de
+  draadjes (esMX-locale, MrsBoojiePanda's debug-regel, gadrinonturalyon's coffer-key/3D-model-
+  verzoek) hebben als nieuwste bericht nog steeds een reply van `twelveinchy`; geen nieuwe
+  reacties sinds [2026-10-08]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt vandaag.
+
+- [2026-10-09] 🔁 **Vierde dag op "October 6, 2026" als nieuwste hotfix-sectie — zelf opnieuw
+  gelezen, niets nieuws in mijn lane.** `news.blizzard.com/en-us/article/24296142` **volledig
+  gelezen** via Exa `web_fetch_exa`, twee onafhankelijke fetches (`?nocache=20261009a` en
+  `?nocache=20261009c`, de laatste met een groter uittreksel dat ook de oudere secties
+  "October 1", "September 29", "September 24", "September 23" en het begin van "September 22"
+  teruggaf). Een `web_search_exa` naar "World of Warcraft hotfixes October 2026" bevestigt
+  hetzelfde via drie onafhankelijke bronnen (de gewone en de en-gb `news.blizzard.com`-pagina,
+  Wowhead's Blue Tracker, `worldofwarcraft.blizzard.com/en-us/news`): overal is **"October 6,
+  2026"** nog de nieuwste sectie, geen nieuw artikel erna. De Oct 6-sectie bevat alleen
+  **Classes** (klassen-/PvP-tuning, buiten mijn lane) en **Dungeons and Raids** (dezelfde
+  Ula'tek-encountertuning als op [2026-10-06] al regel-voor-regel tegen `RAID_BOSS_ULATEK_*`/
+  `Locales/RaidTips.lua` getoetst — vandaag niet opnieuw getoetst, want geen nieuwe regel erin
+  t.o.v. die datum). **Delves, Professions, Quests en Items: leeg** in de "October 6"-sectie —
+  niets om tegen de repo te vergelijken. De oudere secties die bij de grote fetch zichtbaar
+  werden, staan al eerder in deze log verwerkt (Oct 1: Venomous Heart-melee-fix, Sep 29:
+  Mother's Wrath, Sep 24: Shadow Enclave Oddball-"Ingredient"-teleport, Sep 23: de Valeera-
+  faction-change-delvebug) en zijn vandaag alleen herbevestigd als nog steeds onveranderd, niet
+  opnieuw als vondst geteld. Positieve controle: de tekst van de Oct 6-sectie komt letterlijk
+  overeen tussen de twee onafhankelijke Exa-fetches en de drie losse bronnen uit de zoekopdracht
+  — geen cache-mismatch zoals op 3 sep.
+
+  Dit convergeert met de API-, PTR- en data-wachter van vandaag (`docs/API_WATCH.md` entry
+  [2026-10-09], `docs/PTR_12.1_WATCH.md` entry [2026-10-09] en `docs/PTR_12.0.7_DATA.md` entry
+  [2026-10-09]), die onafhankelijk dezelfde "October 6"-sectie als nieuwste zagen — niet
+  overgenomen als feit, zelf opnieuw gelezen en hierboven uit de eigen fetches geciteerd.
+
+  Vandaag is vrijdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261009a en ?nocache=20261009c
+  (beide volledig gelezen via Exa) · web-zoekopdracht naar "World of Warcraft hotfixes October
+  2026" (vier onafhankelijke treffers, allemaal "October 6" als nieuwste) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261009a/b (volledig gelezen via Exa) · `docs/API_WATCH.md` entry [2026-10-09],
+  `docs/PTR_12.1_WATCH.md` entry [2026-10-09] en `docs/PTR_12.0.7_DATA.md` entry [2026-10-09]
+  als kruiscontrole (feiten niet herhaald, alleen zelf getoetst op tegenspraak met geshipte
+  MH-tekst). **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van nieuwe)
+  spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
+  beslist.
