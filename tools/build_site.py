@@ -528,7 +528,12 @@ def interface_live(iface):
 codex_src = io.open(os.path.join(ROOT, "Modules", "MidnightCodexData.lua"), encoding="utf-8",
                     errors="replace").read()
 entries, skipped, held = [], [], []
-for chunk in codex_src.split("\n\t{"):
+# Only the table body: split over the whole file, the last article ran on to the end and picked up the comment
+# below the table that says "`minInterface = 120105` keeps an article out" - so Atal'Utek's dead was held back
+# with no minInterface of its own (site chat, 9 Oct 2026; build_tips.py already cut the body out like this).
+codex_body = re.search(r"ns\.CODEX_ARTICLES = \{(.*?)\n\}", codex_src, re.S)
+assert codex_body, "ns.CODEX_ARTICLES table not found -- refusing to publish"
+for chunk in codex_body.group(1).split("\n\t{"):
     cat = re.search(r'category\s*=\s*"(\w+)"', chunk)
     tk = re.search(r'titleKey\s*=\s*"([A-Z0-9_]+)"', chunk)
     bk = re.search(r'bodyKey\s*=\s*"([A-Z0-9_]+)"', chunk)
