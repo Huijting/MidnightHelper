@@ -2,6 +2,42 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.7.5
+
+📌 **2026-10-09 (avond), als RELEASE (Rob: "ga maar voor een release, presses komt later wel in een beta" → presses
+gaat mee, alleen Bartender/ElvUI later in een beta), tag `v4.7.5` wacht op Robs tweede go.** Rob koos release
+i.p.v. de beta-eerst-regel van 5 okt. Rob testte die avond op retail: veilinghuis-knop (zichtbaar, klik, uitzetten;
+getal na aankoop — 3 reparaties), `/mh presses` (BM Hunter; Auto Shot telde mee → gerepareerd, hertest OK),
+healer-cd's (Resto Druid, Holy Priest, Holy Paladin), Barkskin "(1 min)", Earth Elemental met Primordial Bond,
+schakelaars in Geavanceerd, Kith'ix onzichtbaar op live, Academy-stappenlijst (liep over elkaar → gerepareerd,
+hertest OK). NIET getest: schat-stappen (Gift al gedaan; Brine-Crusted te ver), Discovery-regel in het spel, Beroep-
+telling na de naam-reparatie, alles op de PTR (12.1.5 build 70077 start niet: ERROR #8, Blizzard-bug), de vertalingen
+(zelfgemaakt, Discovery-regels door mh-writer).
+
+- **Heal-tags:** `instant` / `fast` (= Short cast) / `filler`; Holy Word: Serenity (2050); WoG onder Holy Shock.
+- **Blijf leven:** SURVIVAL_STEP_BIG zonder immuniteitszin; `survivalWhen` (Guardian Spirit, Cold Snap);
+  Forbearance-noten op BoP Holy/Ret + Spellwarding.
+- **Academy:** HEALTOOLKIT_DEF_DESC_IMMUNE alleen bij `d.immune`; TRIAGE noemt [Instant]/[Short cast]; nlNL "spell";
+  RenderStepPlan hangt checkbox-tekst TOPLEFT (liep over elkaar).
+- **12.1.5:** Codex Keystone Myth (minInterface 120105); Aqir 1× in upcoming (POI + eindtijd); Labyrinth "Headhunters
+  appear".
+- **frFR:** Blijf leven helemaal "tu".
+- **`/mh presses`** (KeyPresses.lua, opt-in, `ns.db.keyPresses`): eigen casts tellen, top 8 met echte toets + bereik +
+  ruil-tips; balk 8 = duim alleen met `padKeyHome`; Auto Shot (75) / Auto Attack (6603) tellen niet.
+  Bartender/ElvUI: onderzocht (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`), komt in een latere beta.
+- **Healer-cd's:** + Avenging Crusader, Innervate, Restoral, Zephyr; − Holy Word: Salvation.
+- **Schat-stappen:** Gift of the Cycle 93146/93145/93130 + items, Brine-Crusted 96001 + item 271815, `orderedPrereqs`.
+- **This Week** vertaald in TOUR_HOME_* en ACCOUNT_WEEKLY_SCOPE_NOTE (de/fr/es/pt/it).
+- **Kith'ix:** `raid_kithix` in RaidCoachData (minInterface 120105, noteKey RAID_KITHIX_NOTE, geen journalInstanceID/
+  ingang tot `/mh ej save`); tips 7 talen; 1303257/1304046/1304040 zonder link (DBM kent ze alleen als aura).
+- **Veilinghuis-knop** (AuctionShopButton.lua, mh_ahShopButton in Venster): telt RaidShopMissingCount +
+  CraftShopToBuyCount (alleen rode "Koop": niet Pluk/Maak/Handelaar, zonder itemnaam nodig); telt opnieuw bij aankoop
+  (`ns.RefreshAhShopButton` uit NoteOnWay); tooltip "Raid: X · Beroep: Y"; probe `ns.db.ahShopProbe`.
+- **Discovery-recepten** (CraftShoppingList.lua `DISCOVERY_HOW`): algemene regel + Flask of the Magisters (1230876);
+  feiten uit 12.0.x-bronnen.
+- **Schakelaars:** mh_sbaForce, mh_mouseOverflow (Geavanceerd). **Barkskin** Resto 60 s; **Earth Elemental**
+  `survivalRequires = 1279819`.
+
 ## 4.7.4
 
 📌 **2026-10-07 (avond), als RELEASE (Rob: "go"), tag `v4.7.4` wacht op Robs tweede go.** ~73 commits na beta 2. Rob

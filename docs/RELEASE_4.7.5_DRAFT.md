@@ -1,4 +1,8 @@
-# 4.7.5 — concept (9 okt 2026), NIETS hiervan staat al in de addon
+# 4.7.5 — concept (9 okt 2026)
+
+✅ **TOEGEPAST 9 okt avond (Rob: release).** Toc, enUS, Changelog.lua, RELEASE_NOTES.md = docs/CURSEFORGE_4.7.5.md
+en CHANGELOG.md staan erin; de echte tekst staat dáár (o.a. Academy-reparatie en "Bartender/ElvUI later" erbij).
+Dit concept is vanaf nu historie.
 
 Klaargezet zonder bump en zonder tag. Op Robs go (beta of release) gaat dit zo:
 1. `MidnightHelper.toc` `## Version: 4.7.5` (beta: `4.7.5-beta1`).

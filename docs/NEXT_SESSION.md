@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶️ HIER VERDER (9 okt laat) — 4.7.5 KLAAR als RELEASE, tag wacht op Robs laatste ja
+- Rob: "ga maar voor een release" (presses gaat mee; Bartender/ElvUI later in een beta). Gebumpt naar 4.7.5: toc,
+  CHANGELOG_475_0..14 (enUS), Changelog.lua, RELEASE_NOTES.md = docs/CURSEFORGE_4.7.5.md (byte-gelijk, GEMETEN),
+  CHANGELOG.md met wat Rob testte en wat niet. Syntax OK, lint 0 HARD, `package.ps1` bouwde `dist/MidnightHelper-4.7.5.zip`.
+- **Nog te doen:** site-chat seinen (versie, wat de site raakt) → Robs ja → `git tag -a v4.7.5` + push → Actions-run
+  controleren → CF-changelog bekijken.
+- Open na release: PTR-punten (PTR start niet), Brine-Crusted-volgorde, Discovery-regel en Beroep-telling in het spel,
+  Bartender/ElvUI in LiveKeys (beta), Kith'ix op patchdag (`docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b).
+
 ## ▶️ HIER VERDER (9 okt avond) — Rob opent een frisse chat; hij test vanavond in retail + PTR
 Stand eind 9 okt (alles gepusht; main = origin/main; zie `git log v4.7.4..HEAD`):
 - **Live: 4.7.4.** Op main voor **4.7.5** (NIET gebumpt/getagd, Robs go; beta of release beslist hij na zijn test):
