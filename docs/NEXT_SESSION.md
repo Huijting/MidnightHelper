@@ -18,6 +18,20 @@ Stand eind 8 okt (alles gepusht, main = origin/main, laatste 4ec969b + deze hand
 - **Spiekbrief-PDF Resto Druid:** wacht op Robs screenshot Active Bindings (DandersFrames). Figuren: 22 goedgekeurd in
   `E:\ComfyMCP\spiekbrieven\00_KLUIS_goedgekeurd\` (+ intro-filmpjes in `intro\`). Holy-bron: scratchpad 945b4dfe.
 
+**9 okt later — Rob: "werk de ideeën af" + toetsen springen (1 → Ctrl 5 → Shift 2) sinds hij de SBA weghaalde:**
+- **`/mh presses` GEBOUWD** (`Modules/KeyPresses.lua`, Spec 07 fase 2 / idee A10): opt-in teller (`/mh presses on` of
+  Instellingen → Gevecht), telt eigen casts in combat per personage+spec (`ns.db.keyPresses`), rapport = top 8 met echte
+  toets (`ns.LiveKeyForSpell`) + makkelijk/gaat/lastig + max 3 ruil-tips. Verplaatst NIETS (Rob koos "tellen + rapport +
+  voorstel"). Balk 8 = duim alleen als `padKeyHome` gevuld is. `/mh presses why` = diagnose. 7 talen (de/fr/es/pt/it
+  door mh-writer; locale_probe GEMETEN OK). NIET getest → TESTLIJST 9 okt. Volgende stap als het bevalt: "verplaats
+  voor me" met undo (via `/mh apply`).
+- **A5 schat-stappen:** Gift of the Cycle altaren 93146/93145/93130 + items, Brine-Crusted pearl 96001 + item 271815
+  (`AchievementsData.lua`, `orderedPrereqs`). Bron `docs/TREASURE_STEPS_FACTS_2026-10-09.md`. Coiled Isle Privateer's /
+  Grave / Vul'zahn: geen ID's te vinden → alleen in de client te meten.
+- **A7 healer-cd's:** + Avenging Crusader, Innervate, Restoral, Zephyr; − Holy Word: Salvation (weg sinds 11.1, stond
+  bovenaan bij Holy). Rapture/Spirit Shell/Symbol of Hope bestaan niet meer. Bron `docs/HEALER_CDS_FACTS_2026-10-09.md`.
+  OPEN: Barkskin 45 s in de tabel vs 60 s volgens wago + Icy Veins (niet aangeraakt, audit 17 sep zei 45).
+
 **9 okt ochtend — gedaan (Rob koos 1 t/m 3 + SimC):**
 - Ochtendronde: 4 wachters gedraaid; CF 0 open, GitHub 0 open, mail 3 vragenlijsten (al geteld, rij 17-19);
   addon_updates 6 (AggroCaller 4.9.0 heeft nu een eigen buff-herinnering bij Mythic-start → mogelijk dubbel met MH).

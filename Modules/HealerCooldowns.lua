@@ -111,6 +111,7 @@ ns.HEALER_COOLDOWNS = {
 	-- Holy Paladin (65)
 	[65] = {
 		{ id = 31884, cd = 120, kind = "heal", when = "often" }, -- Avenging Wrath (boosts healing)
+		{ id = 216331, cd = 60, kind = "heal", when = "often" }, -- Avenging Crusader (choice node with Avenging Wrath; added 9 Oct 2026, docs/HEALER_CDS_FACTS_2026-10-09.md)
 		{ id = 375576, cd = 60, kind = "heal", when = "often" }, -- Divine Toll
 		{ id = 31821, cd = 180, kind = "mitig", when = "raid" }, -- Aura Mastery (raid magic DR)
 		{ id = 6940, cd = 120, kind = "ext", when = "ext" }, -- Blessing of Sacrifice
@@ -122,17 +123,20 @@ ns.HEALER_COOLDOWNS = {
 		{ id = 33891, cd = 180, kind = "heal", when = "flow" }, -- Incarnation: Tree of Life (healing boost)
 		{ id = 391528, cd = 120, kind = "heal", when = "flow" }, -- Convoke the Spirits (talent)
 		{ id = 102342, cd = 90, kind = "ext", when = "ext" }, -- Ironbark
+		{ id = 29166, cd = 180, kind = "util", when = "often" }, -- Innervate (talent; added 9 Oct 2026, HEALER_CDS_FACTS)
 	},
 	-- Preservation Evoker (1468)
 	[1468] = {
 		{ id = 363534, cd = 240, kind = "heal", when = "raid" }, -- Rewind
 		{ id = 359816, cd = 120, kind = "heal", when = "raid" }, -- Dream Flight (choice node with Stasis)
 		{ id = 370537, cd = 90, kind = "heal", when = "flow" }, -- Stasis (banks heals)
+		{ id = 374227, cd = 120, kind = "mitig", when = "raid" }, -- Zephyr (you + 4 nearest take less AoE damage; added 9 Oct 2026, HEALER_CDS_FACTS)
 		{ id = 357170, cd = 60, kind = "ext", when = "ext" }, -- Time Dilation
 	},
 	-- Mistweaver Monk (270)
 	[270] = {
 		{ id = 115310, cd = 180, kind = "heal", when = "raid" }, -- Revival
+		{ id = 388615, cd = 180, kind = "heal", when = "raid" }, -- Restoral (choice node with Revival; added 9 Oct 2026, HEALER_CDS_FACTS)
 		{ id = 325197, cd = 120, kind = "heal", when = "raid" }, -- Invoke Chi-Ji, the Red Crane
 		{ id = 322118, cd = 120, kind = "heal", when = "raid" }, -- Invoke Yu'lon, the Jade Serpent
 		{ id = 116849, cd = 120, kind = "ext", when = "ext" }, -- Life Cocoon
@@ -142,12 +146,13 @@ ns.HEALER_COOLDOWNS = {
 		{ id = 421453, cd = 240, kind = "heal", when = "flow" }, -- Ultimate Penitence
 		{ id = 62618, cd = 180, kind = "mitig", when = "raid" }, -- Power Word: Barrier (ground DR zone)
 		{ id = 33206, cd = 180, kind = "ext", when = "ext" }, -- Pain Suppression
-		{ id = 472433, cd = 90, kind = "heal", when = "raid" }, -- Evangelism (casts Power Word: Radiance and makes the next two instant: a ramp before raid damage; cd unconfirmed)
+		{ id = 472433, cd = 90, kind = "heal", when = "raid" }, -- Evangelism (casts Power Word: Radiance and makes the next two instant: a ramp before raid damage; 90 s MEASURED 9 Oct 2026, wago 12.1.0.69933)
 		{ id = 10060, cd = 120, kind = "util", when = "haste" }, -- Power Infusion
 	},
 	-- Holy Priest (257)
 	[257] = {
-		{ id = 265202, cd = 720, kind = "heal", when = "raid" }, -- Holy Word: Salvation
+		-- Holy Word: Salvation (265202) removed 9 Oct 2026: gone since 11.1.0, no talent node in 12.1.0.69933
+		-- (HEALER_CDS_FACTS). It sat first, so GetTopRaidCooldown(257) named a spell nobody can have.
 		{ id = 64843, cd = 180, kind = "heal", when = "raid" }, -- Divine Hymn
 		{ id = 200183, cd = 120, kind = "heal", when = "flow" }, -- Apotheosis (Holy Word boost)
 		{ id = 47788, cd = 180, kind = "ext", when = "ext" }, -- Guardian Spirit

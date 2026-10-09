@@ -21,6 +21,37 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 9 okt — welke spells druk je het vaakst (`/mh presses`, KeyPresses.lua)
+
+Gebouwd, niet getest. Rob: "ik ga van 1 naar Ctrl 5 naar Shift 2 …".
+- [ ] **Aanzetten:** typ `/mh presses on` → chat: "Tellen staat AAN …". Of: Instellingen → Gevecht → "Tel welke spells
+  je drukt" (staat standaard UIT).
+- [ ] **Tellen:** speel 3-4 gevechten (een delve of dungeon is genoeg), typ dan `/mh presses`. Je ziet maximaal 8 regels:
+  spell, aantal keer, `[toets]` en makkelijk/gaat/lastig. Klopt de toets met wat er op je balk staat?
+- [ ] **Tip:** staat een spell die je vaak drukt op een lastige toets (Ctrl/Alt), dan staat eronder "Tip: ruil X met Y".
+  Voelt die ruil logisch? (Er verplaatst NIETS vanzelf.)
+- [ ] **Per personage/spec:** wissel van spec of personage → `/mh presses` zegt "Nog niets geteld" (eigen lijst).
+- [ ] **Niets raars erin:** staan er spells in die je nooit drukt (passieve dingen, procs)? Typ dan `/mh presses why` en
+  maak een screenshot — dan zie ik wat er geteld is.
+- [ ] **Duimknoppen:** jouw 6 7 8 9 0 - op balk 8 moeten "makkelijk" heten (MH weet van je pad via de bar-8-knop).
+  Staat er "gaat"/"lastig" bij, zeg het.
+
+## 🆕 9 okt — healer-cooldowns: 4 erbij, Salvation eruit (docs/HEALER_CDS_FACTS_2026-10-09.md)
+
+Gebouwd, niet getest. Typ `/mh healcds` op de healer.
+- [ ] **Holy Priest:** Holy Word: Salvation staat er NIET meer (bestaat al sinds 11.1 niet). Bovenaan staat nu Divine Hymn.
+- [ ] **Resto Druid:** Innervate staat erbij (onderaan).
+- [ ] **Holy Paladin:** Avenging Crusader staat onder Avenging Wrath (het is een keuze: je hebt er één van).
+- [ ] **Mistweaver / Preservation** (alleen als je die hebt): Restoral onder Revival; Zephyr bij de Evoker.
+
+## 🆕 9 okt — schat-stappen vinken nu af (Gift of the Cycle, Brine-Crusted Chest)
+
+Gebouwd, niet getest. Alleen voor een personage dat de schat nog NIET heeft.
+- [ ] **Harandar, Gift of the Cycle:** zet de schat-route aan (Achievements → Treasures of Harandar). De pijl gaat eerst
+  naar het kussen, dan het altaar van Wisdom, dan het mes, enz. — nooit naar een altaar vóór je het voorwerp hebt. Na elk
+  altaar vinkt die stap af in het hint-venster.
+- [ ] **Coiled Isle, Brine-Crusted Chest:** eerst de clam (pijl), en na het plaatsen van de parel vinken beide stappen af.
+
 ## 🆕 8 okt — "grote defensive"-zin en de heal-soorten (docs/ROLE_SWITCH_FACTS8)
 
 Gebouwd, niet getest.

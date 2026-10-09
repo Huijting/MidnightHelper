@@ -58,9 +58,13 @@ ns.ACHIEVEMENT_TREASURES = {
 			-- already renders one button per prereq — the note only has to say what to
 			-- DO, and every place it mentions becomes a button that routes there.
 			{ criteria = 115294, mapID = 2512, x = 70.63, y = 76.63, note = "ACH_NOTE_BRINE_CRUSTED",
+				-- 9 Oct 2026 (docs/TREASURE_STEPS_FACTS_2026-10-09.md): pearl item 271815 and "Place the Pearl"
+				-- quest 96001 MEASURED in Zygor (one source; 96001 exists in wago). Same pattern as Gift of the
+				-- Cycle: the clam step is done when you hold the pearl or have placed it. Client NOT yet seen.
+				orderedPrereqs = true,
 				prereqs = {
-					{ name = "ACH_STEP_CLAM", mapID = 2512, x = 69.58, y = 82.48 },
-					{ name = "ACH_STEP_PEARL_NPC", mapID = 2512, x = 70.58, y = 77.07 },
+					{ name = "ACH_STEP_CLAM", mapID = 2512, x = 69.58, y = 82.48, item = 271815, quest = 96001 },
+					{ name = "ACH_STEP_PEARL_NPC", mapID = 2512, x = 70.58, y = 77.07, quest = 96001 },
 				} },
 			{ criteria = 115306, mapID = 2512, x = 75.37, y = 68.33 },
 			{ criteria = 115292, mapID = 2512, x = 43.64, y = 67.38, note = "ACH_NOTE_PROFANE_SPOILS" },
@@ -454,13 +458,18 @@ ns.ACHIEVEMENT_TREASURES = {
 			-- main Harandar map (2413) at 51.21/52.93 after all 3 altar rituals.
 			{ criteria = 110254, mapID = 2413, x = 51.21, y = 52.93, name = "Gift of the Cycle", quest = 93144,
 				note = "ACH_NOTE_GIFTCYCLE",
+				-- 9 Oct 2026 (docs/TREASURE_STEPS_FACTS_2026-10-09.md): altar quests 93146/93145/93130 MEASURED in
+				-- Zygor + HandyNotes (+ wago QuestV2); items 257054/257024/256882 MEASURED. A pick-up step is done
+				-- when you carry its item OR its altar is done (the item is used up there). Fixed order, so the
+				-- arrow never sends you to an altar before you hold what it wants. Client flags NOT yet seen.
+				orderedPrereqs = true,
 				prereqs = {
-					{ name = "ACH_STEP_PILLOW", mapID = 2413, x = 51.39, y = 56.00 },
-					{ name = "ACH_STEP_ALTARWISDOM", mapID = 2413, x = 51.15, y = 58.56 },
-					{ name = "ACH_STEP_KNIFE", mapID = 2413, x = 45.14, y = 54.12 },
-					{ name = "ACH_STEP_ALTARVIGOR", mapID = 2413, x = 47.18, y = 53.14 },
-					{ name = "ACH_STEP_BALL", mapID = 2413, x = 51.10, y = 50.49 },
-					{ name = "ACH_STEP_ALTARINNOCENCE", mapID = 2413, x = 51.15, y = 47.55 },
+					{ name = "ACH_STEP_PILLOW", mapID = 2413, x = 51.39, y = 56.00, item = 257054, quest = 93146 },
+					{ name = "ACH_STEP_ALTARWISDOM", mapID = 2413, x = 51.15, y = 58.56, quest = 93146 },
+					{ name = "ACH_STEP_KNIFE", mapID = 2413, x = 45.14, y = 54.12, item = 257024, quest = 93145 },
+					{ name = "ACH_STEP_ALTARVIGOR", mapID = 2413, x = 47.18, y = 53.14, quest = 93145 },
+					{ name = "ACH_STEP_BALL", mapID = 2413, x = 51.10, y = 50.49, item = 256882, quest = 93130 },
+					{ name = "ACH_STEP_ALTARINNOCENCE", mapID = 2413, x = 51.15, y = 47.55, quest = 93130 },
 				} },
 		},
 	},

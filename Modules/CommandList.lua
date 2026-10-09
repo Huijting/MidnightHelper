@@ -89,6 +89,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"craft", "readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
 	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why", "block place", "block go", "block undo", "block layout", "block update", "block export", "achlist why",
+	"presses why", "presses on", "presses off", "presses reset",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 }
 
@@ -122,6 +123,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh apply", descKey = "CMDLIST_APPLY" },
 		-- 4 Oct 2026: the fixed key block, as a picture (KeyBlock.lua).
 		{ cmd = "/mh block", descKey = "CMDLIST_BLOCK" },
+		-- 9 Oct 2026: which spells you press most, on which key (KeyPresses.lua).
+		{ cmd = "/mh presses", descKey = "CMDLIST_PRESSES" },
 		{ cmd = "/mh changelog", descKey = "CMDLIST_CHANGELOG" },
 		{ cmd = "/mh lang", descKey = "CMDLIST_LANG" },
 		-- Both carry NavSearch keyword blocks ("community help support invite chat

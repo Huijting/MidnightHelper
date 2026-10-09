@@ -68,7 +68,9 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 --   passive Flash Heal upgrade), Shadowfiend and Mindbender (now passive).
 -- Specs changed: Power Word: Shield {256,257,258} -> {256,258} (removed for Holy).
 -- Kept although the audit doubts it: Power Word: Life (one site says class-wide),
---   Rapture, Holy Word: Salvation.
+--   Rapture, Holy Word: Salvation. ⚠️ 9 Oct 2026: none of these three is in the table
+--   below any more (grep), and Rapture + Salvation do not exist in 12.1.0.69933
+--   (docs/HEALER_CDS_FACTS_2026-10-09.md). The line above is history, not data.
 
 ns.KeybindRoleClassifier.PRIEST = {
 

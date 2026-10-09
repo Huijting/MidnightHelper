@@ -3375,6 +3375,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- 9 Oct 2026 (Rob): which spells you press most, and whether they sit on easy keys.
+	if msg == "presses" or msg:match("^presses %a+$") then
+		if ns.KeyPressesCommand then
+			ns.KeyPressesCommand(msg:match("^presses (%a+)$"))
+		end
+		return
+	end
+
 	if msg == "groupmap" then
 		if ns.PrintGroupMapProbe then
 			ns.PrintGroupMapProbe()
