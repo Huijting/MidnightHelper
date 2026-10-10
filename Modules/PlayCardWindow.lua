@@ -258,7 +258,7 @@ end
 local function CurrentTab()
 	local ui = ns.db and ns.db.ui
 	local t = ui and ui.playCardTab
-	return (t == "alive" or t == "cons" or t == "dispel" or t == "group") and t or "play"
+	return (t == "alive" or t == "cons" or t == "dispel" or t == "group" or t == "quiz") and t or "play"
 end
 
 local function SetTab(id)
@@ -791,6 +791,142 @@ local function DrawGroup(specID, y, inner)
 end
 
 --------------------------------------------------------------------------------
+-- The quiz (Rob, 10 Oct 2026: the goal is to play without helpers and know why). Built from the card
+-- by ns.GetPlayCardQuiz; opened from a button under the card, not a sixth tab (Frost already has five; a sixth
+-- would most likely not fit in 500 px, especially in nlNL/deDE - not measured). The state is a plain local, never
+-- saved: it is practice, not a score, and a /reload starts over.
+--------------------------------------------------------------------------------
+
+local quiz -- { spec, list, i, picked, score }
+
+local function QuizReset(specID)
+	quiz = { spec = specID, list = ns.GetPlayCardQuiz and ns.GetPlayCardQuiz(specID), i = 1, score = 0 }
+end
+
+--- A plain panel button from the pool. `pool` is a field name on win, `i` the index.
+local function PanelButton(pool, i)
+	win[pool] = win[pool] or {}
+	local b = win[pool][i]
+	if not b then
+		b = CreateFrame("Button", nil, win.body, "UIPanelButtonTemplate")
+		b.icon = b:CreateTexture(nil, "OVERLAY")
+		b.icon:SetSize(20, 20)
+		b.icon:SetPoint("LEFT", b, "LEFT", 6, 0)
+		b.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+		win[pool][i] = b
+	end
+	b.icon:Hide()
+	b:Enable()
+	b:ClearAllPoints()
+	b:Show()
+	return b
+end
+
+local function HideQuizButtons()
+	for _, pool in ipairs({ "_quizBtns", "_quizNav" }) do
+		for _, b in ipairs(win[pool] or {}) do
+			b:Hide()
+		end
+	end
+end
+
+--- @return the new y
+local function DrawQuiz(specID, y, inner)
+	if not (quiz and quiz.spec == specID and quiz.list) then
+		QuizReset(specID)
+	end
+	local list = quiz.list
+	local t = 0
+	local function Line(text, base, r, g, b, gap)
+		t = t + 1
+		local fs = Text(t, base or "GameFontHighlight")
+		fs:SetWidth(inner)
+		fs:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		fs:SetTextColor(r or 0.9, g or 0.88, b or 0.82)
+		fs:SetText(text)
+		y = y - fs:GetStringHeight() - (gap or 10)
+	end
+	local function Nav(i, key, onClick)
+		local b = PanelButton("_quizNav", i)
+		b:SetText(L(key))
+		b:SetSize(180, 24)
+		b:SetPoint("TOPLEFT", win.body, "TOPLEFT", (i - 1) * 190, y)
+		b:SetScript("OnClick", onClick)
+	end
+
+	if quiz.i > #list then
+		Line((L("QUIZ_DONE_FMT")):format(quiz.score, #list), "GameFontNormalLarge", 1, 0.82, 0.2, 14)
+		Line(L(quiz.score == #list and "QUIZ_DONE_ALL" or "QUIZ_DONE_SOME"), nil, nil, nil, nil, 14)
+		Nav(1, "QUIZ_AGAIN", function()
+			QuizReset(specID)
+			win._redraw()
+		end)
+		Nav(2, "QUIZ_BACK", function()
+			SetTab("play")
+			win._redraw()
+		end)
+		return y - 24 - 8
+	end
+
+	local q = list[quiz.i]
+	Line(L("QUIZ_INTRO"), nil, 0.62, 0.6, 0.56, 8)
+	Line((L("QUIZ_PROGRESS_FMT")):format(quiz.i, #list), "GameFontNormal", 1, 0.82, 0.4, 8)
+	Line(q.question, "GameFontHighlightLarge", 1, 1, 1, 12)
+
+	for i, id in ipairs(q.choices) do
+		local b = PanelButton("_quizBtns", i)
+		b:SetSize(inner, 28)
+		b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id) or ("#" .. id)
+		b:SetText(name)
+		local tex = SpellIcon(id)
+		b.icon:SetTexture(tex)
+		b.icon:SetShown(tex ~= nil)
+		if quiz.picked then
+			b:Disable()
+			-- After the pick: the right one says so, a wrong pick says so; the rest stay plain.
+			if id == q.answer then
+				b:SetText("|cff33ff66" .. name .. "|r")
+			elseif id == quiz.picked then
+				b:SetText("|cffff5555" .. name .. "|r")
+			end
+		end
+		b:SetScript("OnClick", function()
+			if quiz.picked then
+				return
+			end
+			quiz.picked = id
+			if id == q.answer then
+				quiz.score = quiz.score + 1
+			end
+			win._redraw()
+		end)
+		y = y - 28 - 6
+	end
+	y = y - 6
+
+	if quiz.picked then
+		local right = quiz.picked == q.answer
+		local answerName = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(q.answer) or ("#" .. q.answer)
+		if right then
+			Line(L("QUIZ_RIGHT"), "GameFontNormalLarge", 0.2, 1, 0.4, 6)
+		else
+			Line((L("QUIZ_WRONG_FMT")):format(answerName), "GameFontNormalLarge", 1, 0.4, 0.4, 6)
+		end
+		if q.why then
+			Line("|cff8fc7ff" .. L("PLAYCARD_WHY") .. "|r " .. q.why, nil, nil, nil, nil, 12)
+		end
+		Nav(1, quiz.i < #list and "QUIZ_NEXT" or "QUIZ_FINISH", function()
+			quiz.i = quiz.i + 1
+			quiz.picked = nil
+			win._redraw()
+		end)
+		y = y - 24 - 8
+	end
+	return y
+end
+
+--------------------------------------------------------------------------------
 -- Drawing
 --------------------------------------------------------------------------------
 
@@ -862,6 +998,7 @@ local function Redraw()
 	if win._siteBtn then
 		win._siteBtn:Hide()
 	end
+	HideQuizButtons()
 	-- Read the bars afresh for every draw: the keys are whatever they are right now.
 	if ns.LiveKeysInvalidate then
 		ns.LiveKeysInvalidate()
@@ -911,6 +1048,11 @@ local function Redraw()
 	elseif tab == "group" then
 		tab = "play"
 	end
+	-- The quiz has no tab of its own (see DrawQuiz); a spec without one falls back to the card.
+	local hasQuiz = ns.GetPlayCardQuiz and ns.GetPlayCardQuiz(specID) ~= nil
+	if tab == "quiz" and not hasQuiz then
+		tab = "play"
+	end
 	local tx = 0
 	for i, def in ipairs(tabs) do
 		local b = TabButton(i)
@@ -918,7 +1060,7 @@ local function Redraw()
 		b:SetPoint("TOPLEFT", win.body, "TOPLEFT", tx, y)
 		b.fs:SetText(L(def.key))
 		b:SetWidth(b.fs:GetStringWidth() + 18)
-		local on = def.id == tab
+		local on = def.id == tab or (tab == "quiz" and def.id == "play")
 		b.fs:SetTextColor(on and 1 or 0.62, on and 0.82 or 0.6, on and 0.2 or 0.56)
 		b.line:SetShown(on)
 		b:SetScript("OnClick", function()
@@ -932,6 +1074,12 @@ local function Redraw()
 		win._tabBtns[i]:Hide()
 	end
 	y = y - 26 - 10
+
+	if tab == "quiz" then
+		y = DrawQuiz(specID, y, inner)
+		win:SetHeight(32 + 32 - y + 16 + 8)
+		return
+	end
 
 	if tab == "alive" or tab == "cons" or tab == "dispel" or tab == "group" then
 		local draw = (tab == "alive" and DrawStayAlive) or (tab == "cons" and DrawConsumables)
@@ -1039,7 +1187,12 @@ local function Redraw()
 			row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
 			row.fs:SetWidth(inner - (20 + ICON + 10))
 			row.fs:SetTextColor(0.9, 0.88, 0.82)
-			row.fs:SetText(live and WithKeys(s.text) or s.text)
+			local text = live and WithKeys(s.text) or s.text
+			-- The why line (PlayCards.lua, WHY AND QUIZ): dimmer, under the step, so the step still reads first.
+			if s.why then
+				text = text .. "|n|cff8fc7ff" .. L("PLAYCARD_WHY") .. "|r |cffb8b4aa" .. s.why .. "|r"
+			end
+			row.fs:SetText(text)
 			local h = math.max(ICON, row.fs:GetStringHeight() + 4)
 			row:SetHeight(h)
 			y = y - h - 10
@@ -1067,6 +1220,7 @@ local function Redraw()
 			Block("•", card.aoe, 1, 1, 1)
 		else
 			Block(L("PLAYCARD_AOE"), card.aoe, 1, 1, 1)
+			Block(L("PLAYCARD_WHY"), card.aoeWhy, 0.56, 0.78, 1)
 		end
 		Block(L("PLAYCARD_MISTAKE"), card.mistake, 1, 0.38, 0.38)
 		-- The hero-talent lines are for later (Rob, same evening): say so, so a beginner can stop reading here.
@@ -1084,6 +1238,20 @@ local function Redraw()
 		src:SetTextColor(0.62, 0.6, 0.56)
 		src:SetText((L("PLAYCARD_SOURCE_FMT")):format(card.source))
 		y = y - 4 - src:GetStringHeight()
+
+		-- "Test yourself": into the quiz, which is built from this card (DrawQuiz).
+		if hasQuiz then
+			local b = PanelButton("_quizNav", 1)
+			b:SetText(L("QUIZ_START"))
+			b:SetSize(math.max(160, (b:GetFontString() and b:GetFontString():GetStringWidth() or 120) + 30), 24)
+			b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y - 10)
+			b:SetScript("OnClick", function()
+				QuizReset(specID)
+				SetTab("quiz")
+				Redraw()
+			end)
+			y = y - 10 - 24
+		end
 
 		y = SiteLink(specID, y, inner, nil)
 	end
@@ -1165,6 +1333,7 @@ local function Build()
 	ForwardDrag(body)
 
 	f._texts, f._rows, f._specBtns = {}, {}, {}
+	f._redraw = Redraw -- the quiz buttons (defined above Redraw) call back through this
 
 	-- Follow a spec change while open, unless the player picked another spec to look at.
 	f:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")

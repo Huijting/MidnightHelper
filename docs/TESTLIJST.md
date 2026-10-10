@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — speelkaart Frost Mage: waarom-regels + quiz (PlayCards.lua + PlayCardWindow.lua)
+
+- [ ] Op je Frost Mage: `/reload`, `/mh play`. Onder elke stap staat een blauwe regel **"Waarom:"**, ook onder "Meer vijanden".
+- [ ] `/mh playcards check`: de laatste regel zegt `why lines SHOWN` en `quiz: 6 questions`.
+- [ ] Onder de kaart staat de knop **"Test jezelf: quiz"**. Klik: vraag 1 van 6, een zin met een open plek, drie knoppen met icoon.
+- [ ] Kies fout: jouw knop rood, de goede groen, "Net niet: het is …" en de waarom-regel. Kies goed: "Goed!".
+- [ ] Na vraag 6: score, "Opnieuw" en "Terug naar de kaart" werken. Het tabblad "Hoe je speelt" blijft onderstreept tijdens de quiz.
+- [ ] Op een andere spec (bv. Arcane via het spec-icoontje): géén quizknop en geen waarom-regels.
+- [ ] Carola: laat haar de quiz doen en kijk of ze de zinnen snapt (dat is de echte test).
+
 ## 🆕 10 okt — `/mh export`: realm en regio erbij (GearExport.lua)
 
 - [x] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). ✅ Rob 10 okt: 3.

@@ -14,6 +14,19 @@
   Blizzard-characterfoto mee (`/api/render`, ea10494). Oude parsers lezen de eerste 4 velden gewoon door.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
+- ✅ GEBOUWD 10 okt, niet in een client gezien: **waarom-regels + quiz op de speelkaart, proef Frost Mage (64)**.
+  Aanleiding Carola (gaat steeds dood); Robs doel: *"uiteindelijk ... zonder hulpmiddelen spelen en gewoon weten wat
+  je doet en waarom"*. `PlayCards.lua`: `why = { checked, interface = 120100 }` + `quiz = true` op [64];
+  `PLAYCARD_64_W1..W5/WAOE` (enUS + nlNL; de/fr/es/pt/it vallen bewust terug op Engels: geen zelfverzonnen
+  vertalingen van Icicles/Freezing Rain). Quiz wordt UIT DE KAART gebouwd (`ns.GetPlayCardQuiz`, laatste {SPELL} per
+  stap = antwoord), knop "Test jezelf" onder de kaart (geen 6e tab: past niet in 500 px). Knopteksten in 7 talen.
+  Bronnen W-regels: Icy Veins 10 aug, Method 11 aug, Wowhead 12+29 aug (onderzoeksagent, 12.1-pagina's GEMETEN).
+  Getest buiten het spel (lupa/Lua 5.1, stubs): 6 vragen, antwoord altijd tussen de keuzes, enUS + nlNL.
+  🔴 **Op 14 okt (12.1.5, interface 120105) verbergen de W-regels zichzelf** (zo ontworpen): 12.1.5 heeft
+  Frost/Spellslinger-wijzigingen (devnotes 15 sep). Na controle `interface` ophogen. `/mh playcards check` zegt
+  waarom ze verborgen zijn. Bevinding agent, NIET aangepast: AOE-regel "als hij oplicht" klopt alleen met talent
+  Freezing Rain; S4 "blijf stilstaan" geldt niet altijd bij 2+ vijanden. Document voor Carola: claude.ai-doc
+  "Carola leert Frost Mage". Pas na Carola's test naar meer specs (schatting: ~25 KB per taal voor alle 40).
 
 ## (eerder vandaag) op weg naar 4.7.6-BETA
 - ✅ GEBOUWD 10 okt, niet getest: `/mh presses` opent een VENSTER (`MidnightHelperKeyPressesWindow` in KeyPresses.lua,
