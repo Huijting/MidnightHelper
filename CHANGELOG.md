@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.7.6
+
+📌 **2026-10-10, als BETA (Rob: "go beta, na overleg met de site chat"), tag `v4.7.6-beta1` na akkoord site-chat.**
+Notitie `docs/CURSEFORGE_4.7.6.md` = `RELEASE_NOTES.md`. Rob testte 10 okt: presses-venster (Hunter, Priest, Warlock
+leeg), ruilen + terugdraaien (1 en alles), heals/interrupts eruit, `/mh playkeys` "Blizzard 24, Bartender4 0, ElvUI 0",
+tank/healer markeren (ook follower dungeon), Midnight-achievement 42045 true. NIET getest: 0x-ruilplekken, Bartender/
+ElvUI met die addons (alleen code gelezen), toetsenblok "Alle personages" in het spel, de 5 instellingen, het nieuwe
+schild-icoon, SimC ras 95/96 (geen personage), de vertalingen (zelfgemaakt, mh-writer).
+
+- **`/mh presses`-venster** (KeyPresses.lua): rijen + ruil-tips met knop "Ruil" (DoSwap: zelfde ruil als BarEightKeys,
+  daarna teruggelezen), stapel `bucket.swaps` (max 20) met terugdraaien 1 / alles; `KeepEasy` (interrupt, heal_*,
+  survival) nooit in een ruil; `NeverPressed` (0x-spells als ruilplek vanaf 5 gevechten, `ns.LiveKeysAll`);
+  `PRESSES_NONE_ON`; knoppen groeien mee.
+- **LiveKeys:** `LabSlots` leest LibActionButton-knoppen (Bartender4, ElvUI-fork) via GetBindingAction + `_state_action`;
+  `/mh playkeys` toont bronnen.
+- **SimcExport:** race 95/96 → skyborne_alliance/horde (SimC 12.1.0-alpha-06).
+- **KeyBlock:** `ns.db.keyBlockCodes` + "Alle personages" (`ShowShareCopyDialog` kreeg `opts.extra` + `opts.hintText`).
+- **FastMark:** tank/healer-knop (`/tm [@unit] 6/4` uit UnitGroupRolesAssigned, buiten combat bijgewerkt).
+- **SettingsDefs:** toasts, bounty-toast, openables-geluid, delve-popup auto, muisknoppen 0-6.
+- **Codex MIDSTART:** quest kwijt + skip vraagt achievement 42045.
+- **tools/build_site.py:** minInterface-artikelen pas vanaf de patchdatum (PATCH_LIVE), alleen de tabel-body.
+
 ## 4.7.5
 
 📌 **2026-10-09 (avond), als RELEASE (Rob: "ga maar voor een release, presses komt later wel in een beta" → presses

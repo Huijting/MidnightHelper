@@ -1,4 +1,7 @@
-# 4.7.6 — concept (gestart 10 okt 2026), NIETS hiervan staat al in de changelog van de addon
+# 4.7.6 — concept (gestart 10 okt 2026)
+
+✅ **TOEGEPAST 10 okt (Rob: "go beta").** Toc 4.7.6, CHANGELOG_476_0..7, Changelog.lua, RELEASE_NOTES.md =
+docs/CURSEFORGE_4.7.6.md, CHANGELOG.md. Tag `v4.7.6-beta1` na akkoord site-chat. Dit concept is vanaf nu historie.
 
 Volgende versie = **BETA** (Rob, 9 okt: "presses komt later wel in een beta"). Op Robs go:
 1. `MidnightHelper.toc` `## Version: 4.7.6-beta1`.

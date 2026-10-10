@@ -1,6 +1,11 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (10 okt) — op weg naar 4.7.6-BETA
+## ▶️ HIER VERDER (10 okt) — 4.7.6-BETA klaargezet
+- Rob: "go beta, na overleg met de site chat". Toc 4.7.6, changelog, RELEASE_NOTES = CURSEFORGE_4.7.6 (byte-gelijk),
+  CHANGELOG.md; syntax OK, lint 0 HARD, zip gebouwd. Tag `v4.7.6-beta1` wacht op akkoord site-chat → dan taggen,
+  Actions controleren, site-chat seinen (oranje beta-regel).
+
+## (eerder vandaag) op weg naar 4.7.6-BETA
 - ✅ GEBOUWD 10 okt, niet getest: `/mh presses` opent een VENSTER (`MidnightHelperKeyPressesWindow` in KeyPresses.lua,
   via RegisterMidnightDialogPopup = Shift+scroll/dock/Escape; knoppen aan/uit + "wis deze spec" met 2e klik; ververst
   na elk gevecht). `/mh presses why` blijft chat. Teksten: enUS + nlNL; de/fr/es/pt/it door mh-writer.
