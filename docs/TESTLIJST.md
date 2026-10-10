@@ -34,7 +34,10 @@ Gebouwd, niet getest. Rob, 9 okt: "in een chat is het onoverzichtelijk".
 - [ ] **SimC (`/mh raidbots`):** alleen te zien met een personage van ras-id 95/96 (SimC noemt ze "skyborne"; welk ras dat in het spel
   heet is NIET gemeten). Heb je dat niet: overslaan.
   Op elk ander personage: de `race=`-regel is hetzelfde als vóór vandaag.
-- [ ] **Bartender/ElvUI (LiveKeys.lua) — bij Rob mag NIETS veranderen** (hij heeft geen van beide): `/mh playkeys` →
+- [x] **Leeg venster** (Rob, Warlock 82, 10 okt): opent ✅. Tekst zei "turn it on" terwijl tellen aan stond → nu
+  `PRESSES_NONE_ON` ("tellen staat aan, de lijst vult zich vanzelf") en "Wis deze spec" alleen als er iets geteld is.
+- [x] **Bartender/ElvUI (LiveKeys.lua) — bij Rob mag NIETS veranderen** ✅ Rob 10 okt, Warlock: "sources: Blizzard 24,
+  Bartender4 0, ElvUI 0, other LibActionButton 0", elke spell "Blizzard". (hij heeft geen van beide): `/mh playkeys` →
   regel 2 "sources: Blizzard N, Bartender4 0, ElvUI 0, other LibActionButton 0", en dezelfde toetsen als gisteren op de
   "Zo speel je"-kaart en in `/mh presses`. (CooldownManagerCentered laadt LibActionButton, maar maakt alleen
   flyout-knoppen zonder toets — GELEZEN in zijn code.)

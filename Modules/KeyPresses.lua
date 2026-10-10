@@ -318,8 +318,12 @@ local function Refresh()
 	if not on then
 		lines[#lines + 1] = "|cffff9900" .. ns:L("PRESSES_IS_OFF") .. "|r"
 	end
+	-- Nothing to clear when nothing was counted.
+	win.reset:SetShown(bucket and next(bucket.spells) and true or false)
 	if not bucket or not next(bucket.spells) then
-		lines[#lines + 1] = ns:L("PRESSES_NONE")
+		-- Rob, 10 Oct 2026, empty window on his Warlock: the button said "Turn counting off" while the text said
+		-- "turn it on with /mh presses on". With counting on, say that the list fills itself.
+		lines[#lines + 1] = ns:L(on and "PRESSES_NONE_ON" or "PRESSES_NONE")
 		win.head:SetText(table.concat(lines, "\n"))
 		win.head:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y)
 		y = y - win.head:GetStringHeight() - 10

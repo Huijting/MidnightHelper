@@ -635,6 +635,7 @@ ns._mhLocales.enUS = {
 	PRESSES_FEW = "Change one or two at a time: your hands need a few days for each change.",
 	PRESSES_RULE = "Easy = 1-5, Q, E, R, F and mouse buttons, no Shift/Ctrl/Alt. Shift makes a key a bit harder, Ctrl or Alt more. A hint about keys, not about your hands.",
 	PRESSES_WIN_TITLE = "Which spells you press",
+	PRESSES_NONE_ON = "Nothing counted yet for this character and spec. Counting is on: play a few fights and the list fills in by itself.",
 	PRESSES_BTN_ON = "Turn counting on",
 	PRESSES_BTN_OFF = "Turn counting off",
 	PRESSES_BTN_RESET = "Clear this spec",

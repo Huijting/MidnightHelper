@@ -628,6 +628,7 @@ ns._mhLocales.nlNL = {
 	PRESSES_FEW = "Verander er één of twee tegelijk: je handen hebben per wijziging een paar dagen nodig.",
 	PRESSES_RULE = "Makkelijk = 1-5, Q, E, R, F en muisknoppen, zonder Shift/Ctrl/Alt. Shift maakt een toets iets lastiger, Ctrl of Alt meer. Een hint over toetsen, niet over je handen.",
 	PRESSES_WIN_TITLE = "Welke spells je drukt",
+	PRESSES_NONE_ON = "Nog niets geteld voor dit personage en deze spec. Tellen staat aan: speel een paar gevechten, dan vult de lijst zich vanzelf.",
 	PRESSES_BTN_ON = "Tellen aanzetten",
 	PRESSES_BTN_OFF = "Tellen uitzetten",
 	PRESSES_BTN_RESET = "Wis deze spec",
