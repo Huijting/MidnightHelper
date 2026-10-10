@@ -6,13 +6,14 @@ Volgende versie = **BETA** (Rob, 9 okt: "presses komt later wel in een beta"). O
 3. Release-notes → `docs/CURSEFORGE_4.7.6.md` = `RELEASE_NOTES.md` (byte-gelijk), met onder de kop *"This is a beta."*
 4. `CHANGELOG.md` bovenaan.
 
-Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96. Nog gepland voor deze beta: Bartender/ElvUI in
-LiveKeys (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`).
+Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96, Bartender4/ElvUI in LiveKeys
+(`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`; niet in een client gezien — beta-spelers met die addons testen).
 
 ## A — `Locales/enUS.lua`
 
 ```lua
 	CHANGELOG_476_1 = "/mh presses opens a window now instead of filling your chat: your most-pressed spells with their key and how easy it is, the swap tip, and buttons to turn counting on or off and to clear a spec. It updates after each fight while it is open.",
+	CHANGELOG_476_3 = "Bartender4 and ElvUI: /mh presses and the How you play card now find the key a spell sits on in those bar addons too, not only on Blizzard's bars. /mh playkeys says which bar addon each key came from.",
 	CHANGELOG_476_2 = "Raidbots export (/mh raidbots): race ids 95 and 96 (SimulationCraft calls them skyborne_alliance and skyborne_horde) get the race name SimulationCraft expects.",
 ```
 
@@ -23,6 +24,7 @@ LiveKeys (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`).
 		version = "4.7.6",
 		lines = {
 			"CHANGELOG_476_1",
+			"CHANGELOG_476_3",
 			"CHANGELOG_476_2",
 		},
 	},

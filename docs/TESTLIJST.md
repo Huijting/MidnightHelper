@@ -34,6 +34,13 @@ Gebouwd, niet getest. Rob, 9 okt: "in een chat is het onoverzichtelijk".
 - [ ] **SimC (`/mh raidbots`):** alleen te zien met een personage van ras-id 95/96 (SimC noemt ze "skyborne"; welk ras dat in het spel
   heet is NIET gemeten). Heb je dat niet: overslaan.
   Op elk ander personage: de `race=`-regel is hetzelfde als vóór vandaag.
+- [ ] **Bartender/ElvUI (LiveKeys.lua) — bij Rob mag NIETS veranderen** (hij heeft geen van beide): `/mh playkeys` →
+  regel 2 "sources: Blizzard N, Bartender4 0, ElvUI 0, other LibActionButton 0", en dezelfde toetsen als gisteren op de
+  "Zo speel je"-kaart en in `/mh presses`. (CooldownManagerCentered laadt LibActionButton, maar maakt alleen
+  flyout-knoppen zonder toets — GELEZEN in zijn code.)
+- [ ] **Iemand MET Bartender4 of ElvUI** (Cisca/beta-speler): `/mh playkeys` → "Bartender4 N" of "ElvUI N" > 0, en de
+  toetsen op de kaart kloppen met de balk. Klopt het niet: de 5 `/run`-regels onderaan
+  `docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md` en een screenshot.
 
 ## 🆕 9 okt — welke spells druk je het vaakst (`/mh presses`, KeyPresses.lua)
 

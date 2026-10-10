@@ -7,8 +7,10 @@
 - ✅ GEBOUWD 10 okt: SimcExport race 95/96 → `skyborne_alliance`/`skyborne_horde` (API-watcher [MOET GEFIKST] 9 okt;
   van SimC 12.1.0-alpha-06, nog in 12.1.5-alpha-01).
 - Concept: `docs/RELEASE_4.7.6_DRAFT.md`. Testpunten bovenaan `docs/TESTLIJST.md` (10 okt).
-- Nog voor deze beta: Bartender/ElvUI in LiveKeys (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`). Site-chat seinen bij de
-  beta (site volgt elke functie: het venster).
+- ✅ GEBOUWD 10 okt, niet in een client gezien: Bartender4/ElvUI in LiveKeys (`LabSlots`: LibActionButton-knoppen,
+  beide bibliotheeknamen; GetBindingAction + `_state_action`; alleen lezen). `/mh playkeys` toont "sources: …".
+  Bij Rob moet alles gelijk blijven (Blizzard N, rest 0). Echte test = iemand mét BT4/ElvUI.
+- Site-chat seinen bij de beta (site volgt elke functie: het venster, Bartender/ElvUI).
 
 ## (vorige) HIER VERDER (9 okt laat) — 4.7.5 is LIVE (RELEASE)
 Site ook live (site-chat 2abd9fd: strip 4.7.5, "New in 4.7.5", gidsen uit build_site main).

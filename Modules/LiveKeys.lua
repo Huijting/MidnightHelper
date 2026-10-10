@@ -6,8 +6,9 @@
 	systeem, maar waar ze werkelijk staan." So this never looks at our keybind scheme. It
 	asks the bars what sits in each slot and the binding list which key drives that button.
 
-	Standard Blizzard bars only (the eight binding commands in ns.KEYBIND_BAR_COMMANDS). Rob
-	does not run EllesmereUI at the moment and asked to add bar addons later.
+	Standard Blizzard bars (the eight binding commands in ns.KEYBIND_BAR_COMMANDS), and since
+	10 Oct 2026 Bartender4 and ElvUI through LibActionButton (LabSlots below). Other bar addons
+	(Dominos, EllesmereUI) are not read yet.
 
 	Matching, cheapest first: the exact spell id, then either side's BASE spell (a talent or
 	a proc can put another id on the same button -- Hammer of Light on Eye of Tyr), then a
@@ -44,10 +45,56 @@ local function SpellName(id)
 	return nil
 end
 
+--- Bar addons built on LibActionButton (LAB): Bartender4 and ElvUI. Rob, 9 Oct 2026, after /mh presses: "laat
+--- mh-research Bartender en ElvUI uitzoeken", then "begin maar". Research: docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md
+--- (sources read on GitHub at pinned commits; neither addon is installed here, so NOT yet seen in a client).
+--- Each LAB button says which binding command drives it (GetBindingAction: a Blizzard name such as ACTIONBUTTON1, an
+--- ELVUIBAR2BUTTON1, or "CLICK BT4Button13:Keybind") and which action slot it shows NOW (_state_action, kept up to
+--- date across page and stance changes). Both addons park Blizzard's own buttons, whose "action" attribute then no
+--- longer follows the page; so a LAB button's answer wins over MH_CommandSlotMap for the same command.
+--- READ ONLY: fields and GetBindingAction, never SetAttribute, bindings or hooks.
+--- ElvUI ships its own copy under another name, so LibStub("LibActionButton-1.0") alone would not see it.
+local LAB_LIBS = {
+	{ major = "LibActionButton-1.0", src = "LAB" },
+	{ major = "LibActionButton-1.0-ElvUI", src = "ElvUI" },
+}
+
+local function LabSlots(map, src)
+	local LibStub = _G.LibStub
+	if not LibStub then
+		return
+	end
+	for _, l in ipairs(LAB_LIBS) do
+		local okL, lib = pcall(LibStub, l.major, true)
+		local okB, buttons = false, nil
+		if okL and lib and lib.GetAllButtons then
+			okB, buttons = pcall(lib.GetAllButtons, lib)
+		end
+		for btn in pairs(okB and type(buttons) == "table" and buttons or {}) do
+			local header = btn.header
+			if not (header and header.disabled) and btn.GetBindingAction then
+				local okC, cmd = pcall(btn.GetBindingAction, btn)
+				if okC and type(cmd) == "string" and cmd ~= "" then
+					local slot = btn._state_type == "action" and tonumber(btn._state_action) or nil
+					if slot and issecretvalue and issecretvalue(slot) then
+						slot = nil
+					end
+					-- An empty or non-action state still claims the command: the parked Blizzard slot is stale.
+					map[cmd] = slot or false
+					local name = btn.GetName and btn:GetName() or ""
+					src[cmd] = (l.src == "LAB" and name:match("^BT4Button")) and "Bartender4" or l.src
+				end
+			end
+		end
+	end
+end
+
 --- binding command -> slot, as the buttons themselves report it (this follows the main bar's
---- page and a druid's forms); the fixed table when a button frame is missing.
+--- page and a druid's forms); the fixed table when a button frame is missing. Then the bar
+--- addons' own buttons on top. Second return: command -> where the slot came from.
 local function CommandSlots()
 	local map = ns.MH_CommandSlotMap and ns.MH_CommandSlotMap() or {}
+	local src = {}
 	for _, bar in ipairs(ns.KEYBIND_BAR_COMMANDS or {}) do
 		for i = 1, 12 do
 			local cmd = bar.prefix .. i
@@ -56,7 +103,11 @@ local function CommandSlots()
 			end
 		end
 	end
-	return map
+	for cmd in pairs(map) do
+		src[cmd] = "Blizzard"
+	end
+	LabSlots(map, src)
+	return map, src
 end
 
 --- What the player sees on the button: Blizzard's own short form ("S-2", "M4"), else the key.
@@ -79,9 +130,10 @@ end
 
 local function Build()
 	local slots = {}
-	for cmd, slot in pairs(CommandSlots()) do
+	local map, src = CommandSlots()
+	for cmd, slot in pairs(map) do
 		local key
-		if GetBindingKey then
+		if slot and GetBindingKey then
 			local ok, k1 = pcall(GetBindingKey, cmd)
 			key = ok and k1 or nil
 		end
@@ -95,7 +147,7 @@ local function Build()
 			if okA and (kind == "spell" or kind == "macro") and id and not assisted
 				and not (issecretvalue and issecretvalue(id)) then
 				slots[#slots + 1] = { slot = slot, cmd = cmd, key = key, kind = kind, id = id, base = Base(id),
-					name = SpellName(id) }
+					name = SpellName(id), src = src[cmd] or "?" }
 			end
 		end
 	end
@@ -177,6 +229,13 @@ function ns.PrintPlayKeys()
 	ns.LiveKeysInvalidate()
 	cache = Build()
 	print(("%s live keys: %d bound action buttons hold a spell or macro"):format(prefix, #cache))
+	-- Where they came from, so "no Bartender buttons seen" is visible instead of silent.
+	local bySrc = {}
+	for _, s in ipairs(cache) do
+		bySrc[s.src] = (bySrc[s.src] or 0) + 1
+	end
+	print(("   sources: Blizzard %d, Bartender4 %d, ElvUI %d, other LibActionButton %d"):format(bySrc.Blizzard or 0,
+		bySrc.Bartender4 or 0, bySrc.ElvUI or 0, bySrc.LAB or 0))
 	local specID
 	if ns.GetSpecialization and ns.GetSpecializationInfo then
 		local idx = ns.GetSpecialization()
@@ -200,9 +259,10 @@ function ns.PrintPlayKeys()
 		local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id) or tostring(id)
 		local short, hit = ns.LiveKeyForSpell(id)
 		if short then
-			print(("   %-24s %-6s slot %d (%s, %s %d)"):format(name, short, hit.slot, hit.cmd, hit.kind, hit.id))
+			print(("   %-24s %-6s slot %d (%s, %s %d, %s)"):format(name, short, hit.slot, hit.cmd, hit.kind, hit.id,
+				hit.src or "?"))
 		else
-			print(("   %-24s |cff9d9d9dnot on a bound button of the standard bars|r"):format(name))
+			print(("   %-24s |cff9d9d9dnot on a bound button (Blizzard bars, Bartender4, ElvUI)|r"):format(name))
 		end
 	end
 end
