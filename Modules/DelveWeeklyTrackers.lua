@@ -27,6 +27,11 @@ ns.SPECIAL_ASSIGNMENTS = {
 	{ questID = 92139, unlockID = 95435, title = "Shade and Claw" },
 	{ questID = 91390, unlockID = 94865, title = "What Remains of a Temple Broken" },
 	{ questID = 93438, unlockID = 94743, title = "Precision Excision" },
+	-- 10 Oct 2026 (docs/WEEKLY_CHECK_2026-10-10.md, Wowhead + Warcraft Wiki): the three 12.1 Coiled Isle ones
+	-- were missing. Capstone = questID, Emissary = unlockID, as above. Not measured in the client.
+	{ questID = 95922, unlockID = 96029, title = "Face the Swarm" },
+	{ questID = 95918, unlockID = 96307, title = "Wraith Wrath" },
+	{ questID = 95921, unlockID = 96492, title = "Demand and Supply" },
 }
 
 local function GetWeeklyResetAnchorTs()

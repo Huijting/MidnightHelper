@@ -141,7 +141,11 @@ local GIVER_WEEKLIES = {
 	--   (1 jul 2026, Rob confirmed via /mh questscan — dungeon rep-weekly). 95468 =
 	--   "Hope in the Darkest Corners", the leveling variant Halduron offers sub-90
 	--   (Rob's level-80-warlock, 11 jun). "any" covers all audiences.
-	{ key = "halduron", name = "Halduron Brightwing", quests = { 93761, 93164, 95468 }, minLevel = nil },
+	-- 10 Oct 2026 (docs/WEEKLY_CHECK_2026-10-10.md): Wowhead and Broker_MidnightEvents give the featured
+	-- dungeon pool as 93751-93758 (93761 and 93164 are 404 there). ADDED, nothing removed: a dead id costs
+	-- nothing (see the rule above), a missing one is the bug. Client check open.
+	{ key = "halduron", name = "Halduron Brightwing",
+		quests = { 93751, 93752, 93753, 93754, 93755, 93756, 93757, 93758, 93761, 93164, 95468 }, minLevel = nil },
 	--- 93611 "A Shattered Path Through Time" is the TIMEWALKING weekly, and it is here because
 	--- Rob asked on 16 Sep 2026 whether MH was missing it. It was, twice over:
 	---   * GEMETEN: "Timewalking" appears nowhere in the modules — only in explanatory strings
@@ -175,7 +179,20 @@ local GIVER_WEEKLIES = {
 	--- demotes the line into "Later, as you level" for a low character rather than hiding it,
 	--- which is the safe direction to be wrong in. Correct it if a levelling character is
 	--- offered the quest.
-	{ key = "vereesa", name = "Vereesa Windrunner", quests = { 98172 }, minLevel = 90 },
+	--- 10 Oct 2026 (docs/WEEKLY_CHECK_2026-10-10.md): she does NOT offer it every week (players: not the week
+	--- after you finish it; no Blizzard statement). The pickup line now says so instead of a flat "go get it".
+	{ key = "vereesa", name = "Vereesa Windrunner", quests = { 98172 }, minLevel = 90,
+		pickupKey = "HOME_ROUTINE_GIVER_PICKUP_VEREESA_FMT" },
+	--- 10 Oct 2026 (docs/WEEKLY_CHECK_2026-10-10.md, Blizzard 12.1.5 notes + Wowhead 6 Oct): Orin Straylight
+	--- at the Catalyst sells ONE extra Nebulous Voidcore a week (gold, Voidlight Marl or Veteran Mistcrests),
+	--- live since the reset of 7 Oct (EU), after "Umbral Blessings of the Catalyst" (97981). Purchase quests
+	--- 98016 / 98015 / 98012 (Wowhead, not measured in the client). noLearn: he also gives 12.1.5 story quests.
+	{ key = "orin", name = "Orin Straylight", quests = { 98016, 98015, 98012 }, minLevel = 90,
+		noLearn = true, pickupKey = "HOME_ROUTINE_GIVER_PICKUP_ORIN_FMT",
+		pin = { 2393, 40.0, 64.6, "HOME_ROUTINE_PIN_ORIN" },
+		available = function()
+			return C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted and C_QuestLog.IsQuestFlaggedCompleted(97981) or false
+		end },
 	--- ❌ LOR'THEMAR THERON WAS HERE (16 Sep – 4 Oct 2026) AND IS GONE ON PURPOSE (Rob: "A").
 	--- 95245 "Midnight: World Tour" was in Rob's log on 16 Sep and got filed as a "Spark weekly" from
 	--- one Wowhead page. mh-research, 4 Oct: it is a ONE-TIME quest from the start of the expansion
@@ -206,6 +223,16 @@ local GIVER_WEEKLIES = {
 	{ key = "zela", name = "Talon Commander Zela", quests = { 96995 }, minLevel = 90,
 		noLearn = true, pickupKey = "HOME_ROUTINE_GIVER_PICKUP_ZELA_FMT",
 		pin = { 2512, 58.71, 45.83, "HOME_ROUTINE_PIN_ZELA" } },
+	--- 10 Oct 2026 (docs/WEEKLY_CHECK_2026-10-10.md, Wowhead 95520 "Weekly Meta Quest", Zygor): "Purging the
+	--- Vaults" from Warleader Abdumati inside the Vaults of Atal'Utek (map 2509), a weekly Trovehunter's Bounty
+	--- and Corrosive Soul; needs "Into the Vaults of Atal'Utek" (98388). Zela offers it too; listing it under
+	--- one giver is enough because the step asks about the quest id. noLearn: Abdumati also gives dailies.
+	{ key = "abdumati", name = "Warleader Abdumati", quests = { 95520 }, minLevel = 90,
+		noLearn = true, pickupKey = "HOME_ROUTINE_GIVER_PICKUP_ABDUMATI_FMT",
+		pin = { 2509, 47.2, 60.8, "HOME_ROUTINE_PIN_ABDUMATI" },
+		available = function()
+			return C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted and C_QuestLog.IsQuestFlaggedCompleted(98388) or false
+		end },
 	-- Showdown weekly, from Riftblade Maella in the active Void world. MH already
 	-- had both zone ids (ShowdownsData.lua, Rob verified 96713 in-game on 16 jun)
 	-- but only used them in the Void & Rituals tab and the account snapshot -- never
@@ -1166,13 +1193,20 @@ function ns.GetResetRoutineSteps()
 	elseif rs == "pickup" or rs == "intro" then
 		steps[#steps + 1] = {
 			text = ns:L(rs == "intro" and "HOME_ROUTINE_RITUAL_INTRO" or "HOME_ROUTINE_RITUAL_PICKUP"),
-			color = rs == "intro" and "soft" or "warn",
+			-- 10 Oct 2026 (docs/WEEKLY_CHECK_2026-10-10.md): the weekly comes from Lady Liadrin's choice (one
+			-- of her four, only some weeks), not from the Bazaar hub. Soft, and routed to the givers.
+			color = "soft",
 			open = true,
 			heroEligible = AtMaxLevel(), -- endgame content: never the headline while levelling
-			pin = { HUB_MAP, HUB_X, HUB_Y, "HOME_ROUTINE_PIN_HUB" },
+			pin = rs == "intro" and { HUB_MAP, HUB_X, HUB_Y, "HOME_ROUTINE_PIN_HUB" }
+				or { GIVERS_MAP, GIVERS_X, GIVERS_Y, "HOME_ROUTINE_PIN_GIVERS" },
 			onClick = function()
-				if ns.RouteRitualHub then
-					ns.RouteRitualHub()
+				if rs == "intro" then
+					if ns.RouteRitualHub then
+						ns.RouteRitualHub()
+					end
+				else
+					giversRoute()
 				end
 			end,
 		}

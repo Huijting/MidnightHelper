@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — weeklijst ("This Week") gerepareerd (docs/WEEKLY_CHECK_2026-10-10.md)
+
+- [ ] Op een level 90 die "Umbral Blessings of the Catalyst" deed: This Week toont **Orin Straylight** (extra Voidcore,
+      pin bij de Catalyst). Na kopen: `/run for _,q in ipairs({97981,98012,98015,98016}) do print(q, C_QuestLog.IsQuestFlaggedCompleted(q)) end`
+- [ ] Wie "Into the Vaults of Atal'Utek" deed: **Warleader Abdumati — Purging the Vaults** met pin in de Vaults.
+- [ ] Vereesa zegt nu "Not offered every week…". In een week dat ze niets heeft: `/run print(C_QuestLog.IsQuestFlaggedCompleted(98172))`
+- [ ] Ritual Sites-regel zegt nu "Lady Liadrin … only in some weeks" en wijst naar de givers, niet naar de Bazaar.
+- [ ] Na Halduron's dungeon: `/run for _,q in ipairs({93751,93754,93761,93164}) do print(q, C_QuestLog.IsQuestFlaggedCompleted(q)) end`
+
 ## 🆕 10 okt — Death Recap-les: MH zegt zelf wat je doodde (Retrospective.lua)
 
 - [ ] Val ergens dood (buiten een instance mag). Na 1 s: kaartje met de schedel + chatregel "You fell too far…".
