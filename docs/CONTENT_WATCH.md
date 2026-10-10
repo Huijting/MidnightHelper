@@ -2162,3 +2162,61 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   MH-tekst). **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van nieuwe)
   spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
   beslist.
+
+---
+
+- [2026-10-10] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-09]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261010a` (en `&nocache=20261010b` als tweede, onafhankelijke fetch) via Exa, beide
+  volledig gelezen (JSON). `pagination.totalCount` = **8**, zelfde als op [2026-10-08] en
+  [2026-10-09]. Alle drie de draadjes (esMX-locale `user_uvqy5939hswhgduu`, MrsBoojiePanda's
+  debug-regel, gadrinonturalyon's coffer-key/3D-model-verzoek) hebben als nieuwste bericht nog
+  steeds een reply van `twelveinchy`; geen nieuwe reacties sinds [2026-10-09]. MEASURED.
+  **[RAAKT ONS NIET]** — geen actiepunt vandaag. De esMX-codefix zelf (`Locales/esES.lua:17`)
+  staat nog open; al gemeld op [2026-10-07], een mens beslist wanneer dat wordt opgepakt.
+
+- [2026-10-10] 🔁 **Vijfde dag op "October 6, 2026" als nieuwste hotfix-sectie — zelf opnieuw
+  gelezen, niets nieuws in mijn lane.** `news.blizzard.com/en-us/article/24296142` **volledig
+  gelezen** via Exa `web_fetch_exa`, twee onafhankelijke fetches (`?nocache=20261010a` en
+  `?nocache=20261010c`, de laatste met een groot uittreksel dat ook de oudere secties "October 1",
+  "September 29", "September 24", "September 23" en het begin van "September 22" teruggaf). Beide
+  fetches geven **"Hotfixes: October 6, 2026"** als titel/bovenste sectie, met `published:
+  2026-10-06` — geen nieuwer artikel, byte-voor-byte dezelfde tekst als de twee onafhankelijke
+  fetches van [2026-10-09]. Geen cache-val: de titel zelf draagt de datum, en die is niet ouder
+  dan wat gisteren al gelogd stond.
+
+  De "October 6"-sectie bevat uitsluitend **Classes** (klassen-/PvP-tuning — Death Knight Unholy,
+  Demon Hunter Devourer, Monk Brewmaster/Mistweaver, Rogue Subtlety, Shaman Enhancement — buiten
+  mijn lane), **Dungeons and Raids** (Venomous Abyss → Ula'tek: Spectral Coils -20%, Toxic Burn
+  -30% Mythic, Caustic Waves-golven 7→3 Mythic, Warden's Protection -80%, Grasping Fangs -30%,
+  Blight Vein-duur 6→4s, Blightscale Shrieker/Clutch/Slithering Clutch -20% HP, Circling Prey
+  -30%, Serpent's Bite-drain-rate "max 3 man soak, ongeacht raidgrootte") en een brede **Player
+  versus PvP**-talentpas (tank Focused Assault, DK/DH/Druid/Evoker/Hunter/Mage/Monk/Paladin/
+  Priest/Rogue/Shaman/Warlock/Warrior PvP-talenten — buiten mijn lane). Dit zijn precies dezelfde
+  Ula'tek-cijfers die ik op [2026-10-06] al regel-voor-regel tegen `RAID_BOSS_ULATEK_STEPS`/
+  `Locales/RaidTips.lua` getoetst heb (inclusief de losse Wowhead-spell-ID-opzoekingen) — vandaag
+  niet opnieuw getoetst, want geen nieuwe regel erin t.o.v. die datum en geen van de huidige
+  nummers is sindsdien veranderd. **Delves, Professions, Quests en Items: leeg** in de
+  "October 6"-sectie (Blizzard laat lege categorieën gewoon weg) — niets om tegen de repo te
+  vergelijken. De oudere secties die bij de grote fetch zichtbaar werden (1 okt: Venomous Heart-
+  melee-fix; 29 sep: Mother's Wrath; 24 sep: Shadow Enclave Oddball-"Ingredient"-teleport; 23 sep:
+  Valeera-faction-change-delvebug) staan al eerder in deze log verwerkt en zijn vandaag alleen
+  herbevestigd als nog steeds onveranderd, niet opnieuw als vondst geteld.
+
+  Dit convergeert met de API-, PTR- en data-wachter van vandaag (`docs/API_WATCH.md` entry
+  [2026-10-10], `docs/PTR_12.1_WATCH.md` entry [2026-10-10] en `docs/PTR_12.0.7_DATA.md` entry
+  [2026-10-10]), die onafhankelijk dezelfde "October 6"-sectie als nieuwste zagen — niet
+  overgenomen als feit, zelf opnieuw gelezen en hierboven uit de eigen fetches geciteerd.
+
+  Vandaag is zaterdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261010a en ?nocache=20261010c
+  (beide volledig gelezen via Exa) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261010a/b (volledig gelezen via Exa) · `docs/API_WATCH.md` entry [2026-10-10],
+  `docs/PTR_12.1_WATCH.md` entry [2026-10-10] en `docs/PTR_12.0.7_DATA.md` entry [2026-10-10]
+  als kruiscontrole (feiten niet herhaald, alleen zelf getoetst op tegenspraak met geshipte
+  MH-tekst). **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van nieuwe)
+  spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
+  beslist.
