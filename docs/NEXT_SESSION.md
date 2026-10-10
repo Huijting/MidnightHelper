@@ -12,6 +12,11 @@
 - ✅ GEBOUWD 10 okt (site-chat, Rob wil het): `/mh export`-kopregel krijgt achteraan `;realm=<GetRealmName()>;
   region=<us|kr|eu|tw|cn>` (GearExport.lua `REGION_BY_ID` uit AceDB; 3 = eu GEMETEN door Rob 10 okt, rest afgeleid). Site toont er de
   Blizzard-characterfoto mee (`/api/render`, ea10494). Oude parsers lezen de eerste 4 velden gewoon door.
+- 10 okt, Rob: "meer dingen verzinnen voor de beta" → koos 2 (healer-cd's), 4 (transmog), 3+5 eerst meten
+  (Knowledge-teller, Death Recap-les); Renown per alt vervalt (account-wide). mh-research loopt voor 2 en 3+5.
+  ✅ GEBOUWD 4: `TradingPost.lua` `OwnedChecks` (PlayerHasToy, C_TransmogCollection.PlayerHasTransmog, C_TransmogSets
+  via `transmogSetID` als dat veld bestaat; alleen "ja" telt) + `/mh tp why` → `ns.db.tradingPostProbe`. AFGELEID welke
+  check antwoordt; Robs test meet het.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 

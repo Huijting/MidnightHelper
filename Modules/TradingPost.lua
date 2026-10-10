@@ -120,6 +120,7 @@ local function ReadLiveItems()
 				purchased = info.purchased and true or false,
 				speciesID = info.speciesID,
 				mountID = info.mountID,
+				transmogSetID = info.transmogSetID, -- nil when the field does not exist; /mh tp why shows it
 				categoryID = info.perksVendorCategoryID,
 			}
 		end
@@ -208,10 +209,36 @@ function ns.ResolveTradingPostItem(it)
 	return name, icon
 end
 
+-- Transmog, toys and sets (10 Oct 2026, Rob: "transmog heb je al"). Each check answers only
+-- "yes, you have it"; a false or an error leaves the row as it was, so a wrong guess about an
+-- API can hide nothing. AFGELEID which of these the client answers for Trading Post wares:
+-- /mh tp why counts them per check.
+local function OwnedChecks(it)
+	local id = it.itemID
+	local res = {}
+	if id and PlayerHasToy then
+		local ok, v = pcall(PlayerHasToy, id)
+		res.toy = ok and v == true
+	end
+	if id and C_TransmogCollection and C_TransmogCollection.PlayerHasTransmog then
+		local ok, v = pcall(C_TransmogCollection.PlayerHasTransmog, id)
+		res.transmog = ok and v == true
+	end
+	if it.transmogSetID and C_TransmogSets and C_TransmogSets.GetSetInfo then
+		local ok, info = pcall(C_TransmogSets.GetSetInfo, it.transmogSetID)
+		res.set = ok and type(info) == "table" and info.collected == true
+	end
+	return res
+end
+
 --- Do you already own this collectible (independent of buying it this month)?
 function ns.TradingPostItemOwned(it)
 	if not it then
 		return false
+	end
+	local extra = OwnedChecks(it)
+	if extra.toy or extra.transmog or extra.set then
+		return true
 	end
 	if it.mountID and it.mountID > 0 and C_MountJournal and C_MountJournal.GetMountInfoByID then
 		local info = { pcall(C_MountJournal.GetMountInfoByID, it.mountID) }
@@ -227,6 +254,50 @@ function ns.TradingPostItemOwned(it)
 		end
 	end
 	return false
+end
+
+--- /mh tp why: per ware which owned-check said yes, plus every field GetVendorItemInfo gives
+--- (live only), into ns.db.tradingPostProbe for reading after a /reload. Chat gets the counts.
+function ns.TradingPostWhy()
+	local data = ns.GetTradingPostData()
+	local items = data.items
+	if not items then
+		print("|cff33ff99MH|r Trading Post: no list yet - open the Trading Post once, then try again.")
+		return
+	end
+	local probe = { at = date and date("%Y-%m-%d %H:%M") or "?", live = data.isLive, items = {} }
+	local n, own, toy, tm, set, mount, pet = 0, 0, 0, 0, 0, 0, 0
+	for _, it in ipairs(items) do
+		n = n + 1
+		local c = OwnedChecks(it)
+		local owned = ns.TradingPostItemOwned(it)
+		if owned then own = own + 1 end
+		if c.toy then toy = toy + 1 end
+		if c.transmog then tm = tm + 1 end
+		if c.set then set = set + 1 end
+		if (it.mountID or 0) > 0 then mount = mount + 1 end
+		if (it.speciesID or 0) > 0 then pet = pet + 1 end
+		local row = {
+			itemID = it.itemID, cat = it.categoryID, set = it.transmogSetID,
+			toy = c.toy, transmog = c.transmog, setDone = c.set, owned = owned,
+		}
+		if data.isLive and C_PerksProgram and C_PerksProgram.GetVendorItemInfo and it.vendorItemID then
+			local ok, info = pcall(C_PerksProgram.GetVendorItemInfo, it.vendorItemID)
+			if ok and type(info) == "table" then
+				local keys = {}
+				for k, v in pairs(info) do
+					keys[#keys + 1] = tostring(k) .. "=" .. tostring(v)
+				end
+				table.sort(keys)
+				row.fields = table.concat(keys, "; ")
+			end
+		end
+		probe.items[#probe.items + 1] = row
+	end
+	ns.db.tradingPostProbe = probe
+	print(("|cff33ff99MH|r Trading Post: %d wares, %d owned. Yes per check: toy %d, transmog %d, set %d (mounts %d, pets %d in the list). %s"):format(
+		n, own, toy, tm, set, mount, pet,
+		data.isLive and "Fields saved - /reload to write them." or "From the cache: open the Trading Post for the fields."))
 end
 
 --- "21d 8h" / "8h 30m" — nil when unknown.

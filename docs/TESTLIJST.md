@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — Trading Post: "already own" ook voor transmog, speelgoed en sets (TradingPost.lua)
+
+- [ ] Loop in Silvermoon naar de Trading Post en open hem één keer. Daarna het Trading Post-tabblad in MH.
+      Wat je al hebt (ook transmog en toys, niet alleen mounts en pets) staat grijs met "(already own)".
+- [ ] Typ `/mh tp why`. Stuur me de chatregel (hoeveel "ja" per soort check), doe dan `/reload`: ik lees de rest.
+- [ ] Zie je iets als "already own" dat je NIET hebt? Zeg welk item: dat zou een fout zijn.
+
 ## 🆕 10 okt — `/mh export`: realm en regio erbij (GearExport.lua)
 
 - [x] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). ✅ Rob 10 okt: 3.
