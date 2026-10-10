@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — markeerbalk: tank en healer met één klik (FastMark.lua)
+
+Gebouwd, niet getest. `/mh mark` (balk aan) in een groep.
+- [ ] Onderste rij, na het rode kruisje: een **schild-knop**. Muis erop → tooltip met wie de tank en de healer is.
+- [ ] **Klik** → blauw vierkant op de tank, groene driehoek op de healer. (Komt er "You can't do this right now" of
+  maar één markering? Zeg het: dan staan twee markeringen in één klik te snel achter elkaar.)
+- [ ] **Alleen een tank of alleen een healer** in de groep → alleen die krijgt een markering, niets loopt vast
+  (Rob: "mag niet vastlopen"). **Niemand met een rol** → knop grijs, tooltip zegt waarom, klik doet niets.
+- [ ] Buitenlandse client (als iemand dat heeft): de knop gebruikt de vertaalde `/tm`.
+
 ## 🆕 10 okt — toetsenblok: alle personages in één keer naar de site (KeyBlock.lua)
 
 Gebouwd, niet getest. Site-chat op Robs verzoek: "al je karakters in één keer naar de site".

@@ -244,6 +244,111 @@ local function AddClearButton(row, key, macrotext, tipText, prev)
 	return b
 end
 
+--------------------------------------------------------------------------------
+-- Tank and healer in one click (idea D3 of 8 Oct 2026, Rob put it in the 4.7.6 beta on 10 Oct). Marking is
+-- protected, so this is a secure macro button like the others: "/tm [@unit] N" per role. Who the tank and healer
+-- are comes from UnitGroupRolesAssigned (the group finder or a role check), and the macro text can only change
+-- out of combat, so it is rebuilt on roster and role changes and after combat.
+-- ⚠️ AFGELEID, not measured: that Blizzard's target-marker slash takes a [@unit] conditional (it parses its
+-- argument with SecureCmdOptionParse in the FrameXML we know); and that two marks in one click do not trip the
+-- "You can't do this right now" brake from the header. Rob's click in a group settles both.
+--------------------------------------------------------------------------------
+
+local ROLE_ICON = { TANK = 6, HEALER = 4 } -- 6 = blue Square, 4 = green Triangle
+local roleButton
+local pendingRoles = false
+
+local function RoleUnits()
+	local units = { "player" }
+	if IsInRaid and IsInRaid() then
+		units = {}
+		for i = 1, 40 do
+			units[#units + 1] = "raid" .. i
+		end
+	else
+		for i = 1, 4 do
+			units[#units + 1] = "party" .. i
+		end
+	end
+	local found = {}
+	for _, u in ipairs(units) do
+		if UnitExists and UnitExists(u) and UnitGroupRolesAssigned then
+			local role = UnitGroupRolesAssigned(u)
+			if ROLE_ICON[role] and not found[role] then
+				found[role] = u
+			end
+		end
+	end
+	return found
+end
+
+local function UpdateRoleMacro()
+	if not roleButton then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		pendingRoles = true
+		return
+	end
+	local found = RoleUnits()
+	local lines = {}
+	for _, role in ipairs({ "TANK", "HEALER" }) do
+		if found[role] then
+			lines[#lines + 1] = ("%s [@%s] %d"):format(SlashTargetMarker(), found[role], ROLE_ICON[role])
+		end
+	end
+	roleButton._found = found
+	roleButton:SetAttribute("macrotext1", table.concat(lines, "\n"))
+	roleButton:SetAlpha(#lines > 0 and 1 or 0.35)
+end
+
+local function AddRoleButton(row, prev)
+	local b = SecureBtn("Roles", row)
+	-- The tank shield from the same role sheet the Role check button uses; Blizzard's own GetTexCoordsForRole
+	-- cuts it out (no guessed numbers). Without that function the whole sheet shows, which is still that button.
+	b:SetNormalTexture("Interface\\LFGFrame\\UI-LFG-ICON-ROLES")
+	if GetTexCoordsForRole then
+		local ok, l, r, t, btm = pcall(GetTexCoordsForRole, "TANK")
+		if ok and l then
+			b:GetNormalTexture():SetTexCoord(l, r, t, btm)
+		end
+	end
+	b:SetPoint("LEFT", prev, "RIGHT", GAP + 3, 0)
+	b:SetAttribute("type1", "macro")
+	b:SetAttribute("macrotext1", "")
+	b:SetScript("OnEnter", function(self)
+		if not GameTooltip then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:AddLine(L("MARK_ROLES", "Mark tank and healer"), 1, 0.82, 0.2, true)
+		local found = self._found or {}
+		local any = false
+		for _, role in ipairs({ "TANK", "HEALER" }) do
+			local u = found[role]
+			if u then
+				any = true
+				local name = UnitName and UnitName(u)
+				if issecretvalue and issecretvalue(name) then
+					name = u
+				end
+				GameTooltip:AddLine(("|T%s:14|t %s"):format(
+					"Interface\\TargetingFrame\\UI-RaidTargetingIcon_" .. ROLE_ICON[role], tostring(name or u)), 1, 1, 1)
+			end
+		end
+		if not any then
+			GameTooltip:AddLine(L("MARK_ROLES_NONE",
+				"Nobody in your group has the tank or healer role yet (the group finder or a role check sets it)."),
+				1, 0.3, 0.3, true)
+		end
+		GameTooltip:Show()
+	end)
+	b:SetScript("OnLeave", TipHide)
+	roleButton = b
+	UpdateRoleMacro()
+	return b
+end
+
 --- Group buttons. None of these are protected — a plain OnClick is enough, which is why
 --- wMarker can offer them beside its markers (wMarker.lua:348-390). They DO need lead or
 --- assist, and that is the trap: without it the game simply ignores the call, so the button
@@ -306,8 +411,8 @@ local function BuildBar()
 		return bar
 	end
 
-	-- De onderste rij is het breedst: 8 target-markers + wis + ready + rollen + klok = 12.
-	local rowContent = 12 * ICON + 11 * GAP + 3 -- +3 voor de extra ruimte vóór de wis-knop
+	-- De onderste rij is het breedst: 8 target-markers + wis + tank/healer + ready + rollen + klok = 13.
+	local rowContent = 13 * ICON + 12 * GAP + 6 -- +3 vóór de wis-knop, +3 vóór de tank/healer-knop
 	local rowW = PAD + rowContent + PAD
 	local barW = GRIP + rowW
 	local barH = PAD + 2 * ICON + ROWGAP + PAD
@@ -396,6 +501,7 @@ local function BuildBar()
 	end
 	prev = AddClearButton(targetRow, "TargetClear", SlashTargetMarker() .. " 0",
 		L("MARK_CLEAR_TARGET", "Clear target marker"), prev)
+	prev = AddRoleButton(targetRow, prev)
 
 	-- Groepsknoppen, Robs punt 3 na wMarker: ready check, rollen-check, aftelklok.
 	prev = AddGroupButton(targetRow, "ReadyCheck", "Interface\\RaidFrame\\ReadyCheck-Ready",
@@ -512,6 +618,8 @@ ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterEvent("RAID_TARGET_UPDATE")
 -- Lead/assist can change without the roster changing, and the group buttons are dimmed by it.
 ev:RegisterEvent("PARTY_LEADER_CHANGED")
+-- Roles can be set without the roster changing (a role check, the group finder).
+ev:RegisterEvent("PLAYER_ROLES_ASSIGNED")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "RAID_TARGET_UPDATE" then
 		ns.RefreshFastMarkActive()
@@ -521,13 +629,22 @@ ev:SetScript("OnEvent", function(_, event)
 		ns.RefreshFastMarkLead()
 		return
 	end
+	if event == "PLAYER_ROLES_ASSIGNED" then
+		UpdateRoleMacro()
+		return
+	end
 	if event == "PLAYER_REGEN_ENABLED" then
 		if pendingApply then
 			pendingApply = false
 			ApplyVisibility()
 		end
+		if pendingRoles then
+			pendingRoles = false
+			UpdateRoleMacro()
+		end
 		return
 	end
 	-- Login / zone-in / groep-wijziging: (her)bepaal of de balk zichtbaar moet zijn.
 	ApplyVisibility()
+	UpdateRoleMacro()
 end)
