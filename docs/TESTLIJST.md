@@ -21,10 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
-## 🆕 10 okt — meten voor de Knowledge-teller en de Death Recap-les (`/mh kp`, `/mh death`)
+## 🆕 10 okt — meten voor de Knowledge-teller en de Death Recap-les (`/mh kp weekly`, `/mh death`)
 
-- [ ] Typ `/mh kp`. Stuur me de chat. Haal je deze week nog een treatise of een Knowledge-drop? Doe dan direct
-      daarna nog eens `/mh kp`: een regel die van "none" naar een getal gaat is precies wat ik zoek.
+- [ ] Typ `/mh kp weekly` (NIET `/mh kp`: dat is een andere meting) en `/reload`. Haal je deze week nog een treatise
+      of een Knowledge-drop? Doe dan direct daarna nog eens `/mh kp weekly`: een regel die van "none" naar een getal
+      gaat is precies wat ik zoek.
 - [ ] Ga een keer dood (een dungeon of een delve is het mooist; een val van een klif telt ook). Typ na het gevecht
       `/mh death` en `/reload`. Ik lees of MH Blizzards Death Recap mag lezen.
 - [ ] Klik bij dat sterven op het MH-kaartje met de schedel: opent Blizzards Death Recap nu wél het venster?
@@ -46,7 +47,7 @@ er is niets weggegooid.
 - [x] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). ✅ Rob 10 okt: 3.
 - [ ] `/reload`, `/mh export`. De tweede regel eindigt nu op `;realm=Khadgar;region=eu` (of je echte realm).
 - [ ] Plak het op midnighthelper.com/armory/: je ziet je eigen character als plaatje (site-kant).
-- [ ] Op Warlockie (Steelbark Bulwark in de tas): `/mh export` heeft GEEN regel `B|offhand|…|Steelbark Bulwark` meer,
+- [x] ✅ Rob 10 okt: geen schild meer. Op Warlockie (Steelbark Bulwark in de tas): `/mh export` heeft GEEN regel `B|offhand|…|Steelbark Bulwark` meer,
       en de site raadt geen schild meer aan. Wapens die je class niet kan dragen vallen ook weg.
 
 ## 🆕 10 okt — vrienden markeren: ieder zijn eigen icoon (FriendMarks.lua + FastMark.lua)

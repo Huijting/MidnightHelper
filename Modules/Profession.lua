@@ -1759,7 +1759,8 @@ function ns.PrintKnowledgeProbe()
 	-- 10 Oct 2026 (mh-research, for the weekly Knowledge counter Rob chose): the treatise flags
 	-- 95127-95138 (MEASURED in DB2: each treatise's use-spell completes that quest) and the hidden
 	-- "Tracker - Weekly <prof> Knowledge" currencies 3189-3211 (names MEASURED in DB2; that they
-	-- count the gathering catch-up is DERIVED). All into ns.db.kpProbe; /reload to read.
+	-- count the gathering catch-up is DERIVED). All into ns.db.kpWeeklyProbe (kpProbe belongs to
+	-- /mh kp, ProfessionAcademy.lua); /reload to read.
 	local probe = { at = date and date("%Y-%m-%d %H:%M") or "?", drops = {}, treatise = {}, currencies = {} }
 	for qid = 93528, 93543 do
 		local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, qid)
@@ -1790,7 +1791,7 @@ function ns.PrintKnowledgeProbe()
 		end
 	end
 	print("   tracker currencies 3189-3211 with progress: " .. (#cur > 0 and table.concat(cur, ", ") or "none"))
-	ns.db.kpProbe = probe
+	ns.db.kpWeeklyProbe = probe
 	print("   |cffffd966Run this again right after a Knowledge item drops: a flag flipping identifies the range. /reload saves the details.|r")
 end
 

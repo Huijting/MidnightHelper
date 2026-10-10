@@ -21,7 +21,8 @@
   check antwoordt; Robs test meet het.
   ✅ 2: Rapture/Spirit Shell/SoH/Flourish/Grove Guardians bestaan niet meer als knop (GEMETEN DB2). Toegevoegd Celestial
   Conduit (MW) en Tip the Scales (Pres); `GetTopRaidCooldown` kiest nu een spell die je kent (keuze-nodes).
-  3+5: `/mh kp` (+treatise 95127-95138, tracker-valuta 3189-3211 → `ns.db.kpProbe`) en `/mh death` (+C_DeathRecap-probe →
+  3+5: `/mh kp weekly` (+treatise 95127-95138, tracker-valuta 3189-3211 → `ns.db.kpWeeklyProbe`; `/mh kp` is de
+  andere probe van ProfessionAcademy.lua) en `/mh death` (+C_DeathRecap-probe →
   `ns.db.deathRecapProbe`); Death Recap-knop opent nu via `OpenDeathRecapUI()`. Feiten: `docs/BETA2_FACTS_2026-10-10.md`.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
