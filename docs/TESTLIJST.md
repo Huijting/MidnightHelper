@@ -84,6 +84,8 @@ Ongeveer 25 fouten gerepareerd tegen Blizzards speldata; niets daarvan in het sp
 - [x] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). ✅ Rob 10 okt: 3.
 - [ ] `/reload`, `/mh export`. De tweede regel eindigt nu op `;realm=Khadgar;region=eu` (of je echte realm).
 - [ ] Plak het op midnighthelper.com/armory/: je ziet je eigen character als plaatje (site-kant).
+- [ ] Gems en enchants: in dezelfde export eindigt elke regel nu op iets als `g1/1e1` (1 van 1 socket gevuld,
+      enchant erop). Een item met een lege socket of zonder enchant moet dat laten zien (bv. `g0/1e0`).
 - [ ] Tier en embellishment: `/mh export` op een character met een **tier-stuk** (hoofd/schouders/borst/handen/benen
       uit de raid-set) en een **embellished** item. Stuur me die twee regels: de tier-regel eindigt op een setnummer,
       de embellished-regel heeft `cEmbellished:2` (verwacht). De site-chat wil echte regels om tegen te testen.

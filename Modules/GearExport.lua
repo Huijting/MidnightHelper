@@ -44,6 +44,9 @@ local _, ns = ...
 	  set      16th field, every line (10 Oct 2026, site chat Armory item 3): the item's set id, GetItemInfo's
 	           16th return, empty when none. Old world gear can carry one too; the site only counts it on
 	           head, shoulder, chest, hands and legs. Trailing empty fields are still trimmed.
+	  gems     17th field, every line (10 Oct 2026, Armory item 6): "g<filled>/<total>e<0|1>", e.g. "g1/2e1" =
+	           one of two sockets filled, enchanted. Always written, so fields 12-16 now always appear (empty).
+	  effect   (14th field) is written for EVERY slot since 10 Oct 2026 (Armory item 5), not only rings/trinkets.
 	           Link layout: itemID is field 1, numBonusIDs field 13, the bonus IDs follow. AFGELEID from
 	           three installed addons that agree (AskMrRobot-Serializer.lua:317, EllesmereUIBags.lua:286,
 	           ClassCodex Crafting.lua:174). VERIFY: Wowhead's tooltip matching the item in the game.
@@ -333,8 +336,6 @@ end
 local function Extras(slot, link)
 	-- 10 Oct 2026 (site chat, Armory item 4): the unique part runs for EVERY slot now, so an
 	-- embellished item writes "c<category>:<max>" (expected "cEmbellished:2"; not measured yet).
-	-- The effect flag stays rings and trinkets only, as the contract says.
-	local effectSlot = (slot == "finger" or slot == "trinket")
 	local tag = rawget(_G, "ITEM_UNIQUE_EQUIPPABLE")
 	local id = tonumber(link:match("item:(%d+)"))
 	local key, max, effect
@@ -367,7 +368,36 @@ local function Extras(slot, link)
 			key, max = "f" .. fam, (type(n) == "number" and not ns.IsSecretValue(n) and n > 0) and n or 1
 		end
 	end
-	return key and ("%s:%d"):format(key, max or 1) or "", (effect and effectSlot) and "e" or ""
+	-- 10 Oct 2026 (site chat, Armory item 5): the effect flag is for every slot now too.
+	return key and ("%s:%d"):format(key, max or 1) or "", effect and "e" or ""
+end
+
+--- The "gems" field (10 Oct 2026, site chat Armory item 6): "g<filled>/<total>e<0|1>". Total sockets
+--- from GetItemStats' EMPTY_SOCKET_* keys (they count every socket, filled or not) and filled ones from
+--- the link's gem fields 3-6: the same reading GearEnchantCheck.lua:355-389 has used since 24 Jun.
+--- e1 = the link's enchant field (2) is set.
+local function GemsField(link)
+	local stats
+	if C_Item and C_Item.GetItemStats then
+		local ok, s = pcall(C_Item.GetItemStats, link)
+		stats = ok and s or nil
+	end
+	local total = 0
+	for k, v in pairs(type(stats) == "table" and stats or {}) do
+		if type(k) == "string" and k:find("EMPTY_SOCKET") and not ns.IsSecretValue(v) then
+			total = total + (tonumber(v) or 0)
+		end
+	end
+	local filled = 0
+	local ench, g1, g2, g3, g4 = link:match("item:%d+:(%-?%d*):(%d*):(%d*):(%d*):(%d*)")
+	for _, g in ipairs({ g1, g2, g3, g4 }) do
+		local id = tonumber(g)
+		if id and id ~= 0 then
+			filled = filled + 1
+		end
+	end
+	local e = (tonumber(ench) or 0) ~= 0 and 1 or 0
+	return ("g%d/%de%d"):format(math.min(filled, math.max(total, filled)), math.max(total, filled), e)
 end
 
 --- The "set" field: the item's set id (16th return of GetItemInfo, as VaultAdvisor reads it), "" when none.
@@ -407,9 +437,9 @@ local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	local uniq, effect = Extras(slot, link)
 	-- Fields 12-15 always written, then trailing empties trimmed: without an item id the line is
 	-- exactly what it was before field 15 existed.
-	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s|%s"):format(
+	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s|%s|%s"):format(
 		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers,
-		Hands(slot, link), uniq, effect, ItemField(link), SetField(link))
+		Hands(slot, link), uniq, effect, ItemField(link), SetField(link), GemsField(link))
 	return (line:gsub("|+$", ""))
 end
 
