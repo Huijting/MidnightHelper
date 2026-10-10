@@ -47,7 +47,8 @@ local _, ns = ...
 	three primaries and never looked at armour type, so a Protection Paladin could be told to wear an
 	Intellect cloth robe or a caster mace):
 	  - armour of another type than your class wears (plate/mail/leather/cloth; cloaks exempt), and
-	  - items that carry a primary stat, but not yours.
+	  - items that carry a primary stat, but not yours, and
+	  - shields and weapon types your class cannot equip (10 Oct 2026, a Warlock got a shield).
 	Equipped items are always written: they are what you wear, whatever they are.
 
 	Reused, not rebuilt: the copy window is the one /mh binds and the delve share use
@@ -117,6 +118,55 @@ local ARMOR_LOCS = {
 	INVTYPE_WRIST = true, INVTYPE_HAND = true, INVTYPE_WAIST = true, INVTYPE_LEGS = true, INVTYPE_FEET = true,
 }
 local ITEM_CLASS_ARMOR = (Enum and Enum.ItemClass and Enum.ItemClass.Armor) or 4
+local ITEM_CLASS_WEAPON = (Enum and Enum.ItemClass and Enum.ItemClass.Weapon) or 2
+
+-- 10 Oct 2026 (site chat, Rob's Warlock was told to use an Intellect shield from the bags): bag
+-- shields and weapons the class cannot equip are left out too. Classes that wear a shield:
+local SHIELD = (Enum and Enum.ItemArmorSubclass and Enum.ItemArmorSubclass.Shield) or 6
+local SHIELD_CLASSES = { WARRIOR = true, PALADIN = true, SHAMAN = true }
+-- Weapon proficiencies per class (Enum.ItemWeaponSubclass: 0 axe1h, 1 axe2h, 2 bow, 3 gun, 4 mace1h,
+-- 5 mace2h, 6 polearm, 7 sword1h, 8 sword2h, 9 warglaive, 10 staff, 13 fist, 15 dagger, 18 crossbow,
+-- 19 wand). AFGELEID from what each class can learn on retail since Legion, not read from the client.
+-- Only these subclasses are judged; anything else (generic, fishing pole, a new type) passes.
+local WEAPON_JUDGED = { [0] = true, [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true,
+	[7] = true, [8] = true, [9] = true, [10] = true, [13] = true, [15] = true, [18] = true, [19] = true }
+local function Set(...)
+	local t = {}
+	for _, v in ipairs({ ... }) do
+		t[v] = true
+	end
+	return t
+end
+local WEAPONS_BY_CLASS = {
+	WARRIOR = Set(0, 1, 4, 5, 6, 7, 8, 10, 13, 15),
+	PALADIN = Set(0, 1, 4, 5, 6, 7, 8),
+	DEATHKNIGHT = Set(0, 1, 4, 5, 6, 7, 8),
+	HUNTER = Set(0, 1, 2, 3, 6, 7, 8, 10, 13, 15, 18),
+	SHAMAN = Set(0, 1, 4, 5, 10, 13, 15),
+	EVOKER = Set(0, 1, 4, 5, 7, 8, 10, 13, 15),
+	ROGUE = Set(0, 4, 7, 13, 15),
+	DRUID = Set(4, 5, 6, 10, 13, 15),
+	MONK = Set(0, 4, 6, 7, 10, 13),
+	DEMONHUNTER = Set(0, 7, 9, 13, 15),
+	MAGE = Set(7, 10, 15, 19),
+	PRIEST = Set(4, 10, 15, 19),
+	WARLOCK = Set(7, 10, 15, 19),
+}
+
+--- true when this class cannot equip a bag item of this item class/subclass (unknown = usable).
+local function CannotEquip(classFile, classID, subClassID)
+	if not classFile or not subClassID then
+		return false
+	end
+	if classID == ITEM_CLASS_ARMOR and subClassID == SHIELD then
+		return not SHIELD_CLASSES[classFile]
+	end
+	if classID == ITEM_CLASS_WEAPON and WEAPON_JUDGED[subClassID] then
+		local can = WEAPONS_BY_CLASS[classFile]
+		return can ~= nil and not can[subClassID]
+	end
+	return false
+end
 
 -- Equip locations that fill both hands. Bows, guns and crossbows do; a wand is written as one
 -- hand. VERIFY: whether a wand still blocks the off hand on 12.1 is not measured.
@@ -380,6 +430,10 @@ function ns.BuildGearExport()
 				-- Another class's armour type: skip. Subclass 0 (miscellaneous) and cloaks pass.
 				if slot and myArmor and ARMOR_LOCS[loc] and classID == ITEM_CLASS_ARMOR
 					and subClassID and subClassID >= 1 and subClassID <= 4 and subClassID ~= myArmor then
+					slot = nil
+				end
+				-- A shield or weapon your class cannot equip: skip.
+				if slot and CannotEquip(tostring(classFile), classID, subClassID) then
 					slot = nil
 				end
 				if slot then
