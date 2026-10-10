@@ -49,7 +49,8 @@ er is niets weggegooid.
 - [ ] Spring in het niets (Twisting Nether, DH-startgebied). Eerst gaf het kaartje de lava en klappen van dáárvoor
       (Rob, 10 okt). Nu hoort er te staan: "Nothing hit you at the moment you died: something killed you
       instantly…". Doe daarna `/mh death`: de regel "last hit was N s ago" moet meer dan 3 zijn.
-- [ ] Gewoon doodgaan door een vijand geeft nog steeds "Most of the damage…" (niet per ongeluk "instantly").
+- [x] Gewoon doodgaan door een vijand geeft nog steeds "Most of the damage…" (niet per ongeluk "instantly").
+      GEMETEN 10 okt (Rob, Mo'arg Brute, 8 hits; `/mh death` "last hit was 22 s ago" = getypt 22 s na de dood).
 
 ## 🆕 10 okt — controle van alle specs (docs/SPEC_AUDIT_2026-10-10/): wat jij kunt zien
 
