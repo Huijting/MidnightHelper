@@ -254,6 +254,19 @@ end
 -- "You can't do this right now" brake from the header. Rob's click in a group settles both.
 --------------------------------------------------------------------------------
 
+-- 10 Oct 2026 (Rob wants the friend markers in delves, dungeons AND raids with Carola and Cisca): in a party
+-- anyone may set raid target icons; in a RAID only the leader or an assistant can, and the game silently
+-- ignores everyone else. So in a raid without lead/assist the role and friend buttons dim and say why.
+local function RaidWithoutLead()
+	if not (IsInRaid and IsInRaid()) then
+		return false
+	end
+	if UnitIsGroupLeader and UnitIsGroupLeader("player") then
+		return false
+	end
+	return not (UnitIsGroupAssistant and UnitIsGroupAssistant("player"))
+end
+
 local ROLE_ICON = { TANK = 6, HEALER = 4 } -- 6 = blue Square, 4 = green Triangle
 local roleButton
 local pendingRoles = false
@@ -299,7 +312,7 @@ local function UpdateRoleMacro()
 	end
 	roleButton._found = found
 	roleButton:SetAttribute("macrotext1", table.concat(lines, "\n"))
-	roleButton:SetAlpha(#lines > 0 and 1 or 0.35)
+	roleButton:SetAlpha((#lines > 0 and not RaidWithoutLead()) and 1 or 0.35)
 end
 
 local function AddRoleButton(row, prev)
@@ -335,6 +348,11 @@ local function AddRoleButton(row, prev)
 				"Nobody in your group has the tank or healer role yet (the group finder or a role check sets it)."),
 				1, 0.3, 0.3, true)
 		end
+		if RaidWithoutLead() then
+			GameTooltip:AddLine(L("MARK_RAID_NEEDS_LEAD",
+				"In a raid only the leader or an assistant can set markers. Ask for assist, or let the leader click."),
+				1, 0.3, 0.3, true)
+		end
 		GameTooltip:Show()
 	end)
 	b:SetScript("OnLeave", TipHide)
@@ -367,7 +385,7 @@ local function UpdateFriendMacro()
 	end
 	friendButton._plan = plan
 	friendButton:SetAttribute("macrotext1", table.concat(lines, "\n"))
-	friendButton:SetAlpha(#lines > 0 and 1 or 0.35)
+	friendButton:SetAlpha((#lines > 0 and not RaidWithoutLead()) and 1 or 0.35)
 end
 
 function ns.RefreshFastMarkFriends()
@@ -399,6 +417,11 @@ local function AddFriendButton(row, prev)
 		if #plan == 0 then
 			GameTooltip:AddLine(L("MARK_FRIENDS_NONE",
 				"Nobody has a marker yet. Pick yours with /mh mark me star (your friends do the same in their MH)."),
+				1, 0.3, 0.3, true)
+		end
+		if RaidWithoutLead() then
+			GameTooltip:AddLine(L("MARK_RAID_NEEDS_LEAD",
+				"In a raid only the leader or an assistant can set markers. Ask for assist, or let the leader click."),
 				1, 0.3, 0.3, true)
 		end
 		GameTooltip:Show()

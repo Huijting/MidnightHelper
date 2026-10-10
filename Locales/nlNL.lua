@@ -2681,6 +2681,7 @@ ns._mhLocales.nlNL = {
 	MARK_ROLES_NONE = "Nog niemand in je groep heeft de rol tank of healer (die zet de groepszoeker of een rollen-check).",
 	MARK_FRIENDS = "Markeer mijn vrienden: iedereen krijgt zijn eigen icoon, op welk character hij ook speelt",
 	MARK_FRIENDS_NONE = "Nog niemand heeft een icoon. Kies het jouwe met /mh mark me star; vrienden met MH doen hetzelfde in hun MH. Vrienden zonder MH: /mh mark friend Naam#1234 circle.",
+	MARK_RAID_NEEDS_LEAD = "In een raid mogen alleen de leider of een assistent markers zetten. Vraag om assist, of laat de leider klikken.",
 	MARK_ME_SET = "Jouw icoon: %d (0 = geen). Het geldt voor elk character op dit account; vrienden met MH zien het in hun vriendenknop.",
 	MARK_FRIEND_SET = "%s krijgt icoon %d (0 = geen) als die WoW speelt en in je groep zit. /mh mark friends laat zien wat MH ziet.",
 	MARK_USAGE = "Gebruik: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  of  /mh mark friend Naam#1234 <icoon>  -  /mh mark friends toont het plan.",

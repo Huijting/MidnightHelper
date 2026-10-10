@@ -1297,6 +1297,8 @@ fill("deDE", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_FRIENDS = "Meine Freunde markieren: Jeder bekommt seine eigene Markierung, egal welchen Charakter er spielt",
 	MARK_FRIENDS_NONE = "Noch hat niemand eine Markierung. Wähle deine mit /mh mark me star; Freunde mit MH machen dasselbe in ihrem MH. Freunde ohne MH: /mh mark friend Name#1234 circle.",
+	MARK_RAID_NEEDS_LEAD = "Im Schlachtzug dürfen nur der Leiter oder ein Assistent Markierungen setzen. Bitte um Assist oder lass den Leiter klicken.",
+
 	MARK_ME_SET = "Deine Markierung: %d (0 = keine). Sie gilt für jeden Charakter auf diesem Account; Freunde mit MH sehen sie in ihrem Freunde-Knopf.",
 	MARK_FRIEND_SET = "%s bekommt Markierung %d (0 = keine), wenn er WoW spielt und in deiner Gruppe ist. /mh mark friends zeigt, was MH sieht.",
 	MARK_USAGE = "Benutzung: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  oder  /mh mark friend Name#1234 <Markierung>  -  /mh mark friends zeigt den Plan.",
@@ -1364,6 +1366,7 @@ fill("frFR", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_FRIENDS = "Marquer mes amis : chacun reçoit son propre marqueur, quel que soit le personnage qu'il joue",
 	MARK_FRIENDS_NONE = "Personne n'a encore de marqueur. Choisis le tien avec /mh mark me star ; les amis qui ont MH font pareil dans le leur. Amis sans MH : /mh mark friend Nom#1234 circle.",
+	MARK_RAID_NEEDS_LEAD = "En raid, seuls le chef ou un assistant peuvent poser des marqueurs. Demande l'assist, ou laisse le chef cliquer.",
 	MARK_ME_SET = "Ton marqueur : %d (0 = aucun). Il vaut pour chaque personnage de ce compte ; les amis qui ont MH le voient dans leur bouton d'amis.",
 	MARK_FRIEND_SET = "%s reçoit le marqueur %d (0 = aucun) quand il joue à WoW et qu'il est dans ton groupe. /mh mark friends montre ce que voit MH.",
 	MARK_USAGE = "Utilisation : /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  ou  /mh mark friend Nom#1234 <marqueur>  -  /mh mark friends montre le plan.",
@@ -1431,6 +1434,7 @@ fill("esES", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_FRIENDS = "Marcar a mis amigos: cada uno recibe su propio marcador, juegue con el personaje que juegue",
 	MARK_FRIENDS_NONE = "Nadie tiene marcador todavía. Elige el tuyo con /mh mark me star; los amigos con MH hacen lo mismo en el suyo. Amigos sin MH: /mh mark friend Nombre#1234 circle.",
+	MARK_RAID_NEEDS_LEAD = "En banda solo el líder o un asistente pueden poner marcadores. Pide asistente o deja que el líder haga clic.",
 	MARK_ME_SET = "Tu marcador: %d (0 = ninguno). Vale para todos los personajes de esta cuenta; los amigos con MH lo ven en su botón de amigos.",
 	MARK_FRIEND_SET = "%s recibe el marcador %d (0 = ninguno) cuando juega a WoW y está en tu grupo. /mh mark friends muestra lo que ve MH.",
 	MARK_USAGE = "Uso: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  o  /mh mark friend Nombre#1234 <marcador>  -  /mh mark friends muestra el plan.",
@@ -1498,6 +1502,7 @@ fill("ptBR", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_FRIENDS = "Marcar meus amigos: cada um recebe o próprio marcador, seja qual for o personagem que estiver jogando",
 	MARK_FRIENDS_NONE = "Ninguém tem marcador ainda. Escolha o seu com /mh mark me star; amigos com MH fazem o mesmo no deles. Amigos sem MH: /mh mark friend Nome#1234 circle.",
+	MARK_RAID_NEEDS_LEAD = "Na raide só o líder ou um assistente pode colocar marcadores. Peça assistente ou deixe o líder clicar.",
 	MARK_ME_SET = "Seu marcador: %d (0 = nenhum). Ele vale para todos os personagens desta conta; amigos com MH o veem no botão de amigos deles.",
 	MARK_FRIEND_SET = "%s recebe o marcador %d (0 = nenhum) quando estiver jogando WoW e no seu grupo. /mh mark friends mostra o que o MH vê.",
 	MARK_USAGE = "Uso: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  ou  /mh mark friend Nome#1234 <marcador>  -  /mh mark friends mostra o plano.",
@@ -1565,6 +1570,7 @@ fill("itIT", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_FRIENDS = "Marca i miei amici: ognuno riceve il proprio marcatore, qualunque personaggio giochi",
 	MARK_FRIENDS_NONE = "Nessuno ha ancora un marcatore. Scegli il tuo con /mh mark me star; gli amici con MH fanno lo stesso nel loro. Amici senza MH: /mh mark friend Nome#1234 circle.",
+	MARK_RAID_NEEDS_LEAD = "In incursione solo il capo o un assistente possono mettere marcatori. Chiedi l'assist o lascia cliccare il capo.",
 	MARK_ME_SET = "Il tuo marcatore: %d (0 = nessuno). Vale per ogni personaggio di questo account; gli amici con MH lo vedono nel loro pulsante amici.",
 	MARK_FRIEND_SET = "%s riceve il marcatore %d (0 = nessuno) quando gioca a WoW ed è nel tuo gruppo. /mh mark friends mostra cosa vede MH.",
 	MARK_USAGE = "Uso: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  oppure  /mh mark friend Nome#1234 <marcatore>  -  /mh mark friends mostra il piano.",

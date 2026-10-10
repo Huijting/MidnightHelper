@@ -124,6 +124,9 @@ Gebouwd, niet getest. Rob: "ik ben altijd Ster, Carola oranje rondje, Cisca de p
   `diamond`; jouw `/mh mark friends` toont "via MH: …".
 - [ ] **Knop:** markeerbalk, na het schild: een vriendjes-knop. Muis erop → wie welk icoon krijgt. Klik → iedereen zijn
   icoon. Niemand bekend → grijs + uitleg.
+- [ ] **Met Carola en Cisca (Rob, 10 okt: "in een delve, raid of dungeon"):** in een **delve** en een **dungeon**
+  (party: iedereen mag markeren) één klik → jij ster, Carola rondje, Cisca diamant. In een **raid** werkt het alleen
+  als jij leider of assistent bent; anders is de knop grijs en zegt de tooltip waarom.
 
 ## 🆕 10 okt — Codex "De Midnight-campagne beginnen" aangevuld (Codex.lua)
 

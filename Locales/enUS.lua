@@ -2760,6 +2760,7 @@ ns._mhLocales.enUS = {
 	MARK_ROLES_NONE = "Nobody in your group has the tank or healer role yet (the group finder or a role check sets it).",
 	MARK_FRIENDS = "Mark my friends: everyone gets their own marker, whatever character they play",
 	MARK_FRIENDS_NONE = "Nobody has a marker yet. Pick yours with /mh mark me star; friends with MH do the same in theirs. Friends without MH: /mh mark friend Name#1234 circle.",
+	MARK_RAID_NEEDS_LEAD = "In a raid only the leader or an assistant can set markers. Ask for assist, or let the leader click.",
 	MARK_ME_SET = "Your marker: %d (0 = none). It goes with every character on this account; friends with MH see it in their friend button.",
 	MARK_FRIEND_SET = "%s gets marker %d (0 = none) when they play WoW and are in your group. /mh mark friends shows what MH sees.",
 	MARK_USAGE = "Use: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  or  /mh mark friend Name#1234 <marker>  -  /mh mark friends shows the plan.",
