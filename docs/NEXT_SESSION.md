@@ -24,6 +24,9 @@
   3+5: `/mh kp weekly` (+treatise 95127-95138, tracker-valuta 3189-3211 → `ns.db.kpWeeklyProbe`; `/mh kp` is de
   andere probe van ProfessionAcademy.lua) en `/mh death` (+C_DeathRecap-probe →
   `ns.db.deathRecapProbe`); Death Recap-knop opent nu via `OpenDeathRecapUI()`. Feiten: `docs/BETA2_FACTS_2026-10-10.md`.
+  GEMETEN 10 okt: C_DeathRecap buiten een instance volledig leesbaar (18 velden, 0 geheim, overleeft /reload); dungeon-
+  meting open. `/mh kp weekly` eerste meting gedaan (alles false; 3189/3196 tonen voortgang). `/mh death` gaf een fout
+  op `cleuAllowed` (las `build` als entry) → gerepareerd.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 

@@ -828,13 +828,18 @@ function ns.PrintDeathRecapDiagnostics()
 			))
 		end
 	end
-	local allowed = ns.db and ns.db.cleuAllowed
-	if type(allowed) == "table" and next(allowed) then
+	-- cleuAllowed is { build = n, diffs = { [diff] = entry } } (PersistedAllowed). This loop read the
+	-- top level and hit `build` (a number): an error on every /mh death (Rob, 10 Oct 2026).
+	local allowedRoot = ns.db and ns.db.cleuAllowed
+	local allowed = type(allowedRoot) == "table" and type(allowedRoot.diffs) == "table" and allowedRoot.diffs or nil
+	if allowed and next(allowed) then
 		print("   |cff40c040ALLOWED here:|r")
 		for diff, a in pairs(allowed) do
-			print(("      %s (%s) diff %s  secretRestrictions=%s"):format(
-				tostring(a.instance), tostring(a.itype), tostring(diff), tostring(a.hasSecretRestrictions)
-			))
+			if type(a) == "table" then
+				print(("      %s (%s) diff %s  secretRestrictions=%s"):format(
+					tostring(a.instance), tostring(a.itype), tostring(diff), tostring(a.hasSecretRestrictions)
+				))
+			end
 		end
 	end
 	if type(refusals) == "table" and #refusals > 0 and type(allowed) == "table" and next(allowed) then

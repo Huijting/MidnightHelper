@@ -26,8 +26,9 @@ er is niets weggegooid.
 - [ ] Typ `/mh kp weekly` (NIET `/mh kp`: dat is een andere meting) en `/reload`. Haal je deze week nog een treatise
       of een Knowledge-drop? Doe dan direct daarna nog eens `/mh kp weekly`: een regel die van "none" naar een getal
       gaat is precies wat ik zoek.
-- [ ] Ga een keer dood (een dungeon of een delve is het mooist; een val van een klif telt ook). Typ na het gevecht
-      `/mh death` en `/reload`. Ik lees of MH Blizzards Death Recap mag lezen.
+- [x] ✅ Rob 10 okt: val van een klif buiten een instance → recap leesbaar, 0 geheime velden.
+- [ ] Nog een keer, maar dan door een **vijand in een dungeon of delve**: `/mh death`, `/reload`. Daar zit de spell
+      en de naam van wie je raakte in, en Blizzard is daar strenger.
 - [ ] Klik bij dat sterven op het MH-kaartje met de schedel: opent Blizzards Death Recap nu wél het venster?
 
 ## 🆕 10 okt — healer-cooldowns: Celestial Conduit en Tip the Scales (HealerCooldowns.lua)
