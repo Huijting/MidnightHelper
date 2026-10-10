@@ -197,7 +197,37 @@ local function Rows(bucket)
 	return rows
 end
 
---- Swaps: a busy spell on a harder key, and a quiet one (a third or less) on an easier key.
+-- Spells that must stay on an easy key however rarely they are pressed. Rob, 10 Oct 2026, on his Shadow Priest:
+-- "Tip: swap Mind Flay (8x, on s-1) with Silence (2x, on E)" - "niet handig om een interrupt te switchen". A kick
+-- or a defensive is pressed seldom and then at once. Taken from MH's own keybind roles (ns.KeybindRoleClassifier,
+-- by spell id, so it works in every client language): role "interrupt", and every spell with a Stay alive line.
+local keepEasy, keepEasyClass
+
+local function Base(id)
+	if FindBaseSpellByID then
+		local ok, b = pcall(FindBaseSpellByID, id)
+		if ok and b then
+			return b
+		end
+	end
+	return id
+end
+
+local function KeepEasy(id)
+	local token = UnitClass and select(2, UnitClass("player"))
+	if token ~= keepEasyClass then
+		keepEasyClass, keepEasy = token, {}
+		for _, e in pairs((ns.KeybindRoleClassifier or {})[token] or {}) do
+			if type(e) == "table" and e.id and (e.role == "interrupt" or e.survival) then
+				keepEasy[e.id] = true
+			end
+		end
+	end
+	return keepEasy[id] or keepEasy[Base(id)] or false
+end
+
+--- Swaps: a busy spell on a harder key, and a quiet one (a third or less) on an easier key. The quiet one is never
+--- an interrupt or a defensive (KeepEasy).
 local function Swaps(rows)
 	local out, used = {}, {}
 	for _, busy in ipairs(rows) do
@@ -208,6 +238,7 @@ local function Swaps(rows)
 			local best
 			for _, quiet in ipairs(rows) do
 				if quiet ~= busy and quiet.kind == "key" and not used[quiet] and quiet.score < busy.score
+					and not KeepEasy(quiet.id)
 					and quiet.n * 3 <= busy.n and (not best or quiet.score < best.score) then
 					best = quiet
 				end

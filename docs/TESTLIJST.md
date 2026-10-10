@@ -34,6 +34,11 @@ Gebouwd, niet getest. Rob, 9 okt: "in een chat is het onoverzichtelijk".
 - [ ] **SimC (`/mh raidbots`):** alleen te zien met een personage van ras-id 95/96 (SimC noemt ze "skyborne"; welk ras dat in het spel
   heet is NIET gemeten). Heb je dat niet: overslaan.
   Op elk ander personage: de `race=`-regel is hetzelfde als vóór vandaag.
+- [x] **Venster met tellingen** ✅ Rob 10 okt: BM Hunter (7 regels, "al op makkelijke toetsen") en Shadow Priest
+  (8 regels, 3 ruil-tips). ❌ Priest-tip "ruil Mind Flay met **Silence**": een interrupt hoort niet naar een lastige
+  toets → gerepareerd: interrupts (role "interrupt") en alles met een Blijf leven-regel (`survival`) uit
+  KeybindRoleClassifier worden nooit als "rustige" ruilpartner gekozen. **Hertest:** Priest → `/mh presses`: geen
+  Silence meer in de tips.
 - [x] **Leeg venster** (Rob, Warlock 82, 10 okt): opent ✅. Tekst zei "turn it on" terwijl tellen aan stond → nu
   `PRESSES_NONE_ON` ("tellen staat aan, de lijst vult zich vanzelf") en "Wis deze spec" alleen als er iets geteld is.
 - [x] **Bartender/ElvUI (LiveKeys.lua) — bij Rob mag NIETS veranderen** ✅ Rob 10 okt, Warlock: "sources: Blizzard 24,
