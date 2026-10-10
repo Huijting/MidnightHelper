@@ -304,15 +304,9 @@ end
 
 local function AddRoleButton(row, prev)
 	local b = SecureBtn("Roles", row)
-	-- The tank shield from the same role sheet the Role check button uses; Blizzard's own GetTexCoordsForRole
-	-- cuts it out (no guessed numbers). Without that function the whole sheet shows, which is still that button.
-	b:SetNormalTexture("Interface\\LFGFrame\\UI-LFG-ICON-ROLES")
-	if GetTexCoordsForRole then
-		local ok, l, r, t, btm = pcall(GetTexCoordsForRole, "TANK")
-		if ok and l then
-			b:GetNormalTexture():SetTexCoord(l, r, t, btm)
-		end
-	end
+	-- A plain shield icon. Rob, 10 Oct 2026 (screenshot): cutting the tank out of the role sheet left the whole sheet
+	-- showing, the same picture as the Role check button next to it - "2 dezelfde icoontjes".
+	b:SetNormalTexture("Interface\\Icons\\Ability_Defend")
 	b:SetPoint("LEFT", prev, "RIGHT", GAP + 3, 0)
 	b:SetAttribute("type1", "macro")
 	b:SetAttribute("macrotext1", "")

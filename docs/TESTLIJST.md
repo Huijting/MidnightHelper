@@ -33,7 +33,9 @@ Gebouwd, niet getest. Instellingen (`/mh` → Instellingen, of Blizzards paneel)
 ## 🆕 10 okt — markeerbalk: tank en healer met één klik (FastMark.lua)
 
 Gebouwd, niet getest. `/mh mark` (balk aan) in een groep.
-- [ ] Onderste rij, na het rode kruisje: een **schild-knop**. Muis erop → tooltip met wie de tank en de healer is.
+- ✅ Rob 10 okt: markeren werkt, ook in een follower dungeon. ❌ Icoon was hetzelfde als de rollen-check ernaast
+  (uitsnede faalde) → nu een gewoon schild-icoon (`Ability_Defend`). **Hertest:** twee verschillende icoontjes.
+- [x] Onderste rij, na het rode kruisje: een **schild-knop**. Muis erop → tooltip met wie de tank en de healer is.
 - [ ] **Klik** → blauw vierkant op de tank, groene driehoek op de healer. (Komt er "You can't do this right now" of
   maar één markering? Zeg het: dan staan twee markeringen in één klik te snel achter elkaar.)
 - [ ] **Alleen een tank of alleen een healer** in de groep → alleen die krijgt een markering, niets loopt vast
