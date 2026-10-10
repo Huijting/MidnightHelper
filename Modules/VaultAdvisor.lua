@@ -600,7 +600,10 @@ local function GetItemSetIDFromLink(link)
 	if not link or not C_Item or not C_Item.GetItemInfo then
 		return 0
 	end
-	local ok, _, _, _, _, _, _, _, _, _, _, _, _, _, _, setID = pcall(C_Item.GetItemInfo, link)
+	-- 10 Oct 2026: setID is GetItemInfo's 16th return. This read the 15th (expansionID: ok + 14
+	-- placeholders), so every Midnight item "had" set 11. One placeholder added; AFGELEID from the
+	-- documented return order, check with /mh export on a tier piece (field 16) vs a non-tier one.
+	local ok, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, setID = pcall(C_Item.GetItemInfo, link)
 	if ok and setID then
 		return tonumber(setID) or 0
 	end

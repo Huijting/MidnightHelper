@@ -29,7 +29,8 @@ local _, ns = ...
 	           weapon for EITHER hand, only when this character can dual-wield (10 Oct 2026). Rob's Shaman
 	           wore a staff and the site told him to add a shield from his bags, because nothing said
 	           the staff filled the off hand too. The site picks weapons as a pair when this is present.
-	  unique   13th field, rings and trinkets only (30 Sep 2026): <key>:<max>, empty when the item is not
+	  unique   13th field, EVERY slot since 10 Oct 2026 (was rings and trinkets only, 30 Sep 2026; an
+	           embellished item is expected to write "cEmbellished:2", not measured yet): <key>:<max>, empty when the item is not
 	           Unique-Equipped. Rob's Shaman was told to wear a second Ouroboric Signet next to the one he
 	           had on; its tooltip says Unique-Equipped. Key "i<itemID>" for a plain Unique-Equipped item,
 	           "c<category>" for "Unique-Equipped: <category> (n)". Rings and trinkets only: a category
@@ -40,6 +41,9 @@ local _, ns = ...
 	           Armory): "<itemID>" or "<itemID>:<bonusID>:<bonusID>...", read from the item link.
 	           Fields 12-14 are then written empty where they do not apply ("|||"), so field 15 is
 	           always the 15th; the site's parser already treats an empty 12/13/14 as absent.
+	  set      16th field, every line (10 Oct 2026, site chat Armory item 3): the item's set id, GetItemInfo's
+	           16th return, empty when none. Old world gear can carry one too; the site only counts it on
+	           head, shoulder, chest, hands and legs. Trailing empty fields are still trimmed.
 	           Link layout: itemID is field 1, numBonusIDs field 13, the bonus IDs follow. AFGELEID from
 	           three installed addons that agree (AskMrRobot-Serializer.lua:317, EllesmereUIBags.lua:286,
 	           ClassCodex Crafting.lua:174). VERIFY: Wowhead's tooltip matching the item in the game.
@@ -327,9 +331,10 @@ end
 --- prefixes are the game's own strings; Zygor (Item-ItemScore.lua:414-416) reads the same three.
 --- VERIFY: the effect flag is not measured yet.
 local function Extras(slot, link)
-	if slot ~= "finger" and slot ~= "trinket" then
-		return "", ""
-	end
+	-- 10 Oct 2026 (site chat, Armory item 4): the unique part runs for EVERY slot now, so an
+	-- embellished item writes "c<category>:<max>" (expected "cEmbellished:2"; not measured yet).
+	-- The effect flag stays rings and trinkets only, as the contract says.
+	local effectSlot = (slot == "finger" or slot == "trinket")
 	local tag = rawget(_G, "ITEM_UNIQUE_EQUIPPABLE")
 	local id = tonumber(link:match("item:(%d+)"))
 	local key, max, effect
@@ -362,7 +367,20 @@ local function Extras(slot, link)
 			key, max = "f" .. fam, (type(n) == "number" and not ns.IsSecretValue(n) and n > 0) and n or 1
 		end
 	end
-	return key and ("%s:%d"):format(key, max or 1) or "", effect and "e" or ""
+	return key and ("%s:%d"):format(key, max or 1) or "", (effect and effectSlot) and "e" or ""
+end
+
+--- The "set" field: the item's set id (16th return of GetItemInfo, as VaultAdvisor reads it), "" when none.
+local function SetField(link)
+	if not (C_Item and C_Item.GetItemInfo) then
+		return ""
+	end
+	local info = { pcall(C_Item.GetItemInfo, link) }
+	local setID = info[1] and info[17] -- pcall's ok, then the 16 returns
+	if type(setID) == "number" and not ns.IsSecretValue(setID) and setID > 0 then
+		return tostring(setID)
+	end
+	return ""
 end
 
 --- One line, or nil plus "pending" when the client has not cached the item yet, or nil plus
@@ -389,9 +407,9 @@ local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	local uniq, effect = Extras(slot, link)
 	-- Fields 12-15 always written, then trailing empties trimmed: without an item id the line is
 	-- exactly what it was before field 15 existed.
-	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s"):format(
+	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s|%s"):format(
 		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers,
-		Hands(slot, link), uniq, effect, ItemField(link))
+		Hands(slot, link), uniq, effect, ItemField(link), SetField(link))
 	return (line:gsub("|+$", ""))
 end
 

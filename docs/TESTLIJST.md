@@ -74,6 +74,9 @@ Ongeveer 25 fouten gerepareerd tegen Blizzards speldata; niets daarvan in het sp
 - [x] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). ✅ Rob 10 okt: 3.
 - [ ] `/reload`, `/mh export`. De tweede regel eindigt nu op `;realm=Khadgar;region=eu` (of je echte realm).
 - [ ] Plak het op midnighthelper.com/armory/: je ziet je eigen character als plaatje (site-kant).
+- [ ] Tier en embellishment: `/mh export` op een character met een **tier-stuk** (hoofd/schouders/borst/handen/benen
+      uit de raid-set) en een **embellished** item. Stuur me die twee regels: de tier-regel eindigt op een setnummer,
+      de embellished-regel heeft `cEmbellished:2` (verwacht). De site-chat wil echte regels om tegen te testen.
 - [ ] Rode eis: leg iets in je tas dat je NIET mag dragen (te hoog level, andere class: de tooltip toont een rode
       regel). `/mh export`, `/reload`. Het staat niet in de export, en ik lees in je bestand waarom (gearExportSkips).
 - [ ] (Alleen als je zo'n character hebt, NIET speciaal aanmaken.) Op een Fury Warrior, Enhancement Shaman of Frost DK met een één-hands wapen in de tas: in de export eindigt
