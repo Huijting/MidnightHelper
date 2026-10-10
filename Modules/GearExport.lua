@@ -53,8 +53,9 @@ local _, ns = ...
 	           client's language, icons and colours stripped; empty when none.
 	  quality  20th field (10 Oct 2026): "<enchantTier>/<gemTier>:<gemTier>", empty parts when unknown, empty
 	           when nothing known. Enchant tier from the |A:...Tier<n>|a atlas on the Enchanted: line, gem tiers
-	           from C_TradeSkillUI.GetItemCraftedQualityByItemInfo / GetItemReagentQualityByItemInfo. AFGELEID;
-	           the raw Enchanted: lines land in ns.db.gearExportEnchantRaw to check.
+	           from C_TradeSkillUI.GetItemCraftedQualityByItemInfo / GetItemReagentQualityByItemInfo. MEASURED
+	           10 Oct 2026 on Rob's Theexodus: ring "7997/240910|Enchant Ring - Nature's Fury|2/2"; which of the two
+	           TradeSkill calls answered is not separated. Raw lines: ns.db.gearExportEnchantRaw.
 	  level    on the char line, last (10 Oct 2026): UnitLevel("player").
 	           Link layout: itemID is field 1, numBonusIDs field 13, the bonus IDs follow. AFGELEID from
 	           three installed addons that agree (AskMrRobot-Serializer.lua:317, EllesmereUIBags.lua:286,
@@ -464,7 +465,8 @@ local function EnchantNameField(link)
 					table.insert(ns.db.gearExportEnchantRaw, rest)
 				end
 			end
-			-- A crafting-quality icon is an |A:...Tier<n>...|a atlas (AFGELEID, the Dragonflight form).
+			-- A crafting-quality icon is an |A:...Tier<n>...|a atlas. MEASURED 10 Oct 2026 (Rob, Theexodus):
+			-- "Enchant Ring - Nature's Fury |A:Professions-ChatIcon-Quality-12-Tier2:20:20|a".
 			local tier = tonumber(rest:match("|A:[^|]-[Tt]ier(%d)[^|]-|a") or "")
 			local name = rest:gsub("|A:.-|a", ""):gsub("|T.-|t", ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 			name = name:gsub("^%s+", ""):gsub("%s+$", ""):gsub("|", "/")
