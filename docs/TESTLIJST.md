@@ -133,6 +133,11 @@ Gebouwd, niet getest. Rob: "ik ben altijd Ster, Carola oranje rondje, Cisca de p
   `diamond`; jouw `/mh mark friends` toont "via MH: …".
 - [ ] **Knop:** markeerbalk, na het schild: een vriendjes-knop. Muis erop → wie welk icoon krijgt. Klik → iedereen zijn
   icoon. Niemand bekend → grijs + uitleg.
+- [x] ✅ Rob 10 okt GEMETEN: de Battle.net-route WERKT (`/mh mark friends` zag magedobby-khadgar = carola#2875 en
+  sizle-lightbringer = sizzle#21918). Dobby kreeg geen marker omdat de ingetypte tags fout waren (dobby#8274, sizzle#0617).
+- [ ] Nu ook met een charactername: `/mh mark friend MageDobby circle` → chat noemt carola#2875. Oude foute links weg:
+  `/mh mark friend dobby#8274 off` en `/mh mark friend sizzle#0617 off`. `/mh mark friends` zet "(not in WoW right now -
+  or a typo?)" achter een link die niet klopt.
 - [ ] **Met Carola en Cisca (Rob, 10 okt: "in een delve, raid of dungeon"):** in een **delve** en een **dungeon**
   (party: iedereen mag markeren) één klik → jij ster, Carola rondje, Cisca diamant. In een **raid** werkt het alleen
   als jij leider of assistent bent; anders is de knop grijs en zegt de tooltip waarom.

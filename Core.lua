@@ -2705,8 +2705,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		local tag, icon = msg:match("^mark friend%s+(%S+)%s+(%S+)$")
 		if tag and ns.SetFriendMark and ns.ParseMarkIcon then
 			local n = ns.ParseMarkIcon(icon)
-			if n and ns.SetFriendMark(tag, n) then
-				print(("%s %s"):format(prefix, ns:L("MARK_FRIEND_SET"):format(tag, n)))
+			local stored = n and ns.SetFriendMark(tag, n)
+			if stored then
+				print(("%s %s"):format(prefix, ns:L("MARK_FRIEND_SET"):format(stored, n)))
+			elseif n and not tag:find("#") then
+				-- A character name that is not a Battle.net friend in WoW right now.
+				print(("%s %s"):format(prefix, ns:L("MARK_FRIEND_NOTFOUND_FMT"):format(tag)))
 			else
 				print(("%s %s"):format(prefix, ns:L("MARK_USAGE")))
 			end

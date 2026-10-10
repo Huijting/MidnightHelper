@@ -2690,6 +2690,7 @@ ns._mhLocales.nlNL = {
 	MARK_ME_SET = "Jouw icoon: %d (0 = geen). Het geldt voor elk character op dit account; vrienden met MH zien het in hun vriendenknop.",
 	MARK_FRIEND_SET = "%s krijgt icoon %d (0 = geen) als die WoW speelt en in je groep zit. /mh mark friends laat zien wat MH ziet.",
 	MARK_USAGE = "Gebruik: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  of  /mh mark friend Naam#1234 <icoon>  -  /mh mark friends toont het plan.",
+	MARK_FRIEND_NOTFOUND_FMT = "%s is nu geen Battle.net-vriend die WoW speelt. Gebruik de BattleTag (Naam#1234), of probeer het als die online is.",
 	MARK_NEEDLEAD = "Alleen de groepsleider of een assistent kan dit.",
 	LAYOUT_KEY_MODIFIER_TOOLTIP = "|cff888888Modifier — WoW regelt Shift/Ctrl/Alt-combo's los van deze spell-map.|r",
 	LAYOUT_KEY_NAV_TOOLTIP = "|cff888888Navigatie / bewerk-cluster — geen onderdeel van de Midnight-toetsmap.|r",

@@ -2769,6 +2769,7 @@ ns._mhLocales.enUS = {
 	MARK_ME_SET = "Your marker: %d (0 = none). It goes with every character on this account; friends with MH see it in their friend button.",
 	MARK_FRIEND_SET = "%s gets marker %d (0 = none) when they play WoW and are in your group. /mh mark friends shows what MH sees.",
 	MARK_USAGE = "Use: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  or  /mh mark friend Name#1234 <marker>  -  /mh mark friends shows the plan.",
+	MARK_FRIEND_NOTFOUND_FMT = "%s is not a Battle.net friend playing WoW right now. Use their BattleTag (Name#1234), or try again while they are online.",
 	MARK_NEEDLEAD = "Only the group leader or an assistant can do this.",
 	LAYOUT_KEY_MODIFIER_TOOLTIP = "|cff888888Modifier key — WoW handles Shift/Ctrl/Alt combos separately from this spell map.|r",
 	LAYOUT_KEY_NAV_TOOLTIP = "|cff888888Navigation / editing cluster — not part of the Midnight key map.|r",

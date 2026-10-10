@@ -92,17 +92,41 @@ function ns.SetMyMarkIcon(n)
 	end
 end
 
-function ns.SetFriendMark(tag, n)
-	if type(tag) ~= "string" or not tag:find("#") then
-		return false
+local BattleNetCharacters -- defined below; SetFriendMark needs it to resolve a character name
+
+--- Link a friend to a marker. `who` is a BattleTag ("Carola#2875") OR, since 10 Oct 2026, the name of a character
+--- that friend is playing right now ("MageDobby" or "MageDobby-Khadgar"): Rob typed two BattleTags that were not the
+--- real ones (MEASURED, his /mh mark friends: dobby#8274 vs the friend list's carola#2875), so a name the player
+--- can read off the screen is looked up in the Battle.net friend list instead.
+--- @return the BattleTag that was stored (lowercased), or nil
+function ns.SetFriendMark(who, n)
+	if type(who) ~= "string" or who == "" then
+		return nil
+	end
+	local tag
+	if who:find("#") then
+		tag = who:lower()
+	elseif BattleNetCharacters then
+		local map = BattleNetCharacters()
+		local want = who:lower():gsub("[%s']", "")
+		for k, t in pairs(map) do
+			local name = k:match("^([^%-]+)")
+			if k == want or name == want then
+				tag = t
+				break
+			end
+		end
+	end
+	if not tag then
+		return nil
 	end
 	ns.db = ns.db or {}
 	ns.db.friendMarks = ns.db.friendMarks or {}
-	ns.db.friendMarks[tag:lower()] = (n and n >= 1 and n <= 8) and n or nil
+	ns.db.friendMarks[tag] = (n and n >= 1 and n <= 8) and n or nil
 	if ns.RefreshFastMarkFriends then
 		ns.RefreshFastMarkFriends()
 	end
-	return true
+	return tag
 end
 
 --- Ask the group to say their markers again (a message is lost by anyone on a loading screen).
@@ -114,7 +138,7 @@ function ns.RequestFriendMarks()
 end
 
 --- Character key -> lowercased BattleTag, for every friend online in WoW right now. Route B.
-local function BattleNetCharacters()
+BattleNetCharacters = function()
 	local map, seen = {}, 0
 	if not (BNGetNumFriends and C_BattleNet and C_BattleNet.GetFriendAccountInfo) then
 		return map, seen, "C_BattleNet missing"
@@ -205,10 +229,17 @@ function ns.PrintFriendMarks()
 	if n == 0 then
 		print("   via MH: nobody yet (they need MH and a marker of their own; /mh mark friends asks again)")
 	end
-	for tag, icon in pairs((ns.db and ns.db.friendMarks) or {}) do
-		print(("   Battle.net link: %s = %d"):format(tag, icon))
-	end
 	local map, seen, why = BattleNetCharacters()
+	local online = {}
+	for _, t in pairs(map) do
+		online[t] = true
+	end
+	for tag, icon in pairs((ns.db and ns.db.friendMarks) or {}) do
+		-- A link whose BattleTag is not among the friends in WoW right now: say so, because a mistyped tag
+		-- (Rob, 10 Oct 2026) looks exactly like a friend who is simply offline.
+		print(("   Battle.net link: %s = %d%s"):format(tag, icon,
+			online[tag] and "" or "  |cffff8080(not in WoW right now - or a typo? /mh mark friend <character name> <marker>)|r"))
+	end
 	print(("   Battle.net friends in WoW right now: %d%s"):format(seen, why and (" (" .. why .. ")") or ""))
 	for k, tag in pairs(map) do
 		print(("      %s = %s"):format(k, tag))
