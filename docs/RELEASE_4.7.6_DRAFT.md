@@ -15,6 +15,25 @@ Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96, Bartender4/E
 🔴 **RSS (site-chat 10 okt, 02a6137):** midnighthelper.com/feed.xml leest bij elke tag de eerste regel (H1) en de
 `## `-koppen van RELEASE_NOTES.md. Houd de H1 dus een spelerstitel en de koppen netjes.
 
+## 🧪 BETA2-CONCEPT (10 okt) — klaar om toe te passen op Robs go; eerst site-chat afstemmen
+
+Wat sinds beta1 binnen is (git v4.7.6-beta1..HEAD). Changelog-regels enUS, voorstel:
+
+```lua
+	CHANGELOG_476_8 = "Marker bar: playing with the same friends? Everyone can pick their own marker (/mh mark me star), and one button marks them all, whatever character they play. Friends without MH: /mh mark friend Name#1234 circle.", -- ⚠️ alleen als Rob's test met Carola/Cisca goed was
+	CHANGELOG_476_9 = "Class advice checked against the 12.1 game data for all 40 specs: about 25 fixes. A few examples: Demonology gets the Felguard, Arms and Fury their own stance, Assassination Deadly Poison, the non-lethal poison you talented, the Warlock demon you summoned last; spells with a new id in 12.1 (Breath of Sindragosa, Flame Shock, Multi-Shot, Renewing Mist, Roll the Bones) no longer show grey; macros for spells that are gone were removed.",
+	CHANGELOG_476_10 = "Frost Mage play card (try-out): a 'Why' line under every step, and a 'Test yourself' quiz built from the card. More specs follow.",
+	CHANGELOG_476_11 = "Trading Post: 'already own' now also for transmog, toys and ensembles, not only mounts and pets.",
+	CHANGELOG_476_12 = "Professions: every unfinished node says which tab it is in and whether it is open yet, and the advice line says in plain words when the next choice opens.",
+	CHANGELOG_476_13 = "Healers: Celestial Conduit (Mistweaver) and Tip the Scales (Preservation) on the cooldown list; the raid cooldown named in boss tips is now one you actually picked.",
+	CHANGELOG_476_14 = "Death card: clicking it opens Blizzard's Death Recap again (the old way stopped working in 12.1).",
+	CHANGELOG_476_15 = "/mh export for midnighthelper.com: realm and region (for your character picture), tier set, gems and enchants, effects on every slot, one-handers you can dual-wield; bag items you cannot use (wrong class, too high level, a shield on a caster) are left out.",
+```
+
+Stil (geen regel): Healer CD's die niet bestaan weg, VaultAdvisor set-id, `/mh kp weekly` + `/mh death`-metingen,
+`/mh tp why`, nlNL "character". Nog te beslissen door Rob: vriendenmarkering mee of niet (test Carola/Cisca).
+Bij de go: dezelfde 4 stappen als beta1 (toc blijft 4.7.6, notes kop "beta 2", tag `v4.7.6-beta2`) + site-chat seinen.
+
 ## ➕ NA beta1 (voor beta2 of de release) — nog NIET in de changelog/notes van de addon
 
 1. **Vrienden markeren** (FriendMarks.lua). 🔴 Pas opnemen NA Robs test met Carola en Cisca (Battle.net-route niet
