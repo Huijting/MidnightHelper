@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — controle van alle specs (docs/SPEC_AUDIT_2026-10-10/): wat jij kunt zien
+
+Ongeveer 25 fouten gerepareerd tegen Blizzards speldata; niets daarvan in het spel gezien. Alleen wat je character heeft:
+- [ ] Warlockie: roep een Felhunter op, stuur hem weg, `/reload`. De knop biedt nu de Felhunter (je laatste demon).
+- [ ] Een Holy Paladin (als je die hebt): geen Rebuke-macro meer; met Beacon of Virtue geen "Beacon of Light"-melding.
+- [ ] Een Frost DK met Breath of Sindragosa: die staat nu NIET grijs op de kaart en wel in de toolkit.
+- [ ] Een Shaman: Flame Shock niet meer grijs op de kaart; Enhancement vraagt Flametongue op het linker wapen.
+- [ ] Heb je een character dat niet hier staat: open de Zo-speel-je-kaart en zeg het als iets grijs staat dat je wél hebt.
+
 ## 🆕 10 okt — beroepen: bij elke node staat nu op welk tab hij zit (Profession.lua + ProfessionAcademy.lua)
 
 - [ ] Op je Jewelcrafter met punten over: Tools > Professions. Onder "Individual nodes…" staat nu bv.

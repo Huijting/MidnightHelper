@@ -116,9 +116,11 @@ ns.MISSING_POISONS = {
 		{ spell = 381664 }, -- Amplifying Poison (talent)
 	},
 	nonlethal = {
-		{ spell = 3408 }, -- Crippling Poison (baseline)
-		{ spell = 5761 }, -- Numbing Poison (talent)
+		-- 10 Oct 2026 (spec audit W1): first known wins, and Blizzard's own assistant tries Atrophic, then
+		-- Numbing (one choice node), then Crippling. So the talent you took wins; Crippling is the fallback.
 		{ spell = 381637 }, -- Atrophic Poison (talent)
+		{ spell = 5761 }, -- Numbing Poison (talent)
+		{ spell = 3408 }, -- Crippling Poison (baseline)
 	},
 }
 

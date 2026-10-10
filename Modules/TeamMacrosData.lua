@@ -81,14 +81,8 @@ ns.TeamMacrosByClassSpec = {
 	},
 	DRUID = {
 		[1] = {
-			{
-			id = "cursor_starfall",
-			name = "Cursor Starfall",
-			descNl = "Plaatst Starfall direct op je muispositie.",
-			descEn = "Cast Starfall at your cursor.",
-			macro = [=[#showtooltip Starfall
-/cast [@cursor] Starfall]=],
-			},
+			-- "Cursor Starfall" removed 10 Oct 2026 (spec audit W6, DB2): Starfall is centred on you, the
+			-- @cursor did nothing and the "at your cursor" text was false.
 			{
 			id = "mouseover_decurse",
 			name = "Mouseover Decurse",

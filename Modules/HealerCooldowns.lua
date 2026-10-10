@@ -200,7 +200,7 @@ ns.HEALER_CORE_HEALS = {
 	[270] = {
 		{ id = 115175, tag = "channel" }, -- Soothing Mist
 		{ id = 116670, tag = "fast" }, -- Vivify
-		{ id = 119611, tag = "hot" }, -- Renewing Mist
+		{ id = 115151, tag = "hot" }, -- Renewing Mist (10 Oct 2026, spec audit W2: 119611 is the HoT aura, 115151 the button)
 		{ id = 124682, tag = "big" }, -- Enveloping Mist
 	},
 	-- Discipline Priest (256)
@@ -244,7 +244,7 @@ ns.HEALER_DEFENSIVES = {
 	[65] = { { id = 498, cd = 60 }, { id = 642, cd = 300, immune = true } }, -- Holy Paladin: Divine Protection (498 is Holy's), Divine Shield
 	[105] = { { id = 22812, cd = 60 } }, -- Resto Druid: Barkskin. 60 s, not 45: 45 is Guardian's own -15 s (9 Oct 2026, docs/SMALL_FACTS_2026-10-09.md, wago 12.1.0.69933)
 	[1468] = { { id = 363916, cd = 90 } }, -- Pres Evoker: Obsidian Scales (Renewing Blaze is passive on it now)
-	[270] = { { id = 243435 } }, -- Mistweaver: Fortifying Brew
+	[270] = { { id = 115203, cd = 360 } }, -- Mistweaver: Fortifying Brew (10 Oct 2026, spec audit W5: 243435 has no learn path in 12.1; the class talent shows 115203)
 	[256] = { { id = 19236, cd = 90 } }, -- Disc Priest: Desperate Prayer
 	[257] = { { id = 19236, cd = 90 } }, -- Holy Priest: Desperate Prayer
 	[264] = { { id = 108271, cd = 120 } }, -- Resto Shaman: Astral Shift

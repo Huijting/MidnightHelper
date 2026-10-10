@@ -41,7 +41,7 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	Left OFF the card on purpose: Blessing of Sacrifice (ally only, the damage lands on you), Holy
 	Bulwark (a toggle with Sacred Weapon), Guardian of Ancient Kings on Ret/Holy (Prot only).
 	Removed 17 Sep, gone from the 12.1 trees (W-TREE): Shield of Vengeance (now cast by Divine
-	Protection), Tyr's Deliverance and Avenging Crusader (passive changes to Avenging Wrath),
+	Protection), Tyr's Deliverance,
 	Bestow Faith, Light's Hammer, Barrier of Faith, Bastion of Light.
 ]]
 
@@ -212,6 +212,11 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- Avenging Wrath = grootste offensieve/heal-CD, baseline alle specs (BliZzi OffensiveCDAlert +
 	-- guide.lua). F1 = cooldown_bar. (Holy kan Avenging Crusader als vervanger talenten - zie boven.)
 	["Avenging Wrath"] = { blockQ = { [65] = true, [66] = true, [70] = true }, id = 31884, role = "cooldown_bar", priority = 1 }, -- F1; baseline (31884) grote CD
+	-- 10 Oct 2026 (spec audit R4, Rob: "ja, geef Avenging Crusader een vaste toets"): a live Holy choice with
+	-- Avenging Wrath (node 81584, DB2 12.1.0.69933); 216331 is the castable spell (60 s). Same slot as Avenging
+	-- Wrath: a Holy player has one of the two. Which id IsPlayerSpell answers (216331 or the talent 394088) is
+	-- AFGELEID; /run print(IsPlayerSpell(216331), IsPlayerSpell(394088)) on a Holy with the talent settles it.
+	["Avenging Crusader"] = { blockQ = { [65] = true }, id = 216331, excludes = "Avenging Wrath", role = "cooldown_bar", priority = 1, specs = { 65 } },
 	-- Sentinel (Prot/Ret cooldown) - SpellCategories/SpellCooldowns [389539]. NB: de "hero-Templar-lijn"-
 	-- duiding is onbevestigd (review F1.4); het id 389539 is wél addon-geverifieerd.
 	-- 17 Sep 2026: Prot only (W-TREE 790, not on IV-Ret); up to 30% less damage taken (IV-ProtPal).

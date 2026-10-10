@@ -46,7 +46,11 @@
   Totem-macro → Capacitor Totem, W4 Flame Shock 470411 (35×), W5 Multi-Shot 257620 (7×), R4 Greater Purge telt mee.
   OPEN: R1 `/mh healcds` toont beide keuze-helften, R2 Healing Rain/Surging Totem, R3 Purify Spirit curse = talent, R5
   Doom Winds bij Ascendance, R11 schild-imbues zonder schild, Bestial Wrath 30 vs 90 s.
-  Wacht nog op: rogue_druid_monk.
+  ✅ rogue_druid_monk.md: W1 non-lethal gif Atrophic > Numbing > Crippling, W2/W3 Renewing Mist 115151 (+kaart 7 talen),
+  W4 Roll the Bones 1214909 (7 talen), W5 MW Fortifying Brew 115203, W6 Cursor Starfall-macro weg. OPEN: R-punten
+  (Yu'lon/Chi-Ji en WDP/SotWL keuzes op kaarten, Convoke, macro's voor keuze-helften) + /run-controle in het rapport.
+  ✅ R4 plate: Avenging Crusader vaste toets (Rob: "ja"), zelfde plek als Avenging Wrath (`excludes`).
+  📌 Alle 4 rapporten verwerkt voor de WRONG-punten; RISK/STALE staan nog open in de rapporten zelf.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 
