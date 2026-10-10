@@ -11,7 +11,8 @@ local _, ns = ...
 
 	📌 THE FORMAT IS SIMULATIONCRAFT'S, AND IT MOVES EVERY PATCH. This file follows the
 	SimulationCraft addon (github.com/simulationcraft/simc-addon, core.lua + extras.lua, read
-	30 Sep 2026 at release 12.1.0-04). That addon is public domain (The Unlicense), so the tables
+	30 Sep 2026 at release 12.1.0-04; the race 95/96 branches added 10 Oct 2026 from 12.1.0-alpha-06,
+	still in 12.1.5-alpha-01). That addon is public domain (The Unlicense), so the tables
 	below are taken from it as they are. When it ships a new release, compare its
 	GetItemStringFromItemLink and GetSimcProfile with the two functions here of the same name:
 	a field we miss produces no error, only a sim that is quietly a little wrong.
@@ -442,8 +443,20 @@ function ns.BuildSimcProfile()
 	local region = regionName
 		or REGION_BY_ID[GetCurrentRegion and Call(GetCurrentRegion) or 0] or "us"
 
-	local _, raceFile = UnitRace("player")
-	local race = raceFile == "Scourge" and "Undead" or FormatRace(raceFile)
+	-- 10 Oct 2026: race ids 95 and 96 get their own token, taken as-is from the SimulationCraft addon's
+	-- 12.1.0-alpha-06 (core.lua at 703bc5c, kept in 12.1.5-alpha-01; API watcher 9 Oct). FormatRace does not
+	-- produce SimC's token for them, or upstream would not need these branches.
+	local _, raceFile, raceId = UnitRace("player")
+	local race
+	if raceFile == "Scourge" then
+		race = "Undead"
+	elseif raceId == 95 then
+		race = "skyborne_alliance"
+	elseif raceId == 96 then
+		race = "skyborne_horde"
+	else
+		race = FormatRace(raceFile)
+	end
 
 	local SI = C_SpecializationInfo
 	local specIndex = SI and Call(SI.GetSpecialization) or (ns.GetSpecialization and ns.GetSpecialization())
@@ -478,7 +491,7 @@ function ns.BuildSimcProfile()
 	end
 
 	add("# " .. name .. " - " .. specName .. " - " .. date("%Y-%m-%d %H:%M") .. " - " .. region .. "/" .. realm)
-	add("# Midnight Helper " .. version .. " (SimulationCraft addon format, 12.1.0-04)")
+	add("# Midnight Helper " .. version .. " (SimulationCraft addon format, 12.1.0-04 + race 95/96 from 12.1.0-alpha-06)")
 	add("# WoW " .. wowVersion .. "." .. wowBuild .. ", TOC " .. wowToc)
 	add("# Requires SimulationCraft 1000-01 or newer")
 	add("")

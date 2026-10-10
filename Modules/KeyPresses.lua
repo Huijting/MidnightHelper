@@ -221,47 +221,234 @@ local function Swaps(rows)
 	return out
 end
 
-local function PrintReport()
-	local p = Prefix()
-	local bucket, spec = Bucket(false)
-	if not ns.IsKeyPressesEnabled() then
-		print(("%s %s"):format(p, ns:L("PRESSES_IS_OFF")))
-	end
-	if not bucket or not next(bucket.spells) then
-		print(("%s %s"):format(p, ns:L("PRESSES_NONE")))
-		return
-	end
-	local specName
+--------------------------------------------------------------------------------
+-- The report window. Rob, 9 Oct 2026, after testing on a Hunter: "de presses ding moet ook in een venster komen
+-- want in een chat is het onoverzichtelijk". Same rows, same rules as the chat report it replaces; `/mh presses why`
+-- stays in chat (it is a diagnosis, not a report). Drag, Shift+scroll, dock and Escape come from
+-- RegisterMidnightDialogPopup. Refreshes itself after each fight while it is open.
+--------------------------------------------------------------------------------
+
+local WIN_W, ROW_H, PAD = 470, 22, 16
+local win
+
+local function SpecName(spec)
 	if spec and GetSpecializationInfoByID then
 		local ok, _, n = pcall(GetSpecializationInfoByID, spec)
-		specName = ok and type(n) == "string" and n or nil
+		if ok and type(n) == "string" then
+			return n
+		end
 	end
-	specName = specName or tostring(spec)
-	print(("%s " .. ns:L("PRESSES_HEAD")):format(p, specName or "?", bucket.fights or 0))
+	return tostring(spec or "?")
+end
+
+local function SpellIcon(id)
+	if C_Spell and C_Spell.GetSpellTexture then
+		local ok, tex = pcall(C_Spell.GetSpellTexture, id)
+		if ok and tex and not (issecretvalue and issecretvalue(tex)) then
+			return tex
+		end
+	end
+	return 134400
+end
+
+local function Text(parent, template, justify)
+	local fs = parent:CreateFontString(nil, "OVERLAY", template)
+	if ns.MHScalableFont then
+		fs:SetFontObject(ns.MHScalableFont(template))
+	end
+	fs:SetJustifyH(justify or "LEFT")
+	fs:SetWordWrap(true)
+	return fs
+end
+
+local function Row(i)
+	win.rows = win.rows or {}
+	local r = win.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, win)
+	r:SetSize(WIN_W - 2 * PAD, ROW_H)
+	r.icon = r:CreateTexture(nil, "ARTWORK")
+	r.icon:SetSize(18, 18)
+	r.icon:SetPoint("LEFT", 0, 0)
+	r.name = Text(r, "GameFontHighlight")
+	r.name:SetPoint("LEFT", r.icon, "RIGHT", 6, 0)
+	r.name:SetWidth(200)
+	r.name:SetWordWrap(false)
+	r.count = Text(r, "GameFontHighlight", "RIGHT")
+	r.count:SetPoint("LEFT", r, "LEFT", 228, 0)
+	r.count:SetWidth(44)
+	r.key = Text(r, "GameFontNormal")
+	r.key:SetPoint("LEFT", r, "LEFT", 284, 0)
+	r.key:SetWidth(70)
+	r.key:SetWordWrap(false)
+	r.reach = Text(r, "GameFontHighlight")
+	r.reach:SetPoint("LEFT", r, "LEFT", 360, 0)
+	r.reach:SetWidth(WIN_W - 2 * PAD - 360)
+	r.reach:SetWordWrap(false)
+	win.rows[i] = r
+	return r
+end
+
+--- Button text that may be longer in German or French ("Effacer la spécialisation"): the button grows with it.
+local function SetButtonText(btn, text)
+	btn:SetText(text)
+	local fs = btn:GetFontString()
+	btn:SetWidth(math.max(150, (fs and fs:GetStringWidth() or 120) + 24))
+end
+
+local function Refresh()
+	if not win then
+		return
+	end
+	local on = ns.IsKeyPressesEnabled()
+	SetButtonText(win.toggle, ns:L(on and "PRESSES_BTN_OFF" or "PRESSES_BTN_ON"))
+	for _, r in ipairs(win.rows or {}) do
+		r:Hide()
+	end
+	local y = -44
+	local bucket, spec = Bucket(false)
+	win.title:SetText(ns:L("PRESSES_WIN_TITLE"))
+	win.head:ClearAllPoints()
+	win.tips:ClearAllPoints()
+	win.rule:ClearAllPoints()
+
+	local lines = {}
+	if not on then
+		lines[#lines + 1] = "|cffff9900" .. ns:L("PRESSES_IS_OFF") .. "|r"
+	end
+	if not bucket or not next(bucket.spells) then
+		lines[#lines + 1] = ns:L("PRESSES_NONE")
+		win.head:SetText(table.concat(lines, "\n"))
+		win.head:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y)
+		y = y - win.head:GetStringHeight() - 10
+		win.tips:SetText("")
+		win.rule:SetText("")
+		win:SetHeight(-y + 50)
+		return
+	end
+	lines[#lines + 1] = ns:L("PRESSES_HEAD"):format(SpecName(spec), bucket.fights or 0)
+	win.head:SetText(table.concat(lines, "\n"))
+	win.head:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y)
+	y = y - win.head:GetStringHeight() - 8
+
 	local rows, shown = Rows(bucket), 0
 	for _, r in ipairs(rows) do
 		if shown >= MAX_ROWS then
 			break
 		end
-		if r.kind == "key" then
+		if r.kind == "key" or r.kind == "nokey" then
 			shown = shown + 1
-			print(("   %d. %s  %dx  [%s] %s"):format(shown, SpellName(r.id), r.n, r.short, Label(r.score)))
-		elseif r.kind == "nokey" then
-			shown = shown + 1
-			print(("   %d. %s  %dx  |cff9d9d9d%s|r"):format(shown, SpellName(r.id), r.n, ns:L("PRESSES_NOKEY")))
+			local row = Row(shown)
+			row:ClearAllPoints()
+			row:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y)
+			row.icon:SetTexture(SpellIcon(r.id))
+			row.name:SetText(SpellName(r.id))
+			row.count:SetText(r.n .. "x")
+			if r.kind == "key" then
+				row.key:SetText("[" .. r.short .. "]")
+				row.reach:SetText(Label(r.score))
+			else
+				row.key:SetText("|cff9d9d9d-|r")
+				row.reach:SetText("|cff9d9d9d" .. ns:L("PRESSES_NOKEY") .. "|r")
+			end
+			row:Show()
+			y = y - ROW_H
 		end
 	end
-	local swaps = Swaps(rows)
+
+	local swaps, tips = Swaps(rows), {}
 	if #swaps == 0 then
-		print(("%s %s"):format(p, ns:L("PRESSES_NOSWAP")))
+		tips[#tips + 1] = "|cff40c040" .. ns:L("PRESSES_NOSWAP") .. "|r"
 	else
 		for _, s in ipairs(swaps) do
-			print(("%s " .. ns:L("PRESSES_SWAP")):format(p,
-				SpellName(s.busy.id), s.busy.n, s.busy.short, SpellName(s.quiet.id), s.quiet.n, s.quiet.short))
+			tips[#tips + 1] = ns:L("PRESSES_SWAP"):format(SpellName(s.busy.id), s.busy.n, s.busy.short,
+				SpellName(s.quiet.id), s.quiet.n, s.quiet.short)
 		end
-		print(("   |cff9d9d9d%s|r"):format(ns:L("PRESSES_FEW")))
+		tips[#tips + 1] = "|cff9d9d9d" .. ns:L("PRESSES_FEW") .. "|r"
 	end
-	print(("   |cff9d9d9d%s|r"):format(ns:L("PRESSES_RULE")))
+	win.tips:SetText(table.concat(tips, "\n"))
+	win.tips:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 10)
+	y = y - 10 - win.tips:GetStringHeight()
+	win.rule:SetText(ns:L("PRESSES_RULE"))
+	win.rule:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 10)
+	y = y - 10 - win.rule:GetStringHeight()
+	win:SetHeight(-y + 50)
+end
+
+local function Build()
+	if win then
+		return win
+	end
+	local f = CreateFrame("Frame", "MidnightHelperKeyPressesWindow", UIParent, "BackdropTemplate")
+	f:SetSize(WIN_W, 300)
+	f:SetPoint("CENTER")
+	f:SetFrameStrata("DIALOG")
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	f:Hide()
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	end
+	win = f
+
+	f.title = Text(f, "GameFontNormalLarge")
+	f.title:SetPoint("TOPLEFT", PAD, -14)
+	f.head = Text(f, "GameFontNormal")
+	f.head:SetWidth(WIN_W - 2 * PAD)
+	f.tips = Text(f, "GameFontHighlight")
+	f.tips:SetWidth(WIN_W - 2 * PAD)
+	f.rule = Text(f, "GameFontDisableSmall")
+	f.rule:SetWidth(WIN_W - 2 * PAD)
+
+	f.toggle = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.toggle:SetSize(150, 22)
+	f.toggle:SetPoint("BOTTOMLEFT", PAD, 14)
+	f.toggle:SetScript("OnClick", function()
+		ns.SetKeyPressesEnabled(not ns.IsKeyPressesEnabled())
+		print(("%s %s"):format(Prefix(), ns:L(ns.IsKeyPressesEnabled() and "PRESSES_ON" or "PRESSES_OFF")))
+		Refresh()
+	end)
+
+	-- Clearing loses the counts, so it takes a second click within a few seconds.
+	f.reset = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.reset:SetSize(150, 22)
+	f.reset:SetPoint("BOTTOMRIGHT", -PAD, 14)
+	SetButtonText(f.reset, ns:L("PRESSES_BTN_RESET"))
+	f.reset:SetScript("OnClick", function(self)
+		if not self.armed then
+			self.armed = true
+			SetButtonText(self, ns:L("PRESSES_BTN_RESET_SURE"))
+			C_Timer.After(4, function()
+				self.armed = false
+				SetButtonText(self, ns:L("PRESSES_BTN_RESET"))
+			end)
+			return
+		end
+		self.armed = false
+		SetButtonText(self, ns:L("PRESSES_BTN_RESET"))
+		ns.KeyPressesCommand("reset")
+	end)
+
+	if ns.AttachMidnightDialogCloseButton then
+		ns.AttachMidnightDialogCloseButton(f, function()
+			f:Hide()
+		end)
+	end
+	f:SetScript("OnShow", Refresh)
+	return f
+end
+
+local function ShowWindow()
+	Build():Show()
+	Refresh()
 end
 
 --- `/mh presses why`: every counted spell, its id, key, score, and why it is or is not a row.
@@ -296,15 +483,28 @@ function ns.KeyPressesCommand(arg)
 		print(("%s %s"):format(p, ns:L("PRESSES_RESET")))
 	elseif arg == "why" then
 		PrintWhy()
+		return
 	else
-		PrintReport()
+		ShowWindow()
+		return
+	end
+	if win and win:IsShown() then
+		Refresh()
 	end
 end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_REGEN_DISABLED")
+f:RegisterEvent("PLAYER_REGEN_ENABLED")
 f:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
 f:SetScript("OnEvent", function(_, event, _, _, spellID)
+	if event == "PLAYER_REGEN_ENABLED" then
+		-- A fight just ended: an open window shows the new counts.
+		if win and win:IsShown() then
+			Refresh()
+		end
+		return
+	end
 	if not ns.IsKeyPressesEnabled() then
 		return
 	end

@@ -1,12 +1,14 @@
 # Midnight Helper — waar we staan
 
-## ▶️ MORGEN (Rob, 9 okt laat): `/mh presses` in een VENSTER
-Rob: *"de presses ding moet ook in een venster komen want in een chat is het onoverzichtelijk"*. Nu print
-KeyPresses.lua (`PrintReport`, `PrintWhy`) alles in de chat. Bouwen: een eigen venster (spell, aantal, toets,
-makkelijk/gaat/lastig, ruil-tips, de regel onderaan). 🔴 Nieuw venster → in `SCALABLE_WINDOWS` of
-RegisterMidnightDialogPopup (Shift+scroll, memory every-window-shift-scroll). `/mh presses why` mag in de chat blijven
-(diagnose). Samen met Bartender/ElvUI (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`) in een volgende BETA. Site-chat
-seinen als het af is (site volgt elke functie).
+## ▶️ HIER VERDER (10 okt) — op weg naar 4.7.6-BETA
+- ✅ GEBOUWD 10 okt, niet getest: `/mh presses` opent een VENSTER (`MidnightHelperKeyPressesWindow` in KeyPresses.lua,
+  via RegisterMidnightDialogPopup = Shift+scroll/dock/Escape; knoppen aan/uit + "wis deze spec" met 2e klik; ververst
+  na elk gevecht). `/mh presses why` blijft chat. Teksten: enUS + nlNL; de/fr/es/pt/it door mh-writer.
+- ✅ GEBOUWD 10 okt: SimcExport race 95/96 → `skyborne_alliance`/`skyborne_horde` (API-watcher [MOET GEFIKST] 9 okt;
+  van SimC 12.1.0-alpha-06, nog in 12.1.5-alpha-01).
+- Concept: `docs/RELEASE_4.7.6_DRAFT.md`. Testpunten bovenaan `docs/TESTLIJST.md` (10 okt).
+- Nog voor deze beta: Bartender/ElvUI in LiveKeys (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`). Site-chat seinen bij de
+  beta (site volgt elke functie: het venster).
 
 ## (vorige) HIER VERDER (9 okt laat) — 4.7.5 is LIVE (RELEASE)
 Site ook live (site-chat 2abd9fd: strip 4.7.5, "New in 4.7.5", gidsen uit build_site main).

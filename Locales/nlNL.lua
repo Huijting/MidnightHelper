@@ -627,6 +627,11 @@ ns._mhLocales.nlNL = {
 	PRESSES_NOSWAP = "Je meest gedrukte spells zitten al op je makkelijkere toetsen. Niets te ruilen.",
 	PRESSES_FEW = "Verander er één of twee tegelijk: je handen hebben per wijziging een paar dagen nodig.",
 	PRESSES_RULE = "Makkelijk = 1-5, Q, E, R, F en muisknoppen, zonder Shift/Ctrl/Alt. Shift maakt een toets iets lastiger, Ctrl of Alt meer. Een hint over toetsen, niet over je handen.",
+	PRESSES_WIN_TITLE = "Welke spells je drukt",
+	PRESSES_BTN_ON = "Tellen aanzetten",
+	PRESSES_BTN_OFF = "Tellen uitzetten",
+	PRESSES_BTN_RESET = "Wis deze spec",
+	PRESSES_BTN_RESET_SURE = "Klik nog eens om te wissen",
 	-- Toetsenblok (KeyBlock.lua, 4 okt 2026)
 	KEYBLOCK_TITLE = "Je toetsenblok",
 	KEYBLOCK_INTRO = "Dezelfde taak op dezelfde toets, op elk personage: 1 is altijd je hoofdknop, E je kick, Z je kleine defensive. Dit is een plaatje van waar de spells van dit personage zouden komen. Er verandert niets op je balken tot je zelf kiest om het neer te zetten.",

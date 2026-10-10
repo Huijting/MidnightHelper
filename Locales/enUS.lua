@@ -634,6 +634,11 @@ ns._mhLocales.enUS = {
 	PRESSES_NOSWAP = "Your most-pressed spells already sit on your easier keys. Nothing to swap.",
 	PRESSES_FEW = "Change one or two at a time: your hands need a few days for each change.",
 	PRESSES_RULE = "Easy = 1-5, Q, E, R, F and mouse buttons, no Shift/Ctrl/Alt. Shift makes a key a bit harder, Ctrl or Alt more. A hint about keys, not about your hands.",
+	PRESSES_WIN_TITLE = "Which spells you press",
+	PRESSES_BTN_ON = "Turn counting on",
+	PRESSES_BTN_OFF = "Turn counting off",
+	PRESSES_BTN_RESET = "Clear this spec",
+	PRESSES_BTN_RESET_SURE = "Click again to clear",
 	-- Key block (KeyBlock.lua, 4 Oct 2026)
 	KEYBLOCK_TITLE = "Your key block",
 	KEYBLOCK_INTRO = "The same task on the same key, on every character: 1 is always your main button, E your interrupt, Z your small defensive. This is a picture of where this character's spells would go. Nothing on your bars changes until you choose to place it.",

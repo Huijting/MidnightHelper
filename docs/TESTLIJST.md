@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — `/mh presses` in een venster + SimC-ras (KeyPresses.lua, SimcExport.lua)
+
+Gebouwd, niet getest. Rob, 9 okt: "in een chat is het onoverzichtelijk".
+- [ ] **Venster:** typ `/mh presses` → een venster "Welke spells je drukt" (niet meer de chat). Per regel: icoon, spell,
+  aantal, [toets], makkelijk/gaat/lastig. Daaronder de ruil-tip (of "al op makkelijke toetsen") en de regel in grijs.
+- [ ] **Knoppen:** "Tellen uitzetten"/"Tellen aanzetten" wisselt (en zegt het in de chat). "Wis deze spec" vraagt eerst
+  "Klik nog eens om te wissen"; na de tweede klik is de lijst leeg.
+- [ ] **Na een gevecht:** laat het venster open staan, vecht → na het gevecht staan de nieuwe tellingen er vanzelf.
+- [ ] **Shift+scroll** maakt het venster groter/kleiner, slepen werkt, Escape sluit.
+- [ ] `/mh presses why` geeft nog steeds de lijst in de chat (diagnose).
+- [ ] **SimC (`/mh raidbots`):** alleen te zien met een personage van ras-id 95/96 (SimC noemt ze "skyborne"; welk ras dat in het spel
+  heet is NIET gemeten). Heb je dat niet: overslaan.
+  Op elk ander personage: de `race=`-regel is hetzelfde als vóór vandaag.
+
 ## 🆕 9 okt — welke spells druk je het vaakst (`/mh presses`, KeyPresses.lua)
 
 Gebouwd, niet getest. Rob: "ik ga van 1 naar Ctrl 5 naar Shift 2 …".
