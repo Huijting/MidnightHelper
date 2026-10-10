@@ -1,9 +1,11 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (10 okt) — 4.7.6-BETA klaargezet
-- Rob: "go beta, na overleg met de site chat". Toc 4.7.6, changelog, RELEASE_NOTES = CURSEFORGE_4.7.6 (byte-gelijk),
-  CHANGELOG.md; syntax OK, lint 0 HARD, zip gebouwd. Tag `v4.7.6-beta1` wacht op akkoord site-chat → dan taggen,
-  Actions controleren, site-chat seinen (oranje beta-regel).
+## ▶️ HIER VERDER (10 okt) — 4.7.6-BETA1 is UIT
+- Rob: "go beta, na overleg met de site chat". Site-chat akkoord (niets botst). Tag `v4.7.6-beta1` (e54ff0e) gepusht;
+  Actions-run 38030057982 success: CF (beta), Wago en GitHub "Success!" (GEMETEN, 06:12 UTC). Site-chat geseind.
+- Open keuze voor Rob: nl-knop "Alle personages" vs site "characters" (site-chat: gelijktrekken?).
+- Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
+  `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 
 ## (eerder vandaag) op weg naar 4.7.6-BETA
 - ✅ GEBOUWD 10 okt, niet getest: `/mh presses` opent een VENSTER (`MidnightHelperKeyPressesWindow` in KeyPresses.lua,
