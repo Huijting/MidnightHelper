@@ -1294,6 +1294,12 @@ fill("deDE", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Tank und Heiler markieren (blaues Quadrat auf den Tank, grünes Dreieck auf den Heiler)",
 	MARK_ROLES_NONE = "Noch hat niemand in deiner Gruppe die Rolle Tank oder Heiler (die Gruppensuche oder eine Rollenprüfung legt sie fest).",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	MARK_FRIENDS = "Meine Freunde markieren: Jeder bekommt seine eigene Markierung, egal welchen Charakter er spielt",
+	MARK_FRIENDS_NONE = "Noch hat niemand eine Markierung. Wähle deine mit /mh mark me star; Freunde mit MH machen dasselbe in ihrem MH. Freunde ohne MH: /mh mark friend Name#1234 circle.",
+	MARK_ME_SET = "Deine Markierung: %d (0 = keine). Sie gilt für jeden Charakter auf diesem Account; Freunde mit MH sehen sie in ihrem Freunde-Knopf.",
+	MARK_FRIEND_SET = "%s bekommt Markierung %d (0 = keine), wenn er WoW spielt und in deiner Gruppe ist. /mh mark friends zeigt, was MH sieht.",
+	MARK_USAGE = "Benutzung: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  oder  /mh mark friend Name#1234 <Markierung>  -  /mh mark friends zeigt den Plan.",
 	MARK_NEEDLEAD = "Nur die Gruppenleitung oder ein Assistent kann das.",
 	SET_MBUFF_TITLE = "Erinnerung an fehlende Buffs",
 	SET_MBUFF_DESC = "Zeigt ein bewegliches Symbol, wenn du einen Klassenbuff wirken kannst, der nicht aktiv ist (Schlachtzugsbuff, Gestalt, Schild, Waffenbuff, Gift, Haltung, Begleiter). Klick es an, um zu wirken (außerhalb des Kampfes).",
@@ -1355,6 +1361,12 @@ fill("frFR", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Marquer le tank et le soigneur (carré bleu sur le tank, triangle vert sur le soigneur)",
 	MARK_ROLES_NONE = "Personne dans ton groupe n'a encore le rôle de tank ou de soigneur (la recherche de groupe ou une vérification des rôles le définit).",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	MARK_FRIENDS = "Marquer mes amis : chacun reçoit son propre marqueur, quel que soit le personnage qu'il joue",
+	MARK_FRIENDS_NONE = "Personne n'a encore de marqueur. Choisis le tien avec /mh mark me star ; les amis qui ont MH font pareil dans le leur. Amis sans MH : /mh mark friend Nom#1234 circle.",
+	MARK_ME_SET = "Ton marqueur : %d (0 = aucun). Il vaut pour chaque personnage de ce compte ; les amis qui ont MH le voient dans leur bouton d'amis.",
+	MARK_FRIEND_SET = "%s reçoit le marqueur %d (0 = aucun) quand il joue à WoW et qu'il est dans ton groupe. /mh mark friends montre ce que voit MH.",
+	MARK_USAGE = "Utilisation : /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  ou  /mh mark friend Nom#1234 <marqueur>  -  /mh mark friends montre le plan.",
 	MARK_NEEDLEAD = "Seul le chef de groupe ou un assistant peut le faire.",
 	SET_MBUFF_TITLE = "Rappel de buff manquant",
 	SET_MBUFF_DESC = "Affiche une icône déplaçable quand tu peux lancer un buff de classe que tu n'as pas actif (buff de raid, forme, bouclier, âme d'arme, poison, posture, familier). Clique dessus pour le lancer (hors combat).",
@@ -1416,6 +1428,12 @@ fill("esES", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Marcar al tanque y al sanador (cuadrado azul en el tanque, triángulo verde en el sanador)",
 	MARK_ROLES_NONE = "Nadie de tu grupo tiene aún el rol de tanque o de sanador (el buscador de grupos o una comprobación de roles lo asigna).",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	MARK_FRIENDS = "Marcar a mis amigos: cada uno recibe su propio marcador, juegue con el personaje que juegue",
+	MARK_FRIENDS_NONE = "Nadie tiene marcador todavía. Elige el tuyo con /mh mark me star; los amigos con MH hacen lo mismo en el suyo. Amigos sin MH: /mh mark friend Nombre#1234 circle.",
+	MARK_ME_SET = "Tu marcador: %d (0 = ninguno). Vale para todos los personajes de esta cuenta; los amigos con MH lo ven en su botón de amigos.",
+	MARK_FRIEND_SET = "%s recibe el marcador %d (0 = ninguno) cuando juega a WoW y está en tu grupo. /mh mark friends muestra lo que ve MH.",
+	MARK_USAGE = "Uso: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  o  /mh mark friend Nombre#1234 <marcador>  -  /mh mark friends muestra el plan.",
 	MARK_NEEDLEAD = "Solo el líder del grupo o un asistente puede hacerlo.",
 	SET_MBUFF_TITLE = "Recordatorio de mejora faltante",
 	SET_MBUFF_DESC = "Muestra un icono movible cuando puedes lanzar una mejora de clase que no tienes activa (mejora de banda, forma, escudo, imbuir arma, veneno, postura, mascota). Haz clic para lanzarla (fuera de combate).",
@@ -1477,6 +1495,12 @@ fill("ptBR", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Marcar o tanque e o curandeiro (quadrado azul no tanque, triângulo verde no curandeiro)",
 	MARK_ROLES_NONE = "Ninguém do seu grupo tem ainda a função de tanque ou de curandeiro (o localizador de grupos ou uma verificação de funções define isso).",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	MARK_FRIENDS = "Marcar meus amigos: cada um recebe o próprio marcador, seja qual for o personagem que estiver jogando",
+	MARK_FRIENDS_NONE = "Ninguém tem marcador ainda. Escolha o seu com /mh mark me star; amigos com MH fazem o mesmo no deles. Amigos sem MH: /mh mark friend Nome#1234 circle.",
+	MARK_ME_SET = "Seu marcador: %d (0 = nenhum). Ele vale para todos os personagens desta conta; amigos com MH o veem no botão de amigos deles.",
+	MARK_FRIEND_SET = "%s recebe o marcador %d (0 = nenhum) quando estiver jogando WoW e no seu grupo. /mh mark friends mostra o que o MH vê.",
+	MARK_USAGE = "Uso: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  ou  /mh mark friend Nome#1234 <marcador>  -  /mh mark friends mostra o plano.",
 	MARK_NEEDLEAD = "Só o líder do grupo ou um assistente pode fazer isso.",
 	SET_MBUFF_TITLE = "Lembrete de buff faltando",
 	SET_MBUFF_DESC = "Mostra um ícone móvel quando você pode conjurar um buff de classe que não está ativo (buff de raide, forma, escudo, imbuir de arma, veneno, postura, lacaio). Clique nele para conjurar (fora de combate).",
@@ -1538,6 +1562,12 @@ fill("itIT", {
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Marca tank e healer (quadrato blu sul tank, triangolo verde sull'healer)",
 	MARK_ROLES_NONE = "Nessuno nel tuo gruppo ha ancora il ruolo di tank o di healer (la ricerca gruppi o un controllo ruoli lo assegna).",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	MARK_FRIENDS = "Marca i miei amici: ognuno riceve il proprio marcatore, qualunque personaggio giochi",
+	MARK_FRIENDS_NONE = "Nessuno ha ancora un marcatore. Scegli il tuo con /mh mark me star; gli amici con MH fanno lo stesso nel loro. Amici senza MH: /mh mark friend Nome#1234 circle.",
+	MARK_ME_SET = "Il tuo marcatore: %d (0 = nessuno). Vale per ogni personaggio di questo account; gli amici con MH lo vedono nel loro pulsante amici.",
+	MARK_FRIEND_SET = "%s riceve il marcatore %d (0 = nessuno) quando gioca a WoW ed è nel tuo gruppo. /mh mark friends mostra cosa vede MH.",
+	MARK_USAGE = "Uso: /mh mark me star|circle|diamond|triangle|moon|square|cross|skull|off  -  oppure  /mh mark friend Nome#1234 <marcatore>  -  /mh mark friends mostra il piano.",
 	MARK_NEEDLEAD = "Solo il capogruppo o un assistente può farlo.",
 	SET_MBUFF_TITLE = "Promemoria buff mancanti",
 	SET_MBUFF_DESC = "Mostra un'icona spostabile quando puoi lanciare un buff di classe che non hai attivo (buff da incursione, forma, scudo, incantesimo sull'arma, veleno, postura, pet). Cliccala per lanciarlo (fuori dal combattimento).",
@@ -4951,6 +4981,8 @@ fill("deDE", {
 	CMDLIST_LOOT = "Den Tooltip-Hinweis ein- und ausschalten, der dir sagt, ob ein Drop eine Aufwertung ist.",
 	CMDLIST_MAIN = "Das Hauptfenster öffnen.",
 	CMDLIST_MARK = "Die Schnellmarkierungs-Leiste: Schlachtzugssymbole, Weltmarkierungen und eine Bereitschaftsprüfung.",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	CMDLIST_MARK_ME = "Deine eigene Markierung, auf jedem Charakter: /mh mark me star (circle, diamond, triangle, moon, square, cross, skull, off). Freunde mit MH bekommen ihre über den Freunde-Knopf auf der Schnellmarkierungs-Leiste.",
 	CMDLIST_MBUFF = "Gibt aus, was die Prüfung auf fehlende Buffs sieht. Die Erinnerung selbst ist ein Schalter in den Einstellungen.",
 	CMDLIST_MILESTONES = "Deine Fortschrittsmarken für die Saison.",
 	CMDLIST_MOUNTLOOKUP = "Das Reittier-Journal durchsuchen und sehen, was dein Client kennt.",
@@ -5195,6 +5227,8 @@ fill("frFR", {
 	CMDLIST_LOOT = "Active ou désactive l'info-bulle qui te dit si un butin est une amélioration.",
 	CMDLIST_MAIN = "Ouvre la fenêtre principale.",
 	CMDLIST_MARK = "La barre Fast Mark : icônes de raid, marqueurs de monde et vérification de préparation.",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	CMDLIST_MARK_ME = "Ton propre marqueur, sur chaque personnage : /mh mark me star (circle, diamond, triangle, moon, square, cross, skull, off). Les amis qui ont MH reçoivent le leur via le bouton d'amis de la barre Fast Mark.",
 	CMDLIST_MBUFF = "Affiche ce que voit la vérification des buffs manquants. Le rappel lui-même s'active dans les Réglages.",
 	CMDLIST_MILESTONES = "Tes jalons de progression pour la saison.",
 	CMDLIST_MOUNTLOOKUP = "Cherche dans le journal des montures et vois ce que ton client connaît.",
@@ -5513,6 +5547,8 @@ fill("esES", {
 	CMDLIST_LOOT = "Activa o desactiva el aviso del tooltip que te dice si un botín es una mejora.",
 	CMDLIST_MAIN = "Abre la ventana principal.",
 	CMDLIST_MARK = "La barra de Marcado rápido: iconos de banda, marcadores de mundo y una comprobación de listo.",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	CMDLIST_MARK_ME = "Tu propio marcador, en cada personaje: /mh mark me star (circle, diamond, triangle, moon, square, cross, skull, off). Los amigos con MH reciben el suyo desde el botón de amigos de la barra de Marcado rápido.",
 	CMDLIST_MBUFF = "Imprime lo que ve la comprobación de buffs que faltan. El recordatorio en sí se activa en Ajustes.",
 	CMDLIST_MILESTONES = "Tus puntos de progreso de la temporada.",
 	CMDLIST_MOUNTLOOKUP = "Busca en el diario de monturas y mira qué sabe tu cliente.",
@@ -5822,6 +5858,8 @@ fill("ptBR", {
 	CMDLIST_LOOT = "Liga e desliga a dica na tooltip que avisa se um drop é uma melhoria.",
 	CMDLIST_MAIN = "Abre a janela principal.",
 	CMDLIST_MARK = "A barra Fast Mark: ícones de raide, marcadores de mundo e uma verificação de prontidão.",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	CMDLIST_MARK_ME = "Seu próprio marcador, em todos os personagens: /mh mark me star (circle, diamond, triangle, moon, square, cross, skull, off). Amigos com MH recebem o deles pelo botão de amigos na barra Fast Mark.",
 	CMDLIST_MBUFF = "Imprime o que a verificação de buffs faltando enxerga. O lembrete em si é uma opção nas Configurações.",
 	CMDLIST_MILESTONES = "Seus marcos de progresso da Série.",
 	CMDLIST_MOUNTLOOKUP = "Procura no diário de montarias e mostra o que o seu cliente conhece.",
@@ -6135,6 +6173,8 @@ fill("itIT", {
 	CMDLIST_LOOT = "Attiva/disattiva il suggerimento nella tooltip che ti dice se un drop è un upgrade.",
 	CMDLIST_MAIN = "Apri la finestra principale.",
 	CMDLIST_MARK = "La barra Fast Mark: icone incursione, marcatori del mondo e un ready check.",
+	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
+	CMDLIST_MARK_ME = "Il tuo marcatore personale, su ogni personaggio: /mh mark me star (circle, diamond, triangle, moon, square, cross, skull, off). Gli amici con MH ricevono il loro dal pulsante amici della barra Fast Mark.",
 	CMDLIST_MBUFF = "Stampa quello che vede il controllo dei buff mancanti. Il promemoria in sé è un'opzione nelle Impostazioni.",
 	CMDLIST_MILESTONES = "I tuoi traguardi di progresso per la season.",
 	CMDLIST_MOUNTLOOKUP = "Cerca nel diario delle cavalcature e guarda cosa conosce il tuo client.",
