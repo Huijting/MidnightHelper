@@ -46,7 +46,7 @@ er is niets weggegooid.
 - [ ] Nieuw: **Instellingen → Midnight Helper**, schuif "Death card: how long it stays" (5–60 s, standaard nu 20 s,
       was korter). Zet hem op 40, val dood: het kaartje blijft ~40 s staan.
 - [ ] Laatste klap door een gewone mep: er staat nu "The last hit: a melee hit." (was "melee hits").
-- [ ] Spring in het niets (Twisting Nether, DH-startgebied). Eerst gaf het kaartje de lava en klappen van dáárvoor
+- [x] GEMETEN 10 okt (Rob): void-sprong geeft nu de "instantly"-tekst. Spring in het niets (Twisting Nether, DH-startgebied). Eerst gaf het kaartje de lava en klappen van dáárvoor
       (Rob, 10 okt). Nu hoort er te staan: "Nothing hit you at the moment you died: something killed you
       instantly…". Doe daarna `/mh death`: de regel "last hit was N s ago" moet meer dan 3 zijn.
 - [x] Gewoon doodgaan door een vijand geeft nog steeds "Most of the damage…" (niet per ongeluk "instantly").
