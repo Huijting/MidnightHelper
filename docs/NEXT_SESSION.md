@@ -8,7 +8,7 @@
 - ✅ GEBOUWD na beta1 (Rob koos "allebei"): vrienden markeren — `Modules/FriendMarks.lua` (eigen icoon
   `ns.db.myMarkIcon` per account via prefix "MHMark"; Battle.net-koppeling `ns.db.friendMarks[battletag]`; plan
   `ns.FriendMarkPlan`) + vriendenknop op de FastMark-balk; `/mh mark me|friend|friends`. Battle.net-route AFGELEID
-  (C_BattleNet characterName in 12.1 niet gemeten). Vertalingen de/fr/es/pt/it nog te doen.
+  (C_BattleNet characterName in 12.1 niet gemeten). Vertalingen de/fr/es/pt/it ✅ (16143af).
 - ✅ GEBOUWD 10 okt (site-chat, Rob wil het): `/mh export`-kopregel krijgt achteraan `;realm=<GetRealmName()>;
   region=<us|kr|eu|tw|cn>` (GearExport.lua `REGION_BY_ID` uit AceDB; 3 = eu GEMETEN door Rob 10 okt, rest afgeleid). Site toont er de
   Blizzard-characterfoto mee (`/api/render`, ea10494). Oude parsers lezen de eerste 4 velden gewoon door.
