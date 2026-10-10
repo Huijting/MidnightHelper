@@ -1,6 +1,11 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (10 okt avond) — 4.7.6-BETA2 klaargezet (Rob: "go beta2")
+## ▶️ HIER VERDER (10 okt avond) — 4.7.6-BETA2 is UIT
+- Site-chat OK → tag `v4.7.6-beta2` (62085b5) gepusht; Actions-run 38081546545 success: CurseForge (beta), Wago en
+  GitHub "Success!" (GEMETEN in de log, 19:53 UTC). Site-chat geseind (beta-blok + nl "Alle characters").
+- Volgende: Rob test met Carola/Cisca in een delve/dungeon (markers, Death Recap-les); dan 4.7.6 als release.
+
+## (klaargezet) 4.7.6-BETA2 (Rob: "go beta2")
 - CHANGELOG_476_8..17 (zonder 14) in enUS + Changelog.lua; RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (cmp gelijk),
   kop "beta 2"; CHANGELOG.md. Tag `v4.7.6-beta2` NA akkoord site-chat. Daarna: Rob test met Carola/Cisca (markers,
   Death Recap-les in delve/dungeon), dan 4.7.6 als release (Rob: "dan kan die gereleased worden").
