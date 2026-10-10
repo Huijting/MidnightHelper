@@ -46,6 +46,8 @@ local DUMPS = {
 	{ key = "kpWeeklyProbe", by = "Profession.lua" },
 	{ key = "deathRecapProbe", by = "Retrospective.lua" },
 	{ key = "tradingPostProbe", by = "TradingPost.lua" },
+	{ key = "gearExportSkips", by = "GearExport.lua" },
+	{ key = "gearExportEnchantRaw", by = "GearExport.lua" },
 	{ key = "knowledgeProbeApi", by = "Knowledge.lua" },
 	{ key = "knowledgeProbe", by = "Knowledge.lua" },
 	{ key = "worldBossProbe", by = "WorldBossProbe.lua" },

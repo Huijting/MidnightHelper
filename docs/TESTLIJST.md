@@ -87,8 +87,10 @@ Ongeveer 25 fouten gerepareerd tegen Blizzards speldata; niets daarvan in het sp
 - [x] ✅ Rob 10 okt, Earthshammy (Elemental): tier = setnummer 2065 op hoofd, schouders, borst en benen, leeg op de
       rest; gems/enchants per regel (`g1/1e1` op de ringen, `g0/1e0` op de nek = lege socket); effect `e` op trinkets
       en het wapen. Geen embellished item op dat character (embellishment nog niet gemeten).
-- [ ] Welke enchant en gem: `/mh export` op Earthshammy, kijk naar een ring. Na `g1/1e1` staan nu nog twee velden:
-      `<enchantnummer>/<gemnummer>` en de enchant-naam zoals in je tooltip ("Enchanted: …"). Stuur me één ringregel.
+- [ ] Welke enchant en gem + kwaliteit + level: `/reload`, `/mh export` op Earthshammy. Stuur me de char-regel
+      (eindigt nu op `;level=90` of je echte level) en één ringregel: na `g1/1e1` staan
+      `<enchantnummer>/<gemnummer>`, de enchant-naam, en de kwaliteit (`2/2` o.i.d.). Daarna `/reload`: dan lees ik
+      de ruwe enchant-regels (gearExportEnchantRaw) om te zien of het kwaliteitsicoon er echt in staat.
 - [ ] Gems en enchants: in dezelfde export eindigt elke regel nu op iets als `g1/1e1` (1 van 1 socket gevuld,
       enchant erop). Een item met een lege socket of zonder enchant moet dat laten zien (bv. `g0/1e0`).
 - [ ] Tier en embellishment: `/mh export` op een character met een **tier-stuk** (hoofd/schouders/borst/handen/benen

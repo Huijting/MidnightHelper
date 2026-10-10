@@ -11,7 +11,7 @@ local _, ns = ...
 	field, its order or a slot name without changing the site in the same breath:
 
 	    MH-EXPORT 1
-	    char=<name>;class=<CLASSFILE>;spec=<spec name>;primary=<Strength|Agility|Intellect|?>;realm=<GetRealmName()>;region=<eu|us|kr|tw|cn|>
+	    char=<name>;class=<CLASSFILE>;spec=<spec name>;primary=<Strength|Agility|Intellect|?>;realm=<GetRealmName()>;region=<eu|us|kr|tw|cn|>;level=<n>
 	    # where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers
 	    E|head|285|epic|Helm of ...|541|839|121|81|0|0
 
@@ -50,7 +50,12 @@ local _, ns = ...
 	  which    18th field (10 Oct 2026): "<enchantID>/<gemItemID>:<gemItemID>", e.g. "7409/213746", "/213746",
 	           "7409/"; empty when neither. Gem ids from GetItemGem's links, link fields 3-6 as fallback.
 	  enchname 19th field (10 Oct 2026): the enchant name from the tooltip's "Enchanted:" line, in the
-	           client's language; empty when none.
+	           client's language, icons and colours stripped; empty when none.
+	  quality  20th field (10 Oct 2026): "<enchantTier>/<gemTier>:<gemTier>", empty parts when unknown, empty
+	           when nothing known. Enchant tier from the |A:...Tier<n>|a atlas on the Enchanted: line, gem tiers
+	           from C_TradeSkillUI.GetItemCraftedQualityByItemInfo / GetItemReagentQualityByItemInfo. AFGELEID;
+	           the raw Enchanted: lines land in ns.db.gearExportEnchantRaw to check.
+	  level    on the char line, last (10 Oct 2026): UnitLevel("player").
 	           Link layout: itemID is field 1, numBonusIDs field 13, the bonus IDs follow. AFGELEID from
 	           three installed addons that agree (AskMrRobot-Serializer.lua:317, EllesmereUIBags.lua:286,
 	           ClassCodex Crafting.lua:174). VERIFY: Wowhead's tooltip matching the item in the game.
@@ -450,11 +455,54 @@ local function EnchantNameField(link)
 	for _, line in ipairs(ok and type(data) == "table" and type(data.lines) == "table" and data.lines or {}) do
 		local t = line.leftText
 		if ns.CanAccessText(t) and t:find(prefix, 1, true) == 1 then
-			local name = t:sub(#prefix + 1):gsub("^%s+", ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|", "/")
-			return name
+			local rest = t:sub(#prefix + 1)
+			-- The raw line, for checking what the client really writes (atlas, colours): /reload and read
+			-- ns.db.gearExportEnchantRaw. 10 Oct 2026, quality field asked by the site chat.
+			if ns.db then
+				ns.db.gearExportEnchantRaw = ns.db.gearExportEnchantRaw or {}
+				if #ns.db.gearExportEnchantRaw < 20 then
+					table.insert(ns.db.gearExportEnchantRaw, rest)
+				end
+			end
+			-- A crafting-quality icon is an |A:...Tier<n>...|a atlas (AFGELEID, the Dragonflight form).
+			local tier = tonumber(rest:match("|A:[^|]-[Tt]ier(%d)[^|]-|a") or "")
+			local name = rest:gsub("|A:.-|a", ""):gsub("|T.-|t", ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+			name = name:gsub("^%s+", ""):gsub("%s+$", ""):gsub("|", "/")
+			return name, tier
 		end
 	end
 	return ""
+end
+
+--- The "quality" field: "<enchantTier>/<gemTier>:<gemTier>...", empty parts when unknown, "" when nothing
+--- is known. Gem tiers from C_TradeSkillUI's item-quality calls (AFGELEID which one answers on 12.1).
+local function QualityField(link, enchTier)
+	local gems = {}
+	local any = enchTier ~= nil
+	if GetItemGem then
+		for i = 1, 4 do
+			local ok, _, gemLink = pcall(GetItemGem, link, i)
+			if ok and type(gemLink) == "string" then
+				local q
+				if C_TradeSkillUI then
+					for _, fn in ipairs({ "GetItemCraftedQualityByItemInfo", "GetItemReagentQualityByItemInfo" }) do
+						if not q and C_TradeSkillUI[fn] then
+							local okQ, v = pcall(C_TradeSkillUI[fn], gemLink)
+							if okQ and type(v) == "number" and not ns.IsSecretValue(v) and v > 0 then
+								q = v
+							end
+						end
+					end
+				end
+				gems[#gems + 1] = q and tostring(q) or ""
+				any = any or q ~= nil
+			end
+		end
+	end
+	if not any then
+		return ""
+	end
+	return (enchTier and tostring(enchTier) or "") .. "/" .. table.concat(gems, ":")
 end
 
 --- The "set" field: the item's set id (16th return of GetItemInfo, as VaultAdvisor reads it), "" when none.
@@ -494,10 +542,11 @@ local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	local uniq, effect = Extras(slot, link)
 	-- Fields 12-15 always written, then trailing empties trimmed: without an item id the line is
 	-- exactly what it was before field 15 existed.
-	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s|%s|%s|%s|%s"):format(
+	local enchName, enchTier = EnchantNameField(link)
+	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s|%s|%s|%s|%s|%s"):format(
 		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers,
 		Hands(slot, link), uniq, effect, ItemField(link), SetField(link), GemsField(link),
-		WhichField(link), EnchantNameField(link))
+		WhichField(link), enchName or "", QualityField(link, enchTier))
 	return (line:gsub("|+$", ""))
 end
 
@@ -533,10 +582,18 @@ function ns.BuildGearExport()
 	local realm = GetRealmName and GetRealmName() or ""
 	if not ns.CanAccessText(realm) then realm = "" end
 	local region = GetCurrentRegion and REGION_BY_ID[GetCurrentRegion() or 0] or ""
-	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s;realm=%s;region=%s"):format(
+	-- level last (10 Oct 2026, site chat: "Level 83 · Demonology Warlock" on the Armory card).
+	local level = UnitLevel and UnitLevel("player") or 0
+	if ns.IsSecretValue(level) or type(level) ~= "number" then
+		level = 0
+	end
+	if ns.db then
+		ns.db.gearExportEnchantRaw = {} -- filled per export by EnchantNameField
+	end
+	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s;realm=%s;region=%s;level=%d"):format(
 		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
-		primary and primary.name or "?", (tostring(realm):gsub("[;|=]", "")), region)
-	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect|item|set|gems|enchant/gem ids|enchant name"
+		primary and primary.name or "?", (tostring(realm):gsub("[;|=]", "")), region, level)
+	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect|item|set|gems|enchant/gem ids|enchant name|enchant/gem quality"
 
 	local function Add(where, slot, link)
 		-- Only bag items are filtered: what you wear is written whatever it is.
