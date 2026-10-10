@@ -213,28 +213,42 @@ local function Base(id)
 	return id
 end
 
+-- Rob, same morning, after the Swap button worked: "ook vind ik dat heals altijd op dezelfde plaats moeten blijven
+-- ... net als T de healthpotions". So these never take part in a swap at all, busy or quiet: a heal is found by
+-- habit in a hurry. Heals = a role "heal_*" (also as blockAs for one spec) or a Stay alive line of kind "heal".
+-- Health potions and other items never could: LiveKeys only reads spells and macros, so an item has no row with a key.
+local function IsHealRole(r)
+	return type(r) == "string" and r:match("^heal") ~= nil
+end
+
 local function KeepEasy(id)
 	local token = UnitClass and select(2, UnitClass("player"))
 	if token ~= keepEasyClass then
 		keepEasyClass, keepEasy = token, {}
 		for _, e in pairs((ns.KeybindRoleClassifier or {})[token] or {}) do
-			if type(e) == "table" and e.id and (e.role == "interrupt" or e.survival) then
-				keepEasy[e.id] = true
+			if type(e) == "table" and e.id then
+				local fixed = e.role == "interrupt" or e.survival or IsHealRole(e.role)
+				for _, b in pairs(type(e.blockAs) == "table" and e.blockAs or {}) do
+					fixed = fixed or (type(b) == "table" and IsHealRole(b.role))
+				end
+				if fixed then
+					keepEasy[e.id] = true
+				end
 			end
 		end
 	end
 	return keepEasy[id] or keepEasy[Base(id)] or false
 end
 
---- Swaps: a busy spell on a harder key, and a quiet one (a third or less) on an easier key. The quiet one is never
---- an interrupt or a defensive (KeepEasy).
+--- Swaps: a busy spell on a harder key, and a quiet one (a third or less) on an easier key. Interrupts, heals and
+--- Stay alive spells (KeepEasy) stay where they are: never the busy one, never the quiet one.
 local function Swaps(rows)
 	local out, used = {}, {}
 	for _, busy in ipairs(rows) do
 		if #out >= MAX_SWAPS then
 			break
 		end
-		if busy.kind == "key" and busy.n >= MIN_COUNT and busy.score > 0 and not used[busy] then
+		if busy.kind == "key" and busy.n >= MIN_COUNT and busy.score > 0 and not used[busy] and not KeepEasy(busy.id) then
 			local best
 			for _, quiet in ipairs(rows) do
 				if quiet ~= busy and quiet.kind == "key" and not used[quiet] and quiet.score < busy.score
@@ -389,8 +403,12 @@ local function DoSwap(s)
 	if ActionId(a) == idb and ActionId(b) == ida then
 		local bucket = Bucket(false)
 		if bucket then
-			bucket.lastSwap = { a = a, b = b, ida = ida, idb = idb, busy = s.busy.id, quiet = s.quiet.id,
-				busyKey = s.busy.short, quietKey = s.quiet.short }
+			bucket.swaps = bucket.swaps or {}
+			bucket.swaps[#bucket.swaps + 1] = { a = a, b = b, ida = ida, idb = idb, busy = s.busy.id,
+				quiet = s.quiet.id, busyKey = s.busy.short, quietKey = s.quiet.short }
+			while #bucket.swaps > 20 do
+				table.remove(bucket.swaps, 1)
+			end
 		end
 		Say(ns:L("PRESSES_SWAPPED"):format(SpellName(s.busy.id), s.quiet.short, SpellName(s.quiet.id), s.busy.short), true)
 	else
@@ -399,30 +417,62 @@ local function DoSwap(s)
 	Refresh()
 end
 
-local function UndoSwap()
-	local bucket = Bucket(false)
-	local ls = bucket and bucket.lastSwap
+--- The swaps of this character and spec, newest last. Rob, same morning: "jammer dat ik er maar 1, de laatste, kon
+--- terugdraaien" - so every swap is kept (up to 20) and undone newest first, one click each, or all at once. The
+--- one-swap `lastSwap` of the first build is folded in.
+local function SwapStack(bucket)
+	if not bucket then
+		return nil
+	end
+	bucket.swaps = bucket.swaps or {}
+	if bucket.lastSwap then
+		bucket.swaps[#bucket.swaps + 1] = bucket.lastSwap
+		bucket.lastSwap = nil
+	end
+	return bucket.swaps
+end
+
+--- Undo the newest swap. @return boolean ok (false = stopped: combat, stale or did not take; already said why)
+local function UndoOne(bucket)
+	local stack = SwapStack(bucket)
+	local ls = stack and stack[#stack]
 	if not ls then
-		return
+		return false
 	end
 	if InCombatLockdown and InCombatLockdown() then
 		Say(ns:L("PRESSES_SWAP_COMBAT"), false)
-		Refresh()
-		return
+		return false
 	end
 	if ActionId(ls.a) ~= ls.idb or ActionId(ls.b) ~= ls.ida then
-		bucket.lastSwap = nil
+		-- Changed by hand since: leave those buttons alone, drop the entry, the older ones stay.
+		table.remove(stack)
 		Say(ns:L("PRESSES_UNDO_STALE"), false)
-		Refresh()
-		return
+		return false
 	end
 	SwapSlots(ls.a, ls.b)
 	if ActionId(ls.a) == ls.ida and ActionId(ls.b) == ls.idb then
-		bucket.lastSwap = nil
+		table.remove(stack)
 		Say(ns:L("PRESSES_UNDONE"):format(SpellName(ls.busy), ls.busyKey or "?", SpellName(ls.quiet), ls.quietKey or "?"),
 			true)
-	else
-		Say(ns:L("PRESSES_SWAP_FAILED"), false)
+		return true
+	end
+	Say(ns:L("PRESSES_SWAP_FAILED"), false)
+	return false
+end
+
+local function UndoSwap()
+	UndoOne(Bucket(false))
+	Refresh()
+end
+
+local function UndoAll()
+	local bucket = Bucket(false)
+	local guard = 0
+	while guard < 25 and #(SwapStack(bucket) or {}) > 0 do
+		guard = guard + 1
+		if not UndoOne(bucket) then
+			break
+		end
 	end
 	Refresh()
 end
@@ -450,6 +500,26 @@ local function TipRow(i)
 	return t
 end
 
+--- The undo buttons: "Undo last swap (N)", and "Undo all (N)" when there is more than one. Shown also when the counts
+--- were cleared, because the swaps are still on the bars. @return number y below them
+local function RenderUndo(bucket, y)
+	local stack = SwapStack(bucket)
+	if stack and #stack > 0 then
+		SetButtonText(win.undo, ns:L("PRESSES_BTN_UNDO_FMT"):format(#stack))
+		win.undo:ClearAllPoints()
+		win.undo:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 6)
+		win.undo:Show()
+		if #stack > 1 then
+			SetButtonText(win.undoAll, ns:L("PRESSES_BTN_UNDO_ALL_FMT"):format(#stack))
+			win.undoAll:ClearAllPoints()
+			win.undoAll:SetPoint("LEFT", win.undo, "RIGHT", 8, 0)
+			win.undoAll:Show()
+		end
+		y = y - 6 - 22
+	end
+	return y
+end
+
 Refresh = function()
 	if not win then
 		return
@@ -465,6 +535,7 @@ Refresh = function()
 	win.status:SetText("")
 	win.status:ClearAllPoints()
 	win.undo:Hide()
+	win.undoAll:Hide()
 	local y = -44
 	local bucket, spec = Bucket(false)
 	win.title:SetText(ns:L("PRESSES_WIN_TITLE"))
@@ -487,6 +558,12 @@ Refresh = function()
 		y = y - win.head:GetStringHeight() - 10
 		win.tips:SetText("")
 		win.rule:SetText("")
+		if win.statusMsg then
+			win.status:SetText(win.statusMsg)
+			win.status:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y)
+			y = y - win.status:GetStringHeight() - 4
+		end
+		y = RenderUndo(bucket, y) - 8
 		win:SetHeight(-y + 50)
 		return
 	end
@@ -552,13 +629,7 @@ Refresh = function()
 		win.status:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 8)
 		y = y - 8 - win.status:GetStringHeight()
 	end
-	if bucket.lastSwap then
-		SetButtonText(win.undo, ns:L("PRESSES_BTN_UNDO"))
-		win.undo:ClearAllPoints()
-		win.undo:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 6)
-		win.undo:Show()
-		y = y - 6 - 22
-	end
+	y = RenderUndo(bucket, y)
 	win.rule:SetText(ns:L("PRESSES_RULE"))
 	win.rule:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 10)
 	y = y - 10 - win.rule:GetStringHeight()
@@ -601,6 +672,10 @@ local function Build()
 	f.undo:SetSize(150, 22)
 	f.undo:SetScript("OnClick", UndoSwap)
 	f.undo:Hide()
+	f.undoAll = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.undoAll:SetSize(150, 22)
+	f.undoAll:SetScript("OnClick", UndoAll)
+	f.undoAll:Hide()
 
 	f.toggle = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.toggle:SetSize(150, 22)
@@ -676,7 +751,10 @@ function ns.KeyPressesCommand(arg)
 		local ck, spec = CharKey(), SpecID()
 		local chars = Store().chars
 		if ck and spec and chars[ck] then
-			chars[ck][spec] = nil
+			-- Clearing the counts does not forget the swaps: they are still on the bars, and undo must stay possible.
+			local old = chars[ck][spec]
+			local swaps = old and SwapStack(old)
+			chars[ck][spec] = (swaps and #swaps > 0) and { fights = 0, spells = {}, swaps = swaps } or nil
 		end
 		print(("%s %s"):format(p, ns:L("PRESSES_RESET")))
 	elseif arg == "why" then

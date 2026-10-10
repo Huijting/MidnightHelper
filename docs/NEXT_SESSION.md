@@ -13,7 +13,9 @@
 - ✅ GEBOUWD 10 okt (Rob koos "knop per tip + terugdraaien"): ruil-knop per tip in het presses-venster
   (`DoSwap`/`UndoSwap`: zelfde ruil als BarEightKeys, daarna teruggelezen; laatste ruil in `bucket.lastSwap`, undo
   alleen als beide knoppen nog kloppen). Interrupts + Blijf leven-spells nooit als rustige ruilpartner (`KeepEasy`).
-  Hunter- en Priest-venster getest ✅ (vóór de ruil-knop). Ruil-knop zelf: niet getest.
+  Hunter- en Priest-venster getest ✅; ruil-knop ✅ (Rob 10 okt). Daarna op zijn verzoek: heals + interrupts +
+  Blijf leven nooit in een ruil (beide kanten), en een ruil-STAPEL (`bucket.swaps`, max 20): "terugdraaien (N)" en
+  "alles terugdraaien (N)"; "Wis deze spec" bewaart de stapel. Hertest open.
 - Site-chat seinen bij de beta (site volgt elke functie: het venster, ruilen, Bartender/ElvUI).
 - 📌 Site-chat 10 okt: `/codex/` en `/patch/12-1-5/` staan live (tools/build_codex.py uit de tag). Een NIEUWE
   `minInterface` vraagt een datum in BEIDE: onze `tools/build_site.py` PATCH_LIVE én hun `build_tips.PATCH_DAYS`.

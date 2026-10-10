@@ -34,7 +34,13 @@ Gebouwd, niet getest. Rob, 9 okt: "in een chat is het onoverzichtelijk".
 - [ ] **SimC (`/mh raidbots`):** alleen te zien met een personage van ras-id 95/96 (SimC noemt ze "skyborne"; welk ras dat in het spel
   heet is NIET gemeten). Heb je dat niet: overslaan.
   Op elk ander personage: de `race=`-regel is hetzelfde als vóór vandaag.
-- [ ] **Ruil-knop (Rob koos: knop per tip + terugdraaien):** Priest → `/mh presses` → achter elke tip een knop "Ruil".
+- ✅ Rob 10 okt: ruil-knop werkt (niet in gevecht geprobeerd). Twee wensen → gebouwd, hertest open:
+  - [ ] **Heals ruilen nooit**, en interrupts/Blijf leven-spells ook niet — in géén richting (Flash Heal stond als
+    "druk" in een tip). Priest → `/mh presses`: geen tip meer met Flash Heal. (Potions/items konden al nooit: LiveKeys
+    leest alleen spells en macro's.)
+  - [ ] **Meer dan één terugdraaien:** MH onthoudt alle ruilen (max 20). "Laatste ruil terugdraaien (N)" gaat er één
+    terug, nieuwste eerst; "Alles terugdraaien (N)" zet alles terug. Ook na "Wis deze spec" blijven ze terug te draaien.
+- [x] **Ruil-knop (Rob koos: knop per tip + terugdraaien):** Priest → `/mh presses` → achter elke tip een knop "Ruil".
   Klik er één (buiten gevecht) → groene regel "Geruild: X staat nu op …, Y op …" (ook in de chat), en de twee spells
   staan echt verwisseld op je balk; de lijst toont meteen de nieuwe toetsen. Knop "Laatste ruil terugdraaien" zet het
   terug (ook na `/reload`). In gevecht: oranje "Niet tijdens een gevecht". Lukt een ruil niet, dan zegt hij dat (oranje)

@@ -12,7 +12,7 @@ Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96, Bartender4/E
 ## A — `Locales/enUS.lua`
 
 ```lua
-	CHANGELOG_476_1 = "/mh presses opens a window now instead of filling your chat: your most-pressed spells with their key and how easy it is, the swap tip, and buttons to turn counting on or off and to clear a spec. It updates after each fight while it is open. Each swap tip has a Swap button: MH moves the two spells for you (out of combat, one at a time), says which key each one is on now, and Undo last swap puts them back. Interrupts and defensives are never suggested to move to a harder key.",
+	CHANGELOG_476_1 = "/mh presses opens a window now instead of filling your chat: your most-pressed spells with their key and how easy it is, the swap tip, and buttons to turn counting on or off and to clear a spec. It updates after each fight while it is open. Each swap tip has a Swap button: MH moves the two spells for you (out of combat, one at a time), says which key each one is on now. Undo takes your swaps back one at a time, newest first, or all at once. Heals, interrupts and defensives are never part of a swap: you reach for those by habit.",
 	CHANGELOG_476_3 = "Bartender4 and ElvUI: /mh presses and the How you play card now find the key a spell sits on in those bar addons too, not only on Blizzard's bars. /mh playkeys says which bar addon each key came from.",
 	CHANGELOG_476_2 = "Raidbots export (/mh raidbots): race ids 95 and 96 (SimulationCraft calls them skyborne_alliance and skyborne_horde) get the race name SimulationCraft expects.",
 ```
