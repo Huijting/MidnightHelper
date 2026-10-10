@@ -433,8 +433,9 @@ function ns.PrintPlayCardCheck()
 	local want = tank or classTank
 	say(("  card for tank spec %s: %s"):format(tostring(want), (want and CARDS[want]) and "yes" or "NO"))
 	-- Why lines and quiz can be silently absent on purpose (stale patch): say which, and why.
-	local cur = GetSpecialization and GetSpecializationInfo and GetSpecialization()
-	local curID = cur and GetSpecializationInfo(cur)
+	-- ns.* wrappers (Core.lua): the bare globals are deprecated aliases in 12.1.
+	local cur = ns.GetSpecialization and ns.GetSpecializationInfo and ns.GetSpecialization()
+	local curID = cur and ns.GetSpecializationInfo(cur)
 	if curID then
 		local shown, reason = ns.PlayCardWhyState(curID)
 		local quiz = ns.GetPlayCardQuiz(curID)

@@ -66,6 +66,10 @@
   waarom ze verborgen zijn. Bevinding agent, NIET aangepast: AOE-regel "als hij oplicht" klopt alleen met talent
   Freezing Rain; S4 "blijf stilstaan" geldt niet altijd bij 2+ vijanden. Document voor Carola: claude.ai-doc
   "Carola leert Frost Mage". Pas na Carola's test naar meer specs (schatting: ~25 KB per taal voor alle 40).
+  ✅ 10 okt: door de bouwchat gereviewd en op main gezet (Rob: "ja, voeg maar samen, het wordt wel de bedoeling dat
+  alle specs dit gaan krijgen"). Erbij gerepareerd: `/mh playcards check` via `ns.GetSpecialization*`; kaart 64 S4
+  "op één vijand stilstaan" en AOE "met het talent Freezing Rain licht hij op" (7 talen). 🎯 DOEL: alle 40 specs krijgen
+  waarom-regels + quiz, na Carola's test van Frost.
 
 ## (eerder vandaag) op weg naar 4.7.6-BETA
 - ✅ GEBOUWD 10 okt, niet getest: `/mh presses` opent een VENSTER (`MidnightHelperKeyPressesWindow` in KeyPresses.lua,
