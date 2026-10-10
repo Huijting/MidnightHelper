@@ -153,7 +153,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	OMNIUM_OPEN_LEVELING = "Een max-level feature — opent op level %d (jij bent level %d).",
 	OMNIUM_OPEN_WRONGEXP = "Je minimap-knop staat op een andere expansion — opent zodra die Midnight is.",
 	OMNIUM_OPEN_GARRISON = "Je minimap-knop toont een garrison-/covenant-pagina, niet die van Midnight. De Folio opent via die knop, dus zolang dat zo staat is hij niet bereikbaar.",
-	OMNIUM_INTRO = "De Omnium Folio is Midnights borrowed-power rune-tree (patch 12.0.7). Hij neemt geen gear-slot in, blijft de hele uitbreiding actief, en je wisselt vrij zonder respec-kosten. Start de unlock met “The Magister's Call” bij de Field Accolade-vendors in Silvermoon City ({FOLIOSTART}); de keten loopt via Magisters' Terrace en eindigt als Grand Magister Rommath je de Folio geeft (een nieuwe minimap-knop). Unlocks zijn account-breed — doe de questlijn één keer en elke Mote opent een rij voor je hele account; alleen je rune-keuzes zijn per personage. Vijf rijen, één per Seeking Knowledge-quest (rij 1 meteen na de intro). Alle vijf de quests zijn nu uit, dus wie laat begint doet ze achter elkaar.",
+	OMNIUM_INTRO = "De Omnium Folio is Midnights borrowed-power rune-tree (patch 12.0.7). Hij neemt geen gear-slot in, blijft de hele uitbreiding actief, en je wisselt vrij zonder respec-kosten. Start de unlock met “The Magister's Call” bij de Field Accolade-vendors in Silvermoon City ({FOLIOSTART}); de keten loopt via Magisters' Terrace en eindigt als Grand Magister Rommath je de Folio geeft (een nieuwe minimap-knop). Unlocks zijn account-breed — doe de questlijn één keer en elke Mote opent een rij voor je hele account; alleen je rune-keuzes zijn per character. Vijf rijen, één per Seeking Knowledge-quest (rij 1 meteen na de intro). Alle vijf de quests zijn nu uit, dus wie laat begint doet ze achter elkaar.",
 	OMNIUM_UNLOCK_LABEL = "Ontgrendeld:",
 	OMNIUM_UNLOCK_FMT = "%d/5 rijen",
 	OMNIUM_WK_OBJ_1 = "Deze week: haal de Folio op bij Grand Magister Rommath.",
@@ -165,7 +165,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	OMNIUM_LOCKED = "nog niet ontgrendeld",
 	OMNIUM_RECOMMENDED = "<- aanbevolen",
 	OMNIUM_STAT_SPEC_HINT = "Kies de beste stat voor je spec (Versatility = veilige catch-all).",
-	OMNIUM_FOOTER = "Aanbevelingen zijn algemene baselines, geen per-spec BiS — de live spell-tooltip is leidend. Unlocks (questlijn + wekelijkse Motes) zijn account-breed; alleen je rune-keuze is per personage. Een week gemist? Haal in door de gemiste quests achter elkaar te doen.",
+	OMNIUM_FOOTER = "Aanbevelingen zijn algemene baselines, geen per-spec BiS — de live spell-tooltip is leidend. Unlocks (questlijn + wekelijkse Motes) zijn account-breed; alleen je rune-keuze is per character. Een week gemist? Haal in door de gemiste quests achter elkaar te doen.",
 
 	OMNIUM_MODE_MPLUS = "Mythic+",
 	OMNIUM_MODE_RAID = "Raid",
