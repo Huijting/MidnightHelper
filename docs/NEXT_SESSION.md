@@ -1,6 +1,12 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (10 okt) — 4.7.6-BETA1 is UIT
+## ▶️ HIER VERDER (10 okt avond) — 4.7.6-BETA2 klaargezet (Rob: "go beta2")
+- CHANGELOG_476_8..17 (zonder 14) in enUS + Changelog.lua; RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (cmp gelijk),
+  kop "beta 2"; CHANGELOG.md. Tag `v4.7.6-beta2` NA akkoord site-chat. Daarna: Rob test met Carola/Cisca (markers,
+  Death Recap-les in delve/dungeon), dan 4.7.6 als release (Rob: "dan kan die gereleased worden").
+- Vriendenmarkering GEMETEN werkend (Dobby = rondje via carola#2875). Death Recap-les in een instance NIET gemeten.
+
+## (eerder) 4.7.6-BETA1 is UIT
 - Rob: "go beta, na overleg met de site chat". Site-chat akkoord (niets botst). Tag `v4.7.6-beta1` (e54ff0e) gepusht;
   Actions-run 38030057982 success: CF (beta), Wago en GitHub "Success!" (GEMETEN, 06:12 UTC). Site-chat geseind.
 - Rob koos "Alle characters" (gelijk met de site): de 4 nl-teksten van "Alle characters" aangepast (na beta1, gaat

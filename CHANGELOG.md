@@ -4,6 +4,26 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.6
 
+📌 **2026-10-10 avond, BETA 2 (Rob: "go beta2"), tag `v4.7.6-beta2` na akkoord site-chat.** Notitie opnieuw
+`docs/CURSEFORGE_4.7.6.md` = `RELEASE_NOTES.md` (kop "beta 2"). GEMETEN door Rob: vriendenmarkering via Battle.net
+(Dobby kreeg het rondje), export-velden 16-20 + level (Earthshammy/Theexodus/Warlockie), Trading Post-checks, Felguard,
+geen schild meer voor de Warlock, C_DeathRecap leesbaar buiten een instance, regio 3 = eu. NIET getest: Death Recap-les
+in een dungeon/delve, spec-audit-reparaties (DB2, niet in het spel), Frost Mage-quiz, weeklijst-quest-ids (Wowhead),
+beroepen-tab/"nog dicht", vertalingen (zelfgemaakt).
+
+- **Death Recap-les** (Retrospective.lua): `C_DeathRecap` → meeste schade + bron + aantal + laatste klap + tip; val;
+  terugval op het oude kaartje; `OpenDeathRecapUI()` eerst.
+- **Vriendenmarkering** (FriendMarks.lua + FastMark.lua): eigen icoon via MH, Battle.net-koppeling (nu ook op
+  charactername), raid zonder lead/assist = grijs + uitleg.
+- **Spec-audit** (docs/SPEC_AUDIT_2026-10-10/): ~25 WRONG-punten (Felguard/stance/gif, nieuwe spell-ids, dode macro's,
+  interrupts Devourer/Holy, Beacon of Virtue, Greater Purge, Flametongue off-hand, Avenging Crusader-toets).
+- **Weeklijst** (docs/WEEKLY_CHECK_2026-10-10.md): Orin, Abdumati, Vereesa-tekst, Ritual Sites via Liadrin, Halduron-pool,
+  3 Special Assignments.
+- **Frost Mage waarom + quiz** (PlayCards.lua, PlayCardWindow.lua; branch ccr-68f9c8bf gereviewd en samengevoegd).
+- **Export** (GearExport.lua): realm/region/level, velden 12 "a" .. 20, tas-filter (klasse, rode eis).
+- **Trading Post** transmog/toy/set/appearance; **beroepen** tab + "nog dicht" + duidelijke advies-tekst;
+  **healers** Celestial Conduit, Tip the Scales, GetTopRaidCooldown; **VaultAdvisor** set-id (16e return).
+
 📌 **2026-10-10, als BETA (Rob: "go beta, na overleg met de site chat"), tag `v4.7.6-beta1` na akkoord site-chat.**
 Notitie `docs/CURSEFORGE_4.7.6.md` = `RELEASE_NOTES.md`. Rob testte 10 okt: presses-venster (Hunter, Priest, Warlock
 leeg), ruilen + terugdraaien (1 en alles), heals/interrupts eruit, `/mh playkeys` "Blizzard 24, Bartender4 0, ElvUI 0",

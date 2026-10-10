@@ -7,6 +7,17 @@ local CHANGELOG_ENTRIES = {
 		version = "4.7.6",
 		lines = {
 			"CHANGELOG_476_0",
+			-- beta 2 (10 Oct 2026)
+			"CHANGELOG_476_16",
+			"CHANGELOG_476_8",
+			"CHANGELOG_476_9",
+			"CHANGELOG_476_17",
+			"CHANGELOG_476_10",
+			"CHANGELOG_476_11",
+			"CHANGELOG_476_12",
+			"CHANGELOG_476_13",
+			"CHANGELOG_476_15",
+			-- beta 1
 			"CHANGELOG_476_1",
 			"CHANGELOG_476_3",
 			"CHANGELOG_476_4",
