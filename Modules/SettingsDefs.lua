@@ -240,6 +240,43 @@ local function Build()
 	end, function(v)
 		if ns.SetGrowthPopupEnabled then ns.SetGrowthPopupEnabled(v) end
 	end, false)
+	-- 10 Oct 2026 (idea B4, Rob put it in the 4.7.6 beta): four switches that had no command and no button, so the
+	-- only way to turn them off was editing SavedVariables (mh-sweep, checked in the code that day). Each reads and
+	-- writes the same field its module already reads; the defaults stay what they were (all on).
+	Toggle("mh_toasts", "SET_TOASTS_TITLE", "SET_TOASTS_DESC", function()
+		local t = ns.db and ns.db.ui and ns.db.ui.toast
+		return not (type(t) == "table" and t.enabled == false)
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.ui = ns.db.ui or {}
+		ns.db.ui.toast = type(ns.db.ui.toast) == "table" and ns.db.ui.toast or { delveBounty = true }
+		ns.db.ui.toast.enabled = v and true or false
+	end, true)
+	Toggle("mh_toastBounty", "SET_TOAST_BOUNTY_TITLE", "SET_TOAST_BOUNTY_DESC", function()
+		local t = ns.db and ns.db.ui and ns.db.ui.toast
+		return not (type(t) == "table" and t.delveBounty == false)
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.ui = ns.db.ui or {}
+		ns.db.ui.toast = type(ns.db.ui.toast) == "table" and ns.db.ui.toast or { enabled = true }
+		ns.db.ui.toast.delveBounty = v and true or false
+	end, true)
+	Toggle("mh_openablesSound", "SET_OPENABLES_SOUND_TITLE", "SET_OPENABLES_SOUND_DESC", function()
+		return not (ns.db and ns.db.ui and ns.db.ui.openablesSound == false)
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.ui = ns.db.ui or {}
+		ns.db.ui.openablesSound = v and true or false
+	end, true)
+	Toggle("mh_delvePopupAuto", "SET_DELVEPOPUP_AUTO_TITLE", "SET_DELVEPOPUP_AUTO_DESC", function()
+		local s = ns.db and ns.db.ui and ns.db.ui.delveItemsPopup
+		return not (type(s) == "table" and s.autoShowInDelve == false)
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.ui = ns.db.ui or {}
+		ns.db.ui.delveItemsPopup = type(ns.db.ui.delveItemsPopup) == "table" and ns.db.ui.delveItemsPopup or {}
+		ns.db.ui.delveItemsPopup.autoShowInDelve = v and true or false
+	end, true)
 	Toggle("mh_runScorecard", "SET_SCORECARD_TITLE", "SET_SCORECARD_DESC", function()
 		return not (ns.db and ns.db.runScorecard == false)
 	end, function(v)
@@ -568,6 +605,16 @@ local function Build()
 		ns.db = ns.db or {}
 		ns.db.mouseOverflow = v and true or false
 	end, false)
+	-- 10 Oct 2026 (idea B4): /mh mouse 0-6 had no button. Only used with the switch above on and no measured mouse
+	-- (KeybindSchema.lua: Keybind_MouseKeysInPlay); empty means none, so the slider shows 0 then.
+	Slider("mh_mouseButtons", "SET_MOUSECOUNT_TITLE", "SET_MOUSECOUNT_DESC", 0, 6, 1, function()
+		return tonumber(ns.db and ns.db.mouseButtonCount) or 0
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.mouseButtonCount = math.max(0, math.min(6, math.floor((tonumber(v) or 0) + 0.5)))
+	end, function(v)
+		return tostring(math.floor((tonumber(v) or 0) + 0.5))
+	end)
 	Toggle("mh_debug", "SET_ADV_DEBUG", "SET_ADV_DEBUG_DESC", function()
 		return ns.db and ns.db.ui and ns.db.ui.debug
 	end, function(v)

@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — vijf instellingen erbij (SettingsDefs.lua, idee B4)
+
+Gebouwd, niet getest. Instellingen (`/mh` → Instellingen, of Blizzards paneel).
+- [ ] **Waarschuwingen:** "Korte meldingen (toasts)", "Toast: ongebruikte Trovehunter's Bounty", "Geluid als er iets nieuws
+  in je tassen open kan", "Delve-itemsvenster vanzelf openen". Alle vier staan AAN (zoals altijd al). Zet er één uit →
+  `/reload` → staat nog uit, en het ding zelf doet het niet meer.
+- [ ] **Geavanceerd:** schuifje "Hoeveel extra muisknoppen…" 0-6 (= `/mh mouse N`).
+- Kick-alarm staat er bewust NIET bij: toont op 12.1 niets (`SettingsDefs.lua`, regel bij Geavanceerd).
+
 ## 🆕 10 okt — markeerbalk: tank en healer met één klik (FastMark.lua)
 
 Gebouwd, niet getest. `/mh mark` (balk aan) in een groep.
