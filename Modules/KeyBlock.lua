@@ -2210,6 +2210,129 @@ function ns.ShowKeyBlockExport()
 		closeKey = "DELVE_SHARE_COPY_CLOSE",
 		width = 560,
 		height = 380,
+		extra = { labelKey = "KEYBLOCK_BTN_EXPORT_ALL", onClick = function()
+			ns.ShowKeyBlockExportAll()
+		end },
+	})
+end
+
+--------------------------------------------------------------------------------
+-- All characters at once (10 Oct 2026, site chat on Rob's request: "al je karakters in één keer naar de site" - Rob
+-- has 12 characters and had to log in on each one for its cheat sheet). Every character + spec keeps its latest
+-- MH-KEYBLOCK 1 code account-wide in ns.db.keyBlockCodes, refreshed at login, on a spec change and after Place /
+-- Update / Undo / New, but only while the block is placed there (undo removes it). "All characters" puts them in one
+-- copy box, this character first, each under a "# <char> - <spec> - updated <date>" line: the site skips lines that
+-- start with "#" and splits on every "MH-KEYBLOCK 1". The code itself is unchanged (contract above).
+--------------------------------------------------------------------------------
+
+local function CharKey()
+	local name = UnitName and UnitName("player")
+	if not name or (issecretvalue and issecretvalue(name)) then
+		return nil, nil
+	end
+	return name .. "-" .. ((GetRealmName and GetRealmName()) or "?"), name
+end
+
+local function CodeStore()
+	ns.db = ns.db or {}
+	ns.db.keyBlockCodes = ns.db.keyBlockCodes or {}
+	return ns.db.keyBlockCodes
+end
+
+local function SaveOwnCode()
+	if not ns.db or (InCombatLockdown and InCombatLockdown()) then
+		return
+	end
+	local ck, name = CharKey()
+	if not ck then
+		return
+	end
+	local store = CodeStore()
+	local text = ns.KeyBlockIsPlaced() and ns.BuildKeyBlockExport() or nil
+	local specid = text and text:match("specid=(%d+)")
+	if text and specid then
+		store[ck .. ":" .. specid] = { text = text, t = time and time() or 0, char = name, ck = ck,
+			spec = text:match("spec=([^;\n]*)") or "?" }
+	elseif ns.GetSpecialization and ns.GetSpecializationInfo then
+		-- Not placed (any more) on this spec: its old code would describe bars that are no longer so.
+		local ok, id = pcall(ns.GetSpecializationInfo, ns.GetSpecialization())
+		if ok and id then
+			store[ck .. ":" .. tostring(id)] = nil
+		end
+	end
+end
+
+local pendingSave = false
+local function SaveSoon(delay)
+	if pendingSave or not (C_Timer and C_Timer.After) then
+		return
+	end
+	pendingSave = true
+	C_Timer.After(delay or 1, function()
+		pendingSave = false
+		pcall(SaveOwnCode)
+	end)
+end
+
+for _, fn in ipairs({ "KeyBlockPlace", "KeyBlockUndo", "KeyBlockUpdate", "KeyBlockNewMode" }) do
+	if type(ns[fn]) == "function" and hooksecurefunc then
+		hooksecurefunc(ns, fn, function()
+			SaveSoon(1)
+		end)
+	end
+end
+
+do
+	local ev = CreateFrame("Frame")
+	ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+	ev:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+	ev:SetScript("OnEvent", function(_, event, arg1)
+		if event == "PLAYER_SPECIALIZATION_CHANGED" and arg1 ~= "player" then
+			return
+		end
+		-- Bars and spells settle a few seconds after login; a spec change swaps the bars too.
+		SaveSoon(event == "PLAYER_ENTERING_WORLD" and 5 or 2)
+	end)
+end
+
+--- The copy box with every saved code, this character first.
+function ns.ShowKeyBlockExportAll()
+	pcall(SaveOwnCode)
+	local ck = CharKey()
+	local list = {}
+	for _, e in pairs(CodeStore()) do
+		if type(e) == "table" and e.text then
+			list[#list + 1] = e
+		end
+	end
+	if #list == 0 then
+		print("|cffffcc00Midnight Helper:|r " .. ns:L("KEYBLOCK_EXPORT_ALL_NONE"))
+		return
+	end
+	table.sort(list, function(a, b)
+		if (a.ck == ck) ~= (b.ck == ck) then
+			return a.ck == ck
+		end
+		if a.char ~= b.char then
+			return tostring(a.char) < tostring(b.char)
+		end
+		return tostring(a.spec) < tostring(b.spec)
+	end)
+	local out = {}
+	for _, e in ipairs(list) do
+		out[#out + 1] = ("# %s - %s - updated %s"):format(tostring(e.char), tostring(e.spec),
+			date and date("%Y-%m-%d", e.t or 0) or "?")
+		out[#out + 1] = e.text
+		out[#out + 1] = ""
+	end
+	ns.ShowShareCopyDialog({
+		id = "keyblockexportall:" .. tostring(time and time() or 0),
+		text = (table.concat(out, "\n"):gsub("|", "||")),
+		titleKey = "KEYBLOCK_EXPORT_ALL_TITLE",
+		hintText = ns:L("KEYBLOCK_EXPORT_ALL_HINT_FMT"):format(#list),
+		closeKey = "DELVE_SHARE_COPY_CLOSE",
+		width = 560,
+		height = 420,
 	})
 end
 

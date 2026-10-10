@@ -539,6 +539,14 @@ function ns.ShowShareCopyDialog(opts)
 			f:Hide()
 		end)
 		f._close = close
+
+		-- Optional second button (opts.extra = { labelKey, onClick }), bottom left. 10 Oct 2026: the key block cheat
+		-- sheet's "All characters". Hidden for every caller that does not ask for it.
+		local extra = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+		extra:SetSize(160, 22)
+		extra:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 16, 14)
+		extra:Hide()
+		f._extra = extra
 		copyDialog = f
 	end
 
@@ -552,8 +560,19 @@ function ns.ShowShareCopyDialog(opts)
 
 	copyDialog._mhEntryId = opts.id
 	copyDialog._title:SetText(ns:L(opts.titleKey or "DELVE_SHARE_COPY_TITLE"))
-	copyDialog._hint:SetText(ns:L(opts.hintKey or "DELVE_SHARE_COPY_HINT"))
+	copyDialog._hint:SetText(opts.hintText or ns:L(opts.hintKey or "DELVE_SHARE_COPY_HINT"))
 	copyDialog._close:SetText(ns:L(opts.closeKey or "DELVE_SHARE_COPY_CLOSE"))
+	local extra = copyDialog._extra
+	if type(opts.extra) == "table" and opts.extra.onClick then
+		extra:SetText(ns:L(opts.extra.labelKey or "?"))
+		local fs = extra:GetFontString()
+		extra:SetWidth(math.max(120, (fs and fs:GetStringWidth() or 100) + 24))
+		extra:SetScript("OnClick", opts.extra.onClick)
+		extra:Show()
+	else
+		extra:SetScript("OnClick", nil)
+		extra:Hide()
+	end
 	copyDialog._eb:SetText(opts.text)
 	copyDialog._eb:SetCursorPosition(0)
 	copyDialog:Show()

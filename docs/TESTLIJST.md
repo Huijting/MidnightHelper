@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — toetsenblok: alle personages in één keer naar de site (KeyBlock.lua)
+
+Gebouwd, niet getest. Site-chat op Robs verzoek: "al je karakters in één keer naar de site".
+- [ ] **Bewaren:** log in op een personage MET het toetsenblok geplaatst (of klik Plaatsen/Bijwerken) → zijn code wordt
+  bewaard. Ongedaan maken haalt hem weg. Doe dit op 2-3 personages.
+- [ ] **Knop:** `/mh block` → Cheat sheet → linksonder **"Alle personages"** → één kopieervak met alle codes, dit
+  personage eerst, boven elke code "# naam - spec - updated <datum>".
+- [ ] **Site:** plakken op midnighthelper.com/keyblock/ zodra de site-chat meldt dat hun kant live is.
+- (Geen personage met het blok? Dan zegt de knop in de chat dat er nog niets bewaard is.)
+
 ## 🆕 10 okt — `/mh presses` in een venster + SimC-ras (KeyPresses.lua, SimcExport.lua)
 
 Gebouwd, niet getest. Rob, 9 okt: "in een chat is het onoverzichtelijk".

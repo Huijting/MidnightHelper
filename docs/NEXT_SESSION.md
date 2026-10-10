@@ -16,7 +16,14 @@
   Hunter- en Priest-venster getest ✅; ruil-knop ✅ (Rob 10 okt). Daarna op zijn verzoek: heals + interrupts +
   Blijf leven nooit in een ruil (beide kanten), en een ruil-STAPEL (`bucket.swaps`, max 20): "terugdraaien (N)" en
   "alles terugdraaien (N)"; "Wis deze spec" bewaart de stapel. Hertest open.
-- Site-chat seinen bij de beta (site volgt elke functie: het venster, ruilen, Bartender/ElvUI).
+- ✅ GEBOUWD 10 okt (site-chat-opdracht, Rob koos het): toetsenblok "Alle personages" — `ns.db.keyBlockCodes`
+  (per char-realm:specid, alleen als het blok geplaatst is; ververst bij inloggen, spec-wissel, Place/Update/Undo/New),
+  knop linksonder in het Cheat sheet-kopieervak (`ShowShareCopyDialog` kreeg `opts.extra` + `opts.hintText`).
+  Codeformaat ONGEWIJZIGD; elke code krijgt er een "# char - spec - updated datum"-regel boven. Niet getest.
+- 0x-ruilplekken (Rob koos ja): `NeverPressed` + `ns.LiveKeysAll`, vanaf 5 gevechten. Niet getest.
+- Site-chat seinen bij de beta (site volgt elke functie: het venster, ruilen, Bartender/ElvUI, alle personages). 🔴 Sinds 10 okt
+  (Rob via site-chat): óók bij elke BETA-tag een seintje met versie + wanneer hij met B op CF staat — de site zet dan
+  een oranje regel onder de versie.
 - 📌 Site-chat 10 okt: `/codex/` en `/patch/12-1-5/` staan live (tools/build_codex.py uit de tag). Een NIEUWE
   `minInterface` vraagt een datum in BEIDE: onze `tools/build_site.py` PATCH_LIVE én hun `build_tips.PATCH_DAYS`.
 
