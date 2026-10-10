@@ -47,6 +47,10 @@ local _, ns = ...
 	  gems     17th field, every line (10 Oct 2026, Armory item 6): "g<filled>/<total>e<0|1>", e.g. "g1/2e1" =
 	           one of two sockets filled, enchanted. Always written, so fields 12-16 now always appear (empty).
 	  effect   (14th field) is written for EVERY slot since 10 Oct 2026 (Armory item 5), not only rings/trinkets.
+	  which    18th field (10 Oct 2026): "<enchantID>/<gemItemID>:<gemItemID>", e.g. "7409/213746", "/213746",
+	           "7409/"; empty when neither. Gem ids from GetItemGem's links, link fields 3-6 as fallback.
+	  enchname 19th field (10 Oct 2026): the enchant name from the tooltip's "Enchanted:" line, in the
+	           client's language; empty when none.
 	           Link layout: itemID is field 1, numBonusIDs field 13, the bonus IDs follow. AFGELEID from
 	           three installed addons that agree (AskMrRobot-Serializer.lua:317, EllesmereUIBags.lua:286,
 	           ClassCodex Crafting.lua:174). VERIFY: Wowhead's tooltip matching the item in the game.
@@ -400,6 +404,59 @@ local function GemsField(link)
 	return ("g%d/%de%d"):format(math.min(filled, math.max(total, filled)), math.max(total, filled), e)
 end
 
+--- The "which" field (10 Oct 2026, site chat: show enchant and gems on the Armory sheet):
+--- "<enchantID>/<gemItemID>:<gemItemID>...", "" when neither. Enchant id = link field 2. Gems come from
+--- GetItemGem(link, i), the documented route (GearEnchantCheck.lua:501 uses it), item id read from the gem's
+--- own link; the raw link gem fields 3-6 are only the fallback.
+local function WhichField(link)
+	local ench = tonumber(link:match("item:%d+:(%-?%d*)") or "") or 0
+	local gems = {}
+	if GetItemGem then
+		for i = 1, 4 do
+			local ok, _, gemLink = pcall(GetItemGem, link, i)
+			local id = ok and type(gemLink) == "string" and tonumber(gemLink:match("item:(%d+)"))
+			if id then
+				gems[#gems + 1] = tostring(id)
+			end
+		end
+	end
+	if #gems == 0 then
+		local g1, g2, g3, g4 = link:match("item:%d+:%-?%d*:(%d*):(%d*):(%d*):(%d*)")
+		for _, g in ipairs({ g1, g2, g3, g4 }) do
+			local id = tonumber(g)
+			if id and id ~= 0 then
+				gems[#gems + 1] = tostring(id)
+			end
+		end
+	end
+	if ench == 0 and #gems == 0 then
+		return ""
+	end
+	return (ench ~= 0 and tostring(ench) or "") .. "/" .. table.concat(gems, ":")
+end
+
+--- The enchant's name as this client shows it ("Enchanted: <name>" line, the localized
+--- ENCHANTED_TOOLTIP_LINE prefix), "" when none. "|" is replaced so the line keeps its fields.
+local function EnchantNameField(link)
+	if not (C_TooltipInfo and C_TooltipInfo.GetHyperlink) then
+		return ""
+	end
+	local fmt = rawget(_G, "ENCHANTED_TOOLTIP_LINE") or "Enchanted: %s"
+	local prefix = fmt:gsub("%%s.*$", "")
+	if prefix == "" then
+		return ""
+	end
+	local ok, data = pcall(C_TooltipInfo.GetHyperlink, link)
+	for _, line in ipairs(ok and type(data) == "table" and type(data.lines) == "table" and data.lines or {}) do
+		local t = line.leftText
+		if ns.CanAccessText(t) and t:find(prefix, 1, true) == 1 then
+			local name = t:sub(#prefix + 1):gsub("^%s+", ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|", "/")
+			return name
+		end
+	end
+	return ""
+end
+
 --- The "set" field: the item's set id (16th return of GetItemInfo, as VaultAdvisor reads it), "" when none.
 local function SetField(link)
 	if not (C_Item and C_Item.GetItemInfo) then
@@ -437,9 +494,10 @@ local function Line(where, slot, link, primaryKey, skipOtherPrimary)
 	local uniq, effect = Extras(slot, link)
 	-- Fields 12-15 always written, then trailing empties trimmed: without an item id the line is
 	-- exactly what it was before field 15 existed.
-	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s|%s|%s"):format(
+	local line = ("%s|%s|%d|%s|%s|%d|%d|%d|%d|%d|%d|%s|%s|%s|%s|%s|%s|%s|%s"):format(
 		where, slot, ItemLevel(link), q, name, s.str, s.sta, s.crit, s.haste, s.mast, s.vers,
-		Hands(slot, link), uniq, effect, ItemField(link), SetField(link), GemsField(link))
+		Hands(slot, link), uniq, effect, ItemField(link), SetField(link), GemsField(link),
+		WhichField(link), EnchantNameField(link))
 	return (line:gsub("|+$", ""))
 end
 
@@ -478,7 +536,7 @@ function ns.BuildGearExport()
 	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s;realm=%s;region=%s"):format(
 		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
 		primary and primary.name or "?", (tostring(realm):gsub("[;|=]", "")), region)
-	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect|item|set|gems"
+	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect|item|set|gems|enchant/gem ids|enchant name"
 
 	local function Add(where, slot, link)
 		-- Only bag items are filtered: what you wear is written whatever it is.
