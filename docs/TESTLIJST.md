@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — Codex "De Midnight-campagne beginnen" aangevuld (Codex.lua)
+
+Rob vroeg een artikel "Midnight beginnen op een alt" — het bestond al (8 sep, door Rob gemeten); hij koos aanvullen.
+- [ ] Codex → Start → "De Midnight-campagne beginnen": nieuw zijn "Kwijt? Loop Stormwind of Orgrimmar binnen…" en het
+  punt "Die skip-regel verschijnt pas als een personage op je account de achievement Midnight heeft".
+- ✅ GEMETEN Rob 10 okt: `GetAchievementInfo(42045)` = "Midnight", true op zijn account.
+- Weggelaten tot gemeten: de level-90-skip bij Soridormi (Silvermoon, Wayfarer's Rest). Meten bij haar met
+  `/run for _,o in ipairs(C_GossipInfo.GetOptions()) do print(o.gossipOptionID,o.name) end`.
+
 ## 🆕 10 okt — vijf instellingen erbij (SettingsDefs.lua, idee B4)
 
 Gebouwd, niet getest. Instellingen (`/mh` → Instellingen, of Blizzards paneel).

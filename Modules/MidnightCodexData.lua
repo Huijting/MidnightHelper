@@ -140,6 +140,14 @@ ns.CODEX_ARTICLES = {
 	--- people before they clicked; the measurement turned it into a way back out. Warning about
 	--- a choice that costs nothing would have been scaremongering, and the thing nobody can see
 	--- on that screen is the undo.
+	---
+	--- 10 Oct 2026 (Rob: "Codex: Midnight beginnen op een alt" -> it existed; he chose to extend this one): two
+	--- lines from mh-research, NOT measured in the client: the skip needs account achievement 42045 "Midnight"
+	--- (Zygor ZygorLevelingCommonMID.lua:21-24, Wowhead; wago Flags 0x20000 = account-bound), and a lost quest is
+	--- offered again in Stormwind/Orgrimmar or via the Adventure Guide (warcraft.wiki.gg "Midnight (quest)").
+	--- MEASURED the same day on Rob's account: GetAchievementInfo(42045) -> "Midnight", completed true - the account
+	--- that saw the skip on 8 Sep has it. That the skip NEEDS it stays sourced (Zygor), not measured.
+	--- Left out until measured: the level-90 campaign skip at Soridormi (Wowhead comments only).
 	{
 		id = "midnight_campaign_start",
 		category = "start",
@@ -151,7 +159,8 @@ ns.CODEX_ARTICLES = {
 		searchKeys = "midnight campaign start starting intro introduction skip liadrin lady "
 			.. "image dornogal stormwind orgrimmar scouting map sanctum of light choose "
 			.. "starting zone where to begin eversong harandar voidstorm zulaman zul'aman "
-			.. "arator arator's journey abandon change my mind wrong choice",
+			.. "arator arator's journey abandon change my mind wrong choice alt alts second character "
+			.. "lost quest adventure guide achievement tweede personage",
 	},
 	-- The general half of /mh stats. The command answers "what about MY spec"; this
 	-- answers "what are these four words" for someone who is not in the game right

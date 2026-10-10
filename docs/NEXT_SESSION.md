@@ -20,6 +20,9 @@
   (per char-realm:specid, alleen als het blok geplaatst is; ververst bij inloggen, spec-wissel, Place/Update/Undo/New),
   knop linksonder in het Cheat sheet-kopieervak (`ShowShareCopyDialog` kreeg `opts.extra` + `opts.hintText`).
   Codeformaat ONGEWIJZIGD; elke code krijgt er een "# char - spec - updated datum"-regel boven. Niet getest.
+- ✅ 10 okt, Rob zette ze in de beta: FastMark tank/healer-knop (werkt, Rob getest; icoon hersteld), 5 instellingen
+  (toasts, bounty-toast, openables-geluid, delve-popup auto, muisknoppen 0-6; kick-alarm bewust niet), Codex MIDSTART
+  aangevuld (bestond al; skip vraagt achievement 42045 — GEMETEN op Robs account true; Soridormi-skip weggelaten).
 - 0x-ruilplekken (Rob koos ja): `NeverPressed` + `ns.LiveKeysAll`, vanaf 5 gevechten. Niet getest.
 - Site-chat seinen bij de beta (site volgt elke functie: het venster, ruilen, Bartender/ElvUI, alle personages). 🔴 Sinds 10 okt
   (Rob via site-chat): óók bij elke BETA-tag een seintje met versie + wanneer hij met B op CF staat — de site zet dan

@@ -17,6 +17,7 @@ Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96, Bartender4/E
 	CHANGELOG_476_4 = "Key block cheat sheet: All characters puts the codes of every character that has the key block placed in one copy box, each with the date it was last updated. Paste them all at once on midnighthelper.com.",
 	CHANGELOG_476_5 = "Marker bar (/mh mark): a new button marks the tank with a blue square and the healer with a green triangle in one click, using the roles of your group. Only one of them in the group? Only that one is marked.",
 	CHANGELOG_476_6 = "Settings: five switches that had no button now do - short pop-up notes (toasts), the Trovehunter's Bounty toast, the sound for new things to open, the Delve items window opening by itself, and how many extra mouse buttons the key layout may use.",
+	CHANGELOG_476_7 = "Codex, Starting the Midnight campaign: lost the quest? Stormwind, Orgrimmar or the Adventure Guide offer it again. And the skip line only appears once a character on your account has the Midnight achievement.",
 	CHANGELOG_476_2 = "Raidbots export (/mh raidbots): race ids 95 and 96 (SimulationCraft calls them skyborne_alliance and skyborne_horde) get the race name SimulationCraft expects.",
 ```
 
@@ -31,6 +32,7 @@ Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96, Bartender4/E
 			"CHANGELOG_476_4",
 			"CHANGELOG_476_5",
 			"CHANGELOG_476_6",
+			"CHANGELOG_476_7",
 			"CHANGELOG_476_2",
 		},
 	},
