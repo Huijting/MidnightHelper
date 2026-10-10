@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — beroepen: bij elke node staat nu op welk tab hij zit (Profession.lua + ProfessionAcademy.lua)
+
+- [ ] Op je Jewelcrafter met punten over: Tools > Professions. Onder "Individual nodes…" staat nu bv.
+      "Calculated Concentration (0/30) - tab Thoughtful Throughput, opens once Thoughtful Throughput has points".
+      Klopt dat tab als je het in het spel opent? En staan de nodes die je NU kunt kopen bovenaan?
+
 ## 🆕 10 okt — Demonology: pet-knop roept Felguard op i.p.v. Imp (MissingBuff.lua)
 
 - [x] ✅ Rob 10 okt: Warlockie (Demonology) krijgt nu de Felguard.

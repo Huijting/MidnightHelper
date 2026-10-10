@@ -556,9 +556,18 @@ local function BuildProfsText(profs, summaries, withPointer)
 						text = text .. "\n|cff8a8f98" .. header .. "|r"
 						for _, c in ipairs(choices) do
 							local desc = c.desc and (" - " .. c.desc) or ""
+							-- 10 Oct 2026: say WHERE the node is (its tab), and when a branch
+							-- cannot be bought until the tab's root has points.
+							local where = ""
+							if c.tab and not c.isRoot and c.tab ~= c.name then
+								where = SL("PROFACAD_CHOICE_TAB_FMT"):format(c.tab)
+							end
+							if c.waitsForRoot then
+								where = where .. SL("PROFACAD_CHOICE_AFTER_ROOT_FMT"):format(c.waitsForRoot)
+							end
 							text = text .. "\n   |cffd8c89a"
 								.. (SL("PROFACAD_CHOICE_FMT")):format(c.name, c.purchased or 0, c.max or 0)
-								.. "|r|cff8a8f98" .. desc .. "|r"
+								.. "|r|cffa0a8b8" .. where .. "|r|cff8a8f98" .. desc .. "|r"
 						end
 					end
 				end

@@ -2001,6 +2001,25 @@ function ns.GetProfessionSpecNodes(midnightLine)
 		return out
 	end
 	for _, treeID in ipairs(treeIDs) do
+		-- 10 Oct 2026 (Rob: "where do I find Calculated Concentration?"): every node now carries
+		-- the TAB it sits in, and whether that tab's root still has no points. GetTabInfo and
+		-- GetRootPathForTab are what /mh profids already reads (see PrintProfIdsProbe).
+		local tabName, rootPath, rootName, rootRank
+		if C_ProfSpecs.GetTabInfo then
+			local okT, tinfo = pcall(C_ProfSpecs.GetTabInfo, treeID)
+			tabName = okT and type(tinfo) == "table" and ns.CanAccessText(tinfo.name) and tinfo.name or nil
+		end
+		if C_ProfSpecs.GetRootPathForTab then
+			local okR, rp = pcall(C_ProfSpecs.GetRootPathForTab, treeID)
+			if okR and rp then
+				rootPath = rp
+				local okRN, rn = pcall(C_Traits.GetNodeInfo, configID, rp)
+				if okRN and type(rn) == "table" then
+					rootRank = math.max((tonumber(rn.ranksPurchased) or 0) - 1, 0)
+					rootName = ns.ResolveTraitNodeName(configID, rn)
+				end
+			end
+		end
 		local okN, nodes = pcall(C_Traits.GetTreeNodes, treeID)
 		if okN and type(nodes) == "table" then
 			for _, nodeID in ipairs(nodes) do
@@ -2008,11 +2027,16 @@ function ns.GetProfessionSpecNodes(midnightLine)
 				if okI and type(node) == "table" and (node.maxRanks or 0) > 1 then
 					local name = ns.ResolveTraitNodeName(configID, node)
 					if name then
+						local isRoot = rootPath ~= nil and nodeID == rootPath
 						out[#out + 1] = {
 							name = name,
 							desc = ns.ResolveTraitNodeDescription(configID, node),
 							purchased = math.max((node.ranksPurchased or 0) - 1, 0),
 							max = (node.maxRanks or 0) - 1,
+							tab = tabName,
+							isRoot = isRoot,
+							-- A branch of a tab whose root has no points yet cannot be bought now.
+							waitsForRoot = (not isRoot and rootRank == 0) and (rootName or tabName) or nil,
 						}
 					end
 				end
@@ -2043,11 +2067,13 @@ function ns.GetProfessionNodeChoices(midnightLine, maxCount)
 	if not ok or type(nodes) ~= "table" then
 		return out
 	end
-	local started, fresh = {}, {}
+	local started, fresh, later = {}, {}, {}
 	for _, n in ipairs(nodes) do
 		if (n.purchased or 0) < (n.max or 0) then
 			if (n.purchased or 0) > 0 then
 				started[#started + 1] = n
+			elseif n.waitsForRoot then
+				later[#later + 1] = n -- 10 Oct 2026: what you cannot buy yet goes last
 			else
 				fresh[#fresh + 1] = n
 			end
@@ -2061,8 +2087,8 @@ function ns.GetProfessionNodeChoices(midnightLine, maxCount)
 	-- used to say nothing about the rest, which reads as "these are your options"
 	-- when it means "here are four of nineteen". Silent truncation is the same
 	-- fault as silent staleness — say what was left out.
-	local total = #started + #fresh
-	for _, list in ipairs({ started, fresh }) do
+	local total = #started + #fresh + #later
+	for _, list in ipairs({ started, fresh, later }) do
 		for _, n in ipairs(list) do
 			if #out >= limit then
 				return out, total
