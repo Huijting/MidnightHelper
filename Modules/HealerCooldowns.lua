@@ -293,7 +293,8 @@ ns.NONHEALER_DISPELS = {
 	MONK = { { id = 218164, types = { "poison", "disease" } } }, -- Detox (non-healer)
 	PALADIN = {
 		{ id = 213644, types = { "poison", "disease" } }, -- Cleanse Toxins (in-game verified)
-		{ id = 4987, types = { "magic" } }, -- Cleanse (DBM: Magic for non-Holy)
+		-- Cleanse 4987 removed 10 Oct 2026 (spec audit): Holy-only in 12.1 (MEASURED DB2); Prot/Ret
+		-- have only Cleanse Toxins, so a Holy player reading the Prot/Ret card was told "removes Magic".
 	},
 	PRIEST = { { id = 213634, types = { "disease" } } }, -- Purify Disease
 	WARLOCK = { { id = 89808, types = { "magic" } } }, -- Singe Magic (Imp)

@@ -64,12 +64,12 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 
 	-- Movement / utility_primary (GAP_CLOSER + guide.lua both specs)
 	["Vengeful Retreat"]   = { id = 198793, role = "utility_primary", priority = 2, bindKey = "Shift+Q", survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_BACKWARDS" }, -- backward jump (guide.lua havoc + venge)
-	["Felblade"]           = { id = 232893, role = "utility_primary", priority = 3, bindKey = "Ctrl+Q" },  -- gap-closer/builder (GAP_CLOSER 232893; RangeReferences)
+	["Felblade"]           = { id = 232893, role = "utility_primary", priority = 3, bindKey = "Ctrl+Q", specs = { 577, 581 } }, -- specs 10 Oct 2026 (spec audit: no Devourer node)  -- gap-closer/builder (GAP_CLOSER 232893; RangeReferences)
 	["Fel Rush"]           = { id = 195072, role = "utility_primary", priority = 1, specs = { 577 }, survival = "escape", survivalOrder = 1 }, -- Havoc kern-movement/dash (GAP_CLOSER DEMONHUNTER_1 = 195072; ontbrak, toegevoegd)
 	["Infernal Strike"]    = { id = 189110, role = "utility_primary", priority = 1, specs = { 581 }, survival = "escape", survivalOrder = 1 }, -- Vengeance kern-movement/gap-closer (GAP_CLOSER DEMONHUNTER_2 = 189110; ontbrak, toegevoegd)
 
 	-- Grote CD / cooldown_bar F1 (SpellDB THE_HUNT DEMONHUNTER_1/2 = {370965})
-	["The Hunt"]           = { id = 370965, role = "cooldown_bar", priority = 2, bindKey = "Shift+F1" }, -- baseline major CD (beide specs)
+	["The Hunt"]           = { id = 370965, role = "cooldown_bar", priority = 2, bindKey = "Shift+F1", specs = { 577 } }, -- 10 Oct 2026 (spec audit, DB2): Havoc only; Devourer has its own 1246167, Vengeance none
 
 	-- CC / dispel_cc (InterruptAbilities 179057/211881; SpellCategories CROWD_CONTROL)
 	-- Chaos Nova is Havoc/Vengeance only since 21 Sep 2026: Devourer gets Void Nova instead
@@ -93,7 +93,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Demon's Bite"]      = { id = 162243, category = "main_rotation", priority = 1, specs = { 577 } }, -- fury-builder (baseline Havoc generator; Felblade-alt buiten meta)
 	["Chaos Strike"]      = { id = 162794, category = "main_rotation", priority = 2, specs = { 577 } }, -- fury-spender ST (SpellArchetypes 162794; guide.lua {162794})
 	["Annihilation"]      = { id = 201427, category = "main_rotation", priority = 2, specs = { 577 } }, -- Meta-vorm van Chaos Strike (SpellArchetypes 201427; guide.lua {201427})
-	["Immolation Aura"]   = { id = 258920, category = "main_rotation", priority = 3 },                  -- AoE + fury (SpellArchetypes 258920; BEIDE specs -> geen specs-tag)
+	["Immolation Aura"]   = { id = 258920, category = "main_rotation", priority = 3, specs = { 577, 581 } }, -- specs 10 Oct 2026: Devourer's Soul Immolation overrides it                  -- AoE + fury (SpellArchetypes 258920; BEIDE specs -> geen specs-tag)
 	["Eye Beam"]          = { id = 198013, category = "main_rotation", priority = 4, specs = { 577 } }, -- channel + Meta-trigger (SpellArchetypes 198013; guide.lua {198013})
 	-- Spenders (guide.lua {185123} ranged filler)
 	["Throw Glaive"]      = { id = 185123, category = "spender", priority = 1, specs = { 577, 581, 1480 }, blockAs = { [581] = { category = "main_rotation", priority = 7 }, [1480] = { category = "main_rotation", priority = 7 } } },       -- ranged filler-spender (SpellArchetypes 185123; guide.lua {185123})

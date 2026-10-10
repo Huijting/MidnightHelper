@@ -82,7 +82,9 @@ ns.MISSING_BUFF_DEFS = {
 		-- een valse "andere Rite mist"-melding. Gegate op geleerd (talent).
 		{ spell = 433568, kind = "imbue_mh", prio = 20, textKey = "MBUFF_TXT_IMBUE" }, -- Rite of Sanctification
 		{ spell = 433583, kind = "imbue_mh", prio = 21, textKey = "MBUFF_TXT_IMBUE" }, -- Rite of Adjuration
-		{ spell = 53563, buff = 53563, kind = "ally", specs = { 65 }, prio = 15, textKey = "MBUFF_TXT_ALLY" }, -- Beacon of Light (Holy)
+		-- unlessSpell 200025 (10 Oct 2026, spec audit): Beacon of Virtue replaces Beacon of Light and lasts seconds,
+		-- so with Virtue this reminder never went away. MEASURED DB2: Virtue overrides 53563 (node 81554).
+		{ spell = 53563, buff = 53563, kind = "ally", specs = { 65 }, unlessSpell = 200025, prio = 15, textKey = "MBUFF_TXT_ALLY" }, -- Beacon of Light (Holy)
 		{ spell = 156910, buff = 156910, kind = "ally", specs = { 65 }, prio = 16, textKey = "MBUFF_TXT_ALLY" }, -- Beacon of Faith (Holy talent)
 	},
 	-- Rogue: poisons apart (1 lethal + 1 non-lethal), zie ns.MISSING_POISONS.

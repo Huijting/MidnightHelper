@@ -44,26 +44,13 @@ ns.TeamMacrosByClassSpec = {
 			macro = [=[#showtooltip Death and Decay
 /cast [@cursor] Death and Decay]=],
 			},
-			{
-			id = "pet_hook",
-			name = "Pet Hook",
-			descNl = "Laat je pet direct zijn Abomination Hook gebruiken op je focus doel.",
-			descEn = "Commands your pet to use Abomination Hook on your focus target.",
-			macro = [=[#showtooltip Hook
-/cast [@focus,harm,nodead][] Hook]=],
-			},
+			-- "Pet Hook" removed 10 Oct 2026 (spec audit, DB2 12.1.0.69933): Hook belongs to the
+			-- Abomination pet line; the Unholy pet is a Ghoul, the Abomination only a temporary summon.
 		},
 	},
 	DEMONHUNTER = {
 		[1] = {
-			{
-			id = "cursor_sigil",
-			name = "Cursor Sigil",
-			descNl = "Plaatst Sigil of Flame direct op je muispositie.",
-			descEn = "Place Sigil of Flame at your cursor.",
-			macro = [=[#showtooltip Sigil of Flame
-/cast [@cursor] Sigil of Flame]=],
-			},
+			-- "Cursor Sigil" (Sigil of Flame) removed 10 Oct 2026 (spec audit): Vengeance-only in 12.1.
 			{
 			id = "cursor_metamorphosis",
 			name = "Cursor Metamorphosis",

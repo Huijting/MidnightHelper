@@ -31,6 +31,13 @@
   GEMETEN 10 okt: C_DeathRecap buiten een instance volledig leesbaar (18 velden, 0 geheim, overleeft /reload); dungeon-
   meting open. `/mh kp weekly` eerste meting gedaan (alles false; 3189/3196 tonen voortgang). `/mh death` gaf een fout
   op `cleuAllowed` (las `build` als entry) → gerepareerd.
+- 🔎 10 okt SPEC-AUDIT (Rob koos "alle specs"): 4 mh-research-rapporten in `docs/SPEC_AUDIT_2026-10-10/`.
+  ✅ plate_dh.md verwerkt: W1 Devourer Disrupt, W2 Holy geen Rebuke, W3 Breath of Sindragosa 1249658/90 s (7 talen),
+  W4 Devourer The Hunt 1246167, W5 Pet Hook weg, W6 Havoc Cursor Sigil weg, W7 Cleanse 4987 uit non-healer-dispels,
+  W8 Aura Mastery-tekst (7 talen), R1 Beacon of Light niet bij Beacon of Virtue (`unlessSpell`), R5 specs op Felblade,
+  The Hunt, Immolation Aura, Cleanse Toxins. OPEN uit dat rapport: R4 Avenging Crusader-keybind (verschuift toetsen →
+  Rob kiest), R2/R3 Arms-macro-teksten, R6-R10 laag, STALE-commentaren, `data/keyblock_specs.json` opnieuw genereren
+  (site-blok; loopt al achter). Wacht nog op: hunter_shaman_evoker, rogue_druid_monk, cloth.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 

@@ -79,7 +79,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Dispel / CC (V). Cleanse=dispel; Hammer of Justice/Blinding Light/Repentance=CC/stun.
 	["Cleanse"] = { id = 4987, category = "dispel_cc", priority = 1, specs = { 65 } }, -- SpellCategories HEALING [4987] (poison/disease/magic dispel)
-	["Cleanse Toxins"] = { id = 213644, category = "dispel_cc", priority = 2 }, -- SpellCategories UTILITY [213644] (Prot/Ret dispel-variant)
+	["Cleanse Toxins"] = { id = 213644, category = "dispel_cc", priority = 2, specs = { 66, 70 } }, -- specs 10 Oct 2026 (spec audit: Prot/Ret node 81507 only) -- SpellCategories UTILITY [213644] (Prot/Ret dispel-variant)
 	["Hammer of Justice"] = { id = 853, category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- CROWD_CONTROL [853]; JustAC InterruptAbilities [853] kind=cc mech=12 (stun-interrupt) → Spec 08 alsoStop
 	["Blinding Light"] = { id = 115750, category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [115750] (AoE disorient; castbare id per JustAC SpellCooldowns/SpellCategories, 105421 = effect)
     -- REMOVED 5 Oct 2026 (gap round, mh-research: not castable in 12.1): ["Repentance"] = { id = 20066, category = "dispel_cc", priority = 5 }, -- CROWD_CONTROL [20066] (incapacitate, talent)

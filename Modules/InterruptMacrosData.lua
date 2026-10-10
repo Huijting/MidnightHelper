@@ -17,7 +17,8 @@ local addonName, ns = ...
 --- KeybindRoles_Monk.lua:62,173). Now false, like Discipline and Holy Priest.
 local SPELLS = {
 	DEATHKNIGHT = { [1] = "Mind Freeze", [2] = "Mind Freeze", [3] = "Mind Freeze" },
-	DEMONHUNTER = { [1] = "Disrupt", [2] = "Disrupt" },
+	--- Havoc, Vengeance, Devourer. 10 Oct 2026 (spec audit): Devourer had no entry; Disrupt is a class spell.
+	DEMONHUNTER = { [1] = "Disrupt", [2] = "Disrupt", [3] = "Disrupt" },
 	--- Balance, Feral, Guardian, Restoration (client spec order).
 	DRUID = { [1] = "Solar Beam", [2] = "Skull Bash", [3] = "Skull Bash", [4] = false },
 	--- Devastation, Preservation, Augmentation (client spec order).
@@ -26,7 +27,8 @@ local SPELLS = {
 	MAGE = { [1] = "Counterspell", [2] = "Counterspell", [3] = "Counterspell" },
 	--- Brewmaster, Mistweaver, Windwalker (client spec order).
 	MONK = { [1] = "Spear Hand Strike", [2] = false, [3] = "Spear Hand Strike" },
-	PALADIN = { [1] = "Rebuke", [2] = "Rebuke", [3] = "Rebuke" },
+	--- 10 Oct 2026 (spec audit, DB2 12.1.0.69933): Rebuke is a Prot/Ret talent only; Holy cannot learn it.
+	PALADIN = { [1] = false, [2] = "Rebuke", [3] = "Rebuke" },
 	PRIEST = { [1] = false, [2] = false, [3] = "Silence" },
 	ROGUE = { [1] = "Kick", [2] = "Kick", [3] = "Kick" },
 	SHAMAN = { [1] = "Wind Shear", [2] = "Wind Shear", [3] = "Wind Shear" },

@@ -34,7 +34,7 @@
 local _, ns = ...
 
 ns.DPS_COOLDOWNS = {
-	[251] = { { id = 51271, cd = 45 }, { id = 279302, cd = 90 }, { id = 152279, cd = 120 }, { id = 439843, cd = 45 }, { id = 47568, cd = 30 }, { id = 196770, cd = 20 } }, -- Frost DK: Pillar of Frost, Frostwyrm's Fury, Breath of Sindragosa, Reaper's Mark (Deathbringer), Empower Rune Weapon (2 charges / 30s recharge), Remorseless Winter (20s core)
+	[251] = { { id = 51271, cd = 45 }, { id = 279302, cd = 90 }, { id = 1249658, cd = 90 }, { id = 439843, cd = 45 }, { id = 47568, cd = 30 }, { id = 196770, cd = 20 } }, -- Frost DK: Pillar of Frost, Frostwyrm's Fury, Breath of Sindragosa, Reaper's Mark (Deathbringer), Empower Rune Weapon (2 charges / 30s recharge), Remorseless Winter (20s core)
 	-- Dark Ascension (391109) used to sit here: it is a SHADOW PRIEST talent, not an
 	-- Unholy ability — Unholy's own APL (JustAC SimcRotations DEATHKNIGHT_3) never casts
 	-- it. Dark Transformation is 1233448: the talent node in W-TREE, 45 s (audit 17 Sep).
@@ -71,7 +71,9 @@ ns.DPS_COOLDOWNS = {
 	-- Void Metamorphosis has no timer (50 Soul Fragments), so no cd. Ids from the classifier
 	-- (JustAC SpellCooldowns); The Hunt is assumed to be the class talent Havoc uses (AFGELEID).
 	-- Void Metamorphosis 1217605 = the button; was 1217607, the buff (mh-research 3 Oct 2026).
-	[1480] = { { id = 1217605 }, { id = 370965, cd = 90 }, { id = 1241937, cd = 60 }, { id = 1245412, cd = 30 } }, -- Devourer DH: Void Metamorphosis, The Hunt, Soul Immolation, Voidblade
+	-- 10 Oct 2026 (spec audit): Breath of Sindragosa above is 1249658 / 90 s in 12.1 (152279 was the old tree);
+	-- Devourer's The Hunt is its own 1246167, not Havoc's 370965. MEASURED wago 12.1.0.69933.
+	[1480] = { { id = 1217605 }, { id = 1246167, cd = 90 }, { id = 1241937, cd = 60 }, { id = 1245412, cd = 30 } }, -- Devourer DH: Void Metamorphosis, The Hunt, Soul Immolation, Voidblade
 }
 
 local DPS_SPECS = {
