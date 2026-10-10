@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — Demonology: pet-knop roept Felguard op i.p.v. Imp (MissingBuff.lua)
+
+- [ ] Warlockie (Demonology), demon weg (Dismiss Pet): `/reload`. De ontbrekend-knop toont Summon Felguard, en een
+      klik roept de Felguard op. Op een Affliction/Destruction-warlock blijft het de Imp.
+
 ## 🆕 10 okt — meten voor de Knowledge-teller en de Death Recap-les (`/mh kp weekly`, `/mh death`)
 
 - [ ] Typ `/mh kp weekly` (NIET `/mh kp`: dat is een andere meting) en `/reload`. Haal je deze week nog een treatise

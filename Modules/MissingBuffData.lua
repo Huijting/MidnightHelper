@@ -120,6 +120,7 @@ ns.MISSING_POISONS = {
 --   Death Knight: alleen Unholy (252) — permanente ghoul (Raise Dead 46584).
 ns.MISSING_PET = {
 	HUNTER = { revive = 982, call = 883, mmSpec = 254, mmPetTalent = 1223323 },
-	WARLOCK = { summon = 688, sacrificeBuff = 196099 },
+	-- demoSummon 30146 = Summon Felguard (AFGELEID, niet in de client gemeten; alleen gebruikt als IsKnown).
+	WARLOCK = { summon = 688, sacrificeBuff = 196099, demoSpec = 266, demoSummon = 30146 },
 	DEATHKNIGHT = { summon = 46584, specs = { 252 } },
 }

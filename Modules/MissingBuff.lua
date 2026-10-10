@@ -334,6 +334,11 @@ function ns.GetMissingBuffs()
 			elseif classToken == "WARLOCK" then
 				shouldHavePet = not HasBuff(petDef.sacrificeBuff) -- Grimoire of Sacrifice = geen pet nodig
 				castSpell = petDef.summon
+				-- 10 Oct 2026 (Rob, Demonology): the knop zei Imp terwijl Blizzard Felguard aanraadt.
+				-- Demonology krijgt Summon Felguard, maar alleen als die spell bekend is.
+				if sid == petDef.demoSpec and petDef.demoSummon and IsKnown(petDef.demoSummon) then
+					castSpell = petDef.demoSummon
+				end
 			elseif classToken == "DEATHKNIGHT" then
 				shouldHavePet = SpecMatches(petDef.specs, sid) and IsKnown(petDef.summon)
 				castSpell = petDef.summon
