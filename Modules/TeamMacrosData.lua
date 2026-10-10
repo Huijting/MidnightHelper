@@ -167,12 +167,13 @@ ns.TeamMacrosByClassSpec = {
 		},
 		[2] = {
 			{
-			id = "mouseover_spiritbloom",
-			name = "Mouseover Spiritbloom",
-			descNl = "Healt de groep onder je muiscursor.",
-			descEn = "Heal the group under your cursor.",
-			macro = [=[#showtooltip Spiritbloom
-/cast [@mouseover,help,nodead][] Spiritbloom]=],
+			-- 10 Oct 2026 (spec audit W2): Spiritbloom is gone in 12.1; Verdant Embrace 360995 is live.
+			id = "mouseover_verdant_embrace",
+			name = "Mouseover Verdant Embrace",
+			descNl = "Vliegt naar het teamlid onder je muis en healt het.",
+			descEn = "Fly to the teammate under your cursor and heal them.",
+			macro = [=[#showtooltip Verdant Embrace
+/cast [@mouseover,help,nodead][] Verdant Embrace]=],
 			},
 			{
 			id = "cursor_emerald_blossom",
@@ -650,10 +651,11 @@ ns.TeamMacrosByClassSpec = {
 			{
 			id = "cursor_totems",
 			name = "Cursor Totems",
-			descNl = "Plaatst Windfury of Capacitor Totem direct op je muispositie.",
-			descEn = "Place Windfury or Capacitor Totem at your cursor.",
-			macro = [=[#showtooltip Windfury Totem
-/cast [@cursor] Windfury Totem]=],
+			-- 10 Oct 2026 (spec audit W3): Windfury Totem is gone in 12.1; Capacitor Totem 192058 is live.
+			descNl = "Plaatst Capacitor Totem direct op je muispositie.",
+			descEn = "Place Capacitor Totem at your cursor.",
+			macro = [=[#showtooltip Capacitor Totem
+/cast [@cursor] Capacitor Totem]=],
 			},
 		},
 		[3] = {
@@ -677,14 +679,7 @@ ns.TeamMacrosByClassSpec = {
 	},
 	WARLOCK = {
 		[1] = {
-			{
-			id = "cursor_vile_taint",
-			name = "Cursor Vile Taint",
-			descNl = "Plaatst Vile Taint direct op je muispositie.",
-			descEn = "Cast Vile Taint at your cursor.",
-			macro = [=[#showtooltip Vile Taint
-/cast [@cursor] Vile Taint]=],
-			},
+			-- "Cursor Vile Taint" removed 10 Oct 2026 (spec audit C2): not learnable in 12.1 (DB2).
 			{
 			id = "focus_fear",
 			name = "Focus Fear",
@@ -695,14 +690,7 @@ ns.TeamMacrosByClassSpec = {
 			},
 		},
 		[2] = {
-			{
-			id = "cursor_guillotine",
-			name = "Cursor Guillotine",
-			descNl = "Gooit de bijl van je pet direct op je muispositie.",
-			descEn = "Throws your pet's axe at your cursor.",
-			macro = [=[#showtooltip Guillotine
-/cast [@cursor] Guillotine]=],
-			},
+			-- "Cursor Guillotine" removed 10 Oct 2026 (spec audit C3): not learnable in 12.1 (DB2).
 		},
 		[3] = {
 			{

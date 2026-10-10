@@ -37,7 +37,16 @@
   W8 Aura Mastery-tekst (7 talen), R1 Beacon of Light niet bij Beacon of Virtue (`unlessSpell`), R5 specs op Felblade,
   The Hunt, Immolation Aura, Cleanse Toxins. OPEN uit dat rapport: R4 Avenging Crusader-keybind (verschuift toetsen →
   Rob kiest), R2/R3 Arms-macro-teksten, R6-R10 laag, STALE-commentaren, `data/keyblock_specs.json` opnieuw genereren
-  (site-blok; loopt al achter). Wacht nog op: hunter_shaman_evoker, rogue_druid_monk, cloth.
+  (site-blok; loopt al achter).
+  ✅ cloth.md: C1 Arcane Familiar-knop cast nu Arcane Intellect (205022 is passief), C2/C3 Vile Taint- en
+  Guillotine-macro weg, C5 warlock-demon = laatst opgeroepen per spec (`ns.db.lastDemonBySpec`), anders Felhunter (Aff/
+  Destro), Felguard (Demo); Living Bomb weg. OPEN: R-punten (Barrier/Ult. Penitence, Sanctify-macro, keuze-helften op
+  kaarten, Ice Block Cancel, Holy Fire/SW:P).
+  ✅ hunter_shaman_evoker.md: W1 Flametongue = off-hand voor Enh, W2 Spiritbloom-macro → Verdant Embrace, W3 Windfury
+  Totem-macro → Capacitor Totem, W4 Flame Shock 470411 (35×), W5 Multi-Shot 257620 (7×), R4 Greater Purge telt mee.
+  OPEN: R1 `/mh healcds` toont beide keuze-helften, R2 Healing Rain/Surging Totem, R3 Purify Spirit curse = talent, R5
+  Doom Winds bij Ascendance, R11 schild-imbues zonder schild, Bestial Wrath 30 vs 90 s.
+  Wacht nog op: rogue_druid_monk.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 

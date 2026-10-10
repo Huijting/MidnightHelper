@@ -40,7 +40,9 @@ ns.MISSING_BUFF_DEFS = {
 	},
 	MAGE = {
 		{ spell = 1459, buff = 1459, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Arcane Intellect
-		{ spell = 205022, buff = 210126, kind = "self", specs = { 62 }, prio = 20, textKey = "MBUFF_TXT_MISSING" }, -- Arcane Familiar (talent 205022 → buff 210126)
+		-- 10 Oct 2026 (spec audit C1, DB2): 205022 is a passive in 12.1; the Familiar comes from casting
+		-- Arcane Intellect. So the button casts 1459, only for players with the talent.
+		{ spell = 1459, reqSpell = 205022, buff = 210126, kind = "self", specs = { 62 }, prio = 20, textKey = "MBUFF_TXT_MISSING" }, -- Arcane Familiar
 	},
 	PRIEST = {
 		{ spell = 21562, buff = 21562, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Power Word: Fortitude (+5% Stam)
@@ -67,7 +69,9 @@ ns.MISSING_BUFF_DEFS = {
 		{ spell = 383648, buff = 383648, kind = "self", reqSpell = 383010, showCombat = true, prio = 22, textKey = "MBUFF_TXT_SHIELD" }, -- Earth Shield (self, Elemental Orbit)
 		-- Wapen/schild-imbues (talenten). "learned" bepaalt of de spec 'm heeft; actief
 		-- = tijdelijke wapen-enchant op de betreffende slot.
-		{ spell = 318038, kind = "imbue_mh", specs = { 262, 263 }, prio = 30, textKey = "MBUFF_TXT_IMBUE" }, -- Flametongue Weapon
+		-- 10 Oct 2026 (spec audit W1, DB2 text): with Windfury Weapon known, Flametongue goes on the OFF-hand.
+		{ spell = 318038, kind = "imbue_mh", specs = { 262 }, prio = 30, textKey = "MBUFF_TXT_IMBUE" }, -- Flametongue Weapon (Ele: main hand)
+		{ spell = 318038, kind = "imbue_oh", specs = { 263 }, prio = 30, textKey = "MBUFF_TXT_IMBUE" }, -- Flametongue Weapon (Enh: off-hand)
 		{ spell = 33757, kind = "imbue_mh", specs = { 263 }, prio = 30, textKey = "MBUFF_TXT_IMBUE" }, -- Windfury Weapon
 		{ spell = 382021, kind = "imbue_mh", specs = { 264 }, prio = 30, textKey = "MBUFF_TXT_IMBUE" }, -- Earthliving Weapon
 		{ spell = 462757, kind = "imbue_oh", specs = { 262 }, prio = 30, textKey = "MBUFF_TXT_IMBUE" }, -- Thunderstrike Ward (schild)
@@ -125,6 +129,8 @@ ns.MISSING_POISONS = {
 ns.MISSING_PET = {
 	HUNTER = { revive = 982, call = 883, mmSpec = 254, mmPetTalent = 1223323 },
 	-- demoSummon 30146 = Summon Felguard (AFGELEID, niet in de client gemeten; alleen gebruikt als IsKnown).
-	WARLOCK = { summon = 688, sacrificeBuff = 196099, demoSpec = 266, demoSummon = 30146 },
+	-- felhunter 691 (10 Oct 2026, spec audit: baseline, MEASURED DB2) = default for Affliction/Destruction;
+	-- the last demon you summoned per spec wins (MissingBuff.lua, ns.db.lastDemonBySpec).
+	WARLOCK = { summon = 688, sacrificeBuff = 196099, demoSpec = 266, demoSummon = 30146, felhunter = 691 },
 	DEATHKNIGHT = { summon = 46584, specs = { 252 } },
 }

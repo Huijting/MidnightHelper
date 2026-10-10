@@ -350,6 +350,15 @@ function ns.GetMissingBuffs()
 				-- Demonology krijgt Summon Felguard, maar alleen als die spell bekend is.
 				if sid == petDef.demoSpec and petDef.demoSummon and IsKnown(petDef.demoSummon) then
 					castSpell = petDef.demoSummon
+				elseif petDef.felhunter and IsKnown(petDef.felhunter) then
+					-- Affliction/Destruction: MH's interrupt for them is Spell Lock, which only the
+					-- Felhunter has (spec audit 10 Oct 2026), so it beats the Imp as the default.
+					castSpell = petDef.felhunter
+				end
+				-- The demon you summoned last on this spec wins over both defaults.
+				local last = sid and ns.db and ns.db.lastDemonBySpec and ns.db.lastDemonBySpec[sid]
+				if last and IsKnown(last) then
+					castSpell = last
 				end
 			elseif classToken == "DEATHKNIGHT" then
 				shouldHavePet = SpecMatches(petDef.specs, sid) and IsKnown(petDef.summon)
@@ -877,6 +886,24 @@ local function ScheduleUpdate()
 		ns.UpdateMissingBuff()
 	end
 end
+
+-- 10 Oct 2026 (spec audit, cloth C5): remember which demon this warlock summoned last, per spec,
+-- so the missing-pet button brings THAT one back (players choose, not us).
+local DEMON_SUMMONS = { [688] = true, [697] = true, [691] = true, [366222] = true, [30146] = true }
+local demonEv = CreateFrame("Frame")
+demonEv:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
+demonEv:SetScript("OnEvent", function(_, _, _, _, spellID)
+	if ns.IsSecretValue and ns.IsSecretValue(spellID) then
+		return
+	end
+	if DEMON_SUMMONS[spellID] and ns.db then
+		local sid = CurrentSpecID()
+		if sid then
+			ns.db.lastDemonBySpec = ns.db.lastDemonBySpec or {}
+			ns.db.lastDemonBySpec[sid] = spellID
+		end
+	end
+end)
 
 ev:SetScript("OnEvent", function(_, event, unit)
 	if event == "UNIT_PET" then

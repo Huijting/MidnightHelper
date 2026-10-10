@@ -461,7 +461,7 @@ end
 local ENEMY_DISPELS = {
 	PRIEST = { { ids = { 528 }, what = "PLAYCARD_PURGE_MAGIC" } },
 	MAGE = { { ids = { 30449 }, what = "PLAYCARD_PURGE_STEAL" } },
-	SHAMAN = { { ids = { 370 }, what = "PLAYCARD_PURGE_MAGIC" } },
+	SHAMAN = { { ids = { 370, 378773 }, what = "PLAYCARD_PURGE_MAGIC" } }, -- Purge or Greater Purge (one choice node, spec audit 10 Oct 2026)
 	HUNTER = { { ids = { 19801 }, what = "PLAYCARD_PURGE_BOTH" } },
 	DRUID = { { ids = { 2908 }, what = "PLAYCARD_PURGE_ENRAGE" } },
 	DEMONHUNTER = { { ids = { 278326, 1277738 }, what = "PLAYCARD_PURGE_MAGIC" } },

@@ -50,7 +50,7 @@ ns.DPS_COOLDOWNS = {
 	-- Takedown and Boomstick are Survival's real cooldowns, but their ids are not settled (audit: TWIJFEL).
 	[255] = { { id = 259495, cd = 18 } }, -- Survival Hunter: Wildfire Bomb (18s core)
 	[62] = { { id = 365350, cd = 90 }, { id = 321507, cd = 45 } }, -- Arcane Mage: Arcane Surge, Touch of the Magi. Arcane Orb left 19 Sep 2026: 12.1 guides use it at 0 charges / on cooldown in AoE, a rotation button, not a burst to save (Icy Veins 15 Aug, Method 13 Sep)
-	[63] = { { id = 190319, cd = 120 }, { id = 153561, cd = 45 }, { id = 44457, cd = 30 } }, -- Fire Mage: Combustion, Meteor, Living Bomb (talent)
+	[63] = { { id = 190319, cd = 120 }, { id = 153561, cd = 45 } }, -- Fire Mage: Combustion, Meteor (Living Bomb 44457 removed 10 Oct 2026: not learnable in 12.1, spec audit)
 	[64] = { { id = 205021, cd = 60 }, { id = 84714, cd = 60 }, { id = 157997, cd = 25 } }, -- Frost Mage: Ray of Frost (the main cooldown now), Frozen Orb, Ice Nova (talent)
 	[269] = { { id = 1249625, cd = 90 }, { id = 123904, cd = 120 }, { id = 113656, cd = 24 }, { id = 392983, cd = 35 } }, -- Windwalker Monk: Zenith (2 charges), Invoke Xuen (Conduit of the Celestials), Fists of Fury (24s core), Strike of the Windlord (talent)
 	[70] = { { id = 31884, cd = 120 }, { id = 375576, cd = 60 }, { id = 343527, cd = 60 }, { id = 255937, cd = 30 } }, -- Ret Paladin: Avenging Wrath, Divine Toll, Execution Sentence, Wake of Ashes

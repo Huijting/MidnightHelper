@@ -415,7 +415,7 @@ ns.OFFENSIVE_PURGES = {
 	--
 	-- Shaman Purge 370 — JustAC/Data/SpellCategories.lua:512 and
 	-- SpellPilot/Classes/Removals.lua:34.
-	SHAMAN = { id = 370, types = { "magic" } },
+	SHAMAN = { id = 370, altId = 378773, types = { "magic" } }, -- altId = Greater Purge (same choice node 103624)
 	-- Hunter Tranquilizing Shot 19801 — JustAC:513, SpellPilot:22, and our own
 	-- KeybindRoles_Hunter.lua:75 ("enrage/magic dispel (19801), baseline").
 	HUNTER = { id = 19801, types = { "magic", "enrage" } },
@@ -470,17 +470,25 @@ function ns.GetPlayerPurgeIcon()
 			has = true
 		end
 	end
+	-- altId (10 Oct 2026, spec audit R4): the other half of a choice node (Greater Purge).
+	local useId = entry.id
+	if has ~= true and entry.altId and IsPlayerSpell then
+		local ok3, v3 = pcall(IsPlayerSpell, entry.altId)
+		if ok3 and v3 == true then
+			has, useId = true, entry.altId
+		end
+	end
 	if has ~= true then
 		return nil
 	end
 	if not (C_Spell and C_Spell.GetSpellTexture) then
 		return nil
 	end
-	local ok, tex = pcall(C_Spell.GetSpellTexture, entry.id)
+	local ok, tex = pcall(C_Spell.GetSpellTexture, useId)
 	if not ok or not tex then
 		return nil
 	end
-	cachedPurgeIcon, cachedPurgeSpell = tex, entry.id
+	cachedPurgeIcon, cachedPurgeSpell = tex, useId
 	return cachedPurgeIcon, cachedPurgeSpell
 end
 
