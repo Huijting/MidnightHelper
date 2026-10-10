@@ -12,6 +12,9 @@ Volgende versie = **BETA** (Rob, 9 okt: "presses komt later wel in een beta"). O
 Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96, Bartender4/ElvUI in LiveKeys
 (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`; niet in een client gezien — beta-spelers met die addons testen).
 
+🔴 **RSS (site-chat 10 okt, 02a6137):** midnighthelper.com/feed.xml leest bij elke tag de eerste regel (H1) en de
+`## `-koppen van RELEASE_NOTES.md. Houd de H1 dus een spelerstitel en de koppen netjes.
+
 ## ➕ NA beta1 (voor beta2 of de release) — nog NIET in de changelog/notes van de addon
 
 1. **Vrienden markeren** (FriendMarks.lua). 🔴 Pas opnemen NA Robs test met Carola en Cisca (Battle.net-route niet
