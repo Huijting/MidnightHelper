@@ -120,7 +120,8 @@ local function ReadLiveItems()
 				purchased = info.purchased and true or false,
 				speciesID = info.speciesID,
 				mountID = info.mountID,
-				transmogSetID = info.transmogSetID, -- nil when the field does not exist; /mh tp why shows it
+				transmogSetID = info.transmogSetID, -- MEASURED 10 Oct 2026: present, 0 when not a set
+				appearanceID = info.itemModifiedAppearanceID, -- MEASURED 10 Oct 2026: present, 0 for non-gear
 				categoryID = info.perksVendorCategoryID,
 			}
 		end
@@ -211,8 +212,8 @@ end
 
 -- Transmog, toys and sets (10 Oct 2026, Rob: "transmog heb je al"). Each check answers only
 -- "yes, you have it"; a false or an error leaves the row as it was, so a wrong guess about an
--- API can hide nothing. AFGELEID which of these the client answers for Trading Post wares:
--- /mh tp why counts them per check.
+-- API can hide nothing. MEASURED 10 Oct 2026 (Rob, /mh tp why): PlayerHasTransmog said yes for the
+-- bought Horseman's Hallowed Bulwark, the set check for the bought Horseman's ensemble (set 5162).
 local function OwnedChecks(it)
 	local id = it.itemID
 	local res = {}
@@ -224,7 +225,13 @@ local function OwnedChecks(it)
 		local ok, v = pcall(C_TransmogCollection.PlayerHasTransmog, id)
 		res.transmog = ok and v == true
 	end
-	if it.transmogSetID and C_TransmogSets and C_TransmogSets.GetSetInfo then
+	-- The exact appearance the Post sells: true also when you learned it from another item.
+	if (it.appearanceID or 0) > 0 and C_TransmogCollection
+		and C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance then
+		local ok, v = pcall(C_TransmogCollection.PlayerHasTransmogItemModifiedAppearance, it.appearanceID)
+		res.transmog = res.transmog or (ok and v == true)
+	end
+	if (it.transmogSetID or 0) > 0 and C_TransmogSets and C_TransmogSets.GetSetInfo then
 		local ok, info = pcall(C_TransmogSets.GetSetInfo, it.transmogSetID)
 		res.set = ok and type(info) == "table" and info.collected == true
 	end
