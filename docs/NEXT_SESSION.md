@@ -10,7 +10,13 @@
 - ✅ GEBOUWD 10 okt, niet in een client gezien: Bartender4/ElvUI in LiveKeys (`LabSlots`: LibActionButton-knoppen,
   beide bibliotheeknamen; GetBindingAction + `_state_action`; alleen lezen). `/mh playkeys` toont "sources: …".
   Bij Rob moet alles gelijk blijven (Blizzard N, rest 0). Echte test = iemand mét BT4/ElvUI.
-- Site-chat seinen bij de beta (site volgt elke functie: het venster, Bartender/ElvUI).
+- ✅ GEBOUWD 10 okt (Rob koos "knop per tip + terugdraaien"): ruil-knop per tip in het presses-venster
+  (`DoSwap`/`UndoSwap`: zelfde ruil als BarEightKeys, daarna teruggelezen; laatste ruil in `bucket.lastSwap`, undo
+  alleen als beide knoppen nog kloppen). Interrupts + Blijf leven-spells nooit als rustige ruilpartner (`KeepEasy`).
+  Hunter- en Priest-venster getest ✅ (vóór de ruil-knop). Ruil-knop zelf: niet getest.
+- Site-chat seinen bij de beta (site volgt elke functie: het venster, ruilen, Bartender/ElvUI).
+- 📌 Site-chat 10 okt: `/codex/` en `/patch/12-1-5/` staan live (tools/build_codex.py uit de tag). Een NIEUWE
+  `minInterface` vraagt een datum in BEIDE: onze `tools/build_site.py` PATCH_LIVE én hun `build_tips.PATCH_DAYS`.
 
 ## (vorige) HIER VERDER (9 okt laat) — 4.7.5 is LIVE (RELEASE)
 Site ook live (site-chat 2abd9fd: strip 4.7.5, "New in 4.7.5", gidsen uit build_site main).

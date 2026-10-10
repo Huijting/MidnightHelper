@@ -323,13 +323,134 @@ local function Row(i)
 end
 
 --- Button text that may be longer in German or French ("Effacer la spécialisation"): the button grows with it.
-local function SetButtonText(btn, text)
+local function SetButtonText(btn, text, minW)
 	btn:SetText(text)
 	local fs = btn:GetFontString()
-	btn:SetWidth(math.max(150, (fs and fs:GetStringWidth() or 120) + 24))
+	btn:SetWidth(math.max(minW or 150, (fs and fs:GetStringWidth() or 120) + 24))
 end
 
-local function Refresh()
+--------------------------------------------------------------------------------
+-- Swap for me. Rob, 10 Oct 2026: "kunnen wij de optie geven dat de addon voor hun switcht, met de mededeling dat de
+-- knoppen veranderd zijn?" - he chose a button per tip plus undo: one swap at a time (a layout change is a habit
+-- change), out of combat only. The move is the one BarEightKeys already does on Rob's client (pick up A, place on
+-- B, put what was on B back on A). Afterwards the two slots are read back: the window only says "done" when the
+-- two actions really changed places, and "did not take" otherwise. The last swap per character and spec is kept
+-- in the bucket, so undo still works after a /reload, but only while both buttons still hold what the swap left.
+--------------------------------------------------------------------------------
+
+local Refresh -- defined below; the swap buttons call it
+
+local function ActionId(slot)
+	if not (slot and GetActionInfo) then
+		return nil
+	end
+	local ok, _, id = pcall(GetActionInfo, slot)
+	if ok and id and not (issecretvalue and issecretvalue(id)) then
+		return id
+	end
+	return nil
+end
+
+local function SwapSlots(a, b)
+	pcall(function()
+		ClearCursor()
+		PickupAction(a)
+		PlaceAction(b)
+		if GetCursorInfo and GetCursorInfo() then
+			PlaceAction(a)
+		end
+		ClearCursor()
+	end)
+	pcall(ClearCursor)
+end
+
+local function Say(text, good)
+	if win then
+		win.statusMsg = (good and "|cff40c040" or "|cffff9900") .. text .. "|r"
+	end
+	print(("%s %s"):format(Prefix(), text))
+end
+
+local function DoSwap(s)
+	if InCombatLockdown and InCombatLockdown() then
+		Say(ns:L("PRESSES_SWAP_COMBAT"), false)
+		Refresh()
+		return
+	end
+	local a = s.busy.hit and s.busy.hit.slot
+	local b = s.quiet.hit and s.quiet.hit.slot
+	local ida, idb = ActionId(a), ActionId(b)
+	if not (a and b and ida and idb) then
+		Say(ns:L("PRESSES_SWAP_FAILED"), false)
+		Refresh()
+		return
+	end
+	SwapSlots(a, b)
+	if ActionId(a) == idb and ActionId(b) == ida then
+		local bucket = Bucket(false)
+		if bucket then
+			bucket.lastSwap = { a = a, b = b, ida = ida, idb = idb, busy = s.busy.id, quiet = s.quiet.id,
+				busyKey = s.busy.short, quietKey = s.quiet.short }
+		end
+		Say(ns:L("PRESSES_SWAPPED"):format(SpellName(s.busy.id), s.quiet.short, SpellName(s.quiet.id), s.busy.short), true)
+	else
+		Say(ns:L("PRESSES_SWAP_FAILED"), false)
+	end
+	Refresh()
+end
+
+local function UndoSwap()
+	local bucket = Bucket(false)
+	local ls = bucket and bucket.lastSwap
+	if not ls then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		Say(ns:L("PRESSES_SWAP_COMBAT"), false)
+		Refresh()
+		return
+	end
+	if ActionId(ls.a) ~= ls.idb or ActionId(ls.b) ~= ls.ida then
+		bucket.lastSwap = nil
+		Say(ns:L("PRESSES_UNDO_STALE"), false)
+		Refresh()
+		return
+	end
+	SwapSlots(ls.a, ls.b)
+	if ActionId(ls.a) == ls.ida and ActionId(ls.b) == ls.idb then
+		bucket.lastSwap = nil
+		Say(ns:L("PRESSES_UNDONE"):format(SpellName(ls.busy), ls.busyKey or "?", SpellName(ls.quiet), ls.quietKey or "?"),
+			true)
+	else
+		Say(ns:L("PRESSES_SWAP_FAILED"), false)
+	end
+	Refresh()
+end
+
+local function TipRow(i)
+	win.tipRows = win.tipRows or {}
+	local t = win.tipRows[i]
+	if t then
+		return t
+	end
+	t = CreateFrame("Frame", nil, win)
+	t:SetWidth(WIN_W - 2 * PAD)
+	t.text = Text(t, "GameFontHighlight")
+	t.text:SetPoint("TOPLEFT", 0, 0)
+	t.text:SetWidth(WIN_W - 2 * PAD - 86)
+	t.btn = CreateFrame("Button", nil, t, "UIPanelButtonTemplate")
+	t.btn:SetSize(78, 22)
+	t.btn:SetPoint("TOPRIGHT", 0, 2)
+	t.btn:SetScript("OnClick", function(self)
+		if self.swap then
+			DoSwap(self.swap)
+		end
+	end)
+	win.tipRows[i] = t
+	return t
+end
+
+Refresh = function()
 	if not win then
 		return
 	end
@@ -338,6 +459,12 @@ local function Refresh()
 	for _, r in ipairs(win.rows or {}) do
 		r:Hide()
 	end
+	for _, t in ipairs(win.tipRows or {}) do
+		t:Hide()
+	end
+	win.status:SetText("")
+	win.status:ClearAllPoints()
+	win.undo:Hide()
 	local y = -44
 	local bucket, spec = Bucket(false)
 	win.title:SetText(ns:L("PRESSES_WIN_TITLE"))
@@ -393,19 +520,45 @@ local function Refresh()
 		end
 	end
 
-	local swaps, tips = Swaps(rows), {}
+	local swaps = Swaps(rows)
+	y = y - 10
 	if #swaps == 0 then
-		tips[#tips + 1] = "|cff40c040" .. ns:L("PRESSES_NOSWAP") .. "|r"
+		win.tips:SetText("|cff40c040" .. ns:L("PRESSES_NOSWAP") .. "|r")
 	else
-		for _, s in ipairs(swaps) do
-			tips[#tips + 1] = ns:L("PRESSES_SWAP"):format(SpellName(s.busy.id), s.busy.n, s.busy.short,
-				SpellName(s.quiet.id), s.quiet.n, s.quiet.short)
+		-- One row per tip, each with its own Swap button.
+		local swapLabel = ns:L("PRESSES_BTN_SWAP")
+		for i, s in ipairs(swaps) do
+			local t = TipRow(i)
+			t.text:SetText(ns:L("PRESSES_SWAP"):format(SpellName(s.busy.id), s.busy.n, s.busy.short,
+				SpellName(s.quiet.id), s.quiet.n, s.quiet.short))
+			SetButtonText(t.btn, swapLabel, 78)
+			t.text:SetWidth(WIN_W - 2 * PAD - t.btn:GetWidth() - 8)
+			t.btn.swap = s
+			local h = math.max(24, t.text:GetStringHeight() + 6)
+			t:SetHeight(h)
+			t:ClearAllPoints()
+			t:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y)
+			t:Show()
+			y = y - h
 		end
-		tips[#tips + 1] = "|cff9d9d9d" .. ns:L("PRESSES_FEW") .. "|r"
+		win.tips:SetText("|cff9d9d9d" .. ns:L("PRESSES_FEW") .. "|r")
 	end
-	win.tips:SetText(table.concat(tips, "\n"))
-	win.tips:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 10)
-	y = y - 10 - win.tips:GetStringHeight()
+	win.tips:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 4)
+	y = y - 4 - win.tips:GetStringHeight()
+
+	-- What the last swap did, and the way back.
+	if win.statusMsg then
+		win.status:SetText(win.statusMsg)
+		win.status:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 8)
+		y = y - 8 - win.status:GetStringHeight()
+	end
+	if bucket.lastSwap then
+		SetButtonText(win.undo, ns:L("PRESSES_BTN_UNDO"))
+		win.undo:ClearAllPoints()
+		win.undo:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 6)
+		win.undo:Show()
+		y = y - 6 - 22
+	end
 	win.rule:SetText(ns:L("PRESSES_RULE"))
 	win.rule:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 10)
 	y = y - 10 - win.rule:GetStringHeight()
@@ -442,6 +595,12 @@ local function Build()
 	f.tips:SetWidth(WIN_W - 2 * PAD)
 	f.rule = Text(f, "GameFontDisableSmall")
 	f.rule:SetWidth(WIN_W - 2 * PAD)
+	f.status = Text(f, "GameFontHighlight")
+	f.status:SetWidth(WIN_W - 2 * PAD)
+	f.undo = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.undo:SetSize(150, 22)
+	f.undo:SetScript("OnClick", UndoSwap)
+	f.undo:Hide()
 
 	f.toggle = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.toggle:SetSize(150, 22)
@@ -478,6 +637,10 @@ local function Build()
 		end)
 	end
 	f:SetScript("OnShow", Refresh)
+	-- The swap message belongs to this visit; the undo button stays as long as the swap can be undone.
+	f:SetScript("OnHide", function(self)
+		self.statusMsg = nil
+	end)
 	return f
 end
 
