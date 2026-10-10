@@ -5,6 +5,10 @@
   Actions-run 38030057982 success: CF (beta), Wago en GitHub "Success!" (GEMETEN, 06:12 UTC). Site-chat geseind.
 - Rob koos "Alle characters" (gelijk met de site): de 4 nl-teksten van "Alle characters" aangepast (na beta1, gaat
   mee in de volgende build). Elders in nlNL staat "personage" nog 59× (naast "character"); niet aangeraakt.
+- ✅ GEBOUWD na beta1 (Rob koos "allebei"): vrienden markeren — `Modules/FriendMarks.lua` (eigen icoon
+  `ns.db.myMarkIcon` per account via prefix "MHMark"; Battle.net-koppeling `ns.db.friendMarks[battletag]`; plan
+  `ns.FriendMarkPlan`) + vriendenknop op de FastMark-balk; `/mh mark me|friend|friends`. Battle.net-route AFGELEID
+  (C_BattleNet characterName in 12.1 niet gemeten). Vertalingen de/fr/es/pt/it nog te doen.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 

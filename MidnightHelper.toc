@@ -139,6 +139,7 @@ Modules\CombatSafety.lua
 Modules\InterruptScore.lua
 Modules\Openables.lua
 Modules\FastMark.lua
+Modules\FriendMarks.lua
 Modules\CurrencyGuide.lua
 Modules\CurrencyAccount.lua
 Modules\SavedVarCleanup.lua

@@ -343,6 +343,75 @@ local function AddRoleButton(row, prev)
 	return b
 end
 
+--------------------------------------------------------------------------------
+-- Friends in one click (Rob, 10 Oct 2026: "ik ben altijd Ster, Carola oranje rondje, Cisca de paarse diamond").
+-- Who gets which marker comes from FriendMarks.lua (their own MH, or Rob's Battle.net links). Same secure-macro
+-- shape and the same out-of-combat rebuild as the tank/healer button above.
+--------------------------------------------------------------------------------
+
+local friendButton
+local pendingFriends = false
+
+local function UpdateFriendMacro()
+	if not friendButton then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		pendingFriends = true
+		return
+	end
+	local plan = ns.FriendMarkPlan and ns.FriendMarkPlan() or {}
+	local lines = {}
+	for _, e in ipairs(plan) do
+		lines[#lines + 1] = ("%s [@%s] %d"):format(SlashTargetMarker(), e.unit, e.icon)
+	end
+	friendButton._plan = plan
+	friendButton:SetAttribute("macrotext1", table.concat(lines, "\n"))
+	friendButton:SetAlpha(#lines > 0 and 1 or 0.35)
+end
+
+function ns.RefreshFastMarkFriends()
+	UpdateFriendMacro()
+end
+
+local function AddFriendButton(row, prev)
+	local b = SecureBtn("Friends", row)
+	b:SetNormalTexture("Interface\\FriendsFrame\\UI-Toast-FriendOnlineIcon")
+	b:SetPoint("LEFT", prev, "RIGHT", GAP, 0)
+	b:SetAttribute("type1", "macro")
+	b:SetAttribute("macrotext1", "")
+	b:SetScript("OnEnter", function(self)
+		if not GameTooltip then
+			return
+		end
+		UpdateFriendMacro()
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:AddLine(L("MARK_FRIENDS", "Mark my friends"), 1, 0.82, 0.2)
+		local plan = self._plan or {}
+		for _, e in ipairs(plan) do
+			local who = e.who
+			if issecretvalue and issecretvalue(who) then
+				who = e.unit
+			end
+			GameTooltip:AddLine(("|T%s:14|t %s"):format("Interface\\TargetingFrame\\UI-RaidTargetingIcon_" .. e.icon,
+				tostring(who or e.unit)), 1, 1, 1)
+		end
+		if #plan == 0 then
+			GameTooltip:AddLine(L("MARK_FRIENDS_NONE",
+				"Nobody has a marker yet. Pick yours with /mh mark me star (your friends do the same in their MH)."),
+				1, 0.3, 0.3, true)
+		end
+		GameTooltip:Show()
+		if ns.RequestFriendMarks then
+			ns.RequestFriendMarks()
+		end
+	end)
+	b:SetScript("OnLeave", TipHide)
+	friendButton = b
+	UpdateFriendMacro()
+	return b
+end
+
 --- Group buttons. None of these are protected — a plain OnClick is enough, which is why
 --- wMarker can offer them beside its markers (wMarker.lua:348-390). They DO need lead or
 --- assist, and that is the trap: without it the game simply ignores the call, so the button
@@ -405,8 +474,8 @@ local function BuildBar()
 		return bar
 	end
 
-	-- De onderste rij is het breedst: 8 target-markers + wis + tank/healer + ready + rollen + klok = 13.
-	local rowContent = 13 * ICON + 12 * GAP + 6 -- +3 vóór de wis-knop, +3 vóór de tank/healer-knop
+	-- De onderste rij is het breedst: 8 target-markers + wis + tank/healer + vrienden + ready + rollen + klok = 14.
+	local rowContent = 14 * ICON + 13 * GAP + 6 -- +3 vóór de wis-knop, +3 vóór de tank/healer-knop
 	local rowW = PAD + rowContent + PAD
 	local barW = GRIP + rowW
 	local barH = PAD + 2 * ICON + ROWGAP + PAD
@@ -496,6 +565,7 @@ local function BuildBar()
 	prev = AddClearButton(targetRow, "TargetClear", SlashTargetMarker() .. " 0",
 		L("MARK_CLEAR_TARGET", "Clear target marker"), prev)
 	prev = AddRoleButton(targetRow, prev)
+	prev = AddFriendButton(targetRow, prev)
 
 	-- Groepsknoppen, Robs punt 3 na wMarker: ready check, rollen-check, aftelklok.
 	prev = AddGroupButton(targetRow, "ReadyCheck", "Interface\\RaidFrame\\ReadyCheck-Ready",
@@ -636,9 +706,14 @@ ev:SetScript("OnEvent", function(_, event)
 			pendingRoles = false
 			UpdateRoleMacro()
 		end
+		if pendingFriends then
+			pendingFriends = false
+			UpdateFriendMacro()
+		end
 		return
 	end
 	-- Login / zone-in / groep-wijziging: (her)bepaal of de balk zichtbaar moet zijn.
 	ApplyVisibility()
 	UpdateRoleMacro()
+	UpdateFriendMacro()
 end)

@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — vrienden markeren: ieder zijn eigen icoon (FriendMarks.lua + FastMark.lua)
+
+Gebouwd, niet getest. Rob: "ik ben altijd Ster, Carola oranje rondje, Cisca de paarse diamond". Rob koos beide routes.
+- [ ] **Jezelf:** `/mh mark me star` → chat "Jouw icoon: 1". Geldt voor al je characters (account).
+- [ ] **Route B (alleen jij hebt MH nodig):** `/mh mark friend <Carola's BattleTag> circle` en
+  `/mh mark friend <Cisca's BattleTag> diamond`. In een groep met hen → `/mh mark friends`: staat er
+  "Battle.net friends in WoW right now: N" met hun character? (0 terwijl ze online zijn = Blizzard geeft het niet → zeg het.)
+- [ ] **Route A (zij hebben de nieuwe MH, dus pas na de volgende build):** zij typen zelf `/mh mark me circle` /
+  `diamond`; jouw `/mh mark friends` toont "via MH: …".
+- [ ] **Knop:** markeerbalk, na het schild: een vriendjes-knop. Muis erop → wie welk icoon krijgt. Klik → iedereen zijn
+  icoon. Niemand bekend → grijs + uitleg.
+
 ## 🆕 10 okt — Codex "De Midnight-campagne beginnen" aangevuld (Codex.lua)
 
 Rob vroeg een artikel "Midnight beginnen op een alt" — het bestond al (8 sep, door Rob gemeten); hij koos aanvullen.

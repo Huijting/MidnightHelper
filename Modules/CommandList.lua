@@ -90,6 +90,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
 	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why", "block place", "block go", "block undo", "block layout", "block update", "block export", "achlist why",
 	"presses why", "presses on", "presses off", "presses reset",
+	"mark friends", "mark friend",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 }
 
@@ -169,6 +170,8 @@ ns.MH_COMMANDS = {
 	{ headKey = "CMDLIST_GRP_GROUP", items = {
 		{ cmd = "/mh partytargets", descKey = "CMDLIST_PARTYTARGETS" },
 		{ cmd = "/mh mark", descKey = "CMDLIST_MARK" },
+		-- 10 Oct 2026: your own marker for the friend button (FriendMarks.lua).
+		{ cmd = "/mh mark me", descKey = "CMDLIST_MARK_ME" },
 		{ cmd = "/mh ready", descKey = "CMDLIST_READY" },
 		{ cmd = "/mh gbuffs", descKey = "CMDLIST_GBUFFS" },
 		{ cmd = "/mh pullsummary", descKey = "CMDLIST_PULLSUMMARY" },

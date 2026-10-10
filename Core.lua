@@ -2687,6 +2687,37 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mark me <star..skull|1-8|off>, /mh mark friend <BattleTag> <marker|off>, /mh mark friends (10 Oct 2026,
+	-- FriendMarks.lua: Rob, Carola and Cisca each always wear their own marker, whatever character they play).
+	do
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		local me = msg:match("^mark me%s+(%S+)$")
+		if me and ns.SetMyMarkIcon and ns.ParseMarkIcon then
+			local n = ns.ParseMarkIcon(me)
+			if n then
+				ns.SetMyMarkIcon(n)
+				print(("%s %s"):format(prefix, ns:L("MARK_ME_SET"):format(n)))
+			else
+				print(("%s %s"):format(prefix, ns:L("MARK_USAGE")))
+			end
+			return
+		end
+		local tag, icon = msg:match("^mark friend%s+(%S+)%s+(%S+)$")
+		if tag and ns.SetFriendMark and ns.ParseMarkIcon then
+			local n = ns.ParseMarkIcon(icon)
+			if n and ns.SetFriendMark(tag, n) then
+				print(("%s %s"):format(prefix, ns:L("MARK_FRIEND_SET"):format(tag, n)))
+			else
+				print(("%s %s"):format(prefix, ns:L("MARK_USAGE")))
+			end
+			return
+		end
+		if msg == "mark friends" and ns.PrintFriendMarks then
+			ns.PrintFriendMarks()
+			return
+		end
+	end
+
 	-- /mh mark check — what the marker buttons are wired to (localized slash commands,
 	-- clear-all macro, IsRaidMarkerActive). A dead marker button is invisible otherwise.
 	if msg == "mark check" or msg == "fastmark check" then
