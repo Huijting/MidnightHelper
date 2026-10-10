@@ -4160,6 +4160,13 @@ ns._mhLocales.enUS = {
 	SET_DEATH_AUTOOPEN_DESC = "In delves, ritual sites and follower dungeons the game hides what killed you, so addons cannot tell you. Blizzard's own Death Recap can — this opens it for you when you die there. In normal dungeons Midnight Helper names the cause itself and never opens a window.",
 	DEATH_AUTOOPEN_OFF = "Death Recap no longer opens automatically — click the death popup to open it yourself.",
 	DEATH_RECAP_OPEN_FAILED = "Couldn't open the Death Recap — this client doesn't expose it. Use the skull icon on your release screen instead.",
+	-- 10 Oct 2026: the lesson read from Blizzard's own recap (C_DeathRecap), wherever the game lets us read it.
+	DEATH_RECAP_TOP_FMT = "Most of the damage: %s (%d hits).",
+	DEATH_RECAP_TOP_SRC_FMT = "Most of the damage: %s from %s (%d hits).",
+	DEATH_RECAP_LAST_FMT = "The last hit: %s.",
+	DEATH_RECAP_TIP = "Next time: step out of it, interrupt it, or press a defensive just before it lands.",
+	DEATH_RECAP_FALL = "You fell too far. Next time: look before you jump, or use a slow fall.",
+	DEATH_RECAP_MELEE = "melee hits",
 
 	-- Healer cooldown cheat-sheet (healer initiative, piece 1)
 	HEALCD_TITLE = "Your cooldowns — use them at the right moment:",

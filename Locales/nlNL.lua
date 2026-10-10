@@ -3629,6 +3629,12 @@ ns._mhLocales.nlNL = {
 	SET_DEATH_AUTOOPEN_DESC = "In delves, ritual sites en follower dungeons verbergt het spel waar je aan doodging, dus addons kunnen het je niet vertellen. Blizzard's eigen Death Recap wél — deze optie opent 'm voor je als je daar sterft. In gewone dungeons noemt Midnight Helper de oorzaak zelf en opent er nooit een venster.",
 	DEATH_AUTOOPEN_OFF = "Death Recap opent niet meer automatisch — klik de dood-popup om 'm zelf te openen.",
 	DEATH_RECAP_OPEN_FAILED = "Kon de Death Recap niet openen — deze client biedt 'm niet aan. Gebruik het skull-icoontje op je release-scherm.",
+	DEATH_RECAP_TOP_FMT = "De meeste schade: %s (%d keer raak).",
+	DEATH_RECAP_TOP_SRC_FMT = "De meeste schade: %s van %s (%d keer raak).",
+	DEATH_RECAP_LAST_FMT = "De laatste klap: %s.",
+	DEATH_RECAP_TIP = "Volgende keer: stap eruit, interrupt hem, of druk een defensive vlak voordat hij raakt.",
+	DEATH_RECAP_FALL = "Je viel te diep. Volgende keer: kijk eerst, of gebruik een slow fall.",
+	DEATH_RECAP_MELEE = "gewone klappen",
 
 	-- Healer cooldown-spiekbriefje (healer-initiatief, deel 1)
 	HEALCD_TITLE = "Jouw cooldowns — gebruik ze op het goede moment:",

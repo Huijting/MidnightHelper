@@ -309,6 +309,82 @@ local function DeathCauseFromLog()
 	return { label = label, environmental = false }
 end
 
+-- 10 Oct 2026 (Rob: "bouw de Death Recap-les maar"): read Blizzard's OWN recap. C_DeathRecap exists in 12.1
+-- (DeathRecapDocumentation.lua) and Rob MEASURED it readable after a fall outside an instance: 18 fields,
+-- 0 secret, events newest first (event 1 = the killing blow). Inside dungeons/delves the fields may still be
+-- secret (NOT measured): every field is checked, and anything unreadable makes this return nil, so the
+-- old behaviour (point at Blizzard's recap) stays the fallback. Never a guess.
+-- @return { fall = true } | { top = label, topSrc = name|nil, hits = n, last = label|nil } | nil
+local function DeathCauseFromRecap()
+	if not (C_DeathRecap and C_DeathRecap.GetRecapEvents) then
+		return nil
+	end
+	local ok, events = pcall(C_DeathRecap.GetRecapEvents)
+	if not ok or isSecret(events) or type(events) ~= "table" or #events == 0 then
+		return nil
+	end
+	local function txt(v)
+		if v == nil or isSecret(v) or type(v) ~= "string" or v == "" then
+			return nil
+		end
+		return v
+	end
+	local function num(v)
+		if v == nil or isSecret(v) or type(v) ~= "number" then
+			return nil
+		end
+		return v
+	end
+	local function Label(e)
+		local env = txt(e.environmentalType)
+		if env then
+			return env, nil, true
+		end
+		local spell = txt(e.spellName)
+		local src = (e.hideCaster ~= true) and txt(e.sourceName) or nil
+		if spell then
+			return spell, src, false
+		end
+		local ev = txt(e.event)
+		if ev and ev:find("SWING", 1, true) then
+			return ns:L("DEATH_RECAP_MELEE"), src, false
+		end
+		return nil
+	end
+	-- The killing blow first: a fall is its own, plain lesson.
+	local kb = events[1]
+	if type(kb) ~= "table" then
+		return nil
+	end
+	local kbLabel, _, kbEnv = Label(kb)
+	if kbEnv and kbLabel == "Falling" then
+		return { fall = true }
+	end
+	-- What did the most damage over the whole recap, and how many hits.
+	local sum, hits, srcOf = {}, {}, {}
+	for _, e in ipairs(events) do
+		if type(e) == "table" then
+			local label, src = Label(e)
+			local amt = num(e.amount)
+			if label and amt then
+				sum[label] = (sum[label] or 0) + amt
+				hits[label] = (hits[label] or 0) + 1
+				srcOf[label] = srcOf[label] or src
+			end
+		end
+	end
+	local top, topAmt
+	for label, amt in pairs(sum) do
+		if not topAmt or amt > topAmt then
+			top, topAmt = label, amt
+		end
+	end
+	if not top then
+		return nil
+	end
+	return { top = top, topSrc = srcOf[top], hits = hits[top], last = (kbLabel ~= top) and kbLabel or nil }
+end
+
 local SKULL_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" -- the skull marker
 
 -- Open Blizzard's own Death Recap (its addon is load-on-demand). recapID 1 = most recent,
@@ -473,6 +549,37 @@ local function ShowRestrictedDeathLesson()
 			end
 		end)
 	end
+end
+
+--- The lesson from Blizzard's recap (DeathCauseFromRecap). @return true when it could be read and was shown;
+--- false leaves the caller's older path (combat-log lesson / restricted card / nothing) to run.
+local function ShowRecapLesson()
+	local ok, cause = pcall(DeathCauseFromRecap)
+	if not ok or not cause then
+		return false
+	end
+	if GetTime() - lastShown < COOLDOWN then
+		return true
+	end
+	lastShown = GetTime()
+	local body
+	if cause.fall then
+		body = ns:L("DEATH_RECAP_FALL")
+	else
+		if cause.topSrc then
+			body = (ns:L("DEATH_RECAP_TOP_SRC_FMT")):format(cause.top, cause.topSrc, cause.hits or 1)
+		else
+			body = (ns:L("DEATH_RECAP_TOP_FMT")):format(cause.top, cause.hits or 1)
+		end
+		if cause.last then
+			body = body .. " " .. (ns:L("DEATH_RECAP_LAST_FMT")):format(cause.last)
+		end
+		body = body .. "\n" .. ns:L("DEATH_RECAP_TIP")
+	end
+	print(("|cffffcc00%s|r |cff8fd3ff%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DEATH_RECAP_HEAD"),
+		(body:gsub("\n", " "))))
+	ShowDeathPopup(body .. "\n|cff9d9d9d" .. ns:L("DEATH_RECAP_OPEN_HINT") .. "|r")
+	return true
 end
 
 -- /mh death auto — toggle the auto-open above (the popup itself always stays).
@@ -687,6 +794,30 @@ zone:SetScript("OnEvent", function(_, ev)
 		if not autoEnabled() then
 			return
 		end
+		-- 10 Oct 2026: Blizzard's own recap first, everywhere except PvP (it is a PvE lesson). It is
+		-- filled a moment after PLAYER_DEAD, hence the 1 s wait (same as the auto-open below). Only when it
+		-- cannot be read (absent, secret, empty) do the older paths run.
+		local inInst0, instType0 = false, nil
+		if IsInInstance then
+			inInst0, instType0 = IsInInstance()
+		end
+		if not (inInst0 and (instType0 == "pvp" or instType0 == "arena")) and C_DeathRecap and C_Timer and C_Timer.After then
+			C_Timer.After(1, function()
+				local shown = false
+				pcall(function()
+					shown = ShowRecapLesson()
+				end)
+				if shown then
+					return
+				end
+				if inTrackedInstance() then
+					pcall(ShowLesson)
+				elseif inInst0 and (instType0 == "party" or instType0 == "scenario" or instType0 == "raid") then
+					pcall(ShowRestrictedDeathLesson)
+				end
+			end)
+			return
+		end
 		if inTrackedInstance() then
 			-- readable content: tiny delay so the final blow's log event is in the buffer.
 			if C_Timer and C_Timer.After then
@@ -801,6 +932,14 @@ function ns.PrintDeathRecapDiagnostics()
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	print(("%s Death recap probe"):format(prefix))
 	print("   " .. ProbeDeathRecapAPI())
+	-- What the death card would say for the last recap (so it can be checked without dying again).
+	local okC, c = pcall(DeathCauseFromRecap)
+	if okC and c then
+		print(("   lesson: %s"):format(c.fall and "fall" or ("top=%s src=%s hits=%s last=%s"):format(
+			tostring(c.top), tostring(c.topSrc), tostring(c.hits), tostring(c.last))))
+	else
+		print("   lesson: none (no readable recap) - the card falls back to 'open the Death Recap'")
+	end
 	print(("   in tracked instance: %s   combat-log capture: %s"):format(
 		tostring(inTrackedInstance()), clogOn and "on" or "off"
 	))

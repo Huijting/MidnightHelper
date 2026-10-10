@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — Death Recap-les: MH zegt zelf wat je doodde (Retrospective.lua)
+
+- [ ] Val ergens dood (buiten een instance mag). Na 1 s: kaartje met de schedel + chatregel "You fell too far…".
+- [ ] Ga dood door een vijand, het liefst in een **dungeon of delve** (met Carola/Cisca). Het kaartje zegt nu bv.
+      "Most of the damage: Shadow Bolt from X (3 hits). The last hit: …" + een tip. Staat er alleen "Open the Death
+      Recap…" → dan zijn de gegevens daar geheim; doe dan `/mh death` en `/reload` (dan zie ik waarom).
+- [ ] `/mh death` toont nu ook een regel `lesson: …` = wat het kaartje zou zeggen over je laatste dood.
+
 ## 🆕 10 okt — controle van alle specs (docs/SPEC_AUDIT_2026-10-10/): wat jij kunt zien
 
 Ongeveer 25 fouten gerepareerd tegen Blizzards speldata; niets daarvan in het spel gezien. Alleen wat je character heeft:
