@@ -478,7 +478,7 @@ function ns.BuildGearExport()
 	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s;realm=%s;region=%s"):format(
 		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
 		primary and primary.name or "?", (tostring(realm):gsub("[;|=]", "")), region)
-	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect (rings, trinkets)|item"
+	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect|item|set|gems"
 
 	local function Add(where, slot, link)
 		-- Only bag items are filtered: what you wear is written whatever it is.
