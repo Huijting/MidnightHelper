@@ -11,7 +11,7 @@ local _, ns = ...
 	field, its order or a slot name without changing the site in the same breath:
 
 	    MH-EXPORT 1
-	    char=<name>;class=<CLASSFILE>;spec=<spec name>;primary=<Strength|Agility|Intellect|?>
+	    char=<name>;class=<CLASSFILE>;spec=<spec name>;primary=<Strength|Agility|Intellect|?>;realm=<GetRealmName()>;region=<eu|us|kr|tw|cn|>
 	    # where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers
 	    E|head|285|epic|Helm of ...|541|839|121|81|0|0
 
@@ -99,6 +99,10 @@ local PRIMARY_BY_STAT = {
 	[2] = { key = "ITEM_MOD_AGILITY_SHORT", name = "Agility" },
 	[4] = { key = "ITEM_MOD_INTELLECT_SHORT", name = "Intellect" },
 }
+
+-- GetCurrentRegion() ids, as AceDB's regionTable has them. AFGELEID (not measured in a client yet):
+-- check with /run print(GetCurrentRegion()) - 3 on Rob's EU account.
+local REGION_BY_ID = { [1] = "us", [2] = "kr", [3] = "eu", [4] = "tw", [5] = "cn" }
 
 -- The armour type each class wears (Enum.ItemArmorSubclass: 1 cloth, 2 leather, 3 mail, 4 plate).
 local ARMOR_BY_CLASS = {
@@ -331,9 +335,13 @@ function ns.BuildGearExport()
 	local myArmor = ARMOR_BY_CLASS[tostring(classFile)]
 	lines[#lines + 1] = "MH-EXPORT 1"
 	-- Parentheses around each gsub: it returns two values, and the count would slide into the next %s.
-	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s"):format(
+	-- realm and region come last, so a parser that predates them still reads the first four (site, 10 Oct).
+	local realm = GetRealmName and GetRealmName() or ""
+	if not ns.CanAccessText(realm) then realm = "" end
+	local region = GetCurrentRegion and REGION_BY_ID[GetCurrentRegion() or 0] or ""
+	lines[#lines + 1] = ("char=%s;class=%s;spec=%s;primary=%s;realm=%s;region=%s"):format(
 		(tostring(charName):gsub("[;|=]", "")), tostring(classFile), (tostring(specName):gsub("[;|=]", "")),
-		primary and primary.name or "?")
+		primary and primary.name or "?", (tostring(realm):gsub("[;|=]", "")), region)
 	lines[#lines + 1] = "# where|slot|ilvl|quality|name|str|sta|crit|haste|mast|vers|hands (weapons)|unique|effect (rings, trinkets)|item"
 
 	local function Add(where, slot, link)

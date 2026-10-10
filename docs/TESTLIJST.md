@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — `/mh export`: realm en regio erbij (GearExport.lua)
+
+- [ ] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). Een ander getal → zeg het, dan klopt de tabel niet.
+- [ ] `/reload`, `/mh export`. De tweede regel eindigt nu op `;realm=Khadgar;region=eu` (of je echte realm).
+- [ ] Plak het op midnighthelper.com/armory/: je ziet je eigen character als plaatje (site-kant).
+
 ## 🆕 10 okt — vrienden markeren: ieder zijn eigen icoon (FriendMarks.lua + FastMark.lua)
 
 Gebouwd, niet getest. Rob: "ik ben altijd Ster, Carola oranje rondje, Cisca de paarse diamond". Rob koos beide routes.

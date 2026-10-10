@@ -23,6 +23,8 @@ Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96, Bartender4/E
    - Notes (Small things): *"**Playing with the same friends?** Everyone can pick their own marker once (`/mh mark me
      star`), and a new button on the marker bar marks them all, whatever character they are on. Friends without MH can
      be linked by BattleTag (`/mh mark friend Name#1234 circle`)."*
+3. **`/mh export` realm + regio** (site-chat 10 okt): kopregel eindigt op `;realm=…;region=eu`. Voor spelers onzichtbaar,
+   dus geen changelog-regel nodig; wel site-chat de build noemen (de site toont dan de characterfoto).
 2. **nlNL "character" i.p.v. "personage"** (e2776cc + e17b0af): geen changelog-regel nodig (Nederlands is handmatig);
    wél site-chat seinen bij deze build, dan zet de site "Alle characters".
 

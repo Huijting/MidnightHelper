@@ -9,6 +9,9 @@
   `ns.db.myMarkIcon` per account via prefix "MHMark"; Battle.net-koppeling `ns.db.friendMarks[battletag]`; plan
   `ns.FriendMarkPlan`) + vriendenknop op de FastMark-balk; `/mh mark me|friend|friends`. Battle.net-route AFGELEID
   (C_BattleNet characterName in 12.1 niet gemeten). Vertalingen de/fr/es/pt/it nog te doen.
+- ✅ GEBOUWD 10 okt (site-chat, Rob wil het): `/mh export`-kopregel krijgt achteraan `;realm=<GetRealmName()>;
+  region=<us|kr|eu|tw|cn>` (GearExport.lua `REGION_BY_ID`, AFGELEID uit AceDB, client-meting open). Site toont er de
+  Blizzard-characterfoto mee (`/api/render`, ea10494). Oude parsers lezen de eerste 4 velden gewoon door.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 
