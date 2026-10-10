@@ -35,7 +35,11 @@ Gebouwd, niet getest. Rob, 9 okt: "in een chat is het onoverzichtelijk".
   heet is NIET gemeten). Heb je dat niet: overslaan.
   Op elk ander personage: de `race=`-regel is hetzelfde als vóór vandaag.
 - ✅ Rob 10 okt: ruil-knop werkt (niet in gevecht geprobeerd). Twee wensen → gebouwd, hertest open:
-  - [ ] **Heals ruilen nooit**, en interrupts/Blijf leven-spells ook niet — in géén richting (Flash Heal stond als
+  - ✅ Rob: ruilen + "terugdraaien (2)" + "alles terugdraaien (2)" werken; Flash Heal weg uit de tips.
+  - [ ] **0x-spells als ruilplek** (Rob: "maar 2 adviezen"; hij koos ja): vanaf 5 gevechten mag een drukke spell ook
+    naar een makkelijke toets waarvan je de spell NOOIT drukte; tip toont dan "(0x, on …)". Max 3 tips. Heals,
+    interrupts en Blijf leven blijven ook dan staan.
+  - [x] **Heals ruilen nooit**, en interrupts/Blijf leven-spells ook niet — in géén richting (Flash Heal stond als
     "druk" in een tip). Priest → `/mh presses`: geen tip meer met Flash Heal. (Potions/items konden al nooit: LiveKeys
     leest alleen spells en macro's.)
   - [ ] **Meer dan één terugdraaien:** MH onthoudt alle ruilen (max 20). "Laatste ruil terugdraaien (N)" gaat er één

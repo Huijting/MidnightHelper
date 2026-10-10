@@ -240,20 +240,56 @@ local function KeepEasy(id)
 	return keepEasy[id] or keepEasy[Base(id)] or false
 end
 
---- Swaps: a busy spell on a harder key, and a quiet one (a third or less) on an easier key. Interrupts, heals and
---- Stay alive spells (KeepEasy) stay where they are: never the busy one, never the quiet one.
-local function Swaps(rows)
+-- Rob, 10 Oct 2026, on his Shadow Priest: "dat we maar 2 adviezen geven". Only two counted spells were quiet enough
+-- to trade places with, while an easy key holding a spell he NEVER pressed is the best place of all - and a spell
+-- pressed 0 times was not in the list. He chose: count those too, once enough fights make "never" mean something.
+local MIN_FIGHTS_FOR_ZERO = 5
+
+--- Spells on a bound easy-or-okay key that were not pressed once in this bucket: { id, n = 0, kind = "key", ... }.
+local function NeverPressed(bucket)
+	local out, seen = {}, {}
+	if not (bucket and (bucket.fights or 0) >= MIN_FIGHTS_FOR_ZERO and ns.LiveKeysAll and ns.LiveKeyForSpell) then
+		return out
+	end
+	local counted = {}
+	for id in pairs(bucket.spells or {}) do
+		counted[id], counted[Base(id)] = true, true
+	end
+	for _, s in ipairs(ns.LiveKeysAll()) do
+		local id = s.id
+		if id and not seen[id] and not counted[id] and not counted[Base(id)] and not AUTO_ATTACK[id] then
+			seen[id] = true
+			local short, hit = ns.LiveKeyForSpell(id)
+			if short and hit then
+				out[#out + 1] = { id = id, n = 0, kind = "key", short = short, hit = hit, score = Reach(hit.key, hit.cmd),
+					zero = true }
+			end
+		end
+	end
+	return out
+end
+
+--- Swaps: a busy spell on a harder key, and a quiet one (a third or less, or never pressed) on an easier key.
+--- Interrupts, heals and Stay alive spells (KeepEasy) stay where they are: never the busy one, never the quiet one.
+local function Swaps(rows, bucket)
 	local out, used = {}, {}
+	local quiets = {}
+	for _, r in ipairs(rows) do
+		quiets[#quiets + 1] = r
+	end
+	for _, z in ipairs(NeverPressed(bucket)) do
+		quiets[#quiets + 1] = z
+	end
 	for _, busy in ipairs(rows) do
 		if #out >= MAX_SWAPS then
 			break
 		end
 		if busy.kind == "key" and busy.n >= MIN_COUNT and busy.score > 0 and not used[busy] and not KeepEasy(busy.id) then
 			local best
-			for _, quiet in ipairs(rows) do
+			for _, quiet in ipairs(quiets) do
 				if quiet ~= busy and quiet.kind == "key" and not used[quiet] and quiet.score < busy.score
-					and not KeepEasy(quiet.id)
-					and quiet.n * 3 <= busy.n and (not best or quiet.score < best.score) then
+					and not KeepEasy(quiet.id) and quiet.n * 3 <= busy.n
+					and (not best or quiet.score < best.score or (quiet.score == best.score and quiet.n < best.n)) then
 					best = quiet
 				end
 			end
@@ -597,7 +633,7 @@ Refresh = function()
 		end
 	end
 
-	local swaps = Swaps(rows)
+	local swaps = Swaps(rows, bucket)
 	y = y - 10
 	if #swaps == 0 then
 		win.tips:SetText("|cff40c040" .. ns:L("PRESSES_NOSWAP") .. "|r")

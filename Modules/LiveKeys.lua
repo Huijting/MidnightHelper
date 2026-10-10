@@ -192,6 +192,13 @@ local function Build()
 	return slots
 end
 
+--- Every bound action button that holds a spell or macro, in rank order (KeyPresses: the never-pressed spells on easy
+--- keys are swap places too). The list is the cache itself: read it, do not change it.
+function ns.LiveKeysAll()
+	cache = cache or Build()
+	return cache
+end
+
 --- @return string|nil shortKey, table|nil hit  (hit: slot, cmd, key, kind, id)
 function ns.LiveKeyForSpell(spellID)
 	if not spellID then
