@@ -22,6 +22,20 @@
 
 	Every card names its sources with a date. A rotation changes with a patch; the date is how a
 	player (and we) can tell a card might be stale.
+
+	WHY AND QUIZ (Rob, 10 Oct 2026: "uiteindelijk wordt het doel, voor iedereen, om zonder hulpmiddelen
+	te spelen en gewoon te weten wat je doet en waarom"). A card can carry two optional extras:
+	  W1..W5, WAOE  one "why" line per step: the mechanic behind the button, in the same plain words.
+	                Only with `why = { checked, interface }`. A why line is more fragile than a step:
+	                a talent change can make the explanation false while the button stays the same.
+	                So they hide by themselves once the client is newer than the patch they were
+	                checked on (`interface`), instead of explaining a mechanic that may be gone.
+	  quiz = true   a quiz tab built FROM THE CARD ITSELF, no text of its own: each step with a spell
+	                becomes a question with that spell blanked out (the step's LAST {SPELL}, or
+	                `quizAnswer[step]`), the other spells on the card are the wrong choices, and the
+	                why line is the explanation. One place per fact: a patch check of the card is
+	                a check of the quiz.
+	Frost Mage (64) is the pilot; the other specs follow only after Carola has used it.
 ]]
 
 local _, ns = ...
@@ -53,6 +67,9 @@ local CARDS = {
 	[64] = { -- Frost Mage
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 11 Aug · Wowhead 29 Aug 2026",
+		-- Pilot for "why" lines + quiz (Rob, 10 Oct 2026, for Carola). See WHY AND QUIZ below.
+		why = { checked = "2026-10-10", interface = 120100 },
+		quiz = true,
 	},
 	[65] = { -- Holy Paladin
 		steps = 4, aoe = true, hero = 2,
@@ -262,13 +279,15 @@ function ns.GetPlayCard(specID, known)
 		return ns:L(("PLAYCARD_%d_%s"):format(specID, p))
 	end
 	local out = { steps = {}, hero = {}, source = c.source }
+	local showWhy = ns.PlayCardWhyState(specID)
 	out.idea = Expand(Part("IDEA"), known)
 	for i = 1, c.steps do
 		local t, id = Expand(Part("S" .. i), known)
-		out.steps[#out.steps + 1] = { text = t, spellID = id }
+		out.steps[#out.steps + 1] = { text = t, spellID = id, why = showWhy and (Expand(Part("W" .. i), known)) or nil }
 	end
 	if c.aoe then
 		out.aoe = Expand(Part("AOE"), known)
+		out.aoeWhy = showWhy and (Expand(Part("WAOE"), known)) or nil
 	end
 	out.mistake = Expand(Part("MISTAKE"), known)
 	-- "In 3 steps", plain words, for healer cards (Rob, 7 Oct 2026 evening: the Holy card assumed you already knew
@@ -282,6 +301,89 @@ function ns.GetPlayCard(specID, known)
 		out.hero[#out.hero + 1] = { text = t, spellID = id }
 	end
 	return out
+end
+
+--- Are this card's why lines shown? @return shown (bool), reason (English, for /mh playcards check)
+--- Hidden when the card has none, or when the client is newer than the patch they were checked on:
+--- an explanation of a mechanic that may have changed is worse than none (see WHY AND QUIZ above).
+function ns.PlayCardWhyState(specID)
+	local c = specID and CARDS[specID]
+	local w = c and c.why
+	if not w then
+		return false, "this card has no why lines yet"
+	end
+	local client = GetBuildInfo and select(4, GetBuildInfo())
+	if type(client) == "number" and client > w.interface then
+		return false, ("checked on %s for interface %d, client is %d: hidden until rechecked")
+			:format(w.checked, w.interface, client)
+	end
+	return true, ("checked on %s for interface %d, client is %s"):format(w.checked, w.interface, tostring(client))
+end
+
+--- The quiz for a spec, built from its card (see WHY AND QUIZ above), or nil when the card has none.
+--- { { question = text with the answer blanked, answer = spellID, choices = { 3 spellIDs, shuffled },
+---     why = text or nil, step = "S1".."S5" or "AOE" }, ... } in card order.
+function ns.GetPlayCardQuiz(specID)
+	local c = specID and CARDS[specID]
+	if not (c and c.quiz) then
+		return nil
+	end
+	local showWhy = ns.PlayCardWhyState(specID)
+	local parts = {}
+	for i = 1, c.steps do
+		parts[#parts + 1] = { key = "S" .. i, why = "W" .. i, override = c.quizAnswer and c.quizAnswer[i] }
+	end
+	if c.aoe then
+		parts[#parts + 1] = { key = "AOE", why = "WAOE" }
+	end
+	-- Every spell on the card is a possible wrong choice.
+	local raw, pool, seen = {}, {}, {}
+	for _, p in ipairs(parts) do
+		raw[p.key] = tostring(ns:L(("PLAYCARD_%d_%s"):format(specID, p.key)) or "")
+		for id in raw[p.key]:gmatch("{SPELL:(%d+)}") do
+			id = tonumber(id)
+			if not seen[id] then
+				seen[id] = true
+				pool[#pool + 1] = id
+			end
+		end
+	end
+	local out = {}
+	for _, p in ipairs(parts) do
+		local text, answer = raw[p.key], p.override
+		if not answer then
+			for id in text:gmatch("{SPELL:(%d+)}") do
+				answer = tonumber(id)
+			end
+		end
+		-- A step without a spell (plain text) cannot be asked; nor can a card with too few spells.
+		if answer and #pool >= 3 then
+			local blanked = text:gsub("{SPELL:" .. answer .. "}", "{BLANK}", 1)
+			local q = Expand(blanked):gsub("{BLANK}", "|cffffffff______|r")
+			local wrong = {}
+			for _, id in ipairs(pool) do
+				if id ~= answer then
+					wrong[#wrong + 1] = id
+				end
+			end
+			local choices = { answer }
+			while #choices < 3 and #wrong > 0 do
+				choices[#choices + 1] = table.remove(wrong, math.random(#wrong))
+			end
+			for i = #choices, 2, -1 do
+				local j = math.random(i)
+				choices[i], choices[j] = choices[j], choices[i]
+			end
+			out[#out + 1] = {
+				question = q,
+				answer = answer,
+				choices = choices,
+				why = showWhy and (Expand(ns:L(("PLAYCARD_%d_%s"):format(specID, p.why)))) or nil,
+				step = p.key,
+			}
+		end
+	end
+	return #out > 0 and out or nil
 end
 
 --- The level the cards are written for: the expansion's max level (90 in Midnight).
@@ -330,6 +432,15 @@ function ns.PrintPlayCardCheck()
 		:format(tostring(tank), tostring(classTank), tostring(dps)))
 	local want = tank or classTank
 	say(("  card for tank spec %s: %s"):format(tostring(want), (want and CARDS[want]) and "yes" or "NO"))
+	-- Why lines and quiz can be silently absent on purpose (stale patch): say which, and why.
+	local cur = GetSpecialization and GetSpecializationInfo and GetSpecialization()
+	local curID = cur and GetSpecializationInfo(cur)
+	if curID then
+		local shown, reason = ns.PlayCardWhyState(curID)
+		local quiz = ns.GetPlayCardQuiz(curID)
+		say(("  spec %s: why lines %s (%s) · quiz: %s"):format(tostring(curID), shown and "SHOWN" or "hidden",
+			reason, quiz and (#quiz .. " questions") or "none"))
+	end
 	local last = ns._playCardLast
 	if last then
 		say(("  last Academy draw: spec %s · switch %s · card %s · %d s ago")
