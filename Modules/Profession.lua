@@ -1755,7 +1755,43 @@ function ns.PrintKnowledgeProbe()
 	if not any then
 		print("      none — either no drop yet this week, or these ids are not the markers")
 	end
-	print("   |cffffd966Run this again right after a Knowledge item drops: a flag flipping identifies the range.|r")
+
+	-- 10 Oct 2026 (mh-research, for the weekly Knowledge counter Rob chose): the treatise flags
+	-- 95127-95138 (MEASURED in DB2: each treatise's use-spell completes that quest) and the hidden
+	-- "Tracker - Weekly <prof> Knowledge" currencies 3189-3211 (names MEASURED in DB2; that they
+	-- count the gathering catch-up is DERIVED). All into ns.db.kpProbe; /reload to read.
+	local probe = { at = date and date("%Y-%m-%d %H:%M") or "?", drops = {}, treatise = {}, currencies = {} }
+	for qid = 93528, 93543 do
+		local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, qid)
+		probe.drops[qid] = ok and done or false
+	end
+	local tre = {}
+	for qid = 95127, 95138 do
+		local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, qid)
+		probe.treatise[qid] = ok and done or false
+		if ok and done then
+			tre[#tre + 1] = tostring(qid)
+		end
+	end
+	print("   treatise flags 95127-95138 TRUE: " .. (#tre > 0 and table.concat(tre, ", ") or "none"))
+	local cur = {}
+	if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+		for cid = 3189, 3211 do
+			local ok, ci = pcall(C_CurrencyInfo.GetCurrencyInfo, cid)
+			if ok and type(ci) == "table" then
+				probe.currencies[cid] = {
+					name = ci.name, quantity = ci.quantity, maxQuantity = ci.maxQuantity,
+					totalEarned = ci.totalEarned, useTotal = ci.useTotalEarnedForMaxQty,
+				}
+				if (ci.quantity or 0) > 0 or (ci.totalEarned or 0) > 0 then
+					cur[#cur + 1] = ("%d=%s/%s"):format(cid, tostring(ci.totalEarned or ci.quantity), tostring(ci.maxQuantity))
+				end
+			end
+		end
+	end
+	print("   tracker currencies 3189-3211 with progress: " .. (#cur > 0 and table.concat(cur, ", ") or "none"))
+	ns.db.kpProbe = probe
+	print("   |cffffd966Run this again right after a Knowledge item drops: a flag flipping identifies the range. /reload saves the details.|r")
 end
 
 --- /mh nodes — let the GAME name every node in your profession trees.

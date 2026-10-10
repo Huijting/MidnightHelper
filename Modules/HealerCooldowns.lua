@@ -132,6 +132,7 @@ ns.HEALER_COOLDOWNS = {
 		{ id = 370537, cd = 90, kind = "heal", when = "flow" }, -- Stasis (banks heals)
 		{ id = 374227, cd = 120, kind = "mitig", when = "raid" }, -- Zephyr (you + 4 nearest take less AoE damage; added 9 Oct 2026, HEALER_CDS_FACTS)
 		{ id = 357170, cd = 60, kind = "ext", when = "ext" }, -- Time Dilation
+		{ id = 370553, cd = 120, kind = "util", when = "haste" }, -- Tip the Scales (class talent: next empower instant at max rank; 120 s MEASURED 10 Oct 2026, wago 12.1.0.69933)
 	},
 	-- Mistweaver Monk (270)
 	[270] = {
@@ -140,6 +141,7 @@ ns.HEALER_COOLDOWNS = {
 		{ id = 325197, cd = 120, kind = "heal", when = "raid" }, -- Invoke Chi-Ji, the Red Crane
 		{ id = 322118, cd = 120, kind = "heal", when = "raid" }, -- Invoke Yu'lon, the Jade Serpent
 		{ id = 116849, cd = 120, kind = "ext", when = "ext" }, -- Life Cocoon
+		{ id = 443028, cd = 90, kind = "heal", when = "raid" }, -- Celestial Conduit (hero talent Conduit of the Celestials: channelled group heal, you can move; 90 s MEASURED 10 Oct 2026, wago 12.1.0.69933)
 	},
 	-- Discipline Priest (256)
 	[256] = {
@@ -409,14 +411,40 @@ ns.BOSS_HEAL_LENS = {
 
 --- The player's top raid-window cooldown for a spec (first `when=="raid"`, else
 --- the first CD), or nil.
+--- 10 Oct 2026: three first "raid" entries are half of a talent choice (Barrier/Ultimate
+--- Penitence, Revival/Restoral, Healing Tide/Ascendance), so a spell the player knows wins.
+--- Nobody in the list known (another spec, or the class fallback): the old order.
 function ns.GetTopRaidCooldown(specID)
 	local list = specID and ns.HEALER_COOLDOWNS[specID]
 	if not list then
 		return nil
 	end
+	local function Known(c)
+		if not IsPlayerSpell then
+			return false
+		end
+		local ok, v = pcall(IsPlayerSpell, c.id)
+		return ok and v == true
+	end
+	local anyKnown = false
 	for _, c in ipairs(list) do
-		if c.when == "raid" then
+		if Known(c) then
+			anyKnown = true
+			if c.when == "raid" then
+				return c
+			end
+		end
+	end
+	for _, c in ipairs(list) do
+		if c.when == "raid" and (not anyKnown or Known(c)) then
 			return c
+		end
+	end
+	if anyKnown then
+		for _, c in ipairs(list) do
+			if Known(c) then
+				return c
+			end
 		end
 	end
 	return list[1]

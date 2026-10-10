@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — meten voor de Knowledge-teller en de Death Recap-les (`/mh kp`, `/mh death`)
+
+- [ ] Typ `/mh kp`. Stuur me de chat. Haal je deze week nog een treatise of een Knowledge-drop? Doe dan direct
+      daarna nog eens `/mh kp`: een regel die van "none" naar een getal gaat is precies wat ik zoek.
+- [ ] Ga een keer dood (een dungeon of een delve is het mooist; een val van een klif telt ook). Typ na het gevecht
+      `/mh death` en `/reload`. Ik lees of MH Blizzards Death Recap mag lezen.
+- [ ] Klik bij dat sterven op het MH-kaartje met de schedel: opent Blizzards Death Recap nu wél het venster?
+
+## 🆕 10 okt — healer-cooldowns: Celestial Conduit en Tip the Scales (HealerCooldowns.lua)
+
+- [ ] Op een Mistweaver met de hero-talenten Conduit of the Celestials: `/mh healcds` noemt Celestial Conduit.
+      Op een Preservation-evoker: Tip the Scales. (Heb je die niet: overslaan.)
+
 ## 🆕 10 okt — Trading Post: "already own" ook voor transmog, speelgoed en sets (TradingPost.lua)
 
 - [ ] Loop in Silvermoon naar de Trading Post en open hem één keer. Daarna het Trading Post-tabblad in MH.

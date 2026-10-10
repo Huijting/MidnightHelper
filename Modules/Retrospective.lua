@@ -323,6 +323,12 @@ local function OpenBlizzardRecap()
 	if ns.LoadBlizzardAddOn then
 		ns.LoadBlizzardAddOn("Blizzard_DeathRecap")
 	end
+	-- 10 Oct 2026 (mh-research, wow-ui-source live 12.1.0): Blizzard's own death popup calls
+	-- OpenDeathRecapUI() with no id = the latest recap. The two globals below are not defined
+	-- in 12.1, and recap id 1 may be the session's first death rather than the last.
+	if type(OpenDeathRecapUI) == "function" and pcall(OpenDeathRecapUI) then
+		return true
+	end
 	if type(OpenDeathRecap) == "function" and pcall(OpenDeathRecap, 1) then
 		return true
 	end
@@ -734,11 +740,67 @@ local function ReadRecapAPICause()
 	return nil
 end
 
+-- 10 Oct 2026: can MH read Blizzard's own recap (C_DeathRecap, documented in 12.1) after a
+-- death, so it can say in plain words what killed you without the combat log? Unknown whether
+-- the fields are secret. This writes, per field of the newest three events: its type and
+-- whether it is secret, plus in-combat / in-instance, into ns.db.deathRecapProbe (/reload to
+-- read). Returns a one-line summary for chat.
+local function ProbeDeathRecapAPI()
+	if type(C_DeathRecap) ~= "table" then
+		return "C_DeathRecap: not on this client"
+	end
+	local isSecret = issecretvalue or function() return false end
+	local probe = {
+		at = date and date("%Y-%m-%d %H:%M:%S") or "?",
+		inCombat = InCombatLockdown and InCombatLockdown() or false,
+		inInstance = IsInInstance and select(1, IsInInstance()) or false,
+	}
+	local okH, has = pcall(C_DeathRecap.HasRecapEvents)
+	probe.hasEvents = okH and (isSecret(has) and "SECRET" or tostring(has)) or "error"
+	local okM, maxHP = pcall(C_DeathRecap.GetRecapMaxHealth)
+	probe.maxHealth = okM and (isSecret(maxHP) and "SECRET" or tostring(maxHP)) or "error"
+	local okE, events = pcall(C_DeathRecap.GetRecapEvents)
+	if not okE then
+		probe.events = "error: " .. tostring(events)
+	elseif isSecret(events) then
+		probe.events = "SECRET table"
+	elseif type(events) ~= "table" then
+		probe.events = type(events)
+	else
+		probe.count = #events
+		probe.events = {}
+		local secretFields, readable = 0, 0
+		for i = 1, math.min(3, #events) do
+			local e, row = events[i], {}
+			if type(e) == "table" then
+				for k, v in pairs(e) do
+					if isSecret(v) then
+						row[tostring(k)] = "SECRET"
+						secretFields = secretFields + 1
+					else
+						row[tostring(k)] = type(v) .. ": " .. tostring(v)
+						readable = readable + 1
+					end
+				end
+			else
+				row.value = type(e)
+			end
+			probe.events[i] = row
+		end
+		probe.summary = ("%d events; first 3: %d readable fields, %d secret"):format(#events, readable, secretFields)
+	end
+	ns.db.deathRecapProbe = probe
+	return ("C_DeathRecap: has events %s, max health %s, %s (in combat %s, instance %s) - /reload to save the fields"):format(
+		probe.hasEvents, probe.maxHealth, probe.summary or tostring(probe.events),
+		tostring(probe.inCombat), tostring(probe.inInstance))
+end
+
 -- /mh death — show what we can read: the combat-log buffer (plan B) + the C_DeathInfo
 -- surface. Die once in an instance, then run this.
 function ns.PrintDeathRecapDiagnostics()
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	print(("%s Death recap probe"):format(prefix))
+	print("   " .. ProbeDeathRecapAPI())
 	print(("   in tracked instance: %s   combat-log capture: %s"):format(
 		tostring(inTrackedInstance()), clogOn and "on" or "off"
 	))
