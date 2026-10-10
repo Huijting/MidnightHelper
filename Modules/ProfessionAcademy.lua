@@ -471,7 +471,15 @@ local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
 			-- disagreed about it at every profession, sometimes by a factor of
 			-- two. So it is offered as an aim with the client named as the
 			-- authority, never as the truth.
-			text = SL("PROFACAD_ADVISE_NEXT_POINTS_FMT"):format(advice.name, spent, cap, points)
+			-- 10 Oct 2026 (Rob: "geen idee wat je ermee bedoelt, maar na 5 kp mag ik een sub
+			-- kiezen"). MEASURED on his Jewelcrafter: 5 in the Thoughtful Throughput root opened
+			-- the first branch. Plain words now, and once the number is reached the line says
+			-- so and points at the list of nodes below instead of repeating "the root".
+			if spent >= points then
+				text = SL("PROFACAD_ADVISE_POINTS_REACHED_FMT"):format(advice.name, spent, advice.name, cap)
+			else
+				text = SL("PROFACAD_ADVISE_NEXT_POINTS_FMT"):format(points, advice.name, spent, cap)
+			end
 		else
 			text = SL("PROFACAD_ADVISE_NEXT_FMT"):format(advice.name, spent, cap)
 		end

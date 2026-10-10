@@ -1910,7 +1910,8 @@ ns._mhLocales.enUS = {
 	PROF_GENERATE_TREASURES_BTN = "Generate Route Treasures",
 	PROF_GENERATE_BOOKS_BTN = "Generate Route Books",
 	PROFACAD_ADVISE_NEXT_FMT = "Advice: next points into %s (root %d/%d).",
-	PROFACAD_ADVISE_NEXT_POINTS_FMT = "Advice: next points into %s (root %d/%d) — about %d gets it working; this step only ticks off once the branch is full. Hover the node in game for the exact number; guides disagree about it.",
+	PROFACAD_ADVISE_NEXT_POINTS_FMT = "Advice: put about %d points into %s (now %d/%d). That opens the next choice in this tab. Hover the node in game for the exact number.",
+	PROFACAD_ADVISE_POINTS_REACHED_FMT = "%s has %d points: the next choice in this tab is open. Pick one of the nodes below now, or keep filling %s up to %d.",
 	PROFACAD_ADVISE_NEXT_OPEN_FMT = "Advice: open %s — and then stop. Unlocking it is what pays; points beyond that are a gamble on material prices.",
 	-- Shown when the route step offers a choice rather than a next thing. We name the
 	-- options and stop there: which one pays depends on what the player actually
@@ -1934,7 +1935,7 @@ ns._mhLocales.enUS = {
 	PROFACAD_CHOICES_HEADER_MORE_FMT = "Individual nodes inside your trees that are not full yet (%d of %d):",
 	PROFACAD_CHOICE_FMT = "%s (%d/%d)",
 	PROFACAD_CHOICE_TAB_FMT = " - tab %s",
-	PROFACAD_CHOICE_AFTER_ROOT_FMT = ", opens once %s has points",
+	PROFACAD_CHOICE_AFTER_ROOT_FMT = ", not open yet: more points into %s first",
 	PROFACAD_ADVISE_LOCKED = "No specialization can take points yet, so there is nothing to advise. Raise the skill first - the first choice opens at 25. Your Knowledge keeps until then; none of it is being wasted.",
 	PROFACAD_ADVISE_DONE = "Advice: the recommended roots are done.",
 	PROFHUB_TAB_OVERVIEW = "Overview",

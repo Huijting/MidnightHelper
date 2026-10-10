@@ -26,6 +26,9 @@ er is niets weggegooid.
 - [ ] Op je Jewelcrafter met punten over: Tools > Professions. Onder "Individual nodes…" staat nu bv.
       "Calculated Concentration (0/30) - tab Thoughtful Throughput, opens once Thoughtful Throughput has points".
       Klopt dat tab als je het in het spel opent? En staan de nodes die je NU kunt kopen bovenaan?
+- [ ] Rob 10 okt GEMETEN: 5 punten in Thoughtful Throughput openen Calculated Concentration, de andere twee blijven
+      dicht. Nu moet MH zeggen "Thoughtful Throughput has 5 points: the next choice in this tab is open…", met
+      Calculated Concentration zonder "not open yet" en de andere twee mét "not open yet".
 
 ## 🆕 10 okt — Demonology: pet-knop roept Felguard op i.p.v. Imp (MissingBuff.lua)
 

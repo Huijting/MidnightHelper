@@ -2028,6 +2028,20 @@ function ns.GetProfessionSpecNodes(midnightLine)
 					local name = ns.ResolveTraitNodeName(configID, node)
 					if name then
 						local isRoot = rootPath ~= nil and nodeID == rootPath
+						-- 10 Oct 2026: Rob MEASURED that 5 in the JC root opened one branch while two
+						-- others stayed shut, so "root has points" is not enough. Ask the path state
+						-- the way Blizzard's spec UI does (GetStateForPath, AFGELEID name/order; the
+						-- old root-has-0 rule is the fallback).
+						local locked
+						if not isRoot and C_ProfSpecs.GetStateForPath and Enum and Enum.ProfessionsSpecPathState then
+							local okS, st = pcall(C_ProfSpecs.GetStateForPath, nodeID, configID)
+							if okS and st ~= nil and not ns.IsSecretValue(st) then
+								locked = (st == Enum.ProfessionsSpecPathState.Locked)
+							end
+						end
+						if locked == nil then
+							locked = (not isRoot and rootRank == 0)
+						end
 						out[#out + 1] = {
 							name = name,
 							desc = ns.ResolveTraitNodeDescription(configID, node),
@@ -2036,7 +2050,7 @@ function ns.GetProfessionSpecNodes(midnightLine)
 							tab = tabName,
 							isRoot = isRoot,
 							-- A branch of a tab whose root has no points yet cannot be bought now.
-							waitsForRoot = (not isRoot and rootRank == 0) and (rootName or tabName) or nil,
+							waitsForRoot = locked and (rootName or tabName) or nil,
 						}
 					end
 				end
