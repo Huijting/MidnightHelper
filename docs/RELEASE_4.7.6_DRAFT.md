@@ -12,6 +12,17 @@ Volgende versie = **BETA** (Rob, 9 okt: "presses komt later wel in een beta"). O
 Inhoud tot nu toe (10 okt): `/mh presses`-venster, SimC race 95/96, Bartender4/ElvUI in LiveKeys
 (`docs/BAR_ADDONS_LIVEKEYS_2026-10-09.md`; niet in een client gezien — beta-spelers met die addons testen).
 
+## ➕ NA beta1 (voor beta2 of de release) — nog NIET in de changelog/notes van de addon
+
+1. **Vrienden markeren** (FriendMarks.lua). 🔴 Pas opnemen NA Robs test met Carola en Cisca (Battle.net-route niet
+   gemeten). Rob koos 10 okt: klein extraatje onder "Small things", geen kop.
+   - enUS: `CHANGELOG_476_8 = "Marker bar: playing with the same friends? Everyone can pick their own marker (/mh mark me star), and one button marks them all, whatever character they play. Friends without MH: /mh mark friend Name#1234 circle."`
+   - Notes (Small things): *"**Playing with the same friends?** Everyone can pick their own marker once (`/mh mark me
+     star`), and a new button on the marker bar marks them all, whatever character they are on. Friends without MH can
+     be linked by BattleTag (`/mh mark friend Name#1234 circle`)."*
+2. **nlNL "character" i.p.v. "personage"** (e2776cc + e17b0af): geen changelog-regel nodig (Nederlands is handmatig);
+   wél site-chat seinen bij deze build, dan zet de site "Alle characters".
+
 ## A — `Locales/enUS.lua`
 
 ```lua
