@@ -3,7 +3,8 @@
 ## ▶️ HIER VERDER (10 okt) — 4.7.6-BETA1 is UIT
 - Rob: "go beta, na overleg met de site chat". Site-chat akkoord (niets botst). Tag `v4.7.6-beta1` (e54ff0e) gepusht;
   Actions-run 38030057982 success: CF (beta), Wago en GitHub "Success!" (GEMETEN, 06:12 UTC). Site-chat geseind.
-- Open keuze voor Rob: nl-knop "Alle personages" vs site "characters" (site-chat: gelijktrekken?).
+- Rob koos "Alle characters" (gelijk met de site): de 4 nl-teksten van "Alle characters" aangepast (na beta1, gaat
+  mee in de volgende build). Elders in nlNL staat "personage" nog 59× (naast "character"); niet aangeraakt.
 - Volgende: beta-feedback (vooral Bartender/ElvUI via `/mh playkeys`), 12.1.5 op 13/14 okt (Kith'ix: `/mh ej save`,
   `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4b), dan 4.7.6 als release.
 
