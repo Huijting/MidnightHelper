@@ -14,6 +14,10 @@
   Blizzard-characterfoto mee (`/api/render`, ea10494). Oude parsers lezen de eerste 4 velden gewoon door.
   ✅ Zelfde dag (site-chat, Robs Warlock kreeg een schild): tas-schilden alleen voor Warrior/Paladin/Shaman, tas-wapens
   volgens `WEAPONS_BY_CLASS` (AFGELEID uit retail-proficiencies, niet uit de client; onbekende subclass gaat door).
+  ✅ Daarna (site-chat 1+2, Rob: "vergeet de andere niet"): tas-items met rode tooltipregel of te hoog level eruit
+  (`ns.TooltipLineIsRedRequirement` uit Openables; redenen → `ns.db.gearExportSkips`); veld 12 = "a" voor een
+  één-hander als `CanDualWield()`. LATER (site-volgorde): 3 tier set-veld 16, 4 embellishments, 5 effect-vlag alle
+  slots, 6 gem/enchant-veld 17 — zie site `drafts/armory-advice-gaps-2026-10-10.md`.
 - 10 okt, Rob: "meer dingen verzinnen voor de beta" → koos 2 (healer-cd's), 4 (transmog), 3+5 eerst meten
   (Knowledge-teller, Death Recap-les); Renown per alt vervalt (account-wide). mh-research loopt voor 2 en 3+5.
   ✅ GEBOUWD 4: `TradingPost.lua` `OwnedChecks` (PlayerHasToy, C_TransmogCollection.PlayerHasTransmog, C_TransmogSets

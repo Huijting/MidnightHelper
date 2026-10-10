@@ -25,7 +25,8 @@ local _, ns = ...
 	  numbers  whole numbers, a missing stat is 0
 	  primary  extra key on the char line (28 Sep 2026). The site's parser ignores keys it does not
 	           know, so the contract holds; it is there so a pasted export shows what we filtered on.
-	  hands    12th field, weapons only (30 Sep 2026): 2 = takes both hands, 1 = one hand. Rob's Shaman
+	  hands    12th field, weapons only (30 Sep 2026): 2 = takes both hands, 1 = one hand, a = a one-hand
+	           weapon for EITHER hand, only when this character can dual-wield (10 Oct 2026). Rob's Shaman
 	           wore a staff and the site told him to add a shield from his bags, because nothing said
 	           the staff filled the off hand too. The site picks weapons as a pair when this is present.
 	  unique   13th field, rings and trinkets only (30 Sep 2026): <key>:<max>, empty when the item is not
@@ -48,7 +49,9 @@ local _, ns = ...
 	Intellect cloth robe or a caster mace):
 	  - armour of another type than your class wears (plate/mail/leather/cloth; cloaks exempt), and
 	  - items that carry a primary stat, but not yours, and
-	  - shields and weapon types your class cannot equip (10 Oct 2026, a Warlock got a shield).
+	  - shields and weapon types your class cannot equip (10 Oct 2026, a Warlock got a shield), and
+	  - items with a red (unmet) requirement in the tooltip or a required level above yours
+	    (10 Oct 2026); what was skipped and why goes to ns.db.gearExportSkips.
 	Equipped items are always written: they are what you wear, whatever they are.
 
 	Reused, not rebuilt: the copy window is the one /mh binds and the delve share use
@@ -245,7 +248,42 @@ local function Hands(slot, link)
 	if loc and TWO_HAND_LOCS[loc] and not (loc == "INVTYPE_RANGEDRIGHT" and subClassID == WAND) then
 		return "2"
 	end
+	-- 10 Oct 2026 (site chat): "a" = a one-hand weapon that may go in EITHER hand, written only
+	-- when this character can dual-wield (CanDualWield(), the client's own answer). Without it a
+	-- Rogue or Fury Warrior never got advice for the off hand: every bag one-hander was "mainhand".
+	if loc == "INVTYPE_WEAPON" and CanDualWield then
+		local ok, dw = pcall(CanDualWield)
+		if ok and dw == true then
+			return "a"
+		end
+	end
 	return "1"
+end
+
+--- true when a bag item's tooltip has a red (unmet) requirement line: level too high, wrong
+--- class, a profession you lack. Same colour test as Openables.lua, language-independent. Fails
+--- open: no tooltip or no colour = usable. Also the item's required level against yours.
+local function UnmetRequirement(bag, slotIdx, link)
+	if C_Item and C_Item.GetItemInfo and UnitLevel then
+		local ok, _, _, _, _, minLevel = pcall(C_Item.GetItemInfo, link)
+		local lvl = UnitLevel("player")
+		if ok and type(minLevel) == "number" and not ns.IsSecretValue(minLevel) and type(lvl) == "number"
+			and minLevel > lvl then
+			return "level"
+		end
+	end
+	if ns.TooltipLineIsRedRequirement and C_TooltipInfo and C_TooltipInfo.GetBagItem then
+		local ok, data = pcall(C_TooltipInfo.GetBagItem, bag, slotIdx)
+		local lines = ok and type(data) == "table" and data.lines
+		for i, line in ipairs(type(lines) == "table" and lines or {}) do
+			-- Line 1 is the item name, coloured by quality; never a requirement.
+			if i > 1 and ns.TooltipLineIsRedRequirement(line) then
+				local text = line.leftText
+				return "red: " .. (ns.CanAccessText(text) and text or "?")
+			end
+		end
+	end
+	return nil
 end
 
 --- The "item" field: "<itemID>" or "<itemID>:<bonusID>:...", empty when the link has no item string.
@@ -416,6 +454,7 @@ function ns.BuildGearExport()
 	-- 4 on retail; the repo's own bag loops use 0-4 (DelveItemsPopup.lua:286) with 5 as the reagent bag
 	-- (Openables.lua:234).
 	local CC = C_Container
+	local skips = {}
 	if CC and CC.GetContainerNumSlots and CC.GetContainerItemInfo then
 		for bag = 0, (NUM_BAG_SLOTS or 4) do
 			local okN, n = pcall(CC.GetContainerNumSlots, bag)
@@ -436,11 +475,23 @@ function ns.BuildGearExport()
 				if slot and CannotEquip(tostring(classFile), classID, subClassID) then
 					slot = nil
 				end
+				-- An unmet requirement (red tooltip line, or level too high): skip, and keep the
+				-- reason so /reload shows what was left out (ns.db.gearExportSkips).
+				if slot then
+					local why = UnmetRequirement(bag, slotIdx, link)
+					if why then
+						skips[#skips + 1] = ((link:match("%[(.-)%]") or "?") .. " - " .. why)
+						slot = nil
+					end
+				end
 				if slot then
 					Add("B", slot, link)
 				end
 			end
 		end
+	end
+	if ns.db then
+		ns.db.gearExportSkips = skips
 	end
 	return table.concat(lines, "\n"), items, pending
 end

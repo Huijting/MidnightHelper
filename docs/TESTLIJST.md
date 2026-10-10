@@ -55,6 +55,10 @@ er is niets weggegooid.
 - [x] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). ✅ Rob 10 okt: 3.
 - [ ] `/reload`, `/mh export`. De tweede regel eindigt nu op `;realm=Khadgar;region=eu` (of je echte realm).
 - [ ] Plak het op midnighthelper.com/armory/: je ziet je eigen character als plaatje (site-kant).
+- [ ] Rode eis: leg iets in je tas dat je NIET mag dragen (te hoog level, andere class: de tooltip toont een rode
+      regel). `/mh export`, `/reload`. Het staat niet in de export, en ik lees in je bestand waarom (gearExportSkips).
+- [ ] Op een Rogue, Fury Warrior, Enhancement Shaman of Frost DK met een één-hands wapen in de tas: in de export eindigt
+      dat wapen op `|a|` (mag in beide handen). Op Warlockie blijft het `|1|`.
 - [x] ✅ Rob 10 okt: geen schild meer. Op Warlockie (Steelbark Bulwark in de tas): `/mh export` heeft GEEN regel `B|offhand|…|Steelbark Bulwark` meer,
       en de site raadt geen schild meer aan. Wapens die je class niet kan dragen vallen ook weg.
 

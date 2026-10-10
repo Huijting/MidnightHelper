@@ -60,6 +60,8 @@ local function LineIsRedRequirement(line)
 	-- Tooltip "error red" ≈ (1.0, 0.125, 0.125); item-quality colours never hit this.
 	return r > 0.8 and g < 0.3 and b < 0.3
 end
+-- Shared with GearExport.lua (10 Oct 2026): bag gear with an unmet requirement is left out too.
+ns.TooltipLineIsRedRequirement = LineIsRedRequirement
 
 local function SlotKind(bag, slot)
 	if not (C_TooltipInfo and C_TooltipInfo.GetBagItem) then
