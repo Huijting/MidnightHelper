@@ -135,6 +135,7 @@ Gebouwd, niet getest. Rob: "ik ben altijd Ster, Carola oranje rondje, Cisca de p
   icoon. Niemand bekend → grijs + uitleg.
 - [x] ✅ Rob 10 okt GEMETEN: de Battle.net-route WERKT (`/mh mark friends` zag magedobby-khadgar = carola#2875 en
   sizle-lightbringer = sizzle#21918). Dobby kreeg geen marker omdat de ingetypte tags fout waren (dobby#8274, sizzle#0617).
+- [x] ✅ Rob 10 okt: met de juiste BattleTag krijgt Dobby (MageDobby, carola#2875) het rondje via de vriendenknop.
 - [ ] Nu ook met een charactername: `/mh mark friend MageDobby circle` → chat noemt carola#2875. Oude foute links weg:
   `/mh mark friend dobby#8274 off` en `/mh mark friend sizzle#0617 off`. `/mh mark friends` zet "(not in WoW right now -
   or a typo?)" achter een link die niet klopt.
