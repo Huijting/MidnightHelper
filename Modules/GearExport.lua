@@ -100,8 +100,8 @@ local PRIMARY_BY_STAT = {
 	[4] = { key = "ITEM_MOD_INTELLECT_SHORT", name = "Intellect" },
 }
 
--- GetCurrentRegion() ids, as AceDB's regionTable has them. AFGELEID (not measured in a client yet):
--- check with /run print(GetCurrentRegion()) - 3 on Rob's EU account.
+-- GetCurrentRegion() ids, as AceDB's regionTable has them. 3 = eu MEASURED (Rob's EU client, 10 Oct 2026);
+-- the other four are from AceDB, not measured.
 local REGION_BY_ID = { [1] = "us", [2] = "kr", [3] = "eu", [4] = "tw", [5] = "cn" }
 
 -- The armour type each class wears (Enum.ItemArmorSubclass: 1 cloth, 2 leather, 3 mail, 4 plate).

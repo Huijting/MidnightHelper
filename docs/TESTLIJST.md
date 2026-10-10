@@ -23,7 +23,7 @@ er is niets weggegooid.
 
 ## 🆕 10 okt — `/mh export`: realm en regio erbij (GearExport.lua)
 
-- [ ] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). Een ander getal → zeg het, dan klopt de tabel niet.
+- [x] Typ `/run print(GetCurrentRegion())`. Je moet **3** zien (EU). ✅ Rob 10 okt: 3.
 - [ ] `/reload`, `/mh export`. De tweede regel eindigt nu op `;realm=Khadgar;region=eu` (of je echte realm).
 - [ ] Plak het op midnighthelper.com/armory/: je ziet je eigen character als plaatje (site-kant).
 
