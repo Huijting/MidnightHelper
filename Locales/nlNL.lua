@@ -3643,6 +3643,7 @@ ns._mhLocales.nlNL = {
 	DEATH_RECAP_FALL = "Je viel te diep. Volgende keer: kijk eerst, of gebruik een slow fall.",
 	DEATH_RECAP_MELEE = "gewone klappen",
 	DEATH_RECAP_MELEE_ONE = "een gewone klap",
+	DEATH_RECAP_INSTANT = "Op het moment dat je doodging raakte niets je: iets doodde je in één keer, zoals een val in het niets of uit de wereld. De Death Recap toont alleen de klappen van daarvoor.",
 	SET_DEATHCARD_SEC_TITLE = "Doodskaartje: hoe lang het blijft staan",
 	SET_DEATHCARD_SEC_DESC = "Hoeveel seconden het kaartje dat zegt wat je doodde in beeld blijft. Je kunt het altijd wegklikken, of erop klikken om de Death Recap te openen.",
 

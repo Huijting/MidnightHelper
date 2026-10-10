@@ -4185,6 +4185,7 @@ ns._mhLocales.enUS = {
 	DEATH_RECAP_FALL = "You fell too far. Next time: look before you jump, or use a slow fall.",
 	DEATH_RECAP_MELEE = "melee hits",
 	DEATH_RECAP_MELEE_ONE = "a melee hit",
+	DEATH_RECAP_INSTANT = "Nothing hit you at the moment you died: something killed you instantly, like falling into the void or out of the world. The Death Recap only shows the hits from before.",
 	SET_DEATHCARD_SEC_TITLE = "Death card: how long it stays",
 	SET_DEATHCARD_SEC_DESC = "How many seconds the card that says what killed you stays on screen. You can always click it away or click it to open the Death Recap.",
 

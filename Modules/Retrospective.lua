@@ -315,7 +315,7 @@ end
 -- secret (NOT measured): every field is checked, and anything unreadable makes this return nil, so the
 -- old behaviour (point at Blizzard's recap) stays the fallback. Never a guess.
 -- @return { fall = true } | { top = label, topSrc = name|nil, hits = n, last = label|nil } | nil
-local function DeathCauseFromRecap()
+local function DeathCauseFromRecap(deathAt)
 	if not (C_DeathRecap and C_DeathRecap.GetRecapEvents) then
 		return nil
 	end
@@ -359,6 +359,13 @@ local function DeathCauseFromRecap()
 	local kbLabel, _, kbEnv = Label(kb)
 	if kbEnv and kbLabel == "Falling" then
 		return { fall = true }
+	end
+	-- No hit at the moment of death: something killed instantly (Rob jumped into the Twisting Nether,
+	-- 10 Oct 2026, and the card blamed the lava and melee from the fight before). The recap's timestamp
+	-- is epoch seconds like time() (MEASURED in deathRecapProbe: 1791635234 = that afternoon).
+	local kbAt = num(kb.timestamp)
+	if deathAt and kbAt and deathAt - kbAt > 3 then
+		return { instant = true }
 	end
 	-- What did the most damage over the whole recap, and how many hits.
 	local sum, hits, srcOf = {}, {}, {}
@@ -561,8 +568,8 @@ end
 
 --- The lesson from Blizzard's recap (DeathCauseFromRecap). @return true when it could be read and was shown;
 --- false leaves the caller's older path (combat-log lesson / restricted card / nothing) to run.
-local function ShowRecapLesson()
-	local ok, cause = pcall(DeathCauseFromRecap)
+local function ShowRecapLesson(deathAt)
+	local ok, cause = pcall(DeathCauseFromRecap, deathAt)
 	if not ok or not cause then
 		return false
 	end
@@ -573,6 +580,8 @@ local function ShowRecapLesson()
 	local body
 	if cause.fall then
 		body = ns:L("DEATH_RECAP_FALL")
+	elseif cause.instant then
+		body = ns:L("DEATH_RECAP_INSTANT")
 	else
 		if cause.topSrc then
 			body = (ns:L("DEATH_RECAP_TOP_SRC_FMT")):format(cause.top, cause.topSrc, cause.hits or 1)
@@ -815,10 +824,11 @@ zone:SetScript("OnEvent", function(_, ev)
 			inInst0, instType0 = IsInInstance()
 		end
 		if not (inInst0 and (instType0 == "pvp" or instType0 == "arena")) and C_DeathRecap and C_Timer and C_Timer.After then
+			local deathAt = time and time() or nil
 			C_Timer.After(1, function()
 				local shown = false
 				pcall(function()
-					shown = ShowRecapLesson()
+					shown = ShowRecapLesson(deathAt)
 				end)
 				if shown then
 					return
@@ -950,6 +960,12 @@ function ns.PrintDeathRecapDiagnostics()
 	if okC and c then
 		print(("   lesson: %s"):format(c.fall and "fall" or ("top=%s src=%s hits=%s last=%s"):format(
 			tostring(c.top), tostring(c.topSrc), tostring(c.hits), tostring(c.last))))
+		-- How long ago the killing blow was: more than 3 s before a death = "killed instantly" on the card.
+		local okE, ev = pcall(C_DeathRecap.GetRecapEvents)
+		local ts = okE and type(ev) == "table" and type(ev[1]) == "table" and ev[1].timestamp
+		if type(ts) == "number" and not isSecret(ts) and time then
+			print(("   last hit was %d s ago"):format(math.floor(time() - ts)))
+		end
 	else
 		print("   lesson: none (no readable recap) - the card falls back to 'open the Death Recap'")
 	end

@@ -6,8 +6,9 @@
 - Volgende: Rob test met Carola/Cisca in een delve/dungeon (markers, Death Recap-les); dan 4.7.6 als release.
 - Na beta2 op main (nog niet in een tag): DH-toetsen onder level 10 (2166491, Rob GEMETEN goed); doodskaartje
   blijft standaard 20 s + schuif 5–60 s (`ns.db.deathCardSec`, SettingsDefs `mh_deathCardSec`); "a melee hit"
-  bij de laatste klap. Kaartje zelf GEMETEN werkend buiten een instance (Rob, lava). Open: wat zegt het bij een
-  sprong in de void? (Rob ging zo dood, screenshot nog niet gezien.)
+  bij de laatste klap. Kaartje zelf GEMETEN werkend buiten een instance (Rob, lava). Void-sprong GEMETEN fout (Rob,
+  Twisting Nether: kaartje noemde lava + melee van ervoor). Gerepareerd: klap >3 s vóór de dood (recap
+  `timestamp` vs `time()` bij PLAYER_DEAD) → "killed instantly"-tekst. Nog niet in het spel gezien.
 
 ## (klaargezet) 4.7.6-BETA2 (Rob: "go beta2")
 - CHANGELOG_476_8..17 (zonder 14) in enUS + Changelog.lua; RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (cmp gelijk),
