@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 okt — toetsenblok op een nieuw character onder level 10 (KeybindAutoMap.lua)
+
+- [ ] Op de nieuwe Demon Hunter (level 8): `/reload`, toetsenblok openen. Chaos Strike, Demon's Bite en Fel Rush staan
+      NIET meer op de Alt-toetsen als "Not in Midnight Helper's list", maar op hun eigen plek (rotatie, beweging).
+      Klik "Update (add new spells)" of "Undo" + opnieuw plaatsen, want het blok staat al op je balken.
+
 ## 🆕 10 okt — weeklijst ("This Week") gerepareerd (docs/WEEKLY_CHECK_2026-10-10.md)
 
 - [ ] Op een level 90 die "Umbral Blessings of the Catalyst" deed: This Week toont **Orin Straylight** (extra Voidcore,

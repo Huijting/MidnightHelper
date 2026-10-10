@@ -258,6 +258,40 @@ local function BuildIdIndex(roles)
 end
 
 --- Entry geldt als hij geen spec-filter heeft (class-baseline) of de huidige spec bevat.
+--- The spec the keybind data should read for this character. 10 Oct 2026 (Rob's new level-8 Demon Hunter: Chaos
+--- Strike, Demon's Bite and Fel Rush landed on the spare Alt keys as "not in MH's list"): below level 10 a character
+--- has no real specialization yet (the game's "initial" spec), so every entry with `specs = { 577 }` failed to match.
+--- When the current spec is not one of the class's real specs, read the class's FIRST spec (Havoc for a Demon
+--- Hunter) - the abilities a fresh character gets are that spec's. AFGELEID that the starter spells are spec 1's.
+local function KeybindSpecID()
+	local specID
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local s = ns.GetSpecialization()
+		if s and s > 0 then
+			specID = ns.GetSpecializationInfo(s)
+		end
+	end
+	local classID = UnitClass and select(3, UnitClass("player"))
+	if classID and GetNumSpecializationsForClassID and GetSpecializationInfoForClassID then
+		local okN, n = pcall(GetNumSpecializationsForClassID, classID)
+		local real = false
+		for i = 1, (okN and tonumber(n) or 0) do
+			local okI, id = pcall(GetSpecializationInfoForClassID, classID, i)
+			if okI and id == specID then
+				real = true
+				break
+			end
+		end
+		if not real and okN and (tonumber(n) or 0) > 0 then
+			local okF, first = pcall(GetSpecializationInfoForClassID, classID, 1)
+			if okF and first then
+				specID = first
+			end
+		end
+	end
+	return specID
+end
+
 local function SpecMatches(specs, specID)
 	if not specs then
 		return true
@@ -279,13 +313,7 @@ function ns.MH_AutoMapBuild()
 	local roles = RolesForClass(class)
 	local known = ReadKnownActiveSpells()
 
-	local specID
-	if ns.GetSpecialization and ns.GetSpecializationInfo then
-		local s = ns.GetSpecialization()
-		if s and s > 0 then
-			specID = ns.GetSpecializationInfo(s)
-		end
-	end
+	local specID = KeybindSpecID()
 
 	local spells = {}
 	local clickCast = {} -- healer single-target-heals: geen toets, via mouseover/click-cast (v6 §6)
@@ -515,13 +543,7 @@ local autoCache = {}
 
 local function CurrentSpecKey()
 	local _, class = UnitClass("player")
-	local specID
-	if ns.GetSpecialization and ns.GetSpecializationInfo then
-		local s = ns.GetSpecialization()
-		if s and s > 0 then
-			specID = ns.GetSpecializationInfo(s)
-		end
-	end
+	local specID = KeybindSpecID()
 	return (class or "?") .. "-" .. tostring(specID or 0), class
 end
 
