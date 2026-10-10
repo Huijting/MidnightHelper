@@ -4782,3 +4782,166 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `git merge-base --is-ancestor 310822c 55ab88c` geeft **exit 0**, en `git switch main` meldde
     *"behind by 172 commits, and can be fast-forwarded"*. Daarna was `pull --rebase origin main`
     een schone fast-forward. 📌 De `.toc` staat nog op **4.7.4**.
+
+- [2026-10-10] 🧩 **De wiki heeft de officiële API-patchnotes naar sub-pagina's verhuisd, en de
+  SimulationCraft-addon heeft een tweede release in twee dagen (`12.1.5-alpha-01`). 0 × [MOET
+  GEFIKST] nieuw** — de ene open [MOET GEFIKST] van gisteren (race 95/96) staat er nog, ongewijzigd,
+  en is dus géén nieuwe vondst. Vier echt nieuwe bronitems binnen 3–10 okt; drie **[RAAKT ONS NIET]**,
+  één **[AL AFGEDEKT]**. Hotfixes onveranderd sinds 6 okt, deze keer in drie bronnen gemeten.
+  - 🔇 **[AL AFGEDEKT] — SimC-addon `12.1.5-alpha-01` (prerelease, gepubliceerd 9 okt 16:49:16Z,
+    commit `3fe70f3`) raakt alleen een regel die MH met opzet niet schrijft.** GEMETEN via
+    `compare/703bc5c...3fe70f3`: precies **twee** commits en **twee** bestanden.
+    - `extras.lua` (+1 regel), letterlijk: `[280562] = 'Ascendant Venomstone',` toegevoegd aan
+      `Simulationcraft.upgradeItems`, direct onder `[268552] = 'Ascendant Voidcore'`.
+    - `Simulationcraft.toc` (+1/−1): `## Version: 12.1.0-alpha-06` → `12.1.5-alpha-01`. Niets anders.
+    - **Waar die tabel voor dient, GELEZEN in upstreams `core.lua` op deze commit** (via
+      `raw.githubusercontent.com`, de enige regel die hem noemt): `for itemId, itemName in
+      pairs(Simulationcraft.upgradeItems) do`, binnen `Simulationcraft:GetUpgradeCurrencies()`. Die
+      functie telt elk item met `GetItemCount(itemId, true, true, true)`, schrijft `i:<itemId>:<count>`
+      en voedt de profielregel `# upgrade_currencies=`.
+    → **Toets aan de code: MH heeft die regel niet, en met opzet.** `Modules/SimcExport.lua:19`
+    zegt letterlijk *"Left out on purpose (v1): the upgrade/catalyst currency lines (season data that
+    would need its own upkeep)"*. GEMETEN, addon-scope (zonder `.git`, `docs`, `tools`, `dist`),
+    opties vóór `-e`: `upgradeItems` **0**, `upgradeCurrencies` **0**, `upgrade_currencies` **0**,
+    `268552` **0**. 🔴 **Positieve controle in dezelfde run, zelfde bestand:** `Tokenize` geeft **10**
+    treffers in `SimcExport.lua` — de nullen zijn echte nullen en geen misgrep.
+    📌 **Wel grappig en géén tegenspraak:** item **280562** kent MH allang, maar aan de Codex-kant —
+    `data/patch_12_1_5_ids.tsv:177` (*"Ascendant Venomstone 280562 … GEMETEN"*) en
+    `Modules/MidnightCodexData.lua:452`. Dezelfde steen, een andere module; de SimC-export raakt hij niet.
+    ⚠️ **En de twee versiestempels lopen nu twee releases achter**, niet één: `SimcExport.lua:14`
+    (*"read 30 Sep 2026 at release 12.1.0-04"*) en `:481` (`"(SimulationCraft addon format, 12.1.0-04)"`).
+    Dat is geen fout in de uitvoer, maar het is wel wat Rob moet bijwerken zodra hij de race-takken
+    overneemt.
+  - ⏳ **De [MOET GEFIKST] van 9 okt is NIET opgelost en NIET nieuw: `Modules/SimcExport.lua:445-446`
+    schrijft nog steeds een eigen `race=`-token voor race-ID 95 en 96.** GEMETEN vandaag, letterlijk
+    uit het bestand: `local _, raceFile = UnitRace("player")` en
+    `local race = raceFile == "Scourge" and "Undead" or FormatRace(raceFile)`. De derde teruggave van
+    `UnitRace` wordt nog niet opgevraagd. 📌 Upstream heeft de twee takken (`skyborne_alliance` /
+    `skyborne_horde`) in `12.1.5-alpha-01` **behouden** — `703bc5c` is een voorouder van `3fe70f3` en
+    de diff ertussen raakt `core.lua` niet. De vondst van gisteren staat dus nog recht overeind; zie
+    daar voor de volledige onderbouwing en voor wat ik níét weet (welk token MH er dan wél van maakt).
+  - 🧩 **[RAAKT ONS NIET voor de code — MAAR MIJN EIGEN BRONNENLIJST MOET BIJ] — de officiële
+    API-patchnotes staan sinds 9 okt op aparte sub-pagina's.** Twee nieuwe pagina's, beide die dag
+    aangemaakt: `Patch 12.1.0/API changes/notes` (pageid **710458**, revid `6905829`, 36690 b) en
+    `Patch 12.1.5/API changes/notes` (pageid **710454**, revid `6905828`, 16320 b). Op de ouderpagina's
+    staat nu alleen nog een verwijzing, letterlijk op de 12.1.5-pagina:
+    *"Official API patch notes: [[Patch 12.1.5/API_changes/notes|Midnight 12.1.5 PTR Changes]]
+    (updated for PTR Changes 4, 2026-09-29)"*.
+    - **Wie en wanneer:** op `Patch 12.1.0/API changes` deed **P3lim** het om 18:33:21Z met als
+      samenvatting *"Move notes to sub-page"* (102481 → 66197 b); op `Patch 12.1.5/API changes` deed
+      **Ketho** hetzelfde om 18:18:33Z (34085 → 17779 b), na eerst om 18:11:37Z de drie
+      Linxy-blueposts eruit te halen (*"/* Blue posts */ remove forum posts"*). Daarna nog een reeks
+      kleine Resources-bewerkingen tot `6905801` / `6905800` (18:59Z).
+    - 🔴 **GEMETEN dat er géén API-inhoud is bijgekomen, en dat is hier de hele vraag** — een pagina
+      die in één avond 36 KB kleiner wordt, ziet er van buiten uit als een pagina waar iets gebeurd is.
+      1. De sectielijst van `Patch 12.1.5/API changes/notes` is exact **vier** secties: `2026-09-03`,
+         `2026-09-16`, `2026-09-22`, `2026-09-29` — dat zijn PTR Changes 1 t/m 4, alle vier al in dit
+         logboek (22, 23 sep en 6 okt). **Geen "PTR Changes 5" en geen oktobersectie.**
+      2. De sectielijst van `Patch 12.1.0/API changes/notes` is **acht** secties, alle van
+         18 jun t/m 4 aug 2026 — niets binnen mijn venster.
+      3. In beide diffs eindigt de wijziging **boven** `==Consolidated changes==` en staat die kop aan
+         weerszijden identiek; de echte API-lijsten zijn dus niet aangeraakt.
+    - ✅ **Wat dit voor de volgende run betekent:** blijf `Patch 12.1.5/API changes` volgen voor de
+      `Consolidated changes`, maar volg **vanaf nu óók** `Patch 12.1.5/API changes/notes` en
+      `Patch 12.1.0/API changes/notes`. Een nieuwe PTR-Changes-lijst landt voortaan op de sub-pagina en
+      laat de ouderpagina mogelijk onveranderd — precies de vorm waarin "geen bewerking" ten onrechte
+      als "niets nieuws" leest. 🔴 Ik raak `docs/WATCHER_API_PROMPT.md` niet aan; dit staat hier.
+  - 🔇 **[RAAKT ONS NIET] — `TOC format` is opnieuw bewerkt (`6904790` → `6905891`, Zeal, laatste om
+    9 okt 21:19:17Z, 32649 → 32839 b) en er zit één nieuw feit in.** GEMETEN via `action=compare`.
+    Drie wijzigingen, alle drie klein:
+    - **Nieuw patch-feit**, letterlijk toegevoegd onder de `Patch 3.80.0`-noot: *"The legacy `WOTLK`
+      TOC suffix is no longer supported."*
+    - De inline directive `Bootstrap` krijgt een `supports`-regel (laatste patch + Forever); hij is
+      dus geen algemene directive maar expliciet begrensd.
+    - Een typefout weg: *"Multiple inline directices"* → *"directives"*.
+    → **Toets aan de code: 0 treffers, en de `.toc` kan het niet eens raken.** GEMETEN, addon-scope:
+    `WOTLK` **0**, `Bootstrap` **0**. MH's `.toc` heeft geen enkele suffix-variant en geen inline
+    directive; regel 1 is `## Interface: 120007, 120100, 120105` (vandaag opnieuw gelezen).
+  - 🔇 **[AL AFGEDEKT, en de wijziging is bovendien cosmetisch] — `API:GetShapeshiftForm` bewerkt
+    9 okt 19:10:10Z** (Ketho, samenvatting `/* Returns */`, 1696 → 1711 b). ⚠️ De samenvatting
+    suggereert een gewijzigde teruggave; **dat is het niet**. GEMETEN: de volledige diff
+    (`6809916` → `6905815`) bestaat uitsluitend uit lijst-indentatie — elke `:#`-regel werd `::#` en
+    de slotnoot `:::` werd `::::`. Geen woord aan de inhoud: de vormen per klasse (Druid 1–6, Priest
+    Shadowform, Rogue Stealth/Vanish, Shaman Ghost Wolf, Warrior-stances, Hunter Aspect of the Hawk)
+    staan er letterlijk hetzelfde.
+    → **Toets aan de code: 3 treffers, alle drie afgedekt.** `Modules/MissingBuff.lua:11` is een
+    commentaarregel; `:89` is `if not GetShapeshiftForm then` (met een vroege return) en `:92` is
+    `local ok, idx = pcall(GetShapeshiftForm)`. Guard **en** `pcall` — dit overleeft zowel een
+    verdwenen global als een veranderde teruggave.
+  - 🔇 **[RAAKT ONS NIET] — `API:UnitAura` bewerkt 9 okt 16:55:22Z** (8467 → 8469 b, samenvatting
+    `/* Patch changes */`). **Twee bytes, en het is een typefout:** de noot bij Patch 9.0.1 mistte zijn
+    afsluitende accolades, `* {{Patch 9.0.1|note=Added <code>MAW</code> filter.` werd
+    `… filter.}}`. Niets over gedrag of deprecatie.
+    → **Toets aan de code: `UnitAura(` 0 treffers** in addon-scope; MH gaat uitsluitend via
+    `C_UnitAuras` (vandaag **86** voorkomens).
+  - 🔇 **`#ui-macro`: GEEN nieuw topic sinds mijn vorige run.** GEMETEN met `order=created`: het
+    nieuwst aangemaakte is nog steeds `2376572` *"Policy Clarification — Displaying Addon Statistics on
+    a USB Screen"* (8 okt 22:20:51Z), dat gisteren al in dit logboek stond, en het heeft nog steeds
+    **geen blauw antwoord** (2 posts, laatste van No1UKnow, een speler). Er kwamen wél reacties op
+    oudere draadjes — `2315684` *"Interact on Mouse Over Issues"* (9 okt 04:23:32Z) en `2367394`
+    *"Unregister Global Mouse"* (8 okt 16:29:15Z, het `GLOBAL_MOUSE_DOWN`-draadje van 1 okt) — maar
+    geen van beide met nieuwe API-inhoud of een blue post.
+  - 📰 **Hotfixes: niets sinds 6 okt, en dat is deze keer in drie onafhankelijke bronnen gemeten.**
+    (1) De wikipagina `Hotfixes` is onveranderd: zelfde revid `6902337` (Dark T Zeratul, 7 okt
+    04:45:05Z, 374413 b), laatste sectie nog steeds `October 6`. (2) Het nieuwste officiële artikel is
+    *"Hotfixes: October 6, 2026"* (`news.blizzard.com/en-us/article/24296142/hotfixes-october-6-2026`).
+    (3) Gespiegeld op Wowheads Blue Tracker (`.../hotfixes-october-6-2026-…-24296142`) en op
+    `bluetracker.wowclassicui.com/post/1484` (Linxy, 6 okt 22:21). ⚠️ **MEASURED (via search, niet zelf
+    gelezen)** voor (2) en (3): `news.blizzard.com` gaf via Exa vandaag een **lege body** (alleen de
+    titel *"World of Warcraft — Blizzard News"*), dus Blizzards eigen pagina heb ik niet gelezen.
+    🔴 **En mijn eigen cacheregel sloeg weer aan:** een kale `WebSearch` naar *"hotfixes October 9
+    2026"* gaf als nieuwste de hotfixes van **1 okt** — ouder dan de 6 okt die ik gisteren al had. Die
+    zoekopdracht telt dus **niet** als bewijs dat er niets is; de conclusie hangt aan de wiki plus de
+    twee spiegels.
+  - ✅ **Versheid van de wiki-bron zelf, hard aangetoond op hetzelfde `api.php`.** Het nieuwste dat ik
+    vandaag terugkreeg is `Forever companions` (ns 0, **aangemaakt 10 okt 03:14:54Z**, Kaydeethree) en
+    `TOC format` revid `6905891` (9 okt 21:19:17Z) — beide nieuwer dan álles in mijn regel van
+    gisteren. De onveranderde pagina's hieronder zijn daarmee gemeten nullen en geen cache.
+  - 🔇 **De overige gevolgde pagina's, byte-voor-byte gelijk aan gisteren.** `API change summaries`
+    `6883777` (22 sep, 7280 b), `Patch 12.0.7/API changes` `6794100` (4 aug, 34044 b). 📌 Opnieuw
+    GEMETEN dat er nog geen nieuwere variant bestaat: `Patch 12.1.7/API changes` en
+    `Patch 12.2.0/API changes` komen beide terug als `"missing": ""`. ⚠️ `Patch 12.1.0/API changes` en
+    `Patch 12.1.5/API changes` zijn wél bewerkt, maar uitsluitend door de verhuizing hierboven.
+  - 🔇 **De `API:`-namespace (ns 3000) over 3–10 okt: zeven regels, waarvan vijf al in dit logboek.**
+    `list=recentchanges&rcnamespace=3000&rclimit=250&rcend=2026-10-03T00:00:00Z`, mét cache-buster. De
+    twee nieuwe zijn `API:GetShapeshiftForm` `6905815` en `API:UnitAura` `6905582`, beide hierboven
+    getoetst. De vijf bekende zijn onaangeroerd met dezelfde revid's: `API:import` `6904622` en
+    `6904617` (8 okt), `API:C Spell.GetItemCooldown` `6901441`, `API:UnitUsesAmmo` `6901440` (6 okt) en
+    `API:SendAddonMessage` `6899146` (3 okt). **Geen achtste onderwerp.**
+  - 🔴 **Positieve controle op de namespace-greps, en er is lichte groei die de commits verklaren.**
+    Zelfde scope en vorm als gisteren (`grep -rFo --exclude-dir=… -e "<naam>" .`, opties vóór `-e`,
+    geteld als **voorkomens**): `issecretvalue` **216** (was 210), `CreateFrame` **794** (791),
+    `InCombatLockdown` **237** (235), `C_Spell` **428** (422), en ongewijzigd `C_UnitAuras` **86**,
+    `C_Timer` **560**, `C_Secrets` **27**, `C_SuperTrack` **29**. 📌 Geen van die stijgingen is een
+    API-wijziging; er liggen **26** commits tussen gisteren (`55ab88c`) en vandaag (`765be78`), en
+    `git merge-base --is-ancestor` geeft **exit 0**, dus de boom is netjes vooruit gelopen.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` gaf via Exa een **lege body** (zie de hotfixregel hierboven). Blizzards eigen
+      hotfixpagina is dus vandaag níét gelezen; de conclusie komt van de wiki en twee spiegels.
+    - `us.forums.blizzard.com` via `WebFetch` geeft **`getaddrinfo ENOTFOUND`**; alle forumdata komt via
+      Exa's `35.json` / `latest.json`. De wiki idem, alles via Exa.
+    - De **volledige** diff van de verhuizing (`6886719` → `6905726`, ~36 KB verwijderd) heb ik niet
+      integraal gelezen; ik heb de verhuizing vastgesteld via de sectielijsten van beide sub-pagina's,
+      de samenvattingen en de ongewijzigde `==Consolidated changes==`-kop. Dat is een afgeleide
+      conclusie met drie steunpunten, geen regel-voor-regel-lezing.
+    - De 12.1.5-**PTR-buildnotes** zelf niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald — zie de open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`. Die pagina is vandaag niet aangeraakt, dus geen aanleiding.
+    - `wowhead.com/blue-tracker` niet rechtstreeks geprobeerd (vijftien runs op rij lege body); de
+      Blue-Tracker-spiegel hierboven komt uit een zoekresultaat.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw:**
+    - `Modules/SimcExport.lua:445-446` — de race-takken (9 okt). **Het enige openstaande
+      [MOET GEFIKST].**
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. 🔴 Ik raak dat
+      bestand niet aan. ⚠️ Daar hoort nu ook de nieuwe bronnenlijst bij (de twee `/notes`-sub-pagina's).
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat er
+      `120007, 120100, 120105` (regel 1). 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM** (vandaag opnieuw gemeten met `head`:
+      `﻿## Interface: …`). Onschadelijkheid blijft AFGELEID.
+  - 🔧 **Repo-staat.** Bij aanvang opnieuw een **detached HEAD**, nu op `765be78` *"Handoff: next up,
+    /mh presses in its own window"*, `git status --porcelain` leeg, geen van de vier wachter-bestanden
+    gewijzigd-maar-ongecommit. Lokale branch `main` stond weer achter en `origin/main` kwam na
+    `fetch --deepen=300` binnen als *"forced update"* — net als de vorige twee runs **geen divergentie**:
+    `git switch main` meldde *"behind by 198 commits, and can be fast-forwarded"*, en
+    `pull --rebase origin main` was daarna een schone fast-forward. 📌 De `.toc` staat nog op **4.7.5**.
