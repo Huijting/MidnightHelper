@@ -282,13 +282,19 @@ function ns.GetMissingBuffs()
 
 	-- 2) Warrior-stances (groep): geleerd maar geen stance actief.
 	if classToken == "WARRIOR" and type(ns.MISSING_STANCES) == "table" then
-		local knowsAny, castSpell = false, nil
+		local knowsAny, castSpell, specSpell = false, nil, nil
 		for _, s in ipairs(ns.MISSING_STANCES) do
 			if IsKnown(s.spell) then
 				knowsAny = true
 				castSpell = castSpell or s.spell -- eerste (Defensive default)
+				-- 10 Oct 2026: zelfde fout als de Imp bij Demonology — Arms en Fury kregen
+				-- Defensive Stance. De stance van je spec wint, als je die kent.
+				if s.specs and SpecMatches(s.specs, sid) then
+					specSpell = specSpell or s.spell
+				end
 			end
 		end
+		castSpell = specSpell or castSpell
 		if knowsAny and not InAnyForm() then
 			AddEntry(out, castSpell, "MBUFF_TXT_STANCE", true)
 		end
@@ -297,17 +303,21 @@ function ns.GetMissingBuffs()
 	-- 3) Rogue-poisons (groep): 1 lethal + 1 non-lethal.
 	if classToken == "ROGUE" and type(ns.MISSING_POISONS) == "table" then
 		local function groupMissing(group)
-			local knowsAny, castSpell, anyActive = false, nil, false
+			local knowsAny, castSpell, anyActive, specSpell = false, nil, false, nil
 			for _, p in ipairs(group) do
 				if IsKnown(p.spell) then
 					knowsAny = true
 					castSpell = castSpell or p.spell
+					-- 10 Oct 2026: Assassination kreeg Instant Poison; Deadly wint voor die spec.
+					if p.specs and SpecMatches(p.specs, sid) then
+						specSpell = specSpell or p.spell
+					end
 					if HasBuff(p.spell) then
 						anyActive = true
 					end
 				end
 			end
-			return knowsAny and not anyActive, castSpell
+			return knowsAny and not anyActive, specSpell or castSpell
 		end
 		local mL, cL = groupMissing(ns.MISSING_POISONS.lethal)
 		if mL then

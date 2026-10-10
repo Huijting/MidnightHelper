@@ -23,8 +23,10 @@ er is niets weggegooid.
 
 ## 🆕 10 okt — Demonology: pet-knop roept Felguard op i.p.v. Imp (MissingBuff.lua)
 
-- [ ] Warlockie (Demonology), demon weg (Dismiss Pet): `/reload`. De ontbrekend-knop toont Summon Felguard, en een
-      klik roept de Felguard op. Op een Affliction/Destruction-warlock blijft het de Imp.
+- [x] ✅ Rob 10 okt: Warlockie (Demonology) krijgt nu de Felguard.
+- [ ] Zelfde soort fout, ook gerepareerd: Warrior zonder stance → Arms ziet Battle Stance, Fury Berserker Stance,
+      Prot Defensive Stance. Rogue zonder gif → Assassination ziet Deadly Poison (Outlaw/Sub blijven Instant).
+      (Heb je zo'n character: stance/gif uit, `/reload`, kijk welke knop er staat.)
 
 ## 🆕 10 okt — meten voor de Knowledge-teller en de Death Recap-les (`/mh kp weekly`, `/mh death`)
 

@@ -92,9 +92,11 @@ ns.MISSING_BUFF_DEFS = {
 -- Warrior-stances (talenten). Toon "USE STANCE" als er minstens één geleerd is maar
 -- geen enkele actief. Detectie via shapeshift-form in de engine.
 ns.MISSING_STANCES = {
-	{ spell = 386208, textKey = "MBUFF_TXT_STANCE" }, -- Defensive Stance (default)
-	{ spell = 386164, textKey = "MBUFF_TXT_STANCE" }, -- Battle Stance
-	{ spell = 386196, textKey = "MBUFF_TXT_STANCE" }, -- Berserker Stance
+	-- specs = de stance die de knop voor die spec voorstelt (10 Oct 2026; AFGELEID uit de klasgidsen,
+	-- alleen gebruikt als je die stance kent): 73 Protection, 71 Arms, 72 Fury.
+	{ spell = 386208, textKey = "MBUFF_TXT_STANCE", specs = { 73 } }, -- Defensive Stance (default)
+	{ spell = 386164, textKey = "MBUFF_TXT_STANCE", specs = { 71 } }, -- Battle Stance
+	{ spell = 386196, textKey = "MBUFF_TXT_STANCE", specs = { 72 } }, -- Berserker Stance
 }
 
 -- Rogue-poisons: precies één lethal + één non-lethal hoort actief te zijn. De engine
@@ -103,7 +105,7 @@ ns.MISSING_STANCES = {
 ns.MISSING_POISONS = {
 	lethal = {
 		{ spell = 315584 }, -- Instant Poison (baseline)
-		{ spell = 2823 }, -- Deadly Poison (talent)
+		{ spell = 2823, specs = { 259 } }, -- Deadly Poison (talent; de keuze voor Assassination, 10 Oct 2026)
 		{ spell = 8679 }, -- Wound Poison (baseline)
 		{ spell = 381664 }, -- Amplifying Poison (talent)
 	},
