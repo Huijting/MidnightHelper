@@ -3642,6 +3642,9 @@ ns._mhLocales.nlNL = {
 	DEATH_RECAP_TIP = "Volgende keer: stap eruit, interrupt hem, of druk een defensive vlak voordat hij raakt.",
 	DEATH_RECAP_FALL = "Je viel te diep. Volgende keer: kijk eerst, of gebruik een slow fall.",
 	DEATH_RECAP_MELEE = "gewone klappen",
+	DEATH_RECAP_MELEE_ONE = "een gewone klap",
+	SET_DEATHCARD_SEC_TITLE = "Doodskaartje: hoe lang het blijft staan",
+	SET_DEATHCARD_SEC_DESC = "Hoeveel seconden het kaartje dat zegt wat je doodde in beeld blijft. Je kunt het altijd wegklikken, of erop klikken om de Death Recap te openen.",
 
 	-- Healer cooldown-spiekbriefje (healer-initiatief, deel 1)
 	HEALCD_TITLE = "Jouw cooldowns — gebruik ze op het goede moment:",

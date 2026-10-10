@@ -4184,6 +4184,9 @@ ns._mhLocales.enUS = {
 	DEATH_RECAP_TIP = "Next time: step out of it, interrupt it, or press a defensive just before it lands.",
 	DEATH_RECAP_FALL = "You fell too far. Next time: look before you jump, or use a slow fall.",
 	DEATH_RECAP_MELEE = "melee hits",
+	DEATH_RECAP_MELEE_ONE = "a melee hit",
+	SET_DEATHCARD_SEC_TITLE = "Death card: how long it stays",
+	SET_DEATHCARD_SEC_DESC = "How many seconds the card that says what killed you stays on screen. You can always click it away or click it to open the Death Recap.",
 
 	-- Healer cooldown cheat-sheet (healer initiative, piece 1)
 	HEALCD_TITLE = "Your cooldowns — use them at the right moment:",

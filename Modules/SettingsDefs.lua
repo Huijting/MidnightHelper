@@ -141,6 +141,16 @@ local function Build()
 	end, function(v)
 		if ns.SetDeathRecapAutoOpenEnabled then ns.SetDeathRecapAutoOpenEnabled(v) end
 	end, true)
+	-- 10 Oct 2026 (Rob: "kan dit langer blijven staan, of een setting met de duratie instellen"): how long the death
+	-- card stays. Default 20 s (was a fixed 10 s); players choose 5-60.
+	Slider("mh_deathCardSec", "SET_DEATHCARD_SEC_TITLE", "SET_DEATHCARD_SEC_DESC", 5, 60, 5, function()
+		return ns.GetDeathCardSeconds and ns.GetDeathCardSeconds() or 20
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.deathCardSec = math.max(5, math.min(60, math.floor((tonumber(v) or 20) + 0.5)))
+	end, function(v)
+		return ("%d s"):format(math.floor((tonumber(v) or 20) + 0.5))
+	end)
 	Toggle("mh_missingBuff", "SET_MBUFF_TOGGLE_TITLE", "SET_MBUFF_TOGGLE_DESC", function()
 		return ns.IsMissingBuffEnabled and ns.IsMissingBuffEnabled()
 	end, function(v)

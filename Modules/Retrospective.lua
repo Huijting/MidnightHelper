@@ -430,6 +430,12 @@ end
 -- The visible card (reuses the Midnight toast: title + body + skull icon + click-to-open the
 -- Death Recap). Carola died twice in a ritual not knowing why — a card beats a chat line she
 -- scrolls past.
+--- How long the death card stays, in seconds. 10 Oct 2026 (Rob): a setting, default 20 (was a fixed 10).
+function ns.GetDeathCardSeconds()
+	local n = tonumber(ns.db and ns.db.deathCardSec)
+	return (n and n >= 5 and n <= 60) and n or 20
+end
+
 local function ShowDeathPopup(body)
 	if ns.QueueMidnightToast then
 		ns.QueueMidnightToast({
@@ -437,7 +443,9 @@ local function ShowDeathPopup(body)
 			icon = SKULL_ICON,
 			title = ns:L("DEATH_RECAP_HEAD"),
 			body = body,
-			displaySec = 10, -- a death lesson needs reading (+ time to click through to Blizzard's recap); the default 4.25s was too quick (Rob 16 jul)
+			-- a death lesson needs reading (+ time to click through to Blizzard's recap); the default 4.25s was too
+			-- quick (Rob 16 jul), 10 s still too quick for the longer lesson (Rob 10 Oct) -> a setting.
+			displaySec = ns.GetDeathCardSeconds(),
 			onClick = OpenBlizzardRecap,
 			-- Own hover hint; without it the toast falls back to the delve-bounty
 			-- text ("set a waypoint"), which is wrong on a death card.
@@ -572,7 +580,12 @@ local function ShowRecapLesson()
 			body = (ns:L("DEATH_RECAP_TOP_FMT")):format(cause.top, cause.hits or 1)
 		end
 		if cause.last then
-			body = body .. " " .. (ns:L("DEATH_RECAP_LAST_FMT")):format(cause.last)
+			-- One hit reads "a melee hit", not "melee hits" (Rob's screenshot, 10 Oct 2026).
+			local last = cause.last
+			if last == ns:L("DEATH_RECAP_MELEE") then
+				last = ns:L("DEATH_RECAP_MELEE_ONE")
+			end
+			body = body .. " " .. (ns:L("DEATH_RECAP_LAST_FMT")):format(last)
 		end
 		body = body .. "\n" .. ns:L("DEATH_RECAP_TIP")
 	end

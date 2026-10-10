@@ -43,6 +43,10 @@ er is niets weggegooid.
       "Most of the damage: Shadow Bolt from X (3 hits). The last hit: …" + een tip. Staat er alleen "Open the Death
       Recap…" → dan zijn de gegevens daar geheim; doe dan `/mh death` en `/reload` (dan zie ik waarom).
 - [ ] `/mh death` toont nu ook een regel `lesson: …` = wat het kaartje zou zeggen over je laatste dood.
+- [ ] Nieuw: **Instellingen → Midnight Helper**, schuif "Death card: how long it stays" (5–60 s, standaard nu 20 s,
+      was korter). Zet hem op 40, val dood: het kaartje blijft ~40 s staan.
+- [ ] Laatste klap door een gewone mep: er staat nu "The last hit: a melee hit." (was "melee hits").
+- [ ] Spring in het niets (de void van een eiland): wat zegt het kaartje? Stuur een screenshot.
 
 ## 🆕 10 okt — controle van alle specs (docs/SPEC_AUDIT_2026-10-10/): wat jij kunt zien
 
