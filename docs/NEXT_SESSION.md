@@ -7,7 +7,12 @@
 - STAND (11 okt avond): W + TERMS + quiz in enUS/nlNL voor 64, 262, Priest, Warrior, Paladin, Shaman, Mage (2),
   Hunter, Death Knight, Druid, Rogue, Monk, Warlock, Demon Hunter, Evoker = ALLE 40 specs (enUS + nlNL; offline
   quiztest 40/40 OK, lint 0 HARD). Rapporten: `docs/WHY_<KLASSE>_2026-10-11.md`. Vertaald (de/fr/es/pt/it): ALLES.
-  Schoonmaakronde loopt (mh-research → scratchpad `why/terms_ids.md`: Engelse proc/talentnamen → {SPELL:id}).
+  ✅ Schoonmaakronde: ~70 proc/talentnamen in W/TERMS → {SPELL:id} in 7 talen (91 keys; tabel
+  `docs/WHY_TERM_IDS_2026-10-11.md`). KEEP als tekst: Heating Up, Freezing, Bloodbath, Crushing Blow, Dread/Blood
+  Plague, Double Trouble, One of a Kind, Holy Words, Farseer, Soul Harvester; TEST in het spel: Windstrike, Solar/Lunar
+  Eclipse, Blood Plague, en Ret `{SPELL:24275}` Hammer of Wrath (12.1-talent is 1241288). "Delves" uit de CLAUDE.md-
+  lijst gehaald (Rob 11 okt). VOLGENDE: Delve-woorden per taal (brief scratchpad `DELVE_BRIEF.md`, inventaris
+  `delve_inventory.md`: de 100, fr 74, es 85, pt 121, it 208 regels), dan ruRU.
   Schoonmaakronde ook: "Solar/Lunar Eclipse" in 102_W5/TERMS → {SPELL:1233346}/{SPELL:1233272} (vertaler verzon
   "Sonnenfinsternis" e.d.); Devourer HERO1 na 12.1.5 opnieuw (The Hunt-reset weg). Healers: WAOE stond niet op de kaart (healer-tak ouder dan W) → gerepareerd
   in PlayCardWindow.lua. Onderzoek loopt: Druid (klaar, nog verwerken), Rogue, Warlock, Monk, Demon Hunter; daarna Evoker.

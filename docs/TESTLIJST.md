@@ -30,6 +30,8 @@ er is niets weggegooid.
 - [ ] Gouden spellnamen in de nieuwe teksten (niet grijs). Grijs = die spell heb je niet als talent. Opvallend
       nieuw: Balance "Eclipse", Devastation "Azure Sweep", Preservation "Merithra's Blessing", Arms "Heroic Strike",
       Unholy "Festering Scythe", Devourer "Pierce the Veil / Predator's Wake / Reaper's Toll".
+- [ ] Namen zoals Hot Streak, Killing Machine, Surge of Light staan nu als gouden spellnaam (in je eigen spel-taal).
+      Grijs terwijl je het talent hebt? Meld welke. Extra check op een Ret Paladin: `/run print(IsPlayerSpell(24275), IsPlayerSpell(1241288))`.
 - [ ] Kaartfouten die verbeterd zijn (lees ze een keer): zie de commits van 11 okt en `docs/WHY_*_2026-10-11.md`.
 
 ## 🆕 11 okt — Frost Mage: "Goed om te weten" legt Freezing uit (PlayCards.lua + PlayCardWindow.lua)
