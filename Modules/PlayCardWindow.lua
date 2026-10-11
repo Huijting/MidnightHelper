@@ -1231,8 +1231,9 @@ local function Redraw()
 			Block("•", card.aoe, 1, 1, 1)
 		else
 			Block(L("PLAYCARD_AOE"), card.aoe, 1, 1, 1)
-			Block(L("PLAYCARD_WHY"), card.aoeWhy, 0.56, 0.78, 1)
 		end
+		-- The why line under it for healers too (site chat, 11 Oct 2026: the healer branch predated why lines).
+		Block(L("PLAYCARD_WHY"), card.aoeWhy, 0.56, 0.78, 1)
 		Block(L("PLAYCARD_MISTAKE"), card.mistake, 1, 0.38, 0.38)
 		-- The hero-talent lines are for later (Rob, same evening): say so, so a beginner can stop reading here.
 		if #card.hero > 0 and card.easy then

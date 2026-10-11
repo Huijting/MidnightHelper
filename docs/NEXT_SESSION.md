@@ -4,9 +4,10 @@
 - Geen beta3 nu. 38 specs te gaan (64 + 262 af). Brief: scratchpad `why/BRIEF.md` (per spec: W-regels en+nl,
   TERMS, quizAnswer, kaartfouten, 12.1.5). Golf 1 loopt (mh-research): Paladin, Priest, Warrior, Shaman-rest + Mage-rest.
   Golven van 4 (ze delen de browser). Op de patchdag: één ronde nakijken + `interface` ophogen.
-- STAND (11 okt avond): W + TERMS + quiz in enUS/nlNL voor 64, 262, 256-258, 71-73, 62, 63, 263, 264, 70, 66, 65
-  (15 specs). Rapporten: `docs/WHY_<KLASSE>_2026-10-11.md`. Vertaald (de/fr/es/pt/it): 64, 262, Priest, Warrior.
-  NOG TE VERTALEN: Shaman/Mage (62, 63, 263, 264 + 262_TERMS) en Paladin (incl. 65_S2 "15 s" en 66_HERO1).
+- STAND (11 okt avond): W + TERMS + quiz in enUS/nlNL voor 64, 262, Priest, Warrior, Paladin, Shaman, Mage (2),
+  Hunter, Death Knight = 21 specs. Rapporten: `docs/WHY_<KLASSE>_2026-10-11.md`. Vertaald (de/fr/es/pt/it): alles
+  behalve Hunter + DK (volgende mh-writer). Healers: WAOE stond niet op de kaart (healer-tak ouder dan W) → gerepareerd
+  in PlayCardWindow.lua. Onderzoek loopt: Druid (klaar, nog verwerken), Rogue, Warlock, Monk, Demon Hunter; daarna Evoker.
   Kaartfouten verbeterd o.a.: Holy Pal Infusion of Light 15 s (was 10), Disc Mind Blast, Holy Priest IDEA, Shadow S3,
   Arms Cleave/Rend, Prot War S3, Fire/Enh "free"→instant, Resto Sham "almost no mana", Arcane Pulse "if you have it".
   Quiz-code: blankt nu ELKE vermelding van het antwoord (was alleen de eerste → 6 weggevers).
@@ -18,6 +19,7 @@
   talent resp. spec-passieven; clientnaam per taal). AFGELEID: IsPlayerSpell true → goud; testpunt in TESTLIJST.
 - DAARNA (Rob "ja, doe daarna Russisch"): ruRU-pack. Locale.lua kent ruRU al (code + chat-render-waarschuwing :235),
   alleen het pack ontbreekt. Zelf vertaald → zeggen dat er geen moedertaalspreker naar keek.
+  📌 Site-chat seinen zodra ruRU in een TAG staat (niet alleen main): dan begint hij de Russische site (Rob koos dat).
 - NA golf 1 (Rob "ja"): Delve-woord in de/fr/es/pt/it = het clientwoord (GlobalStrings, site-chat GEMETEN): de
   Tiefe/Tiefen, fr Gouffre(s), es Profundidad(es), pt Imersão/Imersões, it Scorribanda/Scorribande. GEMETEN 11 okt:
   "Delve" 686× in Locales/ (alle talen), clientwoord 224×. Per taal mh-writer; CLAUDE.md-regel "Delves blijft

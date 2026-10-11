@@ -140,26 +140,47 @@ local CARDS = {
 	[250] = { -- Blood Death Knight
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 4 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_DEATHKNIGHT_2026-10-11.md. S2: Ossuary needs 5+ charges, so refresh at 5.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { AOE = 50842 },
 	},
 	[251] = { -- Frost Death Knight
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 25 Sep · Method 27 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 51271, [3] = 49143, AOE = 207230 },
 	},
 	[252] = { -- Unholy Death Knight
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 8 Sep · Method 24 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 1233448, [3] = 458128, AOE = 207317 },
 	},
 	[253] = { -- Beast Mastery Hunter
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 7 Sep · Method 5 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_HUNTER_2026-10-11.md.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 19574, [4] = 193455, AOE = 1264359 },
 	},
 	[254] = { -- Marksmanship Hunter
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 31 Aug · Method 5 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- 12.1.5 removes Unload; S4/W4/TERMS are worded to hold in both builds.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 212431, AOE = 257620 },
 	},
 	[255] = { -- Survival Hunter
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 23 Sep · Method 3 Sep · Icy Veins 30 Aug 2026",
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 1250646, AOE = 1261193 },
 	},
 	[256] = { -- Discipline Priest
 		steps = 4, aoe = true, hero = 2,
