@@ -5625,7 +5625,8 @@
    "deDE": "fadf918170964f0c",
    "esES": "fadf918170964f0c",
    "frFR": "fadf918170964f0c",
-   "ptBR": "fadf918170964f0c"
+   "ptBR": "fadf918170964f0c",
+   "ruRU": "fadf918170964f0c"
   },
   "CONSREADY_TEST_RECV": {
    "deDE": "1040a9adbdd47359",
@@ -14198,10 +14199,12 @@
    "esES": "8d68443bddc865be",
    "frFR": "8d68443bddc865be",
    "itIT": "8d68443bddc865be",
-   "ptBR": "8d68443bddc865be"
+   "ptBR": "8d68443bddc865be",
+   "ruRU": "8d68443bddc865be"
   },
   "ENCHANT_LEGS_INT": {
-   "frFR": "0beccd75bf67a11d"
+   "frFR": "0beccd75bf67a11d",
+   "ruRU": "0beccd75bf67a11d"
   },
   "ENCHANT_MISSING": {
    "deDE": "8af1d328d75e91cf",
@@ -15604,6 +15607,9 @@
   },
   "HEALCORE_TAG_FILLER": {
    "ruRU": "a57331d09c94c08c"
+  },
+  "HEALCORE_TAG_HOT": {
+   "ruRU": "91fe2db3e40872f4"
   },
   "HEALCORE_TAG_INSTANT": {
    "ruRU": "e2861894f065ab75"
@@ -17905,11 +17911,17 @@
   "KEYBLOCK_T_RACIAL": {
    "ruRU": "669c3696c4bfceb8"
   },
+  "KEYBLOCK_T_RECUP": {
+   "ruRU": "f0d3e211e979e149"
+  },
   "KEYBLOCK_T_ROT": {
    "ruRU": "224610f102890bc0"
   },
   "KEYBLOCK_T_SPENDER": {
    "ruRU": "8b971817e6fb39a4"
+  },
+  "KEYBLOCK_T_STONE": {
+   "ruRU": "0067ae0fb39ddf05"
   },
   "KEYBLOCK_T_TAUNT": {
    "ruRU": "349ac8f4fcbc29b6"
@@ -18443,7 +18455,8 @@
    "deDE": "ba118bf7fc9c1aed",
    "esES": "ba118bf7fc9c1aed",
    "frFR": "ba118bf7fc9c1aed",
-   "ptBR": "ba118bf7fc9c1aed"
+   "ptBR": "ba118bf7fc9c1aed",
+   "ruRU": "ba118bf7fc9c1aed"
   },
   "LOCALE_NAME_NL": {
    "deDE": "aedb4831cbb2bde8",
@@ -20814,7 +20827,8 @@
    "esES": "dd6e06ed33bf9a1d",
    "frFR": "dd6e06ed33bf9a1d",
    "itIT": "dd6e06ed33bf9a1d",
-   "ptBR": "dd6e06ed33bf9a1d"
+   "ptBR": "dd6e06ed33bf9a1d",
+   "ruRU": "dd6e06ed33bf9a1d"
   },
   "NAV_CAT_COMMAND": {
    "deDE": "5d347fd948b66308",
@@ -21080,14 +21094,16 @@
    "frFR": "854e760fddf20680",
    "itIT": "854e760fddf20680",
    "nlNL": "854e760fddf20680",
-   "ptBR": "854e760fddf20680"
+   "ptBR": "854e760fddf20680",
+   "ruRU": "854e760fddf20680"
   },
   "OMNIUM_ROW_CORE": {
    "deDE": "cd486e01560135e2",
    "esES": "cd486e01560135e2",
    "frFR": "cd486e01560135e2",
    "itIT": "cd486e01560135e2",
-   "ptBR": "cd486e01560135e2"
+   "ptBR": "cd486e01560135e2",
+   "ruRU": "cd486e01560135e2"
   },
   "OMNIUM_ROW_DEF": {
    "deDE": "4fc18c1230c15522",
@@ -21095,7 +21111,8 @@
    "frFR": "4fc18c1230c15522",
    "itIT": "4fc18c1230c15522",
    "nlNL": "4fc18c1230c15522",
-   "ptBR": "4fc18c1230c15522"
+   "ptBR": "4fc18c1230c15522",
+   "ruRU": "4fc18c1230c15522"
   },
   "OMNIUM_ROW_LING": {
    "deDE": "a44d725f018a9cdd",
@@ -21112,14 +21129,16 @@
    "frFR": "4a889295eaf8df68",
    "itIT": "4a889295eaf8df68",
    "nlNL": "4a889295eaf8df68",
-   "ptBR": "4a889295eaf8df68"
+   "ptBR": "4a889295eaf8df68",
+   "ruRU": "4a889295eaf8df68"
   },
   "OMNIUM_RUNE_CRIT": {
    "deDE": "87b3d5dfa500491c",
    "esES": "87b3d5dfa500491c",
    "frFR": "87b3d5dfa500491c",
    "itIT": "87b3d5dfa500491c",
-   "ptBR": "87b3d5dfa500491c"
+   "ptBR": "87b3d5dfa500491c",
+   "ruRU": "87b3d5dfa500491c"
   },
   "OMNIUM_RUNE_CRIT_DESC": {
    "deDE": "7252d549cd22d083",
@@ -21135,7 +21154,8 @@
    "esES": "2c73c51965ac5e85",
    "frFR": "2c73c51965ac5e85",
    "itIT": "2c73c51965ac5e85",
-   "ptBR": "2c73c51965ac5e85"
+   "ptBR": "2c73c51965ac5e85",
+   "ruRU": "2c73c51965ac5e85"
   },
   "OMNIUM_RUNE_ECHOES_DESC": {
    "deDE": "5c976a94753b37e9",
@@ -21151,7 +21171,8 @@
    "esES": "d73c229831f2139e",
    "frFR": "d73c229831f2139e",
    "itIT": "d73c229831f2139e",
-   "ptBR": "d73c229831f2139e"
+   "ptBR": "d73c229831f2139e",
+   "ruRU": "d73c229831f2139e"
   },
   "OMNIUM_RUNE_FIRE_DESC": {
    "deDE": "a7883c075941e58f",
@@ -21167,7 +21188,8 @@
    "esES": "defe15aba5bf151c",
    "frFR": "defe15aba5bf151c",
    "itIT": "defe15aba5bf151c",
-   "ptBR": "defe15aba5bf151c"
+   "ptBR": "defe15aba5bf151c",
+   "ruRU": "defe15aba5bf151c"
   },
   "OMNIUM_RUNE_HASTE_DESC": {
    "deDE": "4adbfdd5bc69041f",
@@ -21183,7 +21205,8 @@
    "esES": "83a34371ae19b2a9",
    "frFR": "83a34371ae19b2a9",
    "itIT": "83a34371ae19b2a9",
-   "ptBR": "83a34371ae19b2a9"
+   "ptBR": "83a34371ae19b2a9",
+   "ruRU": "83a34371ae19b2a9"
   },
   "OMNIUM_RUNE_LINGERING_DESC": {
    "deDE": "8c954e04b03f7047",
@@ -21199,7 +21222,8 @@
    "esES": "1b76efc9434d0899",
    "frFR": "1b76efc9434d0899",
    "itIT": "1b76efc9434d0899",
-   "ptBR": "1b76efc9434d0899"
+   "ptBR": "1b76efc9434d0899",
+   "ruRU": "1b76efc9434d0899"
   },
   "OMNIUM_RUNE_LYNX_DESC": {
    "deDE": "c1a5045b1b93a427",
@@ -21215,7 +21239,8 @@
    "esES": "04ec353fa54807ad",
    "frFR": "04ec353fa54807ad",
    "itIT": "04ec353fa54807ad",
-   "ptBR": "04ec353fa54807ad"
+   "ptBR": "04ec353fa54807ad",
+   "ruRU": "04ec353fa54807ad"
   },
   "OMNIUM_RUNE_MASTERY_DESC": {
    "deDE": "26c2d5ea2e68d3ce",
@@ -21231,7 +21256,8 @@
    "esES": "f60ce99394752b3f",
    "frFR": "f60ce99394752b3f",
    "itIT": "f60ce99394752b3f",
-   "ptBR": "f60ce99394752b3f"
+   "ptBR": "f60ce99394752b3f",
+   "ruRU": "f60ce99394752b3f"
   },
   "OMNIUM_RUNE_ORBS_DESC": {
    "deDE": "bb54545fcc66b1cb",
@@ -21247,7 +21273,8 @@
    "esES": "40dab0051607c9a7",
    "frFR": "40dab0051607c9a7",
    "itIT": "40dab0051607c9a7",
-   "ptBR": "40dab0051607c9a7"
+   "ptBR": "40dab0051607c9a7",
+   "ruRU": "40dab0051607c9a7"
   },
   "OMNIUM_RUNE_OVERLOAD_DESC": {
    "deDE": "9c2e834466c5512b",
@@ -21263,7 +21290,8 @@
    "esES": "11c8071dff62d809",
    "frFR": "11c8071dff62d809",
    "itIT": "11c8071dff62d809",
-   "ptBR": "11c8071dff62d809"
+   "ptBR": "11c8071dff62d809",
+   "ruRU": "11c8071dff62d809"
   },
   "OMNIUM_RUNE_RESIDUAL_DESC": {
    "deDE": "51e947e46b8ef853",
@@ -21279,7 +21307,8 @@
    "esES": "4a67619f18f148ba",
    "frFR": "4a67619f18f148ba",
    "itIT": "4a67619f18f148ba",
-   "ptBR": "4a67619f18f148ba"
+   "ptBR": "4a67619f18f148ba",
+   "ruRU": "4a67619f18f148ba"
   },
   "OMNIUM_RUNE_SELFMEND_DESC": {
    "deDE": "05e1bde221fc0d34",
@@ -21295,7 +21324,8 @@
    "esES": "d869957c62e9bedc",
    "frFR": "d869957c62e9bedc",
    "itIT": "d869957c62e9bedc",
-   "ptBR": "d869957c62e9bedc"
+   "ptBR": "d869957c62e9bedc",
+   "ruRU": "d869957c62e9bedc"
   },
   "OMNIUM_RUNE_SHELL_DESC": {
    "deDE": "c75e3c276d1d1e0a",
@@ -21311,7 +21341,8 @@
    "esES": "0bcd83326c6808d1",
    "frFR": "0bcd83326c6808d1",
    "itIT": "0bcd83326c6808d1",
-   "ptBR": "0bcd83326c6808d1"
+   "ptBR": "0bcd83326c6808d1",
+   "ruRU": "0bcd83326c6808d1"
   },
   "OMNIUM_RUNE_VERS_DESC": {
    "deDE": "6173d70b1414ba96",
@@ -36740,6 +36771,9 @@
    "nlNL": "c0cac1a14958b982",
    "ptBR": "c0cac1a14958b982",
    "ruRU": "c0cac1a14958b982"
+  },
+  "VAULT_ADVISOR_CAT_DUNGEON": {
+   "ruRU": "cbf3c77956c1875e"
   },
   "VAULT_ADVISOR_CAT_OTHER": {
    "ruRU": "5d55c415e356dd7b"

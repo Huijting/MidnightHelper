@@ -56,9 +56,9 @@
   Hoe: 8 mh-writers per deel + 1 consistentieronde; woordenlijst uit Blizzard-data (wago 12.1.0.69933, 2 rondes):
   scratchpad `ru/GLOSSARY_ruRU.md`, brief `ru/RU_BRIEF.md`. Huisstijl client GEMETEN: "вы", rechte quotes, " – ", geen ё.
   ⚠️ NIET nagekeken door een moedertaalspreker (staat in de bestandskop).
-  OPEN ruRU: (1) 146 keys gelijk aan Engels; meestal namen, maar OMNIUM_RUNE_CRIT/HASTE/MASTERY/VERS, OMNIUM_ROW_*,
-  VAULT_ADVISOR_CAT_DUNGEON/RANK_BEST, WB_ROUTE_BTN, SHOWDOWNS_HEADER, DELVE_CHEST_LABEL, DELVE_MINIMAP_*_TITLE,
-  KEYBLOCK_T_* horen vertaald; (2) spellnamen als losse tekst blijven Engels (zoals de andere packs) → later
+  OPEN ruRU: (1) ✅ restronde: 26 labels vertaald (Omnium-runen uit spellnamen, rijen, KEYBLOCK_T_*, …); 120 blijven
+  Engels = namen/symbolen/merk. Pack-brede keuze open: Trovehunter's Bounty / RAID-R Mini / Curse Surge / "ilvl"
+  hebben wél een clientnaam (Трофей охотника за сокровищами, Проклятый натиск, Ур. пр.) → alles of niets; (2) spellnamen als losse tekst blijven Engels (zoals de andere packs) → later
   {SPELL:id}; (3) breedte: DELVES_BTN_BOUNTIFUL "Найти ближайшую многообещающую вылазку" (38 tekens), PARTY_DISPEL_TAG
   "РАЗВЕИВАНИЕ" → in een ruRU-client bekijken; (4) DUNDUN_CHAT_MACRO `/target Дандан` (Creature 249488 = AFGELEID).
   Engelse bronfouten die de vertalers zagen (NIET gerepareerd): PROFGUIDE_SEC_TAILORING_BODY noemt Evoker bij cloth
