@@ -20,8 +20,14 @@ overal en legde het nergens uit. Twee mh-research-agenten, los van elkaar: (A) g
 
 ## Gidsadvies, geen spelregel
 - Spellslinger: Ice Lance vanaf **6** stapels — alle drie de gidsen eens (AFGELEID: 4 + Heart of Ice + Polished Focus).
-- Frostfire: **12** (Wowhead 29 aug, Method-lijsten) tegen **10** (Method-tekst, Icy Veins AOE/FAQ). De kaart
-  (`PLAYCARD_64_HERO2`) zegt 12; NIET aangepast.
+- Frostfire: **12**, bij één vijand én AOE — BESLIST 11 okt (Rob vroeg het; 2 agenten eens). GEMETEN in
+  SimulationCraft `midnight` (`ActionPriorityLists/default/mage_frost.simc`): `ice_lance,if=debuff.freezing.stack>=12`,
+  sinds commit 3380f60 (11 aug 2026, "Frost 12.1 APL"), daarvoor `>=10` in `ff_st` én `ff_aoe` (12.0.7). Ongewijzigd
+  t/m HEAD af05b9e (10 okt); 12.1.5-commits raken de APL niet. Wowhead 29 aug en beide Method-lijsten: 12.
+  De "10" in Icy Veins (AOE-lijst, FAQ) en Method's speelstijltekst = restant van 12.0.7 (AFGELEID uit datums + diff).
+  De kaart (`PLAYCARD_64_HERO2`) zegt al 12: niets aangepast.
+- Ook uit de APL (niet op de kaart): Frostfire houdt één Fingers of Frost vast tenzij Thermal Void actief is; bij 2
+  charges altijd Ice Lance. Spellslinger geeft elke Fingers of Frost meteen uit.
 
 ## Gevolg op de kaart (11 okt)
 - Nieuw: `PLAYCARD_64_TERMS` ("Goed om te weten:") onder het idee; verborgen samen met de waarom-regels.

@@ -17,7 +17,9 @@
   de kaart legt Freezing nergens uit. ✅ Rob "ja, maar zoek eerst goed": 2 mh-research-agenten (gidsen + wago DB2),
   eens → `docs/FROST_FREEZING_FACTS_2026-10-11.md`. Nieuw `PLAYCARD_<spec>_TERMS` + kop `PLAYCARD_TERMS_HEAD` (7 talen),
   getoond onder het idee, alleen met de waarom-gate. Frost W3 was FOUT ("al het Freezing") → "4 tegelijk"; W2/W4 met
-  getallen. Frost `why.checked` → 2026-10-11. OPEN: Frostfire-drempel 12 vs 10 (gidsen oneens), HERO2 zegt 12.
+  getallen. Frost `why.checked` → 2026-10-11. ✅ Frostfire-drempel = 12 (SimC-APL sinds 11 aug + Wowhead +
+  Method-lijsten; "10" = restant 12.0.7) — kaart klopt al. Niet op de kaart: Frostfire houdt 1 Fingers of Frost vast
+  zonder Thermal Void (Rob kiest of dat erbij moet).
   OPEN uit het rapport: Earthquake 462620 (op doelwit) kan grijs tonen als "niet bekend" (AFGELEID); Wowhead 20 sep noemt Ascendance +75%
   en Stormkeeper-overload, beide verouderd in 12.1.
 
