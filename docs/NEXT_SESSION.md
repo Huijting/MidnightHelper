@@ -11,6 +11,11 @@
   ("Trovehunter-Kopfgeld", "Prime Trovehunter", "Recompensa Trovehunter"). esMX.lua +14 regels. Open: losse "Key"/
   "Shards" nog Engels; "Heavy Trunks" in CODEX_LABYRINTH_BODY; enUS TOAST_BOUNTY_BODY zegt "Hidden Treasure" (item heet
   Hidden Trove); 2 oude commentaren in Translations2026 (~9167, ~15348); ruRU CURACC_USE_SHARDS hoofdletter.
+- ✅ Spell-/proc-/heldennamen als losse tekst op de speelkaarten = clientnaam (GEMETEN SpellName/TraitSubTree, scratchpad
+  PLAIN_SPELL_NAMES.md; site-chat zag "Freezing" in ruRU): de/fr/es/pt/it 16-22 keys (17 namen, + Staffeln, Elegidos de
+  Elune, Eclipse lunar/solar), ruRU 160 keys, esMX +87 regels (Congelamiento enz.). Open/AFGELEID: "Holy Word(s)"
+  (geen DB2-rij, prefix van 2050), Stampede/Pit Lord-id's, ptBR Estouro gehouden; 71_S2 "Cleave talent, Cleave puts
+  Rend on" leest dubbel (enUS) — nakijken.
 - Rob 11 okt: site-chat mag aan de Russische site beginnen; hij stuurt een lijst voor build_site.py ("ru").
 - Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.
 - Daarna: echte 4.7.6-release pas na de patch (14 okt): patchnotes naast de kaarten, Devourer HERO1, Robs /reload.

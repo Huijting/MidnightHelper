@@ -22012,6 +22012,7 @@
    "ruRU": "bde07ea84fcc04c1"
   },
   "PLAYCARD_102_HERO1": {
+   "esES": "2e7f835edebdced6",
    "ruRU": "2e7f835edebdced6"
   },
   "PLAYCARD_102_HERO2": {
@@ -22225,6 +22226,7 @@
    "ruRU": "337eb4aae5cf0d93"
   },
   "PLAYCARD_104_HERO2": {
+   "esES": "3d4897edc1ab2cb9",
    "ruRU": "3d4897edc1ab2cb9"
   },
   "PLAYCARD_104_IDEA": {
@@ -24679,6 +24681,7 @@
    "ruRU": "d913ad4863ed7322"
   },
   "PLAYCARD_268_S1": {
+   "deDE": "50d7e0f9b2adba37",
    "ruRU": "50d7e0f9b2adba37"
   },
   "PLAYCARD_268_S2": {
@@ -25378,6 +25381,11 @@
    "ruRU": "ad9313d8a42ca503"
   },
   "PLAYCARD_64_AOE": {
+   "deDE": "b585640dae0da362",
+   "esES": "b585640dae0da362",
+   "frFR": "b585640dae0da362",
+   "itIT": "b585640dae0da362",
+   "ptBR": "b585640dae0da362",
    "ruRU": "b585640dae0da362"
   },
   "PLAYCARD_64_HERO1": {
