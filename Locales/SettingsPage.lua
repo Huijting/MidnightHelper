@@ -71,6 +71,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	LANG_LABEL_FR = "Français",
 	LANG_LABEL_ES = "Español",
 	LANG_LABEL_PT = "Português",
+	LANG_LABEL_RU = "Русский",
 	LANG_LABEL_IT = "Italiano",
 	SET_BTN_TEST = "Test",
 	SET_BTN_PREVIEW = "Preview",

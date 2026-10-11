@@ -94,6 +94,7 @@ ns._mhLocales.enUS = {
 	LOCALE_NAME_esMX = "Español (LA)",
 	LOCALE_NAME_itIT = "Italiano",
 	LOCALE_NAME_ptBR = "Português",
+	LOCALE_NAME_ruRU = "Русский",
 	LOCALE_NAME_koKR = "한국어",
 	LOCALE_NAME_zhCN = "简体中文",
 	LOCALE_NAME_zhTW = "繁體中文",

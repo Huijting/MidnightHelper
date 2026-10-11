@@ -84,6 +84,7 @@ local function Build()
 		{ value = "esES", labelKey = "LANG_LABEL_ES" },
 		{ value = "ptBR", labelKey = "LANG_LABEL_PT" },
 		{ value = "itIT", labelKey = "LANG_LABEL_IT" },
+		{ value = "ruRU", labelKey = "LANG_LABEL_RU" },
 	}, function()
 		return (ns.db and ns.db.locale) or ns.MH_LOCALE_AUTO or "auto"
 	end, function(v)

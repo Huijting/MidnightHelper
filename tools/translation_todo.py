@@ -37,7 +37,7 @@ for _stream in (sys.stdout, sys.stderr):
         pass
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PACKS = ["deDE", "frFR", "esES", "ptBR", "itIT", "nlNL"]
+PACKS = ["deDE", "frFR", "esES", "ptBR", "itIT", "nlNL", "ruRU"]
 
 # ---------------------------------------------------------------- settled, not missing
 #

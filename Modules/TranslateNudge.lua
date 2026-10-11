@@ -13,7 +13,7 @@ local _, ns = ...
 ]]
 
 -- Official WoW client locales that MH has no pack for yet.
-local NUDGE_LOCALES = { koKR = true, zhCN = true, zhTW = true, ruRU = true }
+local NUDGE_LOCALES = { koKR = true, zhCN = true, zhTW = true } -- ruRU has a pack since 11 Oct 2026
 -- Autonyms (proper nouns, safe to hardcode — not "translated" strings).
 local ENDONYM = { koKR = "한국어", zhCN = "简体中文", zhTW = "繁體中文", ruRU = "Русский" }
 

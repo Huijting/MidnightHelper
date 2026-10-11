@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 okt — Russisch taalpakket (Locales/ruRU.lua) + Delve/Bountiful-woord in de/fr/es/pt/it
+
+- [ ] **Gewone /reload (Engelse client): geen Lua-fout.** Het nieuwe bestand laadt wel, maar stopt meteen (alleen
+      een Russische client bouwt het). Zie je in BugSack iets met `ruRU.lua`, meld het.
+- [ ] **Instellingen → Midnight Helper → Taal:** onderaan staat nu "Русский". Op een Engelse client doet kiezen
+      niets zichtbaars (net als Deutsch: packs laden alleen op hun eigen client).
+- [ ] *(alleen als je ooit Russisch in Battle.net zet — niet nodig)* MH-venster in het Russisch; let op knoppen
+      die te breed zijn: "Найти ближайшую многообещающую вылазку" (tabblad Вылазки и хранилище) en de groepstag
+      "РАЗВЕИВАНИЕ".
+- [ ] **Waarom-regels na de patch (14 okt):** 39 kaarten tonen ze nog; alleen de Devourer niet
+      (`/mh playcards check` op een Devourer zegt "hidden until rechecked").
+
 ## 🆕 11 okt — waarom-regels + quiz + "Goed om te weten" op ALLE 40 kaarten (PlayCards.lua)
 
 - [ ] Kies per character "Zo speel je": onder elke stap een blauwe "Waarom:"-regel, bovenaan "Goed om te weten:"

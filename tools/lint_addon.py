@@ -38,8 +38,8 @@ for _stream in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-LOCALES = ["enUS", "deDE", "frFR", "esES", "ptBR", "itIT", "nlNL"]
-LOCALE_FILE_RE = re.compile(r"^(deDE|frFR|esES|ptBR|itIT|nlNL)\.lua$")
+LOCALES = ["enUS", "deDE", "frFR", "esES", "ptBR", "itIT", "nlNL", "ruRU"]
+LOCALE_FILE_RE = re.compile(r"^(deDE|frFR|esES|ptBR|itIT|nlNL|ruRU)\.lua$")
 
 # A defined key: `KEY =` or `["KEY"] =` at (mostly) top-level of a locale table.
 KEY_BARE_RE = re.compile(r'^\s*([A-Z][A-Z0-9_]+)\s*=')
@@ -50,7 +50,7 @@ KEY_ANY_RE = re.compile(r'\b([A-Z][A-Z0-9_]+)\s*=')
 VALUE_ANY_RE = re.compile(r'\b([A-Z][A-Z0-9_]+)\s*=\s*\x22((?:[^\x22\\]|\\.)*)\x22')
 KEY_BRACKET_RE = re.compile(r'^\s*\[\s*"([A-Z][A-Z0-9_]+)"\s*\]\s*=')
 # Inline batch style: `deDE.KEY = "..."` possibly several per line (semicolons).
-KEY_DOTTED_RE = re.compile(r'\b(?:deDE|frFR|esES|ptBR|itIT|nlNL|enUS)\.([A-Z][A-Z0-9_]+)\s*=')
+KEY_DOTTED_RE = re.compile(r'\b(?:deDE|frFR|esES|ptBR|itIT|nlNL|ruRU|enUS)\.([A-Z][A-Z0-9_]+)\s*=')
 
 # Context switches inside multi-locale files.
 CTX_MERGE_RE = re.compile(r'merge\(\s*ns\._mhLocales(?:\s+and\s+ns\._mhLocales)?\.(\w+)\s*,')
@@ -155,7 +155,7 @@ def collect_locale_keys(paths: list[str]):
             # dotted inline assignments carry their own locale
             for dm in KEY_DOTTED_RE.finditer(line):
                 # locale prefix is captured group-less; re-extract prefix
-                pref = re.match(r'\s*.*?\b(deDE|frFR|esES|ptBR|itIT|nlNL|enUS)\.', line)
+                pref = re.match(r'\s*.*?\b(deDE|frFR|esES|ptBR|itIT|nlNL|ruRU|enUS)\.', line)
                 if pref:
                     add(pref.group(1), dm.group(1), rel, i)
 

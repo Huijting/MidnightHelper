@@ -49,8 +49,22 @@
 - ✅ Rob: W-regels ook in de/fr/es/pt/it (mh-writer per klasse). ✅ 64 + 262 vertaald (13 keys × 5).
   Icicles / Lava Surge / Shatter zijn {SPELL:1246832} / {SPELL:77756} / {SPELL:1246769} in alle 7 talen (wago DB2:
   talent resp. spec-passieven; clientnaam per taal). AFGELEID: IsPlayerSpell true → goud; testpunt in TESTLIJST.
-- DAARNA (Rob "ja, doe daarna Russisch"): ruRU-pack. Locale.lua kent ruRU al (code + chat-render-waarschuwing :235),
-  alleen het pack ontbreekt. Zelf vertaald → zeggen dat er geen moedertaalspreker naar keek.
+- ✅ ruRU-pack (11 okt, op main, NOG GEEN TAG): `Locales/ruRU.lua`, 5193 keys (alles behalve 519 CHANGELOG_* en 6
+  KeepEnglish), gated op GetLocale, in de .toc vóór Locale.lua. Taalmenu, LOCALE_NAME_ruRU, /mh lang ru, nudge uit,
+  5 tools kennen ruRU. Lint ruRU 90,8%. locale_probe GEMETEN: ruRU-client toont Russisch. translation_state: 5047
+  ruRU-keys gestempeld tegen het huidige Engels.
+  Hoe: 8 mh-writers per deel + 1 consistentieronde; woordenlijst uit Blizzard-data (wago 12.1.0.69933, 2 rondes):
+  scratchpad `ru/GLOSSARY_ruRU.md`, brief `ru/RU_BRIEF.md`. Huisstijl client GEMETEN: "вы", rechte quotes, " – ", geen ё.
+  ⚠️ NIET nagekeken door een moedertaalspreker (staat in de bestandskop).
+  OPEN ruRU: (1) 146 keys gelijk aan Engels; meestal namen, maar OMNIUM_RUNE_CRIT/HASTE/MASTERY/VERS, OMNIUM_ROW_*,
+  VAULT_ADVISOR_CAT_DUNGEON/RANK_BEST, WB_ROUTE_BTN, SHOWDOWNS_HEADER, DELVE_CHEST_LABEL, DELVE_MINIMAP_*_TITLE,
+  KEYBLOCK_T_* horen vertaald; (2) spellnamen als losse tekst blijven Engels (zoals de andere packs) → later
+  {SPELL:id}; (3) breedte: DELVES_BTN_BOUNTIFUL "Найти ближайшую многообещающую вылазку" (38 tekens), PARTY_DISPEL_TAG
+  "РАЗВЕИВАНИЕ" → in een ruRU-client bekijken; (4) DUNDUN_CHAT_MACRO `/target Дандан` (Creature 249488 = AFGELEID).
+  Engelse bronfouten die de vertalers zagen (NIET gerepareerd): PROFGUIDE_SEC_TAILORING_BODY noemt Evoker bij cloth
+  (Evokers dragen mail); PROFACAD_CH_WEEKLY_INTRO "gemiste week voorgoed weg" vs catch-up in hetzelfde hoofdstuk;
+  PROFACAD_CH_STATS_ADVANCED "alle zes stats in Crafting Details"; DELVE_SHARE_BAR_HINT_TEST "/say ziet alleen jij";
+  GEM_NO_DIAMOND "Thalassian" vs INFO_DRAWER_BODY_ENCHANTS "Eversong Diamond"; ACADEMY_STEP_*_GEAR "Default".
   📌 Site-chat seinen zodra ruRU in een TAG staat (niet alleen main): dan begint hij de Russische site (Rob koos dat).
 - NA golf 1 (Rob "ja"): Delve-woord in de/fr/es/pt/it = het clientwoord (GlobalStrings, site-chat GEMETEN): de
   Tiefe/Tiefen, fr Gouffre(s), es Profundidad(es), pt Imersão/Imersões, it Scorribanda/Scorribande. GEMETEN 11 okt:

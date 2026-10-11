@@ -55,10 +55,10 @@ for _stream in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-# Packs that ship in the .toc. koKR/zh*/ruRU have no pack -> nothing to audit.
-KNOWN_LANGS = ["enUS", "nlNL", "deDE", "frFR", "esES", "ptBR", "itIT"]
+# Packs that ship in the .toc. koKR/zh* have no pack -> nothing to audit (ruRU has one since 11 Oct 2026).
+KNOWN_LANGS = ["enUS", "nlNL", "deDE", "frFR", "esES", "ptBR", "itIT", "ruRU"]
 # enUS is the source of truth; everything else is a translation target.
-TARGETS = ["nlNL", "deDE", "frFR", "esES", "ptBR", "itIT"]
+TARGETS = ["nlNL", "deDE", "frFR", "esES", "ptBR", "itIT", "ruRU"]
 
 # Key prefixes (first underscore segment, or longer) that are deliberately left
 # on enUS fallback in every pack. Add here when we consciously decide a group

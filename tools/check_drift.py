@@ -31,7 +31,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(REPO, "tools", "translation_state.json")
 REPORT = os.path.join(REPO, "docs", "TRANSLATION_DRIFT.md")
 SEED_TAG = "v3.5.0"
-LANGS = ("deDE", "frFR", "esES", "ptBR", "itIT", "nlNL")
+LANGS = ("deDE", "frFR", "esES", "ptBR", "itIT", "nlNL", "ruRU")
 
 sys.stdout.reconfigure(encoding="utf-8")
 

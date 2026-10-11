@@ -45,7 +45,7 @@ do
 	end
 end
 
-local PACKS = { "enUS", "deDE", "frFR", "esES", "ptBR", "itIT", "nlNL" }
+local PACKS = { "enUS", "deDE", "frFR", "esES", "ptBR", "itIT", "nlNL", "ruRU" }
 
 local currentLocale = "enUS"
 function GetLocale()
