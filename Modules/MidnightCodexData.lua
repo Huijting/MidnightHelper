@@ -318,6 +318,19 @@ ns.CODEX_ARTICLES = {
 		referenceSubTab = "crest",
 		sort = 7,
 	},
+	{
+		-- 11 Oct 2026: Rob saw "Nebulous Voidcores transmuted: 1/1" and did not know what it was. Facts from the
+		-- research chat (mh-research, 11 Oct; Wowhead bonus-roll guide 9 Oct, Method 6 Oct, Blizzard 12.1.5 notes):
+		-- Season 2 system only; Decimus' Voidforge (Season 1) is no longer used. Currency 3418 = live count.
+		id = "currency_voidcore",
+		category = "currencies",
+		titleKey = "CODEX_VOIDCORE_TITLE",
+		bodyKey = "CODEX_VOIDCORE_BODY",
+		currencyId = 3418,
+		tabId = "home",
+		tabLabelKey = "TAB_HOME",
+		sort = 8,
+	},
 
 	-- Delves
 	{

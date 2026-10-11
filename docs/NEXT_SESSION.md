@@ -45,8 +45,13 @@
   only. S1-raids journal-id 1314/1307/1308 (RaidCoachData). Blijft Engels (niet meetbaar in 69933): The Unbinding of
   Kith'ix, Midnight Keystone Myth: Season 2, 3 aqir-achievements → nameten op de eerste 12.1.5-build. Open: ruRU
   ACH_STEP_URN_NALORAKK "входа в Den"; Sporefall 1305 / Tidebound 1317 hebben nog geen journal-id (andere structuur).
-- ⏳ VOLGENDE: Voidcore-Codexkaart (research-chat 11 okt): ResetRoutine 94623 "Building the Voidforge" al weggehaald,
-  BonusRollCapture-commentaar verbeterd.
+- ✅ Voidcore-Codexkaart (research-chat 11 okt, Rob zag "Nebulous Voidcores transmuted: 1/1"): id currency_voidcore,
+  categorie Currencies, currencyId 3418, CODEX_VOIDCORE_TITLE/BODY in 7 talen + esMX (clientnamen GEMETEN: scratchpad
+  vc\out*.txt; esMX Orin = "Torin Luzerrante", 11 npc-id's eens). Quest 97981 + de balktekst blijven Engels (geen
+  vertaling gevonden). ResetRoutine 94623 weg; BonusRollCapture-commentaar verbeterd. OPEN: andere keys noemen nog
+  Engels "Nebulous Voidcore"/"Orin Straylight" (CODEX_VENOMSTONE_BODY, CODEX_VAULT_BODY, CODEX_S2GLOSS_BODY,
+  VAULT_VOIDCORE_*); Warband-woord in fr/es/pt-packs ≠ client (Bataillon / banda guerrera / Bando de Guerra); itIT
+  "Raid Finder" ≠ client "Ricerca delle incursioni"; balk 1/1 nameten met /dump GetCurrencyInfo(3418).
 - Rob 11 okt: site-chat mag aan de Russische site beginnen; hij stuurt een lijst voor build_site.py ("ru").
 - Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.
 - Daarna: echte 4.7.6-release pas na de patch (14 okt): patchnotes naast de kaarten, Devourer HERO1, Robs /reload.
