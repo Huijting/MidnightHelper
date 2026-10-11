@@ -13,7 +13,9 @@
   Eclipse, Blood Plague, en Ret `{SPELL:24275}` Hammer of Wrath (12.1-talent is 1241288). "Delves" uit de CLAUDE.md-
   lijst gehaald (Rob 11 okt). ✅ Delve-woord de/fr/es gedaan (11 okt). Opgevallen, OPEN: (a) "Bountiful" —
   fr/es UI-knoppen zeggen al abondant/pródiga, CLAUDE.md zegt Engels: zelfde vraag als Delve, Rob kiest; (b) "Delver's
-  Call"-titel spreekt zichzelf tegen in fr en es → in de client nameten; (c) esES DelveTips Torment's Rise beschrijft nog
+  Call"-titel spreekt zichzelf tegen in fr en es → in de client nameten; (c) ✅ 11 okt AF: DelveTips gelijk met het huidige Engels (es 31, pt 31, de 4, fr 4 keys; it/nl al actueel
+  volgens de writer, niet gestempeld); open: Coiled Isle in es/pt gemengd (delve-tips "Isla Serpenteante"/"Ilha
+  Enrolada" vs elders "la/na Coiled Isle"). Was: esES DelveTips Torment's Rise beschrijft nog
   Season 1 en een paar es-tips missen bullets t.o.v. enUS (vermoedelijk ook andere talen) → drift-ronde DelveTips;
   (d) ✅ GEMETEN in de code (11 okt): het tablabel is vertaald en doorzoekbaar, dus "tiefen" vond het tabblad al;
   maar "delves" (het voorbeeld in elke tooltip) stond NIET in de trefwoorden → toegevoegd. En string.lower kent
@@ -24,6 +26,11 @@
   DELVE_REWARDS_UNMEASURED, VALEERA_OFF_HINT, CMDLIST_CURIOINFO); DELVE_SHARE_MISSING en ACADEMY_HEAL_CHAT_TITLE
   verkeerd vertaald ("festa" = party); "Valeera" i.p.v. "Valira" in CMDLIST_CURIOINFO, DUNDUN_CHAT_AFTER_FIRST,
   DUNDUN_PANEL_BODY, DELVE_VALEERA_HEAL_TIP; Bountiful = "opulenta" op knoppen, "Abundantes" in LVL8090_UNLOCK_4.
+  ✅ 11 okt gerepareerd: ptBR Valira (4), "festa"→grupo (2), 3 ontbrekende stukken, DELVE_SHARE_MISSING (pt+it),
+  itIT ACADEMY_WORDS_BODY, deDE "den Bountiful Coffer", frFR "une Restored Coffer Key" (1 van 3). OPEN: esES dezelfde
+  (DELVE_SHARE_MISSING, "charla de fiesta" ×2); ACADEMY_WORDS_BODY mist "s-3 = Shift+3"-zin in de/fr/es/pt; frFR nog
+  "un Restored Coffer Key" in CODEX_CUR_SHARDS_BODY + DELVE_REWARDS_CAP_AT_8; "Delver's Call" 2-3 namen per pack →
+  meting loopt (scratchpad DELVERS_CALL.md).
   ✅ itIT ook (11 okt; 208 → 9, rest = zoekwoord/Engelse kopie onder fill/sitenaam/slash). Delve-woord daarmee AF in
   alle 5. itIT-writer zag, NIET gerepareerd: Delver's Call gemengd (fill "Chiamata alla Scorribanda", lopende tekst
   Engels); DELVE_SHARE_MISSING verouderd (ook ptBR); ACADEMY_WORDS_BODY mist laatste zin.

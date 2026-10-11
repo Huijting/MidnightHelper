@@ -908,7 +908,7 @@
    "deDE": "cef4f6c60f542078",
    "esES": "cef4f6c60f542078",
    "frFR": "cef4f6c60f542078",
-   "itIT": "cef4f6c60f542078",
+   "itIT": "00a1f181ff438a5a",
    "nlNL": "cef4f6c60f542078",
    "ptBR": "cef4f6c60f542078",
    "ruRU": "00a1f181ff438a5a"
@@ -3911,6 +3911,7 @@
    "ptBR": "ae363d2e18add016"
   },
   "CMDLIST_CURIOINFO": {
+   "ptBR": "9c2c127d35b4af79",
    "ruRU": "9c2c127d35b4af79"
   },
   "CMDLIST_CURIOS": {
@@ -6268,6 +6269,7 @@
    "ruRU": "18c78731e4033a72"
   },
   "CURACC_USE_KEYS": {
+   "deDE": "f1af98033b356909",
    "ruRU": "f1af98033b356909"
   },
   "CURACC_USE_MANA": {
@@ -7239,12 +7241,12 @@
    "ruRU": "1572898e43837801"
   },
   "DELVE_CHAT_COLLEGIATE_CALAMITY_TRASH": {
-   "deDE": "90bf0be2f4ca5d9a",
-   "esES": "90bf0be2f4ca5d9a",
-   "frFR": "90bf0be2f4ca5d9a",
+   "deDE": "41c1ba45b9da3584",
+   "esES": "41c1ba45b9da3584",
+   "frFR": "41c1ba45b9da3584",
    "itIT": "41c1ba45b9da3584",
    "nlNL": "41c1ba45b9da3584",
-   "ptBR": "90bf0be2f4ca5d9a",
+   "ptBR": "41c1ba45b9da3584",
    "ruRU": "41c1ba45b9da3584"
   },
   "DELVE_CHAT_GRUDGE_PIT_BOSS": {
@@ -7356,12 +7358,12 @@
    "ruRU": "62c067202fea6ab9"
   },
   "DELVE_CHAT_SHADOWGUARD_POINT_BOSS": {
-   "deDE": "83b6116b0df3e870",
-   "esES": "83b6116b0df3e870",
-   "frFR": "83b6116b0df3e870",
+   "deDE": "c2753ed11a10ed1a",
+   "esES": "c2753ed11a10ed1a",
+   "frFR": "c2753ed11a10ed1a",
    "itIT": "c2753ed11a10ed1a",
    "nlNL": "c2753ed11a10ed1a",
-   "ptBR": "83b6116b0df3e870",
+   "ptBR": "c2753ed11a10ed1a",
    "ruRU": "c2753ed11a10ed1a"
   },
   "DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW": {
@@ -7500,21 +7502,21 @@
    "ruRU": "eb9e961d7cd7f0a9"
   },
   "DELVE_CHAT_TORMENTS_RISE_BOSS": {
-   "deDE": "265a0c52456569b2",
-   "esES": "265a0c52456569b2",
-   "frFR": "265a0c52456569b2",
+   "deDE": "2761ece2d65b506a",
+   "esES": "2761ece2d65b506a",
+   "frFR": "2761ece2d65b506a",
    "itIT": "2761ece2d65b506a",
    "nlNL": "2761ece2d65b506a",
-   "ptBR": "265a0c52456569b2",
+   "ptBR": "2761ece2d65b506a",
    "ruRU": "2761ece2d65b506a"
   },
   "DELVE_CHAT_TORMENTS_RISE_OVERVIEW": {
-   "deDE": "36b91823c6806764",
-   "esES": "36b91823c6806764",
-   "frFR": "36b91823c6806764",
+   "deDE": "fdebeff0f120dcc3",
+   "esES": "fdebeff0f120dcc3",
+   "frFR": "fdebeff0f120dcc3",
    "itIT": "fdebeff0f120dcc3",
    "nlNL": "fdebeff0f120dcc3",
-   "ptBR": "36b91823c6806764",
+   "ptBR": "fdebeff0f120dcc3",
    "ruRU": "fdebeff0f120dcc3"
   },
   "DELVE_CHAT_TORMENTS_RISE_ROUTE": {
@@ -9134,6 +9136,7 @@
    "ruRU": "3ac1d06933cf5c10"
   },
   "DELVE_VALEERA_HEAL_TIP": {
+   "ptBR": "64e00aa35313379b",
    "ruRU": "64e00aa35313379b"
   },
   "DELVE_WEEKLY_UNDERLEVEL_HINT": {
