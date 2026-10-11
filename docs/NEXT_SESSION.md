@@ -2,8 +2,10 @@
 
 ## 11 okt avond — 4.7.6 BETA 3 (Rob: "Go")
 - Changelog CHANGELOG_476_18..24 (enUS), Changelog.lua, RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (kop "beta 3",
-  byte-gelijk GEMETEN), CHANGELOG.md. toc blijft 4.7.6. Tag `v4.7.6-beta3` na akkoord site-chat (zoals beta2).
-- NA DE TAG: site-chat seinen dat ruRU in een tag zit (Rob koos: dan begint de Russische site).
+  byte-gelijk GEMETEN), CHANGELOG.md. toc blijft 4.7.6.
+- ✅ Tag `v4.7.6-beta3` op 32adda9 (site-chat akkoord + proefbouw 0 problemen); release-run 38139204592 GESLAAGD
+  (CurseForge, Wago, GitHub). Site-chat geseind dat ruRU in een tag zit. Rob: CF-pagina even bekijken (notes netjes?).
+- Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.
 - Daarna: echte 4.7.6-release pas na de patch (14 okt): patchnotes naast de kaarten, Devourer HERO1, Robs /reload.
 
 ## 11 okt middag — ALLE specs krijgen waarom-regels (Rob: "ik wil sowieso voor alles de waarom versie")
