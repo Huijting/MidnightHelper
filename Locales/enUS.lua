@@ -1305,7 +1305,7 @@ ns._mhLocales.enUS = {
 	PLAYCARD_64_AOE = "3 or more enemies: aim {SPELL:84714} at the pack, then {SPELL:190356} (with the Freezing Rain talent it lights up and is instant).",
 	PLAYCARD_64_MISTAKE = "Pressing {SPELL:205021} first because it is your big button. Spend Freezing with {SPELL:30455} first, then the beam.",
 	PLAYCARD_64_HERO1 = "Spellslinger (best on one target): {SPELL:30455} from 6 Freezing stacks on the enemy.",
-	PLAYCARD_64_HERO2 = "Frostfire (a bit better in dungeons): {SPELL:431044} replaces {SPELL:116}. {SPELL:153595} when it shows. {SPELL:30455} from 12 Freezing stacks.",
+	PLAYCARD_64_HERO2 = "Frostfire (a bit better in dungeons): {SPELL:431044} replaces {SPELL:116}. {SPELL:153595} when it shows. {SPELL:30455} from 12 Freezing stacks. Keep a single Fingers of Frost: spend it only while {SPELL:1247729} is active, or once you have 2.",
 	-- Why lines, 10 Oct 2026: Icy Veins 10 Aug, Method 11 Aug, Wowhead 12+29 Aug 2026 (all 12.1). Not seen in the game yet.
 	PLAYCARD_64_W1 = "{SPELL:84714} is one of your strongest spells, so never let it wait. Your Icicles grow by themselves: at five, {SPELL:116} becomes the giant {SPELL:199786}.",
 	PLAYCARD_64_W2 = "Brain Freeze gives {SPELL:44614} back right away and makes it hit harder. {SPELL:44614} puts 3 Freezing on at once.",

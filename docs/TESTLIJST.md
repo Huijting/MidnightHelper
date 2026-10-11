@@ -27,12 +27,15 @@ er is niets weggegooid.
       met wat Freezing is (Frostbolt 1, Flurry 3, Ray of Frost 8, max 20; Ice Lance breekt er 4).
 - [ ] De waarom-regel bij Ice Lance zegt nu "breekt 4 Freezing tegelijk", niet meer "al het Freezing".
 - [ ] Op je shamaan staat géén "Goed om te weten"-regel (alleen Frost heeft er een).
+- [ ] Frostfire-regel (onderaan, heldentalenten) eindigt nu met "Hou één Fingers of Frost vast: gebruik hem alleen als
+      **Thermal Void** actief is, of zodra je er 2 hebt." Thermal Void staat als gouden spellnaam met tooltip.
 
 ## 🆕 11 okt — waarom-regels + quiz voor Elemental Shaman (PlayCards.lua)
 
-- [ ] Op een Elemental Shaman: open "Zo speel je". Onder elke stap en onder AOE staat een blauwe regel "Waarom:".
+✅ **Rob 11 okt: "de shamaan goed gekeurd".**
+- [x] Op een Elemental Shaman: open "Zo speel je". Onder elke stap en onder AOE staat een blauwe regel "Waarom:".
       `/mh playcards check` zegt "why lines SHOWN" en "quiz: 6 questions".
-- [ ] Klik "Test jezelf". Stap 3 vraagt naar **Lava Burst** (niet Flame Shock), stap 4 naar **Elemental Blast**, AOE naar
+- [x] Klik "Test jezelf". Stap 3 vraagt naar **Lava Burst** (niet Flame Shock), stap 4 naar **Elemental Blast**, AOE naar
       **Earthquake**. Na elk antwoord staat de waarom-regel eronder.
 
 ## 🆕 10 okt — toetsenblok op een nieuw character onder level 10 (KeybindAutoMap.lua)

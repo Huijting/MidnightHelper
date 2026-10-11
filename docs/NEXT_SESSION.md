@@ -18,8 +18,9 @@
   eens → `docs/FROST_FREEZING_FACTS_2026-10-11.md`. Nieuw `PLAYCARD_<spec>_TERMS` + kop `PLAYCARD_TERMS_HEAD` (7 talen),
   getoond onder het idee, alleen met de waarom-gate. Frost W3 was FOUT ("al het Freezing") → "4 tegelijk"; W2/W4 met
   getallen. Frost `why.checked` → 2026-10-11. ✅ Frostfire-drempel = 12 (SimC-APL sinds 11 aug + Wowhead +
-  Method-lijsten; "10" = restant 12.0.7) — kaart klopt al. Niet op de kaart: Frostfire houdt 1 Fingers of Frost vast
-  zonder Thermal Void (Rob kiest of dat erbij moet).
+  Method-lijsten; "10" = restant 12.0.7) — kaart klopt al. ✅ Rob "ja": `PLAYCARD_64_HERO2` zegt nu ook "hou één Fingers of
+  Frost vast: alleen met {SPELL:1247729} Thermal Void, of bij 2" (7 talen; Thermal Void via spell-ID, dus de clientnaam).
+  ✅ Elemental Shaman (waarom + quiz) door Rob GOEDGEKEURD 11 okt.
   OPEN uit het rapport: Earthquake 462620 (op doelwit) kan grijs tonen als "niet bekend" (AFGELEID); Wowhead 20 sep noemt Ascendance +75%
   en Stormkeeper-overload, beide verouderd in 12.1.
 
