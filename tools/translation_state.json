@@ -4723,6 +4723,7 @@
    "ruRU": "0366f0c1578c867f"
   },
   "CODEX_CORRPOWER_TITLE": {
+   "esES": "14e4a33d6fd16516",
    "ruRU": "14e4a33d6fd16516"
   },
   "CODEX_CRAFTGEAR_BODY": {
@@ -14956,6 +14957,7 @@
    "ruRU": "079bce5f494a3491"
   },
   "GROUP_NOTE_BERSERKER_SHOUT": {
+   "esES": "7da669c2690a31a5",
    "ruRU": "7da669c2690a31a5"
   },
   "GROUP_NOTE_BLISTERING_SCALES": {
@@ -14974,6 +14976,7 @@
    "ruRU": "b68ffb0a6bfabb08"
   },
   "GROUP_NOTE_CREATE_SOULWELL": {
+   "esES": "0b40c229bc7664c2",
    "ruRU": "0b40c229bc7664c2"
   },
   "GROUP_NOTE_DEMONIC_GATEWAY": {
@@ -15115,6 +15118,7 @@
    "ruRU": "77c8e7f2de19846a"
   },
   "GROUP_NOTE_SPATIAL_PARADOX": {
+   "esES": "8dae99c122458671",
    "ruRU": "8dae99c122458671"
   },
   "GROUP_NOTE_SPELLWARD": {
@@ -15145,6 +15149,7 @@
    "ruRU": "2577e0d84bd7d76b"
   },
   "GROUP_NOTE_TREMOR_TOTEM": {
+   "esES": "e29d52a2022cc70b",
    "ruRU": "e29d52a2022cc70b"
   },
   "GROUP_NOTE_VAMPIRIC_EMBRACE": {
@@ -26357,6 +26362,7 @@
    "ruRU": "39086f447fc7ab19"
   },
   "PROFACAD_ADVISE_PICK_ONE_FMT": {
+   "esES": "58c592d755d40561",
    "ruRU": "58c592d755d40561"
   },
   "PROFACAD_ADVISE_POINTS_REACHED_FMT": {
@@ -29076,12 +29082,14 @@
    "ruRU": "2f72b86bb7bb189c"
   },
   "RAID_BOSS_KITHIX_DPS": {
+   "esES": "1b0fb1b6df97c258",
    "ruRU": "1b0fb1b6df97c258"
   },
   "RAID_BOSS_KITHIX_HEALER": {
    "ruRU": "776494448787bf9a"
   },
   "RAID_BOSS_KITHIX_QUICK": {
+   "esES": "a9aacce011a6951e",
    "ruRU": "a9aacce011a6951e"
   },
   "RAID_BOSS_KITHIX_QUICK_DPS": {
@@ -29091,12 +29099,15 @@
    "ruRU": "aca9b9fab5d46f72"
   },
   "RAID_BOSS_KITHIX_QUICK_TANK": {
+   "esES": "f994dc91826031a2",
    "ruRU": "f994dc91826031a2"
   },
   "RAID_BOSS_KITHIX_STEPS": {
+   "esES": "3f335e2c1e0e5ba4",
    "ruRU": "3f335e2c1e0e5ba4"
   },
   "RAID_BOSS_KITHIX_TANK": {
+   "esES": "1803b772a8923bdf",
    "ruRU": "1803b772a8923bdf"
   },
   "RAID_BOSS_LOSTEXPLORERS_DPS": {
@@ -34680,6 +34691,7 @@
    "ruRU": "829c5fce8e4506b0"
   },
   "STATS_TIED_MARK": {
+   "esES": "098a40bd5e0f8dd1",
    "ruRU": "098a40bd5e0f8dd1"
   },
   "STATS_TITLE": {

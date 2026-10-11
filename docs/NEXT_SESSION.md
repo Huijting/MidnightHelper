@@ -77,7 +77,13 @@
   ✅ "Delver's Call" = één clientnaam per pack (QuestLine 6051 + Wowhead GEMETEN; CLAUDE.md); verzonnen namen
   (Tiefenwanderer, gouffrier, cavernícola, Explorador) weg; DelveBossShowcase kent de lokale questnaam.
   ✅ Gem-namen: clientnamen GEMETEN (wago ItemSparse, scratchpad GEM_NAMES.md) en in de 6 client-packs gezet
-  (4 keys); GEM_NO_DIAMOND zegt nu "nog geen diamant" + de link. Open: esMX "Se busca surcabismos".
+  (4 keys); GEM_NO_DIAMOND zegt nu "nog geen diamant" + de link.
+  ✅ esMX stap 1 (Rob "begin met 1 en dan door", 11 okt): esES opgeschoond voor Spanje + Mexico, 198 regels:
+  "coger" (59, grof in Mexico) → recoger/aceptar/elegir/tomar; vosotros (~110, vooral RaidTips/DungeonTips) →
+  ustedes; usted naar de speler (31) → tú. Meting esMX vs esES: scratchpad `esMX/ESMX_TERMS.md` (38% van de client-
+  strings verschilt; ~525 pack-regels met een ander spelwoord: abismo, bóveda, calabozo, reconocimiento …).
+  Stap 2 loopt: `Locales/esMX.lua`, laag die alleen op een esMX-client de esES-waarden met Mexicaanse spelwoorden
+  overschrijft.
   Oude regel:
   (drift). Nog open daaruit: Crafting Speed als 4e crafting-stat (staat hij in Crafting Details? in-game kijken).
   Was (NIET gerepareerd): PROFGUIDE_SEC_TAILORING_BODY noemt Evoker bij cloth

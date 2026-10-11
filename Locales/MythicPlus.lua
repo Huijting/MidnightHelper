@@ -530,7 +530,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	MPLUS_GLOSS_AGGRO = "Aggro / Threat — a quién está atacando un enemigo. Si te persigue a ti, corre hacia el tank.",
 	MPLUS_GLOSS_CC = "CC (crowd control) — aturdir, congelar o dormir a un enemigo para que no pueda actuar un momento.",
 	MPLUS_GLOSS_DISPEL = "Dispel — quitar un efecto dañino de un jugador (o uno beneficioso de un enemigo).",
-	MPLUS_GLOSS_WIPE = "Wipe — todo el grupo muere y lo volvéis a intentar. Le pasa a todo el mundo; reinicias y vuelves a empezar.",
+	MPLUS_GLOSS_WIPE = "Wipe — todo el grupo muere y lo vuelven a intentar. Le pasa a todo el mundo; reinicias y vuelves a empezar.",
 	MPLUS_GLOSS_ILVL = "Nivel de objeto (ilvl) — un número en el equipo que indica su poder. Más alto suele ser mejor.",
 	MPLUS_GLOSS_BIS = "BiS (best in slot) — el mejor objeto posible para una ranura de equipo. \"Ese abalorio es BiS\" significa que nada lo supera ahí.",
 	MPLUS_GLOSS_PROC = "Proc — un efecto extra que se activa al azar de un hechizo u objeto. Valor gratis cuando se enciende, así que úsalo.",
