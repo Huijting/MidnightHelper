@@ -2,9 +2,11 @@
 
 ## 11 okt ochtend
 - Rob test de Frost Mage-waaromregels + quiz zelf (ze staan al aan: client 120100 = `why.interface`).
-- nlNL `PLAYCARD_64_W1`: "spreuken" → "spells" (site-chat: Robs woordregel; GEMETEN nlNL 52× spell(s) tegen
-  5 regels "spreuk"). De andere 4 "spreuk"-regels (ACADEMY_CHAT_HINT, TANKKIT_TK_KICK/STUN, 2229/2233) NIET aangeraakt.
+- nlNL: overal "spells", nooit "spreuken" (Rob 11 okt: "spells geldt ook voor de addon"). Alle 7 plekken in
+  nlNL.lua vervangen (PLAYCARD_64_W1, 2227, 2229, 2233, ACADEMY_CHAT_HINT, TANKKIT_TK_KICK/STUN); grep `(?i)spreuk`
+  in Locales = 0 (GEMETEN, luac -p schoon).
 - Waarom-regels de/fr/es/pt/it: nog bewust Engels (geen W-vertalingen); Rob kiest of ze nu al vertaald worden.
+- Rob 11 okt: Elemental Shaman (262) krijgt ook waarom-regels + quiz. mh-research loopt (feiten + W-concepten).
 
 ## ▶️ (10 okt avond) — 4.7.6-BETA2 is UIT
 - Site-chat OK → tag `v4.7.6-beta2` (62085b5) gepusht; Actions-run 38081546545 success: CurseForge (beta), Wago en
