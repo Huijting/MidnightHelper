@@ -1282,7 +1282,7 @@ ns._mhLocales.enUS = {
 	-- Why lines, 11 Oct 2026: Icy Veins 10 Aug, Method 1 Sep, Wowhead 20 Sep 2026 + live tooltips (mh-research). Not seen in the game yet.
 	PLAYCARD_262_W1 = "{SPELL:114050} makes your spells fire an extra copy for a while. So charge up {SPELL:191634} just before it: your strongest bolts then land in that time. As Farseer, {SPELL:443454} also calls a spirit that casts along with you.",
 	PLAYCARD_262_W2 = "While {SPELL:470411} burns, {SPELL:51505} always crits on that enemy. Each burn tick can also make {SPELL:51505} ready again. Renewing early is safe: the time that was left is added on.",
-	PLAYCARD_262_W3 = "On a burning enemy {SPELL:51505} always crits: one of your hardest hits, and it fills your Maelstrom bar a lot. Does it light up early? That is Lava Surge: ready again and instant.",
+	PLAYCARD_262_W3 = "On a burning enemy {SPELL:51505} always crits: one of your hardest hits, and it fills your Maelstrom bar a lot. Does it light up early? That is {SPELL:77756}: ready again and instant.",
 	PLAYCARD_262_W4 = "The Maelstrom bar stops when it is full: anything you earn then is lost. {SPELL:117014} also gives you a short boost. {SPELL:8042} costs less and is instant, handy when you have to move.",
 	PLAYCARD_262_W5 = "{SPELL:188196} has no cooldown, so it fills every gap and fills your Maelstrom bar. Sometimes it fires a smaller extra bolt for free.",
 	PLAYCARD_262_WAOE = "{SPELL:470057} sets a whole group burning in one press. {SPELL:188443} jumps from enemy to enemy and gives more Maelstrom the more it hits. Spend it on {SPELL:61882}: it hurts everything standing in it.",
@@ -1307,14 +1307,14 @@ ns._mhLocales.enUS = {
 	PLAYCARD_64_HERO1 = "Spellslinger (best on one target): {SPELL:30455} from 6 Freezing stacks on the enemy.",
 	PLAYCARD_64_HERO2 = "Frostfire (a bit better in dungeons): {SPELL:431044} replaces {SPELL:116}. {SPELL:153595} when it shows. {SPELL:30455} from 12 Freezing stacks. Keep a single Fingers of Frost: spend it only while {SPELL:1247729} is active, or once you have 2.",
 	-- Why lines, 10 Oct 2026: Icy Veins 10 Aug, Method 11 Aug, Wowhead 12+29 Aug 2026 (all 12.1). Not seen in the game yet.
-	PLAYCARD_64_W1 = "{SPELL:84714} is one of your strongest spells, so never let it wait. Your Icicles grow by themselves: at five, {SPELL:116} becomes the giant {SPELL:199786}.",
+	PLAYCARD_64_W1 = "{SPELL:84714} is one of your strongest spells, so never let it wait. Your {SPELL:1246832} grow by themselves: at five, {SPELL:116} becomes the giant {SPELL:199786}.",
 	PLAYCARD_64_W2 = "Brain Freeze gives {SPELL:44614} back right away and makes it hit harder. {SPELL:44614} puts 3 Freezing on at once.",
 	PLAYCARD_64_W3 = "{SPELL:30455} breaks 4 Freezing at once (more with talents) for big damage. With Fingers of Frost it hits just as hard, and the Freezing stays on.",
 	PLAYCARD_64_W4 = "{SPELL:205021} pours on 8 new Freezing. An enemy holds at most 20, so spend the old Freezing first.",
 	-- What Freezing is (Rob, 11 Oct 2026: "wat is freezing eigenlijk?!"). Two mh-research agents agree: wago DB2
 	-- 12.1.0.69933 + 12.1.5.70077 (debuff 1221389, 20 stacks, 15 s; Shatter 1246769: Frostbolt 1, Flurry 1 per missile,
 	-- Ice Lance shatters 4) and Wowhead tooltips/guides. Ray of Frost 8 = 4 s / 0.5 s ticks.
-	PLAYCARD_64_TERMS = "Freezing is an icy mark on your enemy. {SPELL:116} adds 1, {SPELL:44614} adds 3, {SPELL:205021} adds 8, and one enemy holds at most 20. {SPELL:30455} breaks 4 at once (more with talents) for extra damage: that is called Shatter.",
+	PLAYCARD_64_TERMS = "Freezing is an icy mark on your enemy. {SPELL:116} adds 1, {SPELL:44614} adds 3, {SPELL:205021} adds 8, and one enemy holds at most 20. {SPELL:30455} breaks 4 at once (more with talents) for extra damage: that is called {SPELL:1246769}.",
 	PLAYCARD_64_W5 = "{SPELL:116} adds Freezing, and it can light up Brain Freeze or Fingers of Frost for you.",
 	PLAYCARD_64_WAOE = "{SPELL:84714} hits every enemy it flies through. With the Freezing Rain talent it also makes {SPELL:190356} instant: that is when it lights up.",
 	PLAYCARD_65_IDEA = "Build Holy Power with {SPELL:20473}, then spend it on big heals. Never sit on 5 Holy Power.",

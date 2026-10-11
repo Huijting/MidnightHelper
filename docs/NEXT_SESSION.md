@@ -4,7 +4,11 @@
 - Geen beta3 nu. 38 specs te gaan (64 + 262 af). Brief: scratchpad `why/BRIEF.md` (per spec: W-regels en+nl,
   TERMS, quizAnswer, kaartfouten, 12.1.5). Golf 1 loopt (mh-research): Paladin, Priest, Warrior, Shaman-rest + Mage-rest.
   Golven van 4 (ze delen de browser). Op de patchdag: één ronde nakijken + `interface` ophogen.
-- Open vraag aan Rob: W-regels ook in de/fr/es/pt/it?
+- ✅ Rob: W-regels ook in de/fr/es/pt/it (mh-writer per klasse). ✅ 64 + 262 vertaald (13 keys × 5).
+  Icicles / Lava Surge / Shatter zijn {SPELL:1246832} / {SPELL:77756} / {SPELL:1246769} in alle 7 talen (wago DB2:
+  talent resp. spec-passieven; clientnaam per taal). AFGELEID: IsPlayerSpell true → goud; testpunt in TESTLIJST.
+- DAARNA (Rob "ja, doe daarna Russisch"): ruRU-pack. Locale.lua kent ruRU al (code + chat-render-waarschuwing :235),
+  alleen het pack ontbreekt. Zelf vertaald → zeggen dat er geen moedertaalspreker naar keek.
 - NA golf 1 (Rob "ja"): Delve-woord in de/fr/es/pt/it = het clientwoord (GlobalStrings, site-chat GEMETEN): de
   Tiefe/Tiefen, fr Gouffre(s), es Profundidad(es), pt Imersão/Imersões, it Scorribanda/Scorribande. GEMETEN 11 okt:
   "Delve" 686× in Locales/ (alle talen), clientwoord 224×. Per taal mh-writer; CLAUDE.md-regel "Delves blijft

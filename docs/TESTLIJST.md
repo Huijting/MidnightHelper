@@ -27,6 +27,9 @@ er is niets weggegooid.
       met wat Freezing is (Frostbolt 1, Flurry 3, Ray of Frost 8, max 20; Ice Lance breekt er 4).
 - [ ] De waarom-regel bij Ice Lance zegt nu "breekt 4 Freezing tegelijk", niet meer "al het Freezing".
 - [ ] Op je shamaan staat géén "Goed om te weten"-regel (alleen Frost heeft er een).
+- [ ] Op Frost: in de waarom-regel van stap 1 staat **Icicles** en in "Goed om te weten" **Shatter** als gouden
+      spellnaam (niet grijs). Op Elemental: **Lava Surge** in de waarom-regel van stap 3, goud. Grijs? Doe dan
+      `/run print(IsPlayerSpell(1246769), IsPlayerSpell(1246832), IsPlayerSpell(77756))` en stuur me de uitkomst.
 - [ ] Frostfire-regel (onderaan, heldentalenten) eindigt nu met "Hou één Fingers of Frost vast: gebruik hem alleen als
       **Thermal Void** actief is, of zodra je er 2 hebt." Thermal Void staat als gouden spellnaam met tooltip.
 
