@@ -4,7 +4,7 @@
 - Changelog CHANGELOG_476_18..24 (enUS), Changelog.lua, RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (kop "beta 3",
   byte-gelijk GEMETEN), CHANGELOG.md. toc blijft 4.7.6.
 - ✅ Tag `v4.7.6-beta3` op 32adda9 (site-chat akkoord + proefbouw 0 problemen); release-run 38139204592 GESLAAGD
-  (CurseForge, Wago, GitHub). Site-chat geseind dat ruRU in een tag zit. Rob: CF-pagina even bekijken (notes netjes?).
+  (CurseForge, Wago, GitHub). Site-chat geseind dat ruRU in een tag zit. ✅ Rob 11 okt: CF-pagina van beta3 is goed.
 - ✅ Na beta3 (op main, niet getagd): delve-ITEMnamen = clientnaam in de/fr/es/pt/it/ru + esMX (Rob "jouw advies"):
   Restored Coffer Key, Coffer Key Shard, Bountiful Coffer, Bountiful Heavy Trunk, Trovehunter's Bounty, Hidden Trove
   (GEMETEN wago + Wowhead, scratchpad COFFER_NAMES.md; ook naar de site-chat gestuurd). Verzonnen halve namen weg
