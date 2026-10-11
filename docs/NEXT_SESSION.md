@@ -24,9 +24,13 @@
   commentaren, ruRU kleine letter, esES usted→tú (SMC_CHK_RITUAL_SITE), itIT Voidstorm zonder "the", esES Academy-
   titels, Broken Throne = es "Trono Destrozado" / mx "Trono Quebrado" (GEMETEN AreaPOI 8614), Coiled Isle = es "Isla
   Serpenteante" (UiMap 2512) / pt "Ilha Enrolada" (Achievement-DB2, build niet gecontroleerd), de „…“-quotes.
-  Nog open (klein): itIT TOAST "Usala" vs "Bottino" (m); ptBR Broken Throne "Trono Partido"/"Trono Quebrado" (niet
-  gemeten); CODEX_RITUAL_BODY "Broken Throne" Engels in alle packs; esES "Sitios rituales" vs client "Lugar de
-  ritual"; esES ACADEMY_PREF_TITLE usted; esES ACADEMY_HEAL_BOTH_TITLE machine-achtig; de/fr/it "Coiled Isle" Engels.
+  ✅ Ronde 2 (11 okt): itIT "Usalo"; Broken Throne / Daggerspine Point / Coiled Isle = clientnaam in alle packs
+  (GEMETEN AreaPOI 8614/8615, UiMap 2512: de Zerschlagener Thron / Säbelflossenspitze / Gewundene Insel, fr Trône
+  brisé / pointe des Daguéchines / Île Annelée, it Trono Distrutto / Promontorio dei Liscaguzza / Isola Serpeggiante,
+  pt Trono Partido / Ponto de Espinhadaga, ru Разрушенный трон / Высота Пронзающего Гребня); esES "Lugar(es) de
+  ritual", esMX "Sitio(s) de ritual"; esES Academy-titels. Nog open (klein): achievementnamen ("Treasures of the Coiled
+  Isle") Engels in de/fr/it/ru; algemene term "Ritual Sites" nog Engels in de/it (client: Ritualstätte, Sito Rituale,
+  pt Sítio Ritualístico); "Eversong Woods" Engels in ritual/Codex-teksten; ptBR Academy-titels machine-achtig.
 - Rob 11 okt: site-chat mag aan de Russische site beginnen; hij stuurt een lijst voor build_site.py ("ru").
 - Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.
 - Daarna: echte 4.7.6-release pas na de patch (14 okt): patchnotes naast de kaarten, Devourer HERO1, Robs /reload.
