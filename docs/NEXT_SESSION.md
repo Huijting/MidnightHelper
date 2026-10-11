@@ -82,8 +82,14 @@
   "coger" (59, grof in Mexico) → recoger/aceptar/elegir/tomar; vosotros (~110, vooral RaidTips/DungeonTips) →
   ustedes; usted naar de speler (31) → tú. Meting esMX vs esES: scratchpad `esMX/ESMX_TERMS.md` (38% van de client-
   strings verschilt; ~525 pack-regels met een ander spelwoord: abismo, bóveda, calabozo, reconocimiento …).
-  Stap 2 loopt: `Locales/esMX.lua`, laag die alleen op een esMX-client de esES-waarden met Mexicaanse spelwoorden
-  overschrijft.
+  ✅ Stap 2 (11 okt): `Locales/esMX.lua` (in de .toc na ruRU.lua), laag die alleen op een esMX-client 510 esES-
+  waarden overschrijft met de Mexicaanse spelwoorden (abismo, calabozo, Gran bóveda, Reconocimiento, abundante,
+  Mítico, tropa, Se busca surcabismos, Emblema, Cronoviaje, Configuración, Accesorios …; geslacht meegenomen).
+  GEMETEN offline: esES-client ongewijzigd, esMX ziet "Abismos & Bóveda", enUS geen esES. 4 mh-writers, brief
+  scratchpad `esMX/MX_BRIEF.md`. ⚠️ Onderhoud: verandert een esES-tekst met zo'n woord, dan moet esMX.lua mee
+  (check_drift kent esMX niet). Open/AFGELEID: "Energizante de artesano" (moxie) niet exact gemeten; "Reconocimientos
+  de campo" (Field Accolades) botst met Reconocimiento = Renown; "Trono Quebrado" (esMX) vs pack "Trono Roto" (esES-
+  client zegt "Trono Destrozado"); een paar Engelse Renown/Mythic/Timewalking in de esES-tekst bleven Engels.
   Oude regel:
   (drift). Nog open daaruit: Crafting Speed als 4e crafting-stat (staat hij in Crafting Details? in-game kijken).
   Was (NIET gerepareerd): PROFGUIDE_SEC_TAILORING_BODY noemt Evoker bij cloth

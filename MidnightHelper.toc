@@ -48,6 +48,7 @@ Locales\OmniumFolio.lua
 Locales\Translations2026.lua
 Locales\TranslationsS2.lua
 Locales\ruRU.lua
+Locales\esMX.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
 Modules\DelveStoryData.lua
