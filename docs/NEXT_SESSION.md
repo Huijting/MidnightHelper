@@ -40,9 +40,12 @@
   EJ_GetInstanceInfo-naam in de route. Lint: "Atal'Utek" uit de KEEP-lijst (client schrijft it "Atal'utek", ru
   "Атал'Утек"). Open: it Atal'Utek/Atal'utek gemengd; fr "Lune-d'argent"/"Lune-d'Argent" gemengd; PLAN_OPT_* NPC-
   dialoog Engels; "Arcway" niet gemeten.
-- ⏳ VOLGENDE: dungeon/raid/achievementnamen (scratchpad INSTANCE_ACH_NAMES.md: per pack 59-76 plekken, esMX 29 eigen
-  regels; RaidCoachData S1-raids zonder journal-id 1307/1308/1314, Sporefall 1305, Tidebound 1317). Daarna de
-  Voidcore-Codexkaart (research-chat 11 okt): ResetRoutine 94623 "Building the Voidforge" al weggehaald,
+- ✅ Dungeon/raid/achievementnamen = clientnaam (INSTANCE_ACH_NAMES.md, wago JournalInstance/Achievement): de 47, fr 58,
+  it 47, es 52 (+esMX 31), pt 51, ru 62 keys. KeepEnglish: "Veteran/Champion/Hero of the Dawn" alleen nog nlNL-
+  only. S1-raids journal-id 1314/1307/1308 (RaidCoachData). Blijft Engels (niet meetbaar in 69933): The Unbinding of
+  Kith'ix, Midnight Keystone Myth: Season 2, 3 aqir-achievements → nameten op de eerste 12.1.5-build. Open: ruRU
+  ACH_STEP_URN_NALORAKK "входа в Den"; Sporefall 1305 / Tidebound 1317 hebben nog geen journal-id (andere structuur).
+- ⏳ VOLGENDE: Voidcore-Codexkaart (research-chat 11 okt): ResetRoutine 94623 "Building the Voidforge" al weggehaald,
   BonusRollCapture-commentaar verbeterd.
 - Rob 11 okt: site-chat mag aan de Russische site beginnen; hij stuurt een lijst voor build_site.py ("ru").
 - Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.

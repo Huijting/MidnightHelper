@@ -1314,7 +1314,8 @@
    "esES": "edf357c9407eaf57",
    "frFR": "edf357c9407eaf57",
    "itIT": "edf357c9407eaf57",
-   "ptBR": "edf357c9407eaf57"
+   "ptBR": "edf357c9407eaf57",
+   "ruRU": "edf357c9407eaf57"
   },
   "ACH_HIDE_BTN_HIDE": {
    "deDE": "ac20a57bfde0bbc4",
@@ -1390,21 +1391,24 @@
    "esES": "cf37c2d785ab2be5",
    "frFR": "cf37c2d785ab2be5",
    "itIT": "cf37c2d785ab2be5",
-   "ptBR": "cf37c2d785ab2be5"
+   "ptBR": "cf37c2d785ab2be5",
+   "ruRU": "cf37c2d785ab2be5"
   },
   "ACH_LORE_HONORED_DEAD": {
    "deDE": "e09b2e0b34301f4d",
    "esES": "e09b2e0b34301f4d",
    "frFR": "e09b2e0b34301f4d",
    "itIT": "e09b2e0b34301f4d",
-   "ptBR": "e09b2e0b34301f4d"
+   "ptBR": "e09b2e0b34301f4d",
+   "ruRU": "e09b2e0b34301f4d"
   },
   "ACH_LORE_HUNTER": {
    "deDE": "167214036952c2a1",
    "esES": "167214036952c2a1",
    "frFR": "167214036952c2a1",
    "itIT": "167214036952c2a1",
-   "ptBR": "167214036952c2a1"
+   "ptBR": "167214036952c2a1",
+   "ruRU": "167214036952c2a1"
   },
   "ACH_META_PREVIEW_HINT": {
    "deDE": "710d10fdbe12241e",
@@ -1829,7 +1833,8 @@
    "frFR": "1287ac7f0f25380a",
    "itIT": "1287ac7f0f25380a",
    "nlNL": "1287ac7f0f25380a",
-   "ptBR": "1287ac7f0f25380a"
+   "ptBR": "1287ac7f0f25380a",
+   "ruRU": "1287ac7f0f25380a"
   },
   "ACH_PEAKS_HARANDAR": {
    "deDE": "116b93b6fa9e228f",
@@ -1837,7 +1842,8 @@
    "frFR": "116b93b6fa9e228f",
    "itIT": "116b93b6fa9e228f",
    "nlNL": "116b93b6fa9e228f",
-   "ptBR": "116b93b6fa9e228f"
+   "ptBR": "116b93b6fa9e228f",
+   "ruRU": "116b93b6fa9e228f"
   },
   "ACH_PEAKS_VOIDSTORM": {
    "deDE": "a65acab55f382c0f",
@@ -1845,7 +1851,8 @@
    "frFR": "a65acab55f382c0f",
    "itIT": "a65acab55f382c0f",
    "nlNL": "a65acab55f382c0f",
-   "ptBR": "a65acab55f382c0f"
+   "ptBR": "a65acab55f382c0f",
+   "ruRU": "a65acab55f382c0f"
   },
   "ACH_PEAKS_ZULAMAN": {
    "deDE": "436c95312ae4e633",
@@ -1853,7 +1860,8 @@
    "frFR": "436c95312ae4e633",
    "itIT": "436c95312ae4e633",
    "nlNL": "436c95312ae4e633",
-   "ptBR": "436c95312ae4e633"
+   "ptBR": "436c95312ae4e633",
+   "ruRU": "436c95312ae4e633"
   },
   "ACH_RENOWN_FMT": {
    "deDE": "a68b7c5eb8c31008",
@@ -2280,7 +2288,8 @@
    "frFR": "966300f31980debb",
    "itIT": "966300f31980debb",
    "nlNL": "966300f31980debb",
-   "ptBR": "966300f31980debb"
+   "ptBR": "966300f31980debb",
+   "ruRU": "966300f31980debb"
   },
   "ACH_TREASURE_EVERSONG": {
    "deDE": "027725c3b1dc39f9",
@@ -2288,7 +2297,8 @@
    "frFR": "027725c3b1dc39f9",
    "itIT": "027725c3b1dc39f9",
    "nlNL": "027725c3b1dc39f9",
-   "ptBR": "027725c3b1dc39f9"
+   "ptBR": "027725c3b1dc39f9",
+   "ruRU": "027725c3b1dc39f9"
   },
   "ACH_TREASURE_HARANDAR": {
    "deDE": "5541afef140deb62",
@@ -2296,7 +2306,8 @@
    "frFR": "5541afef140deb62",
    "itIT": "5541afef140deb62",
    "nlNL": "5541afef140deb62",
-   "ptBR": "5541afef140deb62"
+   "ptBR": "5541afef140deb62",
+   "ruRU": "5541afef140deb62"
   },
   "ACH_TREASURE_VOIDSTORM": {
    "deDE": "93a9c9c139b9ae48",
@@ -2304,7 +2315,8 @@
    "frFR": "93a9c9c139b9ae48",
    "itIT": "93a9c9c139b9ae48",
    "nlNL": "93a9c9c139b9ae48",
-   "ptBR": "93a9c9c139b9ae48"
+   "ptBR": "93a9c9c139b9ae48",
+   "ruRU": "93a9c9c139b9ae48"
   },
   "ACH_TREASURE_ZULAMAN": {
    "deDE": "81c6768f6e2bed63",
@@ -2312,7 +2324,8 @@
    "frFR": "81c6768f6e2bed63",
    "itIT": "81c6768f6e2bed63",
    "nlNL": "81c6768f6e2bed63",
-   "ptBR": "81c6768f6e2bed63"
+   "ptBR": "81c6768f6e2bed63",
+   "ruRU": "81c6768f6e2bed63"
   },
   "AGGRO_CHECK_FOOTER": {
    "ruRU": "2c94c237bd1d2912"
@@ -4988,6 +5001,11 @@
    "ruRU": "83a274406e8181a8"
   },
   "CODEX_KEYSTONE_MYTH_TITLE": {
+   "deDE": "ebc4e6e8425c426c",
+   "esES": "ebc4e6e8425c426c",
+   "frFR": "ebc4e6e8425c426c",
+   "itIT": "ebc4e6e8425c426c",
+   "ptBR": "ebc4e6e8425c426c",
    "ruRU": "ebc4e6e8425c426c"
   },
   "CODEX_KITHIX_BODY": {
@@ -6650,7 +6668,8 @@
    "frFR": "13f4e80c3934e977",
    "itIT": "13f4e80c3934e977",
    "nlNL": "13f4e80c3934e977",
-   "ptBR": "13f4e80c3934e977"
+   "ptBR": "13f4e80c3934e977",
+   "ruRU": "13f4e80c3934e977"
   },
   "DAWNCREST_ACH_CHAMPION": {
    "deDE": "1eb706ffcf4c0459",
@@ -6658,7 +6677,8 @@
    "frFR": "1eb706ffcf4c0459",
    "itIT": "1eb706ffcf4c0459",
    "nlNL": "1eb706ffcf4c0459",
-   "ptBR": "1eb706ffcf4c0459"
+   "ptBR": "1eb706ffcf4c0459",
+   "ruRU": "1eb706ffcf4c0459"
   },
   "DAWNCREST_ACH_DONE_FMT": {
    "deDE": "9ef5997bbefddf72",
@@ -6675,7 +6695,8 @@
    "frFR": "e21585b404928f54",
    "itIT": "e21585b404928f54",
    "nlNL": "e21585b404928f54",
-   "ptBR": "e21585b404928f54"
+   "ptBR": "e21585b404928f54",
+   "ruRU": "e21585b404928f54"
   },
   "DAWNCREST_ACH_MYTH": {
    "deDE": "c77add9a913c8266",
@@ -6683,7 +6704,8 @@
    "frFR": "c77add9a913c8266",
    "itIT": "c77add9a913c8266",
    "nlNL": "c77add9a913c8266",
-   "ptBR": "c77add9a913c8266"
+   "ptBR": "c77add9a913c8266",
+   "ruRU": "c77add9a913c8266"
   },
   "DAWNCREST_ACH_VETERAN": {
    "deDE": "a77fab43d0aa176a",
@@ -6691,7 +6713,8 @@
    "frFR": "a77fab43d0aa176a",
    "itIT": "a77fab43d0aa176a",
    "nlNL": "a77fab43d0aa176a",
-   "ptBR": "a77fab43d0aa176a"
+   "ptBR": "a77fab43d0aa176a",
+   "ruRU": "a77fab43d0aa176a"
   },
   "DAWNCREST_BTN_CUZOTH": {
    "deDE": "cea8b597b0c89da5",
@@ -6726,6 +6749,11 @@
    "ruRU": "40fe9ae4ed2f1a87"
   },
   "DAWNCREST_GUIDE_MIST_DISCOUNT": {
+   "deDE": "96a8d498bf43caef",
+   "esES": "96a8d498bf43caef",
+   "frFR": "96a8d498bf43caef",
+   "itIT": "96a8d498bf43caef",
+   "ptBR": "96a8d498bf43caef",
    "ruRU": "96a8d498bf43caef"
   },
   "DAWNCREST_GUIDE_SUMMARY": {
@@ -16687,6 +16715,11 @@
    "ruRU": "0e8e743e40ce9cf4"
   },
   "HOME_VAULTS_GATE": {
+   "deDE": "9698ed139d7a81b9",
+   "esES": "9698ed139d7a81b9",
+   "frFR": "9698ed139d7a81b9",
+   "itIT": "9698ed139d7a81b9",
+   "ptBR": "9698ed139d7a81b9",
    "ruRU": "9698ed139d7a81b9"
   },
   "HOME_VAULTS_INPROGRESS": {

@@ -91,14 +91,14 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 
 	MPLUS_KICK_HEADER = "Cast da interrompere obbligatoriamente (per dungeon)",
 	MPLUS_KICK_NOTE = "I grossi da tenere d'occhio — nomi confermati dalle guide, confermare in-game. Aggiungiamo altri dungeon man mano che verifichiamo le loro liste di cast.",
-	MPLUS_KICK_MAISARA = "Maisara Caverns (il più tosto del pool): kicka Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — ogni cast, o è un wipe) e Shrink (Umbral Shadowbinder). Su Rak'tul, interrompi ogni Malignant Soul sul ponte.",
-	MPLUS_KICK_MAGISTERS = "Magisters' Terrace: i boss non hanno nulla da interrompere — è tutto trash. Priorità di kick {SPELL:468966} (Arcane Magister — trasforma un giocatore in pecora) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
-	MPLUS_KICK_NEXUSPOINT = "Nexus-Point Xenas: kicka {SPELL:1250553} su Chief Corewright Kasreth, e sul trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). Sul {SPELL:1257595} di Lothraxion, interrompi l'ombra SENZA corna — kickare quella sbagliata danneggia il gruppo.",
-	MPLUS_KICK_WINDRUNNER = "Windrunner Spire: kicka Chain Lightning (Phantasmal Mystic — ferma anche il suo buff di haste), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) e Fungal Bolt (Bloated Lasher). (Spell ID non ancora da datamining — confermare in-game.)",
-	MPLUS_KICK_PITOFSARON = "Pit of Saron: la priorità di kick è {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). Su Garfrost, spezza la linea di vista verso {SPELL:1262029} dietro un Ore Chunk.",
-	MPLUS_KICK_ALGETHAR = "Algeth'ar Academy: interrompi {SPELL:396640} (Ancient Branch) — ogni cast, o è un wipe.",
-	MPLUS_KICK_TRIUMVIRATE = "Seat of the Triumvirate: il kick prioritario è {SPELL:248831} (Shadewing).",
-	MPLUS_KICK_SKYREACH = "Skyreach: il kick prioritario è {SPELL:1255377} (Driving Gale-Caller).",
+	MPLUS_KICK_MAISARA = "Caverne di Maisara (il dungeon più tosto del pool): kicka Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — ogni cast, o è un wipe) e Shrink (Umbral Shadowbinder). Su Rak'tul, interrompi ogni Malignant Soul sul ponte.",
+	MPLUS_KICK_MAGISTERS = "Terrazza dei Magistri: i boss non hanno nulla da interrompere — è tutto trash. Priorità di kick {SPELL:468966} (Arcane Magister — trasforma un giocatore in pecora) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
+	MPLUS_KICK_NEXUSPOINT = "Punta del Nexus Xenas: kicka {SPELL:1250553} su Chief Corewright Kasreth, e sul trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). Sul {SPELL:1257595} di Lothraxion, interrompi l'ombra SENZA corna — kickare quella sbagliata danneggia il gruppo.",
+	MPLUS_KICK_WINDRUNNER = "Pinnacolo dei Ventolesto: kicka Chain Lightning (Phantasmal Mystic — ferma anche il suo buff di haste), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) e Fungal Bolt (Bloated Lasher). (Spell ID non ancora da datamining — confermare in-game.)",
+	MPLUS_KICK_PITOFSARON = "Fossa di Saron: la priorità di kick è {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). Su Garfrost, spezza la linea di vista verso {SPELL:1262029} dietro un Ore Chunk.",
+	MPLUS_KICK_ALGETHAR = "Accademia di Algeth'ar: interrompi {SPELL:396640} (Ancient Branch) — ogni cast, o è un wipe.",
+	MPLUS_KICK_TRIUMVIRATE = "Seggio del Triumvirato: il kick prioritario è {SPELL:248831} (Shadewing).",
+	MPLUS_KICK_SKYREACH = "Vetta dei Cieli: il kick prioritario è {SPELL:1255377} (Driving Gale-Caller).",
 })
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
@@ -170,14 +170,14 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 
 	MPLUS_KICK_HEADER = "Pflicht-Unterbrechungen (je Dungeon)",
 	MPLUS_KICK_NOTE = "Die großen, auf die man achten muss — Namen aus Guides bestätigt, im Spiel bestätigen. Weitere Dungeons werden hinzugefügt, sobald wir ihre Zauberlisten verifizieren.",
-	MPLUS_KICK_MAISARA = "Maisara Caverns (der härteste im Pool): kicke Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — jeder Zauber, sonst ist es ein Wipe) und Shrink (Umbral Shadowbinder). Bei Rak'tul unterbrich jeden Malignant Soul auf der Brücke.",
-	MPLUS_KICK_MAGISTERS = "Magisters' Terrace: die Bosse haben nichts zu unterbrechen — es ist alles Trash. Kick-Priorität {SPELL:468966} (Arcane Magister — verwandelt einen Spieler in ein Schaf) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
-	MPLUS_KICK_NEXUSPOINT = "Nexus-Point Xenas: kicke {SPELL:1250553} bei Chief Corewright Kasreth, und bei Trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). Bei Lothraxions {SPELL:1257595} unterbrich die Schattengestalt OHNE Hörner — die falsche zu kicken schadet der Gruppe.",
-	MPLUS_KICK_WINDRUNNER = "Windrunner Spire: kicke Chain Lightning (Phantasmal Mystic — stoppt auch seinen Hast-Buff), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) und Fungal Bolt (Bloated Lasher). (Spell-IDs noch nicht datamined — im Spiel bestätigen.)",
-	MPLUS_KICK_PITOFSARON = "Pit of Saron: Kick-Priorität ist {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). Bei Garfrost unterbrich die Sichtlinie zu {SPELL:1262029} hinter einem Ore Chunk.",
-	MPLUS_KICK_ALGETHAR = "Algeth'ar Academy: unterbrich {SPELL:396640} (Ancient Branch) — jeder Zauber, sonst ist es ein Wipe.",
-	MPLUS_KICK_TRIUMVIRATE = "Seat of the Triumvirate: Prioritäts-Kick ist {SPELL:248831} (Shadewing).",
-	MPLUS_KICK_SKYREACH = "Skyreach: Prioritäts-Kick ist {SPELL:1255377} (Driving Gale-Caller).",
+	MPLUS_KICK_MAISARA = "Maisarakavernen (der härteste Dungeon im Pool): kicke Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — jeder Zauber, sonst ist es ein Wipe) und Shrink (Umbral Shadowbinder). Bei Rak'tul unterbrich jeden Malignant Soul auf der Brücke.",
+	MPLUS_KICK_MAGISTERS = "Terrasse der Magister: die Bosse haben nichts zu unterbrechen — es ist alles Trash. Kick-Priorität {SPELL:468966} (Arcane Magister — verwandelt einen Spieler in ein Schaf) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
+	MPLUS_KICK_NEXUSPOINT = "Nexuspunkt Xenas: kicke {SPELL:1250553} bei Chief Corewright Kasreth, und bei Trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). Bei Lothraxions {SPELL:1257595} unterbrich die Schattengestalt OHNE Hörner — die falsche zu kicken schadet der Gruppe.",
+	MPLUS_KICK_WINDRUNNER = "Windläuferturm: kicke Chain Lightning (Phantasmal Mystic — stoppt auch seinen Hast-Buff), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) und Fungal Bolt (Bloated Lasher). (Spell-IDs noch nicht datamined — im Spiel bestätigen.)",
+	MPLUS_KICK_PITOFSARON = "Grube von Saron: Kick-Priorität ist {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). Bei Garfrost unterbrich die Sichtlinie zu {SPELL:1262029} hinter einem Ore Chunk.",
+	MPLUS_KICK_ALGETHAR = "Akademie von Algeth'ar: unterbrich {SPELL:396640} (Ancient Branch) — jeder Zauber, sonst ist es ein Wipe.",
+	MPLUS_KICK_TRIUMVIRATE = "Sitz des Triumvirats: Prioritäts-Kick ist {SPELL:248831} (Shadewing).",
+	MPLUS_KICK_SKYREACH = "Himmelsnadel: Prioritäts-Kick ist {SPELL:1255377} (Driving Gale-Caller).",
 })
 
 merge(ns._mhLocales and ns._mhLocales.frFR, {
@@ -209,14 +209,14 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 
 	MPLUS_KICK_HEADER = "Incantations à interrompre obligatoirement (par donjon)",
 	MPLUS_KICK_NOTE = "Les grosses à surveiller — noms confirmés d'après les guides, à confirmer en jeu. D'autres donjons seront ajoutés à mesure que nous vérifions leurs listes d'incantations.",
-	MPLUS_KICK_MAISARA = "Maisara Caverns (le plus dur du pool) : kickez Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — chaque incantation, sinon c'est un wipe) et Shrink (Umbral Shadowbinder). Sur Rak'tul, interrompez chaque Malignant Soul sur le pont.",
-	MPLUS_KICK_MAGISTERS = "Magisters' Terrace : les boss n'ont rien à interrompre — c'est tout du trash. Priorité de kick {SPELL:468966} (Arcane Magister — il transforme un joueur en mouton) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
-	MPLUS_KICK_NEXUSPOINT = "Nexus-Point Xenas : kickez {SPELL:1250553} sur Chief Corewright Kasreth, et sur le trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). Sur le {SPELL:1257595} de Lothraxion, interrompez l'ombre SANS cornes — kicker la mauvaise nuit au groupe.",
-	MPLUS_KICK_WINDRUNNER = "Windrunner Spire : kickez Chain Lightning (Phantasmal Mystic — arrête aussi son buff de hâte), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) et Fungal Bolt (Bloated Lasher). (Spell IDs pas encore dataminés — à confirmer en jeu.)",
-	MPLUS_KICK_PITOFSARON = "Pit of Saron : la priorité de kick est {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). Sur Garfrost, brisez la ligne de vue vers {SPELL:1262029} derrière un Ore Chunk.",
-	MPLUS_KICK_ALGETHAR = "Algeth'ar Academy : interrompez {SPELL:396640} (Ancient Branch) — chaque incantation, sinon c'est un wipe.",
-	MPLUS_KICK_TRIUMVIRATE = "Seat of the Triumvirate : le kick prioritaire est {SPELL:248831} (Shadewing).",
-	MPLUS_KICK_SKYREACH = "Skyreach : le kick prioritaire est {SPELL:1255377} (Driving Gale-Caller).",
+	MPLUS_KICK_MAISARA = "Cavernes de Maisara (le donjon le plus dur du pool) : kickez Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — chaque incantation, sinon c'est un wipe) et Shrink (Umbral Shadowbinder). Sur Rak'tul, interrompez chaque Malignant Soul sur le pont.",
+	MPLUS_KICK_MAGISTERS = "Terrasse des Magistères : les boss n'ont rien à interrompre — c'est tout du trash. Priorité de kick {SPELL:468966} (Arcane Magister — il transforme un joueur en mouton) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
+	MPLUS_KICK_NEXUSPOINT = "Point-nexus Xenas : kickez {SPELL:1250553} sur Chief Corewright Kasreth, et sur le trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). Sur le {SPELL:1257595} de Lothraxion, interrompez l'ombre SANS cornes — kicker la mauvaise nuit au groupe.",
+	MPLUS_KICK_WINDRUNNER = "Flèche de Coursevent : kickez Chain Lightning (Phantasmal Mystic — arrête aussi son buff de hâte), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) et Fungal Bolt (Bloated Lasher). (Spell IDs pas encore dataminés — à confirmer en jeu.)",
+	MPLUS_KICK_PITOFSARON = "Fosse de Saron : la priorité de kick est {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). Sur Garfrost, brisez la ligne de vue vers {SPELL:1262029} derrière un Ore Chunk.",
+	MPLUS_KICK_ALGETHAR = "Académie d’Algeth’ar : interrompez {SPELL:396640} (Ancient Branch) — chaque incantation, sinon c'est un wipe.",
+	MPLUS_KICK_TRIUMVIRATE = "Siège du triumvirat : le kick prioritaire est {SPELL:248831} (Shadewing).",
+	MPLUS_KICK_SKYREACH = "Orée-du-Ciel : le kick prioritaire est {SPELL:1255377} (Driving Gale-Caller).",
 })
 
 merge(ns._mhLocales and ns._mhLocales.esES, {
@@ -248,14 +248,14 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 
 	MPLUS_KICK_HEADER = "Lanzamientos de interrupción obligatoria (por mazmorra)",
 	MPLUS_KICK_NOTE = "Los grandes a vigilar — nombres confirmados de las guías, confirmar en el juego. Se añaden más mazmorras a medida que verificamos sus listas de lanzamientos.",
-	MPLUS_KICK_MAISARA = "Maisara Caverns (la más dura del pool): kickea Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — cada lanzamiento, o es un wipe) y Shrink (Umbral Shadowbinder). En Rak'tul, interrumpe cada Malignant Soul en el puente.",
-	MPLUS_KICK_MAGISTERS = "Magisters' Terrace: los jefes no tienen nada que interrumpir — es todo trash. Prioridad de kick {SPELL:468966} (Arcane Magister — convierte a un jugador en oveja) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
-	MPLUS_KICK_NEXUSPOINT = "Nexus-Point Xenas: kickea {SPELL:1250553} en Chief Corewright Kasreth, y en el trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). En el {SPELL:1257595} de Lothraxion, interrumpe la sombra SIN cuernos — kickear la equivocada perjudica al grupo.",
-	MPLUS_KICK_WINDRUNNER = "Windrunner Spire: kickea Chain Lightning (Phantasmal Mystic — también detiene su buff de celeridad), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) y Fungal Bolt (Bloated Lasher). (Los Spell IDs aún no están datamineados — confirmar en el juego.)",
-	MPLUS_KICK_PITOFSARON = "Pit of Saron: la prioridad de kick es {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). En Garfrost, rompe la línea de visión hacia {SPELL:1262029} detrás de un Ore Chunk.",
-	MPLUS_KICK_ALGETHAR = "Algeth'ar Academy: interrumpe {SPELL:396640} (Ancient Branch) — cada lanzamiento, o es un wipe.",
-	MPLUS_KICK_TRIUMVIRATE = "Seat of the Triumvirate: el kick prioritario es {SPELL:248831} (Shadewing).",
-	MPLUS_KICK_SKYREACH = "Skyreach: el kick prioritario es {SPELL:1255377} (Driving Gale-Caller).",
+	MPLUS_KICK_MAISARA = "Cavernas de Maisara (la más dura del pool): kickea Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — cada lanzamiento, o es un wipe) y Shrink (Umbral Shadowbinder). En Rak'tul, interrumpe cada Malignant Soul en el puente.",
+	MPLUS_KICK_MAGISTERS = "Bancal del Magister: los jefes no tienen nada que interrumpir — es todo trash. Prioridad de kick {SPELL:468966} (Arcane Magister — convierte a un jugador en oveja) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
+	MPLUS_KICK_NEXUSPOINT = "En el Punto de Nexo: Xenas, kickea {SPELL:1250553} en Chief Corewright Kasreth, y en el trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). En el {SPELL:1257595} de Lothraxion, interrumpe la sombra SIN cuernos — kickear la equivocada perjudica al grupo.",
+	MPLUS_KICK_WINDRUNNER = "Aguja Brisaveloz: kickea Chain Lightning (Phantasmal Mystic — también detiene su buff de celeridad), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) y Fungal Bolt (Bloated Lasher). (Los Spell IDs aún no están datamineados — confirmar en el juego.)",
+	MPLUS_KICK_PITOFSARON = "Foso de Saron: la prioridad de kick es {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). En Garfrost, rompe la línea de visión hacia {SPELL:1262029} detrás de un Ore Chunk.",
+	MPLUS_KICK_ALGETHAR = "Academia Algeth'ar: interrumpe {SPELL:396640} (Ancient Branch) — cada lanzamiento, o es un wipe.",
+	MPLUS_KICK_TRIUMVIRATE = "Trono del Triunvirato: el kick prioritario es {SPELL:248831} (Shadewing).",
+	MPLUS_KICK_SKYREACH = "Trecho Celestial: el kick prioritario es {SPELL:1255377} (Driving Gale-Caller).",
 })
 
 merge(ns._mhLocales and ns._mhLocales.ptBR, {
@@ -287,14 +287,14 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 
 	MPLUS_KICK_HEADER = "Conjurações de interrupção obrigatória (por masmorra)",
 	MPLUS_KICK_NOTE = "As grandes para ficar de olho — nomes confirmados pelos guias, confirmar no jogo. Mais masmorras são adicionadas conforme verificamos suas listas de conjurações.",
-	MPLUS_KICK_MAISARA = "Maisara Caverns (a mais difícil do pool): kicke Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — cada conjuração, ou é um wipe) e Shrink (Umbral Shadowbinder). No Rak'tul, interrompa cada Malignant Soul na ponte.",
-	MPLUS_KICK_MAGISTERS = "Magisters' Terrace: os chefes não têm nada para interromper — é tudo trash. Prioridade de kick {SPELL:468966} (Arcane Magister — transforma um jogador em ovelha) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
-	MPLUS_KICK_NEXUSPOINT = "Nexus-Point Xenas: kicke {SPELL:1250553} no Chief Corewright Kasreth, e no trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). No {SPELL:1257595} do Lothraxion, interrompa a sombra SEM chifres — kickar a errada prejudica o grupo.",
-	MPLUS_KICK_WINDRUNNER = "Windrunner Spire: kicke Chain Lightning (Phantasmal Mystic — também interrompe seu buff de presteza), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) e Fungal Bolt (Bloated Lasher). (Spell IDs ainda não dataminados — confirmar no jogo.)",
-	MPLUS_KICK_PITOFSARON = "Pit of Saron: a prioridade de kick é {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). No Garfrost, quebre a linha de visão para {SPELL:1262029} atrás de um Ore Chunk.",
-	MPLUS_KICK_ALGETHAR = "Algeth'ar Academy: interrompa {SPELL:396640} (Ancient Branch) — cada conjuração, ou é um wipe.",
-	MPLUS_KICK_TRIUMVIRATE = "Seat of the Triumvirate: o kick prioritário é {SPELL:248831} (Shadewing).",
-	MPLUS_KICK_SKYREACH = "Skyreach: o kick prioritário é {SPELL:1255377} (Driving Gale-Caller).",
+	MPLUS_KICK_MAISARA = "Cavernas de Maisara (a mais difícil do pool): kicke Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — cada conjuração, ou é um wipe) e Shrink (Umbral Shadowbinder). No Rak'tul, interrompa cada Malignant Soul na ponte.",
+	MPLUS_KICK_MAGISTERS = "Terraço dos Magísteres: os chefes não têm nada para interromper — é tudo trash. Prioridade de kick {SPELL:468966} (Arcane Magister — transforma um jogador em ovelha) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
+	MPLUS_KICK_NEXUSPOINT = "Ponto de Nexus Xenas: kicke {SPELL:1250553} no Chief Corewright Kasreth, e no trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). No {SPELL:1257595} do Lothraxion, interrompa a sombra SEM chifres — kickar a errada prejudica o grupo.",
+	MPLUS_KICK_WINDRUNNER = "Pico dos Correventos: kicke Chain Lightning (Phantasmal Mystic — também interrompe seu buff de presteza), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) e Fungal Bolt (Bloated Lasher). (Spell IDs ainda não dataminados — confirmar no jogo.)",
+	MPLUS_KICK_PITOFSARON = "Fosso de Saron: a prioridade de kick é {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). No Garfrost, quebre a linha de visão para {SPELL:1262029} atrás de um Ore Chunk.",
+	MPLUS_KICK_ALGETHAR = "Academia Algeth'ar: interrompa {SPELL:396640} (Ancient Branch) — cada conjuração, ou é um wipe.",
+	MPLUS_KICK_TRIUMVIRATE = "Sede do Triunvirato: o kick prioritário é {SPELL:248831} (Shadewing).",
+	MPLUS_KICK_SKYREACH = "Beira-céu: o kick prioritário é {SPELL:1255377} (Driving Gale-Caller).",
 })
 
 --------------------------------------------------------------------------------
@@ -371,7 +371,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 
 	MPLUS_WEEK_HEADER = "Questa settimana, solo per te",
 	MPLUS_WEEK_BODY = "• Apri il cerca gruppo e scegli un dungeon in Follower o Normal.|n• Non c'è timer e non puoi \"fallire\" — prenditi tutto il tempo che ti serve.|n• Puoi uscire in qualsiasi momento; non si perde nulla.|n• Morire è normale e qui non costa niente — torna indietro a piedi e continua.|n• Vuoi i passaggi per ogni boss? Apri la scheda Dungeon Coach.",
-	MPLUS_WEEK_AVOID = "Se vuoi la prima run più tranquilla, lascia Maisara Caverns per dopo — è il più tosto degli otto. Qualsiasi altro è più dolce per iniziare.",
+	MPLUS_WEEK_AVOID = "Se vuoi la prima run più tranquilla, lascia le Caverne di Maisara per dopo — è il dungeon più tosto degli otto. Qualsiasi altro è più dolce per iniziare.",
 	MPLUS_WEEK_BONUS_FMT = "Bonus di questa settimana: %s è il dungeon della settimana — reputazione extra quando lo fai.",
 
 	ALERT_HELP_HEADER = "Aiuto extra durante i dungeon",
@@ -455,7 +455,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 
 	MPLUS_WEEK_HEADER = "Diese Woche, nur für dich",
 	MPLUS_WEEK_BODY = "• Öffne die Gruppensuche und wähl einen Dungeon auf Follower oder Normal.|n• Es gibt keine Uhr und du kannst nicht \"versagen\" — nimm dir alle Zeit, die du brauchst.|n• Du kannst jederzeit gehen; nichts geht verloren.|n• Sterben ist normal und kostet hier nichts — lauf einfach zurück und mach weiter.|n• Willst du die Schritte für jeden Boss? Öffne den Tab Dungeon Coach.",
-	MPLUS_WEEK_AVOID = "Wenn du einen möglichst ruhigen ersten Lauf willst, heb dir Maisara Caverns für später auf — er ist der schwerste der acht. Jeder der anderen ist sanfter für den Anfang.",
+	MPLUS_WEEK_AVOID = "Wenn du einen möglichst ruhigen ersten Lauf willst, heb dir die Maisarakavernen für später auf — sie sind der schwerste Dungeon der acht. Jeder der anderen ist sanfter für den Anfang.",
 	MPLUS_WEEK_BONUS_FMT = "Bonus diese Woche: %s ist der Dungeon der Woche — extra Ruf, wenn du ihn machst.",
 
 	ALERT_HELP_HEADER = "Extra Hilfe in Dungeons",
@@ -497,7 +497,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 
 	MPLUS_WEEK_HEADER = "Cette semaine, rien que pour toi",
 	MPLUS_WEEK_BODY = "• Ouvre l'outil de groupe et choisis un donjon en Follower ou en Normal.|n• Il n'y a pas de chrono et tu ne peux pas \"échouer\" — prends tout le temps qu'il te faut.|n• Tu peux partir à tout moment ; rien n'est perdu.|n• Mourir est normal et ne coûte rien ici — reviens à pied et continue.|n• Tu veux les étapes pour chaque boss ? Ouvre l'onglet Dungeon Coach.",
-	MPLUS_WEEK_AVOID = "Si tu veux le premier passage le plus tranquille, garde Maisara Caverns pour plus tard — c'est le plus dur des huit. N'importe lequel des autres est plus doux pour commencer.",
+	MPLUS_WEEK_AVOID = "Si tu veux le premier passage le plus tranquille, garde les Cavernes de Maisara pour plus tard — c'est le donjon le plus dur des huit. N'importe lequel des autres est plus doux pour commencer.",
 	MPLUS_WEEK_BONUS_FMT = "Bonus cette semaine : %s est le donjon de la semaine — réputation en plus quand tu le fais.",
 
 	ALERT_HELP_HEADER = "De l'aide en plus pendant les donjons",
@@ -539,7 +539,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 
 	MPLUS_WEEK_HEADER = "Esta semana, solo para ti",
 	MPLUS_WEEK_BODY = "• Abre el buscador de grupos y elige una mazmorra en Follower o Normal.|n• No hay reloj y no puedes \"fallar\" — tómate todo el tiempo que necesites.|n• Puedes salir en cualquier momento; no se pierde nada.|n• Morir es normal y aquí no cuesta nada — solo vuelve andando y sigue.|n• ¿Quieres los pasos de cada jefe? Abre la pestaña Dungeon Coach.",
-	MPLUS_WEEK_AVOID = "Si quieres la primera vez más tranquila, deja Maisara Caverns para más adelante — es la más difícil de las ocho. Cualquiera de las otras es más suave para empezar.",
+	MPLUS_WEEK_AVOID = "Si quieres la primera vez más tranquila, deja las Cavernas de Maisara para más adelante — es la más difícil de las ocho. Cualquiera de las otras es más suave para empezar.",
 	MPLUS_WEEK_BONUS_FMT = "Bonus esta semana: %s es la mazmorra de la semana — reputación extra cuando la haces.",
 
 	ALERT_HELP_HEADER = "Ayuda extra durante las mazmorras",
@@ -581,7 +581,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 
 	MPLUS_WEEK_HEADER = "Esta semana, só para você",
 	MPLUS_WEEK_BODY = "• Abra o localizador de grupos e escolha uma masmorra no Follower ou no Normal.|n• Não tem relógio e você não pode \"falhar\" — leve todo o tempo que precisar.|n• Você pode sair a qualquer momento; nada se perde.|n• Morrer é normal e aqui não custa nada — é só voltar andando e seguir.|n• Quer os passos de cada chefe? Abra a aba Dungeon Coach.",
-	MPLUS_WEEK_AVOID = "Se você quer a primeira vez mais tranquila, deixe a Maisara Caverns para depois — é a mais difícil das oito. Qualquer uma das outras é mais leve para começar.",
+	MPLUS_WEEK_AVOID = "Se você quer a primeira vez mais tranquila, deixe as Cavernas de Maisara para depois — é a mais difícil das oito. Qualquer uma das outras é mais leve para começar.",
 	MPLUS_WEEK_BONUS_FMT = "Bônus desta semana: %s é a masmorra da semana — reputação extra quando você a faz.",
 
 	ALERT_HELP_HEADER = "Ajuda extra durante as masmorras",

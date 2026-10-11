@@ -31,14 +31,12 @@ local _, ns = ...
 
 --- key -> why, so the next person does not have to guess whether it still applies.
 ns.KEEP_ENGLISH = {
-	-- Achievement names. Measured in Rob's own SavedVariables, 28 aug 2026:
-	-- achievementName = "Veteran of the Dawn". Translating one invents a title Blizzard
-	-- never used, and the player cannot find it in their own Achievements pane.
-	DAWNCREST_ACH_VETERAN = "achievement name (Blizzard's own title)",
-	DAWNCREST_ACH_CHAMPION = "achievement name (Blizzard's own title)",
-	DAWNCREST_ACH_HERO = "achievement name (Blizzard's own title)",
+	-- 11 Oct 2026 (Rob: "jouw advies"): DAWNCREST_ACH_VETERAN/CHAMPION/HERO moved OUT of this
+	-- global table. Achievement titles now follow the player's client (DB2 Title_lang, measured
+	-- in scratchpad INSTANCE_ACH_NAMES.md), so de/fr/es/pt/it/ru carry the client's own title.
+	-- English stays right only where there is no client in that language: see nlNL below.
 
-	-- ⚠️ NOT SETTLED THE WAY THE THREE ABOVE ARE — listed here so the reason is on
+	-- ⚠️ NOT SETTLED THE WAY ACHIEVEMENT TITLES ARE — listed here so the reason is on
 	-- record, not because English is provably right in every language. These are the
 	-- slot names off Valeera's window (2 sep 2026): Poisons, Combat Curio, Utility
 	-- Curio. For nlNL English IS correct, because there is no Dutch client. For the
@@ -92,6 +90,9 @@ ns.KEEP_ENGLISH_FOR = {
 		DAWNCREST_TIER_CHAMPION = "no Dutch client: the game says Champion",
 		DAWNCREST_TIER_HERO = "no Dutch client: the game says Hero",
 		DAWNCREST_TIER_MYTH = "no Dutch client: the game says Myth",
+		DAWNCREST_ACH_VETERAN = "achievement name: no Dutch client, the game says Veteran of the Dawn",
+		DAWNCREST_ACH_CHAMPION = "achievement name: no Dutch client, the game says Champion of the Dawn",
+		DAWNCREST_ACH_HERO = "achievement name: no Dutch client, the game says Hero of the Dawn",
 	},
 	-- 7 Oct 2026, frFR cleanup (88ef8c7, mh-writer): these five were machine translations and were set back to
 	-- the English on purpose. Listed so a later fill() does not read them as untranslated copies and overwrite them.
