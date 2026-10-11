@@ -2220,3 +2220,55 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   MH-tekst). **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van nieuwe)
   spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
   beslist.
+
+---
+
+- [2026-10-11] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-10]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261011a` (en `&nocache=20261011b` als tweede, onafhankelijke fetch) via Exa, beide
+  volledig gelezen (JSON). `pagination.totalCount` = **8**, zelfde als op [2026-10-08] t/m
+  [2026-10-10]. Alle drie de draadjes (esMX-locale `user_uvqy5939hswhgduu`, MrsBoojiePanda's
+  debug-regel, gadrinonturalyon's coffer-key/3D-model-verzoek) hebben als nieuwste bericht nog
+  steeds een reply van `twelveinchy`; geen nieuwe reacties sinds [2026-10-10]. MEASURED.
+  **[RAAKT ONS NIET]** — geen actiepunt vandaag. De esMX-codefix zelf (`Locales/esES.lua:17`)
+  staat nog open; al gemeld op [2026-10-07], een mens beslist wanneer dat wordt opgepakt.
+
+- [2026-10-11] 🔁 **Zesde dag op "October 6, 2026" als nieuwste hotfix-sectie — zelf opnieuw
+  gelezen, niets nieuws in mijn lane.** `news.blizzard.com/en-us/article/24296142` **volledig
+  gelezen** via Exa `web_fetch_exa` (`?nocache=20261011a`), met `published: 2026-10-06` — niet
+  ouder dan wat gisteren al gelogd stond, dus geen cache-val. Onafhankelijk bevestigd met
+  `web_search_exa` naar "World of Warcraft hotfixes October 2026 Blizzard": zes treffers
+  (news.blizzard.com, de en-gb-spiegel, Wowhead Blue Tracker, patchbot.io, nerfradar.com),
+  stuk voor stuk "October 6, 2026" als nieuwste, niets ouder en niets nieuwer. De sectie bevat
+  uitsluitend **Classes** (Death Knight Unholy, Demon Hunter Devourer, Monk Brewmaster/
+  Mistweaver, Rogue Subtlety, Shaman Enhancement — buiten mijn lane) en **Dungeons and Raids**
+  (Venomous Abyss → Ula'tek: Spectral Coils -20%, Toxic Burn -30% Mythic, Caustic Waves-golven
+  7→3 Mythic, Warden's Protection -80%, Grasping Fangs -30%, Blight Vein-duur 6→4s, Blightscale
+  Shrieker/Clutch/Slithering Clutch -20% HP, Circling Prey -30%, Serpent's Bite-soak "max 3 man
+  ongeacht raidgrootte") en een brede **Player versus PvP**-talentpas (tank Focused Assault,
+  diverse klassen — buiten mijn lane) — byte-voor-byte dezelfde cijfers als op [2026-10-06] al
+  regel-voor-regel tegen `RAID_BOSS_ULATEK_STEPS`/`Locales/RaidTips.lua` getoetst, vandaag niet
+  opnieuw getoetst want geen nieuwe regel erin. **Delves, Professions, Quests en Items: leeg**
+  in de "October 6"-sectie (Blizzard laat lege categorieën gewoon weg) — niets om tegen de repo
+  te vergelijken.
+
+  Dit convergeert met de API-, PTR- en data-wachter van vandaag (`docs/API_WATCH.md` entry
+  [2026-10-11], `docs/PTR_12.1_WATCH.md` entries [2026-10-11] en `docs/PTR_12.0.7_DATA.md` entry
+  [2026-10-11]), die onafhankelijk dezelfde "October 6"-sectie als nieuwste zagen en het nieuwe
+  dat zij vonden — PTR-build 70077 nog steeds ongewijzigd, en 12.1.5-materiaal (Orin Straylight/
+  Ascendant Venomstones, Labyrinth of Kindo'jan, Renown Catch-Up Vendor) dat pas op 13 okt live
+  gaat — als hún lane beoordelen, niet de mijne; niet overgenomen als eigen vondst.
+
+  Vandaag is zondag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261011a (volledig gelezen via
+  Exa) · web-zoekopdracht naar "World of Warcraft hotfixes October 2026 Blizzard" (zes
+  onafhankelijke treffers, allemaal "October 6" als nieuwste) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261011a/b (volledig gelezen via Exa) · `docs/API_WATCH.md` entry [2026-10-11],
+  `docs/PTR_12.1_WATCH.md` entries [2026-10-11] en `docs/PTR_12.0.7_DATA.md` entry [2026-10-11]
+  als kruiscontrole (feiten niet herhaald, alleen zelf getoetst op tegenspraak met geshipte
+  MH-tekst). **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van nieuwe)
+  spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens
+  beslist.
