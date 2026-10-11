@@ -385,23 +385,23 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_SUBTITLE = "Acabou de chegar ao nível máximo e não sabe o que fazer? Este é todo o endgame, em ordem. Clique em um passo para ir direto à ferramenta certa; os semanais se marcam sozinhos.",
 
 	START_INTRO_HEADER = "O loop do Midnight em resumo",
-	START_INTRO_BODY = "O endgame é um ritmo semanal: suba seu item level, ajuste seu personagem e depois encha o Grande Cofre toda semana com Profundidades, Ritual Sites e Void Assaults. Renome, profissões e moedas vêm por cima quando esse loop virar rotina.",
+	START_INTRO_BODY = "O endgame é um ritmo semanal: suba seu item level, ajuste seu personagem e depois encha o Grande Cofre toda semana com Imersões, Ritual Sites e Void Assaults. Renome, profissões e moedas vêm por cima quando esse loop virar rotina.",
 
 	START_S1_TITLE = "1. Suba primeiro o seu item level",
-	START_S1_BODY = "Comece pelas vitórias fáceis: faça a campanha do Midnight, pegue equipamento nas missões de mundo e nas missões de marco de renome, e rode Profundidades normais (mais caçadas Prey e masmorras heroicas) para subir o item level. Algumas peças baratas craftadas ou da casa de leilões também ajudam. Um item level mais alto abre os tiers maiores, onde estão as recompensas de verdade.",
-	START_S1_NAV = "Abrir Profundidades",
+	START_S1_BODY = "Comece pelas vitórias fáceis: faça a campanha do Midnight, pegue equipamento nas missões de mundo e nas missões de marco de renome, e rode Imersões normais (mais caçadas Prey e masmorras heroicas) para subir o item level. Algumas peças baratas craftadas ou da casa de leilões também ajudam. Um item level mais alto abre os tiers maiores, onde estão as recompensas de verdade.",
+	START_S1_NAV = "Abrir Imersões",
 
 	START_S2_TITLE = "2. Ajuste seu personagem",
 	START_S2_BODY = "Antes do conteúdo mais difícil: escolha seus talentos, pegue o frasco, a comida, a poção e os encantamentos/gemas certos para a sua especialização, e monte uma macro de interrupção + uma defensiva. O MH tem uma checklist de consumíveis, macros prontas (Ferramentas) e ajuda de rotação (Role Academy).",
 	START_S2_NAV = "Abrir Consumíveis",
 
 	START_S3_TITLE = "3. Mire tudo no Grande Cofre",
-	START_S3_BODY = "O Grande Cofre te dá uma recompensa grátis por semana. A fileira de Mundo enche com Profundidades, Ritual Sites e Prey; masmorras e raide enchem as outras fileiras. Desbloqueie o máximo de espaços que conseguir antes do reset.",
+	START_S3_BODY = "O Grande Cofre te dá uma recompensa grátis por semana. A fileira de Mundo enche com Imersões, Ritual Sites e Prey; masmorras e raide enchem as outras fileiras. Desbloqueie o máximo de espaços que conseguir antes do reset.",
 	START_S3_NAV = "Abrir Início",
 
-	START_S4_TITLE = "4. Rode suas Profundidades",
-	START_S4_BODY = "Profundidades são masmorras solo ou de grupo pequeno com o Valira ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais (abaixo do nível 90 o máximo é o Tier 3); ao chegar ao Tier 8 você pode rodar Bountiful Delves (precisa de uma Restored Coffer Key) para equipamento Champion e opções Hero-track no Vault. O Treinador de profundidades dá dicas por profundidade que você pode compartilhar com o grupo.",
-	START_S4_NAV = "Abrir Profundidades",
+	START_S4_TITLE = "4. Rode suas Imersões",
+	START_S4_BODY = "Imersões são masmorras solo ou de grupo pequeno com a Valira ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais (abaixo do nível 90 o máximo é o Tier 3); ao chegar ao Tier 8 você pode rodar Imersões Bountiful (precisa de uma Restored Coffer Key) para equipamento Champion e opções Hero-track no Vault. O Treinador de Imersões dá dicas por imersão que você pode compartilhar com o grupo.",
+	START_S4_NAV = "Abrir Imersões",
 
 	START_S5_TITLE = "5. Ritual Sites e Void Assaults",
 	START_S5_BODY = "Mais duas atividades da fileira de Mundo, melhores quando você já tiver algum equipamento (dão equipamento Champion aleatório). Desbloqueie primeiro os Ritual Sites pela linha de missões \"Ritual Interest\" em Luaprata; os Void Assaults são o evento rotativo de zona aberta e a sua porta de entrada. No Curious Obelisk você escolhe tier + challenges — o Ritual Coach explica cada um.",

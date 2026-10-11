@@ -11,7 +11,17 @@
   `docs/WHY_TERM_IDS_2026-10-11.md`). KEEP als tekst: Heating Up, Freezing, Bloodbath, Crushing Blow, Dread/Blood
   Plague, Double Trouble, One of a Kind, Holy Words, Farseer, Soul Harvester; TEST in het spel: Windstrike, Solar/Lunar
   Eclipse, Blood Plague, en Ret `{SPELL:24275}` Hammer of Wrath (12.1-talent is 1241288). "Delves" uit de CLAUDE.md-
-  lijst gehaald (Rob 11 okt). VOLGENDE: Delve-woorden per taal (brief scratchpad `DELVE_BRIEF.md`, inventaris
+  lijst gehaald (Rob 11 okt). ✅ Delve-woord de/fr/es gedaan (11 okt). Opgevallen, OPEN: (a) "Bountiful" —
+  fr/es UI-knoppen zeggen al abondant/pródiga, CLAUDE.md zegt Engels: zelfde vraag als Delve, Rob kiest; (b) "Delver's
+  Call"-titel spreekt zichzelf tegen in fr en es → in de client nameten; (c) esES DelveTips Torment's Rise beschrijft nog
+  Season 1 en een paar es-tips missen bullets t.o.v. enUS (vermoedelijk ook andere talen) → drift-ronde DelveTips;
+  (d) zoekvoorbeeld "delves" in SEARCH_TOOLTIP_BODY: vindt NavSearch "Tiefen/gouffres"? niet gemeten.
+  ✅ ptBR ook (11 okt; Delve-regels 121 → 7, rest = sitenaam/slash/zoekwoord). Writer zag in ptBR, NIET gerepareerd:
+  5 regels missen zinnen t.o.v. enUS (DELVE_TIP_SHADOW_ENCLAVE_TRASH, DELVE_TIP_TWILIGHT_CRYPTS_ROUTE,
+  DELVE_REWARDS_UNMEASURED, VALEERA_OFF_HINT, CMDLIST_CURIOINFO); DELVE_SHARE_MISSING en ACADEMY_HEAL_CHAT_TITLE
+  verkeerd vertaald ("festa" = party); "Valeera" i.p.v. "Valira" in CMDLIST_CURIOINFO, DUNDUN_CHAT_AFTER_FIRST,
+  DUNDUN_PANEL_BODY, DELVE_VALEERA_HEAL_TIP; Bountiful = "opulenta" op knoppen, "Abundantes" in LVL8090_UNLOCK_4.
+  Delve-woorden per taal (brief scratchpad `DELVE_BRIEF.md`, inventaris
   `delve_inventory.md`: de 100, fr 74, es 85, pt 121, it 208 regels), dan ruRU.
   Schoonmaakronde ook: "Solar/Lunar Eclipse" in 102_W5/TERMS → {SPELL:1233346}/{SPELL:1233272} (vertaler verzon
   "Sonnenfinsternis" e.d.); Devourer HERO1 na 12.1.5 opnieuw (The Hunt-reset weg). Healers: WAOE stond niet op de kaart (healer-tak ouder dan W) → gerepareerd

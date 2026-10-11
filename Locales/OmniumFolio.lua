@@ -341,7 +341,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	OMNIUM_WK_OBJ_1 = "Esta semana: recolhe o Folio com o Grão-Magíster Rommath.",
 	OMNIUM_WK_OBJ_2 = "Esta semana: recolhe 8 Ritualized Arcana de Elites nos Ritual Sites (~2 runs).",
 	OMNIUM_WK_OBJ_3 = "Esta semana: recolhe 5 Dark-Ley Coalescence dos Void Assaults.",
-	OMNIUM_WK_OBJ_4 = "Esta semana: derrota um chefe final de masmorra/delve ou de ala LFR (saqueia-o).",
+	OMNIUM_WK_OBJ_4 = "Esta semana: derrota um chefe final de masmorra/imersão ou de ala LFR (saqueia-o).",
 	OMNIUM_WK_OBJ_5 = "Esta semana: derrota Pertinax (Val) ou Leth'ir (Naigtal) + 3 missões de mundo lá.",
 	OMNIUM_WEEK_FMT = "Semana %d",
 	OMNIUM_LOCKED = "ainda não desbloqueado",

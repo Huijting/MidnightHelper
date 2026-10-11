@@ -513,7 +513,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_WEEKDGN_DONE_FMT = "Masmorra da semana (Halduron): %s — feita esta semana.",
 	DGN_WEEKDGN_UNKNOWN = "Masmorra da semana (Halduron): aceite a missão dele ao lado do Vault para vê-la aqui.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (introdução ao Mythic+): feito.",
-	DGN_KEYSTONE_TODO = "Cracked Keystone (introdução ao Mythic+): cai de uma recompensa de profundidade Tier 11 — uma vez por temporada.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (introdução ao Mythic+): cai de uma recompensa de imersão Tier 11 — uma vez por temporada.",
 	DGN_VAULT_FMT = "Grande Cofre — fileira de Masmorras: %d/%d espaços desbloqueados (progresso %d).",
 	DGN_VAULT_UNKNOWN = "Grande Cofre — fileira de Masmorras: os dados carregam após o login ou ao abrir o Vault.",
 	DGN_FOLLOWER_HINT = "Novo em masmorras? Inicie uma Follower Dungeon (Localizador de grupos): você joga no Normal sozinho com NPCs na equipe — sem pressão, perfeito para praticar. O curso abaixo te guia por tudo.",
@@ -540,7 +540,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_CH5_BODY = "• Antes de uma run, abra a visão Dungeon Coach e leia os passos curtos de cada chefe — e ao puxar um chefe, o Midnight Helper imprime esses passos direto no seu chat.|n• Compartilhe com o grupo: digite /mh bossshare depois do pull (texto simples; compartilhamento localizado vem depois).|n• Não decore tudo: conhecer A mecânica mortal de cada chefe já basta para começar.",
 
 	DGN_CH6_TITLE = "6. Próximo passo: Heroic",
-	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Profundidades e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Vault — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mythic+ — esse capítulo chega com a atualização Mythic deste curso.",
+	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Imersões e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Vault — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mythic+ — esse capítulo chega com a atualização Mythic deste curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
