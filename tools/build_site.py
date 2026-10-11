@@ -62,14 +62,15 @@ assert os.path.isfile(os.path.join(SITE_REPO, "tools", "i18n.py")), \
 BASE = "https://midnighthelper.com"
 
 # site language -> addon pack, and what a bare link word says in that language
-LANGS = {"en": "enUS", "nl": "nlNL", "de": "deDE", "fr": "frFR", "es": "esES", "pt": "ptBR", "it": "itIT"}
-WOWHEAD = {"en": "", "nl": "", "de": "de/", "fr": "fr/", "es": "es/", "pt": "pt/", "it": "it/"}
+LANGS = {"en": "enUS", "nl": "nlNL", "de": "deDE", "fr": "frFR", "es": "esES", "pt": "ptBR", "it": "itIT", "ru": "ruRU"}
+WOWHEAD = {"en": "", "nl": "", "de": "de/", "fr": "fr/", "es": "es/", "pt": "pt/", "it": "it/", "ru": "ru/"}
 WORDS = {
     # nl: Rob wil "spell", nooit "spreuk" (9 okt 2026, via de site-chat); nlNL houdt ook "currency" Engels (CLAUDE.md)
     "en": ("spell", "item", "currency"), "nl": ("spell", "item", "currency"),
     "de": ("Zauber", "Gegenstand", "Währung"), "fr": ("sort", "objet", "monnaie"),
     "es": ("hechizo", "objeto", "moneda"), "pt": ("feitiço", "item", "moeda"),
     "it": ("incantesimo", "oggetto", "valuta"),
+    "ru": ("заклинание", "предмет", "валюта"),  # ruRU.lua uses "валюта" (30x) for currency
 }
 
 # Google Search Console verification for the OLD github.io address. Kept on the redirect pages
