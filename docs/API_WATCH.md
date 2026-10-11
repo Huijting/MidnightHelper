@@ -4945,3 +4945,242 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `fetch --deepen=300` binnen als *"forced update"* — net als de vorige twee runs **geen divergentie**:
     `git switch main` meldde *"behind by 198 commits, and can be fast-forwarded"*, en
     `pull --rebase origin main` was daarna een schone fast-forward. 📌 De `.toc` staat nog op **4.7.5**.
+
+- [2026-10-11] 🔄 **Het openstaande [MOET GEFIKST] is DICHT — Rob heeft de race-takken ingebouwd — en
+  er komt één echt nieuw item bij dat ik zelf twee dagen heb laten liggen: dezelfde upstream-commit
+  die de race-takken bracht, herschreef óók het `professions=`-blok in het pad dat voor Retail
+  geldt. 0 × [MOET GEFIKST].** Verder één wiki-bewerking op mijn terrein (doc-only), drie
+  cosmetische wiki-bewerkingen, en één **CORRECTIE op mijn eigen regel van gisteren**. Hotfixes,
+  forum en SimC-releases staan stil.
+  - ✅ **GESLOTEN — `Modules/SimcExport.lua` schrijft nu `skyborne_alliance` / `skyborne_horde`.**
+    GEMETEN in de code, niet uit een aantekening overgenomen. Commit `89502b2` (*"/mh presses opens
+    a window; SimC export knows race 95 and 96"*) zet op `SimcExport.lua:449-458`:
+    ```lua
+    local _, raceFile, raceId = UnitRace("player")
+    if raceFile == "Scourge" then
+    	race = "Undead"
+    elseif raceId == 95 then
+    	race = "skyborne_alliance"
+    elseif raceId == 96 then
+    	race = "skyborne_horde"
+    else
+    	race = FormatRace(raceFile)
+    end
+    ```
+    Dat is letterlijk upstreams vorm, inclusief de derde teruggave van `UnitRace`. De versiestempel
+    op `:495` is meegegaan: *"(SimulationCraft addon format, 12.1.0-04 + race 95/96 from
+    12.1.0-alpha-06)"*. `grep skyborne_alliance` geeft **3** treffers (code + kopcommentaar op
+    `:447`), waar het er vóór deze fix **0** waren. 📌 **Er staat vanaf nu dus geen enkel
+    [MOET GEFIKST] meer open in dit logboek.**
+  - 🔇 **[AL AFGEDEKT] — en dit is een vondst die ik 9 én 10 okt gemist heb: commit `703bc5c`
+    herschreef ook het `professions=`-blok van `GetSimcProfile`, niet alleen de race-takken.**
+    🔴 **Waarom ik het miste.** Mijn regel van 9 okt noemt `703bc5c` met *"605 toevoegingen / 51
+    verwijderingen"* en haalt daar precies één ding uit — de race-takken. De rest heb ik
+    weggezet als *"Experimental Forever support"*, dus als niet-Retail. Dat was te snel: de
+    commitboodschap dekt het professions-blok niet, en dat blok staat **niet** achter de
+    `IS_FOREVER`-schakelaar. `grep professions docs/API_WATCH.md` geeft buiten vandaag alleen de
+    regels 24 en 68 (aug 2026, over patchnotes), dus het is nooit eerder gemeld.
+    📌 **Hoe ik het nu wél zag, en dat is herbruikbaar:** ik heb `core.lua` en `extras.lua` van
+    **beide** tags met `curl` naar de scratchpad gehaald en met een echte `diff -u` vergeleken, in
+    plaats van upstreams diff via een API te lezen. Zie het punt over `curl` onderaan.
+    - **Wat upstream deed.** LETTERLIJK, oud → nieuw in `GetSimcProfile`:
+      ```lua
+      -- oud
+      if pid1 then playerProfessions = playerProfessions..Tokenize(firstProf)..'='..tostring(firstProfRank)..'/' end
+      if pid2 then playerProfessions = playerProfessions..Tokenize(secondProf)..'='..tostring(secondProfRank) end
+      -- nieuw
+      for _, pid in pairs({ pid1, pid2 }) do
+        local _, _, rank, _, _, _, profId = GetProfessionInfo(pid)
+        local profName = profNames[ profId ]
+        if profName then
+          professions[#professions + 1] = Tokenize(profName) .. '=' .. tostring(rank)
+        end
+      end
+      ```
+      met daarboven een nieuw commentaar: *"GetProfessions also returns the secondary skills
+      (archaeology, fishing, cooking, first aid), SimC only wants the two primaries. Either slot
+      can be nil."* Twee echte gedragsveranderingen: de oude vorm zette een **afsluitende `/`** als
+      alleen slot 1 gevuld was, en viel over een `profId` die niet in `profNames` staat; de nieuwe
+      slaat onbekende over en plakt met `table.concat(professions, '/')`.
+    - **Wat MH doet — GEMETEN, `Modules/SimcExport.lua:482-491` en `:512`:**
+      ```lua
+      local profs = {}
+      local p1, p2 = Call(GetProfessions)
+      for _, pid in ipairs({ p1 or false, p2 or false }) do
+      	if pid then
+      		local _, _, rank, _, _, _, skillLine = Call(GetProfessionInfo, pid)
+      		if PROF_NAMES[skillLine] then
+      			profs[#profs + 1] = Tokenize(PROF_NAMES[skillLine]) .. "=" .. tostring(rank)
+      		end
+      	end
+      end
+      …
+      add(#profs > 0 and ("professions=" .. table.concat(profs, "/")) or "")
+      ```
+      Dat is **dezelfde uitkomst** als upstreams nieuwe vorm: alleen de twee primaire slots (p1/p2),
+      onbekende skill lines overgeslagen, geen afsluitende `/`. **MH liep hier dus vóór op upstream
+      en niet achter** — de oude vorm met de losse `/` heeft MH nooit gehad. **Niets te doen.**
+    - ⚠️ **Eén verschil dat ik meld maar géén fout noem:** upstream loopt met `pairs` over
+      `{ pid1, pid2 }` en de volgorde van `pairs` is in Lua niet gegarandeerd; MH gebruikt `ipairs`
+      met een vaste plaatshouder (`p1 or false`) en is dus wél deterministisch. Dat is in MH's
+      voordeel. Of Raidbots de volgorde van twee beroepen iets uitmaakt, weet ik niet en verzin ik
+      niet.
+    - 📌 Terzijde, GEMETEN: `PROF_NAMES` in `SimcExport.lua` bevat óók de secundaire vaardigheden
+      (`First Aid`, `Cooking`, `Fishing`, `Archaeology`). Onschadelijk, want MH leest alleen de
+      eerste twee teruggaven van `GetProfessions` en die zijn per definitie de primaire.
+  - 🧩 **[RAAKT ONS NIET] — de rest van `703bc5c` is de `EXPORTS`-schakelaar en het Forever-pad, en
+    op Retail verandert daar niets.** GEMETEN in de gedownloade `core.lua`: de detectie is
+    `local IS_FOREVER = (Enum.TraitConfigType and Enum.TraitConfigType.CamelotCombat ~= nil) or
+    (C_SpecializationInfo and C_SpecializationInfo.GetCombatConfigIDForSpecGroup ~= nil)`. Is die
+    `false`, dan geldt `MODERN_EXPORTS` en worden `spec`, `# loot_spec=`, `trait_systems`,
+    `catalyst_currencies`, `upgrade_currencies`, `slot_high_watermarks`, `upgrade_achievements`,
+    `bonus_roll_currencies` en `bonus_roll_items` alle negen nog precies zo geschreven als eerst.
+    De nieuwe regels zijn `if EXPORTS.<naam> then`-omhullingen om bestaande code, plus een
+    Forever-tak met `GetForeverExportString`, `GetCharacterStats`, `GetSkillLevels` en
+    `GetActiveBuffs`. 📌 De vier onderdelen die MH *met opzet* weglaat (de currency- en
+    watermark-regels, `SimcExport.lua:17-19`) blijven dus weggelaten; de schakelaar raakt ze niet.
+    - **De grep, met positieve controle in dezelfde run en dezelfde reikwijdte**
+      (`grep -rFo --exclude-dir=.git --exclude-dir=docs --exclude-dir=tools --exclude-dir=dist`,
+      geteld als voorkomens): **0** voor `GetCombatConfigIDForSpecGroup`, `CamelotCombat`,
+      `GetNumSpecGroups`, `GetCharacterStats`, `GetSkillLevels` en `GetActiveBuffs`. Dat die nullen
+      iets betekenen, is bewezen met patronen die er zéker zijn: `GetProfessions` **44**,
+      `GetProfessionInfo` **36**, `C_Traits` **124**, `issecretvalue` **233**, `CreateFrame` **807**,
+      `InCombatLockdown` **249**, `C_Spell` **437**, `C_Timer` **573**, `C_UnitAuras` **86**,
+      `C_Secrets` **27**, `C_SuperTrack` **29**, `UnitRace` **2**.
+    - 🔇 **[AL AFGEDEKT] — één naam uit dat rijtje gaf wél treffers: `GetActiveSpecGroup`, 3×.**
+      Alle drie in `Core.lua` (`:39` in het commentaar, `:62` de definitie), en volledig afgedekt:
+      `pick()` op `Core.lua:49-57` pakt `C_SpecializationInfo.GetActiveSpecGroup`, valt terug op de
+      global, en levert anders een functie die `nil` teruggeeft. Geen kale aanroep. 📌 Upstream doet
+      in zijn Forever-tak hetzelfde met de hand (`C_SpecializationInfo.GetActiveSpecGroup and
+      C_SpecializationInfo.GetActiveSpecGroup() or 1`); MH's deur is er al.
+  - 🧩 **[RAAKT ONS NIET] — `API:C_Traits.GetConfigInfo` bewerkt op 10 okt 08:51:24Z (revid
+    `6906649`, Numynum), en het is uitsluitend documentatie.** Het hele verschil, letterlijk uit
+    `action=compare&fromrev=6845575&torev=6906649` (432 → 479 b), zit in de beschrijving van het
+    `configID`-argument: *"For TalentTrees this will often be `C_ClassTalents.GetActiveConfigID`"*
+    werd *"… will often be `C_ClassTalents.GetActiveConfigID` **or
+    `C_ClassTalents.GetConfigIDsBySpecID`**"*. De secties `==Arguments==` en `==Returns==` zelf,
+    de signature en de teruggaven zijn onaangeroerd. **GEMETEN in MH:** `GetConfigInfo` wordt
+    aangeroepen op `SimcExport.lua:391` en `:400` (beide via de `Call`-wrapper) en op
+    `AtalUtekProbe.lua:1326-1327`, daar achter `if C_Traits.GetConfigInfo then` **plus** een
+    `pcall`. En `GetConfigIDsBySpecID` — de API die de nieuwe tekst erbij noemt — gebruikt MH al op
+    `SimcExport.lua:516`. **Niets te doen.**
+  - 🧩 **[RAAKT ONS NIET] — `Patch 12.1.5/API changes` kreeg op 10 okt drie bewerkingen
+    (`6907329` 21:16:34Z, `6907330` 21:18:58Z, `6907331` 21:19:32Z, alle Ketho), alle drie
+    template-loodgieterswerk.** Letterlijk uit de diff `6905800` → `6907331`: de link naar de
+    officiële notes werd van `[[ Patch 12.1.5/API_changes /notes|Midnight 12.1.5 PTR Changes]]
+    (updated for PTR Changes 4, 2026-09-29)` naar `[[ {{PAGENAME}} /notes|Midnight 12.1.5 PTR
+    Changes]]` — dus de datumvermelding is **weg** en het pad is nu een template — en de hele kop
+    `==Blue posts==` met zijn inklapbare `{{:{{PAGENAME}}/notes}}`-transclusie is verwijderd
+    (inclusief een HTML-commentaar `<!-- fml -->`). `==Resources==` houdt dezelfde TOC `120105` en
+    dezelfde diff-links; `==Consolidated changes==` is onaangeroerd. **Geen API-inhoud, niets te
+    greppen.**
+  - 🔄 **CORRECTIE op mijn eigen regel van gisteren, en harde regel 3 zet hem daarom apart:
+    `Patch 12.0.7/API changes` stond gisteren NIET stil, en ik heb hem als stilstaand gemeld.**
+    `docs/API_WATCH.md:4901` zegt in de regel van 10 okt letterlijk *"`Patch 12.0.7/API changes`
+    `6794100` (4 aug, 34044 b)"* onder de kop *"byte-voor-byte gelijk aan gisteren"*. **GEMETEN
+    vandaag uit de revisiegeschiedenis van de pagina zelf** (`rvlimit=12`): `6794100` is op
+    **9 okt 18:36:11Z** opgevolgd door `6905736` (P3lim, samenvatting letterlijk *"Move notes to
+    sub-page"*, 34044 → 24711 b), en de kop staat nu op `6905802` (Ketho, 9 okt 19:00:09Z,
+    24726 b, *"/* Resources */"*). Die revisie bestónd dus al toen de run van 10 okt liep.
+    🔴 **Dat is de cachefout in spiegelbeeld:** niet een tijdstempel die te nieuw lijkt, maar een
+    revid die te **oud** is en daarom als "onveranderd" leest. Een gelijk revid-nummer bewijst
+    alleen iets als je weet dat je het vers hebt opgehaald. Zie [[silence-is-not-absence]] — "stil"
+    en "niet gekeken" lijken ook hier op elkaar.
+    - ✅ **Wat de bewerking wél is: dezelfde verhuizing die 12.1.5 ook kreeg, en géén API-inhoud.**
+      De pagina heeft nu een eigen sub-pagina `Patch 12.0.7/API changes/notes` (pageid **710459**,
+      revid `6905830`, Ketho, 9 okt 19:29:07Z, 9524 b), gemeten via
+      `list=allpages&apprefix=Patch 12.0.7/API changes`, die precies twee titels teruggeeft. De
+      ~9,3 KB die van de hoofdpagina af gingen, staan daar. **[RAAKT ONS NIET]**, en de bronnenlijst
+      in `docs/WATCHER_API_PROMPT.md` mist nu dus een **derde** sub-pagina. 🔴 Ik raak dat bestand
+      niet aan.
+  - 🔇 **De overige gevolgde pagina's: gemeten nullen, met een versheidsbewijs op dezelfde API.**
+    `TOC format` staat nog op `6905891` (Zeal, 9 okt 21:19:17Z, 32839 b) — identiek aan gisteren, na
+    twee nachten herschrijven dus stil. `API change summaries` `6883777` (22 sep, 7280 b),
+    `Patch 12.1.0/API changes` `6905801` (9 okt 18:59:58Z, 66202 b). `Patch 12.1.7/API changes` en
+    `Patch 12.2.0/API changes` komen nog steeds terug als `"missing": ""`. ✅ **Dat dit geen cache
+    is, is in dezelfde `api.php` aangetoond:** `list=recentchanges&rcnamespace=0` gaf als nieuwste
+    `Historian's Sash` (revid `6908087`, Terradon, **2026-10-11T03:31:23Z**) — nieuwer dan álles in
+    de regel van gisteren.
+  - 🔇 **De `API:`-namespace (ns 3000) over 4–11 okt: acht regels, zeven al in dit logboek.**
+    `rcnamespace=3000&rclimit=250&rcend=2026-10-04T00:00:00Z`, mét cache-buster. De enige nieuwe is
+    `API:C Traits.GetConfigInfo` `6906649`, hierboven getoetst. De zeven bekende met dezelfde
+    revid's: `API:GetShapeshiftForm` `6905815`, `API:UnitAura` `6905582`, `API:import` `6904622` en
+    `6904617`, `API:require` `6904614`, `API:C Spell.GetItemCooldown` `6901441`, `API:UnitUsesAmmo`
+    `6901440`. **Geen negende onderwerp.**
+  - 🔇 **Geen nieuwe officiële API-patchnotes: de nieuwste sectie op de `/notes`-sub-pagina is
+    `2026-09-29` en valt dus BUITEN mijn 7-dagenvenster.** GEMETEN met `action=parse&prop=sections`
+    op `Patch 12.1.5/API changes/notes`: vier secties, `2026-09-03`, `2026-09-16`, `2026-09-22`,
+    `2026-09-29`. PTR Changes 5 bestaat daar nog niet. ⚠️ Dat de verhuizing van 9 okt binnen het
+    venster valt, maakt de inhoud erván niet nieuw — harde regel 2.
+  - 📰 **Hotfixes: niets na 6 okt, op twee onafhankelijke manieren vastgesteld, en 6 okt staat hier
+    al in.** De wikipagina `Hotfixes` staat op revid `6902337` (Dark T Zeratul, 7 okt 04:45:05Z,
+    374413 b, samenvatting `/* October 6 */`) en haar sectielijst begint met `October 2026` →
+    `October 6` → `October 1`; er is geen latere kop. Onafhankelijk daarvan geeft een `WebSearch`
+    als nieuwste `hotfixes-october-6-2026` (artikel `24296142`). ⚠️ Een **gelijke** nieuwste datum
+    is niet de cacheval; die val is een datum die *ouder* is dan wat dit logboek al noemde. 📌 De
+    inhoud van 6 okt is bovendien encounter- en set-tuning (Ula'tek, Spectral Coils, Divine
+    Arbiter) zonder UI-/API-/addon-sectie, dus terrein van `CONTENT_WATCH.md`.
+  - 🔇 **Forum `#ui-macro` 4–11 okt: zeven posts, en alle zeven topic-id's staan hier al in.**
+    Via `search.json?q=#ui-macro after:2026-10-04` mét cache-buster. Op **id** gecontroleerd, niet
+    op titel: `2376572`, `2315684`, `2367394`, `2349553`, `2375627`, `2375480`, `2375152`. Het
+    nieuwst aangemaakte draadje is nog steeds `2376572` (*"Policy Clarification — Displaying Addon
+    Statistics on a USB Screen"*); ik heb beide posts opnieuw gelezen en er is nog altijd **geen
+    blue reply** — post 2 is No1UKnow, 8 okt 23:38:58Z. **Geen nieuw draadje, geen API-naam.**
+  - 🔧 **SimC-addon: geen nieuwe release sinds `12.1.5-alpha-01`** (prerelease, gepubliceerd 9 okt
+    16:49:16Z). Opgehaald via `api.github.com/repos/simulationcraft/simc-addon/releases?per_page=5`
+    mét cache-buster; bovenaan `12.1.5-alpha-01`, daaronder `12.1.0-alpha-06` (8 okt) en
+    `12.1.0-04` (21 aug). De toets aan `ItemString` en `ns.BuildSimcProfile` is deze run tóch
+    gedaan — niet om de release, maar om de twee commits erachter alsnog regel voor regel te lezen.
+  - ✅ **GEMETEN en nieuw: `curl` werkt rechtstreeks voor GitHub, en dat verandert hoe ik upstream
+    kan toetsen.** `https://api.github.com/` en `https://raw.githubusercontent.com/…` geven
+    **HTTP 200** via de agent-proxy. Daarmee heb ik `core.lua` en `extras.lua` van beide tags naar
+    de scratchpad gehaald en met een echte `diff -u` vergeleken — en precies dát ving het
+    professions-blok dat ik twee runs lang over het hoofd zag. 📌 **Aanbevolen werkwijze voor de
+    volgende runs:** haal de bestanden op en `diff` ze zelf, in plaats van upstreams diff via een
+    API te lezen; een commitboodschap (*"Experimental Forever support"*) vertelt niet wat er
+    allemaal in zit.
+    ⚠️ **Wat `curl` nog steeds NIET kan**, opnieuw vandaag gemeten en niet overgenomen:
+    `warcraft.wiki.gg` geeft `curl: (56) CONNECT tunnel failed, response 403`, en
+    `news.blizzard.com` en `us.forums.blizzard.com` geven beide `HTTP 000`. Die drie blijven dus via
+    Exa lopen.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` gaf via Exa opnieuw een **lege body** (alleen de titel *"World of
+      Warcraft — Blizzard News"*), nu voor de tweede dag op rij. Blizzards eigen nieuwspagina is
+      vandaag dus níét gelezen; de hotfixconclusie komt van de wikipagina plus `WebSearch`.
+    - `wowhead.com/blue-tracker` niet rechtstreeks geprobeerd (zestien runs op rij lege body).
+    - De `/notes`-sub-pagina's heb ik op **sectiekoppen** gemeten, niet op volledige inhoud. Dat is
+      genoeg voor de datumvraag en te weinig om te zeggen dat er inhoudelijk niets in staat.
+    - De volledige diff `6794100` → `6905736` (de 12.0.7-verhuizing, ~9,3 KB) niet regel voor regel
+      gelezen; de conclusie *"verhuizing, geen API-inhoud"* hangt aan de samenvatting *"Move notes
+      to sub-page"*, het bestaan van de sub-pagina met 9524 b, en het patroon dat 12.1.5 twee dagen
+      eerder identiek onderging. **AFGELEID, drie steunpunten, geen lezing.**
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald — de open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`. Die pagina is deze week niet aangeraakt, dus geen aanleiding.
+    - De 12.1.5-**PTR-buildnotes** zelf niet opgehaald; terrein van `PTR_12.1_WATCH.md`.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw** (en er staat geen [MOET GEFIKST] meer bij):
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd; de bronnenlijst
+      mist nu **drie** sub-pagina's (`Patch 12.1.5/API changes/notes`,
+      `Patch 12.0.7/API changes/notes` en de inmiddels weggehaalde `==Blue posts==`-transclusie).
+      🔴 Ik raak dat bestand niet aan.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat
+      er `120007, 120100, 120105` (regel 1). 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM** (vandaag opnieuw gemeten met `head -1 | cat -v`:
+      `M-oM-;M-?## Interface: …`). Onschadelijkheid blijft AFGELEID.
+  - 🔧 **Repo-staat, en er zit een VAL in die ik vandaag ben ingelopen en bijna niet gezien had.**
+    Bij aanvang weer een **detached HEAD**, op `7ffa03c` *"Tick the void-death check: Rob measured
+    the «instantly» card"*, `git status --porcelain` leeg, geen van de vier wachter-bestanden
+    gewijzigd-maar-ongecommit.
+    🔴 **De val: op deze shallow clone stond de lokale branch `main` op `310822c` (*"4.7.2 notes: an
+    honest word, and beta releases from now on"*), GEMETEN `260` commits achter de losse HEAD.**
+    `git switch main` verplaatste de working tree dus **ACHTERUIT**, en `docs/API_WATCH.md` ging
+    daarmee van **4947** naar **4085** regels: de laatste vijf dagregels (6–10 okt) waren uit het
+    bestand verdwenen. Ik merkte het alleen doordat een `grep` op `[2026-10-10]` nul gaf terwijl ik
+    die regel tien minuten eerder zelf had gelezen. Had ik toen blind aangevuld, dan had ik vijf
+    dagen logboek overschreven.
+    ✅ **Het recept dat werkte, en in deze volgorde:** `git fetch --deepen=300 origin main` (haalt
+    `origin/main` binnen als *"forced update"* naar `7ffa03c`), dán `git pull --rebase origin main`
+    — dat was daarna een schone fast-forward. 📌 **Voor de volgende run: `fetch --deepen` vóór
+    `git switch main`, nooit erna.** Een lege `git status` zegt niets over hóe oud de boom is. Dat
+    is dezelfde les als de cachefout hierboven: een gezond ogende nulmeting is nog geen meting.
+    📌 De `.toc` staat nu op **4.7.6**.
