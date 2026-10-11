@@ -46,16 +46,27 @@ local CARDS = {
 	[70] = { -- Retribution Paladin
 		steps = 4, aoe = false, hero = 2,
 		source = "Icy Veins 25 Aug · Method 27 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_PALADIN_2026-10-11.md.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [2] = 383328, [4] = 184575 },
 	},
 	[66] = { -- Protection Paladin
 		-- 3 Oct 2026: fifth step = Hand of Reckoning (Rob's choice; Icy Veins' opener pulls with it,
 		-- and it was on none of the four tabs). HERO2 now says Lightsmith is ONE button.
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 3 Sep · Wowhead 12 Aug · Icy Veins 21 Sep 2026", -- rechecked 25 Sep + 3 Oct
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 375576, AOE = 31935 },
 	},
 	[62] = { -- Arcane Mage
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 15 Aug · Method 13 Sep · Wowhead 4 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_SHAMAN_MAGE_2026-10-11.md.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 365350, [3] = 1295924, AOE = 153626 },
 	},
 	[262] = { -- Elemental Shaman
 		steps = 5, aoe = true, hero = 2,
@@ -69,6 +80,9 @@ local CARDS = {
 	[63] = { -- Fire Mage
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 17 Aug · Wowhead 16 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 190319, [3] = 11366, AOE = 2120 },
 	},
 	[64] = { -- Frost Mage
 		steps = 5, aoe = true, hero = 2,
@@ -80,18 +94,32 @@ local CARDS = {
 	[65] = { -- Holy Paladin
 		steps = 4, aoe = true, hero = 2,
 		source = "Method 27 Aug · Wowhead 20 Sep · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- 11 Oct 2026: Infusion of Light lasts 15 s, not 10 (wago DB2 SpellMisc 54149, both builds).
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [2] = 19750, [3] = 85673, AOE = 200025 },
 	},
 	[71] = { -- Arms Warrior
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 + 25 Aug · Method 25 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_WARRIOR_2026-10-11.md. Overrides: the step's point, not its last spell.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 167105, [2] = 772, [3] = 12294, [4] = 163201, AOE = 845 },
 	},
 	[72] = { -- Fury Warrior
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 + 25 Aug · Method 11 Aug · Wowhead 12 Aug 2026",
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 1719, [3] = 23881, [4] = 5308, AOE = 190411 },
 	},
 	[73] = { -- Protection Warrior
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 18 Aug · Method 11 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [4] = 163201 },
 	},
 	[102] = { -- Balance Druid
 		steps = 5, aoe = true, hero = 2,
@@ -136,14 +164,25 @@ local CARDS = {
 	[256] = { -- Discipline Priest
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 17 Aug · Method 17 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_PRIEST_2026-10-11.md. S4's last spell is the fallback, AOE's the add-on.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [4] = 585, AOE = 194509 },
 	},
 	[257] = { -- Holy Priest
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 25 Aug · Method 17 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { AOE = 64843 },
 	},
 	[258] = { -- Shadow Priest
 		steps = 4, aoe = true, hero = 2,
 		source = "Method 27 Aug · Wowhead 12 Aug · Icy Veins 11 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- S1 names Vampiric Touch twice (asked in AOE instead); S2 is about Voidform; S3 ends on Voidform.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 589, [2] = 228260, [3] = 335467 },
 	},
 	[259] = { -- Assassination Rogue
 		steps = 4, aoe = true, hero = 2,
@@ -160,10 +199,15 @@ local CARDS = {
 	[263] = { -- Enhancement Shaman
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 23 Aug · Method 24 Aug · Wowhead 22 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 114051, AOE = 188443 },
 	},
 	[264] = { -- Restoration Shaman
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 11 Aug · Wowhead 5 Sep 2026",
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
 	},
 	[265] = { -- Affliction Warlock
 		steps = 5, aoe = true, hero = 2,
@@ -370,7 +414,8 @@ function ns.GetPlayCardQuiz(specID)
 		end
 		-- A step without a spell (plain text) cannot be asked; nor can a card with too few spells.
 		if answer and #pool >= 3 then
-			local blanked = text:gsub("{SPELL:" .. answer .. "}", "{BLANK}", 1)
+			-- Every mention, not just the first: a step that names the answer twice would give it away.
+			local blanked = text:gsub("{SPELL:" .. answer .. "}", "{BLANK}")
 			local q = Expand(blanked):gsub("{BLANK}", "|cffffffff______|r")
 			local wrong = {}
 			for _, id in ipairs(pool) do

@@ -4,6 +4,15 @@
 - Geen beta3 nu. 38 specs te gaan (64 + 262 af). Brief: scratchpad `why/BRIEF.md` (per spec: W-regels en+nl,
   TERMS, quizAnswer, kaartfouten, 12.1.5). Golf 1 loopt (mh-research): Paladin, Priest, Warrior, Shaman-rest + Mage-rest.
   Golven van 4 (ze delen de browser). Op de patchdag: één ronde nakijken + `interface` ophogen.
+- STAND (11 okt avond): W + TERMS + quiz in enUS/nlNL voor 64, 262, 256-258, 71-73, 62, 63, 263, 264, 70, 66, 65
+  (15 specs). Rapporten: `docs/WHY_<KLASSE>_2026-10-11.md`. Vertaald (de/fr/es/pt/it): 64, 262, Priest, Warrior.
+  NOG TE VERTALEN: Shaman/Mage (62, 63, 263, 264 + 262_TERMS) en Paladin (incl. 65_S2 "15 s" en 66_HERO1).
+  Kaartfouten verbeterd o.a.: Holy Pal Infusion of Light 15 s (was 10), Disc Mind Blast, Holy Priest IDEA, Shadow S3,
+  Arms Cleave/Rend, Prot War S3, Fire/Enh "free"→instant, Resto Sham "almost no mana", Arcane Pulse "if you have it".
+  Quiz-code: blankt nu ELKE vermelding van het antwoord (was alleen de eerste → 6 weggevers).
+  OPEN, schoonmaakronde: proc/talentnamen die in de/fr/es/pt/it Engels bleven (Surge of Light, Psychic Link, Sudden
+  Death, Bloodbath, Crushing Blow, Reckless Abandon, Anger Management, Heating Up/Hot Streak, Clearcasting …) →
+  {SPELL:id} met gemeten ID, zoals Icicles/Lava Surge/Shatter. Golf 2 loopt: Druid, DK, Hunter, Rogue.
 - ✅ Rob: W-regels ook in de/fr/es/pt/it (mh-writer per klasse). ✅ 64 + 262 vertaald (13 keys × 5).
   Icicles / Lava Surge / Shatter zijn {SPELL:1246832} / {SPELL:77756} / {SPELL:1246769} in alle 7 talen (wago DB2:
   talent resp. spec-passieven; clientnaam per taal). AFGELEID: IsPlayerSpell true → goud; testpunt in TESTLIJST.
