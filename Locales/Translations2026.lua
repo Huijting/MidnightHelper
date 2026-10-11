@@ -9005,15 +9005,12 @@ fill("itIT", {
 --   * `Restored Coffer Key` — English in all seven packs, without exception.
 --   * `Coffer Key Shards` / `shards` — English everywhere ("100 shards -> 1 key").
 --   * `Delver's Journey`, `Dundun` — Blizzard's own names.
---   * `Bountiful` — English. ⚠️ NOT a clean habit: the older `Codex.lua` translates it
---     in four packs (de "Großzügige", fr "généreux", es "pródigas", pt "fartas") while
---     the newer Translations2026 keeps it English throughout ("Bountiful-Tiefe",
---     "gouffres Bountiful", "Bountiful Delve de Tier 11"). The newer habit wins, because
---     the entrance screen the player is looking at says "Bountiful" in every client.
---     The Codex lines are inconsistent with this and are left alone for now.
---
--- The word for "delve" itself follows each pack's own habit, which differs on purpose:
--- de "Tiefe", fr "gouffre", es "profundidad", it "delve", pt "delve".
+--   * ⚠️ SUPERSEDED 11 Oct 2026: `Bountiful` and the Delve word are NO LONGER kept English.
+--     This note used to say the entrance screen shows "Bountiful" in every client; Blizzard's
+--     data says otherwise (GlobalStrings DELVES_JOURNEY_TIP and the AreaPOI map labels are
+--     translated in every client). Rob chose the client word for both; see CLAUDE.md
+--     (Localization): de Großzügige Tiefe, fr gouffre abondant, es profundidad pródiga,
+--     pt Imersão Abundante, it Scorribanda Fruttuosa.
 --
 -- `MACROS_TYPE_WORLD` IS translated — it is our own category name, not a game term, and
 -- the tooltip that names the button uses the same translated word in each language.
