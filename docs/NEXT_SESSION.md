@@ -71,7 +71,10 @@
   hebben wél een clientnaam (Трофей охотника за сокровищами, Проклятый натиск, Ур. пр.) → alles of niets; (2) spellnamen als losse tekst blijven Engels (zoals de andere packs) → later
   {SPELL:id}; (3) breedte: DELVES_BTN_BOUNTIFUL "Найти ближайшую многообещающую вылазку" (38 tekens), PARTY_DISPEL_TAG
   "РАЗВЕИВАНИЕ" → in een ruRU-client bekijken; (4) DUNDUN_CHAT_MACRO `/target Дандан` (Creature 249488 = AFGELEID).
-  Engelse bronfouten die de vertalers zagen (NIET gerepareerd): PROFGUIDE_SEC_TAILORING_BODY noemt Evoker bij cloth
+  ✅ 11 okt: alle 7 Engelse bronfouten GEMETEN (scratchpad ENGLISH_FIXES.md: wago ChrClasses/ItemSparse/GS, UI-bron,
+  Wowhead) en in enUS+nlNL verbeterd, plus LANG_UNKNOWN/LANG_SLASH_HINT kennen it/ru. De andere 6 talen volgen
+  (drift). Nog open daaruit: Crafting Speed als 4e crafting-stat (staat hij in Crafting Details? in-game kijken).
+  Was (NIET gerepareerd): PROFGUIDE_SEC_TAILORING_BODY noemt Evoker bij cloth
   (Evokers dragen mail); PROFACAD_CH_WEEKLY_INTRO "gemiste week voorgoed weg" vs catch-up in hetzelfde hoofdstuk;
   PROFACAD_CH_STATS_ADVANCED "alle zes stats in Crafting Details"; DELVE_SHARE_BAR_HINT_TEST "/say ziet alleen jij";
   GEM_NO_DIAMOND "Thalassian" vs INFO_DRAWER_BODY_ENCHANTS "Eversong Diamond"; ACADEMY_STEP_*_GEAR "Default".
