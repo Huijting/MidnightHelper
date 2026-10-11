@@ -308,7 +308,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_S3_NAV = "Ouvrir Accueil",
 
 	START_S4_TITLE = "4. Fais tes Gouffres",
-	START_S4_BODY = "Les Gouffres sont des donjons en solo ou petit groupe avec Valeera à tes côtés — de l'équipement régulier et la progression Monde la plus simple pour le Vault. Grimpe d'abord les paliers normaux (sous le niveau 90, Tier 3 est le maximum) ; à partir du Tier 8 tu peux faire des Bountiful Delves (il te faut une Restored Coffer Key) pour de l'équipement Champion et des choix de Vault Hero-track. Le Coach de gouffre donne des astuces par gouffre, à partager avec ton groupe.",
+	START_S4_BODY = "Les Gouffres sont des donjons en solo ou petit groupe avec Valeera à tes côtés — de l'équipement régulier et la progression Monde la plus simple pour le Vault. Grimpe d'abord les paliers normaux (sous le niveau 90, Tier 3 est le maximum) ; à partir du Tier 8 tu peux faire des gouffres Bountiful (il te faut une Restored Coffer Key) pour de l'équipement Champion et des choix de Vault Hero-track. Le Coach des gouffres donne des astuces par gouffre, à partager avec ton groupe.",
 	START_S4_NAV = "Ouvrir Gouffres",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",

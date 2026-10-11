@@ -754,11 +754,11 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	SET_LAUNCH_PANELRESET = "Remettre les panneaux latéraux en place",
 	SET_BOSSWIN_SCALE = "Échelle de la fenêtre",
 	SET_CONSREADY_TITLE = "Vérif. consommables",
-	SET_CONSREADY_DESC = "Vérifie votre flask, augment rune, potions, nourriture et healthstone quand vous entrez dans un rituel, une delve ou un donjon.",
+	SET_CONSREADY_DESC = "Vérifie votre flask, augment rune, potions, nourriture et healthstone quand vous entrez dans un rituel, un gouffre ou un donjon.",
 	-- Removed 27 aug 2026 — said "dungeon" for an alert that also fires in rituals and
 	-- delves. Falls back to the corrected English; see the note in the itIT block.
 	-- SET_CONSREADY_TOGGLE_TITLE = "Afficher à l'entrée du donjon",
-	SET_CONSREADY_TOGGLE_DESC = "Lance automatiquement la vérif. des consommables dès l'entrée dans un rituel, une delve ou un donjon. Possible aussi via /mh readytoggle.",
+	SET_CONSREADY_TOGGLE_DESC = "Lance automatiquement la vérif. des consommables dès l'entrée dans un rituel, un gouffre ou un donjon. Possible aussi via /mh readytoggle.",
 	SET_CONSREADY_SHOW = "Afficher le tableau",
 	SET_SHARING_BODY = "Le partage des gouffres, rituels et étapes de boss envoie du texte brut à ton groupe. Les membres qui utilisent aussi Midnight Helper reçoivent les astuces de gouffre dans leur propre langue — la même réception localisée est en cours pour les partages de rituels et de boss.",
 	SET_ADV_DEBUG = "Mode debug",
