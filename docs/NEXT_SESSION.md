@@ -76,7 +76,8 @@
   loot-menu met de clientnaam uit GlobalStrings per taal); check_drift daarna 0 gedrift in alle talen.
   ✅ "Delver's Call" = één clientnaam per pack (QuestLine 6051 + Wowhead GEMETEN; CLAUDE.md); verzonnen namen
   (Tiefenwanderer, gouffrier, cavernícola, Explorador) weg; DelveBossShowcase kent de lokale questnaam.
-  Open: gem-namen "Eversong Diamond" Engels in alle packs (clientnamen niet gemeten); esMX "Se busca surcabismos".
+  ✅ Gem-namen: clientnamen GEMETEN (wago ItemSparse, scratchpad GEM_NAMES.md) en in de 6 client-packs gezet
+  (4 keys); GEM_NO_DIAMOND zegt nu "nog geen diamant" + de link. Open: esMX "Se busca surcabismos".
   Oude regel:
   (drift). Nog open daaruit: Crafting Speed als 4e crafting-stat (staat hij in Crafting Details? in-game kijken).
   Was (NIET gerepareerd): PROFGUIDE_SEC_TAILORING_BODY noemt Evoker bij cloth
