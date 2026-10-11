@@ -616,6 +616,18 @@ local function DebugDelveStoryOnce(entryId, message)
 	end
 end
 
+-- Lower-cased, plain-text prefixes; ruRU in both capital forms because string.lower leaves Cyrillic alone.
+local DELVER_CALL_LOCAL = {
+	"ruf des tiefenforschers", -- deDE
+	"appel du gouffre", -- frFR
+	"llamada de explorador de profundidades", -- esES
+	"se busca surcabismos", -- esMX
+	"chamado do imersor", -- ptBR
+	"chiamata alla scorribanda", -- itIT
+	"Вызов в вылазку", -- ruRU
+	"вызов в вылазку",
+}
+
 local function IsGenericStoryName(name)
 	local n = NormalizeStoryText(StripColorCodes(name))
 	if n == "" or #n < 4 then
@@ -630,8 +642,15 @@ local function IsGenericStoryName(name)
 	if n:match("^wave:%s*") or n:match("^%d+%s*%%$") then
 		return true
 	end
-	if n:find("^delver's call:") or n:find("^delver's call") then
+	if n:find("^delver's call") then
 		return true
+	end
+	-- The same quest line on other clients (QuestLine 6051 + Wowhead quest titles, measured 11 Oct 2026). Without
+	-- these a German "Ruf des Tiefenforschers: ..." quest step could be shown as the delve's story name.
+	for _, prefix in ipairs(DELVER_CALL_LOCAL) do
+		if n:find(prefix, 1, true) == 1 then
+			return true
+		end
 	end
 	if n:find("^speak with ") or n:find(" defeated$") then
 		return true
