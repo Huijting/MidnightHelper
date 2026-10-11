@@ -2560,6 +2560,11 @@
    "ptBR": "ec1488a97fc0e4db"
   },
   "ALT_COL_SHARDS_WALLET_HINT": {
+   "deDE": "013665dea3c30653",
+   "esES": "013665dea3c30653",
+   "frFR": "013665dea3c30653",
+   "itIT": "013665dea3c30653",
+   "ptBR": "013665dea3c30653",
    "ruRU": "013665dea3c30653"
   },
   "ALT_COL_UNDERCOINS": {
@@ -2595,6 +2600,11 @@
    "ruRU": "e78041ab51a818a2"
   },
   "ALT_COL_WEEK_HINT": {
+   "deDE": "202b5411c0ac557a",
+   "esES": "202b5411c0ac557a",
+   "frFR": "202b5411c0ac557a",
+   "itIT": "202b5411c0ac557a",
+   "ptBR": "202b5411c0ac557a",
    "ruRU": "202b5411c0ac557a"
   },
   "ALT_HINT_RESET_NOT_WEEKLY": {
@@ -2622,12 +2632,22 @@
    "ruRU": "052f598889e21ed9"
   },
   "ALT_NEXT_KEYS_FMT": {
+   "deDE": "b813f2a42dcdeefe",
+   "esES": "b813f2a42dcdeefe",
+   "frFR": "b813f2a42dcdeefe",
+   "itIT": "b813f2a42dcdeefe",
+   "ptBR": "b813f2a42dcdeefe",
    "ruRU": "b813f2a42dcdeefe"
   },
   "ALT_NEXT_NONE": {
    "ruRU": "18bc78a691b481db"
   },
   "ALT_NEXT_SHARDS_FMT": {
+   "deDE": "3f405ff693299ef7",
+   "esES": "3f405ff693299ef7",
+   "frFR": "3f405ff693299ef7",
+   "itIT": "3f405ff693299ef7",
+   "ptBR": "3f405ff693299ef7",
    "ruRU": "3f405ff693299ef7"
   },
   "ALT_NEXT_VAULT_FMT": {
@@ -2874,6 +2894,7 @@
    "deDE": "c65609a8db56e9a2",
    "esES": "c65609a8db56e9a2",
    "frFR": "c65609a8db56e9a2",
+   "itIT": "c65609a8db56e9a2",
    "ptBR": "c65609a8db56e9a2",
    "ruRU": "c65609a8db56e9a2"
   },
@@ -6272,6 +6293,10 @@
   },
   "CURACC_USE_KEYS": {
    "deDE": "f1af98033b356909",
+   "esES": "f1af98033b356909",
+   "frFR": "f1af98033b356909",
+   "itIT": "f1af98033b356909",
+   "ptBR": "f1af98033b356909",
    "ruRU": "f1af98033b356909"
   },
   "CURACC_USE_MANA": {
@@ -6287,6 +6312,11 @@
    "ruRU": "9261641a6cee9e8e"
   },
   "CURACC_USE_SHARDS": {
+   "deDE": "9b134a1f93da9baf",
+   "esES": "9b134a1f93da9baf",
+   "frFR": "9b134a1f93da9baf",
+   "itIT": "9b134a1f93da9baf",
+   "ptBR": "9b134a1f93da9baf",
    "ruRU": "9b134a1f93da9baf"
   },
   "CURACC_USE_UNDERCOIN": {
@@ -8038,7 +8068,8 @@
    "esES": "0abbc4ecb2b04191",
    "frFR": "0abbc4ecb2b04191",
    "itIT": "0abbc4ecb2b04191",
-   "ptBR": "0abbc4ecb2b04191"
+   "ptBR": "0abbc4ecb2b04191",
+   "ruRU": "0abbc4ecb2b04191"
   },
   "DELVE_ITEMS_SLASH_ALREADY_MARKED": {
    "deDE": "bd8ea7927972ed42",
@@ -8117,7 +8148,8 @@
    "esES": "b44e29f1643b29ac",
    "frFR": "b44e29f1643b29ac",
    "itIT": "b44e29f1643b29ac",
-   "ptBR": "b44e29f1643b29ac"
+   "ptBR": "b44e29f1643b29ac",
+   "ruRU": "b44e29f1643b29ac"
   },
   "DELVE_MINIMAP_USE_COMBAT_FMT": {
    "deDE": "ab31e6a0071ce43b",
@@ -14101,12 +14133,27 @@
    "ruRU": "6dc39cc1c138b319"
   },
   "DUNDUN_CHAT_COST_FMT": {
+   "deDE": "7373a5b67cc37e06",
+   "esES": "7373a5b67cc37e06",
+   "frFR": "7373a5b67cc37e06",
+   "itIT": "7373a5b67cc37e06",
+   "ptBR": "7373a5b67cc37e06",
    "ruRU": "7373a5b67cc37e06"
   },
   "DUNDUN_CHAT_COST_SHORT_FMT": {
+   "deDE": "099c70a09240fa67",
+   "esES": "099c70a09240fa67",
+   "frFR": "099c70a09240fa67",
+   "itIT": "099c70a09240fa67",
+   "ptBR": "099c70a09240fa67",
    "ruRU": "099c70a09240fa67"
   },
   "DUNDUN_CHAT_COST_UNKNOWN": {
+   "deDE": "beb54d9e9f78dbea",
+   "esES": "beb54d9e9f78dbea",
+   "frFR": "beb54d9e9f78dbea",
+   "itIT": "beb54d9e9f78dbea",
+   "ptBR": "beb54d9e9f78dbea",
    "ruRU": "beb54d9e9f78dbea"
   },
   "DUNDUN_CHAT_HEADER": {
@@ -14119,15 +14166,30 @@
    "ruRU": "40e771510109d48f"
   },
   "DUNDUN_CHAT_SHARDS_FMT": {
+   "deDE": "eaf7b7cd4f2394a5",
+   "esES": "eaf7b7cd4f2394a5",
+   "frFR": "eaf7b7cd4f2394a5",
+   "itIT": "eaf7b7cd4f2394a5",
+   "ptBR": "eaf7b7cd4f2394a5",
    "ruRU": "eaf7b7cd4f2394a5"
   },
   "DUNDUN_CHAT_WHAT": {
    "ruRU": "5cd8d4cf26c7e866"
   },
   "DUNDUN_GOSSIP_BOON": {
+   "deDE": "3c1c99a680cd380f",
+   "esES": "3c1c99a680cd380f",
+   "frFR": "3c1c99a680cd380f",
+   "itIT": "3c1c99a680cd380f",
+   "ptBR": "3c1c99a680cd380f",
    "ruRU": "3c1c99a680cd380f"
   },
   "DUNDUN_GOSSIP_FIRST": {
+   "deDE": "d6d827dcf5a39c0b",
+   "esES": "d6d827dcf5a39c0b",
+   "frFR": "d6d827dcf5a39c0b",
+   "itIT": "d6d827dcf5a39c0b",
+   "ptBR": "d6d827dcf5a39c0b",
    "ruRU": "d6d827dcf5a39c0b"
   },
   "DUNDUN_PANEL_BODY": {
@@ -14140,12 +14202,27 @@
    "ruRU": "5b0d1d56de90ac55"
   },
   "DUNDUN_PANEL_KEYS_OK_FMT": {
+   "deDE": "e046248e3c70f1a4",
+   "esES": "e046248e3c70f1a4",
+   "frFR": "e046248e3c70f1a4",
+   "itIT": "e046248e3c70f1a4",
+   "ptBR": "e046248e3c70f1a4",
    "ruRU": "e046248e3c70f1a4"
   },
   "DUNDUN_PANEL_KEYS_SHORT_FMT": {
+   "deDE": "0c943788d60f1959",
+   "esES": "0c943788d60f1959",
+   "frFR": "0c943788d60f1959",
+   "itIT": "0c943788d60f1959",
+   "ptBR": "0c943788d60f1959",
    "ruRU": "0c943788d60f1959"
   },
   "DUNDUN_PANEL_KEYS_UNKNOWN": {
+   "deDE": "463bc84eac23a726",
+   "esES": "463bc84eac23a726",
+   "frFR": "463bc84eac23a726",
+   "itIT": "463bc84eac23a726",
+   "ptBR": "463bc84eac23a726",
    "ruRU": "463bc84eac23a726"
   },
   "DUNDUN_PANEL_MACRO_BTN": {
@@ -16088,6 +16165,11 @@
    "ruRU": "d689b7e4403f667f"
   },
   "HOME_ROUTINE_GIVER_PICKUP_ABDUMATI_FMT": {
+   "deDE": "893a148832f79e54",
+   "esES": "893a148832f79e54",
+   "frFR": "893a148832f79e54",
+   "itIT": "893a148832f79e54",
+   "ptBR": "893a148832f79e54",
    "ruRU": "893a148832f79e54"
   },
   "HOME_ROUTINE_GIVER_PICKUP_FMT": {
@@ -33017,6 +33099,11 @@
    "ruRU": "9a0ef27137d9b9ce"
   },
   "SET_DELVEPOPUP_AUTO_DESC": {
+   "deDE": "de7161a785eecdd4",
+   "esES": "de7161a785eecdd4",
+   "frFR": "de7161a785eecdd4",
+   "itIT": "de7161a785eecdd4",
+   "ptBR": "de7161a785eecdd4",
    "ruRU": "de7161a785eecdd4"
   },
   "SET_DELVEPOPUP_AUTO_TITLE": {
@@ -33705,15 +33792,30 @@
    "ruRU": "e57bab7de1fd6304"
   },
   "SET_TOASTS_DESC": {
+   "deDE": "06b83b85c62f5948",
+   "esES": "06b83b85c62f5948",
+   "frFR": "06b83b85c62f5948",
+   "itIT": "06b83b85c62f5948",
+   "ptBR": "06b83b85c62f5948",
    "ruRU": "06b83b85c62f5948"
   },
   "SET_TOASTS_TITLE": {
    "ruRU": "ee1faa9693e15c59"
   },
   "SET_TOAST_BOUNTY_DESC": {
+   "deDE": "89025a1d61ec386d",
+   "esES": "89025a1d61ec386d",
+   "frFR": "89025a1d61ec386d",
+   "itIT": "89025a1d61ec386d",
+   "ptBR": "89025a1d61ec386d",
    "ruRU": "89025a1d61ec386d"
   },
   "SET_TOAST_BOUNTY_TITLE": {
+   "deDE": "3bf42be029c9bc9c",
+   "esES": "3bf42be029c9bc9c",
+   "frFR": "3bf42be029c9bc9c",
+   "itIT": "3bf42be029c9bc9c",
+   "ptBR": "3bf42be029c9bc9c",
    "ruRU": "3bf42be029c9bc9c"
   },
   "SET_TOAST_POS_DESC": {
@@ -33741,9 +33843,19 @@
    "ruRU": "3eb6451c15dfbc39"
   },
   "SHARDS_CAP_REACHED": {
+   "deDE": "515423213cfcb0f0",
+   "esES": "515423213cfcb0f0",
+   "frFR": "515423213cfcb0f0",
+   "itIT": "515423213cfcb0f0",
+   "ptBR": "515423213cfcb0f0",
    "ruRU": "515423213cfcb0f0"
   },
   "SHARDS_REMAINING_FMT": {
+   "deDE": "16e9e3ef5434c721",
+   "esES": "16e9e3ef5434c721",
+   "frFR": "16e9e3ef5434c721",
+   "itIT": "16e9e3ef5434c721",
+   "ptBR": "16e9e3ef5434c721",
    "ruRU": "16e9e3ef5434c721"
   },
   "SHARD_CAP_CHAT_FMT": {

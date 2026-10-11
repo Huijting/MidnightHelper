@@ -5,6 +5,13 @@
   byte-gelijk GEMETEN), CHANGELOG.md. toc blijft 4.7.6.
 - ✅ Tag `v4.7.6-beta3` op 32adda9 (site-chat akkoord + proefbouw 0 problemen); release-run 38139204592 GESLAAGD
   (CurseForge, Wago, GitHub). Site-chat geseind dat ruRU in een tag zit. Rob: CF-pagina even bekijken (notes netjes?).
+- ✅ Na beta3 (op main, niet getagd): delve-ITEMnamen = clientnaam in de/fr/es/pt/it/ru + esMX (Rob "jouw advies"):
+  Restored Coffer Key, Coffer Key Shard, Bountiful Coffer, Bountiful Heavy Trunk, Trovehunter's Bounty, Hidden Trove
+  (GEMETEN wago + Wowhead, scratchpad COFFER_NAMES.md; ook naar de site-chat gestuurd). Verzonnen halve namen weg
+  ("Trovehunter-Kopfgeld", "Prime Trovehunter", "Recompensa Trovehunter"). esMX.lua +14 regels. Open: losse "Key"/
+  "Shards" nog Engels; "Heavy Trunks" in CODEX_LABYRINTH_BODY; enUS TOAST_BOUNTY_BODY zegt "Hidden Treasure" (item heet
+  Hidden Trove); 2 oude commentaren in Translations2026 (~9167, ~15348); ruRU CURACC_USE_SHARDS hoofdletter.
+- Rob 11 okt: site-chat mag aan de Russische site beginnen; hij stuurt een lijst voor build_site.py ("ru").
 - Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.
 - Daarna: echte 4.7.6-release pas na de patch (14 okt): patchnotes naast de kaarten, Devourer HERO1, Robs /reload.
 
