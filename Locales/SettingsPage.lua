@@ -862,11 +862,11 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	SET_LAUNCH_PANELRESET = "Paneles laterales a su sitio",
 	SET_BOSSWIN_SCALE = "Escala de la ventana",
 	SET_CONSREADY_TITLE = "Chequeo de consumibles",
-	SET_CONSREADY_DESC = "Comprueba tu flask, augment rune, pociones, comida y healthstone al entrar en un ritual, una delve o una mazmorra.",
+	SET_CONSREADY_DESC = "Comprueba tu flask, augment rune, pociones, comida y healthstone al entrar en un ritual, una profundidad o una mazmorra.",
 	-- Removed 27 aug 2026 — said "dungeon" for an alert that also fires in rituals and
 	-- delves. Falls back to the corrected English; see the note in the itIT block.
 	-- SET_CONSREADY_TOGGLE_TITLE = "Mostrar al entrar en mazmorra",
-	SET_CONSREADY_TOGGLE_DESC = "Ejecuta el chequeo de consumibles automáticamente al entrar en un ritual, una delve o una mazmorra. También con /mh readytoggle.",
+	SET_CONSREADY_TOGGLE_DESC = "Ejecuta el chequeo de consumibles automáticamente al entrar en un ritual, una profundidad o una mazmorra. También con /mh readytoggle.",
 	SET_CONSREADY_SHOW = "Mostrar tablero",
 	SET_SHARING_BODY = "Compartir profundidades, rituales y pasos de jefe envía texto plano a tu grupo. Los miembros que también usan Midnight Helper reciben los consejos de profundidad en su propio idioma — esa misma recepción localizada está en desarrollo para rituales y jefes.",
 	SET_ADV_DEBUG = "Modo debug",

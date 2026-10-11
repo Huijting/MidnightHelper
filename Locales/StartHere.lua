@@ -354,7 +354,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	START_S3_NAV = "Abrir Inicio",
 
 	START_S4_TITLE = "4. Haz tus Profundidades",
-	START_S4_BODY = "Las Profundidades son mazmorras en solitario o en grupo pequeño con Valeera a tu lado — equipo constante y el progreso más fácil de la fila de Mundo. Sube primero los tiers normales (por debajo del nivel 90 el máximo es el Tier 3); al llegar al Tier 8 puedes hacer Bountiful Delves (necesitas una Restored Coffer Key) para equipo Champion y opciones Hero-track en el Vault. El Entrenador de profundidades da consejos por profundidad que puedes compartir con tu grupo.",
+	START_S4_BODY = "Las Profundidades son mazmorras en solitario o en grupo pequeño con Valeera a tu lado — equipo constante y el progreso más fácil de la fila de Mundo. Sube primero los tiers normales (por debajo del nivel 90 el máximo es el Tier 3); al llegar al Tier 8 puedes hacer profundidades pródigas (necesitas una Restored Coffer Key) para equipo Champion y opciones Hero-track en el Vault. El Entrenador de profundidades da consejos por profundidad que puedes compartir con tu grupo.",
 	START_S4_NAV = "Abrir Profundidades",
 
 	START_S5_TITLE = "5. Ritual Sites y Void Assaults",
