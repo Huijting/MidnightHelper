@@ -307,7 +307,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	SET_BAGARROWS_TITLE = "Frecce di upgrade nelle tue borse",
 	SET_BAGARROWS_DESC = "Una piccola freccia verde sugli oggetti nelle tue borse che sono un upgrade. Come /mh bagarrows.",
 	SET_SCORECARD_TITLE = "Pagella dopo una run",
-	SET_SCORECARD_DESC = "Una riga in chat dopo una delve o un ritual, con il tuo tempo e le tue morti. Come /mh scorecard.",
+	SET_SCORECARD_DESC = "Una riga in chat dopo una scorribanda o un ritual, con il tuo tempo e le tue morti. Come /mh scorecard.",
 	SET_SCORECARD_DETAIL_TITLE = "Pagella: più dettagli",
 	SET_SCORECARD_DETAIL_DESC = "Aggiunge una seconda riga: quanto sei più veloce o più lento della tua media, e il tuo tempo migliore. Come /mh scorecard detail.",
 	SET_PULLSUM_TITLE = "Tank: riepilogo dopo ogni pull",
@@ -323,16 +323,16 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	SET_LAUNCH_PANELRESET = "Pannelli laterali al loro posto",
 	SET_BOSSWIN_SCALE = "Scala finestra",
 	SET_CONSREADY_TITLE = "Controllo consumabili",
-	SET_CONSREADY_DESC = "Controlla flask, augment rune, pozioni, cibo e healthstone quando entri in un ritual, delve o dungeon.",
+	SET_CONSREADY_DESC = "Controlla flask, augment rune, pozioni, cibo e healthstone quando entri in un ritual, una scorribanda o un dungeon.",
 	-- 🔴 REMOVED 27 aug 2026, not translated away. This said "on entering the DUNGEON"
 	-- while the alert also fires in rituals and delves — the very promise Andy's PR fixed
 	-- in English. A missing key falls back to enUS, which is now correct, so deleting a
 	-- wrong translation is strictly better than keeping it until a volunteer arrives.
 	-- The English is "Show consumable check on entry"; it is on the #translations list.
 	-- SET_CONSREADY_TOGGLE_TITLE = "Mostra all'ingresso nel dungeon",
-	SET_CONSREADY_TOGGLE_DESC = "Esegue automaticamente il controllo consumabili appena entri in un ritual, delve o dungeon. Puoi anche usare /mh readytoggle.",
+	SET_CONSREADY_TOGGLE_DESC = "Esegue automaticamente il controllo consumabili appena entri in un ritual, una scorribanda o un dungeon. Puoi anche usare /mh readytoggle.",
 	SET_CONSREADY_SHOW = "Mostra ora il pannello",
-	SET_SHARING_BODY = "La condivisione di Delve, Ritual e fasi dei boss invia testo semplice in chat al tuo gruppo. I membri che usano anch'essi Midnight Helper ricevono i suggerimenti delve nella loro lingua — la stessa ricezione localizzata è in sviluppo per le condivisioni di ritual e fasi dei boss.",
+	SET_SHARING_BODY = "La condivisione di scorribande, Ritual e fasi dei boss invia testo semplice in chat al tuo gruppo. I membri che usano anch'essi Midnight Helper ricevono i suggerimenti per le scorribande nella loro lingua — la stessa ricezione localizzata è in sviluppo per le condivisioni di ritual e fasi dei boss.",
 	SET_ADV_DEBUG = "Modalità debug",
 	SET_ADV_DEBUG_DESC = "Output diagnostico aggiuntivo in chat.",
 	SET_ADV_FORGET_RARES = "Dimentica i modelli dei rare appresi",

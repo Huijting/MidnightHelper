@@ -119,7 +119,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_WEEKDGN_DONE_FMT = "Dungeon della settimana (Halduron): %s — completato questa settimana.",
 	DGN_WEEKDGN_UNKNOWN = "Dungeon della settimana (Halduron): prendi la sua quest accanto al vault per vederlo qui.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mythic+): completato.",
-	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythic+): cade da una ricompensa Delve di Tier 11 — una volta a season.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythic+): cade da una ricompensa di una scorribanda di Tier 11 — una volta a season.",
 	DGN_VAULT_FMT = "Gran Banca — riga Dungeons: %d/%d slot sbloccati (progresso %d).",
 	DGN_VAULT_UNKNOWN = "Gran Banca — riga Dungeons: i dati si caricano dopo il login o aprendo il vault.",
 	DGN_FOLLOWER_HINT = "Nuovo nei dungeon? Avvia un Follower Dungeon (Group Finder): giochi in difficoltà Normal da solo con compagni NPC — nessuna pressione, pratica perfetta. Il corso qui sotto ti guida in ogni cosa.",
@@ -146,7 +146,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_CH5_BODY = "• Prima di una run, apri la vista Dungeon Coach e leggi i passi brevi per ogni boss — e nel momento in cui pulli un boss, Midnight Helper stampa quei passi direttamente nella tua chat.|n• Condividili col tuo gruppo: scrivi /mh bossshare dopo il pull (testo semplice; la condivisione localizzata arriverà più avanti).|n• Non memorizzare tutto: conoscere l'unica meccanica letale per ogni boss è sufficiente per iniziare.",
 
 	DGN_CH6_TITLE = "6. Prossimo passo: Heroic",
-	DGN_CH6_BODY = "• Il Heroic usa la rotazione di questa season (otto dungeon — vedi la vista Coach, contrassegnati con la stagione) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon Normal, Delve e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo il Heroic arrivano Mythic e Mythic+ — quel capitolo arriverà con l'aggiornamento Mythic di questo corso.",
+	DGN_CH6_BODY = "• Il Heroic usa la rotazione di questa season (otto dungeon — vedi la vista Coach, contrassegnati con la stagione) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon Normal, scorribande e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo il Heroic arrivano Mythic e Mythic+ — quel capitolo arriverà con l'aggiornamento Mythic di questo corso.",
 
 	-- Coach -------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",

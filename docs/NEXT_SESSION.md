@@ -21,6 +21,14 @@
   DELVE_REWARDS_UNMEASURED, VALEERA_OFF_HINT, CMDLIST_CURIOINFO); DELVE_SHARE_MISSING en ACADEMY_HEAL_CHAT_TITLE
   verkeerd vertaald ("festa" = party); "Valeera" i.p.v. "Valira" in CMDLIST_CURIOINFO, DUNDUN_CHAT_AFTER_FIRST,
   DUNDUN_PANEL_BODY, DELVE_VALEERA_HEAL_TIP; Bountiful = "opulenta" op knoppen, "Abundantes" in LVL8090_UNLOCK_4.
+  ✅ itIT ook (11 okt; 208 → 9, rest = zoekwoord/Engelse kopie onder fill/sitenaam/slash). Delve-woord daarmee AF in
+  alle 5. itIT-writer zag, NIET gerepareerd: Delver's Call gemengd (fill "Chiamata alla Scorribanda", lopende tekst
+  Engels); DELVE_SHARE_MISSING verouderd (ook ptBR); ACADEMY_WORDS_BODY mist laatste zin.
+  ✅ (a) beslist, Rob 11 okt: "Bountiful ook het woord uit het spel". GEMETEN (wago 12.1.0.69933, AreaPOI + GS
+  52689/52760): de Großzügige Tiefe(n) · fr Gouffre(s) abondant(s) · es Profundidad(es) pródiga(s) · pt Imersão/
+  Imersões Abundante(s) · it Scorribanda/Scorribande Fruttuosa/Fruttuose. Brief `BOUNTIFUL_BRIEF.md`; Coffer blijft.
+  ⚠️ esMX speelt met ons esES-pack, maar zijn client zegt "abismo abundante" (GEMETEN): Delve-woord klopt niet voor
+  Mexicaanse spelers. Aparte keuze, open.
   Delve-woorden per taal (brief scratchpad `DELVE_BRIEF.md`, inventaris
   `delve_inventory.md`: de 100, fr 74, es 85, pt 121, it 208 regels), dan ruRU.
   Schoonmaakronde ook: "Solar/Lunar Eclipse" in 102_W5/TERMS → {SPELL:1233346}/{SPELL:1233272} (vertaler verzon

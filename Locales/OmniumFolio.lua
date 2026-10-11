@@ -94,7 +94,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	OMNIUM_WK_OBJ_1 = "Questa settimana: recupera il Folio da Grand Magister Rommath.",
 	OMNIUM_WK_OBJ_2 = "Questa settimana: raccogli 8 Ritualized Arcana dalle Elite nelle Ritual Sites (~2 run).",
 	OMNIUM_WK_OBJ_3 = "Questa settimana: raccogli 5 Dark-Ley Coalescence dai Void Assaults.",
-	OMNIUM_WK_OBJ_4 = "Questa settimana: sconfiggi un boss finale di dungeon/delve o un boss d'ala LFR (e lootalo).",
+	OMNIUM_WK_OBJ_4 = "Questa settimana: sconfiggi un boss finale di dungeon/scorribanda o un boss d'ala LFR (e lootalo).",
 	OMNIUM_WK_OBJ_5 = "Questa settimana: sconfiggi Pertinax (Val) o Leth'ir (Naigtal) + 3 World Quest lì.",
 	OMNIUM_WEEK_FMT = "Settimana %d",
 	OMNIUM_LOCKED = "non ancora sbloccato",
