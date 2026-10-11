@@ -256,34 +256,62 @@ local CARDS = {
 	[265] = { -- Affliction Warlock
 		steps = 5, aoe = true, hero = 2,
 		source = "Wowhead 7 Sep · Icy Veins 31 Aug · Method 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_WARLOCK_2026-10-11.md. AOE now follows Icy Veins 31 Aug + the APL of 27 Aug.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 205180, [5] = 198590, AOE = 27243 },
 	},
 	[266] = { -- Demonology Warlock
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Wowhead 12 Aug · Method 27 Sep 2026",
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 265187, [2] = 104316, AOE = 196277 },
 	},
 	[267] = { -- Destruction Warlock
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 31 Aug · Method 15 Aug · Wowhead 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [4] = 116858, AOE = 5740 },
 	},
 	[268] = { -- Brewmaster Monk
 		steps = 4, aoe = true, hero = 2,
 		source = "Method 11 Aug · Wowhead 12 Aug · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_MONK_2026-10-11.md.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [2] = 322507, [3] = 121253, [4] = 132578 },
 	},
 	[269] = { -- Windwalker Monk
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 25 Aug · Wowhead 25 Aug · Method 18 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- 11 Oct: S2 dropped Strike of the Windlord (one choice node with Whirling Dragon Punch, which the guides take).
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 1249625, [2] = 113656, AOE = 101546 },
 	},
 	[270] = { -- Mistweaver Monk
 		steps = 5, aoe = true, hero = 2,
 		source = "Wowhead 30 Sep · Method 27 Aug · Icy Veins 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [2] = 107428, [3] = 116680, AOE = 115310 },
 	},
 	[577] = { -- Havoc Demon Hunter
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 17 Sep · Icy Veins 30 Aug · Wowhead 17 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_DEMONHUNTER_2026-10-11.md. S1: The Hunt waits for Eye Beam (Eternal Hunt apex).
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 191427, [3] = 258860, [4] = 162794, [5] = 232893, AOE = 258920 },
 	},
 	[581] = { -- Vengeance Demon Hunter
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 27 Aug · Wowhead 12 Aug · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [3] = 263642 },
 	},
 	[1467] = { -- Devastation Evoker
 		steps = 4, aoe = true, hero = 2,
@@ -300,6 +328,10 @@ local CARDS = {
 	[1480] = { -- Devourer Demon Hunter
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 18 Sep · Wowhead 2 Sep · Icy Veins 18 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- 12.1.5 changes Void-Scarred (Violent Transformation no longer resets The Hunt): HERO1 needs a recheck then.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [2] = 1226019, [5] = 473662 },
 	},
 }
 
