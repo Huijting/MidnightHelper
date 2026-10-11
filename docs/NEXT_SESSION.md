@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 11 okt middag — ALLE specs krijgen waarom-regels (Rob: "ik wil sowieso voor alles de waarom versie")
+- Geen beta3 nu. 38 specs te gaan (64 + 262 af). Brief: scratchpad `why/BRIEF.md` (per spec: W-regels en+nl,
+  TERMS, quizAnswer, kaartfouten, 12.1.5). Golf 1 loopt (mh-research): Paladin, Priest, Warrior, Shaman-rest + Mage-rest.
+  Golven van 4 (ze delen de browser). Op de patchdag: één ronde nakijken + `interface` ophogen.
+- Open vraag aan Rob: W-regels ook in de/fr/es/pt/it?
+- NA golf 1 (Rob "ja"): Delve-woord in de/fr/es/pt/it = het clientwoord (GlobalStrings, site-chat GEMETEN): de
+  Tiefe/Tiefen, fr Gouffre(s), es Profundidad(es), pt Imersão/Imersões, it Scorribanda/Scorribande. GEMETEN 11 okt:
+  "Delve" 686× in Locales/ (alle talen), clientwoord 224×. Per taal mh-writer; CLAUDE.md-regel "Delves blijft
+  Engels in alle packs" dan aanpassen (nl/en blijven Delve).
+
 ## 11 okt ochtend
 - Rob test de Frost Mage-waaromregels + quiz zelf (ze staan al aan: client 120100 = `why.interface`).
 - nlNL: overal "spells", nooit "spreuken" (Rob 11 okt: "spells geldt ook voor de addon"). Alle 7 plekken in
