@@ -5,8 +5,8 @@
   TERMS, quizAnswer, kaartfouten, 12.1.5). Golf 1 loopt (mh-research): Paladin, Priest, Warrior, Shaman-rest + Mage-rest.
   Golven van 4 (ze delen de browser). Op de patchdag: één ronde nakijken + `interface` ophogen.
 - STAND (11 okt avond): W + TERMS + quiz in enUS/nlNL voor 64, 262, Priest, Warrior, Paladin, Shaman, Mage (2),
-  Hunter, Death Knight = 21 specs. Rapporten: `docs/WHY_<KLASSE>_2026-10-11.md`. Vertaald (de/fr/es/pt/it): alles
-  behalve Hunter + DK (volgende mh-writer). Healers: WAOE stond niet op de kaart (healer-tak ouder dan W) → gerepareerd
+  Hunter, Death Knight, Druid, Rogue = 28 specs. Rapporten: `docs/WHY_<KLASSE>_2026-10-11.md`. Vertaald
+  (de/fr/es/pt/it): alles behalve Druid + Rogue (volgende mh-writer). Healers: WAOE stond niet op de kaart (healer-tak ouder dan W) → gerepareerd
   in PlayCardWindow.lua. Onderzoek loopt: Druid (klaar, nog verwerken), Rogue, Warlock, Monk, Demon Hunter; daarna Evoker.
   Kaartfouten verbeterd o.a.: Holy Pal Infusion of Light 15 s (was 10), Disc Mind Blast, Holy Priest IDEA, Shadow S3,
   Arms Cleave/Rend, Prot War S3, Fire/Enh "free"→instant, Resto Sham "almost no mana", Arcane Pulse "if you have it".

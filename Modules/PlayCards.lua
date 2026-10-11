@@ -124,18 +124,31 @@ local CARDS = {
 	[102] = { -- Balance Druid
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 15 Aug · Wowhead 3 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Why lines 11 Oct 2026, docs/WHY_DRUID_2026-10-11.md. S3 now names Eclipse as {SPELL:1239669} (was plain text).
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 194223, AOE = 191034 },
 	},
 	[103] = { -- Feral Druid
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 1 Oct · Icy Veins 10 Aug · Wowhead 12 Aug 2026",
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 106951, AOE = 285381 },
 	},
 	[104] = { -- Guardian Druid
 		steps = 4, aoe = true, hero = 2,
 		source = "Method 3 Sep · Icy Veins 10 Aug · Wowhead 12 Aug 2026",
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [2] = 33917, [4] = 6807 },
 	},
 	[105] = { -- Restoration Druid
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 13 Sep · Wowhead 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 33763, [3] = 8936, AOE = 48438 },
 	},
 	[250] = { -- Blood Death Knight
 		steps = 4, aoe = true, hero = 2,
@@ -208,14 +221,24 @@ local CARDS = {
 	[259] = { -- Assassination Rogue
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 6 Sep · Method 12 Aug · Icy Veins 10 Aug 2026",
+		-- Why lines 11 Oct 2026, docs/WHY_ROGUE_2026-10-11.md. S1/S2 named the answer once as plain text: now {SPELL}.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 360194, AOE = 1247227 },
 	},
 	[260] = { -- Outlaw Rogue
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 27 Aug · Method 12 Aug · Icy Veins 10 Aug 2026",
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [3] = 315341 },
 	},
 	[261] = { -- Subtlety Rogue
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 24 Aug · Method 19 Aug · Icy Veins 10 Aug 2026",
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 185313, [2] = 185438, [3] = 426591, AOE = 197835 },
 	},
 	[263] = { -- Enhancement Shaman
 		steps = 4, aoe = true, hero = 2,
