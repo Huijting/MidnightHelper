@@ -95,18 +95,30 @@ local function RecipePlace(recipeID)
 	return idx and ns.CRAFTSHOP_PLACES and ns.CRAFTSHOP_PLACES[idx] or nil
 end
 
+--- A dungeon or raid name in the player's own language: the client's journal knows it (11 Oct 2026; `ej` ids
+--- measured in wago JournalInstance). Anything else keeps the name from the data file.
+local function PlaceName(p)
+	if p.ej and EJ_GetInstanceInfo then
+		local ok, name = pcall(EJ_GetInstanceInfo, p.ej)
+		if ok and type(name) == "string" and name ~= "" then
+			return name
+		end
+	end
+	return p.name
+end
+
 --- Arrow to a recipe's place: a vendor, a trainer (Jennara), a quest giver, or a dungeon/raid entrance.
 local function RouteToPlace(p)
 	if not (p and ns.AddSmartTomTomWay) then
 		return false
 	end
-	local label = p.name
+	local label = PlaceName(p)
 	if p.kind == "quest" then
 		label = ns:L("CRAFTSHOP_ROUTE_QUEST_FMT"):format(p.name)
 		-- Zygor gates "The Medicine Loa's Shrine" behind an earlier quest (research 6 Oct 2026): say so, once per click.
 		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CRAFTSHOP_ROUTE_QUEST_NOTE")))
 	elseif p.kind == "dungeon" or p.kind == "raid" then
-		label = ns:L("CRAFTSHOP_ROUTE_ENTRANCE_FMT"):format(p.name)
+		label = ns:L("CRAFTSHOP_ROUTE_ENTRANCE_FMT"):format(PlaceName(p))
 	end
 	return ns.AddSmartTomTomWay(p.map, p.x, p.y, label) and true or false
 end

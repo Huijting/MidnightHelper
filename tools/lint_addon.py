@@ -712,8 +712,10 @@ def check_translation_markup(root):
     # not, verified across all seven packs. When in doubt, look it up per language
     # before adding a name here; a wrong entry teaches five translators to write
     # something the player cannot find.
+    # "Atal'Utek" left this list on 11 Oct 2026: measured, the itIT client writes "Atal'utek" and ruRU
+    # "Атал'Утек" (wago UiMap 2509), and place names now follow the client (CLAUDE.md, Localization).
     KEEP = [
-        "Corrosive Coin", "Corrosive Soul", "Atal'Utek",
+        "Corrosive Coin", "Corrosive Soul",
     ]
 
     hard, soft = [], []

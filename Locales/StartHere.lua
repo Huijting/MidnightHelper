@@ -112,7 +112,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	START_SUBTITLE = "Appena arrivato al livello massimo e non sai cosa fare? Questo è tutto l'endgame, in ordine. Clicca un passo per saltare direttamente allo strumento giusto; quelli settimanali si spuntano da soli.",
 
 	START_INTRO_HEADER = "Il loop di Midnight in breve",
-	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi la Gran Banca con scorribande, Ritual Sites e Void Assaults. Renown, professioni e valute si aggiungono una volta che il loop diventa routine.",
+	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi la Gran Banca con scorribande, Siti Rituali e Void Assaults. Renown, professioni e valute si aggiungono una volta che il loop diventa routine.",
 
 	START_S1_TITLE = "1. Alza prima il tuo item level",
 	START_S1_BODY = "Comincia con le vittorie facili: fai la campagna di Midnight, prendi equipaggiamento dalle world quest e dalle quest di traguardo Renown, e fai scorribande normali (più le cacce Prey e i dungeon Heroic) per salire di item level. Anche qualche pezzo craftato/dell'AH economico aiuta. Un item level più alto apre poi i tier superiori, dove ci sono le ricompense vere.",
@@ -123,7 +123,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	START_S2_NAV = "Apri Consumables",
 
 	START_S3_TITLE = "3. Punta tutto alla Gran Banca",
-	START_S3_BODY = "La Gran Banca ti regala una ricompensa gratuita ogni settimana. La sua riga World si riempie con scorribande, Ritual Sites e Prey; i dungeon e l'incursione riempiono le altre righe. Sblocca più slot possibile prima del reset.",
+	START_S3_BODY = "La Gran Banca ti regala una ricompensa gratuita ogni settimana. La sua riga World si riempie con scorribande, Siti Rituali e Prey; i dungeon e l'incursione riempiono le altre righe. Sblocca più slot possibile prima del reset.",
 	START_S3_NAV = "Apri Home",
 
 	START_S4_TITLE = "4. Fai le tue scorribande",
@@ -131,17 +131,17 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	START_S4_NAV = "Apri Scorribande",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
-	START_S5_BODY = "Altre due attività della riga World, ideali una volta un po' equipaggiato (danno equipaggiamento Champion casuale). Sblocca prima le Ritual Sites tramite la linea di quest \"Ritual Interest\" a Silvermoon; i Void Assaults sono l'evento esterno a rotazione e la tua via d'accesso. Al Curious Obelisk scegli un tier + le challenge — il Ritual Coach le spiega tutte.",
+	START_S5_BODY = "Altre due attività della riga World, ideali una volta un po' equipaggiato (danno equipaggiamento Champion casuale). Sblocca prima i Siti Rituali tramite la linea di quest \"Ritual Interest\" a Lunargenta; i Void Assaults sono l'evento esterno a rotazione e la tua via d'accesso. Al Curious Obelisk scegli un tier + le challenge — il Ritual Coach le spiega tutte.",
 	START_S5_NAV = "Apri Void & Rituals",
 
 	START_S6_TITLE = "6. Vai più a fondo: Renown, professioni e valute",
-	START_S6_BODY = "Renown sblocca vantaggi e cosmetici; le professioni producono equipaggiamento, consumabili e oro (MH ha un corso completo per principianti); e i vendor del Bazaar a Silvermoon trasformano le tue valute in upgrade. Dedicati a questi una volta che il loop settimanale è routine.",
+	START_S6_BODY = "Renown sblocca vantaggi e cosmetici; le professioni producono equipaggiamento, consumabili e oro (MH ha un corso completo per principianti); e i vendor del Bazar a Lunargenta trasformano le tue valute in upgrade. Dedicati a questi una volta che il loop settimanale è routine.",
 	START_S6_NAV = "Apri Professioni 101",
 
 	START_RESET_TITLE = "Giorno del reset: si ricomincia",
 	START_RESET_BODY = "Le settimanali e la Gran Banca si resettano ogni settimana — mercoledì sui realm EU, martedì su quelli US. Riscatta prima il vault della settimana scorsa, poi rifai il loop. Questo è tutto il gioco — benvenuto in Midnight!",
 
-	START_WEEKLY_RITUAL = "Settimanale Ritual Sites",
+	START_WEEKLY_RITUAL = "Settimanale Siti Rituali",
 	START_WEEKLY_VOID = "Settimanale Void Assaults",
 	START_STATUS_DONE = "fatto questa settimana",
 	START_STATUS_TODO = "ancora da fare questa settimana",
@@ -247,7 +247,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_SUBTITLE = "Gerade Maximalstufe erreicht und unsicher, was jetzt? Das hier ist das ganze Endgame, der Reihe nach. Klick einen Schritt, um direkt zum passenden Tool zu springen; die wöchentlichen Schritte haken sich von selbst ab.",
 
 	START_INTRO_HEADER = "Der Midnight-Loop in Kürze",
-	START_INTRO_BODY = "Endgame ist ein wöchentlicher Rhythmus: Heb deine Gegenstandsstufe an, stimm deinen Charakter ab und füll dann jede Woche deine Große Schatzkammer über Tiefen, Ritual Sites und Void Assaults. Ansehen, Berufe und Währungen kommen obendrauf, sobald dieser Loop Routine ist.",
+	START_INTRO_BODY = "Endgame ist ein wöchentlicher Rhythmus: Heb deine Gegenstandsstufe an, stimm deinen Charakter ab und füll dann jede Woche deine Große Schatzkammer über Tiefen, Ritualstätten und Void Assaults. Ansehen, Berufe und Währungen kommen obendrauf, sobald dieser Loop Routine ist.",
 
 	START_S1_TITLE = "1. Heb zuerst deine Gegenstandsstufe an",
 	START_S1_BODY = "Fang mit den leichten Erfolgen an: Spiel die Midnight-Kampagne, hol dir Ausrüstung aus Weltquests und den Ansehen-Meilenstein-Quests und lauf normale Tiefen (plus Prey-Jagden und heroische Dungeons), um deine Gegenstandsstufe zu steigern. Ein paar günstige hergestellte/AH-Teile helfen auch. Mit höherer Gegenstandsstufe öffnen sich dann die höheren Stufen mit den echten Belohnungen.",
@@ -258,7 +258,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_S2_NAV = "Verbrauchsmaterial öffnen",
 
 	START_S3_TITLE = "3. Richte alles auf die Große Schatzkammer aus",
-	START_S3_BODY = "Die Große Schatzkammer schenkt dir jede Woche eine Belohnung. Ihre Welt-Reihe füllt sich über Tiefen, Ritual Sites und Prey; Dungeons und Schlachtzug füllen die anderen Reihen. Schalte vor dem Reset so viele Plätze frei wie möglich.",
+	START_S3_BODY = "Die Große Schatzkammer schenkt dir jede Woche eine Belohnung. Ihre Welt-Reihe füllt sich über Tiefen, Ritualstätten und Prey; Dungeons und Schlachtzug füllen die anderen Reihen. Schalte vor dem Reset so viele Plätze frei wie möglich.",
 	START_S3_NAV = "Start öffnen",
 
 	START_S4_TITLE = "4. Lauf deine Tiefen",
@@ -266,7 +266,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_S4_NAV = "Tiefen öffnen",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
-	START_S5_BODY = "Zwei weitere Welt-Reihen-Aktivitäten, am besten sobald du etwas Ausrüstung hast (sie geben zufällige Champion-Ausrüstung). Schalte Ritual Sites zuerst über die Questreihe \"Ritual Interest\" in Silbermond frei; Void Assaults sind das rotierende Open-World-Event und dein Einstieg. Am Curious Obelisk wählst du Stufe + Challenges — der Ritual Coach erklärt jede einzelne.",
+	START_S5_BODY = "Zwei weitere Welt-Reihen-Aktivitäten, am besten sobald du etwas Ausrüstung hast (sie geben zufällige Champion-Ausrüstung). Schalte Ritualstätten zuerst über die Questreihe \"Ritual Interest\" in Silbermond frei; Void Assaults sind das rotierende Open-World-Event und dein Einstieg. Am Curious Obelisk wählst du Stufe + Challenges — der Ritual Coach erklärt jede einzelne.",
 	START_S5_NAV = "Void & Rituals öffnen",
 
 	START_S6_TITLE = "6. Geh tiefer: Ansehen, Berufe & Währungen",
@@ -293,7 +293,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_SUBTITLE = "Tout juste niveau max et pas sûr de quoi faire ? Voici tout l'endgame, dans l'ordre. Clique une étape pour aller droit à l'outil correspondant ; les étapes hebdomadaires se cochent toutes seules.",
 
 	START_INTRO_HEADER = "La boucle Midnight en bref",
-	START_INTRO_BODY = "L'endgame est un rythme hebdomadaire : monte ton niveau d'objet, règle ton personnage, puis remplis chaque semaine ta Grande chambre forte avec les Gouffres, les Ritual Sites et les Void Assaults. La renommée, les métiers et les devises viennent par-dessus une fois cette boucle devenue routinière.",
+	START_INTRO_BODY = "L'endgame est un rythme hebdomadaire : monte ton niveau d'objet, règle ton personnage, puis remplis chaque semaine ta Grande chambre forte avec les Gouffres, les Sites rituels et les Void Assaults. La renommée, les métiers et les devises viennent par-dessus une fois cette boucle devenue routinière.",
 
 	START_S1_TITLE = "1. Monte d'abord ton niveau d'objet",
 	START_S1_BODY = "Commence par les gains faciles : fais la campagne de Midnight, récupère de l'équipement via les expéditions mondiales et les quêtes de palier de renommée, et enchaîne des Gouffres normaux (plus les chasses Prey et les donjons héroïques) pour grimper en niveau d'objet. Quelques pièces craftées/HV pas chères aident aussi. Un niveau d'objet plus haut ouvre ensuite les paliers supérieurs, là où sont les vraies récompenses.",
@@ -304,7 +304,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_S2_NAV = "Ouvrir Consommables",
 
 	START_S3_TITLE = "3. Vise tout sur la Grande chambre forte",
-	START_S3_BODY = "La Grande chambre forte t'offre une récompense gratuite chaque semaine. Sa ligne Monde se remplit avec les Gouffres, les Ritual Sites et Prey ; les donjons et le raid remplissent les autres lignes. Débloque autant d'emplacements que possible avant le reset.",
+	START_S3_BODY = "La Grande chambre forte t'offre une récompense gratuite chaque semaine. Sa ligne Monde se remplit avec les Gouffres, les Sites rituels et Prey ; les donjons et le raid remplissent les autres lignes. Débloque autant d'emplacements que possible avant le reset.",
 	START_S3_NAV = "Ouvrir Accueil",
 
 	START_S4_TITLE = "4. Fais tes Gouffres",
@@ -312,7 +312,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_S4_NAV = "Ouvrir Gouffres",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
-	START_S5_BODY = "Deux autres activités de la ligne Monde, idéales une fois un peu équipé (elles donnent de l'équipement Champion aléatoire). Débloque d'abord les Ritual Sites via la chaîne de quêtes \"Ritual Interest\" à Lune-d'argent ; les Void Assaults sont l'événement de zone extérieur en rotation et ta porte d'entrée. Au Curious Obelisk tu choisis un palier + des challenges — le Ritual Coach explique chacun d'eux.",
+	START_S5_BODY = "Deux autres activités de la ligne Monde, idéales une fois un peu équipé (elles donnent de l'équipement Champion aléatoire). Débloque d'abord les Sites rituels via la chaîne de quêtes \"Ritual Interest\" à Lune-d'argent ; les Void Assaults sont l'événement de zone extérieur en rotation et ta porte d'entrée. Au Curious Obelisk tu choisis un palier + des challenges — le Ritual Coach explique chacun d'eux.",
 	START_S5_NAV = "Ouvrir Void & Rituals",
 
 	START_S6_TITLE = "6. Va plus loin : renommée, métiers & devises",
@@ -322,7 +322,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_RESET_TITLE = "Jour de reset : on recommence",
 	START_RESET_BODY = "Les hebdos et la Grande chambre forte se réinitialisent chaque semaine — mercredi sur les royaumes EU, mardi sur les US. Réclame d'abord le Vault de la semaine passée, puis relance la boucle. C'est tout le jeu — bienvenue dans Midnight !",
 
-	START_WEEKLY_RITUAL = "Hebdo Ritual Sites",
+	START_WEEKLY_RITUAL = "Hebdo Sites rituels",
 	START_WEEKLY_VOID = "Hebdo Void Assaults",
 	START_STATUS_DONE = "fait cette semaine",
 	START_STATUS_TODO = "encore à faire cette semaine",

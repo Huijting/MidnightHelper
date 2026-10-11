@@ -31,6 +31,19 @@
   ritual", esMX "Sitio(s) de ritual"; esES Academy-titels. Nog open (klein): achievementnamen ("Treasures of the Coiled
   Isle") Engels in de/fr/it/ru; algemene term "Ritual Sites" nog Engels in de/it (client: Ritualstätte, Sito Rituale,
   pt Sítio Ritualístico); "Eversong Woods" Engels in ritual/Codex-teksten; ptBR Academy-titels machine-achtig.
+- ✅ PLAATSNAMEN = clientnaam (Rob "jouw advies", 11 okt; CLAUDE.md bijgewerkt). GEMETEN: scratchpad PLACE_NAMES.md
+  (81 rijen, wago UiMap/AreaTable/AreaPOI/TaxiNodes 12.1.0.69933; Labyrinth uit PTR 12.1.5.70077). Per pack nu ~20 keys
+  met Engelse plaatsnaam over (was 107-168): quest/item/achievement/factienamen en het feature-woord "Ritual Site(s)"
+  (de/fr/it wél omgezet, es/pt/ru niet — keuze open). DELVE_NAME_* = exacte clientnaam (de 7 en fr 9 verzonnen namen
+  weg). Nieuw: DELVE_NAME_GNARLDOR_ISLE/RING_OF_GLORY/VENOMFALL_DEEPS (+nameKey in DelveTipsData), PORTAL_NAME_* +
+  ns.MHPortalLabel + TRAVEL_USE_PORTAL_FMT ("%d m" voor niet-Engels = AFGELEID), CraftShopPlaces `ej`-id's →
+  EJ_GetInstanceInfo-naam in de route. Lint: "Atal'Utek" uit de KEEP-lijst (client schrijft it "Atal'utek", ru
+  "Атал'Утек"). Open: it Atal'Utek/Atal'utek gemengd; fr "Lune-d'argent"/"Lune-d'Argent" gemengd; PLAN_OPT_* NPC-
+  dialoog Engels; "Arcway" niet gemeten.
+- ⏳ VOLGENDE: dungeon/raid/achievementnamen (scratchpad INSTANCE_ACH_NAMES.md: per pack 59-76 plekken, esMX 29 eigen
+  regels; RaidCoachData S1-raids zonder journal-id 1307/1308/1314, Sporefall 1305, Tidebound 1317). Daarna de
+  Voidcore-Codexkaart (research-chat 11 okt): ResetRoutine 94623 "Building the Voidforge" al weggehaald,
+  BonusRollCapture-commentaar verbeterd.
 - Rob 11 okt: site-chat mag aan de Russische site beginnen; hij stuurt een lijst voor build_site.py ("ru").
 - Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.
 - Daarna: echte 4.7.6-release pas na de patch (14 okt): patchnotes naast de kaarten, Devourer HERO1, Robs /reload.

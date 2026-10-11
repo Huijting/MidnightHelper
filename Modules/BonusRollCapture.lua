@@ -13,6 +13,12 @@ local _, ns = ...
 	three-slot threshold as the one part never confirmed on a live realm. Both readings
 	matter, and neither is worth guessing at.
 
+	📌 ANSWERED 11 Oct 2026 (research chat, sources: Wowhead bonus-roll guide 9 Oct, Method 6 Oct): it was
+	the first reading. Voidcore bonus rolls were already live in Season 1 (since 12.0.5, through Decimus'
+	Voidforge), and the die popup after a delve boss / dungeon / raid boss IS the Voidcore roll. In Season 2
+	each roll costs 1 Nebulous Voidcore (currency 3418); the Great Vault can also pay out a Voidcore once at
+	least 3 slots are filled (Wowhead news 382243). The sentence above ("gated out on live") was wrong.
+
 	WHAT IT RECORDS. `BonusRollFrame` is a real Blizzard frame (EllesmereUIQoL lists it
 	among the movable windows), so this watches for it becoming visible and writes down
 	whatever the client put on it. It does NOT assume field names: it walks the frame's

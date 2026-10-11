@@ -2051,6 +2051,7 @@ ns._mhLocales.nlNL = {
 	EVENT_INFO_HARANIR_DESC = "Een rustiger verhaal-event in Harandar. Pak de weekly 'Lost Legends', kies een relikwie en speel z'n lore-questlijn (solo te doen).",
 	EVENT_INFO_HARANIR_REWARD = "Een weekly-kist, Hara'ti-reputatie en een housing-decorstuk bij je relikwie. Alle lore-objecten in de relikwie-verhalen vinden geeft de titel 'Chronicler of the Haranir'.",
 	TRAVEL_HS_THEN_PORTAL_FMT = "Sneller: Hearthstone naar Silvermoon, dan de %s.",
+	TRAVEL_USE_PORTAL_FMT = "Gebruik: %s (%d yd)",
 	TRAVEL_PORTALS_BIND_FMT = "Je Hearthstone: %s. Silvermoon-portalen daarna: %s.",
 	DELVE_COACH_UNKNOWN_FMT = "%s: Midnight Helper heeft voor deze nog geen delve-tips, dus de coach blijft dicht. Niet kapot — gewoon nieuw.",
 	DELVE_COACH_UNKNOWN_LABYRINTH = "Wat we wél weten staat in de Codex: Delves → The Labyrinth of Kindo'jan.",

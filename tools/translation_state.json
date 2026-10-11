@@ -1121,6 +1121,7 @@
    "ruRU": "97d9511a94cdf5e8"
   },
   "ACCOUNT_WEEKLY_SCOPE_NOTE": {
+   "ptBR": "21786a9a77378579",
    "ruRU": "21786a9a77378579"
   },
   "ACCOUNT_WEEKLY_SHARDS_FMT": {
@@ -3656,9 +3657,19 @@
    "ruRU": "788e6758f1b863cf"
   },
   "CAMPAIGN_VAULTS_REWARD_ALTAR": {
+   "deDE": "e91c59f5edae4ec3",
+   "esES": "e91c59f5edae4ec3",
+   "frFR": "e91c59f5edae4ec3",
+   "itIT": "e91c59f5edae4ec3",
+   "ptBR": "e91c59f5edae4ec3",
    "ruRU": "e91c59f5edae4ec3"
   },
   "CAMPAIGN_VAULTS_REWARD_ZONE": {
+   "deDE": "c7a999abf2b8e5c7",
+   "esES": "c7a999abf2b8e5c7",
+   "frFR": "c7a999abf2b8e5c7",
+   "itIT": "c7a999abf2b8e5c7",
+   "ptBR": "c7a999abf2b8e5c7",
    "ruRU": "c7a999abf2b8e5c7"
   },
   "CAMPAIGN_VAULTS_STARTQUEST": {
@@ -4591,6 +4602,11 @@
    "ruRU": "17299bf17edcb7d9"
   },
   "CODEX_AQIR_BODY": {
+   "deDE": "63ba9549afdbfbbe",
+   "esES": "63ba9549afdbfbbe",
+   "frFR": "63ba9549afdbfbbe",
+   "itIT": "63ba9549afdbfbbe",
+   "ptBR": "63ba9549afdbfbbe",
    "ruRU": "63ba9549afdbfbbe"
   },
   "CODEX_ATALUTEK_BODY": {
@@ -4975,6 +4991,11 @@
    "ruRU": "ebc4e6e8425c426c"
   },
   "CODEX_KITHIX_BODY": {
+   "deDE": "11bea2c67f976c0f",
+   "esES": "11bea2c67f976c0f",
+   "frFR": "11bea2c67f976c0f",
+   "itIT": "11bea2c67f976c0f",
+   "ptBR": "11bea2c67f976c0f",
    "ruRU": "11bea2c67f976c0f"
   },
   "CODEX_KITHIX_TITLE": {
@@ -4989,6 +5010,9 @@
    "ptBR": "587cb482087b756b",
    "ruRU": "587cb482087b756b"
   },
+  "CODEX_LABYRINTH_TITLE": {
+   "ruRU": "24c921e348910197"
+  },
   "CODEX_LINK_OPEN": {
    "deDE": "03ffd635338775bf",
    "esES": "03ffd635338775bf",
@@ -4999,6 +5023,11 @@
    "ruRU": "03ffd635338775bf"
   },
   "CODEX_MIDSTART_BODY": {
+   "deDE": "bb1aa9b917c0f70c",
+   "esES": "bb1aa9b917c0f70c",
+   "frFR": "bb1aa9b917c0f70c",
+   "itIT": "bb1aa9b917c0f70c",
+   "ptBR": "bb1aa9b917c0f70c",
    "ruRU": "bb1aa9b917c0f70c"
   },
   "CODEX_MIDSTART_TITLE": {
@@ -5931,6 +5960,11 @@
    "ruRU": "7ee68ae5c8400cf8"
   },
   "CRAFTSHOP_DISC_MAGISTERS": {
+   "deDE": "65e856ff099e30c6",
+   "esES": "65e856ff099e30c6",
+   "frFR": "65e856ff099e30c6",
+   "itIT": "65e856ff099e30c6",
+   "ptBR": "65e856ff099e30c6",
    "ruRU": "65e856ff099e30c6"
   },
   "CRAFTSHOP_DISENCHANT_FMT": {
@@ -5981,6 +6015,11 @@
    "ruRU": "b3dec1ad293fff33"
   },
   "CRAFTSHOP_NOTE_LEATHER": {
+   "deDE": "a1494363a7c57f33",
+   "esES": "a1494363a7c57f33",
+   "frFR": "a1494363a7c57f33",
+   "itIT": "a1494363a7c57f33",
+   "ptBR": "a1494363a7c57f33",
    "ruRU": "a1494363a7c57f33"
   },
   "CRAFTSHOP_NOTE_LOTUS": {
@@ -6005,6 +6044,11 @@
    "ruRU": "5f6112b455b40f20"
   },
   "CRAFTSHOP_NOTE_MOTE_VOID": {
+   "deDE": "2aa4b00da22ead0a",
+   "esES": "2aa4b00da22ead0a",
+   "frFR": "2aa4b00da22ead0a",
+   "itIT": "2aa4b00da22ead0a",
+   "ptBR": "2aa4b00da22ead0a",
    "ruRU": "2aa4b00da22ead0a"
   },
   "CRAFTSHOP_NOTE_MOTE_WILD": {
@@ -6085,6 +6129,11 @@
    "ruRU": "cd38006f90a16db2"
   },
   "CRAFTSHOP_ROUTE_TIP": {
+   "deDE": "fac9e59999a11c67",
+   "esES": "fac9e59999a11c67",
+   "frFR": "fac9e59999a11c67",
+   "itIT": "fac9e59999a11c67",
+   "ptBR": "fac9e59999a11c67",
    "ruRU": "fac9e59999a11c67"
   },
   "CRAFTSHOP_ROUTE_TRAINER_FMT": {
@@ -6126,12 +6175,22 @@
    "ruRU": "8b464deb28826e1e"
   },
   "CRAFTSHOP_TIP_HERB": {
+   "deDE": "0d36cd8b65cb26fa",
+   "esES": "0d36cd8b65cb26fa",
+   "frFR": "0d36cd8b65cb26fa",
+   "itIT": "0d36cd8b65cb26fa",
+   "ptBR": "0d36cd8b65cb26fa",
    "ruRU": "0d36cd8b65cb26fa"
   },
   "CRAFTSHOP_TIP_KNOWN_FMT": {
    "ruRU": "1f348a52901d4fb9"
   },
   "CRAFTSHOP_TIP_LEATHER": {
+   "deDE": "7481cd4b7e24dd1e",
+   "esES": "7481cd4b7e24dd1e",
+   "frFR": "7481cd4b7e24dd1e",
+   "itIT": "7481cd4b7e24dd1e",
+   "ptBR": "7481cd4b7e24dd1e",
    "ruRU": "7481cd4b7e24dd1e"
   },
   "CRAFTSHOP_TIP_LOTUS": {
@@ -6156,6 +6215,11 @@
    "ruRU": "96f8879d64d01d6a"
   },
   "CRAFTSHOP_TIP_MOTE_VOID": {
+   "deDE": "a493f0346b08fada",
+   "esES": "a493f0346b08fada",
+   "frFR": "a493f0346b08fada",
+   "itIT": "a493f0346b08fada",
+   "ptBR": "a493f0346b08fada",
    "ruRU": "a493f0346b08fada"
   },
   "CRAFTSHOP_TIP_MOTE_WILD": {
@@ -6168,6 +6232,11 @@
    "ruRU": "27dbf1c0cc10f2ea"
   },
   "CRAFTSHOP_TIP_ORE": {
+   "deDE": "c5c6c331fff1d8cc",
+   "esES": "c5c6c331fff1d8cc",
+   "frFR": "c5c6c331fff1d8cc",
+   "itIT": "c5c6c331fff1d8cc",
+   "ptBR": "c5c6c331fff1d8cc",
    "ruRU": "c5c6c331fff1d8cc"
   },
   "CRAFTSHOP_TIP_PREY": {
@@ -6293,9 +6362,19 @@
    "ruRU": "64a4949d6618faa7"
   },
   "CURACC_USE_ACCOLADE": {
+   "deDE": "c8ea846cf90c809e",
+   "esES": "c8ea846cf90c809e",
+   "frFR": "c8ea846cf90c809e",
+   "itIT": "c8ea846cf90c809e",
+   "ptBR": "c8ea846cf90c809e",
    "ruRU": "c8ea846cf90c809e"
   },
   "CURACC_USE_CORRCOIN": {
+   "deDE": "2d7c0a11a446ee34",
+   "esES": "2d7c0a11a446ee34",
+   "frFR": "2d7c0a11a446ee34",
+   "itIT": "2d7c0a11a446ee34",
+   "ptBR": "2d7c0a11a446ee34",
    "ruRU": "2d7c0a11a446ee34"
   },
   "CURACC_USE_CRESTS": {
@@ -6313,6 +6392,11 @@
    "ruRU": "b9eacf869a867cbb"
   },
   "CURACC_USE_MANAFLUX": {
+   "deDE": "f56846ab3d7d7ab9",
+   "esES": "f56846ab3d7d7ab9",
+   "frFR": "f56846ab3d7d7ab9",
+   "itIT": "f56846ab3d7d7ab9",
+   "ptBR": "f56846ab3d7d7ab9",
    "ruRU": "f56846ab3d7d7ab9"
   },
   "CURACC_USE_MARL": {
@@ -8183,70 +8267,80 @@
    "esES": "2a7f0a22405b376a",
    "frFR": "2a7f0a22405b376a",
    "itIT": "2a7f0a22405b376a",
-   "ptBR": "2a7f0a22405b376a"
+   "ptBR": "2a7f0a22405b376a",
+   "ruRU": "2a7f0a22405b376a"
   },
   "DELVE_NAME_GRUDGE_PIT": {
    "deDE": "1719c434cf472b0c",
    "esES": "1719c434cf472b0c",
    "frFR": "1719c434cf472b0c",
    "itIT": "1719c434cf472b0c",
-   "ptBR": "1719c434cf472b0c"
+   "ptBR": "1719c434cf472b0c",
+   "ruRU": "1719c434cf472b0c"
   },
   "DELVE_NAME_GULF_OF_MEMORY": {
    "deDE": "fc8bbeb4818dcdc2",
    "esES": "fc8bbeb4818dcdc2",
    "frFR": "fc8bbeb4818dcdc2",
    "itIT": "fc8bbeb4818dcdc2",
-   "ptBR": "fc8bbeb4818dcdc2"
+   "ptBR": "fc8bbeb4818dcdc2",
+   "ruRU": "fc8bbeb4818dcdc2"
   },
   "DELVE_NAME_PARHELION_PLAZA": {
    "deDE": "f35a78c4a46dbb30",
    "esES": "f35a78c4a46dbb30",
    "frFR": "f35a78c4a46dbb30",
    "itIT": "f35a78c4a46dbb30",
-   "ptBR": "f35a78c4a46dbb30"
+   "ptBR": "f35a78c4a46dbb30",
+   "ruRU": "f35a78c4a46dbb30"
   },
   "DELVE_NAME_SHADOWGUARD_POINT": {
    "deDE": "e49de3d7478e9882",
    "esES": "e49de3d7478e9882",
    "frFR": "e49de3d7478e9882",
    "itIT": "e49de3d7478e9882",
-   "ptBR": "e49de3d7478e9882"
+   "ptBR": "e49de3d7478e9882",
+   "ruRU": "e49de3d7478e9882"
   },
   "DELVE_NAME_SHADOW_ENCLAVE": {
    "deDE": "ce70323a61596b55",
    "esES": "ce70323a61596b55",
    "frFR": "ce70323a61596b55",
    "itIT": "ce70323a61596b55",
-   "ptBR": "ce70323a61596b55"
+   "ptBR": "ce70323a61596b55",
+   "ruRU": "ce70323a61596b55"
   },
   "DELVE_NAME_SUNKILLER_SANCTUM": {
    "deDE": "ff3f8673d801435b",
    "esES": "ff3f8673d801435b",
    "frFR": "ff3f8673d801435b",
    "itIT": "ff3f8673d801435b",
-   "ptBR": "ff3f8673d801435b"
+   "ptBR": "ff3f8673d801435b",
+   "ruRU": "ff3f8673d801435b"
   },
   "DELVE_NAME_THE_DARKWAY": {
    "deDE": "ce67cecd0698431b",
    "esES": "ce67cecd0698431b",
    "frFR": "ce67cecd0698431b",
    "itIT": "ce67cecd0698431b",
-   "ptBR": "ce67cecd0698431b"
+   "ptBR": "ce67cecd0698431b",
+   "ruRU": "ce67cecd0698431b"
   },
   "DELVE_NAME_TORMENTS_RISE": {
    "deDE": "39dc02776df5123f",
    "esES": "39dc02776df5123f",
    "frFR": "39dc02776df5123f",
    "itIT": "39dc02776df5123f",
-   "ptBR": "39dc02776df5123f"
+   "ptBR": "39dc02776df5123f",
+   "ruRU": "39dc02776df5123f"
   },
   "DELVE_NAME_TWILIGHT_CRYPTS": {
    "deDE": "1dfcbc9346c6e9cf",
    "esES": "1dfcbc9346c6e9cf",
    "frFR": "1dfcbc9346c6e9cf",
    "itIT": "1dfcbc9346c6e9cf",
-   "ptBR": "1dfcbc9346c6e9cf"
+   "ptBR": "1dfcbc9346c6e9cf",
+   "ruRU": "1dfcbc9346c6e9cf"
   },
   "DELVE_REWARDS_CAP_AT_8": {
    "deDE": "a6c0f6d9f683dfc5",
@@ -15937,6 +16031,11 @@
    "ruRU": "c5ae65235e0aa6ba"
   },
   "HOME_HERO_NONE_YET_FMT": {
+   "deDE": "2fad089e57803718",
+   "esES": "2fad089e57803718",
+   "frFR": "2fad089e57803718",
+   "itIT": "2fad089e57803718",
+   "ptBR": "2fad089e57803718",
    "ruRU": "2fad089e57803718"
   },
   "HOME_HERO_NOTHING_TO_FETCH_FMT": {
@@ -21899,6 +21998,11 @@
    "ruRU": "c51498383b7bea72"
   },
   "PLAN_DETAIL_CAPITAL_PORTAL": {
+   "deDE": "c1bd5554a3fcc060",
+   "esES": "c1bd5554a3fcc060",
+   "frFR": "c1bd5554a3fcc060",
+   "itIT": "c1bd5554a3fcc060",
+   "ptBR": "c1bd5554a3fcc060",
    "ruRU": "c1bd5554a3fcc060"
   },
   "PLAN_DETAIL_FLY_TO": {
@@ -34317,9 +34421,19 @@
    "ruRU": "f2cb1deced395823"
   },
   "SMC_LOCKED_BANNER_FMT": {
+   "deDE": "bbb0fc5b400ad973",
+   "esES": "bbb0fc5b400ad973",
+   "frFR": "bbb0fc5b400ad973",
+   "itIT": "bbb0fc5b400ad973",
+   "ptBR": "bbb0fc5b400ad973",
    "ruRU": "bbb0fc5b400ad973"
   },
   "SMC_LOCKED_FMT": {
+   "deDE": "6c0be6df58eb5acd",
+   "esES": "6c0be6df58eb5acd",
+   "frFR": "6c0be6df58eb5acd",
+   "itIT": "6c0be6df58eb5acd",
+   "ptBR": "6c0be6df58eb5acd",
    "ruRU": "6c0be6df58eb5acd"
   },
   "SMC_PIN_CLICK_HINT": {
@@ -35577,6 +35691,7 @@
    "ruRU": "173786faee2d292e"
   },
   "TAB_TAGLINE_ROOM_CODEX": {
+   "deDE": "621238befb52bd9b",
    "ruRU": "621238befb52bd9b"
   },
   "TAB_TAGLINE_ROOM_ME": {
@@ -35592,6 +35707,7 @@
    "ruRU": "657684d8aa97f728"
   },
   "TAB_TAGLINE_SMCGUIDE": {
+   "deDE": "6512f7f0ef6fedde",
    "ruRU": "6512f7f0ef6fedde"
   },
   "TAB_TAGLINE_STARTHERE": {

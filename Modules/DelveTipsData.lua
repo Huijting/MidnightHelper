@@ -192,6 +192,7 @@ ns.DELVE_TIP_ENTRIES = {
 	{
 		id = "gnarldor_isle",
 		rosterName = "Gnarldor Isle",
+		nameKey = "DELVE_NAME_GNARLDOR_ISLE", -- 11 Oct 2026: shown in the client's language like the others
 		poiId = 8761,
 		sections = {
 			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_GNARLDOR_OVERVIEW" },
@@ -205,6 +206,7 @@ ns.DELVE_TIP_ENTRIES = {
 	{
 		id = "ring_of_glory",
 		rosterName = "The Ring of Glory",
+		nameKey = "DELVE_NAME_RING_OF_GLORY",
 		poiId = 8764,
 		sections = {
 			--- ⚠️ EERST, EN ROOD, EN DAT IS EEN BESLISSING VAN 18 AUG. Dit had een
@@ -246,6 +248,7 @@ ns.DELVE_TIP_ENTRIES = {
 	{
 		id = "venomfall_deeps",
 		rosterName = "Venomfall Deeps",
+		nameKey = "DELVE_NAME_VENOMFALL_DEEPS",
 		sections = {
 			{ titleKey = "DELVE_COACH_SEC_DANGER", bodyKey = "DELVE_TIP_VENOMFALL_DANGER", danger = true },
 			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_VENOMFALL_OVERVIEW" },

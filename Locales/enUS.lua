@@ -2123,6 +2123,11 @@ ns._mhLocales.enUS = {
 	EVENT_INFO_HARANIR_REWARD = "A weekly cache, Hara'ti reputation and a housing decor piece tied to your relic. Finding every lore object inside the relic stories grants the 'Chronicler of the Haranir' title.",
 	-- 12.1.5 (7 Oct 2026). Blizzard's content notes of 1 Oct + wago 70077; see docs/PATCH_12_1_5_CONTENT_2026-10-07.md.
 	TRAVEL_HS_THEN_PORTAL_FMT = "Faster: Hearthstone to Silvermoon, then %s.",
+	TRAVEL_USE_PORTAL_FMT = "Use: %s (%dyd)",
+	-- Portal names as the client shows them (AreaPOI 8643/8640/8641); other packs carry their client's name.
+	PORTAL_NAME_SILVERMOON = "Portal to Silvermoon",
+	PORTAL_NAME_VOIDSTORM = "Portal to Voidstorm",
+	PORTAL_NAME_HARANDAR = "Portal to Harandar",
 	TRAVEL_PORTALS_BIND_FMT = "Your Hearthstone: %s. Silvermoon portals after it: %s.",
 	DELVE_COACH_UNKNOWN_FMT = "%s: Midnight Helper has no delve tips for this one yet, so the coach stays closed. Not broken — just new.",
 	DELVE_COACH_UNKNOWN_LABYRINTH = "What we do know is in the Codex: Delves → The Labyrinth of Kindo'jan.",

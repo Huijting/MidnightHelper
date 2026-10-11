@@ -310,6 +310,25 @@ local MIDNIGHT_PORTALS = {
 	-- different maps and a wrong waypoint sends you across a zone for nothing.
 }
 
+--- `name` above stays English: code compares it. What the player READS goes through here, so a German
+--- player sees "Portal nach Silbermond" (11 Oct 2026; client names measured, AreaPOI 8643/8640/8641).
+--- Rows without a key (the gated isle portal, The Den, the beacon) keep their English text for now.
+local PORTAL_NAME_KEYS = {
+	["Portal to Silvermoon"] = "PORTAL_NAME_SILVERMOON",
+	["Portal to Voidstorm"] = "PORTAL_NAME_VOIDSTORM",
+	["Portal to Harandar"] = "PORTAL_NAME_HARANDAR",
+}
+function ns.MHPortalLabel(name)
+	local key = name and PORTAL_NAME_KEYS[name]
+	if key and ns.L then
+		local s = ns:L(key)
+		if s and s ~= key then
+			return s
+		end
+	end
+	return name
+end
+
 ns.MIDNIGHT_DELVES = MIDNIGHT_DELVES
 ns.MIDNIGHT_PORTALS = MIDNIGHT_PORTALS
 
@@ -2002,7 +2021,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 			if not arrowOnIt then
 				travelPopup.portalBtn:Show()
 			end
-			portalAdvice, bestDist = string.format("\n|cff00ffffUse: %s (%dyd)|r", best.p.name, best.d), best.d
+			portalAdvice, bestDist = "\n|cff00ffff" .. ns:L("TRAVEL_USE_PORTAL_FMT"):format(ns.MHPortalLabel(best.p.name), best.d) .. "|r", best.d
 		end
 
 		hsBtn:ClearAllPoints()
@@ -2017,7 +2036,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal
 			and (HearthstoneGoesTo(targetZoneName) or hsHubPortal ~= nil))
 		if isHSVisible and hsHubPortal then
-			portalAdvice = portalAdvice .. "\n|cff00ffff" .. ns:L("TRAVEL_HS_THEN_PORTAL_FMT"):format(hsHubPortal.name) .. "|r"
+			portalAdvice = portalAdvice .. "\n|cff00ffff" .. ns:L("TRAVEL_HS_THEN_PORTAL_FMT"):format(ns.MHPortalLabel(hsHubPortal.name)) .. "|r"
 		end
 
 		if isHSVisible then
@@ -2188,7 +2207,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 			if not arrowOnIt then
 				travelPopup.portalBtn:Show()
 			end
-			portalAdvice, bestDist = string.format("\n|cff00ffffUse: %s (%dyd)|r", best.p.name, best.d), best.d
+			portalAdvice, bestDist = "\n|cff00ffff" .. ns:L("TRAVEL_USE_PORTAL_FMT"):format(ns.MHPortalLabel(best.p.name), best.d) .. "|r", best.d
 		end
 
 		hsBtn:ClearAllPoints()
@@ -2203,7 +2222,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal
 			and (HearthstoneGoesTo(targetZoneName) or hsHubPortal ~= nil))
 		if isHSVisible and hsHubPortal then
-			portalAdvice = portalAdvice .. "\n|cff00ffff" .. ns:L("TRAVEL_HS_THEN_PORTAL_FMT"):format(hsHubPortal.name) .. "|r"
+			portalAdvice = portalAdvice .. "\n|cff00ffff" .. ns:L("TRAVEL_HS_THEN_PORTAL_FMT"):format(ns.MHPortalLabel(hsHubPortal.name)) .. "|r"
 		end
 
 		if isHSVisible then
@@ -4286,7 +4305,7 @@ portalBtn.icon = pIcon
 portalBtn:SetScript("OnClick", function(self)
 	if self.mapID and self.x and self.y then
 		if ns.IsTomTomReady() then
-			local titleStr = "|cff00ffff[Portal]|r " .. tostring(self.name)
+			local titleStr = "|cff00ffff[Portal]|r " .. tostring(ns.MHPortalLabel(self.name))
 
 			local uid = _G.TomTom:AddWaypoint(self.mapID, self.x / 100, self.y / 100, {
 				title = titleStr,
@@ -4305,7 +4324,7 @@ portalBtn:SetScript("OnClick", function(self)
 			print(
 				("|cffffcc00%s|r %s"):format(
 					ns:L("PRINT_PREFIX"),
-					ns:L("BLIZZARD_WAYPOINT_PORTAL"):format(tostring(self.name or "Portal"))
+					ns:L("BLIZZARD_WAYPOINT_PORTAL"):format(tostring(ns.MHPortalLabel(self.name) or "Portal"))
 				)
 			)
 			SafeHideTravelPopup()

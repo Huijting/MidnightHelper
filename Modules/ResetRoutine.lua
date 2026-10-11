@@ -1257,7 +1257,9 @@ function ns.GetResetRoutineSteps()
 		{ q = 94446, name = "A Nightmarish Task" },
 		{ q = 93784, name = "Gnawing Curiosity" },
 		{ q = 93767, name = "Arcantina" },
-		{ q = 94623, name = "Building the Voidforge" }, -- Decimus @ Voidstorm (PTR_12.0.7_DATA)
+		-- 94623 "Building the Voidforge" (Decimus, Voidstorm) removed 11 Oct 2026: a Season 1 setup quest, and
+		-- Wowhead's Voidforge guide says the forge is "no longer in use" since Season 2 (updated 10 Aug). Once
+		-- done it would show as "done" here every week. The S2 Voidcore weeklies are Orin's (98012/98015/98016).
 		-- Nog te bevestigen (geen quest-ID; in-game capturen): Beacon of Hope,
 		-- Prey Hunts, Saltheril's Soiree, Bonus Event. Voeg toe zodra ID bekend.
 	}
