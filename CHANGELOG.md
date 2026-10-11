@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.6
 
+📌 **2026-10-11 avond, BETA 3 (Rob: "Go"), tag `v4.7.6-beta3` na akkoord site-chat.** Notitie `docs/CURSEFORGE_4.7.6.md`
+= `RELEASE_NOTES.md` (kop "beta 3"). GEMETEN door Rob: Frost Mage + Elemental Shaman waarom-regels en quiz. NIET in het
+spel getest: de andere 38 kaarten (offline 40/40 OK), ruRU en esMX (geen client), NavSearch-ULower (offline OK),
+vertalingen (zelfgemaakt, geen moedertaalspreker).
+
+- **Waarom-regels + "Goed om te weten" + quiz voor alle 40 specs** (PlayCards.lua, PlayCardWindow.lua); 39 kaarten
+  gecontroleerd voor 12.1.5 (`why.interface` 120105), Devourer blijft 120100 tot HERO1 nagekeken is.
+- **ruRU-pack** (Locales/ruRU.lua, 5193 keys, woordenlijst uit Blizzard-data) + taalmenu/`/mh lang ru`.
+- **esMX-laag** (Locales/esMX.lua, 510 regels) + esES opgeschoond (coger/vosotros/usted, 198 regels).
+- **Clientwoorden** in de/fr/es/pt/it: Delve, Bountiful, Delver's Call, gem-namen.
+- **NavSearch**: ULower (Latin-1 + Cyrillisch), trefwoord "delves".
+- **Death card** 20 s + schuif 5-60 s, "killed instantly"; **key block** onder level 10 = eerste spec van de klasse.
+- **Tekstfouten** (7, GEMETEN): Evoker mail, catch-up, Crafting Details, /say-test, Eversong Diamond, loot-menu,
+  `/mh lang`; DelveTips es/pt naar seizoen 2; DelveBossShowcase kent de lokale Delver's Call-questnaam.
+
 📌 **2026-10-10 avond, BETA 2 (Rob: "go beta2"), tag `v4.7.6-beta2` na akkoord site-chat.** Notitie opnieuw
 `docs/CURSEFORGE_4.7.6.md` = `RELEASE_NOTES.md` (kop "beta 2"). GEMETEN door Rob: vriendenmarkering via Battle.net
 (Dobby kreeg het rondje), export-velden 16-20 + level (Earthshammy/Theexodus/Warlockie), Trading Post-checks, Felguard,

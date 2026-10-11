@@ -3173,7 +3173,15 @@ ns._mhLocales.enUS = {
 	CHANGELOG_476_6 = "Settings: five switches that had no button now do - short pop-up notes (toasts), the Trovehunter's Bounty toast, the sound for new things to open, the Delve items window opening by itself, and how many extra mouse buttons the key layout may use.",
 	CHANGELOG_476_7 = "Codex, Starting the Midnight campaign: lost the quest? Stormwind, Orgrimmar or the Adventure Guide offer it again. And the skip line only appears once a character on your account has the Midnight achievement.",
 	-- beta 2 (10 Oct 2026)
-	CHANGELOG_476_8 = "Marker bar: playing with the same friends? Everyone can pick their own marker (/mh mark me star), and one button marks them all, whatever character they play - in delves, dungeons and raids (in a raid you need lead or assist). Friends without MH: /mh mark friend <their character name or BattleTag> circle.",
+	-- beta 3 (11 Oct 2026)
+	CHANGELOG_476_18 = "Play cards: all 40 specs now have a 'Why' line under every step, a 'Good to know' line that explains the game terms, and a 'Test yourself' quiz. Spell and talent names show in your own game language.",
+	CHANGELOG_476_19 = "Russian: a full Russian language pack, used by itself on a Russian game client. Mexican clients now see the game words of their own client (abismo, calabozo, Gran bóveda).",
+	CHANGELOG_476_20 = "German, French, Spanish, Portuguese and Italian now name Delves, Bountiful Delves and Delver's Call the way your game client does (Tiefe, gouffre, profundidad, imersão, scorribanda).",
+	CHANGELOG_476_21 = "Search box: words with capitals like Ü or É, and Russian letters, are found now; typing 'delves' finds the Delves tab in every language.",
+	CHANGELOG_476_22 = "Death card: stays 20 seconds by default (5-60 s slider in Settings), and says 'killed instantly' when nothing hit you right before you died.",
+	CHANGELOG_476_23 = "Key block: on a new character below level 10 it uses your class's first spec.",
+	CHANGELOG_476_24 = "Text fixes: Evokers wear mail; a missed profession week comes back slowly through catch-up; the gem is an Eversong Diamond; the loot menu says 'Current Specialization'; Spanish and Portuguese delve tips describe Season 2.",
+	CHANGELOG_476_8 ="Marker bar: playing with the same friends? Everyone can pick their own marker (/mh mark me star), and one button marks them all, whatever character they play - in delves, dungeons and raids (in a raid you need lead or assist). Friends without MH: /mh mark friend <their character name or BattleTag> circle.",
 	CHANGELOG_476_9 = "Class advice checked against the 12.1 game data for all 40 specs: about 25 fixes. For example: Demonology gets the Felguard, Arms and Fury their own stance, Assassination Deadly Poison, the non-lethal poison you talented, the Warlock demon you summoned last; spells with a new id in 12.1 (Breath of Sindragosa, Flame Shock, Multi-Shot, Renewing Mist, Roll the Bones) no longer show grey; macros for spells that are gone were removed.",
 	CHANGELOG_476_10 = "Frost Mage play card (try-out): a 'Why' line under every step, and a 'Test yourself' quiz built from the card. More specs follow.",
 	CHANGELOG_476_11 = "Trading Post: 'already own' now also for transmog, toys and ensembles, not only mounts and pets.",

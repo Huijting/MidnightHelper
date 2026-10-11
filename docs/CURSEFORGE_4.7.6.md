@@ -1,4 +1,4 @@
-# Midnight Helper 4.7.6 (beta 2): what killed you, markers for your friends, and 25 class fixes
+# Midnight Helper 4.7.6 (beta 3): every play card explains itself, and Midnight Helper speaks Russian
 
 ## This is a beta
 
@@ -12,64 +12,49 @@ a bug report:
 - a comment here on CurseForge,
 - or the feedback form on midnighthelper.com.
 
-## New in beta 2: what killed you
+## New in beta 3: all 40 play cards explain themselves
 
-After you die, Midnight Helper now reads **Blizzard's own Death Recap** and tells you in plain words what did most
-of the damage, how many hits, and what the last hit was, with a tip for next time. Fell off a cliff? It says that
-too. Where the game keeps those details hidden, the card opens the Death Recap for you, and clicking it works again in
-12.1.
+The *How you play* card for **every spec** now has a **Why** line under each step: not just "press this", but why it
+matters. A **Good to know** line explains the game terms the card uses (what is Freezing? what is an Eclipse?), and
+**Test yourself** is a short quiz built from the card. Spell and talent names show in your own game language.
 
-## New in beta 2: everyone gets their own marker
+We checked the advice against the 12.1 game data, the class guides and the 12.1.5 patch notes. After Tuesday's patch
+the Why lines stay on for 39 specs; Devourer hides them until we have checked one hero talent change.
 
-Play with the same friends? Everyone picks their own marker once (`/mh mark me star`), and **one button on the marker
-bar** marks you all, whatever character each of you is on: in delves, dungeons and raids (in a raid you need lead or
-assist). Friends without Midnight Helper: `/mh mark friend <their character name or BattleTag> circle`.
+## New in beta 3: Русский
 
-## New in beta 2: class advice checked for all 40 specs
+Midnight Helper now has a **Russian** language pack. It is used by itself on a Russian game client, with the game
+words that client shows. Mexican game clients also get their own words now (abismo, calabozo, Gran bóveda) on top of
+the Spanish pack.
 
-We checked every piece of class advice against the 12.1 game data and fixed about **25 mistakes**. A few:
+## New in beta 3: the words your game uses
 
-- Demonology summons a **Felguard**, not an Imp; Affliction and Destruction get the demon you summoned last.
-- Arms and Fury get their **own stance**; Assassination gets **Deadly Poison**, and every rogue the non-lethal poison
-  they talented.
-- Spells with a new id in 12.1 (Breath of Sindragosa, Flame Shock, Multi-Shot, Renewing Mist, Roll the Bones) no
-  longer show grey on the *How you play* card.
-- Macros for spells that no longer exist were removed or replaced.
+German, French, Spanish, Portuguese and Italian now name **Delves**, **Bountiful Delves** and **Delver's Call** the
+way your game client does: Tiefe, gouffre, profundidad, imersão, scorribanda. Gem names follow your client too.
 
-## Also new in beta 2
+## Also new in beta 3
 
-- **This Week:** Orin Straylight's extra Nebulous Voidcore and Warleader Abdumati's *Purging the Vaults* are on the
-  list; Vereesa says honestly that she skips some weeks; the Ritual Sites weekly points to Lady Liadrin, not the
-  Bazaar; three Coiled Isle Special Assignments added.
-- **Frost Mage, try-out:** a *Why* line under every step of the play card, and a **Test yourself** quiz built from
-  the card. More specs follow.
-- **Trading Post:** *already own* now also for transmog, toys and ensembles.
-- **Professions:** every node says which tab it is in and whether it is open yet; the advice says in plain words when
-  the next choice opens.
-- **Healers:** Celestial Conduit and Tip the Scales on the cooldown list; boss tips name a raid cooldown you picked.
-- **midnighthelper.com Armory:** `/mh export` now carries realm, region and level (for your character picture), tier
-  set, gems and enchants with their rank, and leaves out bag items you cannot use.
+- **Search box:** words with capitals like Ü or É, and Russian letters, are found; `delves` finds the Delves tab in
+  every language.
+- **Death card:** stays 20 seconds by default (a 5-60 s slider in Settings), and says *killed instantly* when nothing
+  hit you right before you died.
+- **Key block:** a new character below level 10 gets the layout of its class's first spec.
+- **Text fixes:** Evokers wear mail; a missed profession week comes back slowly through catch-up; the gem is an
+  Eversong Diamond; the loot menu says *Current Specialization*; Spanish and Portuguese delve tips describe Season 2.
 
-## From beta 1: which spells you press, in a window (`/mh presses`)
+## From beta 2
 
-Your most-pressed spells, how often, the key each one sits on, and whether that key is **easy, okay or hard**. Every
-tip has a **Swap** button (out of combat, one at a time) and **Undo**. Heals, interrupts and defensives never move.
-Counting stays off until you turn it on: `/mh presses on`.
+- **What killed you:** after you die, MH reads Blizzard's Death Recap and says what did most of the damage, with a tip.
+- **Your own marker:** `/mh mark me star`, and one button marks all your friends.
+- **Class advice** checked against the 12.1 game data for all 40 specs: about 25 fixes.
+- **This Week**, **Trading Post**, **professions**, **healer cooldowns** and the **midnighthelper.com export** improved.
 
-## From beta 1: Bartender4 and ElvUI
+## From beta 1
 
-`/mh presses` and the *How you play* card find your keys in **Bartender4** and **ElvUI** bars too. If you use one of
-them, type `/mh playkeys` and tell us whether the keys match your bars.
+- **Which spells you press** (`/mh presses`): your most-pressed spells, their keys, and a **Swap** button.
+- `/mh presses` and the *How you play* card find your keys in **Bartender4** and **ElvUI** bars too.
 
-## From beta 1: small things
-
-- Key block cheat sheet: **All characters** puts every character's code in one copy box.
-- Marker bar: one click marks the **tank** (blue square) and the **healer** (green triangle).
-- Settings: five switches that had no button now have one.
-- Codex: lost the Midnight campaign quest? Where to get it again.
-- Raidbots export: race ids 95 and 96.
-
-New text in German, French, Spanish, Portuguese and Italian is our own translation: native speakers, corrections
-are very welcome.
+Russian, Mexican-Spanish and other new texts in German, French, Spanish, Portuguese and Italian are our own
+translation: native speakers, corrections are very welcome.
 
 Have fun!
