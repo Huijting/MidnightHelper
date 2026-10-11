@@ -149,7 +149,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	START_WEEKLY_SUMMARY_FMT = "Questa settimana: %d/%d obiettivi settimanali completati",
 	START_VAULT_READY = "C'è una ricompensa della Gran Banca che ti aspetta — riscattala!",
 	START_VAULT_NONE = "Nessuna ricompensa del vault ancora — continua a riempirlo prima del reset.",
-	START_DELVERCALL_FMT = "Delver's Call: %d/%d completate questa settimana",
+	START_DELVERCALL_FMT = "Chiamata alla Scorribanda: %d/%d completate questa settimana",
 })
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
@@ -284,7 +284,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_WEEKLY_SUMMARY_FMT = "Diese Woche: %d/%d Wochenziele erledigt",
 	START_VAULT_READY = "Eine Great-Vault-Belohnung wartet — hol sie ab!",
 	START_VAULT_NONE = "Noch keine Vault-Belohnung bereit — füll ihn weiter vor dem Reset.",
-	START_DELVERCALL_FMT = "Delver's Call: %d/%d diese Woche erledigt",
+	START_DELVERCALL_FMT = "Ruf des Tiefenforschers: %d/%d diese Woche erledigt",
 })
 
 merge(ns._mhLocales and ns._mhLocales.frFR, {
@@ -330,7 +330,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_WEEKLY_SUMMARY_FMT = "Cette semaine : %d/%d objectifs hebdo faits",
 	START_VAULT_READY = "Une récompense de la Grande chambre forte t'attend — réclame-la !",
 	START_VAULT_NONE = "Pas encore de récompense de Vault — continue de le remplir avant le reset.",
-	START_DELVERCALL_FMT = "Delver's Call : %d/%d faits cette semaine",
+	START_DELVERCALL_FMT = "Appel du Gouffre : %d/%d faites cette semaine",
 })
 
 merge(ns._mhLocales and ns._mhLocales.esES, {
@@ -376,7 +376,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	START_WEEKLY_SUMMARY_FMT = "Esta semana: %d/%d objetivos semanales hechos",
 	START_VAULT_READY = "Hay una recompensa de la Gran cámara esperando — ¡reclámala!",
 	START_VAULT_NONE = "Aún no hay recompensa del vault — sigue llenándolo antes del reinicio.",
-	START_DELVERCALL_FMT = "Delver's Call: %d/%d hechas esta semana",
+	START_DELVERCALL_FMT = "Llamada de explorador de profundidades: %d/%d hechas esta semana",
 })
 
 merge(ns._mhLocales and ns._mhLocales.ptBR, {
@@ -422,5 +422,5 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_WEEKLY_SUMMARY_FMT = "Esta semana: %d/%d objetivos semanais feitos",
 	START_VAULT_READY = "Há uma recompensa do Grande Cofre esperando — resgate-a!",
 	START_VAULT_NONE = "Nenhuma recompensa do vault ainda — continue enchendo antes do reset.",
-	START_DELVERCALL_FMT = "Delver's Call: %d/%d feitas esta semana",
+	START_DELVERCALL_FMT = "Chamado do Imersor: %d/%d feitas esta semana",
 })

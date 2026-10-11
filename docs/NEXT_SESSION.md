@@ -72,7 +72,12 @@
   {SPELL:id}; (3) breedte: DELVES_BTN_BOUNTIFUL "Найти ближайшую многообещающую вылазку" (38 tekens), PARTY_DISPEL_TAG
   "РАЗВЕИВАНИЕ" → in een ruRU-client bekijken; (4) DUNDUN_CHAT_MACRO `/target Дандан` (Creature 249488 = AFGELEID).
   ✅ 11 okt: alle 7 Engelse bronfouten GEMETEN (scratchpad ENGLISH_FIXES.md: wago ChrClasses/ItemSparse/GS, UI-bron,
-  Wowhead) en in enUS+nlNL verbeterd, plus LANG_UNKNOWN/LANG_SLASH_HINT kennen it/ru. De andere 6 talen volgen
+  Wowhead) en in enUS+nlNL verbeterd, plus LANG_UNKNOWN/LANG_SLASH_HINT kennen it/ru. ✅ Ook in de/fr/es/pt/it/ru (round 3, 11 okt;
+  loot-menu met de clientnaam uit GlobalStrings per taal); check_drift daarna 0 gedrift in alle talen.
+  ✅ "Delver's Call" = één clientnaam per pack (QuestLine 6051 + Wowhead GEMETEN; CLAUDE.md); verzonnen namen
+  (Tiefenwanderer, gouffrier, cavernícola, Explorador) weg; DelveBossShowcase kent de lokale questnaam.
+  Open: gem-namen "Eversong Diamond" Engels in alle packs (clientnamen niet gemeten); esMX "Se busca surcabismos".
+  Oude regel:
   (drift). Nog open daaruit: Crafting Speed als 4e crafting-stat (staat hij in Crafting Details? in-game kijken).
   Was (NIET gerepareerd): PROFGUIDE_SEC_TAILORING_BODY noemt Evoker bij cloth
   (Evokers dragen mail); PROFACAD_CH_WEEKLY_INTRO "gemiste week voorgoed weg" vs catch-up in hetzelfde hoofdstuk;

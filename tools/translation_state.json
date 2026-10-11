@@ -630,13 +630,13 @@
    "ruRU": "25bcc13f767c52a6"
   },
   "ACADEMY_STEP_HEAL_GEAR": {
-   "deDE": "fc205260500c5381",
-   "esES": "fc205260500c5381",
-   "frFR": "fc205260500c5381",
-   "itIT": "fc205260500c5381",
+   "deDE": "476e6484ec0882d0",
+   "esES": "476e6484ec0882d0",
+   "frFR": "476e6484ec0882d0",
+   "itIT": "476e6484ec0882d0",
    "nlNL": "476e6484ec0882d0",
-   "ptBR": "fc205260500c5381",
-   "ruRU": "fc205260500c5381"
+   "ptBR": "476e6484ec0882d0",
+   "ruRU": "476e6484ec0882d0"
   },
   "ACADEMY_STEP_HEAL_KEYS": {
    "deDE": "dbd344171511bd9b",
@@ -684,13 +684,13 @@
    "ruRU": "83b81d1d70edaa73"
   },
   "ACADEMY_STEP_TANK_GEAR": {
-   "deDE": "69f283e1227a093e",
-   "esES": "69f283e1227a093e",
-   "frFR": "69f283e1227a093e",
-   "itIT": "69f283e1227a093e",
+   "deDE": "6c691901321455e6",
+   "esES": "6c691901321455e6",
+   "frFR": "6c691901321455e6",
+   "itIT": "6c691901321455e6",
    "nlNL": "6c691901321455e6",
-   "ptBR": "69f283e1227a093e",
-   "ruRU": "69f283e1227a093e"
+   "ptBR": "6c691901321455e6",
+   "ruRU": "6c691901321455e6"
   },
   "ACADEMY_STEP_TANK_KEYS": {
    "deDE": "6fa04435e4a09efb",
@@ -4857,7 +4857,8 @@
    "esES": "74e873f01688d84c",
    "frFR": "74e873f01688d84c",
    "itIT": "74e873f01688d84c",
-   "ptBR": "74e873f01688d84c"
+   "ptBR": "74e873f01688d84c",
+   "ruRU": "74e873f01688d84c"
   },
   "CODEX_DELVES_INTRO_BODY": {
    "deDE": "ce3468e00dc66cdb",
@@ -4878,13 +4879,13 @@
    "ruRU": "d35a901fa1ebab98"
   },
   "CODEX_DELVE_COACH_BODY": {
-   "deDE": "7b7387add6c337a5",
-   "esES": "7b7387add6c337a5",
-   "frFR": "7b7387add6c337a5",
-   "itIT": "7b7387add6c337a5",
+   "deDE": "d897f3a2efe7d622",
+   "esES": "d897f3a2efe7d622",
+   "frFR": "d897f3a2efe7d622",
+   "itIT": "d897f3a2efe7d622",
    "nlNL": "d897f3a2efe7d622",
-   "ptBR": "7b7387add6c337a5",
-   "ruRU": "7b7387add6c337a5"
+   "ptBR": "d897f3a2efe7d622",
+   "ruRU": "d897f3a2efe7d622"
   },
   "CODEX_DELVE_COACH_TITLE": {
    "deDE": "e072ef4efd455ddf",
@@ -8243,13 +8244,13 @@
    "ruRU": "40bc556a8fe867a3"
   },
   "DELVE_SHARE_BAR_HINT_TEST": {
-   "deDE": "415e8331b64f4ca6",
-   "esES": "415e8331b64f4ca6",
-   "frFR": "415e8331b64f4ca6",
-   "itIT": "415e8331b64f4ca6",
+   "deDE": "9f5da8117d58e73d",
+   "esES": "9f5da8117d58e73d",
+   "frFR": "9f5da8117d58e73d",
+   "itIT": "9f5da8117d58e73d",
    "nlNL": "9f5da8117d58e73d",
-   "ptBR": "415e8331b64f4ca6",
-   "ruRU": "415e8331b64f4ca6"
+   "ptBR": "9f5da8117d58e73d",
+   "ruRU": "9f5da8117d58e73d"
   },
   "DELVE_SHARE_BTN_BOSS": {
    "deDE": "6a6ac8386005b00f",
@@ -14841,13 +14842,13 @@
    "ruRU": "f404ba59076c40f9"
   },
   "GEM_NO_DIAMOND": {
-   "deDE": "1d9d9ba9205f22c4",
-   "esES": "1d9d9ba9205f22c4",
-   "frFR": "1d9d9ba9205f22c4",
-   "itIT": "1d9d9ba9205f22c4",
+   "deDE": "d3c5a0c0b577cd4f",
+   "esES": "d3c5a0c0b577cd4f",
+   "frFR": "d3c5a0c0b577cd4f",
+   "itIT": "d3c5a0c0b577cd4f",
    "nlNL": "d3c5a0c0b577cd4f",
-   "ptBR": "1d9d9ba9205f22c4",
-   "ruRU": "1d9d9ba9205f22c4"
+   "ptBR": "d3c5a0c0b577cd4f",
+   "ruRU": "d3c5a0c0b577cd4f"
   },
   "GEM_OK": {
    "deDE": "9db8b0f7c116e226",
@@ -16829,13 +16830,13 @@
    "ruRU": "76138b9144777715"
   },
   "INFO_DRAWER_BODY_ENCHANTS": {
-   "deDE": "8f889781963b5263",
-   "esES": "8f889781963b5263",
-   "frFR": "8f889781963b5263",
-   "itIT": "8f889781963b5263",
+   "deDE": "909f54e88ab38925",
+   "esES": "909f54e88ab38925",
+   "frFR": "909f54e88ab38925",
+   "itIT": "909f54e88ab38925",
    "nlNL": "909f54e88ab38925",
-   "ptBR": "8f889781963b5263",
-   "ruRU": "8f889781963b5263"
+   "ptBR": "909f54e88ab38925",
+   "ruRU": "909f54e88ab38925"
   },
   "INFO_DRAWER_BODY_EVENTS": {
    "deDE": "1e90a97b2cffc5d8",
@@ -18000,22 +18001,22 @@
    "ruRU": "2e5b87e53a752b4e"
   },
   "LANG_SLASH_HINT": {
-   "deDE": "6f03f0f6a6c79558",
-   "esES": "6f03f0f6a6c79558",
-   "frFR": "6f03f0f6a6c79558",
-   "itIT": "6f03f0f6a6c79558",
+   "deDE": "0de9df3988861c8c",
+   "esES": "0de9df3988861c8c",
+   "frFR": "0de9df3988861c8c",
+   "itIT": "0de9df3988861c8c",
    "nlNL": "0de9df3988861c8c",
-   "ptBR": "6f03f0f6a6c79558",
-   "ruRU": "6f03f0f6a6c79558"
+   "ptBR": "0de9df3988861c8c",
+   "ruRU": "0de9df3988861c8c"
   },
   "LANG_UNKNOWN": {
-   "deDE": "692b31d35d6dd168",
-   "esES": "692b31d35d6dd168",
-   "frFR": "692b31d35d6dd168",
-   "itIT": "692b31d35d6dd168",
+   "deDE": "0170d336350bde63",
+   "esES": "0170d336350bde63",
+   "frFR": "0170d336350bde63",
+   "itIT": "0170d336350bde63",
    "nlNL": "0170d336350bde63",
-   "ptBR": "692b31d35d6dd168",
-   "ruRU": "692b31d35d6dd168"
+   "ptBR": "0170d336350bde63",
+   "ruRU": "0170d336350bde63"
   },
   "LAYOUT_AUTOMAP_NOTE": {
    "deDE": "65f8b6db3e29f86e",
@@ -27115,13 +27116,13 @@
    "ruRU": "ab134244f09c1323"
   },
   "PROFACAD_CH_STATS_ADVANCED": {
-   "deDE": "87ec58f7df8e702d",
-   "esES": "87ec58f7df8e702d",
-   "frFR": "87ec58f7df8e702d",
-   "itIT": "87ec58f7df8e702d",
+   "deDE": "b526be4d140202af",
+   "esES": "b526be4d140202af",
+   "frFR": "b526be4d140202af",
+   "itIT": "b526be4d140202af",
    "nlNL": "b526be4d140202af",
-   "ptBR": "87ec58f7df8e702d",
-   "ruRU": "87ec58f7df8e702d"
+   "ptBR": "b526be4d140202af",
+   "ruRU": "b526be4d140202af"
   },
   "PROFACAD_CH_STATS_BODY": {
    "deDE": "05a0533237d651c1",
@@ -27250,13 +27251,13 @@
    "ruRU": "6309648597e74ad3"
   },
   "PROFACAD_CH_WEEKLY_INTRO": {
-   "deDE": "5d0116c6cef1c25e",
-   "esES": "5d0116c6cef1c25e",
-   "frFR": "5d0116c6cef1c25e",
-   "itIT": "5d0116c6cef1c25e",
+   "deDE": "578b53be48cadf53",
+   "esES": "578b53be48cadf53",
+   "frFR": "578b53be48cadf53",
+   "itIT": "578b53be48cadf53",
    "nlNL": "578b53be48cadf53",
-   "ptBR": "5d0116c6cef1c25e",
-   "ruRU": "5d0116c6cef1c25e"
+   "ptBR": "578b53be48cadf53",
+   "ruRU": "578b53be48cadf53"
   },
   "PROFACAD_CH_WEEKLY_TASK": {
    "deDE": "371833085ebfc090",
@@ -27749,13 +27750,13 @@
    "ruRU": "20d158a281a5effe"
   },
   "PROFGUIDE_SEC_TAILORING_BODY": {
-   "deDE": "8e62d257bb138623",
-   "esES": "8e62d257bb138623",
-   "frFR": "8e62d257bb138623",
-   "itIT": "8e62d257bb138623",
+   "deDE": "b90e1b85c6ef342e",
+   "esES": "b90e1b85c6ef342e",
+   "frFR": "b90e1b85c6ef342e",
+   "itIT": "b90e1b85c6ef342e",
    "nlNL": "b90e1b85c6ef342e",
-   "ptBR": "8e62d257bb138623",
-   "ruRU": "8e62d257bb138623"
+   "ptBR": "b90e1b85c6ef342e",
+   "ruRU": "b90e1b85c6ef342e"
   },
   "PROFGUIDE_SEC_TAILORING_TITLE": {
    "deDE": "7d854f73f443c7cc",
