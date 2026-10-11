@@ -4413,6 +4413,8 @@
    "ruRU": "5f2a0e1b90cecce7"
   },
   "CMDLIST_SURGE": {
+   "esES": "b09bb140dd49b902",
+   "ptBR": "b09bb140dd49b902",
    "ruRU": "b09bb140dd49b902"
   },
   "CMDLIST_SURVEY": {
@@ -5956,6 +5958,8 @@
    "ruRU": "6a1f7b8368194ec3"
   },
   "CRAFTSHOP_NOTE_CURSED": {
+   "esES": "97471b49f105c56e",
+   "ptBR": "97471b49f105c56e",
    "ruRU": "97471b49f105c56e"
   },
   "CRAFTSHOP_NOTE_DELVE": {
@@ -6028,6 +6032,8 @@
    "ruRU": "352b37e3a76d5e11"
   },
   "CRAFTSHOP_NOTE_VENOM": {
+   "esES": "a3b20207b126e42c",
+   "ptBR": "a3b20207b126e42c",
    "ruRU": "a3b20207b126e42c"
   },
   "CRAFTSHOP_NOTHING_TO_BUY": {
@@ -6100,6 +6106,8 @@
    "ruRU": "49f542d8ec9bb090"
   },
   "CRAFTSHOP_TIP_CURSED": {
+   "esES": "04d128a0709f9422",
+   "ptBR": "04d128a0709f9422",
    "ruRU": "04d128a0709f9422"
   },
   "CRAFTSHOP_TIP_DELVE": {
@@ -6181,6 +6189,8 @@
    "ruRU": "845e1ef1f2b58eb5"
   },
   "CRAFTSHOP_TIP_VENOM": {
+   "esES": "d5875b3e44fde159",
+   "ptBR": "d5875b3e44fde159",
    "ruRU": "d5875b3e44fde159"
   },
   "CRAFTSHOP_TIP_YOU_GATHER": {
@@ -6306,6 +6316,8 @@
    "ruRU": "f56846ab3d7d7ab9"
   },
   "CURACC_USE_MARL": {
+   "esES": "32d5c5358b6dd96c",
+   "ptBR": "32d5c5358b6dd96c",
    "ruRU": "32d5c5358b6dd96c"
   },
   "CURACC_USE_MOXIE": {
@@ -6520,6 +6532,8 @@
    "ruRU": "b550d135e877caa4"
   },
   "CURSE_SURGE_NONE": {
+   "esES": "97575f7eaeec1a06",
+   "ptBR": "97575f7eaeec1a06",
    "ruRU": "97575f7eaeec1a06"
   },
   "CURSE_SURGE_NOSCAN": {
@@ -16197,6 +16211,8 @@
    "ruRU": "be8675892d9ecb66"
   },
   "HOME_ROUTINE_GIVER_PICKUP_ZELA_FMT": {
+   "esES": "99174999c4f18a75",
+   "ptBR": "99174999c4f18a75",
    "ruRU": "99174999c4f18a75"
   },
   "HOME_ROUTINE_GIVER_PICKUP_ZERELLA_FMT": {
@@ -35977,13 +35993,13 @@
    "ruRU": "ed4598f274412035"
   },
   "TOAST_BOUNTY_BODY": {
-   "deDE": "239d6df84aa3c34d",
-   "esES": "239d6df84aa3c34d",
-   "frFR": "239d6df84aa3c34d",
-   "itIT": "239d6df84aa3c34d",
-   "nlNL": "239d6df84aa3c34d",
-   "ptBR": "239d6df84aa3c34d",
-   "ruRU": "239d6df84aa3c34d"
+   "deDE": "dea75a93ea328a93",
+   "esES": "dea75a93ea328a93",
+   "frFR": "dea75a93ea328a93",
+   "itIT": "dea75a93ea328a93",
+   "nlNL": "dea75a93ea328a93",
+   "ptBR": "dea75a93ea328a93",
+   "ruRU": "dea75a93ea328a93"
   },
   "TOAST_BOUNTY_TITLE": {
    "deDE": "51e4e494bc481f69",

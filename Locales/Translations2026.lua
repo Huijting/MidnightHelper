@@ -1828,7 +1828,7 @@ fill("deDE", {
 	LVL8090_PATH_2 = "Dein erster Charakter sollte die Kampagne machen — sie schaltet die Endzone Leerensturm frei.",
 	LVL8090_PATH_3 = "Zonenreihenfolge: Eversong (80-82) -> Zul'Aman / Harandar (~82-88) -> Leerensturm (88-90).",
 	LVL8090_PATH_4 = "Nach der Kampagne auf einem Charakter nutzt du für Twinks den Adventure Mode (Zonen in beliebiger Reihenfolge, keine linearen 17 Kapitel).",
-	LVL8090_PATH_5 = "Twink-Abkürzung: Laufe jede Tiefe auf Tier 1 mit niedrigem Level, nimm jede Quest 'Ruf des Tiefenforschers' an, aber gib sie nicht ab; queste bis ~87-88 und gib sie dann alle auf einmal ab.",
+	LVL8090_PATH_5 = "Twink-Abkürzung: Laufe jede Tiefe auf Tier 1 mit niedrigem Level, nimm jede Quest „Ruf des Tiefenforschers“ an, aber gib sie nicht ab; queste bis ~87-88 und gib sie dann alle auf einmal ab.",
 	LVL8090_PATH_6 = "Erstmalige Berufsherstellungen geben einen netten XP-Schub für das letzte Stück.",
 	LVL8090_PATH_7 = "Auf Twinks ist die Kampagne weniger XP-effizient als normales Questen; Dungeon-Quests sind langsam, also überspringe sie auf Twinks.",
 	LVL8090_PATH_8 = "Insgesamt sind 80 bis 90 4.963.065 XP. Der erste entspannte Durchlauf dauert etwa 8-10 Stunden; ein optimierter Twink mit vollen Buffs oft rund 3-5 Stunden.",
@@ -1838,7 +1838,7 @@ fill("deDE", {
 	LVL8090_XP_3 = "War Mode gibt den Enlisted-Buff: +15% XP nur in der offenen Welt (nicht in Städten oder Instanzen).",
 	LVL8090_XP_4 = "Darkmoon Faire (erste volle Woche des Monats): WHEE! (Karussell) oder der Darkmoon Top Hat geben +10% XP (sie stapeln sich nicht miteinander).",
 	LVL8090_XP_5 = "Heirlooms geben weiterhin einen accountweiten Level-XP-Bonus.",
-	LVL8090_XP_6 = "Die XP aus 'Ruf des Tiefenforschers' skalieren mit deinem Level, daher ist das späte Abgeben dieser Quests (um die 88) eine große XP-Ausbeute.",
+	LVL8090_XP_6 = "Die XP aus „Ruf des Tiefenforschers“ skalieren mit deinem Level, daher ist das späte Abgeben dieser Quests (um die 88) eine große XP-Ausbeute.",
 	LVL8090_XP_7 = "Ein Battle Standard oder eine Gildenflagge in einer Gruppe gibt oft ein bisschen extra XP.",
 	LVL8090_SEC_UNLOCKS_TITLE = "3. Freischaltungen pro Level (80 bis 90)",
 	LVL8090_UNLOCK_1 = "Himmelsreiten ist gleich von Beginn von Midnight an verfügbar (kein Pathfinder oder Ruf-Grind).",
@@ -5564,10 +5564,10 @@ fill("esES", {
 	CMDLIST_HAZARDS = "Qué hace daño evitable en el sitio donde estás.",
 	CMDLIST_HEALCDS = "Tus cooldowns de sanación, para especializaciones de sanador.",
 	CMDLIST_ITEMS = "El panel de consumibles de profundidad.",
-	CMDLIST_SURGE = "Qué Curse Surge está activa ahora en la Coiled Isle y qué jefe viene después.",
+	CMDLIST_SURGE = "Qué Curse Surge está activa ahora en la Isla Serpenteante y qué jefe viene después.",
 	CURSE_SURGE_NOW_FMT = "Curse Surge ahora: %s — quedan %d min.",
 	CURSE_SURGE_NEXT_FMT = "Próxima Curse Surge: %s a las %s (en %d min).",
-	CURSE_SURGE_NONE = "Ahora no hay ninguna Curse Surge en el calendario. Ve a la Coiled Isle (o cerca) y vuelve a intentarlo.",
+	CURSE_SURGE_NONE = "Ahora no hay ninguna Curse Surge en el calendario. Ve a la Isla Serpenteante (o cerca) y vuelve a intentarlo.",
 	CURSE_SURGE_NOSCAN = "El calendario de eventos aún no se ha cargado. Vuelve a intentarlo en unos segundos.",
 	CMDLIST_KEYS = "Los cuatro nodos del Altar de Corrosión que primero piden una búsqueda del tesoro.",
 	CMDLIST_KICKS = "Tu tarjeta de interrupciones de este run.",
@@ -5875,10 +5875,10 @@ fill("ptBR", {
 	CMDLIST_HAZARDS = "O que causa dano evitável onde você está parado.",
 	CMDLIST_HEALCDS = "Seus cooldowns de cura, para specs de cura.",
 	CMDLIST_ITEMS = "O painel de consumíveis de imersão.",
-	CMDLIST_SURGE = "Qual Curse Surge está ativa agora na Coiled Isle e qual chefe vem a seguir.",
+	CMDLIST_SURGE = "Qual Curse Surge está ativa agora na Ilha Enrolada e qual chefe vem a seguir.",
 	CURSE_SURGE_NOW_FMT = "Curse Surge agora: %s — faltam %d min.",
 	CURSE_SURGE_NEXT_FMT = "Próxima Curse Surge: %s às %s (em %d min).",
-	CURSE_SURGE_NONE = "Nenhuma Curse Surge na agenda agora. Vá para a Coiled Isle (ou perto dela) e tente de novo.",
+	CURSE_SURGE_NONE = "Nenhuma Curse Surge na agenda agora. Vá para a Ilha Enrolada (ou perto dela) e tente de novo.",
 	CURSE_SURGE_NOSCAN = "A agenda de eventos ainda não carregou. Tente de novo em alguns segundos.",
 	CMDLIST_KEYS = "Os quatro nós do Altar da Corrosão que exigem uma caça ao tesouro antes.",
 	CMDLIST_KICKS = "Seu boletim de interrupções desta run.",
@@ -5915,7 +5915,7 @@ fill("ptBR", {
 	CMDLIST_WEEKLIES = "Imprime os ids das missões semanais e se o seu registro tem cada uma.",
 	CMDLIST_ZONE = "O que este addon sabe sobre a zona em que você está.",
 	DELVE_CHAT_VENOMFALL_DEEPS_BOSS = "Ordem fixa: Noxious Bile, Void Toxin, Soul Extinction, Venom Storm - kick na terceira, sempre. Em 90/60/30% fique no quarto limpo e decore a ORDEM; ele repete sem mostrar. No ?? mate o Echo. Um acerto = +500% de natureza.",
-	DELVE_CHAT_VENOMFALL_DEEPS_OVERVIEW = "Imersão Nemesis, ilha do norte de A Ilha Enrolada. Azta'rec. Leve 290 de ilvl para ?, 309 para ??. Valira em Cura. Nenhuma coordenada funciona aqui dentro.",
+	DELVE_CHAT_VENOMFALL_DEEPS_OVERVIEW = "Imersão Nemesis, ilha do norte da Ilha Enrolada. Azta'rec. Leve 290 de ilvl para ?, 309 para ??. Valira em Cura. Nenhuma coordenada funciona aqui dentro.",
 	DELVE_CHEST_ALL_DONE = "Todo Baú Resistente daqui você já abriu.",
 	DELVE_CHEST_BTN = "Baús",
 	DELVE_CHEST_LEARNED = "Esta lista é o que eu vi você abrir aqui, não uma lista conferida — ela não consegue dizer o que já está feito.",
@@ -7363,7 +7363,7 @@ fill("esES", {
 	HOME_ROUTINE_PIN_SHOWDOWN = "Portal de la Tormenta del Vacío (Bazar de Lunargenta)",
 	HOME_ROUTINE_GIVER_NONE_FMT = "Semanal (%s): no tenía ninguna misión cuando fuiste esta semana.",
 	HOME_ROUTINE_GIVER_PICKUP_ZERELLA_FMT = "Semanal (%s): Sparks of War, una zona distinta cada semana. Está en otro lugar de Lunargenta (sigue el marcador), no junto al banco. Activa el modo guerra o la misión no avanzará.",
-	HOME_ROUTINE_GIVER_PICKUP_ZELA_FMT = "Semanal (%s): Turn Back the Surge, en la Coiled Isle (sigue el marcador). Solo cuando la campaña Curse of Ula'tek te haya llevado allí.",
+	HOME_ROUTINE_GIVER_PICKUP_ZELA_FMT = "Semanal (%s): Turn Back the Surge, en la Isla Serpenteante (sigue el marcador). Solo cuando la campaña Curse of Ula'tek te haya llevado allí.",
 	-- 10 Oct 2026, own translation, not reviewed by a native speaker:
 	HOME_ROUTINE_GIVER_PICKUP_VEREESA_FMT = "Semanal (%s): Trailing Xal'atath, junto a la cámara. No todas las semanas (según los jugadores: no la semana después de hacerla). ¿No tiene nada? Vuelve la semana que viene.",
 	HOME_ROUTINE_GIVER_PICKUP_ORIN_FMT = "Semanal (%s): un Nebulous Voidcore extra, a la venta en el Catalizador por oro, Voidlight Marl o Veteran Mistcrests (sigue el marcador).",
@@ -7426,7 +7426,7 @@ fill("esES", {
 	MILE_TRACK_BODY = "Llevas puesta una pieza de una track más alta que nunca.",
 	MILE_TRACK_TITLE = "¡Nueva mejor track de mejora!",
 	MOUNTPROG_GOTO_BTN_FMT = "Abrir %s",
-	MOUNTPROG_VENOMFANG_HOWTO = "Encuentra los 22 tesoros ocultos de la Isla Serpenteante para «Treasures of the Coiled Isle». La pestaña Logros te traza la ruta hacia los que aún te faltan.",
+	MOUNTPROG_VENOMFANG_HOWTO = "Encuentra los 22 tesoros ocultos de la Isla Serpenteante para «Tesoros de la Isla Serpenteante». La pestaña Logros te traza la ruta hacia los que aún te faltan.",
 	MOUNTS_MRP_HINT = "¿Coleccionas más allá de Midnight? El addon Mount Route Planner (en CurseForge) construye rutas de farmeo eficientes por todas las expansiones.",
 	MOUNTWISH_ALL_FMT = "Lista de deseos completa — %d de %d conseguidas. ¡Bien!",
 	MOUNTWISH_CHASE_FMT = "%s — aún sin conseguir",
@@ -7802,7 +7802,7 @@ fill("ptBR", {
 	HOME_ROUTINE_PIN_SHOWDOWN = "Portal da Tempestade do Caos (Bazar de Luaprata)",
 	HOME_ROUTINE_GIVER_NONE_FMT = "Semanal (%s): nenhuma missão quando você passou lá esta semana.",
 	HOME_ROUTINE_GIVER_PICKUP_ZERELLA_FMT = "Semanal (%s): Sparks of War, uma zona diferente por semana. Ela fica em outro lugar de Luaprata (siga o marcador), não ao lado do banco. Ative o Modo Guerra, senão a missão não avança.",
-	HOME_ROUTINE_GIVER_PICKUP_ZELA_FMT = "Semanal (%s): Turn Back the Surge, na Coiled Isle (siga o marcador). Só depois que a campanha Curse of Ula'tek levar você até lá.",
+	HOME_ROUTINE_GIVER_PICKUP_ZELA_FMT = "Semanal (%s): Turn Back the Surge, na Ilha Enrolada (siga o marcador). Só depois que a campanha Curse of Ula'tek levar você até lá.",
 	-- 10 Oct 2026, own translation, not reviewed by a native speaker:
 	HOME_ROUTINE_GIVER_PICKUP_VEREESA_FMT = "Semanal (%s): Trailing Xal'atath, ao lado do cofre. Não toda semana (jogadores relatam: não na semana depois de fazê-la). Ela não tem nada? Volta na próxima semana.",
 	HOME_ROUTINE_GIVER_PICKUP_ORIN_FMT = "Semanal (%s): um Nebulous Voidcore extra, à venda no Catalisador por ouro, Voidlight Marl ou Veteran Mistcrests (siga o marcador).",
@@ -7865,7 +7865,7 @@ fill("ptBR", {
 	MILE_TRACK_BODY = "Você está usando uma peça de uma trilha mais alta do que nunca.",
 	MILE_TRACK_TITLE = "Nova melhor trilha de melhoria!",
 	MOUNTPROG_GOTO_BTN_FMT = "Abrir %s",
-	MOUNTPROG_VENOMFANG_HOWTO = "Encontre todos os 22 tesouros escondidos em A Ilha Enrolada para 'Tesouros da Ilha Enrolada'. A aba Conquistas te leva até os que ainda faltam.",
+	MOUNTPROG_VENOMFANG_HOWTO = "Encontre todos os 22 tesouros escondidos na Ilha Enrolada para 'Tesouros da Ilha Enrolada'. A aba Conquistas te leva até os que ainda faltam.",
 	MOUNTS_MRP_HINT = "Colecionando além de Midnight? O addon Mount Route Planner (no CurseForge) monta rotas de farm eficientes em todas as expansões.",
 	MOUNTWISH_ALL_FMT = "Lista de desejos completa — %d de %d coletadas. Muito bem!",
 	MOUNTWISH_CHASE_FMT = "%s — ainda não coletada",
@@ -7996,7 +7996,7 @@ fill("ptBR", {
 	SET_SIDEPANELS_TITLE = "Painéis ao lado das janelas da Blizzard",
 	SIDEPANEL_RESET_DONE = "Os painéis laterais voltaram para o lado das suas janelas.",
 	SMC_PIN_LOCKED = "Você ainda não pode usar isto — o portal só existe depois que você entra na linha da Presa. O waypoint continua funcionando se você quiser ver onde ele vai ficar.",
-	SMC_PIN_PORTAL_ISLE = "Direto para A Ilha Enrolada, ao lado de Astalor em Murder Row. Ele só aparece depois que você entra na linha da Presa — veja o guia da Presa no Codex. A volta fica em 58.12, 48.48 na ilha.",
+	SMC_PIN_PORTAL_ISLE = "Direto para a Ilha Enrolada, ao lado de Astalor em Murder Row. Ele só aparece depois que você entra na linha da Presa — veja o guia da Presa no Codex. A volta fica em 58.12, 48.48 na ilha.",
 	SMC_ENTRANCE_LABEL_FMT = "Entrada — %s está lá dentro",
 	SMC_ENTRANCE_THEN_FMT = "Entre por ali; %s fica em %.2f, %.2f. A seta muda sozinha assim que você chegar à porta.",
 	SMC_ENTRANCE_ARRIVED_FMT = "Na porta — a seta agora aponta para %s lá dentro.",
@@ -8013,7 +8013,7 @@ fill("ptBR", {
 	ST_PREP_ALTS = "Suba de nível e equipe os seus alts",
 	ST_PREP_DELVELINE = "Comece a linha de missões de imersão da Série 2 (Valira, Delver's Hub)",
 	ST_PREP_HEADER = "Prepare-se para a Série 2",
-	ST_PREP_ISLE = "Desbloqueie A Ilha Enrolada",
+	ST_PREP_ISLE = "Desbloqueie a Ilha Enrolada",
 	ST_PREP_LEADIN = "Faça a missão de introdução do 12.1",
 	ST_TITLE = "Transição de Série",
 	TAB_OMNIUM = "Fólio do Omnium",
@@ -9173,8 +9173,10 @@ fill("itIT", {
 -- 10 Sep 2026 — Spec 38 §3.3 and option A: the Account snapshot's new headers.
 -- The vault cell is one count over all three rows now ("1/9"), so the letters that became
 -- "M D R" / "Mu Ma R" are gone; the hint still names the rows by their own translated names.
--- The Great Vault names are the ones these packs already use. "Coffer Key Shards" stays
--- English, like the other currency and game terms. Our own translations, not native-reviewed.
+-- The Great Vault names are the ones these packs already use. Coffer Key Shards: since 11 Oct
+-- 2026 the name the player's client shows (de Kastenschlüsselsplitter, fr Fragments de clé de
+-- coffre …; see the 11 Oct note above and CLAUDE.md Localization), no longer English.
+-- Our own translations, not native-reviewed.
 --------------------------------------------------------------------------------
 
 fill("deDE", {
@@ -9315,7 +9317,7 @@ fill("esES", {
 	CURACC_USE_UNDERCOIN = "Se gasta con Naleidea Rivergleam en el Delver's HQ (dos llaves de arca restauradas extra por semana desde el rango 6 del Delver's Journey, cosméticos) y con Zah'ran, que aparece tras una profundidad de Tier 6 o más desde el rango 5 del Delver's Journey (equipo Campeón).",
 	CURACC_USE_MANA = "Compra equipo Héroe a Zah'ran al final de una profundidad, desde el rango 9 del Delver's Journey.",
 	CURACC_USE_CORRCOIN = "Se gasta en las Vaults of Atal'Utek: con Er'inye en puntos del Altar of Corrosion, y en el Skull of Er'inye (montura, mascotas, cosméticos). No compra Corrosive Gifts: para eso hacen falta Corrosive Souls.",
-	CURACC_USE_MARL = "Se gasta con los intendentes de Renown, incluida Jan'sari the Watchful en la Coiled Isle (nuevo en la temporada 2).",
+	CURACC_USE_MARL = "Se gasta con los intendentes de Renown, incluida Jan'sari the Watchful en la Isla Serpenteante (nuevo en la temporada 2).",
 	CURACC_USE_ACCOLADE = "Se gasta con Maren Silverwing sobre el Bazaar en alijos de equipo Veterano, o con Triam Dawnsetter en cosméticos.",
 	CURACC_USE_CRESTS = "Sirve para mejorar el equipo, 20 por paso; cada blasón solo vale para su propia vía. La pestaña Blasones muestra la escalera.",
 })
@@ -9343,7 +9345,7 @@ fill("ptBR", {
 	CURACC_USE_UNDERCOIN = "Gasta com Naleidea Rivergleam no Delver's HQ (duas Chaves de Cofre Restauradas extras por semana a partir do rank 6 do Delver's Journey, cosméticos) e com Zah'ran, que aparece depois de uma imersão de Tier 6 ou mais a partir do rank 5 do Delver's Journey (equipamento Campeão).",
 	CURACC_USE_MANA = "Compra equipamento Herói de Zah'ran no fim de uma imersão, a partir do rank 9 do Delver's Journey.",
 	CURACC_USE_CORRCOIN = "Gasta nas Vaults of Atal'Utek: com Er'inye em pontos do Altar of Corrosion, e no Skull of Er'inye (montaria, mascotes, cosméticos). Não compra Corrosive Gifts — para isso você precisa de Corrosive Souls.",
-	CURACC_USE_MARL = "Gasta com os intendentes de Renown, incluindo Jan'sari the Watchful na Coiled Isle (novo na temporada 2).",
+	CURACC_USE_MARL = "Gasta com os intendentes de Renown, incluindo Jan'sari the Watchful na Ilha Enrolada (novo na temporada 2).",
 	CURACC_USE_ACCOLADE = "Gasta com Maren Silverwing acima do Bazaar em baús de equipamento Veterano, ou com Triam Dawnsetter em cosméticos.",
 	CURACC_USE_CRESTS = "Serve para aprimorar o equipamento, 20 por etapa; cada brasão só vale para sua própria trilha. A aba Brasões mostra a escada.",
 })
@@ -15364,7 +15366,8 @@ fill("itIT", {
 -- Profession names as the PROFACAD blocks. The node adjectives Wild / Primal / Lightfused / Voidbound / Cursed
 -- stay English: the packs already write "Lightfused/Wild/Primal/Voidbound" for nodes in every language, and no
 -- client name for Cursed was found. itIT keeps "prospecting" in English, as itIT.lua already does.
--- Zones, Bountiful Heavy Trunk, Renowned Beasts, hawkstriders, Auctionator: English, articles per language.
+-- Zones, Renowned Beasts, hawkstriders, Auctionator: English, articles per language. Bountiful Heavy
+-- Trunk: since 11 Oct 2026 the client name per pack (de Großzügige schwere Truhe …; CLAUDE.md Localization).
 -- The quoted button in CRAFTSHOP_TIP_MAKE matches CRAFTSHOP_BTN_MAKE_FMT without " %d×" in every language.
 fill("deDE", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s braucht nichts, was du kaufen kannst, also kommt es nicht auf die Liste.",
@@ -15566,16 +15569,16 @@ fill("esES", {
 	CRAFTSHOP_TIP_MOTE_LIGHT = "Sale de hierbas y depósitos de mineral Lightfused. Sirven tanto Herboristería como Minería.",
 	CRAFTSHOP_NOTE_MOTE_VOID = "Nodos Voidbound - Voidstorm",
 	CRAFTSHOP_TIP_MOTE_VOID = "Sale de hierbas y depósitos de mineral Voidbound en Voidstorm. Sirven tanto Herboristería como Minería.",
-	CRAFTSHOP_NOTE_CURSED = "Nodos Cursed - Coiled Isle",
-	CRAFTSHOP_TIP_CURSED = "Sale de hierbas y depósitos de mineral Cursed en la Coiled Isle. Sirven tanto Herboristería como Minería.",
+	CRAFTSHOP_NOTE_CURSED = "Nodos Cursed - Isla Serpenteante",
+	CRAFTSHOP_TIP_CURSED = "Sale de hierbas y depósitos de mineral Cursed en la Isla Serpenteante. Sirven tanto Herboristería como Minería.",
 	CRAFTSHOP_NOTE_LUMBER = "Madera - las cuatro zonas",
 	CRAFTSHOP_TIP_LUMBER = "Se saca de la madera que encuentras en las cuatro zonas.",
 	CRAFTSHOP_NOTE_THORIUM = "Minería - raro",
 	CRAFTSHOP_TIP_THORIUM = "Los mineros lo encuentran de vez en cuando en depósitos normales de mineral de Midnight.",
 	CRAFTSHOP_NOTE_DELVE = "Cofres: profundidades, Presa, M+",
 	CRAFTSHOP_TIP_DELVE = "Sale de cofres de recompensa: las profundidades (como el baúl pesado pródigo), y los jugadores también mencionan las Cacerías de Presa y Mythic+. No hay un único sitio para farmearlo.",
-	CRAFTSHOP_NOTE_VENOM = "Desuello - Coiled Isle",
-	CRAFTSHOP_TIP_VENOM = "Los desolladores lo sacan de bestias en la Coiled Isle.",
+	CRAFTSHOP_NOTE_VENOM = "Desuello - Isla Serpenteante",
+	CRAFTSHOP_TIP_VENOM = "Los desolladores lo sacan de bestias en la Isla Serpenteante.",
 	CRAFTSHOP_NOTE_FEATHERS = "Desuello - bestias con plumas",
 	CRAFTSHOP_TIP_FEATHERS = "Los desolladores lo sacan de bestias con plumas, como los hawkstriders.",
 	CRAFTSHOP_NOTE_SKIN = "Desuello",
@@ -15641,16 +15644,16 @@ fill("ptBR", {
 	CRAFTSHOP_TIP_MOTE_LIGHT = "Vem de ervas e depósitos de minério Lightfused. Tanto Herborismo quanto Mineração servem.",
 	CRAFTSHOP_NOTE_MOTE_VOID = "Nodes Voidbound - Voidstorm",
 	CRAFTSHOP_TIP_MOTE_VOID = "Vem de ervas e depósitos de minério Voidbound em Voidstorm. Tanto Herborismo quanto Mineração servem.",
-	CRAFTSHOP_NOTE_CURSED = "Nodes Cursed - Coiled Isle",
-	CRAFTSHOP_TIP_CURSED = "Vem de ervas e depósitos de minério Cursed na Coiled Isle. Tanto Herborismo quanto Mineração servem.",
+	CRAFTSHOP_NOTE_CURSED = "Nodes Cursed - Ilha Enrolada",
+	CRAFTSHOP_TIP_CURSED = "Vem de ervas e depósitos de minério Cursed na Ilha Enrolada. Tanto Herborismo quanto Mineração servem.",
 	CRAFTSHOP_NOTE_LUMBER = "Madeira - as quatro zonas",
 	CRAFTSHOP_TIP_LUMBER = "Coletado da madeira que você encontra nas quatro zonas.",
 	CRAFTSHOP_NOTE_THORIUM = "Mineração - raro",
 	CRAFTSHOP_TIP_THORIUM = "Mineradores encontram isto de vez em quando em depósitos comuns de minério de Midnight.",
 	CRAFTSHOP_NOTE_DELVE = "Baús: imersões, Presa, M+",
 	CRAFTSHOP_TIP_DELVE = "Vem de baús de recompensa: imersões (como o Baú Pesado Abundante), e jogadores também citam as Caçadas de Presa e Mythic+. Não existe um lugar fixo para farmar.",
-	CRAFTSHOP_NOTE_VENOM = "Esfolamento - Coiled Isle",
-	CRAFTSHOP_TIP_VENOM = "Esfoladores tiram isto de feras na Coiled Isle.",
+	CRAFTSHOP_NOTE_VENOM = "Esfolamento - Ilha Enrolada",
+	CRAFTSHOP_TIP_VENOM = "Esfoladores tiram isto de feras na Ilha Enrolada.",
 	CRAFTSHOP_NOTE_FEATHERS = "Esfolamento - feras com penas",
 	CRAFTSHOP_TIP_FEATHERS = "Esfoladores tiram isto de feras com penas, como hawkstriders.",
 	CRAFTSHOP_NOTE_SKIN = "Esfolamento",

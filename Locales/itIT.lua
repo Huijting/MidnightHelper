@@ -5,9 +5,11 @@
 
 	Partial pack: any key not present here falls back to English via ns:L().
 	Convention: WoW proper nouns (spell/ability/boss/NPC/zone/dungeon/raid
-	names, currencies & items like "Coffer Key", "Renown", class names,
-	"Mythic+", "Delve", "Omnium Folio") stay in English; surrounding UI text
-	and prose are translated to natural Italian. Preserve %s/%d/%1$s format
+	names, "Renown", class names, "Mythic+", "Omnium Folio") stay in English;
+	surrounding UI text and prose are translated to natural Italian.
+	Since 11 Oct 2026 the delve words and delve items use the name the Italian
+	client shows: Scorribanda/Scorribande, Chiave dello Scrigno Ripristinata,
+	Schegge di Chiave dello Scrigno, Scrigno Fruttuoso … (CLAUDE.md, Localization). Preserve %s/%d/%1$s format
 	specifiers, |cff......|r colour codes and \n escapes exactly.
 ]]
 
@@ -278,10 +280,10 @@ ns._mhLocales.itIT = {
 	SHOWDOWNS_BOSS_UNKNOWN_FMT = "World boss: %s (stato settimanale sconosciuto).",
 	SHOWDOWNS_HWT_AVAILABLE = "L'Heroic World Tier è disponibile in questa zona — scelto al portale per difficoltà e ricompense maggiori.",
 	SHOWDOWNS_BTN_MAELLA = "Inizio: Riftblade Maella — Voidstorm (Howling Ridge)",
-	SHOWDOWNS_BTN_PORTAL = "Portale — the Voidstorm (Howling Ridge)",
+	SHOWDOWNS_BTN_PORTAL = "Portale — Voidstorm (Howling Ridge)",
 	SHOWDOWNS_WAYPOINT_MAELLA = "Riftblade Maella",
 	SHOWDOWNS_WAYPOINT_PORTAL = "Portale Showdowns — Voidstorm",
-	SHOWDOWNS_PORTAL_NOTE = "Portale: the Voidstorm a Howling Ridge (51.4, 71.3), o il portale permanente nel Bazaar di Silvermoon — stesso piano dell'hub delle quest settimanali, un po' più avanti.",
+	SHOWDOWNS_PORTAL_NOTE = "Portale: nel Voidstorm a Howling Ridge (51.4, 71.3), o il portale permanente nel Bazaar di Silvermoon — stesso piano dell'hub delle quest settimanali, un po' più avanti.",
 	SHOWDOWNS_INFO_VAULT = "La settimanale dà un Riftstalker's Cache e conta per la riga World della tua Gran Banca.",
 	SHOWDOWNS_INFO_HWT = "L'Heroic World Tier non richiede sblocco — scegli Normal o Heroic al portale.",
 	TAB_PROF_ACADEMY = "Professioni 101",
@@ -955,7 +957,7 @@ ns._mhLocales.itIT = {
 	DELVE_ITEMS_POPUP_ACTIVE = "Attivo",
 	DELVE_ITEMS_POPUP_HINT_ALL_ACTIVE = "Tutto pronto per questa scorribanda — controlla la barra dei buff. Puoi chiudere questa finestra.",
 	TOAST_BOUNTY_TITLE = "Bottino del Cacciatore di Tesori rilevato!",
-	TOAST_BOUNTY_BODY = "Usala per un Hidden Treasure.",
+	TOAST_BOUNTY_BODY = "Usala per un Tesoro Nascosto.",
 	TOAST_CLICK_HINT = "Clicca per aprire gli oggetti delle scorribande",
 	RARE_ALERT_CLICK_HINT = "Clic: waypoint a questo rare",
 	RARE_ALERT_TOAST_ONROUTE_BODY = "Questo è il rare del tuo percorso — ci sei quasi!",

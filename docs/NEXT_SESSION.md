@@ -20,6 +20,13 @@
 - ✅ Rob 11 okt (screenshot): "waarom zie ik de andere ressen niet?" Paneel noemde alleen battle-res-klassen
   (Druid/DK/Warlock/Paladin) + je eigen res-toets. Nu ook "Can revive out of combat:" (Priest/Paladin/Shaman/Druid/
   Monk/Evoker, met hun spell; zelfde 6 id's als MY_RES), 7 talen. Niet in het spel getest → TESTLIJST.
+- ✅ Kleine-puntenronde 11 okt (9 stuks): enUS TOAST_BOUNTY_BODY "Hidden Trove" (+ de/fr/it clientnaam), oude
+  commentaren, ruRU kleine letter, esES usted→tú (SMC_CHK_RITUAL_SITE), itIT Voidstorm zonder "the", esES Academy-
+  titels, Broken Throne = es "Trono Destrozado" / mx "Trono Quebrado" (GEMETEN AreaPOI 8614), Coiled Isle = es "Isla
+  Serpenteante" (UiMap 2512) / pt "Ilha Enrolada" (Achievement-DB2, build niet gecontroleerd), de „…“-quotes.
+  Nog open (klein): itIT TOAST "Usala" vs "Bottino" (m); ptBR Broken Throne "Trono Partido"/"Trono Quebrado" (niet
+  gemeten); CODEX_RITUAL_BODY "Broken Throne" Engels in alle packs; esES "Sitios rituales" vs client "Lugar de
+  ritual"; esES ACADEMY_PREF_TITLE usted; esES ACADEMY_HEAL_BOTH_TITLE machine-achtig; de/fr/it "Coiled Isle" Engels.
 - Rob 11 okt: site-chat mag aan de Russische site beginnen; hij stuurt een lijst voor build_site.py ("ru").
 - Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.
 - Daarna: echte 4.7.6-release pas na de patch (14 okt): patchnotes naast de kaarten, Devourer HERO1, Robs /reload.
