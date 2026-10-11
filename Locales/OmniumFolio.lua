@@ -221,7 +221,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	OMNIUM_WK_OBJ_1 = "Diese Woche: hole das Folio bei Großmagister Rommath ab.",
 	OMNIUM_WK_OBJ_2 = "Diese Woche: sammle 8 Ritualized Arcana von Elites in Ritual Sites (~2 Läufe).",
 	OMNIUM_WK_OBJ_3 = "Diese Woche: sammle 5 Dark-Ley Coalescence aus Void Assaults.",
-	OMNIUM_WK_OBJ_4 = "Diese Woche: besiege einen finalen Dungeon-/Delve-Boss oder LFR-Flügelboss (looten).",
+	OMNIUM_WK_OBJ_4 = "Diese Woche: besiege einen finalen Dungeon-/Tiefen-Boss oder LFR-Flügelboss (looten).",
 	OMNIUM_WK_OBJ_5 = "Diese Woche: besiege Pertinax (Val) oder Leth'ir (Naigtal) + 3 Weltquests dort.",
 	OMNIUM_WEEK_FMT = "Woche %d",
 	OMNIUM_LOCKED = "noch nicht freigeschaltet",

@@ -262,7 +262,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_S3_NAV = "Start öffnen",
 
 	START_S4_TITLE = "4. Lauf deine Tiefen",
-	START_S4_BODY = "Tiefen sind Dungeons für solo oder kleine Gruppen mit Valeera an deiner Seite — stetige Ausrüstung und der einfachste Welt-Reihen-Fortschritt für den Vault. Klettere zuerst die normalen Stufen hoch (unter Stufe 90 ist Tier 3 das Maximum); ab Stufe 8 kannst du Bountiful Delves laufen (du brauchst einen Restored Coffer Key) für Champion-Ausrüstung und Hero-Track-Vault-Optionen. Der Tiefen-Coach gibt Tipps pro Tiefe, die du mit deiner Gruppe teilen kannst.",
+	START_S4_BODY = "Tiefen sind Dungeons für solo oder kleine Gruppen mit Valeera an deiner Seite — stetige Ausrüstung und der einfachste Welt-Reihen-Fortschritt für den Vault. Klettere zuerst die normalen Stufen hoch (unter Stufe 90 ist Tier 3 das Maximum); ab Stufe 8 kannst du Bountiful-Tiefen laufen (du brauchst einen Restored Coffer Key) für Champion-Ausrüstung und Hero-Track-Vault-Optionen. Der Tiefen-Coach gibt Tipps pro Tiefe, die du mit deiner Gruppe teilen kannst.",
 	START_S4_NAV = "Tiefen öffnen",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
