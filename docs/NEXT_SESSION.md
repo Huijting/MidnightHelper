@@ -27,6 +27,12 @@
   ✅ (a) beslist, Rob 11 okt: "Bountiful ook het woord uit het spel". GEMETEN (wago 12.1.0.69933, AreaPOI + GS
   52689/52760): de Großzügige Tiefe(n) · fr Gouffre(s) abondant(s) · es Profundidad(es) pródiga(s) · pt Imersão/
   Imersões Abundante(s) · it Scorribanda/Scorribande Fruttuosa/Fruttuose. Brief `BOUNTIFUL_BRIEF.md`; Coffer blijft.
+  ✅ Bountiful-ronde AF (11 okt): per taal 21-27 → 1 (CRAFTSHOP_TIP_DELVE "Bountiful Heavy Trunk" = itemnaam).
+  Writer zag, NIET gerepareerd: deDE ALT_COL_KEYS_HINT/CURACC_USE_KEYS "eine/die Bountiful Coffer" (Codex zegt
+  "den"); frFR CODEX_DELVES_INTRO_BODY "un Restored Coffer Key" (rest van het pack: "une").
+- ✅ Rob 11 okt: 39 kaarten `why.interface` → 120105, dus de waarom-regels blijven op patchdag staan. Devourer (1480)
+  blijft 120100 → verdwijnt op 12.1.5 tot HERO1 nagekeken is. GEMETEN offline met client 120105: alleen 1480 verborgen.
+  Patchdag: definitieve patchnotes nog 1× naast de kaarten (mh-research); valt er iets om, alleen die kaart terug.
   ⚠️ esMX speelt met ons esES-pack, maar zijn client zegt "abismo abundante" (GEMETEN): Delve-woord klopt niet voor
   Mexicaanse spelers. Aparte keuze, open.
   Delve-woorden per taal (brief scratchpad `DELVE_BRIEF.md`, inventaris

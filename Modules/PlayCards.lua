@@ -48,7 +48,7 @@ local CARDS = {
 		steps = 4, aoe = false, hero = 2,
 		source = "Icy Veins 25 Aug · Method 27 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_PALADIN_2026-10-11.md.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 383328, [4] = 184575 },
 	},
@@ -57,7 +57,7 @@ local CARDS = {
 		-- and it was on none of the four tabs). HERO2 now says Lightsmith is ONE button.
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 3 Sep · Wowhead 12 Aug · Icy Veins 21 Sep 2026", -- rechecked 25 Sep + 3 Oct
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 375576, AOE = 31935 },
 	},
@@ -65,7 +65,7 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 15 Aug · Method 13 Sep · Wowhead 4 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_SHAMAN_MAGE_2026-10-11.md.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 365350, [3] = 1295924, AOE = 153626 },
 	},
@@ -74,14 +74,14 @@ local CARDS = {
 		source = "Icy Veins 10 Aug · Method 1 Sep · Wowhead 20 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Second why + quiz card (Rob, 11 Oct 2026). The last spell of S3/S4/AOE is not the step's point
 		-- (Flame Shock repeats S2, Earth Shock is the side option, AOE ends on what you stop using).
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [3] = 51505, [4] = 117014, AOE = 61882 },
 	},
 	[63] = { -- Fire Mage
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 17 Aug · Wowhead 16 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 190319, [3] = 11366, AOE = 2120 },
 	},
@@ -89,14 +89,14 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 11 Aug · Wowhead 29 Aug 2026",
 		-- Pilot for "why" lines + quiz (Rob, 10 Oct 2026, for Carola). See WHY AND QUIZ below.
-		why = { checked = "2026-10-11", interface = 120100 }, -- 11 Oct: Freezing numbers from wago DB2 + TERMS line
+		why = { checked = "2026-10-11", interface = 120105 }, -- 11 Oct: Freezing numbers from wago DB2 + TERMS line
 		quiz = true,
 	},
 	[65] = { -- Holy Paladin
 		steps = 4, aoe = true, hero = 2,
 		source = "Method 27 Aug · Wowhead 20 Sep · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- 11 Oct 2026: Infusion of Light lasts 15 s, not 10 (wago DB2 SpellMisc 54149, both builds).
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 19750, [3] = 85673, AOE = 200025 },
 	},
@@ -104,21 +104,21 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 + 25 Aug · Method 25 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_WARRIOR_2026-10-11.md. Overrides: the step's point, not its last spell.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 167105, [2] = 772, [3] = 12294, [4] = 163201, AOE = 845 },
 	},
 	[72] = { -- Fury Warrior
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 + 25 Aug · Method 11 Aug · Wowhead 12 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 1719, [3] = 23881, [4] = 5308, AOE = 190411 },
 	},
 	[73] = { -- Protection Warrior
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 18 Aug · Method 11 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [4] = 163201 },
 	},
@@ -126,28 +126,28 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 15 Aug · Wowhead 3 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_DRUID_2026-10-11.md. S3 now names Eclipse as {SPELL:1239669} (was plain text).
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 194223, AOE = 191034 },
 	},
 	[103] = { -- Feral Druid
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 1 Oct · Icy Veins 10 Aug · Wowhead 12 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 106951, AOE = 285381 },
 	},
 	[104] = { -- Guardian Druid
 		steps = 4, aoe = true, hero = 2,
 		source = "Method 3 Sep · Icy Veins 10 Aug · Wowhead 12 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 33917, [4] = 6807 },
 	},
 	[105] = { -- Restoration Druid
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 13 Sep · Wowhead 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 33763, [3] = 8936, AOE = 48438 },
 	},
@@ -155,21 +155,21 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 4 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_DEATHKNIGHT_2026-10-11.md. S2: Ossuary needs 5+ charges, so refresh at 5.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { AOE = 50842 },
 	},
 	[251] = { -- Frost Death Knight
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 25 Sep · Method 27 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 51271, [3] = 49143, AOE = 207230 },
 	},
 	[252] = { -- Unholy Death Knight
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 8 Sep · Method 24 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 1233448, [3] = 458128, AOE = 207317 },
 	},
@@ -177,7 +177,7 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 7 Sep · Method 5 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_HUNTER_2026-10-11.md.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 19574, [4] = 193455, AOE = 1264359 },
 	},
@@ -185,14 +185,14 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 31 Aug · Method 5 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- 12.1.5 removes Unload; S4/W4/TERMS are worded to hold in both builds.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 212431, AOE = 257620 },
 	},
 	[255] = { -- Survival Hunter
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 23 Sep · Method 3 Sep · Icy Veins 30 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 1250646, AOE = 1261193 },
 	},
@@ -200,14 +200,14 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 17 Aug · Method 17 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_PRIEST_2026-10-11.md. S4's last spell is the fallback, AOE's the add-on.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [4] = 585, AOE = 194509 },
 	},
 	[257] = { -- Holy Priest
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 25 Aug · Method 17 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { AOE = 64843 },
 	},
@@ -215,7 +215,7 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Method 27 Aug · Wowhead 12 Aug · Icy Veins 11 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- S1 names Vampiric Touch twice (asked in AOE instead); S2 is about Voidform; S3 ends on Voidform.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 589, [2] = 228260, [3] = 335467 },
 	},
@@ -223,56 +223,56 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 6 Sep · Method 12 Aug · Icy Veins 10 Aug 2026",
 		-- Why lines 11 Oct 2026, docs/WHY_ROGUE_2026-10-11.md. S1/S2 named the answer once as plain text: now {SPELL}.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 360194, AOE = 1247227 },
 	},
 	[260] = { -- Outlaw Rogue
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 27 Aug · Method 12 Aug · Icy Veins 10 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [3] = 315341 },
 	},
 	[261] = { -- Subtlety Rogue
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 24 Aug · Method 19 Aug · Icy Veins 10 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 185313, [2] = 185438, [3] = 426591, AOE = 197835 },
 	},
 	[263] = { -- Enhancement Shaman
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 23 Aug · Method 24 Aug · Wowhead 22 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 114051, AOE = 188443 },
 	},
 	[264] = { -- Restoration Shaman
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 11 Aug · Wowhead 5 Sep 2026",
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 	},
 	[265] = { -- Affliction Warlock
 		steps = 5, aoe = true, hero = 2,
 		source = "Wowhead 7 Sep · Icy Veins 31 Aug · Method 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_WARLOCK_2026-10-11.md. AOE now follows Icy Veins 31 Aug + the APL of 27 Aug.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 205180, [5] = 198590, AOE = 27243 },
 	},
 	[266] = { -- Demonology Warlock
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Wowhead 12 Aug · Method 27 Sep 2026",
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 265187, [2] = 104316, AOE = 196277 },
 	},
 	[267] = { -- Destruction Warlock
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 31 Aug · Method 15 Aug · Wowhead 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [4] = 116858, AOE = 5740 },
 	},
@@ -280,7 +280,7 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Method 11 Aug · Wowhead 12 Aug · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_MONK_2026-10-11.md.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 322507, [3] = 121253, [4] = 132578 },
 	},
@@ -288,14 +288,14 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Icy Veins 25 Aug · Wowhead 25 Aug · Method 18 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- 11 Oct: S2 dropped Strike of the Windlord (one choice node with Whirling Dragon Punch, which the guides take).
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 1249625, [2] = 113656, AOE = 101546 },
 	},
 	[270] = { -- Mistweaver Monk
 		steps = 5, aoe = true, hero = 2,
 		source = "Wowhead 30 Sep · Method 27 Aug · Icy Veins 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 107428, [3] = 116680, AOE = 115310 },
 	},
@@ -303,14 +303,14 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 17 Sep · Icy Veins 30 Aug · Wowhead 17 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- Why lines 11 Oct 2026, docs/WHY_DEMONHUNTER_2026-10-11.md. S1: The Hunt waits for Eye Beam (Eternal Hunt apex).
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 191427, [3] = 258860, [4] = 162794, [5] = 232893, AOE = 258920 },
 	},
 	[581] = { -- Vengeance Demon Hunter
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 27 Aug · Wowhead 12 Aug · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [3] = 263642 },
 	},
@@ -318,7 +318,7 @@ local CARDS = {
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 9 Sep · Method 25 Aug · Icy Veins 10 Aug 2026",
 		-- Why lines 11 Oct 2026, docs/WHY_EVOKER_2026-10-11.md. S4 adds Azure Sweep, AOE holds Eternity Surge longer.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 375087, [2] = 357208, [4] = 361469, AOE = 357211 },
 	},
@@ -326,7 +326,7 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 13 Aug · Method 20 Aug · Wowhead 21 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- S4 had no spell (Merithra's Blessing as plain text): now the Reversion button, so the quiz can ask it.
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [3] = 364343, [4] = 1256577, [5] = 360995, AOE = 363534 },
 	},
@@ -334,7 +334,7 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 25 Aug · Wowhead 17 Aug · Icy Veins 10 Aug 2026",
 		-- 11 Oct: Fire Breath to the top level unless Upheaval is ready (Icy Veins, Wowhead, APL; Method is stale).
-		why = { checked = "2026-10-11", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [3] = 403631, [4] = 357208, [5] = 395160 },
 	},
@@ -342,6 +342,7 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 18 Sep · Wowhead 2 Sep · Icy Veins 18 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		-- 12.1.5 changes Void-Scarred (Violent Transformation no longer resets The Hunt): HERO1 needs a recheck then.
+		-- Stays on 120100 on purpose: the other 39 cards were set to 120105 on 11 Oct (Rob), this one waits for the recheck.
 		why = { checked = "2026-10-11", interface = 120100 },
 		quiz = true,
 		quizAnswer = { [2] = 1226019, [5] = 473662 },
