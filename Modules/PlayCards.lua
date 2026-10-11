@@ -35,7 +35,8 @@
 	                `quizAnswer[step]`), the other spells on the card are the wrong choices, and the
 	                why line is the explanation. One place per fact: a patch check of the card is
 	                a check of the quiz.
-	Frost Mage (64) is the pilot; the other specs follow only after Carola has used it.
+	Frost Mage (64) is the pilot, Elemental Shaman (262) the second (Rob, 11 Oct 2026).
+	`quizAnswer` takes step numbers and `AOE`.
 ]]
 
 local _, ns = ...
@@ -59,6 +60,11 @@ local CARDS = {
 	[262] = { -- Elemental Shaman
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 1 Sep · Wowhead 20 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- Second why + quiz card (Rob, 11 Oct 2026). The last spell of S3/S4/AOE is not the step's point
+		-- (Flame Shock repeats S2, Earth Shock is the side option, AOE ends on what you stop using).
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [3] = 51505, [4] = 117014, AOE = 61882 },
 	},
 	[63] = { -- Fire Mage
 		steps = 5, aoe = true, hero = 2,
@@ -334,7 +340,7 @@ function ns.GetPlayCardQuiz(specID)
 		parts[#parts + 1] = { key = "S" .. i, why = "W" .. i, override = c.quizAnswer and c.quizAnswer[i] }
 	end
 	if c.aoe then
-		parts[#parts + 1] = { key = "AOE", why = "WAOE" }
+		parts[#parts + 1] = { key = "AOE", why = "WAOE", override = c.quizAnswer and c.quizAnswer.AOE }
 	end
 	-- Every spell on the card is a possible wrong choice.
 	local raw, pool, seen = {}, {}, {}

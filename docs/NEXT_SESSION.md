@@ -6,7 +6,15 @@
   nlNL.lua vervangen (PLAYCARD_64_W1, 2227, 2229, 2233, ACADEMY_CHAT_HINT, TANKKIT_TK_KICK/STUN); grep `(?i)spreuk`
   in Locales = 0 (GEMETEN, luac -p schoon).
 - Waarom-regels de/fr/es/pt/it: nog bewust Engels (geen W-vertalingen); Rob kiest of ze nu al vertaald worden.
-- Rob 11 okt: Elemental Shaman (262) krijgt ook waarom-regels + quiz. mh-research loopt (feiten + W-concepten).
+- ✅ GEBOUWD 11 okt, niet in een client gezien: Elemental Shaman (262) waarom-regels + quiz (Rob vroeg het).
+  `why = { checked = "2026-10-11", interface = 120100 }`, `quiz = true`, `quizAnswer = { [3]=51505, [4]=117014,
+  AOE=61882 }` (nieuw: `quizAnswer.AOE` in `GetPlayCardQuiz`). W1-W5/WAOE in enUS + nlNL; de/fr/es/pt/it vallen terug
+  op Engels. Bron: mh-research 11 okt (Icy Veins 10 aug, Method 1 sep, Wowhead 20 sep + live tooltips); 12.1.5-devnotes
+  hebben geen Elemental-regel (GEMETEN, EU-draad 627464). Offline getest (lua, stubs): 6 vragen, antwoord altijd
+  tussen de keuzes, enUS + nlNL; lint 0 HARD. Verbergt zich op 14 okt net als Frost.
+  OPEN uit het rapport (niet gedaan): AOE-regel zegt niet "3+ vijanden" bij Earthquake (Method: pas vanaf 3);
+  Earthquake 462620 (op doelwit) kan grijs tonen als "niet bekend" (AFGELEID); Wowhead 20 sep noemt Ascendance +75%
+  en Stormkeeper-overload, beide verouderd in 12.1.
 
 ## ▶️ (10 okt avond) — 4.7.6-BETA2 is UIT
 - Site-chat OK → tag `v4.7.6-beta2` (62085b5) gepusht; Actions-run 38081546545 success: CurseForge (beta), Wago en

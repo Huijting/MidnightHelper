@@ -1278,6 +1278,13 @@ ns._mhLocales.enUS = {
 	PLAYCARD_262_MISTAKE = "{SPELL:51505} without {SPELL:470411} on the target: then it no longer always crits.",
 	PLAYCARD_262_HERO1 = "Farseer (best this season): {SPELL:443454} on cooldown, then a spell with a cast time.",
 	PLAYCARD_262_HERO2 = "Stormbringer: no {SPELL:443454}. Cast {SPELL:454009} whenever it lights up, instead of {SPELL:188196}.",
+	-- Why lines, 11 Oct 2026: Icy Veins 10 Aug, Method 1 Sep, Wowhead 20 Sep 2026 + live tooltips (mh-research). Not seen in the game yet.
+	PLAYCARD_262_W1 = "{SPELL:114050} makes your spells fire an extra copy for a while. So charge up {SPELL:191634} just before it: your strongest bolts then land in that time. As Farseer, {SPELL:443454} also calls a spirit that casts along with you.",
+	PLAYCARD_262_W2 = "While {SPELL:470411} burns, {SPELL:51505} always crits on that enemy. Each burn tick can also make {SPELL:51505} ready again. Renewing early is safe: the time that was left is added on.",
+	PLAYCARD_262_W3 = "On a burning enemy {SPELL:51505} always crits: one of your hardest hits, and it fills your Maelstrom bar a lot. Does it light up early? That is Lava Surge: ready again and instant.",
+	PLAYCARD_262_W4 = "The Maelstrom bar stops when it is full: anything you earn then is lost. {SPELL:117014} also gives you a short boost. {SPELL:8042} costs less and is instant, handy when you have to move.",
+	PLAYCARD_262_W5 = "{SPELL:188196} has no cooldown, so it fills every gap and fills your Maelstrom bar. Sometimes it fires a smaller extra bolt for free.",
+	PLAYCARD_262_WAOE = "{SPELL:470057} sets a whole group burning in one press. {SPELL:188443} jumps from enemy to enemy and gives more Maelstrom the more it hits. Spend it on {SPELL:61882}: it hurts everything standing in it.",
 	PLAYCARD_63_IDEA = "Crit twice in a row to light up Hot Streak, then throw a free, instant {SPELL:11366}.",
 	PLAYCARD_63_S1 = "Your big moment, every minute: {SPELL:190319} with {SPELL:153561}. Everything crits: chain {SPELL:108853} and {SPELL:11366}.",
 	PLAYCARD_63_S2 = "Heating Up lit up? {SPELL:108853} turns it into Hot Streak. It even works during another cast.",

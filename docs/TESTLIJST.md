@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 okt — waarom-regels + quiz voor Elemental Shaman (PlayCards.lua)
+
+- [ ] Op een Elemental Shaman: open "Zo speel je". Onder elke stap en onder AOE staat een blauwe regel "Waarom:".
+      `/mh playcards check` zegt "why lines SHOWN" en "quiz: 6 questions".
+- [ ] Klik "Test jezelf". Stap 3 vraagt naar **Lava Burst** (niet Flame Shock), stap 4 naar **Elemental Blast**, AOE naar
+      **Earthquake**. Na elk antwoord staat de waarom-regel eronder.
+
 ## 🆕 10 okt — toetsenblok op een nieuw character onder level 10 (KeybindAutoMap.lua)
 
 - [ ] Op de nieuwe Demon Hunter (level 8): `/reload`, toetsenblok openen. Chaos Strike, Demon's Bite en Fel Rush staan
