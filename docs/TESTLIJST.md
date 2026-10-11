@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 okt — waarom-regels + quiz + "Goed om te weten" op ALLE 40 kaarten (PlayCards.lua)
+
+- [ ] Kies per character "Zo speel je": onder elke stap een blauwe "Waarom:"-regel, bovenaan "Goed om te weten:"
+      (behalve Elemental/Frost: die hadden het al). Test jezelf: elke vraag heeft het antwoord tussen de 3 knoppen.
+- [ ] Healers (Holy/Disc Priest, Holy Pal, Resto Druid/Shaman, Mistweaver, Preservation): onder de "•"-regel van
+      de groepsstap staat nu ook een "Waarom:".
+- [ ] Gouden spellnamen in de nieuwe teksten (niet grijs). Grijs = die spell heb je niet als talent. Opvallend
+      nieuw: Balance "Eclipse", Devastation "Azure Sweep", Preservation "Merithra's Blessing", Arms "Heroic Strike",
+      Unholy "Festering Scythe", Devourer "Pierce the Veil / Predator's Wake / Reaper's Toll".
+- [ ] Kaartfouten die verbeterd zijn (lees ze een keer): zie de commits van 11 okt en `docs/WHY_*_2026-10-11.md`.
+
 ## 🆕 11 okt — Frost Mage: "Goed om te weten" legt Freezing uit (PlayCards.lua + PlayCardWindow.lua)
 
 - [ ] Op je Frost Mage, `/reload`, "Zo speel je": direct onder de bovenste zin staat in blauw **"Goed om te weten:"**

@@ -5,8 +5,9 @@
   TERMS, quizAnswer, kaartfouten, 12.1.5). Golf 1 loopt (mh-research): Paladin, Priest, Warrior, Shaman-rest + Mage-rest.
   Golven van 4 (ze delen de browser). Op de patchdag: één ronde nakijken + `interface` ophogen.
 - STAND (11 okt avond): W + TERMS + quiz in enUS/nlNL voor 64, 262, Priest, Warrior, Paladin, Shaman, Mage (2),
-  Hunter, Death Knight, Druid, Rogue, Monk, Warlock, Demon Hunter = 37 specs (alleen Evoker nog). Rapporten:
-  `docs/WHY_<KLASSE>_2026-10-11.md`. Vertaald (de/fr/es/pt/it): alles behalve Monk, Warlock, DH (volgende mh-writer).
+  Hunter, Death Knight, Druid, Rogue, Monk, Warlock, Demon Hunter, Evoker = ALLE 40 specs (enUS + nlNL; offline
+  quiztest 40/40 OK, lint 0 HARD). Rapporten: `docs/WHY_<KLASSE>_2026-10-11.md`. Vertaald (de/fr/es/pt/it): alles
+  behalve Evoker (mh-writer loopt).
   Schoonmaakronde ook: "Solar/Lunar Eclipse" in 102_W5/TERMS → {SPELL:1233346}/{SPELL:1233272} (vertaler verzon
   "Sonnenfinsternis" e.d.); Devourer HERO1 na 12.1.5 opnieuw (The Hunt-reset weg). Healers: WAOE stond niet op de kaart (healer-tak ouder dan W) → gerepareerd
   in PlayCardWindow.lua. Onderzoek loopt: Druid (klaar, nog verwerken), Rogue, Warlock, Monk, Demon Hunter; daarna Evoker.

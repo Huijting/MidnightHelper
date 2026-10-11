@@ -35,7 +35,8 @@
 	                `quizAnswer[step]`), the other spells on the card are the wrong choices, and the
 	                why line is the explanation. One place per fact: a patch check of the card is
 	                a check of the quiz.
-	Frost Mage (64) is the pilot, Elemental Shaman (262) the second (Rob, 11 Oct 2026).
+	Frost Mage (64) was the pilot, Elemental Shaman (262) the second; since 11 Oct 2026 every card has them
+	(Rob: "ik wil sowieso voor alles de waarom versie"). Research per class: docs/WHY_<CLASS>_2026-10-11.md.
 	`quizAnswer` takes step numbers and `AOE`.
 ]]
 
@@ -316,14 +317,26 @@ local CARDS = {
 	[1467] = { -- Devastation Evoker
 		steps = 4, aoe = true, hero = 2,
 		source = "Wowhead 9 Sep · Method 25 Aug · Icy Veins 10 Aug 2026",
+		-- Why lines 11 Oct 2026, docs/WHY_EVOKER_2026-10-11.md. S4 adds Azure Sweep, AOE holds Eternity Surge longer.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [1] = 375087, [2] = 357208, [4] = 361469, AOE = 357211 },
 	},
 	[1468] = { -- Preservation Evoker
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 13 Aug · Method 20 Aug · Wowhead 21 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		-- S4 had no spell (Merithra's Blessing as plain text): now the Reversion button, so the quiz can ask it.
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [3] = 364343, [4] = 1256577, [5] = 360995, AOE = 363534 },
 	},
 	[1473] = { -- Augmentation Evoker
 		steps = 5, aoe = true, hero = 2,
 		source = "Method 25 Aug · Wowhead 17 Aug · Icy Veins 10 Aug 2026",
+		-- 11 Oct: Fire Breath to the top level unless Upheaval is ready (Icy Veins, Wowhead, APL; Method is stale).
+		why = { checked = "2026-10-11", interface = 120100 },
+		quiz = true,
+		quizAnswer = { [3] = 403631, [4] = 357208, [5] = 395160 },
 	},
 	[1480] = { -- Devourer Demon Hunter
 		steps = 5, aoe = true, hero = 2,
