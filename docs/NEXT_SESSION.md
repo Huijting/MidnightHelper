@@ -14,7 +14,10 @@
   tussen de keuzes, enUS + nlNL; lint 0 HARD. Verbergt zich op 14 okt net als Frost.
   ✅ Rob "ja": AOE-regel zegt nu "3 of meer vijanden: Earthquake" (7 talen, check_drift --mark).
   ✅ Frost Mage waarom + quiz door Rob GOEDGEKEURD 11 okt, ook de site. Rob vroeg "wat is Freezing eigenlijk?":
-  de kaart legt Freezing nergens uit → voorstel aan Rob: een uitlegregel (Rob kiest).
+  de kaart legt Freezing nergens uit. ✅ Rob "ja, maar zoek eerst goed": 2 mh-research-agenten (gidsen + wago DB2),
+  eens → `docs/FROST_FREEZING_FACTS_2026-10-11.md`. Nieuw `PLAYCARD_<spec>_TERMS` + kop `PLAYCARD_TERMS_HEAD` (7 talen),
+  getoond onder het idee, alleen met de waarom-gate. Frost W3 was FOUT ("al het Freezing") → "4 tegelijk"; W2/W4 met
+  getallen. Frost `why.checked` → 2026-10-11. OPEN: Frostfire-drempel 12 vs 10 (gidsen oneens), HERO2 zegt 12.
   OPEN uit het rapport: Earthquake 462620 (op doelwit) kan grijs tonen als "niet bekend" (AFGELEID); Wowhead 20 sep noemt Ascendance +75%
   en Stormkeeper-overload, beide verouderd in 12.1.
 

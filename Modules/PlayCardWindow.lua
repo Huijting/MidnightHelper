@@ -1122,6 +1122,17 @@ local function Redraw()
 		idea:SetText(live and WithKeys(card.idea) or card.idea)
 		y = y - idea:GetStringHeight() - 12
 
+		-- "Good to know": the word the whole card leans on (PlayCards.lua out.terms; Frost: what Freezing is).
+		if card.terms then
+			t = t + 1
+			local terms = Text(t, "GameFontHighlight")
+			terms:SetWidth(inner)
+			terms:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+			terms:SetTextColor(1, 1, 1)
+			terms:SetText("|cff8fc7ff" .. L("PLAYCARD_TERMS_HEAD") .. "|r " .. (live and WithKeys(card.terms) or card.terms))
+			y = y - terms:GetStringHeight() - 12
+		end
+
 		-- A healer has never been told HOW healing picks its target (Rob, 5 Oct 2026: "nog nooit van
 		-- mijn leven geheald"). One line, healer specs only.
 		if isHealer then

@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 okt — Frost Mage: "Goed om te weten" legt Freezing uit (PlayCards.lua + PlayCardWindow.lua)
+
+- [ ] Op je Frost Mage, `/reload`, "Zo speel je": direct onder de bovenste zin staat in blauw **"Goed om te weten:"**
+      met wat Freezing is (Frostbolt 1, Flurry 3, Ray of Frost 8, max 20; Ice Lance breekt er 4).
+- [ ] De waarom-regel bij Ice Lance zegt nu "breekt 4 Freezing tegelijk", niet meer "al het Freezing".
+- [ ] Op je shamaan staat géén "Goed om te weten"-regel (alleen Frost heeft er een).
+
 ## 🆕 11 okt — waarom-regels + quiz voor Elemental Shaman (PlayCards.lua)
 
 - [ ] Op een Elemental Shaman: open "Zo speel je". Onder elke stap en onder AOE staat een blauwe regel "Waarom:".

@@ -74,7 +74,7 @@ local CARDS = {
 		steps = 5, aoe = true, hero = 2,
 		source = "Icy Veins 10 Aug · Method 11 Aug · Wowhead 29 Aug 2026",
 		-- Pilot for "why" lines + quiz (Rob, 10 Oct 2026, for Carola). See WHY AND QUIZ below.
-		why = { checked = "2026-10-10", interface = 120100 },
+		why = { checked = "2026-10-11", interface = 120100 }, -- 11 Oct: Freezing numbers from wago DB2 + TERMS line
 		quiz = true,
 	},
 	[65] = { -- Holy Paladin
@@ -301,6 +301,12 @@ function ns.GetPlayCard(specID, known)
 	local easyKey = ("PLAYCARD_%d_EASY"):format(specID)
 	if ns._mhLocales and ns._mhLocales.enUS and ns._mhLocales.enUS[easyKey] then
 		out.easy = Expand(ns:L(easyKey), known)
+	end
+	-- "Good to know": the word the card leans on, explained (Rob, 11 Oct 2026: "wat is freezing eigenlijk?!").
+	-- It explains a mechanic, so it hides with the why lines on a newer patch. Only where enUS has the key.
+	local termsKey = ("PLAYCARD_%d_TERMS"):format(specID)
+	if showWhy and ns._mhLocales and ns._mhLocales.enUS and ns._mhLocales.enUS[termsKey] then
+		out.terms = Expand(ns:L(termsKey), known)
 	end
 	for i = 1, c.hero or 0 do
 		local t, id = Expand(Part("HERO" .. i), known)
