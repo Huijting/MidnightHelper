@@ -1,6 +1,12 @@
 # Midnight Helper — waar we staan
 
-## ▶️ HIER VERDER (10 okt avond) — 4.7.6-BETA2 is UIT
+## 11 okt ochtend
+- Rob test de Frost Mage-waaromregels + quiz zelf (ze staan al aan: client 120100 = `why.interface`).
+- nlNL `PLAYCARD_64_W1`: "spreuken" → "spells" (site-chat: Robs woordregel; GEMETEN nlNL 52× spell(s) tegen
+  5 regels "spreuk"). De andere 4 "spreuk"-regels (ACADEMY_CHAT_HINT, TANKKIT_TK_KICK/STUN, 2229/2233) NIET aangeraakt.
+- Waarom-regels de/fr/es/pt/it: nog bewust Engels (geen W-vertalingen); Rob kiest of ze nu al vertaald worden.
+
+## ▶️ (10 okt avond) — 4.7.6-BETA2 is UIT
 - Site-chat OK → tag `v4.7.6-beta2` (62085b5) gepusht; Actions-run 38081546545 success: CurseForge (beta), Wago en
   GitHub "Success!" (GEMETEN in de log, 19:53 UTC). Site-chat geseind (beta-blok + nl "Alle characters").
 - Volgende: Rob test met Carola/Cisca in een delve/dungeon (markers, Death Recap-les); dan 4.7.6 als release.
