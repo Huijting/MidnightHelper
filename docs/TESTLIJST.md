@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 okt — Season 1-raids kennen hun nummer (RaidCoachData.lua)
+
+- [ ] **In The Voidspire, The Dreamrift of March on Quel'Danas, VÓÓR de eerste baas:** open het baasvenster (de
+      dungeon-hulp). Het hoort nu meteen de goede raid te tonen, niet "de dungeon van de week". Tot nu toe kon dat
+      alleen in The Venomous Abyss.
+- [ ] **Recepten-route naar een dungeon- of raid-ingang** (beroepen → boodschappenlijst → "Route"): de pijl noemt de
+      ingang met de naam uit het spel.
+
 ## 🆕 11 okt — Battle res & Hero-paneel: ook wie BUITEN combat kan ressen (GroupRezLust.lua)
 
 - [ ] **In een groep in een dungeon/delve** (of `/mh lust test`): onder "Can revive in combat" staat nu een regel

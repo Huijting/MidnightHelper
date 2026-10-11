@@ -286,6 +286,9 @@ local function DungeonForCurrentInstance()
 				--- Only The Venomous Abyss carries a client-verified one; the Season 1
 				--- raids would need Rob to capture their ids, and a wrong id here would
 				--- quietly open the wrong raid.
+				--- 📌 11 Oct 2026: the three Season 1 raids now carry ids measured in Blizzard's
+				--- JournalInstance table (1314/1307/1308, RaidCoachData.lua) - DB2, not yet seen
+				--- in Rob's client (TESTLIJST).
 				if not found and type(ns.CUSTOM_BOSS_ENTRIES) == "table" then
 					for _, e in pairs(ns.CUSTOM_BOSS_ENTRIES) do
 						if type(e) == "table" and e.journalInstanceID == jid then

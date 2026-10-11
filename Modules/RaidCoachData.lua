@@ -33,6 +33,10 @@ local RAIDS = {
 	{
 		key = "raid_dreamrift",
 		name = "The Dreamrift",
+		-- 11 Oct 2026: journal ids for the three Season 1 raids, MEASURED in wago JournalInstance (12.1.0.69933,
+		-- scratchpad INSTANCE_ACH_NAMES.md). They give the client's own raid name (GetDungeonDisplayName) and let the
+		-- boss window recognise the raid before the first pull (DungeonBossWindow.lua:285). Not yet seen in Rob's client.
+		journalInstanceID = 1314,
 		entrance = { mapID = 2413, x = 61.33, y = 63.01 }, -- Harandar
 		bosses = {
 			{ key = "chimaerus", name = "Chimaerus, the Undreamt God", seedCreatureId = 256116, encounterID = 2795 },
@@ -41,6 +45,7 @@ local RAIDS = {
 	{
 		key = "raid_voidspire",
 		name = "The Voidspire",
+		journalInstanceID = 1307,
 		entrance = { mapID = 2405, x = 45.21, y = 64.79 }, -- Voidstorm
 		bosses = {
 			{ key = "averzian",  name = "Imperator Averzian",      seedCreatureId = 240435, encounterID = 2733 },
@@ -54,6 +59,7 @@ local RAIDS = {
 	{
 		key = "raid_queldanas",
 		name = "March on Quel'Danas",
+		journalInstanceID = 1308,
 		entrance = { mapID = 2424, x = 52.60, y = 85.11 }, -- Isle of Quel'Danas
 		bosses = {
 			{ key = "beloren", name = "Belo'ren, Child of Al'ar", seedCreatureId = 240387, encounterID = 2739 },
