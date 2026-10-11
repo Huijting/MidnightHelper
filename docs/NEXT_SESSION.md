@@ -15,7 +15,10 @@
   fr/es UI-knoppen zeggen al abondant/pródiga, CLAUDE.md zegt Engels: zelfde vraag als Delve, Rob kiest; (b) "Delver's
   Call"-titel spreekt zichzelf tegen in fr en es → in de client nameten; (c) esES DelveTips Torment's Rise beschrijft nog
   Season 1 en een paar es-tips missen bullets t.o.v. enUS (vermoedelijk ook andere talen) → drift-ronde DelveTips;
-  (d) zoekvoorbeeld "delves" in SEARCH_TOOLTIP_BODY: vindt NavSearch "Tiefen/gouffres"? niet gemeten.
+  (d) ✅ GEMETEN in de code (11 okt): het tablabel is vertaald en doorzoekbaar, dus "tiefen" vond het tabblad al;
+  maar "delves" (het voorbeeld in elke tooltip) stond NIET in de trefwoorden → toegevoegd. En string.lower kent
+  alleen A-Z: Russisch "вылазки" vond "Вылазки" niet, Duits "über" niet "Über" → ULower in NavSearch.lua
+  (Latin-1 + Cyrillisch; offline getest, alle gevallen OK).
   ✅ ptBR ook (11 okt; Delve-regels 121 → 7, rest = sitenaam/slash/zoekwoord). Writer zag in ptBR, NIET gerepareerd:
   5 regels missen zinnen t.o.v. enUS (DELVE_TIP_SHADOW_ENCLAVE_TRASH, DELVE_TIP_TWILIGHT_CRYPTS_ROUTE,
   DELVE_REWARDS_UNMEASURED, VALEERA_OFF_HINT, CMDLIST_CURIOINFO); DELVE_SHARE_MISSING en ACADEMY_HEAL_CHAT_TITLE

@@ -30,6 +30,9 @@ er is niets weggegooid.
 - [ ] *(alleen als je ooit Russisch in Battle.net zet — niet nodig)* MH-venster in het Russisch; let op knoppen
       die te breed zijn: "Найти ближайшую многообещающую вылазку" (tabblad Вылазки и хранилище) en de groepstag
       "РАЗВЕИВАНИЕ".
+- [ ] **Zoekbalk bovenin MH:** typ `delves` → het tabblad "Delves & Vault" staat bovenaan. Typ ook eens iets met
+      een hoofdletter erin, bv. `THIS week`: vindt nog steeds "This Week" (de zoekfunctie maakt nu ook Ü/Ä en
+      Russische hoofdletters klein).
 - [ ] **Waarom-regels na de patch (14 okt):** 39 kaarten tonen ze nog; alleen de Devourer niet
       (`/mh playcards check` op een Devourer zegt "hidden until rechecked").
 

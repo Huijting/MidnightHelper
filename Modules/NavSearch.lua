@@ -31,6 +31,22 @@ local function L(key)
 	return (ns.L and ns:L(key)) or key
 end
 
+--- string.lower only knows A-Z, so a Russian label "Вылазки" never matched a typed "вылазки", and a German
+--- "Übersicht" never matched "übersicht" (11 Oct 2026, with the ruRU pack). This also folds the two-byte
+--- UTF-8 capitals we ship: Latin-1 À-Þ (not ×) and Cyrillic А-Я plus Ё.
+local function ULower(s)
+	s = s:lower()
+	s = s:gsub("\195([\128-\158])", function(c)
+		local b = c:byte()
+		if b == 151 then return "\195" .. c end -- × stays
+		return "\195" .. string.char(b + 32)
+	end)
+	s = s:gsub("\208([\144-\159])", function(c) return "\208" .. string.char(c:byte() + 32) end) -- А-П
+	s = s:gsub("\208([\160-\175])", function(c) return "\209" .. string.char(c:byte() - 32) end) -- Р-Я
+	s = s:gsub("\208\129", "\209\145") -- Ё
+	return s
+end
+
 local function OpenTab(id)
 	if ns.ShowMainUI then
 		ns:ShowMainUI()
@@ -77,8 +93,8 @@ local function BuildNavIndex()
 		idx[#idx + 1] = {
 			label = label,
 			context = context,
-			lower = label:lower(),
-			keys = ((keys or "") .. " " .. (context or "")):lower(),
+			lower = ULower(label),
+			keys = ULower((keys or "") .. " " .. (context or "")),
 			go = go,
 			tier = tier or TIER_NAV,
 			cat = cat,
@@ -94,7 +110,9 @@ local function BuildNavIndex()
 	tab("TAB_START_HERE", "starthere", "begin new player intro start")
 	tab("TAB_HOME", "home", "this week dashboard overview")
 	tab("TAB_CODEX", "codex", "handbook wiki guides articles")
-	tab("TAB_DELVES", "delves", "vault great vault delver")
+	-- "delves" itself is a keyword since 11 Oct 2026: the search tooltip in every pack uses it as its example, and
+	-- in de/fr/es/pt/it/ru the tab label now says the client word, so the English word only matched in English.
+	tab("TAB_DELVES", "delves", "delves vault great vault delver")
 	tab("TAB_DUNGEONS", "dungeons", "mythic plus boss coach")
 	tab("TAB_RARES", "rares", "rare spawn")
 	tab("TAB_ACHIEVEMENTS", "achievements", "achievement treasure treasures collectible route lore hunter")
@@ -633,7 +651,7 @@ local function BuildNavIndex()
 end
 
 local function FilterIndex(query)
-	query = (query or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+	query = ULower(query or ""):gsub("^%s+", ""):gsub("%s+$", "")
 	-- "@cat rest" scopes to a category (prefix-matched: "@co" = codex/command); a leading
 	-- "/" is shorthand for "@command", so "/" lists commands and "/loot" finds "/mh loot".
 	-- An unknown "@xyz" simply matches nothing.
@@ -893,7 +911,7 @@ function ns.DevHideNavResults()
 end
 
 function ns.MHNavSearchTryJump(query)
-	query = (query or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+	query = ULower(query or ""):gsub("^%s+", ""):gsub("%s+$", "")
 	if #query < 2 then
 		return false
 	end
