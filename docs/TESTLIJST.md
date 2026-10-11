@@ -109,10 +109,12 @@ Ongeveer 25 fouten gerepareerd tegen Blizzards speldata; niets daarvan in het sp
 
 ## 🆕 10 okt — speelkaart Frost Mage: waarom-regels + quiz (PlayCards.lua + PlayCardWindow.lua)
 
-- [ ] Op je Frost Mage: `/reload`, `/mh play`. Onder elke stap staat een blauwe regel **"Waarom:"**, ook onder "Meer vijanden".
+✅ **Rob 11 okt: "getest op de frost mage en keur het goed, ook de site"** (screenshot: vraag 3 van 6, fout gekozen →
+rood/groen, "Net niet: het is Ice Lance." + waarom-regel). Afgevinkt wat dat dekt; de rest is niet apart gezien.
+- [x] Op je Frost Mage: `/reload`, `/mh play`. Onder elke stap staat een blauwe regel **"Waarom:"**, ook onder "Meer vijanden".
 - [ ] `/mh playcards check`: de laatste regel zegt `why lines SHOWN` en `quiz: 6 questions`.
-- [ ] Onder de kaart staat de knop **"Test jezelf: quiz"**. Klik: vraag 1 van 6, een zin met een open plek, drie knoppen met icoon.
-- [ ] Kies fout: jouw knop rood, de goede groen, "Net niet: het is …" en de waarom-regel. Kies goed: "Goed!".
+- [x] Onder de kaart staat de knop **"Test jezelf: quiz"**. Klik: vraag 1 van 6, een zin met een open plek, drie knoppen met icoon.
+- [x] Kies fout: jouw knop rood, de goede groen, "Net niet: het is …" en de waarom-regel. Kies goed: "Goed!".
 - [ ] Na vraag 6: score, "Opnieuw" en "Terug naar de kaart" werken. Het tabblad "Hoe je speelt" blijft onderstreept tijdens de quiz.
 - [ ] Op een andere spec (bv. Arcane via het spec-icoontje): géén quizknop en geen waarom-regels.
 - [ ] Carola: laat haar de quiz doen en kijk of ze de zinnen snapt (dat is de echte test).

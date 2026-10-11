@@ -12,8 +12,10 @@
   op Engels. Bron: mh-research 11 okt (Icy Veins 10 aug, Method 1 sep, Wowhead 20 sep + live tooltips); 12.1.5-devnotes
   hebben geen Elemental-regel (GEMETEN, EU-draad 627464). Offline getest (lua, stubs): 6 vragen, antwoord altijd
   tussen de keuzes, enUS + nlNL; lint 0 HARD. Verbergt zich op 14 okt net als Frost.
-  OPEN uit het rapport (niet gedaan): AOE-regel zegt niet "3+ vijanden" bij Earthquake (Method: pas vanaf 3);
-  Earthquake 462620 (op doelwit) kan grijs tonen als "niet bekend" (AFGELEID); Wowhead 20 sep noemt Ascendance +75%
+  ✅ Rob "ja": AOE-regel zegt nu "3 of meer vijanden: Earthquake" (7 talen, check_drift --mark).
+  ✅ Frost Mage waarom + quiz door Rob GOEDGEKEURD 11 okt, ook de site. Rob vroeg "wat is Freezing eigenlijk?":
+  de kaart legt Freezing nergens uit → voorstel aan Rob: een uitlegregel (Rob kiest).
+  OPEN uit het rapport: Earthquake 462620 (op doelwit) kan grijs tonen als "niet bekend" (AFGELEID); Wowhead 20 sep noemt Ascendance +75%
   en Stormkeeper-overload, beide verouderd in 12.1.
 
 ## ▶️ (10 okt avond) — 4.7.6-BETA2 is UIT
