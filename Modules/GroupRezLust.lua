@@ -96,6 +96,12 @@ local CLASS_SPELL = {
 --- so the panel says so instead of promising it - unless we know the hunter is Marksmanship.
 local LUST_CLASSES = { SHAMAN = true, MAGE = true, EVOKER = true, HUNTER = "pet" }
 
+--- Who can revive out of combat (Rob, 11 Oct 2026: "waarom zie ik de andere ressen niet?" - the panel only
+--- named battle res classes and your own res key). The same six spells as MY_RES below, one per class:
+--- Resurrection, Redemption, Ancestral Spirit, Revive, Resuscitate, Return.
+local RES_CLASSES = { PRIEST = true, PALADIN = true, SHAMAN = true, DRUID = true, MONK = true, EVOKER = true }
+local RES_SPELL = { PRIEST = 2006, PALADIN = 7328, SHAMAN = 2008, DRUID = 50769, MONK = 115178, EVOKER = 361227 }
+
 --- Your own spell for each, tried in order; the first one you know is shown with its key
 --- (Rob, 30 Sep: "zodat ik niet eerst moet zoeken bij mijn spells"). Intercession is 391054 (see
 --- BREZ_CLASSES); Primal Rage is the pet's spell; Harrier's Cry is Marksmanship's own.
@@ -447,8 +453,9 @@ local function Colour(classFile, text)
 	return text
 end
 
---- "Aeris (Druid), Kel (Warlock) +2 more", or nil when nobody can.
-local function WhoCan(classes)
+--- "Aeris (Druid), Kel (Warlock) +2 more", or nil when nobody can. `spells` defaults to CLASS_SPELL.
+local function WhoCan(classes, spells)
+	spells = spells or CLASS_SPELL
 	local parts, extra = {}, 0
 	for _, u in ipairs(GroupUnits()) do
 		local okC, _, classFile = pcall(UnitClass, u)
@@ -461,7 +468,7 @@ local function WhoCan(classes)
 				if okN and Readable(name) then
 					label = ("%s (%s)"):format(name, label)
 				end
-				local spell = CLASS_SPELL[classFile]
+				local spell = spells[classFile]
 				if type(spell) == "function" then
 					spell = spell(u)
 				end
@@ -583,6 +590,9 @@ local function BuildLines(logIt)
 	lines[#lines + 1] = brezWho and ns:L("REZLUST_BREZ_WHO_FMT"):format(brezWho)
 		or ("|cffff9900" .. ns:L("REZLUST_BREZ_WHO_NONE") .. "|r")
 	lines[#lines + 1] = MyButton(MY_BREZ)
+	local resWho = WhoCan(RES_CLASSES, RES_SPELL)
+	lines[#lines + 1] = resWho and ns:L("REZLUST_RES_WHO_FMT"):format(resWho)
+		or ("|cffff9900" .. ns:L("REZLUST_RES_WHO_NONE") .. "|r")
 	lines[#lines + 1] = MyButton(MY_RES, "REZLUST_OOC_FMT")
 
 	lines[#lines + 1] = " "
@@ -896,6 +906,7 @@ function ns.RezLustCommand(arg)
 	print(("   EllesmereUI shows: battle res %s, Bloodlust %s (our line stands down where yes)"):format(
 		EllesmereShows("battleRes") and "yes" or "no", EllesmereShows("bloodlust") and "yes" or "no"))
 	print("   can revive: " .. (WhoCan(BREZ_CLASSES) or "nobody"))
+	print("   can revive out of combat: " .. (WhoCan(RES_CLASSES, RES_SPELL) or "nobody"))
 	print("   can Hero: " .. (WhoCan(LUST_CLASSES) or "nobody"))
 	PrintLog()
 	print("   /mh lust test shows the panel now. /reload writes the measurements to the file.")

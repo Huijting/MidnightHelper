@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 okt — Battle res & Hero-paneel: ook wie BUITEN combat kan ressen (GroupRezLust.lua)
+
+- [ ] **In een groep in een dungeon/delve** (of `/mh lust test`): onder "Can revive in combat" staat nu een regel
+      **"Can revive out of combat:"** met iedereen die een gewone res heeft (Priest, Paladin, Shaman, Druid, Monk,
+      Evoker), met hun spell. In je groep van de screenshot: jij (Druid - Revive) en Sizle (Shaman - Ancestral Spirit).
+      De Mage staat er terecht niet bij: die heeft geen res.
+
 ## 🆕 11 okt — Russisch taalpakket (Locales/ruRU.lua) + Delve/Bountiful-woord in de/fr/es/pt/it
 
 - [ ] **Gewone /reload (Engelse client): geen Lua-fout.** Het nieuwe bestand laadt wel, maar stopt meteen (alleen

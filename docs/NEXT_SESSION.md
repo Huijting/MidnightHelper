@@ -17,6 +17,9 @@
   (geen DB2-rij, prefix van 2050), Stampede/Pit Lord-id's, ptBR Estouro gehouden; 71_S2 "Cleave talent, Cleave puts
   Rend on": ✅ nagekeken 11 okt, KLOPT (docs/WHY_WARRIOR_2026-10-11.md: DB2 845 "If you know Rend, inflicts Rend on all
   targets" + SimC 12.1, GEMETEN); leest alleen wat dubbel omdat {SPELL:845} als "Cleave" verschijnt. Niet veranderd.
+- ✅ Rob 11 okt (screenshot): "waarom zie ik de andere ressen niet?" Paneel noemde alleen battle-res-klassen
+  (Druid/DK/Warlock/Paladin) + je eigen res-toets. Nu ook "Can revive out of combat:" (Priest/Paladin/Shaman/Druid/
+  Monk/Evoker, met hun spell; zelfde 6 id's als MY_RES), 7 talen. Niet in het spel getest → TESTLIJST.
 - Rob 11 okt: site-chat mag aan de Russische site beginnen; hij stuurt een lijst voor build_site.py ("ru").
 - Let op (run-annotatie): `ubuntu-latest` gaat vanaf 19 okt naar Ubuntu 26; bij de volgende release de run nakijken.
 - Daarna: echte 4.7.6-release pas na de patch (14 okt): patchnotes naast de kaarten, Devourer HERO1, Robs /reload.
