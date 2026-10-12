@@ -2,9 +2,11 @@
 
 ## 13 okt — PATCHDAG 12.1.5 (VS) — VERDER HIER
 Rob speelt EU: voor hem gaat 12.1.5 pas **woensdag 14 okt** live. Dinsdag = alles wat zonder spel kan, op de VS-build.
-Stand bij afsluiten 12 okt (GEMETEN): main = c0c8052, gepusht, werkboom schoon, laatste tag `v4.7.6-beta3`; alles
+Stand bij afsluiten 12 okt (GEMETEN): main = 4381042, gepusht, werkboom schoon, laatste tag `v4.7.6-beta3`; alles
 daarna NIET getagd (Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten, doodskaart-tips,
-spell-presses — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
+spell-presses, website-links incl. titelbalk — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
+🔴 Bij de volgende tag: site-chat ("Site chat 12-10" of opvolger) seinen → site herbouwen uit de tag (52 Codex-ankers,
+/ru/). Rob plakt CURSEFORGE_DESCRIPTION.md op CF.
 Wachters: de content-wachter (trig_01JYW9gqzFNe8MkY3x3tQzh6) kent sinds 12 okt de 3 "bekende afwijkingen" en de
 mana-potion; consumables-check weer maandag 19 okt.
 wago-builds 12 okt (GEMETEN, api/builds): live `wow` 12.1.0.69933 (22 sep); PTR `wowxptr` 12.1.5.70077 (29 sep, geen
@@ -52,6 +54,8 @@ spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob bes
   CHANGELOG_476_25 (Engels). CURSEFORGE_DESCRIPTION.md: website-blok van site-chat + Русский + "eight languages" +
   Bountiful-regel weg. 8 talen. 🔴 BIJ DE VOLGENDE TAG: site-chat seinen (herbouwt de site uit de tag; dan komt
   #currency_voidcore erbij, 52 ankers + /ru/ checken). Rob plakt CURSEFORGE_DESCRIPTION.md op CF.
+  ✅ Titelbalk (Rob 3 rondes, ✅ "staat mooi in het midden"): "midnighthelper.com" GameFontNormalLarge, blauw, CENTER op
+  titleBar (`ns._mhPlaceTitleSite`); breadcrumb RIGHT → titleSite LEFT -12 (lange namen ingekort).
 - ✅ KeyPresses (Rob 12 okt, screenshot DH lvl 15): dubbele regels kwamen van schade-onderdelen die óók een cast
   melden (GEMETEN SV + wago: Chaos Strike 162794/222031/199547 = 60/60/50, Felblade 232893/213243 = 15/15) → Rows()
   voegt zelfde naam + zelfde toets samen met het HOOGSTE aantal (niet de som). Rob koos optie B: swap-tips blijven bij
