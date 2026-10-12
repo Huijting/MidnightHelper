@@ -47,7 +47,7 @@ er is niets weggegooid.
 - [x] Kreeg je daarbij maar **één** vraag ("Zet neer")? Het oude "You learned … Place it" hoort weg te blijven.
       ✅ Rob 12 okt: per geleerde spell één vraag van het toetsenblok (Engels "New for your key block: … Place it");
       geen nieuwe bindSnapshot in SV, dus het oude venster deed niets.
-- [ ] `/mh apply go` op je DH zegt nu dat het toetsenblok je toetsen beheert, en doet niets.
+- [x] `/mh apply go` op je DH zegt nu dat het toetsenblok je toetsen beheert, en doet niets. ✅ Rob 12 okt (screenshot).
 
 ## 🆕 12 okt — Twee zinnen in de levelgids, en Frans "Outil Raids"
 

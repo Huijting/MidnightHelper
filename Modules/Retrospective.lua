@@ -924,7 +924,9 @@ local function ProbeDeathRecapAPI()
 		probe.count = #events
 		probe.events = {}
 		local secretFields, readable = 0, 0
-		for i = 1, math.min(3, #events) do
+		-- Every event, not the newest three (12 Oct 2026): Rob's card said "Pulse from Demonico" -- his own name as
+		-- the source -- and the hit that did it was not among the newest three, so the probe could not show it.
+		for i = 1, math.min(20, #events) do
 			local e, row = events[i], {}
 			if type(e) == "table" then
 				for k, v in pairs(e) do
@@ -941,7 +943,8 @@ local function ProbeDeathRecapAPI()
 			end
 			probe.events[i] = row
 		end
-		probe.summary = ("%d events; first 3: %d readable fields, %d secret"):format(#events, readable, secretFields)
+		probe.summary = ("%d events; first %d: %d readable fields, %d secret"):format(#events, math.min(20, #events),
+			readable, secretFields)
 	end
 	ns.db.deathRecapProbe = probe
 	return ("C_DeathRecap: has events %s, max health %s, %s (in combat %s, instance %s) - /reload to save the fields"):format(
