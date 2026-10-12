@@ -2,7 +2,9 @@
 
 ## 13 okt — PATCHDAG 12.1.5 (VS) — VERDER HIER
 Rob speelt EU: voor hem gaat 12.1.5 pas **woensdag 14 okt** live. Dinsdag = alles wat zonder spel kan, op de VS-build.
-Stand bij afsluiten 12 okt (GEMETEN): main = 4381042, gepusht, werkboom schoon, laatste tag `v4.7.6-beta3`; alles
+Stand bij afsluiten 12 okt (GEMETEN): main = 4277138 (+ deze handoff), gepusht, werkboom schoon, laatste tag
+`v4.7.6-beta3`. Site-chat is gewezen op de skills Frontend Design + Webapp-testing (Rob 12 okt; voor de site, niet
+de addon; niets geïnstalleerd). Alles
 daarna NIET getagd (Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten, doodskaart-tips,
 spell-presses, website-links incl. titelbalk — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
 🔴 Bij de volgende tag: site-chat ("Site chat 12-10" of opvolger) seinen → site herbouwen uit de tag (52 Codex-ankers,
