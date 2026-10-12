@@ -2912,13 +2912,16 @@ function ns:EnsureMainUI()
 	-- "midnighthelper.com" right after the version (Rob, 12 Oct 2026, screenshot of the title bar: "kunnen we niet
 	-- hierboven de link zetten?"). Small and quiet, the same blue as the play card's site link; a click opens the
 	-- copy box (an addon cannot open a browser). The address is the same in every language.
+	-- Rob, same evening, after a /reload: "kan hij achter Me en wat opvallender? bv groter". So it sits right after the
+	-- room > tab name (placed by ns._mhPlaceTitleSite, because that name changes with every tab) in a larger font.
+	local SITE_BLUE = { 0.4, 0.82, 1 }
 	local titleSite = CreateFrame("Button", nil, titleBar)
-	titleSite.fs = titleSite:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	titleSite.fs = titleSite:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	titleSite.fs:SetPoint("LEFT")
 	titleSite.fs:SetText("midnighthelper.com")
-	titleSite.fs:SetTextColor(0.45, 0.75, 1)
-	titleSite:SetSize((titleSite.fs:GetStringWidth() or 110) + 4, 16)
-	titleSite:SetPoint("LEFT", titleVersion, "RIGHT", 10, 0)
+	titleSite.fs:SetTextColor(SITE_BLUE[1], SITE_BLUE[2], SITE_BLUE[3])
+	titleSite:SetSize((titleSite.fs:GetStringWidth() or 150) + 4, 20)
+	titleSite:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
 	titleSite:SetScript("OnEnter", function(self)
 		self.fs:SetTextColor(1, 1, 1)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
@@ -2926,7 +2929,7 @@ function ns:EnsureMainUI()
 		GameTooltip:Show()
 	end)
 	titleSite:SetScript("OnLeave", function(self)
-		self.fs:SetTextColor(0.45, 0.75, 1)
+		self.fs:SetTextColor(SITE_BLUE[1], SITE_BLUE[2], SITE_BLUE[3])
 		GameTooltip:Hide()
 	end)
 	titleSite:SetScript("OnClick", function()
@@ -3013,8 +3016,9 @@ function ns:EnsureMainUI()
 	-- Phase 3: breadcrumb in de titelbalk toont 'Kamer > Tab' voor oriëntatie.
 	-- Gevuld door SelectTab; tussen versie en de Codex-knop/Info.
 	local breadcrumb = titleBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	breadcrumb:SetPoint("LEFT", titleSite, "RIGHT", 14, 0)
-	breadcrumb:SetPoint("RIGHT", codexLinkBtn, "LEFT", -8, 0)
+	breadcrumb:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
+	-- Room for the site link after it: a long name is cut short, the link never is.
+	breadcrumb:SetPoint("RIGHT", codexLinkBtn, "LEFT", -(titleSite:GetWidth() + 24), 0)
 	breadcrumb:SetJustifyH("LEFT")
 	breadcrumb:SetWordWrap(false)
 	breadcrumb:SetTextColor(0.78, 0.72, 0.55)
@@ -3022,6 +3026,22 @@ function ns:EnsureMainUI()
 		breadcrumb:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	end
 	ns._mhBreadcrumb = breadcrumb
+
+	--- The site link sits right after the visible breadcrumb text (which changes with every tab).
+	function ns._mhPlaceTitleSite()
+		local textW = breadcrumb:GetStringWidth() or 0
+		local boxW = breadcrumb:GetWidth() or textW
+		if boxW > 0 and textW > boxW then
+			textW = boxW
+		end
+		titleSite:ClearAllPoints()
+		if textW > 0 then
+			titleSite:SetPoint("LEFT", breadcrumb, "LEFT", textW + 14, 0)
+		else
+			titleSite:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
+		end
+	end
+	ns._mhPlaceTitleSite()
 
 	-- Global search row: visible on every tab, full width (wider than the ~132px sidebar would allow).
 	local searchBar = CreateFrame("Frame", "MidnightHelperGlobalSearch", main)
@@ -4776,6 +4796,9 @@ SelectTab = function(tabId)
 			text = (roomLabel ~= "" and (roomLabel .. "  >  ") or "") .. tabLabel
 		end
 		ns._mhBreadcrumb:SetText(text)
+		if ns._mhPlaceTitleSite then
+			ns._mhPlaceTitleSite()
+		end
 	end
 
 	-- Phase 3 cross-link: toon "Read in Codex" als deze tab een Codex-categorie heeft.
