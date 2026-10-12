@@ -2,8 +2,11 @@
 
 ## 13 okt — PATCHDAG 12.1.5 (VS) — VERDER HIER
 Rob speelt EU: voor hem gaat 12.1.5 pas **woensdag 14 okt** live. Dinsdag = alles wat zonder spel kan, op de VS-build.
-Stand bij afsluiten 12 okt (GEMETEN): main = 27aa724, gepusht, laatste tag `v4.7.6-beta3`; alles daarna NIET getagd
-(ook: Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten — lijst "Sinds beta3" hieronder).
+Stand bij afsluiten 12 okt (GEMETEN): main = c0c8052, gepusht, werkboom schoon, laatste tag `v4.7.6-beta3`; alles
+daarna NIET getagd (Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten, doodskaart-tips,
+spell-presses — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
+Wachters: de content-wachter (trig_01JYW9gqzFNe8MkY3x3tQzh6) kent sinds 12 okt de 3 "bekende afwijkingen" en de
+mana-potion; consumables-check weer maandag 19 okt.
 wago-builds 12 okt (GEMETEN, api/builds): live `wow` 12.1.0.69933 (22 sep); PTR `wowxptr` 12.1.5.70077 (29 sep, geen
 nieuwere); `wowt` 12.1.0.69587 (1 sep). Geen 12.1.7/12.2-PTR-build bekend. Of PTR-realms online zijn zegt wago niet.
 `.toc` = `## Interface: 120007, 120100, 120105`, `## Version: 4.7.6` → VS-spelers krijgen dinsdag géén
@@ -25,6 +28,12 @@ nieuwere); `wowt` 12.1.0.69587 (1 sep). Geen 12.1.7/12.2-PTR-build bekend. Of PT
    zelfde methode als het rapport van 12 okt).
 6. Release-tekst 4.7.6 klaarzetten (RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md, CHANGELOG_476_*): ALLES sinds
    beta3 (zie hieronder). Geen tag.
+7. Klein, als er tijd is: ongebruikte key DEATH_RECAP_TIP opruimen (8 talen); commentaar Translations2026 ~r.14409
+   (AltBoardView "Rested XP stay as the WoW UI writes them") gelijk trekken met de nieuwe clientnaam-regel.
+
+**Robs testlijst, open van 12 okt (TESTLIJST.md bovenaan):** Leveling-tab lezen · War Mode-getal (Enlisted-buff,
+char 20+) · Mana Potion op een van de 4 healers · doodskaart bij de volgende dood (`/mh death` → `tip=`) · Prey-zin/
+Astalor-plek · Voidcore `/dump 3418` rond 19/20 okt.
 
 **B. Woensdag 14 okt, Rob in het spel (EU):** `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4(b) + TESTLIJST bovenaan:
 `/reload` + BugSack leeg · `/mh ptr` · `/mh playcards check` (1480 hidden tenzij stap A4 gedaan; rest SHOWN op
@@ -118,7 +127,9 @@ spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob bes
 - Sinds beta3 op main (NIET getagd): delve-items, plaats-, dungeon/raid/achievementnamen en spellnamen = clientnaam;
   esMX-laag; Voidcore-kaart (+ 1/1-balk gemeten, per character); res-paneel; S1-raid-id's; 12 okt: frFR "Outil
   Raids", Prey-zin + Prey-kaart (Astalor's Sanctum), Warband Mentors-achievementnaam, toetsenblok vs oude indeling
-  (KeyBlockActive), `/mh block why` live-diagnose, `/mh apply` slot=true-fix. Komt in de volgende tag.
+  (KeyBlockActive), `/mh block why` live-diagnose, `/mh apply` slot=true-fix, Leveling (10-90) + heirloom/War Mode-
+  fix, Adventure Mode/Rested clientnaam, mana potion voor 4 healers, doodskaart-tip per soort dood + "1 hit" + geen
+  eigen naam als bron, spell-presses (één regel per knop, blok-noot, heals/CC nooit in een swap). Komt in de volgende tag.
 
 ## 11 okt avond — 4.7.6 BETA 3 (Rob: "Go")
 - Changelog CHANGELOG_476_18..24 (enUS), Changelog.lua, RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (kop "beta 3",
