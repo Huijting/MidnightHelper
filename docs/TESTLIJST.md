@@ -25,8 +25,9 @@ er is niets weggegooid.
 
 - [x] Op je DH: `/reload`, `/mh block why`, `/reload`. ✅ Rob 12 okt — gelezen; oorzaak gevonden (het oude
       "You learned … Place it"-venster bond 11 toetsen om).
-- [ ] **Herstel op je DH:** `/reload`, dan `/mh apply undo`. Daarna moeten 1, 2, 3, 4, Q, E, R, F en F4 weer een
-      label op het blok hebben, en is de Eye Beam helemaal links weg.
+- [x] **Herstel op je DH:** `/reload`, dan `/mh apply undo`. Daarna moeten 1, 2, 3, 4, Q, E, R, F en F4 weer een
+      label op het blok hebben, en is de Eye Beam helemaal links weg. ✅ Rob 12 okt (screenshot): alle labels terug,
+      Eye Beam op A-3, balk 1 zonder toetsen.
 - [ ] Bij de volgende level-up met een nieuwe spell: je krijgt nog maar **één** vraag (die van het toetsenblok,
       met "Zet neer"). Het oude venster "You learned … Place it" komt niet meer. Komt de spell op de goede toets?
 - [ ] `/mh apply go` op je DH zegt nu dat het toetsenblok je toetsen beheert, en doet niets.
