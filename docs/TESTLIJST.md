@@ -28,7 +28,7 @@ er is niets weggegooid.
       verandert. ✅ Rob 12 okt (screenshot).
 - [x] Na `/reload`: de tip "swap Glide with Recuperate" is weg. ✅ Rob 12 okt (screenshot; nieuwe tip Glide ↔ Sigil of
       Misery — CC beschermen? vraag aan Rob).
-- [ ] Na `/reload`: geen tip meer met Sigil of Misery (of een andere CC/dispel). Rob 12 okt: "zet CC ook bij de vaste
+- [x] Na `/reload`: geen tip meer met Sigil of Misery (of een andere CC/dispel). ✅ Rob 12 okt. Rob 12 okt: "zet CC ook bij de vaste
       spells". Op je DH blijft alleen de tip Felblade ↔ Torment over (of een andere zonder CC/heal/interrupt). Recuperate is een heal en blijft op zijn plek (zoals
       jouw regel van 10 okt: heals schuiven nooit).
 
