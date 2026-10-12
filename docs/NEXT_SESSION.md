@@ -2,7 +2,10 @@
 
 ## 13 okt — PATCHDAG 12.1.5 (VS) — VERDER HIER
 Rob speelt EU: voor hem gaat 12.1.5 pas **woensdag 14 okt** live. Dinsdag = alles wat zonder spel kan, op de VS-build.
-Stand bij afsluiten 12 okt (GEMETEN): main = 9eaf6b1, gepusht, laatste tag `v4.7.6-beta3`; 28 commits erna NIET getagd.
+Stand bij afsluiten 12 okt (GEMETEN): main = 27aa724, gepusht, laatste tag `v4.7.6-beta3`; alles daarna NIET getagd
+(ook: Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten — lijst "Sinds beta3" hieronder).
+wago-builds 12 okt (GEMETEN, api/builds): live `wow` 12.1.0.69933 (22 sep); PTR `wowxptr` 12.1.5.70077 (29 sep, geen
+nieuwere); `wowt` 12.1.0.69587 (1 sep). Geen 12.1.7/12.2-PTR-build bekend. Of PTR-realms online zijn zegt wago niet.
 `.toc` = `## Interface: 120007, 120100, 120105`, `## Version: 4.7.6` → VS-spelers krijgen dinsdag géén
 "out of date"-melding, ook zonder nieuwe release. Geen tags zonder Robs go; grotere wijzigingen eerst `-beta`.
 
