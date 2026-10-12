@@ -40,10 +40,10 @@ spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob bes
   (geen XP meer, groeien tot 70). ⚠️ XP_3 War Mode BEWUST ZONDER GETAL: spel zegt "up to 10%" (GS 36369), gidsen
   "vaste 15% sinds hotfix feb 2026", research-chat 10%/30% → nameten via de Enlisted-buff in het spel (TESTLIJST).
   8 talen (mh-writer) + esMX; ruRU "ярдов"→"метров" (GS SPELL_RANGE: alle niet-Engelse clients meters).
-  check_drift 23 keys × 6 talen. Open, klein: de/fr XP_2 zegt nog "Rested XP" Engels; PATH_4/UNLOCK_3/HANDOFF_1
-  zeggen "Adventure Mode" Engels terwijl LVL1080_10 de clientnaam gebruikt; commentaar Translations2026 ~r.1818
-  "Adventure Mode stays English" is daarmee verouderd; Embassy/Dalaran/Silithus/Thrall Engels in alle packs
-  (nog niet gemeten); es/pt/it TAB_GUIDE heet "Guías de nivelación" e.d. zonder levelgetallen.
+  check_drift 23 keys × 6 talen. ✅ Gelijkgetrokken (mh-writer): PATH_4/UNLOCK_3/HANDOFF_1 Adventure Mode en XP_2
+  Rested = clientnaam in de/fr/es/pt/it/ru (ru XP_2 "Опыт за отдых" → "Отдохнувший"); commentaar Translations2026
+  ~r.1818 bijgewerkt. Open, klein: commentaar ~r.14409 (AltBoardView) zegt nog "Rested XP stay as the WoW UI writes
+  them"; Embassy/Dalaran/Silithus/Thrall Engels in alle packs (niet gemeten); es/pt/it TAB_GUIDE zonder levelgetallen.
 - Consumables (content-watch 12 okt, Robs screenshot): 3 afwijkingen t.o.v. Icy Veins + mana-potion bij healers.
   Voorstel aan Rob: mh-research-ronde IV + Wowhead + Method voor die 3 specs; mana-potion = nieuwe categorie, Robs keuze.
 - ✅ BUG GEVONDEN + GEREPAREERD (Rob 12 okt, DH Demonico lvl 11: "nieuwe spell komt helemaal links i.p.v. op 4").
