@@ -33,6 +33,19 @@ Stand bij afsluiten 12 okt (GEMETEN): main = 9eaf6b1, gepusht, laatste tag `v4.7
 spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob beslist.
 
 ## 12 okt — wat er gedaan is (bouwchat)
+- ✅ Tabblad "Leveling (10-90)" (Rob "optie A" via de research-chat; Rob "ja doe maar"): nieuw blok bovenaan
+  `LVL1080_SEC_TITLE` + `LVL1080_1..10` (Guide.lua), oude secties hernummerd 2-7. Feiten: research-chat (mh-research
+  12 okt) + 2 onafhankelijke rondes voor de spelwoorden (A gidsen, B wago 69933 GlobalStrings/Spell). Clientnamen
+  GEMETEN: "Chromie Time" heet in het spel Timewalking Campaigns (GS 42252, per taal anders). XP_5 heirlooms was FOUT
+  (geen XP meer, groeien tot 70). ⚠️ XP_3 War Mode BEWUST ZONDER GETAL: spel zegt "up to 10%" (GS 36369), gidsen
+  "vaste 15% sinds hotfix feb 2026", research-chat 10%/30% → nameten via de Enlisted-buff in het spel (TESTLIJST).
+  8 talen (mh-writer) + esMX; ruRU "ярдов"→"метров" (GS SPELL_RANGE: alle niet-Engelse clients meters).
+  check_drift 23 keys × 6 talen. Open, klein: de/fr XP_2 zegt nog "Rested XP" Engels; PATH_4/UNLOCK_3/HANDOFF_1
+  zeggen "Adventure Mode" Engels terwijl LVL1080_10 de clientnaam gebruikt; commentaar Translations2026 ~r.1818
+  "Adventure Mode stays English" is daarmee verouderd; Embassy/Dalaran/Silithus/Thrall Engels in alle packs
+  (nog niet gemeten); es/pt/it TAB_GUIDE heet "Guías de nivelación" e.d. zonder levelgetallen.
+- Consumables (content-watch 12 okt, Robs screenshot): 3 afwijkingen t.o.v. Icy Veins + mana-potion bij healers.
+  Voorstel aan Rob: mh-research-ronde IV + Wowhead + Method voor die 3 specs; mana-potion = nieuwe categorie, Robs keuze.
 - ✅ BUG GEVONDEN + GEREPAREERD (Rob 12 okt, DH Demonico lvl 11: "nieuwe spell komt helemaal links i.p.v. op 4").
   GEMETEN (`/mh block why` → keyBlockProbe.live/.bar1): spells stonden goed op het blok, maar 1→ACTIONBUTTON4,
   4→ACTIONBUTTON5, 2/3 één plek verschoven, Q/E/R/F→balk 2 knop 3-6, F4/Shift-Q/Shift-F elders; bindingSet 1

@@ -38,6 +38,23 @@ local DEFAULT_THEME = {
 --------------------------------------------------------------------------------
 ns.GuideData80to90 = {
 	sections = {
+		-- 12 Oct 2026, Rob ("option A"): the tab is "Leveling (10-90)"; one general block for 10-80, every class.
+		-- No per-class talents here on purpose: the intro points to Icy Veins / Wowhead for that.
+		{
+			titleKey = "LVL1080_SEC_TITLE",
+			bullets = {
+				"LVL1080_1",
+				"LVL1080_2",
+				"LVL1080_3",
+				"LVL1080_4",
+				"LVL1080_5",
+				"LVL1080_6",
+				"LVL1080_7",
+				"LVL1080_8",
+				"LVL1080_9",
+				"LVL1080_10",
+			},
+		},
 		{
 			titleKey = "LVL8090_SEC_PATH_TITLE",
 			bullets = {

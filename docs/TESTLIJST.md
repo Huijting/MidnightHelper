@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 okt — Tabblad "Leveling (10-90)"
+
+- [ ] Het tabblad heet nu **Leveling (10-90)**, met bovenaan het nieuwe blok **"1. Level 10 to 80, for every class"**
+      (10 punten). Leest het goed, en is elk spelwoord uitgelegd (Timewalking Campaigns/Chromie Time, War Mode,
+      Rested, Heirlooms, Skyriding, Steady Flight, Warband Bank, Knowledge, Adventure Mode)?
+- [ ] **War Mode-getal meten** (op een character van 20+): zet War Mode aan in een hoofdstad en beweeg je muis over de
+      buff **Enlisted**. Wat staat er: 10% of 15%? Dan zet ik het getal erin.
+
 ## 🆕 12 okt — Toetsenblok: nieuwe spell komt op de verkeerde plek (DH, level 11)
 
 - [x] Op je DH: `/reload`, `/mh block why`, `/reload`. ✅ Rob 12 okt — gelezen; oorzaak gevonden (het oude

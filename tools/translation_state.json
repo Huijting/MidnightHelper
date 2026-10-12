@@ -18797,6 +18797,94 @@
    "ptBR": "7ec0261b8e8aa3e0",
    "ruRU": "7ec0261b8e8aa3e0"
   },
+  "LVL1080_1": {
+   "deDE": "fa8d7632993dcfe7",
+   "esES": "fa8d7632993dcfe7",
+   "frFR": "fa8d7632993dcfe7",
+   "itIT": "fa8d7632993dcfe7",
+   "ptBR": "fa8d7632993dcfe7",
+   "ruRU": "fa8d7632993dcfe7"
+  },
+  "LVL1080_10": {
+   "deDE": "14717127b8209f52",
+   "esES": "14717127b8209f52",
+   "frFR": "14717127b8209f52",
+   "itIT": "14717127b8209f52",
+   "ptBR": "14717127b8209f52",
+   "ruRU": "14717127b8209f52"
+  },
+  "LVL1080_2": {
+   "deDE": "791675447b34b3a8",
+   "esES": "791675447b34b3a8",
+   "frFR": "791675447b34b3a8",
+   "itIT": "791675447b34b3a8",
+   "ptBR": "791675447b34b3a8",
+   "ruRU": "791675447b34b3a8"
+  },
+  "LVL1080_3": {
+   "deDE": "178c26cd7d4d2f54",
+   "esES": "178c26cd7d4d2f54",
+   "frFR": "178c26cd7d4d2f54",
+   "itIT": "178c26cd7d4d2f54",
+   "ptBR": "178c26cd7d4d2f54",
+   "ruRU": "178c26cd7d4d2f54"
+  },
+  "LVL1080_4": {
+   "deDE": "416b921a5ccd386e",
+   "esES": "416b921a5ccd386e",
+   "frFR": "416b921a5ccd386e",
+   "itIT": "416b921a5ccd386e",
+   "ptBR": "416b921a5ccd386e",
+   "ruRU": "416b921a5ccd386e"
+  },
+  "LVL1080_5": {
+   "deDE": "3a8d5adbbd8117d2",
+   "esES": "3a8d5adbbd8117d2",
+   "frFR": "3a8d5adbbd8117d2",
+   "itIT": "3a8d5adbbd8117d2",
+   "ptBR": "3a8d5adbbd8117d2",
+   "ruRU": "3a8d5adbbd8117d2"
+  },
+  "LVL1080_6": {
+   "deDE": "fb3c2c243027c2b6",
+   "esES": "fb3c2c243027c2b6",
+   "frFR": "fb3c2c243027c2b6",
+   "itIT": "fb3c2c243027c2b6",
+   "ptBR": "fb3c2c243027c2b6",
+   "ruRU": "fb3c2c243027c2b6"
+  },
+  "LVL1080_7": {
+   "deDE": "abb8dba242064b56",
+   "esES": "abb8dba242064b56",
+   "frFR": "abb8dba242064b56",
+   "itIT": "abb8dba242064b56",
+   "ptBR": "abb8dba242064b56",
+   "ruRU": "abb8dba242064b56"
+  },
+  "LVL1080_8": {
+   "deDE": "110a2be553df7649",
+   "esES": "110a2be553df7649",
+   "frFR": "110a2be553df7649",
+   "itIT": "110a2be553df7649",
+   "ptBR": "110a2be553df7649",
+   "ruRU": "110a2be553df7649"
+  },
+  "LVL1080_9": {
+   "deDE": "126bc975b28f72a9",
+   "esES": "126bc975b28f72a9",
+   "frFR": "126bc975b28f72a9",
+   "itIT": "126bc975b28f72a9",
+   "ptBR": "126bc975b28f72a9",
+   "ruRU": "126bc975b28f72a9"
+  },
+  "LVL1080_SEC_TITLE": {
+   "deDE": "4db97ee6c95cba34",
+   "esES": "4db97ee6c95cba34",
+   "frFR": "4db97ee6c95cba34",
+   "itIT": "4db97ee6c95cba34",
+   "ptBR": "4db97ee6c95cba34",
+   "ruRU": "4db97ee6c95cba34"
+  },
   "LVL8090_BTN_OPEN_CONSUMABLES": {
    "deDE": "aafa3e65970bb4fa",
    "esES": "aafa3e65970bb4fa",
@@ -18940,13 +19028,13 @@
    "ruRU": "139732793744a7e4"
   },
   "LVL8090_INTRO": {
-   "deDE": "0cf1075b637e2c04",
-   "esES": "0cf1075b637e2c04",
-   "frFR": "0cf1075b637e2c04",
-   "itIT": "0cf1075b637e2c04",
+   "deDE": "6b1e87b2bc0f3ba3",
+   "esES": "6b1e87b2bc0f3ba3",
+   "frFR": "6b1e87b2bc0f3ba3",
+   "itIT": "6b1e87b2bc0f3ba3",
    "nlNL": "0cf1075b637e2c04",
-   "ptBR": "0cf1075b637e2c04",
-   "ruRU": "0cf1075b637e2c04"
+   "ptBR": "6b1e87b2bc0f3ba3",
+   "ruRU": "6b1e87b2bc0f3ba3"
   },
   "LVL8090_PATH_1": {
    "deDE": "601abc4fd69c6ad7",
@@ -19021,67 +19109,67 @@
    "ruRU": "52c9186c2f2de37f"
   },
   "LVL8090_SEC_CONS_TITLE": {
-   "deDE": "c13d901c02931391",
-   "esES": "c13d901c02931391",
-   "frFR": "c13d901c02931391",
-   "itIT": "c13d901c02931391",
+   "deDE": "c42cf39668acdfd8",
+   "esES": "c42cf39668acdfd8",
+   "frFR": "c42cf39668acdfd8",
+   "itIT": "c42cf39668acdfd8",
    "nlNL": "c13d901c02931391",
-   "ptBR": "c13d901c02931391",
-   "ruRU": "c13d901c02931391"
+   "ptBR": "c42cf39668acdfd8",
+   "ruRU": "c42cf39668acdfd8"
   },
   "LVL8090_SEC_GEAR_TITLE": {
-   "deDE": "847efcd0ba751138",
-   "esES": "847efcd0ba751138",
-   "frFR": "847efcd0ba751138",
-   "itIT": "847efcd0ba751138",
+   "deDE": "4eca0b50bca9f2dd",
+   "esES": "4eca0b50bca9f2dd",
+   "frFR": "4eca0b50bca9f2dd",
+   "itIT": "4eca0b50bca9f2dd",
    "nlNL": "847efcd0ba751138",
-   "ptBR": "847efcd0ba751138",
-   "ruRU": "847efcd0ba751138"
+   "ptBR": "4eca0b50bca9f2dd",
+   "ruRU": "4eca0b50bca9f2dd"
   },
   "LVL8090_SEC_HANDOFF_TITLE": {
-   "deDE": "8a878227b593ee18",
-   "esES": "8a878227b593ee18",
-   "frFR": "8a878227b593ee18",
-   "itIT": "8a878227b593ee18",
+   "deDE": "78f28882e0c6625d",
+   "esES": "78f28882e0c6625d",
+   "frFR": "78f28882e0c6625d",
+   "itIT": "78f28882e0c6625d",
    "nlNL": "8a878227b593ee18",
-   "ptBR": "8a878227b593ee18",
-   "ruRU": "8a878227b593ee18"
+   "ptBR": "78f28882e0c6625d",
+   "ruRU": "78f28882e0c6625d"
   },
   "LVL8090_SEC_PATH_TITLE": {
-   "deDE": "4cf284a55a996928",
-   "esES": "4cf284a55a996928",
-   "frFR": "4cf284a55a996928",
-   "itIT": "4cf284a55a996928",
+   "deDE": "f595d0a0c32b32c0",
+   "esES": "f595d0a0c32b32c0",
+   "frFR": "f595d0a0c32b32c0",
+   "itIT": "f595d0a0c32b32c0",
    "nlNL": "4cf284a55a996928",
-   "ptBR": "4cf284a55a996928",
-   "ruRU": "4cf284a55a996928"
+   "ptBR": "f595d0a0c32b32c0",
+   "ruRU": "f595d0a0c32b32c0"
   },
   "LVL8090_SEC_UNLOCKS_TITLE": {
-   "deDE": "0ec2920d73452482",
-   "esES": "0ec2920d73452482",
-   "frFR": "0ec2920d73452482",
-   "itIT": "0ec2920d73452482",
+   "deDE": "392b343cf092cb8c",
+   "esES": "392b343cf092cb8c",
+   "frFR": "392b343cf092cb8c",
+   "itIT": "392b343cf092cb8c",
    "nlNL": "0ec2920d73452482",
-   "ptBR": "0ec2920d73452482",
-   "ruRU": "0ec2920d73452482"
+   "ptBR": "392b343cf092cb8c",
+   "ruRU": "392b343cf092cb8c"
   },
   "LVL8090_SEC_XP_TITLE": {
-   "deDE": "77523419fa758043",
-   "esES": "77523419fa758043",
-   "frFR": "77523419fa758043",
-   "itIT": "77523419fa758043",
+   "deDE": "23f00293b07e0b88",
+   "esES": "23f00293b07e0b88",
+   "frFR": "23f00293b07e0b88",
+   "itIT": "23f00293b07e0b88",
    "nlNL": "77523419fa758043",
-   "ptBR": "77523419fa758043",
-   "ruRU": "77523419fa758043"
+   "ptBR": "23f00293b07e0b88",
+   "ruRU": "23f00293b07e0b88"
   },
   "LVL8090_TITLE": {
-   "deDE": "7945d698a506d68b",
-   "esES": "7945d698a506d68b",
-   "frFR": "7945d698a506d68b",
-   "itIT": "7945d698a506d68b",
+   "deDE": "a8986a367525ca83",
+   "esES": "a8986a367525ca83",
+   "frFR": "a8986a367525ca83",
+   "itIT": "a8986a367525ca83",
    "nlNL": "7945d698a506d68b",
-   "ptBR": "7945d698a506d68b",
-   "ruRU": "7945d698a506d68b"
+   "ptBR": "a8986a367525ca83",
+   "ruRU": "a8986a367525ca83"
   },
   "LVL8090_UNLOCK_1": {
    "deDE": "404b0b8fad1ad623",
@@ -19093,13 +19181,13 @@
    "ruRU": "404b0b8fad1ad623"
   },
   "LVL8090_UNLOCK_2": {
-   "deDE": "2ffb106ae9d391fa",
-   "esES": "2ffb106ae9d391fa",
-   "frFR": "2ffb106ae9d391fa",
-   "itIT": "2ffb106ae9d391fa",
+   "deDE": "ebd0b1d8a368ea39",
+   "esES": "ebd0b1d8a368ea39",
+   "frFR": "ebd0b1d8a368ea39",
+   "itIT": "ebd0b1d8a368ea39",
    "nlNL": "2ffb106ae9d391fa",
-   "ptBR": "2ffb106ae9d391fa",
-   "ruRU": "2ffb106ae9d391fa"
+   "ptBR": "ebd0b1d8a368ea39",
+   "ruRU": "ebd0b1d8a368ea39"
   },
   "LVL8090_UNLOCK_3": {
    "deDE": "9646ef8cd8474361",
@@ -19156,13 +19244,13 @@
    "ruRU": "444b307f8bcd0f44"
   },
   "LVL8090_XP_3": {
-   "deDE": "6bdc0dcee00f8e0a",
-   "esES": "6bdc0dcee00f8e0a",
-   "frFR": "6bdc0dcee00f8e0a",
-   "itIT": "6bdc0dcee00f8e0a",
+   "deDE": "a8c9bccd90e39941",
+   "esES": "a8c9bccd90e39941",
+   "frFR": "a8c9bccd90e39941",
+   "itIT": "a8c9bccd90e39941",
    "nlNL": "6bdc0dcee00f8e0a",
-   "ptBR": "6bdc0dcee00f8e0a",
-   "ruRU": "6bdc0dcee00f8e0a"
+   "ptBR": "a8c9bccd90e39941",
+   "ruRU": "a8c9bccd90e39941"
   },
   "LVL8090_XP_4": {
    "deDE": "4213109bb7af606f",
@@ -19174,13 +19262,13 @@
    "ruRU": "4213109bb7af606f"
   },
   "LVL8090_XP_5": {
-   "deDE": "1317f9af26c8cd1b",
-   "esES": "1317f9af26c8cd1b",
-   "frFR": "1317f9af26c8cd1b",
-   "itIT": "1317f9af26c8cd1b",
+   "deDE": "848a45fec94c8203",
+   "esES": "848a45fec94c8203",
+   "frFR": "848a45fec94c8203",
+   "itIT": "848a45fec94c8203",
    "nlNL": "1317f9af26c8cd1b",
-   "ptBR": "1317f9af26c8cd1b",
-   "ruRU": "1317f9af26c8cd1b"
+   "ptBR": "848a45fec94c8203",
+   "ruRU": "848a45fec94c8203"
   },
   "LVL8090_XP_6": {
    "deDE": "d67a1233d96c1e2f",
@@ -31922,13 +32010,13 @@
    "ruRU": "928b678463828014"
   },
   "SEARCH_CHAT_TAB_GUIDE": {
-   "deDE": "a1317803fa6a7a10",
-   "esES": "a1317803fa6a7a10",
-   "frFR": "a1317803fa6a7a10",
-   "itIT": "a1317803fa6a7a10",
+   "deDE": "3099cdef1cbf4e82",
+   "esES": "3099cdef1cbf4e82",
+   "frFR": "3099cdef1cbf4e82",
+   "itIT": "3099cdef1cbf4e82",
    "nlNL": "a1317803fa6a7a10",
-   "ptBR": "a1317803fa6a7a10",
-   "ruRU": "a1317803fa6a7a10"
+   "ptBR": "3099cdef1cbf4e82",
+   "ruRU": "3099cdef1cbf4e82"
   },
   "SEARCH_CHAT_TAB_PROFESSIONS": {
    "deDE": "b7afa6b8be884c1d",
