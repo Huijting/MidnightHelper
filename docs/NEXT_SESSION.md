@@ -1,14 +1,16 @@
 # Midnight Helper — waar we staan
 
 ## 12 okt ochtend — VERDER HIER (nieuwe bouwchat)
-- 🔴 OPEN BUG (Rob 12 okt, screenshot, DH Demonico lvl 11): "nieuwe spell → Zet neer" zet hem "helemaal links"
-  i.p.v. op toets 4. Op de screenshot hebben de blokknoppen van 1, 4, Q, E, R, F, F4, Shift-Q/F GEEN toetslabel en
-  staan "1" en "4" op een groepje links van blok D (balk 1?) — AFGELEID: die toetsen wijzen niet (meer) naar het
-  blok. NIET gerepareerd; eerst meten. `/mh block why` schrijft nu `keyBlockProbe.live` (per toets: slot, command,
-  boundTo, wat erop staat), `.bar1` (wat er op balk 1 staat + toetsen), `.autoPush`, `.bindingSet`, en
-  `.lastUpdate` = log van de laatste Zet neer (doel, slot, gebonden vóór, landde als, balk 1 vóór). SV-snapshot
-  van 12 okt ~08:22 (keyBlockCodes, Demonico:577) was ouder dan de screenshot. Let op: "Demonico" was eerder een
-  Mage (code :1449). Wacht op Robs /reload → SV lezen.
+- ✅ BUG GEVONDEN + GEREPAREERD (Rob 12 okt, DH Demonico lvl 11: "nieuwe spell komt helemaal links i.p.v. op 4").
+  GEMETEN (`/mh block why` → keyBlockProbe.live/.bar1): spells stonden goed op het blok, maar 1→ACTIONBUTTON4,
+  4→ACTIONBUTTON5, 2/3 één plek verschoven, Q/E/R/F→balk 2 knop 3-6, F4/Shift-Q/Shift-F elders; bindingSet 1
+  (account). Blok-snapshot DH 08:22 had nog goede toetsen. Oorzaak: LayoutGrowth-popup ("You learned X … Place it",
+  growthTips+growthButton aan) → `MH_ApplyLayout("go")` (v7) zette Eye Beam op balk 1 knop 5 en bond die 11
+  toetsen om; `bindSnapshot` bevat precies die 11, elk "was" = bloktoets. Fix: `ns.KeyBlockActive()`
+  (KeyBlock.lua); LayoutGrowth zwijgt dan; `/mh apply go|full go|clean go` weigert dan (kijken/undo mag).
+  Herstel bij Rob: `/mh apply undo` (zet de 11 terug + haalt Eye Beam van balk 1). Open: placedSnapshot had een
+  rij `slot = true` (ApplyLayout-opnamebug, onschadelijk via pcall) — uitzoeken. Diagnose blijft: `/mh block why`
+  → keyBlockProbe.live/.bar1/.autoPush/.bindingSet/.lastUpdate.
 - ✅ Ronde "Voidcore/Warband/Raid Finder gelijktrekken" AF (12 okt). GEMETEN met een loader-scan (alle Locales in
   .toc-volgorde per client, ook esMX): 0 resterende Engelse/afwijkende woorden in de/fr/es/esMX/pt/it/ru (positieve
   controle enUS: 10 keys met "Voidcore"). Bewust Engels: balktekst "Nebulous Voidcores transmuted: 1/1".

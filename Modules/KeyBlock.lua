@@ -2444,6 +2444,13 @@ local function BlockKeysLive()
 	return info and type(cmd) == "string" and cmd:find("^" .. info.prefix) ~= nil
 end
 
+--- Is the key block in charge of this character's keys? Placed here, or the account's keys point at it. The old
+--- layout (/mh apply, and its learned-spell popup in LayoutGrowth.lua) stands down while this is true: on 12 Oct 2026
+--- its popup re-bound 11 block keys on Rob's Demon Hunter (see ns.MH_ApplyLayout).
+function ns.KeyBlockActive()
+	return GetSnap() ~= nil or BlockKeysLive()
+end
+
 function ns.KeyBlockArmBar1()
 	if InCombatLockdown and InCombatLockdown() then
 		return false -- attributes and drivers cannot change in combat; PLAYER_REGEN_ENABLED retries

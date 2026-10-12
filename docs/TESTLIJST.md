@@ -23,11 +23,13 @@ er is niets weggegooid.
 
 ## 🆕 12 okt — Toetsenblok: nieuwe spell komt op de verkeerde plek (DH, level 11)
 
-- [ ] Op je DH: `/reload`, dan `/mh block why`, dan nog een `/reload` (dan staat het in SavedVariables). Daarmee
-      zien we per toets welke knop hij écht indrukt (op je screenshot hadden 1, 4, Q, E, R, F en F4 geen label op
-      het blok).
-- [ ] De volgende keer dat MH vraagt "nieuwe spell → zet neer": klik Zet neer, dan `/mh block why` en `/reload`.
-      MH schrijft nu op waar hij hem heen stuurde en waar hij landde.
+- [x] Op je DH: `/reload`, `/mh block why`, `/reload`. ✅ Rob 12 okt — gelezen; oorzaak gevonden (het oude
+      "You learned … Place it"-venster bond 11 toetsen om).
+- [ ] **Herstel op je DH:** `/reload`, dan `/mh apply undo`. Daarna moeten 1, 2, 3, 4, Q, E, R, F en F4 weer een
+      label op het blok hebben, en is de Eye Beam helemaal links weg.
+- [ ] Bij de volgende level-up met een nieuwe spell: je krijgt nog maar **één** vraag (die van het toetsenblok,
+      met "Zet neer"). Het oude venster "You learned … Place it" komt niet meer. Komt de spell op de goede toets?
+- [ ] `/mh apply go` op je DH zegt nu dat het toetsenblok je toetsen beheert, en doet niets.
 
 ## 🆕 12 okt — Twee zinnen in de levelgids, en Frans "Outil Raids"
 

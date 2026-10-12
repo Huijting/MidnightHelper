@@ -994,6 +994,17 @@ end
 function ns.MH_ApplyLayout(arg)
 	ns.db = ns.db or {}
 
+	-- 🔴 12 Oct 2026, Rob levelling a Demon Hunter with the KEY BLOCK placed: the learned-spell popup
+	-- (LayoutGrowth.lua) ran "go", which put Eye Beam on bar 1 and bound 1, 2, 3, 4, Q, E, R, F, F4, Shift-Q and
+	-- Shift-F to wherever this layout keeps things -- so those keys pressed bar 1 and bar 2 instead of the block.
+	-- MEASURED in his SavedVariables: bindSnapshot held exactly those 11 keys, and every "was" was a block key.
+	-- Two systems cannot own the same keys. While the key block is in charge, this file only looks and undoes.
+	if (arg == "go" or arg == "full go" or arg == "clean go") and ns.KeyBlockActive and ns.KeyBlockActive() then
+		print(Prefix() .. " the key block owns your keys on this character, so /mh apply changes nothing here.")
+		print("   |cff9d9d9dNew spells: the key block asks by itself, or press \"Update\" in |cffffffff/mh block|r|cff9d9d9d. |cffffffff/mh apply undo|r|cff9d9d9d still works.|r")
+		return
+	end
+
 	if arg == "full" or arg == "full go" then
 		local commandSlot = ns.MH_CommandSlotMap and ns.MH_CommandSlotMap() or {}
 		local work, refusal = BuildRebuild(commandSlot)

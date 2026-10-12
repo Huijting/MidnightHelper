@@ -172,6 +172,11 @@ local function Report()
 	if InCombatLockdown and InCombatLockdown() then
 		return -- the middle of a fight is the worst possible moment for a layout tip
 	end
+	-- The key block has its own "new spell -> place it" question (KeyBlock.lua). Two popups for one learned spell,
+	-- and this one's "Place it" re-bound the block's keys (Rob's Demon Hunter, 12 Oct 2026). So: one asks, not two.
+	if ns.KeyBlockActive and ns.KeyBlockActive() then
+		return
+	end
 	if not ns.MH_AutoMapSpecAndSlots then
 		return
 	end
