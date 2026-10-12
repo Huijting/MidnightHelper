@@ -245,9 +245,11 @@ local function KeepEasy(id)
 		for _, tbl in ipairs(tables) do
 			for _, e in pairs(tbl) do
 				if type(e) == "table" and e.id then
-					local fixed = e.role == "interrupt" or e.survival or IsHealRole(e.role)
+					-- CC and dispels too (Rob, 12 Oct 2026: "zet CC ook bij de vaste spells", after a tip offered to
+					-- swap Glide with Sigil of Misery). Category "dispel_cc" holds both: pressed seldom, then at once.
+					local fixed = e.role == "interrupt" or e.survival or IsHealRole(e.role) or e.category == "dispel_cc"
 					for _, b in pairs(type(e.blockAs) == "table" and e.blockAs or {}) do
-						fixed = fixed or (type(b) == "table" and IsHealRole(b.role))
+						fixed = fixed or (type(b) == "table" and (IsHealRole(b.role) or b.category == "dispel_cc"))
 					end
 					if fixed then
 						keepEasy[e.id] = true

@@ -26,7 +26,10 @@ er is niets weggegooid.
 - [x] `/mh presses` op je DH: Chaos Strike en Felblade staan er nog maar **één keer** in (Chaos Strike ±60×, niet
       3 regels). Onder de swap-tips staat in oranje dat een swap de vaste plek van je toetsenblok op dit character
       verandert. ✅ Rob 12 okt (screenshot).
-- [ ] Na `/reload`: de tip "swap Glide with Recuperate" is weg. Recuperate is een heal en blijft op zijn plek (zoals
+- [x] Na `/reload`: de tip "swap Glide with Recuperate" is weg. ✅ Rob 12 okt (screenshot; nieuwe tip Glide ↔ Sigil of
+      Misery — CC beschermen? vraag aan Rob).
+- [ ] Na `/reload`: geen tip meer met Sigil of Misery (of een andere CC/dispel). Rob 12 okt: "zet CC ook bij de vaste
+      spells". Op je DH blijft alleen de tip Felblade ↔ Torment over (of een andere zonder CC/heal/interrupt). Recuperate is een heal en blijft op zijn plek (zoals
       jouw regel van 10 okt: heals schuiven nooit).
 
 ## 🆕 12 okt — Doodskaart: tip past bij hoe je doodging

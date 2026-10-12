@@ -42,6 +42,7 @@ spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob bes
   het toetsenblok, met `PRESSES_BLOCK_NOTE` (8 talen, noemt de knop KEYBLOCK_BTN_PLACE per pack). frFR PRESSES_FEW
   "Change-en" → "Changes-en". ✅ Rob screenshot: één regel per knop. Daarna: tip bood "Glide ↔ Recuperate" — KeepEasy
   las alleen de class-tabel, Recuperate (heal_sustain) staat in ns.KeybindRoleClassifierGlobal → leest nu beide.
+  ✅ Rob: "zet CC ook bij de vaste spells" → KeepEasy ook category `dispel_cc` (91 spells, 13 classes; incl. dispels).
 - ✅ Doodskaart (Rob 12 okt "bouw het allebei"): tip hangt nu af van de dood (Retrospective.lua `DeathTipKey`):
   melee (SWING) → TIP_MELEE; Blizzards `avoidable` = true → TIP_AVOID; ≥3 keer hetzelfde → TIP_REPEAT; anders
   TIP_BIG. Geen "interrupt" meer (vijandelijke casts onleesbaar in 12.1). "(1 hit)" via TOP_ONE_FMT/_SRC_ONE_FMT.
