@@ -1302,7 +1302,10 @@ local SMC_CATEGORIES = {
 				y = 64.92,
 			},
 			{ id = "prey_hub", label = "Prey Hub", atlas = "ui-delves", x = 56.19, y = 65.33 },
-			{ id = "astalor", label = "Magister Astalor Bloodsworn", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
+			-- 55.00 / 63.40 is the DOOR of Astalor's Sanctum (Rob read 54.99 / 63.30 there on 3 Sep); Astalor himself
+			-- stands downstairs at 56.74 / 67.30 (portal pin above). The game names him "Astalor Bloodsworn", no
+			-- "Magister" (npc 246231, research 12 Oct 2026).
+			{ id = "astalor", label = "Astalor Bloodsworn (entrance)", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", descKey = "SMC_PIN_WEEKLY_HUB", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
 			-- Eén knop voor twee systemen kon maar één ding doen, en werd dus de
 			-- enige in dit raster die je niet ergens heen stuurde (Rob, 28 jul).

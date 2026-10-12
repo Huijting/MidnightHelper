@@ -10,9 +10,10 @@
     Astalor's Sanctum (AreaTable 16634, ingang Murder Row). Nieuwe zin in 8 talen (mh-writer), clientnamen gemeten.
   - LVL8090_XP_1: "Five Warband Mentors" = achievement 42332 "Five Warband Mentors: Midnight" → met ": Midnight" en
     clientnaam per pack. check_drift --mark voor beide keys, 6 talen.
-  - OPEN (klein): Codex Prey-kaart (`Codex.lua:77`/`:369`, T2026 :4716/:4742/:4767/:4794/:4822, esMX :152, ruRU :691)
-    zegt nog "Magister Astalor Bloodsworn in Murder Row" + WAY 56.74,67.30 — plek/coördinaat nameten (Wowhead-
-    reacties: ingang 55.0,63.4).
+  - ✅ Codex Prey-kaart + SMC_PIN_PORTAL_ISLE (Rob 12 okt "pak ook aan"): "Magister" weg, "in Astalor's Sanctum
+    (ingang in Murder Row)" in 8 talen. WAY 56.74/67.30 BLIJFT: Robs eigen meting bij de NPC (19 aug, UI.lua:1268);
+    55.00/63.40 = de deur (3 sep). City Guide-pin `astalor` heet nu "Astalor Bloodsworn (entrance)". frFR "Sanctum
+    d’Astalor" met krulapostrof = clientspelling.
   - ✅ CODEX_VOIDCORE_BODY (12 okt, Robs /dump 3418 via research-chat, GEMETEN): balk 1/1 = verdiend t.o.v. huidige
     cap (useTotalEarnedForMaxQty=true, maxQuantity 1); uitgeven geeft geen ruimte; isAccountWide=false → nieuwe
     valkuil "per character, unlock per Warband". Halve Voidforge-zin weg. 8 talen (mh-writer), check_drift gestempeld.
