@@ -36,12 +36,12 @@ nieuwere); `wowt` 12.1.0.69587 (1 sep). Geen 12.1.7/12.2-PTR-build bekend. Of PT
 spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob beslist.
 
 ## 12 okt — wat er gedaan is (bouwchat)
-- OPEN (Rob 12 okt, screenshot doodskaart DH): "Most of the damage: Pulse from Demonico (1 hits). Next time: …".
-  (1) De "Next time"-zin is ALTIJD dezelfde (DEATH_RECAP_TIP, Retrospective.lua:599) — Rob vroeg of dat klopt: ja.
-  Voorstel aan Rob: tip per soort dood (melee / zelfde ding vaak / één grote klap), uit velden die de recap leesbaar
-  geeft (event SWING_*, aantal hits). (2) "(1 hits)": enkelvoud ontbreekt in DEATH_RECAP_TOP_FMT/_SRC_FMT. (3) Bron =
-  Robs eigen naam: niet verklaard; `/mh death` bewaart nu ALLE recap-events (was 3) → Rob `/mh death` + `/reload`,
-  dan spellId van "Pulse" lezen in ns.db.deathRecapProbe. Niet raden.
+- ✅ Doodskaart (Rob 12 okt "bouw het allebei"): tip hangt nu af van de dood (Retrospective.lua `DeathTipKey`):
+  melee (SWING) → TIP_MELEE; Blizzards `avoidable` = true → TIP_AVOID; ≥3 keer hetzelfde → TIP_REPEAT; anders
+  TIP_BIG. Geen "interrupt" meer (vijandelijke casts onleesbaar in 12.1). "(1 hit)" via TOP_ONE_FMT/_SRC_ONE_FMT.
+  Bron = jijzelf wordt weggelaten: GEMETEN (Robs /mh death + wago) "Pulse" = 214893, Glazer, Vault of the Wardens,
+  ImplicitTarget caster → sourceGUID = speler; 1 event, 2451 schade bij 1807 HP, avoidable=false. `/mh death`
+  print nu ook melee/avoidable/tip. 8 talen. DEATH_RECAP_TIP is nu ongebruikt (lint SOFT) — later opruimen.
 - ✅ Tabblad "Leveling (10-90)" (Rob "optie A" via de research-chat; Rob "ja doe maar"): nieuw blok bovenaan
   `LVL1080_SEC_TITLE` + `LVL1080_1..10` (Guide.lua), oude secties hernummerd 2-7. Feiten: research-chat (mh-research
   12 okt) + 2 onafhankelijke rondes voor de spelwoorden (A gidsen, B wago 69933 GlobalStrings/Spell). Clientnamen

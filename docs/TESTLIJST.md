@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 okt — Doodskaart: tip past bij hoe je doodging
+
+- [ ] Bij je volgende dood (of meteen `/mh death`): er staat "1 hit" i.p.v. "1 hits", niet meer "from <jijzelf>", en
+      de "Next time"-zin past bij wat er gebeurde (melee → wegstappen/defensive; vaak hetzelfde → eruit stappen;
+      één grote klap → defensive vlak ervoor). `/mh death` zegt achter `tip=` welke hij koos.
+
 ## 🆕 12 okt — Mana Potion bij consumables (healers)
 
 - [ ] Op een **Holy Paladin, Preservation Evoker, Mistweaver Monk of Resto Druid**: het Consumables-tabblad (en de

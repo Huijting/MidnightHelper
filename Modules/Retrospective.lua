@@ -335,13 +335,18 @@ local function DeathCauseFromRecap(deathAt)
 		end
 		return v
 	end
+	-- 12 Oct 2026, Rob's card said "Pulse from Demonico" -- his own name. MEASURED (probe + wago): Glazer's Pulse
+	-- (214893, Vault of the Wardens) targets the player it touches as its caster, so the recap's source GUID is the
+	-- player's own. A source that is you names nothing useful; leave it out.
+	local myGUID = UnitGUID and UnitGUID("player")
 	local function Label(e)
 		local env = txt(e.environmentalType)
 		if env then
 			return env, nil, true
 		end
 		local spell = txt(e.spellName)
-		local src = (e.hideCaster ~= true) and txt(e.sourceName) or nil
+		local srcGUID = txt(e.sourceGUID)
+		local src = (e.hideCaster ~= true and not (myGUID and srcGUID == myGUID)) and txt(e.sourceName) or nil
 		if spell then
 			return spell, src, false
 		end
@@ -368,7 +373,9 @@ local function DeathCauseFromRecap(deathAt)
 		return { instant = true }
 	end
 	-- What did the most damage over the whole recap, and how many hits.
-	local sum, hits, srcOf = {}, {}, {}
+	-- avoidable (12 Oct 2026): the recap carries Blizzard's own "avoidable" flag per hit (MEASURED in Rob's probe:
+	-- a readable boolean). Only a TRUE counts; false or unreadable says nothing, so it never drives the tip alone.
+	local sum, hits, srcOf, avoidable = {}, {}, {}, {}
 	for _, e in ipairs(events) do
 		if type(e) == "table" then
 			local label, src = Label(e)
@@ -377,6 +384,9 @@ local function DeathCauseFromRecap(deathAt)
 				sum[label] = (sum[label] or 0) + amt
 				hits[label] = (hits[label] or 0) + 1
 				srcOf[label] = srcOf[label] or src
+				if not isSecret(e.avoidable) and e.avoidable == true then
+					avoidable[label] = true
+				end
 			end
 		end
 	end
@@ -389,7 +399,22 @@ local function DeathCauseFromRecap(deathAt)
 	if not top then
 		return nil
 	end
-	return { top = top, topSrc = srcOf[top], hits = hits[top], last = (kbLabel ~= top) and kbLabel or nil }
+	return { top = top, topSrc = srcOf[top], hits = hits[top], last = (kbLabel ~= top) and kbLabel or nil,
+		melee = (top == ns:L("DEATH_RECAP_MELEE")), avoidable = avoidable[top] or false }
+end
+
+--- Which "Next time" line fits this death (12 Oct 2026, Rob: "klopt het dat de next time tip altijd hetzelfde is?").
+--- Only from fields the recap MEASURABLY gives: melee or not, Blizzard's avoidable flag, how often the same thing hit.
+--- No "interrupt it": whether an enemy cast can be interrupted is not readable in 12.1 (enemy casts are secret).
+local function DeathTipKey(cause)
+	if cause.melee then
+		return "DEATH_RECAP_TIP_MELEE"
+	elseif cause.avoidable then
+		return "DEATH_RECAP_TIP_AVOID"
+	elseif (cause.hits or 1) >= 3 then
+		return "DEATH_RECAP_TIP_REPEAT"
+	end
+	return "DEATH_RECAP_TIP_BIG"
 end
 
 local SKULL_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" -- the skull marker
@@ -583,10 +608,14 @@ local function ShowRecapLesson(deathAt)
 	elseif cause.instant then
 		body = ns:L("DEATH_RECAP_INSTANT")
 	else
+		-- One hit reads "(1 hit)", not "(1 hits)" (Rob's screenshot, 12 Oct 2026).
+		local one = (cause.hits or 1) == 1
 		if cause.topSrc then
-			body = (ns:L("DEATH_RECAP_TOP_SRC_FMT")):format(cause.top, cause.topSrc, cause.hits or 1)
+			body = one and (ns:L("DEATH_RECAP_TOP_SRC_ONE_FMT")):format(cause.top, cause.topSrc)
+				or (ns:L("DEATH_RECAP_TOP_SRC_FMT")):format(cause.top, cause.topSrc, cause.hits)
 		else
-			body = (ns:L("DEATH_RECAP_TOP_FMT")):format(cause.top, cause.hits or 1)
+			body = one and (ns:L("DEATH_RECAP_TOP_ONE_FMT")):format(cause.top)
+				or (ns:L("DEATH_RECAP_TOP_FMT")):format(cause.top, cause.hits)
 		end
 		if cause.last then
 			-- One hit reads "a melee hit", not "melee hits" (Rob's screenshot, 10 Oct 2026).
@@ -596,7 +625,7 @@ local function ShowRecapLesson(deathAt)
 			end
 			body = body .. " " .. (ns:L("DEATH_RECAP_LAST_FMT")):format(last)
 		end
-		body = body .. "\n" .. ns:L("DEATH_RECAP_TIP")
+		body = body .. "\n" .. ns:L(DeathTipKey(cause))
 	end
 	print(("|cffffcc00%s|r |cff8fd3ff%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DEATH_RECAP_HEAD"),
 		(body:gsub("\n", " "))))
@@ -961,8 +990,9 @@ function ns.PrintDeathRecapDiagnostics()
 	-- What the death card would say for the last recap (so it can be checked without dying again).
 	local okC, c = pcall(DeathCauseFromRecap)
 	if okC and c then
-		print(("   lesson: %s"):format(c.fall and "fall" or ("top=%s src=%s hits=%s last=%s"):format(
-			tostring(c.top), tostring(c.topSrc), tostring(c.hits), tostring(c.last))))
+		print(("   lesson: %s"):format(c.fall and "fall" or ("top=%s src=%s hits=%s last=%s melee=%s avoidable=%s tip=%s"):format(
+			tostring(c.top), tostring(c.topSrc), tostring(c.hits), tostring(c.last), tostring(c.melee),
+			tostring(c.avoidable), (c.instant and "-") or DeathTipKey(c))))
 		-- How long ago the killing blow was: more than 3 s before a death = "killed instantly" on the card.
 		local okE, ev = pcall(C_DeathRecap.GetRecapEvents)
 		local ts = okE and type(ev) == "table" and type(ev[1]) == "table" and ev[1].timestamp

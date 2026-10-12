@@ -6979,11 +6979,59 @@
   "DEATH_RECAP_TIP": {
    "ruRU": "709dfddf35c56454"
   },
+  "DEATH_RECAP_TIP_AVOID": {
+   "deDE": "5c07cfd66160526d",
+   "esES": "5c07cfd66160526d",
+   "frFR": "5c07cfd66160526d",
+   "itIT": "5c07cfd66160526d",
+   "ptBR": "5c07cfd66160526d",
+   "ruRU": "5c07cfd66160526d"
+  },
+  "DEATH_RECAP_TIP_BIG": {
+   "deDE": "3ce2b032f98a67ee",
+   "esES": "3ce2b032f98a67ee",
+   "frFR": "3ce2b032f98a67ee",
+   "itIT": "3ce2b032f98a67ee",
+   "ptBR": "3ce2b032f98a67ee",
+   "ruRU": "3ce2b032f98a67ee"
+  },
+  "DEATH_RECAP_TIP_MELEE": {
+   "deDE": "484692ee9df09550",
+   "esES": "484692ee9df09550",
+   "frFR": "484692ee9df09550",
+   "itIT": "484692ee9df09550",
+   "ptBR": "484692ee9df09550",
+   "ruRU": "484692ee9df09550"
+  },
+  "DEATH_RECAP_TIP_REPEAT": {
+   "deDE": "9d02a92eaf8efd29",
+   "esES": "9d02a92eaf8efd29",
+   "frFR": "9d02a92eaf8efd29",
+   "itIT": "9d02a92eaf8efd29",
+   "ptBR": "9d02a92eaf8efd29",
+   "ruRU": "9d02a92eaf8efd29"
+  },
   "DEATH_RECAP_TOP_FMT": {
    "ruRU": "7df90bb44cf5395d"
   },
+  "DEATH_RECAP_TOP_ONE_FMT": {
+   "deDE": "bc5d655c03f48063",
+   "esES": "bc5d655c03f48063",
+   "frFR": "bc5d655c03f48063",
+   "itIT": "bc5d655c03f48063",
+   "ptBR": "bc5d655c03f48063",
+   "ruRU": "bc5d655c03f48063"
+  },
   "DEATH_RECAP_TOP_SRC_FMT": {
    "ruRU": "78e7d75b64c5e726"
+  },
+  "DEATH_RECAP_TOP_SRC_ONE_FMT": {
+   "deDE": "48b4fea8065dfaf5",
+   "esES": "48b4fea8065dfaf5",
+   "frFR": "48b4fea8065dfaf5",
+   "itIT": "48b4fea8065dfaf5",
+   "ptBR": "48b4fea8065dfaf5",
+   "ruRU": "48b4fea8065dfaf5"
   },
   "DEBUG_MODE": {
    "deDE": "659e58bb890691b1",

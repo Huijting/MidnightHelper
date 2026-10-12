@@ -4482,6 +4482,13 @@ ns._mhLocales.enUS = {
 	DEATH_RECAP_TOP_SRC_FMT = "Most of the damage: %s from %s (%d hits).",
 	DEATH_RECAP_LAST_FMT = "The last hit: %s.",
 	DEATH_RECAP_TIP = "Next time: step out of it, interrupt it, or press a defensive just before it lands.",
+	-- 12 Oct 2026: one hit reads "1 hit"; the tip depends on the kind of death (Retrospective.lua DeathTipKey).
+	DEATH_RECAP_TOP_ONE_FMT = "Most of the damage: %s (1 hit).",
+	DEATH_RECAP_TOP_SRC_ONE_FMT = "Most of the damage: %s from %s (1 hit).",
+	DEATH_RECAP_TIP_MELEE = "Next time: step back from whatever is hitting you, or press a defensive when your health drops fast.",
+	DEATH_RECAP_TIP_AVOID = "Next time: this can be dodged. Step out of it as soon as you see it coming.",
+	DEATH_RECAP_TIP_REPEAT = "Next time: this hit you again and again. Move out of it, or away from where it comes from.",
+	DEATH_RECAP_TIP_BIG = "Next time: one big hit did most of it. Press a defensive just before it lands, or keep away from it.",
 	DEATH_RECAP_FALL = "You fell too far. Next time: look before you jump, or use a slow fall.",
 	DEATH_RECAP_MELEE = "melee hits",
 	DEATH_RECAP_MELEE_ONE = "a melee hit",
