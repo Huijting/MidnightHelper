@@ -28,8 +28,9 @@ er is niets weggegooid.
 - [x] **Herstel op je DH:** `/reload`, dan `/mh apply undo`. Daarna moeten 1, 2, 3, 4, Q, E, R, F en F4 weer een
       label op het blok hebben, en is de Eye Beam helemaal links weg. ✅ Rob 12 okt (screenshot): alle labels terug,
       Eye Beam op A-3, balk 1 zonder toetsen.
-- [ ] Bij de volgende level-up met een nieuwe spell: je krijgt nog maar **één** vraag (die van het toetsenblok,
-      met "Zet neer"). Het oude venster "You learned … Place it" komt niet meer. Komt de spell op de goede toets?
+- [x] Bij de volgende level-up met een nieuwe spell: komt de spell op de goede toets? ✅ 12 okt, GEMETEN in SV:
+      Throw Glaive op 4, Sigil of Misery op Shift-V; het oude venster heeft niets meer omgezet.
+- [ ] Kreeg je daarbij maar **één** vraag ("Zet neer")? Het oude "You learned … Place it" hoort weg te blijven.
 - [ ] `/mh apply go` op je DH zegt nu dat het toetsenblok je toetsen beheert, en doet niets.
 
 ## 🆕 12 okt — Twee zinnen in de levelgids, en Frans "Outil Raids"

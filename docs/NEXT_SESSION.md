@@ -8,9 +8,13 @@
   growthTips+growthButton aan) → `MH_ApplyLayout("go")` (v7) zette Eye Beam op balk 1 knop 5 en bond die 11
   toetsen om; `bindSnapshot` bevat precies die 11, elk "was" = bloktoets. Fix: `ns.KeyBlockActive()`
   (KeyBlock.lua); LayoutGrowth zwijgt dan; `/mh apply go|full go|clean go` weigert dan (kijken/undo mag).
-  Herstel bij Rob: `/mh apply undo` (zet de 11 terug + haalt Eye Beam van balk 1). Open: placedSnapshot had een
-  rij `slot = true` (ApplyLayout-opnamebug, onschadelijk via pcall) — uitzoeken. Diagnose blijft: `/mh block why`
-  → keyBlockProbe.live/.bar1/.autoPush/.bindingSet/.lastUpdate.
+  Herstel bij Rob: `/mh apply undo` ✅ (screenshot: alle labels terug). Daarna 2 nieuwe spells, GEMETEN in SV:
+  Throw Glaive op 4, Sigil of Misery op Shift-V (lastUpdate: slot 160, landde, binding klopte), geen nieuwe
+  bindSnapshot. ✅ `slot = true` OPGELOST: ApplyLayout.lua:753 `(a and b and not c) or nil` gaf `true` i.p.v. het
+  slotnummer → dubbele spell werd nooit weggehaald (PickupAction(true) faalde in pcall) en de dry run ("%d") gaf
+  een Lua-fout. Nu `… and row.strandedCopy or nil`. Geen andere plekken met dit patroon (grep). Klein, zag ik in SV:
+  Recuperate staat ook op A-C (C = grote defensive) en Vengeful Retreat/Glide ook op D (Alt-G/Alt-Q) — resten van
+  de apply-ronde; niet aangeraakt. Diagnose blijft: `/mh block why` → keyBlockProbe.*, keyBlockLastUpdate.
 - ✅ Ronde "Voidcore/Warband/Raid Finder gelijktrekken" AF (12 okt). GEMETEN met een loader-scan (alle Locales in
   .toc-volgorde per client, ook esMX): 0 resterende Engelse/afwijkende woorden in de/fr/es/esMX/pt/it/ru (positieve
   controle enUS: 10 keys met "Voidcore"). Bewust Engels: balktekst "Nebulous Voidcores transmuted: 1/1".

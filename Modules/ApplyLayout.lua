@@ -750,8 +750,12 @@ local function BuildPlan()
 						-- Never an assistant slot: it is displaying this spell, not
 						-- holding a copy of it, and clearing it would delete the
 						-- assistant the player put there.
+						-- 🔴 12 Oct 2026: this read `(copy and ourBars[copy] and not SlotIsAssistant(copy)) or nil`,
+						-- and an `and` chain returns its LAST value -- `true`, not the slot. Measured in Rob's
+						-- SavedVariables: placedSnapshot held `slot = true`. So the duplicate was never lifted
+						-- (PickupAction(true) failed inside its pcall), and the dry run's "%d" errored on it.
 						clearStranded = (row.strandedCopy and ourBars[row.strandedCopy]
-							and not SlotIsAssistant(row.strandedCopy)) or nil,
+							and not SlotIsAssistant(row.strandedCopy)) and row.strandedCopy or nil,
 						occupant = OccupantOf(target),
 						rebind = (GetBindingAction and GetBindingAction(wowKey) ~= cmd) or false,
 					}
