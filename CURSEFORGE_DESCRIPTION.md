@@ -6,7 +6,7 @@ Your gear says "Champion 4/6" and the game never tells you what that means. Your
 
 It is for you if you have just hit 90, or if you are coming back after a few expansions away and half the game has been renamed. Veterans will know much of it already.
 
-Up to date for patch 12.1 and Season 2, checked in the live game. Free, no ads, [open source](https://github.com/Huijting/MidnightHelper) (MIT), seven languages built in, and no other addons needed.
+Up to date for patch 12.1 and Season 2, checked in the live game. Free, no ads, [open source](https://github.com/Huijting/MidnightHelper) (MIT), eight languages built in, and no other addons needed.
 
 ### Getting started
 
@@ -54,15 +54,24 @@ It is not a boss mod, a damage meter, a bag addon or a unit-frame replacement, a
 
 ### More on the website
 
-[midnighthelper.com](https://midnighthelper.com/) has the guides in seven languages — [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all 14 delves](https://midnighthelper.com/guides/delves/) · [Knowledge Points](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/) · [Mythic+ from your first key](https://midnighthelper.com/guides/mythic-plus/) — plus the [Armory gear check](https://midnighthelper.com/armory/) and [Raidbots in seven steps](https://midnighthelper.com/raidbots/). No account needed.
+[midnighthelper.com](https://midnighthelper.com/) is free, needs no account and comes in eight languages, now also Russian.
+
+- **[Play cards](https://midnighthelper.com/play/)**: how each of the 40 specs plays, why each step matters, and a short quiz.
+- **[The whole Codex](https://midnighthelper.com/codex/)**: all 51 in-game articles on one page, easy to read on your phone.
+- **[Patch 12.1.5](https://midnighthelper.com/patch/12-1-5/)**: what is new, and what changes for your class.
+- **[Role Academy](https://midnighthelper.com/academy/)**: tank, healer and DPS, step by step, ready to print.
+- **[Key block cheat sheet](https://midnighthelper.com/keyblock/)**: paste your code, then print it or keep it on your phone.
+- **[Armory gear check](https://midnighthelper.com/armory/)**: paste `/mh export` and see your best set.
+
+The guides: [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all 14 delves](https://midnighthelper.com/guides/delves/) · [Knowledge Points](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/) · [Mythic+ from your first key](https://midnighthelper.com/guides/mythic-plus/) — plus [Raidbots in seven steps](https://midnighthelper.com/raidbots/).
 
 Got two minutes? [Tell us what you use, what you never use and what annoys you](https://midnighthelper.com/survey/).
 
 ### Languages
 
-English, Deutsch, Français, Español, Português (BR), Italiano and Nederlands; Guided mode is English and Dutch for now. Your client's language is picked up automatically. Choose Dutch with `/mh lang nl`, since there is no Dutch client. Other languages fall back to English.
+English, Deutsch, Français, Español, Português (BR), Italiano, Русский and Nederlands; Guided mode is English and Dutch for now. Your client's language is picked up automatically. Choose Dutch with `/mh lang nl`, since there is no Dutch client. Other languages fall back to English.
 
-Short labels such as stat names, `DPS` and `Bountiful` stay English on purpose, because your tooltips do too.
+Game words such as delves, Bountiful, zones and dungeon names follow your own client, so they match what you see in the game. Short labels such as stat names and `DPS` stay English on purpose.
 
 ### Help and feedback
 

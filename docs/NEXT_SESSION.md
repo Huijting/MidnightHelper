@@ -45,6 +45,13 @@ Astalor-plek · Voidcore `/dump 3418` rond 19/20 okt.
 spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob beslist.
 
 ## 12 okt — wat er gedaan is (bouwchat)
+- ✅ Website-aandacht (Rob via site-chat "alle zes doen"): `ns.MHSiteURL(path)` + `ns.ShowSiteLink(url, titleKey)`
+  (PlayCards.lua; SITE_LANG kent nu ook ruRU → Russische kaartlinks waren Engels). Over-venster ABOUT_SITE_LINE
+  (UI.lua, alleen in About), Codex "Website"-knopje naast elke titel → /<taal>/codex/#<id> (site-ankers = onze id's,
+  GEMETEN door site-chat), 5 12.1.5-kaarten → /<taal>/patch/12-1-5/, Academy grijze regel onderaan → /academy/,
+  CHANGELOG_476_25 (Engels). CURSEFORGE_DESCRIPTION.md: website-blok van site-chat + Русский + "eight languages" +
+  Bountiful-regel weg. 8 talen. 🔴 BIJ DE VOLGENDE TAG: site-chat seinen (herbouwt de site uit de tag; dan komt
+  #currency_voidcore erbij, 52 ankers + /ru/ checken). Rob plakt CURSEFORGE_DESCRIPTION.md op CF.
 - ✅ KeyPresses (Rob 12 okt, screenshot DH lvl 15): dubbele regels kwamen van schade-onderdelen die óók een cast
   melden (GEMETEN SV + wago: Chaos Strike 162794/222031/199547 = 60/60/50, Felblade 232893/213243 = 15/15) → Rows()
   voegt zelfde naam + zelfde toets samen met het HOOGSTE aantal (niet de som). Rob koos optie B: swap-tips blijven bij

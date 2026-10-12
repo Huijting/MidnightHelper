@@ -367,15 +367,41 @@ local SITE_SLUGS = {
 	[577] = "havoc-demon-hunter", [581] = "vengeance-demon-hunter", [1480] = "devourer-demon-hunter",
 	[1467] = "devastation-evoker", [1468] = "preservation-evoker", [1473] = "augmentation-evoker",
 }
-local SITE_LANG = { nlNL = "nl/", deDE = "de/", frFR = "fr/", esES = "es/", esMX = "es/", ptBR = "pt/", itIT = "it/" }
+-- ruRU added 12 Oct 2026: the site has /ru/ (site chat, all 8 variants answer 200), and Russian players got the
+-- English page.
+local SITE_LANG = { nlNL = "nl/", deDE = "de/", frFR = "fr/", esES = "es/", esMX = "es/", ptBR = "pt/", itIT = "it/",
+	ruRU = "ru/" }
+
+--- Any page on midnighthelper.com in the player's language (12 Oct 2026, Rob: "alle zes doen" -- the About panel,
+--- the Codex, the Role Academy and the 12.1.5 cards point to the site). `path` without a leading slash, e.g.
+--- "codex/#great_vault" or "academy/". Paths MEASURED by the site chat on 12 Oct: English without a prefix,
+--- nl/de/fr/es/pt/it/ru with one, and they stay stable.
+function ns.MHSiteURL(path)
+	local code = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode() or "enUS"
+	return ("https://midnighthelper.com/%s%s"):format(SITE_LANG[code] or "", path or "")
+end
+
+--- An addon cannot open a browser: the link opens a copy box, the same one the play card uses.
+function ns.ShowSiteLink(url, titleKey)
+	if not (url and ns.ShowShareCopyDialog) then
+		return
+	end
+	ns.ShowShareCopyDialog({
+		id = "site-link",
+		text = url,
+		titleKey = titleKey or "SITE_LINK_TITLE",
+		hintKey = "PLAYCARD_SITE_HINT",
+		closeKey = "DELVE_SHARE_COPY_CLOSE",
+		width = 460, height = 170,
+	})
+end
 
 function ns.PlayCardSiteURL(specID)
 	local slug = specID and SITE_SLUGS[specID]
 	if not slug then
 		return nil
 	end
-	local code = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode() or "enUS"
-	return ("https://midnighthelper.com/%splay/%s/"):format(SITE_LANG[code] or "", slug)
+	return ns.MHSiteURL(("play/%s/"):format(slug))
 end
 
 local function SpellName(id)

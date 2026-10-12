@@ -3689,6 +3689,26 @@ function ns:EnsureMainUI()
 	infoBody:SetWordWrap(true)
 	infoBody:SetTextColor(0.88, 0.86, 0.8)
 
+	-- "Website: midnighthelper.com" under the About text (12 Oct 2026, Rob: "alle zes doen"). Only in About; a click
+	-- opens a copy box, because an addon cannot open a browser.
+	local aboutSiteBtn = CreateFrame("Button", nil, infoWindow)
+	aboutSiteBtn.fs = aboutSiteBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	aboutSiteBtn.fs:SetPoint("TOPLEFT")
+	aboutSiteBtn.fs:SetJustifyH("LEFT")
+	aboutSiteBtn.fs:SetTextColor(0.45, 0.75, 1)
+	aboutSiteBtn:SetScript("OnEnter", function(self)
+		self.fs:SetTextColor(1, 1, 1)
+	end)
+	aboutSiteBtn:SetScript("OnLeave", function(self)
+		self.fs:SetTextColor(0.45, 0.75, 1)
+	end)
+	aboutSiteBtn:SetScript("OnClick", function()
+		if ns.MHSiteURL and ns.ShowSiteLink then
+			ns.ShowSiteLink(ns.MHSiteURL(""), "SITE_LINK_TITLE")
+		end
+	end)
+	aboutSiteBtn:Hide()
+
 	function ns:_mhRefreshSidePanel(tabId)
 		if not infoWindow or not infoTitle or not infoBody then
 			return
@@ -3698,7 +3718,14 @@ function ns:EnsureMainUI()
 			infoTitle:SetText(self:L("ABOUT_WINDOW_TITLE"))
 			local ver = ns.GetAddonVersion and ns.GetAddonVersion() or "?"
 			infoBody:SetText(self:L("ABOUT_VERSION_FMT"):format(ver) .. "\n\n" .. self:L("ABOUT_WINDOW_BODY"))
+			aboutSiteBtn.fs:SetWidth((infoWindow:GetWidth() or 300) - 24)
+			aboutSiteBtn.fs:SetText(self:L("ABOUT_SITE_LINE"))
+			aboutSiteBtn:SetSize((infoWindow:GetWidth() or 300) - 24, (aboutSiteBtn.fs:GetStringHeight() or 14) + 2)
+			aboutSiteBtn:ClearAllPoints()
+			aboutSiteBtn:SetPoint("TOPLEFT", infoBody, "BOTTOMLEFT", 0, -10)
+			aboutSiteBtn:Show()
 		else
+			aboutSiteBtn:Hide()
 			local keyById = {
 				codex = "TAB_CODEX",
 				home = "TAB_HOME",
@@ -3728,7 +3755,8 @@ function ns:EnsureMainUI()
 		do
 			local titleH = (infoTitle.GetStringHeight and infoTitle:GetStringHeight()) or 14
 			local bodyH = (infoBody.GetStringHeight and infoBody:GetStringHeight()) or 0
-			local want = math.ceil(12 + titleH + 10 + bodyH + 14)
+			local siteH = aboutSiteBtn:IsShown() and (10 + (aboutSiteBtn:GetHeight() or 16)) or 0
+			local want = math.ceil(12 + titleH + 10 + bodyH + siteH + 14)
 			local maxH = ((UIParent.GetHeight and UIParent:GetHeight()) or 800) * 0.7
 			local h = math.max(MHGetLayoutMetrics().infoWindowHeight, math.min(want, maxH))
 			infoWindow._mhFitHeight = h

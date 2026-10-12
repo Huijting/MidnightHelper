@@ -9,6 +9,14 @@
    "ptBR": "4efca0d10c5feb8e",
    "ruRU": "4efca0d10c5feb8e"
   },
+  "ABOUT_SITE_LINE": {
+   "deDE": "15ea56cbefcceaa0",
+   "esES": "15ea56cbefcceaa0",
+   "frFR": "15ea56cbefcceaa0",
+   "itIT": "15ea56cbefcceaa0",
+   "ptBR": "15ea56cbefcceaa0",
+   "ruRU": "15ea56cbefcceaa0"
+  },
   "ABOUT_VERSION_FMT": {
    "deDE": "f69a10f395367c52",
    "esES": "f69a10f395367c52",
@@ -598,6 +606,22 @@
   },
   "ACADEMY_SEE_TITLE": {
    "ruRU": "64788d732687c408"
+  },
+  "ACADEMY_SITE_LINE": {
+   "deDE": "49cd4c16e87338f0",
+   "esES": "49cd4c16e87338f0",
+   "frFR": "49cd4c16e87338f0",
+   "itIT": "49cd4c16e87338f0",
+   "ptBR": "49cd4c16e87338f0",
+   "ruRU": "49cd4c16e87338f0"
+  },
+  "ACADEMY_SITE_TITLE": {
+   "deDE": "d6f21083aa78380e",
+   "esES": "d6f21083aa78380e",
+   "frFR": "d6f21083aa78380e",
+   "itIT": "d6f21083aa78380e",
+   "ptBR": "d6f21083aa78380e",
+   "ruRU": "d6f21083aa78380e"
   },
   "ACADEMY_STEP_CARD": {
    "deDE": "d36850ffe32899e5",
@@ -5334,6 +5358,37 @@
    "nlNL": "d8b77b74b47eeaea",
    "ptBR": "d8b77b74b47eeaea",
    "ruRU": "d8b77b74b47eeaea"
+  },
+  "CODEX_SITE_BTN": {
+   "esES": "b5a229ac8becc603",
+   "frFR": "b5a229ac8becc603",
+   "itIT": "b5a229ac8becc603",
+   "ptBR": "b5a229ac8becc603",
+   "ruRU": "b5a229ac8becc603"
+  },
+  "CODEX_SITE_PATCH_BTN": {
+   "deDE": "e99990e7df86924f",
+   "esES": "e99990e7df86924f",
+   "frFR": "e99990e7df86924f",
+   "itIT": "e99990e7df86924f",
+   "ptBR": "e99990e7df86924f",
+   "ruRU": "e99990e7df86924f"
+  },
+  "CODEX_SITE_PATCH_TITLE": {
+   "deDE": "ff4c068a7a2ab73d",
+   "esES": "ff4c068a7a2ab73d",
+   "frFR": "ff4c068a7a2ab73d",
+   "itIT": "ff4c068a7a2ab73d",
+   "ptBR": "ff4c068a7a2ab73d",
+   "ruRU": "ff4c068a7a2ab73d"
+  },
+  "CODEX_SITE_TITLE": {
+   "deDE": "48b768e251222de7",
+   "esES": "48b768e251222de7",
+   "frFR": "48b768e251222de7",
+   "itIT": "48b768e251222de7",
+   "ptBR": "48b768e251222de7",
+   "ruRU": "48b768e251222de7"
   },
   "CODEX_START_BODY": {
    "deDE": "cf218ed73fed2a45",
@@ -34469,6 +34524,14 @@
    "nlNL": "e6bfbb7a598f5ca1",
    "ptBR": "e6bfbb7a598f5ca1",
    "ruRU": "e6bfbb7a598f5ca1"
+  },
+  "SITE_LINK_TITLE": {
+   "deDE": "5e4c6ce3bbf3b2c1",
+   "esES": "5e4c6ce3bbf3b2c1",
+   "frFR": "5e4c6ce3bbf3b2c1",
+   "itIT": "5e4c6ce3bbf3b2c1",
+   "ptBR": "5e4c6ce3bbf3b2c1",
+   "ruRU": "5e4c6ce3bbf3b2c1"
   },
   "SMC_CAT_ESSENTIAL": {
    "deDE": "196ed85975cd6875",

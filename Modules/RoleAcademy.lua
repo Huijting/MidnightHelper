@@ -1040,6 +1040,38 @@ local function RebuildScrollContent(panel)
 
 	RenderSections(sections)
 
+	-- The same course on the website, to print or keep on a phone (12 Oct 2026, Rob: "alle zes doen"). A grey line at
+	-- the very bottom: it is there for whoever reads to the end, it never interrupts. Opens a copy box.
+	local siteBtn = panel._academySiteBtn
+	if not siteBtn then
+		siteBtn = CreateFrame("Button", nil, child)
+		siteBtn.fs = siteBtn:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+		siteBtn.fs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+		siteBtn.fs:SetPoint("TOPLEFT")
+		siteBtn.fs:SetJustifyH("LEFT")
+		siteBtn.fs:SetWordWrap(true)
+		siteBtn.fs:SetTextColor(0.55, 0.53, 0.48)
+		siteBtn:SetScript("OnEnter", function(self)
+			self.fs:SetTextColor(0.45, 0.75, 1)
+		end)
+		siteBtn:SetScript("OnLeave", function(self)
+			self.fs:SetTextColor(0.55, 0.53, 0.48)
+		end)
+		siteBtn:SetScript("OnClick", function()
+			if ns.MHSiteURL and ns.ShowSiteLink then
+				ns.ShowSiteLink(ns.MHSiteURL("academy/"), "ACADEMY_SITE_TITLE")
+			end
+		end)
+		panel._academySiteBtn = siteBtn
+	end
+	siteBtn.fs:SetWidth(cw)
+	siteBtn.fs:SetText(SL("ACADEMY_SITE_LINE"))
+	siteBtn:SetSize(cw, (siteBtn.fs:GetStringHeight() or 14) + 2)
+	siteBtn:ClearAllPoints()
+	siteBtn:SetPoint("TOPLEFT", child, "TOPLEFT", 4, y - 4)
+	siteBtn:Show()
+	y = y - 4 - siteBtn:GetHeight() - 8
+
 	child:SetSize(cw + 8, math.max(120, -y + 8))
 	if scroll.UpdateScrollChildRect then
 		scroll:UpdateScrollChildRect()

@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 okt — Links naar midnighthelper.com
+
+- [ ] **Over** (knop rechtsboven in MH): onder de tekst staat "Website: midnighthelper.com (klik voor de link)"; klik →
+      kopieervak met het adres.
+- [ ] **Codex:** naast elke artikeltitel een klein blauw "Website" (bij de 12.1.5-kaarten "Patchpagina"); klik →
+      kopieervak met de link naar dat artikel. Staat het knopje niet over de titel heen?
+- [ ] **Role Academy:** helemaal onderaan een grijze regel "Deze cursus staat ook op midnighthelper.com …"; klik →
+      kopieervak.
+- [ ] Plak `CURSEFORGE_DESCRIPTION.md` op CurseForge (nieuw website-blok, Russisch bij de talen).
+
 ## 🆕 12 okt — "Which spells you press": geen dubbele regels, en een regel over het toetsenblok
 
 - [x] `/mh presses` op je DH: Chaos Strike en Felblade staan er nog maar **één keer** in (Chaos Strike ±60×, niet

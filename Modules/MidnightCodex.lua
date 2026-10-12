@@ -365,10 +365,31 @@ local function AcquireArticleBlock(index)
 	titleHit:SetPoint("RIGHT", root, "RIGHT", 0, 0)
 	titleHit:SetHeight(20)
 
+	-- "Website" link beside the title (12 Oct 2026, Rob: "alle zes doen"). Beside the title rather than under the body,
+	-- so the block's measured height stays exactly what it was. Opens a copy box: an addon cannot open a browser.
+	local siteBtn = CreateFrame("Button", nil, titleHit)
+	siteBtn:SetHeight(18)
+	siteBtn:SetPoint("TOPRIGHT", titleHit, "TOPRIGHT", 0, 0)
+	siteBtn.fs = siteBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	siteBtn.fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	siteBtn.fs:SetPoint("RIGHT", siteBtn, "RIGHT", 0, 0)
+	siteBtn.fs:SetTextColor(0.45, 0.75, 1)
+	siteBtn:SetScript("OnEnter", function(self)
+		self.fs:SetTextColor(1, 1, 1)
+	end)
+	siteBtn:SetScript("OnLeave", function(self)
+		self.fs:SetTextColor(0.45, 0.75, 1)
+	end)
+	siteBtn:SetScript("OnClick", function(self)
+		if self._mhPath and ns.MHSiteURL and ns.ShowSiteLink then
+			ns.ShowSiteLink(ns.MHSiteURL(self._mhPath), self._mhTitleKey)
+		end
+	end)
+
 	local titleFs = titleHit:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	titleFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	titleFs:SetPoint("TOPLEFT", titleHit, "TOPLEFT", 0, 0)
-	titleFs:SetPoint("RIGHT", titleHit, "RIGHT", 0, 0)
+	titleFs:SetPoint("RIGHT", siteBtn, "LEFT", -8, 0)
 	titleFs:SetJustifyH("LEFT")
 
 	local curRow = CreateFrame("Frame", nil, root)
@@ -452,6 +473,7 @@ local function AcquireArticleBlock(index)
 		measureFs = measureFs,
 		navBtn = navBtn,
 		routeBtn = routeBtn,
+		siteBtn = siteBtn,
 	}
 	root._mhMeasure = function()
 		local h = (titleHit:GetHeight() or 20) + 6
@@ -503,9 +525,25 @@ local function AcquireArticleBlock(index)
 	return block
 end
 
+-- The 12.1.5 cards point to the site's patch page (/patch/12-1-5/), every other article to its own section of
+-- /codex/ (#<article id>; the site's section ids ARE these ids, MEASURED by the site chat on 12 Oct 2026).
+local PATCH_1215_ARTICLES = { labyrinth_kindojan = true, aqir_invasion = true, keystone_myth = true, kithix = true,
+	venomstones = true }
+
 local function ApplyArticleToBlock(block, article)
 	block.article = article
 	block.titleFs:SetText("|cffffcc00" .. CodexL(article.titleKey) .. "|r")
+	if article.id then
+		local patch = PATCH_1215_ARTICLES[article.id]
+		block.siteBtn._mhPath = patch and "patch/12-1-5/" or ("codex/#" .. article.id)
+		block.siteBtn._mhTitleKey = patch and "CODEX_SITE_PATCH_TITLE" or "CODEX_SITE_TITLE"
+		block.siteBtn.fs:SetText(CodexL(patch and "CODEX_SITE_PATCH_BTN" or "CODEX_SITE_BTN"))
+		block.siteBtn:SetWidth((block.siteBtn.fs:GetStringWidth() or 60) + 4)
+		block.siteBtn:Show()
+	else
+		block.siteBtn._mhPath = nil
+		block.siteBtn:Hide()
+	end
 	AttachCurrencyTooltip(block.titleHit, article.currencyId)
 
 	if article.currencyId then
