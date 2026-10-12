@@ -801,7 +801,9 @@ local function EnsureWindow()
 			end
 		end
 		for _, u in ipairs(units) do
-			if UnitExists(u) and not UnitIsUnit(u, "player") then
+			-- UnitIsPlayer: in een delve is Valeera een groepslid, en fluisteren naar haar geeft
+			-- "No player named 'Valeera Sanguinar'" (Rob, 12 okt 2026).
+			if UnitExists(u) and UnitIsPlayer(u) and not UnitIsUnit(u, "player") then
 				local n, realm = UnitName(u)
 				if n and not (issecretvalue and issecretvalue(n)) then
 					if realm and realm ~= "" and not (issecretvalue and issecretvalue(realm)) then

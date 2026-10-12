@@ -361,11 +361,21 @@ function ns.ShareDungeonBossTips(dungeonKey, bossKey, short, whisperTo)
 		end
 		return
 	end
-	for _, m in ipairs(msgs) do
-		-- Gedeelde helper: C_ChatInfo.SendChatMessage (de oude global loopt op 12.x
-		-- via een deprecated-shim die ADDON_ACTION_BLOCKED gooit — Rob, 11 jun) +
-		-- chat-messaging-lockdown-gate met queue (Comms.lua, review F2.2).
-		ns.MH_SendChat(m, channel, target.whisperTo)
+	-- Gedeelde helper: C_ChatInfo.SendChatMessage (de oude global loopt op 12.x
+	-- via een deprecated-shim die ADDON_ACTION_BLOCKED gooit — Rob, 11 jun) +
+	-- chat-messaging-lockdown-gate met queue (Comms.lua, review F2.2).
+	-- 🔴 Eén regel per seconde, niet alles in één frame: Rob, 12 okt 2026, screenshot met vier keer
+	-- "The number of messages that can be sent is limited" na een share. Waar Blizzards grens precies
+	-- ligt is niet gemeten; 1 s is een veilige gok, de eerste regel gaat meteen.
+	local whisperTo = target.whisperTo
+	for i, m in ipairs(msgs) do
+		if i == 1 or not (C_Timer and C_Timer.After) then
+			ns.MH_SendChat(m, channel, whisperTo)
+		else
+			C_Timer.After(i - 1, function()
+				ns.MH_SendChat(m, channel, whisperTo)
+			end)
+		end
 	end
 	if target.whisperTo then
 		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_WHISPER_FMT"):format(name, target.whisperTo))

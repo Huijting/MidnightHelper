@@ -24,8 +24,11 @@ er is niets weggegooid.
 ## 🆕 12 okt — Boss-tactiek naar één speler fluisteren (DungeonBossWindow.lua + DungeonLiveCoach.lua)
 
 - [ ] **Bossvenster, muis op "Share":** tooltip zegt linksklik = hele groep, rechtsklik = één speler.
-- [ ] **Rechtsklik op Share** in een groep: lijstje met je groepsleden (niet jijzelf). Klik een naam → die speler krijgt
+- [x] **Rechtsklik op Share** in een groep: lijstje met je groepsleden (niet jijzelf). Klik een naam → die speler krijgt
       de tactiek als fluisterbericht; in je chat staat "Steps for <boss> whispered to <naam>." De groep ziet niets.
+      ✅ Rob 12 okt "fluisteren werkt" — maar Valeera stond in het lijstje en er kwam 4× "number of messages … limited".
+- [ ] **Na de fix (12 okt avond):** in een delve staat Valeera NIET meer in het rechtsklik-lijstje. En een share (groep
+      of fluisteren) komt regel voor regel binnen, ~1 per seconde, zonder "number of messages … limited".
 - [ ] **Rechtsklik zonder groep:** regel in je chat dat er niemand is, met de tip `/mh bossshare <naam>`.
 - [ ] **`/mh bossshare Naam`** (ook iemand buiten je groep): alleen die speler krijgt het.
 - [ ] **Linksklik en kale `/mh bossshare`** gaan nog steeds naar de hele groep — óók direct ná een fluister-share.
