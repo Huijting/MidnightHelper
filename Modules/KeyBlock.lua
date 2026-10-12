@@ -1348,8 +1348,20 @@ function ns.KeyBlockUpdate()
 		return false
 	end
 	local added, names, rebound = 0, {}, false
+	-- What this update aimed at and where it landed, for /mh block why (12 Oct 2026, Rob's DH: "-> 4" showed up far
+	-- left). Overwritten every time: only the last update is ever the question.
+	local log = { t = time and time() or 0, items = {}, bar1Before = {} }
+	ns.db.keyBlockLastUpdate = log
+	for i = 1, 12 do
+		local kind, id = Occupant(i)
+		log.bar1Before[i] = kind and (tostring(kind) .. ":" .. tostring(id)) or "empty"
+	end
 	for _, m in ipairs(MissingRows()) do
 		local t = m.target
+		local entry = { name = MissingName(m), want = m.row.want and m.row.want.id, ownKey = m.row.key,
+			target = t and t.key, slot = t and t.slot, command = t and t.command,
+			boundBefore = t and GetBindingAction and GetBindingAction(t.key) or nil }
+		log.items[#log.items + 1] = entry
 		if t then
 			local want = m.row.want
 			pcall(function()
@@ -1371,6 +1383,7 @@ function ns.KeyBlockUpdate()
 				ClearCursor()
 			end)
 			pcall(ClearCursor)
+			entry.landedKind, entry.landedId = Occupant(t.slot)
 			if Occupant(t.slot) == want.kind then
 				-- First in the list: the undo must lift this off BEFORE it puts back what stood here before.
 				table.insert(snap.slots, 1, { slot = t.slot })
@@ -2363,9 +2376,33 @@ function ns.PrintKeyBlockTrace()
 		print(("  |cffff8080no room|r %s (%s) %s/%s"):format((SpellView(s.id)), tostring(s.id), tostring(s.role), tostring(s.category)))
 		dump.unplaced[#dump.unplaced + 1] = { id = s.id, role = s.role, category = s.category }
 	end
+	-- The live bars too (12 Oct 2026, Rob levelling a Demon Hunter: a new spell offered "-> 4" showed up on a
+	-- button far left, and on his screenshot keys 1, 4, Q, E, R, F and F4 had no label on their block button).
+	-- The picture above is the PLAN; this is what each key really presses and what stands there, plus bar 1,
+	-- which is where the game itself drops a newly learned spell.
+	dump.live, dump.bar1 = {}, {}
+	for _, r in ipairs(PlacePlan() or {}) do
+		local kind, id = Occupant(r.slot)
+		dump.live[#dump.live + 1] = { key = r.key, slot = r.slot, command = r.command, action = r.action,
+			boundTo = GetBindingAction and GetBindingAction(r.key) or "?", kind = kind, id = id }
+	end
+	for i = 1, 12 do
+		local kind, id = Occupant(i)
+		local keys = GetBindingKey and { GetBindingKey("ACTIONBUTTON" .. i) } or {}
+		dump.bar1[i] = { kind = kind, id = id, keys = table.concat(keys, ",") }
+	end
+	if C_CVar and C_CVar.GetCVar then
+		local okC, v = pcall(C_CVar.GetCVar, AUTOPUSH_CVAR)
+		dump.autoPush = okC and v or "?"
+	end
+	if GetCurrentBindingSet then
+		dump.bindingSet = GetCurrentBindingSet() -- 1 = account-wide, 2 = this character only
+	end
+	dump.lastUpdate = ns.db and ns.db.keyBlockLastUpdate
 	if ns.db then
 		ns.db.keyBlockProbe = dump
 	end
+	print("  (live keys, bar 1 and the last update are in SavedVariables: keyBlockProbe — /reload to write)")
 	if ns.KeyBlockBar1Status then
 		print("  " .. ns.KeyBlockBar1Status())
 	end

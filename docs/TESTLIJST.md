@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 okt — Toetsenblok: nieuwe spell komt op de verkeerde plek (DH, level 11)
+
+- [ ] Op je DH: `/reload`, dan `/mh block why`, dan nog een `/reload` (dan staat het in SavedVariables). Daarmee
+      zien we per toets welke knop hij écht indrukt (op je screenshot hadden 1, 4, Q, E, R, F en F4 geen label op
+      het blok).
+- [ ] De volgende keer dat MH vraagt "nieuwe spell → zet neer": klik Zet neer, dan `/mh block why` en `/reload`.
+      MH schrijft nu op waar hij hem heen stuurde en waar hij landde.
+
 ## 🆕 12 okt — Twee zinnen in de levelgids, en Frans "Outil Raids"
 
 - [ ] **Gids "Midnight leveling (80 naar 90)":** de Prey-zin zegt nu *Astalor Bloodsworn in Astalor's Sanctum (ingang in

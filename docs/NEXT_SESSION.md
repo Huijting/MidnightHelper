@@ -1,6 +1,14 @@
 # Midnight Helper — waar we staan
 
 ## 12 okt ochtend — VERDER HIER (nieuwe bouwchat)
+- 🔴 OPEN BUG (Rob 12 okt, screenshot, DH Demonico lvl 11): "nieuwe spell → Zet neer" zet hem "helemaal links"
+  i.p.v. op toets 4. Op de screenshot hebben de blokknoppen van 1, 4, Q, E, R, F, F4, Shift-Q/F GEEN toetslabel en
+  staan "1" en "4" op een groepje links van blok D (balk 1?) — AFGELEID: die toetsen wijzen niet (meer) naar het
+  blok. NIET gerepareerd; eerst meten. `/mh block why` schrijft nu `keyBlockProbe.live` (per toets: slot, command,
+  boundTo, wat erop staat), `.bar1` (wat er op balk 1 staat + toetsen), `.autoPush`, `.bindingSet`, en
+  `.lastUpdate` = log van de laatste Zet neer (doel, slot, gebonden vóór, landde als, balk 1 vóór). SV-snapshot
+  van 12 okt ~08:22 (keyBlockCodes, Demonico:577) was ouder dan de screenshot. Let op: "Demonico" was eerder een
+  Mage (code :1449). Wacht op Robs /reload → SV lezen.
 - ✅ Ronde "Voidcore/Warband/Raid Finder gelijktrekken" AF (12 okt). GEMETEN met een loader-scan (alle Locales in
   .toc-volgorde per client, ook esMX): 0 resterende Engelse/afwijkende woorden in de/fr/es/esMX/pt/it/ru (positieve
   controle enUS: 10 keys met "Voidcore"). Bewust Engels: balktekst "Nebulous Voidcores transmuted: 1/1".
