@@ -18,7 +18,13 @@
   wago) nulmeting op PTR 70077: Kith'ix-raid, Keystone Myth S2 (63690), aqir 63657/58/59/80, Labyrinth (POI 9035,
   faction 2836), Aqir 2838/8812/8813, Venomstone 280562 — ALLE 8 talen echte vertalingen. wago had op 12 okt nog
   geen live-build. Op patchdag opnieuw draaien → DIFF-rijen = wat er veranderde; dan pas in de packs zetten.
-  Kaarten vs patchnotes: mh-research → `docs/PATCH_12_1_5_CARDS_2026-10-12.md`.
+  Kaarten vs patchnotes ✅ (mh-research, `docs/PATCH_12_1_5_CARDS_2026-10-12.md`): alleen 1480 HERO1 moet om
+  (Violent Transformation reset The Hunt niet meer; Collapsing Star wel — voorstel-tekst in het rapport). NIET nu
+  ingebouwd: de tekst beschrijft 12.1.5 en zou op live 12.1.0 onwaar zijn; op patchdag + Robs check in het spel
+  (The Hunt-reset door Collapsing Star) → HERO1 vervangen, `interface` 1480 → 120105, check_drift + mh-writer.
+  Optie B (Collapsing Star in S1 + quizAnswer) = Robs keuze. 254: Unload weg bevestigd, kaarttekst blijft, alleen
+  comment r.187. 445 kaart-spell-ID's live vs PTR 70077: geen naam/talent weg. Patchdag: zelfde vergelijking op de
+  live-build (notes kregen 8 okt nog een update), `/mh playcards check`, gidsen + 4 "best this season"-claims.
 - Patchdag 12.1.5 = 13/14 okt: patchnotes naast de 40 kaarten (mh-research), Devourer HERO1 nakijken → dan 120105;
   nameten op de eerste 12.1.5-build: The Unbinding of Kith'ix, Midnight Keystone Myth: Season 2, 3 aqir-achievements,
   Labyrinth-namen (nu uit PTR 70077). Daarna de echte 4.7.6-release (Robs go).
