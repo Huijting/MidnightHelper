@@ -27,8 +27,8 @@ er is niets weggegooid.
       kopieervak met het adres.
 - [x] **Codex:** naast elke artikeltitel een klein blauw "Website" (bij de 12.1.5-kaarten "Patchpagina"); klik →
       kopieervak met de link naar dat artikel. Staat het knopje niet over de titel heen? ✅ Rob 12 okt "knopjes staan goed".
-- [ ] **Titelbalk:** achter "v4.7.6" staat nu een klein blauw "midnighthelper.com"; klik → kopieervak. Schuift "Me"
-      (de kamernaam) netjes op, ook in Classic look?
+- [x] **Titelbalk:** "midnighthelper.com" groot en blauw in het midden van de titelbalk; klik → kopieervak.
+      ✅ Rob 12 okt (na 3 rondes: achter de versie → achter "Me", groter → gecentreerd).
 - [ ] **Role Academy:** helemaal onderaan een grijze regel "Deze cursus staat ook op midnighthelper.com …"; klik →
       kopieervak.
 - [ ] Plak `CURSEFORGE_DESCRIPTION.md` op CurseForge (nieuw website-blok, Russisch bij de talen).
