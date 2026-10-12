@@ -1,10 +1,24 @@
 # Midnight Helper — waar we staan
 
 ## 12 okt ochtend — VERDER HIER (nieuwe bouwchat)
-- ⚠️ Een ronde is ONAF gebleven (de sessie stopte): "Voidcore/Warband/Raid Finder gelijktrekken" (zie de Voidcore-regel
-  hieronder: andere keys met Engels "Nebulous Voidcore"/"Orin Straylight", Warband-woord fr/es/pt ≠ client, itIT
-  "Raid Finder"). Het half-af werk is gecommit als "WIP" (lint 0 HARD, luac schoon). Eerst nalopen wat er nog Engels
-  staat (grep per pack), afmaken, dan check_drift-stempel. Clientnamen staan in de Voidcore-regel en scratchpad vc\.
+- ✅ Ronde "Voidcore/Warband/Raid Finder gelijktrekken" AF (12 okt). GEMETEN met een loader-scan (alle Locales in
+  .toc-volgorde per client, ook esMX): 0 resterende Engelse/afwijkende woorden in de/fr/es/esMX/pt/it/ru (positieve
+  controle enUS: 10 keys met "Voidcore"). Bewust Engels: balktekst "Nebulous Voidcores transmuted: 1/1".
+  - frFR "Recherche de raid" bestaat niet in de client (GS PLAYER_DIFFICULTY3/RAID_FINDER = "Raids", Difficulty 17 =
+    "Outil Raids") → "Outil Raids" (5 plekken). Andere 6 talen klopten al.
+  - LVL8090_HANDOFF_2 was ONWAAR (mh-research 12 okt, wago 69933): Prey voedt de Voidforge niet; NPC staat in
+    Astalor's Sanctum (AreaTable 16634, ingang Murder Row). Nieuwe zin in 8 talen (mh-writer), clientnamen gemeten.
+  - LVL8090_XP_1: "Five Warband Mentors" = achievement 42332 "Five Warband Mentors: Midnight" → met ": Midnight" en
+    clientnaam per pack. check_drift --mark voor beide keys, 6 talen.
+  - OPEN (klein): Codex Prey-kaart (`Codex.lua:77`/`:369`, T2026 :4716/:4742/:4767/:4794/:4822, esMX :152, ruRU :691)
+    zegt nog "Magister Astalor Bloodsworn in Murder Row" + WAY 56.74,67.30 — plek/coördinaat nameten (Wowhead-
+    reacties: ingang 55.0,63.4). CODEX_VOIDCORE_BODY "Decimus' Voidforge … no longer used": spell 1277384 heet nog
+    "The Voidforge" (unlock); zin is half waar (AFGELEID), herformuleren.
+- Patch-voorbereiding 12 okt: `tools/names_1215.py` (job `run names_1215`; kiest zelf de nieuwste 12.1.5-build op
+  wago) nulmeting op PTR 70077: Kith'ix-raid, Keystone Myth S2 (63690), aqir 63657/58/59/80, Labyrinth (POI 9035,
+  faction 2836), Aqir 2838/8812/8813, Venomstone 280562 — ALLE 8 talen echte vertalingen. wago had op 12 okt nog
+  geen live-build. Op patchdag opnieuw draaien → DIFF-rijen = wat er veranderde; dan pas in de packs zetten.
+  Kaarten vs patchnotes: mh-research → `docs/PATCH_12_1_5_CARDS_2026-10-12.md`.
 - Patchdag 12.1.5 = 13/14 okt: patchnotes naast de 40 kaarten (mh-research), Devourer HERO1 nakijken → dan 120105;
   nameten op de eerste 12.1.5-build: The Unbinding of Kith'ix, Midnight Keystone Myth: Season 2, 3 aqir-achievements,
   Labyrinth-namen (nu uit PTR 70077). Daarna de echte 4.7.6-release (Robs go).

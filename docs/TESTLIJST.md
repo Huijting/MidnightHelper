@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 okt — Twee zinnen in de levelgids, en Frans "Outil Raids"
+
+- [ ] **Gids "Midnight leveling (80 naar 90)":** de Prey-zin zegt nu *Astalor Bloodsworn in Astalor's Sanctum (ingang in
+      Murder Row)*, telt mee voor de Great Vault, en na een Nightmare-hunt kun je een Nebulous Voidcore uitgeven. De
+      Voidforge staat er niet meer in. De XP-zin begint met *Five Warband Mentors: Midnight* (de achievementnaam).
+      Klopt de plek als je erheen loopt?
+- [ ] *(Alleen als iemand Frans speelt)* de raidteksten zeggen "Outil Raids" in plaats van "Recherche de raid".
+
 ## 🆕 11 okt — Codex-kaart "Bonus rolls with Nebulous Voidcores" (MidnightCodexData.lua)
 
 - [ ] **Midnight Codex → Currencies → "Bonus rolls with Nebulous Voidcores":** de kaart legt uit hoe je vrijspeelt
