@@ -20,8 +20,9 @@
   geen live-build. Op patchdag opnieuw draaien → DIFF-rijen = wat er veranderde; dan pas in de packs zetten.
   Kaarten vs patchnotes ✅ (mh-research, `docs/PATCH_12_1_5_CARDS_2026-10-12.md`): alleen 1480 HERO1 moet om
   (Violent Transformation reset The Hunt niet meer; Collapsing Star wel — voorstel-tekst in het rapport). NIET nu
-  ingebouwd: de tekst beschrijft 12.1.5 en zou op live 12.1.0 onwaar zijn; op patchdag + Robs check in het spel
-  (The Hunt-reset door Collapsing Star) → HERO1 vervangen, `interface` 1480 → 120105, check_drift + mh-writer.
+  ingebouwd: de tekst beschrijft 12.1.5 en zou op live 12.1.0 onwaar zijn. Rob heeft GEEN Devourer (12 okt) → geen
+  check in het spel; op patchdag de spellteksten (o.a. 1259431, 1217605, 1245412) op de live-build naast PTR 70077
+  leggen: gelijk → HERO1 vervangen, `interface` 1480 → 120105, check_drift + mh-writer.
   Optie B (Collapsing Star in S1 + quizAnswer) = Robs keuze. 254: Unload weg bevestigd, kaarttekst blijft, alleen
   comment r.187. 445 kaart-spell-ID's live vs PTR 70077: geen naam/talent weg. Patchdag: zelfde vergelijking op de
   live-build (notes kregen 8 okt nog een update), `/mh playcards check`, gidsen + 4 "best this season"-claims.
