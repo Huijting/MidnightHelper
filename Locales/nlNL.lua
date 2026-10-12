@@ -639,6 +639,7 @@ ns._mhLocales.nlNL = {
 	PRESSES_SWAP = "Tip: ruil %s (%dx, op %s) met %s (%dx, op %s).",
 	PRESSES_NOSWAP = "Je meest gedrukte spells zitten al op je makkelijkere toetsen. Niets te ruilen.",
 	PRESSES_FEW = "Verander er één of twee tegelijk: je handen hebben per wijziging een paar dagen nodig.",
+	PRESSES_BLOCK_NOTE = "Je toetsenblok geeft elke toets dezelfde taak op al je characters. Een swap verandert dat alleen op dit character, en \"Zet het op balk 5, 6 en 7\" in /mh block zet ze weer terug.",
 	PRESSES_RULE = "Makkelijk = 1-5, Q, E, R, F en muisknoppen, zonder Shift/Ctrl/Alt. Shift maakt een toets iets lastiger, Ctrl of Alt meer. Een hint over toetsen, niet over je handen.",
 	PRESSES_WIN_TITLE = "Welke spells je drukt",
 	PRESSES_BTN_SWAP = "Ruil",

@@ -4954,6 +4954,7 @@ fill("deDE", {
 	PRESSES_SWAP = "Tipp: tausche %s (%dx, auf %s) mit %s (%dx, auf %s).",
 	PRESSES_NOSWAP = "Deine am häufigsten gedrückten Zauber liegen schon auf deinen leichteren Tasten. Nichts zu tauschen.",
 	PRESSES_FEW = "Ändere ein oder zwei auf einmal: deine Hände brauchen für jede Änderung ein paar Tage.",
+	PRESSES_BLOCK_NOTE = "Dein Tastenblock gibt jeder Taste auf all deinen Charakteren dieselbe Aufgabe. Ein Tausch ändert das nur auf diesem Charakter, und \"Auf Leisten 5, 6 und 7 setzen\" in /mh block setzt sie wieder zurück.",
 	PRESSES_RULE = "Leicht = 1-5, Q, E, R, F und Maustasten, ohne Shift/Ctrl/Alt. Shift macht eine Taste etwas schwerer, Ctrl oder Alt mehr. Ein Hinweis zu Tasten, nicht zu deinen Händen.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	PRESSES_WIN_TITLE = "Welche Zauber du drückst",
@@ -5200,7 +5201,8 @@ fill("frFR", {
 	PRESSES_HARD = "difficile",
 	PRESSES_SWAP = "Astuce : échange %s (%dx, sur %s) avec %s (%dx, sur %s).",
 	PRESSES_NOSWAP = "Les sorts sur lesquels tu appuies le plus sont déjà sur tes touches les plus faciles. Rien à échanger.",
-	PRESSES_FEW = "Change-en un ou deux à la fois : tes mains ont besoin de quelques jours pour chaque changement.",
+	PRESSES_FEW = "Changes-en un ou deux à la fois : tes mains ont besoin de quelques jours pour chaque changement.",
+	PRESSES_BLOCK_NOTE = "Ton bloc de touches donne à chaque touche la même tâche sur tous tes personnages. Un échange ne change cela que sur ce personnage, et \"Placer sur les barres 5, 6 et 7\" dans /mh block les remet en place.",
 	PRESSES_RULE = "Facile = 1-5, Q, E, R, F et les boutons de la souris, sans Shift/Ctrl/Alt. Shift rend une touche un peu plus difficile, Ctrl ou Alt davantage. Une indication sur les touches, pas sur tes mains.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	PRESSES_WIN_TITLE = "Les sorts sur lesquels tu appuies",
@@ -5521,6 +5523,7 @@ fill("esES", {
 	PRESSES_SWAP = "Consejo: cambia %s (%dx, en %s) por %s (%dx, en %s).",
 	PRESSES_NOSWAP = "Tus hechizos más pulsados ya están en tus teclas más fáciles. Nada que cambiar.",
 	PRESSES_FEW = "Cambia uno o dos a la vez: tus manos necesitan unos días para cada cambio.",
+	PRESSES_BLOCK_NOTE = "Tu bloque de teclas da a cada tecla la misma tarea en todos tus personajes. Un cambio lo modifica solo en este personaje, y \"Ponerlo en las barras 5, 6 y 7\" en /mh block las devuelve a su lugar.",
 	PRESSES_RULE = "Fácil = 1-5, Q, E, R, F y los botones del ratón, sin Shift/Ctrl/Alt. Shift hace una tecla algo más difícil, Ctrl o Alt más. Una pista sobre las teclas, no sobre tus manos.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	PRESSES_WIN_TITLE = "Qué hechizos pulsas",
@@ -5832,6 +5835,7 @@ fill("ptBR", {
 	PRESSES_SWAP = "Dica: troque %s (%dx, em %s) com %s (%dx, em %s).",
 	PRESSES_NOSWAP = "Seus feitiços mais apertados já estão nas suas teclas mais fáceis. Nada para trocar.",
 	PRESSES_FEW = "Mude um ou dois de cada vez: suas mãos precisam de alguns dias para cada mudança.",
+	PRESSES_BLOCK_NOTE = "Seu bloco de teclas dá a cada tecla a mesma tarefa em todos os seus personagens. Uma troca muda isso só neste personagem, e \"Colocar nas barras 5, 6 e 7\" em /mh block as coloca de volta.",
 	PRESSES_RULE = "Fácil = 1-5, Q, E, R, F e os botões do mouse, sem Shift/Ctrl/Alt. Shift deixa uma tecla um pouco mais difícil, Ctrl ou Alt mais. Uma dica sobre teclas, não sobre as suas mãos.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	PRESSES_WIN_TITLE = "Quais feitiços você aperta",
@@ -6147,6 +6151,7 @@ fill("itIT", {
 	PRESSES_SWAP = "Consiglio: scambia %s (%dx, su %s) con %s (%dx, su %s).",
 	PRESSES_NOSWAP = "I tuoi spell più premuti sono già sui tuoi tasti più comodi. Niente da scambiare.",
 	PRESSES_FEW = "Cambiane uno o due alla volta: le tue mani hanno bisogno di qualche giorno per ogni cambio.",
+	PRESSES_BLOCK_NOTE = "Il tuo blocco tasti dà a ogni tasto lo stesso compito su tutti i tuoi personaggi. Uno scambio lo cambia solo su questo personaggio, e \"Mettilo sulle barre 5, 6 e 7\" in /mh block li rimette a posto.",
 	PRESSES_RULE = "Comodo = 1-5, Q, E, R, F e i tasti del mouse, senza Shift/Ctrl/Alt. Shift rende un tasto un po' più scomodo, Ctrl o Alt di più. Un'indicazione sui tasti, non sulle tue mani.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	PRESSES_WIN_TITLE = "Quali spell premi",

@@ -182,11 +182,25 @@ local function Rows(bucket)
 	if ns.LiveKeysInvalidate then
 		ns.LiveKeysInvalidate()
 	end
-	local rows = {}
+	-- One press can fire several cast events with their own ids. MEASURED 12 Oct 2026 (Rob's Havoc, SavedVariables +
+	-- wago 69933): Chaos Strike 162794 = 60, 222031 = 60, 199547 = 50 -- the last two are its damage parts ("$@spelldesc
+	-- 162794"); Felblade 232893 = 15 and its part 213243 = 15. The window showed Chaos Strike three times. Same name on
+	-- the same key is one button: one row, and the HIGHEST count (= the presses), never the sum.
+	local rows, byKey = {}, {}
 	for id, n in pairs(bucket.spells) do
 		local kind, short, hit = Classify(id)
-		rows[#rows + 1] = { id = id, n = n, kind = kind, short = short, hit = hit,
-			score = hit and Reach(hit.key, hit.cmd) or 99 }
+		local k = SpellName(id) .. "\0" .. tostring(short)
+		local seen = byKey[k]
+		if seen then
+			if n > seen.n then
+				seen.n = n
+			end
+		else
+			local row = { id = id, n = n, kind = kind, short = short, hit = hit,
+				score = hit and Reach(hit.key, hit.cmd) or 99 }
+			byKey[k] = row
+			rows[#rows + 1] = row
+		end
 	end
 	table.sort(rows, function(a, b)
 		if a.n ~= b.n then
@@ -654,7 +668,13 @@ Refresh = function()
 			t:Show()
 			y = y - h
 		end
-		win.tips:SetText("|cff9d9d9d" .. ns:L("PRESSES_FEW") .. "|r")
+		-- Rob, 12 Oct 2026 (option B): the tips stay with the key block too -- finding a busy spell on a hard key per
+		-- character is what this window is for -- but say that a swap changes the block's fixed place here.
+		local tipText = "|cff9d9d9d" .. ns:L("PRESSES_FEW") .. "|r"
+		if ns.KeyBlockActive and ns.KeyBlockActive() then
+			tipText = "|cffff9900" .. ns:L("PRESSES_BLOCK_NOTE") .. "|r\n" .. tipText
+		end
+		win.tips:SetText(tipText)
 	end
 	win.tips:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y - 4)
 	y = y - 4 - win.tips:GetStringHeight()

@@ -36,6 +36,11 @@ nieuwere); `wowt` 12.1.0.69587 (1 sep). Geen 12.1.7/12.2-PTR-build bekend. Of PT
 spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob beslist.
 
 ## 12 okt — wat er gedaan is (bouwchat)
+- ✅ KeyPresses (Rob 12 okt, screenshot DH lvl 15): dubbele regels kwamen van schade-onderdelen die óók een cast
+  melden (GEMETEN SV + wago: Chaos Strike 162794/222031/199547 = 60/60/50, Felblade 232893/213243 = 15/15) → Rows()
+  voegt zelfde naam + zelfde toets samen met het HOOGSTE aantal (niet de som). Rob koos optie B: swap-tips blijven bij
+  het toetsenblok, met `PRESSES_BLOCK_NOTE` (8 talen, noemt de knop KEYBLOCK_BTN_PLACE per pack). frFR PRESSES_FEW
+  "Change-en" → "Changes-en".
 - ✅ Doodskaart (Rob 12 okt "bouw het allebei"): tip hangt nu af van de dood (Retrospective.lua `DeathTipKey`):
   melee (SWING) → TIP_MELEE; Blizzards `avoidable` = true → TIP_AVOID; ≥3 keer hetzelfde → TIP_REPEAT; anders
   TIP_BIG. Geen "interrupt" meer (vijandelijke casts onleesbaar in 12.1). "(1 hit)" via TOP_ONE_FMT/_SRC_ONE_FMT.

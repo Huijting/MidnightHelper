@@ -650,6 +650,7 @@ ns._mhLocales.enUS = {
 	PRESSES_SWAP = "Tip: swap %s (%dx, on %s) with %s (%dx, on %s).",
 	PRESSES_NOSWAP = "Your most-pressed spells already sit on your easier keys. Nothing to swap.",
 	PRESSES_FEW = "Change one or two at a time: your hands need a few days for each change.",
+	PRESSES_BLOCK_NOTE = "Your key block gives every key the same task on all your characters. A swap changes that on this character only, and \"Place it on bars 5, 6 and 7\" in /mh block puts them back.",
 	PRESSES_RULE = "Easy = 1-5, Q, E, R, F and mouse buttons, no Shift/Ctrl/Alt. Shift makes a key a bit harder, Ctrl or Alt more. A hint about keys, not about your hands.",
 	PRESSES_WIN_TITLE = "Which spells you press",
 	PRESSES_BTN_SWAP = "Swap",
