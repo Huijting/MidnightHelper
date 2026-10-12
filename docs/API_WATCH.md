@@ -5184,3 +5184,141 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `git switch main`, nooit erna.** Een lege `git status` zegt niets over hóe oud de boom is. Dat
     is dezelfde les als de cachefout hierboven: een gezond ogende nulmeting is nog geen meting.
     📌 De `.toc` staat nu op **4.7.6**.
+- [2026-10-12] 🆕 **Twee echt nieuwe items, en ik vond ze door een BLINDE VLEK IN MIJN EIGEN METHODE te
+  repareren: de wiki heeft vier documentatie-namespaces en ik heb er altijd maar één bekeken. 0 ×
+  [MOET GEFIKST].** Verder staan alle gevolgde pagina's byte-voor-byte stil, één nieuwe forumpost
+  binnen het venster, en een **CORRECTIE op mijn eigen gereedschapsregel van gisteren**: `curl` naar
+  GitHub werkt niet meer.
+  - 🔴 **DE BLINDE VLEK, en dit is het eigenlijke resultaat van vandaag. GEMETEN met
+    `meta=siteinfo&siprop=namespaces`: naast `API` (ns **3000**) bestaan er `CVar` (**3002**),
+    `Event` (**3004**) en `MACRO` (**3006**).** Dit logboek heeft sinds 18 aug uitsluitend ns 3000
+    geveegd. De `Event`-namespace is bij uitstek mijn terrein — de ramp van 8 aug 2026
+    (*"Attempt to register unknown event"* op `LEARNED_SPELL_IN_TAB`) was precies een
+    Event-kwestie — en die heb ik acht weken lang niet bekeken.
+    ✅ **Wat de bredere veeg oplevert** (`rcnamespace=3002|3004|3006`, `rcend=2026-10-05`): **twee**
+    regels, beide in ns 3004, beide nieuw in dit logboek. Ze staan hieronder.
+    ✅ **En `CVar` en `MACRO` zijn LEEG — gemeten, niet aangenomen.** `list=allpages&apnamespace=3002`
+    en `=3006` geven beide `"allpages":[]`. Dat die nullen iets betekenen is in dezelfde run bewezen
+    met **dezelfde** API op ns 3004: die geeft `Event:ACCOUNT CHARACTER CURRENCY DATA RECEIVED`,
+    `Event:ACCOUNT CVARS LOADED`, `Event:ACCOUNT MONEY` plus een `apcontinue`. De namespaces zijn dus
+    wél aangemaakt maar bevatten geen enkele pagina. 📌 **Voor volgende runs: veeg ns 3000 én 3004,
+    en laat 3002/3006 rusten tot er ooit een pagina in staat.**
+  - 🔇 **[AL AFGEDEKT] — `Event:UI INFO MESSAGE`, revid `6905874` (Meorawr, 9 okt 20:48:44Z, 610 →
+    563 b, samenvatting `/* Example */`), en het is zuiver cosmetisch.** Het hele verschil, letterlijk
+    uit `action=compare&fromrev=6830508&torev=6905874`: de voorbeeldregel
+    `UI_INFO_MESSAGE: 578, "You have joined the queue for Random Battleground."` is onveranderd en
+    staat nu binnen `<syntaxhighlight lang="lua">`-haken. De secties `==Values==` en de signature zijn
+    onaangeroerd. **GEMETEN in MH:** één treffer, `Modules/EventSniffer.lua:48`, in de
+    `CANDIDATES`-lijst (*"UI_INFO_MESSAGE", "UI_ERROR_MESSAGE"*). Registreren gebeurt daar
+    gegarandeerd defensief: `EventSniffer.lua:217` doet `local ok = pcall(frame.RegisterEvent, frame,
+    name)` en wat de client weigert belandt in `refused` en wordt geprint op `:240-241`. Geen kale
+    aanroep. **Niets te doen** — en dat zou ook zonder de pcall gelden, want de bewerking verandert
+    geen gedrag.
+  - 🧩 **[RAAKT ONS NIET] — `Event:PLAYER PVP FLAG CHANGED` is een NIEUWE pagina: revid `6901442`,
+    KethoBot, 6 okt 01:28:24Z, 112 b, samenvatting `1.60.1 (70235)`.** 📌 Dat is dezelfde
+    bot-dump uit dezelfde build als `API:C Spell.GetItemCooldown` (`6901441`, 01:28:18Z) en
+    `API:UnitUsesAmmo` (`6901440`, 01:28:12Z), die dit logboek op 7 okt al noemde — de
+    Event-helft van die dump is er toen dus naast gevallen, precies door de blinde vlek hierboven.
+    **GEMETEN in MH: `grep -rFo PLAYER_PVP_FLAG_CHANGED` geeft 0** over de hele addon
+    (`--exclude-dir=.git --exclude-dir=docs --exclude-dir=tools --exclude-dir=dist`).
+    - **Positieve controle in dezelfde run en op dezelfde reikwijdte**, want een nul bewijst anders
+      niets: `RegisterEvent` **484**, `PLAYER_ENTERING_WORLD` **112**, `UNIT_AURA` **31**,
+      `issecretvalue` **233**, `CreateFrame` **807**, `C_Timer` **573**, `InCombatLockdown` **249**,
+      `GetInstanceInfo` **107**. Het patroon vindt dus wat er is.
+  - 🔇 **De `API:`-namespace (ns 3000) over 5–12 okt: acht regels, alle acht al in dit logboek.**
+    `rcnamespace=3000&rclimit=250&rcend=2026-10-05T00:00:00Z`. Op **revid** gecontroleerd, niet op
+    titel: `6906649` (`API:C Traits.GetConfigInfo`), `6905815` (`API:GetShapeshiftForm`), `6905582`
+    (`API:UnitAura`), `6904622` en `6904617` (`API:import`), `6904614` (`API:require`), `6901441`
+    (`API:C Spell.GetItemCooldown`), `6901440` (`API:UnitUsesAmmo`). **Geen negende onderwerp, geen
+    nieuwe API-naam.**
+  - 🔇 **De gevolgde pagina's staan stil — identieke revid's én identieke bytes, mét versheidsbewijs.**
+    In één `prop=info`-aanroep: `Patch 12.1.0/API changes` `6905801` (66202 b), `Patch 12.1.5/API
+    changes` `6907331` (17881 b), `Patch 12.0.7/API changes` `6905802` (24726 b), `TOC format`
+    `6905891` (32839 b), `API change summaries` `6883777` (7280 b), `Hotfixes` `6902337` (374413 b).
+    `Patch 12.1.7/API changes` en `Patch 12.2.0/API changes` komen nog steeds terug als
+    `"missing": ""`.
+    ✅ **Dat dit geen cache is, is in dezelfde `api.php` aangetoond:** `list=recentchanges&rcnamespace=0`
+    gaf als nieuwste `Galakrond's Rest` (revid `6910664`, Sandwichman2448,
+    **2026-10-12T03:36:15Z**) — nieuwer dan het versheidsbewijs van gisteren (`6908087`,
+    2026-10-11T03:31:23Z). De stilte is dus echt gemeten en niet een oude momentopname.
+  - 🔇 **Geen nieuwe officiële API-patchnotes: de `/notes`-sub-pagina heeft nog steeds vier secties,
+    nieuwste `2026-09-29`, en die valt BUITEN mijn 7-dagenvenster.** `action=parse&prop=sections` op
+    `Patch 12.1.5/API changes/notes` (pageid 710454): `2026-09-03`, `2026-09-16`, `2026-09-22`,
+    `2026-09-29`. PTR Changes 5 bestaat daar nog niet.
+  - 📰 **Hotfixes: niets na 6 okt, en 6 okt staat hier al in — maar de WebSearch die dat zou moeten
+    bevestigen gaf een OUDERE datum, en dat heb ik niet als "niets nieuws" geteld.** De wikipagina
+    `Hotfixes` staat op `6902337` (onveranderd) en haar sectielijst begint met `October 2026` →
+    `October 6` → `October 1`; er is geen latere kop. **Maar `WebSearch` noemde als nieuwste de
+    forumdraad van *1 oktober*** — ouder dan de 6 okt die dit logboek gisteren al had.
+    🔴 **Dat is exact het patroon uit de cache-regel**, dus de zoekuitslag is hier géén onafhankelijke
+    bevestiging; de meting is de wikipagina met haar sectiekoppen. De conclusie *"niets na 6 okt"*
+    rust dus op **één** bron, niet op twee. 📌 De inhoud van 6 okt is encounter- en set-tuning zonder
+    UI-/API-/addon-sectie, dus terrein van `CONTENT_WATCH.md`.
+  - 🔇 **Forum `#ui-macro` 5–12 okt: tien posts in tien draadjes, en alle tien de topic-id's staan hier
+    al in.** Via `search.json?q=#ui-macro after:2026-10-05`, op **id** gecontroleerd: `2315684`,
+    `2376572`, `2367394`, `2349553`, `2375627`, `2375480`, `2375152`, `2373439`, `2373596`, `2373394`.
+    ⚠️ **Bijna-fout van mijzelf, voor de eerlijkheid vermeld:** de laatste drie stonden niet in de
+    zeven van gisteren en zagen er dus nieuw uit. `grep` op dit bestand geeft ze **4, 3 en 3** keer
+    (positieve controle: `2376572` geeft 4) — ze zijn op 6 en 7 okt al gemeld. Ze leken alleen nieuw
+    omdat gisteren een ander datumvenster is gebruikt. **Geen gat in de dekking.**
+    - 🧩 **[RAAKT ONS NIET] — wél echt nieuw is één post: `2315684` post **8**, 11 okt 17:09:20Z
+      (Dreaux), het nieuwste bericht op mijn hele terrein.** Opgehaald via
+      `posts/by_number/2315684/8.json`, want de topic-JSON geeft altijd de stroom vanaf post 1.
+      Letterlijk: *"Would sticky targeting be the reason this macro will not Revive/Rebirth a target
+      not in my party (unable to target). Forever Beta"*, met een `/cast [combat,@mouseover,help,dead]`
+      -macro. Een spelersvraag over macro-condities op **Forever Beta**, **geen blue reply**, geen
+      API-naam, geen Retail. Het draadje `2376572` (*"Policy Clarification — Displaying Addon
+      Statistics on a USB Screen"*) heeft nog altijd twee posts en nog altijd geen blue reply.
+  - 🔧 **SimC-addon: geen nieuwe release sinds `12.1.5-alpha-01` — en vandaag harder gemeten dan
+    voorheen: er zijn ook geen nieuwe commits.** `git ls-remote --tags` geeft 254 tags, waarvan
+    `12.1.5-alpha-01` de enige 12.1.5 en de nieuwste is, op sha `3fe70f34b03784d48bf2c0fb40e518b7f45fc758`
+    — en `git ls-remote … HEAD` geeft **diezelfde sha**. Master staat dus precies op die tag; er is
+    sinds gisteren niets bijgekomen om aan `ItemString` of `ns.BuildSimcProfile` te toetsen. De twee
+    commits erachter zijn gisteren regel voor regel gelezen (race-takken en het `professions=`-blok,
+    beide afgedekt).
+  - 🔴 **CORRECTIE op mijn eigen gereedschapsregel van GISTEREN, en harde regel 3 zet hem apart:
+    `curl` naar GitHub werkt NIET meer.** `docs/API_WATCH.md` zegt in de regel van 11 okt
+    *"`curl` werkt rechtstreeks voor GitHub … `https://api.github.com/` … geven **HTTP 200** via de
+    agent-proxy"*. **GEMETEN vandaag: `api.github.com/repos/simulationcraft/simc-addon/releases` geeft
+    HTTP 403**, met als body letterlijk *"GitHub access to this repository is not enabled for this
+    session. Use add_repo to request access."*, en `github.com/…/releases.atom` geeft 403 met *"This
+    GitHub API path is not available: sessions are bound to their configured repositories."* De sessie
+    is dus repo-scoped; alleen `huijting/midnighthelper` mag door de GitHub-poort.
+    ✅ **Wat wél werkt, vandaag gemeten en het is genoeg:** `raw.githubusercontent.com` geeft **HTTP
+    200** (`core.lua` opgehaald, 56931 b), en **`git ls-remote` op een publieke repo werkt** — dat is
+    de weg naar tags en sha's die api.github.com eerst leverde. 📌 **Werkwijze voor de volgende runs:
+    tags en sha's via `git ls-remote`, bestanden via `raw.githubusercontent.com`, en `diff -u` ze
+    zelf.** Ik heb bewust géén `add_repo` gedaan: dat valt buiten "melden, niet repareren".
+    ⚠️ `warcraft.wiki.gg` blijft via `curl` dicht (`CONNECT tunnel failed, response 403`, en de
+    proxy-status noemt die afwijzing met tijdstempel `2026-10-12T03:37:28Z`); de hele wiki loopt dus
+    via Exa, en dat werkte vandaag zonder haperen.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` gaf via Exa opnieuw een **lege body** (alleen de titel *"World of Warcraft —
+      Blizzard News"*), nu voor de **derde** dag op rij. Blizzards eigen nieuwspagina is vandaag dus
+      níét gelezen.
+    - `wowhead.com/blue-tracker` niet rechtstreeks geprobeerd (zeventien runs op rij lege body).
+    - De `/notes`-sub-pagina's op **sectiekoppen** gemeten, niet op volledige inhoud. Genoeg voor de
+      datumvraag, te weinig om over de inhoud iets te zeggen.
+    - De posts 5, 6 en 7 van draadje `2315684` niet opnieuw gelezen; alleen post 8, het nieuwe.
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald — de open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`. Die pagina is deze week niet aangeraakt, dus geen aanleiding.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+    - ⚠️ Terzijde over de cache-buster: `api.php` meldt hem als *"Unrecognized parameter"* en negeert
+      hem. Hij doet dus zijn werk bij Exa's cache en niet bij MediaWiki — de versheid is daarom
+      apart bewezen met het `recentchanges`-bewijs hierboven, niet met de parameter.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw** (en er staat nog steeds geen [MOET GEFIKST] open):
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd; de bronnenlijst
+      mist drie sub-pagina's, **en sinds vandaag ook de `Event`-namespace** die hierboven twee items
+      opleverde. 🔴 Ik raak dat bestand niet aan.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat
+      er `120007, 120100, 120105` (regel 1). 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM**. Onschadelijkheid blijft AFGELEID.
+  - 🔧 **Repo-staat: dezelfde val als gisteren, en het recept van gisteren wérkte.** Bij aanvang weer
+    een **detached HEAD**, op `c4d093a` *"Codex card: bonus rolls with Nebulous Voidcores"*,
+    `git status --porcelain` leeg, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit. De
+    lokale branch `main` stond opnieuw ver achter, op `310822c`. ✅ **`git fetch --deepen=300 origin
+    main` EERST** (haalde `origin/main` binnen als *"forced update"* naar `c4d093a`), waarna
+    `origin/main` en de losse HEAD bewezen gelijk waren (beide `c4d093a`) en `git checkout -B main`
+    de branch vooruit zette **zonder** de working tree te verplaatsen — `docs/API_WATCH.md` bleef op
+    **5186** regels. 📌 De val van 11 okt is dus reproduceerbaar én afgedekt; houd deze volgorde aan.
+    📌 De `.toc` staat nog op **4.7.6**.
