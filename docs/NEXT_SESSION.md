@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 12 okt ochtend — VERDER HIER (nieuwe bouwchat)
+- ⚠️ Een ronde is ONAF gebleven (de sessie stopte): "Voidcore/Warband/Raid Finder gelijktrekken" (zie de Voidcore-regel
+  hieronder: andere keys met Engels "Nebulous Voidcore"/"Orin Straylight", Warband-woord fr/es/pt ≠ client, itIT
+  "Raid Finder"). Het half-af werk is gecommit als "WIP" (lint 0 HARD, luac schoon). Eerst nalopen wat er nog Engels
+  staat (grep per pack), afmaken, dan check_drift-stempel. Clientnamen staan in de Voidcore-regel en scratchpad vc\.
+- Patchdag 12.1.5 = 13/14 okt: patchnotes naast de 40 kaarten (mh-research), Devourer HERO1 nakijken → dan 120105;
+  nameten op de eerste 12.1.5-build: The Unbinding of Kith'ix, Midnight Keystone Myth: Season 2, 3 aqir-achievements,
+  Labyrinth-namen (nu uit PTR 70077). Daarna de echte 4.7.6-release (Robs go).
+- Op Robs testlijst (docs/TESTLIJST.md, bovenaan): /reload + BugSack, zoekbalk, res-paneel "out of combat", S1-raids
+  vóór de eerste baas, Voidcore-kaart + `/dump C_CurrencyInfo.GetCurrencyInfo(3418)`, Crafting Speed in Crafting Details.
+- Sinds beta3 op main (NIET getagd): delve-items, plaats-, dungeon/raid/achievementnamen en spellnamen = clientnaam;
+  esMX-laag; Voidcore-kaart; res-paneel; S1-raid-id's. Komt in de volgende tag.
+
 ## 11 okt avond — 4.7.6 BETA 3 (Rob: "Go")
 - Changelog CHANGELOG_476_18..24 (enUS), Changelog.lua, RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (kop "beta 3",
   byte-gelijk GEMETEN), CHANGELOG.md. toc blijft 4.7.6.
