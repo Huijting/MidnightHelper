@@ -1,6 +1,38 @@
 # Midnight Helper — waar we staan
 
-## 12 okt ochtend — VERDER HIER (nieuwe bouwchat)
+## 13 okt — PATCHDAG 12.1.5 (VS) — VERDER HIER
+Rob speelt EU: voor hem gaat 12.1.5 pas **woensdag 14 okt** live. Dinsdag = alles wat zonder spel kan, op de VS-build.
+Stand bij afsluiten 12 okt (GEMETEN): main = 9eaf6b1, gepusht, laatste tag `v4.7.6-beta3`; 28 commits erna NIET getagd.
+`.toc` = `## Interface: 120007, 120100, 120105`, `## Version: 4.7.6` → VS-spelers krijgen dinsdag géén
+"out of date"-melding, ook zonder nieuwe release. Geen tags zonder Robs go; grotere wijzigingen eerst `-beta`.
+
+**A. Dinsdag 13 okt, zonder spel (bouwchat):**
+1. Ochtendroutine (CLAUDE.md). API-/PTR-wachter melden de live-patch; lees vooral of er iets [MOET GEFIKST] is.
+2. `run names_1215` (tools/names_1215.py): kiest zelf de nieuwste 12.1.5-build op wago en print het PRODUCT.
+   ⚠️ Pas als er een build onder het live-product (`wow`, niet `wowxptr`) staat is het de live-build; anders is het
+   nog de PTR → "heeft nog niet gedraaid", niet "niets veranderd". Nulmeting 12 okt op 70077: 0 DIFF, alle 8 talen
+   echt vertaald.
+3. Daarna die namen in de packs (mh-writer, + esMX, check_drift --mark): The Unbinding of Kith'ix (JournalInstance
+   1324), Midnight Keystone Myth: Season 2 (ach 63690), aqir-achievements 63657/63658/63659/63680. Labyrinth/
+   Venomstone/Aqir-namen staan er al (uit 70077) → alleen bij een DIFF aanpassen.
+4. Devourer (1480): spellteksten 1259431, 1217605, 1245412, 1245483, 1245470 op de live-build naast 70077. Gelijk →
+   HERO1 uit `docs/PATCH_12_1_5_CARDS_2026-10-12.md` erin (mh-writer, 7 talen), `why.interface` → 120105. Anders:
+   kaart blijft verborgen. Rob heeft GEEN Devourer → geen check in het spel; in de commit "uit Blizzard-data".
+5. Patchnotes opnieuw (kregen 8 okt nog een update) + de 445 kaart-spell-ID's op de live-build (mh-research,
+   zelfde methode als het rapport van 12 okt).
+6. Release-tekst 4.7.6 klaarzetten (RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md, CHANGELOG_476_*): ALLES sinds
+   beta3 (zie hieronder). Geen tag.
+
+**B. Woensdag 14 okt, Rob in het spel (EU):** `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4(b) + TESTLIJST bovenaan:
+`/reload` + BugSack leeg · `/mh ptr` · `/mh playcards check` (1480 hidden tenzij stap A4 gedaan; rest SHOWN op
+120105) · in Eversong `/mh atal` (ziet de client de Labyrinth als delve?) · tijdens een Aqir Invasion `/mh eventspy`
+· Labyrinth binnen: `/mh instance`, `/mh dundun`, opent de delve-coach? · Kith'ix: `/mh encounters` (verwacht 3513)
+· CVars dispel-rand/minimap-coords `/dump` · toetsenblok na de patch (`/mh block why` als er iets raar is).
+
+**C. Release:** voorstel aan Rob (zie chat 12 okt): dinsdagavond `v4.7.6-beta4` met A2-A6 erin (Beta-first, VS-
+spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob beslist.
+
+## 12 okt — wat er gedaan is (bouwchat)
 - ✅ BUG GEVONDEN + GEREPAREERD (Rob 12 okt, DH Demonico lvl 11: "nieuwe spell komt helemaal links i.p.v. op 4").
   GEMETEN (`/mh block why` → keyBlockProbe.live/.bar1): spells stonden goed op het blok, maar 1→ACTIONBUTTON4,
   4→ACTIONBUTTON5, 2/3 één plek verschoven, Q/E/R/F→balk 2 knop 3-6, F4/Shift-Q/Shift-F elders; bindingSet 1
@@ -45,13 +77,12 @@
   Optie B (Collapsing Star in S1 + quizAnswer) = Robs keuze. 254: Unload weg bevestigd, kaarttekst blijft, alleen
   comment r.187. 445 kaart-spell-ID's live vs PTR 70077: geen naam/talent weg. Patchdag: zelfde vergelijking op de
   live-build (notes kregen 8 okt nog een update), `/mh playcards check`, gidsen + 4 "best this season"-claims.
-- Patchdag 12.1.5 = 13/14 okt: patchnotes naast de 40 kaarten (mh-research), Devourer HERO1 nakijken → dan 120105;
-  nameten op de eerste 12.1.5-build: The Unbinding of Kith'ix, Midnight Keystone Myth: Season 2, 3 aqir-achievements,
-  Labyrinth-namen (nu uit PTR 70077). Daarna de echte 4.7.6-release (Robs go).
 - Op Robs testlijst (docs/TESTLIJST.md, bovenaan): /reload + BugSack, zoekbalk, res-paneel "out of combat", S1-raids
   vóór de eerste baas, Voidcore-kaart + `/dump C_CurrencyInfo.GetCurrencyInfo(3418)`, Crafting Speed in Crafting Details.
 - Sinds beta3 op main (NIET getagd): delve-items, plaats-, dungeon/raid/achievementnamen en spellnamen = clientnaam;
-  esMX-laag; Voidcore-kaart; res-paneel; S1-raid-id's. Komt in de volgende tag.
+  esMX-laag; Voidcore-kaart (+ 1/1-balk gemeten, per character); res-paneel; S1-raid-id's; 12 okt: frFR "Outil
+  Raids", Prey-zin + Prey-kaart (Astalor's Sanctum), Warband Mentors-achievementnaam, toetsenblok vs oude indeling
+  (KeyBlockActive), `/mh block why` live-diagnose, `/mh apply` slot=true-fix. Komt in de volgende tag.
 
 ## 11 okt avond — 4.7.6 BETA 3 (Rob: "Go")
 - Changelog CHANGELOG_476_18..24 (enUS), Changelog.lua, RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (kop "beta 3",

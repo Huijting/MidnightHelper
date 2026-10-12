@@ -40,6 +40,15 @@ try:
         top = sorted(seen)[-1]
         newest = top[1]
         print("builds: newest 12.1.5 = %s (%s); all 12.1.5 seen: %s" % (top[1], top[2], sorted(set(s[1] for s in seen))))
+        # Patch day: the LIVE product is "wow". A 12.1.5 only under wowxptr/wowt means live has not got it yet --
+        # that is "not run yet", never "nothing changed" (control: the products wago listed are printed too).
+        live = sorted(s for s in seen if s[2] == "wow")
+        if live:
+            newest = live[-1][1]
+            print("builds: LIVE (wow) has 12.1.5 -> comparing against %s" % newest)
+        else:
+            print("builds: LIVE (wow) has NO 12.1.5 build yet -> this run compares PTR against PTR. Products read: %s"
+                  % sorted(data.keys()))
     else:
         print("builds: no 12.1.5 build in the list (control: %d products read)" % (len(data) if isinstance(data, dict) else -1))
 except Exception as e:
