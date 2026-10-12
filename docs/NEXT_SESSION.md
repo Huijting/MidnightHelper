@@ -7,7 +7,9 @@ Stand bij afsluiten 12 okt (GEMETEN): main = a5c798c + de fluister-commit, gepus
 de addon; niets geïnstalleerd). Laatste bouwsel 12 okt avond: **boss-tactiek fluisteren** (Rob koos optie 1+2):
 rechtsklik op Share in het bossvenster → groepslid kiezen, of `/mh bossshare <naam>`; linksklik/kaal blijft de
 groep. `ShareDungeonBossTips(..., whisperTo)` in DungeonLiveCoach.lua, menu in DungeonBossWindow.lua, 4 nieuwe
-DGN_SHARE_*-sleutels in 8 talen (locale_probe: alle OK), CHANGELOG_476_26. Ongetest in het spel → TESTLIJST. Alles
+DGN_SHARE_*-sleutels in 8 talen (locale_probe: alle OK), CHANGELOG_476_26. Rob 12 okt: fluisteren werkt, maar
+Valeera stond in het lijstje en 4× "number of messages … limited" → fix 2458dfc (UnitIsPlayer + 1 regel/s).
+Rob test de fix 13 okt (WoW was al dicht) → TESTLIJST. Alles
 daarna NIET getagd (Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten, doodskaart-tips,
 spell-presses, website-links incl. titelbalk, boss-fluisteren — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
 🔴 Bij de volgende tag: site-chat ("Site chat 12-10" of opvolger) seinen → site herbouwen uit de tag (52 Codex-ankers,
