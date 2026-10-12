@@ -12,8 +12,12 @@
     clientnaam per pack. check_drift --mark voor beide keys, 6 talen.
   - OPEN (klein): Codex Prey-kaart (`Codex.lua:77`/`:369`, T2026 :4716/:4742/:4767/:4794/:4822, esMX :152, ruRU :691)
     zegt nog "Magister Astalor Bloodsworn in Murder Row" + WAY 56.74,67.30 — plek/coördinaat nameten (Wowhead-
-    reacties: ingang 55.0,63.4). CODEX_VOIDCORE_BODY "Decimus' Voidforge … no longer used": spell 1277384 heet nog
-    "The Voidforge" (unlock); zin is half waar (AFGELEID), herformuleren.
+    reacties: ingang 55.0,63.4).
+  - ✅ CODEX_VOIDCORE_BODY (12 okt, Robs /dump 3418 via research-chat, GEMETEN): balk 1/1 = verdiend t.o.v. huidige
+    cap (useTotalEarnedForMaxQty=true, maxQuantity 1); uitgeven geeft geen ruimte; isAccountWide=false → nieuwe
+    valkuil "per character, unlock per Warband". Halve Voidforge-zin weg. 8 talen (mh-writer), check_drift gestempeld.
+    Open: wekelijkse cap-stijging (AFGELEID; /dump rond 19/20 okt, op TESTLIJST); telt een Vault-core mee voor
+    totalEarned? (niet gemeten).
 - Patch-voorbereiding 12 okt: `tools/names_1215.py` (job `run names_1215`; kiest zelf de nieuwste 12.1.5-build op
   wago) nulmeting op PTR 70077: Kith'ix-raid, Keystone Myth S2 (63690), aqir 63657/58/59/80, Labyrinth (POI 9035,
   faction 2836), Aqir 2838/8812/8813, Venomstone 280562 — ALLE 8 talen echte vertalingen. wago had op 12 okt nog
