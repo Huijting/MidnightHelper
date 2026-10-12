@@ -2912,8 +2912,8 @@ function ns:EnsureMainUI()
 	-- "midnighthelper.com" right after the version (Rob, 12 Oct 2026, screenshot of the title bar: "kunnen we niet
 	-- hierboven de link zetten?"). Small and quiet, the same blue as the play card's site link; a click opens the
 	-- copy box (an addon cannot open a browser). The address is the same in every language.
-	-- Rob, same evening, after a /reload: "kan hij achter Me en wat opvallender? bv groter". So it sits right after the
-	-- room > tab name (placed by ns._mhPlaceTitleSite, because that name changes with every tab) in a larger font.
+	-- Rob, same evening, after a /reload: "kan hij achter Me en wat opvallender? bv groter", and then "kunnen we hem
+	-- centreren daar?". So: a larger font, in the middle of the title bar (ns._mhPlaceTitleSite, below).
 	local SITE_BLUE = { 0.4, 0.82, 1 }
 	local titleSite = CreateFrame("Button", nil, titleBar)
 	titleSite.fs = titleSite:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -3017,8 +3017,8 @@ function ns:EnsureMainUI()
 	-- Gevuld door SelectTab; tussen versie en de Codex-knop/Info.
 	local breadcrumb = titleBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	breadcrumb:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
-	-- Room for the site link after it: a long name is cut short, the link never is.
-	breadcrumb:SetPoint("RIGHT", codexLinkBtn, "LEFT", -(titleSite:GetWidth() + 24), 0)
+	-- Stops before the centred site link: a long name is cut short, the link never is.
+	breadcrumb:SetPoint("RIGHT", titleSite, "LEFT", -12, 0)
 	breadcrumb:SetJustifyH("LEFT")
 	breadcrumb:SetWordWrap(false)
 	breadcrumb:SetTextColor(0.78, 0.72, 0.55)
@@ -3027,19 +3027,11 @@ function ns:EnsureMainUI()
 	end
 	ns._mhBreadcrumb = breadcrumb
 
-	--- The site link sits right after the visible breadcrumb text (which changes with every tab).
+	--- The site link sits in the middle of the title bar (Rob, after the /reload: "kunnen we hem centreren daar?").
+	--- Kept as a function because SelectTab calls it after every breadcrumb change.
 	function ns._mhPlaceTitleSite()
-		local textW = breadcrumb:GetStringWidth() or 0
-		local boxW = breadcrumb:GetWidth() or textW
-		if boxW > 0 and textW > boxW then
-			textW = boxW
-		end
 		titleSite:ClearAllPoints()
-		if textW > 0 then
-			titleSite:SetPoint("LEFT", breadcrumb, "LEFT", textW + 14, 0)
-		else
-			titleSite:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
-		end
+		titleSite:SetPoint("CENTER", titleBar, "CENTER", 0, 0)
 	end
 	ns._mhPlaceTitleSite()
 
