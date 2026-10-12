@@ -33,6 +33,12 @@ nieuwere); `wowt` 12.1.0.69587 (1 sep). Geen 12.1.7/12.2-PTR-build bekend. Of PT
 7. Klein, als er tijd is: ongebruikte key DEATH_RECAP_TIP opruimen (8 talen); commentaar Translations2026 ~r.14409
    (AltBoardView "Rested XP stay as the WoW UI writes them") gelijk trekken met de nieuwe clientnaam-regel.
 
+**Na de patch (Rob 12 okt "ja, zet het op de lijst"):** eenmalige werkruimte-controle, ALLEEN rapport, Rob kiest per
+punt. Basis: de 6 punten van robonuggets/doctor-plus (gelezen 12 okt, niet geïnstalleerd; CC-BY-4.0): te veel in
+altijd-geladen bestanden (CLAUDE.md = 480 regels, veel geschiedenis), dubbele regels CLAUDE.md ⇄ geheugen, feiten die
+in het geheugen horen. Robs harde regels (shell-vorm, meten, Nederlands, geen tags) NIET versoepelen. Kandidaat uit
+die ronde: de ochtendroutine als eigen skill (skill-creator is al beschikbaar) i.p.v. elke sessie in CLAUDE.md.
+
 **Robs testlijst, open van 12 okt (TESTLIJST.md bovenaan):** Leveling-tab lezen · War Mode-getal (Enlisted-buff,
 char 20+) · Mana Potion op een van de 4 healers · doodskaart bij de volgende dood (`/mh death` → `tip=`) · Prey-zin/
 Astalor-plek · Voidcore `/dump 3418` rond 19/20 okt.
