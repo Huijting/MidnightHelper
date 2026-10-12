@@ -386,6 +386,7 @@ local CONS_CATEGORIES = {
 	{ key = "flask", labelKey = "GUIDE_CONS_TYPE_FLASK" },
 	{ key = "combatPotion", labelKey = "GUIDE_CONS_TYPE_COMBAT" },
 	{ key = "healingPotion", labelKey = "GUIDE_CONS_TYPE_HEALING" },
+	{ key = "manaPotion", labelKey = "GUIDE_CONS_TYPE_MANA" }, -- healers only (12 Oct 2026)
 	{ key = "weaponOil", labelKey = "GUIDE_CONS_TYPE_WEAPON" },
 	{ key = "augmentRune", labelKey = "GUIDE_CONS_TYPE_RUNE" },
 	{ key = "personalFood", labelKey = "GUIDE_CONS_TYPE_FOOD" },

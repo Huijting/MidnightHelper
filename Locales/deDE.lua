@@ -1034,6 +1034,7 @@ local OVERRIDES = {
 	GUIDE_CONS_TYPE_FLASK = "Flasche",
 	GUIDE_CONS_TYPE_COMBAT = "Kampftrank",
 	GUIDE_CONS_TYPE_HEALING = "Gesundheitstrank",
+	GUIDE_CONS_TYPE_MANA = "Manatrank",
 	GUIDE_CONS_TYPE_WEAPON = "Waffen-Buff",
 	GUIDE_CONS_TYPE_RUNE = "Augment-Rune",
 	GUIDE_CONS_TYPE_FEAST = "Festmahl",

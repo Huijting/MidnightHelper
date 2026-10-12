@@ -37,7 +37,8 @@ CONSUM = os.path.join(ROOT, "data", "consumables_wowhead.json")
 # so it maps to two of ours and the matcher sorts them out by which names appear.
 SECTIONS = {
     "Flask": ("flask",),
-    "Potions": ("combatPotion", "healingPotion"),
+    # manaPotion (12 Oct 2026, healers only): Icy Veins lists mana potions in the same Potions text.
+    "Potions": ("combatPotion", "healingPotion", "manaPotion"),
     # ⚠️ Read Food Buff results with a human eye. One page section covers both the group
     # feast and the personal food, and it often names only one of them — so "ours is not
     # named" here frequently means the page simply did not discuss personal food, not that
@@ -239,7 +240,10 @@ def main():
                 if heading == "Potions":
                     # Strip the healing potion: that section discusses both, and only the
                     # combat potion is what `combatPotion` means.
-                    kept = [k for k in kept if "Health Potion" not in k]
+                    # Same for mana potions (12 Oct 2026): otherwise a healer page naming only
+                    # "Lightfused Mana Potion" would swap it in as the combat potion.
+                    kept = [k for k in kept if "Health Potion" not in k and "Mana Potion" not in k
+                            and "Devoured Dreams" not in k]
                 if len(kept) != 1:
                     continue  # two named or none: a judgement call, left to a person
                 want = kept[0]

@@ -11,6 +11,8 @@ local CATEGORIES = {
 	{ key = "flask", labelKey = "GUIDE_CONS_TYPE_FLASK" },
 	{ key = "combatPotion", labelKey = "GUIDE_CONS_TYPE_COMBAT" },
 	{ key = "healingPotion", labelKey = "GUIDE_CONS_TYPE_HEALING" },
+	-- Healers only (12 Oct 2026); specs without it simply skip the row.
+	{ key = "manaPotion", labelKey = "GUIDE_CONS_TYPE_MANA" },
 	{ key = "weaponOil", labelKey = "GUIDE_CONS_TYPE_WEAPON" },
 	{ key = "augmentRune", labelKey = "GUIDE_CONS_TYPE_RUNE" },
 	{ key = "feast", labelKey = "GUIDE_CONS_TYPE_FEAST" },

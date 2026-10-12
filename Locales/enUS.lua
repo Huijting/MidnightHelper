@@ -4354,6 +4354,7 @@ ns._mhLocales.enUS = {
 	GUIDE_CONS_TYPE_FLASK = "Flask",
 	GUIDE_CONS_TYPE_COMBAT = "Combat Potion",
 	GUIDE_CONS_TYPE_HEALING = "Health Potion",
+	GUIDE_CONS_TYPE_MANA = "Mana Potion",
 	GUIDE_CONS_TYPE_WEAPON = "Weapon Buff",
 	GUIDE_CONS_TYPE_RUNE = "Augment Rune",
 	GUIDE_CONS_TYPE_FEAST = "Feast",

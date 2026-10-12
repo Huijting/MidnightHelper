@@ -11,7 +11,7 @@ ns.ConsumablesWowheadMeta = {
 	gameVersion = "12.1",
 	contentPhase = "Midnight Season 2",
 	generatedAt = "2026-05-18",
-	patchedSince = "2026-08-19: Season 2 health potion (Concentrated Silvermoon); 2026-09-14: checked against Icy Veins 12.1 - flask and combat potion agree for all specs, primary-stat feast first for Vengeance, Guardian and Brewmaster; 2026-10-05: 15 flask/potion picks swapped after a three-source check (Icy Veins, Wowhead, Method), duplicates removed, Zealotry dropped, Liquid Luster added as alternate (mh-research cons_review)",
+	patchedSince = "2026-08-19: Season 2 health potion (Concentrated Silvermoon); 2026-09-14: checked against Icy Veins 12.1 - flask and combat potion agree for all specs, primary-stat feast first for Vengeance, Guardian and Brewmaster; 2026-10-05: 15 flask/potion picks swapped after a three-source check (Icy Veins, Wowhead, Method), duplicates removed, Zealotry dropped, Liquid Luster added as alternate (mh-research cons_review); 2026-10-12: manaPotion (Lightfused Mana Potion) for Holy Paladin, Preservation, Mistweaver (+ Devoured Dreams) and Restoration Druid; it shares the 5-min cooldown with the combat potion (spell category 4). Content-watch flask/potion deviations checked: kept (Wowhead + Method agree with MH)",
 }
 
 ns.ConsumablesWowheadByClassSpec = {}
@@ -371,6 +371,11 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
+		manaPotion = {
+			best = { 241300, 241301 },
+			alternates = {  },
+			noteKey = "CONS_NOTE_MANA",
+		},
 		weaponOil = {
 			best = { 243734 },
 			alternates = {  },
@@ -447,6 +452,11 @@ ns.ConsumablesWowheadByClassSpec.EVOKER = {
 			best = { 271884, 271883 },
 			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
+		},
+		manaPotion = {
+			best = { 241300, 241301 },
+			alternates = {  },
+			noteKey = "CONS_NOTE_MANA",
 		},
 		weaponOil = {
 			best = { 243734 },
@@ -790,6 +800,11 @@ ns.ConsumablesWowheadByClassSpec.MONK = {
 			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
+		manaPotion = {
+			best = { 241300, 241301 },
+			alternates = { 241294, 241295 },
+			noteKey = "CONS_NOTE_MANA",
+		},
 		weaponOil = {
 			best = { 243734 },
 			alternates = {  },
@@ -866,6 +881,11 @@ ns.ConsumablesWowheadByClassSpec.PALADIN = {
 			best = { 271884, 271883 },
 			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
+		},
+		manaPotion = {
+			best = { 241300, 241301 },
+			alternates = {  },
+			noteKey = "CONS_NOTE_MANA",
 		},
 		weaponOil = {
 			best = { 243734 },

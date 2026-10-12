@@ -985,6 +985,7 @@ local OVERRIDES = {
 	GUIDE_CONS_TYPE_FLASK = "Flacon",
 	GUIDE_CONS_TYPE_COMBAT = "Potion de combat",
 	GUIDE_CONS_TYPE_HEALING = "Potion de santé",
+	GUIDE_CONS_TYPE_MANA = "Potion de mana",
 	GUIDE_CONS_TYPE_WEAPON = "Amélioration d'arme",
 	GUIDE_CONS_TYPE_RUNE = "Rune d'augmentation",
 	GUIDE_CONS_TYPE_FEAST = "Festin",

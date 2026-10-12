@@ -5,7 +5,7 @@
     "primarySource": "https://www.wowhead.com",
     "generatedAt": "2026-05-18",
     "localeItemNames": "enUS",
-    "patchedSince": "2026-08-19: Season 2 health potion (Concentrated Silvermoon); 2026-09-14: checked against Icy Veins 12.1 - flask and combat potion agree for all specs, primary-stat feast first for Vengeance, Guardian and Brewmaster; 2026-10-05: 15 flask/potion picks swapped after a three-source check (Icy Veins, Wowhead, Method), duplicates removed, Zealotry dropped, Liquid Luster added as alternate (mh-research cons_review)"
+    "patchedSince": "2026-08-19: Season 2 health potion (Concentrated Silvermoon); 2026-09-14: checked against Icy Veins 12.1 - flask and combat potion agree for all specs, primary-stat feast first for Vengeance, Guardian and Brewmaster; 2026-10-05: 15 flask/potion picks swapped after a three-source check (Icy Veins, Wowhead, Method), duplicates removed, Zealotry dropped, Liquid Luster added as alternate (mh-research cons_review); 2026-10-12: manaPotion (Lightfused Mana Potion) for Holy Paladin, Preservation, Mistweaver (+ Devoured Dreams) and Restoration Druid; it shares the 5-min cooldown with the combat potion (spell category 4). Content-watch flask/potion deviations checked: kept (Wowhead + Method agree with MH)"
   },
   "Death Knight": {
     "Blood": {
@@ -1508,6 +1508,22 @@
         ],
         "noteKey": "CONS_NOTE_04"
       },
+      "manaPotion": {
+        "best": [
+          {
+            "id": 241300,
+            "name": "Lightfused Mana Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241300"
+          },
+          {
+            "id": 241301,
+            "name": "Lightfused Mana Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241301"
+          }
+        ],
+        "alternates": [],
+        "noteKey": "CONS_NOTE_MANA"
+      },
       "augmentRune": {
         "best": [
           {
@@ -1823,6 +1839,22 @@
           }
         ],
         "noteKey": "CONS_NOTE_04"
+      },
+      "manaPotion": {
+        "best": [
+          {
+            "id": 241300,
+            "name": "Lightfused Mana Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241300"
+          },
+          {
+            "id": 241301,
+            "name": "Lightfused Mana Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241301"
+          }
+        ],
+        "alternates": [],
+        "noteKey": "CONS_NOTE_MANA"
       },
       "augmentRune": {
         "best": [
@@ -3268,6 +3300,33 @@
         ],
         "noteKey": "CONS_NOTE_04"
       },
+      "manaPotion": {
+        "best": [
+          {
+            "id": 241300,
+            "name": "Lightfused Mana Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241300"
+          },
+          {
+            "id": 241301,
+            "name": "Lightfused Mana Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241301"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241294,
+            "name": "Potion of Devoured Dreams",
+            "wowheadUrl": "https://www.wowhead.com/item=241294"
+          },
+          {
+            "id": 241295,
+            "name": "Potion of Devoured Dreams",
+            "wowheadUrl": "https://www.wowhead.com/item=241295"
+          }
+        ],
+        "noteKey": "CONS_NOTE_MANA"
+      },
       "augmentRune": {
         "best": [
           {
@@ -3583,6 +3642,22 @@
           }
         ],
         "noteKey": "CONS_NOTE_04"
+      },
+      "manaPotion": {
+        "best": [
+          {
+            "id": 241300,
+            "name": "Lightfused Mana Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241300"
+          },
+          {
+            "id": 241301,
+            "name": "Lightfused Mana Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241301"
+          }
+        ],
+        "alternates": [],
+        "noteKey": "CONS_NOTE_MANA"
       },
       "augmentRune": {
         "best": [

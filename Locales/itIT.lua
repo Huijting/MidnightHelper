@@ -1116,6 +1116,7 @@ ns._mhLocales.itIT = {
 	GUIDE_CONS_TYPE_FLASK = "Flask",
 	GUIDE_CONS_TYPE_COMBAT = "Pozione da combattimento",
 	GUIDE_CONS_TYPE_HEALING = "Pozione di cura",
+	GUIDE_CONS_TYPE_MANA = "Pozione di mana",
 	GUIDE_CONS_TYPE_WEAPON = "Buff all'arma",
 	GUIDE_CONS_TYPE_RUNE = "Augment Rune",
 	GUIDE_CONS_TYPE_FEAST = "Feast",

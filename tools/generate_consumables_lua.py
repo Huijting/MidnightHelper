@@ -48,6 +48,9 @@ CATEGORIES = (
     "flask",
     "combatPotion",
     "healingPotion",
+    # 12 Oct 2026: healers only (Holy Paladin, Preservation, Mistweaver, Resto Druid). It shares the combat
+    # potion's 5-minute cooldown (spell category 4), so it is a choice instead of that potion, not an extra.
+    "manaPotion",
     "weaponOil",
     "augmentRune",
     "feast",

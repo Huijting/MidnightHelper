@@ -44,8 +44,15 @@ spelers hebben het dan), de echte `v4.7.6` pas na Robs woensdag-/reload. Rob bes
   Rested = clientnaam in de/fr/es/pt/it/ru (ru XP_2 "Опыт за отдых" → "Отдохнувший"); commentaar Translations2026
   ~r.1818 bijgewerkt. Open, klein: commentaar ~r.14409 (AltBoardView) zegt nog "Rested XP stay as the WoW UI writes
   them"; Embassy/Dalaran/Silithus/Thrall Engels in alle packs (niet gemeten); es/pt/it TAB_GUIDE zonder levelgetallen.
-- Consumables (content-watch 12 okt, Robs screenshot): 3 afwijkingen t.o.v. Icy Veins + mana-potion bij healers.
-  Voorstel aan Rob: mh-research-ronde IV + Wowhead + Method voor die 3 specs; mana-potion = nieuwe categorie, Robs keuze.
+- ✅ Consumables (Rob "ja allebei"): mh-research 3 bronnen (IV/Wowhead/Method) → de 3 wachter-afwijkingen (Unholy
+  flask, Prot Pal flask, Outlaw potion) BLIJVEN: Wowhead + Method = MH. Nieuw: categorie `manaPotion` = Lightfused
+  Mana Potion 241300/241301 voor Holy Pal, Preservation, Mistweaver (+ Devoured Dreams 241294/241295) en Resto
+  Druid; NIET Disc/Holy Priest/Resto Shaman (gidsen: niet waard). Deelt spell-category 4 (5 min) met de combat
+  potion → noot CONS_NOTE_MANA "in plaats van, niet erbij". JSON (generator eerst byte-identiek round-trip
+  gecontroleerd), generator CATEGORIES, GuideConsumables + PlayCardWindow-rij, GUIDE_CONS_TYPE_MANA, check_consumables
+  (Potions-sectie + mana-namen uit --apply). 8 talen. NIET gedaan: RANK_SIBLING/ready-check (mana bewust niet als
+  "mist"). Content-wachter (trig_01JYW9gqzFNe8MkY3x3tQzh6) opdracht bijgewerkt: "bekende afwijkingen, 12 okt
+  nagekeken" + mana-regels; schema/model ongewijzigd (gemeten).
 - ✅ BUG GEVONDEN + GEREPAREERD (Rob 12 okt, DH Demonico lvl 11: "nieuwe spell komt helemaal links i.p.v. op 4").
   GEMETEN (`/mh block why` → keyBlockProbe.live/.bar1): spells stonden goed op het blok, maar 1→ACTIONBUTTON4,
   4→ACTIONBUTTON5, 2/3 één plek verschoven, Q/E/R/F→balk 2 knop 3-6, F4/Shift-Q/Shift-F elders; bindingSet 1

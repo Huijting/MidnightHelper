@@ -5943,6 +5943,14 @@
    "ptBR": "45707d8efcecc942",
    "ruRU": "45707d8efcecc942"
   },
+  "CONS_NOTE_MANA": {
+   "deDE": "db91d8743be9b992",
+   "esES": "db91d8743be9b992",
+   "frFR": "db91d8743be9b992",
+   "itIT": "db91d8743be9b992",
+   "ptBR": "db91d8743be9b992",
+   "ruRU": "db91d8743be9b992"
+  },
   "CONS_PICK_SPEC_BTN": {
    "deDE": "57a74249b2ce6140",
    "esES": "57a74249b2ce6140",
@@ -15509,6 +15517,14 @@
    "itIT": "a85b2d459b8ed9a9",
    "ptBR": "a85b2d459b8ed9a9",
    "ruRU": "a85b2d459b8ed9a9"
+  },
+  "GUIDE_CONS_TYPE_MANA": {
+   "deDE": "180e19cf0e1bf607",
+   "esES": "180e19cf0e1bf607",
+   "frFR": "180e19cf0e1bf607",
+   "itIT": "180e19cf0e1bf607",
+   "ptBR": "180e19cf0e1bf607",
+   "ruRU": "180e19cf0e1bf607"
   },
   "GUIDE_CONS_TYPE_RUNE": {
    "deDE": "fadf918170964f0c",

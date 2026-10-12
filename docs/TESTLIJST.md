@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 okt — Mana Potion bij consumables (healers)
+
+- [ ] Op een **Holy Paladin, Preservation Evoker, Mistweaver Monk of Resto Druid**: het Consumables-tabblad (en de
+      consumables-rij op de speelkaart) toont nu een regel **Mana Potion** (Lightfused Mana Potion) met de uitleg dat hij
+      zijn wachttijd deelt met je combat potion. Op andere specs hoort die regel er NIET te staan.
+
 ## 🆕 12 okt — Tabblad "Leveling (10-90)"
 
 - [ ] Het tabblad heet nu **Leveling (10-90)**, met bovenaan het nieuwe blok **"1. Level 10 to 80, for every class"**

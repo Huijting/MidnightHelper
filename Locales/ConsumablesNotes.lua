@@ -32,6 +32,8 @@ local EN = {
 	CONS_NOTE_14 = "Use the listed potion as the default burst/throughput choice for PvE.",
 	CONS_NOTE_15 = "Use this as the default tank potion when you want throughput with manageable risk.",
 	CONS_NOTE_16 = "Two flasks, and the guide gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold.",
+	-- 12 Oct 2026, measured (mh-research): mana and combat potions share spell category 4, a 5-minute cooldown.
+	CONS_NOTE_MANA = "Only when you run low on mana. It shares its 5-minute cooldown with your combat potion, so you drink it instead of that one, not as well.",
 }
 
 local NL = {
@@ -51,6 +53,7 @@ local NL = {
 	CONS_NOTE_14 = "Gebruik de genoemde potion als burst/throughput-keuze voor PvE.",
 	CONS_NOTE_15 = "Standaard tank-potion met throughput en beperkt risico.",
 	CONS_NOTE_16 = "Twee flasks, en de gids geeft een afweging in plaats van een winnaar — welke beter is hangt af van je hero-talent, je content, of welke secondary je tekortkomt. Kijk in een class-guide voor je goud uitgeeft.",
+	CONS_NOTE_MANA = "Alleen als je mana opraakt. Hij deelt zijn wachttijd van 5 minuten met je combat potion: je drinkt hem in plaats daarvan, niet erbij.",
 }
 
 local DE = {
@@ -70,6 +73,7 @@ local DE = {
 	CONS_NOTE_14 = "Genannter Trank als Burst/Throughput-Wahl für PvE.",
 	CONS_NOTE_15 = "Standard-Tanktrank mit Throughput und überschaubarem Risiko.",
 	CONS_NOTE_16 = "Zwei Flasks, und der Guide nennt eine Abwägung statt eines Siegers — welcher besser ist, hängt von deinem Heldentalent, deinem Content oder der fehlenden Sekundärwertung ab. Schau in einen Klassenguide, bevor du Gold ausgibst.",
+	CONS_NOTE_MANA = "Nur wenn dir das Mana ausgeht. Er teilt seine Abklingzeit von 5 Minuten mit deinem Kampftrank: Du trinkst ihn statt diesem, nicht zusätzlich.",
 }
 
 -- FR was merged below but never defined (vertaler-vondst 3 Oct 2026), so French players saw every
@@ -92,6 +96,7 @@ local FR = {
 	CONS_NOTE_14 = "Utilise la potion indiquée comme choix de burst/dégâts par défaut en JcE.",
 	CONS_NOTE_15 = "Potion de tank par défaut, avec des dégâts et un risque maîtrisé.",
 	CONS_NOTE_16 = "Deux flacons, et le guide donne un critère plutôt qu'un gagnant — le meilleur dépend de ton talent de héros, de ton contenu ou de la caractéristique secondaire qui te manque. Consulte un guide de classe avant de dépenser ton or.",
+	CONS_NOTE_MANA = "Seulement quand tu manques de mana. Elle partage son temps de recharge de 5 minutes avec ta potion de combat : tu la bois à sa place, pas en plus.",
 }
 
 local ES = {
@@ -111,6 +116,7 @@ local ES = {
 	CONS_NOTE_14 = "Poción listada como burst/throughput en PvE.",
 	CONS_NOTE_15 = "Poción tank por defecto con throughput y riesgo controlado.",
 	CONS_NOTE_16 = "Dos flasks, y la guía da un criterio en vez de un ganador — cuál es mejor depende de tu talento de héroe, tu contenido o la secundaria que te falte. Consulta una guía de clase antes de gastar oro.",
+	CONS_NOTE_MANA = "Solo cuando te quedes sin maná. Comparte su tiempo de reutilización de 5 minutos con tu poción de combate: la bebes en lugar de esa, no además de ella.",
 }
 
 local PT = {
@@ -130,6 +136,7 @@ local PT = {
 	CONS_NOTE_14 = "Poção listada como burst/throughput em PvE.",
 	CONS_NOTE_15 = "Poção tank padrão com throughput e risco controlado.",
 	CONS_NOTE_16 = "Dois flasks, e o guia dá um critério em vez de um vencedor — qual é melhor depende do teu talento de herói, do teu conteúdo ou da secundária que te falta. Vê um guia de classe antes de gastar ouro.",
+	CONS_NOTE_MANA = "Só quando sua mana estiver acabando. Ela compartilha o tempo de recarga de 5 minutos com sua poção de combate: você bebe uma no lugar da outra, não as duas.",
 }
 
 local IT = {
@@ -149,6 +156,7 @@ local IT = {
 	CONS_NOTE_14 = "Usa la pozione indicata come scelta di burst/throughput predefinita per il PvE.",
 	CONS_NOTE_15 = "Usala come pozione tank predefinita quando vuoi throughput con un rischio gestibile.",
 	CONS_NOTE_16 = "Due flask, e la guida dà un criterio invece di un vincitore — quale sia meglio dipende dal tuo talento eroe, dal tuo contenuto o dalla secondaria che ti manca. Consulta una guida di classe prima di spendere oro.",
+	CONS_NOTE_MANA = "Solo quando resti a corto di mana. Condivide il tempo di recupero di 5 minuti con la tua pozione da combattimento: la bevi al posto di quella, non in aggiunta.",
 }
 
 merge(ns._mhLocales.enUS or {}, EN)
