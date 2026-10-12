@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 okt — Boss-tactiek naar één speler fluisteren (DungeonBossWindow.lua + DungeonLiveCoach.lua)
+
+- [ ] **Bossvenster, muis op "Share":** tooltip zegt linksklik = hele groep, rechtsklik = één speler.
+- [ ] **Rechtsklik op Share** in een groep: lijstje met je groepsleden (niet jijzelf). Klik een naam → die speler krijgt
+      de tactiek als fluisterbericht; in je chat staat "Steps for <boss> whispered to <naam>." De groep ziet niets.
+- [ ] **Rechtsklik zonder groep:** regel in je chat dat er niemand is, met de tip `/mh bossshare <naam>`.
+- [ ] **`/mh bossshare Naam`** (ook iemand buiten je groep): alleen die speler krijgt het.
+- [ ] **Linksklik en kale `/mh bossshare`** gaan nog steeds naar de hele groep — óók direct ná een fluister-share.
+- [ ] **In een gevecht** fluisteren: melding "in combat", en het fluisterbericht gaat vanzelf na het gevecht, naar
+      dezelfde speler.
+
 ## 🆕 12 okt — Links naar midnighthelper.com
 
 - [ ] **Over** (knop rechtsboven in MH): onder de tekst staat "Website: midnighthelper.com (klik voor de link)"; klik →

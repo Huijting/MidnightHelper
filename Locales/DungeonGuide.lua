@@ -99,6 +99,10 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_WIN_PICK_RAIDS = "Raids",
 	DGN_WIN_PICK_DUNGEONS = "Dungeons",
 	DGN_SHARE_SENT_FMT = "Steps for %s shared with the group.",
+	DGN_SHARE_WHISPER_FMT = "Steps for %s whispered to %s.",
+	DGN_SHARE_WHISPER_TITLE = "Whisper to one player",
+	DGN_SHARE_WHISPER_NOONE = "There is nobody in your group to whisper to. Type /mh bossshare <name> to whisper to someone else.",
+	DGN_SHARE_BTN_TIP = "Left-click: share with the whole group.|nRight-click: pick one player to whisper to.|nOr type /mh bossshare <name>.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.itIT, {
@@ -177,6 +181,10 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_WIN_PICK_RAIDS = "Raids",
 	DGN_WIN_PICK_DUNGEONS = "Dungeons",
 	DGN_SHARE_SENT_FMT = "Passi per %s condivisi col gruppo.",
+	DGN_SHARE_WHISPER_FMT = "Passi per %s sussurrati a %s.",
+	DGN_SHARE_WHISPER_TITLE = "Sussurra a un giocatore",
+	DGN_SHARE_WHISPER_NOONE = "Non c'è nessuno nel tuo gruppo a cui sussurrare. Scrivi /mh bossshare <nome> per sussurrare a qualcun altro.",
+	DGN_SHARE_BTN_TIP = "Clic sinistro: condividi con tutto il gruppo.|nClic destro: scegli un giocatore a cui sussurrare.|nOppure scrivi /mh bossshare <nome>.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
@@ -259,6 +267,10 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_WIN_PICK_RAIDS = "Raids",
 	DGN_WIN_PICK_DUNGEONS = "Dungeons",
 	DGN_SHARE_SENT_FMT = "Stappen voor %s gedeeld met de groep.",
+	DGN_SHARE_WHISPER_FMT = "Stappen voor %s gefluisterd naar %s.",
+	DGN_SHARE_WHISPER_TITLE = "Fluister naar één speler",
+	DGN_SHARE_WHISPER_NOONE = "Er zit niemand in je groep om naar te fluisteren. Typ /mh bossshare <naam> om naar iemand anders te fluisteren.",
+	DGN_SHARE_BTN_TIP = "Linksklik: delen met de hele groep.|nRechtsklik: kies één speler om naar te fluisteren.|nOf typ /mh bossshare <naam>.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.deDE, {
@@ -337,6 +349,10 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_WIN_PICK_RAIDS = "Schlachtzüge",
 	DGN_WIN_PICK_DUNGEONS = "Dungeons",
 	DGN_SHARE_SENT_FMT = "Schritte für %s mit der Gruppe geteilt.",
+	DGN_SHARE_WHISPER_FMT = "Schritte für %s an %s geflüstert.",
+	DGN_SHARE_WHISPER_TITLE = "An einen Spieler flüstern",
+	DGN_SHARE_WHISPER_NOONE = "In deiner Gruppe ist niemand, an den du flüstern kannst. Tippe /mh bossshare <Name>, um jemand anderem zu flüstern.",
+	DGN_SHARE_BTN_TIP = "Linksklick: mit der ganzen Gruppe teilen.|nRechtsklick: einen Spieler wählen und ihm flüstern.|nOder tippe /mh bossshare <Name>.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.frFR, {
@@ -415,6 +431,10 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_WIN_PICK_RAIDS = "Raids",
 	DGN_WIN_PICK_DUNGEONS = "Donjons",
 	DGN_SHARE_SENT_FMT = "Étapes de %s partagées avec le groupe.",
+	DGN_SHARE_WHISPER_FMT = "Étapes de %s chuchotées à %s.",
+	DGN_SHARE_WHISPER_TITLE = "Chuchoter à un joueur",
+	DGN_SHARE_WHISPER_NOONE = "Personne dans ton groupe à qui chuchoter. Tape /mh bossshare <nom> pour chuchoter à quelqu'un d'autre.",
+	DGN_SHARE_BTN_TIP = "Clic gauche : partager avec tout le groupe.|nClic droit : choisir un joueur à qui chuchoter.|nOu tape /mh bossshare <nom>.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.esES, {
@@ -493,6 +513,10 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_WIN_PICK_RAIDS = "Bandas",
 	DGN_WIN_PICK_DUNGEONS = "Mazmorras",
 	DGN_SHARE_SENT_FMT = "Pasos de %s compartidos con el grupo.",
+	DGN_SHARE_WHISPER_FMT = "Pasos de %s susurrados a %s.",
+	DGN_SHARE_WHISPER_TITLE = "Susurrar a un jugador",
+	DGN_SHARE_WHISPER_NOONE = "No hay nadie en tu grupo a quien susurrar. Escribe /mh bossshare <nombre> para susurrar a otra persona.",
+	DGN_SHARE_BTN_TIP = "Clic izquierdo: compartir con todo el grupo.|nClic derecho: elige un jugador al que susurrar.|nO escribe /mh bossshare <nombre>.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.ptBR, {
@@ -571,4 +595,8 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_WIN_PICK_RAIDS = "Raides",
 	DGN_WIN_PICK_DUNGEONS = "Masmorras",
 	DGN_SHARE_SENT_FMT = "Passos de %s compartilhados com o grupo.",
+	DGN_SHARE_WHISPER_FMT = "Passos de %s sussurrados para %s.",
+	DGN_SHARE_WHISPER_TITLE = "Sussurrar para um jogador",
+	DGN_SHARE_WHISPER_NOONE = "Não há ninguém no seu grupo para sussurrar. Digite /mh bossshare <nome> para sussurrar para outra pessoa.",
+	DGN_SHARE_BTN_TIP = "Clique esquerdo: enviar para o grupo todo.|nClique direito: escolha um jogador para sussurrar.|nOu digite /mh bossshare <nome>.",
 })

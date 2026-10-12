@@ -3169,9 +3169,11 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "bossshare" then
+	-- /mh bossshare [naam] — met een naam: alleen naar die speler fluisteren (Rob, 12 okt 2026).
+	local bossWhisper = msg:match("^bossshare%s+(%S+)$")
+	if msg == "bossshare" or bossWhisper then
 		if ns.ShareDungeonBossTips then
-			ns.ShareDungeonBossTips()
+			ns.ShareDungeonBossTips(nil, nil, nil, bossWhisper)
 		else
 			print("|cffffcc00Midnight Helper:|r live coach not loaded")
 		end

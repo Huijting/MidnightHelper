@@ -787,11 +787,69 @@ local function EnsureWindow()
 	shareBtn:SetPoint("RIGHT", chatBtn, "LEFT", -4, 0)
 	shareBtn:SetFrameLevel(f:GetFrameLevel() + 5)
 	shareBtn:SetText(ns:L("DGN_WIN_SHARE"))
-	shareBtn:SetScript("OnClick", function()
-		local b = curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
-		if b and ns.ShareDungeonBossTips then
-			ns.ShareDungeonBossTips(curDungeon.key, b.key, ns.IsBossWindowShowingShort())
+	-- Linksklik = hele groep; rechtsklik = lijstje groepsleden, fluister naar één (Rob, 12 okt 2026).
+	shareBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	local function GroupMemberNames()
+		local names, units = {}, {}
+		if IsInRaid and IsInRaid() then
+			for i = 1, (GetNumGroupMembers and GetNumGroupMembers() or 0) do
+				units[#units + 1] = "raid" .. i
+			end
+		else
+			for i = 1, 4 do
+				units[#units + 1] = "party" .. i
+			end
 		end
+		for _, u in ipairs(units) do
+			if UnitExists(u) and not UnitIsUnit(u, "player") then
+				local n, realm = UnitName(u)
+				if n and not (issecretvalue and issecretvalue(n)) then
+					if realm and realm ~= "" and not (issecretvalue and issecretvalue(realm)) then
+						n = n .. "-" .. realm
+					end
+					names[#names + 1] = n
+				end
+			end
+		end
+		table.sort(names)
+		return names
+	end
+	shareBtn:SetScript("OnClick", function(self, button)
+		local b = curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
+		if not (b and ns.ShareDungeonBossTips) then
+			return
+		end
+		local short = ns.IsBossWindowShowingShort()
+		if button ~= "RightButton" then
+			ns.ShareDungeonBossTips(curDungeon.key, b.key, short)
+			return
+		end
+		local names = GroupMemberNames()
+		if #names == 0 then
+			print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_WHISPER_NOONE"))
+			return
+		end
+		if not (MenuUtil and MenuUtil.CreateContextMenu) then
+			return
+		end
+		local dKey, bKey = curDungeon.key, b.key
+		MenuUtil.CreateContextMenu(self, function(_, root)
+			root:CreateTitle(ns:L("DGN_SHARE_WHISPER_TITLE"))
+			for _, n in ipairs(names) do
+				root:CreateButton(n, function()
+					ns.ShareDungeonBossTips(dKey, bKey, short, n)
+				end)
+			end
+		end)
+	end)
+	shareBtn:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:SetText(ns:L("DGN_WIN_SHARE"))
+		GameTooltip:AddLine(ns:L("DGN_SHARE_BTN_TIP"), 1, 1, 1, true)
+		GameTooltip:Show()
+	end)
+	shareBtn:SetScript("OnLeave", function()
+		GameTooltip:Hide()
 	end)
 	--- Route to the entrance, for entries that know where theirs is.
 	---

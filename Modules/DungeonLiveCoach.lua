@@ -279,12 +279,18 @@ local pendingShare = nil
 -- Optionele args (boss-venster deelt de gétoonde boss); zonder args geldt
 -- de laatst gepullde boss.
 --- @param short boolean|nil  true = share the short block instead of everything (see QuickKeys)
-function ns.ShareDungeonBossTips(dungeonKey, bossKey, short)
+--- @param whisperTo string|nil  a player name: whisper to that one player instead of the group
+---   (Rob, 12 Oct 2026). Works outside a group too; the combat queue keeps it.
+function ns.ShareDungeonBossTips(dungeonKey, bossKey, short, whisperTo)
+	if whisperTo == "" then
+		whisperTo = nil
+	end
 	local target
 	if dungeonKey and bossKey then
-		target = { dungeonKey = dungeonKey, bossKey = bossKey, short = short }
-	else
-		target = lastEngaged
+		target = { dungeonKey = dungeonKey, bossKey = bossKey, short = short, whisperTo = whisperTo }
+	elseif lastEngaged then
+		target = { dungeonKey = lastEngaged.dungeonKey, bossKey = lastEngaged.bossKey,
+			short = lastEngaged.short, whisperTo = whisperTo or lastEngaged.whisperTo }
 	end
 	if not target then
 		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_NONE"))
@@ -297,17 +303,22 @@ function ns.ShareDungeonBossTips(dungeonKey, bossKey, short)
 		return
 	end
 	if InCombatLockdown and InCombatLockdown() then
-		pendingShare = { dungeonKey = target.dungeonKey, bossKey = target.bossKey, short = target.short }
+		pendingShare = { dungeonKey = target.dungeonKey, bossKey = target.bossKey, short = target.short,
+			whisperTo = target.whisperTo }
 		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_QUEUED"))
 		return
 	end
-	lastEngaged = target -- de share-body hieronder leest lastEngaged
+	-- de share-body hieronder leest lastEngaged; de fluister-naam hoort bij déze share, niet bij
+	-- de boss, dus die gaat er niet mee in (anders fluistert een volgende kale share ook).
+	lastEngaged = { dungeonKey = target.dungeonKey, bossKey = target.bossKey, short = target.short }
 	-- 🔴 RAID ONTBRAK — Rob, 17 sep 2026: "wanneer ik in een raid zit geeft de share alleen in
 	-- party". In een raid zit er niemand in het PARTY-kanaal, dus de tips kwamen nergens aan.
 	-- Zelfde volgorde als elke andere share in de addon (RitualShare.lua:51, DelvePartyShare.lua:146):
 	-- eerst raid, dan een echte party, dan een instance-groep (LFG/LFR).
 	local channel
-	if IsInRaid and IsInRaid() then
+	if target.whisperTo then
+		channel = "WHISPER"
+	elseif IsInRaid and IsInRaid() then
 		channel = "RAID"
 	elseif IsInGroup and IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
 		channel = "INSTANCE_CHAT"
@@ -354,9 +365,13 @@ function ns.ShareDungeonBossTips(dungeonKey, bossKey, short)
 		-- Gedeelde helper: C_ChatInfo.SendChatMessage (de oude global loopt op 12.x
 		-- via een deprecated-shim die ADDON_ACTION_BLOCKED gooit — Rob, 11 jun) +
 		-- chat-messaging-lockdown-gate met queue (Comms.lua, review F2.2).
-		ns.MH_SendChat(m, channel)
+		ns.MH_SendChat(m, channel, target.whisperTo)
 	end
-	print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_SENT_FMT"):format(name))
+	if target.whisperTo then
+		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_WHISPER_FMT"):format(name, target.whisperTo))
+	else
+		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_SENT_FMT"):format(name))
+	end
 end
 
 local ev = CreateFrame("Frame")
