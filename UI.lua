@@ -2909,6 +2909,32 @@ function ns:EnsureMainUI()
 	titleVersion:SetPoint("LEFT", title, "RIGHT", 8, -1)
 	titleVersion:SetTextColor(0.72, 0.82, 0.95)
 
+	-- "midnighthelper.com" right after the version (Rob, 12 Oct 2026, screenshot of the title bar: "kunnen we niet
+	-- hierboven de link zetten?"). Small and quiet, the same blue as the play card's site link; a click opens the
+	-- copy box (an addon cannot open a browser). The address is the same in every language.
+	local titleSite = CreateFrame("Button", nil, titleBar)
+	titleSite.fs = titleSite:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	titleSite.fs:SetPoint("LEFT")
+	titleSite.fs:SetText("midnighthelper.com")
+	titleSite.fs:SetTextColor(0.45, 0.75, 1)
+	titleSite:SetSize((titleSite.fs:GetStringWidth() or 110) + 4, 16)
+	titleSite:SetPoint("LEFT", titleVersion, "RIGHT", 10, 0)
+	titleSite:SetScript("OnEnter", function(self)
+		self.fs:SetTextColor(1, 1, 1)
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+		GameTooltip:SetText(ns:L("SITE_LINK_TITLE"), 1, 0.82, 0)
+		GameTooltip:Show()
+	end)
+	titleSite:SetScript("OnLeave", function(self)
+		self.fs:SetTextColor(0.45, 0.75, 1)
+		GameTooltip:Hide()
+	end)
+	titleSite:SetScript("OnClick", function()
+		if ns.MHSiteURL and ns.ShowSiteLink then
+			ns.ShowSiteLink(ns.MHSiteURL(""), "SITE_LINK_TITLE")
+		end
+	end)
+
 	-- Close hides the shell; slash can reopen.
 	local closeBtn = CreateFrame("Button", nil, titleBar, "UIPanelCloseButton")
 	closeBtn:SetPoint("RIGHT", titleBar, "RIGHT", -4, 0)
@@ -2987,7 +3013,7 @@ function ns:EnsureMainUI()
 	-- Phase 3: breadcrumb in de titelbalk toont 'Kamer > Tab' voor oriëntatie.
 	-- Gevuld door SelectTab; tussen versie en de Codex-knop/Info.
 	local breadcrumb = titleBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	breadcrumb:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
+	breadcrumb:SetPoint("LEFT", titleSite, "RIGHT", 14, 0)
 	breadcrumb:SetPoint("RIGHT", codexLinkBtn, "LEFT", -8, 0)
 	breadcrumb:SetJustifyH("LEFT")
 	breadcrumb:SetWordWrap(false)
