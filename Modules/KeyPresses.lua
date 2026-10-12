@@ -239,14 +239,19 @@ local function KeepEasy(id)
 	local token = UnitClass and select(2, UnitClass("player"))
 	if token ~= keepEasyClass then
 		keepEasyClass, keepEasy = token, {}
-		for _, e in pairs((ns.KeybindRoleClassifier or {})[token] or {}) do
-			if type(e) == "table" and e.id then
-				local fixed = e.role == "interrupt" or e.survival or IsHealRole(e.role)
-				for _, b in pairs(type(e.blockAs) == "table" and e.blockAs or {}) do
-					fixed = fixed or (type(b) == "table" and IsHealRole(b.role))
-				end
-				if fixed then
-					keepEasy[e.id] = true
+		-- Plus the spells every class has (12 Oct 2026, Rob's Havoc): Recuperate (1231411, role heal_sustain) lives in
+		-- ns.KeybindRoleClassifierGlobal, not in the class table, so a tip offered to swap Glide with it.
+		local tables = { (ns.KeybindRoleClassifier or {})[token] or {}, ns.KeybindRoleClassifierGlobal or {} }
+		for _, tbl in ipairs(tables) do
+			for _, e in pairs(tbl) do
+				if type(e) == "table" and e.id then
+					local fixed = e.role == "interrupt" or e.survival or IsHealRole(e.role)
+					for _, b in pairs(type(e.blockAs) == "table" and e.blockAs or {}) do
+						fixed = fixed or (type(b) == "table" and IsHealRole(b.role))
+					end
+					if fixed then
+						keepEasy[e.id] = true
+					end
 				end
 			end
 		end

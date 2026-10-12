@@ -23,9 +23,11 @@ er is niets weggegooid.
 
 ## 🆕 12 okt — "Which spells you press": geen dubbele regels, en een regel over het toetsenblok
 
-- [ ] `/mh presses` op je DH: Chaos Strike en Felblade staan er nog maar **één keer** in (Chaos Strike ±60×, niet
+- [x] `/mh presses` op je DH: Chaos Strike en Felblade staan er nog maar **één keer** in (Chaos Strike ±60×, niet
       3 regels). Onder de swap-tips staat in oranje dat een swap de vaste plek van je toetsenblok op dit character
-      verandert.
+      verandert. ✅ Rob 12 okt (screenshot).
+- [ ] Na `/reload`: de tip "swap Glide with Recuperate" is weg. Recuperate is een heal en blijft op zijn plek (zoals
+      jouw regel van 10 okt: heals schuiven nooit).
 
 ## 🆕 12 okt — Doodskaart: tip past bij hoe je doodging
 
