@@ -14,8 +14,11 @@ Wago "Success!", GitHub-release met zip + release.json. Site-chat geseind (bouwt
 Vanaf nu: Labyrinth-fixes uit Robs runs gaan als 4.7.7 (eerst beta, tenzij Rob anders kiest).
 📌 **Site-chat wacht hierop (13 okt avond):** zijn "Ready for 12.1.5"-blok (5 Codex-kaartjes, 8 talen) staat live.
 Zodra onze Codex-kaartjes na de patch geen "test realm"/"not yet seen" meer zeggen → site-chat seinen, dan werkt hij het
-blok bij. GEMETEN 13 okt: alleen de Kith'ix-kaart (`Locales/Codex.lua:175`) zegt "Worked out from game data; not yet
-seen on screen". Pas weghalen als Rob of iemand de ingang/het gevecht live gezien heeft. US-servers waren 13 okt 19:19
+blok bij. GEMETEN 13 okt (eerst gemist: ik zocht "test realm", de tekst zegt "test-realm"), drie zinnen in
+`Locales/Codex.lua`: (1) :175 Kith'ix "Worked out from game data; not yet seen on screen"; (2) :169 CODEX_LABYRINTH_BODY
+"In the test-realm game data, tiers 9, 10 and 11 unlock the same Delve tier" (site haalde die al van de homepage);
+(3) :173 CODEX_KEYSTONE_MYTH_BODY "[PH]" i.p.v. 3600 (ook nl :463 en de andere packs). Pas weghalen/bijwerken als het live
+gezien is, dan check_drift + site-chat seinen. US-servers waren 13 okt 19:19
 nog offline (site-chat, GEMETEN): wago 70340 = build klaargezet, niet live.
 
 **(Eerder:) 13 okt avond: Rob kiest de ECHTE release 4.7.6** (geen beta4: "11 betatesters die niets melden"). Releasetekst
