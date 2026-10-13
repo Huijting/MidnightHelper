@@ -5322,3 +5322,132 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     de branch vooruit zette **zonder** de working tree te verplaatsen — `docs/API_WATCH.md` bleef op
     **5186** regels. 📌 De val van 11 okt is dus reproduceerbaar én afgedekt; houd deze volgorde aan.
     📌 De `.toc` staat nog op **4.7.6**.
+- [2026-10-13] 🧰 **De SimulationCraft-addon heeft zijn 12.1.5 uit de alpha gehaald — release
+  `12.1.5-01`, 12 okt — en het EXPORTFORMAAT IS ONVERANDERD: de hele release is één regel
+  `## Version`. 0 × [MOET GEFIKST].** Verder staat de wiki op mijn hele terrein stil (ns 3000 én
+  3004 leveren over 6–13 okt niets op wat hier niet al staat), zijn er vier nieuwe forumposts zonder
+  API-inhoud, en is `news.blizzard.com` voor de **vierde** dag op rij niet gelezen.
+  - 🔧 **[AL AFGEDEKT] — SimC-addon `12.1.5-01`: de eerste niet-alpha release sinds deze wachter hem
+    volgt (30 sep), en hij raakt onze twee functies niet. GEMETEN op de inhoud, niet op het
+    versienummer.** `git ls-remote --tags` geeft `12.1.5-01` → sha
+    `8741352777a1d22ec7c89cbd051cd736f6025c6e`, en `git ls-remote … HEAD` geeft **diezelfde sha**;
+    master staat dus precies op de nieuwe tag. Tussen de HEAD van gisteren
+    (`3fe70f34b03784d48bf2c0fb40e518b7f45fc758`, tag `12.1.5-alpha-01`) en vandaag zit
+    **`git rev-list --count` = 1** commit: `8741352` *"12.1.5 release"* (Dave Hendler, 12 okt).
+    ✅ **En `git diff --stat` over diezelfde twee sha's geeft: `Simulationcraft.toc | 2 +-`, één
+    bestand, één regel.** Letterlijk de hele wijziging:
+    `-## Version: 12.1.5-alpha-01` / `+## Version: 12.1.5-01`.
+    **`core.lua` en `extras.lua` zijn dus byte-voor-byte gelijk aan de alpha die ik 11 en 12 okt al
+    regel voor regel gelezen heb.** Er is daarom géén nieuw veld, geen nieuw item-modifier-type en
+    geen nieuwe profielregel om aan `ItemString` of `ns.BuildSimcProfile` in
+    `Modules/SimcExport.lua` te toetsen — de alpha→stable-stap voegt aan het formaat niets toe.
+    - 📌 **Wat dit wél betekent voor de kopregel van ons bestand, en het is geen actiepunt.**
+      `Modules/SimcExport.lua:15` zegt *"still in 12.1.5-alpha-01"* en `:447` zegt *"kept in
+      12.1.5-alpha-01"*. Die bewering blijft **inhoudelijk waar** (de code van de stable is
+      identiek aan die alpha); alleen de naam loopt één stap achter. 🔴 Ik raak dat bestand niet
+      aan — melden, niet repareren.
+    - ⚠️ **GEREEDSCHAPSCORRECTIE op mijn eigen regel van gisteren: "254 tags" was een misleidende
+      maat.** `git ls-remote --tags` geeft vandaag **288** regels, maar daarvan zijn er 33 een
+      `^{}`-dereferentieregel van een annotated tag; **zonder die regels: 255 unieke tags**. Dat
+      255 precies één meer is dan de 254 van gisteren klopt met één nieuwe tag, **maar dat is
+      AFGELEID** — met welk van de twee tellingen die 254 gemeten is kan ik niet terugmeten.
+      **GEMETEN en wél hard is de commit-telling hierboven (exact 1).** 📌 Voor volgende runs: tel
+      tags met `grep -vc '\^{}'`, of vertrouw op `rev-list --count` tussen de sha's.
+  - 🔇 **De wiki-namespaces op mijn terrein: tien regels over 6–13 okt, en alle tien staan hier al
+    in.** `rcnamespace=3000|3004&rclimit=250&rcend=2026-10-06T00:00:00Z`, op **revid** gecontroleerd
+    en niet op titel: `6906649` (`API:C Traits.GetConfigInfo`), `6905874`
+    (`Event:UI INFO MESSAGE`), `6905815` (`API:GetShapeshiftForm`), `6905582` (`API:UnitAura`),
+    `6904622` + `6904617` (`API:import`), `6904614` (`API:require`), `6901442`
+    (`Event:PLAYER PVP FLAG CHANGED`), `6901441` (`API:C Spell.GetItemCooldown`), `6901440`
+    (`API:UnitUsesAmmo`). **Geen elfde onderwerp, geen nieuwe API- of event-naam.** 📌 `CVar`
+    (3002) en `MACRO` (3006) heb ik conform het besluit van gisteren laten rusten; ze waren toen
+    gemeten leeg.
+  - 🔇 **De gevolgde pagina's staan stil — identieke revid's én identieke bytes.** In één
+    `prop=info`-aanroep: `Patch 12.1.0/API changes` `6905801` (66202 b), `Patch 12.1.5/API changes`
+    `6907331` (17881 b), `Patch 12.0.7/API changes` `6905802` (24726 b), `TOC format` `6905891`
+    (32839 b), `API change summaries` `6883777` (7280 b), `Hotfixes` `6902337` (374413 b).
+    `Patch 12.1.7/API changes` en `Patch 12.2.0/API changes` komen nog steeds terug als
+    `"missing": ""`.
+    - ⚠️ **Eén veld bewoog en het is géén bewerking: `Hotfixes` heeft `touched`
+      `2026-10-12T18:09:04Z` terwijl `lastrevid` en `length` onveranderd zijn.** `touched` loopt in
+      MediaWiki mee met een cache-/template-hervertaling, niet met een edit. **GEMETEN** dat revid
+      en bytes gelijk zijn; **AFGELEID** dat het daarom inhoudelijk niets is.
+    ✅ **Dat deze stilte geen cache is, is in dezelfde `api.php` aangetoond:**
+    `list=recentchanges&rcnamespace=0` gaf als nieuwste `Neptulon (Throne of the Tides)` (revid
+    `6912013`, PeterWind, **2026-10-13T03:11:04Z**) — nieuwer dan het versheidsbewijs van gisteren
+    (`6910664`, 2026-10-12T03:36:15Z). De wiki levert dus vandaag.
+  - 🔇 **Geen nieuwe officiële API-patchnotes: de `/notes`-sub-pagina heeft nog steeds vier secties,
+    nieuwste `2026-09-29`, en die valt BUITEN mijn 7-dagenvenster.** `action=parse&prop=sections` op
+    `Patch 12.1.5/API changes/notes` (pageid 710454): `2026-09-03`, `2026-09-16`, `2026-09-22`,
+    `2026-09-29`. PTR Changes 5 bestaat daar nog niet.
+  - 📰 **Hotfixes: niets na 6 okt, en 6 okt staat hier al in — maar opnieuw rust dat op ÉÉN bron.**
+    `action=parse&prop=sections` op `Hotfixes` geeft als koppen `October 2026` → **`October 6`** →
+    `October 1`; er is geen latere kop. De inhoud van 6 okt is op 11 en 12 okt al afgedaan als
+    encounter- en set-tuning zonder UI-/API-/addon-sectie (terrein van `CONTENT_WATCH.md`).
+    🔴 **En de cacheregel sloeg voor de derde dag op rij aan:** een `WebSearch` naar de
+    oktober-hotfixes gaf als nieuwste materiaal **juli 2026 en ouder** en meldde letterlijk *"no
+    source covers October 2026 hotfixes"* — ouder dan wat dit logboek zelf al twee weken noemt. Die
+    uitslag telt dus **niet** als bewijs dat er niets is; de meting is de wikipagina.
+  - 🗣️ **Forum `#ui-macro` 6–13 okt: twaalf treffers, waarvan vier posts die hier nog niet stonden —
+    en geen van de vier heeft API-inhoud of een blue post.** Via
+    `search.json?q=#ui-macro after:2026-10-06`, op **id** gecontroleerd tegen dit bestand.
+    - 🧩 **[RAAKT ONS NIET] — `2367394` *"Unregister Global Mouse"* post **7**, 12 okt 21:05:34Z
+      (Cozzene), letterlijk: *"The last time i tried to use this, a few weeks ago, it wasn't working
+      anymore. has it since been updated?"*** — een vraag over het CurseForge-addon
+      `unregisterglobalmouse` dat in post 6 (8 okt, al gemeld op 11 okt) gelinkt werd. Geen API-naam,
+      geen blue reply, `posts_count` 7.
+      📌 **En de open vraag van 1 okt (`:3475`) blijft dicht, ik heropen hem niet:** dat
+      `GameEvent.UnregisterInternalEvent("GLOBAL_MOUSE_DOWN")` wérkt is op 3 okt al gemeten en
+      vastgelegd (`:3683`).
+      **GEMETEN in MH, opnieuw en in dezelfde run:** `GameEvent` **0**, `UnregisterInternalEvent`
+      **0**, `RegisterInternalEvent` **0**, `GLOBAL_MOUSE_DOWN` **0**, `GLOBAL_MOUSE_UP` **0**
+      (scope: hele addon zonder `.git`/`docs`/`tools`/`dist`).
+      - **Positieve controle, zelfde scope en zelfde run**, want een nul bewijst anders niets:
+        `RegisterEvent` **484**, `UnregisterEvent` **16**, `PLAYER_ENTERING_WORLD` **112**,
+        `issecretvalue` **237**, `CreateFrame` **811**. Het patroon vindt dus wat er is — en MH
+        meldt wél events af, alleen nooit via `GameEvent` of op `UIParent`.
+    - 🧩 **[RAAKT ONS NIET] — `2380036` *"What is this on my UI"* is een NIEUW topic (12 okt
+      14:52:12Z, Frigomortis), maar het gaat niet over de API.** De vraag is *"This stuff appeared on
+      my UI this morning and I want to get rid of it I have no addons installed"*, en het enige
+      antwoord (No1UKnow, 15:34:18Z) legt uit hoe je een screenshot op het forum plaatst. Twee
+      posts, geen blue reply, geen schermafbeelding, dus zelfs niet vast te stellen wát hij ziet.
+      ⚠️ Een speler **zonder addons** die nieuwe UI-elementen ziet zou een client-wijziging kunnen
+      zijn; met deze draad is dat niet te meten, en ik ga het niet invullen.
+    - 🧩 **[RAAKT ONS NIET] — `1418968` *"How to remove a keybind?"* post **4**, 12 okt 04:12:04Z
+      (Tungston), letterlijk *"Same here."*** Een draadje uit **2022** over de Blizzard-keybind-UI,
+      geen API-wijziging. (MH heeft wel `KeybindAutoMap`/`KeybindRoles_*`, maar hier is niets over
+      een API gezegd om aan te toetsen.)
+    - 🧩 **[RAAKT ONS NIET] — `2336268` post **4**, 12 okt 22:10:43Z, is van gebruiker `system`:**
+      *"This topic was automatically closed 60 days after the last reply. New replies are no longer
+      allowed."* Geen inhoud; het topic-id is hier alleen daarom nieuw.
+    - 🧩 **[RAAKT ONS NIET] — `2315684` *"Interact on Mouse Over Issues"* post **10**, 12 okt
+      15:01:41Z (Dreaux):** *"I realized my issues with the macro last night. I corrected FF/RC and I
+      hope that resolves the issue. I just need to find a corpse to test it on."* De speler lost zijn
+      eigen macro op; `posts_count` 10, nog steeds geen blue reply en nog steeds Forever Beta.
+    - 🔇 Het draadje `2376572` (*"Policy Clarification — Displaying Addon Statistics on a USB
+      Screen"*) heeft nog altijd **twee** posts en nog altijd geen blue reply.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` is voor de **vierde dag op rij** niet gelezen, vandaag met een ánder
+      symptoom: Exa geeft nu `CRAWL_NOT_FOUND` op `news.blizzard.com/en-us/wow` (de drie dagen
+      ervoor een lege body). Blizzards eigen nieuwspagina is dus niet gemeten.
+    - `wowhead.com/blue-tracker` niet rechtstreeks geprobeerd (achttien runs op rij lege body).
+    - `us.forums.blizzard.com` via `curl` is **dicht**: `CONNECT tunnel failed, response 403`,
+      `connect_rejected` door de egress-proxy. Het forum is vandaag volledig via Exa gelezen.
+      📌 Dat is een **tweede** poort die deze week sloot, naast `api.github.com` gisteren.
+    - De `/notes`- en `Hotfixes`-pagina's zijn op **sectiekoppen** gemeten, niet op volledige
+      inhoud. Genoeg voor de datumvraag, te weinig om over de inhoud iets te zeggen.
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald — de open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`. Die pagina is deze week niet aangeraakt, dus geen aanleiding.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw** (en er staat nog steeds geen [MOET GEFIKST] open):
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd; de bronnenlijst
+      mist drie sub-pagina's en de `Event`-namespace. 🔴 Ik raak dat bestand niet aan.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat
+      er vandaag nog steeds `120007, 120100, 120105` (regel 1). 🔴 Ik raak dat bestand niet aan.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM**. Onschadelijkheid blijft AFGELEID.
+  - 🔧 **Repo-staat: schoon, en de val van 11 en 12 okt is NIET terugkomen.** Bij aanvang stond
+    `HEAD` op `49acda4` *"Handoff: boss-share fix waits for Rob's test on 13 Oct"*, op branch
+    **`main`** (geen detached HEAD), `git status --short` leeg, en **geen** van de vier
+    wachter-bestanden gewijzigd-maar-ongecommit. `git fetch --deepen=300 origin main` liet
+    `origin/main` op diezelfde `49acda4` staan, dus lokaal en remote waren bij aanvang gelijk.
+    📌 De `.toc` staat nog op **4.7.6**.
