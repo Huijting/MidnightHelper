@@ -28,13 +28,17 @@ Nothing in your game changes unless you press a button. On a character whose bar
 
 - **Your week** — reset countdown, Great Vault status for all your characters, this week's world boss, weekly chores, and Ritual Sites and Void Assaults with one-click routes. Play mostly solo? One switch in the settings hides raids and Mythic+ from the plan.
 - **All your characters** — keys, shards, item level and vault status as rows, or side by side in columns with gold, rested XP, currencies, professions and a gear card per character.
-- **Delves** — all 14 Midnight delves with routes, bosses and 3D previews, plus the avoidable damage in the delve or dungeon you are in, named in your own language.
+- **Delves** — all 15 Midnight delves, the Labyrinth of Kindo'jan included, with routes, bosses and 3D previews, plus the avoidable damage in the delve or dungeon you are in, named in your own language.
 - **Raids and dungeons** — beginner steps for every boss, and a Raid Coach that opens by itself when a pull starts. Never done Mythic+? A step-by-step guide explains how to get your first key, where to find a group and what happens during the run. In a group, a small panel shows how many battle resurrections are left, whether Heroism is ready, and who can cast them. Before you pull, a loud warning if your gear is badly worn.
 - **Maps** — floor plans of raids and dungeons with the bosses on them. Click a boss for its tips, or the stairs to change floor. Type `/mh map` inside to see the floor you are on.
 - **Getting there** — a route arrow with live distance that drives the game's own waypoint. `/mh plan` lays out the whole trip as clickable steps and takes a portal when one goes your way. Bound in Silvermoon? It offers your Hearthstone and then the city portal. If you use TomTom, its arrow takes over; with WaypointUI you get both.
 - **Collecting** — the 20 new Midnight mounts as a checklist with progress and a 3D preview. Rares with weekly tracking, routes, and an alert when one is up nearby. Treasure and lore hunts with checked coordinates.
 - **A button for everything** — the floating windows (boss tips, consumable board, your stats, Pawn weights and more) sit together under Tools → Pop-out windows, every setting is under Settings → All settings, and the quick bar shows route buttons while you follow a route. No commands to remember. Hold Shift and scroll over any window to make it bigger or smaller. Using a keypad? Every screen has its own command, such as `/mhrares` (`/mh keypad` lists them).
 - **Reference** — the Midnight Codex handbook, macro templates, a Silvermoon City guide, and a search box that takes a word to the page that answers it.
+
+### New in patch 12.1.5
+
+The **Labyrinth of Kindo'jan**: a route to its door, your first visit step by step, a Delve Coach that explains every task a room can give you and Kindo'jan's tactics, and a boss panel that shows the room boss you target. It is brand new, so expect changes as we play more runs. Also in the Codex: the **Kith'ix** raid (with a Raid Coach), the **Aqir Invasion**, **Ascendant Venomstones** and **Keystone Myth: Season 2**. Boss tactics can now go to the whole group or be whispered to one player.
 
 ### New in patch 12.1
 
