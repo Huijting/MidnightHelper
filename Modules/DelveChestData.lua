@@ -87,6 +87,9 @@ ns.DELVE_CHESTS = {
 		-- /dump C_Map.GetBestMapForUnit, the chest at his own feet. Only one found so far; quest flag unknown (nil =
 		-- "not known to be done", see above). Zygor's LibRover lists 2647 and 2648 for this delve: a second floor?
 		{ x = 37.20, y = 69.70 },
+		-- Rob's video of run 4, 13 Oct 2026 (~3:00): nameplate "Sturdy Chest" with the player on it, The Cave Towers,
+		-- room "Raging Spirits". Read from the minimap coordinates in the video frame.
+		{ x = 81.40, y = 54.70 },
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },

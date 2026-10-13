@@ -116,10 +116,21 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
   "The spirits have responded to your presence with a challenger. Defeat Grukk!" → `0/1 Grukk slain`. Vijanden o.a.
   Haunted Mask, Ancestor Shadowstalker/Shadowwalker, Ancestor Spiritwarden, Raging Spectre, Sacrifice of Flesh,
   Expelled Corruption. Daarna "Choose Your Path". → Eerste kamer per run: Jun'ala (1) / King of Souls (2) / Grukk (3).
+- Kamer 2 van run 3 (NIET opgenomen — de Game Bar nam het chatvenster op; Robs eigen beschrijving): een **geest
+  begeleiden die een "vessel" zoekt**; onderweg af en toe adds, één **vaas** kapotmaken, dan naar een andere hoek en
+  klaar. Kort. Naam van de kamer/het scenario onbekend. (Past mogelijk bij spell 1297630 "Vessel of Awakening".)
 - MH in de chat: "The Labyrinth of Kindo'jan (T1) — 15m 49s (a bit slower than usual) · no deaths" (run-tijd telt mee).
 - Run-voortgang na uitloggen: Rob stond buiten en begon weer bij de eerste kamer (AFGELEID uit de video: de run start
   bij het ingangsvenster en kamer 1) → **een run wordt NIET bewaard** na weggaan.
 
+## Run 4 (video `World of Warcraft 2026-10-13 17-28-45.mp4`, ~8 min)
+
+- Kamer in **The Cave Towers** = scenario **"Raging Spirits"**: "Face the judgment of the angered spirits!" →
+  `Spirits quelled` (balk) → `0/1 Undead Trollbunal slain`. Vijanden o.a. Vile Hexhunter, Vile Pillager, Vile
+  Executioner, Shambling Bones.
+- **Kist ~0:40: "Mislaid Treasure"** (tooltip) bij ~**75.0, 64.1** (The Cave Towers). Ander type dan Sturdy Chest —
+  hoort waarschijnlijk bij *Mislaid Oddities* 63727/63728 (wago). Niet in DelveChestData (alleen Sturdy Chests daar).
+- **Kist ~3:00: "Sturdy Chest"** (naamplaat, speler erop) op **81.4, 54.7** → in DelveChestData gezet.
 - ❓ **Open meting voor 's middags:** blijft de run bewaard na uitloggen/weggaan (zelfde plek, zelfde open deuren),
   of begint hij opnieuw? (Ook open vraag 5 in het tactiekonderzoek.) Antwoord bepaalt een regel in de coach.
 
