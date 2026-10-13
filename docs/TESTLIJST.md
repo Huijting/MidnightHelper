@@ -24,10 +24,11 @@ er is niets weggegooid.
 ## 🆕 13 okt — Coach zonder gat, en de eerste Labyrinth-kist (DelveCoach.lua, DelveChestData.lua)
 
 - [x] Delve Coach opent in de Labyrinth als Labyrinth. ✅ Rob 13 okt, screenshot.
-- [ ] **Geen leeg vlak meer** tussen de knoppen (Share brief/Boss/Chests/More/Copy) en "Overview:" in een delve zonder
-      baasmodel (Labyrinth). In een gewone delve staat het baasmodel er nog gewoon.
-- [ ] **Chests-knop in de Labyrinth:** de pijl gaat naar de Sturdy Chest op 37.2, 69.7 (kaart 2647).
-- [ ] **Geen "Today's story: Bountiful Delve"** meer bovenaan de Labyrinth-coach (de Labyrinth heeft geen dagverhaal).
+- [x] **Geen leeg vlak meer** tussen de knoppen en "Overview:" in de Labyrinth. ✅ Rob 13 okt. (Gewone delve met
+      baasmodel nog niet opnieuw bekeken.)
+- [x] **Chests-knop in de Labyrinth:** pijl naar de Sturdy Chest op 37.2, 69.7. ✅ Rob 13 okt — maar hij wijst ook ná het
+      looten nog: quest-ID onbekend. Volgende kist: `/mh questdiff` → kist openen → `/mh questdiff now` → `/reload`.
+- [x] **Geen "Today's story: Bountiful Delve"** meer. ✅ Rob 13 okt.
 
 ## 🆕 13 okt — Geen omweg via vliegpunten meer (DelveTipMarkup.lua)
 
