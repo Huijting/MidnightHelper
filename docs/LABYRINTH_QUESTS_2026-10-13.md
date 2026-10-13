@@ -100,6 +100,8 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 - Na de Central Chamber: deur **"Continue into Alki'zon's Roost?"** (teller **3**; Rob op 44.4, 31.1). ⚠️ Het venster
   spelt **"Alki'zon"**, de kaart "Akil'zon's Roost" — Blizzards typfout op de PTR, niet overnemen. Hier stopte Rob
   (13 okt ochtend; verder 's middags).
+- ❓ **Open meting voor 's middags:** blijft de run bewaard na uitloggen/weggaan (zelfde plek, zelfde open deuren),
+  of begint hij opnieuw? (Ook open vraag 5 in het tactiekonderzoek.) Antwoord bepaalt een regel in de coach.
 
 ## Schatten (voor DelveChestData later)
 
