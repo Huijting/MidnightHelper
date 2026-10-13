@@ -12,6 +12,11 @@ Wago "Success!", GitHub-release met zip + release.json. Site-chat geseind (bouwt
 ✅ Rob: CF-changelog-opmaak goed; ✅ CURSEFORGE_DESCRIPTION.md (nieuwe KORTE versie, 452 woorden — Rob koos optie 2,
 "we hebben nu eenmaal een mooie site gebouwd") op CF geplakt, 13 okt avond. Translations: check_drift 0 in alle talen (6ee61a2).
 Vanaf nu: Labyrinth-fixes uit Robs runs gaan als 4.7.7 (eerst beta, tenzij Rob anders kiest).
+📌 **Site-chat wacht hierop (13 okt avond):** zijn "Ready for 12.1.5"-blok (5 Codex-kaartjes, 8 talen) staat live.
+Zodra onze Codex-kaartjes na de patch geen "test realm"/"not yet seen" meer zeggen → site-chat seinen, dan werkt hij het
+blok bij. GEMETEN 13 okt: alleen de Kith'ix-kaart (`Locales/Codex.lua:175`) zegt "Worked out from game data; not yet
+seen on screen". Pas weghalen als Rob of iemand de ingang/het gevecht live gezien heeft. US-servers waren 13 okt 19:19
+nog offline (site-chat, GEMETEN): wago 70340 = build klaargezet, niet live.
 
 **(Eerder:) 13 okt avond: Rob kiest de ECHTE release 4.7.6** (geen beta4: "11 betatesters die niets melden"). Releasetekst
 KLAAR en gecommit: RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (byte-gelijk, `cmp`), beta-alinea bovenaan, Labyrinth-
