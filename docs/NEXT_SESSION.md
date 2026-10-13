@@ -11,8 +11,9 @@ DGN_SHARE_*-sleutels in 8 talen (locale_probe: alle OK), CHANGELOG_476_26. Rob 1
 Valeera stond in het lijstje en 4× "number of messages … limited" → fix 2458dfc (UnitIsPlayer + 1 regel/s).
 Rob test de fix 13 okt (WoW was al dicht) → TESTLIJST.
 13 okt ochtend: lint [19] werd HARD op RAID_BOSS_NEKZALI_STEPS 1297630 — niet door ons, maar omdat DBM 12.1.13 die ID
-niet meer draagt (add-waarschuwing nu 1295397). In `tools/tip_baseline.json` gezet mét notitie; open = naam van 1295397
-meten (`/dump`, TESTLIJST) en dan eventueel de tip omzetten (8 talen). wago.tools gaf 503 op patchdag. Alles
+niet meer draagt (add-waarschuwing nu 1295397). ✅ Rob mat op PTR 70340: 1295397 = Restless Amani → tip omgezet in
+8 talen, baseline-regel weer weg (82). PTR (`_xptr_`) draait nu **12.1.5.70340**; MH daarheen gekopieerd 13 okt, Rob
+test er de nieuwe delve. wago.tools gaf de hele ochtend 503 → `run names_1215` telt pas als "builds" weer lukt. Alles
 daarna NIET getagd (Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten, doodskaart-tips,
 spell-presses, website-links incl. titelbalk, boss-fluisteren — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
 🔴 Bij de volgende tag: site-chat ("Site chat 12-10" of opvolger) seinen → site herbouwen uit de tag (52 Codex-ankers,

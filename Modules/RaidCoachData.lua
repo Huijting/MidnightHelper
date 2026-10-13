@@ -147,7 +147,9 @@ local TIPS = {
 	---
 	--- 📌 Two sources per line where possible: WHAT TO DO from Zygor's `|grouprole` tips,
 	--- WHICH SPELL from DBM. A {SPELL:} link appears only where DBM names the same ability
-	--- (1241836 Shadowclaw Slam, 1246175 Entropic Unraveling, 1297630 Restless Amani,
+	--- (1241836 Shadowclaw Slam, 1246175 Entropic Unraveling, 1295397 Restless Amani —
+	--- was 1297630, which the client calls Vessel of Awakening; switched 13 Oct 2026 after
+	--- DBM 12.1.13 moved to 1295397 and Rob measured both names with /dump,
 	--- 1301118 Grasping Fangs). Blackening Wounds, Dig In and Venomous Heart are in neither
 	--- DBM nor any id source, so they stay plain English names with NO link rather than a
 	--- number chosen to look complete.

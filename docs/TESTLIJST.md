@@ -23,7 +23,9 @@ er is niets weggegooid.
 
 ## 🆕 13 okt — Nek'zali: welke naam hoort bij DBM's nieuwe add-ID?
 
-- [ ] Typ in het spel `/dump C_Spell.GetSpellName(1295397)` en `/dump C_Spell.GetSpellName(1297630)`. Wat staat er?
+- [x] Typ in het spel `/dump C_Spell.GetSpellName(1295397)` en `/dump C_Spell.GetSpellName(1297630)`. Wat staat er?
+      ✅ Rob 13 okt (PTR 70340): 1295397 = "Restless Amani", 1297630 = "Vessel of Awakening" → tip staat nu op 1295397.
+- [ ] Codex → Raids → Nek'zali, stappen: de eerste regel noemt nu "Restless Amani"-adds (klikbaar).
       (Achtergrond: DBM 12.1.13 waarschuwt voor de adds nu met 1295397, volgens DBM "Restless Amani"; onze tip linkt
       1297630, dat op 4 sep "Vessel of Awakening" bleek. Is 1295397 echt "Restless Amani", dan zet ik de tip op die ID.)
 
