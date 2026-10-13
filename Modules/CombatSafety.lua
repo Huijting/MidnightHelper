@@ -204,20 +204,27 @@ local function EnsureFrame()
 
 	-- 🔴 Rob, 13 Oct 2026 (PTR, Labyrinth): the title read "DANGEROUS C..." — 210 px leaves ~150 for the text,
 	-- and GameFontNormalLarge (plus a translated title) does not fit. Grow the frame to the longer of the two
-	-- lines instead of cutting the warning short; 210 stays the minimum. Re-measured on every show, so a font or
-	-- language change follows.
-	local function FitWidth()
-		local function natural(fs)
-			if fs.GetUnboundedStringWidth then
-				return fs:GetUnboundedStringWidth() or 0
-			end
-			return fs:GetStringWidth() or 0
+	-- lines instead of cutting the warning short; 210 stays the minimum.
+	-- 🔴 MEASURED ONCE, HERE, AND ONLY WHEN READABLE. The first version re-measured on every OnShow and threw 98x
+	-- "attempt to perform numeric conversion on a secret number value" in combat (Rob, 13 Oct 2026, PTR): once
+	-- this frame shows a secret cast, 12.x hands back its text widths as secret values too. Both texts are static
+	-- locale strings, so one measurement at creation is enough; anything secret keeps the 210 default.
+	local function natural(fs)
+		local okW, w
+		if fs.GetUnboundedStringWidth then
+			okW, w = pcall(fs.GetUnboundedStringWidth, fs)
+		else
+			okW, w = pcall(fs.GetStringWidth, fs)
 		end
-		local textW = math.max(natural(title), natural(who))
-		f:SetWidth(math.max(210, math.ceil(46 + 2 + 8 + textW + 10)))
+		if not okW or w == nil or (issecretvalue and issecretvalue(w)) or type(w) ~= "number" then
+			return nil
+		end
+		return w
 	end
-	FitWidth()
-	f:HookScript("OnShow", FitWidth)
+	local wTitle, wWho = natural(title), natural(who)
+	if wTitle and wWho then
+		f:SetWidth(math.max(210, math.ceil(46 + 2 + 8 + math.max(wTitle, wWho) + 10)))
+	end
 
 	f:SetScript("OnDragStart", function(self)
 		self:StartMoving()

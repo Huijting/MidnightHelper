@@ -87,6 +87,9 @@ instance liep MH de bovenliggende kaarten af, vond "Eversong Woods", en "Everson
 
 - [ ] Bij een gevaarlijke cast (of `/mh` testknop van Combat Safety): de kop staat er helemaal, "DANGEROUS CAST",
       niet "DANGEROUS C…". Het vak is breder geworden waar nodig.
+- [ ] 🔴 **Geen BugSack-fout meer** "attempt to perform numeric conversion on a secret number value" (CombatSafety.lua:216,
+      98× in Robs run 13 okt). Oorzaak: de breedte werd bij élke weergave gemeten, in combat geeft 12.x die als
+      secret terug. Nu één keer bij het aanmaken, met secret-check.
 
 ## 🆕 13 okt — Delves-tabblad in een smal venster (UI.lua + Delves.lua)
 
