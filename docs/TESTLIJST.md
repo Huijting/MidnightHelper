@@ -28,6 +28,8 @@ instance liep MH de bovenliggende kaarten af, vond "Eversong Woods", en "Everson
 - [ ] **In de Labyrinth** (na `/reload`): bij een baas opent geen Darkway-venster meer. (MH kent de Labyrinth nog
       niet, dus er komt nu géén bossvenster — dat is goed.)
 - [ ] **In The Darkway zelf** (live, later): de Delve Coach en het bossvenster kennen de Darkway nog gewoon.
+- [ ] **Labyrinth, bij een kamerbaas:** géén knop "Final boss — open the Delve Coach?" meer (MH heeft geen coach voor
+      deze delve). In een gewone delve die MH kent komt die knop nog wél (DelveCoach.lua).
 
 ## 🆕 13 okt — "DANGEROUS CAST" niet meer afgekapt (CombatSafety.lua)
 

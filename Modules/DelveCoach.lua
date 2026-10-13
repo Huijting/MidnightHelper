@@ -1703,6 +1703,11 @@ local function ShowBossPromptButton()
 	if coachFrame and coachFrame:IsShown() then
 		return -- coach al open → geen prompt nodig
 	end
+	-- Rob, 13 okt 2026 (PTR, Labyrinth of Kindo'jan, baas Sha'Kuro): de knop verscheen in een delve die MH niet
+	-- kent, en een klik deed dan niets (OnClick vindt geen entry). Geen coach om te openen → geen knop.
+	if not ResolveActiveDelveEntry() then
+		return
+	end
 	if not bossPrompt then
 		local b = CreateFrame("Button", nil, UIParent, "UIPanelButtonTemplate")
 		b:SetSize(230, 26)

@@ -36,10 +36,35 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 - Volgende deur = groene energiedeur met sleutel-icoon; klik geeft venster **"Continue into the Reliquary?"** —
   "The chamber ahead is eerily silent.", een icoon met "1" (kosten/sleutel? niet gemeten) en knop **Enter Chamber**.
 
+- **Quest 4 inleveren bij Valeera** ("A talking bird. Great.") → 500 Undercoin.
+- **Quest 5 "The Way Forward..."** van Valeera: *Complete the Labyrinth run.* Beloning **500 Undercoin + Restored
+  Coffer Key**. Tracker toont eerst "0/1 Reliquary cleared".
+- **Kamer 2 = The Reliquary** (links van het midden, naast Halazzi's Lair; Rob op 28.8, 68.0). Scenario **"Spirit
+  Thieves"** — "Put an end to the Vilebranch's necromantic rituals." Doelen: `Disrupt the Vilebranch` (balk 0-100%)
+  → `0/9 Souls returned`. Vijanden o.a. Vile Ravager, Shambling Bones, Vile Exe… (afgekapt).
+- **"Discovery — Respawn Point Unlocked!"** bij een zuiltje met een lichtbundel = de checkpoints uit de transcript.
+- Daarna weer "Choose Your Path". Het deurvenster telt op: **"Continue into the Reliquary?"** had een icoon met **1**,
+  **"Continue into Halazzi's Lair?"** een icoon met **2** (AFGELEID: aantal gedane kamers of een sleutel-teller).
+
+- **Kamer 3 = Halazzi's Lair** (Rob op 27.7, 47.9; tracker "The Way Forward… 0/1 Halazzi's Lair cleared").
+  Scenario **"Reliquary Ritual"**: "Break the corrupted Spirit Reliquaries to stop Sha'Kuro's ritual" `0/9 Corrupted
+  Reliquaries broken` → "Confront the necromancer" `0/1 Sha'Kuro confronted` → `Survive the Undead` (balk) →
+  "Defeat Sha'Kuro while he's still in a weakened state" `0/1 Sha'Kuro slain` → **"Sha'Kuro has been defeated"** →
+  "Chamber Complete".
+- Daarna **"Empty Halls"**: `0/1 Speak to Kinduru to end your run`. Kinduru-tooltip: *The Way Forward… 0/1 Speak to
+  Kinduru*. De **eerste (intro-)run is dus 3 kamers**: Jun'ala → Reliquary → Halazzi's Lair (past bij de transcript:
+  "oefenrun door een paar vleugels"). Empty Halls = ScenarioStep 3721 in het tactiekonderzoek.
+
 ## MH binnen
 
 - **Combat Safety (CombatSafety.lua)** gaf "DANGEROUS CAST / Targeting you — move / interrupt" op Jun'ala's cast —
   maar de kop was afgekapt tot "DANGEROUS C…". Gerepareerd 13 okt (frame groeit mee met de tekst).
+- **DurabilityWarn** gaf bij elke kamer "Your gear is at 0%". `/mh durability` (GEMETEN): **alle 9 vakjes 0%**
+  (Sprawling-set, Preyseeker's Epaulet, Wretched Scholar's Robe, Elderoot Spire), ook na repareren. De API geeft dus
+  cur = 0. ✅ Rob: items in het character-scherm zijn ROOD en blijven rood na repareren → echt kapot, PTR-repair
+  werkt niet. **MH had gelijk; geen fix.** De herhaling per kamer: elke kamer = nieuwe instance-sleutel (AFGELEID).
+- **"Final boss — open the Delve Coach?"**-knop verscheen bij Sha'Kuro, maar MH kent de Labyrinth niet → klik deed
+  niets. Gerepareerd 13 okt: knop alleen als er een coach-entry is.
 
 **Het ingangsvenster** (Rob, screenshot): kop "Delve", naam "The Labyrinth of Kindo'jan", tier-keuze (stond op
 **Tier 11** bij Robs PTR-character), vijf "Map Properties"-icoontjes, knop **Enter**. "Chance to receive": Kindo'jan's
