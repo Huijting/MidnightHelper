@@ -330,6 +330,10 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 270594, label = "Bone-Flayer Rav'iki", tipLineMatch = { "Rav'iki" } },
 		{ creatureId = 271525, label = "The Prisoner", tipLineMatch = { "The Prisoner" } },
 		{ creatureId = 266742, label = "Den'zara", tipLineMatch = { "Den'zara" } },
+		-- Not in Zygor and not seen yet: only their DungeonEncounters (3646, 3642) in Blizzard data, and DBM's empty
+		-- stubs of 13 Oct. No NPC id, so they are found by name and learn their id on first target (learnCreatureId).
+		{ label = "Shadowhunter Jo'din", learnCreatureId = true, tipLineMatch = { "Jo'din" } },
+		{ label = "Treasure Hunter Taltrois", learnCreatureId = true, tipLineMatch = { "Taltrois" } },
 		{ creatureId = 266500, label = "Kindo'jan", tipLineMatch = {
 			"Kindo'jan", "Amani Aegis", "Crushing Blow", "Hash'ey", "Disgraceful", "  – ",
 		} },
@@ -1780,6 +1784,14 @@ function ns.TryResolveDelveBossFromUnits(entryId)
 	if type(bosses) ~= "table" then
 		return nil, nil, nil
 	end
+	local learned = ns.db and ns.db.delveBossLearnedIds
+	if learned then
+		for _, boss in ipairs(bosses) do
+			if boss.learnCreatureId and not boss.creatureId and learned[boss.label] then
+				boss.creatureId = learned[boss.label]
+			end
+		end
+	end
 	local function checkUnit(unit)
 		if not UnitExists or not UnitExists(unit) then
 			return nil, nil
@@ -1810,6 +1822,15 @@ function ns.TryResolveDelveBossFromUnits(entryId)
 			return nil, nil
 		end)
 		if okMatch then
+			-- A boss we only know by name keeps the id it turns out to have, for the model now and for us later
+			-- (ns.db.delveBossLearnedIds, read from SavedVariables).
+			if boss and boss.learnCreatureId and not boss.creatureId and creatureId then
+				boss.creatureId = creatureId
+				if ns.db then
+					ns.db.delveBossLearnedIds = ns.db.delveBossLearnedIds or {}
+					ns.db.delveBossLearnedIds[boss.label] = creatureId
+				end
+			end
 			return boss, idx
 		end
 		return nil, nil

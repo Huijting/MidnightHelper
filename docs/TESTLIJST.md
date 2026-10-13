@@ -28,7 +28,12 @@ Rob: "ik had verwacht dat we bij elke kamer met een minibaas een venster zouden 
       tips show here." (niet meer "hover the delve icon for today's story").
 - [ ] **Neem een kamerbaas in je doelwit** (bv. Grukk, Sullied Revenant, King of Souls): het bossvak toont zijn
       naam + 3D-model, en onder "Trash & mechanics" staat alleen nog de regel van díé baas (plus de algemene regels).
-- [ ] Met ◀ ▶ kun je door alle 17 bazen bladeren (incl. Den'zara en Kindo'jan). Laadt een model niet, meld welke.
+- [ ] Met ◀ ▶ kun je door alle 19 bazen bladeren (incl. Den'zara en Kindo'jan). Laadt een model niet, meld welke.
+      Shadowhunter Jo'din en Treasure Hunter Taltrois (nieuw 13 okt, nog nooit gezien) hebben bij bladeren nog géén
+      model: dat is zo bedoeld, we kennen hun NPC-nummer niet.
+- [ ] **Kom je Jo'din of Taltrois tegen: target hem.** Dan hoort het bossvak zijn naam + model + zijn tipregel te tonen,
+      en onthoudt MH zijn NPC-nummer. Daarna `/reload` → ik lees `delveBossLearnedIds` uit de SavedVariables. Graag
+      een filmpje van het gevecht: we weten van Taltrois nog niets, van Jo'din alleen Soul Shatter.
 
 ## 🆕 13 okt — Labyrinth-coach: alle opdrachten + Kindo'jan (uit de nieuwe Zygor-gids)
 

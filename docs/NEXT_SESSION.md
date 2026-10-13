@@ -23,6 +23,15 @@ blok bij. GEMETEN 13 okt (eerst gemist: ik zocht "test realm", de tekst zegt "te
 gezien is, dan check_drift + site-chat seinen. US-servers waren 13 okt 19:19
 nog offline (site-chat, GEMETEN): wago 70340 = build klaargezet, niet live.
 
+**13 okt laat — DBM r265 + 2 kamerbazen erbij (Rob: "zet ze er alvast bij met wat we weten"):** DBM-Delves-Midnight
+r265 heeft 12 Labyrinth-modules van 13 okt, GEMETEN allemaal LEEG (alleen EncounterID + TODO). Kith'ix-module = 14 sep,
+alle 10 spells al in onze tips. Wél gevonden: Shadowhunter Jo'din (3646) en Treasure Hunter Taltrois (3642) stonden niet in
+het bossvak (Zygor heeft ze niet). Nu wel: `DelveBossShowcase.lua` zonder creatureId, `learnCreatureId = true` → match op
+naam (alleen Engelse client!), id wordt onthouden in `ns.db.delveBossLearnedIds`. Tip-regels in DELVE_TIP_LABYRINTH_ROOMS,
+8 talen (mh-writer, locale_probe OK, check_drift gemarkeerd). Jo'din = Soul Shatter 1317484 [W]; Taltrois = niets bekend,
+"misschien leider van de Graverobbers" AFGELEID. Rob: target ze + `/reload` → id uitlezen en vast in de tabel zetten.
+📌 check_drift `--lang` wil volle codes met komma's: `--lang deDE,frFR,esES,ptBR,itIT,ruRU`.
+
 **(Afgehandeld:)** Rob koos de echte release i.p.v. beta4 ("11 betatesters die niets melden"); de C_Item-fixes voor de
 weggehaalde item-globals (a48171d) zitten dus in 4.7.6.
 
