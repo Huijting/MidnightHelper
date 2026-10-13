@@ -21,10 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Delve Coach voor de Labyrinth (DelveTipsData.lua + 4 sleutels in 8 talen + esMX)
+
+- [ ] **Delves-tabblad:** achter "The Labyrinth of Kindo'jan" staat nu het boekje. Klik → Delve Coach met drie
+      stukken: Overzicht (eerste keer, Kinduru, schatkamer), Trash & mechanics (de 3 gespeelde kamers + andere
+      kamerbazen) en Final boss (Kindo'jan, met "nog niet bekend").
+- [ ] **In de Labyrinth zelf:** opent de Delve Coach nu vanzelf als Labyrinth (niet als Darkway), en verschijnt bij een
+      baas de knop "Final boss — open the Delve Coach?" weer — nu met de goede coach erachter.
+
 ## 🆕 13 okt — Labyrinth in de delve-lijst + "De eerste keer" in de Codex (Delves.lua, Codex.lua, 8 talen)
 
-- [ ] **Delves-tabblad:** rechts onderaan staat "The Labyrinth of Kindo'jan". Klik → route naar Eversong 62.9, 72.0
-      (de deur). Op de testserver; op live pas na de patch (EU woensdag).
+- [x] **Delves-tabblad:** rechts onderaan staat "The Labyrinth of Kindo'jan". Klik → route naar Eversong 62.9, 72.0
+      (de deur). Op de testserver; op live pas na de patch (EU woensdag). ✅ Rob 13 okt: "labyrinth staat in de lijst".
 - [ ] **Codex → Labyrinth-kaart:** nieuw kopje "The first time" / "De eerste keer": tablet → Kul'amara in Atal'Aman →
       Valeera bij de deur → korte eerste run van 3 kamers → Kinduru → schatkamer → terug naar Kul'amara (toy).
       De routelink in "Getting in" wijst naar 62.9, 72.0.

@@ -280,6 +280,27 @@ ns.DELVE_TIP_ENTRIES = {
 			},
 		},
 	},
+	--- The Labyrinth of Kindo'jan (12.1.5). Rob, 13 Oct 2026: "bouw optie 1" — a coach with what is measured
+	--- (rooms 1-3, played by Rob on the PTR) plus the game data and guides, saying plainly what is not known yet.
+	--- zoneAliases: the delve's own name per client, MEASURED in wago 70077 (AreaPOI 9035, tools/names_1215.py),
+	--- so the coach also finds it on a non-English client. Only full names, never a zone: see the Darkway/Eversong
+	--- mix-up the same day (CollectZoneStrings below).
+	{
+		id = "labyrinth_kindojan",
+		rosterName = "The Labyrinth of Kindo'jan",
+		nameKey = "DELVE_NAME_LABYRINTH",
+		poiId = 9035,
+		zoneAliases = {
+			"Labyrinth of Kindo", "Labyrinth von Kindo'jan", "labyrinthe de Kindo",
+			"laberinto de Kindo", "Laberinto de Kindo", "Labirinto de Kindo", "Labirinto di Kindo",
+			"Лабиринт Киндо'джана",
+		},
+		sections = {
+			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_LABYRINTH_OVERVIEW" },
+			{ titleKey = "DELVE_COACH_SEC_TRASH", bodyKey = "DELVE_TIP_LABYRINTH_ROOMS" },
+			{ titleKey = "DELVE_COACH_SEC_BOSS", bodyKey = "DELVE_TIP_LABYRINTH_BOSS" },
+		},
+	},
 }
 
 local byId = {}

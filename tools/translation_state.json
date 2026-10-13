@@ -8433,6 +8433,14 @@
    "ptBR": "fc8bbeb4818dcdc2",
    "ruRU": "fc8bbeb4818dcdc2"
   },
+  "DELVE_NAME_LABYRINTH": {
+   "deDE": "97bb8f6b4aac4f51",
+   "esES": "97bb8f6b4aac4f51",
+   "frFR": "97bb8f6b4aac4f51",
+   "itIT": "97bb8f6b4aac4f51",
+   "ptBR": "97bb8f6b4aac4f51",
+   "ruRU": "97bb8f6b4aac4f51"
+  },
   "DELVE_NAME_PARHELION_PLAZA": {
    "deDE": "f35a78c4a46dbb30",
    "esES": "f35a78c4a46dbb30",
@@ -9072,6 +9080,30 @@
    "nlNL": "4664066df6c0926d",
    "ptBR": "4664066df6c0926d",
    "ruRU": "4664066df6c0926d"
+  },
+  "DELVE_TIP_LABYRINTH_BOSS": {
+   "deDE": "c6121706f75431b5",
+   "esES": "c6121706f75431b5",
+   "frFR": "c6121706f75431b5",
+   "itIT": "c6121706f75431b5",
+   "ptBR": "c6121706f75431b5",
+   "ruRU": "c6121706f75431b5"
+  },
+  "DELVE_TIP_LABYRINTH_OVERVIEW": {
+   "deDE": "d72ea9ed81c6f551",
+   "esES": "d72ea9ed81c6f551",
+   "frFR": "d72ea9ed81c6f551",
+   "itIT": "d72ea9ed81c6f551",
+   "ptBR": "d72ea9ed81c6f551",
+   "ruRU": "d72ea9ed81c6f551"
+  },
+  "DELVE_TIP_LABYRINTH_ROOMS": {
+   "deDE": "3a5956e02762d501",
+   "esES": "3a5956e02762d501",
+   "frFR": "3a5956e02762d501",
+   "itIT": "3a5956e02762d501",
+   "ptBR": "3a5956e02762d501",
+   "ruRU": "3a5956e02762d501"
   },
   "DELVE_TIP_PARHELION_PLAZA_BOSS": {
    "deDE": "42599feb52d773ee",
