@@ -419,6 +419,23 @@ local function SavePoint(f)
 	end
 end
 
+--- The tips start right under the boss panel when it shows, and in its place when it does not. Rob, 13 Oct 2026
+--- (PTR, Labyrinth coach — a delve with no boss models yet): the hidden panel still held its height, so a big empty
+--- block sat between the buttons and the text.
+local function AnchorCoachScroll(f, panelShown)
+	local scroll, panel = f._scroll, f._bossPanel
+	if not (scroll and panel) then
+		return
+	end
+	scroll:ClearAllPoints()
+	if panelShown then
+		scroll:SetPoint("TOPLEFT", panel, "BOTTOMLEFT", 0, -6)
+	else
+		scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, 0)
+	end
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, RESIZE_EDGE_H + 8)
+end
+
 local function UpdateBossShowcase(f, entryId)
 	local panel = f._bossPanel
 	local model = f._bossModel
@@ -431,8 +448,10 @@ local function UpdateBossShowcase(f, entryId)
 	local bosses = ns.GetDelveBossShowcase and ns:GetDelveBossShowcase(entryId)
 	if not bosses or #bosses == 0 then
 		panel:Hide()
+		AnchorCoachScroll(f, false)
 		return
 	end
+	AnchorCoachScroll(f, true)
 
 	-- If we re-enter a delve run, clear the previous manual carousel choice so
 	-- auto-detection can take over once the active boss is known.

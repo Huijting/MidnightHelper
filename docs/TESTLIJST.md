@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Coach zonder gat, en de eerste Labyrinth-kist (DelveCoach.lua, DelveChestData.lua)
+
+- [x] Delve Coach opent in de Labyrinth als Labyrinth. ✅ Rob 13 okt, screenshot.
+- [ ] **Geen leeg vlak meer** tussen de knoppen (Share brief/Boss/Chests/More/Copy) en "Overview:" in een delve zonder
+      baasmodel (Labyrinth). In een gewone delve staat het baasmodel er nog gewoon.
+- [ ] **Chests-knop in de Labyrinth:** de pijl gaat naar de Sturdy Chest op 37.2, 69.7 (kaart 2647).
+
 ## 🆕 13 okt — Geen omweg via vliegpunten meer (DelveTipMarkup.lua)
 
 Rob 13 okt (PTR): route van Kul'amara (Atal'Aman) naar de Labyrinth stuurde hem naar een vliegpunt, dan naar een ander,

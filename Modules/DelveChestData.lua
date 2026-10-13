@@ -83,6 +83,11 @@ ns.DELVE_CHESTS = {
 		{ x = 53.06, y = 57.95, quest = 94000 },
 		{ x = 53.00, y = 65.34, quest = 94038 },
 	},
+	[2647] = { -- The Labyrinth of Kindo'jan (12.1.5). MEASURED by Rob on the PTR, 13 Oct 2026: map id via
+		-- /dump C_Map.GetBestMapForUnit, the chest at his own feet. Only one found so far; quest flag unknown (nil =
+		-- "not known to be done", see above). Zygor's LibRover lists 2647 and 2648 for this delve: a second floor?
+		{ x = 37.20, y = 69.70 },
+	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },
 		{ x = 41.16, y = 86.79, quest = 94033 },

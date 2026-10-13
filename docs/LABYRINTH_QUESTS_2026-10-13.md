@@ -80,6 +80,13 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
   verhaallijn in de Traveler's Log. Een vervolgquest verscheen niet meteen (Rob, 13 okt) — "if the spirits call"
   wijst op een latere oproep (AFGELEID: de wekelijkse lijn).
 
+## Schatten (voor DelveChestData later)
+
+- **Sturdy Chest** op **37.2, 69.7** op de Labyrinth-binnenkaart (Rob, run 2, 13 okt). Buit o.a. Bright Linen, Stained
+  Grea…, Rattling Bag, 1g98s + 20g61s, Warband-reputatie. Hoort waarschijnlijk bij achievement *Discoveries* 63717
+  (Sturdy Chests, titel Treasure Hound — wago). **Binnenkaart = uiMapID 2647** (Rob, `/dump`, 13 okt); Zygor noemt
+  2647 en 2648. In `DelveChestData.lua` gezet (zonder quest-ID).
+
 ## MH binnen
 
 - **Combat Safety (CombatSafety.lua)** gaf "DANGEROUS CAST / Targeting you — move / interrupt" op Jun'ala's cast —
