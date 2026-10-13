@@ -397,7 +397,15 @@ local function CollectZoneStrings()
 	add(GetRealZoneText and GetRealZoneText() or nil)
 	if C_Map and C_Map.GetBestMapForUnit then
 		local mapID = C_Map.GetBestMapForUnit("player")
-		for _ = 1, 14 do
+		-- 🔴 Inside an instance, only the player's OWN map counts, never its parents. Rob, 13 Oct 2026 (PTR): in
+		-- The Labyrinth of Kindo'jan the boss window opened as The Darkway. That map hangs under Eversong Woods,
+		-- and "Eversong" is one of the_darkway's zoneAliases, so walking up the parent chain matched it. A delve
+		-- we do not know must match nothing, not the nearest delve in the same zone.
+		local maxDepth = 14
+		if IsInInstance and IsInInstance() then
+			maxDepth = 1
+		end
+		for _ = 1, maxDepth do
 			if not mapID then
 				break
 			end

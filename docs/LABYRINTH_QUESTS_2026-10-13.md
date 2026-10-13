@@ -1,5 +1,10 @@
 # The Labyrinth of Kindo'jan — de weg naar binnen (GEMETEN door Rob, PTR 12.1.5.70340, 13 okt 2026)
 
+⚠️ **Lees eerst wat er al is:** `docs/PATCH_12_1_5_CONTENT_2026-10-07.md` §Labyrinth (incl. Robs YouTube-transcript
+van 11 okt: "korte startquestlijn met een oefenrun door een paar vleugels"), `docs/PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md`
+(alle kamerbazen, o.a. Jun'ala = DungeonEncounter 3526; Choose Your Path = ScenarioStep 3342) en de Codex-kaart
+`CODEX_LABYRINTH_BODY` (route 2395 62.99, 72.18). Dit bestand is de AANVULLING uit het spel.
+
 Bron: Robs screenshots van elk questvenster. Quest-ID's nog NIET gemeten (wago gaf 503); opzoeken op naam zodra
 wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in LibRover.
 

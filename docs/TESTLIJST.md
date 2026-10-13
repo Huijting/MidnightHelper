@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Labyrinth is geen Darkway meer (DelveTipsData.lua)
+
+Rob 13 okt (PTR): bij Jun'ala opende het bossvenster als "The Darkway". Oorzaak GEMETEN in de code: binnen een
+instance liep MH de bovenliggende kaarten af, vond "Eversong Woods", en "Eversong" is een bijnaam van the_darkway.
+- [ ] **In de Labyrinth** (na `/reload`): bij een baas opent geen Darkway-venster meer. (MH kent de Labyrinth nog
+      niet, dus er komt nu géén bossvenster — dat is goed.)
+- [ ] **In The Darkway zelf** (live, later): de Delve Coach en het bossvenster kennen de Darkway nog gewoon.
+
 ## 🆕 13 okt — "DANGEROUS CAST" niet meer afgekapt (CombatSafety.lua)
 
 - [ ] Bij een gevaarlijke cast (of `/mh` testknop van Combat Safety): de kop staat er helemaal, "DANGEROUS CAST",
