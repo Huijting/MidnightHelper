@@ -90,6 +90,13 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
   Chamber?"** én **"Continue into Halazzi's Lair?"** → in run 2 kies je echt tussen kamers (Rob: "ik kan nu uit
   meerdere kamers kiezen"). De teller = aantal gedane kamers (AFGELEID: in run 1 stond er 1 vóór kamer 2 en 2 vóór
   kamer 3; hier 2 vóór kamer 3).
+- **Central Chamber = de ronde hal in het midden** (waar Kinduru staat, ~44.2, 43.9). Rob koos hem en "daar was ik dus
+  al": de hub wordt in run 2 zelf een kamer. Scenario **"Vile Intruders"**: "Defeat the Sullied Revenant that's been
+  driven mad by the Vilebranch's desecration." `0/1 Sullied Revenant slain` → "Sullied Revenant has been defeated".
+  (Het tactiekonderzoek noemde Vile Intruders al: Vilebranch-trollen, dan Sullied Revenant.)
+- Daarna "Choose Your Path"; Kinduru: "It is time we picked de next chamber to explore. Or are ya too weary to
+  continue?" Op de kaart staan nu **veel deuren open rond het midden** (o.a. richting Akil'zon's Roost en Nalorakk's
+  Rest); alleen de bovenste deur van Akil'zon's Roost en de Cave Towers hebben nog een slot.
 
 ## Schatten (voor DelveChestData later)
 
@@ -97,6 +104,8 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
   Grea…, Rattling Bag, 1g98s + 20g61s, Warband-reputatie. Hoort waarschijnlijk bij achievement *Discoveries* 63717
   (Sturdy Chests, titel Treasure Hound — wago). **Binnenkaart = uiMapID 2647** (Rob, `/dump`, 13 okt); Zygor noemt
   2647 en 2648. In `DelveChestData.lua` gezet (zonder quest-ID).
+- **Mogelijk tweede kist** op **45.7, 34.6** (2647), run 2 — per ongeluk geopend; Rob weet niet zeker of het een
+  Sturdy Chest was ("als ie het was"). NIET in DelveChestData tot bevestigd. Vanaf hier staat `/mh questdiff` aan.
 
 ## MH binnen
 

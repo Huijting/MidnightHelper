@@ -1127,8 +1127,10 @@ local function EnsureCoachFrame()
 	end)
 
 	local bossPanel = CreateFrame("Frame", nil, f, "BackdropTemplate")
-	bossPanel:SetPoint("TOPLEFT", shareBar, "BOTTOMLEFT", 4, -4)
-	bossPanel:SetPoint("TOPRIGHT", shareBar, "BOTTOMRIGHT", -4, -4)
+	-- Under the BUTTON ROW, not under the fixed-height share bar: the row wraps (Copy lands on a second line in a
+	-- narrow window) and grows past the bar's 52 px. Rob, 13 Oct 2026 (PTR): "Copy" sat on top of "Overview:".
+	bossPanel:SetPoint("TOPLEFT", btnRow, "BOTTOMLEFT", 4, -4)
+	bossPanel:SetPoint("TOPRIGHT", btnRow, "BOTTOMRIGHT", -4, -4)
 	bossPanel:SetHeight(BOSS_PANEL_H)
 	if bossPanel.SetBackdrop then
 		bossPanel:SetBackdrop({

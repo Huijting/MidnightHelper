@@ -29,6 +29,8 @@ er is niets weggegooid.
 - [x] **Chests-knop in de Labyrinth:** pijl naar de Sturdy Chest op 37.2, 69.7. ✅ Rob 13 okt — maar hij wijst ook ná het
       looten nog: quest-ID onbekend. Volgende kist: `/mh questdiff` → kist openen → `/mh questdiff now` → `/reload`.
 - [x] **Geen "Today's story: Bountiful Delve"** meer. ✅ Rob 13 okt.
+- [ ] **"Copy" valt niet meer over "Overview:"** als de knoppen op twee regels staan (smal coach-venster). Ook in een
+      gewone delve met baasmodel: het model staat onder de knoppen, niet eroverheen.
 
 ## 🆕 13 okt — Geen omweg via vliegpunten meer (DelveTipMarkup.lua)
 
