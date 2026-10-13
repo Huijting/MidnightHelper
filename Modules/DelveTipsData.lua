@@ -293,6 +293,8 @@ ns.DELVE_TIP_ENTRIES = {
 		-- No daily story variants here: rooms are chosen per run (Rob saw Jun'ala first in run 1, King of Souls in
 		-- run 2). Without this the coach read the POI label "Bountiful Delve" as today's story.
 		noStory = true,
+		-- Each room is its own scenario; its last stage is not the final boss (DelveCoach ShowBossPromptButton).
+		noFinalBossPrompt = true,
 		zoneAliases = {
 			"Labyrinth of Kindo", "Labyrinth von Kindo'jan", "labyrinthe de Kindo",
 			"laberinto de Kindo", "Laberinto de Kindo", "Labirinto de Kindo", "Labirinto di Kindo",

@@ -1728,7 +1728,13 @@ local function ShowBossPromptButton()
 	end
 	-- Rob, 13 okt 2026 (PTR, Labyrinth of Kindo'jan, baas Sha'Kuro): de knop verscheen in een delve die MH niet
 	-- kent, en een klik deed dan niets (OnClick vindt geen entry). Geen coach om te openen → geen knop.
-	if not ResolveActiveDelveEntry() then
+	local promptEntry = ResolveActiveDelveEntry()
+	if not promptEntry then
+		return
+	end
+	-- The Labyrinth: every room is its own small scenario, so "last stage" is the end of a ROOM, not the final boss.
+	-- Rob, 13 Oct 2026 (PTR, Akil'zon's Roost, "Reins of the Warlord"): the button said "Final boss" mid-run.
+	if promptEntry.noFinalBossPrompt then
 		return
 	end
 	if not bossPrompt then

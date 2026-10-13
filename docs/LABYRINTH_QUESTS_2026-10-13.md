@@ -100,6 +100,12 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 - Na de Central Chamber: deur **"Continue into Alki'zon's Roost?"** (teller **3**; Rob op 44.4, 31.1). ⚠️ Het venster
   spelt **"Alki'zon"**, de kaart "Akil'zon's Roost" — Blizzards typfout op de PTR, niet overnemen. Hier stopte Rob
   (13 okt ochtend; verder 's middags).
+- **Akil'zon's Roost** (Rob keek toch even, 13 okt): scenario **"Reins of the Warlord"**. Stappen: "Speak to Warlord
+  Kaz'kara" (`0/1 Warlord Kaz'kara spoken with`; NPC *Warlord Kaz'kara <The Scourge that Rides>*, vraagt zijn ros
+  **Daakajin** te zoeken tussen de raptorbotten — "Daakajin can be a little... Spirited") → "Disturb the raptor bones
+  and tame the spirit of Daakajin" (`0/1 Daakajin tamed`). Vijand "Pit Boss" in de buurt; respawn-punt bij de ingang.
+  MH's "Final boss — open the Delve Coach?"-knop verscheen hier ten onrechte → uitgezet voor de Labyrinth
+  (`noFinalBossPrompt`). Kindo'jan zat hier dus (nog) niet achter.
 - ❓ **Open meting voor 's middags:** blijft de run bewaard na uitloggen/weggaan (zelfde plek, zelfde open deuren),
   of begint hij opnieuw? (Ook open vraag 5 in het tactiekonderzoek.) Antwoord bepaalt een regel in de coach.
 
