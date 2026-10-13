@@ -250,7 +250,9 @@ local function BuildCoachBody(entry, opts)
 	opts = opts or {}
 	local blocks = {}
 	local storyName, bossEntry, storyIdx
-	if entry.id and ns.ResolveDelveStoryBoss then
+	-- entry.noStory: a delve without daily story variants (the Labyrinth). Rob, 13 Oct 2026 (PTR): the coach read
+	-- "Today's story: Bountiful Delve" — the POI's label taken for a story name.
+	if entry.id and ns.ResolveDelveStoryBoss and not entry.noStory then
 		storyName, bossEntry, storyIdx = ns.ResolveDelveStoryBoss(entry.id)
 	end
 	local bossIndex = opts.bossIndex

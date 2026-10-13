@@ -27,6 +27,7 @@ er is niets weggegooid.
 - [ ] **Geen leeg vlak meer** tussen de knoppen (Share brief/Boss/Chests/More/Copy) en "Overview:" in een delve zonder
       baasmodel (Labyrinth). In een gewone delve staat het baasmodel er nog gewoon.
 - [ ] **Chests-knop in de Labyrinth:** de pijl gaat naar de Sturdy Chest op 37.2, 69.7 (kaart 2647).
+- [ ] **Geen "Today's story: Bountiful Delve"** meer bovenaan de Labyrinth-coach (de Labyrinth heeft geen dagverhaal).
 
 ## 🆕 13 okt — Geen omweg via vliegpunten meer (DelveTipMarkup.lua)
 

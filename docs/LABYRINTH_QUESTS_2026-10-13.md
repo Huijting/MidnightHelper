@@ -80,6 +80,11 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
   verhaallijn in de Traveler's Log. Een vervolgquest verscheen niet meteen (Rob, 13 okt) — "if the spirits call"
   wijst op een latere oproep (AFGELEID: de wekelijkse lijn).
 
+## Run 2 (Rob, 13 okt)
+
+- Eerste kamer was nu **King of Souls** (niet Jun'ala zoals in run 1) → de kamers verschillen per run. King of Souls
+  cast **Frost Strike** (schildje op de castbalk = niet te onderbreken). Daarna weer "Choose Your Path".
+
 ## Schatten (voor DelveChestData later)
 
 - **Sturdy Chest** op **37.2, 69.7** op de Labyrinth-binnenkaart (Rob, run 2, 13 okt). Buit o.a. Bright Linen, Stained

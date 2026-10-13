@@ -290,6 +290,9 @@ ns.DELVE_TIP_ENTRIES = {
 		rosterName = "The Labyrinth of Kindo'jan",
 		nameKey = "DELVE_NAME_LABYRINTH",
 		poiId = 9035,
+		-- No daily story variants here: rooms are chosen per run (Rob saw Jun'ala first in run 1, King of Souls in
+		-- run 2). Without this the coach read the POI label "Bountiful Delve" as today's story.
+		noStory = true,
 		zoneAliases = {
 			"Labyrinth of Kindo", "Labyrinth von Kindo'jan", "labyrinthe de Kindo",
 			"laberinto de Kindo", "Laberinto de Kindo", "Labirinto de Kindo", "Labirinto di Kindo",
