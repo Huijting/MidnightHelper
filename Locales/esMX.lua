@@ -254,6 +254,7 @@ for k, v in pairs({
 	DELVE_NAME_THE_DARKWAY = "El Paso Oscuro",
 	DELVE_NAME_VENOMFALL_DEEPS = "Sima del Tósigo",
 	DELVE_NAME_LABYRINTH = "El Laberinto de Kindo'Jan",
+	CODEX_LABYRINTH_TITLE = "El Laberinto de Kindo'Jan (12.1.5)",
 	PORTAL_NAME_VOIDSTORM = "Portal a Tormenta del Vacío",
 	DELVE_REWARDS_CAP_AT_8 = "|cffffffffEl equipo es el mismo|r: los Tiers 9, 10 y 11 reparten exactamente lo mismo que el Tier 8, leído en la propia entrada del abismo y no en una guía. La cifra 'End' es el |cffffffffarca abundante|r, que necesita una llave de arca restaurada.|n|cffffffffLos emblemas no.|r Medido en este cliente el 19 de agosto: un run de Tier 8 pagó Mistcrest |cffffffffChampion|r y un run de Tier 11 pagó Mistcrest |cffffffffHero|r. Así que subir más allá del 8 sí te compra algo, solo que no del cofre.|nLa Gran bóveda también se detiene en el Tier 8: 305, Hero 1/6 (tabla de Wowhead).",
 	DELVE_REWARDS_END_BOUNTIFUL_ONLY = "Las cifras End solo valen para los abismos abundantes. Este abismo no es abundante ahora mismo.",
