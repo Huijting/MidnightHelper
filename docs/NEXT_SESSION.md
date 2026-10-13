@@ -9,8 +9,8 @@ Live VS draait 12.1.5.70340 (wago); EU gaat woensdag 14 okt live. PTR lag 13 okt
 **✅✅ 13 okt avond: `v4.7.6` GETAGD op 6ee61a2 (Rob: "go", na akkoord site-chat: proefbouw 0 problemen) en
 UITGEBRACHT.** Run 38431965054 geslaagd, GEMETEN in het log: CurseForge "Success!" (release, 12.1.5/12.1.0/12.0.7),
 Wago "Success!", GitHub-release met zip + release.json. Site-chat geseind (bouwt uit de tag, vraagt Rob om live-ja).
-Open voor Rob: CF-pagina van de release bekijken (Files → 4.7.6 → Changelog: opmaak goed?) en
-CURSEFORGE_DESCRIPTION.md op CF plakken. Translations: check_drift 0 in alle talen (6ee61a2).
+✅ Rob: CF-changelog-opmaak goed; ✅ CURSEFORGE_DESCRIPTION.md (nieuwe KORTE versie, 452 woorden — Rob koos optie 2,
+"we hebben nu eenmaal een mooie site gebouwd") op CF geplakt, 13 okt avond. Translations: check_drift 0 in alle talen (6ee61a2).
 Vanaf nu: Labyrinth-fixes uit Robs runs gaan als 4.7.7 (eerst beta, tenzij Rob anders kiest).
 
 **(Eerder:) 13 okt avond: Rob kiest de ECHTE release 4.7.6** (geen beta4: "11 betatesters die niets melden"). Releasetekst
