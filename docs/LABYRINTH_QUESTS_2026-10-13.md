@@ -74,6 +74,12 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
   dem to let you further". Past bij de transcript (eerst een oefenrun, daarna vrij) en de Codex-regel (wekelijkse lijn,
   één stap per week). Hoeveel kamers run 2 opent: NOG NIET GEMETEN.
 
+- **Quest 6 inleveren bij Kul'amara the Fierce:** "…dis might just be de beginning of these threats. If the spirits
+  call for you to return, it would serve you well to heed dem." → Kinduru's Spiriting Quill + 500 Undercoin.
+- Melding **"Traveler's Log Progress — Complete 'The Labyrinth of Kindo'jan' Storyline"**: de introlijn telt als
+  verhaallijn in de Traveler's Log. Een vervolgquest verscheen niet meteen (Rob, 13 okt) — "if the spirits call"
+  wijst op een latere oproep (AFGELEID: de wekelijkse lijn).
+
 ## MH binnen
 
 - **Combat Safety (CombatSafety.lua)** gaf "DANGEROUS CAST / Targeting you — move / interrupt" op Jun'ala's cast —
