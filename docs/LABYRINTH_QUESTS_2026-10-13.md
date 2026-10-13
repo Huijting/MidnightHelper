@@ -140,6 +140,15 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 - **Kist ~0:40: "Mislaid Treasure"** (tooltip) bij ~**75.0, 64.1** (The Cave Towers). Ander type dan Sturdy Chest —
   hoort waarschijnlijk bij *Mislaid Oddities* 63727/63728 (wago). Niet in DelveChestData (alleen Sturdy Chests daar).
 - **Kist ~3:00: "Sturdy Chest"** (naamplaat, speler erop) op **81.4, 54.7** → in DelveChestData gezet.
+## Runs 5-7 (video's 17-40-59, 17-47-24, 17-50-24, 17-59-54)
+
+- **"Taken Antiquities"** (Central Chamber): `0/10 Stolen Artifacts collected` → `0/1 Cynthra Buttonsmasher slain`.
+  Vijanden o.a. Ferocious Manahound, Artifact Seeker <Relic Raiders>. = Zygor-familie I.
+- **"Encroaching Darkness"** (The Reliquary): `1/4 Flames of Jan'alai lit`. = Zygor-familie D.
+- **"Reliquary Ritual"** in **Halazzi's Lair** (24.5, 49.6): 9 Corrupted Reliquaries → bevestigt Zygors plaatsing (HAL).
+- **"Vile Intruders"** in **Akil'zon's Roost** (46.7, 24.3): `Vilebranch repelled` (balk) → `0/1 Sullied Revenant slain`.
+  Sullied Revenant cast **Necrotic Sweep** (schildje = niet te onderbreken). Rob verwachtte "iets te doen" bij de baas;
+  op T1 niets bijzonders. Geen MH-knop: bewust uitgezet (noFinalBossPrompt). Idee (Rob kiest): korte baas-tip in beeld.
 - ❓ **Open meting voor 's middags:** blijft de run bewaard na uitloggen/weggaan (zelfde plek, zelfde open deuren),
   of begint hij opnieuw? (Ook open vraag 5 in het tactiekonderzoek.) Antwoord bepaalt een regel in de coach.
 
