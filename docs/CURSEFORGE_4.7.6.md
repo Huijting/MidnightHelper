@@ -1,60 +1,64 @@
-# Midnight Helper 4.7.6 (beta 3): every play card explains itself, and Midnight Helper speaks Russian
+# Midnight Helper 4.7.6: ready for patch 12.1.5, with the Labyrinth of Kindo'jan
 
-## This is a beta
+## Want new things sooner? Try the betas
 
-This version is a **beta**: it goes to players who set the release type for Midnight Helper to **Beta** in the
-CurseForge app. Everyone else gets it a little later, once we know it works on more characters than ours.
-
-**Tell us how it goes, also when everything works.** A short "works fine with my Bartender bars" helps us as much as
-a bug report:
+Between releases we put out **betas** regularly. To get them: open the CurseForge app, go to Midnight Helper and set the
+**release type** to **Beta**. You get new things sooner, and you can help us test them. Tell us how it goes, also when
+everything works:
 
 - `/mh report` in game, or *Report a problem* in Settings,
 - a comment here on CurseForge,
 - or the feedback form on midnighthelper.com.
 
-## New in beta 3: all 40 play cards explain themselves
+## Ready for patch 12.1.5
 
-The *How you play* card for **every spec** now has a **Why** line under each step: not just "press this", but why it
-matters. A **Good to know** line explains the game terms the card uses (what is Freezing? what is an Eclipse?), and
-**Test yourself** is a short quiz built from the card. Spell and talent names show in your own game language.
+Patch 12.1.5 removed some old item functions from the game. Midnight Helper now uses the new ones, so these keep
+working: **gem links** in Gear check, the **midnighthelper.com export**, **item colours** on the play cards, and
+spotting a delve item you **already used**.
 
-We checked the advice against the 12.1 game data, the class guides and the 12.1.5 patch notes. After Tuesday's patch
-the Why lines stay on for 39 specs; Devourer hides them until we have checked one hero talent change.
+## New: The Labyrinth of Kindo'jan
 
-## New in beta 3: Русский
+The new mega-delve is in Midnight Helper from day one, built from our own runs and the game data.
 
-Midnight Helper now has a **Russian** language pack. It is used by itself on a Russian game client, with the game
-words that client shows. Mexican game clients also get their own words now (abismo, calabozo, Gran bóveda) on top of
-the Spanish pack.
+**Please note:** the Labyrinth is brand new and we have not been able to test it thoroughly yet. Expect changes and
+fixes in the coming days, as we play more runs. Something wrong or missing? Tell us, it helps a lot.
 
-## New in beta 3: the words your game uses
+- **In the Delves list**, with a route to its door in Eversong Woods.
+- **Your first visit, step by step** on its Codex card: the door is sealed, so click the Amani Tablet, see Kul'amara
+  in Atal'Aman, meet Valeera back at the door, then a short first run of three rooms.
+- **The Delve Coach knows every task** a room can give you: masks and Grukk, the Undead Trollbunal, Taken
+  Antiquities, the Drill Sergeant (aim his charge at a rock), finding the vessel, and more. The same task can turn up
+  in any wing, so the coach explains the tasks, not the rooms.
+- **The boss panel shows the room boss you target**, with its model and only the tips for that boss.
+- **Kindo'jan**: what is known of the final fight, including the four loa tests at 70%. We have not seen this fight
+  ourselves yet, and the coach says so.
+- **Sturdy Chests** on the chest route.
 
-German, French, Spanish, Portuguese and Italian now name **Delves**, **Bountiful Delves** and **Delver's Call** the
-way your game client does: Tiefe, gouffre, profundidad, imersão, scorribanda. Gem names follow your client too.
+## New since the last release
 
-## Also new in beta 3
-
-- **Search box:** words with capitals like Ü or É, and Russian letters, are found; `delves` finds the Delves tab in
-  every language.
-- **Death card:** stays 20 seconds by default (a 5-60 s slider in Settings), and says *killed instantly* when nothing
-  hit you right before you died.
-- **Key block:** a new character below level 10 gets the layout of its class's first spec.
-- **Text fixes:** Evokers wear mail; a missed profession week comes back slowly through catch-up; the gem is an
-  Eversong Diamond; the loot menu says *Current Specialization*; Spanish and Portuguese delve tips describe Season 2.
-
-## From beta 2
-
-- **What killed you:** after you die, MH reads Blizzard's Death Recap and says what did most of the damage, with a tip.
-- **Your own marker:** `/mh mark me star`, and one button marks all your friends.
+- **Every play card explains itself:** all 40 specs have a *Why* line under every step, a *Good to know* line for the
+  game terms, and a *Test yourself* quiz. Spell and talent names show in your own game language.
+- **Русский:** a full Russian language pack. Mexican game clients get their own words on top of the Spanish pack.
+- **Your game's own words:** delves, places, dungeons, raids, achievements, delve items and spell names show as your
+  game client names them in German, French, Spanish, Portuguese, Italian, Russian and Mexican Spanish.
+- **Leveling (10-90):** the Guide tab now starts at level 10: Timewalking Campaigns, Warband Mentored Leveling, Rested
+  and more.
+- **Boss tactics to one player:** right-click *Share* in the boss window and pick a group member, or type
+  `/mh bossshare <name>`. Left-click still shares with the whole group.
+- **Death card:** reads Blizzard's Death Recap, says what hit you hardest, and gives a tip that fits how you died.
+- **Which spells you press** (`/mh presses`): your most-pressed spells and their keys, now also on Bartender4 and ElvUI
+  bars. Heals and crowd control are never offered in a swap.
+- **Healers:** a Mana Potion row on the consumables list, and Celestial Conduit and Tip the Scales on the cooldown list.
+- **Marker bar:** your own marker (`/mh mark me star`), one button marks all your friends, and one marks tank and
+  healer.
 - **Class advice** checked against the 12.1 game data for all 40 specs: about 25 fixes.
-- **This Week**, **Trading Post**, **professions**, **healer cooldowns** and the **midnighthelper.com export** improved.
+- **This Week**, **Trading Post**, **professions** and the **midnighthelper.com export** improved.
+- **midnighthelper.com** now has the whole Codex, a page on patch 12.1.5, the Role Academy and every play card, in 8
+  languages. Click the link in the title bar.
+- **Fixes:** the Delves tab and the title bar fit a narrow window, the Combat Safety warning is no longer cut off,
+  routes skip a flight that would not save time, and many text fixes.
 
-## From beta 1
-
-- **Which spells you press** (`/mh presses`): your most-pressed spells, their keys, and a **Swap** button.
-- `/mh presses` and the *How you play* card find your keys in **Bartender4** and **ElvUI** bars too.
-
-Russian, Mexican-Spanish and other new texts in German, French, Spanish, Portuguese and Italian are our own
+Russian, Mexican Spanish and the other new texts in German, French, Spanish, Portuguese and Italian are our own
 translation: native speakers, corrections are very welcome.
 
 Have fun!

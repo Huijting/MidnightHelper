@@ -7,10 +7,18 @@ local CHANGELOG_ENTRIES = {
 		version = "4.7.6",
 		lines = {
 			"CHANGELOG_476_0",
-			-- next build (12 Oct 2026)
-			"CHANGELOG_476_25",
-			"CHANGELOG_476_26",
+			-- release (after beta 3, 12-13 Oct 2026)
+			"CHANGELOG_476_28",
 			"CHANGELOG_476_27",
+			"CHANGELOG_476_29",
+			"CHANGELOG_476_26",
+			"CHANGELOG_476_30",
+			"CHANGELOG_476_31",
+			"CHANGELOG_476_32",
+			"CHANGELOG_476_33",
+			"CHANGELOG_476_34",
+			"CHANGELOG_476_25",
+			"CHANGELOG_476_35",
 			-- beta 3 (11 Oct 2026)
 			"CHANGELOG_476_18",
 			"CHANGELOG_476_19",

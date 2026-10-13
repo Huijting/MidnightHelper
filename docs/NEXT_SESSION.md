@@ -6,6 +6,12 @@
 `v4.7.6-beta3`; **86 commits sinds beta3, niets getagd.** `.toc` = 4.7.6, Interface 120007, 120100, 120105.
 Live VS draait 12.1.5.70340 (wago); EU gaat woensdag 14 okt live. PTR lag 13 okt eind middag eruit.
 
+**✅ 13 okt avond: Rob kiest de ECHTE release 4.7.6** (geen beta4: "11 betatesters die niets melden"). Releasetekst
+KLAAR en gecommit: RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (byte-gelijk, `cmp`), beta-alinea bovenaan, Labyrinth-
+waarschuwing "nog niet uitgebreid getest, wijzigingen verwacht" (Robs wens); CHANGELOG_476_0 = release-intro,
+476_28..35 nieuw; CHANGELOG.md bijgewerkt. **Wacht alleen nog op Robs "go" voor de tag** (`git tag -a v4.7.6 -m ...`,
+push tag) → daarna site-chat seinen + Rob plakt CURSEFORGE_DESCRIPTION.md.
+
 **🔴 Waarom er snel een tag moet (advies aan Rob, hij beslist):** 12.1.5 haalt de oude item-globals weg — GEMETEN op
 70340 (`/dump GetItemGem, IsUsableItem` = nil; `C_Item.*` = function). Zonder a48171d falen in beta3 stil: gem-links
 (Gear check), veld 20 van `/mh export` (Armory-badges), kwaliteitskleur op speelkaarten, "al gebruikt" bij delve-items.

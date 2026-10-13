@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.6
 
+📌 **2026-10-13 avond, RELEASE KLAARGEZET (Rob: "we gaan voor de echte release" — 11 betatesters, geen meldingen).**
+NOG NIET GETAGD: wacht op Robs go. `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.6.md` (byte-gelijk), met de beta-alinea
+bovenaan (vaste regel bij een gewone release). In-game changelog: CHANGELOG_476_0 = release-intro, 476_28..35 nieuw.
+⚠️ Wijkt af van de regel "grotere wijzigingen eerst als beta" — bewuste keuze van Rob. NIET in het spel getest: het
+Labyrinth-bossvak (17 bazen, NPC-ids uit Zygor), de coach-teksten in andere talen (zelf vertaald), de C_Item-plekken.
+
+- **12.1.5-API:** `C_Item.GetItemGem` / `GetItemQualityColor` / `IsUsableItem` eerst (GearEnchantCheck, GearExport,
+  PlayCardWindow, DelveItemsPopup); oude globals GEMETEN weg op 12.1.5.70340.
+- **Labyrinth of Kindo'jan:** delve-lijst + route (9035, 2395 62.90/72.00), Codex "De eerste keer", Delve Coach (alle
+  opdrachten, Kindo'jan), bossvak met 17 bazen (target-detectie, noStory/noFinalBossPrompt), 3 kisten (2 met quest-ID).
+- **Boss-tactiek fluisteren**, **Nek'zali → 1295397**, **Leveling (10-90)**, **mana potion**, **doodskaart-tip per soort
+  dood**, **spell-presses**, **toetsenblok vs "Place it"**, **clientwoorden** (items/plaatsen/instances/achievements/spells),
+  **website-links**, **smal-venster-fixes**, **Combat Safety** (kop past; secret-fout in combat), **vliegroute alleen als
+  korter**, **geen Darkway in de Labyrinth**.
+
 📌 **2026-10-11 avond, BETA 3 (Rob: "Go"), tag `v4.7.6-beta3` na akkoord site-chat.** Notitie `docs/CURSEFORGE_4.7.6.md`
 = `RELEASE_NOTES.md` (kop "beta 3"). GEMETEN door Rob: Frost Mage + Elemental Shaman waarom-regels en quiz. NIET in het
 spel getest: de andere 38 kaarten (offline 40/40 OK), ruRU en esMX (geen client), NavSearch-ULower (offline OK),
