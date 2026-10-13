@@ -2,9 +2,11 @@
 
 ## 14 okt — EU-PATCHDAG — VERDER HIER
 
-**Stand bij afsluiten 13 okt (GEMETEN):** main = c60dc60 + deze handoff, gepusht, werkboom schoon. Laatste tag
-`v4.7.6-beta3`; **86 commits sinds beta3, niets getagd.** `.toc` = 4.7.6, Interface 120007, 120100, 120105.
-Live VS draait 12.1.5.70340 (wago); EU gaat woensdag 14 okt live. PTR lag 13 okt eind middag eruit.
+**Stand bij afsluiten 13 okt laat (GEMETEN):** main = 368be76 + deze handoff, gepusht, werkboom schoon. Laatste tag
+**`v4.7.6`** (op 6ee61a2, uitgebracht). Na de tag op main, nog niet getagd: 66848a9 (Codex-titel Labyrinth in de
+clientnaam, de/fr/es/pt/it + esMX) + handoffs. `.toc` = 4.7.6, Interface 120007, 120100, 120105.
+Wago 12.1.5.70340 = build klaargezet; VS-servers stonden 13 okt 19:19 nog offline (site-chat). EU gaat woensdag 14 okt live.
+Site: 4.7.6 live op midnighthelper.com + "Ready for 12.1.5"-homepageblok (site-chat, GEMETEN). CF: 19.296 downloads.
 
 **✅✅ 13 okt avond: `v4.7.6` GETAGD op 6ee61a2 (Rob: "go", na akkoord site-chat: proefbouw 0 problemen) en
 UITGEBRACHT.** Run 38431965054 geslaagd, GEMETEN in het log: CurseForge "Success!" (release, 12.1.5/12.1.0/12.0.7),
@@ -21,16 +23,8 @@ blok bij. GEMETEN 13 okt (eerst gemist: ik zocht "test realm", de tekst zegt "te
 gezien is, dan check_drift + site-chat seinen. US-servers waren 13 okt 19:19
 nog offline (site-chat, GEMETEN): wago 70340 = build klaargezet, niet live.
 
-**(Eerder:) 13 okt avond: Rob kiest de ECHTE release 4.7.6** (geen beta4: "11 betatesters die niets melden"). Releasetekst
-KLAAR en gecommit: RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (byte-gelijk, `cmp`), beta-alinea bovenaan, Labyrinth-
-waarschuwing "nog niet uitgebreid getest, wijzigingen verwacht" (Robs wens); CHANGELOG_476_0 = release-intro,
-476_28..35 nieuw; CHANGELOG.md bijgewerkt. **Wacht alleen nog op Robs "go" voor de tag** (`git tag -a v4.7.6 -m ...`,
-push tag) → daarna site-chat seinen + Rob plakt CURSEFORGE_DESCRIPTION.md.
-
-**🔴 Waarom er snel een tag moet (advies aan Rob, hij beslist):** 12.1.5 haalt de oude item-globals weg — GEMETEN op
-70340 (`/dump GetItemGem, IsUsableItem` = nil; `C_Item.*` = function). Zonder a48171d falen in beta3 stil: gem-links
-(Gear check), veld 20 van `/mh export` (Armory-badges), kwaliteitskleur op speelkaarten, "al gebruikt" bij delve-items.
-VS-spelers hebben dat nú. Voorstel: **4.7.6-beta4 vanavond/morgenvroeg**, Rob test woensdag op EU-live, dan 4.7.6.
+**(Afgehandeld:)** Rob koos de echte release i.p.v. beta4 ("11 betatesters die niets melden"); de C_Item-fixes voor de
+weggehaalde item-globals (a48171d) zitten dus in 4.7.6.
 
 **13 okt in één alinea:** Labyrinth of Kindo'jan volledig in MH: delve-lijst + route (9035, 2395 62.90/72.00, Robs meting),
 Codex "De eerste keer", Delve Coach met alle ~20 opdrachten (9 namen GEMETEN uit Robs video's, rest Zygor) + Kindo'jan
@@ -47,11 +41,13 @@ geen Final-boss-knop in de Labyrinth. `/mh questdiff` stond AAN op zijn PTR-char
 `ns.db.questDiff.found` uitlezen; anders mag hij uit (`/mh questdiff`).
 
 **Volgende stappen (Bouwchat):**
-1. Ochtendronde (CLAUDE.md). Wago: komt er een EU/live-build ná 70340? Zo ja `run names_1215`.
-2. Op Robs go: beta4 — RELEASE_NOTES.md + docs/CURSEFORGE_4.7.6.md herschrijven (nu nog beta3-tekst!), CHANGELOG.md,
-   checklist `docs/RELEASE_CHECKLIST.md`; daarna site-chat seinen + Rob plakt CURSEFORGE_DESCRIPTION.md.
-3. Devourer HERO1 (12.1.5-spelltekst vergelijken) — nog open uit plan A.
-4. Zygor-gids bewaken: de "The Labyrinth of Kindo'jan"-gids (ZygorDungeonCommonMID.lua r. 957) kan na updates groeien;
+1. Ochtendronde (CLAUDE.md), mét CF-reacties op 4.7.6 (eerste dag na een echte release!). Wago: komt er een
+   EU/live-build ná 70340? Zo ja `run names_1215`.
+2. Rob op EU-live na de patch: de "Open voor Rob"-lijst hierboven + de drie test-realm-zinnen (Kith'ix, Labyrinth-tiers,
+   Keystone Myth [PH]) nameten → bijwerken → site-chat seinen.
+3. Fouten uit 4.7.6 of Labyrinth-fixes → 4.7.7 (eerst beta, tenzij Rob anders kiest). 66848a9 gaat daarin mee.
+4. Devourer HERO1 (12.1.5-spelltekst vergelijken) — nog open uit plan A.
+5. Zygor-gids bewaken: de "The Labyrinth of Kindo'jan"-gids (ZygorDungeonCommonMID.lua r. 957) kan na updates groeien;
    37.2/69.7-kist en de "Mislaid Treasure" (75.0/64.1) staan er nog niet in.
 
 ## 13 okt — PATCHDAG 12.1.5 (VS) — geschiedenis van die dag
