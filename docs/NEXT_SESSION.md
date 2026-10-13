@@ -6,7 +6,14 @@
 `v4.7.6-beta3`; **86 commits sinds beta3, niets getagd.** `.toc` = 4.7.6, Interface 120007, 120100, 120105.
 Live VS draait 12.1.5.70340 (wago); EU gaat woensdag 14 okt live. PTR lag 13 okt eind middag eruit.
 
-**✅ 13 okt avond: Rob kiest de ECHTE release 4.7.6** (geen beta4: "11 betatesters die niets melden"). Releasetekst
+**✅✅ 13 okt avond: `v4.7.6` GETAGD op 6ee61a2 (Rob: "go", na akkoord site-chat: proefbouw 0 problemen) en
+UITGEBRACHT.** Run 38431965054 geslaagd, GEMETEN in het log: CurseForge "Success!" (release, 12.1.5/12.1.0/12.0.7),
+Wago "Success!", GitHub-release met zip + release.json. Site-chat geseind (bouwt uit de tag, vraagt Rob om live-ja).
+Open voor Rob: CF-pagina van de release bekijken (Files → 4.7.6 → Changelog: opmaak goed?) en
+CURSEFORGE_DESCRIPTION.md op CF plakken. Translations: check_drift 0 in alle talen (6ee61a2).
+Vanaf nu: Labyrinth-fixes uit Robs runs gaan als 4.7.7 (eerst beta, tenzij Rob anders kiest).
+
+**(Eerder:) 13 okt avond: Rob kiest de ECHTE release 4.7.6** (geen beta4: "11 betatesters die niets melden"). Releasetekst
 KLAAR en gecommit: RELEASE_NOTES.md = docs/CURSEFORGE_4.7.6.md (byte-gelijk, `cmp`), beta-alinea bovenaan, Labyrinth-
 waarschuwing "nog niet uitgebreid getest, wijzigingen verwacht" (Robs wens); CHANGELOG_476_0 = release-intro,
 476_28..35 nieuw; CHANGELOG.md bijgewerkt. **Wacht alleen nog op Robs "go" voor de tag** (`git tag -a v4.7.6 -m ...`,
