@@ -84,6 +84,12 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 
 - Eerste kamer was nu **King of Souls** (niet Jun'ala zoals in run 1) → de kamers verschillen per run. King of Souls
   cast **Frost Strike** (schildje op de castbalk = niet te onderbreken). Daarna weer "Choose Your Path".
+- Tweede kamer weer **The Reliquary** ("Continue into the Reliquary?", teller 1) met opnieuw **Spirit Thieves**. Dus:
+  de eerste kamer wisselde (Jun'ala → King of Souls), de Reliquary-opdracht niet (2 runs, AFGELEID: vast per kamer?).
+- Na de Reliquary ("Chamber Complete") **twee deuren tegelijk** met teller **2**: **"Continue into the Central
+  Chamber?"** én **"Continue into Halazzi's Lair?"** → in run 2 kies je echt tussen kamers (Rob: "ik kan nu uit
+  meerdere kamers kiezen"). De teller = aantal gedane kamers (AFGELEID: in run 1 stond er 1 vóór kamer 2 en 2 vóór
+  kamer 3; hier 2 vóór kamer 3).
 
 ## Schatten (voor DelveChestData later)
 
