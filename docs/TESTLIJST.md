@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Geen omweg via vliegpunten meer (DelveTipMarkup.lua)
+
+Rob 13 okt (PTR): route van Kul'amara (Atal'Aman) naar de Labyrinth stuurde hem naar een vliegpunt, dan naar een ander,
+en van dat tweede was de deur verder weg dan van zijn startplek. Nu vergelijkt MH eerst de afstanden (in yards):
+lopen naar het vliegpunt + van het tweede vliegpunt naar het doel moet duidelijk korter zijn (onder 75%) dan direct.
+- [ ] **Vanaf Kul'amara** de Labyrinth-route kiezen: de pijl wijst meteen naar de deur, niet naar een vliegpunt.
+- [ ] **Een echte verre route** (bv. Silvermoon → Voidstorm-delve): de vliegpunt-stap komt nog wél.
+
 ## 🆕 13 okt — Delve Coach voor de Labyrinth (DelveTipsData.lua + 4 sleutels in 8 talen + esMX)
 
 - [ ] **Delves-tabblad:** achter "The Labyrinth of Kindo'jan" staat nu het boekje. Klik → Delve Coach met drie

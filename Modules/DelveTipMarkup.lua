@@ -634,6 +634,52 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 		end
 	end
 
+	--- 🔴 DOES THE FLIGHT ACTUALLY SAVE ANYTHING? Rob, 13 Oct 2026 (PTR), routing from Kul'amara in Atal'Aman to The
+	--- Labyrinth of Kindo'jan in Eversong: sent to the nearest flight point, flown to another, and from THAT one the
+	--- door was further away than from where he started. Until now this function only asked "are the two nearest
+	--- flight points different?", never "is it shorter?".
+	--- So: in world yards, walking to our flight point plus the stretch from the far flight point to the target must
+	--- be clearly shorter than going straight there (under 75% — the taxi ride itself costs time too; the 75% is a
+	--- chosen margin, not measured). Only when every position is readable and on one continent; otherwise the old
+	--- behaviour stands, because "unknown" must not silently switch flights off everywhere.
+	if C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D and px and py then
+		local function W(map, x100, y100)
+			local okW, cont, world = pcall(C_Map.GetWorldPosFromMapPos, map, CreateVector2D(x100 / 100, y100 / 100))
+			if not (okW and type(world) == "table") then
+				return nil
+			end
+			local wx, wy
+			if world.GetXY then
+				wx, wy = world:GetXY()
+			else
+				wx, wy = world.x, world.y
+			end
+			if type(wx) ~= "number" or type(wy) ~= "number" then
+				return nil
+			end
+			return cont, wx, wy
+		end
+		local _, tfx, tfy = ns.GetNearestFlightPoint(targetMap, x, y)
+		local cP, pX, pY = W(currentMap, px, py)
+		local cT, tX, tY = W(targetMap, x, y)
+		local cF, fX, fY = W(currentMap, fx, fy)
+		local cG, gX, gY
+		if tfx and tfy then
+			cG, gX, gY = W(targetMap, tfx, tfy)
+		end
+		if cP and cT and cF and cG and cP == cT and cP == cF and cP == cG then
+			local function d(ax, ay, bx, by)
+				local dx, dy = ax - bx, ay - by
+				return math.sqrt(dx * dx + dy * dy)
+			end
+			local direct = d(pX, pY, tX, tY)
+			local viaFlight = d(pX, pY, fX, fY) + d(gX, gY, tX, tY)
+			if viaFlight >= direct * 0.75 then
+				return false
+			end
+		end
+	end
+
 	-- toName is kept so the flight map can name the stop to click. A chat line telling
 	-- you which node to take is read by nobody at the moment they are staring at a map
 	-- full of dots (Rob, 16 aug).
