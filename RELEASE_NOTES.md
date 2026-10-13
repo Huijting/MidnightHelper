@@ -34,6 +34,14 @@ fixes in the coming days, as we play more runs. Something wrong or missing? Tell
   ourselves yet, and the coach says so.
 - **Sturdy Chests** on the chest route.
 
+## The rest of 12.1.5, explained in the Codex
+
+- **Kith'ix**, the new raid with one boss, with Lady Liadrin at your side. The raid coach knows the fight.
+- **Aqir Invasion**: for 10 minutes every hour the whole zone fights the swarm in Eversong or Zul'Aman. The Events tab
+  tells you when, and what to do.
+- **Ascendant Venomstones**: what they upgrade and where they drop, from the week of 20 October.
+- **Keystone Myth is back** for Season 2, at a Mythic+ rating of 3600.
+
 ## New since the last release
 
 - **Every play card explains itself:** all 40 specs have a *Why* line under every step, a *Good to know* line for the
