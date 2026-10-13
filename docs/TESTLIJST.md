@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Labyrinth in de delve-lijst + "De eerste keer" in de Codex (Delves.lua, Codex.lua, 8 talen)
+
+- [ ] **Delves-tabblad:** rechts onderaan staat "The Labyrinth of Kindo'jan". Klik → route naar Eversong 62.9, 72.0
+      (de deur). Op de testserver; op live pas na de patch (EU woensdag).
+- [ ] **Codex → Labyrinth-kaart:** nieuw kopje "The first time" / "De eerste keer": tablet → Kul'amara in Atal'Aman →
+      Valeera bij de deur → korte eerste run van 3 kamers → Kinduru → schatkamer → terug naar Kul'amara (toy).
+      De routelink in "Getting in" wijst naar 62.9, 72.0.
+- [ ] Hoort de Labyrinth als *Bountiful* geel te worden in de lijst als hij dat op de kaart is? (POI 9036/9037,
+      alleen via de naam herkend — op een niet-Engelse client misschien niet.)
+
 ## 🆕 13 okt — Labyrinth is geen Darkway meer (DelveTipsData.lua)
 
 Rob 13 okt (PTR): bij Jun'ala opende het bossvenster als "The Darkway". Oorzaak GEMETEN in de code: binnen een

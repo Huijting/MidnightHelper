@@ -103,6 +103,11 @@ local MIDNIGHT_DELVES = {
 	-- delve invisible on a map where the client says it is. Which is the real entrance and
 	-- which a second marker is NOT measured, so neither is presented as the main one.
 	{ 8779, 2512, 51.23, 30.36, "Venomfall Deeps" },
+	-- 12.1.5 (Rob, 13 Oct 2026: "bouw het maar"). The door is MEASURED by Rob on the PTR (12.1.5.70340), standing at the
+	-- entrance: Eversong Woods 62.9, 72.0 (Zygor's LibRover says 63.08, 72.35). 9035 is the real AreaPOI id from wago 70077
+	-- (9036/9037 are the "Bountiful Delve" variants of the same door; those fall back to the name pass like the eleven
+	-- above). The entrance window calls it a Delve and offers tiers. Walk-in notes: docs/LABYRINTH_QUESTS_2026-10-13.md.
+	{ 9035, 2395, 62.90, 72.00, "The Labyrinth of Kindo'jan" },
 	-- pinOnly (7 Oct 2026, Rob: "bouw maar"): kept for the map and the POI lookups, but NOT a list row and NOT a route
 	-- target. Rob followed this row's route on the PTR: it points at an islet off Zul'Aman, and flying there the game
 	-- refused him the Coiled Isle area. So it is the same entrance seen from the Zul'Aman map (AFGELEID — the islet

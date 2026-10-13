@@ -13,7 +13,14 @@ Rob test de fix 13 okt (WoW was al dicht) → TESTLIJST.
 13 okt ochtend: lint [19] werd HARD op RAID_BOSS_NEKZALI_STEPS 1297630 — niet door ons, maar omdat DBM 12.1.13 die ID
 niet meer draagt (add-waarschuwing nu 1295397). ✅ Rob mat op PTR 70340: 1295397 = Restless Amani → tip omgezet in
 8 talen, baseline-regel weer weg (82). PTR (`_xptr_`) draait nu **12.1.5.70340**; MH daarheen gekopieerd 13 okt, Rob
-test er de nieuwe delve. wago.tools gaf de hele ochtend 503 → `run names_1215` telt pas als "builds" weer lukt. Alles
+test er de nieuwe delve. wago.tools gaf de hele ochtend 503 → `run names_1215` telt pas als "builds" weer lukt.
+13 okt middag, Rob speelde op de PTR de hele Labyrinth-introlijn (6 quests, 3 kamers) — alles in
+`docs/LABYRINTH_QUESTS_2026-10-13.md`. Gebouwd n.a.v. zijn screenshots: smal-venster-fixes (titellink, Delves-tekst,
+delve-rijen), Combat Safety-kop past, Labyrinth ≠ Darkway (geen ouderkaarten in een instance), geen coach-knop voor een
+onbekende delve, **Labyrinth in de delve-lijst** (9035, 2395 62.90/72.00, Robs meting) en **"De eerste keer" op de
+Codex-kaart** in 8 talen + esMX (vertalingen door mh-writer, niet door moedertaalsprekers nagekeken).
+Durability 0% op de PTR = echt kapotte items (Rob: rood, repair werkt daar niet) → geen fix. Open: quest-ID's van de
+6 quests (wago), hoeveel kamers run 2 opent, Labyrinth als delve-coach-entry (kamers/bazen). Alles
 daarna NIET getagd (Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten, doodskaart-tips,
 spell-presses, website-links incl. titelbalk, boss-fluisteren — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
 🔴 Bij de volgende tag: site-chat ("Site chat 12-10" of opvolger) seinen → site herbouwen uit de tag (52 Codex-ankers,

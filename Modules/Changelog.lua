@@ -10,6 +10,7 @@ local CHANGELOG_ENTRIES = {
 			-- next build (12 Oct 2026)
 			"CHANGELOG_476_25",
 			"CHANGELOG_476_26",
+			"CHANGELOG_476_27",
 			-- beta 3 (11 Oct 2026)
 			"CHANGELOG_476_18",
 			"CHANGELOG_476_19",
