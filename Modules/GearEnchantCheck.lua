@@ -500,11 +500,14 @@ end
 -- Lege tabel = geen gems / geen socket.
 local function SocketedGemLinks(link)
 	local out = {}
-	if not (link and GetItemGem) then
+	-- C_Item first: 12.1.5 drops the Blizzard_Deprecated item globals (warcraft.wiki.gg "Patch 12.1.5/API changes",
+	-- relayed by the site chat 13 Oct 2026). The global was only an alias of this call; it stays as the fallback.
+	local getGem = (C_Item and C_Item.GetItemGem) or GetItemGem
+	if not (link and getGem) then
 		return out
 	end
 	for i = 1, 4 do
-		local name, gemLink = GetItemGem(link, i)
+		local name, gemLink = getGem(link, i)
 		if gemLink then
 			out[#out + 1] = gemLink
 		elseif name then

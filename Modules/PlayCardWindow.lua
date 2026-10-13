@@ -427,8 +427,10 @@ local function ItemLink(id)
 	local name = ItemName(id) or "..."
 	local hex = "ffffffff"
 	local q = C_Item and C_Item.GetItemQualityByID and C_Item.GetItemQualityByID(id)
-	if q and GetItemQualityColor then
-		local ok, _, _, _, h = pcall(GetItemQualityColor, q)
+	-- C_Item first: 12.1.5 drops the deprecated global (site chat, 13 Oct 2026); same returns r, g, b, hex.
+	local qualityColor = (C_Item and C_Item.GetItemQualityColor) or GetItemQualityColor
+	if q and qualityColor then
+		local ok, _, _, _, h = pcall(qualityColor, q)
 		if ok and type(h) == "string" and #h == 8 then
 			hex = h
 		end

@@ -324,7 +324,10 @@ local function PlayerCarriesUnusableDelveItem(itemID)
 	if GetItemCount(itemID) < 1 and not PlayerCarriesItem(itemID) then
 		return false
 	end
-	if type(IsUsableItem) ~= "function" then
+	-- C_Item first: 12.1.5 drops the deprecated global (site chat, 13 Oct 2026). Without this the check below would
+	-- quietly answer "not used" for every delve consumable once the global is gone.
+	local isUsable = (C_Item and C_Item.IsUsableItem) or IsUsableItem
+	if type(isUsable) ~= "function" then
 		return false
 	end
 	--- An uncached item reads as unusable, and this function's `true` is written to
@@ -346,7 +349,7 @@ local function PlayerCarriesUnusableDelveItem(itemID)
 			return false
 		end
 	end
-	if IsUsableItem(itemID) == true then
+	if isUsable(itemID) == true then
 		return false
 	end
 	-- Grayed-out delve consumable in bags: already used this run (often no visible buff left).

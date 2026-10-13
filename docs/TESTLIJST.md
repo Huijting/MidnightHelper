@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Oude item-functies (12.1.5 haalt ze weg) → eerst C_Item
+
+Site-chat meldde (warcraft.wiki.gg "Patch 12.1.5/API changes", NIET zelf in de client gemeten) dat 12.1.5 de oude
+item-globals weghaalt. Vier plekken hadden geen C_Item-route en zouden stil falen; nu eerst C_Item, oud als terugval.
+Op de PTR (70340) testen — daar zou het verschil zichtbaar zijn:
+- [ ] **Gear check (GearEnchantCheck):** gems in je gear staan als klikbare links.
+- [ ] **`/mh export`:** veld 20 (gem-kwaliteit) is niet leeg bij een item met een gem (Armory-"Rank").
+- [ ] **Speelkaart-venster:** item-namen hebben hun kwaliteitskleur (paars/blauw), niet wit.
+- [ ] **Delve-items-popup:** een al gebruikt delve-item (grijs in je tas) wordt herkend als "al gebruikt".
+- [ ] Even op de PTR: `/dump GetItemGem, IsUsableItem` — zijn de oude globals echt weg (nil)? Dan is het ook gemeten.
+
 ## 🆕 13 okt — Coach zonder gat, en de eerste Labyrinth-kist (DelveCoach.lua, DelveChestData.lua)
 
 - [x] Delve Coach opent in de Labyrinth als Labyrinth. ✅ Rob 13 okt, screenshot.

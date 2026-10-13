@@ -417,9 +417,11 @@ end
 local function WhichField(link)
 	local ench = tonumber(link:match("item:%d+:(%-?%d*)") or "") or 0
 	local gems = {}
-	if GetItemGem then
+	-- C_Item first: 12.1.5 drops the deprecated global (see GearEnchantCheck SocketedGemLinks).
+	local getGem = (C_Item and C_Item.GetItemGem) or GetItemGem
+	if getGem then
 		for i = 1, 4 do
-			local ok, _, gemLink = pcall(GetItemGem, link, i)
+			local ok, _, gemLink = pcall(getGem, link, i)
 			local id = ok and type(gemLink) == "string" and tonumber(gemLink:match("item:(%d+)"))
 			if id then
 				gems[#gems + 1] = tostring(id)
@@ -481,9 +483,11 @@ end
 local function QualityField(link, enchTier)
 	local gems = {}
 	local any = enchTier ~= nil
-	if GetItemGem then
+	-- C_Item first (12.1.5): without it field 20 would go silently empty on the Armory.
+	local getGem = (C_Item and C_Item.GetItemGem) or GetItemGem
+	if getGem then
 		for i = 1, 4 do
-			local ok, _, gemLink = pcall(GetItemGem, link, i)
+			local ok, _, gemLink = pcall(getGem, link, i)
 			if ok and type(gemLink) == "string" then
 				local q
 				if C_TradeSkillUI then
