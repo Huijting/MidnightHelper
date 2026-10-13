@@ -30,7 +30,9 @@ Op de PTR (70340) testen — daar zou het verschil zichtbaar zijn:
 - [ ] **`/mh export`:** veld 20 (gem-kwaliteit) is niet leeg bij een item met een gem (Armory-"Rank").
 - [ ] **Speelkaart-venster:** item-namen hebben hun kwaliteitskleur (paars/blauw), niet wit.
 - [ ] **Delve-items-popup:** een al gebruikt delve-item (grijs in je tas) wordt herkend als "al gebruikt".
-- [ ] Even op de PTR: `/dump GetItemGem, IsUsableItem` — zijn de oude globals echt weg (nil)? Dan is het ook gemeten.
+- [x] Even op de PTR: `/dump GetItemGem, IsUsableItem` — zijn de oude globals echt weg (nil)? ✅ Rob 13 okt, PTR 70340
+      (= live build): "empty result" → beide nil, GEMETEN weg. Positieve controle `/dump C_Item.GetItemGem, C_Item.IsUsableItem`
+      → 2× `<function>` ✅. Bewezen: oude globals weg, C_Item-route bestaat.
 
 ## 🆕 13 okt — Coach zonder gat, en de eerste Labyrinth-kist (DelveCoach.lua, DelveChestData.lua)
 

@@ -109,6 +109,7 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 - Na het betreden van Akil'zon's Roost: op de kaart staan **bijna alle deuren weer op slot** (ook die eerder open
   waren), en Rob kon Halazzi's Lair (26.9, 53.4) niet in. AFGELEID: zodra je een kamer kiest, sluiten de andere tot
   die kamer klaar is — je kiest echt één pad per keer.
+- 13 okt middag: na uitloggen stond Rob **buiten** de Labyrinth (GEMETEN). Of de run-voortgang bewaard bleef: volgt.
 - ❓ **Open meting voor 's middags:** blijft de run bewaard na uitloggen/weggaan (zelfde plek, zelfde open deuren),
   of begint hij opnieuw? (Ook open vraag 5 in het tactiekonderzoek.) Antwoord bepaalt een regel in de coach.
 
