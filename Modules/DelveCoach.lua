@@ -298,7 +298,7 @@ local function BuildCoachBody(entry, opts)
 				.. ns:SafeL(noBoss and "DELVE_COACH_ACTIVE_STORY_NO_BOSS_FMT"
 					or "DELVE_COACH_ACTIVE_STORY_UNKNOWN_BOSS_FMT"):format(storyName)
 				.. "|r"
-		elseif multiBossDelve(entry.id) and not bossEntry then
+		elseif multiBossDelve(entry.id) and not bossEntry and not entry.noStory then
 			if storyName then
 				blocks[#blocks + 1] = COLOR_SECTION
 					.. ns:SafeL("DELVE_COACH_ACTIVE_STORY_UNKNOWN_BOSS_FMT"):format(storyName)
@@ -508,7 +508,10 @@ local function UpdateBossShowcase(f, entryId)
 		-- confirmed active boss (we're showing the saved/last index as fallback).
 		if preferAuto and not autoResolved and not f._previewMode
 			and not ns._mhTipEmittedBossPending then
-			f._bossAutoHint:SetText(ns:SafeL("DELVE_COACH_BOSS_PENDING"))
+			-- A delve without daily stories (the Labyrinth) finds its boss from your target, not from the map.
+			local hintEntry = ns.GetDelveTipEntryById and ns.GetDelveTipEntryById(entryId)
+			f._bossAutoHint:SetText(ns:SafeL((hintEntry and hintEntry.noStory) and "DELVE_COACH_TARGET_BOSS_HINT"
+				or "DELVE_COACH_BOSS_PENDING"))
 			f._bossAutoHint:Show()
 		else
 			-- Either the boss is known, or the tip body already said this. Repeating it

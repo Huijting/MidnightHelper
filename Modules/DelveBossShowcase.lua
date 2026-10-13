@@ -305,6 +305,35 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 264423, label = "Gnok", creatureIdFallback = { 264931 }, storyKeys = { "Adopt-a-thon" },
 			tipLineMatch = { "Gnok", "Adopt-a-thon" } },
 	},
+	--- The Labyrinth of Kindo'jan (12.1.5). Rob, 13 Oct 2026: "ik had verwacht dat we bij elke kamer met een minibaas
+	--- een venster zouden krijgen" -> "bouw keuze 1": the coach's boss panel shows the room boss you are fighting.
+	--- NPC ids from Zygor's new guide (ZygorDungeonCommonMID.lua, `kill <name>##<id>`, read 13 Oct). There are no
+	--- daily stories here, so the panel picks the boss from your target / boss1 (TryResolveDelveBossFromUnits).
+	--- tipLineMatch is the FULL name on purpose: the default adds the last word, and "Souls" (King of Souls) or
+	--- "Boss" (Pit Boss) would grab half the room list. Kindo'jan's matcher also takes his intermission lines
+	--- (the "  – " loa sub-bullets, Amani Aegis, his three attacks) so a room boss does not show them.
+	labyrinth_kindojan = {
+		{ creatureId = 264183, label = "Jun'ala", tipLineMatch = { "Jun'ala" } },
+		{ creatureId = 274331, label = "Grukk", tipLineMatch = { "Grukk" } },
+		{ creatureId = 272655, label = "The Undead Trollbunal", tipLineMatch = { "Trollbunal" } },
+		{ creatureId = 264203, label = "Sullied Revenant", tipLineMatch = { "Sullied Revenant" } },
+		-- Two ids in Zygor (262930 in Reliquary Ritual, 264495 elsewhere); the name match covers the other one.
+		{ creatureId = 264495, label = "Sha'Kuro", creatureIdFallback = { 262930 }, tipLineMatch = { "Sha'Kuro" } },
+		{ creatureId = 269822, label = "King of Souls", tipLineMatch = { "King of Souls" } },
+		{ creatureId = 275274, label = "Cynthra Buttonsmasher", tipLineMatch = { "Cynthra" } },
+		{ creatureId = 273069, label = "Drill Sergeant", tipLineMatch = { "Drill Sergeant" } },
+		{ creatureId = 263898, label = "Head Ritualist Malakk", tipLineMatch = { "Malakk" } },
+		{ creatureId = 271909, label = "Death Steward", tipLineMatch = { "Death Steward" } },
+		{ creatureId = 272017, label = "Daakajin", tipLineMatch = { "Daakajin", "Kaz'kara" } },
+		{ creatureId = 269188, label = "Nesh'ikar", tipLineMatch = { "Nesh'ikar" } },
+		{ creatureId = 266370, label = "Pit Boss", tipLineMatch = { "Pit Boss" } },
+		{ creatureId = 270594, label = "Bone-Flayer Rav'iki", tipLineMatch = { "Rav'iki" } },
+		{ creatureId = 271525, label = "The Prisoner", tipLineMatch = { "The Prisoner" } },
+		{ creatureId = 266742, label = "Den'zara", tipLineMatch = { "Den'zara" } },
+		{ creatureId = 266500, label = "Kindo'jan", tipLineMatch = {
+			"Kindo'jan", "Amani Aegis", "Crushing Blow", "Hash'ey", "Disgraceful", "  – ",
+		} },
+	},
 }
 
 --- Scenario step title (lowercase) -> boss index when Blizzard hides story names (secret strings).

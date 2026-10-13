@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Kamerbaas in de coach (DelveBossShowcase.lua + DelveCoach.lua)
+
+Rob: "ik had verwacht dat we bij elke kamer met een minibaas een venster zouden krijgen" → keuze 1.
+- [ ] **Coach open in de Labyrinth, nog geen baas:** bovenin het bossvak staat "Target a room boss: its model and
+      tips show here." (niet meer "hover the delve icon for today's story").
+- [ ] **Neem een kamerbaas in je doelwit** (bv. Grukk, Sullied Revenant, King of Souls): het bossvak toont zijn
+      naam + 3D-model, en onder "Trash & mechanics" staat alleen nog de regel van díé baas (plus de algemene regels).
+- [ ] Met ◀ ▶ kun je door alle 17 bazen bladeren (incl. Den'zara en Kindo'jan). Laadt een model niet, meld welke.
+
 ## 🆕 13 okt — Labyrinth-coach: alle opdrachten + Kindo'jan (uit de nieuwe Zygor-gids)
 
 - [ ] **Coach → "Trash & mechanics":** twee kopjes, "Tasks with a boss" en "Tasks without a boss", samen ~20 soorten
