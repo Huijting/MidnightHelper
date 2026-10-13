@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Labyrinth-coach: alle opdrachten + Kindo'jan (uit de nieuwe Zygor-gids)
+
+- [ ] **Coach → "Trash & mechanics":** twee kopjes, "Tasks with a boss" en "Tasks without a boss", samen ~20 soorten
+      opdrachten. Klopt wat je in je volgende kamer krijgt met wat er staat?
+- [ ] **Coach → "Final boss":** Kindo'jan met Den'zara ervoor, en de vier loa-testen op 70% (Akil'zon, Halazzi,
+      Nalorakk, Jan'alai). Dit hebben we zelf nog niet gezien; tactiek komt uit Zygor.
+
 ## 🆕 13 okt — Oude item-functies (12.1.5 haalt ze weg) → eerst C_Item
 
 Site-chat meldde (warcraft.wiki.gg "Patch 12.1.5/API changes", NIET zelf in de client gemeten) dat 12.1.5 de oude
