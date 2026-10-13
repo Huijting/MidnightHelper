@@ -110,6 +110,16 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
   waren), en Rob kon Halazzi's Lair (26.9, 53.4) niet in. AFGELEID: zodra je een kamer kiest, sluiten de andere tot
   die kamer klaar is — je kiest echt één pad per keer.
 - 13 okt middag: na uitloggen stond Rob **buiten** de Labyrinth (GEMETEN). Of de run-voortgang bewaard bleef: volgt.
+## Run 3 (Rob, 13 okt middag, Tier 1) — uit VIDEO (`Video's\Captures\World of Warcraft 2026-10-13 17-07-24.mp4`)
+
+- Eerste kamer (subzone **Chamber of Rites**) = scenario **"Malicious Masks"**: `1/3 Corrupted Masks cleansed` → banner
+  "The spirits have responded to your presence with a challenger. Defeat Grukk!" → `0/1 Grukk slain`. Vijanden o.a.
+  Haunted Mask, Ancestor Shadowstalker/Shadowwalker, Ancestor Spiritwarden, Raging Spectre, Sacrifice of Flesh,
+  Expelled Corruption. Daarna "Choose Your Path". → Eerste kamer per run: Jun'ala (1) / King of Souls (2) / Grukk (3).
+- MH in de chat: "The Labyrinth of Kindo'jan (T1) — 15m 49s (a bit slower than usual) · no deaths" (run-tijd telt mee).
+- Run-voortgang na uitloggen: Rob stond buiten en begon weer bij de eerste kamer (AFGELEID uit de video: de run start
+  bij het ingangsvenster en kamer 1) → **een run wordt NIET bewaard** na weggaan.
+
 - ❓ **Open meting voor 's middags:** blijft de run bewaard na uitloggen/weggaan (zelfde plek, zelfde open deuren),
   of begint hij opnieuw? (Ook open vraag 5 in het tactiekonderzoek.) Antwoord bepaalt een regel in de coach.
 

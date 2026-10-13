@@ -5,7 +5,11 @@ Claude reads images, not video. This cuts a recording into JPEGs at a fixed inte
 timestamps, into one new folder per run next to the video's name in the scratch area.
 
 Run through the front door (no arguments on the command line -- see CLAUDE.md):
-    probe_job.txt:  run video_frames <video path> [every_seconds=5] [start=00:00:00] [end=]
+    probe_job.txt:  run video_frames <video path> [every_seconds=5] [start=00:00:00] [end=] [region=full]
+    region: full (scaled to 1280 wide) | left | right | center -- a third of the screen at FULL resolution.
+    Rob plays on a very wide screen (13 Oct 2026: 32:9), so at 1280 wide the chat (left) and the objective
+    tracker (right) are too small to read; cut that third out instead of shrinking the whole picture.
+    Use "-" for start/end to leave them open, e.g.  run video_frames "<v>" 10 - - left
 Examples:
     run video_frames "C:/Users/RobHu/Videos/Captures/World of Warcraft 2026-10-13.mp4"
     run video_frames "C:/.../run.mp4" 2 00:12:30 00:14:00     (a boss fight, one frame every 2 s)
@@ -34,8 +38,17 @@ def main(argv):
         return 1
     video = argv[0]
     every = float(argv[1]) if len(argv) > 1 else 5.0
-    start = argv[2] if len(argv) > 2 else None
-    end = argv[3] if len(argv) > 3 else None
+    start = argv[2] if len(argv) > 2 and argv[2] != "-" else None
+    end = argv[3] if len(argv) > 3 and argv[3] != "-" else None
+    region = argv[4].lower() if len(argv) > 4 else "full"
+    crops = {
+        "left": "crop=iw/3:ih:0:0",
+        "center": "crop=iw/3:ih:iw/3:0",
+        "right": "crop=iw/3:ih:2*iw/3:0",
+    }
+    if region != "full" and region not in crops:
+        print("region must be full, left, center or right")
+        return 1
     if not os.path.isfile(video):
         print("no such video:", video)
         return 1
@@ -44,7 +57,7 @@ def main(argv):
         print("ffmpeg not found under", FFMPEG_ROOT)
         return 1
     base = os.path.splitext(os.path.basename(video))[0]
-    tag = (start or "0").replace(":", "") + "_" + (end or "end").replace(":", "") + "_every" + str(every)
+    tag = (start or "0").replace(":", "") + "_" + (end or "end").replace(":", "") + "_every" + str(every) + "_" + region
     out = os.path.join(OUT_ROOT, base + "_" + tag)
     os.makedirs(out, exist_ok=True)
     cmd = [ff, "-hide_banner", "-loglevel", "error"]
@@ -52,7 +65,8 @@ def main(argv):
         cmd += ["-ss", start]
     if end:
         cmd += ["-to", end]
-    cmd += ["-i", video, "-vf", "fps=1/%s,scale=1280:-2" % every, "-q:v", "4",
+    vf = "fps=1/%s," % every + (crops[region] if region in crops else "scale=1280:-2")
+    cmd += ["-i", video, "-vf", vf, "-q:v", "3",
             os.path.join(out, "f_%05d.jpg")]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:
