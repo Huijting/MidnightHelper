@@ -1,6 +1,39 @@
 # Midnight Helper — waar we staan
 
-## 13 okt — PATCHDAG 12.1.5 (VS) — VERDER HIER
+## 14 okt — EU-PATCHDAG — VERDER HIER
+
+**Stand bij afsluiten 13 okt (GEMETEN):** main = c60dc60 + deze handoff, gepusht, werkboom schoon. Laatste tag
+`v4.7.6-beta3`; **86 commits sinds beta3, niets getagd.** `.toc` = 4.7.6, Interface 120007, 120100, 120105.
+Live VS draait 12.1.5.70340 (wago); EU gaat woensdag 14 okt live. PTR lag 13 okt eind middag eruit.
+
+**🔴 Waarom er snel een tag moet (advies aan Rob, hij beslist):** 12.1.5 haalt de oude item-globals weg — GEMETEN op
+70340 (`/dump GetItemGem, IsUsableItem` = nil; `C_Item.*` = function). Zonder a48171d falen in beta3 stil: gem-links
+(Gear check), veld 20 van `/mh export` (Armory-badges), kwaliteitskleur op speelkaarten, "al gebruikt" bij delve-items.
+VS-spelers hebben dat nú. Voorstel: **4.7.6-beta4 vanavond/morgenvroeg**, Rob test woensdag op EU-live, dan 4.7.6.
+
+**13 okt in één alinea:** Labyrinth of Kindo'jan volledig in MH: delve-lijst + route (9035, 2395 62.90/72.00, Robs meting),
+Codex "De eerste keer", Delve Coach met alle ~20 opdrachten (9 namen GEMETEN uit Robs video's, rest Zygor) + Kindo'jan
+(Zygor, nog niet gezien), bossvak met 17 bazen (NPC-ids Zygor; kiest via target), 3 kisten (2 met quest-ID 98633/98634).
+Verder: fluisteren boss-tactiek, Nek'zali → 1295397 Restless Amani, C_Item-fixes, Combat Safety (kop past; secret-fout
+98× in combat gerepareerd), smal-venster-fixes, geen Darkway in de Labyrinth, geen vliegomweg, coach zonder gat/overlap,
+geen "Final boss"-knop/story-regel in de Labyrinth. Alles in `docs/LABYRINTH_QUESTS_2026-10-13.md` + TESTLIJST.
+Video-analyse werkt: `tools/video_frames.py` (ffmpeg in C:\Users\RobHu\Tools\ffmpeg; Rob speelt 32:9 → 5e arg `right`/
+`left`). 7 analyse-opnames (9,07 GB) naar de Prullenbak op Robs verzoek.
+
+**Open voor Rob (in het spel, na `/reload`):** bossvak in de Labyrinth (target een kamerbaas → model + alleen zijn tip),
+fluister-fix (geen Valeera, geen "limited"), C_Item-plekken (gems, export veld 20, kleuren), "Copy" niet over Overview,
+geen Final-boss-knop in de Labyrinth. `/mh questdiff` stond AAN op zijn PTR-character — bij een `/reload` na een kist
+`ns.db.questDiff.found` uitlezen; anders mag hij uit (`/mh questdiff`).
+
+**Volgende stappen (Bouwchat):**
+1. Ochtendronde (CLAUDE.md). Wago: komt er een EU/live-build ná 70340? Zo ja `run names_1215`.
+2. Op Robs go: beta4 — RELEASE_NOTES.md + docs/CURSEFORGE_4.7.6.md herschrijven (nu nog beta3-tekst!), CHANGELOG.md,
+   checklist `docs/RELEASE_CHECKLIST.md`; daarna site-chat seinen + Rob plakt CURSEFORGE_DESCRIPTION.md.
+3. Devourer HERO1 (12.1.5-spelltekst vergelijken) — nog open uit plan A.
+4. Zygor-gids bewaken: de "The Labyrinth of Kindo'jan"-gids (ZygorDungeonCommonMID.lua r. 957) kan na updates groeien;
+   37.2/69.7-kist en de "Mislaid Treasure" (75.0/64.1) staan er nog niet in.
+
+## 13 okt — PATCHDAG 12.1.5 (VS) — geschiedenis van die dag
 Rob speelt EU: voor hem gaat 12.1.5 pas **woensdag 14 okt** live. Dinsdag = alles wat zonder spel kan, op de VS-build.
 Stand bij afsluiten 12 okt (GEMETEN): main = a5c798c + de fluister-commit, gepusht, laatste tag
 `v4.7.6-beta3`. Site-chat is gewezen op de skills Frontend Design + Webapp-testing (Rob 12 okt; voor de site, niet
