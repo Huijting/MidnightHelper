@@ -202,6 +202,23 @@ local function EnsureFrame()
 	who:SetText(ns:L("CS_ONYOU"))
 	f._who = who
 
+	-- 🔴 Rob, 13 Oct 2026 (PTR, Labyrinth): the title read "DANGEROUS C..." — 210 px leaves ~150 for the text,
+	-- and GameFontNormalLarge (plus a translated title) does not fit. Grow the frame to the longer of the two
+	-- lines instead of cutting the warning short; 210 stays the minimum. Re-measured on every show, so a font or
+	-- language change follows.
+	local function FitWidth()
+		local function natural(fs)
+			if fs.GetUnboundedStringWidth then
+				return fs:GetUnboundedStringWidth() or 0
+			end
+			return fs:GetStringWidth() or 0
+		end
+		local textW = math.max(natural(title), natural(who))
+		f:SetWidth(math.max(210, math.ceil(46 + 2 + 8 + textW + 10)))
+	end
+	FitWidth()
+	f:HookScript("OnShow", FitWidth)
+
 	f:SetScript("OnDragStart", function(self)
 		self:StartMoving()
 	end)

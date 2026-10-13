@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — "DANGEROUS CAST" niet meer afgekapt (CombatSafety.lua)
+
+- [ ] Bij een gevaarlijke cast (of `/mh` testknop van Combat Safety): de kop staat er helemaal, "DANGEROUS CAST",
+      niet "DANGEROUS C…". Het vak is breder geworden waar nodig.
+
 ## 🆕 13 okt — Delves-tabblad in een smal venster (UI.lua + Delves.lua)
 
 Rob 13 okt, PTR-screenshot: link over de versie en "Read in Codex"; Valeera-regel, Dundun-blok en sleutelregel rechts
