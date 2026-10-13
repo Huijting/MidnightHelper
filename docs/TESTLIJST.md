@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Nek'zali: welke naam hoort bij DBM's nieuwe add-ID?
+
+- [ ] Typ in het spel `/dump C_Spell.GetSpellName(1295397)` en `/dump C_Spell.GetSpellName(1297630)`. Wat staat er?
+      (Achtergrond: DBM 12.1.13 waarschuwt voor de adds nu met 1295397, volgens DBM "Restless Amani"; onze tip linkt
+      1297630, dat op 4 sep "Vessel of Awakening" bleek. Is 1295397 echt "Restless Amani", dan zet ik de tip op die ID.)
+
 ## 🆕 12 okt — Boss-tactiek naar één speler fluisteren (DungeonBossWindow.lua + DungeonLiveCoach.lua)
 
 - [ ] **Bossvenster, muis op "Share":** tooltip zegt linksklik = hele groep, rechtsklik = één speler.
