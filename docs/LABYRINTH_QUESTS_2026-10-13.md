@@ -97,6 +97,9 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 - Daarna "Choose Your Path"; Kinduru: "It is time we picked de next chamber to explore. Or are ya too weary to
   continue?" Op de kaart staan nu **veel deuren open rond het midden** (o.a. richting Akil'zon's Roost en Nalorakk's
   Rest); alleen de bovenste deur van Akil'zon's Roost en de Cave Towers hebben nog een slot.
+- Na de Central Chamber: deur **"Continue into Alki'zon's Roost?"** (teller **3**; Rob op 44.4, 31.1). ⚠️ Het venster
+  spelt **"Alki'zon"**, de kaart "Akil'zon's Roost" — Blizzards typfout op de PTR, niet overnemen. Hier stopte Rob
+  (13 okt ochtend; verder 's middags).
 
 ## Schatten (voor DelveChestData later)
 

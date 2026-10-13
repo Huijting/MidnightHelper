@@ -20,7 +20,12 @@ delve-rijen), Combat Safety-kop past, Labyrinth ≠ Darkway (geen ouderkaarten i
 onbekende delve, **Labyrinth in de delve-lijst** (9035, 2395 62.90/72.00, Robs meting) en **"De eerste keer" op de
 Codex-kaart** in 8 talen + esMX (vertalingen door mh-writer, niet door moedertaalsprekers nagekeken).
 Durability 0% op de PTR = echt kapotte items (Rob: rood, repair werkt daar niet) → geen fix. Open: quest-ID's van de
-6 quests (wago), hoeveel kamers run 2 opent, Labyrinth als delve-coach-entry (kamers/bazen). Alles
+6 quests (wago), hoeveel kamers run 2 opent, Labyrinth als delve-coach-entry (kamers/bazen).
+✅ Daarna ook gebouwd (13 okt): Delve Coach-entry voor de Labyrinth (8 talen + esMX, noStory), vliegroute alleen als
+het echt korter is (DelveTipMarkup), coach zonder gat/overlap, Labyrinth-kist 1 (kaart 2647, 37.2/69.7; quest-ID
+onbekend). Rob zat in run 2 voor de deur van Akil'zon's Roost (teller 3) toen hij weg moest; `/mh questdiff` staat AAN
+op zijn PTR-character → na de volgende kist + `/reload` het nieuwe quest-ID uit de SavedVariables lezen
+(`ns.db.questDiff.found`). Mogelijke 2e kist 45.7/34.6 nog onbevestigd. Alles
 daarna NIET getagd (Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten, doodskaart-tips,
 spell-presses, website-links incl. titelbalk, boss-fluisteren — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
 🔴 Bij de volgende tag: site-chat ("Site chat 12-10" of opvolger) seinen → site herbouwen uit de tag (52 Codex-ankers,
