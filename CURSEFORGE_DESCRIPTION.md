@@ -6,7 +6,7 @@ Your gear says "Champion 4/6" and the game never tells you what that means. Your
 
 It is for you if you have just hit 90, or if you are coming back after a few expansions away and half the game has been renamed. Veterans will know much of it already.
 
-Up to date for patch 12.1 and Season 2, checked in the live game. Free, no ads, [open source](https://github.com/Huijting/MidnightHelper) (MIT), eight languages built in, and no other addons needed.
+Up to date for patch 12.1.5 and Season 2, checked in the live game. Free, no ads, [open source](https://github.com/Huijting/MidnightHelper) (MIT), eight languages built in, and no other addons needed.
 
 ### Getting started
 
@@ -61,13 +61,13 @@ It is not a boss mod, a damage meter, a bag addon or a unit-frame replacement, a
 [midnighthelper.com](https://midnighthelper.com/) is free, needs no account and comes in eight languages, now also Russian.
 
 - **[Play cards](https://midnighthelper.com/play/)**: how each of the 40 specs plays, why each step matters, and a short quiz.
-- **[The whole Codex](https://midnighthelper.com/codex/)**: all 51 in-game articles on one page, easy to read on your phone.
+- **[The whole Codex](https://midnighthelper.com/codex/)**: all 52 in-game articles on one page, easy to read on your phone.
 - **[Patch 12.1.5](https://midnighthelper.com/patch/12-1-5/)**: what is new, and what changes for your class.
 - **[Role Academy](https://midnighthelper.com/academy/)**: tank, healer and DPS, step by step, ready to print.
 - **[Key block cheat sheet](https://midnighthelper.com/keyblock/)**: paste your code, then print it or keep it on your phone.
 - **[Armory gear check](https://midnighthelper.com/armory/)**: paste `/mh export` and see your best set.
 
-The guides: [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all 14 delves](https://midnighthelper.com/guides/delves/) · [Knowledge Points](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/) · [Mythic+ from your first key](https://midnighthelper.com/guides/mythic-plus/) — plus [Raidbots in seven steps](https://midnighthelper.com/raidbots/).
+The guides: [new at max level](https://midnighthelper.com/guides/start/) · [your week and the Great Vault](https://midnighthelper.com/guides/weekly/) · [currencies and crests](https://midnighthelper.com/guides/currencies/) · [all 15 delves](https://midnighthelper.com/guides/delves/) · [Knowledge Points](https://midnighthelper.com/guides/knowledge-points/) · [the Coiled Isle](https://midnighthelper.com/guides/coiled-isle/) · [Mythic+ from your first key](https://midnighthelper.com/guides/mythic-plus/) — plus [Raidbots in seven steps](https://midnighthelper.com/raidbots/).
 
 Got two minutes? [Tell us what you use, what you never use and what annoys you](https://midnighthelper.com/survey/).
 
