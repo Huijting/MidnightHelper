@@ -2362,3 +2362,68 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   en de ontbrekende mana-potion-categorie — geen van deze vier is door mij vast te stellen als
   "fout", alleen als afwijking tussen twee bronnen; een mens (Rob/Cisca) beslist of
   `data/consumables_wowhead.json` wordt aangepast. Niet aangepast: dit is rapportage, geen fix.
+
+---
+
+- [2026-10-13] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-12]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261013y` (en `&nocache=20261013z` als tweede, onafhankelijke fetch) via Exa, beide
+  volledig gelezen (JSON). `pagination.totalCount` = **8**, zelfde als op [2026-10-08] t/m
+  [2026-10-12]. Alle drie de draadjes (esMX-locale `user_uvqy5939hswhgduu`, MrsBoojiePanda's
+  debug-regel, gadrinonturalyon's coffer-key/3D-model-verzoek) hebben als nieuwste bericht nog
+  steeds een reply van `twelveinchy`; geen nieuwe reacties sinds [2026-10-12]. MEASURED.
+  **[RAAKT ONS NIET]** — geen actiepunt vandaag. De esMX-codefix zelf (`Locales/esES.lua:17`)
+  staat nog open; al gemeld op [2026-10-07], een mens beslist wanneer dat wordt opgepakt.
+
+- [2026-10-13] 🔒 **Launchdag 12.1.5 (NA) — geen nieuwe hotfix-sectie, en de enige kanttekening die
+  vandaag mijn lane raakt (de data-wachters Cinderweaver/Living-Bomb-dispelregel) blijkt geen
+  tegenspraak: Ruby Life Pools heeft überhaupt geen geshipte tip-tekst.**
+
+  `news.blizzard.com/en-us/article/24296142?nocache=20261013z` (via Exa `web_fetch_exa`)
+  **volledig gelezen**: nieuwste sectie blijft **"October 6, 2026"** (`Published: 2026-10-06` —
+  niet ouder dan wat gisteren al gelogd stond, dus geen cache-val), byte-voor-byte dezelfde
+  **Classes**- (DK Unholy, Devourer DH, Monk Brewmaster/Mistweaver, Rogue Subtlety, Shaman
+  Enhancement) en **Dungeons and Raids**-inhoud (Venomous Abyss → Ula'tek: Spectral Coils -20%,
+  Toxic Burn -30% Mythic, Caustic Waves-golven 7→3 Mythic, Warden's Protection -80%, Grasping
+  Fangs -30%, Blight Vein 6→4s, Blightscale Shrieker/Clutch -20% HP, Circling Prey -30%,
+  Serpent's Bite max 3-man soak) en PvP-talentpas als al regel-voor-regel getoetst op [2026-10-06]
+  t/m [2026-10-12] — vandaag niet opnieuw getoetst, geen nieuwe regel erin. **Delves, Professions,
+  Quests en Items: nog steeds leeg** in deze sectie — niets om tegen de repo te vergelijken. Dit
+  convergeert met `docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md` en `docs/PTR_12.0.7_DATA.md` van
+  vandaag, die onafhankelijk dezelfde sectie als nieuwste zagen.
+
+  🔍 **Eigen lane-check op de kanttekening van de data-wachter** (`docs/PTR_12.0.7_DATA.md`, entry
+  [2026-10-13]): die noemde een losse forumpost ("Dungeon and Raid Tuning – October 13/14 ",
+  Linxy 12 okt) met één dispel-mechaniekregel die geen percentage is — letterlijk *"Primalist
+  Cinderweaver's Living Bomb debuff can now be dispelled and the explosion damage will not occur
+  when dispelled"* (Ruby Life Pools) — en meldde terecht dat een dispel-wijziging eerder mijn
+  terrein is dan het zijne, met als eerste check een grep op twee bestanden
+  (`Modules/DungeonTipsData.lua`, `Modules/DpsToolkit.lua`: 0 treffers).
+
+  Zelf breder gecontroleerd, zoals de opdracht van deze watch voorschrijft (hele boom, niet een
+  bestandenlijst): "Cinderweaver" komt **nergens** in de addon-code voor (0 treffers repo-breed
+  buiten de drie watch-logs zelf die het vandaag citeren). "Living Bomb" komt wél voor, maar
+  uitsluitend als de Fire Mage-spreuk (44457/44461, `Modules/KeybindRoles_Mage.lua`,
+  `Modules/DpsToolkit.lua`, al sinds 5/10 okt gemarkeerd als niet-castbaar in 12.1) — geen enkele
+  treffer is de Ruby-Life-Pools-mechaniek. En de sterkste controle: `Modules/DungeonTipsData.lua:
+  343-345` registreert Ruby Life Pools' drie bosses (melidrussa/kokia/kyrakka) pas als hun
+  `DGN_TIP_RL_<NAAM>_STEPS`-tekst in `enUS.lua` bestaat (commentaar erboven, regel 328-331: "Block
+  4 van de tip-audit... GEMETEN op 14 sep: geen enkele entry voor Kings' Rest, Temple of
+  Sethraliss of Ruby Life Pools"). `grep "DGN_TIP_RL_" Locales/enUS.lua` geeft **0 treffers** —
+  dus geen van de drie Ruby-Life-Pools-bosses heeft ooit geshipte tip-tekst gekregen. Een
+  dispel-mechaniekwijziging op een boss zonder enige geshipte tip kan niets tegenspreken.
+  MEASURED. **[RAAKT ONS NIET]** — bevestigt de conclusie van de data-wachter, nu op de volledige
+  boom getoetst in plaats van twee bestanden.
+
+  Vandaag is dinsdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261013z (volledig gelezen via
+  Exa) · `docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md` entries [2026-10-13] en
+  `docs/PTR_12.0.7_DATA.md` entry [2026-10-13] als kruiscontrole/aanleiding (feiten niet herhaald,
+  de Cinderweaver-kanttekening zelf getoetst) · codebase: `grep` case-insensitive repo-breed op
+  "Cinderweaver"/"Living Bomb"/"Ruby Life Pools"/"DGN_TIP_RL_", plus gerichte reads van
+  `Modules/DungeonTipsData.lua`, `Modules/DungeonRosterData.lua`, `Locales/enUS.lua` — allemaal
+  vandaag gelezen. **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van
+  nieuwe) spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer,
+  een mens beslist.
