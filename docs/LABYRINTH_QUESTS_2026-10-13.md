@@ -18,7 +18,9 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 | 3 | Dangers Untold and Hardships Unnumbered | Valeera Sanguinar (bij de ingang) | Make the necessary preparations, then enter the Labyrinth of Kindo'jan | 500 Undercoin |
 
 | 3b | (inleveren) Dangers Untold… | **Kinduru <Herald of de Loa>** (vogel, binnen, eerste ruimte) | tracker binnen eerst "0/1 Follow Valeera"; inleveren bij Kinduru: "It is good to be seein' you again, hash'ura … your uncle?" | 500 Undercoin |
-| 4 | You Remind Me of the Bird | Kinduru (na kamer 1) | Open the path to the Reliquary to continue your labyrinth run. ("Akil'zon isn't done with dis old troll"; hij wijst naar de verslagen Vilebranch necromancer) | 500 Undercoin |
+| 4 | You Remind Me of the Bird | Kinduru (na kamer 1) | Open the path to the Reliquary to continue your labyrinth run. ("Akil'zon isn't done with dis old troll"; hij wijst naar de verslagen Vilebranch necromancer). Inleveren bij Valeera | 500 Undercoin |
+| 5 | The Way Forward... | Valeera | Complete the Labyrinth run (Reliquary → Halazzi's Lair → Speak to Kinduru). Inleveren bij Kinduru | 500 Undercoin + Restored Coffer Key |
+| 6 | …Is Sometimes the Way Back | Valeera (na de schatkamer) | Collect your reward and return to Kul'amara (Swiftclaw Terrace, Atal'Aman) | Kinduru's Spiriting Quill + 500 Undercoin |
 
 ## Binnen (Rob, Tier 1, 13 okt) — volgorde AFGELEID uit de inhoud, niet uit tijdstempels
 
@@ -54,6 +56,23 @@ wago terug is. Zygor (live 9.6 en PTR) heeft nog geen gids, alleen de ingang in 
 - Daarna **"Empty Halls"**: `0/1 Speak to Kinduru to end your run`. Kinduru-tooltip: *The Way Forward… 0/1 Speak to
   Kinduru*. De **eerste (intro-)run is dus 3 kamers**: Jun'ala → Reliquary → Halazzi's Lair (past bij de transcript:
   "oefenrun door een paar vleugels"). Empty Halls = ScenarioStep 3721 in het tactiekonderzoek.
+
+- **Kinduru, gesprek:** "What can dis old bird do for you, hash'ura?" — optie **"(Quest) I'm ready to leave the
+  Labyrinth. <Ends your Labyrinth run.>"**
+
+- **Bevestiging bij Kinduru:** "Leave the Labyrinth and collect your rewards? Warning: This will end your Labyrinth
+  run!" (Accept/Cancel) → banner **"Treasure Room"**, tracker **"Collect Your Reward"**. Schatkamer onderin bij Chamber
+  of Rites (Rob op 44.3, 82.8). Na 3 kamers: **2× "Bountiful Heavy Trunk"** (past bij "per 3 kamers +2 Heavy Trunks").
+  Buit bij Rob (Tier 1): Pyrewalker's Treads, Rattling Bag o' Gold, Sin'dorei Spinning Library, Dusty Loa Totem,
+  10× Voidlight Marl, 2g 64s 57c.
+- **Quest 5 inleveren bij Kinduru** ("…Maybe next time I can convince dem to let you further.") → 500 Undercoin +
+  **Restored Coffer Key**.
+- **Quest 6 "…Is Sometimes the Way Back"** van Valeera: *Collect your reward and return to Kul'amara* (Swiftclaw
+  Terrace, Atal'Aman — weer de "?" linksboven). Beloning **Kinduru's Spiriting Quill** (= de toy om een run te stoppen,
+  spell 1320854 in het tactiekonderzoek) + 500 Undercoin.
+- 📌 **Rob: "ik denk dat we per keer de delve open spelen"** — Kinduru zegt letterlijk "maybe next time I can convince
+  dem to let you further". Past bij de transcript (eerst een oefenrun, daarna vrij) en de Codex-regel (wekelijkse lijn,
+  één stap per week). Hoeveel kamers run 2 opent: NOG NIET GEMETEN.
 
 ## MH binnen
 
