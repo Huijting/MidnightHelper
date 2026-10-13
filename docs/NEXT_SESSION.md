@@ -25,7 +25,12 @@ Durability 0% op de PTR = echt kapotte items (Rob: rood, repair werkt daar niet)
 het echt korter is (DelveTipMarkup), coach zonder gat/overlap, Labyrinth-kist 1 (kaart 2647, 37.2/69.7; quest-ID
 onbekend). Rob zat in run 2 voor de deur van Akil'zon's Roost (teller 3) toen hij weg moest; `/mh questdiff` staat AAN
 op zijn PTR-character → na de volgende kist + `/reload` het nieuwe quest-ID uit de SavedVariables lezen
-(`ns.db.questDiff.found`). Mogelijke 2e kist 45.7/34.6 nog onbevestigd. Alles
+(`ns.db.questDiff.found`). Mogelijke 2e kist 45.7/34.6 nog onbevestigd.
+✅ **13 okt middag, GEMETEN: live (`wow`) draait 12.1.5.70340** (zelfde build als de PTR van vanochtend). `run names_1215`
+tegen 70340: **0 DIFF** — alle 12.1.5-namen in alle 8 talen gelijk aan de 70077-namen in onze packs. Naamstap plan A = AF.
+Online (13 okt): gidsen bestaan (Icy Veins, Overgear, theclick.gg e.a.), meest op PTR-data; ze noemen een Kinduru-optie
+"Show me where I can go", kamer "The Catacombs" en start bij Tokka's Landing — dat laatste spreekt Robs meting tegen
+(tablet → Kul'amara in Atal'Aman); onze meting wint, de rest is KANDIDAAT. Alles
 daarna NIET getagd (Leveling 10-90, mana potion, toetsenblok-fixes, Prey/Voidcore-kaarten, doodskaart-tips,
 spell-presses, website-links incl. titelbalk, boss-fluisteren — lijst "Sinds beta3" hieronder, details in "12 okt — wat er gedaan is").
 🔴 Bij de volgende tag: site-chat ("Site chat 12-10" of opvolger) seinen → site herbouwen uit de tag (52 Codex-ankers,
