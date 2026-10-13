@@ -3360,6 +3360,16 @@ local function PaintDelvesPanel(fullRefresh)
 	if rightColumn then
 		rightColumn:SetWidth(colW)
 	end
+	-- 🔴 Rob, 13 Oct 2026 (PTR screenshot): the left rows' ">", map and tips buttons lay over the first letter of
+	-- the right column ("wilight Crypts"). The columns got the new width on every refresh, the rows only on a full
+	-- one, so after the window narrowed the left rows stuck out into the right column. Keep them in step here.
+	for _, col in ipairs({ leftColumn, rightColumn }) do
+		if col and col.rows then
+			for _, r in ipairs(col.rows) do
+				r:SetWidth(colW)
+			end
+		end
+	end
 
 	if fullRefresh then
 	local roster = ns.MIDNIGHT_DELVES or MIDNIGHT_DELVES
@@ -4097,6 +4107,15 @@ local function SetupDelvesModule()
 	midnightScroll:EnableMouseWheel(true)
 	midnightScroll:SetPoint("TOPLEFT", currencyHeader, "BOTTOMLEFT", 0, -6)
 	midnightScroll:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, FOOTER_RESERVED)
+	-- 🔴 Rob, 13 Oct 2026 (PTR screenshot): the Valeera line, the Dundun block and the key line ran off the right
+	-- edge. The scroll child only got its width at the end of a full refresh, measured from whatever size the
+	-- scroll frame had then; when the window ended up narrower, the child stayed wide and the scroll frame clipped
+	-- it. Follow the scroll frame's own width instead, so the text rewraps whenever it changes.
+	midnightScroll:HookScript("OnSizeChanged", function(self, w)
+		if w and w > 0 then
+			midnightScrollChild:SetWidth(math.max(200, w - 4))
+		end
+	end)
 
 	if ns.EnsureDelveCurioPanel then
 		ns.EnsureDelveCurioPanel(midnightScrollChild)

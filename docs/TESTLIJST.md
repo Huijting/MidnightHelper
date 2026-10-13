@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 okt — Delves-tabblad in een smal venster (UI.lua + Delves.lua)
+
+Rob 13 okt, PTR-screenshot: link over de versie en "Read in Codex"; Valeera-regel, Dundun-blok en sleutelregel rechts
+afgekapt; ">", kaart- en boek-knopjes van de linkerkolom over de eerste letter van de rechterkolom ("wilight Crypts").
+- [ ] **Titelbalk, Delves-tabblad:** "midnighthelper.com" staat tussen de versie en "Read in Codex", over niets heen.
+      Maak het venster smaller: de link schuift op, en verdwijnt als er geen plek is (hij staat ook bij Over).
+- [ ] **Delves-tabblad:** de Valeera-regel, het Dundun-blok en "You have 0 Restored Coffer Keys…" lopen niet meer
+      rechts het venster uit maar breken af naar de volgende regel. Ook na het venster smaller/breder slepen.
+- [ ] **Delve-lijst:** rechts staan de namen weer heel ("Twilight Crypts", "Shadowguard Point"); de ">", kaart- en
+      boek-knopjes van de linkerkolom staan aan het eind van hun eigen rij.
+
 ## 🆕 13 okt — Nek'zali: welke naam hoort bij DBM's nieuwe add-ID?
 
 - [x] Typ in het spel `/dump C_Spell.GetSpellName(1295397)` en `/dump C_Spell.GetSpellName(1297630)`. Wat staat er?

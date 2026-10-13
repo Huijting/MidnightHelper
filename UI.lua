@@ -3028,12 +3028,43 @@ function ns:EnsureMainUI()
 	ns._mhBreadcrumb = breadcrumb
 
 	--- The site link sits in the middle of the title bar (Rob, after the /reload: "kunnen we hem centreren daar?").
-	--- Kept as a function because SelectTab calls it after every breadcrumb change.
+	--- Kept as a function because SelectTab calls it after every tab change and the bar calls it on resize.
+	--- 🔴 Rob, 13 Oct 2026, screenshot of the Delves tab in a narrow window: the centred link lay over the version
+	--- and over "Read in Codex". So it centres in the FREE space between the version and the leftmost right-hand
+	--- button (the bar's own centre when that fits), and stays hidden when it does not fit at all - the About
+	--- panel carries the same link.
 	function ns._mhPlaceTitleSite()
 		titleSite:ClearAllPoints()
-		titleSite:SetPoint("CENTER", titleBar, "CENTER", 0, 0)
+		breadcrumb:ClearAllPoints()
+		breadcrumb:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
+		local rightBtn = (codexLinkBtn:IsShown() and codexLinkBtn) or lookToggleBtn
+		local l, r = titleVersion:GetRight(), rightBtn:GetLeft()
+		local barL, barR = titleBar:GetLeft(), titleBar:GetRight()
+		if not (l and r and barL and barR) then
+			-- Not laid out yet (first build): centre for now; the first SelectTab places it properly.
+			titleSite:SetPoint("CENTER", titleBar, "CENTER", 0, 0)
+			breadcrumb:SetPoint("RIGHT", titleSite, "LEFT", -12, 0)
+			return
+		end
+		local w = titleSite:GetWidth() or 150
+		local lo, hi = l + 14, r - 12
+		if hi - lo < w then
+			titleSite:Hide()
+			breadcrumb:SetPoint("RIGHT", rightBtn, "LEFT", -12, 0)
+			return
+		end
+		titleSite:Show()
+		local cx = (barL + barR) / 2
+		if cx - w / 2 < lo or cx + w / 2 > hi then
+			cx = (lo + hi) / 2
+		end
+		titleSite:SetPoint("CENTER", titleBar, "LEFT", cx - barL, 0)
+		breadcrumb:SetPoint("RIGHT", titleSite, "LEFT", -12, 0)
 	end
 	ns._mhPlaceTitleSite()
+	titleBar:HookScript("OnSizeChanged", function()
+		ns._mhPlaceTitleSite()
+	end)
 
 	-- Global search row: visible on every tab, full width (wider than the ~132px sidebar would allow).
 	local searchBar = CreateFrame("Frame", "MidnightHelperGlobalSearch", main)
@@ -4788,9 +4819,6 @@ SelectTab = function(tabId)
 			text = (roomLabel ~= "" and (roomLabel .. "  >  ") or "") .. tabLabel
 		end
 		ns._mhBreadcrumb:SetText(text)
-		if ns._mhPlaceTitleSite then
-			ns._mhPlaceTitleSite()
-		end
 	end
 
 	-- Phase 3 cross-link: toon "Read in Codex" als deze tab een Codex-categorie heeft.
@@ -4803,6 +4831,10 @@ SelectTab = function(tabId)
 			ns._mhCodexLinkBtn._mhCat = nil
 			ns._mhCodexLinkBtn:Hide()
 		end
+	end
+	-- After the Codex button is shown or hidden: the site link centres in the space that is left.
+	if ns._mhPlaceTitleSite then
+		ns._mhPlaceTitleSite()
 	end
 
 	for id, panel in pairs(ns.panels) do
