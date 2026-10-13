@@ -87,9 +87,12 @@ ns.DELVE_CHESTS = {
 		-- /dump C_Map.GetBestMapForUnit, the chest at his own feet. Only one found so far; quest flag unknown (nil =
 		-- "not known to be done", see above). Zygor's LibRover lists 2647 and 2648 for this delve: a second floor?
 		{ x = 37.20, y = 69.70 },
-		-- Rob's video of run 4, 13 Oct 2026 (~3:00): nameplate "Sturdy Chest" with the player on it, The Cave Towers,
-		-- room "Raging Spirits". Read from the minimap coordinates in the video frame.
-		{ x = 81.40, y = 54.70 },
+		-- Zygor (updated 13 Oct 2026, ZygorDungeonCommonMID.lua "The Labyrinth of Kindo'jan"): two Sturdy Chests with
+		-- quest flags. The first one AGREES with Rob's own run-4 video (Sturdy Chest nameplate at 81.4, 54.7, The Cave
+		-- Towers) to within 0.4 — two independent sources. The second is Zygor only. Rob's 37.2/69.7 above is not in
+		-- Zygor's list; kept, quest unknown.
+		{ x = 81.32, y = 55.02, quest = 98633 },
+		{ x = 86.88, y = 63.34, quest = 98634 },
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },

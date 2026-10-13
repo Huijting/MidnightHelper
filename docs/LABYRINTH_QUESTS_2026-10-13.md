@@ -1,5 +1,14 @@
 # The Labyrinth of Kindo'jan — de weg naar binnen (GEMETEN door Rob, PTR 12.1.5.70340, 13 okt 2026)
 
+✅ **ZYGOR HEEFT NU EEN VOLLEDIGE GIDS (bijgewerkt 13 okt middag)** — `ZygorGuidesViewer/Guides-Retail/Dungeons/
+ZygorDungeonCommonMID.lua`, guides "Dungeon Guides\Midnight Labyrinths\The Labyrinth of Kindo'jan" (r. 957, per kamer
+scenario-ID + stappen + coördinaten + tips; mapid 2647, 2648; achievements) en "... Quests" (r. 2592). Quest-ID's:
+The Labyrinth of Kindo'jan **99306**, The Labyrinth **98831**, Dangers Untold and Hardships Unnumbered **98832**,
+You Remind Me of the Bird **98833**, The Way Forward... **98834**, ...Is Sometimes the Way Back **98836**.
+⚠️ Zygor laat 99306 oppakken op **The Coiled Isle 57.87, 46.68**; Rob kreeg hem van het tablet op de deur (GEMETEN).
+Mogelijk twee manieren; beide noemen.
+Sturdy Chests: 98633 (81.32, 55.02 — klopt met Robs video 81.4/54.7) en 98634 (86.88, 63.34).
+
 ⚠️ **Lees eerst wat er al is:** `docs/PATCH_12_1_5_CONTENT_2026-10-07.md` §Labyrinth (incl. Robs YouTube-transcript
 van 11 okt: "korte startquestlijn met een oefenrun door een paar vleugels"), `docs/PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md`
 (alle kamerbazen, o.a. Jun'ala = DungeonEncounter 3526; Choose Your Path = ScenarioStep 3342) en de Codex-kaart
