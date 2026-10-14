@@ -2427,3 +2427,117 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   vandaag gelezen. **[RAAKT ONS NIET]** — geen van de gevonden hotfixes (of het ontbreken van
   nieuwe) spreekt een geshipte claim tegen. Geen actiepunt dat ík kan oppakken — ik rapporteer,
   een mens beslist.
+
+---
+
+- [2026-10-14] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-13]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261014a` (en `&nocache=20261014b` als tweede, onafhankelijke fetch) via Exa, beide
+  volledig gelezen (JSON). Alle drie de draadjes (esMX-locale `user_uvqy5939hswhgduu`,
+  MrsBoojiePanda's debug-regel, gadrinonturalyon's coffer-key/3D-model-verzoek) hebben als
+  nieuwste bericht nog steeds een reply van `twelveinchy`; geen nieuwe reacties sinds
+  [2026-10-13]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt vandaag. De esMX-codefix zelf
+  (`Locales/esES.lua:17`) staat nog open; al gemeld op [2026-10-07], een mens beslist wanneer dat
+  wordt opgepakt.
+
+- [2026-10-14] ⚠️ **Nieuwe sectie "October 13, 2026" (eerste sinds 6 okt) — pure numerieke
+  boss-tuning op bijna elke dungeon/raid die we tippen, geen enkele tegenspraak; één vondst die
+  een al openstaande testvraag direct raakt.** `news.blizzard.com/en-us/article/24296142
+  ?nocache=20261014a` (via Exa `web_fetch_exa`) **volledig gelezen**: sectie "October 13, 2026"
+  staat nu bovenaan (`Published` niet expliciet in de kop, maar nieuwer dan de "October 6"-sectie
+  die sinds [2026-10-06] de nieuwste was — geen cache-val, nieuwe content). Dit convergeert met
+  wat `docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md` en `docs/PTR_12.0.7_DATA.md` van vandaag
+  onafhankelijk als nieuwste sectie zagen. **Classes: leeg** in de 13-okt-sectie — niets te
+  vergelijken (buiten mijn lane toch). **Dungeons and Raids: volledig gelezen**, uitsluitend
+  gezondheid%/schade%/straal/aantal-tuning op Altar of Fangs, Murder Row, Ruby Life Pools, Temple
+  of Sethraliss, The Blinding Vale, The Venomous Abyss (Sszorak, The Coiled Altar) en Voidscar
+  Arena — geen enkele nieuwe mechaniek-naam. **Delves, Professions, Quests, Items: leeg.**
+
+  📌 **Positieve controle, zelfde repo-brede scope als de claims hieronder:** `grep -rn
+  "Guillotine is 1283485"` vindt de eigen ID-mapping in `Modules/RaidCoachData.lua:180`;
+  `grep -rn "1289900"` vindt Dreadmarch terug in `Locales/RaidTips.lua:85` (zeven talen) — de
+  methode (tip-tekst via spell-ID terugleiden naar de hotfix-naam) werkt dus op deze schaal.
+
+  **Altar of Fangs** (Rav'i, The Writhing Coil, Zul'jan — eigen roster
+  `Modules/DungeonRosterData.lua:220-236`, dus hierdoor gaat deze dungeon vandaag voor het eerst
+  live sinds 12.1.5 gisteren; getagd `season = 2`): de genoemde namen Primal Serpent, Ravenous
+  Descendant, Twinfang Harrower, Ritual Chieftain, Rattling Writhe, High Evolutionist, Bloodletter,
+  Ascendant Serpent en Living Venom zijn (INFERRED, niet met een ID bevestigd) de vijf/meer
+  slangen waarin The Writhing Coil opsplitst — `DGN_TIP_AF_COIL_QUICK`/`_DPS`
+  (`Locales/DungeonTips.lua:469-475`) noemt zelf al "5 snakes" generiek, zonder een van deze namen
+  of een schade-/gezondheidspercentage. Zul'jan's "Axegrinder periodic damage reduced by 15%" kan
+  ik niet aan één `{SPELL:id}` in `DGN_TIP_AF_ZULJAN_STEPS` (`Locales/DungeonTips.lua:476`) hangen
+  — die tekst noemt vier andere ID's (1300876, 1301413, 1301111, 1301231) zonder zelf een naam of
+  percentage. Rav'i's eigen fix ("Carrion Burst periodic damage reduced by 10%" — let op,
+  Carrion Burst is hier géén apart item, Rav'i is de boss zelf) raakt generiek beschreven mechanics
+  in `DGN_TIP_AF_RAVI_STEPS` zonder percentage. MEASURED op alle vier: geen percentage/aantal in
+  onze tekst om tegen te spreken. **[RAAKT ONS NIET]**
+
+  **Murder Row — Zaen Bladesorrow, Fire Bomb -33%:** `DGN_TIP_MR_ZAEN_QUICK`
+  (`Locales/DungeonTips.lua:114`) noemt de bom alleen als "Bomb: Got the bomb? Carry it away..."
+  zonder schadewaarde. MEASURED. **[RAAKT ONS NIET]**
+
+  **Ruby Life Pools — Primalist Cinderweaver, Living Bomb nu dispelbaar:** zelfde mechaniek als
+  gisteren al getoetst (toen nog een forumpost, nu de officiële hotfix-tekst, woordelijk gelijk).
+  Conclusie ongewijzigd: geen van de drie Ruby-Life-Pools-bosses heeft ooit geshipte tip-tekst
+  gekregen (`grep "DGN_TIP_RL_" Locales/enUS.lua` → 0 treffers, al op [2026-10-13] gemeten).
+  **[RAAKT ONS NIET]** — overige Ruby Life Pools-tuning (Earthbound Guardian, Defier Draghar,
+  Storm Warrior, High Channeler Ryvati, Melidrussa Chillworn, Kokia Blazehoof) hoeft daarom niet
+  los getoetst: zonder tip-tekst is er niets om tegen te spreken. **[RAAKT ONS NIET]**
+
+  **Temple of Sethraliss (Static Anomaly) en The Blinding Vale (Sporeblight Belcher, Radiant
+  Spellsower, Lightwarden Ruia, Ziekket):** geen van deze zes naam-treffers repo-breed (`grep -i`
+  op elke naam, 0 treffers buiten de hotfix-tekst zelf) — geen geshipte tip om tegen te spreken.
+  MEASURED. **[RAAKT ONS NIET]**
+
+  **The Venomous Abyss — Sszorak, "increased the time to reach 100 rage by 5 seconds on
+  Mythic":** `RAID_BOSS_SSZORAK_STEPS` (`Locales/RaidTips.lua:69`, zeven talen) noemt deze exacte
+  mechaniek al bij naam via ID: "On Mythic: when {SPELL:1305621} marks a player, at least 14
+  players must stand within 8 yards of them before his rage reaches 100." Onze tekst noemt geen
+  tijdsduur (geen seconden-getal), dus de hotfix spreekt niets tegen — hij geeft Mythic-raids
+  alleen meer tijd om de 14 spelers te verzamelen. MEASURED. **[RAAKT ONS NIET]**, geen
+  actiepunt — de tekst blijft kloppen, wordt alleen iets ruimer uitvoerbaar.
+
+  **The Venomous Abyss — The Coiled Altar, vier tuningregels op Phase 1/2:** "initial total
+  number of orbs during Toxic Deluge reduced to 8 on Mythic (was 10)", "Virulent Mutations
+  reduced to 4 on Mythic (was 5)", "Virulent Mutation/Mutagenic Venom radius reduced to 6 yards
+  (was 8)", "Dreadmarch targets reduced to 3 on Mythic (was 4)". `{SPELL:1299960}` = Toxic Deluge
+  (al vastgesteld op [2026-09-21]) staat in `RAID_BOSS_COILEDALTAR_STEPS`
+  (`Locales/RaidTips.lua:85`) als "Green orbs ({SPELL:1299960}): step on one to carry it..." —
+  geen aantal genoemd. `{SPELL:1289900}` = Dreadmarch (al vastgesteld 19 sep,
+  `docs/NEXT_SESSION.md:2730-2731`) staat in dezelfde STEPS-regel als "makes players walk to the
+  edge to jump off" — geen spelersaantal genoemd. Coalesced Venom/Virulent Mutation/Mutagenic
+  Venom hebben zelf geen eigen `{SPELL:id}` in onze tekst (al vastgesteld op [2026-09-21], en
+  bewust niet geschreven volgens `docs/NEXT_SESSION.md:2737-2740`: "Heroic/Mythic-mechaniek die ik
+  alleen uit hotfixzinnen ken… herschrijven zonder bron is raden"). MEASURED op alle vier: geen
+  aantal/straal in onze tekst om tegen te spreken. **[RAAKT ONS NIET]**
+
+  🟢 **The Venomous Abyss — The Coiled Altar, Eternal Nightfall cast time +2s (alle
+  moeilijkheidsgraden) — raakt een al openstaande testvraag.** `docs/TESTLIJST.md:1988` heeft
+  precies deze mechaniek als open vraag staan: "Coiled Altar, Normal, Eternal Nightfall: stopt de
+  cast vanzelf als het schild breekt, of moet er nog een kick?" — dat is dezelfde cast als
+  `{SPELL:1286918}` in `RAID_BOSS_COILEDALTAR_STEPS` (`Locales/RaidTips.lua:85`: "everyone hits
+  the shield around Malacrass, then interrupt the cast once the shield is gone, or the raid takes
+  a huge hit"). De hotfix spreekt onze tekst niet tegen (we claimen al dat een interrupt nodig is,
+  geen tijdsduur), maar de +2 seconden cast time is relevant voor wie die open testvraag oppakt:
+  meer marge om te kicken. MEASURED (citaat `docs/TESTLIJST.md:1988` gelezen). **[RAAKT ONS]** —
+  geen actie nodig, maar wie `TESTLIJST.md:1988` test kan dit meenemen.
+
+  **Voidscar Arena (Feral Saberon, Chitigoth, Brutal Overseer, Atroxus, Charonus):** geen van deze
+  vijf namen repo-breed (0 treffers) — geen geshipte tip. MEASURED. **[RAAKT ONS NIET]**
+
+  **Manifestations of Dread** (visuele/despawn-aanpassingen, alle moeilijkheidsgraden) blijft een
+  bewust niet-geschreven Heroic/Mythic-mechaniek (zie Coiled Altar-regel hierboven) — geen
+  tegenspraak mogelijk zonder geschreven tekst. **[RAAKT ONS NIET]**
+
+  Vandaag is woensdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261014a (volledig gelezen via
+  Exa) · codebase: `grep` case-insensitive repo-breed op alle hierboven genoemde boss-, mechaniek-
+  en spell-ID-namen, plus gerichte reads van `Locales/RaidTips.lua`, `Locales/DungeonTips.lua`,
+  `Modules/DungeonTipsData.lua`, `Modules/DungeonRosterData.lua`, `Modules/RaidCoachData.lua`,
+  `docs/NEXT_SESSION.md`, `docs/TESTLIJST.md` — allemaal vandaag gelezen. **[RAAKT ONS NIET]** op
+  alle tuning-regels, met één **[RAAKT ONS]** (Eternal Nightfall/testvraag) die geen bestaande
+  claim tegenspreekt maar wel relevant is voor een open testpunt. Geen actiepunt dat ík kan
+  oppakken — ik rapporteer, een mens beslist.
