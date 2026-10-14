@@ -274,6 +274,12 @@ local function BuildCoachBody(entry, opts)
 		if not bossEntry and ns.TryResolveDelveBossFromUnits then
 			bossEntry = select(1, ns.TryResolveDelveBossFromUnits(entry.id))
 		end
+		-- The room boss found by its encounter name (boss1 is unreadable in a Labyrinth room fight).
+		local roomPick = ns._mhRoomBossPick
+		if not bossEntry and roomPick and roomPick.entryId == entry.id then
+			local list = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entry.id]
+			bossEntry = list and list[roomPick.idx] or nil
+		end
 		if bossEntry and bossEntry.label and storyName then
 			blocks[#blocks + 1] = COLOR_SECTION
 				.. ns:SafeL("DELVE_COACH_ACTIVE_STORY_FMT"):format(storyName, bossEntry.label)
@@ -469,7 +475,13 @@ local function UpdateBossShowcase(f, entryId)
 	local prevEntryId = f._bossEntryId
 	local idx
 	local autoResolved = false
-	if f._bossManualOverride then
+	-- A Labyrinth room boss that MaybeOfferRoomBoss recognised by its encounter name wins over the guessing below:
+	-- boss1 is unreadable in a room fight, so the guessing fell back to boss 1 (Rob, 14 Oct 2026: clicked the
+	-- "Room boss: Sha'Kuro" button and got Jun'ala, 1 / 19). ◀ ▶ still overrides it.
+	local roomPick = ns._mhRoomBossPick
+	if roomPick and roomPick.entryId == entryId and not f._bossManualOverride and not f._previewMode then
+		idx, autoResolved = roomPick.idx, true
+	elseif f._bossManualOverride then
 		idx = f._bossBrowseIndex or f._bossShowcaseIndex
 			or (ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId))
 			or 1
@@ -1931,8 +1943,14 @@ local function MaybeOfferRoomBoss(event)
 		return
 	end
 	-- The coach picks its boss from the units first and this index second; the units are unreadable here.
-	if idx and ns.SetDelveBossShowcaseIndex then
-		ns:SetDelveBossShowcaseIndex(entry.id, idx)
+	if idx then
+		ns._mhRoomBossPick = { entryId = entry.id, idx = idx } -- read first by the coach's boss panel
+		if coachFrame then
+			coachFrame._bossManualOverride = false -- a new room boss replaces an earlier ◀ ▶ choice
+		end
+		if ns.SetDelveBossShowcaseIndex then
+			ns:SetDelveBossShowcaseIndex(entry.id, idx)
+		end
 	end
 	if roomBossShownFor == boss.label then
 		return
@@ -2231,6 +2249,7 @@ ev:SetScript("OnEvent", function(_, event, unit, arg2)
 			targetPromptShownThisZone = false
 			finalStagePromptShown = false -- nieuwe zone/delve → coach mag weer 1x aangeboden
 			roomBossShownFor = nil
+			ns._mhRoomBossPick = nil
 		end
 		HideBossCoachPrompt() -- bij zone-wissel/verlaten weg
 		if C_Timer and C_Timer.After then

@@ -66,6 +66,9 @@ log; Sha'Kuro staat wél in de lijst, creatureId 264495). Fix: ENCOUNTER_START's
 dan `SetDelveBossShowcaseIndex` zodat de coach op die baas opent; log schrijft nu boss1-leesbaarheid + encounter id/naam.
 ⚠️ encounterName is op een niet-Engelse client vertaald → match faalt daar (labels Engels). Na Robs volgende baas:
 log lezen, dan evt. matchen op encounter-ID (Sha'Kuro = ?, Jo'din 3646, Taltrois 3642).
+✅ **GEMETEN 09:46:56:** "Sha'Kuro (via encounter name): button shown (B)" — de knop kwam. Maar de klik opende de coach
+op Jun'ala (1/19): de boss-paneel-gok viel terug op index 1. Fix: `ns._mhRoomBossPick` gaat vóór de gok (paneel én
+tip-filter); ◀ ▶ wint nog steeds. Rob versloeg Sha'Kuro na een reload. NIET opnieuw getest.
 **Rob 14 okt, Sha'Kuro:** doodgegaan tijdens het gevecht → daarna "speak to Kinduru to end your run" terwijl de baas
 nog leefde. Dood = run voorbij? Of de launch-bug (Wowhead 14 okt)? Nog niet uitgezocht.
 **questDiff 14 okt:** 98832 + 98833, beide 2647 35.1/64.8, zonder doelwit. Geen kist van ons binnen 3% (dichtstbij
