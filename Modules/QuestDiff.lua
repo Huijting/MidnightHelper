@@ -251,6 +251,15 @@ ev:SetScript("OnEvent", function(_, event)
 		end
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		AfterCombatPasses()
+	elseif event == "LOOT_OPENED" then
+		-- A chest is opened out of combat, so a sweep that waits for the next fight credits its quest to the wrong
+		-- place, and a /reload before that fight folds it into the new baseline: gone. Rob's Labyrinth run, 14 Oct
+		-- 2026: 768 -> 770 completed, 0 found. Sweep on a loot window too, where the player stands; the passes at
+		-- +3 s and +9 s catch a flag the server sets after the window opens. LOOT_OPENED rather than LOOT_CLOSED:
+		-- that one is registered already (DelveChestData.lua) and so known to exist on 12.1.
+		if not (InCombatLockdown and InCombatLockdown()) then
+			AfterCombatPasses()
+		end
 	end
 end)
 
@@ -259,6 +268,7 @@ local function SetRunning(on)
 		ev:RegisterEvent("PLAYER_REGEN_DISABLED")
 		ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 		ev:RegisterEvent("PLAYER_TARGET_CHANGED")
+		ev:RegisterEvent("LOOT_OPENED")
 	else
 		ev:UnregisterAllEvents()
 	end

@@ -49,6 +49,11 @@ NIET in het spel gezien → TESTLIJST bovenaan. Gaat mee in 4.7.7.
 riep `StepIcon(row, id, nil)` zonder de `live`-vlag; de andere tabs geven `specID == ActiveSpecID()` mee. Nu ook hier.
 NIET in het spel gezien. Labyrinth-testpunten 14 okt: alleen "coach zonder baas" ✅; Copy/Final-boss/3 regels deels (◐).
 
+**14 okt — questdiff miste kisten (GEMETEN in SV):** 24 gevechten, baseline 768 → 770, `found` leeg. Oorzaak (code
+gelezen): QuestDiff sweept alleen na PLAYER_REGEN_ENABLED en neemt bij elke `/reload` een nieuwe baseline → een kist-
+quest zonder gevecht erna verdwijnt in de baseline. Nu ook een sweep (nu, +3 s, +9 s) bij LOOT_OPENED, buiten combat
+(LOOT_OPENED i.p.v. LOOT_CLOSED: al geregistreerd in DelveChestData.lua, dus bewezen geldig op 12.1).
+
 **14 okt ochtend (EU-patchdag) — Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd":**
 1. Jo'din `creatureId = 275050`, Taltrois `274554` (Wowhead npc-pagina's, 14 okt; nog niet in een client). Naam-match +
    `learnCreatureId` blijven: wijkt het echte id af, dan schrijft MH het in `ns.db.delveBossLearnedIds` → nalezen.
