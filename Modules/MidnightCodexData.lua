@@ -322,6 +322,8 @@ ns.CODEX_ARTICLES = {
 		-- 11 Oct 2026: Rob saw "Nebulous Voidcores transmuted: 1/1" and did not know what it was. Facts from the
 		-- research chat (mh-research, 11 Oct; Wowhead bonus-roll guide 9 Oct, Method 6 Oct, Blizzard 12.1.5 notes):
 		-- Season 2 system only; Decimus' Voidforge (Season 1) is no longer used. Currency 3418 = live count.
+		-- 14 Oct 2026, MEASURED on EU after the weekly reset (Rob, /dump 3418): maxQuantity 1 -> 2, totalEarned 1,
+		-- quantityEarnedThisWeek 0, maxWeeklyQuantity 0 - the cap rises by one per weekly reset.
 		id = "currency_voidcore",
 		category = "currencies",
 		titleKey = "CODEX_VOIDCORE_TITLE",

@@ -28,7 +28,11 @@ nog offline (site-chat, GEMETEN): wago 70340 = build klaargezet, niet live.
 bestaat (het open punt van de API-wachter: onze migratie klopt). ✅ `C_Item.GetItemCooldown` bestaat, kale
 `GetItemCooldown` = absent. Van de Deprecated-addons is alleen `Blizzard_DeprecatedChatInfo` nog geïnstalleerd.
 `delveBossLearnedIds` en `questDiff` staan NIET in het bestand — bewijst niets zolang niet vaststaat dat Rob Jo'din/Taltrois
-getarget heeft (MH schrijft alleen bij een afwijkend id).
+getarget heeft (MH schrijft alleen bij een afwijkend id). Rob had ze om 08:23 nog niet getarget → nameten na de run.
+
+**14 okt — Voidcore-grens GEMETEN:** na de EU-weekreset balk 1/2, `/dump 3418` maxQuantity 2 (was 1 op 11 okt),
+totalEarned 1. CODEX_VOIDCORE_BODY laatste zin: "most likely once a week" → "by one at every weekly reset", 8 talen +
+esMX. Gaat mee in 4.7.7. Testlijstpunt "rond 19/20 okt" daarmee afgevinkt.
 
 **14 okt ochtend (EU-patchdag) — Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd":**
 1. Jo'din `creatureId = 275050`, Taltrois `274554` (Wowhead npc-pagina's, 14 okt; nog niet in een client). Naam-match +
@@ -149,7 +153,7 @@ die ronde: de ochtendroutine als eigen skill (skill-creator is al beschikbaar) i
 
 **Robs testlijst, open van 12 okt (TESTLIJST.md bovenaan):** Leveling-tab lezen · War Mode-getal (Enlisted-buff,
 char 20+) · Mana Potion op een van de 4 healers · doodskaart bij de volgende dood (`/mh death` → `tip=`) · Prey-zin/
-Astalor-plek · Voidcore `/dump 3418` rond 19/20 okt.
+Astalor-plek · ~~Voidcore `/dump 3418` rond 19/20 okt~~ (✅ 14 okt al gemeten, zie boven).
 
 **B. Woensdag 14 okt, Rob in het spel (EU):** `docs/PATCH_12_1_5_PREP_2026-10-07.md` §4(b) + TESTLIJST bovenaan:
 `/reload` + BugSack leeg · `/mh ptr` · `/mh playcards check` (1480 hidden tenzij stap A4 gedaan; rest SHOWN op

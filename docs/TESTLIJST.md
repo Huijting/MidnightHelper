@@ -225,8 +225,10 @@ afgekapt; ">", kaart- en boek-knopjes van de linkerkolom over de eerste letter v
       `/dump C_CurrencyInfo.GetCurrencyInfo(3418)` → zeg wat er bij quantity / maxQuantity / totalEarned staat.
       ✅ Rob 11/12 okt (via de research-chat): quantity 1, totalEarned 1, maxQuantity 1, useTotalEarnedForMaxQty
       true, isAccountWide false. Kaart bijgewerkt op 12 okt.
-- [ ] **Over een week nog eens dezelfde `/dump`** (rond 19/20 okt): is maxQuantity dan 2? Dat bewijst of de grens
+- [x] **Over een week nog eens dezelfde `/dump`** (rond 19/20 okt): is maxQuantity dan 2? Dat bewijst of de grens
       elke week 1 omhoog gaat (nu nog AFGELEID uit Wowhead).
+      ✅ Rob 14 okt (EU, na de weekreset, Iceicebaby): balk 1/2; `/dump` maxQuantity 2, quantity 1, totalEarned 1,
+      quantityEarnedThisWeek 0, maxWeeklyQuantity 0. Kaarttekst "most likely once a week" → "by one at every weekly reset".
 - [ ] De twee pijl-links in de kaart (Decimus, Orin Straylight) zetten een pijl.
 
 ## 🆕 11 okt — Season 1-raids kennen hun nummer (RaidCoachData.lua)
