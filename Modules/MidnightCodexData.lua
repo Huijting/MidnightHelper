@@ -442,6 +442,8 @@ ns.CODEX_ARTICLES = {
 	},
 	-- 12.1.5: Keystone Myth returns. Achievement 63690 (wago 70077, text still "[PH]" there); 3600, title and
 	-- saddle from Blizzard's 12.1.5 notes + Wowhead (docs/PATCH_12_1_5_CONTENT_2026-10-07.md §5).
+	-- 14 Oct 2026: live build 70391 (= Rob's client, /mh ptr) has criteria 3600 and Blizzard's live article says
+	-- 3600 (site chat, mh-research) -> the "[PH] in test-realm data" bullet was removed from the body.
 	{
 		id = "keystone_myth",
 		category = "dungeons",

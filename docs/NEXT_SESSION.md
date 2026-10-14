@@ -34,6 +34,11 @@ getarget heeft (MH schrijft alleen bij een afwijkend id). Rob had ze om 08:23 no
 totalEarned 1. CODEX_VOIDCORE_BODY laatste zin: "most likely once a week" → "by one at every weekly reset", 8 talen +
 esMX. Gaat mee in 4.7.7. Testlijstpunt "rond 19/20 okt" daarmee afgevinkt.
 
+**14 okt — test-realm-zinnen (site-chat, mh-research 06:18-06:45 UTC):** (a) ✅ Keystone Myth: Blizzard-liveartikel +
+wago 70391 (= Robs build) criteria 63690 = 3600 → "[PH]"-bullet uit CODEX_KEYSTONE_MYTH_BODY, 8 talen + esMX, drift
+gemarkeerd. (c) Kith'ix "not yet seen on screen" (:175): ingang in bronnen bevestigd (Wowhead 2613 74.0/7.4 vs ons
+74.27/5.91) maar niet zelf gezien → Rob beslist. (b) Labyrinth tier 9-11 (:169): blijft, live-data zegt nog "same tier".
+
 **14 okt ochtend (EU-patchdag) — Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd":**
 1. Jo'din `creatureId = 275050`, Taltrois `274554` (Wowhead npc-pagina's, 14 okt; nog niet in een client). Naam-match +
    `learnCreatureId` blijven: wijkt het echte id af, dan schrijft MH het in `ns.db.delveBossLearnedIds` → nalezen.
