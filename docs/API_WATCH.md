@@ -5451,3 +5451,200 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     wachter-bestanden gewijzigd-maar-ongecommit. `git fetch --deepen=300 origin main` liet
     `origin/main` op diezelfde `49acda4` staan, dus lokaal en remote waren bij aanvang gelijk.
     📌 De `.toc` staat nog op **4.7.6**.
+
+- [2026-10-14] 🔴 **DE DEPRECATIE-TERUGVAL IS ECHT WEG — 12.1.5 staat live (13 okt NA / vandaag EU) en
+  een forum-PSA van vannacht meldt dat addons er nú op stuklopen. MH OVERLEEFT HET: alle tien de
+  verwijderde namen die wij gebruiken gaan `C_Item` eerst of zitten achter een guard.
+  0 × [MOET GEFIKST].** Dit is géén nieuw item maar de **statuswijziging** van het [MOET GEFIKST] van
+  5 sep (`:449`), dat toen eindigde met *"12.1.5 is PTR, niet live. De addon draait op 12.1.0, dus dit
+  breekt vandaag niets bij Rob."* Die zin is vandaag niet meer waar, en daarom is de hele lijst
+  opnieuw gemeten in plaats van uit dit logboek geciteerd — de code is sinds 5 sep gegroeid
+  (`GearExport`, `PlayCardWindow`, `LayoutExtras`, `AtalUtekProbe`, `ConsumableReadyCheck`,
+  `MythicGain`, `AltOverview`, `Profession`, `LayoutConsumables` raken deze namen en bestonden toen
+  nog niet of anders).
+  - 🗣️ **De bron, letterlijk geciteerd, zelf gelezen via de topic-JSON.** Nieuw topic
+    **`2381628`** *"Lua API Deprecation has Finally Bitten"*, post 1, **2026-10-14T02:07:42Z**,
+    No1UKnow (alias Sniperorc-azgalor), 2 posts, geen blue reply:
+    *"There was a long list of item-related API calls that had been marked for deprecation in Patch
+    10.2.6 (long time ago) but kept alive in a fallback script in the default UI
+    (`Interface/AddOns/Blizzard_DeprecatedItemScript/Deprecated_ItemScript.lua`) that aliased the
+    deprecated method name with its new `C_Item.` class equivalent. That fallback was apparently
+    deleted from the UI when 12.1.5 went live, so any addons that didn't get the message are breaking
+    now."* Post 2 (Studmuffyn, 02:31:39Z): *"yah ive had a few hit so far, mostly older ones"*.
+    ⚠️ **Dat is een spelersbewering, geen Blizzard-mededeling** — maar hij komt overeen met de
+    `Deprecated API`-sectie van de wiki (*"The following deprecation fallbacks have been removed."*),
+    en 12.1.5 is volgens de infobox die de PTR-wacht gisteren las op 13 okt uitgekomen. **GEMETEN**
+    dat `MidnightHelper.toc` regel 1 al `## Interface: 120007, 120100, 120105` zegt, dus MH meldt
+    zich op 12.1.5 niet als verouderd.
+  - ✅ **[AL AFGEDEKT] — de volledige hertoetsing, 72 namen uit de negen `Blizzard_Deprecated*`-addons
+    tegen 296 bestanden (scope: hele addon zonder `.git`/`docs`/`tools`/`dist`).** De lijst komt uit
+    de wikitext van `Patch 12.1.5/API changes` zelf (`action=parse&prop=wikitext`, revid `6912957`),
+    niet uit mijn hoofd. **62 van de 72 hebben nul code-treffers**; tien komen voor, en alle tien
+    gaan goed:
+    - `GetItemCount` (30 regels) — `C_Item.GetItemCount` eerst in `Modules/KeyBlock.lua:497`,
+      `LayoutExtras.lua:60`, `PlayCardWindow.lua:442`, `AtalUtekProbe.lua:1492`,
+      `ConsumableReadyCheck.lua:549`; `pcall`+guard in `LayoutConsumables.lua:54-65`,
+      `Profession.lua:385-398`, `ConsumableReadyCheck.lua:66-77`; bestand-lokale wrapper in
+      `DelveItemsPopup.lua:115/595-608` (met `rawget(_G,…)`) en `DelveItemBrokers.lua:42-57`.
+    - `GetItemIcon` (13) — **nergens meer een kale global**: `DelveItemsPopup.lua:826` en
+      `DelveItemBrokers.lua:61` zijn lokale wrappers die alléén `C_Item.GetItemIconByID` gebruiken;
+      `DelveCuriosData.lua:198` en `GuideConsumables.lua:93` hebben hem achter `if GetItemIcon then`
+      als tweede tak. 📌 `DelveItemsPopup.lua:824-825` zegt in een comment precies waaróm de
+      forward-declared local er staat: *"callers compiled before this point … would otherwise resolve
+      to the removed global GetItemIcon and crash."* Dat is dus vooruit gebouwd en het werkt vandaag.
+    - `GetItemInfo` (10) — `C_Item.GetItemInfo` eerst in `GuideConsumables.lua:42-53` en
+      `DelveCuriosData.lua:172-183`; `PlayCardWindow.lua:413` achter `and GetItemInfo then`.
+    - `GetItemSpell` (4) — `KeyBlock.lua:527`, `LayoutExtras.lua:75` (`(C_Item and …) or …`),
+      `ConsumableReadyCheck.lua:106-118` (C_Item eerst, global in `pcall`).
+    - `GetItemGem` (4) — `GearEnchantCheck.lua:505`, `GearExport.lua:421` en `:487`, alle drie
+      `(C_Item and C_Item.GetItemGem) or GetItemGem`.
+    - `GetItemQualityColor` (3) — `PlayCardWindow.lua:431` C_Item eerst;
+      `GuideConsumables.lua:71-72` achter `if GetItemQualityColor and quality ~= nil then`, met de
+      eigen `QUALITY_RGB`-tabel als eerste bron en `C_Item.GetItemQualityByID` voor de quality zelf.
+    - `GetDetailedItemLevelInfo` (2) — `AltOverview.lua:132` en `MythicGain.lua:195`, C_Item eerst.
+    - `IsUsableItem` (1) — `DelveItemsPopup.lua:329`, C_Item eerst.
+    - `GetItemCooldown` (2) — **het punt van 5 sep is en blijft dicht**: alleen nog
+      `Delves.lua:388` (`rawget(_G, "GetItemCooldown")` als tweede tak van `ns.GetItemCooldownSafe`,
+      `Delves.lua:377-395`) en de probe-string op `PtrProbe.lua:137`. De drie kale aanroepen van toen
+      (`Delves.lua:1518`, `:1686`, `DelveItemsPopup.lua:275`) gaan nu alle drie door
+      `ns.GetItemCooldownSafe` (`Delves.lua:1724`, `:1984`, `:2170`, `DelveItemsPopup.lua:278`).
+    - `PickupItem` (9) — zie de kanttekening hieronder.
+  - ⚠️ **Eén kanttekening, en het is GEEN [MOET GEFIKST]: `Modules/KeyBlock.lua:1135`, `:1227` en
+    `:1380` roepen `PickupItem(id)` aan in een `else`-tak, niet achter een naam-guard.** De vorm is
+    `elseif C_Item and C_Item.PickupItem then … else PickupItem(id) end` — en dat is iets anders dan
+    `ApplyLayout.lua:1311`, `:1345`, `:1605`, die `elseif PickupItem then` schrijven en dus niets
+    doen als beide weg zijn. De `else`-tak van KeyBlock is **alleen bereikbaar als
+    `C_Item.PickupItem` ontbreekt**, en juist dan is de kale global óók weg → "attempt to call a nil
+    value". **GEMETEN** dat alle drie binnen een `pcall(function() … end)` staan
+    (`KeyBlock.lua:1121`, `:1206`-blok, `:1366`-blok), dus het zou stil mislukken en niet crashen.
+    📌 **Dat `C_Item.PickupItem` bestaat is AFGELEID**, uit de migratietabel van de wiki
+    (`PickupItem = C_Item.PickupItem`), **niet gemeten in een client**. Ik verzin daar geen andere
+    naam bij.
+    ✅ **En de meting is nu voor het eerst mogelijk zonder PTR:** `Modules/PtrProbe.lua:130-137`
+    bestaat precies hiervoor en zegt zelf *"NOBODY HAS SEEN either of them on a 12.1.5 client"*.
+    12.1.5 is vandaag Robs eigen client, dus één `/mh ptr` op live beantwoordt het — het antwoord
+    landt in `ns.db.ptrProbe` en `WATCH_TABLES` somt `C_Item` compleet op. 🔴 Ik raak de code niet
+    aan; dit is een meetvoorstel, geen reparatie.
+  - 🔇 **[RAAKT ONS NIET] — de 15 namen die 12.1.5 uit FrameXML haalt staan bij ons alleen als
+    tekst in een probe.** `Clamp`, `CountTable`, `GetKeysArray`, `GetValuesArray`, `Lerp`,
+    `RoundToSignificantDigits`, `Round`, `Saturate`, `Sign`, `StringContains`, `TableIsEmpty`,
+    `tContains`, `tDeleteItem`, `tIndexOf`, `tUnorderedRemove`: elk precies één code-treffer, en die
+    is `Modules/PtrProbe.lua:105-107` — stringliteralen in `MOVED_GLOBALS`, geen aanroepen. (De
+    andere treffers op `Round` en `Sign` zijn een JSON-blob in `Addons/PlatynatorData.lua:4`, de
+    locale-sleutel `SIGN_UP` in `MidnightCodex.lua:45` en het woord "Sign" in een `enUS`-tekst.)
+    📌 Veertien van die vijftien komen in dezelfde patch terug als Global API; `StringContains` niet
+    (daar staat `string.contains` tegenover) — dat is de tegenstrijdigheid die `PtrProbe.lua:100-103`
+    al beschrijft, en ze raakt ons nul keer.
+  - 🔇 **[RAAKT ONS NIET] — de vier verwijderde Global-API-namen:** `C_PvP.GetRandomTrainingGroundRewards`,
+    `C_PvP.HasRandomTrainingGroundWinToday`, `C_PvP.JoinRandomTrainingGroundBattleground`,
+    `C_TableUtil.FindIndexedMismatch` — 0 treffers. `C_TableUtil` zelf komt alleen voor als string in
+    `PtrProbe.lua:130`. En `GetItemStats` (`GearEnchantCheck.lua:363/365`) staat **niet** op de
+    verwijderlijst, dus die terugval is gewoon nog geldig.
+  - ✅ **Positieve controle, zelfde scanner, zelfde scope, zelfde run** — want 62 nullen bewijzen
+    anders niets: `CreateFrame` **807** code-regels, `C_Item` **244**, `InCombatLockdown` **148**,
+    `issecretvalue` **116**, `GetInstanceInfo` **67**. Het patroon vindt dus wat er is.
+    ⚠️ **Twee eigenschappen van deze scanner, zodat niemand zijn getallen verkeerd leest:** hij
+    negeert commentaarregels (`--`) en hij negeert namen met een punt of dubbele punt ervoor. Daarom
+    leest `RegisterEvent` hier **5** en niet de 484 van gisteren: die 484 telt `frame:RegisterEvent`
+    mee, deze telling juist niet. Dezelfde reden voor `issecretvalue` 116 tegenover 237.
+  - 📰 **Hotfixes: er is een sectie `October 13` bijgekomen (de blog *"Hotfixes: October 1-13"*,
+    13 okt) en die heeft GEEN UI-, API- of addon-sectie — alles staat onder `;Dungeons and Raids`.**
+    **GEMETEN** op de diff zelf (`action=compare&fromrev=6902337&torev=6912936`, +3962 bytes), niet op
+    een sectiekop: Altar of Fangs, Murder Row, Ruby Life Pools, Temple of Sethraliss, The Blinding
+    Vale, The Venomous Abyss en Voidscar Arena, uitsluitend health/damage/cooldown-tuning. Terrein van
+    `CONTENT_WATCH.md`, niet van deze log.
+    - 📌 Eén regel grenst aan gedrag in plaats van getallen — Ruby Life Pools, Primalist Cinderweaver:
+      *"Living Bomb debuff can now be dispelled and the explosion damage will not occur when
+      dispelled."* **GEMETEN in MH: `Cinderweaver` 0 treffers, en de twee treffers op "Living Bomb"
+      (`DpsToolkit.lua`, `KeybindRoles_Mage.lua`) zijn de MAGE-spreuk, niet dit debuff.** Wij beweren
+      hier dus niets over; als er een dispel-tip bij hoort is dat de contentwachter z'n werk.
+  - 🔇 **De wiki-namespaces op mijn terrein staan stil: zeven wijzigingen over 7-14 okt en alle zeven
+    staan hier al in.** `rcnamespace=3000|3004&rclimit=250&rcend=2026-10-07T00:00:00Z`, op **revid**
+    vergeleken: `6906649` (`API:C Traits.GetConfigInfo`, 10 okt), `6905874` (`Event:UI INFO MESSAGE`),
+    `6905815` (`API:GetShapeshiftForm`), `6905582` (`API:UnitAura`), `6904622` + `6904617`
+    (`API:import`), `6904614` (`API:require`). **Niets nieuwer dan 2026-10-10T08:51:24Z.**
+  - 🔇 **De gevolgde pagina's: vier byte-identiek, twee bewogen, en één van die twee is alleen
+    opmaak.** `prop=info` in één aanroep: `Patch 12.1.0/API changes` `6905801` (66202 b, ongewijzigd),
+    `Patch 12.0.7/API changes` `6905802` (24726 b, ongewijzigd), `TOC format` `6905891` (32839 b,
+    ongewijzigd), `API change summaries` `6883777` (7280 b, ongewijzigd). Bewogen:
+    `Patch 12.1.5/API changes` `6907331` → **`6912957`** (17881 → 17957 b) en `Hotfixes` `6902337` →
+    **`6912936`** (374413 → 378375 b). `Patch 12.1.7/API changes` en `Patch 12.2.0/API changes` komen
+    nog steeds terug als `"missing": ""`.
+    - ⚠️ **De 12.1.5-bewerking van vannacht is INHOUDELIJK NIETS — twee edits van Kaydeethree
+      (`6912956` 01:54:57Z, `6912957` 01:55:36Z, comment `/* Blue posts */`).** De diff zelf gelezen:
+      `{{markdown alert|NOTE|…}}`, `<!-- fml -->` en een `{| |- class="mw-collapsible mw-collapsed"`-
+      tabel zijn vervangen door `<details><summary>Official patch notes</summary>`. Dezelfde hand deed
+      hetzelfde op `Patch 1.60.1/API changes` (`6912959`, 02:06:38Z, *"use details/summary rather than
+      the mw-collapsed thing"*). **De `Deprecated API`-sectie is dus niet gewijzigd**; wat er vandaag
+      aan is, is dat hij nu over een live client gaat.
+  - 🔇 **Geen nieuwe officiële API-patchnotes: `/notes` heeft nog steeds vier secties, nieuwste
+    `2026-09-29`, en die valt buiten mijn 7-dagenvenster.** `action=parse&prop=sections` op
+    `Patch 12.1.5/API changes/notes` (pageid 710454): `2026-09-03`, `2026-09-16`, `2026-09-22`,
+    `2026-09-29`. "PTR Changes 5" bestaat nog niet — en nu 12.1.5 live is, komt die er waarschijnlijk
+    ook niet meer.
+  - 🗣️ **Forum `#ui-macro` 7-14 okt: twaalf treffers, één echt nieuw en relevant (hierboven), drie
+    nieuw en zonder API-inhoud.** Via `search.json?q=#ui-macro after:2026-10-07`, op **post-id**
+    vergeleken met dit bestand.
+    - 🧩 **[RAAKT ONS NIET] — `2380828` *"Tarot Arcano by Dindi"*, nieuw topic 13 okt 11:10:14Z
+      (Matrix/Dindi-drakkari):** *"I'd like to share Tarot Arcano by Dindi, an addon I've developed for
+      World of Warcraft Retail, primarily with roleplayers in mind"* — een addon-aankondiging, geen
+      API-mededeling.
+    - 🧩 **[RAAKT ONS NIET] — `398298` post **11**, 13 okt 05:39:13Z (Candlefly):** *"This doesn't seem
+      to work anymore. do you have an updated macro?"* — een macro-draadje zonder genoemde API-naam en
+      zonder antwoord; niets om aan te toetsen.
+    - 🧩 **[RAAKT ONS NIET] — `2315684` post **6**, 9 okt 04:22:15Z (vinny):** *"so this is working
+      great in era as it always has but its not working in the forever beta"* — Forever-beta, en dat is
+      een ander product.
+    - 🔇 De posts op `2367394`, `2380036`, `1418968`, `2336268`, `2349553`, `2375627`, `2375480` en
+      `2376572` stonden hier al; `2376572` (*"Policy Clarification — Displaying Addon Statistics on a
+      USB Screen"*) heeft nog altijd twee posts en nog altijd geen blue reply.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-01` (12 okt), en dat is GEMETEN op de sha en
+    niet op de tagnaam.** `git ls-remote … HEAD` geeft vandaag
+    `8741352777a1d22ec7c89cbd051cd736f6025c6e` — **byte-voor-byte dezelfde sha als gisteren**, en de
+    tagtelling staat op **255** (`grep -vc '\^{}'`, de maat die gisteren is afgesproken). Dus geen
+    nieuwe commit, geen nieuw veld, niets om aan `ItemString` of `ns.BuildSimcProfile` in
+    `Modules/SimcExport.lua` te toetsen. 📌 De kopregel-afwijking van gisteren
+    (`SimcExport.lua:15`/`:447` zeggen *"12.1.5-alpha-01"* waar de stable identiek is) staat er nog;
+    nog steeds geen actiepunt, nog steeds raak ik het bestand niet aan.
+  - ✅ **Dat deze stilte geen cache is, is in dezelfde `api.php` aangetoond:** `rcnamespace=0` gaf als
+    nieuwste `Flayedwing` (revid `6913030`, Terradon, **2026-10-14T03:34:03Z**) — nieuwer dan het
+    versheidsbewijs van gisteren (`6912013`, 2026-10-13T03:11:04Z). Elke Exa-URL van vandaag kreeg
+    `?nocache=20261014…`; MediaWiki antwoordt daarop met `"Unrecognized parameter: nocache."` en dat is
+    het bekende, goede teken.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - 🔴 **NIEUW EN SLECHT NIEUWS VOOR HET GEREEDSCHAP: `curl` naar `warcraft.wiki.gg` is nu óók
+      dicht.** **GEMETEN** vanmorgen: `CONNECT tunnel failed, response 403`, en
+      `$HTTPS_PROXY/__agentproxy/status` noemt het bij naam —
+      `{"ts":"2026-10-14T03:37:05.069Z","kind":"connect_rejected","detail":"gateway answered 403 to
+      CONNECT","host":"warcraft.wiki.gg:443"}`. Daarmee is **Exa de enige route naar de wiki** die nog
+      werkt, en dat is de dérde poort die deze week sloot (na `api.github.com` op 12 okt en
+      `us.forums.blizzard.com` op 13 okt). `git ls-remote` naar github werkt wél nog.
+    - `news.blizzard.com` is voor de **vijfde dag op rij** niet gelezen: `CRAWL_NOT_FOUND` op
+      `news.blizzard.com/en-us/wow`. De hotfix van 13 okt is dus via de wiki gemeten, niet via
+      Blizzards eigen artikel. ⚠️ Ik heb één keer een article-id gegokt in plaats van hem op te
+      zoeken; dat gaf net zo goed `CRAWL_NOT_FOUND` en bewijst dus niets. Niet meer doen.
+    - `wowhead.com/blue-tracker` niet geprobeerd (negentien runs op rij lege body).
+    - De `Hotfixes`-pagina is op de **diff** gemeten en niet op volledige inhoud; genoeg voor "heeft
+      deze hotfix een UI-/API-sectie", te weinig voor een uitspraak over alle regels.
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald (open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`); die pagina is deze week niet bewerkt, dus geen aanleiding.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw** (en na vandaag staat er nog steeds geen
+    [MOET GEFIKST] open):
+    - `Blizzard_DeprecatedWorldElapsedTimerTypes` is het tiende deprecated-addon en de wiki-sectie
+      noemt er negen; wat daarin zat is nog steeds niet gepubliceerd. `PtrProbe.lua:120` vraagt er wel
+      naar, dus één `/mh ptr` op live beantwoordt ook dit.
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. 🔴 Niet aangeraakt.
+    - `CLAUDE.md` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; **GEMETEN** staat
+      er `120007, 120100, 120105`. 🔴 Niet aangeraakt.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM**. Onschadelijkheid blijft AFGELEID.
+    - `Patch 1.60.1/API changes` (World of Warcraft: Forever, launch 4 nov) wordt actief geschreven —
+      buiten scope: MH declareert alleen Retail-interfacenummers.
+  - 🔧 **Repo-staat: schoon, maar HEAD stond bij aanvang DETACHED.** `git status --short` was leeg en
+    **geen** van de vier wachter-bestanden stond gewijzigd-maar-ongecommit, maar `git branch` gaf
+    `* (HEAD detached from refs/heads/main)` op `c822a40` *"Labyrinth: Shadowhunter Jo'din and Treasure
+    Hunter Taltrois in the boss panel"*, terwijl de lokale `main` 48 commits achterliep op `49acda4`.
+    `origin/main` stond óók op `c822a40`, dus er was niets kwijt: `git checkout main` +
+    `pull --rebase` was een schone fast-forward. 📌 Dit is de val van 11 en 12 okt die gisteren
+    wegbleef en vandaag terug is — wie hier morgen begint: **kijk eerst op welke branch je staat**,
+    want een detached HEAD pusht niet naar `main`. De `.toc` staat nog op **4.7.6**.
