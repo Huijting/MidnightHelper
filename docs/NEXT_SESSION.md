@@ -105,7 +105,8 @@ Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej sav
 Fragment. Combine three … Myth 2/6 piece of armor of your choosing." → ✅ onderzocht (`docs/LABYRINTH_WAHDU_2026-10-14.md`):
 NPC 264886, 6-staps wekelijkse questlijn (98951, 98963, 98962, 98961, 98960, 98959), 1 Mythical Soul Fragment (285065)
 per stap, 3 → Venerated Loa Armament (285044) → Myth-armorstuk naar keuze. 1/6 vs 2/6 ONOPGELOST (alleen de gehotfixte
-enUS-kaarttooltip zegt 2/6). Plek Wah'du niet gemeten op live. CODEX_LABYRINTH_BODY kreeg een Wah'du-sectie (vervangt de
+enUS-kaarttooltip zegt 2/6). ✅ Plek Wah'du GEMETEN door Rob (`/mh capture`, alt, 14 okt): 2647 **44.36, 79.57**; quest
+"Akil'zon's Roost" = Mythical Soul Fragment + 2K Undercoin (screenshot) → {WAY}-link in CODEX_LABYRINTH_BODY, 8 talen + esMX. CODEX_LABYRINTH_BODY kreeg een Wah'du-sectie (vervangt de
 oude "six steps"-bullet), CODEX_LABJOURNEY_BODY zegt nu "Warband shares this Journey". 8 talen + esMX, drift gemarkeerd.
 ✅ CODEX_LABYRINTH_BODY: "Loa-Spirit Conduits" → clientnaam "Loa-Spiritual Conduits", vanaf rang 6 (Rob: "ja pas die
 conduits-zin maar aan"), 8 talen + esMX, drift gemarkeerd. Nog open: esMX schrijft de delve "Kindo'Jan", de faction "Kindo'jan".

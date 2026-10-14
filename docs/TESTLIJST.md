@@ -48,12 +48,18 @@ er is niets weggegooid.
 - [ ] **Coach-tips per kamerbaas** (nieuw, 14 okt): target/vecht een kamerbaas → in de coach staat een regel met zijn
       aanvallen (bv. Grukk: Interrupting Shout, Ground Smash). Klopt wat je ziet?
 
+## 🆕 14 okt — Wah'du in de Labyrinth-kaart (Codex.lua)
+
+- [ ] **Codex → Delves → The Labyrinth:** onder "Wah'du and the Mythical Soul Fragment" staat *"Wah'du stands here:
+      Wah'du"* — klik de link → de pijl wijst naar 44.36, 79.57 in de Labyrinth.
+
 ## 🆕 14 okt — Kith'ix bij de raids van nu (RaidCoachData.lua)
 
-- [ ] **Raids-pagina:** The Unbinding of Kith'ix staat nu bovenaan bij de raids van dit seizoen (na The Venomous
-      Abyss), niet meer onder "Older raids (Season 1)".
-- [ ] **Kith'ix openklappen:** er staan nu knoppen **Route** en **Map**. Route → pijl naar de ingang in The Underbelly
-      (onder de Vaults of Atal'Utek). Map → de plattegrond van de raid. Zegt Map "No map found", meld het.
+- [x] **Raids-pagina:** The Unbinding of Kith'ix staat nu bovenaan bij de raids van dit seizoen (na The Venomous
+      Abyss), niet meer onder "Older raids (Season 1)". ✅ Rob 14 okt, screenshot.
+- [x] **Kith'ix openklappen:** er staan nu knoppen **Route** en **Map**. Route → pijl naar de ingang in The Underbelly
+      (onder de Vaults of Atal'Utek). Map → de plattegrond van de raid. ✅ Rob 14 okt: beide knoppen; Map toont 2 verdiepingen
+      (The Tomb of Ula'tek + Kith'ix' Prison, Kith'ix als schedel). De Route-pijl zelf nog niet gevolgd.
 
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 
