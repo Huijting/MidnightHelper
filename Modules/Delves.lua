@@ -2934,6 +2934,12 @@ function ns.GetDelverJourneyStatus()
 	if not okF or not factionID then
 		return nil
 	end
+	return ns.ReadJourneyStatus(factionID)
+end
+
+--- One Journey (renown track) by faction id: { rank, earned, needed, maxed, name, readable } or nil when unreadable.
+--- Split out of GetDelverJourneyStatus on 14 Oct 2026 so the Labyrinth's own track reads the same way.
+function ns.ReadJourneyStatus(factionID)
 	if not (C_MajorFactions and C_MajorFactions.GetMajorFactionData) then
 		return nil
 	end
@@ -2961,8 +2967,18 @@ function ns.GetDelverJourneyStatus()
 		earned = math.floor(tonumber(data.renownReputationEarned or data.renownReputationYielded) or 0),
 		needed = math.floor(tonumber(data.renownLevelThreshold or data.renownRequirement) or 0),
 		maxed = maxed,
+		name = type(data.name) == "string" and data.name or nil, -- the client's own name, in the player's language
 		readable = true,
 	}
+end
+
+--- The Labyrinth of Kindo'jan's own Journey (12.1.5). Faction 2836 MEASURED by Rob on EU-live, 14 Oct 2026
+--- (C_MajorFactions.GetMajorFactionIDs → "2836 The Labyrinth of Kindo'jan 1"); his Journeys window read 900 / 2100.
+--- Unlike Delver's Journey there is no season lookup for it, so the id is fixed: re-measure when a new season starts.
+local LABYRINTH_JOURNEY_FACTION = 2836
+
+function ns.GetLabyrinthJourneyStatus()
+	return ns.ReadJourneyStatus(LABYRINTH_JOURNEY_FACTION)
 end
 
 -- fullRefresh=false: currencies, vault, layout — skip delve POI row rebuild (main stutter source).
@@ -3237,9 +3253,18 @@ local function PaintDelvesPanel(fullRefresh)
 	-- Reads through ns.GetDelverJourneyStatus (defined above) so this panel and the
 	-- season-end checklist can never disagree about the same rank.
 	local journey = ns.GetDelverJourneyStatus()
+	-- The Labyrinth's own Journey on the line below (Rob, 14 Oct 2026: "hadden wij dit ook al?" — no; "doe B maar").
+	-- Its name comes from the game, so it is already in the player's language.
+	local lab = ns.GetLabyrinthJourneyStatus and ns.GetLabyrinthJourneyStatus()
+	local lines = {}
 	if journey and journey.readable then
-		journeyHeader:SetText(string.format(ns:L("DELVES_JOURNEY_RANK"),
-			journey.rank, journey.earned, journey.needed))
+		lines[#lines + 1] = string.format(ns:L("DELVES_JOURNEY_RANK"), journey.rank, journey.earned, journey.needed)
+	end
+	if lab and lab.readable and lab.name then
+		lines[#lines + 1] = string.format(ns:L("DELVES_JOURNEY_NAMED_RANK"), lab.name, lab.rank, lab.earned, lab.needed)
+	end
+	if #lines > 0 then
+		journeyHeader:SetText(table.concat(lines, "|n"))
 		journeyHeader:SetTextColor(1, 0.95, 0.88)
 		journeyHeader:Show()
 	else

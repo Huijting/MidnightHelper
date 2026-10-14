@@ -36,6 +36,12 @@ er is niets weggegooid.
 - [ ] Na elke kamerbaas: `/reload` → ik lees `delveRoomBossLog` (wat MH besloot en waarom). Kwam er niets, dan staat
       daar of de game géén signaal gaf, of dat MH de baas niet herkende.
 
+## 🆕 14 okt — Labyrinth Journey op de Delves-pagina (Delves.lua)
+
+- [ ] **Midnight Delves:** onder "Delver's Journey: Rank 10 …" staat nu een tweede regel
+      *"The Labyrinth of Kindo'jan: Rank 1 (900 / 2100)"* — dezelfde getallen als je Journeys-venster (Shift-J).
+- [ ] Na de klik op een kamerbaas-knop: opent de coach nu op díe baas (niet meer op Jun'ala 1/19)?
+
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 
 - [ ] Geen "secret boolean"-fout meer van FastMark.lua:105 (kwam bij markers zetten / RAID_TARGET_UPDATE). Het gouden

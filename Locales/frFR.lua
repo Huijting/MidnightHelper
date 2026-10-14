@@ -864,6 +864,7 @@ local OVERRIDES = {
 	DELVES_ACC_VAULT = "Grande chambre forte (Monde)",
 	DELVES_TITLE = "Gouffres Midnight",
 	DELVES_JOURNEY_RANK = "Périple du gouffre : rang %d (%d / %d)",
+	DELVES_JOURNEY_NAMED_RANK = "%s : rang %d (%d / %d)",
 	DELVES_HINT_SHIFT_J = "Appuie sur |cffffff00MAJ-J|r — Guide d'aventure (Grande chambre forte, |cff00ffffPériple du gouffre|r, Gouffres, Proie).",
 	DELVES_CURRENCY_LINE = "Clés : %d | Éclats : %d (Hebdomadaire : %d / %d) | Undercoins : %d | Cristaux de mana intacts : %d%s",
 	DELVES_CURRENCY_BOUNTIES = "Primes : %d",

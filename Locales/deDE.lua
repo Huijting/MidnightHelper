@@ -913,6 +913,7 @@ local OVERRIDES = {
 	DELVES_ACC_VAULT = "Große Schatzkammer (Welt)",
 	DELVES_TITLE = "Midnight-Tiefen",
 	DELVES_JOURNEY_RANK = "Reise des Tiefenforschers: Rang %d (%d / %d)",
+	DELVES_JOURNEY_NAMED_RANK = "%s: Rang %d (%d / %d)",
 	DELVES_HINT_SHIFT_J = "Drücke |cffffff00SHIFT-J|r — Abenteuerführer (Große Schatzkammer, |cff00ffffReise des Tiefenforschers|r, Tiefen, Beute).",
 	DELVES_CURRENCY_LINE = "Schlüssel: %d | Shards: %d (Wöchentlich: %d / %d) | Undercoins: %d | Unbefleckte Manakristalle: %d%s",
 	DELVES_CURRENCY_BOUNTIES = "Belohnungen: %d",

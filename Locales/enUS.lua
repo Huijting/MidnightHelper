@@ -4147,6 +4147,7 @@ ns._mhLocales.enUS = {
 	DELVES_ACC_VAULT = "Weekly Great Vault (World)",
 	DELVES_TITLE = "Midnight Delves",
 	DELVES_JOURNEY_RANK = "Delver's Journey: Rank %d (%d / %d)",
+	DELVES_JOURNEY_NAMED_RANK = "%s: Rank %d (%d / %d)",
 	DELVES_HINT_SHIFT_J = "Press |cffffff00SHIFT-J|r — Adventure Guide (Vault, |cff00ffffDelver's Journey|r, Delves, Prey).",
 
 	-- Dundun, the Shrine of Abundance. "Bountiful", "Restored Coffer Key" and

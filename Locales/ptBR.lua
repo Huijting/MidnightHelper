@@ -866,6 +866,7 @@ local OVERRIDES = {
 	DELVES_ACC_VAULT = "Grande Cofre (mundo)",
 	DELVES_TITLE = "Imersões Midnight",
 	DELVES_JOURNEY_RANK = "Jornada das profundidades: ranque %d (%d / %d)",
+	DELVES_JOURNEY_NAMED_RANK = "%s: ranque %d (%d / %d)",
 	DELVES_HINT_SHIFT_J = "Pressione |cffffff00SHIFT-J|r — Guia de aventura (Grande Cofre, |cff00ffffJornada das profundidades|r, Imersões, Presa).",
 	DELVES_CURRENCY_LINE = "Chaves: %d | Fragmentos: %d (Semanal: %d / %d) | Moedas inferiores: %d | Cristais de Mana Imaculados: %d%s",
 	DELVES_CURRENCY_BOUNTIES = "Recompensas: %d",

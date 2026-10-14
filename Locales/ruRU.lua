@@ -1040,6 +1040,7 @@ ns._mhLocales.ruRU = {
 	DELVES_CURRENCY_RAID_MINIS = "RAID-R Minis: %d",
 	DELVES_HINT_SHIFT_J = "Нажмите |cffffff00SHIFT-J|r – Путеводитель по приключениям (хранилище, |cff00ffffПуть участника вылазки|r, вылазки, Охота).",
 	DELVES_JOURNEY_RANK = "Путь участника вылазки: ранг %d (%d / %d)",
+	DELVES_JOURNEY_NAMED_RANK = "%s: ранг %d (%d / %d)",
 	DELVES_NEAREST_ROUTE = "|cffffff78Midnight Helper:|r TomTom: ближайшая вылазка – %s",
 	DELVES_ROW_ROUTE_BTN = "Щелчок по строке: маршрут к этой многообещающей вылазке (TomTom).",
 	DELVES_ROW_TT_LEFTCLICK = "Левый щелчок: маршрут ко входу в эту вылазку.",

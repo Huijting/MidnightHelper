@@ -872,6 +872,7 @@ local OVERRIDES = {
 	DELVES_ACC_VAULT = "Gran cámara (mundo)",
 	DELVES_TITLE = "Profundidades Midnight",
 	DELVES_JOURNEY_RANK = "Travesía de las profundidades: rango %d (%d / %d)",
+	DELVES_JOURNEY_NAMED_RANK = "%s: rango %d (%d / %d)",
 	DELVES_HINT_SHIFT_J = "Pulsa |cffffff00MAYÚS-J|r — Guía de aventura (Gran cámara, |cff00ffffTravesía de las profundidades|r, Profundidades, Presa).",
 	DELVES_CURRENCY_LINE = "Claves: %d | Fragmentos: %d (Semanal: %d / %d) | Submonedas: %d | Cristales de maná no contaminados: %d%s",
 	DELVES_CURRENCY_BOUNTIES = "Recompensas: %d",

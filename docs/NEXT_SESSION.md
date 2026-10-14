@@ -69,6 +69,12 @@ log lezen, dan evt. matchen op encounter-ID (Sha'Kuro = ?, Jo'din 3646, Taltrois
 ✅ **GEMETEN 09:46:56:** "Sha'Kuro (via encounter name): button shown (B)" — de knop kwam. Maar de klik opende de coach
 op Jun'ala (1/19): de boss-paneel-gok viel terug op index 1. Fix: `ns._mhRoomBossPick` gaat vóór de gok (paneel én
 tip-filter); ◀ ▶ wint nog steeds. Rob versloeg Sha'Kuro na een reload. NIET opnieuw getest.
+**14 okt — Labyrinth Journey (Rob: "hadden wij dit ook al?" → nee → "doe B maar"):** faction **2836** GEMETEN
+(`/run` GetMajorFactionIDs: "2836 The Labyrinth of Kindo'jan 1"; venster 900/2100; beloningen 1 Ancient Curios,
+2 Lock, Key, and Mask, 3 Akil'zon's Favor, 4 Spirited Away…). Deel A gebouwd: `ns.ReadJourneyStatus(factionID)`
+(uit GetDelverJourneyStatus gehaald) + `ns.GetLabyrinthJourneyStatus()`; tweede regel op de Delves-pagina met de
+clientnaam, DELVES_JOURNEY_NAMED_RANK (itIT valt terug op Engels, net als zijn DELVES_JOURNEY_RANK). Deel B (Codex-kaart
+met beloningen): mh-research loopt → scratchpad LABYRINTH_JOURNEY.md. Vaste id 2836: nameten bij een nieuw seizoen.
 **Rob 14 okt, Sha'Kuro:** doodgegaan tijdens het gevecht → daarna "speak to Kinduru to end your run" terwijl de baas
 nog leefde. Dood = run voorbij? Of de launch-bug (Wowhead 14 okt)? Nog niet uitgezocht.
 **questDiff 14 okt:** 98832 + 98833, beide 2647 35.1/64.8, zonder doelwit. Geen kist van ons binnen 3% (dichtstbij
@@ -125,6 +131,10 @@ geen Final-boss-knop in de Labyrinth. `/mh questdiff` stond AAN op zijn PTR-char
    Keystone Myth [PH]) nameten → bijwerken → site-chat seinen.
 3. Fouten uit 4.7.6 of Labyrinth-fixes → 4.7.7 (eerst beta, tenzij Rob anders kiest). 66848a9 gaat daarin mee.
 4. Devourer HERO1 (12.1.5-spelltekst vergelijken) — nog open uit plan A.
+4b. 🔴 **Boss-abilities Labyrinth (Rob 14 okt: "doe 1 en 2 maar … en uiteraard 3 altijd checken als ze updates hebben"):**
+   (1) Rob neemt kamerbaas-gevechten op → `video_frames`; (2) mh-research zoekt spells in wago DB2 (onderzoek 14 okt →
+   `docs/LABYRINTH_BOSS_SPELLS_2026-10-14.md` zodra klaar); (3) ELKE sessie Wowhead/Method/DBM-Delves-Midnight/
+   LittleWigs/Zygor op updates nalopen.
 5. Zygor-gids bewaken: de "The Labyrinth of Kindo'jan"-gids (ZygorDungeonCommonMID.lua r. 957) kan na updates groeien;
    37.2/69.7-kist en de "Mislaid Treasure" (75.0/64.1) staan er nog niet in.
 
