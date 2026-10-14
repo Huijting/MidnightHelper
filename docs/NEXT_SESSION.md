@@ -92,6 +92,11 @@ Robs INTRO-stappen, geen kisten (GEMETEN in Zygor-bestand, via mh-research 14 ok
 Akil'zon/Jan'alai/Nalorakk/Halazzi = opent hun VERZEGELDE DEUREN (de "19 kisten achter loa-zegels"!). Rang 2 "Lock, Key,
 and Mask" opent ze NIET. Weekly 93784 = 2000 punten (alleen Wowhead), Kindo'jan T8+ = 500. Codex-kaart
 `labyrinth_journey` in MidnightCodexData.lua + CODEX_LABJOURNEY_* in 8 talen + esMX (mh-writer, lint 0 HARD). Tips: d9abcca.
+**14 okt — questDiff 97771 + "Illithar" (Tidebound Grotto) onderzocht (mh-research, scratchpad Q97771.md):**
+"Illithar" = een andere SPELER in Robs World-groep (RaiderIO-lookup eu-Illithar-pozzo-delleternità; geen npcID) — geen baas;
+12.1.5 heeft geen nieuwe Grotto-baas (alleen Nymrissa, 3379/2849). 97771 = verborgen quest zonder naam of verwijzing, al
+sinds 12.1.0-PTR naast 97128; AFGELEID: wekelijkse vlag. Nameten na de reset van wo 21 okt: `/mh questdiff check 97771`.
+uiMap 2632 = Grotto-kaart, 2987 = instance-id (commentaar in TideboundGrottoCoach.lua rechtgezet).
 **14 okt — Kith'ix stond onder "Older raids (Season 1)"** (Rob, screenshot): de raid heeft bewust geen `season` (anders de
 S2-notitie erboven), en GetRaidPageList telde dat als seizoen 1. Nu `pageSeason = 2`, alleen voor de indeling.
 Rob: "geen map en geen route er naar toe" → `entrance = 2613, 74.27/5.91` (AreaPOI 9031, wago; = Codex-pijl). De Map-knop

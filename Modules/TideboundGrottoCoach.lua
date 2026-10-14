@@ -50,8 +50,9 @@ local ENTRY = {
 	--- place on The Coiled Isle, and that is the version a player has to make sense of.
 	--- Rob's own screenshot settles it: he stood at 60.1 / 66.4 on the Coiled Isle map.
 	---
-	--- The instance behind the door is uiMapID 2987 (DBM's SetZone) — a third id again,
-	--- and not somewhere you can put a waypoint.
+	--- The instance behind the door is instance id 2987 (DBM's SetZone, what GetInstanceInfo returns) — NOT a
+	--- uiMapID. Its map for the map system is uiMap 2632 (wago UiMapAssignment 2632 -> instance 2987, area 16671;
+	--- mh-research 14 Oct 2026). Neither is somewhere you can put a waypoint from outside.
 	---
 	--- The quest id travels with the coordinates so the tooltip can say whether the
 	--- client currently sees this lair as active, instead of implying the arrow
