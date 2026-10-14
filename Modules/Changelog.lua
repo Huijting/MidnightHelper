@@ -4,6 +4,19 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "4.7.7",
+		lines = {
+			-- beta 1 (14 Oct 2026, EU patch day for 12.1.5)
+			"CHANGELOG_477_1",
+			"CHANGELOG_477_2",
+			"CHANGELOG_477_3",
+			"CHANGELOG_477_4",
+			"CHANGELOG_477_5",
+			"CHANGELOG_477_6",
+			"CHANGELOG_477_7",
+		},
+	},
+	{
 		version = "4.7.6",
 		lines = {
 			"CHANGELOG_476_0",

@@ -1,72 +1,44 @@
-# Midnight Helper 4.7.6: ready for patch 12.1.5, with the Labyrinth of Kindo'jan
+# Midnight Helper 4.7.7 beta 1: the Labyrinth after launch day
 
-## Want new things sooner? Try the betas
+This is a **beta**: the first fixes and additions after patch 12.1.5 went live. You get betas when the release type of
+Midnight Helper in the CurseForge app is set to **Beta**. Tell us how it goes, also when everything works: `/mh report`
+in game, a comment here on CurseForge, or the feedback form on midnighthelper.com.
 
-Between releases we put out **betas** regularly. To get them: open the CurseForge app, go to Midnight Helper and set the
-**release type** to **Beta**. You get new things sooner, and you can help us test them. Tell us how it goes, also when
-everything works:
+## The Labyrinth of Kindo'jan, after our first live runs
 
-- `/mh report` in game, or *Report a problem* in Settings,
-- a comment here on CurseForge,
-- or the feedback form on midnighthelper.com.
+- **A button for every room boss.** When a room boss fight starts, a button *Room boss: <name> - show tips?* appears
+  for a few seconds and opens the Delve Coach on that boss. Want the coach to open by itself instead? Settings:
+  *Labyrinth: open the coach for each room boss*.
+- **What the room bosses do**, from the game data: Grukk's Interrupting Shout, Sha'Kuro's Soul Storm, the Drill
+  Sergeant's shield (charge him into a rock), Den'zara's Storm of Torment, and Kindo'jan's Mojo puddles, Whirling Axes and
+  enrage. Each boss's line shows when you fight that boss.
+- **Shadowhunter Jo'din and Treasure Hunter Taltrois** are in the boss panel, and the **chest route** knows 20 chests.
+- **Three launch-day warnings** in the coach: do not leave the delve during a run, talk to Kinduru after Kindo'jan, and
+  a room boss kill sometimes does not count yet.
 
-## Ready for patch 12.1.5
+## The Labyrinth's own Journey
 
-Patch 12.1.5 removed some old item functions from the game. Midnight Helper now uses the new ones, so these keep
-working: **gem links** in Gear check, the **midnighthelper.com export**, **item colours** on the play cards, and
-spotting a delve item you **already used**.
+The Labyrinth has its own Journey next to Delver's Journey. Your rank is now on the **Delves page**, and a new
+**Codex card** explains all 9 ranks: the loa Favors that open the **sealed doors**, the **Battle Arts** and permanent
+upgrades behind them, and how you earn points. The Journey is shared by your Warband.
 
-## New: The Labyrinth of Kindo'jan
+**Wah'du's weekly quest** is on the Labyrinth card too: one step a week on Tier 8 and higher, three Mythical Soul
+Fragments make a Myth armour piece of your choice. A link sets an arrow to Wah'du.
 
-The new mega-delve is in Midnight Helper from day one, built from our own runs and the game data.
+## Kith'ix and the routes there
 
-**Please note:** the Labyrinth is brand new and we have not been able to test it thoroughly yet. Expect changes and
-fixes in the coming days, as we play more runs. Something wrong or missing? Tell us, it helps a lot.
+- **Kith'ix** now sits with this season's raids, with **Route** and **Map** buttons. The Codex card covers the trash
+  before the boss.
+- **Routes follow every door**: into the Vaults, into the Underbelly, and they tell you what to pick at an **Amani
+  Windcaller**. Far targets inside the Vaults get the Windcaller as a shortcut.
 
-- **In the Delves list**, with a route to its door in Eversong Woods.
-- **Your first visit, step by step** on its Codex card: the door is sealed, so click the Amani Tablet, see Kul'amara
-  in Atal'Aman, meet Valeera back at the door, then a short first run of three rooms.
-- **The Delve Coach knows every task** a room can give you: masks and Grukk, the Undead Trollbunal, Taken
-  Antiquities, the Drill Sergeant (aim his charge at a rock), finding the vessel, and more. The same task can turn up
-  in any wing, so the coach explains the tasks, not the rooms.
-- **The boss panel shows the room boss you target**, with its model and only the tips for that boss.
-- **Kindo'jan**: what is known of the final fight, including the four loa tests at 70%. We have not seen this fight
-  ourselves yet, and the coach says so.
-- **Sturdy Chests** on the chest route.
+## Also
 
-## The rest of 12.1.5, explained in the Codex
+- **Codex:** the Voidcore cap rises by one every weekly reset (we measured it), Keystone Myth at 3600 is confirmed
+  live, and the Labyrinth's conduits come from Journey rank 6.
+- **Fixes:** keys on the Dispel tab of the play cards, the delve list split evenly over both columns, no stray dividers
+  under Party targets in a small group, and two marker-bar errors.
 
-- **Kith'ix**, the new raid with one boss, with Lady Liadrin at your side. The raid coach knows the fight.
-- **Aqir Invasion**: for 10 minutes every hour the whole zone fights the swarm in Eversong or Zul'Aman. The Events tab
-  tells you when, and what to do.
-- **Ascendant Venomstones**: what they upgrade and where they drop, from the week of 20 October.
-- **Keystone Myth is back** for Season 2, at a Mythic+ rating of 3600.
-
-## New since the last release
-
-- **Every play card explains itself:** all 40 specs have a *Why* line under every step, a *Good to know* line for the
-  game terms, and a *Test yourself* quiz. Spell and talent names show in your own game language.
-- **Русский:** a full Russian language pack. Mexican game clients get their own words on top of the Spanish pack.
-- **Your game's own words:** delves, places, dungeons, raids, achievements, delve items and spell names show as your
-  game client names them in German, French, Spanish, Portuguese, Italian, Russian and Mexican Spanish.
-- **Leveling (10-90):** the Guide tab now starts at level 10: Timewalking Campaigns, Warband Mentored Leveling, Rested
-  and more.
-- **Boss tactics to one player:** right-click *Share* in the boss window and pick a group member, or type
-  `/mh bossshare <name>`. Left-click still shares with the whole group.
-- **Death card:** reads Blizzard's Death Recap, says what hit you hardest, and gives a tip that fits how you died.
-- **Which spells you press** (`/mh presses`): your most-pressed spells and their keys, now also on Bartender4 and ElvUI
-  bars. Heals and crowd control are never offered in a swap.
-- **Healers:** a Mana Potion row on the consumables list, and Celestial Conduit and Tip the Scales on the cooldown list.
-- **Marker bar:** your own marker (`/mh mark me star`), one button marks all your friends, and one marks tank and
-  healer.
-- **Class advice** checked against the 12.1 game data for all 40 specs: about 25 fixes.
-- **This Week**, **Trading Post**, **professions** and the **midnighthelper.com export** improved.
-- **midnighthelper.com** now has the whole Codex, a page on patch 12.1.5, the Role Academy and every play card, in 8
-  languages. Click the link in the title bar.
-- **Fixes:** the Delves tab and the title bar fit a narrow window, the Combat Safety warning is no longer cut off,
-  routes skip a flight that would not save time, and many text fixes.
-
-Russian, Mexican Spanish and the other new texts in German, French, Spanish, Portuguese and Italian are our own
-translation: native speakers, corrections are very welcome.
+New texts in other languages are our own translation: native speakers, corrections are very welcome.
 
 Have fun!

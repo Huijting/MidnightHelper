@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.7.7
+
+📌 **2026-10-14 avond, BETA 1 (Rob: "je krijgt een go voor de beta-release"), tag `v4.7.7-beta1` na akkoord site-chat.**
+`RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md` (byte-gelijk, kop "beta 1"). In-game changelog CHANGELOG_477_1..7.
+GEMETEN door Rob op EU-live 14 okt: kamerbaas-knop verscheen (Sha'Kuro, via encounter-naam), delve-lijst 8+8, Journey-
+regel 1900/2100, Dispel-toets (Soothe), Kith'ix Route + Map, routelabels, Windcaller → Underbelly-doorgang, Kith'ix-
+coach opende vanzelf in LFR, fluisteren, party-targets-streepjes weg. NIET getest: coach opent op de juiste kamerbaas
+(fix bc0be8f/6d9f459), encounter-id-match op een niet-Engelse client, deur-hand-off in de gang, Windcaller-hop naar The
+Venomous Abyss, FastMark-fixes, questdiff bij een kist, de nieuwe Codex-teksten in andere talen (zelf vertaald).
+
+- **Labyrinth:** kamerbaas-knop (B) + instelling (C), encounter-id's (12/12, DB2 = DBM), aanvallen per kamerbaas
+  (wago 70391), Jo'din/Taltrois, 20 kisten, 3 launch-day-regels.
+- **Labyrinth Journey** (faction 2836): rang op de Delves-pagina + Codex-kaart (9 rangen, Favors, Battle Arts),
+  Warband-breed (GEMETEN); **Wah'du** (264886) weekly Myth-questlijn + pijl (2647 44.36/79.57, GEMETEN).
+- **Kith'ix:** bij de raids van nu (pageSeason), entrance 2613 73.29/8.03 (GEMETEN), journalInstanceID 1324 (GEMETEN),
+  trash-tips; "not yet seen" weg.
+- **Routes:** opnieuw plannen op elke nieuwe kaart, deur-hand-off, Windcaller-optie op de pijl, Windcaller-hop binnen de
+  Vaults, stapnamen via ns.TravelStepName (geen PLAN_STEP_DOOR meer).
+- **Codex:** Voidcore-grens per weekreset (GEMETEN), Keystone Myth 3600 live, conduits vanaf rang 6.
+- **Fixes:** Dispel-tab-toetsen, delve-lijst 8+8, PartyTargets-scheidingslijn, FastMark (secret boolean + slepen in combat),
+  questdiff ook bij loot.
+
 ## 4.7.6
 
 📌 **2026-10-13 avond, RELEASE KLAARGEZET (Rob: "we gaan voor de echte release" — 11 betatesters, geen meldingen).**
