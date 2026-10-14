@@ -645,6 +645,45 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 	--- and is emitted with it, above — a step that is only useful before another step
 	--- cannot be listed after it and still be advice.
 
+	--- A target INSIDE the Vaults, and you are in the Vaults too (Rob, 14 Oct 2026, on The Venomous Abyss, entrance
+	--- 47.25/20.51 in the far north: "ja doe maar"). Until now only the Underbelly door carried a Windcaller hop, so
+	--- every other Vaults target was a walk across the whole map. Offer the hop when it is clearly shorter.
+	--- ⚠️ ONLY FROM THE FOOTHOLD WINDCALLER: its gossip offering both the Eastern Outpost and the Northern Bulwark is
+	--- measured (Rob's screenshot, 17 Aug). What the other two Windcallers offer is not, so no hop is invented there.
+	local VAULTS_MAP = 2509
+	if #steps == 0 and targetMap == VAULTS_MAP and here == VAULTS_MAP and tonumber(x) and tonumber(y)
+		and C_Map and C_Map.GetPlayerMapPosition then
+		local okP, pos = pcall(C_Map.GetPlayerMapPosition, VAULTS_MAP, "player")
+		local okXY, a, b = false, nil, nil
+		if okP and pos and pos.GetXY then
+			okXY, a, b = pcall(pos.GetXY, pos)
+		end
+		if okXY and a then
+			local px, py, tx, ty = a * 100, b * 100, tonumber(x), tonumber(y)
+			local best, near = ChooseHub(tx, ty, px, py)
+			if best and near and near.key == "foothold" and best.optionKey then
+				local function d(x1, y1, x2, y2)
+					return math.sqrt((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
+				end
+				local walk = d(px, py, tx, ty)
+				local hop = d(px, py, near.npcX, near.npcY) + d(best.landX, best.landY, tx, ty)
+				-- 10 map units of margin: a hop that saves less than that is not worth a conversation.
+				if hop + 10 < walk then
+					steps[#steps + 1] = {
+						kind = "gossip",
+						mapID = VAULTS_MAP,
+						x = near.npcX,
+						y = near.npcY,
+						label = "Amani Windcaller",
+						detail = best.optionKey,
+						note = "PLAN_NOTE_WINDCALLER",
+						source = "AMANI_HUBS",
+					}
+				end
+			end
+		end
+	end
+
 	steps[#steps + 1] = {
 		kind = "arrive",
 		mapID = targetMap,

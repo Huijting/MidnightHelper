@@ -110,7 +110,13 @@ op de DOELkaart (2613); de Vaults (2509) zijn een tussenkaart. Nu: een deur/port
 45.37/64.93) wees de pijl terug en daarna niets. Fix: pendingLeg.door + nextStep; binnen 25 yd van de deur (SmcYardsToPoint)
 → pijl naar de volgende planstap (1×). NIET getest.
 Rob bij de Windcaller: "weet als noob nu niet wat ik moet doen" → `ns.TravelStepName(s)` (TravelPlan.lua): gossip-stap
-= naam + ": " + L(detail) (PLAN_OPT_NORTHERN_BULWARK, al in 8 talen); gebruikt in DelveTipMarkup + NativeArrow. Open:
+= naam + ": " + L(detail) (PLAN_OPT_NORTHERN_BULWARK, al in 8 talen); gebruikt in DelveTipMarkup + NativeArrow.
+✅ Rob bij de Northern Bulwark, opnieuw Route → "Way into the Underbelly (the only one) 233m".
+**Rob "ja doe maar" (Windcaller ook voor andere Vaults-doelen, bv. The Venomous Abyss 47.25/20.51):** BuildTravelPlan
+voegt een gossip-stap toe als doel én speler op 2509 zijn, de dichtste Windcaller de FOOTHOLD is (alleen die zijn opties
+zijn gemeten) en hop+10 < lopen (kaart-eenheden). RouteFirstToFlightPoint mag nu ook op dezelfde kaart leiden (alleen via
+een planstap). Leg-watcher: same-map leg eindigt niet op de kaart maar via de deur-hand-off (gossip telt nu ook als
+"deur"); op de taxi na de hand-off blijft de pijl op de volgende stap. NIET getest. Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).

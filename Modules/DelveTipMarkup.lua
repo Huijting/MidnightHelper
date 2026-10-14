@@ -392,6 +392,11 @@ local function ArrivedOnTargetMap()
 	if not ok or not here then
 		return false
 	end
+	-- A leg that starts on the target map (a Windcaller hop inside the Vaults) is finished by the door hand-off in
+	-- the watcher, not by the map: here == target from the first tick.
+	if pendingLeg.fromMap and tonumber(pendingLeg.fromMap) == tonumber(pendingLeg.mapID) then
+		return false
+	end
 	if here == pendingLeg.mapID then
 		return true
 	end
@@ -486,6 +491,11 @@ if C_Timer and C_Timer.NewTicker then
 			local okT, v = pcall(UnitOnTaxi, "player")
 			onTaxi = okT and v or false
 		end
+		-- On the Windcaller's bird after the hand-off: the arrow already points at the step past the hop; finishing
+		-- the leg now would swap it for the final target (on another map, for the Underbelly).
+		if onTaxi and pendingLeg.doorPassed then
+			return
+		end
 		if not (onTaxi or ArrivedOnTargetMap()) then
 			-- Reached the walked door but still on its map (a tunnel): point at the step beyond it, once.
 			local door, nxt = pendingLeg.door, pendingLeg.nextStep
@@ -494,9 +504,13 @@ if C_Timer and C_Timer.NewTicker then
 				local okY, yards = pcall(ns.SmcYardsToPoint, door.mapID, door.x, door.y)
 				if okY and type(yards) == "number" and yards < 25 then
 					pendingLeg.doorPassed = true
+					local finished = pendingLeg.nextIsArrive
 					ns._mhTravelLegBusy = true
 					pcall(ns.AddSmartTomTomWay, nxt.mapID, nxt.x, nxt.y, nxt.name, true)
 					ns._mhTravelLegBusy = nil
+					if finished then
+						ClearLeg() -- the step past the door was the destination itself
+					end
 					return
 				end
 			end
@@ -532,9 +546,12 @@ end
 --- @return boolean true when the arrow was sent to a flight master instead
 function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 	targetMap, currentMap = tonumber(targetMap), tonumber(currentMap)
-	if not (targetMap and currentMap) or targetMap == currentMap then
+	if not (targetMap and currentMap) then
 		return false
 	end
+	-- Same map: only a plan step can lead here (a Windcaller hop inside the Vaults, 14 Oct 2026); the flight
+	-- heuristic further down stays off, as before.
+	local sameMap = targetMap == currentMap
 	if ns._mhTravelLegBusy or not ns.GetNearestFlightPoint then
 		return false -- re-entry: leg one sets its own waypoint through the same call
 	end
@@ -629,8 +646,12 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						-- the map changed). Remember the door and the step after it: reaching the door hands the
 						-- arrow on (leg watcher below).
 						local nxt = steps[si + 1]
-						if s.kind == "walk" and nxt and nxt.mapID and nxt.x and nxt.y then
+						-- A gossip hop too (Rob, 14 Oct 2026: flown to the Northern Bulwark, the arrow still pointed
+						-- at the Windcaller behind him — a flight inside one map changes no map). Reaching the NPC
+						-- points the arrow at where the hop leads.
+						if (s.kind == "walk" or s.kind == "gossip") and nxt and nxt.mapID and nxt.x and nxt.y then
 							pendingLeg.door = { mapID = s.mapID, x = s.x, y = s.y }
+							pendingLeg.nextIsArrive = nxt.kind == "arrive"
 							pendingLeg.nextStep = { mapID = nxt.mapID, x = nxt.x, y = nxt.y,
 								name = ns.TravelStepName and ns.TravelStepName(nxt, name)
 									or (nxt.label and (nxt.localized and ns:L(nxt.label) or nxt.label)) or name }
@@ -646,6 +667,9 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 				end
 			end
 		end
+	end
+	if sameMap then
+		return false
 	end
 
 	local fromName, fx, fy = ns.GetNearestFlightPoint(currentMap, px, py)

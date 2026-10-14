@@ -71,6 +71,12 @@ er is niets weggegooid.
 - [ ] **Bij de Amani Windcaller** (Rob: "ik weet als noob nu niet wat ik moet doen"): de pijl heet nu *"Amani Windcaller:
       pick "Fly me to the Northern Amani Bulwark""*. Praat met hem, kies die optie; daarna wijst de pijl naar de
       doorgang naar The Underbelly.
+      ✅ Rob 14 okt: opnieuw "Route" bij de Northern Bulwark → "Way into the Underbelly (the only one) 233m".
+- [ ] **Na de Windcaller-vlucht** springt de pijl nu vanzelf naar de volgende stap (zonder opnieuw op Route te klikken):
+      bij de Windcaller (binnen 25 m) wijst hij al naar waar de vlucht heen gaat, en dat blijft zo tijdens het vliegen.
+- [ ] **Route naar The Venomous Abyss vanuit het zuiden van de Vaults** (bij de Amani Foothold): de pijl stuurt je nu
+      eerst naar de **Amani Windcaller** (*pick "Fly me to the Northern Amani Bulwark"*) in plaats van dwars door de Vaults
+      te lopen. Alleen vanaf de Foothold-Windcaller (van de andere twee weten we niet welke vluchten ze hebben).
 
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 
