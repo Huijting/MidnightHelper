@@ -134,6 +134,10 @@ local RAIDS = {
 		-- ✅ MEASURED the same day: Rob stood at the entrance, his coordinate display read 73.29, 8.03 — the spot you
 		-- walk to, where the POI is the portal's middle. Used here and in the Codex card's link (CODEX_KITHIX_BODY).
 		entrance = { mapID = 2613, x = 73.29, y = 8.03 }, -- The Underbelly (below the Vaults of Atal'Utek)
+		-- ✅ CLIENT-MEASURED 14 Oct 2026: Rob's `/mh ej save` inside the raid (Normal, difficulty 14) returned
+		-- "The Unbinding of Kith'ix" id 1324 — the same number DBM uses, now confirmed by the client (see the
+		-- warning above). Lets the boss window recognise the raid before the pull.
+		journalInstanceID = 1324,
 		noteKey = "RAID_KITHIX_NOTE",
 		bosses = {
 			{ key = "kithix", name = "Kith'ix", seedCreatureId = 267861, encounterID = 2896 },

@@ -122,7 +122,10 @@ AchievementsData 45.19/11.15 (Method) vs VAULTS_MEASUREMENTS 47.30/11.20. Hand-o
 Rob gevraagd de echte ingang te capturen → daarna coördinaat in TravelPlan + AchievementsData (3×) gelijktrekken.
 ✅ **Kith'ix-ingang GEMETEN (Rob 14 okt, coördinaten-display bij de ingang): 2613 73.29, 8.03** (was POI 74.27/5.91) →
 RaidCoachData entrance + {WAY} in CODEX_KITHIX_BODY (8 talen), drift gemarkeerd. Rob zag ook een ronde wenteltrap naar
-beneden op 65.47, 26.93 (kaart niet genoemd, AFGELEID 2613) — onderweg naar de ingang. Underbelly-doorgang nog NIET gemeten. Open:
+beneden op 65.47, 26.93 (kaart niet genoemd, AFGELEID 2613) — onderweg naar de ingang. Underbelly-doorgang nog NIET gemeten.
+✅ **`/mh ej save` in Kith'ix (Rob, Normal/14): journalInstanceID 1324** GEMETEN → RaidCoachData. Binnenkomst gaf de bekende
+death-recap ADDON_ACTION_FORBIDDEN (Retrospective.lua:754); GEMETEN in SV: 1 weigering, `cleuBlockedDiff` = build 120105 →
+grendel staat, verwacht gedrag (1× per nieuwe build). "24x" = sessies. Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).
