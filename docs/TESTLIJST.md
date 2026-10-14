@@ -65,6 +65,9 @@ er is niets weggegooid.
 - [ ] **Route naar Kith'ix, de hele weg:** de pijl stopte in de Vaults (Rob 14 okt). Nu: in de Vaults aangekomen springt de
       pijl binnen ~2 s naar de doorgang naar The Underbelly (≈45.2, 11.2), en daarbinnen naar de raid-ingang (74.3, 5.9).
       Blijft hij hangen: `/mh arrow` en zeg wat er staat.
+      ◐ Rob 14 okt: in de Vaults wees hij naar de Amani Windcaller ✅, en het label is goed ✅. Maar in de gang tussen eiland
+      en Vaults wees hij eerst terug en daarna niets. Fix: bij de doorgang (binnen 25 m) springt de pijl nu meteen naar
+      de volgende stap (de Windcaller). Opnieuw proberen.
 
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 

@@ -487,6 +487,19 @@ if C_Timer and C_Timer.NewTicker then
 			onTaxi = okT and v or false
 		end
 		if not (onTaxi or ArrivedOnTargetMap()) then
+			-- Reached the walked door but still on its map (a tunnel): point at the step beyond it, once.
+			local door, nxt = pendingLeg.door, pendingLeg.nextStep
+			if door and nxt and not pendingLeg.doorPassed and ns.SmcYardsToPoint and ns.AddSmartTomTomWay
+				and not ns._mhTravelLegBusy then
+				local okY, yards = pcall(ns.SmcYardsToPoint, door.mapID, door.x, door.y)
+				if okY and type(yards) == "number" and yards < 25 then
+					pendingLeg.doorPassed = true
+					ns._mhTravelLegBusy = true
+					pcall(ns.AddSmartTomTomWay, nxt.mapID, nxt.x, nxt.y, nxt.name, true)
+					ns._mhTravelLegBusy = nil
+					return
+				end
+			end
 			-- 🔴 A PLAN WITH MORE THAN ONE DOOR — 14 Oct 2026. Rob routed to Kith'ix (Underbelly 2613) from the
 			-- Coiled Isle: the arrow took him into the Vaults (2509) "and then nothing". The plan is isle door ->
 			-- Underbelly way-in on 2509 -> raid; this leg only waits for the TARGET map, and the Vaults are a map
@@ -574,7 +587,7 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 	if ns.BuildTravelPlan then
 		local okP, steps = pcall(ns.BuildTravelPlan, targetMap, x, y, name)
 		if okP and type(steps) == "table" then
-			for _, s in ipairs(steps) do
+			for si, s in ipairs(steps) do
 				--- A step on a map AROUND this one counts too (12 Sep 2026): on Slayer's Rise the
 				--- portal out is on Voidstorm. Canvas 2576 stays exact, as in TravelPlan.
 				local onThisMap = s.mapID == currentMap
@@ -610,6 +623,16 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						--- right here — coming out of this portal PUTS you on the target
 						--- map, which is the plainest arrival signal there is.
 						pendingLeg = { mapID = targetMap, x = x, y = y, name = name, fromMap = currentMap }
+						-- A WALKED door is a map-link pin, not the end of the tunnel behind it (Rob, 14 Oct 2026: the
+						-- Coiled Isle -> Vaults link at 45.37/64.93; past it the arrow pointed back, then nothing until
+						-- the map changed). Remember the door and the step after it: reaching the door hands the
+						-- arrow on (leg watcher below).
+						local nxt = steps[si + 1]
+						if s.kind == "walk" and nxt and nxt.mapID and nxt.x and nxt.y then
+							pendingLeg.door = { mapID = s.mapID, x = s.x, y = s.y }
+							pendingLeg.nextStep = { mapID = nxt.mapID, x = nxt.x, y = nxt.y,
+								name = nxt.label and (nxt.localized and ns:L(nxt.label) or nxt.label) or name }
+						end
 						StartLegWatcher()
 					end
 					return false
