@@ -52,6 +52,8 @@ er is niets weggegooid.
 
 - [ ] **Raids-pagina:** The Unbinding of Kith'ix staat nu bovenaan bij de raids van dit seizoen (na The Venomous
       Abyss), niet meer onder "Older raids (Season 1)".
+- [ ] **Kith'ix openklappen:** er staan nu knoppen **Route** en **Map**. Route → pijl naar de ingang in The Underbelly
+      (onder de Vaults of Atal'Utek). Map → de plattegrond van de raid. Zegt Map "No map found", meld het.
 
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 
