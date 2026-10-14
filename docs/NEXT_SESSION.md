@@ -92,6 +92,12 @@ Robs INTRO-stappen, geen kisten (GEMETEN in Zygor-bestand, via mh-research 14 ok
 Akil'zon/Jan'alai/Nalorakk/Halazzi = opent hun VERZEGELDE DEUREN (de "19 kisten achter loa-zegels"!). Rang 2 "Lock, Key,
 and Mask" opent ze NIET. Weekly 93784 = 2000 punten (alleen Wowhead), Kindo'jan T8+ = 500. Codex-kaart
 `labyrinth_journey` in MidnightCodexData.lua + CODEX_LABJOURNEY_* in 8 talen + esMX (mh-writer, lint 0 HARD). Tips: d9abcca.
+✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
+"not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).
+✅ **Rob's tooltips 14 okt:** elke Favor-rang noemt een "Ancient Hash'ey Battle Art": Falco Strikes (Akil'zon), Heat Wave
+(Jan'alai), Ursine's Ironhide (Nalorakk), Eye of the Lynx (Halazzi) → mh-writer zet ze in CODEX_LABJOURNEY_BODY.
+📌 **Kaart-tooltip Labyrinth (Rob 14 okt):** "Assist Wah'du inside the Labyrinth on Tier 8+ to earn a Mythical Soul
+Fragment. Combine three … Myth 2/6 piece of armor of your choosing." Staat NIET in MH → mh-research (scratchpad WAHDU.md).
 ✅ CODEX_LABYRINTH_BODY: "Loa-Spirit Conduits" → clientnaam "Loa-Spiritual Conduits", vanaf rang 6 (Rob: "ja pas die
 conduits-zin maar aan"), 8 talen + esMX, drift gemarkeerd. Nog open: esMX schrijft de delve "Kindo'Jan", de faction "Kindo'jan".
 **questDiff 14 okt (2e ronde, ~09:55):** ook 98501 + 99222, beide 2647 44.7/85.1, zonder doelwit; geen kist van ons
