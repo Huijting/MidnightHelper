@@ -95,7 +95,9 @@ and Mask" opent ze NIET. Weekly 93784 = 2000 punten (alleen Wowhead), Kindo'jan 
 **14 okt — Kith'ix stond onder "Older raids (Season 1)"** (Rob, screenshot): de raid heeft bewust geen `season` (anders de
 S2-notitie erboven), en GetRaidPageList telde dat als seizoen 1. Nu `pageSeason = 2`, alleen voor de indeling.
 Rob: "geen map en geen route er naar toe" → `entrance = 2613, 74.27/5.91` (AreaPOI 9031, wago; = Codex-pijl). De Map-knop
-zoekt de plattegrond op naam in het journal (geen journalInstanceID). NIET getest. Open:
+zoekt de plattegrond op naam in het journal (geen journalInstanceID). ✅ Rob: Route + Map werken (Map: 2 verdiepingen).
+Bug gevonden: de Route-pijl heette "PLAN_STEP_DOOR" — DelveTipMarkup.lua gaf een travel-plan-stap met `localized = true`
+ruw door aan AddSmartTomTomWay (:583) en WAY_PORTAL_HINT (:297); nu via ns:L. NativeArrow deed het al goed. Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).

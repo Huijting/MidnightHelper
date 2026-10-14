@@ -60,6 +60,8 @@ er is niets weggegooid.
 - [x] **Kith'ix openklappen:** er staan nu knoppen **Route** en **Map**. Route → pijl naar de ingang in The Underbelly
       (onder de Vaults of Atal'Utek). Map → de plattegrond van de raid. ✅ Rob 14 okt: beide knoppen; Map toont 2 verdiepingen
       (The Tomb of Ula'tek + Kith'ix' Prison, Kith'ix als schedel). De Route-pijl zelf nog niet gevolgd.
+- [ ] **Route naar Kith'ix vanaf de Coiled Isle:** de pijl heette "PLAN_STEP_DOOR" (Rob 14 okt). Nu hoort er
+      *"the way through (nearest of the ones your client knows)"* te staan.
 
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 

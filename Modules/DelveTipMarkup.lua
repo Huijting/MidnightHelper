@@ -294,7 +294,8 @@ function ns.ReportTravelHintForWaypoint(mapID, label, x, y, currentMap)
 		if okPlan and type(steps) == "table" and steps[1] and steps[1].kind == "portal" then
 			local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
 			print(("%s %s"):format(prefix,
-				(ns:L("WAY_PORTAL_HINT")):format(tostring(steps[1].label or "?"))))
+				(ns:L("WAY_PORTAL_HINT")):format(tostring(steps[1].label
+					and (steps[1].localized and ns:L(steps[1].label) or steps[1].label) or "?"))))
 			return
 		end
 	end
@@ -580,7 +581,10 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 					--- assistant again for the leg it just produced.
 					if ns.AddSmartTomTomWay and not ns._mhTravelLegBusy then
 						ns._mhTravelLegBusy = true
-						pcall(ns.AddSmartTomTomWay, s.mapID, s.x, s.y, s.label or name, true)
+						-- A step's label can be a locale KEY (`localized = true`, e.g. PLAN_STEP_DOOR). Rob, 14 Oct
+						-- 2026, routing to Kith'ix from the Coiled Isle: the waypoint read "PLAN_STEP_DOOR".
+						local stepName = s.label and (s.localized and ns:L(s.label) or s.label) or name
+						pcall(ns.AddSmartTomTomWay, s.mapID, s.x, s.y, stepName, true)
 						ns._mhTravelLegBusy = nil
 						ns._mhArrowLedTo = { mapID = s.mapID, x = s.x, y = s.y, at = GetTime and GetTime() or 0 }
 						--- And arm the same hand-off the flight leg uses, so the arrow
