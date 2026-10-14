@@ -102,6 +102,12 @@ function ns.RefreshFastMarkActive()
 		local shown = false
 		if IsRaidMarkerActive and b._worldIndex then
 			local ok, active = pcall(IsRaidMarkerActive, b._worldIndex)
+			-- 12.1.5 can hand back a SECRET boolean here (BugGrabber, Rob 13 Oct 2026: "attempt to perform boolean
+			-- test on local 'active' (a secret boolean value)", from PostClick and RAID_TARGET_UPDATE). Testing it
+			-- throws, so a secret answer is treated as unreadable: no ring, the honest state.
+			if ok and issecretvalue and issecretvalue(active) then
+				ok = false
+			end
 			shown = ok and active and true or false
 		end
 		if b._activeGlow then
@@ -551,6 +557,12 @@ local function BuildBar()
 		end
 	end)
 	grip:SetScript("OnDragStop", function()
+		-- A drag that began out of combat can end in it, and the bar parents secure buttons, so stopping it
+		-- then is blocked (ADDON_ACTION_BLOCKED StopMovingOrSizing, BugGrabber 13 Oct 2026). Finish it after.
+		if InCombatLockdown and InCombatLockdown() then
+			bar._mhStopPending = true
+			return
+		end
 		bar:StopMovingOrSizing()
 		SavePos()
 	end)
@@ -732,6 +744,11 @@ ev:SetScript("OnEvent", function(_, event)
 		if pendingFriends then
 			pendingFriends = false
 			UpdateFriendMacro()
+		end
+		if bar and bar._mhStopPending then
+			bar._mhStopPending = nil
+			bar:StopMovingOrSizing()
+			SavePos()
 		end
 		return
 	end
