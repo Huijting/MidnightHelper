@@ -41,6 +41,12 @@ er is niets weggegooid.
 - [ ] **Midnight Delves:** onder "Delver's Journey: Rank 10 …" staat nu een tweede regel
       *"The Labyrinth of Kindo'jan: Rank 1 (900 / 2100)"* — dezelfde getallen als je Journeys-venster (Shift-J).
 - [ ] Na de klik op een kamerbaas-knop: opent de coach nu op díe baas (niet meer op Jun'ala 1/19)?
+- [ ] **Codex → Delves → "The Labyrinth's own Journey (ranks 1-9)":** wat elke rang doet, wat er achter de zegels ligt,
+      hoe je punten haalt. Klopt het met je Journeys-venster?
+- [ ] **Meten (graag):** noteer je Labyrinth-punten vóór en ná een run (Delves-pagina) — hoeveel geven de kisten?
+      En kijk op een alt of de Journey dezelfde rang heeft (= gedeeld door je Warband).
+- [ ] **Coach-tips per kamerbaas** (nieuw, 14 okt): target/vecht een kamerbaas → in de coach staat een regel met zijn
+      aanvallen (bv. Grukk: Interrupting Shout, Ground Smash). Klopt wat je ziet?
 
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 

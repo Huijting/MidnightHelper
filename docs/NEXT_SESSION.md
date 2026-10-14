@@ -90,7 +90,9 @@ Robs INTRO-stappen, geen kisten (GEMETEN in Zygor-bestand, via mh-research 14 ok
 **Journey-rapport 14 okt** (`docs/LABYRINTH_JOURNEY_2026-10-14.md`): 9 rangen × 2100; rang 3/5/7/9 = Favor van
 Akil'zon/Jan'alai/Nalorakk/Halazzi = opent hun VERZEGELDE DEUREN (de "19 kisten achter loa-zegels"!). Rang 2 "Lock, Key,
 and Mask" opent ze NIET. Weekly 93784 = 2000 punten (alleen Wowhead), Kindo'jan T8+ = 500. Codex-kaart
-`labyrinth_journey` in MidnightCodexData.lua staat klaar; teksten CODEX_LABJOURNEY_* volgen (mh-writer, NA de tip-ronde).
+`labyrinth_journey` in MidnightCodexData.lua + CODEX_LABJOURNEY_* in 8 talen + esMX (mh-writer, lint 0 HARD). Tips: d9abcca.
+⚠️ Open (mh-writer zag het): CODEX_LABYRINTH_BODY noemt "Loa-Spirit Conduits" als altijd aanwezig; client = "Loa-Spiritual
+Conduits" en pas vanaf rang 6. Niet gerepareerd. Ook: esMX schrijft de delve "Kindo'Jan", de faction "Kindo'jan".
 **questDiff 14 okt (2e ronde, ~09:55):** ook 98501 + 99222, beide 2647 44.7/85.1, zonder doelwit; geen kist van ons
 in de buurt. Patroon: steeds TWEE vlaggen tegelijk op één plek → AFGELEID kamer-/run-einde, geen kisten. Rob kon
 niet zeggen wat daar gebeurde. delveRoomBossLog 09:51-09:54: alleen ENGAGE_UNIT "boss1 absent" (boss-frame leeg na

@@ -401,6 +401,19 @@ ns.CODEX_ARTICLES = {
 		searchKeys = "labyrinth kindo'jan kindojan mega delve mega-delve hash'ey first hash'ey kinduru "
 			.. "amani loa zeb'tela eversong heavy trunk bountiful coffer soul fragment labyrint",
 	},
+	-- 14 Oct 2026, Rob: "hadden wij dit ook al?" (the Journeys window) -> no -> "doe B maar". The Labyrinth's own
+	-- Journey, faction 2836 (MEASURED by Rob's /run). Facts: docs/LABYRINTH_JOURNEY_2026-10-14.md (mh-research,
+	-- wago 12.1.5.70391 + Wowhead 13 Oct + Icy Veins 12 Oct). The live rank sits on the Delves page (Delves.lua).
+	{
+		id = "labyrinth_journey",
+		category = "delves",
+		titleKey = "CODEX_LABJOURNEY_TITLE",
+		bodyKey = "CODEX_LABJOURNEY_BODY",
+		sort = 7,
+		minInterface = 120105,
+		searchKeys = "labyrinth journey renown rank kindo'jan kindojan favor favour sealed seal door akil'zon jan'alai "
+			.. "nalorakk halazzi conduit spirited away lock key mask hexmask curio delve-o-bot title reputation",
+	},
 
 	-- Dungeons
 	-- 2 Oct 2026: Rob, an expert player, asked how you even sign up for Mythic+ and MH had
