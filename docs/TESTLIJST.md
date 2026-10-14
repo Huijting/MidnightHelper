@@ -48,6 +48,11 @@ er is niets weggegooid.
 - [ ] **Coach-tips per kamerbaas** (nieuw, 14 okt): target/vecht een kamerbaas → in de coach staat een regel met zijn
       aanvallen (bv. Grukk: Interrupting Shout, Ground Smash). Klopt wat je ziet?
 
+## 🆕 14 okt — Kith'ix bij de raids van nu (RaidCoachData.lua)
+
+- [ ] **Raids-pagina:** The Unbinding of Kith'ix staat nu bovenaan bij de raids van dit seizoen (na The Venomous
+      Abyss), niet meer onder "Older raids (Season 1)".
+
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 
 - [ ] Geen "secret boolean"-fout meer van FastMark.lua:105 (kwam bij markers zetten / RAID_TARGET_UPDATE). Het gouden

@@ -92,6 +92,9 @@ Robs INTRO-stappen, geen kisten (GEMETEN in Zygor-bestand, via mh-research 14 ok
 Akil'zon/Jan'alai/Nalorakk/Halazzi = opent hun VERZEGELDE DEUREN (de "19 kisten achter loa-zegels"!). Rang 2 "Lock, Key,
 and Mask" opent ze NIET. Weekly 93784 = 2000 punten (alleen Wowhead), Kindo'jan T8+ = 500. Codex-kaart
 `labyrinth_journey` in MidnightCodexData.lua + CODEX_LABJOURNEY_* in 8 talen + esMX (mh-writer, lint 0 HARD). Tips: d9abcca.
+**14 okt — Kith'ix stond onder "Older raids (Season 1)"** (Rob, screenshot): de raid heeft bewust geen `season` (anders de
+S2-notitie erboven), en GetRaidPageList telde dat als seizoen 1. Nu `pageSeason = 2`, alleen voor de indeling. Open:
+Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).
 ✅ **Rob's tooltips 14 okt:** elke Favor-rang noemt een "Ancient Hash'ey Battle Art": Falco Strikes (Akil'zon), Heat Wave

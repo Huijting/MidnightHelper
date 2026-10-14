@@ -124,6 +124,9 @@ local RAIDS = {
 		key = "raid_kithix",
 		name = "The Unbinding of Kith'ix",
 		minInterface = 120105,
+		-- Only for the Raids page's grouping (GetRaidPageList): without it a raid with no season counts as
+		-- Season 1 and Kith'ix landed under "Older raids (Season 1)" (Rob, 14 Oct 2026, EU-live screenshot).
+		pageSeason = 2,
 		noteKey = "RAID_KITHIX_NOTE",
 		bosses = {
 			{ key = "kithix", name = "Kith'ix", seedCreatureId = 267861, encounterID = 2896 },
@@ -306,17 +309,21 @@ local OLDER_RAIDS = {}
 local OLDER_SEASON = nil
 
 function ns.GetRaidPageList()
+	-- pageSeason: a raid that belongs to a season for this page only (Kith'ix), without the season's note.
+	local function PageSeason(raid)
+		return raid.pageSeason or raid.season or 1
+	end
 	local current = 1
 	for _, raid in ipairs(ACTIVE_RAIDS) do
-		current = math.max(current, raid.season or 1)
+		current = math.max(current, PageSeason(raid))
 	end
 	local list, older = {}, {}
 	OLDER_RAIDS, OLDER_SEASON = {}, nil
 	for _, raid in ipairs(ACTIVE_RAIDS) do
-		if (raid.season or 1) < current then
+		if PageSeason(raid) < current then
 			older[#older + 1] = raid
 			OLDER_RAIDS[raid] = true
-			OLDER_SEASON = math.max(OLDER_SEASON or 0, raid.season or 1)
+			OLDER_SEASON = math.max(OLDER_SEASON or 0, PageSeason(raid))
 		else
 			list[#list + 1] = raid
 		end
