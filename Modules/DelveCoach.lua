@@ -1932,6 +1932,17 @@ local function MaybeOfferRoomBoss(event)
 		boss, idx = ns.TryResolveDelveBossFromUnits(entry.id)
 	end
 	local via = "boss1/target"
+	-- The encounter id next: it is the same on every client language, the name is not.
+	if not boss and Readable(roomEncounterID) and type(roomEncounterID) == "number" then
+		local list = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entry.id]
+		for i, b in ipairs(type(list) == "table" and list or {}) do
+			if b.encounterId == roomEncounterID then
+				boss, idx = b, i
+				via = "encounter id"
+				break
+			end
+		end
+	end
 	if not boss then
 		boss, idx = BossFromEncounterName(entry.id, roomEncounterName)
 		via = "encounter name"

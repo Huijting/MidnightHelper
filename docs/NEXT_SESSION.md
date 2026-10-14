@@ -69,6 +69,14 @@ log lezen, dan evt. matchen op encounter-ID (Sha'Kuro = ?, Jo'din 3646, Taltrois
 ✅ **GEMETEN 09:46:56:** "Sha'Kuro (via encounter name): button shown (B)" — de knop kwam. Maar de klik opende de coach
 op Jun'ala (1/19): de boss-paneel-gok viel terug op index 1. Fix: `ns._mhRoomBossPick` gaat vóór de gok (paneel én
 tip-filter); ◀ ▶ wint nog steeds. Rob versloeg Sha'Kuro na een reload. NIET opnieuw getest.
+**14 okt — boss-abilities onderzoek KLAAR:** `docs/LABYRINTH_BOSS_SPELLS_2026-10-14.md` (mh-research, wago 70391 +
+Wowhead). 11/19 kamerbazen met gemeten spells; Taltrois, Trollbunal, Sha'Kuro-264495 en Daakajin: niets. Encounter-id's
+12/12 gelijk in DB2 én DBM → `encounterId` in DelveBossShowcase + MaybeOfferRoomBoss matcht nu eerst op id (werkt op elke
+clienttaal), dan pas op naam. 7 bazen zonder DungeonEncounter (Pit Boss, Malakk, Death Steward, Daakajin, Nesh'ikar,
+Rav'iki, Prisoner) → alleen via unit. Extra NPC-id's als creatureIdFallback: Death Steward 270030, Kindo'jan 266600.
+DBM r265: Labyrinth-modules nog LEEG (upstream 14 okt alleen .toc); LittleWigs niet geïnstalleerd, upstream alleen
+Kindo'jan (3 auras); Zygor ongewijzigd sinds 07:49. Tip-teksten: mh-writer bezig (alleen MEASURED-rijen).
+⚠️ Open voor Rob: 4 gidsen zeggen "alle 9 kamers alleen de EERSTE keer" — onze Kindo'jan-tip zegt "altijd". Niet gewijzigd.
 **14 okt — Labyrinth Journey (Rob: "hadden wij dit ook al?" → nee → "doe B maar"):** faction **2836** GEMETEN
 (`/run` GetMajorFactionIDs: "2836 The Labyrinth of Kindo'jan 1"; venster 900/2100; beloningen 1 Ancient Curios,
 2 Lock, Key, and Mask, 3 Akil'zon's Favor, 4 Spirited Away…). Deel A gebouwd: `ns.ReadJourneyStatus(factionID)`

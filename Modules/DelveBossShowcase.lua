@@ -312,31 +312,37 @@ ns.DELVE_BOSS_SHOWCASE = {
 	--- tipLineMatch is the FULL name on purpose: the default adds the last word, and "Souls" (King of Souls) or
 	--- "Boss" (Pit Boss) would grab half the room list. Kindo'jan's matcher also takes his intermission lines
 	--- (the "  – " loa sub-bullets, Amani Aegis, his three attacks) so a room boss does not show them.
+	--- `encounterId`: ENCOUNTER_START's id (DelveCoach MaybeOfferRoomBoss), so the room-boss button works on every
+	--- client language — the encounter NAME is localized. 12 of 19 have one; Blizzard DungeonEncounter (MapID 3043,
+	--- wago 12.1.5.70391) and DBM-Delves-Midnight r265 agree on all 12 (docs/LABYRINTH_BOSS_SPELLS_2026-10-14.md).
+	--- The other 7 have no DungeonEncounter row, so they are found by unit only.
 	labyrinth_kindojan = {
-		{ creatureId = 264183, label = "Jun'ala", tipLineMatch = { "Jun'ala" } },
-		{ creatureId = 274331, label = "Grukk", tipLineMatch = { "Grukk" } },
-		{ creatureId = 272655, label = "The Undead Trollbunal", tipLineMatch = { "Trollbunal" } },
-		{ creatureId = 264203, label = "Sullied Revenant", tipLineMatch = { "Sullied Revenant" } },
+		{ creatureId = 264183, encounterId = 3526, label = "Jun'ala", tipLineMatch = { "Jun'ala" } },
+		{ creatureId = 274331, encounterId = 3636, label = "Grukk", tipLineMatch = { "Grukk" } },
+		{ creatureId = 272655, encounterId = 3632, label = "The Undead Trollbunal", tipLineMatch = { "Trollbunal" } },
+		{ creatureId = 264203, encounterId = 3527, label = "Sullied Revenant", tipLineMatch = { "Sullied Revenant" } },
 		-- Two ids in Zygor (262930 in Reliquary Ritual, 264495 elsewhere); the name match covers the other one.
-		{ creatureId = 264495, label = "Sha'Kuro", creatureIdFallback = { 262930 }, tipLineMatch = { "Sha'Kuro" } },
-		{ creatureId = 269822, label = "King of Souls", tipLineMatch = { "King of Souls" } },
-		{ creatureId = 275274, label = "Cynthra Buttonsmasher", tipLineMatch = { "Cynthra" } },
-		{ creatureId = 273069, label = "Drill Sergeant", tipLineMatch = { "Drill Sergeant" } },
+		{ creatureId = 264495, encounterId = 3528, label = "Sha'Kuro", creatureIdFallback = { 262930 }, tipLineMatch = { "Sha'Kuro" } },
+		{ creatureId = 269822, encounterId = 3648, label = "King of Souls", tipLineMatch = { "King of Souls" } },
+		{ creatureId = 275274, encounterId = 3653, label = "Cynthra Buttonsmasher", tipLineMatch = { "Cynthra" } },
+		{ creatureId = 273069, encounterId = 3622, label = "Drill Sergeant", tipLineMatch = { "Drill Sergeant" } },
 		{ creatureId = 263898, label = "Head Ritualist Malakk", tipLineMatch = { "Malakk" } },
-		{ creatureId = 271909, label = "Death Steward", tipLineMatch = { "Death Steward" } },
+		-- Wowhead has a second Death Steward, 270030, with the same ability list (14 Oct).
+		{ creatureId = 271909, label = "Death Steward", creatureIdFallback = { 270030 }, tipLineMatch = { "Death Steward" } },
 		{ creatureId = 272017, label = "Daakajin", tipLineMatch = { "Daakajin", "Kaz'kara" } },
 		{ creatureId = 269188, label = "Nesh'ikar", tipLineMatch = { "Nesh'ikar" } },
 		{ creatureId = 266370, label = "Pit Boss", tipLineMatch = { "Pit Boss" } },
 		{ creatureId = 270594, label = "Bone-Flayer Rav'iki", tipLineMatch = { "Rav'iki" } },
 		{ creatureId = 271525, label = "The Prisoner", tipLineMatch = { "The Prisoner" } },
-		{ creatureId = 266742, label = "Den'zara", tipLineMatch = { "Den'zara" } },
+		{ creatureId = 266742, encounterId = 3556, label = "Den'zara", tipLineMatch = { "Den'zara" } },
 		-- Not in Zygor and not seen yet: their DungeonEncounters (3646, 3642) in Blizzard data, DBM's empty stubs of
 		-- 13 Oct, and NPC ids from Wowhead (npc=275050, npc=274554, read 14 Oct; Rob: "wowhead is meestal zeer goed
 		-- geinformeerd"). Not yet seen in a client: the name match stays as a backstop, and learnCreatureId records the
 		-- id the first one targeted really has (ns.db.delveBossLearnedIds) so a wrong Wowhead id shows up.
-		{ creatureId = 275050, label = "Shadowhunter Jo'din", learnCreatureId = true, tipLineMatch = { "Jo'din" } },
-		{ creatureId = 274554, label = "Treasure Hunter Taltrois", learnCreatureId = true, tipLineMatch = { "Taltrois" } },
-		{ creatureId = 266500, label = "Kindo'jan", tipLineMatch = {
+		{ creatureId = 275050, encounterId = 3646, label = "Shadowhunter Jo'din", learnCreatureId = true, tipLineMatch = { "Jo'din" } },
+		{ creatureId = 274554, encounterId = 3642, label = "Treasure Hunter Taltrois", learnCreatureId = true, tipLineMatch = { "Taltrois" } },
+		-- Wowhead also has 266600 "Kindo'Jan <The First Hash'ey>" (14 Oct).
+		{ creatureId = 266500, encounterId = 3548, label = "Kindo'jan", creatureIdFallback = { 266600 }, tipLineMatch = {
 			"Kindo'jan", "Amani Aegis", "Crushing Blow", "Hash'ey", "Disgraceful", "  – ",
 		} },
 	},
