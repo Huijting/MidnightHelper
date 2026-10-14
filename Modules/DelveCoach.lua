@@ -1937,6 +1937,12 @@ local function MaybeOfferRoomBoss(event)
 		via = "encounter name"
 	end
 	if not boss then
+		-- ENGAGE_UNIT also fires when the boss frame empties after a fight: nothing to offer and nothing to learn,
+		-- and logging it pushed the real lines out of the 10 (EU-live, 14 Oct: three "boss1 absent" in a row).
+		if event == "INSTANCE_ENCOUNTER_ENGAGE_UNIT" and roomEncounterName == nil
+			and not (UnitExists and UnitExists("boss1")) then
+			return
+		end
 		LogRoomBoss(event, ("no match. %s; encounter %s '%s'"):format(DescribeBoss1(),
 			Readable(roomEncounterID) and tostring(roomEncounterID) or "?",
 			Readable(roomEncounterName) and tostring(roomEncounterName) or "secret/none"))

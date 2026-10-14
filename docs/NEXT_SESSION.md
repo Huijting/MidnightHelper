@@ -77,6 +77,10 @@ clientnaam, DELVES_JOURNEY_NAMED_RANK (itIT valt terug op Engels, net als zijn D
 met beloningen): mh-research loopt → scratchpad LABYRINTH_JOURNEY.md. Vaste id 2836: nameten bij een nieuw seizoen.
 **Rob 14 okt, Sha'Kuro:** doodgegaan tijdens het gevecht → daarna "speak to Kinduru to end your run" terwijl de baas
 nog leefde. Dood = run voorbij? Of de launch-bug (Wowhead 14 okt)? Nog niet uitgezocht.
+**questDiff 14 okt (2e ronde, ~09:55):** ook 98501 + 99222, beide 2647 44.7/85.1, zonder doelwit; geen kist van ons
+in de buurt. Patroon: steeds TWEE vlaggen tegelijk op één plek → AFGELEID kamer-/run-einde, geen kisten. Rob kon
+niet zeggen wat daar gebeurde. delveRoomBossLog 09:51-09:54: alleen ENGAGE_UNIT "boss1 absent" (boss-frame leeg na
+een gevecht) → die regels worden nu niet meer gelogd. Geen nieuwe kamerbaas → knop-fix (bc0be8f) nog ongetest.
 **questDiff 14 okt:** 98832 + 98833, beide 2647 35.1/64.8, zonder doelwit. Geen kist van ons binnen 3% (dichtstbij
 37.20/69.70 ≈ 5,3). Kist of kamer-/run-vlag? Onbekend → NIET aan een kist gekoppeld; Rob vragen wat daar gebeurde.
 **BugGrabber 14 okt:** "55x insecure scripts exceeded execution limit for addon !BugGrabber" = oud (45x op 26 aug, zelfde
