@@ -4,7 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.7
 
-📌 **2026-10-14 avond, BETA 1 (Rob: "je krijgt een go voor de beta-release"), tag `v4.7.7-beta1` na akkoord site-chat.**
+📌 **2026-10-14 avond, BETA 1 (Rob: "je krijgt een go voor de beta-release"), tag `v4.7.7-beta1` (d8fa274) na akkoord
+site-chat; CF/Wago/GitHub "Success!" (run 38628192804).**
 `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md` (byte-gelijk, kop "beta 1"). In-game changelog CHANGELOG_477_1..7.
 GEMETEN door Rob op EU-live 14 okt: kamerbaas-knop verscheen (Sha'Kuro, via encounter-naam), delve-lijst 8+8, Journey-
 regel 1900/2100, Dispel-toets (Soothe), Kith'ix Route + Map, routelabels, Windcaller → Underbelly-doorgang, Kith'ix-

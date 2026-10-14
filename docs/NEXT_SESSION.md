@@ -2,10 +2,12 @@
 
 ## 14 okt — EU-PATCHDAG — VERDER HIER
 
-**🟡 14 okt avond: `v4.7.7-beta1` KLAARGEZET (Rob: "je krijgt een go voor de beta-release").** `.toc` 4.7.7,
-CHANGELOG_477_1..7 (enUS, Changelog.lua), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md` (byte-gelijk, GEMETEN),
-CHANGELOG.md. Lint 0 HARD, syntax OK. Tag pas na akkoord van de site-chat ("Site Chat 14-10 Midnight Helper") —
-Robs opdracht: "overleg het ook even goed met onze site-chat, zodat jullie weer samen synchroon lopen".
+**✅ 14 okt avond: `v4.7.7-beta1` GETAGD op d8fa274 en UITGEBRACHT (Rob: "je krijgt een go voor de beta-release";
+site-chat: "AKKOORD … geen botsingen").** Run 38628192804, GEMETEN in het log: CurseForge "Success!" (beta, 12.1.5/12.1.0/
+12.0.7), Wago "Success!", GitHub-release + zip + release.json. Site-chat geseind (hash, bestandsnaam, tijd); die zet alleen
+het oranje #beta-blok (live na Robs ja daar); site + nightly volgen pas de GEWONE 4.7.7-tag (homepage "five" → "six" cards).
+`.toc` 4.7.7, CHANGELOG_477_1..7, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md`. Volgende: Robs tests (TESTLIJST bovenaan),
+dan fouten → beta2 of de gewone 4.7.7 — op Robs go.
 
 **Stand bij afsluiten 13 okt laat (GEMETEN):** main = 368be76 + deze handoff, gepusht, werkboom schoon. Laatste tag
 **`v4.7.6`** (op 6ee61a2, uitgebracht). Na de tag op main, nog niet getagd: 66848a9 (Codex-titel Labyrinth in de
