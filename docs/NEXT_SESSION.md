@@ -8,6 +8,8 @@ site-chat: "AKKOORD … geen botsingen").** Run 38628192804, GEMETEN in het log:
 het oranje #beta-blok (live na Robs ja daar); site + nightly volgen pas de GEWONE 4.7.7-tag (homepage "five" → "six" cards).
 `.toc` 4.7.7, CHANGELOG_477_1..7, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md`. Volgende: Robs tests (TESTLIJST bovenaan),
 dan fouten → beta2 of de gewone 4.7.7 — op Robs go.
+✅ Site (site-chat, GEMETEN): #beta-blok 4.7.7-beta1 LIVE (site 22414bbe, 8 talen, oranje pill + strip), Kith'ix-zin weg.
+🔴 **Bij de GEWONE 4.7.7-tag: site-chat seinen** → #beta wordt gouden #new, "Five" → "Six" kaarten, nightly draait.
 
 **Stand bij afsluiten 13 okt laat (GEMETEN):** main = 368be76 + deze handoff, gepusht, werkboom schoon. Laatste tag
 **`v4.7.6`** (op 6ee61a2, uitgebracht). Na de tag op main, nog niet getagd: 66848a9 (Codex-titel Labyrinth in de
