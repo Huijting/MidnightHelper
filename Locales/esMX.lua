@@ -613,6 +613,7 @@ for k, v in pairs({
 	SET_DEATH_AUTOOPEN_DESC = "En los abismos, los sitios de ritual y los calabozos con seguidores el juego oculta qué te ha matado, así que los addons no te lo pueden decir. El propio Death Recap de Blizzard sí puede — esto lo abre por ti cuando mueres ahí. En los calabozos normales Midnight Helper nombra la causa él mismo y no abre ninguna ventana.",
 	SET_DELVECOACH_AUTO_DESC = "Al entrar en un abismo, la ventana del entrenador se abre sola, con consejos para la ruta y el jefe. Desactívalo si ya conoces los abismos; /mh coach la sigue abriendo.",
 	SET_DELVECOACH_AUTO_TITLE = "Abrir solo el Entrenador de abismos",
+	SET_DELVE_ROOMBOSS_AUTO_DESC = "En El Laberinto de Kindo'Jan, cuando empieza el combate contra un jefe de sala. Desactivado: aparece unos segundos un pequeño botón con el nombre del jefe, y un clic abre el entrenador en ese jefe. Activado: el entrenador se abre solo, incluso durante el combate.",
 	SET_DELVEPOPUP_AUTO_DESC = "En un abismo, la ventana con tu RAID-R Mini y tu botín de buscador de tesoros (cuando los llevas) se abre sola. Desactivado: ábrela tú desde el icono del minimapa.",
 	SET_DELVEPOPUP_AUTO_TITLE = "Abrir sola la ventana de objetos de abismo dentro de un abismo",
 	SET_DURA_TOGGLE_DESC = "Un gran aviso en el centro de la pantalla cuando la durabilidad de un objeto baja del límite, al entrar en un calabozo, banda o abismo y en cada comprobación de preparación. /mh durability muestra tus cifras.",

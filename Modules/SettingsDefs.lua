@@ -350,6 +350,12 @@ local function Build()
 	end, function(v)
 		if ns.SetDelveCoachAutoShow then ns.SetDelveCoachAutoShow(v) end
 	end, true)
+	-- Rob, 14 Oct 2026: "doe B maar, met C als schakelaar". Off = a button per room boss (B); on = the coach opens (C).
+	Toggle("mh_delveRoomBossAuto", "SET_DELVE_ROOMBOSS_AUTO_TITLE", "SET_DELVE_ROOMBOSS_AUTO_DESC", function()
+		return ns.IsDelveRoomBossAutoOpen and ns.IsDelveRoomBossAutoOpen()
+	end, function(v)
+		if ns.SetDelveRoomBossAutoOpen then ns.SetDelveRoomBossAutoOpen(v) end
+	end, false)
 	-- Recommended OFF since 14 Sep 2026: the module's own default is off
 	-- (IsBossWindowModelEnabled reads showModel == true), and Recommended used to switch it back on.
 	Toggle("mh_bossModel", "SET_BOSSWIN_MODEL_TITLE", "SET_BOSSWIN_MODEL_DESC", function()

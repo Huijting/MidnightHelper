@@ -3755,6 +3755,7 @@ ns._mhLocales.nlNL = {
 	DELVE_COACH_BOSS_ZOOM_HINT = "Scroll om het baas-beeld in of uit te zoomen. Je zoom wordt per baas opgeslagen.",
 	DELVE_COACH_UNKNOWN = "Nog geen tips voor deze delve. Open een bekende delve via het Delves-tabblad.",
 	DELVE_COACH_BOSS_PROMPT = "Eindbaas — open de Delve Coach?",
+	DELVE_COACH_ROOMBOSS_PROMPT_FMT = "Kamerbaas: %s — tips tonen?",
 	DELVE_COACH_SLASH_OPEN = "Delve Coach geopend.",
 	DELVE_COACH_SLASH_CLOSED = "Delve Coach gesloten.",
 	DELVE_COACH_OPEN_FAILED = "Delve Coach kon niet openen:",

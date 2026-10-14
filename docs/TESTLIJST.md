@@ -27,6 +27,21 @@ er is niets weggegooid.
       rechts. Links eindigt met The Grudge Pit, rechts begint met Sunkiller Sanctum. Klopt het ook als je het venster
       smaller of breder maakt?
 
+## 🆕 14 okt — Kamerbaas-knop in de Labyrinth (DelveCoach.lua) — Rob: "doe B maar, met C als schakelaar"
+
+- [ ] **Coach dicht, een kamerbaas begint** (bv. Jun'ala): bovenin je scherm verschijnt ~5 s een knop
+      *"Room boss: Jun'ala — show tips?"*. Hij blijft staan als het gevecht begint. Klik → de coach opent op díe baas.
+- [ ] **Coach al open**: geen knop; het bossvak springt naar die baas.
+- [ ] **Instellingen → "Labyrinth: open the coach for each room boss" AAN**: geen knop meer, de coach gaat vanzelf open.
+- [ ] Na elke kamerbaas: `/reload` → ik lees `delveRoomBossLog` (wat MH besloot en waarom). Kwam er niets, dan staat
+      daar of de game géén signaal gaf, of dat MH de baas niet herkende.
+
+## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
+
+- [ ] Geen "secret boolean"-fout meer van FastMark.lua:105 (kwam bij markers zetten / RAID_TARGET_UPDATE). Het gouden
+      ringetje "ligt al" kan in een instance nu soms wegblijven — dat is de eerlijke stand als de game het verbergt.
+- [ ] De FastMark-balk loslaten tijdens een gevecht geeft geen ADDON_ACTION_BLOCKED meer; hij zet zich na het gevecht vast.
+
 ## 🆕 14 okt — Toetsen op het Dispel-tabblad (PlayCardWindow.lua)
 
 - [ ] **How you play → Dispel** (bv. Frost Mage): rechtsboven op het icoon van Remove Curse en Spellsteal staat nu de

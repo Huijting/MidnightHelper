@@ -4337,6 +4337,7 @@ ns._mhLocales.enUS = {
 	DELVE_COACH_BOSS_ZOOM_HINT = "Scroll to zoom the boss preview in or out. Your zoom is saved for each boss.",
 	DELVE_COACH_UNKNOWN = "No tips for this delve yet. Use the Delves tab to preview a known delve.",
 	DELVE_COACH_BOSS_PROMPT = "Final boss — open the Delve Coach?",
+	DELVE_COACH_ROOMBOSS_PROMPT_FMT = "Room boss: %s — show tips?",
 	DELVE_COACH_SLASH_OPEN = "Delve Coach opened.",
 	DELVE_COACH_SLASH_CLOSED = "Delve Coach closed.",
 	DELVE_COACH_OPEN_FAILED = "Could not open Delve Coach:",

@@ -1725,7 +1725,9 @@ local BOSS_PROMPT_SECONDS = 5
 
 -- Toon de "open coach?"-prompt-knop (tenzij de coach al open is). Gedeeld door de
 -- ENCOUNTER_START- en de target-trigger.
-local function ShowBossPromptButton()
+--- `roomText`: a Labyrinth room boss (MaybeOfferRoomBoss below) — its own words, and allowed where the
+--- final-boss version is not.
+local function ShowBossPromptButton(roomText)
 	if coachFrame and coachFrame:IsShown() then
 		return -- coach al open → geen prompt nodig
 	end
@@ -1737,7 +1739,7 @@ local function ShowBossPromptButton()
 	end
 	-- The Labyrinth: every room is its own small scenario, so "last stage" is the end of a ROOM, not the final boss.
 	-- Rob, 13 Oct 2026 (PTR, Akil'zon's Roost, "Reins of the Warlord"): the button said "Final boss" mid-run.
-	if promptEntry.noFinalBossPrompt then
+	if promptEntry.noFinalBossPrompt and not roomText then
 		return
 	end
 	if not bossPrompt then
@@ -1754,7 +1756,11 @@ local function ShowBossPromptButton()
 		end)
 		bossPrompt = b
 	end
-	bossPrompt:SetText(ns:SafeL("DELVE_COACH_BOSS_PROMPT"))
+	bossPrompt:SetText(roomText or ns:SafeL("DELVE_COACH_BOSS_PROMPT"))
+	-- A room boss is offered once the fight has begun, so combat starting must not take it away again.
+	bossPrompt._mhRoom = roomText and true or nil
+	local fs = bossPrompt.GetFontString and bossPrompt:GetFontString()
+	bossPrompt:SetWidth(math.max(230, ((fs and fs:GetStringWidth()) or 0) + 30)) -- long boss names, other languages
 	bossPrompt:Show()
 	if bossPrompt._mhTimer then
 		bossPrompt._mhTimer:Cancel()
@@ -1821,6 +1827,74 @@ local function MaybeShowBossCoachPrompt()
 		return -- coach niet door speler weggeklikt → niets te heropenen
 	end
 	ShowBossPromptButton()
+end
+
+--------------------------------------------------------------------------------
+-- Room bosses in the Labyrinth (Rob, 14 Oct 2026, EU-live: died to Jun'ala with no window, "doe B maar, met C als
+-- schakelaar"). Every room is its own scenario, so the final-stage prompt above is off there (noFinalBossPrompt).
+--  B (default): a button "Room boss: <name> — tips?" for BOSS_PROMPT_SECONDS; a click opens the coach on that boss.
+--  C (setting, roomBossAutoOpen): the coach opens by itself on that boss. It is not a secure frame, so it may
+--    show in combat.
+-- Triggers: ENCOUNTER_START (and once more 0.5 s later, boss1 can lag) and INSTANCE_ENCOUNTER_ENGAGE_UNIT (what
+-- fills the boss frame Rob saw). That a room boss fires either is AFGELEID, not measured: hence the log below.
+-- Every decision lands in ns.db.delveRoomBossLog (newest first, 10 kept), so a silent miss can be told from a no.
+--------------------------------------------------------------------------------
+local roomBossShownFor -- label already offered this fight; ENCOUNTER_START and ENGAGE_UNIT must not double up
+
+local function LogRoomBoss(event, what)
+	if not ns.db then
+		return
+	end
+	local log = ns.db.delveRoomBossLog
+	if type(log) ~= "table" then
+		log = {}
+		ns.db.delveRoomBossLog = log
+	end
+	table.insert(log, 1, ("%s %s: %s"):format(date and date("%H:%M:%S") or "?", tostring(event), what))
+	while #log > 10 do
+		table.remove(log)
+	end
+end
+
+function ns.IsDelveRoomBossAutoOpen()
+	return GetSettings().roomBossAutoOpen == true
+end
+
+function ns.SetDelveRoomBossAutoOpen(on)
+	GetSettings().roomBossAutoOpen = on and true or false
+end
+
+local function MaybeOfferRoomBoss(event)
+	local entry = ResolveActiveDelveEntry()
+	if not (entry and entry.noFinalBossPrompt) then
+		return -- only delves made of rooms; elsewhere the final-boss prompt does this job
+	end
+	local s = GetSettings()
+	if not s or not s.enabled or not s.autoShow then
+		LogRoomBoss(event, "coach auto-open is off in settings")
+		return
+	end
+	local boss = ns.TryResolveDelveBossFromUnits and ns.TryResolveDelveBossFromUnits(entry.id)
+	if not boss then
+		LogRoomBoss(event, "no known boss on boss1 or target")
+		return
+	end
+	if roomBossShownFor == boss.label then
+		return
+	end
+	roomBossShownFor = boss.label
+	if coachFrame and coachFrame:IsShown() then
+		RefreshDelveCoachLiveContent()
+		LogRoomBoss(event, boss.label .. ": coach already open, refreshed")
+		return
+	end
+	if s.roomBossAutoOpen and ns.ShowDelveCoach then
+		ns:ShowDelveCoach(entry.id, { preview = false })
+		LogRoomBoss(event, boss.label .. ": coach opened (setting C)")
+		return
+	end
+	ShowBossPromptButton(ns:SafeL("DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))
+	LogRoomBoss(event, boss.label .. ": button shown (B)")
 end
 
 -- Target-reopen (Rob 5 jul): in een Delve een VIJANDELIJK doelwit hebben toont de "open coach?"-
@@ -2063,6 +2137,7 @@ ev:RegisterEvent("PLAYER_TARGET_CHANGED") -- Delve-baas targeten → "open coach
 ev:RegisterEvent("PLAYER_REGEN_DISABLED") -- combat-start → pre-pull-prompt verbergen (Rob 5 jul)
 ev:RegisterEvent("ENCOUNTER_START")
 ev:RegisterEvent("ENCOUNTER_END")
+ev:RegisterEvent("INSTANCE_ENCOUNTER_ENGAGE_UNIT") -- Labyrinth room bosses (already used by RitualBossCoach.lua)
 local function PrimeDelveStoriesIfIdle()
 	if ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
 		return
@@ -2073,19 +2148,32 @@ local function PrimeDelveStoriesIfIdle()
 end
 ev:SetScript("OnEvent", function(_, event, unit)
 	if event == "PLAYER_REGEN_DISABLED" then
-		HideBossCoachPrompt() -- in gevecht: pre-pull-prompt weg
+		if not (bossPrompt and bossPrompt._mhRoom) then
+			HideBossCoachPrompt() -- in gevecht: pre-pull-prompt weg (een kamerbaas-knop blijft zijn 5 s staan)
+		end
 		return
 	elseif event == "ENCOUNTER_START" then
 		MaybeShowBossCoachPrompt() -- boss begint → "open coach?" als je 'm wegklikte
+		MaybeOfferRoomBoss(event)
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0.5, function()
+				MaybeOfferRoomBoss("ENCOUNTER_START+0.5s")
+			end)
+		end
+		return
+	elseif event == "INSTANCE_ENCOUNTER_ENGAGE_UNIT" then
+		MaybeOfferRoomBoss(event)
 		return
 	elseif event == "ENCOUNTER_END" then
 		HideBossCoachPrompt()
+		roomBossShownFor = nil -- a wipe and a re-pull offers the boss again
 		return
 	end
 	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED" or event == "ZONE_CHANGED_NEW_AREA" then
 		if event ~= "ZONE_CHANGED" then
 			targetPromptShownThisZone = false
 			finalStagePromptShown = false -- nieuwe zone/delve → coach mag weer 1x aangeboden
+			roomBossShownFor = nil
 		end
 		HideBossCoachPrompt() -- bij zone-wissel/verlaten weg
 		if C_Timer and C_Timer.After then

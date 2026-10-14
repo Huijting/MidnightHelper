@@ -994,6 +994,7 @@ local OVERRIDES = {
 	DELVE_COACH_BOSS_ZOOM_HINT = "Scrolle, um die Boss-Vorschau zu vergrößern oder zu verkleinern. Dein Zoom wird für jeden Boss gespeichert.",
 	DELVE_COACH_UNKNOWN = "Noch keine Tipps für diese Tiefe. Wähle eine bekannte Tiefe auf dem Tiefen-Tab zur Vorschau.",
 	DELVE_COACH_BOSS_PROMPT = "Endboss — Tiefen-Coach öffnen?",
+	DELVE_COACH_ROOMBOSS_PROMPT_FMT = "Raumboss: %s — Tipps zeigen?",
 	DELVE_COACH_SLASH_OPEN = "Tiefen-Coach geöffnet.",
 	DELVE_COACH_SLASH_CLOSED = "Tiefen-Coach geschlossen.",
 	DELVE_COACH_OPEN_FAILED = "Tiefen-Coach konnte nicht geöffnet werden:",

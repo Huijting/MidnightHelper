@@ -54,6 +54,17 @@ gelezen): QuestDiff sweept alleen na PLAYER_REGEN_ENABLED en neemt bij elke `/re
 quest zonder gevecht erna verdwijnt in de baseline. Nu ook een sweep (nu, +3 s, +9 s) bij LOOT_OPENED, buiten combat
 (LOOT_OPENED i.p.v. LOOT_CLOSED: al geregistreerd in DelveChestData.lua, dus bewezen geldig op 12.1).
 
+**14 okt — kamerbaas-knop (Rob stierf aan Jun'ala zonder venster; koos "B, met C als schakelaar"):** `DelveCoach.lua`
+`MaybeOfferRoomBoss` op ENCOUNTER_START (+0,5 s) en INSTANCE_ENCOUNTER_ENGAGE_UNIT, alleen in delves met
+`noFinalBossPrompt` (= Labyrinth). Baas via `TryResolveDelveBossFromUnits` (boss1/target). B = knop
+DELVE_COACH_ROOMBOSS_PROMPT_FMT (blijft staan bij combat-start, weg na 5 s/ENCOUNTER_END); C = instelling
+`roomBossAutoOpen` (SET_DELVE_ROOMBOSS_AUTO_*, standaard uit). Diagnose: `ns.db.delveRoomBossLog` (10 regels).
+⚠️ Dat kamerbazen ENCOUNTER_START/ENGAGE_UNIT geven is AFGELEID (er was een boss-frame op Robs screenshot). NIET getest.
+**BugGrabber 14 okt:** "55x insecure scripts exceeded execution limit for addon !BugGrabber" = oud (45x op 26 aug, zelfde
+tekst, geen stack) en het telt sessies, geen bursts. Wél gevonden in BugGrabber-SV van 13 okt, en gerepareerd:
+FastMark.lua:105 secret boolean uit IsRaidMarkerActive (4×; via RAID_TARGET_UPDATE) en ADDON_ACTION_BLOCKED
+StopMovingOrSizing bij loslaten in combat (nu uitgesteld tot PLAYER_REGEN_ENABLED). Verband met de waarschuwing AFGELEID.
+
 **14 okt ochtend (EU-patchdag) — Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd":**
 1. Jo'din `creatureId = 275050`, Taltrois `274554` (Wowhead npc-pagina's, 14 okt; nog niet in een client). Naam-match +
    `learnCreatureId` blijven: wijkt het echte id af, dan schrijft MH het in `ns.db.delveBossLearnedIds` → nalezen.

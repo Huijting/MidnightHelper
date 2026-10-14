@@ -947,6 +947,7 @@ local OVERRIDES = {
 	DELVE_COACH_BOSS_ZOOM_HINT = "Role para ampliar ou reduzir a visualização do chefe. Seu zoom é salvo para cada chefe.",
 	DELVE_COACH_UNKNOWN = "Ainda não há dicas para esta imersão. Use a aba Imersões & Cofre para visualizar uma imersão conhecida.",
 	DELVE_COACH_BOSS_PROMPT = "Chefe final — abrir o Treinador de Imersões?",
+	DELVE_COACH_ROOMBOSS_PROMPT_FMT = "Chefe de sala: %s — ver dicas?",
 	DELVE_COACH_SLASH_OPEN = "Treinador de Imersões foi aberto.",
 	DELVE_COACH_SLASH_CLOSED = "Treinador de Imersões fechado.",
 	DELVE_COACH_OPEN_FAILED = "Não foi possível abrir o Treinador de Imersões:",
