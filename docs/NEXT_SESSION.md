@@ -119,7 +119,10 @@ een planstap). Leg-watcher: same-map leg eindigt niet op de kaart maar via de de
 "deur"); op de taxi na de hand-off blijft de pijl op de volgende stap. NIET getest.
 Rob liep door de Underbelly-doorgang → pijl "Way into the Underbelly 36 m" achter hem. Deurpunt onzeker: TravelPlan/
 AchievementsData 45.19/11.15 (Method) vs VAULTS_MEASUREMENTS 47.30/11.20. Hand-off nu ook "was <60 yd, nu 15 yd verder weg".
-Rob gevraagd de echte ingang te capturen → daarna coördinaat in TravelPlan + AchievementsData (3×) gelijktrekken. Open:
+Rob gevraagd de echte ingang te capturen → daarna coördinaat in TravelPlan + AchievementsData (3×) gelijktrekken.
+✅ **Kith'ix-ingang GEMETEN (Rob 14 okt, coördinaten-display bij de ingang): 2613 73.29, 8.03** (was POI 74.27/5.91) →
+RaidCoachData entrance + {WAY} in CODEX_KITHIX_BODY (8 talen), drift gemarkeerd. Rob zag ook een ronde wenteltrap naar
+beneden op 65.47, 26.93 (kaart niet genoemd, AFGELEID 2613) — onderweg naar de ingang. Underbelly-doorgang nog NIET gemeten. Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).

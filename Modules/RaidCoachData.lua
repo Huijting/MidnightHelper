@@ -131,7 +131,9 @@ local RAIDS = {
 		-- appear with an entrance. Entrance AreaPOI 9031 in The Underbelly (uiMap 2613, child of 2509) at 74.27, 5.91:
 		-- wago DB2 (docs/PATCH_12_1_5_CONTENT_2026-10-07.md), the same spot as the Codex card's arrow link; Wowhead's
 		-- waypoint is 74.0, 7.4. The Map button finds the floor plan by the raid's English name in the journal.
-		entrance = { mapID = 2613, x = 74.27, y = 5.91 }, -- The Underbelly (below the Vaults of Atal'Utek)
+		-- ✅ MEASURED the same day: Rob stood at the entrance, his coordinate display read 73.29, 8.03 — the spot you
+		-- walk to, where the POI is the portal's middle. Used here and in the Codex card's link (CODEX_KITHIX_BODY).
+		entrance = { mapID = 2613, x = 73.29, y = 8.03 }, -- The Underbelly (below the Vaults of Atal'Utek)
 		noteKey = "RAID_KITHIX_NOTE",
 		bosses = {
 			{ key = "kithix", name = "Kith'ix", seedCreatureId = 267861, encounterID = 2896 },
