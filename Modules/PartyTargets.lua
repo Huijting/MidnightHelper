@@ -1534,7 +1534,10 @@ function PositionClicks()
 			row.split:ClearAllPoints()
 			row.split:SetPoint("TOPLEFT", panel, "TOPLEFT", inset + wLeft, RowTop(i) - 3)
 			row.split:SetHeight(ROW_H - 6)
-			row.split:Show()
+			-- Only on a row in use. This runs AFTER the refresh hid the empty rows' split, and used to show all
+			-- five again: in a 2-player group the divider hung below the panel for the three missing members
+			-- (Rob and Carola, 14 Oct 2026, "losse streepjes … en die blijven getekend").
+			row.split:SetShown(row.member and row.member:IsShown() and true or false)
 		end
 	end
 end

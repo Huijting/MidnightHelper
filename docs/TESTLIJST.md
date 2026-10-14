@@ -79,6 +79,11 @@ er is niets weggegooid.
       eerst naar de **Amani Windcaller** (*pick "Fly me to the Northern Amani Bulwark"*) in plaats van dwars door de Vaults
       te lopen. Alleen vanaf de Foothold-Windcaller (van de andere twee weten we niet welke vluchten ze hebben).
 
+## 🆕 14 okt — Party targets: geen losse streepjes meer (PartyTargets.lua)
+
+- [ ] **In een groep van 2-4:** onder het "Party targets"-venster hangen geen losse stippellijntjes meer waar de lege rijen
+      zouden staan (Rob + Carola 14 okt). De lijn tussen naam en doelwit staat alleen nog bij echte groepsleden.
+
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 
 - [ ] Geen "secret boolean"-fout meer van FastMark.lua:105 (kwam bij markers zetten / RAID_TARGET_UPDATE). Het gouden

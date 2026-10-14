@@ -133,7 +133,9 @@ Darkness (bronnen oneens), solo onbevestigd.
 ✅ **Kith'ix LFR-kill, Robs video (14 okt 21:21, 12 min) GEMETEN:** coach ging vanzelf open bij de pull; DBM-volgorde
 Voidswarm → Extinguish → Suffocating Darkness (Liadrin: "Seek protection…", "I am the Light's bastion!"), herhaald, slot
 "You were chosen… Now go!" (fase 2); ~2 min, 1 dode. Klopt met onze tips. Video op Robs verzoek naar de Prullenbak.
-✅ Fluister-fix (2458dfc) bevestigd door Rob 14 okt: "komen nu helemaal over, naar de persoon die ik wil". Open:
+✅ Fluister-fix (2458dfc) bevestigd door Rob 14 okt: "komen nu helemaal over, naar de persoon die ik wil".
+**Party targets, losse streepjes (Rob + Carola 14 okt):** PositionClicks zette `row.split` voor alle MAX_ROWS weer aan
+ná de refresh die de lege rijen verborg → nu alleen als `row.member` zichtbaar is. NIET getest. Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).
