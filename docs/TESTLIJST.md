@@ -23,9 +23,9 @@ er is niets weggegooid.
 
 ## 🆕 14 okt — Delve-lijst eerlijk verdeeld (Delves.lua)
 
-- [ ] **Midnight Delves (hoofdpagina):** links en rechts staan nu evenveel delves (8 + 8), in plaats van 5 links en 11
+- [x] **Midnight Delves (hoofdpagina):** links en rechts staan nu evenveel delves (8 + 8), in plaats van 5 links en 11
       rechts. Links eindigt met The Grudge Pit, rechts begint met Sunkiller Sanctum. Klopt het ook als je het venster
-      smaller of breder maakt?
+      smaller of breder maakt? ✅ Rob 14 okt, screenshot (8 + 8). Smaller/breder niet apart gezien.
 
 ## 🆕 14 okt — Kamerbaas-knop in de Labyrinth (DelveCoach.lua) — Rob: "doe B maar, met C als schakelaar"
 
@@ -38,8 +38,9 @@ er is niets weggegooid.
 
 ## 🆕 14 okt — Labyrinth Journey op de Delves-pagina (Delves.lua)
 
-- [ ] **Midnight Delves:** onder "Delver's Journey: Rank 10 …" staat nu een tweede regel
+- [x] **Midnight Delves:** onder "Delver's Journey: Rank 10 …" staat nu een tweede regel
       *"The Labyrinth of Kindo'jan: Rank 1 (900 / 2100)"* — dezelfde getallen als je Journeys-venster (Shift-J).
+      ✅ Rob 14 okt: "Rank 1 (1900 / 2100)", gelijk aan het Journeys-venster.
 - [ ] Na de klik op een kamerbaas-knop: opent de coach nu op díe baas (niet meer op Jun'ala 1/19)?
 - [ ] **Codex → Delves → "The Labyrinth's own Journey (ranks 1-9)":** wat elke rang doet, wat er achter de zegels ligt,
       hoe je punten haalt. Klopt het met je Journeys-venster?
@@ -86,8 +87,9 @@ er is niets weggegooid.
 
 ## 🆕 14 okt — Toetsen op het Dispel-tabblad (PlayCardWindow.lua)
 
-- [ ] **How you play → Dispel** (bv. Frost Mage): rechtsboven op het icoon van Remove Curse en Spellsteal staat nu de
+- [x] **How you play → Dispel** (bv. Frost Mage): rechtsboven op het icoon van Remove Curse en Spellsteal staat nu de
       toets waar die spell op zit, net als bij "Your buttons". Staat hij niet op een balk, dan een grijs streepje "-".
+      ✅ Rob 14 okt, Resto Druid: Soothe toont "S-V". (Nature's Cure zonder toets — niet op een Blizzard-balk? Niet nagevraagd.)
 
 ## 🆕 13 okt — Kamerbaas in de coach (DelveBossShowcase.lua + DelveCoach.lua)
 
