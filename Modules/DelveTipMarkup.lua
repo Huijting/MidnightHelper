@@ -502,7 +502,15 @@ if C_Timer and C_Timer.NewTicker then
 			if door and nxt and not pendingLeg.doorPassed and ns.SmcYardsToPoint and ns.AddSmartTomTomWay
 				and not ns._mhTravelLegBusy then
 				local okY, yards = pcall(ns.SmcYardsToPoint, door.mapID, door.x, door.y)
-				if okY and type(yards) == "number" and yards < 25 then
+				-- Passed = close to it, OR was near it and is now walking away from it. The second half is for a door
+				-- coordinate that is a little off (Rob, 14 Oct 2026, the Underbelly way-in: Method's 45.19/11.15 vs our
+				-- note 47.30/11.20; he walked through and the arrow pointed 36 m back).
+				local passed = false
+				if okY and type(yards) == "number" then
+					pendingLeg.doorMin = math.min(pendingLeg.doorMin or yards, yards)
+					passed = yards < 25 or (pendingLeg.doorMin < 60 and yards > pendingLeg.doorMin + 15)
+				end
+				if passed then
 					pendingLeg.doorPassed = true
 					local finished = pendingLeg.nextIsArrive
 					ns._mhTravelLegBusy = true

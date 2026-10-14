@@ -116,7 +116,10 @@ Rob bij de Windcaller: "weet als noob nu niet wat ik moet doen" → `ns.TravelSt
 voegt een gossip-stap toe als doel én speler op 2509 zijn, de dichtste Windcaller de FOOTHOLD is (alleen die zijn opties
 zijn gemeten) en hop+10 < lopen (kaart-eenheden). RouteFirstToFlightPoint mag nu ook op dezelfde kaart leiden (alleen via
 een planstap). Leg-watcher: same-map leg eindigt niet op de kaart maar via de deur-hand-off (gossip telt nu ook als
-"deur"); op de taxi na de hand-off blijft de pijl op de volgende stap. NIET getest. Open:
+"deur"); op de taxi na de hand-off blijft de pijl op de volgende stap. NIET getest.
+Rob liep door de Underbelly-doorgang → pijl "Way into the Underbelly 36 m" achter hem. Deurpunt onzeker: TravelPlan/
+AchievementsData 45.19/11.15 (Method) vs VAULTS_MEASUREMENTS 47.30/11.20. Hand-off nu ook "was <60 yd, nu 15 yd verder weg".
+Rob gevraagd de echte ingang te capturen → daarna coördinaat in TravelPlan + AchievementsData (3×) gelijktrekken. Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).
