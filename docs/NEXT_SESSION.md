@@ -85,6 +85,12 @@ clientnaam, DELVES_JOURNEY_NAMED_RANK (itIT valt terug op Engels, net als zijn D
 met beloningen): mh-research loopt → scratchpad LABYRINTH_JOURNEY.md. Vaste id 2836: nameten bij een nieuw seizoen.
 **Rob 14 okt, Sha'Kuro:** doodgegaan tijdens het gevecht → daarna "speak to Kinduru to end your run" terwijl de baas
 nog leefde. Dood = run voorbij? Of de launch-bug (Wowhead 14 okt)? Nog niet uitgezocht.
+✅ **98832/98833 OPGELOST:** de Journey-research vond in Zygor de Labyrinth-intro-quests **98831-98836** → dat waren
+Robs INTRO-stappen, geen kisten (GEMETEN in Zygor-bestand, via mh-research 14 okt). 98501/99222 blijven onbekend.
+**Journey-rapport 14 okt** (`docs/LABYRINTH_JOURNEY_2026-10-14.md`): 9 rangen × 2100; rang 3/5/7/9 = Favor van
+Akil'zon/Jan'alai/Nalorakk/Halazzi = opent hun VERZEGELDE DEUREN (de "19 kisten achter loa-zegels"!). Rang 2 "Lock, Key,
+and Mask" opent ze NIET. Weekly 93784 = 2000 punten (alleen Wowhead), Kindo'jan T8+ = 500. Codex-kaart
+`labyrinth_journey` in MidnightCodexData.lua staat klaar; teksten CODEX_LABJOURNEY_* volgen (mh-writer, NA de tip-ronde).
 **questDiff 14 okt (2e ronde, ~09:55):** ook 98501 + 99222, beide 2647 44.7/85.1, zonder doelwit; geen kist van ons
 in de buurt. Patroon: steeds TWEE vlaggen tegelijk op één plek → AFGELEID kamer-/run-einde, geen kisten. Rob kon
 niet zeggen wat daar gebeurde. delveRoomBossLog 09:51-09:54: alleen ENGAGE_UNIT "boss1 absent" (boss-frame leeg na
