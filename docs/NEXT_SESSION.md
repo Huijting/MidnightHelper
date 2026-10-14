@@ -23,6 +23,13 @@ blok bij. GEMETEN 13 okt (eerst gemist: ik zocht "test realm", de tekst zegt "te
 gezien is, dan check_drift + site-chat seinen. US-servers waren 13 okt 19:19
 nog offline (site-chat, GEMETEN): wago 70340 = build klaargezet, niet live.
 
+**14 okt 08:23 — `/mh ptr` op EU-live (Lightbringer), GEMETEN in `ns.db.ptrProbe`:** client 12.1.5 build **70391**
+(Oct 13 2026, interface 120105) — nieuwer dan wago 70340 → `run names_1215` zodra wago 70391 heeft. ✅ `C_Item.PickupItem`
+bestaat (het open punt van de API-wachter: onze migratie klopt). ✅ `C_Item.GetItemCooldown` bestaat, kale
+`GetItemCooldown` = absent. Van de Deprecated-addons is alleen `Blizzard_DeprecatedChatInfo` nog geïnstalleerd.
+`delveBossLearnedIds` en `questDiff` staan NIET in het bestand — bewijst niets zolang niet vaststaat dat Rob Jo'din/Taltrois
+getarget heeft (MH schrijft alleen bij een afwijkend id).
+
 **14 okt ochtend (EU-patchdag) — Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd":**
 1. Jo'din `creatureId = 275050`, Taltrois `274554` (Wowhead npc-pagina's, 14 okt; nog niet in een client). Naam-match +
    `learnCreatureId` blijven: wijkt het echte id af, dan schrijft MH het in `ns.db.delveBossLearnedIds` → nalezen.
