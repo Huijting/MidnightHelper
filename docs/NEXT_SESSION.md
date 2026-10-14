@@ -38,6 +38,12 @@ esMX. Gaat mee in 4.7.7. Testlijstpunt "rond 19/20 okt" daarmee afgevinkt.
 wago 70391 (= Robs build) criteria 63690 = 3600 → "[PH]"-bullet uit CODEX_KEYSTONE_MYTH_BODY, 8 talen + esMX, drift
 gemarkeerd. (c) Kith'ix "not yet seen on screen" (:175): ingang in bronnen bevestigd (Wowhead 2613 74.0/7.4 vs ons
 74.27/5.91) maar niet zelf gezien → Rob beslist. (b) Labyrinth tier 9-11 (:169): blijft, live-data zegt nog "same tier".
+Site-chat (14 okt): [PH]-zin ook van de homepage, gidsen herbouwd; Voidcore-zin site klopt. Die site-chat is GESTOPT —
+seintjes over 4.7.7/Kith'ix naar de NIEUWE site-chat (vinden via ListAgents).
+
+**14 okt — delve-lijst 8/8 (Rob: "kunnen we de delves beter verdelen?"):** `Delves.lua` zette vast de eerste 5 links
+(stamt uit de tijd van ~10 delves) → 5 tegen 11. Nu `ceil(aantal/2)` uit de roster (pinOnly telt niet). Syntax OK,
+NIET in het spel gezien → TESTLIJST bovenaan. Gaat mee in 4.7.7.
 
 **14 okt ochtend (EU-patchdag) — Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd":**
 1. Jo'din `creatureId = 275050`, Taltrois `274554` (Wowhead npc-pagina's, 14 okt; nog niet in een client). Naam-match +

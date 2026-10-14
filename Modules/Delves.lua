@@ -3393,6 +3393,16 @@ local function PaintDelvesPanel(fullRefresh)
 		end
 	end
 
+	-- Half the rows go left, the rest right. This used to be a fixed 5, from when the list was ~10 long; with the
+	-- Coiled Isle delves and the Labyrinth it became 5 against 11 (Rob, 14 Oct 2026: "kunnen we de delves beter
+	-- verdelen?"). Counted from the roster so a new delve keeps the columns even on its own.
+	local listed = 0
+	for _, packed in ipairs(roster) do
+		if not packed.pinOnly then
+			listed = listed + 1
+		end
+	end
+	local leftCount = math.ceil(listed / 2)
 	local usedLeft, usedRight = 0, 0
 	local i = 0 -- own counter: a pinOnly row takes no place in the columns
 	for _, packed in ipairs(roster) do
@@ -3440,13 +3450,13 @@ local function PaintDelvesPanel(fullRefresh)
 			delveTextureIndex = delveTextureIndex,
 		}
 		local col, colIdx
-		if i <= 5 then
+		if i <= leftCount then
 			col = leftColumn
 			colIdx = i
 			usedLeft = colIdx
 		else
 			col = rightColumn
-			colIdx = i - 5
+			colIdx = i - leftCount
 			usedRight = colIdx
 		end
 		local row = EnsureDelveRowButton(col, col.rows, colIdx, colW)

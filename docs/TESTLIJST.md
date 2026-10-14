@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 14 okt — Delve-lijst eerlijk verdeeld (Delves.lua)
+
+- [ ] **Midnight Delves (hoofdpagina):** links en rechts staan nu evenveel delves (8 + 8), in plaats van 5 links en 11
+      rechts. Links eindigt met The Grudge Pit, rechts begint met Sunkiller Sanctum. Klopt het ook als je het venster
+      smaller of breder maakt?
+
 ## 🆕 13 okt — Kamerbaas in de coach (DelveBossShowcase.lua + DelveCoach.lua)
 
 Rob: "ik had verwacht dat we bij elke kamer met een minibaas een venster zouden krijgen" → keuze 1.
