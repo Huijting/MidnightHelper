@@ -29,8 +29,14 @@ Rob: "ik had verwacht dat we bij elke kamer met een minibaas een venster zouden 
 - [ ] **Neem een kamerbaas in je doelwit** (bv. Grukk, Sullied Revenant, King of Souls): het bossvak toont zijn
       naam + 3D-model, en onder "Trash & mechanics" staat alleen nog de regel van díé baas (plus de algemene regels).
 - [ ] Met ◀ ▶ kun je door alle 19 bazen bladeren (incl. Den'zara en Kindo'jan). Laadt een model niet, meld welke.
-      Shadowhunter Jo'din en Treasure Hunter Taltrois (nieuw 13 okt, nog nooit gezien) hebben bij bladeren nog géén
-      model: dat is zo bedoeld, we kennen hun NPC-nummer niet.
+      Shadowhunter Jo'din en Treasure Hunter Taltrois hebben sinds 14 okt een NPC-nummer van Wowhead (275050,
+      274554): bij bladeren hoort er nu ook een model te staan. Geen model = meld het (dan klopt het nummer niet).
+- [ ] **Kistenroute in de Labyrinth (14 okt, 20 kisten van Wowhead/Method):** klik "Chests" in de coach. De pijl
+      wijst de dichtstbijzijnde kist aan. **Open die kist** → binnen ~2 s springt de pijl naar de volgende.
+      Ligt er géén kist waar de pijl wijst, noteer de kamer + `/dump C_Map.GetPlayerMapPosition(2647,"player")`.
+      ⚠️ Na een `/reload` midden in een run begint het "bezocht"-lijstje opnieuw (zo gebouwd).
+- [ ] **Coach-overzicht Labyrinth:** onderaan staan 3 nieuwe regels: niet uit de delve gaan tijdens een run,
+      na Kindo'jan nog eens met Kinduru praten, en de bug op de eerste dag (kill telt niet bij 6 kamerbazen).
 - [ ] **Kom je Jo'din of Taltrois tegen: target hem.** Dan hoort het bossvak zijn naam + model + zijn tipregel te tonen,
       en onthoudt MH zijn NPC-nummer. Daarna `/reload` → ik lees `delveBossLearnedIds` uit de SavedVariables. Graag
       een filmpje van het gevecht: we weten van Taltrois nog niets, van Jo'din alleen Soul Shatter.

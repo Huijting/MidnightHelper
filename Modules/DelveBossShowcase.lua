@@ -330,10 +330,12 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 270594, label = "Bone-Flayer Rav'iki", tipLineMatch = { "Rav'iki" } },
 		{ creatureId = 271525, label = "The Prisoner", tipLineMatch = { "The Prisoner" } },
 		{ creatureId = 266742, label = "Den'zara", tipLineMatch = { "Den'zara" } },
-		-- Not in Zygor and not seen yet: only their DungeonEncounters (3646, 3642) in Blizzard data, and DBM's empty
-		-- stubs of 13 Oct. No NPC id, so they are found by name and learn their id on first target (learnCreatureId).
-		{ label = "Shadowhunter Jo'din", learnCreatureId = true, tipLineMatch = { "Jo'din" } },
-		{ label = "Treasure Hunter Taltrois", learnCreatureId = true, tipLineMatch = { "Taltrois" } },
+		-- Not in Zygor and not seen yet: their DungeonEncounters (3646, 3642) in Blizzard data, DBM's empty stubs of
+		-- 13 Oct, and NPC ids from Wowhead (npc=275050, npc=274554, read 14 Oct; Rob: "wowhead is meestal zeer goed
+		-- geinformeerd"). Not yet seen in a client: the name match stays as a backstop, and learnCreatureId records the
+		-- id the first one targeted really has (ns.db.delveBossLearnedIds) so a wrong Wowhead id shows up.
+		{ creatureId = 275050, label = "Shadowhunter Jo'din", learnCreatureId = true, tipLineMatch = { "Jo'din" } },
+		{ creatureId = 274554, label = "Treasure Hunter Taltrois", learnCreatureId = true, tipLineMatch = { "Taltrois" } },
 		{ creatureId = 266500, label = "Kindo'jan", tipLineMatch = {
 			"Kindo'jan", "Amani Aegis", "Crushing Blow", "Hash'ey", "Disgraceful", "  – ",
 		} },
@@ -1787,7 +1789,7 @@ function ns.TryResolveDelveBossFromUnits(entryId)
 	local learned = ns.db and ns.db.delveBossLearnedIds
 	if learned then
 		for _, boss in ipairs(bosses) do
-			if boss.learnCreatureId and not boss.creatureId and learned[boss.label] then
+			if boss.learnCreatureId and learned[boss.label] then
 				boss.creatureId = learned[boss.label]
 			end
 		end
@@ -1822,9 +1824,9 @@ function ns.TryResolveDelveBossFromUnits(entryId)
 			return nil, nil
 		end)
 		if okMatch then
-			-- A boss we only know by name keeps the id it turns out to have, for the model now and for us later
-			-- (ns.db.delveBossLearnedIds, read from SavedVariables).
-			if boss and boss.learnCreatureId and not boss.creatureId and creatureId then
+			-- A boss whose id is unconfirmed, matched by name, keeps the id it turns out to have: for the model now
+			-- and for us later (ns.db.delveBossLearnedIds, read from SavedVariables).
+			if boss and boss.learnCreatureId and creatureId and boss.creatureId ~= creatureId then
 				boss.creatureId = creatureId
 				if ns.db then
 					ns.db.delveBossLearnedIds = ns.db.delveBossLearnedIds or {}

@@ -93,6 +93,29 @@ ns.DELVE_CHESTS = {
 		-- Zygor's list; kept, quest unknown.
 		{ x = 81.32, y = 55.02, quest = 98633 },
 		{ x = 86.88, y = 63.34, quest = 98634 },
+		-- 14 Oct 2026 (Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd"): the other 17 open
+		-- chests. Wowhead's megadelve guide (Sinzhu, updated 13 Oct; pins on uiMap 2647, 1 decimal) and Method's chest
+		-- guide (Roguery, 10 Oct; 2 decimals) agree on all 20: Wowhead's numbers are Method's cut to one decimal. We use
+		-- Method's two decimals. Their #1, #9 and #10 are the three above (37.14/69.83, 87.04/63.08, 81.53/55.47).
+		-- No quest ids on either page. Not included: the 19 behind loa seals and the 5 in the Flooded Chamber (fire to
+		-- melt the ice wall) — neither guide gives a coordinate per chest, only the seal-room doors.
+		{ x = 47.06, y = 64.31 }, -- Chamber of Rites
+		{ x = 30.08, y = 74.15 }, -- Reliquary
+		{ x = 22.03, y = 68.67 }, -- Reliquary
+		{ x = 13.82, y = 35.59 }, -- Halazzi's Lair
+		{ x = 26.25, y = 40.34 }, -- Halazzi's Lair
+		{ x = 72.37, y = 65.62 }, -- Catacombs
+		{ x = 69.61, y = 70.96 }, -- Catacombs
+		{ x = 40.69, y = 20.72 }, -- Akil'zon's Roost
+		{ x = 45.41, y = 11.75 }, -- Akil'zon's Roost
+		{ x = 68.46, y = 33.84 }, -- Nalorakk's Rest
+		{ x = 67.52, y = 27.79 }, -- Nalorakk's Rest
+		{ x = 22.47, y = 29.43 }, -- Jan'alai's Refuge
+		{ x = 21.54, y = 36.48 }, -- Jan'alai's Refuge
+		{ x = 28.53, y = 22.96 }, -- Jan'alai's Refuge
+		{ x = 45.87, y = 48.02 }, -- The Central Chamber
+		{ x = 40.74, y = 45.79 }, -- The Central Chamber
+		{ x = 47.62, y = 40.35 }, -- The Central Chamber
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },
@@ -195,6 +218,9 @@ do
 			return
 		end
 		px, py = px * 100, py * 100
+		if ns._mhDelveChestLootedAt then
+			ns._mhDelveChestLootedAt(mapID, px, py)
+		end
 
 		local store = LearnedStore()
 		store[mapID] = store[mapID] or {}
@@ -286,11 +312,19 @@ function ns.GetOpenDelveChests()
 	end
 
 	local open, unknown = {}, 0
+	local visited = ns._mhDelveChestVisited
+	visited = visited and visited.mapID == mapID and visited or nil
 	for i = 1, #chests do
 		local c = chests[i]
 		local done = ns.IsDelveChestDone(c)
 		if done == nil then
 			unknown = unknown + 1
+		end
+		-- A chest with no quest flag can never read as done, so the route would sit on the nearest one forever
+		-- (the Labyrinth, 14 Oct: 18 of its 20 chests have no id). One you looted this visit counts as done
+		-- (ns._mhDelveChestLootedAt, below).
+		if done == nil and visited and visited[i] then
+			done = true
 		end
 		if done ~= true then
 			local d
@@ -324,14 +358,14 @@ end
 --- was working. `/mh zone` in Gnarldor Isle says the pin is refused on this map — so the
 --- arrow we draw ourselves is the whole mechanism, and it must be given the delve's own
 --- coordinates untranslated.
-local ticker, activeMap, activeQuest
+local ticker, activeMap, activeQuest, activeIndex
 
 local function StopRoute(silent)
 	if ticker then
 		ticker:Cancel()
 		ticker = nil
 	end
-	activeMap, activeQuest = nil, nil
+	activeMap, activeQuest, activeIndex = nil, nil, nil
 	if ns._mhRouteOwner == "delvechest" then
 		ns._mhRouteOwner = nil
 	end
@@ -360,6 +394,7 @@ local function PointAtNearest(announce)
 
 	local c = open[1]
 	activeMap, activeQuest = mapID, c.quest
+	activeIndex = c.index
 	ns._mhRouteOwner = "delvechest"
 	-- clearDist 0: keep the arrow on the chest while you fight and loot it, instead of
 	-- vanishing the moment you are close. Same reason the treasure route passes 0.
@@ -425,4 +460,38 @@ function ns.RouteDelveChests()
 		end
 	end)
 	return true
+end
+
+--- A chest with no quest flag is ticked off when you loot a game object next to it (the LOOT_OPENED watcher
+--- above calls this). Kept for this visit only: PLAYER_ENTERING_WORLD (every zone-in, so every new run) clears it.
+function ns._mhDelveChestLootedAt(mapID, px, py)
+	local chests = ns.DELVE_CHESTS[mapID]
+	if not chests then
+		return
+	end
+	local v = ns._mhDelveChestVisited
+	if not (v and v.mapID == mapID) then
+		v = { mapID = mapID }
+		ns._mhDelveChestVisited = v
+	end
+	local hitActive = false
+	for i, c in ipairs(chests) do
+		if not c.quest and math.abs(c.x - px) < 3 and math.abs(c.y - py) < 3 then
+			v[i] = true
+			if activeMap == mapID and activeIndex == i then
+				hitActive = true
+			end
+		end
+	end
+	if hitActive and ns._mhRouteOwner == "delvechest" then
+		PointAtNearest(true)
+	end
+end
+
+do
+	local resetter = CreateFrame("Frame")
+	resetter:RegisterEvent("PLAYER_ENTERING_WORLD")
+	resetter:SetScript("OnEvent", function()
+		ns._mhDelveChestVisited = nil
+	end)
 end

@@ -23,6 +23,20 @@ blok bij. GEMETEN 13 okt (eerst gemist: ik zocht "test realm", de tekst zegt "te
 gezien is, dan check_drift + site-chat seinen. US-servers waren 13 okt 19:19
 nog offline (site-chat, GEMETEN): wago 70340 = build klaargezet, niet live.
 
+**14 okt ochtend (EU-patchdag) — Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd":**
+1. Jo'din `creatureId = 275050`, Taltrois `274554` (Wowhead npc-pagina's, 14 okt; nog niet in een client). Naam-match +
+   `learnCreatureId` blijven: wijkt het echte id af, dan schrijft MH het in `ns.db.delveBossLearnedIds` → nalezen.
+2. `DelveChestData.lua [2647]`: 17 extra kisten → 20. Wowhead-gids (Sinzhu, bijgew. 13 okt, 1 decimaal) en Method
+   (10 okt, 2 decimalen) GEMETEN gelijk; Method-waarden gebruikt. Niet erin: 19 achter loa-zegels + 5 Flooded Chamber
+   (geen coördinaat per kist online). Kisten zonder quest-ID tellen nu als "gedaan" zodra je bij die plek een object
+   loot (`ns._mhDelveChestLootedAt` uit de LOOT_OPENED-watcher, binnen 3 kaart-%; wist bij PLAYER_ENTERING_WORLD) —
+   zonder dat bleef de route eeuwig op de dichtstbijzijnde kist staan. NIET getest in het spel.
+3. DELVE_TIP_LABYRINTH_OVERVIEW: 3 regels (niet uit de delve = voortgang weg; na Kindo'jan met Kinduru praten; bug
+   kamerbaas-kill telt niet bij 6 bazen, spelers 14 okt). 8 talen + esMX-overlay, locale_probe OK, drift gemarkeerd.
+Online (mh-research, 14 okt): enrage Kindo'jan 10 min (gidsen); intermissie 90 s óf 70% en Disgraceful 3 stacks = dood
+óf eruit — bronnen oneens, NIET in de tekst gezet. Achievement "Kindo'jan's Labyrinth Discoveries" = 63717.
+Zygor 14 okt 07:49 bijgewerkt: geen nieuwe bazen/kisten t.o.v. ons (GEMETEN, scratch zyg_lab.py).
+
 **13 okt laat — DBM r265 + 2 kamerbazen erbij (Rob: "zet ze er alvast bij met wat we weten"):** DBM-Delves-Midnight
 r265 heeft 12 Labyrinth-modules van 13 okt, GEMETEN allemaal LEEG (alleen EncounterID + TODO). Kith'ix-module = 14 sep,
 alle 10 spells al in onze tips. Wél gevonden: Shadowhunter Jo'din (3646) en Treasure Hunter Taltrois (3642) stonden niet in
