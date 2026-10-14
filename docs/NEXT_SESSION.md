@@ -97,7 +97,11 @@ S2-notitie erboven), en GetRaidPageList telde dat als seizoen 1. Nu `pageSeason 
 Rob: "geen map en geen route er naar toe" → `entrance = 2613, 74.27/5.91` (AreaPOI 9031, wago; = Codex-pijl). De Map-knop
 zoekt de plattegrond op naam in het journal (geen journalInstanceID). ✅ Rob: Route + Map werken (Map: 2 verdiepingen).
 Bug gevonden: de Route-pijl heette "PLAN_STEP_DOOR" — DelveTipMarkup.lua gaf een travel-plan-stap met `localized = true`
-ruw door aan AddSmartTomTomWay (:583) en WAY_PORTAL_HINT (:297); nu via ns:L. NativeArrow deed het al goed. Open:
+ruw door aan AddSmartTomTomWay (:583) en WAY_PORTAL_HINT (:297); nu via ns:L. NativeArrow deed het al goed.
+Rob: "wijst me de weg tot in de vault en daarna niets" → de leg-watcher (DelveTipMarkup StartLegWatcher) wachtte alleen
+op de DOELkaart (2613); de Vaults (2509) zijn een tussenkaart. Nu: een deur/portal-leg die op een andere kaart landt
+(niet het doel) plant opnieuw vanaf daar (AddSmartTomTomWay zonder skipTravelUI) → volgende deur (TravelPlan HARD_DOORS
+2509→2613 op 45.19/11.15). NIET getest. Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).

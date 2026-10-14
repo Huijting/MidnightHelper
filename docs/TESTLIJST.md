@@ -62,6 +62,9 @@ er is niets weggegooid.
       (The Tomb of Ula'tek + Kith'ix' Prison, Kith'ix als schedel). De Route-pijl zelf nog niet gevolgd.
 - [ ] **Route naar Kith'ix vanaf de Coiled Isle:** de pijl heette "PLAN_STEP_DOOR" (Rob 14 okt). Nu hoort er
       *"the way through (nearest of the ones your client knows)"* te staan.
+- [ ] **Route naar Kith'ix, de hele weg:** de pijl stopte in de Vaults (Rob 14 okt). Nu: in de Vaults aangekomen springt de
+      pijl binnen ~2 s naar de doorgang naar The Underbelly (≈45.2, 11.2), en daarbinnen naar de raid-ingang (74.3, 5.9).
+      Blijft hij hangen: `/mh arrow` en zeg wat er staat.
 
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 

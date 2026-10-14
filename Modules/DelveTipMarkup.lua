@@ -487,6 +487,20 @@ if C_Timer and C_Timer.NewTicker then
 			onTaxi = okT and v or false
 		end
 		if not (onTaxi or ArrivedOnTargetMap()) then
+			-- 🔴 A PLAN WITH MORE THAN ONE DOOR — 14 Oct 2026. Rob routed to Kith'ix (Underbelly 2613) from the
+			-- Coiled Isle: the arrow took him into the Vaults (2509) "and then nothing". The plan is isle door ->
+			-- Underbelly way-in on 2509 -> raid; this leg only waits for the TARGET map, and the Vaults are a map
+			-- in between, so the arrow stayed on a door he had already used. A portal/door leg that lands on a new
+			-- map that is not the target now plans again from where the player is: that picks the next door.
+			if not pendingLeg.toName and pendingLeg.fromMap and C_Map and C_Map.GetBestMapForUnit
+				and ns.AddSmartTomTomWay and not ns._mhTravelLegBusy then
+				local okH, here = pcall(C_Map.GetBestMapForUnit, "player")
+				if okH and here and tonumber(here) ~= tonumber(pendingLeg.fromMap) then
+					local leg = pendingLeg
+					ClearLeg()
+					pcall(ns.AddSmartTomTomWay, leg.mapID, leg.x, leg.y, leg.name)
+				end
+			end
 			return
 		end
 		local leg = pendingLeg
