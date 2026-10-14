@@ -60,6 +60,16 @@ quest zonder gevecht erna verdwijnt in de baseline. Nu ook een sweep (nu, +3 s, 
 DELVE_COACH_ROOMBOSS_PROMPT_FMT (blijft staan bij combat-start, weg na 5 s/ENCOUNTER_END); C = instelling
 `roomBossAutoOpen` (SET_DELVE_ROOMBOSS_AUTO_*, standaard uit). Diagnose: `ns.db.delveRoomBossLog` (10 regels).
 ⚠️ Dat kamerbazen ENCOUNTER_START/ENGAGE_UNIT geven is AFGELEID (er was een boss-frame op Robs screenshot). NIET getest.
+✅ **GEMETEN 14 okt 09:38:50 (Sha'Kuro, EU-live):** ENCOUNTER_START + INSTANCE_ENCOUNTER_ENGAGE_UNIT vuren wél, maar
+elke pas: "no known boss on boss1 or target" → boss1-naam/GUID zijn in een kamergevecht onleesbaar (AFGELEID uit dat
+log; Sha'Kuro staat wél in de lijst, creatureId 264495). Fix: ENCOUNTER_START's encounterName matchen tegen de labels,
+dan `SetDelveBossShowcaseIndex` zodat de coach op die baas opent; log schrijft nu boss1-leesbaarheid + encounter id/naam.
+⚠️ encounterName is op een niet-Engelse client vertaald → match faalt daar (labels Engels). Na Robs volgende baas:
+log lezen, dan evt. matchen op encounter-ID (Sha'Kuro = ?, Jo'din 3646, Taltrois 3642).
+**Rob 14 okt, Sha'Kuro:** doodgegaan tijdens het gevecht → daarna "speak to Kinduru to end your run" terwijl de baas
+nog leefde. Dood = run voorbij? Of de launch-bug (Wowhead 14 okt)? Nog niet uitgezocht.
+**questDiff 14 okt:** 98832 + 98833, beide 2647 35.1/64.8, zonder doelwit. Geen kist van ons binnen 3% (dichtstbij
+37.20/69.70 ≈ 5,3). Kist of kamer-/run-vlag? Onbekend → NIET aan een kist gekoppeld; Rob vragen wat daar gebeurde.
 **BugGrabber 14 okt:** "55x insecure scripts exceeded execution limit for addon !BugGrabber" = oud (45x op 26 aug, zelfde
 tekst, geen stack) en het telt sessies, geen bursts. Wél gevonden in BugGrabber-SV van 13 okt, en gerepareerd:
 FastMark.lua:105 secret boolean uit IsRaidMarkerActive (4×; via RAID_TARGET_UPDATE) en ADDON_ACTION_BLOCKED

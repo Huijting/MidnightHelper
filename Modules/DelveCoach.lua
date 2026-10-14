@@ -1864,6 +1864,44 @@ function ns.SetDelveRoomBossAutoOpen(on)
 	GetSettings().roomBossAutoOpen = on and true or false
 end
 
+-- ENCOUNTER_START's own name for the fight, kept for the ENGAGE_UNIT and +0.5 s passes that carry none.
+local roomEncounterName, roomEncounterID
+
+local function Readable(v)
+	return v ~= nil and not (issecretvalue and issecretvalue(v))
+end
+
+--- Why boss1 told us nothing, in a few words, for the log.
+local function DescribeBoss1()
+	if not (UnitExists and UnitExists("boss1")) then
+		return "boss1 absent"
+	end
+	local okN, name = pcall(UnitName, "boss1")
+	local okG, guid = pcall(UnitGUID, "boss1")
+	return ("boss1 name %s, guid %s"):format(
+		(okN and Readable(name)) and ("'" .. tostring(name) .. "'") or "secret/unreadable",
+		(okG and Readable(guid)) and "readable" or "secret/unreadable")
+end
+
+--- Match ENCOUNTER_START's name against the room's bosses: the label inside the name or the other way round.
+local function BossFromEncounterName(entryId, name)
+	if type(name) ~= "string" or not Readable(name) then
+		return nil, nil
+	end
+	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId]
+	if type(bosses) ~= "table" then
+		return nil, nil
+	end
+	local lower = name:lower()
+	for i, b in ipairs(bosses) do
+		local ll = type(b.label) == "string" and b.label:lower()
+		if ll and ll ~= "" and (lower == ll or lower:find(ll, 1, true) or ll:find(lower, 1, true)) then
+			return b, i
+		end
+	end
+	return nil, nil
+end
+
 local function MaybeOfferRoomBoss(event)
 	local entry = ResolveActiveDelveEntry()
 	if not (entry and entry.noFinalBossPrompt) then
@@ -1874,10 +1912,27 @@ local function MaybeOfferRoomBoss(event)
 		LogRoomBoss(event, "coach auto-open is off in settings")
 		return
 	end
-	local boss = ns.TryResolveDelveBossFromUnits and ns.TryResolveDelveBossFromUnits(entry.id)
+	-- 14 Oct 2026, EU-live, Sha'Kuro: ENCOUNTER_START and ENGAGE_UNIT DID fire, but every pass logged "no known boss
+	-- on boss1 or target" — in a room fight the unit's name and GUID read as secret. So the units come first (a
+	-- creature id is the surest match), and the encounter's own name second.
+	local boss, idx = nil, nil
+	if ns.TryResolveDelveBossFromUnits then
+		boss, idx = ns.TryResolveDelveBossFromUnits(entry.id)
+	end
+	local via = "boss1/target"
 	if not boss then
-		LogRoomBoss(event, "no known boss on boss1 or target")
+		boss, idx = BossFromEncounterName(entry.id, roomEncounterName)
+		via = "encounter name"
+	end
+	if not boss then
+		LogRoomBoss(event, ("no match. %s; encounter %s '%s'"):format(DescribeBoss1(),
+			Readable(roomEncounterID) and tostring(roomEncounterID) or "?",
+			Readable(roomEncounterName) and tostring(roomEncounterName) or "secret/none"))
 		return
+	end
+	-- The coach picks its boss from the units first and this index second; the units are unreadable here.
+	if idx and ns.SetDelveBossShowcaseIndex then
+		ns:SetDelveBossShowcaseIndex(entry.id, idx)
 	end
 	if roomBossShownFor == boss.label then
 		return
@@ -1885,16 +1940,16 @@ local function MaybeOfferRoomBoss(event)
 	roomBossShownFor = boss.label
 	if coachFrame and coachFrame:IsShown() then
 		RefreshDelveCoachLiveContent()
-		LogRoomBoss(event, boss.label .. ": coach already open, refreshed")
+		LogRoomBoss(event, boss.label .. " (via " .. via .. "): coach already open, refreshed")
 		return
 	end
 	if s.roomBossAutoOpen and ns.ShowDelveCoach then
 		ns:ShowDelveCoach(entry.id, { preview = false })
-		LogRoomBoss(event, boss.label .. ": coach opened (setting C)")
+		LogRoomBoss(event, boss.label .. " (via " .. via .. "): coach opened (setting C)")
 		return
 	end
 	ShowBossPromptButton(ns:SafeL("DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))
-	LogRoomBoss(event, boss.label .. ": button shown (B)")
+	LogRoomBoss(event, boss.label .. " (via " .. via .. "): button shown (B)")
 end
 
 -- Target-reopen (Rob 5 jul): in een Delve een VIJANDELIJK doelwit hebben toont de "open coach?"-
@@ -2146,13 +2201,14 @@ local function PrimeDelveStoriesIfIdle()
 		ns.PrimeAllDelveStoryPoiCaches()
 	end
 end
-ev:SetScript("OnEvent", function(_, event, unit)
+ev:SetScript("OnEvent", function(_, event, unit, arg2)
 	if event == "PLAYER_REGEN_DISABLED" then
 		if not (bossPrompt and bossPrompt._mhRoom) then
 			HideBossCoachPrompt() -- in gevecht: pre-pull-prompt weg (een kamerbaas-knop blijft zijn 5 s staan)
 		end
 		return
 	elseif event == "ENCOUNTER_START" then
+		roomEncounterID, roomEncounterName = unit, arg2 -- ENCOUNTER_START: encounterID, encounterName, …
 		MaybeShowBossCoachPrompt() -- boss begint → "open coach?" als je 'm wegklikte
 		MaybeOfferRoomBoss(event)
 		if C_Timer and C_Timer.After then
@@ -2167,6 +2223,7 @@ ev:SetScript("OnEvent", function(_, event, unit)
 	elseif event == "ENCOUNTER_END" then
 		HideBossCoachPrompt()
 		roomBossShownFor = nil -- a wipe and a re-pull offers the boss again
+		roomEncounterID, roomEncounterName = nil, nil
 		return
 	end
 	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED" or event == "ZONE_CHANGED_NEW_AREA" then
