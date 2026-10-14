@@ -125,7 +125,11 @@ RaidCoachData entrance + {WAY} in CODEX_KITHIX_BODY (8 talen), drift gemarkeerd.
 beneden op 65.47, 26.93 (kaart niet genoemd, AFGELEID 2613) — onderweg naar de ingang. Underbelly-doorgang nog NIET gemeten.
 ✅ **`/mh ej save` in Kith'ix (Rob, Normal/14): journalInstanceID 1324** GEMETEN → RaidCoachData. Binnenkomst gaf de bekende
 death-recap ADDON_ACTION_FORBIDDEN (Retrospective.lua:754); GEMETEN in SV: 1 weigering, `cleuBlockedDiff` = build 120105 →
-grendel staat, verwacht gedrag (1× per nieuwe build). "24x" = sessies. Open:
+grendel staat, verwacht gedrag (1× per nieuwe build). "24x" = sessies. 2e keer binnen: geen fout (Rob) ✅.
+**Kith'ix-trash (Rob stierf solo op Normal aan Shadowspeaker Ip'thosh):** `docs/KITHIX_TRASH_2026-10-14.md` (mh-research).
+CODEX_KITHIX_BODY kreeg "Trash before Kith'ix" (Ip'thosh, Shrix, Shadewarders, Earthbreaker + Story Mode-regel), 8 talen,
+drift gemarkeerd. Kickbaarheid Shadow Barrage NIET bekend (bewust niet in tekst). Story: Liadrin óf Memory of Ancient
+Darkness (bronnen oneens), solo onbevestigd. Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).
