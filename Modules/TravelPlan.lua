@@ -78,6 +78,20 @@ local function ChooseHub(x, y, px, py)
 	return best, near
 end
 
+--- The words a step shows on the arrow. A label can be a locale key (`localized`), and a gossip step adds what
+--- to pick: Rob, 14 Oct 2026, routed to Kith'ix, reached the Amani Windcaller and "weet als noob nu niet wat ik
+--- moet doen" — the arrow said only the NPC's name while the plan knew the answer (`detail`).
+function ns.TravelStepName(s, fallback)
+	if type(s) ~= "table" then
+		return fallback
+	end
+	local name = s.label and (s.localized and ns:L(s.label) or s.label) or fallback
+	if s.kind == "gossip" and s.detail and name then
+		name = ("%s: %s"):format(name, ns:L(s.detail))
+	end
+	return name
+end
+
 local LINKS = {
 	--- Method, 10 aug: one entrance to the Underbelly, and they place it "close to the
 	--- Northern Amani Bulwark flight point". Unverified, but the coordinate agrees with

@@ -610,7 +610,8 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						ns._mhTravelLegBusy = true
 						-- A step's label can be a locale KEY (`localized = true`, e.g. PLAN_STEP_DOOR). Rob, 14 Oct
 						-- 2026, routing to Kith'ix from the Coiled Isle: the waypoint read "PLAN_STEP_DOOR".
-						local stepName = s.label and (s.localized and ns:L(s.label) or s.label) or name
+						local stepName = ns.TravelStepName and ns.TravelStepName(s, name)
+							or (s.label and (s.localized and ns:L(s.label) or s.label)) or name
 						pcall(ns.AddSmartTomTomWay, s.mapID, s.x, s.y, stepName, true)
 						ns._mhTravelLegBusy = nil
 						ns._mhArrowLedTo = { mapID = s.mapID, x = s.x, y = s.y, at = GetTime and GetTime() or 0 }
@@ -631,7 +632,8 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						if s.kind == "walk" and nxt and nxt.mapID and nxt.x and nxt.y then
 							pendingLeg.door = { mapID = s.mapID, x = s.x, y = s.y }
 							pendingLeg.nextStep = { mapID = nxt.mapID, x = nxt.x, y = nxt.y,
-								name = nxt.label and (nxt.localized and ns:L(nxt.label) or nxt.label) or name }
+								name = ns.TravelStepName and ns.TravelStepName(nxt, name)
+									or (nxt.label and (nxt.localized and ns:L(nxt.label) or nxt.label)) or name }
 						end
 						StartLegWatcher()
 					end

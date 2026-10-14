@@ -68,6 +68,9 @@ er is niets weggegooid.
       ◐ Rob 14 okt: in de Vaults wees hij naar de Amani Windcaller ✅, en het label is goed ✅. Maar in de gang tussen eiland
       en Vaults wees hij eerst terug en daarna niets. Fix: bij de doorgang (binnen 25 m) springt de pijl nu meteen naar
       de volgende stap (de Windcaller). Opnieuw proberen.
+- [ ] **Bij de Amani Windcaller** (Rob: "ik weet als noob nu niet wat ik moet doen"): de pijl heet nu *"Amani Windcaller:
+      pick "Fly me to the Northern Amani Bulwark""*. Praat met hem, kies die optie; daarna wijst de pijl naar de
+      doorgang naar The Underbelly.
 
 ## 🆕 14 okt — FastMark: twee fouten uit BugGrabber (FastMark.lua)
 

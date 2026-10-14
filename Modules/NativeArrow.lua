@@ -385,14 +385,16 @@ local function UpdateArrow()
 					--- a map he is not on. So say the true thing — you are at it, walk
 					--- through — instead of drawing a direction to nowhere.
 					if px and ((s.x - px) ^ 2 + (s.y - py) ^ 2) < 4 then
-						standingOnStep = s.localized and ns:L(s.label) or s.label
+						standingOnStep = ns.TravelStepName and ns.TravelStepName(s, s.label)
+							or (s.localized and ns:L(s.label) or s.label)
 						break
 					end
 					t = {
 						mapID = s.mapID,
 						x = s.x,
 						y = s.y,
-						name = s.localized and ns:L(s.label) or (s.label or t.name),
+						name = ns.TravelStepName and ns.TravelStepName(s, t.name)
+							or (s.localized and ns:L(s.label) or (s.label or t.name)),
 					}
 					unreachable = false
 					break
@@ -474,7 +476,7 @@ local function UpdateArrow()
 			if okP and type(steps) == "table" then
 				for _, s in ipairs(steps) do
 					if s.kind ~= "arrive" and s.label then
-						aim = s.localized and ns:L(s.label) or s.label
+						aim = ns.TravelStepName and ns.TravelStepName(s, s.label) or (s.localized and ns:L(s.label) or s.label)
 						break
 					end
 				end
@@ -792,7 +794,7 @@ local function AnnounceUnreachable(t)
 		if okP and type(steps) == "table" then
 			for _, s in ipairs(steps) do
 				if s.kind ~= "arrive" and s.label then
-					aim = s.localized and ns:L(s.label) or s.label
+					aim = ns.TravelStepName and ns.TravelStepName(s, s.label) or (s.localized and ns:L(s.label) or s.label)
 					break
 				end
 			end
