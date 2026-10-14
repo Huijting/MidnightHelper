@@ -10,6 +10,13 @@ het oranje #beta-blok (live na Robs ja daar); site + nightly volgen pas de GEWON
 dan fouten → beta2 of de gewone 4.7.7 — op Robs go.
 ✅ Site (site-chat, GEMETEN): #beta-blok 4.7.7-beta1 LIVE (site 22414bbe, 8 talen, oranje pill + strip), Kith'ix-zin weg.
 🔴 **Bij de GEWONE 4.7.7-tag: site-chat seinen** → #beta wordt gouden #new, "Five" → "Six" kaarten, nightly draait.
+✅ **Kindo'jan "alle 9 kamers alleen de eerste keer"** (Rob via site-chat 14 okt: "volg de gidsen, tot we het tegendeel
+bewijzen"): DELVE_TIP_LABYRINTH_BOSS + CODEX_LABYRINTH_BODY-kop, 8 talen + esMX, drift gemarkeerd. Bronnen: Wowhead/Icy
+Veins/Skycoach/ConquestCapped; route daarna (Icy Veins): Chamber of Rites → Halazzi's Lair of The Cave Towers → Akil'zon's
+Roost. NIET in de client gezien. Staat NA de beta1-tag op main → gaat mee in beta2/4.7.7.
+📌 **DBM 12.1.14 (Rob 14 okt "dbm is net geupdated", GEMETEN):** DBM-Delves-Midnight NIET bijgewerkt (r265, Labyrinth-
+modules nog leeg). Kithix.lua (DBM-Lairs-Midnight, rev 20261014185057): EncounterID 3513, journal 1324, Story-modus
+(geen Null Gate in Story), add-aanvallen Voidweave 1302334 + Fixate 1304434 (nog niet in onze RaidTips). Rest dekken we al.
 
 **Stand bij afsluiten 13 okt laat (GEMETEN):** main = 368be76 + deze handoff, gepusht, werkboom schoon. Laatste tag
 **`v4.7.6`** (op 6ee61a2, uitgebracht). Na de tag op main, nog niet getagd: 66848a9 (Codex-titel Labyrinth in de
