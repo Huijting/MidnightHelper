@@ -129,7 +129,11 @@ grendel staat, verwacht gedrag (1× per nieuwe build). "24x" = sessies. 2e keer 
 **Kith'ix-trash (Rob stierf solo op Normal aan Shadowspeaker Ip'thosh):** `docs/KITHIX_TRASH_2026-10-14.md` (mh-research).
 CODEX_KITHIX_BODY kreeg "Trash before Kith'ix" (Ip'thosh, Shrix, Shadewarders, Earthbreaker + Story Mode-regel), 8 talen,
 drift gemarkeerd. Kickbaarheid Shadow Barrage NIET bekend (bewust niet in tekst). Story: Liadrin óf Memory of Ancient
-Darkness (bronnen oneens), solo onbevestigd. Open:
+Darkness (bronnen oneens), solo onbevestigd.
+✅ **Kith'ix LFR-kill, Robs video (14 okt 21:21, 12 min) GEMETEN:** coach ging vanzelf open bij de pull; DBM-volgorde
+Voidswarm → Extinguish → Suffocating Darkness (Liadrin: "Seek protection…", "I am the Light's bastion!"), herhaald, slot
+"You were chosen… Now go!" (fase 2); ~2 min, 1 dode. Klopt met onze tips. Video op Robs verzoek naar de Prullenbak.
+✅ Fluister-fix (2458dfc) bevestigd door Rob 14 okt: "komen nu helemaal over, naar de persoon die ik wil". Open:
 Kith'ix heeft nog geen journalInstanceID/ingang in RaidCoachData — `/mh ej save` in de raid (stond als patchdag-taak).
 ✅ **Journey = Warband-breed, GEMETEN 14 okt:** Rob's main én alt allebei 1900/2100 (alt deed geen runs). Kaart-zin
 "not confirmed yet" moet → "shared by your Warband" (volgt na de Battle-Art-ronde van mh-writer).
