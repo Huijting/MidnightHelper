@@ -27,11 +27,16 @@ er is niets weggegooid.
       rechts. Links eindigt met The Grudge Pit, rechts begint met Sunkiller Sanctum. Klopt het ook als je het venster
       smaller of breder maakt?
 
+## 🆕 14 okt — Toetsen op het Dispel-tabblad (PlayCardWindow.lua)
+
+- [ ] **How you play → Dispel** (bv. Frost Mage): rechtsboven op het icoon van Remove Curse en Spellsteal staat nu de
+      toets waar die spell op zit, net als bij "Your buttons". Staat hij niet op een balk, dan een grijs streepje "-".
+
 ## 🆕 13 okt — Kamerbaas in de coach (DelveBossShowcase.lua + DelveCoach.lua)
 
 Rob: "ik had verwacht dat we bij elke kamer met een minibaas een venster zouden krijgen" → keuze 1.
-- [ ] **Coach open in de Labyrinth, nog geen baas:** bovenin het bossvak staat "Target a room boss: its model and
-      tips show here." (niet meer "hover the delve icon for today's story").
+- [x] **Coach open in de Labyrinth, nog geen baas:** bovenin het bossvak staat "Target a room boss: its model and
+      tips show here." (niet meer "hover the delve icon for today's story"). ✅ Rob 14 okt EU-live, screenshot (1 / 19).
 - [ ] **Neem een kamerbaas in je doelwit** (bv. Grukk, Sullied Revenant, King of Souls): het bossvak toont zijn
       naam + 3D-model, en onder "Trash & mechanics" staat alleen nog de regel van díé baas (plus de algemene regels).
 - [ ] Met ◀ ▶ kun je door alle 19 bazen bladeren (incl. Den'zara en Kindo'jan). Laadt een model niet, meld welke.
@@ -43,6 +48,7 @@ Rob: "ik had verwacht dat we bij elke kamer met een minibaas een venster zouden 
       ⚠️ Na een `/reload` midden in een run begint het "bezocht"-lijstje opnieuw (zo gebouwd).
 - [ ] **Coach-overzicht Labyrinth:** onderaan staan 3 nieuwe regels: niet uit de delve gaan tijdens een run,
       na Kindo'jan nog eens met Kinduru praten, en de bug op de eerste dag (kill telt niet bij 6 kamerbazen).
+      ◐ 14 okt: de eerste ("Do not leave the delve") GEZIEN op Robs screenshot; de andere twee vielen buiten beeld.
 - [ ] **Kom je Jo'din of Taltrois tegen: target hem.** Dan hoort het bossvak zijn naam + model + zijn tipregel te tonen,
       en onthoudt MH zijn NPC-nummer. Daarna `/reload` → ik lees `delveBossLearnedIds` uit de SavedVariables. Graag
       een filmpje van het gevecht: we weten van Taltrois nog niets, van Jo'din alleen Soul Shatter.
@@ -77,8 +83,10 @@ Op de PTR (70340) testen — daar zou het verschil zichtbaar zijn:
 - [x] **Geen "Today's story: Bountiful Delve"** meer. ✅ Rob 13 okt.
 - [ ] **Geen "Final boss — open the Delve Coach?"-knop meer in de Labyrinth** (bij elke kamer-eindfase, zoals Akil'zon's
       Roost, ten onrechte). In gewone delves komt hij nog wél bij de eindbaas.
+      ◐ 14 okt: bij binnenkomst geen knop (screenshot). De echte test is het einde van een kamer — nog niet gezien.
 - [ ] **"Copy" valt niet meer over "Overview:"** als de knoppen op twee regels staan (smal coach-venster). Ook in een
       gewone delve met baasmodel: het model staat onder de knoppen, niet eroverheen.
+      ◐ 14 okt: Copy netjes in de rij (screenshot), maar de knoppen stonden op ÉÉN regel — de twee-regels-situatie nog niet gezien.
 
 ## 🆕 13 okt — Geen omweg via vliegpunten meer (DelveTipMarkup.lua)
 

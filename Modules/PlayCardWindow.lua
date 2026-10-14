@@ -554,7 +554,9 @@ local function DrawDispel(specID, y, inner)
 		row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
 		row:SetWidth(inner)
 		row.num:SetText("")
-		StepIcon(row, id, nil)
+		-- The key on the icon, like the other tabs. Missing here until 14 Oct 2026 (Rob, Frost Mage: "waarom zie ik de
+		-- keybinds niet ... voor de dispels"): the Dispel tab was built after LiveKeys and never passed `live`.
+		StepIcon(row, id, nil, specID == ActiveSpecID())
 		row.fs:ClearAllPoints()
 		row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
 		row.fs:SetWidth(inner - (20 + ICON + 10))

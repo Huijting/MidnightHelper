@@ -45,6 +45,10 @@ seintjes over 4.7.7/Kith'ix naar de NIEUWE site-chat (vinden via ListAgents).
 (stamt uit de tijd van ~10 delves) → 5 tegen 11. Nu `ceil(aantal/2)` uit de roster (pinOnly telt niet). Syntax OK,
 NIET in het spel gezien → TESTLIJST bovenaan. Gaat mee in 4.7.7.
 
+**14 okt — Dispel-tabblad kreeg geen toetsen (Rob: "waarom zie ik de keybinds niet … voor de dispels"):** `DrawDispel`
+riep `StepIcon(row, id, nil)` zonder de `live`-vlag; de andere tabs geven `specID == ActiveSpecID()` mee. Nu ook hier.
+NIET in het spel gezien. Labyrinth-testpunten 14 okt: alleen "coach zonder baas" ✅; Copy/Final-boss/3 regels deels (◐).
+
 **14 okt ochtend (EU-patchdag) — Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd":**
 1. Jo'din `creatureId = 275050`, Taltrois `274554` (Wowhead npc-pagina's, 14 okt; nog niet in een client). Naam-match +
    `learnCreatureId` blijven: wijkt het echte id af, dan schrijft MH het in `ns.db.delveBossLearnedIds` → nalezen.
