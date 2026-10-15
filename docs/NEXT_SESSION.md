@@ -14,6 +14,12 @@ dan fouten → beta2 of de gewone 4.7.7 — op Robs go.
 bewijzen"): DELVE_TIP_LABYRINTH_BOSS + CODEX_LABYRINTH_BODY-kop, 8 talen + esMX, drift gemarkeerd. Bronnen: Wowhead/Icy
 Veins/Skycoach/ConquestCapped; route daarna (Icy Veins): Chamber of Rites → Halazzi's Lair of The Cave Towers → Akil'zon's
 Roost. NIET in de client gezien. Staat NA de beta1-tag op main → gaat mee in beta2/4.7.7.
+**15 okt ochtendronde (GEMETEN):** CF 0 open, GitHub 0 open, site-mail 0. API: geen wijzigingen. PTR: 12.1.7-build 70323
+(versleuteld). Data: Dundun terug in Bountiful, Battle Art-cap 344, nieuwe currency Venom Mote. Content: 🔴 Blizzard fixte
+14 okt de Labyrinth kill-credit-bug → DELVE_TIP_LABYRINTH_OVERVIEW-bullet "Blizzard has not said anything" vervangen door
+"fixed by Blizzard on 14 Oct … tell us", 8 talen + esMX, drift gemarkeerd. Open voor Rob: de Sha'Kuro-regel in
+DELVE_TIP_LABYRINTH_ROOMS ("one player reports … only counts after his second burrow") hoort mogelijk bij dezelfde bug.
+DBM-Delves-Midnight r266: Labyrinth-modules nog steeds leeg.
 📌 **DBM 12.1.14 (Rob 14 okt "dbm is net geupdated", GEMETEN):** DBM-Delves-Midnight NIET bijgewerkt (r265, Labyrinth-
 modules nog leeg). Kithix.lua (DBM-Lairs-Midnight, rev 20261014185057): EncounterID 3513, journal 1324, Story-modus
 (geen Null Gate in Story), add-aanvallen Voidweave 1302334 + Fixate 1304434 (nog niet in onze RaidTips). Rest dekken we al.
