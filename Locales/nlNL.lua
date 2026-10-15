@@ -995,6 +995,7 @@ ns._mhLocales.nlNL = {
 	DELVE_CHEST_LEARNED = "Deze lijst is wat ik je hier zag openen, geen gecontroleerde — hij weet niet wat je al gehad hebt.",
 	DELVE_CHEST_SKIP_HINT = "Kun je er niet bij? Klik nog een keer op Kisten voor de volgende.",
 	DELVE_CHEST_SKIPPED = "Sturdy Chest %d overgeslagen — die komt als laatste terug.",
+	DELVE_CHEST_SEALED = "%d kist(en) weggelaten: achter een loa-zegel die je Labyrinth Journey-rang nog niet opent.",
 	KEYBIND_EXPORT_TITLE = "Jouw keybinds",
 	KEYBIND_EXPORT_SUB = "Uit je client gelezen — dit is wat je toetsen nú doen, inclusief wat je zelf hebt aangepast.",
 	KEYBIND_EXPORT_HINT = "Ctrl+C om te kopiëren. Plak het in een document, of zet het op je tweede scherm.",

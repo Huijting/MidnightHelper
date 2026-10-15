@@ -53,6 +53,10 @@ enemy buffs / objecten in de kamer). Nog geen coach-tip geschreven. ⚠️ Robs 
 pcall + issecretvalue), toont een rood lampje bovenaan zolang het log aan staat; setting `mh_combatLogLamp` (standaard aan),
 `/mh combatlog` = diagnose. Dat LoggingCombat() in 12.1.5 werkt = AFGELEID (DBM/RaiderIO gebruiken het) → TESTLIJST.
 Vertalingen de/fr/es/pt/it/ru: zie volgende commit.
+✅ **questDiff 15 okt, 3 nieuwe kisten = HandyNotes** (GEMETEN): 98608 29.7/74.8 (#7), 98607 21.9/68.6 (#6), 98612 26.4/40.6 (#9) → 5/5.
+🆕 **Loa-zegels in de kistenroute:** chest-veld `seal = <Journey-rang>`; onder die rang valt de kist uit de route (+ chatregel
+DELVE_CHEST_SEALED), rang onleesbaar → achteraan. Nu alleen #13 (GEMETEN, Jan'alai-melding bij Rob) en #39 Method/Jan'alai's Refuge
+(AFGELEID uit de kamernaam). De rest wacht op het mh-research-onderzoek "welke kist achter welke zegel". DELVE_CHEST_SEALED nog niet vertaald.
 🆕 **Kist overslaan** (DelveChestData `ns.RouteDelveChests`): 2e klik op Chests terwijl de route loopt = huidige kist overslaan
 (`ns._mhDelveChestSkipped`, achteraan in de rij, gewist bij zone-in). Hint in notice + chat. Geen kamer-per-kist-data → speler kiest.
 ⚠️ **Kist #2 gaf maar 150** (+2500 Amani Tribe, Rattling Bag o' Gold); questDiff **98602 op 37.1/69.8** = HandyNotes #2 ✅.

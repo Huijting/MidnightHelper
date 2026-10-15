@@ -104,7 +104,7 @@ ns.DELVE_CHESTS = {
 		{ x = 27.48, y = 33.01, quest = 98613 },  -- #10
 		{ x = 61.17, y = 43.48, quest = 98614 },  -- #11
 		{ x = 61.53, y = 43.57, quest = 98614 },  -- #12 (HandyNotes gives #11 and #12 the same quest)
-		{ x = 27.94, y = 34.55, quest = 98615 },  -- #13
+		{ x = 27.94, y = 34.55, quest = 98615, seal = 5 },  -- #13 behind Jan'alai's seal (GEMETEN, Rob 15 Oct: "does not grant you passage")
 		{ x = 61.51, y = 44.72, quest = 98619 },  -- #14
 		{ x = 28.69, y = 23.12, quest = 98620 },  -- #15
 		{ x = 22.14, y = 29.59, quest = 98621 },  -- #16
@@ -130,7 +130,7 @@ ns.DELVE_CHESTS = {
 		{ x = 88.20, y = 76.40 },                 -- #37
 		{ x = 89.70, y = 77.70 },                 -- #38
 		{ x = 86.88, y = 63.34, quest = 98634 },  -- Zygor (in place of HandyNotes #36)
-		{ x = 21.54, y = 36.48 },                 -- Method, Jan'alai's Refuge
+		{ x = 21.54, y = 36.48, seal = 5 },       -- Method, Jan'alai's Refuge = a Jan'alai-sealed room (AFGELEID from the room name)
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },
@@ -326,7 +326,15 @@ function ns.GetOpenDelveChests()
 		end
 	end
 
-	local open, unknown = {}, 0
+	local open, unknown, sealed = {}, 0, 0
+	-- `seal = N` on a chest: it sits behind a loa seal that opens at Labyrinth Journey rank N (Akil'zon 3, Jan'alai 5,
+	-- Nalorakk 7, Halazzi 9). Below that rank the door says "does not grant you passage" (Rob, 15 Oct), so the chest
+	-- is left out. Rank unreadable: keep it, at the back of the line, rather than hide a chest you might reach.
+	local journeyRank
+	if ns.GetLabyrinthJourneyStatus then
+		local st = ns.GetLabyrinthJourneyStatus()
+		journeyRank = st and st.rank or nil
+	end
 	local visited = ns._mhDelveChestVisited
 	visited = visited and visited.mapID == mapID and visited or nil
 	local skipped = ns._mhDelveChestSkipped
@@ -343,13 +351,17 @@ function ns.GetOpenDelveChests()
 		if done == nil and visited and visited[i] then
 			done = true
 		end
-		if done ~= true then
+		local locked = c.seal and journeyRank and journeyRank < c.seal
+		if done ~= true and locked then
+			sealed = sealed + 1
+		elseif done ~= true then
 			local d
 			if px then
 				local dx, dy = c.x - px, c.y - py
 				d = dx * dx + dy * dy -- squared: we only ever compare these
 			end
-			open[#open + 1] = { x = c.x, y = c.y, quest = c.quest, index = i, dist = d, skipped = skipped and skipped[i] or nil }
+			open[#open + 1] = { x = c.x, y = c.y, quest = c.quest, index = i, dist = d,
+				skipped = (skipped and skipped[i]) or (c.seal and not journeyRank) or nil }
 		end
 	end
 	table.sort(open, function(a, b)
@@ -365,7 +377,7 @@ function ns.GetOpenDelveChests()
 		-- inventing one.
 		return a.index < b.index
 	end)
-	return open, mapID, #chests, unknown, learned
+	return open, mapID, #chests - sealed, unknown, learned, sealed
 end
 
 --------------------------------------------------------------------------------
@@ -398,18 +410,21 @@ end
 ns.StopDelveChestRoute = StopRoute
 
 local function PointAtNearest(announce)
-	local open, mapID, total, unknown, learned = ns.GetOpenDelveChests()
-	if not mapID or total == 0 then
+	local open, mapID, total, unknown, learned, sealed = ns.GetOpenDelveChests()
+	sealed = sealed or 0
+	if not mapID or (total == 0 and sealed == 0) then
 		StopRoute()
 		return false, "nomap"
 	end
+	local sealedLine = sealed > 0 and (ns:L("DELVE_CHEST_SEALED")):format(sealed) or nil
 	if #open == 0 then
 		StopRoute()
 		if announce ~= false then
+			local msg = sealedLine or ns:L("DELVE_CHEST_ALL_DONE")
 			if ns.ShowBriefNotice then
-				ns.ShowBriefNotice(ns:L("DELVE_CHEST_ALL_DONE"), 5)
+				ns.ShowBriefNotice(msg, 5)
 			end
-			print(("%s %s"):format(ns:L("PRINT_PREFIX"), ns:L("DELVE_CHEST_ALL_DONE")))
+			print(("%s %s"):format(ns:L("PRINT_PREFIX"), msg))
 		end
 		return false, "done"
 	end
@@ -434,6 +449,9 @@ local function PointAtNearest(announce)
 		end
 		print(("%s %s"):format(ns:L("PRINT_PREFIX"), headline))
 		print(("   %s"):format(ns:L("DELVE_CHEST_SKIP_HINT")))
+		if sealedLine then
+			print(("   %s"):format(sealedLine))
+		end
 		-- Say it out loud when a chest's state is unreadable. The route then walks you
 		-- past something you may already have opened, and a player who is not told that
 		-- concludes the addon is wrong rather than cautious.
