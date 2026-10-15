@@ -25,7 +25,10 @@ DBM-Delves-Midnight r266: Labyrinth-modules nog steeds leeg.
 DelveChestData [2647] → 39 kisten (HandyNotes 37 + Zygor 98634 + Method 21.54/36.48). Controle: HN #26 = onze 98633.
 Quest-ID's = HandyNotes alleen. ✅ Rob "zet die er ook maar in": Hexmasks (3, {WAY} in CODEX_LABJOURNEY_BODY rang 2) en
 Mislaid Oddities (15 genummerde {WAY}-links in CODEX_LABYRINTH_BODY), 8 talen + esMX; namen Engels (niet gemeten).
-Zygor/HandyNotes/wago-inventaris "wat is nieuw in 12.1.5 dat MH mist" loopt (mh-research → scratchpad NEW_1215_INVENTORY.md). Sha'Kuro "second burrow"-regel: weg (Rob).
+✅ Inventaris "wat is nieuw in 12.1.5 dat MH mist" → `docs/NEW_1215_INVENTORY_2026-10-15.md` (wago-diff 69933→70391):
+8 mounts, 3 pets, 10 toys, 55 achievements, 10 titels; MH heeft bijna niets daarvan als data. Geen nieuwe wereld-rares/
+treasures. Top 7 aanbevolen (Aqir-beloningen + Corrupted Swarmer, campagne "The Promise of Tomorrow", Loa-Blessed
+Wayfarer, achlist-ID's, Sporebearer, J'imothy, 2 Zul'jarra-mounts) → Rob kiest. Sha'Kuro "second burrow"-regel: weg (Rob).
 ⚠️ Bij beta2: CHANGELOG_477_2 zegt "20 chests" → nieuwe changelog-regel met 39.
 📌 **DBM 12.1.14 (Rob 14 okt "dbm is net geupdated", GEMETEN):** DBM-Delves-Midnight NIET bijgewerkt (r265, Labyrinth-
 modules nog leeg). Kithix.lua (DBM-Lairs-Midnight, rev 20261014185057): EncounterID 3513, journal 1324, Story-modus
