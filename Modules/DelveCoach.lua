@@ -1938,9 +1938,13 @@ local function MaybeOfferRoomBoss(event)
 		end
 		if not boss then
 			local okN, name = pcall(UnitName, "target")
-			if not (okN and Readable(name)) and not targetNameNoted then
-				targetNameNoted = true
-				LogRoomBoss(event, "target name is secret here" .. ((InCombatLockdown and InCombatLockdown()) and " (in combat)" or " (out of combat)"))
+			-- Once per visit FOR EACH of in/out of combat: the question is whether the name is readable before
+			-- the pull, and a first in-combat line (15 Oct, 09:37, on trash) must not hide the answer to that.
+			local where = (InCombatLockdown and InCombatLockdown()) and "in combat" or "out of combat"
+			targetNameNoted = targetNameNoted or {}
+			if not targetNameNoted[where] then
+				targetNameNoted[where] = true
+				LogRoomBoss(event, ("target name is %s here (%s)"):format((okN and Readable(name)) and "READABLE" or "secret", where))
 			end
 			return
 		end

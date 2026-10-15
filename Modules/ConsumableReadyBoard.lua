@@ -682,6 +682,9 @@ local function UpdateUseButtons(f)
 end
 
 local function Render()
+	if not board and InCombatLockdown and InCombatLockdown() then
+		return -- building it creates secure buttons; ShowConsumableBoard builds it after combat
+	end
 	local f = EnsureBoard()
 	local data = ns.GetConsumableReadyData and ns.GetConsumableReadyData() or { rows = {} }
 	local icons = ns.GetConsumableColumnIcons and ns.GetConsumableColumnIcons() or {}
@@ -818,7 +821,23 @@ end
 
 local hideTimer
 
+local deferredShow -- one-shot frame: build the board after combat, not during it
+
 function ns.ShowConsumableBoard()
+	-- Rob, 15 Oct 2026: "3x ADDON_ACTION_BLOCKED ... SecureStateDriverManager:SetAttribute()" after a /reload in the
+	-- Labyrinth. The auto-open (ConsumableReadyCheck, 1.5 s after zone-in) ran while he was in combat, and the FIRST
+	-- show builds the secure click-catchers (RegisterStateDriver, line ~516), which combat forbids. Wait it out.
+	if not board and InCombatLockdown and InCombatLockdown() then
+		if not deferredShow then
+			deferredShow = CreateFrame("Frame")
+			deferredShow:SetScript("OnEvent", function(self)
+				self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				ns.ShowConsumableBoard()
+			end)
+		end
+		deferredShow:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
 	local f = EnsureBoard()
 	-- Ask the group to re-send before drawing. Until 2 sep 2026 nothing ever asked:
 	-- everyone broadcast of their own accord on roster/zone events, so a groupmate

@@ -64,6 +64,9 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+🐛→✅ **ADDON_ACTION_BLOCKED (3x) na /reload in de Labyrinth** (Rob 15 okt): consumables-bord auto-open (1,5 s na zone-in) bouwde
+in combat de secure klikknoppen (ConsumableReadyBoard:516 RegisterStateDriver). Nu: eerste opbouw wacht op PLAYER_REGEN_ENABLED;
+Render() bouwt niets in combat. Target-log: 09:37 "secret (in combat)" op trash; log noteert nu in én buiten combat apart.
 🆕 **Kamerbaas via target** (Rob 15 okt, Grukk vóór de pull): `MaybeOfferRoomBoss("PLAYER_TARGET_CHANGED")` — alleen units
 (niet de oude encounter-naam), stil op trash; knop B / setting C / coach-wissel. Of de naam buiten combat leesbaar is = OPEN
 (14 okt in combat: secret) → log "target name is secret here (in/out of combat)", 1x per delve.
