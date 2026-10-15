@@ -591,6 +591,8 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	SET_DELVECOACH_AUTO_DESC = "Betrittst du eine Tiefe, öffnet sich das Coach-Fenster von selbst, mit Tipps zur Route und zum Boss. Schalte es aus, wenn du die Tiefen kennst; /mh coach öffnet es weiterhin.",
 	SET_DELVE_ROOMBOSS_AUTO_TITLE = "Labyrinth: Coach für jeden Raumboss öffnen",
 	SET_DELVE_ROOMBOSS_AUTO_DESC = "Im Labyrinth von Kindo'jan, wenn ein Kampf gegen einen Raumboss beginnt. Aus: Ein kleiner Knopf mit dem Namen des Bosses erscheint für ein paar Sekunden, ein Klick öffnet den Coach zu diesem Boss. An: Der Coach öffnet sich von selbst, auch während des Kampfes.",
+	SET_COMBATLOG_LAMP_TITLE = "Lampe zeigen, solange das Kampflog läuft",
+	SET_COMBATLOG_LAMP_DESC = "Eine kleine rote Lampe oben auf deinem Bildschirm, solange das Spiel das Kampflog schreibt (/combatlog). Du siehst sie nur, während das Log läuft. Zieh sie, um sie zu verschieben.",
 	SET_BOSSWIN_MODEL_TITLE = "Großes 3D-Bossmodell-Panel zeigen",
 	SET_BOSSWIN_MODEL_DESC = "Zeigt das große 3D-Modell-Seitenpanel des Bosses im schwebenden Boss-Fenster. Ausschalten, um nur das Seitenpanel zu verbergen — das kleine Boss-Spotlight in der Kopfzeile bleibt.",
 	SET_BOSSWIN_SPOTLIGHT_TITLE = "Kleines Boss-Spotlight zeigen",

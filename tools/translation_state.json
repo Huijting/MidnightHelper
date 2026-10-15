@@ -3974,6 +3974,14 @@
    "ptBR": "54015a4866b50098",
    "ruRU": "54015a4866b50098"
   },
+  "CMDLIST_COMBATLOG": {
+   "deDE": "f080bf3b5fee56ad",
+   "esES": "f080bf3b5fee56ad",
+   "frFR": "f080bf3b5fee56ad",
+   "itIT": "f080bf3b5fee56ad",
+   "ptBR": "f080bf3b5fee56ad",
+   "ruRU": "f080bf3b5fee56ad"
+  },
   "CMDLIST_COURSE": {
    "deDE": "f5991c43da1ab249",
    "esES": "f5991c43da1ab249",
@@ -5646,6 +5654,30 @@
    "nlNL": "a9c9d359e478391c",
    "ptBR": "a9c9d359e478391c",
    "ruRU": "a9c9d359e478391c"
+  },
+  "COMBATLOG_LAMP_LABEL": {
+   "deDE": "3b02c085aab37b15",
+   "esES": "3b02c085aab37b15",
+   "frFR": "3b02c085aab37b15",
+   "itIT": "3b02c085aab37b15",
+   "ptBR": "3b02c085aab37b15",
+   "ruRU": "3b02c085aab37b15"
+  },
+  "COMBATLOG_LAMP_TIP": {
+   "deDE": "0ef76ebc50588ba8",
+   "esES": "0ef76ebc50588ba8",
+   "frFR": "0ef76ebc50588ba8",
+   "itIT": "0ef76ebc50588ba8",
+   "ptBR": "0ef76ebc50588ba8",
+   "ruRU": "0ef76ebc50588ba8"
+  },
+  "COMBATLOG_LAMP_WHERE": {
+   "deDE": "87c6741a8f4aa653",
+   "esES": "87c6741a8f4aa653",
+   "frFR": "87c6741a8f4aa653",
+   "itIT": "87c6741a8f4aa653",
+   "ptBR": "87c6741a8f4aa653",
+   "ruRU": "87c6741a8f4aa653"
   },
   "CONSREADY_ALT": {
    "deDE": "ca0c27a5cd12a3cf",
@@ -33481,6 +33513,22 @@
    "nlNL": "33c3597d1cf23650",
    "ptBR": "33c3597d1cf23650",
    "ruRU": "33c3597d1cf23650"
+  },
+  "SET_COMBATLOG_LAMP_DESC": {
+   "deDE": "3929b52d54b4e22d",
+   "esES": "3929b52d54b4e22d",
+   "frFR": "3929b52d54b4e22d",
+   "itIT": "3929b52d54b4e22d",
+   "ptBR": "3929b52d54b4e22d",
+   "ruRU": "3929b52d54b4e22d"
+  },
+  "SET_COMBATLOG_LAMP_TITLE": {
+   "deDE": "62c2d4c6944ba110",
+   "esES": "62c2d4c6944ba110",
+   "frFR": "62c2d4c6944ba110",
+   "itIT": "62c2d4c6944ba110",
+   "ptBR": "62c2d4c6944ba110",
+   "ruRU": "62c2d4c6944ba110"
   },
   "SET_CONSREADY_DESC": {
    "deDE": "b7fb4dce6ce85371",
