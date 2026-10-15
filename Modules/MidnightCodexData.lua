@@ -587,6 +587,16 @@ ns.CODEX_ARTICLES = {
 		sort = 7,
 		searchKeys = "jimothy j'imothy pet battle pet stubby whistle ensorcelled cryptid silvermoon huisdier",
 	},
+	-- 15 Oct 2026 (Rob: "Alles", after a full HandyNotes 158 comparison): treasures and one rare that HandyNotes has and
+	-- MH tracked nowhere - none belongs to an achievement, so they had no home. Coordinates: HandyNotes 158.
+	{
+		id = "hidden_treasures",
+		category = "world",
+		titleKey = "CODEX_HIDDENTREASURE_TITLE",
+		bodyKey = "CODEX_HIDDENTREASURE_BODY",
+		sort = 8,
+		searchKeys = "treasure treasures hidden schat schatten sonnets book bookcase decor voidhoarder corpse sleetblade hilt mandrake redcap mollusk reliquary spiked shell greatwyrm manaling skull vilefeather eagle",
+	},
 
 	-- Professions
 	{

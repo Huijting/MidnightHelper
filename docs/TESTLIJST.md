@@ -52,6 +52,10 @@ er is niets weggegooid.
 - [ ] **Kisten per kamer:** loop een kamer in → de pijl kiest een kist in díe kamer (de naam van de kamer staat boven je
       minimap). Kamer leeg → chat: *"No chests left in <kamer> that I know of. The next one is in <kamer>…"*. Klopt de kamernaam
       boven je minimap met wat MH zegt? Vooral bij Catacombs, Reliquary, Nalorakk's Rest, Flooded Chamber, Cave Towers.
+- [ ] **Mounts-tabblad → Hexed Vilefeather Eagle** (nieuw 15 okt): balk *X / 1000* (je Vile Essence) + Route-knop naar de
+      Abandoned Ritual Skull in Zul'Aman (44.72, 44.09). Klopt de plek?
+- [ ] **Codex → World → "Hidden treasures without an achievement"**: klik een paar links (boek in Silvermoon, Voidhoarder's
+      Corpse) → zet de pijl op de goede plek?
 - [ ] **Kist overslaan** (Rob 15 okt: "hij stuurt me ergens naartoe waar ik niet heen kon"): staat de pijl op een kist achter een
       dichte deur, klik dan nog een keer op **Chests** in de coach. In de chat: *"Skipped Sturdy Chest N — it comes back last"*,
       en de pijl gaat naar de volgende. Na de andere kisten komt de overgeslagen kist als laatste terug.

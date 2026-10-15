@@ -5053,6 +5053,22 @@
    "ptBR": "da8e9f948cf11c0c",
    "ruRU": "da8e9f948cf11c0c"
   },
+  "CODEX_HIDDENTREASURE_BODY": {
+   "deDE": "a6bd0f0bfc6b1e7f",
+   "esES": "a6bd0f0bfc6b1e7f",
+   "frFR": "a6bd0f0bfc6b1e7f",
+   "itIT": "a6bd0f0bfc6b1e7f",
+   "ptBR": "a6bd0f0bfc6b1e7f",
+   "ruRU": "a6bd0f0bfc6b1e7f"
+  },
+  "CODEX_HIDDENTREASURE_TITLE": {
+   "deDE": "341b3143e737af3d",
+   "esES": "341b3143e737af3d",
+   "frFR": "341b3143e737af3d",
+   "itIT": "341b3143e737af3d",
+   "ptBR": "341b3143e737af3d",
+   "ruRU": "341b3143e737af3d"
+  },
   "CODEX_JIMOTHY_BODY": {
    "deDE": "dece5923634ed6ce",
    "esES": "dece5923634ed6ce",
@@ -20664,6 +20680,18 @@
    "nlNL": "ae94e324ef9a1c37",
    "ptBR": "ae94e324ef9a1c37",
    "ruRU": "ae94e324ef9a1c37"
+  },
+  "MOUNTPROG_VILEFEATHER_HOWTO": {
+   "deDE": "aac164e405b51fea",
+   "esES": "aac164e405b51fea",
+   "frFR": "aac164e405b51fea",
+   "itIT": "aac164e405b51fea",
+   "ptBR": "aac164e405b51fea",
+   "ruRU": "aac164e405b51fea"
+  },
+  "MOUNTPROG_VILEFEATHER_ROUTE_NAME": {
+   "itIT": "1dc370af0c66bda5",
+   "ruRU": "1dc370af0c66bda5"
   },
   "MOUNTPROG_VOIDHAWK_HOWTO": {
    "deDE": "19ee00a17a98fb5b",

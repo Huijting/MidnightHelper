@@ -182,6 +182,11 @@ local TRACKED = {
 	-- 61.80/67.73) is one PTR-era web guide (Wowhead/Method) — Rob checks it once.
 	{ key = "sporebearer", mountSpellID = 1313788, mountItemID = 282414, noProgress = true, noMarl = true, fallbackName = "Sporebearer Fungal Strider", howToKey = "MOUNTPROG_SPOREBEARER_HOWTO",
 		route = { mapID = 2576, x = 61.80, y = 67.73, nameKey = "MOUNTPROG_SPOREBEARER_ROUTE_NAME" } },
+	-- Hexed Vilefeather Eagle: from the Abandoned Ritual Skull in Zul'Aman once you carry 1000 Vile Essence (259361).
+	-- HandyNotes 158 zul_aman.lua:245 (quest 90794, mount item 257444 / mountID 2786); Rob, 15 Oct 2026: "Alles".
+	-- Progress = the Essence in your bags, the same itemID path as the Sporesnack row.
+	{ key = "vilefeather", mountItemID = 257444, itemID = 259361, need = 1000, noMarl = true, fallbackName = "Hexed Vilefeather Eagle", howToKey = "MOUNTPROG_VILEFEATHER_HOWTO",
+		route = { mapID = 2437, x = 44.72, y = 44.09, nameKey = "MOUNTPROG_VILEFEATHER_ROUTE_NAME" } },
 }
 
 --- @return isCollected(bool|nil), localizedName(string|nil)

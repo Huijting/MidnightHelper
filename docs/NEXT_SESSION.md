@@ -68,7 +68,8 @@ uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/O
 delve-kisten, alle WAY-links gelijk (GEMETEN). Overgenomen: Serrasa 56.38/32.99 en Pterrock 27.27/70.32 (Rares-tab; Achievements had
 ze al). Bewust NIET: Tremora (MH = grotingang), Stellar Stash 94005, Exaliburn 93569, Ha'kalawe (op patrouille), Nar'zira 66.40/62.90
 (eigen PTR-meting, HN 63.22/62.29 → `/mh here` beslist), Underbelly-ingang AchievementsData 45.19/11.15 (HN+Codex 47.30/11.20; route
-werkte voor Rob), Vserix (HN zette Soft Underbelly uit, Method bevestigt). **Alleen in HN — Rob kiest:** mount **Hexed Vilefeather
+werkte voor Rob), Vserix (HN zette Soft Underbelly uit, Method bevestigt). **Rob: "Alles" → ✅ gebouwd:** mount-rij `vilefeather` (MountProgress, itemID 259361 need 1000, route 2437 44.72/44.09) + Codex-artikel
+`hidden_treasures` (CODEX_HIDDENTREASURE_*, 9 versies, WAY-links uit HN 158; niet zelf gelopen). Was: mount **Hexed Vilefeather
 Eagle** (257444) via Abandoned Ritual Skull Zul'Aman 44.72/44.09 (q90794, 1000 Vile Essence 259361); Incomplete Book of Sonnets
 (Silvermoon decor, q94781); Voidhoarder's Corpse Voidstorm 24.82/70.01 (q94742); Val Ice Guardian's Sleetblade; Naigtal-schatten
 (Sleepy Mandrake 97091-95); rare Mana-Gorged Greatwyrm (Daggerspine, npc 259971, renown 8).
