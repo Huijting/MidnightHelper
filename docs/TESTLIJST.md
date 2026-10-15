@@ -44,6 +44,11 @@ er is niets weggegooid.
 - [ ] **Combat log-lampje** (nieuw 15 okt, CombatLogLamp.lua): typ `/combatlog` → binnen ~2 s bovenaan je scherm een klein
       rood knipperend lampje "Combat log". Nog een keer `/combatlog` → lampje weg. `/mh combatlog` zegt ON/OFF + waarom.
       Slepen = verplaatsen; Shift+scroll = groter/kleiner. Uit te zetten in Settings ("Show a lamp while the combat log is on").
+- [ ] **Kamerbaas targeten vóór de pull** (Rob 15 okt, Grukk): target de baas → coach dicht: knop *"Room boss: Grukk — show
+      tips?"*; coach open: het bossvak springt naar Grukk. Gebeurt er niets: `/reload` → ik lees `delveRoomBossLog`
+      ("target name is secret here" = de game verbergt de naam ook buiten het gevecht).
+- [ ] **Zegelkisten:** na `/reload` + Chests staat in de chat *"N chest(s) left out: behind a loa seal …"* en wijst de pijl niet
+      meer naar een rode zegel. Kist 39 (Jan'alai's Refuge) is GEEN zegel maar een deur om aan te klikken: lukt dat?
 - [ ] **Kist overslaan** (Rob 15 okt: "hij stuurt me ergens naartoe waar ik niet heen kon"): staat de pijl op een kist achter een
       dichte deur, klik dan nog een keer op **Chests** in de coach. In de chat: *"Skipped Sturdy Chest N — it comes back last"*,
       en de pijl gaat naar de volgende. Na de andere kisten komt de overgeslagen kist als laatste terug.

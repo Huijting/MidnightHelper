@@ -60,6 +60,9 @@ Jan'alai(5) #10 #13 #17 #18, Nalorakk(7) #32 #33, Halazzi(9) #34 #35 = 14 van de
 ijsmuur (vuur), geen zegel. **#39 Method = GEEN zegel maar een klikbare deur** (mijn eerste aanname was fout); Rob zag hem niet.
 OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair (~10.5/54.7 of 15.3/44) zonder coördinaten/quest;
 #11 en #12 delen quest 98614 in HandyNotes (één is fout). DELVE_CHEST_SEALED nog niet vertaald.
+🆕 **Kamerbaas via target** (Rob 15 okt, Grukk vóór de pull): `MaybeOfferRoomBoss("PLAYER_TARGET_CHANGED")` — alleen units
+(niet de oude encounter-naam), stil op trash; knop B / setting C / coach-wissel. Of de naam buiten combat leesbaar is = OPEN
+(14 okt in combat: secret) → log "target name is secret here (in/out of combat)", 1x per delve.
 🆕 **Kist overslaan** (DelveChestData `ns.RouteDelveChests`): 2e klik op Chests terwijl de route loopt = huidige kist overslaan
 (`ns._mhDelveChestSkipped`, achteraan in de rij, gewist bij zone-in). Hint in notice + chat. Geen kamer-per-kist-data → speler kiest.
 ⚠️ **Kist #2 gaf maar 150** (+2500 Amani Tribe, Rattling Bag o' Gold); questDiff **98602 op 37.1/69.8** = HandyNotes #2 ✅.

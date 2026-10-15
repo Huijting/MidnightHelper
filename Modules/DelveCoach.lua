@@ -1914,12 +1914,62 @@ local function BossFromEncounterName(entryId, name)
 	return nil, nil
 end
 
+local targetNameNoted -- one "name unreadable" log line per delve visit, not one per click
+
 local function MaybeOfferRoomBoss(event)
 	local entry = ResolveActiveDelveEntry()
 	if not (entry and entry.noFinalBossPrompt) then
 		return -- only delves made of rooms; elsewhere the final-boss prompt does this job
 	end
 	local s = GetSettings()
+	if event == "PLAYER_TARGET_CHANGED" then
+		-- Rob, 15 Oct 2026, Grukk targeted before the pull: "kunnen we niet de namen uitlezen als ik ze target?"
+		-- In the fight the name reads secret (14 Oct); before the pull it may not be. Units only here: the last
+		-- fight's encounter name would point at the wrong boss, and every trash click must stay silent.
+		if not (s and s.enabled) or not (UnitExists and UnitExists("target")) then
+			return
+		end
+		if UnitIsEnemy and not UnitIsEnemy("player", "target") then
+			return
+		end
+		local boss, idx
+		if ns.TryResolveDelveBossFromUnits then
+			boss, idx = ns.TryResolveDelveBossFromUnits(entry.id)
+		end
+		if not boss then
+			local okN, name = pcall(UnitName, "target")
+			if not (okN and Readable(name)) and not targetNameNoted then
+				targetNameNoted = true
+				LogRoomBoss(event, "target name is secret here" .. ((InCombatLockdown and InCombatLockdown()) and " (in combat)" or " (out of combat)"))
+			end
+			return
+		end
+		if idx then
+			ns._mhRoomBossPick = { entryId = entry.id, idx = idx }
+			if coachFrame then
+				coachFrame._bossManualOverride = false
+			end
+			if ns.SetDelveBossShowcaseIndex then
+				ns:SetDelveBossShowcaseIndex(entry.id, idx)
+			end
+		end
+		if coachFrame and coachFrame:IsShown() then
+			RefreshDelveCoachLiveContent()
+			if roomBossShownFor ~= boss.label then
+				LogRoomBoss(event, boss.label .. " (via target): coach already open, switched")
+			end
+		elseif roomBossShownFor ~= boss.label and s.autoShow then
+			if s.roomBossAutoOpen and ns.ShowDelveCoach then
+				ns:ShowDelveCoach(entry.id, { preview = false })
+				LogRoomBoss(event, boss.label .. " (via target): coach opened (setting C)")
+			else
+				ShowBossPromptButton(ns:SafeL("DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))
+				LogRoomBoss(event, boss.label .. " (via target): button shown (B)")
+			end
+		end
+		roomBossShownFor = boss.label
+		return
+	end
 	if not s or not s.enabled or not s.autoShow then
 		LogRoomBoss(event, "coach auto-open is off in settings")
 		return
@@ -2266,6 +2316,7 @@ ev:SetScript("OnEvent", function(_, event, unit, arg2)
 			targetPromptShownThisZone = false
 			finalStagePromptShown = false -- nieuwe zone/delve → coach mag weer 1x aangeboden
 			roomBossShownFor = nil
+			targetNameNoted = nil
 			ns._mhRoomBossPick = nil
 		end
 		HideBossCoachPrompt() -- bij zone-wissel/verlaten weg
@@ -2282,6 +2333,7 @@ ev:SetScript("OnEvent", function(_, event, unit, arg2)
 	elseif event == "UNIT_TARGET" and (not unit or unit == "player") then
 		RefreshDelveCoachLiveContent()
 	elseif event == "PLAYER_TARGET_CHANGED" then
+		MaybeOfferRoomBoss("PLAYER_TARGET_CHANGED")
 		RefreshDelveCoachLiveContent()
 	end
 end)

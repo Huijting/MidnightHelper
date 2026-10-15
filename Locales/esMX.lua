@@ -224,6 +224,7 @@ for k, v in pairs({
 	DELVE_CHAT_TWILIGHT_CRYPTS_OVERVIEW = "SO de Zul'Aman (Trono Quebrado). Loa / Party Crasher / Trapped: jefe Blademaster Darza. Why'd it have to be snakes?: jefe Replicating Venomborne.",
 	DELVE_CHAT_VENOMFALL_DEEPS_OVERVIEW ="Abismo Nemesis, isla norte de la Isla Serpenteante. Azta'rec. Lleva 290 de ilvl para ?, 309 para ??. Valeera en Sanador. Aquí dentro no funciona ninguna coordenada.",
 	DELVE_CHEST_NO_DATA = "Todavía no hay lista de cofres para este abismo.",
+	DELVE_CHEST_SEALED = "%d cofre(s) robusto(s) omitido(s): tras un sello de loa que tu rango del Journey del Laberinto aún no abre.",
 	DELVE_COACH_BOSS_PENDING = "Jefe final aún no detectado — pasa el cursor sobre el icono de abismo en tu mapa de mundo para la historia de hoy.",
 	DELVE_COACH_BOSS_PROMPT = "Jefe final — ¿abrir el Entrenador de abismos?",
 	DELVE_COACH_OPEN_FAILED = "No se pudo abrir Entrenador de abismos:",
