@@ -134,12 +134,14 @@ ns.DELVE_CHESTS = {
 		{ x = 63.71, y = 43.01, seal = 7, room = "Nalorakk's Rest" },       -- #33 Nalorakk's Rest, Nalorakk (weakest match, 1.41 off)
 		{ x = 66.00, y = 51.61, seal = 9, room = "The Catacombs" },       -- #34 Catacombs, Halazzi
 		{ x = 67.43, y = 51.74, seal = 9, room = "The Catacombs" },       -- #35 Catacombs, Halazzi
-		{ x = 88.20, y = 76.40, seal = 3, room = "The Cave Towers" },       -- #37 The Cave Towers, Akil'zon
-		{ x = 89.70, y = 77.70, seal = 3, room = "The Cave Towers" },       -- #38 The Cave Towers, Akil'zon
+		-- #37/#38: quest ids GEMETEN 15 Oct (Rob looted both behind the Akil'zon seal; questDiff 98636 at 88.6/77.3 and
+		-- 98635 at 89.0/77.8 - paired by the nearer chest, 0.98 and 0.71 away).
+		{ x = 88.20, y = 76.40, quest = 98636, seal = 3, room = "The Cave Towers" },  -- #37 The Cave Towers, Akil'zon
+		{ x = 89.70, y = 77.70, quest = 98635, seal = 3, room = "The Cave Towers" },  -- #38 The Cave Towers, Akil'zon
 		{ x = 86.88, y = 63.34, quest = 98634, room = "The Cave Towers" },  -- Zygor (in place of HandyNotes #36), under water, no seal
 		-- Method, Jan'alai's Refuge: NOT a loa seal but a door you click (Method exact, Icy Veins "behind door").
-		-- Rob could not see it on 15 Oct; no quest id, so the route only ticks it off when you loot next to it.
-		{ x = 21.54, y = 36.48, room = "Jan'alai's Refuge" },
+		-- Quest 98603 GEMETEN 15 Oct (Rob looted it; questDiff at 21.5/36.6).
+		{ x = 21.54, y = 36.48, quest = 98603, room = "Jan'alai's Refuge" },
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },

@@ -64,6 +64,10 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+✅ **questDiff na de "treasure run" (10:34-10:42, bijna geen vijanden in het log):** NIEUWE kist-quests in de data: #37 = 98636,
+#38 = 98635 (de Akil'zon-zegelkistjes in The Cave Towers — mijn "geen quest" van eerder was fout), Method/Jan'alai's Refuge = 98603.
+Bevestigd = HandyNotes: 98628 (#23), 98629 (#24), 98620 (#15), 98621 (#16) → 16/16. OPEN: 99585 op 25.0/22.4 (Jan'alai's Refuge),
+geen kist van ons — onbekend wat. Video 10:34 was wéér de Claude-app.
 ✅ **Sha'Kuro + hoofdritualisten gelogd (encounter 3528, 1:39, kill; knop 10:25:29 via encounter id):** Vile Bolt 1289330 3x onderbroken,
 max 18%; Soul Storm 1288806 ~47 s; Rotten Cascade 1289269 16-31 s; Summon Souls 6x. Zol'go Shadow Wave 1283783 DoT tot 20%/tik; Necrotic
 Bolt 325386 en Malakk's Shadowbolt Volley 419223 onderbroken → beide bullets aangevuld (8 talen). Video 10:20 was wél WoW. Rob's
