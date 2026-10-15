@@ -64,6 +64,10 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+✅ **Sha'Kuro + hoofdritualisten gelogd (encounter 3528, 1:39, kill; knop 10:25:29 via encounter id):** Vile Bolt 1289330 3x onderbroken,
+max 18%; Soul Storm 1288806 ~47 s; Rotten Cascade 1289269 16-31 s; Summon Souls 6x. Zol'go Shadow Wave 1283783 DoT tot 20%/tik; Necrotic
+Bolt 325386 en Malakk's Shadowbolt Volley 419223 onderbroken → beide bullets aangevuld (8 talen). Video 10:20 was wél WoW. Rob's
+"Claude"-opnames: hij klikte direct na Win+Alt+R een akkoord in de Claude-app → Game Bar pakte dat venster (AFGELEID).
 ✅ **Akil'zon-zegel open (Rob ≥ rang 3), 2 kistjes in The Cave Towers → Falco Strikes (GEMETEN tooltip):** item 280563 "Ancient
 Hash'ey Battle Art: Falco Strikes", Warband, Unique, handschoenen, alleen in delves, 20% kans op een extra treffer, raakt niet op,
 max itemlevel 344 → Journey-kaart (bij de bestaande Falco Strikes-regel, 9 versies). OPEN: de kaart vertaalt de 4 glove-enchants
