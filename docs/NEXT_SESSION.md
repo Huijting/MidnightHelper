@@ -23,7 +23,9 @@ DBM-Delves-Midnight r266: Labyrinth-modules nog steeds leeg.
 **15 okt — HandyNotes_Midnight 157 (Rob: "heeft handynotes geen nieuwe dingen?"):** zones/labyrinth_of_kindo_jan.lua =
 38 Ancient Chests (ach 63717, 31 met quest), 15 Mislaid Oddities (ach 63727/63728, willekeurig), 3 Hexmasks (ach 63720).
 DelveChestData [2647] → 39 kisten (HandyNotes 37 + Zygor 98634 + Method 21.54/36.48). Controle: HN #26 = onze 98633.
-Quest-ID's = HandyNotes alleen. Oddities/Hexmasks NIET overgenomen (nog). Sha'Kuro "second burrow"-regel: weg (Rob).
+Quest-ID's = HandyNotes alleen. ✅ Rob "zet die er ook maar in": Hexmasks (3, {WAY} in CODEX_LABJOURNEY_BODY rang 2) en
+Mislaid Oddities (15 genummerde {WAY}-links in CODEX_LABYRINTH_BODY), 8 talen + esMX; namen Engels (niet gemeten).
+Zygor/HandyNotes/wago-inventaris "wat is nieuw in 12.1.5 dat MH mist" loopt (mh-research → scratchpad NEW_1215_INVENTORY.md). Sha'Kuro "second burrow"-regel: weg (Rob).
 ⚠️ Bij beta2: CHANGELOG_477_2 zegt "20 chests" → nieuwe changelog-regel met 39.
 📌 **DBM 12.1.14 (Rob 14 okt "dbm is net geupdated", GEMETEN):** DBM-Delves-Midnight NIET bijgewerkt (r265, Labyrinth-
 modules nog leeg). Kithix.lua (DBM-Lairs-Midnight, rev 20261014185057): EncounterID 3513, journal 1324, Story-modus

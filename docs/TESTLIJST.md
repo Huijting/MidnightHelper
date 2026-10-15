@@ -27,6 +27,8 @@ er is niets weggegooid.
       31 hebben een quest-ID: een kist die je al geopend hebt, slaat de route over. Wijst de pijl naar een plek waar geen
       kist staat, noteer de kamer + `/mh capture`.
 - [ ] Na een kist: `/reload` → ik lees `questDiff.found`: klopt het quest-ID van HandyNotes met wat de game afvinkt?
+- [ ] **Codex → Journey-kaart, rang 2:** links naar de 3 Hexmasks (Thundering, Fiery, Frozen). Klik → pijl in de Labyrinth.
+- [ ] **Codex → Labyrinth-kaart, "Mislaid Oddities":** links 1 t/m 15. Klik de dichtstbijzijnde → ligt er een Oddity?
 
 ## 🆕 14 okt — Delve-lijst eerlijk verdeeld (Delves.lua)
 
