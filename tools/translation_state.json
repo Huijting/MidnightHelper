@@ -7996,6 +7996,14 @@
    "ptBR": "a28cfce641f2e88a",
    "ruRU": "a28cfce641f2e88a"
   },
+  "DELVE_CHEST_ROOM_DONE": {
+   "deDE": "a1cbc82572f0335f",
+   "esES": "a1cbc82572f0335f",
+   "frFR": "a1cbc82572f0335f",
+   "itIT": "a1cbc82572f0335f",
+   "ptBR": "a1cbc82572f0335f",
+   "ruRU": "a1cbc82572f0335f"
+  },
   "DELVE_CHEST_ROUTING": {
    "deDE": "ba3ffcfc763a9630",
    "esES": "ba3ffcfc763a9630",
@@ -9207,12 +9215,12 @@
    "ruRU": "45d291b004d6d432"
   },
   "DELVE_TIP_LABYRINTH_ROOMS": {
-   "deDE": "7ba92b3bdc6dd767",
-   "esES": "7ba92b3bdc6dd767",
-   "frFR": "7ba92b3bdc6dd767",
-   "itIT": "7ba92b3bdc6dd767",
-   "ptBR": "7ba92b3bdc6dd767",
-   "ruRU": "7ba92b3bdc6dd767"
+   "deDE": "587be23bbddcd404",
+   "esES": "587be23bbddcd404",
+   "frFR": "587be23bbddcd404",
+   "itIT": "587be23bbddcd404",
+   "ptBR": "587be23bbddcd404",
+   "ruRU": "587be23bbddcd404"
   },
   "DELVE_TIP_PARHELION_PLAZA_BOSS": {
    "deDE": "42599feb52d773ee",

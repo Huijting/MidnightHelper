@@ -64,6 +64,13 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+✅ **Target-naam in de Labyrinth = SECRET, ook buiten combat (GEMETEN 09:47:09 en 10:00:50, o.a. Cynthra vóór de pull).** Het
+target-pad (PLAYER_TARGET_CHANGED) kan daar dus nooit een baas vinden; het blijft stil staan als meetpunt. Wat werkt = ENCOUNTER_START
+via encounter id: Cynthra 10:01:19 "button shown (B)" (GEMETEN), net als Grukk en de Trollbunal.
+✅ **Cynthra gelogd (encounter 3653, 50 s, kill):** Throw Bomb 1317885 (4-10 s), Mine All Mines 1317917 (12-15 s), Big Boom-Boom 1318122
+(~29 s), Boom-Stick 1318149 = 19% HP; Thieving Houndsman 265738 + Sic 'Em! → Cynthra-regel uitgebreid. Pit Boss 266370: Flame Wave
+1296958, Bombardment 1296949 (raakten niet). Harvest-taak-trash: Arcane Arsonist (Flame Bolt 456772, 7x onderbroken), Greedy
+Demolitionist (Shoot, Throw Bomb 1295797), Hired Muscle (Seeing Red, Backhand), Artifact Seeker (Fire Burst).
 🆕 **Kistenroute kamer-bewust** (Rob 15 okt, Catacombs → pijl naar Cave Towers' waterkist #38): elke Labyrinth-kist heeft `room =`
 (mh-research, WH-G/IV-N); GetSubZoneText() = jouw kamer → kisten in die kamer eerst; leeg → chatregel DELVE_CHEST_ROOM_DONE; de ticker
 wisselt vanzelf als je een kamer met een open kist inloopt. Kamernamen als subzone GEMETEN: "Chamber of Rites", "Central
