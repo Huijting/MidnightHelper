@@ -65,7 +65,9 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
 🚀 **v4.7.7 GETAGD 15 okt** (60b544c, run 38714502388 success) na akkoord site-chat; site-chat geseind (nightly, strip, #new,
-"Six"). ✅ CF toont "R v4.7.7" met nette release notes (Rob, 15 okt).
+"Six"). ✅ CF toont "R v4.7.7" met nette release notes (Rob, 15 okt). ✅ Site live met 4.7.7 (site 8203ab5b, Robs ja). Site-chat ving
+op: het tabblad heet "This Week" (TAB_HOME), niet "Home" → CHANGELOG_477_11 aangepast (in het spel vanaf de volgende versie; de
+CF-notes van 4.7.7 zeggen nog "Home", gelaten zoals geüpload).
 ✅ **questDiff na de schatkamer (GEMETEN 15 okt):** #19 98624, #20 98625, #21 98626, #22 98627 = HandyNotes → **20/20**. Schatkamer
 ~44/85: quests **93820, 93821, 93822, 98501** (98501 ook al 14 okt daar) — vermoedelijk de schatkisten; of ze wekelijks resetten = OPEN
 (idee: "schatkamer deze week al gehad?" in de coach).
