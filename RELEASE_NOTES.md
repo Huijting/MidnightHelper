@@ -1,43 +1,50 @@
-# Midnight Helper 4.7.7 beta 1: the Labyrinth after launch day
+# Midnight Helper 4.7.7: the Labyrinth, from our own runs
 
-This is a **beta**: the first fixes and additions after patch 12.1.5 went live. You get betas when the release type of
-Midnight Helper in the CurseForge app is set to **Beta**. Tell us how it goes, also when everything works: `/mh report`
-in game, a comment here on CurseForge, or the feedback form on midnighthelper.com.
+Want new things sooner and help test them? Set the release type of Midnight Helper in the CurseForge app to **Beta**.
+Tell us how it goes, also when everything works: `/mh report` in game, a comment here on CurseForge, or the feedback
+form on midnighthelper.com.
 
-## The Labyrinth of Kindo'jan, after our first live runs
+This release comes from a long day inside The Labyrinth of Kindo'jan with the combat log switched on. Most of what is
+new below was measured in our own fights, not copied from a guide.
 
-- **A button for every room boss.** When a room boss fight starts, a button *Room boss: <name> - show tips?* appears
-  for a few seconds and opens the Delve Coach on that boss. Want the coach to open by itself instead? Settings:
-  *Labyrinth: open the coach for each room boss*.
-- **What the room bosses do**, from the game data: Grukk's Interrupting Shout, Sha'Kuro's Soul Storm, the Drill
-  Sergeant's shield (charge him into a rock), Den'zara's Storm of Torment, and Kindo'jan's Mojo puddles, Whirling Axes and
-  enrage. Each boss's line shows when you fight that boss.
-- **Shadowhunter Jo'din and Treasure Hunter Taltrois** are in the boss panel, and the **chest route** knows 20 chests.
-- **Three launch-day warnings** in the coach: do not leave the delve during a run, talk to Kinduru after Kindo'jan, and
-  a room boss kill sometimes does not count yet.
+## The Labyrinth of Kindo'jan
 
-## The Labyrinth's own Journey
+- **Kindo'jan, with his real timeline.** He follows a fixed clock: Whirling Axes at 0:48 (each tick takes 66% of your
+  health, so step out at once), and from about **1:33 the loa**, by the clock and not at 70% health as the guides say.
+  For the Akil'zon wind: when the wind shows on your screen, step sideways into a narrow gap within 2 seconds. For
+  Nalorakk's bears: go in with full health, each bear takes almost 40%. Run out of lives and you still reach the
+  treasure room.
+- **Room boss tips from our combat logs**: interrupt Grukk's Spectral Regeneration and Sha'Kuro's Vile Bolt, Cynthra's
+  bombs and mines with their timings, and what the head ritualists hit for.
+- **A button for every room boss.** When a room boss fight starts, *Room boss: <name> - show tips?* opens the Delve Coach
+  on that boss. Prefer it to open by itself? Settings: *Labyrinth: open the coach for each room boss*.
+- **The chest route knows 39 chests**, and 20 of their quest ids are checked in game. It leaves out chests behind a loa
+  seal your Journey rank does not open yet, it picks the chests in the room you stand in first, and when a door is
+  closed this run, click **Chests** again to skip that chest.
+- **The Labyrinth's own Journey** on the Delves page and in the Codex: all 9 ranks, the loa Favors that open the sealed
+  doors, the Battle Arts behind them (what Falco Strikes does on your gloves), and how you earn points. Wah'du's weekly
+  Myth questline is on the Labyrinth card, with an arrow to Wah'du.
 
-The Labyrinth has its own Journey next to Delver's Journey. Your rank is now on the **Delves page**, and a new
-**Codex card** explains all 9 ranks: the loa Favors that open the **sealed doors**, the **Battle Arts** and permanent
-upgrades behind them, and how you earn points. The Journey is shared by your Warband.
+## Patch 12.1.5
 
-**Wah'du's weekly quest** is on the Labyrinth card too: one step a week on Tier 8 and higher, three Mythical Soul
-Fragments make a Myth armour piece of your choice. A link sets an arrow to Wah'du.
+- **New mounts on the Mounts tab**: the Corrupted Swarmer (with a bar for your Aqir Research Enclave reputation),
+  Indigo Coiled Horror, Violet-Backed Skyfang, the Loa-Blessed Wayfarer and the Sporebearer Fungal Strider.
+- **The Promise of Tomorrow** campaign on Home, with a route to its start.
+- **`/mh achlist`** has two new groups: the Labyrinth, and the Aqir Invasions with Keystone Myth.
+- **Kith'ix** sits with this season's raids, with **Route** and **Map** buttons, and routes now follow every door into
+  the Vaults and the Underbelly, including what to pick at an Amani Windcaller.
 
-## Kith'ix and the routes there
+## New: a lamp for the combat log
 
-- **Kith'ix** now sits with this season's raids, with **Route** and **Map** buttons. The Codex card covers the trash
-  before the boss.
-- **Routes follow every door**: into the Vaults, into the Underbelly, and they tell you what to pick at an **Amani
-  Windcaller**. Far targets inside the Vaults get the Windcaller as a shortcut.
+A small red lamp at the top of your screen while the game writes the combat log (`/combatlog` switches it on and off),
+so you always know whether a fight is being recorded. `/mh combatlog` says it in chat. Do not want it? Switch it off in
+Settings.
 
 ## Also
 
-- **Codex:** the Voidcore cap rises by one every weekly reset (we measured it), Keystone Myth at 3600 is confirmed
-  live, and the Labyrinth's conduits come from Journey rank 6.
-- **Fixes:** keys on the Dispel tab of the play cards, the delve list split evenly over both columns, no stray dividers
-  under Party targets in a small group, and two marker-bar errors.
+- **Codex:** J'imothy, the Aqir rewards, the Voidcore cap, Keystone Myth 3600, and the Labyrinth task *The Wandering*.
+- **Fixes:** no more ADDON_ACTION_BLOCKED from the consumable board after a `/reload` in combat; keys on the Dispel tab
+  of the play cards; the delve list split evenly; no stray dividers under Party targets; two marker-bar errors.
 
 New texts in other languages are our own translation: native speakers, corrections are very welcome.
 

@@ -6,6 +6,14 @@ local CHANGELOG_ENTRIES = {
 	{
 		version = "4.7.7",
 		lines = {
+			"CHANGELOG_477_0",
+			-- release (15 Oct 2026, after Rob's own Labyrinth runs with the combat log)
+			"CHANGELOG_477_8",
+			"CHANGELOG_477_9",
+			"CHANGELOG_477_10",
+			"CHANGELOG_477_11",
+			"CHANGELOG_477_12",
+			"CHANGELOG_477_13",
 			-- beta 1 (14 Oct 2026, EU patch day for 12.1.5)
 			"CHANGELOG_477_1",
 			"CHANGELOG_477_2",

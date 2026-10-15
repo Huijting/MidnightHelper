@@ -4,6 +4,23 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.7
 
+📌 **2026-10-15, RELEASE KLAARGEZET (Rob: "ik vind het toch een release waard" — gewone release i.p.v. beta2).**
+NOG NIET GETAGD: wacht op akkoord site-chat + Robs laatste go. `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md` (byte-gelijk,
+3418 bytes), beta-alinea bovenaan. In-game: CHANGELOG_477_0 (intro) + 477_8..13 nieuw; 477_2 zonder "20 chests".
+⚠️ Wijkt af van "beta eerst" — bewuste keuze van Rob. GEMETEN door Rob op 15 okt: lampje, kamerbaas-knop (Grukk, Cynthra,
+Sha'Kuro via encounter id), achlist-groepen, 20/20 kist-quests, zegels (Akil'zon open bij zijn rang), "The Catacombs".
+NIET in het spel getest: Chests-overslaan-klik, kamer-route na de "The"-fix, Swarmer-reputatiebalk, consumables-fix,
+vertalingen (zelfgemaakt).
+
+- **Labyrinth:** kistenroute 39 kisten (zegels per Journey-rang, kamer-eerst, overslaan), quest-ID's 98603/98635/98636,
+  coach-tips uit Robs combat log (Grukk, Cynthra, Sha'Kuro, ritualisten, Kindo'jan-tijdschema), The Wandering,
+  levens op = toch schatkamer.
+- **Nieuw:** combat log-lampje (CombatLogLamp.lua, `/mh combatlog`, setting).
+- **12.1.5:** 5 mount-rijen (Swarmer via friendship 2838), Promise of Tomorrow, achlist-groepen, J'imothy, Aqir-beloningen.
+- **Codex:** Journey-kaart (kistpunten, Falco Strikes 280563), Wah'du-verkoper.
+- **Fix:** consumables-bord bouwt geen secure knoppen meer in combat.
+- **Tool:** `tools/combatlog_guide.py` (log → per gevecht vijand-spells, schade, doden).
+
 📌 **2026-10-14 avond, BETA 1 (Rob: "je krijgt een go voor de beta-release"), tag `v4.7.7-beta1` (d8fa274) na akkoord
 site-chat; CF/Wago/GitHub "Success!" (run 38628192804).**
 `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md` (byte-gelijk, kop "beta 1"). In-game changelog CHANGELOG_477_1..7.
