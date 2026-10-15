@@ -52,6 +52,11 @@ er is niets weggegooid.
 - [ ] **Kisten per kamer:** loop een kamer in → de pijl kiest een kist in díe kamer (de naam van de kamer staat boven je
       minimap). Kamer leeg → chat: *"No chests left in <kamer> that I know of. The next one is in <kamer>…"*. Klopt de kamernaam
       boven je minimap met wat MH zegt? Vooral bij Catacombs, Reliquary, Nalorakk's Rest, Flooded Chamber, Cave Towers.
+- [ ] **Mount run** (nieuw 15 okt): `/mh mountrun` of de knop onderaan het Mounts-tabblad. Per raid groen "open" / grijs
+      "done this week (resets in …)", per mount groen vinkje (heb je al) of rood kruis. Na een kill: venster opnieuw openen →
+      klopt "done this week"? Vergelijk met `/raidinfo`. Heroic-dungeons (Utgarde Pinnacle, Sethekk, Magisters' Terrace,
+      Culling) staan misschien altijd op "open" (onbekend of het spel die lockout doorgeeft). "Arrow to the entrance" in het
+      goede gebied → wijst de pijl naar de ingang?
 - [ ] **Mounts-tabblad → Hexed Vilefeather Eagle** (nieuw 15 okt): balk *X / 1000* (je Vile Essence) + Route-knop naar de
       Abandoned Ritual Skull in Zul'Aman (44.72, 44.09). Klopt de plek?
 - [ ] **Codex → World → "Hidden treasures without an achievement"**: klik een paar links (boek in Silvermoon, Voidhoarder's

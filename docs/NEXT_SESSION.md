@@ -64,6 +64,12 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+🆕 **Mount run (oude raids)** (Rob 15 okt "doe optie 2"): `Modules/MountRun.lua` + `MountRunData.lua`, `/mh mountrun`, knop op het
+Mounts-tabblad. Live uit de client: verzameld (C_MountJournal) en lockout (GetSavedInstanceInfo + EncounterInfo, boss-naam Engels;
+anders volle clear). Data (mh-research, wago 12.1.5.70391): 25 instances / 32 mounts in 4 "avonden", ingang via
+C_EncounterJournal.GetDungeonEntrancesForMap met fallback-coördinaat. AFGELEID / te meten: GetSavedInstanceInfo-laatste-waarde =
+Map.ID; Heroic 5-mans in de lockout-lijst; 3-drakes/0-keepers/timer-voorwaarden; vliegen in Draenor/Legion/Zereth. Bewust GEEN
+wereldroute (Mount Route Planner doet dat). Vertalingen nlNL/de/fr/es/pt/it/ru: volgende commit.
 🔍 **HandyNotes 158 vs MH, alle zones (mh-research 15 okt, scratchpad hn158_*):** 100/100 rares, 88/88 beroepsschatten, 35/35
 delve-kisten, alle WAY-links gelijk (GEMETEN). Overgenomen: Serrasa 56.38/32.99 en Pterrock 27.27/70.32 (Rares-tab; Achievements had
 ze al). Bewust NIET: Tremora (MH = grotingang), Stellar Stash 94005, Exaliburn 93569, Ha'kalawe (op patrouille), Nar'zira 66.40/62.90

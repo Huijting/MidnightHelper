@@ -2222,6 +2222,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mountrun — old raids you can solo for a mount: missing or not, open this week or not (MountRun.lua).
+	if msg == "mountrun" then
+		if ns.MH_ShowMountRun then
+			ns.MH_ShowMountRun()
+		end
+		return
+	end
+
 	-- /mh combatlog — is the game writing the combat log, and why the lamp shows or not (CombatLogLamp.lua).
 	if msg == "combatlog" then
 		if ns.MH_CombatLogLampReport then

@@ -142,6 +142,8 @@ ns.MH_COMMANDS = {
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },
+		-- 15 Oct 2026: old raids you can solo for a mount, with this week's lockouts (MountRun.lua).
+		{ cmd = "/mh mountrun", descKey = "CMDLIST_MOUNTRUN" },
 		-- 5 Oct 2026 (survey #16): every Midnight achievement you still miss (MidnightAchList.lua).
 		{ cmd = "/mh achlist", descKey = "CMDLIST_ACHLIST" },
 		-- 🔴 `/mh season stats`, NOT `/mh season`. This row promised "Season stats for

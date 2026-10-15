@@ -244,6 +244,8 @@ Modules\SettingsDefs.lua
 Modules\NativeSettings.lua
 Modules\FpsPanel.lua
 Modules\CombatLogLamp.lua
+Modules\MountRunData.lua
+Modules\MountRun.lua
 Modules\SettingsPage.lua
 Modules\ShardCapAlert.lua
 Modules\WorldContent.lua
