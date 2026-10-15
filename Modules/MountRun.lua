@@ -104,7 +104,13 @@ local function RaidStatus(raid, lockouts)
 		local done = false
 		if e then
 			if raid.boss and next(e.killed) then
-				done = e.killed[raid.boss:lower()] == true
+				-- boss may be a list: the lockout can use the DungeonEncounter name or the journal's (Mekkatorque).
+				local names = type(raid.boss) == "table" and raid.boss or { raid.boss }
+				for _, bn in ipairs(names) do
+					if e.killed[bn:lower()] then
+						done = true
+					end
+				end
 			elseif type(e.done) == "number" and type(e.total) == "number" and e.total > 0 then
 				done = e.done >= e.total
 			end
@@ -249,7 +255,10 @@ function ns.RefreshMountRun()
 				else
 				local name, have = MountState(m.mountID)
 				name = name or m.name
-				if have then
+				if not m.mountID then
+					-- A token that opens into a random mount (Quantum Courser): nothing to tick, so no tick or cross.
+					mountsText[#mountsText + 1] = ("|cffdddddd• %s|r |cffbbbbbb(%s, %s)|r"):format(name, m.boss or "?", m.chance or "?")
+				elseif have then
 					mountsText[#mountsText + 1] = ("|TInterface\\RaidFrame\\ReadyCheck-Ready:0|t |cff999999%s|r"):format(name)
 				else
 					missing = missing + 1
@@ -260,7 +269,10 @@ function ns.RefreshMountRun()
 			end
 			missingTotal = missingTotal + missing
 			local status = RaidStatus(raid, lockouts)
-			put(("|cffffffff%s|r  %s"):format(ns:L(raid.nameKey), status), "GameFontHighlight", 8, 2)
+			-- group = true: current raids whose mount cannot be soloed at max level (Rob, 15 Oct: "ook diegene die een
+			-- groep benodigen"). Same row, with a label, so a solo player sees it at a glance.
+			local groupTag = raid.group and ("  |cffff9933" .. ns:L("MOUNTRUN_GROUP") .. "|r") or ""
+			put(("|cffffffff%s|r%s  %s"):format(ns:L(raid.nameKey), groupTag, status), "GameFontHighlight", 8, 2)
 			put(table.concat(mountsText, "|n"), "GameFontHighlightSmall", 18, 2)
 			if raid.howKey then
 				put("|cffaaaaaa" .. ns:L(raid.howKey) .. "|r", "GameFontHighlightSmall", 18, 2)

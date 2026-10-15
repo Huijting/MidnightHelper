@@ -876,6 +876,7 @@ ns._mhLocales.nlNL = {
 	MOUNTRUN_OPEN_BTN = "Oude raids voor mounts (mount run)",
 	MOUNTRUN_INTRO = "Oude raids die je alleen kunt doen voor een mount. Groen = deze week kun je het nog proberen, grijs = deze week al gedaan. Een groen vinkje = die mount heb je al, een rood kruis = die mis je nog. Beide komen rechtstreeks uit het spel. De kansen zijn per kill, van Wowhead (okt 2026).",
 	MOUNTRUN_OPEN = "open",
+	MOUNTRUN_GROUP = "(groep nodig)",
 	MOUNTRUN_DONE = "deze week gedaan",
 	MOUNTRUN_RESET_DAYS_FMT = "(reset over %dd %du)",
 	MOUNTRUN_RESET_HOURS_FMT = "(reset over %du)",
