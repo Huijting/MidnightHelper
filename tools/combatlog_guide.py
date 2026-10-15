@@ -71,9 +71,13 @@ class Segment:
         self.interrupts = defaultdict(int)  # (enemy, spellid, name)
         self.deaths = []  # (t, player, [recent enemy hits])
         self.enemy_deaths = defaultdict(int)
+        self.shields = defaultdict(lambda: {"count": 0, "total": 0})  # (enemy, spellid, name): absorbed player damage
+        self.enemy_buffs = defaultdict(int)  # (enemy, spellid, name)
+        self.interactions = defaultdict(int)  # (spellid, name, object): what players did to non-enemy things
+        self.after_buffs = defaultdict(int)  # (spellid, name): buffs that landed on a player right after one
 
     def empty(self):
-        return not (self.casts or self.debuffs or self.hits or self.deaths)
+        return not (self.casts or self.debuffs or self.hits or self.deaths or self.interactions)
 
 
 def to_int(text):
@@ -131,6 +135,7 @@ def run(path):
     zone = "?"
     recent = defaultdict(list)  # player -> recent enemy hits
     friendly_summons = set()
+    last_interaction = {}  # player guid -> time of their last action on a room object
     meta = ""
     lines = 0
 
@@ -210,6 +215,30 @@ def run(path):
             if ev == "SPELL_INTERRUPT" and is_enemy(dst_guid, dst_flags) and len(f) > 13:
                 s.interrupts[(dst_name, f[12], f[13])] += 1
                 continue
+            if ev == "SPELL_ABSORBED" and len(f) >= 10:
+                # Tail = absorberGUID, name, flags, raidFlags, absorbSpellId, name, school, amount, baseAmount, crit
+                # (the attack's own spell prefix is only there for spells, so read from the end). An ENEMY absorber
+                # is a shield on the monster - the Rage Specters' Shield of Darkness, 15 Oct 2026.
+                a_guid, a_name, a_flags = f[-10], f[-9], f[-8]
+                if is_enemy(a_guid, a_flags) and a_guid not in friendly_summons:
+                    sh = s.shields[(a_name, f[-6], f[-5])]
+                    sh["count"] += 1
+                    sh["total"] += to_int(f[-3]) or 0
+                continue
+            if src_guid.startswith("Player-") and dst_guid.startswith("Creature-") and dst_guid not in friendly_summons \
+                    and (to_int_hex(dst_flags) & 0x20) and ev in ("SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED"):
+                # A player doing something to a NEUTRAL creature = an object of the room: lighting the Jan'alai
+                # Brazier (1302928 on "Flames of Jan'alai", 15 Oct 2026). Pets and companions are excluded above.
+                s.interactions[(spell_id, spell_name, dst_name)] += 1
+                last_interaction[src_guid] = t
+                continue
+            if ev == "SPELL_AURA_APPLIED" and player_dst and len(f) > 12 and f[12] == "BUFF" \
+                    and t - last_interaction.get(dst_guid, -99) <= 6:
+                # Probably the reward of that interaction (Purging Flames 4 s after the brazier) - but a class
+                # buff can land in the same window, so the report calls these "maybe".
+                s.after_buffs[(spell_id, spell_name)] += 1
+            if ev == "SPELL_AURA_APPLIED" and is_enemy(dst_guid, dst_flags) and enemy_src and len(f) > 12 and f[12] == "BUFF":
+                s.enemy_buffs[(dst_name, spell_id, spell_name)] += 1
             if not enemy_src:
                 continue
             key = (src_name, npc_id(src_guid), spell_id, spell_name)
@@ -274,6 +303,27 @@ def report(path, meta, lines, segments):
                 biggest = " - biggest %s = %.0f%% of that player's health" % (fmt_num(h["max"]), h["max_pct"]) if h["max"] else ""
                 out.append("- %s (%s) from %s: %d hits, %s total, %d player(s)%s" % (
                     name, sid, npc, h["count"], fmt_num(h["total"]), len(h["players"]), biggest))
+        if s.shields:
+            out.append("")
+            out.append("**Shields on enemies** (damage they soaked - something has to break these)")
+            out.append("")
+            for (enemy, sid, name), sh in sorted(s.shields.items(), key=lambda kv: -kv[1]["total"]):
+                out.append("- %s (%s) on %s: soaked %d hits, %s" % (name, sid, enemy, sh["count"], fmt_num(sh["total"])))
+        if s.enemy_buffs:
+            out.append("")
+            out.append("**Buffs enemies gave themselves or each other**")
+            out.append("")
+            for (enemy, sid, name), n in sorted(s.enemy_buffs.items(), key=lambda kv: -kv[1]):
+                out.append("- %s (%s) on %s: %dx" % (name, sid, enemy, n))
+        if s.interactions:
+            out.append("")
+            out.append("**What players did to objects in the room** (likely the room's mechanic)")
+            out.append("")
+            for (sid, name, obj), n in sorted(s.interactions.items(), key=lambda kv: -kv[1]):
+                out.append("- %s (%s) on %s: %dx" % (name, sid, obj, n))
+            if s.after_buffs:
+                out.append("- maybe its reward - buffs that landed within 6 s after: " + ", ".join(
+                    "%s (%s) %dx" % (name, sid, n) for (sid, name), n in sorted(s.after_buffs.items(), key=lambda kv: -kv[1])))
         if s.summons:
             out.append("")
             out.append("**Summons**")

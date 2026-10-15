@@ -41,6 +41,9 @@ er is niets weggegooid.
 - [ ] **Coach → "Chests" in de Labyrinth:** de pijl kiest nu uit 39 kisten (was 20), ook die achter de loa-zegels.
       31 hebben een quest-ID: een kist die je al geopend hebt, slaat de route over. Wijst de pijl naar een plek waar geen
       kist staat, noteer de kamer + `/mh capture`.
+- [ ] **Kist overslaan** (Rob 15 okt: "hij stuurt me ergens naartoe waar ik niet heen kon"): staat de pijl op een kist achter een
+      dichte deur, klik dan nog een keer op **Chests** in de coach. In de chat: *"Skipped Sturdy Chest N — it comes back last"*,
+      en de pijl gaat naar de volgende. Na de andere kisten komt de overgeslagen kist als laatste terug.
 - [x] Na een kist: `/reload` → ik lees `questDiff.found`: klopt het quest-ID van HandyNotes met wat de game afvinkt?
       ✅ 15 okt GEMETEN, 2 van 2: kist #1 = 97131 (46.9/64.2), kist #2 = 98602 (37.1/69.8). Route liep door naar 3 of 39.
 - [ ] **Codex → Journey-kaart, rang 2:** links naar de 3 Hexmasks (Thundering, Fiery, Frozen). Klik → pijl in de Labyrinth.

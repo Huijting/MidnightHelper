@@ -7973,6 +7973,22 @@
    "ptBR": "ba3ffcfc763a9630",
    "ruRU": "ba3ffcfc763a9630"
   },
+  "DELVE_CHEST_SKIPPED": {
+   "deDE": "bd6002d304e97ecd",
+   "esES": "bd6002d304e97ecd",
+   "frFR": "bd6002d304e97ecd",
+   "itIT": "bd6002d304e97ecd",
+   "ptBR": "bd6002d304e97ecd",
+   "ruRU": "bd6002d304e97ecd"
+  },
+  "DELVE_CHEST_SKIP_HINT": {
+   "deDE": "20880674ee332128",
+   "esES": "20880674ee332128",
+   "frFR": "20880674ee332128",
+   "itIT": "20880674ee332128",
+   "ptBR": "20880674ee332128",
+   "ruRU": "20880674ee332128"
+  },
   "DELVE_CHEST_UNSURE": {
    "deDE": "ec208ea4dfbf8746",
    "esES": "ec208ea4dfbf8746",

@@ -329,6 +329,8 @@ function ns.GetOpenDelveChests()
 	local open, unknown = {}, 0
 	local visited = ns._mhDelveChestVisited
 	visited = visited and visited.mapID == mapID and visited or nil
+	local skipped = ns._mhDelveChestSkipped
+	skipped = skipped and skipped.mapID == mapID and skipped or nil
 	for i = 1, #chests do
 		local c = chests[i]
 		local done = ns.IsDelveChestDone(c)
@@ -347,10 +349,15 @@ function ns.GetOpenDelveChests()
 				local dx, dy = c.x - px, c.y - py
 				d = dx * dx + dy * dy -- squared: we only ever compare these
 			end
-			open[#open + 1] = { x = c.x, y = c.y, quest = c.quest, index = i, dist = d }
+			open[#open + 1] = { x = c.x, y = c.y, quest = c.quest, index = i, dist = d, skipped = skipped and skipped[i] or nil }
 		end
 	end
 	table.sort(open, function(a, b)
+		-- A chest you skipped (behind a door this run did not open, Rob 15 Oct) goes to the back of the line,
+		-- not off the list: it is still unopened, and once everything else is done it is the only way left.
+		if (a.skipped and true or false) ~= (b.skipped and true or false) then
+			return not a.skipped
+		end
 		if a.dist and b.dist then
 			return a.dist < b.dist
 		end
@@ -423,9 +430,10 @@ local function PointAtNearest(announce)
 		-- when the notice has gone. Rob, 16 aug: he only spotted the chat line because
 		-- he asked for the feature.
 		if ns.ShowBriefNotice then
-			ns.ShowBriefNotice(headline, 5)
+			ns.ShowBriefNotice(headline .. "|n" .. ns:L("DELVE_CHEST_SKIP_HINT"), 6)
 		end
 		print(("%s %s"):format(ns:L("PRINT_PREFIX"), headline))
+		print(("   %s"):format(ns:L("DELVE_CHEST_SKIP_HINT")))
 		-- Say it out loud when a chest's state is unreadable. The route then walks you
 		-- past something you may already have opened, and a player who is not told that
 		-- concludes the addon is wrong rather than cautious.
@@ -444,7 +452,23 @@ local function PointAtNearest(announce)
 end
 
 --- Start (or restart) the chest route for the delve the player is standing in.
+--- Clicking again while the route already points at a chest here SKIPS that chest: the nearest chest in a
+--- straight line can sit behind a sealed door (the Labyrinth only opens the rooms a run picks; Rob, 15 Oct:
+--- "hij stuurt me ergens naartoe waar ik niet heen kon"). We have no room-per-chest data to avoid it ourselves,
+--- so the player decides; the skip lasts until the next zone-in, like the looted list below.
 function ns.RouteDelveChests()
+	local _, hereMap = ns.GetDelveChestsHere()
+	if ticker and ns._mhRouteOwner == "delvechest" and activeIndex and hereMap and hereMap == activeMap then
+		local s = ns._mhDelveChestSkipped
+		if not (s and s.mapID == activeMap) then
+			s = { mapID = activeMap }
+			ns._mhDelveChestSkipped = s
+		end
+		s[activeIndex] = true
+		print(("%s %s"):format(ns:L("PRINT_PREFIX"), (ns:L("DELVE_CHEST_SKIPPED")):format(activeIndex)))
+		PointAtNearest(true)
+		return true
+	end
 	StopRoute(true)
 	local ok = PointAtNearest(true)
 	if not ok then
@@ -508,5 +532,6 @@ do
 	resetter:RegisterEvent("PLAYER_ENTERING_WORLD")
 	resetter:SetScript("OnEvent", function()
 		ns._mhDelveChestVisited = nil
+		ns._mhDelveChestSkipped = nil
 	end)
 end

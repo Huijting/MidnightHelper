@@ -43,6 +43,13 @@ Positieve controle GEMETEN op het 12.0.1-log van 30 mrt (Darmac: Call the Pack 1
 Animated Strike 1238293 (cast bar, max 175k = 21% van Robs HP), Fixate 1263775 (debuff), Guard 1304368 (onderbroken = kickbaar);
 Rage Walker 273005 — Bone Armor 322743. Bedragen kloppen en staan er nu in (met % van max HP). Valeera's Agony (haar eigen pet)
 en haar Killing Spree worden uitgefilterd.
+✅ **Raging Spirits-kamer = licht-mechaniek (GEMETEN in het log):** Rob stak **10x** "Igniting the Jan'alai Brazier" (1302928) aan op
+"Flames of Jan'alai" (npc 268940); de Specters dragen **Shield of Darkness** (1302825, absorbeert) + Bloodless Repudiation (1304378).
+Daarna kreeg Rob Purging Flames (1259491) — of dát het schild breekt is AFGELEID. Tool vindt dit nu zelf (secties shields /
+enemy buffs / objecten in de kamer). Nog geen coach-tip geschreven. ⚠️ Robs video van die kamer was de **Claude-app**
+(Game Bar neemt het actieve venster op) → eerst in WoW klikken, dan Win+Alt+R.
+🆕 **Kist overslaan** (DelveChestData `ns.RouteDelveChests`): 2e klik op Chests terwijl de route loopt = huidige kist overslaan
+(`ns._mhDelveChestSkipped`, achteraan in de rij, gewist bij zone-in). Hint in notice + chat. Geen kamer-per-kist-data → speler kiest.
 ⚠️ **Kist #2 gaf maar 150** (+2500 Amani Tribe, Rattling Bag o' Gold); questDiff **98602 op 37.1/69.8** = HandyNotes #2 ✅.
 Kaart zegt nu "700 één keer, 150 één keer"; waarom het verschilt (eerste van de dag? soort kist?) is OPEN.
 ✅ **Kamerbaas-knop opent de juiste baas** (video 15 okt 17:45: coach op The Undead Trollbunal 3/19; log "via encounter id").
