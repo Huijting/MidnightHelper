@@ -32,6 +32,10 @@ Colubrine Band). **Myth 2/6, ilvl 321.** → onze kaart-zin "right-click 3 → V
 trinkets" klopt NIET met wat de client toont → ✅ CODEX_LABYRINTH_BODY Wah'du-sectie herschreven ("Wah'du is also a vendor:
 3 fragments → Myth 2/6 ilvl 321; weapons and shields, armour, rings"), Armament-zin weg, 8 talen + esMX, drift gemarkeerd.
 Open: "each step gives 1 fragment" alleen voor stap 1 gezien.
+✅ **Kistenroute + HandyNotes-quest-ID's GEMETEN (Rob 15 okt):** na kist #1 → "Sturdy Chest 2 of 39 — follow the arrow";
+questDiff ving **97131 op 2647 46.9/64.2** = HandyNotes #1 (46.88/64.38, 97131) — ook de LOOT_OPENED-sweep werkt.
+Kist gaf **700 Labyrinth Journey-punten** ("Your Warband's reputation … increased by 700") → CODEX_LABJOURNEY_BODY, 8 talen.
+Open: "Sturdy Chest" in de/fr/es/pt/it/ru nog Engels (clientnaam niet gemeten).
 ✅ Inventaris "wat is nieuw in 12.1.5 dat MH mist" → `docs/NEW_1215_INVENTORY_2026-10-15.md` (wago-diff 69933→70391):
 8 mounts, 3 pets, 10 toys, 55 achievements, 10 titels; MH heeft bijna niets daarvan als data. Geen nieuwe wereld-rares/
 treasures. Top 7 aanbevolen (Aqir-beloningen + Corrupted Swarmer, campagne "The Promise of Tomorrow", Loa-Blessed
