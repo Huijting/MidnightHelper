@@ -7,9 +7,13 @@ name, every debuff it put on a player, every hit, every interrupt and every deat
 writes it to <WoW>/_retail_/Logs/WoWCombatLog-*.txt while `/combatlog` is on. It is a file the client writes,
 not something MH reads in game, so none of the combat-log taint questions apply.
 
-GEMETEN on a 12.0.1 log (30 Mar 2026): enemy names, spell ids and spell names are plain text. The damage
-AMOUNTS in that log looked wrong (a pet hitting a 10k-HP beast for 271 million), so this report counts hits
-and does not print amounts.
+GEMETEN on a 12.0.1 log (30 Mar 2026) and a 12.1.5 log (15 Oct 2026, a Labyrinth room): enemy names, spell
+ids and spell names are plain text. Amounts on the 12.1.5 log are believable (Rage Specter melee 87k and
+Animated Strike 175k against Rob's 834k health). Both logs carry the advanced block (19 fields: unit, owner,
+HP, max HP, ...) even though their header says ADVANCED_LOG_ENABLED,0, so the amount is read from the END
+of the line, which does not depend on that block.
+Companion pets (Valeera's Agony) are summoned by a friendly unit and flip to hostile flags later; anything
+summoned by a non-enemy is never counted as an enemy.
 
 Run through the front door (no arguments on the command line -- see CLAUDE.md):
     probe_job.txt:  run combatlog_guide                 (newest log in the Logs folder)
@@ -62,7 +66,7 @@ class Segment:
         self.result = None
         self.casts = defaultdict(lambda: {"start": [], "success": [], "school": ""})  # (npc, npcid, spellid, name)
         self.debuffs = defaultdict(lambda: {"count": 0, "players": set()})  # (npc, spellid, name)
-        self.hits = defaultdict(lambda: {"count": 0, "players": set()})  # (npc, spellid, name)
+        self.hits = defaultdict(lambda: {"count": 0, "players": set(), "total": 0, "max": 0, "max_pct": 0.0})
         self.summons = defaultdict(int)  # (npc, spellid, name, summoned)
         self.interrupts = defaultdict(int)  # (enemy, spellid, name)
         self.deaths = []  # (t, player, [recent enemy hits])
@@ -70,6 +74,37 @@ class Segment:
 
     def empty(self):
         return not (self.casts or self.debuffs or self.hits or self.deaths)
+
+
+def to_int(text):
+    try:
+        return int(text)
+    except (TypeError, ValueError):
+        return None
+
+
+def to_int_hex(text):
+    try:
+        return int(text, 16)
+    except (TypeError, ValueError):
+        return 0
+
+
+def add_hit(s, key, player, amount_text, max_hp_text):
+    h = s.hits[key]
+    h["count"] += 1
+    h["players"].add(player)
+    amount, max_hp = to_int(amount_text), to_int(max_hp_text)
+    if amount is None or amount < 0:
+        return
+    h["total"] += amount
+    if amount > h["max"]:
+        h["max"] = amount
+        h["max_pct"] = (100.0 * amount / max_hp) if max_hp else 0.0
+
+
+def fmt_num(n):
+    return "%.1fM" % (n / 1e6) if n >= 1e6 else ("%dk" % round(n / 1e3) if n >= 1e3 else str(n))
 
 
 def fmt_offset(seconds):
@@ -95,6 +130,7 @@ def run(path):
     current_enc = None
     zone = "?"
     recent = defaultdict(list)  # player -> recent enemy hits
+    friendly_summons = set()
     meta = ""
     lines = 0
 
@@ -152,15 +188,22 @@ def run(path):
                 if player_dst:
                     s.deaths.append((t, dst_name, list(recent[dst_name])))
                     recent[dst_name] = []
-                elif is_enemy(dst_guid, dst_flags):
+                elif is_enemy(dst_guid, dst_flags) and dst_guid not in friendly_summons:
                     s.enemy_deaths[dst_name] += 1
                 continue
-            if len(f) < 12:
-                # SWING_* has no spell prefix
-                if ev.startswith("SWING_DAMAGE") and enemy_src and player_dst and ev == "SWING_DAMAGE":
-                    s.hits[(src_name, "0", "Melee")]["count"] += 1
-                    s.hits[(src_name, "0", "Melee")]["players"].add(dst_name)
+            if ev == "SPELL_SUMMON" and not enemy_src:
+                # A companion's own pets (Valeera's Agony, 15 Oct 2026) turn hostile-flagged later; not enemies.
+                friendly_summons.add(dst_guid)
+            if src_guid in friendly_summons:
+                enemy_src = False
+            if ev == "SWING_DAMAGE_LANDED":
+                # Melee has no spell prefix. The _LANDED copy carries the VICTIM's health (f[12] = max HP), so the
+                # hit can be put next to the player's health bar; plain SWING_DAMAGE carries the attacker's.
+                if enemy_src and player_dst:
+                    add_hit(s, (src_name, "0", "Melee"), dst_name, f[-10], f[12] if len(f) > 12 else None)
                     recent[dst_name] = (recent[dst_name] + [(src_name, "Melee")])[-DEATH_LOOKBACK:]
+                continue
+            if len(f) < 12 or ev.startswith("SWING_"):
                 continue
             spell_id, spell_name, school = f[9], f[10], f[11]
 
@@ -181,11 +224,14 @@ def run(path):
                 d["count"] += 1
                 d["players"].add(dst_name)
             elif ev in ("SPELL_DAMAGE", "SPELL_PERIODIC_DAMAGE", "RANGE_DAMAGE") and player_dst:
-                h = s.hits[(src_name, spell_id, spell_name + (" (tick)" if ev == "SPELL_PERIODIC_DAMAGE" else ""))]
-                h["count"] += 1
-                h["players"].add(dst_name)
+                # suffix = amount, baseAmount, overkill, school, resisted, blocked, absorbed, crit, glancing,
+                # crushing, ST/AOE -> amount is 11th from the end; f[15] = the victim's max HP (advanced block)
+                add_hit(s, (src_name, spell_id, spell_name + (" (tick)" if ev == "SPELL_PERIODIC_DAMAGE" else "")),
+                        dst_name, f[-11], f[15] if len(f) > 15 else None)
                 recent[dst_name] = (recent[dst_name] + [(src_name, spell_name)])[-DEATH_LOOKBACK:]
-            elif ev == "SPELL_SUMMON":
+            elif ev == "SPELL_SUMMON" and not (to_int_hex(dst_flags) & 0x10):
+                # 0x10 = friendly: the log names Valeera's own Killing Spree with the Specter she jumps on as the
+                # "source" (15 Oct 2026, 6x); that is not something the enemy summons.
                 s.summons[(src_name, spell_id, spell_name, dst_name)] += 1
 
     return meta, lines, [x for x in segments if not x.empty()]
@@ -196,7 +242,7 @@ def report(path, meta, lines, segments):
     out.append("# Combat log: %s" % os.path.basename(path))
     out.append("")
     out.append("Log header: `%s` - %d lines read. Times are minutes:seconds from the start of the fight." % (meta, lines))
-    out.append("Damage amounts are left out on purpose (see the tool's docstring). \"Players\" = how many different players it touched.")
+    out.append("\"Players\" = how many different players it touched. Health % = the hit against that player's max health.")
     for s in segments:
         out.append("")
         dur = fmt_offset(s.end - s.start)
@@ -224,8 +270,10 @@ def report(path, meta, lines, segments):
             out.append("")
             out.append("**What hit players**")
             out.append("")
-            for (npc, sid, name), h in sorted(s.hits.items(), key=lambda kv: -kv[1]["count"]):
-                out.append("- %s (%s) from %s: %d hits, %d player(s)" % (name, sid, npc, h["count"], len(h["players"])))
+            for (npc, sid, name), h in sorted(s.hits.items(), key=lambda kv: -kv[1]["total"]):
+                biggest = " - biggest %s = %.0f%% of that player's health" % (fmt_num(h["max"]), h["max_pct"]) if h["max"] else ""
+                out.append("- %s (%s) from %s: %d hits, %s total, %d player(s)%s" % (
+                    name, sid, npc, h["count"], fmt_num(h["total"]), len(h["players"]), biggest))
         if s.summons:
             out.append("")
             out.append("**Summons**")

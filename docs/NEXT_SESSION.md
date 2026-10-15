@@ -38,8 +38,11 @@ Kist gaf **700 Labyrinth Journey-punten** ("Your Warband's reputation … increa
 🆕 **`tools/combatlog_guide.py`** (Rob 15 okt: "filmpjes compleet analyseren → guide"): leest `Logs/WoWCombatLog-*.txt`
 (`/combatlog` aan/uit in game) → per gevecht vijand-casts (id, cast bar ja/nee, eerste keer, interval), debuffs, wat spelers raakt,
 summons, interrupts, doden + laatste treffers. `probe_job: run combatlog_guide [pad]` → `%TEMP%\mh_combatlog\<log>.md`.
-Positieve controle GEMETEN op het 12.0.1-log van 30 mrt (Darmac: Call the Pack 154975, Pin Down 155365). Of 12.1.5 nog alles
-schrijft = OPEN (Rob logt nu een Labyrinth-kamer). Bedragen bewust weggelaten: in dat log onbetrouwbaar (271M op een 10k-beest).
+Positieve controle GEMETEN op het 12.0.1-log van 30 mrt (Darmac: Call the Pack 154975, Pin Down 155365).
+✅ **12.1.5 schrijft alles (GEMETEN 15 okt, Labyrinth-kamer "Raging Spirits", geen encounter):** Rage Specter 268892 —
+Animated Strike 1238293 (cast bar, max 175k = 21% van Robs HP), Fixate 1263775 (debuff), Guard 1304368 (onderbroken = kickbaar);
+Rage Walker 273005 — Bone Armor 322743. Bedragen kloppen en staan er nu in (met % van max HP). Valeera's Agony (haar eigen pet)
+en haar Killing Spree worden uitgefilterd.
 ⚠️ **Kist #2 gaf maar 150** (+2500 Amani Tribe, Rattling Bag o' Gold); questDiff **98602 op 37.1/69.8** = HandyNotes #2 ✅.
 Kaart zegt nu "700 één keer, 150 één keer"; waarom het verschilt (eerste van de dag? soort kist?) is OPEN.
 ✅ **Kamerbaas-knop opent de juiste baas** (video 15 okt 17:45: coach op The Undead Trollbunal 3/19; log "via encounter id").
