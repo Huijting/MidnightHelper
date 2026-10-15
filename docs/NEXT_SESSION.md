@@ -64,6 +64,9 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+✅ **questDiff na de schatkamer (GEMETEN 15 okt):** #19 98624, #20 98625, #21 98626, #22 98627 = HandyNotes → **20/20**. Schatkamer
+~44/85: quests **93820, 93821, 93822, 98501** (98501 ook al 14 okt daar) — vermoedelijk de schatkisten; of ze wekelijks resetten = OPEN
+(idee: "schatkamer deze week al gehad?" in de coach).
 ✅ **Kindo'jan, 9 pulls gelogd (encounter 3548, 10:56-11:24, alle wipe) → DELVE_TIP_LABYRINTH_BOSS herschreven (9 talen):** vast
 tijdschema (GEMETEN): 0:05 Eruption of Mojo, 0:37 Hash'ey's Command, **0:48 Whirling Axes** (1300768 = 66% max HP per tik), 1:04 Crushing
 Blow/Juggernaut (Amani Aegis kickbaar, Valeera doet het ook), **~1:33 Ahn'joli De Rising Storm → Visage of Akil'zon Furious Gale** (70-74%,
