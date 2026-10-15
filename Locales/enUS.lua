@@ -1020,7 +1020,8 @@ ns._mhLocales.enUS = {
 	DELVE_CHEST_LEARNED = "This list is what I watched you open here, not a checked one — it cannot tell what is done.",
 	DELVE_CHEST_SKIP_HINT = "Can't reach it? Click Chests again for the next one.",
 	DELVE_CHEST_SKIPPED = "Skipped Sturdy Chest %d — it comes back last.",
-	DELVE_CHEST_SEALED = "%d chest(s) left out: behind a loa seal your Labyrinth Journey rank does not open yet.",
+	DELVE_CHEST_ROOM_DONE = "No chests left in %s that I know of. The next one is in %s: that room may not be open in this run (then click Chests again to skip it).",
+	DELVE_CHEST_SEALED ="%d chest(s) left out: behind a loa seal your Labyrinth Journey rank does not open yet.",
 	-- /mh binds — the player's OWN bindings, read from the client. Not the schema and
 	-- not the auto-map; the subtitle says so because the three look alike on paper.
 	KEYBIND_EXPORT_TITLE = "Your keybinds",

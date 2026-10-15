@@ -49,6 +49,9 @@ er is niets weggegooid.
       ("target name is secret here" = de game verbergt de naam ook buiten het gevecht).
 - [ ] **Zegelkisten:** na `/reload` + Chests staat in de chat *"N chest(s) left out: behind a loa seal …"* en wijst de pijl niet
       meer naar een rode zegel. Kist 39 (Jan'alai's Refuge) is GEEN zegel maar een deur om aan te klikken: lukt dat?
+- [ ] **Kisten per kamer:** loop een kamer in → de pijl kiest een kist in díe kamer (de naam van de kamer staat boven je
+      minimap). Kamer leeg → chat: *"No chests left in <kamer> that I know of. The next one is in <kamer>…"*. Klopt de kamernaam
+      boven je minimap met wat MH zegt? Vooral bij Catacombs, Reliquary, Nalorakk's Rest, Flooded Chamber, Cave Towers.
 - [ ] **Kist overslaan** (Rob 15 okt: "hij stuurt me ergens naartoe waar ik niet heen kon"): staat de pijl op een kist achter een
       dichte deur, klik dan nog een keer op **Chests** in de coach. In de chat: *"Skipped Sturdy Chest N — it comes back last"*,
       en de pijl gaat naar de volgende. Na de andere kisten komt de overgeslagen kist als laatste terug.

@@ -99,47 +99,47 @@ ns.DELVE_CHESTS = {
 		-- the two Nalorakk room names). Flooded Chamber (#3 #11 #12 #14 #25): an ice wall that needs fire, no seal.
 		-- Not in this list yet: 2 Nalorakk chests in the Reliquary (~26.94/80.77) and 2-3 Halazzi chests in Halazzi's
 		-- Lair (~10.5/54.7 or 15.3/44) - no exact coordinates or quest ids found.
-		{ x = 46.88, y = 64.38, quest = 97131 },  -- #1
-		{ x = 36.96, y = 69.86, quest = 98602 },  -- #2
-		{ x = 61.65, y = 44.12, quest = 98604 },  -- #3
-		{ x = 38.76, y = 83.42, quest = 98605, seal = 3 },  -- #4 Chamber of Rites, Akil'zon
-		{ x = 38.03, y = 83.46, quest = 98606, seal = 3 },  -- #5 Chamber of Rites, Akil'zon
-		{ x = 21.77, y = 68.59, quest = 98607 },  -- #6
-		{ x = 29.98, y = 74.75, quest = 98608 },  -- #7
-		{ x = 13.85, y = 35.11, quest = 98611 },  -- #8
-		{ x = 26.44, y = 40.32, quest = 98612 },  -- #9
-		{ x = 27.48, y = 33.01, quest = 98613, seal = 5 },  -- #10 Halazzi's Lair, Jan'alai (pair of #13)
-		{ x = 61.17, y = 43.48, quest = 98614 },  -- #11
-		{ x = 61.53, y = 43.57, quest = 98614 },  -- #12 (HandyNotes gives #11 and #12 the same quest)
-		{ x = 27.94, y = 34.55, quest = 98615, seal = 5 },  -- #13 behind Jan'alai's seal (GEMETEN, Rob 15 Oct: "does not grant you passage")
-		{ x = 61.51, y = 44.72, quest = 98619 },  -- #14
-		{ x = 28.69, y = 23.12, quest = 98620 },  -- #15
-		{ x = 22.14, y = 29.59, quest = 98621 },  -- #16
-		{ x = 22.44, y = 12.04, quest = 98622, seal = 5 },  -- #17 Jan'alai's Refuge, Jan'alai
-		{ x = 22.99, y = 11.63, quest = 98623, seal = 5 },  -- #18 Jan'alai's Refuge, Jan'alai
-		{ x = 46.09, y = 11.11, quest = 98624 },  -- #19
-		{ x = 40.58, y = 20.27, quest = 98625 },  -- #20
-		{ x = 30.56, y = 15.65, quest = 98626, seal = 3 },  -- #21 Akil'zon's Roost, Akil'zon
-		{ x = 30.48, y = 15.02, quest = 98627, seal = 3 },  -- #22 Akil'zon's Roost, Akil'zon
-		{ x = 68.24, y = 34.10, quest = 98628 },  -- #23
-		{ x = 67.89, y = 27.68, quest = 98629 },  -- #24
-		{ x = 61.16, y = 44.80, quest = 98631 },  -- #25
-		{ x = 81.31, y = 55.01, quest = 98633 },  -- #26
-		{ x = 72.39, y = 65.93, quest = 98637 },  -- #27
-		{ x = 69.25, y = 71.09, quest = 98638 },  -- #28
-		{ x = 40.75, y = 45.41, quest = 98648 },  -- #29 (underneath the bridge)
-		{ x = 47.67, y = 40.01, quest = 98649 },  -- #30
-		{ x = 45.95, y = 48.37, quest = 98650 },  -- #31
-		{ x = 65.62, y = 42.02, seal = 7 },       -- #32 (no quest yet) Nalorakk's Rest, Nalorakk
-		{ x = 63.71, y = 43.01, seal = 7 },       -- #33 Nalorakk's Rest, Nalorakk (weakest match, 1.41 off)
-		{ x = 66.00, y = 51.61, seal = 9 },       -- #34 Catacombs, Halazzi
-		{ x = 67.43, y = 51.74, seal = 9 },       -- #35 Catacombs, Halazzi
-		{ x = 88.20, y = 76.40, seal = 3 },       -- #37 The Cave Towers, Akil'zon
-		{ x = 89.70, y = 77.70, seal = 3 },       -- #38 The Cave Towers, Akil'zon
-		{ x = 86.88, y = 63.34, quest = 98634 },  -- Zygor (in place of HandyNotes #36), under water, no seal
+		{ x = 46.88, y = 64.38, quest = 97131, room = "Chamber of Rites" },  -- #1
+		{ x = 36.96, y = 69.86, quest = 98602, room = "Chamber of Rites" },  -- #2
+		{ x = 61.65, y = 44.12, quest = 98604, room = "Flooded Chamber" },  -- #3
+		{ x = 38.76, y = 83.42, quest = 98605, seal = 3, room = "Chamber of Rites" },  -- #4 Chamber of Rites, Akil'zon
+		{ x = 38.03, y = 83.46, quest = 98606, seal = 3, room = "Chamber of Rites" },  -- #5 Chamber of Rites, Akil'zon
+		{ x = 21.77, y = 68.59, quest = 98607, room = "Reliquary" },  -- #6
+		{ x = 29.98, y = 74.75, quest = 98608, room = "Reliquary" },  -- #7
+		{ x = 13.85, y = 35.11, quest = 98611, room = "Halazzi's Lair" },  -- #8
+		{ x = 26.44, y = 40.32, quest = 98612, room = "Halazzi's Lair" },  -- #9
+		{ x = 27.48, y = 33.01, quest = 98613, seal = 5, room = "Halazzi's Lair" },  -- #10 Halazzi's Lair, Jan'alai (pair of #13)
+		{ x = 61.17, y = 43.48, quest = 98614, room = "Flooded Chamber" },  -- #11
+		{ x = 61.53, y = 43.57, quest = 98614, room = "Flooded Chamber" },  -- #12 (HandyNotes gives #11 and #12 the same quest)
+		{ x = 27.94, y = 34.55, quest = 98615, seal = 5, room = "Halazzi's Lair" },  -- #13 behind Jan'alai's seal (GEMETEN, Rob 15 Oct: "does not grant you passage")
+		{ x = 61.51, y = 44.72, quest = 98619, room = "Flooded Chamber" },  -- #14
+		{ x = 28.69, y = 23.12, quest = 98620, room = "Jan'alai's Refuge" },  -- #15
+		{ x = 22.14, y = 29.59, quest = 98621, room = "Jan'alai's Refuge" },  -- #16
+		{ x = 22.44, y = 12.04, quest = 98622, seal = 5, room = "Jan'alai's Refuge" },  -- #17 Jan'alai's Refuge, Jan'alai
+		{ x = 22.99, y = 11.63, quest = 98623, seal = 5, room = "Jan'alai's Refuge" },  -- #18 Jan'alai's Refuge, Jan'alai
+		{ x = 46.09, y = 11.11, quest = 98624, room = "Akil'zon's Roost" },  -- #19
+		{ x = 40.58, y = 20.27, quest = 98625, room = "Akil'zon's Roost" },  -- #20
+		{ x = 30.56, y = 15.65, quest = 98626, seal = 3, room = "Akil'zon's Roost" },  -- #21 Akil'zon's Roost, Akil'zon
+		{ x = 30.48, y = 15.02, quest = 98627, seal = 3, room = "Akil'zon's Roost" },  -- #22 Akil'zon's Roost, Akil'zon
+		{ x = 68.24, y = 34.10, quest = 98628, room = "Nalorakk's Rest" },  -- #23
+		{ x = 67.89, y = 27.68, quest = 98629, room = "Nalorakk's Rest" },  -- #24
+		{ x = 61.16, y = 44.80, quest = 98631, room = "Flooded Chamber" },  -- #25
+		{ x = 81.31, y = 55.01, quest = 98633, room = "The Cave Towers" },  -- #26
+		{ x = 72.39, y = 65.93, quest = 98637, room = "Catacombs" },  -- #27
+		{ x = 69.25, y = 71.09, quest = 98638, room = "Catacombs" },  -- #28
+		{ x = 40.75, y = 45.41, quest = 98648, room = "Central Chamber" },  -- #29 (underneath the bridge)
+		{ x = 47.67, y = 40.01, quest = 98649, room = "Central Chamber" },  -- #30
+		{ x = 45.95, y = 48.37, quest = 98650, room = "Central Chamber" },  -- #31
+		{ x = 65.62, y = 42.02, seal = 7, room = "Nalorakk's Rest" },       -- #32 (no quest yet) Nalorakk's Rest, Nalorakk
+		{ x = 63.71, y = 43.01, seal = 7, room = "Nalorakk's Rest" },       -- #33 Nalorakk's Rest, Nalorakk (weakest match, 1.41 off)
+		{ x = 66.00, y = 51.61, seal = 9, room = "Catacombs" },       -- #34 Catacombs, Halazzi
+		{ x = 67.43, y = 51.74, seal = 9, room = "Catacombs" },       -- #35 Catacombs, Halazzi
+		{ x = 88.20, y = 76.40, seal = 3, room = "The Cave Towers" },       -- #37 The Cave Towers, Akil'zon
+		{ x = 89.70, y = 77.70, seal = 3, room = "The Cave Towers" },       -- #38 The Cave Towers, Akil'zon
+		{ x = 86.88, y = 63.34, quest = 98634, room = "The Cave Towers" },  -- Zygor (in place of HandyNotes #36), under water, no seal
 		-- Method, Jan'alai's Refuge: NOT a loa seal but a door you click (Method exact, Icy Veins "behind door").
 		-- Rob could not see it on 15 Oct; no quest id, so the route only ticks it off when you loot next to it.
-		{ x = 21.54, y = 36.48 },
+		{ x = 21.54, y = 36.48, room = "Jan'alai's Refuge" },
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },
@@ -348,6 +348,23 @@ function ns.GetOpenDelveChests()
 	visited = visited and visited.mapID == mapID and visited or nil
 	local skipped = ns._mhDelveChestSkipped
 	skipped = skipped and skipped.mapID == mapID and skipped or nil
+	-- The room you stand in (the minimap's subzone text, "Chamber of Rites", "Central Chamber" - GEMETEN in Rob's video
+	-- 15 Oct). The Labyrinth only opens the rooms a run picks, so a chest in THIS room is one you can certainly reach.
+	-- English names only: on another client language no chest matches and the route stays nearest-first.
+	local here
+	if GetSubZoneText then
+		local okZ, z = pcall(GetSubZoneText)
+		if okZ and type(z) == "string" and z ~= "" and not (issecretvalue and issecretvalue(z)) then
+			here = z
+		end
+	end
+	local knownRoom = false
+	for i = 1, #chests do
+		if here and chests[i].room == here then
+			knownRoom = true
+			break
+		end
+	end
 	for i = 1, #chests do
 		local c = chests[i]
 		local done = ns.IsDelveChestDone(c)
@@ -369,7 +386,8 @@ function ns.GetOpenDelveChests()
 				local dx, dy = c.x - px, c.y - py
 				d = dx * dx + dy * dy -- squared: we only ever compare these
 			end
-			open[#open + 1] = { x = c.x, y = c.y, quest = c.quest, index = i, dist = d,
+			open[#open + 1] = { x = c.x, y = c.y, quest = c.quest, index = i, dist = d, room = c.room,
+				inRoom = knownRoom and c.room == here or nil,
 				skipped = (skipped and skipped[i]) or (c.seal and not journeyRank) or nil }
 		end
 	end
@@ -379,6 +397,9 @@ function ns.GetOpenDelveChests()
 		if (a.skipped and true or false) ~= (b.skipped and true or false) then
 			return not a.skipped
 		end
+		if (a.inRoom and true or false) ~= (b.inRoom and true or false) then
+			return a.inRoom and true or false
+		end
 		if a.dist and b.dist then
 			return a.dist < b.dist
 		end
@@ -386,7 +407,7 @@ function ns.GetOpenDelveChests()
 		-- inventing one.
 		return a.index < b.index
 	end)
-	return open, mapID, #chests - sealed, unknown, learned, sealed
+	return open, mapID, #chests - sealed, unknown, learned, sealed, knownRoom and here or nil
 end
 
 --------------------------------------------------------------------------------
@@ -402,6 +423,7 @@ end
 --- arrow we draw ourselves is the whole mechanism, and it must be given the delve's own
 --- coordinates untranslated.
 local ticker, activeMap, activeQuest, activeIndex
+local lastRoomSeen -- subzone text at the last tick, to notice walking into another room
 
 local function StopRoute(silent)
 	if ticker then
@@ -419,7 +441,7 @@ end
 ns.StopDelveChestRoute = StopRoute
 
 local function PointAtNearest(announce)
-	local open, mapID, total, unknown, learned, sealed = ns.GetOpenDelveChests()
+	local open, mapID, total, unknown, learned, sealed, hereRoom = ns.GetOpenDelveChests()
 	sealed = sealed or 0
 	if not mapID or (total == 0 and sealed == 0) then
 		StopRoute()
@@ -460,6 +482,11 @@ local function PointAtNearest(announce)
 		print(("   %s"):format(ns:L("DELVE_CHEST_SKIP_HINT")))
 		if sealedLine then
 			print(("   %s"):format(sealedLine))
+		end
+		-- You stand in a room we know, and its chests are all done: say so, because the next one sits in a room this
+		-- run may not open (Rob, 15 Oct, in the Catacombs: the arrow sent him to the Cave Towers' water chest).
+		if hereRoom and not c.inRoom then
+			print(("   %s"):format((ns:L("DELVE_CHEST_ROOM_DONE")):format(hereRoom, c.room or "?")))
 		end
 		-- Say it out loud when a chest's state is unreadable. The route then walks you
 		-- past something you may already have opened, and a player who is not told that
@@ -515,6 +542,16 @@ function ns.RouteDelveChests()
 		if mapID ~= activeMap then
 			StopRoute(true) -- left the delve, or moved to its other floor
 			return
+		end
+		-- Walked into another room that still has a chest: point there, it is reachable for sure.
+		local okZ, z = pcall(GetSubZoneText)
+		if okZ and type(z) == "string" and not (issecretvalue and issecretvalue(z)) and z ~= lastRoomSeen then
+			lastRoomSeen = z
+			local open = ns.GetOpenDelveChests()
+			if open[1] and open[1].inRoom and open[1].index ~= activeIndex then
+				PointAtNearest(true)
+				return
+			end
 		end
 		-- Only re-point once the chest we are on is actually flagged done. Re-pointing
 		-- on distance would jump to the next chest every time you walked past one.
