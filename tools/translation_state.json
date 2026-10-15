@@ -3652,6 +3652,30 @@
    "ptBR": "76202a00f9e06967",
    "ruRU": "76202a00f9e06967"
   },
+  "CAMPAIGN_PROMISE_NAME": {
+   "deDE": "bf10fc516b836ea7",
+   "esES": "bf10fc516b836ea7",
+   "frFR": "bf10fc516b836ea7",
+   "itIT": "bf10fc516b836ea7",
+   "ptBR": "bf10fc516b836ea7",
+   "ruRU": "bf10fc516b836ea7"
+  },
+  "CAMPAIGN_PROMISE_REWARD_AQIR": {
+   "deDE": "030252ffef5d4e73",
+   "esES": "030252ffef5d4e73",
+   "frFR": "030252ffef5d4e73",
+   "itIT": "030252ffef5d4e73",
+   "ptBR": "030252ffef5d4e73",
+   "ruRU": "030252ffef5d4e73"
+  },
+  "CAMPAIGN_PROMISE_REWARD_TITLE": {
+   "deDE": "ccb93764254b6ee9",
+   "esES": "ccb93764254b6ee9",
+   "frFR": "ccb93764254b6ee9",
+   "itIT": "ccb93764254b6ee9",
+   "ptBR": "ccb93764254b6ee9",
+   "ruRU": "ccb93764254b6ee9"
+  },
   "CAMPAIGN_ULATEK_NAME": {
    "deDE": "47b3dde7dc1d355d",
    "esES": "47b3dde7dc1d355d",
@@ -4639,12 +4663,12 @@
    "ruRU": "17299bf17edcb7d9"
   },
   "CODEX_AQIR_BODY": {
-   "deDE": "63ba9549afdbfbbe",
-   "esES": "63ba9549afdbfbbe",
-   "frFR": "63ba9549afdbfbbe",
-   "itIT": "63ba9549afdbfbbe",
-   "ptBR": "63ba9549afdbfbbe",
-   "ruRU": "63ba9549afdbfbbe"
+   "deDE": "59b58a525a51b39f",
+   "esES": "59b58a525a51b39f",
+   "frFR": "59b58a525a51b39f",
+   "itIT": "59b58a525a51b39f",
+   "ptBR": "59b58a525a51b39f",
+   "ruRU": "59b58a525a51b39f"
   },
   "CODEX_ATALUTEK_BODY": {
    "deDE": "e9a3202d0db24730",
@@ -5020,6 +5044,22 @@
    "frFR": "da8e9f948cf11c0c",
    "ptBR": "da8e9f948cf11c0c",
    "ruRU": "da8e9f948cf11c0c"
+  },
+  "CODEX_JIMOTHY_BODY": {
+   "deDE": "dece5923634ed6ce",
+   "esES": "dece5923634ed6ce",
+   "frFR": "dece5923634ed6ce",
+   "itIT": "dece5923634ed6ce",
+   "ptBR": "dece5923634ed6ce",
+   "ruRU": "dece5923634ed6ce"
+  },
+  "CODEX_JIMOTHY_TITLE": {
+   "deDE": "21106a7c6c29e3fb",
+   "esES": "21106a7c6c29e3fb",
+   "frFR": "21106a7c6c29e3fb",
+   "itIT": "21106a7c6c29e3fb",
+   "ptBR": "21106a7c6c29e3fb",
+   "ruRU": "21106a7c6c29e3fb"
   },
   "CODEX_KEYSTONE_MYTH_BODY": {
    "deDE": "63023394388a77d3",
@@ -16327,6 +16367,30 @@
    "ptBR": "e0d9c50c2e464832",
    "ruRU": "e0d9c50c2e464832"
   },
+  "HOME_PROMISE_AVAILABLE": {
+   "deDE": "1a7a36f7ebf16699",
+   "esES": "1a7a36f7ebf16699",
+   "frFR": "1a7a36f7ebf16699",
+   "itIT": "1a7a36f7ebf16699",
+   "ptBR": "1a7a36f7ebf16699",
+   "ruRU": "1a7a36f7ebf16699"
+  },
+  "HOME_PROMISE_INPROGRESS": {
+   "deDE": "40a856e403515afe",
+   "esES": "40a856e403515afe",
+   "frFR": "40a856e403515afe",
+   "itIT": "40a856e403515afe",
+   "ptBR": "40a856e403515afe",
+   "ruRU": "40a856e403515afe"
+  },
+  "HOME_PROMISE_ROUTE_BTN": {
+   "deDE": "150506be0a799109",
+   "esES": "150506be0a799109",
+   "frFR": "150506be0a799109",
+   "itIT": "150506be0a799109",
+   "ptBR": "150506be0a799109",
+   "ruRU": "150506be0a799109"
+  },
   "HOME_RAIDS_AUTOOPEN": {
    "deDE": "4262a07870a658e6",
    "esES": "4262a07870a658e6",
@@ -16808,6 +16872,14 @@
    "nlNL": "cbeb26f6b52637f8",
    "ptBR": "cbeb26f6b52637f8",
    "ruRU": "cbeb26f6b52637f8"
+  },
+  "HOME_SECTION_PROMISE": {
+   "deDE": "1095efced84a95bd",
+   "esES": "1095efced84a95bd",
+   "frFR": "1095efced84a95bd",
+   "itIT": "1095efced84a95bd",
+   "ptBR": "1095efced84a95bd",
+   "ruRU": "1095efced84a95bd"
   },
   "HOME_SECTION_RAIDS": {
    "itIT": "bbbc9114b6bf6cb4",
@@ -20172,8 +20244,24 @@
   "MIDACH_CLICK_HINT": {
    "ruRU": "b9cab3f3e36f3d4c"
   },
+  "MIDACH_GROUP_1215": {
+   "deDE": "39e45e0659aa3fa1",
+   "esES": "39e45e0659aa3fa1",
+   "frFR": "39e45e0659aa3fa1",
+   "itIT": "39e45e0659aa3fa1",
+   "ptBR": "39e45e0659aa3fa1",
+   "ruRU": "39e45e0659aa3fa1"
+  },
   "MIDACH_GROUP_DONE": {
    "ruRU": "a9899d5d0e4f4a50"
+  },
+  "MIDACH_GROUP_LABYRINTH": {
+   "deDE": "97bb8f6b4aac4f51",
+   "esES": "97bb8f6b4aac4f51",
+   "frFR": "97bb8f6b4aac4f51",
+   "itIT": "97bb8f6b4aac4f51",
+   "ptBR": "97bb8f6b4aac4f51",
+   "ruRU": "97bb8f6b4aac4f51"
   },
   "MIDACH_NOTE_MIXED": {
    "ruRU": "41f53f289e9e9bc9"
@@ -20327,6 +20415,14 @@
    "ptBR": "1a62cdf92a4640bc",
    "ruRU": "1a62cdf92a4640bc"
   },
+  "MOUNTPROG_AQIRSWARMER_HOWTO": {
+   "deDE": "96dee51397afa679",
+   "esES": "96dee51397afa679",
+   "frFR": "96dee51397afa679",
+   "itIT": "96dee51397afa679",
+   "ptBR": "96dee51397afa679",
+   "ruRU": "96dee51397afa679"
+  },
   "MOUNTPROG_CERULEANSG_HOWTO": {
    "deDE": "692f87fc7b8461ad",
    "esES": "692f87fc7b8461ad",
@@ -20380,6 +20476,22 @@
    "ptBR": "96d28d10910c3990",
    "ruRU": "96d28d10910c3990"
   },
+  "MOUNTPROG_INDIGOCOIL_HOWTO": {
+   "deDE": "007f359444723db6",
+   "esES": "007f359444723db6",
+   "frFR": "007f359444723db6",
+   "itIT": "007f359444723db6",
+   "ptBR": "007f359444723db6",
+   "ruRU": "007f359444723db6"
+  },
+  "MOUNTPROG_LOAWAYFARER_HOWTO": {
+   "deDE": "3408239ad884ba94",
+   "esES": "3408239ad884ba94",
+   "frFR": "3408239ad884ba94",
+   "itIT": "3408239ad884ba94",
+   "ptBR": "3408239ad884ba94",
+   "ruRU": "3408239ad884ba94"
+  },
   "MOUNTPROG_NULLFRAME_HOWTO": {
    "deDE": "b7eb1643c8d1da0d",
    "esES": "b7eb1643c8d1da0d",
@@ -20407,6 +20519,14 @@
    "ptBR": "79a771e12a9d6c1e",
    "ruRU": "79a771e12a9d6c1e"
   },
+  "MOUNTPROG_SKYFANG_HOWTO": {
+   "deDE": "fd3c101b2d6270eb",
+   "esES": "fd3c101b2d6270eb",
+   "frFR": "fd3c101b2d6270eb",
+   "itIT": "fd3c101b2d6270eb",
+   "ptBR": "fd3c101b2d6270eb",
+   "ruRU": "fd3c101b2d6270eb"
+  },
   "MOUNTPROG_SNAPDRAGON_HOWTO": {
    "deDE": "b5a083e3f6b6cbdb",
    "esES": "b5a083e3f6b6cbdb",
@@ -20415,6 +20535,17 @@
    "nlNL": "b5a083e3f6b6cbdb",
    "ptBR": "b5a083e3f6b6cbdb",
    "ruRU": "b5a083e3f6b6cbdb"
+  },
+  "MOUNTPROG_SPOREBEARER_HOWTO": {
+   "deDE": "67acebcd307b6de3",
+   "esES": "67acebcd307b6de3",
+   "frFR": "67acebcd307b6de3",
+   "itIT": "67acebcd307b6de3",
+   "ptBR": "67acebcd307b6de3",
+   "ruRU": "67acebcd307b6de3"
+  },
+  "MOUNTPROG_SPOREBEARER_ROUTE_NAME": {
+   "ruRU": "bcf69d1b4ee02f10"
   },
   "MOUNTPROG_SPOREGLIDER_HOWTO": {
    "deDE": "ab8125bc6f106304",

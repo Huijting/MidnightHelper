@@ -575,6 +575,18 @@ ns.CODEX_ARTICLES = {
 		searchKeys = "aqir invasion swarm eversong zul'aman hourly event research enclave webweaver voidweaver "
 			.. "corrupted swarmer invasie",
 	},
+	-- 15 Oct 2026 (Rob: "alles", docs/NEW_1215_INVENTORY_2026-10-15.md §2): J'imothy, a discovery pet from 12.1.0
+	-- that MH never had (species 5164, Stubby Whistle 282417 — wago GEMETEN). How: HandyNotes_Midnight 157
+	-- eversong_woods.lua:366-368 (3 spots in Silvermoon City, respawn ~10 min); Zygor's ZygorPetsCommonMID.lua
+	-- agrees within 0.2. Coordinates are HandyNotes' (Rob: "meestal de beste bron").
+	{
+		id = "pet_jimothy",
+		category = "world",
+		titleKey = "CODEX_JIMOTHY_TITLE",
+		bodyKey = "CODEX_JIMOTHY_BODY",
+		sort = 7,
+		searchKeys = "jimothy j'imothy pet battle pet stubby whistle ensorcelled cryptid silvermoon huisdier",
+	},
 
 	-- Professions
 	{

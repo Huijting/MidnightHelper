@@ -227,7 +227,55 @@ local VAULTS = {
 	},
 }
 
-local CAMPAIGNS = { ULATEK, VAULTS }
+--- 3. The Promise of Tomorrow (12.1.5). Added 15 Oct 2026 (Rob: "alles", from docs/NEW_1215_INVENTORY_2026-10-15.md).
+--- Chain = Zygor's "The Promise of Tomorrow Campaign" guide (ZygorLevelingCommonMID.lua ~20457-20780, read 15 Oct),
+--- the play order; the questlines match wago 12.1.5.70391 (6233 What Slept Below, 6221 Sins of the Past, 6245 To the
+--- Faithful). Achievement 63519 "The Promise of Tomorrow" = quests 95211 + 95813 (wago Criteria), title Light's
+--- Faithful (CharTitles 1318). Start: Lor'themar Theron (235787), upstairs at Silvermoon City 45.44/70.34 (Zygor).
+--- ⚠️ No gateKey: the prerequisite is not known (AFGELEID: the Ula'tek campaign). The QuestIsReal guard keeps this
+--- silent where the start quest does not exist; a character not yet eligible may still see the nudge.
+--- Also from Zygor: the quest "The Unbinding of Kith'ix" (95211) offers Story Mode by talking to Lady Liadrin at the
+--- raid entrance (Underbelly 71.55/7.62). The Hiveborne Hearthstone is NOT listed as a reward: wago's toy text says
+--- "Quest: Whatever It Takes", Wowhead says 95211 — unresolved.
+local PROMISE = {
+	key = "promise_tomorrow",
+	nameKey = "CAMPAIGN_PROMISE_NAME",
+	headerKey = "HOME_SECTION_PROMISE",
+	availableKey = "HOME_PROMISE_AVAILABLE",
+	inprogressKey = "HOME_PROMISE_INPROGRESS",
+	routeBtnKey = "HOME_PROMISE_ROUTE_BTN",
+	startMapID = 2393, -- Silvermoon City
+	startX = 45.44,
+	startY = 70.34,
+	chain = {
+		{ questID = 95533, nameKey = "CAMPAIGN_PROMISE_STARTQUEST" }, -- The Aqir Swarm
+		{ questID = 95187 }, -- All Along the Watchtowers (Estelia Archtender + Lord Solanar: the Aqir Invasions)
+		{ questID = 95190 }, -- Double-Edged Swords
+		{ questID = 95192 }, -- Rendering Aid
+		{ questID = 95191 }, -- The Slumbering Swarm
+		{ questID = 95193 }, -- The Amani Impasse
+		{ questID = 95197 }, -- The Long Way Around
+		{ questID = 95199 }, -- Tenuous Alliances
+		{ questID = 95200 }, -- An Offering for Halazzi
+		{ questID = 95203 }, -- The Ties That Bind
+		{ questID = 95208 }, -- Back to Back
+		{ questID = 95206 }, -- Breaking the Blade
+		{ questID = 95209 }, -- The Unheard Voice
+		{ questID = 95210 }, -- In the Mouth of Madness
+		{ questID = 96707 }, -- In the Belly of the Beast
+		{ questID = 95211 }, -- The Unbinding of Kith'ix (the raid, any difficulty; Story Mode via Liadrin)
+		{ questID = 95811 }, -- In Victory, Grief
+		{ questID = 95808 }, -- To the Faithful
+		{ questID = 95812 }, -- Last Wishes
+		{ questID = 95813 }, -- What the World Sees
+	},
+	rewards = {
+		{ kind = "unlock", nameKey = "CAMPAIGN_PROMISE_REWARD_TITLE" },
+		{ kind = "unlock", nameKey = "CAMPAIGN_PROMISE_REWARD_AQIR" },
+	},
+}
+
+local CAMPAIGNS = { ULATEK, VAULTS, PROMISE }
 
 local function QuestDone(questID)
 	if not (questID and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then

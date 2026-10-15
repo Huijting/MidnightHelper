@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 15 okt — Nieuw uit 12.1.5 (Rob: "alles") — mounts, campagne, achlist, J'imothy, Aqir-beloningen
+
+- [ ] **Mounts-tabblad:** 5 nieuwe regels: Corrupted Swarmer, Loa-Blessed Wayfarer, Sporebearer Fungal Strider (met
+      route naar Showena in The Den: klopt de plek?), Indigo Coiled Horror en Violet-Backed Skyfang (renown-balk bij
+      Zul'jarra's Forces, alleen als je daar renown hebt).
+- [ ] **Home:** blok "New in 12.1.5: The Promise of Tomorrow" (als je de campagne nog niet af hebt) met "Route to
+      Lor'themar". Heb je hem al af, dan is het blok er terecht niet.
+- [ ] **`/mh achlist`:** onderaan twee nieuwe groepen: "The Labyrinth of Kindo'jan" en "Patch 12.1.5: Aqir Invasions,
+      Keystone Myth and more". Klik open: kloppen de namen en voortgang?
+- [ ] **Codex → J'imothy:** de kaart met 3 pijl-links in Silvermoon.
+- [ ] **Codex → Aqir Invasion:** nieuw stuk "Rewards from Estelia Archtender" (3 pets, toy, mount, titel).
+- [ ] **`/mh ach id 63657`** → screenshot van de chat: geeft de Aqir-achievement een reputatie-getal? Dan krijgt de
+      Corrupted Swarmer een echte balk.
+
 ## 🆕 15 okt — Labyrinth-kistenroute: 39 kisten uit HandyNotes (DelveChestData.lua)
 
 - [ ] **Coach → "Chests" in de Labyrinth:** de pijl kiest nu uit 39 kisten (was 20), ook die achter de loa-zegels.

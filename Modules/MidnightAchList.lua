@@ -33,6 +33,28 @@ local GROUPS = {
 	15606, -- Housing (top level)
 }
 
+--- Groups by ACHIEVEMENT id, for 12.1.5 achievements that sit in mixed categories (Delves top level 15522 next to
+--- The War Within, Feats of Strength). Added 15 Oct 2026 (Rob: "alles"); ids GEMETEN in wago 12.1.5.70391
+--- (docs/NEW_1215_INVENTORY_2026-10-15.md §4). An id the client does not know is skipped, never invented.
+local ID_GROUPS = {
+	{
+		titleKey = "MIDACH_GROUP_LABYRINTH",
+		ids = {
+			63717, 63718, 63719, 63720, 63721, 63722, 63723, 63724, 63727, 63728, -- discoveries, keys, hexmasks, chambers, oddities
+			63863, 63864, 63865, 63846, 63847, 63848, 63849, 63850, 63851, 63852, 63853, -- Labyrinth Tier 1-11
+			63715, 63716, 64039, 64118, -- solo Kindo'jan (mount), The First Hash'ey, Fabled, One-Champion Army
+		},
+	},
+	{
+		titleKey = "MIDACH_GROUP_1215",
+		ids = {
+			63657, 63658, 63680, 63659, -- Aqir Invasions + Bane of the Swarm (title)
+			63690, -- Midnight Keystone Myth: Season 2
+			63830, -- Fungal Not Frugal (Sporebearer Fungal Strider)
+		},
+	},
+}
+
 local function Title(id)
 	if not GetCategoryInfo then
 		return tostring(id)
@@ -131,6 +153,29 @@ function ns.MidnightAchievementsMissing()
 		groups[#groups + 1] = g
 		allOpen = allOpen + #g.open
 		allTotal = allTotal + g.total
+	end
+	for gi, idg in ipairs(ID_GROUPS) do
+		local g = { id = "ids" .. gi, title = ns:L(idg.titleKey), done = 0, total = 0, open = {} }
+		for _, achID in ipairs(idg.ids) do
+			-- By id: id, name, points, completed, month, day, year, description, …
+			local ok, id, name, points, completed, _, _, _, desc = pcall(GetAchievementInfo, achID)
+			if ok and id and type(name) == "string" then
+				g.total = g.total + 1
+				if completed then
+					g.done = g.done + 1
+				else
+					g.open[#g.open + 1] = { id = id, name = name, points = points, desc = desc, progress = Progress(id) }
+				end
+			end
+		end
+		if g.total > 0 then
+			table.sort(g.open, function(a, b)
+				return a.name < b.name
+			end)
+			groups[#groups + 1] = g
+			allOpen = allOpen + #g.open
+			allTotal = allTotal + g.total
+		end
 	end
 	return groups, allOpen, allTotal
 end
@@ -312,6 +357,8 @@ function ns.PrintMidnightAchList()
 	local groups, open, total = ns.MidnightAchievementsMissing()
 	print(p .. ("Midnight achievements: %d open of %d, in %d groups."):format(open, total, #groups))
 	for _, g in ipairs(groups) do
-		print(("  %s |cff9d9d9d(category %d)|r  %d / %d done, %d open"):format(g.title, g.id, g.done, g.total, #g.open))
+		-- g.id is a category number, or "ids1"/"ids2" for the 12.1.5 id groups (ID_GROUPS).
+		print(("  %s |cff9d9d9d(%s)|r  %d / %d done, %d open"):format(g.title,
+			type(g.id) == "number" and ("category " .. g.id) or "by id", g.done, g.total, #g.open))
 	end
 end

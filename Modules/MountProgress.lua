@@ -125,9 +125,10 @@ local TRACKED = {
 	-- — there is simply a sixth nobody added, and its progress bar has never been shown
 	-- to anyone.
 	--
-	-- ⚠️ NO ROW YET, because a row needs a `mountItemID` and the guide gives none. The
-	-- renown levels and Marl costs come from that same video; the item ids have to come
-	-- from the client. `/mh mount indigo` and `/mh mount skyfang` are the way in.
+	-- ✅ ROWS ADDED 15 Oct 2026 (Rob: "alles"). MountStatus takes a mount SPELL id as well as an item id, and
+	-- wago 12.1.5.70391 gives both spells (docs/NEW_1215_INVENTORY_2026-10-15.md §7, GEMETEN): Indigo Coiled Horror
+	-- mount 3060 spell 1300778, Violet-Backed Skyfang mount 3054 spell 1299963, "Vendor: Jan'sari the Watchful, The
+	-- Coiled Isle", 6000 / 8000 Marl. The renown levels 17 / 19 still rest on the video guide quoted above.
 	--
 	-- 📌 THE SAME DUMP FOUND TWO MORE TRACKS WE DO NOT CARRY, and one of them settles an
 	-- older argument:
@@ -143,6 +144,8 @@ local TRACKED = {
 	{ key = "crimsonhs",  mountItemID = 257154, renownFactionID = 2710, need = 17, fallbackName = "Crimson Silvermoon Hawkstrider", howToKey = "MOUNTPROG_CRIMSONHS_HOWTO" },
 	{ key = "shredclaw",  mountItemID = 257445, renownFactionID = 2699, need = 17, fallbackName = "Ravenous Shredclaw",           howToKey = "MOUNTPROG_SHREDCLAW_HOWTO" },
 	{ key = "stormray",   mountItemID = 260696, renownFactionID = 2699, need = 19, fallbackName = "Voidbound Stormray",           howToKey = "MOUNTPROG_STORMRAY_HOWTO" },
+	{ key = "indigocoil", mountSpellID = 1300778, renownFactionID = 2772, need = 17, fallbackName = "Indigo Coiled Horror",      howToKey = "MOUNTPROG_INDIGOCOIL_HOWTO" },
+	{ key = "skyfang",    mountSpellID = 1299963, renownFactionID = 2772, need = 19, fallbackName = "Violet-Backed Skyfang",     howToKey = "MOUNTPROG_SKYFANG_HOWTO" },
 	-- Umbral Dragonhawk: not a renown purchase — reward for "Life of the Party" (62190),
 	-- max reputation with all four Silvermoon Court sub-factions (item ID plausible-only).
 	{ key = "umbraldh",   mountItemID = 257144, metaAchievementID = 62190, need = 4, noMarl = true, fallbackName = "Umbral Dragonhawk",          howToKey = "MOUNTPROG_UMBRALDH_HOWTO" },
@@ -165,6 +168,20 @@ local TRACKED = {
 	{ key = "hexeagle",   mountSpellID = 1286606, mountItemID = 269828, noProgress = true, noMarl = true, fallbackName = "Void-Corrupted Hex Eagle", howToKey = "MOUNTPROG_HEXEAGLE_HOWTO" },
 	-- Warbear teaching-item 257225 is single-sourced (plausible); the mount spell is confirmed.
 	{ key = "warbear",    mountSpellID = 1261362, mountItemID = 257225, noProgress = true, noMarl = true, fallbackName = "Witherbark Warbear Mother", howToKey = "MOUNTPROG_WARBEAR_HOWTO" },
+
+	-- 12.1.5 (15 Oct 2026, Rob: "alles"). ids GEMETEN in wago 12.1.5.70391 (Mount + ItemSparse + Achievement reward
+	-- text), docs/NEW_1215_INVENTORY_2026-10-15.md §1.
+	-- Corrupted Swarmer: Exalted with the Aqir Research Enclave (faction 2838, a friendship track), then 2500 Marl
+	-- from Estelia Archtender. ⚠️ noProgress for now: achievement 63657 "Aqir Research Associate" is that same 5000
+	-- reputation, but whether GetAchievementCriteriaInfo(63657, 1) hands back the amount for that criterion type is
+	-- AFGELEID — Rob checks `/mh ach id 63657` once, then this can become `achievementID = 63657, need = 5000`.
+	{ key = "aqirswarmer", mountSpellID = 1301331, mountItemID = 276926, noProgress = true, fallbackName = "Corrupted Swarmer",            howToKey = "MOUNTPROG_AQIRSWARMER_HOWTO" },
+	-- Loa-Blessed Wayfarer: reward of 63715 "Let Me Solo Him: Kindo'jan" (Tier 11, alone).
+	{ key = "loawayfarer", mountSpellID = 1314715, mountItemID = 283363, noProgress = true, noMarl = true, fallbackName = "Loa-Blessed Wayfarer", howToKey = "MOUNTPROG_LOAWAYFARER_HOWTO" },
+	-- Sporebearer Fungal Strider: 5,000,000 gold from Showena in The Den. ⚠️ The route coordinate (canvas 2576,
+	-- 61.80/67.73) is one PTR-era web guide (Wowhead/Method) — Rob checks it once.
+	{ key = "sporebearer", mountSpellID = 1313788, mountItemID = 282414, noProgress = true, noMarl = true, fallbackName = "Sporebearer Fungal Strider", howToKey = "MOUNTPROG_SPOREBEARER_HOWTO",
+		route = { mapID = 2576, x = 61.80, y = 67.73, nameKey = "MOUNTPROG_SPOREBEARER_ROUTE_NAME" } },
 }
 
 --- @return isCollected(bool|nil), localizedName(string|nil)

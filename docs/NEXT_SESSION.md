@@ -25,10 +25,20 @@ DBM-Delves-Midnight r266: Labyrinth-modules nog steeds leeg.
 DelveChestData [2647] → 39 kisten (HandyNotes 37 + Zygor 98634 + Method 21.54/36.48). Controle: HN #26 = onze 98633.
 Quest-ID's = HandyNotes alleen. ✅ Rob "zet die er ook maar in": Hexmasks (3, {WAY} in CODEX_LABJOURNEY_BODY rang 2) en
 Mislaid Oddities (15 genummerde {WAY}-links in CODEX_LABYRINTH_BODY), 8 talen + esMX; namen Engels (niet gemeten).
+🔴 **Wah'du = HANDELAAR, GEMETEN door Rob 15 okt (screenshots):** verkoopt Myth-items voor **3 Mythical Soul Fragments**
+per stuk, 3 pagina's: wapens/schild (Wailing Bulwark, Enshrined Ceremonial Scepter, Bonedust Pestle, Soulsealer's
+Headstone, Forgotten Eidolon's Dagger), class-armor (Galerider's set voor Shaman) én ringen (Anguine Gyre, Hex Loop,
+Colubrine Band). **Myth 2/6, ilvl 321.** → onze kaart-zin "right-click 3 → Venerated Loa Armament, geen wapens of
+trinkets" klopt NIET met wat de client toont → CODEX_LABYRINTH_BODY Wah'du-sectie herschrijven (na de Aqir-schrijfronde).
 ✅ Inventaris "wat is nieuw in 12.1.5 dat MH mist" → `docs/NEW_1215_INVENTORY_2026-10-15.md` (wago-diff 69933→70391):
 8 mounts, 3 pets, 10 toys, 55 achievements, 10 titels; MH heeft bijna niets daarvan als data. Geen nieuwe wereld-rares/
 treasures. Top 7 aanbevolen (Aqir-beloningen + Corrupted Swarmer, campagne "The Promise of Tomorrow", Loa-Blessed
-Wayfarer, achlist-ID's, Sporebearer, J'imothy, 2 Zul'jarra-mounts) → Rob kiest. Sha'Kuro "second burrow"-regel: weg (Rob).
+Wayfarer, achlist-ID's, Sporebearer, J'imothy, 2 Zul'jarra-mounts) → ✅ Rob "alles" → GEBOUWD 15 okt: MountProgress
+5 rijen (aqirswarmer noProgress tot `/mh ach id 63657` meet, loawayfarer, sporebearer + route 2576 61.80/67.73 = 1 PTR-bron,
+indigocoil/skyfang via spell-ID + renown 2772), CampaignLeadIn PROMISE (20 quests uit Zygor, start 235787 SMC 45.44/70.34,
+geen gateKey), MidnightAchList ID_GROUPS (Labyrinth 25 ids + 12.1.5 6 ids), Codex pet_jimothy (3 HN-plekken),
+CODEX_AQIR_BODY + Estelia-beloningen. 8 talen (mh-writer); rangnamen Friendly/Honored/Revered in de packs NIET gemeten.
+Zygor-vondst: Kith'ix Story Mode = praten met Lady Liadrin bij de ingang (stap van quest 95211). Sha'Kuro "second burrow"-regel: weg (Rob).
 ⚠️ Bij beta2: CHANGELOG_477_2 zegt "20 chests" → nieuwe changelog-regel met 39.
 📌 **DBM 12.1.14 (Rob 14 okt "dbm is net geupdated", GEMETEN):** DBM-Delves-Midnight NIET bijgewerkt (r265, Labyrinth-
 modules nog leeg). Kithix.lua (DBM-Lairs-Midnight, rev 20261014185057): EncounterID 3513, journal 1324, Story-modus
