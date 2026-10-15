@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
+
+1. **Mount run → tabbladen.** De lijst is lang geworden (≈45 instances). Rob: *"kunnen we iets met tabbladen maken?"* Voorstel:
+   één tab per blok (Northrend · Outland/Kara/CoT · Cata/Pandaria · Mythic · Legion/BfA/SL · Dungeons · Groep), onthoud de laatste
+   tab per speler (localStorage-achtig: `ns.db.mountRun.tab`). Totaal "nog te halen" per tab in de tabtitel?
+2. **Mount run → route.** GEMETEN (Robs screenshot): "Arrow to the entrance" bij Nerub-ar Palace gaf *"TomTom: Added a waypoint
+   (Nerub-ar Palace - 43.56, 90.29) in Azj-Kahet"* + *"Midnight Helper: Nerub-ar Palace is not on this continent. Head for Wildcamp
+   Ul'ar first."* → `AddSmartTomTomWay(..., skipTravelUI=true)` laat de Midnight-reisplanner tóch een "ander continent"-advies geven
+   met een Midnight-tussenstop. Uitzoeken in Delves.lua `AddSmartTomTomWay` (welke tak print dat) en voor oude werelden: géén
+   continent-advies, maar de MOUNTRUN_HOW-regel als stappen tonen (portaalkamer → portaal → zone), en de pijl pas zetten als je in de
+   juiste zone bent (of de zone-stap als eerste waypoint). Rob kiest de vorm.
+3. Vertaling van de Mount run-uitbreiding (avond 5 / dungeons / groep) liep nog bij het slapengaan — controleer of die gecommit is.
+
 ## 14 okt — EU-PATCHDAG — VERDER HIER
 
 **✅ 14 okt avond: `v4.7.7-beta1` GETAGD op d8fa274 en UITGEBRACHT (Rob: "je krijgt een go voor de beta-release";
