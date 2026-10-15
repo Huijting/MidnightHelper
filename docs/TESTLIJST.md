@@ -28,19 +28,21 @@ er is niets weggegooid.
       Zul'jarra's Forces, alleen als je daar renown hebt).
 - [ ] **Home:** blok "New in 12.1.5: The Promise of Tomorrow" (als je de campagne nog niet af hebt) met "Route to
       Lor'themar". Heb je hem al af, dan is het blok er terecht niet.
-- [ ] **`/mh achlist`:** onderaan twee nieuwe groepen: "The Labyrinth of Kindo'jan" en "Patch 12.1.5: Aqir Invasions,
-      Keystone Myth and more". Klik open: kloppen de namen en voortgang?
+- [x] **`/mh achlist`:** onderaan twee nieuwe groepen: "The Labyrinth of Kindo'jan" en "Patch 12.1.5: Aqir Invasions,
+      Keystone Myth and more". ✅ Rob 15 okt: beide staan er (2/25 en 0/6). Openklikken nog niet gezien.
 - [ ] **Codex → J'imothy:** de kaart met 3 pijl-links in Silvermoon.
 - [ ] **Codex → Aqir Invasion:** nieuw stuk "Rewards from Estelia Archtender" (3 pets, toy, mount, titel).
-- [ ] **`/mh ach id 63657`** → screenshot van de chat: geeft de Aqir-achievement een reputatie-getal? Dan krijgt de
-      Corrupted Swarmer een echte balk.
+- [x] **`/mh ach id 63657`** → ✅ Rob 15 okt: "criteria = none listed" — geen getal uit de achievement.
+- [ ] **Mounts-tabblad → Corrupted Swarmer:** heeft nu een balk **X / 5000** uit je reputatie bij de Aqir Research Enclave
+      (verschijnt pas als je daar reputatie hebt). Klopt X met je reputatievenster?
 
 ## 🆕 15 okt — Labyrinth-kistenroute: 39 kisten uit HandyNotes (DelveChestData.lua)
 
 - [ ] **Coach → "Chests" in de Labyrinth:** de pijl kiest nu uit 39 kisten (was 20), ook die achter de loa-zegels.
       31 hebben een quest-ID: een kist die je al geopend hebt, slaat de route over. Wijst de pijl naar een plek waar geen
       kist staat, noteer de kamer + `/mh capture`.
-- [ ] Na een kist: `/reload` → ik lees `questDiff.found`: klopt het quest-ID van HandyNotes met wat de game afvinkt?
+- [x] Na een kist: `/reload` → ik lees `questDiff.found`: klopt het quest-ID van HandyNotes met wat de game afvinkt?
+      ✅ 15 okt GEMETEN, 2 van 2: kist #1 = 97131 (46.9/64.2), kist #2 = 98602 (37.1/69.8). Route liep door naar 3 of 39.
 - [ ] **Codex → Journey-kaart, rang 2:** links naar de 3 Hexmasks (Thundering, Fiery, Frozen). Klik → pijl in de Labyrinth.
 - [ ] **Codex → Labyrinth-kaart, "Mislaid Oddities":** links 1 t/m 15. Klik de dichtstbijzijnde → ligt er een Oddity?
 
@@ -64,11 +66,13 @@ er is niets weggegooid.
 - [x] **Midnight Delves:** onder "Delver's Journey: Rank 10 …" staat nu een tweede regel
       *"The Labyrinth of Kindo'jan: Rank 1 (900 / 2100)"* — dezelfde getallen als je Journeys-venster (Shift-J).
       ✅ Rob 14 okt: "Rank 1 (1900 / 2100)", gelijk aan het Journeys-venster.
-- [ ] Na de klik op een kamerbaas-knop: opent de coach nu op díe baas (niet meer op Jun'ala 1/19)?
+- [x] Na de klik op een kamerbaas-knop: opent de coach nu op díe baas (niet meer op Jun'ala 1/19)?
+      ✅ 15 okt GEMETEN (video 17:45 + log 08:52:07 "via encounter id"): coach opende op The Undead Trollbunal, 3/19.
 - [ ] **Codex → Delves → "The Labyrinth's own Journey (ranks 1-9)":** wat elke rang doet, wat er achter de zegels ligt,
       hoe je punten haalt. Klopt het met je Journeys-venster?
 - [ ] **Meten (graag):** noteer je Labyrinth-punten vóór en ná een run (Delves-pagina) — hoeveel geven de kisten?
       En kijk op een alt of de Journey dezelfde rang heeft (= gedeeld door je Warband).
+      ◐ 15 okt: kist #1 gaf 700, kist #2 maar 150 (+2500 Amani Tribe). Waarom het verschilt weten we niet. Warband: ja (chatregel).
 - [ ] **Coach-tips per kamerbaas** (nieuw, 14 okt): target/vecht een kamerbaas → in de coach staat een regel met zijn
       aanvallen (bv. Grukk: Interrupting Shout, Ground Smash). Klopt wat je ziet?
 

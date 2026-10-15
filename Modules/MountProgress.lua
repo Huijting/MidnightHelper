@@ -172,10 +172,10 @@ local TRACKED = {
 	-- 12.1.5 (15 Oct 2026, Rob: "alles"). ids GEMETEN in wago 12.1.5.70391 (Mount + ItemSparse + Achievement reward
 	-- text), docs/NEW_1215_INVENTORY_2026-10-15.md §1.
 	-- Corrupted Swarmer: Exalted with the Aqir Research Enclave (faction 2838, a friendship track), then 2500 Marl
-	-- from Estelia Archtender. ⚠️ noProgress for now: achievement 63657 "Aqir Research Associate" is that same 5000
-	-- reputation, but whether GetAchievementCriteriaInfo(63657, 1) hands back the amount for that criterion type is
-	-- AFGELEID — Rob checks `/mh ach id 63657` once, then this can become `achievementID = 63657, need = 5000`.
-	{ key = "aqirswarmer", mountSpellID = 1301331, mountItemID = 276926, noProgress = true, fallbackName = "Corrupted Swarmer",            howToKey = "MOUNTPROG_AQIRSWARMER_HOWTO" },
+	-- from Estelia Archtender. Progress reads the reputation itself: achievement 63657 lists NO criteria in the
+	-- client (GEMETEN 15 Oct 2026, `/mh ach id 63657` → "criteria = none listed"), so the achievement path gives 0.
+	-- Exalted = 5000 on friendship track 527 (wago, GEMETEN); that `standing` is the running total is AFGELEID.
+	{ key = "aqirswarmer", mountSpellID = 1301331, mountItemID = 276926, friendshipFactionID = 2838, need = 5000, fallbackName = "Corrupted Swarmer", howToKey = "MOUNTPROG_AQIRSWARMER_HOWTO" },
 	-- Loa-Blessed Wayfarer: reward of 63715 "Let Me Solo Him: Kindo'jan" (Tier 11, alone).
 	{ key = "loawayfarer", mountSpellID = 1314715, mountItemID = 283363, noProgress = true, noMarl = true, fallbackName = "Loa-Blessed Wayfarer", howToKey = "MOUNTPROG_LOAWAYFARER_HOWTO" },
 	-- Sporebearer Fungal Strider: 5,000,000 gold from Showena in The Den. ⚠️ The route coordinate (canvas 2576,
@@ -347,6 +347,25 @@ local function RenownLevel(factionID)
 	return 0
 end
 
+--- Total reputation on a friendship-style track (0 when unknown). `standing` is the running
+--- total, not the amount inside the current rank, so it compares straight to the Exalted
+--- threshold; the C_Reputation read is the fallback for the same number.
+local function FriendshipStanding(factionID)
+	if C_GossipInfo and C_GossipInfo.GetFriendshipReputation then
+		local ok, info = pcall(C_GossipInfo.GetFriendshipReputation, factionID)
+		if ok and type(info) == "table" and type(info.standing) == "number" and not (issecretvalue and issecretvalue(info.standing)) then
+			return info.standing
+		end
+	end
+	if C_Reputation and C_Reputation.GetFactionDataByID then
+		local ok, data = pcall(C_Reputation.GetFactionDataByID, factionID)
+		if ok and type(data) == "table" and type(data.currentStanding) == "number" and not (issecretvalue and issecretvalue(data.currentStanding)) then
+			return data.currentStanding
+		end
+	end
+	return 0
+end
+
 --- Progress for tracked collectible mounts you have NOT collected yet.
 --- @return list of { key, name, have, need, howToKey }
 --- Progress for tracked collectible mounts.
@@ -373,6 +392,9 @@ function ns.GetWeeklyMountProgress(includeCollected)
 				have = RenownLevel(m.renownFactionID)
 				-- Only surface once you actually have renown with the faction, so
 				-- un-started factions don't clutter the in-progress list with 0/NN goals.
+				show = have >= 1
+			elseif m.friendshipFactionID then
+				have = FriendshipStanding(m.friendshipFactionID)
 				show = have >= 1
 			elseif m.metaAchievementID then
 				have = CompletedCriteriaCount(m.metaAchievementID)

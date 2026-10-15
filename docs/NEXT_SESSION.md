@@ -35,6 +35,12 @@ Open: "each step gives 1 fragment" alleen voor stap 1 gezien.
 ✅ **Kistenroute + HandyNotes-quest-ID's GEMETEN (Rob 15 okt):** na kist #1 → "Sturdy Chest 2 of 39 — follow the arrow";
 questDiff ving **97131 op 2647 46.9/64.2** = HandyNotes #1 (46.88/64.38, 97131) — ook de LOOT_OPENED-sweep werkt.
 Kist gaf **700 Labyrinth Journey-punten** ("Your Warband's reputation … increased by 700") → CODEX_LABJOURNEY_BODY, 8 talen.
+⚠️ **Kist #2 gaf maar 150** (+2500 Amani Tribe, Rattling Bag o' Gold); questDiff **98602 op 37.1/69.8** = HandyNotes #2 ✅.
+Kaart zegt nu "700 één keer, 150 één keer"; waarom het verschilt (eerste van de dag? soort kist?) is OPEN.
+✅ **Kamerbaas-knop opent de juiste baas** (video 15 okt 17:45: coach op The Undead Trollbunal 3/19; log "via encounter id").
+✅ **`/mh achlist`** toont de twee nieuwe groepen (2/25, 0/6). **`/mh ach id 63657` → "criteria = none listed"** (GEMETEN) →
+Corrupted Swarmer leest nu de reputatie zelf: `friendshipFactionID = 2838, need = 5000` (MountProgress `FriendshipStanding`:
+C_GossipInfo.GetFriendshipReputation().standing, terugval C_Reputation). Dat `standing` het lopende totaal is = AFGELEID → TESTLIJST.
 Open: "Sturdy Chest" in de/fr/es/pt/it/ru nog Engels (clientnaam niet gemeten).
 ✅ Inventaris "wat is nieuw in 12.1.5 dat MH mist" → `docs/NEW_1215_INVENTORY_2026-10-15.md` (wago-diff 69933→70391):
 8 mounts, 3 pets, 10 toys, 55 achievements, 10 titels; MH heeft bijna niets daarvan als data. Geen nieuwe wereld-rares/
