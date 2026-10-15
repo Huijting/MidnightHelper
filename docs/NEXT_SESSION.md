@@ -60,6 +60,10 @@ Jan'alai(5) #10 #13 #17 #18, Nalorakk(7) #32 #33, Halazzi(9) #34 #35 = 14 van de
 ijsmuur (vuur), geen zegel. **#39 Method = GEEN zegel maar een klikbare deur** (mijn eerste aanname was fout); Rob zag hem niet.
 OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair (~10.5/54.7 of 15.3/44) zonder coördinaten/quest;
 #11 en #12 delen quest 98614 in HandyNotes (één is fout). DELVE_CHEST_SEALED nog niet vertaald.
+✅ **Grukk-gevecht gelogd (GEMETEN, encounter 3636, 48 s, kill):** Interrupting Shout 1315273, Ground Smash 1315268, Chaotic Frenzy
+1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
+uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
+(nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
 🆕 **Kamerbaas via target** (Rob 15 okt, Grukk vóór de pull): `MaybeOfferRoomBoss("PLAYER_TARGET_CHANGED")` — alleen units
 (niet de oude encounter-naam), stil op trash; knop B / setting C / coach-wissel. Of de naam buiten combat leesbaar is = OPEN
 (14 okt in combat: secret) → log "target name is secret here (in/out of combat)", 1x per delve.

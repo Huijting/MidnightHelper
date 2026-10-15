@@ -57,7 +57,7 @@ end
 local function Build()
 	local f = CreateFrame("Frame", FRAME_NAME, UIParent, "BackdropTemplate")
 	f:SetSize(118, 22)
-	f:SetFrameStrata("MEDIUM")
+	f:SetFrameStrata("HIGH") -- above the action-bar row Rob keeps at the top of his screen
 	f:SetClampedToScreen(true)
 	if f.SetBackdrop then
 		f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8x8", edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1 })
