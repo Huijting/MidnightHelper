@@ -43,8 +43,9 @@ Positieve controle GEMETEN op het 12.0.1-log van 30 mrt (Darmac: Call the Pack 1
 Animated Strike 1238293 (cast bar, max 175k = 21% van Robs HP), Fixate 1263775 (debuff), Guard 1304368 (onderbroken = kickbaar);
 Rage Walker 273005 — Bone Armor 322743. Bedragen kloppen en staan er nu in (met % van max HP). Valeera's Agony (haar eigen pet)
 en haar Killing Spree worden uitgefilterd.
-✅ **Raging Spirits-kamer = licht-mechaniek (GEMETEN in het log):** Rob stak **10x** "Igniting the Jan'alai Brazier" (1302928) aan op
-"Flames of Jan'alai" (npc 268940); de Specters dragen **Shield of Darkness** (1302825, absorbeert) + Bloodless Repudiation (1304378).
+✅ **Raging Spirits-kamer = licht-mechaniek (GEMETEN in het log):** "Igniting the Jan'alai Brazier" (1302928, ~1,7 s kanaliseren) op
+**4 verschillende** "Flames of Jan'alai" (npc 268940), 2 afgeronde casts in het log (de eerdere "10x" telde regels: het spel
+herhaalt de aura op brandende schalen — Rob: "hoefde maar 1x per schaal"; tool telt nu schalen); de Specters dragen **Shield of Darkness** (1302825, absorbeert) + Bloodless Repudiation (1304378).
 Daarna kreeg Rob Purging Flames (1259491) — of dát het schild breekt is AFGELEID. Tool vindt dit nu zelf (secties shields /
 enemy buffs / objecten in de kamer). Nog geen coach-tip geschreven. ⚠️ Robs video van die kamer was de **Claude-app**
 (Game Bar neemt het actieve venster op) → eerst in WoW klikken, dan Win+Alt+R.

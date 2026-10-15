@@ -73,7 +73,8 @@ class Segment:
         self.enemy_deaths = defaultdict(int)
         self.shields = defaultdict(lambda: {"count": 0, "total": 0})  # (enemy, spellid, name): absorbed player damage
         self.enemy_buffs = defaultdict(int)  # (enemy, spellid, name)
-        self.interactions = defaultdict(int)  # (spellid, name, object): what players did to non-enemy things
+        self.interactions = defaultdict(set)  # (spellid, name, object) -> object guids: what players did to things
+        self.interaction_casts = defaultdict(int)  # spellid -> finished casts of that same spell
         self.after_buffs = defaultdict(int)  # (spellid, name): buffs that landed on a player right after one
 
     def empty(self):
@@ -229,9 +230,15 @@ def run(path):
                     and (to_int_hex(dst_flags) & 0x20) and ev in ("SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED"):
                 # A player doing something to a NEUTRAL creature = an object of the room: lighting the Jan'alai
                 # Brazier (1302928 on "Flames of Jan'alai", 15 Oct 2026). Pets and companions are excluded above.
-                s.interactions[(spell_id, spell_name, dst_name)] += 1
+                # Count OBJECTS, not lines: the client re-sends the "lit" aura on braziers already burning (Rob,
+                # 15 Oct: "dit hoefde maar 1x per schaal" - 10 lines were 4 braziers and 2 real casts).
+                s.interactions[(spell_id, spell_name, dst_name)].add(dst_guid)
                 last_interaction[src_guid] = t
                 continue
+            if ev == "SPELL_CAST_SUCCESS" and src_guid.startswith("Player-"):
+                # Every player cast, cheap; the report only looks up the spells used on room objects. The cast
+                # comes BEFORE the aura that tells us it was an object, so this cannot be filtered up front.
+                s.interaction_casts[spell_id] += 1
             if ev == "SPELL_AURA_APPLIED" and player_dst and len(f) > 12 and f[12] == "BUFF" \
                     and t - last_interaction.get(dst_guid, -99) <= 6:
                 # Probably the reward of that interaction (Purging Flames 4 s after the brazier) - but a class
@@ -319,8 +326,9 @@ def report(path, meta, lines, segments):
             out.append("")
             out.append("**What players did to objects in the room** (likely the room's mechanic)")
             out.append("")
-            for (sid, name, obj), n in sorted(s.interactions.items(), key=lambda kv: -kv[1]):
-                out.append("- %s (%s) on %s: %dx" % (name, sid, obj, n))
+            for (sid, name, obj), guids in sorted(s.interactions.items(), key=lambda kv: -len(kv[1])):
+                out.append("- %s (%s) on %s: %d different one(s); %d finished cast(s) seen" % (
+                    name, sid, obj, len(guids), s.interaction_casts.get(sid, 0)))
             if s.after_buffs:
                 out.append("- maybe its reward - buffs that landed within 6 s after: " + ", ".join(
                     "%s (%s) %dx" % (name, sid, n) for (sid, name), n in sorted(s.after_buffs.items(), key=lambda kv: -kv[1])))
