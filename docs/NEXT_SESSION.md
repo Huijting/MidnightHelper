@@ -64,6 +64,14 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+🔍 **HandyNotes 158 vs MH, alle zones (mh-research 15 okt, scratchpad hn158_*):** 100/100 rares, 88/88 beroepsschatten, 35/35
+delve-kisten, alle WAY-links gelijk (GEMETEN). Overgenomen: Serrasa 56.38/32.99 en Pterrock 27.27/70.32 (Rares-tab; Achievements had
+ze al). Bewust NIET: Tremora (MH = grotingang), Stellar Stash 94005, Exaliburn 93569, Ha'kalawe (op patrouille), Nar'zira 66.40/62.90
+(eigen PTR-meting, HN 63.22/62.29 → `/mh here` beslist), Underbelly-ingang AchievementsData 45.19/11.15 (HN+Codex 47.30/11.20; route
+werkte voor Rob), Vserix (HN zette Soft Underbelly uit, Method bevestigt). **Alleen in HN — Rob kiest:** mount **Hexed Vilefeather
+Eagle** (257444) via Abandoned Ritual Skull Zul'Aman 44.72/44.09 (q90794, 1000 Vile Essence 259361); Incomplete Book of Sonnets
+(Silvermoon decor, q94781); Voidhoarder's Corpse Voidstorm 24.82/70.01 (q94742); Val Ice Guardian's Sleetblade; Naigtal-schatten
+(Sleepy Mandrake 97091-95); rare Mana-Gorged Greatwyrm (Daggerspine, npc 259971, renown 8).
 🆕 **HandyNotes_Midnight 158 (na de release, 15 okt):** 43 kisten, ALLE met quest. In onze data: #12 = 98640 (157 had 98614
 dubbel), #32-#35 nu met quest + HN-coördinaten (98630/98632/98639/98641), #37/#38 HN-coördinaten (zelfde koppeling als onze meting),
 +5 nieuwe zegelkisten: Reliquary 98609/98610 (Nalorakk, rang 7), Halazzi's Lair 98616/98617/98618 (Halazzi, rang 9). Totaal **44**
