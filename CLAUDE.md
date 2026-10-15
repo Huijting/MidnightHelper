@@ -89,6 +89,12 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    maar"*). Hij vergelijkt `## Version` met de vorige keer en print de top van elke changelog; **jij**
    oordeelt of iets MH raakt (taint, markers, secret values, TomTom, DBM-formaat, JustAC-data). Lezen is
    geen testen: zeg dat erbij, Robs `/reload` + BugSack is de test.
+4b'. **Kijk wat er in HandyNotes is veranderd:** `run handynotes_watch` (via `probe_job.txt`). Sinds 15 okt 2026 (Rob:
+   *"op alles, en dat moet eigenlijk altijd"* — HandyNotes is volgens hem *"meestal de beste bron van allemaal"*). Hij print
+   per zone de toegevoegde/verwijderde regels mét coördinaten en ID's, sinds de vorige keer (kopie in
+   `tools/handynotes_snapshot/`, lokaal). **Jij** vergelijkt met MH's eigen data (DelveChestData, rares, schatten, Codex
+   {WAY}-links) en neemt over wat beter is. Aanleiding: versie 158 gaf die dag élke Labyrinth-kist een quest-ID en 5
+   zegelkisten die geen gids had — onzichtbaar zonder het bestand te openen.
 4c. **Lees de mail van de site:** Gmail-connector, `search_threads` met
    `subject:(MH feedback OR MH vragenlijst) newer_than:3d` (afzender `feedback@midnighthelper.com`). Sinds 2 okt
    2026 (Rob: *"ik weet niet of we automatisch kijken in onze mail … anders moet deze alsnog in de

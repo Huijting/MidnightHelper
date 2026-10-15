@@ -33,6 +33,8 @@ tools/PROFESSIONS_PLAN.html
 
 # tools/addon_updates.py onthoudt welke addonversies hij vorige keer zag. Beschrijft één pc.
 tools/addon_versions_seen.json
+# tools/handynotes_watch.py: kopie van HandyNotes_Midnight/zones van de vorige keer. Beschrijft één pc.
+tools/handynotes_snapshot/
 
 # De afvinkpagina die tools/testlist_page.py uit docs/TESTLIJST.md bouwt. De generator en
 # haar sjabloon staan wél in git; de uitkomst is een kopie van de testlijst en wordt vóór
