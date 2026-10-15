@@ -69,7 +69,8 @@ Mounts-tabblad. Live uit de client: verzameld (C_MountJournal) en lockout (GetSa
 anders volle clear). Data (mh-research, wago 12.1.5.70391): 25 instances / 32 mounts in 4 "avonden", ingang via
 C_EncounterJournal.GetDungeonEntrancesForMap met fallback-coördinaat. AFGELEID / te meten: GetSavedInstanceInfo-laatste-waarde =
 Map.ID; Heroic 5-mans in de lockout-lijst; 3-drakes/0-keepers/timer-voorwaarden; vliegen in Draenor/Legion/Zereth. Bewust GEEN
-wereldroute (Mount Route Planner doet dat). Vertalingen nlNL/de/fr/es/pt/it/ru: volgende commit.
+wereldroute (Mount Route Planner doet dat). Vertalingen ✅ (nlNL + de/fr/es/pt/it/ru + 26 esMX-regels): instance-/plaatsnamen GEMETEN uit wago-dumps van build 12.1.0.69933
+(niet 12.1.5), moeilijkheden uit GlobalStrings; "Earthshrine" deels zelf samengesteld; frFR LFR = "Raids", ptBR "Loc. de Raides".
 🔍 **HandyNotes 158 vs MH, alle zones (mh-research 15 okt, scratchpad hn158_*):** 100/100 rares, 88/88 beroepsschatten, 35/35
 delve-kisten, alle WAY-links gelijk (GEMETEN). Overgenomen: Serrasa 56.38/32.99 en Pterrock 27.27/70.32 (Rares-tab; Achievements had
 ze al). Bewust NIET: Tremora (MH = grotingang), Stellar Stash 94005, Exaliburn 93569, Ha'kalawe (op patrouille), Nar'zira 66.40/62.90
