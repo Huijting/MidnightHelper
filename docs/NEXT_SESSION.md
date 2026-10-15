@@ -64,6 +64,10 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+🆕 **HandyNotes_Midnight 158 (na de release, 15 okt):** 43 kisten, ALLE met quest. In onze data: #12 = 98640 (157 had 98614
+dubbel), #32-#35 nu met quest + HN-coördinaten (98630/98632/98639/98641), #37/#38 HN-coördinaten (zelfde koppeling als onze meting),
++5 nieuwe zegelkisten: Reliquary 98609/98610 (Nalorakk, rang 7), Halazzi's Lair 98616/98617/98618 (Halazzi, rang 9). Totaal **44**
+(43 HN + Method 98603) = achievement 63717. Zit NIET in 4.7.7 → volgende versie. Andere HandyNotes-zones niet vergeleken.
 🚀 **v4.7.7 GETAGD 15 okt** (60b544c, run 38714502388 success) na akkoord site-chat; site-chat geseind (nightly, strip, #new,
 "Six"). ✅ CF toont "R v4.7.7" met nette release notes (Rob, 15 okt). ✅ Site live met 4.7.7 (site 8203ab5b, Robs ja). Site-chat ving
 op: het tabblad heet "This Week" (TAB_HOME), niet "Home" → CHANGELOG_477_11 aangepast (in het spel vanaf de volgende versie; de

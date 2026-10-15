@@ -97,8 +97,7 @@ ns.DELVE_CHESTS = {
 		-- chests (14 Oct); matching OUR chest to that point is AFGELEID (free chests within 0.35, seal pairs within 1.45;
 		-- HandyNotes marks exactly those pairs "-- 2"). #13 GEMETEN at the door by Rob. Rooms: Wowhead guide (Method swaps
 		-- the two Nalorakk room names). Flooded Chamber (#3 #11 #12 #14 #25): an ice wall that needs fire, no seal.
-		-- Not in this list yet: 2 Nalorakk chests in the Reliquary (~26.94/80.77) and 2-3 Halazzi chests in Halazzi's
-		-- Lair (~10.5/54.7 or 15.3/44) - no exact coordinates or quest ids found.
+		-- 15 Oct, later: HandyNotes 158 filled in every quest id and the five missing sealed chests (end of this list).
 		{ x = 46.88, y = 64.38, quest = 97131, room = "Chamber of Rites" },  -- #1
 		{ x = 36.96, y = 69.86, quest = 98602, room = "Chamber of Rites" },  -- #2
 		{ x = 61.65, y = 44.12, quest = 98604, room = "Flooded Chamber" },  -- #3
@@ -110,7 +109,7 @@ ns.DELVE_CHESTS = {
 		{ x = 26.44, y = 40.32, quest = 98612, room = "Halazzi's Lair" },  -- #9
 		{ x = 27.48, y = 33.01, quest = 98613, seal = 5, room = "Halazzi's Lair" },  -- #10 Halazzi's Lair, Jan'alai (pair of #13)
 		{ x = 61.17, y = 43.48, quest = 98614, room = "Flooded Chamber" },  -- #11
-		{ x = 61.53, y = 43.57, quest = 98614, room = "Flooded Chamber" },  -- #12 (HandyNotes gives #11 and #12 the same quest)
+		{ x = 61.53, y = 43.57, quest = 98640, room = "Flooded Chamber" },  -- #12 (HandyNotes 158: 98640; 157 had 98614 twice)
 		{ x = 27.94, y = 34.55, quest = 98615, seal = 5, room = "Halazzi's Lair" },  -- #13 behind Jan'alai's seal (GEMETEN, Rob 15 Oct: "does not grant you passage")
 		{ x = 61.51, y = 44.72, quest = 98619, room = "Flooded Chamber" },  -- #14
 		{ x = 28.69, y = 23.12, quest = 98620, room = "Jan'alai's Refuge" },  -- #15
@@ -130,18 +129,28 @@ ns.DELVE_CHESTS = {
 		{ x = 40.75, y = 45.41, quest = 98648, room = "Central Chamber" },  -- #29 (underneath the bridge)
 		{ x = 47.67, y = 40.01, quest = 98649, room = "Central Chamber" },  -- #30
 		{ x = 45.95, y = 48.37, quest = 98650, room = "Central Chamber" },  -- #31
-		{ x = 65.62, y = 42.02, seal = 7, room = "Nalorakk's Rest" },       -- #32 (no quest yet) Nalorakk's Rest, Nalorakk
-		{ x = 63.71, y = 43.01, seal = 7, room = "Nalorakk's Rest" },       -- #33 Nalorakk's Rest, Nalorakk (weakest match, 1.41 off)
-		{ x = 66.00, y = 51.61, seal = 9, room = "The Catacombs" },       -- #34 Catacombs, Halazzi
-		{ x = 67.43, y = 51.74, seal = 9, room = "The Catacombs" },       -- #35 Catacombs, Halazzi
+		-- #32-#38: coordinates and quests from HandyNotes 158 (15 Oct 2026, it now gives every chest a quest). Kept in
+		-- their old slots so the route's chest numbers do not shift; HandyNotes' own #34/#35 are swapped relative to ours.
+		{ x = 65.40, y = 42.60, quest = 98630, seal = 7, room = "Nalorakk's Rest" },  -- #32 Nalorakk's Rest, Nalorakk
+		{ x = 64.70, y = 43.10, quest = 98632, seal = 7, room = "Nalorakk's Rest" },  -- #33 Nalorakk's Rest, Nalorakk
+		{ x = 66.30, y = 51.80, quest = 98639, seal = 9, room = "The Catacombs" },    -- #34 Catacombs, Halazzi (HN #35)
+		{ x = 67.35, y = 51.75, quest = 98641, seal = 9, room = "The Catacombs" },    -- #35 Catacombs, Halazzi (HN #34)
 		-- #37/#38: quest ids GEMETEN 15 Oct (Rob looted both behind the Akil'zon seal; questDiff 98636 at 88.6/77.3 and
-		-- 98635 at 89.0/77.8 - paired by the nearer chest, 0.98 and 0.71 away).
-		{ x = 88.20, y = 76.40, quest = 98636, seal = 3, room = "The Cave Towers" },  -- #37 The Cave Towers, Akil'zon
-		{ x = 89.70, y = 77.70, quest = 98635, seal = 3, room = "The Cave Towers" },  -- #38 The Cave Towers, Akil'zon
-		{ x = 86.88, y = 63.34, quest = 98634, room = "The Cave Towers" },  -- Zygor (in place of HandyNotes #36), under water, no seal
+		-- 98635 at 89.0/77.8). HandyNotes 158 agrees on the same pairing (98636 at 88.50/77.25, 98635 at 89.00/78.00).
+		{ x = 88.50, y = 77.25, quest = 98636, seal = 3, room = "The Cave Towers" },  -- #37 The Cave Towers, Akil'zon
+		{ x = 89.00, y = 78.00, quest = 98635, seal = 3, room = "The Cave Towers" },  -- #38 The Cave Towers, Akil'zon
+		{ x = 86.88, y = 63.34, quest = 98634, room = "The Cave Towers" },  -- Zygor = HandyNotes 158 #36 (86.90/63.30), under water, no seal
 		-- Method, Jan'alai's Refuge: NOT a loa seal but a door you click (Method exact, Icy Veins "behind door").
-		-- Quest 98603 GEMETEN 15 Oct (Rob looted it; questDiff at 21.5/36.6).
+		-- Quest 98603 GEMETEN 15 Oct (Rob looted it; questDiff at 21.5/36.6). Not in HandyNotes 158.
 		{ x = 21.54, y = 36.48, quest = 98603, room = "Jan'alai's Refuge" },
+		-- New in HandyNotes 158: the five sealed chests no guide had placed. Seal + room from the Icy Veins list (the
+		-- Reliquary pair at ~26.94/80.77 behind Nalorakk, the Halazzi's Lair three at ~10.48/54.68 behind Halazzi);
+		-- the match is AFGELEID (within 0.5 of those points). 43 HandyNotes chests + Method's = 44 = achievement 63717.
+		{ x = 27.30, y = 81.00, quest = 98609, seal = 7, room = "Reliquary" },        -- HN #39
+		{ x = 26.80, y = 81.20, quest = 98610, seal = 7, room = "Reliquary" },        -- HN #40
+		{ x = 11.70, y = 54.80, quest = 98616, seal = 9, room = "Halazzi's Lair" },   -- HN #41
+		{ x = 9.30,  y = 54.70, quest = 98617, seal = 9, room = "Halazzi's Lair" },   -- HN #42
+		{ x = 10.50, y = 55.70, quest = 98618, seal = 9, room = "Halazzi's Lair" },   -- HN #43
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },
