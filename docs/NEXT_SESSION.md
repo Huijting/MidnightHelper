@@ -29,7 +29,9 @@ Mislaid Oddities (15 genummerde {WAY}-links in CODEX_LABYRINTH_BODY), 8 talen + 
 per stuk, 3 pagina's: wapens/schild (Wailing Bulwark, Enshrined Ceremonial Scepter, Bonedust Pestle, Soulsealer's
 Headstone, Forgotten Eidolon's Dagger), class-armor (Galerider's set voor Shaman) én ringen (Anguine Gyre, Hex Loop,
 Colubrine Band). **Myth 2/6, ilvl 321.** → onze kaart-zin "right-click 3 → Venerated Loa Armament, geen wapens of
-trinkets" klopt NIET met wat de client toont → CODEX_LABYRINTH_BODY Wah'du-sectie herschrijven (na de Aqir-schrijfronde).
+trinkets" klopt NIET met wat de client toont → ✅ CODEX_LABYRINTH_BODY Wah'du-sectie herschreven ("Wah'du is also a vendor:
+3 fragments → Myth 2/6 ilvl 321; weapons and shields, armour, rings"), Armament-zin weg, 8 talen + esMX, drift gemarkeerd.
+Open: "each step gives 1 fragment" alleen voor stap 1 gezien.
 ✅ Inventaris "wat is nieuw in 12.1.5 dat MH mist" → `docs/NEW_1215_INVENTORY_2026-10-15.md` (wago-diff 69933→70391):
 8 mounts, 3 pets, 10 toys, 55 achievements, 10 titels; MH heeft bijna niets daarvan als data. Geen nieuwe wereld-rares/
 treasures. Top 7 aanbevolen (Aqir-beloningen + Corrupted Swarmer, campagne "The Promise of Tomorrow", Loa-Blessed
