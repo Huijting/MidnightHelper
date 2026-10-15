@@ -35,6 +35,11 @@ Open: "each step gives 1 fragment" alleen voor stap 1 gezien.
 ✅ **Kistenroute + HandyNotes-quest-ID's GEMETEN (Rob 15 okt):** na kist #1 → "Sturdy Chest 2 of 39 — follow the arrow";
 questDiff ving **97131 op 2647 46.9/64.2** = HandyNotes #1 (46.88/64.38, 97131) — ook de LOOT_OPENED-sweep werkt.
 Kist gaf **700 Labyrinth Journey-punten** ("Your Warband's reputation … increased by 700") → CODEX_LABJOURNEY_BODY, 8 talen.
+🆕 **`tools/combatlog_guide.py`** (Rob 15 okt: "filmpjes compleet analyseren → guide"): leest `Logs/WoWCombatLog-*.txt`
+(`/combatlog` aan/uit in game) → per gevecht vijand-casts (id, cast bar ja/nee, eerste keer, interval), debuffs, wat spelers raakt,
+summons, interrupts, doden + laatste treffers. `probe_job: run combatlog_guide [pad]` → `%TEMP%\mh_combatlog\<log>.md`.
+Positieve controle GEMETEN op het 12.0.1-log van 30 mrt (Darmac: Call the Pack 154975, Pin Down 155365). Of 12.1.5 nog alles
+schrijft = OPEN (Rob logt nu een Labyrinth-kamer). Bedragen bewust weggelaten: in dat log onbetrouwbaar (271M op een 10k-beest).
 ⚠️ **Kist #2 gaf maar 150** (+2500 Amani Tribe, Rattling Bag o' Gold); questDiff **98602 op 37.1/69.8** = HandyNotes #2 ✅.
 Kaart zegt nu "700 één keer, 150 één keer"; waarom het verschilt (eerste van de dag? soort kist?) is OPEN.
 ✅ **Kamerbaas-knop opent de juiste baas** (video 15 okt 17:45: coach op The Undead Trollbunal 3/19; log "via encounter id").
