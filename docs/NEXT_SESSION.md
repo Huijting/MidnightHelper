@@ -64,6 +64,8 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+📣 **Site-chat bij de volgende release seinen:** 44 kisten, Vilefeather Eagle, Codex "Hidden treasures" (al gemeld) + **Mount run**
+(NIET gemeld: site-chat was 15 okt ~middag niet meer bereikbaar).
 🆕 **Mount run (oude raids)** (Rob 15 okt "doe optie 2"): `Modules/MountRun.lua` + `MountRunData.lua`, `/mh mountrun`, knop op het
 Mounts-tabblad. Live uit de client: verzameld (C_MountJournal) en lockout (GetSavedInstanceInfo + EncounterInfo, boss-naam Engels;
 anders volle clear). Data (mh-research, wago 12.1.5.70391): 25 instances / 32 mounts in 4 "avonden", ingang via
