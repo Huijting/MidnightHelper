@@ -55,8 +55,11 @@ pcall + issecretvalue), toont een rood lampje bovenaan zolang het log aan staat;
 Vertalingen de/fr/es/pt/it/ru: zie volgende commit.
 ✅ **questDiff 15 okt, 3 nieuwe kisten = HandyNotes** (GEMETEN): 98608 29.7/74.8 (#7), 98607 21.9/68.6 (#6), 98612 26.4/40.6 (#9) → 5/5.
 🆕 **Loa-zegels in de kistenroute:** chest-veld `seal = <Journey-rang>`; onder die rang valt de kist uit de route (+ chatregel
-DELVE_CHEST_SEALED), rang onleesbaar → achteraan. Nu alleen #13 (GEMETEN, Jan'alai-melding bij Rob) en #39 Method/Jan'alai's Refuge
-(AFGELEID uit de kamernaam). De rest wacht op het mh-research-onderzoek "welke kist achter welke zegel". DELVE_CHEST_SEALED nog niet vertaald.
+DELVE_CHEST_SEALED), rang onleesbaar → achteraan. ✅ Ingevuld na mh-research (Icy Veins-lijst 44 kisten, 14 okt; koppeling AFGELEID, #13 GEMETEN): Akil'zon(3) #4 #5 #21 #22 #37 #38,
+Jan'alai(5) #10 #13 #17 #18, Nalorakk(7) #32 #33, Halazzi(9) #34 #35 = 14 van de 19 zegelkisten. Flooded Chamber (#3 #11 #12 #14 #25) =
+ijsmuur (vuur), geen zegel. **#39 Method = GEEN zegel maar een klikbare deur** (mijn eerste aanname was fout); Rob zag hem niet.
+OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair (~10.5/54.7 of 15.3/44) zonder coördinaten/quest;
+#11 en #12 delen quest 98614 in HandyNotes (één is fout). DELVE_CHEST_SEALED nog niet vertaald.
 🆕 **Kist overslaan** (DelveChestData `ns.RouteDelveChests`): 2e klik op Chests terwijl de route loopt = huidige kist overslaan
 (`ns._mhDelveChestSkipped`, achteraan in de rij, gewist bij zone-in). Hint in notice + chat. Geen kamer-per-kist-data → speler kiest.
 ⚠️ **Kist #2 gaf maar 150** (+2500 Amani Tribe, Rattling Bag o' Gold); questDiff **98602 op 37.1/69.8** = HandyNotes #2 ✅.

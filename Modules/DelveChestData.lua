@@ -92,28 +92,35 @@ ns.DELVE_CHESTS = {
 		-- Kept from before where HandyNotes has nothing better: Zygor's 98634 at 86.88/63.34 (HandyNotes #36 at
 		-- 85.70/62.00 has no quest yet, so it is left out as the same chest) and Method's 21.54/36.48 (no HandyNotes
 		-- chest near it). HandyNotes' "-- 2" and "Entrance: 56.93/44.09" remarks are not used.
+		-- `seal = N` (15 Oct 2026, mh-research): Labyrinth Journey rank that opens the loa seal in front of the chest
+		-- (Akil'zon 3, Jan'alai 5, Nalorakk 7, Halazzi 9). Seal + rank per point GEMETEN in Icy Veins' list of all 44
+		-- chests (14 Oct); matching OUR chest to that point is AFGELEID (free chests within 0.35, seal pairs within 1.45;
+		-- HandyNotes marks exactly those pairs "-- 2"). #13 GEMETEN at the door by Rob. Rooms: Wowhead guide (Method swaps
+		-- the two Nalorakk room names). Flooded Chamber (#3 #11 #12 #14 #25): an ice wall that needs fire, no seal.
+		-- Not in this list yet: 2 Nalorakk chests in the Reliquary (~26.94/80.77) and 2-3 Halazzi chests in Halazzi's
+		-- Lair (~10.5/54.7 or 15.3/44) - no exact coordinates or quest ids found.
 		{ x = 46.88, y = 64.38, quest = 97131 },  -- #1
 		{ x = 36.96, y = 69.86, quest = 98602 },  -- #2
 		{ x = 61.65, y = 44.12, quest = 98604 },  -- #3
-		{ x = 38.76, y = 83.42, quest = 98605 },  -- #4
-		{ x = 38.03, y = 83.46, quest = 98606 },  -- #5
+		{ x = 38.76, y = 83.42, quest = 98605, seal = 3 },  -- #4 Chamber of Rites, Akil'zon
+		{ x = 38.03, y = 83.46, quest = 98606, seal = 3 },  -- #5 Chamber of Rites, Akil'zon
 		{ x = 21.77, y = 68.59, quest = 98607 },  -- #6
 		{ x = 29.98, y = 74.75, quest = 98608 },  -- #7
 		{ x = 13.85, y = 35.11, quest = 98611 },  -- #8
 		{ x = 26.44, y = 40.32, quest = 98612 },  -- #9
-		{ x = 27.48, y = 33.01, quest = 98613 },  -- #10
+		{ x = 27.48, y = 33.01, quest = 98613, seal = 5 },  -- #10 Halazzi's Lair, Jan'alai (pair of #13)
 		{ x = 61.17, y = 43.48, quest = 98614 },  -- #11
 		{ x = 61.53, y = 43.57, quest = 98614 },  -- #12 (HandyNotes gives #11 and #12 the same quest)
 		{ x = 27.94, y = 34.55, quest = 98615, seal = 5 },  -- #13 behind Jan'alai's seal (GEMETEN, Rob 15 Oct: "does not grant you passage")
 		{ x = 61.51, y = 44.72, quest = 98619 },  -- #14
 		{ x = 28.69, y = 23.12, quest = 98620 },  -- #15
 		{ x = 22.14, y = 29.59, quest = 98621 },  -- #16
-		{ x = 22.44, y = 12.04, quest = 98622 },  -- #17
-		{ x = 22.99, y = 11.63, quest = 98623 },  -- #18
+		{ x = 22.44, y = 12.04, quest = 98622, seal = 5 },  -- #17 Jan'alai's Refuge, Jan'alai
+		{ x = 22.99, y = 11.63, quest = 98623, seal = 5 },  -- #18 Jan'alai's Refuge, Jan'alai
 		{ x = 46.09, y = 11.11, quest = 98624 },  -- #19
 		{ x = 40.58, y = 20.27, quest = 98625 },  -- #20
-		{ x = 30.56, y = 15.65, quest = 98626 },  -- #21
-		{ x = 30.48, y = 15.02, quest = 98627 },  -- #22
+		{ x = 30.56, y = 15.65, quest = 98626, seal = 3 },  -- #21 Akil'zon's Roost, Akil'zon
+		{ x = 30.48, y = 15.02, quest = 98627, seal = 3 },  -- #22 Akil'zon's Roost, Akil'zon
 		{ x = 68.24, y = 34.10, quest = 98628 },  -- #23
 		{ x = 67.89, y = 27.68, quest = 98629 },  -- #24
 		{ x = 61.16, y = 44.80, quest = 98631 },  -- #25
@@ -123,14 +130,16 @@ ns.DELVE_CHESTS = {
 		{ x = 40.75, y = 45.41, quest = 98648 },  -- #29 (underneath the bridge)
 		{ x = 47.67, y = 40.01, quest = 98649 },  -- #30
 		{ x = 45.95, y = 48.37, quest = 98650 },  -- #31
-		{ x = 65.62, y = 42.02 },                 -- #32 (no quest yet)
-		{ x = 63.71, y = 43.01 },                 -- #33
-		{ x = 66.00, y = 51.61 },                 -- #34
-		{ x = 67.43, y = 51.74 },                 -- #35
-		{ x = 88.20, y = 76.40 },                 -- #37
-		{ x = 89.70, y = 77.70 },                 -- #38
-		{ x = 86.88, y = 63.34, quest = 98634 },  -- Zygor (in place of HandyNotes #36)
-		{ x = 21.54, y = 36.48, seal = 5 },       -- Method, Jan'alai's Refuge = a Jan'alai-sealed room (AFGELEID from the room name)
+		{ x = 65.62, y = 42.02, seal = 7 },       -- #32 (no quest yet) Nalorakk's Rest, Nalorakk
+		{ x = 63.71, y = 43.01, seal = 7 },       -- #33 Nalorakk's Rest, Nalorakk (weakest match, 1.41 off)
+		{ x = 66.00, y = 51.61, seal = 9 },       -- #34 Catacombs, Halazzi
+		{ x = 67.43, y = 51.74, seal = 9 },       -- #35 Catacombs, Halazzi
+		{ x = 88.20, y = 76.40, seal = 3 },       -- #37 The Cave Towers, Akil'zon
+		{ x = 89.70, y = 77.70, seal = 3 },       -- #38 The Cave Towers, Akil'zon
+		{ x = 86.88, y = 63.34, quest = 98634 },  -- Zygor (in place of HandyNotes #36), under water, no seal
+		-- Method, Jan'alai's Refuge: NOT a loa seal but a door you click (Method exact, Icy Veins "behind door").
+		-- Rob could not see it on 15 Oct; no quest id, so the route only ticks it off when you loot next to it.
+		{ x = 21.54, y = 36.48 },
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },
