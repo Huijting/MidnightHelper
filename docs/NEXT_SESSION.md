@@ -64,9 +64,8 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
-🚀 **4.7.7 RELEASE KLAARGEZET 15 okt** (Rob: "ik vind het toch een release waard"): CHANGELOG_477_0 + 477_8..13, RELEASE_NOTES =
-docs/CURSEFORGE_4.7.7.md (byte-gelijk), CHANGELOG.md. Wacht op akkoord site-chat → tag `v4.7.7`. Bij de tag de site-chat seinen
-(beta-blok → #new, "Five" → "Six").
+🚀 **v4.7.7 GETAGD 15 okt** (60b544c, run 38714502388 success) na akkoord site-chat; site-chat geseind (nightly, strip, #new,
+"Six"). OPEN: CF-pagina "R v4.7.7" zelf nog niet gezien; release notes op CF heel laten (lengteregel dood).
 ✅ **questDiff na de schatkamer (GEMETEN 15 okt):** #19 98624, #20 98625, #21 98626, #22 98627 = HandyNotes → **20/20**. Schatkamer
 ~44/85: quests **93820, 93821, 93822, 98501** (98501 ook al 14 okt daar) — vermoedelijk de schatkisten; of ze wekelijks resetten = OPEN
 (idee: "schatkamer deze week al gehad?" in de coach).

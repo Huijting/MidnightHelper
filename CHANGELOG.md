@@ -4,8 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## 4.7.7
 
-📌 **2026-10-15, RELEASE KLAARGEZET (Rob: "ik vind het toch een release waard" — gewone release i.p.v. beta2).**
-NOG NIET GETAGD: wacht op akkoord site-chat + Robs laatste go. `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md` (byte-gelijk,
+📌 **2026-10-15, RELEASE (Rob: "ik vind het toch een release waard" — gewone release i.p.v. beta2), tag `v4.7.7` (60b544c)
+na akkoord site-chat; GitHub Actions run 38714502388 "Release to CurseForge, Wago and GitHub" = success.** `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.7.7.md` (byte-gelijk,
 3418 bytes), beta-alinea bovenaan. In-game: CHANGELOG_477_0 (intro) + 477_8..13 nieuw; 477_2 zonder "20 chests".
 ⚠️ Wijkt af van "beta eerst" — bewuste keuze van Rob. GEMETEN door Rob op 15 okt: lampje, kamerbaas-knop (Grukk, Cynthra,
 Sha'Kuro via encounter id), achlist-groepen, 20/20 kist-quests, zegels (Akil'zon open bij zijn rang), "The Catacombs".
