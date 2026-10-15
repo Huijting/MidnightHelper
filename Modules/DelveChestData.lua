@@ -125,15 +125,15 @@ ns.DELVE_CHESTS = {
 		{ x = 67.89, y = 27.68, quest = 98629, room = "Nalorakk's Rest" },  -- #24
 		{ x = 61.16, y = 44.80, quest = 98631, room = "Flooded Chamber" },  -- #25
 		{ x = 81.31, y = 55.01, quest = 98633, room = "The Cave Towers" },  -- #26
-		{ x = 72.39, y = 65.93, quest = 98637, room = "Catacombs" },  -- #27
-		{ x = 69.25, y = 71.09, quest = 98638, room = "Catacombs" },  -- #28
+		{ x = 72.39, y = 65.93, quest = 98637, room = "The Catacombs" },  -- #27
+		{ x = 69.25, y = 71.09, quest = 98638, room = "The Catacombs" },  -- #28
 		{ x = 40.75, y = 45.41, quest = 98648, room = "Central Chamber" },  -- #29 (underneath the bridge)
 		{ x = 47.67, y = 40.01, quest = 98649, room = "Central Chamber" },  -- #30
 		{ x = 45.95, y = 48.37, quest = 98650, room = "Central Chamber" },  -- #31
 		{ x = 65.62, y = 42.02, seal = 7, room = "Nalorakk's Rest" },       -- #32 (no quest yet) Nalorakk's Rest, Nalorakk
 		{ x = 63.71, y = 43.01, seal = 7, room = "Nalorakk's Rest" },       -- #33 Nalorakk's Rest, Nalorakk (weakest match, 1.41 off)
-		{ x = 66.00, y = 51.61, seal = 9, room = "Catacombs" },       -- #34 Catacombs, Halazzi
-		{ x = 67.43, y = 51.74, seal = 9, room = "Catacombs" },       -- #35 Catacombs, Halazzi
+		{ x = 66.00, y = 51.61, seal = 9, room = "The Catacombs" },       -- #34 Catacombs, Halazzi
+		{ x = 67.43, y = 51.74, seal = 9, room = "The Catacombs" },       -- #35 Catacombs, Halazzi
 		{ x = 88.20, y = 76.40, seal = 3, room = "The Cave Towers" },       -- #37 The Cave Towers, Akil'zon
 		{ x = 89.70, y = 77.70, seal = 3, room = "The Cave Towers" },       -- #38 The Cave Towers, Akil'zon
 		{ x = 86.88, y = 63.34, quest = 98634, room = "The Cave Towers" },  -- Zygor (in place of HandyNotes #36), under water, no seal
@@ -358,9 +358,15 @@ function ns.GetOpenDelveChests()
 			here = z
 		end
 	end
+	-- "The Catacombs" on the minimap, "Catacombs" in the guides (Rob, 15 Oct): compare without a leading "The ".
+	local function Norm(s)
+		return type(s) == "string" and s:gsub("^[Tt]he ", ""):lower() or nil
+	end
+	local hereShown = here -- as the minimap writes it, for the chat line
+	here = Norm(here)
 	local knownRoom = false
 	for i = 1, #chests do
-		if here and chests[i].room == here then
+		if here and Norm(chests[i].room) == here then
 			knownRoom = true
 			break
 		end
@@ -387,7 +393,7 @@ function ns.GetOpenDelveChests()
 				d = dx * dx + dy * dy -- squared: we only ever compare these
 			end
 			open[#open + 1] = { x = c.x, y = c.y, quest = c.quest, index = i, dist = d, room = c.room,
-				inRoom = knownRoom and c.room == here or nil,
+				inRoom = knownRoom and Norm(c.room) == here or nil,
 				skipped = (skipped and skipped[i]) or (c.seal and not journeyRank) or nil }
 		end
 	end
@@ -407,7 +413,7 @@ function ns.GetOpenDelveChests()
 		-- inventing one.
 		return a.index < b.index
 	end)
-	return open, mapID, #chests - sealed, unknown, learned, sealed, knownRoom and here or nil
+	return open, mapID, #chests - sealed, unknown, learned, sealed, knownRoom and hereShown or nil
 end
 
 --------------------------------------------------------------------------------

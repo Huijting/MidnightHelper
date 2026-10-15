@@ -66,8 +66,9 @@ uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/O
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
 🆕 **Kistenroute kamer-bewust** (Rob 15 okt, Catacombs → pijl naar Cave Towers' waterkist #38): elke Labyrinth-kist heeft `room =`
 (mh-research, WH-G/IV-N); GetSubZoneText() = jouw kamer → kisten in die kamer eerst; leeg → chatregel DELVE_CHEST_ROOM_DONE; de ticker
-wisselt vanzelf als je een kamer met een open kist inloopt. Kamernamen als subzone GEMETEN: alleen "Chamber of Rites" + "Central
-Chamber" (Robs video); de rest AFGELEID uit de gidsen ("Catacombs" kan "The Catacombs" zijn) → TESTLIJST. Alleen Engelse client.
+wisselt vanzelf als je een kamer met een open kist inloopt. Kamernamen als subzone GEMETEN: "Chamber of Rites", "Central
+Chamber" (Robs video), **"The Catacombs"** (Robs minimap — de gidsen zeggen "Catacombs"; vergelijking negeert nu een "The " vooraan);
+de rest AFGELEID uit de gidsen → TESTLIJST. Alleen Engelse client.
 DELVE_CHEST_ROOM_DONE nog niet vertaald.
 ✅ **Kamer "The Wandering" (GEMETEN, video 09:35 + log):** taak "0/1 True vessel found" = onze "Find the Vessel"; Unraveling Spirit
 273578 (Unraveling 1314070, Fatigue Relief 1313931, geen schade aan Rob), 13 gedood. Naam toegevoegd in DELVE_TIP_LABYRINTH_ROOMS (8 talen).
