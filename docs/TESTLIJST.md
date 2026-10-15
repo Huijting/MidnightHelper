@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 15 okt — Labyrinth-kistenroute: 39 kisten uit HandyNotes (DelveChestData.lua)
+
+- [ ] **Coach → "Chests" in de Labyrinth:** de pijl kiest nu uit 39 kisten (was 20), ook die achter de loa-zegels.
+      31 hebben een quest-ID: een kist die je al geopend hebt, slaat de route over. Wijst de pijl naar een plek waar geen
+      kist staat, noteer de kamer + `/mh capture`.
+- [ ] Na een kist: `/reload` → ik lees `questDiff.found`: klopt het quest-ID van HandyNotes met wat de game afvinkt?
+
 ## 🆕 14 okt — Delve-lijst eerlijk verdeeld (Delves.lua)
 
 - [x] **Midnight Delves (hoofdpagina):** links en rechts staan nu evenveel delves (8 + 8), in plaats van 5 links en 11

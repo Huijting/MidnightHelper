@@ -83,39 +83,54 @@ ns.DELVE_CHESTS = {
 		{ x = 53.06, y = 57.95, quest = 94000 },
 		{ x = 53.00, y = 65.34, quest = 94038 },
 	},
-	[2647] = { -- The Labyrinth of Kindo'jan (12.1.5). MEASURED by Rob on the PTR, 13 Oct 2026: map id via
-		-- /dump C_Map.GetBestMapForUnit, the chest at his own feet. Only one found so far; quest flag unknown (nil =
-		-- "not known to be done", see above). Zygor's LibRover lists 2647 and 2648 for this delve: a second floor?
-		{ x = 37.20, y = 69.70 },
-		-- Zygor (updated 13 Oct 2026, ZygorDungeonCommonMID.lua "The Labyrinth of Kindo'jan"): two Sturdy Chests with
-		-- quest flags. The first one AGREES with Rob's own run-4 video (Sturdy Chest nameplate at 81.4, 54.7, The Cave
-		-- Towers) to within 0.4 — two independent sources. The second is Zygor only. Rob's 37.2/69.7 above is not in
-		-- Zygor's list; kept, quest unknown.
-		{ x = 81.32, y = 55.02, quest = 98633 },
-		{ x = 86.88, y = 63.34, quest = 98634 },
-		-- 14 Oct 2026 (Rob: "doe ze alle drie maar, wowhead is meestal zeer goed geinformeerd"): the other 17 open
-		-- chests. Wowhead's megadelve guide (Sinzhu, updated 13 Oct; pins on uiMap 2647, 1 decimal) and Method's chest
-		-- guide (Roguery, 10 Oct; 2 decimals) agree on all 20: Wowhead's numbers are Method's cut to one decimal. We use
-		-- Method's two decimals. Their #1, #9 and #10 are the three above (37.14/69.83, 87.04/63.08, 81.53/55.47).
-		-- No quest ids on either page. Not included: the 19 behind loa seals and the 5 in the Flooded Chamber (fire to
-		-- melt the ice wall) — neither guide gives a coordinate per chest, only the seal-room doors.
-		{ x = 47.06, y = 64.31 }, -- Chamber of Rites
-		{ x = 30.08, y = 74.15 }, -- Reliquary
-		{ x = 22.03, y = 68.67 }, -- Reliquary
-		{ x = 13.82, y = 35.59 }, -- Halazzi's Lair
-		{ x = 26.25, y = 40.34 }, -- Halazzi's Lair
-		{ x = 72.37, y = 65.62 }, -- Catacombs
-		{ x = 69.61, y = 70.96 }, -- Catacombs
-		{ x = 40.69, y = 20.72 }, -- Akil'zon's Roost
-		{ x = 45.41, y = 11.75 }, -- Akil'zon's Roost
-		{ x = 68.46, y = 33.84 }, -- Nalorakk's Rest
-		{ x = 67.52, y = 27.79 }, -- Nalorakk's Rest
-		{ x = 22.47, y = 29.43 }, -- Jan'alai's Refuge
-		{ x = 21.54, y = 36.48 }, -- Jan'alai's Refuge
-		{ x = 28.53, y = 22.96 }, -- Jan'alai's Refuge
-		{ x = 45.87, y = 48.02 }, -- The Central Chamber
-		{ x = 40.74, y = 45.79 }, -- The Central Chamber
-		{ x = 47.62, y = 40.35 }, -- The Central Chamber
+	[2647] = { -- The Labyrinth of Kindo'jan (12.1.5).
+		-- 15 Oct 2026 (Rob: "heeft handynotes geen nieuwe dingen als coordinaten?"): HandyNotes_Midnight 157,
+		-- zones/labyrinth_of_kindo_jan.lua — 38 "Ancient Chests" (achievement 63717 Kindo'jan's Labyrinth Discoveries),
+		-- 31 with a quest flag, including the ones behind the loa seals that no guide placed. Cross-check: their #26
+		-- 81.31/55.01 quest 98633 IS our Zygor chest 81.32/55.02 quest 98633, and 17 of our 18 Wowhead/Method chests of
+		-- 14 Oct sit on a HandyNotes chest (within ~0.7). Quest ids: HandyNotes alone (see the warning at the top).
+		-- Kept from before where HandyNotes has nothing better: Zygor's 98634 at 86.88/63.34 (HandyNotes #36 at
+		-- 85.70/62.00 has no quest yet, so it is left out as the same chest) and Method's 21.54/36.48 (no HandyNotes
+		-- chest near it). HandyNotes' "-- 2" and "Entrance: 56.93/44.09" remarks are not used.
+		{ x = 46.88, y = 64.38, quest = 97131 },  -- #1
+		{ x = 36.96, y = 69.86, quest = 98602 },  -- #2
+		{ x = 61.65, y = 44.12, quest = 98604 },  -- #3
+		{ x = 38.76, y = 83.42, quest = 98605 },  -- #4
+		{ x = 38.03, y = 83.46, quest = 98606 },  -- #5
+		{ x = 21.77, y = 68.59, quest = 98607 },  -- #6
+		{ x = 29.98, y = 74.75, quest = 98608 },  -- #7
+		{ x = 13.85, y = 35.11, quest = 98611 },  -- #8
+		{ x = 26.44, y = 40.32, quest = 98612 },  -- #9
+		{ x = 27.48, y = 33.01, quest = 98613 },  -- #10
+		{ x = 61.17, y = 43.48, quest = 98614 },  -- #11
+		{ x = 61.53, y = 43.57, quest = 98614 },  -- #12 (HandyNotes gives #11 and #12 the same quest)
+		{ x = 27.94, y = 34.55, quest = 98615 },  -- #13
+		{ x = 61.51, y = 44.72, quest = 98619 },  -- #14
+		{ x = 28.69, y = 23.12, quest = 98620 },  -- #15
+		{ x = 22.14, y = 29.59, quest = 98621 },  -- #16
+		{ x = 22.44, y = 12.04, quest = 98622 },  -- #17
+		{ x = 22.99, y = 11.63, quest = 98623 },  -- #18
+		{ x = 46.09, y = 11.11, quest = 98624 },  -- #19
+		{ x = 40.58, y = 20.27, quest = 98625 },  -- #20
+		{ x = 30.56, y = 15.65, quest = 98626 },  -- #21
+		{ x = 30.48, y = 15.02, quest = 98627 },  -- #22
+		{ x = 68.24, y = 34.10, quest = 98628 },  -- #23
+		{ x = 67.89, y = 27.68, quest = 98629 },  -- #24
+		{ x = 61.16, y = 44.80, quest = 98631 },  -- #25
+		{ x = 81.31, y = 55.01, quest = 98633 },  -- #26
+		{ x = 72.39, y = 65.93, quest = 98637 },  -- #27
+		{ x = 69.25, y = 71.09, quest = 98638 },  -- #28
+		{ x = 40.75, y = 45.41, quest = 98648 },  -- #29 (underneath the bridge)
+		{ x = 47.67, y = 40.01, quest = 98649 },  -- #30
+		{ x = 45.95, y = 48.37, quest = 98650 },  -- #31
+		{ x = 65.62, y = 42.02 },                 -- #32 (no quest yet)
+		{ x = 63.71, y = 43.01 },                 -- #33
+		{ x = 66.00, y = 51.61 },                 -- #34
+		{ x = 67.43, y = 51.74 },                 -- #35
+		{ x = 88.20, y = 76.40 },                 -- #37
+		{ x = 89.70, y = 77.70 },                 -- #38
+		{ x = 86.88, y = 63.34, quest = 98634 },  -- Zygor (in place of HandyNotes #36)
+		{ x = 21.54, y = 36.48 },                 -- Method, Jan'alai's Refuge
 	},
 	[2545] = { -- Parhelion Plaza
 		{ x = 9.63,  y = 50.31, quest = 94019 },

@@ -20,6 +20,11 @@ Roost. NIET in de client gezien. Staat NA de beta1-tag op main → gaat mee in b
 "fixed by Blizzard on 14 Oct … tell us", 8 talen + esMX, drift gemarkeerd. Open voor Rob: de Sha'Kuro-regel in
 DELVE_TIP_LABYRINTH_ROOMS ("one player reports … only counts after his second burrow") hoort mogelijk bij dezelfde bug.
 DBM-Delves-Midnight r266: Labyrinth-modules nog steeds leeg.
+**15 okt — HandyNotes_Midnight 157 (Rob: "heeft handynotes geen nieuwe dingen?"):** zones/labyrinth_of_kindo_jan.lua =
+38 Ancient Chests (ach 63717, 31 met quest), 15 Mislaid Oddities (ach 63727/63728, willekeurig), 3 Hexmasks (ach 63720).
+DelveChestData [2647] → 39 kisten (HandyNotes 37 + Zygor 98634 + Method 21.54/36.48). Controle: HN #26 = onze 98633.
+Quest-ID's = HandyNotes alleen. Oddities/Hexmasks NIET overgenomen (nog). Sha'Kuro "second burrow"-regel: weg (Rob).
+⚠️ Bij beta2: CHANGELOG_477_2 zegt "20 chests" → nieuwe changelog-regel met 39.
 📌 **DBM 12.1.14 (Rob 14 okt "dbm is net geupdated", GEMETEN):** DBM-Delves-Midnight NIET bijgewerkt (r265, Labyrinth-
 modules nog leeg). Kithix.lua (DBM-Lairs-Midnight, rev 20261014185057): EncounterID 3513, journal 1324, Story-modus
 (geen Null Gate in Story), add-aanvallen Voidweave 1302334 + Fixate 1304434 (nog niet in onze RaidTips). Rest dekken we al.
