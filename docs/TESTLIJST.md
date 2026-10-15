@@ -41,6 +41,9 @@ er is niets weggegooid.
 - [ ] **Coach → "Chests" in de Labyrinth:** de pijl kiest nu uit 39 kisten (was 20), ook die achter de loa-zegels.
       31 hebben een quest-ID: een kist die je al geopend hebt, slaat de route over. Wijst de pijl naar een plek waar geen
       kist staat, noteer de kamer + `/mh capture`.
+- [ ] **Combat log-lampje** (nieuw 15 okt, CombatLogLamp.lua): typ `/combatlog` → binnen ~2 s bovenaan je scherm een klein
+      rood knipperend lampje "Combat log". Nog een keer `/combatlog` → lampje weg. `/mh combatlog` zegt ON/OFF + waarom.
+      Slepen = verplaatsen; Shift+scroll = groter/kleiner. Uit te zetten in Settings ("Show a lamp while the combat log is on").
 - [ ] **Kist overslaan** (Rob 15 okt: "hij stuurt me ergens naartoe waar ik niet heen kon"): staat de pijl op een kist achter een
       dichte deur, klik dan nog een keer op **Chests** in de coach. In de chat: *"Skipped Sturdy Chest N — it comes back last"*,
       en de pijl gaat naar de volgende. Na de andere kisten komt de overgeslagen kist als laatste terug.

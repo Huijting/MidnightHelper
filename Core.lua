@@ -2222,6 +2222,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh combatlog — is the game writing the combat log, and why the lamp shows or not (CombatLogLamp.lua).
+	if msg == "combatlog" then
+		if ns.MH_CombatLogLampReport then
+			ns.MH_CombatLogLampReport()
+		end
+		return
+	end
+
 	-- /mh worldboss — are the four world bosses still a thing in 12.1?
 	if msg == "worldboss" or msg == "wb" then
 		if ns.MH_WorldBossProbe then

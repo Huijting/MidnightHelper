@@ -356,6 +356,12 @@ local function Build()
 	end, function(v)
 		if ns.SetDelveRoomBossAutoOpen then ns.SetDelveRoomBossAutoOpen(v) end
 	end, false)
+	-- Rob, 15 Oct 2026: "doe dat lampje maar" - a lamp while /combatlog is on (CombatLogLamp.lua).
+	Toggle("mh_combatLogLamp", "SET_COMBATLOG_LAMP_TITLE", "SET_COMBATLOG_LAMP_DESC", function()
+		return ns.IsCombatLogLampEnabled and ns.IsCombatLogLampEnabled()
+	end, function(v)
+		if ns.SetCombatLogLampEnabled then ns.SetCombatLogLampEnabled(v) end
+	end, true)
 	-- Recommended OFF since 14 Sep 2026: the module's own default is off
 	-- (IsBossWindowModelEnabled reads showModel == true), and Recommended used to switch it back on.
 	Toggle("mh_bossModel", "SET_BOSSWIN_MODEL_TITLE", "SET_BOSSWIN_MODEL_DESC", function()

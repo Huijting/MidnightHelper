@@ -243,6 +243,7 @@ Modules\InterruptEventProbe.lua
 Modules\SettingsDefs.lua
 Modules\NativeSettings.lua
 Modules\FpsPanel.lua
+Modules\CombatLogLamp.lua
 Modules\SettingsPage.lua
 Modules\ShardCapAlert.lua
 Modules\WorldContent.lua

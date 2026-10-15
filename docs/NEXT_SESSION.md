@@ -48,6 +48,10 @@ en haar Killing Spree worden uitgefilterd.
 Daarna kreeg Rob Purging Flames (1259491) — of dát het schild breekt is AFGELEID. Tool vindt dit nu zelf (secties shields /
 enemy buffs / objecten in de kamer). Nog geen coach-tip geschreven. ⚠️ Robs video van die kamer was de **Claude-app**
 (Game Bar neemt het actieve venster op) → eerst in WoW klikken, dan Win+Alt+R.
+🆕 **Combat log-lampje** (Rob 15 okt "doe dat lampje maar"): `Modules/CombatLogLamp.lua` — leest alleen `LoggingCombat()` (2 s ticker,
+pcall + issecretvalue), toont een rood lampje bovenaan zolang het log aan staat; setting `mh_combatLogLamp` (standaard aan),
+`/mh combatlog` = diagnose. Dat LoggingCombat() in 12.1.5 werkt = AFGELEID (DBM/RaiderIO gebruiken het) → TESTLIJST.
+Vertalingen de/fr/es/pt/it/ru: zie volgende commit.
 🆕 **Kist overslaan** (DelveChestData `ns.RouteDelveChests`): 2e klik op Chests terwijl de route loopt = huidige kist overslaan
 (`ns._mhDelveChestSkipped`, achteraan in de rij, gewist bij zone-in). Hint in notice + chat. Geen kamer-per-kist-data → speler kiest.
 ⚠️ **Kist #2 gaf maar 150** (+2500 Amani Tribe, Rattling Bag o' Gold); questDiff **98602 op 37.1/69.8** = HandyNotes #2 ✅.

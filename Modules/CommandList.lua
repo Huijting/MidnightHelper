@@ -197,6 +197,8 @@ ns.MH_COMMANDS = {
 	} },
 	{ headKey = "CMDLIST_GRP_ROUTE", items = {
 		{ cmd = "/mh arrow", descKey = "CMDLIST_ARROW" },
+		-- 15 Oct 2026: is the game writing the combat log? (CombatLogLamp.lua)
+		{ cmd = "/mh combatlog", descKey = "CMDLIST_COMBATLOG" },
 		{ cmd = "/mh arrowsize", descKey = "CMDLIST_ARROWSIZE" },
 		{ cmd = "/mh fp", descKey = "CMDLIST_FP" },
 		{ cmd = "/mh course", descKey = "CMDLIST_COURSE" },
