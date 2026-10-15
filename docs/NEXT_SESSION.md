@@ -11,7 +11,9 @@
    met een Midnight-tussenstop. Uitzoeken in Delves.lua `AddSmartTomTomWay` (welke tak print dat) en voor oude werelden: géén
    continent-advies, maar de MOUNTRUN_HOW-regel als stappen tonen (portaalkamer → portaal → zone), en de pijl pas zetten als je in de
    juiste zone bent (of de zone-stap als eerste waypoint). Rob kiest de vorm.
-3. Vertaling van de Mount run-uitbreiding (avond 5 / dungeons / groep) liep nog bij het slapengaan — controleer of die gecommit is.
+3. ✅ Vertaling Mount run-uitbreiding gecommit (nlNL, de/fr/es/pt/it, ruRU, 36 esMX-regels; namen uit wago-dumps). Engels gelaten
+   (niet meetbaar): LFR-vleugels Gates of Hell / Light's Breach / Victory or Death, Lightforged Beacon, Spatial Rift, Black Empire,
+   "Dalaran (Legion)".
 
 ## 14 okt — EU-PATCHDAG — VERDER HIER
 

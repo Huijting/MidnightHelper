@@ -20817,6 +20817,14 @@
    "ptBR": "ec65738a2ffb3f41",
    "ruRU": "ec65738a2ffb3f41"
   },
+  "MOUNTRUN_GROUP": {
+   "deDE": "1493b104c163b954",
+   "esES": "1493b104c163b954",
+   "frFR": "1493b104c163b954",
+   "itIT": "1493b104c163b954",
+   "ptBR": "1493b104c163b954",
+   "ruRU": "1493b104c163b954"
+  },
   "MOUNTRUN_HEAD_CATA": {
    "deDE": "d9ebf9a9b19845b5",
    "esES": "d9ebf9a9b19845b5",
@@ -20824,6 +20832,30 @@
    "itIT": "d9ebf9a9b19845b5",
    "ptBR": "d9ebf9a9b19845b5",
    "ruRU": "d9ebf9a9b19845b5"
+  },
+  "MOUNTRUN_HEAD_DUNGEONS": {
+   "deDE": "313018f5cc4422ff",
+   "esES": "313018f5cc4422ff",
+   "frFR": "313018f5cc4422ff",
+   "itIT": "313018f5cc4422ff",
+   "ptBR": "313018f5cc4422ff",
+   "ruRU": "313018f5cc4422ff"
+  },
+  "MOUNTRUN_HEAD_GROUP": {
+   "deDE": "df4e96bb229da88b",
+   "esES": "df4e96bb229da88b",
+   "frFR": "df4e96bb229da88b",
+   "itIT": "df4e96bb229da88b",
+   "ptBR": "df4e96bb229da88b",
+   "ruRU": "df4e96bb229da88b"
+  },
+  "MOUNTRUN_HEAD_LEGION_SL": {
+   "deDE": "d240d197a1bcbea1",
+   "esES": "d240d197a1bcbea1",
+   "frFR": "d240d197a1bcbea1",
+   "itIT": "d240d197a1bcbea1",
+   "ptBR": "d240d197a1bcbea1",
+   "ruRU": "d240d197a1bcbea1"
   },
   "MOUNTRUN_HEAD_MYTHIC": {
    "deDE": "7c3551bf4865dc04",
@@ -20857,6 +20889,30 @@
    "ptBR": "43c341bce96124bf",
    "ruRU": "43c341bce96124bf"
   },
+  "MOUNTRUN_HOW_ANT": {
+   "deDE": "2b062d6d87dd87a1",
+   "esES": "2b062d6d87dd87a1",
+   "frFR": "2b062d6d87dd87a1",
+   "itIT": "2b062d6d87dd87a1",
+   "ptBR": "2b062d6d87dd87a1",
+   "ruRU": "2b062d6d87dd87a1"
+  },
+  "MOUNTRUN_HOW_ANT_ARGUS": {
+   "deDE": "beff3198f156cfae",
+   "esES": "beff3198f156cfae",
+   "frFR": "beff3198f156cfae",
+   "itIT": "beff3198f156cfae",
+   "ptBR": "beff3198f156cfae",
+   "ruRU": "beff3198f156cfae"
+  },
+  "MOUNTRUN_HOW_AOF": {
+   "deDE": "ccd4c008f0a087b5",
+   "esES": "ccd4c008f0a087b5",
+   "frFR": "ccd4c008f0a087b5",
+   "itIT": "ccd4c008f0a087b5",
+   "ptBR": "ccd4c008f0a087b5",
+   "ruRU": "ccd4c008f0a087b5"
+  },
   "MOUNTRUN_HOW_BOD": {
    "deDE": "404dbe7b776aa43b",
    "esES": "404dbe7b776aa43b",
@@ -20864,6 +20920,14 @@
    "itIT": "404dbe7b776aa43b",
    "ptBR": "404dbe7b776aa43b",
    "ruRU": "404dbe7b776aa43b"
+  },
+  "MOUNTRUN_HOW_BOD_GMOD": {
+   "deDE": "08ad4dbb43beb678",
+   "esES": "08ad4dbb43beb678",
+   "frFR": "08ad4dbb43beb678",
+   "itIT": "08ad4dbb43beb678",
+   "ptBR": "08ad4dbb43beb678",
+   "ruRU": "08ad4dbb43beb678"
   },
   "MOUNTRUN_HOW_BRF": {
    "deDE": "30c4aadb63fcd92b",
@@ -20881,6 +20945,22 @@
    "ptBR": "d7652ea8790559a1",
    "ruRU": "d7652ea8790559a1"
   },
+  "MOUNTRUN_HOW_DFC": {
+   "deDE": "5aa4234eff534014",
+   "esES": "5aa4234eff534014",
+   "frFR": "5aa4234eff534014",
+   "itIT": "5aa4234eff534014",
+   "ptBR": "5aa4234eff534014",
+   "ruRU": "5aa4234eff534014"
+  },
+  "MOUNTRUN_HOW_DOTI": {
+   "deDE": "d56e1adfcb185ecd",
+   "esES": "d56e1adfcb185ecd",
+   "frFR": "d56e1adfcb185ecd",
+   "itIT": "d56e1adfcb185ecd",
+   "ptBR": "d56e1adfcb185ecd",
+   "ruRU": "d56e1adfcb185ecd"
+  },
   "MOUNTRUN_HOW_DS": {
    "deDE": "28ffc49905a19eef",
    "esES": "28ffc49905a19eef",
@@ -20896,6 +20976,14 @@
    "itIT": "b1ea2f56c58bd6ad",
    "ptBR": "b1ea2f56c58bd6ad",
    "ruRU": "b1ea2f56c58bd6ad"
+  },
+  "MOUNTRUN_HOW_FH": {
+   "deDE": "5b227e0b34ca6d04",
+   "esES": "5b227e0b34ca6d04",
+   "frFR": "5b227e0b34ca6d04",
+   "itIT": "5b227e0b34ca6d04",
+   "ptBR": "5b227e0b34ca6d04",
+   "ruRU": "5b227e0b34ca6d04"
   },
   "MOUNTRUN_HOW_FL": {
    "deDE": "002f602932dcb2fc",
@@ -20929,6 +21017,30 @@
    "ptBR": "44d25cfc4d40249d",
    "ruRU": "44d25cfc4d40249d"
   },
+  "MOUNTRUN_HOW_LOU": {
+   "deDE": "cac8c03afa44038d",
+   "esES": "cac8c03afa44038d",
+   "frFR": "cac8c03afa44038d",
+   "itIT": "cac8c03afa44038d",
+   "ptBR": "cac8c03afa44038d",
+   "ruRU": "cac8c03afa44038d"
+  },
+  "MOUNTRUN_HOW_MFO": {
+   "deDE": "307f5ecdc5d93e8b",
+   "esES": "307f5ecdc5d93e8b",
+   "frFR": "307f5ecdc5d93e8b",
+   "itIT": "307f5ecdc5d93e8b",
+   "ptBR": "307f5ecdc5d93e8b",
+   "ruRU": "307f5ecdc5d93e8b"
+  },
+  "MOUNTRUN_HOW_MOQD": {
+   "deDE": "c0333b065a602bed",
+   "esES": "c0333b065a602bed",
+   "frFR": "c0333b065a602bed",
+   "itIT": "c0333b065a602bed",
+   "ptBR": "c0333b065a602bed",
+   "ruRU": "c0333b065a602bed"
+  },
   "MOUNTRUN_HOW_MSV": {
    "deDE": "2c7937b287076294",
    "esES": "2c7937b287076294",
@@ -20945,6 +21057,14 @@
    "ptBR": "c74bdd3e69e61eab",
    "ruRU": "c74bdd3e69e61eab"
   },
+  "MOUNTRUN_HOW_MTN": {
+   "deDE": "e370445ab285624d",
+   "esES": "e370445ab285624d",
+   "frFR": "e370445ab285624d",
+   "itIT": "e370445ab285624d",
+   "ptBR": "e370445ab285624d",
+   "ruRU": "e370445ab285624d"
+  },
   "MOUNTRUN_HOW_NH": {
    "deDE": "6dd27f1554148dc2",
    "esES": "6dd27f1554148dc2",
@@ -20952,6 +21072,22 @@
    "itIT": "6dd27f1554148dc2",
    "ptBR": "6dd27f1554148dc2",
    "ruRU": "6dd27f1554148dc2"
+  },
+  "MOUNTRUN_HOW_NP": {
+   "deDE": "c4c3fbd8c79029ac",
+   "esES": "c4c3fbd8c79029ac",
+   "frFR": "c4c3fbd8c79029ac",
+   "itIT": "c4c3fbd8c79029ac",
+   "ptBR": "c4c3fbd8c79029ac",
+   "ruRU": "c4c3fbd8c79029ac"
+  },
+  "MOUNTRUN_HOW_NYA": {
+   "deDE": "1a749a4e5f17d738",
+   "esES": "1a749a4e5f17d738",
+   "frFR": "1a749a4e5f17d738",
+   "itIT": "1a749a4e5f17d738",
+   "ptBR": "1a749a4e5f17d738",
+   "ruRU": "1a749a4e5f17d738"
   },
   "MOUNTRUN_HOW_ONY": {
    "deDE": "a72dd0b4db928b3c",
@@ -20977,6 +21113,14 @@
    "ptBR": "f783c9f5405eb42d",
    "ruRU": "f783c9f5405eb42d"
   },
+  "MOUNTRUN_HOW_SC": {
+   "deDE": "5add5d40e051b1d8",
+   "esES": "5add5d40e051b1d8",
+   "frFR": "5add5d40e051b1d8",
+   "itIT": "5add5d40e051b1d8",
+   "ptBR": "5add5d40e051b1d8",
+   "ruRU": "5add5d40e051b1d8"
+  },
   "MOUNTRUN_HOW_SETHEKK": {
    "deDE": "955fc6adf4002ce7",
    "esES": "955fc6adf4002ce7",
@@ -20993,6 +21137,14 @@
    "ptBR": "74eb1125af32ca0f",
    "ruRU": "74eb1125af32ca0f"
   },
+  "MOUNTRUN_HOW_SOD": {
+   "deDE": "3bc42a6de8a1fbcf",
+   "esES": "3bc42a6de8a1fbcf",
+   "frFR": "3bc42a6de8a1fbcf",
+   "itIT": "3bc42a6de8a1fbcf",
+   "ptBR": "3bc42a6de8a1fbcf",
+   "ruRU": "3bc42a6de8a1fbcf"
+  },
   "MOUNTRUN_HOW_SOO": {
    "deDE": "446a227861d1f0db",
    "esES": "446a227861d1f0db",
@@ -21000,6 +21152,14 @@
    "itIT": "446a227861d1f0db",
    "ptBR": "446a227861d1f0db",
    "ruRU": "446a227861d1f0db"
+  },
+  "MOUNTRUN_HOW_STRAT": {
+   "deDE": "877a113d5f55cfec",
+   "esES": "877a113d5f55cfec",
+   "frFR": "877a113d5f55cfec",
+   "itIT": "877a113d5f55cfec",
+   "ptBR": "877a113d5f55cfec",
+   "ruRU": "877a113d5f55cfec"
   },
   "MOUNTRUN_HOW_T4W": {
    "deDE": "c1c42f69fa77f679",
@@ -21016,6 +21176,14 @@
    "itIT": "5146dbee9022e072",
    "ptBR": "5146dbee9022e072",
    "ruRU": "5146dbee9022e072"
+  },
+  "MOUNTRUN_HOW_TOS": {
+   "deDE": "3b2b245ee701fda6",
+   "esES": "3b2b245ee701fda6",
+   "frFR": "3b2b245ee701fda6",
+   "itIT": "3b2b245ee701fda6",
+   "ptBR": "3b2b245ee701fda6",
+   "ruRU": "3b2b245ee701fda6"
   },
   "MOUNTRUN_HOW_TOT": {
    "deDE": "179414cd076d1e84",
@@ -21041,6 +21209,22 @@
    "ptBR": "dd3e61134f5a98e2",
    "ruRU": "dd3e61134f5a98e2"
   },
+  "MOUNTRUN_HOW_UR": {
+   "deDE": "7c47148ab506596a",
+   "esES": "7c47148ab506596a",
+   "frFR": "7c47148ab506596a",
+   "itIT": "7c47148ab506596a",
+   "ptBR": "7c47148ab506596a",
+   "ruRU": "7c47148ab506596a"
+  },
+  "MOUNTRUN_HOW_VA": {
+   "deDE": "1c3ccd2d9ffe0733",
+   "esES": "1c3ccd2d9ffe0733",
+   "frFR": "1c3ccd2d9ffe0733",
+   "itIT": "1c3ccd2d9ffe0733",
+   "ptBR": "1c3ccd2d9ffe0733",
+   "ruRU": "1c3ccd2d9ffe0733"
+  },
   "MOUNTRUN_HOW_VOA": {
    "deDE": "e845a7437cebe481",
    "esES": "e845a7437cebe481",
@@ -21048,6 +21232,30 @@
    "itIT": "e845a7437cebe481",
    "ptBR": "e845a7437cebe481",
    "ruRU": "e845a7437cebe481"
+  },
+  "MOUNTRUN_HOW_VP": {
+   "deDE": "25198daa8121ba1c",
+   "esES": "25198daa8121ba1c",
+   "frFR": "25198daa8121ba1c",
+   "itIT": "25198daa8121ba1c",
+   "ptBR": "25198daa8121ba1c",
+   "ruRU": "25198daa8121ba1c"
+  },
+  "MOUNTRUN_HOW_WRS": {
+   "deDE": "2f23975b05bca237",
+   "esES": "2f23975b05bca237",
+   "frFR": "2f23975b05bca237",
+   "itIT": "2f23975b05bca237",
+   "ptBR": "2f23975b05bca237",
+   "ruRU": "2f23975b05bca237"
+  },
+  "MOUNTRUN_HOW_ZG": {
+   "deDE": "7eb226eb4d8c29d4",
+   "esES": "7eb226eb4d8c29d4",
+   "frFR": "7eb226eb4d8c29d4",
+   "itIT": "7eb226eb4d8c29d4",
+   "ptBR": "7eb226eb4d8c29d4",
+   "ruRU": "7eb226eb4d8c29d4"
   },
   "MOUNTRUN_INTRO": {
    "deDE": "c1a8fc186fd34430",
@@ -21105,6 +21313,30 @@
    "ptBR": "72f8534021b27e1d",
    "ruRU": "72f8534021b27e1d"
   },
+  "MOUNTRUN_R_ANT": {
+   "deDE": "c04605acb7d1e9f2",
+   "esES": "c04605acb7d1e9f2",
+   "frFR": "c04605acb7d1e9f2",
+   "itIT": "c04605acb7d1e9f2",
+   "ptBR": "c04605acb7d1e9f2",
+   "ruRU": "c04605acb7d1e9f2"
+  },
+  "MOUNTRUN_R_ANT_ARGUS": {
+   "deDE": "bca70fc86b7db304",
+   "esES": "bca70fc86b7db304",
+   "frFR": "bca70fc86b7db304",
+   "itIT": "bca70fc86b7db304",
+   "ptBR": "bca70fc86b7db304",
+   "ruRU": "bca70fc86b7db304"
+  },
+  "MOUNTRUN_R_AOF": {
+   "deDE": "b6c4c33f6eb5ee6b",
+   "esES": "b6c4c33f6eb5ee6b",
+   "frFR": "b6c4c33f6eb5ee6b",
+   "itIT": "b6c4c33f6eb5ee6b",
+   "ptBR": "b6c4c33f6eb5ee6b",
+   "ruRU": "b6c4c33f6eb5ee6b"
+  },
   "MOUNTRUN_R_BOD": {
    "deDE": "93e67d5934069d73",
    "esES": "93e67d5934069d73",
@@ -21112,6 +21344,14 @@
    "itIT": "93e67d5934069d73",
    "ptBR": "93e67d5934069d73",
    "ruRU": "93e67d5934069d73"
+  },
+  "MOUNTRUN_R_BOD_GMOD": {
+   "deDE": "6159a232b3dc6275",
+   "esES": "6159a232b3dc6275",
+   "frFR": "6159a232b3dc6275",
+   "itIT": "6159a232b3dc6275",
+   "ptBR": "6159a232b3dc6275",
+   "ruRU": "6159a232b3dc6275"
   },
   "MOUNTRUN_R_BRF": {
    "deDE": "b7793019cb360a70",
@@ -21129,6 +21369,22 @@
    "ptBR": "a2381bc4dbf44e2d",
    "ruRU": "a2381bc4dbf44e2d"
   },
+  "MOUNTRUN_R_DFC": {
+   "deDE": "a788a1c7689c3170",
+   "esES": "a788a1c7689c3170",
+   "frFR": "a788a1c7689c3170",
+   "itIT": "a788a1c7689c3170",
+   "ptBR": "a788a1c7689c3170",
+   "ruRU": "a788a1c7689c3170"
+  },
+  "MOUNTRUN_R_DOTI": {
+   "deDE": "bd79a98fc7940713",
+   "esES": "bd79a98fc7940713",
+   "frFR": "bd79a98fc7940713",
+   "itIT": "bd79a98fc7940713",
+   "ptBR": "bd79a98fc7940713",
+   "ruRU": "bd79a98fc7940713"
+  },
   "MOUNTRUN_R_DS": {
    "deDE": "d1dffe8ad774e8db",
    "esES": "d1dffe8ad774e8db",
@@ -21144,6 +21400,14 @@
    "itIT": "d0905e0df57147fe",
    "ptBR": "d0905e0df57147fe",
    "ruRU": "d0905e0df57147fe"
+  },
+  "MOUNTRUN_R_FH": {
+   "deDE": "93121a841ed0136c",
+   "esES": "93121a841ed0136c",
+   "frFR": "93121a841ed0136c",
+   "itIT": "93121a841ed0136c",
+   "ptBR": "93121a841ed0136c",
+   "ruRU": "93121a841ed0136c"
   },
   "MOUNTRUN_R_FL": {
    "deDE": "96976c7fc10bf03b",
@@ -21172,6 +21436,30 @@
   "MOUNTRUN_R_KARA": {
    "ruRU": "6b5068e06d116605"
   },
+  "MOUNTRUN_R_LOU": {
+   "deDE": "3d4d126e6ceb7d29",
+   "esES": "3d4d126e6ceb7d29",
+   "frFR": "3d4d126e6ceb7d29",
+   "itIT": "3d4d126e6ceb7d29",
+   "ptBR": "3d4d126e6ceb7d29",
+   "ruRU": "3d4d126e6ceb7d29"
+  },
+  "MOUNTRUN_R_MFO": {
+   "deDE": "d96ce7eb7f103055",
+   "esES": "d96ce7eb7f103055",
+   "frFR": "d96ce7eb7f103055",
+   "itIT": "d96ce7eb7f103055",
+   "ptBR": "d96ce7eb7f103055",
+   "ruRU": "d96ce7eb7f103055"
+  },
+  "MOUNTRUN_R_MOQD": {
+   "deDE": "a89be5bcb9ad2a93",
+   "esES": "a89be5bcb9ad2a93",
+   "frFR": "a89be5bcb9ad2a93",
+   "itIT": "a89be5bcb9ad2a93",
+   "ptBR": "a89be5bcb9ad2a93",
+   "ruRU": "a89be5bcb9ad2a93"
+  },
   "MOUNTRUN_R_MSV": {
    "deDE": "42f419a48a085fd4",
    "esES": "42f419a48a085fd4",
@@ -21188,6 +21476,14 @@
    "ptBR": "242b15a8cb451aaa",
    "ruRU": "242b15a8cb451aaa"
   },
+  "MOUNTRUN_R_MTN": {
+   "deDE": "be2714baa002fe79",
+   "esES": "be2714baa002fe79",
+   "frFR": "be2714baa002fe79",
+   "itIT": "be2714baa002fe79",
+   "ptBR": "be2714baa002fe79",
+   "ruRU": "be2714baa002fe79"
+  },
   "MOUNTRUN_R_NH": {
    "deDE": "3e72605d3c2a40a9",
    "esES": "3e72605d3c2a40a9",
@@ -21195,6 +21491,22 @@
    "itIT": "3e72605d3c2a40a9",
    "ptBR": "3e72605d3c2a40a9",
    "ruRU": "3e72605d3c2a40a9"
+  },
+  "MOUNTRUN_R_NP": {
+   "deDE": "2bc2b97f338c392f",
+   "esES": "2bc2b97f338c392f",
+   "frFR": "2bc2b97f338c392f",
+   "itIT": "2bc2b97f338c392f",
+   "ptBR": "2bc2b97f338c392f",
+   "ruRU": "2bc2b97f338c392f"
+  },
+  "MOUNTRUN_R_NYA": {
+   "deDE": "a30054b927050bbd",
+   "esES": "a30054b927050bbd",
+   "frFR": "a30054b927050bbd",
+   "itIT": "a30054b927050bbd",
+   "ptBR": "a30054b927050bbd",
+   "ruRU": "a30054b927050bbd"
   },
   "MOUNTRUN_R_ONY": {
    "deDE": "6853d12ed54e7e93",
@@ -21220,6 +21532,14 @@
    "ptBR": "3f12b91ac61384dc",
    "ruRU": "3f12b91ac61384dc"
   },
+  "MOUNTRUN_R_SC": {
+   "deDE": "86baeb1650bed0e8",
+   "esES": "86baeb1650bed0e8",
+   "frFR": "86baeb1650bed0e8",
+   "itIT": "86baeb1650bed0e8",
+   "ptBR": "86baeb1650bed0e8",
+   "ruRU": "86baeb1650bed0e8"
+  },
   "MOUNTRUN_R_SETHEKK": {
    "deDE": "daa2b9cf7e81c779",
    "esES": "daa2b9cf7e81c779",
@@ -21236,6 +21556,14 @@
    "ptBR": "adaea7b3f6ab084d",
    "ruRU": "adaea7b3f6ab084d"
   },
+  "MOUNTRUN_R_SOD": {
+   "deDE": "3db2ffe43d726906",
+   "esES": "3db2ffe43d726906",
+   "frFR": "3db2ffe43d726906",
+   "itIT": "3db2ffe43d726906",
+   "ptBR": "3db2ffe43d726906",
+   "ruRU": "3db2ffe43d726906"
+  },
   "MOUNTRUN_R_SOO": {
    "deDE": "6e2b95cfae03da48",
    "esES": "6e2b95cfae03da48",
@@ -21243,6 +21571,14 @@
    "itIT": "6e2b95cfae03da48",
    "ptBR": "6e2b95cfae03da48",
    "ruRU": "6e2b95cfae03da48"
+  },
+  "MOUNTRUN_R_STRAT": {
+   "deDE": "f4ac056d223598f3",
+   "esES": "f4ac056d223598f3",
+   "frFR": "f4ac056d223598f3",
+   "itIT": "f4ac056d223598f3",
+   "ptBR": "f4ac056d223598f3",
+   "ruRU": "f4ac056d223598f3"
   },
   "MOUNTRUN_R_T4W": {
    "deDE": "50d2ec231d7b6818",
@@ -21259,6 +21595,14 @@
    "itIT": "eb0d21bab106b5af",
    "ptBR": "eb0d21bab106b5af",
    "ruRU": "eb0d21bab106b5af"
+  },
+  "MOUNTRUN_R_TOS": {
+   "deDE": "766d16ccb14042f6",
+   "esES": "766d16ccb14042f6",
+   "frFR": "766d16ccb14042f6",
+   "itIT": "766d16ccb14042f6",
+   "ptBR": "766d16ccb14042f6",
+   "ruRU": "766d16ccb14042f6"
   },
   "MOUNTRUN_R_TOT": {
    "deDE": "c107d6b81f8a31f9",
@@ -21279,6 +21623,22 @@
    "ptBR": "32ff451f73ac527d",
    "ruRU": "32ff451f73ac527d"
   },
+  "MOUNTRUN_R_UR": {
+   "deDE": "c4aad5261c7b95d2",
+   "esES": "c4aad5261c7b95d2",
+   "frFR": "c4aad5261c7b95d2",
+   "itIT": "c4aad5261c7b95d2",
+   "ptBR": "c4aad5261c7b95d2",
+   "ruRU": "c4aad5261c7b95d2"
+  },
+  "MOUNTRUN_R_VA": {
+   "deDE": "f943e70ac465a1ee",
+   "esES": "f943e70ac465a1ee",
+   "frFR": "f943e70ac465a1ee",
+   "itIT": "f943e70ac465a1ee",
+   "ptBR": "f943e70ac465a1ee",
+   "ruRU": "f943e70ac465a1ee"
+  },
   "MOUNTRUN_R_VOA": {
    "deDE": "0f4a4e10c4340509",
    "esES": "0f4a4e10c4340509",
@@ -21286,6 +21646,26 @@
    "itIT": "0f4a4e10c4340509",
    "ptBR": "0f4a4e10c4340509",
    "ruRU": "0f4a4e10c4340509"
+  },
+  "MOUNTRUN_R_VP": {
+   "deDE": "78b7b0f455525f98",
+   "esES": "78b7b0f455525f98",
+   "frFR": "78b7b0f455525f98",
+   "itIT": "78b7b0f455525f98",
+   "ptBR": "78b7b0f455525f98",
+   "ruRU": "78b7b0f455525f98"
+  },
+  "MOUNTRUN_R_WRS": {
+   "deDE": "b909a3794796053c",
+   "esES": "b909a3794796053c",
+   "frFR": "b909a3794796053c",
+   "itIT": "b909a3794796053c",
+   "ptBR": "b909a3794796053c",
+   "ruRU": "b909a3794796053c"
+  },
+  "MOUNTRUN_R_ZG": {
+   "itIT": "6b86e25180dcf869",
+   "ruRU": "6b86e25180dcf869"
   },
   "MOUNTRUN_TITLE": {
    "deDE": "d60d2d92bfa87d98",
