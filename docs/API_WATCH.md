@@ -5648,3 +5648,155 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `pull --rebase` was een schone fast-forward. 📌 Dit is de val van 11 en 12 okt die gisteren
     wegbleef en vandaag terug is — wie hier morgen begint: **kijk eerst op welke branch je staat**,
     want een detached HEAD pusht niet naar `main`. De `.toc` staat nog op **4.7.6**.
+- [2026-10-15] ✅ **Geen nieuwe API-wijzigingen. 0 × [MOET GEFIKST].** Vijf van de zes gevolgde
+  wiki-pagina's zijn byte-identiek aan gisteren, de API-namespaces staan stil sinds 10 okt, en de
+  SimC-addon heeft geen nieuwe commit. Wat er wél bijkwam: twee forumposts zonder nieuwe API-naam, een
+  cosmetische hotfix-edit, en één upstream-wijziging die ik nooit had getoetst en vandaag wel —
+  `Ascendant Venomstone`. Die valt buiten wat MH exporteert.
+  - 🧰 **[RAAKT ONS NIET] — en dit is het enige echte nieuwe werk van vandaag: `Ascendant
+    Venomstone` is GETOETST en raakt `/mh raidbots` niet.** Deze naam stond in de releasenotes van
+    `12.1.5-alpha-01` (9 okt) en `12.1.5-01` (12 okt) — beide binnen mijn venster — en **`grep
+    Venomstone` op dit logboek gaf nul treffers**, dus hij was in drie runs nooit aan de code
+    getoetst. Vandaag wel, op de bron: `curl` naar
+    `raw.githubusercontent.com/simulationcraft/simc-addon/12.1.5-01/extras.lua` (**HTTP 200**, 11510 b)
+    geeft op **`extras.lua:404`** letterlijk `[280562] = 'Ascendant Venomstone',` — de **laatste regel
+    van `Simulationcraft.upgradeItems`** (die tabel loopt van `:355` t/m `:405`, gemeten op de
+    `}`-regels, met `Simulationcraft.catalystCurrencies` direct erna op `:407`).
+    **GEMETEN dat MH die tabel niet spiegelt:** `grep -n -i
+    "upgradeItems\|upgradeCurrencies\|catalystCurrencies\|Voidcore\|280562\|268552"
+    Modules/SimcExport.lua` geeft **nul treffers**, en de kopregel `SimcExport.lua:22-24` zegt al
+    waaróm (`SimcExport.lua:20-21`): *"Left out on purpose (v1): the upgrade/catalyst currency lines
+    (season data that would need its own upkeep)"*. Een nieuwe regel in een tabel die wij bewust niet exporteren, verandert
+    de export niet.
+    ✅ **Positieve controle in dezelfde scope en dezelfde run** (want een lege grep bewijst niets):
+    hetzelfde bestand gaf wél de tabellen die MH écht uit simc overneemt — `TRAIT_SYSTEMS:53`,
+    `ROLE_BY_SPEC:57`, `SPEC_NAMES:74`, `PROF_NAMES:90`, `REGION_BY_ID:97`, `SLOT_NAMES:100`,
+    `SIMC_SLOT_NAMES:105`, `INVTYPE_TO_SLOT:109`, `ZANDALARI_LOA:119` — en beide gevolgde functies
+    bestaan nog: `ItemString` op `:235`, `ns.BuildSimcProfile` op `:425`.
+    📌 **Terzijde, en het bevestigt het id van twee kanten:** item **280562** staat óók in MH, in
+    `Modules/MidnightCodexData.lua:491` (*"Venomstones: item 280562"*) en `:503-506`. Dezelfde id,
+    langs een heel andere weg gevonden. Dat is Codex-inhoud, geen exportveld.
+  - 🧰 **[AL AFGEDEKT] — geen nieuw item-modifier-type: MH's set is identiek aan upstream 12.1.5-01.**
+    De prompt vraagt hier expliciet naar, dus op de echte functie gemeten in plaats van op de
+    commitboodschap. `core.lua:532` `GetItemStringFromItemLink` kent vijf constanten —
+    `ITEM_MOD_TYPE_DROP_LEVEL = 9`, `CONTENT_TUNING = 28`, `CRAFT_STATS_1 = 29`, `CRAFT_STATS_2 = 30`,
+    `REDIRECTED_BASE_STATS = 64` (`core.lua:53-61`) — en vier `pairType ==`-takken. `Modules/
+    SimcExport.lua:42-46` heeft **dezelfde vijf namen met dezelfde vijf waarden** en op `:271`, `:273`,
+    `:275` en `:277` **dezelfde vier takken** (daar `kind ==` genoemd). Ook de offsets kloppen: `OFFSET_ITEM_ID 1`,
+    `ENCHANT_ID 2`, `GEM_ID_1 3`, `GEM_ID_4 6`, `BONUS_ID 13`, `GEM_BONUS_FROM_MODS 2` staan in beide
+    bestanden gelijk. Upstream heeft daarnaast `OFFSET_CONTEXT = 12` en `OFFSET_GEM_BASE`, die MH niet
+    heeft: `GEM_BASE` is bij hen gedefinieerd *als* `OFFSET_GEM_ID_1` (en dat gebruikt MH direct), en
+    `OFFSET_CONTEXT` komt in `GetItemStringFromItemLink` niet voor. **Geen gat.**
+  - 🧰 **SimC-addon: geen nieuwe release én geen nieuwe commit sinds `12.1.5-01` (12 okt), gemeten op
+    de sha.** `git ls-remote … HEAD` geeft vandaag `8741352777a1d22ec7c89cbd051cd736f6025c6e` —
+    **byte-voor-byte dezelfde sha als gisteren en voorgisteren** — en de tagtelling staat nog op
+    **255** (`grep -vc '\^{}'`). De releasespagina met cache-buster bevestigt het van de andere kant:
+    bovenaan nog steeds `12.1.5-01` (12 okt 18:39), daaronder `12.1.5-alpha-01` (9 okt) en
+    `12.1.0-alpha-06` (8 okt). 📌 De tag `12.1.5-alpha-01` zit op commit `3fe70f3` *"Bump version"*,
+    en die commit is **+1 −1 in één bestand, `Simulationcraft.toc`** — dus de alpha zelf voegde aan
+    het formaat niets toe; `Ascendant Venomstone` kwam uit een eerdere commit die in zijn
+    releasenotes wordt meegeteld. De kopregel-afwijking (`SimcExport.lua:15`/`:447` zeggen
+    *"12.1.5-alpha-01"* waar de stable identiek is) staat er nog steeds; nog steeds geen actiepunt,
+    en ik raak het bestand niet aan.
+  - 🗣️ **[RAAKT ONS NIET] — het deprecatie-draadje heeft twee nieuwe posts, en er staat geen enkele
+    nieuwe API-naam in.** `2381628` *"Lua API Deprecation has Finally Bitten"* (slug
+    `lua-api-deprecation-has-finally-bitten`) stond gisteren hier met **2** posts; het zijn nu **4**,
+    en de twee nieuwe zijn van ná mijn run van gisteren (die liep rond 03:30Z):
+    - post **3**, `30468501`, **2026-10-14T14:25:55Z**, Elvenbane: een codeblok met
+      `https://warcraft.wiki.gg/wiki/Patch_12.1.5/API_changes` en daaronder *"It's mostly adding
+      `C_Item.` to stuff."*
+    - post **4**, `30468642`, **2026-10-14T14:35:59Z**, No1UKnow (antwoord op 3): *"Yes, the existence
+      of the fallback script's aliasing means it's just that simple. But it's pervasive. There are
+      dozens of calls affected. For each addon author, it's probably easy. For a user running
+      literally scores of addons in differing degrees of support, it's potentially a lot to fix if the
+      authors don't. Not difficult, just tedious."*
+    **Nog altijd geen blue reply.** Post 3 wijst naar precies de pagina die ik gisteren al op de
+    wikitext heb gelezen (revid `6912957`), en *"mostly adding `C_Item.`"* is exact de migratie die
+    de hertoetsing van gisteren al namen-voor-namen afliep: 72 namen, 10 aanwezig, alle tien gedekt.
+    **Er is dus niets bijgekomen om te toetsen** en de status blijft [AL AFGEDEKT], 0 × [MOET GEFIKST].
+    ⚠️ Het blijven spelersberichten, geen Blizzard-mededeling.
+  - 🔇 **[RAAKT ONS NIET] — de enige bewogen pagina is `Hotfixes`, en die edit is opmaak.**
+    `6912936` → **`6913075`** (378375 → 378379 b, +4 bytes, Dark T Zeratul, **2026-10-14T04:24:30Z**,
+    comment `/* October 13 */`). De diff zelf opgehaald (`action=compare`): de enige wijziging is
+    `**The Coiled Altar` → `**[[The Coiled Altar]]` — een wikilink eromheen, en dat zijn precies die
+    4 bytes. De twee regels eronder (Sszorak's rage-timer, de orbs en Virulent Mutations van Toxic
+    Deluge op Mythic) staan links en rechts identiek. **Geen UI-/API-sectie**, en raidtuning is het
+    terrein van de contentwachter. Ná `6913075` staat er geen enkele revisie meer: **geen hotfix van
+    14 of 15 okt** op de wiki, en een WebSearch op *"hotfixes October 14/15 2026"* vond er ook geen.
+  - 🔇 **De vijf andere gevolgde pagina's zijn byte-identiek aan gisteren.** `prop=info` in één
+    aanroep: `Patch 12.1.0/API changes` `6905801` (66202 b), `Patch 12.1.5/API changes` `6912957`
+    (17957 b), `Patch 12.0.7/API changes` `6905802` (24726 b), `TOC format` `6905891` (32839 b),
+    `API change summaries` `6883777` (7280 b) — alle vijf dezelfde revid én dezelfde lengte als het
+    logboek van gisteren noemt. `Patch 12.1.7/API changes` en `Patch 12.2.0/API changes` komen nog
+    steeds terug als `"missing": ""`.
+  - 🔇 **De API-namespaces staan stil: zeven wijzigingen over 8-15 okt en alle zeven stonden hier al.**
+    `rcnamespace=3000|3004&rclimit=250&rcend=2026-10-08T00:00:00Z`, op **revid** vergeleken:
+    `6906649` (`API:C Traits.GetConfigInfo`, 10 okt 08:51:24Z), `6905874` (`Event:UI INFO MESSAGE`),
+    `6905815` (`API:GetShapeshiftForm`), `6905582` (`API:UnitAura`), `6904622` + `6904617`
+    (`API:import`), `6904614` (`API:require`). **Niets nieuwer dan 2026-10-10T08:51:24Z** — vijf dagen
+    stilte op mijn eigen terrein.
+  - 🔇 **Geen nieuwe officiële API-patchnotes.** `action=parse&prop=sections` op
+    `Patch 12.1.5/API changes/notes` (pageid 710454) geeft nog steeds **vier** secties: `2026-09-03`,
+    `2026-09-16`, `2026-09-22`, `2026-09-29`. De nieuwste valt buiten mijn 7-dagenvenster, en nu
+    12.1.5 live staat komt "PTR Changes 5" er vermoedelijk niet meer.
+  - ✅ **Dat deze stilte geen cache is, is in dezelfde `api.php` aangetoond:** `rcnamespace=0` gaf als
+    nieuwste `Unending Torment (3)` (revid **`6914046`**, **2026-10-15T03:37:15Z**) — nieuwer dan het
+    versheidsbewijs van gisteren (`6913030`, 2026-10-14T03:34:03Z). Elke Exa-URL van vandaag kreeg een
+    eigen `?nocache=20261015<letter>`; MediaWiki antwoordt daarop met `"Unrecognized parameter:
+    nocache."` en dat is het bekende, goede teken.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` is voor de **zesde dag op rij** niet gelezen: `CRAWL_NOT_FOUND` op
+      `news.blizzard.com/en-us/wow`, ook mét cache-buster. Een WebSearch op hotfixes van 14/15 okt gaf
+      niets nieuwer dan juli 2026, dus er is geen aanwijzing dát ik iets mis — maar bewijzen kan ik het
+      niet via Blizzards eigen artikel.
+    - 🔴 **NIEUW IN HET GEREEDSCHAP: ik kon de blokkadelijst van de proxy zelf vandaag níét lezen.**
+      `curl "$HTTPS_PROXY/__agentproxy/status"` is geweigerd door de auto-mode-classifier met reden
+      **`[Exfil Scouting]`** — geen netwerkfout maar een toestemmingsbeslissing, en ik heb hem volgens
+      de regels niet omzeild. Daarmee kan ik dit keer niet per host zeggen wélke poort dicht zit; de
+      drie van deze week (`api.github.com` 12 okt, `us.forums.blizzard.com` 13 okt,
+      `warcraft.wiki.gg` 14 okt) zijn dus niet opnieuw bevestigd.
+    - ✅ **Maar goed nieuws van de andere kant, GEMETEN:** `curl` naar **`raw.githubusercontent.com`**
+      geeft **HTTP 200** (core.lua 56931 b, extras.lua 11510 b), en Exa haalt
+      `us.forums.blizzard.com/en/wow/t/2381628.json` en de hele `warcraft.wiki.gg/api.php` vlot op.
+      De aanbevolen werkwijze van 11 okt — bestanden zelf ophalen en vergelijken in plaats van een
+      commitboodschap lezen — werkt dus nog, en is vandaag precies wat `Ascendant Venomstone` ving.
+    - `wowhead.com/blue-tracker` niet geprobeerd (twintig runs op rij lege body).
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald (open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`); die pagina is deze week niet bewerkt, dus geen aanleiding.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw** (en na vandaag staat er nog steeds geen
+    [MOET GEFIKST] open):
+    - De kanttekening van gisteren bij `Modules/KeyBlock.lua:1135`, `:1227`, `:1380` (`PickupItem` in
+      een `else`-tak, binnen `pcall`, dus stil falen in plaats van crashen) staat er nog. Dát
+      `C_Item.PickupItem` bestaat blijft **AFGELEID** uit de migratietabel van de wiki, niet gemeten in
+      een client. `Modules/PtrProbe.lua:130-137` bestaat hiervoor en 12.1.5 is nu Robs eigen client:
+      één `/mh ptr` op live beantwoordt het. 🔴 Meetvoorstel, geen reparatie — ik raak de code niet aan.
+    - `Blizzard_DeprecatedWorldElapsedTimerTypes` is het tiende deprecated-addon en de wiki-sectie
+      noemt er negen; wat daarin zat is nog steeds niet gepubliceerd. `PtrProbe.lua:120` vraagt er wel
+      naar, dus dezelfde `/mh ptr` dekt ook dit.
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. 🔴 Niet aangeraakt.
+    - `Patch 1.60.1/API changes` (World of Warcraft: Forever, launch 4 nov) wordt actief geschreven —
+      bewerkt op 2026-10-14T02:06:38Z, en nog steeds buiten scope: MH declareert alleen
+      Retail-interfacenummers.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM**. Onschadelijkheid blijft AFGELEID.
+  - 🔧 **Repo-staat: schoon, maar HEAD stond bij aanvang WÉÉR DETACHED — en de "force-push" die het
+    leek te zijn, was er GEEN.** `git status --short` was leeg en **geen** van de vier
+    wachter-bestanden stond gewijzigd-maar-ongecommit. Maar `git branch` gaf
+    `* (HEAD detached from refs/heads/main)` op `e795e13` *"Labyrinth: all nine rooms only the first
+    time, as the guides say"*, met de lokale `main` op `49acda4`. Dat is de vierde keer in vijf dagen
+    (11, 12, 14, 15 okt).
+    ⚠️ **En hier bijna een verkeerde conclusie, dus voor wie morgen begint:** `git fetch` meldde
+    `+ 49acda4...e795e13 main -> origin/main (forced update)` en `git rev-list --left-right --count`
+    gaf **50 / 50** met **geen merge-base** — dat leest als een force-push die 50 commits herschreef.
+    **Het is een artefact van een shallow clone.** GEMETEN: `.git/shallow` bestaat en
+    `git rev-list --count HEAD` = **50**, precies de diepte. De geschiedenis is afgekapt, dus er *kan*
+    geen merge-base zijn en elke kant lijkt 50 commits "uniek". `git checkout -B main origin/main`
+    zette het goed; na afloop `git status` schoon en `main` gelijk aan `origin/main` op `e795e13`.
+    📌 **Geen conclusie over een force-push trekken uit een shallow clone** — kijk eerst of
+    `.git/shallow` bestaat.
+    - 📌 **GEMETEN en de moeite waard omdat het precies de val van [[silence-is-not-absence]] is:**
+      `grep -E "^## Interface" MidnightHelper.toc` geeft **nul treffers**, en de regel staat er wél —
+      de **BOM** (`EF BB BF`) zit tussen regelbegin en `##`, dus `^##` matcht niet. Met `head`+`cat -A`
+      staat er `M-oM-;M-?## Interface: 120007, 120100, 120105`. De `.toc` staat nu op **4.7.7** (was
+      gisteren 4.7.6). `CLAUDE.md` zegt nog steeds dat de `.toc` *"`## Interface: 120007, 120100`"*
+      declareert; dat is nog steeds onvolledig. 🔴 Niet aangeraakt.
