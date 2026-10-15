@@ -64,6 +64,9 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+✅ **Kamer "The Wandering" (GEMETEN, video 09:35 + log):** taak "0/1 True vessel found" = onze "Find the Vessel"; Unraveling Spirit
+273578 (Unraveling 1314070, Fatigue Relief 1313931, geen schade aan Rob), 13 gedood. Naam toegevoegd in DELVE_TIP_LABYRINTH_ROOMS (8 talen).
+combatlog_guide splitst buiten-baas-blokken nu na 60 s zonder vijand-regel (QUIET_GAP).
 🐛→✅ **ADDON_ACTION_BLOCKED (3x) na /reload in de Labyrinth** (Rob 15 okt): consumables-bord auto-open (1,5 s na zone-in) bouwde
 in combat de secure klikknoppen (ConsumableReadyBoard:516 RegisterStateDriver). Nu: eerste opbouw wacht op PLAYER_REGEN_ENABLED;
 Render() bouwt niets in combat. Target-log: 09:37 "secret (in combat)" op trash; log noteert nu in én buiten combat apart.

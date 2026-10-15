@@ -31,6 +31,7 @@ OUT_ROOT = os.path.join(os.environ.get("TEMP", r"C:\Temp"), "mh_combatlog")
 
 HOSTILE = 0x40  # COMBATLOG_OBJECT_REACTION_HOSTILE
 DEATH_LOOKBACK = 4  # enemy hits remembered per player, to say what killed them
+QUIET_GAP = 60  # seconds without a logged event outside a boss fight = the next room
 
 
 def parse_time(stamp):
@@ -62,6 +63,7 @@ class Segment:
         self.title = title
         self.start = start
         self.end = start
+        self.last_hostile = start  # last line with an enemy in it; player buffs tick on in an empty room
         self.encounter_id = encounter_id
         self.result = None
         self.casts = defaultdict(lambda: {"start": [], "success": [], "school": ""})  # (npc, npcid, spellid, name)
@@ -144,8 +146,12 @@ def run(path):
         nonlocal current_trash
         if current_enc:
             return current_enc
-        if current_trash is None or current_trash.title != "Outside boss fights - " + zone:
-            current_trash = Segment("Outside boss fights - " + zone, t)
+        # A quiet minute starts a new block: in the Labyrinth every room is its own fight, and one block for all
+        # of them (15 Oct 2026: 35 minutes, four rooms) mixes up which room had which enemies.
+        if current_trash is None or not current_trash.title.startswith("Outside boss fights - " + zone + " ") \
+                or t - current_trash.last_hostile > QUIET_GAP:
+            clock = head.split(" ")[1][:5] if " " in head else "?"
+            current_trash = Segment("Outside boss fights - %s (from %s)" % (zone, clock), t)
             segments.append(current_trash)
         return current_trash
 
@@ -189,6 +195,8 @@ def run(path):
             dst_guid, dst_name, dst_flags = f[5], f[6], f[7]
             enemy_src = is_enemy(src_guid, src_flags)
             player_dst = dst_guid.startswith("Player-")
+            if enemy_src or is_enemy(dst_guid, dst_flags):
+                s.last_hostile = t
 
             if ev == "UNIT_DIED":
                 if player_dst:
