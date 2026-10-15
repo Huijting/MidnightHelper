@@ -64,6 +64,16 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+✅ **Kindo'jan, 9 pulls gelogd (encounter 3548, 10:56-11:24, alle wipe) → DELVE_TIP_LABYRINTH_BOSS herschreven (9 talen):** vast
+tijdschema (GEMETEN): 0:05 Eruption of Mojo, 0:37 Hash'ey's Command, **0:48 Whirling Axes** (1300768 = 66% max HP per tik), 1:04 Crushing
+Blow/Juggernaut (Amani Aegis kickbaar, Valeera doet het ook), **~1:33 Ahn'joli De Rising Storm → Visage of Akil'zon Furious Gale** (70-74%,
+knockback; buff 1303627 ~2,5 s ervoor = je staat in een windbaan), 1:48 Halazzi (Zen'toka, Predator's Guile), **2:02 Nalorakk** (Ursine
+Rampage 1300045 = 38% per beer). De loa komen **op tijd, niet bij 70%** (baas had 78-87%). Coach zei "70%" en "not seen by us" — gerepareerd.
+Nieuw (Rob): levens op vóór de kill → run eindigt, je gaat tóch naar de schatkamer. Lampje gezien in Robs video (GEMETEN).
+Bronnen research: Wowhead-gids 14 okt, Method, conquestcapped, wago 12.1.5.70391.
+✅ **Wah'du stap "Akil'zon's Roost" (GEMETEN, Robs screenshot 15 okt):** beloning 1 Mythical Soul Fragment + 2.000 Undercoin
+("The loa are pleased. Return to me in due time…"). Nieuwe melding: *"Your party has been deemed worthy of entering De Empire's Rest."*
+— kamernaam "De Empire's Rest" staat nergens bij ons (OPEN: welke kamer/subzone).
 ✅ **questDiff na de "treasure run" (10:34-10:42, bijna geen vijanden in het log):** NIEUWE kist-quests in de data: #37 = 98636,
 #38 = 98635 (de Akil'zon-zegelkistjes in The Cave Towers — mijn "geen quest" van eerder was fout), Method/Jan'alai's Refuge = 98603.
 Bevestigd = HandyNotes: 98628 (#23), 98629 (#24), 98620 (#15), 98621 (#16) → 16/16. OPEN: 99585 op 25.0/22.4 (Jan'alai's Refuge),
