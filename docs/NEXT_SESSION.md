@@ -64,6 +64,12 @@ OPEN: 2 Nalorakk-kisten Reliquary (~26.94/80.77) + 2-3 Halazzi in Halazzi's Lair
 1315279 + Chaotic Impact 1315287 (4x, ~4 s), Spectral Regeneration 1315264 **onderbroken** → Grukk-regel in DELVE_TIP_LABYRINTH_ROOMS
 uitgebreid (7 talen; esMX heeft de key niet). Lampje: LoggingCombat() geeft ON/OFF goed door (Robs screenshot); Rob zag het lampje
 (nog) niet → strata MEDIUM→HIGH, opnieuw kijken.
+✅ **Akil'zon-zegel open (Rob ≥ rang 3), 2 kistjes in The Cave Towers → Falco Strikes (GEMETEN tooltip):** item 280563 "Ancient
+Hash'ey Battle Art: Falco Strikes", Warband, Unique, handschoenen, alleen in delves, 20% kans op een extra treffer, raakt niet op,
+max itemlevel 344 → Journey-kaart (bij de bestaande Falco Strikes-regel, 9 versies). OPEN: de kaart vertaalt de 4 glove-enchants
+in 6 packs ("Falkenschläge", "Frappes du faucon" …) — clientnaam niet gemeten; volgens de regel van 11 okt = clientnaam (wago) of Engels. questDiff: 7 nieuwe kist-quests = HandyNotes (98633 98634 98637 98638 98648 98649 98650) →
+**12/12**. Geen quest-vinkje bij de 2 zegelkistjes (#37/#38 hebben in onze data ook geen quest) → waarschijnlijk geen flag (AFGELEID).
+Kamer 10:04 (onbekende taak; video was weer de Claude-app): Rob 1x dood door Cursed Relic Raider + Vile Hexhunter.
 ✅ **Target-naam in de Labyrinth = SECRET, ook buiten combat (GEMETEN 09:47:09 en 10:00:50, o.a. Cynthra vóór de pull).** Het
 target-pad (PLAYER_TARGET_CHANGED) kan daar dus nooit een baas vinden; het blijft stil staan als meetpunt. Wat werkt = ENCOUNTER_START
 via encounter id: Cynthra 10:01:19 "button shown (B)" (GEMETEN), net als Grukk en de Trollbunal.
