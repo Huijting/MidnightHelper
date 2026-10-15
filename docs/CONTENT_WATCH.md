@@ -2541,3 +2541,148 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   alle tuning-regels, met één **[RAAKT ONS]** (Eternal Nightfall/testvraag) die geen bestaande
   claim tegenspreekt maar wel relevant is voor een open testpunt. Geen actiepunt dat ík kan
   oppakken — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-15] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-14]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261015z` (en `&nocache=20261015y` als tweede, onafhankelijke fetch) via Exa, beide
+  volledig gelezen (JSON). Alle drie de draadjes (esMX-locale `user_uvqy5939hswhgduu`,
+  MrsBoojiePanda's debug-regel, gadrinonturalyon's coffer-key/3D-model-verzoek) hebben als
+  nieuwste bericht nog steeds een reply van `twelveinchy`; geen nieuwe reacties sinds
+  [2026-10-14]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt vandaag. De esMX-codefix zelf
+  (`Locales/esES.lua:17`) staat nog open; al gemeld op [2026-10-07], een mens beslist wanneer dat
+  wordt opgepakt.
+
+- [2026-10-15] 🔴 **Nieuwe sectie "October 14, 2026" — de Labyrinth-kill-credit-bug die onze
+  eigen tip al citeerde met "Blizzard has not said anything about it yet" is DIEZELFDE DAG door
+  Blizzard gefixed; die zin in onze tekst klopt sinds vandaag niet meer.** `news.blizzard.com/
+  en-us/article/24296142?nocache=20261015z` (via Exa `web_fetch_exa`) **volledig gelezen**:
+  sectie "October 14, 2026" staat nu bovenaan, boven de al op [2026-10-14] verwerkte "October 13"-
+  sectie (geen cache-val, nieuwe content — convergeert met wat de andere drie wachters vandaag als
+  nieuwste zagen, zie hun eigen entries van vandaag). Categorieën in de 14-okt-sectie: Aqir
+  Invasions, Classes, Delves, Labyrinth, Quests. **Professions, Dungeons and Raids, Items: leeg**
+  in deze sectie — niets te vergelijken.
+
+  📌 **Positieve controle, zelfde repo-brede scope als de claims hieronder:** `grep -rn
+  "Harvest bundle"` vindt onze eigen Labyrinth-roomtekst terug in `Locales/enUS.lua:3048`;
+  `grep -rn "Amani'Zar"` vindt twee treffers in `Modules/FlightNetworkData.lua:21` en
+  `Modules/FlightPointsData.lua:992` — het patroon werkt dus op deze schaal.
+
+  **🔴 Labyrinth — kill credit voor een roomboss telt soms niet als het de TWEEDE keer is dat die
+  boss in dezelfde run verslagen moet worden; gefixed.** Letterlijk: *"Fixed an issue where the
+  kill credit for a boss may not register if it was the second time the boss had to be defeated
+  in the same Labyrinth run."* Dit is woordelijk de bug die wíj al beschrijven:
+  `DELVE_TIP_LABYRINTH_OVERVIEW` (`Locales/enUS.lua:3047`, zeven taalvarianten) zegt: *"Launch-day
+  bug (players, 14 Oct): a room boss kill sometimes does not count (Sullied Revenant, The Undead
+  Trollbunal, Sha'Kuro, Jun'ala, Grukk, Drill Sergeant), and then the run is stuck. Blizzard has
+  not said anything about it yet."* De zes genoemde bosses zijn precies de bosses die in méér dan
+  één roomtaak kunnen voorkomen volgens onze eigen `DELVE_TIP_LABYRINTH_ROOMS`
+  (`Locales/enUS.lua:3048`): Jun'ala sluit zowel "A Foul Presence" als (als lot) "Taken
+  Antiquities" af, Sha'Kuro zowel "Reliquary Ritual" als (als lot) "Taken Antiquities", Sullied
+  Revenant zowel "Vile Intruders" als (als lot) "Taken Antiquities" — dus "de tweede keer dat
+  deze boss verslagen moet worden" past precies op onze eigen beschrijving. MEASURED (citaat uit
+  de hotfix-pagina zelf gelezen; citaat uit `Locales/enUS.lua:3047-3048` gelezen). **[RAAKT ONS]**
+  — de laatste zin van `DELVE_TIP_LABYRINTH_OVERVIEW` ("Blizzard has not said anything about it
+  yet") is sinds vandaag feitelijk onjuist: Blizzard heeft er wél iets over gezegd, en heeft het
+  gefixed. Geen actie van mij — ik raak de tekst niet aan — maar wie deze regel oppakt kan de hele
+  bugmelding schrappen of vervangen door "fixed in de 14-okt-hotfix".
+
+  **Labyrinth — Kindo'jan-encounter kon falen bij 1 health; gefixed.** `DELVE_TIP_LABYRINTH_BOSS`
+  (`Locales/enUS.lua:3049`, zeven taalvarianten) beschrijft de 70%-fase en de loa-test, maar zegt
+  niets over het einde van het gevecht bij 1 health — geen tegenspraak. MEASURED. **[RAAKT ONS
+  NIET]**
+
+  **Labyrinth — "Returning the Bounty"-scenario: bag-interactie kon soms niet afgerond worden, en
+  "Hording Looters" stopten soms met spawnen; beide gefixed.** ⚠️ **Geen exacte naam-match, wel
+  een plausibele kandidaat die het melden waard is.** `grep -rn "Returning the Bounty"` en
+  `grep -rn "Hoarding Looters"` (beide spellingen, incl. Blizzards eigen "Hording"): 0 treffers
+  repo-breed. Onze eigen `DELVE_TIP_LABYRINTH_ROOMS` heeft echter een taak zonder bevestigde naam
+  ("Harvest bundle: look at the bundle, kill 10 looters and pick up what they drop, beat the Pit
+  Boss...") die zowel een bundel/buit-thema als looters-vijanden heeft — qua inhoud een redelijke
+  kandidaat voor wat Blizzard "Returning the Bounty" noemt, maar dat is INFERRED op naam-thema,
+  niet MEASURED via een ID of in-game bevestiging. Onze tekst zegt zelf al: *"A task without a
+  white name is one whose in-game name we have not seen yet."* Geen tegenspraak in beide gevallen
+  (wij claimen niets over afrondbaarheid of spawn-gedrag). **[RAAKT ONS NIET]** als contradictie,
+  maar wel een aanwijzing voor wie ooit de ontbrekende roomtaak-namen invult.
+
+  **Labyrinth — "Fools and Curses"-scenario: Cursed Energy kon niet langer gecleansed worden;
+  gefixed.** Zelfde soort kandidaat-match, zwakker dan hierboven: onze naamloze taak "Cursed
+  energy: kill the relic raiders (yellow dots), and take 5 purple curse orbs to the cursed
+  sarcophagus" deelt alleen de term "Cursed energy" met de hotfix-naam, niet het woord "cleanse" —
+  0 treffers op "Fools and Curses" of "cleanse" in die roomtekst. Te zwak om als dezelfde taak te
+  benoemen; hier alleen gemeld als mogelijk aanknopingspunt, niet als vondst. **[RAAKT ONS NIET]**
+
+  **Labyrinth — Ancient Hash'ey Battle Art-enchant: werkte buiten delves/Labyrinth; max. itemlevel
+  nu 344 (was 334); gefixed.** `CODEX_LABJOURNEY_BODY` (`Locales/Codex.lua:173`, zeven
+  taalvarianten) noemt de vier Hash'ey-enchants bij naam en zegt zelf al "these four glove
+  enchants work in every delve, not only here" — dat is precies de bedoelde scope, en de bug zat
+  in het WERKEN BUITEN die scope (nu gefixed), niet in onze beschrijving ervan. Geen itemlevel-
+  cijfer in onze tekst om tegen een "344 was 334" te toetsen. Ook al gelogd als feit door de
+  data-wachter (`docs/PTR_12.0.7_DATA.md`, entry [2026-10-15]); dit is mijn onafhankelijke
+  contradictiecheck. MEASURED. **[RAAKT ONS NIET]** — bevestigt zelfs dat onze scope-omschrijving
+  al klopte.
+
+  **Labyrinth — overige pure bugfixes zonder addon-claim:** Halazzi's Lair (vijanden spawnden in
+  de muren), Nalorakk's Rest (door de grond vallen bij respawn). `grep -i "Halazzi"` en
+  `grep -i "Nalorakk"` vinden onze eigen loa-testbeschrijving (`DELVE_TIP_LABYRINTH_BOSS`) en
+  Journey-tekst (`CODEX_LABJOURNEY_BODY`) terug, geen van beide claimt iets over spawn-locaties of
+  terrein bij respawn. MEASURED. **[RAAKT ONS NIET]**
+
+  **Delves — "Dundun has returned and hides within Bountiful delves once again. May you revel in
+  his radiant prosperity!"** ⚠️ **Geen bug-regel maar flavourtekst in de categorie-kop zelf — en
+  de formulering ("has returned... once again") suggereert dat hij een periode NIET aanwezig was.**
+  Dundun is uitgebreid geshipte content (`Modules/DundunShrine.lua`, `DUNDUN_CHAT_*`/
+  `DUNDUN_PANEL_*`-keys in `Locales/enUS.lua:4162-4190`): de module-commentaar zegt zelf "he
+  appears in **Bountiful** delves of any [tier]" als onvoorwaardelijke bewering, en leest
+  `ns.IsDelveBountiful` live van de client (`Modules/DundunShrine.lua:160-161`) — geen hardcoded
+  aanname. `grep -rn "radiant prosperity\|Dundun has\|Dundun removed\|Dundun disabled"` op alle
+  vier de watch-logs: 0 treffers — dit is de EERSTE keer dat deze zin in onze logs opduikt, dus ik
+  kan niet vaststellen of dit een terugkerende Blizzard-grap is of een echte tijdelijke afwezigheid
+  die onze "altijd aanwezig"-aanname (in het modulecommentaar, niet in de geshipte playertekst)
+  ooit onjuist maakte. Ook al gelogd door de data-wachter (`docs/PTR_12.0.7_DATA.md`, entry
+  [2026-10-15]) met hetzelfde citaat en dezelfde onbeantwoorde "sinds wanneer/waarom weg"-vraag —
+  dat is zijn feit, dit is mijn onafhankelijke contradictiecheck op de geshipte tekst. MEASURED
+  (citaat gelezen); INFERRED dat dit geen acute contradictie is,
+  want de geshipte tip leest de Bountiful-status live en claimt niet dat Dundun gegarandeerd is
+  los van wat de client meldt. **[RAAKT ONS]** — geen tegenspraak in de geshipte tekst, maar het
+  modulecommentaar ("appears in Bountiful delves of any tier", onvoorwaardelijk) is een aanname
+  die iemand met toegang tot hotfix-historie zou kunnen verifiëren; ik laat de ambiguïteit expliciet
+  staan in plaats van hem op te lossen.
+
+  **Aqir Invasions — eindboss randomiseerde niet goed tussen de drie types; gefixed.**
+  `CODEX_AQIR_BODY`/`EVENT_INFO_AQIR_DESC` (`Locales/Codex.lua:175`, `Locales/enUS.lua:2159-2160`)
+  noemen de Webweaver/Voidweaver als prioriteitsdoelen maar claimen nergens hoeveel types de
+  eindboss heeft of hoe de randomisatie werkt. MEASURED (0 treffers op "randomiz"/"three types" in
+  combinatie met Aqir). **[RAAKT ONS NIET]**
+
+  **Quests — Ancient Foes in de Vaults of Atal'Utek gaven geen Primordial Venom Motes in
+  raid-groepen; gefixed.** ⚠️ **Naamcollision gecontroleerd.** MH heeft een andere "Ancient Foes":
+  `Modules/Achievements.lua:94,2004` en `Modules/AchievementsData.lua:115-169` noemen "Ancient
+  Foes" als drie NPC's die spawnen bij de Underbelly Temple Strike/Soft Underbelly-achievement —
+  ander event, geen raid-context, geen Primordial-Venom-Mote-claim. 0 treffers op "Primordial
+  Venom Mote" repo-breed. Ook al gelogd als nieuwe, ongetrackte currency door de data-wachter
+  (`docs/PTR_12.0.7_DATA.md`, entry [2026-10-15]); dit is mijn onafhankelijke contradictiecheck op
+  de bestaande Ancient-Foes-tekst. MEASURED. **[RAAKT ONS NIET]**
+
+  **Quests — NPC's in Amani'Zar Village onzichtbaar tijdens "De Legend of de Hash'ey"; gefixed.**
+  Onze twee treffers op "Amani'Zar" zijn een vliegroute-naam (`Modules/FlightNetworkData.lua:21`,
+  `Modules/FlightPointsData.lua:992`) — geen van beide claimt iets over NPC-zichtbaarheid tijdens
+  een quest. MEASURED. **[RAAKT ONS NIET]**
+
+  **Classes — Druid Guardian (Rebirth-manakosten, Bear-Form Heart of the Wild, Persistence-pantser)
+  en Restoration (Nature's Bounty/Abundance) fixes.** Pure spec-balans/mechaniek-fixes, gevestigd
+  patroon dat MH niet volgt. **[RAAKT ONS NIET]**
+
+  Vandaag is donderdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261015z (volledig gelezen via
+  Exa) · codebase: `grep` case-insensitive repo-breed op alle hierboven genoemde namen, plus
+  gerichte reads van `Locales/enUS.lua`, `Locales/Codex.lua`, `Modules/DundunShrine.lua`,
+  `Modules/Achievements.lua`, `Modules/AchievementsData.lua`, `Modules/FlightNetworkData.lua`,
+  `Modules/FlightPointsData.lua` — allemaal vandaag gelezen. Eén bevestigde contradictie
+  (Labyrinth-kill-credit, "Blizzard has not said anything about it yet" klopt niet meer),
+  twee [RAAKT ONS]-aantekeningen zonder contradictie (Dundun-flavourtekst, naam-kandidaten voor
+  openstaande roomtaken), verder **[RAAKT ONS NIET]**. Geen actiepunt dat ík kan oppakken — ik
+  rapporteer, een mens beslist.
