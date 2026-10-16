@@ -90,6 +90,10 @@ er is niets weggegooid.
       Silvermoon, dan naar huis) en **Eversong of Zul'Aman** (*"Fly to Silvermoon City and take the portal to Orgrimmar there."*).
       Krijg je in Silvermoon tóch weer *"other continent — travel back"*? Doe dan `/mh here` en geef me het mapnummer:
       sommige gebouwen in Silvermoon melden kaart 2576 in plaats van 2393.
+- [ ] **Delve op de Coiled Isle, vanuit Silvermoon: eerst de deur** (16 okt, jouw melding). Sta in Silvermoon, buiten het
+      gebouw. Kies een Coiled Isle-delve (bv. Gnarldor Isle) en klik op de route. De pijl moet eerst naar de **deur** wijzen
+      (54.99/63.30), en zodra je daar bent (binnen ~25 yd) naar het **portaal binnen**. Sta je al binnen, bij het portaal?
+      Dan meteen het portaal. Ook bij de Mount run → Venomous Abyss / Altar of Fangs: eerst de deur, dan het portaal.
 - [ ] **Minder geheugen bij het inloggen** (16 okt). Na `/reload` meteen, zonder op te ruimen:
       `/run UpdateAddOnMemoryUsage() print(GetAddOnMemoryUsage("MidnightHelper"))` — vóór de wijziging was dat **48.137**.
       Het zou nu veel lager moeten zijn (dichter bij de 23.592 die je na `collectgarbage()` zag). En: staat MH nog gewoon in

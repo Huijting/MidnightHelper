@@ -637,7 +637,28 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						-- 2026, routing to Kith'ix from the Coiled Isle: the waypoint read "PLAN_STEP_DOOR".
 						local stepName = ns.TravelStepName and ns.TravelStepName(s, name)
 							or (s.label and (s.localized and ns:L(s.label) or s.label)) or name
-						pcall(ns.AddSmartTomTomWay, s.mapID, s.x, s.y, stepName, true)
+						-- A portal inside a building (16 Oct 2026, Rob: the Coiled Isle portal from a delve route went
+						-- through the wall): the door first; the leg watcher below hands over to the portal at the door.
+						local door = s.kind == "portal" and type(s.door) == "table" and s.door.x and s.door.y and s.door
+						-- Already inside (closer to the portal than the door is): no door, or the arrow points behind you.
+						if door and C_Map and C_Map.GetPlayerMapPosition then
+							local okQ, pos = pcall(C_Map.GetPlayerMapPosition, s.mapID, "player")
+							local okXY, a, b = false, nil, nil
+							if okQ and pos and pos.GetXY then
+								okXY, a, b = pcall(pos.GetXY, pos)
+							end
+							if okXY and a and b then
+								local px, py = a * 100, b * 100
+								if (px - s.x) ^ 2 + (py - s.y) ^ 2 < (door.x - s.x) ^ 2 + (door.y - s.y) ^ 2 then
+									door = nil
+								end
+							end
+						end
+						if door then
+							pcall(ns.AddSmartTomTomWay, s.mapID, door.x, door.y, stepName, true)
+						else
+							pcall(ns.AddSmartTomTomWay, s.mapID, s.x, s.y, stepName, true)
+						end
 						ns._mhTravelLegBusy = nil
 						ns._mhArrowLedTo = { mapID = s.mapID, x = s.x, y = s.y, at = GetTime and GetTime() or 0 }
 						--- And arm the same hand-off the flight leg uses, so the arrow
@@ -657,7 +678,11 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						-- A gossip hop too (Rob, 14 Oct 2026: flown to the Northern Bulwark, the arrow still pointed
 						-- at the Windcaller behind him — a flight inside one map changes no map). Reaching the NPC
 						-- points the arrow at where the hop leads.
-						if (s.kind == "walk" or s.kind == "gossip") and nxt and nxt.mapID and nxt.x and nxt.y then
+						if door then
+							pendingLeg.door = { mapID = s.mapID, x = door.x, y = door.y }
+							pendingLeg.nextIsArrive = false
+							pendingLeg.nextStep = { mapID = s.mapID, x = s.x, y = s.y, name = stepName }
+						elseif (s.kind == "walk" or s.kind == "gossip") and nxt and nxt.mapID and nxt.x and nxt.y then
 							pendingLeg.door = { mapID = s.mapID, x = s.x, y = s.y }
 							pendingLeg.nextIsArrive = nxt.kind == "arrive"
 							pendingLeg.nextStep = { mapID = nxt.mapID, x = nxt.x, y = nxt.y,

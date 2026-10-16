@@ -369,7 +369,8 @@ ns.MOUNTRUN_HUBS = {
 	DORN_HOLE = { kind = "hole", to = 2214, both = { 2339, 38.87, 59.81 } }, -- ZB:336
 	SM_NORTH = { kind = "exit", to = 2424, both = { 2393, 45.73, 6.48 } }, -- HC:3496
 	SM_SOUTH = { kind = "exit", to = 2395, both = { 2393, 37.44, 90.41 } }, -- HC:3497, westernmost of three
-	SM_COILED = { kind = "portal", to = 2512, both = { 2393, 56.83, 67.38 } }, -- Delves.lua MIDNIGHT_PORTALS (ZT:206)
+	-- Delves.lua MIDNIGHT_PORTALS (ZT:206); `via` = the building's door, Rob measured 54.99/63.30 (3 Sep 2026).
+	SM_COILED = { kind = "portal", to = 2512, both = { 2393, 56.83, 67.38 }, via = { 54.99, 63.30 } },
 	CI_NORTH = { kind = "tunnel", to = 2509, both = { 2512, 43.30, 44.27 } }, -- ZB:359-361
 	CI_EAST = { kind = "tunnel", to = 2509, both = { 2512, 45.37, 64.90 } }, -- ZB:367-369
 	-- Antorus is only PARTLY covered: no source places Legion Dalaran itself, the Vindicaar's console or the way

@@ -218,7 +218,7 @@ local function BuildSteps(raid)
 			if p.lower then
 				text = text .. " " .. ns:L("MOUNTRUN_STEP_LOWER")
 			end
-			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text }
+			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text, via = hub.via }
 		end
 	end
 	local zone, x, y = EntrancePoint(raid)

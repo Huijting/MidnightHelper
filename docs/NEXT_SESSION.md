@@ -40,6 +40,11 @@
    + **deur van de portaalkamer GEMETEN** (Rob, `/mh here`): 53.30/66.24 (= MH's Portal Room-pin). Stap kreeg `via`:
    pijl eerst naar de deur, binnen ~0,3 kaart-% (≈7 m, AFGELEID uit 1,43 % ≈ 34 m) springt hij naar het portaal; sta
    je al dichter bij het portaal dan de deur, dan meteen het portaal. `via` werkt voor elke stap (MountRun.lua WatchVia).
+   ✅ **Coiled Isle-portaal: deur ook in het reisplan** (Rob: *"als ik bv een delve kies dan gaat ie anders"*). De SMC-pin
+   had al `entrance` (UI.lua, 54.99/63.30, Rob 3 sep), het reisplan niet. Nu: MIDNIGHT_PORTALS-rijen (2393 + 2576)
+   `door = {54.99, 63.30}` → TravelPlan zet `door` op de portaalstap → RouteFirstToFlightPoint (DelveTipMarkup) wijst eerst
+   de deur aan en geeft via de bestaande `pendingLeg.door/nextStep`-overdracht het portaal door (<25 yd of weglopen);
+   al dichter bij het portaal dan de deur → meteen het portaal. Mount run SM_COILED kreeg dezelfde `via`. Niet getest.
    📏 **Geheugen GEMETEN door Rob, 16 okt** (`GetAddOnMemoryUsage`, main na de Mount run-stappen): **48.137 KB ≈ 47 MB**.
    Op schijf: 18,22 MB (code 14,06 MB), +1,2% t.o.v. v4.7.7. Vergelijkingspunt voor de volgende versie.
    📏 **Ná `collectgarbage()` (Rob, zelfde sessie): 23.592 KB ≈ 23 MB.** Dus ~24,5 MB (51%) was afval van het

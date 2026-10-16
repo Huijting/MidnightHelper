@@ -373,6 +373,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					y = best.y,
 					label = best.name,
 					source = "MIDNIGHT_PORTALS",
+					door = best.door, -- a portal inside a building: walk to its door first (Delves.lua)
 				}
 			end
 		end

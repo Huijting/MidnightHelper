@@ -285,10 +285,14 @@ local MIDNIGHT_PORTALS = {
 	-- portal only works at level 90, and that the portal quest starts only after a
 	-- Nightmare Prey on the island. Comments under a news article are the weakest source
 	-- this file admits, and neither is needed to use the portal today.
+	-- `door` (16 Oct 2026, Rob: "als ik bv een delve kies dan gaat ie anders"): the portal stands inside a building.
+	-- The Silvermoon City pin already routed via its door (UI.lua, `entrance`, Rob measured 54.99/63.30 on 3 Sep);
+	-- the travel plan did not, so a route to a Coiled Isle delve pointed through the wall. TravelPlan copies `door`
+	-- onto its portal step and RouteFirstToFlightPoint walks the door first.
 	{ name = "Portal to The Coiled Isle", mapID = 2393, toID = 2512,
-		x = 56.83, y = 67.38, requiresQuest = 96004 },
+		x = 56.83, y = 67.38, requiresQuest = 96004, door = { x = 54.99, y = 63.30 } },
 	{ name = "Portal to The Coiled Isle", mapID = 2576, toID = 2512,
-		x = 56.83, y = 67.38, zone = "Silvermoon", requiresQuest = 96004 },
+		x = 56.83, y = 67.38, zone = "Silvermoon", requiresQuest = 96004, door = { x = 54.99, y = 63.30 } },
 	-- The way back, from Tokka's Landing. Same gate: you only ever see this one after
 	-- arriving through the first.
 	{ name = "Portal to Silvermoon", mapID = 2512, toID = 2393,
