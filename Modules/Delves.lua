@@ -1882,7 +1882,9 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	-- old one. Managed routes (rare/treasure/reset/achievement) set their own owner and
 	-- are left untouched; the delve buttons set "delve" right after this call.
 	local o = ns._mhRouteOwner
-	if o == nil or o == "waypoint" or o == "delve" then
+	-- "mountrun" too: any other route set after a Mount run takes the arrow back (MountRun.lua re-claims it after
+	-- its own calls), or the travel help muted for the Mount run would stay muted for everything after it.
+	if o == nil or o == "waypoint" or o == "delve" or o == "mountrun" then
 		ns._mhRouteOwner = "waypoint"
 	end
 	end -- not travelOnly
@@ -3899,6 +3901,11 @@ local function CreateEventBridge()
 				return nil
 			end
 			local function runZoneNavCheck()
+				-- The Mount run moves its own steps on the same events (MountRun.lua); this check finishing or re-planning
+				-- one of them is what sent Rob from the Jade Forest to Honeydew Village (16 Oct 2026).
+				if ns._mhRouteOwner == "mountrun" then
+					return
+				end
 				local currentMap = C_Map.GetBestMapForUnit("player")
 				local lt = RouteLead()
 				if lt and currentMap then

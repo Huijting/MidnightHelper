@@ -476,7 +476,9 @@ if C_Timer and C_Timer.NewTicker then
 	-- ⚠️ 1.5s, not 3. The interval is how long a stale arrow survives, and the whole
 	-- point of leg one is that the arrow tells the truth.
 	legWatcher = C_Timer.NewTicker(1.5, function()
-		if not pendingLeg then
+		-- The Mount run walks its own steps (MountRun.lua); a leg left over from before it took the arrow must not
+		-- steer (Rob, 16 Oct 2026, in the Jade Forest: a leg toward Silvermoon flew him to Honeydew Village).
+		if not pendingLeg or ns._mhRouteOwner == "mountrun" then
 			ClearLeg()
 			return
 		end
@@ -553,6 +555,9 @@ end
 
 --- @return boolean true when the arrow was sent to a flight master instead
 function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
+	if ns._mhRouteOwner == "mountrun" then
+		return false -- the Mount run's steps are the travel advice (MountRun.lua)
+	end
 	targetMap, currentMap = tonumber(targetMap), tonumber(currentMap)
 	if not (targetMap and currentMap) then
 		return false
@@ -826,6 +831,11 @@ legRetry:SetScript("OnEvent", function()
 		return
 	end
 	if pendingLeg or ns._mhTravelLegBusy then
+		return
+	end
+	-- A route with its own steps re-plans itself on the same event (MountRun.lua). Rob, 16 Oct 2026: this fired
+	-- 0.7 s after a portal with the PREVIOUS step still in ns.lastTarget and sent him toward Silvermoon.
+	if ns._mhRouteOwner == "mountrun" or ns.lastTarget.noTravelAdvice then
 		return
 	end
 	-- Indoors the lookup has nothing to answer with; that is what got us here.

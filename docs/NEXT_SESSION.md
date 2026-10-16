@@ -45,6 +45,13 @@
    `door = {54.99, 63.30}` → TravelPlan zet `door` op de portaalstap → RouteFirstToFlightPoint (DelveTipMarkup) wijst eerst
    de deur aan en geeft via de bestaande `pendingLeg.door/nextStep`-overdracht het portaal door (<25 yd of weglopen);
    al dichter bij het portaal dan de deur → meteen het portaal. Mount run SM_COILED kreeg dezelfde `via`. Niet getest.
+   🔴 **GEMETEN door Rob (screenshots, 16 okt), Throne of Thunder vanuit Silvermoon:** stap 3 van 4 in de Jade Forest ging
+   goed, daarna "Nearest flight point there: Sanctum of Light", "Go to the portal room … is not on this continent" en
+   een vlucht naar Honeydew Village + "Route finished". Oorzaak (GEMETEN in code): drie oude hulpjes reageren óók op elke
+   zonewissel — `legRetry` (DelveTipMarkup, 0,7 s, met de vorige stap nog in `ns.lastTarget`), een achtergebleven
+   `pendingLeg`, en `runZoneNavCheck` (Delves.lua, "Route finished"). Nu: alle drie + `RouteFirstToFlightPoint` doen niets
+   zolang `_mhRouteOwner == "mountrun"`; AddSmartTomTomWay neemt "mountrun" weer over als een andere route start, zodat
+   het zwijgen niet blijft hangen. Opnieuw testen.
    📏 **Geheugen GEMETEN door Rob, 16 okt** (`GetAddOnMemoryUsage`, main na de Mount run-stappen): **48.137 KB ≈ 47 MB**.
    Op schijf: 18,22 MB (code 14,06 MB), +1,2% t.o.v. v4.7.7. Vergelijkingspunt voor de volgende versie.
    📏 **Ná `collectgarbage()` (Rob, zelfde sessie): 23.592 KB ≈ 23 MB.** Dus ~24,5 MB (51%) was afval van het

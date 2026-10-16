@@ -83,6 +83,10 @@ er is niets weggegooid.
       - **Horde, Shattrath of Caverns of Time:** zegt hij *"(lower room)"*, en staat het portaal echt beneden?
       - **Culling of Stratholme:** de pijl wijst nu naar het portaal BINNEN de Caverns, niet naar de grotmond.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
+- [ ] **Mount run → geen gestoorde stappen meer** (16 okt, jouw Throne of Thunder-test). Doe dezelfde route nog eens vanuit
+      Silvermoon. Na elk portaal mag de chat alleen *"Mount run, step N of 4: …"* zeggen: GEEN *"Nearest flight point there:
+      Sanctum of Light"*, GEEN *"is not on this continent"*, GEEN *"Route finished"* en geen vlucht naar Honeydew Village.
+      Daarna: kies een gewone route (bv. een delve) → werkt het reisadvies dan weer zoals vroeger?
 - [ ] **Mount run → eerst naar huis** (16 okt, jouw vraag in Silvermoon). Sta in **Silvermoon**, klik bij Firelands
       *Arrow to the entrance*. Stap 1 moet nu zijn: *"Go to the portal room and take the portal to Orgrimmar."* met de pijl op
       MH's eigen Portal Room-pin. Daarna Orgrimmar → Hyjal-portaal → ingang (3 stappen).
