@@ -5800,3 +5800,212 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
       staat er `M-oM-;M-?## Interface: 120007, 120100, 120105`. De `.toc` staat nu op **4.7.7** (was
       gisteren 4.7.6). `CLAUDE.md` zegt nog steeds dat de `.toc` *"`## Interface: 120007, 120100`"*
       declareert; dat is nog steeds onvolledig. 🔴 Niet aangeraakt.
+
+- [2026-10-16] 🧩 **Eén nieuwe gekwalificeerde vondst op mijn eigen terrein (`TOC format`, 12.1.7), en een
+  speler die de 12.1.5-item-migratie eindelijk IN DE CLIENT heeft gemeten. 0 × [MOET GEFIKST].** Vier
+  pagina's bewogen sinds gisteren; twee daarvan zijn opmaak.
+  - 🔑 **[RAAKT ONS NIET] — `TOC format` kreeg vandaag een 12.1.7-sectie, en één van de twee regels is
+    precies het soort dat een `.toc` stil kan breken.** `6905891` → **`6916319`** (32839 → 33450 b,
+    +611, **2026-10-16T01:54:12Z**). De diff zelf opgehaald (`action=compare`), en de nieuwe
+    `==Patch changes==`-regel staat er letterlijk:
+    `* {{Patch 12.1.7|note= ** Added RegionalTextLocale variable. ** Prevented use of variables in
+    addon directives.}}`
+    Hetzelfde edit scherpt twee zinnen aan die dezelfde kant op wijzen: de kop werd *"TOC files support
+    the use of variable expansions"* → *"… variable expansions **for files**"*, en het voorbeeld werd
+    `## Notes: My addon is working in [Game].` → `## Notes: My addon is working.` **Variabele-expansie
+    (`[Game]`, `[Family]`, `[TextLocale]` …) werkt vanaf 12.1.7 dus alleen nog in bestandspaden, niet
+    meer in een `##`-directive.**
+    - ✅ **GEMETEN dat dit ons niet raakt:** `grep "\["` op `MidnightHelper.toc` geeft **nul treffers**
+      in het hele bestand — geen enkel blokhaakje, dus ook geen variabele in een directive. **Positieve
+      controle in dezelfde run** (want een lege grep bewijst niets): `grep -c "## "` op datzelfde
+      bestand geeft **18**, en `head -20` toont ze alle achttien (`## Interface`, `## Title`,
+      `## Version: 4.7.7`, zes `## Notes-xxXX`, `## IconTexture`, `## SavedVariables`,
+      `## AddonCompartmentFunc`, vier `## X-…`). Het patroon vindt dus wél wat er zeker staat.
+    - 📌 **De nieuwe `RegionalTextLocale` is ook alleen een bestandspad-variabele**, geen API: *"Expands
+      to a region specific locale based on the client's configured text locale and region (e.g., enGB
+      and ptPT in the EU region vs enUS and ptBR in the NA region)."* MH gebruikt geen enkele
+      TOC-variabele, dus er valt niets te migreren.
+    - ⚠️ **HERKOMST, en dit weegt:** dit staat **uitsluitend op de wiki**, geschreven door een
+      wiki-redacteur. Er is **geen officiële 12.1.7-API-notitie**: `Patch 12.1.7/API changes` komt nog
+      steeds terug als `"missing": true`, en `Patch 12.1.7` zelf (pageid 664849, aangeraakt
+      2026-10-15T19:23:45Z) heeft volgens `action=parse&prop=sections` **zes secties en geen enkele
+      UI-/API-sectie** (Story Campaign "The Return to Dornogal", Talebound, Lorewalking Quests,
+      Turbulent Timeways, Omnium Folio, References). Wat er komt is het terrein van de PTR-wachter;
+      ik meld hier alleen de TOC-kant. **Behandel de regel dus als sterke aanwijzing, niet als
+      Blizzard-mededeling.**
+  - 🔑 **[AL AFGEDEKT] — de 12.1.5-item-migratie is nu DOOR EEN SPELER IN DE CLIENT bevestigd, en ik heb
+    MH hertoetst tegen de ECHTE namenlijst in plaats van tegen mijn eigen aantekening.** Nieuw draadje
+    `2383349` *"Link item info in a macro"* op het UI-and-Macro-forum, **buiten** het deprecatie-draadje
+    dat hier al vier dagen staat:
+    - post 1, `30485747`, **2026-10-15T18:00:33Z**, Nirran: een macro met
+      `..select(2,GetItemInfo("Auto-Hammer"))..` en *"found it is removed patch 12.1.5 ,whats the
+      current method?"*
+    - post 2, `30486191`, **2026-10-15T18:32:38Z**, Fizzlemizz: *"Moved to the `C_Item.` namespace and
+      it's deprecated fallback removed."* met `select(2,C_Item.GetItemInfo("Auto-Hammer"))`
+    - post 3, 18:54Z, Nirran: *"tyvm"*.
+    📌 **Waarom dit méér is dan het draadje van 14 okt:** dáár stond de verwachting (*"it's mostly
+    adding `C_Item.`"*), hier staat iemand die het globale `GetItemInfo` in zijn eigen macro **kapot zag
+    gaan**. De migratie is daarmee van "gedocumenteerd" naar "gemeten op een live client" gegaan.
+    ⚠️ Het blijven spelersberichten; nog steeds **geen blue reply**.
+  - 🔎 **De hertoetsing, en die was de moeite — want mijn eerste meting van vandaag gaf een VALS ALARM
+    dat ik bijna had doorgegeven.** Ik heb de autoritatieve lijst opgehaald uit de **wikitext zelf**
+    (`prop=revisions&rvprop=content` op `Patch 12.1.5/API changes`, sectie `==Deprecated API==`) in
+    plaats van uit het logboek van gisteren: **72 namen** over negen `Blizzard_Deprecated*`-bestanden.
+    Daarvan komen er **vijf** voor in MH, op **33 aanroepplekken**:
+    | naam | plekken | uitkomst |
+    |---|---|---|
+    | `GetItemCount` | 13 | 10× MH's eigen local, 3× gedekt |
+    | `GetItemIcon` | 9 | 7× MH's eigen local, 2× gedekt |
+    | `GetItemInfo` | 4 | 4× gedekt (`if GetItemInfo then` ná een `C_Item.`-pad) |
+    | `PickupItem` | 6 | 3× gedekt, 3× de bekende `else`-tak in `KeyBlock.lua` |
+    | `GetItemQualityColor` | 1 | gedekt |
+    De overige **67 namen komen nergens in de addon voor** — inclusief `UseItemByName`,
+    `EquipItemByName`, `GetDetailedItemLevelInfo`, `IsEquippableItem`, de dertien
+    `*SocketInfo`-namen, `TogglePVP`/`SetPVP` en `GetCoinTextureString`. 🔴 **Ook de twee
+    NAMESPACED verwijderingen gecontroleerd** (die een `^NAAM(`-patroon mist):
+    `C_LFGList.GetSearchResultMemberInfo` en `C_LFGInfo.IsPremadeGroupEnabled` → beide **nul treffers**.
+    - 🔴 **HET VALSE ALARM, en waarom het hier staat:** mijn eerste script merkte 15 plekken aan als
+      onafgedekt, waaronder negen in `Modules/DelveItemsPopup.lua`. **Alle negen zijn onwaar.** Dat
+      bestand **forward-declareert** `local GetItemCount` (`:115`) en `local GetItemIcon` (`:116`) en
+      vult ze pas honderden regels later (`GetItemCount = function` op `:595`,
+      `GetItemIcon = function` op `:826`) met eigen wrappers die eerst `C_Item.GetItemCount` resp.
+      **`C_Item.GetItemIconByID`** proberen en daarna `rawget(_G, "GetItemCount")`. Het zijn dus MH's
+      eigen locals, geen globals. Mijn patroon zocht `local NAAM =` en `local function NAAM` en zag de
+      losse declaratie niet. 📌 **Een `local X` op regel 115 en een `X = function` op regel 595 lezen
+      los van elkaar als een global.** Wie hier ooit een grep op schrijft: zoek op **beide** vormen,
+      en lees daarna de plek.
+    - ✅ **Gelezen, niet gehoopt** — per plek de echte tekst: `GuideConsumables.lua:71`
+      `if GetItemQualityColor and quality ~= nil then`; `GuideConsumables.lua:64`
+      `if quality == nil and GetItemInfo then`; `PlayCardWindow.lua:413`
+      `if (not n or n == "") and GetItemInfo then`; `DelveCuriosData.lua:178` `if GetItemInfo then`;
+      `ApplyLayout.lua:1311/1345/1605` `elseif … PickupItem then` met `C_Item.PickupItem` als eerste
+      tak, alle drie binnen `pcall`.
+    - 🔑 **EN DE RENAME IS GOED GEGAAN, wat de enige echte valkuil in deze lijst is.**
+      `GetItemIcon` gaat **niet** naar `C_Item.GetItemIcon` maar naar **`C_Item.GetItemIconByID`** —
+      de lijst schrijft het letterlijk zo, en het is de enige van de 72 waar de naam zelf verandert.
+      GEMETEN: `grep "C_Item\.GetItemIcon("` geeft **nul** treffers, en de positieve controle
+      `C_Item.GetItemIconByID` geeft **23**. Niemand heeft hier de voor de hand liggende naam gegokt.
+    - 📌 **Uitkomst: 0 × [MOET GEFIKST]**, en dat is nu gemeten tegen de bron in plaats van geciteerd
+      uit gisteren. De conclusie van 14/15 okt (*"10 aanwezig, alle tien gedekt"*) klopt inhoudelijk;
+      mijn telling komt op 5 namen / 33 plekken omdat ik per **naam** tel en niet per vorm.
+  - 🧩 **[RAAKT ONS NIET] — `API:UnitGUID` kreeg een Forever-regel over geobfusceerde GUID-velden.**
+    `6817589` → **`6916323`** (**2026-10-16T01:57:36Z**). Nieuw in `==Patch changes==`, letterlijk:
+    *"{{Patch 1.60.1|note=The server ID and spawn ID portions of creature, vehicle, pet and game object
+    GUIDs have been replaced with obfuscated values to prevent comparison to determine layer. They
+    remain stable and unique within your own session, and the GUID string format is otherwise
+    unchanged."}}*
+    - MH leest uit een GUID **alleen veld 6, de npcID** — GEMETEN op 15 plekken
+      (`Rares.lua:864` en `:1025`, `VignetteCapture.lua:53`, `QuestDiff.lua:133`,
+      `DelveBossShowcase.lua:535`, `RaidCoachData.lua:388`, `RitualBossCoach.lua:317`,
+      `TideboundGrottoCoach.lua:148`, `DaggerspineCoach.lua:108`, `SporefallCoach.lua:75`,
+      `DungeonBossWindow.lua:2058`, `Core.lua:2916`), telkens via `select(6, strsplit("-", guid))` of
+      een `strsplit` met zes uitgangen. **Veld 6 is niet wat er geobfusceerd wordt**, en de regel zegt
+      zelf dat het stringformaat verder onveranderd is. Bovendien is 1.60.1 **Forever**, en MH
+      declareert alleen Retail-interfacenummers (`120007, 120100, 120105`).
+    - ⚠️ **Eén kanttekening, en bewust geen actiepunt:** `Modules/ResetRoutine.lua:648` doet het níét
+      met `strsplit` maar met een strak patroon,
+      `guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")` — dat eist dat **élk** veld vóór de npcID
+      uit cijfers bestaat. Blijven de geobfusceerde server-/spawn-waarden numeriek, dan werkt het; zo
+      niet, dan geeft deze ene plek `nil` waar de andere veertien nog wel een npcID vinden. **Ik weet
+      niet welke van de twee het is** — de wiki zegt alleen *"obfuscated values"*, niet van welk type,
+      en ik ga dat niet gokken. Raakt alleen een eventuele Forever-build; op Retail verandert er
+      niets. 🔴 Niet aangeraakt.
+  - 🔇 **[RAAKT ONS NIET] — de twee andere bewogen API-pagina's zijn documentatie, geen wijziging.**
+    Beide diffs opgehaald:
+    - `API:C GameRules.IsGameRuleActive` `6843751` → `6915525` (**2026-10-15T20:32:24Z**): er is
+      **alleen een `==Example==`-sectie bijgekomen** (een `if/elseif` over `Enum.GameRule.PvPRuleset`,
+      `RPRuleset`, `HardcoreRuleset` *"For detecting while ruleset is active on forever"*). Signatuur
+      en `==Returns==` (`isActive: boolean`) staan links en rechts identiek.
+    - `API:UnitSpellHaste` `6817843` → `6915482` (**2026-10-15T20:00:34Z**): een wikilink-correctie
+      (`[[Heal|Greater Heal]]` → `[[Greater Heal (Classic)]]`) en `{{Patch 4.0.6|note = Added.}}` →
+      `{{Patch 4.0.6|added =}}`. Geen API-inhoud.
+  - 🔇 **[RAAKT ONS NIET] — de hotfix van 14 okt heeft GEEN UI-/API-sectie.** `Hotfixes` `6913075` →
+    **`6914165`** (378379 → 380357 b, drie bewerkingen op **2026-10-15T03:46–03:52Z**, dus net ná mijn
+    run van gisteren die rond 03:30Z liep). Diff gelezen: de kop werd *"Hotfixes: October 1-13"* →
+    *"Hotfixes: October 1-14"* en er kwam een `===October 14===` bij met vijf koppen — `Aqir Invasions`,
+    `Classes` (Druid: Guardian/Restoration), `Delves` (*"Dundun has returned and hides within Bountiful
+    delves once again"*), `Labyrinth` (negen regels, waaronder *"Increased the maximum item level for
+    the Ancient Hash'ey Battle Art enchantment to 344 (was 334)"*) en `Quests`. **Nul API-, taint-,
+    secure- of addon-regels.** 📌 De Delves- en Labyrinth-regels zijn inhoud en dus het terrein van de
+    contentwachter — die kan ze toetsen aan wat MH bewéért; ik laat ze hier staan zodat hij ze niet mist.
+  - 🧰 **SimC-addon: geen nieuwe release én geen nieuwe commit sinds `12.1.5-01` (12 okt), gemeten op de
+    sha.** `git ls-remote … refs/heads/master` geeft **`8741352777a1d22ec7c89cbd051cd736f6025c6e`**, en
+    `refs/tags/12.1.5-01` geeft **diezelfde sha** — identiek aan gisteren én aan 14 okt, dus `master`
+    staat nog precies op de release. De `/releases`-JSON (mét cache-buster) heeft bovenaan nog steeds
+    `12.1.5-01` (12 okt 18:39), daaronder `12.1.5-alpha-01` (9 okt) en `12.1.0-alpha-06` (8 okt). Geen
+    nieuw item-modifier-type, geen nieuwe profielregel. De kanttekening bij `SimcExport.lua:15`/`:447`
+    (die *"12.1.5-alpha-01"* zeggen waar de stable byte-identiek is) staat er nog; nog steeds geen
+    actiepunt, en ik raak het bestand niet aan.
+  - 📎 **Zijwaarneming bij `RegionalTextLocale`, AFGELEID en expliciet GEEN actiepunt.** De nieuwe
+    variabele noemt `enGB` en `ptPT` als EU-varianten. GEMETEN in `Locales/Locale.lua:30-34`: de
+    alias-tabel dekt `enGB → enUS`, `enAU → enUS` en `esMX → esES`; **`ptPT` staat er niet**, en komt
+    nergens in de addon voor. Een ptPT-client valt daarmee terug op `enUS` — dat is de veilige
+    uitkomst (Engelse tekst, geen rauwe sleutels), niet een breuk. ⚠️ **En dit is géén 12.1.7-wijziging:**
+    de variabele gaat over bestandspaden in een `.toc`, niet over wat `GetLocale()` teruggeeft. Dat een
+    ptPT-client bestaat en de ptBR-pack niet krijgt, is bestaand gedrag van vóór vandaag. Ik meld het
+    alleen omdat de wiki-regel het onder mijn neus duwde; of het ooit iets moet worden is Robs keuze.
+  - ✅ **Dat deze metingen geen cache zijn, is in dezelfde `api.php` aangetoond.** `rcnamespace=0` gaf
+    als nieuwste `Grimnar` (revid **`6917420`**, **2026-10-16T03:36:07Z**) — nieuwer dan het
+    versheidsbewijs van gisteren (`6914046`, 2026-10-15T03:37:15Z). Elke Exa-URL van vandaag kreeg een
+    eigen `?nocache=20261016<letter>` (a t/m v); MediaWiki antwoordt daarop met
+    `"Unrecognized parameter: nocache."` en dat is het bekende, goede teken. 📌 De drie nieuwe
+    API-namespace-revisies van vandaag (`6915482`, `6915525`, `6916323`) zijn alle drie **nieuwer** dan
+    de nieuwste die gisteren hier stond (`6906649`, 10 okt) — dus ook op mijn eigen terrein kijk ik
+    naar verse data en niet naar een snapshot.
+  - ⚠️ **NIET GELEZEN, en dat is geen "niets gevonden":**
+    - `news.blizzard.com` is voor de **zevende dag op rij** niet gelezen: `CRAWL_NOT_FOUND` op
+      `news.blizzard.com/en-us/wow`, ook mét cache-buster. Een WebSearch op *"hotfixes October 15
+      2026"* gaf als nieuwste het lijstje van **6 okt**, dus niets dat op een gemiste 15/16-okt-hotfix
+      wijst — maar bewijzen via Blizzards eigen artikel kan ik het niet. De wiki's `Hotfixes`-pagina
+      dekt dit gat tot en met 14 okt (zie hierboven).
+    - `us.forums.blizzard.com` is **wél** gelezen, maar alleen via Exa. GEMETEN: `curl` erheen geeft
+      `CONNECT tunnel failed, response 403` / `connect_rejected` — de host staat niet open voor deze
+      sessie. Exa haalt `search.json` en `t/<id>.json` vlot op; `l/latest.rss` bestaat niet
+      (`CRAWL_NOT_FOUND`) en `l/latest.json` is bruikbaar maar begint met een gebruikersblok van ~8000
+      tekens, waardoor de nieuwste topics buiten de leeslimiet vallen. 📌 **Werkwijze voor morgen:
+      gebruik `search.json?q=%23ui-macro%20after%3A<datum>`** — dat geeft de nieuwe posts compact en
+      op datum, en het is precies hoe draadje `2383349` vandaag gevonden is.
+    - `warcraft.wiki.gg` via `action=parse&prop=wikitext` gaf `CRAWL_UNKNOWN_ERROR`, en
+      `index.php?action=raw` gaf `CRAWL_UNEXPECTED_CONTENT_TYPE` (text/plain). **Wat wél werkt:**
+      `action=query&prop=revisions&rvprop=content&rvslots=main` — zo is de 72-namenlijst vandaag
+      opgehaald. Voor morgen de aangeraden route naar wikitext.
+    - `wowhead.com/blue-tracker` niet geprobeerd (eenentwintig runs op rij lege body).
+    - `Structure SpellCooldownInfo` nog steeds niet opgehaald (open vraag van 7 okt bij
+      `C_Spell.GetItemCooldown`); die pagina is deze week niet bewerkt, dus geen aanleiding.
+    - De interfacenummers **per game type** uit de `Interface`-tabel blijven onopgelost.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw** (en na vandaag staat er nog steeds geen
+    [MOET GEFIKST] open):
+    - `Modules/KeyBlock.lua:1135`, `:1227`, `:1380`: `PickupItem` in een `else`-tak ná
+      `elseif C_Item and C_Item.PickupItem then`, het geheel binnen `pcall`. Op een 12.1.5-client wordt
+      die tak nooit genomen; wordt hij het toch, dan is het stil falen in plaats van crashen. Dát
+      `C_Item.PickupItem` bestaat blijft **AFGELEID** uit de migratietabel (vandaag opnieuw gelezen:
+      `* {{api|PickupItem}} = {{api|C_Item.PickupItem}}`), niet gemeten in een client.
+      `Modules/PtrProbe.lua:130-137` bestaat hiervoor en 12.1.5 is nu Robs eigen client: één `/mh ptr`
+      op live beantwoordt het. 🔴 Meetvoorstel, geen reparatie — ik raak de code niet aan.
+    - `Blizzard_DeprecatedWorldElapsedTimerTypes` is het tiende deprecated-addon en de wiki-sectie
+      noemt er negen; wat daarin zat is nog steeds niet gepubliceerd. **Vandaag opnieuw geteld in de
+      wikitext: negen `Blizzard_Deprecated*`-koppen**, dus het gat staat er nog.
+      `PtrProbe.lua:120` vraagt er wel naar, dus dezelfde `/mh ptr` dekt ook dit.
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. 🔴 Niet aangeraakt.
+    - `Patch 1.60.1/API changes` (World of Warcraft: Forever, launch 4 nov) wordt actief geschreven —
+      en vandaag kwam er via `API:UnitGUID` en `C_GameRules.IsGameRuleActive` voor het eerst
+      Forever-inhoud op **mijn** terrein terecht (zie hierboven). Nog steeds buiten scope zolang MH
+      alleen Retail-interfacenummers declareert, maar dit is de tweede week dat Forever-regels in
+      Retail-API-pagina's opduiken; dat wordt op enig moment een keuze voor Rob en niet voor mij.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM**. Onschadelijkheid blijft AFGELEID.
+      ⚠️ Herinnering die vandaag weer van pas kwam: `grep -E "^## Interface"` geeft daardoor **nul**
+      treffers terwijl de regel er wél staat. Mijn bracket-grep hierboven is bewust zonder `^`
+      geschreven.
+    - `CLAUDE.md` zegt nog steeds dat de `.toc` *"`## Interface: 120007, 120100`"* declareert, terwijl
+      er `120007, 120100, 120105` staat. Nog steeds onvolledig. 🔴 Niet aangeraakt.
+  - 🔧 **Repo-staat: schoon, maar HEAD stond bij aanvang WÉÉR DETACHED — de vijfde keer in zes dagen**
+    (11, 12, 14, 15, 16 okt). `git status --short` was leeg en **geen** van de vier wachter-bestanden
+    stond gewijzigd-maar-ongecommit, dus er was geen wees-regel om te committen.
+    `git branch --show-current` gaf een **lege** uitvoer en `git branch` gaf
+    `* (HEAD detached from refs/heads/main)` op `8138ff1` *"Translate the Mount run extension into all
+    packs"*. `git checkout -B main origin/main` zette het goed.
+    ⚠️ **En de val van gisteren deed zich exact opnieuw voor:** `git fetch` meldde
+    `+ 49acda4...8138ff1 main -> origin/main (forced update)`. Dat is **geen force-push** maar het
+    shallow-clone-artefact dat hier gisteren is uitgezocht — GEMETEN: `.git/shallow` bestaat en
+    `git rev-list --count HEAD` = **50**, precies de clone-diepte. 📌 Kijk eerst of `.git/shallow`
+    bestaat voordat je uit een `(forced update)` een conclusie trekt.
