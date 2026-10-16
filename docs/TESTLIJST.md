@@ -41,9 +41,9 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       `travelRouteLog` zelf uit je SavedVariables).
   ✅ Rob 16 okt avond: boog → orb → portaal werkt (en vanuit binnen ook). Wel: bij de boog en bij de orb even ónze pijl
   i.p.v. die van TomTom. GEMETEN in `travelRouteLog`: overdracht op 7.5 yd, TomTom wiste die punten zelf al op 15 yd.
-- [ ] **Geen eigen pijl meer bij boog en orb** (TomTom-gebruikers): de TomTom-pijl blijft de hele weg; tussenpunten
-      wist TomTom niet meer zelf, MH haalt ze weg als je verder bent. Na de route: staan er geen losse oude
-      TomTom-punten (deur/orb) meer op je kaart?
+- [x] **Geen eigen pijl meer bij boog en orb** (TomTom-gebruikers): de TomTom-pijl blijft de hele weg; tussenpunten
+      wist TomTom niet meer zelf, MH haalt ze weg als je verder bent. ✅ Rob 16 okt avond: "ja ging dit keer goed".
+      (Losse oude punten op de kaart na afloop: niet apart genoemd.)
 - [ ] **Zelfde vanuit binnen**: sta al in de hal (na de boog) en kies de delve → pijl meteen naar de orb, niet terug naar de
       boog. Sta je al beneden bij het portaal → pijl meteen naar het portaal.
 - [ ] **Mount run** (zelfde gedrag als gisteren): "Route" bij een raid → *"Mount run, step 1 of N"*, knop bij een

@@ -152,7 +152,9 @@
    screenshots. ✅ GEMETEN door Rob (16 okt avond): boog → orb → portaal werkt, ook vanuit binnen.
    🐞 → ✅ Bij boog en orb even ónze pijl i.p.v. TomTom's. GEMETEN in Robs `travelRouteLog`: overdracht op 7.5 yd;
    AFGELEID: TomTom wiste deur/orb zelf op 15 yd (onze cleardistance), daartussen tekende NativeArrow. Nu: elk punt
-   onderweg krijgt cleardistance 0, de loper haalt het vorige punt zelf weg (ook bij Stop). Niet getest.
+   onderweg krijgt cleardistance 0, de loper haalt het vorige punt zelf weg (ook bij Stop). ✅ GEMETEN door Rob (16 okt
+   avond): "ja ging dit keer goed". Rest van de fase 3-testlijst (delve vanuit de oude wereld, Mount run, /mh clear,
+   rare/schat) nog open.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO
