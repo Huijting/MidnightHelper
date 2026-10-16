@@ -92,7 +92,8 @@ er is niets weggegooid.
         en het pijl-label zeggen nu een hele stap, bv. *"… is not on this continent. First: Cast Teleport: Silvermoon City …"*
         of *"First: Use your Hearthstone; it takes you to Silvermoon City."*, in plaats van alleen *"head for Orgrimmar"*.
       - Met een **niet-mage** (hearthstone in Silvermoon): dezelfde route → *"First: Use your Hearthstone …"*.
-- [ ] **Throne of Thunder zonder de Isle of Thunder-quest** (16 okt, jouw mage). Mount run → Throne of Thunder. In Townlong
+- [x] ✅ 16 okt GEMETEN (Rob's screenshot): pijl op Elsia, 14 m, met de quest-zin. **Throne of Thunder zonder de Isle of
+      Thunder-quest** (16 okt, jouw mage). Mount run → Throne of Thunder. In Townlong
       Steppes moet stap 3 nu zijn: *"Talk to Scout Captain Elsia and accept the quest "The Storm Gathers"; the first time,
       this is how you reach Isle of Thunder."* met de pijl op Elsia (50.80/73.39). Zij vliegt je erheen; daarna stap 4.
       En: `/mh travel` → onderaan nu *"no place stored twice"* (het vals alarm is weg)?
