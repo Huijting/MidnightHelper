@@ -29,7 +29,10 @@ Rob: *"kunnen we niet ook zoeken in MH naar bv dalaran …"*. Eerst `/reload`.
       keer (kaart 1163 + 1165, zelfde naam) → nu één regel per naam + werelddeel. ✅ Rob 16 okt, screenshot na /reload: `daza` → één regel "Dazar'alor  Zandalar".
 - [ ] **Zoeken.** `/mh` → typ `dala` in de zoekbalk. Je hoort een regel **"Dalaran"** te zien met grijs erachter
       **"Northrend — take me there"**. Ook `@place` (alle plekken, ~31) en bv. `shatt`, `oribos`, `valdrakken`, `tanaan`.
-- [ ] **Klik op Dalaran, ergens buiten Orgrimmar** (bv. in Silvermoon). Chat: *"Route, step 1 of 2: …"* — eerst de weg
+- [x] ✅ Rob 16 okt: *"gelukt"*. GEMETEN in `travelRouteLog` 23:17:52-23:18:29: start in Silvermoon (2393), 3 stappen;
+      deur portaalkamer gepasseerd, Orgrimmar (85) → stap 2 "Take the portal to Dalaran", 23:18:29 "stop (finished):
+      Dalaran", pijl vrij. Klein: na het laadscherm eerst kaart 12 (Kalimdor), stap 1 nog 2× opnieuw gewezen — onschuldig.
+      **Klik op Dalaran, ergens buiten Orgrimmar** (bv. in Silvermoon). Chat: *"Route, step 1 of 2: …"* — eerst de weg
       naar Orgrimmar (portaal, Hearthstone of mage-teleport), daarna *"step 2: Portal to Dalaran"* bij het portaal in
       Orgrimmar. Door het portaal → chat *"Route finished … Dalaran"* en de pijl is weg.
 - [ ] **Klik op een plek waar je al bent** (bv. Silvermoon terwijl je in Silvermoon staat) → chat *"You are already in

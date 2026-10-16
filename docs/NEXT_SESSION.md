@@ -49,7 +49,9 @@ MountRun.lua's BuildSteps gehaald, gedrag gelijk) + slotstap midden op de kaart;
 NavSearch: categorie `place` (`@place`), TIER_ACTION, naam + werelddeel uit de client. Nieuwe key `NAV_PLACE_HERE_FMT`
 (8 talen). `/mh travel` toont de plekken. Lint 0 HARD, syntax OK. Test: bovenaan `docs/TESTLIJST.md`.
 GEMETEN (Robs screenshot): `dala` toont Dalaran met "Northrend — take me there"; Dazar'alor stond er 2× (1163 hal +
-1165 stad, zelfde clientnaam) → NavSearch toont nu één regel per naam + werelddeel (kortste keten). Route zelf nog niet getest.
+1165 stad, zelfde clientnaam) → NavSearch toont nu één regel per naam + werelddeel (kortste keten); Rob zag daarna 1 regel.
+✅ Route GETEST (Rob: *"gelukt"*; log 23:17:52-23:18:29): Silvermoon → portaalkamer → Orgrimmar → portaal Dalaran →
+"stop (finished): Dalaran". Nog open uit de testlijst: "al hier"-melding en een plek met twee hops (Quel'Danas/Tanaan).
 Open: Midnight-zones (Eversong, Zul'Aman, Harandar, Voidstorm) en Legion-Dalaran zijn geen plek; zones in Midnight gaan
 via de Silvermoon-uitgangen (SM_NORTH/SM_SOUTH), niet via de Midnight-reisplanner.
 
