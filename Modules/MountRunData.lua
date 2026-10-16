@@ -412,6 +412,15 @@ ns.MOUNTRUN_HOME = {
 	[1163] = { H = { 74.05, 69.75 } }, -- Dazar'alor, Hall of Ancient Paths, ZT:2726
 	[198] = { H = { 63.48, 24.43 } }, -- Mount Hyjal, ZT:1412
 	[207] = { H = { 50.93, 53.10 } }, -- Deepholm, ZT:2144
+	-- 16 Oct 2026, later (Rob: "het gaat natuurlijk niet alleen om hier in uldum maar overal"): the remaining portals
+	-- home Zygor knows outside the old phases. Map ids from Zygor's MapIDsByName (data.lua). Left out on purpose:
+	-- Twilight Highlands (ZT:424/431, listed under "PREPATCH" with its own quest — may be gone), Tirisfal and
+	-- Teldrassil (only in an old phase).
+	[17] = { H = { 72.65, 49.51 } }, -- Blasted Lands, ZT:1758
+	[100] = { A = { 89.22, 51.00 }, H = { 89.23, 49.45 } }, -- Hellfire Peninsula (Dark Portal), ZT:1886 / ZT:1897
+	[245] = { H = { 56.30, 79.66 } }, -- Tol Barad Peninsula, ZT:2141
+	[103] = { A = { 48.34, 62.94 } }, -- The Exodar, ZT:1345
+	[2239] = { A = { 55.49, 63.66 } }, -- Amirdrassil (Bel'ameth), ZT:615
 }
 
 --- Midnight zones without their own portal home: first to Silvermoon, then home from there. The portals are MH's

@@ -58,6 +58,12 @@
    `ns.MHHearthstoneGoesTo` zegt: hoofdstad, of Silvermoon + daarna de portaalkamer) → Midnight-zijzones via Silvermoon →
    hub op je continent. Hearth-stap = geen pijl, wel eigenaar "mountrun". Een hoofdstadstap gezien van elders krijgt
    "In Orgrimmar: …". Speelgoed-hearthstones telt het (nog) niet mee. Niet getest.
+   ✅ **"overal"** (Rob: *"het gaat natuurlijk niet alleen om hier in uldum maar overal"*): de regels waren al generiek;
+   MOUNTRUN_HOME kreeg de overige Zygor-portalen naar huis: Blasted Lands (H), Hellfire Peninsula (A+H), Tol Barad (H),
+   The Exodar (A), Amirdrassil (A). Bewust NIET: Twilight Highlands (ZT "PREPATCH" + eigen quest), Tirisfal/Teldrassil
+   (alleen oude fase). Hub-op-je-continent kiest nu de DICHTSTBIJZIJNDE (wereldcoördinaten via
+   C_Map.GetWorldPosFromMapPos), niet een willekeurige. Gaten die blijven: speelgoed-hearthstones, Uldum e.d. op het
+   continent van je eigen hoofdstad (dan "In Orgrimmar: …" = zelf erheen vliegen).
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

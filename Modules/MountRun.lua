@@ -420,15 +420,47 @@ local function HomeSteps(steps)
 	-- Dalaran): fly there first. Never on the capital's own continent — there the capital itself is the way.
 	local pc = ContinentOf(pm)
 	if pc and pc ~= ContinentOf(capital) then
+		-- Several hubs can share a continent (Kalimdor: the Caverns, the Exodar; Broken Isles: Azsuna, Dalaran), so
+		-- take the nearest, measured in world coordinates; without a position, the first one found.
+		local function World(m, x, y)
+			if not (C_Map.GetWorldPosFromMapPos and CreateVector2D) then
+				return nil
+			end
+			local ok, cont, pos = pcall(C_Map.GetWorldPosFromMapPos, m, CreateVector2D(x / 100, y / 100))
+			if ok and cont and pos and pos.GetXY then
+				local wx, wy = pos:GetXY()
+				return cont, wx, wy
+			end
+		end
+		local mine = C_Map.GetPlayerMapPosition and C_Map.GetPlayerMapPosition(pm, "player")
+		local pcont, px, py
+		if mine and mine.GetXY then
+			local mx, my = mine:GetXY()
+			if mx and my then
+				pcont, px, py = World(pm, mx * 100, my * 100)
+			end
+		end
+		local best, bestD
 		for m, row in pairs(ns.MOUNTRUN_HOME or {}) do
 			local p = row[fac]
 			if p and ContinentOf(m) == pc then
-				local hub = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(m)
-				local cap = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
-				pre[#pre + 1] = { map = m, x = p[1], y = p[2], to = capital, via = row.via,
-					text = (ns:L("MOUNTRUN_STEP_HOME_FAR")):format(hub and hub.name or "?", cap and cap.name or "?") }
-				return pre
+				local d = math.huge - 1
+				local hcont, hx, hy = World(m, p[1], p[2])
+				if pcont and hcont == pcont then
+					d = (hx - px) ^ 2 + (hy - py) ^ 2
+				end
+				if not bestD or d < bestD then
+					best, bestD = m, d
+				end
 			end
+		end
+		if best then
+			local row, p = ns.MOUNTRUN_HOME[best], ns.MOUNTRUN_HOME[best][fac]
+			local hub = C_Map.GetMapInfo and C_Map.GetMapInfo(best)
+			local cap = C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
+			pre[#pre + 1] = { map = best, x = p[1], y = p[2], to = capital, via = row.via,
+				text = (ns:L("MOUNTRUN_STEP_HOME_FAR")):format(hub and hub.name or "?", cap and cap.name or "?") }
+			return pre
 		end
 	end
 	return {} -- no portal home known from here: the capital step stays first, as before
