@@ -388,16 +388,26 @@ local function ShowHearthButton(s)
 	end
 	local f = HearthFrame()
 	local b = f.btn
-	if s.isToy then
+	local icon
+	if s.mage and s.spellID then
+		-- Travel phase 2: a mage teleport home is a step too, cast through the secure "spell" type.
+		b:SetAttribute("type", "spell")
+		b:SetAttribute("spell", s.spellID)
+		b:SetAttribute("toy", nil)
+		b:SetAttribute("macrotext", nil)
+		icon = C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(s.spellID)
+	elseif s.isToy then
 		b:SetAttribute("type", "toy")
 		b:SetAttribute("toy", s.useID)
 		b:SetAttribute("macrotext", nil)
+		b:SetAttribute("spell", nil)
 	else
 		b:SetAttribute("type", "macro")
 		b:SetAttribute("macrotext", "/use item:" .. tostring(s.useID))
 		b:SetAttribute("toy", nil)
+		b:SetAttribute("spell", nil)
 	end
-	local icon = C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(s.useID)
+	icon = icon or (s.useID and C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(s.useID))
 	b.icon:SetTexture(icon or 134414)
 	f.text:SetText(s.text)
 	f:Show()
@@ -425,12 +435,12 @@ local function ShowStep(i)
 	local s = route.steps[i]
 	route.idx = i
 	local text = s.text
-	if s.hearth and s.useID then
+	if (s.hearth and s.useID) or (s.mage and s.spellID) then
 		ShowHearthButton(s)
 	else
 		HideHearthButton()
 	end
-	if s.hearth or not (s.x and s.y) then
+	if s.hearth or s.mage or not (s.x and s.y) then
 		-- Nothing to point at (the Hearthstone): no arrow, but the route keeps the arrow so the old travel helpers
 		-- stay quiet, and the next zone change moves it on.
 		WatchVia({})
@@ -457,145 +467,15 @@ local function ShowStep(i)
 end
 
 --- The way home first (Rob, 16 Oct 2026, in Silvermoon: "kunnen we geen pijlen ook naar de portals hier
---- toevoegen?"): when the route would start at the capital and you are somewhere with a portal home — Silvermoon's
---- portal room, Dornogal, Oribos, a Midnight zone via Silvermoon — those steps go in front.
+--- toevoegen?"). Since travel phase 2 (same day) this is Travel.WayHome (Modules/Travel/TravelPlanner.lua), shared
+--- with the travel plan of every other route: portal home here → mage teleport → Hearthstone/toy → Midnight side
+--- zones via Silvermoon → nearest hub on this continent.
 local function HomeSteps(steps)
-	local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
 	local capital = steps[1].map
-	if not pm or (capital ~= 84 and capital ~= 85) or InMap(pm, capital) then
+	if capital ~= 84 and capital ~= 85 then
 		return {}
 	end
-	local fac = capital == 85 and "H" or "A"
-	local pre = {}
-	local function HomeRow(m)
-		local row = ns.MOUNTRUN_HOME and ns.MOUNTRUN_HOME[m]
-		local p = row and row[fac]
-		if p then
-			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
-			return { map = m, x = p[1], y = p[2], to = capital, via = row.via,
-				text = (ns:L(row.room and "MOUNTRUN_STEP_ROOM" or "MOUNTRUN_STEP_PORTAL")):format(info and info.name or "?") }
-		end
-	end
-	-- A portal home right here wins: no cooldown spent.
-	for m in pairs(ns.MOUNTRUN_HOME or {}) do
-		if InMap(pm, m) and HomeRow(m) then
-			return { HomeRow(m) }
-		end
-	end
-	-- Then the Hearthstone (Rob, 16 Oct 2026, in Uldum: "bv is een hs beschikbaar"), but only when it is off
-	-- cooldown AND lands where it helps — ns.MHHearthstoneGoesTo is the conservative bind check of the Travel
-	-- Assistant (Delves.lua): a Hearthstone to the wrong inn wastes the cooldown and cannot be walked back.
-	local function Ready(itemID)
-		return ns.GetItemCooldownSafe and (ns.GetItemCooldownSafe(itemID) or 0) == 0
-	end
-	-- Which Hearthstone: the item in the bags first, else a Hearthstone toy you own (16 Oct 2026). `toyName` is the
-	-- client's own name for the toy, so the sentence says which one to click.
-	local hsReady, toyName, useID, isToy = false, nil, nil, false
-	if C_Item and C_Item.GetItemCount and (C_Item.GetItemCount(6948) or 0) > 0 and Ready(6948) then
-		hsReady, useID = true, 6948
-	elseif PlayerHasToy then
-		for _, id in ipairs(ns.MOUNTRUN_HEARTH_TOYS or {}) do
-			local okT, has = pcall(PlayerHasToy, id)
-			if okT and has and Ready(id) then
-				local okN, _, name = false, nil, nil
-				if C_ToyBox and C_ToyBox.GetToyInfo then
-					okN, _, name = pcall(C_ToyBox.GetToyInfo, id)
-				end
-				hsReady, toyName = true, (okN and type(name) == "string" and name ~= "") and name or nil
-				useID, isToy = id, true
-				break
-			end
-		end
-	end
-	if hsReady and ns.MHHearthstoneGoesTo then
-		local function HearthText(placeName)
-			if toyName then
-				return (ns:L("MOUNTRUN_STEP_HEARTH_TOY")):format(toyName, placeName)
-			end
-			return (ns:L("MOUNTRUN_STEP_HEARTH")):format(placeName)
-		end
-		local capInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
-		local smInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(2393)
-		if capInfo and capInfo.name and ns.MHHearthstoneGoesTo(capInfo.name) then
-			return { { map = pm, to = capital, hearth = true, useID = useID, isToy = isToy, place = capInfo.name,
-				text = HearthText(capInfo.name) } }
-		end
-		if smInfo and smInfo.name and ns.MHHearthstoneGoesTo(smInfo.name) and HomeRow(2393) then
-			return { { map = pm, to = 2393, hearth = true, useID = useID, isToy = isToy, place = smInfo.name,
-				text = HearthText(smInfo.name) }, HomeRow(2393) }
-		end
-	end
-	local feeders = ns.MOUNTRUN_TO_SILVERMOON or {}
-	for m, list in pairs(feeders) do
-		if InMap(pm, m) then
-			for _, f in ipairs(list) do
-				local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(f.to)
-				local key = f.den and "MOUNTRUN_STEP_DEN" or "MOUNTRUN_STEP_PORTAL"
-				pre[#pre + 1] = { map = f[1], x = f[2], y = f[3], to = f.to,
-					text = (ns:L(key)):format(info and info.name or "?") }
-			end
-			pm = 2393 -- from here on: home from Silvermoon
-			break
-		end
-	end
-	for m, row in pairs(ns.MOUNTRUN_HOME or {}) do
-		local p = row[fac]
-		if p and (InMap(pm, m)) then
-			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
-			local key = row.room and "MOUNTRUN_STEP_ROOM" or "MOUNTRUN_STEP_PORTAL"
-			pre[#pre + 1] = { map = m, x = p[1], y = p[2], to = capital, via = row.via,
-				text = (ns:L(key)):format(info and info.name or "?") }
-			return pre
-		end
-	end
-	-- Not in a hub, but on a continent that has one (Eversong → Silvermoon, Zuldazar → Dazar'alor, Storm Peaks →
-	-- Dalaran): fly there first. Never on the capital's own continent — there the capital itself is the way.
-	local pc = ContinentOf(pm)
-	if pc and pc ~= ContinentOf(capital) then
-		-- Several hubs can share a continent (Kalimdor: the Caverns, the Exodar; Broken Isles: Azsuna, Dalaran), so
-		-- take the nearest, measured in world coordinates; without a position, the first one found.
-		local function World(m, x, y)
-			if not (C_Map.GetWorldPosFromMapPos and CreateVector2D) then
-				return nil
-			end
-			local ok, cont, pos = pcall(C_Map.GetWorldPosFromMapPos, m, CreateVector2D(x / 100, y / 100))
-			if ok and cont and pos and pos.GetXY then
-				local wx, wy = pos:GetXY()
-				return cont, wx, wy
-			end
-		end
-		local mine = C_Map.GetPlayerMapPosition and C_Map.GetPlayerMapPosition(pm, "player")
-		local pcont, px, py
-		if mine and mine.GetXY then
-			local mx, my = mine:GetXY()
-			if mx and my then
-				pcont, px, py = World(pm, mx * 100, my * 100)
-			end
-		end
-		local best, bestD
-		for m, row in pairs(ns.MOUNTRUN_HOME or {}) do
-			local p = row[fac]
-			if p and ContinentOf(m) == pc then
-				local d = math.huge - 1
-				local hcont, hx, hy = World(m, p[1], p[2])
-				if pcont and hcont == pcont then
-					d = (hx - px) ^ 2 + (hy - py) ^ 2
-				end
-				if not bestD or d < bestD then
-					best, bestD = m, d
-				end
-			end
-		end
-		if best then
-			local row, p = ns.MOUNTRUN_HOME[best], ns.MOUNTRUN_HOME[best][fac]
-			local hub = C_Map.GetMapInfo and C_Map.GetMapInfo(best)
-			local cap = C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
-			pre[#pre + 1] = { map = best, x = p[1], y = p[2], to = capital, via = row.via,
-				text = (ns:L("MOUNTRUN_STEP_HOME_FAR")):format(hub and hub.name or "?", cap and cap.name or "?") }
-			return pre
-		end
-	end
-	return {} -- no portal home known from here: the capital step stays first, as before
+	return ns.Travel.WayHome(capital)
 end
 
 function ns.MountRunStartRoute(raid)

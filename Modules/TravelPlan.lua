@@ -465,8 +465,24 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 				--- ⚠️ NEVER TELL SOMEONE TO GO WHERE THEY ARE STANDING. Same fault as the
 				--- 3 Sep one where a player in Harandar was told to head for the Portal to
 				--- Harandar; cheap to guard, and embarrassing exactly once.
+				--- ✅ TRAVEL PHASE 2 (16 Oct 2026, Rob: "hearthstone voor alle routes is goed"). Before the bare
+				--- capital name: the full way to Silvermoon from Travel.WayHome (Modules/Travel/TravelPlanner.lua) —
+				--- a portal home here, a mage teleport, a Hearthstone or toy that lands right, the capital's portal
+				--- to Silvermoon. The same answer the Mount run gives. Nothing known → the old capital step below.
+				local way = ns.Travel and ns.Travel.WayHome and ns.Travel.WayHome(MIDNIGHT_HUB_MAP) or {}
+				for _, w in ipairs(way) do
+					steps[#steps + 1] = {
+						kind = (w.hearth and "hearth") or (w.mage and "mage") or "portal",
+						mapID = w.x and w.map or nil,
+						x = w.x,
+						y = w.y,
+						label = w.text,
+						door = w.via and { x = w.via[1], y = w.via[2] } or nil,
+						source = "Travel.WayHome",
+					}
+				end
 				local capitalMap = FactionCapitalMap()
-				if capitalMap == here then
+				if capitalMap == here or #way > 0 then
 					capitalMap = nil
 				end
 				local info = capitalMap and C_Map and C_Map.GetMapInfo

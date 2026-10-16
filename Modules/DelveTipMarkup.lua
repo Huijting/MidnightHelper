@@ -291,6 +291,12 @@ function ns.ReportTravelHintForWaypoint(mapID, label, x, y, currentMap)
 	--- flight sentence below is already the better-worded version of the same advice.
 	if ns.BuildTravelPlan then
 		local okPlan, steps = pcall(ns.BuildTravelPlan, mapID, x, y, label)
+		-- Travel phase 2 (16 Oct 2026): a way-home step is already a whole sentence ("Use your Hearthstone; …",
+		-- "Take the portal to Orgrimmar."), so it is said as it is instead of inside WAY_PORTAL_HINT.
+		if okPlan and type(steps) == "table" and steps[1] and steps[1].source == "Travel.WayHome" and steps[1].label then
+			print(("|cffffcc00%s|r %s"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH", steps[1].label))
+			return
+		end
 		if okPlan and type(steps) == "table" and steps[1] and steps[1].kind == "portal" then
 			local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
 			print(("%s %s"):format(prefix,

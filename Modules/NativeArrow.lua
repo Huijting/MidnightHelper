@@ -460,7 +460,7 @@ local function UpdateArrow()
 		--- Standing inside the Vaults, "head for Tokka's Landing" is where you end up;
 		--- the door out is what you do NEXT, and that is the difference between a label
 		--- and an instruction. Falls back to the flight point when no plan exists.
-		local aim, hearthLine
+		local aim, hearthLine, aimIsSentence
 		-- First choice across continents: Hearthstone to Silvermoon, then the city portal (7 Oct 2026, Delves.lua
 		-- ns.MHHearthRouteFor). Only when the Hearthstone is ready and bound in Silvermoon. A whole sentence, so it
 		-- does not go through ARROW_FLY_TO ("head for …").
@@ -477,6 +477,7 @@ local function UpdateArrow()
 				for _, s in ipairs(steps) do
 					if s.kind ~= "arrive" and s.label then
 						aim = ns.TravelStepName and ns.TravelStepName(s, s.label) or (s.localized and ns:L(s.label) or s.label)
+						aimIsSentence = s.source == "Travel.WayHome" -- a whole instruction, not a place name
 						break
 					end
 				end
@@ -496,7 +497,7 @@ local function UpdateArrow()
 			f.label:SetText(("%s  %s  |cff8fd3ff%s|r"):format(t.name or "", other, hearthLine))
 		elseif aim then
 			f.label:SetText(("%s  %s  |cff8fd3ff%s|r"):format(
-				t.name or "", other, (ns:L("ARROW_FLY_TO")):format(aim)))
+				t.name or "", other, aimIsSentence and aim or (ns:L("ARROW_FLY_TO")):format(aim)))
 		else
 			f.label:SetText((t.name or "") .. "  " .. other)
 		end
@@ -794,13 +795,14 @@ local function AnnounceUnreachable(t)
 	end
 
 	-- Where to go FIRST: the travel plan's opening step, or the destination's flight point.
-	local aim
+	local aim, aimIsSentence
 	if ns.BuildTravelPlan then
 		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
 		if okP and type(steps) == "table" then
 			for _, s in ipairs(steps) do
 				if s.kind ~= "arrive" and s.label then
 					aim = ns.TravelStepName and ns.TravelStepName(s, s.label) or (s.localized and ns:L(s.label) or s.label)
+					aimIsSentence = s.source == "Travel.WayHome" -- travel phase 2: a whole instruction
 					break
 				end
 			end
@@ -816,7 +818,7 @@ local function AnnounceUnreachable(t)
 	announcedUnreachableKey = key
 	local name = t.name or "?"
 	local msg = aim
-		and (ns:L("ARROW_CHAT_TRAVEL")):format(name, aim)
+		and (ns:L(aimIsSentence and "ARROW_CHAT_TRAVEL_STEP" or "ARROW_CHAT_TRAVEL")):format(name, aim)
 		or (ns:L("ARROW_CHAT_TRAVEL_NOAIM")):format(name)
 	if ns.PrintChat then
 		ns:PrintChat(msg)

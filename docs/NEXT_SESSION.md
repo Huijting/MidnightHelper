@@ -94,6 +94,17 @@
    🔴 Throne of Thunder: Isle of Thunder-portaal bestaat pas na "The Storm Gathers" → hubs kunnen `unlock` hebben
    (TL_THUNDER: H 32680 Elsia 388 50.80/73.39, A 32681 Vereesa 49.93/69.04, Zygor); niet af → stap = questgever
    (MOUNTRUN_STEP_UNLOCK, 7 talen). Open: mage-teleports in de planner (fase 2).
+   📏 GEMETEN (Rob, 16 okt): `/dump UnitPosition("player")` op de grond en hoog in de lucht → derde waarde (hoogte) beide 0
+   (instance 870 = Pandaria). Addons krijgen geen hoogte; verdiepingen lopen via aparte kaarten.
+   ✅ **Travel fase 2 (eerste deel)**: `Modules/Travel/TravelPlanner.lua` — `Travel.WayHome(goal)` (goal = 84/85 of 2393):
+   portaal naar huis hier → **mage-teleport** (IsPlayerSpell; 3567/3561 kandidaten, 1259190 Silvermoon) → hearthstone/toy
+   (bind-check) → Midnight-zijzones via Silvermoon → dichtstbijzijnde hub op dit continent; naar 2393 eventueel via de
+   hoofdstad + P_SILVERMOON. Mount run's HomeSteps = WayHome (142 regels weg); knop kan nu ook een spell (secure "spell").
+   TravelPlan: voor Midnight-doelen vanuit de oude wereld komt WayHome(2393) i.p.v. de kale "go to your capital"-stap
+   (kinds hearth/mage/portal, source "Travel.WayHome"); NativeArrow-label/-chat en de vlieghint in DelveTipMarkup zeggen
+   zo'n stap als hele zin (ARROW_CHAT_TRAVEL_STEP). Nog NIET: de Travel Assistant-popup (Delves.lua) leest het plan nog
+   niet; vervolgstappen voor gewone routes lopen via de bestaande leg-watcher (fase 3 maakt dat één routeloper).
+   🔴 Wacht op Robs `/dump` voor 3567/3561.
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 

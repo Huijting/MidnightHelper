@@ -85,6 +85,13 @@ er is niets weggegooid.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
       *"The Turbulent Timeways event … ended on 11 August …"*.
+- [ ] **Travel fase 2 — weg naar huis overal** (16 okt). Met je **mage**, buiten de stad (bv. Uldum of Pandaria):
+      - **Mount run → een raid:** stap 1 hoort nu *"Cast Teleport: Orgrimmar; it takes you to Orgrimmar."* te zijn, met een
+        knop die de teleport cast. (Werkt dat niet: dan kloppen mijn spell-ID's nog niet — zie de `/dump`.)
+      - **Een gewone route naar Midnight** (een delve in Eversong/Zul'Aman, of een Codex-link) vanuit de oude wereld: de chat
+        en het pijl-label zeggen nu een hele stap, bv. *"… is not on this continent. First: Cast Teleport: Silvermoon City …"*
+        of *"First: Use your Hearthstone; it takes you to Silvermoon City."*, in plaats van alleen *"head for Orgrimmar"*.
+      - Met een **niet-mage** (hearthstone in Silvermoon): dezelfde route → *"First: Use your Hearthstone …"*.
 - [ ] **Throne of Thunder zonder de Isle of Thunder-quest** (16 okt, jouw mage). Mount run → Throne of Thunder. In Townlong
       Steppes moet stap 3 nu zijn: *"Talk to Scout Captain Elsia and accept the quest "The Storm Gathers"; the first time,
       this is how you reach Isle of Thunder."* met de pijl op Elsia (50.80/73.39). Zij vliegt je erheen; daarna stap 4.
