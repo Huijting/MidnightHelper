@@ -126,6 +126,11 @@ T.NEAR = {
 	-- asks for the next one (TravelRoute.lua Arrival). percent AFGELEID from `step` (25 yd ≈ 1.2 %), not measured.
 	arrived = { yards = 20, percent = 0.9 },
 	done = { yards = 400 }, -- "route finished" after a zone change (Delves.lua IsMidnightTravelComplete)
+	-- TomTom removes a pin itself at its cleardistance (15 yd, ours). Within this distance of the lead, a TomTom with no
+	-- point at all means "arrived", not "dropped": our arrow stays out (NativeArrow ShouldDriveNative). Rob, 16 Oct 2026:
+	-- "hij gebruikt onze eigen arrow na een tijdje … voor de rare". 60 = room to fight or wait around a rare spot (chosen,
+	-- not measured).
+	tomtomArrived = { yards = 60 },
 }
 
 --- How far the player is from (x, y) on map `m`: dist, how ("yards" | "mapsize" | "percent"), or nil.

@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 okt (laat) — onze pijl nam het over van TomTom bij de rare
+
+- [ ] **Route met een rare-omweg, met TomTom** (Rob: *"hij gebruikt onze eigen arrow na een tijdje … voor de rare"*): loop
+      naar de rare en blijf daar even staan of vecht. Hoort: de TomTom-pijl tot je er bent, daarna géén pijl van ons (TomTom
+      haalt zijn punt zelf weg op 15 yd). Ook bij de ingang van een delve: geen eigen pijl meer op het laatste stukje.
+      Zie je onze pijl tóch: `/reload`, dan staat in het log *"our arrow takes over from TomTom"* met de reden.
+- [ ] **Doel op een ander continent met TomTom** (controle dat de reservepijl blijft werken): daar mag onze pijl wél komen
+      (TomTom kan dan niet meten maar houdt zijn punt).
+
 ## 🆕 16 okt (middag) — Travel fase 4: de zes "beheerde" routes via de routeloper
 
 Eerst `/reload` en BugSack leeg. Wat anders is: rares, prestaties (achievement-schatten), beroepsschatten, de weekroutine,

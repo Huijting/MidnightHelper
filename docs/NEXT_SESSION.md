@@ -17,6 +17,15 @@ GEMETEN in het spel: Mount run Throne of Thunder end-to-end ✅, Coiled Isle-del
 3. Open/later: Antorus-route (Legion Dalaran/console/afdalen), SW→Silvermoon-portaal meten, Turbulent Timeways VI zodra
    12.1.7 live is, Omnium Folio 6e/7e rune, Talebound-test op de PTR, "HS on Cooldown!" in de popup zonder hearthstone.
 4. De drie zij-gesprekken (Travel fase 3/4, lint) zijn klaar; Rob mag ze archiveren.
+5. 🐞 → gerepareerd, niet getest (16 okt middag, Rob: *"hij gebruikt onze eigen arrow na een tijdje … voor de rare"*,
+   route oude wereld → Labyrinth met rare-omweg). GEMETEN: `travelRouteLog` 16:15:46 "owner waypoint → nil
+   (NativeArrow.lua:1010)" kan alleen ná ShouldDriveNative = ja (dus onze pijl getekend), en de TomTom-wekker
+   (TravelRoute) vuurde niet → TomTom had géén punt meer. AFGELEID: TomTom wiste de pin zelf op cleardistance 15 yd.
+   Nu: TomTom leeg + speler ≤ `Travel.NEAR.tomtomArrived` (60 yd, gekozen) van de lead → onze pijl springt niet in. En
+   het log noteert elk overnemen: "our arrow takes over from TomTom: … hidden N s, its point EMPTY/set; lead, yd, owner".
+   Gevolg: met TomTom laat NativeArrow een delve/waypoint niet meer los op 20 yd (zoals vóór fase 3); de route eindigt
+   bij de zonewissel (delve in). Test: route met rare-omweg, bij de rare wachten → TomTom's "aangekomen"-pijl of niets,
+   niet onze pijl. Na `/reload` lees ik "takes over" in het log.
 
 ## 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
 

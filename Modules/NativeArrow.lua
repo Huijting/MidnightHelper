@@ -211,10 +211,29 @@ local TT_GRACE = 4
 --   * TomTom arrow down >4s -> yes (safety net for a real drop)
 --   * TomTom arrow shown/    -> no  (leave the working crazy arrow alone; don't flash
 --     recently shown             on the momentary clear at each waypoint arrival)
-local function ShouldDriveNative()
+local function ShouldDriveNative(lead)
 	if ns.IsTomTomReady and ns.IsTomTomReady() then
 		if TomTomArrowShowing() then
 			return false
+		end
+		--- 🔴 TOMTOM WITH NO POINT, BESIDE THE LEAD = ARRIVED, NOT DROPPED. Rob, 16 Oct 2026, a route to the Labyrinth with a
+		--- rare detour: "hij gebruikt onze eigen arrow na een tijdje … voor de rare". GEMETEN in travelRouteLog: the
+		--- release at 16:15:46 (Tick, `atLead`) only runs after this function said yes, and the TomTom wake-up watcher
+		--- (TravelRoute.lua) never fired — so TomTom had no point at all. AFGELEID: it removed the pin itself at its
+		--- cleardistance (15 yd, ours), and 4 s later we drew ours on the spot. The 4 s safety net is for a TomTom that
+		--- cannot point (another continent), which keeps its point; an empty TomTom near the lead is TomTom done.
+		local tt = _G.TomTom
+		if lead and lead.mapID and tt and tt.IsCrazyArrowEmpty then
+			local okE, empty = pcall(tt.IsCrazyArrowEmpty, tt)
+			if okE and empty then
+				local pwx, pwy = PlayerWorld()
+				local twx, twy = MapToWorld(lead.mapID, (lead.x or 0) / 100, (lead.y or 0) / 100)
+				local near = (ns.Travel and ns.Travel.NEAR and ns.Travel.NEAR.tomtomArrived
+					and ns.Travel.NEAR.tomtomArrived.yards) or 60
+				if pwx and twx and ((pwx - twx) ^ 2 + (pwy - twy) ^ 2) <= near * near then
+					return false
+				end
+			end
 		end
 		local now = (GetTime and GetTime()) or 0
 		return (now - ttArrowLastSeen) >= TT_GRACE
@@ -952,7 +971,7 @@ local function Tick()
 	--- sentence moves to chat, which no other addon can take away.
 	AnnounceUnreachable(activeLead)
 
-	if not ShouldDriveNative() then
+	if not ShouldDriveNative(activeLead) then
 		HideArrow() -- TomTom's crazy arrow is doing the job; stand down.
 		return
 	end
@@ -981,7 +1000,26 @@ local function Tick()
 	if IsWaypointUIPresent() and YieldToWaypointUI() then
 		HideArrow()
 	else
+		local wasShown = arrowFrame and arrowFrame:IsShown()
 		ShowArrow()
+		-- 🔎 Say in travelRouteLog WHEN and WHY ours took over from TomTom (Rob, 16 Oct 2026: "weet even niet wanneer
+		-- precies"). Only the moment it appears, with TomTom present.
+		if not wasShown and ns.IsTomTomReady and ns.IsTomTomReady() and ns.Travel and ns.Travel.Log then
+			local tt = _G.TomTom
+			local okE, empty = false, nil
+			if tt and tt.IsCrazyArrowEmpty then
+				okE, empty = pcall(tt.IsCrazyArrowEmpty, tt)
+			end
+			local yd
+			local pwx, pwy = PlayerWorld()
+			local twx, twy = MapToWorld(activeLead.mapID, (activeLead.x or 0) / 100, (activeLead.y or 0) / 100)
+			if pwx and twx then
+				yd = math.sqrt((pwx - twx) ^ 2 + (pwy - twy) ^ 2)
+			end
+			ns.Travel.Log("our arrow takes over from TomTom: its arrow hidden %.0f s, its point %s; lead %s, %s yd, owner %s",
+				((GetTime and GetTime()) or 0) - ttArrowLastSeen, okE and (empty and "EMPTY" or "set") or "?",
+				tostring(activeLead.name), yd and ("%.0f"):format(yd) or "?", tostring(ns._mhRouteOwner))
+		end
 	end
 
 	local key = TargetKey(activeLead)
