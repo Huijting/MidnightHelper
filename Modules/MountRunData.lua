@@ -391,7 +391,9 @@ ns.MOUNTRUN_HOME = {
 	-- standing AT the Orgrimmar portal: the arrow still said 34 m — the pin marks the room, not the portal ("beter de
 	-- zygor coordinaten er extra aan toe"). So the arrow now goes to the portal itself, Zygor ZT:159 (A) / ZT:172 (H);
 	-- the sentence still says "portal room", which is how you find it.
-	[2393] = { A = { 52.63, 64.51 }, H = { 52.17, 65.21 }, room = true },
+	-- ✅ GEMETEN by Rob the same evening, `/mh here` standing at each portal: Horde 52.24/65.28, Alliance 52.71/64.61
+	-- (Zygor was within 0.1 of both).
+	[2393] = { A = { 52.71, 64.61 }, H = { 52.24, 65.28 }, room = true },
 	[2339] = { A = { 41.18, 22.68 }, H = { 38.15, 27.23 } }, -- Dornogal, ZT:447 / ZT:462
 	[2112] = { A = { 59.79, 41.71 }, H = { 56.59, 38.26 } }, -- Valdrakken, ZT:659 / ZT:701
 	[1670] = { A = { 20.86, 45.67 }, H = { 20.85, 54.77 } }, -- Oribos, ZT:783 / ZT:794

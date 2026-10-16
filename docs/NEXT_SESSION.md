@@ -35,10 +35,16 @@
    hub op je kaart maar wel op je continent → "Fly to X and take the portal …". Niet op het continent van de hoofdstad zelf.
    Kaart 2576 bewust NIET als sleutel (gedeeld canvas). Quest-poorten niet gecontroleerd.
    GEMETEN door Rob (screenshot, 16 okt): stap 1 werkt in Silvermoon, maar de Portal Room-pin lag **34 m** van het
-   Org-portaal → Silvermoon-rij nu op Zygors portaalpunten (A 52.63/64.51, H 52.17/65.21). Rob's `/mh here` bij het
-   portaal zou het definitief maken.
+   Org-portaal → Silvermoon-rij eerst op Zygors punten, daarna ✅ **GEMETEN door Rob** (`/mh here`): Horde 52.24/65.28,
+   Alliance 52.71/64.61 (Zygor zat er binnen 0,1 naast).
    📏 **Geheugen GEMETEN door Rob, 16 okt** (`GetAddOnMemoryUsage`, main na de Mount run-stappen): **48.137 KB ≈ 47 MB**.
    Op schijf: 18,22 MB (code 14,06 MB), +1,2% t.o.v. v4.7.7. Vergelijkingspunt voor de volgende versie.
+   📏 **Ná `collectgarbage()` (Rob, zelfde sessie): 23.592 KB ≈ 23 MB.** Dus ~24,5 MB (51%) was afval van het
+   laden. GEMETEN in de code: de taalpakketten deDE/frFR/esES/ptBR/itIT/ruRU/esMX stoppen op een andere client
+   (`if GetLocale() ~= … then return end`), maar Codex.lua, Translations2026.lua, TranslationsS2.lua bouwen elke
+   `fill("deDE", {…})`-tabel tóch op vóór `fill` kijkt (Lua evalueert het argument eerst). AFGELEID: dat is een groot
+   deel van het afval; Lua ruimt het vanzelf op, dus het kost vooral inlogtijd en een tijdelijke piek, niet blijvend
+   geheugen. Reparatie (per blok eerst de taal checken) = Robs keuze.
 **16 okt ochtendronde (GEMETEN):** CF 0 open (8 draadjes), GitHub 0 open, site-mail 0 (positieve controle: 30d geeft 15).
 API: TOC-wiki zegt dat 12.1.7 variabelen in `##`-regels verbiedt — MH gebruikt er geen (0 `[` in de .toc). PTR: **12.1.7-PTR
 open** (build 70424, Talebound). Data: Impressive Treasure-kisten Labyrinth nu level 80. Content: Blizzard fixte 15 okt de
