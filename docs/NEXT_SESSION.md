@@ -239,6 +239,9 @@ GEMETEN in het spel: Mount run Throne of Thunder end-to-end ✅, Coiled Isle-del
    de eerste seconde binnen 40 yd, vóór de pull. Nu (Rares.lua HoldLead): vasthouden tijdens gevecht, 8 s erna en bij
    een levend rare-doelwit; lege spawn pas na 8 s stilstaan buiten gevecht; `/mh skip` breekt dat (ctx.skip). Ook de
    lost-rare-regel van een omweg gebruikt HoldLead. Logregels `rare: hold …` / `… not up after … — next`.
+   GEMETEN in Robs log daarna (vóór de reparatie): 16:27:40 hunt → Lost Guardian, 16:28:04 → Banuran, 16:28:48 → Bad Zed;
+   géén zonewissel, pauze of stop ertussen, dus de wissel kwam uit HuntNextLead zelf. Wélke regel (lege spawn of een
+   ander dichtstbijzijnde) zegt dat oude log niet — de nieuwe logregels wel.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO
