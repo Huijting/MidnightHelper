@@ -105,6 +105,10 @@
    zo'n stap als hele zin (ARROW_CHAT_TRAVEL_STEP). Nog NIET: de Travel Assistant-popup (Delves.lua) leest het plan nog
    niet; vervolgstappen voor gewone routes lopen via de bestaande leg-watcher (fase 3 maakt dat één routeloper).
    ✅ GEMETEN (Rob's mage): 3567 = "Teleport: Orgrimmar" (bekend), 3561 = "Teleport: Stormwind" (niet bekend, Horde).
+   ✅ **Mount run Throne of Thunder end-to-end GEMETEN** (Rob, 16 okt): unlock-stap Elsia → vlucht → ingang → in de raid.
+   Isle of Thunder is no-fly (Zygor LibRover Node.lua:569). Optioneel later: Zygor's teleportportaal 52.09/45.01 →
+   ingang (ZygorProfessionsHordeLEGION.lua:8879-8881) als tussenstap; Rob had het niet nodig.
+   **Volgende: fase 2 deel 2 (Travel Assistant-popup leest het plan), daarna fase 3 (één routeloper).**
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 

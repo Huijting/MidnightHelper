@@ -92,6 +92,9 @@ er is niets weggegooid.
         en het pijl-label zeggen nu een hele stap, bv. *"… is not on this continent. First: Cast Teleport: Silvermoon City …"*
         of *"First: Use your Hearthstone; it takes you to Silvermoon City."*, in plaats van alleen *"head for Orgrimmar"*.
       - Met een **niet-mage** (hearthstone in Silvermoon): dezelfde route → *"First: Use your Hearthstone …"*.
+- [x] ✅ 16 okt GEMETEN: **Mount run Throne of Thunder van begin tot eind gehaald** (Rob's mage: Elsia-quest → vlucht →
+      "Go to the entrance" 1,4 km → binnen in de raid). Isle of Thunder = niet vliegen (Zygor Node.lua:569); Rob sprong
+      van de boot en liep. Instap-sprong zelf nog niet gezien (Rob vloog al vóór de fix).
 - [ ] **Instappen = volgende stap** (16 okt, jouw vlucht met Elsia wees de pijl nog 252 m terug). Neem de quest, laat Elsia
       je vliegen: binnen ~1 seconde na het opstijgen hoort de chat *"step 4 of 4: Go to the entrance of Throne of
       Thunder"* te zeggen en wijst de pijl vooruit. Geldt ook voor boten, zeppelins en de Deeprun Tram.
