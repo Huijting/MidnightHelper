@@ -109,6 +109,10 @@
    Isle of Thunder is no-fly (Zygor LibRover Node.lua:569). Optioneel later: Zygor's teleportportaal 52.09/45.01 →
    ingang (ZygorProfessionsHordeLEGION.lua:8879-8881) als tussenstap; Rob had het niet nodig.
    **Volgende: fase 2 deel 2 (Travel Assistant-popup leest het plan), daarna fase 3 (één routeloper).**
+   ✅ **Fase 2 deel 2 (popup)**: Delves.lua `PrepareHearthButton()` (Travel.HearthChoice → item óf toy, knop-attributen +
+   icoon) vervangt in BEIDE popup-kopieën `GetItemCooldownSafe(6948)`; `PlanAdvice()` zet zonder portaal in de buurt de
+   eerste WayHome-stap als regel in de popup (en toont de popup dan ook). Rest van de popup ongewijzigd (portaalknop,
+   mage-knoppen naar Silvermoon). Niet getest. **Volgende: fase 3 (één routeloper).**
    🐞 **BugGrabber 16 okt (ToT, eerste baas):** "66x insecure scripts exceeded execution limit for addon !BugGrabber".
    GEMETEN in de BugGrabber-SV na Robs /reload: sessie 4345 bevat ALLEEN deze waarschuwing (was 55x in sessie 4287,
    14 okt; teller loopt over sessies). Geen MH-fout opgeslagen. Kanttekening: secret-value-fouten print BugGrabber alleen

@@ -1719,6 +1719,52 @@ local function HearthViaHubPortal(targetChain, targetMap)
 end
 ns.MHHearthViaHubPortal = HearthViaHubPortal
 
+--- Travel phase 2 part 2 (16 Oct 2026, docs/TRAVEL_DESIGN_2026-10-16.md): the popup's Hearthstone button takes the
+--- same choice as the Mount run and the travel plan — Travel.HearthChoice: the Hearthstone in the bags, else a
+--- Hearthstone toy the character owns, each only when off cooldown. Returns 0 when one is ready and the button is set
+--- up for it (the old `hsStartTime == 0` contract of both popup copies), 1 otherwise. Callers are out of combat.
+local function PrepareHearthButton()
+	local choose = ns.Travel and ns.Travel.HearthChoice
+	if not choose then
+		return ns.GetItemCooldownSafe(6948) or 1
+	end
+	local useID, isToy = choose()
+	if not useID then
+		return 1
+	end
+	if hsBtn and not (InCombatLockdown and InCombatLockdown()) then
+		if isToy then
+			hsBtn:SetAttribute("type", "toy")
+			hsBtn:SetAttribute("toy", useID)
+			hsBtn:SetAttribute("macrotext", nil)
+		else
+			hsBtn:SetAttribute("type", "macro")
+			hsBtn:SetAttribute("macrotext", "/use item:" .. tostring(useID))
+			hsBtn:SetAttribute("toy", nil)
+		end
+		local icon = C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(useID)
+		if hsBtn.icon and icon then
+			hsBtn.icon:SetTexture(icon)
+		end
+	end
+	return 0
+end
+
+--- The travel plan's way-home step as a popup line, or nil (same phase). When no portal is at hand, the popup says
+--- the first step of the plan the arrow and chat already follow ("Cast Teleport: …", "Use your Hearthstone …"),
+--- instead of having no advice of its own.
+local function PlanAdvice(targetMap, x, y, name)
+	if not ns.BuildTravelPlan then
+		return nil
+	end
+	local ok, steps = pcall(ns.BuildTravelPlan, targetMap, x, y, name)
+	local s = ok and type(steps) == "table" and steps[1] or nil
+	if s and s.source == "Travel.WayHome" and s.label then
+		return "\n|cff00ffff" .. s.label .. "|r"
+	end
+	return nil
+end
+
 --- For the arrow's "other continent" label (NativeArrow.lua): the Silvermoon portal to take after a Hearthstone,
 --- or nil. Off when the Hearthstone is on cooldown. Rob, 7 Oct evening: "geen portal of fp advies?!" — the label
 --- named only the target's flight point while the popup knew the Hearthstone route.
@@ -1989,7 +2035,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		end
 
 		travelPopup.portalBtn:Hide()
-		local hsStartTime = ns.GetItemCooldownSafe(6948)
+		local hsStartTime = PrepareHearthButton() -- 0 = a Hearthstone or toy is ready (travel phase 2)
 		local portalAdvice, bestDist = "", 9999
 		local hubMapID = 2393
 		local directPortal, hubPortal = nil, nil
@@ -2037,6 +2083,15 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 			portalAdvice, bestDist = "\n|cff00ffff" .. ns:L("TRAVEL_USE_PORTAL_FMT"):format(ns.MHPortalLabel(best.p.name), best.d) .. "|r", best.d
 		end
 
+		-- No portal at hand: say the plan's way-home step (travel phase 2), the same one the arrow and chat give.
+		local planAdvised = false
+		if not best then
+			local adv = PlanAdvice(targetMap, xPct, yPct, title)
+			if adv then
+				portalAdvice, planAdvised = portalAdvice .. adv, true
+			end
+		end
+
 		hsBtn:ClearAllPoints()
 		travelPopup.portalBtn:ClearAllPoints()
 		local isNearPortal = (bestDist < 300)
@@ -2071,7 +2126,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 				tostring(hsStartTime), tostring(isHub), tostring(isNearPortal), tostring(bestDist),
 				tostring(HearthstoneGoesTo(targetZoneName)), tostring(hsHubPortal and hsHubPortal.name),
 				tostring(travelPopup.portalBtn:IsShown())))
-		if travelPopup.portalBtn:IsShown() or isHSVisible then
+		if travelPopup.portalBtn:IsShown() or isHSVisible or planAdvised then
 			local statusText = (hsStartTime == 0) and "" or "\n|cffff0000HS on Cooldown!|r"
 			ns:ShowTravelPopup(targetZoneName, "\n|cffaaaaaaDistance: Very Far|r" .. statusText .. portalAdvice)
 		else
@@ -2175,7 +2230,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		end
 
 		travelPopup.portalBtn:Hide()
-		local hsStartTime = ns.GetItemCooldownSafe(6948)
+		local hsStartTime = PrepareHearthButton() -- 0 = a Hearthstone or toy is ready (travel phase 2)
 		local portalAdvice, bestDist = "", 9999
 		local hubMapID = 2393
 		local directPortal, hubPortal = nil, nil
@@ -2223,6 +2278,15 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 			portalAdvice, bestDist = "\n|cff00ffff" .. ns:L("TRAVEL_USE_PORTAL_FMT"):format(ns.MHPortalLabel(best.p.name), best.d) .. "|r", best.d
 		end
 
+		-- No portal at hand: say the plan's way-home step (travel phase 2), the same one the arrow and chat give.
+		local planAdvised = false
+		if not best then
+			local adv = PlanAdvice(targetMap, xPct, yPct, title)
+			if adv then
+				portalAdvice, planAdvised = portalAdvice .. adv, true
+			end
+		end
+
 		hsBtn:ClearAllPoints()
 		travelPopup.portalBtn:ClearAllPoints()
 		local isNearPortal = (bestDist < 300)
@@ -2252,7 +2316,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 			hsBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 15)
 		end
 
-		if travelPopup.portalBtn:IsShown() or isHSVisible then
+		if travelPopup.portalBtn:IsShown() or isHSVisible or planAdvised then
 			local statusText = (hsStartTime == 0) and "" or "\n|cffff0000HS on Cooldown!|r"
 			ns:ShowTravelPopup(targetZoneName, "\n|cffaaaaaaDistance: Very Far|r" .. statusText .. portalAdvice)
 		else

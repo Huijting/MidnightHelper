@@ -85,6 +85,11 @@ er is niets weggegooid.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
       *"The Turbulent Timeways event … ended on 11 August …"*.
+- [ ] **Travel fase 2 deel 2 — de reispopup** (16 okt). Kies buiten Midnight een route naar een Midnight-doel (bv. een delve
+      in Eversong) met **een toy-hearthstone** (gewone op cooldown of niet in je tas): de hearthstone-knop in de popup hoort
+      nu het **toy-icoon** te hebben en de toy te gebruiken. Met je **mage**, zonder portaal in de buurt: de popup toont nu
+      een regel met de eerste stap van het plan (bv. *"Cast Teleport: Silvermoon City …"*), ook als er geen hearthstone-knop
+      is. Komt er "HS on Cooldown!" terwijl je geen hearthstone hebt? Dat is bekend en nog niet aangepast.
 - [ ] **Travel fase 2 — weg naar huis overal** (16 okt). Met je **mage**, buiten de stad (bv. Uldum of Pandaria):
       - **Mount run → een raid:** stap 1 hoort nu *"Cast Teleport: Orgrimmar; it takes you to Orgrimmar."* te zijn, met een
         knop die de teleport cast. (Werkt dat niet: dan kloppen mijn spell-ID's nog niet — zie de `/dump`.)
