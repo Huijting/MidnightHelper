@@ -37,7 +37,9 @@ Rob: *"kunnen we niet ook zoeken in MH naar bv dalaran …"*. Eerst `/reload`.
       Orgrimmar. Door het portaal → chat *"Route finished … Dalaran"* en de pijl is weg.
 - [x] ✅ Rob 16 okt, screenshot: *"Midnight Helper: You are already in Dalaran."* **Klik op een plek waar je al bent** (bv. Silvermoon terwijl je in Silvermoon staat) → chat *"You are already in
       Silvermoon City."*, geen pijl.
-- [ ] **Een plek met twee stappen**, bv. Isle of Quel'Danas (via Shattrath) of Tanaan Jungle (via Warspear). Klopt
+- [x] ✅ Rob 16 okt: *"done en gelukt"*. GEMETEN in `travelRouteLog` 23:23:37-23:25:06: vanuit Dalaran (125), 4 stappen —
+      portaal Orgrimmar → "Portal to Shattrath City (lower room)" → in Shattrath "Portal to Isle of Quel'Danas" →
+      "stop (finished): Isle of Quel'Danas". **Een plek met twee stappen**, bv. Isle of Quel'Danas (via Shattrath) of Tanaan Jungle (via Warspear). Klopt
       elke stap? Zo niet: screenshot + `/mh travel` (onderaan staat nu de lijst plekken met hun stappen).
 
 ## 🆕 16 okt (avond) — Mount run: een tegel en een knop bovenaan (release 4.8.0)

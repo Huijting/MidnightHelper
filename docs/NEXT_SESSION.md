@@ -51,7 +51,9 @@ NavSearch: categorie `place` (`@place`), TIER_ACTION, naam + werelddeel uit de c
 GEMETEN (Robs screenshot): `dala` toont Dalaran met "Northrend — take me there"; Dazar'alor stond er 2× (1163 hal +
 1165 stad, zelfde clientnaam) → NavSearch toont nu één regel per naam + werelddeel (kortste keten); Rob zag daarna 1 regel.
 ✅ Route GETEST (Rob: *"gelukt"*; log 23:17:52-23:18:29): Silvermoon → portaalkamer → Orgrimmar → portaal Dalaran →
-"stop (finished): Dalaran". ✅ "al hier"-melding (Robs screenshot). Nog open: een plek met twee hops (Quel'Danas/Tanaan).
+"stop (finished): Dalaran". ✅ "al hier"-melding (Robs screenshot). ✅ Twee hops (Rob *"gelukt"*; log 23:23:37-23:25:06):
+Dalaran → Orgrimmar → Shattrath (lower room) → Isle of Quel'Danas 122 → finished. Testlijst-blok helemaal af.
+🔜 Site-chat seinen (site volgt elke functie): zoekbalk vindt plekken + route erheen.
 GEMETEN (screenshot `quel`): Isle of Quel'Danas staat 2× — 122 (Eastern Kingdoms, oud) en 2424 (Quel'Thalas, Midnight),
 bewust; Eversong/Silvermoon/Coiled Isle/Vaults matchen via het werelddeel "Quel'Thalas" in de zoekwoorden.
 Open: Midnight-zones (Eversong, Zul'Aman, Harandar, Voidstorm) en Legion-Dalaran zijn geen plek; zones in Midnight gaan
