@@ -1695,8 +1695,15 @@ local function SetSMCWaypoint(point)
 	ns.lastTarget = { mapID = mapID, x = tonumber(target.x) or 0, y = tonumber(target.y) or 0,
 		name = target.label, via = "Silvermoon pin", arrivesOn = point.arrivesOn }
 	local o = ns._mhRouteOwner
-	if o == nil or o == "waypoint" or o == "delve" then
+	-- Travel phase 4: a managed owner too (rare, treasure, …): the pin is a new route and pauses that one.
+	if o == nil or o == "waypoint" or o == "delve" or (ns.Travel and ns.Travel.IsManaged and ns.Travel.IsManaged(o)) then
 		ns._mhRouteOwner = "waypoint"
+	end
+	-- A pin without a door is a one-step route of the runner (a door pin started one in TwoStepRoute): it ends through
+	-- its portal (arrivesOn) and gets its pin back after a loading screen — what LegacyZoneCheck did until phase 4.
+	if type(point.entrance) ~= "table" and ns.Travel and ns.Travel.StartDirect then
+		ns.Travel.StartDirect({ map = mapID, x = tonumber(target.x) or 0, y = tonumber(target.y) or 0, name = target.label,
+			arrivesOn = point.arrivesOn }, "Silvermoon pin")
 	end
 
 	TriggerTomTomWaySlash(target)

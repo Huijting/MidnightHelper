@@ -1170,6 +1170,10 @@ function ns.RouteToNearestFlightPoint()
 	end
 	ns.lastTarget = { mapID = mapID, x = x, y = y, name = name, via = "flight point" }
 	ns._mhRouteOwner = "waypoint"
+	-- Travel phase 4: a one-step runner route, so it ends on arrival and pauses (not kills) a managed route.
+	if ns.Travel and ns.Travel.StartDirect then
+		ns.Travel.StartDirect({ map = mapID, x = x, y = y, name = name }, "flight point")
+	end
 	print(("%s %s"):format(prefix, ns:L("FP_NEAREST_SET_FMT"):format(name)))
 	return true, name
 end

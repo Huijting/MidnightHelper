@@ -914,6 +914,7 @@ ns._mhLocales.enUS = {
 	MOUNTRUN_STEP_FMT = "Mount run, step %d of %d: %s",
 	TRAVEL_STEP_FMT = "Route, step %d of %d: %s",
 	TRAVEL_VIA_ORB_FMT = "%s: click the orb to go down to it",
+	TRAVEL_RESUME_FMT = "Back to your route: %s",
 	MOUNTRUN_STEP_PORTAL = "Take the portal to %s.",
 	MOUNTRUN_STEP_ZEPPELIN = "Take the zeppelin to %s.",
 	MOUNTRUN_STEP_BOAT = "Take the boat to %s (talk to the captain).",

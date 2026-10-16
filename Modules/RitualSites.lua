@@ -223,54 +223,51 @@ local function GetSiteByKey(key)
 	return nil
 end
 
--- The site the player last asked us to route to. Kept so we can re-assert the
--- TomTom arrow after a death/loading screen (the crazy arrow is transient and
--- vanishes on resurrect), without forcing a /reload. Cleared once the weekly is
--- done so a later death elsewhere does not resurrect a stale arrow.
+-- The site the player last asked us to route to. Until Travel phase 4 (16 Oct 2026) a revive handler here put the
+-- arrow back after a death without asking whose arrow it was (travel map §1b-4). Now the site is a managed route of the
+-- ROUTE RUNNER (owner "ritual", purple in NativeArrow): the runner points, puts the arrow back after a resurrect or a
+-- loading screen, pauses it for a rare and lets it go on, and ends it once the weekly is done.
 local lastRoutedSite
 
-local function RouteSite(site, quiet)
-	if not site or not ns.AddSmartTomTomWay then
+--- The runner's question: the site, until this week's ritual is done.
+local function RitualNextLead()
+	local site = lastRoutedSite
+	if not site or IsWeeklyDone() then
+		return nil
+	end
+	return { mapID = site.mapID, x = site.x, y = site.y, name = site.name .. " — " .. ZoneName(site.mapID) }
+end
+
+local function RitualForget()
+	lastRoutedSite = nil
+end
+
+--- `/mh clear`: forget the site and take it out of the runner.
+function ns.StopRitualRoute()
+	RitualForget()
+	if ns.Travel and ns.Travel.Drop then
+		ns.Travel.Drop("ritual", "ritual stopped")
+	end
+end
+
+local function RouteSite(site)
+	if not site or not (ns.Travel and ns.Travel.StartManaged) then
 		return false
 	end
 	ns.MH_TomTomClearAll()
-	local label = site.name .. " — " .. ZoneName(site.mapID)
 	-- Route to the known obelisk coords - reliable and cross-continent-safe, like the
 	-- working hub button. Following the live weekly objective (AddSmartQuestRoute) for
 	-- the ACTIVE site produced NO arrow and NO chat when the quest's next waypoint sat
 	-- on a map TomTom can't resolve (the ritual scenario / a sub-area): clicking the
 	-- active site did nothing while the hub worked (Rob 9 jul). The obelisk coords are
 	-- the "go to the site" target anyway.
-	-- quiet = skip the cross-zone travel popup (used for silent re-assertion).
-	local ok = ns.AddSmartTomTomWay(site.mapID, site.x, site.y, label, quiet and true or nil) and true or false
-	if ok then
-		lastRoutedSite = site
+	lastRoutedSite = site
+	if not ns.Travel.StartManaged({ owner = "ritual", nextLead = RitualNextLead, onStop = RitualForget,
+		via = "ritual site" }) then
+		RitualForget()
+		return false
 	end
-	return ok
-end
-
--- Re-point the arrow at the last routed site after a revive. Delayed slightly so
--- the world/map state has settled after the resurrect loading screen.
-local function ReassertRouteAfterRevive()
-	if not lastRoutedSite then
-		return
-	end
-	if IsWeeklyDone() then
-		lastRoutedSite = nil
-		return
-	end
-	if not (ns.IsTomTomReady and ns.IsTomTomReady()) then
-		return
-	end
-	if C_Timer and C_Timer.After then
-		C_Timer.After(1.5, function()
-			if lastRoutedSite then
-				RouteSite(lastRoutedSite, true)
-			end
-		end)
-	else
-		RouteSite(lastRoutedSite, true)
-	end
+	return true
 end
 
 --------------------------------------------------------------------------------
@@ -701,16 +698,15 @@ local ev = CreateFrame("Frame")
 ev:RegisterEvent("QUEST_LOG_UPDATE")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
-ev:RegisterEvent("PLAYER_UNGHOST")
-ev:RegisterEvent("PLAYER_ALIVE")
 ev:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 ev:RegisterEvent("UPDATE_FACTION")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_ENTERING_WORLD" then
 		PrewarmPOIMaps()
 	end
-	if event == "PLAYER_UNGHOST" or event == "PLAYER_ALIVE" then
-		ReassertRouteAfterRevive()
+	-- The weekly done: the runner ends the ritual route (RitualNextLead → nil). The revive re-point is the runner's.
+	if event == "QUEST_LOG_UPDATE" and lastRoutedSite and ns.Travel and ns.Travel.Runs and ns.Travel.Runs("ritual") then
+		ns.Travel.Refresh("ritual", { quiet = true })
 	end
 	if ui and ui.panel and ui.panel:IsShown() then
 		ns.RefreshRitualPanel()

@@ -122,7 +122,9 @@ T.NEAR = {
 	-- Phase 3 (TravelRoute.lua), moved from the old code unchanged:
 	step = { yards = 25, percent = 1.2 }, -- a walked door / Windcaller on the way: reached → next step (old leg watcher)
 	walkedAway = { near = 60, back = 15 }, -- ...or was within 60 yd and is now 15 yd further away (Underbelly, 14 Oct)
-	arrived = { yards = 20 }, -- NativeArrow lets a single-destination route go (NativeArrow.lua Tick)
+	-- NativeArrow lets a single-destination route go (NativeArrow.lua Tick); phase 4: a managed route standing on its lead
+	-- asks for the next one (TravelRoute.lua Arrival). percent AFGELEID from `step` (25 yd ≈ 1.2 %), not measured.
+	arrived = { yards = 20, percent = 0.9 },
 	done = { yards = 400 }, -- "route finished" after a zone change (Delves.lua IsMidnightTravelComplete)
 }
 

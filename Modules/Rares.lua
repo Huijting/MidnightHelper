@@ -1598,15 +1598,15 @@ end
 
 -- Public: fully stop the rare hunt (used by ns.ClearActiveRoute / /mh clear). Clears
 -- the shared arrow, skip list and TomTom waypoints so nothing re-draws.
+--- Travel phase 4: the owner and the arrow are the route runner's; the runner drops the rare routes (running or paused)
+--- and lets a paused route go on.
 function ns.StopRareRoute()
 	wipe(skippedRares)
 	ns.MH_TomTomClearAll()
-	if ns._mhRouteOwner == "rare" then
-		ns._mhRouteOwner = nil
-	end
 	ns._mhLastRoutedRareQuest = nil
-	ns._mhRarePrevOwner = nil
-	ns.lastTarget = nil
+	if ns.Travel and ns.Travel.Has and ns.Travel.Has("rare") then
+		ns.Travel.Drop("rare", "rare stopped")
+	end
 end
 
 -- Public: skip the rare the arrow is on right now (e.g. it isn't spawned). Pushes it
@@ -1632,6 +1632,10 @@ function ns.SkipCurrentRare()
 		return false
 	end
 	skippedRares[RareKey(cur)] = true
+	-- The route runner points (phase 4): ask it to take the next lead now.
+	if ns.Travel and ns.Travel.Refresh then
+		ns.Travel.Refresh("rare")
+	end
 	local nextRare = NearestOpenRareRespectingSkips(zone)
 	if nextRare and RareKey(nextRare) ~= RareKey(cur) then
 		local msg = ns:L("RARES_SKIP_DONE_FMT")
@@ -1801,40 +1805,74 @@ local function IsRareHuntActive()
 	return false
 end
 
+--------------------------------------------------------------------------------
+-- 🚌 Travel phase 4 (16 Oct 2026): the ROUTE RUNNER points (Modules/Travel/TravelRoute.lua); a rare route only
+-- answers "what next?". Gone: the owner claims, `_mhRarePrevOwner`/`_mhRarePrevLead` and ResumePrevRouteOrRelease
+-- (the hand-made "give the arrow back", which treasure never got back from — travel map §1b-4). A rare from a toast
+-- is a DETOUR: the runner pauses what ran (a treasure hunt, an achievement, a ritual pin, a rare hunt) and that goes
+-- on when the rare is done. Its suspect, 16 Oct (Rob's `stop (owner)` after a teleport, cause not measured), is gone
+-- with it; the owner meter in TravelRoute.lua stays.
+--------------------------------------------------------------------------------
+
+local RARE_NEAR_YARDS = 40 -- "at the rare" (was NativeArrow.lua RARE_ARRIVAL)
+local LOST_RARE_SECONDS = 10 -- parked on an empty spawn, out of combat: a detour rare is gone (was NativeArrow.lua)
+
+local function RareLead(rare)
+	-- clearDist 0: TomTom keeps the pin while you wait for, or fly over, an empty spawn; the runner moves on.
+	return { mapID = rare[2], x = rare[3], y = rare[4], name = GetRareDisplayName(rare),
+		hintKey = ns.RareArrivalHintKey and ns.RareArrivalHintKey(rare) or nil, near = RARE_NEAR_YARDS, clearDist = 0 }
+end
+
+--- The runner's onStop: forget the single-rare token (the skip list stays, as before).
+local function RareForget()
+	ns._mhLastRoutedRareQuest = nil
+end
+
+--- A full hunt (Generate Route): the nearest open rare, skipped ones last. Standing on an empty spawn pushes it to the
+--- back ("fly over an empty spawn, move on" — TomTom's cleardistance did that for TomTom users, MHRareTryAutoAdvance
+--- for the rest; now the same for both). Done when every routed rare is done this week.
+local function HuntNextLead(ctx)
+	ns._mhLastRoutedRareQuest = nil
+	if not IsRareHuntActive() then
+		return nil
+	end
+	if ctx and ctx.arrived and ns.MHRareTryAutoAdvance then
+		ns.MHRareTryAutoAdvance(true)
+	end
+	local zone = CurrentHuntZone()
+	local rare = zone and NearestOpenRareRespectingSkips(zone)
+	return rare and RareLead(rare) or nil
+end
+
+--- One rare (Find Nearest, a row, a toast): this rare until it is done this week. A detour also gives up when you
+--- have stood on its spot for LOST_RARE_SECONDS, out of combat, with no rare vignette near — someone else killed it,
+--- or it despawned (NativeArrow did this until phase 4, only without TomTom; Cisca, 24 Jul: a live vignette = stay).
+local function SingleNextLead(rare, detour)
+	local q = (rare[1] and rare[1] ~= 0) and rare[1] or nil
+	return function(ctx)
+		if IsRareDoneThisWeek(rare) then
+			return nil
+		end
+		ns._mhLastRoutedRareQuest = q
+		local paused = ns.Travel and ns.Travel.PausedCount and ns.Travel.PausedCount() or 0
+		if detour and paused > 0 and ctx and ctx.arrived and (ctx.parked or 0) >= LOST_RARE_SECONDS
+			and not (UnitAffectingCombat and UnitAffectingCombat("player")) then
+			local wx, wy = GetPlayerWorldPos()
+			if not (ns.IsRareVignetteNearWorld and ns.IsRareVignetteNearWorld(wx, wy, RARE_NEAR_YARDS)) then
+				return nil
+			end
+		end
+		return RareLead(rare)
+	end
+end
+
 local function RouteRare(rare, clearOthers)
-	if not rare or not ns.AddSmartTomTomWay then
+	if not rare or not (ns.Travel and ns.Travel.StartManaged) then
 		return false
 	end
 	-- clearOthers=true is een nieuwe route → vervang de set; toast-klik
 	-- (false) voegt de rare toe aan de lopende hunt.
 	MarkRareRouted(rare, clearOthers)
-	-- Who should get the arrow back once this rare is looted? A fresh rare route
-	-- (clearOthers) means the rare hunt itself owns it, so a later detour returns to the
-	-- next open rare. A detour (clearOthers=false) records whoever was routing — an
-	-- achievement/treasure route, or nobody. Without this the hunt simply lost its arrow
-	-- (see the release in the event handler below).
-	if clearOthers then
-		ns._mhRarePrevOwner = "rare"
-		ns._mhRarePrevLead = nil
-	elseif ns._mhRouteOwner ~= "rare" then
-		ns._mhRarePrevOwner = ns._mhRouteOwner
-		-- Also remember WHERE that route was pointing. The owner label alone was not
-		-- enough: for a ritual/worldboss/campaign route (owner "waypoint") nothing
-		-- watches for the arrow to come free, so the label was saved and then thrown
-		-- away, and "keeps your route" quietly broke (Rob flew to a ritual, tagged a
-		-- rare, and never got the ritual arrow back — 2026-07-22). We snapshot the
-		-- destination now, while it is still the interrupted route's, and re-point the
-		-- arrow at it once the rare is done. Captured from the CACHE (activeLead), not
-		-- ns.lastTarget, so a zone handler nil'ing lastTarget can't lose it.
-		ns._mhRarePrevLead = ns.GetActiveArrowLead and ns.GetActiveArrowLead() or nil
-	end
-	-- Claim the shared arrow so an active achievement/treasure route stands down
-	-- and reclaims it once this rare is done. We remember THIS rare's quest so the
-	-- token releases as soon as it's looted, even if older rares linger in the hunt
-	-- store (released in the event handler below).
-	ns._mhRouteOwner = "rare"
-	ns.UpdateRareArrivalWatch()
-	ns._mhLastRoutedRareQuest = (rare[1] and rare[1] ~= 0) and rare[1] or nil
 	-- Gejaagde rare → skull (nu als 'ie al zichtbaar is, anders zodra z'n
 	-- nameplate verschijnt). KnownRareNpc = veld 6 of geleerd npcID.
 	local rnpc = KnownRareNpc(rare)
@@ -1844,9 +1882,16 @@ local function RouteRare(rare, clearOthers)
 	if clearOthers then
 		ns.MH_TomTomClearAll()
 	end
-	local mapID, x, yPct = rare[2], rare[3], rare[4]
-	local name = GetRareDisplayName(rare)
-	return ns.AddSmartTomTomWay(mapID, x, yPct, name) and true or false
+	-- A fresh rare route ends what ran; a toast click is a detour (what ran waits and goes on afterwards).
+	local r = ns.Travel.StartManaged({
+		owner = "rare",
+		nextLead = SingleNextLead(rare, not clearOthers),
+		onStop = RareForget,
+		detour = not clearOthers,
+		via = "rare route",
+	})
+	ns.UpdateRareArrivalWatch()
+	return r ~= nil
 end
 
 local function NormalizeRareNameKey(name)
@@ -2288,11 +2333,9 @@ function ns.GenerateRaresRoute(zoneKey)
 	end
 
 	local added = 0
-	for i, rare in ipairs(routeRares) do
-		-- First pin matches Find Nearest Rare; only it gets the arrow + travel assistant.
-		local skipTravelUI = i > 1
-		local skipCrazyArrow = i > 1
-		if ns.AddSmartTomTomWay(rare[2], rare[3], rare[4], GetRareDisplayName(rare), skipTravelUI, skipCrazyArrow) then
+	for _, rare in ipairs(routeRares) do
+		-- Every rare as a map pin only (no arrow, no travel help): the route runner points at the nearest (phase 4).
+		if ns.AddSmartTomTomWay(rare[2], rare[3], rare[4], GetRareDisplayName(rare), true, true) then
 			added = added + 1
 			-- Hele route = hunt: eerste pin vervangt de oude set, rest vult aan
 			-- (alerts voor deze rares krijgen de "je bent er bijna"-variant).
@@ -2302,18 +2345,13 @@ function ns.GenerateRaresRoute(zoneKey)
 
 	if added > 0 then
 		wipe(skippedRares) -- fresh hunt: forget previous skips
-		ns._mhRouteOwner = "rare" -- claim the shared arrow (see RouteRare note)
-		ns.UpdateRareArrivalWatch()
-		ns._mhRarePrevOwner = "rare" -- a detour to another rare returns to this hunt
-		ns._mhLastRoutedRareQuest = nil -- a full route: release when the whole hunt is done
-		-- AddSmartTomTomWay set ns.lastTarget to the LAST pin added; for the native
-		-- arrow the lead must be the FIRST (nearest) rare. (NativeArrow then keeps it
-		-- advancing to the nearest still-open rare via ns.GetNearestIncompleteRareLead.)
-		local lead = routeRares[1]
-		if lead then
-			ns.lastTarget = { mapID = lead[2], x = lead[3], y = lead[4], name = GetRareDisplayName(lead),
-				hintKey = ns.RareArrivalHintKey(lead), via = "rare route" }
+		ns._mhLastRoutedRareQuest = nil -- a full route: done when the whole hunt is done
+		-- The runner points at the nearest open rare (= the first pin, Find Nearest's choice) and moves on; a rare from a
+		-- toast during the hunt is a detour and the hunt goes on after it.
+		if ns.Travel and ns.Travel.StartManaged then
+			ns.Travel.StartManaged({ owner = "rare", nextLead = HuntNextLead, onStop = RareForget, via = "rare route" })
 		end
+		ns.UpdateRareArrivalWatch()
 	end
 
 	local orderHint = nearestFirst and ns:L("RARES_ROUTE_ORDER_NEAR") or ns:L("RARES_ROUTE_ORDER_LIST")
@@ -3188,43 +3226,9 @@ function ns.DebugRareScan()
 	end
 end
 
--- The routed rare is done: give the arrow back to whatever it interrupted.
---
--- Two kinds of interrupted route, handled differently on purpose:
---   • achievement / treasure — these run their own reclaim watcher that grabs the
---     arrow the moment it is free (owner == nil). Leave them to it, exactly as
---     before; re-pointing here as well would fight that watcher.
---   • everything else with a saved destination (ritual / worldboss / campaign /
---     reset — all route as "waypoint") has NO watcher. THIS is what broke "keeps
---     your route": the arrow went dark and nobody picked it up. Re-point it at the
---     saved lead ourselves, restoring the original owner so the arrow keeps its
---     own colour/lifecycle.
-local function ResumePrevRouteOrRelease()
-	local prevOwner, prevLead = ns._mhRarePrevOwner, ns._mhRarePrevLead
-	ns._mhLastRoutedRareQuest = nil
-	ns._mhRarePrevOwner = nil
-	ns._mhRarePrevLead = nil
-
-	if prevOwner == "achievement" or prevOwner == "treasure" then
-		ns._mhRouteOwner = nil -- their watcher reclaims on owner == nil
-		return
-	end
-	if prevLead and prevLead.mapID and ns.AddSmartTomTomWay then
-		-- Set the owner first: AddSmartTomTomWay respects an already-set managed owner
-		-- (e.g. "reset") and re-affirms "waypoint", so the resumed route keeps its
-		-- identity instead of always becoming a generic waypoint.
-		ns._mhRouteOwner = prevOwner
-		ns.AddSmartTomTomWay(prevLead.mapID, prevLead.x, prevLead.y, prevLead.name)
-		return
-	end
-	ns._mhRouteOwner = nil -- nothing was routing before the rare
-end
-
--- Exposed for NativeArrow: it fires this when you have been parked on a detour
--- rare's spot, out of combat, and the rare is not there — the "someone else killed
--- it before I arrived" case, where the quest never flags and the normal resume
--- above never runs. Same restore logic either way.
-ns.ResumeInterruptedRareRoute = ResumePrevRouteOrRelease
+-- 🚌 Travel phase 4: "the routed rare is done, give the arrow back to whatever it interrupted" was
+-- ResumePrevRouteOrRelease here (with a special case for achievement/treasure, whose own watcher was meant to reclaim
+-- the arrow — treasure's never did). The route runner's stack does it now for every kind of route; see RouteRare.
 
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("QUEST_LOG_UPDATE")
@@ -3246,29 +3250,11 @@ else
 	end)
 end
 ev:SetScript("OnEvent", function(_, event)
-	-- Release the shared arrow once the routed rare is done (or the whole hunt is
-	-- finished), so a paused achievement/treasure route can reclaim it (it watches
-	-- for owner == nil).
-	if ns._mhRouteOwner == "rare" then
-		local q = ns._mhLastRoutedRareQuest
-		if not IsRareHuntActive() then
-			-- Whole hunt finished: resume whatever it interrupted (or release).
-			ResumePrevRouteOrRelease()
-		elseif q and IsRareDoneThisWeek(q) then
-			if ns._mhRarePrevOwner == "rare" then
-				-- We detoured from a rare route to another rare and looted it, but the
-				-- hunt still has open rares. Keep the arrow and drop the single-rare
-				-- token: NativeArrow then advances to the nearest one still standing.
-				-- Releasing here (as we used to) left the player with a dark arrow and
-				-- a half-finished route.
-				ns._mhLastRoutedRareQuest = nil
-			else
-				-- Detoured from a ritual/achievement/treasure route (or nothing) and
-				-- looted the rare while others still stand: resume the interrupted
-				-- route now — the rest of the hunt is not this token's job.
-				ResumePrevRouteOrRelease()
-			end
-		end
+	-- A rare done (quest flag) or a skipped one now up (vignette): the runner asks the rare route what next — nil = done,
+	-- and whatever it interrupted goes on (phase 4). Zone changes are the runner's own.
+	if (event == "QUEST_LOG_UPDATE" or event == "VIGNETTES_UPDATED" or event == "VIGNETTE_MINIMAP_UPDATED")
+		and ns.Travel and ns.Travel.Runs and ns.Travel.Runs("rare") then
+		ns.Travel.Refresh("rare", { quiet = true })
 	end
 	if
 		event == "VIGNETTES_UPDATED"

@@ -950,23 +950,79 @@ local function NodeKey(n)
 	return n and (n.criteria or n.quest or (tostring(n.mapID) .. ":" .. tostring(n.x) .. ":" .. tostring(n.y)))
 end
 
-local function IssueRoute(entry, firstTime, silent)
-	local done, total, incomplete = ns.GetTreasureProgress(entry)
-	local title = AchievementName(entry)
-	ns.MH_TomTomClearAll()
-	if #incomplete == 0 then
-		ns.lastTarget = nil
-		routeSig, activeEntry = nil, nil
-		skippedNodes, currentLead = {}, nil
-		if ns._mhRouteOwner == "achievement" then
-			ns._mhRouteOwner = nil
+--------------------------------------------------------------------------------
+-- 🚌 Travel phase 4 (16 Oct 2026): the ROUTE RUNNER points (Modules/Travel/TravelRoute.lua); this route only answers
+-- "what next?" (AchNextLead) and says when something changed (Travel.Refresh after a loot, a step, a skip).
+-- Gone, each one a helper that pushed at the arrow on its own (travel map §5a/§5b):
+--   - ScheduleTravelRefresh: AddSmartTomTomWay(travelOnly) 0.7 s after every zone change — the runner plans again on
+--     every new map and shows the travel popup once per lead and map;
+--   - the 2 s RareWatch ticker: re-pinned TomTom's arrow on every sub-zone hop (ForceArrowToLead /
+--     RepointArrowNearest) and took the arrow back from a rare detour after ~4 s parked — the runner keeps one pin per
+--     step, wakes TomTom's arrow when it hid itself (WakeTomTom), and its stack hands the arrow back after a detour;
+--   - the combat-end reclaim and the "owner == nil → reclaim" in Advance: same stack;
+--   - the cross-continent travelOnly refresh 0.4 s after an advance: the runner's steps.
+-- The other open treasures stay on the map as plain TomTom pins (no arrow), as before.
+--------------------------------------------------------------------------------
+
+local bulkPins = {} -- TomTom uids of the map pins for the other open stops (never the arrow)
+local leadKey -- the node the arrow is on, to say "next: …" once per new lead
+local firstIssue -- the first lead of a route gets the start line, later ones the next line
+
+local function ClearBulkPins()
+	if _G.TomTom and _G.TomTom.RemoveWaypoint then
+		for _, uid in ipairs(bulkPins) do
+			pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, uid)
 		end
+	end
+	wipe(bulkPins)
+end
+
+--- The runner's onStop (and our own stop): forget the route. No call back into Travel.
+local function AchForget()
+	activeEntry, routeSig = nil, nil
+	skippedNodes, currentLead, leadKey = {}, nil, nil
+	if ArmTreasureToast then
 		ArmTreasureToast(nil)
-		print((ns:L("ACH_MSG_ALLDONE")):format(Prefix(), title, total))
+	end
+	ClearBulkPins()
+end
+
+--- Map pins for every open stop after the lead (TomTom only; no arrow, no lastTarget, no route).
+local function PinTheRest(entry, waypoints)
+	ClearBulkPins()
+	if not (ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom.AddWaypoint) then
 		return
 	end
-	-- Order nearest-first, but push any skipped nodes (rares that weren't up) to the
-	-- back so the arrow moves on. If everything left is skipped, reset and cycle over.
+	for i = 2, #waypoints do
+		local n = waypoints[i]
+		local ok, uid = pcall(_G.TomTom.AddWaypoint, _G.TomTom, n.mapID, (n.x or 0) / 100, (n.y or 0) / 100, {
+			title = ns.AchievementNodeName(entry, n),
+			persistent = false,
+			minimap = true,
+			world = true,
+			crazy = false,
+		})
+		if ok and uid then
+			bulkPins[#bulkPins + 1] = uid
+		end
+	end
+end
+
+--- The runner's question: the next stop of the active achievement route, or nil when every treasure is found.
+--- Waypoint order: for the nearest treasure, its still-missing steps (urns/orbs) first, then the chest, then the other
+--- missing treasures; skipped nodes (rares that weren't up) go to the back, and when everything left is skipped the
+--- skips reset.
+local function AchNextLead()
+	local entry = activeEntry
+	if not entry then
+		return nil
+	end
+	local done, total, incomplete = ns.GetTreasureProgress(entry)
+	local title = AchievementName(entry)
+	if #incomplete == 0 then
+		print((ns:L("ACH_MSG_ALLDONE")):format(Prefix(), title, total))
+		return nil
+	end
 	do
 		local act, skip = {}, {}
 		for _, n in ipairs(incomplete) do
@@ -986,125 +1042,49 @@ local function IssueRoute(entry, firstTime, silent)
 			end
 		end
 	end
-	ns._mhRouteOwner = "achievement" -- claim the shared arrow (others stand down)
-	if ns.CancelResetRoute then
-		ns.CancelResetRoute()
-	end
-	-- Waypoint order: for the nearest treasure, walk its still-missing steps
-	-- (urns/orbs) first so the arrow guides you step-by-step, then the chest, then
-	-- the other still-missing treasures. The crazy arrow rides pin 1 only.
 	local first = incomplete[1]
 	currentLead = first -- what Skip will push to the back
-	local pending = PendingTrackedPrereqs(first)
 	local waypoints = {}
-	for _, p in ipairs(pending) do
+	for _, p in ipairs(PendingTrackedPrereqs(first)) do
 		waypoints[#waypoints + 1] = p
 	end
 	waypoints[#waypoints + 1] = first -- the chest itself (always shown)
 	for i = 2, #incomplete do
 		waypoints[#waypoints + 1] = incomplete[i]
 	end
-
-	for i, node in ipairs(waypoints) do
-		-- Signature: AddSmartTomTomWay(map, x, y, name, skipTravelUI, skipCrazyArrow).
-		-- Crazy arrow only on pin 1 (the nearest step/treasure). The travel assistant
-		-- (portal / HS popup) fires only on the FIRST route's pin 1 — advancing, or a
-		-- silent zone re-assert, must never nag a portal. This also avoids a false
-		-- "go to <zone>" suggestion from sub-maps where "are you in the zone?" reads
-		-- false against the main map.
-		local isLead = (i == 1)
-		local skipCrazyArrow = not isLead
-		local skipTravelUI = (not isLead) or (not firstTime)
-		-- Use TomTom's default cleardistance (like the Rares route): a custom
-		-- cleardistance of 0 suppressed TomTom's big floating Crazy Arrow. TomTom's
-		-- "auto-set to next closest waypoint" advances the arrow as you reach pins.
-		ns.AddSmartTomTomWay(node.mapID, node.x, node.y,
-			ns.AchievementNodeName(entry, node), skipTravelUI, skipCrazyArrow)
+	local sig = RouteFingerprint(entry)
+	if sig ~= routeSig then
+		routeSig = sig
+		PinTheRest(entry, waypoints)
 	end
 	local lead = waypoints[1]
-	-- The arrow reads ns.lastTarget for the name it draws under the distance, so this
-	-- one matters as much as the chat line: lead.name nil made it say "Waypoint".
-	ns.lastTarget = { mapID = lead.mapID, x = lead.x, y = lead.y,
-		name = ns.AchievementNodeName(entry, lead), via = "achievement route" }
-	routeSig = RouteFingerprint(entry)
-	DBG(
-		"issue: lead=%s leadMap=%s incomplete=%d firstTime=%s playerMap=%s",
-		lead.name or "?",
-		tostring(lead.mapID),
-		#incomplete,
-		tostring(firstTime),
-		tostring(PlayerMapID())
-	)
-	-- NOTE: we deliberately do NOT force a Blizzard SuperTrack waypoint here.
-	-- Taking over SuperTracking fights TomTom's crazy arrow and makes it drop at
-	-- zone transitions (the Rares route never does this, which is why its arrow
-	-- survives). AddSmartTomTomWay already adds a Blizzard backup for genuine
-	-- cross-continent targets, and TomTom's own arrow persists across zones.
-	if not silent then
-		-- ⚠️ Through the helper. `first.name` is nil on every hunt that ships without
-		-- names — the Coiled Isle treasures, lore and glyphs — and string.format throws
-		-- on a nil, so pressing Route on them crashed outright (Rob, 16 aug). Third
-		-- place today reading the raw field instead of asking for the name; the other
-		-- two only looked wrong, this one stopped the route.
+	local key = NodeKey(lead)
+	if key ~= leadKey then
+		leadKey = key
+		-- ⚠️ Through the helper. `first.name` is nil on every hunt that ships without names — the Coiled Isle
+		-- treasures, lore and glyphs — and string.format throws on a nil (Rob, 16 aug).
 		local firstName = ns.AchievementNodeName(entry, first)
-		if firstTime then
-			print((ns:L("ACH_MSG_ROUTE_START")):format(
-				Prefix(), title, done, total, #incomplete, firstName))
+		if firstIssue then
+			print((ns:L("ACH_MSG_ROUTE_START")):format(Prefix(), title, done, total, #incomplete, firstName))
 		else
 			print((ns:L("ACH_MSG_ROUTE_NEXT")):format(Prefix(), firstName, done, total))
 		end
+		firstIssue = false
 		if first.note then
 			print((ns:L("ACH_MSG_ROUTE_NOTE")):format(Prefix(), ns.AchievementNoteText(first) or ""))
 		end
 		ArmTreasureToast(first)
 	end
-	-- On an advance you're usually standing on the treasure you just looted, so
-	-- TomTom's crazy arrow can stay in its "arrived" state; re-arm it shortly after
-	-- on the new target so the big arrow re-points without waiting for you to move.
-	if not firstTime and not silent and C_Timer and C_Timer.After and ns.ReassertCrazyArrow then
-		C_Timer.After(0.35, ns.ReassertCrazyArrow)
-	end
-	-- Cross-continent advance fix. If you kill a detour rare while still flying to a
-	-- portal (the new lead sits on another continent, e.g. a Voidstorm rare while
-	-- you're in Silvermoon), TomTom's crazy arrow can't resolve an off-continent
-	-- target and goes blank — and this advance already suppressed the travel UI, so
-	-- the portal guidance is gone too. Re-run the travel assistant in travelOnly mode
-	-- (no waypoint side effects) so the arrow re-focuses on the portal/HS instead of
-	-- vanishing. Gated on cross-continent, so same-continent advances stay untouched.
-	if not firstTime and not silent and lead and C_Timer and C_Timer.After then
-		local lmap, lx, ly = lead.mapID, lead.x, lead.y
-		local lname = ns.AchievementNodeName(entry, lead)
-		C_Timer.After(0.4, function()
-			if
-				activeEntry
-				and ns._mhRouteOwner == "achievement"
-				and ns.AddSmartTomTomWay
-				and ns.MHIsCrossContinentFromPlayer
-				and ns.MHIsCrossContinentFromPlayer(lmap, lx, ly)
-			then
-				ns.AddSmartTomTomWay(lmap, lx, ly, lname, false, false, true) -- travelOnly
-			end
-		end)
-	end
+	-- The arrow reads the name it draws under the distance, so this one matters as much as the chat line: lead.name
+	-- nil made it say "Waypoint".
+	return { mapID = lead.mapID, x = lead.x, y = lead.y, name = ns.AchievementNodeName(entry, lead) }
 end
 
+--- A treasure looted or a step collected: ask the runner to move on (only while this route runs; a paused one is
+--- asked when it goes on).
 local function Advance()
-	if not activeEntry then
-		return
-	end
-	local owner = ns._mhRouteOwner
-	if owner == nil then
-		-- The shared arrow was freed (e.g. a rare hunt just finished) — reclaim it
-		-- for our still-active treasure route. We keep activeEntry across the detour
-		-- so the route resumes on its own instead of being forgotten.
-		IssueRoute(activeEntry, false)
-		return
-	end
-	if owner ~= "achievement" then
-		return -- another route holds the arrow right now; wait without forgetting ours
-	end
-	if RouteFingerprint(activeEntry) ~= routeSig then
-		IssueRoute(activeEntry, false) -- a treasure looted or a step collected: advance
+	if activeEntry and ns.Travel and ns.Travel.Runs and ns.Travel.Runs("achievement") then
+		ns.Travel.Refresh("achievement", { quiet = true })
 	end
 end
 
@@ -1124,339 +1104,65 @@ local function ScheduleAdvance()
 	end
 end
 
-local mhForcedUid
-local mhPrevArrowGone
-local mhForcedLeadKey
-local mhForcedOnMap
-local mhPrevAtLead
--- Put TomTom's crazy arrow on the route's CURRENT LEAD (ns.lastTarget). If the lead
--- lives on another map than you're standing on (e.g. a rare on the Slayer's Rise
--- sub-map while you're on the Voidstorm overworld), TomTom hides the arrow — so we
--- translate the lead onto YOUR current map via C_Map world coordinates (no external
--- library) and pin the arrow there. We follow the LEAD, not raw nearest, so Skip is
--- respected; mute announce so TomTom doesn't spam "Added a waypoint"; and use
--- cleardistance=0 so standing on an un-spawned stop never auto-clears the arrow.
-local function ForceArrowToLead()
-	local tt = _G.TomTom
-	if not (activeEntry and tt and tt.AddWaypoint) then
-		return false
-	end
-	local n = ns.lastTarget
-	if not (n and n.mapID) and ns.GetTreasureProgress then
-		local _, _, incomplete = ns.GetTreasureProgress(activeEntry)
-		n = incomplete and OrderNearest(incomplete)[1]
-	end
-	if not (n and n.mapID) then
-		return false
-	end
-	local mapID, x01, y01 = n.mapID, (n.x or 0) / 100, (n.y or 0) / 100
-	local pmap = PlayerMapID()
-	if pmap and pmap ~= n.mapID then
-		local tx, ty = TranslateToMap(n.mapID, x01, y01, pmap)
-		if tx and ty then
-			mapID, x01, y01 = pmap, tx, ty
-		end
-	end
-	local gen = tt.profile and tt.profile.general
-	local prevAnnounce = gen and gen.announce
-	if gen then
-		gen.announce = false
-	end
-	if mhForcedUid and tt.ClearWaypoint then
-		pcall(tt.ClearWaypoint, tt, mhForcedUid)
-		mhForcedUid = nil
-	end
-	local okAdd, uid = pcall(tt.AddWaypoint, tt, mapID, x01, y01, {
-		title = n.name or "Route",
-		persistent = false,
-		minimap = true,
-		world = true,
-		crazy = true,
-		cleardistance = 0,
-	})
-	if okAdd and uid and tt.SetCrazyArrow then
-		mhForcedUid = uid
-		pcall(tt.SetCrazyArrow, tt, uid, 15, n.name or "Route")
-	end
-	if gen then
-		gen.announce = prevAnnounce
-	end
-	local good = (okAdd and uid) and true or false
-	DBG("force: arrow on %s via map %s (node map %s) ok=%s", n.name or "?", tostring(mapID), tostring(n.mapID), tostring(good))
-	return good
-end
-
--- Restore the big arrow when it has dropped. Prefer pinning it to our own lead
--- (authoritative, Skip-aware, cross-map safe); only if we somehow have no lead at all
--- do we fall back to TomTom's own closest-waypoint search.
-local function RepointArrowNearest()
-	if ForceArrowToLead() then
-		return
-	end
-	local tt = _G.TomTom
-	if not (tt and tt.SetClosestWaypoint) then
-		return
-	end
-	local gen = tt.profile and tt.profile.general
-	local prevAnnounce = gen and gen.announce
-	if gen then
-		gen.announce = false
-	end
-	pcall(tt.SetClosestWaypoint, tt)
-	if gen then
-		gen.announce = prevAnnounce
-	end
-end
-
-local rareWatchTicker, rareIdleTicks
-local function StopRareWatch()
-	if rareWatchTicker then
-		rareWatchTicker:Cancel()
-		rareWatchTicker = nil
-	end
-	rareIdleTicks = 0
-end
-local function StartRareWatch()
-	if rareWatchTicker or not (C_Timer and C_Timer.NewTicker) then
-		return
-	end
-	rareIdleTicks = 0
-	rareWatchTicker = C_Timer.NewTicker(2, function()
-		if not activeEntry then
-			StopRareWatch()
-			return
-		end
-		-- Keep the big arrow alive on our route. TomTom clears a waypoint (and its
-		-- crazy arrow) the moment you arrive, and only auto-points at the next one if
-		-- the user enabled arrow.setclosest — which many players have off, so the arrow
-		-- just vanishes on arrival. We don't rely on that setting: while we own the
-		-- arrow, re-point it at the nearest still-open waypoint ourselves every tick
-		-- (announce muted to avoid chat spam). MH already adds every open stop as a
-		-- waypoint, so this makes the arrow flow to the next treasure/rare on arrival.
-		if ns._mhRouteOwner == "achievement" then
-			local lt = ns.lastTarget
-			-- Keep the big arrow on our lead across the constant sub-zone hops here.
-			-- TomTom's crazy arrow only renders when the waypoint sits on the map you're
-			-- standing on, so whenever your map changes we re-pin the lead onto the new map
-			-- (translated via C_Map) BEFORE it can drop. We also restore it if it drops on
-			-- the same map, re-pin when the lead changes (Skip), and re-pin when you walk
-			-- off a stop you were parked on. We do NOT re-pin while parked on the lead
-			-- (<25yd: an un-spawned rare you walked up to) nor when nothing changed — so
-			-- there's no waypoint churn or chat spam.
-			local arrowFrame = _G.TomTomCrazyArrow
-			local arrowGone = (arrowFrame and arrowFrame.IsShown and not arrowFrame:IsShown()) or false
-			local pmap = PlayerMapID()
-			local atLead = false
-			if lt then
-				local pwx, pwy = PlayerWorld()
-				local twx, twy = NodeWorld(lt)
-				if pwx and twx then
-					local dx, dy = pwx - twx, pwy - twy
-					atLead = (dx * dx + dy * dy) <= (25 * 25)
-				end
-			end
-			local leadKey = lt and lt.mapID and (tostring(lt.mapID) .. ":" .. tostring(lt.x) .. ":" .. tostring(lt.y))
-			local mapChanged = (mhForcedOnMap ~= nil and pmap ~= mhForcedOnMap)
-			local leadChanged = (leadKey ~= mhForcedLeadKey)
-			local justDropped = (arrowGone and not mhPrevArrowGone)
-			local walkedOff = (mhPrevAtLead and not atLead) or false
-			if lt and not atLead and (mapChanged or leadChanged or justDropped or walkedOff) then
-				DBG(
-					"tick: re-pin (mapChg=%s leadChg=%s dropped=%s walkedOff=%s) lead=%s leadMap=%s playerMap=%s",
-					tostring(mapChanged),
-					tostring(leadChanged),
-					tostring(justDropped),
-					tostring(walkedOff),
-					lt.name or "nil",
-					tostring(lt.mapID),
-					tostring(pmap)
-				)
-				RepointArrowNearest()
-				mhForcedOnMap = pmap
-				mhForcedLeadKey = leadKey
-			end
-			mhPrevArrowGone = arrowGone
-			mhPrevAtLead = atLead
-		end
-		if ns._mhRouteOwner ~= "rare" then
-			rareIdleTicks = 0
-			return -- arrow is ours (or free) — nothing to reclaim
-		end
-		if UnitAffectingCombat and UnitAffectingCombat("player") then
-			rareIdleTicks = 0 -- still fighting the rare: let combat-end reclaim it
-			return
-		end
-		local lt = ns.lastTarget
-		local near = false
-		if lt then
-			local pwx, pwy = PlayerWorld()
-			local rwx, rwy = NodeWorld(lt)
-			if pwx and rwx then
-				local dx, dy = pwx - rwx, pwy - rwy
-				near = (dx * dx + dy * dy) <= (60 * 60) -- within ~60 yd of the rare
-			end
-		end
-		if near then
-			rareIdleTicks = (rareIdleTicks or 0) + 1
-			if rareIdleTicks >= 2 then
-				-- ~4s parked at the rare's location without fighting: the rare is gone.
-				-- Reclaim the arrow for our route (Advance() picks it up on owner==nil).
-				rareIdleTicks = 0
-				ns._mhRouteOwner = nil
-				ScheduleAdvance()
-			end
-		else
-			rareIdleTicks = 0 -- still travelling toward the rare: don't reclaim yet
-		end
-	end)
-end
-
--- On a zone change, refresh ONLY the travel assistant (next-leg portal/HS advice)
--- via AddSmartTomTomWay's travelOnly mode — this never touches the waypoints, so
--- TomTom's arrow keeps persisting. Without it you'd have to re-click the route
--- after each portal/hearth to get the next leg's advice (e.g. arriving in SMC and
--- needing the Portal to Voidstorm).
-local travelRefreshPending
-local function ScheduleTravelRefresh()
-	if not activeEntry or travelRefreshPending then
-		return
-	end
-	if ns._mhRouteOwner and ns._mhRouteOwner ~= "achievement" then
-		return
-	end
-	travelRefreshPending = true
-	local function go()
-		travelRefreshPending = false
-		local t = ns.lastTarget
-		if activeEntry and ns._mhRouteOwner == "achievement" and t and ns.AddSmartTomTomWay then
-			ns.AddSmartTomTomWay(t.mapID, t.x, t.y, t.name, false, false, true) -- travelOnly
-		end
-	end
-	if C_Timer and C_Timer.After then
-		C_Timer.After(0.7, go) -- let the map settle after the load screen
-	else
-		go()
-	end
-end
-
--- True if the live arrow target (ns.lastTarget) is one of this achievement's
--- still-missing treasures or tracked steps. Lets us tell "arrow is on our route"
--- from "a rare detour took the arrow" without relying on quest-flag timing.
-local function ArrowIsOnOurRoute(entry, lt)
-	if not (entry and lt) then
-		return false
-	end
-	local function same(a)
-		return a and a.mapID == lt.mapID
-			and math.abs((a.x or 0) - (lt.x or 0)) < 0.05
-			and math.abs((a.y or 0) - (lt.y or 0)) < 0.05
-	end
-	local _, _, incomplete = ns.GetTreasureProgress(entry)
-	for _, n in ipairs(incomplete) do
-		if same(n) then
-			return true
-		end
-		for _, p in ipairs(n.prereqs or {}) do
-			if same(p) then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 local function EnsureAdvanceFrame()
 	if advanceFrame then
 		return
 	end
 	advanceFrame = CreateFrame("Frame")
-	-- Loot/criteria events advance the arrow to the next treasure as you collect
-	-- them. Zone-change events only refresh the travel assistant (next-leg portal
-	-- advice) WITHOUT re-issuing waypoints, so TomTom's arrow persists across zones.
+	-- Loot/criteria events advance the arrow to the next treasure as you collect them. Zone changes are the route
+	-- runner's own since phase 4.
 	advanceFrame:RegisterEvent("QUEST_LOG_UPDATE")
 	advanceFrame:RegisterEvent("QUEST_TURNED_IN")
 	advanceFrame:RegisterEvent("QUEST_REMOVED")
 	advanceFrame:RegisterEvent("CRITERIA_UPDATE")
 	advanceFrame:RegisterEvent("ACHIEVEMENT_EARNED")
 	advanceFrame:RegisterEvent("BAG_UPDATE") -- collecting a token item (urns) advances the step
-	advanceFrame:RegisterEvent("PLAYER_REGEN_ENABLED") -- left combat (e.g. killed a detour rare)
-	advanceFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	advanceFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-	advanceFrame:SetScript("OnEvent", function(_, event)
-		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
-			ScheduleTravelRefresh()
-		else
-			if event == "PLAYER_REGEN_ENABLED" and activeEntry then
-				DBG(
-					"combat-end: owner=%s arrowOnRoute=%s lastTarget=%s playerMap=%s",
-					tostring(ns._mhRouteOwner),
-					tostring(ArrowIsOnOurRoute(activeEntry, ns.lastTarget)),
-					ns.lastTarget and ns.lastTarget.name or "nil",
-					tostring(PlayerMapID())
-				)
-			end
-			if event == "PLAYER_REGEN_ENABLED" and activeEntry
-				and ns._mhRouteOwner ~= "reset" and ns._mhRouteOwner ~= "treasure"
-				and not ArrowIsOnOurRoute(activeEntry, ns.lastTarget) then
-				-- Left combat (likely killed a detour rare) and the arrow drifted off
-				-- our route — reclaim it, regardless of quest-flag timing. Only fires
-				-- when the arrow actually isn't ours, so random mob kills don't flicker.
-				ns._mhRouteOwner = nil
-			end
-			if ns.MaybeCloseTreasureToast then
-				ns.MaybeCloseTreasureToast()
-			end
-			ScheduleAdvance()
-			-- Combat-end safety net for the big arrow. ArrowIsOnOurRoute only checks
-			-- whether lastTarget is still an open node, NOT whether TomTom's floating
-			-- arrow is actually showing — so when you kill a detour rare away from the
-			-- lead, the lead is still "open", the reclaim above is skipped, yet TomTom
-			-- may have dropped the arrow (cleardistance on a pin you flew past). Once
-			-- things settle, re-point the arrow at the nearest open waypoint ourselves.
-			-- Idempotent, so if the arrow is already correct nothing visibly changes.
-			if event == "PLAYER_REGEN_ENABLED" and activeEntry and C_Timer and C_Timer.After then
-				C_Timer.After(0.6, function()
-					if activeEntry and ns._mhRouteOwner == "achievement" then
-						RepointArrowNearest()
-					end
-				end)
-			end
+	advanceFrame:SetScript("OnEvent", function()
+		if ns.MaybeCloseTreasureToast then
+			ns.MaybeCloseTreasureToast()
 		end
+		ScheduleAdvance()
 	end)
 end
 
 -- Route to the still-missing treasures, and keep the arrow advancing to the
 -- next one as you loot them.
 function ns.RouteAchievementTreasures(entry)
-	if not entry or not ns.AddSmartTomTomWay then
+	if not entry or not (ns.Travel and ns.Travel.StartManaged) then
 		return
 	end
+	ns.MH_TomTomClearAll()
+	AchForget()
 	activeEntry = entry
+	firstIssue = true -- fresh route: forget previous skips (AchForget), say the start line
 	EnsureAdvanceFrame()
-	StartRareWatch()
-	skippedNodes, currentLead = {}, nil -- fresh route: forget previous skips
-	IssueRoute(entry, true)
+	-- A different route started now ends this one (onStop); a rare from a toast pauses it and it goes on afterwards.
+	if not ns.Travel.StartManaged({
+		owner = "achievement",
+		nextLead = AchNextLead,
+		onStop = AchForget,
+		via = "achievement route",
+	}) then
+		AchForget()
+	end
+end
+
+-- Public: fully stop the achievement/treasure route (used by ns.ClearActiveRoute /
+-- /mh clear). Forgets the route so nothing re-issues, and clears the shared arrow.
+function ns.StopAchievementRoute()
+	local had = activeEntry ~= nil
+	AchForget()
+	if had then
+		ns.MH_TomTomClearAll()
+	end
+	if ns.Travel and ns.Travel.Drop then
+		ns.Travel.Drop("achievement", "achievement stopped")
+	end
 end
 
 -- Skip the node the arrow is on right now (e.g. a rare that wasn't spawned): push it
 -- to the back of the route and re-point the arrow at the next-nearest open one. You
 -- still come back to skipped nodes after the rest (or once you've cycled them all).
--- Public: fully stop the achievement/treasure route (used by ns.ClearActiveRoute /
--- /mh clear). Forgets the route so nothing re-issues, and clears the shared arrow.
-function ns.StopAchievementRoute()
-	activeEntry, routeSig = nil, nil
-	skippedNodes, currentLead = {}, nil
-	StopRareWatch()
-	if ArmTreasureToast then
-		ArmTreasureToast(nil)
-	end
-	if ns._mhRouteOwner == "achievement" then
-		ns._mhRouteOwner = nil
-	end
-	ns.lastTarget = nil
-	ns.MH_TomTomClearAll()
-end
-
 function ns.SkipCurrentAchievementNode()
 	if not activeEntry then
 		print((ns:L("ACH_MSG_SKIP_NONE")):format(Prefix()))
@@ -1468,7 +1174,9 @@ function ns.SkipCurrentAchievementNode()
 		print((ns:L("ACH_MSG_SKIP_DONE")):format(Prefix(),
 			ns.AchievementNodeName(activeEntry, currentLead)))
 	end
-	IssueRoute(activeEntry, false)
+	if ns.Travel and ns.Travel.Refresh then
+		ns.Travel.Refresh("achievement")
+	end
 end
 
 --------------------------------------------------------------------------------

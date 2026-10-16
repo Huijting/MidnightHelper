@@ -1215,25 +1215,24 @@ local function SetupProfessionModule()
 
 	--[[
 		Dynamic "nearest treasure" arrow. Instead of a fixed route, we drop every
-		eligible incomplete treasure as a map pin and keep the TomTom crazy arrow on
-		the NEAREST one. A light 2s ticker (plus quest/zone events) re-points it as
-		you move, advances to the next nearest when you loot one, and re-asserts the
-		arrow after the transient drop on a zone change. Pins/arrow are removed once
-		their quest flag completes. (Rob's ask: always nearest, auto-advance.)
+		eligible incomplete treasure as a map pin and keep the arrow on the NEAREST one,
+		advancing to the next nearest when you loot one. (Rob's ask: always nearest,
+		auto-advance.)
+
+		🚌 Travel phase 4 (16 Oct 2026): the ROUTE RUNNER points (Modules/Travel/TravelRoute.lua). This module
+		only answers its question — TreasureNextLead, the nearest still-open treasure — and says when something
+		changed (a quest flag: Travel.Refresh). Gone: the 2 s ticker that called SetCrazyArrow, the zone handler
+		at 1.2 s, the travel-popup and Blizzard-pin code (the runner does both), and the owner claim. Why: after a
+		rare detour this route never got its arrow back — Rares.lua set the owner to nil, "their watcher reclaims
+		on owner == nil", but only the start set "treasure" (travel map §1b-4). The runner's stack does that now.
 	]]
 	local treasurePins = {} -- { {uid, questID, mapID, nx, ny, name}, ... } nx/ny 0-1
 	local treasureLabel
 	local treasureActive = false
-	local treasureArrowUid
-	local treasureBlizzUid -- last pin we set a Blizzard SuperTrack backup for (cross-region)
-	local treasureAssistKey -- target+zone the travel popup was last shown for
-	local treasureTicker
 
-	-- Public: nearest still-incomplete treasure as a lead {mapID,x,y,name}, or nil.
-	-- Lets NativeArrow (no-TomTom mode) drive the standalone arrow + auto-advance for
-	-- the treasure route too — the same backbone the rares/reset/achievement routes use.
-	-- Treasures are always present (no spawn timer), so this is nearest + advance-on-loot;
-	-- no skip logic like rares. TomTom users are unaffected (NativeArrow stays idle then).
+	--- The nearest still-incomplete treasure as a lead {mapID, x, y, name}, or nil. Nearest by distance on the
+	--- player's map; position unknown (inside a city) → one in this zone; none here → the first left, so the arrow
+	--- still leads toward the next zone. Treasures are always there (no spawn timer): no skip logic like rares.
 	function ns.GetNearestIncompleteTreasureLead()
 		if not treasureActive or #treasurePins == 0 then
 			return nil
@@ -1275,7 +1274,8 @@ local function SetupProfessionModule()
 		if not best then
 			return nil
 		end
-		return { mapID = best.mapID, x = best.nx * 100, y = best.ny * 100, name = best.name }
+		-- clearDist 0: the pin stays while you fight for the urn and loot it.
+		return { mapID = best.mapID, x = best.nx * 100, y = best.ny * 100, name = best.name, clearDist = 0 }
 	end
 
 	local function TreasureClearPins()
@@ -1289,41 +1289,28 @@ local function SetupProfessionModule()
 		for k = #treasurePins, 1, -1 do
 			treasurePins[k] = nil
 		end
-		treasureArrowUid = nil
-		treasureBlizzUid = nil
-		treasureAssistKey = nil
 	end
 
-	local function TreasureStop()
+	--- Forget the hunt (the runner's onStop: /mh clear, another route, done). No call back into Travel.
+	local function TreasureForget()
 		treasureActive = false
-		if treasureTicker then
-			treasureTicker:Cancel()
-			treasureTicker = nil
-		end
 		TreasureClearPins()
-		if ns._mhRouteOwner == "treasure" then
-			ns._mhRouteOwner = nil -- release the shared arrow
-		end
 	end
 
-	-- Public stopper so the universal "clear route" (ns.ClearActiveRoute / /mh clear)
-	-- can fully cancel a treasure hunt (state + ticker), not just hide the arrow.
+	-- Public stopper (ns.ClearActiveRoute / /mh clear): forget the hunt and take it out of the runner.
 	function ns.StopTreasureRoute()
-		TreasureStop()
+		TreasureForget()
+		if ns.Travel and ns.Travel.Drop then
+			ns.Travel.Drop("treasure", "treasure stopped")
+		end
 	end
 
-	-- Re-point the arrow at the nearest still-incomplete pin (dropping collected
-	-- ones). Always re-SetCrazyArrow so it survives the transient drop on a zone
-	-- change. Cheap; runs on the ticker + quest/zone events.
-	local function TreasureUpdateArrow()
+	--- The runner's question: drop the pins of looted treasures, then the nearest one left — or nil when all are
+	--- collected (the runner ends the route; onStop forgets it).
+	local function TreasureNextLead()
 		if not treasureActive then
-			return
+			return nil
 		end
-		if ns._mhRouteOwner and ns._mhRouteOwner ~= "treasure" then
-			return -- another navigation feature (reset route) owns the arrow
-		end
-		--- Without TomTom the pins carry no uid and MH's own route points at the nearest one
-		--- (below). Until 12 Sep 2026 this returned here, so a hunt without TomTom never moved on.
 		local useTomTom = (ns.IsTomTomReady and ns.IsTomTomReady()) and true or false
 		local i = 1
 		while i <= #treasurePins do
@@ -1339,114 +1326,17 @@ local function SetupProfessionModule()
 		end
 		if #treasurePins == 0 then
 			print(("|cffffff78Midnight Helper:|r All %s collected — arrow cleared."):format(treasureLabel or "treasures"))
-			TreasureStop()
-			return
+			return nil
 		end
-		-- Nearest on the player's current map; if the position is unavailable (e.g.
-		-- inside Silvermoon) or no pins are on this map, keep the current arrow / use
-		-- the first remaining pin so it still guides you toward the next zone.
-		local pMap, px, py = GetPlayerMapPositionForWaypoints()
-		local curMap = pMap
-		if not curMap and C_Map and C_Map.GetBestMapForUnit then
-			curMap = C_Map.GetBestMapForUnit("player")
-		end
-		local best, bestD
-		if pMap and px then
-			-- Exact nearest by distance on the current map.
-			for _, p in ipairs(treasurePins) do
-				if p.mapID == pMap then
-					local dx, dy = p.nx - px, p.ny - py
-					local d = dx * dx + dy * dy
-					if not bestD or d < bestD then
-						bestD, best = d, p
-					end
-				end
-			end
-		end
-		if not best and curMap then
-			-- Position unknown (e.g. inside a city) but we know the zone: point at a
-			-- pin in THIS zone instead of a far one in the data order.
-			for _, p in ipairs(treasurePins) do
-				if p.mapID == curMap then
-					best = p
-					break
-				end
-			end
-		end
-		if not best then
-			-- Keep the current arrow if it's still valid, else the first remaining.
-			for _, p in ipairs(treasurePins) do
-				if p.uid == treasureArrowUid then
-					best = p
-					break
-				end
-			end
-			best = best or treasurePins[1]
-		end
-		--- No TomTom: MH's own route (Blizzard pin + our arrow) at the nearest pin, set again only
-		--- when the nearest one changes. The owner stays "treasure": AddSmartTomTomWay only takes
-		--- over an owner that is nil, "waypoint" or "delve" (Delves.lua).
-		if best and not useTomTom then
-			local key = "q" .. tostring(best.questID)
-			if key ~= treasureArrowUid and ns.AddSmartTomTomWay then
-				treasureArrowUid = key
-				ns.AddSmartTomTomWay(best.mapID, best.nx * 100, best.ny * 100, best.name, true)
-			end
-			local assistKey = tostring(best.questID) .. "@" .. tostring(curMap)
-			if assistKey ~= treasureAssistKey and ns.ShowTravelAssistFor and not InCombatLockdown() then
-				treasureAssistKey = assistKey
-				ns.ShowTravelAssistFor(best.mapID, best.nx * 100, best.ny * 100, best.name)
-			end
-		end
-		if best and best.uid then
-			-- Drive the crazy arrow at the nearest treasure — UNLESS it's on another
-			-- continent, where TomTom's arrow can't point (it would vanish, or steal the
-			-- arrow from the travel popup's portal). Then we set a Blizzard SuperTrack
-			-- waypoint as a backup instead — the SAME shared model the rare routes and the
-			-- world boss use (ns.MHIsCrossContinentFromPlayer + ns.SetBlizzardUserWaypoint).
-			-- Rob 25 jun: one routing logic everywhere, no per-feature divergence.
-			local crossCont = ns.MHIsCrossContinentFromPlayer
-				and ns.MHIsCrossContinentFromPlayer(best.mapID, best.nx * 100, best.ny * 100)
-			if not crossCont then
-				if _G.TomTom.SetCrazyArrow then
-					pcall(_G.TomTom.SetCrazyArrow, _G.TomTom, best.uid, 15, best.name)
-				end
-				treasureBlizzUid = nil -- on this continent: TomTom drives the arrow
-			elseif best.uid ~= treasureBlizzUid and ns.SetBlizzardUserWaypoint then
-				-- Cross-continent: in-game SuperTrack arrow toward the portal. Gated on
-				-- target change so the 2s ticker doesn't re-assert every tick.
-				treasureBlizzUid = best.uid
-				ns.SetBlizzardUserWaypoint(best.mapID, best.nx * 100, best.ny * 100)
-			end
-			treasureArrowUid = best.uid
-			-- Travel advice (HS + portal) for a far target, keyed on target+zone: it
-			-- shows once per new target OR when you reach a new zone (e.g. "Portal to
-			-- Harandar" once you land in Silvermoon), but won't re-pop every tick or
-			-- fight an Esc within the same target+zone.
-			local assistKey = tostring(best.questID) .. "@" .. tostring(curMap)
-			-- Not in combat: ShowTravelAssistFor stands down there (secure Hearthstone button),
-			-- and remembering the key anyway would stop the advice coming back after the fight.
-			if assistKey ~= treasureAssistKey and ns.ShowTravelAssistFor and not InCombatLockdown() then
-				treasureAssistKey = assistKey
-				ns.ShowTravelAssistFor(best.mapID, best.nx * 100, best.ny * 100, best.name)
-			end
-		end
+		return ns.GetNearestIncompleteTreasureLead()
 	end
 
+	-- A looted treasure flags its quest: ask the runner to move on. Zone changes are the runner's own (phase 4).
 	local treasureEvents = CreateFrame("Frame")
 	treasureEvents:RegisterEvent("QUEST_LOG_UPDATE")
-	treasureEvents:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	treasureEvents:RegisterEvent("PLAYER_ENTERING_WORLD")
-	treasureEvents:SetScript("OnEvent", function(_, event)
-		if not treasureActive then
-			return
-		end
-		if event == "QUEST_LOG_UPDATE" then
-			TreasureUpdateArrow()
-		elseif C_Timer and C_Timer.After then
-			C_Timer.After(1.2, TreasureUpdateArrow) -- zone change / loading: let the Map API settle
-		else
-			TreasureUpdateArrow()
+	treasureEvents:SetScript("OnEvent", function()
+		if treasureActive and ns.Travel and ns.Travel.Refresh then
+			ns.Travel.Refresh("treasure", { quiet = true })
 		end
 	end)
 
@@ -1457,15 +1347,9 @@ local function SetupProfessionModule()
 			return
 		end
 
-		TreasureStop()
+		TreasureForget()
 		if tomtom then
 			ns.MH_TomTomClearAll()
-		end
-		-- Don't let the shared Delves zone-re-assert (ns.lastTarget) fight our arrow.
-		ns.lastTarget = nil
-		ns._mhRouteOwner = "treasure" -- claim the shared arrow
-		if ns.CancelResetRoute then
-			ns.CancelResetRoute() -- stop the reset-route auto-advance fighting us
 		end
 
 		local primaryProfessions = GetPrimaryProfessionEntries()
@@ -1494,9 +1378,9 @@ local function SetupProfessionModule()
 
 		treasureLabel = kindLabel
 
-		-- Drop every eligible treasure as a map pin (no arrow yet); the dynamic
-		-- arrow below points at whichever is nearest.
-		--- Without TomTom there is no pin to drop, but the record alone lets the ticker walk
+		-- Drop every eligible treasure as a map pin (no arrow yet); the route runner
+		-- points at whichever is nearest.
+		--- Without TomTom there is no pin to drop, but the record alone lets the runner walk
 		--- the list. Until 12 Sep 2026 that case set one waypoint and returned, so it never
 		--- advanced to the next treasure.
 		for _, e in ipairs(eligible) do
@@ -1519,9 +1403,15 @@ local function SetupProfessionModule()
 		end
 
 		treasureActive = true
-		TreasureUpdateArrow()
-		if C_Timer and C_Timer.NewTicker then
-			treasureTicker = C_Timer.NewTicker(2, TreasureUpdateArrow)
+		-- The runner points, moves on and stops; a different route started now ends this one (onStop).
+		if not (ns.Travel and ns.Travel.StartManaged and ns.Travel.StartManaged({
+			owner = "treasure",
+			nextLead = TreasureNextLead,
+			onStop = TreasureForget,
+			via = "treasure route",
+		})) then
+			TreasureForget()
+			return
 		end
 
 		print(("|cffffff78Midnight Helper:|r Generate %s: tracking %d — the arrow follows the nearest and advances as you collect them."):format(kindLabel, #eligible))

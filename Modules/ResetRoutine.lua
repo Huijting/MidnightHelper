@@ -1493,35 +1493,35 @@ local function PinsSignature(pins)
 	return table.concat(parts, "|")
 end
 
--- Active-route state. The reset route, the treasure route and the delve route
--- all share the single crazy arrow + ns.lastTarget, so a tiny owner token
--- (ns._mhRouteOwner) arbitrates: whoever issued the live arrow last owns it,
--- and the others stand down instead of fighting it on every event.
+-- Active-route state.
+-- 🚌 Travel phase 4 (16 Oct 2026): the ROUTE RUNNER points (Modules/Travel/TravelRoute.lua) and owns the arrow; this
+-- route answers "which stop next?" (ResetNextLead) and says when something changed (Travel.Refresh after a quest,
+-- the vault). Gone: IssueRoute's own AddSmartTomTomWay + lastTarget (they disagreed when the call set a flight
+-- step, travel map §1b-4), ReassertRoute 2 s after every zone change (the runner puts the pin back after a loading
+-- screen — the Naigtal bug of 30 Jul), the route half of the dwell ticker (the runner asks on arrival), and the owner
+-- checks: a click elsewhere pauses this route instead of cancelling it, and it goes on afterwards.
 local routeActive = false
 local routeSig
 local advancePending = false
 local advanceFrame
+local leadKey -- the stop the arrow is on, to say "next stop" once per new stop
+local DWELL_SECONDS = 6 -- parked on a stop this long = visited (Halduron's rotating weekly, a skipped intro, …)
+local NEAR_YARDS = 22 -- "at the stop"
 
-local function IssueRoute(pins)
-	ClearTomTom()
-	-- Sequential route: set ONLY the current stop as the waypoint. Adding every stop
-	-- made TomTom's "set closest waypoint" swing the arrow between the several city
-	-- stops as you walked (givers/hub/trainers/station all nearby). One waypoint at a
-	-- time = the arrow stays on the current stop; IssueRoute re-runs to the next stop
-	-- as each one is visited/done. routeSig still tracks the whole open set for advance.
-	local first = pins[1]
-	if first then
-		ns.AddSmartTomTomWay(first[1], first[2], first[3], PinLabel(first[4], first[5]))
-		ns.lastTarget = { mapID = first[1], x = first[2], y = first[3],
-			name = PinLabel(first[4], first[5]), via = "weekly routine" }
-	end
-	routeSig = PinsSignature(pins)
-end
-
--- Let another navigation feature take the arrow (treasure / delve call this).
-function ns.CancelResetRoute()
+--- The runner's onStop: forget the route. No call back into Travel.
+local function ResetForget()
 	routeActive = false
 	routeSig = nil
+	leadKey = nil
+end
+
+-- Let another navigation feature take the arrow, or stop: forget the route and take it out of the runner.
+function ns.CancelResetRoute()
+	local had = routeActive
+	ResetForget()
+	if had and ns.Travel and ns.Travel.Drop then
+		ns.Travel.Drop("reset", "reset route cancelled")
+	end
 end
 
 -- Map (0..1) -> world yards (pcall-safe) for a real proximity check.
@@ -1555,13 +1555,15 @@ local function PlayerWorldXY()
 	return WorldXY(pmap, px, py)
 end
 
--- The coord (0-100) the arrow is currently on, or nil.
+-- The stop (coord 0-100) the route is on, or nil: the runner's target, not `ns.lastTarget` — that can be a flight
+-- master or a portal on the way.
 local function LeadCoord()
-	local t = ns.lastTarget
-	if not (t and t.mapID and t.x and t.y) then
-		return nil
+	local r = ns.Travel and ns.Travel.Runs and ns.Travel.Runs("reset") and ns.Travel.Active()
+	local t = r and r.target
+	if t and t.map and t.x and t.y then
+		return t.map, t.x, t.y
 	end
-	return t.mapID, t.x, t.y
+	return nil
 end
 
 -- Is the player standing at a route coord (within ~22 yd)? Cross-continent coords
@@ -1573,39 +1575,48 @@ local function PlayerNearCoord(mapID, x, y)
 		return false
 	end
 	local dx, dy = pwx - twx, pwy - twy
-	return (dx * dx + dy * dy) <= (22 * 22)
+	return (dx * dx + dy * dy) <= (NEAR_YARDS * NEAR_YARDS)
 end
 
--- Re-evaluate the open stops; if the still-open set changed (a stop got claimed
--- or picked up), move the arrow to the next open stop. Stand down when another
--- feature owns the arrow, or when every stop is done.
-local function AdvanceResetRoute()
+--- The runner's question: the next still-open stop, or nil when every stop is done. Parked on the current stop for
+--- DWELL_SECONDS (ctx.parked, the runner's arrival) marks it visited, so the route moves on instead of sticking on a
+--- stop you did not finish right now. Never claims a stop is "done" — the checklist keeps its real status.
+local function ResetNextLead(ctx)
 	if not routeActive then
-		return
+		return nil
 	end
-	if ns._mhRouteOwner and ns._mhRouteOwner ~= "reset" then
-		ns.CancelResetRoute()
-		return
+	if ctx and ctx.arrived and (ctx.parked or 0) >= DWELL_SECONDS then
+		local lm, lx, ly = LeadCoord()
+		if lm then
+			visited[CoordKey(lm, lx, ly)] = true
+		end
 	end
 	local pins = ComputeOpenPins()
 	if #pins == 0 then
-		ClearTomTom()
-		ns.lastTarget = nil
-		routeActive = false
-		routeSig = nil
-		if ns._mhRouteOwner == "reset" then
-			ns._mhRouteOwner = nil
-		end
 		if ns.PrintChatKey then
 			ns:PrintChatKey("HOME_ROUTINE_ROUTE_DONE")
 		end
-		return
+		return nil
 	end
-	if PinsSignature(pins) ~= routeSig then
-		IssueRoute(pins) -- arrow now points at the next still-open stop
-		if ns.PrintChatKey then
-			ns:PrintChatKey("HOME_ROUTINE_ROUTE_NEXT_FMT", PinLabel(pins[1][4], pins[1][5]))
+	routeSig = PinsSignature(pins)
+	-- Sequential route: ONLY the current stop. Every stop as a waypoint made TomTom's "set closest waypoint" swing the
+	-- arrow between the city stops as you walked.
+	local first = pins[1]
+	local key = CoordKey(first[1], first[2], first[3])
+	if key ~= leadKey then
+		if leadKey and ns.PrintChatKey then
+			ns:PrintChatKey("HOME_ROUTINE_ROUTE_NEXT_FMT", PinLabel(first[4], first[5]))
 		end
+		leadKey = key
+	end
+	return { mapID = first[1], x = first[2], y = first[3], name = PinLabel(first[4], first[5]), near = NEAR_YARDS }
+end
+
+-- A stop got claimed or picked up: ask the runner to move on (only while this route runs; a paused one is asked when
+-- it goes on).
+local function AdvanceResetRoute()
+	if routeActive and ns.Travel and ns.Travel.Runs and ns.Travel.Runs("reset") then
+		ns.Travel.Refresh("reset", { quiet = true })
 	end
 end
 
@@ -1625,11 +1636,8 @@ local function ScheduleAdvance()
 	end
 end
 
--- Dwell fallback: park at the CURRENT stop (arrow on it) for ~6s and it's marked
--- visited, so the route moves on instead of the arrow sticking on a stop you didn't
--- finish right now (Halduron's rotating weekly, a ritual intro you skip, an empty
--- trainer…). Works for every stop; resets the counter when the lead changes or you
--- walk away. Never claims a stop is "done" — the checklist keeps its real status.
+-- Dwell for a single "take me there" pin (RouteSingle): you asked to be taken somewhere, you are standing on it, so
+-- after ~6 s the pin goes. The route's own dwell is the runner's arrival since phase 4 (ResetNextLead).
 local dwellTicker
 --- Assigns the forward-declared local from the top of the file (see StartDwellTicker
 --- there); NOT a new local, or RouteSingle would still see nil.
@@ -1638,70 +1646,25 @@ function StartDwellTicker()
 		return
 	end
 	dwellTicker = C_Timer.NewTicker(2, function()
-		if not routeActive then
-			-- A single "take me there" pin earns the same courtesy as a full route:
-			-- you asked to be taken somewhere, you are standing on it, so the arrow
-			-- has done its job. Previously this branch just returned and the pin
-			-- stayed up indefinitely.
-			if singleTarget then
-				if PlayerNearCoord(singleTarget[1], singleTarget[2], singleTarget[3]) then
-					dwellTicks = dwellTicks + 1
-					if dwellTicks >= 3 then -- ~6s parked on it, same as the route dwell
-						ClearTomTom()
-						singleTarget, dwellKey, dwellTicks = nil, nil, 0
-					end
-				else
-					dwellTicks = 0
+		if singleTarget then
+			if PlayerNearCoord(singleTarget[1], singleTarget[2], singleTarget[3]) then
+				dwellTicks = dwellTicks + 1
+				if dwellTicks >= 3 then -- ~6s parked on it, same as the route dwell
+					ClearTomTom()
+					singleTarget, dwellKey, dwellTicks = nil, nil, 0
 				end
-				return
-			end
-			-- Nothing to watch: stop rather than tick on forever.
-			dwellKey, dwellTicks = nil, 0
-			if dwellTicker then
-				pcall(function() dwellTicker:Cancel() end)
-				dwellTicker = nil
+			else
+				dwellTicks = 0
 			end
 			return
 		end
-		local lm, lx, ly = LeadCoord()
-		if not lm then
-			dwellKey, dwellTicks = nil, 0
-			return
-		end
-		local key = CoordKey(lm, lx, ly)
-		if visited[key] or not PlayerNearCoord(lm, lx, ly) then
-			dwellKey, dwellTicks = nil, 0
-			return
-		end
-		if dwellKey ~= key then
-			dwellKey, dwellTicks = key, 0
-		end
-		dwellTicks = dwellTicks + 1
-		if dwellTicks >= 3 then -- ~6s parked on this stop
-			visited[key] = true
-			dwellKey, dwellTicks = nil, 0
-			ScheduleAdvance()
+		-- Nothing to watch: stop rather than tick on forever.
+		dwellKey, dwellTicks = nil, 0
+		if dwellTicker then
+			pcall(function() dwellTicker:Cancel() end)
+			dwellTicker = nil
 		end
 	end)
-end
-
---- Re-place the pin for the stop we are already on, without saying anything.
----
---- Silent on purpose. Nothing changed for the player -- same stop, same route -- so
---- announcing "Next stop" again would be noise, and Rob already had that line three
---- times in one run. This only repairs a pin that quietly went missing.
-local function ReassertRoute()
-	if not routeActive then
-		return
-	end
-	if ns._mhRouteOwner and ns._mhRouteOwner ~= "reset" then
-		return -- someone else is guiding now; leave their arrow alone
-	end
-	local pins = ComputeOpenPins()
-	if #pins == 0 then
-		return -- nothing open: AdvanceResetRoute handles finishing, not this
-	end
-	IssueRoute(pins)
 end
 
 local function EnsureAdvanceFrame()
@@ -1714,34 +1677,9 @@ local function EnsureAdvanceFrame()
 	advanceFrame:RegisterEvent("QUEST_REMOVED")
 	advanceFrame:RegisterEvent("QUEST_TURNED_IN")
 	advanceFrame:RegisterEvent("QUEST_LOG_UPDATE")
-	-- Zone changes, because a waypoint can go missing without anything here failing
-	-- visibly. Rob walked the route on an alt, stepped through the Voidstorm portal
-	-- into Naigtal, and the arrow never came back -- not on returning to Silvermoon,
-	-- not on re-running the route. Only /reload fixed it (30 jul).
-	--
-	-- IssueRoute records routeSig whether or not the waypoint actually landed, and
-	-- TomTom will not place a Silvermoon pin while you are standing in an instanced
-	-- Void world. So the pin was dropped, the signature was updated anyway, and back
-	-- in Silvermoon the open set was unchanged -- meaning `signature ~= routeSig` was
-	-- false and IssueRoute was never called again. The route believed it was already
-	-- pointing somewhere it had failed to point.
-	--
-	-- Rather than teach IssueRoute which map hosts which waypoint, re-assert on the
-	-- event that caused it. Cheap, and it covers every other way a pin can vanish:
-	-- a loading screen, the player clearing TomTom, another addon.
-	advanceFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	advanceFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	-- No zone events since phase 4: the runner puts a lost pin back after a loading screen (the 30 Jul Naigtal bug,
+	-- where IssueRoute recorded a signature for a pin TomTom had refused, is the runner's PLAYER_ENTERING_WORLD now).
 	advanceFrame:SetScript("OnEvent", function(_, event)
-		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
-			-- Forget the signature so the next advance re-issues instead of deciding
-			-- it is already showing the right stop. Delayed: right after a portal the
-			-- map APIs are still mid-loading-screen, which is the state that lost the
-			-- pin in the first place.
-			if routeActive and C_Timer and C_Timer.After then
-				C_Timer.After(2, ReassertRoute)
-			end
-			return
-		end
 		-- Accepting a quest while parked on the current stop = you did what you came for;
 		-- mark it visited so the route moves on (covers givers/hub we can't auto-track).
 		if event == "QUEST_ACCEPTED" and routeActive then
@@ -1754,10 +1692,10 @@ local function EnsureAdvanceFrame()
 	end)
 end
 
--- Set the TomTom route along the still-open stops and keep the arrow advancing
+-- Set the route along the still-open stops and keep the arrow advancing
 -- to the next stop as each one gets done.
 function ns.StartResetRoute()
-	if not ns.AddSmartTomTomWay then
+	if not (ns.Travel and ns.Travel.StartManaged) then
 		return
 	end
 	local pins = ComputeOpenPins()
@@ -1768,14 +1706,19 @@ function ns.StartResetRoute()
 		ns.CancelResetRoute()
 		return
 	end
-	ns._mhRouteOwner = "reset" -- claim the shared arrow (treasure/delve yield)
+	ClearTomTom()
 	wipe(visited) -- fresh route: re-arm every stop
 	dwellKey, dwellTicks = nil, 0
 	singleTarget = nil -- the full route supersedes any single "take me there" pin
-	IssueRoute(pins)
+	ResetForget()
 	routeActive = true
 	EnsureAdvanceFrame()
-	StartDwellTicker()
+	-- A different route started now ends this one (onStop); a click or a rare pauses it and it goes on afterwards.
+	if not ns.Travel.StartManaged({ owner = "reset", nextLead = ResetNextLead, onStop = ResetForget,
+		via = "weekly routine" }) then
+		ResetForget()
+		return
+	end
 	if ns.PrintChatKey then
 		ns:PrintChatKey("HOME_ROUTINE_ROUTE_SET_FMT", #pins)
 	end

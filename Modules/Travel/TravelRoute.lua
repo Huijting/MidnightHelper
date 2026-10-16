@@ -22,16 +22,35 @@ local _, ns = ...
 	  - `handoff`             = a place on the way (a walked door, a Windcaller): reaching it means the next step;
 	  - `board`               = getting on (taxi, boat, zeppelin, the Windcaller's bird) means the next step.
 
-	Managed routes (rare, achievement, treasure, reset, delve chests) still run their own lifecycle — that is phase 4.
-	They pass through here only because they use AddSmartTomTomWay: they get the same steps, but the runner never
-	declares them finished and never changes their owner. Their old after-portal arrow restore runs unchanged
-	(LegacyZoneCheck below, moved from Delves.lua).
+	Managed routes (phase 4, 16 Oct 2026): rare, achievement, treasure, reset, delvechest, ritual. They used to run
+	their own lifecycle — a ticker or zone handler each (travel map §5a/§5b: 0.7 / 1.2 / 2.0 s, after a revive) that put
+	the arrow back on its own, plus a hand-made "give the arrow back" in Rares.lua that treasure never got (§1b-4).
+	Now a module hands the runner ONE question and stops pointing itself:
+	  Travel.StartManaged{ owner, nextLead, onStop, direct, detour }
+	    nextLead(ctx) → { map, x, y, name, arrivesOn, clearDist, near } or nil = "nothing left, the route is done".
+	      The runner asks at the start, on arrival (ctx.arrived, ctx.parked = seconds standing there), after a zone change
+	      (ctx.zone), and when the module says something changed (Travel.Refresh(owner) — a quest flag, a loot).
+	    onStop(reason)  the module forgets its state (no call back into Travel); the runner calls it when the route ends
+	      or is stopped, never when the module itself asked (Travel.Drop).
+	    direct          no travel plan, only the target (a chest inside a delve: planning from in there means nothing).
+	    detour          pause the running route instead of ending it (a rare from a toast).
+	A paused route waits on a stack. When the route on top ends, the one below is asked for its next lead and goes on
+	— the rare detour during a treasure hunt gets its arrow back. An ordinary click during a managed route pauses it in
+	the same way. Travel.StopAll (`/mh clear`) ends everything, stacked or not.
 ]]
 
 ns.Travel = ns.Travel or {}
 local T = ns.Travel
 
 local route -- the one running route, or nil
+local stack = {} -- paused routes, newest last: { r = route } (managed: asked again; ordinary: started again)
+
+--- The owners of managed routes: an ordinary click takes the arrow from them (and pauses them) instead of leaving their
+--- owner standing the way AddSmartTomTomWay used to (travel map §1b-4).
+local MANAGED = { rare = true, treasure = true, achievement = true, reset = true, delvechest = true, ritual = true }
+function T.IsManaged(o)
+	return o ~= nil and MANAGED[o] == true
+end
 
 local function InMap(a, b)
 	return T.InMap(a, b)
@@ -382,6 +401,14 @@ local function BuildPlainSteps(t)
 	return steps
 end
 
+--- The steps for route `r` to `t`: planned, or only the target for a direct route (a chest inside a delve).
+local function StepsFor(r, t)
+	if r.direct then
+		return { { map = t.map, x = t.x, y = t.y, text = t.name, final = true } }
+	end
+	return BuildPlainSteps(t)
+end
+
 --------------------------------------------------------------------------------
 -- Pointing
 --------------------------------------------------------------------------------
@@ -412,14 +439,19 @@ local function Point(s, x, y, text)
 	-- dan komt de tomtom pijl weer". GEMETEN in travelRouteLog: door and orb handed over at 7.5 yd; TomTom had already
 	-- removed them at 15 yd (our default), and between 15 and 8 yd NativeArrow stepped in. The runner removes the
 	-- previous pin itself (above).
-	local clearDist = (s.final and x == s.x and y == s.y) and nil or 0
+	-- The target itself: TomTom's default, or the lead's own (a treasure or a delve chest keeps its pin while you fight
+	-- and loot it: 0).
+	local clearDist = 0
+	if s.final and x == s.x and y == s.y then
+		clearDist = r.target.clearDist
+	end
 	ns._mhTravelLegBusy = true
 	ownerQuiet = true
 	pcall(ns.AddSmartTomTomWay, s.map, x, y, text, true, false, false, clearDist)
 	ns._mhTravelLegBusy = nil
 	-- AddSmartTomTomWay turns waypoint/delve/mountrun into "waypoint": give the route its own owner back ("delve"
-	-- stays "delve", for the arrow's colour). A managed owner was never touched.
-	if r.managed or (owner ~= nil and SameOwner(owner, r.owner)) then
+	-- stays "delve", for the arrow's colour). A managed route's owner is the runner's to set.
+	if not r.managed and owner ~= nil and SameOwner(owner, r.owner) then
 		ns._mhRouteOwner = owner
 	else
 		ns._mhRouteOwner = r.owner
@@ -433,6 +465,7 @@ local function Point(s, x, y, text)
 		lt.via = r.via or "Travel route"
 		if s.final then
 			lt.arrivesOn = r.target.arrivesOn
+			lt.hintKey = r.target.hintKey -- a rare's quirk for the arrow's arrival label (NativeArrow)
 		end
 	end
 	r.lt = lt
@@ -610,9 +643,7 @@ ShowStep = function(i, quiet, alreadyPointed)
 		end
 		ns.lastTarget = nil
 		r.lt, r.uid = nil, nil
-		if not r.managed then
-			ns._mhRouteOwner = r.owner
-		end
+		ns._mhRouteOwner = r.owner
 	else
 		HideHearthButton()
 		-- A capital step seen from elsewhere says which city it is in (Rob, in Uldum: "Take the portal to The Jade
@@ -709,37 +740,288 @@ local function IsOurs(r, lt)
 	return false
 end
 
---- Stop the route: watcher, button. Pins and the owner are the caller's (`/mh clear` clears those itself).
-function T.Stop(reason)
+local function RemovePin(uid)
+	if uid and _G.TomTom and _G.TomTom.RemoveWaypoint then
+		pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, uid)
+	end
+end
+
+--- Stop the route that runs now: watcher, button, its pin on the way. Pins and the owner are the caller's otherwise
+--- (`/mh clear` clears those itself). Paused routes stay paused.
+local function StopCurrent(reason)
 	StopWatch()
 	HideHearthButton()
 	local had = route ~= nil
 	if route then
 		-- A pin on the way never clears itself (cleardistance 0, see Point): take it with us.
 		local cur = route.steps[route.idx]
-		if route.uid and route.uid ~= route.firstUid and not (cur and cur.final and not cur._viaPending)
-			and _G.TomTom and _G.TomTom.RemoveWaypoint then
-			pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, route.uid)
+		if route.uid and route.uid ~= route.firstUid and not (cur and cur.final and not cur._viaPending) then
+			RemovePin(route.uid)
 		end
-		T.lastStop = { reason = reason or "?", at = GetTime and GetTime() or 0, target = route.target.name }
-		Log("stop (%s): %s", tostring(reason), tostring(route.target.name))
+		T.lastStop = { reason = reason or "?", at = GetTime and GetTime() or 0, target = route.target and route.target.name }
+		Log("stop (%s): %s", tostring(reason), tostring(route.target and route.target.name))
 	end
 	route = nil
 	return had
 end
 
+--- A managed route ends or is stopped: the module forgets its state. Never when the module itself asked (Drop).
+local function CallOnStop(r, reason)
+	if r and r.managed and r.spec and r.spec.onStop then
+		local ok, err = pcall(r.spec.onStop, reason)
+		if not ok then
+			Log("onStop of %s failed: %s", tostring(r.owner), tostring(err))
+		end
+	end
+end
+
+--- Stop the route that runs now. A managed one is told (onStop); paused routes stay paused.
+function T.Stop(reason)
+	local r = route
+	local had = StopCurrent(reason)
+	CallOnStop(r, reason)
+	return had
+end
+
+--- Put the running route aside: a detour (a rare from a toast) or an ordinary click takes the arrow for a while.
+local function Pause(r, why)
+	StopWatch()
+	HideHearthButton()
+	if r.uid and r.uid ~= r.firstUid then
+		RemovePin(r.uid)
+	end
+	r.uid, r.firstUid, r.lt = nil, nil, nil
+	stack[#stack + 1] = r
+	Log("pause (%s): %s (owner %s), %d paused", tostring(why), tostring(r.target and r.target.name), tostring(r.owner),
+		#stack)
+	route = nil
+end
+
+local function LeadTarget(lead)
+	if type(lead) ~= "table" then
+		return nil
+	end
+	local m, x, y = tonumber(lead.map or lead.mapID), tonumber(lead.x), tonumber(lead.y)
+	if not (m and x and y) then
+		return nil
+	end
+	return { map = m, x = x, y = y, name = lead.name or "?", arrivesOn = lead.arrivesOn, clearDist = lead.clearDist,
+		near = lead.near, hintKey = lead.hintKey }
+end
+
+--- Ask a managed route for its next lead. An error counts as "nothing left" and is logged, never silent.
+local function AskLead(r, ctx)
+	local ok, lead = pcall(r.spec.nextLead, ctx or {})
+	if not ok then
+		Log("nextLead of %s failed: %s", tostring(r.owner), tostring(lead))
+		return nil
+	end
+	return LeadTarget(lead)
+end
+
+--- The travel popup (portal, Hearthstone) for a managed lead, once per lead and map — what the treasure route did
+--- itself until phase 4 (Profession.lua treasureAssistKey). Not for a button step: the runner's button is that offer.
+local function AssistOnce(r)
+	if not (r.managed and not r.direct and ns.ShowTravelAssistFor) then
+		return
+	end
+	if IsAction(r.steps[r.idx]) or (InCombatLockdown and InCombatLockdown()) then
+		return
+	end
+	local t = r.target
+	local key = ("%s:%.2f:%.2f@%s"):format(tostring(t.map), t.x, t.y, tostring(T.PlayerMap()))
+	if key ~= r.assistKey then
+		r.assistKey = key
+		pcall(ns.ShowTravelAssistFor, t.map, t.x, t.y, t.name)
+	end
+end
+
+--- Point a managed route at lead `t` from where the player stands.
+local function Retarget(r, t, quiet)
+	r.target = t
+	r.base = 0
+	r.steps = StepsFor(r, t)
+	r.parkedSince = nil
+	Log("lead (%s) → %s (map %s %.2f/%.2f, %d step(s), player on map %s)", tostring(r.owner), tostring(t.name),
+		tostring(t.map), t.x, t.y, #r.steps, tostring(T.PlayerMap()))
+	ShowStep(1, quiet)
+	AssistOnce(r)
+end
+
+--- The route on top of the stack goes on: a managed one is asked for its next lead (it may have none left: then it is
+--- done too and the next one down is asked), an ordinary one is started again from here.
+local function Resume()
+	while #stack > 0 do
+		local r = table.remove(stack)
+		if r.managed then
+			local lead = AskLead(r, { resume = true })
+			if lead then
+				route = r
+				r.idx = 0
+				ns._mhRouteOwner = r.owner
+				Log("resume %s", tostring(r.owner))
+				Say((ns:L("TRAVEL_RESUME_FMT")):format(tostring(lead.name)))
+				Retarget(r, lead, false)
+				return r
+			end
+			Log("resume %s: nothing left", tostring(r.owner))
+			CallOnStop(r, "done")
+		else
+			Log("resume → %s", tostring(r.target.name))
+			local o = {}
+			for k, v in pairs(r.opts or {}) do
+				o[k] = v
+			end
+			o.alreadyPointed, o.owner = nil, r.owner
+			ns._mhRouteOwner = r.owner
+			Say((ns:L("TRAVEL_RESUME_FMT")):format(tostring(r.target.name)))
+			return T.Start(r.target, o)
+		end
+	end
+	return nil
+end
+
+--- A managed route has nothing left (or its module dropped it): its pin goes, the arrow is free, and a paused route
+--- goes on.
+local function EndManaged(r, reason, tell)
+	StopCurrent(reason)
+	RemovePin(r.uid)
+	if tell then
+		CallOnStop(r, reason)
+	end
+	ns.lastTarget = nil
+	ns._mhRouteOwner = nil
+	if not Resume() and C_Map and C_Map.ClearUserWaypoint then
+		pcall(C_Map.ClearUserWaypoint)
+	end
+end
+
+--- Start a managed route (see the header): spec = { owner, nextLead, onStop, direct, detour, via }.
+--- @return table|nil route  nil when nextLead has nothing to go to (the module says so in its own words)
+function T.StartManaged(spec)
+	if not (spec and spec.owner and spec.nextLead) then
+		return nil
+	end
+	local r = { managed = true, spec = spec, owner = spec.owner, direct = spec.direct, idx = 0, steps = {},
+		via = spec.via or (spec.owner .. " route") }
+	local lead = AskLead(r, { start = true })
+	if not lead then
+		return nil
+	end
+	if route then
+		if spec.detour then
+			Pause(route, "detour: " .. spec.owner)
+		elseif route.managed and route.owner == spec.owner then
+			StopCurrent("restart") -- the module starts afresh; its state is already the new one
+		else
+			-- A new route of another kind ends what runs and what waits — not this module's own (just set up).
+			local cur = route
+			StopCurrent("replaced by " .. spec.owner)
+			if cur.owner ~= spec.owner then
+				CallOnStop(cur, "replaced")
+			end
+			for i = #stack, 1, -1 do
+				local p = stack[i]
+				stack[i] = nil
+				if p.owner ~= spec.owner then
+					CallOnStop(p, "replaced")
+				end
+			end
+		end
+	end
+	route = r
+	ns._mhRouteOwner = spec.owner
+	Log("start managed %s%s", spec.owner, spec.detour and " (detour)" or "")
+	Retarget(r, lead, false)
+	return r
+end
+
+--- Something changed for `owner` (a quest flag, a loot, a skip): ask its next lead now. Only for the route that runs; a
+--- paused one is asked when it goes on. ctx.quiet: no chat line for the new step.
+--- @return boolean handled
+function T.Refresh(owner, ctx)
+	local r = route
+	if not (r and r.managed and r.owner == owner) then
+		return false
+	end
+	local lead = AskLead(r, ctx)
+	if not lead then
+		Log("%s: nothing left", tostring(owner))
+		EndManaged(r, "done", true)
+	elseif not SameTarget(lead, r.target) then
+		Retarget(r, lead, ctx and ctx.quiet)
+	else
+		r.target.name = lead.name
+	end
+	return true
+end
+
+--- The module ends its own route (it is done, or the player left the delve): no onStop, a paused route goes on.
+--- A paused copy of it is dropped too.
+function T.Drop(owner, reason)
+	for i = #stack, 1, -1 do
+		if stack[i].owner == owner then
+			table.remove(stack, i)
+		end
+	end
+	local r = route
+	if r and r.managed and r.owner == owner then
+		EndManaged(r, reason or "dropped", false)
+		return true
+	end
+	return false
+end
+
+--- `/mh clear`, the player clearing TomTom: everything ends, the running route and the paused ones, each module told.
+function T.StopAll(reason)
+	local r = route
+	local had = StopCurrent(reason)
+	CallOnStop(r, reason)
+	for i = #stack, 1, -1 do
+		local p = stack[i]
+		stack[i] = nil
+		had = true
+		CallOnStop(p, reason)
+	end
+	return had
+end
+
+--- Is `owner`'s managed route running (not paused)?
+function T.Runs(owner)
+	return route ~= nil and route.managed and route.owner == owner
+end
+
+--- How many routes wait under the running one.
+function T.PausedCount()
+	return #stack
+end
+
+--- Is `owner`'s managed route running or paused?
+function T.Has(owner)
+	if T.Runs(owner) then
+		return true
+	end
+	for _, p in ipairs(stack) do
+		if p.owner == owner then
+			return true
+		end
+	end
+	return false
+end
+
 --- Start a route to `target` = { map, x, y, name, arrivesOn }.
---- opts: owner, managed (rare & co: never finish them, never touch their owner), steps + start (the caller's own,
---- e.g. the Mount run: no re-planning), stepFmt (locale key for the chat line), stopInInstance, noTravelAdvice,
---- clearPins (clear all TomTom pins per step), via (who set it, for /mh arrow), alreadyPointed (the caller has
---- pointed at what step 1 points at first).
+--- opts: owner, steps + start (the caller's own, e.g. the Mount run: no re-planning), stepFmt (locale key for the chat
+--- line), stopInInstance, noTravelAdvice, clearPins (clear all TomTom pins per step), via (who set it, for /mh arrow),
+--- alreadyPointed (the caller has pointed at what step 1 points at first), finish (a fixed route may end on arrival).
+--- A managed route that runs is paused, not ended: it goes on when this one is done.
 function T.Start(target, opts)
 	opts = opts or {}
 	if not (target and target.map and target.x and target.y) then
 		return nil
 	end
-	-- The same route asked again (a managed route's ticker, a refresh): keep the step, point it again quietly.
-	if route and not opts.steps and SameTarget(route.target, target) and SameOwner(route.owner, opts.owner or ns._mhRouteOwner) then
+	-- The same route asked again (a refresh): keep the step, point it again quietly.
+	if route and not route.managed and not opts.steps and SameTarget(route.target, target)
+		and SameOwner(route.owner, opts.owner or ns._mhRouteOwner) then
 		if not opts.alreadyPointed then
 			ShowStep(route.idx, true)
 		elseif not route.steps[route.idx].final then
@@ -747,12 +1029,16 @@ function T.Start(target, opts)
 		end
 		return route
 	end
-	T.Stop("replaced")
+	if route and route.managed then
+		Pause(route, "an ordinary route")
+	else
+		StopCurrent("replaced")
+	end
 	local fixed = opts.steps ~= nil
 	route = {
 		target = target,
 		owner = opts.owner or ns._mhRouteOwner,
-		managed = opts.managed,
+		opts = opts,
 		fixed = fixed,
 		steps = opts.steps or BuildPlainSteps(target),
 		start = opts.start or 1,
@@ -834,70 +1120,14 @@ end
 -- The one zone-change handler
 --------------------------------------------------------------------------------
 
---- The old after-portal check for everything the runner does not walk (moved unchanged from Delves.lua
---- runZoneNavCheck, 5-7 Sep 2026): a route set past AddSmartTomTomWay (a Silvermoon pin, /mh goto) or a managed
---- route between its steps. Rares and treasures nil `ns.lastTarget`, so their lead is asked of their module.
---- Arrived (through the portal, or ≤ 400 yd / in the delve) → say so in chat; otherwise put TomTom's arrow back,
---- which a loading screen loses for routes that keep no `lastTarget`.
-local function LegacyZoneCheck()
-	local function RouteLead()
-		if ns.lastTarget and ns.lastTarget.mapID then
-			return ns.lastTarget
-		end
-		local getter = (ns._mhRouteOwner == "rare" and ns.GetNearestIncompleteRareLead)
-			or (ns._mhRouteOwner == "treasure" and ns.GetNearestIncompleteTreasureLead)
-			or nil
-		if getter then
-			local ok, lead = pcall(getter)
-			if ok and type(lead) == "table" and lead.mapID then
-				return lead
-			end
-		end
-		return nil
-	end
-	local currentMap = T.PlayerMap()
-	local lt = RouteLead()
-	if not (lt and currentMap) then
-		return
-	end
-	local throughPortal = lt.arrivesOn and tonumber(lt.arrivesOn) == tonumber(currentMap)
-	if throughPortal or (ns.IsMidnightTravelComplete and ns.IsMidnightTravelComplete(currentMap, lt.mapID, lt.x, lt.y, lt.name)) then
-		-- Say that the route ended, even when the verdict is wrong (5 Sep 2026: a silent end cost an hour).
-		if ns.SafeHideTravelPopup then
-			ns.SafeHideTravelPopup()
-		end
-		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), (ns:L("ROUTE_FINISHED_FMT")):format(tostring(lt.name or "?"))))
-		ns.lastTarget = nil
-		-- Only the two single-destination owners; the others run their own lifecycle (7 Sep 2026).
-		if ns._mhRouteOwner == "waypoint" or ns._mhRouteOwner == "delve" then
-			ns._mhRouteOwner = nil
-		end
-		return
-	end
-	local function restore()
-		local t = RouteLead()
-		if not t then
-			return
-		end
-		if ns.IsTomTomReady and ns.IsTomTomReady() then
-			local uid = _G.TomTom:AddWaypoint(t.mapID, t.x / 100, t.y / 100, {
-				title = t.name, persistent = false, minimap = true, world = true, cleardistance = 15, crazy = true,
-			})
-			if uid and _G.TomTom.SetCrazyArrow then
-				_G.TomTom:SetCrazyArrow(uid, 15, t.name)
-			end
-		elseif ns.SetBlizzardUserWaypoint then
-			ns.SetBlizzardUserWaypoint(t.mapID, t.x, t.y)
-		end
-	end
-	restore()
-	if C_Timer and C_Timer.After then
-		C_Timer.After(0.5, restore)
-	end
-end
+--- 🚌 Phase 4: `LegacyZoneCheck` (Delves.lua's runZoneNavCheck, moved here in phase 3) is gone. It served two kinds of
+--- route the runner did not walk: managed routes between their leads (now walked here, their lead asked of their module)
+--- and routes set past AddSmartTomTomWay — a Silvermoon pin without a door, `/mh goto`, the nearest-flight-point
+--- button — which now start a one-step runner route themselves (T.StartDirect). Its "route finished" is Finish below,
+--- its pin restore after a loading screen is ShowStep on PLAYER_ENTERING_WORLD.
 
 --- The route is over: arrived through its portal, or close enough / inside the delve. Ours to end only for an
---- ordinary route; a managed one is ended by its module.
+--- ordinary route; a managed one ends when its module has no next lead.
 local function Finished(pm)
 	local t = route.target
 	if t.arrivesOn and InMap(pm, t.arrivesOn) then
@@ -917,6 +1147,8 @@ local function Finish()
 	if ns._mhRouteOwner == "waypoint" or ns._mhRouteOwner == "delve" then
 		ns._mhRouteOwner = nil
 	end
+	-- A route this one paused (a treasure hunt before the click, a hunt before a rare) goes on.
+	Resume()
 end
 
 --- Plan again from here (a new map, or off the route). Same first step as now → point it again without a chat line:
@@ -927,7 +1159,7 @@ end
 local function Replan()
 	local r = route
 	Log("plan again from map %s", tostring(T.PlayerMap()))
-	local steps = BuildPlainSteps(r.target)
+	local steps = StepsFor(r, r.target)
 	local old = r.steps[r.idx]
 	local new = steps[1]
 	local same = old and new and old.map == new.map and old.x == new.x and old.y == new.y
@@ -942,19 +1174,21 @@ end
 local function OnZone(event, big, retry)
 	local r = route
 	if r and not SameOwner(ns._mhRouteOwner, r.owner) then
-		-- Another route took the arrow: ours ends without a word (the Mount run's rule).
-		T.Stop(("owner is now %s, route had %s"):format(tostring(ns._mhRouteOwner), tostring(r.owner)))
-		r = nil
+		-- Another route took the arrow: ours ends without a word (the Mount run's rule). Let go (nil) by an ordinary
+		-- route = it arrived (NativeArrow at 20 yd): a paused route goes on.
+		local now = ns._mhRouteOwner
+		T.Stop(("owner is now %s, route had %s"):format(tostring(now), tostring(r.owner)))
+		if now == nil and not r.managed then
+			Resume()
+		end
+		return
 	end
-	-- A route set past this runner (a Silvermoon pin, /mh goto, the flight-point button) wrote its own target.
+	-- A route set past this runner wrote its own target (phase 4: those start a runner route too; kept as a net).
 	if r and not r.managed and ns.lastTarget and not IsOurs(r, ns.lastTarget) then
 		T.Stop("replaced by " .. tostring(ns.lastTarget.via))
 		r = nil
 	end
-	if not r or (r.managed and r.steps[r.idx] and r.steps[r.idx].final) then
-		if big then
-			LegacyZoneCheck()
-		end
+	if not r then
 		return
 	end
 	local pm = T.PlayerMap()
@@ -985,6 +1219,21 @@ local function OnZone(event, big, retry)
 		-- Others wait: indoors there is nothing to plan with; walking out asks again (19 Aug 2026).
 		return
 	end
+	-- A managed route after a real zone change: its module may have another lead from here (the nearest treasure on this
+	-- map, a hunt that is done). This replaces their own zone handlers (travel map §5a: 0.7 / 1.2 / 2.0 s).
+	if big and r.managed then
+		local lead = AskLead(r, { zone = true })
+		if not lead then
+			Log("%s: nothing left after the zone change", tostring(r.owner))
+			EndManaged(r, "done", true)
+			return
+		end
+		if not SameTarget(lead, r.target) then
+			Retarget(r, lead, true)
+			r.lastMap = pm
+			return
+		end
+	end
 	local riding = OnBoard()
 	local k = CurrentStep(r)
 	if pm ~= r.lastMap or k ~= r.idx then
@@ -997,6 +1246,7 @@ local function OnZone(event, big, retry)
 	-- TomTom's arrow (Replan above).
 	if big and not r.fixed and not riding and pm ~= r.lastMap then
 		Replan()
+		AssistOnce(r)
 		return
 	end
 	if k and k ~= r.idx and not (riding and k < r.idx) then
@@ -1013,7 +1263,9 @@ local function OnZone(event, big, retry)
 		Replan()
 		return
 	end
-	if event == "PLAYER_ENTERING_WORLD" and k == r.idx then
+	-- After a loading screen: put the pin back quietly (a loading screen loses TomTom's arrow). Also for a fixed route the
+	-- player is not on (a Silvermoon pin, `/mh goto`) — what LegacyZoneCheck's restore did.
+	if event == "PLAYER_ENTERING_WORLD" and (k == r.idx or (r.fixed and not k)) then
 		ShowStep(r.idx, true)
 	end
 	r.lastMap = pm
@@ -1106,6 +1358,107 @@ do
 	end
 end
 
+--- 🚌 ARRIVING, for every route at once (phase 4) — instead of a 2 s ticker per module (travel map §5b). Once a second,
+--- while the arrow is on the target itself:
+---   - a managed route standing on its lead asks for the next one (ctx.arrived, ctx.parked = seconds there). The module
+---     answers: still this one (a rare not killed yet), the next (a skipped, empty spawn), or nil (done → a paused
+---     route goes on);
+---   - an ordinary route with a paused route under it is done when you stand on its target: that route goes on.
+---     Without one nothing changes (NativeArrow and the zone check end an ordinary route, as before).
+do
+	local function Arrival()
+		local r = route
+		if not r then
+			-- Nothing runs, the arrow is free, and a route waits (a Mount run ended at the raid's door, an ordinary route
+			-- stopped elsewhere): it goes on — outside an instance, where there is something to plan with.
+			if #stack > 0 and ns._mhRouteOwner == nil and not (IsInInstance and select(1, IsInInstance())) then
+				Log("arrow free: a paused route goes on")
+				Resume()
+			end
+			return
+		end
+		if not r.managed and #stack > 0 and ns._mhRouteOwner == nil then
+			-- Let go elsewhere (NativeArrow at 20 yd, no TomTom): the paused route goes on.
+			T.Stop("released")
+			Resume()
+			return
+		end
+		if not (r.managed or #stack > 0) or not SameOwner(ns._mhRouteOwner, r.owner) then
+			return
+		end
+		local s = r.steps[r.idx]
+		if not (s and s.final and s.x and s.y) or s._viaPending then
+			r.parkedSince = nil
+			return
+		end
+		local d, how = T.Distance(s.map, s.x, s.y)
+		local at
+		if d and how == "percent" then
+			at = d < (T.NEAR.arrived.percent or 0.8)
+		elseif d then
+			at = d <= (r.target.near or T.NEAR.arrived.yards)
+		end
+		if not at then
+			r.parkedSince = nil
+			return
+		end
+		local now = GetTime and GetTime() or 0
+		r.parkedSince = r.parkedSince or now
+		if r.managed then
+			T.Refresh(r.owner, { arrived = true, parked = now - r.parkedSince })
+		else
+			Log("arrived at %s (%s), a paused route waits", tostring(r.target.name), Fmt(d, how))
+			Finish()
+		end
+	end
+	if C_Timer and C_Timer.NewTicker then
+		C_Timer.NewTicker(1, Arrival)
+	end
+end
+
+--- After a death the arrow is gone (TomTom's crazy arrow does not survive a resurrect): point the step again quietly.
+--- Was RitualSites' own ReassertRouteAfterRevive, which never asked whose arrow it was (travel map §1b-4).
+do
+	local ev = CreateFrame("Frame")
+	ev:RegisterEvent("PLAYER_UNGHOST")
+	ev:RegisterEvent("PLAYER_ALIVE")
+	ev:SetScript("OnEvent", function(_, event)
+		if not (route and C_Timer and C_Timer.After) then
+			return
+		end
+		C_Timer.After(1.5, function()
+			local r = route
+			if r and r.idx and r.idx > 0 and SameOwner(ns._mhRouteOwner, r.owner) and not (UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then
+				Log("%s: point again", event)
+				ShowStep(r.idx, true)
+			end
+		end)
+	end)
+end
+
+--- A route set past AddSmartTomTomWay (a Silvermoon pin without a door, `/mh goto`, the nearest flight point): the
+--- caller pointed and set `ns.lastTarget` itself; this makes it a one-step runner route, so it ends on arrival ("Route
+--- finished", arrivesOn), gets its pin back after a loading screen, and pauses a managed route instead of fighting it.
+--- Replaces LegacyZoneCheck for these routes.
+function T.StartDirect(target, via)
+	if not (target and target.map and target.x and target.y) then
+		return nil
+	end
+	local o = ns._mhRouteOwner
+	if o == nil or T.IsManaged(o) then
+		o = "waypoint"
+	end
+	local r = T.Start(target, {
+		owner = o,
+		steps = { { map = target.map, x = target.x, y = target.y, text = target.name, final = true } },
+		finish = true,
+		alreadyPointed = true,
+		via = via,
+	})
+	ns._mhRouteOwner = o
+	return r
+end
+
 --- Getting on ends a ride step (Rob, 16 Oct 2026, flying with Scout Captain Elsia: the arrow still pointed back at
 --- her). Also the flight leg ("boarding ends leg one", 16 Aug) and the Windcaller's bird.
 do
@@ -1134,6 +1487,11 @@ function T.PrintRoute()
 		for i = math.max(1, #log - 9), #log do
 			print("     |cff8a8f98" .. tostring(log[i]) .. "|r")
 		end
+	end
+	for i = #stack, 1, -1 do
+		local p = stack[i]
+		print(("   paused: %s (owner %s%s)"):format(tostring(p.target and p.target.name), tostring(p.owner),
+			p.managed and ", managed" or ""))
 	end
 	local r = route
 	if not r then

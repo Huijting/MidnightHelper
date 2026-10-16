@@ -32,19 +32,8 @@ local ROTATION_OFFSET = 0
 
 local DEFAULT_SIZE, MIN_SIZE, MAX_SIZE = 64, 28, 160
 
--- Within this many yards of the current rare lead counts as "arrived" — used to
--- auto-advance past an un-spawned rare (the fly-over behaviour). Sampled in the
--- frequent OnUpdate so fast flights between 1s ticks are still caught.
-local RARE_ARRIVAL = 40
-local rareReached, rareReachKey = false, nil
-
--- Seconds parked on a detour rare's spot, out of combat, with the rare not there,
--- before we give the arrow back to the route it interrupted. Someone else may have
--- killed it just before you arrived (no quest credit → the normal resume never
--- fires), or it despawned. The 1s Tick counts these; combat resets them, so a real
--- fight is never abandoned mid-swing.
-local LOST_RARE_SECONDS = 10
-local lostRareTicks = 0
+-- The rare "arrived" radius (40 yd) and the lost-detour-rare timer (10 s) moved to Rares.lua in Travel phase 4: the
+-- route runner asks the rare route on arrival, with TomTom or without.
 
 -- Per-content styling for the arrow: which type of route currently owns the shared
 -- arrow (ns._mhRouteOwner) decides the accent colour and the little badge icon that
@@ -520,18 +509,6 @@ local function UpdateArrow()
 	end
 	local dx, dy = twx - pwx, twy - pwy
 	local dist = math.sqrt(dx * dx + dy * dy)
-	-- Rare hunts: latch "reached the current lead" here (sampled ~30x/s) so a fast
-	-- fly-over is caught between the 1s ticks that decide whether to auto-advance.
-	if ns._mhRouteOwner == "rare" then
-		local k = TargetKey(t)
-		if k ~= rareReachKey then
-			rareReachKey = k
-			rareReached = false
-		end
-		if dist <= RARE_ARRIVAL then
-			rareReached = true
-		end
-	end
 	f.tex:Show()
 	-- North-pointing texture, rotated counter-clockwise for positive radians.
 	local rot = atan2(dy, dx) - facing + ROTATION_OFFSET
@@ -952,35 +929,10 @@ local function Tick()
 		activeLead = { mapID = lt.mapID, x = lt.x, y = lt.y, name = lt.name, noTravelAdvice = lt.noTravelAdvice }
 	end
 
-	-- Rares FULL route only (Generate Route; _mhLastRoutedRareQuest == nil): TomTom
-	-- auto-advances to the next rare after a kill AND when you fly over an empty
-	-- spawn (cleardistance). The native path does both itself: MHRareTryAutoAdvance
-	-- pushes a reached-but-un-spawned rare to the back, and GetNearestIncompleteRareLead
-	-- pulls the next open rare. A SINGLE rare route (Find Nearest / a specific rare row)
-	-- sets a quest id and is left alone: it stays on that one rare until it's done.
-	if ns._mhRouteOwner == "rare" and not ns._mhLastRoutedRareQuest then
-		-- Only auto-advance while WE are the guidance (TomTom does its own thing).
-		if ShouldDriveNative() and ns.MHRareTryAutoAdvance and ns.MHRareTryAutoAdvance(rareReached) then
-			rareReached = false
-		end
-		if ns.GetNearestIncompleteRareLead then
-			local nr = ns.GetNearestIncompleteRareLead()
-			if nr and nr.mapID then
-				activeLead = nr
-			end
-		end
-	end
-
-	-- Treasures route (owner "treasure"): treasures are always present (no spawn
-	-- timer), so just follow the nearest still-incomplete one; looting completes its
-	-- quest and the lead advances to the next. Its own module nils ns.lastTarget, so
-	-- we pull the lead directly here — same backbone as rares, minus the skip logic.
-	if ns._mhRouteOwner == "treasure" and ns.GetNearestIncompleteTreasureLead then
-		local nt = ns.GetNearestIncompleteTreasureLead()
-		if nt and nt.mapID then
-			activeLead = nt
-		end
-	end
+	-- 🚌 Travel phase 4 (16 Oct 2026): rare and treasure routes no longer nil `ns.lastTarget` — the route runner points
+	-- for them (Modules/Travel/TravelRoute.lua) and moves on itself (auto-advance past an empty spawn, the next nearest
+	-- treasure), with TomTom or without. Pulling their nearest lead here instead would point past the runner's step on
+	-- the way (a flight master, a portal) straight at the rare.
 
 	if not (activeLead and activeLead.mapID) then
 		HideArrow()
@@ -1045,38 +997,8 @@ local function Tick()
 		atLead = (dx * dx + dy * dy) <= (near * near)
 	end
 
-	-- Lost detour rare: parked on the spot, out of combat, and it is simply not here.
-	-- Only for a SINGLE detour (a quest token is set — a full hunt auto-advances) that
-	-- has a route to go back to (_mhRarePrevLead). We do not care WHY the rare is gone
-	-- (someone else killed it, or it despawned); after LOST_RARE_SECONDS on an empty
-	-- spot we hand the arrow back to the interrupted route instead of leaving it stuck.
-	-- Combat resets the count, so a rare you are actually fighting is never abandoned.
-	if ns._mhRouteOwner == "rare" and ns._mhLastRoutedRareQuest and ns._mhRarePrevLead
-		and ns.ResumeInterruptedRareRoute then
-		local parkedOnRare = false
-		if pwx and twx then
-			local dx, dy = pwx - twx, pwy - twy
-			parkedOnRare = (dx * dx + dy * dy) <= (RARE_ARRIVAL * RARE_ARRIVAL)
-		end
-		-- Only count down when the rare is genuinely NOT here: parked on the spot,
-		-- out of combat, AND no killable vignette nearby. Without the vignette check
-		-- the timer bailed off a rare that was still alive while the player stood
-		-- next to it before engaging (Cisca, 2026-07-24).
-		local rareStillHere = ns.IsRareVignetteNearWorld
-			and ns.IsRareVignetteNearWorld(pwx, pwy, RARE_ARRIVAL)
-		if parkedOnRare and not rareStillHere and not (InCombatLockdown and InCombatLockdown()) then
-			lostRareTicks = lostRareTicks + 1
-			if lostRareTicks >= LOST_RARE_SECONDS then
-				lostRareTicks = 0
-				ns.ResumeInterruptedRareRoute()
-				return
-			end
-		else
-			lostRareTicks = 0
-		end
-	else
-		lostRareTicks = 0
-	end
+	-- Lost detour rare (parked on an empty spot, out of combat, no vignette near → back to the interrupted route): the
+	-- rare route's own question since Travel phase 4 (Rares.lua SingleNextLead), for TomTom users too.
 
 	-- A single-destination route (delve / generic waypoint) has no auto-advance, so
 	-- release the arrow once we arrive (within ~20yd). rare/treasure/reset/achievement

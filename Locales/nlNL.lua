@@ -898,6 +898,7 @@ ns._mhLocales.nlNL = {
 	MOUNTRUN_STEP_FMT = "Mount run, stap %d van %d: %s",
 	TRAVEL_STEP_FMT = "Route, stap %d van %d: %s",
 	TRAVEL_VIA_ORB_FMT = "%s: klik op de orb om naar beneden te gaan",
+	TRAVEL_RESUME_FMT = "Terug naar je route: %s",
 	MOUNTRUN_STEP_PORTAL = "Neem het portaal naar %s.",
 	MOUNTRUN_STEP_ZEPPELIN = "Neem de zeppelin naar %s.",
 	MOUNTRUN_STEP_BOAT = "Neem de boot naar %s (praat met de kapitein).",

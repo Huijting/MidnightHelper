@@ -441,21 +441,44 @@ end
 --- coordinates untranslated.
 local ticker, activeMap, activeQuest, activeIndex
 local lastRoomSeen -- subzone text at the last tick, to notice walking into another room
+local chestLead -- what the route runner points at (Travel phase 4): the chest this module picked
 
-local function StopRoute(silent)
+--- 🚌 Travel phase 4 (16 Oct 2026): the ROUTE RUNNER points (Modules/Travel/TravelRoute.lua), as a `direct` route
+--- (only the chest, no travel plan: planning from inside a delve means nothing). This module still decides WHICH chest
+--- (the 2 s ticker below: a chest flagged done, a room walked into, a skip) and tells the runner (Travel.Refresh).
+--- No owner writes here any more.
+
+--- Forget the route (the runner's onStop, or a restart). No call back into Travel.
+local function Forget()
 	if ticker then
 		ticker:Cancel()
 		ticker = nil
 	end
-	activeMap, activeQuest, activeIndex = nil, nil, nil
-	if ns._mhRouteOwner == "delvechest" then
-		ns._mhRouteOwner = nil
+	activeMap, activeQuest, activeIndex, chestLead = nil, nil, nil, nil
+end
+
+--- Stop the chest route: forget it and take it out of the runner (a paused route goes on). `silent` keeps the other
+--- TomTom pins (left the delve, a restart).
+local function StopRoute(silent)
+	Forget()
+	if ns.Travel and ns.Travel.Has and ns.Travel.Has("delvechest") then
+		ns.Travel.Drop("delvechest", "chests stopped")
 	end
 	if not silent and ns.MH_TomTomClearAll then
 		ns.MH_TomTomClearAll()
 	end
 end
 ns.StopDelveChestRoute = StopRoute
+
+local function ChestNextLead(ctx)
+	if ctx and ctx.zone then
+		local _, mapID = ns.GetDelveChestsHere()
+		if mapID ~= activeMap then
+			return nil -- left the delve, or moved to its other floor
+		end
+	end
+	return chestLead
+end
 
 local function PointAtNearest(announce)
 	local open, mapID, total, unknown, learned, sealed, hereRoom = ns.GetOpenDelveChests()
@@ -480,11 +503,21 @@ local function PointAtNearest(announce)
 	local c = open[1]
 	activeMap, activeQuest = mapID, c.quest
 	activeIndex = c.index
-	ns._mhRouteOwner = "delvechest"
 	-- clearDist 0: keep the arrow on the chest while you fight and loot it, instead of
 	-- vanishing the moment you are close. Same reason the treasure route passes 0.
-	ns.AddSmartTomTomWay(mapID, c.x, c.y,
-		(ns:L("DELVE_CHEST_LABEL")):format(c.index), false, false, false, 0)
+	chestLead = { mapID = mapID, x = c.x, y = c.y, name = (ns:L("DELVE_CHEST_LABEL")):format(c.index), clearDist = 0 }
+	if ns.Travel and ns.Travel.Runs and ns.Travel.Runs("delvechest") then
+		ns.Travel.Refresh("delvechest", { quiet = true })
+	elseif not (ns.Travel and ns.Travel.StartManaged and ns.Travel.StartManaged({
+		owner = "delvechest",
+		direct = true,
+		nextLead = ChestNextLead,
+		onStop = Forget,
+		via = "delve chests",
+	})) then
+		Forget()
+		return false, "noroute"
+	end
 
 	if announce ~= false then
 		local headline = (ns:L("DELVE_CHEST_ROUTING")):format(total - #open + 1, total)
@@ -529,7 +562,8 @@ end
 --- so the player decides; the skip lasts until the next zone-in, like the looted list below.
 function ns.RouteDelveChests()
 	local _, hereMap = ns.GetDelveChestsHere()
-	if ticker and ns._mhRouteOwner == "delvechest" and activeIndex and hereMap and hereMap == activeMap then
+	local runs = ns.Travel and ns.Travel.Runs and ns.Travel.Runs("delvechest")
+	if ticker and runs and activeIndex and hereMap and hereMap == activeMap then
 		local s = ns._mhDelveChestSkipped
 		if not (s and s.mapID == activeMap) then
 			s = { mapID = activeMap }
@@ -540,7 +574,7 @@ function ns.RouteDelveChests()
 		PointAtNearest(true)
 		return true
 	end
-	StopRoute(true)
+	Forget() -- a restart: the runner replaces the old route itself (same owner)
 	local ok = PointAtNearest(true)
 	if not ok then
 		return false
@@ -549,10 +583,12 @@ function ns.RouteDelveChests()
 		return true -- no ticker: the arrow still points, it just will not advance itself
 	end
 	ticker = C_Timer.NewTicker(2, function()
-		-- Someone else took the arrow (a rare route, a manual waypoint): stand down
-		-- rather than fighting over it. Ownership is the addon's existing convention.
-		if ns._mhRouteOwner ~= "delvechest" then
-			StopRoute(true)
+		-- The route ended or was replaced (the runner told us via Forget, which cancels this ticker), or it is paused
+		-- under another route: nothing to do now.
+		if not (ns.Travel and ns.Travel.Runs and ns.Travel.Runs("delvechest")) then
+			if not (ns.Travel and ns.Travel.Has and ns.Travel.Has("delvechest")) then
+				Forget()
+			end
 			return
 		end
 		local _, mapID = ns.GetDelveChestsHere()

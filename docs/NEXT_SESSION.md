@@ -140,6 +140,7 @@
    ⚠️ GEMETEN: `tools/lint_addon.py` leest alleen `Modules/*.lua`, niet `Modules/Travel/` — check [1]/[6]/[9] zijn daar
    blind; met de hand nagelopen (alle ns-functies en keys die TravelRoute gebruikt bestaan). Lint uitbreiden = klusje.
    **Volgende: Robs test (TESTLIJST), dan beta-tag op zijn go; daarna fase 4 (beheerde routes via nextLead()).**
+   (Fase 4 staat sinds 16 okt middag op main, zie verderop; fase 5 = opruimen.)
    🐞 **Eerste test Rob (16 okt avond, screenshot):** Coiled Isle-delve vanuit Silvermoon → pijl op het portaal, niet op de
    ingang. GEMETEN door Rob (`/mh here`): in de boog **55.02/63.56** (= onze deur, 3 sep-meting 54.99/63.30 lag een paar
    stappen ervóór) en de **orb** naar beneden **55.80/65.02**. AFGELEID oorzaak: deur gold als "bereikt" binnen 22 yd →
@@ -179,6 +180,26 @@
    meten (GetDistanceToWaypoint, GEMETEN dat die bestaat) en de pijl is verborgen → TomTom:ShowHideCrazyArrow(). Niet in
    een instance, niet bij een knop-stap, niet als TomTom niet kan meten. Meterpatroon ook voor `[…/Delves.lua]:1939`.
    Niet getest.
+   ✅ **Travel fase 4 GEBOUWD (16 okt middag, Rob: "laat fase 4 maar beginnen") — NIETS in het spel getest → TESTLIJST
+   bovenaan.** De zes beheerde routes lopen via de routeloper: `Travel.StartManaged{ owner, nextLead, onStop, direct,
+   detour }` — de loper vraagt `nextLead(ctx)` bij de start, bij aankomst (1 s-tikker, `ctx.arrived/parked`), na een
+   zonewissel (`ctx.zone`) en op `Travel.Refresh(owner)` van de module; nil = klaar. **Stapel**: een omweg (`detour`, rare
+   uit een toast) of een gewone klik pauzeert een beheerde route; als de bovenste klaar is gaat de onderste verder
+   (`Resume`, chat TRAVEL_RESUME_FMT, 8 talen, de/fr/es/pt/it/ru door mh-writer, niet nagekeken). `Travel.Drop` (module
+   stopt zelf), `Travel.StopAll` (`/mh clear`, elke module krijgt onStop). Weg: Achievements ScheduleTravelRefresh +
+   RareWatch-tikker + reclaim bij combat-einde; Profession 2 s-tikker + zone 1,2 s + eigen popup/Blizzard-pin; ResetRoutine
+   IssueRoute + ReassertRoute 2 s + route-dwell (nu aankomst, 6 s); RitualSites revive-herstel (nu de loper, alle routes);
+   Rares ResumePrevRouteOrRelease + `_mhRarePrevOwner/_mhRarePrevLead` (de AFGELEIDE kandidaat voor de "stop (owner)" —
+   oorzaak blijft NIET gemeten, meter blijft); NativeArrow's rare/schat-leads en lost-rare-timer (nu Rares.lua
+   SingleNextLead, ook met TomTom). **`LegacyZoneCheck` weg**: Silvermoon-pin zonder deur, `/mh goto` en de
+   vliegpunt-knop starten nu een één-staps-route (`Travel.StartDirect`). AddSmartTomTomWay neemt een beheerde eigenaar
+   over bij een klik (niet bij bulkpinnen of de eigen stappen van de loper). `/mh clear` stopt nu ook delve-kisten en
+   ritual (GEMETEN: deed het eerst niet). Ritual heeft eigen eigenaar "ritual" (paars). Lint 0 HARD; `Modules/Travel/` met
+   de hand: alle 22 aangeroepen `ns.Travel.*` bestaan (grep). GEMETEN buiten het spel: proefbank met stubs
+   (scratchpad `runner_test.lua`, 7 scenario's) 28/28. Bewuste verschillen: achievement-lead gebruikt geen
+   ForceArrowToLead (subzone-vertaling) meer — als TomTom's pijl bij subzones wegvalt, komt die terug; rare-hunt
+   "aangekomen" = 1 s-tikker binnen 40 yd (was 30×/s in onze pijl) — snelle overvluchten kunnen gemist worden, pin
+   blijft dan staan (clearDist 0) en de route gaat door bij de volgende tik binnen 40 yd.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

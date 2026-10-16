@@ -21,7 +21,45 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
-## 🆕 16 okt — Travel fase 3: één routeloper voor élke route (TravelRoute.lua)
+## 🆕 16 okt (middag) — Travel fase 4: de zes "beheerde" routes via de routeloper
+
+Eerst `/reload` en BugSack leeg. Wat anders is: rares, prestaties (achievement-schatten), beroepsschatten, de weekroutine,
+delve-kisten en rituals zetten de pijl niet meer zelf; de routeloper doet dat en vraagt de route steeds *"wat is je
+volgende doel?"*. Bij twijfel: **`/mh travel`** — onderaan staat nu ook **"paused: …"** (een route die wacht) en in het
+log regels als `lead (treasure) → …`, `pause (…)`, `resume treasure`. Een `/reload` zet het log in de SavedVariables.
+
+Elke routeknop één keer — je moet zien: pijl naar het eerste doel, en na het pakken/doden de pijl naar het volgende.
+- [ ] **Rares:** *Generate Route* (hele zone) — pijl naar de dichtstbijzijnde rare; vlieg over een lege spawn (rare niet
+      op) → binnen een paar seconden pijl naar de volgende. Daarna *Find Nearest* (één rare): pijl blijft op die ene tot
+      hij dood is.
+- [ ] **Prestatie-schatten** (Achievements-tab → Route): startregel in chat, pijl op de eerste schat (of eerst de urn/orb),
+      de andere schatten als losse pinnen op de kaart; schat pakken → *"next: …"* en pijl verder. `/mh skip` → volgende.
+      ⚠️ Anders dan vroeger: de 2 s-tikker die TomTom's pijl bij elke subzone opnieuw zette is weg. Verdwijnt de TomTom-pijl
+      bij een subzone-wissel? Zeg het, dan weet ik dat die tikker toch nodig was.
+- [ ] **Beroepsschatten** (Profession → *Generate treasures* of *books*): pijl naar de dichtstbijzijnde; pakken → volgende;
+      alles gepakt → *"All … collected — arrow cleared."*
+- [ ] **Weekroutine** (Home → route): pijl naar de eerste stop; ~6 s op een stop staan → volgende stop + *"Next stop: …"*;
+      alles klaar → *"done"*-regel. Na een portaal (bv. naar Voidstorm en terug) moet de pijl er nog zijn.
+- [ ] **Delve-kisten** (in een delve, kistenknop): pijl naar kist 1; nog eens klikken = overslaan → volgende kist; kist
+      geopend → volgende. Delve uit → route stopt vanzelf.
+- [ ] **Ritual** (ritual-site kiezen): pijl naar de obelisk, ook na doodgaan + herrijzen weer terug. Weekly klaar → route
+      weg. (Nieuw: ónze eigen pijl is nu **paars**, de ritual-kleur; was goud. TomTom's pijl verandert niet.)
+- [ ] **🔑 Rare-omweg tijdens een schattenjacht** (het oude gat, travel map §1b-4): start beroepsschatten, klik dan op een
+      rare-melding (toast) → pijl naar de rare. Rare dood → chat **"Back to your route: <schat>"** en de pijl weer op de
+      schat. Ook: ga naar de rare maar laat hem staan als hij er niet is → na ~10 s stilstaan (niet in gevecht) gaat de
+      pijl ook terug.
+- [ ] **Gewone klik tijdens een jacht:** schattenjacht aan, klik een delve of een Codex-link → pijl daarheen. Aangekomen
+      → *"Route finished"* en daarna *"Back to your route: …"* met de schat-pijl.
+- [ ] **`/mh clear`** tijdens elk van de zes, en één keer tijdens een rare-omweg over een schattenjacht: alles weg (pijl,
+      pinnen) en er komt **niets** terug — ook niet na een zonewissel of een paar seconden wachten.
+- [ ] **Silvermoon-pin zónder deur** (bv. *Portal to Voidstorm*) en **`/mh goto 47 62`**: pijl, en na een laadscherm komt
+      hij terug; door het portaal → *"Route finished"*.
+- Niet in het spel getest, wel GEMETEN buiten het spel: een proefbank met nagebootste WoW-functies (scratchpad
+  `runner_test.lua`) liep 7 scenario's door — omweg + terugkeer, gewone klik + terugkeer, aankomst → volgend doel,
+  `/mh clear` met een gepauzeerde route, een nieuwe route vervangt de oude, module stopt zichzelf, zonewissel → nieuw
+  doel: 28/28 goed. Dat bewijst de logica van de stapel, niet het gedrag van TomTom of de client.
+
+## 16 okt — Travel fase 3: één routeloper voor élke route (TravelRoute.lua)
 
 Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "route runner": welke route, welke stap
 (met een `>`), en de afstand tot die stap + hoe gemeten. Maak daar een screenshot van als iets niet klopt.

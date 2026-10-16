@@ -925,6 +925,14 @@ end
 -- TomTom waypoints and the native user waypoint. Safe to call with nothing active.
 function ns.ClearActiveRoute()
 	local hadRoute = (ns._mhRouteOwner ~= nil) or (ns.lastTarget ~= nil)
+	-- Travel phase 3/4: the route runner first — the running route, every paused one, their watchers and button; each
+	-- managed module is told (onStop). The old flight-leg and door watchers kept running after a clear and could put the
+	-- route back (travel map §1b-4). Then each module's own stop, which finds nothing left in the runner.
+	if ns.Travel and ns.Travel.StopAll then
+		if ns.Travel.StopAll("clear") then
+			hadRoute = true
+		end
+	end
 	if ns.StopAchievementRoute then
 		ns.StopAchievementRoute()
 	end
@@ -937,10 +945,12 @@ function ns.ClearActiveRoute()
 	if ns.CancelResetRoute then
 		ns.CancelResetRoute()
 	end
-	-- Travel phase 3: the route runner's watchers and button (the old flight-leg and door watchers kept running after
-	-- a clear and could put the route back, travel map §1b-4).
-	if ns.Travel and ns.Travel.Stop then
-		ns.Travel.Stop("clear")
+	-- Delve chests and the ritual route were not stopped here before phase 4 (Core.lua, GEMETEN 16 Oct 2026).
+	if ns.StopDelveChestRoute then
+		ns.StopDelveChestRoute(true)
+	end
+	if ns.StopRitualRoute then
+		ns.StopRitualRoute()
 	end
 	ns.MH_TomTomClearAll()
 	if C_Map and C_Map.ClearUserWaypoint then
@@ -1917,6 +1927,10 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 			ns.lastTarget = { mapID = mapID, x = x, y = y, name = label, via = "/mh arrow set" }
 			ns._mhRouteOwner = "waypoint"
+			-- Travel phase 4: a one-step runner route (ends on arrival, pin back after a loading screen).
+			if ns.Travel and ns.Travel.StartDirect then
+				ns.Travel.StartDirect({ map = mapID, x = x, y = y, name = label }, "/mh goto")
+			end
 			print(("%s arrow set to %s."):format(prefix, label))
 			return
 		end

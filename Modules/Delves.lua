@@ -1935,7 +1935,11 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	local o = ns._mhRouteOwner
 	-- "mountrun" too: any other route set after a Mount run takes the arrow back (MountRun.lua re-claims it after
 	-- its own calls), or the travel help muted for the Mount run would stay muted for everything after it.
-	if o == nil or o == "waypoint" or o == "delve" or o == "mountrun" then
+	-- Travel phase 4 (16 Oct 2026): a managed owner (rare, treasure, …) too — a click is a new route; the runner pauses
+	-- the managed one and it goes on afterwards. Not for a bulk pin or the runner's own pointing.
+	local takeManaged = not skipCrazyArrow and not ns._mhTravelLegBusy and ns.Travel and ns.Travel.IsManaged
+		and ns.Travel.IsManaged(o)
+	if o == nil or o == "waypoint" or o == "delve" or o == "mountrun" or takeManaged then
 		ns._mhRouteOwner = "waypoint"
 	end
 	end -- not travelOnly
@@ -1945,16 +1949,19 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	--- button. It replaced RouteFirstToFlightPoint + the leg watcher + legRetry (DelveTipMarkup.lua) and the zone
 	--- check that lived further down this file. Not for: the runner's own pointing (leg-busy), a refresh
 	--- (travelOnly), bulk pins (skipCrazyArrow). A route that wants no travel help (skipTravelUI) ends a running one.
-	--- Managed owners (rare, achievement, …) get the same steps but keep their own lifecycle (phase 4).
+	--- Phase 4: managed routes (rare, treasure, …) no longer come through here — the runner points for them. A click
+	--- here while one runs pauses it (TravelRoute.lua T.Start); it goes on when this route is done.
 	local runner
 	if not travelOnly and not ns._mhTravelLegBusy and not skipCrazyArrow and ns.Travel and ns.Travel.Start then
-		if skipTravelUI then
+		local active = ns.Travel.Active and ns.Travel.Active()
+		if skipTravelUI and not (active and active.managed) then
 			ns.Travel.Stop("skipTravelUI route")
+		elseif skipTravelUI then
+			-- No travel help, but a route all the same, so the paused managed one gets the arrow back on arrival.
+			ns.Travel.StartDirect({ map = targetMap, x = xPct, y = yPct, name = title }, "skipTravelUI")
 		else
-			local o = ns._mhRouteOwner
 			runner = ns.Travel.Start({ map = targetMap, x = xPct, y = yPct, name = title }, {
 				alreadyPointed = true,
-				managed = not (o == nil or o == "waypoint" or o == "delve"),
 			})
 		end
 	end
