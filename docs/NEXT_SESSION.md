@@ -165,6 +165,11 @@
    wél (Robs /run: 3796 yd), dus niet TomTom's beperking; log: na de teleport één OnZone, nog op 2537. Nu: 2,5 s na een
    echte zonewissel nog een keer kijken als de kaart veranderd is ("map settled" in het log) → zelfde handler (gewone
    route: opnieuw plannen + pijl opnieuw; rare enz.: LegacyZoneCheck zet de TomTom-pin opnieuw). Niet getest.
+   🐞 Rob, zelfde rare opnieuw: "na de portal naar smc niks meer". GEMETEN in `travelRouteLog`: 12:48:33 `stop (owner)` —
+   na de teleport was `_mhRouteOwner` niet meer "rare"; WIE is niet uit de code te lezen (30 schrijvers). Nu: elke
+   wissel van de eigenaar staat in het log met bestand:regel (metatable op `ns` in TravelRoute.lua, alleen voor die ene
+   sleutel; grep `setmetatable(ns` = 0 vóór deze wijziging). AFGELEID kandidaat: Rares.lua ResumePrevRouteOrRelease (de
+   rare-jacht "klaar" na QUEST_LOG_UPDATE, bv. als Lady Liminus deze week al gedood is). Wacht op Robs volgende log.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

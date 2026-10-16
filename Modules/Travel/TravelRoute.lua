@@ -112,6 +112,41 @@ local function Log(fmt, ...)
 end
 T.Log = Log
 
+--- 🔎 WHO CHANGED THE ROUTE OWNER? Rob, 16 Oct 2026, a rare route from Thunder Bluff: right after the teleport the
+--- runner stopped with "owner" — something set `ns._mhRouteOwner` to another value, and 30 places in the addon can
+--- (grep `_mhRouteOwner =`). Reading the code cannot say which one ran. So every change of the owner goes into
+--- travelRouteLog with the file:line that made it. `ns` has no metatable of its own (grep: setmetatable(ns — 0, while
+--- the same grep finds setmetatable( in 9 other files), so the key lives in a closure and reads/writes pass through here.
+--- The runner's own short hand-overs inside Point are not logged (`ownerQuiet`).
+local ownerQuiet = false
+do
+	local KEY = "_mhRouteOwner"
+	local owner = rawget(ns, KEY)
+	rawset(ns, KEY, nil)
+	setmetatable(ns, {
+		__index = function(_, k)
+			if k == KEY then
+				return owner
+			end
+		end,
+		__newindex = function(t, k, v)
+			if k ~= KEY then
+				rawset(t, k, v)
+				return
+			end
+			if v ~= owner and not ownerQuiet then
+				local where = "?"
+				if debugstack then
+					local st = debugstack(2, 1, 0) or ""
+					where = st:match("([%w_]+%.lua:%d+)") or st:gsub("%s+$", "")
+				end
+				Log("owner %s → %s (%s)", tostring(owner), tostring(v), tostring(where))
+			end
+			owner = v
+		end,
+	})
+end
+
 local function Fmt(d, how)
 	if not d then
 		return "unreadable"
@@ -372,6 +407,7 @@ local function Point(s, x, y, text)
 	-- previous pin itself (above).
 	local clearDist = (s.final and x == s.x and y == s.y) and nil or 0
 	ns._mhTravelLegBusy = true
+	ownerQuiet = true
 	pcall(ns.AddSmartTomTomWay, s.map, x, y, text, true, false, false, clearDist)
 	ns._mhTravelLegBusy = nil
 	-- AddSmartTomTomWay turns waypoint/delve/mountrun into "waypoint": give the route its own owner back ("delve"
@@ -381,6 +417,7 @@ local function Point(s, x, y, text)
 	else
 		ns._mhRouteOwner = r.owner
 	end
+	ownerQuiet = false
 	r.uid = ns._mhCrazyArrowUid
 	local lt = ns.lastTarget
 	if lt then
@@ -899,7 +936,7 @@ local function OnZone(event, big, retry)
 	local r = route
 	if r and not SameOwner(ns._mhRouteOwner, r.owner) then
 		-- Another route took the arrow: ours ends without a word (the Mount run's rule).
-		T.Stop("owner")
+		T.Stop(("owner is now %s, route had %s"):format(tostring(ns._mhRouteOwner), tostring(r.owner)))
 		r = nil
 	end
 	-- A route set past this runner (a Silvermoon pin, /mh goto, the flight-point button) wrote its own target.
