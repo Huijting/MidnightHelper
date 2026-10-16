@@ -1016,9 +1016,19 @@ local function Tick()
 			if pwx and twx then
 				yd = math.sqrt((pwx - twx) ^ 2 + (pwy - twy) ^ 2)
 			end
-			ns.Travel.Log("our arrow takes over from TomTom: its arrow hidden %.0f s, its point %s; lead %s, %s yd, owner %s",
-				((GetTime and GetTime()) or 0) - ttArrowLastSeen, okE and (empty and "EMPTY" or "set") or "?",
-				tostring(activeLead.name), yd and ("%.0f"):format(yd) or "?", tostring(ns._mhRouteOwner))
+			-- ...and whether TomTom could measure our pin right now (Rob, Dalaran 16 Oct 2026: point set, arrow hidden 5 s —
+			-- the wake-up watcher only acts when it can, so "no" here means ours is the right fallback).
+			local measures = "?"
+			local uid = ns._mhCrazyArrowUid
+			if tt and tt.GetDistanceToWaypoint and type(uid) == "table" then
+				local okD, d = pcall(tt.GetDistanceToWaypoint, tt, uid)
+				measures = (okD and type(d) == "number") and ("yes, %.0f yd"):format(d) or "no"
+			end
+			ns.Travel.Log("our arrow takes over from TomTom: its arrow hidden %.0f s, its point %s, TomTom measures %s;"
+				.. " lead %s, %s yd, owner %s, map %s", ((GetTime and GetTime()) or 0) - ttArrowLastSeen,
+				okE and (empty and "EMPTY" or "set") or "?", measures, tostring(activeLead.name),
+				yd and ("%.0f"):format(yd) or "?", tostring(ns._mhRouteOwner),
+				tostring(C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")))
 		end
 	end
 

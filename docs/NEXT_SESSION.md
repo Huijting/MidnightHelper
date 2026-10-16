@@ -26,6 +26,13 @@ GEMETEN in het spel: Mount run Throne of Thunder end-to-end ✅, Coiled Isle-del
    Gevolg: met TomTom laat NativeArrow een delve/waypoint niet meer los op 20 yd (zoals vóór fase 3); de route eindigt
    bij de zonewissel (delve in). Test: route met rare-omweg, bij de rare wachten → TomTom's "aangekomen"-pijl of niets,
    niet onze pijl. Na `/reload` lees ik "takes over" in het log.
+6. 🔎 Rob (na a6ba58a), Mount run Obsidian Sanctum, in Dalaran (Northrend) na een laadscherm: onze pijl, *"niet echt een
+   probleem maar het hoort volgens mij niet"*. GEMETEN in het log: 16:33:47 "takes over … hidden 5 s, its point set",
+   map 113 → 125. De TomTom-wekker greep NIET in, en die doet dat alleen als TomTom kan meten → AFGELEID: TomTom kon in
+   Dalaran 125 niet meten naar Dragonblight 115 (dan is onze pijl de bedoelde reserve). Niet gemeten. Het log zegt het
+   voortaan zelf ("TomTom measures yes/no", + kaart). Open meting voor Rob in Dalaran:
+   `/run local H=LibStub("HereBeDragons-2.0");print(H:GetPlayerZone(),H:GetZoneDistance(125,0.5,0.5,115,0.6002,0.5702))`
+   — getal = TomTom kán meten (dan zoeken waarom de wekker niet greep), nil = TomTom kan het niet (gedrag klopt).
 
 ## 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
 
