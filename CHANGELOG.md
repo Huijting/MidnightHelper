@@ -6,7 +6,9 @@ All notable changes to this project are documented in this file.
 
 📌 **2026-10-16, RELEASE (Rob: "ik kom eigenlijk niks breaking tegen en denk dat we zoveel stappen hebben gemaakt dat we
 een release kunnen doen"; go: "De 3D-animatie in de Mount run werkt na /reload. Go voor de tag v4.8.0.") — gewone
-release, géén beta.** ⚠️ Wijkt af van "beta eerst": bewuste keuze van Rob, omdat de ~500 release-downloaders eerder iets
+release, géén beta.** Tag `v4.8.0` op c3cc0f5; GitHub Actions run 38941390649 "Release to CurseForge, Wago and
+GitHub" = success, in het log "Success!" voor CurseForge (12.1.7/12.1.5/12.1.0/12.0.7), Wago en GitHub.
+⚠️ Wijkt af van "beta eerst": bewuste keuze van Rob, omdat de ~500 release-downloaders eerder iets
 melden dan de 11 beta-testers. Vóór de tag nog: Mount run-tegel in de Tools-kamer, TomTom-doodpunt bij de bron
 (MH_TomTomClearAll), clientnamen in alle packs (tabellen in docs/CLIENT_NAMES_*), baasnamen + weekcontrole via de
 Dungeon Journal (docs/MOUNTRUN_ENCOUNTER_IDS_2026-10-16.md), hover met 3D-model in de Mount run.

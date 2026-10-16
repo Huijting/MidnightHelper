@@ -2,7 +2,12 @@
 
 ## 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
 
-🔴 **16 okt avond: release 4.8.0 KLAAR OM TE TAGGEN, nog GEEN tag.** Rob: *"ik kom eigenlijk niks breaking tegen en denk dat
+✅ **16 okt avond: v4.8.0 GETAGD** (release-commit c3cc0f5, tag v4.8.0; Rob: *"Go voor de tag v4.8.0."*). GitHub Actions
+run 38941390649 "Release to CurseForge, Wago and GitHub" = success; log: "Success!" voor CurseForge, Wago én GitHub.
+Rob: even op CF kijken of de notes goed renderen (Files → 4.8.0 → Changelog) en CURSEFORGE_DESCRIPTION.md plakken. Site-chat geseind met de
+tag. Daarna eerst: 🔜 zoekbalk-plekken, 🔜 vertaaltool-blinde vlek (zie onder).
+
+(historie) 🔴 **16 okt avond: release 4.8.0 KLAAR OM TE TAGGEN, nog GEEN tag.** Rob: *"ik kom eigenlijk niks breaking tegen en denk dat
 we zoveel stappen hebben gemaakt dat we een release kunnen doen"* → gewone release, **géén beta** (bewuste afwijking van
 "beta eerst"; ~500 release-downloaders melden eerder iets dan 11 beta-testers). Klaar: `## Version: 4.8.0`,
 Changelog.lua + CHANGELOG_480_0..8 (enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.8.0.md` (beta-alinea bovenaan),
@@ -51,7 +56,7 @@ Lune-d’Argent (U+2019), o.a. PORTAL_NAME_SILVERMOON; "Spatial Rift" vertaald a
 terwijl NPC 231212 in elke client "Portal to K'aresh" heet (AFGELEID) — Rob/HandyNotes zeggen Spatial Rift, in het
 spel nakijken; esMX NOT FOUND: Nightbane, "Damned If You Don't", "A Titanic Problem" (Wowhead heeft geen esMX).
 
-**Op main, GEEN tag** (laatste release blijft v4.7.7). Sinds 4.7.7 o.a.: Labyrinth-kisten/Eagle/Codex "Hidden treasures"
+**(historie, vóór de tag)** Op main, GEEN tag (laatste release was v4.7.7). Sinds 4.7.7 o.a.: Labyrinth-kisten/Eagle/Codex "Hidden treasures"
 (15 okt) + alles van 16 okt: Mount run (tabbladen, pijl in stappen, weg naar huis, hearthstone/toy/mage-knop, quest-stap
 Elsia, instappen = volgende stap), taalbestanden alleen eigen taal (lint [21]), Travel fase 1-4 (`Modules/Travel/`:
 TravelGeo, TravelData, TravelPlanner, TravelRoute; ontwerp `docs/TRAVEL_DESIGN_2026-10-16.md`, kaart
