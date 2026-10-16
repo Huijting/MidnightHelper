@@ -393,7 +393,9 @@ ns.MOUNTRUN_HOME = {
 	-- the sentence still says "portal room", which is how you find it.
 	-- ✅ GEMETEN by Rob the same evening, `/mh here` standing at each portal: Horde 52.24/65.28, Alliance 52.71/64.61
 	-- (Zygor was within 0.1 of both).
-	[2393] = { A = { 52.71, 64.61 }, H = { 52.24, 65.28 }, room = true },
+	-- `via`: the door of the portal room, also measured by Rob (`/mh here`, 53.30/66.24 — MH's Portal Room pin sits on
+	-- it). The arrow goes to the door first and to the portal once you are there; both on the same map.
+	[2393] = { A = { 52.71, 64.61 }, H = { 52.24, 65.28 }, room = true, via = { 53.30, 66.24 } },
 	[2339] = { A = { 41.18, 22.68 }, H = { 38.15, 27.23 } }, -- Dornogal, ZT:447 / ZT:462
 	[2112] = { A = { 59.79, 41.71 }, H = { 56.59, 38.26 } }, -- Valdrakken, ZT:659 / ZT:701
 	[1670] = { A = { 20.86, 45.67 }, H = { 20.85, 54.77 } }, -- Oribos, ZT:783 / ZT:794

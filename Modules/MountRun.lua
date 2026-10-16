@@ -262,19 +262,72 @@ local function Say(msg)
 	end
 end
 
-local function ShowStep(i)
-	local s = route.steps[i]
-	route.idx = i
+local function PointAt(map, x, y, text)
 	if ns.MH_TomTomClearAll then
 		ns.MH_TomTomClearAll()
 	end
 	-- skipTravelUI: the steps ARE the travel advice; Midnight's planner does not know the old world.
-	ns.AddSmartTomTomWay(s.map, s.x, s.y, s.text, true)
+	ns.AddSmartTomTomWay(map, x, y, text, true)
 	if ns.lastTarget then
 		ns.lastTarget.noTravelAdvice = true -- NativeArrow's "not on this continent, head for …" stays quiet
 		ns.lastTarget.via = "mount run"
 	end
 	ns._mhRouteOwner = "mountrun"
+end
+
+--- A step with `via` (Silvermoon's portal-room door, Rob measured 16 Oct 2026) points at the door first. Once you
+--- stand within ~0.3 map-percent of it (about 7 m in Silvermoon: door to Horde portal is 1.43 % ≈ 34 m, measured by
+--- Rob's arrow) the arrow moves to the portal itself — no chat line, it is the same step.
+local viaTicker
+local function WatchVia(s)
+	if viaTicker then
+		viaTicker:Cancel()
+		viaTicker = nil
+	end
+	if not (s.via and C_Map and C_Map.GetPlayerMapPosition and C_Timer and C_Timer.NewTicker) then
+		return false
+	end
+	-- Already inside (closer to the portal than the door is): no door.
+	local here = C_Map.GetPlayerMapPosition(s.map, "player")
+	if here then
+		local hx, hy = here:GetXY()
+		if hx and hy then
+			local function d(ax, ay, bx, by)
+				return math.sqrt((ax - bx) ^ 2 + (ay - by) ^ 2)
+			end
+			if d(hx * 100, hy * 100, s.x, s.y) < d(s.via[1], s.via[2], s.x, s.y) then
+				return false
+			end
+		end
+	end
+	viaTicker = C_Timer.NewTicker(0.5, function()
+		if not route or route.steps[route.idx] ~= s or ns._mhRouteOwner ~= "mountrun" then
+			viaTicker:Cancel()
+			viaTicker = nil
+			return
+		end
+		local pos = C_Map.GetPlayerMapPosition(s.map, "player")
+		if not pos then
+			return
+		end
+		local px, py = pos:GetXY()
+		if px and py and math.abs(px * 100 - s.via[1]) < 0.3 and math.abs(py * 100 - s.via[2]) < 0.3 then
+			viaTicker:Cancel()
+			viaTicker = nil
+			PointAt(s.map, s.x, s.y, s.text)
+		end
+	end)
+	return true
+end
+
+local function ShowStep(i)
+	local s = route.steps[i]
+	route.idx = i
+	if WatchVia(s) then
+		PointAt(s.map, s.via[1], s.via[2], s.text)
+	else
+		PointAt(s.map, s.x, s.y, s.text)
+	end
 	Say((ns:L("MOUNTRUN_STEP_FMT")):format(i, #route.steps, s.text))
 end
 
@@ -307,7 +360,7 @@ local function HomeSteps(steps)
 		if p and (InMap(pm, m)) then
 			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
 			local key = row.room and "MOUNTRUN_STEP_ROOM" or "MOUNTRUN_STEP_PORTAL"
-			pre[#pre + 1] = { map = m, x = p[1], y = p[2], to = capital,
+			pre[#pre + 1] = { map = m, x = p[1], y = p[2], to = capital, via = row.via,
 				text = (ns:L(key)):format(info and info.name or "?") }
 			return pre
 		end
@@ -321,7 +374,7 @@ local function HomeSteps(steps)
 			if p and ContinentOf(m) == pc then
 				local hub = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(m)
 				local cap = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
-				pre[#pre + 1] = { map = m, x = p[1], y = p[2], to = capital,
+				pre[#pre + 1] = { map = m, x = p[1], y = p[2], to = capital, via = row.via,
 					text = (ns:L("MOUNTRUN_STEP_HOME_FAR")):format(hub and hub.name or "?", cap and cap.name or "?") }
 				return pre
 			end

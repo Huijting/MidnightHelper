@@ -37,6 +37,9 @@
    GEMETEN door Rob (screenshot, 16 okt): stap 1 werkt in Silvermoon, maar de Portal Room-pin lag **34 m** van het
    Org-portaal → Silvermoon-rij eerst op Zygors punten, daarna ✅ **GEMETEN door Rob** (`/mh here`): Horde 52.24/65.28,
    Alliance 52.71/64.61 (Zygor zat er binnen 0,1 naast).
+   + **deur van de portaalkamer GEMETEN** (Rob, `/mh here`): 53.30/66.24 (= MH's Portal Room-pin). Stap kreeg `via`:
+   pijl eerst naar de deur, binnen ~0,3 kaart-% (≈7 m, AFGELEID uit 1,43 % ≈ 34 m) springt hij naar het portaal; sta
+   je al dichter bij het portaal dan de deur, dan meteen het portaal. `via` werkt voor elke stap (MountRun.lua WatchVia).
    📏 **Geheugen GEMETEN door Rob, 16 okt** (`GetAddOnMemoryUsage`, main na de Mount run-stappen): **48.137 KB ≈ 47 MB**.
    Op schijf: 18,22 MB (code 14,06 MB), +1,2% t.o.v. v4.7.7. Vergelijkingspunt voor de volgende versie.
    📏 **Ná `collectgarbage()` (Rob, zelfde sessie): 23.592 KB ≈ 23 MB.** Dus ~24,5 MB (51%) was afval van het
