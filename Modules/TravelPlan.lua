@@ -40,6 +40,7 @@ local _, ns = ...
 --- happened to be standing next to. Yesterday the plan always took the northern hop
 --- because the Underbelly door is northern — a guess that happened to be right.
 ---
+--- (16 Oct 2026: the door is now HandyNotes' 47.30/11.20; northern still wins, ~13.7 against ~29.6 and ~50.)
 --- It is now arithmetic. Door at 45.19/11.15 against the three landings:
 ---   northern 41.25/23.45 → ~12.9      eastern 54.36/39.96 → ~30.2
 ---   foothold 50.03/61.93 → ~51.0
@@ -110,10 +111,13 @@ local LINKS = {
 		kind = "walk",
 		fromMap = 2509,
 		toMap = 2613,
-		x = 45.19,
-		y = 11.15,
+		-- 16 Oct 2026: HandyNotes_Midnight (coiled_isles.lua:832, "entrance to the Underbelly") says 47.30/11.20, the
+		-- same as our Codex; Method said 45.19/11.15 and Rob walked through on 14 Oct with the arrow pointing 36 m
+		-- back. Travel design rule: HandyNotes beats a guide.
+		x = 47.30,
+		y = 11.20,
 		labelKey = "ACH_STEP_UNDERBELLY_WAY_IN",
-		source = "method-10aug",
+		source = "handynotes-coiled_isles.lua:832",
 		via = {
 			--- ✅ MEASURED from Rob's screenshot, 17 aug: the Windcaller stands at
 			--- 49.99/61.93 and its gossip offers the Eastern Amani Outpost and the
@@ -122,7 +126,8 @@ local LINKS = {
 			--- not. If a plan ever needs the eastern hop, that is a new measurement.
 			kind = "gossip",
 			mapID = 2509,
-			x = 49.99,
+			-- 16 Oct 2026: 50.03 = Rob's `/mh here` of 18 Aug (AMANI_HUBS above) instead of 49.99 read off a screenshot.
+			x = 50.03,
 			y = 61.93,
 			npc = "Amani Windcaller",
 			optionKey = "PLAN_OPT_NORTHERN_BULWARK",

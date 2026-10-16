@@ -26,7 +26,7 @@
 local _, ns = ...
 
 -- Shared Void Assaults / Ritual Sites hub, 2nd floor of The Bazaar (Lilatha).
-local HUB_MAP, HUB_X, HUB_Y = 2393, 48.2, 49.6
+local HUB_MAP, HUB_X, HUB_Y = 2393, 48.08, 49.65 -- Lilatha per Zygor (ZygorEventsCommon.lua:1153); was 48.2/49.6, unsourced (16 Oct 2026)
 -- Great Vault chest: Silvermoon bank, neutral wing. Same coordinate as the
 -- VaultReminder popup waypoint (GREAT_VAULT_* in VaultReminder.lua) — keep in
 -- sync; backlog: centralize into one ns-level constant.

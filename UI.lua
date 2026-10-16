@@ -1262,7 +1262,9 @@ local SMC_CATEGORIES = {
 	{
 		titleKey = "SMC_CAT_TRAVEL",
 		items = {
-			{ id = "portals", label = "Portal Room", atlas = "portal-horde-white", x = 53.37, y = 66.31 },
+			-- 16 Oct 2026: the room's door as Rob measured it (`/mh here`, 53.30/66.24); was 53.37/66.31. The portals home
+			-- inside are in MountRunData MOUNTRUN_HOME[2393] (Horde 52.24/65.28, Alliance 52.71/64.61, also measured).
+			{ id = "portals", label = "Portal Room", atlas = "portal-horde-white", x = 53.30, y = 66.24 },
 			{ id = "portal_voidstorm", label = "Portal to Voidstorm", atlas = "portal-horde-white", x = 35.25, y = 65.85 },
 			{ id = "portal_harandar", label = "Portal to Harandar", atlas = "portal-horde-white", x = 36.76, y = 68.52 },
 			--- ⚠️ COORDINAAT GEMETEN, NIET UIT EEN GIDS. Rob stond op 19 aug bij Astalor,
@@ -1305,7 +1307,8 @@ local SMC_CATEGORIES = {
 			-- 55.00 / 63.40 is the DOOR of Astalor's Sanctum (Rob read 54.99 / 63.30 there on 3 Sep); Astalor himself
 			-- stands downstairs at 56.74 / 67.30 (portal pin above). The game names him "Astalor Bloodsworn", no
 			-- "Magister" (npc 246231, research 12 Oct 2026).
-			{ id = "astalor", label = "Astalor Bloodsworn (entrance)", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
+			-- 16 Oct 2026: 54.99/63.30 = Rob's own reading of the door (3 Sep); 55.00/63.40 was the older Codex value.
+			{ id = "astalor", label = "Astalor Bloodsworn (entrance)", atlas = "services-icon-transmogrifier", x = 54.99, y = 63.30 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", descKey = "SMC_PIN_WEEKLY_HUB", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
 			-- Eén knop voor twee systemen kon maar één ding doen, en werd dus de
 			-- enige in dit raster die je niet ergens heen stuurde (Rob, 28 jul).
@@ -1313,8 +1316,10 @@ local SMC_CATEGORIES = {
 			-- ritual site is één obelisk met exacte coords die weekelijks
 			-- rouleert, de void assault heeft géén enkel punt (strikes worden
 			-- los gemarkeerd) en kan alleen naar de staging-hub wijzen.
-			{ id = "ritual_hub", label = "Ritual Site (active)", descKey = "SMC_PIN_RITUAL_HUB", atlas = "groupfinder-icon-flag", action = "ritual_site", x = 48.2, y = 49.4 },
-			{ id = "void_hub", label = "Void Assault hub", descKey = "SMC_PIN_VOID_HUB", atlas = "groupfinder-icon-flag", action = "void_hub", x = 48.2, y = 49.4 },
+			-- 16 Oct 2026: Ranger Captain Lilatha per Zygor (ZygorEventsCommon.lua:1153, :1264), 48.08/49.65. Was 48.2/49.4 here
+			-- and 48.2/49.6 in three modules, neither with a source (travel design rule: Zygor beats unsourced).
+			{ id = "ritual_hub", label = "Ritual Site (active)", descKey = "SMC_PIN_RITUAL_HUB", atlas = "groupfinder-icon-flag", action = "ritual_site", x = 48.08, y = 49.65 },
+			{ id = "void_hub", label = "Void Assault hub", descKey = "SMC_PIN_VOID_HUB", atlas = "groupfinder-icon-flag", action = "void_hub", x = 48.08, y = 49.65 },
 			{ id = "delves_hq", label = "Delves HQ", atlas = "ui-delves", x = 52.10, y = 77.70 },
 			{ id = "valeera_delves", label = "Valeera Sanguinar (Delves)", atlas = "ui-delves", x = 52.40, y = 78.20 },
 			{ id = "training_dummies", label = "Training Dummies", atlas = "services-icon-dueling", x = 36.0, y = 84.2 },

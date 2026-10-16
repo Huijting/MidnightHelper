@@ -26,7 +26,7 @@ local VOID_META_QUEST = 95842
 local FIELD_ACCOLADE_CURRENCY = 3405
 -- Shared Void Assaults / Ritual Sites hub on the 2nd floor of The Bazaar in
 -- Silvermoon City (Ranger Captain Lilatha).
-local HUB_MAP, HUB_X, HUB_Y = 2393, 48.2, 49.6
+local HUB_MAP, HUB_X, HUB_Y = 2393, 48.08, 49.65 -- Lilatha per Zygor (ZygorEventsCommon.lua:1153); was 48.2/49.6, unsourced (16 Oct 2026)
 
 local ZONES = {
 	{ key = "eversong", mapID = 2395, weekly = 94385 },

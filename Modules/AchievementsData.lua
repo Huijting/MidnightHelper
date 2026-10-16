@@ -202,6 +202,7 @@ ns.ACHIEVEMENT_TREASURES = {
 			--- mechanism the Brine-Crusted Chest uses for its clam and pearl: a labelled
 			--- button with a real coordinate, rather than a sentence.
 			---
+			--- ✅ 16 Oct 2026: now HandyNotes' 47.30/11.20 (coiled_isles.lua:832), see TravelPlan.lua LINKS.
 			--- Entrance from Method (2509 45.19/11.15, "close to the Northern Amani
 			--- Bulwark flight point", and they call it the only way in or out). One
 			--- source, unverified — but a step that turns out to be slightly off still
@@ -209,14 +210,14 @@ ns.ACHIEVEMENT_TREASURES = {
 			--- circling an interior map you cannot reach.
 			{ criteria = 113661, mapID = 2613, x = 39.50, y = 27.40,
 				prereqs = {
-					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 45.19, y = 11.15 },
+					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 47.30, y = 11.20 },
 				} },
 			-- Vserix: HandyNotes 40.00/67.93 against Method's 40.07/67.49. Two
 			-- independent sources within half a percent.
 			{ criteria = 113662, mapID = 2613, x = 40.00, y = 67.93,
 				note = "ACH_NOTE_VSERIX",
 				prereqs = {
-					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 45.19, y = 11.15 },
+					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 47.30, y = 11.20 },
 				} },
 			-- ⚠️ NO COORDINATES, ON PURPOSE. These three are Temple Strike spawns.
 			-- Method's page has two spare numbers for three mobs and no mapping
@@ -252,7 +253,7 @@ ns.ACHIEVEMENT_TREASURES = {
 		nodes = {
 			{ criteria = 115282, mapID = 2613, x = 39.50, y = 27.40,
 				prereqs = {
-					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 45.19, y = 11.15 },
+					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 47.30, y = 11.20 },
 				} }, -- Szarith the Fanged
 			{ criteria = 115288, mapID = 2512, x = 52.05, y = 32.29 }, -- Destra
 			{ criteria = 115287, mapID = 2512, x = 58.01, y = 40.13 }, -- Sss'alik, The Rotten Claw

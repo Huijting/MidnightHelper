@@ -47,7 +47,7 @@ local FIELD_ACCOLADE_CURRENCY = 3405
 local RITUAL_RENOWN_FACTION = 2792
 -- Void Assaults / Ritual Sites quest hub on the 2nd floor of The Bazaar in
 -- Silvermoon City (Ranger Captain Lilatha, Lady Darkglen, Maren Silverwing).
-local HUB_MAP, HUB_X, HUB_Y = 2393, 48.2, 49.4
+local HUB_MAP, HUB_X, HUB_Y = 2393, 48.08, 49.65 -- Lilatha per Zygor (ZygorEventsCommon.lua:1153); was 48.2/49.4, unsourced (16 Oct 2026)
 -- Normalized map distance within which a map POI counts as "the obelisk".
 local POI_MATCH_RADIUS = 0.06
 
