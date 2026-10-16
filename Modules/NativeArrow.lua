@@ -1024,10 +1024,22 @@ local function Tick()
 				local okD, d = pcall(tt.GetDistanceToWaypoint, tt, uid)
 				measures = (okD and type(d) == "number") and ("yes, %.0f yd"):format(d) or "no"
 			end
-			ns.Travel.Log("our arrow takes over from TomTom: its arrow hidden %.0f s, its point %s, TomTom measures %s;"
-				.. " lead %s, %s yd, owner %s, map %s", ((GetTime and GetTime()) or 0) - ttArrowLastSeen,
-				okE and (empty and "EMPTY" or "set") or "?", measures, tostring(activeLead.name),
-				yd and ("%.0f"):format(yd) or "?", tostring(ns._mhRouteOwner),
+			-- TomTom measures with HereBeDragons' PLAYER world position and gives up when its instance differs from the pin's
+			-- (GEMETEN in TomTom_Waypoints.lua GetVectorToWaypoint). Rob's zone-to-zone /run in Dalaran (125 → 115, 2377 yd)
+			-- does not test that, so log both instances: unequal = TomTom cannot point from here, ours is the fallback.
+			local pInst, wInst = "?", "?"
+			local hbd = LibStub and LibStub("HereBeDragons-2.0", true)
+			if hbd then
+				local okP, _, _, pi = pcall(hbd.GetPlayerWorldPosition, hbd)
+				local okW, _, _, wi = pcall(hbd.GetWorldCoordinatesFromZone, hbd, (activeLead.x or 0) / 100,
+					(activeLead.y or 0) / 100, activeLead.mapID)
+				pInst = okP and tostring(pi) or "err"
+				wInst = okW and tostring(wi) or "err"
+			end
+			ns.Travel.Log("our arrow takes over from TomTom: its arrow hidden %.0f s, its point %s, TomTom measures %s"
+				.. " (instance player %s / pin %s); lead %s, %s yd, owner %s, map %s",
+				((GetTime and GetTime()) or 0) - ttArrowLastSeen, okE and (empty and "EMPTY" or "set") or "?", measures,
+				pInst, wInst, tostring(activeLead.name), yd and ("%.0f"):format(yd) or "?", tostring(ns._mhRouteOwner),
 				tostring(C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")))
 		end
 	end

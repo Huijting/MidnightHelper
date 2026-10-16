@@ -33,6 +33,11 @@ GEMETEN in het spel: Mount run Throne of Thunder end-to-end ✅, Coiled Isle-del
    voortaan zelf ("TomTom measures yes/no", + kaart). Open meting voor Rob in Dalaran:
    `/run local H=LibStub("HereBeDragons-2.0");print(H:GetPlayerZone(),H:GetZoneDistance(125,0.5,0.5,115,0.6002,0.5702))`
    — getal = TomTom kán meten (dan zoeken waarom de wekker niet greep), nil = TomTom kan het niet (gedrag klopt).
+   GEMETEN (Rob): `125 2377.3 -376.5 -2347.3` → zone-tot-zone kan HBD het. MAAR: die /run toetst niet wat TomTom doet.
+   GEMETEN in TomTom_Waypoints.lua:404-416: TomTom gebruikt `hbd:GetPlayerWorldPosition()` (speler) en geeft niets als
+   diens instance ≠ die van de pin. AFGELEID: in Dalaran 125 verschilt die instance → TomTom kan niet meten → onze pijl
+   is de bedoelde reserve, de wekker greep terecht niet. Het takeover-logregel noteert nu "instance player X / pin Y".
+   Bevestigen bij de volgende Dalaran-route (alleen `/reload`, geen /run meer nodig).
 
 ## 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
 
