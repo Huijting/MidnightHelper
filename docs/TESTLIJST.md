@@ -34,6 +34,13 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       ✅ Rob 16 okt avond (screenshot): **wereldbaas vanuit Shattrath** op zijn mage → knop *"Cast Teleport: Silvermoon
       City; it takes you to Silvermoon City."*. Open: wat er ná de teleport kwam, en of het reisvenster nog een tweede
       knop gaf.
+      🐞 Rob 16 okt avond, Thunder Bluff → Atal'Aman (mage): na de teleport ónze pijl i.p.v. TomTom's, en geen "step 2"-regel.
+      GEMETEN in `travelRouteLog`: na de teleport eerst kaart **2537**, dan 2393; de pijl werd op 2537 gezet en TomTom
+      verbergt zijn pijl als hij niet kan meten (GEMETEN in TomTom_CrazyArrow.lua). Gerepareerd → opnieuw testen:
+- [ ] **Teleport/hearthstone naar Silvermoon tijdens een route:** na het laden *"Route, step 2 of 2: …"* (of meer stappen,
+      bv. een vliegmeester) en de **TomTom-pijl**, niet de onze.
+- [x] ✅ Rob 16 okt avond: Mount run (2), Silvermoon-pin met deur (3) en "andere route kiezen tijdens een route" (4) gaan
+      goed.
 - [ ] **Na het portaal in Silvermoon:** de route plant opnieuw vanaf daar: pijl naar de vliegmeester (*"Flight master: …"*)
       of meteen naar de delve. Op de vlucht stappen → pijl springt naar de delve. Bij de delve: *"Route finished — …"*.
 - [x] ✅ Rob 16 okt avond: "beide werken" (van buiten én vanuit de hal). **Coiled Isle-delve vanuit Silvermoon** (16 okt avond opnieuw gebouwd na Robs melding "hij stuurde me niet naar de

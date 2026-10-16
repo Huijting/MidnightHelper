@@ -553,6 +553,7 @@ ShowStep = function(i, quiet, alreadyPointed)
 	StopWatch()
 	local text = s.text
 	if IsAction(s) then
+		Log("step %d/%d %s: %s (button, no arrow)", i, #r.steps, tostring(s.kind or "use"), tostring(s.text))
 		if (s.hearth and s.useID) or (s.mage and s.spellID) then
 			ShowHearthButton(s)
 		else
@@ -592,8 +593,9 @@ ShowStep = function(i, quiet, alreadyPointed)
 		-- alreadyPointed: the caller points at what is pending itself (a Silvermoon pin asks T.PendingVia).
 		StartWatch(s)
 	end
-	if not quiet and #r.steps > 1 then
-		Say((ns:L(r.stepFmt or "TRAVEL_STEP_FMT")):format(i, #r.steps, text))
+	local base = r.base or 0
+	if not quiet and base + #r.steps > 1 then
+		Say((ns:L(r.stepFmt or "TRAVEL_STEP_FMT")):format(base + i, base + #r.steps, text))
 	end
 end
 
@@ -873,20 +875,24 @@ local function Finish()
 	end
 end
 
---- Off the route (a map no step is on): plan again from here. Same first step as now → keep it, no chat line.
+--- Plan again from here (a new map, or off the route). Same first step as now → point it again without a chat line:
+--- that re-arms TomTom's arrow, which hides itself when it cannot measure (GEMETEN in TomTom_CrazyArrow.lua OnUpdate)
+--- and stays hidden until the next SetCrazyArrow or zone event. Rob, 16 Oct 2026, after a mage teleport to Silvermoon:
+--- the pin was set while he was still on the arrival map 2537, TomTom hid its arrow, and ours took over.
+--- The step count goes on (`base`), so the chat says "step 2 of 2", not a fresh "1 of 1".
 local function Replan()
 	local r = route
 	Log("plan again from map %s", tostring(T.PlayerMap()))
 	local steps = BuildPlainSteps(r.target)
 	local old = r.steps[r.idx]
 	local new = steps[1]
-	r.steps = steps
-	if old and new and old.map == new.map and old.x == new.x and old.y == new.y and IsAction(old) == IsAction(new) then
-		r.idx = 1
-		r.lastMap = T.PlayerMap()
-		return
+	local same = old and new and old.map == new.map and old.x == new.x and old.y == new.y
+		and IsAction(old) == IsAction(new)
+	if not same then
+		r.base = (r.base or 0) + (r.idx or 0)
 	end
-	ShowStep(1)
+	r.steps = steps
+	ShowStep(1, same)
 end
 
 local function OnZone(event, big, retry)
@@ -942,6 +948,13 @@ local function OnZone(event, big, retry)
 			riding and ", riding" or "")
 	end
 	-- Never back while riding: a flight crosses subzones of the map you boarded on (16 Oct 2026, Elsia's flight).
+	-- An ordinary route after a real zone change onto another map: plan again from here, always. The plan from where you
+	-- stand is the truth (a teleport can land on an in-between map first, 2537 before 2393), and pointing again wakes
+	-- TomTom's arrow (Replan above).
+	if big and not r.fixed and not riding and pm ~= r.lastMap then
+		Replan()
+		return
+	end
 	if k and k ~= r.idx and not (riding and k < r.idx) then
 		-- An ordinary route that has come through to its last stretch plans that stretch again from here: in Silvermoon,
 		-- after the way from the old world, the flight leg or a door may be the better first step (the old legRetry).

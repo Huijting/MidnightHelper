@@ -155,7 +155,12 @@
    onderweg krijgt cleardistance 0, de loper haalt het vorige punt zelf weg (ook bij Stop). ✅ GEMETEN door Rob (16 okt
    avond): "ja ging dit keer goed". ✅ Ook GEMETEN (Rob, zelfde avond): wereldbaas vanuit Shattrath → mage-knop
    "Teleport: Silvermoon City" (stap 1 van een gewone route, via de loper); Mount run vanuit Shattrath → portaal naar
-   Orgrimmar. ✅ `/mh clear` midden in een route werkt (Rob). Nog open: wat ná stap 1 komt, rare/schat na een portaal.
+   Orgrimmar. ✅ `/mh clear` midden in een route werkt (Rob). ✅ Ook Mount run, Silvermoon-pin met deur, andere route
+   tijdens een route (Rob). 🐞 → gerepareerd, niet getest: na een mage-teleport (Thunder Bluff → Atal'Aman) ónze pijl en
+   geen step 2. GEMETEN in `travelRouteLog`: aankomst eerst op kaart 2537, daarna 2393; GEMETEN in TomTom_CrazyArrow.lua:
+   TomTom verbergt zijn pijl als hij niet kan meten, tot de volgende SetCrazyArrow/zone-event. Nu: een gewone route plant
+   bij élke echte zonewissel naar een andere kaart opnieuw en zet de pijl altijd opnieuw; stapnummers tellen door
+   (`base`). Nog open: rare/schat na een portaal.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO
