@@ -33,13 +33,19 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       Dat hoort NIET meer.
 - [ ] **Na het portaal in Silvermoon:** de route plant opnieuw vanaf daar: pijl naar de vliegmeester (*"Flight master: …"*)
       of meteen naar de delve. Op de vlucht stappen → pijl springt naar de delve. Bij de delve: *"Route finished — …"*.
-- [ ] **Coiled Isle-delve vanuit Silvermoon:** pijl eerst naar de deur van Astalor's Sanctum, binnen bij de deur → naar het
-      portaal (zelfde stap, geen chatregel). Door het portaal → volgende stap of de delve.
+- [ ] **Coiled Isle-delve vanuit Silvermoon** (16 okt avond opnieuw gebouwd na Robs melding "hij stuurde me niet naar de
+      ingang"): pijl naar de **boog** van Astalor's Sanctum (55.02/63.56) en hij blijft daar staan tot je **door de boog
+      bent** — niet meer ~20 m ervóór. Binnen → pijl naar de **orb** (55.80/65.02) + chat *"Portal to The Coiled Isle:
+      click the orb to go down to it"*. Orb aangeklikt, beneden → pijl naar het portaal. Door het portaal → volgende stap
+      of de delve. Klopt iets niet: `/mh travel` → onderaan "route runner log" (of gewoon `/reload`, dan lees ik
+      `travelRouteLog` zelf uit je SavedVariables).
+- [ ] **Zelfde vanuit binnen**: sta al in de hal (na de boog) en kies de delve → pijl meteen naar de orb, niet terug naar de
+      boog. Sta je al beneden bij het portaal → pijl meteen naar het portaal.
 - [ ] **Mount run** (zelfde gedrag als gisteren): "Route" bij een raid → *"Mount run, step 1 of N"*, knop bij een
       hearthstone-stap, portaalkamer-deur → portaal, verder bij elke zonewissel, in de raid stopt hij. Throne of Thunder nog
       een keer als controle. Het knopvenster heet nu anders; stond hij verschoven, dan staat hij weer bovenin.
-- [ ] **Silvermoon-pin met deur** (City-tabblad → "Portal to The Coiled Isle"): pijl naar de deur; bij de deur
-      *"At the door — now pointing at …"* en de pijl naar het portaal. Door het portaal → *"Route finished"*.
+- [ ] **Silvermoon-pin met deur** (City-tabblad → "Portal to The Coiled Isle"): pijl naar de boog; door de boog → orb
+      (met chatregel); beneden → portaal. Door het portaal → *"Route finished"*.
 - [ ] **`/mh clear` midden in een route** (vooral tijdens een hearthstone-stap of vlak voor een vliegmeester): knop weg,
       pijl weg, en na de volgende zonewissel komt er **niets** terug. `/mh travel` zegt *"no route (last: …, stopped: clear)"*.
 - [ ] **Andere route kiezen tijdens een route** (bv. een rare of een `{WAY}`-link in de Codex): de oude route stopt, geen

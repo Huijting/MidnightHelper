@@ -90,6 +90,50 @@ local function Say(msg)
 	end
 end
 
+--- What the runner decided and why, newest last (CLAUDE.md: a module whose normal outcome is silence gets a way to
+--- see it). Rob, 16 Oct 2026, at the Coiled Isle portal: "hij stuurde me niet naar de ingang" — and nothing could say
+--- whether the door was skipped, reached too early, or never tried. `/mh travel` prints the last lines; after a
+--- /reload they are in the SavedVariables as `travelRouteLog`, so they can be read without a screenshot.
+local function Log(fmt, ...)
+	local ok, line = pcall(string.format, fmt, ...)
+	line = ok and line or tostring(fmt)
+	local stamp = date and date("%H:%M:%S") or "?"
+	if ns.db then
+		local log = ns.db.travelRouteLog
+		if type(log) ~= "table" then
+			log = {}
+			ns.db.travelRouteLog = log
+		end
+		log[#log + 1] = stamp .. " " .. line
+		while #log > 40 do
+			table.remove(log, 1)
+		end
+	end
+end
+T.Log = Log
+
+local function Fmt(d, how)
+	if not d then
+		return "unreadable"
+	end
+	return ("%.1f %s"):format(d, how == "percent" and "%" or "yd")
+end
+
+--- Is the player already through the door `via` of the point (x, y) on map `m`? Through = closer to the point than
+--- the door itself is, AND closer to the door than the door is to the point (the second half keeps someone standing
+--- outside behind the building from counting as inside). nil distances = not through: the door is the safe answer.
+--- @return boolean inside, string why
+function T.ViaInside(m, x, y, vx, vy)
+	local dDoor, h1 = T.Distance(m, vx, vy)
+	local dStep, h2 = T.Distance(m, x, y)
+	local span, h3 = T.PointDistance(m, vx, vy, x, y)
+	local why = ("door %s, step %s, door→step %s"):format(Fmt(dDoor, h1), Fmt(dStep, h2), Fmt(span, h3))
+	if not (dDoor and dStep and span) or h1 ~= h2 or h2 ~= h3 then
+		return false, why
+	end
+	return dStep < span and dDoor < span, why
+end
+
 --------------------------------------------------------------------------------
 -- The button for a step you use rather than walk to (moved from MountRun.lua)
 --------------------------------------------------------------------------------
@@ -275,8 +319,9 @@ local function BuildPlainSteps(t)
 			elseif s.mapID and s.x and s.y then
 				steps[#steps + 1] = {
 					map = s.mapID, x = s.x, y = s.y, to = s.to, text = text, kind = s.kind,
-					-- A portal inside a building (Coiled Isle, Rob 16 Oct 2026): its door first.
+					-- A portal inside a building (Coiled Isle, Rob 16 Oct 2026): its door first, then the orb down.
 					via = type(s.door) == "table" and s.door.x and s.door.y and { s.door.x, s.door.y } or nil,
+					orb = type(s.orb) == "table" and s.orb.x and s.orb.y and { s.orb.x, s.orb.y } or nil,
 					viaNear = "door",
 					-- A walked door or a Windcaller is passed on the way, not gone through (Rob, 14 Oct 2026).
 					handoff = (s.kind == "walk" or s.kind == "gossip") or nil,
@@ -349,27 +394,99 @@ end
 
 --- Has the player reached (mx, my) on `s.map`, by threshold `kind`? Remembers the closest distance on `st` for the
 --- walked-away rule (a door coordinate that is a little off, Underbelly 14 Oct 2026). Never for a Mount run `via`.
-local function Reached(st, kind, mx, my, map)
+--- @return boolean reached, string why
+local function Reached(st, kind, mx, my, map, nx, ny)
 	local d, how = T.Distance(map, mx, my)
 	if not d then
 		return false
 	end
 	local lim = T.NEAR[kind] or T.NEAR.door
 	if how == "percent" then
-		return d < lim.percent
+		return d < lim.percent, ("within %.2f%%"):format(d)
 	end
 	if d < lim.yards then
-		return true
+		return true, ("within %.1f yd"):format(d)
+	end
+	st._min = math.min(st._min or d, d)
+	if kind == "door" then
+		-- Through the door: was near it, and now closer to the point behind it than the door is (Rob, 16 Oct 2026).
+		if st._min < lim.passedNear and nx and ny then
+			local inside, why = T.ViaInside(map, nx, ny, mx, my)
+			if inside then
+				return true, "through the door: " .. why
+			end
+		end
+		return false
 	end
 	if kind ~= "via" then
-		st._min = math.min(st._min or d, d)
 		local w = T.NEAR.walkedAway
-		return st._min < w.near and d > st._min + w.back
+		if st._min < w.near and d > st._min + w.back then
+			return true, ("walked away: nearest %.0f yd, now %.0f yd"):format(st._min, d)
+		end
 	end
 	return false
 end
 
 local ShowStep
+
+--- The points a step passes on its own map before its point: its door (`via`) and then, for the Coiled Isle portal,
+--- the orb you click to go down to it (`orb`; Rob, 16 Oct 2026: "er staat ook een orb om naar beneden richting de
+--- portal te gaan", measured with `/mh here` at 55.80/65.02). Each is { x, y, kind, orb }.
+local function Vias(s)
+	if s._vias == nil then
+		local v = {}
+		if s.via then
+			v[#v + 1] = { s.via[1], s.via[2], kind = s.viaNear or "door" }
+		end
+		if s.orb then
+			v[#v + 1] = { s.orb[1], s.orb[2], kind = "door", orb = true }
+		end
+		s._vias = v
+	end
+	return s._vias
+end
+
+--- The point after via k: the next via, or the step itself.
+local function NextPoint(s, k)
+	local v = Vias(s)[k + 1]
+	if v then
+		return v[1], v[2]
+	end
+	return s.x, s.y
+end
+
+--- The first via the player still has to pass: checked from the last one back, so someone already downstairs at the
+--- portal gets neither the door nor the orb, and someone in the hall gets only the orb.
+local function FirstPendingVia(s)
+	local v = Vias(s)
+	for k = #v, 1, -1 do
+		local nx, ny = NextPoint(s, k)
+		local inside, why = T.ViaInside(s.map, nx, ny, v[k][1], v[k][2])
+		if inside then
+			return k + 1, ("through point %d (%s)"):format(k, why)
+		end
+	end
+	return 1, #v > 0 and "outside" or "no door"
+end
+
+local function ViaText(s, k, text)
+	local v = Vias(s)[k]
+	if v and v.orb then
+		return (ns:L("TRAVEL_VIA_ORB_FMT")):format(text)
+	end
+	return text
+end
+
+--- Point at the via the player still has to pass, or at the step itself.
+local function PointPending(s, text)
+	local k = s._viaIdx or 1
+	local v = Vias(s)[k]
+	if v then
+		Point(s, v[1], v[2], ViaText(s, k, text))
+	else
+		Point(s, s.x, s.y, text)
+	end
+end
 
 local function StartWatch(s)
 	StopWatch()
@@ -383,21 +500,35 @@ local function StartWatch(s)
 			return
 		end
 		if s._viaPending then
-			if Reached(s, s.viaNear or "door", s.via[1], s.via[2], s.map) then
-				s._viaPending, s._min = nil, nil
-				Point(s, s.x, s.y, s._shownText or s.text)
-				if s.viaDoneKey then
+			local k = s._viaIdx
+			local v = Vias(s)[k]
+			local nx, ny = NextPoint(s, k)
+			local ok, why = Reached(s, v.kind, v[1], v[2], s.map, nx, ny)
+			if ok then
+				Log("step %d: point %d%s passed — %s", r.idx, k, v.orb and " (orb)" or " (door)", tostring(why))
+				s._min = nil
+				s._viaIdx = k + 1
+				s._viaPending = s._viaIdx <= #Vias(s)
+				local text = s._shownText or s.text
+				PointPending(s, text)
+				if s._viaPending and Vias(s)[s._viaIdx].orb then
+					Say(ViaText(s, s._viaIdx, text))
+				elseif not s._viaPending and s.viaDoneKey then
 					Say((ns:L(s.viaDoneKey)):format(s.text or "?"))
 				end
-				if not s.handoff then
+				if not s._viaPending and not s.handoff then
 					StopWatch()
 				end
 			end
 			return
 		end
-		if s.handoff and r.steps[r.idx + 1] and Reached(s, "step", s.x, s.y, s.map) then
-			StopWatch()
-			ShowStep(r.idx + 1)
+		if s.handoff and r.steps[r.idx + 1] then
+			local ok, why = Reached(s, "step", s.x, s.y, s.map)
+			if ok then
+				Log("step %d reached (%s)", r.idx, tostring(why))
+				StopWatch()
+				ShowStep(r.idx + 1)
+			end
 		end
 	end)
 end
@@ -412,7 +543,7 @@ ShowStep = function(i, quiet, alreadyPointed)
 	end
 	r.idx = i
 	r.lastMap = T.PlayerMap()
-	s._min, s._viaPending = nil, nil
+	s._min, s._viaPending, s._viaIdx = nil, nil, nil
 	StopWatch()
 	local text = s.text
 	if IsAction(s) then
@@ -440,19 +571,19 @@ ShowStep = function(i, quiet, alreadyPointed)
 			text = (ns:L("MOUNTRUN_STEP_IN_CITY")):format(T.MapName(s.map) or "?", s.text)
 		end
 		s._shownText = text
-		if s.via then
-			-- Already inside (closer to the step than its door is): no door, or the arrow points behind you.
-			local dDoor = T.Distance(s.map, s.via[1], s.via[2])
-			local dStep = T.Distance(s.map, s.x, s.y)
-			s._viaPending = not (dDoor and dStep and dStep <= dDoor)
-		end
+		-- Already through the door (or the orb): skip it, or the arrow points behind you (Rob, 7 Sep 2026).
+		local why
+		s._viaIdx, why = FirstPendingVia(s)
+		s._viaPending = s._viaIdx <= #Vias(s)
+		Log("step %d/%d %s: %s%s", i, #r.steps, tostring(s.kind or (s.final and "target" or "step")), tostring(s.text),
+			#Vias(s) > 0 and (" — door/orb: start at point %d, %s"):format(s._viaIdx, why) or "")
 		if not alreadyPointed then
-			if s._viaPending then
-				Point(s, s.via[1], s.via[2], text)
-			else
-				Point(s, s.x, s.y, text)
+			PointPending(s, text)
+			if not quiet and s._viaPending and Vias(s)[s._viaIdx].orb then
+				Say(ViaText(s, s._viaIdx, text))
 			end
 		end
+		-- alreadyPointed: the caller points at what is pending itself (a Silvermoon pin asks T.PendingVia).
 		StartWatch(s)
 	end
 	if not quiet and #r.steps > 1 then
@@ -515,8 +646,15 @@ local function IsOurs(r, lt)
 	end
 	local p = { map = lt.mapID, x = lt.x, y = lt.y }
 	local s = r.steps[r.idx]
-	return SameTarget(p, r.target) or (s and s.x and SameTarget(p, s))
-		or (s and s.via and SameTarget(p, { map = s.map, x = s.via[1], y = s.via[2] })) or false
+	if SameTarget(p, r.target) or (s and s.x and SameTarget(p, s)) then
+		return true
+	end
+	for _, v in ipairs(s and Vias(s) or {}) do
+		if SameTarget(p, { map = s.map, x = v[1], y = v[2] }) then
+			return true
+		end
+	end
+	return false
 end
 
 --- Stop the route: watcher, button. Pins and the owner are the caller's (`/mh clear` clears those itself).
@@ -526,6 +664,7 @@ function T.Stop(reason)
 	local had = route ~= nil
 	if route then
 		T.lastStop = { reason = reason or "?", at = GetTime and GetTime() or 0, target = route.target.name }
+		Log("stop (%s): %s", tostring(reason), tostring(route.target.name))
 	end
 	route = nil
 	return had
@@ -569,6 +708,9 @@ function T.Start(target, opts)
 	route.firstUid = opts.alreadyPointed and ns._mhCrazyArrowUid or nil
 	route.lt = opts.alreadyPointed and ns.lastTarget or nil
 	route.finishCheck = (not fixed) or opts.finish
+	Log("start → %s (map %s %.2f/%.2f, owner %s%s, %d step(s), player on map %s)", tostring(target.name),
+		tostring(target.map), target.x, target.y, tostring(route.owner), route.managed and ", managed" or "",
+		#route.steps, tostring(T.PlayerMap()))
 	local k = (fixed and CurrentStep(route)) or 1
 	local s = route.steps[k]
 	-- The caller already pointed at what this step points at first (AddSmartTomTomWay at the target; a Silvermoon pin
@@ -607,15 +749,26 @@ function T.PendingFlightStop()
 	return nil
 end
 
+--- The door or orb the current step waits for: x, y, label, isOrb — or nil (a Silvermoon pin points there itself).
+function T.PendingVia()
+	local s = route and route.steps[route.idx]
+	if not (s and s._viaPending) then
+		return nil
+	end
+	local v = Vias(s)[s._viaIdx]
+	return v[1], v[2], ViaText(s, s._viaIdx, s.text or "?"), v.orb and true or false
+end
+
 --- The door the current step waits for, for `/mh arrow` (was TwoStepRoute's own status).
 function T.ViaStatus()
 	local s = route and route.steps[route.idx]
 	if not (s and s._viaPending) then
 		return nil
 	end
-	local d, how = T.Distance(s.map, s.via[1], s.via[2])
-	local lim = T.NEAR[s.viaNear or "door"] or T.NEAR.door
-	return { mapID = s.map, doorX = s.via[1], doorY = s.via[2], destLabel = s.text, destX = s.x, destY = s.y,
+	local v = Vias(s)[s._viaIdx]
+	local d, how = T.Distance(s.map, v[1], v[2])
+	local lim = T.NEAR[v.kind] or T.NEAR.door
+	return { mapID = s.map, doorX = v[1], doorY = v[2], destLabel = s.text, destX = s.x, destY = s.y,
 		yards = d, how = how, limit = how == "percent" and lim.percent or lim.yards, elapsed = 0, giveUp = 0 }
 end
 
@@ -711,6 +864,7 @@ end
 --- Off the route (a map no step is on): plan again from here. Same first step as now → keep it, no chat line.
 local function Replan()
 	local r = route
+	Log("plan again from map %s", tostring(T.PlayerMap()))
 	local steps = BuildPlainSteps(r.target)
 	local old = r.steps[r.idx]
 	local new = steps[1]
@@ -771,6 +925,10 @@ local function OnZone(event, big, retry)
 	end
 	local riding = OnBoard()
 	local k = CurrentStep(r)
+	if pm ~= r.lastMap or k ~= r.idx then
+		Log("zone change (%s): map %s, at step %d, reads step %s%s", tostring(event), tostring(pm), r.idx, tostring(k),
+			riding and ", riding" or "")
+	end
 	-- Never back while riding: a flight crosses subzones of the map you boarded on (16 Oct 2026, Elsia's flight).
 	if k and k ~= r.idx and not (riding and k < r.idx) then
 		-- An ordinary route that has come through to its last stretch plans that stretch again from here: in Silvermoon,
@@ -842,8 +1000,15 @@ do
 	end)
 end
 
---- `/mh travel`, second half: the running route.
+--- `/mh travel`, second half: the running route, then the runner's last decisions.
 function T.PrintRoute()
+	local log = ns.db and ns.db.travelRouteLog
+	if type(log) == "table" and #log > 0 then
+		print("   route runner log (newest last; after /reload in SavedVariables as travelRouteLog):")
+		for i = math.max(1, #log - 9), #log do
+			print("     |cff8a8f98" .. tostring(log[i]) .. "|r")
+		end
+	end
 	local r = route
 	if not r then
 		local ls = T.lastStop
@@ -859,8 +1024,8 @@ function T.PrintRoute()
 		if i == r.idx and s.x and s.y then
 			d, how = T.Distance(s.map, s.x, s.y)
 		end
-		print(("     %s%d. %s  |cff8a8f98[%s%s%s%s]|r%s"):format(i == r.idx and "|cffffd200>|r " or "  ", i,
-			tostring(s.text), where, s.via and " via door" or "", s.handoff and " handoff" or "", s.board and " board" or "",
+		print(("     %s%d. %s  |cff8a8f98[%s%s%s%s%s]|r%s"):format(i == r.idx and "|cffffd200>|r " or "  ", i,
+			tostring(s.text), where, s.via and " via door" or "", s.orb and " + orb" or "", s.handoff and " handoff" or "", s.board and " board" or "",
 			d and (" — %.0f %s"):format(d, how) or ""))
 	end
 end

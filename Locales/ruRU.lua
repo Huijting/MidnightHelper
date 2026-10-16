@@ -2951,6 +2951,7 @@ ns._mhLocales.ruRU = {
 	MOUNTRUN_STEP_EXIT = "Выйдите через этот выход: %s.",
 	MOUNTRUN_STEP_FMT = "Транспорт из старых рейдов, шаг %d из %d: %s",
 	TRAVEL_STEP_FMT = "Маршрут, шаг %d из %d: %s",
+	TRAVEL_VIA_ORB_FMT = "%s: нажмите на сферу, чтобы спуститься",
 	MOUNTRUN_STEP_HEARTH = "Используйте камень возвращения, чтобы попасть сюда: %s.",
 	MOUNTRUN_STEP_HEARTH_TOY = "Используйте игрушку «%s» (камень возвращения), чтобы попасть сюда: %s.",
 	MOUNTRUN_STEP_MAGE = "Примените заклинание «%s», чтобы попасть сюда: %s.",

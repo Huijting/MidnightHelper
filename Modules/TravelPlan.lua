@@ -380,6 +380,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					to = best.toID, -- where it comes out: the route runner's "step done" (travel phase 3)
 					source = "MIDNIGHT_PORTALS",
 					door = best.door, -- a portal inside a building: walk to its door first (Delves.lua)
+					orb = best.orb, -- ...and the orb that takes you down to it (Coiled Isle portal, Rob 16 Oct 2026)
 				}
 			end
 		end

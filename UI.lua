@@ -1286,7 +1286,7 @@ local SMC_CATEGORIES = {
 			--- `arrivesOn = 2512`: stepping onto the Coiled Isle IS arriving. Without it the
 			--- addon kept planning from "your destination is in Silvermoon" the moment Rob
 			--- came out the far side. See the note above ns.lastTarget in RouteSmcPoint.
-			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30, entrance = { x = 54.99, y = 63.30 }, arrivesOn = 2512, requiresQuest = 96004 },
+			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30, entrance = { x = 55.02, y = 63.56 }, orb = { x = 55.80, y = 65.02 }, arrivesOn = 2512, requiresQuest = 96004 },
 			{ id = "timeways", label = "Timeways (Lindormi)", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
 			{ id = "mplus_teleports", label = "M+ Teleports", atlas = "flightmaster", x = 42.03, y = 58.30 },
 		},
@@ -1308,7 +1308,8 @@ local SMC_CATEGORIES = {
 			-- stands downstairs at 56.74 / 67.30 (portal pin above). The game names him "Astalor Bloodsworn", no
 			-- "Magister" (npc 246231, research 12 Oct 2026).
 			-- 16 Oct 2026: 54.99/63.30 = Rob's own reading of the door (3 Sep); 55.00/63.40 was the older Codex value.
-			{ id = "astalor", label = "Astalor Bloodsworn (entrance)", atlas = "services-icon-transmogrifier", x = 54.99, y = 63.30 },
+			-- 16 Oct 2026, later: 55.02/63.56 = Rob's `/mh here` standing IN the archway (screenshot); one value everywhere.
+			{ id = "astalor", label = "Astalor Bloodsworn (entrance)", atlas = "services-icon-transmogrifier", x = 55.02, y = 63.56 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", descKey = "SMC_PIN_WEEKLY_HUB", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
 			-- Eén knop voor twee systemen kon maar één ding doen, en werd dus de
 			-- enige in dit raster die je niet ergens heen stuurde (Rob, 28 jul).

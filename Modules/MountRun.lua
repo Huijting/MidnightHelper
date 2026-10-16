@@ -208,8 +208,10 @@ local function BuildSteps(raid)
 			end
 			-- `board`: a ride (boat, zeppelin, tram) — getting on ends the step (see the boarding watcher below).
 			local ride = hub.kind == "boat" or hub.kind == "zeppelin" or hub.kind == "tram"
-			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text, via = hub.via, viaNear = "via",
-				board = ride or nil }
+			-- `orb`: the Coiled Isle portal is downstairs, behind an orb you click (Rob, 16 Oct 2026). A hub with an orb
+			-- has a real door in front of it (Astalor's Sanctum), so it gets the door rule, not the portal-room `via`.
+			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text, via = hub.via, orb = hub.orb,
+				viaNear = hub.orb and "door" or "via", board = ride or nil }
 		end
 	end
 	local zone, x, y = EntrancePoint(raid)

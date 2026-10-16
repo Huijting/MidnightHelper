@@ -113,7 +113,11 @@ end
 --- Thresholds, one table, each with its unit. Names say what they are for; the old code's eleven numbers are listed
 --- in the travel map §5c and move here as each part is switched over (phase 3).
 T.NEAR = {
-	door = { yards = 22, percent = 1.2 }, -- at a door: hand over to what is behind it (TwoStepRoute)
+	-- A door with something behind it (Astalor's Sanctum → Coiled Isle portal). Was 22 yd (TwoStepRoute): Rob, 16 Oct
+	-- 2026, ~20 m in front of the archway, already had the arrow on the portal behind the wall. Now the hand-over waits
+	-- until you are THROUGH: in the doorway (8 yd), or you came within `passedNear` of the door and now stand closer to
+	-- the step than the door itself is (TravelRoute.lua Reached).
+	door = { yards = 8, percent = 0.35, passedNear = 25 },
 	via = { yards = 7, percent = 0.3 }, -- Mount run `via` (door → portal in one room)
 	-- Phase 3 (TravelRoute.lua), moved from the old code unchanged:
 	step = { yards = 25, percent = 1.2 }, -- a walked door / Windcaller on the way: reached → next step (old leg watcher)
@@ -135,6 +139,26 @@ function T.Distance(m, x, y)
 		return math.sqrt((ax - bx) ^ 2 + (ay - by) ^ 2), "yards"
 	end
 	local dx, dy = (px - x) / 100, (py - y) / 100
+	if C_Map and C_Map.GetMapWorldSize then
+		local ok, w, h = pcall(C_Map.GetMapWorldSize, m)
+		if ok and tonumber(w) and tonumber(h) and w > 0 and h > 0 then
+			return math.sqrt((dx * w) ^ 2 + (dy * h) ^ 2), "mapsize"
+		end
+	end
+	return math.sqrt(dx * dx + dy * dy) * 100, "percent"
+end
+
+--- Distance between two points on map `m`, in the same units T.Distance would give on that map: dist, how — or nil.
+function T.PointDistance(m, ax, ay, bx, by)
+	if not (m and ax and ay and bx and by) then
+		return nil
+	end
+	local c1, wx1, wy1 = T.WorldXY(m, ax, ay)
+	local c2, wx2, wy2 = T.WorldXY(m, bx, by)
+	if c1 and c2 and c1 == c2 then
+		return math.sqrt((wx1 - wx2) ^ 2 + (wy1 - wy2) ^ 2), "yards"
+	end
+	local dx, dy = (ax - bx) / 100, (ay - by) / 100
 	if C_Map and C_Map.GetMapWorldSize then
 		local ok, w, h = pcall(C_Map.GetMapWorldSize, m)
 		if ok and tonumber(w) and tonumber(h) and w > 0 and h > 0 then

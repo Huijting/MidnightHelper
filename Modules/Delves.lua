@@ -286,15 +286,18 @@ local MIDNIGHT_PORTALS = {
 	-- Nightmare Prey on the island. Comments under a news article are the weakest source
 	-- this file admits, and neither is needed to use the portal today.
 	-- `door` (16 Oct 2026, Rob: "als ik bv een delve kies dan gaat ie anders"): the portal stands inside a building.
+	-- Door: Rob's `/mh here` standing IN the archway, 16 Oct 2026 = 55.02/63.56 (his 3 Sep reading 54.99/63.30 was a few
+	-- steps outside it; the arrow then handed over before he reached the door). Orb: inside, "een orb om naar beneden
+	-- richting de portal te gaan" — Rob's `/mh here` at it, same evening, 55.80/65.02.
 	-- The Silvermoon City pin already routed via its door (UI.lua, `entrance`, Rob measured 54.99/63.30 on 3 Sep);
 	-- the travel plan did not, so a route to a Coiled Isle delve pointed through the wall. TravelPlan copies `door`
 	-- onto its portal step and RouteFirstToFlightPoint walks the door first.
 	-- x/y: Rob's own `/mh here` at the portal, 19 Aug (UI.lua portal pin); was 56.83/67.38, an inherited value
 	-- (Zygor ZT:206 says 56.88/67.48). Travel design rule 16 Oct 2026: measured by Rob > HandyNotes > Zygor > guide.
 	{ name = "Portal to The Coiled Isle", mapID = 2393, toID = 2512,
-		x = 56.74, y = 67.30, requiresQuest = 96004, door = { x = 54.99, y = 63.30 } },
+		x = 56.74, y = 67.30, requiresQuest = 96004, door = { x = 55.02, y = 63.56 }, orb = { x = 55.80, y = 65.02 } },
 	{ name = "Portal to The Coiled Isle", mapID = 2576, toID = 2512,
-		x = 56.74, y = 67.30, zone = "Silvermoon", requiresQuest = 96004, door = { x = 54.99, y = 63.30 } },
+		x = 56.74, y = 67.30, zone = "Silvermoon", requiresQuest = 96004, door = { x = 55.02, y = 63.56 }, orb = { x = 55.80, y = 65.02 } },
 	-- The way back, from Tokka's Landing. Same gate: you only ever see this one after
 	-- arriving through the first.
 	{ name = "Portal to Silvermoon", mapID = 2512, toID = 2393,

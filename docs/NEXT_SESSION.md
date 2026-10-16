@@ -140,6 +140,16 @@
    ⚠️ GEMETEN: `tools/lint_addon.py` leest alleen `Modules/*.lua`, niet `Modules/Travel/` — check [1]/[6]/[9] zijn daar
    blind; met de hand nagelopen (alle ns-functies en keys die TravelRoute gebruikt bestaan). Lint uitbreiden = klusje.
    **Volgende: Robs test (TESTLIJST), dan beta-tag op zijn go; daarna fase 4 (beheerde routes via nextLead()).**
+   🐞 **Eerste test Rob (16 okt avond, screenshot):** Coiled Isle-delve vanuit Silvermoon → pijl op het portaal, niet op de
+   ingang. GEMETEN door Rob (`/mh here`): in de boog **55.02/63.56** (= onze deur, 3 sep-meting 54.99/63.30 lag een paar
+   stappen ervóór) en de **orb** naar beneden **55.80/65.02**. AFGELEID oorzaak: deur gold als "bereikt" binnen 22 yd →
+   overdracht terwijl hij nog buiten stond. Gerepareerd: `Travel.NEAR.door` = 8 yd of "door de deur" (was ≤ 25 yd bij
+   de deur én staat nu dichter bij wat erachter ligt dan de deur zelf; `Travel.ViaInside`, ook voor "sta je al
+   binnen?" en voor de SMC-pin in TwoStepRoute); een stap kan nu deur + `orb` hebben (MIDNIGHT_PORTALS, SMC-pin,
+   MountRunData SM_COILED), met chatregel TRAVEL_VIA_ORB_FMT (8 talen). Deur 55.02/63.56 nu overal (Delves ×2, UI ×2,
+   MountRunData). Nieuw: **logboek** van de routeloper in `/mh travel` en in de SV als `travelRouteLog` (40 regels:
+   start, stap, deur/orb gekozen + afstanden, overdracht + reden, zonewissel, stop) — Rob kan `/reload` doen i.p.v.
+   screenshots. Niet getest.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

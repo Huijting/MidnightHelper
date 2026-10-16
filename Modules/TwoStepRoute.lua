@@ -191,48 +191,33 @@ function ns.StartSmcTwoStepRoute(point, mapID)
 	if type(e) ~= "table" or not (e.x and e.y) then
 		return nil
 	end
-	-- Already at the door: skip the detour entirely. Sending someone outside to come
-	-- back in is worse than the bug this fixes.
-	local d, limit = DoorProximity(mapID, e.x, e.y)
-	if d and d <= limit then
+	--- 🔴 "AT THE DOOR" IS NOT "THROUGH IT" — either way round. Rob, 7 Sep 2026, inside the room: sent back out to the
+	--- door ("als ik al in de kamer sta … stuurt ie me eerst terug naar de deur"). Rob, 16 Oct 2026, ~20 m in front of
+	--- the archway: the arrow already on the portal behind the wall, because "within 22 yd of the door" counted as
+	--- passed. Both answers now come from the route runner (Travel.ViaInside, TravelRoute.lua): through = closer to
+	--- what lies behind the door than the door is, and closer to the door than that span. The orb down to the Coiled
+	--- Isle portal (Rob, same evening, 55.80/65.02) is a second such point.
+	if not (ns.Travel and ns.Travel.Start and ns.Travel.PendingVia) then
 		return nil
 	end
-
-	--- 🔴 …AND "AT THE DOOR" WAS NOT THE SAME AS "PAST IT". Rob, 7 Sep 2026: *"als ik al in
-	--- de kamer sta en vraag de weg, stuurt ie me eerst terug naar de deur en dan weer naar
-	--- de portal."* The check above only recognised someone standing ON the doorstep. Walk
-	--- five paces further in and you are past the threshold in both senses, and the route
-	--- marched you back out.
-	---
-	--- 📌 The rule needs no new number: if the destination is nearer than its own door, the
-	--- door is behind you. Both distances come from `DoorProximity`, so they are in the same
-	--- unit whichever of the three methods answered -- which is exactly why that function
-	--- returns the unit it used.
-	---
-	--- ⚠️ IT IS GEOMETRY, NOT A DOOR SENSOR, and it can be wrong in one specific place:
-	--- standing OUTSIDE but directly behind the building, where the portal really is nearer
-	--- than the entrance. Then you get the arrow pointing through a wall -- which is exactly
-	--- the 3 sep bug this whole file exists to fix. The trade is deliberate: that spot is
-	--- narrow and the wrong answer there is merely the behaviour everyone had before 3 sep,
-	--- while being sent back outside happens every time you ask from inside the room.
-	local dDest = DoorProximity(mapID, point.x, point.y)
-	if d and dDest and dDest <= d then
-		return nil
-	end
-	-- The pin's own code (UI.lua SetSMCWaypoint) points at the door and sets the owner right after this returns.
-	if ns.Travel and ns.Travel.Start then
-		ns.Travel.Start({ map = mapID, x = point.x, y = point.y, name = point.label, arrivesOn = point.arrivesOn }, {
-			owner = "waypoint",
-			steps = { { map = mapID, x = point.x, y = point.y, text = point.label, final = true,
-				via = { e.x, e.y }, viaNear = "door", viaDoneKey = "SMC_ENTRANCE_ARRIVED_FMT" } },
-			finish = true,
-			alreadyPointed = true,
-			via = "Silvermoon pin",
-		})
+	-- The pin's own code (UI.lua SetSMCWaypoint) points at what this returns and sets the owner right after.
+	local orb = type(point.orb) == "table" and point.orb.x and point.orb.y and { point.orb.x, point.orb.y } or nil
+	ns.Travel.Start({ map = mapID, x = point.x, y = point.y, name = point.label, arrivesOn = point.arrivesOn }, {
+		owner = "waypoint",
+		steps = { { map = mapID, x = point.x, y = point.y, text = point.label, final = true,
+			via = { e.x, e.y }, orb = orb, viaNear = "door",
+			viaDoneKey = (not orb) and "SMC_ENTRANCE_ARRIVED_FMT" or nil } },
+		finish = true,
+		alreadyPointed = true,
+		via = "Silvermoon pin",
+	})
+	local vx, vy, label, isOrb = ns.Travel.PendingVia()
+	if not vx then
+		return nil -- already through everything: straight to the portal
 	end
 	return {
-		x = e.x,
-		y = e.y,
-		label = (ns:L("SMC_ENTRANCE_LABEL_FMT")):format(point.label or "?"),
+		x = vx,
+		y = vy,
+		label = isOrb and label or (ns:L("SMC_ENTRANCE_LABEL_FMT")):format(point.label or "?"),
 	}
 end
