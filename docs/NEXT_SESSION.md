@@ -85,6 +85,8 @@
    MIDNIGHT_PORTALS/MOUNTRUN_*/AMANI_HUBS, FindConflicts, `/mh travel`). MountRun gebruikt Travel.InMap/Continent.
    Oude code verder ongemoeid. 🔴 Open vóór fase 3: Robs `/dump C_Map.GetWorldPosFromMapPos(2393, CreateVector2D(0.5,0.5))`
    in Silvermoon (geeft hij een positie? dan was TwoStepRoute's nil onze UiMapPoint-fout). **Volgende: fase 2 (planner).**
+   ✅ **PTR 12.1.7 GEMETEN door Rob (16 okt): MH laadt zonder fouten** (kopie van vóór Travel fase 1; Talebound e.d. nog
+   niet getest). Advies aan Rob: eerst live testen vóór fase 2 (veel ongeteste lagen vandaag).
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 
