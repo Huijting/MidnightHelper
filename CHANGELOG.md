@@ -2,6 +2,30 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.8.0
+
+📌 **2026-10-16, RELEASE in voorbereiding (Rob: "ik kom eigenlijk niks breaking tegen en denk dat we zoveel stappen hebben
+gemaakt dat we een release kunnen doen") — gewone release, géén beta.** ⚠️ Wijkt af van "beta eerst": bewuste keuze van
+Rob, omdat de ~500 release-downloaders eerder iets melden dan de 11 beta-testers. Nog NIET getagd: wacht op Robs go.
+`RELEASE_NOTES.md` = `docs/CURSEFORGE_4.8.0.md`, beta-alinea bovenaan. In-game: CHANGELOG_480_0..8.
+GEMETEN door Rob op live (16 okt): Mount run naar Throne of Thunder (questportaal, boot), Hyjal/Nerub-ar, Silvermoon-
+portalen (Horde 52.24/65.28, Alliance 52.71/64.61, deur 53.30/66.24), mage-teleports, Coiled Isle deur + orb, delve-
+kistenroute via de route runner, rare-route wacht op de kill, Find Nearest, /mh clear, Dalaran-popup; 12.1.7-PTR laadt
+zonder fouten. NIET getest: de Mount run-tegel in Tools en de knop bovenaan de Mounts-tab (16 okt, net gebouwd),
+"HS on Cooldown!" in de popup zonder hearthstone, test 3 (rare-omweg), vertalingen (zelfgemaakt).
+
+- **Nieuw: Mount run** (`/mh mountrun`, tegel in Tools, knop bovenaan Mounts): 40+ oude raids/dungeons, lockouts deze
+  week, tabbladen per blok (per character onthouden), stap-voor-stap-pijl (portalen, boten, zeppelins, trams,
+  unlock-quest), hearthstone-knop (secure), boarding-watcher.
+- **Reizen:** centrale module `Modules/Travel/` (TravelGeo, TravelData, TravelPlanner, TravelRoute): één weg naar huis
+  voor elke route en de popup (hearthstone, 19 hearth-toys, mage-teleports 3567/3561/1259190), één route runner voor de
+  zes beheerde routes, `/mh travel`-controle.
+- **Routes:** Coiled Isle-deur vóór de orb, TomTom houdt de pijl, geen overname na TomTom's aankomst, rares nooit
+  wisselen midden in een gevecht.
+- **Data:** Hexed Vilefeather Eagle, Codex-kaart verborgen schatten, Keystone Myth zes dungeons, Labyrinth 44 kisten,
+  HandyNotes 158/159 (Serrasa, Pterrock, Szarith, Mislaid Treasures).
+- **12.1.7:** Interface 120107, Vyranoth-tekst. Taalpakketten: alleen de clienttaal wordt opgebouwd.
+
 ## 4.7.7
 
 📌 **2026-10-15, RELEASE (Rob: "ik vind het toch een release waard" — gewone release i.p.v. beta2), tag `v4.7.7` (60b544c)

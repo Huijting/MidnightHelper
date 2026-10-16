@@ -1324,7 +1324,7 @@ end
 --- its arrow is hidden → TomTom:ShowHideCrazyArrow(), its own show function. Not when it cannot measure (another
 --- continent): then our arrow is the right fallback and stays. Not in an instance, not on a button step.
 do
-	local lastWoken
+	local lastWoken, lastHealed
 	local function WakeTomTom()
 		local tt = _G.TomTom
 		local f = _G.TomTomCrazyArrow
@@ -1345,6 +1345,54 @@ do
 		local okV, valid = pcall(tt.IsValidWaypoint, tt, uid)
 		local okD, d = pcall(tt.GetDistanceToWaypoint, tt, uid)
 		if not (okV and valid and okD and type(d) == "number") then
+			-- 🩹 Rob, 16 Oct 2026, Dalaran → The Ring of Glory: on the Coiled Isle (2512) our arrow took over, log "TomTom
+			-- measures no (instance player 0 / pin 0)". GEMETEN in TomTom_Waypoints.lua: GetDistanceToWaypoint is nil only
+			-- without a player position or when the uid is not in its waypointMap; same instance rules out the third way.
+			-- So our remembered uid was no longer TomTom's live point, while the target itself was measurable. Then set the
+			-- pin again (once per target) instead of leaving the arrow to ours, and log what the old uid was.
+			local lt = ns.lastTarget
+			local hbd = LibStub and LibStub("HereBeDragons-2.0", true)
+			if not (lt and lt.mapID and lt.x and lt.y and hbd and tt.AddWaypoint) then
+				return
+			end
+			local healKey = ("%s:%.2f:%.2f"):format(tostring(lt.mapID), lt.x, lt.y)
+			if lastHealed == healKey then
+				return
+			end
+			local okP, _, _, pInst = pcall(hbd.GetPlayerWorldPosition, hbd)
+			local okW, wx, _, wInst = pcall(hbd.GetWorldCoordinatesFromZone, hbd, lt.x / 100, lt.y / 100, lt.mapID)
+			if not (okP and okW and wx and pInst ~= nil and pInst == wInst) then
+				return
+			end
+			lastHealed = healKey
+			-- AddWaypoint hands back an existing pin with the same map/x/y/title without setting it up again (GEMETEN,
+			-- TomTom.lua AddWaypoint) — and a broken pin may be exactly that one. Remove the old uid, and a same-key pin
+			-- that still cannot measure, first.
+			pcall(tt.RemoveWaypoint, tt, uid)
+			local function Add()
+				return pcall(tt.AddWaypoint, tt, lt.mapID, lt.x / 100, lt.y / 100, {
+					title = lt.name, persistent = false, minimap = true, world = true,
+					cleardistance = (route and route.target and route.target.clearDist) or 15, crazy = true,
+				})
+			end
+			local okN, newUid = Add()
+			if okN and type(newUid) == "table" then
+				local okM, m = pcall(tt.GetDistanceToWaypoint, tt, newUid)
+				if not (okM and type(m) == "number") then
+					pcall(tt.RemoveWaypoint, tt, newUid)
+					okN, newUid = Add()
+				end
+			end
+			if okN and type(newUid) == "table" then
+				pcall(tt.SetCrazyArrow, tt, newUid, 15, lt.name)
+				ns._mhCrazyArrowUid = newUid
+				if route then
+					route.uid = newUid
+				end
+				Log("TomTom's point was gone (old uid map %s %.2f/%.2f \"%s\", valid %s): set again on map %s, instance %s",
+					tostring(uid[1]), (tonumber(uid[2]) or 0) * 100, (tonumber(uid[3]) or 0) * 100, tostring(uid.title),
+					tostring(okV and valid), tostring(lt.mapID), tostring(pInst))
+			end
 			return
 		end
 		pcall(tt.ShowHideCrazyArrow, tt)

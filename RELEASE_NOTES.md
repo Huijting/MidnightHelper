@@ -1,50 +1,39 @@
-# Midnight Helper 4.7.7: the Labyrinth, from our own runs
+# Midnight Helper 4.8.0: the Mount run
 
-Want new things sooner and help test them? Set the release type of Midnight Helper in the CurseForge app to **Beta**.
-Tell us how it goes, also when everything works: `/mh report` in game, a comment here on CurseForge, or the feedback
-form on midnighthelper.com.
+Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
+CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
+here on CurseForge, or the feedback form on midnighthelper.com.
 
-This release comes from a long day inside The Labyrinth of Kindo'jan with the combat log switched on. Most of what is
-new below was measured in our own fights, not copied from a guide.
+## New: the Mount run
 
-## The Labyrinth of Kindo'jan
+Old raids you can solo for a mount, in one window. Open it with `/mh mountrun`, the **Mount run** tile in Tools, or the
+button at the top of the Mounts tab.
 
-- **Kindo'jan, with his real timeline.** He follows a fixed clock: Whirling Axes at 0:48 (each tick takes 66% of your
-  health, so step out at once), and from about **1:33 the loa**, by the clock and not at 70% health as the guides say.
-  For the Akil'zon wind: when the wind shows on your screen, step sideways into a narrow gap within 2 seconds. For
-  Nalorakk's bears: go in with full health, each bear takes almost 40%. Run out of lives and you still reach the
-  treasure room.
-- **Room boss tips from our combat logs**: interrupt Grukk's Spectral Regeneration and Sha'Kuro's Vile Bolt, Cynthra's
-  bombs and mines with their timings, and what the head ritualists hit for.
-- **A button for every room boss.** When a room boss fight starts, *Room boss: <name> - show tips?* opens the Delve Coach
-  on that boss. Prefer it to open by itself? Settings: *Labyrinth: open the coach for each room boss*.
-- **The chest route knows 39 chests**, and 20 of their quest ids are checked in game. It leaves out chests behind a loa
-  seal your Journey rank does not open yet, it picks the chests in the room you stand in first, and when a door is
-  closed this run, click **Chests** again to skip that chest.
-- **The Labyrinth's own Journey** on the Delves page and in the Codex: all 9 ranks, the loa Favors that open the sealed
-  doors, the Battle Arts behind them (what Falco Strikes does on your gloves), and how you earn points. Wah'du's weekly
-  Myth questline is on the Labyrinth card, with an arrow to Wah'du.
+- **More than 40 old raids and dungeons** with a mount: which mounts you still miss, and whether you can still try them
+  this week. One tab per block (Northrend, Outland, Cataclysm, Mythic, Legion and Shadowlands, dungeons, group-only), and the
+  window remembers your tab per character.
+- **The way there, step by step.** Click **Route** and the arrow takes you to the entrance: portals, boats, zeppelins,
+  trams, and the quest that opens a portal when you do not have it yet.
+- **Not in your capital?** The route starts with the way home, with a button for your Hearthstone.
 
-## Patch 12.1.5
+## The way home, everywhere
 
-- **New mounts on the Mounts tab**: the Corrupted Swarmer (with a bar for your Aqir Research Enclave reputation),
-  Indigo Coiled Horror, Violet-Backed Skyfang, the Loa-Blessed Wayfarer and the Sporebearer Fungal Strider.
-- **The Promise of Tomorrow** campaign on Home, with a route to its start.
-- **`/mh achlist`** has two new groups: the Labyrinth, and the Aqir Invasions with Keystone Myth.
-- **Kith'ix** sits with this season's raids, with **Route** and **Map** buttons, and routes now follow every door into
-  the Vaults and the Underbelly, including what to pick at an Amani Windcaller.
+Every route and the travel popup now pick the fastest way back to a capital: your Hearthstone, a Hearthstone toy when
+the Hearthstone is on cooldown, a mage teleport, or the portals in Silvermoon's portal room (measured in game).
 
-## New: a lamp for the combat log
+## Routes
 
-A small red lamp at the top of your screen while the game writes the combat log (`/combatlog` switches it on and off),
-so you always know whether a fight is being recorded. `/mh combatlog` says it in chat. Do not want it? Switch it off in
-Settings.
+- **Coiled Isle:** the arrow walks you to the portal's door first, and only then to the orb.
+- **TomTom** keeps the arrow on the way.
+- **Rares:** the route waits until your fight is over before it moves on to the next rare.
 
 ## Also
 
-- **Codex:** J'imothy, the Aqir rewards, the Voidcore cap, Keystone Myth 3600, and the Labyrinth task *The Wandering*.
-- **Fixes:** no more ADDON_ACTION_BLOCKED from the consumable board after a `/reload` in combat; keys on the Dispel tab
-  of the play cards; the delve list split evenly; no stray dividers under Party targets; two marker-bar errors.
+- **Mounts tab:** the Hexed Vilefeather Eagle, with its route.
+- **Codex:** a card on hidden treasures, and the Keystone Myth card names the six dungeons Blizzard made easier.
+- **Labyrinth of Kindo'jan:** the chest route knows all 44 chests.
+- **Rares:** Serrasa, Pterrock, Szarith and the Mislaid Treasures where HandyNotes now puts them.
+- **Ready for patch 12.1.7**, and Midnight Helper now only builds the texts of your own game language at login.
 
 New texts in other languages are our own translation: native speakers, corrections are very welcome.
 

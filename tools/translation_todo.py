@@ -78,7 +78,35 @@ SETTLED = {
     "PROFGUIDE_BTN_OPEN_BROWSER":    (("nlNL",), "'Open in browser' is identical in Dutch"),
     "PROFHUB_GOAL_ALLROUND":         (("nlNL",), "'Allround' is a Dutch word"),
     "VALEERA_LEVEL":                 (("nlNL",), "game term; Dutch players say 'level'"),
+    # 16 Oct 2026, release check after 4.7.7 (Mount run + Travel). nlNL, same rule as above;
+    # checked against nlNL.lua: MOUNTRUN_HOW_* bodies use the English raid and item names too.
+    "PLAN_KIND_HEARTH":              (("nlNL",), "item name (Hearthstone), English in nlNL"),
+    "PLAN_KIND_MAGE":                (("nlNL",), "'Teleport' is a Dutch word"),
+    "MOUNTRUN_OPEN":                 (("nlNL",), "'open' is the Dutch word"),
+    "MOUNTRUN_STEP_IN_CITY":         (("nlNL",), "'In %s: %s' is identical in Dutch"),
+    "MOUNTRUN_TAB_DUNGEONS":         (("nlNL",), "game term"),
+    "MOUNTPROG_VILEFEATHER_ROUTE_NAME": (("nlNL",), "item + zone name, English in nlNL"),
 }
+# Difficulty labels and raid names: game terms / proper names, English in nlNL.
+for _k in ("DIFF_DUNGEON_N", "DIFF_DUNGEON_H", "DIFF_DUNGEON_M", "DIFF_10H", "DIFF_25H",
+           "DIFF_N", "DIFF_H", "DIFF_M", "DIFF_LFR"):
+    SETTLED.setdefault("MOUNTRUN_" + _k, (("nlNL",), "difficulty name, English in nlNL"))
+for _k in ("OS", "EOE", "VOA", "ICC", "ULDUAR", "UP", "TK", "SETHEKK", "KARA", "RTK", "COS",
+           "DS", "ONY", "FL", "T4W", "TOT", "MSV", "SOO", "HFC", "BRF", "NH", "BOD", "AMI",
+           "SFO", "TOS", "ANT", "ANT_ARGUS", "SOD", "NYA", "BOD_GMOD", "STRAT", "VP", "SC",
+           "ZG", "FH", "UR", "DOTI", "NP", "LOU", "MFO", "MOQD", "VA", "AOF", "WRS", "MTN", "DFC"):
+    SETTLED.setdefault("MOUNTRUN_R_" + _k, (("nlNL",), "raid/dungeon name, English in nlNL"))
+# The client itself uses the English spelling here. MEASURED 16 Oct 2026 on wago.tools, builds 12.1.5.70391 and
+# 12.1.7.70424 (PLAYER_DIFFICULTY1, Map/JournalInstance 603, 532, 859; GlobalStrings DUNGEONS deDE).
+# Different elsewhere, and so NOT settled there: itIT "Normale", frFR "Zul’Gurub" (U+2019), itIT "Zul'gurub".
+_NL_DE_FR_ES_PT = ("nlNL", "deDE", "frFR", "esES", "ptBR")
+SETTLED["MOUNTRUN_DIFF_N"] = (_NL_DE_FR_ES_PT, "client says 'Normal' (PLAYER_DIFFICULTY1)")
+SETTLED["MOUNTRUN_DIFF_DUNGEON_N"] = (_NL_DE_FR_ES_PT, "client says 'Normal' (PLAYER_DIFFICULTY1)")
+SETTLED["MOUNTRUN_R_ULDUAR"] = (_NL_DE_FR_ES_PT + ("itIT",), "client name is Ulduar (Map 603)")
+SETTLED["MOUNTRUN_R_KARA"] = (_NL_DE_FR_ES_PT + ("itIT",), "client name is Karazhan (Map 532)")
+SETTLED["MOUNTRUN_R_ZG"] = (("nlNL", "deDE", "esES", "ptBR"), "client name is Zul'Gurub (Map 859)")
+SETTLED["MOUNTRUN_TAB_DUNGEONS"] = (("nlNL", "deDE"), "deDE client: DUNGEONS = 'Dungeons'")
+SETTLED["MOUNTRUN_STEP_IN_CITY"] = (("nlNL", "deDE"), "'In %s: %s' is correct Dutch and German")
 
 
 def is_wordless(s):

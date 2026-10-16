@@ -21,6 +21,23 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 okt (avond) — Mount run: een tegel en een knop bovenaan (release 4.8.0)
+
+Rob: *"Wel mis ik een knop of een tegel iN MH voor onze mountrun"*. Eerst `/reload`.
+
+- [ ] **Tegel in Tools** (`/mh` → Tools-kamer, het overzicht met kaarten): een kaart **"Mount run: old raids"** met het
+      Mounts-icoon van MH, de uitleg uit de commandolijst en `/mh mountrun`. Klik **Open** → het Mount run-venster opent.
+- [ ] **Knop bovenaan de Mounts-tab** (`/mh` → Mounts): de knop *"Old raids for mounts (mount run)"* staat nu als éérste,
+      boven de mountlijst (niet meer helemaal onderaan). Klik → het Mount run-venster opent. Onderaan staat alleen nog de
+      tip over de verzamel-addon.
+- [ ] **In het Nederlands** (`/mh lang nl`): tegel heet *"Mount run: oude raids"*, knop *"Oude raids voor mounts (mount
+      run)"*.
+- [ ] **Changelog-venster na de update naar 4.8.0**: bovenaan staat 4.8.0 met negen regels, de eerste over de Mount run.
+- [ ] **Dalaran → The Ring of Glory, met TomTom** (Rob: *"tot aan de portal naar de isle ging het goed, daar aangekomen
+      kreeg ik onze blauwe pijl"*). Zelfde route nog eens. Hoort: op het eiland (Coiled Isle) na een paar tellen weer de
+      **TomTom-pijl**, niet de blauwe. Na `/reload` staat in het log *"TomTom's point was gone (old uid map … ): set again"*
+      met het oude punt erbij; dat vertelt ons de oorzaak. Zie je tóch de blauwe pijl: log lezen.
+
 ## 🆕 16 okt (laat) — onze pijl nam het over van TomTom bij de rare
 
 - [ ] **Route met een rare-omweg, met TomTom** (Rob: *"hij gebruikt onze eigen arrow na een tijdje … voor de rare"*): loop

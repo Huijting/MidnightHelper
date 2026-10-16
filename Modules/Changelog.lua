@@ -4,6 +4,21 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "4.8.0",
+		lines = {
+			"CHANGELOG_480_0",
+			-- release (16 Oct 2026, Rob: straight to release, no beta round)
+			"CHANGELOG_480_1",
+			"CHANGELOG_480_2",
+			"CHANGELOG_480_3",
+			"CHANGELOG_480_4",
+			"CHANGELOG_480_5",
+			"CHANGELOG_480_6",
+			"CHANGELOG_480_7",
+			"CHANGELOG_480_8",
+		},
+	},
+	{
 		version = "4.7.7",
 		lines = {
 			"CHANGELOG_477_0",

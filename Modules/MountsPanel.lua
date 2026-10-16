@@ -356,6 +356,22 @@ function ns.RefreshMountsPanel()
 	local y = 0
 	local ri, bi = 1, 1
 
+	-- 15 Oct 2026 (Rob: "doe optie 2"): our own old-raid list, live from the client (missing or not, open this week).
+	-- 16 Oct 2026: moved from the bottom to the top — Rob missed it there ("Wel mis ik een knop of een tegel").
+	if ns.MH_ShowMountRun then
+		local btn = AcquireButton(bi)
+		bi = bi + 1
+		btn:ClearAllPoints()
+		btn:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
+		btn:SetText(ns:L("MOUNTRUN_OPEN_BTN"))
+		btn:SetWidth(math.min((btn.GetTextWidth and btn:GetTextWidth() or 160) + 28, width))
+		btn:SetScript("OnClick", function()
+			ns.MH_ShowMountRun()
+		end)
+		btn:Show()
+		y = y + BTN_H + MOUNT_GAP + 4
+	end
+
 	local mounts = ns.GetWeeklyMountProgress and ns.GetWeeklyMountProgress(true) or {}
 	if not mounts or #mounts == 0 then
 		y = y + PutRow(ri, ns:L("MOUNTS_PANEL_EMPTY"), COLOR_GOOD, false, y, width)
@@ -455,20 +471,6 @@ function ns.RefreshMountsPanel()
 	-- current-season checklist — point serious collectors at the specialist addon
 	-- (honest referral, no overlap, nothing copied from it).
 	y = y + MOUNT_GAP + 4
-	-- 15 Oct 2026 (Rob: "doe optie 2"): our own old-raid list, live from the client (missing or not, open this week).
-	if ns.MH_ShowMountRun then
-		local btn = AcquireButton(bi)
-		bi = bi + 1
-		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
-		btn:SetText(ns:L("MOUNTRUN_OPEN_BTN"))
-		btn:SetWidth(math.min((btn.GetTextWidth and btn:GetTextWidth() or 160) + 28, width))
-		btn:SetScript("OnClick", function()
-			ns.MH_ShowMountRun()
-		end)
-		btn:Show()
-		y = y + BTN_H + 4
-	end
 	y = y + PutRow(ri, ns:L("MOUNTS_MRP_HINT"), COLOR_DIM, false, y, width)
 	ri = ri + 1
 

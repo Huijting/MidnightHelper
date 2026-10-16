@@ -66,6 +66,13 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_Book_09", slash = "/mh craftshop",
 		open = function() if ns.ShowCraftShoppingList then ns.ShowCraftShoppingList() end end,
 	},
+	-- 16 Oct 2026, Rob: "Wel mis ik een knop of een tegel iN MH voor onze mountrun". Name and description reuse
+	-- keys all packs already carry (the window's title, the command list's line). Icon: the Mounts tab's own.
+	{
+		nameKey = "MOUNTRUN_TITLE", descKey = "CMDLIST_MOUNTRUN",
+		icon = "Interface\\AddOns\\MidnightHelper\\Media\\Icons\\mounts_64.png", slash = "/mh mountrun",
+		open = function() if ns.MH_ShowMountRun then ns.MH_ShowMountRun() end end,
+	},
 	{
 		nameKey = "KEYBLOCK_TITLE", descKey = "TOOLLP_KEYBLOCK_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Gear_01", slash = "/mh block",

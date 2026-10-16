@@ -2,6 +2,24 @@
 
 ## 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
 
+🔴 **16 okt avond: release 4.8.0 KLAAR OM TE TAGGEN, nog GEEN tag.** Rob: *"ik kom eigenlijk niks breaking tegen en denk dat
+we zoveel stappen hebben gemaakt dat we een release kunnen doen"* → gewone release, **géén beta** (bewuste afwijking van
+"beta eerst"; ~500 release-downloaders melden eerder iets dan 11 beta-testers). Klaar: `## Version: 4.8.0`,
+Changelog.lua + CHANGELOG_480_0..8 (enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.8.0.md` (beta-alinea bovenaan),
+`CHANGELOG.md`, `CURSEFORGE_DESCRIPTION.md` herschreven (Rob: *"niet alleen maar langer maken maar uitgedacht
+vernieuwen"*): "New in 12.1.5"-blok weg (Labyrinth nu in de delve-regel), nieuw "It takes you there, from anywhere" (weg
+naar huis, TomTom) en "New: the Mount run"; `/mh mountrun` bij Getting started. Rob plakt hem op CF. Mount run-tegel in Tools
+(ToolsLaunchpad.lua) + knop bovenaan de Mounts-tab (MountsPanel.lua), hergebruikt bestaande keys (alle 8 talen).
+Vertaalcheck: `run translation_todo --since v4.7.7`; nlNL-spelwoorden/raidnamen staan nu in SETTLED. Open op het moment
+van schrijven: echte gaten PLAN_KIND_HEARTH (de/es/pt/it), MOUNTPROG_VILEFEATHER_ROUTE_NAME (itemnaam, alle talen),
+frFR MOUNTRUN_DIFF_LFR = "Raids" (fout) → clientnamen via mh-research. Daarna: Robs go → tag `v4.8.0` → site-chat seinen.
+UPDATE: gaten gedicht met clientnamen (wago, GEMETEN; frFR "Raids" bleek JUIST = PLAYER_DIFFICULTY3), tool 169/169.
+Blinde vlek: Engelse spelnamen ín vertaalde zinnen ziet translation_todo niet → mh-writer op CODEX_HIDDENTREASURE_BODY,
+mh-sweep over de rest. 🐞 Rob 16 okt, Dalaran → The Ring of Glory: op Coiled Isle (2512) onze pijl, log "TomTom
+measures no (instance player 0 / pin 0)" → ons bewaarde uid stond niet meer in TomTom's waypointMap (AFGELEID uit
+TomTom_Waypoints.lua). Fix in TravelRoute WakeTomTom: uid zoek + doel meetbaar → pin opnieuw (1× per doel), log
+"TomTom's point was gone (old uid …)". Oorzaak van het verdwijnen nog OPEN: dat log-regel vertelt het.
+
 **Op main, GEEN tag** (laatste release blijft v4.7.7). Sinds 4.7.7 o.a.: Labyrinth-kisten/Eagle/Codex "Hidden treasures"
 (15 okt) + alles van 16 okt: Mount run (tabbladen, pijl in stappen, weg naar huis, hearthstone/toy/mage-knop, quest-stap
 Elsia, instappen = volgende stap), taalbestanden alleen eigen taal (lint [21]), Travel fase 1-4 (`Modules/Travel/`:
