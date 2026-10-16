@@ -323,12 +323,31 @@ end
 local function ShowStep(i)
 	local s = route.steps[i]
 	route.idx = i
-	if WatchVia(s) then
-		PointAt(s.map, s.via[1], s.via[2], s.text)
+	local text = s.text
+	if s.hearth or not (s.x and s.y) then
+		-- Nothing to point at (the Hearthstone): no arrow, but the route keeps the arrow so the old travel helpers
+		-- stay quiet, and the next zone change moves it on.
+		WatchVia({})
+		if ns.MH_TomTomClearAll then
+			ns.MH_TomTomClearAll()
+		end
+		ns.lastTarget = nil
+		ns._mhRouteOwner = "mountrun"
 	else
-		PointAt(s.map, s.x, s.y, s.text)
+		-- A capital step seen from elsewhere says which city it is in (Rob, in Uldum: "Take the portal to The Jade
+		-- Forest", 12 km away, without saying it stands in Orgrimmar).
+		local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+		if (s.map == 84 or s.map == 85) and pm and not InMap(pm, s.map) then
+			local city = C_Map.GetMapInfo and C_Map.GetMapInfo(s.map)
+			text = (ns:L("MOUNTRUN_STEP_IN_CITY")):format(city and city.name or "?", s.text)
+		end
+		if WatchVia(s) then
+			PointAt(s.map, s.via[1], s.via[2], text)
+		else
+			PointAt(s.map, s.x, s.y, text)
+		end
 	end
-	Say((ns:L("MOUNTRUN_STEP_FMT")):format(i, #route.steps, s.text))
+	Say((ns:L("MOUNTRUN_STEP_FMT")):format(i, #route.steps, text))
 end
 
 --- The way home first (Rob, 16 Oct 2026, in Silvermoon: "kunnen we geen pijlen ook naar de portals hier
@@ -342,6 +361,38 @@ local function HomeSteps(steps)
 	end
 	local fac = capital == 85 and "H" or "A"
 	local pre = {}
+	local function HomeRow(m)
+		local row = ns.MOUNTRUN_HOME and ns.MOUNTRUN_HOME[m]
+		local p = row and row[fac]
+		if p then
+			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
+			return { map = m, x = p[1], y = p[2], to = capital, via = row.via,
+				text = (ns:L(row.room and "MOUNTRUN_STEP_ROOM" or "MOUNTRUN_STEP_PORTAL")):format(info and info.name or "?") }
+		end
+	end
+	-- A portal home right here wins: no cooldown spent.
+	for m in pairs(ns.MOUNTRUN_HOME or {}) do
+		if InMap(pm, m) and HomeRow(m) then
+			return { HomeRow(m) }
+		end
+	end
+	-- Then the Hearthstone (Rob, 16 Oct 2026, in Uldum: "bv is een hs beschikbaar"), but only when it is off
+	-- cooldown AND lands where it helps — ns.MHHearthstoneGoesTo is the conservative bind check of the Travel
+	-- Assistant (Delves.lua): a Hearthstone to the wrong inn wastes the cooldown and cannot be walked back.
+	local hsInBags = C_Item and C_Item.GetItemCount and (C_Item.GetItemCount(6948) or 0) > 0
+	local hsReady = hsInBags and ns.GetItemCooldownSafe and (ns.GetItemCooldownSafe(6948) or 0) == 0
+	if hsReady and ns.MHHearthstoneGoesTo then
+		local capInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
+		local smInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(2393)
+		if capInfo and capInfo.name and ns.MHHearthstoneGoesTo(capInfo.name) then
+			return { { map = pm, to = capital, hearth = true,
+				text = (ns:L("MOUNTRUN_STEP_HEARTH")):format(capInfo.name) } }
+		end
+		if smInfo and smInfo.name and ns.MHHearthstoneGoesTo(smInfo.name) and HomeRow(2393) then
+			return { { map = pm, to = 2393, hearth = true,
+				text = (ns:L("MOUNTRUN_STEP_HEARTH")):format(smInfo.name) }, HomeRow(2393) }
+		end
+	end
 	local feeders = ns.MOUNTRUN_TO_SILVERMOON or {}
 	for m, list in pairs(feeders) do
 		if InMap(pm, m) then

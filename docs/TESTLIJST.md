@@ -85,6 +85,11 @@ er is niets weggegooid.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
       *"The Turbulent Timeways event … ended on 11 August …"*.
+- [ ] **Mount run → hearthstone als eerste stap** (16 okt, jouw Uldum-test). Sta ergens buiten Silvermoon en Orgrimmar
+      (bv. Uldum) met je hearthstone klaar (gebonden aan Wayfarer's Rest, Silvermoon). Kies een raid in Pandaria. Stap 1 hoort
+      nu te zijn: *"Use your Hearthstone; it takes you to Silvermoon City."* (geen pijl). Na het laden: stap 2 de portaalkamer →
+      Orgrimmar, stap 3 *"Take the portal to The Jade Forest"*, enz. Hearthstone op cooldown? Dan stap 1:
+      *"In Orgrimmar: Take the portal to The Jade Forest."*
 - [ ] **Mount run → geen gestoorde stappen meer** (16 okt, jouw Throne of Thunder-test). Doe dezelfde route nog eens vanuit
       Silvermoon. Na elk portaal mag de chat alleen *"Mount run, step N of 4: …"* zeggen: GEEN *"Nearest flight point there:
       Sanctum of Light"*, GEEN *"is not on this continent"*, GEEN *"Route finished"* en geen vlucht naar Honeydew Village.

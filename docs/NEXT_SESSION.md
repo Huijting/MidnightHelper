@@ -53,6 +53,12 @@
    zolang `_mhRouteOwner == "mountrun"`; AddSmartTomTomWay neemt "mountrun" weer over als een andere route start, zodat
    het zwijgen niet blijft hangen. Opnieuw testen.
 
+   ✅ **Hearthstone als startstap** (Rob in Uldum: *"bv is een hs beschikbaar, is er een portal terug vanaf hier"*):
+   HomeSteps-volgorde nu: portaal naar huis op deze kaart → Hearthstone (6948 in de tas, van cooldown af, én
+   `ns.MHHearthstoneGoesTo` zegt: hoofdstad, of Silvermoon + daarna de portaalkamer) → Midnight-zijzones via Silvermoon →
+   hub op je continent. Hearth-stap = geen pijl, wel eigenaar "mountrun". Een hoofdstadstap gezien van elders krijgt
+   "In Orgrimmar: …". Speelgoed-hearthstones telt het (nog) niet mee. Niet getest.
+
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO
 herschreven ("verwacht, niet bevestigd: vanaf 12.1.7 5.000 Timewarped Badges", datamine GEMETEN, munt AFGELEID),
