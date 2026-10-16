@@ -1634,7 +1634,7 @@ function ns.SkipCurrentRare()
 	skippedRares[RareKey(cur)] = true
 	-- The route runner points (phase 4): ask it to take the next lead now.
 	if ns.Travel and ns.Travel.Refresh then
-		ns.Travel.Refresh("rare")
+		ns.Travel.Refresh("rare", { skip = true })
 	end
 	local nextRare = NearestOpenRareRespectingSkips(zone)
 	if nextRare and RareKey(nextRare) ~= RareKey(cur) then
@@ -1828,19 +1828,69 @@ local function RareForget()
 	ns._mhLastRoutedRareQuest = nil
 end
 
---- A full hunt (Generate Route): the nearest open rare, skipped ones last. Standing on an empty spawn pushes it to the
---- back ("fly over an empty spawn, move on" — TomTom's cleardistance did that for TomTom users, MHRareTryAutoAdvance
---- for the rest; now the same for both). Done when every routed rare is done this week.
+--- 🔴 NEVER MOVE ON IN THE MIDDLE OF A FIGHT. Rob, 16 Oct 2026, Generate Route: "ik was nog in gevecht toen hij me al
+--- door verwees naar de volgende" — Banuran at 65%, the arrow already on Bad Zed (875 m). The phase-4 hunt skipped an
+--- "empty spawn" on the FIRST second within 40 yd: before the pull, the vignette check missed it, nobody was in combat
+--- yet, so it moved on (AFGELEID from the code; Rob's travelRouteLog of that moment not read yet). Now a rare route
+--- holds its lead while you fight, for EMPTY_HOLD_SECONDS after a fight, and while your target is a living rare; and an
+--- empty spawn only counts after standing there EMPTY_HOLD_SECONDS out of combat.
+local EMPTY_HOLD_SECONDS = 8
+local lastFightAt = -math.huge
+
+local function InFight()
+	return (UnitAffectingCombat and UnitAffectingCombat("player")) and true or false
+end
+
+--- Is the player's target a living rare? Fail open: an unreadable answer (secret, nil) does not hold.
+local function TargetIsLiveRare()
+	if not (UnitExists and UnitExists("target")) or (UnitIsDead and UnitIsDead("target")) then
+		return false
+	end
+	local okC, c = pcall(UnitClassification, "target")
+	if not okC or (issecretvalue and issecretvalue(c)) then
+		return false
+	end
+	return c == "rare" or c == "rareelite"
+end
+
+--- true while the rare route must keep its lead: a fight now, a fight a moment ago, or a living rare targeted.
+local function HoldLead()
+	local now = GetTime and GetTime() or 0
+	if InFight() then
+		lastFightAt = now
+		return true
+	end
+	return (now - lastFightAt) < EMPTY_HOLD_SECONDS or TargetIsLiveRare()
+end
+
+local huntLead -- the rare the hunt points at now, kept while HoldLead says so
+
+--- A full hunt (Generate Route): the nearest open rare, skipped ones last. Standing on an empty spawn (EMPTY_HOLD_SECONDS,
+--- out of combat) pushes it to the back ("fly over an empty spawn, move on" — TomTom's cleardistance did that for
+--- TomTom users, MHRareTryAutoAdvance for the rest; now the same for both). Done when every routed rare is done this week.
 local function HuntNextLead(ctx)
 	ns._mhLastRoutedRareQuest = nil
 	if not IsRareHuntActive() then
+		huntLead = nil
 		return nil
 	end
-	if ctx and ctx.arrived and ns.MHRareTryAutoAdvance then
-		ns.MHRareTryAutoAdvance(true)
+	-- A skip by hand (/mh skip, the keybind) is the player's own choice and always moves on.
+	local log = ns.Travel and ns.Travel.Log
+	if huntLead and not (ctx and ctx.skip) and not IsRareDoneThisWeek(huntLead) and HoldLead() then
+		if log and ctx and ctx.arrived and (ctx.parked or 0) < 1.5 then
+			log("rare: hold %s (fight %s, live rare targeted %s)", GetRareDisplayName(huntLead), tostring(InFight()),
+				tostring(TargetIsLiveRare()))
+		end
+		return RareLead(huntLead)
+	end
+	if ctx and ctx.arrived and (ctx.parked or 0) >= EMPTY_HOLD_SECONDS and ns.MHRareTryAutoAdvance then
+		if ns.MHRareTryAutoAdvance(true) and log and huntLead then
+			log("rare: %s not up after %.0f s out of combat — next", GetRareDisplayName(huntLead), ctx.parked)
+		end
 	end
 	local zone = CurrentHuntZone()
 	local rare = zone and NearestOpenRareRespectingSkips(zone)
+	huntLead = rare
 	return rare and RareLead(rare) or nil
 end
 
@@ -1856,7 +1906,7 @@ local function SingleNextLead(rare, detour)
 		ns._mhLastRoutedRareQuest = q
 		local paused = ns.Travel and ns.Travel.PausedCount and ns.Travel.PausedCount() or 0
 		if detour and paused > 0 and ctx and ctx.arrived and (ctx.parked or 0) >= LOST_RARE_SECONDS
-			and not (UnitAffectingCombat and UnitAffectingCombat("player")) then
+			and not HoldLead() then
 			local wx, wy = GetPlayerWorldPos()
 			if not (ns.IsRareVignetteNearWorld and ns.IsRareVignetteNearWorld(wx, wy, RARE_NEAR_YARDS)) then
 				return nil

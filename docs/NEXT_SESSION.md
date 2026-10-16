@@ -233,6 +233,12 @@ GEMETEN in het spel: Mount run Throne of Thunder end-to-end ✅, Coiled Isle-del
    ForceArrowToLead (subzone-vertaling) meer — als TomTom's pijl bij subzones wegvalt, komt die terug; rare-hunt
    "aangekomen" = 1 s-tikker binnen 40 yd (was 30×/s in onze pijl) — snelle overvluchten kunnen gemist worden, pin
    blijft dan staan (clearDist 0) en de route gaat door bij de volgende tik binnen 40 yd.
+   ✅ GEMETEN in Robs log (16:14-16:15): rare-omweg over een Labyrinth-route → rare klaar → `resume` werkte.
+   🐞 → gerepareerd, niet getest: Rob, Generate Route, vechtend met Banuran (65%) en de pijl al op Bad Zed (screenshot).
+   AFGELEID (log van dat moment nog niet gelezen, Rob had niet ge-/reload): HuntNextLead sloeg een "lege spawn" over in
+   de eerste seconde binnen 40 yd, vóór de pull. Nu (Rares.lua HoldLead): vasthouden tijdens gevecht, 8 s erna en bij
+   een levend rare-doelwit; lege spawn pas na 8 s stilstaan buiten gevecht; `/mh skip` breekt dat (ctx.skip). Ook de
+   lost-rare-regel van een omweg gebruikt HoldLead. Logregels `rare: hold …` / `… not up after … — next`.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

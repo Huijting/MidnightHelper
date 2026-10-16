@@ -41,6 +41,11 @@ Elke routeknop één keer — je moet zien: pijl naar het eerste doel, en na het
 - [ ] **Rares:** *Generate Route* (hele zone) — pijl naar de dichtstbijzijnde rare; vlieg over een lege spawn (rare niet
       op) → binnen een paar seconden pijl naar de volgende. Daarna *Find Nearest* (één rare): pijl blijft op die ene tot
       hij dood is.
+      🐞 Rob 16 okt middag (screenshot): vechtend met **Banuran** (65%) stond de pijl al op **Bad Zed (875 m)**. AFGELEID:
+      de "lege spawn"-regel schoof door in de eerste seconde binnen 40 yd, vóór de pull. Gerepareerd, opnieuw testen:
+      tijdens een gevecht, tot 8 s erna en zolang je een levende rare als doelwit hebt, blijft de pijl op de rare. Een
+      lege spawn telt pas na **8 s stilstaan buiten gevecht**. `/mh skip` werkt altijd. In het log: `rare: hold …` en
+      `rare: … not up after 8 s out of combat — next`. Graag daarna een `/reload`, dan lees ik het log.
 - [ ] **Prestatie-schatten** (Achievements-tab → Route): startregel in chat, pijl op de eerste schat (of eerst de urn/orb),
       de andere schatten als losse pinnen op de kaart; schat pakken → *"next: …"* en pijl verder. `/mh skip` → volgende.
       ⚠️ Anders dan vroeger: de 2 s-tikker die TomTom's pijl bij elke subzone opnieuw zette is weg. Verdwijnt de TomTom-pijl
