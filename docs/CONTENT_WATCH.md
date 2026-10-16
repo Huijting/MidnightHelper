@@ -2686,3 +2686,77 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   twee [RAAKT ONS]-aantekeningen zonder contradictie (Dundun-flavourtekst, naam-kandidaten voor
   openstaande roomtaken), verder **[RAAKT ONS NIET]**. Geen actiepunt dat ík kan oppakken — ik
   rapporteer, een mens beslist.
+
+---
+
+- [2026-10-16] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-15]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20
+  &nocache=20261016a` (en `&nocache=20261016b` als tweede, onafhankelijke fetch) via Exa, beide
+  volledig gelezen (JSON). Alle drie de draadjes (esMX-locale `user_uvqy5939hswhgduu`,
+  MrsBoojiePanda's debug-regel, gadrinonturalyon's coffer-key/3D-model-verzoek) hebben als
+  nieuwste bericht nog steeds een reply van `twelveinchy`; geen nieuwe reacties sinds
+  [2026-10-15]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt vandaag.
+
+- [2026-10-16] ⚠️ **Nieuwe sectie "October 15, 2026" — geen harde tegenspraak, wel een
+  vervolg-fix op precies de bug die onze eigen tip al als "fixed 14 Oct" citeert.**
+  `news.blizzard.com/en-us/article/24296142?nocache=20261016a` (via Exa `web_fetch_exa`)
+  **volledig gelezen**: sectie "October 15, 2026" staat nu bovenaan, boven de al op [2026-10-15]
+  verwerkte "October 14"-sectie (geen cache-val; convergeert met wat de andere wachters vandaag
+  als nieuwste zagen). Categorieën in de 15-okt-sectie: Items, Labyrinth, Quests. **Delves,
+  Professions, Classes, Dungeons and Raids: leeg** in deze sectie — niets te vergelijken. (De
+  Impressive-Treasure-levelverlaging uit deze sectie is al door de data-wachter gelogd op
+  [2026-10-16]; dit hieronder is mijn onafhankelijke contradictiecheck, niet herhaald.)
+
+  📌 **Positieve controle, zelfde repo-brede scope als de claims hieronder:** `grep -rn
+  "Sha'Kuro"` vindt onze eigen Labyrinth-roomtekst terug in `Locales/enUS.lua:3198` (en zeven
+  taalvarianten); `grep -rn "renownFactionID"` vindt treffers in `Modules/MountProgress.lua:140-
+  148`. Beide patronen werken dus op deze schaal — de 0-treffers verderop zijn gemeten
+  afwezigheid.
+
+  **Labyrinth — "Scenario bosses should now properly give credit if defeated a second time on
+  the same run" (15 okt) herhaalt bijna letterlijk de bug die onze eigen tip al als "fixed by
+  Blizzard on 14 Oct" citeert.** `DELVE_TIP_LABYRINTH_OVERVIEW` (`Locales/enUS.lua:3197`, zeven
+  taalvarianten) zegt sinds de vorige run: *"Launch-day bug, fixed by Blizzard on 14 Oct: the
+  kill of a room boss you had to beat a second time in the same run sometimes did not count...
+  If it still happens, tell us."* De 14-okt-hotfix gebruikte de term "Labyrinth"; de 15-okt-
+  hotfix noemt de bredere categorie "Scenario bosses" en beschrijft vrijwel dezelfde bug
+  opnieuw — wat erop wijst dat de eerste fix niet volledig was, of een los, breder mechanisme
+  raakte dat dezelfde symptomen gaf. MEASURED (citaat uit beide hotfix-secties zelf gelezen;
+  citaat uit `Locales/enUS.lua:3197` gelezen). **[RAAKT ONS NIET]** als harde tegenspraak — onze
+  tekst hedge't zelf al met "If it still happens, tell us", dus er wordt niets onwaar beweerd —
+  maar wel het melden waard: de bug lijkt hardnekkiger dan één hotfix oplost, en "fixed by
+  Blizzard on 14 Oct" kan de indruk wekken dat dit toen al klaar was terwijl Blizzard een dag
+  later nog een aparte fix nodig had. Een mens beslist of de formulering dit moet nuanceren.
+
+  **Labyrinth — Sullied Revenant en Sha'Kuro's gezondheid resette niet goed bij het falen van de
+  encounter; gefixed.** `DELVE_TIP_LABYRINTH_ROOMS` (`Locales/enUS.lua:3198`, zeven
+  taalvarianten) beschrijft beide bosses' aanvallen (Necrotic Sweep/Soul Traps voor Sullied
+  Revenant, Soul Storm/Rotten Cascade/Vile Bolt voor Sha'Kuro) maar zegt niets over gezondheid bij
+  een mislukte poging. MEASURED (0 treffers op "reset"/"fail" in combinatie met deze namen in
+  `Locales/enUS.lua`). **[RAAKT ONS NIET]**
+
+  **Quests — questNPC's om "De Legend of de Hash'ey" af te ronden waren niet beschikbaar in
+  Zul'Aman; gefixed.** Vervolg op de NPC-zichtbaarheidsfix van 14 okt (al gelogd op
+  [2026-10-15]) — nu een apart probleem (turn-in-NPC's, niet zichtbaarheid). Onze twee treffers
+  op "Amani'Zar" blijven vliegroute-namen (`Modules/FlightNetworkData.lua:21`,
+  `Modules/FlightPointsData.lua:992`); onze vele "Zul'Aman"-treffers in `Locales/enUS.lua` zijn
+  allemaal het open-wereld-levelgebied (zone-gids, grondstoffen, de Amani-Tribe-renown-
+  quartiermeester) — geen enkele claimt iets over deze quest se turn-in. MEASURED (0 treffers op
+  "Legend of de Hash'ey" buiten deze eigen watch-log). **[RAAKT ONS NIET]**
+
+  **Items — factiespecifieke mounts werden verborgen in het Mount Journal voor karakters van de
+  andere factie; gefixed.** `Modules/MountProgress.lua` leest "collected?" altijd live van de
+  Mount-Journal-API (regel 17: "the Mount Journal knows. Ask it instead of hunting a database")
+  en claimt zelf nergens welke mounts op welk scherm zichtbaar zijn voor welke factie — dit is
+  een client-side weergavebug in Blizzards eigen UI, niet in data die wij zelf tonen. MEASURED.
+  **[RAAKT ONS NIET]**
+
+  Vandaag is vrijdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24296142?nocache=20261016a (volledig gelezen via
+  Exa) · codebase: `grep` case-insensitive repo-breed op alle hierboven genoemde namen, plus
+  gerichte reads van `Locales/enUS.lua`, `Modules/MountProgress.lua`,
+  `Modules/FlightNetworkData.lua`, `Modules/FlightPointsData.lua` — allemaal vandaag gelezen.
+  Eén kanttekening zonder harde tegenspraak (kill-credit-fix tweede ronde), verder **[RAAKT ONS
+  NIET]**. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
