@@ -912,6 +912,7 @@ ns._mhLocales.nlNL = {
 	MOUNTRUN_STEP_DEN = "Ga %s binnen; daar staan de portalen.",
 	MOUNTRUN_STEP_HOME_FAR = "Vlieg naar %s en neem daar het portaal naar %s.",
 	MOUNTRUN_STEP_HEARTH = "Gebruik je Hearthstone; die brengt je naar %s.",
+	MOUNTRUN_STEP_HEARTH_TOY = "Gebruik je %s (een Hearthstone-toy); die brengt je naar %s.",
 	MOUNTRUN_STEP_IN_CITY = "In %s: %s",
 	MOUNTRUN_STEP_ENTRANCE = "Ga naar de ingang van %s.",
 	MOUNTRUN_TAB_NORTHREND = "Avond 1",

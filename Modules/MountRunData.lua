@@ -423,6 +423,17 @@ ns.MOUNTRUN_HOME = {
 	[2239] = { A = { 55.49, 63.66 } }, -- Amirdrassil (Bel'ameth), ZT:615
 }
 
+--- Hearthstone toys that go to your normal bind point (Rob, 16 Oct 2026: "laat ook mijn speelgoed-hearthstones
+--- meetellen als de gewone op cooldown is of niet in mijn tas zit"). From Zygor LibRover data_items.lua:17-36, the
+--- entries with destination "_HEARTH" and toy=true. Left out on purpose: the four covenant ones (Zygor gates them on
+--- the covenant, ZT:39-42), the Garrison and Dalaran Hearthstones (other destinations), Timerunner's (no toy flag).
+--- Not verified per id in the client; MountRun asks PlayerHasToy + the item cooldown, so a wrong id is simply never
+--- offered (fails closed).
+ns.MOUNTRUN_HEARTH_TOYS = {
+	245970, 64488, 142542, 162973, 163045, 165669, 165670, 165802, 166746, 166747,
+	168907, 172179, 193588, 209035, 208704, 188952, 190196, 200630, 228940,
+}
+
 --- Midnight zones without their own portal home: first to Silvermoon, then home from there. The portals are MH's
 --- own MIDNIGHT_PORTALS (Delves.lua), measured by Rob; Harandar's sit inside The Den, whose mouth comes first.
 ns.MOUNTRUN_TO_SILVERMOON = {

@@ -64,6 +64,12 @@
    (alleen oude fase). Hub-op-je-continent kiest nu de DICHTSTBIJZIJNDE (wereldcoördinaten via
    C_Map.GetWorldPosFromMapPos), niet een willekeurige. Gaten die blijven: speelgoed-hearthstones, Uldum e.d. op het
    continent van je eigen hoofdstad (dan "In Orgrimmar: …" = zelf erheen vliegen).
+   ✅ **Speelgoed-hearthstones** (Rob: "ja"): `ns.MOUNTRUN_HEARTH_TOYS` = 19 toys uit Zygor data_items.lua:17-36
+   (destination _HEARTH; covenant/Garrison/Dalaran/Timerunner bewust niet). Gewone hearthstone eerst; anders de eerste
+   toy die je hebt (PlayerHasToy) en die klaar is; zin noemt de toy bij zijn clientnaam (MOUNTRUN_STEP_HEARTH_TOY,
+   7 talen). Toy-ID's niet per stuk in de client gemeten — een fout ID wordt gewoon nooit aangeboden.
+   🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
+   gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

@@ -379,18 +379,41 @@ local function HomeSteps(steps)
 	-- Then the Hearthstone (Rob, 16 Oct 2026, in Uldum: "bv is een hs beschikbaar"), but only when it is off
 	-- cooldown AND lands where it helps — ns.MHHearthstoneGoesTo is the conservative bind check of the Travel
 	-- Assistant (Delves.lua): a Hearthstone to the wrong inn wastes the cooldown and cannot be walked back.
-	local hsInBags = C_Item and C_Item.GetItemCount and (C_Item.GetItemCount(6948) or 0) > 0
-	local hsReady = hsInBags and ns.GetItemCooldownSafe and (ns.GetItemCooldownSafe(6948) or 0) == 0
+	local function Ready(itemID)
+		return ns.GetItemCooldownSafe and (ns.GetItemCooldownSafe(itemID) or 0) == 0
+	end
+	-- Which Hearthstone: the item in the bags first, else a Hearthstone toy you own (16 Oct 2026). `toyName` is the
+	-- client's own name for the toy, so the sentence says which one to click.
+	local hsReady, toyName = false, nil
+	if C_Item and C_Item.GetItemCount and (C_Item.GetItemCount(6948) or 0) > 0 and Ready(6948) then
+		hsReady = true
+	elseif PlayerHasToy then
+		for _, id in ipairs(ns.MOUNTRUN_HEARTH_TOYS or {}) do
+			local okT, has = pcall(PlayerHasToy, id)
+			if okT and has and Ready(id) then
+				local okN, _, name = false, nil, nil
+				if C_ToyBox and C_ToyBox.GetToyInfo then
+					okN, _, name = pcall(C_ToyBox.GetToyInfo, id)
+				end
+				hsReady, toyName = true, (okN and type(name) == "string" and name ~= "") and name or nil
+				break
+			end
+		end
+	end
 	if hsReady and ns.MHHearthstoneGoesTo then
+		local function HearthText(placeName)
+			if toyName then
+				return (ns:L("MOUNTRUN_STEP_HEARTH_TOY")):format(toyName, placeName)
+			end
+			return (ns:L("MOUNTRUN_STEP_HEARTH")):format(placeName)
+		end
 		local capInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
 		local smInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(2393)
 		if capInfo and capInfo.name and ns.MHHearthstoneGoesTo(capInfo.name) then
-			return { { map = pm, to = capital, hearth = true,
-				text = (ns:L("MOUNTRUN_STEP_HEARTH")):format(capInfo.name) } }
+			return { { map = pm, to = capital, hearth = true, text = HearthText(capInfo.name) } }
 		end
 		if smInfo and smInfo.name and ns.MHHearthstoneGoesTo(smInfo.name) and HomeRow(2393) then
-			return { { map = pm, to = 2393, hearth = true,
-				text = (ns:L("MOUNTRUN_STEP_HEARTH")):format(smInfo.name) }, HomeRow(2393) }
+			return { { map = pm, to = 2393, hearth = true, text = HearthText(smInfo.name) }, HomeRow(2393) }
 		end
 	end
 	local feeders = ns.MOUNTRUN_TO_SILVERMOON or {}

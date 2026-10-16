@@ -928,6 +928,7 @@ ns._mhLocales.enUS = {
 	MOUNTRUN_STEP_DEN = "Go into %s; the portals are inside.",
 	MOUNTRUN_STEP_HOME_FAR = "Fly to %s and take the portal to %s there.",
 	MOUNTRUN_STEP_HEARTH = "Use your Hearthstone; it takes you to %s.",
+	MOUNTRUN_STEP_HEARTH_TOY = "Use your %s (a Hearthstone toy); it takes you to %s.",
 	MOUNTRUN_STEP_IN_CITY = "In %s: %s",
 	MOUNTRUN_STEP_ENTRANCE = "Go to the entrance of %s.",
 	-- Tab labels (16 Oct 2026, Rob: one tab per block). Short: seven of them share one row or two.
