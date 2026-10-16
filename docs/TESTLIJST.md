@@ -85,6 +85,10 @@ er is niets weggegooid.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
       *"The Turbulent Timeways event … ended on 11 August …"*.
+- [ ] **Mount run → hearthstone-KNOP** (16 okt, jouw "ik mis de knop"). Bij *"Use your Hearthstone …"* verschijnt bovenaan
+      je scherm een klein venster met het hearthstone-icoon (of je toy) en dezelfde zin. Klik het icoon → je hearthstone
+      start. Na het laden verdwijnt het venster vanzelf. Te verslepen; Shift+scroll maakt het groter/kleiner. In gevecht
+      verschijnt het pas na het gevecht. Met een toy: werkt de klik ook?
 - [ ] **Mount run → hearthstone als eerste stap** (16 okt, jouw Uldum-test). Sta ergens buiten Silvermoon en Orgrimmar
       (bv. Uldum) met je hearthstone klaar (gebonden aan Wayfarer's Rest, Silvermoon). Kies een raid in Pandaria. Stap 1 hoort
       nu te zijn: *"Use your Hearthstone; it takes you to Silvermoon City."* (geen pijl). Na het laden: stap 2 de portaalkamer →

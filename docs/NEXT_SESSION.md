@@ -68,6 +68,10 @@
    (destination _HEARTH; covenant/Garrison/Dalaran/Timerunner bewust niet). Gewone hearthstone eerst; anders de eerste
    toy die je hebt (PlayerHasToy) en die klaar is; zin noemt de toy bij zijn clientnaam (MOUNTRUN_STEP_HEARTH_TOY,
    7 talen). Toy-ID's niet per stuk in de client gemeten — een fout ID wordt gewoon nooit aangeboden.
+   ✅ **Hearthstone-knop** (Rob: *"ik mis de knop"*): MountRun.lua `MidnightHelperMountRunHearth` = klein venster met
+   SecureActionButton (item: macro `/use item:6948` zoals Delves.lua's MidnightHelperHSClick; toy: secure type "toy",
+   AFGELEID, ongetest). Alleen buiten gevecht tonen/verbergen (PLAYER_REGEN_ENABLED-wachtrij); weg bij volgende stap,
+   instance of andere route. RegisterMidnightDialogPopup (Shift+scroll).
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 

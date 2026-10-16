@@ -320,10 +320,117 @@ local function WatchVia(s)
 	return true
 end
 
+--- A button to click for the Hearthstone step (Rob, 16 Oct 2026: the chat line was right, "maar ik mis de knop").
+--- Same mechanism as the Travel Assistant's Hearthstone button (Delves.lua, MidnightHelperHSClick): a secure action
+--- button, so it can only be shown, hidden or changed out of combat — in combat the change waits for
+--- PLAYER_REGEN_ENABLED. The item uses "/use item:6948" like that button; a toy uses the secure "toy" type.
+local hearthFrame, pendingHearth, pendingHide
+local function HearthFrame()
+	if hearthFrame then
+		return hearthFrame
+	end
+	local f = CreateFrame("Frame", "MidnightHelperMountRunHearth", UIParent, "BackdropTemplate")
+	f:SetSize(300, 66)
+	f:SetPoint("TOP", UIParent, "TOP", 0, -170)
+	f:SetFrameStrata("DIALOG")
+	f:SetClampedToScreen(true)
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	f:Hide()
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	end
+	local b = CreateFrame("Button", "MidnightHelperMountRunHearthBtn", f, "SecureActionButtonTemplate")
+	b:SetSize(40, 40)
+	b:SetPoint("LEFT", f, "LEFT", 14, 0)
+	b.icon = b:CreateTexture(nil, "ARTWORK")
+	b.icon:SetAllPoints()
+	b.icon:SetTexture(134414) -- Hearthstone icon, replaced by the toy's own below
+	b:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+	b:RegisterForClicks("AnyUp", "AnyDown")
+	f.btn = b
+	f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	f.text:SetPoint("LEFT", b, "RIGHT", 10, 0)
+	f.text:SetPoint("RIGHT", f, "RIGHT", -26, 0)
+	f.text:SetJustifyH("LEFT")
+	f.text:SetWordWrap(true)
+	if ns.AttachMidnightDialogCloseButton then
+		ns.AttachMidnightDialogCloseButton(f, function()
+			if not (InCombatLockdown and InCombatLockdown()) then
+				f:Hide()
+			end
+		end)
+	end
+	hearthFrame = f
+	return f
+end
+
+local function HideHearthButton()
+	pendingHearth = nil
+	if hearthFrame and hearthFrame:IsShown() then
+		if InCombatLockdown and InCombatLockdown() then
+			pendingHide = true
+		else
+			hearthFrame:Hide()
+		end
+	end
+end
+
+local function ShowHearthButton(s)
+	if InCombatLockdown and InCombatLockdown() then
+		pendingHearth, pendingHide = s, nil
+		return
+	end
+	local f = HearthFrame()
+	local b = f.btn
+	if s.isToy then
+		b:SetAttribute("type", "toy")
+		b:SetAttribute("toy", s.useID)
+		b:SetAttribute("macrotext", nil)
+	else
+		b:SetAttribute("type", "macro")
+		b:SetAttribute("macrotext", "/use item:" .. tostring(s.useID))
+		b:SetAttribute("toy", nil)
+	end
+	local icon = C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(s.useID)
+	b.icon:SetTexture(icon or 134414)
+	f.text:SetText(s.text)
+	f:Show()
+end
+
+do
+	local ev = CreateFrame("Frame")
+	ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+	ev:SetScript("OnEvent", function()
+		if pendingHide then
+			pendingHide = nil
+			if hearthFrame then
+				hearthFrame:Hide()
+			end
+		end
+		local s = pendingHearth
+		pendingHearth = nil
+		if s and route and route.steps[route.idx] == s then
+			ShowHearthButton(s)
+		end
+	end)
+end
+
 local function ShowStep(i)
 	local s = route.steps[i]
 	route.idx = i
 	local text = s.text
+	if s.hearth and s.useID then
+		ShowHearthButton(s)
+	else
+		HideHearthButton()
+	end
 	if s.hearth or not (s.x and s.y) then
 		-- Nothing to point at (the Hearthstone): no arrow, but the route keeps the arrow so the old travel helpers
 		-- stay quiet, and the next zone change moves it on.
@@ -384,9 +491,9 @@ local function HomeSteps(steps)
 	end
 	-- Which Hearthstone: the item in the bags first, else a Hearthstone toy you own (16 Oct 2026). `toyName` is the
 	-- client's own name for the toy, so the sentence says which one to click.
-	local hsReady, toyName = false, nil
+	local hsReady, toyName, useID, isToy = false, nil, nil, false
 	if C_Item and C_Item.GetItemCount and (C_Item.GetItemCount(6948) or 0) > 0 and Ready(6948) then
-		hsReady = true
+		hsReady, useID = true, 6948
 	elseif PlayerHasToy then
 		for _, id in ipairs(ns.MOUNTRUN_HEARTH_TOYS or {}) do
 			local okT, has = pcall(PlayerHasToy, id)
@@ -396,6 +503,7 @@ local function HomeSteps(steps)
 					okN, _, name = pcall(C_ToyBox.GetToyInfo, id)
 				end
 				hsReady, toyName = true, (okN and type(name) == "string" and name ~= "") and name or nil
+				useID, isToy = id, true
 				break
 			end
 		end
@@ -410,10 +518,12 @@ local function HomeSteps(steps)
 		local capInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
 		local smInfo = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(2393)
 		if capInfo and capInfo.name and ns.MHHearthstoneGoesTo(capInfo.name) then
-			return { { map = pm, to = capital, hearth = true, text = HearthText(capInfo.name) } }
+			return { { map = pm, to = capital, hearth = true, useID = useID, isToy = isToy, place = capInfo.name,
+				text = HearthText(capInfo.name) } }
 		end
 		if smInfo and smInfo.name and ns.MHHearthstoneGoesTo(smInfo.name) and HomeRow(2393) then
-			return { { map = pm, to = 2393, hearth = true, text = HearthText(smInfo.name) }, HomeRow(2393) }
+			return { { map = pm, to = 2393, hearth = true, useID = useID, isToy = isToy, place = smInfo.name,
+				text = HearthText(smInfo.name) }, HomeRow(2393) }
 		end
 	end
 	local feeders = ns.MOUNTRUN_TO_SILVERMOON or {}
@@ -519,10 +629,12 @@ do
 		end
 		if ns._mhRouteOwner ~= "mountrun" then
 			route = nil
+			HideHearthButton()
 			return
 		end
 		if IsInInstance and select(1, IsInInstance()) then
 			route = nil
+			HideHearthButton()
 			ns._mhRouteOwner = nil
 			if ns.MH_TomTomClearAll then
 				ns.MH_TomTomClearAll()
