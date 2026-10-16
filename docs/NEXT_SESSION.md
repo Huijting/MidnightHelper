@@ -5,7 +5,8 @@
 ✅ **16 okt avond: v4.8.0 GETAGD** (release-commit c3cc0f5, tag v4.8.0; Rob: *"Go voor de tag v4.8.0."*). GitHub Actions
 run 38941390649 "Release to CurseForge, Wago and GitHub" = success; log: "Success!" voor CurseForge, Wago én GitHub.
 ✅ Rob, screenshot CF-dashboard: *"hij is live :)"* — v4.8.0 Approved, type R, 12.1.7/12.1.5/12.1.0/12.0.7 (4.7.7 had
-433 downloads na 1 dag). Nog bij Rob: CURSEFORGE_DESCRIPTION.md plakken; site-chat live zetten na zijn ja. Site-chat geseind met de
+433 downloads na 1 dag). ✅ Rob: beschrijving geplakt op CF. ✅ Site live op 4.8.0 (site-chat d7a69783, 8 talen);
+Robs screenshot van het Mount run-venster doorgegeven voor het #new-blok. Site-chat geseind met de
 tag. Daarna eerst: 🔜 zoekbalk-plekken, 🔜 vertaaltool-blinde vlek (zie onder).
 
 (historie) 🔴 **16 okt avond: release 4.8.0 KLAAR OM TE TAGGEN, nog GEEN tag.** Rob: *"ik kom eigenlijk niks breaking tegen en denk dat
