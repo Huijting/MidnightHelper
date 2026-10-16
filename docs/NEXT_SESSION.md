@@ -30,6 +30,18 @@ bestemmingen uit `Modules/Travel/TravelData.lua`, hubs) in NavSearch; klik = rou
 huis, portal, enz.). GEMETEN: NavSearch kent nu tabs/tools/bazen/mounts/rares/schatten, geen plekken. Let op dubbele
 namen (Dalaran Northrend vs Broken Isles) en clientnamen per taal (C_Map.GetMapInfo geeft die).
 
+🔜 **TWEEDE KLUS NA DE RELEASE (Rob 16 okt: "doe maar"):** `tools/translation_todo.py` (of lint) moet Engelse SPELNAMEN ín
+vertaalde zinnen zelf vinden. Blinde vlek GEMETEN 16 okt: tool zei 169/169 klaar, mh-sweep vond daarna ~30 regels per
+taal met Engelse bazen/mounts/voorwerpen (o.a. "Vile Essence", "Nightbane", "Deeprun Tram"), en "Temporal Sands" stond
+er al sinds 1.8.0 (bestaat niet in de client). Idee: per key de Engelse woorden met hoofdletter uit enUS die
+letterlijk terugkomen in de/fr/es/pt/it/ru melden, met een SETTLED-lijst voor namen die de client zelf Engels laat
+(uitbreidingsnamen, Ulduar, Karazhan …). De gemeten naamtabellen van 16 okt staan in
+`docs/CLIENT_NAMES_MOUNTRUN_2026-10-16.md` en `docs/CLIENT_NAMES_CODEX_2026-10-16.md` (wago, per taal) — bron voor die lijst.
+Restjes uit die ronde (klein, na de release): frFR schrijft op oudere plekken "Lune-d'Argent" (rechte '), client heeft
+Lune-d’Argent (U+2019), o.a. PORTAL_NAME_SILVERMOON; "Spatial Rift" vertaald als de SPELL-naam (Räumlicher Riss enz.),
+terwijl NPC 231212 in elke client "Portal to K'aresh" heet (AFGELEID) — Rob/HandyNotes zeggen Spatial Rift, in het
+spel nakijken; esMX NOT FOUND: Nightbane, "Damned If You Don't", "A Titanic Problem" (Wowhead heeft geen esMX).
+
 **Op main, GEEN tag** (laatste release blijft v4.7.7). Sinds 4.7.7 o.a.: Labyrinth-kisten/Eagle/Codex "Hidden treasures"
 (15 okt) + alles van 16 okt: Mount run (tabbladen, pijl in stappen, weg naar huis, hearthstone/toy/mage-knop, quest-stap
 Elsia, instappen = volgende stap), taalbestanden alleen eigen taal (lint [21]), Travel fase 1-4 (`Modules/Travel/`:

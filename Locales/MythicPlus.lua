@@ -30,7 +30,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 
 	MPLUS_AFFIX_HEADER = "What turns on at each key level",
 	MPLUS_AFFIX_UNMEASURED = "Season 2 changed the keystone affixes, and Midnight Helper has not measured the new ones yet. The list that used to stand here was Season 1’s, and showing it under a Season 2 heading would be worse than showing nothing. The dungeon pool below is current. Your own keystone shows the affixes before we can measure them: /mh report and they go in.",
-	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marks and weakens certain enemies (Temporal Sands), and removes the death penalty. A leg-up while you learn the dungeons.",
+	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marks and weakens certain enemies, and removes the death penalty. A leg-up while you learn the dungeons.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — one of four weekly \"kiss-curse\" variants is active (see below). Runs from +5 to +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance falls off — no more death-penalty grace from here up.",
 	MPLUS_AFFIX_TYRFORT = "Tyrannical OR Fortified (alternates weekly). Tyrannical: bosses have more health and hit harder. Fortified: trash has more health and hits harder.",
@@ -70,7 +70,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 
 	MPLUS_AFFIX_HEADER = "Cosa si attiva a ogni livello di key",
 	MPLUS_AFFIX_UNMEASURED = "La Stagione 2 ha cambiato gli affissi delle keystone e Midnight Helper non ha ancora misurato quelli nuovi. L’elenco che stava qui era della Stagione 1, e mostrarlo sotto un titolo di Stagione 2 sarebbe peggio che non mostrare nulla. Il pool di dungeon qui sotto è aggiornato. La tua keystone mostra gli affissi prima che possiamo misurarli: /mh report e ci finiscono.",
-	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — segna e indebolisce certi nemici (Temporal Sands), e rimuove la penalità di morte. Un aiuto mentre impari i dungeon.",
+	MPLUS_AFFIX_LINDORMI = "Guida di Lindormi — segna e indebolisce certi nemici, e rimuove la penalità di morte. Un aiuto mentre impari i dungeon.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — è attiva una delle quattro varianti settimanali \"bacio-maledizione\" (vedi sotto). Va da +5 a +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance decade — da qui in su niente più clemenza sulla penalità di morte.",
 	MPLUS_AFFIX_TYRFORT = "Tyrannical OPPURE Fortified (si alternano ogni settimana). Tyrannical: i boss hanno più vita e colpiscono più forte. Fortified: il trash ha più vita e colpisce più forte.",
@@ -109,7 +109,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 
 	MPLUS_AFFIX_HEADER = "Wat er bij elk keyniveau aangaat",
 	MPLUS_AFFIX_UNMEASURED = "Season 2 heeft de keystone-affixen veranderd en Midnight Helper heeft de nieuwe nog niet gemeten. Het lijstje dat hier stond was dat van Season 1, en dat tonen onder een Season 2-kop is erger dan niets tonen. De dungeonpool hieronder klopt wel. Jouw eigen keystone toont de affixen eerder dan wij ze kunnen meten: /mh report en ze gaan erin.",
-	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — markeert en verzwakt bepaalde vijanden (Temporal Sands), en verwijdert de doodstraf. Een steuntje in de rug terwijl je de dungeons leert.",
+	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — markeert en verzwakt bepaalde vijanden, en verwijdert de doodstraf. Een steuntje in de rug terwijl je de dungeons leert.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — een van de vier wekelijkse \"kus-vloek\"-varianten is actief (zie hieronder). Loopt van +5 tot +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance valt weg — vanaf hier geen genade meer van de doodstraf.",
 	MPLUS_AFFIX_TYRFORT = "Tyrannical OF Fortified (wisselt wekelijks). Tyrannical: bosses hebben meer health en slaan harder. Fortified: trash heeft meer health en slaat harder.",
@@ -149,7 +149,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 
 	MPLUS_AFFIX_HEADER = "Was bei jeder Keystufe aktiv wird",
 	MPLUS_AFFIX_UNMEASURED = "Season 2 hat die Keystone-Affixe geändert, und Midnight Helper hat die neuen noch nicht gemessen. Die Liste, die hier stand, war die von Season 1 — sie unter einer Season-2-Überschrift zu zeigen wäre schlimmer, als nichts zu zeigen. Der Dungeon-Pool unten ist aktuell. Dein eigener Schlüsselstein zeigt die Affixe, bevor wir sie messen können: /mh report, und sie kommen rein.",
-	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — markiert und schwächt bestimmte Gegner (Temporal Sands) und entfernt die Todesstrafe. Eine Starthilfe, während du die Dungeons lernst.",
+	MPLUS_AFFIX_LINDORMI = "Lindormis Rat — markiert und schwächt bestimmte Gegner und entfernt die Todesstrafe. Eine Starthilfe, während du die Dungeons lernst.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — eine von vier wöchentlichen \"Kuss-Fluch\"-Varianten ist aktiv (siehe unten). Läuft von +5 bis +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance fällt weg — ab hier keine Gnade mehr bei der Todesstrafe.",
 	MPLUS_AFFIX_TYRFORT = "Tyrannical ODER Fortified (wechselt wöchentlich). Tyrannical: Bosse haben mehr Gesundheit und schlagen härter. Fortified: Trash hat mehr Gesundheit und schlägt härter.",
@@ -188,7 +188,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 
 	MPLUS_AFFIX_HEADER = "Ce qui s'active à chaque niveau de clé",
 	MPLUS_AFFIX_UNMEASURED = "La Saison 2 a changé les affixes de clé, et Midnight Helper n’a pas encore mesuré les nouveaux. La liste qui figurait ici était celle de la Saison 1, et l’afficher sous un titre Saison 2 serait pire que de ne rien afficher. Le pool de donjons ci-dessous est à jour. Ta propre clé montre les affixes avant qu'on puisse les mesurer : /mh report, et ils y entrent.",
-	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marque et affaiblit certains ennemis (Temporal Sands), et supprime la pénalité de mort. Un coup de pouce pendant que vous apprenez les donjons.",
+	MPLUS_AFFIX_LINDORMI = "Soutien de Lindormi — marque et affaiblit certains ennemis, et supprime la pénalité de mort. Un coup de pouce pendant que vous apprenez les donjons.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — l'une des quatre variantes hebdomadaires \"baiser-malédiction\" est active (voir ci-dessous). Va de +5 à +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance disparaît — plus aucune grâce sur la pénalité de mort à partir d'ici.",
 	MPLUS_AFFIX_TYRFORT = "Tyrannical OU Fortified (alterne chaque semaine). Tyrannical : les boss ont plus de points de vie et frappent plus fort. Fortified : les packs ont plus de points de vie et frappent plus fort.",
@@ -227,7 +227,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 
 	MPLUS_AFFIX_HEADER = "Qué se activa en cada nivel de llave",
 	MPLUS_AFFIX_UNMEASURED = "La Temporada 2 cambió los afijos de las llaves y Midnight Helper todavía no ha medido los nuevos. La lista que había aquí era la de la Temporada 1, y mostrarla bajo un título de Temporada 2 sería peor que no mostrar nada. El grupo de mazmorras de abajo sí está al día. Tu propia llave enseña los afijos antes de que podamos medirlos: /mh report y entran.",
-	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marca y debilita a ciertos enemigos (Temporal Sands), y elimina la penalización por muerte. Una ayuda mientras aprendes las mazmorras.",
+	MPLUS_AFFIX_LINDORMI = "Guía de Lindormi — marca y debilita a ciertos enemigos, y elimina la penalización por muerte. Una ayuda mientras aprendes las mazmorras.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — una de las cuatro variantes semanales de \"beso-maldición\" está activa (ver abajo). Va de +5 a +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance desaparece — a partir de aquí no hay más indulgencia con la penalización por muerte.",
 	MPLUS_AFFIX_TYRFORT = "Tyrannical O Fortified (se alternan cada semana). Tyrannical: los jefes tienen más vida y pegan más fuerte. Fortified: el trash tiene más vida y pega más fuerte.",
@@ -266,7 +266,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 
 	MPLUS_AFFIX_HEADER = "O que entra em ação em cada nível de chave",
 	MPLUS_AFFIX_UNMEASURED = "A Temporada 2 mudou os afixos das keystones e o Midnight Helper ainda não mediu os novos. A lista que estava aqui era a da Temporada 1, e mostrá-la sob um título de Temporada 2 seria pior do que não mostrar nada. O grupo de masmorras abaixo está atualizado. A sua própria keystone mostra os afixos antes de podermos medi-los: /mh report e entram.",
-	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marca e enfraquece certos inimigos (Temporal Sands), e remove a penalidade de morte. Uma ajuda enquanto você aprende as masmorras.",
+	MPLUS_AFFIX_LINDORMI = "Orientação de Lindormi — marca e enfraquece certos inimigos, e remove a penalidade de morte. Uma ajuda enquanto você aprende as masmorras.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — uma das quatro variantes semanais de \"beijo-maldição\" está ativa (veja abaixo). Vai de +5 a +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance cai — daqui para cima não há mais clemência na penalidade de morte.",
 	MPLUS_AFFIX_TYRFORT = "Tyrannical OU Fortified (alterna semanalmente). Tyrannical: os chefes têm mais vida e batem mais forte. Fortified: o trash tem mais vida e bate mais forte.",
