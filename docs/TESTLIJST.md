@@ -56,7 +56,7 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       nog niet gemeld.
 - [ ] **Silvermoon-pin met deur** (City-tabblad → "Portal to The Coiled Isle"): pijl naar de boog; door de boog → orb
       (met chatregel); beneden → portaal. Door het portaal → *"Route finished"*.
-- [ ] **`/mh clear` midden in een route** (vooral tijdens een hearthstone-stap of vlak voor een vliegmeester): knop weg,
+- [x] ✅ Rob 16 okt avond: "mh clear werkte ook". **`/mh clear` midden in een route** (vooral tijdens een hearthstone-stap of vlak voor een vliegmeester): knop weg,
       pijl weg, en na de volgende zonewissel komt er **niets** terug. `/mh travel` zegt *"no route (last: …, stopped: clear)"*.
 - [ ] **Andere route kiezen tijdens een route** (bv. een rare of een `{WAY}`-link in de Codex): de oude route stopt, geen
       chatregels meer van de oude.
