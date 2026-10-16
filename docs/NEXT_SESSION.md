@@ -19,6 +19,15 @@
    en vraagt `ns.BuildTravelPlan` / `ns.GetNearestFlightPoint` om een "eerst naar"-stap — beide kennen alleen Midnight. Welke
    van de twee "Wildcamp Ul'ar" gaf: niet gemeten. Rob 16 okt: *"in oa zygor en handynotes alle stappen vinden, desnoods
    bekijken we ze allemaal"* → richting = pijl in stappen (portaal → zone → ingang), data uit Zygor + HandyNotes.
+   ✅ **16 okt GEBOUWD:** onderzoek `docs/MOUNTRUN_ROUTES_2026-10-16.md` (45/47 volledig; Antorus deels) →
+   `ns.MOUNTRUN_HUBS` (38 knooppunten, per factie, `lower` = kelder Org) + `route = {…}` per raid in MountRunData.
+   MountRun.lua: `ns.MountRunStartRoute` → stap = verste stap waarvan je op de kaart staat of net doorheen kwam
+   (+ op het goede continent buiten de hoofdstad: stap 1 overslaan); verder bij elke zone-wissel, stopt in de instance
+   of als een andere route de pijl pakt (owner "mountrun"). Plaatsnamen komen uit C_Map (al vertaald).
+   NativeArrow: `noTravelAdvice` op lastTarget/activeLead → geen Midnight-"ga eerst naar" meer.
+   Kaarten verbeterd: COS/DS → 75 (portaal binnen), T4W/VP → 1527. HOW-zinnen: ZG (zeppelin Grom'gol), DFC (gat i.p.v.
+   lift), KARA (noordoost), VA (Astalor-quest). Twijfel, NIET aangepast: SOO-Zidormi, NP quest/achievement.
+   Open: Antorus (Legion Dalaran-plek, console, afdalen), SW→Silvermoon-portaal meten, Tirisfal 18/2070. Niets in-game gezien.
 **16 okt ochtendronde (GEMETEN):** CF 0 open (8 draadjes), GitHub 0 open, site-mail 0 (positieve controle: 30d geeft 15).
 API: TOC-wiki zegt dat 12.1.7 variabelen in `##`-regels verbiedt — MH gebruikt er geen (0 `[` in de .toc). PTR: **12.1.7-PTR
 open** (build 70424, Talebound). Data: Impressive Treasure-kisten Labyrinth nu level 80. Content: Blizzard fixte 15 okt de

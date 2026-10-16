@@ -73,6 +73,16 @@ er is niets weggegooid.
       haakjes hoeveel mounts je daar nog mist. Klik een tab → alleen dat blok staat eronder, lijst begint bovenaan. Venster dicht,
       `/reload`, weer open → dezelfde tab. Op een ander character → die heeft zijn eigen laatste tab. Passen de tabs netjes
       (eventueel in twee rijen) en staat de lijst er niet overheen?
+- [ ] **Mount run → pijl in stappen** (16 okt). Sta in Stormwind of Orgrimmar, `/mh mountrun`, klik bij een raid
+      **Arrow to the entrance**. In de chat: *"Mount run, step 1 of 2: Take the portal to Dalaran."* en de pijl staat op dat
+      portaal. Ga erdoor → na het laden zegt de chat *"step 2 of 2: Go to the entrance of …"* en de pijl springt naar de ingang.
+      Probeer er een paar:
+      - **Ulduar** (1 portaal): 2 stappen.
+      - **Sepulcher** (Oribos → Ring → Zereth Mortis): 4 stappen.
+      - **Nerub-ar Palace** (Dornogal → tunnel): de oude fout *"Head for Wildcamp Ul'ar"* mag NIET meer komen.
+      - **Horde, Shattrath of Caverns of Time:** zegt hij *"(lower room)"*, en staat het portaal echt beneden?
+      - **Culling of Stratholme:** de pijl wijst nu naar het portaal BINNEN de Caverns, niet naar de grotmond.
+      Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Szarith the Fanged verplaatst** (16 okt, HandyNotes 159: 38.40/17.69 → **39.50/27.40** in de Underbelly, kaart 2613).
       Rares-tab, Coiled to Strike-kaart of de Codex-kaart over de Vaults of Atal'Utek: klik Szarith → pijl. Staat hij daar écht?
       Method zegt nog de oude plek; niemand heeft hem ooit gezien, dus dit is de eerste echte meting.

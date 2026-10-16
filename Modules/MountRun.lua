@@ -151,6 +151,175 @@ local function EntrancePoint(raid)
 end
 
 --------------------------------------------------------------------------------
+-- Route in steps (Rob, 16 Oct 2026): capital portal → hub → entrance, one arrow at a time
+--------------------------------------------------------------------------------
+
+--- true when map `pm` is `target` or lies inside it (a city inside its zone, a cave inside its zone).
+local function InMap(pm, target)
+	local guard = 0
+	while pm and pm ~= 0 and guard < 12 do
+		if pm == target then
+			return true
+		end
+		local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(pm)
+		pm = info and info.parentMapID
+		guard = guard + 1
+	end
+	return false
+end
+
+local function ContinentOf(m)
+	local guard = 0
+	while m and m ~= 0 and guard < 12 do
+		local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(m)
+		if not info then
+			return nil
+		end
+		if Enum and Enum.UIMapType and info.mapType == Enum.UIMapType.Continent then
+			return m
+		end
+		m = info.parentMapID
+		guard = guard + 1
+	end
+	return nil
+end
+
+local function ArrivedVia(pm, to)
+	if type(to) == "table" then
+		for _, m in ipairs(to) do
+			if InMap(pm, m) then
+				return true
+			end
+		end
+		return false
+	end
+	return to ~= nil and InMap(pm, to)
+end
+
+local STEP_KEY = {
+	portal = "MOUNTRUN_STEP_PORTAL", zeppelin = "MOUNTRUN_STEP_ZEPPELIN", boat = "MOUNTRUN_STEP_BOAT",
+	tram = "MOUNTRUN_STEP_TRAM", exit = "MOUNTRUN_STEP_EXIT", tunnel = "MOUNTRUN_STEP_TUNNEL",
+	hole = "MOUNTRUN_STEP_HOLE", ring = "MOUNTRUN_STEP_RING", jump = "MOUNTRUN_STEP_JUMP",
+	teleport = "MOUNTRUN_STEP_TELEPORT", beacon = "MOUNTRUN_STEP_BEACON",
+}
+
+--- The steps for this character's faction. Destination names come from the client (C_Map), so they are in the
+--- player's own language without a translation of ours.
+local function BuildSteps(raid)
+	local fac = (UnitFactionGroup and UnitFactionGroup("player") == "Horde") and "H" or "A"
+	local steps = {}
+	for _, key in ipairs(raid.route or {}) do
+		local hub = ns.MOUNTRUN_HUBS and ns.MOUNTRUN_HUBS[key]
+		local p = hub and (hub[fac] or hub.both)
+		if p then
+			local to = p.to or hub.to
+			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(type(to) == "table" and to[1] or to)
+			local text = (ns:L(STEP_KEY[hub.kind] or "MOUNTRUN_STEP_PORTAL")):format(info and info.name or "?")
+			if p.lower then
+				text = text .. " " .. ns:L("MOUNTRUN_STEP_LOWER")
+			end
+			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text }
+		end
+	end
+	local zone, x, y = EntrancePoint(raid)
+	steps[#steps + 1] = { map = zone, x = x, y = y, text = (ns:L("MOUNTRUN_STEP_ENTRANCE")):format(ns:L(raid.nameKey)) }
+	return steps
+end
+
+--- Which step the player is at now: the furthest step whose map they stand on, or whose previous step they have
+--- just come through. One shortcut: already on the right continent but outside the capital (a Horde player in
+--- Durotar going to the Caverns of Time) skips the capital portal — only for step 2, because deeper hubs
+--- (Dornogal's tunnel to Azj-Kahet) share a continent with their destination and must not be skipped.
+local function CurrentStep(steps)
+	local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if not pm then
+		return 1
+	end
+	local inStart = InMap(pm, steps[1].map)
+	for k = #steps, 2, -1 do
+		local s = steps[k]
+		if InMap(pm, s.map) or ArrivedVia(pm, steps[k - 1].to) then
+			return k
+		end
+		if k == 2 and not inStart then
+			local pc = ContinentOf(pm)
+			if pc and pc == ContinentOf(s.map) then
+				return k
+			end
+		end
+	end
+	return 1
+end
+
+local route -- { raid, steps, idx }
+
+local function Say(msg)
+	if ns.PrintChat then
+		ns:PrintChat(msg)
+	else
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), msg))
+	end
+end
+
+local function ShowStep(i)
+	local s = route.steps[i]
+	route.idx = i
+	if ns.MH_TomTomClearAll then
+		ns.MH_TomTomClearAll()
+	end
+	-- skipTravelUI: the steps ARE the travel advice; Midnight's planner does not know the old world.
+	ns.AddSmartTomTomWay(s.map, s.x, s.y, s.text, true)
+	if ns.lastTarget then
+		ns.lastTarget.noTravelAdvice = true -- NativeArrow's "not on this continent, head for …" stays quiet
+		ns.lastTarget.via = "mount run"
+	end
+	ns._mhRouteOwner = "mountrun"
+	Say((ns:L("MOUNTRUN_STEP_FMT")):format(i, #route.steps, s.text))
+end
+
+function ns.MountRunStartRoute(raid)
+	route = { raid = raid, steps = BuildSteps(raid) }
+	ShowStep(CurrentStep(route.steps))
+end
+
+do
+	-- Advance on every zone change while the route is ours. Inside the instance it is done; another route
+	-- taking the arrow (a delve, a rare) ends ours without a word.
+	local ev = CreateFrame("Frame")
+	ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	ev:RegisterEvent("ZONE_CHANGED")
+	ev:RegisterEvent("ZONE_CHANGED_INDOORS")
+	ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+	ev:SetScript("OnEvent", function()
+		if not route then
+			return
+		end
+		if ns._mhRouteOwner ~= "mountrun" then
+			route = nil
+			return
+		end
+		if IsInInstance and select(1, IsInInstance()) then
+			route = nil
+			ns._mhRouteOwner = nil
+			if ns.MH_TomTomClearAll then
+				ns.MH_TomTomClearAll()
+			end
+			return
+		end
+		-- After a loading screen the map can still be nil for a moment; ask again shortly.
+		C_Timer.After(1, function()
+			if not route or ns._mhRouteOwner ~= "mountrun" then
+				return
+			end
+			local k = CurrentStep(route.steps)
+			if k ~= route.idx then
+				ShowStep(k)
+			end
+		end)
+	end)
+end
+
+--------------------------------------------------------------------------------
 -- Window
 --------------------------------------------------------------------------------
 
@@ -377,13 +546,9 @@ function ns.RefreshMountRun()
 				b:SetText(ns:L("MOUNTRUN_ROUTE_BTN"))
 				b:SetWidth((b.GetTextWidth and b:GetTextWidth() or 120) + 28)
 				b:SetScript("OnClick", function()
-					local zone, x, ey = EntrancePoint(raid)
-					if ns.MH_TomTomClearAll then
-						ns.MH_TomTomClearAll()
-					end
-					-- skipTravelUI: our travel planner knows Midnight's network, not the old world; the how-to line
-					-- gets you to the zone, the arrow does the last part.
-					ns.AddSmartTomTomWay(zone, x, ey, ns:L(raid.nameKey), true)
+					-- In steps (16 Oct 2026): the arrow goes to the first step you still need — the capital's portal,
+					-- the hub, then the entrance — and moves on by itself at every zone change. Chat says each step.
+					ns.MountRunStartRoute(raid)
 				end)
 				b:Show()
 				y = y + 24

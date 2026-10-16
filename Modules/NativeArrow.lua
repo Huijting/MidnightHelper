@@ -742,6 +742,12 @@ local function AnnounceUnreachable(t)
 	if IsInInstance and select(1, IsInInstance()) then
 		return
 	end
+	--- A route that brings its own steps says them itself. Rob, 15 Oct 2026, Mount run → Nerub-ar Palace: chat said
+	--- "Nerub-ar Palace is not on this continent. Head for Wildcamp Ul'ar first." The travel plan and the flight-point
+	--- lookup below only know Midnight, so for an old-world target their "first" is invented. MountRun.lua sets this.
+	if t.noTravelAdvice then
+		return
+	end
 	--- 🔴 NEVER ANNOUNCE A TRAVEL LEG AS UNREACHABLE. Rob, 3 Sep 2026, standing in
 	--- Harandar: chat said "Fly from Har'alnor to Torntusk Overlook", then one second
 	--- later "Flight master: Har'alnor is not on this continent. Head for Portal to
@@ -933,7 +939,7 @@ local function Tick()
 	-- skip). If ns.lastTarget was transiently nil'd, we keep the previous lead.
 	local lt = ns.lastTarget
 	if lt and lt.mapID then
-		activeLead = { mapID = lt.mapID, x = lt.x, y = lt.y, name = lt.name }
+		activeLead = { mapID = lt.mapID, x = lt.x, y = lt.y, name = lt.name, noTravelAdvice = lt.noTravelAdvice }
 	end
 
 	-- Rares FULL route only (Generate Route; _mhLastRoutedRareQuest == nil): TomTom

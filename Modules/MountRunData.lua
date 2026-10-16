@@ -20,35 +20,35 @@ ns.MOUNTRUN_RAIDS = {
 	{
 		headKey = "MOUNTRUN_HEAD_NORTHREND", tabKey = "MOUNTRUN_TAB_NORTHREND",
 		raids = {
-			{ nameKey = "MOUNTRUN_R_OS", instanceID = 615, journalID = 755, diffs = { 3, 4 }, boss = "Sartharion",
+			{ nameKey = "MOUNTRUN_R_OS", route = { "P_DALARAN_NR" }, instanceID = 615, journalID = 755, diffs = { 3, 4 }, boss = "Sartharion",
 				zoneMap = 115, x = 60.02, y = 57.02, howKey = "MOUNTRUN_HOW_OS",
 				mounts = {
 					{ mountID = 253, name = "Black Drake", boss = "Sartharion, 10", chance = "~70%" },
 					{ mountID = 250, name = "Twilight Drake", boss = "Sartharion, 25", chance = "~75%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_EOE", instanceID = 616, journalID = 756, diffs = { 3, 4 }, boss = "Malygos",
+			{ nameKey = "MOUNTRUN_R_EOE", route = { "P_DALARAN_NR" }, instanceID = 616, journalID = 756, diffs = { 3, 4 }, boss = "Malygos",
 				zoneMap = 114, x = 27.52, y = 26.74, howKey = "MOUNTRUN_HOW_EOE",
 				mounts = {
 					{ mountID = 246, name = "Azure Drake", boss = "Malygos", chance = "2-3.5%" },
 					{ mountID = 247, name = "Blue Drake", boss = "Malygos", chance = "2-4%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_VOA", instanceID = 624, journalID = 753, diffs = { 3, 4 }, boss = nil,
+			{ nameKey = "MOUNTRUN_R_VOA", route = { "P_DALARAN_NR" }, instanceID = 624, journalID = 753, diffs = { 3, 4 }, boss = nil,
 				zoneMap = 123, x = 50.06, y = 11.18, howKey = "MOUNTRUN_HOW_VOA",
 				mounts = {
 					{ mountID = 286, name = "Grand Black War Mammoth", boss = "all 4 bosses", chance = "~0.8% each", faction = "Alliance" },
 					{ mountID = 287, name = "Grand Black War Mammoth", boss = "all 4 bosses", chance = "~0.8% each", faction = "Horde" },
 				} },
-			{ nameKey = "MOUNTRUN_R_ICC", instanceID = 631, journalID = 758, diffs = { 6 }, boss = "The Lich King",
+			{ nameKey = "MOUNTRUN_R_ICC", route = { "P_DALARAN_NR" }, instanceID = 631, journalID = 758, diffs = { 6 }, boss = "The Lich King",
 				zoneMap = 118, x = 53.91, y = 87.41, howKey = "MOUNTRUN_HOW_ICC",
 				mounts = {
 					{ mountID = 363, name = "Invincible", boss = "The Lich King, 25 Heroic", chance = "1%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_ULDUAR", instanceID = 603, journalID = 759, diffs = { 14 }, boss = "Yogg-Saron",
+			{ nameKey = "MOUNTRUN_R_ULDUAR", route = { "P_DALARAN_NR" }, instanceID = 603, journalID = 759, diffs = { 14 }, boss = "Yogg-Saron",
 				zoneMap = 120, x = 41.55, y = 17.58, howKey = "MOUNTRUN_HOW_ULDUAR",
 				mounts = {
 					{ mountID = 304, name = "Mimiron's Head", boss = "Yogg-Saron, 0 keepers", chance = "1%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_UP", instanceID = 575, journalID = 286, diffs = { 2 }, boss = "Skadi the Ruthless",
+			{ nameKey = "MOUNTRUN_R_UP", route = { "P_DALARAN_NR" }, instanceID = 575, journalID = 286, diffs = { 2 }, boss = "Skadi the Ruthless",
 				zoneMap = 117, x = 57.29, y = 46.89, howKey = "MOUNTRUN_HOW_UP",
 				mounts = {
 					{ mountID = 264, name = "Blue Proto-Drake", boss = "Skadi, Heroic", chance = "1.2%" },
@@ -58,45 +58,48 @@ ns.MOUNTRUN_RAIDS = {
 	{
 		headKey = "MOUNTRUN_HEAD_OUTLAND", tabKey = "MOUNTRUN_TAB_OUTLAND",
 		raids = {
-			{ nameKey = "MOUNTRUN_R_TK", instanceID = 550, journalID = 749, diffs = { 4 }, boss = "Kael'thas Sunstrider",
+			{ nameKey = "MOUNTRUN_R_TK", route = { "P_SHATTRATH" }, instanceID = 550, journalID = 749, diffs = { 4 }, boss = "Kael'thas Sunstrider",
 				zoneMap = 109, x = 73.88, y = 63.74, howKey = "MOUNTRUN_HOW_TK",
 				mounts = {
 					{ mountID = 183, name = "Ashes of Al'ar", boss = "Kael'thas", chance = "1.7%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_SETHEKK", instanceID = 556, journalID = 252, diffs = { 2 }, boss = "Anzu",
+			{ nameKey = "MOUNTRUN_R_SETHEKK", route = { "P_SHATTRATH" }, instanceID = 556, journalID = 252, diffs = { 2 }, boss = "Anzu",
 				zoneMap = 108, x = 45.06, y = 65.62, howKey = "MOUNTRUN_HOW_SETHEKK",
 				mounts = {
 					{ mountID = 185, name = "Reins of the Raven Lord", boss = "Anzu, Heroic", chance = "1.6%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_MT", instanceID = 585, journalID = 249, diffs = { 2 }, boss = "Kael'thas Sunstrider",
+			{ nameKey = "MOUNTRUN_R_MT", route = { "P_SHATTRATH", "SH_QUELDANAS" }, instanceID = 585, journalID = 249, diffs = { 2 }, boss = "Kael'thas Sunstrider",
 				zoneMap = 122, x = 61.52, y = 31.10, howKey = "MOUNTRUN_HOW_MT",
 				mounts = {
 					{ mountID = 213, name = "Swift White Hawkstrider", boss = "Kael'thas, Heroic", chance = "5.3%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_KARA", instanceID = 532, journalID = 745, diffs = { 3 }, boss = "Attumen the Huntsman",
+			{ nameKey = "MOUNTRUN_R_KARA", route = { "Z_GROMGOL" }, instanceID = 532, journalID = 745, diffs = { 3 }, boss = "Attumen the Huntsman",
 				zoneMap = 42, x = 46.59, y = 74.11, howKey = "MOUNTRUN_HOW_KARA",
 				mounts = {
 					{ mountID = 168, name = "Fiery Warhorse", boss = "Attumen", chance = "1.1%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_RTK", instanceID = 1651, journalID = 860, diffs = { 23 }, boss = "Nightbane",
+			{ nameKey = "MOUNTRUN_R_RTK", route = { "Z_GROMGOL" }, instanceID = 1651, journalID = 860, diffs = { 23 }, boss = "Nightbane",
 				zoneMap = 42, x = 46.37, y = 70.66, howKey = "MOUNTRUN_HOW_RTK",
 				mounts = {
 					{ mountID = 883, name = "Smoldering Ember Wyrm", boss = "Nightbane", chance = "~19%" },
 					{ mountID = 875, name = "Midnight", boss = "Attumen", chance = "1.3%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_COS", instanceID = 595, journalID = 279, diffs = { 2 }, boss = nil,
-				zoneMap = 71, x = 64.86, y = 49.97, howKey = "MOUNTRUN_HOW_COS",
+			{ nameKey = "MOUNTRUN_R_COS", route = { "P_COT" }, instanceID = 595, journalID = 279, diffs = { 2 }, boss = nil,
+				-- 16 Oct 2026: the portal puts you INSIDE the Caverns (74); the instance portal is on 75 (HandyNotes HD:56).
+				-- Was 71 64.86/49.97, the cave mouth on the Tanaris map.
+				zoneMap = 75, x = 60.11, y = 82.72, howKey = "MOUNTRUN_HOW_COS",
 				mounts = {
 					{ mountID = 248, name = "Bronze Drake", boss = "in time, Heroic", chance = "~92%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_DS", instanceID = 967, journalID = 187, diffs = { 5, 6 }, boss = "Madness of Deathwing",
-				zoneMap = 71, x = 64.86, y = 49.97, howKey = "MOUNTRUN_HOW_DS",
+			{ nameKey = "MOUNTRUN_R_DS", route = { "P_COT" }, instanceID = 967, journalID = 187, diffs = { 5, 6 }, boss = "Madness of Deathwing",
+				-- Same as Culling: map 75, HandyNotes HD:112. Zygor says 61.97/26.97 — the sources differ up to 5.9.
+				zoneMap = 75, x = 60.87, y = 21.15, howKey = "MOUNTRUN_HOW_DS",
 				mounts = {
 					{ mountID = 444, name = "Life-Binder's Handmaiden", boss = "Deathwing, Heroic", chance = "1-1.8%" },
 					{ mountID = 442, name = "Blazing Drake", boss = "Deathwing", chance = "0.7-0.9%" },
 					{ mountID = 445, name = "Experiment 12-B", boss = "Ultraxion", chance = "0.5-0.7%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_ONY", instanceID = 249, journalID = 760, diffs = { 3, 4 }, boss = "Onyxia",
+			{ nameKey = "MOUNTRUN_R_ONY", route = { "P_COT_A" }, instanceID = 249, journalID = 760, diffs = { 3, 4 }, boss = "Onyxia",
 				zoneMap = 70, x = 52.90, y = 78.15, howKey = "MOUNTRUN_HOW_ONY",
 				mounts = {
 					{ mountID = 349, name = "Onyxian Drake", boss = "Onyxia", chance = "1.3-1.7%" },
@@ -106,29 +109,30 @@ ns.MOUNTRUN_RAIDS = {
 	{
 		headKey = "MOUNTRUN_HEAD_CATA", tabKey = "MOUNTRUN_TAB_CATA",
 		raids = {
-			{ nameKey = "MOUNTRUN_R_FL", instanceID = 720, journalID = 78, diffs = { 14, 15 }, boss = "Ragnaros",
+			{ nameKey = "MOUNTRUN_R_FL", route = { "E_HYJAL" }, instanceID = 720, journalID = 78, diffs = { 14, 15 }, boss = "Ragnaros",
 				zoneMap = 198, x = 47.00, y = 78.24, howKey = "MOUNTRUN_HOW_FL",
 				mounts = {
 					{ mountID = 425, name = "Flametalon of Alysrazor", boss = "Alysrazor", chance = "2.1%" },
 					{ mountID = 415, name = "Pureblood Fire Hawk", boss = "Ragnaros", chance = "0.9-1.7%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_T4W", instanceID = 754, journalID = 74, diffs = { 3, 4, 5, 6 }, boss = "Al'Akir",
-				zoneMap = 249, x = 38.24, y = 80.70, howKey = "MOUNTRUN_HOW_T4W",
+			{ nameKey = "MOUNTRUN_R_T4W", route = { "E_ULDUM" }, instanceID = 754, journalID = 74, diffs = { 3, 4, 5, 6 }, boss = "Al'Akir",
+				-- 16 Oct 2026: the Uldum portal lands on 1527 (today's Uldum), not 249 (the old phase). HandyNotes HD:108.
+				zoneMap = 1527, x = 38.23, y = 80.69, howKey = "MOUNTRUN_HOW_T4W",
 				mounts = {
 					{ mountID = 396, name = "Drake of the South Wind", boss = "Al'Akir", chance = "1-2%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_TOT", instanceID = 1098, journalID = 362, diffs = { 3, 4, 5, 6 }, boss = "Ji-Kun",
+			{ nameKey = "MOUNTRUN_R_TOT", route = { "P_JADE", "TL_THUNDER" }, instanceID = 1098, journalID = 362, diffs = { 3, 4, 5, 6 }, boss = "Ji-Kun",
 				zoneMap = 504, x = 63.82, y = 32.05, howKey = "MOUNTRUN_HOW_TOT",
 				mounts = {
 					{ mountID = 531, name = "Spawn of Horridon", boss = "Horridon", chance = "2.4%" },
 					{ mountID = 543, name = "Clutch of Ji-Kun", boss = "Ji-Kun", chance = "2.3%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_MSV", instanceID = 1008, journalID = 317, diffs = { 3, 4, 5, 6 }, boss = "Elegon",
+			{ nameKey = "MOUNTRUN_R_MSV", route = { "P_JADE" }, instanceID = 1008, journalID = 317, diffs = { 3, 4, 5, 6 }, boss = "Elegon",
 				zoneMap = 379, x = 59.50, y = 39.34, howKey = "MOUNTRUN_HOW_MSV",
 				mounts = {
 					{ mountID = 478, name = "Astral Cloud Serpent", boss = "Elegon", chance = "0.4-2.9%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_SOO", instanceID = 1136, journalID = 369, diffs = { 16 }, boss = "Garrosh Hellscream",
+			{ nameKey = "MOUNTRUN_R_SOO", route = { "P_JADE" }, instanceID = 1136, journalID = 369, diffs = { 16 }, boss = "Garrosh Hellscream",
 				zoneMap = 390, x = 74.30, y = 41.66, howKey = "MOUNTRUN_HOW_SOO",
 				mounts = {
 					{ mountID = 559, name = "Kor'kron Juggernaut", boss = "Garrosh, Mythic", chance = "2.3%" },
@@ -138,34 +142,34 @@ ns.MOUNTRUN_RAIDS = {
 	{
 		headKey = "MOUNTRUN_HEAD_MYTHIC", tabKey = "MOUNTRUN_TAB_MYTHIC",
 		raids = {
-			{ nameKey = "MOUNTRUN_R_HFC", instanceID = 1448, journalID = 669, diffs = { 16 }, boss = "Archimonde",
+			{ nameKey = "MOUNTRUN_R_HFC", route = { "P_DRAENOR", "DR_TANAAN" }, instanceID = 1448, journalID = 669, diffs = { 16 }, boss = "Archimonde",
 				zoneMap = 534, x = 45.22, y = 53.84, howKey = "MOUNTRUN_HOW_HFC",
 				mounts = {
 					{ mountID = 751, name = "Felsteel Annihilator", boss = "Archimonde, Mythic", chance = "7.5%*" },
 				} },
-			{ nameKey = "MOUNTRUN_R_BRF", instanceID = 1205, journalID = 457, diffs = { 16 }, boss = "Blackhand",
+			{ nameKey = "MOUNTRUN_R_BRF", route = { "P_DRAENOR" }, instanceID = 1205, journalID = 457, diffs = { 16 }, boss = "Blackhand",
 				zoneMap = 543, x = 51.59, y = 27.11, howKey = "MOUNTRUN_HOW_BRF",
 				mounts = {
 					{ mountID = 613, name = "Ironhoof Destroyer", boss = "Blackhand, Mythic", chance = "3.7%*" },
 				} },
-			{ nameKey = "MOUNTRUN_R_NH", instanceID = 1530, journalID = 786, diffs = { 16 }, boss = "Gul'dan",
+			{ nameKey = "MOUNTRUN_R_NH", route = { "P_AZSUNA" }, instanceID = 1530, journalID = 786, diffs = { 16 }, boss = "Gul'dan",
 				zoneMap = 680, x = 44.23, y = 59.51, howKey = "MOUNTRUN_HOW_NH",
 				mounts = {
 					{ mountID = 633, name = "Hellfire Infernal", boss = "Gul'dan, Mythic", chance = "8%*" },
 					-- Same kill; also drops on Normal/Heroic (JournalItemXDifficulty 14/15/16), shown under the Mythic row.
 					{ mountID = 791, name = "Felblaze Infernal", boss = "Gul'dan", chance = "0.4%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_BOD", instanceID = 2070, journalID = 1176, diffs = { 16 }, boss = "Lady Jaina Proudmoore",
+			{ nameKey = "MOUNTRUN_R_BOD", route = { "P_BFA", "ZUL_EXIT" }, instanceID = 2070, journalID = 1176, diffs = { 16 }, boss = "Lady Jaina Proudmoore",
 				zoneMap = 862, x = 54.28, y = 30.03, zoneMapA = 1161, xA = 70.65, yA = 35.06, howKey = "MOUNTRUN_HOW_BOD",
 				mounts = {
 					{ mountID = 1219, name = "Glacial Tidestorm", boss = "Jaina, Mythic", chance = "0.7%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_AMI", instanceID = 2549, journalID = 1207, diffs = { 16 }, boss = "Fyrakk the Blazing",
+			{ nameKey = "MOUNTRUN_R_AMI", route = { "P_VALDRAKKEN", "VALD_DREAM" }, instanceID = 2549, journalID = 1207, diffs = { 16 }, boss = "Fyrakk the Blazing",
 				zoneMap = 2200, x = 27.25, y = 31.03, howKey = "MOUNTRUN_HOW_AMI",
 				mounts = {
 					{ mountID = 1818, name = "Anu'relos, Flame's Guidance", boss = "Fyrakk, Mythic", chance = "0.6%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_SFO", instanceID = 2481, journalID = 1195, diffs = { 16 }, boss = "The Jailer",
+			{ nameKey = "MOUNTRUN_R_SFO", route = { "P_ORIBOS", "ORI_RING", "ORI_ZERETH" }, instanceID = 2481, journalID = 1195, diffs = { 16 }, boss = "The Jailer",
 				zoneMap = 1970, x = 81.00, y = 53.33, howKey = "MOUNTRUN_HOW_SFO",
 				mounts = {
 					{ mountID = 1587, name = "Zereth Overseer", boss = "The Jailer, Mythic", chance = "0.9%" },
@@ -180,32 +184,32 @@ ns.MOUNTRUN_RAIDS = {
 	{
 		headKey = "MOUNTRUN_HEAD_LEGION_SL", tabKey = "MOUNTRUN_TAB_LEGION_SL",
 		raids = {
-			{ nameKey = "MOUNTRUN_R_TOS", instanceID = 1676, journalID = 875, diffs = { 14, 15, 16, 17 }, boss = "Mistress Sassz'ine",
+			{ nameKey = "MOUNTRUN_R_TOS", route = { "P_AZSUNA" }, instanceID = 1676, journalID = 875, diffs = { 14, 15, 16, 17 }, boss = "Mistress Sassz'ine",
 				zoneMap = 646, x = 64.97, y = 20.26, howKey = "MOUNTRUN_HOW_TOS",
 				mounts = {
 					{ mountID = 899, name = "Abyss Worm", boss = "Mistress Sassz'ine, any difficulty", chance = "0.1-0.3%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_ANT", instanceID = 1712, journalID = 946, diffs = { 14, 15, 16, 17 }, boss = "Felhounds of Sargeras",
+			{ nameKey = "MOUNTRUN_R_ANT", route = { "P_AZSUNA", "LEG_BEACON" }, instanceID = 1712, journalID = 946, diffs = { 14, 15, 16, 17 }, boss = "Felhounds of Sargeras",
 				zoneMap = 885, x = 54.70, y = 62.80, howKey = "MOUNTRUN_HOW_ANT",
 				mounts = {
 					{ mountID = 971, name = "Antoran Charhound", boss = "Felhounds, any difficulty", chance = "?" },
 				} },
-			{ nameKey = "MOUNTRUN_R_ANT_ARGUS", instanceID = 1712, journalID = 946, diffs = { 16 }, boss = "Argus the Unmaker",
+			{ nameKey = "MOUNTRUN_R_ANT_ARGUS", route = { "P_AZSUNA", "LEG_BEACON" }, instanceID = 1712, journalID = 946, diffs = { 16 }, boss = "Argus the Unmaker",
 				zoneMap = 885, x = 54.70, y = 62.80, howKey = "MOUNTRUN_HOW_ANT_ARGUS",
 				mounts = {
 					{ mountID = 954, name = "Shackled Ur'zul", boss = "Argus, Mythic", chance = "~0.8%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_SOD", instanceID = 2450, journalID = 1193, diffs = { 16 }, boss = "Sylvanas Windrunner",
+			{ nameKey = "MOUNTRUN_R_SOD", route = { "P_ORIBOS", "ORI_RING", "ORI_MAW" }, instanceID = 2450, journalID = 1193, diffs = { 16 }, boss = "Sylvanas Windrunner",
 				zoneMap = 1543, x = 69.75, y = 32.01, howKey = "MOUNTRUN_HOW_SOD",
 				mounts = {
 					{ mountID = 1471, name = "Vengeance", boss = "Sylvanas, Mythic", chance = "~0.5%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_NYA", instanceID = 2217, journalID = 1180, diffs = { 16 }, boss = "N'Zoth the Corruptor",
+			{ nameKey = "MOUNTRUN_R_NYA", route = { "E_ULDUM" }, instanceID = 2217, journalID = 1180, diffs = { 16 }, boss = "N'Zoth the Corruptor",
 				zoneMap = 1527, x = 55.18, y = 43.96, howKey = "MOUNTRUN_HOW_NYA",
 				mounts = {
 					{ mountID = 1293, name = "Ny'alotha Allseer", boss = "N'Zoth, Mythic", chance = "~0.7%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_BOD_GMOD", instanceID = 2070, journalID = 1176, diffs = { 14, 15, 16 },
+			{ nameKey = "MOUNTRUN_R_BOD_GMOD", route = { "P_BFA", "ZUL_EXIT" }, instanceID = 2070, journalID = 1176, diffs = { 14, 15, 16 },
 				boss = { "Mekkatorque", "High Tinker Mekkatorque" },
 				zoneMap = 862, x = 54.28, y = 30.03, zoneMapA = 1161, xA = 70.65, yA = 35.06, howKey = "MOUNTRUN_HOW_BOD_GMOD",
 				mounts = {
@@ -218,38 +222,39 @@ ns.MOUNTRUN_RAIDS = {
 		raids = {
 			-- No journalID: DB2 puts the Service Entrance's journal entrance on the Main Gate, so the client pin would point
 			-- at the wrong door. The coordinate is HandyNotes_MapNotes' Service Entrance.
-			{ nameKey = "MOUNTRUN_R_STRAT", instanceID = 329, diffs = { 1 }, boss = "Lord Aurius Rivendare",
+			{ nameKey = "MOUNTRUN_R_STRAT", route = { "Z_TIRISFAL", "TRAM_IF" }, instanceID = 329, diffs = { 1 }, boss = "Lord Aurius Rivendare",
 				zoneMap = 23, x = 43.25, y = 18.54, howKey = "MOUNTRUN_HOW_STRAT",
 				mounts = {
 					{ mountID = 69, name = "Rivendare's Deathcharger", boss = "Rivendare", chance = "0.9%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_VP", instanceID = 657, journalID = 68, diffs = { 1, 2 }, boss = "Altairus",
-				zoneMap = 249, x = 76.84, y = 84.59, howKey = "MOUNTRUN_HOW_VP",
+			{ nameKey = "MOUNTRUN_R_VP", route = { "E_ULDUM" }, instanceID = 657, journalID = 68, diffs = { 1, 2 }, boss = "Altairus",
+				-- Same as Throne of the Four Winds: 1527, HandyNotes HD:64.
+				zoneMap = 1527, x = 76.70, y = 84.35, howKey = "MOUNTRUN_HOW_VP",
 				mounts = {
 					{ mountID = 395, name = "Drake of the North Wind", boss = "Altairus", chance = "0.8-0.9%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_SC", instanceID = 725, journalID = 67, diffs = { 1, 2 }, boss = "Slabhide",
+			{ nameKey = "MOUNTRUN_R_SC", route = { "E_DEEPHOLM" }, instanceID = 725, journalID = 67, diffs = { 1, 2 }, boss = "Slabhide",
 				zoneMap = 207, x = 47.83, y = 51.90, howKey = "MOUNTRUN_HOW_SC",
 				mounts = {
 					{ mountID = 397, name = "Vitreous Stone Drake", boss = "Slabhide", chance = "0.8-0.9%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_ZG", instanceID = 859, journalID = 76, diffs = { 2 }, boss = "High Priestess Kilnara",
+			{ nameKey = "MOUNTRUN_R_ZG", route = { "Z_GROMGOL" }, instanceID = 859, journalID = 76, diffs = { 2 }, boss = "High Priestess Kilnara",
 				zoneMap = 50, x = 72.25, y = 32.91, howKey = "MOUNTRUN_HOW_ZG",
 				mounts = {
 					{ mountID = 410, name = "Armored Razzashi Raptor", boss = "Mandokir, Heroic", chance = "0.7%" },
 					{ mountID = 411, name = "Swift Zulian Panther", boss = "Kilnara, Heroic", chance = "0.9%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_FH", instanceID = 1754, journalID = 1001, diffs = { 23 }, boss = { "Lord Harlan Sweete", "Harlan Sweete" },
+			{ nameKey = "MOUNTRUN_R_FH", route = { "P_BFA", "ZUL_EXIT", "ZUL_TIRAGARDE" }, instanceID = 1754, journalID = 1001, diffs = { 23 }, boss = { "Lord Harlan Sweete", "Harlan Sweete" },
 				zoneMap = 895, x = 83.82, y = 79.25, howKey = "MOUNTRUN_HOW_FH",
 				mounts = {
 					{ mountID = 995, name = "Sharkbait", boss = "Harlan Sweete, Mythic", chance = "0.5%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_UR", instanceID = 1841, journalID = 1022, diffs = { 23 }, boss = "Unbound Abomination",
+			{ nameKey = "MOUNTRUN_R_UR", route = { "P_BFA", "ZUL_EXIT", "BOR_NAZMIR" }, instanceID = 1841, journalID = 1022, diffs = { 23 }, boss = "Unbound Abomination",
 				zoneMap = 863, x = 51.08, y = 64.29, howKey = "MOUNTRUN_HOW_UR",
 				mounts = {
 					{ mountID = 1053, name = "Underrot Crawg", boss = "Unbound Abomination, Mythic", chance = "0.4%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_DOTI", instanceID = 2579, journalID = 1209, diffs = { 23 }, boss = "Chrono-Lord Deios",
+			{ nameKey = "MOUNTRUN_R_DOTI", route = { "P_VALDRAKKEN" }, instanceID = 2579, journalID = 1209, diffs = { 23 }, boss = "Chrono-Lord Deios",
 				zoneMap = 2025, x = 61.29, y = 84.73, howKey = "MOUNTRUN_HOW_DOTI",
 				mounts = {
 					-- A token (item 208216) that opens into a random dungeon mount: no single mountID, so no tick or cross.
@@ -260,53 +265,114 @@ ns.MOUNTRUN_RAIDS = {
 	{
 		headKey = "MOUNTRUN_HEAD_GROUP", tabKey = "MOUNTRUN_TAB_GROUP",
 		raids = {
-			{ nameKey = "MOUNTRUN_R_NP", instanceID = 2657, journalID = 1273, diffs = { 14, 15, 16 }, boss = "Queen Ansurek", group = true,
+			{ nameKey = "MOUNTRUN_R_NP", route = { "P_DORNOGAL", "DORN_TUNNEL" }, instanceID = 2657, journalID = 1273, diffs = { 14, 15, 16 }, boss = "Queen Ansurek", group = true,
 				zoneMap = 2255, x = 43.46, y = 90.44, howKey = "MOUNTRUN_HOW_NP",
 				mounts = {
 					{ mountID = 2219, name = "Sureki Skyrazor", boss = "Ansurek, any difficulty", chance = "0.4-0.9%" },
 					{ mountID = 2223, name = "Ascendant Skyrazor", boss = "Ansurek, Mythic", chance = "14%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_LOU", instanceID = 2769, journalID = 1296, diffs = { 14, 15, 16 }, boss = "Chrome King Gallywix", group = true,
+			{ nameKey = "MOUNTRUN_R_LOU", route = { "P_DORNOGAL", "DORN_PLATE" }, instanceID = 2769, journalID = 1296, diffs = { 14, 15, 16 }, boss = "Chrome King Gallywix", group = true,
 				zoneMap = 2346, x = 42.12, y = 50.41, howKey = "MOUNTRUN_HOW_LOU",
 				mounts = {
 					{ mountID = 2507, name = "Prototype A.S.M.R.", boss = "Gallywix, any difficulty", chance = "0.3-0.8%" },
 					{ mountID = 2487, name = "The Big G", boss = "Gallywix, Mythic", chance = "13%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_MFO", instanceID = 2810, journalID = 1302, diffs = { 16 }, boss = "Dimensius, the All-Devouring", group = true,
+			{ nameKey = "MOUNTRUN_R_MFO", route = { "P_DORNOGAL", "DORN_RIFT" }, instanceID = 2810, journalID = 1302, diffs = { 16 }, boss = "Dimensius, the All-Devouring", group = true,
 				zoneMap = 2371, x = 41.66, y = 21.53, howKey = "MOUNTRUN_HOW_MFO",
 				mounts = {
 					{ mountID = 2569, name = "Unbound Star-Eater", boss = "Dimensius, Mythic", chance = "~17%" },
 				} },
-			{ nameKey = "MOUNTRUN_R_MOQD", instanceID = 2913, journalID = 1308, diffs = { 16 }, boss = "Midnight Falls", group = true,
+			{ nameKey = "MOUNTRUN_R_MOQD", route = { "P_SILVERMOON", "SM_NORTH" }, instanceID = 2913, journalID = 1308, diffs = { 16 }, boss = "Midnight Falls", group = true,
 				zoneMap = 2424, x = 52.61, y = 85.30, howKey = "MOUNTRUN_HOW_MOQD",
 				mounts = {
 					{ mountID = 2607, name = "Ashes of Belo'ren", boss = "Midnight Falls, Mythic", chance = "?" },
 				} },
-			{ nameKey = "MOUNTRUN_R_VA", instanceID = 3004, journalID = 1320, diffs = { 16 }, boss = "Ula'tek", group = true,
+			{ nameKey = "MOUNTRUN_R_VA", route = { "P_SILVERMOON", "SM_COILED", "CI_NORTH" }, instanceID = 3004, journalID = 1320, diffs = { 16 }, boss = "Ula'tek", group = true,
 				zoneMap = 2509, x = 47.23, y = 22.86, howKey = "MOUNTRUN_HOW_VA",
 				mounts = {
 					{ mountID = 3030, name = "Primeval Skyfriend", boss = "Ula'tek, Mythic", chance = "?" },
 				} },
-			{ nameKey = "MOUNTRUN_R_AOF", instanceID = 2993, journalID = 1322, diffs = { 23 }, boss = "Zul'jan", group = true,
+			{ nameKey = "MOUNTRUN_R_AOF", route = { "P_SILVERMOON", "SM_COILED", "CI_EAST" }, instanceID = 2993, journalID = 1322, diffs = { 23 }, boss = "Zul'jan", group = true,
 				zoneMap = 2509, x = 47.24, y = 68.13, howKey = "MOUNTRUN_HOW_AOF",
 				mounts = {
 					{ mountID = 3058, name = "The Writhing Brood", boss = "Zul'jan, Mythic or M+ chest", chance = "0.8% (M+ chest 3.9%)" },
 				} },
-			{ nameKey = "MOUNTRUN_R_WRS", instanceID = 2805, journalID = 1299, diffs = { 23 }, boss = { "Restless Heart", "The Restless Heart" }, group = true,
+			{ nameKey = "MOUNTRUN_R_WRS", route = { "P_SILVERMOON", "SM_SOUTH" }, instanceID = 2805, journalID = 1299, diffs = { 23 }, boss = { "Restless Heart", "The Restless Heart" }, group = true,
 				zoneMap = 2395, x = 35.45, y = 78.83, howKey = "MOUNTRUN_HOW_WRS",
 				mounts = {
 					{ mountID = 2805, name = "Spectral Hawkstrider", boss = "The Restless Heart, Mythic", chance = "?" },
 				} },
-			{ nameKey = "MOUNTRUN_R_MTN", instanceID = 2811, journalID = 1300, diffs = { 23 }, boss = "Degentrius", group = true,
+			{ nameKey = "MOUNTRUN_R_MTN", route = { "P_SILVERMOON", "SM_NORTH" }, instanceID = 2811, journalID = 1300, diffs = { 23 }, boss = "Degentrius", group = true,
 				zoneMap = 2424, x = 63.46, y = 15.39, howKey = "MOUNTRUN_HOW_MTN",
 				mounts = {
 					{ mountID = 2817, name = "Lucent Hawkstrider", boss = "Degentrius, Mythic", chance = "?" },
 				} },
-			{ nameKey = "MOUNTRUN_R_DFC", instanceID = 2651, journalID = 1210, diffs = { 23 }, boss = "The Darkness", group = true,
+			{ nameKey = "MOUNTRUN_R_DFC", route = { "P_DORNOGAL", "DORN_HOLE" }, instanceID = 2651, journalID = 1210, diffs = { 23 }, boss = "The Darkness", group = true,
 				zoneMap = 2214, x = 55.54, y = 21.42, howKey = "MOUNTRUN_HOW_DFC",
 				mounts = {
 					{ mountID = 2204, name = "Wick", boss = "The Darkness, Mythic or M+ chest", chance = "?" },
 				} },
 		},
 	},
+}
+
+--[[
+	The steps of "Arrow to the entrance" (Rob, 16 Oct 2026: "in o.a. Zygor en HandyNotes alle stappen vinden").
+	Research: docs/MOUNTRUN_ROUTES_2026-10-16.md (mh-research). Every point is GEMETEN in a local source file
+	(ZT = Zygor LibRover data_transit.lua, ZB = data_borders.lua, HC/HD/HZ = HandyNotes_MapNotes); none of them has
+	been walked in game yet, except Orgrimmar → Silvermoon (Rob, see MIDNIGHT_PORTALS in Delves.lua).
+
+	Each raid's `route` lists hub keys in travel order; the entrance itself is always the last step (EntrancePoint).
+	A hub: `kind` (picks the chat sentence), `to` = the uiMap you arrive on (the client names it, so no translation),
+	and per faction `{ uiMap, x, y }` where the thing stands; `both` when it is the same for everyone. A hub without
+	the player's faction is skipped (Alliance flies to Zul'Gurub, Horde takes the zeppelin). `lower = true`: the
+	Orgrimmar portal is in the lower room of the Pathfinder's Den (HC:129).
+	Quest gates (from the sources, not measured in the client) are in the research file; the chat line does not
+	promise a portal you may not have yet — the window's "how" line says which ones need a quest.
+]]
+ns.MOUNTRUN_HUBS = {
+	-- Capitals: Stormwind (84) and Orgrimmar (85).
+	P_DALARAN_NR = { kind = "portal", to = 125, A = { 84, 44.36, 88.71 }, H = { 85, 56.23, 91.74 } }, -- ZT:1666 / ZT:1482
+	P_SHATTRATH = { kind = "portal", to = 111, A = { 84, 44.91, 85.72 }, H = { 85, 57.51, 91.65, lower = true } }, -- ZT:1692 / ZT:1460
+	P_COT = { kind = "portal", to = 74, A = { 84, 43.72, 85.35 }, H = { 85, 56.40, 92.56, lower = true } }, -- ZT:1674 / ZT:1449
+	P_COT_A = { kind = "portal", to = 74, A = { 84, 43.72, 85.35 } }, -- Onyxia: Alliance via the Caverns, Horde flies
+	P_JADE = { kind = "portal", to = 371, A = { 84, 45.70, 87.16 }, H = { 85, 57.46, 92.28 } }, -- ZT:1680 / ZT:1468
+	P_DRAENOR = { kind = "portal", A = { 84, 41.36, 89.82, to = 622 }, H = { 85, 55.18, 92.05, lower = true, to = 624 } }, -- ZT:1684 / ZT:1453
+	P_AZSUNA = { kind = "portal", to = 630, A = { 84, 42.08, 91.34 }, H = { 85, 57.23, 88.21, lower = true } }, -- ZT:1670 / ZT:1446
+	P_BFA = { kind = "portal", A = { 84, 40.85, 92.75, to = 1161 }, H = { 85, 57.89, 89.84, lower = true, to = 1163 } }, -- ZT:1688 / ZT:1456
+	P_ORIBOS = { kind = "portal", to = 1670, A = { 84, 47.55, 94.98 }, H = { 85, 58.32, 87.85 } }, -- ZT:787 / ZT:798
+	P_VALDRAKKEN = { kind = "portal", to = 2112, A = { 84, 48.89, 93.43 }, H = { 85, 57.11, 87.30 } }, -- ZT:1700 / ZT:1472
+	P_DORNOGAL = { kind = "portal", to = 2339, A = { 84, 48.13, 91.95 }, H = { 85, 58.58, 91.36 } }, -- ZT:451 / ZT:466
+	-- Horde: Rob measured 56.25/88.57 (Delves.lua MIDNIGHT_PORTALS); Alliance only from Zygor (ZT:164).
+	P_SILVERMOON = { kind = "portal", to = 2393, A = { 84, 48.77, 95.23 }, H = { 85, 56.25, 88.57 } },
+	E_HYJAL = { kind = "portal", to = 198, A = { 84, 76.20, 18.69 }, H = { 85, 51.13, 38.28 } }, -- ZT:1651 / ZT:1408
+	E_ULDUM = { kind = "portal", to = 1527, A = { 84, 75.24, 20.50 }, H = { 85, 48.87, 38.55 } }, -- ZT:1644 / ZT:1402
+	E_DEEPHOLM = { kind = "portal", to = 207, A = { 84, 73.19, 19.65 }, H = { 85, 50.84, 36.29 } }, -- ZT:1647 / ZT:1405
+	Z_GROMGOL = { kind = "zeppelin", to = 50, H = { 85, 52.52, 53.15 } }, -- ZT:2843 (HC:146)
+	-- Arrives on 18 (HandyNotes) or 2070 (Zygor); the sources disagree, so both count as "arrived".
+	Z_TIRISFAL = { kind = "portal", to = { 18, 2070 }, H = { 85, 50.74, 55.57 } }, -- ZT:1432 (HC:130)
+	TRAM_IF = { kind = "tram", to = 87, A = { 84, 69.62, 31.11 } }, -- ZT:2878
+	-- Further hubs.
+	SH_QUELDANAS = { kind = "portal", to = 122, both = { 111, 48.57, 42.02 } }, -- ZT:1908 (HC:2433)
+	TL_THUNDER = { kind = "portal", to = 504, A = { 388, 49.74, 68.67 }, H = { 388, 50.65, 73.40 } }, -- ZT:1997 / ZT:2037
+	DR_TANAAN = { kind = "portal", to = 534, A = { 622, 36.38, 41.15 }, H = { 624, 53.16, 43.91 } }, -- ZT:2097 / ZT:2119
+	ZUL_EXIT = { kind = "exit", to = 1165, H = { 1163, 48.59, 17.52 } }, -- HC:971, Hall of Ancient Paths
+	ZUL_TIRAGARDE = { kind = "boat", to = 895, H = { 862, 58.46, 62.99 } }, -- ZT:3020, Dread-Admiral Tattersail
+	BOR_NAZMIR = { kind = "boat", to = 863, A = { 1161, 67.95, 26.69 } }, -- ZT:2961, Grand Admiral Jes-Tereth
+	VALD_DREAM = { kind = "portal", to = 2200, both = { 2112, 62.60, 57.42 } }, -- ZT:650 (HC:3188)
+	ORI_RING = { kind = "ring", to = 1671, both = { 1670, 47.02, 50.34 } }, -- ZT:816-825, one of four
+	ORI_ZERETH = { kind = "portal", to = 1970, both = { 1671, 49.59, 25.44 } }, -- ZT:804 (HC:3033)
+	ORI_MAW = { kind = "jump", to = 1543, both = { 1671, 49.27, 50.88 } }, -- ZT:840 (HC:3031)
+	DORN_TUNNEL = { kind = "tunnel", to = 2255, both = { 2339, 63.61, 52.59 } }, -- ZT:508 (HC:3386)
+	DORN_PLATE = { kind = "teleport", to = 2346, both = { 2339, 52.47, 50.47 } }, -- ZT:588 (HC:3388)
+	DORN_RIFT = { kind = "portal", to = 2472, both = { 2339, 40.31, 22.70 } }, -- ZT:481 (HC:3389), Spatial Rift
+	DORN_HOLE = { kind = "hole", to = 2214, both = { 2339, 38.87, 59.81 } }, -- ZB:336
+	SM_NORTH = { kind = "exit", to = 2424, both = { 2393, 45.73, 6.48 } }, -- HC:3496
+	SM_SOUTH = { kind = "exit", to = 2395, both = { 2393, 37.44, 90.41 } }, -- HC:3497, westernmost of three
+	SM_COILED = { kind = "portal", to = 2512, both = { 2393, 56.83, 67.38 } }, -- Delves.lua MIDNIGHT_PORTALS (ZT:206)
+	CI_NORTH = { kind = "tunnel", to = 2509, both = { 2512, 43.30, 44.27 } }, -- ZB:359-361
+	CI_EAST = { kind = "tunnel", to = 2509, both = { 2512, 45.37, 64.90 } }, -- ZB:367-369
+	-- Antorus is only PARTLY covered: no source places Legion Dalaran itself, the Vindicaar's console or the way
+	-- down to the Antoran Wastes. The beacon is Zygor's alone (ZT:2349).
+	LEG_BEACON = { kind = "beacon", to = 831, both = { 627, 74.22, 49.26 } },
 }
