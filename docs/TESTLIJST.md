@@ -49,7 +49,7 @@ Elke routeknop één keer — je moet zien: pijl naar het eerste doel, en na het
       alles gepakt → *"All … collected — arrow cleared."*
 - [ ] **Weekroutine** (Home → route): pijl naar de eerste stop; ~6 s op een stop staan → volgende stop + *"Next stop: …"*;
       alles klaar → *"done"*-regel. Na een portaal (bv. naar Voidstorm en terug) moet de pijl er nog zijn.
-- [ ] **Delve-kisten** (in een delve, kistenknop): pijl naar kist 1; nog eens klikken = overslaan → volgende kist; kist
+- [x] ✅ 16 okt GEMETEN (Rob: "werkt goed"). **Delve-kisten** (in een delve, kistenknop): pijl naar kist 1; nog eens klikken = overslaan → volgende kist; kist
       geopend → volgende. Delve uit → route stopt vanzelf.
 - [ ] **Ritual** (ritual-site kiezen): pijl naar de obelisk, ook na doodgaan + herrijzen weer terug. Weekly klaar → route
       weg. (Nieuw: ónze eigen pijl is nu **paars**, de ritual-kleur; was goud. TomTom's pijl verandert niet.)
