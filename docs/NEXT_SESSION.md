@@ -109,6 +109,10 @@
    Isle of Thunder is no-fly (Zygor LibRover Node.lua:569). Optioneel later: Zygor's teleportportaal 52.09/45.01 →
    ingang (ZygorProfessionsHordeLEGION.lua:8879-8881) als tussenstap; Rob had het niet nodig.
    **Volgende: fase 2 deel 2 (Travel Assistant-popup leest het plan), daarna fase 3 (één routeloper).**
+   🐞 **BugGrabber 16 okt (ToT, eerste baas):** "66x insecure scripts exceeded execution limit for addon !BugGrabber".
+   GEMETEN in de BugGrabber-SV na Robs /reload: sessie 4345 bevat ALLEEN deze waarschuwing (was 55x in sessie 4287,
+   14 okt; teller loopt over sessies). Geen MH-fout opgeslagen. Kanttekening: secret-value-fouten print BugGrabber alleen
+   in chat (BugGrabber.lua:340), niet in de SV — Rob gevraagd of hij "BugGrabber:"-regels zag. Oorzaak onbekend.
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 
