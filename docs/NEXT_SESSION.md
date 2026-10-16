@@ -173,6 +173,12 @@
    ✅ Volgende poging werkte (Rob: "lijkt erop dat ie nu werkt"); GEMETEN in het log: teleport landde meteen op 2393,
    opnieuw gepland → vliegmeester, eigenaar bleef "rare". Oorzaak van de eerdere stop dus NIET gemeten; meter blijft.
    Meter las eerst het begin van de functie (Rares.lua:1804) i.p.v. de regel zelf → patroon gerepareerd (`"]:`).
+   🐞 Delve Shadowguard Point via teleport + Voidstorm-portaal (Rob): route klopt (GEMETEN in het log), maar na het portaal
+   weer ónze pijl — derde keer hetzelfde na een laadscherm. In plaats van nóg een moment te zoeken: wachter in
+   TravelRoute (1 s, alleen met een route-eigenaar): TomTom heeft een punt (IsCrazyArrowEmpty false), kan ons punt nu
+   meten (GetDistanceToWaypoint, GEMETEN dat die bestaat) en de pijl is verborgen → TomTom:ShowHideCrazyArrow(). Niet in
+   een instance, niet bij een knop-stap, niet als TomTom niet kan meten. Meterpatroon ook voor `[…/Delves.lua]:1939`.
+   Niet getest.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

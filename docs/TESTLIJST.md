@@ -47,6 +47,10 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       teleport → 2393 → opnieuw gepland → vliegmeester Sanctum of Light, eigenaar bleef "rare". De poging daarvóór stopte
       ("owner"); wie de eigenaar toen veranderde is niet gemeten — de meter (eigenaar-wissels met bestand:regel in
       `travelRouteLog`) bestond toen nog niet en blijft staan. Een delve via teleport is nog niet opnieuw getest.
+      🐞 Rob 16 okt avond, delve Shadowguard Point via teleport + portaal naar Voidstorm: route ✅ (log: 2393 → portaal →
+      2405 → doel), maar na het portaal weer ónze pijl. Nu een wachter: elke seconde, zolang een route de pijl heeft —
+      heeft TomTom zijn punt, kan hij het meten en is zijn pijl toch verborgen → TomTom's pijl weer aan (log: "TomTom's
+      arrow was hidden while it can measure … shown again"). Opnieuw testen: delve via teleport + portaal.
 - [x] ✅ Rob 16 okt avond: Mount run (2), Silvermoon-pin met deur (3) en "andere route kiezen tijdens een route" (4) gaan
       goed.
 - [ ] **Na het portaal in Silvermoon:** de route plant opnieuw vanaf daar: pijl naar de vliegmeester (*"Flight master: …"*)

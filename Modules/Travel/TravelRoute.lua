@@ -140,7 +140,8 @@ do
 					local st = debugstack(2, 1, 0) or ""
 					-- `[string "@…/Rares.lua"]:1835: in function <…/Rares.lua:1804>` — the line that ran comes after `"]:`;
 					-- the plain `file:line` further on is where the function starts (first try, 16 Oct 2026, read 1804).
-					local f, l = st:match('([%w_]+%.lua)"%]:(%d+)')
+					-- Two shapes seen in Rob's log: `[string "@…/Rares.lua"]:1835:` and `[Interface/…/Delves.lua]:1939:`.
+					local f, l = st:match('([%w_]+%.lua)"?%]:(%d+)')
 					if not f then
 						f, l = st:match("([%w_]+%.lua):(%d+)")
 					end
@@ -1061,6 +1062,48 @@ do
 			end
 		end)
 	end)
+end
+
+--- 🔎 WAKE TOMTOM'S ARROW WHEN IT HID ITSELF BUT CAN MEASURE AGAIN. Rob, 16 Oct 2026, three times (Atal'Aman, Lady
+--- Liminus, Shadowguard Point via the Voidstorm portal): after a loading screen our own arrow instead of TomTom's.
+--- GEMETEN in TomTom_CrazyArrow.lua: OnUpdate hides the arrow when GetDistanceToWaypoint gives nothing (mid-load), and
+--- only SetCrazyArrow or a ZONE_CHANGED* event shows it again — the timing after a portal decides whether one comes.
+--- So, while a route owns the arrow: TomTom still has its point (IsCrazyArrowEmpty false), can measure our pin now, and
+--- its arrow is hidden → TomTom:ShowHideCrazyArrow(), its own show function. Not when it cannot measure (another
+--- continent): then our arrow is the right fallback and stays. Not in an instance, not on a button step.
+do
+	local lastWoken
+	local function WakeTomTom()
+		local tt = _G.TomTom
+		local f = _G.TomTomCrazyArrow
+		if not (ns._mhRouteOwner and tt and f and ns.IsTomTomReady and ns.IsTomTomReady()) or f:IsShown() then
+			return
+		end
+		if (IsInInstance and select(1, IsInInstance())) or (route and IsAction(route.steps[route.idx])) then
+			return
+		end
+		if not (tt.IsCrazyArrowEmpty and tt.ShowHideCrazyArrow and tt.GetDistanceToWaypoint and tt.IsValidWaypoint) then
+			return
+		end
+		local okE, empty = pcall(tt.IsCrazyArrowEmpty, tt)
+		local uid = ns._mhCrazyArrowUid
+		if not okE or empty or type(uid) ~= "table" then
+			return
+		end
+		local okV, valid = pcall(tt.IsValidWaypoint, tt, uid)
+		local okD, d = pcall(tt.GetDistanceToWaypoint, tt, uid)
+		if not (okV and valid and okD and type(d) == "number") then
+			return
+		end
+		pcall(tt.ShowHideCrazyArrow, tt)
+		if lastWoken ~= uid then
+			lastWoken = uid
+			Log("TomTom's arrow was hidden while it can measure (%.0f yd): shown again", d)
+		end
+	end
+	if C_Timer and C_Timer.NewTicker then
+		C_Timer.NewTicker(1, WakeTomTom)
+	end
 end
 
 --- Getting on ends a ride step (Rob, 16 Oct 2026, flying with Scout Captain Elsia: the arrow still pointed back at
