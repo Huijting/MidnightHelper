@@ -198,7 +198,9 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
       *"The Turbulent Timeways event … ended on 11 August …"*.
-- [ ] **Travel fase 2 deel 2 — de reispopup** (16 okt). Kies buiten Midnight een route naar een Midnight-doel (bv. een delve
+- [x] ✅ 16 okt GEMETEN (Rob, Dalaran → rares in Eversong): popup zegt *"Take the portal to Orgrimmar."* en TomTom wijst naar
+      dat portaal (43 m). Toy-knop in de popup nog niet gezien. "HS on Cooldown!" stond er ook (bekend, nog open).
+      **Travel fase 2 deel 2 — de reispopup** (16 okt). Kies buiten Midnight een route naar een Midnight-doel (bv. een delve
       in Eversong) met **een toy-hearthstone** (gewone op cooldown of niet in je tas): de hearthstone-knop in de popup hoort
       nu het **toy-icoon** te hebben en de toy te gebruiken. Met je **mage**, zonder portaal in de buurt: de popup toont nu
       een regel met de eerste stap van het plan (bv. *"Cast Teleport: Silvermoon City …"*), ook als er geen hearthstone-knop
