@@ -20,7 +20,8 @@ local T = ns.Travel
 
 --- Mage teleports, by the uiMap they land on. Candidates, checked at run time with IsPlayerSpell, so an id that is
 --- wrong is never offered (fails closed). 1259190 = Teleport: Silvermoon City (Delves.lua, Travel Assistant).
---- 3567 Orgrimmar / 3561 Stormwind: to be confirmed on Rob's mage (16 Oct 2026, /dump asked).
+--- ✅ GEMETEN on Rob's Horde mage, 16 Oct 2026: C_Spell.GetSpellName(3567) = "Teleport: Orgrimmar", IsPlayerSpell
+--- true; GetSpellName(3561) = "Teleport: Stormwind", IsPlayerSpell false (right for a Horde mage).
 T.MAGE_TELEPORTS = {
 	[85] = 3567, -- Teleport: Orgrimmar
 	[84] = 3561, -- Teleport: Stormwind

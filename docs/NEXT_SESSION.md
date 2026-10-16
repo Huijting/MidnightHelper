@@ -104,7 +104,7 @@
    (kinds hearth/mage/portal, source "Travel.WayHome"); NativeArrow-label/-chat en de vlieghint in DelveTipMarkup zeggen
    zo'n stap als hele zin (ARROW_CHAT_TRAVEL_STEP). Nog NIET: de Travel Assistant-popup (Delves.lua) leest het plan nog
    niet; vervolgstappen voor gewone routes lopen via de bestaande leg-watcher (fase 3 maakt dat één routeloper).
-   🔴 Wacht op Robs `/dump` voor 3567/3561.
+   ✅ GEMETEN (Rob's mage): 3567 = "Teleport: Orgrimmar" (bekend), 3561 = "Teleport: Stormwind" (niet bekend, Horde).
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 
