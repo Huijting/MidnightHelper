@@ -151,6 +151,10 @@ local function DoorProximity(mapID, x, y)
 	return math.sqrt(dx * dx + dy * dy) * 100, ARRIVE_MAP_UNITS, "percent"
 end
 
+--- For other door hand-overs (DelveTipMarkup's travel-plan door, 16 Oct 2026): the same three-way measurement, so a
+--- door in Silvermoon can be reached at all. Returns dist, limit, how — compare dist with limit, never with yards.
+ns.SmcDoorProximity = DoorProximity
+
 function ns.StopSmcTwoStepRoute()
 	active = nil
 end

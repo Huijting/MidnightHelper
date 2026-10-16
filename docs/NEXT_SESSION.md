@@ -72,6 +72,10 @@
    SecureActionButton (item: macro `/use item:6948` zoals Delves.lua's MidnightHelperHSClick; toy: secure type "toy",
    AFGELEID, ongetest). Alleen buiten gevecht tonen/verbergen (PLAYER_REGEN_ENABLED-wachtrij); weg bij volgende stap,
    instance of andere route. RegisterMidnightDialogPopup (Shift+scroll).
+   ✅ **Stap 0 reiskaart AF:** `docs/TRAVEL_MAP_2026-10-16.md` (mh-research, alleen code gelezen): 12 bestanden, ~130
+   functies, 48 aanroepen van AddSmartTomTomWay uit 27 modules, 8 zonewissel-handlers + 9 timers, 5 dubbele coördinaten,
+   3 deurmechanismen. Direct gerepareerd: de delve-deur van vanochtend gebruikte SmcYardsToPoint (in Silvermoon altijd
+   nil, GEMETEN 7 sep) → nu ns.SmcDoorProximity (TwoStepRoute, 3 meetmethoden). Volgende: Rob kiest of/wanneer Travel.lua.
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 

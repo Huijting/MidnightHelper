@@ -501,16 +501,29 @@ if C_Timer and C_Timer.NewTicker then
 		if not (onTaxi or ArrivedOnTargetMap()) then
 			-- Reached the walked door but still on its map (a tunnel): point at the step beyond it, once.
 			local door, nxt = pendingLeg.door, pendingLeg.nextStep
-			if door and nxt and not pendingLeg.doorPassed and ns.SmcYardsToPoint and ns.AddSmartTomTomWay
-				and not ns._mhTravelLegBusy then
-				local okY, yards = pcall(ns.SmcYardsToPoint, door.mapID, door.x, door.y)
+			if door and nxt and not pendingLeg.doorPassed and (ns.SmcDoorProximity or ns.SmcYardsToPoint)
+				and ns.AddSmartTomTomWay and not ns._mhTravelLegBusy then
+				-- 🔴 16 Oct 2026 (travel map, docs/TRAVEL_MAP_2026-10-16.md): SmcYardsToPoint alone is always nil in
+				-- Silvermoon (GEMETEN 7 Sep, TwoStepRoute.lua), so a door there could never be "passed". The three-way
+				-- DoorProximity (yards / map size / map percent) answers there; its own limit goes with its unit.
+				local okY, yards, limit, how
+				if ns.SmcDoorProximity then
+					okY, yards, limit, how = pcall(ns.SmcDoorProximity, door.mapID, door.x, door.y)
+				else
+					okY, yards = pcall(ns.SmcYardsToPoint, door.mapID, door.x, door.y)
+				end
 				-- Passed = close to it, OR was near it and is now walking away from it. The second half is for a door
 				-- coordinate that is a little off (Rob, 14 Oct 2026, the Underbelly way-in: Method's 45.19/11.15 vs our
-				-- note 47.30/11.20; he walked through and the arrow pointed 36 m back).
+				-- note 47.30/11.20; he walked through and the arrow pointed 36 m back). Yards only: in map percent
+				-- the 60/15 numbers mean nothing.
 				local passed = false
 				if okY and type(yards) == "number" then
-					pendingLeg.doorMin = math.min(pendingLeg.doorMin or yards, yards)
-					passed = yards < 25 or (pendingLeg.doorMin < 60 and yards > pendingLeg.doorMin + 15)
+					if how == "percent" then
+						passed = yards < (limit or 1.2)
+					else
+						pendingLeg.doorMin = math.min(pendingLeg.doorMin or yards, yards)
+						passed = yards < 25 or (pendingLeg.doorMin < 60 and yards > pendingLeg.doorMin + 15)
+					end
 				end
 				if passed then
 					pendingLeg.doorPassed = true
