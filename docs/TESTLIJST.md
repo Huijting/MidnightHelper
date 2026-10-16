@@ -35,7 +35,7 @@ Rob: *"kunnen we niet ook zoeken in MH naar bv dalaran …"*. Eerst `/reload`.
       **Klik op Dalaran, ergens buiten Orgrimmar** (bv. in Silvermoon). Chat: *"Route, step 1 of 2: …"* — eerst de weg
       naar Orgrimmar (portaal, Hearthstone of mage-teleport), daarna *"step 2: Portal to Dalaran"* bij het portaal in
       Orgrimmar. Door het portaal → chat *"Route finished … Dalaran"* en de pijl is weg.
-- [ ] **Klik op een plek waar je al bent** (bv. Silvermoon terwijl je in Silvermoon staat) → chat *"You are already in
+- [x] ✅ Rob 16 okt, screenshot: *"Midnight Helper: You are already in Dalaran."* **Klik op een plek waar je al bent** (bv. Silvermoon terwijl je in Silvermoon staat) → chat *"You are already in
       Silvermoon City."*, geen pijl.
 - [ ] **Een plek met twee stappen**, bv. Isle of Quel'Danas (via Shattrath) of Tanaan Jungle (via Warspear). Klopt
       elke stap? Zo niet: screenshot + `/mh travel` (onderaan staat nu de lijst plekken met hun stappen).
