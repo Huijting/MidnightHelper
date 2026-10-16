@@ -35,6 +35,15 @@ Rob: *"Wel mis ik een knop of een tegel iN MH voor onze mountrun"*. Eerst `/relo
       tip over de verzamel-addon.
 - [ ] **In het Nederlands** (`/mh lang nl`): tegel heet *"Mount run: oude raids"*, knop *"Oude raids voor mounts (mount
       run)"*.
+- [ ] **Mount run: baasnamen uit de client** (16 okt, Rob: *"Repareer de baasnamen en de weekcontrole eerst"*). Open de
+      Mount run (tegel in Tools), loop de tabbladen langs. Hoort: achter elke mount die je mist de baas zoals de Dungeon
+      Journal hem noemt, vaak voluit (*"Chrome King Gallywix, Mythic"*, *"Yogg-Saron, 0 keepers"*); Vault of Archavon
+      *"each of the 4 bosses"*, Bronze Drake *"in time, Heroic"*, Nightbane gewoon *"Nightbane"*, Quantum Courser met
+      zijn voorwerpnaam. Nergens *"?"* of een getal waar een naam hoort.
+- [ ] **Weekcontrole**: doe één oude raid waar een mount-baas in zit (bijv. Onyxia of Ulduar), open daarna de Mount run.
+      Hoort: die moeilijkheid *"done"* met de resettijd. Een raid die je helemaal leeg hebt: altijd *"done"*.
+      ⚠️ Op een Duitse/Franse client is dit het eigenlijke doel (naam uit de client); dat kunnen wij niet testen
+      (taalpakketten zijn client-gebonden) — een speler met zo'n client moet het bevestigen.
 - [ ] **Changelog-venster na de update naar 4.8.0**: bovenaan staat 4.8.0 met negen regels, de eerste over de Mount run.
 - [ ] **Eigen opgeslagen TomTom-punt blijft** (na de oorzaak-fix in `MH_TomTomClearAll`): zet zelf een TomTom-punt
       (`/way 50 50 test`), start een MH-route met meerdere stappen, `/reload`. Hoort: jouw "test"-punt staat er nog.

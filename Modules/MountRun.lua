@@ -75,6 +75,35 @@ local function ReadLockouts()
 	return out
 end
 
+--- The boss's name in the CLIENT's language, from the Dungeon Journal (16 Oct 2026, Rob: "Repareer de baasnamen en de
+--- weekcontrole eerst"). Our data's English names showed as English on every client, and the lockout match compared
+--- them with the client's own (localized) names — so on a German client a killed boss never matched.
+local function EncName(enc)
+	if type(enc) ~= "number" or not EJ_GetEncounterInfo then
+		return nil
+	end
+	local ok, name = pcall(EJ_GetEncounterInfo, enc)
+	if ok and type(name) == "string" and name ~= "" and not (issecretvalue and issecretvalue(name)) then
+		return name
+	end
+	return nil
+end
+
+--- What to show for "which boss": the journal name (client language) plus the qualifier (a key), else our English text.
+local function BossLabel(enc, q, fallback)
+	local name = EncName(enc)
+	if not name then
+		if type(fallback) == "table" then
+			return fallback[1] or "?"
+		end
+		return fallback or "?"
+	end
+	if q then
+		return name .. ", " .. ns:L(q)
+	end
+	return name
+end
+
 local function FormatReset(sec)
 	if type(sec) ~= "number" or sec <= 0 then
 		return ""
@@ -103,15 +132,29 @@ local function RaidStatus(raid, lockouts)
 		local e = lockouts[(raid.instanceID or 0) .. ":" .. diff]
 		local done = false
 		if e then
-			if raid.boss and next(e.killed) then
+			if next(e.killed) then
 				-- boss may be a list: the lockout can use the DungeonEncounter name or the journal's (Mekkatorque).
-				local names = type(raid.boss) == "table" and raid.boss or { raid.boss }
-				for _, bn in ipairs(names) do
-					if e.killed[bn:lower()] then
+				-- Plus the journal's name in the client's language (raid.enc), so a non-English client matches too.
+				local names = {}
+				for _, bn in ipairs(type(raid.boss) == "table" and raid.boss or { raid.boss }) do
+					names[#names + 1] = bn
+				end
+				for _, enc in ipairs(type(raid.enc) == "table" and raid.enc or { raid.enc }) do
+					names[#names + 1] = EncName(enc)
+				end
+				-- No journal encounter at all (Nightbane: only a DungeonEncounter): the name as a translated key.
+				if raid.bossKey then
+					names[#names + 1] = ns:L(raid.bossKey)
+				end
+				for _, bn in pairs(names) do
+					if type(bn) == "string" and e.killed[bn:lower()] then
 						done = true
 					end
 				end
-			elseif type(e.done) == "number" and type(e.total) == "number" and e.total > 0 then
+			end
+			-- A full clear is done whatever the names say. Before 16 Oct this only ran when NOTHING was killed, so a
+			-- name mismatch (another client language) left a cleared raid "open".
+			if not done and type(e.done) == "number" and type(e.total) == "number" and e.total > 0 then
 				done = e.done >= e.total
 			end
 		end
@@ -367,16 +410,26 @@ local function MountLines(raid)
 	for _, m in ipairs(raid.mounts) do
 		if not (m.faction and myFaction and m.faction ~= myFaction) then
 			local name, have = MountState(m.mountID)
+			if not name and m.itemID and C_Item and C_Item.GetItemNameByID then
+				-- A token without a mountID (Quantum Courser): its item name, in the client's language when cached.
+				local okI, iname = pcall(C_Item.GetItemNameByID, m.itemID)
+				if okI and type(iname) == "string" and not (issecretvalue and issecretvalue(iname)) then
+					name = iname
+				end
+			end
 			name = name or m.name
+			-- m.label: a whole text key instead of a boss ("all 4 bosses"); else the boss in the client's language.
+			local who = m.label and ns:L(m.label) or BossLabel(m.enc or (not m.boss and raid.enc) or nil, m.q,
+				m.boss or raid.boss)
 			if not m.mountID then
 				-- A token that opens into a random mount (Quantum Courser): nothing to tick, so no tick or cross.
-				lines[#lines + 1] = ("|cffdddddd• %s|r |cffbbbbbb(%s, %s)|r"):format(name, m.boss or "?", m.chance or "?")
+				lines[#lines + 1] = ("|cffdddddd• %s|r |cffbbbbbb(%s, %s)|r"):format(name, who, m.chance or "?")
 			elseif have then
 				lines[#lines + 1] = ("|TInterface\\RaidFrame\\ReadyCheck-Ready:0|t |cff999999%s|r"):format(name)
 			else
 				missing = missing + 1
 				lines[#lines + 1] = ("|TInterface\\RaidFrame\\ReadyCheck-NotReady:0|t %s |cffbbbbbb(%s, %s)|r"):format(
-					name, m.boss or raid.boss or "?", m.chance or "?")
+					name, who, m.chance or "?")
 			end
 		end
 	end

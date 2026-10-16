@@ -24,6 +24,15 @@ ClearWaypoint (pin uit waypointMap) en laat hem in TomTom.waypoints → volgende
 geeft dat dode uid terug. Fix bij de bron: `ns.MH_TomTomClearAll` (Core.lua) doet nu RemoveWaypoint per pin; opgeslagen
 (persistent) pins van de speler alleen ClearWaypoint, zodat ze na /reload terugkomen. Vangnet in WakeTomTom blijft.
 
+🔧 **16 okt laat, vóór de release (Rob: *"Repareer de baasnamen en de weekcontrole eerst, dan pas de release"*):** het
+Mount run-venster toonde baasnamen uit onze Engelse data en de weekcontrole matchte die tegen de (gelokaliseerde)
+/raidinfo-naam → op een niet-Engelse client nooit "done" zodra er één baas dood was (AFGELEID uit de code). Nu:
+`enc` = JournalEncounter-id per baas in MountRunData (99 regels, GEMETEN wago 12.1.5.70391, tabel
+`docs/MOUNTRUN_ENCOUNTER_IDS_2026-10-16.md`), naam via `EJ_GetEncounterInfo` (clienttaal), `q` = vertaalbare toevoeging
+(MOUNTRUN_Q_*), `label` voor tekst zonder baas (VoA "each of the 4 bosses", Bronze Drake "in time, Heroic"),
+Nightbane = key MOUNTRUN_BOSS_NIGHTBANE (geen JE, alleen DungeonEncounter 2031), Quantum Courser via itemID 208216.
+Terugval gerepareerd: volle clear = done, ook als er namen niet matchen. Niet te testen op een niet-Engelse client.
+
 🔜 **EERSTE KLUS NA DE 4.8.0-RELEASE (Rob 16 okt):** *"kunnen we niet ook zoeken in MH naar bv dalaran of een van de
 andere plekken waar we kunnen komen via portals, en dan bedoel ik in onze search balk?"* → plekken (steden, portal-
 bestemmingen uit `Modules/Travel/TravelData.lua`, hubs) in NavSearch; klik = route erheen via de routeloper (weg naar

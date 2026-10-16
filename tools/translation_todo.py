@@ -107,6 +107,9 @@ SETTLED["MOUNTRUN_R_KARA"] = (_NL_DE_FR_ES_PT + ("itIT",), "client name is Karaz
 SETTLED["MOUNTRUN_R_ZG"] = (("nlNL", "deDE", "esES", "ptBR"), "client name is Zul'Gurub (Map 859)")
 SETTLED["MOUNTRUN_TAB_DUNGEONS"] = (("nlNL", "deDE"), "deDE client: DUNGEONS = 'Dungeons'")
 SETTLED["MOUNTRUN_STEP_IN_CITY"] = (("nlNL", "deDE"), "'In %s: %s' is correct Dutch and German")
+SETTLED["MOUNTRUN_BOSS_NIGHTBANE"] = (("nlNL",), "boss name, English in nlNL")
+SETTLED["MOUNTRUN_Q_NHM"] = (("nlNL",), "difficulty names, English in nlNL")
+SETTLED["MOUNTRUN_Q_KEEPERS0"] = (("nlNL",), "game term (Ulduar's Keepers), English in nlNL")
 
 
 def is_wordless(s):

@@ -910,6 +910,17 @@ ns._mhLocales.enUS = {
 	MOUNTRUN_DIFF_H = "Heroic",
 	MOUNTRUN_DIFF_M = "Mythic",
 	MOUNTRUN_DIFF_LFR = "LFR",
+	-- 16 Oct 2026: the part after the boss's name in a mount line ("Gallywix, any difficulty"). The name itself now
+	-- comes from the client's Dungeon Journal, in its own language.
+	MOUNTRUN_Q_ANY = "any difficulty",
+	MOUNTRUN_Q_NHM = "Normal/Heroic/Mythic",
+	MOUNTRUN_Q_KEEPERS0 = "0 keepers",
+	MOUNTRUN_Q_MPLUS = "Mythic or M+ chest",
+	MOUNTRUN_Q_TIMED_H = "in time, Heroic",
+	MOUNTRUN_Q_EACH_OF_4 = "each of the 4 bosses",
+	-- Nightbane has no Dungeon Journal encounter (only DungeonEncounter 2031, measured on wago 16 Oct 2026), so the
+	-- client cannot name it for us: its name per language is a key, also used to match the lockout.
+	MOUNTRUN_BOSS_NIGHTBANE = "Nightbane",
 	-- Route in steps (16 Oct 2026). %s = the place you arrive, named by the game client itself.
 	MOUNTRUN_STEP_FMT = "Mount run, step %d of %d: %s",
 	TRAVEL_STEP_FMT = "Route, step %d of %d: %s",
