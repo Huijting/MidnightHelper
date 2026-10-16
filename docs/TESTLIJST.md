@@ -40,6 +40,10 @@ Rob: *"Wel mis ik een knop of een tegel iN MH voor onze mountrun"*. Eerst `/relo
       Journal hem noemt, vaak voluit (*"Chrome King Gallywix, Mythic"*, *"Yogg-Saron, 0 keepers"*); Vault of Archavon
       *"each of the 4 bosses"*, Bronze Drake *"in time, Heroic"*, Nightbane gewoon *"Nightbane"*, Quantum Courser met
       zijn voorwerpnaam. Nergens *"?"* of een getal waar een naam hoort.
+- [ ] **Mount run: muis over een mount** (Rob 16 okt: *"de andere hebben een animatie"*). Ga met de muis over een mount-
+      regel in het Mount run-venster. Hoort: tooltip bij de muis (zoals in de Mounts-tab) en rechts naast het Mount
+      run-venster het draaiende 3D-model. Muis eraf → beide weg. Venster dicht → 3D-model ook weg. Quantum Courser
+      (Dungeons-tab, Dawn of the Infinite): voorwerp-tooltip, geen model. Scrollen met het wieltje werkt nog.
 - [ ] **Weekcontrole**: doe één oude raid waar een mount-baas in zit (bijv. Onyxia of Ulduar), open daarna de Mount run.
       Hoort: die moeilijkheid *"done"* met de resettijd. Een raid die je helemaal leeg hebt: altijd *"done"*.
       ⚠️ Op een Duitse/Franse client is dit het eigenlijke doel (naam uit de client); dat kunnen wij niet testen

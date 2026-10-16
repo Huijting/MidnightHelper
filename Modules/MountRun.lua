@@ -356,7 +356,12 @@ local function Build()
 	scroll:SetScrollChild(child)
 	f.scroll = scroll
 	f.child = child
-	f.lines, f.btns = {}, {}
+	f.lines, f.btns, f.hovers = {}, {}, {}
+	f:HookScript("OnHide", function()
+		if ns.MH_MountHoverLeave then
+			ns.MH_MountHoverLeave()
+		end
+	end)
 	f:SetScript("OnShow", function()
 		if ns.RefreshMountRun then
 			ns.RefreshMountRun()
@@ -405,7 +410,7 @@ end
 
 --- Per raid: the mount lines and how many of them you still miss. The other faction's twin is left out.
 local function MountLines(raid)
-	local lines, missing = {}, 0
+	local lines, missing, hover = {}, 0, {}
 	local myFaction = UnitFactionGroup and UnitFactionGroup("player")
 	for _, m in ipairs(raid.mounts) do
 		if not (m.faction and myFaction and m.faction ~= myFaction) then
@@ -431,9 +436,33 @@ local function MountLines(raid)
 				lines[#lines + 1] = ("|TInterface\\RaidFrame\\ReadyCheck-NotReady:0|t %s |cffbbbbbb(%s, %s)|r"):format(
 					name, who, m.chance or "?")
 			end
+			-- What the hover needs for this line (same fields as a Mounts tab row).
+			hover[#lines] = { mountID = m.mountID, itemID = m.itemID, name = name }
 		end
 	end
-	return lines, missing
+	return lines, missing, hover
+end
+
+--- An invisible mouse area over one mount line: tooltip + 3D preview beside this window, the same hover as the
+--- Mounts tab (Rob, 16 Oct 2026: "de andere hebben een animatie … is dat lastig en veel werk?").
+local function HoverArea(i)
+	local h = ui.hovers[i]
+	if not h then
+		h = CreateFrame("Frame", nil, ui.child)
+		h:EnableMouse(true)
+		h:SetScript("OnEnter", function(self)
+			if ns.MH_MountHoverEnter then
+				ns.MH_MountHoverEnter(self, ui)
+			end
+		end)
+		h:SetScript("OnLeave", function()
+			if ns.MH_MountHoverLeave then
+				ns.MH_MountHoverLeave()
+			end
+		end)
+		ui.hovers[i] = h
+	end
+	return h
 end
 
 local function Tab(i)
@@ -511,7 +540,7 @@ function ns.RefreshMountRun()
 	end
 	local top = LayoutTabs(groups, missingPer, sel)
 	ui.scroll:SetPoint("TOPLEFT", 16, top)
-	local li, bi, y = 0, 0, 0
+	local li, bi, hi, y = 0, 0, 0, 0
 	local function put(text, font, indent, gap)
 		li = li + 1
 		local fs = Line(li)
@@ -528,13 +557,27 @@ function ns.RefreshMountRun()
 	if group then
 		put("|cffffd200" .. ns:L(group.headKey) .. "|r", "GameFontNormal", 0, 4)
 		for _, raid in ipairs(group.raids) do
-			local mountsText = MountLines(raid)
+			local mountsText, _, hover = MountLines(raid)
 			local status = RaidStatus(raid, lockouts)
 			-- group = true: current raids whose mount cannot be soloed at max level (Rob, 15 Oct: "ook diegene die een
 			-- groep benodigen"). Same row, with a label, so a solo player sees it at a glance.
 			local groupTag = raid.group and ("  |cffff9933" .. ns:L("MOUNTRUN_GROUP") .. "|r") or ""
 			put(("|cffffffff%s|r%s  %s"):format(ns:L(raid.nameKey), groupTag, status), "GameFontHighlight", 8, 2)
-			put(table.concat(mountsText, "|n"), "GameFontHighlightSmall", 18, 2)
+			-- One line per mount, each with its own mouse area (was one text block: nothing to hover per mount).
+			for k, text in ipairs(mountsText) do
+				put(text, "GameFontHighlightSmall", 18, k == #mountsText and 2 or 0)
+				local d = hover[k]
+				if d then
+					local fs = ui.lines[li]
+					hi = hi + 1
+					local h = HoverArea(hi)
+					h._mhMountID, h._mhItemID, h._mhName = d.mountID, d.itemID, d.name
+					h:ClearAllPoints()
+					h:SetPoint("TOPLEFT", fs, "TOPLEFT", 0, 0)
+					h:SetSize(math.max((fs:GetStringWidth() or 100), 20), math.max((fs:GetStringHeight() or 12), 10))
+					h:Show()
+				end
+			end
 			if raid.howKey then
 				put("|cffaaaaaa" .. ns:L(raid.howKey) .. "|r", "GameFontHighlightSmall", 18, 2)
 			end
@@ -563,6 +606,9 @@ function ns.RefreshMountRun()
 	end
 	for i = bi + 1, #ui.btns do
 		ui.btns[i]:Hide()
+	end
+	for i = hi + 1, #ui.hovers do
+		ui.hovers[i]:Hide()
 	end
 	ui.child:SetHeight(math.max(y + 8, 1))
 	ui.title:SetText((ns:L("MOUNTRUN_TITLE_FMT")):format(missingTotal))

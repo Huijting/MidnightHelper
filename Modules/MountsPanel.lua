@@ -153,8 +153,8 @@ local function HideMountPreview()
 	end
 end
 
--- Resolve a mount's creatureDisplayID and show it beside the main window.
-local function ShowMountPreview(row, mountID)
+-- Resolve a mount's creatureDisplayID and show it beside the main window (or beside `anchor`, another window).
+local function ShowMountPreview(row, mountID, anchor)
 	local displayID
 	if mountID and C_MountJournal and C_MountJournal.GetMountInfoExtraByID then
 		local info = { pcall(C_MountJournal.GetMountInfoExtraByID, mountID) }
@@ -170,7 +170,7 @@ local function ShowMountPreview(row, mountID)
 	f:ClearAllPoints()
 	-- Stick it just to the right of the whole Midnight Helper window; fall back to
 	-- anchoring off the hovered row if the main frame isn't available.
-	local main = ns.mainUI
+	local main = anchor or ns.mainUI
 	if main then
 		f:SetPoint("TOPLEFT", main, "TOPRIGHT", 8, -2)
 	else
@@ -274,6 +274,14 @@ local function OnMountRowLeave()
 	GameTooltip:Hide()
 	HideMountPreview()
 end
+
+--- The same hover for another window (16 Oct 2026, Rob, Mount run: "de andere hebben een animatie"): tooltip near the
+--- cursor and the 3D preview beside `anchor`. The frame carries _mhMountID / _mhItemID / _mhName like a row here.
+function ns.MH_MountHoverEnter(frame, anchor)
+	ShowMountTooltip(frame)
+	ShowMountPreview(frame, frame._mhMountID, anchor)
+end
+ns.MH_MountHoverLeave = OnMountRowLeave
 
 -- How-to rows that mention a currency (Voidlight Marl) hover Blizzard's own currency
 -- tooltip, so you can see your balance without leaving the tab.
