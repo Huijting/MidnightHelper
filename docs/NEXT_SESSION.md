@@ -52,6 +52,12 @@
    `pendingLeg`, en `runZoneNavCheck` (Delves.lua, "Route finished"). Nu: alle drie + `RouteFirstToFlightPoint` doen niets
    zolang `_mhRouteOwner == "mountrun"`; AddSmartTomTomWay neemt "mountrun" weer over als een andere route start, zodat
    het zwijgen niet blijft hangen. Opnieuw testen.
+
+**16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
+(+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO
+herschreven ("verwacht, niet bevestigd: vanaf 12.1.7 5.000 Timewarped Badges", datamine GEMETEN, munt AFGELEID),
+8 talen + drift. Open: TT VI (achievement 64207, criterium 4 of 5?) toevoegen zodra 12.1.7 live is; CODEX_TT_BODY
+(ligt op de plank) pas als de dungeon-pool bekend is; Omnium Folio 6e/7e rune; Talebound-test met BugSack.
    📏 **Geheugen GEMETEN door Rob, 16 okt** (`GetAddOnMemoryUsage`, main na de Mount run-stappen): **48.137 KB ≈ 47 MB**.
    Op schijf: 18,22 MB (code 14,06 MB), +1,2% t.o.v. v4.7.7. Vergelijkingspunt voor de volgende versie.
    📏 **Ná `collectgarbage()` (Rob, zelfde sessie): 23.592 KB ≈ 23 MB.** Dus ~24,5 MB (51%) was afval van het

@@ -83,6 +83,8 @@ er is niets weggegooid.
       - **Horde, Shattrath of Caverns of Time:** zegt hij *"(lower room)"*, en staat het portaal echt beneden?
       - **Culling of Stratholme:** de pijl wijst nu naar het portaal BINNEN de Caverns, niet naar de grotmond.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
+- [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
+      *"The Turbulent Timeways event … ended on 11 August …"*.
 - [ ] **Mount run → geen gestoorde stappen meer** (16 okt, jouw Throne of Thunder-test). Doe dezelfde route nog eens vanuit
       Silvermoon. Na elk portaal mag de chat alleen *"Mount run, step N of 4: …"* zeggen: GEEN *"Nearest flight point there:
       Sanctum of Light"*, GEEN *"is not on this continent"*, GEEN *"Route finished"* en geen vlucht naar Honeydew Village.

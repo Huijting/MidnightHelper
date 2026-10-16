@@ -10,8 +10,8 @@
 	  - Luminous Sporeglider = mount spell 1284973; 4x Delicious Sporesnack
 	    (item 269245), ~1 per week from Rotmire in the Sporefall raid.
 	  - Spawn of Vyranoth = mount item 258884; achievement 61463 "Master of the
-	    Turbulent Timeways V" (Gain Mastery of the Timeways in 4 of the event's
-	    5 weeks).
+	    Turbulent Timeways V" (the event ran 6 weeks, ended 11 Aug 2026; see the
+	    entry below).
 
 	Never-lie: item counts come from the live bag API, achievement progress from
 	the achievement API, and "collected?" from the Mount Journal — no fabricated
@@ -67,10 +67,15 @@ local TRACKED = {
 		-- a worse copy of one we already ship.
 	},
 	{
+		-- 16 Oct 2026 (12.1.7 research, docs/PATCH_12_1_7_PTR_2026-10-16.md §3/§14): Turbulent Timeways V ended on
+		-- 11 Aug, so "X of 4" was a counter nobody can move any more. No progress numbers now, just ✓/✗ and the how-to.
+		-- Datamined for 12.1.7 (MMO-Champion): "Vendor: Any Timewalking Vendor Cost: 5,000" — GEMETEN in the datamine;
+		-- that the currency is Timewarped Badges is AFGELEID from its icon and from earlier Timeways mounts.
 		key = "vyranoth",
 		mountItemID = 258884,     -- Spawn of Vyranoth (teaches the mount)
-		achievementID = 61463,    -- Master of the Turbulent Timeways V (4 of 5 weeks)
+		achievementID = 61463,    -- Master of the Turbulent Timeways V (criterion asks 4)
 		need = 4,
+		noProgress = true,
 		noMarl = true, -- Timewalking event reward, not a Voidlight Marl purchase
 		fallbackName = "Spawn of Vyranoth",
 		howToKey = "MOUNTPROG_VYRANOTH_HOWTO",

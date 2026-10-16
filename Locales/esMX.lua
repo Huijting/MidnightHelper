@@ -428,7 +428,7 @@ for k, v in pairs({
 	MOUNTPROG_STARCARVER_HOWTO = "Completa la meta «Un viaje por las estrellas» (6 objetivos del Enfrentamiento de Val, unas 2 semanas) y luego cómprala a Kifaan por 15 Marga vacioluz.",
 	MOUNTPROG_STORMRAY_HOWTO = "Alcanza Renown 19 con La Singularidad y luego cómprala por 8.000 Marga vacioluz.",
 	MOUNTPROG_VOIDHAWK_HOWTO = "Alcanza Renown 8 con los sitios de ritual y luego cómprala a Sergeant Vornin en Lunargenta por 4.500 Marga vacioluz.",
-	MOUNTPROG_VYRANOTH_HOWTO = "Evento Líneas temporales turbulentas: mantén el buff 'Mastery of the Timeways' (de 4 calabozos Timewalking) durante 4 de las 5 semanas del evento.",
+	MOUNTPROG_VYRANOTH_HOWTO = "El evento Líneas temporales turbulentas que daba esta montura terminó el 11 de agosto, así que ahora no se puede conseguir. Esperado pero sin confirmar: a partir del parche 12.1.7, un vendedor de Timewalking la vende por 5.000 Timewarped Badges.",
 	MOUNTPROG_WARBEAR_HOWTO = "Trono Quebrado (nivel 2 o superior): alimenta al Lost Bear Cub, luego derrota al Angry Amani Warbear y dale Practically Pork.",
 	MOUNTRUN_DIFF_10H = "10 Heroico",
 	MOUNTRUN_DIFF_25H = "25 Heroico",
