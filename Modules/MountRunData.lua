@@ -18,7 +18,7 @@ local _, ns = ...
 
 ns.MOUNTRUN_RAIDS = {
 	{
-		headKey = "MOUNTRUN_HEAD_NORTHREND",
+		headKey = "MOUNTRUN_HEAD_NORTHREND", tabKey = "MOUNTRUN_TAB_NORTHREND",
 		raids = {
 			{ nameKey = "MOUNTRUN_R_OS", instanceID = 615, journalID = 755, diffs = { 3, 4 }, boss = "Sartharion",
 				zoneMap = 115, x = 60.02, y = 57.02, howKey = "MOUNTRUN_HOW_OS",
@@ -56,7 +56,7 @@ ns.MOUNTRUN_RAIDS = {
 		},
 	},
 	{
-		headKey = "MOUNTRUN_HEAD_OUTLAND",
+		headKey = "MOUNTRUN_HEAD_OUTLAND", tabKey = "MOUNTRUN_TAB_OUTLAND",
 		raids = {
 			{ nameKey = "MOUNTRUN_R_TK", instanceID = 550, journalID = 749, diffs = { 4 }, boss = "Kael'thas Sunstrider",
 				zoneMap = 109, x = 73.88, y = 63.74, howKey = "MOUNTRUN_HOW_TK",
@@ -104,7 +104,7 @@ ns.MOUNTRUN_RAIDS = {
 		},
 	},
 	{
-		headKey = "MOUNTRUN_HEAD_CATA",
+		headKey = "MOUNTRUN_HEAD_CATA", tabKey = "MOUNTRUN_TAB_CATA",
 		raids = {
 			{ nameKey = "MOUNTRUN_R_FL", instanceID = 720, journalID = 78, diffs = { 14, 15 }, boss = "Ragnaros",
 				zoneMap = 198, x = 47.00, y = 78.24, howKey = "MOUNTRUN_HOW_FL",
@@ -136,7 +136,7 @@ ns.MOUNTRUN_RAIDS = {
 		},
 	},
 	{
-		headKey = "MOUNTRUN_HEAD_MYTHIC",
+		headKey = "MOUNTRUN_HEAD_MYTHIC", tabKey = "MOUNTRUN_TAB_MYTHIC",
 		raids = {
 			{ nameKey = "MOUNTRUN_R_HFC", instanceID = 1448, journalID = 669, diffs = { 16 }, boss = "Archimonde",
 				zoneMap = 534, x = 45.22, y = 53.84, howKey = "MOUNTRUN_HOW_HFC",
@@ -178,7 +178,7 @@ ns.MOUNTRUN_RAIDS = {
 	-- the Mythic-only mounts are Ascendant Skyrazor and The Big G; G.M.O.D. is Mekkatorque on N/H/M; Kith'ix, Voidspire
 	-- and Dreamrift have NO mount. boss may be a list: the lockout name can differ from the journal name (AFGELEID).
 	{
-		headKey = "MOUNTRUN_HEAD_LEGION_SL",
+		headKey = "MOUNTRUN_HEAD_LEGION_SL", tabKey = "MOUNTRUN_TAB_LEGION_SL",
 		raids = {
 			{ nameKey = "MOUNTRUN_R_TOS", instanceID = 1676, journalID = 875, diffs = { 14, 15, 16, 17 }, boss = "Mistress Sassz'ine",
 				zoneMap = 646, x = 64.97, y = 20.26, howKey = "MOUNTRUN_HOW_TOS",
@@ -214,7 +214,7 @@ ns.MOUNTRUN_RAIDS = {
 		},
 	},
 	{
-		headKey = "MOUNTRUN_HEAD_DUNGEONS",
+		headKey = "MOUNTRUN_HEAD_DUNGEONS", tabKey = "MOUNTRUN_TAB_DUNGEONS",
 		raids = {
 			-- No journalID: DB2 puts the Service Entrance's journal entrance on the Main Gate, so the client pin would point
 			-- at the wrong door. The coordinate is HandyNotes_MapNotes' Service Entrance.
@@ -258,7 +258,7 @@ ns.MOUNTRUN_RAIDS = {
 		},
 	},
 	{
-		headKey = "MOUNTRUN_HEAD_GROUP",
+		headKey = "MOUNTRUN_HEAD_GROUP", tabKey = "MOUNTRUN_TAB_GROUP",
 		raids = {
 			{ nameKey = "MOUNTRUN_R_NP", instanceID = 2657, journalID = 1273, diffs = { 14, 15, 16 }, boss = "Queen Ansurek", group = true,
 				zoneMap = 2255, x = 43.46, y = 90.44, howKey = "MOUNTRUN_HOW_NP",

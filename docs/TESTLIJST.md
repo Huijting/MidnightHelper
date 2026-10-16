@@ -69,6 +69,10 @@ er is niets weggegooid.
 - [ ] **Codex → Journey-kaart, rang 2:** links naar de 3 Hexmasks (Thundering, Fiery, Frozen). Klik → pijl in de Labyrinth.
 - [ ] **Codex → Labyrinth-kaart, "Mislaid Treasures"** (16 okt hernoemd, was "Mislaid Oddities"; HandyNotes 159 + jouw
       tooltip van 13 okt): links 1 t/m 15. Klik de dichtstbijzijnde → ligt er een kistje dat in de tooltip *Mislaid Treasure* heet?
+- [ ] **Mount run → tabbladen** (16 okt, `/mh mountrun`): bovenaan een rij tabs (Avond 1 … Avond 5, Dungeons, Groep), met tussen
+      haakjes hoeveel mounts je daar nog mist. Klik een tab → alleen dat blok staat eronder, lijst begint bovenaan. Venster dicht,
+      `/reload`, weer open → dezelfde tab. Op een ander character → die heeft zijn eigen laatste tab. Passen de tabs netjes
+      (eventueel in twee rijen) en staat de lijst er niet overheen?
 - [ ] **Szarith the Fanged verplaatst** (16 okt, HandyNotes 159: 38.40/17.69 → **39.50/27.40** in de Underbelly, kaart 2613).
       Rares-tab, Coiled to Strike-kaart of de Codex-kaart over de Vaults of Atal'Utek: klik Szarith → pijl. Staat hij daar écht?
       Method zegt nog de oude plek; niemand heeft hem ooit gezien, dus dit is de eerste echte meting.

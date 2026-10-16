@@ -2,7 +2,10 @@
 
 ## 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
 
-1. **Mount run → tabbladen.** De lijst is lang geworden (≈45 instances). Rob: *"kunnen we iets met tabbladen maken?"* Voorstel:
+1. ✅ **16 okt GEBOUWD** (Rob koos "rij bovenaan", geen Alles-tab): MountRun.lua tabrij die wrapt, telling per tab, laatste tab
+   per character in `ns.db.mountRunTab["Naam-Realm"]`; eerste keer = eerste blok met iets te halen. `tabKey` per blok in
+   MountRunData, MOUNTRUN_TAB_* in alle packs (esMX alleen Calabozos). Nog niet in het spel gezien → TESTLIJST.
+   Oorspronkelijke vraag: **Mount run → tabbladen.** De lijst is lang geworden (≈45 instances). Rob: *"kunnen we iets met tabbladen maken?"* Voorstel:
    één tab per blok (Northrend · Outland/Kara/CoT · Cata/Pandaria · Mythic · Legion/BfA/SL · Dungeons · Groep), onthoud de laatste
    tab per speler (localStorage-achtig: `ns.db.mountRun.tab`). Totaal "nog te halen" per tab in de tabtitel?
 2. **Mount run → route.** GEMETEN (Robs screenshot): "Arrow to the entrance" bij Nerub-ar Palace gaf *"TomTom: Added a waypoint
@@ -11,6 +14,11 @@
    met een Midnight-tussenstop. Uitzoeken in Delves.lua `AddSmartTomTomWay` (welke tak print dat) en voor oude werelden: géén
    continent-advies, maar de MOUNTRUN_HOW-regel als stappen tonen (portaalkamer → portaal → zone), en de pijl pas zetten als je in de
    juiste zone bent (of de zone-stap als eerste waypoint). Rob kiest de vorm.
+   🔎 **16 okt GEMETEN in de code:** de zin komt NIET uit AddSmartTomTomWay (die respecteert `skipTravelUI` en stopt op
+   Delves.lua:1890), maar uit `AnnounceUnreachable` in NativeArrow.lua:737-820: die leest `ns.lastTarget` los van skipTravelUI
+   en vraagt `ns.BuildTravelPlan` / `ns.GetNearestFlightPoint` om een "eerst naar"-stap — beide kennen alleen Midnight. Welke
+   van de twee "Wildcamp Ul'ar" gaf: niet gemeten. Rob 16 okt: *"in oa zygor en handynotes alle stappen vinden, desnoods
+   bekijken we ze allemaal"* → richting = pijl in stappen (portaal → zone → ingang), data uit Zygor + HandyNotes.
 **16 okt ochtendronde (GEMETEN):** CF 0 open (8 draadjes), GitHub 0 open, site-mail 0 (positieve controle: 30d geeft 15).
 API: TOC-wiki zegt dat 12.1.7 variabelen in `##`-regels verbiedt — MH gebruikt er geen (0 `[` in de .toc). PTR: **12.1.7-PTR
 open** (build 70424, Talebound). Data: Impressive Treasure-kisten Labyrinth nu level 80. Content: Blizzard fixte 15 okt de

@@ -490,6 +490,7 @@ for k, v in pairs({
 	MOUNTRUN_R_STRAT = "Stratholme - Entrada de Servicio",
 	MOUNTRUN_R_UR = "Bardoma",
 	MOUNTRUN_R_VA = "El Abismo Venenoso",
+	MOUNTRUN_TAB_DUNGEONS = "Calabozos",
 	MPLUS_AFFIX_LINDORMI ="Lindormi's Guidance — marca y debilita a ciertos enemigos (Temporal Sands), y elimina la penalización por muerte. Una ayuda mientras aprendes los calabozos.",
 	MPLUS_AFFIX_UNMEASURED = "La Temporada 2 cambió los afijos de las llaves y Midnight Helper todavía no ha medido los nuevos. La lista que había aquí era la de la Temporada 1, y mostrarla bajo un título de Temporada 2 sería peor que no mostrar nada. El grupo de calabozos de abajo sí está al día. Tu propia llave enseña los afijos antes de que podamos medirlos: /mh report y entran.",
 	MPLUS_BEGINNER_INTRO = "Una \"key\" (keystone) es solo un calabozo en un ajuste más difícil con un reloj. No tienes que empezar ahí. No hay prisa y no pasa nada por ir despacio — casi todo el mundo aprende primero un calabozo y sube más adelante.",

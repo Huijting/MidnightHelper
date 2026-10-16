@@ -186,12 +186,16 @@ local function Build()
 		end)
 	end
 
+	-- Tabs: one per block of MOUNTRUN_RAIDS (Rob, 16 Oct 2026: "rij bovenaan", no "all" tab). They wrap onto a second
+	-- row when the labels do not fit, so the scroll area is placed under them in RefreshMountRun.
+	f.tabs = {}
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", 16, -42)
 	scroll:SetPoint("BOTTOMRIGHT", -34, 14)
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(W - 56, 10)
 	scroll:SetScrollChild(child)
+	f.scroll = scroll
 	f.child = child
 	f.lines, f.btns = {}, {}
 	f:SetScript("OnShow", function()
@@ -224,12 +228,120 @@ local function Btn(i)
 	return b
 end
 
+--- The last tab is remembered per character (Rob: "per speler"), in the account-wide db under "Name-Realm".
+local function CharKey()
+	return ((UnitName and UnitName("player")) or "?") .. "-" .. ((GetRealmName and GetRealmName()) or "?")
+end
+
+local function SavedTab()
+	local t = ns.db and ns.db.mountRunTab
+	return t and t[CharKey()]
+end
+
+local function SaveTab(i)
+	ns.db = ns.db or {}
+	ns.db.mountRunTab = ns.db.mountRunTab or {}
+	ns.db.mountRunTab[CharKey()] = i
+end
+
+--- Per raid: the mount lines and how many of them you still miss. The other faction's twin is left out.
+local function MountLines(raid)
+	local lines, missing = {}, 0
+	local myFaction = UnitFactionGroup and UnitFactionGroup("player")
+	for _, m in ipairs(raid.mounts) do
+		if not (m.faction and myFaction and m.faction ~= myFaction) then
+			local name, have = MountState(m.mountID)
+			name = name or m.name
+			if not m.mountID then
+				-- A token that opens into a random mount (Quantum Courser): nothing to tick, so no tick or cross.
+				lines[#lines + 1] = ("|cffdddddd• %s|r |cffbbbbbb(%s, %s)|r"):format(name, m.boss or "?", m.chance or "?")
+			elseif have then
+				lines[#lines + 1] = ("|TInterface\\RaidFrame\\ReadyCheck-Ready:0|t |cff999999%s|r"):format(name)
+			else
+				missing = missing + 1
+				lines[#lines + 1] = ("|TInterface\\RaidFrame\\ReadyCheck-NotReady:0|t %s |cffbbbbbb(%s, %s)|r"):format(
+					name, m.boss or raid.boss or "?", m.chance or "?")
+			end
+		end
+	end
+	return lines, missing
+end
+
+local function Tab(i)
+	local b = ui.tabs[i]
+	if not b then
+		b = CreateFrame("Button", nil, ui, "UIPanelButtonTemplate")
+		b:SetHeight(22)
+		b:SetScript("OnClick", function()
+			SaveTab(i)
+			ui.scroll:SetVerticalScroll(0)
+			ns.RefreshMountRun()
+		end)
+		ui.tabs[i] = b
+	end
+	return b
+end
+
+--- Lays the tabs out left to right, wrapping to a new row; returns the y offset below the last row.
+local function LayoutTabs(groups, missingPer, sel)
+	local x, y, maxX = 16, -40, W - 16
+	for i, group in ipairs(groups) do
+		local b = Tab(i)
+		local label = ns:L(group.tabKey or group.headKey)
+		if missingPer[i] > 0 then
+			label = ("%s (%d)"):format(label, missingPer[i])
+		end
+		b:SetText(i == sel and ("|cffffd200" .. label .. "|r") or label)
+		local w = (b.GetTextWidth and b:GetTextWidth() or 80) + 22
+		b:SetWidth(w)
+		if x + w > maxX and x > 16 then
+			x, y = 16, y - 24
+		end
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", ui, "TOPLEFT", x, y)
+		if i == sel then
+			b:LockHighlight()
+		else
+			b:UnlockHighlight()
+		end
+		b:Show()
+		x = x + w + 2
+	end
+	for i = #groups + 1, #ui.tabs do
+		ui.tabs[i]:Hide()
+	end
+	return y - 26
+end
+
 function ns.RefreshMountRun()
 	if not (ui and ui:IsShown()) then
 		return
 	end
 	local width = ui.child:GetWidth()
 	local lockouts = ReadLockouts()
+	local groups = ns.MOUNTRUN_RAIDS or {}
+	local missingPer, missingTotal = {}, 0
+	for i, group in ipairs(groups) do
+		local n = 0
+		for _, raid in ipairs(group.raids) do
+			local _, missing = MountLines(raid)
+			n = n + missing
+		end
+		missingPer[i], missingTotal = n, missingTotal + n
+	end
+	-- First visit: the first block that still has a mount to get, else the first.
+	local sel = SavedTab()
+	if type(sel) ~= "number" or not groups[sel] then
+		sel = 1
+		for i = 1, #groups do
+			if missingPer[i] > 0 then
+				sel = i
+				break
+			end
+		end
+	end
+	local top = LayoutTabs(groups, missingPer, sel)
+	ui.scroll:SetPoint("TOPLEFT", 16, top)
 	local li, bi, y = 0, 0, 0
 	local function put(text, font, indent, gap)
 		li = li + 1
@@ -243,31 +355,11 @@ function ns.RefreshMountRun()
 		y = y + (fs:GetStringHeight() or 14) + (gap or 3)
 	end
 	put(ns:L("MOUNTRUN_INTRO"), "GameFontHighlightSmall", 0, 8)
-	local missingTotal = 0
-	for _, group in ipairs(ns.MOUNTRUN_RAIDS or {}) do
+	local group = groups[sel]
+	if group then
 		put("|cffffd200" .. ns:L(group.headKey) .. "|r", "GameFontNormal", 0, 4)
 		for _, raid in ipairs(group.raids) do
-			local mountsText, missing = {}, 0
-			local myFaction = UnitFactionGroup and UnitFactionGroup("player")
-			for _, m in ipairs(raid.mounts) do
-				if m.faction and myFaction and m.faction ~= myFaction then
-					-- the other faction's twin (Grand Black War Mammoth)
-				else
-				local name, have = MountState(m.mountID)
-				name = name or m.name
-				if not m.mountID then
-					-- A token that opens into a random mount (Quantum Courser): nothing to tick, so no tick or cross.
-					mountsText[#mountsText + 1] = ("|cffdddddd• %s|r |cffbbbbbb(%s, %s)|r"):format(name, m.boss or "?", m.chance or "?")
-				elseif have then
-					mountsText[#mountsText + 1] = ("|TInterface\\RaidFrame\\ReadyCheck-Ready:0|t |cff999999%s|r"):format(name)
-				else
-					missing = missing + 1
-					mountsText[#mountsText + 1] = ("|TInterface\\RaidFrame\\ReadyCheck-NotReady:0|t %s |cffbbbbbb(%s, %s)|r"):format(
-						name, m.boss or raid.boss or "?", m.chance or "?")
-				end
-				end
-			end
-			missingTotal = missingTotal + missing
+			local mountsText = MountLines(raid)
 			local status = RaidStatus(raid, lockouts)
 			-- group = true: current raids whose mount cannot be soloed at max level (Rob, 15 Oct: "ook diegene die een
 			-- groep benodigen"). Same row, with a label, so a solo player sees it at a glance.
