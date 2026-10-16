@@ -161,6 +161,10 @@
    TomTom verbergt zijn pijl als hij niet kan meten, tot de volgende SetCrazyArrow/zone-event. Nu: een gewone route plant
    bij élke echte zonewissel naar een andere kaart opnieuw en zet de pijl altijd opnieuw; stapnummers tellen door
    (`base`). Nog open: rare/schat na een portaal.
+   🐞 Rob, rare Lady Liminus vanuit Thunder Bluff: step 2 ✅, pijl nog de onze. GEMETEN: HereBeDragons meet 2393 → 2395
+   wél (Robs /run: 3796 yd), dus niet TomTom's beperking; log: na de teleport één OnZone, nog op 2537. Nu: 2,5 s na een
+   echte zonewissel nog een keer kijken als de kaart veranderd is ("map settled" in het log) → zelfde handler (gewone
+   route: opnieuw plannen + pijl opnieuw; rare enz.: LegacyZoneCheck zet de TomTom-pin opnieuw). Niet getest.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

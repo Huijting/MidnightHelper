@@ -39,6 +39,10 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       verbergt zijn pijl als hij niet kan meten (GEMETEN in TomTom_CrazyArrow.lua). Gerepareerd → opnieuw testen:
 - [ ] **Teleport/hearthstone naar Silvermoon tijdens een route:** na het laden *"Route, step 2 of 2: …"* (of meer stappen,
       bv. een vliegmeester) en de **TomTom-pijl**, niet de onze.
+      Rob 16 okt avond, rare Lady Liminus vanuit Thunder Bluff: ✅ knop + "step 2 of 2", ❌ nog ónze pijl. GEMETEN: TomTom
+      kán Silvermoon → Eversong meten (Robs /run: HereBeDragons 2393, 3796 yd); het log had na de teleport maar één
+      moment, nog op 2537. Nu kijkt de loper 2,5 s na een laadscherm nog eens (log: "map settled"). Opnieuw testen, met
+      een rare én een delve.
 - [x] ✅ Rob 16 okt avond: Mount run (2), Silvermoon-pin met deur (3) en "andere route kiezen tijdens een route" (4) gaan
       goed.
 - [ ] **Na het portaal in Silvermoon:** de route plant opnieuw vanaf daar: pijl naar de vliegmeester (*"Flight master: …"*)

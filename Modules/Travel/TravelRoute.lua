@@ -1000,7 +1000,22 @@ do
 		C_Timer.After(0.7, function()
 			local e, b = queuedEvent, queuedBig
 			queued, queuedEvent, queuedBig = false, nil, false
+			local before = T.PlayerMap()
 			OnZone(e, b)
+			-- 🔴 A loading screen can land on an in-between map first (a mage teleport to Silvermoon: 2537, then 2393 —
+			-- GEMETEN in Rob's travelRouteLog, 16 Oct 2026). A pin set there leaves TomTom's arrow hidden (it cannot
+			-- measure, GEMETEN in TomTom_CrazyArrow.lua), and when the map then settles no zone event may follow to wake
+			-- it — Rob's rare route showed our arrow while HereBeDragons measured the distance fine (his /run: 2393,
+			-- 3796 yd). So look once more a moment later; a different map means: the same handler again.
+			if b and C_Timer and C_Timer.After then
+				C_Timer.After(2.5, function()
+					local now = T.PlayerMap()
+					if now and now ~= before then
+						Log("map settled: %s → %s, look again", tostring(before), tostring(now))
+						OnZone("MAP_SETTLED", true)
+					end
+				end)
+			end
 		end)
 	end)
 end
