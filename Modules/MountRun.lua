@@ -230,18 +230,19 @@ end
 --- just come through. One shortcut: already on the right continent but outside the capital (a Horde player in
 --- Durotar going to the Caverns of Time) skips the capital portal — only for step 2, because deeper hubs
 --- (Dornogal's tunnel to Azj-Kahet) share a continent with their destination and must not be skipped.
-local function CurrentStep(steps)
+local function CurrentStep(steps, start)
+	start = start or 1
 	local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
 	if not pm then
 		return 1
 	end
-	local inStart = InMap(pm, steps[1].map)
+	local inStart = InMap(pm, steps[start].map)
 	for k = #steps, 2, -1 do
 		local s = steps[k]
 		if InMap(pm, s.map) or ArrivedVia(pm, steps[k - 1].to) then
 			return k
 		end
-		if k == 2 and not inStart then
+		if k == start + 1 and not inStart then
 			local pc = ContinentOf(pm)
 			if pc and pc == ContinentOf(s.map) then
 				return k
@@ -277,9 +278,72 @@ local function ShowStep(i)
 	Say((ns:L("MOUNTRUN_STEP_FMT")):format(i, #route.steps, s.text))
 end
 
+--- The way home first (Rob, 16 Oct 2026, in Silvermoon: "kunnen we geen pijlen ook naar de portals hier
+--- toevoegen?"): when the route would start at the capital and you are somewhere with a portal home — Silvermoon's
+--- portal room, Dornogal, Oribos, a Midnight zone via Silvermoon — those steps go in front.
+local function HomeSteps(steps)
+	local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	local capital = steps[1].map
+	if not pm or (capital ~= 84 and capital ~= 85) or InMap(pm, capital) then
+		return {}
+	end
+	local fac = capital == 85 and "H" or "A"
+	local pre = {}
+	local feeders = ns.MOUNTRUN_TO_SILVERMOON or {}
+	for m, list in pairs(feeders) do
+		if InMap(pm, m) then
+			for _, f in ipairs(list) do
+				local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(f.to)
+				local key = f.den and "MOUNTRUN_STEP_DEN" or "MOUNTRUN_STEP_PORTAL"
+				pre[#pre + 1] = { map = f[1], x = f[2], y = f[3], to = f.to,
+					text = (ns:L(key)):format(info and info.name or "?") }
+			end
+			pm = 2393 -- from here on: home from Silvermoon
+			break
+		end
+	end
+	for m, row in pairs(ns.MOUNTRUN_HOME or {}) do
+		local p = row[fac]
+		if p and (InMap(pm, m)) then
+			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
+			local key = row.room and "MOUNTRUN_STEP_ROOM" or "MOUNTRUN_STEP_PORTAL"
+			pre[#pre + 1] = { map = m, x = p[1], y = p[2], to = capital,
+				text = (ns:L(key)):format(info and info.name or "?") }
+			return pre
+		end
+	end
+	-- Not in a hub, but on a continent that has one (Eversong → Silvermoon, Zuldazar → Dazar'alor, Storm Peaks →
+	-- Dalaran): fly there first. Never on the capital's own continent — there the capital itself is the way.
+	local pc = ContinentOf(pm)
+	if pc and pc ~= ContinentOf(capital) then
+		for m, row in pairs(ns.MOUNTRUN_HOME or {}) do
+			local p = row[fac]
+			if p and ContinentOf(m) == pc then
+				local hub = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(m)
+				local cap = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(capital)
+				pre[#pre + 1] = { map = m, x = p[1], y = p[2], to = capital,
+					text = (ns:L("MOUNTRUN_STEP_HOME_FAR")):format(hub and hub.name or "?", cap and cap.name or "?") }
+				return pre
+			end
+		end
+	end
+	return {} -- no portal home known from here: the capital step stays first, as before
+end
+
 function ns.MountRunStartRoute(raid)
-	route = { raid = raid, steps = BuildSteps(raid) }
-	ShowStep(CurrentStep(route.steps))
+	local steps = BuildSteps(raid)
+	local start = 1
+	if CurrentStep(steps) == 1 then
+		local pre = HomeSteps(steps)
+		if #pre > 0 then
+			for i = #pre, 1, -1 do
+				table.insert(steps, 1, pre[i])
+			end
+			start = #pre + 1
+		end
+	end
+	route = { raid = raid, steps = steps, start = start }
+	ShowStep(CurrentStep(steps, start))
 end
 
 do
@@ -311,7 +375,7 @@ do
 			if not route or ns._mhRouteOwner ~= "mountrun" then
 				return
 			end
-			local k = CurrentStep(route.steps)
+			local k = CurrentStep(route.steps, route.start)
 			if k ~= route.idx then
 				ShowStep(k)
 			end

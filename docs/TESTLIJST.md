@@ -83,6 +83,13 @@ er is niets weggegooid.
       - **Horde, Shattrath of Caverns of Time:** zegt hij *"(lower room)"*, en staat het portaal echt beneden?
       - **Culling of Stratholme:** de pijl wijst nu naar het portaal BINNEN de Caverns, niet naar de grotmond.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
+- [ ] **Mount run → eerst naar huis** (16 okt, jouw vraag in Silvermoon). Sta in **Silvermoon**, klik bij Firelands
+      *Arrow to the entrance*. Stap 1 moet nu zijn: *"Go to the portal room and take the portal to Orgrimmar."* met de pijl op
+      MH's eigen Portal Room-pin. Daarna Orgrimmar → Hyjal-portaal → ingang (3 stappen).
+      Probeer ook: **Dornogal** of **Valdrakken** (portaal naar huis staat daar zelf), **Voidstorm/Coiled Isle** (eerst naar
+      Silvermoon, dan naar huis) en **Eversong of Zul'Aman** (*"Fly to Silvermoon City and take the portal to Orgrimmar there."*).
+      Krijg je in Silvermoon tóch weer *"other continent — travel back"*? Doe dan `/mh here` en geef me het mapnummer:
+      sommige gebouwen in Silvermoon melden kaart 2576 in plaats van 2393.
 - [ ] **Szarith the Fanged verplaatst** (16 okt, HandyNotes 159: 38.40/17.69 → **39.50/27.40** in de Underbelly, kaart 2613).
       Rares-tab, Coiled to Strike-kaart of de Codex-kaart over de Vaults of Atal'Utek: klik Szarith → pijl. Staat hij daar écht?
       Method zegt nog de oude plek; niemand heeft hem ooit gezien, dus dit is de eerste echte meting.

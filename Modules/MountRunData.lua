@@ -376,3 +376,44 @@ ns.MOUNTRUN_HUBS = {
 	-- down to the Antoran Wastes. The beacon is Zygor's alone (ZT:2349).
 	LEG_BEACON = { kind = "beacon", to = 831, both = { 627, 74.22, 49.26 } },
 }
+
+--[[
+	The way HOME, put in front of a route when you start it somewhere else (Rob, 16 Oct 2026, standing in Silvermoon:
+	"kunnen we geen pijlen ook naar de portals hier toevoegen? … en natuurlijk niet alleen voor deze").
+	uiMap where you stand → { A = { x, y } portal to Stormwind, H = { x, y } portal to Orgrimmar }. All from Zygor
+	LibRover data_transit.lua (ZT:line); Zygor's map names turned into uiMap ids with its own MapIDsByName table
+	(data.lua: Dalaran/1 = 125, Dalaran L/10 = 627, Dazar'alor/1 = 1163, Tanaris/17 = 74). GEMETEN in the source,
+	not walked in game. Some need a quest (Silvermoon: 86852 or achievement 41806; Dornogal: level 70 + 80321/79573;
+	Valdrakken: 67030; Oribos: 60151 or level 50) — not checked here; a player without it gets told the portal anyway.
+]]
+ns.MOUNTRUN_HOME = {
+	-- Silvermoon: MH's own "Portal Room" pin on the Silvermoon City map (UI.lua SMC_CAT_TRAVEL, 53.37/66.31) — Rob:
+	-- "we hebben toch een route naar de portal room". Zygor puts the two portals inside it at 52.63/64.51 (A) and
+	-- 52.17/65.21 (H), ZT:159 / ZT:172; the room is the place you can find, the portals are next to each other inside.
+	[2393] = { A = { 53.37, 66.31 }, H = { 53.37, 66.31 }, room = true },
+	[2339] = { A = { 41.18, 22.68 }, H = { 38.15, 27.23 } }, -- Dornogal, ZT:447 / ZT:462
+	[2112] = { A = { 59.79, 41.71 }, H = { 56.59, 38.26 } }, -- Valdrakken, ZT:659 / ZT:701
+	[1670] = { A = { 20.86, 45.67 }, H = { 20.85, 54.77 } }, -- Oribos, ZT:783 / ZT:794
+	[125] = { A = { 40.10, 62.81 }, H = { 55.33, 25.45 } }, -- Dalaran (Northrend), ZT:1917 / ZT:1929
+	[627] = { A = { 39.55, 63.22 }, H = { 55.25, 23.93 } }, -- Dalaran (Legion), ZT:2158 / ZT:2178
+	[111] = { A = { 57.21, 48.27 }, H = { 56.81, 48.85 } }, -- Shattrath, ZT:1892 / ZT:1903
+	[371] = { A = { 46.24, 85.17 }, H = { 28.52, 14.02 } }, -- The Jade Forest, ZT:1977 / ZT:2025
+	[630] = { A = { 46.66, 41.41 }, H = { 46.67, 41.30 } }, -- Azsuna, ZT:2155 / ZT:2175
+	[74] = { A = { 58.20, 26.69 }, H = { 58.97, 26.78 } }, -- Caverns of Time, ZT:1334 / ZT:1377
+	[622] = { A = { 60.81, 37.87 } }, -- Stormshield, ZT:2103
+	[624] = { H = { 60.70, 51.60 } }, -- Warspear, ZT:2122
+	[1161] = { A = { 70.13, 16.79 } }, -- Boralus, ZT:2662
+	[1163] = { H = { 74.05, 69.75 } }, -- Dazar'alor, Hall of Ancient Paths, ZT:2726
+	[198] = { H = { 63.48, 24.43 } }, -- Mount Hyjal, ZT:1412
+	[207] = { H = { 50.93, 53.10 } }, -- Deepholm, ZT:2144
+}
+
+--- Midnight zones without their own portal home: first to Silvermoon, then home from there. The portals are MH's
+--- own MIDNIGHT_PORTALS (Delves.lua), measured by Rob; Harandar's sit inside The Den, whose mouth comes first.
+ns.MOUNTRUN_TO_SILVERMOON = {
+	[2405] = { { 2405, 51.61, 70.22, to = 2393 } }, -- Voidstorm
+	[2512] = { { 2512, 58.25, 48.46, to = 2393 } }, -- The Coiled Isle (Tokka's Landing)
+	-- No row for 2576 itself: that map is a shared canvas (Delves.lua uses it for Silvermoon, The Den and Voidstorm
+	-- with a `zone` tag), so "you stand on 2576" does not say where you are.
+	[2413] = { { 2413, 54.72, 53.10, to = 2576, den = true }, { 2576, 64.33, 70.63, to = 2393 } }, -- Harandar
+}
