@@ -36,7 +36,7 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       knop gaf.
 - [ ] **Na het portaal in Silvermoon:** de route plant opnieuw vanaf daar: pijl naar de vliegmeester (*"Flight master: …"*)
       of meteen naar de delve. Op de vlucht stappen → pijl springt naar de delve. Bij de delve: *"Route finished — …"*.
-- [ ] **Coiled Isle-delve vanuit Silvermoon** (16 okt avond opnieuw gebouwd na Robs melding "hij stuurde me niet naar de
+- [x] ✅ Rob 16 okt avond: "beide werken" (van buiten én vanuit de hal). **Coiled Isle-delve vanuit Silvermoon** (16 okt avond opnieuw gebouwd na Robs melding "hij stuurde me niet naar de
       ingang"): pijl naar de **boog** van Astalor's Sanctum (55.02/63.56) en hij blijft daar staan tot je **door de boog
       bent** — niet meer ~20 m ervóór. Binnen → pijl naar de **orb** (55.80/65.02) + chat *"Portal to The Coiled Isle:
       click the orb to go down to it"*. Orb aangeklikt, beneden → pijl naar het portaal. Door het portaal → volgende stap
@@ -47,7 +47,7 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
 - [x] **Geen eigen pijl meer bij boog en orb** (TomTom-gebruikers): de TomTom-pijl blijft de hele weg; tussenpunten
       wist TomTom niet meer zelf, MH haalt ze weg als je verder bent. ✅ Rob 16 okt avond: "ja ging dit keer goed".
       (Losse oude punten op de kaart na afloop: niet apart genoemd.)
-- [ ] **Zelfde vanuit binnen**: sta al in de hal (na de boog) en kies de delve → pijl meteen naar de orb, niet terug naar de
+- [x] **Zelfde vanuit binnen**: sta al in de hal (na de boog) en kies de delve → pijl meteen naar de orb, niet terug naar de
       boog. Sta je al beneden bij het portaal → pijl meteen naar het portaal.
 - [ ] **Mount run** (zelfde gedrag als gisteren): "Route" bij een raid → *"Mount run, step 1 of N"*, knop bij een
       hearthstone-stap, portaalkamer-deur → portaal, verder bij elke zonewissel, in de raid stopt hij. Throne of Thunder nog
