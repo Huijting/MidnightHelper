@@ -517,9 +517,14 @@ local function BuildNavIndex()
 	-- with one name tell themselves apart by the continent behind them.
 	if ns.Travel and ns.Travel.Places and ns.Travel.GoToPlace then
 		local hint = L("NAV_ACTION_TAKE_ME")
+		-- One row per name + continent. Rob's screenshot (16 Oct 2026): "Dazar'alor" twice — the hall the portal lands
+		-- in (1163) and the city (1165) share a name. Places() lists the shortest chain first, so that one stays.
+		local seenPlace = {}
 		for _, place in ipairs(ns.Travel.Places()) do
 			local name, where = PlaceText(place.map)
-			if name then
+			local id = name and (name .. "|" .. tostring(where))
+			if id and not seenPlace[id] then
+				seenPlace[id] = true
 				local p = place
 				add(name, "place city zone portal travel go to route", function()
 					ns.Travel.GoToPlace(p)

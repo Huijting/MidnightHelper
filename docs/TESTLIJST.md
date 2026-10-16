@@ -25,6 +25,8 @@ er is niets weggegooid.
 
 Rob: *"kunnen we niet ook zoeken in MH naar bv dalaran …"*. Eerst `/reload`.
 
+- [x] ✅ Rob 16 okt, screenshot: `dala` toont "Dalaran  Northrend — take me there". Toen stond "Dazar'alor" er twee
+      keer (kaart 1163 + 1165, zelfde naam) → nu één regel per naam + werelddeel; `dazar` → één regel, nog nakijken.
 - [ ] **Zoeken.** `/mh` → typ `dala` in de zoekbalk. Je hoort een regel **"Dalaran"** te zien met grijs erachter
       **"Northrend — take me there"**. Ook `@place` (alle plekken, ~31) en bv. `shatt`, `oribos`, `valdrakken`, `tanaan`.
 - [ ] **Klik op Dalaran, ergens buiten Orgrimmar** (bv. in Silvermoon). Chat: *"Route, step 1 of 2: …"* — eerst de weg

@@ -48,6 +48,8 @@ hub leidt erheen. `Travel.GoToPlace` = weg naar de wortel (WayHome) + hub-stappe
 MountRun.lua's BuildSteps gehaald, gedrag gelijk) + slotstap midden op de kaart; einde = aankomst (`arrivesOn`).
 NavSearch: categorie `place` (`@place`), TIER_ACTION, naam + werelddeel uit de client. Nieuwe key `NAV_PLACE_HERE_FMT`
 (8 talen). `/mh travel` toont de plekken. Lint 0 HARD, syntax OK. Test: bovenaan `docs/TESTLIJST.md`.
+GEMETEN (Robs screenshot): `dala` toont Dalaran met "Northrend — take me there"; Dazar'alor stond er 2× (1163 hal +
+1165 stad, zelfde clientnaam) → NavSearch toont nu één regel per naam + werelddeel (kortste keten). Route zelf nog niet getest.
 Open: Midnight-zones (Eversong, Zul'Aman, Harandar, Voidstorm) en Legion-Dalaran zijn geen plek; zones in Midnight gaan
 via de Silvermoon-uitgangen (SM_NORTH/SM_SOUTH), niet via de Midnight-reisplanner.
 
