@@ -138,7 +138,13 @@ do
 				local where = "?"
 				if debugstack then
 					local st = debugstack(2, 1, 0) or ""
-					where = st:match("([%w_]+%.lua:%d+)") or st:gsub("%s+$", "")
+					-- `[string "@…/Rares.lua"]:1835: in function <…/Rares.lua:1804>` — the line that ran comes after `"]:`;
+					-- the plain `file:line` further on is where the function starts (first try, 16 Oct 2026, read 1804).
+					local f, l = st:match('([%w_]+%.lua)"%]:(%d+)')
+					if not f then
+						f, l = st:match("([%w_]+%.lua):(%d+)")
+					end
+					where = f and (f .. ":" .. l) or st:gsub("%s+$", "")
 				end
 				Log("owner %s → %s (%s)", tostring(owner), tostring(v), tostring(where))
 			end

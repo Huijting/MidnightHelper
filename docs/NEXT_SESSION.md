@@ -170,6 +170,9 @@
    wissel van de eigenaar staat in het log met bestand:regel (metatable op `ns` in TravelRoute.lua, alleen voor die ene
    sleutel; grep `setmetatable(ns` = 0 vóór deze wijziging). AFGELEID kandidaat: Rares.lua ResumePrevRouteOrRelease (de
    rare-jacht "klaar" na QUEST_LOG_UPDATE, bv. als Lady Liminus deze week al gedood is). Wacht op Robs volgende log.
+   ✅ Volgende poging werkte (Rob: "lijkt erop dat ie nu werkt"); GEMETEN in het log: teleport landde meteen op 2393,
+   opnieuw gepland → vliegmeester, eigenaar bleef "rare". Oorzaak van de eerdere stop dus NIET gemeten; meter blijft.
+   Meter las eerst het begin van de functie (Rares.lua:1804) i.p.v. de regel zelf → patroon gerepareerd (`"]:`).
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

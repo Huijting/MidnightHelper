@@ -43,6 +43,10 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       kán Silvermoon → Eversong meten (Robs /run: HereBeDragons 2393, 3796 yd); het log had na de teleport maar één
       moment, nog op 2537. Nu kijkt de loper 2,5 s na een laadscherm nog eens (log: "map settled"). Opnieuw testen, met
       een rare én een delve.
+      ✅ Rob 16 okt avond, rare Lady Liminus vanuit Thunder Bluff: "het lijkt erop dat ie nu werkt". GEMETEN in het log:
+      teleport → 2393 → opnieuw gepland → vliegmeester Sanctum of Light, eigenaar bleef "rare". De poging daarvóór stopte
+      ("owner"); wie de eigenaar toen veranderde is niet gemeten — de meter (eigenaar-wissels met bestand:regel in
+      `travelRouteLog`) bestond toen nog niet en blijft staan. Een delve via teleport is nog niet opnieuw getest.
 - [x] ✅ Rob 16 okt avond: Mount run (2), Silvermoon-pin met deur (3) en "andere route kiezen tijdens een route" (4) gaan
       goed.
 - [ ] **Na het portaal in Silvermoon:** de route plant opnieuw vanaf daar: pijl naar de vliegmeester (*"Flight master: …"*)
