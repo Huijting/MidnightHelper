@@ -153,8 +153,9 @@
    🐞 → ✅ Bij boog en orb even ónze pijl i.p.v. TomTom's. GEMETEN in Robs `travelRouteLog`: overdracht op 7.5 yd;
    AFGELEID: TomTom wiste deur/orb zelf op 15 yd (onze cleardistance), daartussen tekende NativeArrow. Nu: elk punt
    onderweg krijgt cleardistance 0, de loper haalt het vorige punt zelf weg (ook bij Stop). ✅ GEMETEN door Rob (16 okt
-   avond): "ja ging dit keer goed". Rest van de fase 3-testlijst (delve vanuit de oude wereld, Mount run, /mh clear,
-   rare/schat) nog open.
+   avond): "ja ging dit keer goed". ✅ Ook GEMETEN (Rob, zelfde avond): wereldbaas vanuit Shattrath → mage-knop
+   "Teleport: Silvermoon City" (stap 1 van een gewone route, via de loper); Mount run vanuit Shattrath → portaal naar
+   Orgrimmar. Nog open: wat ná stap 1 komt, /mh clear midden in een route, rare/schat na een portaal.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

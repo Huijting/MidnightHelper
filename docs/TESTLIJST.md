@@ -31,6 +31,9 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       bovenin (dezelfde als bij de Mount run) en géén pijl. Klik → je reist → na het laden *"Route, step 2 of N"*
       met de pijl naar het portaal / de delve. Komt er nu ook nog het oude reisvenster met een tweede hearthstone-knop?
       Dat hoort NIET meer.
+      ✅ Rob 16 okt avond (screenshot): **wereldbaas vanuit Shattrath** op zijn mage → knop *"Cast Teleport: Silvermoon
+      City; it takes you to Silvermoon City."*. Open: wat er ná de teleport kwam, en of het reisvenster nog een tweede
+      knop gaf.
 - [ ] **Na het portaal in Silvermoon:** de route plant opnieuw vanaf daar: pijl naar de vliegmeester (*"Flight master: …"*)
       of meteen naar de delve. Op de vlucht stappen → pijl springt naar de delve. Bij de delve: *"Route finished — …"*.
 - [ ] **Coiled Isle-delve vanuit Silvermoon** (16 okt avond opnieuw gebouwd na Robs melding "hij stuurde me niet naar de
@@ -49,6 +52,8 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
 - [ ] **Mount run** (zelfde gedrag als gisteren): "Route" bij een raid → *"Mount run, step 1 of N"*, knop bij een
       hearthstone-stap, portaalkamer-deur → portaal, verder bij elke zonewissel, in de raid stopt hij. Throne of Thunder nog
       een keer als controle. Het knopvenster heet nu anders; stond hij verschoven, dan staat hij weer bovenin.
+      ✅ Rob 16 okt avond: Mount run vanuit Shattrath → "keurig de portal naar Orgrimmar" (eerste stap). Rest van de run
+      nog niet gemeld.
 - [ ] **Silvermoon-pin met deur** (City-tabblad → "Portal to The Coiled Isle"): pijl naar de boog; door de boog → orb
       (met chatregel); beneden → portaal. Door het portaal → *"Route finished"*.
 - [ ] **`/mh clear` midden in een route** (vooral tijdens een hearthstone-stap of vlak voor een vliegmeester): knop weg,
