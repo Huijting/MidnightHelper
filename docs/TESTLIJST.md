@@ -39,7 +39,8 @@ log regels als `lead (treasure) → …`, `pause (…)`, `resume treasure`. Een 
 
 Elke routeknop één keer — je moet zien: pijl naar het eerste doel, en na het pakken/doden de pijl naar het volgende.
 - [x] ✅ 16 okt GEMETEN (Rob, ná fix 357a980): pas na de kill van de rare naar de volgende (Malfunctioning Construct).
-      Eerste keer (vóór de fix) sprong hij midden in het gevecht met Banuran door. *Find Nearest* apart nog niet gezien.
+      Eerste keer (vóór de fix) sprong hij midden in het gevecht met Banuran door. *Find Nearest* ook ✅ (Rob: "daar had
+      ik hem mee gevonden").
       **Rares:** *Generate Route* (hele zone) — pijl naar de dichtstbijzijnde rare; vlieg over een lege spawn (rare niet
       op) → binnen een paar seconden pijl naar de volgende. Daarna *Find Nearest* (één rare): pijl blijft op die ene tot
       hij dood is.
