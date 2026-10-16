@@ -34,6 +34,9 @@
    `ns.MOUNTRUN_TO_SILVERMOON` (Voidstorm, Coiled Isle, Harandar via The Den-mond; MH's eigen gemeten portalen). Geen
    hub op je kaart maar wel op je continent → "Fly to X and take the portal …". Niet op het continent van de hoofdstad zelf.
    Kaart 2576 bewust NIET als sleutel (gedeeld canvas). Quest-poorten niet gecontroleerd.
+   GEMETEN door Rob (screenshot, 16 okt): stap 1 werkt in Silvermoon, maar de Portal Room-pin lag **34 m** van het
+   Org-portaal → Silvermoon-rij nu op Zygors portaalpunten (A 52.63/64.51, H 52.17/65.21). Rob's `/mh here` bij het
+   portaal zou het definitief maken.
    📏 **Geheugen GEMETEN door Rob, 16 okt** (`GetAddOnMemoryUsage`, main na de Mount run-stappen): **48.137 KB ≈ 47 MB**.
    Op schijf: 18,22 MB (code 14,06 MB), +1,2% t.o.v. v4.7.7. Vergelijkingspunt voor de volgende versie.
 **16 okt ochtendronde (GEMETEN):** CF 0 open (8 draadjes), GitHub 0 open, site-mail 0 (positieve controle: 30d geeft 15).

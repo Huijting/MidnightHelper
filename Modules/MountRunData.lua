@@ -387,10 +387,11 @@ ns.MOUNTRUN_HUBS = {
 	Valdrakken: 67030; Oribos: 60151 or level 50) — not checked here; a player without it gets told the portal anyway.
 ]]
 ns.MOUNTRUN_HOME = {
-	-- Silvermoon: MH's own "Portal Room" pin on the Silvermoon City map (UI.lua SMC_CAT_TRAVEL, 53.37/66.31) — Rob:
-	-- "we hebben toch een route naar de portal room". Zygor puts the two portals inside it at 52.63/64.51 (A) and
-	-- 52.17/65.21 (H), ZT:159 / ZT:172; the room is the place you can find, the portals are next to each other inside.
-	[2393] = { A = { 53.37, 66.31 }, H = { 53.37, 66.31 }, room = true },
+	-- Silvermoon: first tried MH's own "Portal Room" pin (UI.lua SMC_CAT_TRAVEL, 53.37/66.31). Rob, 16 Oct 2026,
+	-- standing AT the Orgrimmar portal: the arrow still said 34 m — the pin marks the room, not the portal ("beter de
+	-- zygor coordinaten er extra aan toe"). So the arrow now goes to the portal itself, Zygor ZT:159 (A) / ZT:172 (H);
+	-- the sentence still says "portal room", which is how you find it.
+	[2393] = { A = { 52.63, 64.51 }, H = { 52.17, 65.21 }, room = true },
 	[2339] = { A = { 41.18, 22.68 }, H = { 38.15, 27.23 } }, -- Dornogal, ZT:447 / ZT:462
 	[2112] = { A = { 59.79, 41.71 }, H = { 56.59, 38.26 } }, -- Valdrakken, ZT:659 / ZT:701
 	[1670] = { A = { 20.86, 45.67 }, H = { 20.85, 54.77 } }, -- Oribos, ZT:783 / ZT:794
