@@ -99,6 +99,17 @@ def locale_files(root: str) -> list[str]:
     return [os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith(".lua")]
 
 
+def module_files(root: str) -> list[str]:
+    """Every .lua under Modules/, SUBFOLDERS INCLUDED.
+
+    ⚠️ Until 16 Oct 2026 six checks read `Modules/*.lua` only, so `Modules/Travel/` (the
+    travel module, fase 1-4 of docs/TRAVEL_DESIGN_2026-10-16.md) was invisible to them:
+    [18] called ROUTE_FINISHED_FMT "never mentioned in code" while TravelRoute.lua uses
+    it, and [1] could not see a key TravelRoute asks for and enUS lacks. A new subfolder
+    is picked up by this one function, not by six globs that each have to remember."""
+    return sorted(glob.glob(os.path.join(root, "Modules", "**", "*.lua"), recursive=True))
+
+
 def collect_locale_keys(paths: list[str]):
     """Return defined[locale] -> {key: [(relpath, lineno), ...]}."""
     root = repo_root()
@@ -189,11 +200,7 @@ def collect_references(root: str):
         p = os.path.join(root, name)
         if os.path.isfile(p):
             targets.append(p)
-    moddir = os.path.join(root, "Modules")
-    if os.path.isdir(moddir):
-        for f in sorted(os.listdir(moddir)):
-            if f.endswith(".lua"):
-                targets.append(os.path.join(moddir, f))
+    targets += module_files(root)
     for p in targets:
         rel = os.path.relpath(p, root).replace("\\", "/")
         lines = read_lines(p)
@@ -257,18 +264,17 @@ def find_orphans(root: str, toc_files: set[str]):
     """Returns (orphans, pending). Orphans are HARD. Pending files are reported as a SOFT
     note, so a deliberately unregistered file stays visible instead of silently exempt."""
     orphans, pending = [], []
-    for sub in ("Modules", "Locales"):
-        d = os.path.join(root, sub)
-        if not os.path.isdir(d):
-            continue
-        for f in sorted(os.listdir(d)):
-            if f.endswith(".lua"):
-                rel = f"{sub}/{f}"
-                if rel not in toc_files:
-                    if _is_pending_generated(root, rel):
-                        pending.append(rel)
-                    else:
-                        orphans.append(rel)
+    paths = module_files(root)
+    loc = os.path.join(root, "Locales")
+    if os.path.isdir(loc):
+        paths += [os.path.join(loc, f) for f in sorted(os.listdir(loc)) if f.endswith(".lua")]
+    for p in paths:
+        rel = os.path.relpath(p, root).replace("\\", "/")
+        if rel not in toc_files:
+            if _is_pending_generated(root, rel):
+                pending.append(rel)
+            else:
+                orphans.append(rel)
     return orphans, pending
 
 
@@ -297,9 +303,7 @@ def collect_selecttab_ids(root: str) -> dict:
     declared in data as often as they are called, so read both."""
     ids = {}
     targets = [os.path.join(root, n) for n in ("UI.lua", "Core.lua")]
-    moddir = os.path.join(root, "Modules")
-    if os.path.isdir(moddir):
-        targets += [os.path.join(moddir, f) for f in os.listdir(moddir) if f.endswith(".lua")]
+    targets += module_files(root)
     for p in targets:
         if not os.path.isfile(p):
             continue
@@ -573,7 +577,7 @@ def check_and_guard_truncation(root):
         r'local\s+([A-Za-z_][\w]*\s*(?:,\s*[A-Za-z_][\w]*\s*)+)=\s*'
         r'([\w.:]+)\s+and\s+\2\(\s*\)')
     paths = [os.path.join(root, "Core.lua"), os.path.join(root, "UI.lua")]
-    paths += sorted(glob.glob(os.path.join(root, "Modules", "*.lua")))
+    paths += module_files(root)
     for path in paths:
         if not os.path.exists(path):
             continue
@@ -793,8 +797,7 @@ def check_command_list(root):
     cmds = re.findall(r'cmd = "(/mh[^"]*)"', src)
 
     routes = ""
-    for path in [os.path.join(root, "Core.lua")] + sorted(
-            glob.glob(os.path.join(root, "Modules", "*.lua"))):
+    for path in [os.path.join(root, "Core.lua")] + module_files(root):
         if not os.path.isfile(path):
             continue
         with open(path, "r", encoding="utf-8", errors="replace") as fh:
@@ -1371,8 +1374,8 @@ def main() -> int:
     #      get a real string deleted.
     code_paths = [os.path.join(root, "Core.lua"), os.path.join(root, "UI.lua"),
                   os.path.join(root, "Locales", "Locale.lua")]
-    code_paths += sorted(glob.glob(os.path.join(root, "Modules", "*.lua")))
-    code_paths += sorted(glob.glob(os.path.join(root, "Addons", "*.lua")))
+    code_paths += module_files(root)
+    code_paths += sorted(glob.glob(os.path.join(root, "Addons", "**", "*.lua"), recursive=True))
     mentioned = set()
     for p in code_paths:
         if not os.path.isfile(p):

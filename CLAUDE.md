@@ -350,6 +350,7 @@ toestand niet te reproduceren is.
 - `MidnightHelper.toc` — load order + metadata (`## Version`, `## Interface 120007`). Adding a module = add its file here.
 - `Core.lua`, `UI.lua`, `Config.lua` — bootstrap, main window, config.
 - `Modules/` — one file per feature (e.g. `NativeArrow.lua`, `MissingBuff.lua`, `Openables.lua`, `FastMark.lua`, `KeyboardLayoutPrototype.lua`, `KeybindAutoMap.lua`, `KeybindRoles_*.lua`, `Achievements.lua`, `Delves.lua`, `Changelog.lua`, `SettingsPage.lua`).
+  - `Modules/Travel/` is the one subfolder (the travel module, 16 Oct 2026). Tools that scan `Modules/` must include subfolders: `tools/lint_addon.py` does so through `module_files()` — use that, not a new `Modules/*.lua` glob (six checks were blind to `Modules/Travel/` until that day).
 - `Locales/` — one pack per language + the resolver + a fill-file (see Localization).
 - `docs/` — dev notes, per-release CurseForge notes (`CURSEFORGE_<version>.md`), plans, handoffs. `docs/NEXT_SESSION.md` is the running state/handoff log — read it for current context.
   - ⚠️ **Gesplitst op 2 sep 2026**, toen het 4445 regels was en alleen de bovenste 226 leefden.

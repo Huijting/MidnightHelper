@@ -137,8 +137,14 @@
    de/fr/es/pt/it/ru door mh-writer, niet door een moedertaalspreker nagekeken).
    Bewuste verschillen: Mount run springt niet meer terug naar stap 1 als je "nergens" op de route bent (blijft staan);
    een skipTravelUI-route (vault-popup) krijgt geen legRetry-vliegstap meer na een zonewissel.
-   ⚠️ GEMETEN: `tools/lint_addon.py` leest alleen `Modules/*.lua`, niet `Modules/Travel/` — check [1]/[6]/[9] zijn daar
-   blind; met de hand nagelopen (alle ns-functies en keys die TravelRoute gebruikt bestaan). Lint uitbreiden = klusje.
+   ✅ **Lint ziet `Modules/Travel/` sinds 16 okt avond.** `tools/lint_addon.py` heeft nu `module_files()` (alle `.lua`
+   onder `Modules/`, submappen mee); zes plekken lazen alleen `Modules/*.lua`: [1] keys, [2] .toc, [4] tabs, [10]
+   commando's, [12] and-guard, [18] dode keys (Addons/ nu ook recursief). GEMETEN: [18] 267 → 271 bestanden,
+   ROUTE_FINISHED_FMT niet meer "nooit genoemd"; [1] 1554 → 1564 keys; 0 HARD. Proef (scratchpad
+   `lint_travel_probe.py`, kopie in het geheugen, niets op schijf): een kapotte TravelRoute geeft [1], [6] en [9]
+   een treffer, en TravelGeo uit de .toc halen geeft [2]. ⚠️ Correctie op de regel die hier stond: [6] en [9] waren
+   NIET blind — die lezen de .toc, en daar staan de Travel-bestanden al in (AFGELEID uit de code, die niet veranderd is).
+   `Modules/Travel/` is de enige submap (GEMETEN, `find -type d` over Modules/Addons/Locales).
    **Volgende: Robs test (TESTLIJST), dan beta-tag op zijn go; daarna fase 4 (beheerde routes via nextLead()).**
    (Fase 4 staat sinds 16 okt middag op main, zie verderop; fase 5 = opruimen.)
    🐞 **Eerste test Rob (16 okt avond, screenshot):** Coiled Isle-delve vanuit Silvermoon → pijl op het portaal, niet op de
@@ -195,7 +201,7 @@
    vliegpunt-knop starten nu een één-staps-route (`Travel.StartDirect`). AddSmartTomTomWay neemt een beheerde eigenaar
    over bij een klik (niet bij bulkpinnen of de eigen stappen van de loper). `/mh clear` stopt nu ook delve-kisten en
    ritual (GEMETEN: deed het eerst niet). Ritual heeft eigen eigenaar "ritual" (paars). Lint 0 HARD; `Modules/Travel/` met
-   de hand: alle 22 aangeroepen `ns.Travel.*` bestaan (grep). GEMETEN buiten het spel: proefbank met stubs
+   de hand: alle 22 aangeroepen `ns.Travel.*` bestaan (grep). (Sinds 16 okt avond leest de lint die map zelf.) GEMETEN buiten het spel: proefbank met stubs
    (scratchpad `runner_test.lua`, 7 scenario's) 28/28. Bewuste verschillen: achievement-lead gebruikt geen
    ForceArrowToLead (subzone-vertaling) meer — als TomTom's pijl bij subzones wegvalt, komt die terug; rare-hunt
    "aangekomen" = 1 s-tikker binnen 40 yd (was 30×/s in onze pijl) — snelle overvluchten kunnen gemist worden, pin
