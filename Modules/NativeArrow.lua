@@ -937,6 +937,14 @@ local function Tick()
 		return
 	end
 
+	-- Travel phase 3: the route's current step is something to USE (Hearthstone, toy, mage teleport) — there is no
+	-- place to point at, and the cached lead below would be the previous step's.
+	if ns.Travel and ns.Travel.CurrentIsAction and ns.Travel.CurrentIsAction() then
+		activeLead = nil
+		HideArrow()
+		return
+	end
+
 	-- Refresh our cached lead whenever a route publishes one (initial / advance /
 	-- skip). If ns.lastTarget was transiently nil'd, we keep the previous lead.
 	local lt = ns.lastTarget
@@ -1033,7 +1041,8 @@ local function Tick()
 	local twx, twy = MapToWorld(activeLead.mapID, (activeLead.x or 0) / 100, (activeLead.y or 0) / 100)
 	if pwx and twx then
 		local dx, dy = pwx - twx, pwy - twy
-		atLead = (dx * dx + dy * dy) <= (20 * 20)
+		local near = (ns.Travel and ns.Travel.NEAR and ns.Travel.NEAR.arrived.yards) or 20 -- one table (TravelGeo)
+		atLead = (dx * dx + dy * dy) <= (near * near)
 	end
 
 	-- Lost detour rare: parked on the spot, out of combat, and it is simply not here.
@@ -1072,7 +1081,10 @@ local function Tick()
 	-- A single-destination route (delve / generic waypoint) has no auto-advance, so
 	-- release the arrow once we arrive (within ~20yd). rare/treasure/reset/achievement
 	-- manage their own lifecycle.
-	if (ns._mhRouteOwner == "delve" or ns._mhRouteOwner == "waypoint") and atLead then
+	-- ...but not at a step ON THE WAY (Travel phase 3): reaching the portal is not arriving, and letting the owner go
+	-- there would end the route runner's route one step early.
+	local onLeg = ns.Travel and ns.Travel.OnLeg and ns.Travel.OnLeg()
+	if (ns._mhRouteOwner == "delve" or ns._mhRouteOwner == "waypoint") and atLead and not onLeg then
 		ns._mhRouteOwner = nil
 		activeLead = nil
 		HideArrow()

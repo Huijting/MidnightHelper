@@ -156,20 +156,9 @@ end
 
 -- Map knowledge now lives in Modules/Travel/TravelGeo.lua (travel design phase 1, 16 Oct 2026); these were its
 -- first versions, moved there unchanged.
-local InMap = ns.Travel.InMap
-local ContinentOf = ns.Travel.Continent
-
-local function ArrivedVia(pm, to)
-	if type(to) == "table" then
-		for _, m in ipairs(to) do
-			if InMap(pm, m) then
-				return true
-			end
-		end
-		return false
-	end
-	return to ~= nil and InMap(pm, to)
-end
+-- Travel phase 3 (16 Oct 2026): walking the steps (CurrentStep, ShowStep, WatchVia, the Hearthstone button, the
+-- boarding watcher and the zone handler) moved to Modules/Travel/TravelRoute.lua, unchanged in what they do, so every
+-- route walks the same way. This file only says WHICH steps a raid has.
 
 local STEP_KEY = {
 	portal = "MOUNTRUN_STEP_PORTAL", zeppelin = "MOUNTRUN_STEP_ZEPPELIN", boat = "MOUNTRUN_STEP_BOAT",
@@ -219,253 +208,14 @@ local function BuildSteps(raid)
 			end
 			-- `board`: a ride (boat, zeppelin, tram) — getting on ends the step (see the boarding watcher below).
 			local ride = hub.kind == "boat" or hub.kind == "zeppelin" or hub.kind == "tram"
-			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text, via = hub.via, board = ride or nil }
+			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text, via = hub.via, viaNear = "via",
+				board = ride or nil }
 		end
 	end
 	local zone, x, y = EntrancePoint(raid)
-	steps[#steps + 1] = { map = zone, x = x, y = y, text = (ns:L("MOUNTRUN_STEP_ENTRANCE")):format(ns:L(raid.nameKey)) }
+	steps[#steps + 1] = { map = zone, x = x, y = y, final = true,
+		text = (ns:L("MOUNTRUN_STEP_ENTRANCE")):format(ns:L(raid.nameKey)) }
 	return steps
-end
-
---- Which step the player is at now: the furthest step whose map they stand on, or whose previous step they have
---- just come through. One shortcut: already on the right continent but outside the capital (a Horde player in
---- Durotar going to the Caverns of Time) skips the capital portal — only for step 2, because deeper hubs
---- (Dornogal's tunnel to Azj-Kahet) share a continent with their destination and must not be skipped.
-local function CurrentStep(steps, start)
-	start = start or 1
-	local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-	if not pm then
-		return 1
-	end
-	local inStart = InMap(pm, steps[start].map)
-	for k = #steps, 2, -1 do
-		local s = steps[k]
-		if InMap(pm, s.map) or ArrivedVia(pm, steps[k - 1].to) then
-			return k
-		end
-		if k == start + 1 and not inStart then
-			local pc = ContinentOf(pm)
-			if pc and pc == ContinentOf(s.map) then
-				return k
-			end
-		end
-	end
-	return 1
-end
-
-local route -- { raid, steps, idx }
-
-local function Say(msg)
-	if ns.PrintChat then
-		ns:PrintChat(msg)
-	else
-		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), msg))
-	end
-end
-
-local function PointAt(map, x, y, text)
-	if ns.MH_TomTomClearAll then
-		ns.MH_TomTomClearAll()
-	end
-	-- skipTravelUI: the steps ARE the travel advice; Midnight's planner does not know the old world.
-	ns.AddSmartTomTomWay(map, x, y, text, true)
-	if ns.lastTarget then
-		ns.lastTarget.noTravelAdvice = true -- NativeArrow's "not on this continent, head for …" stays quiet
-		ns.lastTarget.via = "mount run"
-	end
-	ns._mhRouteOwner = "mountrun"
-end
-
---- A step with `via` (Silvermoon's portal-room door, Rob measured 16 Oct 2026) points at the door first. Once you
---- stand within ~0.3 map-percent of it (about 7 m in Silvermoon: door to Horde portal is 1.43 % ≈ 34 m, measured by
---- Rob's arrow) the arrow moves to the portal itself — no chat line, it is the same step.
-local viaTicker
-local function WatchVia(s)
-	if viaTicker then
-		viaTicker:Cancel()
-		viaTicker = nil
-	end
-	if not (s.via and C_Map and C_Map.GetPlayerMapPosition and C_Timer and C_Timer.NewTicker) then
-		return false
-	end
-	-- Already inside (closer to the portal than the door is): no door.
-	local here = C_Map.GetPlayerMapPosition(s.map, "player")
-	if here then
-		local hx, hy = here:GetXY()
-		if hx and hy then
-			local function d(ax, ay, bx, by)
-				return math.sqrt((ax - bx) ^ 2 + (ay - by) ^ 2)
-			end
-			if d(hx * 100, hy * 100, s.x, s.y) < d(s.via[1], s.via[2], s.x, s.y) then
-				return false
-			end
-		end
-	end
-	viaTicker = C_Timer.NewTicker(0.5, function()
-		if not route or route.steps[route.idx] ~= s or ns._mhRouteOwner ~= "mountrun" then
-			viaTicker:Cancel()
-			viaTicker = nil
-			return
-		end
-		local pos = C_Map.GetPlayerMapPosition(s.map, "player")
-		if not pos then
-			return
-		end
-		local px, py = pos:GetXY()
-		if px and py and math.abs(px * 100 - s.via[1]) < 0.3 and math.abs(py * 100 - s.via[2]) < 0.3 then
-			viaTicker:Cancel()
-			viaTicker = nil
-			PointAt(s.map, s.x, s.y, s.text)
-		end
-	end)
-	return true
-end
-
---- A button to click for the Hearthstone step (Rob, 16 Oct 2026: the chat line was right, "maar ik mis de knop").
---- Same mechanism as the Travel Assistant's Hearthstone button (Delves.lua, MidnightHelperHSClick): a secure action
---- button, so it can only be shown, hidden or changed out of combat — in combat the change waits for
---- PLAYER_REGEN_ENABLED. The item uses "/use item:6948" like that button; a toy uses the secure "toy" type.
-local hearthFrame, pendingHearth, pendingHide
-local function HearthFrame()
-	if hearthFrame then
-		return hearthFrame
-	end
-	local f = CreateFrame("Frame", "MidnightHelperMountRunHearth", UIParent, "BackdropTemplate")
-	f:SetSize(300, 66)
-	f:SetPoint("TOP", UIParent, "TOP", 0, -170)
-	f:SetFrameStrata("DIALOG")
-	f:SetClampedToScreen(true)
-	f:EnableMouse(true)
-	f:SetMovable(true)
-	f:RegisterForDrag("LeftButton")
-	f:SetScript("OnDragStart", f.StartMoving)
-	f:SetScript("OnDragStop", f.StopMovingOrSizing)
-	f:Hide()
-	if ns.ApplyMidnightDialogBackdrop then
-		ns.ApplyMidnightDialogBackdrop(f)
-	end
-	if ns.RegisterMidnightDialogPopup then
-		ns.RegisterMidnightDialogPopup(f)
-	end
-	local b = CreateFrame("Button", "MidnightHelperMountRunHearthBtn", f, "SecureActionButtonTemplate")
-	b:SetSize(40, 40)
-	b:SetPoint("LEFT", f, "LEFT", 14, 0)
-	b.icon = b:CreateTexture(nil, "ARTWORK")
-	b.icon:SetAllPoints()
-	b.icon:SetTexture(134414) -- Hearthstone icon, replaced by the toy's own below
-	b:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
-	b:RegisterForClicks("AnyUp", "AnyDown")
-	f.btn = b
-	f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	f.text:SetPoint("LEFT", b, "RIGHT", 10, 0)
-	f.text:SetPoint("RIGHT", f, "RIGHT", -26, 0)
-	f.text:SetJustifyH("LEFT")
-	f.text:SetWordWrap(true)
-	if ns.AttachMidnightDialogCloseButton then
-		ns.AttachMidnightDialogCloseButton(f, function()
-			if not (InCombatLockdown and InCombatLockdown()) then
-				f:Hide()
-			end
-		end)
-	end
-	hearthFrame = f
-	return f
-end
-
-local function HideHearthButton()
-	pendingHearth = nil
-	if hearthFrame and hearthFrame:IsShown() then
-		if InCombatLockdown and InCombatLockdown() then
-			pendingHide = true
-		else
-			hearthFrame:Hide()
-		end
-	end
-end
-
-local function ShowHearthButton(s)
-	if InCombatLockdown and InCombatLockdown() then
-		pendingHearth, pendingHide = s, nil
-		return
-	end
-	local f = HearthFrame()
-	local b = f.btn
-	local icon
-	if s.mage and s.spellID then
-		-- Travel phase 2: a mage teleport home is a step too, cast through the secure "spell" type.
-		b:SetAttribute("type", "spell")
-		b:SetAttribute("spell", s.spellID)
-		b:SetAttribute("toy", nil)
-		b:SetAttribute("macrotext", nil)
-		icon = C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(s.spellID)
-	elseif s.isToy then
-		b:SetAttribute("type", "toy")
-		b:SetAttribute("toy", s.useID)
-		b:SetAttribute("macrotext", nil)
-		b:SetAttribute("spell", nil)
-	else
-		b:SetAttribute("type", "macro")
-		b:SetAttribute("macrotext", "/use item:" .. tostring(s.useID))
-		b:SetAttribute("toy", nil)
-		b:SetAttribute("spell", nil)
-	end
-	icon = icon or (s.useID and C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(s.useID))
-	b.icon:SetTexture(icon or 134414)
-	f.text:SetText(s.text)
-	f:Show()
-end
-
-do
-	local ev = CreateFrame("Frame")
-	ev:RegisterEvent("PLAYER_REGEN_ENABLED")
-	ev:SetScript("OnEvent", function()
-		if pendingHide then
-			pendingHide = nil
-			if hearthFrame then
-				hearthFrame:Hide()
-			end
-		end
-		local s = pendingHearth
-		pendingHearth = nil
-		if s and route and route.steps[route.idx] == s then
-			ShowHearthButton(s)
-		end
-	end)
-end
-
-local function ShowStep(i)
-	local s = route.steps[i]
-	route.idx = i
-	local text = s.text
-	if (s.hearth and s.useID) or (s.mage and s.spellID) then
-		ShowHearthButton(s)
-	else
-		HideHearthButton()
-	end
-	if s.hearth or s.mage or not (s.x and s.y) then
-		-- Nothing to point at (the Hearthstone): no arrow, but the route keeps the arrow so the old travel helpers
-		-- stay quiet, and the next zone change moves it on.
-		WatchVia({})
-		if ns.MH_TomTomClearAll then
-			ns.MH_TomTomClearAll()
-		end
-		ns.lastTarget = nil
-		ns._mhRouteOwner = "mountrun"
-	else
-		-- A capital step seen from elsewhere says which city it is in (Rob, in Uldum: "Take the portal to The Jade
-		-- Forest", 12 km away, without saying it stands in Orgrimmar).
-		local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-		if (s.map == 84 or s.map == 85) and pm and not InMap(pm, s.map) then
-			local city = C_Map.GetMapInfo and C_Map.GetMapInfo(s.map)
-			text = (ns:L("MOUNTRUN_STEP_IN_CITY")):format(city and city.name or "?", s.text)
-		end
-		if WatchVia(s) then
-			PointAt(s.map, s.via[1], s.via[2], text)
-		else
-			PointAt(s.map, s.x, s.y, text)
-		end
-	end
-	Say((ns:L("MOUNTRUN_STEP_FMT")):format(i, #route.steps, text))
 end
 
 --- The way home first (Rob, 16 Oct 2026, in Silvermoon: "kunnen we geen pijlen ook naar de portals hier
@@ -477,43 +227,22 @@ local function HomeSteps(steps)
 	if capital ~= 84 and capital ~= 85 then
 		return {}
 	end
-	return ns.Travel.WayHome(capital)
-end
-
---- Getting on ends a ride step (Rob, 16 Oct 2026, flying with Scout Captain Elsia: the arrow still pointed back at her,
---- 252 m behind him). Same rule as the flight legs in DelveTipMarkup ("boarding ends leg one"): once you are on the
---- quest flight, boat, zeppelin or tram, there is nothing left to walk to, so the arrow takes the next step now.
---- Signals: the client's taxi/vehicle state, asked a moment after losing control or entering a vehicle.
-do
-	local function OnBoard()
-		if UnitOnTaxi and UnitOnTaxi("player") then
-			return true
+	local out = ns.Travel.WayHome(capital)
+	for _, s in ipairs(out) do
+		if s.via then
+			s.viaNear = "via"
 		end
-		if UnitInVehicle and UnitInVehicle("player") then
-			return true
-		end
-		return false
 	end
-	local ev = CreateFrame("Frame")
-	ev:RegisterEvent("PLAYER_CONTROL_LOST")
-	ev:RegisterUnitEvent("UNIT_ENTERED_VEHICLE", "player")
-	ev:SetScript("OnEvent", function()
-		C_Timer.After(1, function()
-			if not (route and route.idx and ns._mhRouteOwner == "mountrun") then
-				return
-			end
-			local s = route.steps[route.idx]
-			if s and s.board and route.steps[route.idx + 1] and OnBoard() then
-				ShowStep(route.idx + 1)
-			end
-		end)
-	end)
+	return out
 end
 
+--- Start the route: the steps of this raid, with the way home in front when the player is on none of them. From
+--- here on the route runner walks it (Modules/Travel/TravelRoute.lua): one step at a time, on at every zone change,
+--- done inside the instance, ended when another route takes the arrow.
 function ns.MountRunStartRoute(raid)
 	local steps = BuildSteps(raid)
 	local start = 1
-	if CurrentStep(steps) == 1 then
+	if ns.Travel.StepFor(steps) == 1 then
 		local pre = HomeSteps(steps)
 		if #pre > 0 then
 			for i = #pre, 1, -1 do
@@ -522,50 +251,17 @@ function ns.MountRunStartRoute(raid)
 			start = #pre + 1
 		end
 	end
-	route = { raid = raid, steps = steps, start = start }
-	ShowStep(CurrentStep(steps, start))
-end
-
-do
-	-- Advance on every zone change while the route is ours. Inside the instance it is done; another route
-	-- taking the arrow (a delve, a rare) ends ours without a word.
-	local ev = CreateFrame("Frame")
-	ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	ev:RegisterEvent("ZONE_CHANGED")
-	ev:RegisterEvent("ZONE_CHANGED_INDOORS")
-	ev:RegisterEvent("PLAYER_ENTERING_WORLD")
-	ev:SetScript("OnEvent", function()
-		if not route then
-			return
-		end
-		if ns._mhRouteOwner ~= "mountrun" then
-			route = nil
-			HideHearthButton()
-			return
-		end
-		if IsInInstance and select(1, IsInInstance()) then
-			route = nil
-			HideHearthButton()
-			ns._mhRouteOwner = nil
-			if ns.MH_TomTomClearAll then
-				ns.MH_TomTomClearAll()
-			end
-			return
-		end
-		-- After a loading screen the map can still be nil for a moment; ask again shortly.
-		C_Timer.After(1, function()
-			if not route or ns._mhRouteOwner ~= "mountrun" then
-				return
-			end
-			local k = CurrentStep(route.steps, route.start)
-			-- Never back while riding: a quest flight crosses subzones of the map you boarded on, which would read as
-			-- "still at the boarding step" (16 Oct 2026, Elsia's flight).
-			local riding = (UnitOnTaxi and UnitOnTaxi("player")) or (UnitInVehicle and UnitInVehicle("player"))
-			if k ~= route.idx and not (riding and k < route.idx) then
-				ShowStep(k)
-			end
-		end)
-	end)
+	local last = steps[#steps]
+	ns.Travel.Start({ map = last.map, x = last.x, y = last.y, name = ns:L(raid.nameKey) }, {
+		owner = "mountrun",
+		steps = steps,
+		start = start,
+		stepFmt = "MOUNTRUN_STEP_FMT",
+		stopInInstance = true,
+		noTravelAdvice = true, -- NativeArrow's "not on this continent, head for …" stays quiet
+		clearPins = true,
+		via = "mount run",
+	})
 end
 
 --------------------------------------------------------------------------------

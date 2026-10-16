@@ -23,9 +23,11 @@ local _, ns = ...
 	hook. Distance is the only signal, so this polls -- but only while a two-step route
 	is actually running, once a second, with a hard stop. A poll that cannot end is a
 	leak; this one ends on arrival, on timeout, and when another route takes the arrow.
-]]
 
-local C_Timer = C_Timer
+	🚌 TRAVEL PHASE 3 (16 Oct 2026): the ticker is gone from this file. The door hand-over is now the route runner's
+	`via` (Modules/Travel/TravelRoute.lua), shared with the Mount run and the travel plan's portal doors. This file
+	keeps the decision whether a door is needed, the distance helpers, and the old names as pass-throughs.
+]]
 
 -- How close to the door counts as "you are at the door". Generous on purpose: the
 -- point is to hand over early rather than to make you stand on a pixel.
@@ -51,13 +53,6 @@ local ARRIVE_YARDS = 22
 ---   2. the map's own size     -- C_Map.GetMapWorldSize, still real yards
 ---   3. raw map percent        -- coarse, and the only one that needs its own threshold
 local ARRIVE_MAP_UNITS = 1.2
--- Stop looking after this long. Someone who clicked and then went to do something
--- else should not leave a ticker running for the rest of the session.
-local GIVE_UP_SECONDS = 300
-local TICK = 1
-
-local active = nil -- { mapID, dest, token }
-local token = 0
 
 --- World position in yards for a map coordinate, or nil.
 --- ⚠️ Returns nil rather than guessing: without both positions there is no distance,
@@ -168,85 +163,28 @@ end
 ns.SmcDoorProximity = DoorProximity
 
 function ns.StopSmcTwoStepRoute()
-	active = nil
+	if ns.Travel and ns.Travel.Stop then
+		ns.Travel.Stop("StopSmcTwoStepRoute")
+	end
 end
 
---- What the door-watcher is doing right now, or nil when it is not running.
+--- What the door hand-off is doing right now, or nil when there is none (`/mh arrow`).
 ---
---- 🔴 BUILT BECAUSE IT COULD NOT BE ASKED — Rob, 7 Sep 2026. `/mh arrow` inside the room
---- proved the hand-over never fires (target still the door, owner still live, same map as
---- the route, so the position is readable in principle). It could not say WHY, because
---- everything this file does happens in a closure nobody can see into: whether the ticker
---- is alive, what it last measured, whether it already gave up. Three different failures
---- produce the identical silence.
----
---- 📌 `yards = nil` is the interesting answer, not the empty one. It means the distance
---- could not be measured, which is exactly the state that makes a distance-driven hand-over
---- impossible -- and it is indistinguishable from "measured, still far" unless we say so.
---- This is CLAUDE.md's rule about modules whose normal outcome is silence.
+--- 🔴 BUILT BECAUSE IT COULD NOT BE ASKED — Rob, 7 Sep 2026: three different failures (ticker dead, never close
+--- enough, distance unreadable) produced the identical silence. Travel phase 3 (16 Oct 2026): the watcher itself is
+--- now the route runner's (Modules/Travel/TravelRoute.lua, Travel.ViaStatus); this name stays for NativeArrow.
 --- @return table|nil
 function ns.SmcTwoStepStatus()
-	if not active then
-		return nil
+	if ns.Travel and ns.Travel.ViaStatus then
+		return ns.Travel.ViaStatus()
 	end
-	local d, limit, how = DoorProximity(active.mapID, active.door.x, active.door.y)
-	return {
-		mapID = active.mapID,
-		doorX = active.door.x,
-		doorY = active.door.y,
-		destLabel = active.dest and active.dest.label,
-		destX = active.dest and active.dest.x,
-		destY = active.dest and active.dest.y,
-		yards = d, -- nil = could not be measured at all
-		limit = limit,
-		how = how, -- which of the three answered; a silent drop to "percent" is a finding
-		elapsed = active.elapsed or 0,
-		giveUp = GIVE_UP_SECONDS,
-		arriveYards = ARRIVE_YARDS,
-	}
-end
-
---- Hand the arrow over to the real destination.
-local function Arrive()
-	local a = active
-	active = nil
-	if not a or not a.dest then
-		return
-	end
-	-- ⚠️ Only if nothing else has claimed the arrow in the meantime. Silently yanking
-	-- someone off a rare route because they clicked a city pin four minutes ago is
-	-- exactly the kind of surprise NativeArrow's ownership token exists to prevent.
-	if ns._mhRouteOwner ~= nil and ns._mhRouteOwner ~= "waypoint" then
-		return
-	end
-	if ns.SetSMCWaypointDirect then
-		ns.SetSMCWaypointDirect(a.dest, a.mapID)
-	end
-	if ns.PrintChat then
-		ns:PrintChat((ns:L("SMC_ENTRANCE_ARRIVED_FMT")):format(a.dest.label or "?"))
-	end
-end
-
-local function Tick(myToken)
-	if not active or active.token ~= myToken then
-		return
-	end
-	active.elapsed = (active.elapsed or 0) + TICK
-	if active.elapsed >= GIVE_UP_SECONDS then
-		active = nil
-		return
-	end
-	local d, limit = DoorProximity(active.mapID, active.door.x, active.door.y)
-	if d and d <= limit then
-		Arrive()
-		return
-	end
-	if C_Timer and C_Timer.After then
-		C_Timer.After(TICK, function() Tick(myToken) end)
-	end
+	return nil
 end
 
 --- Begin a two-step route for a pin that has an `entrance`.
+--- Travel phase 3: the decision (door needed or not) stays here; the hand-over at the door is the route runner's
+--- `via`, the same one the Mount run's portal room and the Coiled Isle delve route use. The 300 s give-up is gone:
+--- the runner stops when the route ends, another route takes the arrow, or /mh clear.
 --- @return table|nil doorTarget  the entrance to route to now, or nil to go direct
 function ns.StartSmcTwoStepRoute(point, mapID)
 	local e = point and point.entrance
@@ -281,17 +219,16 @@ function ns.StartSmcTwoStepRoute(point, mapID)
 	if d and dDest and dDest <= d then
 		return nil
 	end
-	token = token + 1
-	active = {
-		mapID = mapID,
-		door = { x = e.x, y = e.y },
-		dest = point,
-		token = token,
-		elapsed = 0,
-	}
-	if C_Timer and C_Timer.After then
-		local myToken = token
-		C_Timer.After(TICK, function() Tick(myToken) end)
+	-- The pin's own code (UI.lua SetSMCWaypoint) points at the door and sets the owner right after this returns.
+	if ns.Travel and ns.Travel.Start then
+		ns.Travel.Start({ map = mapID, x = point.x, y = point.y, name = point.label, arrivesOn = point.arrivesOn }, {
+			owner = "waypoint",
+			steps = { { map = mapID, x = point.x, y = point.y, text = point.label, final = true,
+				via = { e.x, e.y }, viaNear = "door", viaDoneKey = "SMC_ENTRANCE_ARRIVED_FMT" } },
+			finish = true,
+			alreadyPointed = true,
+			via = "Silvermoon pin",
+		})
 	end
 	return {
 		x = e.x,

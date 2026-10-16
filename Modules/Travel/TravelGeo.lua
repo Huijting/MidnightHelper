@@ -115,6 +115,11 @@ end
 T.NEAR = {
 	door = { yards = 22, percent = 1.2 }, -- at a door: hand over to what is behind it (TwoStepRoute)
 	via = { yards = 7, percent = 0.3 }, -- Mount run `via` (door → portal in one room)
+	-- Phase 3 (TravelRoute.lua), moved from the old code unchanged:
+	step = { yards = 25, percent = 1.2 }, -- a walked door / Windcaller on the way: reached → next step (old leg watcher)
+	walkedAway = { near = 60, back = 15 }, -- ...or was within 60 yd and is now 15 yd further away (Underbelly, 14 Oct)
+	arrived = { yards = 20 }, -- NativeArrow lets a single-destination route go (NativeArrow.lua Tick)
+	done = { yards = 400 }, -- "route finished" after a zone change (Delves.lua IsMidnightTravelComplete)
 }
 
 --- How far the player is from (x, y) on map `m`: dist, how ("yards" | "mapsize" | "percent"), or nil.

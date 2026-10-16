@@ -937,6 +937,11 @@ function ns.ClearActiveRoute()
 	if ns.CancelResetRoute then
 		ns.CancelResetRoute()
 	end
+	-- Travel phase 3: the route runner's watchers and button (the old flight-leg and door watchers kept running after
+	-- a clear and could put the route back, travel map §1b-4).
+	if ns.Travel and ns.Travel.Stop then
+		ns.Travel.Stop("clear")
+	end
 	ns.MH_TomTomClearAll()
 	if C_Map and C_Map.ClearUserWaypoint then
 		pcall(C_Map.ClearUserWaypoint)

@@ -58,6 +58,7 @@ Modules\FlightNetworkData.lua
 Modules\Travel\TravelGeo.lua
 Modules\Travel\TravelData.lua
 Modules\Travel\TravelPlanner.lua
+Modules\Travel\TravelRoute.lua
 Modules\DelveTipMarkup.lua
 Modules\DelveBossShowcase.lua
 Modules\DelvePartyShare.lua

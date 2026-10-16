@@ -896,6 +896,7 @@ ns._mhLocales.nlNL = {
 	CMDLIST_MOUNTRUN = "Oude raids die je solo doet voor een mount: welke mounts je nog mist, en of je ze deze week nog kunt proberen.",
 	-- Route in steps (16 Oct 2026). %s = the place you arrive, named by the game client itself.
 	MOUNTRUN_STEP_FMT = "Mount run, stap %d van %d: %s",
+	TRAVEL_STEP_FMT = "Route, stap %d van %d: %s",
 	MOUNTRUN_STEP_PORTAL = "Neem het portaal naar %s.",
 	MOUNTRUN_STEP_ZEPPELIN = "Neem de zeppelin naar %s.",
 	MOUNTRUN_STEP_BOAT = "Neem de boot naar %s (praat met de kapitein).",

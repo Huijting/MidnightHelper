@@ -119,6 +119,27 @@
    in chat (BugGrabber.lua:340), niet in de SV — Rob gevraagd of hij "BugGrabber:"-regels zag. Oorzaak onbekend.
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
+   ✅ **Travel fase 3 GEBOUWD (16 okt, Rob: "ja, bouw fase 3 zo") — NIETS in het spel getest → TESTLIJST bovenaan.**
+   `Modules/Travel/TravelRoute.lua` = de routeloper: `Travel.Start(target, opts)` / `Travel.Stop(reason)`, ÉÉN
+   zonewissel-handler (0,7 s, ZONE_CHANGED*/PEW), stappen uit TravelPlan (+ WayHome-velden to/useID/isToy/spellID) +
+   `Travel.FlightLeg` (de 75%-regel, letterlijk verhuisd), knop (hearth/toy/mage, uit MountRun), `via`-deur, `handoff`
+   (gelopen deur/Windcaller), `board` (instappen = volgende stap), opnieuw plannen bij een kaart buiten de route én bij
+   aankomst op de laatste etappe (vervangt legRetry). "Route finished" (arrivesOn / ≤ 400 yd) alleen bij een échte
+   zonewissel, zoals runZoneNavCheck. Drempels in `Travel.NEAR` (step 25, walkedAway 60/15, arrived 20, done 400).
+   Omgezet: **MountRun** (alleen nog BuildSteps/HomeSteps → Travel.Start, owner mountrun, stopInInstance, clearPins;
+   341 regels weg); **AddSmartTomTomWay** start de loper (niet bij legBusy/travelOnly/skipCrazyArrow; skipTravelUI stopt
+   een lopende route; managed owners = zelfde stappen, eigen levenscyclus) en verbergt de popup als stap 1 een
+   hearth/mage-knop is; **DelveTipMarkup** pendingLeg/legWatcher/legRetry weg (534 regels), oude namen = doorgeefluik;
+   **Delves.lua** runZoneNavCheck weg → `LegacyZoneCheck` in TravelRoute (voor bypass-routes en rare/schat-herstel);
+   **TwoStepRoute** ticker weg → SMC-pin met deur = runner-route met `via` (+ SMC_ENTRANCE_ARRIVED-regel);
+   **NativeArrow** laat de eigenaar niet los bij een tussenstap (`Travel.OnLeg`) en verbergt de pijl bij een
+   knop-stap; **`/mh clear`** stopt de loper; **`/mh travel`** toont de lopende route. Nieuwe key TRAVEL_STEP_FMT (8 talen,
+   de/fr/es/pt/it/ru door mh-writer, niet door een moedertaalspreker nagekeken).
+   Bewuste verschillen: Mount run springt niet meer terug naar stap 1 als je "nergens" op de route bent (blijft staan);
+   een skipTravelUI-route (vault-popup) krijgt geen legRetry-vliegstap meer na een zonewissel.
+   ⚠️ GEMETEN: `tools/lint_addon.py` leest alleen `Modules/*.lua`, niet `Modules/Travel/` — check [1]/[6]/[9] zijn daar
+   blind; met de hand nagelopen (alle ns-functies en keys die TravelRoute gebruikt bestaan). Lint uitbreiden = klusje.
+   **Volgende: Robs test (TESTLIJST), dan beta-tag op zijn go; daarna fase 4 (beheerde routes via nextLead()).**
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

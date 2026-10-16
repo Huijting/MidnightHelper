@@ -21,6 +21,32 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 okt — Travel fase 3: één routeloper voor élke route (TravelRoute.lua)
+
+Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "route runner": welke route, welke stap
+(met een `>`), en de afstand tot die stap + hoe gemeten. Maak daar een screenshot van als iets niet klopt.
+
+- [ ] **Delve vanuit de oude wereld** (bv. in Uldum of Orgrimmar, een delve in Eversong kiezen op het Delves-tabblad):
+      chat zegt *"Route, step 1 of N: …"*. Is stap 1 een hearthstone/toy/magiër-teleport → er verschijnt een **knop**
+      bovenin (dezelfde als bij de Mount run) en géén pijl. Klik → je reist → na het laden *"Route, step 2 of N"*
+      met de pijl naar het portaal / de delve. Komt er nu ook nog het oude reisvenster met een tweede hearthstone-knop?
+      Dat hoort NIET meer.
+- [ ] **Na het portaal in Silvermoon:** de route plant opnieuw vanaf daar: pijl naar de vliegmeester (*"Flight master: …"*)
+      of meteen naar de delve. Op de vlucht stappen → pijl springt naar de delve. Bij de delve: *"Route finished — …"*.
+- [ ] **Coiled Isle-delve vanuit Silvermoon:** pijl eerst naar de deur van Astalor's Sanctum, binnen bij de deur → naar het
+      portaal (zelfde stap, geen chatregel). Door het portaal → volgende stap of de delve.
+- [ ] **Mount run** (zelfde gedrag als gisteren): "Route" bij een raid → *"Mount run, step 1 of N"*, knop bij een
+      hearthstone-stap, portaalkamer-deur → portaal, verder bij elke zonewissel, in de raid stopt hij. Throne of Thunder nog
+      een keer als controle. Het knopvenster heet nu anders; stond hij verschoven, dan staat hij weer bovenin.
+- [ ] **Silvermoon-pin met deur** (City-tabblad → "Portal to The Coiled Isle"): pijl naar de deur; bij de deur
+      *"At the door — now pointing at …"* en de pijl naar het portaal. Door het portaal → *"Route finished"*.
+- [ ] **`/mh clear` midden in een route** (vooral tijdens een hearthstone-stap of vlak voor een vliegmeester): knop weg,
+      pijl weg, en na de volgende zonewissel komt er **niets** terug. `/mh travel` zegt *"no route (last: …, stopped: clear)"*.
+- [ ] **Andere route kiezen tijdens een route** (bv. een rare of een `{WAY}`-link in de Codex): de oude route stopt, geen
+      chatregels meer van de oude.
+- [ ] **Rare / schat / achievement** (fase 4 nog niet gedaan, moet gewoon blijven werken): na een portaal komt de TomTom-pijl
+      terug zoals vroeger.
+
 ## 🆕 15 okt — Nieuw uit 12.1.5 (Rob: "alles") — mounts, campagne, achlist, J'imothy, Aqir-beloningen
 
 - [ ] **Mounts-tabblad:** 5 nieuwe regels: Corrupted Swarmer, Loa-Blessed Wayfarer, Sporebearer Fungal Strider (met

@@ -377,6 +377,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					x = best.x,
 					y = best.y,
 					label = best.name,
+					to = best.toID, -- where it comes out: the route runner's "step done" (travel phase 3)
 					source = "MIDNIGHT_PORTALS",
 					door = best.door, -- a portal inside a building: walk to its door first (Delves.lua)
 				}
@@ -477,6 +478,11 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 						x = w.x,
 						y = w.y,
 						label = w.text,
+						-- Travel phase 3: the route runner shows the button for these and knows where they land.
+						to = w.to,
+						useID = w.useID,
+						isToy = w.isToy,
+						spellID = w.spellID,
 						door = w.via and { x = w.via[1], y = w.via[2] } or nil,
 						source = "Travel.WayHome",
 					}
@@ -593,6 +599,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					mapID = link.fromMap,
 					x = link.x,
 					y = link.y,
+					to = link.toMap,
 					label = link.labelKey,
 					localized = true,
 					source = link.source,
@@ -651,6 +658,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					mapID = chain[i],
 					x = tonumber(("%.2f"):format(bx)),
 					y = tonumber(("%.2f"):format(by)),
+					to = intoMap,
 					label = "PLAN_STEP_DOOR",
 					localized = true,
 					source = "C_Map.GetMapLinksForMap",

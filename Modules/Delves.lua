@@ -1265,7 +1265,7 @@ local function PlayerIsInSilvermoonHub(currentMap)
 	return false
 end
 
-local TRAVEL_ARRIVAL_YARDS = 400
+local TRAVEL_ARRIVAL_YARDS = (ns.Travel and ns.Travel.NEAR and ns.Travel.NEAR.done.yards) or 400 -- one table (TravelGeo)
 
 --- `/mh travelwhy` — why is there no Travel Assistant popup right now?
 ---
@@ -1937,12 +1937,39 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	end
 	end -- not travelOnly
 
+	--- 🚌 TRAVEL PHASE 3 (16 Oct 2026): from here the route RUNNER walks the way (Modules/Travel/TravelRoute.lua) —
+	--- steps from the travel plan plus the flight leg, a chat line per step, on at every zone change, the Hearthstone
+	--- button. It replaced RouteFirstToFlightPoint + the leg watcher + legRetry (DelveTipMarkup.lua) and the zone
+	--- check that lived further down this file. Not for: the runner's own pointing (leg-busy), a refresh
+	--- (travelOnly), bulk pins (skipCrazyArrow). A route that wants no travel help (skipTravelUI) ends a running one.
+	--- Managed owners (rare, achievement, …) get the same steps but keep their own lifecycle (phase 4).
+	local runner
+	if not travelOnly and not ns._mhTravelLegBusy and not skipCrazyArrow and ns.Travel and ns.Travel.Start then
+		if skipTravelUI then
+			ns.Travel.Stop("skipTravelUI route")
+		else
+			local o = ns._mhRouteOwner
+			runner = ns.Travel.Start({ map = targetMap, x = xPct, y = yPct, name = title }, {
+				alreadyPointed = true,
+				managed = not (o == nil or o == "waypoint" or o == "delve"),
+			})
+		end
+	end
+
 	if not currentMap then
 		return true -- mid-loading-screen (portal): skip the travel assistant this pass
 	end
 
 	if skipTravelUI then
 		TravelWhy("AddSmartTomTomWay", "skipTravelUI")
+		return true
+	end
+
+	-- The runner shows a button for a Hearthstone / mage step; the popup would offer the same thing a second time.
+	local runStep = runner and runner.steps[runner.idx]
+	if runStep and (runStep.hearth or runStep.mage) then
+		TravelWhy("AddSmartTomTomWay", "route runner shows the button")
+		SafeHideTravelPopup()
 		return true
 	end
 
@@ -1959,14 +1986,11 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	-- Isle sit in the same MIDNIGHT_OVERWORLD_MAPS group — so every one of them says
 	-- "no travel help needed" for a trip across the sea. The popup staying quiet is
 	-- right; saying nothing at all is not.
-	if not travelOnly and ns.ReportTravelHintForWaypoint then
+	-- Travel phase 3: a route with steps says them itself ("Route, step 1 of 3: …"); the hint line only for a route the
+	-- runner walks in one step, where it still names the nearest flight point. The pointing that used to follow here
+	-- (RouteFirstToFlightPoint, Rob 16 aug: "the two halves of the same answer disagreed") is the runner's step 1.
+	if not travelOnly and ns.ReportTravelHintForWaypoint and not (runner and #runner.steps > 1) then
 		ns.ReportTravelHintForWaypoint(targetMap, title, xPct, yPct, currentMap)
-		-- ...and then actually point there. The line above tells you to fly; without
-		-- this the arrow kept aiming at the destination across the water, so the two
-		-- halves of the same answer disagreed (Rob, 16 aug, standing in Silvermoon).
-		if ns.RouteFirstToFlightPoint then
-			ns.RouteFirstToFlightPoint(targetMap, xPct, yPct, title, currentMap)
-		end
 	end
 
 	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
@@ -3932,148 +3956,9 @@ local function CreateEventBridge()
 			ClearDelvePoiCache()
 		end
 		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
-			-- Wait 1 second for the Map API to settle before checking location
-			--- 🔴 A RARE OR TREASURE ROUTE HAS NO `ns.lastTarget`, AND THIS BLOCK ONLY KNEW
-			--- ABOUT `ns.lastTarget` — 5 Sep 2026.
-			---
-			--- Rob, on a rare route in Harandar: he hearthstoned to Silvermoon, was correctly
-			--- sent to the Portal to Harandar, stepped through, and arrived in The Den with
-			--- OUR arrow on screen and no TomTom one. *"Is dat daar anders geregeld????"* Not
-			--- in The Den -- differently for rares.
-			---
-			--- 📌 Rares and treasures deliberately nil `ns.lastTarget` in their zone handlers
-			--- (CLAUDE.md says so, and NativeArrow:896 keeps its own `activeLead` for exactly
-			--- that reason, pulling `GetNearestIncompleteRareLead` each tick). So our arrow
-			--- survives a portal on its own memory and TomTom's is never restored, because
-			--- the restore below reads the one field those routes just cleared.
-			---
-			--- ⚠️ Everyone running TomTom sees only TomTom's arrow -- we stand down for it --
-			--- so for them the route simply ENDED at the portal. Same shape as the rare
-			--- arrival hints on 19 Aug: a feature that works fine for whoever the author
-			--- tested with and is invisible to most of the users.
-			local function RouteLead()
-				if ns.lastTarget and ns.lastTarget.mapID then
-					return ns.lastTarget
-				end
-				local getter = (ns._mhRouteOwner == "rare" and ns.GetNearestIncompleteRareLead)
-					or (ns._mhRouteOwner == "treasure" and ns.GetNearestIncompleteTreasureLead)
-					or nil
-				if getter then
-					local ok, lead = pcall(getter)
-					if ok and type(lead) == "table" and lead.mapID then
-						return lead
-					end
-				end
-				return nil
-			end
-			local function runZoneNavCheck()
-				-- The Mount run moves its own steps on the same events (MountRun.lua); this check finishing or re-planning
-				-- one of them is what sent Rob from the Jade Forest to Honeydew Village (16 Oct 2026).
-				if ns._mhRouteOwner == "mountrun" then
-					return
-				end
-				local currentMap = C_Map.GetBestMapForUnit("player")
-				local lt = RouteLead()
-				if lt and currentMap then
-					--- Stepping out of a portal ends the route that pointed AT that portal.
-					--- `arrivesOn` carries the far side; without it "route to the portal to X"
-					--- stays a route to a spot in the city you just left. See the note beside
-					--- the re-planner in DelveTipMarkup.
-					local throughPortal = lt.arrivesOn
-						and tonumber(lt.arrivesOn) == tonumber(currentMap)
-					if throughPortal or ns.IsMidnightTravelComplete(currentMap, lt.mapID, lt.x, lt.y, lt.name) then
-						--- 🔴 SAY THAT THE ROUTE ENDED — 5 Sep 2026, and this one line is why
-						--- today's last hunt took an hour.
-						---
-						--- Rob arrived on the Coiled Isle WITH an active route and `/mh arrow`
-						--- read `doel: GEEN`. Something had decided he was there and thrown the
-						--- route away in complete silence, and from outside that is
-						--- indistinguishable from the arrow breaking. I then produced four
-						--- explanations looking in the wrong places -- a Codex link, a missing
-						--- portal row, a second door -- because the one event that mattered
-						--- left no trace whatsoever.
-						---
-						--- ⚠️ It prints even when the verdict is WRONG, and that is the point.
-						--- A false "you have arrived" becomes a visible claim the player can
-						--- report, instead of an arrow that quietly vanishes.
-						SafeHideTravelPopup()
-						print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"),
-							(ns:L("ROUTE_FINISHED_FMT")):format(tostring(lt.name or "?"))))
-						ns.lastTarget = nil
-						--- 🔴 …AND NILLING `lastTarget` DOES NOT STOP THE ARROW. Rob, 7 Sep 2026,
-						--- standing on the Coiled Isle with the arrow still pointing at a door in
-						--- Silvermoon, 7 km behind him: *"ik denk dat er iets ingebouwd moet worden
-						--- waarbij hij ziet dat hij op Coiled Isle aangekomen is."*
-						---
-						--- 📌 The line above was written to end the route and it ends only half of
-						--- it. NativeArrow deliberately keeps its own `activeLead` and tears down
-						--- on `ns._mhRouteOwner` alone, because half a dozen zone handlers nil
-						--- `lastTarget` mid-hunt (see its header). So this block said "route
-						--- finished" in chat while the arrow it was talking about kept pointing.
-						---
-						--- 📌 And the arrow's OWN release (`NativeArrow.lua:1030`) cannot help
-						--- here: it fires when you come within ~20 yards of the lead. A portal
-						--- route is finished by walking AWAY from its coordinate, so the one way
-						--- out was the one way this route never takes. That is why a rare route
-						--- looked fine through the same portal -- owner "rare" refetches its lead
-						--- every tick and simply replaces the stale one.
-						---
-						--- ⚠️ Only the two single-destination owners. rare/treasure/reset/
-						--- achievement run their own lifecycle, and `RouteLead()` above can hand
-						--- us a RARE lead -- clearing on that would end a hunt that is still
-						--- running.
-						if ns._mhRouteOwner == "waypoint" or ns._mhRouteOwner == "delve" then
-							ns._mhRouteOwner = nil
-						end
-						--- ⚠️ THE PINS ARE NOT CLEARED HERE ANY MORE, and that is the fix rather
-						--- than an omission. They were, guarded by the same owner test above --
-						--- and on 7 Sep Rob arrived with `route owner: none` already, so the
-						--- guard skipped and both pins outlived the route. Clearing now hangs off
-						--- `ns._mhSmcPinsSet` in NativeArrow's teardown, which runs on the one
-						--- signal every ending shares: the owner being gone.
-						-- The door-watcher polls a coordinate on the map we just left; it can no
-						-- longer measure anything and has nothing left to hand over to.
-						if ns.StopSmcTwoStepRoute then
-							pcall(ns.StopSmcTwoStepRoute)
-						end
-					else
-						-- After portal / zone: restore delve arrow (TomTom only, no travel popup).
-						local function restoreDelveArrow()
-							-- Re-asked rather than captured: the second call runs half a
-							-- second later, by which time a rare route may already have
-							-- advanced to the next lead.
-							local t = RouteLead()
-							if not t then
-								return
-							end
-							if ns.IsTomTomReady() then
-								local uid = _G.TomTom:AddWaypoint(t.mapID, t.x / 100, t.y / 100, {
-									title = t.name,
-									persistent = false,
-									minimap = true,
-									world = true,
-									cleardistance = 15,
-									crazy = true,
-								})
-								if uid and _G.TomTom.SetCrazyArrow then
-									_G.TomTom:SetCrazyArrow(uid, 15, t.name)
-								end
-							elseif ns.SetBlizzardUserWaypoint then
-								ns.SetBlizzardUserWaypoint(t.mapID, t.x, t.y)
-							end
-						end
-						restoreDelveArrow()
-						if C_Timer and C_Timer.After then
-							C_Timer.After(0.5, restoreDelveArrow)
-						end
-					end
-				end
-			end
-			if C_Timer and C_Timer.After then
-				C_Timer.After(1, runZoneNavCheck)
-			else
-				runZoneNavCheck()
-			end
+			-- Travel phase 3 (16 Oct 2026): the after-zone-change route check that lived here (runZoneNavCheck: "route
+			-- finished", and putting TomTom's arrow back for rares/treasures) moved unchanged into the ONE zone handler
+			-- of the route runner, Modules/Travel/TravelRoute.lua (LegacyZoneCheck).
 			RequestTrackedCurrencyData()
 		end
 		--- Learn on every vault update, and BEFORE the panel-active test below. The

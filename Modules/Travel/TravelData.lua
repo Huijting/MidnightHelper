@@ -128,4 +128,8 @@ function T.PrintStatus()
 				c.a.x, c.a.y, c.a.table, c.b.x, c.b.y, c.b.table))
 		end
 	end
+	-- Phase 3: the running route (TravelRoute.lua), with the distance to the current step and how it was measured.
+	if T.PrintRoute then
+		T.PrintRoute()
+	end
 end

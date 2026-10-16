@@ -912,6 +912,7 @@ ns._mhLocales.enUS = {
 	MOUNTRUN_DIFF_LFR = "LFR",
 	-- Route in steps (16 Oct 2026). %s = the place you arrive, named by the game client itself.
 	MOUNTRUN_STEP_FMT = "Mount run, step %d of %d: %s",
+	TRAVEL_STEP_FMT = "Route, step %d of %d: %s",
 	MOUNTRUN_STEP_PORTAL = "Take the portal to %s.",
 	MOUNTRUN_STEP_ZEPPELIN = "Take the zeppelin to %s.",
 	MOUNTRUN_STEP_BOAT = "Take the boat to %s (talk to the captain).",
