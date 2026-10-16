@@ -67,7 +67,11 @@ er is niets weggegooid.
 - [x] Na een kist: `/reload` → ik lees `questDiff.found`: klopt het quest-ID van HandyNotes met wat de game afvinkt?
       ✅ 15 okt GEMETEN, 2 van 2: kist #1 = 97131 (46.9/64.2), kist #2 = 98602 (37.1/69.8). Route liep door naar 3 of 39.
 - [ ] **Codex → Journey-kaart, rang 2:** links naar de 3 Hexmasks (Thundering, Fiery, Frozen). Klik → pijl in de Labyrinth.
-- [ ] **Codex → Labyrinth-kaart, "Mislaid Oddities":** links 1 t/m 15. Klik de dichtstbijzijnde → ligt er een Oddity?
+- [ ] **Codex → Labyrinth-kaart, "Mislaid Treasures"** (16 okt hernoemd, was "Mislaid Oddities"; HandyNotes 159 + jouw
+      tooltip van 13 okt): links 1 t/m 15. Klik de dichtstbijzijnde → ligt er een kistje dat in de tooltip *Mislaid Treasure* heet?
+- [ ] **Szarith the Fanged verplaatst** (16 okt, HandyNotes 159: 38.40/17.69 → **39.50/27.40** in de Underbelly, kaart 2613).
+      Rares-tab, Coiled to Strike-kaart of de Codex-kaart over de Vaults of Atal'Utek: klik Szarith → pijl. Staat hij daar écht?
+      Method zegt nog de oude plek; niemand heeft hem ooit gezien, dus dit is de eerste echte meting.
 
 ## 🆕 14 okt — Delve-lijst eerlijk verdeeld (Delves.lua)
 

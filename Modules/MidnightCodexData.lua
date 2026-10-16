@@ -721,7 +721,7 @@ ns.CODEX_ARTICLES = {
 	---     98033/116411 To a captain  52.91 33.90   98039/116417 To a stranger     42.57 33.18
 	---     98034/116412 To sons       42.84 39.93   98040/116418 To a shield-bearer 56.49 22.88
 	--- (To sons: Rob's measurement of 15 Aug; was 42.91 41.23 here.)
---- Underbelly achievement 62601 (Szarith the Fanged, quest 96030, 38.40/17.69; per mh-research
+--- Underbelly achievement 62601 (Szarith the Fanged, quest 96030, 39.50/27.40 since HandyNotes 159; per mh-research
 --- 3 Oct 2026 it has five criteria, Szarith plus four named elites - unsure, HandyNotes comments it out);
 	--- the three rare elites on 2509 are achievement 63601.
 	---

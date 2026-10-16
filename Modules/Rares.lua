@@ -408,7 +408,8 @@ local COILED_ISLE = {
 		-- Stond op questID 0 én zonder NPC-id, dus kon zichzelf net zomin afvinken.
 		-- Hij telt voor twee achievements; 63358 is degene die deze tab bijhoudt.
 		-- Zijn Soft Underbelly-criterium (62601 / 113661) hoort bij die andere hunt.
-		{ 96030, 2613, 38.40, 17.69, "Szarith the Fanged", 263456, ach = 63358, crit = 115282, acct = 98349 },
+		-- 16 Oct 2026: HandyNotes_Midnight 159 moved him from 38.40/17.69 to 39.50/27.40.
+		{ 96030, 2613, 39.50, 27.40, "Szarith the Fanged", 263456, ach = 63358, crit = 115282, acct = 98349 },
 	},
 }
 --- 2509 = Vaults of Atal'Utek, 2613 = the Underbelly beneath it. Both are children of

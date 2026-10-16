@@ -11,6 +11,17 @@
    met een Midnight-tussenstop. Uitzoeken in Delves.lua `AddSmartTomTomWay` (welke tak print dat) en voor oude werelden: géén
    continent-advies, maar de MOUNTRUN_HOW-regel als stappen tonen (portaalkamer → portaal → zone), en de pijl pas zetten als je in de
    juiste zone bent (of de zone-stap als eerste waypoint). Rob kiest de vorm.
+**16 okt ochtendronde (GEMETEN):** CF 0 open (8 draadjes), GitHub 0 open, site-mail 0 (positieve controle: 30d geeft 15).
+API: TOC-wiki zegt dat 12.1.7 variabelen in `##`-regels verbiedt — MH gebruikt er geen (0 `[` in de .toc). PTR: **12.1.7-PTR
+open** (build 70424, Talebound). Data: Impressive Treasure-kisten Labyrinth nu level 80. Content: Blizzard fixte 15 okt de
+kill-credit-bug nóg een keer ("Scenario bosses") — onze zin "fixed by Blizzard on 14 Oct" mogelijk nuanceren (Rob beslist).
+Addons: 26 bijgewerkt (15 = RaiderIO-DB's, 2 = submodules); nieuw: **DandersMover** (gedeelde mover-lib, `LibStub("DandersMover-1.0")`)
+— mogelijk ooit interessant voor MH-vensters, geen actie. Zygor 9.6.37373 (Rob 16 okt): alleen Aqir Invasions Zul'Aman.
+✅ **HandyNotes_Midnight 159 verwerkt (Rob: "pas aan"):** (1) "Mislaid Oddities" → **"Mislaid Treasures"** in
+CODEX_LABYRINTH_BODY (8 talen + esMX) — HN hernoemde het, en Robs video-tooltip van 13 okt zei al "Mislaid Treasure"; de
+achievement-teksten (63727/63728) zeggen nog "Oddities", die laten we. (2) **Szarith the Fanged 38.40/17.69 → 39.50/27.40**
+(Rares.lua, AchievementsData ×2, CODEX_ATALUTEK_DEAD_BODY 8 talen + esMX). Method zegt nog ~38/17; ongemeten → TESTLIJST.
+HN 159 hernoemde ook "Ancient Chest" → "Sturdy Chest"; MH zei al "Sturdy Chest". Kist-coördinaten en quest-ID's: alle 43 gelijk.
 3. ✅ Vertaling Mount run-uitbreiding gecommit (nlNL, de/fr/es/pt/it, ruRU, 36 esMX-regels; namen uit wago-dumps). Engels gelaten
    (niet meetbaar): LFR-vleugels Gates of Hell / Light's Breach / Victory or Death, Lightforged Beacon, Spatial Rift, Black Empire,
    "Dalaran (Legion)".

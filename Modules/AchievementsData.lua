@@ -190,6 +190,8 @@ ns.ACHIEVEMENT_TREASURES = {
 			-- Two have real, agreeing coordinates. Szarith: HandyNotes 38.40/17.69,
 			-- Method 38.14/16.92 on one page and 38.64/16.92 on another — the same
 			-- corner of the map from three reads, so HandyNotes' is used.
+			-- 16 Oct 2026: HandyNotes_Midnight 159 moved him to 39.50/27.40 (Rob: "pas aan").
+			-- Method still says ~38/17; nobody has killed him in game yet, so neither is measured.
 			--- ⚠️ THE UNDERBELLY IS NOT SOMEWHERE YOU FLY TO. Rob, 17 aug: "moet ik dan
 			--- niet de Vault in om bij de underbelly te komen?" — yes, and the arrow
 			--- said nothing about it. Map 2613 sits inside the Vaults (2509) and has a
@@ -205,7 +207,7 @@ ns.ACHIEVEMENT_TREASURES = {
 			--- source, unverified — but a step that turns out to be slightly off still
 			--- puts you in the right part of the zone, where no step at all leaves you
 			--- circling an interior map you cannot reach.
-			{ criteria = 113661, mapID = 2613, x = 38.40, y = 17.69,
+			{ criteria = 113661, mapID = 2613, x = 39.50, y = 27.40,
 				prereqs = {
 					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 45.19, y = 11.15 },
 				} },
@@ -248,7 +250,7 @@ ns.ACHIEVEMENT_TREASURES = {
 		achievementID = 63358, -- Coiled to Strike (client supplies the title)
 		feedsMeta = false, -- an island hunt, not part of Light Up the Night
 		nodes = {
-			{ criteria = 115282, mapID = 2613, x = 38.40, y = 17.69,
+			{ criteria = 115282, mapID = 2613, x = 39.50, y = 27.40,
 				prereqs = {
 					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 45.19, y = 11.15 },
 				} }, -- Szarith the Fanged
