@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
+
+**Op main, GEEN tag** (laatste release blijft v4.7.7). Sinds 4.7.7 o.a.: Labyrinth-kisten/Eagle/Codex "Hidden treasures"
+(15 okt) + alles van 16 okt: Mount run (tabbladen, pijl in stappen, weg naar huis, hearthstone/toy/mage-knop, quest-stap
+Elsia, instappen = volgende stap), taalbestanden alleen eigen taal (lint [21]), Travel fase 1-4 (`Modules/Travel/`:
+TravelGeo, TravelData, TravelPlanner, TravelRoute; ontwerp `docs/TRAVEL_DESIGN_2026-10-16.md`, kaart
+`docs/TRAVEL_MAP_2026-10-16.md`), 12.1.7-voorbereiding (120107 in .toc, Vyranoth), HandyNotes 159-fixes.
+GEMETEN in het spel: Mount run Throne of Thunder end-to-end ✅, Coiled Isle-delve deur→portaal ✅, Silvermoon-portalen
+(Rob /mh here) ✅, mage-teleport-ID's ✅, BugSack schoon na reload ✅, PTR 12.1.7 laadt ✅. Lint 0 HARD (zelf gemeten).
+
+**Te doen, in deze volgorde:**
+1. Rob test in het spel: bovenaan `docs/TESTLIJST.md` (fase 4: rares, schatten, weekroutine, kisten, ritual, `/mh clear`),
+   daaronder fase 2/popup/teleport-knop. Fout → screenshot + `/mh travel`.
+2. Daarna, op Robs "go": **beta-tag** (grote verbouwing → beta eerst) en de site-chat seinen (zie 14 okt-blok hieronder).
+3. Open/later: Antorus-route (Legion Dalaran/console/afdalen), SW→Silvermoon-portaal meten, Turbulent Timeways VI zodra
+   12.1.7 live is, Omnium Folio 6e/7e rune, Talebound-test op de PTR, "HS on Cooldown!" in de popup zonder hearthstone.
+4. De drie zij-gesprekken (Travel fase 3/4, lint) zijn klaar; Rob mag ze archiveren.
+
 ## 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
 
 1. ✅ **16 okt GEBOUWD** (Rob koos "rij bovenaan", geen Alles-tab): MountRun.lua tabrij die wrapt, telling per tab, laatste tab
