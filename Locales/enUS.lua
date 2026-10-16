@@ -4118,6 +4118,7 @@ ns._mhLocales.enUS = {
 	NAV_ACTION_RITUAL_FMT = "Ritual Site: %s",
 	NAV_ACTION_VOID_FMT = "Void Assault: %s",
 	NAV_ACTION_TAKE_ME = "take me there",
+	NAV_PLACE_HERE_FMT = "You are already in %s.",
 	SETTINGS_TEXT_SIZE_DESC = "Scale Midnight Helper's text up or down, independently of the window size. Drag the slider (the window stays the same; tip: Shift + scroll still resizes the whole window).",
 	SETTINGS_RARE_ALERT = "Rare nearby alerts (sound + popup)",
 	SETTINGS_RARE_ALERT_TT = "Play a sound and show a popup when a tracked rare you still need this week appears near you. Works even when the window is closed.",

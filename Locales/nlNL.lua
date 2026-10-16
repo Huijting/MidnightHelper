@@ -3504,6 +3504,7 @@ ns._mhLocales.nlNL = {
 	NAV_ACTION_RITUAL_FMT = "Ritual Site: %s",
 	NAV_ACTION_VOID_FMT = "Void Assault: %s",
 	NAV_ACTION_TAKE_ME = "breng me erheen",
+	NAV_PLACE_HERE_FMT = "Je bent al in %s.",
 	SETTINGS_TEXT_SIZE_DESC = "Schaal de tekst van Midnight Helper groter of kleiner, los van de venstergrootte. Sleep de schuifregelaar (venster blijft gelijk; tip: Shift + scrollen schaalt nog steeds het hele venster).",
 	SETTINGS_RARE_ALERT = "Melding bij rare in de buurt (geluid + pop-up)",
 	SETTINGS_RARE_ALERT_TT = "Speel een geluid en toon een pop-up wanneer een gevolgde rare die je deze week nog nodig hebt vlakbij verschijnt. Werkt ook als het venster dicht is.",

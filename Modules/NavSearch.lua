@@ -80,12 +80,31 @@ local function ActiveRitualSite()
 	return ritualMemo.site
 end
 
+-- A place's name and its continent, from the client. Asked once per map: the index is rebuilt on every keystroke and
+-- the names cannot change during a session. A map the client does not know (yet) is asked again next time.
+local placeText = {}
+local function PlaceText(m)
+	local t = placeText[m]
+	if not t then
+		local T = ns.Travel
+		local name = T and T.MapName and T.MapName(m)
+		if not name or name == "" then
+			return nil
+		end
+		local cont = T.Continent and T.Continent(m)
+		local where = cont and cont ~= m and T.MapName(cont) or nil
+		t = { name, where }
+		placeText[m] = t
+	end
+	return t[1], t[2]
+end
+
 -- Rebuilt per query (a few hundred entries of pure string work) so labels follow the
 -- current locale. Nothing here may call an expensive API: this runs on every keystroke.
 local function BuildNavIndex()
 	local idx = {}
 	--- @param context string|nil dim text after the label ("Eversong Woods"), also searchable
-	--- @param cat string|nil category for the "@cat" filter (tab/mount/rare/treasure/boss/tool/codex/command)
+	--- @param cat string|nil category for the "@cat" filter (tab/mount/rare/treasure/boss/tool/codex/command/place)
 	local function add(label, keys, go, tier, context, cat)
 		if type(label) ~= "string" or label == "" then
 			return
@@ -489,6 +508,23 @@ local function BuildNavIndex()
 			add(L("NAV_ACTION_VOID_FMT"):format(voidZone), "void assault hub staging active weekly route", function()
 				ns.RouteVoidHub()
 			end, TIER_ACTION, L("HOME_VOID_HUB_BTN"))
+		end
+	end
+
+	-- Places (Rob, 16 Oct 2026: "zoeken in MH naar bv dalaran"): every city or zone a portal from the capital or
+	-- Silvermoon leads to, hub after hub (Modules/Travel/TravelPlaces.lua). A hit starts the route there, the way
+	-- home first. Names and continents come from the client, so they are in the player's language and two places
+	-- with one name tell themselves apart by the continent behind them.
+	if ns.Travel and ns.Travel.Places and ns.Travel.GoToPlace then
+		local hint = L("NAV_ACTION_TAKE_ME")
+		for _, place in ipairs(ns.Travel.Places()) do
+			local name, where = PlaceText(place.map)
+			if name then
+				local p = place
+				add(name, "place city zone portal travel go to route", function()
+					ns.Travel.GoToPlace(p)
+				end, TIER_ACTION, where and (where .. " — " .. hint) or hint, "place")
+			end
 		end
 	end
 

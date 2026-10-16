@@ -7,7 +7,7 @@ run 38941390649 "Release to CurseForge, Wago and GitHub" = success; log: "Succes
 ✅ Rob, screenshot CF-dashboard: *"hij is live :)"* — v4.8.0 Approved, type R, 12.1.7/12.1.5/12.1.0/12.0.7 (4.7.7 had
 433 downloads na 1 dag). ✅ Rob: beschrijving geplakt op CF. ✅ Site live op 4.8.0 (site-chat d7a69783, 8 talen);
 Robs screenshot van het Mount run-venster doorgegeven voor het #new-blok. Site-chat geseind met de
-tag. Daarna eerst: 🔜 zoekbalk-plekken, 🔜 vertaaltool-blinde vlek (zie onder).
+tag. Daarna eerst: ✅ zoekbalk-plekken (gebouwd, wacht op Robs test), 🔜 vertaaltool-blinde vlek (zie onder).
 
 (historie) 🔴 **16 okt avond: release 4.8.0 KLAAR OM TE TAGGEN, nog GEEN tag.** Rob: *"ik kom eigenlijk niks breaking tegen en denk dat
 we zoveel stappen hebben gemaakt dat we een release kunnen doen"* → gewone release, **géén beta** (bewuste afwijking van
@@ -39,6 +39,17 @@ Mount run-venster toonde baasnamen uit onze Engelse data en de weekcontrole matc
 (MOUNTRUN_Q_*), `label` voor tekst zonder baas (VoA "each of the 4 bosses", Bronze Drake "in time, Heroic"),
 Nightbane = key MOUNTRUN_BOSS_NIGHTBANE (geen JE, alleen DungeonEncounter 2031), Quantum Courser via itemID 208216.
 Terugval gerepareerd: volle clear = done, ook als er namen niet matchen. Niet te testen op een niet-Engelse client.
+
+✅ **16 okt nacht GEBOUWD, niet in het spel gezien** (eerste klus hieronder): nieuw `Modules/Travel/TravelPlaces.lua`.
+`Travel.Places()` = elke kaart waar `MOUNTRUN_HUBS` naartoe leiden, kortste keten eerst (breadth-first), vanuit twee
+wortels: eigen hoofdstad en Silvermoon. GEMETEN buiten het spel (Lua met de echte data): Alliance 31, Horde 32 plekken,
+o.a. Dalaran 125, Shattrath, Oribos > Ring > Zereth/Maw, Shattrath > Quel'Danas. Legion-Dalaran (627) zit er NIET in: geen
+hub leidt erheen. `Travel.GoToPlace` = weg naar de wortel (WayHome) + hub-stappen (`ns.MountRunHubSteps`, uit
+MountRun.lua's BuildSteps gehaald, gedrag gelijk) + slotstap midden op de kaart; einde = aankomst (`arrivesOn`).
+NavSearch: categorie `place` (`@place`), TIER_ACTION, naam + werelddeel uit de client. Nieuwe key `NAV_PLACE_HERE_FMT`
+(8 talen). `/mh travel` toont de plekken. Lint 0 HARD, syntax OK. Test: bovenaan `docs/TESTLIJST.md`.
+Open: Midnight-zones (Eversong, Zul'Aman, Harandar, Voidstorm) en Legion-Dalaran zijn geen plek; zones in Midnight gaan
+via de Silvermoon-uitgangen (SM_NORTH/SM_SOUTH), niet via de Midnight-reisplanner.
 
 🔜 **EERSTE KLUS NA DE 4.8.0-RELEASE (Rob 16 okt):** *"kunnen we niet ook zoeken in MH naar bv dalaran of een van de
 andere plekken waar we kunnen komen via portals, en dan bedoel ik in onze search balk?"* → plekken (steden, portal-

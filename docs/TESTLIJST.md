@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 okt (nacht) — Plekken zoeken in de zoekbalk (Dalaran enz.)
+
+Rob: *"kunnen we niet ook zoeken in MH naar bv dalaran …"*. Eerst `/reload`.
+
+- [ ] **Zoeken.** `/mh` → typ `dala` in de zoekbalk. Je hoort een regel **"Dalaran"** te zien met grijs erachter
+      **"Northrend — take me there"**. Ook `@place` (alle plekken, ~31) en bv. `shatt`, `oribos`, `valdrakken`, `tanaan`.
+- [ ] **Klik op Dalaran, ergens buiten Orgrimmar** (bv. in Silvermoon). Chat: *"Route, step 1 of 2: …"* — eerst de weg
+      naar Orgrimmar (portaal, Hearthstone of mage-teleport), daarna *"step 2: Portal to Dalaran"* bij het portaal in
+      Orgrimmar. Door het portaal → chat *"Route finished … Dalaran"* en de pijl is weg.
+- [ ] **Klik op een plek waar je al bent** (bv. Silvermoon terwijl je in Silvermoon staat) → chat *"You are already in
+      Silvermoon City."*, geen pijl.
+- [ ] **Een plek met twee stappen**, bv. Isle of Quel'Danas (via Shattrath) of Tanaan Jungle (via Warspear). Klopt
+      elke stap? Zo niet: screenshot + `/mh travel` (onderaan staat nu de lijst plekken met hun stappen).
+
 ## 🆕 16 okt (avond) — Mount run: een tegel en een knop bovenaan (release 4.8.0)
 
 Rob: *"Wel mis ik een knop of een tegel iN MH voor onze mountrun"*. Eerst `/reload`.

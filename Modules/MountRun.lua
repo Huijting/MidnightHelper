@@ -210,12 +210,13 @@ local STEP_KEY = {
 	teleport = "MOUNTRUN_STEP_TELEPORT", beacon = "MOUNTRUN_STEP_BEACON",
 }
 
---- The steps for this character's faction. Destination names come from the client (C_Map), so they are in the
---- player's own language without a translation of ours.
-local function BuildSteps(raid)
+--- The steps through hubs `keys` (MOUNTRUN_HUBS) for this character's faction. Destination names come from the client
+--- (C_Map), so they are in the player's own language without a translation of ours. Shared with the places in the
+--- search bar (Modules/Travel/TravelPlaces.lua, 16 Oct 2026), which walk the same hubs to a city instead of a raid.
+function ns.MountRunHubSteps(keys)
 	local fac = (UnitFactionGroup and UnitFactionGroup("player") == "Horde") and "H" or "A"
 	local steps = {}
-	for _, key in ipairs(raid.route or {}) do
+	for _, key in ipairs(keys or {}) do
 		local hub = ns.MOUNTRUN_HUBS and ns.MOUNTRUN_HUBS[key]
 		local p = hub and (hub[fac] or hub.both)
 		-- A portal that only exists after a quest (Isle of Thunder, 16 Oct 2026): not done yet → the quest giver is the
@@ -257,6 +258,12 @@ local function BuildSteps(raid)
 				viaNear = hub.orb and "door" or "via", board = ride or nil }
 		end
 	end
+	return steps
+end
+
+--- The steps of this raid: its hubs, then the entrance.
+local function BuildSteps(raid)
+	local steps = ns.MountRunHubSteps(raid.route)
 	local zone, x, y = EntrancePoint(raid)
 	steps[#steps + 1] = { map = zone, x = x, y = y, final = true,
 		text = (ns:L("MOUNTRUN_STEP_ENTRANCE")):format(ns:L(raid.nameKey)) }

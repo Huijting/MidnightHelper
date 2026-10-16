@@ -3077,6 +3077,7 @@ ns._mhLocales.ruRU = {
 	MPLUS_WEEK_HEADER = "На этой неделе – специально для вас",
 	NAV_ACTION_RITUAL_FMT = "Место проведения ритуалов: %s",
 	NAV_ACTION_TAKE_ME = "отведите меня туда",
+	NAV_PLACE_HERE_FMT = "Вы уже здесь: %s.",
 	NAV_ACTION_VOID_FMT = "Натиск Бездны: %s",
 	NAV_CAT_COMMAND = "команда",
 	NAV_MORE_FMT = "показано %d-%d из %d – прокрутите, чтобы увидеть больше",

@@ -114,6 +114,15 @@ function T.PrintStatus()
 	for _, k in ipairs(names) do
 		print(("   %-24s %d"):format(k, per[k]))
 	end
+	-- The places the search bar offers (TravelPlaces.lua), with the hubs that lead there.
+	if T.Places then
+		local list = T.Places()
+		print(("   places in the search bar: %d"):format(#list))
+		for _, pl in ipairs(list) do
+			print(("     %s (%s) via %s"):format(tostring(T.MapName and T.MapName(pl.map) or "?"), tostring(pl.map),
+				#pl.keys > 0 and table.concat(pl.keys, " > ") or ("the way to " .. tostring(pl.root))))
+		end
+	end
 	local here = T.PlayerMap and T.PlayerMap()
 	print(("   you are on map %s (%s), continent %s, capital %s"):format(tostring(here),
 		tostring(T.MapName and T.MapName(here) or "?"), tostring(T.Continent and T.Continent(here) or "?"),
