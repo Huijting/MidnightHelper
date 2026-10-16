@@ -2962,6 +2962,7 @@ ns._mhLocales.ruRU = {
 	MOUNTRUN_STEP_TELEPORT = "Встаньте на светящуюся площадку телепорта: %s.",
 	MOUNTRUN_STEP_TRAM = "Сядьте на Deeprun Tram: %s.",
 	MOUNTRUN_STEP_TUNNEL = "Пройдите через туннель: %s.",
+	MOUNTRUN_STEP_UNLOCK = "Поговорите с персонажем %s и возьмите задание «%s»; в первый раз так можно попасть сюда: %s.",
 	MOUNTRUN_STEP_ZEPPELIN = "Сядьте на дирижабль: %s.",
 	MOUNTRUN_TAB_CATA = "Вечер 3",
 	MOUNTRUN_TAB_DUNGEONS = "Подземелья",

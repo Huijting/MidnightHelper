@@ -87,6 +87,13 @@
    in Silvermoon (geeft hij een positie? dan was TwoStepRoute's nil onze UiMapPoint-fout). **Volgende: fase 2 (planner).**
    ✅ **PTR 12.1.7 GEMETEN door Rob (16 okt): MH laadt zonder fouten** (kopie van vóór Travel fase 1; Talebound e.d. nog
    niet getest). Advies aan Rob: eerst live testen vóór fase 2 (veel ongeteste lagen vandaag).
+   📋 **Live-test Rob (mage, 16 okt), GEMETEN:** BugSack schoon; Coiled Isle-delve deur→portaal ✅; `/mh travel` gaf 3 vals
+   alarm (twee portalen naast elkaar / A en H) → FindConflicts kijkt nu ook naar bestemming + factie.
+   🔑 `/dump C_Map.GetWorldPosFromMapPos(2393, CreateVector2D(0.5,0.5))` → continent 0, x 8837.5, y -4738.54: **Silvermoon
+   HEEFT wereldcoördinaten**; TwoStepRoute's nil (7 sep) was onze UiMapPoint-aanroep → WorldXY nu Vector2D eerst.
+   🔴 Throne of Thunder: Isle of Thunder-portaal bestaat pas na "The Storm Gathers" → hubs kunnen `unlock` hebben
+   (TL_THUNDER: H 32680 Elsia 388 50.80/73.39, A 32681 Vereesa 49.93/69.04, Zygor); niet af → stap = questgever
+   (MOUNTRUN_STEP_UNLOCK, 7 talen). Open: mage-teleports in de planner (fase 2).
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 

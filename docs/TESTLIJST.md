@@ -85,6 +85,10 @@ er is niets weggegooid.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
       *"The Turbulent Timeways event … ended on 11 August …"*.
+- [ ] **Throne of Thunder zonder de Isle of Thunder-quest** (16 okt, jouw mage). Mount run → Throne of Thunder. In Townlong
+      Steppes moet stap 3 nu zijn: *"Talk to Scout Captain Elsia and accept the quest "The Storm Gathers"; the first time,
+      this is how you reach Isle of Thunder."* met de pijl op Elsia (50.80/73.39). Zij vliegt je erheen; daarna stap 4.
+      En: `/mh travel` → onderaan nu *"no place stored twice"* (het vals alarm is weg)?
 - [ ] **Travel fase 1 — `/mh travel`** (16 okt). Typ `/mh travel`: je ziet hoeveel reispunten MH kent per tabel, op welke
       kaart en welk continent je staat, en je hoofdstad. Onderaan moet staan: *"no place stored twice with different
       numbers"*. Staat er een lijst? Stuur hem me. Verder hoort er **niets** anders te werken dan gisteren, behalve deze

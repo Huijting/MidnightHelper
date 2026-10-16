@@ -44,7 +44,7 @@ function T.Nodes()
 		for _, side in ipairs({ "A", "H", "both" }) do
 			local p = hub[side]
 			if p then
-				add({ map = p[1], x = p[2], y = p[3], to = p.to or hub.to, kind = hub.kind, label = key,
+				add({ map = p[1], x = p[2], y = p[3], to = p.to or hub.to, kind = hub.kind, label = key, side = side,
 					table = "MOUNTRUN_HUBS." .. side })
 			end
 		end
@@ -56,7 +56,7 @@ function T.Nodes()
 		for _, side in ipairs({ "A", "H" }) do
 			local p = row[side]
 			if p then
-				add({ map = m, x = p[1], y = p[2], to = side == "H" and 85 or 84, kind = "portal", label = "home",
+				add({ map = m, x = p[1], y = p[2], to = side == "H" and 85 or 84, kind = "portal", label = "home", side = side,
 					table = "MOUNTRUN_HOME." .. side })
 			end
 		end
@@ -70,14 +70,23 @@ function T.Nodes()
 	return out
 end
 
---- Pairs that look like one place stored twice: same map, same kind, within `near` map-percent, but not equal.
+--- Pairs that look like one place stored twice: same map, same kind, same destination, same faction, within `near`
+--- map-percent, but not equal. Rob's first `/mh travel` (16 Oct 2026) flagged three pairs that were two different
+--- portals side by side (Voidstorm → Silvermoon / → Harandar; Azsuna's Alliance and Horde portals) — so destination
+--- and faction now have to match too.
 function T.FindConflicts(near)
 	near = near or 0.6
 	local nodes, found = T.Nodes(), {}
+	local function SameTo(a, b)
+		return tostring(a.to) == tostring(b.to)
+	end
+	local function SameSide(a, b)
+		return not (a.side and b.side and a.side ~= "both" and b.side ~= "both" and a.side ~= b.side)
+	end
 	for i = 1, #nodes do
 		for j = i + 1, #nodes do
 			local a, b = nodes[i], nodes[j]
-			if a.map == b.map and a.kind == b.kind and (a.x ~= b.x or a.y ~= b.y) then
+			if a.map == b.map and a.kind == b.kind and SameTo(a, b) and SameSide(a, b) and (a.x ~= b.x or a.y ~= b.y) then
 				local d = math.sqrt((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2)
 				if d < near then
 					found[#found + 1] = { a = a, b = b, d = d }

@@ -354,7 +354,16 @@ ns.MOUNTRUN_HUBS = {
 	TRAM_IF = { kind = "tram", to = 87, A = { 84, 69.62, 31.11 } }, -- ZT:2878
 	-- Further hubs.
 	SH_QUELDANAS = { kind = "portal", to = 122, both = { 111, 48.57, 42.02 } }, -- ZT:1908 (HC:2433)
-	TL_THUNDER = { kind = "portal", to = 504, A = { 388, 49.74, 68.67 }, H = { 388, 50.65, 73.40 } }, -- ZT:1997 / ZT:2037
+	-- `unlock` (16 Oct 2026, Rob on his mage: "stuurt me naar een portal to isle of thunder die niet bestaat voor mij,
+	-- maar er staat wel een quest"): until "The Storm Gathers" is done the portal is not there; the quest giver flies
+	-- you to the island instead. Zygor ZygorProfessionsHordeLEGION.lua:8847-8876 (GEMETEN in the source):
+	-- Horde 32680, Scout Captain Elsia (npc 70358) at 388 50.80/73.39; Alliance 32681, Vereesa Windrunner (npc 70360)
+	-- at 388 49.93/69.04.
+	TL_THUNDER = { kind = "portal", to = 504, A = { 388, 49.74, 68.67 }, H = { 388, 50.65, 73.40 }, -- ZT:1997 / ZT:2037
+		unlock = {
+			A = { quest = 32681, questName = "The Storm Gathers", npc = "Vereesa Windrunner", 388, 49.93, 69.04 },
+			H = { quest = 32680, questName = "The Storm Gathers", npc = "Scout Captain Elsia", 388, 50.80, 73.39 },
+		} },
 	DR_TANAAN = { kind = "portal", to = 534, A = { 622, 36.38, 41.15 }, H = { 624, 53.16, 43.91 } }, -- ZT:2097 / ZT:2119
 	ZUL_EXIT = { kind = "exit", to = 1165, H = { 1163, 48.59, 17.52 } }, -- HC:971, Hall of Ancient Paths
 	ZUL_TIRAGARDE = { kind = "boat", to = 895, H = { 862, 58.46, 62.99 } }, -- ZT:3020, Dread-Admiral Tattersail

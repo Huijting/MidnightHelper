@@ -62,9 +62,21 @@ local token = 0
 --- World position in yards for a map coordinate, or nil.
 --- ⚠️ Returns nil rather than guessing: without both positions there is no distance,
 --- and a made-up one would advance the route while the player is still outside.
+--- ✅ 16 Oct 2026 — THE NIL WAS OURS, NOT SILVERMOON'S. Rob ran
+--- `/dump C_Map.GetWorldPosFromMapPos(2393, CreateVector2D(0.5,0.5))` in Silvermoon: continent 0, x 8837.5,
+--- y -4738.54. Silvermoon has world coordinates; this function passed a UiMapPoint where the API takes a Vector2D
+--- (every other caller in MH passes a Vector2D, travel map §1b-5). Vector2D first now; the old form stays as a fallback.
 local function WorldXY(mapID, x01, y01)
-	if not (C_Map and C_Map.GetWorldPosFromMapPos and UiMapPoint
-		and UiMapPoint.CreateFromCoordinates) then
+	if not (C_Map and C_Map.GetWorldPosFromMapPos) then
+		return nil
+	end
+	if CreateVector2D then
+		local okV, _, world = pcall(C_Map.GetWorldPosFromMapPos, mapID, CreateVector2D(x01, y01))
+		if okV and world and world.x and world.y then
+			return world.x, world.y
+		end
+	end
+	if not (UiMapPoint and UiMapPoint.CreateFromCoordinates) then
 		return nil
 	end
 	local okP, p = pcall(UiMapPoint.CreateFromCoordinates, mapID, x01, y01)

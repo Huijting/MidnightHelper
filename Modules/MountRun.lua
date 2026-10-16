@@ -186,6 +186,30 @@ local function BuildSteps(raid)
 	for _, key in ipairs(raid.route or {}) do
 		local hub = ns.MOUNTRUN_HUBS and ns.MOUNTRUN_HUBS[key]
 		local p = hub and (hub[fac] or hub.both)
+		-- A portal that only exists after a quest (Isle of Thunder, 16 Oct 2026): not done yet → the quest giver is the
+		-- step, and arriving where the hop leads counts the same. "Done" must be READ as done; unreadable = not done,
+		-- because sending someone to a quest giver they no longer need costs a walk, a missing portal costs the route.
+		local lock = hub and hub.unlock and hub.unlock[fac]
+		if p and lock then
+			local done = false
+			if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
+				local okQ, v = pcall(C_QuestLog.IsQuestFlaggedCompleted, lock.quest)
+				done = okQ and v == true
+			end
+			if not done then
+				local qName = lock.questName
+				if C_QuestLog and C_QuestLog.GetTitleForQuestID then
+					local okT, t = pcall(C_QuestLog.GetTitleForQuestID, lock.quest)
+					if okT and type(t) == "string" and t ~= "" then
+						qName = t
+					end
+				end
+				local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(hub.to)
+				steps[#steps + 1] = { map = lock[1], x = lock[2], y = lock[3], to = hub.to,
+					text = (ns:L("MOUNTRUN_STEP_UNLOCK")):format(lock.npc, qName, info and info.name or "?") }
+				p = nil -- the portal itself is not a step yet
+			end
+		end
 		if p then
 			local to = p.to or hub.to
 			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(type(to) == "table" and to[1] or to)
