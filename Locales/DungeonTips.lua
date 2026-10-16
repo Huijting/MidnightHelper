@@ -571,7 +571,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_TIP_TS_MEREKTHA_TANK = "Tank: Use a defensive for every {SPELL:1290797}. During Burrow, pick up the adds and park the Storm Serpent at the edge, because it leaves pools too.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	-- Windrunner Spire ---------------------------------------------------------
 	DGN_TIP_WS_DUO_STEPS = "1. Due boss: Kalis la banshee e Latch l'abominio. Colpiscili in modo uniforme così muoiono insieme. Quando uno muore, l'altro colpisce più forte ogni 5 secondi.|n2. Interrompi Shadow Bolt di Kalis.|n3. {SPELL:472745}: Latch sputa bile sui giocatori. Distanziatevi lungo il bordo della stanza, così le pozze finiscono fuori dai piedi. Non stare mai in una pozza: fa male, e subisci il doppio dei danni dal suo prossimo sputo.|n4. {SPELL:472736}: Kalis urla e fa male a tutto il gruppo finché non viene fermata. Latch lancia il suo uncino ({SPELL:472793}) su un giocatore con una freccia sopra la testa. Se sei tu, mettiti dietro Kalis, così lei è tra te e Latch. L'uncino afferra lei e il suo urlo si ferma. Tutti gli altri: state fuori dalla linea dell'uncino, un giocatore agganciato resta stordito per 6 secondi.|n5. In Mitico e Mythic+: {SPELL:474105} fa sì che una Dark Entity ti insegua per 12 secondi. Fatti rimuovere la maledizione, oppure scappa, oppure fai CC su di essa.",
 	DGN_TIP_WS_DUO_QUICK_DPS = "Colpisci i due boss allo stesso modo, e interrompi Shadow Bolt.",
@@ -1015,7 +1015,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_TIP_TS_MEREKTHA_DPS = "DPS: libera prima i giocatori legati con uno stun o un CC ad area. Durante Burrow, uccidi in fretta ogni add (la fase finisce quando sono tutti morti) e interrompi Poison Spit.",
 	DGN_TIP_TS_MEREKTHA_HEALER = "Healer: {SPELL:1293048} colpisce tutto il gruppo: prepara un cooldown. Se un Poison Spit passa, dispella il veleno se puoi.",
 	DGN_TIP_TS_MEREKTHA_TANK = "Tank: usa una difensiva per ogni {SPELL:1290797}. Durante Burrow, prendi gli add e porta lo Storm Serpent al bordo, perché lascia anche lui delle pozze.",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	-- Windrunner Spire ----------------------------------------------------------
@@ -1534,7 +1534,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 -- Fase 6 (12 jun): deDE/frFR/esES/ptBR — mens-kwaliteit, game-termen en
 -- eigennamen in het Engels (proper-names-policy); spellnamen lokaliseren
 -- zichzelf via de {SPELL:id}-tokens.
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	-- Windrunner Spire ----------------------------------------------------------
 	DGN_TIP_WS_DUO_STEPS = "1. Zwei Bosse: Kalis, die Banshee, und Latch, die Monstrosität. Schlag beide gleichmäßig, damit sie zusammen sterben. Stirbt einer, trifft der andere alle 5 Sekunden härter.|n2. Unterbrich Kalis' Shadow Bolt.|n3. {SPELL:472745}: Latch spuckt Galle auf Spieler. Verteilt euch am Rand des Raums, damit die Pfützen aus dem Weg landen. Steh nie in einer Pfütze: Sie tut weh, und du erleidest doppelten Schaden durch seinen nächsten Spuckangriff.|n4. {SPELL:472736}: Kalis schreit und verletzt die ganze Gruppe, bis sie gestoppt wird. Latch wirft seinen Haken ({SPELL:472793}) auf einen Spieler mit einem Pfeil über dem Kopf. Bist du das, stell dich hinter Kalis, sodass sie zwischen dir und Latch steht. Der Haken packt sie und ihr Schrei endet. Alle anderen: Bleibt aus der Linie des Hakens, ein gehakter Spieler ist 6 Sekunden lang betäubt.|n5. Auf Mythisch und Mythic+: Durch {SPELL:474105} jagt dich 12 Sekunden lang eine Dark Entity. Lass den Fluch entfernen, lauf vor ihr weg oder belege sie mit CC.",
 	DGN_TIP_WS_DUO_QUICK_DPS = "Schlag beide Bosse gleich und kicke Shadow Bolt.",
@@ -2067,9 +2067,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_TIP_TS_MEREKTHA_DPS = "DPS: Befreie gefesselte Spieler zuerst mit einem Stun oder AoE-Crowd-Control. Töte während Burrow jedes Add schnell — die Phase endet, wenn alle tot sind — und kick Poison Spit.",
 	DGN_TIP_TS_MEREKTHA_HEALER = "Heiler: {SPELL:1293048} trifft die ganze Gruppe — plane einen Cooldown dafür ein. Kommt ein Poison Spit durch, banne das Gift, wenn du kannst.",
 	DGN_TIP_TS_MEREKTHA_TANK = "Tank: Nutze eine Defensive für jedes {SPELL:1290797}. Nimm während Burrow die Adds auf und park den Storm Serpent am Rand, weil er auch Pfützen hinterlässt.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	-- Windrunner Spire ----------------------------------------------------------
 	DGN_TIP_WS_DUO_STEPS = "1. Deux boss : Kalis la banshee et Latch l'abomination. Frappe les deux de façon égale pour qu'ils meurent ensemble. Quand l'un meurt, l'autre frappe plus fort toutes les 5 secondes.|n2. Interromps le Shadow Bolt de Kalis.|n3. {SPELL:472745} : Latch crache de la bile sur des joueurs. Espacez-vous le long du bord de la salle, pour que les flaques tombent à l'écart. Ne reste jamais dans une flaque : ça fait mal, et tu prends le double de dégâts de son prochain crachat.|n4. {SPELL:472736} : Kalis hurle et blesse tout le groupe jusqu'à ce qu'on l'arrête. Latch lance son crochet ({SPELL:472793}) sur un joueur qui a une flèche au-dessus de la tête. Si c'est toi, place-toi derrière Kalis, pour qu'elle soit entre toi et Latch. Le crochet l'attrape et son cri s'arrête. Tous les autres : restez hors de la ligne du crochet, un joueur accroché est étourdi pendant 6 secondes.|n5. En Mythique et Mythic+ : avec {SPELL:474105}, une Dark Entity te poursuit pendant 12 secondes. Fais retirer la malédiction, fuis-la, ou contrôle-la.",
 	DGN_TIP_WS_DUO_QUICK_DPS = "Frappe les deux boss pareil, et interromps Shadow Bolt.",
@@ -2513,9 +2513,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_TIP_TS_MEREKTHA_DPS = "DPS : libère d'abord les joueurs ligotés avec un étourdissement ou un contrôle de zone. Pendant Burrow, tue vite chaque add — la phase finit quand ils sont tous morts — et interromps Poison Spit.",
 	DGN_TIP_TS_MEREKTHA_HEALER = "Heal : {SPELL:1293048} frappe tout le groupe — prévois un cooldown. Si un Poison Spit passe, dissipe le poison si tu peux.",
 	DGN_TIP_TS_MEREKTHA_TANK = "Tank : utilise un défensif pour chaque {SPELL:1290797}. Pendant Burrow, récupère les adds et place le Storm Serpent au bord, car il laisse aussi des flaques.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	-- Windrunner Spire ----------------------------------------------------------
 	DGN_TIP_WS_DUO_STEPS = "1. Dos jefes: Kalis, la banshee, y Latch, la abominación. Pégales por igual para que mueran juntos. Cuando uno muere, el otro pega más fuerte cada 5 segundos.|n2. Interrumpe el Shadow Bolt de Kalis.|n3. {SPELL:472745}: Latch escupe bilis a los jugadores. Sepárense por el borde de la sala para que los charcos caigan apartados. Nunca te quedes en un charco: duele, y recibes el doble de daño de su siguiente escupitajo.|n4. {SPELL:472736}: Kalis grita y daña a todo el grupo hasta que la paran. Latch lanza su gancho ({SPELL:472793}) a un jugador con una flecha sobre la cabeza. Si eres tú, ponte detrás de Kalis, para que ella quede entre tú y Latch. El gancho la atrapa a ella y su grito se detiene. Los demás: quédense fuera de la línea del gancho, un jugador enganchado queda aturdido 6 segundos.|n5. En Mítico y Mythic+: {SPELL:474105} hace que una Dark Entity te persiga durante 12 segundos. Haz que te quiten la maldición, huye de ella o contrólala.",
 	DGN_TIP_WS_DUO_QUICK_DPS = "Pega igual a los dos jefes e interrumpe Shadow Bolt.",
@@ -2959,9 +2959,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_TIP_TS_MEREKTHA_DPS = "DPS: libera primero a los jugadores atados con un aturdimiento o control de área. Durante Burrow, mata rápido cada add — la fase termina cuando mueren todos — e interrumpe Poison Spit.",
 	DGN_TIP_TS_MEREKTHA_HEALER = "Sanador: {SPELL:1293048} golpea a todo el grupo — planea un cooldown para ello. Si se cuela un Poison Spit, disipa el veneno si puedes.",
 	DGN_TIP_TS_MEREKTHA_TANK = "Tanque: usa un defensivo para cada {SPELL:1290797}. Durante Burrow, recoge los adds y deja al Storm Serpent en el borde, porque también deja charcos.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	-- Windrunner Spire ----------------------------------------------------------
 	DGN_TIP_WS_DUO_STEPS = "1. Dois chefes: Kalis, a banshee, e Latch, a abominação. Bata nos dois por igual para que morram juntos. Quando um morre, o outro bate mais forte a cada 5 segundos.|n2. Interrompa o Shadow Bolt de Kalis.|n3. {SPELL:472745}: Latch cospe bile nos jogadores. Espalhem-se pela borda da sala, para as poças caírem fora do caminho. Nunca fique numa poça: ela machuca, e você sofre o dobro de dano do próximo cuspe dele.|n4. {SPELL:472736}: Kalis grita e machuca o grupo todo até ser parada. Latch arremessa o gancho ({SPELL:472793}) num jogador com uma seta sobre a cabeça. Se for você, fique atrás de Kalis, para ela ficar entre você e Latch. O gancho a agarra e o grito dela para. Todos os outros: fiquem fora da linha do gancho, um jogador fisgado fica atordoado por 6 segundos.|n5. No Mítico e no Mythic+: {SPELL:474105} faz uma Dark Entity te perseguir por 12 segundos. Peça para removerem a maldição, ou fuja dela, ou controle-a.",
 	DGN_TIP_WS_DUO_QUICK_DPS = "Bata nos dois chefes igual e interrompa o Shadow Bolt.",
@@ -3405,4 +3405,4 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_TIP_TS_MEREKTHA_DPS = "DPS: primeiro solte os jogadores presos com um atordoamento ou controle de grupo em área. Durante Burrow, mate cada add rápido - a fase acaba quando todos morrem - e interrompa Poison Spit.",
 	DGN_TIP_TS_MEREKTHA_HEALER = "Curandeiro: {SPELL:1293048} atinge o grupo todo - planeje um cooldown para ele. Se um Poison Spit passar, dissipe o veneno se puder.",
 	DGN_TIP_TS_MEREKTHA_TANK = "Tanque: use um defensivo para cada {SPELL:1290797}. Durante Burrow, pegue os adds e deixe a Storm Serpent na borda, porque ela também deixa poças.",
-})
+}) end

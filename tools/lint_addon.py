@@ -1578,6 +1578,38 @@ def main() -> int:
         print("     SOFT  this check proves nothing this run; do not read silence as clean")
         soft += 1
 
+    # [21] A foreign-language block built on every client.
+    #
+    # 16 Oct 2026, measured by Rob: 48,137 KB after login, 23,592 KB after collectgarbage(). The packs
+    # deDE/frFR/esES/ptBR/itIT/ruRU/esMX only exist on that client, but the mixed files wrote
+    # `fill("deDE", { ... })` / `merge(ns._mhLocales and ns._mhLocales.deDE, { ... })` — Lua builds the
+    # table BEFORE the call can see the pack is missing, so every client built every language and threw
+    # it away. All 497 blocks now start `if ns._mhLocales and ns._mhLocales.XX then`, checked byte for
+    # byte against a dump of every pack for all 8 client locales. A new block without that guard leaks
+    # again — HARD, because the fix is one line and the leak is invisible.
+    try:
+        ungated = []
+        call = re.compile(r'^\s*(fill\("(deDE|frFR|esES|ptBR|itIT|ruRU|esMX)"|'
+                          r'merge\(ns\._mhLocales and ns\._mhLocales\.(deDE|frFR|esES|ptBR|itIT|ruRU|esMX)\b)')
+        for path in sorted(glob.glob(os.path.join(root, "Locales", "*.lua"))):
+            rel = os.path.relpath(path, root).replace("\\", "/")
+            with open(path, "r", encoding="utf-8", errors="replace") as fh:
+                for n, line in enumerate(fh, 1):
+                    if call.match(line):
+                        ungated.append((rel, n, line.strip()[:70]))
+        print(f"\n[21] Foreign-language blocks built on every client (no pack check in front): {len(ungated)}")
+        if ungated:
+            print("     Start the line with `if ns._mhLocales and ns._mhLocales.XX then` and end the call with ` end`.")
+            for rel, n, text in ungated[:8]:
+                print(f"     HARD  {rel}:{n}  {text}")
+            if len(ungated) > 8:
+                print(f"     ... and {len(ungated) - 8} more")
+            hard += 1
+    except Exception as exc:  # noqa: BLE001
+        print(f"\n[21] Ungated language blocks: NOT CHECKED — {type(exc).__name__}: {exc}")
+        print("     SOFT  this check proves nothing this run; do not read silence as clean")
+        soft += 1
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

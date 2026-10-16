@@ -105,7 +105,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_SHARE_BTN_TIP = "Left-click: share with the whole group.|nRight-click: pick one player to whisper to.|nOr type /mh bossshare <name>.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	TAB_DUNGEONS = "Dungeon",
 	DGN_TITLE = "Dungeon",
 	DGN_SUBTITLE = "Il tuo compagno per i dungeon: cosa fare questa settimana, un corso per principianti dalla prima coda fino al Heroic, e i passi per ogni boss nel Coach, più una tab Mythic+ con gli affissi e i kick obbligatori.",
@@ -185,7 +185,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_SHARE_WHISPER_TITLE = "Sussurra a un giocatore",
 	DGN_SHARE_WHISPER_NOONE = "Non c'è nessuno nel tuo gruppo a cui sussurrare. Scrivi /mh bossshare <nome> per sussurrare a qualcun altro.",
 	DGN_SHARE_BTN_TIP = "Clic sinistro: condividi con tutto il gruppo.|nClic destro: scegli un giocatore a cui sussurrare.|nOppure scrivi /mh bossshare <nome>.",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_DUNGEONS = "Dungeons",
@@ -273,7 +273,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_SHARE_BTN_TIP = "Linksklik: delen met de hele groep.|nRechtsklik: kies één speler om naar te fluisteren.|nOf typ /mh bossshare <naam>.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	TAB_DUNGEONS = "Dungeons",
 	DGN_TITLE = "Dungeons",
 	DGN_SUBTITLE = "Dein Dungeon-Begleiter: was du diese Woche läufst, ein Einsteigerkurs von der ersten Warteschlange bis Heroic, und Boss-Schritte im Coach, plus ein Mythic+-Reiter mit den Affixen und Pflicht-Unterbrechungen.",
@@ -353,9 +353,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_SHARE_WHISPER_TITLE = "An einen Spieler flüstern",
 	DGN_SHARE_WHISPER_NOONE = "In deiner Gruppe ist niemand, an den du flüstern kannst. Tippe /mh bossshare <Name>, um jemand anderem zu flüstern.",
 	DGN_SHARE_BTN_TIP = "Linksklick: mit der ganzen Gruppe teilen.|nRechtsklick: einen Spieler wählen und ihm flüstern.|nOder tippe /mh bossshare <Name>.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	TAB_DUNGEONS = "Donjons",
 	DGN_TITLE = "Donjons",
 	DGN_SUBTITLE = "Ton compagnon de donjon : quoi faire cette semaine, un cours débutant de la première file jusqu'au Heroic, et les étapes par boss dans le Coach, plus un onglet Mythic+ avec les affixes et les interruptions clés.",
@@ -435,9 +435,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_SHARE_WHISPER_TITLE = "Chuchoter à un joueur",
 	DGN_SHARE_WHISPER_NOONE = "Personne dans ton groupe à qui chuchoter. Tape /mh bossshare <nom> pour chuchoter à quelqu'un d'autre.",
 	DGN_SHARE_BTN_TIP = "Clic gauche : partager avec tout le groupe.|nClic droit : choisir un joueur à qui chuchoter.|nOu tape /mh bossshare <nom>.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	TAB_DUNGEONS = "Mazmorras",
 	DGN_TITLE = "Mazmorras",
 	DGN_SUBTITLE = "Tu compañero de mazmorras: qué hacer esta semana, un curso para principiantes desde la primera cola hasta Heroic, y pasos por jefe en el Coach, además de una pestaña de Mythic+ con los afijos y las interrupciones clave.",
@@ -517,9 +517,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_SHARE_WHISPER_TITLE = "Susurrar a un jugador",
 	DGN_SHARE_WHISPER_NOONE = "No hay nadie en tu grupo a quien susurrar. Escribe /mh bossshare <nombre> para susurrar a otra persona.",
 	DGN_SHARE_BTN_TIP = "Clic izquierdo: compartir con todo el grupo.|nClic derecho: elige un jugador al que susurrar.|nO escribe /mh bossshare <nombre>.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	TAB_DUNGEONS = "Masmorras",
 	DGN_TITLE = "Masmorras",
 	DGN_SUBTITLE = "Seu companheiro de masmorras: o que rodar esta semana, um curso para iniciantes da primeira fila até o Heroic, e passos por chefe no Coach, além de uma aba de Mythic+ com os afixos e as interrupções essenciais.",
@@ -599,4 +599,4 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_SHARE_WHISPER_TITLE = "Sussurrar para um jogador",
 	DGN_SHARE_WHISPER_NOONE = "Não há ninguém no seu grupo para sussurrar. Digite /mh bossshare <nome> para sussurrar para outra pessoa.",
 	DGN_SHARE_BTN_TIP = "Clique esquerdo: enviar para o grupo todo.|nClique direito: escolha um jogador para sussurrar.|nOu digite /mh bossshare <nome>.",
-})
+}) end

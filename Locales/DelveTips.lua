@@ -163,7 +163,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_CHAT_TORMENTS_RISE_BOSS = "Kick every {SPELL:@emptiness_of_the_void}. Dispel {SPELL:@devouring_essence}. {SPELL:@oblivion_shell}: kill the adds. Save cooldowns for {SPELL:@umbral_rage}.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DELVE_NAME_SHADOW_ENCLAVE = "The Shadow Enclave",
 	DELVE_NAME_COLLEGIATE_CALAMITY = "Collegiate Calamity",
 	DELVE_NAME_THE_DARKWAY = "The Darkway",
@@ -297,7 +297,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DELVE_CHAT_TORMENTS_RISE_ROUTE = "Portale dedicato (Shift-J / TomTom). Non è una scorribanda del mondo a rotazione.",
 	DELVE_CHAT_TORMENTS_RISE_TRASH = "Conserva i CD per Nullaeus — niente trash Pactsworn dentro.",
 	DELVE_CHAT_TORMENTS_RISE_BOSS = "Kicka ogni {SPELL:@emptiness_of_the_void}. Dissipa {SPELL:@devouring_essence}. {SPELL:@oblivion_shell}: uccidi gli add. Tieni i cooldown per {SPELL:@umbral_rage}.",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_NAME_SHADOW_ENCLAVE = "The Shadow Enclave",
@@ -437,7 +437,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_CHAT_TORMENTS_RISE_BOSS = "Kick elke {SPELL:@emptiness_of_the_void}. Dispel {SPELL:@devouring_essence}. {SPELL:@oblivion_shell}: kill de adds. Bewaar cooldowns voor {SPELL:@umbral_rage}.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_NAME_SHADOW_ENCLAVE"] = "Die Schattenenklave",
 	["DELVE_NAME_COLLEGIATE_CALAMITY"] = "Akademischer Aufruhr",
 	["DELVE_NAME_THE_DARKWAY"] = "Der Düsterweg",
@@ -537,9 +537,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_CHAT_TORMENTS_RISE_ROUTE"] = "Eigenes Portal (Umschalt-J / TomTom). Keine rotierende Welt-Tiefe.",
 	["DELVE_CHAT_TORMENTS_RISE_TRASH"] = "Heb die CDs für Nullaeus auf – drinnen gibt es keinen Pactsworn-Trash.",
 	["DELVE_CHAT_TORMENTS_RISE_BOSS"] = "Kick jedes {SPELL:@emptiness_of_the_void}. Banne {SPELL:@devouring_essence}. {SPELL:@oblivion_shell}: Töte die Adds. Heb Cooldowns für {SPELL:@umbral_rage} auf.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	["DELVE_NAME_SHADOW_ENCLAVE"] = "L'enclave Ombreuse",
 	["DELVE_NAME_COLLEGIATE_CALAMITY"] = "Calamité Universitaire",
 	["DELVE_NAME_THE_DARKWAY"] = "Sombrevoie",
@@ -639,9 +639,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	["DELVE_CHAT_TORMENTS_RISE_ROUTE"] = "Portail dédié (Maj-J / TomTom). Ce n'est pas un gouffre de monde en rotation.",
 	["DELVE_CHAT_TORMENTS_RISE_TRASH"] = "Garde tes cooldowns pour Nullaeus — pas de trash Pactsworn à l'intérieur.",
 	["DELVE_CHAT_TORMENTS_RISE_BOSS"] = "Kick chaque {SPELL:@emptiness_of_the_void}. Dissipe {SPELL:@devouring_essence}. {SPELL:@oblivion_shell} : tue les adds. Garde tes CD pour {SPELL:@umbral_rage}.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_CHAT_ATAL_AMAN_BOSS"] = "{SPELL:@flaying_knife} deja espíritus = +10% de daño cada uno, recoge los tuyos. Esquiva {SPELL:@raging_spirits}. Antes de {SPELL:@claim_spirits}, recoge los espíritus o se los queda Jin'Ma.",
 	["DELVE_CHAT_ATAL_AMAN_OVERVIEW"] = "Oeste de Zul'Aman. Ritual / Toadly / Totem: jefe Spiritflayer Jin'Ma. Venomous Vapors: jefe Disciple of Vashnik.",
 	["DELVE_CHAT_ATAL_AMAN_ROUTE"] = "Ritual: rescata a los fúrbolgs. Toadly: Hex Stick sobre los Amani hechizados. Totem: destruye tótems y libera a Akil'zon.",
@@ -741,9 +741,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_TIP_TWILIGHT_CRYPTS_OVERVIEW"] = "• Suroeste de Zul'Aman (Trono Destrozado).|n• Loosed Loa (evita a Mot'amra), Party Crasher, Trapped! y, nueva en 12.1: Why'd it have to be snakes?|n• Loosed Loa, Party Crasher y Trapped! acaban en Blademaster Darza. Why'd it have to be snakes? acaba en Replicating Venomborne.",
 	["DELVE_TIP_TWILIGHT_CRYPTS_ROUTE"] = "• Loosed Loa: mata a 5 Vilebranch Skeleton Charmers y destruye 6 tótems.|n• Loosed Loa: Mot'amra recorre el centro de la profundidad. Ves su contorno rojo a través de las paredes; no te cruces en su camino.|n• Loosed Loa: el Evasive Elixir (botón de acción extra) te convierte en una vasija durante 4 segundos y no recibes daño. Úsalo cuando Mot'amra venga hacia ti.|n• Loosed Loa: desde la corrección del 10 de septiembre, en esta variante aparecen Explorer's League Supplies y una Abandoned Restoration Stone.|n• Party Crasher: mata a los 4 Twilight Summoners (salen en tu mapa) y acciona 7 Suspicious Levers. Los cepos te aturden unos 2 segundos.|n• Trapped: salva a los rehenes y busca las palancas por el laberinto.|n• Why'd it have to be snakes?: ayuda a Harrison Jones a encontrar las reliquias perdidas en las criptas.|n• Why'd it have to be snakes?: pisar las serpientes forma parte del objetivo, pero explotan cuando las pisas.|n• Why'd it have to be snakes?: recoge {SPELL:@fungal_pharmacon} y lánzalo sobre las zonas de veneno para limpiarlas.",
 	["DELVE_TIP_TWILIGHT_CRYPTS_TRASH"] = "• Mot'amra pega durísimo y te empuja si te metes en su camino.|n• Party Crasher: vigila las baldosas con trampa.|n• Interrumpe a los invocadores de Twilight's Blade.|n• Fleshwarped Abomination: con poca salud lanza Reconstitution y se cura el 90% de su salud. No puedes interrumpirlo: atúrdela.|n• Hexbound Necrowraith: interrumpe Necrotic Bolt. Sal del círculo que Necromantic Upheaval pone a tu alrededor antes de que acabe el lanzamiento.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_CHAT_ATAL_AMAN_BOSS"] = "Os espíritos de {SPELL:@flaying_knife} = +10% de dano cada — recolha os seus. Desvie de {SPELL:@raging_spirits}. Antes de {SPELL:@claim_spirits}, recolha os espíritos ou Jin'Ma fica com o buff.",
 	["DELVE_CHAT_ATAL_AMAN_OVERVIEW"] = "Oeste de Zul'Aman. Ritual / Toadly / Totem: chefe Spiritflayer Jin'Ma. Venomous Vapors: chefe Disciple of Vashnik.",
 	["DELVE_CHAT_ATAL_AMAN_ROUTE"] = "Ritual: resgate os furbolgs. Toadly: Hex Stick nos Amani enfeitiçados. Totem: destrua os totens e liberte Akil'zon.",
@@ -843,4 +843,4 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_TIP_TWILIGHT_CRYPTS_OVERVIEW"] = "• Sudoeste de Zul'Aman (Trono Partido).|n• Loosed Loa (evite Mot'amra), Party Crasher, Trapped! e, nova na 12.1: Why'd it have to be snakes?|n• Loosed Loa, Party Crasher e Trapped! acabam em Blademaster Darza. Why'd it have to be snakes? acaba em Replicating Venomborne.",
 	["DELVE_TIP_TWILIGHT_CRYPTS_ROUTE"] = "• Loosed Loa: mate 5 Vilebranch Skeleton Charmers e destrua 6 totens.|n• Loosed Loa: Mot'amra ronda o meio da imersão. Você vê o contorno vermelho dele através das paredes; não cruze o caminho dele.|n• Loosed Loa: o Evasive Elixir (botão de ação extra) transforma você num pote por 4 segundos e você não sofre dano. Use quando Mot'amra vier na sua direção.|n• Loosed Loa: desde o hotfix de 10 de setembro, esta variante tem Explorer's League Supplies e uma Abandoned Restoration Stone.|n• Party Crasher: mate os 4 Twilight Summoners (eles aparecem no seu mapa) e acione 7 Suspicious Levers. As armadilhas de urso te atordoam por uns 2 segundos.|n• Trapped: salve os reféns e ache as alavancas pelo labirinto.|n• Why'd it have to be snakes?: ajude Harrison Jones a achar as relíquias perdidas nas criptas.|n• Why'd it have to be snakes?: pisar nas cobras faz parte do objetivo, mas elas explodem quando você pisa nelas.|n• Why'd it have to be snakes?: pegue {SPELL:@fungal_pharmacon} e jogue nas manchas de veneno para limpá-las.",
 	["DELVE_TIP_TWILIGHT_CRYPTS_TRASH"] = "• Mot'amra bate forte e te arremessa longe se você andar em cima dele.|n• Party Crasher: preste atenção nas placas de armadilha no chão.|n• Interrompa os invocadores dos Twilight's Blade.|n• Fleshwarped Abomination: com pouca vida ela conjura Reconstitution e cura 90% da vida. Não dá para interromper: atordoe-a.|n• Hexbound Necrowraith: interrompa Necrotic Bolt. Saia do círculo que Necromantic Upheaval coloca ao seu redor antes que a conjuração termine.",
-})
+}) end

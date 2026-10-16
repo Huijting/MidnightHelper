@@ -51,7 +51,7 @@ end
 --========================================================================
 -- Tour / coach-marks (the 2.0 "what's new" walkthrough)
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	TOUR_CM_BACK = "Zurück",
 	TOUR_CM_NEXT = "Weiter",
 	TOUR_CM_DONE = "Fertig",
@@ -93,8 +93,8 @@ fill("deDE", {
 	TOUR_SETTINGS_TITLE = "Einstellungen",
 	TOUR_SETTINGS_BODY = "Stelle Textgröße, Sprache und jedes Popup oder jede Warnung nach Geschmack ein. Mach MH zu deinem.",
 	TOUR_SETTINGS_NAV = "Einstellungen öffnen",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	TOUR_CM_BACK = "Retour",
 	TOUR_CM_NEXT = "Suivant",
 	TOUR_CM_DONE = "Terminé",
@@ -136,8 +136,8 @@ fill("frFR", {
 	TOUR_SETTINGS_TITLE = "Réglages",
 	TOUR_SETTINGS_BODY = "Ajuste la taille du texte, la langue et chaque popup ou alerte à ton goût. Fais de MH le tien.",
 	TOUR_SETTINGS_NAV = "Ouvrir les Réglages",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	TOUR_CM_BACK = "Atrás",
 	TOUR_CM_NEXT = "Siguiente",
 	TOUR_CM_DONE = "Listo",
@@ -179,8 +179,8 @@ fill("esES", {
 	TOUR_SETTINGS_TITLE = "Ajustes",
 	TOUR_SETTINGS_BODY = "Ajusta el tamaño del texto, el idioma y cada popup o alerta a tu gusto. Haz que MH sea tuyo.",
 	TOUR_SETTINGS_NAV = "Abrir Ajustes",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	TOUR_CM_BACK = "Voltar",
 	TOUR_CM_NEXT = "Próximo",
 	TOUR_CM_DONE = "Concluído",
@@ -222,12 +222,12 @@ fill("ptBR", {
 	TOUR_SETTINGS_TITLE = "Configurações",
 	TOUR_SETTINGS_BODY = "Ajuste o tamanho do texto, o idioma e cada popup ou alerta ao seu gosto. Deixe o MH do seu jeito.",
 	TOUR_SETTINGS_NAV = "Abrir Configurações",
-})
+}) end
 
 --========================================================================
 -- Home onboarding + per-tab info drawer + settings categories + route pings
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	HOME_ONBOARD_HEADER = "Erste Schritte",
 	HOME_ONBOARD_DISMISS = "Verstanden — ausblenden",
 	HOME_ONBOARD_TIP1 = "Hefte deine meistgenutzten Tabs mit dem + unter der Suchleiste an.",
@@ -249,8 +249,8 @@ fill("deDE", {
 	SET_CAT_VAULT_DESC = "Erinnerungen und Gear-Rat für die wöchentliche Große Schatzkammer.",
 	HOME_ROUTINE_ROUTE_DONE = "Reset-Route fertig — jeder Stopp ist erledigt.",
 	HOME_ROUTINE_ROUTE_NEXT_FMT = "Nächster Stopp: %s.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	HOME_ONBOARD_HEADER = "Pour commencer",
 	HOME_ONBOARD_DISMISS = "Compris — masquer",
 	HOME_ONBOARD_TIP1 = "Épingle tes onglets les plus utilisés avec le + sous la barre de recherche.",
@@ -272,8 +272,8 @@ fill("frFR", {
 	SET_CAT_VAULT_DESC = "Rappels et conseils d'équipement pour la Grande chambre forte hebdomadaire.",
 	HOME_ROUTINE_ROUTE_DONE = "Route de reset terminée — chaque arrêt est fait.",
 	HOME_ROUTINE_ROUTE_NEXT_FMT = "Prochain arrêt : %s.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	HOME_ONBOARD_HEADER = "Para empezar",
 	HOME_ONBOARD_DISMISS = "Entendido — ocultar",
 	HOME_ONBOARD_TIP1 = "Fija tus pestañas más usadas con el + bajo la barra de búsqueda.",
@@ -295,8 +295,8 @@ fill("esES", {
 	SET_CAT_VAULT_DESC = "Recordatorios y consejos de equipo para la Gran cámara semanal.",
 	HOME_ROUTINE_ROUTE_DONE = "Ruta de reinicio completa — cada parada está hecha.",
 	HOME_ROUTINE_ROUTE_NEXT_FMT = "Siguiente parada: %s.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	HOME_ONBOARD_HEADER = "Comece aqui",
 	HOME_ONBOARD_DISMISS = "Entendi — ocultar",
 	HOME_ONBOARD_TIP1 = "Fixe suas abas mais usadas com o + abaixo da barra de busca.",
@@ -318,13 +318,13 @@ fill("ptBR", {
 	SET_CAT_VAULT_DESC = "Lembretes e conselhos de equipamento para o Grande Cofre semanal.",
 	HOME_ROUTINE_ROUTE_DONE = "Rota de reset completa — cada parada está feita.",
 	HOME_ROUTINE_ROUTE_NEXT_FMT = "Próxima parada: %s.",
-})
+}) end
 
 --========================================================================
 -- World boss UI · delve UI · prof-guide buttons · consumable notes · misc
 -- (zone/boss names + Mythic+/PvP/Raid game terms stay English on purpose)
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	WB_SECTION_TITLE = "Weltboss diese Woche",
 	WB_ZONE_FMT = "Zone: %s",
 	WB_ACTIVE_FMT = "Aktiv: |cffffffff%s|r",
@@ -399,8 +399,8 @@ fill("deDE", {
 	CONS_NOTE_13 = "Nutze den genannten Flask als Standard-Tank-Wahl; wechsle zu Versatility, wenn du eine sicherere defensive Rückfalloption willst.",
 	CONS_NOTE_14 = "Nutze den genannten Trank als Standard-Burst/Throughput-Wahl für PvE.",
 	CONS_NOTE_15 = "Nutze dies als Standard-Tank-Trank, wenn du Throughput mit überschaubarem Risiko willst.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	WB_SECTION_TITLE = "Boss de monde cette semaine",
 	WB_ZONE_FMT = "Zone : %s",
 	WB_ACTIVE_FMT = "Actif : |cffffffff%s|r",
@@ -475,8 +475,8 @@ fill("frFR", {
 	CONS_NOTE_13 = "Utilise le flask listé comme choix de tank par défaut ; passe à Versatility pour un repli défensif plus sûr.",
 	CONS_NOTE_14 = "Utilise la potion listée comme choix burst/throughput par défaut en PvE.",
 	CONS_NOTE_15 = "Utilise ceci comme potion de tank par défaut quand tu veux du throughput avec un risque gérable.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	WB_SECTION_TITLE = "Jefe de mundo esta semana",
 	WB_ZONE_FMT = "Zona: %s",
 	WB_ACTIVE_FMT = "Activo: |cffffffff%s|r",
@@ -551,8 +551,8 @@ fill("esES", {
 	CONS_NOTE_13 = "Usa el flask indicado como opción de tank por defecto; cambia a Versatility cuando quieras un repliegue defensivo más seguro.",
 	CONS_NOTE_14 = "Usa la poción indicada como opción burst/throughput por defecto en PvE.",
 	CONS_NOTE_15 = "Usa esto como poción de tank por defecto cuando quieras throughput con riesgo manejable.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	WB_SECTION_TITLE = "Chefe de mundo esta semana",
 	WB_ZONE_FMT = "Zona: %s",
 	WB_ACTIVE_FMT = "Ativo: |cffffffff%s|r",
@@ -627,14 +627,14 @@ fill("ptBR", {
 	CONS_NOTE_13 = "Use o flask listado como escolha de tank padrão; troque para Versatility quando quiser um recuo defensivo mais seguro.",
 	CONS_NOTE_14 = "Use a poção listada como escolha burst/throughput padrão no PvE.",
 	CONS_NOTE_15 = "Use isto como poção de tank padrão quando quiser throughput com risco gerenciável.",
-})
+}) end
 
 --========================================================================
 -- Professions beginner guides (PROFGUIDE_SEC) — the "Grundlagen" content.
 -- Game systems stay English (Knowledge Points/KP, Patron/Public/
 -- Personal Orders, Crafting Orders, profession names); prose is translated.
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PROFGUIDE_SEC_101_TITLE = "Berufe 101 — hier starten",
 	PROFGUIDE_SEC_101_BODY = "|cffffcc00Tag 1 — mach das heute|r|n|n1. Drücke |cffffff00K|r (Berufe) und prüfe, ob deine zwei Berufe gelernt sind. Noch nicht? |cffffff00SMC-Tab|r in diesem Addon → Wegpunkt zum Lehrer.|n2. Stelle jedes |cffffff00leuchtende neue Rezept|r einmal pro Beruf her (die billigsten zuerst).|n3. In Silbermond: |cffffff00Auftragstisch|r → Kundenaufträge, die |cffffff00Wissen|r geben.|n4. |cffffff00Berufe-Tab|r hier → Kartenpins für Schätze und Bücher, die dir noch fehlen.|n5. Verzaubere deine |cffffff00Waffe und Ringe|r.|n6. Unten: wähle |cffffff00Schneiderei + Verzauberkunst|r, falls das deine Kombi ist (Plan für dich, Freunde und Gold).|n|n|cffffcc00Was ist ein Beruf?|r|nEin Beruf ist ein Job deines Charakters. Manche Berufe |cffffff00fertigen|r Gegenstände (Herstellung). Andere |cffffff00sammeln|r Materialien in der Welt (Kräuter, Erz, Häute).|n|n|cffffcc00Wie viele kann ich lernen?|r|n|n• Jeder Charakter kann insgesamt |cffffff002 Hauptberufe|r lernen: Herstellung, Sammeln oder je einen davon (Beispiel: Alchemie + Kräuterkunde oder Schneiderei + Verzauberkunst).|n• |cffffff00Kochkunst|r und |cffffff00Angeln|r sind extra — jeder kann sie zusätzlich lernen, wie Hobbys.|n• Viele Spieler nutzen |cffffff00weitere Twinks|r in ihrer Kriegsmeute: ein Twink sammelt, ein anderer stellt her, und du schickst Materialien über die Bank.|n|n|cffffcc00Wissenspunkte (KP)|r|nKP sind Punkte für deine |cffffff00Spezialisierungsbäume|r (wie zusätzliche Talente für diesen Beruf). Mehr KP = bessere Rezepte und höhere Gegenstandsqualität.|n|n|cffffcc00Tatkraft|r|nTatkraft ist eine Währung |cffffff00pro Beruf|r auf diesem Charakter. Alchemie-Tatkraft kauft nur Alchemie-Sachen — sie lässt sich nicht auf Verzauberkunst übertragen. Du bekommst etwas Tatkraft, wenn du KP verdienst.|n|n|cffffcc00First-Craft-Bonus|r|nStelle jedes |cffffff00neue|r Rezept einmal her, wenn du es dir leisten kannst. Neue Rezepte leuchten oft in deiner Liste. Jede erste Anfertigung gibt meist +1 KP (und Tatkraft). Nimm zuerst billige Rezepte.|n|n|cffffcc00Deine Wochenrunde|r (jede Woche)|n|n1. Mach deine |cffffff00wöchentliche Berufsquest|r. Hersteller: beim ersten Mal das kurze Intro bei |cffffff00Hauptmann Fackelschwur|r (Auftragstisch); danach verlangt die Wochenquest ein paar Handwerksaufträge, und du gibst sie bei ihm ab. Sammler und Verzauberkunst (ab Fertigkeit 25): dein Lehrer verlangt Materialien.|n2. Öffne den |cffffff00Auftragstisch|r in Silbermond.|n3. Mach |cffffff00Kundenaufträge|r, die |cffffff00Glimmer of … Knowledge|r (+2 KP) oder |cffffff00Flicker|r (+1 KP, Aufholen) geben.|n4. Nutze den |cffffff00Berufe|r-Tab in diesem Addon, um einmalige |cffffff00Schätze|r und |cffffff00Bücher|r auf der Karte zu finden.|n5. Optional: die Berufsquest des Dunkelmond-Jahrmarkts (+3 KP, einmal im Monat) und eine |cffffff00Thalassische Abhandlung|r pro Woche (+1 KP). Abhandlungen werden an die Kriegsmeute gebunden, also gibt es sie nicht im Auktionshaus: stelle sie auf einem Inschriftenkunde-Twink her oder gib einen Handwerksauftrag auf.|n6. Spiel einfach deinen Beruf: Hersteller finden pro Woche 2 Wissensgegenstände in Schätzen in der Welt; Sammler und Verzauberer bekommen pro Woche 5 kleine Wissensgegenstände und danach 1 größeren aus Sammeln oder Entzaubern. Rechtsklicke sie, um das Wissen zu lernen.|n|n|cffffcc00Handwerksaufträge — vier Arten|r|n|n|cffffff00Kunde|r — NPC-Aufträge am Auftragsbrett. Am besten zum Lernen und für stetige KP.|n|cffffff00Öffentlich|r — Andere Spieler bezahlen dich fürs Herstellen. Gut für Gold, sobald du ein Rezept kennst.|n|cffffff00Gilde|r — Aufträge von deinen Gildenmitgliedern.|n|cffffff00Persönlich|r — Ein Spieler schickt dir einen Auftrag direkt auf deinen Namen.|n|n|cffffcc00Spezialisierungen|r|nBäume schalten sich um Fertigkeit |cffffff0025, 50, 60 und 75|r frei. Verteile die Punkte nicht überall auf einmal. Wähle ein Ziel: |cffffff00Fläschchen für Schlachtzüge|r, |cffffff00Verzauberungen zum Verkaufen|r, |cffffff00Lederausrüstung|r usw.|n|n|cffffcc00Gold im Auktionshaus|r|n|n• Konzentriere dich auf |cffffff001–2 Produkte|r, die du zuverlässig herstellen kannst — nicht zwanzig verschiedene.|n• Prüfe das Auktionshaus, |cffffff00bevor|r du einen Stapel herstellst: Materialpreis vs. fertiger Gegenstand.|n• Schlachtzugsfläschchen, Waffen- und Ringverzauberungen sind Klassiker — aber die Preise ändern sich jede Woche.|n• Um 1 Kupfer unterbieten ist normal; stelle keine 200 Stück her, wenn niemand kauft.|n|n|cffffcc00Nutze dieses Addon|r|n|n• |cffffff00Berufe-Tab|r = Live-KP, Wochenwährungen, Schatz-/Buch-Pins.|n• |cffffff00SMC-Tab|r = Lehrer in Silbermond.|n• Abschnitte unten = einfache Pläne pro Beruf.",
 	PROFGUIDE_SEC_ALCHEMY_TITLE = "Alchemie",
@@ -651,9 +651,9 @@ fill("deDE", {
 	PROFGUIDE_SEC_SKINNING_BODY = "|cffffcc00Was es macht|r|nDu |cffffff00häutest Bestien|r für Leder. Leder füttert |cffffff00Leatherworking|r.|n|n|cffffcc00Wer sollte es lernen?|r|n|n• Passt zu |cffffff00Leatherworking|r (gleicher Charakter oder Twink).|n• Toll beim Leveln — töte Mobs, häute sie.|n|n|cffffcc00Woche-1-Checkliste|r|n|n• Lerne Skinning.|n• Häute jede Bestie, die du in Tiefen und offener Welt tötest.|n• Karten-Schätze über den Berufe-Tab.|n• KP: mehr Leder pro Häuten und schnelleres Sammeln.|n|n|cffffcc00Gold|r|nVerkaufe Leder-Stapel im AH, oder stelle mit Leatherworking für mehr Profit her.|n|n|cffffcc00Tipp|r|nDu brauchst keine Werkbank zum Häuten — nur ein Häutungsmesser in den Taschen.",
 	PROFGUIDE_SEC_TAILORING_TITLE = "Schneiderei",
 	PROFGUIDE_SEC_TAILORING_BODY = "|cffffcc00Was es macht|r|nVerwandelt |cffffff00Stoff|r (vom Auktionshaus oder Händlern) in Stoffrüstung, Taschen und andere Gegenstände. Passt perfekt zu |cffffff00Verzauberkunst|r auf demselben Charakter.|n|n|cffffcc00Woche-1-Checkliste|r|n|n• Lerne Schneiderei in Silbermond.|n• Kaufe etwas Stoff oder farme beim Questen — kaufe am ersten Tag nicht zu viel.|n• First-Craft jedes billige |cffffff00neue Rezept|r einmal.|n• Wochenquest + Patron Orders mit Wissensbelohnungen.|n• Stelle Upgrades für Slots her, die du |cffffff00wirklich trägst|r (Stoffträger: Magier, Priester, Hexenmeister).|n|n|cffffcc00Wo KP ausgeben — für dich selbst|r|n|n• Punkte in die Rüstungsart, die du trägst.|n• Taschen und Nützliches sind nett, aber Rüstungs-Power kommt meist zuerst.|n• Verzaubere diese Teile dann mit Verzauberkunst.|n|n|cffffcc00Für Freunde und Gilde|r|n|n• Biete Armschienen-, Umhang- oder Gürtel-Crafts an, wenn du ein gutes Rezept hast.|n• Sie liefern Stoff oder zahlen Trinkgeld — vereinbart es, bevor du herstellst.|n• Du bist noch kein voller Ausrüstungshändler; fang bei engen Freunden an.|n|n|cffffcc00Wo KP ausgeben — für Gold|r|n|n• Beobachte das AH: manchmal verkaufen sich |cffffff00Taschen|r oder gefragte Stoff-Slots.|n• Stelle nur her, wenn der |cffffff00Verkaufspreis|r die |cffffff00Stoffkosten|r schlägt.|n• Public Orders für Schneiderei in Silbermond können zahlen, sobald deine Qualität höher ist.|n|n|cffffcc00Mit Verzauberkunst|r|nDu stellst den Gegenstand her; Verzauberkunst macht ihn stark. Darum ist dieses Duo beliebt für dich selbst und zum Helfen anderer.|n|n|cffffcc00Tipp|r|nStoff wird auf diesem Charakter nicht gesammelt — prüfe die Stoffpreise im AH, bevor du dich auf einen großen Craft festlegst.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PROFGUIDE_SEC_101_TITLE = "Métiers 101 — commence ici",
 	PROFGUIDE_SEC_101_BODY = "|cffffcc00Jour 1 — fais ça aujourd'hui|r|n|n1. Appuie sur |cffffff00K|r (Métiers) et vérifie que tes deux métiers sont appris. Pas encore ? |cffffff00Onglet SMC|r dans cet addon → point de passage vers le formateur.|n2. Fabrique chaque |cffffff00nouvelle recette qui brille|r une fois par métier (les moins chères d'abord).|n3. À Lune-d'Argent : |cffffff00station de commandes|r → commandes de l'onglet Client qui donnent de la |cffffff00connaissance|r.|n4. |cffffff00Onglet Métiers|r ici → repères sur la carte pour les trésors et livres qui te manquent.|n5. Enchante ton |cffffff00arme et tes anneaux|r.|n6. En dessous, choisis |cffffff00Couture + Enchantement|r si c'est ta combo (plan pour toi, tes amis et l'or).|n|n|cffffcc00Qu'est-ce qu'un métier ?|r|nUn métier est un travail sur ton personnage. Certains métiers |cffffff00fabriquent|r des objets (artisanat). D'autres |cffffff00récoltent|r des matériaux dans le monde (herbes, minerai, peaux).|n|n|cffffcc00Combien puis-je en apprendre ?|r|n|n• Chaque personnage peut apprendre |cffffff002 métiers principaux|r au total : artisanat, récolte, ou un de chaque (exemple : Alchimie + Herboristerie, ou Couture + Enchantement).|n• |cffffff00Cuisine|r et |cffffff00Pêche|r sont en plus — tout le monde peut les apprendre par-dessus, comme des loisirs.|n• Beaucoup de joueurs utilisent |cffffff00d'autres rerolls|r de leur bataillon : un reroll récolte, un autre fabrique, et tu fais passer les matériaux par la banque.|n|n|cffffcc00Points de connaissance (KP)|r|nLes KP sont des points pour tes |cffffff00arbres de spécialisation|r (comme des talents en plus pour ce métier). Plus de KP = de meilleures recettes et une meilleure qualité d'objet.|n|n|cffffcc00Aplomb|r|nL'Aplomb est une monnaie |cffffff00par métier|r sur ce personnage. L'Aplomb d'Alchimie n'achète que des choses d'Alchimie — il ne passe pas à l'Enchantement. Tu gagnes un peu d'Aplomb quand tu gagnes des KP.|n|n|cffffcc00Bonus de première fabrication|r|nFabrique chaque recette |cffffff00nouvelle|r une fois si tu en as les moyens. Les nouvelles recettes brillent souvent dans ta liste. Chaque première fabrication donne en général +1 KP (et de l'Aplomb). Commence par les recettes bon marché.|n|n|cffffcc00Ta routine hebdo|r (à faire chaque semaine)|n|n1. Fais ta |cffffff00quête de métier hebdomadaire|r. Artisans : la première fois, fais la courte intro chez le |cffffff00Capitaine Fuselige|r (station de commandes) ; l'hebdo demande ensuite quelques commandes d'artisanat et tu la lui rends. Récolteurs et Enchantement (dès Compétence 25) : ton formateur demande des matériaux.|n2. Ouvre la |cffffff00station de commandes|r à Lune-d'Argent.|n3. Fais les |cffffff00commandes de l'onglet Client|r qui donnent |cffffff00Glimmer of … Knowledge|r (+2 KP) ou |cffffff00Flicker|r (+1 KP, rattrapage).|n4. Utilise l'onglet |cffffff00Métiers|r de cet addon pour trouver les |cffffff00trésors|r et |cffffff00livres|r uniques sur la carte.|n5. Facultatif : la quête de métier de la Foire de Sombrelune (+3 KP, une fois par mois) et un |cffffff00Traité thalassien|r par semaine (+1 KP). Les traités sont liés au bataillon, donc absents de l'hôtel des ventes : fabrique-les sur un reroll Calligraphie ou passe une commande d'artisanat.|n6. Joue simplement ton métier : les artisans trouvent 2 objets de connaissance par semaine dans les trésors du monde ; les récolteurs et les enchanteurs reçoivent chaque semaine 5 petits objets de connaissance puis 1 plus gros en récoltant ou en désenchantant. Clic droit dessus pour apprendre la connaissance.|n|n|cffffcc00Commandes d'artisanat — quatre types|r|n|n|cffffff00Client|r — Missions de PNJ sur le tableau des commandes. Le mieux pour apprendre et pour des KP réguliers.|n|cffffff00Public|r — D'autres joueurs te paient pour fabriquer pour eux. Bien pour l'or une fois que tu connais une recette.|n|cffffff00Guild|r — Commandes des membres de ta guilde.|n|cffffff00Personal|r — Un joueur t'envoie une commande à ton nom.|n|n|cffffcc00Spécialisations|r|nLes arbres se débloquent vers Compétence |cffffff0025, 50, 60 et 75|r. Ne disperse pas tes points partout d'un coup. Choisis un objectif : |cffffff00flacons pour les raids|r, |cffffff00enchantements à vendre|r, |cffffff00équipement en cuir|r, etc.|n|n|cffffcc00De l'or à l'hôtel des ventes|r|n|n• Concentre-toi sur |cffffff001–2 produits|r que tu peux fabriquer de façon fiable — pas vingt objets différents.|n• Vérifie l'HV |cffffff00avant|r de fabriquer une pile : prix des matériaux contre objet fini.|n• Flacons de raid, enchantements d'arme et d'anneau sont des classiques — mais les prix changent chaque semaine.|n• Casser le prix d'1 cuivre est normal ; ne fabrique pas 200 objets si personne n'achète.|n|n|cffffcc00Utilise cet addon|r|n|n• |cffffff00Onglet Métiers|r = KP en direct, monnaies hebdo, repères trésors/livres.|n• |cffffff00Onglet SMC|r = formateurs à Lune-d'Argent.|n• Sections ci-dessous = plans simples par métier.",
 	PROFGUIDE_SEC_ALCHEMY_TITLE = "Alchimie",
@@ -670,9 +670,9 @@ fill("frFR", {
 	PROFGUIDE_SEC_SKINNING_BODY = "|cffffcc00Ce que ça fait|r|nTu |cffffff00dépèces les bêtes|r pour du cuir. Le cuir alimente le |cffffff00Leatherworking|r.|n|n|cffffcc00Qui devrait l'apprendre ?|r|n|n• Se marie avec le |cffffff00Leatherworking|r (même perso ou reroll).|n• Génial en montant de niveau — tue des mobs, dépèce-les.|n|n|cffffcc00Checklist semaine 1|r|n|n• Apprends Skinning.|n• Dépèce chaque bête que tu tues dans les gouffres et le monde ouvert.|n• Trésors de carte via l'onglet Métiers.|n• KP : plus de cuir par dépeçage et récolte plus rapide.|n|n|cffffcc00Or|r|nVends les lots de cuir à l'HV, ou fabrique avec le Leatherworking pour plus de profit.|n|n|cffffcc00Astuce|r|nTu n'as pas besoin de poste de craft pour dépecer — juste un couteau à dépecer dans tes sacs.",
 	PROFGUIDE_SEC_TAILORING_TITLE = "Couture",
 	PROFGUIDE_SEC_TAILORING_BODY = "|cffffcc00Ce que ça fait|r|nTransforme le |cffffff00tissu|r (de l'Hôtel des ventes ou des vendeurs) en armure en tissu, sacs et autres objets. Se marie parfaitement avec l'|cffffff00Enchantement|r sur le même personnage.|n|n|cffffcc00Checklist semaine 1|r|n|n• Apprends la Couture à Lune-d'argent.|n• Achète un peu de tissu ou farme en quêtant — n'achète pas trop le premier jour.|n• Première fabrication de chaque |cffffff00nouvelle recette|r bon marché une fois.|n• Quête hebdo + Patron Orders avec récompenses de Connaissance.|n• Fabrique des améliorations pour les slots que tu |cffffff00portes vraiment|r (porteurs de tissu : Mage, Prêtre, Démoniste).|n|n|cffffcc00Où dépenser les KP — pour toi|r|n|n• Des points dans le type d'armure que tu portes.|n• Les sacs et l'utilitaire sont sympas, mais la puissance d'armure vient généralement d'abord.|n• Puis enchante ces pièces avec l'Enchantement.|n|n|cffffcc00Pour amis et guilde|r|n|n• Propose des crafts de brassards, cape ou ceinture si tu as une bonne recette.|n• Ils fournissent le tissu ou paient un pourboire — convenez-en avant de fabriquer.|n• Tu n'es pas encore un vrai vendeur d'équipement ; commence par des amis proches.|n|n|cffffcc00Où dépenser les KP — pour l'or|r|n|n• Surveille l'HV : parfois les |cffffff00sacs|r ou slots de tissu populaires se vendent.|n• Ne fabrique que quand le |cffffff00prix de vente|r bat le |cffffff00coût du tissu|r.|n• Les public orders de couture à Lune-d'argent peuvent payer une fois ta qualité plus haute.|n|n|cffffcc00Avec l'Enchantement|r|nTu fais l'objet ; l'Enchantement le rend fort. C'est pourquoi ce duo est populaire pour toi-même et pour aider les autres.|n|n|cffffcc00Astuce|r|nLe tissu n'est pas récolté sur ce personnage — vérifie les prix du tissu à l'HV avant de t'engager dans un gros craft.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PROFGUIDE_SEC_101_TITLE = "Profesiones 101 — empieza aquí",
 	PROFGUIDE_SEC_101_BODY = "|cffffcc00Día 1 — haz esto hoy|r|n|n1. Pulsa |cffffff00K|r (Profesiones) y asegúrate de que tus dos profesiones están aprendidas. ¿Aún no? |cffffff00Pestaña SMC|r en este addon → punto de ruta al instructor.|n2. Fabrica cada |cffffff00receta nueva que brilla|r una vez por profesión (las más baratas primero).|n3. En Lunargenta: |cffffff00mesa de pedidos|r → pedidos de clientes que dan |cffffff00conocimiento|r.|n4. |cffffff00Pestaña Profesiones|r aquí → marcas en el mapa para tesoros y libros que aún te faltan.|n5. Encanta tu |cffffff00arma y anillos|r.|n6. Abajo, elige |cffffff00Sastrería + Encantamiento|r si esa es tu combinación (plan para ti, tus amigos y oro).|n|n|cffffcc00¿Qué es una profesión?|r|nUna profesión es un oficio de tu personaje. Algunas profesiones |cffffff00fabrican|r objetos (artesanía). Otras |cffffff00recolectan|r materiales en el mundo (hierbas, mineral, pieles).|n|n|cffffcc00¿Cuántas puedo aprender?|r|n|n• Cada personaje puede aprender |cffffff002 profesiones principales|r en total: de fabricación, de recolección o una de cada (ejemplo: Alquimia + Herboristería, o Sastrería + Encantamiento).|n• |cffffff00Cocina|r y |cffffff00Pesca|r son extra — cualquiera puede aprenderlas además, como aficiones.|n• Muchos jugadores usan |cffffff00otros alters|r de su banda guerrera: un alter recolecta, otro fabrica, y mandas los materiales por el banco.|n|n|cffffcc00Puntos de conocimiento (KP)|r|nLos KP son puntos para tus |cffffff00árboles de especialización|r (como talentos extra para esa profesión). Más KP = mejores recetas y mayor calidad de objeto.|n|n|cffffcc00Arrojo|r|nEl Arrojo es una moneda |cffffff00por profesión|r en ese personaje. El Arrojo de Alquimia solo compra cosas de Alquimia — no se pasa a Encantamiento. Ganas algo de Arrojo cuando ganas KP.|n|n|cffffcc00Bonificación de primera fabricación|r|nFabrica cada receta |cffffff00nueva|r una vez si te lo puedes permitir. Las recetas nuevas suelen brillar en tu lista. Cada primera fabricación suele dar +1 KP (y Arrojo). Empieza por las recetas baratas.|n|n|cffffcc00Tu rutina semanal|r (haz esto cada semana)|n|n1. Haz tu |cffffff00misión semanal de profesión|r. Artesanos: la primera vez, haz la breve introducción con el |cffffff00Capitán Jurabengala|r (mesa de pedidos); después la semanal pide unos cuantos pedidos de fabricación y se la entregas a él. Recolectores y Encantamiento (desde habilidad 25): tu instructor pide materiales.|n2. Abre la |cffffff00mesa de pedidos|r en Lunargenta.|n3. Haz |cffffff00pedidos de clientes|r que dan |cffffff00Glimmer of … Knowledge|r (+2 KP) o |cffffff00Flicker|r (+1 KP, recuperación).|n4. Usa la pestaña |cffffff00Profesiones|r de este addon para encontrar |cffffff00tesoros|r y |cffffff00libros|r únicos en el mapa.|n5. Opcional: la misión de profesión de la Feria de la Luna Negra (+3 KP, una vez al mes) y un |cffffff00Tratado thalassiano|r por semana (+1 KP). Los tratados están ligados a la banda guerrera, así que no están en la Casa de Subastas: fabrícalos en un alter con Inscripción o haz un pedido de fabricación.|n6. Simplemente juega tu profesión: los artesanos encuentran 2 objetos de conocimiento por semana en tesoros del mundo; los recolectores y los encantadores reciben cada semana 5 objetos pequeños de conocimiento y luego 1 más grande al recolectar o desencantar. Haz clic derecho en ellos para aprender el conocimiento.|n|n|cffffcc00Pedidos de fabricación — cuatro tipos|r|n|n|cffffff00Cliente|r — Encargos de PNJ en el tablón. Lo mejor para aprender y para KP constantes.|n|cffffff00Público|r — Otros jugadores te pagan por fabricarles cosas. Bueno para oro cuando ya conoces una receta.|n|cffffff00Hermandad|r — Pedidos de tus compañeros de hermandad.|n|cffffff00Personal|r — Un jugador te envía un pedido a tu nombre.|n|n|cffffcc00Especializaciones|r|nLos árboles se desbloquean hacia habilidad |cffffff0025, 50, 60 y 75|r. No repartas los puntos por todas partes a la vez. Elige un objetivo: |cffffff00frascos para bandas|r, |cffffff00encantamientos para vender|r, |cffffff00equipo de cuero|r, etc.|n|n|cffffcc00Oro en la Casa de Subastas|r|n|n• Céntrate en |cffffff001–2 productos|r que puedas fabricar de forma fiable — no veinte objetos distintos.|n• Mira la Casa de Subastas |cffffff00antes|r de fabricar un montón: precio de los materiales frente al objeto terminado.|n• Frascos de banda, encantamientos de arma y de anillo son ventas clásicas — pero los precios cambian cada semana.|n• Rebajar 1 de cobre es normal; no fabriques 200 objetos si nadie compra.|n|n|cffffcc00Usa este addon|r|n|n• |cffffff00Pestaña Profesiones|r = KP en directo, monedas semanales, marcas de tesoros/libros.|n• |cffffff00Pestaña SMC|r = instructores en Lunargenta.|n• Secciones de abajo = planes sencillos por profesión.",
 	PROFGUIDE_SEC_ALCHEMY_TITLE = "Alquimia",
@@ -689,9 +689,9 @@ fill("esES", {
 	PROFGUIDE_SEC_SKINNING_BODY = "|cffffcc00Qué hace|r|n|cffffff00Despellejas bestias|r por cuero. El cuero alimenta el |cffffff00Leatherworking|r.|n|n|cffffcc00¿Quién debería aprenderla?|r|n|n• Combina con |cffffff00Leatherworking|r (mismo personaje o alt).|n• Genial mientras subes de nivel — mata mobs, despelléjalos.|n|n|cffffcc00Lista semana 1|r|n|n• Aprende Skinning.|n• Despelleja cada bestia que mates en profundidades y mundo abierto.|n• Tesoros de mapa vía la pestaña Profesiones.|n• KP: más cuero por despellejado y recolección más rápida.|n|n|cffffcc00Oro|r|nVende lotes de cuero en la CdS, o fabrica con Leatherworking para más beneficio.|n|n|cffffcc00Consejo|r|nNo necesitas una estación de fabricación para despellejar — solo un cuchillo de despellejar en las bolsas.",
 	PROFGUIDE_SEC_TAILORING_TITLE = "Sastrería",
 	PROFGUIDE_SEC_TAILORING_BODY = "|cffffcc00Qué hace|r|nConvierte la |cffffff00tela|r (de la Casa de Subastas o vendedores) en armadura de tela, bolsas y otros objetos. Combina perfectamente con el |cffffff00Encantamiento|r en el mismo personaje.|n|n|cffffcc00Lista semana 1|r|n|n• Aprende Sastrería en Lunargenta.|n• Compra un poco de tela o farmea mientras haces misiones — no compres de más el primer día.|n• Primera fabricación de cada |cffffff00receta nueva|r barata una vez.|n• Misión semanal + Pedidos de clientes con recompensas de Conocimiento.|n• Fabrica mejoras para los slots que |cffffff00realmente llevas|r (usuarios de tela: Mago, Sacerdote, Brujo).|n|n|cffffcc00Dónde gastar KP — para ti|r|n|n• Puntos en el tipo de armadura que llevas.|n• Las bolsas y la utilidad están bien, pero la potencia de armadura suele ir primero.|n• Luego encanta esas piezas con Encantamiento.|n|n|cffffcc00Para amigos y hermandad|r|n|n• Ofrece crafts de muñequeras, capa o cinturón si tienes una buena receta.|n• Aportan la tela o pagan propina — acuérdalo antes de fabricar.|n• Aún no eres un vendedor de equipo completo; empieza con amigos cercanos.|n|n|cffffcc00Dónde gastar KP — para oro|r|n|n• Vigila la CdS: a veces las |cffffff00bolsas|r o slots de tela populares se venden.|n• Fabrica solo cuando el |cffffff00precio de venta|r supere el |cffffff00coste de la tela|r.|n• Las public orders de sastrería en Lunargenta pueden pagar una vez tu calidad es más alta.|n|n|cffffcc00Con Encantamiento|r|nTú haces el objeto; el Encantamiento lo hace fuerte. Por eso este dúo es popular para ti mismo y para ayudar a otros.|n|n|cffffcc00Consejo|r|nLa tela no se recolecta en este personaje — revisa los precios de la tela en la CdS antes de comprometerte con un craft grande.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PROFGUIDE_SEC_101_TITLE = "Profissões 101 — comece aqui",
 	PROFGUIDE_SEC_101_BODY = "|cffffcc00Dia 1 — faça isto hoje|r|n|n1. Aperte |cffffff00K|r (Profissões) e confira se suas duas profissões estão aprendidas. Ainda não? |cffffff00Aba SMC|r neste addon → ponto de rota até o treinador.|n2. Fabrique cada |cffffff00receita nova que brilha|r uma vez por profissão (as mais baratas primeiro).|n3. Em Luaprata: |cffffff00mesa de encomendas|r → encomendas da aba Cliente que dão |cffffff00Conhecimento|r.|n4. |cffffff00Aba Profissões|r aqui → marcações no mapa para tesouros e livros que ainda faltam.|n5. Encante sua |cffffff00arma e anéis|r.|n6. Abaixo, escolha |cffffff00Alfaiataria + Encantamento|r se essa for sua combinação (plano para você, amigos e ouro).|n|n|cffffcc00O que é uma profissão?|r|nUma profissão é um ofício do seu personagem. Algumas profissões |cffffff00fabricam|r itens (criação). Outras |cffffff00coletam|r materiais no mundo (ervas, minério, peles).|n|n|cffffcc00Quantas posso aprender?|r|n|n• Cada personagem pode aprender |cffffff002 profissões principais|r no total: de fabricação, de coleta ou uma de cada (exemplo: Alquimia + Herborismo, ou Alfaiataria + Encantamento).|n• |cffffff00Culinária|r e |cffffff00Pesca|r são extras — qualquer um pode aprendê-las além disso, como hobbies.|n• Muitos jogadores usam |cffffff00outros alts|r do Bando de Guerra: um alt coleta, outro fabrica, e você manda os materiais pelo banco.|n|n|cffffcc00Pontos de Conhecimento (KP)|r|nKP são pontos para suas |cffffff00árvores de especialização|r (como talentos extras para essa profissão). Mais KP = receitas melhores e itens de qualidade maior.|n|n|cffffcc00Marra|r|nA Marra é uma moeda |cffffff00por profissão|r naquele personagem. A Marra de Alquimia só compra coisas de Alquimia — ela não passa para Encantamento. Você ganha um pouco de Marra quando ganha KP.|n|n|cffffcc00Bônus de primeira fabricação|r|nFabrique cada receita |cffffff00nova|r uma vez se puder pagar. Receitas novas costumam brilhar na sua lista. Cada primeira fabricação normalmente dá +1 KP (e Marra). Escolha as receitas baratas primeiro.|n|n|cffffcc00Sua rotina semanal|r (faça isto toda semana)|n|n1. Faça sua |cffffff00missão semanal de profissão|r. Artesãos: na primeira vez, faça a introdução curta com o |cffffff00Capitão Claranjuro|r (mesa de encomendas); depois a semanal pede alguns pedidos de criação e você a entrega para ele. Coletores e Encantamento (a partir de Perícia 25): seu treinador pede materiais.|n2. Abra a |cffffff00mesa de encomendas|r em Luaprata.|n3. Faça |cffffff00encomendas da aba Cliente|r que dão |cffffff00Glimmer of … Knowledge|r (+2 KP) ou |cffffff00Flicker|r (+1 KP, recuperação).|n4. Use a aba |cffffff00Profissões|r deste addon para achar |cffffff00tesouros|r e |cffffff00livros|r únicos no mapa.|n5. Opcional: a missão de profissão da Feira de Negraluna (+3 KP, uma vez por mês) e um |cffffff00Tratado talassiano|r por semana (+1 KP). Os tratados são vinculados ao Bando, então não estão na Casa de Leilões: faça-os em um alt com Escrivania ou coloque um pedido de criação.|n6. Simplesmente jogue sua profissão: artesãos acham 2 itens de Conhecimento por semana em tesouros do mundo; coletores e encantadores recebem por semana 5 itens pequenos de Conhecimento e depois 1 maior, coletando ou desencantando. Clique com o botão direito neles para aprender o Conhecimento.|n|n|cffffcc00Pedidos de Criação — quatro tipos|r|n|n|cffffff00Cliente|r — Trabalhos de PNJ no quadro de encomendas. O melhor para aprender e para KP constante.|n|cffffff00Public|r — Outros jogadores pagam você para fabricar para eles. Bom para ouro quando você já conhece uma receita.|n|cffffff00Guild|r — Encomendas dos colegas de guilda.|n|cffffff00Personal|r — Um jogador manda uma encomenda para você pelo nome.|n|n|cffffcc00Especializações|r|nAs árvores desbloqueiam por volta de Perícia |cffffff0025, 50, 60 e 75|r. Não espalhe pontos em tudo de uma vez. Escolha um objetivo: |cffffff00frascos para raides|r, |cffffff00encantamentos para vender|r, |cffffff00equipamento de couro|r etc.|n|n|cffffcc00Ouro na Casa de Leilões|r|n|n• Foque em |cffffff001–2 produtos|r que você consegue fabricar com segurança — não vinte itens diferentes.|n• Confira a Casa de Leilões |cffffff00antes|r de fabricar uma pilha: preço dos materiais vs. item pronto.|n• Frascos de raide, encantamentos de arma e de anel são vendas clássicas — mas os preços mudam toda semana.|n• Baixar o preço em 1 cobre é normal; não fabrique 200 itens se ninguém está comprando.|n|n|cffffcc00Use este addon|r|n|n• |cffffff00Aba Profissões|r = KP ao vivo, moedas semanais, marcações de tesouros/livros.|n• |cffffff00Aba SMC|r = treinadores em Luaprata.|n• Seções abaixo = planos simples por profissão.",
 	PROFGUIDE_SEC_ALCHEMY_TITLE = "Alquimia",
@@ -708,13 +708,13 @@ fill("ptBR", {
 	PROFGUIDE_SEC_SKINNING_BODY = "|cffffcc00O que faz|r|nVocê |cffffff00esfola feras|r por couro. O couro alimenta o |cffffff00Leatherworking|r.|n|n|cffffcc00Quem deve aprender?|r|n|n• Combina com |cffffff00Leatherworking|r (mesmo personagem ou alt).|n• Ótimo enquanto sobe de nível — mate mobs, esfole-os.|n|n|cffffcc00Checklist semana 1|r|n|n• Aprenda Skinning.|n• Esfole cada fera que matar em imersões e mundo aberto.|n• Tesouros de mapa pela aba Profissões.|n• KP: mais couro por esfola e coleta mais rápida.|n|n|cffffcc00Ouro|r|nVenda lotes de couro na CdL, ou fabrique com Leatherworking para mais lucro.|n|n|cffffcc00Dica|r|nVocê não precisa de estação de craft para esfolar — só uma faca de esfolar nas bolsas.",
 	PROFGUIDE_SEC_TAILORING_TITLE = "Alfaiataria",
 	PROFGUIDE_SEC_TAILORING_BODY = "|cffffcc00O que faz|r|nTransforma |cffffff00tecido|r (da Casa de Leilões ou vendedores) em armadura de tecido, bolsas e outros itens. Combina perfeitamente com o |cffffff00Encantamento|r no mesmo personagem.|n|n|cffffcc00Checklist semana 1|r|n|n• Aprenda Alfaiataria em Luaprata.|n• Compre um pouco de tecido ou farme enquanto faz missões — não compre demais no primeiro dia.|n• Primeira fabricação de cada |cffffff00receita nova|r barata uma vez.|n• Missão semanal + Patron Orders com recompensas de Conhecimento.|n• Fabrique melhorias para os slots que você |cffffff00realmente usa|r (usuários de tecido: Mago, Sacerdote, Bruxo).|n|n|cffffcc00Onde gastar KP — para você|r|n|n• Pontos no tipo de armadura que você usa.|n• Bolsas e utilidade são legais, mas a potência de armadura geralmente vem primeiro.|n• Depois encante essas peças com Encantamento.|n|n|cffffcc00Para amigos e guilda|r|n|n• Ofereça crafts de braçadeiras, capa ou cinto se tiver uma boa receita.|n• Eles fornecem o tecido ou pagam gorjeta — combinem antes de fabricar.|n• Você ainda não é um vendedor de equipamento completo; comece com amigos próximos.|n|n|cffffcc00Onde gastar KP — para ouro|r|n|n• Vigie a CdL: às vezes as |cffffff00bolsas|r ou slots de tecido populares vendem.|n• Só fabrique quando o |cffffff00preço de venda|r superar o |cffffff00custo do tecido|r.|n• As public orders de alfaiataria em Luaprata podem pagar quando sua qualidade está mais alta.|n|n|cffffcc00Com Encantamento|r|nVocê faz o item; o Encantamento o deixa forte. Por isso essa dupla é popular para você mesmo e para ajudar os outros.|n|n|cffffcc00Dica|r|nO tecido não é coletado neste personagem — confira os preços do tecido na CdL antes de se comprometer com um craft grande.",
-})
+}) end
 
 --========================================================================
 -- Italian (itIT) — same 2.0 UI/tour strings + the Warband Codex entry.
 -- (CHANGELOG_* stays English here too.)
 --========================================================================
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	TOUR_CM_BACK = "Indietro",
 	TOUR_CM_NEXT = "Avanti",
 	TOUR_CM_DONE = "Fatto",
@@ -786,14 +786,14 @@ fill("itIT", {
 	TOOLLP_RITUALBOSS_DESC = "Tattiche in tempo reale per i boss dei Siti Rituali.",
 	CODEX_WARBAND_TITLE = "Brigata e la Banca della Brigata",
 	CODEX_WARBAND_BODY = "|cffffcc00La tua Brigata|r è ogni personaggio del tuo account, trattati come una squadra. Molte cose ora sono |cffffffffvincolate alla Brigata|r — condivise su tutto l'account — quindi spedisci molta meno posta tra gli alt.|n|n|cffffff78Oggetti e valute vincolati alla Brigata|r|n• Alcune valute sono condivise da tutto l'account o si possono spostare tra personaggi — la tua finestra delle valute mostra quali. Gli emblemi di potenziamento contano per personaggio.|n• L'equipaggiamento è spesso |cffffffffvincolato alla Brigata fino all'equipaggiamento|r — mandalo a un alt, ma una volta equipaggiato resta su quel personaggio.|n|n|cffffff78La Banca della Brigata|r — una banca condivisa che usano tutti i tuoi personaggi.|n• Aprila da |cffffffffqualsiasi banchiere|r (o Jeeves) — è una scheda della tua banca normale, accanto alla banca del personaggio.|n• Conserva qualsiasi oggetto |cffffffffnon legato all'anima|r e deposita o preleva |cfffffffforo|r tra i personaggi (anche tra fazioni diverse).|n• Crea direttamente da essa — conta come fonte di reagenti.|n|n|cffffff78Schede e costo|r — 5 schede, 98 slot ciascuna (490 in totale). Inizi senza nessuna; comprale con l'oro:|n• Scheda 1: |cffffffff1.000g|r|n• Scheda 2: |cffffffff25.000g|r|n• Scheda 3: |cffffffff100.000g|r|n• Scheda 4: |cffffffff500.000g|r|n• Scheda 5: |cffffffff2.500.000g|r  (tutte e cinque = 3.126.000g)|n|n|cffffcc00Consiglio:|r 2-3 schede bastano alla maggior parte dei giocatori. Non confonderla con la tua |cffffffffbanca del personaggio|r (anch'essa con schede dal patch 11.2, molto più economica) — quella è per personaggio; la Banca della Brigata è condivisa.",
-})
+}) end
 
 --========================================================================
 -- Achievements tab (2.0.x) — tab label, intro, buttons. The achievement
 -- TITLE itself comes from the game's own localized achievement name at
 -- runtime, so we only translate the surrounding UI here.
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	TAB_ACHIEVEMENTS = "Erfolge",
 	ACH_TAB_INTRO = "Verfolge Midnight-Erfolge und route zu den Sammelobjekten, die dir noch fehlen. Klicke auf einen Erfolg, um seine Checkliste aufzuklappen.",
 	ACH_TAB_ROUTE = "Route",
@@ -883,8 +883,8 @@ fill("deDE", {
 	ACH_TREASURE_EVERSONG = "Schätze des Immersangwalds",
 	ACH_TREASURE_COILEDISLE = "Schätze der Gewundenen Insel",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Verfolge Midnight-Erfolge und route zu den Sammelobjekten, die dir noch fehlen. Jeder Erfolg zeigt deinen Fortschritt und eine Checkliste; klicke auf Route, um den Pfeil zum nächsten fehlenden zu schicken — er springt automatisch weiter, während du plünderst.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	TAB_ACHIEVEMENTS = "Hauts faits",
 	ACH_TAB_INTRO = "Suivez les hauts faits de Midnight et tracez un itinéraire vers les objets à collectionner qu'il vous manque. Cliquez sur un haut fait pour dérouler sa liste.",
 	ACH_TAB_ROUTE = "Itinéraire",
@@ -974,8 +974,8 @@ fill("frFR", {
 	ACH_TREASURE_EVERSONG = "Trésors du bois des Chants éternels",
 	ACH_TREASURE_COILEDISLE = "Trésors de l’île Annelée",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Suivez les hauts faits de Midnight et tracez un itinéraire vers les objets à collectionner qu'il vous manque. Chaque haut fait affiche votre progression et une liste ; cliquez sur Itinéraire pour envoyer la flèche vers le plus proche manquant — elle avance automatiquement à mesure que vous récupérez les objets.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	TAB_ACHIEVEMENTS = "Logros",
 	ACH_TAB_INTRO = "Sigue los logros de Midnight y traza una ruta a los coleccionables que aún te faltan. Haz clic en un logro para desplegar su lista.",
 	ACH_TAB_ROUTE = "Ruta",
@@ -1065,8 +1065,8 @@ fill("esES", {
 	ACH_TREASURE_EVERSONG = "Tesoros del Bosque Canción Eterna",
 	ACH_TREASURE_COILEDISLE = "Tesoros de la Isla Serpenteante",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Sigue los logros de Midnight y traza una ruta a los coleccionables que aún te faltan. Cada logro muestra tu progreso y una lista; pulsa Ruta para enviar la flecha al más cercano que falte — avanza automáticamente a medida que los recoges.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	TAB_ACHIEVEMENTS = "Conquistas",
 	ACH_TAB_INTRO = "Acompanhe as conquistas de Midnight e trace uma rota até os colecionáveis que ainda faltam. Clique em uma conquista para abrir sua lista.",
 	ACH_TAB_ROUTE = "Rota",
@@ -1156,8 +1156,8 @@ fill("ptBR", {
 	ACH_TREASURE_EVERSONG = "Tesouros da Floresta do Canto Eterno",
 	ACH_TREASURE_COILEDISLE = "Tesouros da Ilha Enrolada",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Acompanhe as conquistas de Midnight e trace uma rota até os colecionáveis que ainda faltam. Cada conquista mostra seu progresso e uma lista; clique em Rota para enviar a seta ao mais próximo que falta — ela avança automaticamente conforme você coleta.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	TAB_ACHIEVEMENTS = "Imprese",
 	ACH_TAB_INTRO = "Tieni traccia delle imprese di Midnight e traccia un percorso verso gli oggetti da collezione che ti mancano ancora. Clicca su un'impresa per espandere la sua lista.",
 	ACH_TAB_ROUTE = "Percorso",
@@ -1247,12 +1247,12 @@ fill("itIT", {
 	ACH_TREASURE_EVERSONG = "Tesori dei Boschi di Cantoeterno",
 	ACH_TREASURE_COILEDISLE = "Tesori dell'Isola Serpeggiante",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Tieni traccia delle imprese di Midnight e traccia un percorso verso gli oggetti da collezione che ti mancano ancora. Ogni impresa mostra i tuoi progressi e una lista; premi Percorso per inviare la freccia al più vicino mancante — avanza automaticamente mentre raccogli.",
-})
+}) end
 
 --========================================================================
 -- 2.3-features: Missing Buff · Openables · Fast Mark (marker-balk)
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	MBUFF_TXT_MISSING = "FEHLT",
 	MBUFF_TXT_FORM = "GESTALT NUTZEN",
 	MBUFF_TXT_SHIELD = "SCHILD",
@@ -1320,9 +1320,9 @@ fill("deDE", {
 	SET_MARK_DESC = "Zeigt eine bewegliche Leiste, um dein Ziel schnell zu markieren (Totenkopf, Kreuz, …) und Weltmarkierungen auf dem Boden zu setzen.",
 	SET_MARK_TOGGLE_TITLE = "Schnellmarkierungs-Leiste anzeigen",
 	SET_MARK_TOGGLE_DESC = "Erscheint nur, während du in einer Gruppe/einem Schlachtzug bist. Obere Reihe markiert dein Ziel + Bereitschaftsprüfung, untere Reihe setzt Weltmarkierungen (Linksklick setzen, Rechtsklick entfernen). Zieh den goldenen Griff zum Bewegen.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MBUFF_TXT_MISSING = "MANQUANT",
 	MBUFF_TXT_FORM = "PRENDRE FORME",
 	MBUFF_TXT_SHIELD = "BOUCLIER",
@@ -1389,9 +1389,9 @@ fill("frFR", {
 	SET_MARK_DESC = "Affiche une barre déplaçable pour marquer rapidement ta cible (tête de mort, croix, …) et poser des marqueurs de zone au sol.",
 	SET_MARK_TOGGLE_TITLE = "Afficher la barre de Marquage rapide",
 	SET_MARK_TOGGLE_DESC = "N'apparaît que lorsque tu es en groupe/raid. La rangée du haut marque ta cible + vérification de préparation, la rangée du bas place les marqueurs de zone (clic gauche pour poser, clic droit pour effacer). Glisse la poignée dorée pour déplacer.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MBUFF_TXT_MISSING = "FALTA",
 	MBUFF_TXT_FORM = "USA FORMA",
 	MBUFF_TXT_SHIELD = "ESCUDO",
@@ -1458,9 +1458,9 @@ fill("esES", {
 	SET_MARK_DESC = "Muestra una barra movible para marcar rápido tu objetivo (calavera, cruz, …) y colocar marcadores de zona en el suelo.",
 	SET_MARK_TOGGLE_TITLE = "Mostrar barra de Marcado rápido",
 	SET_MARK_TOGGLE_DESC = "Aparece solo cuando estás en grupo/banda. La fila superior marca tu objetivo + comprobación de preparación, la fila inferior coloca marcadores de zona (clic izquierdo pone, clic derecho quita). Arrastra el asa dorada para mover.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MBUFF_TXT_MISSING = "FALTANDO",
 	MBUFF_TXT_FORM = "USE A FORMA",
 	MBUFF_TXT_SHIELD = "ESCUDO",
@@ -1527,9 +1527,9 @@ fill("ptBR", {
 	SET_MARK_DESC = "Mostra uma barra móvel para marcar rapidamente seu alvo (caveira, cruz, …) e soltar marcadores de área no chão.",
 	SET_MARK_TOGGLE_TITLE = "Mostrar barra de Marcação Rápida",
 	SET_MARK_TOGGLE_DESC = "Aparece somente enquanto você está em um grupo/raide. A linha de cima marca seu alvo + verificação de prontidão, a linha de baixo posiciona marcadores de área (clique esquerdo define, clique direito limpa). Arraste a alça dourada para mover.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MBUFF_TXT_MISSING = "MANCANTE",
 	MBUFF_TXT_FORM = "USA FORMA",
 	MBUFF_TXT_SHIELD = "SCUDO",
@@ -1596,7 +1596,7 @@ fill("itIT", {
 	SET_MARK_DESC = "Mostra una barra spostabile per marcare rapidamente il tuo bersaglio (teschio, croce, …) e piazzare marcatori mondo a terra.",
 	SET_MARK_TOGGLE_TITLE = "Mostra barra Marcatura Rapida",
 	SET_MARK_TOGGLE_DESC = "Compare solo quando sei in un gruppo/incursione. La riga superiore marca il bersaglio + ready check, quella inferiore piazza i marcatori mondo (clic sinistro imposta, clic destro rimuove). Trascina la maniglia dorata per spostare.",
-})
+}) end
 
 --========================================================================
 -- Native Settings panel (5 jul): section headers, language dropdown,
@@ -1604,7 +1604,7 @@ fill("itIT", {
 -- these fill de/fr/es/pt/it. (LANG_LABEL_EN..IT are endonyms — English/
 -- Nederlands/Deutsch/… — so they keep the enUS fallback on purpose.)
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SET_SEC_COMBAT = "Kampfwarnungen",
 	SET_SEC_DUNGEON = "Dungeon-Hilfe",
 	SET_SEC_SCREEN = "Bildschirm-Buttons",
@@ -1630,9 +1630,9 @@ fill("deDE", {
 	SET_LAUNCH_BOARD = "Verbrauchsgüter-Brett",
 	SET_LAUNCH_FORGET = "Rare-Modelle vergessen",
 	SET_LAUNCH_RESETBOSS = "Boss-Layout zurücksetzen",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SET_SEC_COMBAT = "Alertes de combat",
 	SET_SEC_DUNGEON = "Aide donjon",
 	SET_SEC_SCREEN = "Boutons à l'écran",
@@ -1658,9 +1658,9 @@ fill("frFR", {
 	SET_LAUNCH_BOARD = "Tableau des consommables",
 	SET_LAUNCH_FORGET = "Oublier les modèles de rares",
 	SET_LAUNCH_RESETBOSS = "Réinitialiser la fenêtre de boss",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SET_SEC_COMBAT = "Avisos de combate",
 	SET_SEC_DUNGEON = "Ayuda de mazmorra",
 	SET_SEC_SCREEN = "Botones en pantalla",
@@ -1686,9 +1686,9 @@ fill("esES", {
 	SET_LAUNCH_BOARD = "Tablero de consumibles",
 	SET_LAUNCH_FORGET = "Olvidar modelos de raros",
 	SET_LAUNCH_RESETBOSS = "Restablecer ventana de jefe",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_SEC_COMBAT = "Avisos de combate",
 	SET_SEC_DUNGEON = "Ajuda de masmorra",
 	SET_SEC_SCREEN = "Botões na tela",
@@ -1714,9 +1714,9 @@ fill("ptBR", {
 	SET_LAUNCH_BOARD = "Painel de consumíveis",
 	SET_LAUNCH_FORGET = "Esquecer modelos de raros",
 	SET_LAUNCH_RESETBOSS = "Redefinir janela de chefe",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SET_SEC_COMBAT = "Avvisi di combattimento",
 	SET_SEC_DUNGEON = "Aiuto dungeon",
 	SET_SEC_SCREEN = "Pulsanti a schermo",
@@ -1742,12 +1742,12 @@ fill("itIT", {
 	SET_LAUNCH_BOARD = "Pannello consumabili",
 	SET_LAUNCH_FORGET = "Dimentica modelli dei rari",
 	SET_LAUNCH_RESETBOSS = "Reimposta finestra boss",
-})
+}) end
 
 --========================================================================
 -- Keybind-coach card-header one-line tooltips (F4.5)
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	LAYOUT_CARD_BUILDER_TIP = "Ein Grundangriff, den du oft drückst, um Ressource für deine großen Treffer aufzubauen.",
 	LAYOUT_CARD_SPENDER_TIP = "Verbraucht die Ressource deiner Builder für einen stärkeren Treffer.",
 	LAYOUT_CARD_AOE_TIP = "AoE = Flächenschaden: trifft mehrere Gegner auf einmal. Nutze es, wenn eine Gruppe beisammensteht.",
@@ -1760,8 +1760,8 @@ fill("deDE", {
 	LAYOUT_CARD_SELFHEAL_TIP = "Heilt dich selbst. Praktisch, wenn kein Heiler da ist.",
 	LAYOUT_CARD_RAIDHEAL_TIP = "Zauber, die mehrere Personen auf einmal heilen.",
 	LAYOUT_CARD_TAUNT_TIP = "Zwingt einen Gegner, dich anzugreifen. Tanks schnappen sich damit lose Gegner.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	LAYOUT_CARD_BUILDER_TIP = "Une attaque de base que tu utilises souvent pour accumuler de la ressource pour tes gros coups.",
 	LAYOUT_CARD_SPENDER_TIP = "Dépense la ressource accumulée par tes builders, pour un coup plus fort.",
 	LAYOUT_CARD_AOE_TIP = "AoE = zone d'effet : touche plusieurs ennemis à la fois. À utiliser quand un pack est regroupé.",
@@ -1774,8 +1774,8 @@ fill("frFR", {
 	LAYOUT_CARD_SELFHEAL_TIP = "Te soigne. Pratique quand il n'y a pas de soigneur.",
 	LAYOUT_CARD_RAIDHEAL_TIP = "Sorts qui soignent plusieurs personnes à la fois.",
 	LAYOUT_CARD_TAUNT_TIP = "Force un ennemi à t'attaquer. Les tanks s'en servent pour récupérer les ennemis libres.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	LAYOUT_CARD_BUILDER_TIP = "Un ataque básico que pulsas a menudo para acumular recurso para tus golpes grandes.",
 	LAYOUT_CARD_SPENDER_TIP = "Gasta el recurso que acumularon tus builders, para un golpe más fuerte.",
 	LAYOUT_CARD_AOE_TIP = "AoE = área de efecto: golpea a varios enemigos a la vez. Úsalo cuando un grupo está junto.",
@@ -1788,8 +1788,8 @@ fill("esES", {
 	LAYOUT_CARD_SELFHEAL_TIP = "Te cura a ti. Útil cuando no hay sanador.",
 	LAYOUT_CARD_RAIDHEAL_TIP = "Hechizos que curan a varias personas a la vez.",
 	LAYOUT_CARD_TAUNT_TIP = "Obliga a un enemigo a atacarte. Los tanques lo usan para recuperar enemigos sueltos.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	LAYOUT_CARD_BUILDER_TIP = "Um ataque básico que você usa com frequência para acumular recurso para seus golpes maiores.",
 	LAYOUT_CARD_SPENDER_TIP = "Gasta o recurso que seus builders acumularam, para um golpe mais forte.",
 	LAYOUT_CARD_AOE_TIP = "AoE = área de efeito: atinge vários inimigos de uma vez. Use quando um grupo estiver junto.",
@@ -1802,8 +1802,8 @@ fill("ptBR", {
 	LAYOUT_CARD_SELFHEAL_TIP = "Cura você. Útil quando não há curandeiro.",
 	LAYOUT_CARD_RAIDHEAL_TIP = "Magias que curam várias pessoas de uma vez.",
 	LAYOUT_CARD_TAUNT_TIP = "Força um inimigo a atacar você. Tanks usam para pegar inimigos soltos.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	LAYOUT_CARD_BUILDER_TIP = "Un attacco base che premi spesso per accumulare risorsa per i tuoi colpi più grandi.",
 	LAYOUT_CARD_SPENDER_TIP = "Spende la risorsa accumulata dai tuoi builder, per un colpo più forte.",
 	LAYOUT_CARD_AOE_TIP = "AoE = area d'effetto: colpisce più nemici insieme. Usalo quando un gruppo è compatto.",
@@ -1816,7 +1816,7 @@ fill("itIT", {
 	LAYOUT_CARD_SELFHEAL_TIP = "Cura te stesso. Utile quando non c'è un guaritore.",
 	LAYOUT_CARD_RAIDHEAL_TIP = "Magie che curano più persone insieme.",
 	LAYOUT_CARD_TAUNT_TIP = "Costringe un nemico ad attaccarti. I tank lo usano per prendere nemici liberi.",
-})
+}) end
 
 --========================================================================
 -- LVL8090 leveling-tab tips (F1.6)
@@ -1829,7 +1829,7 @@ fill("itIT", {
 -- Aventure / Reposé(e), es Modo aventura / Descansado, pt Modo Aventura /
 -- Descansado, it Modalità Avventura / Riposato.
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	LVL8090_TITLE = "Leveling (10 bis 90)",
 	LVL8090_INTRO = "Klassenunabhängige Tipps: erst Level 10 bis 80 für jede Klasse, dann Midnight von 80 bis 90. Für Talente und Rotationen nutze Icy Veins oder Wowhead.",
 	LVL1080_SEC_TITLE = "1. Level 10 bis 80, für jede Klasse",
@@ -1886,8 +1886,8 @@ fill("deDE", {
 	LVL8090_BTN_OPEN_CONSUMABLES = "Consumables-Tab öffnen",
 	LVL8090_BTN_OPEN_DELVES = "Tiefen & Kammer öffnen",
 	LVL8090_BTN_OPEN_RITUALS = "Rares & Ritualstätten öffnen",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	LVL8090_TITLE = "Leveling (10 à 90)",
 	LVL8090_INTRO = "Des conseils indépendants de la classe : d'abord du niveau 10 à 80 pour toutes les classes, puis Midnight de 80 à 90. Pour les talents et les rotations, utilise Icy Veins ou Wowhead.",
 	LVL1080_SEC_TITLE = "1. Du niveau 10 à 80, pour toutes les classes",
@@ -1944,8 +1944,8 @@ fill("frFR", {
 	LVL8090_BTN_OPEN_CONSUMABLES = "Ouvrir l'onglet Consumables",
 	LVL8090_BTN_OPEN_DELVES = "Ouvrir Gouffres & Chambre",
 	LVL8090_BTN_OPEN_RITUALS = "Ouvrir Rares & Rituels",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	LVL8090_TITLE = "Subir de nivel (10 a 90)",
 	LVL8090_INTRO = "Consejos independientes de clase: primero de nivel 10 a 80 para cualquier clase, luego Midnight de 80 a 90. Para talentos y rotaciones, usa Icy Veins o Wowhead.",
 	LVL1080_SEC_TITLE = "1. De nivel 10 a 80, para cualquier clase",
@@ -2002,8 +2002,8 @@ fill("esES", {
 	LVL8090_BTN_OPEN_CONSUMABLES = "Abrir pestaña Consumables",
 	LVL8090_BTN_OPEN_DELVES = "Abrir Profundidades & Cámara",
 	LVL8090_BTN_OPEN_RITUALS = "Abrir Rares & Rituals",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	LVL8090_TITLE = "Subir de nível (10 a 90)",
 	LVL8090_INTRO = "Dicas independentes de classe: primeiro do nível 10 ao 80 para qualquer classe, depois a Midnight do 80 ao 90. Para talentos e rotações, use o Icy Veins ou o Wowhead.",
 	LVL1080_SEC_TITLE = "1. Do nível 10 ao 80, para qualquer classe",
@@ -2060,8 +2060,8 @@ fill("ptBR", {
 	LVL8090_BTN_OPEN_CONSUMABLES = "Abrir aba Consumables",
 	LVL8090_BTN_OPEN_DELVES = "Abrir Imersões & Cofre",
 	LVL8090_BTN_OPEN_RITUALS = "Abrir Rares & Rituals",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	LVL8090_TITLE = "Livellare (da 10 a 90)",
 	LVL8090_INTRO = "Consigli indipendenti dalla classe: prima dal livello 10 all'80 per ogni classe, poi Midnight da 80 a 90. Per talenti e rotazioni usa Icy Veins o Wowhead.",
 	LVL1080_SEC_TITLE = "1. Dal livello 10 all'80, per ogni classe",
@@ -2118,7 +2118,7 @@ fill("itIT", {
 	LVL8090_BTN_OPEN_CONSUMABLES = "Apri la scheda Consumables",
 	LVL8090_BTN_OPEN_DELVES = "Apri Scorribande & Vault",
 	LVL8090_BTN_OPEN_RITUALS = "Apri Rares & Rituali",
-})
+}) end
 
 -- @@END@@
 
@@ -2127,7 +2127,7 @@ fill("itIT", {
 -- Proper nouns stay English on purpose (mount / NPC / zone / currency names,
 -- Renown, achievement titles) — the same rule as the header of this file.
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FIRSTRUN_POPUP_TEXT = "Willkommen bei Midnight Helper!\n\nSoll ich dir zeigen, was diese Woche ansteht? Du öffnest es jederzeit mit /mh. Eine eigene Taste kannst du unter Tastenbelegung, Midnight Helper vergeben.",
 	FIRSTRUN_SHOW_ME = "Zeig es mir",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d Reittier(e) in Arbeit",
@@ -2200,9 +2200,9 @@ fill("deDE", {
 	TAB_MOUNTS = "Sammelbare Reittiere",
 	TAB_RAIDS = "Schlachtzüge",
 	TAB_TOOLSLAUNCH = "Extrafenster",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FIRSTRUN_POPUP_TEXT = "Bienvenue dans Midnight Helper !\n\nJe te montre quoi faire cette semaine ? Ouvre-le à tout moment en tapant /mh. Tu peux lui attribuer ta propre touche dans les Raccourcis, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Montre-moi",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d monture(s) en cours",
@@ -2275,9 +2275,9 @@ fill("frFR", {
 	TAB_MOUNTS = "Montures à collectionner",
 	TAB_RAIDS = "Raids",
 	TAB_TOOLSLAUNCH = "Fenêtres détachées",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FIRSTRUN_POPUP_TEXT = "¡Bienvenido a Midnight Helper!\n\n¿Te enseño qué hacer esta semana? Ábrelo cuando quieras escribiendo /mh. Puedes asignarle tu propia tecla en Atajos, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Enséñamelo",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d montura(s) en progreso",
@@ -2350,9 +2350,9 @@ fill("esES", {
 	TAB_MOUNTS = "Monturas coleccionables",
 	TAB_RAIDS = "Bandas",
 	TAB_TOOLSLAUNCH = "Ventanas emergentes",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FIRSTRUN_POPUP_TEXT = "Bem-vindo ao Midnight Helper!\n\nQuer que eu mostre o que fazer esta semana? Abra a qualquer momento digitando /mh. Você pode definir sua própria tecla em Atalhos, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Me mostre",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d montaria(s) em andamento",
@@ -2425,9 +2425,9 @@ fill("ptBR", {
 	TAB_MOUNTS = "Montarias colecionáveis",
 	TAB_RAIDS = "Raides",
 	TAB_TOOLSLAUNCH = "Janelas destacadas",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	FIRSTRUN_POPUP_TEXT = "Benvenuto in Midnight Helper!\n\nTi mostro cosa fare questa settimana? Aprilo quando vuoi digitando /mh. Puoi assegnargli un tasto tuo in Scorciatoie, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Mostrami",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d cavalcatura/e in corso",
@@ -2500,7 +2500,7 @@ fill("itIT", {
 	TAB_MOUNTS = "Cavalcature da collezione",
 	TAB_RAIDS = "Incursioni",
 	TAB_TOOLSLAUNCH = "Finestre separate",
-})
+}) end
 
 --========================================================================
 -- 2.8.3 fills: heal-lens, dispel toolkit, consumable "unknown" bucket, /mh keys.
@@ -2509,7 +2509,7 @@ fill("itIT", {
 -- a step sideways at worst -- but a native pass is still worth doing.
 --========================================================================
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CONSREADY_UNKNOWN = "Nicht sichtbar:",
 	CONSREADY_UNKNOWN_HINT = "Das Spiel verbirgt hier die Buffs anderer Spieler — das bedeutet NICHT, dass alle bereit sind.",
 	HEALLENS_DISPEL_OTHER_FMT = "Hier landet ein %s-Debuff — diesen Typ kannst du selbst nicht entfernen.",
@@ -2533,9 +2533,9 @@ fill("deDE", {
 	MPLUS_CMD_SLOT_FMT = "Platz %d (%d Läufe): %d/%d erledigt%s",
 	MPLUS_GAIN_FULL_FMT = "Alle 3 Plätze gefüllt (beste Schlüssel %s). Laufe höhere Schlüssel, um sie zu verbessern.",
 	MPLUS_GAIN_NEXT_FMT = "Nächster Schatzkammer-Platz: noch %d Lauf/Läufe.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CONSREADY_UNKNOWN = "Invisible :",
 	CONSREADY_UNKNOWN_HINT = "Le jeu masque ici les buffs des autres joueurs — cela ne veut PAS dire que tout le monde est prêt.",
 	HEALLENS_DISPEL_OTHER_FMT = "Un debuff %s tombe ici — vous ne pouvez pas dissiper ce type vous-même.",
@@ -2559,9 +2559,9 @@ fill("frFR", {
 	MPLUS_CMD_SLOT_FMT = "Emplacement %d (%d courses) : %d/%d fait%s",
 	MPLUS_GAIN_FULL_FMT = "Les 3 emplacements sont remplis (meilleures clés %s). Faites des clés plus élevées pour les améliorer.",
 	MPLUS_GAIN_NEXT_FMT = "Prochain emplacement de chambre forte : encore %d course(s).",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CONSREADY_UNKNOWN = "No visible:",
 	CONSREADY_UNKNOWN_HINT = "El juego oculta aquí los buffs de otros jugadores — esto NO significa que todos estén listos.",
 	HEALLENS_DISPEL_OTHER_FMT = "Aquí cae un debuff de %s — tú no puedes disipar ese tipo.",
@@ -2585,9 +2585,9 @@ fill("esES", {
 	MPLUS_CMD_SLOT_FMT = "Ranura %d (%d carreras): %d/%d hecho%s",
 	MPLUS_GAIN_FULL_FMT = "Las 3 ranuras están llenas (mejores llaves %s). Haz llaves más altas para subirlas.",
 	MPLUS_GAIN_NEXT_FMT = "Siguiente ranura de la cámara: %d carrera(s) más.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CONSREADY_UNKNOWN = "Não visível:",
 	CONSREADY_UNKNOWN_HINT = "O jogo esconde aqui os buffs dos outros jogadores — isso NÃO significa que todos estão prontos.",
 	HEALLENS_DISPEL_OTHER_FMT = "Um debuff de %s cai aqui — você não consegue dissipar esse tipo.",
@@ -2611,9 +2611,9 @@ fill("ptBR", {
 	MPLUS_CMD_SLOT_FMT = "Espaço %d (%d corridas): %d/%d feito%s",
 	MPLUS_GAIN_FULL_FMT = "Os 3 espaços estão cheios (melhores chaves %s). Faça chaves mais altas para melhorá-los.",
 	MPLUS_GAIN_NEXT_FMT = "Próximo espaço do cofre: mais %d corrida(s).",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CONSREADY_UNKNOWN = "Non visibile:",
 	CONSREADY_UNKNOWN_HINT = "Qui il gioco nasconde i buff degli altri giocatori — questo NON significa che siano tutti pronti.",
 	HEALLENS_DISPEL_OTHER_FMT = "Qui arriva un debuff %s — non puoi dissolvere quel tipo da solo.",
@@ -2637,7 +2637,7 @@ fill("itIT", {
 	MPLUS_CMD_SLOT_FMT = "Slot %d (%d run): %d/%d fatto%s",
 	MPLUS_GAIN_FULL_FMT = "Tutti e 3 gli slot sono pieni (chiavi migliori %s). Fai chiavi più alte per migliorarli.",
 	MPLUS_GAIN_NEXT_FMT = "Prossimo slot della Gran Banca: ancora %d run.",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- Season 1 closing list, additions of 2026-07-26 (Blizzard's "S1 ending soon"
@@ -2647,60 +2647,60 @@ fill("itIT", {
 -- The explanatory half of each line is translated.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ST_CLOSE_NEMESIS = "Besiege Nullaeus in seinem Lair - seine Trophäe geht mit der Saison",
 	ST_CLOSE_SOLO = "Solo Nullaeus ohne Gruppe - ein Reittier, das mit der Saison geht",
 	ST_CLOSE_DARK = "Erleuchten der Dunkelheit - besiege Nullaeus für den Titel “the Ominous”",
 	ST_CLOSE_PREY = "Beute gemacht um Mitternacht - der Titel Preyseeker, ein Meta aus 7 Beute-Erfolgen",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ST_CLOSE_NEMESIS = "Battez Vidaeus dans son repaire - son trophée part avec la saison",
 	ST_CLOSE_SOLO = "Tuez Vidaeus sans groupe - une monture qui part avec la saison",
 	ST_CLOSE_DARK = "Illumination des ténèbres - battez Vidaeus pour le titre “the Ominous”",
 	ST_CLOSE_PREY = "Prédation de minuit - le titre Preyseeker, un méta de 7 hauts faits de Traque",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ST_CLOSE_NEMESIS = "Vence a Anulleus en su guarida - su trofeo se va con la temporada",
 	ST_CLOSE_SOLO = "Mata a Anulleus sin grupo - una montura que se va con la temporada",
 	ST_CLOSE_DARK = "Iluminando la oscuridad - vence a Anulleus por el título “the Ominous”",
 	ST_CLOSE_PREY = "Depredación de Midnight - el título Preyseeker, un meta de 7 logros de Presa",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ST_CLOSE_NEMESIS = "Derrote Nullaeus em seu covil - o troféu vai embora com a temporada",
 	ST_CLOSE_SOLO = "Mate Nullaeus sem grupo - uma montaria que vai embora com a temporada",
 	ST_CLOSE_DARK = "Iluminando a escuridão - derrote Nullaeus pelo título “the Ominous”",
 	ST_CLOSE_PREY = "Preces para Midnight - o título Preyseeker, um meta de 7 conquistas de Presa",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ST_CLOSE_NEMESIS = "Sconfiggi Nullaeus nella sua tana - il trofeo se ne va con la stagione",
 	ST_CLOSE_SOLO = "Uccidi Nullaeus senza gruppo - una cavalcatura che se ne va con la stagione",
 	ST_CLOSE_DARK = "Illuminazione del buio - sconfiggi Nullaeus per il titolo “the Ominous”",
 	ST_CLOSE_PREY = "Prede di mezzanotte - il titolo Preyseeker, un meta di 7 imprese Preda",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- Valeera's poison choice (12.1). The poison NAMES and effects are never
 -- translated here: both come straight from the client at runtime.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
-})
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+}) end
 
-fill("frFR", {
-})
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+}) end
 
-fill("esES", {
-})
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+}) end
 
-fill("ptBR", {
-})
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+}) end
 
-fill("itIT", {
-})
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+}) end
 
 ------------------------------------------------------------------------------
 -- Prey hunts (block 9). Only the TITLE is translated here; the body falls back to
@@ -2709,25 +2709,25 @@ fill("itIT", {
 -- Codex fallback shows English, never a raw key. These go to the translators.
 ------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CODEX_PREY_TITLE = "Beutejagden",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CODEX_PREY_TITLE = "Traques",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CODEX_PREY_TITLE = "Cacerías de Presa",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CODEX_PREY_TITLE = "Caçadas de Presa",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CODEX_PREY_TITLE = "Cacce alla Preda",
-})
+}) end
 
 -- Season 2 bonus roll readiness on the Great Vault banner.
 --
@@ -2736,71 +2736,71 @@ fill("itIT", {
 -- would put a word in the addon that appears nowhere in the player's game, and
 -- someone searching for it would come up empty. The button is on the same screen,
 -- so "bonus roll" is all the sentence needs to do its job.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	VAULT_VOIDCORE_READY_FMT = "Nebulöser Leerenkern im Angebot: %d von %d Plätzen gefüllt, du kannst ihn hier also statt eines Gegenstands nehmen. Er verbraucht deine eine Wahl dieser Woche.",
 	VAULT_VOIDCORE_LOCKED_FMT = "Kein Nebulöser Leerenkern in dieser Schatzkammer: %d der %d nötigen Plätze sind gefüllt (%d fehlen). Fülle so viele nächste Woche — Schlachtzug, Dungeon oder Welt gemischt zählen mit — und die Schatzkammer bietet ihn statt eines Gegenstands an.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	VAULT_VOIDCORE_READY_FMT = "Noyau du Vide nébuleux disponible : %d emplacements sur %d remplis, tu peux donc le prendre ici au lieu d'un objet. Ça utilise ton unique choix de la semaine.",
 	VAULT_VOIDCORE_LOCKED_FMT = "Pas de Noyau du Vide nébuleux dans cette vault : %d des %d emplacements nécessaires sont remplis (il en manque %d). Remplis-en autant la semaine prochaine — raid, donjon ou monde, dans n'importe quel mélange — et la vault te le propose au lieu d'un objet.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	VAULT_VOIDCORE_READY_FMT = "Núcleo de Vacío nebuloso disponible: %d de %d espacios llenos, así que puedes llevártelo aquí en lugar de un objeto. Gasta tu única elección de esta semana.",
 	VAULT_VOIDCORE_LOCKED_FMT = "No hay Núcleo de Vacío nebuloso en esta cámara: %d de los %d espacios que necesita están llenos (faltan %d). Llena esos la semana que viene — banda, mazmorra o mundo, en cualquier combinación — y la cámara lo ofrecerá en lugar de un objeto.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	VAULT_VOIDCORE_READY_FMT = "Núcleo Caótico Nebuloso disponível: %d de %d espaços preenchidos, então você pode pegá-lo aqui em vez de um item. Ele gasta sua única escolha desta semana.",
 	VAULT_VOIDCORE_LOCKED_FMT = "Nenhum Núcleo Caótico Nebuloso neste cofre: %d dos %d espaços necessários estão preenchidos (faltam %d). Preencha essa quantidade na próxima semana — raide, masmorra ou mundo, em qualquer combinação — e o cofre o oferece em vez de um item.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	VAULT_VOIDCORE_READY_FMT = "Nucleo del Vuoto Nebuloso disponibile: %d slot su %d riempiti, quindi qui puoi prenderlo al posto di un oggetto. Usa la tua unica scelta di questa settimana.",
 	VAULT_VOIDCORE_LOCKED_FMT = "Nessun Nucleo del Vuoto Nebuloso in questa vault: %d slot su %d necessari riempiti (ne mancano %d). Riempine altrettanti la prossima settimana — incursioni, dungeon o mondo in qualsiasi combinazione — e la vault te lo offre al posto di un oggetto.",
-})
+}) end
 
 -- "Your language is only partly translated" nudge. These in particular must NOT
 -- rely on the English fallback: a card that appears in English to ask a German
 -- player for German help is arguing against itself.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	TRANSLATE_HELP_DISCORD = "Fragen, oder möchtest du gefragt werden, bevor sich an einer Sprache etwas ändert? Midnight Helper auf Discord",
 	TRANSLATE_PARTIAL_TITLE = "Midnight Helper in deiner Sprache fertigstellen?",
 	TRANSLATE_PARTIAL_BODY = "Teile von Midnight Helper erscheinen noch auf Englisch statt auf %s. Möchtest du beim Fertigstellen helfen? Jeder Beitrag zählt.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	TRANSLATE_HELP_DISCORD = "Des questions, ou tu veux être consulté avant qu'une langue change ? Midnight Helper sur Discord",
 	TRANSLATE_PARTIAL_TITLE = "Terminer Midnight Helper dans ta langue ?",
 	TRANSLATE_PARTIAL_BODY = "Des parties de Midnight Helper sont encore en anglais au lieu du %s. Envie d'aider à le terminer ? Chaque contribution compte.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	TRANSLATE_HELP_DISCORD = "¿Dudas, o quieres que te preguntemos antes de cambiar algo en un idioma? Midnight Helper en Discord",
 	TRANSLATE_PARTIAL_TITLE = "¿Terminar Midnight Helper en tu idioma?",
 	TRANSLATE_PARTIAL_BODY = "Partes de Midnight Helper siguen en inglés en lugar de %s. ¿Quieres ayudar a terminarlo? Cualquier aporte ayuda.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	TRANSLATE_HELP_DISCORD = "Dúvidas, ou quer ser consultado antes de mudarmos algo num idioma? Midnight Helper no Discord",
 	TRANSLATE_PARTIAL_TITLE = "Terminar o Midnight Helper no seu idioma?",
 	TRANSLATE_PARTIAL_BODY = "Partes do Midnight Helper ainda aparecem em inglês em vez de %s. Quer ajudar a terminar? Qualquer contribuição ajuda.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	TRANSLATE_HELP_DISCORD = "Domande, o vuoi essere consultato prima che una lingua cambi? Midnight Helper su Discord",
 	TRANSLATE_PARTIAL_TITLE = "Completare Midnight Helper nella tua lingua?",
 	TRANSLATE_PARTIAL_BODY = "Parti di Midnight Helper sono ancora in inglese invece che in %s. Vuoi aiutare a completarlo? Ogni contributo è utile.",
-})
+}) end
 
 -- "Show invite link" said nothing about WHERE, sitting in a column of buttons
 -- (Rob, 30 jul). Naming Discord is the whole point of the button.
-fill("deDE", { DISCORD_NUDGE_BTN = "Discord-Einladungslink anzeigen" })
-fill("frFR", { DISCORD_NUDGE_BTN = "Afficher le lien d'invitation Discord" })
-fill("esES", { DISCORD_NUDGE_BTN = "Mostrar enlace de invitación de Discord" })
-fill("ptBR", { DISCORD_NUDGE_BTN = "Mostrar link de convite do Discord" })
-fill("itIT", { DISCORD_NUDGE_BTN = "Mostra il link d'invito Discord" })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { DISCORD_NUDGE_BTN = "Discord-Einladungslink anzeigen" }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { DISCORD_NUDGE_BTN = "Afficher le lien d'invitation Discord" }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { DISCORD_NUDGE_BTN = "Mostrar enlace de invitación de Discord" }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { DISCORD_NUDGE_BTN = "Mostrar link de convite do Discord" }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { DISCORD_NUDGE_BTN = "Mostra il link d'invito Discord" }) end
 
 -- The portal hint, written 23 aug for the Coiled Isle report and therefore English in five
 -- packs on the day the release claims the languages are finished.
@@ -2808,11 +2808,11 @@ fill("itIT", { DISCORD_NUDGE_BTN = "Mostra il link d'invito Discord" })
 -- Delves.lua MIDNIGHT_PORTALS), not a name read from the client -- so the sentence has to
 -- read correctly with an English noun phrase dropped into it. Register follows each pack's
 -- own habit: tu / tú / você / tu (counted, not assumed).
-fill("deDE", { WAY_PORTAL_HINT = "Nimm %s — schneller als Fliegen, und du kannst es benutzen." })
-fill("frFR", { WAY_PORTAL_HINT = "Prends %s — plus rapide que de voler, et tu peux l'utiliser." })
-fill("esES", { WAY_PORTAL_HINT = "Toma %s — más rápido que volar, y puedes usarlo." })
-fill("ptBR", { WAY_PORTAL_HINT = "Pegue %s — mais rápido que voar, e você pode usá-lo." })
-fill("itIT", { WAY_PORTAL_HINT = "Prendi %s — più veloce che volare, e puoi usarlo." })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { WAY_PORTAL_HINT = "Nimm %s — schneller als Fliegen, und du kannst es benutzen." }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { WAY_PORTAL_HINT = "Prends %s — plus rapide que de voler, et tu peux l'utiliser." }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { WAY_PORTAL_HINT = "Toma %s — más rápido que volar, y puedes usarlo." }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { WAY_PORTAL_HINT = "Pegue %s — mais rápido que voar, e você pode usá-lo." }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { WAY_PORTAL_HINT = "Prendi %s — più veloce che volare, e puoi usarlo." }) end
 
 -- ⚠️ The reworded Valeera strings do NOT live here. They already existed further down, in
 -- each language's own section, and fill() is fill-only: a second copy up here would win and
@@ -2824,52 +2824,52 @@ fill("itIT", { WAY_PORTAL_HINT = "Prendi %s — più veloce che volare, e puoi u
 -- August 18"), so this line may finally name it. Blizzard's own wording is "week
 -- of", and that is kept on purpose: the US reset falls on Tuesday and the European
 -- one a day later, so a bare date would be wrong for half the players.
-fill("deDE", { ST_SEASON_SOON = "Season 2 startet in der Woche des 18. August" })
-fill("frFR", { ST_SEASON_SOON = "La saison 2 débute la semaine du 18 août" })
-fill("esES", { ST_SEASON_SOON = "La temporada 2 comienza la semana del 18 de agosto" })
-fill("ptBR", { ST_SEASON_SOON = "A temporada 2 começa na semana de 18 de agosto" })
-fill("itIT", { ST_SEASON_SOON = "La stagione 2 inizia la settimana del 18 agosto" })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { ST_SEASON_SOON = "Season 2 startet in der Woche des 18. August" }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { ST_SEASON_SOON = "La saison 2 débute la semaine du 18 août" }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { ST_SEASON_SOON = "La temporada 2 comienza la semana del 18 de agosto" }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { ST_SEASON_SOON = "A temporada 2 começa na semana de 18 de agosto" }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { ST_SEASON_SOON = "La stagione 2 inizia la settimana del 18 agosto" }) end
 
 -- Party-targets panel. The "no target" line is deliberately a dash and not a
 -- sentence: it sits in a four-line panel where a full clause would dominate the
 -- rows that actually carry information.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PARTYTARGETS_TITLE = "Gruppenziele",
 	PARTYTARGETS_NONE = "|cff9d9d9d— kein Ziel —|r",
 	PARTYTARGETS_ON = "Gruppenziele AN — zieh das Fenster dorthin, wo du es haben willst. Erscheint nur in einer Gruppe.",
 	PARTYTARGETS_OFF = "Gruppenziele AUS.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PARTYTARGETS_TITLE = "Cibles du groupe",
 	PARTYTARGETS_NONE = "|cff9d9d9d— aucune cible —|r",
 	PARTYTARGETS_ON = "Cibles du groupe ACTIVÉES — déplace le panneau où tu veux. Ne s'affiche qu'en groupe.",
 	PARTYTARGETS_OFF = "Cibles du groupe DÉSACTIVÉES.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PARTYTARGETS_TITLE = "Objetivos del grupo",
 	PARTYTARGETS_NONE = "|cff9d9d9d— sin objetivo —|r",
 	PARTYTARGETS_ON = "Objetivos del grupo ACTIVADOS — arrastra el panel donde quieras. Solo se muestra en grupo.",
 	PARTYTARGETS_OFF = "Objetivos del grupo DESACTIVADOS.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PARTYTARGETS_TITLE = "Alvos do grupo",
 	PARTYTARGETS_NONE = "|cff9d9d9d— sem alvo —|r",
 	PARTYTARGETS_ON = "Alvos do grupo LIGADOS — arraste o painel para onde quiser. Só aparece em grupo.",
 	PARTYTARGETS_OFF = "Alvos do grupo DESLIGADOS.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PARTYTARGETS_TITLE = "Bersagli del gruppo",
 	PARTYTARGETS_NONE = "|cff9d9d9d— nessun bersaglio —|r",
 	PARTYTARGETS_ON = "Bersagli del gruppo ATTIVI — trascina il pannello dove preferisci. Appare solo in gruppo.",
 	PARTYTARGETS_OFF = "Bersagli del gruppo DISATTIVATI.",
-})
+}) end
 
 -- Party-targets toggle in the native settings panel.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SET_PARTYTARGETS_TITLE = "Gruppenziele anzeigen",
 	SET_PARTYTARGETS_DESC = "Ein kleines Fenster mit dem, was jedes Gruppenmitglied angreift. Zieh es hin, wo du willst. Erscheint nur in einer Gruppe, und kann die Namen zwar anzeigen, aber nicht lesen — Sortieren, Hervorheben oder Vergleichen ist deshalb nicht möglich.",
 	SET_AHSHOP_TITLE = "Einkaufslisten-Button im Auktionshaus",
@@ -2891,9 +2891,9 @@ fill("deDE", {
 	SET_DELVEPOPUP_AUTO_DESC = "In einer Tiefe öffnet sich das Fenster mit deinem RAID-R Mini und deiner Belohnung des Schatzsuchers (wenn du sie dabeihast) von selbst. Aus: Öffne es selbst über das Minimap-Symbol.",
 	SET_PRESSES_TITLE = "Zählen, welche Zauber du drückst",
 	SET_PRESSES_DESC = "Zählt im Kampf, wie oft du jeden Zauber drückst, pro Charakter und Spezialisierung. /mh presses zeigt dann deine am häufigsten gedrückten Zauber mit der Taste, auf der sie liegen, und welche Tausche sie auf leichtere Tasten legen würden. Von selbst wird nichts verschoben.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SET_PARTYTARGETS_TITLE = "Afficher les cibles du groupe",
 	SET_PARTYTARGETS_DESC = "Un petit panneau listant ce que chaque membre attaque. Déplace-le où tu veux. Ne s'affiche qu'en groupe, et peut montrer les noms sans pouvoir les lire — impossible donc de trier, surligner ou comparer.",
 	SET_AHSHOP_TITLE = "Bouton de liste de courses à l'Hôtel des ventes",
@@ -2915,9 +2915,9 @@ fill("frFR", {
 	SET_DELVEPOPUP_AUTO_DESC = "Dans un gouffre, la fenêtre avec ton RAID-R Mini et ta prime de chasse au trésor (quand tu les as sur toi) s'ouvre d'elle-même. Désactivé : ouvre-la toi-même depuis l'icône de la minicarte.",
 	SET_PRESSES_TITLE = "Compter les sorts sur lesquels tu appuies",
 	SET_PRESSES_DESC = "En combat, compte combien de fois tu appuies sur chaque sort, par personnage et spécialisation. /mh presses affiche ensuite les sorts sur lesquels tu appuies le plus, avec la touche où ils se trouvent, et quels échanges les mettraient sur des touches plus faciles. Rien ne bouge tout seul.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SET_PARTYTARGETS_TITLE = "Mostrar objetivos del grupo",
 	SET_PARTYTARGETS_DESC = "Un panel pequeño con lo que ataca cada miembro. Arrástralo donde quieras. Solo aparece en grupo, y puede mostrar los nombres sin poder leerlos, así que no puede ordenarlos, resaltarlos ni compararlos.",
 	SET_AHSHOP_TITLE = "Botón de lista de la compra en la Casa de Subastas",
@@ -2939,9 +2939,9 @@ fill("esES", {
 	SET_DELVEPOPUP_AUTO_DESC = "En una profundidad, la ventana con tu RAID-R Mini y tu botín de cazatesoros (cuando los llevas) se abre sola. Desactivado: ábrela tú desde el icono del minimapa.",
 	SET_PRESSES_TITLE = "Contar qué hechizos pulsas",
 	SET_PRESSES_DESC = "En combate, cuenta cuántas veces pulsas cada hechizo, por personaje y especialización. /mh presses muestra luego tus hechizos más pulsados con la tecla en la que están, y qué cambios los pondrían en teclas más fáciles. Nada se mueve solo.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_PARTYTARGETS_TITLE = "Mostrar alvos do grupo",
 	SET_PARTYTARGETS_DESC = "Um painel pequeno com o que cada membro está atacando. Arraste para onde quiser. Só aparece em grupo, e consegue mostrar os nomes sem conseguir lê-los — por isso não ordena, destaca nem compara.",
 	SET_AHSHOP_TITLE = "Botão de lista de compras na Casa de Leilões",
@@ -2963,9 +2963,9 @@ fill("ptBR", {
 	SET_DELVEPOPUP_AUTO_DESC = "Numa imersão, a janela com o seu RAID-R Mini e a sua Recompensa do Caça-tesouros (quando você os carrega) abre sozinha. Desligado: abra você mesmo pelo ícone do minimapa.",
 	SET_PRESSES_TITLE = "Contar quais feitiços você aperta",
 	SET_PRESSES_DESC = "Em combate, conta quantas vezes você aperta cada feitiço, por personagem e especialização. /mh presses mostra depois os seus feitiços mais apertados com a tecla em que ficam, e quais trocas os colocariam em teclas mais fáceis. Nada muda de lugar sozinho.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SET_PARTYTARGETS_TITLE = "Mostra i bersagli del gruppo",
 	SET_PARTYTARGETS_DESC = "Un piccolo pannello con ciò che ogni membro sta attaccando. Trascinalo dove preferisci. Appare solo in gruppo e può mostrare i nomi senza poterli leggere, quindi non può ordinarli, evidenziarli o confrontarli.",
 	SET_AHSHOP_TITLE = "Pulsante lista della spesa alla Casa d'Aste",
@@ -2987,65 +2987,65 @@ fill("itIT", {
 	SET_DELVEPOPUP_AUTO_DESC = "In una scorribanda, la finestra con il tuo RAID-R Mini e il tuo Bottino del Cacciatore di Tesori (quando li hai con te) si apre da sola. Disattivato: aprila tu dall'icona della minimappa.",
 	SET_PRESSES_TITLE = "Conta quali spell premi",
 	SET_PRESSES_DESC = "In combattimento conta quante volte premi ogni spell, per personaggio e specializzazione. /mh presses mostra poi i tuoi spell più premuti con il tasto su cui si trovano, e quali scambi li metterebbero su tasti più comodi. Niente si sposta da solo.",
-})
+}) end
 
 -- Interrupt credit (2 Aug 2026). Dungeons and raids only: the combat log this
 -- reads is refused in delves and ritual scenarios.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	INTERRUPT_WHO_ON = "Unterbrecher AN — nennt, wer unterbrochen hat, nur in Dungeons und Schlachtzügen.",
 	INTERRUPT_WHO_OFF = "Unterbrecher AUS.",
 	INTERRUPT_WHO_FMT = "Unterbrochen von |cff40c040%s|r: %s",
 	INTERRUPT_WHO_FMT_PLAIN = "Unterbrochen von |cff40c040%s|r.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	INTERRUPT_WHO_ON = "Crédit d'interruption ACTIVÉ — indique qui a interrompu, en donjon et en raid uniquement.",
 	INTERRUPT_WHO_OFF = "Crédit d'interruption DÉSACTIVÉ.",
 	INTERRUPT_WHO_FMT = "Interrompu par |cff40c040%s|r : %s",
 	INTERRUPT_WHO_FMT_PLAIN = "Interrompu par |cff40c040%s|r.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	INTERRUPT_WHO_ON = "Crédito de interrupción ACTIVADO — indica quién interrumpió, solo en mazmorras y bandas.",
 	INTERRUPT_WHO_OFF = "Crédito de interrupción DESACTIVADO.",
 	INTERRUPT_WHO_FMT = "Interrumpido por |cff40c040%s|r: %s",
 	INTERRUPT_WHO_FMT_PLAIN = "Interrumpido por |cff40c040%s|r.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	INTERRUPT_WHO_ON = "Crédito de interrupção LIGADO — mostra quem interrompeu, apenas em masmorras e raides.",
 	INTERRUPT_WHO_OFF = "Crédito de interrupção DESLIGADO.",
 	INTERRUPT_WHO_FMT = "Interrompido por |cff40c040%s|r: %s",
 	INTERRUPT_WHO_FMT_PLAIN = "Interrompido por |cff40c040%s|r.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	INTERRUPT_WHO_ON = "Merito interruzioni ATTIVO — indica chi ha interrotto, solo in spedizioni e incursioni.",
 	INTERRUPT_WHO_OFF = "Merito interruzioni DISATTIVO.",
 	INTERRUPT_WHO_FMT = "Interrotto da |cff40c040%s|r: %s",
 	INTERRUPT_WHO_FMT_PLAIN = "Interrotto da |cff40c040%s|r.",
-})
+}) end
 
 -- Action prompt (3 Aug 2026): your interrupt and your dispel, in one spot.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PROMPT_ON = "Aktionshinweis AN — dein Unterbrecher und dein Zauberraub, sichtbar wenn sie greifen. Frei verschiebbar.",
 	PROMPT_OFF = "Aktionshinweis AUS.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PROMPT_ON = "Rappel d'action ACTIVÉ — votre interruption et votre dissipation, affichées quand elles s'appliquent. Déplaçable.",
 	PROMPT_OFF = "Rappel d'action DÉSACTIVÉ.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PROMPT_ON = "Aviso de acción ACTIVADO — tu interrupción y tu disipación, visibles cuando procede. Arrástralo donde quieras.",
 	PROMPT_OFF = "Aviso de acción DESACTIVADO.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PROMPT_ON = "Aviso de ação LIGADO — sua interrupção e sua dissipação, exibidas quando se aplicam. Arraste para onde quiser.",
 	PROMPT_OFF = "Aviso de ação DESLIGADO.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PROMPT_ON = "Suggerimento azione ATTIVO — il tuo interrupt e il tuo dispel, mostrati quando servono. Trascinabile.",
 	PROMPT_OFF = "Suggerimento azione DISATTIVO.",
-})
+}) end
 
 -- Survival plan (4 aug 2026): je knoppen in de volgorde die een gevecht vraagt.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SURVIVAL_HEAD = "Am Leben bleiben",
 	SURVIVAL_INTRO = "Deine Tasten in der Reihenfolge, die ein Kampf braucht. Lerne die erste, und die meisten Tode hören auf.",
 	SURVIVAL_STEP_KEEPUP = "aufrechterhalten, vor dem Pull und den ganzen Kampf lang",
@@ -3083,8 +3083,8 @@ fill("deDE", {
 	SURVIVAL_NOTE_DROP_COMBAT = "holt dich aus dem Kampf",
 	SURVIVAL_NOTE_SELF_CAST = "auf dich selbst wirken",
 	SURVIVAL_NOTE_CHEAT_DEATH = "rettet dich vor einem tödlichen Treffer",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SURVIVAL_HEAD = "Rester en vie",
 	SURVIVAL_INTRO = "Tes touches dans l'ordre qu'un combat exige. Apprends la première et la plupart des morts cessent.",
 	SURVIVAL_STEP_KEEPUP = "à garder actif, avant le pull et pendant tout le combat",
@@ -3121,8 +3121,8 @@ fill("frFR", {
 	SURVIVAL_NOTE_DROP_COMBAT = "te sort du combat",
 	SURVIVAL_NOTE_SELF_CAST = "lance-le sur toi-même",
 	SURVIVAL_NOTE_CHEAT_DEATH = "te sauve d'un coup mortel",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SURVIVAL_HEAD = "Sigue con vida",
 	SURVIVAL_INTRO = "Tus botones en el orden que pide un combate. Aprende el primero y la mayoría de las muertes se acaban.",
 	SURVIVAL_STEP_KEEPUP = "mantenlo activo, antes del pull y todo el combate",
@@ -3159,8 +3159,8 @@ fill("esES", {
 	SURVIVAL_NOTE_DROP_COMBAT = "te saca del combate",
 	SURVIVAL_NOTE_SELF_CAST = "lánzalo sobre ti mismo",
 	SURVIVAL_NOTE_CHEAT_DEATH = "te salva de un golpe mortal",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SURVIVAL_HEAD = "Continue vivo",
 	SURVIVAL_INTRO = "Seus botões na ordem que um combate exige. Aprenda o primeiro e a maioria das mortes acaba.",
 	SURVIVAL_STEP_KEEPUP = "mantenha ativo, antes do pull e durante toda a luta",
@@ -3197,8 +3197,8 @@ fill("ptBR", {
 	SURVIVAL_NOTE_DROP_COMBAT = "tira você do combate",
 	SURVIVAL_NOTE_SELF_CAST = "lance em você mesmo",
 	SURVIVAL_NOTE_CHEAT_DEATH = "salva você de um golpe fatal",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SURVIVAL_HEAD = "Resta vivo",
 	SURVIVAL_INTRO = "I tuoi tasti nell'ordine che serve in combattimento. Impara il primo e la maggior parte delle morti finisce.",
 	SURVIVAL_STEP_KEEPUP = "tienilo attivo, prima del pull e per tutto il combattimento",
@@ -3235,20 +3235,20 @@ fill("itIT", {
 	SURVIVAL_NOTE_DROP_COMBAT = "ti fa uscire dal combattimento",
 	SURVIVAL_NOTE_SELF_CAST = "lancialo su te stesso",
 	SURVIVAL_NOTE_CHEAT_DEATH = "ti salva da un colpo mortale",
-})
+}) end
 
 -- Action prompt words (5 aug 2026): het woord bij het icoon.
-fill("deDE", { PROMPT_WORD_INTERRUPT = "UNTERBRECHEN", PROMPT_WORD_PURGE = "ENTZAUBERN" })
-fill("frFR", { PROMPT_WORD_INTERRUPT = "INTERROMPRE", PROMPT_WORD_PURGE = "DISSIPER" })
-fill("esES", { PROMPT_WORD_INTERRUPT = "INTERRUMPIR", PROMPT_WORD_PURGE = "DISIPAR" })
-fill("ptBR", { PROMPT_WORD_INTERRUPT = "INTERROMPER", PROMPT_WORD_PURGE = "DISSIPAR" })
-fill("itIT", { PROMPT_WORD_INTERRUPT = "INTERROMPI", PROMPT_WORD_PURGE = "DISSOLVI" })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { PROMPT_WORD_INTERRUPT = "UNTERBRECHEN", PROMPT_WORD_PURGE = "ENTZAUBERN" }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { PROMPT_WORD_INTERRUPT = "INTERROMPRE", PROMPT_WORD_PURGE = "DISSIPER" }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { PROMPT_WORD_INTERRUPT = "INTERRUMPIR", PROMPT_WORD_PURGE = "DISIPAR" }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { PROMPT_WORD_INTERRUPT = "INTERROMPER", PROMPT_WORD_PURGE = "DISSIPAR" }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { PROMPT_WORD_INTERRUPT = "INTERROMPI", PROMPT_WORD_PURGE = "DISSOLVI" }) end
 
 
 --======================================================================
 -- /mh setup — the layout panel (2.14.0)
 --======================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	MH_SETUP_TITLE = "Deine Leisten einrichten",
 	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r Tasten im Layout",
 	MH_SETUP_ACCOUNT_WARN = "|cffff9900Deine Tastenbelegung gilt accountweit.|r Was du hier\naufräumst, räumst du auf jedem Charakter auf.",
@@ -3392,9 +3392,9 @@ fill("deDE", {
 	SMC_CAT_GATHERING = "Sammelberufe",
 	DAWNCREST_ROW_CAP_FMT = "%d  (%s %d / %d)",
 	DAWNCREST_SEASON_MAX = "Saisonmax",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MH_SETUP_TITLE = "Configurer vos barres",
 	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r touches dans la disposition",
 	MH_SETUP_ACCOUNT_WARN = "|cffff9900Vos raccourcis sont liés au compte.|r Ce que vous nettoyez\nici, vous le nettoyez sur chaque personnage.",
@@ -3538,9 +3538,9 @@ fill("frFR", {
 	SMC_CAT_GATHERING = "Métiers de récolte",
 	DAWNCREST_ROW_CAP_FMT = "%d  (%s %d / %d)",
 	DAWNCREST_SEASON_MAX = "max saison",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MH_SETUP_TITLE = "Configurar tus barras",
 	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r teclas en la distribución",
 	MH_SETUP_ACCOUNT_WARN = "|cffff9900Tus atajos son de toda la cuenta.|r Lo que limpies\naquí, lo limpias en todos los personajes.",
@@ -3684,9 +3684,9 @@ fill("esES", {
 	SMC_CAT_GATHERING = "Profesiones de recolección",
 	DAWNCREST_ROW_CAP_FMT = "%d  (%s %d / %d)",
 	DAWNCREST_SEASON_MAX = "máx. temporada",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MH_SETUP_TITLE = "Configurar suas barras",
 	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r teclas no layout",
 	MH_SETUP_ACCOUNT_WARN = "|cffff9900Seus atalhos valem para a conta inteira.|r O que você limpar\naqui, limpa em todos os personagens.",
@@ -3830,9 +3830,9 @@ fill("ptBR", {
 	SMC_CAT_GATHERING = "Profissões de recolha",
 	DAWNCREST_ROW_CAP_FMT = "%d  (%s %d / %d)",
 	DAWNCREST_SEASON_MAX = "máx. da temporada",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MH_SETUP_TITLE = "Sistemare le tue barre",
 	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r tasti nel layout",
 	MH_SETUP_ACCOUNT_WARN = "|cffff9900Le tue scorciatoie valgono per tutto l’account.|r Quello che pulisci\nqui, lo pulisci su ogni personaggio.",
@@ -3976,7 +3976,7 @@ fill("itIT", {
 	SMC_CAT_GATHERING = "Professioni di raccolta",
 	DAWNCREST_ROW_CAP_FMT = "%d  (%s %d / %d)",
 	DAWNCREST_SEASON_MAX = "max stagione",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- Vaults of Atal'Utek (14 aug 2026) — the Honored Dead note + the dashboard nudge.
@@ -3992,50 +3992,50 @@ fill("itIT", {
 -- — so they are Blizzard's titles now, and this file does not translate those.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ACH_NOTE_STRANGER = "Unter der Brücke, nicht darauf — die Gedenkstätte steht unterhalb des Stegs, ein Weg, der dich obendrauf absetzt, sieht also aus, als wäre dort nichts.",
 	CAMPAIGN_VAULTS_NAME = "Kette der Kammern von Atal'Utek",
 	HOME_SECTION_VAULTS = "Neu: die Kammern von Atal'Utek",
 	HOME_VAULTS_AVAILABLE = "Vier Quests öffnen die Vaults auf der Gewundenen Insel — ein Gebiet mit eigener Währung, zwölf Gedenkstätten und drei Erfolgen. Du hast noch nicht angefangen.",
 	HOME_VAULTS_INPROGRESS = "Du steckst mitten in der Vaults-Kette — schließ sie ab, dann öffnet sich das ganze Gebiet.",
 	HOME_VAULTS_ROUTE_BTN = "Der aktuellen Vaults-Quest folgen",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ACH_NOTE_STRANGER = "Sous le pont, pas dessus — le mémorial se trouve en dessous de la passerelle, donc un trajet qui te dépose au-dessus donnera l'impression qu'il n'y a rien.",
 	CAMPAIGN_VAULTS_NAME = "Chaîne des Caveaux d'Atal'Utek",
 	HOME_SECTION_VAULTS = "Nouveau : les Caveaux d'Atal'Utek",
 	HOME_VAULTS_AVAILABLE = "Quatre quêtes ouvrent les Caveaux, sur l'Île Annelée — une zone avec sa propre monnaie, douze mémoriaux et trois hauts faits. Tu ne les as pas commencées.",
 	HOME_VAULTS_INPROGRESS = "Tu es en plein milieu de la chaîne des Caveaux — termine-la et toute la zone s'ouvre.",
 	HOME_VAULTS_ROUTE_BTN = "Suivre la quête des Caveaux en cours",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ACH_NOTE_STRANGER = "Bajo el puente, no encima — el memorial está debajo de la pasarela, así que una ruta que te deje arriba parecerá que no hay nada.",
 	CAMPAIGN_VAULTS_NAME = "Cadena de las Cámaras de Atal'Utek",
 	HOME_SECTION_VAULTS = "Nuevo: las Cámaras de Atal'Utek",
 	HOME_VAULTS_AVAILABLE = "Cuatro misiones abren las Cámaras, en la Isla Serpenteante — una zona con su propia moneda, doce memoriales y tres logros. Aún no las has empezado.",
 	HOME_VAULTS_INPROGRESS = "Estás a medias en la cadena de las Cámaras — termínala y se abre toda la zona.",
 	HOME_VAULTS_ROUTE_BTN = "Seguir la misión actual de las Cámaras",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ACH_NOTE_STRANGER = "Debaixo da ponte, não em cima — o memorial fica abaixo da passarela, por isso uma rota que te deixe em cima vai parecer que não há nada ali.",
 	CAMPAIGN_VAULTS_NAME = "Cadeia das Câmaras de Atal'Utek",
 	HOME_SECTION_VAULTS = "Novo: as Câmaras de Atal'Utek",
 	HOME_VAULTS_AVAILABLE = "Quatro missões abrem as Câmaras, na Ilha Enrolada — uma área com moeda própria, doze memoriais e três proezas. Ainda não as começaste.",
 	HOME_VAULTS_INPROGRESS = "Estás a meio da cadeia das Câmaras — termina-a e a área inteira abre.",
 	HOME_VAULTS_ROUTE_BTN = "Seguir a missão atual das Câmaras",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ACH_NOTE_STRANGER = "Sotto il ponte, non sopra — il memoriale sta al di sotto della passerella, quindi un percorso che ti lascia sopra farà sembrare che non ci sia nulla.",
 	CAMPAIGN_VAULTS_NAME = "Catena delle Segrete di Atal'Utek",
 	HOME_SECTION_VAULTS = "Novità: le Segrete di Atal'Utek",
 	HOME_VAULTS_AVAILABLE = "Quattro missioni aprono le Segrete, sull'Isola Serpeggiante — una zona con una currency propria, dodici memoriali e tre obiettivi. Non le hai ancora iniziate.",
 	HOME_VAULTS_INPROGRESS = "Sei a metà della catena delle Segrete — completala e l'intera zona si apre.",
 	HOME_VAULTS_ROUTE_BTN = "Segui la missione attuale delle Segrete",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- /mh hazards (17 aug) — wat je vermijdbare schade doet, per instance.
@@ -4045,7 +4045,7 @@ fill("itIT", {
 -- ze zijn al in de taal van de speler en kunnen niet verlopen.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Nur da, solange der Temple Strike: Die Schattenseite läuft - es gibt keinen festen Punkt, also lässt der Pfeil diesen aus.",
 	ACH_NOTE_ANCIENT_FOE = "Erscheint dort, wo eine Temple Incursion endet, hat also keinen Platz auf der Karte. Mach mit, was gerade läuft, dann kommt er von selbst.",
 	ACH_NOTE_CURSE_SURGE = "Der Endboss eines Curse Surge: ein Szenario an dieser Stelle, das nur zeitweise läuft. Wegpunkt zeigt dir den Ort; die Route lässt ihn aus, denn meistens ist dort nichts zu finden.",
@@ -4072,9 +4072,9 @@ fill("deDE", {
 	HAZARD_NONE_KNOWN = "Was dir hier wehtut, ist noch nicht bekannt.",
 	HAZARD_COUNT = "Dinge, in denen du nicht stehen solltest",
 	HAZARD_SOURCE_NOTE = "Die Namen kommen aus deinem eigenen Client. Dass sie zu diesem Ort gehören, sind Daten von GTFO, nicht gemessen. Von etwas getroffen, das hier nicht steht? /mh report, und es kommt rein.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Présent uniquement pendant le Temple Strike : les Entrailles - il n'y a pas d'endroit fixe, donc la flèche l'ignore.",
 	ACH_NOTE_ANCIENT_FOE = "Apparaît là où se termine une Temple Incursion, donc il n'a pas de place sur la carte. Rejoins ce qui est en cours et il viendra à toi.",
 	ACH_NOTE_CURSE_SURGE = "Le boss final d'un Curse Surge : un scénario à cet endroit, actif seulement une partie du temps. Point de route te montre où ; l'itinéraire l'ignore, car la plupart du temps il n'y a rien à trouver.",
@@ -4101,9 +4101,9 @@ fill("frFR", {
 	HAZARD_NONE_KNOWN = "on ne sait pas encore ce qui fait mal ici.",
 	HAZARD_COUNT = "choses dans lesquelles il ne faut pas rester",
 	HAZARD_SOURCE_NOTE = "Les noms viennent de ton propre client. Qu'ils appartiennent à cet endroit vient des données de GTFO, ce n'est pas mesuré. Touché par quelque chose qui ne figure pas ici ? /mh report, et ça y entre.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Solo está mientras corre el Temple Strike: Bajos Fondos - no hay un sitio fijo al que ir, así que la flecha lo deja pasar.",
 	ACH_NOTE_ANCIENT_FOE = "Aparece donde termina una Temple Incursion, así que no tiene sitio en el mapa. Únete a lo que esté activo y vendrá solo.",
 	ACH_NOTE_CURSE_SURGE = "El jefe final de un Curse Surge: un escenario en este sitio que solo está activo parte del tiempo. Punto de ruta te muestra dónde; la ruta lo salta, porque casi siempre no hay nada que encontrar.",
@@ -4130,9 +4130,9 @@ fill("esES", {
 	HAZARD_NONE_KNOWN = "todavía no se sabe qué te hace daño aquí.",
 	HAZARD_COUNT = "cosas en las que no debes quedarte",
 	HAZARD_SOURCE_NOTE = "Los nombres vienen de tu propio cliente. Que pertenezcan a este lugar son datos de GTFO, no medidos. ¿Te ha dado algo que no aparece aquí? /mh report y entra.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Só aparece enquanto o Temple Strike: Os Esgotos está rolando - não há um ponto fixo, então a seta ignora este.",
 	ACH_NOTE_ANCIENT_FOE = "Surge onde uma Temple Incursion termina, então não tem lugar no mapa. Entre no que estiver rolando e ele vem até você.",
 	ACH_NOTE_CURSE_SURGE = "O chefe final de um Curse Surge: um cenário neste lugar que só roda parte do tempo. Ponto de rota mostra onde fica; a rota pula este, porque na maior parte do tempo não há nada lá.",
@@ -4159,9 +4159,9 @@ fill("ptBR", {
 	HAZARD_NONE_KNOWN = "ainda não se sabe o que te machuca aqui.",
 	HAZARD_COUNT = "coisas onde não vale a pena ficar parado",
 	HAZARD_SOURCE_NOTE = "Os nomes vêm do seu próprio cliente. Que pertençam a este lugar são dados do GTFO, não medidos. Levou dano de algo que não está aqui? /mh report e entra.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ACH_NOTE_UNDERBELLY_STRIKE = "C'è solo mentre è attivo il Temple Strike: Sotterranei - non esiste un punto fisso, quindi la freccia lo salta.",
 	ACH_NOTE_ANCIENT_FOE = "Compare dove finisce una Temple Incursion, quindi non ha un posto sulla mappa. Unisciti a quello che è in corso e arriverà da solo.",
 	ACH_NOTE_CURSE_SURGE = "Il boss finale di un Curse Surge: uno scenario in questo punto, attivo solo per parte del tempo. Punto percorso ti mostra dove; il percorso lo salta, perché quasi sempre lì non c'è niente da trovare.",
@@ -4188,7 +4188,7 @@ fill("itIT", {
 	HAZARD_NONE_KNOWN = "non si sa ancora cosa ti fa male qui.",
 	HAZARD_COUNT = "cose in cui non conviene restare",
 	HAZARD_SOURCE_NOTE = "I nomi vengono dal tuo client. Che appartengano a questo luogo sono dati di GTFO, non misurati. Colpito da qualcosa che qui non c'è? /mh report e ci finisce.",
-})
+}) end
 
 --========================================================================
 -- Professions 101 (les 1-7), route-advies en de flight-master-pin
@@ -4208,7 +4208,7 @@ fill("itIT", {
 -- de node Reuse en de uitbreidingsnaam Midnight.
 --========================================================================
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CMDLIST_FP = "Pfeil zum nächsten Flugmeister, egal wo du gerade bist",
 	CMDLIST_COURSE = "Berufe 101 in einem eigenen Fenster, neben dem Spiel",
 	TOOLLP_COURSE_NAME = "Kurs: Berufe 101",
@@ -4270,9 +4270,9 @@ fill("deDE", {
 	FP_NEAREST_NONE_FACTION = "Dieses Gebiet hat Flugpunkte, aber keinen, den deine Fraktion nutzen kann.",
 	FP_NEAREST_NO_WAYPOINT = "Konnte dort keinen Wegpunkt setzen.",
 	SMC_PIN_FLIGHTMASTER = "Silbermond hat zwei Flugmeister, die nützliche Frage ist also, welcher näher ist. Beide fliegen dieselben Routen.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CMDLIST_FP = "Flèche vers le maître de vol le plus proche, où que tu sois",
 	CMDLIST_COURSE = "Métiers 101 dans sa propre fenêtre, à côté du jeu",
 	TOOLLP_COURSE_NAME = "Cours Métiers 101",
@@ -4334,9 +4334,9 @@ fill("frFR", {
 	FP_NEAREST_NONE_FACTION = "Cette zone a des points de vol, mais aucun utilisable par ta faction.",
 	FP_NEAREST_NO_WAYPOINT = "Impossible de placer un point de route là.",
 	SMC_PIN_FLIGHTMASTER = "Lune-d’Argent a deux maîtres de vol, la vraie question est donc de savoir lequel est le plus proche. Les deux desservent les mêmes routes.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CMDLIST_FP = "Flecha hacia el maestro de vuelo más cercano, estés donde estés",
 	CMDLIST_COURSE = "Profesiones 101 en su propia ventana, junto al juego",
 	TOOLLP_COURSE_NAME = "Profesiones 101",
@@ -4398,9 +4398,9 @@ fill("esES", {
 	FP_NEAREST_NONE_FACTION = "Esta zona tiene puntos de vuelo, pero ninguno que tu facción pueda usar.",
 	FP_NEAREST_NO_WAYPOINT = "No se ha podido poner un punto de ruta ahí.",
 	SMC_PIN_FLIGHTMASTER = "Lunargenta tiene dos maestros de vuelo, así que la pregunta útil es cuál está más cerca. Los dos hacen las mismas rutas.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_FP = "Seta para o mestre de voo mais próximo, esteja você onde estiver",
 	CMDLIST_COURSE = "Profissões 101 em uma janela própria, ao lado do jogo",
 	TOOLLP_COURSE_NAME = "Curso Profissões 101",
@@ -4462,9 +4462,9 @@ fill("ptBR", {
 	FP_NEAREST_NONE_FACTION = "Esta zona tem pontos de voo, mas nenhum que a sua facção possa usar.",
 	FP_NEAREST_NO_WAYPOINT = "Não foi possível marcar um waypoint ali.",
 	SMC_PIN_FLIGHTMASTER = "Luaprata tem dois mestres de voo, então a pergunta útil é qual está mais perto. Os dois fazem as mesmas rotas.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CMDLIST_FP = "Freccia verso il maestro di volo più vicino, ovunque tu sia",
 	CMDLIST_COURSE = "Professioni 101 in una finestra tutta sua, accanto al gioco",
 	TOOLLP_COURSE_NAME = "Corso Professioni 101",
@@ -4526,7 +4526,7 @@ fill("itIT", {
 	FP_NEAREST_NONE_FACTION = "Questa zona ha punti volo, ma nessuno utilizzabile dalla tua fazione.",
 	FP_NEAREST_NO_WAYPOINT = "Non è stato possibile impostare un waypoint lì.",
 	SMC_PIN_FLIGHTMASTER = "Lunargenta ha due maestri di volo, quindi la domanda utile è quale sia più vicino. Prendono entrambi le stesse rotte.",
-})
+}) end
 
 --========================================================================
 -- Professie-cursus afgemaakt (23 aug)
@@ -4539,7 +4539,7 @@ fill("itIT", {
 -- op elke database-entiteit goed zat.
 --========================================================================
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Darüber hinaus gibt es keine geprüfte nächste Wahl. Deine bisherigen Punkte sind in %s (%d/%d) gegangen.",
 	PROFACAD_ADVISE_NODE_FMT = "Tipp: steck deine nächsten Punkte in %s (%d/%d).",
 	PROFACAD_ADVISE_LOCKED = "Noch kann keine Spezialisierung Punkte aufnehmen, also gibt es nichts zu raten. Steigere zuerst die Fertigkeit — die erste Wahl öffnet bei 25. Dein Wissen bleibt bis dahin erhalten; nichts davon verfällt.",
@@ -4577,9 +4577,9 @@ fill("deDE", {
 	PROFHUB_WEEKLY_TRAINER_REQ_25 = "(braucht erst Fertigkeit 25)",
 	PROFNEXT_WEEKLY_PICKED_STATION_FMT = "%s: Wochenquest angenommen - erfülle die Handwerksaufträge und gib die Quest dann bei Hauptmann Fackelschwur ab (Auftragstisch)",
 	PROFNEXT_WEEKLY_TODO_FMT = "%s: Lehrer-Wochenquest noch nicht abgeholt",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Pas de suite vérifiée au-delà. Jusqu'ici, tes points sont allés dans %s (%d/%d).",
 	PROFACAD_ADVISE_NODE_FMT = "Conseil : mets tes prochains points dans %s (%d/%d).",
 	PROFACAD_ADVISE_LOCKED = "Aucune spécialisation ne peut encore recevoir de points, il n'y a donc rien à conseiller. Monte d'abord la compétence — le premier choix s'ouvre à 25. Ton Savoir reste acquis jusque-là ; rien n'est perdu.",
@@ -4616,9 +4616,9 @@ fill("frFR", {
 	PROFHUB_WEEKLY_TRAINER_REQ_25 = "(demande d'abord Compétence 25)",
 	PROFNEXT_WEEKLY_PICKED_STATION_FMT = "%s : hebdo acceptée - remplis les commandes d'artisanat, puis rends-la au Capitaine Fuselige (station de commandes)",
 	PROFNEXT_WEEKLY_TODO_FMT = "%s : quête hebdo du formateur pas encore prise",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Más allá de esto no hay una siguiente elección verificada. Tus puntos hasta ahora han ido a %s (%d/%d).",
 	PROFACAD_ADVISE_NODE_FMT = "Consejo: mete tus próximos puntos en %s (%d/%d).",
 	PROFACAD_ADVISE_LOCKED = "Todavía ninguna especialización puede recibir puntos, así que no hay nada que aconsejar. Sube primero la habilidad: la primera elección se abre a 25. Tu Conocimiento se conserva hasta entonces; no se pierde nada.",
@@ -4655,9 +4655,9 @@ fill("esES", {
 	PROFHUB_WEEKLY_TRAINER_REQ_25 = "(primero necesita habilidad 25)",
 	PROFNEXT_WEEKLY_PICKED_STATION_FMT = "%s: semanal aceptada - completa los pedidos de fabricación y luego entrégasela al Capitán Jurabengala (mesa de pedidos)",
 	PROFNEXT_WEEKLY_TODO_FMT = "%s: misión semanal del instructor aún sin recoger",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Daqui em diante não há próxima escolha verificada. Seus pontos até agora foram para %s (%d/%d).",
 	PROFACAD_ADVISE_NODE_FMT = "Conselho: coloque seus próximos pontos em %s (%d/%d).",
 	PROFACAD_ADVISE_LOCKED = "Nenhuma especialização pode receber pontos ainda, então não há o que aconselhar. Suba primeiro a habilidade — a primeira escolha abre em 25. Seu Conhecimento fica guardado até lá; nada se perde.",
@@ -4694,9 +4694,9 @@ fill("ptBR", {
 	PROFHUB_WEEKLY_TRAINER_REQ_25 = "(precisa de Perícia 25 antes)",
 	PROFNEXT_WEEKLY_PICKED_STATION_FMT = "%s: semanal aceita - preencha os pedidos de criação e depois entregue a missão para o Capitão Claranjuro (mesa de encomendas)",
 	PROFNEXT_WEEKLY_TODO_FMT = "%s: semanal do treinador ainda não pega",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PGUIDE_BTN_DONE = "Fatto",
 	PGUIDE_BTN_NEXT = "Avanti",
 	PGUIDE_BTN_PREV = "Indietro",
@@ -4753,7 +4753,7 @@ fill("itIT", {
 	PROFHUB_WEEKLY_TRAINER_REQ_25 = "(serve prima competenza 25)",
 	PROFNEXT_WEEKLY_PICKED_STATION_FMT = "%s: settimanale presa - completa gli ordini d'artigianato, poi consegnala al Capitano Brillovoto (tavolo degli ordini)",
 	PROFNEXT_WEEKLY_TODO_FMT = "%s: quest settimanale dell'addestratore non ancora presa",
-})
+}) end
 
 --========================================================================
 -- Codex vertaald (23 aug)
@@ -4764,7 +4764,7 @@ fill("itIT", {
 -- staat het Engels er nog -- dat is een gat in de lijst, geen keuze.
 --========================================================================
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CODEX_127_RITUALRENOWN_TITLE = "Ritualstätten-Renown (12.0.5)",
 	CODEX_ACCOUNT_TITLE = "Kontoübersicht",
 	CODEX_CAT_COILEDISLE = "Die Gewundene Insel",
@@ -4787,9 +4787,9 @@ fill("deDE", {
 	CODEX_SEASONEND_TITLE = "Wenn eine Saison endet",
 	CODEX_TRACKS_TITLE = "Aufwertungs-Tracks der Ausrüstung",
 	CODEX_VOID_TITLE = "Angriffe der Leere",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CODEX_127_FOLIO_TITLE = "Le feuillet de l'Omnium et les runes (12.0.7)",
 	CODEX_ACCOUNT_TITLE = "Aperçu du compte",
 	CODEX_CAT_COILEDISLE = "Île Annelée",
@@ -4813,9 +4813,9 @@ fill("frFR", {
 	CODEX_SEASONEND_TITLE = "Quand une saison se termine",
 	CODEX_TRACKS_TITLE = "Tracks d'amélioration de l'équipement",
 	CODEX_VOID_TITLE = "Assauts du Vide",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CODEX_ACCOUNT_TITLE = "Instantánea de la cuenta",
 	CODEX_CAT_COILEDISLE = "Isla Serpenteante",
 	CODEX_CAT_CURRENCIES = "Monedas",
@@ -4838,9 +4838,9 @@ fill("esES", {
 	CODEX_SEASONEND_TITLE = "Cuando termina una temporada",
 	CODEX_TRACKS_TITLE = "Vías de mejora del equipo",
 	CODEX_VOID_TITLE = "Asaltos del Vacío",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CODEX_ACCOUNT_TITLE = "Instantâneo da conta",
 	CODEX_CAT_COILEDISLE = "A Ilha Enrolada",
 	CODEX_CAT_CURRENCIES = "Moedas",
@@ -4865,9 +4865,9 @@ fill("ptBR", {
 	CODEX_SEASONEND_TITLE = "Quando uma série termina",
 	CODEX_TRACKS_TITLE = "Trilhas de melhoria de equipamento",
 	CODEX_VOID_TITLE = "Investidas do Caos",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CODEX_127_RITUALRENOWN_TITLE = "Renown dei Siti Rituali (12.0.5)",
 	CODEX_127_SPOREFALL_TITLE = "Incursione Sporandia (12.0.7)",
 	CODEX_ACCOUNT_TITLE = "Panoramica account",
@@ -4897,7 +4897,7 @@ fill("itIT", {
 	CODEX_TRACKS_TITLE = "Track di potenziamento dell'equipaggiamento",
 	CODEX_VOID_TITLE = "Assalti del Vuoto",
 	CODEX_WEEKLY_RESET_TITLE = "Reset settimanale",
-})
+}) end
 
 --========================================================================
 -- Dungeons, Delves, Academy, commandos en achievements (23 aug)
@@ -4908,7 +4908,7 @@ fill("itIT", {
 -- staat het Engels er nog -- dat is een gat in de lijst, geen keuze.
 --========================================================================
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ACH_META_PREVIEW_HINT = "Klicken: Vorschau des Reittiers",
 	ACH_MIX_RECIPE_FMT = "Benötigt: %s",
 	ACH_NOTE_BRINE_CRUSTED = "Verschlossen. Öffne eine Blubbernde Muschel für eine Perle und lege sie dann auf den Pfeil am Boden neben dem NPC - sie lässt den Schlüssel fallen. Wenn sich keine Muschel öffnen lässt, hast du bereits eine Perle.",
@@ -5134,9 +5134,9 @@ fill("deDE", {
 	DGN_BADGE_S1 = "Saison 1",
 	DGN_BADGE_S2 = "Saison 2",
 	DGN_WIN_BOSS_PROMPT = "Boss gepullt — Boss-Guide öffnen?",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ACADEMY_DPS_BOTH_BODY = "Tu connais déjà les combats depuis le siège DPS, et c'est l'essentiel du travail. Tanker t'ouvre des files de donjon instantanées ; soigner demande le plus de sang-froid, mais c'est le rôle le plus recherché.\n\nEssaie d'abord le nouveau rôle dans un gouffre ou un donjon avec suiveurs, là où personne ne t'attend. Garde ensuite un seul rôle comme rôle principal pendant un moment, au lieu d'en changer à chaque pug.",
 	ACADEMY_DPS_BOTH_TITLE = "Tenté par le tank ou le soin ?",
 	ACADEMY_DPS_COOLDOWNS_BODY = "Tes cooldowns de dégâts représentent la plus grande partie de tes dégâts. Les lancer dès qu'ils sont prêts vaut mieux que les garder pour un moment « parfait » qui n'arrive jamais.\n\nSur un boss, ouvre le combat avec eux ou garde-les pour la phase qui compte. Ta boîte à outils ci-dessus les liste pour ta spé.",
@@ -5464,9 +5464,9 @@ fill("frFR", {
 	DGN_VIEW_COURSE = "Donjons 101",
 	DGN_WIN_BOSS_PROMPT = "Boss engagé — ouvrir le guide du boss ?",
 	DGN_WIN_CHAT = "Discussion",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ACADEMY_DPS_BOTH_BODY = "Ya conoces los combates desde el asiento de DPS, y eso es la mayor parte del trabajo. Tanquear te da colas de mazmorra instantáneas; sanar es lo que más nervios exige, pero es lo más buscado.\n\nPrueba el rol nuevo primero en una profundidad o en una Follower Dungeon, donde nadie depende de ti. Luego mantén un rol como principal durante una temporada en vez de cambiar en cada pug.",
 	ACADEMY_DPS_BOTH_TITLE = "¿Te planteas tanquear o sanar?",
 	ACADEMY_DPS_COOLDOWNS_BODY = "Tus cooldowns de daño son la mayor parte de tu daño. Pulsarlos en cuanto están listos es mejor que guardarlos para un momento \"perfecto\" que nunca llega.\n\nEn un jefe, ábrelo con ellos o guárdalos para la fase que importa. Tu kit de arriba te los lista para tu especialización.",
@@ -5791,9 +5791,9 @@ fill("esES", {
 	DGN_TIP_WS_HEART_DPS = "DPS: pisa una flecha de viento poco después de cada {SPELL:1216042}, pero guarda una cerca para {SPELL:468429}. En Mítico, lleva tu marca de {SPELL:1253979} a un charco de tormenta.",
 	DGN_TIP_WS_KROLUK_DPS = "DPS: cuando aparezcan adds, deja de pegar al jefe y cambia a los adds enseguida. Casi no recibe daño hasta que mueran.",
 	DGN_WIN_BOSS_PROMPT = "Jefe pulleado — ¿abrir la guía del jefe?",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ACADEMY_DPS_BOTH_BODY = "Você já conhece as lutas do lugar do DPS, e isso é a maior parte do trabalho. Tankar te dá filas de masmorra instantâneas; curar exige mais sangue-frio, mas é a função mais procurada.\n\nExperimente a função nova primeiro numa imersão ou numa follower dungeon, onde ninguém depende de você. Depois mantenha uma função como principal por um tempo, em vez de trocar a cada pug.",
 	ACADEMY_DPS_BOTH_TITLE = "Pensando em tankar ou curar?",
 	ACADEMY_DPS_COOLDOWNS_BODY = "Seus cooldowns de dano são a maior parte do seu dano. Apertá-los assim que ficam prontos vale mais do que guardá-los para um momento \"perfeito\" que nunca chega.\n\nNum chefe, abra com eles ou guarde-os para a fase que importa. O kit acima lista os da sua spec.",
@@ -6119,9 +6119,9 @@ fill("ptBR", {
 	DGN_VIEW_COURSE = "Masmorras 101",
 	DGN_WIN_BOSS_PROMPT = "Chefe puxado — abrir o guia do chefe?",
 	DGN_WIN_CHAT = "Bate-papo",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ACADEMY_DPS_BOTH_BODY = "Conosci già i combattimenti dal posto del DPS, ed è gran parte del lavoro. Fare il tank ti dà code istantanee per i dungeon; curare chiede più sangue freddo, ma è il ruolo più richiesto.\n\nProva il ruolo nuovo prima in una scorribanda o in un follower dungeon, dove nessuno dipende da te. Poi tieni un ruolo come principale per un po', invece di cambiarlo a ogni pug.",
 	ACADEMY_DPS_BOTH_TITLE = "Stai pensando a tank o heal?",
 	ACADEMY_DPS_COOLDOWNS_BODY = "I tuoi cooldown di danno sono gran parte del tuo danno. Premerli appena tornano pronti è meglio che tenerli da parte per un momento \"perfetto\" che non arriva mai.\n\nSu un boss, aprici il combattimento oppure tienili per la fase che conta. Il tuo toolkit qui sopra li elenca per la tua spec.",
@@ -6455,7 +6455,7 @@ fill("itIT", {
 	DGN_WIN_PICK_RAIDS = "Incursioni",
 	DGN_WIN_PICK_RITUALRAID = "Rituali e Incursioni",
 	DGN_WIN_PICK_RITUALS = "Rituali",
-})
+}) end
 
 --========================================================================
 -- De rest van de addon (23 aug)
@@ -6466,7 +6466,7 @@ fill("itIT", {
 -- staat het Engels er nog -- dat is een gat in de lijst, geen keuze.
 --========================================================================
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ALERT_INTERRUPT_FMT = "Unterbrechen!|n%s",
 	ALT_COL_UNDERCOINS = "Lorenmünzen",
 	ALT_TOOLTIP_PROF_MOXIE_FMT = "Tatkraft des Handwerkers: %s",
@@ -6901,9 +6901,9 @@ fill("deDE", {
 	WAY_LEG_TO_FLIGHT = "Flugmeister: %s",
 	WB_ZONE_EVERSONG = "Immersangwald",
 	WB_ZONE_VOIDSTORM = "Leerensturm",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ALERT_INTERRUPT_FMT = "Interruption !|n%s",
 	ARROW_AT_STEP = "Tu es à %s — traverse, la flèche reprend de l'autre côté.",
 	ARROW_TARGET_ROAMS = "|cffffd100(il se déplace — regarde autour de toi)|r",
@@ -7338,9 +7338,9 @@ fill("frFR", {
 	WAY_LEG_TO_FLIGHT = "Maître de vol : %s",
 	WB_ZONE_EVERSONG = "Bois des Chants éternels",
 	WB_ZONE_VOIDSTORM = "Tempête du Vide",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ALERT_INTERRUPT_FMT = "¡Interrumpe!|n%s",
 	ARROW_AT_STEP = "Ya estás en %s — cruza, que la flecha continúa al otro lado.",
 	ARROW_TARGET_ROAMS = "|cffffd100(se mueve — mira alrededor)|r",
@@ -7785,9 +7785,9 @@ fill("esES", {
 	WAY_LEG_TO_FLIGHT = "Maestro de vuelo: %s",
 	WB_ZONE_EVERSONG = "Bosque Canción Eterna",
 	WB_ZONE_VOIDSTORM = "Tormenta del Vacío",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ALERT_INTERRUPT_FMT = "Interrompa!|n%s",
 	ARROW_AT_STEP = "Você está em %s — atravesse; a seta continua do outro lado.",
 	ARROW_TARGET_ROAMS = "|cffffd100(fica andando — olhe em volta)|r",
@@ -8231,9 +8231,9 @@ fill("ptBR", {
 	WAY_LEG_TO_FLIGHT = "Mestre de voo: %s",
 	WB_ZONE_EVERSONG = "Floresta do Canto Eterno",
 	WB_ZONE_VOIDSTORM = "Tempestade do Caos",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALERT_INTERRUPT_FMT = "Interrompi!|n%s",
 	ALT_COL_UNDERCOINS = "Sottomonete",
 	ALT_TOOLTIP_PROF_MOXIE_FMT = "Grinta dell'Artigiano: %s",
@@ -8707,7 +8707,7 @@ fill("itIT", {
 	WB_ZONE_EVERSONG = "Boschi di Cantoeterno",
 	WB_ZONE_VOIDSTORM = "Tempesta del Vuoto",
 	WB_ZONE_ZULAMAN = "Zul'aman",
-})
+}) end
 
 --========================================================================
 -- Namen uit de client, ronde 3 (23 aug)
@@ -8718,7 +8718,7 @@ fill("itIT", {
 -- Elke naam heeft een bron; wat de client Engels toont, blijft Engels.
 --========================================================================
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ACH_GLYPHS_COILEDISLE = "Glyphenjäger der Gewundenen Insel",
 	ACH_LORE_COILEDISLE = "Schüler der Gessschichte",
 	ACH_LORE_HONORED_DEAD = "Die geehrten Toten (Kammern von Atal'Utek)",
@@ -8768,9 +8768,9 @@ fill("deDE", {
 	RITUAL_CHAL_TENDRILS = "Tentakel",
 	SHOWDOWNS_WAYPOINT_MAELLA = "Rissklinge Maella",
 	WB_BOSS_CRAGPINE = "Felskiefer",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ACH_GLYPHS_COILEDISLE = "Chasse aux glyphes de l’île Annelée",
 	ACH_LORE_COILEDISLE = "Étude de l’hissstoire",
 	ACH_LORE_HUNTER = "Chasse au savoir de Midnight",
@@ -8818,9 +8818,9 @@ fill("frFR", {
 	SHOWDOWNS_WAYPOINT_MAELLA = "Faillelame Maella",
 	WB_BOSS_CRAGPINE = "Pincombe",
 	WB_BOSS_PREDAXAS = "Prédaxas",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ACH_STEP_CLAM = "Almeja burbujeante",
 	ACH_STEP_COD_POOL = "Charca de bacalao siniestra",
 	ACH_STEP_CRATE = "Cajón calado",
@@ -8852,9 +8852,9 @@ fill("esES", {
 	RITUAL_CHAL_TENDRILS = "Zarcillos",
 	SHOWDOWNS_WAYPOINT_MAELLA = "Hoja de falla Maella",
 	WB_BOSS_CRAGPINE = "Pinorrisco",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ACH_GLYPHS_COILEDISLE = "Caçador de glifo das Ilhas Enroladas",
 	ACH_LORE_COILEDISLE = "Essstudante de hissstória",
 	ACH_LORE_HUNTER = "Caçador de histórias de Midnight",
@@ -8889,9 +8889,9 @@ fill("ptBR", {
 	RITUAL_CHAL_TENDRILS = "Tentáculos",
 	SHOWDOWNS_WAYPOINT_MAELLA = "Fissulâmina Maella",
 	WB_BOSS_CRAGPINE = "Pinheirochedo",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ACH_GLYPHS_COILEDISLE = "Cacciatore di Glifi dell'Isola Serpeggiante",
 	ACH_LORE_COILEDISLE = "Studente di ssstoria",
 	ACH_LORE_HUNTER = "Cacciatore di conoscenza di Midnight",
@@ -8958,7 +8958,7 @@ fill("itIT", {
 	RITUAL_CHAL_TENDRILS = "Tentacoli",
 	SHOWDOWNS_WAYPOINT_MAELLA = "Fendivarchi Maella",
 	WB_BOSS_CRAGPINE = "Rupizio",
-})
+}) end
 
 --- /mh stats — the plain-language stat coach (StatCoach.lua).
 ---
@@ -8972,7 +8972,7 @@ fill("itIT", {
 --- CMDLIST_STATS is deliberately absent: the command list is English + Dutch by
 --- design (see CommandList.lua) and falls back to enUS everywhere else.
 --- STATS_LINE_FMT and STATS_PERCENT_FMT are pure format strings — nothing to translate.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	STATS_TITLE = "Deine Werte, in einfachen Worten",
 	STATS_HINT = "Strg+C zum Kopieren. Die Zahlen werden live von deinem eigenen Charakter gelesen.",
 	STATS_HEADER_FMT = "%s - was deine Werte wirklich tun",
@@ -8992,9 +8992,9 @@ fill("deDE", {
 	STATS_NO_SPEC = "Du hast noch keine Spezialisierung, also gibt es keine Wertereihenfolge zu zeigen. Die kommt beim Leveln von allein.",
 	CODEX_STATS_TITLE = "Werte, ohne Fachjargon",
 	CODEX_STATS_BODY = "Deine Ausrüstung trägt zwei Arten von Zahlen.|n|n|cffffcc00Dein Hauptwert|r - Strength, Agility oder Intellect, je nach Spezialisierung - ist der Motor. Du wählst ihn nie: er kommt mit dem Item Level, und das Spiel setzt immer den richtigen auf Rüstung, die du tragen kannst.|n|n|cffffcc00Die vier sekundären Werte|r sind der Geschmack, und es sind für alle dieselben vier:|n• |cffffffffCritical Strike|r - die Chance, dass ein Treffer doppelt so hart einschlägt.|n• |cffffffffHaste|r - alles geht schneller, du drückst also mehr Tasten.|n• |cffffffffMastery|r - für jede Spezialisierung etwas anderes. Deiner steht in deinem Charakterfenster.|n• |cffffffffVersatility|r - etwas mehr Schaden und Heilung, etwas weniger Schaden herein.|n|nJede Spezialisierung will sie in einer anderen Reihenfolge, und diese Reihenfolge ist der einzige Grund, sich dafür zu interessieren. |cffffcc00Die Regel, die schwerer wiegt als die Reihenfolge: ein höheres Item Level ist fast immer das bessere Item.|r Werte entscheiden, wenn zwei Teile dicht beieinander liegen, nicht wenn eines klar größer ist.|n|nTippe |cffffffff/mh stats|r für deine eigene Spezialisierung - deine vier Zahlen, in deiner Reihenfolge, mit deinem Mastery in den Worten des Spiels selbst.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	STATS_TITLE = "Tes stats, en mots simples",
 	STATS_HINT = "Ctrl+C pour copier. Les chiffres sont lus en direct sur ton propre personnage.",
 	STATS_HEADER_FMT = "%s - ce que tes stats font vraiment",
@@ -9014,9 +9014,9 @@ fill("frFR", {
 	STATS_NO_SPEC = "Tu n'as pas encore de spécialisation, il n'y a donc pas d'ordre de stats à montrer. Il arrivera tout seul en montant de niveau.",
 	CODEX_STATS_TITLE = "Les stats, sans le jargon",
 	CODEX_STATS_BODY = "Ton équipement porte deux sortes de chiffres.|n|n|cffffcc00Ta stat principale|r - Strength, Agility ou Intellect selon ta spécialisation - est le moteur. Tu ne la choisis jamais : elle arrive avec l'item level, et le jeu ne met que la bonne sur l'armure que tu peux porter.|n|n|cffffcc00Les quatre stats secondaires|r sont la saveur, et ce sont les mêmes quatre pour tout le monde :|n• |cffffffffCritical Strike|r - la chance qu'un coup frappe deux fois plus fort.|n• |cffffffffHaste|r - tout va plus vite, donc tu appuies sur plus de boutons.|n• |cffffffffMastery|r - un effet différent pour chaque spécialisation. La tienne est décrite sur ta fiche de personnage.|n• |cffffffffVersatility|r - un peu plus de dégâts et de soins, un peu moins de dégâts subis.|n|nChaque spécialisation les veut dans un ordre différent, et cet ordre est la seule raison de s'y intéresser. |cffffcc00La règle qui pèse plus lourd que l'ordre : un item level plus élevé est presque toujours le meilleur objet.|r Les stats tranchent quand deux pièces sont proches, pas quand l'une est nettement plus grosse.|n|nTape |cffffffff/mh stats|r pour ta propre spécialisation - tes quatre chiffres, dans ton ordre, avec ta Mastery expliquée avec les mots du jeu.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	STATS_TITLE = "Tus stats, en palabras sencillas",
 	STATS_HINT = "Ctrl+C para copiar. Los números se leen en vivo de tu propio personaje.",
 	STATS_HEADER_FMT = "%s - lo que tus stats hacen de verdad",
@@ -9036,9 +9036,9 @@ fill("esES", {
 	STATS_NO_SPEC = "Aún no tienes especialización, así que no hay orden de stats que mostrar. Llegará solo mientras subes de nivel.",
 	CODEX_STATS_TITLE = "Stats, sin jerga",
 	CODEX_STATS_BODY = "Tu equipo lleva dos clases de números.|n|n|cffffcc00Tu stat principal|r - Strength, Agility o Intellect, según tu especialización - es el motor. Nunca la eliges: llega con el item level, y el juego solo pone la correcta en la armadura que puedes llevar.|n|n|cffffcc00Las cuatro stats secundarias|r son el sabor, y son las mismas cuatro para todos:|n• |cffffffffCritical Strike|r - la probabilidad de que un golpe pegue el doble.|n• |cffffffffHaste|r - todo va más rápido, así que pulsas más botones.|n• |cffffffffMastery|r - un efecto distinto en cada especialización. La tuya está descrita en tu hoja de personaje.|n• |cffffffffVersatility|r - algo más de daño y curación, algo menos de daño recibido.|n|nCada especialización las quiere en un orden distinto, y ese orden es la única razón para preocuparse. |cffffcc00La regla que pesa más que el orden: un item level más alto es casi siempre el mejor objeto.|r Las stats deciden cuando dos piezas están cerca, no cuando una es claramente mayor.|n|nEscribe |cffffffff/mh stats|r para tu propia especialización: tus cuatro números, en tu orden, con tu Mastery explicada con las palabras del propio juego.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	STATS_TITLE = "Seus stats, em palavras simples",
 	STATS_HINT = "Ctrl+C para copiar. Os números são lidos ao vivo do seu próprio personagem.",
 	STATS_HEADER_FMT = "%s - o que seus stats realmente fazem",
@@ -9058,9 +9058,9 @@ fill("ptBR", {
 	STATS_NO_SPEC = "Você ainda não tem especialização, então não há ordem de stats para mostrar. Ela chega sozinha conforme você sobe de nível.",
 	CODEX_STATS_TITLE = "Stats, sem o jargão",
 	CODEX_STATS_BODY = "Seu equipamento carrega dois tipos de número.|n|n|cffffcc00Seu stat principal|r - Strength, Agility ou Intellect, conforme a sua especialização - é o motor. Você nunca o escolhe: ele vem com o item level, e o jogo só coloca o certo na armadura que você pode usar.|n|n|cffffcc00Os quatro stats secundários|r são o tempero, e são os mesmos quatro para todo mundo:|n• |cffffffffCritical Strike|r - a chance de um golpe acertar com o dobro da força.|n• |cffffffffHaste|r - tudo acontece mais rápido, então você aperta mais botões.|n• |cffffffffMastery|r - um efeito diferente em cada especialização. A sua está descrita na sua ficha de personagem.|n• |cffffffffVersatility|r - um pouco mais de dano e cura, um pouco menos de dano recebido.|n|nCada especialização os quer em uma ordem diferente, e essa ordem é o único motivo para se importar. |cffffcc00A regra que pesa mais do que a ordem: um item level mais alto é quase sempre o melhor item.|r Os stats decidem quando duas peças estão próximas, não quando uma é claramente maior.|n|nDigite |cffffffff/mh stats|r para a sua própria especialização - seus quatro números, na sua ordem, com a sua Mastery explicada com as palavras do próprio jogo.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	STATS_TITLE = "Le tue stat, in parole semplici",
 	STATS_HINT = "Ctrl+C per copiare. I numeri sono letti dal vivo dal tuo personaggio.",
 	STATS_HEADER_FMT = "%s - cosa fanno davvero le tue stat",
@@ -9080,7 +9080,7 @@ fill("itIT", {
 	STATS_NO_SPEC = "Non hai ancora una specializzazione, quindi non c'è un ordine di stat da mostrare. Arriva da sé mentre sali di livello.",
 	CODEX_STATS_TITLE = "Le stat, senza gergo",
 	CODEX_STATS_BODY = "Il tuo equipaggiamento porta due tipi di numeri.|n|n|cffffcc00La tua stat principale|r - Strength, Agility o Intellect, a seconda della specializzazione - è il motore. Non la scegli mai: arriva con l'item level, e il gioco mette solo quella giusta sull'armatura che puoi indossare.|n|n|cffffcc00Le quattro stat secondarie|r sono il sapore, e sono le stesse quattro per tutti:|n• |cffffffffCritical Strike|r - la probabilità che un colpo arrivi il doppio più forte.|n• |cffffffffHaste|r - tutto va più veloce, quindi premi più tasti.|n• |cffffffffMastery|r - un effetto diverso per ogni specializzazione. La tua è descritta nella scheda del personaggio.|n• |cffffffffVersatility|r - un po' più di danno e cura, un po' meno danno subito.|n|nOgni specializzazione le vuole in un ordine diverso, e quell'ordine è l'unico motivo per interessarsene. |cffffcc00La regola che pesa più dell'ordine: un item level più alto è quasi sempre l'oggetto migliore.|r Le stat decidono quando due pezzi sono vicini, non quando uno è chiaramente più grande.|n|nDigita |cffffffff/mh stats|r per la tua specializzazione: i tuoi quattro numeri, nel tuo ordine, con la tua Mastery spiegata con le parole del gioco stesso.",
-})
+}) end
 
 
 --- Spec 31 B4 -- the line under the changelog window, which opens by itself on every update.
@@ -9089,11 +9089,11 @@ fill("itIT", {
 --- and CHANGELOG_CB_UNTIL_NEXT exist in all seven packs. This is chrome, so it follows chrome.
 --- ⚠️ Ours, not reviewed by native speakers. deDE is the weakest: German cannot carry the
 --- English verbless opener, so it reads more written than the other four.
-fill("deDE", { CHANGELOG_ASK = "Stimmt etwas in dieser Liste nicht, oder fehlt etwas für deine Klasse? Dieses Addon schreibt eine einzige Person — sag es auf Discord oder GitHub, dann wird es behoben." })
-fill("frFR", { CHANGELOG_ASK = "Quelque chose de faux dans cette liste, ou qui manque pour ta classe ? Cet addon est écrit par une seule personne — dis-le sur Discord ou GitHub, et ce sera corrigé." })
-fill("esES", { CHANGELOG_ASK = "¿Hay algo mal en esta lista, o falta algo para tu clase? Este addon lo escribe una sola persona — dilo en Discord o GitHub, y se arregla." })
-fill("ptBR", { CHANGELOG_ASK = "Tem alguma coisa errada nesta lista, ou faltando para a sua classe? Este addon é escrito por uma pessoa só — avise no Discord ou no GitHub, e será corrigido." })
-fill("itIT", { CHANGELOG_ASK = "C'è qualcosa di sbagliato in questa lista, o che manca per la tua classe? Questo addon lo scrive una persona sola — dillo su Discord o GitHub, e viene sistemato." })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { CHANGELOG_ASK = "Stimmt etwas in dieser Liste nicht, oder fehlt etwas für deine Klasse? Dieses Addon schreibt eine einzige Person — sag es auf Discord oder GitHub, dann wird es behoben." }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { CHANGELOG_ASK = "Quelque chose de faux dans cette liste, ou qui manque pour ta classe ? Cet addon est écrit par une seule personne — dis-le sur Discord ou GitHub, et ce sera corrigé." }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { CHANGELOG_ASK = "¿Hay algo mal en esta lista, o falta algo para tu clase? Este addon lo escribe una sola persona — dilo en Discord o GitHub, y se arregla." }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { CHANGELOG_ASK = "Tem alguma coisa errada nesta lista, ou faltando para a sua classe? Este addon é escrito por uma pessoa só — avise no Discord ou no GitHub, e será corrigido." }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { CHANGELOG_ASK = "C'è qualcosa di sbagliato in questa lista, o che manca per la tua classe? Questo addon lo scrive una persona sola — dillo su Discord o GitHub, e viene sistemato." }) end
 
 
 --- Spec 31 B5 -- /mh report. The chrome around the report; the report BODY stays English on
@@ -9103,55 +9103,55 @@ fill("itIT", { CHANGELOG_ASK = "C'è qualcosa di sbagliato in questa lista, o ch
 --- 📌 The second sentence of REPORT_CHAT_HINT is the load-bearing one and must survive
 --- translation: this addon's worst fault is being out of date, and a player will not report
 --- that unless we say out loud that it counts.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CMDLIST_REPORT = "Erstellt einen Bericht zum Einfügen — für einen Fehler, oder für etwas, das dir das Addon falsch gesagt hat.",
 	REPORT_TITLE = "Kopiere das, und erzähl uns, was passiert ist",
 	REPORT_CHAT_HINT = "Kopiere den Kasten und füge ihn auf Discord oder GitHub ein. „Es hat mir etwas Falsches gesagt“ zählt auch — eine veraltete Erklärung ist hier ein schlimmerer Fehler als eine Fehlermeldung.",
 	REPORT_NO_DIALOG = "Das Kopierfenster wurde nicht geladen. Mach /reload und versuch es noch einmal.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CMDLIST_REPORT = "Prépare un rapport à coller — pour un bug, ou pour quelque chose que l'addon t'a dit de faux.",
 	REPORT_TITLE = "Copie ceci, et raconte-nous ce qui s'est passé",
 	REPORT_CHAT_HINT = "Copie le cadre et colle-le sur Discord ou GitHub. « Il m'a dit quelque chose de faux » compte aussi — une explication périmée est ici un défaut plus grave qu'un message d'erreur.",
 	REPORT_NO_DIALOG = "La fenêtre de copie ne s'est pas chargée. Fais /reload et réessaie.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CMDLIST_REPORT = "Prepara un informe para pegar — para un fallo, o para algo que el addon te dijo mal.",
 	REPORT_TITLE = "Copia esto y cuéntanos qué pasó",
 	REPORT_CHAT_HINT = "Copia el cuadro y pégalo en Discord o GitHub. «Me dijo algo incorrecto» también cuenta — una explicación desfasada es aquí un fallo peor que un mensaje de error.",
 	REPORT_NO_DIALOG = "La ventana de copia no se cargó. Haz /reload e inténtalo otra vez.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_REPORT = "Monta um relatório para colar — para um bug, ou para algo que o addon te disse errado.",
 	REPORT_TITLE = "Copie isto e conte o que aconteceu",
 	REPORT_CHAT_HINT = "Copie a caixa e cole no Discord ou no GitHub. “Ele me disse algo errado” também conta — uma explicação desatualizada é aqui um defeito pior do que uma mensagem de erro.",
 	REPORT_NO_DIALOG = "A janela de cópia não carregou. Faça /reload e tente de novo.",
-})
+}) end
 --- 2 sep — `/mh poisons` was gebouwd maar nergens vermeld, dus onvindbaar. Zie de opmerking
 --- boven MH_UNLISTED_ON_PURPOSE in Modules/CommandList.lua. ⚠️ "poisons" blijft Engels: het is
 --- de spelterm die op Valeera's eigen paneel staat.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CMDLIST_CURIOINFO = "Was jedes von Valeeras Tiefen-Curios bewirkt, aus deinem eigenen Spiel gelesen.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CMDLIST_CURIOINFO = "Ce que fait chaque curio de Valeera, lu dans ton propre jeu.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CMDLIST_CURIOINFO = "Qué hace cada curio de Valeera, leído de tu propio juego.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_CURIOINFO = "O que cada curio de imersão da Valira faz, lido do seu próprio jogo.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CMDLIST_CURIOINFO = "Cosa fa ogni curio di Valeera, letto dal tuo stesso gioco.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CMDLIST_REPORT = "Prepara un rapporto da incollare — per un bug, o per qualcosa che l'addon ti ha detto di sbagliato.",
 	REPORT_TITLE = "Copia questo e raccontaci cos'è successo",
 	REPORT_CHAT_HINT = "Copia il riquadro e incollalo su Discord o GitHub. «Mi ha detto una cosa sbagliata» vale eccome — una spiegazione superata qui è un difetto peggiore di un messaggio d'errore.",
 	REPORT_NO_DIALOG = "La finestra di copia non si è caricata. Fai /reload e riprova.",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- Dundun, the Shrine of Abundance (4 Sep 2026)
@@ -9183,7 +9183,7 @@ fill("itIT", {
 -- `MACROS_TYPE_WORLD` IS translated — it is our own category name, not a game term, and
 -- the tooltip that names the button uses the same translated word in each language.
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	DUNDUN_CHAT_HEADER = "Diese Tiefe ist großzügig, also versteckt sich |cff00ffffDundun|r darin.",
 	DUNDUN_CHAT_WHAT = "Such etwas aus Holz, das gezimmert statt gewachsen ist — Bretter und Schrauben, Farbe statt Rinde. Er wurde als Fake-Baum, als Fake-Pfahl und als Holzflamingo gefunden, also achte auf \"das hat jemand gebaut\" und nicht auf eine bestimmte Form. Ihn zu finden und anzusprechen kostet nichts und bringt am Ende eine Extra-Belohnung.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Nur wenn deine Delver's Journey Rang %d oder höher ist — ich konnte deinen Rang nicht lesen, sieh also selbst nach.",
@@ -9204,9 +9204,9 @@ fill("deDE", {
 	DUNDUN_PANEL_MACRO_TT = "Öffnet den Makros-Tab. Wähle |cffffff00Welt|r für das Dundun-Makro.",
 	MACROS_TYPE_WORLD = "Welt",
 	MACROS_WORLD_SUBTITLE = "Makros, die für jede Klasse funktionieren — für Dinge, die die Welt versteckt, statt für Dinge, die deiner Spezialisierung fehlen.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	DUNDUN_CHAT_HEADER = "Ce gouffre est abondant, donc |cff00ffffDundun|r s'y cache.",
 	DUNDUN_CHAT_WHAT = "Cherche quelque chose en bois qui a été fabriqué et non poussé — des planches et des vis, de la peinture au lieu de l'écorce. On l'a trouvé en faux arbre, en faux poteau et en flamant rose en bois, alors fie-toi à \"quelqu'un a construit ça\" plutôt qu'à une forme précise. Le trouver et lui parler est gratuit et donne une récompense en plus à la fin.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Seulement si ta Delver's Journey est au rang %d ou plus — je n'ai pas pu lire ton rang, alors vérifie toi-même.",
@@ -9227,9 +9227,9 @@ fill("frFR", {
 	DUNDUN_PANEL_MACRO_TT = "Ouvre l'onglet Macros. Choisis |cffffff00Monde|r pour la macro Find Dundun.",
 	MACROS_TYPE_WORLD = "Monde",
 	MACROS_WORLD_SUBTITLE = "Des macros qui marchent pour toutes les classes — pour ce que le monde cache, pas pour ce qui manque à ta spé.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	DUNDUN_CHAT_HEADER = "Esta profundidad es pródiga, así que |cff00ffffDundun|r se esconde en ella.",
 	DUNDUN_CHAT_WHAT = "Busca algo de madera que esté construido y no crecido — tablas y tornillos, pintura en vez de corteza. Se le ha encontrado como árbol falso, como poste falso y como flamenco de madera, así que fíjate en \"esto lo ha hecho alguien\" y no en una forma concreta. Encontrarlo y hablar con él es gratis y da una recompensa extra al final.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Solo si tu Delver's Journey está en rango %d o superior — no pude leer tu rango, así que compruébalo tú mismo.",
@@ -9250,9 +9250,9 @@ fill("esES", {
 	DUNDUN_PANEL_MACRO_TT = "Abre la pestaña Macros. Elige |cffffff00Mundo|r para la macro Find Dundun.",
 	MACROS_TYPE_WORLD = "Mundo",
 	MACROS_WORLD_SUBTITLE = "Macros que funcionan para todas las clases — para lo que esconde el mundo, no para lo que le falta a tu especialización.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	DUNDUN_CHAT_HEADER = "Esta imersão é abundante, então |cff00ffffDundun|r está escondido nela.",
 	DUNDUN_CHAT_WHAT = "Procure algo de madeira que foi construído e não cresceu — tábuas e parafusos, tinta em vez de casca. Ele já foi encontrado como árvore falsa, como poste falso e como flamingo de madeira, então guie-se por \"alguém fez isso\" e não por uma forma específica. Encontrá-lo e falar com ele é de graça e dá uma recompensa extra no final.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Só se a sua Delver's Journey estiver no rank %d ou acima — não consegui ler o seu rank, então confira você mesmo.",
@@ -9273,9 +9273,9 @@ fill("ptBR", {
 	DUNDUN_PANEL_MACRO_TT = "Abre a aba Macros. Escolha |cffffff00Mundo|r para a macro Find Dundun.",
 	MACROS_TYPE_WORLD = "Mundo",
 	MACROS_WORLD_SUBTITLE = "Macros que funcionam para todas as classes — para o que o mundo esconde, não para o que falta na sua spec.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	DUNDUN_CHAT_HEADER = "Questa scorribanda è Fruttuosa, quindi |cff00ffffDundun|r ci si nasconde dentro.",
 	DUNDUN_CHAT_WHAT = "Cerca qualcosa di legno che è stato costruito e non cresciuto — assi e viti, vernice al posto della corteccia. È stato trovato come albero finto, come palo finto e come fenicottero di legno, quindi vai a \"qualcuno l'ha fatto\" e non a una forma precisa. Trovarlo e parlargli è gratis e dà una ricompensa extra alla fine.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Solo se la tua Delver's Journey è di rango %d o superiore — non sono riuscito a leggere il tuo rango, quindi controlla tu.",
@@ -9296,37 +9296,37 @@ fill("itIT", {
 	DUNDUN_PANEL_MACRO_TT = "Apre la scheda Macros. Scegli |cffffff00Mondo|r per la macro Find Dundun.",
 	MACROS_TYPE_WORLD = "Mondo",
 	MACROS_WORLD_SUBTITLE = "Macro che funzionano per ogni classe — per le cose che nasconde il mondo, non per quelle che mancano alla tua spec.",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- 10 Sep 2026 — Spec 33 §2b/§2c: the Macros tab gets a command and a Tools card.
 -- Our own translations, not reviewed by a native speaker.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	TOOLLP_MACROS_DESC = "Fertige Makros für deine Klasse und Spec (Mouseover, Cursor, Fokus), jedes mit dem, wovor es dich bewahrt.",
 	CMDLIST_MACROS = "Öffnet den Macros-Reiter: fertige Makros für deine Klasse und Spec, jedes mit dem, was es tut und wovor es dich bewahrt.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	TOOLLP_MACROS_DESC = "Des macros prêtes pour ta classe et ta spé (mouseover, curseur, focus), chacune avec ce qu'elle t'évite.",
 	CMDLIST_MACROS = "Ouvre l'onglet Macros : des macros prêtes pour ta classe et ta spé, chacune avec ce qu'elle fait et ce qu'elle t'évite.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	TOOLLP_MACROS_DESC = "Macros listas para tu clase y especialización (mouseover, cursor, foco), cada una con lo que te ahorra.",
 	CMDLIST_MACROS = "Abre la pestaña Macros: macros listas para tu clase y especialización, cada una con lo que hace y lo que te ahorra.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	TOOLLP_MACROS_DESC = "Macros prontas para sua classe e especialização (mouseover, cursor, foco), cada uma com o que te poupa.",
 	CMDLIST_MACROS = "Abre a aba Macros: macros prontas para sua classe e especialização, cada uma com o que faz e o que te poupa.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	TOOLLP_MACROS_DESC = "Macro pronte per la tua classe e specializzazione (mouseover, cursore, focus), ognuna con cosa ti risparmia.",
 	CMDLIST_MACROS = "Apre la scheda Macros: macro pronte per la tua classe e specializzazione, ognuna con cosa fa e cosa ti risparmia.",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- 10 Sep 2026 — Spec 38 §3.3 and option A: the Account snapshot's new headers.
@@ -9338,7 +9338,7 @@ fill("itIT", {
 -- Our own translations, not native-reviewed.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ALT_COL_VAULT = "Schatzkammer",
 	ALT_COL_VAULT_HINT_FMT = "Große Schatzkammer: diese Woche freigeschaltete Auswahlen, alle drei Reihen zusammengezählt (%s, %s, %s), vom Gesamtwert.\nWarum: Jede Auswahl ist ein Gegenstand mehr zur Wahl nach dem Reset.\nReset: jede Woche. %s = auf diesem Charakter wartet eine Belohnung.\nFahre über einen Charakter, um jede Reihe zu sehen.",
 	ALT_COL_LEVEL_ILVL_HINT = "Stufe und angelegte Gegenstandsstufe, gespeichert beim letzten Login.\nWarum: Charaktere unter der Höchststufe stehen zusammen unter einer Zeile, damit deine Charaktere auf Höchststufe oben stehen.\nKlicken, um nach Stufe zu sortieren.",
@@ -9346,9 +9346,9 @@ fill("deDE", {
 	ALT_COL_WEEK_HINT = "Diese Woche verdiente Kastenschlüsselsplitter.\nWarum: Die Woche hat eine Obergrenze; ist sie erreicht, kommen bis zum Reset keine Shards mehr hinzu.\nReset: beim wöchentlichen Reset. Der Haken heißt: Obergrenze erreicht; — heißt: Dieser Charakter war seit dem Reset nicht eingeloggt.",
 	ALT_COL_SHARDS_WALLET_HINT = "Kastenschlüsselsplitter in der Brieftasche dieses Charakters.\nWarum: 100 ergeben einen restaurierten Kastenschlüssel.\nReset: nie.",
 	ALT_ROW_STALE_TOOLTIP = "Neu einloggen nötig: Diese Zeile ist von vor dem Reset dieser Woche. Logge dich einmal mit diesem Charakter ein, dann wird sie aktualisiert.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ALT_COL_VAULT = "Chambre forte",
 	ALT_COL_VAULT_HINT_FMT = "Grande chambre forte : choix débloqués cette semaine, les trois rangées additionnées (%s, %s, %s), sur le total.\nPourquoi : chaque choix est un objet de plus parmi lesquels choisir après la réinitialisation.\nRéinitialisation : chaque semaine. %s = une récompense attend sur ce personnage.\nSurvole un personnage pour voir chaque rangée.",
 	ALT_COL_LEVEL_ILVL = "Niv · ilvl",
@@ -9357,9 +9357,9 @@ fill("frFR", {
 	ALT_COL_WEEK_HINT = "Fragments de clé de coffre gagnés cette semaine.\nPourquoi : la semaine a un plafond ; une fois atteint, plus aucun shard n'arrive jusqu'à la réinitialisation.\nRéinitialisation : à la réinitialisation hebdomadaire. La coche signifie : plafond atteint ; — signifie : ce personnage ne s'est pas connecté depuis la réinitialisation.",
 	ALT_COL_SHARDS_WALLET_HINT = "Fragments de clé de coffre dans le portefeuille de ce personnage.\nPourquoi : 100 font une clé de coffret réparée.\nRéinitialisation : jamais.",
 	ALT_ROW_STALE_TOOLTIP = "Reconnexion nécessaire : cette ligne date d'avant la réinitialisation de cette semaine. Connecte-toi une fois sur ce personnage pour la mettre à jour.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ALT_COL_VAULT = "Gran cámara",
 	ALT_COL_VAULT_HINT_FMT = "Gran cámara: opciones desbloqueadas esta semana, las tres filas sumadas (%s, %s, %s), del total.\nPor qué: cada opción es un objeto más entre el que elegir tras el reinicio.\nReinicio: cada semana. %s = hay una recompensa esperando en ese personaje.\nPasa el ratón por un personaje para ver cada fila.",
 	ALT_COL_LEVEL_ILVL = "Nv · ilvl",
@@ -9368,9 +9368,9 @@ fill("esES", {
 	ALT_COL_WEEK_HINT = "Fragmentos de llave de arca ganados esta semana.\nPor qué: la semana tiene un límite; al alcanzarlo, no entran más shards hasta el reinicio.\nReinicio: con el reinicio semanal. La marca significa: límite alcanzado; — significa: este personaje no ha entrado desde el reinicio.",
 	ALT_COL_SHARDS_WALLET_HINT = "Fragmentos de llave de arca en la bolsa de este personaje.\nPor qué: 100 forman una llave de arca restaurada.\nReinicio: nunca.",
 	ALT_ROW_STALE_TOOLTIP = "Hace falta volver a entrar: esta fila es de antes del reinicio de esta semana. Entra una vez con este personaje y se actualizará.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ALT_COL_VAULT = "Grande Cofre",
 	ALT_COL_VAULT_HINT_FMT = "Grande Cofre: escolhas desbloqueadas esta semana, as três fileiras somadas (%s, %s, %s), do total.\nPor quê: cada escolha é um item a mais para escolher depois do reset.\nReset: toda semana. %s = há uma recompensa esperando nesse personagem.\nPasse o mouse sobre um personagem para ver cada fileira.",
 	ALT_COL_LEVEL_ILVL = "Nv · ilvl",
@@ -9379,9 +9379,9 @@ fill("ptBR", {
 	ALT_COL_WEEK_HINT = "Estilhaços de Chave de Cofre ganhos nesta semana.\nPor quê: a semana tem um limite; ao atingi-lo, não entram mais shards até o reset.\nReset: no reset semanal. O visto significa: limite atingido; — significa: este personagem não entrou desde o reset.",
 	ALT_COL_SHARDS_WALLET_HINT = "Estilhaços de Chave de Cofre na carteira deste personagem.\nPor quê: 100 formam uma Chave de Cofre Restaurada.\nReset: nunca.",
 	ALT_ROW_STALE_TOOLTIP = "Precisa relogar: esta linha é de antes do reset desta semana. Entre uma vez com este personagem e ela é atualizada.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALT_COL_VAULT = "Gran Banca",
 	ALT_COL_VAULT_HINT_FMT = "Gran Banca: scelte sbloccate questa settimana, le tre righe sommate (%s, %s, %s), sul totale.\nPerché: ogni scelta è un oggetto in più tra cui scegliere dopo il reset.\nReset: ogni settimana. %s = c'è una ricompensa in attesa su quel personaggio.\nPassa il mouse su un personaggio per vedere ogni riga.",
 	ALT_COL_LEVEL_ILVL_HINT = "Livello e livello oggetto equipaggiato, salvati all'ultimo accesso.\nPerché: i personaggi sotto il livello massimo sono raggruppati in una riga, così i tuoi personaggi al livello massimo vengono prima.\nClicca per ordinare per livello.",
@@ -9389,7 +9389,7 @@ fill("itIT", {
 	ALT_COL_WEEK_HINT = "Schegge di Chiave dello Scrigno guadagnate questa settimana.\nPerché: la settimana ha un cap; una volta raggiunto, non arrivano altri shard fino al reset.\nReset: al reset settimanale. La spunta significa: cap raggiunto; — significa: questo personaggio non è entrato dal reset.",
 	ALT_COL_SHARDS_WALLET_HINT = "Schegge di Chiave dello Scrigno nel portafoglio di questo personaggio.\nPerché: 100 fanno una Chiave dello Scrigno Ripristinata.\nReset: mai.",
 	ALT_ROW_STALE_TOOLTIP = "Serve un nuovo login: questa riga è di prima del reset di questa settimana. Entra una volta con questo personaggio e si aggiorna.",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- 11 Sep 2026 — Spec 39: the "Your characters" block on the Currencies tab
@@ -9397,7 +9397,7 @@ fill("itIT", {
 -- here. Our own translations, not native-reviewed.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CURACC_TITLE = "Deine Charaktere",
 	CURACC_HINT = "Du = dieser Charakter · Gesamt = alle deine Charaktere zusammen · fahre über eine Zeile für jeden einzeln.",
 	CURACC_ADV_NONE = "Kein Charakter hat etwas davon.",
@@ -9423,9 +9423,9 @@ fill("deDE", {
 	CURACC_USE_MARL = "Ausgegeben bei den Renown-Rüstmeistern, auch bei Jan'sari the Watchful auf der Gewundenen Insel (neu in Saison 2).",
 	CURACC_USE_ACCOLADE = "Ausgegeben bei Maren Silverwing über dem Basar für Veteran-Ausrüstungs-Caches oder bei Triam Dawnsetter für Kosmetik.",
 	CURACC_USE_CRESTS = "Zum Aufwerten von Ausrüstung, 20 pro Stufe; jedes Wappen gilt nur für seinen eigenen Pfad. Der Wappen-Tab zeigt die Leiter.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CURACC_TITLE = "Tes personnages",
 	CURACC_HINT = "Toi = ce personnage · Total = tous tes personnages additionnés · survole une ligne pour le détail.",
 	CURACC_ADV_NONE = "Aucun personnage n'en a.",
@@ -9451,9 +9451,9 @@ fill("frFR", {
 	CURACC_USE_MARL = "Se dépense chez les intendants de Renown, dont Jan'sari the Watchful sur l'Île Annelée (nouveau en saison 2).",
 	CURACC_USE_ACCOLADE = "Se dépense chez Maren Silverwing au-dessus du Bazar en caches d'équipement Vétéran, ou chez Triam Dawnsetter en cosmétiques.",
 	CURACC_USE_CRESTS = "Sert à améliorer l'équipement, 20 par palier ; chaque écu ne vaut que pour sa propre voie. L'onglet Écus montre l'échelle.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CURACC_TITLE = "Tus personajes",
 	CURACC_HINT = "Tú = este personaje · Total = todos tus personajes sumados · pasa el ratón por una fila para ver cada uno.",
 	CURACC_ADV_NONE = "Ningún personaje tiene.",
@@ -9479,9 +9479,9 @@ fill("esES", {
 	CURACC_USE_MARL = "Se gasta con los intendentes de Renown, incluida Jan'sari the Watchful en la Isla Serpenteante (nuevo en la temporada 2).",
 	CURACC_USE_ACCOLADE = "Se gasta con Maren Silverwing sobre el Bazar en alijos de equipo Veterano, o con Triam Dawnsetter en cosméticos.",
 	CURACC_USE_CRESTS = "Sirve para mejorar el equipo, 20 por paso; cada blasón solo vale para su propia vía. La pestaña Blasones muestra la escalera.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CURACC_TITLE = "Seus personagens",
 	CURACC_HINT = "Você = este personagem · Total = todos os seus personagens somados · passe o mouse sobre uma linha para ver cada um.",
 	CURACC_ADV_NONE = "Nenhum personagem tem.",
@@ -9507,9 +9507,9 @@ fill("ptBR", {
 	CURACC_USE_MARL = "Gasta com os intendentes de Renown, incluindo Jan'sari the Watchful na Ilha Enrolada (novo na temporada 2).",
 	CURACC_USE_ACCOLADE = "Gasta com Maren Silverwing acima do Bazar em baús de equipamento Veterano, ou com Triam Dawnsetter em cosméticos.",
 	CURACC_USE_CRESTS = "Serve para aprimorar o equipamento, 20 por etapa; cada brasão só vale para sua própria trilha. A aba Brasões mostra a escada.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CURACC_TITLE = "I tuoi personaggi",
 	CURACC_HINT = "Tu = questo personaggio · Totale = tutti i tuoi personaggi sommati · passa il mouse su una riga per il dettaglio.",
 	CURACC_ADV_NONE = "Nessun personaggio ne ha.",
@@ -9535,7 +9535,7 @@ fill("itIT", {
 	CURACC_USE_MARL = "Si spende dai quartiermastri di Renown, compresa Jan'sari the Watchful sull'Isola Serpeggiante (novità della stagione 2).",
 	CURACC_USE_ACCOLADE = "Si spendono da Maren Silverwing sopra il Bazar in cache di equipaggiamento Veteran, o da Triam Dawnsetter in cosmetici.",
 	CURACC_USE_CRESTS = "Servono a migliorare l'equipaggiamento, 20 per passo; ogni emblema vale solo per il proprio percorso. La scheda Emblemi mostra la scala.",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- 11 Sep 2026 — Spec 38 option B, points 4 and 6 (Rob's choice): the fold line for leveling
@@ -9544,7 +9544,7 @@ fill("itIT", {
 -- translations, not native-reviewed.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ALT_LEVEL_GROUP_FMT = "Charaktere im Aufstieg (%d) — unter Stufe %d, der Höchststufe",
 	ALT_LEVEL_GROUP_TT_NOTE = "Charaktere unter der Höchststufe, eingeklappt, damit die Tabelle deine Charaktere auf Höchststufe zuerst zeigt. Dein aktueller Charakter wird nie eingeklappt.",
 	ALT_LEVEL_GROUP_TT_SHOW = "Klicken, um sie zu zeigen.",
@@ -9559,9 +9559,9 @@ fill("deDE", {
 	ALT_NEXT_VAULT_FMT = "Große Schatzkammer, %s: noch %d bis zur nächsten Auswahl (%d/%d).",
 	ALT_NEXT_KEYS_FMT = "%d restaurierte Kastenschlüssel für großzügige Kästen übrig.",
 	ALT_HINT_RESET_NOT_WEEKLY = "Reset: nicht beim wöchentlichen Reset.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ALT_LEVEL_GROUP_FMT = "Personnages en progression (%d) — sous le niveau %d, le niveau maximum",
 	ALT_LEVEL_GROUP_TT_NOTE = "Personnages sous le niveau maximum, repliés pour que le tableau montre d'abord tes personnages au niveau maximum. Ton personnage actuel n'est jamais replié.",
 	ALT_LEVEL_GROUP_TT_SHOW = "Clique pour les afficher.",
@@ -9576,9 +9576,9 @@ fill("frFR", {
 	ALT_NEXT_VAULT_FMT = "Grande chambre forte, %s : encore %d pour le prochain choix (%d/%d).",
 	ALT_NEXT_KEYS_FMT = "%d clés de coffret réparées à utiliser sur des coffres abondants.",
 	ALT_HINT_RESET_NOT_WEEKLY = "Réinitialisation : pas à la réinitialisation hebdomadaire.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ALT_LEVEL_GROUP_FMT = "Personajes subiendo de nivel (%d) — por debajo del nivel %d, el máximo",
 	ALT_LEVEL_GROUP_TT_NOTE = "Personajes por debajo del nivel máximo, plegados para que la tabla muestre primero tus personajes de nivel máximo. Tu personaje actual nunca se pliega.",
 	ALT_LEVEL_GROUP_TT_SHOW = "Haz clic para mostrarlos.",
@@ -9593,9 +9593,9 @@ fill("esES", {
 	ALT_NEXT_VAULT_FMT = "Gran cámara, %s: %d más para la siguiente opción (%d/%d).",
 	ALT_NEXT_KEYS_FMT = "%d llaves de arca restauradas para usar en arcas pródigas.",
 	ALT_HINT_RESET_NOT_WEEKLY = "Reinicio: no con el reinicio semanal.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ALT_LEVEL_GROUP_FMT = "Personagens subindo de nível (%d) — abaixo do nível %d, o máximo",
 	ALT_LEVEL_GROUP_TT_NOTE = "Personagens abaixo do nível máximo, recolhidos para que a tabela mostre primeiro seus personagens de nível máximo. Seu personagem atual nunca é recolhido.",
 	ALT_LEVEL_GROUP_TT_SHOW = "Clique para mostrá-los.",
@@ -9610,9 +9610,9 @@ fill("ptBR", {
 	ALT_NEXT_VAULT_FMT = "Grande Cofre, %s: mais %d para a próxima escolha (%d/%d).",
 	ALT_NEXT_KEYS_FMT = "%d Chaves de Cofre Restauradas para usar em Cofres Abundantes.",
 	ALT_HINT_RESET_NOT_WEEKLY = "Reset: não no reset semanal.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALT_LEVEL_GROUP_FMT = "Personaggi in livellamento (%d) — sotto il livello %d, il massimo",
 	ALT_LEVEL_GROUP_TT_NOTE = "Personaggi sotto il livello massimo, ripiegati perché la tabella mostri prima i tuoi personaggi al livello massimo. Il personaggio attuale non viene mai ripiegato.",
 	ALT_LEVEL_GROUP_TT_SHOW = "Clicca per mostrarli.",
@@ -9627,74 +9627,74 @@ fill("itIT", {
 	ALT_NEXT_VAULT_FMT = "Gran Banca, %s: ancora %d per la prossima scelta (%d/%d).",
 	ALT_NEXT_KEYS_FMT = "%d Chiavi dello Scrigno Ripristinate da usare sugli Scrigni Fruttuosi.",
 	ALT_HINT_RESET_NOT_WEEKLY = "Reset: non al reset settimanale.",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- 11 Sep 2026 — /mh cleanup in the command list (Modules/SavedVarCleanup.lua). The command's
 -- own output is English, like the other diagnostics. Our own translations, not native-reviewed.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CMDLIST_CLEANUP = "Zeigt die alten Messdaten, die diese Befehle in deinen gespeicherten Daten hinterlassen haben, und wie groß sie sind. /mh cleanup yes löscht sie; deine Einstellungen bleiben.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CMDLIST_CLEANUP = "Affiche les anciennes données de mesure que ces commandes ont laissées dans tes données sauvegardées, et leur taille. /mh cleanup yes les efface ; tes réglages restent.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CMDLIST_CLEANUP = "Muestra los datos de medición antiguos que estos comandos dejaron en tus datos guardados, y cuánto ocupan. /mh cleanup yes los borra; tus ajustes se quedan.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_CLEANUP = "Mostra os dados de medição antigos que esses comandos deixaram nos seus dados salvos, e o tamanho deles. /mh cleanup yes os apaga; suas configurações ficam.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CMDLIST_CLEANUP = "Mostra i vecchi dati di misurazione che questi comandi hanno lasciato nei tuoi dati salvati, e quanto sono grandi. /mh cleanup yes li cancella; le tue impostazioni restano.",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- 11 Sep 2026 — Spec 39: "You" and "Total" columns in the Currencies block, after Rob read the
 -- account total as his own balance. Our own translations, not native-reviewed.
 --------------------------------------------------------------------------------
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CURACC_COL_YOU = "Du",
 	CURACC_COL_TOTAL = "Gesamt",
 	CURACC_COL_WHAT = "Was du damit tun kannst",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CURACC_COL_YOU = "Toi",
 	CURACC_COL_TOTAL = "Total",
 	CURACC_COL_WHAT = "Ce que tu peux en faire",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CURACC_COL_YOU = "Tú",
 	CURACC_COL_TOTAL = "Total",
 	CURACC_COL_WHAT = "Qué hacer con ello",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CURACC_COL_YOU = "Você",
 	CURACC_COL_TOTAL = "Total",
 	CURACC_COL_WHAT = "O que fazer com isso",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CURACC_COL_YOU = "Tu",
 	CURACC_COL_TOTAL = "Totale",
 	CURACC_COL_WHAT = "Cosa farne",
-})
+}) end
 
 --========================================================================
 -- 4.0.0 look (Spec 37): the screen taglines (header strip), the room taglines and the
 -- room-card status lines. Translated 12 Sep 2026 by one agent per language that first
 -- read this pack's own term conventions; not yet reviewed by a native speaker.
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	TAB_TAGLINE_STARTHERE = "Neu oder nach einer Pause zurück? Ein geführter Einstieg in Midnight Helper und die Prioritäten der Woche.",
 	TAB_TAGLINE_DUNGEONS = "Mythic+-Dungeon-Taktiken, mit einem Coach für jeden Boss.",
 	TAB_TAGLINE_CODEX = "Das Midnight-Handbuch: kurze Guides, die ein System erklären und den richtigen Bildschirm öffnen.",
@@ -9737,8 +9737,8 @@ fill("deDE", {
 	ROOMCARD_BOSSES_FMT = "Bosse: %d",
 	ROOMCARD_KP_FMT = "Wissen zum Ausgeben: %d",
 	ROOMCARD_KP_NONE = "Kein Wissen wartet",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	TAB_TAGLINE_STARTHERE = "Nouveau ou de retour après une pause ? Un premier tour guidé de Midnight Helper et des priorités de la semaine.",
 	TAB_TAGLINE_DUNGEONS = "Tactiques de donjon Mythique+, avec un coach pour chaque boss.",
 	TAB_TAGLINE_CODEX = "Le manuel de Midnight : de courts guides qui expliquent un système et ouvrent le bon écran.",
@@ -9781,8 +9781,8 @@ fill("frFR", {
 	ROOMCARD_BOSSES_FMT = "Boss : %d",
 	ROOMCARD_KP_FMT = "Points de savoir à dépenser : %d",
 	ROOMCARD_KP_NONE = "Points de savoir : tout dépensé",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	TAB_TAGLINE_STARTHERE = "¿Nuevo o vuelves tras una pausa? Una primera parada guiada por Midnight Helper y las prioridades de la semana.",
 	TAB_TAGLINE_DUNGEONS = "Tácticas de mazmorras Mítica+, con un coach para cada jefe.",
 	TAB_TAGLINE_CODEX = "El manual de Midnight: guías breves que explican un sistema y abren la pantalla correcta.",
@@ -9825,8 +9825,8 @@ fill("esES", {
 	ROOMCARD_BOSSES_FMT = "Jefes: %d",
 	ROOMCARD_KP_FMT = "Conocimiento por gastar: %d",
 	ROOMCARD_KP_NONE = "Sin Conocimiento pendiente",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	TAB_TAGLINE_STARTHERE = "Novo ou de volta após uma pausa? Uma primeira parada guiada pelo Midnight Helper e pelas prioridades desta semana.",
 	TAB_TAGLINE_DUNGEONS = "Táticas das masmorras Mítica+, com um coach para cada chefe.",
 	TAB_TAGLINE_CODEX = "O manual de Midnight: guias curtos que explicam um sistema e abrem a tela certa.",
@@ -9869,8 +9869,8 @@ fill("ptBR", {
 	ROOMCARD_BOSSES_FMT = "Chefes: %d",
 	ROOMCARD_KP_FMT = "Conhecimento a gastar: %d",
 	ROOMCARD_KP_NONE = "Sem Conhecimento pendente",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	TAB_TAGLINE_STARTHERE = "Nuovo o di ritorno dopo una pausa? Una prima tappa guidata tra Midnight Helper e le priorità di questa settimana.",
 	TAB_TAGLINE_DUNGEONS = "Tattiche per i dungeon Mythic+, con un coach per ogni boss.",
 	TAB_TAGLINE_CODEX = "Il manuale di Midnight: brevi guide che spiegano un sistema e aprono la schermata giusta.",
@@ -9913,14 +9913,14 @@ fill("itIT", {
 	ROOMCARD_BOSSES_FMT = "Boss: %d",
 	ROOMCARD_KP_FMT = "Conoscenza da spendere: %d",
 	ROOMCARD_KP_NONE = "Niente Conoscenza in attesa",
-})
+}) end
 
 --========================================================================
 -- 4.0.0 show/hide per screen (Rob, 13 Sep 2026): the room-card menu, the "show again" line and
 -- Settings -> Screens. Written by Claude on 13 Sep with each pack's own words for screen / room
 -- card / sidebar (from SETTINGS_CLASSIC_LOOK_TT); not reviewed by a native speaker.
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ROOMCARD_HIDE = "Diesen Bildschirm ausblenden",
 	ROOMCARD_HIDE_HINT = "Rechtsklick: diesen Bildschirm ausblenden.",
 	ROOMCARD_HIDDEN_FMT = "Ausgeblendet: %d — wieder zeigen",
@@ -9929,8 +9929,8 @@ fill("deDE", {
 	ROOMCARD_RESTORE_HINT = "Ein ausgeblendeter Bildschirm öffnet sich weiterhin über die Suche und über Links in anderen Bildschirmen. Die ganze Liste steht unter Einstellungen -> Bildschirme.",
 	SETTINGS_SCREENS_TITLE = "Bildschirme",
 	SETTINGS_SCREEN_TT = "Haken entfernen, um diesen Bildschirm auszublenden: Er verschwindet aus den Karten seines Raums und aus der Seitenleiste. Abgeschaltet wird nichts: Suche und Links öffnen ihn weiterhin, und mit dem Haken kommt er zurück.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ROOMCARD_HIDE = "Masquer cet écran",
 	ROOMCARD_HIDE_HINT = "Clic droit : masquer cet écran.",
 	ROOMCARD_HIDDEN_FMT = "Masqués : %d — réafficher",
@@ -9939,8 +9939,8 @@ fill("frFR", {
 	ROOMCARD_RESTORE_HINT = "Un écran masqué s'ouvre toujours depuis la recherche et depuis les liens des autres écrans. La liste complète est dans Paramètres -> Écrans.",
 	SETTINGS_SCREENS_TITLE = "Écrans",
 	SETTINGS_SCREEN_TT = "Décoche pour masquer cet écran : il quitte les cartes de sa salle et la barre latérale. Rien n'est désactivé : la recherche et les liens l'ouvrent toujours, et le recocher le fait revenir.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ROOMCARD_HIDE = "Ocultar esta pantalla",
 	ROOMCARD_HIDE_HINT = "Clic derecho: ocultar esta pantalla.",
 	ROOMCARD_HIDDEN_FMT = "Ocultas: %d — volver a mostrar",
@@ -9949,8 +9949,8 @@ fill("esES", {
 	ROOMCARD_RESTORE_HINT = "Una pantalla oculta se sigue abriendo desde la búsqueda y desde los enlaces de otras pantallas. La lista completa está en Ajustes -> Pantallas.",
 	SETTINGS_SCREENS_TITLE = "Pantallas",
 	SETTINGS_SCREEN_TT = "Desmarca para ocultar esta pantalla: sale de las tarjetas de su sala y de la barra lateral. No se desactiva nada: la búsqueda y los enlaces la siguen abriendo, y al volver a marcarla regresa.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ROOMCARD_HIDE = "Ocultar esta tela",
 	ROOMCARD_HIDE_HINT = "Clique direito: ocultar esta tela.",
 	ROOMCARD_HIDDEN_FMT = "Ocultas: %d — mostrar de novo",
@@ -9959,8 +9959,8 @@ fill("ptBR", {
 	ROOMCARD_RESTORE_HINT = "Uma tela oculta ainda abre pela busca e pelos links de outras telas. A lista completa fica em Configurações -> Telas.",
 	SETTINGS_SCREENS_TITLE = "Telas",
 	SETTINGS_SCREEN_TT = "Desmarque para ocultar esta tela: ela sai dos cartões da sua sala e da barra lateral. Nada é desligado: a busca e os links ainda a abrem, e marcar de novo a traz de volta.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ROOMCARD_HIDE = "Nascondi questa schermata",
 	ROOMCARD_HIDE_HINT = "Clic destro: nascondi questa schermata.",
 	ROOMCARD_HIDDEN_FMT = "Nascoste: %d — mostra di nuovo",
@@ -9969,71 +9969,71 @@ fill("itIT", {
 	ROOMCARD_RESTORE_HINT = "Una schermata nascosta si apre ancora dalla ricerca e dai link delle altre schermate. L'elenco completo è in Impostazioni -> Schermate.",
 	SETTINGS_SCREENS_TITLE = "Schermate",
 	SETTINGS_SCREEN_TT = "Togli la spunta per nascondere questa schermata: esce dalle schede della sua stanza e dalla barra laterale. Non si spegne nulla: la ricerca e i link la aprono ancora, e rimettendo la spunta torna.",
-})
+}) end
 
 --========================================================================
 -- 4.0.0 Screens page inside MH (Rob, 13 Sep 2026: "doe maar nummer 2"). This Week and Settings
 -- use each pack's own TAB_HOME / TAB_SETTINGS. Written by Claude; not reviewed by a native speaker.
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SET_LAUNCH_SCREENS = "Bildschirme wählen",
 	SCREENS_PANEL_INTRO = "Hake an, welche Bildschirme du in deinen Räumen sehen willst. Ausblenden schaltet nichts ab: Suche und Links öffnen einen ausgeblendeten Bildschirm weiterhin. Diese Woche und Einstellungen bleiben immer.",
 	TAB_TAGLINE_SCREENS = "Wähle, welche Bildschirme in deinen Räumen stehen; Ausblenden schaltet nichts ab.",
 	SCREENS_ALL_LINK = "Alle Bildschirme...",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SET_LAUNCH_SCREENS = "Choisir tes écrans",
 	SCREENS_PANEL_INTRO = "Coche les écrans que tu veux voir dans tes salles. Masquer ne désactive rien : la recherche et les liens ouvrent toujours un écran masqué. Cette semaine et Paramètres restent toujours.",
 	TAB_TAGLINE_SCREENS = "Choisis les écrans de tes salles ; en masquer un ne désactive rien.",
 	SCREENS_ALL_LINK = "Tous les écrans...",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SET_LAUNCH_SCREENS = "Elegir tus pantallas",
 	SCREENS_PANEL_INTRO = "Marca las pantallas que quieres ver en tus salas. Ocultar no desactiva nada: la búsqueda y los enlaces siguen abriendo una pantalla oculta. Esta semana y Ajustes se quedan siempre.",
 	TAB_TAGLINE_SCREENS = "Elige qué pantallas aparecen en tus salas; ocultar una no desactiva nada.",
 	SCREENS_ALL_LINK = "Todas las pantallas...",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_LAUNCH_SCREENS = "Escolher suas telas",
 	SCREENS_PANEL_INTRO = "Marque as telas que você quer ver nas suas salas. Ocultar não desliga nada: a busca e os links ainda abrem uma tela oculta. Esta semana e Configurações ficam sempre.",
 	TAB_TAGLINE_SCREENS = "Escolha quais telas aparecem nas suas salas; ocultar uma não desliga nada.",
 	SCREENS_ALL_LINK = "Todas as telas...",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SET_LAUNCH_SCREENS = "Scegli le tue schermate",
 	SCREENS_PANEL_INTRO = "Spunta le schermate che vuoi vedere nelle tue stanze. Nascondere non spegne nulla: la ricerca e i link aprono ancora una schermata nascosta. Questa settimana e Impostazioni restano sempre.",
 	TAB_TAGLINE_SCREENS = "Scegli quali schermate compaiono nelle tue stanze; nasconderne una non spegne nulla.",
 	SCREENS_ALL_LINK = "Tutte le schermate...",
-})
+}) end
 
 --========================================================================
 -- 4.0.0 drag to reorder the room cards (Rob, 13 Sep 2026: "bouw het slepen maar"). Written by
 -- Claude; not reviewed by a native speaker.
 --========================================================================
-fill("deDE", { ROOMCARD_DRAG_HINT = "Ziehen, um diese Karte zu verschieben.", ROOMCARD_RESET_ORDER = "Reihenfolge zurücksetzen" })
-fill("frFR", { ROOMCARD_DRAG_HINT = "Fais glisser pour déplacer cette carte.", ROOMCARD_RESET_ORDER = "Rétablir l'ordre" })
-fill("esES", { ROOMCARD_DRAG_HINT = "Arrastra para mover esta tarjeta.", ROOMCARD_RESET_ORDER = "Restablecer el orden" })
-fill("ptBR", { ROOMCARD_DRAG_HINT = "Arraste para mover este cartão.", ROOMCARD_RESET_ORDER = "Restaurar a ordem" })
-fill("itIT", { ROOMCARD_DRAG_HINT = "Trascina per spostare questa scheda.", ROOMCARD_RESET_ORDER = "Ripristina l'ordine" })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { ROOMCARD_DRAG_HINT = "Ziehen, um diese Karte zu verschieben.", ROOMCARD_RESET_ORDER = "Reihenfolge zurücksetzen" }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { ROOMCARD_DRAG_HINT = "Fais glisser pour déplacer cette carte.", ROOMCARD_RESET_ORDER = "Rétablir l'ordre" }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { ROOMCARD_DRAG_HINT = "Arrastra para mover esta tarjeta.", ROOMCARD_RESET_ORDER = "Restablecer el orden" }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { ROOMCARD_DRAG_HINT = "Arraste para mover este cartão.", ROOMCARD_RESET_ORDER = "Restaurar a ordem" }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { ROOMCARD_DRAG_HINT = "Trascina per spostare questa scheda.", ROOMCARD_RESET_ORDER = "Ripristina l'ordine" }) end
 -- 17 Sep 2026: the Codex sections sit beside "Raids" in the Codex room; the subtitle says which
 -- cards are reading (Carola confused "Raids" with "Raid & crests"). Claude, not native-reviewed.
-fill("deDE", { ROOMCARD_CODEX_SECTION = "Codex-Handbuch" })
-fill("frFR", { ROOMCARD_CODEX_SECTION = "Manuel du Codex" })
-fill("esES", { ROOMCARD_CODEX_SECTION = "Manual del Codex" })
-fill("ptBR", { ROOMCARD_CODEX_SECTION = "Manual do Codex" })
-fill("itIT", { ROOMCARD_CODEX_SECTION = "Manuale del Codex" })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { ROOMCARD_CODEX_SECTION = "Codex-Handbuch" }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { ROOMCARD_CODEX_SECTION = "Manuel du Codex" }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { ROOMCARD_CODEX_SECTION = "Manual del Codex" }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { ROOMCARD_CODEX_SECTION = "Manual do Codex" }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { ROOMCARD_CODEX_SECTION = "Manuale del Codex" }) end
 -- Same day: the book button on each Delves row opens the Delve Coach for that delve.
-fill("deDE", { DELVE_ROW_TIPS_TT = "Boss und Tipps für diese Tiefe (Delve Coach)" })
-fill("frFR", { DELVE_ROW_TIPS_TT = "Boss et conseils pour ce gouffre (Coach des gouffres)" })
-fill("esES", { DELVE_ROW_TIPS_TT = "Jefe y consejos de esta profundidad (Entrenador de profundidades)" })
-fill("ptBR", { DELVE_ROW_TIPS_TT = "Chefe e dicas desta imersão (Treinador de Imersões)" })
-fill("itIT", { DELVE_ROW_TIPS_TT = "Boss e consigli per questa scorribanda (Coach delle scorribande)" })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { DELVE_ROW_TIPS_TT = "Boss und Tipps für diese Tiefe (Delve Coach)" }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { DELVE_ROW_TIPS_TT = "Boss et conseils pour ce gouffre (Coach des gouffres)" }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { DELVE_ROW_TIPS_TT = "Jefe y consejos de esta profundidad (Entrenador de profundidades)" }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { DELVE_ROW_TIPS_TT = "Chefe e dicas desta imersão (Treinador de Imersões)" }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { DELVE_ROW_TIPS_TT = "Boss e consigli per questa scorribanda (Coach delle scorribande)" }) end
 -- The favourites row under the search bar can be reordered the same way (same day).
-fill("deDE", { FAV_DRAG_HINT = "Ziehen, um die Reihenfolge zu ändern." })
-fill("frFR", { FAV_DRAG_HINT = "Fais glisser pour changer l'ordre." })
-fill("esES", { FAV_DRAG_HINT = "Arrastra para cambiar el orden." })
-fill("ptBR", { FAV_DRAG_HINT = "Arraste para mudar a ordem." })
-fill("itIT", { FAV_DRAG_HINT = "Trascina per cambiare l'ordine." })
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", { FAV_DRAG_HINT = "Ziehen, um die Reihenfolge zu ändern." }) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", { FAV_DRAG_HINT = "Fais glisser pour changer l'ordre." }) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", { FAV_DRAG_HINT = "Arrastra para cambiar el orden." }) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", { FAV_DRAG_HINT = "Arraste para mudar a ordem." }) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", { FAV_DRAG_HINT = "Trascina per cambiare l'ordine." }) end
 
 --========================================================================
 -- "How you play" cards (Modules/PlayCards.lua + PlayCardWindow.lua), 25 Sep 2026.
@@ -10042,7 +10042,7 @@ fill("itIT", { FAV_DRAG_HINT = "Trascina per cambiare l'ordine." })
 -- could not confirm stay English. Not reviewed by a native speaker. {SPELL:id} is filled in by
 -- the client in its own language.
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PLAYCARD_HEAD_FMT = "So spielst du %s",
 	PLAYCARD_OPEN_FMT = "So spielst du %s  >",
 	PLAYCARD_BTN = "So spielst du",
@@ -10796,9 +10796,9 @@ fill("deDE", {
 	PLAYCARD_1480_W5 = "{SPELL:473662} hat keinen Cooldown und lässt sich in Bewegung wirken, also füllt es jede Lücke und bringt Jähzorn (mit einem Talent auch eine Seele). Als Dämon wird es zu {SPELL:1217610}, das außerdem {SPELL:1245453} früher bereit macht.",
 	PLAYCARD_1480_WAOE = "Das normale {SPELL:1226019} würde die Seelen fressen, die du aufsparst. Nach einem vollen {SPELL:473728} trifft {SPELL:1225826} einen ganzen Kegel von Gegnern und kann bis zu 10 Seelen auf einmal heranziehen, also lass sie sich dafür sammeln.",
 	PLAYCARD_1480_TERMS = "Seelen sind kleine Kugeln, die aus Gegnern springen, die du triffst. Jede, die du aufsammelst, gibt dir Jähzorn und zählt für {SPELL:1217605}, das 50 davon braucht (35 mit dem Talent {SPELL:1247534}). {SPELL:1226019} zieht bis zu 4 Seelen in der Nähe auf einmal heran.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PLAYCARD_HEAD_FMT = "Comment jouer %s",
 	PLAYCARD_OPEN_FMT = "Comment jouer %s  >",
 	PLAYCARD_BTN = "Comment jouer",
@@ -11552,9 +11552,9 @@ fill("frFR", {
 	PLAYCARD_1480_W5 = "{SPELL:473662} n'a pas de temps de recharge et se lance en mouvement, donc il comble chaque trou et rapporte de la Fureur (avec un talent, une âme aussi). En démon, il devient {SPELL:1217610}, qui rend aussi {SPELL:1245453} prêt plus tôt.",
 	PLAYCARD_1480_WAOE = "{SPELL:1226019} en version normale mangerait les âmes que tu mets de côté. Après {SPELL:473728} lancé jusqu'au bout, {SPELL:1225826} touche tout un cône d'ennemis et peut attirer jusqu'à 10 âmes d'un coup, alors laisse-les s'accumuler pour ça.",
 	PLAYCARD_1480_TERMS = "Les âmes sont de petites orbes qui sortent des ennemis que tu frappes. Chacune que tu ramasses te donne de la Fureur et compte pour {SPELL:1217605}, qui en demande 50 (35 avec le talent {SPELL:1247534}). {SPELL:1226019} attire jusqu'à 4 âmes proches d'un coup.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PLAYCARD_HEAD_FMT = "Cómo jugar %s",
 	PLAYCARD_OPEN_FMT = "Cómo jugar %s  >",
 	PLAYCARD_BTN = "Cómo jugar",
@@ -12308,9 +12308,9 @@ fill("esES", {
 	PLAYCARD_1480_W5 = "{SPELL:473662} no tiene recarga y puedes lanzarlo en movimiento, así que rellena cualquier hueco y te da Furia (con un talento, también un alma). Como demonio se convierte en {SPELL:1217610}, que además deja listo antes {SPELL:1245453}.",
 	PLAYCARD_1480_WAOE = "{SPELL:1226019} normal se comería las almas que estás guardando. Tras canalizar {SPELL:473728} hasta el final, {SPELL:1225826} golpea a todo un cono de enemigos y puede atraer hasta 10 almas a la vez, así que deja que se acumulen para él.",
 	PLAYCARD_1480_TERMS = "Las almas son pequeños orbes que salen de los enemigos que golpeas. Cada una que recoges te da Furia y cuenta para {SPELL:1217605}, que necesita 50 (35 con el talento {SPELL:1247534}). {SPELL:1226019} atrae a la vez hasta 4 almas cercanas.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PLAYCARD_HEAD_FMT = "Como jogar de %s",
 	PLAYCARD_OPEN_FMT = "Como jogar de %s  >",
 	PLAYCARD_BTN = "Como jogar",
@@ -13064,9 +13064,9 @@ fill("ptBR", {
 	PLAYCARD_1480_W5 = "{SPELL:473662} não tem recarga e pode ser lançado em movimento, então preenche qualquer brecha e rende Fúria (com um talento, também uma alma). Como demônio, vira {SPELL:1217610}, que também deixa {SPELL:1245453} pronto mais cedo.",
 	PLAYCARD_1480_WAOE = "{SPELL:1226019} comum comeria as almas que você está guardando. Depois de canalizar {SPELL:473728} até o fim, {SPELL:1225826} acerta um cone inteiro de inimigos e pode puxar até 10 almas de uma vez, então deixe elas acumularem para isso.",
 	PLAYCARD_1480_TERMS = "Almas são pequenos orbes que saem dos inimigos que você acerta. Cada uma que você pega dá Fúria e conta para {SPELL:1217605}, que precisa de 50 (35 com o talento {SPELL:1247534}). {SPELL:1226019} puxa até 4 almas próximas de uma vez.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PLAYCARD_HEAD_FMT = "Come si gioca %s",
 	PLAYCARD_OPEN_FMT = "Come si gioca %s  >",
 	PLAYCARD_BTN = "Come si gioca",
@@ -13820,7 +13820,7 @@ fill("itIT", {
 	PLAYCARD_1480_W5 = "{SPELL:473662} non ha ricarica e puoi lanciarlo in movimento, quindi riempie ogni vuoto e fa guadagnare Furia (con un talento, anche un'anima). Da demone diventa {SPELL:1217610}, che rende anche pronto prima {SPELL:1245453}.",
 	PLAYCARD_1480_WAOE = "{SPELL:1226019} normale mangerebbe le anime che stai mettendo da parte. Dopo aver canalizzato {SPELL:473728} fino in fondo, {SPELL:1225826} colpisce un intero cono di nemici e può attirare fino a 10 anime in una volta, quindi lasciale accumulare per quello.",
 	PLAYCARD_1480_TERMS = "Le anime sono piccole sfere che escono dai nemici che colpisci. Ognuna che raccogli ti dà Furia e conta per {SPELL:1217605}, che ne richiede 50 (35 con il talento {SPELL:1247534}). {SPELL:1226019} attira fino a 4 anime vicine in una volta.",
-})
+}) end
 
 --========================================================================
 -- The last English UI lines, 25 Sep 2026.
@@ -13830,7 +13830,7 @@ fill("itIT", {
 -- ilvl), and the 48 DELVE_STORY_* texts (Blizzard's own words: those need the client's own translation).
 -- One language expert per language; not reviewed by a native speaker.
 --========================================================================
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ACCOUNT_WEEKLY_FLUX_CAPPED_FMT = "Catalyst-Ladungen voll, es kommen keine mehr dazu: %d (%s)",
 	ACCOUNT_WEEKLY_FLUX_FMT = "Wartende Catalyst-Ladungen: %d (%d Charaktere)",
 	ARROW_CHAT_TRAVEL = "%s liegt nicht auf diesem Kontinent. Reise zuerst nach %s.",
@@ -13857,9 +13857,9 @@ fill("deDE", {
 	SHARDS_REMAINING_FMT = "Kastenschlüsselsplitter: noch %d von %d diese Woche zu verdienen - etwa %d Rares.",
 	STATS_TIED_MARK = "|cff9aa0a8(gleich — nimm, was der Gegenstand bietet)|r",
 	TANKKIT_MIT_BLOCK = "Blocken",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ACCOUNT_WEEKLY_FLUX_CAPPED_FMT = "Charges de Catalyst pleines, elles ne montent plus : %d (%s)",
 	ACCOUNT_WEEKLY_FLUX_FMT = "Charges de Catalyst en attente : %d (%d personnages)",
 	ARROW_CHAT_TRAVEL = "%s n'est pas sur ce continent. Dirige-toi d'abord vers %s.",
@@ -13898,9 +13898,9 @@ fill("frFR", {
 	SHARDS_CAP_REACHED = "Fragments de clé de coffre : plafond hebdomadaire atteint. Les rares ne te rapportent plus rien cette semaine.",
 	SHARDS_REMAINING_FMT = "Fragments de clé de coffre : encore %d sur %d à gagner cette semaine - environ %d rares.",
 	STATS_TIED_MARK = "|cff9aa0a8(égalité — prends celle que l'objet propose)|r",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ACCOUNT_WEEKLY_FLUX_CAPPED_FMT = "Cargas del Catalyst llenas, ya no suben: %d (%s)",
 	ACCOUNT_WEEKLY_FLUX_FMT = "Cargas del Catalyst pendientes: %d (%d personajes)",
 	ARROW_CHAT_TRAVEL = "%s no está en este continente. Ve primero a %s.",
@@ -13940,9 +13940,9 @@ fill("esES", {
 	SHARDS_CAP_REACHED = "Fragmentos de llave de arca: límite semanal alcanzado. Los raros ya no te dan nada más esta semana.",
 	SHARDS_REMAINING_FMT = "Fragmentos de llave de arca: aún %d de %d por ganar esta semana - unos %d raros.",
 	STATS_TIED_MARK = "|cff9aa0a8(iguales — elige la que ofrezca el objeto)|r",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ACCOUNT_WEEKLY_FLUX_CAPPED_FMT = "Cargas do Catalisador cheias, não aumentam mais: %d (%s)",
 	ACCOUNT_WEEKLY_FLUX_FMT = "Cargas do Catalisador esperando: %d (%d personagens)",
 	ARROW_CHAT_TRAVEL = "%s não fica neste continente. Vá primeiro para %s.",
@@ -13982,9 +13982,9 @@ fill("ptBR", {
 	SHARDS_REMAINING_FMT = "Estilhaços de Chave de Cofre: ainda faltam %d de %d para ganhar esta semana - cerca de %d raros.",
 	STATS_TIED_MARK = "|cff9aa0a8(iguais — pegue o que o item oferecer)|r",
 	TANKKIT_MIT_BREW = "Cerveja",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ACCOUNT_WEEKLY_FLUX_CAPPED_FMT = "Cariche del Catalyst al massimo, non crescono più: %d (%s)",
 	ACCOUNT_WEEKLY_FLUX_FMT = "Cariche del Catalyst in attesa: %d (%d personaggi)",
 	ARROW_CHAT_TRAVEL = "%s non è su questo continente. Dirigiti prima verso %s.",
@@ -14027,33 +14027,33 @@ fill("itIT", {
 	SHARDS_REMAINING_FMT = "Schegge di Chiave dello Scrigno: ancora %d su %d da guadagnare questa settimana - circa %d rare.",
 	STATS_TIED_MARK = "|cff9aa0a8(uguali — prendi quella che offre l'oggetto)|r",
 	TANKKIT_MIT_BREW = "Birra",
-})
+}) end
 
 -- Play-card window tabs, 25 Sep 2026 (Rob: "ik mis eigenlijk de defense dingen"). Ours, not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PLAYCARD_TAB_PLAY = "Deine Tasten",
 	PLAYCARD_ALIVE_NONE = "MH hat für diese Spezialisierung noch keine Überlebensliste.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PLAYCARD_TAB_PLAY = "Tes touches",
 	PLAYCARD_ALIVE_NONE = "MH n'a pas encore de liste de survie pour cette spé.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PLAYCARD_TAB_PLAY = "Tus botones",
 	PLAYCARD_ALIVE_NONE = "MH aún no tiene una lista de supervivencia para esta especialización.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PLAYCARD_TAB_PLAY = "Seus botões",
 	PLAYCARD_ALIVE_NONE = "O MH ainda não tem uma lista de sobrevivência para esta especialização.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PLAYCARD_TAB_PLAY = "I tuoi tasti",
 	PLAYCARD_ALIVE_NONE = "MH non ha ancora una lista di sopravvivenza per questa specializzazione.",
-})
+}) end
 
 -- Play-card window, Dispel tab (26 Sep 2026). One language expert per language; Blizzard's
 -- option labels taken from that client's GlobalStrings where confirmed. Not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PLAYCARD_TAB_DISPEL = "Bannen",
 	PLAYCARD_DISPEL_FRIENDS = "Bei deiner Gruppe: Debuffs, die du entfernen kannst",
 	PLAYCARD_DISPEL_ENEMIES = "Bei Gegnern: Buffs, die du ihnen nehmen kannst",
@@ -14070,9 +14070,9 @@ fill("deDE", {
 	PLAYCARD_DISPEL_LIVE_NOTE = "MH kann in diesem Patch keine Buffs und Debuffs auf anderen Spielern oder Gegnern sehen; das Spiel verbirgt sie vor Addons. Das Spiel selbst kann sie anzeigen:",
 	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Deine Gruppe:|r Optionen > Gameplay > Interface > Schlachtzugsfenster. Stell \"Indikator für bannbaren Schwächungseffekt\" auf \"Bannbar durch mich\" und \"Farbe\" auf \"Farbe von Schwächungseffekt verwenden\": Ein Fenster leuchtet dann in der Farbe des Debuffs auf, wenn du ihn entfernen kannst. Keine Änderung an deinen Gruppenfenstern? Schalte im Bearbeitungsmodus \"Gruppen wie Schlachtzüge anzeigen\" ein.",
 	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Gegner:|r Optionen > Gameplay > Namensplaketten > \"Stärkungseffekte/Schwächungseffekte feindlicher NSCs\" > \"Mobstärkungseffekte\" anhaken. Buffs, die du bannen oder stehlen kannst, erscheinen dann auf ihren Namensplaketten. Dein Zielfenster gibt diesen Buffs schon einen besonderen Rahmen.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PLAYCARD_TAB_DISPEL = "Dissipation",
 	PLAYCARD_DISPEL_FRIENDS = "Sur ton groupe : les debuffs que tu peux retirer",
 	PLAYCARD_DISPEL_ENEMIES = "Sur les ennemis : les buffs que tu peux leur retirer",
@@ -14088,9 +14088,9 @@ fill("frFR", {
 	PLAYCARD_DISPEL_LIVE_NOTE = "Dans ce patch, MH ne voit pas les buffs et debuffs des autres joueurs ni des ennemis ; le jeu les cache aux addons. Le jeu lui-même peut les afficher :",
 	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Ton groupe :|r Options > Jeu > Interface > Fenêtres de raid. Règle \"Indicateur d’affaiblissement dissipable\" sur \"Dissipable par moi\" et \"Couleur\" sur \"Utiliser la couleur de l’affaiblissement\" : un cadre s'allume alors dans la couleur du debuff quand tu peux le retirer. Rien ne change sur tes cadres de groupe ? Active \"Utiliser interface de type raid\" dans le Mode Édition.",
 	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Ennemis :|r Options > Jeu > Barres d’info > \"Améliorations/Affaiblissements des PNJ adverses\" > coche \"Améliorations des PNJ adverses\". Les buffs que tu peux purger ou voler s'affichent alors sur leurs barres d'info. Le cadre de ta cible donne déjà une bordure spéciale à ces buffs.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PLAYCARD_TAB_DISPEL = "Disipar",
 	PLAYCARD_DISPEL_FRIENDS = "De tu grupo: debuffs que puedes quitar",
 	PLAYCARD_DISPEL_ENEMIES = "De los enemigos: buffs que puedes quitarles",
@@ -14106,9 +14106,9 @@ fill("esES", {
 	PLAYCARD_DISPEL_LIVE_NOTE = "En este parche MH no puede ver los buffs y debuffs de otros jugadores ni de los enemigos; el juego se los oculta a los addons. El propio juego sí puede mostrarlos:",
 	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Tu grupo:|r Opciones > Experiencia de juego > Interfaz > Marcos de banda. Pon \"Indicador de perjuicio disipable\" en \"Solo disipables por el jugador\" y \"Color\" en \"Utilizar color de perjuicio\": así el marco se ilumina con el color del debuff cuando puedes quitarlo. ¿No cambia nada en tus marcos de grupo? Activa \"Usar marcos de grupo estilo banda\" en el Modo edición.",
 	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Enemigos:|r Opciones > Experiencia de juego > Placas de nombre > \"Beneficios/perjuicios de PNJ enemigos\" > marca \"Beneficios de criaturas\". Así los buffs que puedes purgar o robar aparecen en sus placas de nombre. Tu marco de objetivo ya les pone un borde especial a esos buffs.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PLAYCARD_TAB_DISPEL = "Dissipar",
 	PLAYCARD_DISPEL_FRIENDS = "Do seu grupo: debuffs que você pode remover",
 	PLAYCARD_DISPEL_ENEMIES = "Dos inimigos: buffs que você pode tirar",
@@ -14124,9 +14124,9 @@ fill("ptBR", {
 	PLAYCARD_DISPEL_LIVE_NOTE = "O MH não consegue ver buffs e debuffs de outros jogadores ou de inimigos neste patch; o jogo os esconde dos addons. O próprio jogo pode mostrá-los:",
 	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Seu grupo:|r Opções > Jogabilidade > Interface > Quadros de Raide. Defina \"Indicador de penalidade dissipável\" como \"Dissipável por mim\" e \"Cor\" como \"Usar cor de penalidade\": aí o quadro acende na cor do debuff quando você pode removê-lo. Nada mudou nos seus quadros de grupo? Ative \"Usar quadros de grupo estilo Raide\" no Modo de edição.",
 	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Inimigos:|r Opções > Jogabilidade > Placas de identificação > \"Bônus/Penalidades de PNJ inimigos\" > marque \"Bônus do PNJ\". Os buffs que você pode purgar ou roubar aparecem então nas placas de identificação deles. Seu quadro de alvo já dá a esses buffs uma borda especial.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PLAYCARD_DISPEL_FRIENDS = "Dal tuo gruppo: debuff che puoi rimuovere",
 	PLAYCARD_DISPEL_ENEMIES = "Dai nemici: buff che puoi togliere",
 	PLAYCARD_DISPEL_NONE_FRIENDS = "Questa specializzazione non può rimuovere debuff dagli altri.",
@@ -14141,82 +14141,82 @@ fill("itIT", {
 	PLAYCARD_DISPEL_LIVE_NOTE = "In questa patch MH non può vedere i buff e i debuff su altri giocatori o sui nemici: il gioco li nasconde agli addon. Ma il gioco stesso può mostrarli:",
 	PLAYCARD_DISPEL_TIP_FRIENDS = "|cffffd100Il tuo gruppo:|r Opzioni > Gioco > Interfaccia > Riquadri di incursione. Imposta \"Indicatore penalità dissolvibili\" su \"Dissolvibili da me\" e \"Colore\" su \"Usa il colore delle penalità\": così un riquadro si illumina del colore del debuff quando puoi rimuoverlo. Nessun cambiamento sui riquadri del gruppo? Attiva \"Gruppi in stile incursione\" in Modalità modifica.",
 	PLAYCARD_DISPEL_TIP_ENEMIES = "|cffffd100Nemici:|r Opzioni > Gioco > Barre > \"Benefici/Penalità dei PNG nemici\" > spunta \"Benefici dei mostri\". I buff che puoi togliere (purge) o rubare compaiono poi sulle loro barre. Il tuo riquadro del bersaglio dà già a quei buff un bordo speciale.",
-})
+}) end
 
 -- Durability warning (27 Sep 2026). One language expert per language. Not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	DURABILITY_WARN_FMT = "Deine Ausrüstung ist bei %d%% – repariere vor dem Pull!",
 	DURABILITY_WORST_FMT = "Am niedrigsten: %s.",
 	SET_DURA_TOGGLE_TITLE = "Vor abgenutzter Ausrüstung warnen",
 	SET_DURA_TOGGLE_DESC = "Eine große Warnung in der Mitte deines Bildschirms, wenn die Haltbarkeit eines Gegenstands unter das Limit fällt, sobald du einen Dungeon, Schlachtzug oder eine Tiefe betrittst, und bei jeder Bereitschaftsprüfung. /mh durability zeigt deine Werte.",
 	SET_DURA_LIMIT_TITLE = "Warnen unter",
 	SET_DURA_LIMIT_DESC = "Warnt, wenn dein am stärksten abgenutzter Gegenstand unter diesem Prozentsatz liegt.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	DURABILITY_WARN_FMT = "Équipement à %d%% - répare avant le pull !",
 	DURABILITY_WORST_FMT = "Plus bas : %s.",
 	SET_DURA_TOGGLE_TITLE = "Avertir de l'équipement usé",
 	SET_DURA_TOGGLE_DESC = "Une grande alerte au milieu de ton écran quand un objet est usé sous la limite, à l'entrée d'un donjon, d'un raid ou d'un gouffre, et à chaque vérification de préparation. /mh durability affiche tes chiffres.",
 	SET_DURA_LIMIT_TITLE = "Avertir sous",
 	SET_DURA_LIMIT_DESC = "Avertit quand ton objet le plus usé est en dessous de ce pourcentage.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	DURABILITY_WARN_FMT = "¡Equipo al %d%% - repara antes del pull!",
 	DURABILITY_WORST_FMT = "Más bajo: %s.",
 	SET_DURA_TOGGLE_TITLE = "Avisar sobre equipo desgastado",
 	SET_DURA_TOGGLE_DESC = "Un gran aviso en el centro de la pantalla cuando la durabilidad de un objeto baja del límite, al entrar en una mazmorra, banda o profundidad y en cada comprobación de preparación. /mh durability muestra tus cifras.",
 	SET_DURA_LIMIT_TITLE = "Avisar por debajo de",
 	SET_DURA_LIMIT_DESC = "Avisa cuando tu objeto más desgastado esté por debajo de este porcentaje.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	DURABILITY_WARN_FMT = "Seu equipamento está em %d%% - repare antes do pull!",
 	DURABILITY_WORST_FMT = "Mais baixo: %s.",
 	SET_DURA_TOGGLE_TITLE = "Avisar sobre equipamento desgastado",
 	SET_DURA_TOGGLE_DESC = "Um grande aviso no meio da tela quando um item está desgastado abaixo do limite, ao entrar em uma masmorra, raide ou imersão e em toda verificação de prontidão. /mh durability mostra os seus números.",
 	SET_DURA_LIMIT_TITLE = "Avisar abaixo de",
 	SET_DURA_LIMIT_DESC = "Avisa quando o seu item mais desgastado estiver abaixo desta porcentagem.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	DURABILITY_WARN_FMT = "Equipaggiamento al %d%% - riparalo prima del pull!",
 	DURABILITY_WORST_FMT = "Il più danneggiato: %s.",
 	SET_DURA_TOGGLE_TITLE = "Avvisa per equipaggiamento danneggiato",
 	SET_DURA_TOGGLE_DESC = "Un grande avviso al centro dello schermo quando un pezzo scende sotto il limite, quando entri in un dungeon, un'incursione o una scorribanda e a ogni controllo di prontezza. /mh durability mostra i tuoi numeri.",
 	SET_DURA_LIMIT_TITLE = "Avvisa sotto",
 	SET_DURA_LIMIT_DESC = "Avvisa quando il tuo pezzo più danneggiato è sotto questa percentuale.",
-})
+}) end
 
 -- Play window: live key on each spell icon (27 Sep 2026). One language expert per language. Not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PLAYCARD_KEY_FMT = "Deine Taste: %s",
 	PLAYCARD_KEY_NONE = "Auf keiner deiner Aktionsleisten belegt.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PLAYCARD_KEY_FMT = "Ta touche : %s",
 	PLAYCARD_KEY_NONE = "Pas encore sur une touche de tes barres d'action.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PLAYCARD_KEY_FMT = "Tu tecla: %s",
 	PLAYCARD_KEY_NONE = "Aún no está en ninguna tecla de tus barras de acción.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PLAYCARD_KEY_FMT = "Sua tecla: %s",
 	PLAYCARD_KEY_NONE = "Ainda sem tecla atribuída nas suas barras de ação.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PLAYCARD_KEY_FMT = "Il tuo tasto: %s",
 	PLAYCARD_KEY_NONE = "Non è ancora su un tasto delle tue action bar.",
-})
+}) end
 
 -- Instance map window (27 Sep 2026). One language expert per language. Not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CMDLIST_MAP = "Der Grundriss des Dungeons oder Schlachtzugs, in dem du gerade bist, mit seinen Bossen.",
 	INSTMAP_BTN = "Karte",
 	INSTMAP_BOSS_CLICK = "Klick: öffnet die Tipps für diesen Boss.",
@@ -14224,9 +14224,9 @@ fill("deDE", {
 	INSTMAP_NOTE = "Totenköpfe sind die Bosse. Deine Gruppe wird nicht angezeigt: Das Spiel verbirgt innerhalb eines Dungeons oder Schlachtzugs die Position aller. Mehrere Etagen? Wähle oben eine aus.",
 	INSTMAP_NOT_INSIDE = "Du bist nicht in einem Dungeon oder Schlachtzug. Öffne eine Karte mit dem Karte-Knopf auf der Seite Schlachtzüge oder Dungeons.",
 	INSTMAP_NO_MAP_FMT = "Keine Karte für %s gefunden.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CMDLIST_MAP = "Le plan du donjon ou raid où tu es, avec ses boss.",
 	INSTMAP_BTN = "Carte",
 	INSTMAP_BOSS_CLICK = "Clique : ouvre les conseils pour ce boss.",
@@ -14234,9 +14234,9 @@ fill("frFR", {
 	INSTMAP_NOTE = "Les têtes de mort sont les boss. Ton groupe n'est pas affiché : le jeu cache la position de chacun à l'intérieur d'un donjon ou raid. Plusieurs étages ? Choisis-en un ci-dessus.",
 	INSTMAP_NOT_INSIDE = "Tu n'es pas dans un donjon ou un raid. Ouvre une carte avec le bouton Carte sur la page Raids ou Donjons.",
 	INSTMAP_NO_MAP_FMT = "Aucune carte trouvée pour %s.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CMDLIST_MAP = "El plano de la mazmorra o la banda en la que estás, con sus jefes.",
 	INSTMAP_BTN = "Mapa",
 	INSTMAP_BOSS_CLICK = "Clic: abre los consejos de este jefe.",
@@ -14244,9 +14244,9 @@ fill("esES", {
 	INSTMAP_NOTE = "Las calaveras son los jefes. Tu grupo no aparece: el juego oculta la posición de todos dentro de una mazmorra o una banda. ¿Varias plantas? Elige una arriba.",
 	INSTMAP_NOT_INSIDE = "No estás en una mazmorra ni en una banda. Abre un mapa con el botón Mapa en la pestaña Bandas o Mazmorras.",
 	INSTMAP_NO_MAP_FMT = "No se ha encontrado mapa para %s.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_MAP = "A planta baixa da masmorra ou raide em que você está, com seus chefes.",
 	INSTMAP_BTN = "Mapa",
 	INSTMAP_BOSS_CLICK = "Clique: abra as dicas deste chefe.",
@@ -14254,9 +14254,9 @@ fill("ptBR", {
 	INSTMAP_NOTE = "As caveiras são os chefes. Seu grupo não aparece: o jogo esconde a posição de todos dentro de uma masmorra ou raide. Vários andares? Escolha um acima.",
 	INSTMAP_NOT_INSIDE = "Você não está em uma masmorra ou raide. Abra um mapa com o botão Mapa na página Masmorras ou Raides.",
 	INSTMAP_NO_MAP_FMT = "Nenhum mapa encontrado para %s.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CMDLIST_MAP = "La piantina del dungeon o dell'incursione in cui ti trovi, con i suoi boss.",
 	INSTMAP_BTN = "Mappa",
 	INSTMAP_BOSS_CLICK = "Clic: apri i consigli per questo boss.",
@@ -14264,80 +14264,80 @@ fill("itIT", {
 	INSTMAP_NOTE = "I teschi sono i boss. Il tuo gruppo non è mostrato: il gioco nasconde la posizione di tutti dentro un dungeon o un'incursione. Più piani? Scegline uno qui sopra.",
 	INSTMAP_NOT_INSIDE = "Non sei in un dungeon o in un'incursione. Apri una mappa col pulsante Mappa nella pagina Incursioni o Dungeon.",
 	INSTMAP_NO_MAP_FMT = "Nessuna mappa trovata per %s.",
-})
+}) end
 
 -- Instance map: floor transition tooltip (27 Sep 2026). Not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	INSTMAP_LINK_CLICK = "Der Weg zu dieser Etage. Klick: zeigt sie an.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	INSTMAP_LINK_CLICK = "Le chemin vers cet étage. Clique : montre-le.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	INSTMAP_LINK_CLICK = "El camino hacia esta planta. Clic: muéstrala.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	INSTMAP_LINK_CLICK = "O caminho até este andar. Clique: mostre-o.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	INSTMAP_LINK_CLICK = "La strada per questo piano. Clic: mostralo.",
-})
+}) end
 
 -- /mh export (Armory website), 29 Sep 2026. Translated by language agents that measured
 -- each pack's terms; not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CMDLIST_EXPORT = "Exportiert deine Ausrüstung und die Ausrüstung in deinen Taschen als Text für die Armory auf midnighthelper.com: schneller Rat für dein bestes Set.",
 	GEAREXPORT_TITLE = "Ausrüstungs-Export",
 	GEAREXPORT_HINT = "Drücke Strg+C und füge den Text auf midnighthelper.com/de/armory ein, für schnellen Rat.\nWillst du die genaue Antwort aus einer echten Simulation? Nutze /mh raidbots (Testphase).",
 	GEAREXPORT_HINT_PENDING = "Einige Gegenstände laden noch: Der Text aktualisiert sich gleich von selbst. Drücke dann Strg+C und füge ihn auf midnighthelper.com/de/armory ein.\nWillst du die genaue Antwort aus einer echten Simulation? Nutze /mh raidbots (Testphase).",
 	GEAREXPORT_COUNT_FMT = "Ausrüstungs-Export: %d Gegenstände.",
 	GEAREXPORT_PENDING_FMT = "%d Gegenstände waren noch nicht geladen; der Export aktualisiert sich, sobald sie da sind. Oder versuche /mh export gleich noch einmal.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CMDLIST_EXPORT = "Exporte ton équipement et celui de tes sacs en texte pour l'Armory sur midnighthelper.com : un conseil rapide sur ton meilleur ensemble.",
 	GEAREXPORT_TITLE = "Export d'équipement",
 	GEAREXPORT_HINT = "Appuie sur Ctrl+C et colle le texte sur midnighthelper.com/fr/armory pour un conseil rapide.\nTu veux la réponse exacte d'une vraie simulation ? Utilise /mh raidbots (phase de test).",
 	GEAREXPORT_HINT_PENDING = "Certains objets se chargent encore : le texte se met à jour tout seul dans un instant. Appuie ensuite sur Ctrl+C et colle-le sur midnighthelper.com/fr/armory.\nTu veux la réponse exacte d'une vraie simulation ? Utilise /mh raidbots (phase de test).",
 	GEAREXPORT_COUNT_FMT = "Export d'équipement : %d objets.",
 	GEAREXPORT_PENDING_FMT = "%d objets n'étaient pas encore chargés ; l'export se met à jour dès qu'ils le sont. Ou réessaie /mh export dans un instant.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CMDLIST_EXPORT = "Exporta tu equipo y el equipo de tus bolsas como texto para la Armory en midnighthelper.com: un consejo rápido sobre tu mejor conjunto.",
 	GEAREXPORT_TITLE = "Exportar equipo",
 	GEAREXPORT_HINT = "Pulsa Ctrl+C y pega el texto en midnighthelper.com/es/armory para un consejo rápido.\n¿Quieres la respuesta exacta de una simulación real? Usa /mh raidbots (fase de prueba).",
 	GEAREXPORT_HINT_PENDING = "Algunos objetos todavía se están cargando: el texto se actualiza solo en un momento. Después pulsa Ctrl+C y pégalo en midnighthelper.com/es/armory.\n¿Quieres la respuesta exacta de una simulación real? Usa /mh raidbots (fase de prueba).",
 	GEAREXPORT_COUNT_FMT = "Exportación de equipo: %d objetos.",
 	GEAREXPORT_PENDING_FMT = "%d objetos todavía no estaban cargados; la exportación se actualiza sola en cuanto lo estén. O vuelve a probar /mh export en un momento.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_EXPORT = "Exporta como texto o seu equipamento e o das suas bolsas para a Armory em midnighthelper.com: um conselho rápido sobre o seu melhor conjunto.",
 	GEAREXPORT_TITLE = "Exportar equipamento",
 	GEAREXPORT_HINT = "Pressione Ctrl+C e cole o texto em midnighthelper.com/pt/armory para um conselho rápido.\nQuer a resposta exata de uma simulação de verdade? Use /mh raidbots (fase de teste).",
 	GEAREXPORT_HINT_PENDING = "Alguns itens ainda estão carregando: o texto se atualiza sozinho em instantes. Depois pressione Ctrl+C e cole em midnighthelper.com/pt/armory.\nQuer a resposta exata de uma simulação de verdade? Use /mh raidbots (fase de teste).",
 	GEAREXPORT_COUNT_FMT = "Exportação de equipamento: %d itens.",
 	GEAREXPORT_PENDING_FMT = "%d itens ainda não foram carregados; a exportação se atualiza sozinha assim que forem. Ou tente /mh export de novo em instantes.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CMDLIST_EXPORT = "Esporta come testo il tuo equipaggiamento e quello nelle tue borse per l'Armory su midnighthelper.com: un consiglio rapido sul tuo set migliore.",
 	GEAREXPORT_TITLE = "Export dell'equipaggiamento",
 	GEAREXPORT_HINT = "Premi Ctrl+C e incolla il testo su midnighthelper.com/it/armory per un consiglio rapido.\nVuoi la risposta esatta di una vera simulazione? Usa /mh raidbots (fase di test).",
 	GEAREXPORT_HINT_PENDING = "Alcuni oggetti si stanno ancora caricando: il testo si aggiorna da solo tra un momento. Poi premi Ctrl+C e incollalo su midnighthelper.com/it/armory.\nVuoi la risposta esatta di una vera simulazione? Usa /mh raidbots (fase di test).",
 	GEAREXPORT_COUNT_FMT = "Export dell'equipaggiamento: %d oggetti.",
 	GEAREXPORT_PENDING_FMT = "%d oggetti non erano ancora caricati; l'export si aggiorna da solo appena lo sono. Oppure riprova /mh export tra un momento.",
-})
+}) end
 
 -- /mh raidbots (SimcExport.lua), 30 Sep 2026. Written in the words of the /mh export block above
 -- (same address form per pack: de du, fr tu, es tú, pt você, it tu); not native-reviewed.
 -- Raidbots, Top Gear and SimulationCraft stay English (product names).
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CMDLIST_RAIDBOTS = "Dein Charakter, deine Talente und deine Ausrüstung als SimulationCraft-Text, zum Einfügen bei Raidbots Top Gear für das genaue beste Set.",
 	RAIDBOTS_TITLE = "Für Raidbots Top Gear",
 	RAIDBOTS_HINT = "|cffff9900Testphase: neu in Midnight Helper, Nutzung auf eigenes Risiko.|r\n1. Drücke Strg+C (der Text ist schon markiert).\n2. Auf raidbots.com/simbot/topgear, Reiter SimC Addon: mit Strg+V einfügen.\n3. Klicke unter Gear die Gegenstände aus deinen Taschen an, die du vergleichen willst.\n4. Klicke auf Find Top Gear und warte ein paar Minuten.\n5. Ganz oben im Ergebnis steht dein bestes Set: zieh das an.\n\"Unverified Input\" auf Raidbots ist normal. Schritt für Schritt: midnighthelper.com/de/raidbots\nLieber schnell eine Antwort, ohne Simulation? /mh export und midnighthelper.com/de/armory.",
@@ -14346,9 +14346,9 @@ fill("deDE", {
 	RAIDBOTS_DONE_FMT = "Raidbots-Text fertig, mit %d Gegenstand/Gegenständen aus deinen Taschen. Füge ihn auf raidbots.com/simbot/topgear ein.",
 	RAIDBOTS_NOSPEC = "Wähle zuerst eine Spezialisierung: Raidbots braucht eine.",
 	RAIDBOTS_TALENTVERSION = "Der Talent-Export des Spiels hat sich geändert und Midnight Helper kennt die neue Version noch nicht. Raidbots liest deine Talente vielleicht falsch: bitte sag uns Bescheid.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CMDLIST_RAIDBOTS = "Ton personnage, tes talents et ton équipement en texte SimulationCraft, à coller sur Raidbots Top Gear pour le meilleur ensemble exact.",
 	RAIDBOTS_TITLE = "Pour Raidbots Top Gear",
 	RAIDBOTS_HINT = "|cffff9900Phase de test : nouveau dans Midnight Helper, à utiliser à tes risques.|r\n1. Appuie sur Ctrl+C (le texte est déjà sélectionné).\n2. Sur raidbots.com/simbot/topgear, onglet SimC Addon : colle avec Ctrl+V.\n3. Sous Gear, clique sur les objets de tes sacs à comparer.\n4. Clique sur Find Top Gear et attends quelques minutes.\n5. En haut du résultat se trouve ton meilleur ensemble : équipe-le.\n\"Unverified Input\" sur Raidbots est normal. Étape par étape : midnighthelper.com/fr/raidbots\nTu préfères une réponse rapide, sans simulation ? /mh export et midnighthelper.com/fr/armory.",
@@ -14357,9 +14357,9 @@ fill("frFR", {
 	RAIDBOTS_DONE_FMT = "Texte Raidbots prêt, avec %d objet(s) de tes sacs. Colle-le sur raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Choisis d'abord une spécialisation : Raidbots en a besoin.",
 	RAIDBOTS_TALENTVERSION = "L'export des talents du jeu a changé et Midnight Helper ne connaît pas encore la nouvelle version. Raidbots risque de mal lire tes talents : préviens-nous.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CMDLIST_RAIDBOTS = "Tu personaje, talentos y equipo como texto de SimulationCraft, para pegarlo en Raidbots Top Gear y ver el mejor conjunto exacto.",
 	RAIDBOTS_TITLE = "Para Raidbots Top Gear",
 	RAIDBOTS_HINT = "|cffff9900Fase de prueba: nuevo en Midnight Helper, úsalo bajo tu propio riesgo.|r\n1. Pulsa Ctrl+C (el texto ya está seleccionado).\n2. En raidbots.com/simbot/topgear, pestaña SimC Addon: pega con Ctrl+V.\n3. En Gear, haz clic en los objetos de tus bolsas que quieras comparar.\n4. Haz clic en Find Top Gear y espera unos minutos.\n5. Arriba del resultado está tu mejor conjunto: póntelo.\n\"Unverified Input\" en Raidbots es normal. Paso a paso: midnighthelper.com/es/raidbots\n¿Prefieres una respuesta rápida, sin simulación? /mh export y midnighthelper.com/es/armory.",
@@ -14368,9 +14368,9 @@ fill("esES", {
 	RAIDBOTS_DONE_FMT = "Texto para Raidbots listo, con %d objeto(s) de tus bolsas. Pégalo en raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Elige primero una especialización: Raidbots la necesita.",
 	RAIDBOTS_TALENTVERSION = "La exportación de talentos del juego ha cambiado y Midnight Helper aún no conoce la nueva versión. Puede que Raidbots lea mal tus talentos: avísanos.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_RAIDBOTS = "Seu personagem, talentos e equipamento como texto do SimulationCraft, para colar no Raidbots Top Gear e ver o melhor conjunto exato.",
 	RAIDBOTS_TITLE = "Para o Raidbots Top Gear",
 	RAIDBOTS_HINT = "|cffff9900Fase de teste: novo no Midnight Helper, use por sua conta e risco.|r\n1. Pressione Ctrl+C (o texto já está selecionado).\n2. Em raidbots.com/simbot/topgear, aba SimC Addon: cole com Ctrl+V.\n3. Em Gear, clique nos itens das suas bolsas que você quer comparar.\n4. Clique em Find Top Gear e espere alguns minutos.\n5. No topo do resultado está o seu melhor conjunto: equipe-o.\n\"Unverified Input\" no Raidbots é normal. Passo a passo: midnighthelper.com/pt/raidbots\nPrefere uma resposta rápida, sem simulação? /mh export e midnighthelper.com/pt/armory.",
@@ -14379,9 +14379,9 @@ fill("ptBR", {
 	RAIDBOTS_DONE_FMT = "Texto do Raidbots pronto, com %d item(ns) das suas bolsas. Cole em raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Escolha uma especialização primeiro: o Raidbots precisa de uma.",
 	RAIDBOTS_TALENTVERSION = "A exportação de talentos do jogo mudou e o Midnight Helper ainda não conhece a nova versão. O Raidbots pode ler seus talentos errado: avise a gente.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CMDLIST_RAIDBOTS = "Il tuo personaggio, i talenti e l'equipaggiamento come testo SimulationCraft, da incollare su Raidbots Top Gear per il miglior set esatto.",
 	RAIDBOTS_TITLE = "Per Raidbots Top Gear",
 	RAIDBOTS_HINT = "|cffff9900Fase di test: novità di Midnight Helper, usala a tuo rischio.|r\n1. Premi Ctrl+C (il testo è già selezionato).\n2. Su raidbots.com/simbot/topgear, scheda SimC Addon: incolla con Ctrl+V.\n3. Sotto Gear, clicca gli oggetti delle tue borse che vuoi confrontare.\n4. Clicca Find Top Gear e aspetta qualche minuto.\n5. In cima al risultato c'è il tuo set migliore: indossalo.\n\"Unverified Input\" su Raidbots è normale. Passo passo: midnighthelper.com/it/raidbots\nPreferisci una risposta rapida, senza simulazione? /mh export e midnighthelper.com/it/armory.",
@@ -14390,12 +14390,12 @@ fill("itIT", {
 	RAIDBOTS_DONE_FMT = "Testo per Raidbots pronto, con %d oggetto/i dalle tue borse. Incollalo su raidbots.com/simbot/topgear.",
 	RAIDBOTS_NOSPEC = "Scegli prima una specializzazione: Raidbots ne ha bisogno.",
 	RAIDBOTS_TALENTVERSION = "L'export dei talenti del gioco è cambiato e Midnight Helper non conosce ancora la nuova versione. Raidbots potrebbe leggere male i tuoi talenti: faccelo sapere.",
-})
+}) end
 
 -- Battle res & Bloodlust panel (GroupRezLust.lua), 30 Sep 2026. One agent per language, each
 -- measured its pack first (address form, key/raid/boss wording, SET_SEC_DUNGEON); not native-reviewed.
 -- Spell names, Battle res, Mythic+ and EllesmereUI stay English on purpose.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	REZLUST_BREZ_FMT = "Battle res: noch %d von %d übrig",
 	REZLUST_NEXT_FMT = "nächste in %s",
 	REZLUST_BREZ_OWN = "Battle res: hier keine gemeinsamen Ladungen - jeder hat seine eigene Abklingzeit.",
@@ -14419,9 +14419,9 @@ fill("deDE", {
 	SET_REZLUST_TOGGLE_DESC = "Ein kleines Fenster, wenn du in einer Gruppe in einem Dungeon, einer Tiefe oder einem Schlachtzug bist: die Battle-res-Ladungen der Gruppe, ob Hero bereit ist, wer in deiner Gruppe eins von beiden kann, und auf welcher Taste deine eigenen Wiederbelebungszauber liegen. Fahre mit der Maus darüber, um zu sehen, was sie sind. Wo EllesmereUI dasselbe Symbol schon zeigt, bleibt diese Zeile weg. /mh lust zeigt, was gelesen wird.",
 	SET_REZLUST_ONLYKEY_TITLE = "Nur in Mythic+-Schlüsseln und Schlachtzügen",
 	SET_REZLUST_ONLYKEY_DESC = "Zeigt das Battle res & Hero-Fenster nur in Mythic-Dungeons, Mythic+-Schlüsseln und Schlachtzügen, nicht in anderen Dungeons und Tiefen.",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	REZLUST_BREZ_FMT = "Battle res : %d sur %d restante(s)",
 	REZLUST_NEXT_FMT = "prochaine dans %s",
 	REZLUST_BREZ_OWN = "Battle res : pas de charges partagées ici - chacun a son propre temps de recharge.",
@@ -14445,9 +14445,9 @@ fill("frFR", {
 	SET_REZLUST_TOGGLE_DESC = "Un petit panneau quand tu es en groupe dans un donjon, un gouffre ou un raid : les charges de battle res du groupe, si Hero est prêt, qui dans ton groupe peut faire l'un ou l'autre, et la touche de tes propres sorts de résurrection. Survole-le pour savoir ce que c'est. Là où EllesmereUI affiche déjà la même icône, cette ligne disparaît. /mh lust montre ce qu'il lit.",
 	SET_REZLUST_ONLYKEY_TITLE = "Seulement dans les clés Mythic+ et les raids",
 	SET_REZLUST_ONLYKEY_DESC = "N'affiche le panneau Battle res & Hero que dans les donjons Mythic, les clés Mythic+ et les raids, pas dans les autres donjons ni les gouffres.",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	REZLUST_TITLE = "Battle res y Hero",
 	REZLUST_BREZ_FMT = "Battle res: quedan %d de %d",
 	REZLUST_NEXT_FMT = "próxima en %s",
@@ -14472,9 +14472,9 @@ fill("esES", {
 	SET_REZLUST_TOGGLE_DESC = "Un panel pequeño cuando estás en grupo en una mazmorra, profundidad o banda: las cargas de battle res del grupo, si Hero está listo, quién de tu grupo puede usar cada uno y en qué tecla están tus propios hechizos de resurrección. Pasa el ratón por encima para ver qué son. Donde EllesmereUI ya muestre el mismo icono, esa línea no aparece. /mh lust muestra lo que lee.",
 	SET_REZLUST_ONLYKEY_TITLE = "Solo en keys de Mythic+ y bandas",
 	SET_REZLUST_ONLYKEY_DESC = "Muestra el panel de Battle res y Hero solo en mazmorras Mythic, keys de Mythic+ y bandas, no en otras mazmorras ni profundidades.",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	REZLUST_BREZ_FMT = "Battle res: %d de %d restantes",
 	REZLUST_NEXT_FMT = "próxima em %s",
 	REZLUST_BREZ_OWN = "Battle res: aqui não há cargas compartilhadas - cada um tem sua própria recarga.",
@@ -14498,9 +14498,9 @@ fill("ptBR", {
 	SET_REZLUST_TOGGLE_DESC = "Um painel pequeno quando você está em grupo numa masmorra, imersão ou raide: as cargas de Battle res do grupo, se o Hero está pronto, quem do seu grupo pode usar cada um e em que tecla estão seus próprios feitiços de ressurreição. Passe o mouse para ver o que são. Onde o EllesmereUI já mostra o mesmo ícone, essa linha some. /mh lust mostra o que ele lê.",
 	SET_REZLUST_ONLYKEY_TITLE = "Só em chaves Mythic+ e raides",
 	SET_REZLUST_ONLYKEY_DESC = "Mostra o painel de Battle res & Hero só em masmorras Mythic, chaves Mythic+ e raides, não em outras masmorras nem imersões.",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	REZLUST_BREZ_FMT = "Battle res: %d su %d rimaste",
 	REZLUST_NEXT_FMT = "prossima tra %s",
 	REZLUST_BREZ_OWN = "Battle res: qui niente cariche condivise - ognuno ha il proprio tempo di ricarica.",
@@ -14524,45 +14524,45 @@ fill("itIT", {
 	SET_REZLUST_TOGGLE_DESC = "Un piccolo pannello quando sei in gruppo in un dungeon, una scorribanda o un'incursione: le cariche di Battle res del gruppo, se Hero è pronto, chi nel tuo gruppo può usare l'uno o l'altro e su quale tasto sono i tuoi incantesimi di resurrezione. Passaci sopra il mouse per sapere cosa sono. Dove EllesmereUI mostra già la stessa icona, quella riga non appare. /mh lust mostra cosa legge.",
 	SET_REZLUST_ONLYKEY_TITLE = "Solo nelle key Mythic+ e nelle incursioni",
 	SET_REZLUST_ONLYKEY_DESC = "Mostra il pannello Battle res & Hero solo nei dungeon Mythic, nelle key Mythic+ e nelle incursioni, non negli altri dungeon né nelle scorribande.",
-})
+}) end
 
 -- Battle res pool of 20+ charges (measured 99 in a raid boss fight, 30 Sep 2026). Not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	REZLUST_BREZ_UNLIMITED = "Battle res: in diesem Kampf keine echte Grenze.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	REZLUST_BREZ_UNLIMITED = "Battle res : pas de vraie limite dans ce combat.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	REZLUST_BREZ_UNLIMITED = "Battle res: en este combate no hay un límite real.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	REZLUST_BREZ_UNLIMITED = "Battle res: nesta luta não há limite real.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	REZLUST_BREZ_UNLIMITED = "Battle res: in questo combattimento non c'è un vero limite.",
-})
+}) end
 
 -- Close button on the battle res & Hero panel (30 Sep 2026). Not native-reviewed.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	REZLUST_CLOSE_TIP = "Schließen, bis du diesen Dungeon, diese Tiefe oder diesen Schlachtzug verlässt. Ganz ausschalten: Einstellungen, Dungeon-Hilfe.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	REZLUST_CLOSE_TIP = "Fermer jusqu'à ce que tu quittes ce donjon, ce gouffre ou ce raid. Pour le désactiver pour de bon : réglages, Aide donjon.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	REZLUST_CLOSE_TIP = "Cerrar hasta que salgas de esta mazmorra, profundidad o banda. Para desactivarlo del todo: ajustes, Ayuda de mazmorra.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	REZLUST_CLOSE_TIP = "Fechar até você sair desta masmorra, imersão ou raide. Para desligar de vez: Configurações, Ajuda de masmorra.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	REZLUST_CLOSE_TIP = "Chiudi finché non lasci questo dungeon, questa scorribanda o questa incursione. Per disattivarlo del tutto: impostazioni, Aiuto dungeon.",
-})
+}) end
 
 -- Character overview as columns (AltBoardView.lua), 1 Oct 2026. Our own translations, not
 -- native-reviewed. Vault, Shards, ilvl, Spec and Rested XP stay as the WoW UI writes them.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ALTBOARD_VIEW_ROWS = "Zeilen",
 	ALTBOARD_VIEW_COLUMNS = "Spalten",
 	ALTBOARD_VIEW_HINT = "Wechsle zwischen einer Zeile pro Charakter und deinen Charakteren nebeneinander.",
@@ -14588,8 +14588,8 @@ fill("deDE", {
 	ALTBOARD_BIG = "Großes Fenster",
 	ALTBOARD_BIG_CLOSE = "Zurück hierher",
 	ALTBOARD_IN_WINDOW = "Deine Charaktere sind in einem eigenen Fenster offen. Schließ es, um sie wieder hier zu sehen.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ALTBOARD_VIEW_ROWS = "Lignes",
 	ALTBOARD_VIEW_COLUMNS = "Colonnes",
 	ALTBOARD_VIEW_HINT = "Passe d'une ligne par personnage à tes personnages côte à côte.",
@@ -14615,8 +14615,8 @@ fill("frFR", {
 	ALTBOARD_BIG = "Grande fenêtre",
 	ALTBOARD_BIG_CLOSE = "Revenir ici",
 	ALTBOARD_IN_WINDOW = "Tes personnages sont ouverts dans leur propre fenêtre. Ferme-la pour les revoir ici.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ALTBOARD_VIEW_ROWS = "Filas",
 	ALTBOARD_VIEW_COLUMNS = "Columnas",
 	ALTBOARD_VIEW_HINT = "Cambia entre una fila por personaje y tus personajes uno al lado del otro.",
@@ -14642,8 +14642,8 @@ fill("esES", {
 	ALTBOARD_BIG = "Ventana grande",
 	ALTBOARD_BIG_CLOSE = "Volver aquí",
 	ALTBOARD_IN_WINDOW = "Tus personajes están abiertos en su propia ventana. Ciérrala para verlos aquí de nuevo.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ALTBOARD_VIEW_ROWS = "Linhas",
 	ALTBOARD_VIEW_COLUMNS = "Colunas",
 	ALTBOARD_VIEW_HINT = "Alterne entre uma linha por personagem e seus personagens lado a lado.",
@@ -14669,8 +14669,8 @@ fill("ptBR", {
 	ALTBOARD_BIG = "Janela grande",
 	ALTBOARD_BIG_CLOSE = "Voltar aqui",
 	ALTBOARD_IN_WINDOW = "Seus personagens estão abertos em uma janela própria. Feche-a para vê-los aqui de novo.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALTBOARD_VIEW_ROWS = "Righe",
 	ALTBOARD_VIEW_COLUMNS = "Colonne",
 	ALTBOARD_VIEW_HINT = "Passa da una riga per personaggio ai tuoi personaggi uno accanto all'altro.",
@@ -14696,12 +14696,12 @@ fill("itIT", {
 	ALTBOARD_BIG = "Finestra grande",
 	ALTBOARD_BIG_CLOSE = "Torna qui",
 	ALTBOARD_IN_WINDOW = "I tuoi personaggi sono aperti in una finestra a parte. Chiudila per rivederli qui.",
-})
+}) end
 
 -- Survey invitation (SurveyInvite.lua), 1 Oct 2026. Our own translations, not native-reviewed; address
 -- forms as the packs use them (de du, fr tu, es tú, pt você, it tu). SURVEY_URL points at each
 -- language's own page on the site.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SURVEY_URL = "midnighthelper.com/de/survey/?from=game",
 	SURVEY_NUDGE_TITLE = "Zwei Minuten für Midnight Helper?",
 	SURVEY_NUDGE_BODY = "Midnight Helper wird von einer Person gemacht, die keine Ahnung hat, was du nutzt und was du nie anrührst. Acht kurze Fragen auf unserer Website, anonym.",
@@ -14714,8 +14714,8 @@ fill("deDE", {
 	SURVEY_COPY_HINT = "Drücke Strg+C und füge den Link in deinen Browser ein. Danke!",
 	SURVEY_CHAT_LATER = "Kein Problem. Der Link zur Umfrage ist immer nur einen Befehl entfernt: /mh survey",
 	CMDLIST_SURVEY = "Der Link zu unserer Zwei-Minuten-Umfrage: was du nutzt, was nie, was dich nervt.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SURVEY_URL = "midnighthelper.com/fr/survey/?from=game",
 	SURVEY_NUDGE_TITLE = "Deux minutes pour Midnight Helper ?",
 	SURVEY_NUDGE_BODY = "Midnight Helper est fait par une seule personne, qui n'a aucune idée de ce que tu utilises et de ce que tu ne touches jamais. Huit petites questions sur notre site, anonymes.",
@@ -14728,8 +14728,8 @@ fill("frFR", {
 	SURVEY_COPY_HINT = "Appuie sur Ctrl+C et colle le lien dans ton navigateur. Merci !",
 	SURVEY_CHAT_LATER = "Pas de souci. Le lien du sondage est toujours à une commande : /mh survey",
 	CMDLIST_SURVEY = "Le lien de notre sondage de deux minutes : ce que tu utilises, ce que tu n'utilises jamais, ce qui t'agace.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SURVEY_URL = "midnighthelper.com/es/survey/?from=game",
 	SURVEY_NUDGE_TITLE = "¿Dos minutos para Midnight Helper?",
 	SURVEY_NUDGE_BODY = "Midnight Helper lo hace una sola persona que no tiene ni idea de qué usas y qué no tocas nunca. Ocho preguntas cortas en nuestra web, anónimas.",
@@ -14742,8 +14742,8 @@ fill("esES", {
 	SURVEY_COPY_HINT = "Pulsa Ctrl+C y pega el enlace en tu navegador. ¡Gracias!",
 	SURVEY_CHAT_LATER = "Sin problema. El enlace de la encuesta siempre está a un comando: /mh survey",
 	CMDLIST_SURVEY = "El enlace a nuestra encuesta de dos minutos: qué usas, qué no usas nunca, qué te molesta.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SURVEY_URL = "midnighthelper.com/pt/survey/?from=game",
 	SURVEY_NUDGE_TITLE = "Dois minutos para o Midnight Helper?",
 	SURVEY_NUDGE_BODY = "O Midnight Helper é feito por uma pessoa só, que não faz ideia do que você usa e do que nunca toca. Oito perguntas curtas no nosso site, anônimas.",
@@ -14756,8 +14756,8 @@ fill("ptBR", {
 	SURVEY_COPY_HINT = "Pressione Ctrl+C e cole o link no seu navegador. Obrigado!",
 	SURVEY_CHAT_LATER = "Sem problema. O link da pesquisa está sempre a um comando: /mh survey",
 	CMDLIST_SURVEY = "O link da nossa pesquisa de dois minutos: o que você usa, o que nunca usa, o que te incomoda.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SURVEY_URL = "midnighthelper.com/it/survey/?from=game",
 	SURVEY_NUDGE_TITLE = "Due minuti per Midnight Helper?",
 	SURVEY_NUDGE_BODY = "Midnight Helper è fatto da una sola persona che non ha idea di cosa usi e di cosa non tocchi mai. Otto domande brevi sul nostro sito, anonime.",
@@ -14770,49 +14770,49 @@ fill("itIT", {
 	SURVEY_COPY_HINT = "Premi Ctrl+C e incolla il link nel tuo browser. Grazie!",
 	SURVEY_CHAT_LATER = "Nessun problema. Il link del sondaggio è sempre a un comando di distanza: /mh survey",
 	CMDLIST_SURVEY = "Il link al nostro sondaggio di due minuti: cosa usi, cosa non usi mai, cosa ti dà fastidio.",
-})
+}) end
 
 -- 2 Oct 2026: solo toggle for the weekly plan (SettingsDefs mh_homeSolo, HomeDashboard).
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SET_HOMESOLO_TITLE = "Ich spiele meist solo",
 	SET_HOMESOLO_DESC = "Blendet die Blöcke Mythic+ und Schlachtzüge im Wochenplan auf Diese Woche aus. Tiefen, Weltquests, Berufe und die Große Schatzkammer bleiben.",
 	HOME_SOLO_HIDDEN_NOTE = "Solo-Modus: Mythic+ und Schlachtzüge sind in diesem Plan ausgeblendet. Schalte es in den Einstellungen aus („Ich spiele meist solo“).",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Diese Woche erledigt: %d (klicken zum Anzeigen)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Diese Woche erledigt: %d (klicken zum Ausblenden)",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SET_HOMESOLO_TITLE = "Je joue surtout en solo",
 	SET_HOMESOLO_DESC = "Masque les blocs Mythic+ et Raids du plan de la semaine sur Cette semaine. Les gouffres, les expéditions, les métiers et la Grande chambre forte restent.",
 	HOME_SOLO_HIDDEN_NOTE = "Mode solo : Mythic+ et les raids sont masqués dans ce plan. Désactive-le dans les options (« Je joue surtout en solo »).",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Fait cette semaine : %d (clique pour afficher)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Fait cette semaine : %d (clique pour masquer)",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SET_HOMESOLO_TITLE = "Juego sobre todo en solitario",
 	SET_HOMESOLO_DESC = "Oculta los bloques de Mythic+ y Bandas del plan semanal en Esta semana. Las profundidades, las misiones de mundo, las profesiones y la Gran cámara se quedan.",
 	HOME_SOLO_HIDDEN_NOTE = "Modo solitario: Mythic+ y las bandas están ocultos en este plan. Desactívalo en los ajustes («Juego sobre todo en solitario»).",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Hecho esta semana: %d (haz clic para mostrar)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Hecho esta semana: %d (haz clic para ocultar)",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_HOMESOLO_TITLE = "Jogo mais solo",
 	SET_HOMESOLO_DESC = "Esconde os blocos de Mythic+ e Raides do plano semanal em Esta semana. Imersões, missões mundiais, profissões e o Grande Cofre continuam.",
 	HOME_SOLO_HIDDEN_NOTE = "Modo solo: Mythic+ e raides estão escondidos neste plano. Desative nas configurações (“Jogo mais solo”).",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Feito nesta semana: %d (clique para mostrar)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Feito nesta semana: %d (clique para ocultar)",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SET_HOMESOLO_TITLE = "Gioco soprattutto da solo",
 	SET_HOMESOLO_DESC = "Nasconde i blocchi Mythic+ e Incursioni dal piano settimanale in Questa settimana. Scorribande, missioni mondiali, professioni e la Gran Banca restano.",
 	HOME_SOLO_HIDDEN_NOTE = "Modalità solo: Mythic+ e incursioni sono nascosti in questo piano. Disattivala nelle impostazioni («Gioco soprattutto da solo»).",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Fatto questa settimana: %d (clicca per mostrare)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Fatto questa settimana: %d (clicca per nascondere)",
-})
+}) end
 
 -- 5 Oct 2026: key block window (Modules/KeyBlock.lua, EditModeBackup.lua) + its entry in the
 -- bar-setup window. Self-made translations, not reviewed by a native speaker. The setup-window
 -- keys follow that window's address form (French: vous); the key-block keys follow theirs (tu).
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	MH_SETUP_BTN_BLOCK = "Dein Tastenblock",
 	MH_SETUP_NOTE_BLOCK = "Dieselbe Aufgabe auf derselben Taste, bei jedem Charakter. Erst ansehen, platzieren auf Wunsch.",
 	MH_SETUP_ACCOUNT_BLOCK = "Deine Tastenbelegung gilt accountweit: Der Tastenblock gibt jedem Charakter dieselben Tasten.\nPlatziere den Block auf jedem Charakter, sonst drücken seine Tasten dort leere Knöpfe.",
@@ -14874,8 +14874,8 @@ fill("deDE", {
 	KEYBLOCK_OWN_NOT_PRESET = "Diese Spezialisierung nutzt schon ein eigenes Layout. Nimm \"Leisten als Block anordnen\".",
 	KEYBLOCK_OWN_FULL = "Dieser Charakter hat schon 5 eigene Layouts, mehr erlaubt WoW nicht. Lösch zuerst eins im Bearbeitungsmodus.",
 	KEYBLOCK_OWN_NOT_ACTIVE_FMT = "Das Layout \"%s\" wurde erstellt, aber WoW hat nicht darauf gewechselt. Wähl es im Bearbeitungsmodus und drück dann \"Leisten als Block anordnen\".",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MH_SETUP_BTN_BLOCK = "Votre bloc de touches",
 	MH_SETUP_NOTE_BLOCK = "Même tâche sur la même touche, sur chaque personnage. Montre d’abord, place sur demande.",
 	MH_SETUP_ACCOUNT_BLOCK = "Vos raccourcis sont liés au compte : le bloc de touches donne les mêmes touches à chaque personnage.\nPlacez le bloc sur chaque personnage, sinon ses touches y appuient sur des boutons vides.",
@@ -14937,8 +14937,8 @@ fill("frFR", {
 	KEYBLOCK_OWN_NOT_PRESET = "Cette spécialisation utilise déjà sa propre disposition. Utilise \"Disposer mes barres en bloc\".",
 	KEYBLOCK_OWN_FULL = "Ce personnage a déjà 5 dispositions à lui, le maximum que WoW permet. Supprimes-en d'abord une dans le mode Édition.",
 	KEYBLOCK_OWN_NOT_ACTIVE_FMT = "La disposition \"%s\" a été créée, mais WoW n'est pas passé dessus. Choisis-la dans le mode Édition, puis appuie sur \"Disposer mes barres en bloc\".",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MH_SETUP_BTN_BLOCK = "Tu bloque de teclas",
 	MH_SETUP_NOTE_BLOCK = "La misma tarea en la misma tecla, en cada personaje. Primero lo muestra, lo coloca si lo pides.",
 	MH_SETUP_ACCOUNT_BLOCK = "Tus atajos son de toda la cuenta: el bloque de teclas da a cada personaje las mismas teclas.\nColoca el bloque en cada personaje, o allí sus teclas pulsarán botones vacíos.",
@@ -15000,8 +15000,8 @@ fill("esES", {
 	KEYBLOCK_OWN_NOT_PRESET = "Esta especialización ya usa una disposición propia. Usa \"Colocar mis barras en bloque\".",
 	KEYBLOCK_OWN_FULL = "Este personaje ya tiene 5 disposiciones propias, el máximo que permite WoW. Borra primero una en el modo Edición.",
 	KEYBLOCK_OWN_NOT_ACTIVE_FMT = "Se creó la disposición \"%s\", pero WoW no cambió a ella. Elígela en el modo Edición y luego pulsa \"Colocar mis barras en bloque\".",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MH_SETUP_BTN_BLOCK = "Seu bloco de teclas",
 	MH_SETUP_NOTE_BLOCK = "A mesma tarefa na mesma tecla, em todo personagem. Mostra primeiro, coloca se você pedir.",
 	MH_SETUP_ACCOUNT_BLOCK = "Seus atalhos valem para a conta inteira: o bloco de teclas dá as mesmas teclas a todo personagem.\nColoque o bloco em cada personagem, senão as teclas dele apertam botões vazios lá.",
@@ -15063,8 +15063,8 @@ fill("ptBR", {
 	KEYBLOCK_OWN_NOT_PRESET = "Esta especialização já usa um layout próprio. Use \"Organizar minhas barras em bloco\".",
 	KEYBLOCK_OWN_FULL = "Este personagem já tem 5 layouts próprios, o máximo que o WoW permite. Apague um no Modo de edição primeiro.",
 	KEYBLOCK_OWN_NOT_ACTIVE_FMT = "O layout \"%s\" foi criado, mas o WoW não trocou para ele. Escolha-o no Modo de edição e depois clique em \"Organizar minhas barras em bloco\".",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MH_SETUP_BTN_BLOCK = "Il tuo blocco tasti",
 	MH_SETUP_NOTE_BLOCK = "Stesso compito sullo stesso tasto, su ogni personaggio. Prima lo mostra, lo posiziona se vuoi.",
 	MH_SETUP_ACCOUNT_BLOCK = "Le tue scorciatoie valgono per tutto l’account: il blocco tasti dà a ogni personaggio gli stessi tasti.\nPosiziona il blocco su ogni personaggio, altrimenti lì i suoi tasti premono pulsanti vuoti.",
@@ -15126,14 +15126,14 @@ fill("itIT", {
 	KEYBLOCK_OWN_NOT_PRESET = "Questa spec usa già un layout suo. Usa \"Disponi le barre a blocco\".",
 	KEYBLOCK_OWN_FULL = "Questo personaggio ha già 5 layout suoi, il massimo che WoW consente. Eliminane prima uno in Modalità modifica.",
 	KEYBLOCK_OWN_NOT_ACTIVE_FMT = "Il layout \"%s\" è stato creato, ma WoW non è passato a quello. Sceglilo in Modalità modifica, poi premi \"Disponi le barre a blocco\".",
-})
+}) end
 
 -- 5 Oct 2026, second round: the key block's step guide, its reload popup, the "left alone"
 -- reasons (the %s inside KEYBLOCK_TIP_REFUSE_FMT, so each one finishes that pack's sentence)
 -- and the healer line on the play card. Self-made translations, not reviewed by a native
 -- speaker. Single-Button Assistant stays English: no pack names it yet and its localised
 -- client name was not looked up. GUIDE_4 quotes each pack's own PLAYCARD_BTN.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	KEYBLOCK_REFUSE_ASSIST = "hält den Single-Button Assistant",
 	KEYBLOCK_REFUSE_KIND_FMT = "hält %s, und MH könnte es später nicht zurücklegen",
 	KEYBLOCK_REFUSE_NOROOM_FMT = "hält %s, und auf Leiste 2-4 ist kein Knopf mehr frei, um es dorthin zu verschieben",
@@ -15152,8 +15152,8 @@ fill("deDE", {
 	KEYBLOCK_RELOAD_POPUP = "Deine Leisten sind gespeichert.\nDrück \"Jetzt neu laden\", um sie zu sehen.\n\n(Was sich geändert hat, steht unten im Fenster des Tastenblocks.)",
 	PLAYCARD_HEAL_HOW_HEAD = "So heilst du:",
 	PLAYCARD_HEAL_HOW = "klick auf den Rahmen des Verbündeten, den du heilen willst (deine Gruppen- oder Schlachtzugsrahmen), und drück dann die Taste. Ist niemand ausgewählt, landet eine Heilung auf dir selbst. Die [Taste] hinter einem Zaubernamen zeigt, wo er auf deinen Leisten liegt; du siehst sie erst, wenn du in dieser Spezialisierung bist.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	KEYBLOCK_REFUSE_ASSIST = "contient le Single-Button Assistant",
 	KEYBLOCK_REFUSE_KIND_FMT = "contient %s, que MH ne pourrait pas remettre ensuite",
 	KEYBLOCK_REFUSE_NOROOM_FMT = "contient %s, et il ne reste aucun bouton libre sur les barres 2-4 où le déplacer",
@@ -15172,8 +15172,8 @@ fill("frFR", {
 	KEYBLOCK_RELOAD_POPUP = "Tes barres sont enregistrées.\nAppuie sur \"Recharger maintenant\" pour les voir.\n\n(Ce qui a changé est écrit en bas de la fenêtre du bloc de touches.)",
 	PLAYCARD_HEAL_HOW_HEAD = "Comment soigner :",
 	PLAYCARD_HEAL_HOW = "clique sur le cadre de l'allié que tu veux soigner (tes cadres de groupe ou de raid), puis appuie sur la touche. Si personne n'est sélectionné, le soin arrive sur toi. La [touche] derrière un nom de sort indique où il se trouve sur tes barres ; tu ne la vois qu'une fois dans cette spécialisation.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	KEYBLOCK_REFUSE_ASSIST = "tiene el Single-Button Assistant",
 	KEYBLOCK_REFUSE_KIND_FMT = "tiene %s, que MH no podría devolver después",
 	KEYBLOCK_REFUSE_NOROOM_FMT = "tiene %s, y no queda ningún botón libre en las barras 2-4 al que moverlo",
@@ -15192,8 +15192,8 @@ fill("esES", {
 	KEYBLOCK_RELOAD_POPUP = "Tus barras están guardadas.\nPulsa \"Recargar ahora\" para verlas.\n\n(Lo que ha cambiado aparece abajo en la ventana del bloque de teclas.)",
 	PLAYCARD_HEAL_HOW_HEAD = "Cómo sanar:",
 	PLAYCARD_HEAL_HOW = "haz clic en el marco del aliado al que quieres sanar (tus marcos de grupo o de banda) y luego pulsa la tecla. Sin nadie seleccionado, la sanación cae sobre ti. La [tecla] detrás de un nombre de hechizo es donde está en tus barras; solo la ves cuando estás en esta especialización.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	KEYBLOCK_REFUSE_ASSIST = "tem o Single-Button Assistant",
 	KEYBLOCK_REFUSE_KIND_FMT = "tem %s, que o MH não conseguiria devolver depois",
 	KEYBLOCK_REFUSE_NOROOM_FMT = "tem %s, e não sobra nenhum botão livre nas barras 2-4 para onde movê-lo",
@@ -15212,8 +15212,8 @@ fill("ptBR", {
 	KEYBLOCK_RELOAD_POPUP = "Suas barras estão salvas.\nClique em \"Recarregar agora\" para vê-las.\n\n(O que mudou está escrito na parte de baixo da janela do bloco de teclas.)",
 	PLAYCARD_HEAL_HOW_HEAD = "Como curar:",
 	PLAYCARD_HEAL_HOW = "clique no quadro do aliado que você quer curar (seus quadros de grupo ou de raide) e depois aperte a tecla. Sem ninguém selecionado, a cura cai em você mesmo. A [tecla] depois do nome de um feitiço é onde ele está nas suas barras; você só a vê quando está nesta especialização.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	KEYBLOCK_REFUSE_ASSIST = "contiene il Single-Button Assistant",
 	KEYBLOCK_REFUSE_KIND_FMT = "contiene %s, che MH non potrebbe rimettere dopo",
 	KEYBLOCK_REFUSE_NOROOM_FMT = "contiene %s, e non c'è più un pulsante libero sulle barre 2-4 dove spostarlo",
@@ -15232,7 +15232,7 @@ fill("itIT", {
 	KEYBLOCK_RELOAD_POPUP = "Le tue barre sono salvate.\nPremi \"Ricarica ora\" per vederle.\n\n(Cosa è cambiato è scritto in fondo alla finestra del blocco tasti.)",
 	PLAYCARD_HEAL_HOW_HEAD = "Come curare:",
 	PLAYCARD_HEAL_HOW = "clicca sul riquadro dell'alleato che vuoi curare (i riquadri del gruppo o dell'incursione), poi premi il tasto. Se non hai selezionato nessuno, la cura arriva su di te. Il [tasto] dopo il nome di uno spell è dove si trova sulle tue barre; lo vedi solo quando sei in questa specializzazione.",
-})
+}) end
 
 -- 6 Oct 2026: "Ready for the raid?" shopping list (Modules/RaidShoppingList.lua, /mh ready), the key
 -- block's "not in the list yet" line, and its undo button for a shared layout. Self-made
@@ -15241,7 +15241,7 @@ fill("itIT", {
 -- flacons/potions, frascos/pociones, frascos/poções, flask/pozioni; class name as the client
 -- writes it. "Hearty" stays English: it is the item-name prefix, and no pack names its
 -- localised client form yet. French and the key-block keys use tu, as the block does.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	RAIDSHOP_TITLE = "Bereit für den Schlachtzug?",
 	RAIDSHOP_MODE_PROG = "Neuen Boss lernen",
 	RAIDSHOP_MODE_FARM = "Farm (bekannte Bosse)",
@@ -15257,8 +15257,8 @@ fill("deDE", {
 	RAIDSHOP_FOOT = "Faustregel: Fläschchen und Hearty-Essen bleiben über den Tod hinaus (eins pro Stunde), Tränke etwa einer pro Pull. Kauf die beste Qualität. Zeig auf eine Zeile, um den Gegenstand zu sehen.",
 	KEYBLOCK_UNKNOWN_FMT = "|cffff8080Noch nicht in der Liste von Midnight Helper (%d):|r %s. Sie kommen auf eine freie Alt-Taste in Block D. Sag es uns mit /mh report.",
 	KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT = "\"%s\" zurücksetzen (alle Charaktere)",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	RAIDSHOP_TITLE = "Prêt pour le raid ?",
 	RAIDSHOP_MODE_PROG = "Apprendre un nouveau boss",
 	RAIDSHOP_MODE_FARM = "Farm (boss connus)",
@@ -15274,8 +15274,8 @@ fill("frFR", {
 	RAIDSHOP_FOOT = "Une règle simple : les flacons et la nourriture Hearty restent après la mort (un par heure), les potions, c'est environ une par pull. Achète la meilleure qualité. Pointe une ligne pour voir l'objet.",
 	KEYBLOCK_UNKNOWN_FMT = "|cffff8080Pas encore dans la liste de Midnight Helper (%d) :|r %s. Ils vont sur une touche Alt libre du bloc D. Dis-le-nous avec /mh report.",
 	KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT = "Remettre \"%s\" (tous les personnages)",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	RAIDSHOP_TITLE = "¿Listo para la banda?",
 	RAIDSHOP_MODE_PROG = "Aprender un jefe nuevo",
 	RAIDSHOP_MODE_FARM = "Farmeo (jefes conocidos)",
@@ -15291,8 +15291,8 @@ fill("esES", {
 	RAIDSHOP_FOOT = "Una regla práctica: los frascos y la comida Hearty se mantienen al morir (uno por hora), las pociones son más o menos una por pull. Compra la mejor calidad. Señala una fila para ver el objeto.",
 	KEYBLOCK_UNKNOWN_FMT = "|cffff8080Aún no están en la lista de Midnight Helper (%d):|r %s. Van a una tecla Alt libre del bloque D. Avísanos con /mh report.",
 	KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT = "Restaurar \"%s\" (todos los personajes)",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	RAIDSHOP_TITLE = "Pronto para a raide?",
 	RAIDSHOP_MODE_PROG = "Aprender um chefe novo",
 	RAIDSHOP_MODE_FARM = "Farm (chefes conhecidos)",
@@ -15308,8 +15308,8 @@ fill("ptBR", {
 	RAIDSHOP_FOOT = "Uma regra prática: frascos e comida Hearty continuam depois da morte (um por hora), poções são mais ou menos uma por pull. Compre a melhor qualidade. Aponte para uma linha para ver o item.",
 	KEYBLOCK_UNKNOWN_FMT = "|cffff8080Ainda não estão na lista do Midnight Helper (%d):|r %s. Vão para uma tecla Alt livre no bloco D. Avise-nos com /mh report.",
 	KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT = "Restaurar \"%s\" (todos os personagens)",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	RAIDSHOP_TITLE = "Pronto per l'incursione?",
 	RAIDSHOP_MODE_PROG = "Imparare un nuovo boss",
 	RAIDSHOP_MODE_FARM = "Farm (boss che conosci)",
@@ -15325,7 +15325,7 @@ fill("itIT", {
 	RAIDSHOP_FOOT = "Una regola pratica: i flask e il cibo Hearty restano anche dopo la morte (uno all'ora), le pozioni sono circa una per pull. Compra la qualità migliore. Punta una riga per vedere l'oggetto.",
 	KEYBLOCK_UNKNOWN_FMT = "|cffff8080Non ancora nella lista di Midnight Helper (%d):|r %s. Vanno su un tasto Alt libero nel blocco D. Diccelo con /mh report.",
 	KEYBLOCK_BTN_LAYOUT_UNDO_SHARED_FMT = "Ripristina \"%s\" (tutti i personaggi)",
-})
+}) end
 
 -- 6 Oct 2026 (2): the shopping list's click/copy line, the Auctionator button and its status lines,
 -- "pick it up" + "+%d in mail/bank" (Modules/RaidShoppingList.lua), and the gear rows with their
@@ -15337,7 +15337,7 @@ fill("itIT", {
 -- CH_TAB_HINT_LINK, tab as CMDLIST_MACROS (Reiter/onglet/pestaña/aba/scheda). PICKUP sits in the
 -- 104 px status column, so it is one short word. Also the Tools cards TOOLLP_READY_DESC and
 -- TOOLLP_KEYBLOCK_DESC; "Undo" there is the pack's own KEYBLOCK_BTN_UNDO button name.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	RAIDSHOP_CLICK_HINT = "Klick auf eine Zeile: Im Auktionshaus wird nach dem Gegenstand gesucht, anderswo bekommst du den Namen zum Kopieren. Umschalt-Klick: ein Link im Chat.",
 	RAIDSHOP_COPY_LABEL = "Strg+C zum Kopieren:",
 	RAIDSHOP_PICKUP = "Abholen",
@@ -15354,8 +15354,8 @@ fill("deDE", {
 	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator hat die Liste nicht angenommen. Nutze stattdessen das Kopierfeld.",
 	TOOLLP_READY_DESC = "Deine Einkaufsliste für einen Schlachtzugsabend: Tränke, Fläschchen, Essen sowie fehlende Verzauberungen und Steine. Klick, um im Auktionshaus zu suchen.",
 	TOOLLP_KEYBLOCK_DESC = "Dieselbe Aufgabe auf derselben Taste, auf jedem Charakter. Setzt deine Zauber, und Rückgängig stellt alles wieder zurück.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	RAIDSHOP_CLICK_HINT = "Clique sur une ligne : à l'Hôtel des ventes, l'objet est recherché ; ailleurs, tu obtiens le nom à copier. Maj-clic : un lien dans le chat.",
 	RAIDSHOP_COPY_LABEL = "Ctrl+C pour copier :",
 	RAIDSHOP_PICKUP = "Récupérer",
@@ -15372,8 +15372,8 @@ fill("frFR", {
 	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator n'a pas accepté la liste. Utilise plutôt la case de copie.",
 	TOOLLP_READY_DESC = "Ta liste de courses pour une soirée de raid : potions, flacons, nourriture, et les enchantements et gemmes qui manquent. Clique pour chercher à l'Hôtel des ventes.",
 	TOOLLP_KEYBLOCK_DESC = "La même tâche sur la même touche, sur chaque personnage. Place tes sorts, et Annuler remet tout comme avant.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	RAIDSHOP_CLICK_HINT = "Haz clic en una fila: en la Casa de Subastas busca el objeto; en otro sitio obtienes el nombre para copiarlo. Mayús-clic: un enlace en el chat.",
 	RAIDSHOP_COPY_LABEL = "Ctrl+C para copiar:",
 	RAIDSHOP_PICKUP = "Recógelo",
@@ -15390,8 +15390,8 @@ fill("esES", {
 	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator no aceptó la lista. Usa la casilla de copiar en su lugar.",
 	TOOLLP_READY_DESC = "Tu lista de la compra para una noche de banda: pociones, frascos, comida, y los encantamientos y gemas que faltan. Haz clic para buscar en la Casa de Subastas.",
 	TOOLLP_KEYBLOCK_DESC = "La misma tarea en la misma tecla, en cada personaje. Coloca tus hechizos, y Deshacer lo deja todo como estaba.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	RAIDSHOP_CLICK_HINT = "Clique numa linha: na Casa de Leilões o item é buscado; em outro lugar você recebe o nome para copiar. Shift-clique: um link no chat.",
 	RAIDSHOP_COPY_LABEL = "Ctrl+C para copiar:",
 	RAIDSHOP_PICKUP = "Retire",
@@ -15408,8 +15408,8 @@ fill("ptBR", {
 	RAIDSHOP_AUCTIONATOR_FAILED = "O Auctionator não aceitou a lista. Use a caixa de cópia no lugar.",
 	TOOLLP_READY_DESC = "Sua lista de compras para uma noite de raide: poções, frascos, comida, e os encantamentos e gemas que faltam. Clique para buscar na Casa de Leilões.",
 	TOOLLP_KEYBLOCK_DESC = "A mesma tarefa na mesma tecla, em cada personagem. Coloca seus feitiços, e Desfazer deixa tudo como estava.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	RAIDSHOP_CLICK_HINT = "Clicca su una riga: alla Casa d'Aste cerca l'oggetto, altrove ottieni il nome da copiare. Maiusc-clic: un link in chat.",
 	RAIDSHOP_COPY_LABEL = "Ctrl+C per copiare:",
 	RAIDSHOP_PICKUP = "Ritira",
@@ -15426,7 +15426,7 @@ fill("itIT", {
 	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator non ha accettato la lista. Usa invece il campo da copiare.",
 	TOOLLP_READY_DESC = "La tua lista della spesa per una serata di incursione: pozioni, flask, cibo, e gli enchant e le gemme che mancano. Clicca per cercare alla Casa d'Aste.",
 	TOOLLP_KEYBLOCK_DESC = "Lo stesso compito sullo stesso tasto, su ogni personaggio. Posiziona i tuoi spell, e Annulla rimette tutto com'era.",
-})
+}) end
 
 -- 6 Oct 2026 (3): two new quick-bar buttons, the route (skip / clear / plan) and the nearest flight
 -- master. Self-made translations, not reviewed by a native speaker. Click words and the French vous
@@ -15438,7 +15438,7 @@ fill("itIT", {
 -- SET_LAUNCH block, using each pack's own SET_ALL_TITLE text. fill() never replaces a value that differs from
 -- English, so a newer line here would have been silently skipped and the old, wrong text would stay.
 -- The SET_* keys of the same round live in Locales/SettingsPage.lua, next to the rest of that page.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	QUICKBAR_ROUTE = "Deine Route",
 	QUICKBAR_ROUTE_L = "Klick: diesen Halt überspringen (/mh skip).",
 	QUICKBAR_ROUTE_R = "Rechtsklick: die Route beenden (/mh clear).",
@@ -15447,8 +15447,8 @@ fill("deDE", {
 	QUICKBAR_FP_L = "Klick: ein Pfeil zum nächsten Flugmeister (/mh fp). Nicht in einer Instanz.",
 	SETUPNUDGE_SETTINGS_BTN = "Leisten und Tasten einrichten",
 	TRANSLATE_HELP_COPYHINT = "Wähle einen Link aus, drück Strg+C und füge ihn in deinen Browser ein.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	QUICKBAR_ROUTE = "Votre itinéraire",
 	QUICKBAR_ROUTE_L = "Clic : passer cet arrêt (/mh skip).",
 	QUICKBAR_ROUTE_R = "Clic droit : arrêter l'itinéraire (/mh clear).",
@@ -15457,8 +15457,8 @@ fill("frFR", {
 	QUICKBAR_FP_L = "Clic : une flèche vers le maître de vol le plus proche (/mh fp). Pas en instance.",
 	SETUPNUDGE_SETTINGS_BTN = "Configurer vos barres et vos touches",
 	TRANSLATE_HELP_COPYHINT = "Sélectionne un lien, appuie sur Ctrl+C et colle-le dans ton navigateur.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	QUICKBAR_ROUTE = "Tu ruta",
 	QUICKBAR_ROUTE_L = "Clic: saltar esta parada (/mh skip).",
 	QUICKBAR_ROUTE_R = "Clic derecho: detener la ruta (/mh clear).",
@@ -15467,8 +15467,8 @@ fill("esES", {
 	QUICKBAR_FP_L = "Clic: una flecha hacia el maestro de vuelo más cercano (/mh fp). No dentro de una instancia.",
 	SETUPNUDGE_SETTINGS_BTN = "Configurar tus barras y teclas",
 	TRANSLATE_HELP_COPYHINT = "Selecciona un enlace, pulsa Ctrl+C y pégalo en tu navegador.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	QUICKBAR_ROUTE = "Sua rota",
 	QUICKBAR_ROUTE_L = "Clique: pular esta parada (/mh skip).",
 	QUICKBAR_ROUTE_R = "Clique direito: parar a rota (/mh clear).",
@@ -15477,8 +15477,8 @@ fill("ptBR", {
 	QUICKBAR_FP_L = "Clique: uma seta para o mestre de voo mais próximo (/mh fp). Não dentro de uma instância.",
 	SETUPNUDGE_SETTINGS_BTN = "Configurar suas barras e teclas",
 	TRANSLATE_HELP_COPYHINT = "Selecione um link, aperte Ctrl+C e cole no seu navegador.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	QUICKBAR_ROUTE = "Il tuo percorso",
 	QUICKBAR_ROUTE_L = "Clic: salta questa tappa (/mh skip).",
 	QUICKBAR_ROUTE_R = "Clic destro: ferma il percorso (/mh clear).",
@@ -15487,7 +15487,7 @@ fill("itIT", {
 	QUICKBAR_FP_L = "Clic: una freccia verso il maestro di volo più vicino (/mh fp). Non dentro un'istanza.",
 	SETUPNUDGE_SETTINGS_BTN = "Sistema le tue barre e i tuoi tasti",
 	TRANSLATE_HELP_COPYHINT = "Seleziona un link, premi Ctrl+C e incollalo nel tuo browser.",
-})
+}) end
 
 -- 6 Oct 2026 (4): craft shopping list (Modules/CraftShoppingList.lua, /mh craftshop) and its two lines in the
 -- profession side panel (Modules/ProfessionSidePanel.lua). Self-made translations, not reviewed by a native
@@ -15497,7 +15497,7 @@ fill("itIT", {
 -- ranks as Qualitätsstufe / rang de qualité / rango de calidad / nível de qualidade / livello di qualità.
 -- The quoted button in CRAFTSHOP_EMPTY matches CRAFTSHOP_PANEL_ADD_FMT word for word. CLEAR sits on a
 -- 110 px button. The "finishing reagents" term is not measured against the client in any language.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CRAFTSHOP_TITLE = "Einkaufen für deinen Beruf",
 	CRAFTSHOP_EMPTY = "Deine Liste ist leer. Öffne deinen Beruf, klick auf ein Rezept und nutze \"+ … auf deine Einkaufsliste\" im Midnight Helper-Panel daneben.",
 	CRAFTSHOP_INTRO = "Was deine Rezepte brauchen, abzüglich dessen, was du schon hast. Entferne ein Rezept mit dem Kreuz.",
@@ -15511,8 +15511,8 @@ fill("deDE", {
 	CRAFTSHOP_PANEL_ADD_FMT = "+ %s auf deine Einkaufsliste",
 	CRAFTSHOP_PANEL_OPEN_FMT = "Deine Einkaufsliste öffnen (%d)",
 	CMDLIST_CRAFTSHOP = "Einkaufen für deinen Beruf: was deine Rezepte brauchen, abzüglich dessen, was du hast. Klick, um im Auktionshaus zu suchen.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CRAFTSHOP_TITLE = "Courses pour ton métier",
 	CRAFTSHOP_EMPTY = "Ta liste est vide. Ouvre ton métier, clique sur une recette et utilise \"+ … dans ta liste de courses\" dans le panneau Midnight Helper à côté.",
 	CRAFTSHOP_INTRO = "Ce dont tes recettes ont besoin, moins ce que tu as déjà. Retire une recette avec la croix.",
@@ -15526,8 +15526,8 @@ fill("frFR", {
 	CRAFTSHOP_PANEL_ADD_FMT = "+ %s dans ta liste de courses",
 	CRAFTSHOP_PANEL_OPEN_FMT = "Ouvrir ta liste de courses (%d)",
 	CMDLIST_CRAFTSHOP = "Courses pour ton métier : ce dont tes recettes ont besoin, moins ce que tu as. Clique pour chercher à l'Hôtel des ventes.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CRAFTSHOP_TITLE = "Compras para tu profesión",
 	CRAFTSHOP_EMPTY = "Tu lista está vacía. Abre tu profesión, haz clic en una receta y usa \"+ … a tu lista de la compra\" en el panel de Midnight Helper que hay al lado.",
 	CRAFTSHOP_INTRO = "Lo que necesitan tus recetas, menos lo que ya tienes. Quita una receta con la cruz.",
@@ -15541,8 +15541,8 @@ fill("esES", {
 	CRAFTSHOP_PANEL_ADD_FMT = "+ %s a tu lista de la compra",
 	CRAFTSHOP_PANEL_OPEN_FMT = "Abrir tu lista de la compra (%d)",
 	CMDLIST_CRAFTSHOP = "Compras para tu profesión: lo que necesitan tus recetas, menos lo que tienes. Haz clic para buscar en la Casa de Subastas.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CRAFTSHOP_TITLE = "Compras para sua profissão",
 	CRAFTSHOP_EMPTY = "Sua lista está vazia. Abra sua profissão, clique numa receita e use \"+ … na sua lista de compras\" no painel do Midnight Helper ao lado.",
 	CRAFTSHOP_INTRO = "O que suas receitas precisam, menos o que você já tem. Remova uma receita com o X.",
@@ -15556,8 +15556,8 @@ fill("ptBR", {
 	CRAFTSHOP_PANEL_ADD_FMT = "+ %s na sua lista de compras",
 	CRAFTSHOP_PANEL_OPEN_FMT = "Abrir sua lista de compras (%d)",
 	CMDLIST_CRAFTSHOP = "Compras para sua profissão: o que suas receitas precisam, menos o que você tem. Clique para buscar na Casa de Leilões.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CRAFTSHOP_TITLE = "Spesa per la tua professione",
 	CRAFTSHOP_EMPTY = "La tua lista è vuota. Apri la tua professione, clicca su una ricetta e usa \"+ … nella tua lista della spesa\" nel pannello di Midnight Helper lì accanto.",
 	CRAFTSHOP_INTRO = "Quello che serve alle tue ricette, meno quello che hai già. Togli una ricetta con la croce.",
@@ -15571,7 +15571,7 @@ fill("itIT", {
 	CRAFTSHOP_PANEL_ADD_FMT = "+ %s nella tua lista della spesa",
 	CRAFTSHOP_PANEL_OPEN_FMT = "Apri la tua lista della spesa (%d)",
 	CMDLIST_CRAFTSHOP = "Spesa per la tua professione: quello che serve alle tue ricette, meno quello che hai. Clicca per cercare alla Casa d'Aste.",
-})
+}) end
 
 -- 6 Oct 2026 (5): craft shopping list v2 (sources, vendor, farming, make it, show the way). Same module as
 -- block (4). Self-made translations, not reviewed by a native speaker. Words as block (4): Einkaufsliste /
@@ -15584,7 +15584,7 @@ fill("itIT", {
 -- Zones, Renowned Beasts, hawkstriders, Auctionator: English, articles per language. Bountiful Heavy
 -- Trunk: since 11 Oct 2026 the client name per pack (de Großzügige schwere Truhe …; CLAUDE.md Localization).
 -- The quoted button in CRAFTSHOP_TIP_MAKE matches CRAFTSHOP_BTN_MAKE_FMT without " %d×" in every language.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s braucht nichts, was du kaufen kannst, also kommt es nicht auf die Liste.",
 	CRAFTSHOP_UNLEARNED = "Dieses Rezept kennst du noch nicht. Hier bekommst du es:",
 	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
@@ -15658,8 +15658,8 @@ fill("deDE", {
 	CRAFTSHOP_TIP_CLOTH = "Fällt von humanoiden Gegnern. Jeder kann es sammeln.",
 	CRAFTSHOP_NOTE_MEAT = "Fällt von Wildtieren",
 	CRAFTSHOP_TIP_MEAT = "Fällt von Wildtieren. Jeder kann es sammeln.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s n'a besoin de rien que tu puisses acheter, donc il reste hors de la liste.",
 	CRAFTSHOP_UNLEARNED = "Tu ne connais pas encore cette recette. Où l'obtenir :",
 	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
@@ -15733,8 +15733,8 @@ fill("frFR", {
 	CRAFTSHOP_TIP_CLOTH = "Tombe sur les ennemis humanoïdes. Tout le monde peut le ramasser.",
 	CRAFTSHOP_NOTE_MEAT = "Tombe sur les bêtes",
 	CRAFTSHOP_TIP_MEAT = "Tombe sur les bêtes. Tout le monde peut le ramasser.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s no necesita nada que puedas comprar, así que se queda fuera de la lista.",
 	CRAFTSHOP_UNLEARNED = "Aún no conoces esta receta. Dónde conseguirla:",
 	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
@@ -15808,8 +15808,8 @@ fill("esES", {
 	CRAFTSHOP_TIP_CLOTH = "Cae de enemigos humanoides. Cualquiera puede recogerla.",
 	CRAFTSHOP_NOTE_MEAT = "Cae de bestias",
 	CRAFTSHOP_TIP_MEAT = "Cae de bestias. Cualquiera puede recogerlo.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s não precisa de nada que você possa comprar, então fica fora da lista.",
 	CRAFTSHOP_UNLEARNED = "Você ainda não conhece esta receita. Onde conseguir:",
 	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
@@ -15883,8 +15883,8 @@ fill("ptBR", {
 	CRAFTSHOP_TIP_CLOTH = "Cai de inimigos humanoides. Qualquer um pode coletar.",
 	CRAFTSHOP_NOTE_MEAT = "Cai de feras",
 	CRAFTSHOP_TIP_MEAT = "Cai de feras. Qualquer um pode coletar.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CRAFTSHOP_NOTHING_TO_BUY = "%s non richiede nulla che puoi comprare, quindi resta fuori dalla lista.",
 	CRAFTSHOP_UNLEARNED = "Non conosci ancora questa ricetta. Dove trovarla:",
 	-- 9 Oct 2026: mh-writer, not reviewed by a native speaker
@@ -15958,7 +15958,7 @@ fill("itIT", {
 	CRAFTSHOP_TIP_CLOTH = "Cade dai nemici umanoidi. Chiunque può raccoglierla.",
 	CRAFTSHOP_NOTE_MEAT = "Cade dalle bestie",
 	CRAFTSHOP_TIP_MEAT = "Cade dalle bestie. Chiunque può raccoglierlo.",
-})
+}) end
 
 -- 6 Oct 2026 (6): healers fight alone, recipe tooltip, Moxie. The solo list on the play card
 -- (Modules/PlayCardWindow.lua), its legend on the key block, and the two alt lines in the recipe tooltip
@@ -15971,7 +15971,7 @@ fill("itIT", {
 -- Same round, NOT in this block: PROFACAD_CH_MOXIE_BODY and PROFACAD_CH_WEEKLY_BODY were edited in the
 -- packs themselves (deDE/frFR/esES/ptBR/itIT.lua), because fill() never replaces a value that differs from
 -- enUS. And VALEERA_OFF_HINT above now quotes TAB_TOOLSLAUNCH per language instead of "Pop-out windows".
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CARD_SOLO_HEAD = "So kämpfst du allein:",
 	CARD_SOLO_INTRO = "draußen in der Welt heilt oder tankt niemand für dich. Nimm den Gegner ins Ziel und geh dann diese Liste durch (dieselbe Reihenfolge, die Blizzards eigener Single-Button Assistant nutzt).",
 	CARD_SOLO_NOKEY = "(nicht auf deinen Leisten)",
@@ -15987,8 +15987,8 @@ fill("deDE", {
 	KEYBLOCK_SOLO_LEGEND = "Roter Rand = ein Schadenszauber: das drückst du, wenn du allein kämpfst. \"So spielst du\" zeigt sie der Reihe nach.",
 	CRAFTSHOP_TIP_KNOWN_FMT = "Schon bekannt bei: %s",
 	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Haben den Beruf, dieses Rezept noch nicht: %s",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CARD_SOLO_HEAD = "Comment tu combats seul :",
 	CARD_SOLO_INTRO = "dehors, dans le monde, personne ne te soigne ni ne tanke pour toi. Cible l'ennemi, puis suis cette liste (le même ordre que le Single-Button Assistant de Blizzard).",
 	CARD_SOLO_NOKEY = "(pas sur tes barres)",
@@ -16004,8 +16004,8 @@ fill("frFR", {
 	KEYBLOCK_SOLO_LEGEND = "Bordure rouge = un sort de dégâts : ce que tu presses quand tu combats seul. \"Comment jouer\" les donne dans l'ordre.",
 	CRAFTSHOP_TIP_KNOWN_FMT = "Déjà connue par : %s",
 	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Ont le métier, pas encore cette recette : %s",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CARD_SOLO_HEAD = "Cómo luchas solo:",
 	CARD_SOLO_INTRO = "ahí fuera, en el mundo, nadie te cura ni tanquea por ti. Selecciona al enemigo y sigue esta lista (el mismo orden que usa el propio Single-Button Assistant de Blizzard).",
 	CARD_SOLO_NOKEY = "(no está en tus barras)",
@@ -16021,8 +16021,8 @@ fill("esES", {
 	KEYBLOCK_SOLO_LEGEND = "Borde rojo = un hechizo de daño: lo que pulsas cuando luchas solo. \"Cómo jugar\" los pone en orden.",
 	CRAFTSHOP_TIP_KNOWN_FMT = "Ya la conocen: %s",
 	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Tienen la profesión, aún no esta receta: %s",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CARD_SOLO_HEAD = "Como você luta sozinho:",
 	CARD_SOLO_INTRO = "lá fora no mundo ninguém cura nem tanka por você. Selecione o inimigo e siga esta lista (a mesma ordem que o próprio Single-Button Assistant da Blizzard usa).",
 	CARD_SOLO_NOKEY = "(não está nas suas barras)",
@@ -16038,8 +16038,8 @@ fill("ptBR", {
 	KEYBLOCK_SOLO_LEGEND = "Borda vermelha = um feitiço de dano: o que você aperta quando luta sozinho. \"Como jogar\" mostra a ordem.",
 	CRAFTSHOP_TIP_KNOWN_FMT = "Já conhecem: %s",
 	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Têm a profissão, ainda não esta receita: %s",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CARD_SOLO_HEAD = "Come combatti da solo:",
 	CARD_SOLO_INTRO = "fuori nel mondo nessuno ti cura né fa da tank per te. Seleziona il nemico, poi segui questa lista (lo stesso ordine che usa il Single-Button Assistant di Blizzard).",
 	CARD_SOLO_NOKEY = "(non sulle tue barre)",
@@ -16055,7 +16055,7 @@ fill("itIT", {
 	KEYBLOCK_SOLO_LEGEND = "Bordo rosso = una spell di danno: quello che premi quando combatti da solo. \"Come si gioca\" le mette in ordine.",
 	CRAFTSHOP_TIP_KNOWN_FMT = "Già conosciuta da: %s",
 	CRAFTSHOP_TIP_NOT_KNOWN_FMT = "Hanno la professione, non ancora questa ricetta: %s",
-})
+}) end
 
 -- 7 Oct 2026: Moxie as the client calls it. Words GEMETEN in wago DB2 12.1.0.69933 (CurrencyTypes
 -- 3256-3266 and item 237505 "Artisan's Moxie"); see docs/RESEARCH_2026-10-07_moxie_tantalum.md.
@@ -16067,36 +16067,36 @@ fill("itIT", {
 -- Same round: CRAFTSHOP_NOTE_PREY / CRAFTSHOP_TIP_PREY (new in enUS), Prey named as CODEX_PREY_TITLE.
 -- "Knowledge books" as Blizzard's own words in the 3256 description. Self-made translations, not
 -- reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ALTBOARD_MOXIE = "Tatkraft",
 	CURACC_USE_MOXIE = "Die eigene Währung dieses Berufs: Rezepte, Folianten des Wissens und Reagenzien bei seinen Händlern. Sie bleibt auf dem Charakter, der sie verdient hat.",
 	CRAFTSHOP_NOTE_PREY = "Beutejagden (mit Glück)",
 	CRAFTSHOP_TIP_PREY = "Kommt aus der Belohnungstruhe einer Beutejagd, auf jedem Schwierigkeitsgrad. Es ist eine Chance, kein sicherer Drop. Sonst: das Auktionshaus.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ALTBOARD_MOXIE = "Aplomb",
 	CURACC_USE_MOXIE = "La monnaie propre à ce métier : recettes, tomes de connaissance et composants chez ses vendeurs. Elle reste sur le personnage qui l'a gagnée.",
 	CRAFTSHOP_NOTE_PREY = "Traques (avec un peu de chance)",
 	CRAFTSHOP_TIP_PREY = "Vient du coffre de récompense d'une Traque, quelle que soit la difficulté. C'est une chance, pas un butin assuré. Sinon : l'Hôtel des ventes.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ALTBOARD_MOXIE = "Arrojo",
 	CURACC_USE_MOXIE = "La moneda propia de esa profesión: recetas, tomos de conocimiento y componentes en sus vendedores. Se queda en el personaje que la ganó.",
 	CRAFTSHOP_NOTE_PREY = "Cacerías de Presa (con suerte)",
 	CRAFTSHOP_TIP_PREY = "Sale del cofre de recompensa de una Cacería de Presa, en cualquier dificultad. Es una probabilidad, no un botín seguro. Si no: la Casa de Subastas.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ALTBOARD_MOXIE = "Marra",
 	CURACC_USE_MOXIE = "A moeda própria dessa profissão: receitas, tomos do Conhecimento e reagentes nos vendedores dela. Fica no personagem que a ganhou.",
 	CRAFTSHOP_NOTE_PREY = "Caçadas de Presa (com sorte)",
 	CRAFTSHOP_TIP_PREY = "Vem do baú de recompensa de uma Caçada de Presa, em qualquer dificuldade. É uma chance, não um drop garantido. Senão: a Casa de Leilões.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALTBOARD_MOXIE = "Grinta",
 	CURACC_USE_MOXIE = "La valuta propria di quella professione: ricette, tomi della conoscenza e reagenti dai suoi vendor. Resta sul personaggio che l'ha guadagnata.",
 	CRAFTSHOP_NOTE_PREY = "Cacce alla Preda (con fortuna)",
 	CRAFTSHOP_TIP_PREY = "Viene dal forziere ricompensa di una Caccia alla Preda, a qualsiasi difficoltà. È una possibilità, non un drop sicuro. Altrimenti: la Casa d'Aste.",
-})
+}) end
 
 -- 7 Oct 2026 (2): alts, quality, keypad. New in enUS today: the alt stock line and tooltip in the craft
 -- shopping list, the silver/gold quality line under a recipe, and the keypad command list.
@@ -16105,7 +16105,7 @@ fill("itIT", {
 -- Same round, edited in place in the blocks above: PROFACAD_CH_QUALITY_ADVANCED got the new enUS
 -- paragraph ("So which do you buy?") in all five languages. Self-made translations, not reviewed by a
 -- native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CRAFTSHOP_ON_ALTS_FMT = "+%d auf Twinks",
 	CRAFTSHOP_TIP_ON_ALTS_FMT = "Auf deinen anderen Charakteren (Stand: ihr letzter Login): %s. Schick es per Post, statt es zu kaufen.",
 	CRAFTSHOP_QUALITY_FMT = "Qualität mit Silber: %d · mit Gold: %d",
@@ -16114,8 +16114,8 @@ fill("deDE", {
 	CRAFTSHOP_QUALITY_MAX_FMT = "(von %d)",
 	CMDLIST_KEYPAD = "Ein Befehl pro Fenster, für ein Keypad oder ein Makro: /mhrares, /mhdelves, /mhcraftshop und mehr. Das gibt die ganze Liste aus.",
 	KEYPAD_HEAD = "Ein Befehl pro Fenster (leg sie auf ein Keypad oder in ein Makro):",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CRAFTSHOP_ON_ALTS_FMT = "+%d sur tes alts",
 	CRAFTSHOP_TIP_ON_ALTS_FMT = "Sur tes autres personnages (à leur dernière connexion) : %s. Envoie-le par courrier au lieu de l'acheter.",
 	CRAFTSHOP_QUALITY_FMT = "Qualité avec argent : %d · avec or : %d",
@@ -16124,8 +16124,8 @@ fill("frFR", {
 	CRAFTSHOP_QUALITY_MAX_FMT = "(sur %d)",
 	CMDLIST_KEYPAD = "Une commande par fenêtre, pour un keypad ou une macro : /mhrares, /mhdelves, /mhcraftshop et plus. Ceci affiche toute la liste.",
 	KEYPAD_HEAD = "Une commande par fenêtre (mets-les sur un keypad ou dans une macro) :",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CRAFTSHOP_ON_ALTS_FMT = "+%d en alts",
 	CRAFTSHOP_TIP_ON_ALTS_FMT = "En tus otros personajes (según su último inicio de sesión): %s. Envíalo por correo en vez de comprarlo.",
 	CRAFTSHOP_QUALITY_FMT = "Calidad con plata: %d · con oro: %d",
@@ -16134,8 +16134,8 @@ fill("esES", {
 	CRAFTSHOP_QUALITY_MAX_FMT = "(de %d)",
 	CMDLIST_KEYPAD = "Un comando por ventana, para un keypad o una macro: /mhrares, /mhdelves, /mhcraftshop y más. Esto muestra la lista completa.",
 	KEYPAD_HEAD = "Un comando por ventana (ponlos en un keypad o en una macro):",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CRAFTSHOP_ON_ALTS_FMT = "+%d em alts",
 	CRAFTSHOP_TIP_ON_ALTS_FMT = "Nos seus outros personagens (no último login deles): %s. Mande pelo correio em vez de comprar.",
 	CRAFTSHOP_QUALITY_FMT = "Qualidade com prata: %d · com ouro: %d",
@@ -16144,8 +16144,8 @@ fill("ptBR", {
 	CRAFTSHOP_QUALITY_MAX_FMT = "(de %d)",
 	CMDLIST_KEYPAD = "Um comando por janela, para um keypad ou uma macro: /mhrares, /mhdelves, /mhcraftshop e mais. Isto mostra a lista inteira.",
 	KEYPAD_HEAD = "Um comando por janela (coloque-os num keypad ou numa macro):",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CRAFTSHOP_ON_ALTS_FMT = "+%d sugli alt",
 	CRAFTSHOP_TIP_ON_ALTS_FMT = "Sui tuoi altri personaggi (al loro ultimo login): %s. Mandalo per posta invece di comprarlo.",
 	CRAFTSHOP_QUALITY_FMT = "Qualità con argento: %d · con oro: %d",
@@ -16154,7 +16154,7 @@ fill("itIT", {
 	CRAFTSHOP_QUALITY_MAX_FMT = "(su %d)",
 	CMDLIST_KEYPAD = "Un comando per finestra, per un keypad o una macro: /mhrares, /mhdelves, /mhcraftshop e altri. Questo mostra la lista completa.",
 	KEYPAD_HEAD = "Un comando per finestra (mettili su un keypad o in una macro):",
-})
+}) end
 
 -- 7 Oct 2026 (3): 12.1.5 Codex. New in enUS (Locales/Codex.lua, shown from 12.1.5): the Labyrinth of Kindo'jan,
 -- Aqir Invasion, Kith'ix and Ascendant Venomstones articles; plus the shop window's two tabs, the
@@ -16168,7 +16168,7 @@ fill("itIT", {
 -- line; ptBR says Valira. The titles of the Labyrinth, Aqir Invasion and Venomstones are names and
 -- stay English on purpose. Same round, edited in place above: CODEX_S2GLOSS_BODY got the Orin
 -- Straylight sentence in all five languages. Self-made translations, not reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	-- 13 Oct 2026: the delve's own client name (wago 70077/70340, AreaPOI 9035), like DELVE_NAME_LABYRINTH.
 	CODEX_LABYRINTH_TITLE = "Labyrinth von Kindo'jan (12.1.5)",
 	CODEX_LABYRINTH_BODY = "|cffffcc00Eine große Tiefe mit neun Räumen und dem Boss Kindo'jan in ihrem Herzen. Beim ersten Mal erreichst du ihn nach allen neun Räumen; danach reicht laut den Guides eine kürzere Route.|r Neu in Patch 12.1.5. Valeera kommt mit, wie in jeder Tiefe.|n|n|cffffff78Hineinkommen|r|n• Der Eingang liegt im Immersangwald: {WAY:2395:62.90:72.00:Labyrinth von Kindo'jan}. Es gibt 11 Tiers; du wählst eins an der Tür, wie in jeder Tiefe.|n|n|cffffff78Beim ersten Mal|r|n• Die Tür ist versiegelt. Klick auf das Amani Tablet daran: Es schickt dich zu Kul'amara the Fierce in Atal'Aman (das ? auf deiner Karte). Kul'amara schickt dich zurück, damit du Valeera an der Tür triffst.|n• Dein erster Durchlauf ist kurz: drei Räume. Jeder Raum hat seine eigene Aufgabe, manche mit einem Boss (Jun'ala, Sha'Kuro). Nach jedem Raum darfst du aufhören: Sprich mit Kinduru, dem Geistervogel.|n• Wenn du den Durchlauf beendest, kommst du in den Schatzraum. Geh danach zurück zu Kul'amara, um ein Spielzeug zu holen, das einen Durchlauf beendet, wo immer du bist. Kinduru deutet an, dass spätere Durchläufe dich tiefer hineinführen.|n• Unterwegs schaltest du Wiederbelebungspunkte frei.|n|n|cffffff78Du musst sie nicht beenden|r|n• Je 3 Räume geben |cffffffff2 schwere Truhen, 1 großzügigen Kasten und Fortschritt für die Große Schatzkammer|r, und du darfst dort aufhören. Wappen aus schweren Truhen zählen doppelt.|n• 3 Räume auf einem Tier schalten das nächste Tier frei.|n• |cffffffffSie öffnet auch normale Tiefen:|r 3 Räume auf Labyrinth-Tier 1 bis 8 schalten für diese Saison das nächste Tiefen-Tier frei: Labyrinth-Tier 7 gibt Tiefen-Tier 8. In den Spieldaten des Testservers schalten Tier 9, 10 und 11 dasselbe Tiefen-Tier frei, nicht das nächste; das kann sich zum Start noch ändern.|n|n|cffffff78Kindo'jan|r|n• Ab Tier 8 gibt er einmal pro Woche und Charakter Fortschritt für die Große Schatzkammer.|n• Drei seiner Angriffe sind bekannt: |cffffffffCrushing Blow|r (geh aus dem Einschlag; ein Amani Juggernaut erscheint), |cffffffffHash'ey's Command|r (4 Amani Headhunters erscheinen) und |cffffffffDisgraceful Display|r, das sich stapelt: bei 3 Stapeln halten dich die Loa für unwürdig. Das Spiel hat keine Journalseite für ihn.|n|n|cffffff78Hilfe unterwegs|r|n• Vier |cffffffffSpirituelle Leitungen der Loa|r pro Durchlauf, ab Rang 6 der Labyrinth-Journey (siehe deren Karte): Klick auf eine für einen starken Bonus von 2 Minuten für die ganze Gruppe.|n• Großzügige Kästen ab Tier 8 enthalten ein |cffffffffHeroic Soul Fragment|r; drei ergeben ein zufälliges Teil des Hero-Tracks.|n|n|cffffff78Wah'du und das Mythische Seelenfragment|r|n• Nach dem Intro kannst du auf Tier 8 oder höher Wah'du, einem Diener der Loa, bei einer wöchentlichen Quest helfen. Jede Woche wird ein neuer Schritt frei, sechs Schritte insgesamt. Der erste: Vertreibe die Eindringlinge aus Akil'zons Bereich.|n• Jeder Schritt gibt 1 |cffffffffMythisches Seelenfragment|r und Undercoins.|n• Wah'du ist auch ein Händler: Für 3 Fragmente kaufst du bei ihm einen Myth-Gegenstand (Myth 2/6, Gegenstandsstufe 321). Er verkauft Waffen und Schilde, Rüstung für deine Klasse und Ringe.|n• Sechs Schritte ergeben also zwei Myth-Gegenstände.|n• Hier steht Wah'du: {WAY:2647:44.36:79.57:Wah'du}.|n|n|cffffff78Mislaid Treasures|r|n• Mislaid Treasures erscheinen zufällig an einer von 15 Stellen (HandyNotes). Klick auf die nächste Stelle und schau nach: {WAY:2647:22.36:22.95:1} · {WAY:2647:62.87:29.56:2} · {WAY:2647:64.91:25.70:3} · {WAY:2647:58.81:25.72:4} · {WAY:2647:31.55:65.81:5} · {WAY:2647:31.36:45.38:6} · {WAY:2647:41.57:69.95:7} · {WAY:2647:37.72:75.41:8} · {WAY:2647:58.12:67.31:9} · {WAY:2647:25.86:61.69:10} · {WAY:2647:37.50:21.66:11} · {WAY:2647:39.34:13.33:12} · {WAY:2647:57.30:21.24:13} · {WAY:2647:59.03:20.04:14} · {WAY:2647:59.83:20.70:15}.|n• Sie zählen für die Erfolge |cffffffffTreasures Upon Treasures|r und |cffffffffA Few More Can't Hurt|r.|n|n|cffffcc00Noch nicht bekannt:|r ob die Truhen einen restaurierten Kastenschlüssel brauchen und wie sich der Fortschritt aus den Räumen und der von Kindo'jan zusammenrechnen. Schau ins Fenster der Großen Schatzkammer statt in einen Guide.",
@@ -16187,8 +16187,8 @@ fill("deDE", {
 	RAIDSHOP_REMIND_HINT = "Klick: öffnet Bereit für den Schlachtzug?",
 	RAIDSHOP_REMIND_ON = "Schlachtzug-Erinnerung: an. /mh ready remind off schaltet sie aus.",
 	RAIDSHOP_REMIND_OFF = "Schlachtzug-Erinnerung: aus. /mh ready remind on schaltet sie ein.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CODEX_LABYRINTH_TITLE = "Le labyrinthe de Kindo’jan (12.1.5)",
 	CODEX_LABYRINTH_BODY = "|cffffcc00Un grand gouffre de neuf salles, avec le boss Kindo'jan en son cœur. La première fois, tu l'atteins après les neuf salles ; ensuite, d'après les guides, un trajet plus court suffit.|r Nouveau au patch 12.1.5. Valeera t'accompagne, comme dans chaque gouffre.|n|n|cffffff78Y entrer|r|n• L'entrée est dans les Bois des Chants éternels : {WAY:2395:62.90:72.00:Le labyrinthe de Kindo'jan}. Il y a 11 Tiers ; tu en choisis un à la porte, comme dans chaque gouffre.|n|n|cffffff78La première fois|r|n• La porte est scellée. Clique sur l'Amani Tablet qui s'y trouve : elle t'envoie voir Kul'amara the Fierce à Atal'Aman (le ? sur ta carte). Kul'amara te renvoie retrouver Valeera à la porte.|n• Ta première partie est courte : trois salles. Chaque salle a sa propre tâche, certaines avec un boss (Jun'ala, Sha'Kuro). Après chaque salle, tu peux t'arrêter : parle à Kinduru, l'oiseau-esprit.|n• Terminer la partie t'emmène dans la salle du trésor. Retourne ensuite voir Kul'amara pour un jouet qui termine une partie où que tu sois. Kinduru laisse entendre que les parties suivantes t'emmèneront plus profond.|n• En chemin, tu débloques des points de réapparition.|n|n|cffffff78Tu n'es pas obligé de le finir|r|n• Toutes les 3 salles, tu obtiens |cffffffff2 malles lourdes, 1 coffre abondant et une progression pour la Grande chambre forte|r, et tu peux t'arrêter là. Les écus des malles lourdes comptent double.|n• 3 salles dans un Tier débloquent le Tier suivant.|n• |cffffffffIl ouvre aussi les gouffres normaux :|r 3 salles aux Tiers 1 à 8 du Labyrinth débloquent le Tier suivant des gouffres pour cette saison : le Tier 7 du Labyrinth donne le Tier 8 des gouffres. Dans les données du royaume de test, les Tiers 9, 10 et 11 débloquent le même Tier des gouffres, pas le suivant ; cela peut encore changer à la sortie.|n|n|cffffff78Kindo'jan|r|n• À partir du Tier 8, il donne une progression pour la Grande chambre forte une fois par semaine et par personnage.|n• Trois de ses attaques sont connues : |cffffffffCrushing Blow|r (sors de la zone d'impact ; un Amani Juggernaut apparaît), |cffffffffHash'ey's Command|r (4 Amani Headhunters apparaissent) et |cffffffffDisgraceful Display|r, qui se cumule : à 3 cumuls, les loa te jugent indigne. Le jeu n'a pas de page de journal pour lui.|n|n|cffffff78De l'aide en chemin|r|n• Quatre |cffffffffConduits spirituels des Loas|r par passage, à partir du rang 6 du Journey du labyrinthe (voir sa carte) : clique sur l'un d'eux pour un puissant bonus de 2 minutes pour tout le groupe.|n• Les coffres abondants à partir du Tier 8 contiennent un |cffffffffHeroic Soul Fragment|r ; trois donnent une pièce aléatoire de la track Hero.|n|n|cffffff78Wah'du et le Fragment d'âme mythique|r|n• Après l'intro, au Tier 8 ou plus, tu peux aider Wah'du, un serviteur des loa, avec une quête hebdomadaire. Une nouvelle étape se débloque chaque semaine, six étapes en tout. La première : chasser les intrus du domaine d'Akil'zon.|n• Chaque étape donne 1 |cffffffffFragment d'âme mythique|r et des Undercoins.|n• Wah'du est aussi un marchand : pour 3 fragments, tu lui achètes un objet Myth (Myth 2/6, niveau d'objet 321). Il vend des armes et des boucliers, de l'armure pour ta classe et des anneaux.|n• Six étapes donnent donc deux objets Myth.|n• Wah'du se trouve ici : {WAY:2647:44.36:79.57:Wah'du}.|n|n|cffffff78Mislaid Treasures|r|n• Les Mislaid Treasures apparaissent au hasard à l'un des 15 emplacements (HandyNotes). Clique sur l'emplacement le plus proche et va voir : {WAY:2647:22.36:22.95:1} · {WAY:2647:62.87:29.56:2} · {WAY:2647:64.91:25.70:3} · {WAY:2647:58.81:25.72:4} · {WAY:2647:31.55:65.81:5} · {WAY:2647:31.36:45.38:6} · {WAY:2647:41.57:69.95:7} · {WAY:2647:37.72:75.41:8} · {WAY:2647:58.12:67.31:9} · {WAY:2647:25.86:61.69:10} · {WAY:2647:37.50:21.66:11} · {WAY:2647:39.34:13.33:12} · {WAY:2647:57.30:21.24:13} · {WAY:2647:59.03:20.04:14} · {WAY:2647:59.83:20.70:15}.|n• Elles comptent pour les hauts-faits |cffffffffTreasures Upon Treasures|r et |cffffffffA Few More Can't Hurt|r.|n|n|cffffcc00Pas encore connu :|r si les coffres demandent une clé de coffret réparée, et comment la progression des salles et celle de Kindo'jan s'additionnent. Regarde la fenêtre de la Grande chambre forte plutôt qu'un guide.",
 	CODEX_AQIR_TITLE = "Aqir Invasion (12.1.5)",
@@ -16206,8 +16206,8 @@ fill("frFR", {
 	RAIDSHOP_REMIND_HINT = "Clic : ouvre Prêt pour le raid ?",
 	RAIDSHOP_REMIND_ON = "Rappel de raid : activé. /mh ready remind off le désactive.",
 	RAIDSHOP_REMIND_OFF = "Rappel de raid : désactivé. /mh ready remind on l'active.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CODEX_LABYRINTH_TITLE = "El laberinto de Kindo'jan (12.1.5)",
 	CODEX_LABYRINTH_BODY = "|cffffcc00Una gran profundidad de nueve salas, con el jefe Kindo'jan en su corazón. La primera vez llegas a él tras las nueve salas; después, según las guías, basta una ruta más corta.|r Nueva en el parche 12.1.5. Valeera va contigo, como en cada profundidad.|n|n|cffffff78Cómo entrar|r|n• La entrada está en el Bosque Canción Eterna: {WAY:2395:62.90:72.00:El laberinto de Kindo'jan}. Hay 11 Tiers; eliges uno en la puerta, como en cada profundidad.|n|n|cffffff78La primera vez|r|n• La puerta está sellada. Haz clic en la Amani Tablet que hay en ella: te envía con Kul'amara the Fierce en Atal'Aman (el ? de tu mapa). Kul'amara te manda de vuelta para reunirte con Valeera en la puerta.|n• Tu primera partida es corta: tres salas. Cada sala tiene su propia tarea, algunas con un jefe (Jun'ala, Sha'Kuro). Después de cada sala puedes parar: habla con Kinduru, el pájaro espíritu.|n• Al terminar la partida llegas a la sala del tesoro. Luego vuelve con Kul'amara para conseguir un juguete que termina una partida estés donde estés. Kinduru insinúa que las partidas posteriores te llevan más hondo.|n• Por el camino desbloqueas puntos de reaparición.|n|n|cffffff78No tienes que terminarla|r|n• Cada 3 salas te dan |cffffffff2 Heavy Trunks, 1 arca pródiga y progreso para la Gran cámara|r, y puedes parar ahí. Los blasones de los Heavy Trunks cuentan doble.|n• 3 salas en un Tier desbloquean el Tier siguiente.|n• |cffffffffTambién abre las profundidades normales:|r 3 salas en los Tiers 1 a 8 del laberinto desbloquean el Tier siguiente de las profundidades durante esta temporada: el Tier 7 del laberinto da el Tier 8 de las profundidades. En los datos del reino de pruebas, los Tiers 9, 10 y 11 desbloquean el mismo Tier de las profundidades, no el siguiente; eso aún puede cambiar en el lanzamiento.|n|n|cffffff78Kindo'jan|r|n• Desde el Tier 8 da progreso para la Gran cámara una vez por semana y personaje.|n• Se conocen tres de sus ataques: |cffffffffCrushing Blow|r (sal del impacto; aparece un Amani Juggernaut), |cffffffffHash'ey's Command|r (4 Amani Headhunters aparecen) y |cffffffffDisgraceful Display|r, que se acumula: con 3 acumulaciones los loa te consideran indigno. El juego no tiene página de diario para él.|n|n|cffffff78Ayuda por el camino|r|n• Cuatro |cffffffffConductos espirituales loa|r por partida, desde el rango 6 del Journey del laberinto (mira su tarjeta): haz clic en uno para una bonificación fuerte de 2 minutos para todo el grupo.|n• Las arcas pródigas desde el Tier 8 contienen un |cffffffffHeroic Soul Fragment|r; tres dan una pieza aleatoria del track Hero.|n|n|cffffff78Wah'du y el Trozo de alma mítico|r|n• Después de la introducción, en el Tier 8 o superior puedes ayudar a Wah'du, un sirviente de los loa, con una misión semanal. Cada semana se desbloquea un paso nuevo, seis pasos en total. El primero: expulsar a los intrusos del dominio de Akil'zon.|n• Cada paso da 1 |cffffffffTrozo de alma mítico|r y Undercoins.|n• Wah'du también es vendedor: por 3 trozos le compras un objeto Myth (Myth 2/6, nivel de objeto 321). Vende armas y escudos, armadura para tu clase y anillos.|n• Así que seis pasos dan dos objetos Myth.|n• Wah'du está aquí: {WAY:2647:44.36:79.57:Wah'du}.|n|n|cffffff78Mislaid Treasures|r|n• Las Mislaid Treasures aparecen al azar en uno de los 15 puntos (HandyNotes). Haz clic en el punto más cercano y ve a mirar: {WAY:2647:22.36:22.95:1} · {WAY:2647:62.87:29.56:2} · {WAY:2647:64.91:25.70:3} · {WAY:2647:58.81:25.72:4} · {WAY:2647:31.55:65.81:5} · {WAY:2647:31.36:45.38:6} · {WAY:2647:41.57:69.95:7} · {WAY:2647:37.72:75.41:8} · {WAY:2647:58.12:67.31:9} · {WAY:2647:25.86:61.69:10} · {WAY:2647:37.50:21.66:11} · {WAY:2647:39.34:13.33:12} · {WAY:2647:57.30:21.24:13} · {WAY:2647:59.03:20.04:14} · {WAY:2647:59.83:20.70:15}.|n• Cuentan para los logros |cffffffffTreasures Upon Treasures|r y |cffffffffA Few More Can't Hurt|r.|n|n|cffffcc00Aún no se sabe:|r si los cofres necesitan una llave de arca restaurada, ni cómo se suman el progreso de las salas y el de Kindo'jan. Mira la ventana de la Gran cámara en lugar de una guía.",
 	CODEX_AQIR_TITLE = "Aqir Invasion (12.1.5)",
@@ -16225,8 +16225,8 @@ fill("esES", {
 	RAIDSHOP_REMIND_HINT = "Clic: abre ¿Listo para la banda?",
 	RAIDSHOP_REMIND_ON = "Recordatorio de banda: activado. /mh ready remind off lo desactiva.",
 	RAIDSHOP_REMIND_OFF = "Recordatorio de banda: desactivado. /mh ready remind on lo activa.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CODEX_LABYRINTH_TITLE = "O Labirinto de Kindo'jan (12.1.5)",
 	CODEX_LABYRINTH_BODY = "|cffffcc00Uma grande imersão de nove salas, com o chefe Kindo'jan no seu coração. Na primeira vez, você chega até ele depois das nove salas; depois, segundo os guias, uma rota mais curta basta.|r Nova no patch 12.1.5. Valira vem com você, como em toda imersão.|n|n|cffffff78Como entrar|r|n• A entrada fica na Floresta do Canto Eterno: {WAY:2395:62.90:72.00:O Labirinto de Kindo'jan}. Há 11 Tiers; você escolhe um na porta, como em toda imersão.|n|n|cffffff78Na primeira vez|r|n• A porta está selada. Clique na Amani Tablet que está nela: ela te manda até Kul'amara the Fierce em Atal'Aman (o ? no seu mapa). Kul'amara te manda de volta para encontrar Valira na porta.|n• Sua primeira partida é curta: três salas. Cada sala tem sua própria tarefa, algumas com um chefe (Jun'ala, Sha'Kuro). Depois de cada sala você pode parar: fale com Kinduru, o pássaro espiritual.|n• Encerrar a partida leva você à sala do tesouro. Depois volte até Kul'amara para ganhar um brinquedo que encerra uma partida onde quer que você esteja. Kinduru dá a entender que as próximas partidas levam você mais fundo.|n• No caminho você desbloqueia pontos de renascimento.|n|n|cffffff78Você não precisa terminá-lo|r|n• A cada 3 salas você ganha |cffffffff2 Heavy Trunks, 1 Cofre Abundante e progresso para o Grande Cofre|r, e pode parar ali. Brasões dos Heavy Trunks contam em dobro.|n• 3 salas num Tier desbloqueiam o Tier seguinte.|n• |cffffffffEle também abre as imersões normais:|r 3 salas nos Tiers 1 a 8 do Labirinto desbloqueiam o Tier seguinte das imersões nesta temporada: o Tier 7 do Labirinto dá o Tier 8 das imersões. Nos dados do reino de testes, os Tiers 9, 10 e 11 desbloqueiam o mesmo Tier das imersões, não o seguinte; isso ainda pode mudar no lançamento.|n|n|cffffff78Kindo'jan|r|n• A partir do Tier 8 ele dá progresso para o Grande Cofre uma vez por semana por personagem.|n• Três dos ataques dele são conhecidos: |cffffffffCrushing Blow|r (saia do impacto; aparece um Amani Juggernaut), |cffffffffHash'ey's Command|r (4 Amani Headhunters aparecem) e |cffffffffDisgraceful Display|r, que acumula: com 3 acúmulos os loa te consideram indigno. O jogo não tem página de diário para ele.|n|n|cffffff78Ajuda pelo caminho|r|n• Quatro |cffffffffConduítes Espirituais dos Loas|r por partida, a partir do rank 6 do Journey do Labirinto (veja o cartão dele): clique em um para um bônus forte de 2 minutos para o grupo todo.|n• Cofres Abundantes a partir do Tier 8 trazem um |cffffffffHeroic Soul Fragment|r; três formam uma peça aleatória da trilha Hero.|n|n|cffffff78Wah'du e o Fragmento de Alma Mítico|r|n• Depois da introdução, no Tier 8 ou superior você pode ajudar Wah'du, um servo dos loa, com uma missão semanal. A cada semana uma etapa nova é liberada, seis etapas no total. A primeira: expulsar os intrusos do domínio de Akil'zon.|n• Cada etapa dá 1 |cffffffffFragmento de Alma Mítico|r e Undercoins.|n• Wah'du também é vendedor: por 3 fragmentos você compra dele um item Myth (Myth 2/6, nível de item 321). Ele vende armas e escudos, armadura para a sua classe e anéis.|n• Assim, seis etapas dão dois itens Myth.|n• Wah'du fica aqui: {WAY:2647:44.36:79.57:Wah'du}.|n|n|cffffff78Mislaid Treasures|r|n• As Mislaid Treasures aparecem ao acaso em um dos 15 pontos (HandyNotes). Clique no ponto mais próximo e vá ver: {WAY:2647:22.36:22.95:1} · {WAY:2647:62.87:29.56:2} · {WAY:2647:64.91:25.70:3} · {WAY:2647:58.81:25.72:4} · {WAY:2647:31.55:65.81:5} · {WAY:2647:31.36:45.38:6} · {WAY:2647:41.57:69.95:7} · {WAY:2647:37.72:75.41:8} · {WAY:2647:58.12:67.31:9} · {WAY:2647:25.86:61.69:10} · {WAY:2647:37.50:21.66:11} · {WAY:2647:39.34:13.33:12} · {WAY:2647:57.30:21.24:13} · {WAY:2647:59.03:20.04:14} · {WAY:2647:59.83:20.70:15}.|n• Elas contam para as conquistas |cffffffffTreasures Upon Treasures|r e |cffffffffA Few More Can't Hurt|r.|n|n|cffffcc00Ainda não se sabe:|r se os baús precisam de uma Chave de Cofre Restaurada, e como o progresso das salas e o de Kindo'jan se somam. Olhe a janela do Grande Cofre em vez de um guia.",
 	CODEX_AQIR_TITLE = "Aqir Invasion (12.1.5)",
@@ -16244,8 +16244,8 @@ fill("ptBR", {
 	RAIDSHOP_REMIND_HINT = "Clique: abre Pronto para a raide?",
 	RAIDSHOP_REMIND_ON = "Lembrete de raide: ligado. /mh ready remind off o desliga.",
 	RAIDSHOP_REMIND_OFF = "Lembrete de raide: desligado. /mh ready remind on o liga.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CODEX_LABYRINTH_TITLE = "Labirinto di Kindo'jan (12.1.5)",
 	CODEX_LABYRINTH_BODY = "|cffffcc00Una grande scorribanda di nove stanze, con il boss Kindo'jan nel suo cuore. La prima volta lo raggiungi dopo tutte e nove le stanze; dopo, secondo le guide, basta un percorso più breve.|r Novità della patch 12.1.5. Valeera viene con te, come in ogni scorribanda.|n|n|cffffff78Come entrare|r|n• L'ingresso è nei Boschi di Cantoeterno: {WAY:2395:62.90:72.00:Labirinto di Kindo'jan}. Ci sono 11 Tier; ne scegli uno alla porta, come in ogni scorribanda.|n|n|cffffff78La prima volta|r|n• La porta è sigillata. Clicca sull'Amani Tablet che vi si trova: ti manda da Kul'amara the Fierce ad Atal'Aman (il ? sulla tua mappa). Kul'amara ti rimanda alla porta a incontrare Valeera.|n• La tua prima run è breve: tre stanze. Ogni stanza ha il suo compito, alcune con un boss (Jun'ala, Sha'Kuro). Dopo ogni stanza puoi fermarti: parla con Kinduru, l'uccello spirito.|n• Concludere la run ti porta nella stanza del tesoro. Poi torna da Kul'amara per un giocattolo che conclude una run ovunque tu sia. Kinduru lascia intendere che le run successive ti porteranno più in profondità.|n• Lungo la strada sblocchi punti di rinascita.|n|n|cffffff78Non devi finirla|r|n• Ogni 3 stanze ottieni |cffffffff2 Bauli Pesanti, 1 Scrigno Fruttuoso e progresso per la Gran Banca|r, e puoi fermarti lì. Gli emblemi dei Bauli Pesanti contano doppio.|n• 3 stanze in un Tier sbloccano il Tier successivo.|n• |cffffffffApre anche le scorribande normali:|r 3 stanze ai Tier da 1 a 8 del Labyrinth sbloccano il Tier successivo delle scorribande per questa stagione: il Tier 7 del Labyrinth dà il Tier 8 delle scorribande. Nei dati di gioco del reame di prova, i Tier 9, 10 e 11 sbloccano lo stesso Tier delle scorribande, non il successivo; può ancora cambiare al lancio.|n|n|cffffff78Kindo'jan|r|n• Dal Tier 8 dà progresso per la Gran Banca una volta a settimana per personaggio.|n• Tre dei suoi attacchi sono noti: |cffffffffCrushing Blow|r (esci dall'impatto; compare un Amani Juggernaut), |cffffffffHash'ey's Command|r (4 Amani Headhunters compaiono) e |cffffffffDisgraceful Display|r, che si accumula: a 3 accumuli i loa ti ritengono indegno. Il gioco non ha una pagina del diario per lui.|n|n|cffffff78Aiuto lungo la strada|r|n• Quattro |cffffffffCondotti Spirituali dei Loa|r per partita, dal rango 6 del Journey del Labirinto (vedi la sua scheda): cliccane uno per un potente bonus di 2 minuti per tutto il gruppo.|n• Gli Scrigni Fruttuosi dal Tier 8 contengono un |cffffffffHeroic Soul Fragment|r; tre formano un pezzo casuale della track Hero.|n|n|cffffff78Wah'du e il Frammento dell'Anima Mitico|r|n• Dopo l'introduzione, al Tier 8 o superiore puoi aiutare Wah'du, un servitore dei loa, con una quest settimanale. Ogni settimana si sblocca un passo nuovo, sei passi in tutto. Il primo: scacciare gli intrusi dal dominio di Akil'zon.|n• Ogni passo dà 1 |cffffffffFrammento dell'Anima Mitico|r e Undercoins.|n• Wah'du è anche un mercante: per 3 frammenti compri da lui un oggetto Myth (Myth 2/6, livello oggetto 321). Vende armi e scudi, armature per la tua classe e anelli.|n• Quindi sei passi danno due oggetti Myth.|n• Wah'du si trova qui: {WAY:2647:44.36:79.57:Wah'du}.|n|n|cffffff78Mislaid Treasures|r|n• Le Mislaid Treasures compaiono a caso in uno dei 15 punti (HandyNotes). Clicca sul punto più vicino e vai a vedere: {WAY:2647:22.36:22.95:1} · {WAY:2647:62.87:29.56:2} · {WAY:2647:64.91:25.70:3} · {WAY:2647:58.81:25.72:4} · {WAY:2647:31.55:65.81:5} · {WAY:2647:31.36:45.38:6} · {WAY:2647:41.57:69.95:7} · {WAY:2647:37.72:75.41:8} · {WAY:2647:58.12:67.31:9} · {WAY:2647:25.86:61.69:10} · {WAY:2647:37.50:21.66:11} · {WAY:2647:39.34:13.33:12} · {WAY:2647:57.30:21.24:13} · {WAY:2647:59.03:20.04:14} · {WAY:2647:59.83:20.70:15}.|n• Contano per le imprese |cffffffffTreasures Upon Treasures|r e |cffffffffA Few More Can't Hurt|r.|n|n|cffffcc00Non ancora noto:|r se i forzieri richiedono una Chiave dello Scrigno Ripristinata, e come si sommano il progresso delle stanze e quello di Kindo'jan. Guarda la finestra della Gran Banca invece di una guida.",
 	CODEX_AQIR_TITLE = "Aqir Invasion (12.1.5)",
@@ -16263,7 +16263,7 @@ fill("itIT", {
 	RAIDSHOP_REMIND_HINT = "Clic: apre Pronto per l'incursione?",
 	RAIDSHOP_REMIND_ON = "Promemoria incursione: attivo. /mh ready remind off lo disattiva.",
 	RAIDSHOP_REMIND_OFF = "Promemoria incursione: disattivato. /mh ready remind on lo attiva.",
-})
+}) end
 
 -- 7 Oct 2026 (4): Role Academy rewrite. New in enUS: what a tank is, what a healer is, and a word list
 -- (ACADEMY_TANK_WHAT_*, ACADEMY_HEAL_WHAT_*, ACADEMY_WORDS_*), shown first in each track (RoleAcademy.lua
@@ -16278,7 +16278,7 @@ fill("itIT", {
 -- follower dungeon in the ladders, mana per spec, OOM, cooldowns at the right moment, no dead Guides / In groups
 -- tab). The old esES/ptBR Academy lines touched here were machine translations and were rewritten whole.
 -- Self-made translations, not reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ACADEMY_TANK_WHAT_TITLE = "Was ist ein Tank?",
 	ACADEMY_TANK_WHAT_BODY = "Ein Tank sorgt dafür, dass die Gegner DICH schlagen, nicht deine Gruppe. Ein Gegner, der dich angreift: Das nennt man Aggro.\n\nBedrohung ist, wie wütend ein Gegner auf dich ist. Er schlägt den, auf den er am wütendsten ist. Als Tank erzeugen deine Angriffe viel Bedrohung, also triff einfach weiter jeden Gegner.\n\nSpott ist eine Taste, mit der ein Gegner dich 6 Sekunden lang angreifen muss. Danach dauert es 8 Sekunden, bis du sie wieder drücken kannst. Nimm sie, wenn ein Gegner jemand anderen schlägt, und greif diesen Gegner danach weiter an: Hörst du auf, geht er nach diesen 6 Sekunden zurück. Ein ganzes Pack holst du dir mit deinen Angriffen, die viele Gegner auf einmal treffen (AoE), nicht mit Spott.\n\nDu läufst vorne und bestimmst das Tempo. Die Gruppe folgt dir.\n\nAusrüstung: der Hauptwert deiner Tank-Spezialisierung. Das Spiel zeigt ihn unter jeder Spezialisierung als „Primärwert“. Schutz-Paladin und Schutz-Krieger brauchen einen Schild: Ohne Schild funktionieren ihre wichtigsten Tasten nicht. Wo du einen bekommst, steht beim Ausrüstungsschritt weiter unten.\n\nZu deiner Tank-Spezialisierung: Talente & Zauberbuch -> Spezialisierung -> Aktivieren (kostenlos). Beutespezialisierung, also für welche Spezialisierung deine Beute ist: Rechtsklick auf dein eigenes Porträt (das Bild deines Charakters neben deinem Gesundheitsbalken) -> Beutespezialisierung.",
 	ACADEMY_HEAL_WHAT_TITLE = "Was ist ein Heiler?",
@@ -16289,8 +16289,8 @@ fill("deDE", {
 	HEALTOOLKIT_DEF_DESC = "hält DICH am Leben. Drück sie kurz bevor ein großer Treffer dich erwischt.",
 	HEALTOOLKIT_DEF_DESC_IMMUNE = "hält DICH am Leben: eine Immunität. Drück sie kurz vor einem Treffer, den du nicht überlebst.",
 	CMDLIST_ACADEMY = "Rollenakademie: lerne tanken, heilen oder DPS (/mh academy tank, /mh academy heal)",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ACADEMY_TANK_WHAT_TITLE = "C'est quoi, un tank ?",
 	ACADEMY_TANK_WHAT_BODY = "Un tank fait en sorte que les ennemis TE frappent, toi, et pas ton groupe. Un ennemi qui t'attaque : c'est ce qu'on appelle l'aggro.\n\nLa menace, c'est à quel point un ennemi est en colère contre toi. Il frappe celui contre qui il est le plus en colère. En tank, tes attaques génèrent beaucoup de menace : continue donc de frapper chaque ennemi.\n\nLa provocation est une touche qui force un ennemi à t'attaquer pendant 6 secondes. Ensuite, il faut attendre 8 secondes avant de pouvoir la réutiliser. Utilise-la quand un ennemi frappe quelqu'un d'autre, puis continue d'attaquer cet ennemi : si tu arrêtes, il repart après ces 6 secondes. Un pack entier, tu le prends avec tes attaques qui touchent beaucoup d'ennemis à la fois (AoE), pas avec la provocation.\n\nTu marches devant et c'est toi qui donnes le rythme. Le groupe te suit.\n\nÉquipement : la stat principale de ta spécialisation tank. Le jeu l'affiche sous chaque spécialisation, à « Stat. principale ». Paladin Protection et Guerrier Protection ont besoin d'un bouclier : sans bouclier, leurs touches principales ne marchent pas. L'étape « équipement » plus bas dit où en trouver un.\n\nPour passer en spécialisation tank : Talents et grimoire -> Spécialisation -> Activer (gratuit). Spécialisation du butin, c'est-à-dire pour quelle spécialisation tu reçois ton butin : clic droit sur ton propre portrait (l'image de ton personnage à côté de ta barre de vie) -> Spécialisation du butin.",
 	ACADEMY_HEAL_WHAT_TITLE = "C'est quoi, un soigneur ?",
@@ -16301,8 +16301,8 @@ fill("frFR", {
 	HEALTOOLKIT_DEF_DESC = "te garde, TOI, en vie. Utilise-la juste avant qu'un gros coup te touche.",
 	HEALTOOLKIT_DEF_DESC_IMMUNE = "te garde, TOI, en vie : une immunité. Utilise-la juste avant un coup auquel tu ne survivras pas.",
 	CMDLIST_ACADEMY = "Académie de rôle : apprends à tanker, soigner ou faire du DPS (/mh academy tank, /mh academy heal)",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ACADEMY_TANK_WHAT_TITLE = "¿Qué es un tanque?",
 	ACADEMY_TANK_WHAT_BODY = "Un tanque hace que los enemigos te golpeen a TI, no a tu grupo. Un enemigo que te está atacando: eso se llama aggro.\n\nLa amenaza es lo enfadado que está un enemigo contigo. Golpea a aquel con quien está más enfadado. Como tanque, tus ataques generan mucha amenaza, así que sigue golpeando a todos los enemigos.\n\nProvocar es una tecla que obliga a un enemigo a atacarte durante 6 segundos. Después hay que esperar 8 segundos antes de poder pulsarla otra vez. Úsala cuando un enemigo golpee a otro, y sigue atacando a ese enemigo: si paras, vuelve a quien atacaba antes tras esos 6 segundos. Un pack entero lo atraes con tus ataques que golpean a muchos enemigos a la vez (AoE), no con provocar.\n\nTú vas delante y tú marcas el ritmo. El grupo te sigue.\n\nEquipo: la estadística principal de tu especialización de tanque. El juego la muestra bajo cada especialización como \"Estadística principal\". Paladín Protección y Guerrero Protección necesitan un escudo: sin escudo, sus teclas principales no funcionan. El paso de equipo de abajo dice dónde conseguir uno.\n\nPara pasar a tu especialización de tanque: Talentos y libro de hechizos -> Especialización -> Activar (gratis). Especialización de botín, es decir, para qué especialización recibes botín: clic derecho en tu propio retrato (la imagen de tu personaje junto a tu barra de salud) -> Especialización de botín.",
 	ACADEMY_HEAL_WHAT_TITLE = "¿Qué es un sanador?",
@@ -16313,8 +16313,8 @@ fill("esES", {
 	HEALTOOLKIT_DEF_DESC = "te mantiene vivo a TI. Púlsala justo antes de que te llegue un golpe grande.",
 	HEALTOOLKIT_DEF_DESC_IMMUNE = "te mantiene vivo a TI: una inmunidad. Púlsala justo antes de un golpe al que no vas a sobrevivir.",
 	CMDLIST_ACADEMY = "Academia de roles: aprende a tanquear, sanar o hacer DPS (/mh academy tank, /mh academy heal)",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ACADEMY_TANK_WHAT_TITLE = "O que é um tanque?",
 	ACADEMY_TANK_WHAT_BODY = "Um tanque faz os inimigos baterem em VOCÊ, não no seu grupo. Um inimigo que está atacando você: isso se chama aggro.\n\nAmeaça é o quanto um inimigo está bravo com você. Ele bate em quem o deixa mais bravo. Como tanque, seus ataques geram muita ameaça, então continue batendo em todos os inimigos.\n\nProvocar é um botão que obriga um inimigo a atacar você por 6 segundos. Depois é preciso esperar 8 segundos até poder apertá-lo de novo. Use quando um inimigo bater em outra pessoa, e continue atacando esse inimigo: se você parar, depois desses 6 segundos ele volta para quem atacava antes. Um pack inteiro você pega com seus ataques que acertam muitos inimigos de uma vez (AoE), não com provocar.\n\nVocê vai na frente e você define o ritmo. O grupo segue você.\n\nEquipamento: o atributo primário da sua especialização de tanque. O jogo mostra embaixo de cada especialização como \"Atributos Primários\". Paladino Proteção e Guerreiro Proteção precisam de um escudo: sem escudo, os botões principais deles não funcionam. A etapa de equipamento mais abaixo diz onde conseguir um.\n\nPara ir para a sua especialização de tanque: Talentos e Grimório -> Especialização -> Ativar (grátis). Especialização de saque, ou seja, para qual especialização você recebe saque: clique com o botão direito no seu próprio retrato (a imagem do seu personagem ao lado da sua barra de vida) -> Especialização de saque.",
 	ACADEMY_HEAL_WHAT_TITLE = "O que é um curandeiro?",
@@ -16325,8 +16325,8 @@ fill("ptBR", {
 	HEALTOOLKIT_DEF_DESC = "mantém VOCÊ vivo. Aperte logo antes de uma pancada grande te atingir.",
 	HEALTOOLKIT_DEF_DESC_IMMUNE = "mantém VOCÊ vivo: uma imunidade. Aperte logo antes de uma pancada à qual você não vai sobreviver.",
 	CMDLIST_ACADEMY = "Academia de papéis: aprenda a tankar, curar ou fazer DPS (/mh academy tank, /mh academy heal)",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ACADEMY_TANK_WHAT_TITLE = "Cos'è un tank?",
 	ACADEMY_TANK_WHAT_BODY = "Un tank fa in modo che i nemici colpiscano TE, non il tuo gruppo. Un nemico che ti sta attaccando: questo si chiama aggro.\n\nIl threat è quanto un nemico è arrabbiato con te. Colpisce chi lo fa arrabbiare di più. Da tank i tuoi attacchi generano molto threat, quindi continua a colpire ogni nemico.\n\nIl taunt è un tasto che costringe un nemico ad attaccarti per 6 secondi. Poi devi aspettare 8 secondi prima di poterlo premere di nuovo. Usalo quando un nemico colpisce qualcun altro, e continua ad attaccare quel nemico: se smetti, dopo quei 6 secondi torna da chi attaccava prima. Un pack intero lo prendi con i tuoi attacchi che colpiscono molti nemici insieme (AoE), non con il taunt.\n\nTu cammini davanti e decidi tu il ritmo. Il gruppo ti segue.\n\nEquipaggiamento: l'attributo primario della tua specializzazione da tank. Il gioco lo mostra sotto ogni specializzazione come \"Attributo primario\". Paladino Protezione e Guerriero Protezione hanno bisogno di uno scudo: senza scudo i loro tasti principali non funzionano. Il passo sull'equipaggiamento qui sotto dice dove trovarne uno.\n\nPer passare alla tua specializzazione da tank: Talenti e Grimorio -> Specializzazione -> Attiva (gratis). Specializzazione per il bottino, cioè per quale specializzazione ricevi il bottino: clic destro sul tuo ritratto (l'immagine del tuo personaggio accanto alla tua barra della vita) -> Specializzazione per il bottino.",
 	ACADEMY_HEAL_WHAT_TITLE = "Cos'è un guaritore?",
@@ -16337,7 +16337,7 @@ fill("itIT", {
 	HEALTOOLKIT_DEF_DESC = "tiene in vita TE. Premila poco prima che un colpo grosso ti arrivi.",
 	HEALTOOLKIT_DEF_DESC_IMMUNE = "tiene in vita TE: un'immunità. Premila poco prima di un colpo a cui non sopravvivi.",
 	CMDLIST_ACADEMY = "Role Academy: impara a fare il tank, il guaritore o il DPS (/mh academy tank, /mh academy heal)",
-})
+}) end
 
 -- 7 Oct 2026 (5): Role Academy round 2. New in enUS: ACADEMY_SEE_* (how you see a big hit coming: Boss Warnings,
 -- the cast bar, Shift+J Abilities, /mh bosswin; facts docs/ROLE_SWITCH_FACTS2_2026-10-07.md point 1). Also first
@@ -16349,7 +16349,7 @@ fill("itIT", {
 -- tooltip, the Divine Toll exception, no more "save" in HEALCD_TITLE/HEALCD_WHEN_RAID/ACADEMY_TANK_WIPE_BODY,
 -- seven new words, and the interrupt tick. The esES/ptBR triage, wipe and interrupt lines were machine
 -- translations and were rewritten whole. Self-made translations, not reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ACADEMY_SEE_TITLE = "So siehst du einen großen Treffer kommen",
 	ACADEMY_SEE_BODY = "Bei einem Boss warnt dich das Spiel selbst: Auf der Zeitleiste Bossfähigkeiten zählen Symbole herunter, und große Warnungen erscheinen in der Mitte des Bildschirms. Beides ist standardmäßig an (Esc -> Optionen -> Gameplay -> Gameplay-Verbesserungen -> Bosswarnungen).\n\nWirkt ein Gegner einen Zauber, füllt sich ein Balken unter seinem Gesundheitsbalken (und unter seinem Porträt, seinem kleinen Bild, wenn er dein Ziel ist). Der Zauber kommt in dem Moment, in dem der Balken voll ist. Also unterbrich, geh weg oder drück eine Defensive, solange sich der Balken noch füllt – sobald du ihn siehst, ist gut. Ein voller Balken ist zu spät. Einen Balken mit Schild kannst du nicht unterbrechen.\n\nLeuchtet der Balken, ist der Zauber wichtig. Kein Leuchten heißt nicht, dass er harmlos ist.\n\nLies den Boss vor dem Pull: Shift+J (Abenteuerführer) -> der Boss -> Fähigkeiten, oder tippe /mh bosswin. Das MH-Fenster schließt sich, wenn der Kampf beginnt, also lies es vorher.\n\nKörperlich oder magisch? Öffne im Abenteuerführer (Shift+J) den Boss: Im Teil für Tanks und Heiler steht bei einem großen Angriff, welcher Schaden es ist. Körperlicher Schaden ist körperlich; eine Schule wie Feuer oder Schatten bedeutet Magie.",
 	ACADEMY_STEP_TITLE = "Rolle wechseln, Schritt für Schritt",
@@ -16369,8 +16369,8 @@ fill("deDE", {
 	TANKKIT_TK_TAUNT = "lässt einen Gegner dich angreifen. Drück sie, wenn ein Gegner jemand anderen schlägt.",
 	TANKKIT_TK_KICK = "stoppt den Zauber eines Gegners, während er ihn wirkt. Achte auf den Balken, der sich unter seinem Gesundheitsbalken füllt.",
 	TANKKIT_TK_NOKEY = "(noch nicht auf einer Taste)",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ACADEMY_SEE_TITLE = "Voir arriver un gros coup",
 	ACADEMY_SEE_BODY = "Contre un boss, le jeu te prévient lui-même : sur la frise Techniques des boss, des icônes font un compte à rebours, et de gros avertissements apparaissent au milieu de l'écran. Les deux sont activés par défaut (Esc -> Options -> Jeu -> Améliorations de gameplay -> Avertissements de boss).\n\nQuand un ennemi lance un sort, une barre se remplit sous sa barre de vie (et sous son portrait, sa petite image, si c'est ta cible). Le sort part au moment où la barre est pleine. Donc interromps, écarte-toi ou appuie sur une défensive pendant que la barre se remplit encore - dès que tu la vois, c'est bien. Une barre pleine, c'est trop tard. Une barre avec un bouclier ne peut pas être interrompue.\n\nUne barre qui brille veut dire un sort important. Pas de lueur ne veut pas dire que c'est sans danger.\n\nAvant le pull, lis le boss : Shift+J (Guide de l’aventurier) -> le boss -> Techniques, ou tape /mh bosswin. La fenêtre MH se ferme quand le combat commence, alors lis-la avant.\n\nPhysique ou magique ? Dans le Guide de l’aventurier (Shift+J), ouvre le boss : la partie pour les tanks et les soigneurs dit quels dégâts fait une grosse attaque. Des dégâts physiques sont physiques ; une école comme le Feu ou l'Ombre veut dire de la magie.",
 	ACADEMY_STEP_TITLE = "Changer de rôle, étape par étape",
@@ -16390,8 +16390,8 @@ fill("frFR", {
 	TANKKIT_TK_TAUNT = "force un ennemi à t'attaquer. Utilise-la quand un ennemi frappe quelqu'un d'autre.",
 	TANKKIT_TK_KICK = "arrête le sort d'un ennemi pendant qu'il l'incante. Regarde la barre qui se remplit sous sa barre de vie.",
 	TANKKIT_TK_NOKEY = "(pas encore sur une touche)",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ACADEMY_SEE_TITLE = "Cómo ver venir un golpe grande",
 	ACADEMY_SEE_BODY = "Contra un jefe, el juego te avisa solo: en la línea de tiempo Facultades de jefe hay iconos con cuenta atrás, y los avisos grandes salen en el centro de la pantalla. Las dos cosas vienen activadas (Esc -> Opciones -> Experiencia de juego -> Mejoras en la experiencia de juego -> Avisos de jefe).\n\nCuando un enemigo lanza un hechizo, se llena una barra bajo su barra de salud (y bajo su retrato, su imagen pequeña, si es tu objetivo). El hechizo llega en el momento en que la barra se llena. Así que interrumpe, apártate o pulsa una defensiva mientras la barra todavía se está llenando: en cuanto la veas, bien. Una barra llena es demasiado tarde. Una barra con un escudo no se puede interrumpir.\n\nSi la barra brilla, el hechizo es importante. Que no brille no quiere decir que sea seguro.\n\nAntes del pull, lee el jefe: Shift+J (Guía de aventuras) -> el jefe -> Facultades, o escribe /mh bosswin. La ventana de MH se cierra cuando empieza el combate, así que léela antes.\n\n¿Físico o mágico? En la Guía de aventuras (Shift+J), abre el jefe: la parte para tanques y sanadores dice qué daño hace un ataque grande. El daño físico es físico; una escuela como Fuego o Sombra quiere decir magia.",
 	ACADEMY_STEP_TITLE = "Cambiar de rol, paso a paso",
@@ -16411,8 +16411,8 @@ fill("esES", {
 	TANKKIT_TK_TAUNT = "obliga a un enemigo a atacarte. Púlsala cuando un enemigo golpee a otro.",
 	TANKKIT_TK_KICK = "detiene el hechizo de un enemigo mientras lo lanza. Mira la barra que se llena bajo su barra de salud.",
 	TANKKIT_TK_NOKEY = "(aún no está en una tecla)",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ACADEMY_SEE_TITLE = "Como ver um golpe grande chegando",
 	ACADEMY_SEE_BODY = "Contra um chefe, o próprio jogo avisa: na linha do tempo Habilidades do Chefe, ícones fazem contagem regressiva, e alertas grandes aparecem no meio da tela. Os dois vêm ligados (Esc -> Opções -> Jogabilidade -> Melhorias de Jogabilidade -> Alertas de Chefe).\n\nQuando um inimigo lança um feitiço, uma barra enche embaixo da barra de vida dele (e embaixo do retrato dele, a imagem pequena, se ele for o seu alvo). O feitiço chega no momento em que a barra enche. Então interrompa, saia de perto ou aperte uma defensiva enquanto a barra ainda está enchendo - assim que você a vir, está ótimo. Barra cheia é tarde demais. Uma barra com um escudo não pode ser interrompida.\n\nBarra brilhando quer dizer feitiço importante. Sem brilho não quer dizer que é seguro.\n\nAntes do pull, leia o chefe: Shift+J (Guia da aventura) -> o chefe -> Habilidades, ou digite /mh bosswin. A janela do MH fecha quando a luta começa, então leia antes.\n\nFísico ou mágico? No Guia da aventura (Shift+J), abra o chefe: a parte para tanques e curandeiros diz que dano um ataque grande causa. Dano físico é físico; uma escola como Fogo ou Sombra quer dizer magia.",
 	ACADEMY_STEP_TITLE = "Trocar de papel, passo a passo",
@@ -16432,8 +16432,8 @@ fill("ptBR", {
 	TANKKIT_TK_TAUNT = "obriga um inimigo a atacar você. Aperte quando um inimigo bater em outra pessoa.",
 	TANKKIT_TK_KICK = "para o feitiço de um inimigo enquanto ele está lançando. Olhe a barra que enche embaixo da barra de vida dele.",
 	TANKKIT_TK_NOKEY = "(ainda não está numa tecla)",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ACADEMY_SEE_TITLE = "Come vedere arrivare un colpo grosso",
 	ACADEMY_SEE_BODY = "Contro un boss il gioco ti avvisa da solo: sulla linea temporale Abilità Boss delle icone fanno il conto alla rovescia, e gli avvisi grossi compaiono al centro dello schermo. Sono attivi entrambi di base (Esc -> Opzioni -> Gioco -> Potenziamenti di gioco -> Avvisi boss).\n\nQuando un nemico lancia uno spell, sotto la sua barra della vita si riempie una barra (e sotto il suo ritratto, la sua piccola immagine, se è il tuo bersaglio). Lo spell arriva nel momento in cui la barra è piena. Quindi fai interrupt, spostati o premi una difensiva mentre la barra si sta ancora riempiendo: appena la vedi va bene. Una barra piena è troppo tardi. Una barra con uno scudo non si può interrompere.\n\nUna barra che brilla vuol dire un cast importante. Niente bagliore non vuol dire che è sicuro.\n\nPrima del pull leggi il boss: Shift+J (Guida alle avventure) -> il boss -> Abilità, oppure scrivi /mh bosswin. La finestra di MH si chiude quando inizia il combattimento, quindi leggila prima.\n\nFisico o magico? Nella Guida alle avventure (Shift+J) apri il boss: la parte per tank e guaritori dice che danno fa un attacco grosso. Il danno fisico è fisico; una scuola come Fuoco o Ombra vuol dire magia.",
 	ACADEMY_STEP_TITLE = "Cambiare ruolo, passo per passo",
@@ -16453,7 +16453,7 @@ fill("itIT", {
 	TANKKIT_TK_TAUNT = "costringe un nemico ad attaccarti. Premilo quando un nemico colpisce qualcun altro.",
 	TANKKIT_TK_KICK = "ferma lo spell di un nemico mentre lo sta lanciando. Guarda la barra che si riempie sotto la sua barra della vita.",
 	TANKKIT_TK_NOKEY = "(non ancora su un tasto)",
-})
+}) end
 
 -- 7 Oct 2026 (6): Role Academy round 3. New in enUS: HEALCD_WHEN_OFTEN (Holy Paladin Avenging Wrath and Divine
 -- Toll: use often, close to on cooldown; facts docs/ROLE_SWITCH_FACTS3_2026-10-07.md point 3). Same round, edited
@@ -16464,28 +16464,28 @@ fill("itIT", {
 -- the first-dungeon titles, Prot Paladin step 5 (taunt-pull only on one enemy or a boss), nine new words and the
 -- chat hint. The esES/ptBR chat hints were machine translations and were rewritten whole. Self-made
 -- translations, not reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	HEALCD_WHEN_OFTEN = "Nutze ihn oft, fast auf Cooldown. Halte ihn nur ein paar Sekunden zurück, wenn du weißt, dass gleich ein großer Schadensmoment kommt.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	HEALCD_WHEN_OFTEN = "Utilise-le souvent, presque dès qu'il est prêt. Ne le garde que quelques secondes si tu sais qu'un gros moment de dégâts arrive.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	HEALCD_WHEN_OFTEN = "Úsalo a menudo, casi en cuanto esté listo. Guárdalo solo unos segundos si sabes que viene un momento de mucho daño.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	HEALCD_WHEN_OFTEN = "Use com frequência, quase sempre que estiver pronto. Só segure por alguns segundos se você souber que um momento de muito dano está chegando.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	HEALCD_WHEN_OFTEN = "Usalo spesso, quasi appena è pronto. Tienilo solo qualche secondo se sai che sta per arrivare un momento di danni grossi.",
-})
+}) end
 
 -- 7 Oct 2026 (7): healer cards in 3 steps. New in enUS: PLAYCARD_<spec>_EASY for the seven healer specs (65 105
 -- 256 257 264 270 1468), shown at the top of the card under PLAYCARD_EASY_HEAD (Rob had never healed and could
 -- not follow the Holy Paladin card). Built only from each card's own lines and docs/ROLE_SWITCH_FACTS*_2026-10-07.md.
 -- Also the first translations of PLAYCARD_EASY_HEAD, PLAYCARD_LATER_HEAD and TANKKIT_TK_STUN (until now enUS/nlNL
 -- only). Game terms follow each pack's own card. Self-made translations, not reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PLAYCARD_EASY_HEAD = "So heilst du, in 3 Schritten:",
 	PLAYCARD_LATER_HEAD = "Später, wenn die Schritte oben leicht gehen:",
 	TANKKIT_TK_STUN = "betäubt: Der Gegner kann ein paar Sekunden nichts tun, also stoppt das auch einen Zauber. Nutze es, wenn deine Unterbrechung noch auf Cooldown ist.",
@@ -16496,8 +16496,8 @@ fill("deDE", {
 	PLAYCARD_264_EASY = "1. Stell {SPELL:5394}, sobald bereit: ein Totem, das für dich heilt.\n2. Jemand verletzt? {SPELL:61295} auf ihn, dann {SPELL:77472}. Mehrere verletzt? {SPELL:1064}.\n3. Niemand braucht Heilung? {SPELL:470411}, {SPELL:51505}, dann {SPELL:188196} auf den Gegner.",
 	PLAYCARD_270_EASY = "1. {SPELL:115151}, sobald bereit. Dein Ziel: ein Nebel auf allen.\n2. Jemand verletzt? {SPELL:116670} auf ihn. Das heilt auch jeden, der einen Nebel hat.\n3. Niemand braucht Heilung? {SPELL:107428}, {SPELL:100780} und {SPELL:100784} auf den Gegner: Deine Treffer heilen Verbündete ein wenig.",
 	PLAYCARD_1468_EASY = "1. {SPELL:373861}, sobald bereit. Sie schirmt die Gruppe ab und legt Echo auf alle: Deine nächste Heilung kopiert sich auf jeden mit Echo.\n2. Oft {SPELL:355936}: Halte die Taste gedrückt und lass auf der ersten Stufe los.\n3. Niemand verletzt? {SPELL:361469} auf den Gegner. Heil nicht damit: Das kostet viel Mana.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PLAYCARD_EASY_HEAD = "Comment soigner, en 3 étapes :",
 	PLAYCARD_LATER_HEAD = "Plus tard, quand les étapes ci-dessus te semblent faciles :",
 	TANKKIT_TK_STUN = "étourdit : l'ennemi ne peut rien faire pendant quelques secondes, donc ça arrête aussi un sort. Utilise-le quand ton interruption n'est pas encore prête.",
@@ -16508,8 +16508,8 @@ fill("frFR", {
 	PLAYCARD_264_EASY = "1. Pose {SPELL:5394} dès que possible : un totem qui soigne pour toi.\n2. Quelqu'un de blessé ? {SPELL:61295} sur lui, puis {SPELL:77472}. Plusieurs blessés ? {SPELL:1064}.\n3. Personne à soigner ? {SPELL:470411}, {SPELL:51505}, puis {SPELL:188196} sur l'ennemi.",
 	PLAYCARD_270_EASY = "1. {SPELL:115151} dès que disponible. Ton but : une brume sur tout le monde.\n2. Quelqu'un de blessé ? {SPELL:116670} sur cette personne. Ça soigne aussi tous ceux qui ont une brume.\n3. Personne à soigner ? {SPELL:107428}, {SPELL:100780} et {SPELL:100784} sur l'ennemi : tes coups soignent un peu tes alliés.",
 	PLAYCARD_1468_EASY = "1. {SPELL:373861} dès que disponible. Ça protège le groupe et lui met Écho : ton prochain soin se copie sur tous ceux qui ont Écho.\n2. {SPELL:355936} souvent : garde la touche enfoncée et relâche au premier niveau.\n3. Personne de blessé ? {SPELL:361469} sur l'ennemi. Ne soigne pas avec : ça coûte beaucoup de mana.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PLAYCARD_EASY_HEAD = "Cómo curar, en 3 pasos:",
 	PLAYCARD_LATER_HEAD = "Más adelante, cuando los pasos de arriba te resulten fáciles:",
 	TANKKIT_TK_STUN = "aturde: el enemigo no puede hacer nada durante unos segundos, así que también detiene un hechizo. Úsalo cuando tu interrupción todavía no esté lista.",
@@ -16520,8 +16520,8 @@ fill("esES", {
 	PLAYCARD_264_EASY = "1. Pon {SPELL:5394} siempre que esté listo: un tótem que cura por ti.\n2. ¿Alguien herido? {SPELL:61295} sobre esa persona, luego {SPELL:77472}. ¿Varios heridos? {SPELL:1064}.\n3. ¿Nadie necesita sanación? {SPELL:470411}, {SPELL:51505} y luego {SPELL:188196} al enemigo.",
 	PLAYCARD_270_EASY = "1. {SPELL:115151} siempre que esté listo. Tu objetivo: niebla en todos.\n2. ¿Alguien herido? {SPELL:116670} sobre esa persona. También cura a todos los que tienen niebla.\n3. ¿Nadie necesita sanación? {SPELL:107428}, {SPELL:100780} y {SPELL:100784} al enemigo: tus golpes curan un poco a tus aliados.",
 	PLAYCARD_1468_EASY = "1. {SPELL:373861} siempre que esté listo. Pone un escudo al grupo y les da Eco: tu próxima sanación se copia en todos los que tienen Eco.\n2. {SPELL:355936} a menudo: mantén pulsada la tecla y suelta en el primer nivel.\n3. ¿Nadie herido? {SPELL:361469} al enemigo. No cures con él: cuesta mucho maná.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PLAYCARD_EASY_HEAD = "Como curar, em 3 passos:",
 	PLAYCARD_LATER_HEAD = "Mais tarde, quando os passos acima ficarem fáceis:",
 	TANKKIT_TK_STUN = "atordoa: o inimigo não consegue fazer nada por alguns segundos, então também para um feitiço. Use quando sua interrupção ainda não estiver pronta.",
@@ -16532,8 +16532,8 @@ fill("ptBR", {
 	PLAYCARD_264_EASY = "1. Solte {SPELL:5394} sempre que estiver pronto: um totem que cura por você.\n2. Alguém ferido? {SPELL:61295} nessa pessoa, depois {SPELL:77472}. Vários feridos? {SPELL:1064}.\n3. Ninguém precisa de cura? {SPELL:470411}, {SPELL:51505}, depois {SPELL:188196} no inimigo.",
 	PLAYCARD_270_EASY = "1. {SPELL:115151} sempre que estiver pronto. Seu objetivo: uma névoa em todos.\n2. Alguém ferido? {SPELL:116670} nessa pessoa. Também cura todos que têm uma névoa.\n3. Ninguém precisa de cura? {SPELL:107428}, {SPELL:100780} e {SPELL:100784} no inimigo: seus golpes curam um pouco os aliados.",
 	PLAYCARD_1468_EASY = "1. {SPELL:373861} sempre que estiver pronto. Protege o grupo com um escudo e põe Eco neles: sua próxima cura se copia em todos que têm Eco.\n2. {SPELL:355936} com frequência: segure a tecla e solte no primeiro nível.\n3. Ninguém ferido? {SPELL:361469} no inimigo. Não cure com ele: custa muita mana.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PLAYCARD_EASY_HEAD = "Come curare, in 3 passi:",
 	PLAYCARD_LATER_HEAD = "Più avanti, quando i passi qui sopra ti vengono facili:",
 	TANKKIT_TK_STUN = "stordisce: il nemico non può fare niente per qualche secondo, quindi ferma anche uno spell. Usalo quando il tuo interrupt non è ancora pronto.",
@@ -16544,7 +16544,7 @@ fill("itIT", {
 	PLAYCARD_264_EASY = "1. Piazza {SPELL:5394} ogni volta che è pronto: un totem che cura per te.\n2. Qualcuno ferito? {SPELL:61295} su di lui, poi {SPELL:77472}. Diversi feriti? {SPELL:1064}.\n3. Nessuno ha bisogno di cure? {SPELL:470411}, {SPELL:51505}, poi {SPELL:188196} sul nemico.",
 	PLAYCARD_270_EASY = "1. {SPELL:115151} appena si ricarica. Il tuo obiettivo: una nebbia su tutti.\n2. Qualcuno ferito? {SPELL:116670} su di lui. Cura anche tutti quelli che hanno una nebbia.\n3. Nessuno ha bisogno di cure? {SPELL:107428}, {SPELL:100780} e {SPELL:100784} sul nemico: i tuoi colpi curano un po' gli alleati.",
 	PLAYCARD_1468_EASY = "1. {SPELL:373861} appena si ricarica. Protegge il gruppo con uno scudo e gli mette Eco: la tua prossima cura si copia su tutti quelli che hanno Eco.\n2. {SPELL:355936} spesso: tieni premuto il tasto e rilascia al primo livello.\n3. Nessuno ferito? {SPELL:361469} sul nemico. Non curare con questo: costa molto mana.",
-})
+}) end
 -- 7 Oct 2026 (6): Role Academy round 4 (docs/ROLE_SWITCH_REREAD3_NEWCOMER_2026-10-07.md part 4; facts
 -- docs/ROLE_SWITCH_FACTS4_2026-10-07.md). New keys: the AoE row in the tank toolkit, and the tank notes for Blessing
 -- of Protection and Divine Shield on the Stay alive card. Edited in place in the blocks above: word list (on
@@ -16553,31 +16553,31 @@ fill("itIT", {
 -- small/big via the card, Shield of the Righteous always up, heal cooldowns head, HoT on the Druid card, invite in
 -- the heal step, Flash of Light as an instruction, Holy Power and charges, and the Labyrinth tier 1-8 sentence.
 -- Self-made translations, not reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	TANKKIT_TK_AOE = "AoE: trifft mehrere Gegner auf einmal. Beginne jeden Pull damit, dann greift dich das ganze Pack an.",
 	SURVIVAL_NOTE_PHYSICAL_TANK = "nur gegen körperlichen Schaden, und gedacht für jemanden in deiner Gruppe. Auf dich selbst: nur gegen einen Boss, kurz vor einem harten körperlichen Treffer, und sofort Hand of Reckoning hinterher. Nie bei einem Pack: Dann laufen die Gegner zu deiner Gruppe. Gibt Forbearance: 30 Sekunden kein Divine Shield und kein Lay on Hands auf dich",
 	SURVIVAL_NOTE_FORBEARANCE_TANK = "gibt Forbearance. Fast tot? Achtung: Ist deine Gesundheit schon niedrig, drück lieber Lay on Hands. Dies ist für einen Treffer, den du nicht überlebst: Drück es kurz vor diesem Treffer. Wähl eins: Nach dem einen wirkt das andere 30 Sekunden lang nicht auf dich (Blessing of Protection und Blessing of Spellwarding auch nicht). Solange es aktiv ist, wenden sich Gegner jemand anderem zu, außer mit dem Talent Final Stand: Dann bleiben sie bei dir. Ohne Final Stand: Spotte sie zurück, wenn es endet",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	TANKKIT_TK_AOE = "AoE : touche plusieurs ennemis à la fois. Commence chaque pull avec ces sorts, pour que tout le pack t'attaque.",
 	SURVIVAL_NOTE_PHYSICAL_TANK = "seulement contre les dégâts physiques, et prévu pour quelqu'un de ton groupe. Sur toi-même : seulement contre un boss, juste avant un gros coup physique, et Hand of Reckoning tout de suite après. Jamais sur un pack : les ennemis courent vers ton groupe. Donne Forbearance : 30 s sans Divine Shield ni Lay on Hands sur toi",
 	SURVIVAL_NOTE_FORBEARANCE_TANK = "donne Forbearance. Presque mort ? Attention : si ta vie est déjà basse, appuie plutôt sur Lay on Hands. Celui-ci sert contre un coup auquel tu ne survivras pas : appuie juste avant ce coup. Choisis-en un : après l'un, l'autre ne marche plus sur toi pendant 30 s (Blessing of Protection et Blessing of Spellwarding non plus). Tant qu'il est actif, les ennemis se tournent vers quelqu'un d'autre, sauf avec le talent Final Stand : alors ils restent sur toi. Sans Final Stand : reprovoque-les quand il se termine",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	TANKKIT_TK_AOE = "AoE: golpea a varios enemigos a la vez. Empieza cada pull con estos, así todo el pack te ataca a ti.",
 	SURVIVAL_NOTE_PHYSICAL_TANK = "solo contra daño físico, y pensado para alguien de tu grupo. Sobre ti mismo: solo contra un jefe, justo antes de un golpe físico fuerte, y Hand of Reckoning justo después. Nunca con un pack: los enemigos corren hacia tu grupo. Da Forbearance: 30 s sin Divine Shield ni Lay on Hands sobre ti",
 	SURVIVAL_NOTE_FORBEARANCE_TANK = "da Forbearance. ¿Casi muerto? Ojo: si tu salud ya está baja, mejor pulsa Lay on Hands. Este es para un golpe al que no vas a sobrevivir: púlsalo justo antes de ese golpe. Elige uno: después de uno, el otro no funciona sobre ti durante 30 s (Blessing of Protection y Blessing of Spellwarding tampoco). Mientras está activo, los enemigos se van a por otro, salvo con el talento Final Stand: entonces se quedan contigo. Sin Final Stand: vuelve a provocarlos cuando termine",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	TANKKIT_TK_AOE = "AoE: acerta vários inimigos de uma vez. Comece todo pull com eles, assim o pack inteiro ataca você.",
 	SURVIVAL_NOTE_PHYSICAL_TANK = "só contra dano físico, e feito para alguém do seu grupo. Em você mesmo: só contra um chefe, logo antes de uma pancada física forte, e Hand of Reckoning logo depois. Nunca com um pack: os inimigos correm para o seu grupo. Dá Forbearance: 30 s sem Divine Shield nem Lay on Hands em você",
 	SURVIVAL_NOTE_FORBEARANCE_TANK = "dá Forbearance. Quase morto? Atenção: se sua vida já está baixa, aperte de preferência Lay on Hands. Este é para uma pancada à qual você não vai sobreviver: aperte logo antes dessa pancada. Escolha um: depois de um, o outro não funciona em você por 30 s (Blessing of Protection e Blessing of Spellwarding também não). Enquanto está ativo, os inimigos vão atrás de outra pessoa, exceto com o talento Final Stand: aí eles ficam em você. Sem Final Stand: provoque-os de volta quando acabar",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	TANKKIT_TK_AOE = "AoE: colpisce più nemici insieme. Inizia ogni pull con questi, così tutto il pack attacca te.",
 	SURVIVAL_NOTE_PHYSICAL_TANK = "solo contro i danni fisici, e pensato per qualcuno del tuo gruppo. Su te stesso: solo contro un boss, poco prima di un colpo fisico duro, e subito dopo Hand of Reckoning. Mai con un pack: i nemici corrono verso il tuo gruppo. Dà Forbearance: 30 s senza Divine Shield né Lay on Hands su di te",
 	SURVIVAL_NOTE_FORBEARANCE_TANK = "dà Forbearance. Stai per morire? Attenzione: se la tua vita è già bassa, premi piuttosto Lay on Hands. Questo è per un colpo a cui non sopravvivi: premilo poco prima di quel colpo. Scegline uno: dopo uno, l'altro non funziona su di te per 30 s (nemmeno Blessing of Protection e Blessing of Spellwarding). Finché è attivo, i nemici passano a qualcun altro, tranne con il talento Final Stand: allora restano su di te. Senza Final Stand: riprendili col taunt quando finisce",
-})
+}) end
 -- 7 Oct 2026 (8): Role Academy round 5 (docs/ROLE_SWITCH_REREAD4_NEWCOMER_2026-10-07.md part 4; facts
 -- docs/ROLE_SWITCH_FACTS5_2026-10-07.md). New keys: small/big tank defensives and the healer gear step. Edited in
 -- place in the blocks above and in the packs: where to get a shield (AH path and Loot Specialization names from
@@ -16585,36 +16585,36 @@ fill("itIT", {
 -- longer all "big", Lay on Hands and Forbearance (30 sec), "Confirm your role:" + Accept for a non-leader (GlobalStrings
 -- 69933), Shield Block/Shield of the Righteous while enemies hit you, the [key] on an example card. Self-made
 -- translations, not reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	TANKKIT_CDDESC_DR_SMALL = "Ein kleiner: Drück ihn oft, vor einem großen Treffer oder am Anfang eines großen Pulls. Einen nach dem anderen.",
 	TANKKIT_CDDESC_DR_BIG = "Ein großer: Heb ihn für den härtesten Treffer auf und drück ihn kurz vor diesem Treffer, nicht erst, wenn deine Gesundheit schon niedrig ist. Einen nach dem anderen.",
 	ACADEMY_STEP_HEAL_GEAR = "Ausrüstung mit Intelligenz, dem Hauptwert jeder Heiler-Spezialisierung (Talente & Zauberbuch -> Spezialisierung zeigt ihn als „Primärwert“). Vor allem eine Waffe mit Intelligenz. Ein Paladin behält seine Platte: Es gibt Platte mit Intelligenz. Wo? Melde dich als Schaden an, mit deiner Beutespezialisierung auf deiner Heiler-Spezialisierung (Rechtsklick auf dein Porträt). Dungeons können dir dann Ausrüstung mit Intelligenz geben, aber welcher Gegenstand kommt, ist nicht sicher. Stell sie danach wieder auf „Aktuelle Spezialisierung“.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	TANKKIT_CDDESC_DR_SMALL = "Une petite : utilise-la souvent, avant un gros coup ou au début d'un gros pull. Une à la fois.",
 	TANKKIT_CDDESC_DR_BIG = "Une grande : garde-la pour le plus gros coup, et utilise-la juste avant ce coup, pas quand ta vie est déjà basse. Une à la fois.",
 	ACADEMY_STEP_HEAL_GEAR = "Équipement avec Intelligence, la stat principale de chaque spécialisation soigneur (Talents et grimoire -> Spécialisation l'affiche à « Stat. principale »). Surtout une arme avec Intelligence. Un Paladin garde sa plaque : il existe de la plaque avec Intelligence. Où ? Inscris-toi en Dégâts, avec ta Spécialisation du butin sur ta spécialisation soigneur (clic droit sur ton portrait). Les donjons peuvent alors te donner de l'équipement avec Intelligence, mais l'objet que tu reçois n'est pas sûr. Remets-la ensuite sur « Spécialisation actuelle ».",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	TANKKIT_CDDESC_DR_SMALL = "Una pequeña: púlsala a menudo, antes de un golpe grande o al empezar un pull grande. Una cada vez.",
 	TANKKIT_CDDESC_DR_BIG = "Una grande: guárdala para el golpe más duro y púlsala justo antes de ese golpe, no cuando ya tienes poca vida. Una cada vez.",
 	ACADEMY_STEP_HEAL_GEAR = "Equipo con Intelecto, la estadística principal de toda especialización de sanador (Talentos y libro de hechizos -> Especialización la muestra como \"Estadística principal\"). Sobre todo un arma con Intelecto. Un Paladín conserva sus placas: hay placas con Intelecto. ¿Dónde? Apúntate como Daño, con tu Especialización de botín en tu especialización de sanador (clic derecho en tu retrato). Las mazmorras pueden darte entonces equipo con Intelecto, pero qué objeto te toca no es seguro. Después vuelve a ponerla en \"Especialización actual\".",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	TANKKIT_CDDESC_DR_SMALL = "Uma pequena: aperte sempre, antes de uma pancada grande ou no começo de um pull grande. Uma de cada vez.",
 	TANKKIT_CDDESC_DR_BIG = "Uma grande: guarde para a pancada mais forte e aperte logo antes dessa pancada, não quando sua vida já está baixa. Uma de cada vez.",
 	ACADEMY_STEP_HEAL_GEAR = "Equipamento com Intelecto, o atributo primário de toda especialização de cura (Talentos e Grimório -> Especialização mostra como \"Atributos Primários\"). Principalmente uma arma com Intelecto. Um Paladino fica com as suas placas: existem placas com Intelecto. Onde? Entre na fila como Dano, com sua Especialização de saque na sua especialização de cura (clique com o botão direito no seu retrato). As masmorras podem então te dar equipamento com Intelecto, mas qual item vem não é garantido. Depois volte a colocá-la em \"Especialização atual\".",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	TANKKIT_CDDESC_DR_SMALL = "Una piccola: premila spesso, prima di un colpo grosso o all'inizio di un pull grosso. Una alla volta.",
 	TANKKIT_CDDESC_DR_BIG = "Una grossa: tienila per il colpo più duro, e premila subito prima di quel colpo, non quando la vita è già bassa. Una alla volta.",
 	ACADEMY_STEP_HEAL_GEAR = "Equipaggiamento con Intelletto, l'attributo primario di ogni specializzazione da guaritore (Talenti e Grimorio -> Specializzazione lo mostra come \"Attributo primario\"). Soprattutto un'arma con Intelletto. Un Paladino tiene le sue piastre: esistono piastre con Intelletto. Dove? Mettiti in coda come Assaltatore, con la Specializzazione per il bottino sulla tua specializzazione da guaritore (clic destro sul tuo ritratto). I dungeon possono allora darti equipaggiamento con Intelletto, ma quale oggetto arriva non è sicuro. Poi rimettila su \"Specializzazione attuale\".",
-})
+}) end
 
 -- 11 Oct 2026: the three delves that had no name key, the three city portals and the portal hint.
 -- Names MEASURED in Blizzard data (wago 12.1.0.69933: AreaPOI 8761/8764/8779, portals AreaPOI 8643/8640/8641;
 -- scratchpad PLACE_NAMES.md). "%d m": the distance is in yards; "m" is AFGELEID for these clients (ruRU measured "м").
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	DELVE_NAME_GNARLDOR_ISLE = "Knardorinsel",
 	DELVE_NAME_RING_OF_GLORY = "Ring des Ruhms",
 	DELVE_NAME_VENOMFALL_DEEPS = "Giftfalltiefen",
@@ -16622,8 +16622,8 @@ fill("deDE", {
 	PORTAL_NAME_VOIDSTORM = "Portal zum Leerensturm",
 	PORTAL_NAME_HARANDAR = "Portal nach Harandar",
 	TRAVEL_USE_PORTAL_FMT = "Benutze: %s (%d m)",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	DELVE_NAME_GNARLDOR_ISLE = "Île Torsadine",
 	DELVE_NAME_RING_OF_GLORY = "Arène de la Gloire",
 	DELVE_NAME_VENOMFALL_DEEPS = "Profondeurs de Chute-venin",
@@ -16631,8 +16631,8 @@ fill("frFR", {
 	PORTAL_NAME_VOIDSTORM = "Portail vers la tempête du Vide",
 	PORTAL_NAME_HARANDAR = "Portail vers Harandar",
 	TRAVEL_USE_PORTAL_FMT = "Utilise : %s (%d m)",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	DELVE_NAME_GNARLDOR_ISLE = "Isla Gnarldor",
 	DELVE_NAME_RING_OF_GLORY = "El Círculo de la Gloria",
 	DELVE_NAME_VENOMFALL_DEEPS = "Cascadas Llueveneno",
@@ -16640,8 +16640,8 @@ fill("esES", {
 	PORTAL_NAME_VOIDSTORM = "Portal a la Tormenta del Vacío",
 	PORTAL_NAME_HARANDAR = "Portal a Harandar",
 	TRAVEL_USE_PORTAL_FMT = "Usa: %s (%d m)",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	DELVE_NAME_GNARLDOR_ISLE = "Ilha Dendronor",
 	DELVE_NAME_RING_OF_GLORY = "O Ringue da Glória",
 	DELVE_NAME_VENOMFALL_DEEPS = "Profundezas de Peçonheira",
@@ -16649,8 +16649,8 @@ fill("ptBR", {
 	PORTAL_NAME_VOIDSTORM = "Portal para a Tempestade do Caos",
 	PORTAL_NAME_HARANDAR = "Portal para Harandar",
 	TRAVEL_USE_PORTAL_FMT = "Use: %s (%d m)",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	DELVE_NAME_GNARLDOR_ISLE = "Isola di Nodor",
 	DELVE_NAME_RING_OF_GLORY = "Anello della Gloria",
 	DELVE_NAME_VENOMFALL_DEEPS = "Abissi della Discesa Venefica",
@@ -16658,7 +16658,7 @@ fill("itIT", {
 	PORTAL_NAME_VOIDSTORM = "Portale per la Tempesta del Vuoto",
 	PORTAL_NAME_HARANDAR = "Portale per Harandar",
 	TRAVEL_USE_PORTAL_FMT = "Usa: %s (%d m)",
-})
+}) end
 
 -- 15 Oct 2026: the 12.1.5 additions (docs/NEW_1215_INVENTORY_2026-10-15.md): five mount rows, The Promise of
 -- Tomorrow lead-in, two /mh achlist groups and the J'imothy card. Place names are each client's own (Silvermoon,
@@ -16666,7 +16666,7 @@ fill("itIT", {
 -- name is measured: quest titles (The Aqir Swarm), the campaign/achievement The Promise of Tomorrow, achievement
 -- Let Me Solo Him: Kindo'jan, title Light's Faithful, faction names, NPCs, items, and the subzone The Den.
 -- Self-made translations, not reviewed by a native speaker.
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	MOUNTPROG_INDIGOCOIL_HOWTO = "Erreiche Renown 17 bei Zul'jarra's Forces und kaufe es dann bei Jan'sari the Watchful auf der Gewundenen Insel für 6.000 Leerenlichtmergel.",
 	MOUNTPROG_SKYFANG_HOWTO = "Erreiche Renown 19 bei Zul'jarra's Forces und kaufe es dann bei Jan'sari the Watchful auf der Gewundenen Insel für 8.000 Leerenlichtmergel.",
 	MOUNTPROG_AQIRSWARMER_HOWTO = "Erreiche Ehrfürchtig bei der Aqir Research Enclave (die stündlichen Aqir Invasions) und kaufe es dann bei Estelia Archtender in Silbermond für 2.500 Leerenlichtmergel.",
@@ -16837,8 +16837,8 @@ fill("deDE", {
 	CODEX_JIMOTHY_BODY = "|cffffcc00J'imothy ist ein Haustier, das du findest, nicht kaufst.|r Es kam mit Patch 12.1.0, und du bekommst es durch den Gegenstand |cffffffffStubby Whistle|r.|n|n|cffffff78So geht's|r|n• Finde den |cffffffffEnsorcelled Cryptid|r in Silbermond und klick ihn an.|n• Überlebe die Stapel, die er dir verpasst, und sprich dann mit J'imothy.|n• Es erscheint an einer von drei Stellen und kommt etwa 10 Minuten, nachdem es jemand gefunden hat, zurück.|n|n|cffffff78Die drei Stellen (HandyNotes)|r|n• {WAY:2393:28.76:46.75:J'imothy 1} · {WAY:2393:51.67:53.75:J'imothy 2} · {WAY:2393:58.15:42.06:J'imothy 3}",
 	CODEX_HIDDENTREASURE_TITLE = "Versteckte Schätze ohne Erfolg",
 	CODEX_HIDDENTREASURE_BODY = "|cffffcc00Diese Schätze geben eine Belohnung, zählen aber für keinen Erfolg.|r Hier steht, wo sie sind und was du brauchst.|n|n|cffffff78Zul'Aman|r|n• {WAY:2437:44.72:44.09:Abandoned Ritual Skull}: Sammle 1.000 |cffffffffVile Essence|r und klick dann den Schädel an. Du bekommst das Reittier |cffffffffHexed Vilefeather Eagle|r. Es steht auch im Tab „Sammelbare Reittiere“.|n|n|cffffff78Silbermond|r|n• {WAY:2393:37.80:52.38:Incomplete Book of Sonnets}: Du brauchst das |cffffffffBooklet of Sonnets|r und drei |cffffffffLost Pages|r. Die Seiten liegen in Silbermond: {WAY:2393:40.74:88.46:Lost Page 1} · {WAY:2393:33.28:90.17:Lost Page 2} · {WAY:2393:39.81:80.47:Lost Page 3}. Du bekommst das |cffffffffSilvermoon Library Bookcase|r (Housing-Deko).|n|n|cffffff78Leerensturm|r|n• {WAY:2405:24.82:70.01:Voidhoarder's Corpse}: gibt den |cffffffffStormarion Core|r.|n|n|cffffff78Val|r|n• {WAY:2599:70.50:84.30:Enchanted Hilt}, in einer Höhle. Nur auf Heroisch.|n• Klick den |cffffffffEnchanted Hilt|r an: Du bekommst einen Buff.|n• Besiege danach zweimal |cffffffffImperator Pertinax|r (den Weltboss) oder Rares aus dem Rare-Erfolg der Zone. Geh dann zurück zum Hilt.|n• Du bekommst die |cffffffffIce Guardian's Sleetblade|r, einen Transmog für ein Einhandschwert.|n|n|cffffff78Naigtal|r|n• |cffffffffAncient Crypt Reliquary|r: drinnen in der Krypta. Der Eingang ist bei {WAY:2600:28.00:50.60:Eingang Krypta}; eine Stelle drinnen ist {WAY:2646:52.90:57.30:Ancient Crypt Reliquary}. Es kann an mehreren Stellen stehen. Es gibt Transmog: eine Nebenhand, Schwerter und einen Streitkolben.|n• {WAY:2600:29.80:29.10:Spiked Shell}: der Umhang-Transmog |cffffffffPointy Half-Shell|r.|n• |cffffffffSquirming Mollusk|r: Es gibt 7 Stellen, zum Beispiel {WAY:2600:24.70:55.00:Squirming Mollusk 1} · {WAY:2600:37.30:23.70:Squirming Mollusk 2} · {WAY:2600:76.20:50.70:Squirming Mollusk 3}. Es gibt einen Faustwaffen-Transmog.|n|n|cffffff78Sleepy Mandrake (Haustier), Naigtal|r|n• {WAY:2600:68.25:51.61:Sleepy Mandrake} schläft in Sleeper's Grotto, einer Höhle.|n• Füttere es mit 5 verschiedenen Redcap-Pilzen:|n• {WAY:2600:28.90:61.76:Highland Redcap}|n• {WAY:2600:27.91:49.96:Dusty Redcap} (in einem Gebäude)|n• {WAY:2600:71.42:37.05:Marshy Redcap} (in einer Höhle)|n• {WAY:2600:95.09:26.67:Airy Redcap}|n• |cffffffffPartially-Digested Redcap|r: fällt von Rares in der Zone.|n|n|cffffff78Säbelflossenspitze (Ritualstätte)|r|n• Der Rare |cffffffffMana-Gorged Greatwyrm|r: {WAY:2594:55.10:38.70:Mana-Gorged Greatwyrm}. Du brauchst Ritualstätten-Renown 8. Er lässt das Haustier |cffffffffOverloaded Manaling|r fallen.|n|nQuelle: HandyNotes (15. Okt.). Wir haben diese Orte selbst noch nicht abgelaufen.",
-})
-fill("frFR", {
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MOUNTPROG_INDIGOCOIL_HOWTO = "Atteins Renown 17 chez Zul'jarra's Forces, puis achète-la à Jan'sari the Watchful sur l'Île Annelée pour 6 000 Marne de Lumière du Vide.",
 	MOUNTPROG_SKYFANG_HOWTO = "Atteins Renown 19 chez Zul'jarra's Forces, puis achète-la à Jan'sari the Watchful sur l'Île Annelée pour 8 000 Marne de Lumière du Vide.",
 	MOUNTPROG_AQIRSWARMER_HOWTO = "Atteins Exalté auprès de l'Aqir Research Enclave (les Aqir Invasions de chaque heure), puis achète-la à Estelia Archtender à Lune-d'Argent pour 2 500 Marne de Lumière du Vide.",
@@ -17009,8 +17009,8 @@ fill("frFR", {
 	CODEX_JIMOTHY_BODY = "|cffffcc00J'imothy est une mascotte que tu trouves, et que tu n'achètes pas.|r Elle est arrivée avec le patch 12.1.0, et tu l'obtiens grâce à l'objet |cffffffffStubby Whistle|r.|n|n|cffffff78Comment|r|n• Trouve l'|cffffffffEnsorcelled Cryptid|r à Lune-d'Argent et clique dessus.|n• Survis aux cumuls qu'il t'inflige, puis parle à J'imothy.|n• Elle apparaît à l'un de trois emplacements et revient environ 10 minutes après que quelqu'un l'a trouvée.|n|n|cffffff78Les trois emplacements (HandyNotes)|r|n• {WAY:2393:28.76:46.75:J'imothy 1} · {WAY:2393:51.67:53.75:J'imothy 2} · {WAY:2393:58.15:42.06:J'imothy 3}",
 	CODEX_HIDDENTREASURE_TITLE = "Trésors cachés sans haut fait",
 	CODEX_HIDDENTREASURE_BODY = "|cffffcc00Ces trésors donnent une récompense, mais ne comptent pour aucun haut fait.|r Voici où ils sont et ce qu'il te faut.|n|n|cffffff78Zul'Aman|r|n• {WAY:2437:44.72:44.09:Abandoned Ritual Skull} : récupère 1 000 |cffffffffVile Essence|r, puis clique sur le crâne. Tu obtiens la monture |cffffffffHexed Vilefeather Eagle|r. Elle figure aussi dans l'onglet Montures à collectionner.|n|n|cffffff78Lune-d'Argent|r|n• {WAY:2393:37.80:52.38:Incomplete Book of Sonnets} : il te faut le |cffffffffBooklet of Sonnets|r et trois |cffffffffLost Pages|r. Les pages se trouvent à Lune-d'Argent : {WAY:2393:40.74:88.46:Lost Page 1} · {WAY:2393:33.28:90.17:Lost Page 2} · {WAY:2393:39.81:80.47:Lost Page 3}. Tu obtiens la |cffffffffSilvermoon Library Bookcase|r (décor de logis).|n|n|cffffff78Tempête du Vide|r|n• {WAY:2405:24.82:70.01:Voidhoarder's Corpse} : donne le |cffffffffStormarion Core|r.|n|n|cffffff78Val|r|n• {WAY:2599:70.50:84.30:Enchanted Hilt}, dans une grotte. En Héroïque uniquement.|n• Clique sur l'|cffffffffEnchanted Hilt|r : tu reçois un buff.|n• Ensuite, vaincs deux fois |cffffffffImperator Pertinax|r (le boss mondial) ou des rares du haut fait des rares de la zone. Puis retourne à l'Enchanted Hilt.|n• Tu obtiens l'|cffffffffIce Guardian's Sleetblade|r, une apparence d'épée à une main.|n|n|cffffff78Naigtal|r|n• |cffffffffAncient Crypt Reliquary|r : à l'intérieur de la crypte. L'entrée est ici : {WAY:2600:28.00:50.60:Entrée de la crypte} ; un emplacement à l'intérieur : {WAY:2646:52.90:57.30:Ancient Crypt Reliquary}. Il peut se trouver à plusieurs endroits. Il donne des apparences : une main gauche, des épées et une masse.|n• {WAY:2600:29.80:29.10:Spiked Shell} : l'apparence de cape |cffffffffPointy Half-Shell|r.|n• |cffffffffSquirming Mollusk|r : il y a 7 emplacements, par exemple {WAY:2600:24.70:55.00:Squirming Mollusk 1} · {WAY:2600:37.30:23.70:Squirming Mollusk 2} · {WAY:2600:76.20:50.70:Squirming Mollusk 3}. Il donne une apparence d'arme de pugilat.|n|n|cffffff78Sleepy Mandrake (mascotte), Naigtal|r|n• {WAY:2600:68.25:51.61:Sleepy Mandrake} dort dans Sleeper's Grotto, une grotte.|n• Donne-lui 5 champignons Redcap différents :|n• {WAY:2600:28.90:61.76:Highland Redcap}|n• {WAY:2600:27.91:49.96:Dusty Redcap} (dans un bâtiment)|n• {WAY:2600:71.42:37.05:Marshy Redcap} (dans une grotte)|n• {WAY:2600:95.09:26.67:Airy Redcap}|n• |cffffffffPartially-Digested Redcap|r : tombe sur des rares de la zone.|n|n|cffffff78Pointe des Daguéchines (Site rituel)|r|n• Le rare |cffffffffMana-Gorged Greatwyrm|r : {WAY:2594:55.10:38.70:Mana-Gorged Greatwyrm}. Il te faut Renown 8 aux Sites rituels. Il laisse tomber la mascotte |cffffffffOverloaded Manaling|r.|n|nSource : HandyNotes (15 oct.). Nous ne les avons pas encore parcourus nous-mêmes.",
-})
-fill("esES", {
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MOUNTPROG_INDIGOCOIL_HOWTO = "Alcanza Renown 17 con Zul'jarra's Forces y luego cómprala a Jan'sari the Watchful en la Isla Serpenteante por 6.000 Marga de luz del Vacío.",
 	MOUNTPROG_SKYFANG_HOWTO = "Alcanza Renown 19 con Zul'jarra's Forces y luego cómprala a Jan'sari the Watchful en la Isla Serpenteante por 8.000 Marga de luz del Vacío.",
 	MOUNTPROG_AQIRSWARMER_HOWTO = "Alcanza Exaltado con Aqir Research Enclave (las Aqir Invasions de cada hora) y luego cómprala a Estelia Archtender en Lunargenta por 2.500 Marga de luz del Vacío.",
@@ -17181,8 +17181,8 @@ fill("esES", {
 	CODEX_JIMOTHY_BODY = "|cffffcc00J'imothy es una mascota que encuentras, no que compras.|r Llegó con el parche 12.1.0, y la consigues con el objeto |cffffffffStubby Whistle|r.|n|n|cffffff78Cómo|r|n• Busca al |cffffffffEnsorcelled Cryptid|r en Lunargenta y haz clic en él.|n• Aguanta las acumulaciones que te pone y luego habla con J'imothy.|n• Aparece en uno de tres sitios y vuelve unos 10 minutos después de que alguien lo encontrara.|n|n|cffffff78Los tres sitios (HandyNotes)|r|n• {WAY:2393:28.76:46.75:J'imothy 1} · {WAY:2393:51.67:53.75:J'imothy 2} · {WAY:2393:58.15:42.06:J'imothy 3}",
 	CODEX_HIDDENTREASURE_TITLE = "Tesoros escondidos sin logro",
 	CODEX_HIDDENTREASURE_BODY = "|cffffcc00Estos tesoros dan una recompensa, pero no cuentan para ningún logro.|r Aquí tienes dónde están y qué necesitas.|n|n|cffffff78Zul'Aman|r|n• {WAY:2437:44.72:44.09:Abandoned Ritual Skull}: reúne 1.000 |cffffffffVile Essence|r y luego haz clic en la calavera. Consigues la montura |cffffffffHexed Vilefeather Eagle|r. También está en la pestaña Monturas coleccionables.|n|n|cffffff78Lunargenta|r|n• {WAY:2393:37.80:52.38:Incomplete Book of Sonnets}: necesitas el |cffffffffBooklet of Sonnets|r y tres |cffffffffLost Pages|r. Las páginas están en Lunargenta: {WAY:2393:40.74:88.46:Lost Page 1} · {WAY:2393:33.28:90.17:Lost Page 2} · {WAY:2393:39.81:80.47:Lost Page 3}. Consigues la |cffffffffSilvermoon Library Bookcase|r (decoración de vivienda).|n|n|cffffff78Tormenta del Vacío|r|n• {WAY:2405:24.82:70.01:Voidhoarder's Corpse}: da el |cffffffffStormarion Core|r.|n|n|cffffff78Val|r|n• {WAY:2599:70.50:84.30:Enchanted Hilt}, en una cueva. Solo en Heroico.|n• Haz clic en el |cffffffffEnchanted Hilt|r: recibes un beneficio.|n• Después derrota dos veces a |cffffffffImperator Pertinax|r (el jefe del mundo) o a raros del logro de raros de la zona. Luego vuelve al Hilt.|n• Consigues la |cffffffffIce Guardian's Sleetblade|r, una transfiguración de espada de una mano.|n|n|cffffff78Naigtal|r|n• |cffffffffAncient Crypt Reliquary|r: dentro de la cripta. La entrada está en {WAY:2600:28.00:50.60:Entrada de la cripta}; un sitio dentro es {WAY:2646:52.90:57.30:Ancient Crypt Reliquary}. Puede aparecer en varios sitios. Da transfiguraciones: una mano izquierda, espadas y una maza.|n• {WAY:2600:29.80:29.10:Spiked Shell}: la transfiguración de capa |cffffffffPointy Half-Shell|r.|n• |cffffffffSquirming Mollusk|r: hay 7 sitios, por ejemplo {WAY:2600:24.70:55.00:Squirming Mollusk 1} · {WAY:2600:37.30:23.70:Squirming Mollusk 2} · {WAY:2600:76.20:50.70:Squirming Mollusk 3}. Da una transfiguración de arma de puño.|n|n|cffffff78Sleepy Mandrake (mascota), Naigtal|r|n• {WAY:2600:68.25:51.61:Sleepy Mandrake} duerme en Sleeper's Grotto, una cueva.|n• Dale de comer 5 setas Redcap distintas:|n• {WAY:2600:28.90:61.76:Highland Redcap}|n• {WAY:2600:27.91:49.96:Dusty Redcap} (en un edificio)|n• {WAY:2600:71.42:37.05:Marshy Redcap} (en una cueva)|n• {WAY:2600:95.09:26.67:Airy Redcap}|n• |cffffffffPartially-Digested Redcap|r: cae de raros de la zona.|n|n|cffffff78Punto de Espinadaga (lugar de ritual)|r|n• El raro |cffffffffMana-Gorged Greatwyrm|r: {WAY:2594:55.10:38.70:Mana-Gorged Greatwyrm}. Necesitas Renown 8 con los lugares de ritual. Suelta la mascota |cffffffffOverloaded Manaling|r.|n|nFuente: HandyNotes (15 oct.). Aún no los hemos recorrido nosotros mismos.",
-})
-fill("ptBR", {
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MOUNTPROG_INDIGOCOIL_HOWTO = "Alcance Renown 17 com as Zul'jarra's Forces e compre-a de Jan'sari the Watchful na Ilha Enrolada por 6.000 Silte de Luz Caótica.",
 	MOUNTPROG_SKYFANG_HOWTO = "Alcance Renown 19 com as Zul'jarra's Forces e compre-a de Jan'sari the Watchful na Ilha Enrolada por 8.000 Silte de Luz Caótica.",
 	MOUNTPROG_AQIRSWARMER_HOWTO = "Alcance Exaltado com a Aqir Research Enclave (as Aqir Invasions de toda hora) e compre-a de Estelia Archtender em Luaprata por 2.500 Silte de Luz Caótica.",
@@ -17353,8 +17353,8 @@ fill("ptBR", {
 	CODEX_JIMOTHY_BODY = "|cffffcc00J'imothy é um mascote que você encontra, não compra.|r Ele chegou com o patch 12.1.0, e você o recebe pelo item |cffffffffStubby Whistle|r.|n|n|cffffff78Como|r|n• Encontre o |cffffffffEnsorcelled Cryptid|r em Luaprata e clique nele.|n• Sobreviva aos acúmulos que ele aplica em você e depois fale com J'imothy.|n• Ele aparece em um de três lugares e volta cerca de 10 minutos depois que alguém o encontrou.|n|n|cffffff78Os três lugares (HandyNotes)|r|n• {WAY:2393:28.76:46.75:J'imothy 1} · {WAY:2393:51.67:53.75:J'imothy 2} · {WAY:2393:58.15:42.06:J'imothy 3}",
 	CODEX_HIDDENTREASURE_TITLE = "Tesouros escondidos sem conquista",
 	CODEX_HIDDENTREASURE_BODY = "|cffffcc00Estes tesouros dão uma recompensa, mas não contam para nenhuma conquista.|r Veja onde estão e do que você precisa.|n|n|cffffff78Zul'Aman|r|n• {WAY:2437:44.72:44.09:Abandoned Ritual Skull}: junte 1.000 |cffffffffVile Essence|r e depois clique no crânio. Você ganha a montaria |cffffffffHexed Vilefeather Eagle|r. Ela também está na aba Montarias colecionáveis.|n|n|cffffff78Luaprata|r|n• {WAY:2393:37.80:52.38:Incomplete Book of Sonnets}: você precisa do |cffffffffBooklet of Sonnets|r e de três |cffffffffLost Pages|r. As páginas estão em Luaprata: {WAY:2393:40.74:88.46:Lost Page 1} · {WAY:2393:33.28:90.17:Lost Page 2} · {WAY:2393:39.81:80.47:Lost Page 3}. Você ganha a |cffffffffSilvermoon Library Bookcase|r (decoração de moradia).|n|n|cffffff78Tempestade do Caos|r|n• {WAY:2405:24.82:70.01:Voidhoarder's Corpse}: dá o |cffffffffStormarion Core|r.|n|n|cffffff78Val|r|n• {WAY:2599:70.50:84.30:Enchanted Hilt}, numa caverna. Só no Heroico.|n• Clique no |cffffffffEnchanted Hilt|r: você recebe um bônus.|n• Depois derrote duas vezes |cffffffffImperator Pertinax|r (o chefe mundial) ou raros da conquista de raros da zona. Então volte ao Hilt.|n• Você ganha a |cffffffffIce Guardian's Sleetblade|r, um transmog de espada de uma mão.|n|n|cffffff78Naigtal|r|n• |cffffffffAncient Crypt Reliquary|r: dentro da cripta. A entrada fica em {WAY:2600:28.00:50.60:Entrada da cripta}; um lugar lá dentro é {WAY:2646:52.90:57.30:Ancient Crypt Reliquary}. Ele pode aparecer em vários lugares. Dá transmogs: uma mão secundária, espadas e uma maça.|n• {WAY:2600:29.80:29.10:Spiked Shell}: o transmog de capa |cffffffffPointy Half-Shell|r.|n• |cffffffffSquirming Mollusk|r: há 7 lugares, por exemplo {WAY:2600:24.70:55.00:Squirming Mollusk 1} · {WAY:2600:37.30:23.70:Squirming Mollusk 2} · {WAY:2600:76.20:50.70:Squirming Mollusk 3}. Dá um transmog de arma de punho.|n|n|cffffff78Sleepy Mandrake (mascote), Naigtal|r|n• {WAY:2600:68.25:51.61:Sleepy Mandrake} dorme na Sleeper's Grotto, uma caverna.|n• Dê a ele 5 cogumelos Redcap diferentes:|n• {WAY:2600:28.90:61.76:Highland Redcap}|n• {WAY:2600:27.91:49.96:Dusty Redcap} (num edifício)|n• {WAY:2600:71.42:37.05:Marshy Redcap} (numa caverna)|n• {WAY:2600:95.09:26.67:Airy Redcap}|n• |cffffffffPartially-Digested Redcap|r: cai de raros da zona.|n|n|cffffff78Ponto de Espinhadaga (Sítio Ritualístico)|r|n• O raro |cffffffffMana-Gorged Greatwyrm|r: {WAY:2594:55.10:38.70:Mana-Gorged Greatwyrm}. Você precisa de Renown 8 dos Sítios Ritualísticos. Ele deixa cair o mascote |cffffffffOverloaded Manaling|r.|n|nFonte: HandyNotes (15 out.). Ainda não percorremos esses lugares nós mesmos.",
-})
-fill("itIT", {
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MOUNTPROG_INDIGOCOIL_HOWTO = "Raggiungi Renown 17 con Zul'jarra's Forces, poi acquistala da Jan'sari the Watchful sull'Isola Serpeggiante per 6.000 Marna di Lucevuota.",
 	MOUNTPROG_SKYFANG_HOWTO = "Raggiungi Renown 19 con Zul'jarra's Forces, poi acquistala da Jan'sari the Watchful sull'Isola Serpeggiante per 8.000 Marna di Lucevuota.",
 	MOUNTPROG_AQIRSWARMER_HOWTO = "Raggiungi Osannato con l'Aqir Research Enclave (le Aqir Invasions di ogni ora), poi acquistala da Estelia Archtender a Lunargenta per 2.500 Marna di Lucevuota.",
@@ -17525,4 +17525,4 @@ fill("itIT", {
 	CODEX_JIMOTHY_BODY = "|cffffcc00J'imothy è una mascotte che trovi, non che compri.|r È arrivata con la patch 12.1.0, e la ottieni dall'oggetto |cffffffffStubby Whistle|r.|n|n|cffffff78Come|r|n• Trova l'|cffffffffEnsorcelled Cryptid|r a Lunargenta e cliccaci sopra.|n• Sopravvivi agli accumuli che ti infligge, poi parla con J'imothy.|n• Appare in uno di tre punti e torna circa 10 minuti dopo che qualcuno l'ha trovata.|n|n|cffffff78I tre punti (HandyNotes)|r|n• {WAY:2393:28.76:46.75:J'imothy 1} · {WAY:2393:51.67:53.75:J'imothy 2} · {WAY:2393:58.15:42.06:J'imothy 3}",
 	CODEX_HIDDENTREASURE_TITLE = "Tesori nascosti senza impresa",
 	CODEX_HIDDENTREASURE_BODY = "|cffffcc00Questi tesori danno una ricompensa, ma non contano per nessuna impresa.|r Ecco dove sono e cosa ti serve.|n|n|cffffff78Zul'aman|r|n• {WAY:2437:44.72:44.09:Abandoned Ritual Skull}: raccogli 1.000 |cffffffffVile Essence|r, poi clicca sul teschio. Ottieni la cavalcatura |cffffffffHexed Vilefeather Eagle|r. È anche nella scheda Cavalcature da collezione.|n|n|cffffff78Lunargenta|r|n• {WAY:2393:37.80:52.38:Incomplete Book of Sonnets}: ti servono il |cffffffffBooklet of Sonnets|r e tre |cffffffffLost Pages|r. Le pagine sono a Lunargenta: {WAY:2393:40.74:88.46:Lost Page 1} · {WAY:2393:33.28:90.17:Lost Page 2} · {WAY:2393:39.81:80.47:Lost Page 3}. Ottieni la |cffffffffSilvermoon Library Bookcase|r (decorazione per l'alloggio).|n|n|cffffff78Tempesta del Vuoto|r|n• {WAY:2405:24.82:70.01:Voidhoarder's Corpse}: dà lo |cffffffffStormarion Core|r.|n|n|cffffff78Val|r|n• {WAY:2599:70.50:84.30:Enchanted Hilt}, in una grotta. Solo in Eroica.|n• Clicca sull'|cffffffffEnchanted Hilt|r: ricevi un buff.|n• Poi sconfiggi due volte |cffffffffImperator Pertinax|r (il boss mondiale) o dei rari dell'impresa dei rari della zona. Poi torna all'Enchanted Hilt.|n• Ottieni la |cffffffffIce Guardian's Sleetblade|r, un transmog di spada a una mano.|n|n|cffffff78Naigtal|r|n• |cffffffffAncient Crypt Reliquary|r: dentro la cripta. L'ingresso è a {WAY:2600:28.00:50.60:Ingresso della cripta}; un punto all'interno è {WAY:2646:52.90:57.30:Ancient Crypt Reliquary}. Può comparire in più punti. Dà transmog: una mano secondaria, spade e una mazza.|n• {WAY:2600:29.80:29.10:Spiked Shell}: il transmog di mantello |cffffffffPointy Half-Shell|r.|n• |cffffffffSquirming Mollusk|r: ci sono 7 punti, per esempio {WAY:2600:24.70:55.00:Squirming Mollusk 1} · {WAY:2600:37.30:23.70:Squirming Mollusk 2} · {WAY:2600:76.20:50.70:Squirming Mollusk 3}. Dà un transmog di arma da pugno.|n|n|cffffff78Sleepy Mandrake (mascotte), Naigtal|r|n• {WAY:2600:68.25:51.61:Sleepy Mandrake} dorme nella Sleeper's Grotto, una grotta.|n• Dagli da mangiare 5 funghi Redcap diversi:|n• {WAY:2600:28.90:61.76:Highland Redcap}|n• {WAY:2600:27.91:49.96:Dusty Redcap} (in un edificio)|n• {WAY:2600:71.42:37.05:Marshy Redcap} (in una grotta)|n• {WAY:2600:95.09:26.67:Airy Redcap}|n• |cffffffffPartially-Digested Redcap|r: cade dai rari della zona.|n|n|cffffff78Promontorio dei Liscaguzza (Sito Rituale)|r|n• Il raro |cffffffffMana-Gorged Greatwyrm|r: {WAY:2594:55.10:38.70:Mana-Gorged Greatwyrm}. Ti serve Renown 8 con i Siti Rituali. Lascia cadere la mascotte |cffffffffOverloaded Manaling|r.|n|nFonte: HandyNotes (15 ott). Non li abbiamo ancora percorsi di persona.",
-})
+}) end

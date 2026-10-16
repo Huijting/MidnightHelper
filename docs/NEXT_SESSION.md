@@ -45,6 +45,13 @@
    `fill("deDE", {…})`-tabel tóch op vóór `fill` kijkt (Lua evalueert het argument eerst). AFGELEID: dat is een groot
    deel van het afval; Lua ruimt het vanzelf op, dus het kost vooral inlogtijd en een tijdelijke piek, niet blijvend
    geheugen. Reparatie (per blok eerst de taal checken) = Robs keuze.
+   ✅ **GEDAAN (Rob: "ja")**: 497 blokken in 13 Locales-bestanden beginnen nu met
+   `if ns._mhLocales and ns._mhLocales.XX then … end` (ConsumablesNotes: `local DE = ns._mhLocales.deDE and {…}`);
+   regelnummers ongewijzigd. GEMETEN buiten het spel: alle packs gedumpt voor 8 clienttalen (lua.exe, scratch
+   `locale_dump.lua`) vóór en ná → **byte voor byte gelijk**. Lint-regel **[21]** (HARD) vangt een nieuw blok zonder
+   check; positieve controle: op HEAD vond hij alle 492. 🔴 **Voor wie vertaalt (mh-writer):** een nieuw
+   `fill("deDE", {…})`-blok moet met die `if` beginnen, anders faalt de lint. Robs nieuwe geheugenmeting na `/reload`
+   staat open (TESTLIJST).
 **16 okt ochtendronde (GEMETEN):** CF 0 open (8 draadjes), GitHub 0 open, site-mail 0 (positieve controle: 30d geeft 15).
 API: TOC-wiki zegt dat 12.1.7 variabelen in `##`-regels verbiedt — MH gebruikt er geen (0 `[` in de .toc). PTR: **12.1.7-PTR
 open** (build 70424, Talebound). Data: Impressive Treasure-kisten Labyrinth nu level 80. Content: Blizzard fixte 15 okt de

@@ -147,7 +147,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	RITUAL_TIP_EMBERS_UNLOCK = "• Loot an Ember of Power inside a Tier 4 site to start the quest (the required tier drops each week).",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	-- Titoli delle sezioni ---------------------------------------------------
 	RITUAL_COACH_SEC_OVERVIEW = "Panoramica",
 	RITUAL_COACH_SEC_PHASES = "Come si svolge una run",
@@ -264,7 +264,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procura\" tesori unici da un sito Tier 3+ (il tier richiesto cala ogni settimana).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Nemici casuali E il boss finale sono potenziati, segnalati da un orb fluttuante sopra di loro.|n• Aumenta gli Spoils mentre è attiva (uno dei boost maggiori).",
 	RITUAL_TIP_EMBERS_UNLOCK = "• Saccheggia un Ember of Power dentro un sito Tier 4 per iniziare la quest (il tier richiesto cala ogni settimana).",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	-- Sectietitels -----------------------------------------------------------
@@ -387,7 +387,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	RITUAL_TIP_EMBERS_UNLOCK = "• Loot een Ember of Power in een Tier 4-site om de quest te starten (de vereiste tier zakt elke week).",
 })
 
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	-- Abschnittstitel ----------------------------------------------------------
 	RITUAL_COACH_SEC_OVERVIEW = "Überblick",
 	RITUAL_COACH_SEC_PHASES = "So läuft ein Run ab",
@@ -503,9 +503,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" einzigartige Schätze aus einer Stätte ab Tier 3 (die nötige Stufe sinkt jede Woche).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Zufällige Gegner UND der Endboss sind verstärkt, markiert durch eine schwebende Kugel über ihnen.|n• Erhöht die Spoils, solange aktiv (einer der größeren Boni).",
 	RITUAL_TIP_EMBERS_UNLOCK = "• Loote ein Ember of Power in einer Tier-4-Stätte, um die Quest zu starten (die nötige Stufe sinkt jede Woche).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	-- Titres de section ----------------------------------------------------------
 	RITUAL_COACH_SEC_OVERVIEW = "Aperçu",
 	RITUAL_COACH_SEC_PHASES = "Déroulement d'une run",
@@ -621,9 +621,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" des trésors uniques dans un site Tier 3+ (le palier requis baisse chaque semaine).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Des ennemis aléatoires ET le boss final sont renforcés, marqués d'un orbe flottant au-dessus d'eux.|n• Augmente les Spoils tant qu'actif (un des plus gros bonus).",
 	RITUAL_TIP_EMBERS_UNLOCK = "• Loote un Ember of Power dans un site Tier 4 pour lancer la quête (le palier requis baisse chaque semaine).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	-- Títulos de sección ---------------------------------------------------------
 	RITUAL_COACH_SEC_OVERVIEW = "Resumen",
 	RITUAL_COACH_SEC_PHASES = "Cómo va una run",
@@ -739,9 +739,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" tesoros únicos de un sitio de Tier 3+ (el tier requerido baja cada semana).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Enemigos aleatorios Y el jefe final están potenciados, marcados con un orbe flotante encima.|n• Aumenta los Spoils mientras está activo (uno de los bonus más grandes).",
 	RITUAL_TIP_EMBERS_UNLOCK = "• Saquea un Ember of Power dentro de un sitio de Tier 4 para iniciar la misión (el tier requerido baja cada semana).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	-- Títulos de seção -------------------------------------------------------------
 	RITUAL_COACH_SEC_OVERVIEW = "Visão geral",
 	RITUAL_COACH_SEC_PHASES = "Como é uma run",
@@ -857,4 +857,4 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" tesouros únicos de um local de Tier 3+ (o tier exigido cai a cada semana).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Inimigos aleatórios E o chefe final ficam fortalecidos, marcados por um orbe flutuante acima deles.|n• Aumenta os Spoils enquanto ativo (um dos bônus maiores).",
 	RITUAL_TIP_EMBERS_UNLOCK = "• Saqueie um Ember of Power dentro de um local de Tier 4 para iniciar a missão (o tier exigido cai a cada semana).",
-})
+}) end

@@ -56,7 +56,7 @@ local NL = {
 	CONS_NOTE_MANA = "Alleen als je mana opraakt. Hij deelt zijn wachttijd van 5 minuten met je combat potion: je drinkt hem in plaats daarvan, niet erbij.",
 }
 
-local DE = {
+local DE = ns._mhLocales.deDE and {
 	CONS_NOTE_01 = "Die genannte Flasche ist die Standardwahl des Guides für diese Spec. Die vier Sekundärwert-Flaschen liegen nah beieinander, also simuliere deinen Charakter, wenn deine Werte abweichen.",
 	CONS_NOTE_02 = "Aktuelle Midnight-Augmentierungsrune.",
 	CONS_NOTE_03 = "Tempo ist die Standard-Heiler-Flasche; simuliere deinen Charakter für Sekundärwerte.",
@@ -79,7 +79,7 @@ local DE = {
 -- FR was merged below but never defined (vertaler-vondst 3 Oct 2026), so French players saw every
 -- CONS_NOTE in English. Added 4 Oct 2026 — our own translation, same shape as DE (item and spell
 -- names stay English, "tu" like the other French strings); not checked by a native speaker.
-local FR = {
+local FR = ns._mhLocales.frFR and {
 	CONS_NOTE_01 = "Le flacon indiqué est le choix par défaut du guide pour cette spé. Les quatre flacons de caractéristique secondaire sont proches : simule ton personnage si tes stats diffèrent.",
 	CONS_NOTE_02 = "Rune d'augmentation actuelle de Midnight.",
 	CONS_NOTE_03 = "La Hâte est le flacon de soigneur par défaut ; simule ton personnage si tes stats secondaires sont proches.",
@@ -99,7 +99,7 @@ local FR = {
 	CONS_NOTE_MANA = "Seulement quand tu manques de mana. Elle partage son temps de recharge de 5 minutes avec ta potion de combat : tu la bois à sa place, pas en plus.",
 }
 
-local ES = {
+local ES = ns._mhLocales.esES and {
 	CONS_NOTE_01 = "El frasco indicado es la opción por defecto de la guía para esta especialización. Los cuatro frascos de stat secundaria están muy parejos, así que simula tu personaje si tus stats son distintas.",
 	CONS_NOTE_02 = "Runa de aumento Midnight actual.",
 	CONS_NOTE_03 = "Celeridad es el frasco de sanador por defecto; simula tu personaje para stats secundarias.",
@@ -119,7 +119,7 @@ local ES = {
 	CONS_NOTE_MANA = "Solo cuando te quedes sin maná. Comparte su tiempo de reutilización de 5 minutos con tu poción de combate: la bebes en lugar de esa, no además de ella.",
 }
 
-local PT = {
+local PT = ns._mhLocales.ptBR and {
 	CONS_NOTE_01 = "O frasco listado é a escolha padrão do guia para esta spec. Os quatro frascos de atributo secundário ficam bem próximos, então simule seu personagem se seus atributos forem diferentes.",
 	CONS_NOTE_02 = "Runa de augmento Midnight atual.",
 	CONS_NOTE_03 = "Aceleração é o frasco de curador padrão; simule para atributos secundários.",
@@ -139,7 +139,7 @@ local PT = {
 	CONS_NOTE_MANA = "Só quando sua mana estiver acabando. Ela compartilha o tempo de recarga de 5 minutos com sua poção de combate: você bebe uma no lugar da outra, não as duas.",
 }
 
-local IT = {
+local IT = ns._mhLocales.itIT and {
 	CONS_NOTE_01 = "La fiala indicata è la scelta predefinita della guida per questa spec. Le quattro fiale con caratteristica secondaria sono molto vicine, quindi simula il tuo personaggio se le tue stat sono diverse.",
 	CONS_NOTE_02 = "Runa di aumento attuale di Midnight.",
 	CONS_NOTE_03 = "Celerità è la fiala di throughput predefinita per i guaritori; simula il tuo personaggio per le secondarie più vicine.",

@@ -28,7 +28,7 @@ local function fill(code, patch)
 	end
 end
 
-fill("deDE", {
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ARROW_OTHER_CONTINENT = "(anderer Kontinent — reise zurück)",
 	CS_WARN = "GEFÄHRLICHER ZAUBER",
 	GS_MOVE = "BEWEGEN!",
@@ -110,9 +110,9 @@ fill("deDE", {
 	SET_GS_TOGGLE_TITLE = "BEWEGEN!-Bodenwarnung anzeigen",
 	SET_RECOMMENDED_TT = "Ein Klick setzt jede Midnight-Helper-Funktion auf ihren empfohlenen Ein/Aus-Zustand zurück. Sprache, Fenster und Größe bleiben unberührt.",
 	SET_SEC_RECOMMENDED = "Empfohlen", SET_BTN_RECOMMENDED = "Alles auf empfohlen setzen",
-})
+}) end
 
-fill("frFR", {
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ARROW_OTHER_CONTINENT = "(autre continent — revenez)",
 	CS_WARN = "SORT DANGEREUX",
 	GS_MOVE = "BOUGE !",
@@ -194,9 +194,9 @@ fill("frFR", {
 	SET_GS_TOGGLE_TITLE = "Afficher l’alerte au sol BOUGE !",
 	SET_RECOMMENDED_TT = "Un clic remet chaque fonction de Midnight Helper à son état activé/désactivé recommandé. Votre langue, votre fenêtre et sa taille ne sont pas touchées.",
 	SET_SEC_RECOMMENDED = "Recommandé", SET_BTN_RECOMMENDED = "Tout mettre sur recommandé",
-})
+}) end
 
-fill("esES", {
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ARROW_OTHER_CONTINENT = "(otro continente — regresa)",
 	CS_WARN = "LANZAMIENTO PELIGROSO",
 	GS_MOVE = "¡MUÉVETE!",
@@ -278,9 +278,9 @@ fill("esES", {
 	SET_GS_TOGGLE_TITLE = "Mostrar aviso de suelo ¡MUÉVETE!",
 	SET_RECOMMENDED_TT = "Un clic devuelve cada función de Midnight Helper a su estado recomendado de activado/desactivado. Tu idioma, ventana y tamaño no se tocan.",
 	SET_SEC_RECOMMENDED = "Recomendado", SET_BTN_RECOMMENDED = "Poner todo en recomendado",
-})
+}) end
 
-fill("ptBR", {
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ARROW_OTHER_CONTINENT = "(outro continente — volte)",
 	CS_WARN = "CONJURAÇÃO PERIGOSA",
 	GS_MOVE = "MOVA-SE!",
@@ -362,9 +362,9 @@ fill("ptBR", {
 	SET_GS_TOGGLE_TITLE = "Mostrar aviso de chão MOVA-SE!",
 	SET_RECOMMENDED_TT = "Um clique devolve cada recurso do Midnight Helper ao seu estado recomendado de ligado/desligado. Seu idioma, janela e tamanho não são alterados.",
 	SET_SEC_RECOMMENDED = "Recomendado", SET_BTN_RECOMMENDED = "Definir tudo como recomendado",
-})
+}) end
 
-fill("itIT", {
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	LANG_LABEL_FR = "Français", LANG_LABEL_ES = "Español", LANG_LABEL_PT = "Português", LANG_LABEL_IT = "Italiano",
 	SET_CS_BARS_DESC = "Oltre all’icona singola, mostra una pila di barre di cast (icona + nome + conto alla rovescia) così vedi più cast in arrivo contemporaneamente. L’icona mostra sempre il più imminente; le barre sono una pila separata e spostabile. Trascina una barra (o usa Anteprima) per posizionarla.",
 	SET_CS_BARS_TITLE = "Mostra anche le barre di cast",
@@ -384,5 +384,5 @@ fill("itIT", {
 	SET_GS_TOGGLE_TITLE = "Mostra avviso a terra MUOVITI!",
 	SET_RECOMMENDED_TT = "Un clic riporta ogni funzione di Midnight Helper al suo stato attivo/disattivo consigliato. Lingua, finestra e dimensione restano intatte.",
 	SET_SEC_RECOMMENDED = "Consigliato", SET_BTN_RECOMMENDED = "Imposta tutto sul consigliato",
-})
+}) end
 

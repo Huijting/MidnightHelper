@@ -81,7 +81,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	OMNIUM_RUNE_ECHOES_DESC = "After 10s, repeats all Core + Lingering output at 50%. Highest ceiling, but only at ~90%+ uptime (long raid fights).",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	TAB_OMNIUM = "Omnium Folio",
 	OMNIUM_SUBTITLE = "Quale runa scegliere per riga — scegli sotto il tuo tipo di contenuto.",
 	OMNIUM_START_NAME = "imposta un waypoint",
@@ -139,7 +139,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	OMNIUM_RUNE_RESIDUAL_DESC = "Raddoppia l'effetto Lingering. Migliore in qualsiasi build basata sugli effetti nel tempo (spec DoT, single-target lunghi).",
 	OMNIUM_RUNE_ECHOES = "Rune of Echoes",
 	OMNIUM_RUNE_ECHOES_DESC = "Dopo 10s, ripete tutto l'output Core + Lingering al 50%. Il tetto più alto, ma solo con ~90%+ di uptime (lunghi combattimenti in incursione).",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_OMNIUM = "Omnium Folio",
@@ -209,7 +209,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 -- Rune-namen + Mythic+/Raid/PvP-labels vallen via SafeL terug op EN (eigennamen
 -- + de live spell-tooltip toont de gelokaliseerde naam). Hieronder de UI-tekst
 -- + effect-omschrijvingen in de/fr/es/pt.
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	OMNIUM_SUBTITLE = "Welche Rune pro Reihe — wähle unten deinen Inhaltstyp.",
 	OMNIUM_START_NAME = "Wegpunkt setzen",
 	OMNIUM_OPEN_INGAME = "Runen-Fenster öffnen",
@@ -247,9 +247,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	OMNIUM_RUNE_OVERLOAD_DESC = "Verdoppelt den Effekt der Kernrune (+100% pro Proc). Sicherste Wahl, ohne Aufbau oder Uptime.",
 	OMNIUM_RUNE_RESIDUAL_DESC = "Verdoppelt den Lingering-Effekt. Am besten in Builds rund um Effekte über Zeit (DoT-Specs, lange Einzelziele).",
 	OMNIUM_RUNE_ECHOES_DESC = "Wiederholt nach 10s alle Kern- + Lingering-Effekte zu 50%. Höchstes Potenzial, aber nur bei ~90%+ Uptime (lange Schlachtzugskämpfe).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	OMNIUM_SUBTITLE = "Quelle rune choisir par rangée — choisissez votre type de contenu ci-dessous.",
 	OMNIUM_START_NAME = "définir un point de route",
 	OMNIUM_OPEN_INGAME = "Ouvrir la fenêtre des runes",
@@ -287,9 +287,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	OMNIUM_RUNE_OVERLOAD_DESC = "Double l'effet de la rune principale (+100% par proc). Choix le plus sûr, sans mise en place ni uptime.",
 	OMNIUM_RUNE_RESIDUAL_DESC = "Double l'effet de Lingering. Idéal pour les builds axés sur les effets sur la durée (spés DoT, mono-cible long).",
 	OMNIUM_RUNE_ECHOES_DESC = "Après 10s, répète tous les effets principaux + Lingering à 50%. Plafond le plus élevé, mais seulement à ~90%+ d'uptime (longs combats de raid).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	OMNIUM_SUBTITLE = "Qué runa elegir por fila — elige tu tipo de contenido abajo.",
 	OMNIUM_START_NAME = "fijar un punto de ruta",
 	OMNIUM_OPEN_INGAME = "Abrir ventana de runas",
@@ -327,9 +327,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	OMNIUM_RUNE_OVERLOAD_DESC = "Duplica el efecto de la runa principal (+100% por proc). La opción más segura, sin preparación ni uptime.",
 	OMNIUM_RUNE_RESIDUAL_DESC = "Duplica el efecto de Lingering. Mejor en builds centradas en efectos por tiempo (specs de DoT, objetivo único largo).",
 	OMNIUM_RUNE_ECHOES_DESC = "Tras 10s, repite todo el efecto principal + Lingering al 50%. El mayor techo, pero solo con ~90%+ de uptime (combates de banda largos).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	OMNIUM_SUBTITLE = "Qual runa escolher por linha — escolha o tipo de conteúdo abaixo.",
 	OMNIUM_START_NAME = "definir um ponto de rota",
 	OMNIUM_OPEN_INGAME = "Abrir janela de runas",
@@ -367,4 +367,4 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	OMNIUM_RUNE_OVERLOAD_DESC = "Duplica o efeito da runa principal (+100% por proc). A escolha mais segura, sem preparação ou uptime.",
 	OMNIUM_RUNE_RESIDUAL_DESC = "Duplica o efeito de Lingering. Melhor em builds centradas em efeitos ao longo do tempo (specs de DoT, alvo único longo).",
 	OMNIUM_RUNE_ECHOES_DESC = "Após 10s, repete todo o efeito principal + Lingering a 50%. O maior teto, mas só com ~90%+ de uptime (combates de raide longos).",
-})
+}) end

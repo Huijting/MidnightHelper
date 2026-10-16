@@ -106,7 +106,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	TOUR_SETTINGS_BODY = "Tune text size, language and every popup or alert to taste. Make MH yours.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	TAB_START_HERE = "Inizia qui",
 	START_TITLE = "Inizia qui — nuovo in Midnight",
 	START_SUBTITLE = "Appena arrivato al livello massimo e non sai cosa fare? Questo è tutto l'endgame, in ordine. Clicca un passo per saltare direttamente allo strumento giusto; quelli settimanali si spuntano da soli.",
@@ -150,7 +150,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	START_VAULT_READY = "C'è una ricompensa della Gran Banca che ti aspetta — riscattala!",
 	START_VAULT_NONE = "Nessuna ricompensa del vault ancora — continua a riempirlo prima del reset.",
 	START_DELVERCALL_FMT = "Chiamata alla Scorribanda: %d/%d completate questa settimana",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_START_HERE = "Start Here",
@@ -241,7 +241,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TOUR_SETTINGS_BODY = "Pas tekstgrootte, taal en elke popup of alert naar smaak aan. Maak MH van jou.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	TAB_START_HERE = "Erste Schritte",
 	START_TITLE = "Erste Schritte — neu in Midnight",
 	START_SUBTITLE = "Gerade Maximalstufe erreicht und unsicher, was jetzt? Das hier ist das ganze Endgame, der Reihe nach. Klick einen Schritt, um direkt zum passenden Tool zu springen; die wöchentlichen Schritte haken sich von selbst ab.",
@@ -285,9 +285,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_VAULT_READY = "Eine Great-Vault-Belohnung wartet — hol sie ab!",
 	START_VAULT_NONE = "Noch keine Vault-Belohnung bereit — füll ihn weiter vor dem Reset.",
 	START_DELVERCALL_FMT = "Ruf des Tiefenforschers: %d/%d diese Woche erledigt",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	TAB_START_HERE = "Bien démarrer",
 	START_TITLE = "Bien démarrer — nouveau dans Midnight",
 	START_SUBTITLE = "Tout juste niveau max et pas sûr de quoi faire ? Voici tout l'endgame, dans l'ordre. Clique une étape pour aller droit à l'outil correspondant ; les étapes hebdomadaires se cochent toutes seules.",
@@ -331,9 +331,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_VAULT_READY = "Une récompense de la Grande chambre forte t'attend — réclame-la !",
 	START_VAULT_NONE = "Pas encore de récompense de Vault — continue de le remplir avant le reset.",
 	START_DELVERCALL_FMT = "Appel du Gouffre : %d/%d faites cette semaine",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	TAB_START_HERE = "Primeros pasos",
 	START_TITLE = "Primeros pasos — nuevo en Midnight",
 	START_SUBTITLE = "¿Acabas de llegar al nivel máximo y no sabes qué hacer? Esto es todo el endgame, en orden. Haz clic en un paso para saltar directo a su herramienta; los semanales se marcan solos.",
@@ -377,9 +377,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	START_VAULT_READY = "Hay una recompensa de la Gran cámara esperando — ¡reclámala!",
 	START_VAULT_NONE = "Aún no hay recompensa del vault — sigue llenándolo antes del reinicio.",
 	START_DELVERCALL_FMT = "Llamada de explorador de profundidades: %d/%d hechas esta semana",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	TAB_START_HERE = "Comece aqui",
 	START_TITLE = "Comece aqui — novo no Midnight",
 	START_SUBTITLE = "Acabou de chegar ao nível máximo e não sabe o que fazer? Este é todo o endgame, em ordem. Clique em um passo para ir direto à ferramenta certa; os semanais se marcam sozinhos.",
@@ -423,4 +423,4 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_VAULT_READY = "Há uma recompensa do Grande Cofre esperando — resgate-a!",
 	START_VAULT_NONE = "Nenhuma recompensa do vault ainda — continue enchendo antes do reset.",
 	START_DELVERCALL_FMT = "Chamado do Imersor: %d/%d feitas esta semana",
-})
+}) end

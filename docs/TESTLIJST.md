@@ -90,6 +90,11 @@ er is niets weggegooid.
       Silvermoon, dan naar huis) en **Eversong of Zul'Aman** (*"Fly to Silvermoon City and take the portal to Orgrimmar there."*).
       Krijg je in Silvermoon tóch weer *"other continent — travel back"*? Doe dan `/mh here` en geef me het mapnummer:
       sommige gebouwen in Silvermoon melden kaart 2576 in plaats van 2393.
+- [ ] **Minder geheugen bij het inloggen** (16 okt). Na `/reload` meteen, zonder op te ruimen:
+      `/run UpdateAddOnMemoryUsage() print(GetAddOnMemoryUsage("MidnightHelper"))` — vóór de wijziging was dat **48.137**.
+      Het zou nu veel lager moeten zijn (dichter bij de 23.592 die je na `collectgarbage()` zag). En: staat MH nog gewoon in
+      het **Nederlands**, en de Codex-kaarten ook? (Duits/Frans enz. kun je op een Engelse client niet zien; die zijn
+      buiten het spel byte voor byte vergeleken.)
 - [ ] **Szarith the Fanged verplaatst** (16 okt, HandyNotes 159: 38.40/17.69 → **39.50/27.40** in de Underbelly, kaart 2613).
       Rares-tab, Coiled to Strike-kaart of de Codex-kaart over de Vaults of Atal'Utek: klik Szarith → pijl. Staat hij daar écht?
       Method zegt nog de oude plek; niemand heeft hem ooit gezien, dus dit is de eerste echte meting.

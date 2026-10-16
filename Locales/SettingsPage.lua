@@ -237,7 +237,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	INFO_DRAWER_BODY_SETTINGS = "Tune Midnight Helper: language, alerts, the Dungeon Coach and the floating boss window. Every change applies instantly — the Test buttons preview popups and sounds.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	TAB_SETTINGS = "Impostazioni",
 	SET_EYE_TAGLINE = "Il tuo copilota settimanale — never lie, sei lingue.",
 	SET_CAT_ALERTS = "Avvisi e popup",
@@ -346,7 +346,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	SET_ADV_RESET_BOSSWIN_DESC = "Riporta la finestra boss fluttuante alla posizione, larghezza e scala predefinite.",
 	SET_ADV_VERSION_FMT = "Midnight Helper v%s — grazie per aver giocato con noi.",
 	INFO_DRAWER_BODY_SETTINGS = "Personalizza Midnight Helper: lingua, avvisi, il Dungeon Coach e la finestra boss fluttuante. Ogni modifica si applica all'istante — i pulsanti Prova mostrano popup e suoni.",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_SETTINGS = "Instellingen",
@@ -558,7 +558,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	INFO_DRAWER_BODY_SETTINGS = "Stel Midnight Helper af: taal, meldingen, de Dungeon Coach en het zwevende boss-venster. Elke wijziging geldt direct — de Test-knoppen tonen popups en geluiden vooraf.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	TAB_SETTINGS = "Einstellungen",
 	SET_EYE_TAGLINE = "Dein wöchentlicher Copilot — never lie, sechs Sprachen.",
 	SET_CAT_ALERTS = "Meldungen & Popups",
@@ -674,9 +674,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	SET_ADV_RESET_BOSSWIN_DESC = "Setzt das schwebende Boss-Fenster auf Standardposition, -breite und -skalierung zurück.",
 	SET_ADV_VERSION_FMT = "Midnight Helper v%s — danke fürs Mitspielen.",
 	INFO_DRAWER_BODY_SETTINGS = "Stimme Midnight Helper ab: Sprache, Meldungen, den Dungeon-Coach und das schwebende Boss-Fenster. Jede Änderung gilt sofort — die Test-Knöpfe zeigen Popups und Töne vorab.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	TAB_SETTINGS = "Paramètres",
 	SET_EYE_TAGLINE = "Ton copilote hebdomadaire — never lie, six langues.",
 	SET_CAT_ALERTS = "Alertes & popups",
@@ -782,9 +782,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	SET_ADV_RESET_BOSSWIN_DESC = "Remet la fenêtre flottante à sa position, largeur et échelle par défaut.",
 	SET_ADV_VERSION_FMT = "Midnight Helper v%s — merci de jouer avec nous.",
 	INFO_DRAWER_BODY_SETTINGS = "Règle Midnight Helper : langue, alertes, le Dungeon Coach et la fenêtre de boss flottante. Chaque changement s'applique aussitôt — les boutons Test prévisualisent popups et sons.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	TAB_SETTINGS = "Ajustes",
 	SET_EYE_TAGLINE = "Tu copiloto semanal — never lie, seis idiomas.",
 	SET_CAT_ALERTS = "Avisos y popups",
@@ -890,9 +890,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	SET_ADV_RESET_BOSSWIN_DESC = "Devuelve la ventana flotante a su posición, anchura y escala por defecto.",
 	SET_ADV_VERSION_FMT = "Midnight Helper v%s — gracias por jugar con nosotros.",
 	INFO_DRAWER_BODY_SETTINGS = "Ajusta Midnight Helper: idioma, avisos, el Dungeon Coach y la ventana de jefe flotante. Cada cambio se aplica al instante — los botones Probar muestran popups y sonidos.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	TAB_SETTINGS = "Configurações",
 	SET_EYE_TAGLINE = "Seu copiloto semanal — never lie, seis idiomas.",
 	SET_CAT_ALERTS = "Avisos e popups",
@@ -998,4 +998,4 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	SET_ADV_RESET_BOSSWIN_DESC = "Devolve a janela flutuante à posição, largura e escala padrão.",
 	SET_ADV_VERSION_FMT = "Midnight Helper v%s — obrigado por jogar junto.",
 	INFO_DRAWER_BODY_SETTINGS = "Ajuste o Midnight Helper: idioma, avisos, o Dungeon Coach e a janela de chefe flutuante. Cada mudança vale na hora — os botões Testar mostram popups e sons.",
-})
+}) end

@@ -62,7 +62,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	MPLUS_KICK_NONE = "%s: no verified must-kick notes yet - watch what the group interrupts.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Season 1",
 	MPLUS_HEADER_S2 = "Mythic+ — Season 2",
@@ -99,7 +99,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	MPLUS_KICK_ALGETHAR = "Accademia di Algeth'ar: interrompi {SPELL:396640} (Ancient Branch) — ogni cast, o è un wipe.",
 	MPLUS_KICK_TRIUMVIRATE = "Seggio del Triumvirato: il kick prioritario è {SPELL:248831} (Shadewing).",
 	MPLUS_KICK_SKYREACH = "Vetta dei Cieli: il kick prioritario è {SPELL:1255377} (Driving Gale-Caller).",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_VIEW = "Mythic+",
@@ -141,7 +141,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_KICK_NONE = "%s: nog geen geverifieerde kick-notities - let op wat de groep interrupt.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Saison 1",
 	MPLUS_HEADER_S2 = "Mythic+ — Saison 2",
@@ -178,9 +178,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	MPLUS_KICK_ALGETHAR = "Akademie von Algeth'ar: unterbrich {SPELL:396640} (Ancient Branch) — jeder Zauber, sonst ist es ein Wipe.",
 	MPLUS_KICK_TRIUMVIRATE = "Sitz des Triumvirats: Prioritäts-Kick ist {SPELL:248831} (Shadewing).",
 	MPLUS_KICK_SKYREACH = "Himmelsnadel: Prioritäts-Kick ist {SPELL:1255377} (Driving Gale-Caller).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Saison 1",
 	MPLUS_HEADER_S2 = "Mythic+ — Saison 2",
@@ -217,9 +217,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	MPLUS_KICK_ALGETHAR = "Académie d’Algeth’ar : interrompez {SPELL:396640} (Ancient Branch) — chaque incantation, sinon c'est un wipe.",
 	MPLUS_KICK_TRIUMVIRATE = "Siège du triumvirat : le kick prioritaire est {SPELL:248831} (Shadewing).",
 	MPLUS_KICK_SKYREACH = "Orée-du-Ciel : le kick prioritaire est {SPELL:1255377} (Driving Gale-Caller).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Temporada 1",
 	MPLUS_HEADER_S2 = "Mythic+ — Temporada 2",
@@ -256,9 +256,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	MPLUS_KICK_ALGETHAR = "Academia Algeth'ar: interrumpe {SPELL:396640} (Ancient Branch) — cada lanzamiento, o es un wipe.",
 	MPLUS_KICK_TRIUMVIRATE = "Trono del Triunvirato: el kick prioritario es {SPELL:248831} (Shadewing).",
 	MPLUS_KICK_SKYREACH = "Trecho Celestial: el kick prioritario es {SPELL:1255377} (Driving Gale-Caller).",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Temporada 1",
 	MPLUS_HEADER_S2 = "Mythic+ — Temporada 2",
@@ -295,7 +295,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	MPLUS_KICK_ALGETHAR = "Academia Algeth'ar: interrompa {SPELL:396640} (Ancient Branch) — cada conjuração, ou é um wipe.",
 	MPLUS_KICK_TRIUMVIRATE = "Sede do Triunvirato: o kick prioritário é {SPELL:248831} (Shadewing).",
 	MPLUS_KICK_SKYREACH = "Beira-céu: o kick prioritário é {SPELL:1255377} (Driving Gale-Caller).",
-})
+}) end
 
 --------------------------------------------------------------------------------
 -- Beginnersmodus + woordenboek (Rob 15 jun, voor zijn zus): rustige, gewone-taal
@@ -345,7 +345,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	ALERT_DISABLED_MSG = "Helper alerts off.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.itIT, {
+if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	MPLUS_BEGINNER_BTN_ON = "La modalità principiante è ATTIVA — clicca qui per la versione completa",
 	MPLUS_BEGINNER_BTN_OFF = "La modalità principiante è DISATTIVA — clicca qui per la versione semplice",
 	MPLUS_BEGINNER_INTRO = "Una \"key\" (keystone) è semplicemente un dungeon a un'impostazione più difficile con un timer. NON devi per forza iniziare da lì. Non c'è fretta e non c'è nulla di male nel fare con calma — quasi tutti imparano prima un dungeon e fanno push più avanti.",
@@ -385,7 +385,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	ALERT_TEST = "Prova — ecco come appare un avviso",
 	ALERT_ENABLED_MSG = "Avvisi Helper attivi — farò lampeggiare un grande avviso quando ricevi un debuff pericoloso a cui reagire.",
 	ALERT_DISABLED_MSG = "Avvisi Helper disattivati.",
-})
+}) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_BEGINNER_BTN_ON = "Beginnersmodus staat AAN — klik hier voor de volledige versie",
@@ -429,7 +429,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	ALERT_DISABLED_MSG = "Helper-meldingen uit.",
 })
 
-merge(ns._mhLocales and ns._mhLocales.deDE, {
+if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	MPLUS_BEGINNER_BTN_ON = "Anfängermodus ist AN — hier klicken für die vollständige Version",
 	MPLUS_BEGINNER_BTN_OFF = "Anfängermodus ist AUS — hier klicken für die einfache Version",
 	MPLUS_BEGINNER_INTRO = "Ein \"key\" (Keystone) ist einfach ein Dungeon auf einer schwereren Stufe mit einer Uhr. Du musst dort nicht anfangen. Es gibt keine Eile, und es ist völlig in Ordnung, langsam zu machen — fast alle lernen erst einen Dungeon kennen und steigern sich später.",
@@ -469,9 +469,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	ALERT_TEST = "Test — so sieht eine Warnung aus",
 	ALERT_ENABLED_MSG = "Helper-Warnungen an — ich zeige eine große Warnung, wenn du einen gefährlichen Debuff bekommst, auf den du reagieren musst.",
 	ALERT_DISABLED_MSG = "Helper-Warnungen aus.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.frFR, {
+if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	MPLUS_BEGINNER_BTN_ON = "Le mode débutant est ACTIVÉ — clique ici pour la version complète",
 	MPLUS_BEGINNER_BTN_OFF = "Le mode débutant est DÉSACTIVÉ — clique ici pour la version simple",
 	MPLUS_BEGINNER_INTRO = "Une \"key\" (keystone), c'est juste un donjon dans un réglage plus difficile avec un chrono. Tu n'es pas obligé(e) de commencer là. Rien ne presse et ce n'est pas grave d'y aller doucement — presque tout le monde apprend d'abord un donjon et monte plus tard.",
@@ -511,9 +511,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	ALERT_TEST = "Test — voilà à quoi ressemble une alerte",
 	ALERT_ENABLED_MSG = "Alertes Helper activées — je ferai apparaître une grande alerte quand tu reçois un debuff dangereux auquel réagir.",
 	ALERT_DISABLED_MSG = "Alertes Helper désactivées.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.esES, {
+if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	MPLUS_BEGINNER_BTN_ON = "El modo principiante está ACTIVADO — haz clic aquí para la versión completa",
 	MPLUS_BEGINNER_BTN_OFF = "El modo principiante está DESACTIVADO — haz clic aquí para la versión sencilla",
 	MPLUS_BEGINNER_INTRO = "Una \"key\" (keystone) es solo una mazmorra en un ajuste más difícil con un reloj. No tienes que empezar ahí. No hay prisa y no pasa nada por ir despacio — casi todo el mundo aprende primero una mazmorra y sube más adelante.",
@@ -553,9 +553,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	ALERT_TEST = "Prueba — así se ve un aviso",
 	ALERT_ENABLED_MSG = "Avisos de Helper activados — mostraré un aviso grande cuando recibas un debuff peligroso al que reaccionar.",
 	ALERT_DISABLED_MSG = "Avisos de Helper desactivados.",
-})
+}) end
 
-merge(ns._mhLocales and ns._mhLocales.ptBR, {
+if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	MPLUS_BEGINNER_BTN_ON = "O modo iniciante está LIGADO — clique aqui para a versão completa",
 	MPLUS_BEGINNER_BTN_OFF = "O modo iniciante está DESLIGADO — clique aqui para a versão simples",
 	MPLUS_BEGINNER_INTRO = "Uma \"key\" (keystone) é só uma masmorra num modo mais difícil com um relógio. Você não precisa começar por aí. Não tem pressa e não tem problema nenhum em ir devagar — quase todo mundo aprende a masmorra primeiro e sobe depois.",
@@ -595,4 +595,4 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	ALERT_TEST = "Teste — é assim que um aviso aparece",
 	ALERT_ENABLED_MSG = "Avisos do Helper ligados — vou mostrar um aviso grande quando você receber um debuff perigoso para reagir.",
 	ALERT_DISABLED_MSG = "Avisos do Helper desligados.",
-})
+}) end
