@@ -39,6 +39,11 @@ Eerst `/reload` en BugSack leeg. Bij twijfel: **`/mh travel`** toont onderaan "r
       click the orb to go down to it"*. Orb aangeklikt, beneden → pijl naar het portaal. Door het portaal → volgende stap
       of de delve. Klopt iets niet: `/mh travel` → onderaan "route runner log" (of gewoon `/reload`, dan lees ik
       `travelRouteLog` zelf uit je SavedVariables).
+  ✅ Rob 16 okt avond: boog → orb → portaal werkt (en vanuit binnen ook). Wel: bij de boog en bij de orb even ónze pijl
+  i.p.v. die van TomTom. GEMETEN in `travelRouteLog`: overdracht op 7.5 yd, TomTom wiste die punten zelf al op 15 yd.
+- [ ] **Geen eigen pijl meer bij boog en orb** (TomTom-gebruikers): de TomTom-pijl blijft de hele weg; tussenpunten
+      wist TomTom niet meer zelf, MH haalt ze weg als je verder bent. Na de route: staan er geen losse oude
+      TomTom-punten (deur/orb) meer op je kaart?
 - [ ] **Zelfde vanuit binnen**: sta al in de hal (na de boog) en kies de delve → pijl meteen naar de orb, niet terug naar de
       boog. Sta je al beneden bij het portaal → pijl meteen naar het portaal.
 - [ ] **Mount run** (zelfde gedrag als gisteren): "Route" bij een raid → *"Mount run, step 1 of N"*, knop bij een

@@ -149,7 +149,10 @@
    MountRunData SM_COILED), met chatregel TRAVEL_VIA_ORB_FMT (8 talen). Deur 55.02/63.56 nu overal (Delves ×2, UI ×2,
    MountRunData). Nieuw: **logboek** van de routeloper in `/mh travel` en in de SV als `travelRouteLog` (40 regels:
    start, stap, deur/orb gekozen + afstanden, overdracht + reden, zonewissel, stop) — Rob kan `/reload` doen i.p.v.
-   screenshots. Niet getest.
+   screenshots. ✅ GEMETEN door Rob (16 okt avond): boog → orb → portaal werkt, ook vanuit binnen.
+   🐞 → ✅ Bij boog en orb even ónze pijl i.p.v. TomTom's. GEMETEN in Robs `travelRouteLog`: overdracht op 7.5 yd;
+   AFGELEID: TomTom wiste deur/orb zelf op 15 yd (onze cleardistance), daartussen tekende NativeArrow. Nu: elk punt
+   onderweg krijgt cleardistance 0, de loper haalt het vorige punt zelf weg (ook bij Stop). Niet getest.
 
 **16 okt — 12.1.7-klusjes (uit `docs/PATCH_12_1_7_PTR_2026-10-16.md`):** ✅ `.toc` → `120007, 120100, 120105, 120107`
 (+ CLAUDE.md). ✅ Vyranoth: event TT V eindigde 11 aug → `noProgress` (geen dode "X van 4"), MOUNTPROG_VYRANOTH_HOWTO

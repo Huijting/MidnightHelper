@@ -365,8 +365,14 @@ local function Point(s, x, y, text)
 		pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, r.uid)
 	end
 	local owner = ns._mhRouteOwner
+	-- A point on the way (a door, the orb, a step that is not the target) gets cleardistance 0: TomTom must not drop it
+	-- by itself. Rob, 16 Oct 2026, walking into Astalor's Sanctum: "even onze eigen pijl … tot ik verder de kamer in loop
+	-- dan komt de tomtom pijl weer". GEMETEN in travelRouteLog: door and orb handed over at 7.5 yd; TomTom had already
+	-- removed them at 15 yd (our default), and between 15 and 8 yd NativeArrow stepped in. The runner removes the
+	-- previous pin itself (above).
+	local clearDist = (s.final and x == s.x and y == s.y) and nil or 0
 	ns._mhTravelLegBusy = true
-	pcall(ns.AddSmartTomTomWay, s.map, x, y, text, true, false, false, s.flight and 0 or nil)
+	pcall(ns.AddSmartTomTomWay, s.map, x, y, text, true, false, false, clearDist)
 	ns._mhTravelLegBusy = nil
 	-- AddSmartTomTomWay turns waypoint/delve/mountrun into "waypoint": give the route its own owner back ("delve"
 	-- stays "delve", for the arrow's colour). A managed owner was never touched.
@@ -663,6 +669,12 @@ function T.Stop(reason)
 	HideHearthButton()
 	local had = route ~= nil
 	if route then
+		-- A pin on the way never clears itself (cleardistance 0, see Point): take it with us.
+		local cur = route.steps[route.idx]
+		if route.uid and route.uid ~= route.firstUid and not (cur and cur.final and not cur._viaPending)
+			and _G.TomTom and _G.TomTom.RemoveWaypoint then
+			pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, route.uid)
+		end
 		T.lastStop = { reason = reason or "?", at = GetTime and GetTime() or 0, target = route.target.name }
 		Log("stop (%s): %s", tostring(reason), tostring(route.target.name))
 	end
