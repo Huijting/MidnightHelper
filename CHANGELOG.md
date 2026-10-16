@@ -4,14 +4,18 @@ All notable changes to this project are documented in this file.
 
 ## 4.8.0
 
-📌 **2026-10-16, RELEASE in voorbereiding (Rob: "ik kom eigenlijk niks breaking tegen en denk dat we zoveel stappen hebben
-gemaakt dat we een release kunnen doen") — gewone release, géén beta.** ⚠️ Wijkt af van "beta eerst": bewuste keuze van
-Rob, omdat de ~500 release-downloaders eerder iets melden dan de 11 beta-testers. Nog NIET getagd: wacht op Robs go.
+📌 **2026-10-16, RELEASE (Rob: "ik kom eigenlijk niks breaking tegen en denk dat we zoveel stappen hebben gemaakt dat we
+een release kunnen doen"; go: "De 3D-animatie in de Mount run werkt na /reload. Go voor de tag v4.8.0.") — gewone
+release, géén beta.** ⚠️ Wijkt af van "beta eerst": bewuste keuze van Rob, omdat de ~500 release-downloaders eerder iets
+melden dan de 11 beta-testers. Vóór de tag nog: Mount run-tegel in de Tools-kamer, TomTom-doodpunt bij de bron
+(MH_TomTomClearAll), clientnamen in alle packs (tabellen in docs/CLIENT_NAMES_*), baasnamen + weekcontrole via de
+Dungeon Journal (docs/MOUNTRUN_ENCOUNTER_IDS_2026-10-16.md), hover met 3D-model in de Mount run.
 `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.8.0.md`, beta-alinea bovenaan. In-game: CHANGELOG_480_0..8.
 GEMETEN door Rob op live (16 okt): Mount run naar Throne of Thunder (questportaal, boot), Hyjal/Nerub-ar, Silvermoon-
 portalen (Horde 52.24/65.28, Alliance 52.71/64.61, deur 53.30/66.24), mage-teleports, Coiled Isle deur + orb, delve-
 kistenroute via de route runner, rare-route wacht op de kill, Find Nearest, /mh clear, Dalaran-popup; 12.1.7-PTR laadt
-zonder fouten. NIET getest: de Mount run-tegel in Tools en de knop bovenaan de Mounts-tab (16 okt, net gebouwd),
+zonder fouten, Mount run-tegel in Tools, 3D-hover, baasnamen uit de Journal (Engelse client), TomTom-vangnet op Coiled
+Isle. NIET getest: weekcontrole/baasnamen op een niet-Engelse client, de oorzaak-fix in MH_TomTomClearAll,
 "HS on Cooldown!" in de popup zonder hearthstone, test 3 (rare-omweg), vertalingen (zelfgemaakt).
 
 - **Nieuw: Mount run** (`/mh mountrun`, tegel in Tools, knop bovenaan Mounts): 40+ oude raids/dungeons, lockouts deze

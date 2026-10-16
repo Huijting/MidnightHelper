@@ -35,12 +35,13 @@ Rob: *"Wel mis ik een knop of een tegel iN MH voor onze mountrun"*. Eerst `/relo
       tip over de verzamel-addon.
 - [ ] **In het Nederlands** (`/mh lang nl`): tegel heet *"Mount run: oude raids"*, knop *"Oude raids voor mounts (mount
       run)"*.
-- [ ] **Mount run: baasnamen uit de client** (16 okt, Rob: *"Repareer de baasnamen en de weekcontrole eerst"*). Open de
+- [x] ✅ Rob 16 okt (screenshot: *"Blue Proto-Drake (Skadi the Ruthless, Heroic, 1.2%)"*, Engelse client).
+      **Mount run: baasnamen uit de client** (16 okt, Rob: *"Repareer de baasnamen en de weekcontrole eerst"*). Open de
       Mount run (tegel in Tools), loop de tabbladen langs. Hoort: achter elke mount die je mist de baas zoals de Dungeon
       Journal hem noemt, vaak voluit (*"Chrome King Gallywix, Mythic"*, *"Yogg-Saron, 0 keepers"*); Vault of Archavon
       *"each of the 4 bosses"*, Bronze Drake *"in time, Heroic"*, Nightbane gewoon *"Nightbane"*, Quantum Courser met
       zijn voorwerpnaam. Nergens *"?"* of een getal waar een naam hoort.
-- [ ] **Mount run: muis over een mount** (Rob 16 okt: *"de andere hebben een animatie"*). Ga met de muis over een mount-
+- [x] ✅ Rob 16 okt: *"De 3D-animatie in de Mount run werkt na /reload"*. **Mount run: muis over een mount** (Rob 16 okt: *"de andere hebben een animatie"*). Ga met de muis over een mount-
       regel in het Mount run-venster. Hoort: tooltip bij de muis (zoals in de Mounts-tab) en rechts naast het Mount
       run-venster het draaiende 3D-model. Muis eraf → beide weg. Venster dicht → 3D-model ook weg. Quantum Courser
       (Dungeons-tab, Dawn of the Infinite): voorwerp-tooltip, geen model. Scrollen met het wieltje werkt nog.

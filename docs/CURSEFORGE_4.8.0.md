@@ -12,6 +12,8 @@ button at the top of the Mounts tab.
 - **More than 40 old raids and dungeons** with a mount: which mounts you still miss, and whether you can still try them
   this week. One tab per block (Northrend, Outland, Cataclysm, Mythic, Legion and Shadowlands, dungeons, group-only), and the
   window remembers your tab per character.
+- **Hover a mount** for its tooltip and a turning 3D model, just like on the Mounts tab. Boss names come straight from
+  your game's Dungeon Journal, in your own language.
 - **The way there, step by step.** Click **Route** and the arrow takes you to the entrance: portals, boats, zeppelins,
   trams, and the quest that opens a portal when you do not have it yet.
 - **Not in your capital?** The route starts with the way home, with a button for your Hearthstone.
