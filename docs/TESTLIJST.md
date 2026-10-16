@@ -85,6 +85,16 @@ er is niets weggegooid.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
       *"The Turbulent Timeways event … ended on 11 August …"*.
+- [ ] **PTR 12.1.7 (build 70424, map `_ptr_`)** — 16 okt gekopieerd: MH (main, `.toc` met 120107), BugSack v12.1.7 en
+      BugGrabber (die waren al gelijk). Bij het karakterscherm: *AddOns → "Load out of date AddOns"* aan laten (BugSack
+      declareert 120107 nog niet). Test met BugSack open:
+      - **Laadt MH zonder fouten?** `/dump select(4, GetBuildInfo())` → verwacht `120107`.
+      - **Bekend PTR-probleem, niet van ons:** bij het kopiëren van je personage komt een Lua-fout (Blizzard dev notes).
+      - **Edit Mode:** de "Personal Resource Display" is nu doorklikbaar; doet MH's Edit Mode-backup nog normaal?
+      - **Omnium Folio:** tel de rijen (verwacht 7), en `/mh questscan` voor 99508/99509.
+      - **Turbulent Timeways VI:** `/mh ach id 64207` → vraagt het criterium 4 of 5 weken?
+      - **Talebound** (als hij speelbaar is): start een verhaal met BugSack open. Fout van MH, of een Delve Coach/Delve
+        Log-regel die er niet hoort? (Talebound gebruikt hetzelfde systeem als delves.)
 - [ ] **Mount run → hearthstone-KNOP** (16 okt, jouw "ik mis de knop"). Bij *"Use your Hearthstone …"* verschijnt bovenaan
       je scherm een klein venster met het hearthstone-icoon (of je toy) en dezelfde zin. Klik het icoon → je hearthstone
       start. Na het laden verdwijnt het venster vanzelf. Te verslepen; Shift+scroll maakt het groter/kleiner. In gevecht
