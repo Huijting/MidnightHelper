@@ -60,6 +60,10 @@ local TOOLS_CARDS = {
 	-- "profoverview" lands on the hub's Overview, where Knowledge is spent; see SelectTab.
 	{ id = "profoverview", screen = "professionsHub", labelKey = "TAB_PROFESSIONS" },
 	{ id = "addons" },
+	-- 16 Oct 2026, Rob: "Wel mis ik een knop of een tegel iN MH voor onze mountrun". A card that opens a WINDOW, not a
+	-- tab: `action` instead of a SelectTab target, with its own icon stem (the Mounts tab's) and tooltip line.
+	{ id = "mountrun", screen = "mountrun", labelKey = "MOUNTRUN_TITLE", stem = "mounts", tagline = "CMDLIST_MOUNTRUN",
+		action = function() if ns.MH_ShowMountRun then ns.MH_ShowMountRun() end end },
 }
 
 -- Can the screen exist here (client, beta switch)? The player's own show/hide is asked
@@ -97,7 +101,9 @@ local function CardsForRoom(roomId)
 	if roomId == "tools" then
 		for _, c in ipairs(TOOLS_CARDS) do
 			local ok = true
-			if c.beta then
+			if c.action then
+				ok = c.id ~= "mountrun" or ns.MH_ShowMountRun ~= nil
+			elseif c.beta then
 				ok = not ns.IsBetaTabEnabled or ns.IsBetaTabEnabled(c.beta)
 			elseif not c.screen then
 				ok = TabAvailable(c.id) and ns.panels and ns.panels[c.id] ~= nil
@@ -493,6 +499,10 @@ local function MakeCard(parent)
 			return
 		end
 		-- A handbook section card opens the Codex on that section; the rest are plain tabs.
+		if self._mhAction then
+			self._mhAction()
+			return
+		end
 		if self._mhCodexCategory and ns.OpenMidnightCodex then
 			ns.OpenMidnightCodex(self._mhCodexCategory)
 			return
@@ -569,13 +579,15 @@ local function Layout(panel)
 		panel._mhOrder[i] = b
 		local screenId = ScreenOf(c)
 		local screen = screens[screenId]
-		if screen and ns._mhLookIconPath then
-			b._mhIcon:SetTexture(ns._mhLookIconPath:format(screen.stem))
+		local stem = c.stem or (screen and screen.stem)
+		if stem and ns._mhLookIconPath then
+			b._mhIcon:SetTexture(ns._mhLookIconPath:format(stem))
 		else
 			b._mhIcon:SetTexture(nil)
 		end
 		b._mhName:SetText(CardLabel(c))
-		b._mhTagline = screen and screen.tagline
+		b._mhTagline = c.tagline or (screen and screen.tagline)
+		b._mhAction = c.action
 		b._mhTarget = c.id
 		b._mhScreen = screenId
 		b._mhCodexCategory = c.codexCategory

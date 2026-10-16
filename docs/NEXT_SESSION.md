@@ -18,7 +18,17 @@ Blinde vlek: Engelse spelnamen ín vertaalde zinnen ziet translation_todo niet �
 mh-sweep over de rest. 🐞 Rob 16 okt, Dalaran → The Ring of Glory: op Coiled Isle (2512) onze pijl, log "TomTom
 measures no (instance player 0 / pin 0)" → ons bewaarde uid stond niet meer in TomTom's waypointMap (AFGELEID uit
 TomTom_Waypoints.lua). Fix in TravelRoute WakeTomTom: uid zoek + doel meetbaar → pin opnieuw (1× per doel), log
-"TomTom's point was gone (old uid …)". Oorzaak van het verdwijnen nog OPEN: dat log-regel vertelt het.
+"TomTom's point was gone (old uid …)". ✅ Rob: *"ja nu werkt ie goed"*; log 17:20-17:21: 3× gerepareerd (Orgrimmar,
+Obsidian Sanctum, Coiled Isle), steeds "valid true". OORZAAK GEMETEN in TomTom.lua: `ClearAllWaypoints` doet alleen
+ClearWaypoint (pin uit waypointMap) en laat hem in TomTom.waypoints → volgende AddWaypoint met dezelfde map/x/y/titel
+geeft dat dode uid terug. Fix bij de bron: `ns.MH_TomTomClearAll` (Core.lua) doet nu RemoveWaypoint per pin; opgeslagen
+(persistent) pins van de speler alleen ClearWaypoint, zodat ze na /reload terugkomen. Vangnet in WakeTomTom blijft.
+
+🔜 **EERSTE KLUS NA DE 4.8.0-RELEASE (Rob 16 okt):** *"kunnen we niet ook zoeken in MH naar bv dalaran of een van de
+andere plekken waar we kunnen komen via portals, en dan bedoel ik in onze search balk?"* → plekken (steden, portal-
+bestemmingen uit `Modules/Travel/TravelData.lua`, hubs) in NavSearch; klik = route erheen via de routeloper (weg naar
+huis, portal, enz.). GEMETEN: NavSearch kent nu tabs/tools/bazen/mounts/rares/schatten, geen plekken. Let op dubbele
+namen (Dalaran Northrend vs Broken Isles) en clientnamen per taal (C_Map.GetMapInfo geeft die).
 
 **Op main, GEEN tag** (laatste release blijft v4.7.7). Sinds 4.7.7 o.a.: Labyrinth-kisten/Eagle/Codex "Hidden treasures"
 (15 okt) + alles van 16 okt: Mount run (tabbladen, pijl in stappen, weg naar huis, hearthstone/toy/mage-knop, quest-stap

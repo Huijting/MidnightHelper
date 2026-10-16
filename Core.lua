@@ -968,8 +968,34 @@ end
 -- interne clears lopen via deze helper.
 function ns.MH_TomTomClearAll()
 	ns._mhSelfWaypointOp = true
-	if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.ClearAllWaypoints then
-		pcall(_G.TomTom.ClearAllWaypoints, _G.TomTom)
+	local tt = _G.TomTom
+	if ns.IsTomTomReady and ns.IsTomTomReady() and tt then
+		-- 🔴 16 Oct 2026, root cause of "our blue arrow on the Coiled Isle". GEMETEN in TomTom.lua: ClearAllWaypoints only
+		-- ClearWaypoint()s each pin (off the map, out of waypointMap) and leaves it in TomTom.waypoints. The next
+		-- AddWaypoint with the same map/x/y/title then hands back that dead uid without setting it up: no pin, no
+		-- distance, TomTom's arrow hides and ours takes over. travelRouteLog showed exactly that ("valid true", measures
+		-- no). So remove each pin properly; ClearAllWaypoints only when the table cannot be read.
+		local list = {}
+		if type(tt.waypoints) == "table" and tt.RemoveWaypoint then
+			for _, entries in pairs(tt.waypoints) do
+				if type(entries) == "table" then
+					for _, uid in pairs(entries) do
+						list[#list + 1] = uid
+					end
+				end
+			end
+			-- A player's own SAVED pin (persistent) came back after a /reload before; RemoveWaypoint would delete it
+			-- from TomTom's profile for good. Those only leave the map, as before. Ours are never persistent.
+			for _, uid in ipairs(list) do
+				if type(uid) == "table" and uid.persistent and tt.ClearWaypoint then
+					pcall(tt.ClearWaypoint, tt, uid)
+				else
+					pcall(tt.RemoveWaypoint, tt, uid)
+				end
+			end
+		elseif tt.ClearAllWaypoints then
+			pcall(tt.ClearAllWaypoints, tt)
+		end
 	end
 	ns._mhSelfWaypointOp = false
 end

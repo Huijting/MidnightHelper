@@ -25,15 +25,21 @@ er is niets weggegooid.
 
 Rob: *"Wel mis ik een knop of een tegel iN MH voor onze mountrun"*. Eerst `/reload`.
 
-- [ ] **Tegel in Tools** (`/mh` → Tools-kamer, het overzicht met kaarten): een kaart **"Mount run: old raids"** met het
-      Mounts-icoon van MH, de uitleg uit de commandolijst en `/mh mountrun`. Klik **Open** → het Mount run-venster opent.
+- [x] ✅ Rob 16 okt: *"nu zie ik hem en hij werkt"*. **Tegel in de Tools-kamer** (`/mh` → **Tools**, naast Consumables/Professions/Macros): een tegel **"Mount run: old
+      raids"** met het Mounts-icoon. Muis erop → uitleg. Klik → het Mount run-venster opent (geen tab). Rechtsklik →
+      verbergen kan, en de regel onder de tegels biedt hem weer aan. (Rob 16 okt, screenshot: de eerste versie zat
+      alleen ín "Pop-out windows".)
+- [ ] **Ook in "Pop-out windows"** (`/mh` → Tools → Pop-out windows): daar staat dezelfde kaart met **Open**.
 - [ ] **Knop bovenaan de Mounts-tab** (`/mh` → Mounts): de knop *"Old raids for mounts (mount run)"* staat nu als éérste,
       boven de mountlijst (niet meer helemaal onderaan). Klik → het Mount run-venster opent. Onderaan staat alleen nog de
       tip over de verzamel-addon.
 - [ ] **In het Nederlands** (`/mh lang nl`): tegel heet *"Mount run: oude raids"*, knop *"Oude raids voor mounts (mount
       run)"*.
 - [ ] **Changelog-venster na de update naar 4.8.0**: bovenaan staat 4.8.0 met negen regels, de eerste over de Mount run.
-- [ ] **Dalaran → The Ring of Glory, met TomTom** (Rob: *"tot aan de portal naar de isle ging het goed, daar aangekomen
+- [ ] **Eigen opgeslagen TomTom-punt blijft** (na de oorzaak-fix in `MH_TomTomClearAll`): zet zelf een TomTom-punt
+      (`/way 50 50 test`), start een MH-route met meerdere stappen, `/reload`. Hoort: jouw "test"-punt staat er nog.
+      En een route met deur/orb of portal geeft geen *"TomTom's point was gone"* meer in het log (de fix bij de bron).
+- [x] ✅ Rob 16 okt: *"ja nu werkt ie goed"* (vangnet). **Dalaran → The Ring of Glory, met TomTom** (Rob: *"tot aan de portal naar de isle ging het goed, daar aangekomen
       kreeg ik onze blauwe pijl"*). Zelfde route nog eens. Hoort: op het eiland (Coiled Isle) na een paar tellen weer de
       **TomTom-pijl**, niet de blauwe. Na `/reload` staat in het log *"TomTom's point was gone (old uid map … ): set again"*
       met het oude punt erbij; dat vertelt ons de oorzaak. Zie je tóch de blauwe pijl: log lezen.
