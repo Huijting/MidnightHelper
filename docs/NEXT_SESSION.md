@@ -76,6 +76,15 @@
    functies, 48 aanroepen van AddSmartTomTomWay uit 27 modules, 8 zonewissel-handlers + 9 timers, 5 dubbele coördinaten,
    3 deurmechanismen. Direct gerepareerd: de delve-deur van vanochtend gebruikte SmcYardsToPoint (in Silvermoon altijd
    nil, GEMETEN 7 sep) → nu ns.SmcDoorProximity (TwoStepRoute, 3 meetmethoden). Volgende: Rob kiest of/wanneer Travel.lua.
+   ✅ **Ontwerp** `docs/TRAVEL_DESIGN_2026-10-16.md` — Rob: *"akkoord … regel Rob gemeten > HandyNotes > Zygor > gids …
+   hearthstone voor alle routes is goed"*.
+   ✅ **Fase 1a** (14f040c): 6 dubbele punten één waarde gegeven (Coiled Isle-portaal 56.74/67.30, Astalor-deur 54.99/63.30,
+   Underbelly 47.30/11.20 HandyNotes, Windcaller 50.03, Lilatha 48.08/49.65 Zygor in 4 modules, Portal Room-pin 53.30/66.24).
+   ✅ **Fase 1b**: `Modules/Travel/TravelGeo.lua` (InMap, Continent, MapName, WorldXY met Vector2D, PlayerXY, Distance
+   yards/mapsize/percent, NEAR-drempels, Near) + `TravelData.lua` (CAPITAL/HUB/MyCapital, Nodes() = index over
+   MIDNIGHT_PORTALS/MOUNTRUN_*/AMANI_HUBS, FindConflicts, `/mh travel`). MountRun gebruikt Travel.InMap/Continent.
+   Oude code verder ongemoeid. 🔴 Open vóór fase 3: Robs `/dump C_Map.GetWorldPosFromMapPos(2393, CreateVector2D(0.5,0.5))`
+   in Silvermoon (geeft hij een positie? dan was TwoStepRoute's nil onze UiMapPoint-fout). **Volgende: fase 2 (planner).**
    🔴 **Rob, 16 okt: "werkt dit nu voor alles in MH?" → NEE.** Mount run heeft zijn eigen reislogica; delves/rares/Codex
    gebruiken TravelPlan + DelveTipMarkup + Travel Assistant. Rob: *"een soort centrale travel lua"* → voorstel in de chat.
 

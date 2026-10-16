@@ -154,35 +154,10 @@ end
 -- Route in steps (Rob, 16 Oct 2026): capital portal → hub → entrance, one arrow at a time
 --------------------------------------------------------------------------------
 
---- true when map `pm` is `target` or lies inside it (a city inside its zone, a cave inside its zone).
-local function InMap(pm, target)
-	local guard = 0
-	while pm and pm ~= 0 and guard < 12 do
-		if pm == target then
-			return true
-		end
-		local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(pm)
-		pm = info and info.parentMapID
-		guard = guard + 1
-	end
-	return false
-end
-
-local function ContinentOf(m)
-	local guard = 0
-	while m and m ~= 0 and guard < 12 do
-		local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(m)
-		if not info then
-			return nil
-		end
-		if Enum and Enum.UIMapType and info.mapType == Enum.UIMapType.Continent then
-			return m
-		end
-		m = info.parentMapID
-		guard = guard + 1
-	end
-	return nil
-end
+-- Map knowledge now lives in Modules/Travel/TravelGeo.lua (travel design phase 1, 16 Oct 2026); these were its
+-- first versions, moved there unchanged.
+local InMap = ns.Travel.InMap
+local ContinentOf = ns.Travel.Continent
 
 local function ArrivedVia(pm, to)
 	if type(to) == "table" then

@@ -2110,6 +2110,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh travel — the travel knowledge base (Modules/Travel/TravelData.lua, phase 1 of the travel design, 16 Oct 2026):
+	-- how many points per table, where you are, and any place stored twice with different numbers.
+	if msg == "travel" then
+		if ns.Travel and ns.Travel.PrintStatus then
+			ns.Travel.PrintStatus()
+		end
+		return
+	end
+
 	-- /mh travelwhy — which gate withheld the Travel Assistant popup. Its normal outcome
 	-- is silence, so without this "correctly quiet" and "broken" look identical.
 	if msg == "travelwhy" then

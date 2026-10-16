@@ -85,6 +85,13 @@ er is niets weggegooid.
       Klopt een portaal-plek niet? Zeg welke raid en welke stap; dan meet je hem met `/mh coord`.
 - [ ] **Spawn of Vyranoth** (16 okt): Mounts-tab / This Week. Heb je hem nog niet? Dan geen *"X / 4"* meer, maar de uitleg
       *"The Turbulent Timeways event … ended on 11 August …"*.
+- [ ] **Travel fase 1 — `/mh travel`** (16 okt). Typ `/mh travel`: je ziet hoeveel reispunten MH kent per tabel, op welke
+      kaart en welk continent je staat, en je hoofdstad. Onderaan moet staan: *"no place stored twice with different
+      numbers"*. Staat er een lijst? Stuur hem me. Verder hoort er **niets** anders te werken dan gisteren, behalve deze
+      vijf verbeterde plekken (klik ze eens aan):
+      - Silvermoon-kaart: **Portal Room**, **Astalor (entrance)** en **Ritual Site / Void Assault hub** (nu op Lilatha).
+      - Een route naar de **Underbelly** (Kith'ix): de ingang ligt nu op 47.30/11.20, en de Windcaller op 50.03.
+      - Coiled Isle-portaal vanuit een delve-route: het eindpunt binnen is nu jouw meting 56.74/67.30.
 - [ ] **PTR 12.1.7 (build 70424, map `_ptr_`)** — 16 okt gekopieerd: MH (main, `.toc` met 120107), BugSack v12.1.7 en
       BugGrabber (die waren al gelijk). Bij het karakterscherm: *AddOns → "Load out of date AddOns"* aan laten (BugSack
       declareert 120107 nog niet). Test met BugSack open:

@@ -55,6 +55,8 @@ Modules\DelveStoryData.lua
 Modules\DelveSpellIds.lua
 Modules\FlightPointsData.lua
 Modules\FlightNetworkData.lua
+Modules\Travel\TravelGeo.lua
+Modules\Travel\TravelData.lua
 Modules\DelveTipMarkup.lua
 Modules\DelveBossShowcase.lua
 Modules\DelvePartyShare.lua
