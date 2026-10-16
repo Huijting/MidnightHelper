@@ -205,7 +205,7 @@ local function BuildSteps(raid)
 					end
 				end
 				local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(hub.to)
-				steps[#steps + 1] = { map = lock[1], x = lock[2], y = lock[3], to = hub.to,
+				steps[#steps + 1] = { map = lock[1], x = lock[2], y = lock[3], to = hub.to, board = true,
 					text = (ns:L("MOUNTRUN_STEP_UNLOCK")):format(lock.npc, qName, info and info.name or "?") }
 				p = nil -- the portal itself is not a step yet
 			end
@@ -217,7 +217,9 @@ local function BuildSteps(raid)
 			if p.lower then
 				text = text .. " " .. ns:L("MOUNTRUN_STEP_LOWER")
 			end
-			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text, via = hub.via }
+			-- `board`: a ride (boat, zeppelin, tram) — getting on ends the step (see the boarding watcher below).
+			local ride = hub.kind == "boat" or hub.kind == "zeppelin" or hub.kind == "tram"
+			steps[#steps + 1] = { map = p[1], x = p[2], y = p[3], to = to, text = text, via = hub.via, board = ride or nil }
 		end
 	end
 	local zone, x, y = EntrancePoint(raid)
@@ -478,6 +480,36 @@ local function HomeSteps(steps)
 	return ns.Travel.WayHome(capital)
 end
 
+--- Getting on ends a ride step (Rob, 16 Oct 2026, flying with Scout Captain Elsia: the arrow still pointed back at her,
+--- 252 m behind him). Same rule as the flight legs in DelveTipMarkup ("boarding ends leg one"): once you are on the
+--- quest flight, boat, zeppelin or tram, there is nothing left to walk to, so the arrow takes the next step now.
+--- Signals: the client's taxi/vehicle state, asked a moment after losing control or entering a vehicle.
+do
+	local function OnBoard()
+		if UnitOnTaxi and UnitOnTaxi("player") then
+			return true
+		end
+		if UnitInVehicle and UnitInVehicle("player") then
+			return true
+		end
+		return false
+	end
+	local ev = CreateFrame("Frame")
+	ev:RegisterEvent("PLAYER_CONTROL_LOST")
+	ev:RegisterUnitEvent("UNIT_ENTERED_VEHICLE", "player")
+	ev:SetScript("OnEvent", function()
+		C_Timer.After(1, function()
+			if not (route and route.idx and ns._mhRouteOwner == "mountrun") then
+				return
+			end
+			local s = route.steps[route.idx]
+			if s and s.board and route.steps[route.idx + 1] and OnBoard() then
+				ShowStep(route.idx + 1)
+			end
+		end)
+	end)
+end
+
 function ns.MountRunStartRoute(raid)
 	local steps = BuildSteps(raid)
 	local start = 1
@@ -526,7 +558,10 @@ do
 				return
 			end
 			local k = CurrentStep(route.steps, route.start)
-			if k ~= route.idx then
+			-- Never back while riding: a quest flight crosses subzones of the map you boarded on, which would read as
+			-- "still at the boarding step" (16 Oct 2026, Elsia's flight).
+			local riding = (UnitOnTaxi and UnitOnTaxi("player")) or (UnitInVehicle and UnitInVehicle("player"))
+			if k ~= route.idx and not (riding and k < route.idx) then
 				ShowStep(k)
 			end
 		end)

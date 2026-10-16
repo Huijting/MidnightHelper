@@ -92,6 +92,9 @@ er is niets weggegooid.
         en het pijl-label zeggen nu een hele stap, bv. *"… is not on this continent. First: Cast Teleport: Silvermoon City …"*
         of *"First: Use your Hearthstone; it takes you to Silvermoon City."*, in plaats van alleen *"head for Orgrimmar"*.
       - Met een **niet-mage** (hearthstone in Silvermoon): dezelfde route → *"First: Use your Hearthstone …"*.
+- [ ] **Instappen = volgende stap** (16 okt, jouw vlucht met Elsia wees de pijl nog 252 m terug). Neem de quest, laat Elsia
+      je vliegen: binnen ~1 seconde na het opstijgen hoort de chat *"step 4 of 4: Go to the entrance of Throne of
+      Thunder"* te zeggen en wijst de pijl vooruit. Geldt ook voor boten, zeppelins en de Deeprun Tram.
 - [x] ✅ 16 okt GEMETEN (Rob's screenshot): pijl op Elsia, 14 m, met de quest-zin. **Throne of Thunder zonder de Isle of
       Thunder-quest** (16 okt, jouw mage). Mount run → Throne of Thunder. In Townlong
       Steppes moet stap 3 nu zijn: *"Talk to Scout Captain Elsia and accept the quest "The Storm Gathers"; the first time,
