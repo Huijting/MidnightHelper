@@ -51,6 +51,13 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 
+## 🆕 17 okt — Kindo'jan-tip herschreven (twee videogidsen)
+
+- [ ] Delve Coach → The Labyrinth of Kindo'jan → baas-tip. Hoort te zeggen: tussenfase **op 70% health** (niet meer
+      "1:30"), de zakjes oppakken, Valeera als healer voor de veilige weg, de Juggernaut met platform achter je, donkere
+      vloerstukken bij de wind, één kat die beweegt, en bij de twee cirkels: **neem de cirkel die Valeera NIET markeert**.
+      Klopt iets niet met wat je in het gevecht ziet → zeg welk stuk.
+
 ## 🆕 17 okt — Sha'Kuro: na de laatste Soul even verdoofd
 
 - [ ] In de Labyrinth, kamer met **Sha'Kuro**: dood alle Unfortunate Souls tijdens zijn Soul Storm. Je hoort te zien dat de

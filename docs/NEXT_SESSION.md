@@ -35,6 +35,14 @@ Gebouwd, niet in het spel gezien (test bovenaan `docs/TESTLIJST.md`):
 6. Rabid Bite 1251539 (mh-research 17 okt): Disease, 30 s, −25% healing taken, Putrid Ursine (262924/275685), stapelt niet
    (wago). MH vangt het al via het dispel-type (DispelHelper/PartyTargets/DispelCapture; staat al in Robs dispelCapture).
    Optioneel: SEASON_DISPELS (PlayCardWindow.lua:478) — vergt een nieuwe kop "dungeons and raid" in 7 talen. Niet gedaan.
+8. Kindo'jan-tip (DELVE_TIP_LABYRINTH_BOSS) herschreven uit twee videogidsen die Rob met zijn eigen gevecht vergeleek
+   (17 okt, transcripts in de chat). Rob besliste: tussenfase op **70% health** (was "1:30 op de klok", uit ons log van
+   15 okt). Erbij: zakjes = stats, Valeera als healer, Disgraceful Display = stack per ontwijkbare treffer (3 = dood),
+   Mojo-cirkel 4× dan adds, Headhunter-bijlen, Juggernaut-terugslag (platform achter je), donkere vloerstukken (wind),
+   1 kat met animatie (Valeera opwekken als het misgaat), beren rustig, **Jan'alai: neem de cirkel die Valeera NIET
+   markeert**, fase 2 = lust + potions. Weggelaten: "tegelijk" in fase 2 (video 2 zegt geen overlap) en "one-phasen"
+   (gok van de streamer). Vertalingen de/fr/es/esMX/pt/it/ru door mh-writer (2 rondes, eigen vertaling, niet native
+   nagelezen); check_drift --mark gedaan.
 7. HandyNotes 162 (17 okt): haalde zijn eigen 8614/8615-pinhook weer weg (onze code blijft: Robs /run mat 2437 8614);
    Labyrinth-deur 62.95/70.00 — wij houden Robs 62.90/72.00 (coördinatenregel).
 Nog open uit de ochtendronde: (3) ✅ zie 5. Sha'Kuro Soul Storm — hotfix 16 okt: niet onderbreken, anders mis je de stun/
