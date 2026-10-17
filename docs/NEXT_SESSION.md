@@ -24,19 +24,24 @@ nagemeten: 705929, 696116, 93819, 93935, 1251539 staan nergens in de code (posit
 Open, niets aan gebouwd (wacht op Rob):
 - a. Kamerbazen zonder encounter-id krijgen geen knop: naam/GUID boss1 secret, doelnaam óók buiten gevecht secret →
   de hoop in DelveCoach.lua (~1926) klopt niet voor de naam. GUID vóór de pull: niet gemeten.
-- b. Seal-regel (seal N = Journey-rang N): 16 okt 4× seal 5 en 2× seal 7 geopend. Robs rang onbekend → site-chat vraagt het.
+- b. ✅ Seal-regel (seal N = Journey-rang N): 16 okt 4× seal 5 en 2× seal 7 geopend; Rob 17 okt: rang NU 9 → geen
+  tegenspraak. Wanneer hij 7 haalde is onbekend (15 okt werd #13 nog geweigerd). Niets aan doen.
 - c. Delve Log telt elke kamer als losse run ("17 runs" = 9 + 8 kamers). AFGELEID.
 - d. Battle-res-pool in de delve (2/10, 120 s); GroupRezLust verwacht die alleen in key/raid. Misschien de "levens".
 - e. Object 705929 (geen quest-flag) op 5 plekken; 2 vallen op Mislaid #11/#4 → waarschijnlijk Mislaid Treasure
   (AFGELEID). Dan mist Codex.lua (~169) minstens 67.75/58.82, 74.86/63.59, 65.82/32.59.
 - f. Object 696116 op 44.36/70.83 — niet in MH, niet in HandyNotes 161.
-- g. Quests 93819 (43.8/84.8) en 93935 (44.2/85.3) geflagd na het eindgevecht — kandidaat Kindo'jan/schatkamer.
+- g. Quests 93819 (43.8/84.8) en 93935 (44.2/85.3) geflagd na het eindgevecht. Rob 17 okt: Kindo'jan ging NIET dood
+  (3 pulls = 3 wipes) → dit zijn geen kill-flags, en de +3 Corrosive Soul ook geen killbeloning (AFGELEID). Betekenis open.
 - h. "Flooded Chamber" staat niet tussen de 9 kamers van de vluchtkaart; onze 5 kisten matchen op subzone-tekst die
   misschien nooit vuurt (AFGELEID; vergelijk punt 4 hierboven, kaart 2671).
 - i. Commentaar DelveChestData.lua:144 "Not in HandyNotes 158" → HN 161 heeft 98603 nu wel (21.40/36.70); onze plek blijft.
 - j. ✅ Orin 98012 + 98015 ingeleverd 16 okt 23:02/23:03 → commentaar ResetRoutine.lua:189 bijgewerkt; 98016 nog niet gezien.
 - k. Rabid Bite 1251539 (disease), Labyrinth 15 okt — niet in MH (dispel-/hazardlijst?).
-Niet vast te stellen: of Kindo'jan dood ging (3 pulls), waarom maar 8 kamer-completions, Journey-rang.
+- l. Rob: *"er waren wel voor mij nieuwe gevechten in sommige kamers"* — welke kamers: site-chat vraagt het na.
+- m. Ter info: Carola (groep van 3) viel bij het platform van de laatste baas steeds door de grond, ook na release.
+  Hotfix 16 okt noemt een doorval-bug in The Speaker's Chamber; zelfde plek NIET gemeten. Geen MH-actie.
+Niet vast te stellen: waarom maar 8 kamer-completions.
 
 ## 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
 
