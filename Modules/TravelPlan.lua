@@ -441,7 +441,9 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 			local okC, v = pcall(ns.IsCrossContinentTarget, here, outermost, x, y)
 			crossContinent = (okC and v) and true or false
 		end
-		if #steps == 0 and not crossContinent and ns.GetNearestFlightPoint then
+		-- Settings → "Routes without flight masters" (Rob, 17 Oct 2026): no "fly to X" hint either.
+		local noFlightMasters = ns.db and ns.db.routeNoFlightMasters
+		if #steps == 0 and not crossContinent and not noFlightMasters and ns.GetNearestFlightPoint then
 			local fx, fy
 			if outermost == targetMap then
 				fx, fy = x, y

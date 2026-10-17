@@ -14,6 +14,14 @@ Gebouwd, niet in het spel gezien (test bovenaan `docs/TESTLIJST.md`):
    ✅ deels GETEST (Rob 17 okt): /run gaf één regel `2437 8614` → Broken Throne open, POI-nummer GEMETEN.
 2. `ResetRoutine.lua` NpcIDFromGUID: velden 2-5 = `[^%-]+` i.p.v. `%d+`, want 12.1.7 obfusceert de server-id
    (wiki Patch 12.1.7/API changes, 16 okt). Buiten het spel getest met lua.exe: 5/5.
+✅ Labyrinth-ingangspijl GETEST (Rob 17 okt: "ik krijg keurig een pijl", Route step 1 of 2).
+3. Vluchtmeester in routes (Rob 17 okt, koos "allebei"; daarna: *"soms eerst naar een fp moet vliegen"*). GEBOUWD, niet
+   in het spel gezien: TravelRoute.lua FlightMasterPassed (ticker 1 s) laat een `fly`-stap los als je dichter bij het doel
+   bent dan de vluchtmeester, of >150 yd verder van hem dan je dichtstbij was terwijl je >150 yd dichter bij het doel kwam
+   (getallen GEKOZEN). NIET op "zelf vliegen" (dat is ook naar de FP vliegen). Stap krijgt `passed`, CurrentStep gaat er
+   nooit naar terug. Schakelaar `mh_routeNoFlightMasters` → `ns.db.routeNoFlightMasters` (standaard uit): FlightLeg en de
+   "fly to X"-hint in TravelPlan zwijgen. Teksten SET_ROUTE_NOFP_* in 7 talen, met de clientnaam voor Flight Master
+   (wago GlobalStrings MINIMAP_TRACKING_FLIGHTMASTER, 12.1.7.70424, GEMETEN; itIT daar meervoud "Maestri di Volo").
 Nog open uit de ochtendronde: (3) Sha'Kuro Soul Storm — hotfix 16 okt: niet onderbreken, anders mis je de stun/
 schadevenster; onze `DELVE_TIP_LABYRINTH_ROOMS` zegt dat niet (eerst mh-research). (4) Labyrinth benedenverdieping
 = uiMap 2671 (Jan'alai's Refuge, kisten #15-19 + 98603); MH-code kent 2671 nergens → kistenroute daar mogelijk

@@ -40,7 +40,9 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
 - [x] ✅ Rob 17 okt, screenshots: "one of 41 spots (HandyNotes + Wowhead)", nummers 1-41; klik op 16 → TomTom
       "Added a waypoint (16 - 43.66, 83.98) in The Labyrinth of Kindo'jan". 🐞 Vanuit Silvermoon zei MH daarna óók
       "16 is not on this continent" en de pijl "(other continent — travel back)" — fout, de Labyrinth ligt in Eversong.
-- [ ] **Pijl naar de Labyrinth-ingang (repareert de 🐞 hierboven).** `/reload`, ga in **Silvermoon** staan, Codex →
+- [x] ✅ Rob 17 okt, screenshot vanuit Silvermoon: "Route, step 1 of 2: The Labyrinth of Kindo'jan", TomTom-pin op
+      Eversong 62.90/72.00, geen "not on this continent" meer; Rob: *"ik krijg keurig een pijl"*.
+      **Pijl naar de Labyrinth-ingang (repareert de 🐞 hierboven).** `/reload`, ga in **Silvermoon** staan, Codex →
       Labyrinth → klik op **16**. Je hoort GEEN "not on this continent" meer te zien. Onze pijl wijst naar de ingang in
       Eversong (62.90/72.00) met als naam "The Labyrinth of Kindo'jan". Ga naar binnen: de pijl wijst dan naar 16 zelf.
       (Gebruik je TomTom, dan kan TomTom's pijl het overnemen zodra je binnen bent.) Zie je toch "other continent" →
@@ -48,6 +50,19 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       **Mislaid Treasures: 41 plekken.** `/mh` → Codex → The Labyrinth of Kindo'jan → kopje Mislaid Treasures. Je hoort
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
+
+## 🆕 17 okt — Vluchtmeester in routes: loslaten + schakelaar
+
+Rob: *"blijft de pijl eigenwijs naar de FP wijzen"* en *"hou er wel rekening mee, dat users en ik soms eerst naar een fp
+moet vliegen"*. Eerst `/reload`.
+
+- [ ] **Loslaten.** Zet een route die een vluchtmeester voorstelt (de pijl zegt "fly from …"). Vlieg er NIET heen maar
+      rechtstreeks naar je doel. Zodra je dichter bij je doel bent dan die vluchtmeester (of duidelijk van hem
+      wegvliegt, richting je doel), hoort de pijl naar je doel te springen. Doe daarna `/reload`: dan lees ik in het
+      routelog "flight master let go (…)".
+- [ ] **Niet te vroeg.** Vlieg wél eerst naar de vluchtmeester: de pijl hoort op hem te blijven wijzen tot je instapt.
+- [ ] **Schakelaar.** Esc → Options → AddOns → Midnight Helper: **"Routes without flight masters"** (staat uit). Zet hem
+      aan en zet dezelfde route: geen vluchtmeester meer, de pijl wijst meteen naar je doel.
 
 ## 🆕 16 okt (nacht) — Plekken zoeken in de zoekbalk (Dalaran enz.)
 

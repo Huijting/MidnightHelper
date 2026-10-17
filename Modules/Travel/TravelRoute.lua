@@ -327,6 +327,10 @@ function T.FlightLeg(targetMap, x, y, currentMap)
 	if not (targetMap and currentMap and ns.GetNearestFlightPoint) or targetMap == currentMap or OnBoard() then
 		return nil
 	end
+	-- Settings → "Routes without flight masters" (Rob, 17 Oct 2026).
+	if ns.db and ns.db.routeNoFlightMasters then
+		return nil
+	end
 	local px, py = T.PlayerXY(currentMap)
 	local fromName, fx, fy = ns.GetNearestFlightPoint(currentMap, px, py)
 	local toName = ns.GetNearestFlightPoint(targetMap, x, y)
@@ -709,6 +713,19 @@ local function CurrentStep(r)
 		return 1
 	end
 	return nil
+end
+
+-- A flight master the player flew past (`passed`, see FlightMasterPassed) is never taken up again: still being on its
+-- map would otherwise read as "back at step k" on the next zone event (17 Oct 2026).
+do
+	local raw = CurrentStep
+	CurrentStep = function(r)
+		local k = raw(r)
+		if k and r.idx and k < r.idx and r.steps[k] and r.steps[k].passed then
+			return r.idx
+		end
+		return k
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -1461,6 +1478,61 @@ do
 	end
 	if C_Timer and C_Timer.NewTicker then
 		C_Timer.NewTicker(1, Arrival)
+	end
+end
+
+--- ✈ LETTING GO OF A FLIGHT MASTER YOU FLEW PAST. Rob, 17 Oct 2026: "als ik dan toch ergens rechtstreeks naar toe
+--- vlieg, blijft de pijl eigenwijs naar de FP wijzen tot ik op de plaats van bestemming ben." A flight step only ended on
+--- boarding or on reaching the target's map. And, his next message: "hou er wel rekening mee, dat users en ik soms eerst
+--- naar een fp moet vliegen" — so being in the air proves nothing; flying TO the flight master is flying too. Let go
+--- only when the player is past it, in world yards on one continent:
+---   - nearer the target than the flight master is (the taxi would take you backwards), or
+---   - clearly moving away from it while closing on the target: `away` further than the nearest you came, and `closer`
+---     nearer the target than you were at that moment (yards CHOSEN, not measured).
+--- Once let go the step is `passed` and CurrentStep never goes back to it.
+T.NEAR.flightPassed = { away = 150, closer = 150 }
+do
+	local function FlightMasterPassed()
+		local r = route
+		if not (r and r.idx and SameOwner(ns._mhRouteOwner, r.owner)) then
+			return
+		end
+		local s, nxt = r.steps[r.idx], r.steps[r.idx + 1]
+		if not (s and s.kind == "fly" and nxt and s.map and s.x and s.y and r.target) or OnBoard() then
+			return
+		end
+		local px, py = T.PlayerXY(s.map)
+		if not px then
+			return
+		end
+		local cP, pX, pY = T.WorldXY(s.map, px, py)
+		local cF, fX, fY = T.WorldXY(s.map, s.x, s.y)
+		local cT, tX, tY = T.WorldXY(r.target.map, r.target.x, r.target.y)
+		if not (cP and cF and cT and cP == cF and cP == cT) then
+			return -- not all on one continent: nothing we can compare
+		end
+		local function d(ax, ay, bx, by)
+			return math.sqrt((ax - bx) ^ 2 + (ay - by) ^ 2)
+		end
+		local toFP, toTarget, fpToTarget = d(pX, pY, fX, fY), d(pX, pY, tX, tY), d(fX, fY, tX, tY)
+		if not s.minToFP or toFP < s.minToFP then
+			s.minToFP, s.targetAtMin = toFP, toTarget
+		end
+		local why
+		if toTarget < fpToTarget then
+			why = "nearer the target than the flight master"
+		elseif toFP > s.minToFP + T.NEAR.flightPassed.away and toTarget < s.targetAtMin - T.NEAR.flightPassed.closer then
+			why = "flying away from it, towards the target"
+		end
+		if why then
+			s.passed = true
+			Log("flight master let go (%s): %.0f yd to it, %.0f yd to the target, it is %.0f yd from the target", why,
+				toFP, toTarget, fpToTarget)
+			ShowStep(r.idx + 1)
+		end
+	end
+	if C_Timer and C_Timer.NewTicker then
+		C_Timer.NewTicker(1, FlightMasterPassed)
 	end
 end
 

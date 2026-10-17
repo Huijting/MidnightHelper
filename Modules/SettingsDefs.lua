@@ -496,6 +496,14 @@ local function Build()
 		ns.db = ns.db or {}
 		ns.db.arrowYieldWaypointUI = v and true or nil
 	end)
+	-- Rob, 17 Oct 2026: "een schakelaar 'geen vluchtmeesters in routes'". Off = what everyone has now (a flight master
+	-- only when it clearly saves time, TravelRoute.lua FlightLeg), so an update changes nothing under anyone's hands.
+	Toggle("mh_routeNoFlightMasters", "SET_ROUTE_NOFP_TITLE", "SET_ROUTE_NOFP_DESC", function()
+		return ns.db and ns.db.routeNoFlightMasters == true
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.routeNoFlightMasters = v and true or nil
+	end, false)
 
 	----------------------------------------------------------------
 	-- Venster & weergave
