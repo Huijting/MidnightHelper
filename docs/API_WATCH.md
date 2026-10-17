@@ -6009,3 +6009,170 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     shallow-clone-artefact dat hier gisteren is uitgezocht — GEMETEN: `.git/shallow` bestaat en
     `git rev-list --count HEAD` = **50**, precies de clone-diepte. 📌 Kijk eerst of `.git/shallow`
     bestaat voordat je uit een `(forced update)` een conclusie trekt.
+- [2026-10-17] 🔴 **Nul [MOET GEFIKST] op de API — maar één ERNSTIG REPO-INCIDENT dat ik zelf bijna
+  veroorzaakte: plain `git checkout main` zette me vier dagen terug, en een commit+push dáár had 687
+  regels van dit logboek én Robs 4.8.0-werk van `main` gewist.** Op mijn eigen terrein is er wél echt
+  nieuws: **`Patch 12.1.7/API changes` BESTAAT sinds gisteravond** — gisteren hier nog gemeten als
+  `"missing": true` — en die pagina zet de GUID-obfuscatie op **12.1.7 (Retail)** in plaats van alleen
+  Forever 1.60.1, **mét `cast` erbij**. Dat haalt de troost uit de regel van gisteren weg.
+  - 🔴 **HET REPO-INCIDENT EERST, want het reverst het staande advies van dit logboek.**
+    **GEMETEN, stap voor stap:**
+    - Bij aanvang: HEAD **detached** op `2526be1`, werkboom schoon, geen van de vier wachter-bestanden
+      gewijzigd-maar-ongecommit. Lokale `main` **én** `origin/main` stonden op `49acda4`.
+    - `git checkout -B main origin/main` — het recept dat hier vijf dagen staat — werd **GEWEIGERD door
+      de auto-mode-classifier** van deze container (*"Irreversible Local Destruction"*). Dus viel ik
+      terug op plain `git checkout main`.
+    - **En dát is de val.** `-B` **reset** `main` op `origin/main`; kaal `checkout main` doet dat niet en
+      zet je op de verouderde ref. GEMETEN gevolg: `docs/API_WATCH.md` ging van **6011 → 5324 regels**
+      (de entries van 13, 14, 15 en 16 okt verdwenen), en `git log 2526be1 --not main` gaf **21+ commits**
+      die niet op `main` zaten, waaronder `c3cc0f5` *"Release 4.8.0: the Mount run"*, de travel-module en
+      de place search. Git waarschuwde wél (*"git branch <new-branch-name> 2526be1"*), en ik heb die regel
+      bijna gemist.
+    - `git fetch origin main` gaf `+ 49acda4...2526be1 main -> origin/main (forced update)`. **Dat was
+      hier géén force-push en ook niet het shallow-artefact van 16 okt, maar de verouderde lokale ref die
+      werd gecorrigeerd.** De echte `origin/main` was `2526be1` — exact waar de "losse" HEAD al stond.
+    - `git merge --ff-only origin/main` faalde met **`fatal: refusing to merge unrelated histories`**,
+      doordat de clone **shallow** was (`.git/shallow` aanwezig, `rev-list --count HEAD` = 50).
+      `git fetch --unshallow origin main` loste het op; daarná liep de fast-forward schoon en stond
+      `docs/API_WATCH.md` weer op **6011** regels.
+    📌 **DE LES, en hij is het omgekeerde van wat hier vijf dagen staat: de detached HEAD was NOOIT de
+    bug — die is de juiste tip. De verouderde `main`/`origin/main`-ref is de bug.** Vijf dagen lang stond
+    hier *"HEAD stond detached, `git checkout -B main origin/main` zette het goed"*; dat werkte alleen om
+    de `-B`, niet om de `checkout`. 🔴 **Nieuwe volgorde, en wijk er niet van af:** `git fetch origin main`
+    **EERST** — vóór je enige lokale ref vertrouwt — dan `git merge --ff-only origin/main`; zegt die
+    *"unrelated histories"*, dan `git fetch --unshallow origin main` en opnieuw. **Nooit kaal
+    `git checkout main`** in deze container, en reken niet meer op `-B`: de classifier blokkeert hem.
+    ⚠️ **En de bredere vorm, want die geldt net als bij de cacheval:** staat er in een bestand dat je
+    kent **minder** dan je eigen aantekening van gisteren noemde, dan kijk je naar een verouderde ref en
+    niet naar de werkelijkheid. Dezelfde val als [[silence-is-not-absence]], nu met een schone werkboom
+    als vermomming. 📌 `origin/main` schoof tijdens deze run nog dóór naar `698f4f76`; daarop is gecommit.
+  - 🆕 **[AL AFGEDEKT] — `Patch 12.1.7/API changes` is AANGEMAAKT, en dat is een CORRECTIE op mijn eigen
+    meting van gisteren.** Gisteren stond hier letterlijk dat de pagina *"nog steeds terugkomt als
+    `"missing": true`"*. GEMETEN nu: pageid **712903**, aangemaakt **2026-10-16T17:01:21Z** door
+    **Meorawr** (`6919200`, `parentid: 0`, *"Initial change summary"*), daarna `6919202` (17:04:49Z,
+    Meorawr, `/* Summary */`), `6919682` (22:15:04Z, Ketho) en `6919765` (**22:38:53Z**, Ketho,
+    `/* Blue posts */`). Dus ~11 uur ná mijn run van gisteren. `{{#description2:12.1.7 (70424) Oct 16 2026}}`,
+    en `==Resources==` zegt **`TOC: 120107`**.
+    - 🔴 **De GUID-regel is VERSCHOVEN VAN FOREVER NAAR RETAIL, en er is een GUID-soort bijgekomen.**
+      Letterlijk uit de wikitext van `==Summary==`:
+      *"The server ID and spawn ID portions of **cast**, creature, vehicle, pet, and game object GUIDs have
+      been replaced with obfuscated values."* / *"Obfuscated values are stable and unique within the current
+      client session, but cannot be compared between clients or persisted beyond restarts."* / *"The GUID
+      string format is otherwise unchanged."* / *"**This change will be available for testing in a future
+      build of 12.1.7.**"*
+      Gisteren stond dit hier als `{{Patch 1.60.1|…}}` op `API:UnitGUID` met **creature, vehicle, pet en
+      game object** — **zonder `cast`** — en ik sloot het af met *"1.60.1 is Forever, en MH declareert
+      alleen Retail-interfacenummers"*. 🔴 **Die afsluiting is hiermee vervallen:** de regel staat nu op de
+      **Retail**-12.1.7-pagina, met een eigen 12.1.7-testaankondiging.
+    - ✅ **GEMETEN dat het ons nog steeds niet breekt — veld 6 blijft veld 6.** De drie npcID-extracties
+      lezen alle drie `select(6, strsplit("-", guid))`: `Rares.lua:858-865`, `Rares.lua:1021-1026`,
+      `VignetteCapture.lua:46-54`, elk met een `issecretvalue`-guard ervoor. Geobfusceerd worden **veld 3
+      (serverID) en veld 7 (spawnUID)**; de pagina zegt zelf dat het stringformaat verder onveranderd is.
+      (De volledige 15-plekkenlijst staat in de regel van 16 okt en is niet opnieuw geteld.)
+    - ✅ **`cast` raakt ons niet: MH PARSEERT nooit een castGUID.** GEMETEN, alle plekken gelezen —
+      `KeyPresses.lua:857`, `TankPullSummary.lua:234`, `RitualBossCoach.lua:443` en `InterruptScore.lua:369`
+      zijn **commentaar** over de event-argumenten, en `RitualBossCoach` gebruikt `arg3` (spellID).
+      `InterruptEventProbe.lua:56,62,98,100` geeft `castGUID` aan `State()`, dat de waarde alleen
+      **classificeert** (readable/secret/nil) voor de diagnose — geen `strsplit`, geen vergelijking, niets
+      bewaard. Positieve controle in dezelfde run: `strsplit("-"` geeft **12** treffers in de addon, dus
+      het patroon vindt wél wat er is.
+    - ✅ **Niets dat een restart overleeft hangt aan een geobfusceerd GUID.** De dedupe van de rare-alert
+      is `local rareAlertSeen = {}` (`Rares.lua:2849`, TTL 900 s, `:3048-3067`) — sessie-lokaal, en de
+      pagina zegt dat de waarden **binnen** een sessie stabiel zijn. De GUID's die MH wél in
+      SavedVariables als sleutel bewaart zijn **speler**-GUID's (`UnitGUID("player")`):
+      `KeyBlock.lua:920-921` → `db.keyBlockSnapshots` (`:982`, `:986`), `CurrencyAccount.lua:199` →
+      `ns.db.charCurrencies`, `RaidShoppingList.lua:78-79` → `ns.db.raidShopMail[g]`, `Rares.lua:1744` →
+      `ra.routedByChar`. **`Player` staat niet in de lijst van vijf GUID-soorten.** 📌 Dit is precies de
+      vorm die wél zou breken ("persisted beyond restarts"), dus als Blizzard de lijst ooit uitbreidt naar
+      `Player`, zijn dit de vier plekken.
+    - ⚠️ **De kanttekening van gisteren wordt hierdoor ZWAARDER, en blijft een meetvoorstel.**
+      `Modules/ResetRoutine.lua:648` doet het níét met `strsplit` maar met
+      `guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")` — dat eist dat **veld 3 uit cijfers bestaat**.
+      Blijven de geobfusceerde waarden numeriek, dan werkt het; zo niet, dan geeft deze ene plek `nil`.
+      **Het faalt veilig** (`issecretvalue`-guard op `:645`, en `LearnGiverQuest` valt terug op de NPC-naam
+      via `GiverKeyByName`), dus het is geen crash maar verlies van precisie. 🔴 **Ik weet nog steeds niet
+      welke van de twee het is** — de pagina zegt alleen *"obfuscated values"*, niet van welk type, en ik
+      ga dat niet gokken. Gisteren kon dit nog met *"alleen Forever"* worden geparkeerd; dat kan nu niet
+      meer. Zodra een 12.1.7-build de wijziging draagt, beantwoordt één `/mh ptr` het
+      (`Modules/PtrProbe.lua`). 🔴 Niet aangeraakt.
+    - 🔑 **[RAAKT ONS NIET] — de TOC-regel is scherper geformuleerd dan gisteren.** Letterlijk: *"TOC
+      directives no longer expand variables such as [Game] or [Family]. Instead, **these lines are entirely
+      skipped**."* plus *"Directives containing conditional expressions such as [AllowLoadGameType ...]
+      continue to function normally."* Gisteren stond er alleen *"Prevented use of variables in addon
+      directives"*; **"entirely skipped"** is nieuw en strenger (de hele `##`-regel valt weg, niet alleen de
+      variabele). ✅ Vandaag opnieuw GEMETEN: `grep -c "\["` op `MidnightHelper.toc` geeft **0** — geen
+      enkel blokhaakje in het bestand. Positieve controle in dezelfde run: `grep "##"` geeft de 18
+      directives, en `od -c` op regel 1 toont `357 273 277 # # ... 1 2 0 1 0 5 \n`. Niets te migreren.
+    - 🧩 **`Includes API changes from [[Patch 1.60.1/API changes|Patch 1.60.1]]` staat nu LETTERLIJK op een
+      Retail-API-pagina.** Dat is de derde week dat Forever-regels op mijn terrein opduiken, en het is niet
+      langer een vermoeden: de 12.1.7-pagina **vouwt ze expliciet in**. 📌 Dat maakt de openstaande vraag
+      van 16 okt concreet — zolang MH alleen `120007, 120100, 120105` declareert raakt het ons niet, maar
+      "Forever staat buiten scope" is per vandaag geen lezing meer van de bron. **Keuze voor Rob, niet voor
+      mij.**
+    - ⏳ **Er is nog steeds GEEN officiële Blizzard-API-notitie voor 12.1.7.** De pagina transcludeert
+      `{{:{{PAGENAME}}/notes}}`, en GEMETEN: `Patch 12.1.7/API changes/notes` geeft `"missing": ""` — een
+      rode link. De `==Summary==` is dus **wiki-redacteurswerk** (Meorawr), geen Blizzard-mededeling.
+      **Behandel het als sterke aanwijzing.** ⚠️ `120107` komt **nergens in de repo voor** (GEMETEN: nul
+      treffers op `grep -rn "120107"`; positieve controle `120105` geeft **5** treffers, o.a.
+      `DispelSound.lua:82` en drie `minInterface`-velden). Robs `.toc` stopt bij `120105`. Geen actiepunt —
+      12.1.7 is PTR — maar dit is het nummer dat hij nodig heeft om er überhaupt op te testen. 🔴 Niet aangeraakt.
+  - 🔇 **[RAAKT ONS NIET] — 12.1.5 én 12.1.7 bewogen gisteravond om 22:15 en 22:38, en er staat GEEN
+    API-regel in.** Dit is weer precies de val die deze wachter moet zien: een bewogen revisie-ID is geen
+    veranderde API. GEMETEN via `rest.php/v1/revision/6907331/compare/6919763` op
+    `Patch 12.1.5/API changes`: de diff raakt **alleen de `==Blue posts==`-opmaak** — `{|` +
+    `|- class="mw-collapsible mw-collapsed"` + `|}` eruit, `{{api.hiddensection}}` en
+    *"Official patch notes"* erin. **Alle tien sectiekoppen staan links en rechts identiek**
+    (Resources, Blue posts, Consolidated changes, Global API, FrameXML, ScriptObjects, Widgets, Events,
+    CVars, Deprecated API), met hun offset uniform **+23** erna — geen sectie toegevoegd, geen sectie weg.
+    Tussenliggend ook gezien en inhoudsloos: `6912952`/`6912956`/`6912957` (14 okt, Kaydeethree/Ketho,
+    *"use details/summary rather than the mw-collapsed thing"*) en `6919683`. Op 12.1.7 is `6919765`
+    dezelfde opmaakwissel.
+  - 🔇 **[RAAKT ONS NIET] — de 12.1.7 PTR-devnotes hebben een UI-sectie en GEEN API-inhoud.** Blue post
+    GELEZEN, niet via een samenvatting: topic **2383391**, Linxy (community-manager), post `30486451`,
+    **2026-10-15T18:47:41Z**, *"Midnight: 12.1.7 Echoes of the Worldcore PTR Notes"* — de bron waar de
+    nieuwe wiki-pagina naar linkt. `USER INTERFACE AND ACCESSIBILITY` bevat twee regels: *"EDIT MODE —
+    Added an option to allow players to have an option to mouse click through the Personal Resource
+    Display"* en *"Added tooltip clarification informing players that Outfit 1 in your Transmog will be
+    displayed on the WoW Armory website."* **Nul API-, taint-, secure- of secret-value-regels.** Onder
+    `PTR KNOWN ISSUES`: *"Copying a character or account data shows a Lua error, but will succeed."* —
+    een client-bug op de PTR, niet van ons. 📌 Story Campaign, Lorewalking, Omnium Folio (twee nieuwe runes),
+    Housing en Professions (Herbalism/Mining Deftness) zijn **inhoud** en dus terrein van de contentwachter;
+    ik laat ze hier staan zodat hij ze niet mist.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-01` (12 okt 18:39:11Z), en die staat hier al sinds
+    13 okt.** Vandaag opnieuw op de **inhoud** gemeten in plaats van op het versienummer, met
+    cache-busters: `raw.githubusercontent.com` voor `core.lua`, `extras.lua` en `Simulationcraft.toc` op
+    de tags `12.1.5-01`, `12.1.5-alpha-01` en `12.1.0-04`, alle negen **HTTP 200**. `md5sum`:
+    `core.lua` = `99ec1fba…` en `extras.lua` = `b03ff469…` op **beide** 12.1.5-tags — byte-voor-byte
+    gelijk. De enige wijziging is `Simulationcraft.toc` (`diff -u`:
+    `-## Version: 12.1.5-alpha-01` / `+## Version: 12.1.5-01`). **Dus nog steeds geen nieuw veld, geen
+    nieuw item-modifier-type en geen nieuwe profielregel om aan `ItemString` of `ns.BuildSimcProfile`
+    (`Modules/SimcExport.lua`) te toetsen.** Dit bevestigt de meting van 13 okt langs een andere weg
+    (toen via `git ls-remote` + `git diff --stat`, nu via de bestanden zelf).
+  - 🔇 **Forum `#ui-macro` 10–17 okt: zeven posts, geen blue reply, geen API-naam.** Via
+    `search.json?q=#ui-macro after:2026-10-09` mét cache-buster, op **id** gecontroleerd. Nieuw sinds
+    gisteren zijn alleen `2385158` (*FindAnUpgrade*, eigen addon-promo, 16 okt 23:15Z), `2384973`
+    (native proc-glow, 16 okt 19:52Z) en `2384533` (item-op-mouseover-macro, 16 okt 12:02Z) — alle drie
+    spelersvragen zonder API-wijziging. `2383349` (het `GetItemInfo`-draadje) en `2367394` staan hier al;
+    `2328590` is een reply op een oud draadje.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw** (en na vandaag staat er nog steeds geen [MOET GEFIKST] open):
+    - `Modules/ResetRoutine.lua:648` — de numerieke `%d+`-aanname op veld 3, hierboven zwaarder geworden.
+    - `Modules/KeyBlock.lua:1135`, `:1227`, `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605` —
+      `PickupItem` in een dode `else`/`elseif`-tak binnen `pcall`. Stil falen, geen crash. `/mh ptr` meet het.
+    - De vijf dode `GetItemInfo`-terugvaltakken (`DelveCuriosData.lua:178`, `GuideConsumables.lua:50` en
+      `:64`, `PlayCardWindow.lua:413`, `SpotLog.lua:526`/`:586`): alle zes gelezen, alle zes met een
+      `C_Item.`-pad ervóór. Sinds de global in 12.1.5 echt weg is zijn ze **decoratief** — valt
+      `C_Item.GetItemInfo` terug op `nil` (ongecachet item), dan komt er `"#id"`/`"Item <id>"` uit in
+      plaats van een naam. Gedrag, geen fout. 🔴 Niet aangeraakt.
+    - `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon tegenover negen
+      wiki-secties: niet opnieuw geteld vandaag.
+    - De namespace-lijst in `docs/WATCHER_API_PROMPT.md` is van 18 aug en verouderd. 🔴 Niet aangeraakt.
+    - `MidnightHelper.toc` begint met een UTF-8 **BOM** (`od -c` vandaag: `357 273 277`), dus
+      `grep -E "^## Interface"` geeft **nul** treffers terwijl de regel er wél staat.
+    - `CLAUDE.md:7` zegt dat de `.toc` *"`## Interface: 120007, 120100`"* declareert; GEMETEN staat er
+      `120007, 120100, 120105`. Nog steeds onvolledig, en nu twee nummers achter. 🔴 Niet aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** Gecommit op `698f4f76` ná de volledige
+    fetch/unshallow/fast-forward hierboven. ⚠️ **Geen** van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit; het verlies van vandaag zat niet in de working tree maar in een
+    **verouderde branch-ref**, wat de controle uit `CLAUDE.md` stap 1 (`git status`) niet opmerkt —
+    die kijkt naar vuile bestanden, niet naar een achterlopende `main`. 📌 Zet `git fetch origin main`
+    vóór die controle.
