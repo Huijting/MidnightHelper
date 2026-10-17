@@ -533,6 +533,62 @@ local function BuildNavIndex()
 		end
 	end
 
+	-- Doors: every delve, dungeon and raid we know the entrance of (Rob, 17 Oct 2026, typing "laby": "niet even een snelle
+	-- knop … naar de labyrinth zelf, maar ook niet naar andere delves dungeons of raids"). A hit starts the same route the
+	-- Delves tab / boss window start (AddSmartTomTomWay: way home, portals, the door). The dim text is the entrance's own
+	-- zone from the client, so it needs no new string. The English name is a keyword, so it works on every client.
+	if ns.AddSmartTomTomWay then
+		local hint = L("NAV_ACTION_TAKE_ME")
+		local seenDoor = {}
+		local function addDoor(name, english, kind, map, x, y, go)
+			if not (name and map and x and y) then
+				return
+			end
+			local id = name .. "|" .. tostring(map)
+			if seenDoor[id] then
+				return
+			end
+			seenDoor[id] = true
+			local zone = PlaceText(map)
+			add(name, kind .. " entrance door go to route " .. (english or ""), go, TIER_ACTION,
+				zone and (zone .. " — " .. hint) or hint, "place")
+		end
+		-- Delve names in the player's language where the Delve Coach has one (same lookup as its rows above).
+		local delveLocal = {}
+		for _, entry in ipairs(ns.DELVE_TIP_ENTRIES or {}) do
+			if entry.rosterName and ns.GetDelveTipDisplayName then
+				delveLocal[entry.rosterName] = ns:GetDelveTipDisplayName(entry)
+			end
+		end
+		for _, row in ipairs(ns.MIDNIGHT_DELVES or {}) do
+			local english, map, x, y = row[5], row[2], row[3], row[4]
+			if not row.pinOnly and english then
+				local name = delveLocal[english] or english
+				addDoor(name, english, "delve", map, x, y, function()
+					if ns.MH_TomTomClearAll then
+						ns.MH_TomTomClearAll()
+					end
+					ns.AddSmartTomTomWay(map, x, y, name)
+				end)
+			end
+		end
+		local function addInstance(d, kind)
+			local e = type(d) == "table" and d.entrance
+			if e and e.mapID and ns.RouteDungeonEntrance then
+				local name = (ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(d)) or d.name
+				addDoor(name, d.name, kind, e.mapID, e.x, e.y, function()
+					ns.RouteDungeonEntrance(d)
+				end)
+			end
+		end
+		for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
+			addInstance(d, "dungeon")
+		end
+		for _, e in pairs(ns.CUSTOM_BOSS_ENTRIES or {}) do
+			addInstance(e, "raid")
+		end
+	end
+
 	-- Collectible mounts. The mounts tab is one long checklist, so the hit lands on the
 	-- tab rather than on the row: scrolling a search result into view is a promise this
 	-- panel cannot keep yet.

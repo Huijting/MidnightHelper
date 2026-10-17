@@ -51,6 +51,16 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 
+## 🆕 17 okt — Zoekbalk: "take me there" voor delves, dungeons en raids
+
+Rob: *"niet even een snelle knop … naar de labyrinth zelf, maar ook niet naar andere delves dungeons of raids"*.
+Eerst `/reload`.
+
+- [ ] `/mh` → typ `laby` in de zoekbalk. Bovenaan hoort **"The Labyrinth of Kindo'jan"** te staan met grijs erachter
+      **"Eversong Woods — take me there"**. Klik: de route start (zoals de knop op het Delves-tabblad).
+- [ ] Typ een dungeon (bv. `maisara`) en een raid (bv. `voidspire`): ook daar een regel "… — take me there", en de
+      klik zet de route naar de ingang. De bazen en de Delve Coach staan er gewoon nog onder.
+
 ## 🆕 17 okt — Vluchtmeester in routes: loslaten + schakelaar
 
 Rob: *"blijft de pijl eigenwijs naar de FP wijzen"* en *"hou er wel rekening mee, dat users en ik soms eerst naar een fp
@@ -65,7 +75,8 @@ moet vliegen"*. Eerst `/reload`.
       wegvliegt, richting je doel), hoort de pijl naar je doel te springen. Doe daarna `/reload`: dan lees ik in het
       routelog "flight master let go (…)".
 - [ ] **Niet te vroeg.** Vlieg wél eerst naar de vluchtmeester: de pijl hoort op hem te blijven wijzen tot je instapt.
-- [ ] **Schakelaar.** Esc → Options → AddOns → Midnight Helper: **"Routes without flight masters"** (staat uit). Zet hem
+- [x] ✅ Rob 17 okt: *"schakelaar werkt"*.
+      **Schakelaar.** Esc → Options → AddOns → Midnight Helper: **"Routes without flight masters"** (staat uit). Zet hem
       aan en zet dezelfde route: geen vluchtmeester meer, de pijl wijst meteen naar je doel.
 
 ## 🆕 16 okt (nacht) — Plekken zoeken in de zoekbalk (Dalaran enz.)

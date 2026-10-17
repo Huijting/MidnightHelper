@@ -22,6 +22,12 @@ Gebouwd, niet in het spel gezien (test bovenaan `docs/TESTLIJST.md`):
    nooit naar terug. Schakelaar `mh_routeNoFlightMasters` → `ns.db.routeNoFlightMasters` (standaard uit): FlightLeg en de
    "fly to X"-hint in TravelPlan zwijgen. Teksten SET_ROUTE_NOFP_* in 7 talen, met de clientnaam voor Flight Master
    (wago GlobalStrings MINIMAP_TRACKING_FLIGHTMASTER, 12.1.7.70424, GEMETEN; itIT daar meervoud "Maestri di Volo").
+   ✅ schakelaar GETEST (Rob: "schakelaar werkt").
+4. Zoekbalk "take me there" voor deuren (Rob 17 okt, "laby" gaf geen knop naar de Labyrinth zelf). GEBOUWD, niet in het
+   spel gezien: NavSearch.lua, blok "Doors" na "Places": elke delve uit `ns.MIDNIGHT_DELVES` (niet pinOnly; naam via de
+   Delve Coach-vertaling, anders Engels) → MH_TomTomClearAll + AddSmartTomTomWay; elke dungeon (`GetDungeonRoster`) en
+   raid (`CUSTOM_BOSS_ENTRIES`) met `entrance` → RouteDungeonEntrance. Grijze tekst = zone van de ingang uit de client +
+   NAV_ACTION_TAKE_ME, dus geen nieuwe strings. Categorie `place` (@place).
 Nog open uit de ochtendronde: (3) Sha'Kuro Soul Storm — hotfix 16 okt: niet onderbreken, anders mis je de stun/
 schadevenster; onze `DELVE_TIP_LABYRINTH_ROOMS` zegt dat niet (eerst mh-research). (4) Labyrinth benedenverdieping
 = uiMap 2671 (Jan'alai's Refuge, kisten #15-19 + 98603); MH-code kent 2671 nergens → kistenroute daar mogelijk
