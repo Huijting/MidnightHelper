@@ -11,6 +11,7 @@ Gebouwd, niet in het spel gezien (test bovenaan `docs/TESTLIJST.md`):
 1. `RitualSites.lua`: actieve site eerst op areaPoiID (8615 Daggerspine, 8614 Broken Throne), dan pas op Engelse
    naam → werkt ook op een vertaalde client. Bron: HandyNotes 161 (zelfde ID's; Blizzard tekent de pin alleen als
    de site open is). AFGELEID tot Robs /run.
+   ✅ deels GETEST (Rob 17 okt): /run gaf één regel `2437 8614` → Broken Throne open, POI-nummer GEMETEN.
 2. `ResetRoutine.lua` NpcIDFromGUID: velden 2-5 = `[^%-]+` i.p.v. `%d+`, want 12.1.7 obfusceert de server-id
    (wiki Patch 12.1.7/API changes, 16 okt). Buiten het spel getest met lua.exe: 5/5.
 Nog open uit de ochtendronde: (3) Sha'Kuro Soul Storm — hotfix 16 okt: niet onderbreken, anders mis je de stun/
@@ -33,7 +34,13 @@ Open, niets aan gebouwd (wacht op Rob):
   teksten: HN 1-15 (#4/#11 → Robs meting), Rob 16-25, Wowhead 26-41 (ontdubbeld ~1,5). Zin "15 spots (HandyNotes)" →
   "41 spots (HandyNotes + Wowhead)"; ruRU "из 41 места". check_drift --mark gedaan. Niet in het spel gezien.
   Bijvangst: GUID-patroon (12.1.7) ook ruim gemaakt in DelveChestData:239, EncounterCapture:1227, SpotLog:246 — die
-  laatste twee miste de API-wachter. ⚠️ Teller `seen` in de kistenregistratie telt elk object binnen 2 eenheden, ook
+  laatste twee miste de API-wachter. ✅ Rob 17 okt getest: 41 plekken, klik 16 → TomTom-pin klopt. 🐞 Vanuit
+  Silvermoon zei MH "16 is not on this continent". Rob koos: pijl naar de ingang, daarna naar de plek. GEBOUWD:
+  TravelPlan.lua LINKS + INSIDE[2647]=2395 (deur 62.90/72.00 uit Delves.lua, naam = clientnaam van kaart 2647);
+  een kaart BINNEN een container telt nu als "al in de container" (MHIsSelfOrAncestor); NativeArrow kiest een stap op
+  een kaart rond de jouwe (OneContainsTheOther) en zwijgt in de chat als de eerste stap zo'n stap is. Buiten het spel
+  getest met lua.exe + nagebootste kaarten: Silvermoon/Eversong → deur → plek; binnen → direct. AFGELEID, niet
+  gemeten: dat Eversong 2395 in de client echt de ouder van Silvermoon 2393 is (de pijl-code ging daar al van uit). ⚠️ Teller `seen` in de kistenregistratie telt elk object binnen 2 eenheden, ook
   een ánder object (43.66/83.98 "seen 14") — geen objectID-vergelijking. Klein, niet gerepareerd.
 - f. Object 696116 op 44.36/70.83 — niet in MH, niet in HandyNotes 161.
 - g. Quests 93819 (43.8/84.8) en 93935 (44.2/85.3) geflagd na het eindgevecht. Rob 17 okt: Kindo'jan ging NIET dood

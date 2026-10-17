@@ -381,7 +381,12 @@ local function UpdateArrow()
 				end
 			end
 			for _, s in ipairs(steps) do
-				if s.kind ~= "arrive" and s.mapID == pmap and s.x and s.y then
+				--- A step on a map around (or inside) the player's counts as on it: from Silvermoon City the
+				--- Labyrinth's door in Eversong Woods is a walk (Rob, 17 Oct 2026). The world-position maths
+				--- below already draws Silvermoon -> Eversong targets. `px/py` are on `pmap`, so the
+				--- "standing on it" test only runs for a step on the player's own map.
+				local onMine = s.mapID == pmap
+				if s.kind ~= "arrive" and s.x and s.y and (onMine or OneContainsTheOther(s.mapID, pmap)) then
 					--- ⚠️ DO NOT POINT AT SOMEONE'S OWN FEET. Rob, 18 aug: walking into
 					--- the gate corridor, the arrow kept pointing back at the gate. His
 					--- `/mh here` explains it — inside the corridor the client still
@@ -392,7 +397,7 @@ local function UpdateArrow()
 					--- There is nothing further to point at either: the next step is on
 					--- a map he is not on. So say the true thing — you are at it, walk
 					--- through — instead of drawing a direction to nowhere.
-					if px and ((s.x - px) ^ 2 + (s.y - py) ^ 2) < 4 then
+					if onMine and px and ((s.x - px) ^ 2 + (s.y - py) ^ 2) < 4 then
 						standingOnStep = ns.TravelStepName and ns.TravelStepName(s, s.label)
 							or (s.localized and ns:L(s.label) or s.label)
 						break
@@ -796,6 +801,13 @@ local function AnnounceUnreachable(t)
 		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
 		if okP and type(steps) == "table" then
 			for _, s in ipairs(steps) do
+				-- The first step is on (or around) this map: the arrow already points at it, and "not on this
+				-- continent" would be false — a point inside the Labyrinth seen from Silvermoon (Rob, 17 Oct 2026).
+				if s.kind ~= "arrive" and s.mapID and s.x
+					and (s.mapID == pmap or OneContainsTheOther(s.mapID, pmap)) then
+					announcedUnreachableKey = key -- settled for this target: do not rebuild the plan every tick
+					return
+				end
 				if s.kind ~= "arrive" and s.label then
 					aim = ns.TravelStepName and ns.TravelStepName(s, s.label) or (s.localized and ns:L(s.label) or s.label)
 					aimIsSentence = s.source == "Travel.WayHome" -- travel phase 2: a whole instruction

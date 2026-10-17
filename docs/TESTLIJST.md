@@ -25,7 +25,9 @@ er is niets weggegooid.
 
 Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12.1.7-API-pagina).
 
-- [ ] **Welke ritual site is actief?** Typ in de chat:
+- [ ] ✅ deels — Rob 17 okt 08:18, screenshot: de /run gaf precies één regel, `2437 8614` → Broken Throne is open, en
+      het POI-nummer klopt (GEMETEN). Nog niet gezien: dat de ritual-regel in MH ook "Broken Throne" noemt.
+      **Welke ritual site is actief?** Typ in de chat:
       `/run for _,m in ipairs({2395,2437}) do for _,p in ipairs(C_AreaPoiInfo.GetAreaPOIForMap(m) or {}) do if p==8614 or p==8615 then print(m,p) end end end`
       Je hoort **één** regel te zien: `2395 8615` (Daggerspine Point) of `2437 8614` (Broken Throne). Open daarna `/mh`
       → Home: de ritual-regel noemt **dezelfde** site, niet "rouleert wekelijks". Twee regels of geen regel → zeg het,
@@ -35,7 +37,15 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       het NPC-nummer uit de GUID leest is ruimer gemaakt, voor 12.1.7. Buiten het spel getest op 5 voorbeelden (alle 5 goed).
       Hetzelfde patroon zit nu ook in de kistenregistratie (DelveChestData), EncounterCapture en SpotLog — ook daar
       hoort niets te veranderen.
-- [ ] **Mislaid Treasures: 41 plekken.** `/mh` → Codex → The Labyrinth of Kindo'jan → kopje Mislaid Treasures. Je hoort
+- [x] ✅ Rob 17 okt, screenshots: "one of 41 spots (HandyNotes + Wowhead)", nummers 1-41; klik op 16 → TomTom
+      "Added a waypoint (16 - 43.66, 83.98) in The Labyrinth of Kindo'jan". 🐞 Vanuit Silvermoon zei MH daarna óók
+      "16 is not on this continent" en de pijl "(other continent — travel back)" — fout, de Labyrinth ligt in Eversong.
+- [ ] **Pijl naar de Labyrinth-ingang (repareert de 🐞 hierboven).** `/reload`, ga in **Silvermoon** staan, Codex →
+      Labyrinth → klik op **16**. Je hoort GEEN "not on this continent" meer te zien. Onze pijl wijst naar de ingang in
+      Eversong (62.90/72.00) met als naam "The Labyrinth of Kindo'jan". Ga naar binnen: de pijl wijst dan naar 16 zelf.
+      (Gebruik je TomTom, dan kan TomTom's pijl het overnemen zodra je binnen bent.) Zie je toch "other continent" →
+      screenshot + `/mh arrow`.
+      **Mislaid Treasures: 41 plekken.** `/mh` → Codex → The Labyrinth of Kindo'jan → kopje Mislaid Treasures. Je hoort
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 

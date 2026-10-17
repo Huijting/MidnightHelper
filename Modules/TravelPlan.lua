@@ -135,6 +135,19 @@ local LINKS = {
 			source = "rob-screenshot-17aug",
 		},
 	},
+	--- The Labyrinth of Kindo'jan (12.1.5): a point inside it (a Mislaid Treasure from the Codex) is reached
+	--- through its door in Eversong Woods. Rob, 17 Oct 2026, clicked one from Silvermoon and got "not on this
+	--- continent"; his choice: "Laat de pijl naar de ingang van de Labyrinth wijzen … en daarna naar de plek zelf."
+	--- Door = the entrance in Delves.lua (POI 9035). No labelKey: the step is named after the Labyrinth's own
+	--- map name, which the client gives in the player's language.
+	{
+		kind = "walk",
+		fromMap = 2395,
+		toMap = 2647,
+		x = 62.90,
+		y = 72.00,
+		source = "Delves.lua-9035",
+	},
 }
 
 --- Which map is "inside" which, so a plan can tell that the Underbelly is reached
@@ -143,7 +156,20 @@ local LINKS = {
 local INSIDE = {
 	[2613] = 2509, -- the Underbelly sits inside the Vaults
 	[2509] = 2512, -- the Vaults sit on the Coiled Isle
+	[2647] = 2395, -- the Labyrinth of Kindo'jan: its door is in Eversong Woods
 }
+
+--- The client's own name for a map, in the player's language; nil when it has none.
+local function MapName(mapID)
+	if not (C_Map and C_Map.GetMapInfo and mapID) then
+		return nil
+	end
+	local ok, info = pcall(C_Map.GetMapInfo, mapID)
+	if ok and type(info) == "table" and type(info.name) == "string" and info.name ~= "" then
+		return info.name
+	end
+	return nil
+end
 
 --- Silvermoon City: where every road into Midnight arrives, and the only map the
 --- portals from outside lead to. Named rather than repeated as a bare 2393, because it
@@ -223,7 +249,9 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		startAt = 0
 	else
 		for i, m in ipairs(chain) do
-			if m == here then
+			-- `here` may be a map INSIDE a container (Silvermoon City inside Eversong Woods, 17 Oct 2026): that
+			-- player is already in it and only needs the door, not a way to the zone.
+			if m == here or (ns.MHIsSelfOrAncestor and ns.MHIsSelfOrAncestor(m, here)) then
 				startAt = i
 				break
 			end
@@ -601,8 +629,8 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					x = link.x,
 					y = link.y,
 					to = link.toMap,
-					label = link.labelKey,
-					localized = true,
+					label = link.labelKey or MapName(link.toMap),
+					localized = link.labelKey ~= nil,
 					source = link.source,
 				}
 				added = true
