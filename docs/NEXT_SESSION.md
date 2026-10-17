@@ -38,7 +38,7 @@ Open, niets aan gebouwd (wacht op Rob):
 - i. Commentaar DelveChestData.lua:144 "Not in HandyNotes 158" → HN 161 heeft 98603 nu wel (21.40/36.70); onze plek blijft.
 - j. ✅ Orin 98012 + 98015 ingeleverd 16 okt 23:02/23:03 → commentaar ResetRoutine.lua:189 bijgewerkt; 98016 nog niet gezien.
 - k. Rabid Bite 1251539 (disease), Labyrinth 15 okt — niet in MH (dispel-/hazardlijst?).
-- l. Rob: *"er waren wel voor mij nieuwe gevechten in sommige kamers"* — welke kamers: site-chat vraagt het na.
+- l. Rob: *"er waren wel voor mij nieuwe gevechten in sommige kamers"* — welke kamers weet hij niet meer; hij neemt de volgende run op (video → `run video_frames`). Tot dan niets te doen.
 - m. Ter info: Carola (groep van 3) viel bij het platform van de laatste baas steeds door de grond, ook na release.
   Hotfix 16 okt noemt een doorval-bug in The Speaker's Chamber; zelfde plek NIET gemeten. Geen MH-actie.
 Niet vast te stellen: waarom maar 8 kamer-completions.
