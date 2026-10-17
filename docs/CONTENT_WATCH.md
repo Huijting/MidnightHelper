@@ -2760,3 +2760,100 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/FlightNetworkData.lua`, `Modules/FlightPointsData.lua` — allemaal vandaag gelezen.
   Eén kanttekening zonder harde tegenspraak (kill-credit-fix tweede ronde), verder **[RAAKT ONS
   NIET]**. Geen actiepunt dat ík kan oppakken — ik rapporteer, een mens beslist.
+
+- [2026-10-17] 🧩 **Eén echte content-vondst: Blizzards eigen bugfix-tekst over Sha'Kuro's Soul
+  Storm onthult een mechaniek die onze tip niet noemt.** Verder negen bugfixes in mijn terrein,
+  geen enkele in tegenspraak met iets dat we shippen.
+
+  💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v. gisteren).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261017b` (via
+  Exa, JSON volledig gelezen, `pagination.totalCount: 8`): dezelfde drie draadjes als gisteren
+  (esMX-locale-fix, debug-printregel, coffer-key-shards-popup), alle drie eindigend op een
+  reactie van `twelveinchy` behalve het coffer-key-shards-draadje, dat al sinds juni eindigt op
+  een bedankje van de vraagsteller zelf (geen nieuwe vraag) — zo ook al in elke eerdere run sinds
+  2 okt geteld. Geen nieuw draadje, geen nieuw bericht in een bestaand draadje.
+
+  **Bron van de hotfix-pagina geverifieerd — het juiste artikel-ID van vandaag is
+  `24307310`, NIET `24296142`.** De data-wachter ving dit vanochtend al (`docs/PTR_12.0.7_DATA.md`,
+  regel van 17 okt): `24296142` gaf met twee cache-busters nog steeds "Hotfixes: October 6, 2026"
+  terug. Ik heb zelf `24307310?nocache=20261017c` gelezen (via Exa, volledige pagina-tekst, niet
+  alleen een samenvatting): nieuwste sectiekop is **"October 16, 2026"**, boven de al verwerkte
+  15-okt-sectie — geen "October 17"-sectie vandaag, dus niets om op een nog nieuwere cache-val te
+  controleren. 📌 **Positieve controle, zelfde repo-brede scope als de claims hieronder:** `grep
+  -rn "Sha.Kuro"`, `"Jan'alai"` en `"stagger"` (case-insensitive) vinden allemaal onze eigen tekst
+  terug (`Locales/enUS.lua:3245`, `:1157`/`:3246`, `:1973-1988`) — dezelfde zoekvorm als de
+  nul-treffers verderop, dus die nul-treffers zijn gemeten afwezigheid.
+
+  **Dungeons and Raids (Murder Row, The Coiled Altar) — zuiver UI/achievement, niets om tegen te
+  spreken.** Murder Row kreeg een zichtbare safe-zone-indicator bij een barrel (puur visueel, al
+  API-watch-terrein); The Coiled Altar: achievement *Watch Out Behind You* nu voltooibaar in
+  raidgroepen >20 spelers. MEASURED dat noch de naam noch het kandidaat-ID 63669 ergens in een
+  geshipte tip voorkomt (`grep -rli` op beide treft alleen `docs/PTR_12.1_WATCH.md` en
+  `docs/PTR_12.0.7_DATA.md` — onze eigen dev-notities, geen spelerstekst). **[RAAKT ONS NIET]**
+
+  **Labyrinth of Kindo'jan — vijf losse bugfixes, stuk voor stuk een bestaande naam/entiteit maar
+  nergens een claim van ons die erdoor fout wordt.**
+  - *Jan'alai's Refuge* (het "Returning the Bounty"-scenario): Pit Boss spawnde soms niet. Onze
+    `DELVE_TIP_LABYRINTH_ROOMS` (`Locales/enUS.lua:3245`) noemt deze taak zelf als "Harvest
+    bundle" met een "Pit Boss" (Bombardment/Flame Wave) — dezelfde entiteit, andere naam voor de
+    kamer/het scenario dan Blizzards eigen tekst. Puur een spawnbug; wij claimen nergens dat hij
+    altijd spawnt. **[RAAKT ONS NIET]**
+  - Valeera's Stagger werkte niet met een healer in de groep. Elke "stagger"-treffer in onze
+    teksten (`Locales/enUS.lua:1973-1988`, `:3797`, `:4815`, `:4843`) is de Brewmaster-monnik-
+    mechaniek (PLAYCARD/tank-pull-summary) — een andere entiteit met toevallig dezelfde Engelse
+    naam. Niets over Valeera's eigen Stagger in onze tips. **[RAAKT ONS NIET]**
+  - Scar of Kathra'natir (DoT) deed te veel schade aan Valeera. 0 treffers op "kathra" in
+    `Locales/enUS.lua` — wij noemen deze ability nergens. **[RAAKT ONS NIET]**
+  - Spelers konden door de vloer vallen in The Speaker's Chamber. 0 treffers op "Speaker's
+    Chamber" (alleen het ongerelateerde zone-punt "Speaker's Rest" in Zul'Aman,
+    `Locales/enUS.lua:2376`). **[RAAKT ONS NIET]**
+  - Loa-Blessed Wayfarer (mount) en Loa-Blessed Victory (toy) worden nu alsnog door Kinduru
+    gegeven als je ze vergat te lootten uit de Ancestral Bounty-kist. Onafhankelijk nagelezen op
+    een verse Wowhead-gids (`wowhead.com/guide/midnight/delves/labyrinth-of-kindojan-megadelve-
+    nemesis-rewards`, bijgewerkt 16 okt): de mount is exclusief de beloning van de achievement
+    *Let Me Solo Him: Kindo'jan* (solo, Tier 11) — **exact wat onze eigen tekst al zegt**
+    (`MOUNTPROG_LOAWAYFARER_HOWTO`, `Locales/enUS.lua:888`: "Reward of the achievement Let Me
+    Solo Him: Kindo'jan..."); de toy komt uit de Ancestral Bounty-kist zelf (Tier 8+, niet
+    solo-specifiek) en wordt door MH nergens getrackt (`Modules/MountProgress.lua` kent geen
+    toy-entry voor Loa-Blessed Victory). Onze bestaande tip ("Afterwards Kinduru takes you to the
+    treasure room. Pick up your reward on the platform first", `DELVE_TIP_LABYRINTH_BOSS`,
+    `Locales/enUS.lua:3246`) klopt nog gewoon — deze hotfix is een extra vangnet, geen
+    tegenspraak. **[RAAKT ONS NIET]**, al is het een kandidaat om als geruststelling aan die regel
+    toe te voegen (mens beslist).
+  - Groepsschaling gaf te hoge gezondheid/schade voor sommige creatures/bosses (geen nieuw getal
+    of ID genoemd) — niets concreets om tegen een tip te leggen. **[RAAKT ONS NIET]**
+  - L00T RAID-R Mini kon maar één keer gebruikt worden in de Labyrinth; nu onbeperkt. Onze teksten
+    (`CHANGELOG_130_2`, `DELVE_MINIMAP_RADAR_TITLE`/`_HINT`, `Locales/enUS.lua:3935,4411-4412`)
+    claimen nergens een gebruikslimiet. **[RAAKT ONS NIET]**
+
+  🔴 **En dan de vondst: Sha'kuro's Soul Storm kón onderbroken worden vóórdat alle Unfortunate
+  Souls dood waren — "negating the damage window gained from the stun".** Letterlijk uit de
+  hotfix (Labyrinth and Delves, 16 okt): *"Fixed an issue where Sha'kuro's Soul Storm could be
+  interrupted before all Unfortunate Souls were defeated, negating the damage window gained from
+  the stun."* Dat onthult een mechaniek die nergens in onze eigen tekst staat: Soul Storm geeft,
+  als hij wél afloopt (niet onderbroken), een stun op Sha'Kuro — en dus een schade-venster. Onze
+  `DELVE_TIP_LABYRINTH_ROOMS` (`Locales/enUS.lua:3245`) zegt alleen *"kill the Unfortunate Souls,
+  because his Soul Storm (about every 45 seconds) drains them to protect himself and hurts you"*
+  — geen woord over een stun erna, en geen waarschuwing om hem NIET te onderbreken (in
+  tegenstelling tot zijn Vile Bolt, die onze tip wél expliciet als onderbreekbaar noemt). MEASURED
+  (hotfix-citaat zelf gelezen; `Locales/enUS.lua:3245` zelf gelezen; `grep -i "soul storm"` in de
+  hele codebase geeft buiten deze ene tiptekst 0 treffers, dus geen los interrupt-advies elders dat
+  dit al dekt). Dit is geen bewering van ons die fout is — het is een hiaat: spelers die Soul Storm
+  per ongeluk onderbreken (bv. met een AoE-stun of interrupt) missen het schade-venster, en onze
+  tip zegt daar niets over. **[RAAKT ONS]** als content-hiaat, geen harde tegenspraak. Mens beslist
+  of de tip een regel krijgt als "laat Soul Storm aflopen, onderbreek hem niet".
+
+  Vandaag is zaterdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-october-16-2026?nocache=20261017c
+  (volledig gelezen via Exa) ·
+  https://www.icy-veins.com/wow/news/many-delve-labyrinth-dungeon-and-raid-improvements-midnight-12-1-5-hotfixes-october-16th/
+  (onafhankelijke bevestiging, via search) ·
+  https://www.wowhead.com/guide/midnight/delves/labyrinth-of-kindojan-megadelve-nemesis-rewards
+  (bijgewerkt 16 okt, via search_exa) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261017b
+  (JSON, via Exa) · codebase: repo-brede `grep` op alle bovenstaande namen plus gerichte reads van
+  `Locales/enUS.lua`, `Modules/MountProgress.lua` — allemaal vandaag gelezen. Eén content-hiaat
+  gevonden (Sha'Kuro Soul Storm), verder uitsluitend **[RAAKT ONS NIET]**. Geen actiepunt dat ík
+  oppak — ik rapporteer, een mens beslist.
