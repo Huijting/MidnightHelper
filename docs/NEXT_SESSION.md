@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 🌅 17 okt — ochtendronde + twee kleine klussen (bouwchat 17-10)
+
+Ochtendronde (GEMETEN): vier wachters gedraaid; CF 0 open (8 berichten), GitHub 0 issues/PR's, site-mail niets
+sinds 10 okt; 29 addons bijgewerkt (DBM 12.1.15, GTFO 6.12.2, Platynator 510, MDT 6.3.8 — alleen gelezen, niet
+getest). ⚠️ API-wachter 17 okt zegt "120107 staat nergens in de repo" en "CLAUDE.md:7 noemt alleen 120007, 120100":
+beide FOUT, GEMETEN — `.toc` regel 1 = `120007, 120100, 120105, 120107`. Hij las vermoedelijk een verouderde
+clone (zijn eigen repo-incident die ochtend).
+Gebouwd, niet in het spel gezien (test bovenaan `docs/TESTLIJST.md`):
+1. `RitualSites.lua`: actieve site eerst op areaPoiID (8615 Daggerspine, 8614 Broken Throne), dan pas op Engelse
+   naam → werkt ook op een vertaalde client. Bron: HandyNotes 161 (zelfde ID's; Blizzard tekent de pin alleen als
+   de site open is). AFGELEID tot Robs /run.
+2. `ResetRoutine.lua` NpcIDFromGUID: velden 2-5 = `[^%-]+` i.p.v. `%d+`, want 12.1.7 obfusceert de server-id
+   (wiki Patch 12.1.7/API changes, 16 okt). Buiten het spel getest met lua.exe: 5/5.
+Nog open uit de ochtendronde: (3) Sha'Kuro Soul Storm — hotfix 16 okt: niet onderbreken, anders mis je de stun/
+schadevenster; onze `DELVE_TIP_LABYRINTH_ROOMS` zegt dat niet (eerst mh-research). (4) Labyrinth benedenverdieping
+= uiMap 2671 (Jan'alai's Refuge, kisten #15-19 + 98603); MH-code kent 2671 nergens → kistenroute daar mogelijk
+onzichtbaar (AFGELEID, niet gemeten). HandyNotes 161 heeft 44 kisten = onze 44; onze 98603 (Rob 21.54/36.48) blijft.
+
 ## 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
 
 ✅ **16 okt avond: v4.8.0 GETAGD** (release-commit c3cc0f5, tag v4.8.0; Rob: *"Go voor de tag v4.8.0."*). GitHub Actions

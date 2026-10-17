@@ -645,7 +645,9 @@ local function NpcIDFromGUID(guid)
 	if issecretvalue and issecretvalue(guid) then
 		return nil
 	end
-	local id = guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
+	-- Fields 2-5 may be anything: 12.1.7 replaces the server id (field 3) with an obfuscated value whose form is not
+	-- documented (wiki "Patch 12.1.7/API changes", 16 Oct 2026). Only the npc id (field 6) has to be a number.
+	local id = guid:match("^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)%-")
 	return id and tonumber(id) or nil
 end
 

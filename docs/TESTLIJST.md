@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 17 okt — Ritual site op nummer, GUID-patroon
+
+Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12.1.7-API-pagina).
+
+- [ ] **Welke ritual site is actief?** Typ in de chat:
+      `/run for _,m in ipairs({2395,2437}) do for _,p in ipairs(C_AreaPoiInfo.GetAreaPOIForMap(m) or {}) do if p==8614 or p==8615 then print(m,p) end end end`
+      Je hoort **één** regel te zien: `2395 8615` (Daggerspine Point) of `2437 8614` (Broken Throne). Open daarna `/mh`
+      → Home: de ritual-regel noemt **dezelfde** site, niet "rouleert wekelijks". Twee regels of geen regel → zeg het,
+      dan klopt de aanname van HandyNotes niet (alleen de open site heeft een pin).
+- [ ] **Weekly-gevers herkennen (ResetRoutine).** Niets te zien als het goed gaat: praat met een weekly-gever in
+      Silvermoon zoals altijd, en de This Week-lijst hoort hem net zo te herkennen als gisteren. Alleen het patroon dat
+      het NPC-nummer uit de GUID leest is ruimer gemaakt, voor 12.1.7. Buiten het spel getest op 5 voorbeelden (alle 5 goed).
+
 ## 🆕 16 okt (nacht) — Plekken zoeken in de zoekbalk (Dalaran enz.)
 
 Rob: *"kunnen we niet ook zoeken in MH naar bv dalaran …"*. Eerst `/reload`.

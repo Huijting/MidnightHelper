@@ -10,8 +10,8 @@
 	  - Broken Throne     — Zul'Aman      (map 2437) — 29.7, 78.2
 	  - Weekly meta-quest "Midnight: Ritual Sites" — quest 95843. NOT from the Bazaar hub: it is one
 	    of Lady Liadrin's weekly choices ("Unity Against the Void"), so not every week (3 Oct 2026).
-	  - DetectActiveSite matches English POI names; on a translated client it may never match
-	    (AFGELEID, not measured; candidate areaPoiIDs 8615/8614 need a client dump first).
+	  - DetectActiveSite looks for the site's areaPoiID first (8615 Daggerspine, 8614 Broken Throne; HandyNotes 161
+	    agrees, 17 Oct 2026), then falls back to the English POI names.
 
 	Active-site detection is best-effort: we scan the map POIs for each site
 	and match the one near the known obelisk spot. When the API gives us no
@@ -51,9 +51,12 @@ local HUB_MAP, HUB_X, HUB_Y = 2393, 48.08, 49.65 -- Lilatha per Zygor (ZygorEven
 -- Normalized map distance within which a map POI counts as "the obelisk".
 local POI_MATCH_RADIUS = 0.06
 
+-- `poi` = areaPoiID of Blizzard's "Ritual Site: <name>" pin. HandyNotes_Midnight 161 (17 Oct 2026) uses the same two
+-- ids (zones/daggerspine_point.lua, zones/broken_throne.lua) and states that Blizzard only draws that pin while the
+-- site is open. Not yet seen in our own client dump: AFGELEID from two sources (HandyNotes + wago candidates).
 local SITES = {
-	{ key = "daggerspine", name = "Daggerspine Point", mapID = 2395, x = 37.59, y = 65.20 },
-	{ key = "brokenthrone", name = "Broken Throne", mapID = 2437, x = 29.7, y = 78.2 },
+	{ key = "daggerspine", name = "Daggerspine Point", mapID = 2395, x = 37.59, y = 65.20, poi = 8615 },
+	{ key = "brokenthrone", name = "Broken Throne", mapID = 2437, x = 29.7, y = 78.2, poi = 8614 },
 }
 
 --------------------------------------------------------------------------------
@@ -104,6 +107,12 @@ local function DetectActiveSite()
 	for _, site in ipairs(SITES) do
 		local ok, pois = pcall(C_AreaPoiInfo.GetAreaPOIForMap, site.mapID)
 		if ok and type(pois) == "table" then
+			-- The site's own pin id first: a number, so it also works on a translated client.
+			for i = 1, #pois do
+				if pois[i] == site.poi then
+					return site.key
+				end
+			end
 			for i = 1, #pois do
 				local okInfo, info = pcall(C_AreaPoiInfo.GetAreaPOIInfo, site.mapID, pois[i])
 				if okInfo and info and type(info.name) == "string" then
