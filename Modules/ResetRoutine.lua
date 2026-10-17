@@ -186,7 +186,7 @@ local GIVER_WEEKLIES = {
 	--- 10 Oct 2026 (docs/WEEKLY_CHECK_2026-10-10.md, Blizzard 12.1.5 notes + Wowhead 6 Oct): Orin Straylight
 	--- at the Catalyst sells ONE extra Nebulous Voidcore a week (gold, Voidlight Marl or Veteran Mistcrests),
 	--- live since the reset of 7 Oct (EU), after "Umbral Blessings of the Catalyst" (97981). Purchase quests
-	--- 98016 / 98015 / 98012 (Wowhead, not measured in the client). noLearn: he also gives 12.1.5 story quests.
+	--- 98016 / 98015 / 98012 (Wowhead). 98012 + 98015 GEMETEN 16 Oct 2026 (turned in, Rob's SV); 98016 not yet. noLearn: he also gives 12.1.5 story quests.
 	{ key = "orin", name = "Orin Straylight", quests = { 98016, 98015, 98012 }, minLevel = 90,
 		noLearn = true, pickupKey = "HOME_ROUTINE_GIVER_PICKUP_ORIN_FMT",
 		pin = { 2393, 40.0, 64.6, "HOME_ROUTINE_PIN_ORIN" },

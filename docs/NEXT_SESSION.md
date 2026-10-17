@@ -18,6 +18,26 @@ schadevenster; onze `DELVE_TIP_LABYRINTH_ROOMS` zegt dat niet (eerst mh-research
 = uiMap 2671 (Jan'alai's Refuge, kisten #15-19 + 98603); MH-code kent 2671 nergens → kistenroute daar mogelijk
 onzichtbaar (AFGELEID, niet gemeten). HandyNotes 161 heeft 44 kisten = onze 44; onze 98603 (Rob 21.54/36.48) blijft.
 
+📋 **Labyrinth-run 16 okt uit Robs SV (site-chat, 17 okt; Earthshammy 20:17-22:50).** Klopt (GEMETEN door site-chat):
+encounter-id's Den'zara 3556 / Kindo'jan 3548, 9 kamers op [2647], 7 kist-quests binnen 0,5 van onze plekken. Zelf
+nagemeten: 705929, 696116, 93819, 93935, 1251539 staan nergens in de code (positieve controle 98012 wél gevonden).
+Open, niets aan gebouwd (wacht op Rob):
+- a. Kamerbazen zonder encounter-id krijgen geen knop: naam/GUID boss1 secret, doelnaam óók buiten gevecht secret →
+  de hoop in DelveCoach.lua (~1926) klopt niet voor de naam. GUID vóór de pull: niet gemeten.
+- b. Seal-regel (seal N = Journey-rang N): 16 okt 4× seal 5 en 2× seal 7 geopend. Robs rang onbekend → site-chat vraagt het.
+- c. Delve Log telt elke kamer als losse run ("17 runs" = 9 + 8 kamers). AFGELEID.
+- d. Battle-res-pool in de delve (2/10, 120 s); GroupRezLust verwacht die alleen in key/raid. Misschien de "levens".
+- e. Object 705929 (geen quest-flag) op 5 plekken; 2 vallen op Mislaid #11/#4 → waarschijnlijk Mislaid Treasure
+  (AFGELEID). Dan mist Codex.lua (~169) minstens 67.75/58.82, 74.86/63.59, 65.82/32.59.
+- f. Object 696116 op 44.36/70.83 — niet in MH, niet in HandyNotes 161.
+- g. Quests 93819 (43.8/84.8) en 93935 (44.2/85.3) geflagd na het eindgevecht — kandidaat Kindo'jan/schatkamer.
+- h. "Flooded Chamber" staat niet tussen de 9 kamers van de vluchtkaart; onze 5 kisten matchen op subzone-tekst die
+  misschien nooit vuurt (AFGELEID; vergelijk punt 4 hierboven, kaart 2671).
+- i. Commentaar DelveChestData.lua:144 "Not in HandyNotes 158" → HN 161 heeft 98603 nu wel (21.40/36.70); onze plek blijft.
+- j. ✅ Orin 98012 + 98015 ingeleverd 16 okt 23:02/23:03 → commentaar ResetRoutine.lua:189 bijgewerkt; 98016 nog niet gezien.
+- k. Rabid Bite 1251539 (disease), Labyrinth 15 okt — niet in MH (dispel-/hazardlijst?).
+Niet vast te stellen: of Kindo'jan dood ging (3 pulls), waarom maar 8 kamer-completions, Journey-rang.
+
 ## 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
 
 ✅ **16 okt avond: v4.8.0 GETAGD** (release-commit c3cc0f5, tag v4.8.0; Rob: *"Go voor de tag v4.8.0."*). GitHub Actions
