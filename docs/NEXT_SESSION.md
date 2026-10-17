@@ -15,9 +15,9 @@ Gebouwd, niet in het spel gezien (test bovenaan `docs/TESTLIJST.md`):
 2. `ResetRoutine.lua` NpcIDFromGUID: velden 2-5 = `[^%-]+` i.p.v. `%d+`, want 12.1.7 obfusceert de server-id
    (wiki Patch 12.1.7/API changes, 16 okt). Buiten het spel getest met lua.exe: 5/5.
 ✅ Labyrinth-ingangspijl GETEST (Rob 17 okt: "ik krijg keurig een pijl", Route step 1 of 2).
-3. Vluchtmeester in routes (Rob 17 okt, koos "allebei"; daarna: *"soms eerst naar een fp moet vliegen"*). GEBOUWD, niet
-   in het spel gezien: TravelRoute.lua FlightMasterPassed (ticker 1 s) laat een `fly`-stap los als je dichter bij het doel
-   bent dan de vluchtmeester, of >150 yd verder van hem dan je dichtstbij was terwijl je >150 yd dichter bij het doel kwam
+3. Vluchtmeester in routes (Rob 17 okt, koos "allebei"; daarna: *"soms eerst naar een fp moet vliegen"*). ✅ loslaten
+   GETEST (Rob + log 08:44:06, incl. rare-omweg); schakelaar en "niet te vroeg" nog niet: TravelRoute.lua FlightMasterPassed (ticker 1 s) laat een `fly`-stap los als je dichter bij het doel
+   bent dan de vluchtmeester (sinds Robs test met 150 yd marge), of >150 yd verder van hem dan je dichtstbij was terwijl je >150 yd dichter bij het doel kwam
    (getallen GEKOZEN). NIET op "zelf vliegen" (dat is ook naar de FP vliegen). Stap krijgt `passed`, CurrentStep gaat er
    nooit naar terug. Schakelaar `mh_routeNoFlightMasters` → `ns.db.routeNoFlightMasters` (standaard uit): FlightLeg en de
    "fly to X"-hint in TravelPlan zwijgen. Teksten SET_ROUTE_NOFP_* in 7 talen, met de clientnaam voor Flight Master

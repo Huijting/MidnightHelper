@@ -1486,7 +1486,7 @@ end
 --- boarding or on reaching the target's map. And, his next message: "hou er wel rekening mee, dat users en ik soms eerst
 --- naar een fp moet vliegen" — so being in the air proves nothing; flying TO the flight master is flying too. Let go
 --- only when the player is past it, in world yards on one continent:
----   - nearer the target than the flight master is (the taxi would take you backwards), or
+---   - nearer the target than the flight master is, by `closer` (the taxi would take you backwards), or
 ---   - clearly moving away from it while closing on the target: `away` further than the nearest you came, and `closer`
 ---     nearer the target than you were at that moment (yards CHOSEN, not measured).
 --- Once let go the step is `passed` and CurrentStep never goes back to it.
@@ -1519,7 +1519,9 @@ do
 			s.minToFP, s.targetAtMin = toFP, toTarget
 		end
 		local why
-		if toTarget < fpToTarget then
+		-- With a margin: Rob's first test (17 Oct 08:44) let go 123 yd from the flight master at only 17 yd nearer the
+		-- target — right for him (he flew past it), too early for someone approaching it from the target's side.
+		if toTarget < fpToTarget - T.NEAR.flightPassed.closer then
 			why = "nearer the target than the flight master"
 		elseif toFP > s.minToFP + T.NEAR.flightPassed.away and toTarget < s.targetAtMin - T.NEAR.flightPassed.closer then
 			why = "flying away from it, towards the target"

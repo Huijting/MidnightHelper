@@ -56,7 +56,11 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
 Rob: *"blijft de pijl eigenwijs naar de FP wijzen"* en *"hou er wel rekening mee, dat users en ik soms eerst naar een fp
 moet vliegen"*. Eerst `/reload`.
 
-- [ ] **Loslaten.** Zet een route die een vluchtmeester voorstelt (de pijl zegt "fly from …"). Vlieg er NIET heen maar
+- [x] ✅ Rob 17 okt: *"gedaan, incl een rare onderweg 🙂 en alles ging goed"*. Log 08:43:13 "step 1/2 fly: Flight
+      master: Sanctum of Light" → 08:44:06 "flight master let go (nearer the target …): 123 yd to it, 2956 yd to the
+      target, it is 2973 yd from the target" → rare-omweg Cre'van → verder naar de Labyrinth. Marge daarna op 150 yd gezet
+      (was 17 yd verschil — te vroeg voor wie van de doelkant naar de vluchtmeester vliegt); dat stukje is niet opnieuw getest.
+      **Loslaten.** Zet een route die een vluchtmeester voorstelt (de pijl zegt "fly from …"). Vlieg er NIET heen maar
       rechtstreeks naar je doel. Zodra je dichter bij je doel bent dan die vluchtmeester (of duidelijk van hem
       wegvliegt, richting je doel), hoort de pijl naar je doel te springen. Doe daarna `/reload`: dan lees ik in het
       routelog "flight master let go (…)".
