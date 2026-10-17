@@ -28,7 +28,16 @@ Gebouwd, niet in het spel gezien (test bovenaan `docs/TESTLIJST.md`):
    Delve Coach-vertaling, anders Engels) → MH_TomTomClearAll + AddSmartTomTomWay; elke dungeon (`GetDungeonRoster`) en
    raid (`CUSTOM_BOSS_ENTRIES`) met `entrance` → RouteDungeonEntrance. Grijze tekst = zone van de ingang uit de client +
    NAV_ACTION_TAKE_ME, dus geen nieuwe strings. Categorie `place` (@place).
-Nog open uit de ochtendronde: (3) Sha'Kuro Soul Storm — hotfix 16 okt: niet onderbreken, anders mis je de stun/
+5. ✅ Sha'Kuro GEBOUWD (mh-research 17 okt): DELVE_TIP_LABYRINTH_ROOMS kreeg in 8 talen "Killing the last Soul stops the
+   storm and stuns him for a moment, so hit him hard then." Bron: hotfix 16 okt + Soul Storm 1288806 "for 16 sec or until
+   all Souls are destroyed". Duur van de stun en de stun-spell: NIET gevonden. "about every 45 seconds" niet bevestigd
+   (Wowhead: 30 s cd + 16 s kanaal ≈ 46, AFGELEID) — laten staan.
+6. Rabid Bite 1251539 (mh-research 17 okt): Disease, 30 s, −25% healing taken, Putrid Ursine (262924/275685), stapelt niet
+   (wago). MH vangt het al via het dispel-type (DispelHelper/PartyTargets/DispelCapture; staat al in Robs dispelCapture).
+   Optioneel: SEASON_DISPELS (PlayCardWindow.lua:478) — vergt een nieuwe kop "dungeons and raid" in 7 talen. Niet gedaan.
+7. HandyNotes 162 (17 okt): haalde zijn eigen 8614/8615-pinhook weer weg (onze code blijft: Robs /run mat 2437 8614);
+   Labyrinth-deur 62.95/70.00 — wij houden Robs 62.90/72.00 (coördinatenregel).
+Nog open uit de ochtendronde: (3) ✅ zie 5. Sha'Kuro Soul Storm — hotfix 16 okt: niet onderbreken, anders mis je de stun/
 schadevenster; onze `DELVE_TIP_LABYRINTH_ROOMS` zegt dat niet (eerst mh-research). (4) Labyrinth benedenverdieping
 = uiMap 2671 (Jan'alai's Refuge, kisten #15-19 + 98603); MH-code kent 2671 nergens → kistenroute daar mogelijk
 onzichtbaar (AFGELEID, niet gemeten). HandyNotes 161 heeft 44 kisten = onze 44; onze 98603 (Rob 21.54/36.48) blijft.

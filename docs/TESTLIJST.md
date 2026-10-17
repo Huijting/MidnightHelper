@@ -51,6 +51,12 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 
+## 🆕 17 okt — Sha'Kuro: na de laatste Soul even verdoofd
+
+- [ ] In de Labyrinth, kamer met **Sha'Kuro**: dood alle Unfortunate Souls tijdens zijn Soul Storm. Je hoort te zien dat de
+      storm stopt en Sha'Kuro even stilstaat (verdoofd). Hoe lang? Dat weet geen enkele bron — tel het als je kunt.
+      De tip in de Delve Coach zegt het nu ook ("Killing the last Soul stops the storm and stuns him for a moment").
+
 ## 🆕 17 okt — Delve Log: een Labyrinth-run = één run
 
 Rob: de Delve Log zei "17 runs" na twee avonden (= 17 kamers). Eerst `/reload`.
