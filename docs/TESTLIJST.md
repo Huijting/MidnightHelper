@@ -56,7 +56,8 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
 Rob: *"niet even een snelle knop … naar de labyrinth zelf, maar ook niet naar andere delves dungeons of raids"*.
 Eerst `/reload`.
 
-- [ ] `/mh` → typ `laby` in de zoekbalk. Bovenaan hoort **"The Labyrinth of Kindo'jan"** te staan met grijs erachter
+- [x] ✅ Rob 17 okt: *"ja werkt"*.
+      `/mh` → typ `laby` in de zoekbalk. Bovenaan hoort **"The Labyrinth of Kindo'jan"** te staan met grijs erachter
       **"Eversong Woods — take me there"**. Klik: de route start (zoals de knop op het Delves-tabblad).
 - [ ] Typ een dungeon (bv. `maisara`) en een raid (bv. `voidspire`): ook daar een regel "… — take me there", en de
       klik zet de route naar de ingang. De bazen en de Delve Coach staan er gewoon nog onder.
