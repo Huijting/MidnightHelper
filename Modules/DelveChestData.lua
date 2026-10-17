@@ -141,7 +141,8 @@ ns.DELVE_CHESTS = {
 		{ x = 89.00, y = 78.00, quest = 98635, seal = 3, room = "The Cave Towers" },  -- #38 The Cave Towers, Akil'zon
 		{ x = 86.88, y = 63.34, quest = 98634, room = "The Cave Towers" },  -- Zygor = HandyNotes 158 #36 (86.90/63.30), under water, no seal
 		-- Method, Jan'alai's Refuge: NOT a loa seal but a door you click (Method exact, Icy Veins "behind door").
-		-- Quest 98603 GEMETEN 15 Oct (Rob looted it; questDiff at 21.5/36.6). Not in HandyNotes 158.
+		-- Quest 98603 GEMETEN 15 Oct (Rob looted it; questDiff at 21.5/36.6). Not in HandyNotes 158; HandyNotes 161 has
+		-- it at 21.40/36.70 (#19, lower map 2671). Ours stays: Rob's measurement wins.
 		{ x = 21.54, y = 36.48, quest = 98603, room = "Jan'alai's Refuge" },
 		-- New in HandyNotes 158: the five sealed chests no guide had placed. Seal + room from the Icy Veins list (the
 		-- Reliquary pair at ~26.94/80.77 behind Nalorakk, the Halazzi's Lair three at ~10.48/54.68 behind Halazzi);
@@ -236,7 +237,8 @@ do
 		for slot = 1, (GetNumLootItems() or 0) do
 			local okS, guid = pcall(GetLootSourceInfo, slot)
 			if okS and type(guid) == "string" and guid:find("^GameObject") then
-				objectID = tonumber(guid:match("GameObject%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+				-- Fields 2-5 may be anything: 12.1.7 obfuscates the server id of game object GUIDs (see ResetRoutine).
+				objectID = tonumber(guid:match("^GameObject%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)"))
 				break
 			end
 		end

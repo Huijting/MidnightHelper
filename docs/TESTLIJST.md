@@ -33,6 +33,11 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
 - [ ] **Weekly-gevers herkennen (ResetRoutine).** Niets te zien als het goed gaat: praat met een weekly-gever in
       Silvermoon zoals altijd, en de This Week-lijst hoort hem net zo te herkennen als gisteren. Alleen het patroon dat
       het NPC-nummer uit de GUID leest is ruimer gemaakt, voor 12.1.7. Buiten het spel getest op 5 voorbeelden (alle 5 goed).
+      Hetzelfde patroon zit nu ook in de kistenregistratie (DelveChestData), EncounterCapture en SpotLog — ook daar
+      hoort niets te veranderen.
+- [ ] **Mislaid Treasures: 41 plekken.** `/mh` → Codex → The Labyrinth of Kindo'jan → kopje Mislaid Treasures. Je hoort
+      "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
+      Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 
 ## 🆕 16 okt (nacht) — Plekken zoeken in de zoekbalk (Dalaran enz.)
 

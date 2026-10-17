@@ -243,7 +243,7 @@ local function TargetNpcID()
 	end
 	-- Field 6 of a Creature/Vehicle GUID is the npc id — the same extraction Rares.lua
 	-- uses. Deliberately not a name lookup.
-	local id = guid:match("^%a+%-%d+%-%d+%-%d+%-%d+%-(%d+)")
+	local id = guid:match("^%a+%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)") -- fields 2-5 loose: 12.1.7 obfuscates the server id
 	return tonumber(id), id and "read from the GUID" or "GUID has no npc field"
 end
 

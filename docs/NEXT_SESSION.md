@@ -28,8 +28,13 @@ Open, niets aan gebouwd (wacht op Rob):
   tegenspraak. Wanneer hij 7 haalde is onbekend (15 okt werd #13 nog geweigerd). Niets aan doen.
 - c. Delve Log telt elke kamer als losse run ("17 runs" = 9 + 8 kamers). AFGELEID.
 - d. Battle-res-pool in de delve (2/10, 120 s); GroupRezLust verwacht die alleen in key/raid. Misschien de "levens".
-- e. Object 705929 (geen quest-flag) op 5 plekken; 2 vallen op Mislaid #11/#4 → waarschijnlijk Mislaid Treasure
-  (AFGELEID). Dan mist Codex.lua (~169) minstens 67.75/58.82, 74.86/63.59, 65.82/32.59.
+- e. ✅ 17 okt GEBOUWD. 705929 = "Mislaid Treasure" (GEMETEN: Wowhead object-pagina, 40 pins). In Robs SV staat 705929
+  op 12 plekken (15+16 okt, niet 5); maar 2 daarvan lagen op een HandyNotes-plek. Codex nu 41 plekken in alle 9
+  teksten: HN 1-15 (#4/#11 → Robs meting), Rob 16-25, Wowhead 26-41 (ontdubbeld ~1,5). Zin "15 spots (HandyNotes)" →
+  "41 spots (HandyNotes + Wowhead)"; ruRU "из 41 места". check_drift --mark gedaan. Niet in het spel gezien.
+  Bijvangst: GUID-patroon (12.1.7) ook ruim gemaakt in DelveChestData:239, EncounterCapture:1227, SpotLog:246 — die
+  laatste twee miste de API-wachter. ⚠️ Teller `seen` in de kistenregistratie telt elk object binnen 2 eenheden, ook
+  een ánder object (43.66/83.98 "seen 14") — geen objectID-vergelijking. Klein, niet gerepareerd.
 - f. Object 696116 op 44.36/70.83 — niet in MH, niet in HandyNotes 161.
 - g. Quests 93819 (43.8/84.8) en 93935 (44.2/85.3) geflagd na het eindgevecht. Rob 17 okt: Kindo'jan ging NIET dood
   (3 pulls = 3 wipes) → dit zijn geen kill-flags, en de +3 Corrosive Soul ook geen killbeloning (AFGELEID). Betekenis open.

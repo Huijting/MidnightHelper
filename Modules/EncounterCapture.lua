@@ -1224,7 +1224,8 @@ function ns.PrintZoneReport()
 		-- The secret flag must GATE the read, not merely be reported next to it.
 		local npcID
 		if okG and not secret and type(guid) == "string" then
-			npcID = tonumber(guid:match("^%a+%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+			-- Fields 2-5 loose: 12.1.7 obfuscates the server id.
+			npcID = tonumber(guid:match("^%a+%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)"))
 		end
 		print(("   target      = %s"):format(
 			secret and "|cffffd100secret value|r"
