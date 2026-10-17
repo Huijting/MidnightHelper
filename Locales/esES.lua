@@ -356,6 +356,7 @@ local OVERRIDES = {
 	DELVELOG_LBL_AVG = "Media:",
 	DELVELOG_LBL_FASTEST = "Más rápida:",
 	DELVELOG_LBL_DEATHS = "Muertes:",
+	DELVELOG_LBL_ROOMS = "Salas:",
 	DELVELOG_LBL_KEY = "Llave",
 	DELVELOG_TOTAL_TIME = "Tiempo total:",
 	INFO_DRAWER_BODY_DELVELOG = "El Registro de profundidades anota cada profundidad de Midnight que completas con este personaje. Haz clic en una profundidad para desplegar sus últimas partidas. Cada una muestra nivel, tiempo, muertes, si usaste una Llave de cofre restaurada y el jefe final. El registro funciona en segundo plano; no necesitas tener esta pestaña abierta.",

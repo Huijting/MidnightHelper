@@ -355,6 +355,7 @@ local OVERRIDES = {
 	DELVELOG_LBL_AVG = "Schnitt:",
 	DELVELOG_LBL_FASTEST = "Schnellste:",
 	DELVELOG_LBL_DEATHS = "Tode:",
+	DELVELOG_LBL_ROOMS = "Räume:",
 	DELVELOG_LBL_KEY = "Schlüssel",
 	DELVELOG_TOTAL_TIME = "Gesamtzeit:",
 	INFO_DRAWER_BODY_DELVELOG = "Das Tiefen-Log erfasst jede Midnight-Tiefe, die du mit diesem Charakter abschließt. Klicke auf eine Tiefe, um die letzten Läufe aufzuklappen. Jeder Lauf zeigt Stufe, Clearzeit, Tode, ob du einen restaurierten Kastenschlüssel genutzt hast, und den Endboss. Das Tracking läuft im Hintergrund; dieser Tab muss nicht offen sein.",

@@ -353,6 +353,7 @@ local OVERRIDES = {
 	DELVELOG_LBL_AVG = "Moy. :",
 	DELVELOG_LBL_FASTEST = "Plus rapide :",
 	DELVELOG_LBL_DEATHS = "Morts :",
+	DELVELOG_LBL_ROOMS = "Salles :",
 	DELVELOG_LBL_KEY = "Clé",
 	DELVELOG_TOTAL_TIME = "Temps total :",
 	INFO_DRAWER_BODY_DELVELOG = "Le Journal des gouffres enregistre chaque gouffre de Midnight que tu termines sur ce personnage. Clique sur un gouffre pour déplier ses dernières runs. Chaque run indique le palier, le temps, les morts, si tu as utilisé une clé de coffret réparée et le boss final. Le suivi tourne en arrière-plan ; cet onglet n'a pas besoin d'être ouvert.",

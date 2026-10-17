@@ -41,7 +41,11 @@ Open, niets aan gebouwd (wacht op Rob):
   de hoop in DelveCoach.lua (~1926) klopt niet voor de naam. GUID vóór de pull: niet gemeten.
 - b. ✅ Seal-regel (seal N = Journey-rang N): 16 okt 4× seal 5 en 2× seal 7 geopend; Rob 17 okt: rang NU 9 → geen
   tegenspraak. Wanneer hij 7 haalde is onbekend (15 okt werd #13 nog geweigerd). Niets aan doen.
-- c. Delve Log telt elke kamer als losse run ("17 runs" = 9 + 8 kamers). AFGELEID.
+- c. ✅ GEBOUWD 17 okt (niet in het spel gezien). GEMETEN in de SV: één entry per kamer. DelveHistory.lua: ROOM_RUN_DELVES
+  (Labyrinth) → SCENARIO_COMPLETED telt een kamer op (`rooms`, in activeRun voor /reload/logout), een laadscherm binnen
+  telt niet als nieuwe run, de run wordt gelogd bij het verlaten (FlushRoomRun). Eenmalige reparatie MergeRoomRuns
+  (vlag `store.roomRunsMerged`; kamers ≤15 min uit elkaar = één run): Robs 17 → 2 (9 + 8), getest met lua.exe.
+  Nieuwe key DELVELOG_LBL_ROOMS in 8 talen.
 - d. Battle-res-pool in de delve (2/10, 120 s); GroupRezLust verwacht die alleen in key/raid. Misschien de "levens".
 - e. ✅ 17 okt GEBOUWD. 705929 = "Mislaid Treasure" (GEMETEN: Wowhead object-pagina, 40 pins). In Robs SV staat 705929
   op 12 plekken (15+16 okt, niet 5); maar 2 daarvan lagen op een HandyNotes-plek. Codex nu 41 plekken in alle 9

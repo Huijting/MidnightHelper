@@ -51,6 +51,15 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 
+## 🆕 17 okt — Delve Log: een Labyrinth-run = één run
+
+Rob: de Delve Log zei "17 runs" na twee avonden (= 17 kamers). Eerst `/reload`.
+
+- [ ] Open de **Delve & Ritual Log**. De Labyrinth hoort nu **2 runs** te tonen: 15 okt met "Rooms: 9" en 16 okt met
+      "Rooms: 8" (buiten het spel getest op jouw echte gegevens: 17 → 2).
+- [ ] Doe een paar kamers en **verlaat** de Labyrinth. Daarna hoort er één nieuwe run bij te komen met het aantal kamers,
+      niet één per kamer. (Tussen de kamers telt hij niets — de run wordt pas geteld als je naar buiten gaat.)
+
 ## 🆕 17 okt — Zoekbalk: "take me there" voor delves, dungeons en raids
 
 Rob: *"niet even een snelle knop … naar de labyrinth zelf, maar ook niet naar andere delves dungeons of raids"*.

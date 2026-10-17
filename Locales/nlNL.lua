@@ -2616,6 +2616,7 @@ ns._mhLocales.nlNL = {
 	DELVELOG_LBL_AVG = "Gem.:",
 	DELVELOG_LBL_FASTEST = "Snelste:",
 	DELVELOG_LBL_DEATHS = "Deaths:",
+	DELVELOG_LBL_ROOMS = "Kamers:",
 	DELVELOG_LBL_KEY = "Sleutel",
 	DELVELOG_TOTAL_TIME = "Totale tijd:",
 	INFO_DRAWER_BODY_DELVELOG = "Delve Log legt elke Midnight-delve vast die je op dit character voltooit. Klik op een delve om de recente runs uit te klappen. Elke run toont tier, cleartijd, deaths, of je een Restored Coffer Key gebruikte en de eindbaas. Het bijhouden gebeurt op de achtergrond; deze tab hoeft niet open te staan.",

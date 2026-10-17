@@ -2725,6 +2725,7 @@ ns._mhLocales.enUS = {
 	DELVELOG_LBL_AVG = "Avg:",
 	DELVELOG_LBL_FASTEST = "Fastest:",
 	DELVELOG_LBL_DEATHS = "Deaths:",
+	DELVELOG_LBL_ROOMS = "Rooms:",
 	DELVELOG_LBL_KEY = "Key",
 	DELVELOG_TOTAL_TIME = "Total Time:",
 	INFO_DRAWER_BODY_DELVELOG = "Delve Log records every Midnight delve you complete on this character. Click a delve to expand its recent runs. Each run shows tier, clear time, deaths, whether you spent a Restored Coffer Key and the end boss. Tracking runs in the background; you don't need this tab open.",

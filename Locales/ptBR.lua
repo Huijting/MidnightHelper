@@ -353,6 +353,7 @@ local OVERRIDES = {
 	DELVELOG_LBL_AVG = "Média:",
 	DELVELOG_LBL_FASTEST = "Mais rápida:",
 	DELVELOG_LBL_DEATHS = "Mortes:",
+	DELVELOG_LBL_ROOMS = "Salas:",
 	DELVELOG_LBL_KEY = "Chave",
 	DELVELOG_TOTAL_TIME = "Tempo total:",
 	INFO_DRAWER_BODY_DELVELOG = "O Registro de Imersões anota cada imersão de Midnight que você completa neste personagem. Clique em uma imersão para expandir as corridas recentes. Cada corrida mostra nível, tempo de conclusão, mortes, se você usou uma Chave de Cofre Restaurada e o chefe final. O rastreamento roda em segundo plano; esta aba não precisa estar aberta.",

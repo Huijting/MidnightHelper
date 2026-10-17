@@ -458,6 +458,7 @@ ns._mhLocales.itIT = {
 	DELVELOG_LBL_AVG = "Media:",
 	DELVELOG_LBL_FASTEST = "Più veloce:",
 	DELVELOG_LBL_DEATHS = "Morti:",
+	DELVELOG_LBL_ROOMS = "Stanze:",
 	DELVELOG_LBL_KEY = "Key",
 	DELVELOG_TOTAL_TIME = "Tempo totale:",
 	INFO_DRAWER_BODY_DELVELOG = "Il registro delle scorribande registra ogni scorribanda di Midnight che completi su questo personaggio. Clicca una scorribanda per espandere le run recenti. Ogni run mostra tier, tempo di clear, morti, se hai speso una Chiave dello Scrigno Ripristinata e il boss finale. Traccia le run in background; non serve tenere aperta questa tab.",

@@ -1033,6 +1033,7 @@ ns._mhLocales.ruRU = {
 	DELVELOG_LBL_AVG = "Сред.:",
 	DELVELOG_LBL_BEST = "Лучшее:",
 	DELVELOG_LBL_DEATHS = "Смерти:",
+	DELVELOG_LBL_ROOMS = "Комнаты:",
 	DELVELOG_LBL_FASTEST = "Быстрее всего:",
 	DELVELOG_LBL_KEY = "Ключ",
 	DELVELOG_LBL_RUNS = "Прохождения:",

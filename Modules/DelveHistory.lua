@@ -30,6 +30,65 @@ local MAX_RECENT = 20
 -- so this guard stops a stale cross-session run from logging an absurd duration.
 local MAX_RESUME_AGE = 6 * 3600
 
+--- 🧩 THE LABYRINTH FINISHES ONE SCENARIO PER ROOM. Rob's log after two evenings said "17 runs": GEMETEN 17 Oct 2026 in
+--- his SavedVariables, one entry per room, 8-28 min each, back to back. So in the Labyrinth a finished scenario adds a
+--- room to the run, and the run is logged once, with its room count, when the player leaves the instance.
+local ROOM_RUN_DELVES = { ["The Labyrinth of Kindo'jan"] = true }
+-- Old per-room entries less than this far apart (end of one → start of the next) were one run (merge below).
+local ROOM_GAP_SAME_RUN = 15 * 60 -- CHOSEN: Rob's rooms followed each other within minutes
+
+--- One-time repair of logs written before 17 Oct 2026: back-to-back Labyrinth rooms become one run with `rooms`.
+local function MergeRoomRuns(store)
+	for name in pairs(ROOM_RUN_DELVES) do
+		local entry = store.delves[name]
+		local recent = entry and entry.recent
+		if type(recent) == "table" and #recent > 1 then
+			local runs, cur = {}, nil
+			-- `recent` is newest first; walk it oldest first.
+			for i = #recent, 1, -1 do
+				local r = recent[i]
+				local startAt = (r.timestamp or 0) - (r.duration or 0)
+				if cur and startAt - (cur.timestamp or 0) <= ROOM_GAP_SAME_RUN then
+					cur.duration = (cur.duration or 0) + (r.duration or 0)
+					cur.deaths = (cur.deaths or 0) + (r.deaths or 0)
+					cur.timestamp = r.timestamp
+					cur.rooms = (cur.rooms or 1) + (r.rooms or 1)
+					cur.boss = r.boss or cur.boss
+					cur.keyUsed = cur.keyUsed or r.keyUsed
+					if (r.tier or 0) > (cur.tier or 0) then
+						cur.tier = r.tier
+					end
+				else
+					cur = {}
+					for k, v in pairs(r) do
+						cur[k] = v
+					end
+					cur.rooms = cur.rooms or 1
+					runs[#runs + 1] = cur
+				end
+			end
+			local merged = #recent - #runs
+			if merged > 0 then
+				wipe(recent)
+				for i = #runs, 1, -1 do
+					recent[#recent + 1] = runs[i]
+				end
+				local life = entry.lifetime
+				if type(life) == "table" then
+					life.totalRuns = math.max(#runs, (life.totalRuns or 0) - merged)
+					local fastest
+					for _, r in ipairs(runs) do
+						if (r.duration or 0) > 0 and (not fastest or r.duration < fastest) then
+							fastest = r.duration
+						end
+					end
+					life.fastestTime = fastest or life.fastestTime
+				end
+			end
+		end
+	end
+end
+
 -- Shared status palette (UI.lua). The fallbacks keep this module standalone.
 local C = ns.UI_COLORS or {}
 local COLOR_HEADER = C.header or { 0.91, 0.76, 0.42 }
@@ -145,6 +204,10 @@ local function GetStore()
 	end
 	store.delves = store.delves or {}
 	store.name = UnitName("player") or store.name
+	if not store.roomRunsMerged then
+		store.roomRunsMerged = true
+		MergeRoomRuns(store)
+	end
 	return store
 end
 
@@ -307,7 +370,10 @@ local runState = {
 	tier = 0,
 	boss = nil,
 	wasBountiful = false,
+	rooms = 0, -- Labyrinth only: rooms finished in this run
+	roomDuration = 0, -- seconds from the start to the last finished room
 }
+
 
 local function GetDelveMapID(name)
 	if not name or not ns.MIDNIGHT_DELVES then
@@ -383,6 +449,8 @@ local function BeginDelveRun(name)
 	runState.tier = 0
 	runState.boss = nil
 	runState.wasBountiful = false
+	runState.rooms = 0
+	runState.roomDuration = 0
 	local store = GetStore()
 	if store then
 		store.activeRun = {
@@ -393,6 +461,7 @@ local function BeginDelveRun(name)
 			startKeyCount = runState.startKeyCount,
 			tier = 0,
 			wasBountiful = false,
+			rooms = 0,
 		}
 	end
 	RefreshBountifulSnapshot()
@@ -408,13 +477,15 @@ local function EndDelveRun()
 	runState.tier = 0
 	runState.boss = nil
 	runState.wasBountiful = false
+	runState.rooms = 0
+	runState.roomDuration = 0
 	local store = GetStore()
 	if store then
 		store.activeRun = nil
 	end
 end
 
-local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful)
+local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful, rooms)
 	local store = GetStore()
 	if not (name and store) then
 		return
@@ -456,6 +527,7 @@ local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful)
 		keyUsed = keyUsed and true or false,
 		boss = (boss and boss ~= "") and boss or nil,
 		wasBountiful = wasBountiful and true or false,
+		rooms = (rooms and rooms > 0) and rooms or nil,
 		timestamp = time(),
 	})
 	while #entry.recent > MAX_RECENT do
@@ -500,12 +572,39 @@ end
 
 local enteredViaReload = false
 
+--- Log a Labyrinth run that has finished rooms, once, as one run. From the live state, or (after a logout inside) from
+--- the saved activeRun. Nothing to log → nothing happens; the caller still ends the run.
+local function FlushRoomRun()
+	local store = GetStore()
+	local saved = store and store.activeRun
+	local name, rooms, duration, deaths, tier, boss, startKeys, bountiful
+	if runState.inDelve and (runState.rooms or 0) > 0 then
+		name, rooms, duration = runState.delveName, runState.rooms, runState.roomDuration
+		deaths, tier, boss = runState.deaths, runState.tier, runState.boss
+		startKeys, bountiful = runState.startKeyCount, runState.wasBountiful
+	elseif type(saved) == "table" and (saved.rooms or 0) > 0 then
+		name, rooms, duration = saved.name, saved.rooms, saved.roomDuration
+		deaths, tier, boss = saved.deaths, saved.tier, saved.boss
+		startKeys, bountiful = saved.startKeyCount, saved.wasBountiful
+	end
+	if not (name and rooms) then
+		return
+	end
+	local keyNow = GetCurrencyQty(COFFER_KEY_CURRENCY)
+	local keyUsed = (startKeys or 0) > 0 and keyNow < startKeys or false
+	LogRun(name, tier or 0, duration or 0, deaths or 0, keyUsed, boss, bountiful, rooms)
+	if store then
+		store.activeRun = nil
+	end
+end
+
 local function TryBeginFromCurrentZone(source)
 	local _, instanceType = IsInInstance()
 	local instName, _, diffID = GetInstanceInfo()
 	local isDelve = (diffID == 208) or (instanceType == "scenario")
 
 	if not isDelve then
+		FlushRoomRun() -- a Labyrinth run is logged when you leave it
 		if runState.inDelve then
 			EndDelveRun()
 		end
@@ -521,11 +620,21 @@ local function TryBeginFromCurrentZone(source)
 		-- one we were tracking. Otherwise back-to-back runs of the same delve
 		-- could measure run 2 from run 1's start time.
 		local freshEntry = (source == "PLAYER_ENTERING_WORLD") and not enteredViaReload
+		-- Inside the Labyrinth a loading screen between rooms is not a new run: you never left the instance (leaving
+		-- goes through the "not isDelve" branch above, which logs the run).
+		if freshEntry and runState.inDelve and runState.delveName == matched and ROOM_RUN_DELVES[matched] then
+			freshEntry = false
+		end
+		if runState.inDelve and runState.delveName ~= matched then
+			FlushRoomRun()
+		end
 		if (not runState.inDelve) or runState.delveName ~= matched or freshEntry then
 			local store = GetStore()
 			local saved = store and store.activeRun
+			-- A Labyrinth run with finished rooms also survives a logout inside it (same instance, same run).
+			local roomResume = saved and ROOM_RUN_DELVES[matched] and (saved.rooms or 0) > 0
 			if
-				enteredViaReload
+				(enteredViaReload or roomResume)
 				and saved
 				and saved.name == matched
 				and saved.startTime
@@ -539,8 +648,10 @@ local function TryBeginFromCurrentZone(source)
 				runState.deaths = saved.deaths or 0
 				runState.startKeyCount = saved.startKeyCount or 0
 				runState.tier = saved.tier or 0
-				runState.boss = nil
+				runState.boss = saved.boss
 				runState.wasBountiful = saved.wasBountiful and true or false
+				runState.rooms = saved.rooms or 0
+				runState.roomDuration = saved.roomDuration or 0
 				TryCaptureTier()
 				RefreshBountifulSnapshot()
 			else
@@ -635,7 +746,25 @@ tracker:SetScript("OnEvent", function(_, event, ...)
 		local keyNow = GetCurrencyQty(COFFER_KEY_CURRENCY)
 		local keyUsed = (runState.startKeyCount > 0) and (keyNow < runState.startKeyCount) or false
 
-		if matched then
+		if matched and ROOM_RUN_DELVES[matched] then
+			-- One room done, the run goes on (see ROOM_RUN_DELVES). Kept in activeRun so a /reload or logout keeps it.
+			if not runState.inDelve then
+				BeginDelveRun(matched)
+			end
+			runState.rooms = (runState.rooms or 0) + 1
+			runState.roomDuration = duration
+			if tier and tier > 0 then
+				runState.tier = tier
+			end
+			local store = GetStore()
+			if store and store.activeRun then
+				store.activeRun.rooms = runState.rooms
+				store.activeRun.roomDuration = duration
+				store.activeRun.tier = runState.tier
+				store.activeRun.boss = runState.boss
+			end
+			return
+		elseif matched then
 			RefreshBountifulSnapshot()
 			LogRun(matched, tier, duration, runState.deaths, keyUsed, runState.boss, runState.wasBountiful)
 		else
@@ -828,6 +957,9 @@ local function BuildRunText(run)
 	local parts = {}
 	parts[#parts + 1] = CC_GOLD .. "T" .. (run.tier or 0) .. CC_CLOSE
 	parts[#parts + 1] = CC_BODY .. FormatDuration(run.duration) .. CC_CLOSE
+	if run.rooms then
+		parts[#parts + 1] = CC_DIM .. ns:L("DELVELOG_LBL_ROOMS") .. " " .. CC_BODY .. run.rooms .. CC_CLOSE
+	end
 	parts[#parts + 1] = CC_DIM .. ns:L("DELVELOG_LBL_DEATHS") .. " " .. CC_BODY .. (run.deaths or 0) .. CC_CLOSE
 	if run.keyUsed then
 		parts[#parts + 1] = CC_GOOD .. ns:L("DELVELOG_LBL_KEY") .. CC_CLOSE
