@@ -2857,3 +2857,83 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Locales/enUS.lua`, `Modules/MountProgress.lua` — allemaal vandaag gelezen. Eén content-hiaat
   gevonden (Sha'Kuro Soul Storm), verder uitsluitend **[RAAKT ONS NIET]**. Geen actiepunt dat ík
   oppak — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-18] 🔴 **Eén echte content-vondst: Blizzard onderzoekt zelf nog een ongefixte bug die
+  precies onze "neem Valeera als healer, dat is veiliger"-tip raakt.** Geen nieuwe hotfix-sectie
+  sinds 16 okt; verder niets om tegen te spreken.
+
+  💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v. gisteren).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261018f` (via
+  Exa, JSON volledig gelezen, `pagination.totalCount: 8`): dezelfde drie draadjes als op 17 okt
+  (esES/esMX-locale-fix, debug-printregel, coffer-key-shards-popup). Alle drie eindigen op een
+  reactie van `twelveinchy`, behalve het coffer-key-shards-draadje, dat al sinds juni 2025 eindigt
+  op een bedankje van de vraagsteller zelf (geen nieuwe vraag). De nieuwste tijdstempels in het
+  esMX-draadje zijn 6/7 okt (MEASURED, omgerekend: `1791322444427`→2026-10-06 21:34 UTC,
+  `1791351710373`→2026-10-07 05:41 UTC) — dus geen nieuw bericht sinds de vorige run.
+
+  **Hotfixes: geen nieuwe sectie sinds "October 16, 2026".** `Exa web_fetch_exa` op
+  `news.blizzard.com/en-us/article/24307310/hotfixes-october-16-2026?nocache=20261018b`,
+  **volledige artikeltekst zelf gelezen** — "October 16, 2026" staat nog bovenaan, byte-voor-byte
+  dezelfde inhoud als al verwerkt op [2026-10-17]. Onafhankelijk bevestigd: `web_search_exa` op
+  "Hotfixes October 17/18 2026" geeft uitsluitend de 16-okt- en 15-okt-artikelen terug (geen 17/18
+  okt-titel bestaat); Wowhead Blue Tracker, warcraft.wiki.gg en check-wow.com citeren allemaal
+  diezelfde 16-okt-lijst als nieuwste. Dit convergeert met de data-wachter van vandaag
+  (`docs/PTR_12.0.7_DATA.md`, entry [2026-10-18]: zelfde artikel-ID, zelfde conclusie, vier
+  onafhankelijke bronnen) — niet overgenomen, zelf opnieuw gelezen en zelf apart bevestigd.
+  Delves/Professions/Quests als losse categorieën: leeg in de 16-okt-sectie (al verwerkt op 17
+  okt), niets nieuws te vergelijken.
+
+  🔴 **De vondst, aangedragen door de data-wachter van vandaag die hem expliciet aan mijn lane
+  doorgaf:** de officiële "Midnight: 12.1.5 Content Update – Known Issues"-forumpost
+  (`us.forums.blizzard.com/.../2381312`, Linxy, **zelf gelezen met `?nocache=20261018d`**, laatst
+  bijgewerkt 16 okt 18:44 PDT, geen update sinds) noemt onder "Labyrinth and Delves" nog steeds
+  ongefixt (geen `fixed`-label, in tegenstelling tot de vier andere punten in die lijst):
+  *"Valeera is taking more damage than intended."* Blizzard zelf, los bevestigd
+  (`wowhead.com/news/blizzard-investigating-valeera-survivability-issues-in-patch-12-1-5-383467`,
+  16 okt, zelf gelezen): *"We're investigating the issue with Valeera's survivability since the
+  update."* Tientallen speler-reacties op die pagina (zelf gelezen, niet alleen samenvatting)
+  beschrijven Valeera die in Tier 11-delves en in de Labyrinth binnen seconden doodgaat, op elke
+  rol (tank/dps/healer) — met TEGENSTRIJDIGE adviezen welke rol het veiligst is op dit moment
+  (sommigen: zet haar op healer om de bug te omzeilen; anderen: ook als healer sterft ze net zo
+  hard). Geen enkele speler- of Blizzard-bron geeft een eenduidig "doe dit om haar veilig te
+  houden" — ik verzin dat dus ook niet.
+
+  Dit raakt een bestaande, geshipte claim: `DELVE_TIP_LABYRINTH_BOSS` (`Locales/enUS.lua:3249`,
+  zeven taalvarianten) zegt letterlijk *"Want to play it safe? Take Valeera as a healer: the
+  fight takes longer, but you are less likely to lose a life"* en, bij de Halazzi-loa-test in
+  dezelfde tip, *"Miss it and the cat kills Valeera: revive her right away, there is time before
+  the bears."* Dat is precies de belofte die deze bug op losse schroeven zet: op dit moment is
+  "minder kans om een leven te verliezen" met Valeera als healer niet zeker waar, en spelers
+  melden dat ze haar sowieso vaker dan bedoeld moeten opwekken — niet alleen bij die ene
+  Halazzi-cat-mechaniek die onze tip noemt. MEASURED (forumpost zelf gelezen met eigen
+  cache-buster, `Locales/enUS.lua:3249` zelf gelezen, Wowhead-nieuwsbericht + tientallen
+  speler-reacties zelf gelezen). **[RAAKT ONS]** — geen harde tegenspraak (onze tip claimt niet dat
+  de bug niet bestaat), wel een advies waarvan de onderliggende belofte tijdelijk onzeker is zolang
+  Blizzard dit niet gefixt heeft. Geen tekstwijziging voorgesteld: er is geen betrouwbaar "doe dit
+  in plaats daarvan" om te citeren, en de tip klopt weer zodra Blizzard het oplost. Mens beslist of
+  er een tijdelijke disclaimer bij moet ("Valeera neemt momenteel meer schade dan bedoeld,
+  Blizzard onderzoekt het — 16 okt").
+
+  Verder nog in dezelfde forumpost: alle overige 12.1.5-known-issues staan nu op `fixed` (Housing
+  blijft met drie open punten, buiten onze scope — decor-collision/vendor-icons, geen enkele
+  addon-claim). Geen aanvullende hotfix-categorieën met content voor Delves/Professions/Quests dit
+  run.
+
+  Vandaag is zondag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-october-16-2026?nocache=20261018b
+  (volledig gelezen via Exa) ·
+  https://us.forums.blizzard.com/en/wow/t/midnight-1215-content-update-known-issues-and-information/2381312?nocache=20261018d
+  (volledig gelezen via Exa) ·
+  https://www.wowhead.com/news/blizzard-investigating-valeera-survivability-issues-in-patch-12-1-5-383467
+  (volledig gelezen via Exa) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261018f
+  (JSON, via Exa) · `docs/PTR_12.0.7_DATA.md` entry [2026-10-18] als aanleiding voor de
+  Valeera-vraag (feit niet herhaald, zelf getoetst tegen geshipte MH-tekst) · codebase: `grep`
+  case-insensitive repo-breed op "Valeera" en gerichte reads van `Locales/enUS.lua:3243-3249`,
+  `docs/PTR_VALEERA_TREE.md`, `Modules/ValeeraProgress.lua`, `docs/RESEARCH_VALEERA_DPS_VIDEO.md`
+  — allemaal vandaag gelezen. Eén content-vondst (Valeera-healer-advies), verder uitsluitend
+  **[RAAKT ONS NIET]**. Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
