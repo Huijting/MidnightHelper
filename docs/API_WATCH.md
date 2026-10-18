@@ -6176,3 +6176,119 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     **verouderde branch-ref**, wat de controle uit `CLAUDE.md` stap 1 (`git status`) niet opmerkt —
     die kijkt naar vuile bestanden, niet naar een achterlopende `main`. 📌 Zet `git fetch origin main`
     vóór die controle.
+- [2026-10-18] 🔴 **Nul [MOET GEFIKST] — maar wel een CORRECTIE OP MIJN EIGEN REGEL VAN GISTEREN: de
+  `==Summary==` van `Patch 12.1.7/API changes` heeft TWEE punten, en ik heb er gisteren één van
+  overgeslagen.** Naast de GUID-obfuscatie staat er een **TOC-regel**, en die stond er gisteren al — in
+  precies de revisie die ik citeerde. Verder: de 12.1.5-pagina is onveranderd, maar de **live 12.1.5-client
+  heeft sinds 16 okt build 70448** en niemand heeft die delta beschreven.
+  - 🔴 **[RAAKT ONS NIET] — "TOC directives no longer expand variables such as `[Game]` or `[Family]`".**
+    Letterlijk uit de wikitext van `==Summary==` (GEMETEN via `rest.php/v1/page/Patch_12.1.7%2FAPI_changes`
+    mét cache-buster, dus de bron zelf en niet een samenvatting):
+    *"TOC directives no longer expand variables such as [Game] or [Family]. Instead, these lines are
+    entirely skipped."* / *"Directives containing conditional expressions such as [AllowLoadGameType ...]
+    continue to function normally."*
+    - 🔴 **DIT IS EEN CORRECTIE OP MIJN REGEL VAN 17 OKT, NIET NIEUWE WIKI-INHOUD.** GEMETEN: de
+      `/history` geeft vandaag nog steeds **6919765 (2026-10-16T22:38:53Z)** als laatste revisie — dezelfde
+      als gisteren — en de TOC-regel is toegevoegd in **6919202 (2026-10-16T17:04:49Z, Meorawr,
+      `/* Summary */`, delta +314)**, de revisie waaruit ik gisteren de GUID-regels woordelijk overnam. Er is
+      dus niets veranderd aan de pagina; ik heb gisteren de tweede helft van de sectie gemist terwijl ik
+      schreef dat ik hem letterlijk citeerde. 📌 Dezelfde val als de cacheval en de verouderde-ref-val, maar
+      zonder techniek eronder: ik heb de ene bullet gelezen en de andere niet, en het resultaat zag er even
+      compleet uit.
+    - ✅ **GEMETEN dat het ons niet raakt: `MidnightHelper.toc` bevat geen enkel vierkant haakje.**
+      `MidnightHelper.toc` is het **enige** `.toc`-bestand in de repo (`find . -name '*.toc'`, `.git`
+      uitgesloten). `grep -nF '[' MidnightHelper.toc` → **exit 1, nul treffers**; `grep -nE '\[[A-Za-z]'`
+      idem. 🔴 **Positieve controle in dezelfde run en met hetzelfde patroon:** `grep -cE '\[[A-Za-z]'
+      Core.lua` → **67** treffers, dus het patroon werkt en het lege resultaat is echt leeg (de
+      `RINGOFGLORY`-les). De `.toc` heeft **17** `##`-regels, geen daarvan met een variabele of een
+      conditie; MH laadt dus niets via `[Game]`, `[Family]` of `[AllowLoadGameType ...]`.
+    - ✅ **En het tweede pad waarlangs dit had kunnen bijten, is ook dicht:** `GetAddOnMetadata` wordt in de
+      hele addon alléén met het veld `"Version"` aangeroepen — `Core.lua:120-127` (twee takken, beide in
+      `pcall`), `Modules/SettingsPage.lua:1051-1054`, `Modules/SupportReport.lua:41-44`,
+      `Modules/PtrProbe.lua:92-93` en `Modules/SimcExport.lua:431`, alle zes achter
+      `if C_AddOns and C_AddOns.GetAddOnMetadata then` of een `Call()`/`pcall`-wrapper. Geen enkele leest
+      een veld dat de client zou moeten expanderen.
+  - ⚠️ **[NIET GEMETEN, EN DAT IS HET MELDEN WAARD] — de live 12.1.5-client is op 16 okt naar build 70448
+    gegaan en de API-delta van 69952 → 70448 is door niemand beschreven.** GEMETEN op
+    `github.com/Gethe/wow-ui-source/tags` (cache-buster): tag **`12.1.5 (70448)`, `b9be937`, 16 okt** —
+    nieuwer dan de PTR-tag **`12.1.7 (70424)`, `b87363e`, 15 okt** — plus `1.60.1 (70450)` en
+    `5.5.4 (70449)`, beide 16 okt. Tegelijk zegt de wiki-pagina `Patch 12.1.5/API changes` onder
+    `==Consolidated changes==` nog steeds *"12.1.0 (69587) → 12.1.5 (69952) Sep 21 2026"*, en haar
+    `/history` staat onveranderd op **6919763 (2026-10-16T22:38:41Z)** — exact waar hij gisteren stond. Dus
+    er is **geen** bron die zegt wát er tussen 69952 en 70448 aan API veranderd is. Ik kan die diff hier
+    niet lezen (zie de egress-regel hieronder) en verzin er niets bij: dit is een **open gat**, niet een
+    "niets gevonden". 📌 Voor morgen: als de consolidated-tabel op die pagina een nieuw buildnummer krijgt,
+    is dat het eerste dat gelezen moet worden.
+  - 🔇 **[RAAKT ONS NIET] — de officiële 12.1.7 API-patchnotes BESTAAN nog steeds niet.** De wiki-pagina
+    transcludeert `{{:{{PAGENAME}}/notes}}` onder `==Blue posts==`, en die subpagina rendert **leeg**;
+    drie URL-vormen van `Patch 12.1.7/API changes/notes` gaven alle drie `CRAWL_NOT_FOUND`. De
+    PTR-devnotes (topic **2383391**, Linxy, post `30486451`, **2026-10-15T18:47:41Z**) zijn nog steeds het
+    enige blue-materiaal, en dat is de post die ik gisteren al volledig gelezen heb: nul API-, taint-,
+    secure- of secret-value-regels. GEMETEN vandaag via `/last.json`: de topic heeft nog steeds **één**
+    post, dus geen "12.1.7 PTR Changes 2".
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-01` (12 okt 18:39).** GEMETEN op de releases-pagina
+    met cache-buster; `12.1.5-01` (`8741352`, 12 okt) is nog steeds de nieuwste, met
+    `12.1.5-alpha-01` (9 okt) en `12.1.0-alpha-06` (8 okt) erachter. Geen release in de laatste 7 dagen die
+    ik nog niet getoetst heb, dus **niets nieuws om aan `ItemString` of `ns.BuildSimcProfile`
+    (`Modules/SimcExport.lua`) te houden**. De byte-voor-byte-meting van 17 okt (`core.lua` en
+    `extras.lua` identiek op beide 12.1.5-tags) blijft staan en is vandaag niet herhaald.
+  - 🔇 **Forum `#ui-macro` 10–18 okt: drie nieuwe draadjes, geen blue reply, geen API-naam.** Via
+    `search.json?q=#ui-macro after:2026-10-10` mét cache-buster, op **id** gecontroleerd. Nieuw sinds
+    gisteren: `2385957` (Sakiri, **18 okt 02:19:55Z**, *"She can't target anyone by clicking on their raid
+    frame. Shd even tried with zero addons"*), `2385490` (Carnacki, **17 okt 09:40:15Z**, *"uses one of the
+    new slider controls on it's options page"*) en `2385715` (Providence, **17 okt 17:54:45Z**, *"the reset
+    part of any macro isnt working ... /castsequence reset=30 spell1, spell2 ... is this new?"*). Alle drie
+    spelers-/auteursvragen zonder antwoord van een community-manager. Toch getoetst, want twee ervan noemen
+    iets dat wij zouden kunnen gebruiken:
+    - **[RAAKT ONS NIET] — `/castsequence`: nul treffers in de hele addon.** `grep -rniE 'castsequence'`
+      over `*.lua` + `*.xml`, met `.git`, `docs`, `tools` en `dist` uitgesloten → **exit 1**. 🔴 Positieve
+      controle in dezelfde run en op dezelfde reikwijdte: `grep -rniE 'macrotext'` geeft wél treffers —
+      `Modules/FastMark.lua:185` (`macrotext1` = `/tm <idx>`), `Modules/Travel/TravelRoute.lua:285`
+      (`/use item:`), `Modules/DelveItemBrokers.lua:160`, `Modules/DelveItemsPopup.lua:1014`. MH schrijft
+      dus uitsluitend `/tm` en `/use item:`, nooit een castsequence; een gewijzigde `reset=`-semantiek kan
+      ons niet raken.
+    - **[AL AFGEDEKT] — de slider-API die hij noemt, gebruiken wij met een guard.**
+      `Modules/NativeSettings.lua:122` `Settings.CreateSliderOptions(minV, maxV, step)`, `:123`
+      `if opts.SetLabelFormatter and MinimalSliderWithSteppersMixin then`, `:126` `Settings.CreateSlider(...)`.
+      ⚠️ En er is hier **niets gewijzigd gemeld** — het is een hoe-doe-ik-dit-vraag van een addonauteur, geen
+      API-wijziging. Ik noem hem alleen zodat morgen niet opnieuw hoeft te worden uitgezocht of wij die
+      functies raken.
+  - ⚠️ **NIET GEMETEN VANDAAG, en ik zeg het liever dan dat ik het weglaat: de addon-/UI-regels van
+    hotfixes ná 2 okt.** De lopende hotfix-topic is **2336376**, titel/slug
+    `world-of-warcraft-midnight-hotfixes-october-6`, `posts_count: 168`. Vier routes geprobeerd
+    (`/last.json`, `/168.json`, `?page=9`, `?page=10`), alle vier met cache-buster, en alle vier gaven
+    **dezelfde stream** die ophoudt rond post **163 (2 okt)**; de laatste Blizzard-post die ik kon lezen is
+    **#161 (1 okt)**. De posts 164–168 zijn dus **ongelezen**. 📌 Wat er wél uit de titel te meten valt:
+    Blizzard hernoemt die topic naar de datum van de nieuwste batch, en die staat op **6 okt** = **12 dagen
+    oud**, dus buiten het 7-dagenvenster en hoe dan ook niets kwalificerends. `news.blizzard.com` en de
+    Wowhead Blue Tracker kwamen via Exa **leeg** terug (geen 403, letterlijk alleen de titelregel), en
+    WebSearch vond niets gedateerd na 1 okt. **Dit is daarom een "gedeeltelijk gemeten", niet een
+    "stil".**
+  - 🔧 **INFRASTRUCTUUR, voor de run van morgen: `curl` is in deze container GEBLOKKEERD en Exa is de
+    enige werkende weg.** GEMETEN: `curl` naar `warcraft.wiki.gg` gaf *"CONNECT tunnel failed, response
+    403"*, naar `api.github.com` **HTTP 403** (378 bytes). `$HTTPS_PROXY/__agentproxy/status` noemt het
+    onder `recentRelayFailures`: `{"kind":"connect_rejected","detail":"gateway answered 403 to CONNECT
+    (policy denial or upstream failure)","host":"warcraft.wiki.gg:443"}`. De README zegt expliciet *"do not
+    retry policy denials (403/407) — report them instead"*, dus niet opnieuw geprobeerd. **`WebFetch` werkt
+    hier óók niet** voor warcraft.wiki.gg: `getaddrinfo ENOTFOUND warcraft.wiki.gg`. Alles hierboven is
+    gelezen via **`web_fetch_exa` met `?nocache=20261018`**, en dat werkte voor wiki-`rest.php`,
+    `github.com`, `us.forums.blizzard.com/...json` en `search.json`. ⚠️ De wiki-`rest.php`-route via Exa
+    geeft de **wikitext** terug en is daarmee betrouwbaarder dan de gerenderde pagina — gebruik die.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten** (en na vandaag staat er
+    nog steeds geen [MOET GEFIKST] open): de `%d+`-aanname op veld 3 in `Modules/ResetRoutine.lua:648`;
+    de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon tegenover negen
+    wiki-secties; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug); de UTF-8 **BOM**
+    vooraan `MidnightHelper.toc` waardoor `grep -E "^## Interface"` nul geeft; en `CLAUDE.md:7` dat de
+    `.toc` verkeerd citeert. ✅ Dat laatste is sinds vandaag **wél bij**: GEMETEN staat er nu
+    `## Interface: 120007, 120100, 120105, 120107` en `CLAUDE.md:7` noemt exact diezelfde vier nummers.
+    🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de nieuwe volgorde van 17 okt is gevolgd —
+    `git fetch origin main` EERST.** GEMETEN: die fetch gaf opnieuw
+    `+ 49acda4...94b237f main -> origin/main (forced update)` — **voor de tweede dag op rij een verouderde
+    lokale ref die werd gecorrigeerd**, niet een force-push. HEAD stond detached op `94b237f`, dus ná de
+    fetch **0 commits achter en 0 vooruit** op `origin/main` en geen fast-forward nodig; werkboom schoon,
+    en **geen** van de vier wachter-bestanden stond gewijzigd-maar-ongecommit. 📌 Dit bevestigt de les van
+    gisteren langs een tweede meting: de detached HEAD is de juiste tip, de stale ref is het terugkerende
+    probleem. Kaal `git checkout main` zou me ook vandaag vier dagen hebben teruggezet.
