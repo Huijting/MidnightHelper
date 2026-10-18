@@ -60,6 +60,7 @@ Modules\Travel\TravelData.lua
 Modules\Travel\TravelPlanner.lua
 Modules\Travel\TravelRoute.lua
 Modules\Travel\TravelPlaces.lua
+Modules\Travel\TravelGraph.lua
 Modules\DelveTipMarkup.lua
 Modules\DelveBossShowcase.lua
 Modules\DelvePartyShare.lua

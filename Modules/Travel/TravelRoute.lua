@@ -332,6 +332,17 @@ function T.FlightLeg(targetMap, x, y, currentMap)
 		return nil
 	end
 	local px, py = T.PlayerXY(currentMap)
+	--- 🔴 NO FLIGHT TO ANOTHER CONTINENT — 18 Oct 2026. The plan learned this on 5 Sep (TravelPlan.lua, "YOU CANNOT FLY
+	--- TO ANOTHER CONTINENT"); this leg never did. Headless harness: Pit of Saron and Skyreach from Silvermoon gave
+	--- "Flight master: Sanctum of Light". Only when the client places BOTH points on a continent and they differ —
+	--- an unreadable one keeps the old behaviour (nil = could not read, never "no").
+	do
+		local cP = T.WorldXY(currentMap, px or 50, py or 50)
+		local cT = T.WorldXY(targetMap, tonumber(x) or 50, tonumber(y) or 50)
+		if cP and cT and cP ~= cT then
+			return nil
+		end
+	end
 	local fromName, fx, fy = ns.GetNearestFlightPoint(currentMap, px, py)
 	local toName = ns.GetNearestFlightPoint(targetMap, x, y)
 	if not (fromName and fx and fy and toName) or fromName == toName then
@@ -387,10 +398,12 @@ local function BuildPlainSteps(t)
 					-- A portal inside a building (Coiled Isle, Rob 16 Oct 2026): its door first, then the orb down.
 					via = type(s.door) == "table" and s.door.x and s.door.y and { s.door.x, s.door.y } or nil,
 					orb = type(s.orb) == "table" and s.orb.x and s.orb.y and { s.orb.x, s.orb.y } or nil,
-					viaNear = "door",
+					-- The route search (TravelGraph.lua, 18 Oct 2026) hands in the Mount run's own door rule for a portal
+					-- room ("via") and `board` for a boat or zeppelin; every other plan step keeps the door rule.
+					viaNear = s.viaNear or "door",
 					-- A walked door or a Windcaller is passed on the way, not gone through (Rob, 14 Oct 2026).
 					handoff = (s.kind == "walk" or s.kind == "gossip") or nil,
-					board = s.kind == "gossip" or nil,
+					board = s.board or (s.kind == "gossip") or nil,
 				}
 			end
 		end

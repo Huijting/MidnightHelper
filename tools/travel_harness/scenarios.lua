@@ -1,0 +1,37 @@
+-- The scenarios old and new planners are compared on. Targets are MH's own data (DungeonRosterData entrances,
+-- MountRun raids, search-bar places); player positions are fixture positions.
+return {
+	-- Legacy M+ dungeons of the current season, from where M+ players stand (Silvermoon) — DungeonRosterData.lua.
+	{ id = "mplus-algethar", who = "Horde, Silvermoon", p = { map = 2393, x = 50, y = 50 },
+		t = { map = 2025, x = 58.27, y = 42.22, name = "Algeth'ar Academy" } },
+	{ id = "mplus-pitofsaron", who = "Horde, Silvermoon", p = { map = 2393, x = 50, y = 50 },
+		t = { map = 118, x = 54.78, y = 91.80, name = "Pit of Saron" } },
+	{ id = "mplus-skyreach", who = "Horde, Silvermoon", p = { map = 2393, x = 50, y = 50 },
+		t = { map = 542, x = 35.6, y = 33.7, name = "Skyreach" } },
+	{ id = "mplus-triumvirate", who = "Horde, Silvermoon", p = { map = 2393, x = 50, y = 50 },
+		t = { map = 882, x = 22.30, y = 55.89, name = "Seat of the Triumvirate" } },
+	{ id = "mplus-skyreach-A", who = "Alliance, Silvermoon", p = { map = 2393, x = 50, y = 50, faction = "Alliance",
+		bind = "Stormwind" }, t = { map = 542, x = 35.6, y = 33.7, name = "Skyreach" } },
+	{ id = "mplus-algethar-orgri", who = "Horde, Orgrimmar", p = { map = 85, x = 50, y = 80 },
+		t = { map = 2025, x = 58.27, y = 42.22, name = "Algeth'ar Academy" } },
+	{ id = "mplus-pos-dornogal", who = "Horde, Dornogal", p = { map = 2339, x = 50, y = 50 },
+		t = { map = 118, x = 54.78, y = 91.80, name = "Pit of Saron" } },
+	-- Midnight targets from elsewhere (the runner replans on every map, so only the FIRST step matters there).
+	{ id = "mid-harandar-from-valdrakken", who = "Horde, Valdrakken", p = { map = 2112, x = 50, y = 50 },
+		t = { map = 2413, x = 26.24, y = 78.09, name = "Harandar dungeon" } },
+	{ id = "mid-eversong-from-voidstorm", who = "Horde, Voidstorm, 25 yd from the portal, Hearth bound Silvermoon",
+		p = { map = 2405, x = 51.0, y = 70.0, bind = "Silvermoon City" },
+		t = { map = 2395, x = 35.37, y = 78.82, name = "Eversong dungeon" } },
+	{ id = "mid-silvermoon-from-coiled", who = "Horde, Coiled Isle beside its portal, Hearth bound Silvermoon",
+		p = { map = 2512, x = 58.0, y = 48.0, bind = "Silvermoon City" },
+		t = { map = 2393, x = 57.20, y = 61.06, name = "Silvermoon dungeon" } },
+	-- Old-world, ordinary routes (world boss, mount, achievement pins).
+	{ id = "old-jade-from-silvermoon", who = "Horde, Silvermoon", p = { map = 2393, x = 50, y = 50 },
+		t = { map = 371, x = 50, y = 50, name = "Jade Forest pin" } },
+	{ id = "old-hyjal-from-orgri", who = "Horde, Orgrimmar", p = { map = 85, x = 50, y = 80 },
+		t = { map = 198, x = 60, y = 30, name = "Hyjal pin" } },
+	{ id = "same-continent", who = "Horde, Durotar", p = { map = 1, x = 50, y = 50 },
+		t = { map = 10, x = 50, y = 50, name = "Northern Barrens pin" } },
+	{ id = "already-there", who = "Horde, Silvermoon", p = { map = 2393, x = 50, y = 50 },
+		t = { map = 2393, x = 57.20, y = 61.06, name = "Silvermoon pin" } },
+}

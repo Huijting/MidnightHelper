@@ -242,6 +242,8 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 
 	local steps = {}
 	local chain = ContainerChain(targetMap)
+	-- The target is on another continent (set below); an empty plan then means "no way known", not "you are there".
+	local farAway = false
 
 	-- Is the player already inside the chain? If so we only need the tail of it.
 	local startAt = nil
@@ -436,11 +438,31 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		--- 📌 The fix costs no new data. `ns.IsCrossContinentTarget` already exists and is
 		--- already measured; the flight fallback simply never asked it. Nothing about
 		--- "which capital, which portal, what coordinate" enters into it.
+		--- 🧭 THE ROUTE SEARCH — 18 Oct 2026 (Modules/Travel/TravelGraph.lua). No portal on this map and a target
+		--- OUTSIDE Midnight: everything below spoke one hop ahead and had nothing to say there. GEMETEN in the headless
+		--- harness: the season's four legacy M+ dungeons from Silvermoon came back "you are already there" and the
+		--- arrow went to the Silvermoon flight master; a Hyjal pin from Orgrimmar said "fly to Nordrassil" with the
+		--- portal to Hyjal in the city. The search compares every chain of portals, boats, the way home, mage
+		--- teleports and the Hearthstone and takes the fastest. Midnight targets are left to the rules below on
+		--- purpose (WayHome, tested by Rob 16-17 Oct); region 0 = outside Midnight, as the capital rule reads it.
+		if #steps == 0 and ns.Travel and ns.Travel.Graph and ns.GetTargetRegionGroupID then
+			local okR, region = pcall(ns.GetTargetRegionGroupID, targetMap, x)
+			if okR and region == 0 then
+				local okG, found = pcall(ns.Travel.Graph.PlanSteps, { map = outermost, x = tonumber(x), y = tonumber(y) })
+				if okG and type(found) == "table" then
+					for _, s in ipairs(found) do
+						steps[#steps + 1] = s
+					end
+					steps.estimate, steps.compared = found.estimate, found.compared
+				end
+			end
+		end
 		local crossContinent = false
 		if ns.IsCrossContinentTarget then
 			local okC, v = pcall(ns.IsCrossContinentTarget, here, outermost, x, y)
 			crossContinent = (okC and v) and true or false
 		end
+		farAway = crossContinent
 		-- Settings → "Routes without flight masters" (Rob, 17 Oct 2026): no "fly to X" hint either.
 		local noFlightMasters = ns.db and ns.db.routeNoFlightMasters
 		if #steps == 0 and not crossContinent and not noFlightMasters and ns.GetNearestFlightPoint then
@@ -754,7 +776,8 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 	}
 
 	if #steps <= 1 then
-		return nil, "PLAN_ALREADY_THERE"
+		-- Another continent and nothing found is not "already there" (18 Oct 2026: Seat of the Triumvirate).
+		return nil, farAway and "PLAN_NO_ROUTE" or "PLAN_ALREADY_THERE"
 	end
 	return steps
 end
@@ -774,6 +797,11 @@ function ns.PrintTravelPlan(targetMap, x, y, targetName)
 	end
 	print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"),
 		(L("PLAN_HEADER")):format(targetName or "?")))
+	-- The route search's estimate (TravelGraph.lua): "about", because its times are chosen, not measured.
+	if steps.estimate then
+		print("   |cff8a8f98" .. (L("PLAN_ESTIMATE_FMT")):format(math.max(1, math.floor(steps.estimate / 60 + 0.5)),
+			steps.compared or 0) .. "|r")
+	end
 	local n = 0
 	for _, s in ipairs(steps) do
 		n = n + 1
