@@ -51,6 +51,19 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 
+## 🆕 18 okt — Routezoeker naar plekken buiten Midnight (TravelGraph.lua)
+
+Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.
+
+- [ ] In Silvermoon: Dungeons-tab → **Algeth'ar Academy** → route. De pijl hoort naar de portal room te wijzen (→ Orgrimmar
+      → Valdrakken), NIET naar de vluchtmeester in Silvermoon.
+- [ ] `/mh plan` op **Pit of Saron**: 3 stappen en een regel "About N min by the fastest way".
+- [ ] In Orgrimmar: zet een pin in **Mount Hyjal** → de pijl hoort naar het Hyjal-portaal te wijzen, niet "fly to Nordrassil".
+- [ ] Een Midnight-delve vanuit Valdrakken: gedrag zoals altijd (Hearthstone/portaal naar Silvermoon).
+- [ ] Silvermoon → een doel in Eversong met een vluchtmeester ertussen: hoort er nog steeds een vluchtmeester-stap te
+      geven (zoals 17 okt). Zo niet → zeg het (dan raakte de nieuwe continent-regel toch Midnight).
+- [ ] FPS: volg een route naar een plek op een ander continent met onze pijl in beeld. Je FPS hoort niet te zakken.
+
 ## 🆕 18 okt — Curio-advies: ster voor elke rang, "wanneer", nieuwe curios
 
 Eerst `/reload`, open Valeera's venster één keer.

@@ -28,6 +28,10 @@ local function set(p)
 	W.P.quests = setmetatable(q, { __index = function()
 		return true
 	end })
+	-- TravelGraph caches the last route for a few seconds (the arrow asks ~33×/s); every check is a new world.
+	if ns.Travel and ns.Travel.Graph and ns.Travel.Graph.ClearPlanCache then
+		ns.Travel.Graph.ClearPlanCache()
+	end
 end
 
 local function plan(p, t)

@@ -28,6 +28,13 @@ GEBOUWD, niet in het spel gezien (test bovenaan TESTLIJST):
 5. Codex: curios-kaart (2 nieuwe curios, rang 5 alleen uit de Labyrinth, wisselen per kamer), Corrosive Codex-kaart
    (Valeera's poison/Venom Infusion = Poisoned, kiezen aan het begin van elke delve, Kindo'jan-duo), Labyrinth-kaart
    (kist = rang 5-curio). Vertalingen door mh-writer (eigen vertaling, niet native nagelezen).
+**Routezoeker (TravelGraph.lua) — patch van de cloud-chat, 18 okt** (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Rob: "pas
+de patch toe wanneer jij het er mee eens bent". Toegepast met `git am` (commit van Rob), daarna twee reparaties van de
+bouwchat in een eigen commit: (1) korte cache (3 s, zelfde doel + kaart + plek) in Graph.PlanSteps — NativeArrow vraagt
+het plan tot ~33×/s bij een doel op een ander continent; (2) de nieuwe "geen vluchtmeester naar een ander continent"-regel
+in FlightLeg alleen voor doelen BUITEN Midnight (Silvermoon heeft een eigen continent-id, GEMETEN 24 aug; anders verdween
+elke Silvermoon → Midnight-vluchtmeester). Harness `lua.exe tools/travel_harness/test.lua` 28/28 (test.lua leegt de cache
+per check). Niet in het spel gezien: testlijst bovenaan. Open: Seat of the Triumvirate (Vindicaar-console), M+-teleports.
 ⚠️ Fabled "Let Me Solo Him: Kindo'jan" eindigt bij de reset van 21 okt (EU) — Wowhead-reactie + gidsen, niet zelf gezien.
 
 ## 🌅 17 okt — ochtendronde + twee kleine klussen (bouwchat 17-10)

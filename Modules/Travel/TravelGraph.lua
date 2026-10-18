@@ -430,8 +430,37 @@ end
 
 --- The plan steps for `target` (TravelPlan.lua's format), or nil when the search found nothing better than going
 --- straight there. `steps.estimate` = total seconds, `steps.compared` = places compared.
+--- ⚠️ CACHED, 18 Oct 2026 (bouwchat review). NativeArrow's OnUpdate runs ~33×/s and, for a target on another
+--- continent, asks BuildTravelPlan each time (NativeArrow.lua UpdateArrow → "POINT AT THE FIRST STEP"). At ~14 ms per
+--- search that would cost frames. Same target + same player map + roughly the same spot (2 map units) within
+--- PLAN_CACHE_SECS → the last route. A zone change or a move of a few yards gives a fresh search.
+local PLAN_CACHE_SECS = 3
+local lastPlan -- { key, at, route }
+local function PlanKey(target)
+	local pm = T.PlayerMap and T.PlayerMap()
+	local px, py
+	if pm and T.PlayerXY then
+		px, py = T.PlayerXY(pm)
+	end
+	return ("%s:%s:%s|%s:%s:%s"):format(tostring(target.map), tostring(target.x), tostring(target.y), tostring(pm),
+		px and math.floor(px / 2) or "?", py and math.floor(py / 2) or "?")
+end
+
+--- Forget the last route (the harness sets up a new world between checks; in game a zone change or move does it).
+function G.ClearPlanCache()
+	lastPlan = nil
+end
+
 function G.PlanSteps(target)
-	local r = G.Route(target)
+	local key = PlanKey(target)
+	local now = GetTime and GetTime() or 0
+	local r
+	if lastPlan and lastPlan.key == key and now - lastPlan.at < PLAN_CACHE_SECS then
+		r = lastPlan.route
+	else
+		r = G.Route(target)
+		lastPlan = { key = key, at = now, route = r }
+	end
 	if not r or r.direct then
 		return nil
 	end

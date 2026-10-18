@@ -336,7 +336,16 @@ function T.FlightLeg(targetMap, x, y, currentMap)
 	--- TO ANOTHER CONTINENT"); this leg never did. Headless harness: Pit of Saron and Skyreach from Silvermoon gave
 	--- "Flight master: Sanctum of Light". Only when the client places BOTH points on a continent and they differ —
 	--- an unreadable one keeps the old behaviour (nil = could not read, never "no").
-	do
+	--- ⚠️ Only for a target OUTSIDE Midnight (bouwchat review, 18 Oct 2026). Silvermoon City (2393) has its own
+	--- coordinate space and reports another continent than Eversong (MEASURED 24 Aug, NativeArrow.lua
+	--- OneContainsTheOther), so without this the guard dropped every Silvermoon → Midnight flight leg, which Rob had
+	--- been offered (and flew past) on 17 Oct. Midnight keeps its tested behaviour, as TravelPlan's search does.
+	local outside = true
+	if ns.GetTargetRegionGroupID then
+		local okR, region = pcall(ns.GetTargetRegionGroupID, targetMap, x)
+		outside = not (okR and region and region ~= 0)
+	end
+	if outside then
 		local cP = T.WorldXY(currentMap, px or 50, py or 50)
 		local cT = T.WorldXY(targetMap, tonumber(x) or 50, tonumber(y) or 50)
 		if cP and cT and cP ~= cT then
