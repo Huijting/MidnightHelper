@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🌅 18 okt — ochtendronde + Valeera-melding
+
+Ochtendronde (GEMETEN): vier wachters gedraaid; CF 0 open (8 berichten), GitHub 0, site-mail niets sinds 10 okt; 25 addons
+bijgewerkt (o.a. HandyNotes 163, MDT 6.3.9, Platynator 512, CooldownManagerCentered 5.9.1) — alleen gelezen, niet getest.
+HandyNotes 163: WorldMapFrame:SetMapID → C_Map.OpenWorldMap achter InCombatLockdown, en achievement-criteria op ID
+i.p.v. index; MH gebruikt geen van beide aanroepen op een vaste index (Achievements.lua loopt alle criteria af) → niets.
+⚠️ API-wachter 18 okt noemt ResetRoutine.lua:648 (`%d+`) nog open — gerepareerd op 17 okt (3f7dace); hij loopt achter.
+🔴 Contentwachter 18 okt: Blizzards 12.1.5 Known Issues (topic 2381312, 16 okt) — *"Valeera is taking more damage than
+intended"*, open. Rob 18 okt: tijdelijke melding erbij en de belofte "Valeera als healer = veiliger" eruit. GEDAAN in
+DELVE_TIP_LABYRINTH_BOSS, 8 talen (de/fr/es/esMX/pt/it/ru door mh-writer). 🔜 **Melding weghalen zodra Blizzard het
+fixt** (comment in enUS.lua bij de Labyrinth-sleutels). Andere "Valeera on Healer"-tips (Gralka, Venomfall Void Toxin)
+hebben een mechaniek-reden en blijven staan.
+
 ## 🌅 17 okt — ochtendronde + twee kleine klussen (bouwchat 17-10)
 
 Ochtendronde (GEMETEN): vier wachters gedraaid; CF 0 open (8 berichten), GitHub 0 issues/PR's, site-mail niets
