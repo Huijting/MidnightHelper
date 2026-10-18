@@ -13,6 +13,23 @@ DELVE_TIP_LABYRINTH_BOSS, 8 talen (de/fr/es/esMX/pt/it/ru door mh-writer). 🔜 
 fixt** (comment in enUS.lua bij de Labyrinth-sleutels). Andere "Valeera on Healer"-tips (Gralka, Venomfall Void Toxin)
 hebben een mechaniek-reden en blijven staan.
 
+**Curio-advies (Rob 18 okt: "2 agenten laten zoeken welke en wanneer"; daarna "doe alle vijf").** Twee mh-research-rondes
+los van elkaar (A: gidsen + wago 12.1.5.70448; B: spelers + addons; Reddit was voor B onbereikbaar). Ze waren het eens.
+GEBOUWD, niet in het spel gezien (test bovenaan TESTLIJST):
+1. Ster per CURIO i.p.v. per spellID: elke rang heeft een eigen spellID (wago); de oude ster hing aan Bilespear R2 /
+   Dreamcatcher R4 → andere rangen (ook R5) kregen geen ster en een valse "not in your tree" (AFGELEID). DelveCuriosData
+   CURIO_RANKS + ByRank; positieve controle telt curios (GetDelveCurioPickRepresentatives). Getest met lua.exe.
+2. Utility per situatie: ster op Dreamcatcher (bazen/Nemesis/Kindo'jan) én Dundun's Favor (gewone delves + Labyrinth-
+   kamers; Icy Veins sinds 10 okt). Regels "Guides: …" (DELVE_CURIO_GUIDE_LINES, CURIO_WHEN_*), ook in het paneel.
+3. Viperwind Idol (Combat) / Dusty Loa Totem (Utility) — nieuw in 12.1.5 — kregen een ">>"-notitie; Venom Infusion en
+   Toad een "Guides:"-regel.
+4. Kindo'jan-tip: opstelling (Bilespear, Dreamcatcher, Toad, Ula'tek's Gift + Insidious Venom, altaar achter de deur,
+   dicht bij hem staan).
+5. Codex: curios-kaart (2 nieuwe curios, rang 5 alleen uit de Labyrinth, wisselen per kamer), Corrosive Codex-kaart
+   (Valeera's poison/Venom Infusion = Poisoned, kiezen aan het begin van elke delve, Kindo'jan-duo), Labyrinth-kaart
+   (kist = rang 5-curio). Vertalingen door mh-writer (eigen vertaling, niet native nagelezen).
+⚠️ Fabled "Let Me Solo Him: Kindo'jan" eindigt bij de reset van 21 okt (EU) — Wowhead-reactie + gidsen, niet zelf gezien.
+
 ## 🌅 17 okt — ochtendronde + twee kleine klussen (bouwchat 17-10)
 
 Ochtendronde (GEMETEN): vier wachters gedraaid; CF 0 open (8 berichten), GitHub 0 issues/PR's, site-mail niets

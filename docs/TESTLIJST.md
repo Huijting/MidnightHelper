@@ -51,6 +51,19 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 
+## 🆕 18 okt — Curio-advies: ster voor elke rang, "wanneer", nieuwe curios
+
+Eerst `/reload`, open Valeera's venster één keer.
+
+- [ ] Typ `/mh curios`. **Bilespear** hoort een ster te hebben, wélke rang je ook hebt (ook rang 5). Bij Utility horen
+      **Dreamcatcher én Dundun's Favor** een ster te hebben, met eronder een regel "Guides: …" die zegt wanneer.
+- [ ] Onderaan hoort GEEN regel "Recommended elsewhere but NOT in your companion's tree" te staan. Staat hij er wel →
+      screenshot (dan zegt hij welke curio hij mist).
+- [ ] Heb je **Viperwind Idol** of **Dusty Loa Totem**? Dan hoort er een regel ">> …" onder te staan (onze lezing) en bij
+      Viperwind een regel "Players: …".
+- [ ] Het kleine paneel naast Valeera's venster: bij Utility twee regels "Guides pick: … — Guides: …".
+- [ ] Codex → Delve curios / Corrosive Codex / Labyrinth: de nieuwe regels over rang 5, Venom Infusion en Kindo'jan.
+
 ## 🆕 17 okt — Kindo'jan-tip herschreven (twee videogidsen)
 
 - [ ] Delve Coach → The Labyrinth of Kindo'jan → baas-tip. Hoort te zeggen: tussenfase **op 70% health** (niet meer

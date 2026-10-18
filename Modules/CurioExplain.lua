@@ -158,10 +158,15 @@ function ns.BuildCurioExplainText()
 			local mark = o.active and L("CURIO_ACTIVE") or "  "
 			local star = ""
 			if picks and o.spellID and picks[o.spellID] then
-				seen[o.spellID] = true
+				seen[picks[o.spellID]] = true -- the curio, whatever its rank (18 Oct 2026)
 				star = L("CURIO_GUIDE_MARK")
 			end
 			lines[#lines + 1] = ("%s %s%s"):format(mark, star, o.name or ("spell " .. o.spellID))
+			-- What guides say about WHEN (or a fact the tooltip lacks), right under the name.
+			local guideKey = ns.GetDelveCurioGuideLine and ns.GetDelveCurioGuideLine(o.spellID) or nil
+			if guideKey then
+				lines[#lines + 1] = ("      %s"):format(L(guideKey))
+			end
 			if o.desc then
 				-- ⚠️ EXACTLY EIGHT hex digits. `|c%x+` is greedy and A-F are hex
 				-- digits, so it swallows the first letter of the coloured word —
@@ -194,8 +199,9 @@ function ns.BuildCurioExplainText()
 		-- A recommendation that names something the player cannot find is exactly the
 		-- failure the guides make; if ours ever does it, it says so out loud.
 		local lost = {}
-		for spellID in pairs(picks) do
-			if not seen[spellID] then
+		local reps = ns.GetDelveCurioPickRepresentatives and ns.GetDelveCurioPickRepresentatives() or {}
+		for curio, spellID in pairs(reps) do
+			if not seen[curio] then
 				local nm
 				if C_Spell and C_Spell.GetSpellName then
 					local ok, v = pcall(C_Spell.GetSpellName, spellID)

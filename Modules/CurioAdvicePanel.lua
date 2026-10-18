@@ -369,31 +369,53 @@ function ns.RefreshCurioAdvicePanel()
 		head:Show()
 		y = y - SLOT_HEAD_H
 
+		-- 18 Oct 2026: a slot can carry more than one pick (the Utility slot is picked by situation), each with its own
+		-- "Guides: when" line. `recommended` stays the first one for the code below; `recs` holds them all.
 		local recommended, active
+		local recs = {}
 		for _, o in ipairs(node.options) do
 			if o.active then
 				active = o
 			end
 			if picks and o.spellID and picks[o.spellID] then
-				recommended = o
+				recs[#recs + 1] = o
+				recommended = recommended or o
 			end
 		end
 
-		n = n + 1
-		local rec = LineAt(f, n)
-		rec:SetPoint("TOP", f._content, "TOP", 0, y)
-		rec:SetWordWrap(true)
-		if recommended then
-			rec:SetTextColor(0.55, 0.85, 1)
-			rec:SetText((L("CURIOPANEL_REC_FMT")):format(recommended.name or "?"))
-		else
+		if #recs == 0 then
+			n = n + 1
+			local rec = LineAt(f, n)
+			rec:SetPoint("TOP", f._content, "TOP", 0, y)
+			rec:SetWordWrap(true)
 			-- 🔴 Say it. A slot with no line under it reads as "whatever you have is
 			-- fine", which is a recommendation we have not made.
 			rec:SetTextColor(0.6, 0.58, 0.55)
 			rec:SetText(L("CURIOPANEL_NO_REC"))
+			rec:Show()
+			y = y - math.max(LINE_H, rec:GetStringHeight() + 2)
 		end
-		rec:Show()
-		y = y - math.max(LINE_H, rec:GetStringHeight() + 2)
+		for _, r in ipairs(recs) do
+			n = n + 1
+			local rec = LineAt(f, n)
+			rec:SetPoint("TOP", f._content, "TOP", 0, y)
+			rec:SetWordWrap(true)
+			rec:SetTextColor(0.55, 0.85, 1)
+			local text = (L("CURIOPANEL_REC_FMT")):format(r.name or "?")
+			local whenKey = ns.GetDelveCurioGuideLine and ns.GetDelveCurioGuideLine(r.spellID) or nil
+			if #recs > 1 and whenKey then
+				text = text .. " — " .. L(whenKey)
+			end
+			rec:SetText(text)
+			rec:Show()
+			y = y - math.max(LINE_H, rec:GetStringHeight() + 2)
+		end
+		-- "You have this one" when the active pick is ANY of the slot's picks.
+		for _, r in ipairs(recs) do
+			if active and r.spellID == active.spellID then
+				recommended = r
+			end
+		end
 
 		-- Our own reading of what the player currently has, but only where there is no
 		-- guide star to speak for the slot. Two opinions stacked on one line is how a

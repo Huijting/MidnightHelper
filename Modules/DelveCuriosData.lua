@@ -320,12 +320,53 @@ end
 -- says so in those words, and it must keep saying so.
 --------------------------------------------------------------------------------
 
+--- 18 Oct 2026: a curio has a DIFFERENT spellID per rank (wago TraitNodeEntry → TraitDefinition, build 12.1.5.70448,
+--- mh-research; rank 5 is new in 12.1.5). The star used to hold one id per curio (Bilespear rank 2, Dreamcatcher rank 4,
+--- read from Rob's client on 2 Sep), so any other rank got no star and was reported as "not in your tree" (AFGELEID, not
+--- seen in a client). Each spellID now maps to its CURIO, and the positive control below counts curios, not ids.
+--- Rank order R1..R5 is AFGELEID from the tooltip values rising; only the set matters here.
+local CURIO_RANKS = {
+	bilespear    = { 1248878, 1248877, 1248876, 1248875, 1315061 }, -- Corrosive Bilespear (Combat)
+	dreamcatcher = { 1248899, 1248898, 1248897, 1248896, 1315064 }, -- Soul-Cracking Dreamcatcher (Utility)
+	dundun       = { 1248895, 1248894, 1248893, 1248892, 1315063 }, -- Dundun's Favor (Utility)
+	viperwind    = { 1288794, 1288796, 1288797, 1288798, 1314570 }, -- Viperwind Idol (Combat, new in 12.1.5)
+	dustyloa     = { 1288801, 1288803, 1288804, 1288805, 1314978 }, -- Dusty Loa Totem (Utility, new in 12.1.5)
+	venominfusion = { 1288782, 1288783, 1288785, 1288786, 1315065 }, -- Venom Infusion (Utility)
+}
+
+local function ByRank(map)
+	local out = {}
+	for curio, value in pairs(map) do
+		for _, id in ipairs(CURIO_RANKS[curio]) do
+			out[id] = value
+		end
+	end
+	return out
+end
+
+--- spellID → the curio it belongs to. 18 Oct 2026 (two mh-research rounds, guides + players): Bilespear in the Combat
+--- slot everywhere; the Utility slot is picked by SITUATION — Dreamcatcher for bosses (Method 18 Aug / 10 Oct, Icy Veins
+--- until 10 Oct, ~12 players), Dundun's Favor in normal delves and the Labyrinth's rooms (Icy Veins since 10 Oct, ~16
+--- players). Both are starred; the line under each star (DELVE_CURIO_GUIDE_LINES) says when.
 ns.DELVE_CURIO_GUIDE_PICKS = {
-	[2] = {
-		-- MEASURED to exist: node 110786 entry 137797, node 110785 entry 137817.
-		[1248877] = true, -- Corrosive Bilespear
-		[1248896] = true, -- Soul-Cracking Dreamcatcher
-	},
+	[2] = ByRank({ bilespear = "bilespear", dreamcatcher = "dreamcatcher", dundun = "dundun" }),
+}
+
+--- spellID → a "Guides: …" line printed under the option. For a starred curio it says WHEN; for some others it is a fact a
+--- guide gives that the tooltip does not (Venom Infusion counting as Poisoned: Wowhead's Vaults guide, 14 Oct 2026).
+--- These are guide/player claims, NOT our reading: the text itself says "Guides:" or "Players:".
+ns.DELVE_CURIO_GUIDE_LINES = {
+	[2] = (function()
+		local t = ByRank({
+			bilespear = "CURIO_WHEN_BILESPEAR",
+			dreamcatcher = "CURIO_WHEN_DREAMCATCHER",
+			dundun = "CURIO_WHEN_DUNDUN",
+			viperwind = "CURIO_WHEN_VIPERWIND",
+			venominfusion = "CURIO_WHEN_VENOMINFUSION",
+		})
+		t[1305904] = "CURIO_WHEN_TOAD" -- Bursting Toad Toxin: Method's Kindo'jan pick, 10 Oct 2026
+		return t
+	end)(),
 }
 
 --------------------------------------------------------------------------------
@@ -355,14 +396,17 @@ ns.DELVE_CURIO_GUIDE_PICKS = {
 --------------------------------------------------------------------------------
 
 ns.DELVE_CURIO_OUR_NOTES = {
-	[2] = {
-		[1250826] = "CURIO_NOTE_SOULTHIRST",   -- Soulthirst Venom
-		[1249934] = "CURIO_NOTE_FORGOTTEN",    -- Poison of the Forgotten Master
-		[1251120] = "CURIO_NOTE_BLOODCRYPT",   -- Bloodcrypt Toxin
-		[1305904] = "CURIO_NOTE_TOAD",         -- Bursting Toad Toxin
-		[1305912] = "CURIO_NOTE_FROSTHEART",   -- Frostheart Venom
-		[1305924] = "CURIO_NOTE_SPORE",        -- Phantasmal Spore Toxin
-	},
+	[2] = (function()
+		-- 18 Oct 2026: the two 12.1.5 curios, read off their tooltips (wago SpellEffect / Wowhead tooltip data, all ranks).
+		local t = ByRank({ viperwind = "CURIO_NOTE_VIPERWIND", dustyloa = "CURIO_NOTE_DUSTYLOA" })
+		t[1250826] = "CURIO_NOTE_SOULTHIRST"   -- Soulthirst Venom
+		t[1249934] = "CURIO_NOTE_FORGOTTEN"    -- Poison of the Forgotten Master
+		t[1251120] = "CURIO_NOTE_BLOODCRYPT"   -- Bloodcrypt Toxin
+		t[1305904] = "CURIO_NOTE_TOAD"         -- Bursting Toad Toxin
+		t[1305912] = "CURIO_NOTE_FROSTHEART"   -- Frostheart Venom
+		t[1305924] = "CURIO_NOTE_SPORE"        -- Phantasmal Spore Toxin
+		return t
+	end)(),
 }
 
 --- Our own one-line reading of an option, or nil when we have nothing to add.
@@ -386,6 +430,33 @@ function ns.GetDelveCurioGuidePicks(season)
 		return nil
 	end
 	return ns.DELVE_CURIO_GUIDE_PICKS[season]
+end
+
+--- The "Guides: …" line for an option (when to pick it, or a guide fact), or nil.
+function ns.GetDelveCurioGuideLine(spellID, season)
+	season = tonumber(season) or (ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil)
+	if not season then
+		return nil
+	end
+	local pack = ns.DELVE_CURIO_GUIDE_LINES[season]
+	return pack and pack[tonumber(spellID) or -1] or nil
+end
+
+--- One spellID per starred curio, for naming a pick that is missing from the tree.
+function ns.GetDelveCurioPickRepresentatives(season)
+	local picks = ns.GetDelveCurioGuidePicks(season)
+	if not picks then
+		return nil
+	end
+	local rep = {}
+	for spellID, curio in pairs(picks) do
+		if CURIO_RANKS[curio] then
+			rep[curio] = CURIO_RANKS[curio][1]
+		else
+			rep[curio] = rep[curio] or spellID
+		end
+	end
+	return rep
 end
 
 --- The label for one choice slot, or nil when we have no name for that node.
