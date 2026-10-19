@@ -1,54 +1,46 @@
-# Midnight Helper 4.9.0: take me there
+# Midnight Helper 4.10.0: my gear, what now?
 
 Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
 here on CurseForge, or the feedback form on midnighthelper.com.
 
-## New: take me there, from the search bar
+## New: My gear, what now?
 
-Type a place in the search bar at the top of Midnight Helper and pick **take me there**:
+"I do delves every day, but my gear does not go up." This release is for that question.
 
-- **Cities and portal places:** Dalaran, Shattrath, Oribos, Dazar'alor and every place a portal from your capital or
-  Silvermoon leads to.
-- **Every delve, dungeon and raid** we know the entrance of, the Labyrinth of Kindo'jan included.
+- **A window that reads your own gear.** Type `/mh gear`, or click **My gear: what now?** in the panel next to your
+  character. Per kind of item (Adventurer, Veteran, Champion, Hero, Myth) it shows how many steps are still open, how
+  many crests you hold, and in green when you can upgrade **right now**. For the next kind up, it shows where that
+  crest comes from, in the game's own words and your own language.
+- **A Codex card in small steps:** *Why does my gear not go up?* (Codex, **Start Here**). How to read your item, which
+  crest you need and where it comes from, why a **Restored Coffer Key** matters so much, the **Great Vault** (from delve
+  tier 8 it gives a Hero item), and when to go a tier up.
+- Good timing: from the week of 20 October there is no crest limit any more.
 
-The route starts from wherever you are, with the way home first when you need it.
+## Corrosive Codex: advice beside the window
 
-## Routes outside Midnight
-
-- The route now compares every chain of portals, boats, zeppelins, the way home, mage teleports and your Hearthstone,
-  and takes the fastest. The season's old **Mythic+ dungeons** (Algeth'ar Academy, Pit of Saron, Skyreach), a pin in
-  **Mount Hyjal** and more now get a real route instead of a flight across a continent.
-- `/mh plan` shows every step and a rough travel time.
-- **Flight masters:** the arrow lets go of a flight master once you fly past it. Flying there first? Then it stays on
-  the flight master until you board.
-- **New setting: Routes without flight masters**, for players who always fly themselves (off by default).
-
-## Valeera's curios
-
-- The star now works at **every rank, rank 5 included**.
-- It says **when** to pick what: Bilespear in every delve; Soul-Cracking Dreamcatcher for bosses, Nemesis bosses and
-  Kindo'jan; Dundun's Favor in normal delves and through the Labyrinth's rooms.
-- Notes for the two new 12.1.5 curios, **Viperwind Idol** and **Dusty Loa Totem**.
+Open the Corrosive Codex and a small card appears beside it: which gift to take for what (hit harder, Kindo'jan, groups,
+survival, casters), with a tick on the gifts you have. Got Insidious Venom next to a gift it cannot help? It says so.
+`/mh gifts` shows what it saw. You can switch it off in Settings.
 
 ## The Labyrinth of Kindo'jan
 
-- **Kindo'jan:** a new boss tip, from two video guides we checked against our own fight. The intermission at 70%,
-  which circle to take when Valeera marks one, the Juggernaut's knockback, and the setup to bring (curios, poison,
-  Corrosive Codex).
-- **Valeera** takes more damage than intended right now (Blizzard is investigating); the tip says so.
-- **Delve Log:** a Labyrinth run now counts as one run, with its number of rooms. Your old room-by-room entries are
-  merged once.
-- **Arrow:** a spot inside the Labyrinth, seen from outside, starts at the entrance in Eversong Woods.
-- **Codex:** 41 spots for Mislaid Treasures, the five spots of the locked door, and Sha'Kuro's stun once the last
-  Soul dies.
+- **Hexmasks:** walk into one of the five rooms where a Hexmask or the locked door can be, and MH tells you, once per
+  room per run. `/mh hexmask` points the arrow at the spot, and the search bar finds "hexmask", "locked door" and
+  "keeper".
+- **The Flooded Chamber:** its five chests now come last in the chest route. When the arrow does point there, the
+  screen says why it looks like the middle of nowhere: an ice wall that needs the Fiery Hexmask.
+- **Kindo'jan:** the intermission comes after **about 90 seconds**, not at 70% health. Our own recorded kill and two
+  rounds of research agree. Kill him fast enough and you never see it.
+- **Room-boss button:** it now opens the coach on that boss's tips, and says **End boss** for Kindo'jan.
+- **Fixed:** the chest button kept saying "Skipped Sturdy Chest 11" once every chest left was skipped. It now stops
+  and tells you why.
 
 ## Also
 
-- **Codex:** rank 5 curios come only from the Labyrinth; the Corrosive Codex says up front that a second slot opens
-  once you own eight gifts, and which pair to take for Kindo'jan.
-- **Ritual Sites:** the active site is now found in every game language.
-- **Ready for patch 12.1.7**, which changes how creature IDs are written.
+- Valeera's panel shows the Kindo'jan poison (Bursting Toad Toxin) instead of "No recommendation".
+- The Gear check says "1 empty socket".
+- Italian and German now use the game's own names: Siti Rituali, Fama, Reperto; Ritualstätten, Ruhm, Kuriosität.
 
 New texts in other languages are our own translation: native speakers, corrections are very welcome.
 

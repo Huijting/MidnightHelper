@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.10.0
+
+📌 **2026-10-19, RELEASE (Rob: "maak er maar een complete release van, goed overleggen met de chat site") — gewone
+release, géén beta**, op Robs uitdrukkelijke keuze. Minor, want nieuw gedrag. `RELEASE_NOTES.md` =
+`docs/CURSEFORGE_4.10.0.md`, beta-alinea bovenaan. In-game: CHANGELOG_4100_0..7 (enUS).
+GEMETEN door Rob in het spel (19 okt): `/mh gear` opent zonder fouten (ilvl 285, 4 soorten, slots, groene "can do now"),
+Codex-kaart staat in Start Here (na verplaatsing). NIET getest: Codex-advieskaartje na de "have"-reparatie,
+Hexmask-hint en `/mh hexmask`, kistroute Flooded Chamber + skip-stop, kamerbaas-knop "Rooms/Boss bovenaan", Valeera
+poison-regel, "1 empty socket", vertalingen (zelfgemaakt).
+
+- **Gear voor beginners:** `Modules/GearLadder.lua` (`/mh gear`, zijpaneel-regel) en Codex-kaart `gear_baby_steps`;
+  feiten in `docs/GEARING_FACTS_2026-10-19.md`.
+- **Corrosive Codex:** `Modules/CodexAdvicePanel.lua` (PlayerChoice 1076, knoppen 13–24), `/mh gifts`, schakelaar.
+- **Labyrinth:** `Modules/LabyrinthHexmask.lua`, Flooded Chamber achteraan + uitleg, Kindo'jan ~90 s-timer, kamerbaas-knop
+  (`final`), skip-lus weg. Analyse van Robs opgenomen run: `docs/labyrinth_run_2026-10-19/`.
+- **Klein:** Valeera-poison "Guides:"-regel, enkelvoud socket/enchant, it/de-spelnamen.
+
 ## 4.9.0
 
 📌 **2026-10-19, RELEASE (Rob: "ja we gaan een release doen nu"; go: "Go voor de tag v4.9.0.").** Tag `v4.9.0`

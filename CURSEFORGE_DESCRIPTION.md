@@ -10,7 +10,8 @@ For players who just hit 90 or are coming back after a break. Up to date for pat
 
 - **This Week**: the one page you need: what to do now, with a *Take me there* button.
 - **How you play**: all 40 specs on one short card each, with the key every spell is on for you.
-- **Your gear and Great Vault**: what your upgrade tracks mean, and which vault choice is best for you.
+- **Your gear and Great Vault**: what your upgrade tracks mean, which vault choice is best for you, and *My gear: what
+  now?*: what you can upgrade right now with the crests you hold, and the next step up, in small steps.
 - **Delves, dungeons and raids**: routes, boss tips and coaches that open by themselves, for all 15 delves and the
   Labyrinth of Kindo'jan.
 - **Your key block**: the same job on the same key on every character, with one Undo.
