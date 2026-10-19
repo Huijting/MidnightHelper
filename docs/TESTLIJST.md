@@ -32,6 +32,8 @@ Eerst `/reload`. Alles in de Labyrinth.
       en in chat) dat de route stopt. Liggen ze allemaal in de Flooded Chamber, dan noemt de melding de ijsmuur en de
       Fiery Hexmask. Nog één klik → de route begint opnieuw. Geen eindeloos "Skipped Sturdy Chest 11" meer.
 - [ ] **Gear check** (karakterscherm): met één lege socket staat er "1 empty socket" (enkelvoud).
+- [ ] **Kindo'jan-tip** (Coach, Boss-deel): "Phase 1, the first 90 seconds or so" en "After about 90 seconds (a timer, not
+      his health)…". Zet bij je volgende Kindo'jan `/combatlog` aan, dan meet ik het precieze moment.
 - [ ] **Valeera-venster, Poisons:** in plaats van "No recommendation" staat er "Bursting Toad Toxin — Guides: the top poison
       for Kindo'jan…". Heb je hem zelf aan, dan is de regel eronder groen.
 

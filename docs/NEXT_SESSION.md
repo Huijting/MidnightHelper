@@ -14,8 +14,14 @@ GEBOUWD, niet in het spel gezien (TESTLIJST bovenaan):
 Vertalingen van de nieuwe sleutels: mh-writer (de/fr/es/pt/it/ru + esMX 1 regel), drift gemarkeerd, eigen vertaling.
 ⚠️ Open: Duits "Gift" = vergif; het pack gebruikt "das Gift" voor de Codex-gaven → in CODEXADV_WARN_SELFPOISON staan
 beide betekenissen in één zin. Clientwoord voor de Codex-gift in deDE nog niet gemeten.
-🔜 Volgende (Robs keuze): Hexmask-hulp + Flooded Chamber-uitleg in de route; 3 vragen aan Rob (70%/33%, 15-stack-debuff,
-Bloodlust) staan in `docs/labyrinth_run_2026-10-19/README.md`.
+🔜 Volgende (Robs keuze): Hexmask-hulp + Flooded Chamber-uitleg in de route.
+**De 3 vragen, beantwoord 19 okt:** (1) Kindo'jan-tussenfase = **timer ~90 s**, geen health% — 2 mh-research-rondes eens
+(Icy Veins 9 okt, Wowhead 16 okt, wow.gg, Squishei-video; "70%" = Method + kopieën; spelers doden hem vóór de loa) +
+Robs video (88 s, op 33%). Onze site zei al "1:30, op de klok". DELVE_TIP_LABYRINTH_BOSS aangepast in 8 talen.
+Robs 15-okt-log (9 pulls, allemaal wipe boven 71%) kon het niet beslissen; de tijdlijn klopt wel (Mojo 5/13/21/29,
+Hash'ey 37, Axes 48, Crushing Blow 64). (2) groene 15-stapels-burst = **Ula'tek's Gift** (5/10 stacks per proc, burst
+op 20 → 15 is het maximum dat je ziet; AFGELEID, beide rondes). (3) Bloodlust blijft "in fase 2" (Rob).
+⚠️ CHANGELOG_490_5 (uitgebracht) zegt nog "intermission at 70%" — bewust niet aangepast.
 
 ## 🧪 19 okt — Codex-advieskaartje + it/de-spelnamen
 
