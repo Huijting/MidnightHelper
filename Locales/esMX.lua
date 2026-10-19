@@ -385,6 +385,8 @@ for k, v in pairs({
 	KEYBLOCK_OWN_FULL = "Este personaje ya tiene 5 disposiciones propias, el máximo que permite WoW. Borra primero una en el Modo de edición.",
 	KEYBLOCK_OWN_NOT_ACTIVE_FMT = "Se creó la disposición \"%s\", pero WoW no cambió a ella. Elígela en el Modo de edición y luego pulsa \"Colocar mis barras en bloque\".",
 	KEYPANEL_TITLE = "Gran bóveda - Calabozos",
+	LAB_HEXMASK_NOT_HERE = "no estás en el Laberinto de Kindo'Jan. Los cinco sitios (mapa 2647):",
+	LAB_HEXMASK_ROOM_FMT = "%s es uno de los cinco sitios de Hexmask. En esta partida hay ahí una Hexmask (haz clic en ella: lucha contigo el resto de la partida), la puerta cerrada con llave (su llave la suelta el Keeper of the Key, un élite en algún lugar del Laberinto) o nada. /mh hexmask apunta la flecha hacia él.",
 	LANG_SET_CHAT_FALLBACK = "Los consejos del chat de grupo/abismo usan inglés en este cliente de WoW (algunos scripts necesitan un cliente que coincida). La interfaz se queda en tu idioma elegido.",
 	LVL1080_1 = "Campañas de Cronoviaje (a menudo llamadas Chromie Time): habla con Cromi cerca de la Embassy en Ventormenta u Orgrimmar y elige la historia de una expansión antigua; sus zonas se ajustan entonces a tu nivel. El juego dice nivel 10-70. Empieza antes del nivel 68; después ya no puedes entrar.",
 	LVL1080_10 = "Después de la Campaña de Cronoviaje: The War Within (70-80). En cuanto un personaje haya terminado su campaña, el Modo aventura deja a tus otros personajes hacer sus zonas en cualquier orden. Puedes saltarte la introducción de Dalaran con Thrall en Silithus. Luego Midnight (80-90): las secciones de abajo.",

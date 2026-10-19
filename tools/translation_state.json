@@ -4243,6 +4243,15 @@
    "ptBR": "0d2fabff994999d8",
    "ruRU": "0d2fabff994999d8"
   },
+  "CMDLIST_HEXMASK": {
+   "deDE": "fb87249abd91a0ca",
+   "esES": "fb87249abd91a0ca",
+   "frFR": "fb87249abd91a0ca",
+   "itIT": "fb87249abd91a0ca",
+   "nlNL": "fb87249abd91a0ca",
+   "ptBR": "fb87249abd91a0ca",
+   "ruRU": "fb87249abd91a0ca"
+  },
   "CMDLIST_ITEMS": {
    "deDE": "7959b36533a465e1",
    "esES": "7959b36533a465e1",
@@ -8225,6 +8234,15 @@
    "nlNL": "36edbe301531cb43",
    "ptBR": "36edbe301531cb43",
    "ruRU": "36edbe301531cb43"
+  },
+  "DELVE_CHEST_FLOODED_HINT": {
+   "deDE": "db92a4505a88b8f5",
+   "esES": "db92a4505a88b8f5",
+   "frFR": "db92a4505a88b8f5",
+   "itIT": "db92a4505a88b8f5",
+   "nlNL": "db92a4505a88b8f5",
+   "ptBR": "db92a4505a88b8f5",
+   "ruRU": "db92a4505a88b8f5"
   },
   "DELVE_CHEST_LABEL": {
    "deDE": "005049be1f61999c",
@@ -18769,6 +18787,33 @@
    "itIT": "c843a3996b9c97a2",
    "ptBR": "c843a3996b9c97a2",
    "ruRU": "c843a3996b9c97a2"
+  },
+  "LAB_HEXMASK_NOT_HERE": {
+   "deDE": "058c8f2cfd101570",
+   "esES": "058c8f2cfd101570",
+   "frFR": "058c8f2cfd101570",
+   "itIT": "058c8f2cfd101570",
+   "nlNL": "058c8f2cfd101570",
+   "ptBR": "058c8f2cfd101570",
+   "ruRU": "058c8f2cfd101570"
+  },
+  "LAB_HEXMASK_ROOM_FMT": {
+   "deDE": "5545ccb6df93b426",
+   "esES": "5545ccb6df93b426",
+   "frFR": "5545ccb6df93b426",
+   "itIT": "5545ccb6df93b426",
+   "nlNL": "5545ccb6df93b426",
+   "ptBR": "5545ccb6df93b426",
+   "ruRU": "5545ccb6df93b426"
+  },
+  "LAB_HEXMASK_ROUTED_FMT": {
+   "deDE": "b71d1c5e3cb578e1",
+   "esES": "b71d1c5e3cb578e1",
+   "frFR": "b71d1c5e3cb578e1",
+   "itIT": "b71d1c5e3cb578e1",
+   "nlNL": "b71d1c5e3cb578e1",
+   "ptBR": "b71d1c5e3cb578e1",
+   "ruRU": "b71d1c5e3cb578e1"
   },
   "LANG_GATED_NOTICE": {
    "deDE": "1c300367acb8346f",

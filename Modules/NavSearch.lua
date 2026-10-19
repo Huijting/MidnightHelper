@@ -589,6 +589,18 @@ local function BuildNavIndex()
 		end
 	end
 
+	-- The five Labyrinth Hexmask spots (Rob's run, 19 Oct 2026: he typed "hex" at 10:30 and got two mounts and a boss).
+	-- The room name is the label; "hexmask", "mask", "locked door" and "keeper" are keywords on every client.
+	if ns.LAB_HEXMASK_SPOTS and ns.SetMapWaypoint then
+		local hint = "Hexmask — " .. L("NAV_ACTION_TAKE_ME")
+		for _, s in ipairs(ns.LAB_HEXMASK_SPOTS) do
+			local spot = s
+			add(spot.room, "hexmask hexmasks hex mask masks locked door keeper key labyrinth kindo'jan", function()
+				ns:SetMapWaypoint(2647, spot.x, spot.y, spot.room)
+			end, TIER_ACTION, hint, "place")
+		end
+	end
+
 	-- Collectible mounts. The mounts tab is one long checklist, so the hit lands on the
 	-- tab rather than on the row: scrolling a search result into view is a promise this
 	-- panel cannot keep yet.

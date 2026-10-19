@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 19 okt (avond) — hulp bij Hexmasks en kist 14
+
+Eerst `/reload`. In de Labyrinth (Journey-rang 2 of hoger).
+
+- [ ] **Maskerkamer-hint.** Loop een van deze kamers in: Chamber of Rites, The Cave Towers, Akil'zon's Roost, Jan'alai's
+      Refuge, Nalorakk's Rest. Je krijgt één regel in beeld én in chat: "… is one of the five Hexmask spots …". Per
+      kamer één keer per run. Andere kamers: niets.
+- [ ] **`/mh hexmask`** in zo'n kamer → pijltje op de plek in die kamer. In een andere kamer → de dichtstbijzijnde van de
+      vijf. Buiten de Labyrinth → een lijstje van de vijf. Onderaan een grijze regel met rang/kamer/beslissing.
+- [ ] **Zoekbalk:** typ "hexmask" (of "locked door", "keeper") → vijf rijen met de kamernamen; klik → pijltje.
+- [ ] **Kistenroute:** de vijf Flooded Chamber-kisten (#3 #11 #12 #14 #25) komen nu als **laatste**. Wijst het pijltje
+      er toch naar, dan staat in beeld de uitleg over de ijsmuur en de Fiery Hexmask.
+- [ ] Instellingen → "Labyrinth: tell me when a room has a Hexmask spot" uit → geen hint meer.
+
 ## 🆕 19 okt (middag) — vier fouten uit de Labyrinth-video
 
 Eerst `/reload`. Alles in de Labyrinth.

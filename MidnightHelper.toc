@@ -176,6 +176,7 @@ Modules\KeybindExport.lua
 Modules\CurioExplain.lua
 Modules\CurioAdvicePanel.lua
 Modules\CodexAdvicePanel.lua
+Modules\LabyrinthHexmask.lua
 Modules\TwoStepRoute.lua
 Modules\MechanicNameProbe.lua
 Modules\CorrosiveCodexHunts.lua

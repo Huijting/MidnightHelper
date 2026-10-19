@@ -357,6 +357,12 @@ local function Build()
 	end, function(v)
 		if ns.SetCodexAdviceEnabled then ns.SetCodexAdviceEnabled(v) end
 	end, true)
+	-- Rob, 19 Oct 2026: "ik kwam te laat achter dat ik dat moest gaan zoeken" (LabyrinthHexmask.lua).
+	Toggle("mh_labHexmaskHint", "SET_LABHEXMASK_TITLE", "SET_LABHEXMASK_DESC", function()
+		return ns.IsLabHexmaskHintEnabled and ns.IsLabHexmaskHintEnabled()
+	end, function(v)
+		if ns.SetLabHexmaskHintEnabled then ns.SetLabHexmaskHintEnabled(v) end
+	end, true)
 	Toggle("mh_delveRoomBossAuto", "SET_DELVE_ROOMBOSS_AUTO_TITLE", "SET_DELVE_ROOMBOSS_AUTO_DESC", function()
 		return ns.IsDelveRoomBossAutoOpen and ns.IsDelveRoomBossAutoOpen()
 	end, function(v)

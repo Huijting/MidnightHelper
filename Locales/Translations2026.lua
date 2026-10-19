@@ -17717,6 +17717,11 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	DELVE_CHEST_ALL_SKIPPED_FLOODED = "Die %d übrigen Truhen stehen alle in der Flooded Chamber, hinter einer Eiswand, die nur Feuer schmilzt: Du brauchst die Fiery Hexmask bei dir (laut Guides schmilzt ihr Feuer die Wand). Die Truhenroute endet hier; klick noch einmal auf Truhen, um neu zu beginnen.",
 	CHARPANEL_SOCKET_ONE = "%d leerer Sockel",
 	CHARPANEL_ENCH_ONE = "%d Platz ohne Verzauberung",
+	LAB_HEXMASK_ROOM_FMT = "%s ist eine der fünf Hexmask-Stellen. In diesem Durchlauf steht dort eine Hexmask (klick sie an: Sie kämpft für den Rest des Durchlaufs mit dir), die verschlossene Tür (den Schlüssel droppt der Keeper of the Key, ein Elitegegner irgendwo im Labyrinth) oder nichts. /mh hexmask richtet den Pfeil darauf.",
+	LAB_HEXMASK_ROUTED_FMT = "Pfeil auf die Hexmask-Stelle in %s gerichtet.",
+	LAB_HEXMASK_NOT_HERE = "du bist nicht im Labyrinth von Kindo'jan. Die fünf Stellen (Karte 2647):",
+	CMDLIST_HEXMASK = "Labyrinth: richtet den Pfeil auf die Hexmask-Stelle in diesem Raum oder auf die nächste der fünf.",
+	DELVE_CHEST_FLOODED_HINT = "Diese Truhe steht in der Flooded Chamber. Die Karte zeichnet dort keinen Raum, und der Weg hinein liegt hinter einer Eiswand, die nur Feuer schmilzt: Du brauchst die Fiery Hexmask bei dir (laut Guides schmilzt ihr Feuer die Wand). Keine Fiery Hexmask in diesem Durchlauf? Klick noch einmal auf Truhen, um sie zu überspringen.",
 }) end
 
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
@@ -17738,6 +17743,13 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CHARPANEL_ENCH_ONE = "%d emplacement sans enchantement",
 	SET_CODEXADV_TITLE = "Conseils à côté du Corrosive Codex",
 	SET_CODEXADV_DESC = "Quand tu ouvres le Corrosive Codex, une petite fiche à côté indique quel gift choisir pour quoi, et marque ceux que tu as.",
+	LAB_HEXMASK_ROOM_FMT = "%s est l'un des cinq endroits à Hexmask. Dans cette partie, il y a là un Hexmask (clique dessus : il se bat avec toi jusqu'à la fin de la partie), la porte verrouillée (sa clé tombe sur le Keeper of the Key, un élite quelque part dans le labyrinthe) ou rien. /mh hexmask pointe la flèche dessus.",
+	LAB_HEXMASK_ROUTED_FMT = "flèche pointée sur l'endroit à Hexmask dans %s.",
+	LAB_HEXMASK_NOT_HERE = "tu n'es pas dans le labyrinthe de Kindo’jan. Les cinq endroits (carte 2647) :",
+	CMDLIST_HEXMASK = "Labyrinthe : pointe la flèche sur l'endroit à Hexmask de cette salle, ou sur le plus proche des cinq.",
+	DELVE_CHEST_FLOODED_HINT = "Ce coffre est dans la Flooded Chamber. La carte n'y dessine aucune salle, et l'entrée est derrière un mur de glace que seul le feu fait fondre : il te faut le Fiery Hexmask avec toi (d'après les guides, son feu fait fondre le mur). Pas de Fiery Hexmask dans cette partie ? Clique encore sur Coffres pour le passer.",
+	SET_LABHEXMASK_TITLE = "Labyrinthe : me prévenir quand une salle a un endroit à Hexmask",
+	SET_LABHEXMASK_DESC = "Une fois par salle et par partie, une ligne à l'écran quand tu entres dans l'une des cinq salles où peut se trouver un Hexmask ou la porte verrouillée. /mh hexmask pointe la flèche sur l'endroit.",
 }) end
 
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
@@ -17759,6 +17771,13 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CHARPANEL_ENCH_ONE = "%d ranura sin encantamiento",
 	SET_CODEXADV_TITLE = "Consejos junto al Corrosive Codex",
 	SET_CODEXADV_DESC = "Cuando abres el Corrosive Codex, una pequeña tarjeta a su lado dice qué gift elegir para qué, y marca los que ya tienes.",
+	LAB_HEXMASK_ROOM_FMT = "%s es uno de los cinco sitios de Hexmask. En esta partida hay ahí una Hexmask (haz clic en ella: lucha contigo el resto de la partida), la puerta cerrada con llave (su llave la suelta el Keeper of the Key, un élite en algún lugar del laberinto) o nada. /mh hexmask apunta la flecha hacia él.",
+	LAB_HEXMASK_ROUTED_FMT = "flecha apuntada al sitio de Hexmask en %s.",
+	LAB_HEXMASK_NOT_HERE = "no estás en el laberinto de Kindo'jan. Los cinco sitios (mapa 2647):",
+	CMDLIST_HEXMASK = "Laberinto: apunta la flecha al sitio de Hexmask de esta sala, o al más cercano de los cinco.",
+	DELVE_CHEST_FLOODED_HINT = "Este cofre está en la Flooded Chamber. El mapa no dibuja ninguna sala ahí, y la entrada está tras un muro de hielo que solo derrite el fuego: necesitas llevar contigo la Fiery Hexmask (según las guías, su fuego derrite el muro). ¿No tienes la Fiery Hexmask en esta partida? Haz clic otra vez en Cofres para omitirlo.",
+	SET_LABHEXMASK_TITLE = "Laberinto: avísame cuando una sala tenga un sitio de Hexmask",
+	SET_LABHEXMASK_DESC = "Una vez por sala y partida, una línea en pantalla cuando entras en una de las cinco salas donde puede haber una Hexmask o la puerta cerrada con llave. /mh hexmask apunta la flecha al sitio.",
 }) end
 
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
@@ -17780,6 +17799,13 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CHARPANEL_ENCH_ONE = "%d slot sem encantamento",
 	SET_CODEXADV_TITLE = "Dicas ao lado do Corrosive Codex",
 	SET_CODEXADV_DESC = "Quando você abre o Corrosive Codex, um cartãozinho ao lado diz qual gift escolher para quê e marca os que você já tem.",
+	LAB_HEXMASK_ROOM_FMT = "%s é um dos cinco lugares de Hexmask. Nesta partida há ali uma Hexmask (clique nela: ela luta com você pelo resto da partida), a porta trancada (a chave cai do Keeper of the Key, um elite em algum lugar do Labirinto) ou nada. /mh hexmask aponta a seta para ele.",
+	LAB_HEXMASK_ROUTED_FMT = "seta apontada para o lugar de Hexmask em %s.",
+	LAB_HEXMASK_NOT_HERE = "você não está no Labirinto de Kindo'jan. Os cinco lugares (mapa 2647):",
+	CMDLIST_HEXMASK = "Labirinto: aponta a seta para o lugar de Hexmask desta sala, ou para o mais próximo dos cinco.",
+	DELVE_CHEST_FLOODED_HINT = "Este baú está na Flooded Chamber. O mapa não desenha nenhuma sala ali, e a entrada fica atrás de uma parede de gelo que só fogo derrete: você precisa estar com a Fiery Hexmask (segundo os guias, o fogo dela derrete a parede). Sem Fiery Hexmask nesta partida? Clique em Baús de novo para pulá-lo.",
+	SET_LABHEXMASK_TITLE = "Labirinto: me avise quando uma sala tiver um lugar de Hexmask",
+	SET_LABHEXMASK_DESC = "Uma vez por sala e por partida, uma linha na tela quando você entra em uma das cinco salas onde pode estar uma Hexmask ou a porta trancada. /mh hexmask aponta a seta para o lugar.",
 }) end
 
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
@@ -17801,4 +17827,11 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CHARPANEL_ENCH_ONE = "%d slot senza enchant",
 	SET_CODEXADV_TITLE = "Consigli accanto al Corrosive Codex",
 	SET_CODEXADV_DESC = "Quando apri il Corrosive Codex, una piccola scheda lì accanto dice quale gift scegliere per cosa, e segna quelli che hai.",
+	LAB_HEXMASK_ROOM_FMT = "%s è uno dei cinque punti delle Hexmask. In questa run lì c'è una Hexmask (cliccala: combatte con te per il resto della run), la porta chiusa a chiave (la chiave cade dal Keeper of the Key, un élite da qualche parte nel Labirinto) oppure niente. /mh hexmask punta la freccia lì.",
+	LAB_HEXMASK_ROUTED_FMT = "freccia puntata sul punto della Hexmask in %s.",
+	LAB_HEXMASK_NOT_HERE = "non sei nel Labirinto di Kindo'jan. I cinque punti (mappa 2647):",
+	CMDLIST_HEXMASK = "Labirinto: punta la freccia sul punto della Hexmask in questa stanza, o sul più vicino dei cinque.",
+	DELVE_CHEST_FLOODED_HINT = "Questa cassa è nella Flooded Chamber. La mappa lì non disegna nessuna stanza, e l'ingresso è dietro un muro di ghiaccio che solo il fuoco scioglie: ti serve avere con te la Fiery Hexmask (secondo le guide il suo fuoco scioglie il muro). Niente Fiery Hexmask in questa run? Clicca di nuovo su Casse per saltarla.",
+	SET_LABHEXMASK_TITLE = "Labirinto: avvisami quando una stanza ha un punto delle Hexmask",
+	SET_LABHEXMASK_DESC = "Una volta per stanza per run, una riga sullo schermo quando entri in una delle cinque stanze dove possono esserci una Hexmask o la porta chiusa a chiave. /mh hexmask punta la freccia sul punto.",
 }) end

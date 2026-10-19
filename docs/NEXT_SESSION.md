@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🧭 19 okt (avond) — Hexmask-hulp + kist 14 (Rob: "begin aan de hulp bij de maskers en kist 14")
+
+GEBOUWD, niet in het spel gezien (TESTLIJST bovenaan):
+- `Modules/LabyrinthHexmask.lua`: `ns.LAB_HEXMASK_SPOTS` (de 5 gedeelde plekken); hint 1× per kamer per run bij
+  binnenlopen (Journey-rang ≥ 2, Engelse subzone-namen zoals de kistroute; andere clienttaal = stil); `/mh hexmask`
+  (pijl naar de plek hier of de dichtstbijzijnde, print de beslissing); schakelaar `mh_labHexmaskHint` (aan).
+- Zoekbalk: 5 rijen, sleutelwoorden hexmask/mask/locked door/keeper (NavSearch, na het Doors-blok).
+- Kistroute (`DelveChestData.lua`): Flooded Chamber-kisten achteraan (na alle andere open kisten, vóór overgeslagen);
+  wijst hij er toch naar → `DELVE_CHEST_FLOODED_HINT` in beeld + chat i.p.v. "room may not be open".
+- Niet gedaan (kan niet zonder meting): de Keeper of the Key herkennen (naam is secret in een gevecht) en zien of je de
+  Fiery Hexmask hebt (geen gemeten aura).
+
 ## 🔧 19 okt (middag) — vier fouten uit de Labyrinth-video gerepareerd (Rob: "repareer eerst de vier bugs")
 
 GEBOUWD, niet in het spel gezien (TESTLIJST bovenaan):

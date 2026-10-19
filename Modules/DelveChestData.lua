@@ -407,6 +407,9 @@ function ns.GetOpenDelveChests()
 			end
 			open[#open + 1] = { x = c.x, y = c.y, quest = c.quest, index = i, dist = d, room = c.room,
 				inRoom = knownRoom and Norm(c.room) == here or nil,
+				-- Rob's run, 19 Oct 2026 (videos B-D): the arrow sat on Flooded Chamber chests for ~40 minutes; that room
+				-- is behind an ice wall that needs the Fiery Hexmask. Its chests now come after every other open chest.
+				flooded = c.room == "Flooded Chamber" or nil,
 				skipped = (skipped and skipped[i]) or (c.seal and not journeyRank) or nil }
 		end
 	end
@@ -415,6 +418,10 @@ function ns.GetOpenDelveChests()
 		-- not off the list: it is still unopened, and once everything else is done it is the only way left.
 		if (a.skipped and true or false) ~= (b.skipped and true or false) then
 			return not a.skipped
+		end
+		local af, bf = (a.flooded and not a.inRoom) and true or false, (b.flooded and not b.inRoom) and true or false
+		if af ~= bf then
+			return bf
 		end
 		if (a.inRoom and true or false) ~= (b.inRoom and true or false) then
 			return a.inRoom and true or false
@@ -527,17 +534,22 @@ local function PointAtNearest(announce)
 		-- already are; the chat line stays because it is the one you can scroll back to
 		-- when the notice has gone. Rob, 16 aug: he only spotted the chat line because
 		-- he asked for the feature.
+		-- The Flooded Chamber is not a room this run "may not open": it is behind an ice wall, and the map draws no room
+		-- there (Rob's world map, 19 Oct 09:48). Say that on screen, where the arrow is, not only in chat.
+		local floodedLine = (c.flooded and not c.inRoom) and ns:L("DELVE_CHEST_FLOODED_HINT") or nil
 		if ns.ShowBriefNotice then
-			ns.ShowBriefNotice(headline .. "|n" .. ns:L("DELVE_CHEST_SKIP_HINT"), 6)
+			ns.ShowBriefNotice(headline .. "|n" .. (floodedLine or ns:L("DELVE_CHEST_SKIP_HINT")), floodedLine and 9 or 6)
 		end
 		print(("%s %s"):format(ns:L("PRINT_PREFIX"), headline))
 		print(("   %s"):format(ns:L("DELVE_CHEST_SKIP_HINT")))
 		if sealedLine then
 			print(("   %s"):format(sealedLine))
 		end
+		if floodedLine then
+			print(("   %s"):format(floodedLine))
 		-- You stand in a room we know, and its chests are all done: say so, because the next one sits in a room this
 		-- run may not open (Rob, 15 Oct, in the Catacombs: the arrow sent him to the Cave Towers' water chest).
-		if hereRoom and not c.inRoom then
+		elseif hereRoom and not c.inRoom then
 			print(("   %s"):format((ns:L("DELVE_CHEST_ROOM_DONE")):format(hereRoom, c.room or "?")))
 		end
 		-- Say it out loud when a chest's state is unreadable. The route then walks you
