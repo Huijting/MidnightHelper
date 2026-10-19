@@ -28,6 +28,8 @@ Eerst `/reload`. Op Umbrion (Adventurer of the Mist = true, trinket-watermark 26
 - [x] ✅ Rob 19 okt, Umbrion: MH "Adventurer … 11 at half price, You can do 5 steps" (54 crests); Cuzolth: Cosmic Bell
       2/6 → 6/6 = **40** crests (4 × 10) — klopt. Champion 4 crests → "need 6 more" (10 per stap) klopt. ✅ Na uitgeven
       ging het venster vanzelf naar 4 crests (Rob).
+      ✅ Rob 19 okt, tweede bewijs: Hex Loop Veteran 2/6 → 5/6 = 30 crests (3 × 10); MH vooraf "Veteran 30 crests, You can
+      do 3 steps right now!". Daarna zonder verversen "Finger 5/6, 0 crests, need 10 more" = Blizzards volgende stap (10).
 - [ ] `/mh gear` **zonder** eerst bij Cuzolth te zijn: bij Adventurer staat **geen** "at least" meer, maar
       "You can do N steps right now!", met eronder "Your discounts here: X steps free, Y at half price." De trinket-
       stappen 2/6 → 6/6 horen half price (10) te zijn.
