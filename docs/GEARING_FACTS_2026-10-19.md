@@ -21,6 +21,12 @@ below unless a row says otherwise. Asked by Rob for Carola ("ik doe delves… ma
   number + a tooltip naming the reason). 20 stays the base price (guides + PTR notes "flat costs"); 10 = half is
   most likely the Warband discount from "… of the Mist" or a watermark (INFERRED — Rob can hover the number to see).
   So GearLadder learns the real price at the NPC (ITEM_UPGRADE_MASTER_SET_ITEM/UPDATE) and labels 20 as an estimate.
+  ✅ Round A (wago DB2 12.1.5.70448, with and without hotfixes, unchanged since 12.1.0.69273): every Adventurer…Myth
+  step is MEASURED at 20 crests (ItemExtendedCost 11457–11481); gold is never discounted. Discounts are server-side:
+  own-character watermark → 0 crests, Warband (after "… of the Mist") → 50% (GUIDE: Wowhead 380457; Blizzard Support
+  336964 confirms the rule, not the size). Rob's item 256978 "Rootspeaker's Branches" = gloves → 10 + full gold fits the
+  Warband 50% (INFERRED). Check: hover the green "10" ("Warband-Wide"), or
+  `/run print(C_ItemUpgrade.GetHighWatermarkForItem(256978))`.
 - One crest type per track; no mixing (both).
 - Slot discount: cheaper/free up to an item level you already had in that slot (A: Blizzard Support 000336964;
   B: GlobalStrings 50516–50521). Warband-wide only after the "… of the Mist" achievements (62410–62416).
