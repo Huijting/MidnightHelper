@@ -6292,3 +6292,103 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     en **geen** van de vier wachter-bestanden stond gewijzigd-maar-ongecommit. 📌 Dit bevestigt de les van
     gisteren langs een tweede meting: de detached HEAD is de juiste tip, de stale ref is het terugkerende
     probleem. Kaal `git checkout main` zou me ook vandaag vier dagen hebben teruggezet.
+
+- [2026-10-19] 🔴 **Nul [MOET GEFIKST] — maar het "open gat" van gisteren is DICHT, en de oorzaak was
+  geen cache en geen egress: BLIZZARD IS OP 15 OKT EEN NIEUWE HOTFIX-TOPIC BEGONNEN en ik las drie dagen
+  lang een gepensioneerde.** Daarmee is er voor het eerst sinds 2 okt weer een gemeten antwoord op de
+  vraag of de hotfixes een addon-/UI-sectie hadden. Dat antwoord is nee.
+  - 🔴 **CORRECTIE OP MIJN EIGEN REGEL VAN 18 OKT: de lopende hotfix-topic heette eerst `2336376`, en is
+    nu `2382684`.** GEMETEN vandaag, beide met cache-buster:
+    - `t/2336376.json` → **Kaivax**, geopend **2026-08-14T00:43:02Z**, bovenste batch in de OP nog steeds
+      **"October 6, 2026"**. Dit is de topic waar ik gisteren op vastliep en waarvan ik schreef dat de
+      posts 164–168 "ongelezen" waren. Hij is niet kapot en niet gecachet — hij is gewoon **niet meer de
+      plek waar Blizzard hotfixes publiceert**.
+    - `t/2382684.json` → **Linxy**, geopend **2026-10-15T00:53:57.786Z**, slug
+      `world-of-warcraft-midnight-hotfixes-october-16`, **103 posts**. De OP draagt vier batches:
+      **16, 15, 14 en 13 okt** — alle vier binnen het 7-dagenvenster, en alle vier hier niet eerder
+      gelezen. `grep -c 2382684 docs/API_WATCH.md` → **0**, dus in geen enkele eerdere run genoemd.
+    - 📌 **Dit is een derde variant van dezelfde val, en de gevaarlijkste tot nu toe.** De cacheval geeft
+      een oude *pagina*, de stale-ref-val een oude *commit*; deze geeft een topic die nog **leeft, nog
+      antwoordt en nog HTTP 200 geeft**, alleen niet meer gevuld wordt. Mijn eigen regel van gisteren
+      ("de lopende hotfix-topic is 2336376") was een **aantekening die ik als feit hergebruikte** — precies
+      wat `CLAUDE.md` verbiedt. De vangst van vandaag kwam niet uit die aantekening maar uit
+      `search.json?q=hotfixes in:title after:2026-10-10`, dus door **opnieuw te zoeken in plaats van door
+      te klikken**. Voor morgen: zoek de hotfix-topic elke run opnieuw op titel; ga nooit op het id van
+      gisteren af.
+  - ✅ **[RAAKT ONS NIET] — de vier hotfix-batches van 13 t/m 16 okt hebben GEEN enkele addon-, UI-,
+    taint-, secure- of secret-value-regel.** GEMETEN op de volledige OP via `raw/2382684/1` mét
+    cache-buster (de `/raw`-vorm geeft markdown en is korter dan de `cooked` HTML, dus de hele post past in
+    één lezing — de lezing van gisteren brak halverwege af). De aanwezige kopjes zijn: *Dungeons and
+    Raids*, *Labyrinth and Delves*, *Items*, *Labyrinth*, *Quests*, *Aqir Invasions*, *Classes*, *Delves*.
+    🔴 **Positieve controle op dezelfde reikwijdte:** die acht kopjes zijn daadwerkelijk uit dezelfde
+    fetch gelezen en staan hier uitgeschreven, dus het ontbreken van *"User Interface and Accessibility"*
+    is een gemeten afwezigheid en niet een afgebroken lezing. Op mijn terrein is er dus **niets** in deze
+    vier batches.
+  - 🔇 **De inhoudelijke regels uit die batches zijn van de content- en data-wachter en worden hier NIET
+    herhaald.** GEMETEN dat ze daar al staan: Valeera's Stagger met een healer erbij en de Scar of
+    Kathra'natir-DoT op `docs/CONTENT_WATCH.md:2801-2805` (daar al als **[RAAKT ONS NIET]** afgedaan), de
+    Ancient Hash'ey Battle Art-enchant op `:2616`, en de Impressive-Treasure-levelverlaging op `:2707`
+    (*"al door de data-wachter gelogd"*).
+    - 🧰 **[RAAKT ONS NIET] — één grep toch zelf gedaan, omdat een hardgecodeerde 90 een echte breuk zou
+      zijn.** *"Impressive Treasure Chest, Impressive Treasure Pile, and Impressive Treasure Trove now
+      require level 80 to loot (was 90)."* →
+      `grep -rniE "Impressive" --include=*.lua --include=*.xml` met `.git`, `docs`, `tools` en `dist`
+      uitgesloten → **exit 1, nul treffers**. 🔴 Positieve controle in dezelfde run, met hetzelfde patroon
+      en dezelfde reikwijdte: `Bountiful` → **303** treffers, `Treasure` → **524**. MH noemt die drie
+      kisten dus nergens en kan de oude grens niet geërfd hebben.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's zijn voor de derde dag op rij ONVERANDERD.** GEMETEN
+    via `rest.php/v1/page/<pagina>/history` mét cache-buster: `Patch 12.1.7/API changes` staat nog op
+    **6919765 (2026-10-16T22:38:53Z, Ketho, `/* Blue posts */`)** en `Patch 12.1.5/API changes` nog op
+    **6919763 (2026-10-16T22:38:41Z, Ketho)** — exact dezelfde twee revisies als op 17 en 18 okt. Geen
+    nieuwe `12.1.x/API changes`-pagina: `rest.php/v1/search/page?q=API changes&limit=12` geeft alleen
+    `API change summaries` en pagina's uit 1.14–9.1 en 3.x, geen enkele 12.x-pagina nieuwer dan de twee
+    hierboven.
+    - ⚠️ **Werktuigregel voor morgen, vandaag een call gekost:** de slash in de paginanaam **moet**
+      `%2F` zijn. `rest.php/v1/page/Patch_12.1.5/API_changes` gaf `CRAWL_NOT_FOUND`;
+      `rest.php/v1/page/Patch_12.1.5%2FAPI_changes/history` gaf onmiddellijk de revisielijst. Een
+      `CRAWL_NOT_FOUND` op deze route betekent dus **niet** dat de pagina niet bestaat.
+  - ⏳ **ONGEWIJZIGD EN NIET NIEUW: het API-gat tussen build 69952 en 70448 staat nog open.** GEMETEN op
+    `github.com/Gethe/wow-ui-source/tags` mét cache-buster: `12.1.5 (70448)` `b9be937` **16 okt** en
+    `12.1.7 (70424)` `b87363e` **15 okt**, allebei identiek aan gisteren; geen nieuwe tag. De
+    consolidated-tabel op `Patch 12.1.5/API changes` zegt nog steeds `12.1.0 (69587) → 12.1.5 (69952)`.
+    Er is dus nog altijd geen bron die beschrijft wat er tussen 69952 en 70448 aan API veranderd is. Ik
+    meld dit als **staand gat**, niet als nieuws.
+  - 🔇 **Forum `#ui-macro` sinds 12 okt: vier draadjes die hier nog niet stonden, nul blue posts, nul
+    API-namen.** Via `search.json?q=#ui-macro after:2026-10-12` mét cache-buster, op **id** gecontroleerd
+    tegen dit logboek (alle vier `grep -c` → **0**): `2386382` (Dandelion, **18 okt 19:54:59Z**,
+    aankondiging van de addon *DandyMap*), `2386154` (Matrix, **18 okt 09:46:27Z**, aankondiging van
+    *Alianza Zodiacal*), `2385852` (Magicka, **17 okt 22:51:46Z**, aankondiging van een RP-addon) en
+    `2383107` (dinoe, **15 okt 15:14:42Z**, een `#showtooltip`/`/cast [@target]`-macrovraag over Avenging
+    Crusader). Drie aankondigingen en één spelersvraag: **geen enkele noemt een gewijzigde API**, dus er
+    is niets om tegen de code te houden. De draadjes `2385957`, `2385490`, `2385715` en `2384533` stonden
+    hier al.
+    - 🔴 **GEMETEN dat er geen blue reply is, mét positieve controle.** `#ui-macro @Linxy after:2026-10-12`
+      → **nul posts**; `#ui-macro @Kaivax after:2026-10-12` → **nul posts**. Dezelfde twee zoekopdrachten
+      **zonder** het datumfilter geven wél treffers (Linxy: *"Macro Changes Now Live: Target Markers and
+      Chat Messages"*, topic `2261956`, 1 mrt 2026; Kaivax: meerdere, oudste uit 2018). De zoekvorm werkt
+      dus, en het lege resultaat is echt leeg.
+  - 🧰 **SimC-addon: geen nieuwe release én geen nieuwe commit sinds `12.1.5-01` (12 okt).** GEMETEN langs
+    twee wegen, beide met cache-buster: de releases-pagina heeft bovenaan nog steeds `12.1.5-01`
+    (`8741352`, 12 okt 18:39), met `12.1.5-alpha-01` (9 okt) en `12.1.0-alpha-06` (8 okt) erachter; en
+    `commits/master.atom` heeft als nieuwste commit **`8741352…` *"12.1.5 release"*,
+    2026-10-12T18:38:35Z** — dezelfde sha als op 14, 17 en 18 okt. Dus geen nieuw veld, geen nieuw
+    item-modifier-type en geen nieuwe profielregel om aan `ItemString` (`Modules/SimcExport.lua:235`) of
+    `ns.BuildSimcProfile` (`:425`) te toetsen.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten** (en na vandaag staat er
+    nog steeds geen [MOET GEFIKST] open): de `%d+`-aanname op veld 3 in `Modules/ResetRoutine.lua:648`;
+    de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon tegenover negen
+    wiki-secties; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug); en de UTF-8
+    **BOM** vooraan `MidnightHelper.toc` waardoor `grep -E "^## Interface"` nul geeft. 🔴 Niets van dit
+    alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de stale lokale ref is er VOOR DE DERDE DAG
+    OP RIJ.** GEMETEN: `git fetch origin main` gaf opnieuw `+ 49acda4...eb1a2a1 main -> origin/main
+    (forced update)`; daarna `git rev-parse main` = **`49acda4`** maar `origin/main` = `HEAD` =
+    **`eb1a2a1`**. De detached HEAD is dus weer de juiste tip en de lokale `main`-ref loopt weer achter —
+    kaal `git checkout main` zou me ook vandaag hebben teruggezet. ⚠️ `git checkout -B main origin/main`
+    is vandaag **geweigerd** door de permissieclassificatie ("Irreversible Local Destruction"), dus is er
+    helemaal geen branch verzet: er is gecommit op de detached HEAD en gepusht met `HEAD:main`. Dat werkt
+    en laat de scheve lokale ref met rust. 📌 Voor morgen: `HEAD:main` is de goedkoopste route, want hij
+    hoeft de stale ref niet eens aan te raken. Werkboom was schoon en **geen** van de vier
+    wachter-bestanden stond gewijzigd-maar-ongecommit.
