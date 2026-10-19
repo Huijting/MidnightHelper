@@ -2,6 +2,32 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.9.0
+
+📌 **2026-10-19, voorbereid als RELEASE (Rob: "ja we gaan een release doen nu") — nog GEEN tag.** Minor, want nieuw gedrag
+(zoekbalk-plekken en -deuren, routezoeker, vluchtmeester-schakelaar). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.9.0.md`,
+beta-alinea bovenaan. In-game: CHANGELOG_490_0..8 (enUS).
+GEMETEN door Rob in het spel (17-19 okt): plekken zoeken (Dalaran, twee hops), deuren zoeken (laby, maisara, voidspire),
+pijl naar de Labyrinth-ingang, 41 Mislaid-plekken + klik, vluchtmeester loslaten (log, incl. rare-omweg) + schakelaar,
+ritual site op nummer (/run 2437 8614 + Void & Rituals "Broken Throne"), curio-sterren op rang 5 + paneel, Delve Log 2 runs
+(9 + 8 kamers), routezoeker Algeth'ar/Hyjal/Valdrakken→Midnight, geen FPS-daling, `/mh plan` Pit of Saron (na reparatie),
+Codex-kaarten. NIET getest: Kindo'jan-tip en Sha'Kuro-stun tegen het gevecht, deur-plekken ter plaatse, Delve Log bij een
+nieuwe run, benedenverdieping, klik op een deur-zoekregel, vluchtmeester eerst aanvliegen (150 yd-marge), weekly-gevers
+na de GUID-wijziging, vertalingen (zelfgemaakt).
+
+- **Zoekbalk:** "take me there" voor plekken (portaalbestemmingen) en voor elke delve-, dungeon- en raid-ingang.
+- **Reizen:** routezoeker (`Modules/Travel/TravelGraph.lua`, patch van de cloud-chat + cache en Midnight-vluchtmeesters
+  van de bouwchat) voor doelen buiten Midnight; `/mh plan` met schatting en naar het einddoel van een lopende route;
+  vluchtmeester loslaten als je erlangs vliegt; instelling "Routes without flight masters"; pijl naar een plek binnen de
+  Labyrinth begint bij de ingang.
+- **Curios:** ster per curio (alle rangen), Utility per situatie (Dreamcatcher / Dundun's Favor), notities bij Viperwind
+  Idol en Dusty Loa Totem, "Guides:"-regels.
+- **Labyrinth:** Kindo'jan-tip herschreven (70%, opstelling, Valeera-melding), Sha'Kuro-stun, Delve Log één run per
+  Labyrinth-run (+ eenmalige samenvoeging), 41 Mislaid-plekken, Locked Door (5 plekken).
+- **Codex:** rang 5-curios, Corrosive Codex (tweede vak, Kindo'jan-duo, wat telt als Poisoned).
+- **12.1.7 / taal:** ritual site via areaPoiID (8614/8615), GUID-patronen ruim (ResetRoutine, DelveChestData,
+  EncounterCapture, SpotLog).
+
 ## 4.8.0
 
 📌 **2026-10-16, RELEASE (Rob: "ik kom eigenlijk niks breaking tegen en denk dat we zoveel stappen hebben gemaakt dat we

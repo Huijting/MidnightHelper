@@ -18,11 +18,12 @@ For players who just hit 90 or are coming back after a break. Up to date for pat
 
 ### It takes you there, from anywhere
 
-Every route starts where you stand. Far from home? The arrow first takes you back to your capital: your Hearthstone
-(or a Hearthstone toy when it is on cooldown), a mage teleport, or the right portal. Then it goes step by step through
-every portal, boat, door and orb on the way. Use TomTom? It keeps the arrow.
+Type where you want to go in the search bar (a city, a delve, a dungeon or a raid) and pick **take me there**. Every
+route starts where you stand and takes the fastest way: your Hearthstone (or a toy when it is on cooldown), a mage
+teleport, the right portal, then step by step through every portal, boat, door and orb, into the old world too. Use
+TomTom? It keeps the arrow.
 
-### New: the Mount run
+### The Mount run
 
 More than 40 old raids and dungeons you can do on your own for a mount, in one window: which mounts you still miss,
 and which ones you can still try this week. Click **Route** and the arrow takes you to the entrance, including the

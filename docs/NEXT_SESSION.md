@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🚀 19 okt — release 4.9.0 KLAAR OM TE TAGGEN, nog GEEN tag
+
+Rob: *"ja we gaan een release doen nu"* — gewone release (zoals 4.8.0). Klaar: `## Version: 4.9.0`, Changelog.lua +
+CHANGELOG_490_0..8 (enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.9.0.md` (beta-alinea bovenaan), `CHANGELOG.md` (met
+GEMETEN / NIET getest), `CURSEFORGE_DESCRIPTION.md` vernieuwd (zoekbalk "take me there", Mount run niet meer "New") — Rob
+plakt hem op CF. Syntax OK, lint 0 HARD, harness 28/28. 🔜 Rob's go → tag `v4.9.0` → site-chat seinen (zoekbalk-
+plekken/-deuren en routezoeker voor de homepage). Labyrinth-metingen (15-20) hoeven niet vóór de tag.
+
 ## 🌅 19 okt — ochtendronde
 
 GEMETEN: vier wachters gedraaid; CF 0 open, GitHub 0; 11 addons bijgewerkt (HandyNotes 165, DandersFrames 5.5.0, Platynator
