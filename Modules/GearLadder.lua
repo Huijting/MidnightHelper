@@ -266,8 +266,10 @@ function ns.RefreshGearLadder()
 	-- Step 2: the next kind of item up — the track one above most of your items — and where its crests come from,
 	-- in the game's own words.
 	local most, mostN = nil, 0
+	-- `>=` and groups run low to high, so a tie goes to the HIGHER kind (Rob's screenshot 19 Oct: 4 Adventurer and
+	-- 4 Champion items, and the window pointed him at Veteran instead of Hero).
 	for _, g in ipairs(groups) do
-		if #g.items > mostN then
+		if #g.items >= mostN then
 			most, mostN = g.key, #g.items
 		end
 	end

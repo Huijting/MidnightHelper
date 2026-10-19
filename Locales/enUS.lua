@@ -3270,7 +3270,7 @@ ns._mhLocales.enUS = {
 	GEARLADDER_WHERE = "Upgrade at Cuzolth in Silvermoon: about 20 crests per step (less if you had a stronger item in that slot before).",
 	GEARLADDER_NEXT_HEAD_FMT = "2. One kind of item higher. Where %s comes from, in the game's own words:",
 	GEARLADDER_TIPS = "3. Better items: do Bountiful delves and bring a Restored Coffer Key. From delve tier 8 the Great Vault gives a Hero item: finish 8 delves on tier 8 in a week, then open the vault.",
-	GEARLADDER_FOOT = "Every step explained simply: Codex → \"Why does my gear not go up? In small steps\".",
+	GEARLADDER_FOOT = "Every step explained simply: Codex > Start Here > \"Why does my gear not go up? In small steps\".",
 	CHARPANEL_GEARLADDER = "My gear: what now?",
 	CMDLIST_GEAR = "My gear: what now? Your items per kind, the crests you hold, and what you can upgrade right now.",
 	-- Baby steps for gear (Rob for Carola, 19 Oct 2026). Facts: docs/GEARING_FACTS_2026-10-19.md.

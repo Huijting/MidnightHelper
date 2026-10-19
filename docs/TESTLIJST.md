@@ -29,6 +29,10 @@ Eerst `/reload`. Liefst ook op een character met crests en items die nog omhoog 
       je item level; per soort item (Champion, Hero …) hoeveel items, hoeveel stappen nog open en hoeveel crests je hebt;
       groen "You can do N steps right now!" als je genoeg crests hebt; een grijze regel met de slots (bv. "Head 2/6").
       Klopt het aantal crests met je Currency-tabblad? Klopt "2/6" met de tooltip van het item?
+      ✅ Rob 19 okt, screenshot: venster opent zonder fouten (ilvl 285, 4 soorten, slots kloppen in beeld). Twee
+      foutjes gerepareerd: vierkantje i.p.v. "→" in de voetregel (nu "Codex > Start Here > …"), en bij gelijkspel
+      (4 Adventurer / 4 Champion) koos "2." de lagere soort — nu de hogere (Hero). Opnieuw kijken na `/reload`.
+      De Codex-kaart is geen eigen tegel: hij staat ín de tegel **Start Here**.
 - [ ] Onder "2." staat de tekst van het spel zelf over waar de volgende soort crest vandaan komt.
 - [ ] Wissel een item of upgrade er een → het venster past zich vanzelf aan.
 - [ ] **Codex** → zoek "gear" of "crest" → kaart "Why does my gear not go up? In small steps", met 6 stappen.

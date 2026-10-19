@@ -17743,7 +17743,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	GEARLADDER_WHERE = "Aufwerten kannst du bei Cuzolth in Silbermond: etwa 20 Wappen pro Stufe (weniger, wenn du in diesem Platz schon mal ein stärkeres Item hattest).",
 	GEARLADDER_NEXT_HEAD_FMT = "2. Eine Art Item höher. Woher %s kommt, in den Worten des Spiels:",
 	GEARLADDER_TIPS = "3. Bessere Items: Mach großzügige Tiefen und nimm einen restaurierten Kastenschlüssel mit. Ab Tier 8 gibt die Große Schatzkammer ein Held-Item: Schließ in einer Woche 8 Tiefen auf Tier 8 ab und öffne dann die Schatzkammer.",
-	GEARLADDER_FOOT = "Jeder Schritt einfach erklärt: Codex → \"Warum wird meine Ausrüstung nicht besser? In kleinen Schritten\".",
+	GEARLADDER_FOOT = "Jeder Schritt einfach erklärt: Codex > Erste Schritte > \"Warum wird meine Ausrüstung nicht besser? In kleinen Schritten\".",
 	CHARPANEL_GEARLADDER = "Meine Ausrüstung: was jetzt?",
 	CMDLIST_GEAR = "Meine Ausrüstung: was jetzt? Deine Items nach Art, deine Wappen und was du jetzt sofort aufwerten kannst.",
 }) end
@@ -17785,7 +17785,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	GEARLADDER_WHERE = "Améliore chez Cuzolth à Lune-d'argent : environ 20 écus par rang (moins si tu as déjà eu un objet plus fort dans cet emplacement).",
 	GEARLADDER_NEXT_HEAD_FMT = "2. Une sorte d'objet plus haut. D'où vient %s, avec les mots du jeu :",
 	GEARLADDER_TIPS = "3. De meilleurs objets : fais des gouffres abondants et emporte une clé de coffret réparée. À partir du Tier 8, la Grande chambre forte donne un objet Héros : termine 8 gouffres en Tier 8 dans la semaine, puis ouvre la chambre forte.",
-	GEARLADDER_FOOT = "Chaque étape expliquée simplement : Codex → \"Pourquoi mon équipement ne s'améliore pas ? Pas à pas\".",
+	GEARLADDER_FOOT = "Chaque étape expliquée simplement : Codex > Pour commencer > \"Pourquoi mon équipement ne s'améliore pas ? Pas à pas\".",
 	CHARPANEL_GEARLADDER = "Mon équipement : et maintenant ?",
 	CMDLIST_GEAR = "Mon équipement : et maintenant ? Tes objets par sorte, tes écus, et ce que tu peux améliorer tout de suite.",
 }) end
@@ -17827,7 +17827,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	GEARLADDER_WHERE = "Mejora con Cuzolth en Lunargenta: unos 20 blasones por rango (menos si antes tuviste un objeto más fuerte en esa ranura).",
 	GEARLADDER_NEXT_HEAD_FMT = "2. Un tipo de objeto más arriba. De dónde sale %s, con las palabras del propio juego:",
 	GEARLADDER_TIPS = "3. Mejores objetos: haz profundidades pródigas y lleva una llave de arca restaurada. Desde el Tier 8, la Gran cámara da un objeto de Héroe: completa 8 profundidades en Tier 8 en una semana y luego abre la cámara.",
-	GEARLADDER_FOOT = "Cada paso explicado fácil: Codex → \"¿Por qué no mejora mi equipo? Paso a paso\".",
+	GEARLADDER_FOOT = "Cada paso explicado fácil: Codex > Para empezar > \"¿Por qué no mejora mi equipo? Paso a paso\".",
 	CHARPANEL_GEARLADDER = "Mi equipo: ¿y ahora qué?",
 	CMDLIST_GEAR = "Mi equipo: ¿y ahora qué? Tus objetos por tipo, tus blasones y lo que puedes mejorar ahora mismo.",
 }) end
@@ -17869,7 +17869,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	GEARLADDER_WHERE = "Melhore com Cuzolth em Luaprata: uns 20 brasões por etapa (menos se você já teve um item mais forte nesse slot).",
 	GEARLADDER_NEXT_HEAD_FMT = "2. Um tipo de item acima. De onde vem %s, nas palavras do próprio jogo:",
 	GEARLADDER_TIPS = "3. Itens melhores: faça Imersões Abundantes e leve uma Chave de Cofre Restaurada. A partir do tier 8, o Grande Cofre dá um item de Herói: termine 8 Imersões no tier 8 em uma semana e depois abra o cofre.",
-	GEARLADDER_FOOT = "Cada passo explicado de um jeito simples: Codex → \"Por que meu equipamento não melhora? Passo a passo\".",
+	GEARLADDER_FOOT = "Cada passo explicado de um jeito simples: Codex > Comece aqui > \"Por que meu equipamento não melhora? Passo a passo\".",
 	CHARPANEL_GEARLADDER = "Meu equipamento: e agora?",
 	CMDLIST_GEAR = "Meu equipamento: e agora? Seus itens por tipo, seus brasões e o que você pode melhorar agora mesmo.",
 }) end
@@ -17911,7 +17911,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	GEARLADDER_WHERE = "Potenzia da Cuzolth a Lunargenta: circa 20 emblemi per gradino (meno se in quello slot avevi già avuto un oggetto più forte).",
 	GEARLADDER_NEXT_HEAD_FMT = "2. Un tipo di oggetto più in alto. Da dove viene %s, con le parole del gioco:",
 	GEARLADDER_TIPS = "3. Oggetti migliori: fai Scorribande Fruttuose e porta una Chiave dello Scrigno Ripristinata. Dal tier 8 la Gran Banca dà un oggetto Eroe: completa 8 Scorribande a tier 8 in una settimana, poi apri la Gran Banca.",
-	GEARLADDER_FOOT = "Ogni passo spiegato in modo semplice: Codex → \"Perché il mio equipaggiamento non migliora? Passo dopo passo\".",
+	GEARLADDER_FOOT = "Ogni passo spiegato in modo semplice: Codex > Inizia qui > \"Perché il mio equipaggiamento non migliora? Passo dopo passo\".",
 	CHARPANEL_GEARLADDER = "Il mio equipaggiamento: e adesso?",
 	CMDLIST_GEAR = "Il mio equipaggiamento: e adesso? I tuoi oggetti per tipo, i tuoi emblemi e cosa puoi potenziare subito.",
 }) end
