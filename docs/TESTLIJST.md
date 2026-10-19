@@ -60,7 +60,8 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
 
 Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.
 
-- [ ] In Silvermoon: Dungeons-tab → **Algeth'ar Academy** → route. De pijl hoort naar de portal room te wijzen (→ Orgrimmar
+- [x] ✅ Rob 19 okt: *"7 gaat goed"* (eerste in-game test van de routezoeker).
+      In Silvermoon: Dungeons-tab → **Algeth'ar Academy** → route. De pijl hoort naar de portal room te wijzen (→ Orgrimmar
       → Valdrakken), NIET naar de vluchtmeester in Silvermoon.
 - [ ] `/mh plan` op **Pit of Saron**: 3 stappen en een regel "About N min by the fastest way".
 - [ ] In Orgrimmar: zet een pin in **Mount Hyjal** → de pijl hoort naar het Hyjal-portaal te wijzen, niet "fly to Nordrassil".
