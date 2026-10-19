@@ -5,6 +5,13 @@
 ✅ Rob: *"Go voor de tag v4.9.0."* Tag `v4.9.0` op 7e2b6f6; run 39206835868 = success (CurseForge + Wago "Success!",
 GitHub Release bestaat). ✅ Rob 19 okt: *"4.9.0 is live"*. 🔜 `CURSEFORGE_DESCRIPTION.md` op CF plakken (Rob). ✅ Site-chat
 had het bericht (weer online 19 okt), doet zijn release-stappen (CF-lijst, nightly, homepage; pusht met Robs ja).
+**Hexmasks (Rob 19 okt: "die 3 hexmask kunnen je damage erg verhogen")** — 2 mh-research-rondes, eens: het masker is
+een HELPER die meevecht (Fiery 1308810 vuurstraal, Thundering 1308974 Chain Lightning op 3, Frozen 1308990 Frost Nova
++ slow), geen buff op jou; één speler: ~15% van zijn schade van de Fiery (Reddit-snippet, AFGELEID uit 1 bron). Hele run,
+"Persists through death", volgens spelers mee de bazenkamer in. 🔴 **Gecorrigeerd:** de vijf plekken (CR 50.3/82.6, Cave
+Towers 88.5/51.5, Akil'zon 56.8/17.8, Jan'alai 18.8/18.2, Nalorakk 58.5/21.7) zijn GEDEELD: elke run 3 maskers + de deur
++ 1 leeg, willekeurig (Wowhead-gids + news, spelers vonden elk masker op 3 plekken). De oude vaste masker-links
+(HandyNotes-namen) zijn weg uit CODEX_LABJOURNEY_BODY (8 talen); Kindo'jan-tip zegt nu "klik elke Hexmask aan".
 🔜 **Kandidaat volgende versie — Vaeli's housing-weeklies** (Rob 19 okt kreeg "Lost Animals"; twee mh-research-rondes,
 eens): Vaeli (npc 260957, Silvermoon 49.6/66.0) roteert wekelijks 95413 Community Engagement, 95416 Going Postal, 95438
 Lost Animals, 95440 Housewarming — 1× per account per week, warbound Mistcrest-packs (Hero 20 / Champion 40 / Veteran 60)

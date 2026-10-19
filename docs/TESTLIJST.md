@@ -54,6 +54,9 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
 
 ## 🆕 19 okt — Locked Door in de Labyrinth
 
+⚠️ Bijgewerkt 19 okt (2 mh-research-rondes): de vijf plekken zijn gedeeld — elke run drie Hexmasks, de deur en één lege
+plek, willekeurig. De links heten nu naar de kamer (Chamber of Rites, The Cave Towers, Akil'zon's Roost, Jan'alai's
+Refuge, Nalorakk's Rest). Klopt het in het spel (een masker of de deur op een van die vijf, wisselend per run)? Zeg het.
 - [ ] Codex → "The Labyrinth's own Journey" → Rank 2: vijf genummerde links naar de deur op slot. Klik er één in de
       Labyrinth: de pijl hoort erheen te wijzen. Vind je de deur op een plek die niet in de lijst staat → zeg het.
 
