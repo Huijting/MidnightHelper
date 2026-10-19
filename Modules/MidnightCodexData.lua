@@ -174,7 +174,8 @@ ns.CODEX_ARTICLES = {
 		category = "start",
 		titleKey = "CODEX_GEARSTEPS_TITLE",
 		bodyKey = "CODEX_GEARSTEPS_BODY",
-		sort = 3,
+		-- 1.5: right under "Start Here" (Rob, 19 Oct: "waar dan?" — at 3 it sat below the long Warband card).
+		sort = 1.5,
 		searchKeys = "gear item level ilvl upgrade upgrades crest crests mistcrest track tracks adventurer veteran "
 			.. "champion hero myth great vault coffer key bountiful why does my gear not go up stuck better gear "
 			.. "waarom gaat mijn gear niet omhoog beginner",
