@@ -71,8 +71,8 @@ Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.
       Een Midnight-delve vanuit Valdrakken: gedrag zoals altijd (Hearthstone/portaal naar Silvermoon).
 - [ ] Silvermoon → een doel in Eversong met een vluchtmeester ertussen: hoort er nog steeds een vluchtmeester-stap te
       geven (zoals 17 okt). Zo niet → zeg het (dan raakte de nieuwe continent-regel toch Midnight).
-- [ ] FPS: volg een route naar een plek op een ander continent met onze pijl in beeld. Je FPS hoort niet te zakken.
-      (Rob 19 okt: route haalt het doel. De FPS-vraag zelf staat nog open: Ctrl+R toont het getal.)
+- [x] ✅ Rob 19 okt: *"13 is oke"* — geen FPS-daling met onze pijl naar een ander continent (de 3 s-cache werkt).
+      FPS: volg een route naar een plek op een ander continent met onze pijl in beeld. Je FPS hoort niet te zakken.
 
 ## 🆕 18 okt — Curio-advies: ster voor elke rang, "wanneer", nieuwe curios
 
