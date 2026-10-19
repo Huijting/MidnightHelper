@@ -5,7 +5,11 @@
 Patch: gear-prijs vooraf + geleerde NPC-prijs, crest-bronnen per soort, Mount run-mounts zoeken, "1 step" enkelvoud.
 `## Version: 4.10.1`, CHANGELOG_4101_0..3, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.1.md`, `CHANGELOG.md`. Syntax OK,
 lint 0 HARD. In het spel GEMETEN door Rob (zie TESTLIJST 19 okt laat). ✅ Tag `v4.10.1` (annotated) op 338065b; run
-39321621172 = success: CurseForge + Wago "Success!", "GitHub Release v4.10.1 exists". Site-chat geseind (live = Robs ja).
+39321621172 = success: CurseForge + Wago "Success!", "GitHub Release v4.10.1 exists". ✅ Site 4.10.1 LIVE (site-chat,
+commit b2956c09, Robs eigen ja; Robs gear-screenshot met "1 step" op de homepage).
+🔜 Vertaaltwijfel erbij (site-chat): de "… of the Mist"-namen in de/fr/es/pt/it/ru (GEARLADDER_WHERE_RULES, uit
+DAWNCREST_GUIDE_MIST_DISCOUNT) zijn niet tegen de client gemeten; esMX "de la niebla" vs esES "de la bruma". Meten in
+Achievement DB2 (62410–62416, Title_lang per taal) vóór aanpassen — samen met de drie twijfels van 4.10.0.
 
 ## 🧮 19 okt (laat) — Mijn gear rekent de korting zelf uit (Rob: "ja doe maar")
 
