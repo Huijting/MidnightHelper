@@ -611,6 +611,25 @@ local function BuildNavIndex()
 		end, TIER_CONTENT, mountsLabel, "mount")
 	end
 
+	-- Old-raid mounts from the Mount run (Rob, 19 Oct 2026: he typed "Black Drake" and got nothing). A hit opens the
+	-- Mount run on that raid's tab AND starts the route to the entrance — what its "Arrow to the entrance" button does.
+	local seenRunMount = {}
+	for _, r in ipairs(ns.GetMountRunSearchIndex and ns.GetMountRunSearchIndex() or {}) do
+		local id = (r.name or "") .. "|" .. tostring(r.raidName)
+		if r.name and not seenRunMount[id] then
+			seenRunMount[id] = true
+			local hit = r
+			add(hit.name, "mount drop old raid mount run " .. (hit.english or "") .. " " .. (hit.raidName or ""), function()
+				if ns.MH_ShowMountRunAt then
+					ns.MH_ShowMountRunAt(hit.groupIndex)
+				end
+				if ns.MountRunStartRoute then
+					ns.MountRunStartRoute(hit.raid)
+				end
+			end, TIER_CONTENT, hit.raidName, "mount")
+		end
+	end
+
 	-- Rares. A hit opens the Rares tab on that rare's zone AND routes to it — the same
 	-- thing clicking its row does, and the reason someone typed the name at all.
 	local rareQuests = {}

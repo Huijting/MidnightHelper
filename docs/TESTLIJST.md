@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 19 okt (laat) — mounts uit de Mount run in de zoekbalk
+
+Eerst `/reload`.
+
+- [ ] Typ in de zoekbalk "Black Drake" → een rij "Black Drake" met "The Obsidian Sanctum" ernaast. Klik → het Mount
+      run-venster opent op het tabblad Evening 1 (Northrend) en het pijltje gaat naar de ingang.
+- [ ] Ook "Invincible", "Mimiron", "Ashes" (Al'ar) en een dungeon-mount vinden.
+- [ ] Staat het Mount run-venster al open, dan blijft het open (klik sluit het niet).
+
 ## 🆕 19 okt (laat) — Mijn gear: echte prijs + waar elke crest vandaan komt
 
 Eerst `/reload`.

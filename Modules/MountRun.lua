@@ -635,6 +635,49 @@ function ns.MH_ShowMountRun()
 	end
 end
 
+--- Open the window on one tab (the search bar, Rob 19 Oct 2026: "ik kon niet zomaar Black Drake intikken").
+--- Never a toggle: a search hit must not close a window the player already has open.
+function ns.MH_ShowMountRunAt(groupIndex)
+	local f = Build()
+	if groupIndex then
+		SaveTab(groupIndex)
+	end
+	if not f:IsShown() then
+		f:Show()
+		if RequestRaidInfo then
+			pcall(RequestRaidInfo)
+		end
+	end
+	if ui and ui.scroll then
+		ui.scroll:SetVerticalScroll(0)
+	end
+	ns.RefreshMountRun()
+end
+
+--- One row per old-raid mount for the search: { name, raid, groupIndex, raidName }. The name is the client's own when
+--- the journal knows the mount (so it is found in every language), and the English name is always a keyword.
+function ns.GetMountRunSearchIndex()
+	local out = {}
+	local myFaction = UnitFactionGroup and UnitFactionGroup("player")
+	for gi, group in ipairs(ns.MOUNTRUN_RAIDS or {}) do
+		for _, raid in ipairs(group.raids or {}) do
+			for _, m in ipairs(raid.mounts or {}) do
+				if not (m.faction and myFaction and m.faction ~= myFaction) then
+					local name = MountState(m.mountID)
+					out[#out + 1] = {
+						name = name or m.name,
+						english = m.name,
+						raid = raid,
+						groupIndex = gi,
+						raidName = ns:L(raid.nameKey),
+					}
+				end
+			end
+		end
+	end
+	return out
+end
+
 do
 	local ev = CreateFrame("Frame")
 	ev:RegisterEvent("UPDATE_INSTANCE_INFO")

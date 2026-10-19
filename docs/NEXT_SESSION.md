@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## 🔎 19 okt (laat) — Mount run-mounts in de zoekbalk (Rob: "ik kon niet zomaar Black Drake intikken")
+
+`ns.GetMountRunSearchIndex()` (MountRun.lua; naam uit de mount-journal = clienttaal, Engelse naam als sleutelwoord,
+alleen de eigen factie) → NavSearch-rijen; klik = `ns.MH_ShowMountRunAt(groupIndex)` (opent op dat tabblad, sluit nooit)
++ `ns.MountRunStartRoute(raid)`. Niet in het spel gezien → TESTLIJST bovenaan.
+
 ## 🔧 19 okt (laat) — Mijn gear: echte prijs + crest-bronnen (Rob via site-chat: "als EERSTE verbetering")
 
 - Bug: Blizzards upgradevenster toonde 10 crests voor Veteran 2/6→3/6 (Rob GEMETEN), MH rekende 20. Ronde B (UI-source
