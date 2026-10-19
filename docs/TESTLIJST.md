@@ -25,8 +25,9 @@ er is niets weggegooid.
 
 Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12.1.7-API-pagina).
 
-- [ ] ✅ deels — Rob 17 okt 08:18, screenshot: de /run gaf precies één regel, `2437 8614` → Broken Throne is open, en
-      het POI-nummer klopt (GEMETEN). Nog niet gezien: dat de ritual-regel in MH ook "Broken Throne" noemt.
+- [x] ✅ Rob 17 okt 08:18, screenshot: de /run gaf precies één regel, `2437 8614` → Broken Throne is open, en
+      het POI-nummer klopt (GEMETEN). ✅ Rob 19 okt, screenshot Void & Rituals: "Active this week: Broken Throne —
+      Zul'Aman" en de knop "Broken Throne — Zul'Aman [Active]".
       **Welke ritual site is actief?** Typ in de chat:
       `/run for _,m in ipairs({2395,2437}) do for _,p in ipairs(C_AreaPoiInfo.GetAreaPOIForMap(m) or {}) do if p==8614 or p==8615 then print(m,p) end end end`
       Je hoort **één** regel te zien: `2395 8615` (Daggerspine Point) of `2437 8614` (Broken Throne). Open daarna `/mh`
