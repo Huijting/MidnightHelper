@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🧮 19 okt (laat) — Mijn gear rekent de korting zelf uit (Rob: "ja doe maar")
+
+GEMETEN eerst (Rob op Umbrion): `GetAchievementInfo(62410)` = true; `C_ItemUpgrade.GetHighWatermarkForSlot(10)` = 269 /
+308; de stap 269→272 kostte 10 → Warband-helft (`docs/GEARING_FACTS_2026-10-19.md`). GearLadder: `TRACK_ILVL` (wago),
+`C_ItemUpgrade.GetHighWatermarkForItem(link)` per item, "… of the Mist" uit `DAWNCREST_TIERS.season2AchievementId`;
+per stap: geleerde NPC-prijs > eigen watermark ≥ doel = 0 (GIDS, nooit gezien) > prestatie + account ≥ doel = 10 > 20.
+"at least" alleen nog als de watermark onleesbaar is. Regel "Your discounts here: …". Niet in het spel gezien.
+
 ## 🔎 19 okt (laat) — Mount run-mounts in de zoekbalk (Rob: "ik kon niet zomaar Black Drake intikken")
 
 `ns.GetMountRunSearchIndex()` (MountRun.lua; naam uit de mount-journal = clienttaal, Engelse naam als sleutelwoord,

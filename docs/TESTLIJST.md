@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 19 okt (laat) — Mijn gear rekent de korting zelf uit
+
+Eerst `/reload`. Op Umbrion (Adventurer of the Mist = true, trinket-watermark 269 / account 308).
+
+- [ ] `/mh gear` **zonder** eerst bij Cuzolth te zijn: bij Adventurer staat **geen** "at least" meer, maar
+      "You can do N steps right now!", met eronder "Your discounts here: X steps free, Y at half price." De trinket-
+      stappen 2/6 → 6/6 horen half price (10) te zijn.
+- [ ] Onderaan staat de uitleg "The prices above include your discounts …".
+- [ ] Vergelijk met Cuzolths venster voor één ander item: klopt de prijs (20, 10 of 0)? Een gratis stap (0) is nog
+      nooit in het spel gezien — als je er een tegenkomt: screenshot.
+- [ ] Op een character zonder de prestatie: alles 20, behalve waar dat character zelf al hoger zat (gratis).
+
 ## 🆕 19 okt (laat) — mounts uit de Mount run in de zoekbalk
 
 Eerst `/reload`.

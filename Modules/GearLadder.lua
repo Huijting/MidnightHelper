@@ -136,6 +136,59 @@ do
 	end)
 end
 
+--------------------------------------------------------------------------------
+-- The price worked out in advance (Rob, 19 Oct 2026: "we blijven zoeken en gokken zo" → "ja doe maar").
+--
+-- Item level per step, Season 2 — MEASURED (wago 12.1.5.70448, ItemBonusListGroupEntry 614–618; four guides agree).
+-- The discount rule — Blizzard Support 336964 (official: per character, Warband-wide only after the achievement) and
+-- Wowhead (size: free on your own watermark, half for the Warband). MEASURED once on Rob's alt, 19 Oct: Adventurer of
+-- the Mist done, trinket watermark 269 (character) / 308 (account), a 269 → 272 step cost 10. The FREE case has not been
+-- seen in a client yet (GUIDE). A price learned at the NPC always wins over this.
+--------------------------------------------------------------------------------
+local TRACK_ILVL = {
+	adventurer = { 266, 269, 272, 276, 279, 282 },
+	veteran = { 279, 282, 285, 289, 292, 295 },
+	champion = { 292, 295, 298, 302, 305, 308 },
+	hero = { 305, 308, 311, 315, 318, 321 },
+	myth = { 318, 321, 324, 328, 331, 334 },
+}
+
+local function AchievementDone(key)
+	for _, tier in ipairs(ns.DAWNCREST_TIERS or {}) do
+		if tier.key == key and tier.season2AchievementId and GetAchievementInfo then
+			local ok, _, _, _, done = pcall(GetAchievementInfo, tier.season2AchievementId)
+			return ok and done == true
+		end
+	end
+	return false
+end
+
+--- character and account high watermark for an item's slot, or nil (MEASURED to work away from the NPC, 19 Oct).
+local function Watermarks(link)
+	if not (C_ItemUpgrade and C_ItemUpgrade.GetHighWatermarkForItem and link) then
+		return nil, nil
+	end
+	local ok, char, acct = pcall(C_ItemUpgrade.GetHighWatermarkForItem, link)
+	if not ok then
+		return nil, nil
+	end
+	return tonumber(char), tonumber(acct)
+end
+
+--- Price of one step to `targetIlvl`: cost, reason ("free" / "half" / "full"), or nil when unreadable.
+local function RulePrice(key, targetIlvl, charWM, acctWM, achDone)
+	if not (targetIlvl and charWM) then
+		return nil
+	end
+	if charWM >= targetIlvl then
+		return 0, "free"
+	end
+	if achDone and acctWM and acctWM >= targetIlvl then
+		return STEP_COST / 2, "half"
+	end
+	return STEP_COST, "full"
+end
+
 --- The next step's price for an equipped item: learned (exact) when we saw it at its current step, else nil.
 local function KnownNextCost(link, cur)
 	local p = PriceStore()[ItemIDFromLink(link) or -1]
@@ -350,13 +403,28 @@ function ns.RefreshGearLadder()
 		-- Every open step's price: the learned one for an item's next step, 20 (the base price) for the rest, then
 		-- count the cheapest first. A learned price makes the count exact for that step; 20 is an upper bound.
 		local stepCosts, estimated = {}, false
+		local nFree, nHalf = 0, 0
+		local achDone = AchievementDone(g.key)
+		local ladder = TRACK_ILVL[g.key]
 		for _, it in ipairs(g.items) do
+			local charWM, acctWM = Watermarks(it.link)
 			for s = 1, it.open do
-				local known = (s == 1) and KnownNextCost(it.link, it.cur) or nil
-				if not known then
-					estimated = true
+				local cost, why
+				if s == 1 then
+					cost = KnownNextCost(it.link, it.cur)
 				end
-				stepCosts[#stepCosts + 1] = known or STEP_COST
+				if cost == nil and ladder then
+					cost, why = RulePrice(g.key, ladder[it.cur + s], charWM, acctWM, achDone)
+				end
+				if cost == nil then
+					estimated, cost = true, STEP_COST
+				end
+				if why == "free" then
+					nFree = nFree + 1
+				elseif why == "half" then
+					nHalf = nHalf + 1
+				end
+				stepCosts[#stepCosts + 1] = cost
 			end
 		end
 		table.sort(stepCosts)
@@ -380,6 +448,9 @@ function ns.RefreshGearLadder()
 			Add("• " .. line, 0.9, 0.9, 0.9)
 			local cheapest = stepCosts[1] or STEP_COST
 			Add("    " .. (L("GEARLADDER_NEED_FMT")):format(math.max(1, cheapest - have), trackName), 0.75, 0.75, 0.75)
+		end
+		if g.open > 0 and (nFree > 0 or nHalf > 0) then
+			Add("    " .. (L("GEARLADDER_DISCOUNT_FMT")):format(nFree, nHalf), 0.55, 0.85, 0.55, "GameFontHighlightSmall")
 		end
 		-- Where this kind of crest comes from, in the game's own words (Rob, 19 Oct: "hoe ik aan Adventurer, Veteran,
 		-- Champion crest kom ... hoort ook bij dit venster").
@@ -410,7 +481,7 @@ function ns.RefreshGearLadder()
 		Add(("• %s: %s %d/%d"):format(SlotName(it.slot), tostring(it.trackName or "?"), it.cur, it.max), 0.7, 0.7, 0.7)
 	end
 	if anyNow or anyEstimate then
-		Add(L(anyEstimate and "GEARLADDER_WHERE_ESTIMATE" or "GEARLADDER_WHERE"), 0.45, 0.9, 0.45, nil, 2)
+		Add(L(anyEstimate and "GEARLADDER_WHERE_ESTIMATE" or "GEARLADDER_WHERE_RULES"), 0.45, 0.9, 0.45, nil, 2)
 	end
 	y = y - 6
 

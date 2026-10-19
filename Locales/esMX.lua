@@ -336,6 +336,7 @@ for k, v in pairs({
 	GEARLADDER_TRACK_FMT = "%s: %d objetos, aún %d rangos por hacer. Tienes %d emblemas para ello.",
 	GEARLADDER_NEED_FMT = "Te faltan %d emblemas para el siguiente rango de %s.",
 	GEARLADDER_WHERE = "Mejora con Cuzolth en Lunargenta. Los precios de arriba son los que te mostró su ventana.",
+	GEARLADDER_WHERE_RULES = "Mejora con Cuzolth en Lunargenta. Los precios de arriba ya llevan tus descuentos: un rango es gratis hasta el item level que este personaje ya tuvo en esa ranura. Hasta lo que tuvo cualquiera de tus personajes, cuesta la mitad (10 emblemas), en cuanto tengas el logro \"… de la niebla\" de ese tipo.",
 	GEARLADDER_WHERE_ESTIMATE = "Mejora con Cuzolth en Lunargenta. Un rango cuesta 20 emblemas, a menudo menos: el juego te hace un descuento si antes tuviste un objeto más fuerte en esa ranura. Pon un objeto una vez en su ventana y esta lista mostrará su precio real.",
 	GEARLADDER_SOURCES_FMT = "Consigue estos emblemas en: %s",
 	GEARLADDER_TIPS = "3. Mejores objetos: haz abismos abundantes y lleva una llave de arca restaurada. Desde el Tier 8, la Gran bóveda da un objeto de Héroe: completa 8 abismos en Tier 8 en una semana y luego abre la bóveda.",

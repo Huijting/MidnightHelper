@@ -15625,6 +15625,15 @@
    "ptBR": "9a0d751a715b9c0e",
    "ruRU": "9a0d751a715b9c0e"
   },
+  "GEARLADDER_DISCOUNT_FMT": {
+   "deDE": "0663941eecf0386b",
+   "esES": "0663941eecf0386b",
+   "frFR": "0663941eecf0386b",
+   "itIT": "0663941eecf0386b",
+   "nlNL": "0663941eecf0386b",
+   "ptBR": "0663941eecf0386b",
+   "ruRU": "0663941eecf0386b"
+  },
   "GEARLADDER_FOOT": {
    "deDE": "327e613c3ee9bbd4",
    "esES": "327e613c3ee9bbd4",
@@ -15741,6 +15750,15 @@
    "nlNL": "f32fec8ac23f60df",
    "ptBR": "f32fec8ac23f60df",
    "ruRU": "f32fec8ac23f60df"
+  },
+  "GEARLADDER_WHERE_RULES": {
+   "deDE": "86903250998525fb",
+   "esES": "86903250998525fb",
+   "frFR": "86903250998525fb",
+   "itIT": "86903250998525fb",
+   "nlNL": "86903250998525fb",
+   "ptBR": "86903250998525fb",
+   "ruRU": "86903250998525fb"
   },
   "GEM_BEST_FMT": {
    "deDE": "427552a76bfda14a",
