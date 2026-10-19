@@ -78,8 +78,7 @@ local function LearnPriceFromNPC()
 	local nextStep = info.upgradeLevelInfos[2]
 	local costs = nextStep and nextStep.currencyCostsToUpgrade
 	local first = type(costs) == "table" and costs[1] or nil
-	-- What we read, for the SavedVariables file (Rob's screenshot 19 Oct: Blizzard said "Total Cost: 0" for a Hero
-	-- 2/6 → 3/6 step, and this window still asked for 20 — no price had been learned).
+	-- What we read, kept for the SavedVariables file so a price question can be settled from the client.
 	DB().lastNPCRead = {
 		itemID = id, currUpgrade = info.currUpgrade, maxUpgrade = info.maxUpgrade,
 		levels = #info.upgradeLevelInfos, hasNext = nextStep and true or false,
@@ -90,9 +89,10 @@ local function LearnPriceFromNPC()
 	if not nextStep or nextStep.failureMessage then
 		return
 	end
-	-- 🔴 A FREE step (the slot's own high watermark) may come with no currency row at all instead of a row saying 0
-	-- (AFGELEID from the screenshot; lastNPCRead above settles it). No row on an existing next step = 0 crests.
-	local cost = first and tonumber(first.cost) or ((type(costs) == "table" and #costs == 0) and 0 or nil)
+	-- ⚠️ No currency row = no price learned. On 19 Oct this briefly counted as "free", from a screenshot misread by us
+	-- (a tooltip covered the red "20"; Rob's second screenshot showed 20). An empty row can also mean the data has not
+	-- arrived yet, and calling that free would tell a player they can upgrade when they cannot.
+	local cost = first and tonumber(first.cost) or nil
 	if not cost then
 		return
 	end
@@ -109,7 +109,7 @@ local function LearnPriceFromNPC()
 	PriceStore()[id] = {
 		cur = cur,
 		cost = cost,
-		discounted = (cost == 0 or (first and first.discountInfo and first.discountInfo.isDiscounted)) and true or nil,
+		discounted = (first.discountInfo and first.discountInfo.isDiscounted) and true or nil,
 	}
 	if ns.RefreshGearLadder then
 		ns.RefreshGearLadder()
