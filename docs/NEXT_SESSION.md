@@ -3,8 +3,8 @@
 ## 🚀 19 okt — release 4.9.0 GETAGD en geüpload
 
 ✅ Rob: *"Go voor de tag v4.9.0."* Tag `v4.9.0` op 7e2b6f6; run 39206835868 = success (CurseForge + Wago "Success!",
-GitHub Release bestaat). 🔜 Rob: CF-dashboard checken (Approved?) en `CURSEFORGE_DESCRIPTION.md` op CF plakken. Site-chat
-geseind 19 okt 07:55 (offline → in de wachtrij; nog niet bevestigd dat hij het las).
+GitHub Release bestaat). ✅ Rob 19 okt: *"4.9.0 is live"*. 🔜 `CURSEFORGE_DESCRIPTION.md` op CF plakken (Rob). ✅ Site-chat
+had het bericht (weer online 19 okt), doet zijn release-stappen (CF-lijst, nightly, homepage; pusht met Robs ja).
 🔜 **Kandidaat volgende versie — Vaeli's housing-weeklies** (Rob 19 okt kreeg "Lost Animals"; twee mh-research-rondes,
 eens): Vaeli (npc 260957, Silvermoon 49.6/66.0) roteert wekelijks 95413 Community Engagement, 95416 Going Postal, 95438
 Lost Animals, 95440 Housewarming — 1× per account per week, warbound Mistcrest-packs (Hero 20 / Champion 40 / Veteran 60)
