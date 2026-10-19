@@ -25,6 +25,9 @@ er is niets weggegooid.
 
 Eerst `/reload`. Op Umbrion (Adventurer of the Mist = true, trinket-watermark 269 / account 308).
 
+- [x] ✅ Rob 19 okt, Umbrion: MH "Adventurer … 11 at half price, You can do 5 steps" (54 crests); Cuzolth: Cosmic Bell
+      2/6 → 6/6 = **40** crests (4 × 10) — klopt. Champion 4 crests → "need 6 more" (10 per stap) klopt. Open: past het
+      venster zich vanzelf aan na uitgeven (CURRENCY_DISPLAY_UPDATE)?
 - [ ] `/mh gear` **zonder** eerst bij Cuzolth te zijn: bij Adventurer staat **geen** "at least" meer, maar
       "You can do N steps right now!", met eronder "Your discounts here: X steps free, Y at half price." De trinket-
       stappen 2/6 → 6/6 horen half price (10) te zijn.
