@@ -191,6 +191,7 @@ ns.MH_COMMANDS = {
 		-- meervoudsvorm staat hier; `curio` is de alias en staat in de set hierboven.
 		{ cmd = "/mh curios", descKey = "CMDLIST_CURIOS" },
 		{ cmd = "/mh curioinfo", descKey = "CMDLIST_CURIOINFO" },
+		{ cmd = "/mh gifts", descKey = "CMDLIST_GIFTS" },
 		{ cmd = "/mh hazards", descKey = "CMDLIST_HAZARDS" },
 		{ cmd = "/mh keys", descKey = "CMDLIST_KEYS" },
 		{ cmd = "/mh board", descKey = "CMDLIST_BOARD" },

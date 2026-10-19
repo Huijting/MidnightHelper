@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 19 okt — Codex-advies, it/de-spelnamen
+
+Eerst `/reload`.
+
+- [ ] **Corrosive Codex-advies.** Open de Codex (bij een Altar of Corrosion of aan het begin van een delve). Rechts
+      naast het venster hoort een kaartje: "Corrosive Codex — what to pick", met "You have:" en je twee gifts in groen,
+      vijf situaties met gifts (een ✓ achter wat je hebt) en een voetregel. Heb je Insidious Venom zonder Ula'tek's
+      Gift of Ouroboric Cycle, dan staat er een oranje regel dat hij niets extra doet. Sluit de Codex → kaartje weg.
+- [ ] `/mh gifts` met de Codex open: twaalf regels 13–24 met namen, ✓ bij jouw twee. Zonder Codex: "no choice open".
+- [ ] Instellingen → "Advice beside the Corrosive Codex" uit → Codex openen → geen kaartje.
+- [ ] (alleen met een Italiaanse of Duitse client, dus niet voor Rob) "Siti Rituali/Fama/Reperto" en "Ritualstätten/
+      Ruhm/Kuriosität" in plaats van de Engelse woorden.
+
 ## 🆕 17 okt — Ritual site op nummer, GUID-patroon
 
 Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12.1.7-API-pagina).

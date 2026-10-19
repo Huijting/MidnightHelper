@@ -144,7 +144,7 @@ local SCALABLE_WINDOWS = {
 	"MidnightHelperLayoutWizard", "MidnightHelperGrowthPrompt", "MidnightHelperProfGuideUrlCopy",
 	"MidnightHelperProfGuide", "MidnightHelperCourseWindow", "MidnightHelperPawnCopyBox",
 	"MidnightHelperVaultReminderPopup", "MidnightHelperVaultAdvisorBanner", "MidnightHelperValeeraPopup",
-	"MidnightHelperMapProbe", "MidnightHelperCombatLogLamp",
+	"MidnightHelperMapProbe", "MidnightHelperCombatLogLamp", "MidnightHelperCodexAdvicePanel",
 }
 
 local function SweepScalableWindows()

@@ -351,6 +351,12 @@ local function Build()
 		if ns.SetDelveCoachAutoShow then ns.SetDelveCoachAutoShow(v) end
 	end, true)
 	-- Rob, 14 Oct 2026: "doe B maar, met C als schakelaar". Off = a button per room boss (B); on = the coach opens (C).
+	-- Rob, 19 Oct 2026: advice beside the Corrosive Codex, "net zoals we bij valeera hebben" (CodexAdvicePanel.lua).
+	Toggle("mh_codexAdvice", "SET_CODEXADV_TITLE", "SET_CODEXADV_DESC", function()
+		return ns.IsCodexAdviceEnabled and ns.IsCodexAdviceEnabled()
+	end, function(v)
+		if ns.SetCodexAdviceEnabled then ns.SetCodexAdviceEnabled(v) end
+	end, true)
 	Toggle("mh_delveRoomBossAuto", "SET_DELVE_ROOMBOSS_AUTO_TITLE", "SET_DELVE_ROOMBOSS_AUTO_DESC", function()
 		return ns.IsDelveRoomBossAutoOpen and ns.IsDelveRoomBossAutoOpen()
 	end, function(v)

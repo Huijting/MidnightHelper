@@ -3148,6 +3148,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh gifts — the Corrosive Codex advice card (CodexAdvicePanel.lua): what it saw and decided.
+	if msg == "gifts" then
+		if ns.PrintCodexAdviceStatus then
+			ns.PrintCodexAdviceStatus()
+		end
+		return
+	end
+
 	if msg == "curio" or msg == "curios" then
 		local hasAdvice = ns.HasDelveCurioAdvice and (ns.HasDelveCurioAdvice()) or false
 		if not hasAdvice and ns.ShowCurioExplain then

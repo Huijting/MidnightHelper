@@ -156,7 +156,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_COACH_SEC_UNLOCK = "Come sbloccarla",
 	RITUAL_COACH_SEC_TIERS = "Tier e challenge",
 	RITUAL_COACH_SEC_SCORING = "Spoils e morti",
-	RITUAL_COACH_SEC_WEEKLY = "Settimanale e renown",
+	RITUAL_COACH_SEC_WEEKLY = "Settimanale e Fama",
 	RITUAL_COACH_SEC_ORBS = "Regeneration Orb",
 
 	-- Nomi visualizzati ------------------------------------------------------
@@ -208,10 +208,10 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_WEEKLY_HINT_INPROGRESS = "È nel tuo registro delle quest — finiscila e consegnala.",
 
 	-- Intro / come funziona --------------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Scegli il tuo tier alla Curious Obelisk; completa ogni tier per sbloccare il successivo.|n• L'obelisco dice cosa chiede ogni tier: il Tier 3 richiede 1 challenge attiva, il Tier 4 ne richiede 2, il Tier 5 ne richiede 4, il Tier 6 ne richiede 6.|n• I tier più alti danno più Spoils e renown. Item level consigliato dal gioco, letto dall'obelisco stesso il 20 agosto: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Passa il mouse su un tier nel menu per verificarlo tu stesso — questi numeri cambiano da una stagione all'altra.",
+	RITUAL_TIP_INTRO_TIERS = "• Scegli il tuo tier alla Curious Obelisk; completa ogni tier per sbloccare il successivo.|n• L'obelisco dice cosa chiede ogni tier: il Tier 3 richiede 1 challenge attiva, il Tier 4 ne richiede 2, il Tier 5 ne richiede 4, il Tier 6 ne richiede 6.|n• I tier più alti danno più Spoils e Fama. Item level consigliato dal gioco, letto dall'obelisco stesso il 20 agosto: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Passa il mouse su un tier nel menu per verificarlo tu stesso — questi numeri cambiano da una stagione all'altra.",
 	RITUAL_TIP_INTRO_SCORING = "• Gli Spoils sono il tuo punteggio; il Ritual Chest finale scala con essi.|n• Morti: le prime 2 sono gratis, poi ogni morte taglia gli Spoils del 5%, fino a un massimo del -50%.|n• Le run pulite battono i pull veloci — morire costa ricompense in modo diretto.",
-	RITUAL_TIP_INTRO_WEEKLY = "• Al lancio, il tier necessario per SBLOCCARE una challenge calava di uno ogni settimana. Va avanti da mesi, quindi ormai molto probabilmente basta un tier basso.|n• Conta per la riga World della Great Vault, come una scorribanda dello stesso tier.|n• Booster del renown: Ritual Tablet (primo sito della settimana), Ritual Tablet Fragment (secondo sito) e Ritual Site Reports (scalati in base ai tuoi Spoils).",
-	RITUAL_TIP_INTRO_ORBS = "• In combat, i Regeneration Orb si manifestano e curano il 15% della tua vita (Renown 1).|n• Orb Potency (Renown 4) aumenta quella cura.|n• Affidati agli orb invece di bruciare cooldown sul self-healing.",
+	RITUAL_TIP_INTRO_WEEKLY = "• Al lancio, il tier necessario per SBLOCCARE una challenge calava di uno ogni settimana. Va avanti da mesi, quindi ormai molto probabilmente basta un tier basso.|n• Conta per la riga World della Great Vault, come una scorribanda dello stesso tier.|n• Booster della Fama: Ritual Tablet (primo sito della settimana), Ritual Tablet Fragment (secondo sito) e Ritual Site Reports (scalati in base ai tuoi Spoils).",
+	RITUAL_TIP_INTRO_ORBS = "• In combat, i Regeneration Orb si manifestano e curano il 15% della tua vita (livello di Fama 1).|n• Orb Potency (livello di Fama 4) aumenta quella cura.|n• Affidati agli orb invece di bruciare cooldown sul self-healing.",
 
 	-- Daggerspine Point (Eversong Woods) -------------------------------------
 	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Boschi di Cantoeterno — Promontorio dei Liscaguzza, sulla costa ovest vicino a Brumadoro.|n• Nemici: naga.|n• Attivo una settimana per volta; l'obelisco mostra un'icona viola sulla mappa.|n• Entra alla Curious Obelisk e scegli lì il tuo tier + le challenge.",
@@ -396,7 +396,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_COACH_SEC_UNLOCK = "So schaltest du es frei",
 	RITUAL_COACH_SEC_TIERS = "Tiers & Challenges",
 	RITUAL_COACH_SEC_SCORING = "Spoils & Tode",
-	RITUAL_COACH_SEC_WEEKLY = "Wöchentlich & Ansehen",
+	RITUAL_COACH_SEC_WEEKLY = "Wöchentlich & Ruhm",
 	RITUAL_COACH_SEC_ORBS = "Regeneration Orbs",
 
 	-- Anzeigenamen (Eigennamen bleiben Englisch) -------------------------------
@@ -448,10 +448,10 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Steht in deinem Questlog — abschließen und abgeben.",
 
 	-- Intro / So funktioniert es -----------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Wähle deine Stufe am Curious Obelisk; schließe jede Stufe ab, um die nächste freizuschalten.|n• Der Obelisk nennt, was jede Stufe verlangt: Tier 3 braucht 1 aktive Challenge, Tier 4 braucht 2, Tier 5 braucht 4, Tier 6 braucht 6.|n• Höhere Stufen geben mehr Spoils und Ansehen. Vom Spiel empfohlene Gegenstandsstufe, am 20. August direkt am Obelisken abgelesen: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Fahr im Dropdown über eine Stufe, um es selbst zu prüfen — diese Zahlen verschieben sich pro Saison.",
+	RITUAL_TIP_INTRO_TIERS = "• Wähle deine Stufe am Curious Obelisk; schließe jede Stufe ab, um die nächste freizuschalten.|n• Der Obelisk nennt, was jede Stufe verlangt: Tier 3 braucht 1 aktive Challenge, Tier 4 braucht 2, Tier 5 braucht 4, Tier 6 braucht 6.|n• Höhere Stufen geben mehr Spoils und Ruhm. Vom Spiel empfohlene Gegenstandsstufe, am 20. August direkt am Obelisken abgelesen: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Fahr im Dropdown über eine Stufe, um es selbst zu prüfen — diese Zahlen verschieben sich pro Saison.",
 	RITUAL_TIP_INTRO_SCORING = "• Spoils sind deine Punktzahl; die Ritual Chest am Ende skaliert damit.|n• Tode: die ersten 2 sind frei, danach kostet jeder Tod 5% Spoils, bis maximal -50%.|n• Saubere Clears schlagen schnelle Pulls — Sterben kostet direkt Belohnung.",
-	RITUAL_TIP_INTRO_WEEKLY = "• Zum Start sank die Stufe, die zum FREISCHALTEN einer Challenge nötig ist, jede Woche um eins. Das läuft schon seit Monaten, also reicht inzwischen sehr wahrscheinlich eine niedrige Stufe.|n• Zählt für die Welt-Reihe des Great Vault, wie eine Tiefe derselben Stufe.|n• Ansehen-Booster: Ritual Tablet (erste Stätte der Woche), Ritual Tablet Fragment (zweite Stätte) und Ritual Site Reports (skaliert mit deinen Spoils).",
-	RITUAL_TIP_INTRO_ORBS = "• Im Kampf erscheinen Regeneration Orbs, die 15% deiner Gesundheit heilen (Ansehen 1).|n• Orb Potency (Ansehen 4) erhöht diese Heilung.|n• Nutz die Orbs, statt Cooldowns für Selbstheilung zu verbrennen.",
+	RITUAL_TIP_INTRO_WEEKLY = "• Zum Start sank die Stufe, die zum FREISCHALTEN einer Challenge nötig ist, jede Woche um eins. Das läuft schon seit Monaten, also reicht inzwischen sehr wahrscheinlich eine niedrige Stufe.|n• Zählt für die Welt-Reihe des Great Vault, wie eine Tiefe derselben Stufe.|n• Ruhm-Booster: Ritual Tablet (erste Stätte der Woche), Ritual Tablet Fragment (zweite Stätte) und Ritual Site Reports (skaliert mit deinen Spoils).",
+	RITUAL_TIP_INTRO_ORBS = "• Im Kampf erscheinen Regeneration Orbs, die 15% deiner Gesundheit heilen (Ruhmstufe 1).|n• Orb Potency (Ruhmstufe 4) erhöht diese Heilung.|n• Nutz die Orbs, statt Cooldowns für Selbstheilung zu verbrennen.",
 
 	-- Daggerspine Point (Eversong Woods) ---------------------------------------
 	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Immersangwald — Säbelflossenspitze, an der Westküste bei Goldnebel.|n• Gegner: Naga.|n• Jeweils eine Woche aktiv; der Obelisk zeigt ein violettes Symbol auf der Karte.|n• Betrete die Stätte am Curious Obelisk und wähle dort Stufe + Challenges.",

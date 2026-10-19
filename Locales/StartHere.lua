@@ -112,10 +112,10 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	START_SUBTITLE = "Appena arrivato al livello massimo e non sai cosa fare? Questo è tutto l'endgame, in ordine. Clicca un passo per saltare direttamente allo strumento giusto; quelli settimanali si spuntano da soli.",
 
 	START_INTRO_HEADER = "Il loop di Midnight in breve",
-	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi la Gran Banca con scorribande, Siti Rituali e Void Assaults. Renown, professioni e valute si aggiungono una volta che il loop diventa routine.",
+	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi la Gran Banca con scorribande, Siti Rituali e Void Assaults. La Fama, le professioni e le valute si aggiungono una volta che il loop diventa routine.",
 
 	START_S1_TITLE = "1. Alza prima il tuo item level",
-	START_S1_BODY = "Comincia con le vittorie facili: fai la campagna di Midnight, prendi equipaggiamento dalle world quest e dalle quest di traguardo Renown, e fai scorribande normali (più le cacce Prey e i dungeon Heroic) per salire di item level. Anche qualche pezzo craftato/dell'AH economico aiuta. Un item level più alto apre poi i tier superiori, dove ci sono le ricompense vere.",
+	START_S1_BODY = "Comincia con le vittorie facili: fai la campagna di Midnight, prendi equipaggiamento dalle world quest e dalle quest di traguardo della Fama, e fai scorribande normali (più le cacce Prey e i dungeon Heroic) per salire di item level. Anche qualche pezzo craftato/dell'AH economico aiuta. Un item level più alto apre poi i tier superiori, dove ci sono le ricompense vere.",
 	START_S1_NAV = "Apri Scorribande",
 
 	START_S2_TITLE = "2. Metti a punto il personaggio",
@@ -134,8 +134,8 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	START_S5_BODY = "Altre due attività della riga World, ideali una volta un po' equipaggiato (danno equipaggiamento Champion casuale). Sblocca prima i Siti Rituali tramite la linea di quest \"Ritual Interest\" a Lunargenta; i Void Assaults sono l'evento esterno a rotazione e la tua via d'accesso. Al Curious Obelisk scegli un tier + le challenge — il Ritual Coach le spiega tutte.",
 	START_S5_NAV = "Apri Void & Rituals",
 
-	START_S6_TITLE = "6. Vai più a fondo: Renown, professioni e valute",
-	START_S6_BODY = "Renown sblocca vantaggi e cosmetici; le professioni producono equipaggiamento, consumabili e oro (MH ha un corso completo per principianti); e i vendor del Bazar a Lunargenta trasformano le tue valute in upgrade. Dedicati a questi una volta che il loop settimanale è routine.",
+	START_S6_TITLE = "6. Vai più a fondo: Fama, professioni e valute",
+	START_S6_BODY = "La Fama sblocca vantaggi e cosmetici; le professioni producono equipaggiamento, consumabili e oro (MH ha un corso completo per principianti); e i vendor del Bazar a Lunargenta trasformano le tue valute in upgrade. Dedicati a questi una volta che il loop settimanale è routine.",
 	START_S6_NAV = "Apri Professioni 101",
 
 	START_RESET_TITLE = "Giorno del reset: si ricomincia",
@@ -247,10 +247,10 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	START_SUBTITLE = "Gerade Maximalstufe erreicht und unsicher, was jetzt? Das hier ist das ganze Endgame, der Reihe nach. Klick einen Schritt, um direkt zum passenden Tool zu springen; die wöchentlichen Schritte haken sich von selbst ab.",
 
 	START_INTRO_HEADER = "Der Midnight-Loop in Kürze",
-	START_INTRO_BODY = "Endgame ist ein wöchentlicher Rhythmus: Heb deine Gegenstandsstufe an, stimm deinen Charakter ab und füll dann jede Woche deine Große Schatzkammer über Tiefen, Ritualstätten und Void Assaults. Ansehen, Berufe und Währungen kommen obendrauf, sobald dieser Loop Routine ist.",
+	START_INTRO_BODY = "Endgame ist ein wöchentlicher Rhythmus: Heb deine Gegenstandsstufe an, stimm deinen Charakter ab und füll dann jede Woche deine Große Schatzkammer über Tiefen, Ritualstätten und Void Assaults. Ruhm, Berufe und Währungen kommen obendrauf, sobald dieser Loop Routine ist.",
 
 	START_S1_TITLE = "1. Heb zuerst deine Gegenstandsstufe an",
-	START_S1_BODY = "Fang mit den leichten Erfolgen an: Spiel die Midnight-Kampagne, hol dir Ausrüstung aus Weltquests und den Ansehen-Meilenstein-Quests und lauf normale Tiefen (plus Prey-Jagden und heroische Dungeons), um deine Gegenstandsstufe zu steigern. Ein paar günstige hergestellte/AH-Teile helfen auch. Mit höherer Gegenstandsstufe öffnen sich dann die höheren Stufen mit den echten Belohnungen.",
+	START_S1_BODY = "Fang mit den leichten Erfolgen an: Spiel die Midnight-Kampagne, hol dir Ausrüstung aus Weltquests und den Ruhm-Meilenstein-Quests und lauf normale Tiefen (plus Prey-Jagden und heroische Dungeons), um deine Gegenstandsstufe zu steigern. Ein paar günstige hergestellte/AH-Teile helfen auch. Mit höherer Gegenstandsstufe öffnen sich dann die höheren Stufen mit den echten Belohnungen.",
 	START_S1_NAV = "Tiefen öffnen",
 
 	START_S2_TITLE = "2. Stimm deinen Charakter ab",
@@ -269,14 +269,14 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	START_S5_BODY = "Zwei weitere Welt-Reihen-Aktivitäten, am besten sobald du etwas Ausrüstung hast (sie geben zufällige Champion-Ausrüstung). Schalte Ritualstätten zuerst über die Questreihe \"Ritual Interest\" in Silbermond frei; Void Assaults sind das rotierende Open-World-Event und dein Einstieg. Am Curious Obelisk wählst du Stufe + Challenges — der Ritual Coach erklärt jede einzelne.",
 	START_S5_NAV = "Void & Rituals öffnen",
 
-	START_S6_TITLE = "6. Geh tiefer: Ansehen, Berufe & Währungen",
-	START_S6_BODY = "Ansehen schaltet Vorteile und Kosmetisches frei; Berufe liefern Ausrüstung, Verbrauchsmaterial und Gold (MH hat einen kompletten Einsteigerkurs); und die Basar-Händler in Silbermond machen aus deinen Währungen Upgrades. Nimm das mit, sobald der Wochen-Loop Routine ist.",
+	START_S6_TITLE = "6. Geh tiefer: Ruhm, Berufe & Währungen",
+	START_S6_BODY = "Ruhm schaltet Vorteile und Kosmetisches frei; Berufe liefern Ausrüstung, Verbrauchsmaterial und Gold (MH hat einen kompletten Einsteigerkurs); und die Basar-Händler in Silbermond machen aus deinen Währungen Upgrades. Nimm das mit, sobald der Wochen-Loop Routine ist.",
 	START_S6_NAV = "Berufe 101 öffnen",
 
 	START_RESET_TITLE = "Reset-Tag: alles noch einmal",
 	START_RESET_BODY = "Wochenquests und die Große Schatzkammer setzen sich jede Woche zurück — Mittwoch auf EU-Realms, Dienstag auf US. Hol zuerst die Vault-Belohnung der Vorwoche ab und lauf dann den Loop erneut. Das ist das ganze Spiel — willkommen in Midnight!",
 
-	START_WEEKLY_RITUAL = "Ritual-Sites-Weekly",
+	START_WEEKLY_RITUAL = "Ritualstätten-Weekly",
 	START_WEEKLY_VOID = "Void-Assaults-Weekly",
 	START_STATUS_DONE = "diese Woche erledigt",
 	START_STATUS_TODO = "diese Woche noch offen",

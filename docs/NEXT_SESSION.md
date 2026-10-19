@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## 🧪 19 okt — Codex-advieskaartje + it/de-spelnamen
+
+- **Codex-advies** (Rob, in de Labyrinth: *"kunnen wij hier ook een simpel advies aan plakken? net zoals we bij
+  valeera hebben"*): `Modules/CodexAdvicePanel.lua`. GEMETEN in Robs client: `PlayerChoiceFrame`, choiceID 1076, één
+  optie met 12 knoppen id 13–24; "heb je" = atlas `common-icon-checkmark` in de knoptekst (`selected`/`showCheckmark`
+  waren false). Advies uit 2 mh-research-rondes (eens), bronnen in `docs/CODEX_GIFTS_2026-10-19.md`. Schakelaar
+  `mh_codexAdvice` (standaard aan), `/mh gifts` = diagnose. Alleen enUS + nlNL; de/fr/es/pt/it/ru vallen terug op
+  Engels → 🔜 vertalen (mh-writer). Niet in het spel gezien → TESTLIJST 19 okt.
+- 🔴 **`CODEX_CORRPOWER_BODY` heeft drie onjuiste beweringen** (ronde A, getoetst aan de tooltips): (1) "een gift die
+  vergiftigt + een die erop betaalt" mist dat er twee soorten zijn: jijzelf vergiftigd (alleen Insidious Venom, betaalt
+  alleen op Ula'tek + Ouroboric) of de vijand vergiftigd; (2) "Valeera's poison telt als jij Poisoned" staat in geen
+  enkele tooltip (alleen Venom Infusion zegt het); (3) de Mephitic Cloud-waarschuwing is onzeker ("heal their target").
+  🔜 Herschrijven in 8 talen. Ook: Ouroboric Cycle mist sinds 12.1.5 de regel "Offer 8 Corrosive Souls" (betekenis
+  onbekend).
+- **it/de-spelnamen** (Rob: *"zoek dat uit en baseer ons antwoord daar op"*), GEMETEN op wago 12.1.5.70448: it Siti
+  Rituali / Sito Rituale, Fama, Reperto(i); de Ritualstätte(n), Ruhm/Ruhmstufe, Kuriosität(en), Kampf-/
+  Unterstützungskuriosität. mh-writer heeft ~130 sleutels in itIT/deDE/Translations2026/Codex/RitualTips/StartHere
+  aangepast (eigen vertaling, niet door een moedertaalspreker nagekeken). Open: de curio-slotnamen staan nog in
+  `KeepEnglish.lua` en kunnen er nu voor de/it uit (gemeten). Twijfel: "quartiermastro della Fama"/"Ruhm-
+  Quartiermeister" is onze eigen woordkeus.
+- **Labyrinth-run opgenomen** (Rob 19 okt, 09:03–10:43, 10 video's in `Videos\Captures`, ~27 GB): 🔴 **NIET
+  weggooien** (Rob: *"gooi de files dan niet weg"*). Analyse loopt.
+
 ## 🚀 19 okt — release 4.9.0 GETAGD en geüpload
 
 ✅ Rob: *"Go voor de tag v4.9.0."* Tag `v4.9.0` op 7e2b6f6; run 39206835868 = success (CurseForge + Wago "Success!",
