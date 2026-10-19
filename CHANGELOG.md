@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.10.1
+
+📌 **2026-10-19, RELEASE (Rob: "Ja, maak er 4.10.1 van. Go voor de tag, en seint de site-chat.").** Patch, kleine
+verbeteringen aan 4.10.0. In-game: CHANGELOG_4101_0..3 (enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.1.md`.
+GEMETEN door Rob in het spel (19 okt): blauwe "Get these crests from"-regels; geleerde NPC-prijs (lastNPCRead: 10,
+discounted); prijs vooraf = Blizzard (Cosmic Bell 2/6→6/6 = 40, Hex Loop 2/6→5/6 = 30, telkens 10 per stap); venster
+past zich vanzelf aan na uitgeven; Mount run-mount zoeken ("Black Drake" werkt). NIET gezien: een gratis stap (regel uit
+Blizzard Support/Wowhead), vertalingen (zelfgemaakt).
+
+- **Mijn gear:** prijs per stap (`TRACK_ILVL` + `C_ItemUpgrade.GetHighWatermarkForItem` + "… of the Mist"), geleerde
+  NPC-prijs wint; "Get these crests from" per soort; `lastNPCRead` voor diagnose; "1 step" enkelvoud (site-chat zag
+  "1 steps" op Robs screenshot).
+- **Zoeken:** Mount run-mounts (`ns.GetMountRunSearchIndex`, `ns.MH_ShowMountRunAt`).
+- **Feiten:** `docs/GEARING_FACTS_2026-10-19.md` (20 per stap in DB2, Warband-helft gemeten).
+
 ## 4.10.0
 
 📌 **2026-10-19, RELEASE (Rob: "maak er maar een complete release van, goed overleggen met de chat site") — gewone

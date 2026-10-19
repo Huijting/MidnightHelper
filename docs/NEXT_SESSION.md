@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## 🚀 19 okt (nacht) — release 4.10.1 (Rob: "Ja, maak er 4.10.1 van. Go voor de tag, en seint de site-chat.")
+
+Patch: gear-prijs vooraf + geleerde NPC-prijs, crest-bronnen per soort, Mount run-mounts zoeken, "1 step" enkelvoud.
+`## Version: 4.10.1`, CHANGELOG_4101_0..3, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.1.md`, `CHANGELOG.md`. Syntax OK,
+lint 0 HARD. In het spel GEMETEN door Rob (zie TESTLIJST 19 okt laat). Tag + run-uitslag: zie hieronder zodra gedaan.
+
 ## 🧮 19 okt (laat) — Mijn gear rekent de korting zelf uit (Rob: "ja doe maar")
 
 GEMETEN eerst (Rob op Umbrion): `GetAchievementInfo(62410)` = true; `C_ItemUpgrade.GetHighWatermarkForSlot(10)` = 269 /

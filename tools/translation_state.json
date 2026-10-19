@@ -15616,6 +15616,15 @@
    "ptBR": "5bc597be5f3ce92f",
    "ruRU": "5bc597be5f3ce92f"
   },
+  "GEARLADDER_CAN_NOW_ATLEAST_ONE": {
+   "deDE": "e09538535017cd36",
+   "esES": "e09538535017cd36",
+   "frFR": "e09538535017cd36",
+   "itIT": "e09538535017cd36",
+   "nlNL": "e09538535017cd36",
+   "ptBR": "e09538535017cd36",
+   "ruRU": "e09538535017cd36"
+  },
   "GEARLADDER_CAN_NOW_FMT": {
    "deDE": "9a0d751a715b9c0e",
    "esES": "9a0d751a715b9c0e",
@@ -15624,6 +15633,15 @@
    "nlNL": "9a0d751a715b9c0e",
    "ptBR": "9a0d751a715b9c0e",
    "ruRU": "9a0d751a715b9c0e"
+  },
+  "GEARLADDER_CAN_NOW_ONE": {
+   "deDE": "903926094258d0ff",
+   "esES": "903926094258d0ff",
+   "frFR": "903926094258d0ff",
+   "itIT": "903926094258d0ff",
+   "nlNL": "903926094258d0ff",
+   "ptBR": "903926094258d0ff",
+   "ruRU": "903926094258d0ff"
   },
   "GEARLADDER_DISCOUNT_FMT": {
    "deDE": "0663941eecf0386b",

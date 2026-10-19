@@ -443,7 +443,7 @@ function ns.RefreshGearLadder()
 		elseif steps > 0 then
 			anyNow = true
 			Add("• " .. line, 0.45, 0.9, 0.45)
-			Add("    " .. (L(estimated and "GEARLADDER_CAN_NOW_ATLEAST_FMT" or "GEARLADDER_CAN_NOW_FMT")):format(steps), 0.45, 0.9, 0.45)
+			Add("    " .. (L(steps == 1 and (estimated and "GEARLADDER_CAN_NOW_ATLEAST_ONE" or "GEARLADDER_CAN_NOW_ONE") or (estimated and "GEARLADDER_CAN_NOW_ATLEAST_FMT" or "GEARLADDER_CAN_NOW_FMT"))):format(steps), 0.45, 0.9, 0.45)
 		else
 			Add("• " .. line, 0.9, 0.9, 0.9)
 			local cheapest = stepCosts[1] or STEP_COST
