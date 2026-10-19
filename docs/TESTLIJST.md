@@ -51,6 +51,11 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       "one of **41** spots" te zien en de nummers 1 t/m 41. Klik op **16**: de pijl wijst naar 43.66/83.98 (vlak bij
       Wah'du). Kom je in de Labyrinth een Mislaid Treasure tegen op een plek die NIET in de lijst staat → zeg het.
 
+## 🆕 19 okt — Locked Door in de Labyrinth
+
+- [ ] Codex → "The Labyrinth's own Journey" → Rank 2: vijf genummerde links naar de deur op slot. Klik er één in de
+      Labyrinth: de pijl hoort erheen te wijzen. Vind je de deur op een plek die niet in de lijst staat → zeg het.
+
 ## 🆕 18 okt — Routezoeker naar plekken buiten Midnight (TravelGraph.lua)
 
 Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.

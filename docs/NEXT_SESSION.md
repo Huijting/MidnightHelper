@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🌅 19 okt — ochtendronde
+
+GEMETEN: vier wachters gedraaid; CF 0 open, GitHub 0; 11 addons bijgewerkt (HandyNotes 165, DandersFrames 5.5.0, Platynator
+513, Baganator 838, DBM-PvP r194, MBB 4.0.30) — alleen gelezen, niet getest.
+- Vragenlijst **#21** bijgeteld (18 okt, DE/de, healer, net geïnstalleerd, geen cijfer) → `docs/SURVEY_RESULTS.md`.
+- ⚠️ Contentwachter 19 okt citeert nog "take Valeera as a healer" — al weg sinds e696f64 (GEMETEN: `enUS.lua:3265` heeft
+  de "Note (16 Oct)"-regel); hij loopt achter, net als de API-wachter op 18 okt.
+- Data-wachter: spelersmelding "volle Labyrinth-clear = 35 Fading Voidwhispers i.p.v. 105" (niet bevestigd); MH noemt
+  dat getal nergens → geen actie.
+- HandyNotes 165: kist-eisen op Labyrinth Journey 2836 rang 3/5/7/9 — **komen 1-op-1 overeen met onze `seal`** (alle
+  gelabelde kisten nagelopen); "Flooded Chamber" als label voor dezelfde 5 kisten als wij. Nieuw: **Locked Door** (5
+  plekken, Journey-rang 2, sleutel van Keeper of the Key 273788 of rogue) → plekken toegevoegd aan CODEX_LABJOURNEY_BODY
+  in 8 talen (mh-writer). Niet in het spel gezien.
+
 ## 🌅 18 okt — ochtendronde + Valeera-melding
 
 Ochtendronde (GEMETEN): vier wachters gedraaid; CF 0 open (8 berichten), GitHub 0, site-mail niets sinds 10 okt; 25 addons
