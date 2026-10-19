@@ -66,7 +66,8 @@ Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.
 - [ ] `/mh plan` op **Pit of Saron**: 3 stappen en een regel "About N min by the fastest way".
 - [x] ✅ Rob 19 okt: *"11 en 12 werken oke"*.
       In Orgrimmar: zet een pin in **Mount Hyjal** → de pijl hoort naar het Hyjal-portaal te wijzen, niet "fly to Nordrassil".
-- [x] ✅ Rob 19 okt (zie hierboven).
+- [x] ✅ Rob 19 okt (zie hierboven), screenshot: Valdrakken → The Coiled Isle, popup "HS on Cooldown! Take the portal
+      to Orgrimmar.", pin op 56.6/38.3, pijl 25 m — de oude WayHome-route, ongewijzigd.
       Een Midnight-delve vanuit Valdrakken: gedrag zoals altijd (Hearthstone/portaal naar Silvermoon).
 - [ ] Silvermoon → een doel in Eversong met een vluchtmeester ertussen: hoort er nog steeds een vluchtmeester-stap te
       geven (zoals 17 okt). Zo niet → zeg het (dan raakte de nieuwe continent-regel toch Midnight).
