@@ -208,6 +208,19 @@ local function GetTierCurrencyQty(tier)
 	return 0, 0, 0, 0, 0
 end
 
+--- For the gear ladder (GearLadder.lua, 19 Oct 2026): the same balance and id this guide shows, by tier key
+--- ("adventurer" … "myth"), so a second panel never makes its own seasonal choice (see MH_TierUsesSeason2).
+--- @return number qty, number|nil currencyId
+function ns.MH_GetTierCrest(key)
+	for _, tier in ipairs(ns.DAWNCREST_TIERS or {}) do
+		if tier.key == key then
+			local _, primary = TierCurrencyIds(tier)
+			return (GetTierCurrencyQty(tier)) or 0, primary
+		end
+	end
+	return 0, nil
+end
+
 local function RequestDawncrestCurrencyData()
 	if not C_CurrencyInfo or not C_CurrencyInfo.RequestCurrencyDataFromServer then
 		return

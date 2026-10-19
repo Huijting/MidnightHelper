@@ -110,6 +110,14 @@ local function BuildLines()
 	-- decides whether the "all good" line above shows.
 	-- Two ways in, quick before exact (Rob, 30 Sep 2026: "ja, bouw dat maar"): the Armory
 	-- export was reachable only by typing /mh export, while Raidbots had a button.
+	-- Rob, 19 Oct 2026, for Carola: the "what now?" window, where a player who wonders why her gear stays put already is.
+	if ns.ShowGearLadder then
+		out[#out + 1] = {
+			text = ns:SafeL("CHARPANEL_GEARLADDER") or "My gear: what now?",
+			color = "prog",
+			onClick = function() pcall(ns.ShowGearLadder) end,
+		}
+	end
 	if ns.ShowGearExport then
 		out[#out + 1] = {
 			text = ns:SafeL("CHARPANEL_ARMORY") or "Armory",

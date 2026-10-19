@@ -3149,6 +3149,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh gifts — the Corrosive Codex advice card (CodexAdvicePanel.lua): what it saw and decided.
+	-- /mh gear — "My gear: what now?" (GearLadder.lua, Rob for Carola, 19 Oct 2026).
+	if msg == "gear" then
+		if ns.ToggleGearLadder then
+			ns.ToggleGearLadder()
+		end
+		return
+	end
+
 	-- /mh hexmask — the arrow to the Hexmask spot in this Labyrinth room, or the nearest one (LabyrinthHexmask.lua).
 	if msg == "hexmask" or msg == "hexmasks" then
 		if ns.RouteLabHexmask then

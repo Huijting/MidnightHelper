@@ -166,6 +166,19 @@ ns.CODEX_ARTICLES = {
 	-- answers "what are these four words" for someone who is not in the game right
 	-- now, and it leads with the rule that matters more than the answer — ilvl
 	-- first, stats as a tie-break.
+	-- Rob, 19 Oct 2026, for Carola ("ik doe delves… maar ik ga niet omhoog met mijn gear"): baby steps, "super
+	-- beginners … jip en janneke". Facts from two research rounds, docs/GEARING_FACTS_2026-10-19.md. The live half is
+	-- the "My gear" window (GearLadder.lua, /mh gear), which reads her own items and crests.
+	{
+		id = "gear_baby_steps",
+		category = "start",
+		titleKey = "CODEX_GEARSTEPS_TITLE",
+		bodyKey = "CODEX_GEARSTEPS_BODY",
+		sort = 3,
+		searchKeys = "gear item level ilvl upgrade upgrades crest crests mistcrest track tracks adventurer veteran "
+			.. "champion hero myth great vault coffer key bountiful why does my gear not go up stuck better gear "
+			.. "waarom gaat mijn gear niet omhoog beginner",
+	},
 	{
 		id = "stats_explained",
 		category = "start",

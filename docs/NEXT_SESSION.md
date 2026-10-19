@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🪜 19 okt (avond) — gear in babystapjes (Rob voor Carola: "super beginners … jip en janneke")
+
+Rob koos optie 3 (kaart + venster). Feiten: `docs/GEARING_FACTS_2026-10-19.md` (2 mh-research-rondes, eens; tracks en
+kosten GEMETEN in wago 12.1.5.70448, cap weg vanaf week 20 okt = Blizzard). GEBOUWD, niet in het spel gezien:
+- Codex-kaart `gear_baby_steps` (Start, sort 3): CODEX_GEARSTEPS_TITLE/BODY — 6 stappen (item lezen, crests per soort,
+  welke crest uit welke tier, sleutel + Bountiful, Great Vault tier 8 = Hero, tier omhoog) + "kort gezegd".
+- `Modules/GearLadder.lua` (`/mh gear`, regel in het karakter-zijpaneel): leest track + stap per slot
+  (GetItemUpgradeInfo), crests via nieuw `ns.MH_GetTierCrest` (DawncrestGuide), en toont de crest-beschrijving van het
+  spel voor één soort hoger. Track→crest door het trackwoord in de crestnaam te zoeken (zelfde taal), onthouden per
+  trackStringID in `ns.db.gearLadder.trackKey`; geen match = geen crest-advies. Korting per slot niet leesbaar → "about".
+- Vertaald (mh-writer, 6 talen + esMX). ⚠️ Twijfels: de "Mythisch" vs "Mythos" (welk woord toont de tooltip?); it
+  DAWNCREST_TIER_ADVENTURER is nog Engels (bron repareren); "crests"-woord niet overal gelijk in pt/it.
+- 🔜 Na Robs test: Carola laten lezen. Open: `C_ItemUpgrade.GetHighWatermarkForSlot` (wiki/AMR) zou de korting kunnen
+  tonen — niet in de client gemeten.
+
 ## 🧭 19 okt (avond) — Hexmask-hulp + kist 14 (Rob: "begin aan de hulp bij de maskers en kist 14")
 
 GEBOUWD, niet in het spel gezien (TESTLIJST bovenaan):

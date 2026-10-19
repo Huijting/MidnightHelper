@@ -3827,6 +3827,15 @@
    "ptBR": "467677f7f100a88b",
    "ruRU": "467677f7f100a88b"
   },
+  "CHARPANEL_GEARLADDER": {
+   "deDE": "1aa7fd21a81de9ba",
+   "esES": "1aa7fd21a81de9ba",
+   "frFR": "1aa7fd21a81de9ba",
+   "itIT": "1aa7fd21a81de9ba",
+   "nlNL": "1aa7fd21a81de9ba",
+   "ptBR": "1aa7fd21a81de9ba",
+   "ruRU": "1aa7fd21a81de9ba"
+  },
   "CHARPANEL_RAIDBOTS": {
    "ruRU": "f2c76153f7ea12dc"
   },
@@ -4125,6 +4134,15 @@
    "nlNL": "ad4209394a938307",
    "ptBR": "ad4209394a938307",
    "ruRU": "ad4209394a938307"
+  },
+  "CMDLIST_GEAR": {
+   "deDE": "0cd8d8a13fc08283",
+   "esES": "0cd8d8a13fc08283",
+   "frFR": "0cd8d8a13fc08283",
+   "itIT": "0cd8d8a13fc08283",
+   "nlNL": "0cd8d8a13fc08283",
+   "ptBR": "0cd8d8a13fc08283",
+   "ruRU": "0cd8d8a13fc08283"
   },
   "CMDLIST_GIFTS": {
    "deDE": "ba5c58eecbe27a26",
@@ -5201,6 +5219,24 @@
    "frFR": "da8e9f948cf11c0c",
    "ptBR": "da8e9f948cf11c0c",
    "ruRU": "da8e9f948cf11c0c"
+  },
+  "CODEX_GEARSTEPS_BODY": {
+   "deDE": "ce94b442ac95974e",
+   "esES": "ce94b442ac95974e",
+   "frFR": "ce94b442ac95974e",
+   "itIT": "ce94b442ac95974e",
+   "nlNL": "ce94b442ac95974e",
+   "ptBR": "ce94b442ac95974e",
+   "ruRU": "ce94b442ac95974e"
+  },
+  "CODEX_GEARSTEPS_TITLE": {
+   "deDE": "3cef35e7e36cdc60",
+   "esES": "3cef35e7e36cdc60",
+   "frFR": "3cef35e7e36cdc60",
+   "itIT": "3cef35e7e36cdc60",
+   "nlNL": "3cef35e7e36cdc60",
+   "ptBR": "3cef35e7e36cdc60",
+   "ruRU": "3cef35e7e36cdc60"
   },
   "CODEX_HIDDENTREASURE_BODY": {
    "deDE": "5127e9d70ee526b3",
@@ -15570,6 +15606,114 @@
   },
   "GEAREXPORT_TITLE": {
    "ruRU": "4f0f492e1e807e2c"
+  },
+  "GEARLADDER_CAN_NOW_FMT": {
+   "deDE": "9a0d751a715b9c0e",
+   "esES": "9a0d751a715b9c0e",
+   "frFR": "9a0d751a715b9c0e",
+   "itIT": "9a0d751a715b9c0e",
+   "nlNL": "9a0d751a715b9c0e",
+   "ptBR": "9a0d751a715b9c0e",
+   "ruRU": "9a0d751a715b9c0e"
+  },
+  "GEARLADDER_FOOT": {
+   "deDE": "327e613c3ee9bbd4",
+   "esES": "327e613c3ee9bbd4",
+   "frFR": "327e613c3ee9bbd4",
+   "itIT": "327e613c3ee9bbd4",
+   "nlNL": "327e613c3ee9bbd4",
+   "ptBR": "327e613c3ee9bbd4",
+   "ruRU": "327e613c3ee9bbd4"
+  },
+  "GEARLADDER_ILVL_FMT": {
+   "deDE": "9c6b296527c3e5fb",
+   "esES": "9c6b296527c3e5fb",
+   "frFR": "9c6b296527c3e5fb",
+   "itIT": "9c6b296527c3e5fb",
+   "nlNL": "9c6b296527c3e5fb",
+   "ptBR": "9c6b296527c3e5fb",
+   "ruRU": "9c6b296527c3e5fb"
+  },
+  "GEARLADDER_NEED_FMT": {
+   "deDE": "dbe6cef5679b8e6d",
+   "esES": "dbe6cef5679b8e6d",
+   "frFR": "dbe6cef5679b8e6d",
+   "itIT": "dbe6cef5679b8e6d",
+   "nlNL": "dbe6cef5679b8e6d",
+   "ptBR": "dbe6cef5679b8e6d",
+   "ruRU": "dbe6cef5679b8e6d"
+  },
+  "GEARLADDER_NEXT_HEAD_FMT": {
+   "deDE": "8c81173336ee5372",
+   "esES": "8c81173336ee5372",
+   "frFR": "8c81173336ee5372",
+   "itIT": "8c81173336ee5372",
+   "nlNL": "8c81173336ee5372",
+   "ptBR": "8c81173336ee5372",
+   "ruRU": "8c81173336ee5372"
+  },
+  "GEARLADDER_NOW_HEAD": {
+   "deDE": "93cd67b87a2e1431",
+   "esES": "93cd67b87a2e1431",
+   "frFR": "93cd67b87a2e1431",
+   "itIT": "93cd67b87a2e1431",
+   "nlNL": "93cd67b87a2e1431",
+   "ptBR": "93cd67b87a2e1431",
+   "ruRU": "93cd67b87a2e1431"
+  },
+  "GEARLADDER_TIPS": {
+   "deDE": "9ea17c3665c3fd6a",
+   "esES": "9ea17c3665c3fd6a",
+   "frFR": "9ea17c3665c3fd6a",
+   "itIT": "9ea17c3665c3fd6a",
+   "nlNL": "9ea17c3665c3fd6a",
+   "ptBR": "9ea17c3665c3fd6a",
+   "ruRU": "9ea17c3665c3fd6a"
+  },
+  "GEARLADDER_TITLE": {
+   "deDE": "1aa7fd21a81de9ba",
+   "esES": "1aa7fd21a81de9ba",
+   "frFR": "1aa7fd21a81de9ba",
+   "itIT": "1aa7fd21a81de9ba",
+   "nlNL": "1aa7fd21a81de9ba",
+   "ptBR": "1aa7fd21a81de9ba",
+   "ruRU": "1aa7fd21a81de9ba"
+  },
+  "GEARLADDER_TRACK_FMT": {
+   "deDE": "dd6e835ba8c3708f",
+   "esES": "dd6e835ba8c3708f",
+   "frFR": "dd6e835ba8c3708f",
+   "itIT": "dd6e835ba8c3708f",
+   "nlNL": "dd6e835ba8c3708f",
+   "ptBR": "dd6e835ba8c3708f",
+   "ruRU": "dd6e835ba8c3708f"
+  },
+  "GEARLADDER_TRACK_FULL": {
+   "deDE": "357c11b4d4613def",
+   "esES": "357c11b4d4613def",
+   "frFR": "357c11b4d4613def",
+   "itIT": "357c11b4d4613def",
+   "nlNL": "357c11b4d4613def",
+   "ptBR": "357c11b4d4613def",
+   "ruRU": "357c11b4d4613def"
+  },
+  "GEARLADDER_UNREADABLE": {
+   "deDE": "984dfc662e11b9dc",
+   "esES": "984dfc662e11b9dc",
+   "frFR": "984dfc662e11b9dc",
+   "itIT": "984dfc662e11b9dc",
+   "nlNL": "984dfc662e11b9dc",
+   "ptBR": "984dfc662e11b9dc",
+   "ruRU": "984dfc662e11b9dc"
+  },
+  "GEARLADDER_WHERE": {
+   "deDE": "d98c80f4da76d839",
+   "esES": "d98c80f4da76d839",
+   "frFR": "d98c80f4da76d839",
+   "itIT": "d98c80f4da76d839",
+   "nlNL": "d98c80f4da76d839",
+   "ptBR": "d98c80f4da76d839",
+   "ruRU": "d98c80f4da76d839"
   },
   "GEM_BEST_FMT": {
    "deDE": "427552a76bfda14a",

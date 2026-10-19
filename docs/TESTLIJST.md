@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 19 okt (avond) — "Mijn gear: wat nu?" voor beginners (Carola)
+
+Eerst `/reload`. Liefst ook op een character met crests en items die nog omhoog kunnen.
+
+- [ ] **`/mh gear`** (of karakterscherm C → zijpaneel → "My gear: what now?") opent een venster:
+      je item level; per soort item (Champion, Hero …) hoeveel items, hoeveel stappen nog open en hoeveel crests je hebt;
+      groen "You can do N steps right now!" als je genoeg crests hebt; een grijze regel met de slots (bv. "Head 2/6").
+      Klopt het aantal crests met je Currency-tabblad? Klopt "2/6" met de tooltip van het item?
+- [ ] Onder "2." staat de tekst van het spel zelf over waar de volgende soort crest vandaan komt.
+- [ ] Wissel een item of upgrade er een → het venster past zich vanzelf aan.
+- [ ] **Codex** → zoek "gear" of "crest" → kaart "Why does my gear not go up? In small steps", met 6 stappen.
+- [ ] Laat Carola het lezen. Snapt ze het? Wat mist ze?
+
 ## 🆕 19 okt (avond) — hulp bij Hexmasks en kist 14
 
 Eerst `/reload`. In de Labyrinth (Journey-rang 2 of hoger).
