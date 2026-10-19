@@ -30,7 +30,7 @@ Eerst `/reload`. Twee kleine dingen uit de ochtendronde (HandyNotes 161 en de 12
       **Welke ritual site is actief?** Typ in de chat:
       `/run for _,m in ipairs({2395,2437}) do for _,p in ipairs(C_AreaPoiInfo.GetAreaPOIForMap(m) or {}) do if p==8614 or p==8615 then print(m,p) end end end`
       Je hoort **één** regel te zien: `2395 8615` (Daggerspine Point) of `2437 8614` (Broken Throne). Open daarna `/mh`
-      → Home: de ritual-regel noemt **dezelfde** site, niet "rouleert wekelijks". Twee regels of geen regel → zeg het,
+      → tegel **Void & Rituals** (het oude "Home" bestaat niet meer): de ritual-regel noemt **dezelfde** site, niet "rouleert wekelijks". Twee regels of geen regel → zeg het,
       dan klopt de aanname van HandyNotes niet (alleen de open site heeft een pin).
 - [ ] **Weekly-gevers herkennen (ResetRoutine).** Niets te zien als het goed gaat: praat met een weekly-gever in
       Silvermoon zoals altijd, en de This Week-lijst hoort hem net zo te herkennen als gisteren. Alleen het patroon dat
@@ -73,13 +73,15 @@ Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.
 
 Eerst `/reload`, open Valeera's venster één keer.
 
-- [ ] Typ `/mh curios`. **Bilespear** hoort een ster te hebben, wélke rang je ook hebt (ook rang 5). Bij Utility horen
+- [x] ✅ Rob 19 okt, /mh curios geplakt: ster op Corrosive Bilespear, Dundun's Favor én Soul-Cracking Dreamcatcher, elk
+      met hun "Guides:"-regel. Dreamcatcher-tekst "25% … for 60 sec, stacking up to 2 times" = **rang 5** (wago) → de
+      ster werkt op rang 5 (GEMETEN). Geen "Recommended elsewhere"-regel. Viperwind "Players:" + ">>", Dusty Loa ">>".
+      Typ `/mh curios`. **Bilespear** hoort een ster te hebben, wélke rang je ook hebt (ook rang 5). Bij Utility horen
       **Dreamcatcher én Dundun's Favor** een ster te hebben, met eronder een regel "Guides: …" die zegt wanneer.
-- [ ] Onderaan hoort GEEN regel "Recommended elsewhere but NOT in your companion's tree" te staan. Staat hij er wel →
-      screenshot (dan zegt hij welke curio hij mist).
-- [ ] Heb je **Viperwind Idol** of **Dusty Loa Totem**? Dan hoort er een regel ">> …" onder te staan (onze lezing) en bij
-      Viperwind een regel "Players: …".
-- [ ] Het kleine paneel naast Valeera's venster: bij Utility twee regels "Guides pick: … — Guides: …".
+- [x] ✅ zie hierboven. Onderaan hoort GEEN regel "Recommended elsewhere but NOT in your companion's tree" te staan.
+- [x] ✅ zie hierboven. Heb je **Viperwind Idol** of **Dusty Loa Totem**? Dan hoort er een regel ">> …" onder te staan.
+- [x] ✅ Rob 19 okt, screenshot: bij Utility twee regels "Guides pick: … — Guides: …", en "You have this one." onder
+      Dundun's Favor (zijn actieve curio). Het kleine paneel naast Valeera's venster.
 - [ ] Codex → Delve curios / Corrosive Codex / Labyrinth: de nieuwe regels over rang 5, Venom Infusion en Kindo'jan.
 
 ## 🆕 17 okt — Kindo'jan-tip herschreven (twee videogidsen)
@@ -99,7 +101,8 @@ Eerst `/reload`, open Valeera's venster één keer.
 
 Rob: de Delve Log zei "17 runs" na twee avonden (= 17 kamers). Eerst `/reload`.
 
-- [ ] Open de **Delve & Ritual Log**. De Labyrinth hoort nu **2 runs** te tonen: 15 okt met "Rooms: 9" en 16 okt met
+- [x] ✅ Rob 19 okt, screenshot: "Runs: 2", T11 2h 11m Rooms: 8 (16 okt) en T11 2h 14m Rooms: 9 Sha'Kuro (15 okt).
+      Open de **Delve & Ritual Log**. De Labyrinth hoort nu **2 runs** te tonen: 15 okt met "Rooms: 9" en 16 okt met
       "Rooms: 8" (buiten het spel getest op jouw echte gegevens: 17 → 2).
 - [ ] Doe een paar kamers en **verlaat** de Labyrinth. Daarna hoort er één nieuwe run bij te komen met het aantal kamers,
       niet één per kamer. (Tussen de kamers telt hij niets — de run wordt pas geteld als je naar buiten gaat.)
@@ -112,7 +115,9 @@ Eerst `/reload`.
 - [x] ✅ Rob 17 okt: *"ja werkt"*.
       `/mh` → typ `laby` in de zoekbalk. Bovenaan hoort **"The Labyrinth of Kindo'jan"** te staan met grijs erachter
       **"Eversong Woods — take me there"**. Klik: de route start (zoals de knop op het Delves-tabblad).
-- [ ] Typ een dungeon (bv. `maisara`) en een raid (bv. `voidspire`): ook daar een regel "… — take me there", en de
+- [x] ✅ Rob 19 okt, screenshots: "Maisara Caverns  Zul'Aman — take me there" en "The Voidspire  Voidstorm — take me
+      there" bovenaan, de bazen eronder. (Op de klik zelf nog niet getest.)
+      Typ een dungeon (bv. `maisara`) en een raid (bv. `voidspire`): ook daar een regel "… — take me there", en de
       klik zet de route naar de ingang. De bazen en de Delve Coach staan er gewoon nog onder.
 
 ## 🆕 17 okt — Vluchtmeester in routes: loslaten + schakelaar
