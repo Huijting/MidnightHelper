@@ -2937,3 +2937,83 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `docs/PTR_VALEERA_TREE.md`, `Modules/ValeeraProgress.lua`, `docs/RESEARCH_VALEERA_DPS_VIDEO.md`
   — allemaal vandaag gelezen. Eén content-vondst (Valeera-healer-advies), verder uitsluitend
   **[RAAKT ONS NIET]**. Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-19] 🔁 **Geen nieuwe hotfix-content sinds 16 okt, zelf opnieuw bevestigd; CurseForge
+  ongewijzigd. Vandaag is maandag: de wekelijkse kaarten- en consumables-check liepen mee, beide
+  zonder nieuwe bevindingen.**
+
+  💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v. gisteren).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261019z` (via Exa,
+  JSON volledig gelezen, `pagination.totalCount: 8`): dezelfde drie draadjes als op 17/18 okt
+  (esES/esMX-locale-fix, debug-printregel, coffer-key-shards-popup), alle drie eindigend op een
+  reactie van `twelveinchy`. Geen nieuw bericht sinds gisteren. MEASURED.
+
+  **Hotfixes: geen nieuwe sectie sinds "October 16, 2026" — zelf opnieuw gelezen, niet overgenomen
+  van de API-/data-wachter van vandaag.** `news.blizzard.com/en-us/article/24307310/hotfixes-
+  october-16-2026?nocache=20261019content`, volledige artikeltekst zelf gelezen: Dungeons and
+  Raids/Labyrinth and Delves/Items/Labyrinth/Quests/Aqir Invasions/Classes/Delves-secties van 13
+  t/m 16 okt byte-voor-byte dezelfde inhoud als al verwerkt op [2026-10-17]/[2026-10-18].
+  Delves/Professions/Quests als losse categorieën waren en zijn leeg in de nieuwste sectie, niets
+  nieuws te vergelijken. Ook de "12.1.5 Known Issues"-forumpost (Linxy,
+  `us.forums.blizzard.com/.../2381312?nocache=20261019content`, zelf gelezen, bijgewerkt 16 okt
+  18:44 PDT) nogmaals zelf nagelezen: *"Valeera is taking more damage than intended"* staat er nog
+  steeds zonder `fixed`-label — dus de op [2026-10-18] gemelde **[RAAKT ONS]**-vondst
+  (`DELVE_TIP_LABYRINTH_BOSS`, `Locales/enUS.lua:3249`, "take Valeera as a healer: the fight takes
+  longer, but you are less likely to lose a life") blijft actueel en ongewijzigd: geen fix, dus nog
+  steeds geen betrouwbaar alternatief advies om te citeren, geen tekstwijziging voorgesteld. Alle
+  overige known-issues-punten staan nog op `fixed` zoals op 18 okt. MEASURED. **[RAAKT ONS NIET]**
+  op de hotfix-kant vandaag; de enige openstaande **[RAAKT ONS]** is de al bekende
+  Valeera-healer-kwestie, ongewijzigd sinds gisteren.
+
+  🃏 **Kaarten:** Gecontroleerd welke van de 40 `Modules/PlayCards.lua`-kaarten een eigen
+  `rechecked`-aantekening sinds hun oorspronkelijke bron-datum missen. 12 specs hadden dat: Frost
+  Mage (64), Fury Warrior (72), Feral Druid (103), Guardian Druid (104), Survival Hunter (255),
+  Assassination Rogue (259), Outlaw Rogue (260), Subtlety Rogue (261), Restoration Shaman (264),
+  Demonology Warlock (266), Devastation Evoker (1467), Augmentation Evoker (1473) — vandaag via Exa
+  opgehaald (icy-veins.com, `?nocache=20261019d`/`e`). Alle 12 Icy Veins-pagina's staan nu op
+  "Last Updated: Oct 12, 2026 - 12.1.5" — nieuwer dan onze genoteerde datums (10-31 aug), dus op het
+  eerste gezicht "stale". Van drie **volledig gelezen** (Frost Mage, Demonology Warlock, Restoration
+  Shaman — melee/caster/healer-steekproef) staat letterlijk *"no real changes mechanically"* /
+  *"Demonology Warlock received no changes for Patch 12.1.5"* / *"There are no changes to
+  Restoration Shaman in Patch 12.1.5"*: de datumsprong is een patch-nummer-relabel van de hele site
+  voor 12.1.5, geen rotatiewijziging. MEASURED voor die drie. Voor de overige 9 (Fury Warrior/Feral
+  Druid/Guardian Druid/Survival Hunter/Assassination Rogue/Outlaw Rogue/Subtlety Rogue/Augmentation
+  Evoker/Devastation Evoker) is alleen de datum bevestigd, niet de "Class Changes"-sectie zelf —
+  **INFERRED** dat ze hetzelfde patroon volgen, niet als gecontroleerd gerapporteerd. Method.gg/
+  Wowhead-datums voor deze 12 zijn dit run niet gecontroleerd (budget). Preservation Evoker (1468,
+  al "rechecked 3 okt") apart gecheckt n.a.v. de Oct-8-patch-note-vermelding in
+  `docs/PTR_12.0.7_DATA.md`: Icy Veins zegt de enige 12.1.5-wijziging is Consume Flame +20% healing
+  "to offset a recent bug fix... will not impact any talent choices or rotational elements" — kaart
+  blijft goed. De overige 28 kaarten (al "rechecked 3 okt") zijn deze week niet opnieuw
+  gecontroleerd. Geen class-hotfix dit venster die knopvolgorde/drempels verandert (consistent met
+  wat de API-/data-wachter deze week vonden: alleen tuning-percentages, geen mechaniek). Geen enkele
+  kaart hoeft vandaag gewijzigd te worden.
+
+  🧪 **Consumables:** `python tools/check_consumables.py` liep (report-only), maar **alle 39 specs**
+  faalden met `Tunnel connection failed: 403 Forbidden` (egress-proxy blokkeert Python urllib naar
+  icy-veins.com) — 0 geslaagde vergelijkingen via het eigen script. MEASURED. Uitgeweken naar Exa
+  `web_fetch_exa` met `?nocache=20261019`: **alle 39 gems-enchants-consumables-pagina's zelf
+  gelezen** (sourceURL = elke spec's `icyVeinsUrl` uit `data/vault_stat_catalog.json`,
+  `-stat-priority` vervangen door `-gems-enchants-consumables`). Resultaat: elke pagina toont nog
+  "Last Updated: Oct 12, 2026 - 4:30 PM" — exact de datum van onze eigen laatste
+  drie-bronnen-check (`data/consumables_wowhead.json` meta.patchedSince). Geen enkele pagina is
+  sindsdien bijgewerkt, dus volgens de eigen regel ("opnieuw melden alleen als Icy Veins nu een
+  ánder item noemt, of zijn datum nieuwer is dan 12 okt") levert dit **geen nieuwe bevindingen** op.
+  De bekende afwijkingen (DK Unholy flask, Paladin Protection flask, Rogue Outlaw combat potion — 12
+  okt met 3 bronnen nagekeken) blijven ongewijzigd: 3, ongewijzigd. Mana-potion-uitzondering
+  bevestigd consistent: de Restoration Druid-pagina zegt zelf "mana potions are very weak currently"
+  en noemt er geen, zoals verwacht. Geen hotfix/patch van de afgelopen week die een consumable
+  toevoegt of wijzigt. Alle 39 specs zijn gecontroleerd; geen enkele overgeslagen.
+
+  Bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-october-16-2026?nocache=20261019content
+  (volledig gelezen via Exa) ·
+  https://us.forums.blizzard.com/en/wow/t/midnight-1215-content-update-known-issues-and-information/2381312?nocache=20261019content
+  (volledig gelezen via Exa) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261019z
+  (JSON, via Exa) · 12 Icy Veins class-guide-pagina's (`?nocache=20261019d/e`) voor de kaarten-check
+  · `python tools/check_consumables.py` (403 Forbidden) + 39 Icy Veins gems-enchants-consumables-
+  pagina's (`?nocache=20261019`) voor de consumables-check · codebase: `Modules/PlayCards.lua`,
+  `data/vault_stat_catalog.json`, `data/consumables_wowhead.json`, `Locales/enUS.lua:3249` —
+  allemaal vandaag gelezen. Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
