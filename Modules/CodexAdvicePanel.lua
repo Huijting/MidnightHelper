@@ -95,22 +95,41 @@ local function ReadCodex()
 	if info.choiceID ~= CODEX_CHOICE_ID then
 		return nil, nil, "another choice window (" .. tostring(info.choiceID) .. ")"
 	end
+	-- 🔴 Rob's run 19 Oct (videos A + D): the card said "no gift picked yet" for a whole minute while Blizzard's
+	-- window showed two ticks, so the atlas in the text is not always there when we read. Three signals now, any
+	-- one is enough: the atlas, `selected`/`showCheckmark`, and the shape Rob's dump had with both slots full
+	-- (exactly the picks enabled, the other ten disabled). `/mh gifts` stores the raw fields to check which held.
 	local names, have = {}, {}
+	local enabled, total = {}, 0
 	for _, opt in ipairs(info.options or {}) do
 		for _, b in ipairs(opt.buttons or {}) do
 			local id, text = b.id, b.text
+			if id then
+				total = total + 1
+				if b.disabled == false then
+					enabled[#enabled + 1] = id
+				end
+				if b.selected == true or b.showCheckmark == true then
+					have[id] = true
+				end
+			end
 			if id and type(text) == "string" then
 				if text:find(CHECK_ATLAS) then
 					have[id] = true
 				end
-				local clean = text:gsub("|A.-|a", ""):gsub("^%s+", ""):gsub("%s+$", "")
+				local clean = text:gsub("|A.-|a", ""):gsub("|T.-|t", ""):gsub("^%s+", ""):gsub("%s+$", "")
 				if clean ~= "" then
 					names[id] = clean
 				end
 			end
 		end
 	end
-	return names, have
+	if not next(have) and total >= 10 and (#enabled == 1 or #enabled == 2) then
+		for _, id in ipairs(enabled) do
+			have[id] = true
+		end
+	end
+	return names, have, nil, info
 end
 
 local function Anchor(f)
@@ -150,6 +169,18 @@ local function EnsurePanel()
 	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", 2, 2)
 	close:SetScript("OnClick", function()
 		f:Hide()
+	end)
+
+	-- 🔴 Rob's run, 19 Oct 10:28:32 (video D): the card said "no gift picked yet" while Blizzard's window showed two
+	-- checkmarks. The card only redrew on PLAYER_CHOICE_UPDATE + one retry, so a pick made with the window open could
+	-- go unseen. While it is up it now re-reads the window twice a second — one table read, nothing else.
+	local acc = 0
+	f:SetScript("OnUpdate", function(_, dt)
+		acc = acc + (dt or 0)
+		if acc >= 0.5 then
+			acc = 0
+			ns.RefreshCodexAdvicePanel()
+		end
 	end)
 
 	f._lines = {}
@@ -286,14 +317,25 @@ function ns.PrintCodexAdviceStatus()
 	print(("%s enabled=%s  shown=%s  last=%s  lastChoiceID=%s"):format(p,
 		tostring(ns.IsCodexAdviceEnabled()), tostring(panel and panel:IsShown() or false),
 		tostring(lastWhy), tostring(lastChoiceID)))
-	local names, have, why = ReadCodex()
+	local names, have, why, info = ReadCodex()
 	if not names then
 		print("   " .. tostring(why))
 		return
 	end
 	for id = 13, 24 do
-		print(("   %d  %s%s"):format(id, tostring(names[id]), have[id] and "  ✓" or ""))
+		print(("   %d  %s%s"):format(id, tostring(names[id]), have[id] and "  |cff66dd66(have)|r" or ""))
 	end
+	-- The raw button fields, for the SavedVariables file after a /reload: which signal said "have"?
+	local dump = { at = date and date("%Y-%m-%d %H:%M:%S") or "?", buttons = {} }
+	for _, opt in ipairs(info and info.options or {}) do
+		for _, b in ipairs(opt.buttons or {}) do
+			dump.buttons[#dump.buttons + 1] = {
+				id = b.id, text = b.text, disabled = b.disabled, selected = b.selected, showCheckmark = b.showCheckmark,
+			}
+		end
+	end
+	DB().lastDump = dump
+	print("   |cff8a8f98Raw fields saved; /reload writes them to the SavedVariables file.|r")
 end
 
 local events = CreateFrame("Frame")

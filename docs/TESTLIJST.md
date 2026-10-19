@@ -29,7 +29,10 @@ Eerst `/reload`.
       naast het venster hoort een kaartje: "Corrosive Codex — what to pick", met "You have:" en je twee gifts in groen,
       vijf situaties met gifts (een ✓ achter wat je hebt) en een voetregel. Heb je Insidious Venom zonder Ula'tek's
       Gift of Ouroboric Cycle, dan staat er een oranje regel dat hij niets extra doet. Sluit de Codex → kaartje weg.
-- [ ] `/mh gifts` met de Codex open: twaalf regels 13–24 met namen, ✓ bij jouw twee. Zonder Codex: "no choice open".
+- [ ] 🔴 In de run van 19 okt zei het kaartje "no gift picked yet" terwijl er twee vinkjes stonden (video A 09:04, D
+      10:28). Gerepareerd in code: kies met de Codex open een andere gift → binnen een halve seconde moet "You have:" mee
+      veranderen. Daarna `/mh gifts` + `/reload`, dan lees ik `codexAdvice.lastDump` uit (welk signaal klopte).
+- [ ] `/mh gifts` met de Codex open: twaalf regels 13–24 met namen, "(have)" bij jouw twee. Zonder Codex: "no choice open".
 - [ ] Instellingen → "Advice beside the Corrosive Codex" uit → Codex openen → geen kaartje.
 - [ ] (alleen met een Italiaanse of Duitse client, dus niet voor Rob) "Siti Rituali/Fama/Reperto" en "Ritualstätten/
       Ruhm/Kuriosität" in plaats van de Engelse woorden.

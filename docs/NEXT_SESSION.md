@@ -21,7 +21,13 @@
   `KeepEnglish.lua` en kunnen er nu voor de/it uit (gemeten). Twijfel: "quartiermastro della Fama"/"Ruhm-
   Quartiermeister" is onze eigen woordkeus.
 - **Labyrinth-run opgenomen** (Rob 19 okt, 09:03–10:43, 10 video's in `Videos\Captures`, ~27 GB): 🔴 **NIET
-  weggooien** (Rob: *"gooi de files dan niet weg"*). Analyse loopt.
+  weggooien** (Rob: *"gooi de files dan niet weg"*). ✅ Geanalyseerd door 5 mh-research-helpers →
+  `docs/labyrinth_run_2026-10-19/README.md` (+ report_A..E). Kern: 10 kamers/0 dood (Delve Log klopt); kist 14 =
+  Flooded Chamber achter de ijsmuur (pijl 23,5 min daarop); deur in Akil'zon, Fiery in Jan'alai, masker in Nalorakk,
+  derde masker vermoedelijk Cave Towers; 🔴 Kindo'jan-tussenfase pas bij **33%**, niet 70% (1 gevecht — Robs keus);
+  🔴 bugs: kamerbaas-knop opent de Coach op Overview i.p.v. de baas (`DelveCoach.lua:1762`), kist-skip-lus op #11,
+  "1 empty sockets", Codex-kaartje "geen gift" (in code gerepareerd: 3 signalen + elke 0,5 s, `/mh gifts` slaat de
+  ruwe velden op in `codexAdvice.lastDump`). Rob speelde Earthshammy (Shaman).
 
 ## 🚀 19 okt — release 4.9.0 GETAGD en geüpload
 

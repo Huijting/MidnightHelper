@@ -3198,7 +3198,7 @@ ns._mhLocales.enUS = {
 	CODEXADV_ROW_SURVIVE = "You keep dying",
 	CODEXADV_ROW_CASTERS = "Casters keep getting their spell off",
 	CODEXADV_WARN_SELFPOISON = "%s poisons YOU, and only %s or %s get stronger from that. With your other gift it adds nothing.",
-	CODEXADV_FOOT = "What guides and players say, October 2026. A ✓ is a gift you have. The full story is in the Codex: \"which gift do I take first?\".",
+	CODEXADV_FOOT = "What guides and players say, October 2026. A tick is a gift you have. The full story is in the Codex: \"which gift do I take first?\".",
 	-- The panel beside Valeera's own window.
 	CURIOPANEL_TITLE = "Valeera — what to pick",
 	CURIOPANEL_REC_FMT = "Guides pick: %s",
