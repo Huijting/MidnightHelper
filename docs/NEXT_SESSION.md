@@ -9,6 +9,10 @@ Gewone release, géén beta (Robs keuze). `## Version: 4.10.0`, Changelog.lua + 
 READY, problems 0). Tag `v4.10.0` (annotated) op dc7b2e1; run 39289138251 = success: CurseForge "Success!"
 (12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", "GitHub Release v4.10.0 exists". Site-chat heeft het resultaat; live
 zetten vraagt die zelf aan Rob. 🔜 Rob: `CURSEFORGE_DESCRIPTION.md` op CF plakken.
+✅ Site 4.10.0 LIVE (site-chat, commit 54ab717f, Robs eigen ja; alle 8 talen, "about 90 seconds", Robs gear-screenshot).
+🔜 Drie vertaaltwijfels (site-chat), meten in clientdata vóór aanpassen: (1) itIT DAWNCREST_TIER_ADVENTURER is nog
+"Adventurer", client waarschijnlijk "Avventuriero" (AFGELEID uit "Avventuriero dell'Alba"); (2) ruRU Myth-spoor
+"Легендарный герой" komt uit de addon, niet gemeten; (3) deDE "Gift" voor Codex-gaven botst met "Gift" = vergif.
 
 ## 🪜 19 okt (avond) — gear in babystapjes (Rob voor Carola: "super beginners … jip en janneke")
 
