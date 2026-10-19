@@ -27,6 +27,10 @@ below unless a row says otherwise. Asked by Rob for Carola ("ik doe delves… ma
   336964 confirms the rule, not the size). Rob's item 256978 "Rootspeaker's Branches" = gloves → 10 + full gold fits the
   Warband 50% (INFERRED). Check: hover the green "10" ("Warband-Wide"), or
   `/run print(C_ItemUpgrade.GetHighWatermarkForItem(256978))`.
+  ✅ **MEASURED 19 Oct, Rob on Umbrion:** Cosmic Bell (trinket) Adventurer 2/6 → 3/6 (269 → 272) cost 10 + 10 gold, green.
+  `GetAchievementInfo(62410)` completed = **true**; `C_ItemUpgrade.GetHighWatermarkForSlot(10)` (Trinket) = **269
+  (character), 308 (account)**. Character 269 < 272 → no own-slot free step; account 308 ≥ 272 + Adventurer of the Mist →
+  the Warband half. The rule holds in this case, and `GetHighWatermarkForSlot` works away from the NPC (MEASURED).
 - One crest type per track; no mixing (both).
 - Slot discount: cheaper/free up to an item level you already had in that slot (A: Blizzard Support 000336964;
   B: GlobalStrings 50516–50521). Warband-wide only after the "… of the Mist" achievements (62410–62416).
