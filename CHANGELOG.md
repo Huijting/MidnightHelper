@@ -5,7 +5,8 @@ All notable changes to this project are documented in this file.
 ## 4.10.0
 
 📌 **2026-10-19, RELEASE (Rob: "maak er maar een complete release van, goed overleggen met de chat site") — gewone
-release, géén beta**, op Robs uitdrukkelijke keuze. Minor, want nieuw gedrag. `RELEASE_NOTES.md` =
+release, géén beta**, op Robs uitdrukkelijke keuze. Tag `v4.10.0` (annotated) op dc7b2e1; run 39289138251 = success
+(CurseForge en Wago "Success!", GitHub Release bestaat). Minor, want nieuw gedrag. `RELEASE_NOTES.md` =
 `docs/CURSEFORGE_4.10.0.md`, beta-alinea bovenaan. In-game: CHANGELOG_4100_0..7 (enUS).
 GEMETEN door Rob in het spel (19 okt): `/mh gear` opent zonder fouten (ilvl 285, 4 soorten, slots, groene "can do now"),
 Codex-kaart staat in Start Here (na verplaatsing). NIET getest: Codex-advieskaartje na de "have"-reparatie,

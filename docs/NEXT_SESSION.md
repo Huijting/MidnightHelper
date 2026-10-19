@@ -4,8 +4,11 @@
 
 Gewone release, géén beta (Robs keuze). `## Version: 4.10.0`, Changelog.lua + CHANGELOG_4100_0..7 (enUS),
 `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.0.md` (beta-alinea bovenaan), `CHANGELOG.md`, `CURSEFORGE_DESCRIPTION.md`
-(gear-regel; Rob plakt hem op CF). Syntax OK, lint 0 HARD, harness 28/28. 🔜 Site-chat gebriefd vóór de tag; tag
-`v4.10.0` na hun antwoord (Robs go is er). Rob stuurt de site-chat een screenshot van zijn gear-venster.
+(gear-regel; Rob plakt hem op CF). Syntax OK, lint 0 HARD, harness 28/28.
+✅ Rob: *"go voor jullie allebei als jullie zover zijn"*; site-chat: "OK om v4.10.0 te taggen" (proefbouw uit dc7b2e1
+READY, problems 0). Tag `v4.10.0` (annotated) op dc7b2e1; run 39289138251 = success: CurseForge "Success!"
+(12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", "GitHub Release v4.10.0 exists". Site-chat heeft het resultaat; live
+zetten vraagt die zelf aan Rob. 🔜 Rob: `CURSEFORGE_DESCRIPTION.md` op CF plakken.
 
 ## 🪜 19 okt (avond) — gear in babystapjes (Rob voor Carola: "super beginners … jip en janneke")
 
