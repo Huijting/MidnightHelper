@@ -5,7 +5,8 @@ All notable changes to this project are documented in this file.
 ## 4.10.1
 
 📌 **2026-10-19, RELEASE (Rob: "Ja, maak er 4.10.1 van. Go voor de tag, en seint de site-chat.").** Patch, kleine
-verbeteringen aan 4.10.0. In-game: CHANGELOG_4101_0..3 (enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.1.md`.
+verbeteringen aan 4.10.0. Tag `v4.10.1` op 338065b; run 39321621172 = success (CurseForge, Wago, GitHub).
+In-game: CHANGELOG_4101_0..3 (enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.1.md`.
 GEMETEN door Rob in het spel (19 okt): blauwe "Get these crests from"-regels; geleerde NPC-prijs (lastNPCRead: 10,
 discounted); prijs vooraf = Blizzard (Cosmic Bell 2/6→6/6 = 40, Hex Loop 2/6→5/6 = 30, telkens 10 per stap); venster
 past zich vanzelf aan na uitgeven; Mount run-mount zoeken ("Black Drake" werkt). NIET gezien: een gratis stap (regel uit
