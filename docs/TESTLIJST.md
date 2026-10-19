@@ -40,6 +40,11 @@ Eerst `/reload`.
 - [ ] Ga naar Cuzolth, leg één item (bv. je Veteran-handschoenen) in zijn venster. Kijk of de prijs groen is, en ga erop
       staan: welke reden geeft het spel? (Dat zegt ons of jouw 10 een korting was.)
 - [ ] Laat `/mh gear` open terwijl je dat doet → de telling voor die soort past zich aan aan de echte prijs.
+      ❌ Rob 19 okt, screenshot: Serpentine Talisman Hero 2/6→3/6 kostte **0** crests (gratis stap) maar MH bleef
+      "You need 20 more crests" zeggen. Gerepareerd (AFGELEID: een gratis stap stuurt geen crest-regel mee; nu = 0, en
+      de stap wordt geteld zoals C_Item hem telt). Opnieuw: talisman in Cuzolths venster → "at least 1 step" bij Hero.
+      Daarna `/reload`, dan lees ik `gearLadder.lastNPCRead` uit.
+      ✅ Rob 19 okt: blauwe "Get these crests from: …"-regel staat er (Hero), "at least"-uitleg onderaan staat er.
 - [ ] Na de upgrade: klopt de nieuwe stand (bv. 3/6)?
 
 ## 🆕 19 okt (avond) — "Mijn gear: wat nu?" voor beginners (Carola)

@@ -78,13 +78,38 @@ local function LearnPriceFromNPC()
 	local nextStep = info.upgradeLevelInfos[2]
 	local costs = nextStep and nextStep.currencyCostsToUpgrade
 	local first = type(costs) == "table" and costs[1] or nil
-	if not (first and tonumber(first.cost)) then
+	-- What we read, for the SavedVariables file (Rob's screenshot 19 Oct: Blizzard said "Total Cost: 0" for a Hero
+	-- 2/6 → 3/6 step, and this window still asked for 20 — no price had been learned).
+	DB().lastNPCRead = {
+		itemID = id, currUpgrade = info.currUpgrade, maxUpgrade = info.maxUpgrade,
+		levels = #info.upgradeLevelInfos, hasNext = nextStep and true or false,
+		currencyRows = type(costs) == "table" and #costs or -1,
+		cost = first and first.cost, discounted = first and first.discountInfo and first.discountInfo.isDiscounted,
+		failure = nextStep and nextStep.failureMessage,
+	}
+	if not nextStep or nextStep.failureMessage then
 		return
 	end
+	-- 🔴 A FREE step (the slot's own high watermark) may come with no currency row at all instead of a row saying 0
+	-- (AFGELEID from the screenshot; lastNPCRead above settles it). No row on an existing next step = 0 crests.
+	local cost = first and tonumber(first.cost) or ((type(costs) == "table" and #costs == 0) and 0 or nil)
+	if not cost then
+		return
+	end
+	-- The step is stored as C_Item.GetItemUpgradeInfo counts it — the same reader the window uses — so the two can
+	-- never disagree on whether "2" means the same step (currUpgrade's base is not measured).
+	local cur = tonumber(info.currUpgrade)
+	if C_Item and C_Item.GetItemUpgradeInfo then
+		local okU, u = pcall(C_Item.GetItemUpgradeInfo, link)
+		if okU and type(u) == "table" and tonumber(u.currentLevel) then
+			cur = tonumber(u.currentLevel)
+		end
+	end
+	DB().lastNPCRead.curFromLink = cur
 	PriceStore()[id] = {
-		cur = tonumber(info.currUpgrade),
-		cost = tonumber(first.cost),
-		discounted = first.discountInfo and first.discountInfo.isDiscounted and true or nil,
+		cur = cur,
+		cost = cost,
+		discounted = (cost == 0 or (first and first.discountInfo and first.discountInfo.isDiscounted)) and true or nil,
 	}
 	if ns.RefreshGearLadder then
 		ns.RefreshGearLadder()
