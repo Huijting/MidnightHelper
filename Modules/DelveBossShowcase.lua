@@ -342,7 +342,9 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 275050, encounterId = 3646, label = "Shadowhunter Jo'din", learnCreatureId = true, tipLineMatch = { "Jo'din" } },
 		{ creatureId = 274554, encounterId = 3642, label = "Treasure Hunter Taltrois", learnCreatureId = true, tipLineMatch = { "Taltrois" } },
 		-- Wowhead also has 266600 "Kindo'Jan <The First Hash'ey>" (14 Oct).
-		{ creatureId = 266500, encounterId = 3548, label = "Kindo'jan", creatureIdFallback = { 266600 }, tipLineMatch = {
+		-- `final = true`: the end boss. DelveCoach puts the Boss section first for him and the Rooms section for the rest,
+		-- and his button says "End boss" (Rob's run 19 Oct 2026: "Room boss: Kindo'jan" opened the coach on Overview).
+		{ creatureId = 266500, encounterId = 3548, label = "Kindo'jan", final = true, creatureIdFallback = { 266600 }, tipLineMatch = {
 			"Kindo'jan", "Amani Aegis", "Crushing Blow", "Hash'ey", "Disgraceful", "  – ",
 		} },
 	},

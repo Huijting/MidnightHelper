@@ -948,6 +948,7 @@ local OVERRIDES = {
 	DELVE_COACH_UNKNOWN = "Pas encore de conseils pour ce gouffre. Utilise l'onglet Gouffres pour prévisualiser un gouffre connu.",
 	DELVE_COACH_BOSS_PROMPT = "Boss final — ouvrir le Coach des gouffres ?",
 	DELVE_COACH_ROOMBOSS_PROMPT_FMT = "Boss de salle : %s — voir les conseils ?",
+	DELVE_COACH_ENDBOSS_PROMPT_FMT = "Boss final : %s — voir les conseils ?",
 	DELVE_COACH_SLASH_OPEN = "Coach des gouffres ouvert.",
 	DELVE_COACH_SLASH_CLOSED = "Coach des gouffres fermé.",
 	DELVE_COACH_OPEN_FAILED = "Impossible d'ouvrir Coach des gouffres :",

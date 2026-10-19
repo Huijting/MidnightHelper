@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🔧 19 okt (middag) — vier fouten uit de Labyrinth-video gerepareerd (Rob: "repareer eerst de vier bugs")
+
+GEBOUWD, niet in het spel gezien (TESTLIJST bovenaan):
+1. Kamerbaas-knop → `DelveCoach.lua` BuildCoachBody: in een delve van kamers (`noFinalBossPrompt`) met een bekende baas
+   gaat zijn deel bovenaan (Boss voor `final = true` = Kindo'jan in DelveBossShowcase, anders Rooms/TRASH). Knop zegt
+   "End boss: %s" voor Kindo'jan (`DELVE_COACH_ENDBOSS_PROMPT_FMT`, 8 talen).
+2. Kist-skip-lus → `DelveChestData.lua` RouteDelveChests: zijn alle open kisten overgeslagen, dan stopt de route met
+   `DELVE_CHEST_ALL_SKIPPED(_FLOODED)` en wist de skiplijst.
+3. "1 empty sockets" → `CharacterSidePanel.lua`: `CHARPANEL_SOCKET_ONE` / `CHARPANEL_ENCH_ONE` bij 1.
+4. Valeera-poison → `CurioAdvicePanel.lua`: een slot zonder ster toont de opties met een "Guides:"-regel (Toad →
+   CURIO_WHEN_TOAD); geen ster erbij (die blijft "wat de meeste gidsen kiezen").
+Vertalingen van de nieuwe sleutels: mh-writer (de/fr/es/pt/it/ru + esMX 1 regel), drift gemarkeerd, eigen vertaling.
+⚠️ Open: Duits "Gift" = vergif; het pack gebruikt "das Gift" voor de Codex-gaven → in CODEXADV_WARN_SELFPOISON staan
+beide betekenissen in één zin. Clientwoord voor de Codex-gift in deDE nog niet gemeten.
+🔜 Volgende (Robs keuze): Hexmask-hulp + Flooded Chamber-uitleg in de route; 3 vragen aan Rob (70%/33%, 15-stack-debuff,
+Bloodlust) staan in `docs/labyrinth_run_2026-10-19/README.md`.
+
 ## 🧪 19 okt — Codex-advieskaartje + it/de-spelnamen
 
 - **Codex-advies** (Rob, in de Labyrinth: *"kunnen wij hier ook een simpel advies aan plakken? net zoals we bij

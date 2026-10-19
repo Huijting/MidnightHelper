@@ -956,6 +956,7 @@ local OVERRIDES = {
 	DELVE_COACH_UNKNOWN = "Aún no hay consejos para esta profundidad. Usa la pestaña Profundidades & Cámara para obtener una vista previa de una profundidad conocida.",
 	DELVE_COACH_BOSS_PROMPT = "Jefe final — ¿abrir el Entrenador de profundidades?",
 	DELVE_COACH_ROOMBOSS_PROMPT_FMT = "Jefe de sala: %s — ¿ver consejos?",
+	DELVE_COACH_ENDBOSS_PROMPT_FMT = "Jefe final: %s — ¿ver consejos?",
 	DELVE_COACH_SLASH_OPEN = "Se abrió el entrenador de profundidades.",
 	DELVE_COACH_SLASH_CLOSED = "Entrenador de profundidades cerrado.",
 	DELVE_COACH_OPEN_FAILED = "No se pudo abrir Entrenador de profundidades:",

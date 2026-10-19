@@ -342,8 +342,25 @@ local function BuildCoachBody(entry, opts)
 			end
 		end
 	end
+	-- 🔴 Rob's Labyrinth run, 19 Oct 2026 (video E, 10:35:13): he clicked "Room boss: Kindo'jan — show tips?" and the
+	-- coach opened on the Overview; the Kindo'jan tactics sat three sections down, and no boss tip was on screen for the
+	-- whole fight. In a delve made of rooms, once a boss is known, his section goes first: the Boss section for the end
+	-- boss (`final`), the Rooms section (filtered to him below) for a room boss. Elsewhere the order stays as written.
+	local order = {}
 	for i = 1, #entry.sections do
-		local sec = entry.sections[i]
+		order[i] = entry.sections[i]
+	end
+	if opts.live and entry.noFinalBossPrompt and bossEntry then
+		local focusKey = bossEntry.final and "DELVE_COACH_SEC_BOSS" or "DELVE_COACH_SEC_TRASH"
+		for i = 1, #order do
+			if order[i].titleKey == focusKey then
+				table.insert(order, 1, table.remove(order, i))
+				break
+			end
+		end
+	end
+	for i = 1, #order do
+		local sec = order[i]
 		local title = ns:SafeL(sec.titleKey or "DELVE_COACH_SEC_OVERVIEW")
 		local body = ns:SafeL(sec.bodyKey or "")
 		-- A section may add a sentence that depends on who is reading it. Static text
@@ -1967,7 +1984,7 @@ local function MaybeOfferRoomBoss(event)
 				ns:ShowDelveCoach(entry.id, { preview = false })
 				LogRoomBoss(event, boss.label .. " (via target): coach opened (setting C)")
 			else
-				ShowBossPromptButton(ns:SafeL("DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))
+				ShowBossPromptButton(ns:SafeL(boss.final and "DELVE_COACH_ENDBOSS_PROMPT_FMT" or "DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))
 				LogRoomBoss(event, boss.label .. " (via target): button shown (B)")
 			end
 		end
@@ -2037,7 +2054,7 @@ local function MaybeOfferRoomBoss(event)
 		LogRoomBoss(event, boss.label .. " (via " .. via .. "): coach opened (setting C)")
 		return
 	end
-	ShowBossPromptButton(ns:SafeL("DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))
+	ShowBossPromptButton(ns:SafeL(boss.final and "DELVE_COACH_ENDBOSS_PROMPT_FMT" or "DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))
 	LogRoomBoss(event, boss.label .. " (via " .. via .. "): button shown (B)")
 end
 

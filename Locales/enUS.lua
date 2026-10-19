@@ -1192,6 +1192,8 @@ ns._mhLocales.enUS = {
 	DELVE_CHEST_LEARNED = "This list is what I watched you open here, not a checked one — it cannot tell what is done.",
 	DELVE_CHEST_SKIP_HINT = "Can't reach it? Click Chests again for the next one.",
 	DELVE_CHEST_SKIPPED = "Skipped Sturdy Chest %d — it comes back last.",
+	DELVE_CHEST_ALL_SKIPPED = "You skipped all %d chests that are left, so the chest route stops here. They are in rooms this run did not open. Click Chests again to start the round over.",
+	DELVE_CHEST_ALL_SKIPPED_FLOODED = "The %d chests that are left are all in the Flooded Chamber, behind an ice wall that only fire melts: you need the Fiery Hexmask with you (guides say its fire melts the wall). The chest route stops here; click Chests again to start over.",
 	DELVE_CHEST_ROOM_DONE = "No chests left in %s that I know of. The next one is in %s: that room may not be open in this run (then click Chests again to skip it).",
 	DELVE_CHEST_SEALED ="%d chest(s) left out: behind a loa seal your Labyrinth Journey rank does not open yet.",
 	-- /mh binds — the player's OWN bindings, read from the client. Not the schema and
@@ -3091,6 +3093,9 @@ ns._mhLocales.enUS = {
 	SIDEPANEL_RESET_DONE = "Side panels are back beside their windows.",
 	CHARPANEL_ENCH_FMT = "%d slots without an enchant",
 	CHARPANEL_SOCKET_FMT = "%d empty sockets",
+	-- Singulars (Rob's Labyrinth video, 19 Oct 2026: "1 empty sockets").
+	CHARPANEL_SOCKET_ONE = "%d empty socket",
+	CHARPANEL_ENCH_ONE = "%d slot without an enchant",
 	CHARPANEL_TIER_FMT = "Tier set: %d/%d",
 	CHARPANEL_ALLGOOD = "Gear looks complete. Nice.",
 	KEYPANEL_MORE = "Click for the full breakdown (in chat)",
@@ -4604,6 +4609,7 @@ ns._mhLocales.enUS = {
 	DELVE_COACH_UNKNOWN = "No tips for this delve yet. Use the Delves tab to preview a known delve.",
 	DELVE_COACH_BOSS_PROMPT = "Final boss — open the Delve Coach?",
 	DELVE_COACH_ROOMBOSS_PROMPT_FMT = "Room boss: %s — show tips?",
+	DELVE_COACH_ENDBOSS_PROMPT_FMT = "End boss: %s — show tips?",
 	DELVE_COACH_SLASH_OPEN = "Delve Coach opened.",
 	DELVE_COACH_SLASH_CLOSED = "Delve Coach closed.",
 	DELVE_COACH_OPEN_FAILED = "Could not open Delve Coach:",

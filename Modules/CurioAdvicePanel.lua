@@ -383,7 +383,33 @@ function ns.RefreshCurioAdvicePanel()
 			end
 		end
 
-		if #recs == 0 then
+		-- 🔴 Rob's Labyrinth run, 19 Oct 2026 (video E): the Poisons slot said "No recommendation" while the Kindo'jan
+		-- tip names Bursting Toad Toxin. There is no star there on purpose (guides agree on a poison for Kindo'jan only,
+		-- not in general), but the "Guides: …" line for a situation is ours to show: a slot without a star now lists
+		-- the options that carry one, with that line, so the panel and the tip say the same thing.
+		local situational = {}
+		if #recs == 0 and ns.GetDelveCurioGuideLine then
+			for _, o in ipairs(node.options) do
+				local whenKey = o.spellID and ns.GetDelveCurioGuideLine(o.spellID) or nil
+				if whenKey then
+					situational[#situational + 1] = { o = o, key = whenKey }
+				end
+			end
+		end
+		for _, sit in ipairs(situational) do
+			n = n + 1
+			local rec = LineAt(f, n)
+			rec:SetPoint("TOP", f._content, "TOP", 0, y)
+			rec:SetWordWrap(true)
+			rec:SetTextColor(0.55, 0.85, 1)
+			rec:SetText((sit.o.name or "?") .. " — " .. L(sit.key))
+			rec:Show()
+			y = y - math.max(LINE_H, rec:GetStringHeight() + 2)
+			if active and sit.o.spellID == active.spellID then
+				recommended = sit.o
+			end
+		end
+		if #recs == 0 and #situational == 0 then
 			n = n + 1
 			local rec = LineAt(f, n)
 			rec:SetPoint("TOP", f._content, "TOP", 0, y)

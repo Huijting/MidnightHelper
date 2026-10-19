@@ -593,6 +593,8 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	SET_BOSSWIN_AUTO_RAID_DESC = "Ebenso für Schlachtzug-Bosse. Folgt der Dungeon-Einstellung, bis du sie änderst.",
 	SET_DELVECOACH_AUTO_TITLE = "Tiefen-Coach von selbst öffnen",
 	SET_DELVECOACH_AUTO_DESC = "Betrittst du eine Tiefe, öffnet sich das Coach-Fenster von selbst, mit Tipps zur Route und zum Boss. Schalte es aus, wenn du die Tiefen kennst; /mh coach öffnet es weiterhin.",
+	SET_CODEXADV_TITLE = "Ratschläge neben dem Corrosive Codex",
+	SET_CODEXADV_DESC = "Öffnest du den Corrosive Codex, sagt eine kleine Karte daneben, welches Gift du wofür wählst, und markiert die, die du hast.",
 	SET_DELVE_ROOMBOSS_AUTO_TITLE = "Labyrinth: Coach für jeden Raumboss öffnen",
 	SET_DELVE_ROOMBOSS_AUTO_DESC = "Im Labyrinth von Kindo'jan, wenn ein Kampf gegen einen Raumboss beginnt. Aus: Ein kleiner Knopf mit dem Namen des Bosses erscheint für ein paar Sekunden, ein Klick öffnet den Coach zu diesem Boss. An: Der Coach öffnet sich von selbst, auch während des Kampfes.",
 	SET_COMBATLOG_LAMP_TITLE = "Lampe zeigen, solange das Kampflog läuft",

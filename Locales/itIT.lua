@@ -1080,6 +1080,7 @@ ns._mhLocales.itIT = {
 	DELVE_COACH_UNKNOWN = "Ancora nessun suggerimento per questa scorribanda. Usa la tab Scorribande & Vault per un'anteprima di una scorribanda conosciuta.",
 	DELVE_COACH_BOSS_PROMPT = "Boss finale — apri il Coach delle scorribande?",
 	DELVE_COACH_ROOMBOSS_PROMPT_FMT = "Boss della stanza: %s — vedere i consigli?",
+	DELVE_COACH_ENDBOSS_PROMPT_FMT = "Boss finale: %s — vedere i consigli?",
 	DELVE_COACH_SLASH_OPEN = "Coach delle scorribande aperto.",
 	DELVE_COACH_SLASH_CLOSED = "Coach delle scorribande chiuso.",
 	DELVE_COACH_OPEN_FAILED = "Impossibile aprire il Coach delle scorribande:",

@@ -572,6 +572,29 @@ function ns.RouteDelveChests()
 			ns._mhDelveChestSkipped = s
 		end
 		s[activeIndex] = true
+		-- 🔴 Rob's run, 19 Oct 2026 (video D, 10:19:36-10:20:05): his last five chests were all in the Flooded Chamber,
+		-- he skipped all five, and every further click said "Skipped Sturdy Chest 11 — it comes back last" for ever.
+		-- When nothing un-skipped is left, stop and say why; the next click starts the round again.
+		local left = ns.GetOpenDelveChests()
+		local allSkipped, flooded = #left > 0, #left > 0
+		for _, o in ipairs(left) do
+			if not o.skipped then
+				allSkipped = false
+			end
+			if o.room ~= "Flooded Chamber" then
+				flooded = false
+			end
+		end
+		if allSkipped then
+			ns._mhDelveChestSkipped = nil
+			StopRoute()
+			local msg = (ns:L(flooded and "DELVE_CHEST_ALL_SKIPPED_FLOODED" or "DELVE_CHEST_ALL_SKIPPED")):format(#left)
+			if ns.ShowBriefNotice then
+				ns.ShowBriefNotice(msg, 8)
+			end
+			print(("%s %s"):format(ns:L("PRINT_PREFIX"), msg))
+			return true
+		end
 		print(("%s %s"):format(ns:L("PRINT_PREFIX"), (ns:L("DELVE_CHEST_SKIPPED")):format(activeIndex)))
 		PointAtNearest(true)
 		return true

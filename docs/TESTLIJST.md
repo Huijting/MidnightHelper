@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 19 okt (middag) — vier fouten uit de Labyrinth-video
+
+Eerst `/reload`. Alles in de Labyrinth.
+
+- [ ] **Kamerbaas-knop.** Begint een kamerbaas (bv. Sha'Kuro, Grukk) → klik "Room boss: … — show tips?". De Coach gaat open
+      met **"Rooms" bovenaan** (alleen de regels van die baas + de algemene), niet met "Overview". Bij Kindo'jan zegt de
+      knop **"End boss: Kindo'jan — show tips?"** en staat het **Boss-deel** bovenaan.
+- [ ] **Kistenknop.** Klik op Chests tot alle kisten die over zijn overgeslagen zijn. Je krijgt dan één melding (in beeld
+      en in chat) dat de route stopt. Liggen ze allemaal in de Flooded Chamber, dan noemt de melding de ijsmuur en de
+      Fiery Hexmask. Nog één klik → de route begint opnieuw. Geen eindeloos "Skipped Sturdy Chest 11" meer.
+- [ ] **Gear check** (karakterscherm): met één lege socket staat er "1 empty socket" (enkelvoud).
+- [ ] **Valeera-venster, Poisons:** in plaats van "No recommendation" staat er "Bursting Toad Toxin — Guides: the top poison
+      for Kindo'jan…". Heb je hem zelf aan, dan is de regel eronder groen.
+
 ## 🆕 19 okt — Codex-advies, it/de-spelnamen
 
 Eerst `/reload`.

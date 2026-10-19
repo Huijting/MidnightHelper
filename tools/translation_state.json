@@ -3818,6 +3818,15 @@
    "ptBR": "4a658aaf09b6485b",
    "ruRU": "4a658aaf09b6485b"
   },
+  "CHARPANEL_ENCH_ONE": {
+   "deDE": "467677f7f100a88b",
+   "esES": "467677f7f100a88b",
+   "frFR": "467677f7f100a88b",
+   "itIT": "467677f7f100a88b",
+   "nlNL": "467677f7f100a88b",
+   "ptBR": "467677f7f100a88b",
+   "ruRU": "467677f7f100a88b"
+  },
   "CHARPANEL_RAIDBOTS": {
    "ruRU": "f2c76153f7ea12dc"
   },
@@ -3829,6 +3838,15 @@
    "nlNL": "8e84ac6ec82eb239",
    "ptBR": "8e84ac6ec82eb239",
    "ruRU": "8e84ac6ec82eb239"
+  },
+  "CHARPANEL_SOCKET_ONE": {
+   "deDE": "971aff472565ee46",
+   "esES": "971aff472565ee46",
+   "frFR": "971aff472565ee46",
+   "itIT": "971aff472565ee46",
+   "nlNL": "971aff472565ee46",
+   "ptBR": "971aff472565ee46",
+   "ruRU": "971aff472565ee46"
   },
   "CHARPANEL_TIER_FMT": {
    "deDE": "81aeb3e64c5c72e5",
@@ -4107,6 +4125,15 @@
    "nlNL": "ad4209394a938307",
    "ptBR": "ad4209394a938307",
    "ruRU": "ad4209394a938307"
+  },
+  "CMDLIST_GIFTS": {
+   "deDE": "ba5c58eecbe27a26",
+   "esES": "ba5c58eecbe27a26",
+   "frFR": "ba5c58eecbe27a26",
+   "itIT": "ba5c58eecbe27a26",
+   "nlNL": "ba5c58eecbe27a26",
+   "ptBR": "ba5c58eecbe27a26",
+   "ruRU": "ba5c58eecbe27a26"
   },
   "CMDLIST_GOTO": {
    "deDE": "4d3b3678ddafcb55",
@@ -4567,6 +4594,105 @@
    "nlNL": "6180ca5045dce9e1",
    "ptBR": "6180ca5045dce9e1",
    "ruRU": "6180ca5045dce9e1"
+  },
+  "CODEXADV_FOOT": {
+   "deDE": "e6ecfe71db08c9d9",
+   "esES": "e6ecfe71db08c9d9",
+   "frFR": "e6ecfe71db08c9d9",
+   "itIT": "e6ecfe71db08c9d9",
+   "nlNL": "e6ecfe71db08c9d9",
+   "ptBR": "e6ecfe71db08c9d9",
+   "ruRU": "e6ecfe71db08c9d9"
+  },
+  "CODEXADV_OR": {
+   "deDE": "7175517a370b5cd2",
+   "esES": "7175517a370b5cd2",
+   "frFR": "7175517a370b5cd2",
+   "itIT": "7175517a370b5cd2",
+   "nlNL": "7175517a370b5cd2",
+   "ptBR": "7175517a370b5cd2",
+   "ruRU": "7175517a370b5cd2"
+  },
+  "CODEXADV_ROW_BOSS": {
+   "deDE": "4f32dc3e45373a1b",
+   "esES": "4f32dc3e45373a1b",
+   "frFR": "4f32dc3e45373a1b",
+   "itIT": "4f32dc3e45373a1b",
+   "nlNL": "4f32dc3e45373a1b",
+   "ptBR": "4f32dc3e45373a1b",
+   "ruRU": "4f32dc3e45373a1b"
+  },
+  "CODEXADV_ROW_CASTERS": {
+   "deDE": "7a9091fe3729e138",
+   "esES": "7a9091fe3729e138",
+   "frFR": "7a9091fe3729e138",
+   "itIT": "7a9091fe3729e138",
+   "nlNL": "7a9091fe3729e138",
+   "ptBR": "7a9091fe3729e138",
+   "ruRU": "7a9091fe3729e138"
+  },
+  "CODEXADV_ROW_DAMAGE": {
+   "deDE": "963d2f58841fb6f7",
+   "esES": "963d2f58841fb6f7",
+   "frFR": "963d2f58841fb6f7",
+   "itIT": "963d2f58841fb6f7",
+   "nlNL": "963d2f58841fb6f7",
+   "ptBR": "963d2f58841fb6f7",
+   "ruRU": "963d2f58841fb6f7"
+  },
+  "CODEXADV_ROW_PACKS": {
+   "deDE": "e182357009e6eb46",
+   "esES": "e182357009e6eb46",
+   "frFR": "e182357009e6eb46",
+   "itIT": "e182357009e6eb46",
+   "nlNL": "e182357009e6eb46",
+   "ptBR": "e182357009e6eb46",
+   "ruRU": "e182357009e6eb46"
+  },
+  "CODEXADV_ROW_SURVIVE": {
+   "deDE": "690e7da9edb2958a",
+   "esES": "690e7da9edb2958a",
+   "frFR": "690e7da9edb2958a",
+   "itIT": "690e7da9edb2958a",
+   "nlNL": "690e7da9edb2958a",
+   "ptBR": "690e7da9edb2958a",
+   "ruRU": "690e7da9edb2958a"
+  },
+  "CODEXADV_TITLE": {
+   "deDE": "2fe0912d333768e3",
+   "esES": "2fe0912d333768e3",
+   "frFR": "2fe0912d333768e3",
+   "itIT": "2fe0912d333768e3",
+   "nlNL": "2fe0912d333768e3",
+   "ptBR": "2fe0912d333768e3",
+   "ruRU": "2fe0912d333768e3"
+  },
+  "CODEXADV_WARN_SELFPOISON": {
+   "deDE": "b04e768aab011d58",
+   "esES": "b04e768aab011d58",
+   "frFR": "b04e768aab011d58",
+   "itIT": "b04e768aab011d58",
+   "nlNL": "b04e768aab011d58",
+   "ptBR": "b04e768aab011d58",
+   "ruRU": "b04e768aab011d58"
+  },
+  "CODEXADV_YOURS": {
+   "deDE": "3edfd0d7e1ebff28",
+   "esES": "3edfd0d7e1ebff28",
+   "frFR": "3edfd0d7e1ebff28",
+   "itIT": "3edfd0d7e1ebff28",
+   "nlNL": "3edfd0d7e1ebff28",
+   "ptBR": "3edfd0d7e1ebff28",
+   "ruRU": "3edfd0d7e1ebff28"
+  },
+  "CODEXADV_YOURS_NONE": {
+   "deDE": "f2a77dea4d802462",
+   "esES": "f2a77dea4d802462",
+   "frFR": "f2a77dea4d802462",
+   "itIT": "f2a77dea4d802462",
+   "nlNL": "f2a77dea4d802462",
+   "ptBR": "f2a77dea4d802462",
+   "ruRU": "f2a77dea4d802462"
   },
   "CODEX_127_FOLIO_BODY": {
    "deDE": "94ed07a647d6b468",
@@ -8072,6 +8198,24 @@
    "nlNL": "2f92a40ab3f3175e",
    "ptBR": "2f92a40ab3f3175e",
    "ruRU": "2f92a40ab3f3175e"
+  },
+  "DELVE_CHEST_ALL_SKIPPED": {
+   "deDE": "89821fa4e0ff5de7",
+   "esES": "89821fa4e0ff5de7",
+   "frFR": "89821fa4e0ff5de7",
+   "itIT": "89821fa4e0ff5de7",
+   "nlNL": "89821fa4e0ff5de7",
+   "ptBR": "89821fa4e0ff5de7",
+   "ruRU": "89821fa4e0ff5de7"
+  },
+  "DELVE_CHEST_ALL_SKIPPED_FLOODED": {
+   "deDE": "c618a740b83000b4",
+   "esES": "c618a740b83000b4",
+   "frFR": "c618a740b83000b4",
+   "itIT": "c618a740b83000b4",
+   "nlNL": "c618a740b83000b4",
+   "ptBR": "c618a740b83000b4",
+   "ruRU": "c618a740b83000b4"
   },
   "DELVE_CHEST_BTN": {
    "deDE": "36edbe301531cb43",

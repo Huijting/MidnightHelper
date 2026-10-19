@@ -51,14 +51,14 @@ local function BuildLines()
 		if ok and missing ~= nil then
 			if missing > 0 then
 				out[#out + 1] = {
-					text = (ns:SafeL("CHARPANEL_ENCH_FMT") or "%d"):format(missing),
+					text = (ns:SafeL(missing == 1 and "CHARPANEL_ENCH_ONE" or "CHARPANEL_ENCH_FMT") or "%d"):format(missing),
 					color = "warn",
 					onClick = function() pcall(ns.PrintGearEnchantCheck) end,
 				}
 			end
 			if sockets and sockets > 0 then
 				out[#out + 1] = {
-					text = (ns:SafeL("CHARPANEL_SOCKET_FMT") or "%d"):format(sockets),
+					text = (ns:SafeL(sockets == 1 and "CHARPANEL_SOCKET_ONE" or "CHARPANEL_SOCKET_FMT") or "%d"):format(sockets),
 					color = "warn",
 					onClick = function() pcall(ns.PrintGearEnchantCheck) end,
 				}
