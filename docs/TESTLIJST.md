@@ -69,6 +69,9 @@ Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.
       "Nothing to plan — it is on the map you are standing on". Oorzaak (GEMETEN in Core.lua): `/mh plan` plande naar
       `ns.lastTarget`, en tijdens een route is dat de HUIDIGE stap (de portal room). Nu: loopt er een route, dan plant hij
       naar haar einddoel. Opnieuw testen: `/reload`, route naar Pit of Saron starten, dan `/mh plan`.
+      ✅ Rob 19 okt na de reparatie, screenshot: "How to reach Pit of Saron, step by step: About 1 min by the fastest way
+      (an estimate; 52 places compared). 1. Portal: portal room → Orgrimmar 2. Portal: Dalaran 3. Arrive at: Pit of
+      Saron". ⚠️ "1 min" is te optimistisch voor die tocht (de kosten zijn GEKOZEN, niet gemeten) — de route klopt.
 - [x] ✅ Rob 19 okt: *"11 en 12 werken oke"*.
       In Orgrimmar: zet een pin in **Mount Hyjal** → de pijl hoort naar het Hyjal-portaal te wijzen, niet "fly to Nordrassil".
 - [x] ✅ Rob 19 okt (zie hierboven), screenshot: Valdrakken → The Coiled Isle, popup "HS on Cooldown! Take the portal
@@ -92,7 +95,10 @@ Eerst `/reload`, open Valeera's venster één keer.
 - [x] ✅ zie hierboven. Heb je **Viperwind Idol** of **Dusty Loa Totem**? Dan hoort er een regel ">> …" onder te staan.
 - [x] ✅ Rob 19 okt, screenshot: bij Utility twee regels "Guides pick: … — Guides: …", en "You have this one." onder
       Dundun's Favor (zijn actieve curio). Het kleine paneel naast Valeera's venster.
-- [ ] Codex → Delve curios / Corrosive Codex / Labyrinth: de nieuwe regels over rang 5, Venom Infusion en Kindo'jan.
+- [x] ✅ Rob 19 okt, screenshots: Corrosive Codex (Venom Infusion, altaar, Kindo'jan-duo), Labyrinth (rang 5-curio in
+      de kist), Journey rang 2 (vijf deur-links), Valeera & delve curios ("klopt"). Rob vroeg: *"je mag toch op een
+      moment 2 tegelijk kiezen?"* — ja; de kop zei "one of them" → kop aangepast (tweede vak na 8 gifts).
+      Codex → Delve curios / Corrosive Codex / Labyrinth: de nieuwe regels over rang 5, Venom Infusion en Kindo'jan.
 
 ## 🆕 17 okt — Kindo'jan-tip herschreven (twee videogidsen)
 
