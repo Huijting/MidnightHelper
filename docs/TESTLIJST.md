@@ -85,7 +85,7 @@ Eerst `/reload`, open Valeera's venster één keer.
 ## 🆕 17 okt — Kindo'jan-tip herschreven (twee videogidsen)
 
 - [ ] Delve Coach → The Labyrinth of Kindo'jan → baas-tip. Hoort te zeggen: tussenfase **op 70% health** (niet meer
-      "1:30"), de zakjes oppakken, Valeera als healer voor de veilige weg, de Juggernaut met platform achter je, donkere
+      "1:30"), de zakjes oppakken, de oranje melding over Valeera's extra schade (18 okt), de opstelling (curios/poison/Codex), de Juggernaut met platform achter je, donkere
       vloerstukken bij de wind, één kat die beweegt, en bij de twee cirkels: **neem de cirkel die Valeera NIET markeert**.
       Klopt iets niet met wat je in het gevecht ziet → zeg welk stuk.
 
