@@ -86,6 +86,16 @@ local function LearnPriceFromNPC()
 		cost = first and first.cost, discounted = first and first.discountInfo and first.discountInfo.isDiscounted,
 		failure = nextStep and nextStep.failureMessage,
 	}
+	-- Why it is cheaper, as the server says (ItemUpgradeCostDiscountInfo, MEASURED in the 12.1.5 API docs). Rob, 19 Oct:
+	-- "ik zie niet waarom het goedkoper is" — the reason is on the green number's tooltip, and now in this record too.
+	local d = first and first.discountInfo
+	if type(d) == "table" then
+		local r = DB().lastNPCRead
+		r.accountWide = d.isAccountWideDiscount
+		r.watermark = d.discountHighWatermark
+		r.thisCharacter = d.doesCurrentCharacterMeetHighWatermark
+		r.partialTwoHand = d.isPartialTwoHandDiscount
+	end
 	if not nextStep or nextStep.failureMessage then
 		return
 	end

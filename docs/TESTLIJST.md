@@ -43,7 +43,11 @@ Eerst `/reload`.
       ✅ Rob 19 okt, twee screenshots: Serpentine Talisman Hero 2/6→3/6 kost **20** crests + 40 goud; Rob heeft 0 →
       MH's "You need 20 more crests for the next Hero step" klopt. (De bouwchat las op de eerste screenshot ten onrechte
       "0" — een tooltip lag over de rode 20 — en bouwde een "gratis stap"-regel; die is teruggedraaid.)
-      Nog open: een item mét korting in Cuzolths venster → telt MH de lagere prijs? (`gearLadder.lastNPCRead` na /reload.)
+      ✅ Rob 19 okt (Umbrion, Shadow Priest): Cosmic Bell Adventurer 2/6→3/6 = **10** (groen). GEMETEN in
+      SavedVariables: `lastNPCRead` cost 10, discounted true, currUpgrade 2 = curFromLink 2, 1 currency row; het venster
+      telde 10+20+20 ≤ 54 → "at least 3 steps" (zonder geleerde prijs 2). trackKey geleerd: 971 adventurer, 972 veteran,
+      973 champion, 974 hero. Reden van de korting nog niet gelezen → MH slaat nu ook `accountWide`/`watermark`/
+      `thisCharacter` op; volgende keer: ga op het groene getal zelf staan (niet op het crest-icoon).
       ✅ Rob 19 okt: blauwe "Get these crests from: …"-regel staat er (Hero), "at least"-uitleg onderaan staat er.
 - [ ] Na de upgrade: klopt de nieuwe stand (bv. 3/6)?
 
