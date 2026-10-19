@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🔧 19 okt (laat) — Mijn gear: echte prijs + crest-bronnen (Rob via site-chat: "als EERSTE verbetering")
+
+- Bug: Blizzards upgradevenster toonde 10 crests voor Veteran 2/6→3/6 (Rob GEMETEN), MH rekende 20. Ronde B (UI-source
+  12.1.5): prijs per stap komt van de server, `discountInfo` bepaalt groen + tooltip; 20 = basisprijs, 10 = vermoedelijk
+  korting (AFGELEID). GearLadder leert nu de echte prijs bij de NPC (ITEM_UPGRADE_MASTER_SET_ITEM/UPDATE →
+  `ns.db.gearLadder.price[itemID] = {cur, cost, discounted}`) en telt de goedkoopste stappen eerst; zonder geleerde
+  prijs "at least N" + uitleg "20, often less". Ronde A (cost) liep nog bij deze commit.
+- Rob: "hoe ik aan Adventurer/Veteran/Champion crest kom … hoort bij dit venster" → per soort de regel "Get these crests
+  from: …" uit de eigen beschrijving van de crest (laatste alinea, "- "-regels; taalonafhankelijk, getest op de echte
+  Veteran-tekst met lua.exe).
+- Niet in het spel gezien → TESTLIJST bovenaan.
+
 ## 🚀 19 okt (avond) — release 4.10.0 klaargezet (Rob: "maak er maar een complete release van, goed overleggen met de chat site")
 
 Gewone release, géén beta (Robs keuze). `## Version: 4.10.0`, Changelog.lua + CHANGELOG_4100_0..7 (enUS),

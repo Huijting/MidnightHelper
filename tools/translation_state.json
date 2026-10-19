@@ -15607,6 +15607,15 @@
   "GEAREXPORT_TITLE": {
    "ruRU": "4f0f492e1e807e2c"
   },
+  "GEARLADDER_CAN_NOW_ATLEAST_FMT": {
+   "deDE": "5bc597be5f3ce92f",
+   "esES": "5bc597be5f3ce92f",
+   "frFR": "5bc597be5f3ce92f",
+   "itIT": "5bc597be5f3ce92f",
+   "nlNL": "5bc597be5f3ce92f",
+   "ptBR": "5bc597be5f3ce92f",
+   "ruRU": "5bc597be5f3ce92f"
+  },
   "GEARLADDER_CAN_NOW_FMT": {
    "deDE": "9a0d751a715b9c0e",
    "esES": "9a0d751a715b9c0e",
@@ -15661,6 +15670,15 @@
    "ptBR": "93cd67b87a2e1431",
    "ruRU": "93cd67b87a2e1431"
   },
+  "GEARLADDER_SOURCES_FMT": {
+   "deDE": "90bd9205e35d76f9",
+   "esES": "90bd9205e35d76f9",
+   "frFR": "90bd9205e35d76f9",
+   "itIT": "90bd9205e35d76f9",
+   "nlNL": "90bd9205e35d76f9",
+   "ptBR": "90bd9205e35d76f9",
+   "ruRU": "90bd9205e35d76f9"
+  },
   "GEARLADDER_TIPS": {
    "deDE": "9ea17c3665c3fd6a",
    "esES": "9ea17c3665c3fd6a",
@@ -15707,13 +15725,22 @@
    "ruRU": "984dfc662e11b9dc"
   },
   "GEARLADDER_WHERE": {
-   "deDE": "d98c80f4da76d839",
-   "esES": "d98c80f4da76d839",
-   "frFR": "d98c80f4da76d839",
-   "itIT": "d98c80f4da76d839",
-   "nlNL": "d98c80f4da76d839",
-   "ptBR": "d98c80f4da76d839",
-   "ruRU": "d98c80f4da76d839"
+   "deDE": "11bdc6827666310a",
+   "esES": "11bdc6827666310a",
+   "frFR": "11bdc6827666310a",
+   "itIT": "11bdc6827666310a",
+   "nlNL": "11bdc6827666310a",
+   "ptBR": "11bdc6827666310a",
+   "ruRU": "11bdc6827666310a"
+  },
+  "GEARLADDER_WHERE_ESTIMATE": {
+   "deDE": "f32fec8ac23f60df",
+   "esES": "f32fec8ac23f60df",
+   "frFR": "f32fec8ac23f60df",
+   "itIT": "f32fec8ac23f60df",
+   "nlNL": "f32fec8ac23f60df",
+   "ptBR": "f32fec8ac23f60df",
+   "ruRU": "f32fec8ac23f60df"
   },
   "GEM_BEST_FMT": {
    "deDE": "427552a76bfda14a",

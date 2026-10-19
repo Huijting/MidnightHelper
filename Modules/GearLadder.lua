@@ -45,6 +45,71 @@ local SLOT_KEYS = {
 	[16] = "MAINHANDSLOT", [17] = "SECONDARYHANDSLOT",
 }
 
+--------------------------------------------------------------------------------
+-- The REAL price, learned at the upgrade NPC.
+--
+-- 🔴 Rob, 19 Oct 2026 (site chat): Blizzard's window showed "Total Cost: 10" for a Veteran 2/6 → 3/6 step while this
+-- window assumed 20. Two research rounds: 20 is the base price, and a discount (this slot's high watermark, or the
+-- Warband discount from the "… of the Mist" achievements) halves or removes it — the server decides, the UI only shows
+-- `discountInfo`. C_ItemUpgrade.GetItemUpgradeItemInfo() reads the item in the NPC's slot only (MEASURED in
+-- Blizzard_ItemUpgradeUI.lua @12.1.5: entry [1] is the current level, entry [k+1] holds step k's costs), so the price is
+-- remembered per item whenever the player puts one in, and used here while that item is still on the same step.
+--------------------------------------------------------------------------------
+local function PriceStore()
+	local db = DB()
+	db.price = db.price or {}
+	return db.price
+end
+
+local function ItemIDFromLink(link)
+	return type(link) == "string" and tonumber(link:match("item:(%d+)")) or nil
+end
+
+local function LearnPriceFromNPC()
+	if not (C_ItemUpgrade and C_ItemUpgrade.GetItemUpgradeItemInfo and C_ItemUpgrade.GetItemHyperlink) then
+		return
+	end
+	local okI, info = pcall(C_ItemUpgrade.GetItemUpgradeItemInfo)
+	local okL, link = pcall(C_ItemUpgrade.GetItemHyperlink)
+	local id = okL and ItemIDFromLink(link) or nil
+	if not (okI and type(info) == "table" and id and type(info.upgradeLevelInfos) == "table") then
+		return
+	end
+	local nextStep = info.upgradeLevelInfos[2]
+	local costs = nextStep and nextStep.currencyCostsToUpgrade
+	local first = type(costs) == "table" and costs[1] or nil
+	if not (first and tonumber(first.cost)) then
+		return
+	end
+	PriceStore()[id] = {
+		cur = tonumber(info.currUpgrade),
+		cost = tonumber(first.cost),
+		discounted = first.discountInfo and first.discountInfo.isDiscounted and true or nil,
+	}
+	if ns.RefreshGearLadder then
+		ns.RefreshGearLadder()
+	end
+end
+
+do
+	local watcher = CreateFrame("Frame")
+	for _, e in ipairs({ "ITEM_UPGRADE_MASTER_SET_ITEM", "ITEM_UPGRADE_MASTER_UPDATE" }) do
+		pcall(watcher.RegisterEvent, watcher, e)
+	end
+	watcher:SetScript("OnEvent", function()
+		pcall(LearnPriceFromNPC)
+	end)
+end
+
+--- The next step's price for an equipped item: learned (exact) when we saw it at its current step, else nil.
+local function KnownNextCost(link, cur)
+	local p = PriceStore()[ItemIDFromLink(link) or -1]
+	if p and p.cur == cur then
+		return p.cost, p.discounted
+	end
+	return nil
+end
+
 local function SlotName(slot)
 	local k = SLOT_KEYS[slot]
 	return (k and _G[k]) or ("Slot " .. tostring(slot))
@@ -63,6 +128,29 @@ local function CrestInfo(key)
 		end
 	end
 	return tonumber(qty) or 0, name, desc
+end
+
+--- The "Earned from …" part of a crest's own description, as one short line, or nil.
+--- The game writes it as the LAST paragraph: a heading line ("Earned from the following activities:") and then one
+--- "- activity" per line (MEASURED, docs/CREST_SOURCES_MEASURED.md). That shape is the same in every client language,
+--- so we take the last paragraph's "- " lines and never look for English words.
+function ns.GearLadderSourceLine(desc)
+	if type(desc) ~= "string" or desc == "" then
+		return nil
+	end
+	desc = desc:gsub("\r", "")
+	local last = desc:match(".*\n%s*\n(.-)%s*$") or desc
+	local items = {}
+	for line in (last .. "\n"):gmatch("(.-)\n") do
+		local item = line:match("^%s*[-•]%s*(.-)%s*$")
+		if item and item ~= "" then
+			items[#items + 1] = item
+		end
+	end
+	if #items == 0 then
+		return nil
+	end
+	return table.concat(items, " · ")
 end
 
 --- Which tier key ("champion" …) a track belongs to, or nil.
@@ -108,7 +196,7 @@ local function ReadGear()
 				if cur and max and max > 0 then
 					readable = readable + 1
 					local key = TrackKey(tonumber(info.trackStringID), info.trackString, crestNames)
-					local item = { slot = slot, cur = cur, max = max, open = math.max(0, max - cur) }
+					local item = { slot = slot, cur = cur, max = max, open = math.max(0, max - cur), link = link }
 					if key then
 						local g = byKey[key]
 						if not g then
@@ -220,21 +308,49 @@ function ns.RefreshGearLadder()
 
 	-- Step 1: what you can do right now — crests you hold for items that can still go up.
 	Add(L("GEARLADDER_NOW_HEAD"), 1, 0.82, 0.2, nil, 2)
-	local anyNow = false
+	local anyNow, anyEstimate = false, false
 	for _, g in ipairs(groups) do
 		local c = crests[g.key]
-		local steps = math.floor((c and c.qty or 0) / STEP_COST)
+		local have = c and c.qty or 0
+		-- Every open step's price: the learned one for an item's next step, 20 (the base price) for the rest, then
+		-- count the cheapest first. A learned price makes the count exact for that step; 20 is an upper bound.
+		local stepCosts, estimated = {}, false
+		for _, it in ipairs(g.items) do
+			for s = 1, it.open do
+				local known = (s == 1) and KnownNextCost(it.link, it.cur) or nil
+				if not known then
+					estimated = true
+				end
+				stepCosts[#stepCosts + 1] = known or STEP_COST
+			end
+		end
+		table.sort(stepCosts)
+		local steps, spent = 0, 0
+		for _, cost in ipairs(stepCosts) do
+			if spent + cost > have then
+				break
+			end
+			spent, steps = spent + cost, steps + 1
+		end
+		anyEstimate = anyEstimate or estimated
 		local trackName = g.name or g.key
-		local line = (L("GEARLADDER_TRACK_FMT")):format(trackName, #g.items, g.open, c and c.qty or 0)
+		local line = (L("GEARLADDER_TRACK_FMT")):format(trackName, #g.items, g.open, have)
 		if g.open == 0 then
 			Add("• " .. line .. " " .. L("GEARLADDER_TRACK_FULL"), 0.7, 0.7, 0.7)
 		elseif steps > 0 then
 			anyNow = true
 			Add("• " .. line, 0.45, 0.9, 0.45)
-			Add("    " .. (L("GEARLADDER_CAN_NOW_FMT")):format(math.min(steps, g.open)), 0.45, 0.9, 0.45)
+			Add("    " .. (L(estimated and "GEARLADDER_CAN_NOW_ATLEAST_FMT" or "GEARLADDER_CAN_NOW_FMT")):format(steps), 0.45, 0.9, 0.45)
 		else
 			Add("• " .. line, 0.9, 0.9, 0.9)
-			Add("    " .. (L("GEARLADDER_NEED_FMT")):format(STEP_COST - ((c and c.qty or 0) % STEP_COST), trackName), 0.75, 0.75, 0.75)
+			local cheapest = stepCosts[1] or STEP_COST
+			Add("    " .. (L("GEARLADDER_NEED_FMT")):format(math.max(1, cheapest - have), trackName), 0.75, 0.75, 0.75)
+		end
+		-- Where this kind of crest comes from, in the game's own words (Rob, 19 Oct: "hoe ik aan Adventurer, Veteran,
+		-- Champion crest kom ... hoort ook bij dit venster").
+		local src = ns.GearLadderSourceLine and ns.GearLadderSourceLine(c and c.desc)
+		if src and g.open > 0 then
+			Add("    " .. (L("GEARLADDER_SOURCES_FMT")):format(src), 0.7, 0.8, 0.95, "GameFontHighlightSmall")
 		end
 		-- The slots that can still go up, lowest step first.
 		local open = {}
@@ -258,8 +374,8 @@ function ns.RefreshGearLadder()
 	for _, it in ipairs(unknown) do
 		Add(("• %s: %s %d/%d"):format(SlotName(it.slot), tostring(it.trackName or "?"), it.cur, it.max), 0.7, 0.7, 0.7)
 	end
-	if anyNow then
-		Add(L("GEARLADDER_WHERE"), 0.45, 0.9, 0.45, nil, 2)
+	if anyNow or anyEstimate then
+		Add(L(anyEstimate and "GEARLADDER_WHERE_ESTIMATE" or "GEARLADDER_WHERE"), 0.45, 0.9, 0.45, nil, 2)
 	end
 	y = y - 6
 

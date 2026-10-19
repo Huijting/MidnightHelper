@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 19 okt (laat) — Mijn gear: echte prijs + waar elke crest vandaan komt
+
+Eerst `/reload`.
+
+- [ ] `/mh gear` zonder bij Cuzolth te zijn geweest: onder elke soort met open stappen een blauwe regel "Get these crests
+      from: …" (de tekst van het spel). Groen staat er nu "at least N steps", en onderaan "A step costs 20 crests, often
+      less…".
+- [ ] Ga naar Cuzolth, leg één item (bv. je Veteran-handschoenen) in zijn venster. Kijk of de prijs groen is, en ga erop
+      staan: welke reden geeft het spel? (Dat zegt ons of jouw 10 een korting was.)
+- [ ] Laat `/mh gear` open terwijl je dat doet → de telling voor die soort past zich aan aan de echte prijs.
+- [ ] Na de upgrade: klopt de nieuwe stand (bv. 3/6)?
+
 ## 🆕 19 okt (avond) — "Mijn gear: wat nu?" voor beginners (Carola)
 
 Eerst `/reload`. Liefst ook op een character met crests en items die nog omhoog kunnen.

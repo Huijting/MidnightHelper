@@ -15,6 +15,12 @@ below unless a row says otherwise. Asked by Rob for Carola ("ik doe delves… ma
 
 - Six ranks; a drop is 1/6; each step 2/6…6/6 costs **20 crests of the item's own track + gold** (10/20/30/40/50 g),
   so 1/6 → 6/6 = 100 crests (A MEASURED, ItemExtendedCost 11457–11481; B GUIDE).
+- 🔴 **Rob MEASURED 19 Oct (evening), Blizzard's Item Upgrade window:** Veteran 2/6 → 3/6 (282 → 285) cost **10** crests +
+  20 gold, and he says Adventurer steps cost 10 too. Research round B (UI source @12.1.5 b9be937): the price comes from
+  the server per step (`upgradeLevelInfos[k+1].currencyCostsToUpgrade[1].cost`, with `discountInfo.isDiscounted` → green
+  number + a tooltip naming the reason). 20 stays the base price (guides + PTR notes "flat costs"); 10 = half is
+  most likely the Warband discount from "… of the Mist" or a watermark (INFERRED — Rob can hover the number to see).
+  So GearLadder learns the real price at the NPC (ITEM_UPGRADE_MASTER_SET_ITEM/UPDATE) and labels 20 as an estimate.
 - One crest type per track; no mixing (both).
 - Slot discount: cheaper/free up to an item level you already had in that slot (A: Blizzard Support 000336964;
   B: GlobalStrings 50516–50521). Warband-wide only after the "… of the Mist" achievements (62410–62416).
