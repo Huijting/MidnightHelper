@@ -64,11 +64,14 @@ Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.
       In Silvermoon: Dungeons-tab → **Algeth'ar Academy** → route. De pijl hoort naar de portal room te wijzen (→ Orgrimmar
       → Valdrakken), NIET naar de vluchtmeester in Silvermoon.
 - [ ] `/mh plan` op **Pit of Saron**: 3 stappen en een regel "About N min by the fastest way".
-- [ ] In Orgrimmar: zet een pin in **Mount Hyjal** → de pijl hoort naar het Hyjal-portaal te wijzen, niet "fly to Nordrassil".
-- [ ] Een Midnight-delve vanuit Valdrakken: gedrag zoals altijd (Hearthstone/portaal naar Silvermoon).
+- [x] ✅ Rob 19 okt: *"11 en 12 werken oke"*.
+      In Orgrimmar: zet een pin in **Mount Hyjal** → de pijl hoort naar het Hyjal-portaal te wijzen, niet "fly to Nordrassil".
+- [x] ✅ Rob 19 okt (zie hierboven).
+      Een Midnight-delve vanuit Valdrakken: gedrag zoals altijd (Hearthstone/portaal naar Silvermoon).
 - [ ] Silvermoon → een doel in Eversong met een vluchtmeester ertussen: hoort er nog steeds een vluchtmeester-stap te
       geven (zoals 17 okt). Zo niet → zeg het (dan raakte de nieuwe continent-regel toch Midnight).
 - [ ] FPS: volg een route naar een plek op een ander continent met onze pijl in beeld. Je FPS hoort niet te zakken.
+      (Rob 19 okt: route haalt het doel. De FPS-vraag zelf staat nog open: Ctrl+R toont het getal.)
 
 ## 🆕 18 okt — Curio-advies: ster voor elke rang, "wanneer", nieuwe curios
 
