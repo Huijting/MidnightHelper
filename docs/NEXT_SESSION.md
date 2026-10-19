@@ -1,7 +1,15 @@
 # Midnight Helper — waar we staan
 
-## 🚀 19 okt — release 4.9.0 KLAAR OM TE TAGGEN, nog GEEN tag
+## 🚀 19 okt — release 4.9.0 GETAGD en geüpload
 
+✅ Rob: *"Go voor de tag v4.9.0."* Tag `v4.9.0` op 7e2b6f6; run 39206835868 = success (CurseForge + Wago "Success!",
+GitHub Release bestaat). 🔜 Rob: CF-dashboard checken (Approved?) en `CURSEFORGE_DESCRIPTION.md` op CF plakken. Site-chat
+geseind 19 okt 07:55 (offline → in de wachtrij; nog niet bevestigd dat hij het las).
+🔜 **Kandidaat volgende versie — Vaeli's housing-weeklies** (Rob 19 okt kreeg "Lost Animals"; twee mh-research-rondes,
+eens): Vaeli (npc 260957, Silvermoon 49.6/66.0) roteert wekelijks 95413 Community Engagement, 95416 Going Postal, 95438
+Lost Animals, 95440 Housewarming — 1× per account per week, warbound Mistcrest-packs (Hero 20 / Champion 40 / Veteran 60)
++ 25 Community Coupons (die tellen vermoedelijk ook voor Liadrin's 93769, AFGELEID). MH kent geen van de vier (GEMETEN:
+0 treffers, positieve controle 93769). Inleveren bij Kara Meldansen in de neighborhood. Oude regel hieronder:
 Rob: *"ja we gaan een release doen nu"* — gewone release (zoals 4.8.0). Klaar: `## Version: 4.9.0`, Changelog.lua +
 CHANGELOG_490_0..8 (enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.9.0.md` (beta-alinea bovenaan), `CHANGELOG.md` (met
 GEMETEN / NIET getest), `CURSEFORGE_DESCRIPTION.md` vernieuwd (zoekbalk "take me there", Mount run niet meer "New") — Rob

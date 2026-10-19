@@ -4,7 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## 4.9.0
 
-📌 **2026-10-19, voorbereid als RELEASE (Rob: "ja we gaan een release doen nu") — nog GEEN tag.** Minor, want nieuw gedrag
+📌 **2026-10-19, RELEASE (Rob: "ja we gaan een release doen nu"; go: "Go voor de tag v4.9.0.").** Tag `v4.9.0`
+(annotated) op 7e2b6f6; GitHub Actions run 39206835868 "Release to CurseForge, Wago and GitHub" = success, in het log
+"Success!" voor CurseForge (12.1.7/12.1.5/12.1.0/12.0.7) en Wago (12.1.5/12.1.0/12.0.7; "No Wago game version match for
+12.1.7" = PTR, normaal) en "GitHub Release v4.9.0 exists". Site-chat geseind (in de wachtrij, chat was offline). Minor, want nieuw gedrag
 (zoekbalk-plekken en -deuren, routezoeker, vluchtmeester-schakelaar). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.9.0.md`,
 beta-alinea bovenaan. In-game: CHANGELOG_490_0..8 (enUS).
 GEMETEN door Rob in het spel (17-19 okt): plekken zoeken (Dalaran, twee hops), deuren zoeken (laby, maisara, voidspire),
