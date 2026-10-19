@@ -1706,6 +1706,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- /mh plan — de hele route naar het huidige doel, stap voor stap en klikbaar.
 	if msg == "plan" or msg == "route" then
 		if ns.PrintTravelPlan then
+			-- 19 Okt 2026 (Rob, Pit of Saron vanuit Silvermoon): tijdens een route is ns.lastTarget de HUIDIGE STAP (de portal
+			-- room, op je eigen kaart) → "Nothing to plan". Loopt er een route, plan dan naar haar einddoel.
+			local r = ns.Travel and ns.Travel.Active and ns.Travel.Active()
+			local rt = r and r.target
+			if rt and rt.map and rt.x and rt.y then
+				ns.PrintTravelPlan(rt.map, rt.x, rt.y, rt.name)
+				return
+			end
 			local t = ns.lastTarget
 			if t and t.mapID then
 				ns.PrintTravelPlan(t.mapID, t.x, t.y, t.name)

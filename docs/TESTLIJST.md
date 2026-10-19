@@ -64,6 +64,10 @@ Uit de cloud-chat (docs/HANDOFF_2026-10-18_TRAVELGRAPH.md). Eerst `/reload`.
       In Silvermoon: Dungeons-tab → **Algeth'ar Academy** → route. De pijl hoort naar de portal room te wijzen (→ Orgrimmar
       → Valdrakken), NIET naar de vluchtmeester in Silvermoon.
 - [ ] `/mh plan` op **Pit of Saron**: 3 stappen en een regel "About N min by the fastest way".
+      🐞 Rob 19 okt, screenshot: de route zelf klopte ("Route, step 1 of 3: Go to the portal room …"), maar `/mh plan` zei
+      "Nothing to plan — it is on the map you are standing on". Oorzaak (GEMETEN in Core.lua): `/mh plan` plande naar
+      `ns.lastTarget`, en tijdens een route is dat de HUIDIGE stap (de portal room). Nu: loopt er een route, dan plant hij
+      naar haar einddoel. Opnieuw testen: `/reload`, route naar Pit of Saron starten, dan `/mh plan`.
 - [x] ✅ Rob 19 okt: *"11 en 12 werken oke"*.
       In Orgrimmar: zet een pin in **Mount Hyjal** → de pijl hoort naar het Hyjal-portaal te wijzen, niet "fly to Nordrassil".
 - [x] ✅ Rob 19 okt (zie hierboven), screenshot: Valdrakken → The Coiled Isle, popup "HS on Cooldown! Take the portal
