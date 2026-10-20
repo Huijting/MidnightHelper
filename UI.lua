@@ -3035,8 +3035,11 @@ function ns:EnsureMainUI()
 	local newsBtn = CreateFrame("Button", "MidnightHelperNewsBtn", titleBar, "UIPanelButtonTemplate")
 	newsBtn:SetSize(80, 22)
 	newsBtn:SetPoint("RIGHT", lookToggleBtn, "LEFT", -4, 0)
-	MHTintButtonTextures(newsBtn, 1, 0.5, 0.05)
 	newsBtn:SetScript("OnClick", function()
+		-- Rob, 20 Oct 2026: after a click the button goes quiet until a note it has not seen appears.
+		if ns.MarkGameNewsSeen then
+			ns.MarkGameNewsSeen()
+		end
 		if ns.SelectTab then
 			ns.SelectTab("home")
 		end
@@ -3062,13 +3065,24 @@ function ns:EnsureMainUI()
 		-- Modern look: a flat chip like its neighbours, but bright orange (rest colour kept for OnLeave);
 		-- Classic keeps the orange-tinted Blizzard button from above.
 		local ORANGE = { 0.95, 0.45, 0.05, 1 }
+		-- Seen: a quiet chip like its neighbours (modern) or a plain grey-ish button (Classic), until a new note.
+		local unseen = ns.GetGameNewsUnseenCount and ns.GetGameNewsUnseenCount() or n
+		local loud = unseen > 0
 		if MHLookOn() then
 			MHLookSkinButton(newsBtn, false, "chip")
-			newsBtn._mhLookRest = ORANGE
-			newsBtn._mhLookParts.fill:SetColorTexture(MHUnpack4(ORANGE))
+			if loud then
+				newsBtn._mhLookRest = ORANGE
+				newsBtn._mhLookParts.fill:SetColorTexture(MHUnpack4(ORANGE))
+			end
 		else
 			MHLookUnskinButton(newsBtn)
+			if loud then
+				MHTintButtonTextures(newsBtn, 1, 0.5, 0.05)
+			else
+				MHTintButtonTextures(newsBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
+			end
 		end
+		newsBtn:SetAlpha(loud and 1 or 0.75)
 		if n > 0 then
 			newsBtn:SetText(ns:L("NEWS_BTN_FMT"):format(n))
 			FitTitleBarButton(newsBtn, 70, 140)

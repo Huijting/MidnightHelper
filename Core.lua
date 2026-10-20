@@ -3156,6 +3156,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	if msg == "news reset" then
+		if ns.ResetGameNewsSeen then
+			ns.ResetGameNewsSeen()
+		end
+		return
+	end
 	if msg == "gear" then
 		if ns.ToggleGearLadder then
 			ns.ToggleGearLadder()

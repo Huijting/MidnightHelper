@@ -40,6 +40,10 @@ Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg n
   newsBtn (MidnightHelperNewsBtn) tussen Classic en "Read in Codex": oranje chip (modern) / oranje Blizzard-knop
   (Classic), "News (N)", tooltip met de meldingen, klik = SelectTab("home"), alleen zichtbaar bij ≥1 melding;
   ververst bij OnShow, look-wissel en de schakelaar. NEWS_BTN_FMT/_TT 8 talen (eigen vertaling).
+  ✅ Rob 20 okt: knop "ziet er goed uit" (level 22: News (1), alleen Valeera — klopt, rest minLevel 90). Daarna: "dat hij
+  vervaagt … tot de volgende echte nieuwsupdate" → `ns.db.gameNews.seen[id]` (per account); klik = MarkGameNewsSeen; knop
+  rustig (chip/grijs, alpha 0,75) tot er een id is dat niet gezien is. 📌 Verandert de BETEKENIS van een melding → nieuw id.
+  `/mh news` toont "(seen)", `/mh news reset` zet alles terug.
   ⚠️ SET_GAMENEWS_DESC enUS/nlNL noemt nu ook de knop; de/fr/es/pt/it/ru nog de oude zin → check_drift.
 - Ronde 2 clientnamen (mh-writer, docs/CLIENT_NAMES Ronde 2): spoorwoorden in Codex/StartHere/MythicPlus de/fr/es/pt; 12
   gave-namen fr/es/esMX/pt/it/ru; giftwoord; Warbound-packs; Voidcore-label; Housing; ru crest-label Myth "Эпоха"

@@ -108,10 +108,51 @@ function ns.GetGameNewsSteps()
 	for _, item in ipairs(ns.GAME_NEWS) do
 		local ok, show, _, days = pcall(Decide, item)
 		if ok and show then
-			steps[#steps + 1] = { text = TextFor(item, days), color = "warn" }
+			steps[#steps + 1] = { id = item.id, text = TextFor(item, days), color = "warn" }
 		end
 	end
 	return steps
+end
+
+--- "Seen" (Rob, 20 Oct 2026: "op het moment dat ik hem aangeklikt heb, dat hij dan vervaagt … tot de volgende echte
+--- nieuwsupdate"). Per account: a click on the News button marks every note shown right now as seen; the button goes
+--- quiet until a note with an id it has not seen appears. 📌 So a note whose MEANING changes needs a new id (e.g.
+--- "voidcore2"); fixing a typo can keep the old one.
+local function Seen()
+	local d = DB()
+	d.seen = d.seen or {}
+	return d.seen
+end
+
+--- @return number unseen  current notes the player has not clicked away yet
+function ns.GetGameNewsUnseenCount()
+	local seen, n = Seen(), 0
+	for _, st in ipairs(ns.GetGameNewsSteps()) do
+		if st.id and not seen[st.id] then
+			n = n + 1
+		end
+	end
+	return n
+end
+
+function ns.MarkGameNewsSeen()
+	local seen = Seen()
+	for _, st in ipairs(ns.GetGameNewsSteps()) do
+		if st.id then
+			seen[st.id] = true
+		end
+	end
+	if ns._mhRefreshNewsBtn then
+		pcall(ns._mhRefreshNewsBtn)
+	end
+end
+
+function ns.ResetGameNewsSeen()
+	DB().seen = nil
+	if ns._mhRefreshNewsBtn then
+		pcall(ns._mhRefreshNewsBtn)
+	end
+	print("|cff8fd3ffMidnight Helper|r — news: every note is unseen again.")
 end
 
 function ns.PrintGameNews()
@@ -121,6 +162,8 @@ function ns.PrintGameNews()
 	for _, item in ipairs(ns.GAME_NEWS) do
 		local ok, show, reason = pcall(Decide, item)
 		local state = not ok and "|cffff5040error|r" or (show and "|cff40c040shown|r" or "|cff9d9d9dhidden|r")
-		print(("   %-9s %s — %s"):format(item.id, state, ok and reason or tostring(show)))
+		local seenTxt = Seen()[item.id] and " |cff9d9d9d(seen)|r" or ""
+		print(("   %-9s %s%s — %s"):format(item.id, state, seenTxt, ok and reason or tostring(show)))
 	end
+	print("   |cff9d9d9d/mh news reset = mark every note unseen again (the button turns orange)|r")
 end
