@@ -28,7 +28,9 @@ Eerst `/reload`. Kan ook buiten de delve: `/mh bosscard 5` toont het venster van
 - [x] ✅ Rob 20 okt (screenshot): `/mh bosscard 5` → venster "Room boss: Sha'Kuro" met 4 regels, knop, schuifbalk.
       Daarna: zijn eigen regel ("Sha'Kuro: …") staat nu BOVENAAN, de kamertaken eronder → na `/reload` nakijken.
 - [x] ⚠️ Rob 20 okt, voor Cynthra: target opent het venster NIET (verwacht: naam/GUID zijn secret in een delve, 16 aug).
-- [ ] `/mh bosscard` → lijstvenster met 19 knoppen (Kindo'jan oranje); klik → dat bazenvenster. `/mh bosscard cynthra`
+- [x] ✅ Rob 20 okt (screenshot): lijstvenster met 19 knoppen in 2 kolommen. ⚠️ Kindo'jan NIET oranje (kleurcode in de
+      knoptekst wordt overschreven); laten zo tenzij Rob anders wil.
+- [ ] (rest) `/mh bosscard` → lijstvenster; klik → dat bazenvenster. `/mh bosscard cynthra`
       → meteen haar venster. Zoekbalk "Cynthra" → klein venster. Knop "All bosses" in elk bazenvenster.
 - [ ] Begint het gevecht met een kamerbaas: opent het venster dan wel vanzelf? (`ns.db.delveRoomBossLog` in de SV)
 - [ ] `/mh bosscard why`: een lijst van 19 bazen, elk met "N line(s)" in groen (geen rode 0).
