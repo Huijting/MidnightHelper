@@ -3017,3 +3017,83 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   pagina's (`?nocache=20261019`) voor de consumables-check · codebase: `Modules/PlayCards.lua`,
   `data/vault_stat_catalog.json`, `data/consumables_wowhead.json`, `Locales/enUS.lua:3249` —
   allemaal vandaag gelezen. Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-20] 🔴 **Eén echte content-vondst: onze eigen Codex-tekst over het Voidcore-"maximum"
+  beschrijft precies het mechanisme dat een lopende, nog ongefixte Blizzard-bug op dit moment
+  breekt.** Geen nieuwe hotfix-sectie sinds 16 okt (vijfde dag op rij), CurseForge ongewijzigd.
+  Vandaag is dinsdag, dus de wekelijkse kaarten- (🃏) en consumables-check (🧪, beide alleen op
+  maandag) zijn overgeslagen.
+
+  💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v. gisteren).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261020zz` (via
+  Exa, JSON volledig gelezen, `pagination.totalCount: 8`): dezelfde drie draadjes als op 17-19 okt
+  (esES/esMX-locale-fix, debug-printregel, coffer-key-shards-popup), alle drie eindigend op een
+  reactie van `twelveinchy` (het coffer-key-shards-draadje eindigt al sinds juni op een bedankje
+  van de vraagsteller zelf — geen nieuwe vraag). Geen nieuw bericht sinds gisteren. MEASURED.
+
+  **Hotfixes: geen nieuwe sectie sinds "October 16, 2026" — zelf opnieuw gelezen, niet overgenomen
+  van de API-/PTR-/data-wachter van vandaag.** `news.blizzard.com/en-us/article/24307310/hotfixes-
+  october-16-2026?nocache=20261020content`, volledige artikeltekst zelf gelezen: Dungeons and
+  Raids/Labyrinth and Delves/Items/Labyrinth/Quests/Aqir Invasions/Classes/Delves-secties van 13
+  t/m 16 okt byte-voor-byte dezelfde inhoud als al verwerkt op [2026-10-17]/[2026-10-18]/
+  [2026-10-19]. Delves/Professions/Quests als losse categorieën: leeg in de nieuwste sectie, niets
+  nieuws te vergelijken. Ook de "12.1.5 Known Issues"-forumpost (Linxy,
+  `us.forums.blizzard.com/.../2381312?nocache=20261020content`, zelf gelezen, nog steeds "updated
+  October 16 at 6:44pm PDT", geen update sinds): *"Valeera is taking more damage than intended"*
+  staat er nog steeds zonder `fixed`-label — de op [2026-10-18] gemelde **[RAAKT ONS]**-vondst
+  (`DELVE_TIP_LABYRINTH_BOSS`, `Locales/enUS.lua:3249`) blijft actueel en ongewijzigd: geen fix,
+  geen tekstwijziging voorgesteld. Alle overige known-issues-punten staan nog op `fixed`. MEASURED.
+  **[RAAKT ONS NIET]** op de hotfix-kant vandaag; de enige openstaande **[RAAKT ONS]** uit de
+  hotfix-sectie zelf is de al bekende Valeera-healer-kwestie, ongewijzigd sinds gisteren.
+
+  🔴 **De vondst, aangeleverd door de data-wachter van vandaag die de operationele kant al oppakte
+  (`docs/PTR_12.0.7_DATA.md`, entry [2026-10-20], "Nebulous Voidcore Current Season Maximum-bug")
+  — dit is mijn onafhankelijke check van de content-kant, niet een herhaling van zijn feit.**
+  Blizzard (Drahtz, Community Manager, 15 okt 2026 15:43 PDT, zelf gelezen via de data-wachters
+  bronnen) bevestigt dat spelers hun "Current Season Maximum" voor Nebulous Voidcores onterecht
+  zagen stijgen/raar staan (bv. "5/2") nadat per ongeluk te veel toegekende Voidcores weer werden
+  teruggedraaid, en dat er "working on a fix" is — geen fixdatum, nog niet gefixed.
+  `grep -n "VOIDCORE_BODY" Locales/Codex.lua` → `CODEX_VOIDCORE_BODY` (enUS,
+  `Locales/Codex.lua:107`) zegt letterlijk, over exact die balk: *"The bar 'Nebulous Voidcores
+  transmuted: 1/1' shows how many Voidcores you have earned this season against the current
+  maximum. Spending one does not free up room: you can only get another when the maximum goes up,
+  **and it goes up by one at every weekly reset.**"* Dat is precies het mechanisme dat nu voor een
+  deel van de spelers kapot staat — hun maximum ging niet netjes "+1 per week" maar sprong door de
+  bug naar een afwijkende waarde. Onze tekst beschrijft het BEDOELDE mechanisme correct (geen
+  harde tegenspraak — we claimen niet dat de bug niet bestaat), maar een speler die een kapotte
+  teller ziet kan onze eigen uitleg nu lezen als "dan klopt de addon niet", terwijl het een
+  Blizzard-bug is die zelf nog loopt. MEASURED (hotfix-bron van de data-wachter zelf nagelezen,
+  `Locales/Codex.lua:107` zelf gelezen; `Modules/VaultAdvisor.lua:1074-1119`
+  (`ns.GetVoidcoreBonusRollStatus`) en `Modules/BonusRollCapture.lua` gelezen — beide lezen de
+  vault-sloten/roll-popup live van de client, geen eigen hardcoded max-telling, dus die twee
+  bestanden zijn zelf niet geraakt). De vertaalde varianten (`Locales/Codex.lua` overige 6 talen,
+  `Locales/esMX.lua`, `Locales/ruRU.lua`) dragen dezelfde `CODEX_VOIDCORE_BODY`-key met dezelfde
+  strekking — niet woord-voor-woord op deze zin geverifieerd per taal, dat is vertaalkant, niet
+  content-kant. **[RAAKT ONS]** — geen tekstfout, wel een momentopname die een mens kan overwegen
+  tijdelijk aan te scherpen met een regel als "zie je een rare sprong in dit cijfer, dat is een
+  bekende, nog lopende Blizzard-bug" zolang Drahtz' fix er niet is. Geen tekstwijziging zelf
+  doorgevoerd.
+
+  **Fabled Let Me Solo Him: Kindo'jan (achievement 64039) — deadline met een week verlengd
+  (data-wachter, zelfde entry van vandaag).** Voor mijn lane: `grep -rn "64039"` repo-breed geeft
+  alleen `Modules/MidnightAchList.lua:45` (een ID in een lijst, geen datum) en wat aan context in
+  `Modules/AtalUtekProbe.lua` en `Modules/SeasonTransitionData.lua` (allemaal dev-comments, geen
+  speler-tekst) — geen `grep` op "october 21"/"oct 21"/"21 oktober" in `Locales/enUS.lua` levert
+  iets op. Geen geshipte speler-tekst noemt een specifieke einddatum voor deze achievement die nu
+  fout zou zijn. MEASURED. **[RAAKT ONS NIET]** — de door de data-wachter gevonden fout zit in
+  `docs/NEXT_SESSION.md` (een dev-aantekening, niet speler-tekst), buiten mijn bestand en al door
+  hem gemeld.
+
+  Bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-october-16-2026?nocache=20261020content
+  (volledig gelezen via Exa) ·
+  https://us.forums.blizzard.com/en/wow/t/midnight-1215-content-update-known-issues-and-information/2381312?nocache=20261020content
+  (volledig gelezen via Exa) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261020zz
+  (JSON, via Exa) · `docs/PTR_12.0.7_DATA.md` entry [2026-10-20] (Voidcore-bug, Fabled-deadline) als
+  aanleiding — feiten niet herhaald, zelf getoetst tegen geshipte MH-tekst · codebase:
+  `Locales/Codex.lua:106-107`, `Modules/VaultAdvisor.lua:1074-1119`, `Modules/BonusRollCapture.lua`,
+  `Modules/MidnightAchList.lua`, `Modules/AtalUtekProbe.lua`, `Modules/SeasonTransitionData.lua` —
+  allemaal vandaag gelezen. Eén content-vondst (Voidcore-maximum-tekst), verder uitsluitend
+  **[RAAKT ONS NIET]**. Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
