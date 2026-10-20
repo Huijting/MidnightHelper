@@ -35,7 +35,9 @@ local RECHECK_4_NOV = 1793750400 -- Wed 4 Nov 2026 00:00 UTC: re-check date, not
 ns.GAME_NEWS = {
 	--- Fabled Kindo'jan (64039), extended to the maintenance of the week of 27 Oct (blue post, data watcher
 	--- 20 Oct 2026). EU end without an hour from Blizzard -> the Wednesday maintenance (Icy Veins: "28th for EU").
-	{ id = "fabled", key = "NEWS_FABLED_KINDOJAN_FMT", minLevel = 90,
+	--- id "fabled2" since 20 Oct 2026: the note now also names the mount (63715, Season 2 only; 2 mh-research rounds),
+	--- a real news change, so the button lights up again for anyone who clicked "fabled" away.
+	{ id = "fabled2", key = "NEWS_FABLED_KINDOJAN_FMT", minLevel = 90,
 		ends = { default = US_TUE_27_OCT, [3] = EU_WED_28_OCT } },
 	--- Nebulous Voidcore "Current Season Maximum" jumps (Drahtz, 15 Oct 2026: fix in the works).
 	{ id = "voidcore", key = "NEWS_VOIDCORE_BUG", minLevel = 90, ends = { default = RECHECK_4_NOV } },

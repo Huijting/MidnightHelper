@@ -886,7 +886,7 @@ ns._mhLocales.enUS = {
 	MOUNTPROG_INDIGOCOIL_HOWTO = "Reach Renown 17 with Zul'jarra's Forces, then buy it from Jan'sari the Watchful on The Coiled Isle for 6,000 Voidlight Marl.",
 	MOUNTPROG_SKYFANG_HOWTO = "Reach Renown 19 with Zul'jarra's Forces, then buy it from Jan'sari the Watchful on The Coiled Isle for 8,000 Voidlight Marl.",
 	MOUNTPROG_AQIRSWARMER_HOWTO = "Reach Exalted with the Aqir Research Enclave (the hourly Aqir Invasions), then buy it from Estelia Archtender in Silvermoon City for 2,500 Voidlight Marl.",
-	MOUNTPROG_LOAWAYFARER_HOWTO = "Reward of the achievement Let Me Solo Him: Kindo'jan: defeat Kindo'jan alone on Tier 11 of the Labyrinth of Kindo'jan (Season 2).",
+	MOUNTPROG_LOAWAYFARER_HOWTO = "Reward of the achievement Let Me Solo Him: Kindo'jan: defeat Kindo'jan alone on Tier 11 of the Labyrinth of Kindo'jan (Valeera may join). It lies in the Ancestral Bounty chest after the fight. Only during Season 2: when the season ends, the achievement can no longer be earned. Forgot to take it from the chest? Since a Blizzard hotfix (16 Oct) Kinduru gives it to you after you finish the Labyrinth.",
 	MOUNTPROG_SPOREBEARER_HOWTO = "Sold by Showena in The Den, Harandar, for 5,000,000 gold, for as long as Midnight lasts. Hoshena next to her sells the passenger seat.",
 	MOUNTPROG_SPOREBEARER_ROUTE_NAME = "Showena (The Den, Harandar)",
 	MOUNTRUN_TITLE = "Mount run: old raids",
@@ -3287,7 +3287,7 @@ ns._mhLocales.enUS = {
 	NEWS_HEADER = "In the game now",
 	NEWS_BTN_FMT = "News (%d)",
 	NEWS_BTN_TT = "Click to open This Week, where these notes stand at the top.",
-	NEWS_FABLED_KINDOJAN_FMT = "Fabled Kindo'jan (Labyrinth, Tier 11, without other players; Valeera may join): extended by Blizzard, %d day(s) left. Gives a title.",
+	NEWS_FABLED_KINDOJAN_FMT = "Fabled Kindo'jan (Labyrinth, Tier 11, without other players; Valeera may join): extended by Blizzard, %d day(s) left. Gives a title. The same kill also gives the mount Loa-Blessed Wayfarer, and that one stays until the end of Season 2.",
 	NEWS_VOIDCORE_BUG = "Nebulous Voidcore: does your season maximum jump strangely? That is a known Blizzard bug, a fix is coming.",
 	NEWS_VALEERA_DAMAGE = "Valeera takes more damage than intended right now (known Blizzard issue). Keep an eye on her health in hard delves.",
 	-- Baby steps for gear (Rob for Carola, 19 Oct 2026). Facts: docs/GEARING_FACTS_2026-10-19.md.

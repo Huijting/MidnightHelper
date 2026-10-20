@@ -371,3 +371,142 @@ Bijvangst (GEMETEN, alleen uit de **beschrijving** van Spell 1303477, niet uit S
 - Andere esES-items met het meervoud (GEMETEN, ItemSparse): 280732 "Mochila de blasones de bruma de héroe ligada a la banda guerrera", 280734 "Mochila de blasones de bruma de campeón ligada a la banda guerrera", 280737 "Mochila de blasones de bruma de veterano ligada a la banda guerrera", 265790 "Alijo de blasones de bruma".
 - Ter vergelijking, 3441 in de andere locales (GEMETEN): frFR "Écu de brume mythique", esMX "Niebloemblema mítico", ptBR "Brasão Brumoso Mítico", itIT "Emblema della Nebbia del Mito", ruRU "Маревый герб эпохи".
 - AFGELEID: "blasones de bruma de mito" is dus een echte clientvorm (meervoud, kleine letters, midden in een zin). Als losse munt-naam schrijft esES "Blasón de bruma de mito".
+
+
+## Ronde 4 (20 okt) — Kindo'jan-mount
+
+**Bron**, tenzij anders gezegd: wago.tools DB2, build **12.1.5.70448** (expliciet `&build=12.1.5.70448`), gelezen 20 okt 2026 in het ingebouwde browservenster (de JSON uit de pagina zelf). Elke rij is opgehaald mét `useHotfixes=1` én zonder. De waarden waren overal gelijk. Elke ID-query gaf precies 1 rij, en de pagina gaf de gevraagde build en locale terug. Alles hieronder is **GEMETEN**, tenzij er **AFGELEID** of **NIET GEMETEN** staat.
+
+**Let op de tekens.** frFR gebruikt `’` (U+2019) als apostrof, en een harde spatie (U+00A0) vóór de dubbele punt (erna een gewone spatie). De andere 7 talen gebruiken `'` (U+0027). In de tabellen staan de echte tekens. Andere bijzondere tekens: alleen `"` (U+0022) in esES- en ruRU-titels van 64039.
+
+### 1. Mount 3144 en item 283363
+
+Tabel `Mount`, rij 3144, kolom `Name_lang`. Tabel `ItemSparse`, rij 283363, kolom `Display_lang`. Per taal zijn die twee letterlijk gelijk (vergeleken).
+
+| locale | Mount 3144 `Name_lang` = ItemSparse 283363 `Display_lang` |
+|---|---|
+| enUS | Loa-Blessed Wayfarer |
+| deDE | Loageweihter Wanderer |
+| frFR | Voyageur béni par les Loas |
+| esES | Caminante bendecido por los loa |
+| esMX | Caminante bendecido por los loa |
+| ptBR | Viajor Abençoado pelos Loas |
+| itIT | Viandante Benedetto dai Loa |
+| ruRU | Благословленный лоа странник |
+
+Extra: `Mount.SourceText_lang` van 3144 (zonder hotfixes gelezen; frFR ook mét, gelijk). Hier schrijft Blizzard de naam soms anders dan in de achievement:
+
+```
+enUS  |cFFFFD200Achievement:|r Let Me Solo Him: Kindo'Jan
+deDE  |cFFFFD200Erfolg:|r Ich kann das allein: Kindo'jan
+frFR  |cFFFFD200Haut fait|r<U+00A0>: Tête-à-tête<U+00A0>: Kindo<U+2019>Jan
+esES  |cFFFFD200Logro:|r Déjamelo a mí: Kindo'jan
+esMX  |cFFFFD200Logro:|r Déjenmelo a mí: Kindo'jan
+ptBR  |cFFFFD200Conquista:|r Me Deixa Solar: Kindo'jan
+itIT  |cFFFFD200Impresa:|r A lui ci penso io: Kindo'jan
+ruRU  |cFFFFD200Достижение:|r "Да я его в одиночку: Киндо'джан"
+```
+
+Item 283363 heeft geen rij in `ItemSearchName` (0 rijen, enUS).
+
+### 2. GameObject 689304 "Ancestral Bounty" — NIET GEMETEN
+
+De naam staat niet in wago.
+- `GameObjects`, ID 689304: 0 rijen (met en zonder hotfixes). `GameObjects`, `Name_lang` "Ancestral Bounty": 0 rijen. Positieve controle in dezelfde tabel en run: `Name_lang` "Bounty" gaf 11 rijen ("Earthmother's Bounty", "Runetotem's Bounty").
+- Ook 0 rijen voor "Ancestral Bounty" in `Vignette` (controle: "Treasure" gaf 874), `SpellName`, `ItemSparse`, `GlobalStrings`, `CriteriaTree`, `QuestV2CliTask` en `AreaPOI`.
+- Wowhead, gelezen 20 okt: object=689304 heet enUS "Ancestral Bounty", "Added in patch 12.1.5". Op de de/fr/es/mx/pt/it/ru-site staat overal `[Ancestral Bounty]` tussen haken. Dat betekent: Wowhead kent de vertaling niet.
+- AFGELEID: de objectnaam komt van de server, niet uit een DB2-tabel. De vertalingen zijn alleen in het spel te meten, per client.
+
+### 3. NPC Kinduru
+
+Tabel `Creature`, filter `Name_lang` "Kinduru" (enUS): **7 rijen**.
+
+| ID | enUS `Name_lang` | enUS `Title_lang` |
+|---|---|---|
+| 257344 | Kinduru | Loa Speaker |
+| 253804, 253832, 253846, 258699, 261847, 263946 | Loa Speaker Kinduru | Devout of Akil'zon |
+
+Per taal. De zes "Loa Speaker Kinduru"-rijen zijn per taal letterlijk gelijk.
+
+| locale | 257344 `Name_lang` | 257344 `Title_lang` | 6 rijen `Name_lang` | 6 rijen `Title_lang` |
+|---|---|---|---|---|
+| enUS | Kinduru | Loa Speaker | Loa Speaker Kinduru | Devout of Akil'zon |
+| deDE | Kinduru | Loasprecher | Loasprecher Kinduru | Jünger von Akil'zon |
+| frFR | Kinduru | Parle-loa | Parle-loa Kinduru | Disciple d'Akil'zon |
+| esES | Kinduru | Portavoz de loa | Portavoz de loa Kinduru | Devoto de Akil'zon |
+| esMX | Kinduru | Portavoz loa | Portavoz loa Kinduru | Devoto de Akil'zon |
+| ptBR | Kinduru | Voz-dos-loas | Voz-dos-loas Kinduru | Devoto de Akil'zon |
+| itIT | Kinduru | Oratore dei Loa | Oratore dei Loa Kinduru | Devoto di Akil'zon |
+| ruRU | Киндуру | Говорящий с лоа | Говорящий с лоа Киндуру | Служитель Акил'зон |
+
+(frFR `d'Akil'zon` gebruikt hier gewoon U+0027, niet U+2019.)
+
+**Welke Kinduru staat in het Labyrinth? NIET GEMETEN.**
+- Wowhead `npcs/name:Kinduru`, gelezen 20 okt: 39 hits. 12 daarvan heten `Kinduru <Herald of de Loa>` en zijn volgens Wowhead "Added in patch 12.1.5" (build 70391): 273203, 273261, 273515, 273569, 273570, 273571, 273572, 273573, 273574, 273575, 274500, 274918. Wowhead geeft er geen locatie bij.
+- Geen van die 12 staat in wago `Creature` (ID-filter: 0 rijen elk; dezelfde tabel vond de 7 hierboven).
+- De 6 "Loa Speaker"-rijen + 257344 zijn volgens Wowhead uit 12.0.0/12.0.7. Wowhead zet 253804, 253832 en 253846 in Zul'Aman.
+- AFGELEID: de Labyrinth-Kinduru is waarschijnlijk een van de 12 "Herald of de Loa"-NPC's (nieuw in 12.1.5). Niet bewezen.
+- Wowhead-vertaling van de titel "Herald of de Loa" is onvolledig: esES `Heraldo de los loa` (11 van de 12 ID's), ptBR `Arauto dos Loas` (273203, 273571, 274918). deDE, frFR, esMX, itIT en ruRU: alleen `[Herald of de Loa]` = onbekend. Op de ru-site staat de naam in Latijnse letters "Kinduru". AFGELEID: dat is Wowheads Engelse terugval; de DB2-rij 257344 zegt ruRU `Киндуру`.
+- Positieve controle Wowhead: npc=257344 geeft in alle 8 talen dezelfde naam en titel als wago.
+
+### 4. Achievements 63715 en 64039
+
+Tabel `Achievement`, kolom `Title_lang`.
+
+| locale | 63715 `Title_lang` | 64039 `Title_lang` |
+|---|---|---|
+| enUS | Let Me Solo Him: Kindo'jan | Fabled Let Me Solo Him: Kindo'jan |
+| deDE | Ich kann das allein: Kindo'jan | Ich kann das allein (sagenumwoben): Kindo'jan |
+| frFR | Tête-à-tête : Kindo’jan | Tête-à-tête légendaire : Kindo’jan |
+| esES | Déjamelo a mí: Kindo'jan | "Déjamelo a mí" de leyenda: Kindo'jan |
+| esMX | Déjenmelo a mí: Kindo'Jan | Célebre déjenmelo a mí: Kindo'jan |
+| ptBR | Me deixa solar: Kindo'jan | Me deixa solar lendário: Kindo'jan |
+| itIT | A lui ci penso io: Kindo'jan | A lui ci penso io leggendario: Kindo'jan |
+| ruRU | Да я его в одиночку: Киндо'джан | Легендарное достижение "Да я его в одиночку: Киндо'джан" |
+
+Let op: esMX 63715 schrijft `Kindo'Jan` (hoofdletter J), esMX 64039 `Kindo'jan`.
+
+enUS `Description_lang`:
+- 63715: "Defeat Kindo'jan in the Labyrinth on Tier 11 without any other players in your party during Midnight Season 2."
+- 64039: "Defeat Kindo'jan in his Labyrinth on Tier 11 without any other players in your party, before the first reset following his introduction."
+
+enUS `Reward_lang`: 63715 = `Reward: Loa-Blessed Wayfarer`. 64039 = `Title: Fabled Vanquisher of The First Hash'ey`.
+
+### 5. Titel van 64039 — CharTitles 1342
+
+Tabel `CharTitles`, rij 1342, `Mask_ID` 801. `%s` = de naam van het character.
+
+| locale | `Name_lang` | `Name1_lang` |
+|---|---|---|
+| enUS | %s, Fabled Vanquisher of The First Hash'ey | %s, Fabled Vanquisher of The First Hash'ey |
+| deDE | %s, Sagenumwobene(r) Bezwinger(in) des ersten Hash'ey | (gelijk aan Name_lang) |
+| frFR | %s, illustre pourfendeur du premier hash’ey | %s, illustre pourfendeuse du premier hash’ey |
+| esES | %s, Legendario Vencedor del primer hash'ey | (gelijk aan Name_lang) |
+| esMX | %s, Célebre vencedor del primer hash'ey | %s, Célebre vencedora del primer hash'ey |
+| ptBR | %s, Subjugador Lendário do Primeiro Hash'ey | %s, Subjugadora Lendária do Primeiro Hash'ey |
+| itIT | %s, Leggendario Dominatore del Primo Hash'ey | %s, Leggendaria Dominatrice del Primo Hash'ey |
+| ruRU | %s, легендарный победитель первого хаш'эй | %s, легендарная победительница первого хаш'эй |
+
+- AFGELEID: `Name_lang` is de mannelijke vorm, `Name1_lang` de vrouwelijke (uit de woorden zelf: pourfendeur/pourfendeuse, vencedor/vencedora).
+- AFGELEID: dat 1342 echt de beloning van 64039 is. De koppeling staat niet in DB2. Wel is de tekst van `Achievement.Reward_lang` van 64039 in alle 8 talen dezelfde titel. Twee kleine verschillen, GEMETEN: frFR Reward_lang zegt `Titre : illustre pourfendeur ou pourfendeuse du premier hash’ey` (beide vormen in één zin), en ruRU Reward_lang begint met een hoofdletter: `Звание: Легендарный победитель первого хаш'эй`.
+
+### 6. Plaatsnaam "The Labyrinth of Kindo'jan"
+
+De enUS-naam begint met **"The"**. UiMap 2647 `Name_lang`, AreaTable 16913 `AreaName_lang` en Map 3043 `MapName_lang` zijn per taal letterlijk gelijk. AreaPOI 9035 `Name_lang` wijkt alleen in deDE af.
+
+| locale | UiMap 2647 = AreaTable 16913 = Map 3043 | AreaPOI 9035 `Name_lang` |
+|---|---|---|
+| enUS | The Labyrinth of Kindo'jan | (gelijk) |
+| deDE | Das Labyrinth von Kindo'jan | Labyrinth von Kindo'jan |
+| frFR | Le labyrinthe de Kindo’jan | (gelijk) |
+| esES | El laberinto de Kindo'jan | (gelijk) |
+| esMX | El Laberinto de Kindo'Jan | (gelijk) |
+| ptBR | O Labirinto de Kindo'jan | (gelijk) |
+| itIT | Labirinto di Kindo'jan | (gelijk) |
+| ruRU | Лабиринт Киндо'джана | (gelijk) |
+
+Context, GEMETEN (alleen enUS gelezen, tenzij anders gezegd):
+- UiMap 2647: Type 4, ParentUiMapID 2395. UiMap 2648 (Type 4, parent 2395) en 2671 (Type 3, parent 0) heten ook "The Labyrinth of Kindo'jan". Die twee niet per taal gelezen.
+- AreaTable 16913: ZoneName `121UlaTekLabyrinth`, ContinentID 3043. Map 3043: InstanceType 5.
+- AreaPOI 9035, 9036 en 9037 heten alle drie "The Labyrinth of Kindo'jan". 9035 heeft als `Description_lang` "Bountiful Delve" (per taal gelezen; deDE `Großzügige Tiefe`).
+- Niet verwarren: AreaTable 16822 en UiMap 2394 heten gewoon "Labyrinth". Dat zijn andere rijen.

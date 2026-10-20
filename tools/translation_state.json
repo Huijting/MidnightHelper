@@ -21065,12 +21065,13 @@
    "ruRU": "007f359444723db6"
   },
   "MOUNTPROG_LOAWAYFARER_HOWTO": {
-   "deDE": "3408239ad884ba94",
-   "esES": "3408239ad884ba94",
-   "frFR": "3408239ad884ba94",
-   "itIT": "3408239ad884ba94",
-   "ptBR": "3408239ad884ba94",
-   "ruRU": "3408239ad884ba94"
+   "deDE": "185c59ee9b4c76a1",
+   "esES": "185c59ee9b4c76a1",
+   "frFR": "185c59ee9b4c76a1",
+   "itIT": "185c59ee9b4c76a1",
+   "nlNL": "185c59ee9b4c76a1",
+   "ptBR": "185c59ee9b4c76a1",
+   "ruRU": "185c59ee9b4c76a1"
   },
   "MOUNTPROG_NULLFRAME_HOWTO": {
    "deDE": "b7eb1643c8d1da0d",
@@ -23136,6 +23137,15 @@
    "nlNL": "46f86397183d2ebb",
    "ptBR": "46f86397183d2ebb",
    "ruRU": "46f86397183d2ebb"
+  },
+  "NEWS_FABLED_KINDOJAN_FMT": {
+   "deDE": "d7c0f0cda178c8c6",
+   "esES": "d7c0f0cda178c8c6",
+   "frFR": "d7c0f0cda178c8c6",
+   "itIT": "d7c0f0cda178c8c6",
+   "nlNL": "d7c0f0cda178c8c6",
+   "ptBR": "d7c0f0cda178c8c6",
+   "ruRU": "d7c0f0cda178c8c6"
   },
   "NUDGE_HIDE": {
    "deDE": "d16d035f63448e2e",

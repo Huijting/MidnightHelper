@@ -44,6 +44,15 @@ Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg n
   vervaagt … tot de volgende echte nieuwsupdate" → `ns.db.gameNews.seen[id]` (per account); klik = MarkGameNewsSeen; knop
   rustig (chip/grijs, alpha 0,75) tot er een id is dat niet gezien is. 📌 Verandert de BETEKENIS van een melding → nieuw id.
   `/mh news` toont "(seen)", `/mh news reset` zet alles terug.
+  ✅ Rob 20 okt: "geeft dat labyrinth … ook een unieke mount?" → 2 mh-research-rondes eens: mount Loa-Blessed Wayfarer
+  (Mount 3144, item 283363) via 63715, voorwaarde ModifierTree "na 1552, vóór 2771" = heel Season 2, nog open, geen
+  einddatum; 64039 = alleen titel; Kinduru-hotfix 16 okt geeft vergeten mount/toy alsnog. Rob: "doe die 2 dingen" →
+  NEWS_FABLED_KINDOJAN_FMT noemt de mount (id nu "fabled2" → knop weer oranje) + MOUNTPROG_LOAWAYFARER_HOWTO (tijdslimiet,
+  kist, Kinduru), 8 talen + esMX, clientnamen Ronde 4. ⚠️ "Ancestral Bounty" en de Labyrinth-Kinduru-NPC zijn per taal
+  NIET in wago → packs zeggen "de kist na het gevecht". 🔜 Mount-einddatum zodra Blizzard het Season 2-einde noemt.
+- 🎮 Rob levelt een Havoc DH (lvl 22, 189 gevechten in /mh presses): drukste 1-4 liggen goed, Blade Dance S-4 en Felblade
+  C-1 laten de hand springen (toetsenblok = zelfde taak op elke toets). Advies: de twee Swap-tips (→ Q en F). Idee C
+  ("Beginners: op volgorde", nieuwe spells achteraan, schakelaar < 80) = Robs keuze na de swaps.
   ⚠️ SET_GAMENEWS_DESC enUS/nlNL noemt nu ook de knop; de/fr/es/pt/it/ru nog de oude zin → check_drift.
 - Ronde 2 clientnamen (mh-writer, docs/CLIENT_NAMES Ronde 2): spoorwoorden in Codex/StartHere/MythicPlus de/fr/es/pt; 12
   gave-namen fr/es/esMX/pt/it/ru; giftwoord; Warbound-packs; Voidcore-label; Housing; ru crest-label Myth "Эпоха"

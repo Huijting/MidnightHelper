@@ -29,6 +29,8 @@ Eerst `/reload`.
 - [x] ✅ Rob 20 okt (screenshot): oranje banner bovenaan This Week, grote kop, 3 meldingen, "8 day(s) left".
 - [x] ✅ Rob 20 okt (screenshot, level 22): oranje "News (1)" links naast Classic — "die ziet er dus goed uit".
 - [x] ✅ Rob 20 okt (screenshot): na klikken op level 22, op een level-90 weer oranje "News (3)" — "ja dat gaat goed".
+- [ ] Na `/reload` op een level-90: News weer oranje (Fabled-melding is nieuw), en de Fabled-regel noemt nu de mount
+      Loa-Blessed Wayfarer "until the end of Season 2". Mounts → Loa-Blessed Wayfarer: uitleg met kist, Season 2, Kinduru.
 - [ ] Klik op News → de knop wordt rustig (gewone paarse knop, iets doorzichtig), ook na `/reload` en op een ander
       character. `/mh news` zegt "(seen)" achter elke melding. `/mh news reset` → weer oranje.
 - [ ] (oud) Bovenin het venster, links naast Classic: een oranje knop "News (3)". Muis erop → de drie meldingen in een
