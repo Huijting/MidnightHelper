@@ -4,6 +4,8 @@
 
 Klaar en gecontroleerd (syntax OK, lint 0 HARD): Fabled-regel, Corrosive Codex-kaart (twee soorten gif), Labyrinth-
 tips uit de video, Voidcore-bugregel, SimcExport-rank, clientnamen it/de/ru/esMX. Zie CHANGELOG.md 4.10.2.
+✅ Tag `v4.10.2` (annotated) op 76e53e8; run 39386733253 = success (CurseForge + Wago "Success!", GitHub Release
+bestaat). Site-chat geseind (live = Robs ja).
 🔜 Open, niet gedaan: de/Codex-kaarten CODEX_ATALUTEK_BODY/_DISC_BODY zeggen nog "Corrosive Codex"/"Corrosive Souls"
 (nu gemengd met "Ätzender Kodex"); ruRU-proza kan nog "Чемпион"/"Легендарный герой" voor de sporen gebruiken; frFR
 Myth (Mythe of Mythique) onbeslist; CLAUDE.md-regel "Corrosive Coin/Soul blijft Engels" vs client-namen-regel (11 okt)

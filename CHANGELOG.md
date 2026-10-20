@@ -5,7 +5,8 @@ All notable changes to this project are documented in this file.
 ## 4.10.2
 
 📌 **2026-10-20, RELEASE (Rob: "Okay, 4.10.2 versie doen" — dictated as "fourth one, punt 2 versie doen" — and "Doe ze
-alle drie maar").** Patch. In-game: CHANGELOG_4102_0..4 (enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.2.md`.
+alle drie maar").** Patch. Tag `v4.10.2` op 76e53e8; run 39386733253 = success (CurseForge, Wago, GitHub).
+In-game: CHANGELOG_4102_0..4 (enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.2.md`.
 NIET in het spel gezien: alle teksten hieronder (Codex, tips, vertalingen) en de SimcExport-regel.
 
 - **Fabled Kindo'jan** (64039): oranje regel in CODEX_LABYRINTH_BODY + DELVE_TIP_LABYRINTH_BOSS (8 talen + esMX, client-
