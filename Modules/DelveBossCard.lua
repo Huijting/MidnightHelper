@@ -304,7 +304,22 @@ local function MaybeShowRoomCard()
 		return
 	end
 	local task, texts = CurrentRoomTask(ENTRY_LABYRINTH)
-	DB().lastScenario = { at = date and date("%H:%M:%S") or "?", texts = texts, match = task and task.name or nil }
+	local stamp = date and date("%Y-%m-%d %H:%M:%S") or "?"
+	DB().lastScenario = { at = stamp, texts = texts, match = task and task.name or nil }
+	-- A history, not only the last reading (Rob, 20 Oct 2026: a room in The Cave Towers gave no card and he had not
+	-- looked; only the newest reading survived until his /reload). Every change of tracker text is kept, 30 newest.
+	local joined = table.concat(texts, " | ")
+	local hist = DB().scenarioHistory
+	if type(hist) ~= "table" then
+		hist = {}
+		DB().scenarioHistory = hist
+	end
+	if joined ~= "" and (not hist[1] or hist[1].texts ~= joined) then
+		table.insert(hist, 1, { at = stamp, texts = joined, match = task and task.name or "-" })
+		while #hist > 30 do
+			table.remove(hist)
+		end
+	end
 	if not task or lastRoomShown == task.name then
 		return
 	end
@@ -341,6 +356,11 @@ function ns.MH_DelveRoomCardCommand(arg)
 		end
 		table.sort(names)
 		print(("   %d known tasks: %s"):format(#names, table.concat(names, ", ")))
+		local hist = DB().scenarioHistory or {}
+		for i = 1, math.min(#hist, 8) do
+			local h = hist[i]
+			print(("   %s  %s  -> %s"):format(tostring(h.at), tostring(h.texts), tostring(h.match)))
+		end
 		return
 	end
 	local task

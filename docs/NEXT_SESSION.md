@@ -20,7 +20,13 @@ SCENARIO_UPDATE/CRITERIA_UPDATE/PLAYER_ENTERING_WORLD (+0,5 s) de scenario-tekst
 C_Scenario.GetStepInfo, GetScenarioInfo().name) en zoekt die naam onder de witte taaknamen in DELVE_TIP_LABYRINTH_ROOMS
 ("• |cffffffff<taak>|r:") → venster "Room: <taak>" met de taakregel + de eigen regel van elke baas die erin genoemd
 wordt; 1× per taak, tot een andere taak. GEMETEN offline: 13 taken herkenbaar (en/nl gelijk). ✅ GEMETEN in het spel
-(Rob 20 okt, /reload in een kamer): de kaart opende meteen → de taaknaam is leesbaar. `/mh roomcard [why|naam]`, laatste lezing in ns.db.delveBossCard.lastScenario. 🔜 Taken
+(Rob 20 okt, /reload in een kamer): de kaart opende meteen → de taaknaam is leesbaar.
+🔴 GEMETEN in Robs combat log 20 okt (WoWCombatLog-102026_203325.txt): GEEN ENCOUNTER_START in de hele run (ook niet bij
+Cynthra 20:46 en Pit Boss 20:55) → het "venster bij gevechtsstart"-pad vuurt in kamers vermoedelijk nooit; kamerkaart +
+lijst zijn de werkende wegen. Kamer in The Cave Towers 21:09–21:20: Vilebranch (Vile Pillager ×11 …, percentage),
+Fiery Hexmask 21:15, robot "Drill Driver" npc 273713 (NIET in DELVE_BOSS_SHOWCASE; ≠ Drill Sergeant 273069) †21:19;
+geen kamerkaart → taaknaam onbekend. mh-research loopt op Drill Driver. Sindsdien bewaart MH elke kamernaam-lezing
+(ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8). `/mh roomcard [why|naam]`, laatste lezing in ns.db.delveBossCard.lastScenario. 🔜 Taken
 zonder witte naam (Hexbound Defenders, Head ritualists, Ritual items, Golden lever, Trial gates) → naam via why meten.
 
 ## 🗺️ 20 okt (middag) — werkplan voor de volgende release (Rob: "we gaan dit allemaal aanpakken, het hoeft vandaag niet af")
