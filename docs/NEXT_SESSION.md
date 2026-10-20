@@ -19,8 +19,8 @@ een Labyrinth-baas opent het venster (NavSearch). 🔜 Meten of ENCOUNTER_START 
 SCENARIO_UPDATE/CRITERIA_UPDATE/PLAYER_ENTERING_WORLD (+0,5 s) de scenario-teksten (GetScenarioStepInfo().title,
 C_Scenario.GetStepInfo, GetScenarioInfo().name) en zoekt die naam onder de witte taaknamen in DELVE_TIP_LABYRINTH_ROOMS
 ("• |cffffffff<taak>|r:") → venster "Room: <taak>" met de taakregel + de eigen regel van elke baas die erin genoemd
-wordt; 1× per taak, tot een andere taak. GEMETEN offline: 13 taken herkenbaar (en/nl gelijk). AFGELEID: dat de taaknaam
-leesbaar is (geen unit-tekst). `/mh roomcard [why|naam]`, laatste lezing in ns.db.delveBossCard.lastScenario. 🔜 Taken
+wordt; 1× per taak, tot een andere taak. GEMETEN offline: 13 taken herkenbaar (en/nl gelijk). ✅ GEMETEN in het spel
+(Rob 20 okt, /reload in een kamer): de kaart opende meteen → de taaknaam is leesbaar. `/mh roomcard [why|naam]`, laatste lezing in ns.db.delveBossCard.lastScenario. 🔜 Taken
 zonder witte naam (Hexbound Defenders, Head ritualists, Ritual items, Golden lever, Trial gates) → naam via why meten.
 
 ## 🗺️ 20 okt (middag) — werkplan voor de volgende release (Rob: "we gaan dit allemaal aanpakken, het hoeft vandaag niet af")
