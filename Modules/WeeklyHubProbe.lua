@@ -81,6 +81,16 @@ local SPARK_GIVERS = {
 	{ 96995, "Turn Back the Surge (Zela)" },
 }
 
+--- Vaeli's housing weeklies (20 Oct 2026). Once per ACCOUNT per week (Blizzard, 18 Mar 2026), so this pool
+--- also prints the account flag: whether IsQuestFlaggedCompletedOnAccount resets weekly is not measured yet.
+local VAELI = {
+	{ 95413, "Community Engagement" },
+	{ 95416, "Going Postal" },
+	{ 95438, "Lost Animals" },
+	{ 95440, "Housewarming" },
+	{ 95406, "Lost Animals (older id)" },
+}
+
 local function QuestState(id)
 	local done, onQuest
 	if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
@@ -117,7 +127,7 @@ end
 
 --- @param turned table|nil  questID -> time handed in this week (ResetRoutine's turn-in log)
 --- @return number inLog, number completed
-local function PrintPool(label, list, turned)
+local function PrintPool(label, list, turned, showAccount)
 	say(("   |cff8fd3ff%s|r"):format(label))
 	local anyDone, anyOn = false, false
 	local nOn, nDone = 0, 0
@@ -140,6 +150,10 @@ local function PrintPool(label, list, turned)
 		-- a reset morning, "completed" without this is the flag that never clears.
 		if type(turned) == "table" and turned[id] then
 			state = state .. (" |cff40c040+ handed in %s|r"):format(date("%a %H:%M", turned[id]))
+		end
+		if showAccount and C_QuestLog and C_QuestLog.IsQuestFlaggedCompletedOnAccount then
+			local ok, v = pcall(C_QuestLog.IsQuestFlaggedCompletedOnAccount, id)
+			state = state .. (" account:%s"):format(ok and tostring(v) or "?")
 		end
 		-- The game's own title is the check that matters: if it does not match the
 		-- name we carry, the id belongs to something else and must not be used.
@@ -256,7 +270,8 @@ function ns.PrintWeeklyHubProbe(mode)
 	local a2, b2 = PrintPool("Void Assault zone rotation", VOID_ZONES, turned)
 	local a3, b3 = PrintPool("Showdown (Riftblade Maella)", SHOWDOWN, turned)
 	local a4, b4 = PrintPool("Spark givers (Zerella, Talon Commander Zela)", SPARK_GIVERS, turned)
-	inLog, completed = a1 + a2 + a3 + a4, b1 + b2 + b3 + b4
+	local a5, b5 = PrintPool("Housing weekly (Vaeli, once per account)", VAELI, turned, true)
+	inLog, completed = a1 + a2 + a3 + a4 + a5, b1 + b2 + b3 + b4 + b5
 
 	--- 🔴 THE LEARNED IDS, PRINTED (4 Oct 2026). Liadrin read "done" while this probe said
 	--- "0 completed": the cause was a learned story quest (92916, flag never clears) that the
@@ -308,7 +323,7 @@ function ns.PrintWeeklyHubProbe(mode)
 		-- So: name every "Midnight:" quest in the log and say whether we know it.
 		-- An unknown id here is the answer, not a puzzle.
 		local known = {}
-		for _, pool in ipairs({ LIADRIN, VOID_ZONES, SHOWDOWN, SPARK_GIVERS }) do
+		for _, pool in ipairs({ LIADRIN, VOID_ZONES, SHOWDOWN, SPARK_GIVERS, VAELI }) do
 			for _, row in ipairs(pool) do
 				known[row[1]] = true
 			end

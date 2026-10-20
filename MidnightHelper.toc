@@ -278,6 +278,7 @@ Modules\MountCollector.lua
 Modules\TradingPost.lua
 Modules\SeasonTransition.lua
 Modules\CampaignLeadIn.lua
+Modules\GameNews.lua
 Modules\HomeDashboard.lua
 Modules\NavSearch.lua
 Modules\DevShots.lua

@@ -3150,6 +3150,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh gifts — the Corrosive Codex advice card (CodexAdvicePanel.lua): what it saw and decided.
 	-- /mh gear — "My gear: what now?" (GearLadder.lua, Rob for Carola, 19 Oct 2026).
+	if msg == "news" then
+		if ns.PrintGameNews then
+			ns.PrintGameNews()
+		end
+		return
+	end
 	if msg == "gear" then
 		if ns.ToggleGearLadder then
 			ns.ToggleGearLadder()

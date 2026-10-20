@@ -11,6 +11,28 @@ Geen release vandaag, tenzij er iets breekt. Volgorde, alles bouwen → testlijs
 5. D — weekplan beknopter voor solo/delves. E — Keybind-coach vindbaar/eenvoudiger (11× nooit, 0× vaak).
 6. F — Codex-advies (CODEXADV_*) vertalen naar de/fr/es/pt/it/ru.
 Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg na Blizzards fix; 4 nov 16001-TOC.
+✅ GEBOUWD 20 okt, niet in het spel gezien (TESTLIJST bovenaan):
+- A: `ResetRoutine.lua` giver `vaeli` (95413/95416/95438/95440 + 95406, minLevel 90, noLearn, eigen pin 2393 49.6/66.0,
+  HOME_ROUTINE_GIVER_PICKUP_VAELI_FMT / HOME_ROUTINE_PIN_VAELI). Alleen eigen character-vlaggen: of
+  IsQuestFlaggedCompletedOnAccount wekelijks reset is NIET gemeten → `/mh weeklies` print `account:` per Vaeli-quest om dat
+  te meten. Feiten: mh-research 20 okt (Blizzard hotfix 18 mrt "once per account each week", wiki, WoWDB level 90).
+- B: `GearLadder.lua` regel GEARLADDER_VAELI_TIP onder stap 1 (level 90 + iets open).
+- C: `Modules/GameNews.lua` (Rob: "met einddatum per melding"): `ns.GAME_NEWS` {id, key, ends per regio (UTC), minLevel}
+  → blok "In the game now" bovenaan This Week (HomeDashboard), `/mh news` (beslissing + reden), schakelaar `mh_gameNews`.
+  Nu: fabled (US di 27 okt 14:00 UTC, EU wo 28 okt 03:00 UTC), voidcore + valeera (HERCONTROLE-datum wo 4 nov, geen
+  bekende fixdatum → dan nalopen en verlengen of weghalen). Epochs GEMETEN met Python. ⚠️ De Fabled/Voidcore/Valeera-
+  zinnen in de Codex-kaarten en de delve-coach blijven statisch → die moeten nog steeds met de hand weg.
+- 1: namen GEMETEN in wago 12.1.5.70448 → `docs/CLIENT_NAMES_2026-10-20.md` (Voidcore: beide Spaanse spellingen kloppen;
+  "of the Mist"; spoorwoorden; Corrosive; de Codex-gaven = "Gaben"). Repareren + vertalen: mh-writer (zie commit).
+- 🔴 **Taalregel Rob 20 okt: de clientnaam wint ALTIJD** (CLAUDE.md bovenaan Localization; memory client-name-always-wins).
+  Gedaan (mh-writer): Corrosive Coin/Soul/Codex/Gifts → gemeten namen in de/fr/es/pt/it/ru + esMX; Ula'teks Geschenk; it
+  spoorwoorden in Codex.lua; fr Mythique; ru Adventurer-titel; nieuwe Vaeli-/news-sleutels vertaald (eigen vertaling).
+  lint check [13] KEEP-lijst leeg gemaakt. 🔜 NOG NIET (clientnaam-regel): de/fr/es/pt Codex.lua gebruikt nog Engelse
+  spoorwoorden (~40 plekken: CODEX_TRACKS_BODY, CODEX_RAID_VAULT_BODY, CODEX_CUR_*, "(Hero 1/6)"); ru DAWNCREST_TIER_
+  CHAMPION "Защитник" / _MYTH "Легенда" (crest-rijen; crest = "эпохи"); Insidious Venom (de "Heimtückisches Gift") en
+  andere giftnamen; "gift" als woord in fr/es/pt/it (cadeau/don/dádiva/dono); "Warbound" (niet gemeten); Voidcore-
+  balktekst "Nebulous Voidcores transmuted" (niet gemeten); itIT DAWNCREST_ACH_ADVENTURER "Adventurer of the Dawn"
+  (niet gemeten); it "della nebbia" vs gemeten "Mito della Nebbia".
 
 ## 🚀 20 okt — release 4.10.2 (Rob: "4.10.2 versie doen" + "Doe ze alle drie maar")
 

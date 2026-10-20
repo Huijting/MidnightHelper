@@ -193,6 +193,19 @@ local GIVER_WEEKLIES = {
 		available = function()
 			return C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted and C_QuestLog.IsQuestFlaggedCompleted(97981) or false
 		end },
+	--- 20 Oct 2026 (Rob: "we gaan dit allemaal aanpakken"; 3 mh-research rounds): Vaeli, "Neighborhood
+	--- Postmaster" (npc 260957), by the Silvermoon bank, /way #2393 49.6 66.0 (Wowhead news 20 Mar 2026, wiki
+	--- 49.48 65.78). One of four housing weeklies a week: 95413 Community Engagement, 95416 Going Postal, 95438
+	--- Lost Animals, 95440 Housewarming (Wowhead tooltips: all weekly). 95406 is an older "Lost Animals" weekly
+	--- (Kara's voice) - kept, a dead id costs nothing. Reward: choice of a Warbound pack of 20 Hero / 40 Champion
+	--- / 60 Veteran Mistcrests (wiki, Aug 2026). Required level 90 (WoWDB).
+	--- ⚠️ ONCE PER ACCOUNT PER WEEK (Blizzard hotfix note 18 Mar 2026). We only read THIS character's flags on
+	--- purpose: whether IsQuestFlaggedCompletedOnAccount resets weekly is not measured, and a wrong "done"
+	--- hides work. The pickup line says "already done on another character = she has nothing" instead.
+	--- noLearn: she also hands out the non-weekly route quests 95407-95412. None of this is seen in the client yet.
+	{ key = "vaeli", name = "Vaeli", quests = { 95413, 95416, 95438, 95440, 95406 }, minLevel = 90,
+		noLearn = true, pickupKey = "HOME_ROUTINE_GIVER_PICKUP_VAELI_FMT",
+		pin = { 2393, 49.6, 66.0, "HOME_ROUTINE_PIN_VAELI" } },
 	--- ❌ LOR'THEMAR THERON WAS HERE (16 Sep – 4 Oct 2026) AND IS GONE ON PURPOSE (Rob: "A").
 	--- 95245 "Midnight: World Tour" was in Rob's log on 16 Sep and got filed as a "Spark weekly" from
 	--- one Wowhead page. mh-research, 4 Oct: it is a ONE-TIME quest from the start of the expansion

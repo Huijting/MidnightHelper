@@ -718,9 +718,10 @@ def check_translation_markup(root):
     # something the player cannot find.
     # "Atal'Utek" left this list on 11 Oct 2026: measured, the itIT client writes "Atal'utek" and ruRU
     # "Атал'Утек" (wago UiMap 2509), and place names now follow the client (CLAUDE.md, Localization).
-    KEEP = [
-        "Corrosive Coin", "Corrosive Soul",
-    ]
+    # 20 Oct 2026: Corrosive Coin/Soul left too. Measured (docs/CLIENT_NAMES_2026-10-20.md, wago 12.1.5.70448):
+    # every client localises them (de Korrosive Münze / Ätzende Seele ...), and Rob's rule is that the client
+    # name always wins. The list is empty now; add a name only after measuring that Blizzard keeps it English.
+    KEEP = []
 
     hard, soft = [], []
     for loc in LOCALES:

@@ -21,6 +21,29 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 20 okt (middag) — "In the game now" (spelnieuws)
+
+Eerst `/reload`.
+
+- [ ] This Week: bovenaan een blokje "In the game now" met drie regels: Fabled Kindo'jan ("… N day(s) left"), de
+      Voidcore-bug en Valeera. Op een character onder 90 alleen de Valeera-regel.
+- [ ] `/mh news`: per melding "shown" of "hidden" met de reden en de einddatum (Fabled EU: wo 28 okt 03:00 UTC).
+- [ ] Instellingen → "In the game now" uit → het blokje verdwijnt; weer aan → terug.
+- [ ] Na wo 28 okt: de Fabled-regel is vanzelf weg.
+
+## 🆕 20 okt (middag) — Vaeli's housing-weekly
+
+Eerst `/reload`. Op een level-90.
+
+- [ ] Your week: een regel "Weekly (Vaeli): a housing quest by the bank …" met 20 Hero / 40 Champion / 60 Veteran. Klik → de
+      pijl gaat naar Vaeli bij de bank in Silvermoon (49.6, 66.0). Staat ze daar echt?
+- [ ] Neem haar quest aan → de regel wordt "in your log". Klaar en ingeleverd → groen "done".
+- [ ] `/mh weeklies`: een blok "Housing weekly (Vaeli, once per account)" met de vier quests en achter elke quest
+      `account:true/false`. 🔴 Belangrijk om te meten: deed een ander character hem deze week, wat zegt dat blok dan op
+      een alt? (dan weten we of MH "al gedaan op je account" kan zeggen)
+- [ ] `/mh gear` (level 90, iets kan nog omhoog): onderaan stap 1 de regel "Extra crests every week: Vaeli …".
+- [ ] In een andere taal (als je die client hebt): de/fr/es/pt/it/ru-teksten, en "… of the Mist", Avventuriero, Mythos.
+
 ## 🆕 20 okt — ochtend
 
 Eerst `/reload`.

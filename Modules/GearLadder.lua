@@ -483,6 +483,17 @@ function ns.RefreshGearLadder()
 	if anyNow or anyEstimate then
 		Add(L(anyEstimate and "GEARLADDER_WHERE_ESTIMATE" or "GEARLADDER_WHERE_RULES"), 0.45, 0.9, 0.45, nil, 2)
 	end
+	-- The weekly crest pack from Vaeli's housing quest (20 Oct 2026, plan item B): crests the game's own crest text
+	-- never mentions. Only while something can still go up, and only at level 90 (WoWDB: required level 90).
+	local anyOpenSlot = false
+	for _, g in ipairs(groups) do
+		if (g.open or 0) > 0 then
+			anyOpenSlot = true
+		end
+	end
+	if anyOpenSlot and (UnitLevel("player") or 0) >= 90 then
+		Add(L("GEARLADDER_VAELI_TIP"), 0.7, 0.8, 0.95, "GameFontHighlightSmall", 2)
+	end
 	y = y - 6
 
 	-- Step 2: the next kind of item up — the track one above most of your items — and where its crests come from,

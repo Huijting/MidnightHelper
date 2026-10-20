@@ -449,6 +449,20 @@ local function BuildLayout()
 		end
 	end
 
+	------------------------------------------------------------------ In the game now (GameNews.lua, 20 Oct 2026)
+	-- Each note ends by itself; nothing current = no block at all (/mh news says why).
+	if ns.GetGameNewsSteps then
+		local okN, nSteps = pcall(ns.GetGameNewsSteps)
+		if okN and type(nSteps) == "table" and #nSteps > 0 then
+			addFull(function(rows)
+				header(rows, ns:L("NEWS_HEADER"))
+				for _, st in ipairs(nSteps) do
+					line(rows, "- " .. (st.text or ""), COLOR_WARN)
+				end
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Reset routine (ordered, current character)
 	if ns.GetResetRoutineSteps then
 		local okSteps, steps = pcall(ns.GetResetRoutineSteps)

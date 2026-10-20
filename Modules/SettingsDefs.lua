@@ -357,6 +357,12 @@ local function Build()
 	end, function(v)
 		if ns.SetCodexAdviceEnabled then ns.SetCodexAdviceEnabled(v) end
 	end, true)
+	-- Rob, 20 Oct 2026: "het spelnieuws-blokje in het spel, met einddatum per melding" (GameNews.lua).
+	Toggle("mh_gameNews", "SET_GAMENEWS_TITLE", "SET_GAMENEWS_DESC", function()
+		return ns.IsGameNewsEnabled and ns.IsGameNewsEnabled()
+	end, function(v)
+		if ns.SetGameNewsEnabled then ns.SetGameNewsEnabled(v) end
+	end, true)
 	-- Rob, 19 Oct 2026: "ik kwam te laat achter dat ik dat moest gaan zoeken" (LabyrinthHexmask.lua).
 	Toggle("mh_labHexmaskHint", "SET_LABHEXMASK_TITLE", "SET_LABHEXMASK_DESC", function()
 		return ns.IsLabHexmaskHintEnabled and ns.IsLabHexmaskHintEnabled()
