@@ -14,6 +14,9 @@ Geen release vandaag, tenzij er iets breekt. Volgorde, alles bouwen → testlijs
 alle 4 katten een witte lijn op Valeera richten en je er ≥2 moet opvangen — botst met DELVE_TIP_LABYRINTH_BOSS ("drie doen
 niets, één beweegt"). Ook Nalorakk: meerdere berenmuren uit verschillende kanten in vaste volgorde; Akil'zon (Rob gemeten):
 donkere plekken verschuiven bij elke stoot. NIET aanpassen vóór Robs bevestiging.
+→ Halazzi BEANTWOORD (Rob in-game, via filmpjes-chat 20 okt): "Ze richten allemaal op Valeera, maar één kat beweegt maar.
+Dus daar moet je tussen gaan staan." → onze tip klopt in de kern, de video niet ("≥2 opvangen" vervalt). Mogelijke
+aanvulling: "alle vier richten een witte lijn op Valeera, maar maar één beweegt" — Rob kiest. Nalorakk + Akil'zon open.
 Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg na Blizzards fix; 4 nov 16001-TOC.
 ✅ GEBOUWD 20 okt, niet in het spel gezien (TESTLIJST bovenaan):
 - A: `ResetRoutine.lua` giver `vaeli` (95413/95416/95438/95440 + 95406, minLevel 90, noLearn, eigen pin 2393 49.6/66.0,
@@ -36,6 +39,13 @@ Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg n
   (gevormd uit "эпохи", AFGELEID). 🔜 NIET GEMETEN, dus nog Engels/eigen woord: **deDE** 10 gave-namen, Warbound, Housing,
   Voidcore-label, "… der Dämmerung"-titels, Held-/Champion-Wappen; esES "blasones de bruma de mito"; "Voidlight Marl"
   (~40 plekken, alle talen); Altar of Corrosion / Poisoned / Venom Infusion. → derde meetronde (deDE + Voidlight Marl).
+  ✅ Ronde 3 GEMETEN + toegepast (mh-writer, eigen vertaling): de 12 gave-namen, Kriegsmeutengebunden(e Pakete), Behausung,
+  Nebulöse Leerenkerne transmutiert, Nebel-/Morgenlichtwappen; Voidlight Marl in alle 7 talen (ook ru MOUNTPROG_*); Altar
+  of Corrosion, Venom Infusion, "Poisoned"-toestand. Crest-ID's: MH gebruikt al 3442–3446 (GEMETEN 31 jul). 🔜 Nog Engels,
+  niet gemeten: de CODEX_VOIDCORE_BODY "Current Season Maximum"/"Umbral Blessings of the Catalyst"/"Prey auf Nightmare";
+  de "Weekly (%s)"; de "Crest" in CODEX_TRACKS_BODY/DAWNCREST_GUIDE_MIST_DISCOUNT, MPLUS_SYSTEM "…-Stufe-Wappen"; "Spirit
+  Corrosion" (gemeten: de Geistkorrosion, in doc A8) in CAMPAIGN_VAULTS_REWARD_ALTAR alle packs; questtitel "Vaults of
+  Atal'Utek: The Altar of Corrosion"; Stormarion-itemnamen; esES CODEX_S2_BODY "Dawncrests".
 - 🔴 **Taalregel Rob 20 okt: de clientnaam wint ALTIJD** (CLAUDE.md bovenaan Localization; memory client-name-always-wins).
   Gedaan (mh-writer): Corrosive Coin/Soul/Codex/Gifts → gemeten namen in de/fr/es/pt/it/ru + esMX; Ula'teks Geschenk; it
   spoorwoorden in Codex.lua; fr Mythique; ru Adventurer-titel; nieuwe Vaeli-/news-sleutels vertaald (eigen vertaling).
