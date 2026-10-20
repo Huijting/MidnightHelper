@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 20 okt — ochtend
+
+Eerst `/reload`.
+
+- [ ] Codex → Currencies → Nebulous Voidcore: onderaan een oranje regel "Right now (Oct 2026): a known Blizzard bug …".
+- [ ] `/mh raidbots` naast de export van de SimulationCraft-addon zelf (`/simc`): is de `talents=`-regel gelijk?
+
 ## 🆕 19 okt (laat) — Mijn gear rekent de korting zelf uit
 
 Eerst `/reload`. Op Umbrion (Adventurer of the Mist = true, trinket-watermark 269 / account 308).

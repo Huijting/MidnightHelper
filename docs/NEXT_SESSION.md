@@ -10,7 +10,9 @@ Platynator 514; DBM Kindojan.lua nog steeds een stub van 13 regels) — gelezen,
 - Data-wachter: Fabled Kindo'jan verlengd tot de maintenance van de week van **27 okt** (blue post) → regel hieronder
   rechtgezet. Voidcore-"Current Season Maximum"-bug (Drahtz 15 okt, fix in de maak).
 - Content-wachter: `CODEX_VOIDCORE_BODY` ("+1 per weekly reset") klopt als uitleg, maar spelers met de bug zien een
-  rare teller. 🔜 Robs keuze: tijdelijk een regel "rare sprong = bekende Blizzard-bug" erbij?
+  rare teller. ✅ Rob: "ja" → tijdelijke regel achteraan CODEX_VOIDCORE_BODY in 8 talen + esMX ("Right now (Oct
+  2026): a known Blizzard bug … 5/2 … fix is coming (Oct 15)"). 🔴 **WEGHALEN zodra Blizzard de fix meldt**
+  (hotfix-lijst / Drahtz-draad 2381342), net als de Valeera-melding.
 
 ## 🚀 19 okt (nacht) — release 4.10.1 (Rob: "Ja, maak er 4.10.1 van. Go voor de tag, en seint de site-chat.")
 
