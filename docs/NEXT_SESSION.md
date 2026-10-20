@@ -10,6 +10,10 @@ Geen release vandaag, tenzij er iets breekt. Volgorde, alles bouwen → testlijs
 4. C — spelnieuws-regel in het spel (zoals #now op de site).
 5. D — weekplan beknopter voor solo/delves. E — Keybind-coach vindbaar/eenvoudiger (11× nooit, 0× vaak).
 6. F — Codex-advies (CODEXADV_*) vertalen naar de/fr/es/pt/it/ru.
+❓ Rob beslist (filmpjes-chat, 20 okt): videogids youtube MdXTuDmu0Lw 8:45–9:10 toont bij Kindo'jan's Halazzi-test dat
+alle 4 katten een witte lijn op Valeera richten en je er ≥2 moet opvangen — botst met DELVE_TIP_LABYRINTH_BOSS ("drie doen
+niets, één beweegt"). Ook Nalorakk: meerdere berenmuren uit verschillende kanten in vaste volgorde; Akil'zon (Rob gemeten):
+donkere plekken verschuiven bij elke stoot. NIET aanpassen vóór Robs bevestiging.
 Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg na Blizzards fix; 4 nov 16001-TOC.
 ✅ GEBOUWD 20 okt, niet in het spel gezien (TESTLIJST bovenaan):
 - A: `ResetRoutine.lua` giver `vaeli` (95413/95416/95438/95440 + 95406, minLevel 90, noLearn, eigen pin 2393 49.6/66.0,
@@ -24,6 +28,14 @@ Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg n
   zinnen in de Codex-kaarten en de delve-coach blijven statisch → die moeten nog steeds met de hand weg.
 - 1: namen GEMETEN in wago 12.1.5.70448 → `docs/CLIENT_NAMES_2026-10-20.md` (Voidcore: beide Spaanse spellingen kloppen;
   "of the Mist"; spoorwoorden; Corrosive; de Codex-gaven = "Gaben"). Repareren + vertalen: mh-writer (zie commit).
+- C+: banner — Rob 20 okt: "dat valt helemaal niet op, het moet er juist uit knallen" → news-blok nu ALS EERSTE op This
+  Week, oranje achtergrond + streep (row.bannerBg/bannerBar in HomeDashboard AcquireRow, spec.banner), grotere kop/tekst.
+  Open idee (Rob kiest): "N news!" onder de This Week-tegel op het Me-scherm.
+- Ronde 2 clientnamen (mh-writer, docs/CLIENT_NAMES Ronde 2): spoorwoorden in Codex/StartHere/MythicPlus de/fr/es/pt; 12
+  gave-namen fr/es/esMX/pt/it/ru; giftwoord; Warbound-packs; Voidcore-label; Housing; ru crest-label Myth "Эпоха"
+  (gevormd uit "эпохи", AFGELEID). 🔜 NIET GEMETEN, dus nog Engels/eigen woord: **deDE** 10 gave-namen, Warbound, Housing,
+  Voidcore-label, "… der Dämmerung"-titels, Held-/Champion-Wappen; esES "blasones de bruma de mito"; "Voidlight Marl"
+  (~40 plekken, alle talen); Altar of Corrosion / Poisoned / Venom Infusion. → derde meetronde (deDE + Voidlight Marl).
 - 🔴 **Taalregel Rob 20 okt: de clientnaam wint ALTIJD** (CLAUDE.md bovenaan Localization; memory client-name-always-wins).
   Gedaan (mh-writer): Corrosive Coin/Soul/Codex/Gifts → gemeten namen in de/fr/es/pt/it/ru + esMX; Ula'teks Geschenk; it
   spoorwoorden in Codex.lua; fr Mythique; ru Adventurer-titel; nieuwe Vaeli-/news-sleutels vertaald (eigen vertaling).

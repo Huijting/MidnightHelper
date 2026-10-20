@@ -25,7 +25,8 @@ er is niets weggegooid.
 
 Eerst `/reload`.
 
-- [ ] This Week: bovenaan een blokje "In the game now" met drie regels: Fabled Kindo'jan ("… N day(s) left"), de
+- [x] ✅ Rob 20 okt: blok staat er, maar "valt helemaal niet op" → nu een oranje banner HELEMAAL bovenaan (vóór Next up).
+- [ ] This Week: helemaal bovenaan een oranje banner "In the game now" (grotere kop, witte tekst, oranje streep) met drie regels: Fabled Kindo'jan ("… N day(s) left"), de
       Voidcore-bug en Valeera. Op een character onder 90 alleen de Valeera-regel.
 - [ ] `/mh news`: per melding "shown" of "hidden" met de reden en de einddatum (Fabled EU: wo 28 okt 03:00 UTC).
 - [ ] Instellingen → "In the game now" uit → het blokje verdwijnt; weer aan → terug.

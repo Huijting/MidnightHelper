@@ -242,6 +242,21 @@ local function BuildLayout()
 	local reference = {}
 	local REFERENCE_ORDER = { "wishlist", "collectibles", "raids", "tip" }
 
+	------------------------------------------------------------------ In the game now (GameNews.lua, 20 Oct 2026)
+	-- FIRST on the page and drawn as a banner (Rob: "het moet er juist uit knallen"). Each note ends by itself;
+	-- nothing current = no block at all (/mh news says why). No section key, so it cannot be collapsed away.
+	if ns.GetGameNewsSteps then
+		local okN, nSteps = pcall(ns.GetGameNewsSteps)
+		if okN and type(nSteps) == "table" and #nSteps > 0 then
+			addFull(function(rows)
+				rows[#rows + 1] = { header = true, banner = true, text = ns:L("NEWS_HEADER"), color = { 1, 0.6, 0.15 } }
+				for _, st in ipairs(nSteps) do
+					rows[#rows + 1] = { banner = true, text = "  - " .. (st.text or ""), color = { 1, 1, 1 } }
+				end
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Next action (headline; never collapsible)
 	-- The single question this addon exists to answer: "what should I do right now?"
 	-- The reset routine already computes a priority-ordered, live, per-character list
@@ -444,20 +459,6 @@ local function BuildLayout()
 				header(rows, ns:L("GROUPBUFF_HEADER"))
 				for _, st in ipairs(gSteps) do
 					line(rows, st.text or "", colorMap[st.color] or COLOR_WARN)
-				end
-			end)
-		end
-	end
-
-	------------------------------------------------------------------ In the game now (GameNews.lua, 20 Oct 2026)
-	-- Each note ends by itself; nothing current = no block at all (/mh news says why).
-	if ns.GetGameNewsSteps then
-		local okN, nSteps = pcall(ns.GetGameNewsSteps)
-		if okN and type(nSteps) == "table" and #nSteps > 0 then
-			addFull(function(rows)
-				header(rows, ns:L("NEWS_HEADER"))
-				for _, st in ipairs(nSteps) do
-					line(rows, "- " .. (st.text or ""), COLOR_WARN)
 				end
 			end)
 		end
@@ -992,6 +993,22 @@ local function AcquireRow(index)
 	fs:SetWordWrap(true)
 	row.fs = fs
 
+	-- Banner look for "In the game now" (Rob, 20 Oct 2026: "dat valt helemaal niet op, het moet er juist uit
+	-- knallen"): a tinted background and an accent bar, hidden on every other row.
+	local bg = row:CreateTexture(nil, "BACKGROUND")
+	bg:SetPoint("TOPLEFT", row, "TOPLEFT", -6, 1)
+	bg:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", 0, -1)
+	bg:SetColorTexture(0.95, 0.45, 0.05, 0.28)
+	bg:Hide()
+	row.bannerBg = bg
+	local bar = row:CreateTexture(nil, "ARTWORK")
+	bar:SetPoint("TOPLEFT", row, "TOPLEFT", -6, 1)
+	bar:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", -6, -1)
+	bar:SetWidth(4)
+	bar:SetColorTexture(1, 0.55, 0.1, 1)
+	bar:Hide()
+	row.bannerBar = bar
+
 	rows[index] = row
 	return row
 end
@@ -1013,10 +1030,18 @@ end
 local function ApplyRowSpec(row, spec)
 	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local c = spec.color or COLOR_DIM
-	if spec.header then
+	if spec.header and spec.banner then
+		row.fs:SetFontObject(ns.MHScalableFont("GameFontNormalLarge"))
+	elseif spec.header then
 		row.fs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
+	elseif spec.banner then
+		row.fs:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
 	else
 		row.fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	end
+	if row.bannerBg then
+		row.bannerBg:SetShown(spec.banner == true)
+		row.bannerBar:SetShown(spec.banner == true)
 	end
 	row.fs:SetText(spec.text or "")
 	row.fs:SetTextColor(c[1], c[2], c[3])
