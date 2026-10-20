@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🗺️ 20 okt (middag) — werkplan voor de volgende release (Rob: "we gaan dit allemaal aanpakken, het hoeft vandaag niet af")
+
+Geen release vandaag, tenzij er iets breekt. Volgorde, alles bouwen → testlijst → later één release (beta eerst):
+1. Vertaalnamen meten in wago en repareren (Voidcore, "… of the Mist", it Adventurer, ru Myth, fr Mythe/Mythique, de
+   "Gift", de Codex-kaarten met Corrosive Codex/Souls). Robs keuze open: Corrosive Coin/Soul Engels of clientnaam.
+2. A — Vaeli's housing-weeklies (95413/95416/95438/95440) in MH; GEMETEN 20 okt: 0 treffers in *.lua, controle 93769 = 2.
+3. B — Mijn gear: "waar haal ik nu de meeste crests" (Vaeli, delves, Vault).
+4. C — spelnieuws-regel in het spel (zoals #now op de site).
+5. D — weekplan beknopter voor solo/delves. E — Keybind-coach vindbaar/eenvoudiger (11× nooit, 0× vaak).
+6. F — Codex-advies (CODEXADV_*) vertalen naar de/fr/es/pt/it/ru.
+Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg na Blizzards fix; 4 nov 16001-TOC.
+
 ## 🚀 20 okt — release 4.10.2 (Rob: "4.10.2 versie doen" + "Doe ze alle drie maar")
 
 Klaar en gecontroleerd (syntax OK, lint 0 HARD): Fabled-regel, Corrosive Codex-kaart (twee soorten gif), Labyrinth-
