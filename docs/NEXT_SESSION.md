@@ -19,7 +19,10 @@ Platynator 514; DBM Kindojan.lua nog steeds een stub van 13 regels) — gelezen,
   verlenging); geen levens-voorwaarde (die zit alleen in 64118); Feat of Strength, titel "Fabled Vanquisher of The First
   Hash'ey", account-breed. AFGELEID: Valeera mag (geen spelersvoorwaarde), telt alleen op het moment van de kill → wie
   63715 al heeft maar 64039 niet, moet opnieuw. EU-eind: "the week of 27 October" zonder uur → vermoedelijk wo 28 okt,
-  onderhoud (Icy Veins: "28th for EU"). 🔜 Idee: in MH (Codex Labyrinth / delve-coach) een regel met deze deadline.
+  onderhoud (Icy Veins: "28th for EU"). ✅ Rob: "zet de Fabled-deadline in de Labyrinth-kaart en de delve-coach" →
+  oranje bullet in CODEX_LABYRINTH_BODY en DELVE_TIP_LABYRINTH_BOSS, 8 talen + esMX; titels/namen per taal GEMETEN in
+  wago (CharTitles 1342, Achievement 64039). 🔴 **WEGHALEN na wo 28 okt** (beide keys, alle talen). Site-chat maakt een
+  headline + legt Rob vormen voor van een vaste "spelnieuws"-plek.
 
 ## 🚀 19 okt (nacht) — release 4.10.1 (Rob: "Ja, maak er 4.10.1 van. Go voor de tag, en seint de site-chat.")
 

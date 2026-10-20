@@ -27,6 +27,8 @@ Eerst `/reload`.
 
 - [ ] Codex → Currencies → Nebulous Voidcore: onderaan een oranje regel "Right now (Oct 2026): a known Blizzard bug …".
 - [ ] `/mh raidbots` naast de export van de SimulationCraft-addon zelf (`/simc`): is de `talents=`-regel gelijk?
+- [ ] Codex → Labyrinth-kaart (bij Kindo'jan) en de delve-coach in de Labyrinth (Boss-deel): oranje regel "Fabled, only
+      until the week of 27 October …". Na 28 okt moet hij weer weg.
 
 ## 🆕 19 okt (laat) — Mijn gear rekent de korting zelf uit
 
