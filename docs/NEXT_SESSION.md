@@ -25,7 +25,13 @@ wordt; 1× per taak, tot een andere taak. GEMETEN offline: 13 taken herkenbaar (
 Cynthra 20:46 en Pit Boss 20:55) → het "venster bij gevechtsstart"-pad vuurt in kamers vermoedelijk nooit; kamerkaart +
 lijst zijn de werkende wegen. Kamer in The Cave Towers 21:09–21:20: Vilebranch (Vile Pillager ×11 …, percentage),
 Fiery Hexmask 21:15, robot "Drill Driver" npc 273713 (NIET in DELVE_BOSS_SHOWCASE; ≠ Drill Sergeant 273069) †21:19;
-geen kamerkaart → taaknaam onbekend. mh-research loopt op Drill Driver. Sindsdien bewaart MH elke kamernaam-lezing
+geen kamerkaart → taaknaam onbekend. ✅ mh-research (log + wago): de robot ÍS The Drill Sergeant 273069 (Vehicle, lvl 92,
+cast alles); Drill Driver 273713 = de ork erop (zelfde spawn-id, alleen melee, sterft 0,3 s na hem). Kamer = Chamber 3e
+"Graverobbers" (scenario 3551, stap 2 "Drill Sergeant slain"); Glitching Shield = Magic (dispelbaar), schild 2 brak
+precies op een Drilling Charge-treffer. Waarom geen kaart: onbekend (taaknaam anders, of Rob zag hem niet) → history.
+DBM r268 heeft een lege mod, LittleWigs niets. 15 okt-log had wél ENCOUNTER_START, 20 okt niet (hotfix 112302 op 20 okt
+raakte encounters 3622/3632/3636/3642/3646/3653; AFGELEID). Gedaan: creatureIdFallback 273713 + tipLineMatch "Drill
+Driver"; tip + "de ork bovenop sterft mee" en "schild is Magic, dispel" (8 talen, drift gemarkeerd). Sindsdien bewaart MH elke kamernaam-lezing
 (ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
 ➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
 rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen

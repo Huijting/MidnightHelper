@@ -325,7 +325,9 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 264495, encounterId = 3528, label = "Sha'Kuro", creatureIdFallback = { 262930 }, tipLineMatch = { "Sha'Kuro" } },
 		{ creatureId = 269822, encounterId = 3648, label = "King of Souls", tipLineMatch = { "King of Souls" } },
 		{ creatureId = 275274, encounterId = 3653, label = "Cynthra Buttonsmasher", tipLineMatch = { "Cynthra" } },
-		{ creatureId = 273069, encounterId = 3622, label = "Drill Sergeant", tipLineMatch = { "Drill Sergeant" } },
+		-- 273713 "Drill Driver" is the orc riding it (same spawn id, melee only, dies with it; Rob's combat log 20 Oct 2026).
+		{ creatureId = 273069, encounterId = 3622, label = "Drill Sergeant", creatureIdFallback = { 273713 },
+			tipLineMatch = { "Drill Sergeant", "Drill Driver" } },
 		{ creatureId = 263898, label = "Head Ritualist Malakk", tipLineMatch = { "Malakk" } },
 		-- Wowhead has a second Death Steward, 270030, with the same ability list (14 Oct).
 		{ creatureId = 271909, label = "Death Steward", creatureIdFallback = { 270030 }, tipLineMatch = { "Death Steward" } },
