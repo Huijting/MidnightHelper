@@ -57,7 +57,15 @@ DelveChestData FLOODED_ENTRANCE {2647, 56.93, 44.09}; een Flooded-kist (niet inR
 (C_Map.GetPlayerMapPosition; onleesbaar = ingang blijven) + DELVE_CHEST_FLOODED_INSIDE. Hints herschreven, 2 nieuwe
 sleutels, 8 talen. Niet in het spel gezien (TESTLIJST bovenaan). Flooded Chamber / Fiery Hexmask per client nog meten.
 ✅ GEMETEN Rob 20 okt (paladin): ingang zit onder water, Fiery Hexmask smolt het ijs, alle kistjes gehaald. "Vuurspells
-werken ook" = alleen HandyNotes, nog niet zelf gezien. Sindsdien bewaart MH elke kamernaam-lezing
+werken ook" = alleen HandyNotes, nog niet zelf gezien.
+📊 GEMETEN Robs SV (scenarioHistory, 20 okt 21:28–23:33): tracker-namen precies zoals in de data; gemist toen: Soul
+Survivor (nog geen naam), "Reins of the Warlord" (nog geen alias), Containment Breach (Rob had nog niet gereload) → alle
+drie nu opgelost. Kindo'jan-stappen heten: Choose Your Path → "Heart of the Labyrinth" → "Enemy of the Labyrinth" →
+"Soul of the Labyrinth" → "Soul Put to Rest". 🔜 Kindo'jan-venster openen op "Enemy/Soul of the Labyrinth" (DelveBossCard,
+alias → end boss). Combat log (Kindo'jan T11 solo GEHAALD, 2× dood): 23:24 Claws of the Empire ×2 + Eruption of Mojo;
+23:26 Shadow of Halazzi (Predator's Guile) + Fury of Nalorakk (Ursine Rampage). 🔜 "Claws of the Empire" staat NIET in
+DELVE_TIP_LABYRINTH_BOSS (0 treffers, controle Eruption of Mojo wel) → 2 mh-research-rondes, dan toevoegen. Morgen na de
+reset: Rob test met zijn shaman of vuurspells het ijs in de Flooded Chamber smelten. Sindsdien bewaart MH elke kamernaam-lezing
 (ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
 ➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
 rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen
