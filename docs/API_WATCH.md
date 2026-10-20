@@ -6392,3 +6392,109 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     en laat de scheve lokale ref met rust. 📌 Voor morgen: `HEAD:main` is de goedkoopste route, want hij
     hoeft de stale ref niet eens aan te raken. Werkboom was schoon en **geen** van de vier
     wachter-bestanden stond gewijzigd-maar-ongecommit.
+- [2026-10-20] 🔴 **Eén [MOET GEFIKST], en het is de eerste sinds 9 okt: de SimulationCraft-addon heeft
+  release `12.1.5-02` (19 okt) en daarin verandert één regel die NIET Forever-only is — de rank in de
+  `talents=`-string. `Modules/SimcExport.lua:410` draagt nog de oude vorm.** De rest van die release is
+  WoW Forever en raakt ons niet. Verder niets: wiki onveranderd (vierde dag), geen nieuwe hotfix-batch,
+  geen blue post, geen nieuwe tag.
+  - 🔴 **[MOET GEFIKST] — `Modules/SimcExport.lua:410`: `node.activeEntry.rank` → upstream schrijft nu
+    `(node.currentRank or node.ranksPurchased)`.** GEMETEN in de commit-diff van upstream
+    (`api.github.com/repos/simulationcraft/simc-addon/commits/b0cce8e…`, mét cache-buster), hunk
+    `@@ -445,7 +444,7 @@ local function GetTraitString(optionName, configID)` in `core.lua`, letterlijk:
+    - was: `entries[#entries + 1] = node.activeEntry.entryID .. ':' .. node.activeEntry.rank`
+    - is:  `entries[#entries + 1] = node.activeEntry.entryID .. ':' .. (node.currentRank or node.ranksPurchased)`
+
+    MH's `TraitLine()` is één-op-één diezelfde functie: `Modules/SimcExport.lua:407-411` doet
+    `GetTreeNodes` → `GetNodeInfo` → `if node and node.ranksPurchased and node.ranksPurchased > 0 and
+    node.activeEntry then` en concateneert dan `node.activeEntry.rank`. 🔴 **Geen afdekking:** de guard
+    test `node.activeEntry` (de tabel), niet `node.activeEntry.rank` (het veld), en de `Call`-wrapper
+    (`:128-137`) pcallt alléén de API-aanroep — de concatenatie staat erbuiten. Zou `rank` ooit `nil`
+    zijn, dan is dat een harde fout in `/mh raidbots`; de upstream-vorm met `or` kan dat niet.
+    - 📌 **Dit is GEEN verzonnen migratie:** de vervangende uitdrukking is hierboven letterlijk uit de
+      diff gekopieerd, niet bedacht.
+    - ✅ **GEMETEN dat `currentRank` echt bestaat** (warcraft.wiki `Structure TraitNodeInfo`, laatste
+      revisie 2026-06-09, via `rest.php/v1/page/Structure_TraitNodeInfo` mét cache-buster): *currentRank
+      — "Similar to activeRank - used for tooltips and other texts … seems to be the sum of GrantedRanks
+      + PurchasedRanks"*; *ranksPurchased — "Number of ranks purchased, automatically granted ranks do
+      not count"*; *activeEntry — "… the rank matches activeRank"*. De drie velden zijn dus niet
+      hetzelfde: `activeEntry.rank` is activeRank (zonder granted ranks), `currentRank` telt granted
+      ranks mee. ⚠️ **Waarom upstream het omzette is AFGELEID, niet gemeten:** de enige motivering die
+      ik vond staat in het zusterbestand `forever/legacytalents.lua` van dezelfde commit — *"activeEntry.rank
+      isn't reliable for multi-rank Legacy nodes; currentRank is the point total"*. De wijziging staat
+      echter in de **gedeelde** `GetTraitString`, niet achter een Forever-guard, dus hij geldt ook voor
+      Retail-talents.
+    - ⚠️ **NIET GEMETEN en niet te meten zonder client: of de geëxporteerde string op een Retail-boom
+      werkelijk verschilt.** Dat is één test voor Rob: `/mh raidbots` naast de export van de
+      SimulationCraft-addon zelf leggen en de `talents=`-regel vergelijken. Wijkt er niets af, dan is de
+      fix alleen nog de nil-veiligheid hierboven.
+  - ✅ **[RAAKT ONS NIET] — al het andere in `12.1.5-02` is WoW Forever.** GEMETEN uit dezelfde diff
+    (156 regels, 5 bestanden): `IS_FOREVER` verhuisd naar `extras.lua` als
+    `WOW_PROJECT_ID == (WOW_PROJECT_CAMELOT or 18)`; `'bags'` toegevoegd aan `FOREVER_EXPORTS`; een
+    `AmmoSlot`-tak in `GetItemStrings` plus een `# ammo_count=`-regel; `RangedSlot` als slot 20 met
+    `INVTYPE_RANGED/RANGEDRIGHT/THROWN/RELIC` erheen herwezen; het nieuwe `forever/legacytalents.lua`
+    met `Simulationcraft:GetLegacyTalentString()` en de profielregel `legacy_talents=`; en
+    `Simulationcraft:GetEquippedBags()` met `bagN=,id=X`-regels.
+    🔴 **Grep over de addon (`.git`, `docs`, `tools`, `dist` uitgesloten) op
+    `AmmoSlot|RangedSlot|legacy_talents|GetEquippedBags|IS_FOREVER|ammo_count` → nul treffers in
+    `Modules/`;** de enige treffers op het ruimere patroon zijn `INVTYPE_RANGED`-mappings
+    (`Modules/SimcExport.lua:114` zet `INVTYPE_RANGED`/`INVTYPE_RANGEDRIGHT` op slot **17**, exact de
+    Retail-tabel die upstream ongemoeid laat, en `Modules/GearExport.lua:103`/`:193`/`:265`,
+    `Modules/VaultAdvisor.lua:163-164`) en `WOW_PROJECT_ID` in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607`.
+    **Positieve controle in dezelfde run, zelfde reikwijdte:** `SIMC_SLOT_NAMES|BuildSimcProfile` →
+    **4** treffers in `Modules/SimcExport.lua`. Het patroon vindt dus wél wat er is.
+  - 📎 **Terzijde, geen actiepunt vandaag: het kopcommentaar van `Modules/SimcExport.lua:12-15` zegt dat
+    het de addon volgt "at release 12.1.0-04 … still in 12.1.5-alpha-01".** Upstream staat nu op
+    `12.1.5-02`. Dat is een comment, geen gedrag; ik raak het niet aan.
+  - 🧰 **SimC-addon, de meting zelf:** GEMETEN langs twee wegen mét cache-buster. `releases?per_page=3`
+    geeft bovenaan **`12.1.5-02`**, tag `12.1.5-02`, `published_at` **2026-10-19T20:39:12Z**, gebouwd door
+    `github-actions[bot]`; `commits/master.atom` geeft als nieuwste commit
+    **`b0cce8ecfccd0c5ff2fb4942135e9c0589c2c5d7`** — *"forever: Add legacy talents, ranged, ammo, and bags /
+    Also cleaned up detection of Retail vs Forever"*, Dave Hendler (seriallos), **2026-10-19T20:38:11Z**,
+    met `8741352…` (12.1.5-01, 12 okt) als enige parent. Eén commit verschil, dus de diff hierboven ís de
+    hele release.
+  - ✅ **[RAAKT ONS NIET] — hotfixes: geen nieuwe batch sinds 16 okt, en de topic is OPNIEUW OP TITEL
+    gezocht in plaats van op het id van gisteren.** GEMETEN mét cache-buster:
+    `search.json?q=hotfixes in:title after:2026-10-13` geeft als bovenste post **`2382684`** (Linxy,
+    geopend 2026-10-15T00:53:57.786Z) — dezelfde lopende topic als gisteren, nu langs de weg die de val
+    van 18 okt juist ving. `raw/2382684/1` heeft nog steeds **"October 16, 2026"** bovenaan, met 15, 14
+    en 13 okt eronder: **alle vier al gisteren gelezen en hier gelogd**, dus niets nieuws. 🔴 **En
+    gecontroleerd dat Blizzard niet alweer een nieuwe topic begonnen is:**
+    `q=hotfixes in:title after:2026-10-17` → **`"posts":[]`**, leeg. Positieve controle in dezelfde run
+    en dezelfde zoekvorm: diezelfde query met `after:2026-10-13` geeft wél vijf posts. Het lege resultaat
+    is dus echt leeg en geen kapotte query.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's zijn voor de VIERDE dag op rij onveranderd.**
+    GEMETEN via `rest.php/v1/page/<pagina>/history` mét cache-buster (en met `%2F` voor de slash, de
+    werktuigregel van gisteren): `Patch 12.1.7/API changes` staat nog op **6919765
+    (2026-10-16T22:38:53Z, Ketho, `/* Blue posts */`)** en `Patch 12.1.5/API changes` nog op **6919763
+    (2026-10-16T22:38:41Z, Ketho)** — identiek aan 17, 18 en 19 okt. Geen nieuwe `12.1.x/API
+    changes`-pagina: `rest.php/v1/search/page?q=API changes&limit=12` geeft alleen `API change
+    summaries`, `API change summaries/Historical` en pagina's uit 1.14–9.1 en 3.x.
+  - 🔇 **Forum `#ui-macro` sinds 13 okt: één draadje dat hier nog niet stond, nul blue posts, nul
+    API-namen.** Via `search.json?q=#ui-macro after:2026-10-13` mét cache-buster, op **id** gecontroleerd
+    tegen dit logboek: nieuw is **`2386807`** (eldrisa, **19 okt 14:30:50.935Z**, `grep -c` → **0**) —
+    een frost-DK vraagt of de **spell alert**-iconen kleiner kunnen mét behoud van hun positie, en of
+    een addon of script dat kan. Gelezen via `raw/2386807/1`: **geen enkele API-naam, geen gewijzigd
+    gedrag**, alleen een schaalwens. Er is dus niets om tegen de code te houden. De overige treffers
+    stonden hier al: `2385490` (2×), `2386382` (1×), `2383107` (1×) en `2367394` (**20×**, de
+    `GLOBAL_MOUSE`-unregister-draad van 30 sep; post #8 van 13 okt is een losse "lol yes").
+    - 🔴 **GEMETEN dat er geen blue reply is, mét positieve controle.** `#ui-macro @Linxy
+      after:2026-10-13` → **nul posts**; `#ui-macro @Kaivax after:2026-10-13` → **nul posts**. Zonder
+      datumfilter geeft `#ui-macro @Linxy` wél een treffer (*"Macro Changes Now Live: Target Markers and
+      Chat Messages"*, topic `2261956`, 2026-03-01T21:33:32Z). De zoekvorm werkt, het lege resultaat is echt.
+  - ⏳ **ONGEWIJZIGD EN NIET NIEUW: het API-gat tussen build 69952 en 70448 staat nog open.** GEMETEN via
+    `api.github.com/repos/Gethe/wow-ui-source/tags?per_page=4` mét cache-buster: `12.1.7`
+    **`b87363e0770c2f15b1e2f154de8ad3b0cf3ea90a`** en `12.1.5` **`b9be9379719047977fca4dba1bb1d9988e8840b3`**,
+    beide identiek aan gisteren; daarachter pas `12.1.0` en `12.0.7`. Geen nieuwe tag, dus nog altijd geen
+    bron die beschrijft wat er tussen 69952 en 70448 aan API veranderd is. Staand gat, geen nieuws.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de `%d+`-aanname op veld 3
+    in `Modules/ResetRoutine.lua:648`; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); en de UTF-8 **BOM** vooraan `MidnightHelper.toc` waardoor
+    `grep -E "^## Interface"` nul geeft. 🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de scheve lokale ref van 17-19 okt is er
+    VANDAAG NIET.** GEMETEN vóór het schrijven: `git status --short` leeg, branch `main`, en na
+    `git fetch origin main` (geen forced update, alleen `-> FETCH_HEAD`) zijn `HEAD`, `main` en
+    `origin/main` alle drie **`8a81696f976d9006675574c746f349c163bb24d0`** (*"Handoff: site 4.10.1 live;
+    … of the Mist names to measure"*). **Geen** van de vier wachter-bestanden stond gewijzigd-maar-ongecommit.
