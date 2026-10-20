@@ -13,6 +13,13 @@ Platynator 514; DBM Kindojan.lua nog steeds een stub van 13 regels) — gelezen,
   rare teller. ✅ Rob: "ja" → tijdelijke regel achteraan CODEX_VOIDCORE_BODY in 8 talen + esMX ("Right now (Oct
   2026): a known Blizzard bug … 5/2 … fix is coming (Oct 15)"). 🔴 **WEGHALEN zodra Blizzard de fix meldt**
   (hotfix-lijst / Drahtz-draad 2381342), net als de Valeera-melding.
+- **Fabled Kindo'jan (64039) uitgezocht** (Rob: "voor Cisca en Carola is dit goed nieuws"), 2 mh-research-rondes eens:
+  GEMETEN (wago 12.1.5.70448): "Defeat Kindo'jan … on Tier 11 without any other players in your party"; zelfde event en
+  voorwaarden als 63715 (tier = 11, solo-vlag), alleen de eindtijd verschilt (time event 3192 vs 2771, server-kant →
+  verlenging); geen levens-voorwaarde (die zit alleen in 64118); Feat of Strength, titel "Fabled Vanquisher of The First
+  Hash'ey", account-breed. AFGELEID: Valeera mag (geen spelersvoorwaarde), telt alleen op het moment van de kill → wie
+  63715 al heeft maar 64039 niet, moet opnieuw. EU-eind: "the week of 27 October" zonder uur → vermoedelijk wo 28 okt,
+  onderhoud (Icy Veins: "28th for EU"). 🔜 Idee: in MH (Codex Labyrinth / delve-coach) een regel met deze deadline.
 
 ## 🚀 19 okt (nacht) — release 4.10.1 (Rob: "Ja, maak er 4.10.1 van. Go voor de tag, en seint de site-chat.")
 
