@@ -24,7 +24,9 @@ er is niets weggegooid.
 ## 🆕 20 okt (laat) — Flooded Chamber: ingang onder water in de kistenroute
 
 Eerst `/reload`. In de Labyrinth, als alleen de 5 Flooded Chamber-kistjes over zijn (of je ze als eerste krijgt):
-- [ ] Klik Chests → het pijltje wijst naar "Underwater entrance (Flooded Chamber)" bij ongeveer 56.9, 44.1, en de melding
+- [x] ✅ Rob 20 okt (paladin): alle kistjes gehaald; de ingang zit inderdaad onder water; met de Fiery Hexmask door het ijs.
+      Vuurspells NIET getest (paladin heeft er geen) → nog op een mage/shaman proberen.
+- [ ] (rest) Klik Chests → het pijltje wijst naar "Underwater entrance (Flooded Chamber)" bij ongeveer 56.9, 44.1, en de melding
       zegt: onder water, ijsmuur, Fiery Hexmask OF eigen vuurspells. Ligt de ingang echt daar? (bron: HandyNotes)
 - [ ] Bij de ingang (binnen ~1 kaarteenheid) of verder: melding "You are at the underwater entrance …" en het pijltje
       springt naar het kistje. Smelt een vuurspell het ijs echt? (HandyNotes zegt ja; niet zelf gezien)

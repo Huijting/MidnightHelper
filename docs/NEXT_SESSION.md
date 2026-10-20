@@ -55,7 +55,9 @@ met wago + Blizzard-forum + Zygor). Rob haalde CB uiteindelijk; Carola liep vast
 DelveChestData FLOODED_ENTRANCE {2647, 56.93, 44.09}; een Flooded-kist (niet inRoom) → pijl eerst naar de ingang
 (floodedLeg = "entrance"), ticker springt naar de kist zodra speler < 1,0 van de ingang of < 3,0 van de kist is
 (C_Map.GetPlayerMapPosition; onleesbaar = ingang blijven) + DELVE_CHEST_FLOODED_INSIDE. Hints herschreven, 2 nieuwe
-sleutels, 8 talen. Niet in het spel gezien (TESTLIJST bovenaan). Flooded Chamber / Fiery Hexmask per client nog meten. Sindsdien bewaart MH elke kamernaam-lezing
+sleutels, 8 talen. Niet in het spel gezien (TESTLIJST bovenaan). Flooded Chamber / Fiery Hexmask per client nog meten.
+✅ GEMETEN Rob 20 okt (paladin): ingang zit onder water, Fiery Hexmask smolt het ijs, alle kistjes gehaald. "Vuurspells
+werken ook" = alleen HandyNotes, nog niet zelf gezien. Sindsdien bewaart MH elke kamernaam-lezing
 (ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
 ➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
 rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen
