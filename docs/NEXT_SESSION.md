@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🌅 20 okt — ochtendronde
+
+GEMETEN: vier wachters gedraaid; CF 0 open, GitHub 0; 40 addons bijgewerkt (o.a. DBM 12.1.16 met eigen consumables-check,
+Platynator 514; DBM Kindojan.lua nog steeds een stub van 13 regels) — gelezen, niet getest; HandyNotes 165 onveranderd.
+- Vragenlijst **#22** bijgeteld (19 okt, US/en, dps, net geïnstalleerd, cijfer 3, "solo en delves") → gemiddeld 4,2.
+- 🔴 API-wachter: `Modules/SimcExport.lua:410` → `(node.currentRank or node.ranksPurchased)`, letterlijk uit simc-addon
+  12.1.5-02 (b0cce8e). Gedaan. 🔜 Rob: `/mh raidbots` naast de export van de SimulationCraft-addon leggen, `talents=` gelijk?
+- Data-wachter: Fabled Kindo'jan verlengd tot de maintenance van de week van **27 okt** (blue post) → regel hieronder
+  rechtgezet. Voidcore-"Current Season Maximum"-bug (Drahtz 15 okt, fix in de maak).
+- Content-wachter: `CODEX_VOIDCORE_BODY` ("+1 per weekly reset") klopt als uitleg, maar spelers met de bug zien een
+  rare teller. 🔜 Robs keuze: tijdelijk een regel "rare sprong = bekende Blizzard-bug" erbij?
+
 ## 🚀 19 okt (nacht) — release 4.10.1 (Rob: "Ja, maak er 4.10.1 van. Go voor de tag, en seint de site-chat.")
 
 Patch: gear-prijs vooraf + geleerde NPC-prijs, crest-bronnen per soort, Mount run-mounts zoeken, "1 step" enkelvoud.
@@ -202,7 +214,7 @@ het plan tot ~33×/s bij een doel op een ander continent; (2) de nieuwe "geen vl
 in FlightLeg alleen voor doelen BUITEN Midnight (Silvermoon heeft een eigen continent-id, GEMETEN 24 aug; anders verdween
 elke Silvermoon → Midnight-vluchtmeester). Harness `lua.exe tools/travel_harness/test.lua` 28/28 (test.lua leegt de cache
 per check). Niet in het spel gezien: testlijst bovenaan. Open: Seat of the Triumvirate (Vindicaar-console), M+-teleports.
-⚠️ Fabled "Let Me Solo Him: Kindo'jan" eindigt bij de reset van 21 okt (EU) — Wowhead-reactie + gidsen, niet zelf gezien.
+⚠️ Fabled "Let Me Solo Him: Kindo'jan" eindigt bij de wekelijkse maintenance van de week van **27 okt** (Blizzard blue post Linxy 19 okt: met een week verlengd; data-wachter 20 okt). De oude datum 21 okt is achterhaald.
 
 ## 🌅 17 okt — ochtendronde + twee kleine klussen (bouwchat 17-10)
 

@@ -32,6 +32,7 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 19 | 6 okt 15:36 | GB / en | dps | weken | 4 | play, delves, weekly, route, collect, gear | mplus | irriteert: *"No"* · mist: *"Nothing - I am new to it"* |
 | 20 | 10 okt 12:21 | DE / de | dps | maanden | 4 | maps, weekly, collect, gear | delves, mplus, prof, keys, brez | — |
 | 21 | 18 okt 14:00 | DE / de | healer | net geïnstalleerd | — | — | maps, mplus, weekly, prof, keys, route, collect, gear, site | — |
+| 22 | 19 okt 05:24 | US / en | dps | net geïnstalleerd | **3** | — | alle 13 | 💬 *"I selected all of the ones in #3 because I just installed it … I do solo content and delves, so I am excited to explore that in the addon. Thank you for all that you do!"* |
 
 📌 #17 en #19 komen allebei uit GB, dps, "een paar weken", via het spel, 4½ uur na elkaar. Mogelijk dezelfde speler
 die het twee keer invulde (#19 kent veel meer onderdelen). AFGELEID, niet vast te stellen: beide tellen mee.
@@ -47,6 +48,13 @@ cijfer. #6 gaf geen cijfer en geen rol.
 ⚠️ **#9 heeft `from: "gamehttpsmidnighthelpercomsurveyf"`** — "game" met de survey-URL eraan geplakt, zonder
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
+
+## Bijgeteld 20 okt (ochtendronde): #22, en/US, dps, via het spel
+
+- Net geïnstalleerd, cijfer **3**, en legt zelf uit waarom alles op "nooit / onbekend" staat: net begonnen. Speelt
+  **solo en delves**, geen M+ of raid. De 3 lijkt dus eerder "nog niet geprobeerd" dan "slecht" (AFGELEID).
+- **Cijfer nu:** gemiddeld **4,2** (20 cijfers: 7× 5, 10× 4, 3× 3).
+- **Keybind-coach:** nu **12× "nooit / onbekend"**, nog steeds 0× "vaak".
 
 ## Bijgeteld 19 okt (ochtendronde): #21, de/DE, healer, via het spel
 

@@ -407,7 +407,10 @@ local function TraitLine(optionName, configID)
 		for _, nodeID in ipairs(Call(TR.GetTreeNodes, treeID) or {}) do
 			local node = Call(TR.GetNodeInfo, configID, nodeID)
 			if node and node.ranksPurchased and node.ranksPurchased > 0 and node.activeEntry then
-				entries[#entries + 1] = node.activeEntry.entryID .. ":" .. node.activeEntry.rank
+				-- 20 Oct 2026 (API watch): simc-addon 12.1.5-02 (commit b0cce8e, core.lua GetTraitString) writes the
+				-- rank as `(node.currentRank or node.ranksPurchased)` instead of `node.activeEntry.rank`; copied verbatim.
+				-- currentRank counts granted ranks too (warcraft.wiki TraitNodeInfo), and the `or` can never be nil here.
+				entries[#entries + 1] = node.activeEntry.entryID .. ":" .. (node.currentRank or node.ranksPurchased)
 			end
 		end
 	end
