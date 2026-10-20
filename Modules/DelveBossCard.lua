@@ -11,8 +11,12 @@ local _, ns = ...
 	Not a secure frame, so it may show in combat. It closes on a won ENCOUNTER_END, on its X, or when the next boss
 	replaces it. Switch: mh_delveBossCard (on). Off = the old 5-second button.
 
-	/mh bosscard        every boss of the Labyrinth with how many lines the card would show (0 = a gap to fill)
-	/mh bosscard <n>    show the card for boss n, out of a delve too (test)
+	/mh bosscard          a list window with every boss; click one for his card
+	/mh bosscard why      every boss with how many lines his card shows (0 = a gap to fill)
+	/mh bosscard <n|name> that boss's card ("cynthra" is enough), out of a delve too
+	The search bar finds them by name too, and every card has an "All bosses" button.
+	⚠️ Targeting a boss does NOT open the card in a delve: the unit's name and GUID read secret (measured 16 Aug
+	2026). The fight starting (ENCOUNTER_START, by encounter id) is the automatic path; the list is the sure one.
 ]]
 
 local ENTRY_LABYRINTH = "labyrinth_kindojan"
@@ -146,6 +150,16 @@ local function Build()
 	end)
 	f.openBtn = open
 
+	local all = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	all:SetSize(130, 22)
+	all:SetPoint("LEFT", open, "RIGHT", 8, 0)
+	all:SetText(ns:L("DELVEBOSSCARD_ALL"))
+	all:SetScript("OnClick", function()
+		if ns.ShowDelveBossList then
+			ns.ShowDelveBossList(f._entryId)
+		end
+	end)
+
 	if ns.AttachMidnightDialogCloseButton then
 		ns.AttachMidnightDialogCloseButton(f, function()
 			f:Hide()
@@ -195,11 +209,95 @@ ev:SetScript("OnEvent", function(_, _, _, _, _, _, success)
 	end
 end)
 
---- /mh bosscard [n]
+--------------------------------------------------------------------------------
+-- The list of every boss (Rob, 20 Oct 2026, in front of Cynthra: target detection does not work in a delve — the
+-- unit's name and GUID read secret, measured 16 Aug — "een lijstje met een venster wat we kunnen openen. En als we
+-- er iets tegenkomen, gewoon kunnen aanklikken"). One button per boss, two columns; a click opens his card.
+--------------------------------------------------------------------------------
+local list
+
+local function BuildList(entryId)
+	if list then
+		return list
+	end
+	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId] or {}
+	local f = CreateFrame("Frame", "MidnightHelperDelveBossList", UIParent, "BackdropTemplate")
+	local rows = math.ceil(#bosses / 2)
+	f:SetSize(440, 70 + rows * 26)
+	f:SetPoint("RIGHT", UIParent, "RIGHT", -500, 40)
+	f:SetFrameStrata("HIGH")
+	f:SetClampedToScreen(true)
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	f:Hide()
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	end
+	local title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	title:SetPoint("TOPLEFT", 16, -14)
+	title:SetText(ns:L("DELVEBOSSLIST_TITLE"))
+	for i, b in ipairs(bosses) do
+		local btn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+		local col, row = (i - 1) % 2, math.floor((i - 1) / 2)
+		btn:SetSize(200, 22)
+		btn:SetPoint("TOPLEFT", 16 + col * 208, -44 - row * 26)
+		btn:SetText(b.final and ("|cffff9900" .. b.label .. "|r") or b.label)
+		local idx = i
+		btn:SetScript("OnClick", function()
+			ns.ShowDelveBossCard(entryId, idx)
+		end)
+	end
+	if ns.AttachMidnightDialogCloseButton then
+		ns.AttachMidnightDialogCloseButton(f, function()
+			f:Hide()
+		end)
+	end
+	list = f
+	return f
+end
+
+function ns.ShowDelveBossList(entryId)
+	local f = BuildList(entryId or ENTRY_LABYRINTH)
+	f:Show()
+	f:Raise()
+end
+
+--- A boss by (part of) his name, accents and case ignored as far as plain lower() goes.
+local function FindBossByName(entryId, text)
+	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId] or {}
+	local needle = text:lower()
+	for i, b in ipairs(bosses) do
+		if type(b.label) == "string" and b.label:lower():find(needle, 1, true) then
+			return i
+		end
+	end
+	return nil
+end
+
+--- /mh bosscard            the list window
+--- /mh bosscard why        every boss with its line count, in chat
+--- /mh bosscard <n|name>   that boss's card
 function ns.MH_DelveBossCardCommand(arg)
 	local entryId = ENTRY_LABYRINTH
 	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId] or {}
+	if not arg or arg == "" then
+		ns.ShowDelveBossList(entryId)
+		return
+	end
 	local n = tonumber(arg)
+	if not n and arg ~= "why" then
+		n = FindBossByName(entryId, arg)
+		if not n then
+			print(("|cff8fd3ffMidnight Helper|r bosscard: no boss named '%s'. /mh bosscard opens the list."):format(arg))
+			return
+		end
+	end
 	if n then
 		if not ns.ShowDelveBossCard(entryId, n) then
 			print(("|cff8fd3ffMidnight Helper|r bosscard: no boss %d, or the card is off in settings."):format(n))
@@ -213,5 +311,5 @@ function ns.MH_DelveBossCardCommand(arg)
 		local col = #lines > 0 and "|cff40c040" or "|cffff5040"
 		print(("   %2d  %-28s %s%d line(s)|r%s"):format(i, tostring(b.label), col, #lines, b.final and "  (end boss: whole Boss section)" or ""))
 	end
-	print("   |cff9d9d9d/mh bosscard <number> shows that card|r")
+	print("   |cff9d9d9d/mh bosscard <number or name> shows that card; /mh bosscard alone opens the list|r")
 end

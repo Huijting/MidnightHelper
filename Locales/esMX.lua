@@ -342,7 +342,7 @@ for k, v in pairs({
 	NEWS_FABLED_KINDOJAN_FMT = "Célebre déjenmelo a mí: Kindo'jan (laberinto, Tier 11, sin otros jugadores; Valeera puede ir) — Blizzard lo amplió, quedan %d día(s). Da un título. La misma victoria también da la montura Caminante bendecido por los loa, y esa sigue disponible hasta el final de la temporada 2.",
 	NEWS_VOIDCORE_BUG = "Núcleo del Vacío nebuloso: ¿tu máximo de temporada salta de forma rara? Es un error conocido de Blizzard, ya viene una corrección.",
 	NEWS_VALEERA_DAMAGE = "Valeera recibe ahora más daño del previsto (problema conocido de Blizzard). Vigila su salud en los abismos difíciles.",
-	CMDLIST_BOSSCARD = "Fichas de jefe: cada jefe del Laberinto con cuántos consejos muestra su ventanita; añade un número para abrir una.",
+	CMDLIST_BOSSCARD = "Fichas de jefe: una lista de todos los jefes del Laberinto; haz clic en uno para abrir una ventanita solo con sus consejos. Añade un nombre (/mh bosscard cynthra) para abrir una directamente.",
 	DELVEBOSSCARD_OPEN_COACH = "Abrir el Entrenador de abismos",
 	DELVEBOSSCARD_NONE = "Aún no tenemos consejos para este jefe. El Entrenador de abismos tiene las tareas de la sala.",
 	SET_DELVEBOSSCARD_DESC = "En el Laberinto: cuando seleccionas o combates a un jefe de sala, se abre una ventanita solo con los consejos de ese jefe. Desactivado: en su lugar, un botón durante 5 segundos. /mh bosscard las muestra todas.",

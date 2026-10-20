@@ -11,6 +11,10 @@ ENCOUNTER_END. Schakelaar `mh_delveBossCard` (aan; uit = oude knop). `/mh bossca
 `/mh bosscard <n>` = toon dat venster. GEMETEN offline (enUS): alle 19 ≥ 1 regel (Malakk, Daakajin, Jo'din, Taltrois 1).
 ⚠️ Andere clienttalen: tipLineMatch gebruikt Engelse bazennamen; packs die een baas al anders noemen → 0 regels → "geen
 tips"-tekst + coach-knop. `/mh bosscard` op zo'n client laat het zien.
+✅ Rob (screenshot): `/mh bosscard 5` werkt; eigen regel nu bovenaan. ⚠️ Rob voor Cynthra: targeten opent NIETS (verwacht,
+secret). Rob: "een lijstje met een venster … gewoon kunnen aanklikken" → `/mh bosscard` = lijstvenster (19 knoppen),
+`/mh bosscard <naam>`, `/mh bosscard why` = de oude chatlijst, knop "All bosses" in elk venster, zoekbalk-treffer van
+een Labyrinth-baas opent het venster (NavSearch). 🔜 Meten of ENCOUNTER_START het venster vanzelf opent (log in SV).
 
 ## 🗺️ 20 okt (middag) — werkplan voor de volgende release (Rob: "we gaan dit allemaal aanpakken, het hoeft vandaag niet af")
 

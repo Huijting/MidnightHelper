@@ -478,7 +478,13 @@ local function BuildNavIndex()
 				local bosses = ns.GetDelveBossShowcase and ns:GetDelveBossShowcase(entryId)
 				for i, boss in ipairs(bosses or {}) do
 					local bossIndex = i
-					add(boss.label, "", function()
+					-- A delve of rooms (the Labyrinth) opens the small boss card (Rob, 20 Oct 2026, standing in front of
+					-- Cynthra: "een venster wat we kunnen openen ... gewoon kunnen aanklikken"); the coach stays one click away.
+					local roomDelve = entry.noFinalBossPrompt
+					add(boss.label, roomDelve and "room boss labyrinth" or "", function()
+						if roomDelve and ns.ShowDelveBossCard and ns.ShowDelveBossCard(entryId, bossIndex) then
+							return
+						end
 						ns:ShowDelveCoach(entryId, { preview = true, bossIndex = bossIndex })
 					end, TIER_CONTENT, delveName, "boss")
 				end
