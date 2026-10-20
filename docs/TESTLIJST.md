@@ -24,7 +24,8 @@ er is niets weggegooid.
 ## 🆕 20 okt (avond) — markeerbalk: 2 gelijke rijen + Labyrinth-knop
 
 Eerst `/reload`.
-- [ ] Bovenste rij: 8 grondmarkeringen + wissen + ready check + rollen-check + klok (12). Onderste rij: 8 doelmarkeringen
+- [x] ✅ Rob 20 okt (screenshot, in de Labyrinth): 2 rijen van 12, boekje rechtsonder zichtbaar.
+- [ ] (rest) Bovenste rij: 8 grondmarkeringen + wissen + ready check + rollen-check + klok (12). Onderste rij: 8 doelmarkeringen
       + wissen + rol + vrienden + boekje (12). Beide rijen even lang, niets valt buiten de balk.
 - [ ] Het boekje staat er ALLEEN in de Labyrinth. Linksklik → het kaartje van deze kamer (herkent MH hem niet → de
       bazenlijst). Rechtsklik → altijd de bazenlijst. Tooltip zegt dat.
