@@ -31,7 +31,11 @@ cast alles); Drill Driver 273713 = de ork erop (zelfde spawn-id, alleen melee, s
 precies op een Drilling Charge-treffer. Waarom geen kaart: onbekend (taaknaam anders, of Rob zag hem niet) → history.
 DBM r268 heeft een lege mod, LittleWigs niets. 15 okt-log had wél ENCOUNTER_START, 20 okt niet (hotfix 112302 op 20 okt
 raakte encounters 3622/3632/3636/3642/3646/3653; AFGELEID). Gedaan: creatureIdFallback 273713 + tipLineMatch "Drill
-Driver"; tip + "de ork bovenop sterft mee" en "schild is Magic, dispel" (8 talen, drift gemarkeerd). Sindsdien bewaart MH elke kamernaam-lezing
+Driver"; tip + "de ork bovenop sterft mee" en "schild is Magic, dispel" (8 talen, drift gemarkeerd).
+✅ GEMETEN (Rob, screenshot tracker): taak "Soul Survivor" = "1/6 Defeat Hexbound Defenders" → King of Souls. In
+enUS/nlNL de witte naam toegevoegd (was "Hexbound Defenders:"). ⚠️ Kamerkaarten op een de/fr/es/pt/it/ru-client: de
+taaknamen in die packs zijn NIET per client gemeten → match vermoedelijk nooit; meten (wago Scenario/ScenarioStep per
+locale) en dan de witte namen in de packs zetten. Nog zonder naam: Head ritualists, Ritual items, Golden lever, Trial gates. Sindsdien bewaart MH elke kamernaam-lezing
 (ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
 ➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
 rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen
