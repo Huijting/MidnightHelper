@@ -10,6 +10,9 @@ bestaat). Site-chat geseind (live = Robs ja).
 (nu gemengd met "Ätzender Kodex"); ruRU-proza kan nog "Чемпион"/"Легендарный герой" voor de sporen gebruiken; frFR
 Myth (Mythe of Mythique) onbeslist; CLAUDE.md-regel "Corrosive Coin/Soul blijft Engels" vs client-namen-regel (11 okt)
 — Robs keuze.
+🔜 Van de site-chat (20 okt, site 4.10.2 live op fa5ad833): Nebulous Voidcore-namen in Translations2026 zijn NIET
+tegen de client gemeten (comment staat erbij, vertalingen wel, bv. "Nebulöser Leerenkern") → meten op wago; esMX
+"Núcleo del Vacío" vs esES "Núcleo de Vacío" → één van de twee is fout, meten.
 
 ## 🌅 20 okt — ochtendronde
 
