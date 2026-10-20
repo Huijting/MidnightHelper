@@ -3156,6 +3156,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	if msg == "bosscard" or msg:find("^bosscard%s") then
+		if ns.MH_DelveBossCardCommand then
+			ns.MH_DelveBossCardCommand(msg:match("^bosscard%s+(%S+)"))
+		end
+		return
+	end
 	if msg == "news reset" then
 		if ns.ResetGameNewsSeen then
 			ns.ResetGameNewsSeen()

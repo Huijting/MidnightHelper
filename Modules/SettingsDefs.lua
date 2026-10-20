@@ -369,6 +369,12 @@ local function Build()
 	end, function(v)
 		if ns.SetLabHexmaskHintEnabled then ns.SetLabHexmaskHintEnabled(v) end
 	end, true)
+	-- Rob, 20 Oct 2026: "maak er sowieso maar een venster per baas van" (DelveBossCard.lua). Off = the old button.
+	Toggle("mh_delveBossCard", "SET_DELVEBOSSCARD_TITLE", "SET_DELVEBOSSCARD_DESC", function()
+		return ns.IsDelveBossCardEnabled and ns.IsDelveBossCardEnabled()
+	end, function(v)
+		if ns.SetDelveBossCardEnabled then ns.SetDelveBossCardEnabled(v) end
+	end, true)
 	Toggle("mh_delveRoomBossAuto", "SET_DELVE_ROOMBOSS_AUTO_TITLE", "SET_DELVE_ROOMBOSS_AUTO_DESC", function()
 		return ns.IsDelveRoomBossAutoOpen and ns.IsDelveRoomBossAutoOpen()
 	end, function(v)

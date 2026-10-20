@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🪟 20 okt (avond) — venster per kamerbaas (Rob: "maak er sowieso maar een venster per baas van")
+
+Aanleiding: Rob zag niet dat de 19 Labyrinth-kamerbazen al tips hebben (één lange Rooms-sectie in de coach). GEBOUWD, niet
+in het spel gezien (TESTLIJST bovenaan): `Modules/DelveBossCard.lua` — klein venster (HIGH, sleepbaar, Shift+scroll via
+RegisterMidnightDialogPopup) met alleen de regels van die baas (`ns.GetDelveBossOwnTipLines` in DelveBossShowcase.lua,
+strikt: regels die zijn tipLineMatch noemen, uit alle secties); eindbaas = hele Boss-sectie. DelveCoach MaybeOfferRoomBoss
+toont het venster i.p.v. de 5-s-knop (beide paden: target vóór de pull en ENCOUNTER_START/ENGAGE); dicht bij gewonnen
+ENCOUNTER_END. Schakelaar `mh_delveBossCard` (aan; uit = oude knop). `/mh bosscard` = per baas het aantal regels,
+`/mh bosscard <n>` = toon dat venster. GEMETEN offline (enUS): alle 19 ≥ 1 regel (Malakk, Daakajin, Jo'din, Taltrois 1).
+⚠️ Andere clienttalen: tipLineMatch gebruikt Engelse bazennamen; packs die een baas al anders noemen → 0 regels → "geen
+tips"-tekst + coach-knop. `/mh bosscard` op zo'n client laat het zien.
+
 ## 🗺️ 20 okt (middag) — werkplan voor de volgende release (Rob: "we gaan dit allemaal aanpakken, het hoeft vandaag niet af")
 
 Geen release vandaag, tenzij er iets breekt. Volgorde, alles bouwen → testlijst → later één release (beta eerst):

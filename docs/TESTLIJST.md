@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 20 okt (avond) — venster per kamerbaas (Labyrinth)
+
+Eerst `/reload`. Kan ook buiten de delve: `/mh bosscard 5` toont het venster van Sha'Kuro.
+
+- [ ] `/mh bosscard`: een lijst van 19 bazen, elk met "N line(s)" in groen (geen rode 0).
+- [ ] In de Labyrinth: target een kamerbaas (of begin het gevecht) → rechts een klein venster "Room boss: <naam>" met
+      ALLEEN zijn tips. Kindo'jan: "End boss: Kindo'jan" met het hele Boss-deel (scrollen). Knop "Open the delve
+      coach" werkt. Gewonnen → venster gaat vanzelf dicht. Shift+scroll maakt het groter/kleiner, slepen kan.
+- [ ] Instellingen → "A small window per room boss" uit → weer de oude knop van 5 seconden.
+
 ## 🆕 20 okt (middag) — "In the game now" (spelnieuws)
 
 Eerst `/reload`.

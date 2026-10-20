@@ -1983,6 +1983,9 @@ local function MaybeOfferRoomBoss(event)
 			if s.roomBossAutoOpen and ns.ShowDelveCoach then
 				ns:ShowDelveCoach(entry.id, { preview = false })
 				LogRoomBoss(event, boss.label .. " (via target): coach opened (setting C)")
+			elseif idx and ns.ShowDelveBossCard and ns.ShowDelveBossCard(entry.id, idx) then
+				-- Rob, 20 Oct 2026: "maak er sowieso maar een venster per baas van" (DelveBossCard.lua).
+				LogRoomBoss(event, boss.label .. " (via target): boss card shown")
 			else
 				ShowBossPromptButton(ns:SafeL(boss.final and "DELVE_COACH_ENDBOSS_PROMPT_FMT" or "DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))
 				LogRoomBoss(event, boss.label .. " (via target): button shown (B)")
@@ -2052,6 +2055,11 @@ local function MaybeOfferRoomBoss(event)
 	if s.roomBossAutoOpen and ns.ShowDelveCoach then
 		ns:ShowDelveCoach(entry.id, { preview = false })
 		LogRoomBoss(event, boss.label .. " (via " .. via .. "): coach opened (setting C)")
+		return
+	end
+	if idx and ns.ShowDelveBossCard and ns.ShowDelveBossCard(entry.id, idx) then
+		-- Rob, 20 Oct 2026: "maak er sowieso maar een venster per baas van" (DelveBossCard.lua).
+		LogRoomBoss(event, boss.label .. " (via " .. via .. "): boss card shown")
 		return
 	end
 	ShowBossPromptButton(ns:SafeL(boss.final and "DELVE_COACH_ENDBOSS_PROMPT_FMT" or "DELVE_COACH_ROOMBOSS_PROMPT_FMT"):format(boss.label))

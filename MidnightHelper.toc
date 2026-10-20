@@ -264,6 +264,7 @@ Modules\Retrospective.lua
 Modules\EncounterCapture.lua
 Modules\RitualLog.lua
 Modules\DelveCoach.lua
+Modules\DelveBossCard.lua
 Modules\DelverCallData.lua
 Modules\DelveWeeklyTrackers.lua
 Modules\AccountWeeklyChecklist.lua

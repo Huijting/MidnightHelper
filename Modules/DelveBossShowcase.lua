@@ -410,6 +410,39 @@ local function LineMatchesAny(lower, matchers)
 	return false
 end
 
+--- Only the lines that name THIS boss, from every section of the delve's tips (Rob, 20 Oct 2026: "maak er sowieso
+--- maar een venster per baas van" — DelveBossCard.lua). The strict twin of FilterDelveTipBodyForBoss below, which
+--- keeps neutral lines too; a small card per boss wants only his own.
+--- @return string[] lines (may be empty), number sections searched
+function ns.GetDelveBossOwnTipLines(entryId, bossIndex)
+	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId]
+	local boss = type(bosses) == "table" and bosses[tonumber(bossIndex) or 0]
+	local matchers = GetBossTipLineMatchers(boss)
+	local entry
+	for _, e in ipairs(ns.DELVE_TIP_ENTRIES or {}) do
+		if e.id == entryId then
+			entry = e
+			break
+		end
+	end
+	local out, searched = {}, 0
+	if not (matchers and entry and type(entry.sections) == "table") then
+		return out, searched
+	end
+	for _, sec in ipairs(entry.sections) do
+		local body = sec.bodyKey and ns:L(sec.bodyKey)
+		if type(body) == "string" and body ~= sec.bodyKey then
+			searched = searched + 1
+			for _, line in ipairs(SplitTipLines(body)) do
+				if LineMatchesAny(line:lower(), matchers) then
+					out[#out + 1] = line
+				end
+			end
+		end
+	end
+	return out, searched
+end
+
 --- Drop the route/trash/boss bullets that belong to ANOTHER boss of this delve.
 ---
 --- ⚠️ Changed 15 Sep 2026 (delve Season 2 audit). This used to keep only the lines that matched the
