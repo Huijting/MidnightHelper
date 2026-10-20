@@ -503,8 +503,9 @@ local function BuildBar()
 		return bar
 	end
 
-	-- De onderste rij is het breedst: 8 target-markers + wis + tank/healer + vrienden + ready + rollen + klok = 14.
-	local rowContent = 14 * ICON + 13 * GAP + 6 -- +3 vóór de wis-knop, +3 vóór de tank/healer-knop
+	-- Rob, 20 Oct 2026: "netjes verdelen over de 2 lijnen". Top: 8 world markers + clear + ready + roles + clock = 12;
+	-- bottom: 8 target markers + clear + tank/healer + friends + boss list (Labyrinth only) = 12.
+	local rowContent = 12 * ICON + 11 * GAP + 6 -- +3 vóór de wis-knop, +3 vóór de knop erna
 	local rowW = PAD + rowContent + PAD
 	local barW = GRIP + rowW
 	local barH = PAD + 2 * ICON + ROWGAP + PAD
@@ -585,9 +586,34 @@ local function BuildBar()
 	-- Alle world-markers wissen. Was "/cwm 9" — letterlijk geschreven én met een index
 	-- i.p.v. het woord "alle"; beide breken buiten een Engelse client. Nu de vertaalde
 	-- slash + het globale woord ALL, zoals EllesmereUIQoL doet.
-	AddClearButton(worldRow, "WorldClear",
+	prev = AddClearButton(worldRow, "WorldClear",
 		SlashClearWorldMarker() .. " " .. WordAll(),
 		L("MARK_CLEAR_WORLD", "Clear all world markers"), prev)
+
+	-- Groepsknoppen, Robs punt 3 na wMarker: ready check, rollen-check, aftelklok. Since 20 Oct 2026 on the TOP row
+	-- (Rob: "netjes verdelen over de 2 lijnen"): they get the group ready, like the flags you place first.
+	prev = AddGroupButton(worldRow, "ReadyCheck", "Interface\\RaidFrame\\ReadyCheck-Ready",
+		"MARK_READYCHECK", "Ready check", function()
+			if DoReadyCheck then
+				DoReadyCheck()
+			end
+		end, prev)
+	prev = AddGroupButton(worldRow, "RoleCheck", "Interface\\LFGFrame\\UI-LFG-ICON-ROLES",
+		"MARK_ROLECHECK", "Role check", function()
+			if InitiateRolePoll then
+				InitiateRolePoll()
+			end
+		end, prev)
+	AddGroupButton(worldRow, "Countdown", "Interface\\Icons\\INV_Misc_PocketWatch_01",
+		"MARK_COUNTDOWN", "Pull timer", function(_, button)
+			if not (C_PartyInfo and C_PartyInfo.DoCountdown) then
+				return
+			end
+			-- Right-click cancels: DoCountdown(0) is Blizzard's own stop (wMarker.lua:379).
+			C_PartyInfo.DoCountdown(button == "RightButton" and 0 or COUNTDOWN_SECONDS)
+		end, prev, function()
+			return (L("MARK_COUNTDOWN_HINT", "Left-click: %d seconds · Right-click: cancel")):format(COUNTDOWN_SECONDS)
+		end)
 
 	-- Onderste rij: target-markers (skull/cross op een vijand).
 	local targetRow = CreateFrame("Frame", nil, bar)
@@ -602,29 +628,32 @@ local function BuildBar()
 	prev = AddRoleButton(targetRow, prev)
 	prev = AddFriendButton(targetRow, prev)
 
-	-- Groepsknoppen, Robs punt 3 na wMarker: ready check, rollen-check, aftelklok.
-	prev = AddGroupButton(targetRow, "ReadyCheck", "Interface\\RaidFrame\\ReadyCheck-Ready",
-		"MARK_READYCHECK", "Ready check", function()
-			if DoReadyCheck then
-				DoReadyCheck()
-			end
-		end, prev)
-	prev = AddGroupButton(targetRow, "RoleCheck", "Interface\\LFGFrame\\UI-LFG-ICON-ROLES",
-		"MARK_ROLECHECK", "Role check", function()
-			if InitiateRolePoll then
-				InitiateRolePoll()
-			end
-		end, prev)
-	AddGroupButton(targetRow, "Countdown", "Interface\\Icons\\INV_Misc_PocketWatch_01",
-		"MARK_COUNTDOWN", "Pull timer", function(_, button)
-			if not (C_PartyInfo and C_PartyInfo.DoCountdown) then
-				return
-			end
-			-- Right-click cancels: DoCountdown(0) is Blizzard's own stop (wMarker.lua:379).
-			C_PartyInfo.DoCountdown(button == "RightButton" and 0 or COUNTDOWN_SECONDS)
-		end, prev, function()
-			return (L("MARK_COUNTDOWN_HINT", "Left-click: %d seconds · Right-click: cancel")):format(COUNTDOWN_SECONDS)
-		end)
+	-- The Labyrinth boss list (Rob, 20 Oct 2026: "kunnen we hier een knop bosscard maken voor in het labyrint").
+	-- A plain button (not secure, needs no lead), last on the bottom row, shown only inside the Labyrinth
+	-- (instance 3043, measured in Rob's combat log: ZONE_CHANGE,3043). Not secure, so showing it in combat is fine.
+	local bossBtn = CreateFrame("Button", "MidnightHelperMarkBossList", targetRow)
+	bossBtn:SetSize(ICON, ICON)
+	bossBtn:SetNormalTexture("Interface\\Icons\\INV_Misc_Book_09")
+	bossBtn:SetPoint("LEFT", prev, "RIGHT", GAP, 0)
+	-- Left: this room's card (Rob: "of roomcard knop"); no known room → the boss list. Right: always the list.
+	bossBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	bossBtn:SetScript("OnClick", function(_, button)
+		if button ~= "RightButton" and ns.ShowCurrentRoomCard and ns.ShowCurrentRoomCard() then
+			return
+		end
+		if ns.ShowDelveBossList then
+			ns.ShowDelveBossList()
+		end
+	end)
+	bossBtn:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:AddLine(L("MARK_BOSSLIST", "Labyrinth: this room / all bosses"), 1, 0.82, 0.2)
+		GameTooltip:AddLine(L("MARK_BOSSLIST_HINT", "Left-click: what to do in this room. Right-click: the list of every boss."), 0.7, 0.7, 0.7, true)
+		GameTooltip:Show()
+	end)
+	bossBtn:SetScript("OnLeave", TipHide)
+	bossBtn:Hide()
+	bar._mhBossBtn = bossBtn
 
 	bar:Hide()
 	return bar
@@ -756,4 +785,10 @@ ev:SetScript("OnEvent", function(_, event)
 	ApplyVisibility()
 	UpdateRoleMacro()
 	UpdateFriendMacro()
+	-- The Labyrinth button: only inside instance 3043 (a plain child frame, so Show/Hide is fine at any time).
+	if bar and bar._mhBossBtn then
+		local instanceID = GetInstanceInfo and select(8, GetInstanceInfo())
+		bar._mhBossBtn:SetShown(instanceID == 3043)
+	end
 end)
+ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")

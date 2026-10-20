@@ -1295,6 +1295,8 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	MARK_ROLECHECK = "Rollenprüfung",
 	MARK_COUNTDOWN = "Pull-Timer",
 	MARK_COUNTDOWN_HINT = "Linksklick: %d Sekunden · Rechtsklick: abbrechen",
+	MARK_BOSSLIST = "Labyrinth: dieser Raum / alle Bosse",
+	MARK_BOSSLIST_HINT = "Linksklick: was du in diesem Raum tun musst. Rechtsklick: die Liste aller Bosse.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Tank und Heiler markieren (blaues Quadrat auf den Tank, grünes Dreieck auf den Heiler)",
 	MARK_ROLES_NONE = "Noch hat niemand in deiner Gruppe die Rolle Tank oder Heiler (die Gruppensuche oder eine Rollenprüfung legt sie fest).",
@@ -1365,6 +1367,8 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MARK_ROLECHECK = "Vérification des rôles",
 	MARK_COUNTDOWN = "Compte à rebours",
 	MARK_COUNTDOWN_HINT = "Clic gauche : %d secondes · Clic droit : annuler",
+	MARK_BOSSLIST = "Labyrinthe : cette salle / tous les boss",
+	MARK_BOSSLIST_HINT = "Clic gauche : ce qu'il faut faire dans cette salle. Clic droit : la liste de tous les boss.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Marquer le tank et le soigneur (carré bleu sur le tank, triangle vert sur le soigneur)",
 	MARK_ROLES_NONE = "Personne dans ton groupe n'a encore le rôle de tank ou de soigneur (la recherche de groupe ou une vérification des rôles le définit).",
@@ -1434,6 +1438,8 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MARK_ROLECHECK = "Comprobación de roles",
 	MARK_COUNTDOWN = "Cuenta atrás",
 	MARK_COUNTDOWN_HINT = "Clic izquierdo: %d segundos · Clic derecho: cancelar",
+	MARK_BOSSLIST = "Laberinto: esta sala / todos los jefes",
+	MARK_BOSSLIST_HINT = "Clic izquierdo: qué hacer en esta sala. Clic derecho: la lista de todos los jefes.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Marcar al tanque y al sanador (cuadrado azul en el tanque, triángulo verde en el sanador)",
 	MARK_ROLES_NONE = "Nadie de tu grupo tiene aún el rol de tanque o de sanador (el buscador de grupos o una comprobación de roles lo asigna).",
@@ -1503,6 +1509,8 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MARK_ROLECHECK = "Verificação de funções",
 	MARK_COUNTDOWN = "Contagem regressiva",
 	MARK_COUNTDOWN_HINT = "Clique esquerdo: %d segundos · Clique direito: cancelar",
+	MARK_BOSSLIST = "Labirinto: esta sala / todos os chefes",
+	MARK_BOSSLIST_HINT = "Clique esquerdo: o que fazer nesta sala. Clique direito: a lista de todos os chefes.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Marcar o tanque e o curandeiro (quadrado azul no tanque, triângulo verde no curandeiro)",
 	MARK_ROLES_NONE = "Ninguém do seu grupo tem ainda a função de tanque ou de curandeiro (o localizador de grupos ou uma verificação de funções define isso).",
@@ -1572,6 +1580,8 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MARK_ROLECHECK = "Controllo ruoli",
 	MARK_COUNTDOWN = "Conto alla rovescia",
 	MARK_COUNTDOWN_HINT = "Clic sinistro: %d secondi · Clic destro: annulla",
+	MARK_BOSSLIST = "Labirinto: questa stanza / tutti i boss",
+	MARK_BOSSLIST_HINT = "Clic sinistro: cosa fare in questa stanza. Clic destro: l'elenco di tutti i boss.",
 	-- 10 Oct 2026: mh-writer, not reviewed by a native speaker
 	MARK_ROLES = "Marca tank e healer (quadrato blu sul tank, triangolo verde sull'healer)",
 	MARK_ROLES_NONE = "Nessuno nel tuo gruppo ha ancora il ruolo di tank o di healer (la ricerca gruppi o un controllo ruoli lo assegna).",

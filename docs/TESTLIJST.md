@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 20 okt (avond) — markeerbalk: 2 gelijke rijen + Labyrinth-knop
+
+Eerst `/reload`.
+- [ ] Bovenste rij: 8 grondmarkeringen + wissen + ready check + rollen-check + klok (12). Onderste rij: 8 doelmarkeringen
+      + wissen + rol + vrienden + boekje (12). Beide rijen even lang, niets valt buiten de balk.
+- [ ] Het boekje staat er ALLEEN in de Labyrinth. Linksklik → het kaartje van deze kamer (herkent MH hem niet → de
+      bazenlijst). Rechtsklik → altijd de bazenlijst. Tooltip zegt dat.
+- [ ] Ready check / rollen-check / klok werken nog zoals eerst (alleen als leider/assist).
+
 ## 🆕 20 okt (avond) — kamerkaart (Labyrinth)
 
 Eerst `/reload`.

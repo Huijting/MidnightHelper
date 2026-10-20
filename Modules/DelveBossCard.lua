@@ -340,6 +340,17 @@ roomEv:SetScript("OnEvent", function()
 	end
 end)
 
+--- The card for the room you are in now; false when the tracker names no task we know (FastMark's button then opens
+--- the boss list instead).
+function ns.ShowCurrentRoomCard()
+	local task = CurrentRoomTask(ENTRY_LABYRINTH)
+	if not task then
+		return false
+	end
+	ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), RoomLines(ENTRY_LABYRINTH, task))
+	return true
+end
+
 --- /mh roomcard          the card for the room you are in now
 --- /mh roomcard why      what the scenario tracker reads and which task it matched
 --- /mh roomcard <name>   a task by (part of) its name, out of a delve too

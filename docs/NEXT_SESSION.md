@@ -26,7 +26,12 @@ Cynthra 20:46 en Pit Boss 20:55) → het "venster bij gevechtsstart"-pad vuurt i
 lijst zijn de werkende wegen. Kamer in The Cave Towers 21:09–21:20: Vilebranch (Vile Pillager ×11 …, percentage),
 Fiery Hexmask 21:15, robot "Drill Driver" npc 273713 (NIET in DELVE_BOSS_SHOWCASE; ≠ Drill Sergeant 273069) †21:19;
 geen kamerkaart → taaknaam onbekend. mh-research loopt op Drill Driver. Sindsdien bewaart MH elke kamernaam-lezing
-(ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8). `/mh roomcard [why|naam]`, laatste lezing in ns.db.delveBossCard.lastScenario. 🔜 Taken
+(ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
+➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
+rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen
+lead nodig) laatst op de onderste rij, alleen zichtbaar in instance 3043 (GEMETEN in het combat log); linksklik =
+ns.ShowCurrentRoomCard() (val terug op de lijst), rechtsklik = ns.ShowDelveBossList(). Icoon INV_Misc_Book_09 =
+AFGELEID (niet in de client gezien). `/mh roomcard [why|naam]`, laatste lezing in ns.db.delveBossCard.lastScenario. 🔜 Taken
 zonder witte naam (Hexbound Defenders, Head ritualists, Ritual items, Golden lever, Trial gates) → naam via why meten.
 
 ## 🗺️ 20 okt (middag) — werkplan voor de volgende release (Rob: "we gaan dit allemaal aanpakken, het hoeft vandaag niet af")
