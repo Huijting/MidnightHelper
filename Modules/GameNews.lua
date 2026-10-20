@@ -58,6 +58,9 @@ function ns.SetGameNewsEnabled(on)
 	if ns.RefreshHomePanel then
 		pcall(ns.RefreshHomePanel)
 	end
+	if ns._mhRefreshNewsBtn then
+		pcall(ns._mhRefreshNewsBtn)
+	end
 end
 
 local function Now()

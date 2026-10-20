@@ -36,6 +36,11 @@ Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg n
 - C+: banner — Rob 20 okt: "dat valt helemaal niet op, het moet er juist uit knallen" → news-blok nu ALS EERSTE op This
   Week, oranje achtergrond + streep (row.bannerBg/bannerBar in HomeDashboard AcquireRow, spec.banner), grotere kop/tekst.
   Open idee (Rob kiest): "N news!" onder de This Week-tegel op het Me-scherm.
+  ✅ Rob 20 okt (screenshot): banner valt op. Daarna: "links naast Classic ook een knop … die opvalt" → `UI.lua`
+  newsBtn (MidnightHelperNewsBtn) tussen Classic en "Read in Codex": oranje chip (modern) / oranje Blizzard-knop
+  (Classic), "News (N)", tooltip met de meldingen, klik = SelectTab("home"), alleen zichtbaar bij ≥1 melding;
+  ververst bij OnShow, look-wissel en de schakelaar. NEWS_BTN_FMT/_TT 8 talen (eigen vertaling).
+  ⚠️ SET_GAMENEWS_DESC enUS/nlNL noemt nu ook de knop; de/fr/es/pt/it/ru nog de oude zin → check_drift.
 - Ronde 2 clientnamen (mh-writer, docs/CLIENT_NAMES Ronde 2): spoorwoorden in Codex/StartHere/MythicPlus de/fr/es/pt; 12
   gave-namen fr/es/esMX/pt/it/ru; giftwoord; Warbound-packs; Voidcore-label; Housing; ru crest-label Myth "Эпоха"
   (gevormd uit "эпохи", AFGELEID). 🔜 NIET GEMETEN, dus nog Engels/eigen woord: **deDE** 10 gave-namen, Warbound, Housing,

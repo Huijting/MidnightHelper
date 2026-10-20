@@ -797,6 +797,9 @@ local function MHApplyLookChrome(refs)
 	if ns._mhRefreshLookToggle then
 		ns._mhRefreshLookToggle()
 	end
+	if ns._mhRefreshNewsBtn then
+		ns._mhRefreshNewsBtn()
+	end
 	if refs._mhLookApplied == lookOn then
 		return
 	end
@@ -3026,6 +3029,66 @@ function ns:EnsureMainUI()
 	codexLinkBtn:Hide()
 	ns._mhCodexLinkBtn = codexLinkBtn
 
+	-- Rob, 20 Oct 2026: "links naast Classic ook een knop maken die opvalt, die dan de in-the-game-now stukje
+	-- geeft". Orange, only while GameNews.lua has a current note; a click opens This Week, where the banner is
+	-- the first block. The tooltip lists the notes, so a hover is already enough to read them.
+	local newsBtn = CreateFrame("Button", "MidnightHelperNewsBtn", titleBar, "UIPanelButtonTemplate")
+	newsBtn:SetSize(80, 22)
+	newsBtn:SetPoint("RIGHT", lookToggleBtn, "LEFT", -4, 0)
+	MHTintButtonTextures(newsBtn, 1, 0.5, 0.05)
+	newsBtn:SetScript("OnClick", function()
+		if ns.SelectTab then
+			ns.SelectTab("home")
+		end
+	end)
+	newsBtn:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+		GameTooltip:SetText(ns:L("NEWS_HEADER"), 1, 0.6, 0.15)
+		local ok, steps = pcall(ns.GetGameNewsSteps or function() return {} end)
+		for _, st in ipairs(ok and steps or {}) do
+			GameTooltip:AddLine("- " .. (st.text or ""), 1, 1, 1, true)
+		end
+		GameTooltip:AddLine(ns:L("NEWS_BTN_TT"), 0.7, 0.7, 0.7, true)
+		GameTooltip:Show()
+	end)
+	newsBtn:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+	newsBtn:Hide()
+	ns._mhRefreshNewsBtn = function()
+		local ok, steps = pcall(ns.GetGameNewsSteps or function() return {} end)
+		local n = ok and type(steps) == "table" and #steps or 0
+		codexLinkBtn:ClearAllPoints()
+		-- Modern look: a flat chip like its neighbours, but bright orange (rest colour kept for OnLeave);
+		-- Classic keeps the orange-tinted Blizzard button from above.
+		local ORANGE = { 0.95, 0.45, 0.05, 1 }
+		if MHLookOn() then
+			MHLookSkinButton(newsBtn, false, "chip")
+			newsBtn._mhLookRest = ORANGE
+			newsBtn._mhLookParts.fill:SetColorTexture(MHUnpack4(ORANGE))
+		else
+			MHLookUnskinButton(newsBtn)
+		end
+		if n > 0 then
+			newsBtn:SetText(ns:L("NEWS_BTN_FMT"):format(n))
+			FitTitleBarButton(newsBtn, 70, 140)
+			newsBtn:Show()
+			codexLinkBtn:SetPoint("RIGHT", newsBtn, "LEFT", -6, 0)
+		else
+			newsBtn:Hide()
+			codexLinkBtn:SetPoint("RIGHT", lookToggleBtn, "LEFT", -6, 0)
+		end
+		if ns._mhPlaceTitleSite then
+			ns._mhPlaceTitleSite()
+		end
+	end
+	ns._mhRefreshNewsBtn()
+	main:HookScript("OnShow", function()
+		if ns._mhRefreshNewsBtn then
+			ns._mhRefreshNewsBtn()
+		end
+	end)
+
 	-- Phase 3: breadcrumb in de titelbalk toont 'Kamer > Tab' voor oriëntatie.
 	-- Gevuld door SelectTab; tussen versie en de Codex-knop/Info.
 	local breadcrumb = titleBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -3050,7 +3113,7 @@ function ns:EnsureMainUI()
 		titleSite:ClearAllPoints()
 		breadcrumb:ClearAllPoints()
 		breadcrumb:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
-		local rightBtn = (codexLinkBtn:IsShown() and codexLinkBtn) or lookToggleBtn
+		local rightBtn = (codexLinkBtn:IsShown() and codexLinkBtn) or (newsBtn:IsShown() and newsBtn) or lookToggleBtn
 		local l, r = titleVersion:GetRight(), rightBtn:GetLeft()
 		local barL, barR = titleBar:GetLeft(), titleBar:GetRight()
 		if not (l and r and barL and barR) then
