@@ -510,3 +510,34 @@ Context, GEMETEN (alleen enUS gelezen, tenzij anders gezegd):
 - AreaTable 16913: ZoneName `121UlaTekLabyrinth`, ContinentID 3043. Map 3043: InstanceType 5.
 - AreaPOI 9035, 9036 en 9037 heten alle drie "The Labyrinth of Kindo'jan". 9035 heeft als `Description_lang` "Bountiful Delve" (per taal gelezen; deDE `Großzügige Tiefe`).
 - Niet verwarren: AreaTable 16822 en UiMap 2394 heten gewoon "Labyrinth". Dat zijn andere rijen.
+
+
+## Ronde 5 (20 okt) — Labyrinth-kamertaken
+
+Bron voor alles in deze ronde: wago.tools DB2, build **12.1.5.70448**, **Use Hotfixes aan** (`useHotfixes=1`), CSV-export per tabel, gelezen 20 okt 2026.
+Tabellen: Scenario, ScenarioStep (Title_lang / Description_lang, per locale via `&locale=`), CriteriaTree (Description_lang = doeltekst), Criteria.
+
+Belangrijk (GEMETEN): in deze build heet **elk** Labyrinth-scenario in `Scenario.Name_lang` gewoon "The Labyrinth of Kindo'jan" (103 rijen). De kamertaak-naam ("Graverobbers", "Bear's Burden" …) staat in **`ScenarioStep.Title_lang`**; de zin eronder in `ScenarioStep.Description_lang`; de "0/N"-regels zijn `CriteriaTree.Description_lang` met `Amount` = N.
+
+### SPOED: "Bear's Burden" (GEMETEN)
+
+- Scenario-id: **3403** (enige scenario met deze titel in ScenarioStep). Scenario-rij: Type 8, Flags 144, UiScenarioDisplayInfoID 10. WidgetSetID van alle drie de stappen: 842.
+
+| Stap (OrderIndex) | StepID | Titel | Beschrijving (enUS) | Doelen (CriteriaTree, Amount) |
+|---|---|---|---|---|
+| 0 | 17225 | Bear's Burden | Nalorakk's burden waits for one who proves worthy. Light the incense to begin the trial. | "Incense lit" (1) — CT 229711/229712, Criteria 115317 type 92 asset 104755 |
+| 1 | 17226 | Bear's Burden | Nalorakk's burden has appeared. Carry it through the Gates of Trial to his pedestal. | "Trial gates cleared" (**5**) — Criteria 115318 type 92 asset 106184; "Hands dusted with tarsap" (1) — Criteria 116331 type 68 asset 649192; "Burden delivered" (1) — Criteria 115323 type 92 asset 104761 |
+| 2 | 17577 | Bear's Burden | The burden has been carried. Now test your strength against Nalorakk's champion. | "**Nesh'ikar defeated**" (1) — CT 230357/230358, Criteria 115791 type 92 asset 105227 |
+
+- Stap 1 heeft twee takken onder CT 229713 (Operator 8): tak 232479 (Flags 8194; daaronder "Hands dusted with tarsap" + "Burden delivered" samen in een sub-tak, plus "Trial gates cleared" 5) en tak 232478 (Flags 2; dezelfde drie doelen). Wat de vlaggen precies kiezen (moeilijkheid?) is NIET gemeten.
+- Eindbaas: **Nesh'ikar** (naam GEMETEN uit de doeltekst). Creature-id: NIET gevonden — de Criteria is type 92 (asset = event-id, geen creature-id) en wago's Creature.db2 (23 167 rijen, een client-subset) bevat geen "Nesh'ikar".
+- AFGELEID: type 92 = "iemand in de groep triggert een scenario-event", type 68 = "gameobject gebruiken" (TrinityCore-indeling, niet op wago gemeten). Op de tracker zal stap 1 dus als "0/5 Trial gates cleared" verschijnen.
+- AFGELEID: dit is MH's naamloze beschrijving "Trial gates (The Cave Towers): light the incense, touch a white-and-gold flower for grip, carry the big rock through 5 green gates … Then Nesh'ikar" (incense = stap 0, tarsap = grip, 5 trial gates, Nesh'ikar = eindbaas).
+
+Naam per locale (ScenarioStep 17225 Title_lang, GEMETEN):
+
+| enUS | deDE | frFR | esES | esMX | ptBR | itIT | ruRU |
+|---|---|---|---|---|---|---|---|
+| Bear's Burden | Die Bürde des Bären | Fardeau de l’ours | La carga del oso | La carga del oso | Fardo do urso | Fardello dell'orso | Бремя медведя |
+
+(frFR gebruikt een typografische apostrof ’ (U+2019); enUS en itIT een gewone '.)

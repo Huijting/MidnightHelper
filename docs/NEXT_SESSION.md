@@ -35,7 +35,10 @@ Driver"; tip + "de ork bovenop sterft mee" en "schild is Magic, dispel" (8 talen
 ✅ GEMETEN (Rob, screenshot tracker): taak "Soul Survivor" = "1/6 Defeat Hexbound Defenders" → King of Souls. In
 enUS/nlNL de witte naam toegevoegd (was "Hexbound Defenders:"). ⚠️ Kamerkaarten op een de/fr/es/pt/it/ru-client: de
 taaknamen in die packs zijn NIET per client gemeten → match vermoedelijk nooit; meten (wago Scenario/ScenarioStep per
-locale) en dan de witte namen in de packs zetten. Nog zonder naam: Head ritualists, Ritual items, Golden lever, Trial gates. Sindsdien bewaart MH elke kamernaam-lezing
+locale) en dan de witte namen in de packs zetten. Nog zonder naam: Head ritualists, Ritual items, Golden lever.
+✅ GEMETEN (wago, scenario 3403; Carola zat erin): "Trial gates" = **Bear's Burden** (incense → burden door 5 Gates of
+Trial, "Hands dusted with tarsap" → Nesh'ikar). Witte naam in enUS/nlNL; RoomTasks-patroon accepteert nu "|r (kamer):".
+15 taken herkenbaar. mh-research Ronde 5 (alle taken × 8 talen) loopt → dan alle packs. Sindsdien bewaart MH elke kamernaam-lezing
 (ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
 ➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
 rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen

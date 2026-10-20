@@ -36,6 +36,7 @@ Eerst `/reload`.
 Eerst `/reload`.
 - [x] ✅ Rob 20 okt: na `/reload` IN een kamer opende de kamerkaart meteen ("dus dat werkt") → de taaknaam is leesbaar
       (GEMETEN). Nog te zien: bij het binnenlopen van een volgende kamer.
+- [x] ✅ Rob 20 okt: na het toevoegen van "Soul Survivor" + `/reload` in die kamer: "ja hij doet het".
 - [ ] (rest) Loop een nieuwe kamer binnen → het kleine venster opent vanzelf met "Room: <taak>" (bv. "Room: Fools and Curses":
       relic raiders, 5 Cursed Energy naar de sarcofaag, plus de Pit Boss-tip).
 - [ ] Opent hij niet? Typ `/mh roomcard why` en stuur een screenshot: "scenario texts" is wat MH van het spel leest.

@@ -223,7 +223,8 @@ local function RoomTasks(entryId)
 	for _, sec in ipairs(entry and entry.sections or {}) do
 		if sec.titleKey == "DELVE_COACH_SEC_TRASH" and sec.bodyKey then
 			for line in (ns:L(sec.bodyKey) .. "|n"):gmatch("(.-)|n") do
-				local name = line:match("^%s*•%s*|cffffffff(.-)|r:")
+				-- "|r:" or "|r (The Cave Towers):" — a room note may sit between the name and the colon.
+				local name = line:match("^%s*•%s*|cffffffff(.-)|r[^:|]*:")
 				if name and name ~= "" then
 					tasks[name:lower()] = { name = name, line = line }
 				end
