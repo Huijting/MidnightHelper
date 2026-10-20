@@ -196,6 +196,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh gear", descKey = "CMDLIST_GEAR" },
 		{ cmd = "/mh news", descKey = "CMDLIST_NEWS" },
 		{ cmd = "/mh bosscard", descKey = "CMDLIST_BOSSCARD" },
+		{ cmd = "/mh roomcard", descKey = "CMDLIST_ROOMCARD" },
 		{ cmd = "/mh hazards", descKey = "CMDLIST_HAZARDS" },
 		{ cmd = "/mh keys", descKey = "CMDLIST_KEYS" },
 		{ cmd = "/mh board", descKey = "CMDLIST_BOARD" },

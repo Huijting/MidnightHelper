@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 20 okt (avond) — kamerkaart (Labyrinth)
+
+Eerst `/reload`.
+- [ ] Loop een nieuwe kamer binnen → het kleine venster opent vanzelf met "Room: <taak>" (bv. "Room: Fools and Curses":
+      relic raiders, 5 Cursed Energy naar de sarcofaag, plus de Pit Boss-tip).
+- [ ] Opent hij niet? Typ `/mh roomcard why` en stuur een screenshot: "scenario texts" is wat MH van het spel leest.
+- [ ] In een kamer met een taak die MH nog niet bij naam kent (Hexbound Defenders, Head ritualists, Ritual items, Golden
+      lever, Trial gates): `/mh roomcard why` → de echte naam staat bij "scenario texts" → dan voegen wij hem toe.
+- [ ] `/mh roomcard fools` → het venster voor Fools and Curses, ook buiten de delve.
+
 ## 🆕 20 okt (avond) — venster per kamerbaas (Labyrinth)
 
 Eerst `/reload`. Kan ook buiten de delve: `/mh bosscard 5` toont het venster van Sha'Kuro.

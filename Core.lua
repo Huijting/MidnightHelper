@@ -3156,6 +3156,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	if msg == "roomcard" or msg:find("^roomcard%s") then
+		if ns.MH_DelveRoomCardCommand then
+			ns.MH_DelveRoomCardCommand(msg:match("^roomcard%s+(.-)%s*$"))
+		end
+		return
+	end
 	if msg == "bosscard" or msg:find("^bosscard%s") then
 		if ns.MH_DelveBossCardCommand then
 			ns.MH_DelveBossCardCommand(msg:match("^bosscard%s+(.-)%s*$"))

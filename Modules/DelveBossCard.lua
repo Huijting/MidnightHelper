@@ -178,9 +178,15 @@ function ns.ShowDelveBossCard(entryId, idx)
 	if not boss then
 		return false
 	end
+	return ns.ShowDelveCardWith(entryId,
+		ns:L(boss.final and "DELVEBOSSCARD_END_FMT" or "DELVEBOSSCARD_ROOM_FMT"):format(boss.label), lines)
+end
+
+--- The one way text gets onto the card: a title and a list of tip lines (bosses and rooms both).
+function ns.ShowDelveCardWith(entryId, titleText, lines)
 	local f = Build()
 	f._entryId = entryId
-	f.title:SetText(ns:L(boss.final and "DELVEBOSSCARD_END_FMT" or "DELVEBOSSCARD_ROOM_FMT"):format(boss.label))
+	f.title:SetText(titleText)
 	local text = #lines > 0 and table.concat(lines, "\n\n") or ns:L("DELVEBOSSCARD_NONE")
 	-- {WAY:map:x:y:Name} is a clickable link in the coach; here only its name is shown.
 	text = text:gsub("{WAY:[^}]-:([^:}]*)}", "%1")
@@ -198,6 +204,162 @@ function ns.HideDelveBossCard()
 	if card then
 		card:Hide()
 	end
+end
+
+--------------------------------------------------------------------------------
+-- Room cards (Rob, 20 Oct 2026, in "Fools and Curses": "hebben wij daar info over wat we hier moeten doen? En is dat
+-- te verwerken in een chamber card?"). The scenario tracker names the room's task; the Rooms tips carry the same
+-- name in white ("• |cffffffffFools and Curses|r: …"). Same task name → the card opens with that task line plus the
+-- tips of every boss the task line names (Pit Boss here). Tasks without a white name have no in-game name we have
+-- seen yet, so they cannot be matched.
+-- ⚠️ That the task name is readable from the scenario API is AFGELEID (it is plain tracker text, unlike unit names);
+-- every reading lands in ns.db.delveBossCard.lastScenario and /mh roomcard why prints it.
+--------------------------------------------------------------------------------
+
+--- task name (lower) -> { name, line } from the Rooms section, in the client's own language.
+local function RoomTasks(entryId)
+	local tasks = {}
+	local entry = FindEntry(entryId)
+	for _, sec in ipairs(entry and entry.sections or {}) do
+		if sec.titleKey == "DELVE_COACH_SEC_TRASH" and sec.bodyKey then
+			for line in (ns:L(sec.bodyKey) .. "|n"):gmatch("(.-)|n") do
+				local name = line:match("^%s*•%s*|cffffffff(.-)|r:")
+				if name and name ~= "" then
+					tasks[name:lower()] = { name = name, line = line }
+				end
+			end
+		end
+	end
+	return tasks
+end
+
+--- The card's lines for one task: the task line, then each named boss's own tip.
+local function RoomLines(entryId, task)
+	local lines = { task.line }
+	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId] or {}
+	local lowerTask = task.line:lower()
+	for i, b in ipairs(bosses) do
+		if not b.final and type(b.label) == "string" and lowerTask:find(b.label:lower(), 1, true) then
+			local own = BossLines(entryId, i)
+			-- BossLines puts the boss's own line first; the room-task lines after it are this task again or others.
+			if own[1] and own[1] ~= task.line then
+				lines[#lines + 1] = own[1]
+			end
+		end
+	end
+	return lines
+end
+
+--- Every text the scenario tracker gives us right now (readable ones only).
+local function ScenarioTexts()
+	local out, seenT = {}, {}
+	local function add(s)
+		if type(s) == "string" and s ~= "" and not (issecretvalue and issecretvalue(s)) and not seenT[s] then
+			seenT[s] = true
+			out[#out + 1] = s
+		end
+	end
+	pcall(function()
+		local step = C_ScenarioInfo and C_ScenarioInfo.GetScenarioStepInfo and C_ScenarioInfo.GetScenarioStepInfo()
+		if step then
+			add(step.title)
+		end
+	end)
+	pcall(function()
+		if C_Scenario and C_Scenario.GetStepInfo then
+			add((C_Scenario.GetStepInfo()))
+		end
+	end)
+	pcall(function()
+		local info = C_ScenarioInfo and C_ScenarioInfo.GetScenarioInfo and C_ScenarioInfo.GetScenarioInfo()
+		if info then
+			add(info.name)
+		end
+	end)
+	return out
+end
+
+local lastRoomShown -- task name already shown; a new room (or a new run) shows again
+
+--- @return table|nil task, string[] texts read
+local function CurrentRoomTask(entryId)
+	local texts = ScenarioTexts()
+	local tasks = RoomTasks(entryId)
+	for _, s in ipairs(texts) do
+		local t = tasks[s:lower()]
+		if t then
+			return t, texts
+		end
+	end
+	return nil, texts
+end
+
+local function MaybeShowRoomCard()
+	if not ns.IsDelveBossCardEnabled() then
+		return
+	end
+	local inDelve = ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress()
+	if not inDelve then
+		lastRoomShown = nil
+		return
+	end
+	local task, texts = CurrentRoomTask(ENTRY_LABYRINTH)
+	DB().lastScenario = { at = date and date("%H:%M:%S") or "?", texts = texts, match = task and task.name or nil }
+	if not task or lastRoomShown == task.name then
+		return
+	end
+	lastRoomShown = task.name
+	ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), RoomLines(ENTRY_LABYRINTH, task))
+end
+
+local roomEv = CreateFrame("Frame")
+roomEv:RegisterEvent("SCENARIO_UPDATE")
+roomEv:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
+roomEv:RegisterEvent("PLAYER_ENTERING_WORLD")
+roomEv:SetScript("OnEvent", function()
+	-- The tracker fills a moment after the event; read it once it has settled.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.5, MaybeShowRoomCard)
+	else
+		MaybeShowRoomCard()
+	end
+end)
+
+--- /mh roomcard          the card for the room you are in now
+--- /mh roomcard why      what the scenario tracker reads and which task it matched
+--- /mh roomcard <name>   a task by (part of) its name, out of a delve too
+function ns.MH_DelveRoomCardCommand(arg)
+	local tasks = RoomTasks(ENTRY_LABYRINTH)
+	if arg == "why" then
+		local task, texts = CurrentRoomTask(ENTRY_LABYRINTH)
+		print("|cff8fd3ffMidnight Helper — room card|r " .. (ns.IsDelveBossCardEnabled() and "on" or "|cffff5040off in settings|r"))
+		print("   scenario texts: " .. (#texts > 0 and table.concat(texts, " | ") or "|cffff5040none readable|r"))
+		print("   matched task: " .. (task and ("|cff40c040" .. task.name .. "|r") or "|cff9d9d9dnone|r"))
+		local names = {}
+		for _, t in pairs(tasks) do
+			names[#names + 1] = t.name
+		end
+		table.sort(names)
+		print(("   %d known tasks: %s"):format(#names, table.concat(names, ", ")))
+		return
+	end
+	local task
+	if arg and arg ~= "" then
+		local needle = arg:lower()
+		for key, t in pairs(tasks) do
+			if key:find(needle, 1, true) then
+				task = t
+				break
+			end
+		end
+	else
+		task = CurrentRoomTask(ENTRY_LABYRINTH)
+	end
+	if not task then
+		print("|cff8fd3ffMidnight Helper|r roomcard: no matching room task. /mh roomcard why shows what MH reads.")
+		return
+	end
+	ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), RoomLines(ENTRY_LABYRINTH, task))
 end
 
 --- A won fight closes it; a wipe leaves it up for the next try.
