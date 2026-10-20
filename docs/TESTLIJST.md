@@ -28,6 +28,7 @@ Eerst `/reload`.
 - [x] ✅ Rob 20 okt: blok staat er, maar "valt helemaal niet op" → nu een oranje banner HELEMAAL bovenaan (vóór Next up).
 - [x] ✅ Rob 20 okt (screenshot): oranje banner bovenaan This Week, grote kop, 3 meldingen, "8 day(s) left".
 - [x] ✅ Rob 20 okt (screenshot, level 22): oranje "News (1)" links naast Classic — "die ziet er dus goed uit".
+- [x] ✅ Rob 20 okt (screenshot): na klikken op level 22, op een level-90 weer oranje "News (3)" — "ja dat gaat goed".
 - [ ] Klik op News → de knop wordt rustig (gewone paarse knop, iets doorzichtig), ook na `/reload` en op een ander
       character. `/mh news` zegt "(seen)" achter elke melding. `/mh news reset` → weer oranje.
 - [ ] (oud) Bovenin het venster, links naast Classic: een oranje knop "News (3)". Muis erop → de drie meldingen in een
