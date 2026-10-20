@@ -46,7 +46,11 @@ Enraged Ancestral Shaman komen), A Golden Opportunity ("Golden lever"), Bear's B
 Prisoner), Restless Dead (nieuw, niet gespeeld). Warlord-taak heeft 2 namen (Reigns/Reins) → DelveBossCard splitst de
 witte naam op " / ". Alle 8 talen + esMX-overlay met de clientnamen (mh-writer, check met het kaartpatroon: 0 fouten;
 ru Fools and Curses heeft 2 spellingen). 🔜 Kopjes "zonder baas" kloppen niet meer (Bear's Burden e.a. hebben een baas);
-"The Cave Towers" nog Engels in packs; esMX-regel met de hand bijhouden bij elke esES-wijziging. Sindsdien bewaart MH elke kamernaam-lezing
+"The Cave Towers" nog Engels in packs; esMX-regel met de hand bijhouden bij elke esES-wijziging.
+✅ Bear's Burden + Containment Breach als stap-voor-stap in de kamerkaart (2 mh-research-rondes eens voor BB; CB 1 ronde
+met wago + Blizzard-forum + Zygor). Rob haalde CB uiteindelijk; Carola liep vast in BB. 8 talen + esMX, naamcheck OK.
+🔜 Ghost Wolf / Frostbolt per client meten. Flooded Chamber: HandyNotes GEMETEN "Underwater Entrance" 56.93/44.09 (map
+2647), binnen npc 270937 = ijs, breekbaar met Fiery Hexmask OF vuurspells → in DELVE_CHEST_FLOODED_HINT + route zetten. Sindsdien bewaart MH elke kamernaam-lezing
 (ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
 ➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
 rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen
