@@ -451,6 +451,7 @@ end
 local ticker, activeMap, activeQuest, activeIndex
 local lastRoomSeen -- subzone text at the last tick, to notice walking into another room
 local chestLead -- what the route runner points at (Travel phase 4): the chest this module picked
+local floodedLeg -- "entrance" while the arrow points at the Flooded Chamber's underwater entrance (see FLOODED_ENTRANCE)
 
 --- 🚌 Travel phase 4 (16 Oct 2026): the ROUTE RUNNER points (Modules/Travel/TravelRoute.lua), as a `direct` route
 --- (only the chest, no travel plan: planning from inside a delve means nothing). This module still decides WHICH chest
@@ -463,7 +464,7 @@ local function Forget()
 		ticker:Cancel()
 		ticker = nil
 	end
-	activeMap, activeQuest, activeIndex, chestLead = nil, nil, nil, nil
+	activeMap, activeQuest, activeIndex, chestLead, floodedLeg = nil, nil, nil, nil, nil
 end
 
 --- Stop the chest route: forget it and take it out of the runner (a paused route goes on). `silent` keeps the other
@@ -487,6 +488,39 @@ local function ChestNextLead(ctx)
 		end
 	end
 	return chestLead
+end
+
+--- The Flooded Chamber's way in (Rob, 20 Oct 2026: "zet de ingang onder water in de kistenroute"). HandyNotes_Midnight
+--- (labyrinth_of_kindo_jan.lua, node 56934409 "Underwater Entrance": inside is npc 270937, "broken with the Fiery Hexmask
+--- or fire spells") — GEMETEN in that file, not yet walked by us. Its five chests sit around 61.5/44, and the map draws
+--- no room there, so the arrow goes to this entrance first and to the chest once you are at it or past it.
+local FLOODED_ENTRANCE = { mapID = 2647, x = 56.93, y = 44.09 }
+
+local function PlayerXY(mapID)
+	if not (C_Map and C_Map.GetPlayerMapPosition) then
+		return nil
+	end
+	local ok, pos = pcall(C_Map.GetPlayerMapPosition, mapID, "player")
+	if not ok or not pos or not pos.GetXY then
+		return nil
+	end
+	local x, y = pos:GetXY()
+	if not x or (issecretvalue and issecretvalue(x)) then
+		return nil
+	end
+	return x * 100, y * 100
+end
+
+--- At the entrance (within about 1 map unit) or already near the chests: the chest itself is the next stop.
+local function PastFloodedEntrance(mapID, c)
+	local px, py = PlayerXY(mapID)
+	if not px then
+		return false -- position unreadable: keep pointing at the entrance, the safe way in
+	end
+	local function d(ax, ay, bx, by)
+		return math.sqrt((ax - bx) ^ 2 + (ay - by) ^ 2)
+	end
+	return d(px, py, FLOODED_ENTRANCE.x, FLOODED_ENTRANCE.y) < 1.0 or d(px, py, c.x, c.y) < 3.0
 end
 
 local function PointAtNearest(announce)
@@ -515,6 +549,12 @@ local function PointAtNearest(announce)
 	-- clearDist 0: keep the arrow on the chest while you fight and loot it, instead of
 	-- vanishing the moment you are close. Same reason the treasure route passes 0.
 	chestLead = { mapID = mapID, x = c.x, y = c.y, name = (ns:L("DELVE_CHEST_LABEL")):format(c.index), clearDist = 0 }
+	floodedLeg = nil
+	if c.flooded and not c.inRoom and mapID == FLOODED_ENTRANCE.mapID and not PastFloodedEntrance(mapID, c) then
+		floodedLeg = "entrance"
+		chestLead = { mapID = mapID, x = FLOODED_ENTRANCE.x, y = FLOODED_ENTRANCE.y,
+			name = ns:L("DELVE_CHEST_FLOODED_ENTRANCE"), clearDist = 0 }
+	end
 	if ns.Travel and ns.Travel.Runs and ns.Travel.Runs("delvechest") then
 		ns.Travel.Refresh("delvechest", { quiet = true })
 	elseif not (ns.Travel and ns.Travel.StartManaged and ns.Travel.StartManaged({
@@ -640,6 +680,18 @@ function ns.RouteDelveChests()
 			local open = ns.GetOpenDelveChests()
 			if open[1] and open[1].inRoom and open[1].index ~= activeIndex then
 				PointAtNearest(true)
+				return
+			end
+		end
+		-- On the way to the underwater entrance: once you are at it (or past it), point at the chest itself.
+		if floodedLeg == "entrance" then
+			local open = ns.GetOpenDelveChests()
+			if open[1] and PastFloodedEntrance(activeMap, open[1]) then
+				PointAtNearest(false)
+				if ns.ShowBriefNotice then
+					ns.ShowBriefNotice(ns:L("DELVE_CHEST_FLOODED_INSIDE"), 7)
+				end
+				print(("%s %s"):format(ns:L("PRINT_PREFIX"), ns:L("DELVE_CHEST_FLOODED_INSIDE")))
 				return
 			end
 		end

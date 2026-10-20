@@ -50,7 +50,12 @@ ru Fools and Curses heeft 2 spellingen). 🔜 Kopjes "zonder baas" kloppen niet 
 ✅ Bear's Burden + Containment Breach als stap-voor-stap in de kamerkaart (2 mh-research-rondes eens voor BB; CB 1 ronde
 met wago + Blizzard-forum + Zygor). Rob haalde CB uiteindelijk; Carola liep vast in BB. 8 talen + esMX, naamcheck OK.
 🔜 Ghost Wolf / Frostbolt per client meten. Flooded Chamber: HandyNotes GEMETEN "Underwater Entrance" 56.93/44.09 (map
-2647), binnen npc 270937 = ijs, breekbaar met Fiery Hexmask OF vuurspells → in DELVE_CHEST_FLOODED_HINT + route zetten. Sindsdien bewaart MH elke kamernaam-lezing
+2647), binnen npc 270937 = ijs, breekbaar met Fiery Hexmask OF vuurspells → in DELVE_CHEST_FLOODED_HINT + route zetten.
+✅ GEDAAN (Rob: "zet de ingang onder water in de kistenroute en in de hint, en vertel dat vuurspells ook werken"):
+DelveChestData FLOODED_ENTRANCE {2647, 56.93, 44.09}; een Flooded-kist (niet inRoom) → pijl eerst naar de ingang
+(floodedLeg = "entrance"), ticker springt naar de kist zodra speler < 1,0 van de ingang of < 3,0 van de kist is
+(C_Map.GetPlayerMapPosition; onleesbaar = ingang blijven) + DELVE_CHEST_FLOODED_INSIDE. Hints herschreven, 2 nieuwe
+sleutels, 8 talen. Niet in het spel gezien (TESTLIJST bovenaan). Flooded Chamber / Fiery Hexmask per client nog meten. Sindsdien bewaart MH elke kamernaam-lezing
 (ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
 ➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
 rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen

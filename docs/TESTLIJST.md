@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 20 okt (laat) — Flooded Chamber: ingang onder water in de kistenroute
+
+Eerst `/reload`. In de Labyrinth, als alleen de 5 Flooded Chamber-kistjes over zijn (of je ze als eerste krijgt):
+- [ ] Klik Chests → het pijltje wijst naar "Underwater entrance (Flooded Chamber)" bij ongeveer 56.9, 44.1, en de melding
+      zegt: onder water, ijsmuur, Fiery Hexmask OF eigen vuurspells. Ligt de ingang echt daar? (bron: HandyNotes)
+- [ ] Bij de ingang (binnen ~1 kaarteenheid) of verder: melding "You are at the underwater entrance …" en het pijltje
+      springt naar het kistje. Smelt een vuurspell het ijs echt? (HandyNotes zegt ja; niet zelf gezien)
+
 ## 🆕 20 okt (avond) — markeerbalk: 2 gelijke rijen + Labyrinth-knop
 
 Eerst `/reload`.
