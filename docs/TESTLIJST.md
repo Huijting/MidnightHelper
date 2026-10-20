@@ -27,6 +27,11 @@ Eerst `/reload`.
 
 - [ ] Codex → Currencies → Nebulous Voidcore: onderaan een oranje regel "Right now (Oct 2026): a known Blizzard bug …".
 - [ ] `/mh raidbots` naast de export van de SimulationCraft-addon zelf (`/simc`): is de `talents=`-regel gelijk?
+- [ ] Codex → Coiled Isle → "Corrosive Codex — which gift do I take first?": het stuk "two kinds of poison" (you /
+      the enemy) en het voorbeeld Lithic Plumage + Insidious Venom.
+- [ ] Delve-coach in de Labyrinth, Rooms-deel: taaknamen (Graverobbers, Reigns of the Warlord …), Grukk "locks that spell
+      school for about 4 seconds", een regel over The Undead Trollbunal. Boss-deel: Den'zara "about 15 seconds … about 40
+      seconds before you can attack him", "Shadow of Halazzi".
 - [ ] Codex → Labyrinth-kaart (bij Kindo'jan) en de delve-coach in de Labyrinth (Boss-deel): oranje regel "Fabled, only
       until the week of 27 October …". Na 28 okt moet hij weer weg.
 

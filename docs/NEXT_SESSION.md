@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🚀 20 okt — release 4.10.2 (Rob: "4.10.2 versie doen" + "Doe ze alle drie maar")
+
+Klaar en gecontroleerd (syntax OK, lint 0 HARD): Fabled-regel, Corrosive Codex-kaart (twee soorten gif), Labyrinth-
+tips uit de video, Voidcore-bugregel, SimcExport-rank, clientnamen it/de/ru/esMX. Zie CHANGELOG.md 4.10.2.
+🔜 Open, niet gedaan: de/Codex-kaarten CODEX_ATALUTEK_BODY/_DISC_BODY zeggen nog "Corrosive Codex"/"Corrosive Souls"
+(nu gemengd met "Ätzender Kodex"); ruRU-proza kan nog "Чемпион"/"Легендарный герой" voor de sporen gebruiken; frFR
+Myth (Mythe of Mythique) onbeslist; CLAUDE.md-regel "Corrosive Coin/Soul blijft Engels" vs client-namen-regel (11 okt)
+— Robs keuze.
+
 ## 🌅 20 okt — ochtendronde
 
 GEMETEN: vier wachters gedraaid; CF 0 open, GitHub 0; 40 addons bijgewerkt (o.a. DBM 12.1.16 met eigen consumables-check,

@@ -4,6 +4,17 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "4.10.2",
+		lines = {
+			"CHANGELOG_4102_0",
+			-- release (20 Oct 2026, Rob: "Okay, 4.10.2 versie doen" + "Doe ze alle drie maar")
+			"CHANGELOG_4102_1",
+			"CHANGELOG_4102_2",
+			"CHANGELOG_4102_3",
+			"CHANGELOG_4102_4",
+		},
+	},
+	{
 		version = "4.10.1",
 		lines = {
 			"CHANGELOG_4101_0",

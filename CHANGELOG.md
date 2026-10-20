@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.10.2
+
+📌 **2026-10-20, RELEASE (Rob: "Okay, 4.10.2 versie doen" — dictated as "fourth one, punt 2 versie doen" — and "Doe ze
+alle drie maar").** Patch. In-game: CHANGELOG_4102_0..4 (enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.10.2.md`.
+NIET in het spel gezien: alle teksten hieronder (Codex, tips, vertalingen) en de SimcExport-regel.
+
+- **Fabled Kindo'jan** (64039): oranje regel in CODEX_LABYRINTH_BODY + DELVE_TIP_LABYRINTH_BOSS (8 talen + esMX, client-
+  namen gemeten). Weghalen na 28 okt.
+- **CODEX_CORRPOWER_BODY**: twee soorten gif, Valeera-claim weg, Mephitic neutraal, "Blizzard says 8".
+- **Labyrinth-tips** uit `docs/labyrinth_run_2026-10-19/` (taaknamen, Drilling Charge, Grukk 4 s, Trollbunal, Den'zara,
+  Shadow of Halazzi, Hexmasks in de baaskamer gezien).
+- **CODEX_VOIDCORE_BODY**: tijdelijke regel over de "Current Season Maximum"-bug (Drahtz 15 okt). Weghalen na de fix.
+- **SimcExport.lua:410**: `(node.currentRank or node.ranksPurchased)` (simc-addon 12.1.5-02).
+- **Namen per client** (wago 12.1.5.70448): it Avventuriero; ru Защитник / Легенда; de Mythos; esMX Mito; de
+  Codex-gaven "Gabe/Gaben", "Ätzender Kodex" (Corrosive Soul blijft Engels volgens CLAUDE.md).
+
 ## 4.10.1
 
 📌 **2026-10-19, RELEASE (Rob: "Ja, maak er 4.10.1 van. Go voor de tag, en seint de site-chat.").** Patch, kleine
