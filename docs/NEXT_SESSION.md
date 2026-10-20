@@ -38,7 +38,15 @@ taaknamen in die packs zijn NIET per client gemeten → match vermoedelijk nooit
 locale) en dan de witte namen in de packs zetten. Nog zonder naam: Head ritualists, Ritual items, Golden lever.
 ✅ GEMETEN (wago, scenario 3403; Carola zat erin): "Trial gates" = **Bear's Burden** (incense → burden door 5 Gates of
 Trial, "Hands dusted with tarsap" → Nesh'ikar). Witte naam in enUS/nlNL; RoomTasks-patroon accepteert nu "|r (kamer):".
-15 taken herkenbaar. mh-research Ronde 5 (alle taken × 8 talen) loopt → dan alle packs. Sindsdien bewaart MH elke kamernaam-lezing
+15 taken herkenbaar. mh-research Ronde 5 (alle taken × 8 talen) loopt → dan alle packs.
+✅ Ronde 5 GEMETEN (wago: ScenarioStep.Title_lang = taaknaam, CriteriaTree = "0/N"-regels; docs/CLIENT_NAMES Ronde 5):
+21 taken. Nieuw benoemd: Soul Catcher (was "Head ritualists"), Setting Things Right ("Ritual items"; daarna kan een
+Enraged Ancestral Shaman komen), A Golden Opportunity ("Golden lever"), Bear's Burden, Ritual Ruination (Bone-Flayer
+**Riv'iki**, niet Rav'iki — label + tipLineMatch aangepast, oude spelling blijft als zoekwoord), Containment Breach (The
+Prisoner), Restless Dead (nieuw, niet gespeeld). Warlord-taak heeft 2 namen (Reigns/Reins) → DelveBossCard splitst de
+witte naam op " / ". Alle 8 talen + esMX-overlay met de clientnamen (mh-writer, check met het kaartpatroon: 0 fouten;
+ru Fools and Curses heeft 2 spellingen). 🔜 Kopjes "zonder baas" kloppen niet meer (Bear's Burden e.a. hebben een baas);
+"The Cave Towers" nog Engels in packs; esMX-regel met de hand bijhouden bij elke esES-wijziging. Sindsdien bewaart MH elke kamernaam-lezing
 (ns.db.delveBossCard.scenarioHistory, 30 nieuwste; `/mh roomcard why` toont de laatste 8).
 ➕ Markeerbalk (FastMark.lua; Rob: "knop bosscard … netjes verdelen over de 2 lijnen" + "of roomcard knop"): ready/
 rollen/klok naar de bovenste rij, beide rijen 12 breed; nieuwe knop MidnightHelperMarkBossList (boekje, niet secure, geen

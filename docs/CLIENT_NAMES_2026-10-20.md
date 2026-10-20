@@ -541,3 +541,235 @@ Naam per locale (ScenarioStep 17225 Title_lang, GEMETEN):
 | Bear's Burden | Die Bürde des Bären | Fardeau de l’ours | La carga del oso | La carga del oso | Fardo do urso | Fardello dell'orso | Бремя медведя |
 
 (frFR gebruikt een typografische apostrof ’ (U+2019); enUS en itIT een gewone '.)
+
+### Aanvulling Bear's Burden
+
+- Nesh'ikar = **NPC 269188** "Nesh'ikar <Chosen of Nalorakk>", Humanoid, "Added in patch 12.1.5", te vinden in The Labyrinth of Kindo'jan (GEMETEN: Wowhead npc=269188, gelezen 20 okt 2026). Wago heeft hem niet.
+
+### Hoe te lezen (rest van ronde 5)
+
+- Alles hieronder is GEMETEN op wago.tools (build 12.1.5.70448, useHotfixes=1, 20 okt), tenzij er AFGELEID of "Wowhead" bij staat.
+- Positieve controle: het scherm toonde "1/6 Defeat Hexbound Defenders" (Soul Survivor) en "0/5 Cursed Energy returned" (Fools and Curses). Beide staan exact zo in CriteriaTree (Amount 6 en 5). Ook 3551 = Graverobbers met "Relic Raiders cleared" en "Drill Sergeant slain" klopt.
+- **Kamer** komt uit de interne naam van de bovenste CriteriaTree, bv. "12.1.5 Labyrinth - Chamber 2c - Scenario B - …". Niet elke variant heeft zo'n label ("—" = geen label).
+- **Creature-id**: bij Criteria type 0 is het asset het creature-id. AFGELEID uit de TrinityCore-indeling, maar één keer nagemeten: asset 262930 = Wowhead npc=262930 "Sha'Kuro". Bij type 92 (event) staat er geen creature-id in de data.
+- **Balk** = doel met Amount 100 en Operator 9 (een voortgangsbalk, AFGELEID). Daaronder hangen events met gewicht 20/8/4/2 (of 10/6/4/2).
+- Hotfixes: wago's hotfix-lijst (zoekterm ScenarioStep) toont voor build 70448 o.a. de pushes 112343 / 112461 (stappen 17166 / 17179, A Golden Opportunity) en 112267 (17993, Empty Halls), first seen vanaf 17 okt. De CSV mét en zónder hotfixes is voor alle 221 Labyrinth-stappen gelijk (titel, beschrijving, CriteriaTree).
+
+### 1. Alle kamertaken (enUS)
+
+Elke stap heeft dezelfde titel als de taak (behalve kamer 4 en het einde). Stapnummer = OrderIndex.
+
+#### A Foul Presence — 3699 (1a, "Scenario M - Intro Quest Scenario")
+| Stap | Beschrijving | Doel |
+|---|---|---|
+| 0 | Defeat the rampaging undead. | Undead defeated (12) |
+| 1 | Search the chamber for clues. | Clues investigated (4) |
+| 2 | Examine the effigy. | Examine the Effigy (1) |
+| 3 | Confront the Necromancer! | Jun'ala slain — type 0, **264183** |
+
+#### Malicious Masks — 3470 (1a), 3472 (2a), 3464 (2b), 3474 (2c), 3476 (3a), 3478 (3b), 3479 (3c), 3481 (3d), 3482 (3e)
+| 0 | The presence of intruders in the Labyrinth has corrupted ceremonial masks. Cleanse the corruption from the masks. | Corrupted Masks cleansed (3) |
+|---|---|---|
+| 1 | The spirits have responded to your presence with a challenge. Defeat Grukk! | Grukk slain — type 0, **274331** |
+
+#### Raging Spirits — 3605 (1a-J), 3606 (2a-H), 3607 (2b-H), 3608 (2c-H), 3609 (3a-H), 3610 (3b-J), 3611 (3c-H), 3612 (3d-J), 3613 (3e-I)
+| 0 | Pacify the enraged spirits that are wreaking havoc here. | Spirits quelled (balk 100) |
+|---|---|---|
+| 1 | Face the judgment of the angered spirts! *(Blizzard-typo "spirts")* | Undead Trollbunal slain — type 0, **272655** |
+
+#### Vile Intruders — 3540 (1a-F), 3541 (2a-C), 3430 (2b-A), 3413 (2c-A), 3542 (3a-D), 3510 (3b-D), 3543 (3c-C), 3544 (3d-E), 3538 (3e-D)
+| 0 | Fight back the Vilebranch trolls defiling the tomb! | Balk 100: "Repel the Vilebranch" (3413, 3430, 3510, 3538) of "Vilebranch repelled" (3540–3544) |
+|---|---|---|
+| 1 | Defeat the Sullied Revenant that's been driven mad by the Vilebranch's desecration. | Sullied Revenant slain (3538: "Sullied Revenant Slain") — type 0, **264203** |
+
+Balkgewichten: 20/8/4/2 bij 3413, 3510, 3538; 10/6/4/2 bij 3430, 3540–3544.
+
+#### Reliquary Ritual — 3349 (3a-B)
+| 0 | Break the corupted Spirit Reliquaries to stop Sha'Kuro's ritual. *(Blizzard-typo "corupted")* | Corrupted Reliquaries broken (9) |
+|---|---|---|
+| 1 | Confront the necromancer. | Sha'Kuro confronted (1) |
+| 2 | Survive Sha'Kuro's undead minions. | Survive the Undead (Amount 60, Operator 9) |
+| 3 | Defeat Sha'Kuro while he's still in a weakened state. | Sha'Kuro slain — type 92 (event 103929), geen creature-id |
+
+Wowhead kent twee NPC's "Sha'Kuro": 262930 en 264495 "<Lich Ascendant>" (beide "Added in patch 12.1.5"). Welke hier vecht is NIET gemeten.
+
+#### Reins of the Warlord / Reigns of the Warlord — twee spellingen in de data!
+- "Reins of the Warlord": 3562 (—), 3570 (1A-H), 3576 (3D-H), 3577 (3E-G)
+- "Reigns of the Warlord": 3571 (2A-F), 3572 (2B-F), 3573 (2C-F), 3574 (3A-G), 3575 (3B-H)
+
+| 0 | Speak to Warlord Kaz'kara. | Warlord Kaz'kara spoken with |
+|---|---|---|
+| 1 | Disturb the raptor bones and tame the spirit of Daakajin. | Daakajin tamed |
+
+Geen baas-stap (maar 2 stappen).
+
+#### Taken Antiquities — 9 varianten
+| 0 | The Vilebranch / The Relic Raiders are looting artifacts from the Labyrinth. Find and return the artifacts. | Stolen Artifacts collected (10) |
+|---|---|---|
+| 1 | The … have sent … to stop you. | baas per variant, zie hieronder |
+
+- Vilebranch + Sha'Kuro (type 0, **262930**): 3402 (3b), 3617 (2a) — "The Vilebranch have sent Sha'Kuro to stop you."
+- Relic Raiders + Cynthra Buttonsmasher (type 0, **275274**): 3615 (1a), 3618 (2b), 3619 (2c), 3621 (3c), 3622 (3d) — "The Relic Raiders have sent Cynthra Buttonsmasher to stop you."
+- Vilebranch + Sullied Revenant (type 0, **264203**): 3620 (3a) — "The Vilebranch have sent the Sullied Revenant to stop you."
+- Vilebranch + Jun'ala (type 0, **264183**): 3623 (3e) — "The Vilebranch have sent Jun'ala to stop you."
+
+#### Graverobbers — 3546 (1a-G), 3547 (2a-D), 3552 (2b-D), 3468 (2c-B), 3548 (3a-E), 3511 (3b-E), 3549 (3c-D), 3550 (3d-F), 3551 (3e-E)
+| 0 | Stop the Relic Raiders from pillaging the tomb! | Relic Raiders cleared (balk 100) |
+|---|---|---|
+| 1 | Defeat the Relic Raider leading the pillaging efforts in this chamber. | Drill Sergeant slain — type 0, **273069** |
+
+#### Spirit Thieves — 3345 (2a-B)
+| 0 | Put an end to the Vilebranch's necromantic rituals. | Disrupt the Vilebranch (balk 100) |
+|---|---|---|
+| 1 | Carry the Spirit Reliquaries to the open sarcophagi to return the spirits to rest. | Souls returned (9) |
+
+Geen baas-stap.
+
+#### The Wandering — 3628 (—), 3719 (2b), 3720 (3c)
+| 0 | A fractured spirit drifts nearby, disoriented and searching for its resting place. Stay close to it to bring it clarity so it can keep looking. | Vessel found |
+|---|---|---|
+| 1 | The Remnant's course correction has drawn hostile spirits, and it's feeding on you to keep itself shielded. Keep it safe and see it to its true vessel. | True vessel found |
+
+Geen baas-stap.
+
+#### Returning the Bounty — 3442 (—), 3446 (2b), 3666 (—)
+| 0 | That doesn't look like it belongs to them. | Investigate the Ancient Harvest Bundle |
+|---|---|---|
+| 1 | Such hoarding is an abomination! Cut them down! | Hoarding Looters Defeated (10); Recover Stolen Goods (5) = Old Hekra's Honeypot Recovered, Rujak's Very Large Onion Recovered, Jindara's Favorite Mushroom Recovered, Zan'ji's Wheel of Cheese Recovered, Kazrak's Grain Sack Recovered |
+| 2 | With their taproot exposed, the hoarder weeds can be fully cleared out. | Pit Boss slain — type 0, **266370** (interne naam "Defeat the Looter Excavator") |
+| 3 | BOUNTIFUL HARVEST FOR THE VICTORS! | Run through and collect as much as you can before time runs out |
+
+#### Fools and Curses — 3537 (1a), 3554 (2a), 3555 (2b), 3556 (2c), 3557 (3a), 3558 (3b), 3559 (3c), 3560 (3d), 3561 (3e)
+| 0 | Relic Raiders have opened a cursed Sarcophagus. Find the Cursed Relic Raiders and return the Cursed Energy to the Sarcophagus. | Cursed Energy returned (5) |
+|---|---|---|
+
+Maar 1 stap, geen baas.
+
+#### Encroaching Darkness — 3658 (1a), 3659 (2a), 3483 (2c)
+| 0 | Strange voices echo through the halls, and they don't sound friendly. | Voices investigated |
+|---|---|---|
+| 1 | Find a light to purge the darkness. | Found light |
+| 2 | Purge the trap-released darkness. | Flames of Jan'alai lit (4) |
+| 3 | Dispatch remaining trap-released Rage Specters. | Rage Specters defeated (6) — type 92 |
+
+Geen losse baas.
+
+#### Soul Survivor — 3484 (—), 3580 (1a-I), 3581 (2a-G), 3582 (2b-G), 3583 (2c-G), 3585 (3b-I), 3587 (3c-G), 3588 (3d-I), 3589 (3e-H)
+| 0 | Defeat Hexbound Defenders to release the Soul King from bondage. | Defeat Hexbound Defenders (6) — type 0, 262929 |
+|---|---|---|
+| 1 | Defeat the King of Souls. (3582: "Defeat the King of Souls,") | King of Souls defeated — type 0, **269822** |
+
+#### Bear's Burden — 3403 (geen kamerlabel) — zie SPOED hierboven.
+
+#### Soul Catcher — 3409 ("3D - Scenario C"), 3674 (3c), 3679 (3a)
+| 0 | Disperse the lost souls to cut off the ritualists' power and bring down the barrier. | Lost Souls Dispersed (7); Head Ritualist Ja'an slain (type 0, 263876); Head Ritualist Zol'go slain (type 0, 263877) |
+|---|---|---|
+| 1 | Slay Malakk to bring down the second barrier. | Head Ritualist Malakk slain — type 0, 263898 |
+| 2 | Slay the Vile Wraith to end the dark rites bought with these souls. | Sha'Kuro slain — type 0, **262930** |
+
+#### Restless Dead — 3426 (1a, "Scenario X")
+| 0 | Something's not right here. What has stirred these souls? | Ritual Circle investigated |
+|---|---|---|
+| 1 | Bound souls are anchoring the ritual. | Withering Souls defeated (4) — type 0, 265041 |
+| 2 | Return the relics to calm the spirits. | Relics returned (3) |
+| 3 | Confront the Necromancer! | Vilebranch Necromancer defeated — type 0, **264183** (zelfde id als "Jun'ala slain") |
+
+#### A Golden Opportunity — 3443 (3c; stap 1 heeft label "3b"), 3447 (3d)
+| 0 | Pull the Golden Lever to start the challenge. | Challenge started |
+|---|---|---|
+| 1 | Collect as much treasure from the room before the timer expires. | Room looted |
+
+Geen baas.
+
+#### Ritual Ruination — 3504 (—)
+| 0 | Interupt the ritual before completion. *(Blizzard-typo "Interupt")* | Stop the Ritual (andere tak: "Ritual Successful", Flags 8194) |
+|---|---|---|
+| 1 | Defeat Spirit of Retribution. | Defeat Spirit of Retribution — type 0, 270670 |
+| 2 | Defeat Riv'iki. | Defeat **Bone-Flayer Riv'iki** — type 0, **270594** |
+
+#### Setting Things Right — 3512 (—), 3663 (3a), 3664 (3b) (Scenario.Type 0; de andere kamers Type 8)
+| 0 | Help the Ancestral Shaman restart his ritual. | Ritual items fixed (3) |
+|---|---|---|
+| 1 | Protect the Ancestral Shaman while he completes the ritual. | Ritual completed (andere tak: "(Hidden) Shaman takes enough damage to lose concentration") |
+| 2 | Defeat the Enraged Death Steward. | Enraged Death Steward slain — type 0, **271909** |
+| 3 | Defeat the Enraged Ancestral Shaman. | Enraged Ancestral Shaman slain — type 92, geen creature-id (Wowhead-zoektocht: geen NPC) |
+
+Of stap 2 en 3 allebei komen, of dat 3 alleen volgt na de "Hidden"-tak, is NIET gemeten.
+
+#### Containment Breach — 3524 (—)
+| 0 | Defeat the cultists snuffing the flaming wards of Jan'alai. | Umbral Wardbreakers slain (4) — type 0, 271409 |
+|---|---|---|
+| 1 | Reveal the Prisoner by re-lighting the Flames of Jan'alai with Jan'alai Tears. | Flames re-lit (4) |
+| 2 | Defeat the Prisoner. | The Prisoner vanquished — type 92. Wowhead: NPC **271525** "The Prisoner", Elite, Undead, The Labyrinth of Kindo'jan |
+
+#### Geen kamertaak (tussenstap, kamer 4, einde)
+| Titel | Scenario | Beschrijving | Doel |
+|---|---|---|---|
+| Choose Your Path | 3342 | Select the next chamber you wish to challenge in the Labyrinth, or speak to Kinduru if you wish to end your run. | Path chosen; (Optional) Speak to Kinduru |
+| Heart of the Labyrinth | 3444 stap 0 | Approach De Empire's Rest and face the challenges ahead. | Heart of the Labyrinth approached |
+| Enemy of the Labyrinth | 3444 stap 1 | The Vilebranch necromancer, Den'zara, seeks to defile the souls of the Labyrinth. Stop them at all costs. | Den'zara slain (type 92). Wowhead: NPC 266742 "Den'zara <Vilebranch Warlord>" |
+| Soul of the Labyrinth | 3444 stap 2, 3678 stap 0 | Kindo'jan, the First Hash'ey, desires a worthy challenge. Prove yourself to the spirit! | Kindo'jan defeated (type 92). Wowhead: NPC 266500 "Kindo'jan <The First Hash'ey>" |
+| Soul Put to Rest | 3678 stap 1, 3706 | Kindo'jan has been defeated. Claim your prize! | Kinduru spoken to (3706: Speak to Kinduru) |
+| Empty Halls | 3721 | You have cleared all chambers of the labyrinth. Finish your exploring and speak to Kinduru when you're ready to leave. | Speak to Kinduru to end your run |
+
+### 2. Taaknaam per locale (ScenarioStep.Title_lang, GEMETEN)
+
+| enUS | deDE | frFR | esES | esMX | ptBR | itIT | ruRU |
+|---|---|---|---|---|---|---|---|
+| A Foul Presence | Eine faule Präsenz | Une présence malfaisante | Una presencia vil | Una presencia aberrante | Presença Putrefata | Presenza Immonda | Пагубная аура |
+| Malicious Masks | Bösartige Masken | Masques malveillants | Máscaras maliciosas | Máscaras maliciosas | Máscaras maliciosas | Maschere maligne | Злобные маски |
+| Raging Spirits | Wütende Geister | Esprits déchaînés | Espíritus enfurecidos | Espíritus enfurecidos | Espíritos enraivecidos | Spiriti Furenti | Разъяренные духи |
+| Vile Intruders | Blutfratzen-Eindringlinge | Intrusion ignoble | Intrusos malvados | Intrusos malvados | Intrusos torpes | Intrusi vili | Гнусные захватчики |
+| Reliquary Ritual | Reliquienritual | Rituel du Reliquaire | Ritual del relicario | Ritual del relicario | Ritual do relicário | Rituale del Reliquiario | Ритуал Реликвария |
+| Reins of the Warlord | Zügel des Kriegsfürsten | Rênes du seigneur de guerre | Las riendas del señor de la guerra | Las riendas del señor de la guerra | Rédeas do Senhor da Guerra | Redini del Signore della Guerra | Воля вождя |
+| Reigns of the Warlord | Zügel des Kriegsfürsten | Règnes du seigneur de guerre | Las riendas del señor de la guerra | El reinado del señor de la guerra | Rédeas do Senhor da Guerra | Regni del Signore della Guerra | Воля вождя |
+| Taken Antiquities | Gestohlene Antiquitäten | Antiquités volées | Antigüedades arrebatadas | Antigüedades tomadas | Antiguidades roubadas | Antichità prese | Похищенные древности |
+| Graverobbers | Grabräuber | Pillage de tombe | Profanadores | Profanadores | Roubacovas | Tombaroli | Грабители могил |
+| Spirit Thieves | Geisterdiebe | Esprits voleurs | Ladrones espirituales | Ladrones de espíritus | Ladrões de espíritos | Ladri spirituali | Похитители духов |
+| The Wandering | Die Wanderung | L’esprit errant | El espíritu errante | El errante | A errância | L'errante | Скитания |
+| Returning the Bounty | Den Reichtum zurückbringen | Restituer la prime | Devolver el botín | La devolución del botín | Devolvendo a recompensa | Restituire il bottino | Возвращение сокровищ |
+| Fools and Curses | Narren und Flüche | Maudits inconscients | Maldiciones e insensatos | La insensatez y las maldiciones | Tolos e maldições | Sciocchi e maledizioni | Глупцы и проклятия (3537: Глупцы и проклятья) |
+| Encroaching Darkness | Übergreifende Dunkelheit | Ténèbres envahissantes | Oscuridad invasora | Oscuridad invasora | Escuridão invasora | Oscurità opprimente | Надвигающаяся тьма |
+| Soul Survivor | Überlebende Seele | Âme en sursis | Alma superviviente | Sobreviviente esencial | Alma sobrevivente | Un'anima sopravvissuta | Уцелевшая душа |
+| Bear's Burden | Die Bürde des Bären | Fardeau de l’ours | La carga del oso | La carga del oso | Fardo do urso | Fardello dell'orso | Бремя медведя |
+| Soul Catcher | Seelenfängerin | Attrape-âmes | Atrapaalmas | Atrapaalmas | Apanhadora de Almas | Mietitrice di Anime | Ловец душ |
+| Restless Dead | Ruhelose Tote | Mort sans repos | Muertos insomnes | Muerte sin descanso | Mortos inquietos | Morti irrequieti | Неупокоенные |
+| A Golden Opportunity | Eine goldene Gelegenheit | Une occasion en or | Una oportunidad de oro | Una oportunidad de oro | Oportunidade de ouro | Un'opportunità d'oro | Блестящая возможность |
+| Ritual Ruination | Das ruinierte Ritual | Interruption de rituel | Arruinar el ritual | Ruina del ritual | Arruinando o ritual | Distruzione del rituale | Разгром ритуала |
+| Setting Things Right | Fassung bewahren | Problème à régler | Arreglando las cosas | Las cosas en orden | Acertando as contas | Mettere le cose a posto | Все на своем месте |
+| Containment Breach | Eindämmungsriss | Rupture de confinement | Brecha en la contención | Falla de contención | Rompimento de contenção | Breccia del Contenimento | Брешь в защите |
+| Choose Your Path | Wählt Euren Weg | Choisir sa voie | Elige tu camino | Elige tu camino | Escolha seu caminho | Scegli la tua strada | Выберите свой путь |
+| Heart of the Labyrinth | Herz des Labyrinths | Le cœur du labyrinthe | El corazón del laberinto | Corazón del laberinto | Coração do Labirinto | Cuore del Labirinto | Сердце Лабиринта |
+| Enemy of the Labyrinth | Feind des Labyrinths | Adversaire du labyrinthe | Enemigo del laberinto | Enemigo del laberinto | Ameaça ao Labirinto | Nemico del Labirinto | Враг Лабиринта |
+| Soul of the Labyrinth | Seele des Labyrinths | L’âme du labyrinthe | Alma del laberinto | Alma del laberinto | Alma do Labirinto | Anima del Labirinto | Душа Лабиринта |
+| Soul Put to Rest | Die Seele zur Ruhe betten | Âme apaisée | Alma en paz | Alma que descansa en paz | Alma em paz | Anima a riposo | Упокоенная душа |
+| Empty Halls | Leere Hallen | Salles vides | Cámaras vacías | Salones vacíos | Salões Vazios | Sale vuote | Пустые залы |
+
+frFR gebruikt soms een typografische apostrof ’ (U+2019): "L’esprit errant", "Fardeau de l’ours", "L’âme du labyrinthe".
+
+### 3. Vergelijking met MH's huidige namen
+
+Spelling (GEMETEN tegen enUS Title_lang):
+- Alle 14 MH-namen bestaan letterlijk in de data: A Foul Presence, Malicious Masks, Raging Spirits, Vile Intruders, Reliquary Ritual, Reigns of the Warlord, Taken Antiquities, Graverobbers, Spirit Thieves, The Wandering, Returning the Bounty, Fools and Curses, Encroaching Darkness, Soul Survivor.
+- **Let op "Reigns of the Warlord"**: Blizzard gebruikt ook "**Reins** of the Warlord" (scenario's 3562, 3570, 3576, 3577). MH moet beide herkennen. In frFR, esMX en itIT zijn het ook twee verschillende namen (Rênes/Règnes, riendas/reinado, Redini/Regni). In deDE, esES, ptBR en ruRU is het één naam.
+- **"Rav'iki" is fout gespeld**: de data zegt "Bone-Flayer **Riv'iki**" (doel "Defeat Bone-Flayer Riv'iki", stap "Defeat Riv'iki.").
+- ruRU Fools and Curses: 3537 schrijft "проклятья", de andere 8 "проклятия".
+
+Taken die NIET in MH's lijst staan (GEMETEN dat ze bestaan): **Bear's Burden, Soul Catcher, Restless Dead, A Golden Opportunity, Ritual Ruination, Setting Things Right, Containment Breach**. Daarnaast de stappen die geen kamertaak zijn: Choose Your Path, Heart of the Labyrinth, Enemy of the Labyrinth, Soul of the Labyrinth, Soul Put to Rest, Empty Halls.
+
+MH's naamloze beschrijvingen gekoppeld aan de echte naam. De koppeling is AFGELEID: ik heb de namen en doelen in de data naast MH's tekst gelegd.
+
+| MH-beschrijving | Echte naam | Scenario's | Waarom |
+|---|---|---|---|
+| Head ritualists: kill Ja'an and Zol'go … then Malakk and Sha'Kuro | **Soul Catcher** | 3409, 3674, 3679 | doelen Head Ritualist Ja'an / Zol'go → Malakk → Sha'Kuro |
+| Ritual items: put back the mask, the candle and the torch … then the Death Steward | **Setting Things Right** | 3512, 3663, 3664 | "Ritual items fixed" (3) → … → Enraged Death Steward. Let op: er is nog een 4e stap, "Enraged Ancestral Shaman slain" |
+| Golden lever: pull it, then loot the room | **A Golden Opportunity** | 3443, 3447 | "Pull the Golden Lever …" → "Room looted" |
+| Trial gates (The Cave Towers): incense … 5 green gates … Then Nesh'ikar | **Bear's Burden** | 3403 | Incense lit → Trial gates cleared (5) → Nesh'ikar defeated |
+| Bone-Flayer Rav'iki (stop the ritual) | **Ritual Ruination** | 3504 | Stop the Ritual → Spirit of Retribution → Bone-Flayer **Riv'iki** |
+| The Prisoner (kill 4 Umbral Wardbreakers, carry tears … to 4 flames) | **Containment Breach** | 3524 | Umbral Wardbreakers slain (4) → Flames re-lit (4) → The Prisoner vanquished |
+
+Geen MH-beschrijving gevonden voor **Restless Dead** (3426: Ritual Circle → 4 Withering Souls → 3 relics → Vilebranch Necromancer).
+
+Niet gemeten / open:
+- Creature-id's van de event-bazen (Nesh'ikar, Den'zara, Kindo'jan, The Prisoner) komen alleen van Wowhead, niet uit de DB2. Voor Enraged Ancestral Shaman en voor de Sha'Kuro van Reliquary Ritual (event 103929) is er geen id.
+- In welke kamer 3403 (Bear's Burden), 3442/3666, 3484, 3504, 3512, 3524, 3562 en 3628 vallen, staat niet in hun CriteriaTree-label. Kamer 3403 = The Cave Towers komt uit de opdracht (AreaTable 17033), en heb ik in deze ronde niet zelf nagemeten.

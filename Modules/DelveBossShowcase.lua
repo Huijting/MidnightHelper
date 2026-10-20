@@ -334,7 +334,9 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 272017, label = "Daakajin", tipLineMatch = { "Daakajin", "Kaz'kara" } },
 		{ creatureId = 269188, label = "Nesh'ikar", tipLineMatch = { "Nesh'ikar" } },
 		{ creatureId = 266370, label = "Pit Boss", tipLineMatch = { "Pit Boss" } },
-		{ creatureId = 270594, label = "Bone-Flayer Rav'iki", tipLineMatch = { "Rav'iki" } },
+		-- "Riv'iki", not "Rav'iki": Blizzard's own data (scenario "Ritual Ruination", wago 12.1.5.70448, 20 Oct 2026).
+		-- The old spelling stays as a match word for pack texts that still carry it.
+		{ creatureId = 270594, label = "Bone-Flayer Riv'iki", tipLineMatch = { "Riv'iki", "Rav'iki" } },
 		{ creatureId = 271525, label = "The Prisoner", tipLineMatch = { "The Prisoner" } },
 		{ creatureId = 266742, encounterId = 3556, label = "Den'zara", tipLineMatch = { "Den'zara" } },
 		-- Not in Zygor and not seen yet: their DungeonEncounters (3646, 3642) in Blizzard data, DBM's empty stubs of

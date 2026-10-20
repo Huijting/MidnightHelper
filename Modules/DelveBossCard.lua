@@ -226,7 +226,15 @@ local function RoomTasks(entryId)
 				-- "|r:" or "|r (The Cave Towers):" — a room note may sit between the name and the colon.
 				local name = line:match("^%s*•%s*|cffffffff(.-)|r[^:|]*:")
 				if name and name ~= "" then
-					tasks[name:lower()] = { name = name, line = line }
+					-- One task can have two names in Blizzard's data ("Reigns of the Warlord / Reins of the Warlord",
+					-- measured 20 Oct 2026): every name between " / " matches; the card shows the first.
+					local first
+					for part in (name .. " / "):gmatch("(.-) / ") do
+						if part ~= "" then
+							first = first or part
+							tasks[part:lower()] = { name = first, line = line }
+						end
+					end
 				end
 			end
 		end
