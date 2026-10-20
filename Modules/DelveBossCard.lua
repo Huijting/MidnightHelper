@@ -68,7 +68,29 @@ local function BossLines(entryId, idx)
 		end
 	end
 	local lines = ns.GetDelveBossOwnTipLines and ns.GetDelveBossOwnTipLines(entryId, idx) or {}
-	return lines, boss
+	-- His own tip ("• Sha'Kuro: kill the …") first, the room tasks that name him after it (Rob's screenshot, 20 Oct
+	-- 2026: the boss tip sat second, under "Reliquary Ritual").
+	local own, rest = {}, {}
+	local needles = type(boss.tipLineMatch) == "table" and boss.tipLineMatch or { boss.label }
+	for _, line in ipairs(lines) do
+		local head = (line:match("^%s*•?%s*(.-):") or ""):lower()
+		local isOwn = false
+		for _, nd in ipairs(needles) do
+			if type(nd) == "string" and nd ~= "" and head:find(nd:lower(), 1, true) then
+				isOwn = true
+				break
+			end
+		end
+		if isOwn then
+			own[#own + 1] = line
+		else
+			rest[#rest + 1] = line
+		end
+	end
+	for _, line in ipairs(rest) do
+		own[#own + 1] = line
+	end
+	return own, boss
 end
 
 local function Build()

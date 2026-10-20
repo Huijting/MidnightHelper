@@ -25,6 +25,8 @@ er is niets weggegooid.
 
 Eerst `/reload`. Kan ook buiten de delve: `/mh bosscard 5` toont het venster van Sha'Kuro.
 
+- [x] ✅ Rob 20 okt (screenshot): `/mh bosscard 5` → venster "Room boss: Sha'Kuro" met 4 regels, knop, schuifbalk.
+      Daarna: zijn eigen regel ("Sha'Kuro: …") staat nu BOVENAAN, de kamertaken eronder → na `/reload` nakijken.
 - [ ] `/mh bosscard`: een lijst van 19 bazen, elk met "N line(s)" in groen (geen rode 0).
 - [ ] In de Labyrinth: target een kamerbaas (of begin het gevecht) → rechts een klein venster "Room boss: <naam>" met
       ALLEEN zijn tips. Kindo'jan: "End boss: Kindo'jan" met het hele Boss-deel (scrollen). Knop "Open the delve
