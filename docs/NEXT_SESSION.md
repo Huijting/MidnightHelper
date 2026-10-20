@@ -53,6 +53,8 @@ Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg n
 - 🎮 Rob levelt een Havoc DH (lvl 22, 189 gevechten in /mh presses): drukste 1-4 liggen goed, Blade Dance S-4 en Felblade
   C-1 laten de hand springen (toetsenblok = zelfde taak op elke toets). Advies: de twee Swap-tips (→ Q en F). Idee C
   ("Beginners: op volgorde", nieuwe spells achteraan, schakelaar < 80) = Robs keuze na de swaps.
+  ✅ Rob 20 okt: "ik heb alles swapped en dat gaat al beter :)" → de bestaande Swap-tips helpen. C pas bouwen als het
+  bij een volgende nieuwe spell weer gaat springen (Rob meldt).
   ⚠️ SET_GAMENEWS_DESC enUS/nlNL noemt nu ook de knop; de/fr/es/pt/it/ru nog de oude zin → check_drift.
 - Ronde 2 clientnamen (mh-writer, docs/CLIENT_NAMES Ronde 2): spoorwoorden in Codex/StartHere/MythicPlus de/fr/es/pt; 12
   gave-namen fr/es/esMX/pt/it/ru; giftwoord; Warbound-packs; Voidcore-label; Housing; ru crest-label Myth "Эпоха"
