@@ -17,6 +17,8 @@ donkere plekken verschuiven bij elke stoot. NIET aanpassen vóór Robs bevestigi
 → Halazzi BEANTWOORD (Rob in-game, via filmpjes-chat 20 okt): "Ze richten allemaal op Valeera, maar één kat beweegt maar.
 Dus daar moet je tussen gaan staan." → onze tip klopt in de kern, de video niet ("≥2 opvangen" vervalt). Mogelijke
 aanvulling: "alle vier richten een witte lijn op Valeera, maar maar één beweegt" — Rob kiest. Nalorakk + Akil'zon open.
+✅ Rob: "Ja, voeg de zin toe … in alle talen" → DELVE_TIP_LABYRINTH_BOSS 8 talen + esMX, drift gemarkeerd. 🔜 Bazen-/NPC-
+namen in deze tip (Shadow of Halazzi, Den'zara, Kindo'jan-loa's) nog niet per client gemeten.
 Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg na Blizzards fix; 4 nov 16001-TOC.
 ✅ GEBOUWD 20 okt, niet in het spel gezien (TESTLIJST bovenaan):
 - A: `ResetRoutine.lua` giver `vaeli` (95413/95416/95438/95440 + 95406, minLevel 90, noLearn, eigen pin 2393 49.6/66.0,
