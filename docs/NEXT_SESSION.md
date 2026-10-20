@@ -19,6 +19,12 @@ Dus daar moet je tussen gaan staan." → onze tip klopt in de kern, de video nie
 aanvulling: "alle vier richten een witte lijn op Valeera, maar maar één beweegt" — Rob kiest. Nalorakk + Akil'zon open.
 ✅ Rob: "Ja, voeg de zin toe … in alle talen" → DELVE_TIP_LABYRINTH_BOSS 8 talen + esMX, drift gemarkeerd. 🔜 Bazen-/NPC-
 namen in deze tip (Shadow of Halazzi, Den'zara, Kindo'jan-loa's) nog niet per client gemeten.
+✅ Rob 20 okt (hier bevestigd na de filmpjes-chat): Akil'zon "donker/licht wisselen na ELKE stoot" (oude "step sideways
+into a narrow gap" eruit; 4+4 bewust NIET genoemd, afgeleid), Nalorakk twee muren van tegenover elkaar liggende randen,
+Whirling Axes midden in het Headhunter-gevecht, Juggernaut = 5e vijand ~midden met Phalanx Charge; Codex-kaart Crushing
+Blow "naar het midden" (was "step out of the impact" = strijdig). 8 talen + esMX, drift gemarkeerd. 🔜 Spellnamen in de
+boss-tip (Phalanx Charge, Crushing Blow, Whirling Axes, Amani Juggernaut …) per client meten; es Codex zegt al "Gigante
+Amani" / "Golpe aplastante" — boss-tip mengt nog Engels.
 Vaste termijnen: Fabled-regels weg na wo 28 okt; Voidcore-/Valeera-melding weg na Blizzards fix; 4 nov 16001-TOC.
 ✅ GEBOUWD 20 okt, niet in het spel gezien (TESTLIJST bovenaan):
 - A: `ResetRoutine.lua` giver `vaeli` (95413/95416/95438/95440 + 95406, minLevel 90, noLearn, eigen pin 2393 49.6/66.0,

@@ -36,6 +36,9 @@ Eerst `/reload`.
 - [ ] (oud) Bovenin het venster, links naast Classic: een oranje knop "News (3)". Muis erop → de drie meldingen in een
       tooltip. Klik → This Week opent met de banner bovenaan. Schakelaar uit in de instellingen → knop weg.
       Klik Classic → knop blijft oranje (Blizzard-knop). Verdwijnt hij als er geen meldingen meer zijn?
+- [ ] Delve-coach Kindo'jan, Boss-deel: Akil'zon "After every gust the dark and light slices swap places"; Nalorakk "two
+      walls of bears come from opposite edges … turn around"; Juggernaut "a fifth enemy … Phalanx Charge". Codex →
+      Labyrinth-kaart: Crushing Blow "(go to the middle of the platform …)".
 - [ ] Delve-coach / Codex bij Kindo'jan, Halazzi-stuk: "All four aim a white line at Valeera, but only one moves …".
 - [ ] (oud) This Week: helemaal bovenaan een oranje banner "In the game now" (grotere kop, witte tekst, oranje streep) met drie regels: Fabled Kindo'jan ("… N day(s) left"), de
       Voidcore-bug en Valeera. Op een character onder 90 alleen de Valeera-regel.
