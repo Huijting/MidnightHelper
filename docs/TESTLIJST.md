@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 21 okt (laat) — Labyrinth: het touw naar de schatkamer
+
+Eerst `/reload`.
+- [ ] `/mh coach labyrinth` → Kindo'jan-tip: de regel "Out of lives before he dies?" noemt nu het opgerolde touw bij de
+      dichte deur aan het begin, en zegt dat je de delve niet moet verlaten.
+- [ ] `/mh codex` → Delves → The Labyrinth of Kindo'jan: bij Kindo'jan de regel "Stuck near him with 0 lives…", en
+      onderaan "every Bountiful Coffer needs a Restored Coffer Key, one per coffer". "Not known yet" noemt geen sleutel meer.
+- [ ] Bij gelegenheid, in het Labyrinth bij het touw: `/mh coord touw` (of TomTom) → stuur de coördinaten, dan komt er een pijl-link bij.
+
 ## 🆕 21 okt (avond) — alle 35 overige "How you play"-kaarten nagelopen
 
 Eerst `/reload`. Steekproef op een paar characters:

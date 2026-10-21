@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🪢 21 okt (avond) — Labyrinth: touw-uitweg en sleutels (Rob: "Ja, zet dat er maar in.")
+
+GEMETEN door Carola (21 okt, via Rob): bij Kindo'jan met 0 levens bleef ze terugkomen, geen Kinduru, geen schatkamer.
+Kinduru's Spiriting Quill deed niets (alleen een flitsje), ook buiten de bazenkamer. **Het opgerolde touw bij de dichte
+deur aan het begin** bracht haar naar de schatkamer: 9 grote kisten, goud, Zah'ran. Bountiful Coffer vroeg een sleutel;
+ze gebruikte er minstens 2. Speldata (wago 12.1.5.70448, SpellReagentsCurrency 2082): 1 Restored Coffer Key per coffer.
+Geen hotfix over 0 levens gevonden (mh-research); spelers melden dezelfde fout al sinds 18 okt.
+In MH: DELVE_TIP_LABYRINTH_BOSS (out-of-lives-regel herschreven) en CODEX_LABYRINTH_BODY (touw-regel bij Kindo'jan;
+"Nog niet bekend: sleutel?" vervangen door 1 sleutel per coffer, Heavy Trunks geen). enUS+nlNL zelf, rest mh-writer.
+Syntax OK, lint 0 HARD, check_drift --mark voor beide keys (7 talen).
+🔜 Open: coördinaten van het touw (dan een {WAY}-link erbij); of de Quill bij anderen wél werkt.
+🔜 ruRU: "Kinduru" staat in 4 strings in Latijnse letters (client: Киндуру, wago-rij 257344 volgens mh-writer), en
+"Kinduru's Spiriting Quill" ook; clientnaam van de toy nog meten.
+
 ## 🧪 21 okt (middag) — BETA 4.11.0-beta1 (Rob: "ja je krijgt de GO, vertel je het ook de site chat")
 
 Waarom nu: Carola wil vanavond het Labyrinth-werk proberen, en de spec-audit (workflow playcard-audit) duurt langer.
