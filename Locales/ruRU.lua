@@ -2610,7 +2610,8 @@ ns._mhLocales.ruRU = {
 	KEYSHUB_PRESSES_BTN = "2. Какие заклинания я нажимаю?",
 	KEYSHUB_PRESSES_DESC = "Считает, какие заклинания вы действительно используете, и показывает, какие стоят на неудобной клавише. Один щелчок переставляет их на более удобную.",
 	KEYSHUB_PRESSES_OFF = "Подсчет сейчас выключен. Включите его в том окне, затем сыграйте несколько боев.",
-	KEYSHUB_TITLE = "Всё о клавишах", -- not "Ваши клавиши": that is already the keybind export window's title here
+	-- Not "Your keys" literally: that wording is already the keybind export window's title in this pack.
+	KEYSHUB_TITLE = "Всё о клавишах",
 	LANG_GATED_NOTICE = "Выбранный вами язык (%s) не загружен в этом клиенте WoW, поэтому Midnight Helper показывает английский. Так экономится память; язык загрузится сам, когда клиент будет переключен на него.",
 	LANG_LABEL_AUTO = "Автоматически (язык игры)",
 	LANG_LABEL_DE = "Deutsch",
