@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.11.0 (beta2)
+
+📌 **2026-10-21 (avond), BETA 2 (Rob: "Ja, maak er 4.11.0-beta2 van, go voor de tag, en seint de site-chat.").** Tag
+`v4.11.0-beta2`. In-game: CHANGELOG_4110_7 erbij. Release notes: sectie "New in beta 2: every play card checked".
+NIET in het spel gezien: alles van de spec-audit (rondes 1 + 2), PLAYCARD_BUILD_NOTE, de Blijf-leven-wijzigingen.
+
+- **Spec-audit** (workflows playcard-audit + playcard-rewrite): 35 specs, 2 routes + reconcile; 13 harde fouten
+  (6774a52) en 110 herschreven regels + build-note + Blijf-leven/dispel-code (7506adc). Rapporten in de side-session-notes
+  `playcard_audit\`.
+
 ## 4.11.0 (beta1)
 
 📌 **2026-10-21, BETA (Rob: "Is het idee om er alvast een beta te releasen?" → "ja je krijgt de GO, vertel je het ook de

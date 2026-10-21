@@ -1,4 +1,4 @@
-# Midnight Helper 4.11.0 (beta): room windows for the Labyrinth, Your keys, and a solo This Week
+# Midnight Helper 4.11.0 (beta 2): every play card checked, room windows for the Labyrinth, Your keys, and a solo This Week
 
 ## This is a beta
 
@@ -43,12 +43,21 @@ also when everything works:
 - **In the game now:** a news banner on top, and an orange *News* button in the title bar.
 - **Vaeli's housing weekly** is on the list.
 
-## Healers
+## New in beta 2: every play card checked
 
-The play cards for **Holy Paladin, Restoration Druid, Discipline and Holy Priest and Restoration Shaman** were checked
-line by line against the game data and current guides. A few things were only true with a talent; they now say so.
-**Dispels** show Poison, Disease or Curse only when you have the talent that adds it. The other specs are being
-checked the same way for the next beta.
+All 40 **How you play** cards were checked line by line, by two separate routes: the game data itself and the
+current guides. What changed:
+
+- **One line on top of each card** says it follows the talents most players pick. Missing a button? Then it is a
+  talent you did not choose.
+- **Where a step needs a talent you may not have** (a choice between two talents, or one few players take), the
+  step now says so: "if you took …".
+- **Wrong or misleading lines fixed**, for example Balance's Eclipse button, Blood's Bone Shield, Unholy's Festering
+  Scythe, Vengeance's defensives and Devourer's hero tree.
+- **Stay alive:** Purifying Brew is pressed when Stagger turns yellow or red, Zephyr is a big defensive, Lichborne is
+  for fear and charm, Shield Block and Ignore Pain start once the fight begins, Feint helps against area damage.
+- **Dispels** show Poison, Disease or Curse only when you have the talent that adds it (Holy Paladin, Priests,
+  Restoration Shaman, Mistweaver).
 
 ## Also
 

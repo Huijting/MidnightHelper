@@ -14,6 +14,8 @@ local CHANGELOG_ENTRIES = {
 			"CHANGELOG_4110_4",
 			"CHANGELOG_4110_5",
 			"CHANGELOG_4110_6",
+			-- beta2 (21 Oct 2026, Rob: "maak er 4.11.0-beta2 van, go voor de tag")
+			"CHANGELOG_4110_7",
 		},
 	},
 	{

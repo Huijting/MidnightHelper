@@ -9,6 +9,9 @@ TOC 4.11.0, CHANGELOG_4110_0..6 (enUS, 0 = beta-notitie), Changelog.lua, `RELEAS
 version info from https://addons.wago.io/api/data/game", storing bij Wago) → run staat op failed (exit 1). Niet opnieuw
 gedraaid: een rerun uploadt ook opnieuw naar CurseForge. Wago krijgt de volgende tag. Site-chat geseind.
 🔜 De spec-audit-uitkomsten gaan in een volgende beta (of 4.11.0).
+🧪 BETA 2 (Rob: "Ja, maak er 4.11.0-beta2 van, go voor de tag, en seint de site-chat."): CHANGELOG_4110_7, release notes
+"New in beta 2: every play card checked" (RELEASE_NOTES.md = docs/CURSEFORGE_4.11.0.md, cmp identiek), tag
+`v4.11.0-beta2`. TOC blijft 4.11.0.
 
 ## 🦅 21 okt — ochtendronde + Claws of the Empire (Rob: "ja, zet allebei erin … alle talen")
 
