@@ -1,5 +1,29 @@
 # Midnight Helper — waar we staan
 
+## 🦅 21 okt — ochtendronde + Claws of the Empire (Rob: "ja, zet allebei erin … alle talen")
+
+Ochtendronde GEMETEN: 4 wachters gedraaid (hotfix-sectie 20 okt: Mistcrests ongecapt, Fools and Curses-afrondbug en
+Spirit Conduit-loa tijdens Kindo'jan gefixt — alle [RAAKT ONS NIET]); API-wachter kon warcraft.wiki.gg op geen route
+lezen (meetgat, geen "onveranderd"). CF 0 open, GitHub 0; 24 addons bijgewerkt (MDT 6.3.10 nieuw uiterlijk), gelezen
+niet getest; HandyNotes 166, geen zonebestand veranderd; site-mail niets nieuws (#21/#22 al geteld).
+Site-chat vraagt: `/nieuwe-chat` ook voor de site-chat, met eigen handoff (`midnighthelper-site/drafts/SITE_HANDOFF.md`,
+blok "▶ START HIER", titel "Site chat <dd-mm>", beginzin "Goedemorgen, je bent de nieuwe site-chat. Lees
+drafts/SITE_HANDOFF.md en doe je ochtendritueel."). Toegezegd als punt 4; site-chat seinen als hij er is.
+✅ Claws of the Empire — 2 mh-research-rondes eens (wago 12.1.5.70448 + Robs log 20 okt): spell 1319285 (aura 1319287
+op Kindo'jan vervangt zijn autoattack, OVERRIDE_AUTOATTACK_WITH_RANGED_SPELL), Physical, 1 doel, 100 yd, elke 2,0 s,
+~4% max health vóór mitigatie, nooit Disgraceful Display (43 treffers, 0 stacks). Pauzeert tijdens zijn casts en
+de loa-tests. Robs doden 20 okt kwamen NIET hiervan: dood 1 = Eruption of Mojo 1300491 (DB2 KNOCK_BACK, ~75-95 yd
+gevlogen, geen schaderegel daarna → van het platform AFGELEID), dood 2 = Ursine Rampage (Nalorakk) + 2e stack.
+→ DELVE_TIP_LABYRINTH_BOSS: Claws-bullet, Mojo "slaat je ver weg, bij de rand val je eraf", bronregel. enUS/nlNL door
+mij; de/fr/es/pt/it/ru + esMX door mh-writer (eigen vertaling), drift gemarkeerd, syntax OK, lint 0 HARD. Clientnaam
+GEMETEN (wago SpellName 70448): de Klauen des Imperiums, fr Griffes de l’Empire, es Garras del imperio, esMX Las garras
+del imperio, pt Garras do Império, it Artigli dell'Impero, ru Когти империи. Niet in het spel gezien (TESTLIJST bovenaan).
+🔜 Clientnaam-regel: de rest van deze tip (Disgraceful Display, Eruption/Erratic Mojo, Whirling Axes, Crushing Blow,
+Phalanx Charge, Amani Aegis, Hash'ey's Command, Storm of Torment, Beckoning Death, Vile Bolts) is in alle packs nog
+Engels → per locale meten in wago SpellName en vervangen (Claws staat nu als enige in de clienttaal).
+⚠️ Welke Mojo-spell de wegslag geeft (de grote/kleine cirkels of de cirkel op jou) is niet uit elkaar gehaald; de tip
+zegt "een treffer" en laat de rand-raad voor het neerleggen staan ("vlak bij de rand … stap eruit richting het midden").
+
 ## 🪟 20 okt (avond) — venster per kamerbaas (Rob: "maak er sowieso maar een venster per baas van")
 
 Aanleiding: Rob zag niet dat de 19 Labyrinth-kamerbazen al tips hebben (één lange Rooms-sectie in de coach). GEBOUWD, niet

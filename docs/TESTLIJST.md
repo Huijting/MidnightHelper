@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 21 okt — Kindo'jan: Claws of the Empire + Mojo-wegslag
+
+Eerst `/reload`. Delve-coach → Labyrinth → Boss-deel (of het End boss-venster van Kindo'jan):
+- [ ] Na de Disgraceful Display-regel staat nu "Claws of the Empire is just his normal attack … heal through it."
+- [ ] Bij Eruption of Mojo: "A hit also knocks you far away: near the edge it throws you off the platform".
+- [ ] Bij je volgende Kindo'jan: klopt het dat Claws je niet echt pijn doet, en vlieg je bij een Mojo-treffer echt weg?
+- [ ] Op een Duitse/Franse/… client (of Cisca): staat de Claws-regel er ook, in die taal?
+
 ## 🆕 20 okt (laat) — Flooded Chamber: ingang onder water in de kistenroute
 
 Eerst `/reload`. In de Labyrinth, als alleen de 5 Flooded Chamber-kistjes over zijn (of je ze als eerste krijgt):
