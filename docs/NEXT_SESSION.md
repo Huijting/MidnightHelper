@@ -84,6 +84,18 @@ keyboard shows"). PRESSES_ROW_TT: "The key it sits on now lights up."
 ns.LiveKeyForSpell and ns.LiveKeyForSpell(id)` — een `and` houdt alleen de EERSTE returnwaarde, hit was altijd nil.
 Gerepareerd (eerst de nil-check, dan de kale aanroep). ✅ Rob 21 okt: "De juiste key licht nu op". 🔜 lint check [12] ("Multi-assignment behind an `and` guard")
 ving dit NIET (0 gemeld) → de regex van [12] nalopen in tools/lint_addon.py. Niet opnieuw getest.
+🗓️ D — weekplan voor solo/delves (Rob: "Doe A en B samen: solo-stand sterker en delves naar voren, en de solo-knop
+bovenaan This Week"). Gemeten vooraf (mh-sweep + zelf): schakelaar mh_homeSolo bestond (2 okt) maar zat alleen in
+Settings en verborg alleen Mythic+ en Raids. GEBOUWD, niet in het spel gezien:
+- B: klikregel bovenaan This Week (na de nieuwsbanner) HOME_SOLO_TOGGLE_OFF/_ON → ns.SetHomeSoloMode (maakt nu zelf
+  ns.db.ui aan; deed eerder stil niets als die tabel ontbrak).
+- A: solo verbergt ook World Boss (Vault krijgt de hele breedte), groepsbuffs en Halduron (dungeon-weekly; ResetRoutine
+  RoutineGivers/SOLO_HIDDEN_GIVERS — Liadrin blijft want ze biedt ook Delves, Zerella/War Mode blijft). "Weekly chores"
+  (delves) komt direct na "Your week", standaard OPEN (een eigen eerdere keuze om dicht te klappen wint nog), met regels
+  keys+shards (currency 3028/3310) en Valeera-level (nieuw ns.GetValeeraStanding, klik = haar venster) + link Delves.
+  "Next up": met ≥1 Restored Coffer Key → "use one on a Bountiful delve" + knop "Show delves", behalve als de Great
+  Vault klaarstaat (die blijft eerst). Teksten 8 talen (en/nl ik, rest mh-writer).
+🔜 Rob kiest: Zerella (Sparks of War, War Mode = PvP) en Maella (Showdowns) ook verbergen in solo?
 🌀 Loa-Spirit Conduits (Rob stond voor een "Loa-Spirit Wind Conduit": "hebben wij dat al besproken?" → "ja doe maar").
 2 mh-research-rondes eens (wago 12.1.5.70448; rapporten in de side-session-notes, conduits_ronde_A/B.md): object "Loa-Spirit
 <X> Conduit", buff "Spiritual <X> Conduit", 2 min, Journey-rang 6 (RenownRewards 2048 = "Loa-Spiritual Conduits", dus die
@@ -96,6 +108,8 @@ DELVE_TIP_LABYRINTH_OVERVIEW; en/nl door mij, rest mh-writer. CODEX_LABJOURNEY_B
 🔤 Blokjes op actieknoppen (Rob, resto druid in vorm): NIET MH (GEMETEN: geen HotKey/RANGE_INDICATOR-code in MH, controle
 vond "hotkey" elders). Oorzaak: `_retail_\Fonts` had 4 identieke eigen fonts (md5 0abc1195…, 23 mrt 2026, "eerder ui
 project") → het ●-bereikrondje op knoppen zonder toets werd een blokje. ✅ Rob haalde ze weg + /reload: blokjes weg.
+✅ Rob 21 okt in de Labyrinth: `/mh coach labyrinth` werkt, boekje op de markeerbalk werkt, kamerkaart opent VANZELF bij
+een nieuwe kamer (GEMETEN door Rob; daarmee is het hele kamerkaart-pad bevestigd).
 ✅ Rob 21 okt (screenshot in de Labyrinth): Claws-regel staat in de coach. Slotzin was tegenstrijdig met de Mojo-regel
 ("the ground effects did") → "a knockback off the platform and the bears did", alle talen (mh-writer).
 🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):

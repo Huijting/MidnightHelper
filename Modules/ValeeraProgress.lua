@@ -280,6 +280,9 @@ local function GetValeera()
 	}
 end
 
+--- Her standing for other screens (This Week in solo mode, 21 Oct 2026). nil = unreadable, same as above.
+ns.GetValeeraStanding = GetValeera
+
 local function BuildText()
 	local v = GetValeera()
 	if not v then

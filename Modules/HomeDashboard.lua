@@ -79,6 +79,10 @@ local function IsSectionCollapsed(key)
 	if map and map[key] ~= nil then
 		return map[key] == true
 	end
+	-- Solo mode puts the delve block up front and OPEN (Rob, 21 Oct 2026); an explicit fold still wins.
+	if key == "chores" and ns.IsHomeSoloMode and ns.IsHomeSoloMode() then
+		return false
+	end
 	return DEFAULT_COLLAPSED[key] == true
 end
 
@@ -242,6 +246,10 @@ local function BuildLayout()
 	local reference = {}
 	local REFERENCE_ORDER = { "wishlist", "collectibles", "raids", "tip" }
 
+	-- "I mostly play solo" (Rob, 21 Oct 2026: "solo-stand sterker en delves naar voren"). Hides group content (Mythic+,
+	-- raids, world boss, group buffs, the dungeon weekly) and puts the delve block up front, open, with keys and Valeera.
+	local solo = ns.IsHomeSoloMode()
+
 	------------------------------------------------------------------ In the game now (GameNews.lua, 20 Oct 2026)
 	-- FIRST on the page and drawn as a banner (Rob: "het moet er juist uit knallen"). Each note ends by itself;
 	-- nothing current = no block at all (/mh news says why). No section key, so it cannot be collapsed away.
@@ -257,6 +265,38 @@ local function BuildLayout()
 		end
 	end
 
+	------------------------------------------------------------------ Solo switch (21 Oct 2026)
+	-- The switch used to live only in Settings → Window, where nobody found it. Now it sits at the top of the page it
+	-- changes, one click either way (players choose, never us).
+	addFull(function(rows)
+		line(rows, ns:L(solo and "HOME_SOLO_TOGGLE_ON" or "HOME_SOLO_TOGGLE_OFF"), solo and COLOR_PROG or COLOR_LINK,
+			function()
+				ns.SetHomeSoloMode(not solo)
+			end)
+	end)
+
+	--- Solo headline: a Restored Coffer Key in the bag means the best thing to do is a Bountiful delve (the gear
+	--- baby-steps card says the same). Never over a Great Vault that is ready: claiming rewards still comes first.
+	local function SoloDelveHero()
+		if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
+			return nil
+		end
+		local okK, info = pcall(C_CurrencyInfo.GetCurrencyInfo, 3028) -- Restored Coffer Key (DelveHistory.lua)
+		local keys = okK and type(info) == "table" and tonumber(info.quantity) or 0
+		if keys < 1 then
+			return nil
+		end
+		return {
+			text = ns:L("HOME_SOLO_HERO_KEYS_FMT"):format(keys),
+			btn = ns:L("HOME_SOLO_HERO_BTN"),
+			onClick = function()
+				if ns.SelectTab then
+					ns.SelectTab("delves")
+				end
+			end,
+		}
+	end
+
 	------------------------------------------------------------------ Next action (headline; never collapsible)
 	-- The single question this addon exists to answer: "what should I do right now?"
 	-- The reset routine already computes a priority-ordered, live, per-character list
@@ -269,7 +309,12 @@ local function BuildLayout()
 				return
 			end
 			header(rows, ns:L("HOME_HERO_HEADER"))
-			if step then
+			local vaultFirst = step and type(step.pin) == "table" and step.pin[4] == "HOME_ROUTINE_PIN_VAULT"
+			local delveHero = solo and not vaultFirst and SoloDelveHero() or nil
+			if delveHero then
+				line(rows, delveHero.text, COLOR_WARN)
+				rows[#rows + 1] = { button = true, text = delveHero.btn, onClick = delveHero.onClick }
+			elseif step then
 				line(rows, step.text or "", COLOR_WARN)
 				if step.onClick then
 					rows[#rows + 1] = {
@@ -451,7 +496,7 @@ local function BuildLayout()
 	-- Silent when solo, when the group is fully buffed, and when the game hides other
 	-- players' auras (inside instances) — GetGroupBuffSteps returns nothing in all three,
 	-- so this block simply doesn't draw rather than claiming anything.
-	if ns.GetGroupBuffSteps then
+	if ns.GetGroupBuffSteps and not solo then
 		local okG, gSteps = pcall(ns.GetGroupBuffSteps)
 		if okG and type(gSteps) == "table" and #gSteps > 0 then
 			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
@@ -573,6 +618,14 @@ local function BuildLayout()
 		end
 	end
 
+	-- Solo: the delve block comes right after "Your week". Its builder is defined further down, so keep the slot now
+	-- and fill it there.
+	local choresSlot
+	if solo then
+		blocks[#blocks + 1] = { type = "full", rows = {} }
+		choresSlot = #blocks
+	end
+
 	------------------------------------------------------------------ Professions — what is waiting
 	if ns.GetProfessionNextSteps then
 		local okPr, prSteps = pcall(ns.GetProfessionNextSteps)
@@ -618,7 +671,6 @@ local function BuildLayout()
 	------------------------------------------------------------------ Great Vault — Mythic+ gain (Spec 20)
 	-- Solo mode hides the group blocks (Mythic+ here, Raids below) and says so in their place,
 	-- so a hidden block never looks like a missing one.
-	local solo = ns.IsHomeSoloMode()
 	if solo then
 		addFull(function(rows)
 			line(rows, ns:L("HOME_SOLO_HIDDEN_NOTE"), COLOR_DIM)
@@ -637,8 +689,15 @@ local function BuildLayout()
 		end
 	end
 
-	------------------------------------------------------------------ Vault | World Boss
-	addColumns(
+	------------------------------------------------------------------ Vault | World Boss (solo: Vault alone)
+	-- A world boss is group content: in solo mode the Vault gets the full width and the second builder is unused.
+	local placeVaultRow = addColumns
+	if solo then
+		placeVaultRow = function(buildVault)
+			addFull(buildVault)
+		end
+	end
+	placeVaultRow(
 		function(rows)
 			header(rows, ns:L("HOME_SECTION_VAULT"), "vault")
 			if data and data.charCount and data.charCount > 0 then
@@ -888,6 +947,28 @@ local function BuildLayout()
 		else
 			line(rows, ns:L("ACCOUNT_WEEKLY_NO_SNAPSHOTS"), COLOR_DIM)
 		end
+		-- Solo (21 Oct 2026): what a delver needs every week, on the page itself — keys + shards, and Valeera.
+		if solo then
+			if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+				local okK, k = pcall(C_CurrencyInfo.GetCurrencyInfo, 3028) -- Restored Coffer Key
+				local okS, s = pcall(C_CurrencyInfo.GetCurrencyInfo, 3310) -- Coffer Key Shards
+				local keys = okK and type(k) == "table" and tonumber(k.quantity) or nil
+				local shards = okS and type(s) == "table" and tonumber(s.quantity) or nil
+				if keys or shards then
+					line(rows, ns:L("HOME_SOLO_KEYS_FMT"):format(keys or 0, shards or 0),
+						(keys or 0) > 0 and COLOR_WARN or COLOR_SOFT)
+				end
+			end
+			local v = ns.GetValeeraStanding and ns.GetValeeraStanding()
+			if v then
+				line(rows, ns:L("HOME_SOLO_VALEERA_FMT"):format(tostring(v.level or "?")), COLOR_SOFT, function()
+					if ns.ToggleValeeraPopup then
+						ns.ToggleValeeraPopup()
+					end
+				end)
+			end
+			navLine(rows, "delves", "TAB_DELVES")
+		end
 		navLine(rows, "account", "TAB_ACCOUNT_SNAPSHOT")
 	end
 
@@ -954,7 +1035,12 @@ local function BuildLayout()
 	-- columns gives a tidy grid instead of a ragged L (Rob, 10 jul). Weekly chores
 	-- keeps a full-width row when EXPANDED.
 	local browse = {}
-	if IsSectionCollapsed("chores") then
+	if choresSlot then
+		-- Solo: up front, in the slot kept after "Your week".
+		local rows = {}
+		buildChores(rows)
+		blocks[choresSlot].rows = rows
+	elseif IsSectionCollapsed("chores") then
 		browse[#browse + 1] = { key = "chores", build = buildChores }
 	else
 		addFull(buildChores)
@@ -1137,9 +1223,9 @@ function ns.IsHomeSoloMode()
 end
 
 function ns.SetHomeSoloMode(v)
-	if ns.db and ns.db.ui then
-		ns.db.ui.homeSolo = v and true or nil
-	end
+	ns.db = ns.db or {}
+	ns.db.ui = ns.db.ui or {} -- the This Week switch can be the first thing to write here (21 Oct 2026)
+	ns.db.ui.homeSolo = v and true or nil
 	ns.RefreshHomePanel()
 end
 

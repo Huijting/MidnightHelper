@@ -1074,6 +1074,24 @@ function ns.GetGiverWeeklyTally()
 	return done, total
 end
 
+--- Givers whose weekly is group content, left out in solo mode (Rob, 21 Oct 2026: "solo-stand sterker").
+--- Halduron = the dungeon of the week. Liadrin stays: her pick list includes Delves. Zerella (War Mode) stays too:
+--- that is PvP, not a group, and nobody asked to hide it.
+local SOLO_HIDDEN_GIVERS = { halduron = true }
+
+local function RoutineGivers()
+	if not (ns.IsHomeSoloMode and ns.IsHomeSoloMode()) then
+		return GIVER_WEEKLIES
+	end
+	local out = {}
+	for _, def in ipairs(GIVER_WEEKLIES) do
+		if not SOLO_HIDDEN_GIVERS[def.key] then
+			out[#out + 1] = def
+		end
+	end
+	return out
+end
+
 function ns.GetResetRoutineSteps()
 	local steps = {}
 
@@ -1103,7 +1121,7 @@ function ns.GetResetRoutineSteps()
 		RouteSingle(GIVERS_MAP, GIVERS_X, GIVERS_Y, "HOME_ROUTINE_PIN_GIVERS")
 	end
 	local untrackedGivers, anyGiverOpen = false, false
-	for _, def in ipairs(GIVER_WEEKLIES) do
+	for _, def in ipairs(RoutineGivers()) do
 		local gs = GiverState(def)
 		if gs == "done" then
 			steps[#steps + 1] = { text = ns:L("HOME_ROUTINE_GIVER_DONE_FMT"):format(def.name), color = "good" }

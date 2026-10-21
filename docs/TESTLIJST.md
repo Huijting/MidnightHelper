@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 21 okt — This Week: solo-stand (delves voorop)
+
+Eerst `/reload`, op een level-90.
+- [ ] This Week: bovenaan (onder de oranje nieuwsbanner) een blauwe regel "Mostly solo? Click here: …". Klik → regel
+      wordt "Solo mode is on: …" en het scherm verandert meteen. Nog eens klikken → alles terug zoals eerst.
+- [ ] Met solo AAN: geen Mythic+, Raids, World Boss en groepsbuffs; de Great Vault staat over de hele breedte.
+      In "Your week" geen Halduron (dungeon). Grijze regel zegt wat er verborgen is.
+- [ ] Direct onder "Your week": "Weekly chores" staat OPEN, met "Restored Coffer Keys: N · Coffer Key Shards: N",
+      "Valeera: level N (click …)" (klik → haar venster) en een link naar Delves.
+- [ ] "Next up": heb je een Restored Coffer Key, dan staat er "You have N Restored Coffer Key(s): use one on a Bountiful
+      delve …" met knop "Show delves" (→ Delves-tab). Staat je Great Vault klaar, dan blijft die bovenaan.
+- [ ] Instellingen → "I mostly play solo" staat gelijk met de regel bovenaan.
+
 ## 🆕 21 okt — Loa-Spirit Conduits (Labyrinth)
 
 Eerst `/reload`.
@@ -38,7 +51,7 @@ Eerst `/reload`.
       lichtte de plan-toets op, "een andere key"). Shift/Ctrl/Alt-toets → de toets zelf licht op. Numpad of geen toets →
       chatregel "<spell> is not on a key this keyboard shows".
 - [x] ✅ Rob 21 okt: zoekbalk "keys" netjes.
-- [ ] `/mh coach labyrinth` → de coach van de Labyrinth (ook `/mh coach kindo`). `/mh coach blabla` → melding in chat.
+- [x] ✅ Rob 21 okt: "mh coach labyrinth werkt". (`/mh coach blabla` → melding in chat: niet getest.)
 
 Eerst `/reload`. Liefst op een level-90 én op een laag character.
 - [x] ✅ Rob 21 okt. Tools-kamer: de EERSTE kaart heet "Your keys". Klik → klein venster met 3 grote knoppen en onder elke knop een
@@ -88,7 +101,7 @@ Eerst `/reload`.
 - [x] ✅ Rob 20 okt (screenshot, in de Labyrinth): 2 rijen van 12, boekje rechtsonder zichtbaar.
 - [ ] (rest) Bovenste rij: 8 grondmarkeringen + wissen + ready check + rollen-check + klok (12). Onderste rij: 8 doelmarkeringen
       + wissen + rol + vrienden + boekje (12). Beide rijen even lang, niets valt buiten de balk.
-- [ ] Het boekje staat er ALLEEN in de Labyrinth. Linksklik → het kaartje van deze kamer (herkent MH hem niet → de
+- [x] ✅ Rob 21 okt: "het boekje op de markeerbalk werkt". Het boekje staat er ALLEEN in de Labyrinth. Linksklik → het kaartje van deze kamer (herkent MH hem niet → de
       bazenlijst). Rechtsklik → altijd de bazenlijst. Tooltip zegt dat.
 - [ ] Ready check / rollen-check / klok werken nog zoals eerst (alleen als leider/assist).
 
@@ -98,7 +111,7 @@ Eerst `/reload`.
 - [x] ✅ Rob 20 okt: na `/reload` IN een kamer opende de kamerkaart meteen ("dus dat werkt") → de taaknaam is leesbaar
       (GEMETEN). Nog te zien: bij het binnenlopen van een volgende kamer.
 - [x] ✅ Rob 20 okt: na het toevoegen van "Soul Survivor" + `/reload` in die kamer: "ja hij doet het".
-- [ ] (rest) Loop een nieuwe kamer binnen → het kleine venster opent vanzelf met "Room: <taak>" (bv. "Room: Fools and Curses":
+- [x] ✅ Rob 21 okt: "hij opent automatisch die kamer kaart". Loop een nieuwe kamer binnen → het kleine venster opent vanzelf met "Room: <taak>" (bv. "Room: Fools and Curses":
       relic raiders, 5 Cursed Energy naar de sarcofaag, plus de Pit Boss-tip).
 - [ ] Opent hij niet? Typ `/mh roomcard why` en stuur een screenshot: "scenario texts" is wat MH van het spel leest.
 - [ ] In een kamer met een taak die MH nog niet bij naam kent (Hexbound Defenders, Head ritualists, Ritual items, Golden
