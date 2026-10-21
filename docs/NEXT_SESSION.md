@@ -75,6 +75,8 @@ NavSearch: elke rij één regel (SetWordWrap false + SetMaxLines 1, eindigt op "
 afgekapt is.
 ❌ `/mh coach` opent altijd de delve waar je bent; kiezen ging alleen via zoekbalk ("labyrinth") of het boekje in de
 Delves-tab. Nieuw: `/mh coach <deel van de naam>` (Core.lua), anders DELVE_COACH_NO_MATCH_FMT.
+✅ Rob 21 okt (screenshot in de Labyrinth): Claws-regel staat in de coach. Slotzin was tegenstrijdig met de Mojo-regel
+("the ground effects did") → "a knockback off the platform and the bears did", alle talen (mh-writer).
 🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):
 `DelveBossCard.lua` END_STEPS = de stapnamen "Enemy/Soul of the Labyrinth" in alle 8 clienttalen (GEMETEN, CLIENT_NAMES
 Ronde 5, ScenarioStep 3444/3678), taalonafhankelijk gematcht vóór de kamertaken. Treffer → ShowDelveBossCard(eindbaas)

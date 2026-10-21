@@ -50,7 +50,8 @@ Eerst `/reload`. Liefst op een level-90 én op een laag character.
 ## 🆕 21 okt — Kindo'jan: Claws of the Empire + Mojo-wegslag
 
 Eerst `/reload`. Delve-coach → Labyrinth → Boss-deel (of het End boss-venster van Kindo'jan):
-- [ ] Na de Disgraceful Display-regel staat nu "Claws of the Empire is just his normal attack … heal through it."
+- [x] ✅ Rob 21 okt (screenshot, in de Labyrinth): de Claws-regel staat er. Slotzin daarna rechtgezet ("a knockback off
+      the platform and the bears did" i.p.v. "the ground effects did") → na `/reload` even nakijken.
 - [ ] Bij Eruption of Mojo: "the edge is a good spot, but not close to Kindo'jan. There a hit from Kindo'jan himself
       threw us off the platform …, not the circle". (Rob 21 okt: als tank aan de rand vlak bij de baas, zijn klap.)
 - [ ] Bij je volgende Kindo'jan: klopt het dat Claws je niet echt pijn doet? Slaan ook de gewone grondcirkels je weg?
