@@ -2291,6 +2291,9 @@ ns._mhLocales.enUS = {
 	SURVIVAL_NOTE_INSTANT_REGROWTH = "when it is free and instant, after a finisher",
 	SURVIVAL_NOTE_STRETCH_TIME = "with Stretch Time: hits while you fly arrive slowly",
 	SURVIVAL_NOTE_PET = "your pet takes part of the damage",
+	-- Spec audit 21 Oct 2026 (Wowhead 198103 / 1279819, Icy Veins Delve build; simc 5394).
+	SURVIVAL_NOTE_EARTH_ELE = "it taunts and tanks for you for 30 sec. With the Primordial Bond talent it does not taunt, but you get 15% more health while it is out",
+	SURVIVAL_NOTE_PARTY_HEAL = "heals an injured player near you: solo that is you, in a group it may be someone else",
 	SURVIVAL_NOTE_BACKWARDS = "jumps you backwards",
 	SURVIVAL_NOTE_DROP_COMBAT = "drops you out of the fight",
 	SURVIVAL_NOTE_SELF_CAST = "cast it on yourself",

@@ -520,6 +520,16 @@ function ns.GetPlayCardQuiz(specID)
 			end
 		end
 	end
+	-- Choice talents (spec audit 21 Oct 2026: Frostscythe 251, Drain Soul 265, Implosion 266): at max level a spell
+	-- you do not have is a talent you did not pick, so a question with it as the answer teaches a button you lack.
+	-- Only for your own spec (IsPlayerSpell knows nothing about the others) and only at max level: below it the
+	-- card shows what is coming, and the quiz may too.
+	local skipUnknown = false
+	local cur = ns.GetSpecialization and ns.GetSpecializationInfo and ns.GetSpecialization()
+	local curID = cur and ns.GetSpecializationInfo(cur)
+	if curID == specID and UnitLevel and (UnitLevel("player") or 0) >= ns.PlayCardMaxLevel() then
+		skipUnknown = true
+	end
 	local out = {}
 	for _, p in ipairs(parts) do
 		local text, answer = raw[p.key], p.override
@@ -527,6 +537,9 @@ function ns.GetPlayCardQuiz(specID)
 			for id in text:gmatch("{SPELL:(%d+)}") do
 				answer = tonumber(id)
 			end
+		end
+		if answer and skipUnknown and not ns.PlayCardKnowsSpell(answer) then
+			answer = nil
 		end
 		-- A step without a spell (plain text) cannot be asked; nor can a card with too few spells.
 		if answer and #pool >= 3 then

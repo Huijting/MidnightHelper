@@ -5320,13 +5320,13 @@
    "ruRU": "39de3fe452cc700b"
   },
   "CODEX_LABYRINTH_BODY": {
-   "deDE": "7ef8e5bfacff22dc",
-   "esES": "7ef8e5bfacff22dc",
-   "frFR": "7ef8e5bfacff22dc",
-   "itIT": "7ef8e5bfacff22dc",
-   "nlNL": "7ef8e5bfacff22dc",
-   "ptBR": "7ef8e5bfacff22dc",
-   "ruRU": "7ef8e5bfacff22dc"
+   "deDE": "ecaf9b71d5050e2f",
+   "esES": "ecaf9b71d5050e2f",
+   "frFR": "ecaf9b71d5050e2f",
+   "itIT": "ecaf9b71d5050e2f",
+   "nlNL": "ecaf9b71d5050e2f",
+   "ptBR": "ecaf9b71d5050e2f",
+   "ruRU": "ecaf9b71d5050e2f"
   },
   "CODEX_LABYRINTH_TITLE": {
    "ruRU": "24c921e348910197"
@@ -37582,6 +37582,15 @@
   "SURVIVAL_NOTE_DROP_COMBAT": {
    "ruRU": "82fe084abbffdd53"
   },
+  "SURVIVAL_NOTE_EARTH_ELE": {
+   "deDE": "33b61ac31b6d2629",
+   "esES": "33b61ac31b6d2629",
+   "frFR": "33b61ac31b6d2629",
+   "itIT": "33b61ac31b6d2629",
+   "nlNL": "33b61ac31b6d2629",
+   "ptBR": "33b61ac31b6d2629",
+   "ruRU": "33b61ac31b6d2629"
+  },
   "SURVIVAL_NOTE_FORBEARANCE": {
    "deDE": "5737371f3b21b5de",
    "esES": "5737371f3b21b5de",
@@ -37632,6 +37641,15 @@
    "nlNL": "5e55259e74ffedcd",
    "ptBR": "5e55259e74ffedcd",
    "ruRU": "5e55259e74ffedcd"
+  },
+  "SURVIVAL_NOTE_PARTY_HEAL": {
+   "deDE": "8a6c6962169d2e91",
+   "esES": "8a6c6962169d2e91",
+   "frFR": "8a6c6962169d2e91",
+   "itIT": "8a6c6962169d2e91",
+   "nlNL": "8a6c6962169d2e91",
+   "ptBR": "8a6c6962169d2e91",
+   "ruRU": "8a6c6962169d2e91"
   },
   "SURVIVAL_NOTE_PET": {
    "ruRU": "d791f8dbbad964f6"

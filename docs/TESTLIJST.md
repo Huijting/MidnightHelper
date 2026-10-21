@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 21 okt (laat) — laatste kaart-klusjes
+
+Eerst `/reload`. `/mh survival` laat per regel zien waarom hij er wel of niet staat.
+- [ ] Shaman (elke spec): "Blijf leven" toont **Earth Elemental** ook zonder Primordial Bond, met de regel "it taunts and
+      tanks for you for 30 sec…". **Healing Stream Totem** heeft de regel "heals an injured player near you…".
+- [ ] Windwalker met **Combat Wisdom**: Expel Harm staat NIET meer op de kaart (`/mh survival`: "talent 121817 takes this
+      button away"). Zonder dat talent staat hij er wel.
+- [ ] Priest zonder **Translucent Image**: Fade staat niet op de kaart; mét het talent wel.
+- [ ] Quiz op level 90, Affliction Warlock met Improved Shadow Bolt (geen Drain Soul): geen vraag met Drain Soul als
+      antwoord. Zelfde voor Frost DK zonder Frostscythe, Demonology met Power Siphon (geen Implosion).
+
 ## 🆕 21 okt (laat) — Labyrinth: het touw naar de schatkamer
 
 Eerst `/reload`.
@@ -30,7 +41,8 @@ Eerst `/reload`.
       onderaan "every Bountiful Coffer needs a Restored Coffer Key, one per coffer". "Not known yet" noemt geen sleutel meer.
 - [ ] Flooded Chamber, ijsmuur (Elemental Shaman, eerst `/combatlog`): val het ijs eerst ALLEEN met Lightning Bolt aan
       (geen vuur). Smelt het? Dan werkt elke aanval. Zo niet: daarna alleen Flame Shock. Zeg welke het deed.
-- [ ] Bij gelegenheid, in het Labyrinth bij het touw: `/mh coord touw` (of TomTom) → stuur de coördinaten, dan komt er een pijl-link bij.
+- [x] Coördinaten touw: Rob 21 okt, 44.31/80.61 (map 2647).
+- [ ] Codex-kaart Labyrinth: de link "Rope" bij het touw zet een pijl naar 44.31, 80.61 (naast Wah'du).
 
 ## 🆕 21 okt (avond) — alle 35 overige "How you play"-kaarten nagelopen
 

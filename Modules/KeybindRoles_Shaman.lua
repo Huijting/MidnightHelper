@@ -30,7 +30,7 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	STAY ALIVE CARD (17 Sep 2026). `survival`, `survivalOrder` and `survivalNote` feed only
 	Modules/SurvivalPlan.lua; the key fields next to them are untouched. Every tag follows
 	docs/audit_2026-09-17/audit_shaman_evoker.md (Icy Veins 12.1, Wowhead pre-patch guides + spell pages).
-	Card per spec: big = Astral Shift, then Earth Elemental (only with Primordial Bond, 9 Oct 2026); heal = Healing Surge (Ele/Enh) or
+	Card per spec: big = Astral Shift, then Earth Elemental (for everyone again since 21 Oct 2026, with a note on Primordial Bond); heal = Healing Surge (Ele/Enh) or
 	Riptide + Healing Wave (Resto, click_cast but still your own heal), with Healing Stream Totem
 	after the first; escape = Gust of Wind / Spirit Walk / Ghost Wolf, Thunderstorm on Ele;
 	interrupt = Wind Shear.
@@ -79,7 +79,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Thunderstorm"] = { id = 51490, category = "utility", priority = 4, specs = { 262 }, survival = "escape", survivalOrder = 4, survivalNote = "SURVIVAL_NOTE_STUNNED" }, -- Ele X (AoE knockback + slow; JustAC SpellCategories 51490)
 	-- Class talent for all three specs (IV-Ele/Enh/Resto); `specs` stays { 262 } for the keys, the card widens.
 	-- Card: an emergency tank on a 3 min cooldown (WH-spell 198103), after Astral Shift.
-	["Earth Elemental"] = { id = 198103, category = "defensive", priority = 4, specs = { 262, 263, 264 }, survival = "big", survivalOrder = 2, survivalRequires = 1279819 }, -- card: only WITH Primordial Bond 1279819 (no taunt, +15% max health while out; without it the elemental reduces nothing). 9 Oct 2026, docs/SMALL_FACTS_2026-10-09.md (wago + Method 1 Sep + Icy Veins 2 Sep); IsPlayerSpell(1279819) not yet seen in the client. Key unchanged. -- Z on all three (extra def/pet; JustAC DefensiveEngine 198103). Widened from Ele only on 19 Sep 2026: Enh and Resto had nothing on Z, and the card already listed it for all three
+	["Earth Elemental"] = { id = 198103, category = "defensive", priority = 4, specs = { 262, 263, 264 }, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_EARTH_ELE" }, -- card: for everyone since 21 Oct 2026 (spec audit, Wowhead 198103/1279819 + Icy Veins Delve build): WITHOUT Primordial Bond 1279819 it taunts and tanks for you (solo/delves), WITH it no taunt but +15% max health. Was survivalRequires 1279819 (9 Oct), which hid it from exactly the solo players. 9 Oct 2026, docs/SMALL_FACTS_2026-10-09.md (wago + Method 1 Sep + Icy Veins 2 Sep); IsPlayerSpell(1279819) not yet seen in the client. Key unchanged. -- Z on all three (extra def/pet; JustAC DefensiveEngine 198103). Widened from Ele only on 19 Sep 2026: Enh and Resto had nothing on Z, and the card already listed it for all three
 	["Cleanse Spirit"] = { id = 51886, category = "dispel_cc", priority = 3, specs = { 262, 263 } }, -- Ele Shift+V (friendly dispel; JustAC SpellCategories 51886)
 	["Stormkeeper"] = { id = 191634, role = "cooldown_bar", priority = 1, specs = { 262 } }, -- Ele F1 (burst-CD, live); Enh R (191634 Ele / 205495 Enh talent)
 
@@ -134,7 +134,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Spirit Link Totem"] = { id = 98008, category = "cooldown", priority = 2, specs = { 264 } }, -- Resto R (HP-verdeling raid-CD; JustAC DefensiveEngine 98008)
 	-- Class talent for all three specs (IV-Ele, IV-Enh); `specs` stays { 264 } for the keys, the card widens.
 	-- Card: a heal you drop often, after the first heal.
-	["Healing Stream Totem"] = { id = 5394, category = "main_rotation", priority = 1, bindKey = "3", specs = { 264 }, survivalSpecs = { 262, 263, 264 }, survival = "heal", survivalOrder = 2 }, -- Resto F (passieve group-heal; JustAC SpellCategories 5394)
+	["Healing Stream Totem"] = { id = 5394, category = "main_rotation", priority = 1, bindKey = "3", specs = { 264 }, survivalSpecs = { 262, 263, 264 }, survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_PARTY_HEAL" }, -- card: heals one injured party member per tick (simc 5394), solo that is you (audit 21 Oct 2026). Resto F (passieve group-heal; JustAC SpellCategories 5394)
 	["Ancestral Spirit"] = { id = 2008, category = "utility", priority = 3, specs = { 264 } }, -- Resto T (out-of-combat rez; JustAC SpellCategories 2008)
 
     -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.

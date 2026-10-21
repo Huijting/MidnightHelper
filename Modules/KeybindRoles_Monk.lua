@@ -195,7 +195,7 @@ ns.KeybindRoleClassifier.MONK = {
     ["Roll"]                         = { survivalId = { [268] = 109132, [269] = 109132, [270] = 109132 }, role = "utility_primary", priority = 1, survival = "escape", survivalOrder = 1 }, -- Q: gap-closer (SpellCategories + gap-closer-lijsten)
     -- Self-heals
     -- Expel Harm: was baseline, nu { 268, 269 } sinds 17 sep (weg voor MW in 12.0.0, wiki/Method).
-    ["Expel Harm"]                   = { id = 322101, role = "heal_quick", priority = 1, specs = { 268, 269 }, survival = "heal", survivalOrder = 1 }, -- F2: snelle self-heal (SpellArchetypes 115129 + MONK/MONK_1/MONK_3 322101)
+    ["Expel Harm"]                   = { id = 322101, role = "heal_quick", priority = 1, specs = { 268, 269 }, survival = "heal", survivalOrder = 1, survivalUnless = 121817 }, -- card: not with Windwalker's Combat Wisdom 121817 (Tiger Palm casts it every 15 s, no button; trait_data 12.1.5.70448, audit 21 Oct 2026). F2: snelle self-heal (SpellArchetypes 115129 + MONK/MONK_1/MONK_3 322101)
     ["Vivify"]                       = { id = 116670, role = "heal_ooc", priority = 1, blockAs = { [270] = { category = "main_rotation", priority = 1, bindKey = "2" } }, survival = "heal", survivalOrder = 2 }, -- F3: out-of-combat/direct heal (SpellCategories 116670)
     -- Grote defensive
     ["Fortifying Brew"]              = { id = 115203, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2 }, -- C: grote defensive (115203 basis; 120954 BM / 201318 WW / 243435 MW-varianten, zelfde naam); card: 6 min (Wowhead), after Life Cocoon

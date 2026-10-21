@@ -10,7 +10,9 @@ Geen hotfix over 0 levens gevonden (mh-research); spelers melden dezelfde fout a
 In MH: DELVE_TIP_LABYRINTH_BOSS (out-of-lives-regel herschreven) en CODEX_LABYRINTH_BODY (touw-regel bij Kindo'jan;
 "Nog niet bekend: sleutel?" vervangen door 1 sleutel per coffer, Heavy Trunks geen). enUS+nlNL zelf, rest mh-writer.
 Syntax OK, lint 0 HARD, check_drift --mark voor beide keys (7 talen).
-🔜 Open: coördinaten van het touw (dan een {WAY}-link erbij); of de Quill bij anderen wél werkt.
+✅ Touw GEMETEN door Rob (`/mh coord`, 21 okt): map 2647, 44.31/80.61, naast Wah'du (44.36/79.57) → klopt met de ene
+forumspeler ("touw bij de Myth-verkoper"). {WAY}-link in CODEX_LABYRINTH_BODY, alle talen (ru: Вах'ду).
+🔜 Open: of de Quill bij anderen wél werkt.
 🔜 ruRU: "Kinduru" staat in 4 strings in Latijnse letters (client: Киндуру, wago-rij 257344 volgens mh-writer), en
 "Kinduru's Spiriting Quill" ook; clientnaam van de toy nog meten.
 
@@ -163,10 +165,12 @@ de vertaalrapporten) → clientnaam-regel: nog meten.
 ✅ Code uit de codeNotes: Detox (270) Magic + talent 388874; Feint SURVIVAL_NOTE_AOE; Lichborne SURVIVAL_WHEN_LICHBORNE;
 Prot Warrior Shield Block + Ignore Pain SURVIVAL_WHEN_RAGE, Shield Block SURVIVAL_NOTE_MELEE; MM Roar of Sacrifice ook
 SURVIVAL_NOTE_PET; SurvivalPlan: survivalWhen mag nu per spec ({ [specID] = key }).
-🔜 NIET gedaan (code, vraagt meer werk of een test): quiz-antwoorden die een keuze-talent zijn (251 Frostscythe, 265 Drain
-Soul, 266 Implosion — GetPlayCardQuiz checkt niet of je de spell hebt); Fade survivalRequires 373446 (eerst testen);
-Healing Stream Totem "to heal yourself" (healt ook anderen); Earth Elemental verborgen zonder Primordial Bond; Expel Harm
-voor WW (Combat Wisdom maakt hem passief); Vengeful Retreat-commentaar Devourer; 71 unsure-punten. NB: kaarten kleuren een
+✅ 21 okt (laat, Rob: "Begin met de laatste kaart-klusjes"): quiz slaat op max level een vraag over als jij het antwoord
+niet hebt (keuze-talent; alleen je eigen spec; PlayCards.lua GetPlayCardQuiz → ns.PlayCardKnowsSpell). Fade
+survivalRequires 373446 (Translucent Image). Earth Elemental weer voor iedereen + SURVIVAL_NOTE_EARTH_ELE (zonder
+Primordial Bond taunt/tankt hij; mét: +15% health). Healing Stream Totem SURVIVAL_NOTE_PARTY_HEAL. Expel Harm: nieuw veld
+survivalUnless (SurvivalPlan.lua) = 121817 Combat Wisdom verbergt hem. Vengeful Retreat: alleen commentaar (kaart verbergt
+al wat je niet hebt). Niet in het spel gezien → testlijst. 🔜 Nog open: 71 unsure-punten. NB: kaarten kleuren een
 spell die je niet hebt al GRIJS (ns.PlayCardKnowsSpell → IsPlayerSpell), dus "spell is een talent" valt deels al op;
 "effect X alleen met talent Y" niet.
 🌊 Vervolg uit dezelfde heal-chat: Resto Shaman (264), zelfde 2 routes. Gedaan: Purify Spirit alleen Magic, Curse via

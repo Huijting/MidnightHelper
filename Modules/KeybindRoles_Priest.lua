@@ -77,7 +77,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- -----------------------------------------------------------------
 	-- BASELINE (alle 3 specs: 256, 257, 258)
 	-- -----------------------------------------------------------------
-	["Fade"] = { id = 586, role = "utility_primary", priority = 1, survival = "small", survivalOrder = 1 }, -- Q: threat-drop/movement, kleine DR via talent (card: "early and often", Icy Veins)
+	["Fade"] = { id = 586, role = "utility_primary", priority = 1, survival = "small", survivalOrder = 1, survivalRequires = 373446 }, -- Q: threat-drop/movement, kleine DR via talent (card: "early and often", Icy Veins). Card only WITH Translucent Image 373446: that talent gives the 10% (Wowhead 373446, simc 12.1.5.70448; audit 21 Oct 2026)
 	["Angelic Feather"] = { id = 121536, role = "mobility", priority = 1, survival = "escape", survivalOrder = 1 }, -- R: canonieke Priest-movement (JustAC SpellCooldowns 121536, 3 charges); baseline alle specs
 	-- 17 Sep: Holy (257) dropped, "removed … Power Word: Shield" (audit, BRON Icy Veins Holy 12.1).
 	-- Card: small, a shield before the hit, not a keep-up.

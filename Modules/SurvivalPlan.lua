@@ -441,6 +441,15 @@ local function TaggedPlan(tbl, specID, trace)
 					name, idOrWhy = nil, ("needs talent %s, which you do not have"):format(tostring(req))
 				end
 			end
+			-- `survivalUnless` (21 Oct 2026, spec audit): the other way round, a talent that takes the button away.
+			-- Combat Wisdom 121817 turns Windwalker's Expel Harm into something Tiger Palm does by itself.
+			local unless = item.entry.survivalUnless
+			if name and unless and IsPlayerSpell then
+				local okU, has = pcall(IsPlayerSpell, unless)
+				if okU and has == true then
+					name, idOrWhy = nil, ("talent %s takes this button away"):format(tostring(unless))
+				end
+			end
 			local id = name and idOrWhy or nil
 			local dedupe = id or name
 			local shown = name and not already[dedupe]

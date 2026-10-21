@@ -36,6 +36,8 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 --   * utility         : JustAC Data/SpellCategories.lua UTILITY_SPELLS (185245 Torment,
 --                       131347 Glide, 202138 Sigil of Chains) + guide.lua.
 --
+-- (21 Oct 2026, spec audit: Vengeful Retreat is free for Havoc but a class talent you pick for Devourer 1480; the
+-- card hides a spell you do not have, so no code change.)
 -- Baseline (GEEN specs; BEIDE specs 577+581): Disrupt, Vengeful Retreat, Chaos Nova,
 --   Imprison, Consume Magic, Torment, Immolation Aura, Felblade, The Hunt, Sigil of Misery,
 --   Spectral Sight, Glide.
