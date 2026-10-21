@@ -24,9 +24,10 @@ er is niets weggegooid.
 ## 🆕 21 okt — "Your keys": één ingang voor alles over toetsen
 
 ✅ Rob 21 okt: venster, knoppen 1-3, More/Less en `/mh mykeys` goed. ❌ → gerepareerd, opnieuw testen (eerst `/reload`):
-- [ ] Klik op een spell in "Which spells do I press?" → nu licht er WEL een toets op. Of, als die spell niet in MH's
-      layout zit, staat er in de chat "<spell> has no key in Midnight Helper's layout for this spec".
-- [ ] Zoekbalk "keys": elke regel netjes op één regel (lange eindigen op "…"); muis erop → de hele tekst.
+- [ ] Klik op een spell in "Which spells do I press?" → de toets die IN DIE REGEL staat licht op (Rob 21 okt: eerst
+      lichtte de plan-toets op, "een andere key"). Shift/Ctrl/Alt-toets → de toets zelf licht op. Numpad of geen toets →
+      chatregel "<spell> is not on a key this keyboard shows".
+- [x] ✅ Rob 21 okt: zoekbalk "keys" netjes.
 - [ ] `/mh coach labyrinth` → de coach van de Labyrinth (ook `/mh coach kindo`). `/mh coach blabla` → melding in chat.
 
 Eerst `/reload`. Liefst op een level-90 én op een laag character.

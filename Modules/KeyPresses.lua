@@ -400,10 +400,12 @@ local function Row(i)
 	r.reach:SetWidth(WIN_W - 2 * PAD - 360)
 	r.reach:SetWordWrap(false)
 	-- 21 Oct 2026 (Rob: "de layout-uitleg moet ook aangesloten worden"): click a spell → the keyboard window opens with
-	-- the key Midnight Helper's layout gives it lit up. Not in that layout → the keyboard opens without a lit key.
+	-- the key it sits on NOW lit up — the same key this row prints (Rob, same day: the plan's key "wijst een andere key
+	-- aan"). No key, or one this keyboard does not draw → the keyboard opens unlit and chat says why.
 	r:EnableMouse(true)
 	r:SetScript("OnMouseUp", function(self)
-		if not (self.spellId and ns.MH_GuideOpenLayoutForSpell and ns.MH_GuideOpenLayoutForSpell(self.spellId)) then
+		local lit = self.spellId and ns.MH_OpenKeyboardForLiveSpell and ns.MH_OpenKeyboardForLiveSpell(self.spellId)
+		if not lit then
 			if ns.ShowKeysKeyboard then
 				ns.ShowKeysKeyboard(nil)
 			end

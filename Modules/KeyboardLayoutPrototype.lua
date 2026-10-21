@@ -169,6 +169,36 @@ local function AutoMapKeyForSpell(spellId)
 	return best
 end
 
+--- Light up the key a spell sits on NOW (the same key the presses row prints, from LiveKeys), not the key MH's plan
+--- would give it. Rob, 21 Oct 2026: "hij wijst een andere key aan" — the row said one key, the keyboard lit the plan's.
+--- @return boolean lit, string|nil rawKey  (rawKey set but not lit = a key this keyboard does not draw, e.g. numpad)
+function ns.MH_OpenKeyboardForLiveSpell(spellId)
+	local _, hit = ns.LiveKeyForSpell and ns.LiveKeyForSpell(spellId)
+	local raw = hit and hit.key
+	if type(raw) ~= "string" or raw == "" then
+		return false, nil
+	end
+	-- "ALT-CTRL-4" -> "4": strip every modifier; the keyboard draws base keys and shows layers on hover.
+	local base = raw
+	while true do
+		local m, rest = base:match("^(%u+)%-(.+)$")
+		if not (m and (m == "SHIFT" or m == "CTRL" or m == "ALT" or m == "META")) then
+			break
+		end
+		base = rest
+	end
+	base = ns.Keybind_NormalizeBaseKey and ns.Keybind_NormalizeBaseKey(base) or base
+	-- WoW binding names that this keyboard draws under another label (BuildKeyPositions).
+	local WOW_TO_UI = { SPACE = " ", TAB = "Tab", ESCAPE = "Esc", BACKSPACE = "BkSp", ENTER = "Enter", CAPSLOCK = "Caps" }
+	base = WOW_TO_UI[base] or base
+	local panel = ns.ShowKeysKeyboard and ns.ShowKeysKeyboard(nil)
+	if not (panel and panel._mhProtoButtons and panel._mhProtoButtons[base]) then
+		return false, raw
+	end
+	ns.MH_GuideOpenLayoutForKey(base)
+	return true, raw
+end
+
 function ns.MH_GuideOpenLayoutForSpell(spellId)
 	local autoKey = AutoMapKeyForSpell(spellId)
 	if autoKey then

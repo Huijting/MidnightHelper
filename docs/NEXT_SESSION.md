@@ -75,6 +75,14 @@ NavSearch: elke rij één regel (SetWordWrap false + SetMaxLines 1, eindigt op "
 afgekapt is.
 ❌ `/mh coach` opent altijd de delve waar je bent; kiezen ging alleen via zoekbalk ("labyrinth") of het boekje in de
 Delves-tab. Nieuw: `/mh coach <deel van de naam>` (Core.lua), anders DELVE_COACH_NO_MATCH_FMT.
+📋 Rob 21 okt, tweede test: ✅ zoekbalk "keys" netjes. ❌ "hij wijst een andere key aan": het toetsenbord lichtte de
+PLAN-toets op (auto-map), de presses-regel noemt de ECHTE toets (LiveKeys). Fix: ns.MH_OpenKeyboardForLiveSpell (Keyboard-
+LayoutPrototype) → LiveKeyForSpell(hit.key), alle modifiers eraf, WoW-namen SPACE/TAB/… → toetsenbordnamen, alleen
+oplichten als die toets getekend wordt; anders chatregel PRESSES_NOT_IN_LAYOUT_FMT (tekst aangepast: "not on a key this
+keyboard shows"). PRESSES_ROW_TT: "The key it sits on now lights up." Niet opnieuw getest.
+🔤 Blokjes op actieknoppen (Rob, resto druid in vorm): NIET MH (GEMETEN: geen HotKey/RANGE_INDICATOR-code in MH, controle
+vond "hotkey" elders). Oorzaak: `_retail_\Fonts` had 4 identieke eigen fonts (md5 0abc1195…, 23 mrt 2026, "eerder ui
+project") → het ●-bereikrondje op knoppen zonder toets werd een blokje. ✅ Rob haalde ze weg + /reload: blokjes weg.
 ✅ Rob 21 okt (screenshot in de Labyrinth): Claws-regel staat in de coach. Slotzin was tegenstrijdig met de Mojo-regel
 ("the ground effects did") → "a knockback off the platform and the bears did", alle talen (mh-writer).
 🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):
