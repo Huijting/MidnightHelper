@@ -861,6 +861,7 @@ ns._mhLocales.enUS = {
 	HOME_SECTION_RAIDS = "Raids",
 	HOME_SOLO_HIDDEN_NOTE = "Solo mode: Mythic+, raids, the world boss, group buffs and the dungeon weekly are hidden from this plan. Turn it off with the line at the top.",
 	-- Solo switch at the top of This Week + the delve block up front (21 Oct 2026, Rob: "A en B samen").
+	HOME_SECTION_EXTRAS = "Also handy (story, rares, mounts, tip)",
 	HOME_SOLO_TOGGLE_OFF = "Mostly solo? Click here: delves come first and group content is hidden.",
 	HOME_SOLO_TOGGLE_ON = "Solo mode is on: delves first, group content hidden. Click to turn it off.",
 	HOME_SOLO_HERO_KEYS_FMT = "You have %d Restored Coffer Key(s): use one on a Bountiful delve, on tier 8 or higher if you can.",

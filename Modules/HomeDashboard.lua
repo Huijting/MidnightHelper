@@ -49,6 +49,7 @@ local ui
 -- collapsed so the page opens calm instead of as a nine-section wall; one click
 -- restores any of them, and the choice is remembered.
 local DEFAULT_COLLAPSED = {
+	extras = true, -- "Also handy" (21 Oct 2026): reference blocks, folded until asked for
 	chores = true,
 	collectibles = true,
 	rares = true,
@@ -244,7 +245,12 @@ local function BuildLayout()
 	-- blocks (mount wishlist, collectible mounts, raids, the daily tip) are built where they always
 	-- were but PLACED at the bottom, in this fixed order, so the week's work comes first.
 	local reference = {}
-	local REFERENCE_ORDER = { "wishlist", "collectibles", "raids", "tip" }
+	local REFERENCE_ORDER = { "raids" }
+	-- 21 Oct 2026 (Rob, looking at everything under the Great Vault: "hoort het eigenlijk wel allemaal bij deze week?" →
+	-- option A). Only Ritual Sites and Void Assaults rotate weekly; the story campaign (once), rares (always), the mount
+	-- wishlist, collectible mounts and the daily tip are reference. They sit together in ONE section at the bottom,
+	-- "Also handy", folded by default: nothing is gone, the page is short.
+	local EXTRAS_ORDER = { "campaign", "rares", "wishlist", "collectibles", "tip" }
 
 	-- "I mostly play solo" (Rob, 21 Oct 2026: "solo-stand sterker en delves naar voren"). Hides group content (Mythic+,
 	-- raids, world boss, group buffs, the dungeon weekly) and puts the delve block up front, open, with keys and Valeera.
@@ -788,7 +794,7 @@ local function BuildLayout()
 	-- unfinished (Modules/CampaignLeadIn.lua) — a wrong quest ID shows nothing rather
 	-- than a phantom. Every campaign brings its own heading and wording, because "New:
 	-- Curse of Ula'tek" is not a heading the Vaults can borrow.
-	addFull(function(rows)
+	reference.campaign = function() addFull(function(rows)
 		if not ns.GetCampaignLeadInStates then
 			return
 		end
@@ -826,7 +832,7 @@ local function BuildLayout()
 				}
 			end
 		end
-	end)
+	end) end
 
 	------------------------------------------------------------------ Collectible mounts (summary → own tab)
 	-- The full list lives on its own "Collectible mounts" tab (Modules/MountsPanel.lua);
@@ -1045,17 +1051,31 @@ local function BuildLayout()
 	else
 		addFull(buildChores)
 	end
-	browse[#browse + 1] = { key = "rares", build = buildRares }
 	browse[#browse + 1] = { key = "ritual", build = buildRitual }
 	browse[#browse + 1] = { key = "void", build = buildVoid }
 	addBalancedSections(browse)
+	reference.rares = function()
+		addFull(buildRares)
+	end
 
-	-- Reference last, in a fixed order (see `reference` at the top): mounts together, then
-	-- raids, then the tip.
+	-- Reference last, in a fixed order (see `reference` at the top): raids, then "Also handy".
 	for _, key in ipairs(REFERENCE_ORDER) do
 		local build = reference[key]
 		if build then
 			build()
+		end
+	end
+	-- "Also handy": one header that folds the whole group. Folded, the blocks are not built at all — a header in its
+	-- own block can only hide rows of that block (ApplyCollapse), not the blocks after it.
+	addFull(function(rows)
+		header(rows, ns:L("HOME_SECTION_EXTRAS"), "extras")
+	end)
+	if not IsSectionCollapsed("extras") then
+		for _, key in ipairs(EXTRAS_ORDER) do
+			local build = reference[key]
+			if build then
+				build()
+			end
 		end
 	end
 

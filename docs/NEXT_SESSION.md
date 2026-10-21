@@ -96,6 +96,11 @@ Settings en verborg alleen Mythic+ en Raids. GEBOUWD, niet in het spel gezien:
   "Next up": met ≥1 Restored Coffer Key → "use one on a Bountiful delve" + knop "Show delves", behalve als de Great
   Vault klaarstaat (die blijft eerst). Teksten 8 talen (en/nl ik, rest mh-writer).
 ✅ Rob 21 okt: "Laat Zerella en Maella staan in de solo-stand." → blijven zichtbaar (geen codewijziging).
+➕ Rob (screenshot onderkant This Week): "hoort het eigenlijk wel allemaal bij deze week?" → optie A. Alleen Ritual Sites
+en Void Assaults wisselen wekelijks; campagne (eenmalig), Rares, Mount wishlist, Collectible mounts en de tip zijn
+naslag. Nu samen in ÉÉN blok onderaan, HOME_SECTION_EXTRAS "Also handy (story, rares, mounts, tip)", standaard dicht
+(DEFAULT_COLLAPSED.extras; dicht = de blokken worden niet gebouwd, want een kop kan alleen rijen in zijn eigen blok
+verbergen). Raids blijft erboven (niet-solo). Geldt voor iedereen, niet alleen solo. Niet in het spel gezien.
 🌀 Loa-Spirit Conduits (Rob stond voor een "Loa-Spirit Wind Conduit": "hebben wij dat al besproken?" → "ja doe maar").
 2 mh-research-rondes eens (wago 12.1.5.70448; rapporten in de side-session-notes, conduits_ronde_A/B.md): object "Loa-Spirit
 <X> Conduit", buff "Spiritual <X> Conduit", 2 min, Journey-rang 6 (RenownRewards 2048 = "Loa-Spiritual Conduits", dus die

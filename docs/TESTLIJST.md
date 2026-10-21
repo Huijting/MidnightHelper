@@ -33,6 +33,9 @@ Eerst `/reload`, op een level-90.
 - [ ] "Next up": heb je een Restored Coffer Key, dan staat er "You have N Restored Coffer Key(s): use one on a Bountiful
       delve …" met knop "Show delves" (→ Delves-tab). Staat je Great Vault klaar, dan blijft die bovenaan.
 - [ ] Instellingen → "I mostly play solo" staat gelijk met de regel bovenaan.
+- [ ] Onderaan This Week (solo aan én uit): na Ritual Sites / Void Assaults één dichte kop "+ Also handy (story, rares,
+      mounts, tip)". Klik → campagne (Promise of Tomorrow), Rares, Mount wishlist, Collectible mounts en de tip
+      verschijnen eronder. Nog eens klikken → weer dicht; blijft zo na `/reload`.
 
 ## 🆕 21 okt — Loa-Spirit Conduits (Labyrinth)
 

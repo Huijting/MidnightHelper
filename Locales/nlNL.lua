@@ -842,6 +842,7 @@ ns._mhLocales.nlNL = {
 	RAIDS_PANEL_SUBTITLE = "Boss-stappen voor de raids van dit seizoen — klik een raid open. Spell-namen zijn klikbare links. De coach opent ook vanzelf zodra een boss-pull begint.",
 	HOME_SECTION_RAIDS = "Raids",
 	HOME_SOLO_HIDDEN_NOTE = "Solo-stand: Mythic+, raids, de world boss, groepsbuffs en de dungeon-weekly zijn verborgen in dit plan. Zet het uit met de regel bovenaan.",
+	HOME_SECTION_EXTRAS = "Ook handig (verhaal, rares, mounts, tip)",
 	HOME_SOLO_TOGGLE_OFF = "Speel je vooral solo? Klik hier: delves komen eerst en groepscontent verdwijnt.",
 	HOME_SOLO_TOGGLE_ON = "Solo-stand staat aan: delves eerst, groepscontent verborgen. Klik om hem uit te zetten.",
 	HOME_SOLO_HERO_KEYS_FMT = "Je hebt %d Restored Coffer Key(s): gebruik er één op een Bountiful delve, op tier 8 of hoger als het kan.",
