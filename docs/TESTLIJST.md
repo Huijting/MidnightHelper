@@ -120,19 +120,20 @@ Eerst `/reload`.
 Eerst `/reload`. Liefst op een level-90 én op een laag character.
 - [x] ✅ Rob 21 okt. Tools-kamer: de EERSTE kaart heet "Your keys". Klik → klein venster met 3 grote knoppen en onder elke knop een
       zin. Venster sleepbaar, Shift+scroll maakt het groter/kleiner, kruisje sluit.
-- [ ] Knop 1 "Set up my keys" → het toetsenblok-venster opent.
-- [ ] Knop 2 "Which spells do I press?" → het presses-venster opent. Staat tellen uit: onder knop 2 een gele regel
-      "Counting is off right now …".
-- [ ] Knop 3 "Show my keyboard" → een eigen venster met het hele toetsenbord, OOK op level 90.
+- [x] ✅ Rob 21 okt (knoppen 1-3 goed). Knop 1 "Set up my keys" → het toetsenblok-venster opent.
+- [x] ✅ Rob 21 okt. Knop 2 "Which spells do I press?" → het presses-venster opent. (De gele "Counting is off"-regel niet
+      apart gezien: tellen staat nu standaard aan.)
+- [x] ✅ Rob 21 okt. Knop 3 "Show my keyboard" → een eigen venster met het hele toetsenbord, OOK op level 90.
 - [ ] Tools-launchpad: bovenste tegel "Your keys" met Open-knop. Zoekbalk: typ "keys" of "keybinds" → "Your keys: …".
       `/mh mykeys` opent het venster; `/mh keybinds` opent nog steeds de export.
-- [ ] Layout (in het venster van knop 3, en op een laag character ook in Leveling → Layout): onder het toetsenbord een
+- [x] ✅ Rob 21 okt (More/Less goed). Layout (in het venster van knop 3, en op een laag character ook in Leveling → Layout): onder het toetsenbord een
       knop "More: colours and filters". Kaarten staan direct eronder, zonder kleurenuitleg en filterknoppen. Klik →
       uitleg + 4 filterknoppen verschijnen, knop heet "Less". Na `/reload` blijft je keuze staan.
 - [ ] Iets dat over elkaar heen valt of buiten het venster loopt? Screenshot.
 - [ ] Tellen staat nu vanzelf AAN: op een character waar je het nooit aanzette, na een paar gevechten staat er iets
       in "Which spells do I press?", zonder gele "Counting is off"-regel. Uitzetten met de schakelaar blijft uit na `/reload`.
-- [ ] In "Which spells do I press?": muis op een spellregel → tooltip "Click: show this spell on your keyboard".
+- [x] ✅ Rob 21 okt: klik → juiste toets licht op (zie bovenaan deze ronde); de tooltip zelf niet apart genoemd.
+      In "Which spells do I press?": muis op een spellregel → tooltip "Click: show this spell on your keyboard".
       Klik → het toetsenbordvenster opent met één toets opgelicht (die van MH's layout), en scrolt ernaartoe.
 
 ## 🆕 21 okt — Kindo'jan: Claws of the Empire + Mojo-wegslag
@@ -157,7 +158,9 @@ Eerst `/reload`. In de Labyrinth, als alleen de 5 Flooded Chamber-kistjes over z
 - [ ] (rest) Klik Chests → het pijltje wijst naar "Underwater entrance (Flooded Chamber)" bij ongeveer 56.9, 44.1, en de melding
       zegt: onder water, ijsmuur, Fiery Hexmask OF eigen vuurspells. Ligt de ingang echt daar? (bron: HandyNotes)
 - [ ] Bij de ingang (binnen ~1 kaarteenheid) of verder: melding "You are at the underwater entrance …" en het pijltje
-      springt naar het kistje. Smelt een vuurspell het ijs echt? (HandyNotes zegt ja; niet zelf gezien)
+      springt naar het kistje.
+- [x] ✅ Rob 21 okt (Elemental Shaman): het ijs ging weg door het aan te vallen, zonder Hexmask. Welke spell: zie de
+      Flooded Chamber-test bij "Labyrinth: het touw".
 
 ## 🆕 20 okt (avond) — markeerbalk: 2 gelijke rijen + Labyrinth-knop
 
