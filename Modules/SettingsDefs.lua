@@ -110,11 +110,12 @@ local function Build()
 		if ns.SetPartyTargetsEnabled then ns.SetPartyTargetsEnabled(v) end
 	end, false)
 	-- 9 Oct 2026 (Rob): count your own presses per spell; /mh presses shows them with their key.
+	-- On by default since 21 Oct 2026 (Rob: "het tellen moet standaard aan"; KeyPresses.lua header).
 	Toggle("mh_keyPresses", "SET_PRESSES_TITLE", "SET_PRESSES_DESC", function()
 		return ns.IsKeyPressesEnabled and ns.IsKeyPressesEnabled()
 	end, function(v)
 		if ns.SetKeyPressesEnabled then ns.SetKeyPressesEnabled(v) end
-	end, false)
+	end, true)
 	-- ⚠️ Hier stonden 18 aug twee brace-prompt-schakelaars. Ze zijn dezelfde dag weer
 	-- weggehaald: 12.1 geeft geen enkel leesbaar kenmerk van een vijandelijke cast
 	-- meer (spell-id, npc-id, icoon en begin-/eindtijd allemaal secret), dus de

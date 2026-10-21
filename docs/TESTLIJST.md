@@ -36,6 +36,10 @@ Eerst `/reload`. Liefst op een level-90 én op een laag character.
       knop "More: colours and filters". Kaarten staan direct eronder, zonder kleurenuitleg en filterknoppen. Klik →
       uitleg + 4 filterknoppen verschijnen, knop heet "Less". Na `/reload` blijft je keuze staan.
 - [ ] Iets dat over elkaar heen valt of buiten het venster loopt? Screenshot.
+- [ ] Tellen staat nu vanzelf AAN: op een character waar je het nooit aanzette, na een paar gevechten staat er iets
+      in "Which spells do I press?", zonder gele "Counting is off"-regel. Uitzetten met de schakelaar blijft uit na `/reload`.
+- [ ] In "Which spells do I press?": muis op een spellregel → tooltip "Click: show this spell on your keyboard".
+      Klik → het toetsenbordvenster opent met één toets opgelicht (die van MH's layout), en scrolt ernaartoe.
 
 ## 🆕 21 okt — Kindo'jan: Claws of the Empire + Mojo-wegslag
 

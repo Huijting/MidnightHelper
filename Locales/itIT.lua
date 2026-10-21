@@ -615,7 +615,7 @@ ns._mhLocales.itIT = {
 	KEYBIND_ROLE_MOBILITY = "Mobilità / pet",
 	KEYBIND_ROLE_COOLDOWN = "Barra cooldown",
 
-	LAYOUT_PROTOTYPE_SUBTITLE = "Prototipo — anteprima completa della tastiera US: i tasti Midnight si illuminano; gli altri sono in grigio. Passa il mouse o clicca. I suggerimenti nella tab Guide possono saltare qui ed evidenziare un tasto. Si può rimuovere quando viene sostituito.",
+	LAYOUT_PROTOTYPE_SUBTITLE = "Prototipo — anteprima completa della tastiera US: i tasti Midnight si illuminano; gli altri sono in grigio. Passa il mouse o clicca. Clicca una spell in \"Quali spell premo?\" per illuminare qui il suo tasto. Si può rimuovere quando viene sostituito.",
 	LAYOUT_KEY_UNUSED_TOOLTIP = "|cff888888Non usato nella mappa dei bind Midnight di questa spec.|r",
 	LAYOUT_KEY_MODIFIER_TOOLTIP = "|cff888888Tasto modificatore — WoW gestisce le combo Shift/Ctrl/Alt separatamente da questa mappa delle spell.|r",
 	LAYOUT_KEY_NAV_TOOLTIP = "|cff888888Cluster di navigazione / editing — non fa parte della mappa dei tasti Midnight.|r",

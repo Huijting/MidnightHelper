@@ -643,7 +643,7 @@ ns._mhLocales.enUS = {
 	AHSHOP_BTN_FMT = "Shopping list: %d to buy",
 	AHSHOP_TIP_TITLE = "Midnight Helper: shopping lists",
 	AHSHOP_TIP_BODY = "Opens Ready for the raid? (consumables, enchants, gems) with a Profession tab for your recipes. Click a row to search the auction house, or send everything to Auctionator. Also: /mh ready. Hide this button in Settings.",
-	CMDLIST_PRESSES ="Which spells you press most, the key each one sits on, and which swaps would put them on easier keys. Turn counting on first: /mh presses on.",
+	CMDLIST_PRESSES ="Which spells you press most, the key each one sits on, and which swaps would put them on easier keys. Counting is on unless you turn it off: /mh presses off.",
 	-- One door to all keybind help (KeysHub.lua, Rob 21 Oct 2026: "één vaste ingang 'Toetsen'").
 	CMDLIST_MYKEYS = "Your keys: set them up, see which spells you press, and see your whole keyboard. One window.",
 	KEYSHUB_TITLE = "Your keys",
@@ -662,6 +662,7 @@ ns._mhLocales.enUS = {
 	PRESSES_NONE = "Nothing counted yet for this character and spec. Turn it on with /mh presses on and play a few fights.",
 	PRESSES_HEAD = "Your most-pressed spells (%s, %d fights):",
 	PRESSES_NOKEY = "not on a key (clicked, or on a bar addon)",
+	PRESSES_ROW_TT = "Click: show this spell on your keyboard. The key Midnight Helper's layout gives it lights up.",
 	PRESSES_EASY = "easy",
 	PRESSES_MID = "okay",
 	PRESSES_HARD = "hard",
@@ -3029,7 +3030,7 @@ ns._mhLocales.enUS = {
 	KEYBIND_ROLE_COOLDOWN = "Cooldown bar",
 	KEYBIND_ROLE_HEAL = "Self-heal",
 
-	LAYOUT_PROTOTYPE_SUBTITLE = "Full keyboard preview: Midnight keys light up; others grayed. Hover a key to see every bind on it — a |cff8ecfff+N|r badge means N extra Shift/Ctrl binds. Tips in the Guide tab can jump here and highlight a key.",
+	LAYOUT_PROTOTYPE_SUBTITLE = "Full keyboard preview: Midnight keys light up; others grayed. Hover a key to see every bind on it — a |cff8ecfff+N|r badge means N extra Shift/Ctrl binds. Click a spell in \"Which spells do I press?\" to light up its key here.",
 	LAYOUT_KEY_UNUSED_TOOLTIP = "|cff888888Not used in the Midnight bind map for this spec.|r",
 	LAYOUT_NO_MAP_HINT = "No Midnight key map for this class/spec yet — maps exist for Hunter, Paladin, Frost Mage, Elemental Shaman, and Enhancement Shaman. More specs are on the way.",
 	LAYOUT_AUTOMAP_NOTE = "Auto-map generated from your spellbook — no hand-tuned map for this spec yet.",

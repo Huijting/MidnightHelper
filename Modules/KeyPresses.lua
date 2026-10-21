@@ -9,7 +9,11 @@
 	would put the busy spells on the easy keys. Rob chose "count + report + suggestion"; moving the
 	buttons stays his (one or two at a time: a layout change is a habit change).
 
-	OPT-IN, OFF BY DEFAULT (players choose): `/mh presses on`, or the switch under Combat.
+	ON BY DEFAULT since 21 Oct 2026 (Rob: "het tellen moet standaard aan"): it was opt-in, and then the Swap tips
+	that helped Rob's own DH had nothing to show for anyone who never found the switch. Still the player's choice:
+	`/mh presses off`, or the switch under Combat. Only a choice the player MADE counts as off (`chosen`); the old
+	`on = false` that Store() wrote by itself on first use cannot be told apart from a real "off", so a player
+	who turned it off before 21 Oct gets it back on once (AFGELEID risk, accepted).
 	Counts the player's OWN casts in combat only (UNIT_SPELLCAST_SUCCEEDED for "player", the same
 	event TankPullSummary and InterruptScore already count). A secret spell id is skipped, never
 	guessed. Stored account-wide per character and spec in ns.db.keyPresses.
@@ -42,17 +46,23 @@ end
 
 local function Store()
 	ns.db = ns.db or {}
-	ns.db.keyPresses = ns.db.keyPresses or { on = false, chars = {} }
+	ns.db.keyPresses = ns.db.keyPresses or { chars = {} }
 	ns.db.keyPresses.chars = ns.db.keyPresses.chars or {}
 	return ns.db.keyPresses
 end
 
 function ns.IsKeyPressesEnabled()
-	return ns.db and ns.db.keyPresses and ns.db.keyPresses.on == true or false
+	local kp = ns.db and ns.db.keyPresses
+	if kp and kp.chosen then
+		return kp.on == true
+	end
+	return true -- default on; see the header
 end
 
 function ns.SetKeyPressesEnabled(v)
-	Store().on = v and true or false
+	local kp = Store()
+	kp.on = v and true or false
+	kp.chosen = true
 end
 
 local function CharKey()
@@ -389,6 +399,24 @@ local function Row(i)
 	r.reach:SetPoint("LEFT", r, "LEFT", 360, 0)
 	r.reach:SetWidth(WIN_W - 2 * PAD - 360)
 	r.reach:SetWordWrap(false)
+	-- 21 Oct 2026 (Rob: "de layout-uitleg moet ook aangesloten worden"): click a spell → the keyboard window opens with
+	-- the key Midnight Helper's layout gives it lit up. Not in that layout → the keyboard opens without a lit key.
+	r:EnableMouse(true)
+	r:SetScript("OnMouseUp", function(self)
+		if not (self.spellId and ns.MH_GuideOpenLayoutForSpell and ns.MH_GuideOpenLayoutForSpell(self.spellId)) then
+			if ns.ShowKeysKeyboard then
+				ns.ShowKeysKeyboard(nil)
+			end
+		end
+	end)
+	r:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(ns:L("PRESSES_ROW_TT"), 1, 1, 1, 1, true)
+		GameTooltip:Show()
+	end)
+	r:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
 	win.rows[i] = r
 	return r
 end
@@ -639,6 +667,7 @@ Refresh = function()
 			local row = Row(shown)
 			row:ClearAllPoints()
 			row:SetPoint("TOPLEFT", win, "TOPLEFT", PAD, y)
+			row.spellId = r.id
 			row.icon:SetTexture(SpellIcon(r.id))
 			row.name:SetText(SpellName(r.id))
 			row.count:SetText(r.n .. "x")

@@ -4441,7 +4441,13 @@
    "ruRU": "33d6a350c3260c5b"
   },
   "CMDLIST_PRESSES": {
-   "ruRU": "c6258e37d7dc294f"
+   "deDE": "b95b7433107b7b8d",
+   "esES": "b95b7433107b7b8d",
+   "frFR": "b95b7433107b7b8d",
+   "itIT": "b95b7433107b7b8d",
+   "nlNL": "b95b7433107b7b8d",
+   "ptBR": "b95b7433107b7b8d",
+   "ruRU": "b95b7433107b7b8d"
   },
   "CMDLIST_PROMPT": {
    "deDE": "b0181f705623c995",
@@ -19460,13 +19466,13 @@
    "ruRU": "238619cb85886ae9"
   },
   "LAYOUT_PROTOTYPE_SUBTITLE": {
-   "deDE": "97e4567ee07d0ca9",
-   "esES": "97e4567ee07d0ca9",
-   "frFR": "97e4567ee07d0ca9",
-   "itIT": "97e4567ee07d0ca9",
-   "nlNL": "97e4567ee07d0ca9",
-   "ptBR": "97e4567ee07d0ca9",
-   "ruRU": "97e4567ee07d0ca9"
+   "deDE": "88aaa0ceddb1b15c",
+   "esES": "88aaa0ceddb1b15c",
+   "frFR": "88aaa0ceddb1b15c",
+   "itIT": "88aaa0ceddb1b15c",
+   "nlNL": "88aaa0ceddb1b15c",
+   "ptBR": "88aaa0ceddb1b15c",
+   "ruRU": "88aaa0ceddb1b15c"
   },
   "LAYOUT_STHEAL_TAG": {
    "deDE": "51b47d478b4bec56",

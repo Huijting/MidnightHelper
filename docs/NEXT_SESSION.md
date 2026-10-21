@@ -52,8 +52,18 @@ GEBOUWD, niet in het spel gezien:
   filterknoppen weg en de kaarten schuiven omhoog; dicht zetten zet het filter terug op "All". Onthouden per account
   (`ns.db.layoutMoreOpen`). Geldt voor de Leveling-subtab én het nieuwe venster.
 - 12 nieuwe sleutels (KEYSHUB_*, CMDLIST_MYKEYS, LAYOUT_MORE_*): en/nl door mij, rest mh-writer (eigen vertaling).
-🔜 Open, Robs keuze: tellen standaard aan (verandert iets voor iedereen); "Tips in the Guide tab can jump here" in de
-Layout-subtitel is niet bedraad (mh-sweep: geen aanroeper van MH_GuideOpenLayoutForKey buiten het bestand).
+✅ Rob daarna: "het tellen moet standaard aan en de layout-uitleg moet ook aangesloten worden".
+- Tellen standaard AAN (`KeyPresses.lua`): IsKeyPressesEnabled = true tenzij de speler zelf koos (`keyPresses.chosen`,
+  gezet door SetKeyPressesEnabled = schakelaar en `/mh presses on|off`). ⚠️ Het oude `on = false` schreef Store() vanzelf
+  bij eerste gebruik, dus wie vóór 21 okt bewust UIT had gezet, staat nu één keer weer aan (niet te onderscheiden, geaccepteerd).
+  SettingsDefs-standaard → true. CMDLIST_PRESSES zegt niet meer "zet eerst aan" (PRESSES_NONE bleef: die toont
+  alleen als het tellen UIT staat; voor aan bestaat PRESSES_NONE_ON al).
+- "Tips in the Guide tab can jump here" klopte niet: de Gids-tips zijn losse tekstregels zonder spell-ID's (GEMETEN,
+  Addons/Guide.lua addBullet) en MH_GuideOpenLayoutForKey had 0 aanroepers. Nu: klik op een spellregel in het presses-
+  venster → MH_GuideOpenLayoutForSpell → het toetsenbordVENSTER (ns.ShowKeysKeyboard(uiKey), elk level) met de toets uit
+  MH's layout opgelicht + gescrold (scroll per panel: `panel._mhProtoScroll`). Niet in MH's layout → toetsenbord zonder
+  oplichten. Tooltip PRESSES_ROW_TT. Subtitel: "Click a spell in 'Which spells do I press?' to light up its key here."
+  ⚠️ Opgelicht = de toets van MH's PLAN, niet waar de spell nu echt zit (dat staat in de presses-regel zelf).
 🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):
 `DelveBossCard.lua` END_STEPS = de stapnamen "Enemy/Soul of the Labyrinth" in alle 8 clienttalen (GEMETEN, CLIENT_NAMES
 Ronde 5, ScenarioStep 3444/3678), taalonafhankelijk gematcht vóór de kamertaken. Treffer → ShowDelveBossCard(eindbaas)

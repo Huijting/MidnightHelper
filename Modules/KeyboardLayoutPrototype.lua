@@ -104,32 +104,17 @@ function ns.KeyboardLayoutPrototype_SetHighlight(panel, uiKey)
 	ns._mhLayoutHighlightKey = uiKey
 end
 
+--- Light up one key on the keyboard and scroll to it.
+--- 21 Oct 2026 (Rob: "de layout-uitleg moet ook aangesloten worden"): this had no caller at all, and it opened the
+--- Leveling tab's Layout sub-tab, which hides itself at level 90. It now opens the keyboard WINDOW (KeysHub.lua),
+--- which works at every level; the presses window calls it when you click a spell.
 function ns.MH_GuideOpenLayoutForKey(uiKey)
 	if not uiKey or uiKey == "" then
 		return false
 	end
-	if ns.EnsureMainUI then
-		local main = ns:EnsureMainUI()
-		if main and not main:IsShown() and ns.ToggleMainWindow then
-			ns:ToggleMainWindow()
-		end
-	end
-	if ns.SelectTab then
-		ns.SelectTab("guide")
-	end
-	if ns._mhSelectGuideSubTab then
-		ns._mhSelectGuideSubTab("layout")
-	end
-	local panel = ns._mhGuideLayoutPanel
-	ns.KeyboardLayoutPrototype_SetHighlight(panel, uiKey)
+	local panel = ns.ShowKeysKeyboard and ns.ShowKeysKeyboard(uiKey)
 	if panel then
-		if ns.BuildKeyboardLayoutPrototypePanel then
-			ns.BuildKeyboardLayoutPrototypePanel(panel)
-		end
-		if ns.KeyboardLayoutPrototype_Refresh then
-			ns.KeyboardLayoutPrototype_Refresh(panel)
-		end
-		local scroll = _G.MidnightHelperKeyboardProtoScroll
+		local scroll = panel._mhProtoScroll
 		local btn = panel._mhProtoButtons and panel._mhProtoButtons[uiKey]
 		if scroll and scroll.SetVerticalScroll and btn and btn._mhProtoLayoutY then
 			local viewH = scroll:GetHeight() or 320
@@ -1471,6 +1456,7 @@ function ns.BuildKeyboardLayoutPrototypePanel(panel)
 	panel._mhProtoSubtitle = sub
 
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperKeyboardProtoScroll", panel, "UIPanelScrollFrameTemplate")
+	panel._mhProtoScroll = scroll -- per panel: the Leveling sub-tab and the keyboard window each have one
 	scroll:SetFrameStrata(panel:GetFrameStrata())
 	scroll:SetFrameLevel(math.max(1, (panel:GetFrameLevel() or 0) + 5))
 	scroll:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", -4, -10)

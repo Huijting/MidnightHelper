@@ -92,7 +92,7 @@ local function Build()
 		end
 	end)
 	Row("KEYSHUB_KEYBOARD_BTN", "KEYSHUB_KEYBOARD_DESC", function()
-		ns.ShowKeysKeyboard()
+		ns.ShowKeysKeyboard(nil)
 	end)
 
 	hub = f
@@ -131,9 +131,11 @@ end
 
 --- The Layout keyboard in a window of its own. The same builder as the Leveling tab's Layout sub-tab, on its own
 --- panel, so it does not depend on that tab being shown (it hides itself at level 90).
-function ns.ShowKeysKeyboard()
+--- @param highlightKey string|nil a key to light up (ns.MH_GuideOpenLayoutForKey); nil clears an old highlight
+--- @return Frame|nil the keyboard panel
+function ns.ShowKeysKeyboard(highlightKey)
 	if not ns.BuildKeyboardLayoutPrototypePanel then
-		return
+		return nil
 	end
 	if not kbWin then
 		local f = CreateFrame("Frame", "MidnightHelperKeysKeyboard", UIParent, "BackdropTemplate")
@@ -164,9 +166,13 @@ function ns.ShowKeysKeyboard()
 		end
 		kbWin = f
 	end
+	if ns.KeyboardLayoutPrototype_SetHighlight then
+		ns.KeyboardLayoutPrototype_SetHighlight(kbWin.inner, highlightKey)
+	end
 	kbWin:Show()
 	ns.BuildKeyboardLayoutPrototypePanel(kbWin.inner)
 	if ns.KeyboardLayoutPrototype_Refresh then
 		ns.KeyboardLayoutPrototype_Refresh(kbWin.inner)
 	end
+	return kbWin.inner
 end
