@@ -34,6 +34,12 @@ local MAX_RESUME_AGE = 6 * 3600
 --- his SavedVariables, one entry per room, 8-28 min each, back to back. So in the Labyrinth a finished scenario adds a
 --- room to the run, and the run is logged once, with its room count, when the player leaves the instance.
 local ROOM_RUN_DELVES = { ["The Labyrinth of Kindo'jan"] = true }
+--- The Labyrinth is always Bountiful (AreaPOI 9035/9037 "Bountiful Delve", Wowhead/Icy Veins), but the Bountiful map pin
+--- check never sees it: GEMETEN 22 Oct 2026, every Labyrinth run in Rob's log had wasBountiful = false, so the Gilded
+--- Stash count skipped them while a Tier 11 run had just left him one (his screenshot).
+function ns.IsAlwaysBountifulDelve(name)
+	return name ~= nil and ROOM_RUN_DELVES[name] == true
+end
 -- Old per-room entries less than this far apart (end of one → start of the next) were one run (merge below).
 local ROOM_GAP_SAME_RUN = 15 * 60 -- CHOSEN: Rob's rooms followed each other within minutes
 
@@ -389,6 +395,14 @@ end
 
 local function RefreshBountifulSnapshot()
 	if runState.wasBountiful or not runState.delveName then
+		return
+	end
+	if ROOM_RUN_DELVES[runState.delveName] then
+		runState.wasBountiful = true
+		local store = GetStore()
+		if store and store.activeRun then
+			store.activeRun.wasBountiful = true
+		end
 		return
 	end
 	if ns.IsDelveBountiful then

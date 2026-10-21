@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 okt — Gilded Stash telt het Labyrinth mee
+
+- [ ] Na `/reload`: This Week / Delves → Gilded Stash staat op minstens 1/4 deze week (je T11-Labyrinth-run van 22 okt).
+      Tooltip erop lezen.
+- [ ] Bij inleveren van "A Gnawing Void of Curiosity": kijk je Labyrinth Journey vóór en na (Shift-J). Krijg je 2000?
+
 ## 🆕 22 okt — Codex-advies niet meer doorzichtig
 
 - [ ] Open het Corrosive Codex-venster terwijl het doelwit-lijstje (Party Targets) erachter staat: het gele MH-advies is

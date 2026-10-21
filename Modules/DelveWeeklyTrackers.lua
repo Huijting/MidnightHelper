@@ -141,11 +141,13 @@ function ns.CountGildedStashRuns(store, resetTs)
 	end
 	local anchor = tonumber(resetTs) or GetWeeklyResetAnchorTs()
 	local progress = 0
-	for _, entry in pairs(store.delves) do
+	for name, entry in pairs(store.delves) do
+		-- The Labyrinth: always Bountiful, but runs logged before 22 Oct 2026 say false (DelveHistory.lua).
+		local always = ns.IsAlwaysBountifulDelve and ns.IsAlwaysBountifulDelve(name)
 		if type(entry) == "table" and type(entry.recent) == "table" then
 			for _, run in ipairs(entry.recent) do
 				if type(run) == "table"
-					and run.wasBountiful
+					and (run.wasBountiful or always)
 					and (tonumber(run.tier) or 0) >= GILDED_MIN_TIER
 					and (tonumber(run.timestamp) or 0) >= anchor
 				then

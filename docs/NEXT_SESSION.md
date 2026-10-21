@@ -16,8 +16,13 @@ forumspeler ("touw bij de Myth-verkoper"). {WAY}-link in CODEX_LABYRINTH_BODY, a
 ✅ GEMETEN Rob 22 okt, eigen Labyrinth-run tot en met Kindo'jan, tooltips in de schatkamer: Bountiful Coffer = "Locked ·
 Restored Coffer Key 4 / 1" (1 sleutel, hij had er 4); Bountiful Heavy Trunk zonder slot-regel (geen sleutel);
 er stond ook een **Gilded Stash**. Beurt van 9 kamers: ~3 coffers (paarse rand, op de overzichtsfoto, AFGELEID).
-🔜 Vragen: welke tier, hoeveel levens over (Gilded Stash = T11 met levens over?), sleutels na het openen; telt MH's
-Gilded Stash-teller (uit de Delve Log) deze Labyrinth-stash mee?
+✅ Rob: Tier 11, 6 levens over, 4 → 1 sleutel (3 coffers × 1, GEMETEN). Weekquest "A Gnawing Void of Curiosity" kwam
+mee (inleveren bij Naleidea Rivergleam, Silvermoon: 750 Undercoin + 150 Voidlight Marl + goud; Codex zegt 2000 Labyrinth
+Journey-punten volgens Wowhead, niet gemeten).
+🐛 GEMETEN in Robs SV: ELKE Labyrinth-run in de Delve Log had wasBountiful = false → de Gilded Stash-teller sloeg ze over.
+Gerepareerd: DelveHistory zet het Labyrinth altijd op Bountiful (ns.IsAlwaysBountifulDelve), en CountGildedStashRuns
+telt ook de oude Labyrinth-runs. ⚠️ Herkenning op de Engelse naam (ROOM_RUN_DELVES), net als de kamer-telling: op een
+anderstalige client AFGELEID niet gezien. Niet in het spel gezien.
 🔜 ruRU: "Kinduru" staat in 4 strings in Latijnse letters (client: Киндуру, wago-rij 257344 volgens mh-writer), en
 "Kinduru's Spiriting Quill" ook; clientnaam van de toy nog meten.
 
