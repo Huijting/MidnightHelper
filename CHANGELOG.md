@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.11.0 (beta1)
+
+📌 **2026-10-21, BETA (Rob: "Is het idee om er alvast een beta te releasen?" → "ja je krijgt de GO, vertel je het ook de
+site chat").** Zodat Carola vanavond het Labyrinth-werk kan proberen. Tag `v4.11.0-beta1`. In-game: CHANGELOG_4110_0..6
+(enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.0.md` (begint met "This is a beta").
+GEMETEN door Rob in het spel (21 okt): kamerkaart opent vanzelf, boekje op de markeerbalk, `/mh coach labyrinth`, de
+Claws-regel in de coach, "Your keys" (venster, knoppen, More/Less, `/mh mykeys`), de echte toets licht op, zoekbalk op
+één regel, News-knop/banner (20 okt), Flooded Chamber-ingang (20 okt). NIET gezien: Kindo'jan-venster vanzelf, de
+solo-stand + "Also handy" + "Later", tellen standaard aan op een nieuw character, de Loa-conduits-tekst, de healer-
+correcties, alle vertalingen (eigen werk).
+
+- **Labyrinth:** kamerkaarten (21 taken, clientnamen), bazenkaarten + lijst (`/mh bosscard`), boekje op de markeerbalk,
+  Kindo'jan-venster op "Enemy/Soul of the Labyrinth", Claws of the Empire, Mojo bij de rand maar niet bij hem, Loa-Spirit
+  Conduits + hotfix 20 okt, Flooded Chamber-ingang in de kistroute.
+- **Your keys** (`Modules/KeysHub.lua`, `/mh mykeys`), tellen standaard aan, klik op spell = echte toets licht op, Layout
+  "More".
+- **This Week:** solo-schakelaar bovenaan + sterkere solo-stand, "Also handy", "Later" ingeklapt, nieuwsbanner + News-knop,
+  Vaeli.
+- **Healers** 65/105/256/257/264: speluitleg + dispels via talent (IsPlayerSpell).
+- **Klein:** `/mh coach <naam>`, zoekregels op één regel, clientnamen rondes 2-5.
+
 ## 4.10.2
 
 📌 **2026-10-20, RELEASE (Rob: "Okay, 4.10.2 versie doen" — dictated as "fourth one, punt 2 versie doen" — and "Doe ze

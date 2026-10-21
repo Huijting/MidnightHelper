@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🧪 21 okt (middag) — BETA 4.11.0-beta1 (Rob: "ja je krijgt de GO, vertel je het ook de site chat")
+
+Waarom nu: Carola wil vanavond het Labyrinth-werk proberen, en de spec-audit (workflow playcard-audit) duurt langer.
+TOC 4.11.0, CHANGELOG_4110_0..6 (enUS, 0 = beta-notitie), Changelog.lua, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.0.md`
+(cmp: identiek), CHANGELOG.md (wat Rob zag en wat niet). Tag `v4.11.0-beta1` → CurseForge als Beta. Site-chat geseind.
+🔜 De spec-audit-uitkomsten gaan in een volgende beta (of 4.11.0).
+
 ## 🦅 21 okt — ochtendronde + Claws of the Empire (Rob: "ja, zet allebei erin … alle talen")
 
 Ochtendronde GEMETEN: 4 wachters gedraaid (hotfix-sectie 20 okt: Mistcrests ongecapt, Fools and Curses-afrondbug en
@@ -99,6 +106,15 @@ Method/Wowhead + wago 12.1.5.70448). Gedaan:
   bleef staan); Fade/Translucent Image (alleen de site). 🔜 Site-chat: Dispel-tab en de kaarten herbouwen na de release.
   🔜 Clientnaam-regel: de talentnamen "Weal and Woe" en "Master the Darkness" (256_W3) staan in alle packs nog Engels
   → per locale meten in wago (TraitDefinition/SpellName) en vervangen. Vertalingen eigen werk; drift gemarkeerd.
+🧷 Zijbalk: de 21-10-chats hingen onder de 17-10-chats; archiveren van een chat neemt stille sub-chats mee (GEMETEN in de
+beschrijving van archive_session). Bouwchat 21-10 is losgemaakt (detach self); Site chat 21-10 gevraagd hetzelfde te doen.
+`/nieuwe-chat` (user-skill) maakt de nieuwe chat nu meteen los (stap 3, detach_session).
+🔎 Rob 21 okt: "Hoe komt het dat die andere chat dit allemaal zo kan vinden en dat wij dat niet hebben?" → oorzaak: de
+40 kaarten (4.1.0) zijn in één keer uit gidsen geschreven, nooit zin-voor-zin langs tooltip + DB2 gecontroleerd; "simpel"
+maakte talent-effecten tot basis; 12.1.5 kwam erna. Rob: "gebruik maar een workflow" → workflow `playcard-audit`
+(run wf_9ea1f38c-e10, 35 specs = alles behalve 65/105/256/257/264): per spec route A (gidsen/tooltips) + route B (wago
+DB2) + reconcile (alleen "agreed" = beide eens of één GEMETEN zonder tegenspraak). Rapporten per spec in de
+side-session-notes map `playcard_audit\<spec>.md`. Nog NIETS aangepast; na de uitkomst: teksten + vertalen per batch.
 🌊 Vervolg uit dezelfde heal-chat: Resto Shaman (264), zelfde 2 routes. Gedaan: Purify Spirit alleen Magic, Curse via
 talent 383016 (IsPlayerSpell); PLAYCARD_264_EASY stap 3 + S4 + W4 (Lava Burst = optioneel talent voor Resto), S1/W1
 (2 charges alleen met twee talents; Stormstream alleen met talent 1267016, via Riptide, duurt 60 s, stapelt tot 2 →

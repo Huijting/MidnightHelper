@@ -1,40 +1,63 @@
-# Midnight Helper 4.10.2: one more week for Fabled Kindo'jan
+# Midnight Helper 4.11.0 (beta): room windows for the Labyrinth, Your keys, and a solo This Week
 
-Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
-CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
-here on CurseForge, or the feedback form on midnighthelper.com.
+## This is a beta
 
-## Fabled Kindo'jan: one more week
+Betas get new things to you sooner. To get them: open the CurseForge app, go to Midnight Helper and set the
+**release type** to **Beta**. Some of what is below has not been tested in every situation yet. Tell us how it goes,
+also when everything works:
 
-Blizzard extended **Fabled Let Me Solo Him: Kindo'jan** by a week because of the first week's bugs. It now ends at the
-weekly maintenance of the week of **27 October** (in Europe most likely Wednesday 28 October). The Kindo'jan tip and
-the Labyrinth card in the Codex say what it asks:
+- `/mh report` in game, or *Report a problem* in Settings,
+- a comment here on CurseForge,
+- or the feedback form on midnighthelper.com.
 
-- Kill him on **tier 11** with **no other players** in your party. Valeera may come, and deaths do not matter.
-- Already have the mount but not the title? Then you need a new kill.
+## The Labyrinth of Kindo'jan
 
-## Corrosive Codex: the two kinds of poison
+- **A window per room, by itself.** Walk into a room and a small window opens with what that room's task asks, step
+  by step where it helps (Bear's Burden, Containment Breach), plus the tip for the boss of that room. The task names
+  are the ones your own game shows.
+- **A window per room boss.** `/mh bosscard` lists all of them; click one for only that boss's tips. The search box
+  finds them by name too.
+- **A book button on the marker bar** inside the Labyrinth: left-click for this room, right-click for the boss list.
+- **Kindo'jan**: his window opens by itself when you reach *Enemy of the Labyrinth*. New in his tips:
+  - *Claws of the Empire* is just his normal attack. You cannot dodge it and it gives no Disgraceful Display stack.
+  - Drop *Erratic Mojo* near the edge, but **not close to Kindo'jan**: his hit can throw you off the platform there.
+- **Loa-Spirit Conduits** (Wind, Earth, Fire, Mist): what each one does for 2 minutes, and that since Blizzard's
+  hotfix of 20 October they no longer work in Kindo'jan's fight. Use them on the way.
+- **Flooded Chamber:** the chest route leads you to the underwater entrance first. The Fiery Hexmask melts the ice.
 
-The Codex card now explains what makes a good pair of gifts. There are **two kinds of poison**: **you** are poisoned
-(only Insidious Venom, and Valeera's Venom Infusion curio), or **the enemy** is poisoned (Plague, Accursed Poison,
-Gorgoneion Gaze, Mephitic Cloud). A good pair poisons and pays off on the **same** kind. Lithic Plumage + Insidious
-Venom, for example, do nothing for each other.
+## Your keys
 
-## The Labyrinth, from our own recorded run
+- **One window for all keybind help:** the first card in the Tools room, or `/mh mykeys`. Three buttons: your key
+  block, *Which spells do I press?* and your whole keyboard, now also at level 90.
+- **Counting which spells you press is on by default**, so the swap tips just appear. You can still turn it off.
+- **Click a spell** in *Which spells do I press?* and the key it sits on lights up on the keyboard.
+- **A quieter keyboard screen:** the colour legend and the filters sit behind a *More* button.
 
-- The tasks' real names on screen: Graverobbers, Reigns of the Warlord, Fools and Curses, Returning the Bounty and more.
-- The Drill Sergeant's **Drilling Charge**, Grukk's shout that locks your spells for about **4 seconds**, a line on
-  **The Undead Trollbunal**, and the **Pit Boss** in more tasks than we knew.
-- **Den'zara** is a short fight; then it takes about 40 seconds before you can attack Kindo'jan.
-- The **Shadow of Halazzi** in the intermission, and yes, the Hexmasks do come into the boss room.
+## This Week
+
+- **Mostly solo?** A switch at the top of This Week puts delves first: your Restored Coffer Keys and shards,
+  Valeera, and *Next up* tells you to use a key on a Bountiful delve. Mythic+, raids, the world boss, group buffs and
+  the dungeon weekly are hidden.
+- **Shorter for everyone:** the story campaign, rares, mounts and the daily tip fold into *Also handy*, and
+  *Later, as you level* is one line on a low character.
+- **In the game now:** a news banner on top, and an orange *News* button in the title bar.
+- **Vaeli's housing weekly** is on the list.
+
+## Healers
+
+The play cards for **Holy Paladin, Restoration Druid, Discipline and Holy Priest and Restoration Shaman** were checked
+line by line against the game data and current guides. A few things were only true with a talent; they now say so.
+**Dispels** show Poison, Disease or Curse only when you have the talent that adds it. The other specs are being
+checked the same way for the next beta.
 
 ## Also
 
-- **Codex, Nebulous Voidcore:** a short note on Blizzard's known bug with the "Current Season Maximum".
-- **Raidbots export:** talent ranks are written the way the newest SimulationCraft addon writes them.
-- **Names that match the game:** Italian "Avventuriero", German "Mythos" and "Gaben" for the Codex gifts, Russian
-  "Защитник" and "Легенда", Mexican Spanish "Mito".
+- `/mh coach <name>` opens the Delve Coach of another delve, for example `/mh coach labyrinth`.
+- Search results stay on one line.
+- More game names now match your game client in German, French, Spanish, Portuguese, Italian, Russian and Mexican
+  Spanish.
 
-New texts in other languages are our own translation: native speakers, corrections are very welcome.
+The new texts in German, French, Spanish, Portuguese, Italian, Russian and Mexican Spanish are our own translation:
+native speakers, corrections are very welcome.
 
 Have fun!
