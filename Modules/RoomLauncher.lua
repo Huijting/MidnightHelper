@@ -53,6 +53,10 @@ local function Palette()
 end
 
 local TOOLS_CARDS = {
+	-- 21 Oct 2026, Rob: "één vaste ingang 'Toetsen' … op elk level zichtbaar". First on purpose: the keybind help was
+	-- the least-found part of MH (survey: 12× never, 0× often). Opens a window (KeysHub.lua), like Mount run.
+	{ id = "keyshub", screen = "keyshub", labelKey = "KEYSHUB_TITLE", stem = "toolbox", tagline = "CMDLIST_MYKEYS",
+		action = function() if ns.ShowKeysHub then ns.ShowKeysHub() end end },
 	{ id = "toolslaunch" },
 	{ id = "consumables", screen = "consumables", labelKey = "TAB_CONSUMABLES" },
 	{ id = "macros", screen = "macros", labelKey = "TAB_MACROS", beta = "macros" },
@@ -102,7 +106,7 @@ local function CardsForRoom(roomId)
 		for _, c in ipairs(TOOLS_CARDS) do
 			local ok = true
 			if c.action then
-				ok = c.id ~= "mountrun" or ns.MH_ShowMountRun ~= nil
+				ok = (c.id ~= "mountrun" or ns.MH_ShowMountRun ~= nil) and (c.id ~= "keyshub" or ns.ShowKeysHub ~= nil)
 			elseif c.beta then
 				ok = not ns.IsBetaTabEnabled or ns.IsBetaTabEnabled(c.beta)
 			elseif not c.screen then

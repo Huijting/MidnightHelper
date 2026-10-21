@@ -121,6 +121,9 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh macros", descKey = "CMDLIST_MACROS" },
 		{ cmd = "/mh settings", descKey = "CMDLIST_SETTINGS" },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
+		-- 21 Oct 2026: one door to all keybind help (KeysHub.lua). NavSearch indexes this table, so "keys",
+		-- "keybinds" and the window's own name find it from the search bar.
+		{ cmd = "/mh mykeys", descKey = "CMDLIST_MYKEYS" },
 		{ cmd = "/mh apply", descKey = "CMDLIST_APPLY" },
 		-- 4 Oct 2026: the fixed key block, as a picture (KeyBlock.lua).
 		{ cmd = "/mh block", descKey = "CMDLIST_BLOCK" },

@@ -762,6 +762,9 @@ local function BuildNavIndex()
 		bagarrows = "bag upgrade arrows green item better",
 		export = "export gear bags armory website best set copy paste items",
 		survey = "survey questionnaire opinion feedback what do you use poll website",
+		-- 21 Oct 2026: the one door to keybind help (KeysHub.lua). English words reach every client; the label is the
+		-- translated CMDLIST_MYKEYS line, which starts with the window's own name, so it is found in the client's words too.
+		mykeys = "keys keybind keybinds keybinding bindings bind hotkey hotkeys keyboard layout coach key block swap presses",
 	}
 	for _, group in ipairs(ns.MH_COMMANDS or {}) do
 		for _, item in ipairs(group.items or {}) do

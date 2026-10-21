@@ -36,6 +36,24 @@ alleen met Robs ja), dan prompt (bouw = de vorm van de prompt van 21 okt; site =
 dan start_session (fresh, user_asked, use_worktree false, titel "Bouwchat/Site chat dd-mm"), andere chat seinen.
 Niet getest: of een NIEUWE user-skill in een al draaiende chat zichtbaar wordt (AFGELEID: pas na herstart/nieuwe chat).
 Shaman-vuurtest Flooded Chamber: Rob doet hem vanavond.
+GEMETEN 21 okt: de nieuwe user-skill stond meteen in de skill-lijst van deze al lopende chat → hij werkt ook zonder herstart.
+⌨️ E — Keybind-coach (Rob: "Doe A: één vaste ingang 'Toetsen' met een simpel startvenster en drie grote knoppen, op elk
+level zichtbaar" + "Het Layout-scherm rustiger maken: de filterknoppen en de uitleg over de kleuren achter een knop 'meer'").
+Waarom (GEMETEN, mh-sweep + zelf nagelezen): de coach was subtab "Layout" van de Leveling-tab, die zich op 90 verbergt
+(`Core.lua` IsGuideTabEnabled); de rest zat in 4 losse vensters achter commando's; tellen staat standaard uit.
+GEBOUWD, niet in het spel gezien:
+- `Modules/KeysHub.lua`: venster "Your keys" (ns.ShowKeysHub) met 3 knoppen → ns.ShowKeyBlock, ns.KeyPressesCommand(nil),
+  ns.ShowKeysKeyboard (het Layout-toetsenbord in een eigen venster, dus ook op 90). Staat tellen uit → gele regel onder
+  knop 2. Shift+scroll via RegisterMidnightDialogPopup.
+- Ingangen: kaart "Your keys" als EERSTE in de Tools-kamer (RoomLauncher TOOLS_CARDS, stem "toolbox" = AFGELEID icoon),
+  eerste tegel op de Tools-launchpad, `/mh mykeys` (CommandList + Core), zoekwoorden keys/keybinds/hotkeys/keyboard/swap …
+  (NavSearch CMD_KEYWORDS). `/mh keybinds` blijft de export (bestond al).
+- Layout rustiger: knop "More: colours and filters"/"Less" onder het toetsenbord; dicht (standaard) = legenda + 4
+  filterknoppen weg en de kaarten schuiven omhoog; dicht zetten zet het filter terug op "All". Onthouden per account
+  (`ns.db.layoutMoreOpen`). Geldt voor de Leveling-subtab én het nieuwe venster.
+- 12 nieuwe sleutels (KEYSHUB_*, CMDLIST_MYKEYS, LAYOUT_MORE_*): en/nl door mij, rest mh-writer (eigen vertaling).
+🔜 Open, Robs keuze: tellen standaard aan (verandert iets voor iedereen); "Tips in the Guide tab can jump here" in de
+Layout-subtitel is niet bedraad (mh-sweep: geen aanroeper van MH_GuideOpenLayoutForKey buiten het bestand).
 🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):
 `DelveBossCard.lua` END_STEPS = de stapnamen "Enemy/Soul of the Labyrinth" in alle 8 clienttalen (GEMETEN, CLIENT_NAMES
 Ronde 5, ScenarioStep 3444/3678), taalonafhankelijk gematcht vóór de kamertaken. Treffer → ShowDelveBossCard(eindbaas)

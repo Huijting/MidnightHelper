@@ -1101,6 +1101,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh mykeys — one window with the three ways MH helps with keys (KeysHub.lua, 21 Oct 2026).
+	if msg == "mykeys" then
+		if ns.ShowKeysHub then
+			ns.ShowKeysHub()
+		end
+		return
+	end
 	-- /mh block — the fixed key block as a picture (KeyBlock.lua, 4 Oct 2026; changes nothing).
 	if msg == "block" or msg == "keyblock" then
 		if ns.ShowKeyBlock then

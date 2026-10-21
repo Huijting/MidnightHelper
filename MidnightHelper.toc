@@ -286,6 +286,7 @@ Modules\DevShots.lua
 Modules\CommandList.lua
 Modules\KeypadCommands.lua
 Modules\SupportReport.lua
+Modules\KeysHub.lua
 Modules\ToolsLaunchpad.lua
 Modules\RoomLauncher.lua
 Modules\Tour.lua

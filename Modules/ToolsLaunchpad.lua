@@ -19,6 +19,12 @@ end
 -- nameKey hergebruikt bestaande 7-talen-labels; descKey staat in Translations2026.
 -- Slash-teksten zijn commando's, niet vertaald.
 local TOOLS = {
+	-- 21 Oct 2026 (Rob: "één vaste ingang 'Toetsen'"): the door to all keybind help, first in the list (KeysHub.lua).
+	{
+		nameKey = "KEYSHUB_TITLE", descKey = "CMDLIST_MYKEYS",
+		icon = "Interface\\Icons\\INV_Misc_Gear_01", slash = "/mh mykeys",
+		open = function() if ns.ShowKeysHub then ns.ShowKeysHub() end end,
+	},
 	{
 		nameKey = "DELVE_COACH_TITLE", descKey = "TOOLLP_COACH_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Map_01", slash = "/mh coach",

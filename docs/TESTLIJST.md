@@ -21,6 +21,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 21 okt — "Your keys": één ingang voor alles over toetsen
+
+Eerst `/reload`. Liefst op een level-90 én op een laag character.
+- [ ] Tools-kamer: de EERSTE kaart heet "Your keys". Klik → klein venster met 3 grote knoppen en onder elke knop een
+      zin. Venster sleepbaar, Shift+scroll maakt het groter/kleiner, kruisje sluit.
+- [ ] Knop 1 "Set up my keys" → het toetsenblok-venster opent.
+- [ ] Knop 2 "Which spells do I press?" → het presses-venster opent. Staat tellen uit: onder knop 2 een gele regel
+      "Counting is off right now …".
+- [ ] Knop 3 "Show my keyboard" → een eigen venster met het hele toetsenbord, OOK op level 90.
+- [ ] Tools-launchpad: bovenste tegel "Your keys" met Open-knop. Zoekbalk: typ "keys" of "keybinds" → "Your keys: …".
+      `/mh mykeys` opent het venster; `/mh keybinds` opent nog steeds de export.
+- [ ] Layout (in het venster van knop 3, en op een laag character ook in Leveling → Layout): onder het toetsenbord een
+      knop "More: colours and filters". Kaarten staan direct eronder, zonder kleurenuitleg en filterknoppen. Klik →
+      uitleg + 4 filterknoppen verschijnen, knop heet "Less". Na `/reload` blijft je keuze staan.
+- [ ] Iets dat over elkaar heen valt of buiten het venster loopt? Screenshot.
+
 ## 🆕 21 okt — Kindo'jan: Claws of the Empire + Mojo-wegslag
 
 Eerst `/reload`. Delve-coach → Labyrinth → Boss-deel (of het End boss-venster van Kindo'jan):

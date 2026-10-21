@@ -445,8 +445,17 @@ local function LegendLineCount()
 	return n
 end
 local LEGEND_H = 8 + LegendLineCount() * LEGEND_LINE_H + 10
-local CHIPS_Y = KB_BOTTOM + LEGEND_H       -- filter-chips onder de legenda
-local CARDS_TOP = CHIPS_Y + 30             -- kaarten onder de chips
+-- 21 Oct 2026 (Rob: "Het Layout-scherm rustiger maken: de filterknoppen en de uitleg over de kleuren achter een knop
+-- 'meer'"). A "More" button sits right under the keyboard; closed (the default), the cards start under it. Open, the
+-- legend and the filter chips sit between the button and the cards, as before. Open/closed is remembered per account.
+local MORE_H = 30
+local CHIPS_Y = KB_BOTTOM + MORE_H + LEGEND_H -- filter-chips onder de legenda
+local CARDS_TOP_OPEN = CHIPS_Y + 30           -- kaarten onder de chips
+local CARDS_TOP_CLOSED = KB_BOTTOM + MORE_H + 6
+
+local function LayoutMoreOpen()
+	return ns.db and ns.db.layoutMoreOpen == true
+end
 
 --- Filter-chips (mockup B): Alles / Alleen modifier-laag / Alleen ankers.
 local FILTER_CHIPS = {
@@ -767,7 +776,7 @@ local function ProtoBuildFilterChips(panel)
 			w = 40
 		end
 		chip:SetWidth(w + 22)
-		chip:SetPoint("TOPLEFT", host, "TOPLEFT", x, -CHIPS_Y)
+		chip:SetPoint("TOPLEFT", host, "TOPLEFT", x, -CHIPS_Y) -- CHIPS_Y already counts the More button
 		chip:SetScript("OnClick", function()
 			panel._mhCardFilter = def.id
 			ProtoUpdateChipVisuals(panel)
@@ -907,6 +916,7 @@ local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset
 end
 
 local function ProtoRefreshCards(panel, spec, slots)
+	local CARDS_TOP = LayoutMoreOpen() and CARDS_TOP_OPEN or CARDS_TOP_CLOSED
 	ProtoReleaseCards(panel)
 	local host = panel._mhProtoHost
 	if not host then
@@ -1492,8 +1502,8 @@ function ns.BuildKeyboardLayoutPrototypePanel(panel)
 
 	if not panel._mhProtoLegend then
 		local leg = host:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-		leg:SetPoint("TOPLEFT", host, "TOPLEFT", 8, -(KB_BOTTOM + 8))
-		leg:SetPoint("TOPRIGHT", host, "TOPRIGHT", -10, -(KB_BOTTOM + 8))
+		leg:SetPoint("TOPLEFT", host, "TOPLEFT", 8, -(KB_BOTTOM + MORE_H + 8))
+		leg:SetPoint("TOPRIGHT", host, "TOPRIGHT", -10, -(KB_BOTTOM + MORE_H + 8))
 		leg:SetJustifyH("LEFT")
 		leg:SetJustifyV("TOP")
 		leg:SetWordWrap(true)
@@ -1503,6 +1513,33 @@ function ns.BuildKeyboardLayoutPrototypePanel(panel)
 	panel._mhProtoLegend:SetText(ns:L("LAYOUT_LEGEND"))
 
 	ProtoBuildFilterChips(panel)
+
+	-- "More" / "Less": shows or hides the legend and the filter chips. Closing also clears the filter, so no hidden
+	-- chip can keep cards out of sight.
+	local more = CreateFrame("Button", nil, host, "UIPanelButtonTemplate")
+	more:SetSize(240, 22)
+	more:SetPoint("TOPLEFT", host, "TOPLEFT", 8, -(KB_BOTTOM + 4))
+	panel._mhMoreBtn = more
+	local function ApplyMore()
+		local open = LayoutMoreOpen()
+		more:SetText(ns:L(open and "LAYOUT_MORE_HIDE" or "LAYOUT_MORE_SHOW"))
+		panel._mhProtoLegend:SetShown(open)
+		for _, chip in ipairs(panel._mhChips or {}) do
+			chip:SetShown(open)
+		end
+		if not open and panel._mhCardFilter and panel._mhCardFilter ~= "all" then
+			panel._mhCardFilter = "all"
+			ProtoUpdateChipVisuals(panel)
+		end
+	end
+	more:SetScript("OnClick", function()
+		ns.db = ns.db or {}
+		ns.db.layoutMoreOpen = (not LayoutMoreOpen()) or nil
+		ApplyMore()
+		ns.KeyboardLayoutPrototype_Refresh(panel)
+	end)
+	ApplyMore()
+
 	ns.KeyboardLayoutPrototype_Refresh(panel)
 
 	if not panel._mhProtoEvents then
