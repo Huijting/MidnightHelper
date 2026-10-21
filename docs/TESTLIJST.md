@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 21 okt — Loa-Spirit Conduits (Labyrinth)
+
+Eerst `/reload`.
+- [ ] Codex → Labyrinth-kaart, onder "Help along the way": de vier conduits (Wind, Earth, Fire, Mist) met wat elk doet,
+      en een oranje regel "Since 20 October they no longer work in Kindo'jan's fight".
+- [ ] `/mh coach labyrinth` → Overview: regel "From Journey rank 6: four Loa-Spirit Conduits …".
+- [ ] In de Labyrinth: klik een conduit en klik dan Valeera aan. Heeft zij de buff ook? (niet gemeten; bepaalt of
+      "voor de hele groep" terug mag)
+- [ ] Klik een conduit vlak vóór Kindo'jan: valt de buff weg zodra het gevecht begint?
+
 ## 🆕 21 okt — "Your keys": één ingang voor alles over toetsen
 
 ✅ Rob 21 okt: venster, knoppen 1-3, More/Less en `/mh mykeys` goed. ❌ → gerepareerd, opnieuw testen (eerst `/reload`):

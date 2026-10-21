@@ -5320,13 +5320,13 @@
    "ruRU": "39de3fe452cc700b"
   },
   "CODEX_LABYRINTH_BODY": {
-   "deDE": "600af91f248a38c1",
-   "esES": "600af91f248a38c1",
-   "frFR": "600af91f248a38c1",
-   "itIT": "600af91f248a38c1",
-   "nlNL": "600af91f248a38c1",
-   "ptBR": "600af91f248a38c1",
-   "ruRU": "600af91f248a38c1"
+   "deDE": "a91f13fd5b034ef7",
+   "esES": "a91f13fd5b034ef7",
+   "frFR": "a91f13fd5b034ef7",
+   "itIT": "a91f13fd5b034ef7",
+   "nlNL": "a91f13fd5b034ef7",
+   "ptBR": "a91f13fd5b034ef7",
+   "ruRU": "a91f13fd5b034ef7"
   },
   "CODEX_LABYRINTH_TITLE": {
    "ruRU": "24c921e348910197"
@@ -9530,12 +9530,13 @@
    "ruRU": "d6e9715e6cd9de3d"
   },
   "DELVE_TIP_LABYRINTH_OVERVIEW": {
-   "deDE": "45d291b004d6d432",
-   "esES": "45d291b004d6d432",
-   "frFR": "45d291b004d6d432",
-   "itIT": "45d291b004d6d432",
-   "ptBR": "45d291b004d6d432",
-   "ruRU": "45d291b004d6d432"
+   "deDE": "9326c0dba7f32c89",
+   "esES": "9326c0dba7f32c89",
+   "frFR": "9326c0dba7f32c89",
+   "itIT": "9326c0dba7f32c89",
+   "nlNL": "9326c0dba7f32c89",
+   "ptBR": "9326c0dba7f32c89",
+   "ruRU": "9326c0dba7f32c89"
   },
   "DELVE_TIP_LABYRINTH_ROOMS": {
    "deDE": "5f40deddf5e0ee85",
@@ -28409,6 +28410,15 @@
   "PRESSES_NOSWAP": {
    "ruRU": "e7856c6c6ec8e8d2"
   },
+  "PRESSES_NOT_IN_LAYOUT_FMT": {
+   "deDE": "2ba489414c39a21a",
+   "esES": "2ba489414c39a21a",
+   "frFR": "2ba489414c39a21a",
+   "itIT": "2ba489414c39a21a",
+   "nlNL": "2ba489414c39a21a",
+   "ptBR": "2ba489414c39a21a",
+   "ruRU": "2ba489414c39a21a"
+  },
   "PRESSES_OFF": {
    "ruRU": "104d980d9f993b86"
   },
@@ -28417,6 +28427,15 @@
   },
   "PRESSES_RESET": {
    "ruRU": "1e5e25bd02b37da2"
+  },
+  "PRESSES_ROW_TT": {
+   "deDE": "b4fd5e13a1bf8967",
+   "esES": "b4fd5e13a1bf8967",
+   "frFR": "b4fd5e13a1bf8967",
+   "itIT": "b4fd5e13a1bf8967",
+   "nlNL": "b4fd5e13a1bf8967",
+   "ptBR": "b4fd5e13a1bf8967",
+   "ruRU": "b4fd5e13a1bf8967"
   },
   "PRESSES_RULE": {
    "ruRU": "4b5a90ad8359c0f6"

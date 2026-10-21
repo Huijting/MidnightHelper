@@ -84,6 +84,15 @@ keyboard shows"). PRESSES_ROW_TT: "The key it sits on now lights up."
 ns.LiveKeyForSpell and ns.LiveKeyForSpell(id)` — een `and` houdt alleen de EERSTE returnwaarde, hit was altijd nil.
 Gerepareerd (eerst de nil-check, dan de kale aanroep). 🔜 lint check [12] ("Multi-assignment behind an `and` guard")
 ving dit NIET (0 gemeld) → de regex van [12] nalopen in tools/lint_addon.py. Niet opnieuw getest.
+🌀 Loa-Spirit Conduits (Rob stond voor een "Loa-Spirit Wind Conduit": "hebben wij dat al besproken?" → "ja doe maar").
+2 mh-research-rondes eens (wago 12.1.5.70448; rapporten in de side-session-notes, conduits_ronde_A/B.md): object "Loa-Spirit
+<X> Conduit", buff "Spiritual <X> Conduit", 2 min, Journey-rang 6 (RenownRewards 2048 = "Loa-Spiritual Conduits", dus die
+naam was de BELONING, niet het object), 4 per run, plek wisselt (AFGELEID). Wind 1314332 +25% combat speed; Earth 1314346
+-50% schade; Fire 1314350 vuurschade elke 2,5 s binnen 50 yd; Mist 1314353 doodt niet-bazen < 20%. Hotfix 20 okt (tekst
+GEMETEN): niet meer in Kindo'jan's gevecht; buffs in DB2 van groeps- naar gewone buff (GEMETEN) — of de groep/Valeera
+hem nog krijgt is NIET gemeten (test voor Rob). Objectnamen per taal NIET meetbaar → packs gebruiken infospell 1314910
+en de gemeten buffnamen. Gedaan: CODEX_LABYRINTH_BODY (4 soorten + hotfix, "hele groep" weg) en een bullet in
+DELVE_TIP_LABYRINTH_OVERVIEW; en/nl door mij, rest mh-writer. CODEX_LABJOURNEY_BODY ongemoeid (rang-6-naam klopt).
 🔤 Blokjes op actieknoppen (Rob, resto druid in vorm): NIET MH (GEMETEN: geen HotKey/RANGE_INDICATOR-code in MH, controle
 vond "hotkey" elders). Oorzaak: `_retail_\Fonts` had 4 identieke eigen fonts (md5 0abc1195…, 23 mrt 2026, "eerder ui
 project") → het ●-bereikrondje op knoppen zonder toets werd een blokje. ✅ Rob haalde ze weg + /reload: blokjes weg.
