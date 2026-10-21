@@ -6498,3 +6498,132 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `git fetch origin main` (geen forced update, alleen `-> FETCH_HEAD`) zijn `HEAD`, `main` en
     `origin/main` alle drie **`8a81696f976d9006675574c746f349c163bb24d0`** (*"Handoff: site 4.10.1 live;
     … of the Mist names to measure"*). **Geen** van de vier wachter-bestanden stond gewijzigd-maar-ongecommit.
+- [2026-10-21] ✅ **Nul [MOET GEFIKST] — en de enige die openstond is DICHT: Rob heeft de
+  `talents=`-rank zelf gefikst, gemeten in de code en niet in een aantekening. Eén echte vondst
+  vandaag is een MEETGAT: warcraft.wiki.gg was op VIER routes onleesbaar, dus "onveranderd" zeg ik
+  vandaag NIET. Verder: nieuwe hotfix-batch (20 okt) zonder addon-/UI-sectie, twee nieuwe
+  forumdraadjes zonder API-naam, geen nieuwe SimC-release, geen nieuwe tag.**
+  - ✅ **[AFGEHANDELD, niet nieuw] — de [MOET GEFIKST] van gisteren (`Modules/SimcExport.lua:410`)
+    bestaat niet meer. GEMETEN IN DE BRON.** `Modules/SimcExport.lua:413` leest nu letterlijk
+    `entries[#entries + 1] = node.activeEntry.entryID .. ":" .. (node.currentRank or node.ranksPurchased)`
+    — precies de upstream-vorm die ik gisteren uit de commit-diff overnam, met op `:411-412` een
+    comment dat de herkomst noemt (*"simc-addon 12.1.5-02 (commit b0cce8e, core.lua GetTraitString)
+    … copied verbatim"*). GEMETEN via `git log -1 -- Modules/SimcExport.lua`: commit **`4baf55f`**,
+    Rob Huijting, **Tue Oct 20 06:33:41 2026 +0200**, *"Raidbots export: talent rank as simc-addon
+    12.1.5-02 writes it; survey #22"* — dus ~een uur na de run die het meldde. 📌 Ik citeer hier
+    mijn eigen regel van gisteren niet als bewijs; de regel hierboven komt uit het bestand zelf.
+    - ⏳ **Wat er van dat punt WEL open blijft, en vandaag niet te meten is:** of de geëxporteerde
+      `talents=`-string op een Retail-boom werkelijk verschilt. Dat vergt een client. Eén test voor
+      Rob, onveranderd sinds gisteren: `/mh raidbots` naast de export van de SimulationCraft-addon
+      zelf leggen en die ene regel vergelijken.
+    - 📎 **En het kopcommentaar is NIET meegegaan.** `Modules/SimcExport.lua:12-15` zegt nog steeds
+      dat het de addon volgt *"read 30 Sep 2026 at release 12.1.0-04 … still in 12.1.5-alpha-01"*,
+      terwijl upstream op `12.1.5-02` staat en de code daar inmiddels op volgt. Een comment, geen
+      gedrag; ik raak het niet aan. Wel het soort regel dat over een maand iemand verkeerd informeert.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-02`.** GEMETEN langs twee wegen mét
+    cache-buster: `releases?per_page=4` geeft bovenaan nog steeds **`12.1.5-02`**, `published_at`
+    **2026-10-19T20:39:12Z**, `github-actions[bot]`, met als `body` dezelfde regel *"forever: Add
+    legacy talents, ranged, ammo, and bags / Also cleaned up detection of Retail vs Forever"*; en
+    `commits/master.atom` heeft als nieuwste commit nog **`b0cce8ecfccd0c5ff2fb4942135e9c0589c2c5d7`**
+    (seriallos, **2026-10-19T20:38:11Z**), daarachter `8741352…` (*"12.1.5 release"*, 12 okt). Geen
+    nieuwe commit op master, dus ook geen release in de maak. Niets te toetsen.
+  - 🔴 **HET MEETGAT VAN VANDAAG: warcraft.wiki.gg WAS OP GEEN ENKELE ROUTE TE LEZEN. Dit is géén
+    "vijfde dag onveranderd" — ik heb de revisie niet gezien en beweer dus niets over de revisie.**
+    GEMETEN, alle vier de routes in deze run:
+    1. **`curl`: gateway antwoordt 403 op CONNECT.** De proxy-status bevestigt het twee keer
+       letterlijk onder `recentRelayFailures`: *"kind": "connect_rejected"*, *"detail": "gateway
+       answered 403 to CONNECT (policy denial or upstream failure)"*, *"host":
+       "warcraft.wiki.gg:443"*, om **2026-10-21T03:39:19.494Z** en **…785Z**.
+    2. **Exa `web_fetch`: `CRAWL_HTTP_502` op vijf URL-vormen** — `rest.php/v1/page/<pagina>/history`
+       voor **beide** pagina's (12.1.7 en 12.1.5, mét `%2F`), `…/wiki/Patch_12.1.7/API_changes?action=history`,
+       `…/index.php?title=…&action=history` en `…/api.php?action=query&prop=revisions`. Niet één
+       van de vijf gaf een byte.
+    3. **`WebFetch`: `getaddrinfo ENOTFOUND warcraft.wiki.gg`** — precies de EGRESS_BLOCKED die mijn
+       opdracht voorspelt.
+    4. **Terugval `WebSearch`, en dat is het enige dat iets gaf. Label: MEASURED (via search, niet
+       zelf gelezen).** De samenvatting van `Patch 12.1.7/API changes` noemt exact **twee** dingen:
+       de GUID-obfuscatie (*"The server ID and spawn ID parts of cast, creature, vehicle, pet, and
+       game object GUIDs are now obfuscated … stable and unique within the current client session,
+       but cannot be compared between clients or persisted beyond restarts"*) en de TOC-regel
+       (*"TOC directives no longer expand variables such as [Game] or [Family]. Instead, these lines
+       are entirely skipped."*). 🔴 **Beide staan hier al** — de GUID-regels woordelijk in de run van
+       17 okt (incl. de verschuiving van Forever naar Retail en de vijfde GUID-soort `cast`), de
+       TOC-regel in die van 16 okt en nog eens op 18 okt. **Er is dus geen aanwijzing voor nieuwe
+       wiki-inhoud, maar dat is iets anders dan bewijs dat er niets veranderd is.** De zoekmachine
+       gaf geen revisiedatum en geen revisie-id.
+    - ⚠️ **Geen nieuwe `12.1.x/API changes`-pagina gevonden, maar zwak gemeten:** een gerichte zoek
+      op `"Patch 12.1.9/API changes"` gaf **nul** treffers op die titel (alleen 12.1.7 en 12.1.5 zelf).
+      Zonder `rest.php/v1/search/page` — de weg van de vorige dagen — kan ik dat niet hard maken.
+    - 📌 **Wat dit voor morgen betekent:** blijft de wiki onbereikbaar, dan loopt de reeks "onveranderd
+      sinds 6919765 (16 okt)" niet door maar BREEKT hij af bij 20 okt. Pak de reeks niet stilletjes
+      weer op met een nieuwe meting alsof er niets tussen zat.
+  - ✅ **[RAAKT ONS NIET] — er IS een nieuwe hotfix-batch (20 okt), en de datumfilter kon hem
+    PRINCIPIEEL niet zien.** GEMETEN mét cache-buster: `raw/2382684/1` heeft nu
+    **"October 20, 2026"** bovenaan, waar hij gisteren nog op "October 16, 2026" begon. Secties:
+    *Achievements* (de termijn van *Fabled: Let Me Solo Him: Kindo'jan* verlengd t/m de week van 27 okt),
+    *Labyrinth* (*"Fools and Curses"*-scenario, Spirit Conduit Loa powers in Kindo'jans fight),
+    *Items* (*"Mistcrests are now uncapped"*, Ascendant Venomstones, Ancient Hash'ey Battle Art,
+    Void Eruption), *Player versus Player* (*"Conquest and Bloody Tokens are now uncapped"*, Spoils of
+    War, Venomous Equipment Chest) en *Quests* (vier fixes). 🔴 **Geen UI-, addon- of API-sectie, dus
+    op mijn terrein niets te toetsen.** De caps en de achievement-termijn zijn het terrein van de
+    data- en contentwachter; ik noem ze alleen zodat zichtbaar is dát ik de batch gelezen heb, en doe
+    hun werk niet.
+    - 🔴 **EN HIER ZIT EEN VAL DIE IK VANDAAG GEMETEN HEB — `after:`-filters KUNNEN deze batch nooit
+      vinden.** `q=hotfixes in:title after:2026-10-17` → **`"posts":[]`**, leeg. Dat lege resultaat
+      is **echt** (positieve controle in dezelfde run en dezelfde zoekvorm: `after:2026-10-14` geeft
+      wél vier posts), maar het betekent **niet** "geen nieuwe hotfixes". De lopende topic `2382684`
+      is op **2026-10-15T00:53:57.786Z** aangemaakt en wordt daarna alleen **bijgewerkt**; een filter
+      op aanmaakdatum ziet een edit nooit. Dat de blurb van die post in de `after:2026-10-14`-uitslag
+      inmiddels begint met *"Hotfixes October 20, 2026"* is het enige signaal dat de zoekmachine geeft.
+      📌 **De les, en hij is breder dan hotfixes: `raw/<topic>/1` lezen is de enige betrouwbare weg
+      bij een topic die wordt bijgewerkt in plaats van opnieuw geopend.** Een leeg datumfilter bewijst
+      hier alleen dat er geen nieuwe TOPIC is. Dat is dezelfde fout als 18 okt, nu van de andere kant.
+  - 🔇 **[RAAKT ONS NIET] — forum `#ui-macro` sinds 14 okt: twee posts die hier nog niet stonden, nul
+    API-namen.** Via `search.json?q=#ui-macro after:2026-10-14` mét cache-buster, op id gecontroleerd
+    tegen dit logboek:
+    - **topic `2387466`** (Vhok / Avarice-mankrik, **2026-10-20T09:10:26.855Z**, post 1), volledig
+      gelezen via `raw/2387466/1`: *"the 'only horizontal while moving' camera option seems to have
+      been removed from the game and i hate the smart or always choices. is there a command i can do
+      to re-enable this?"* — een camera-instelling, **geen API-naam en geen CVar-naam genoemd**.
+      Toch getoetst, want een verdwenen optie kan een CVar zijn: grep over de addon (`.git`, `docs`,
+      `tools`, `dist` uitgesloten) op `cameraSmoothStyle|SetCVar\("camera|camera_|CameraSmooth` →
+      **nul treffers**. 🔴 **Positieve controle in dezelfde run en dezelfde reikwijdte:** `SetCVar`
+      → **5** treffers (`Modules/KeyBlock.lua:1052`, `:1241`, `:1242`, `Modules/DevShots.lua:393`,
+      `:394` — alle vijf `pcall`'d en achter een `if … then`). Het patroon vindt dus wél wat er is;
+      MH raakt geen camera-CVar aan.
+    - **topic `24534`, post #9** (ZeroDay / Bitcoìns-lightbringer, **2026-10-20T15:39:18.360Z**):
+      *"Please look into the addon. 'Journey' Streamers are solicitating there viewers to pay 30$ for
+      this addon for the WoWF launch."* — een klacht over betaalde addons, nul techniek, nul API.
+    - **Al gelogd, niet opnieuw opgevoerd:** `2385490` (Carnacki, 17 okt 09:40:15Z, de *"new slider
+      controls"* — staat op regel 6238 van dit bestand), `2367394` post #9 (16 okt, *"oops, my bad…
+      yes, it's working great, ty!"* — inhoudsloos vervolg op de `GLOBAL_MOUSE`-draad) en `2386807`
+      (eldrisa, 19 okt, de spell-alert-schaalwens).
+    - 🔴 **GEMETEN dat er geen blue reply is, mét positieve controle.** `#ui-macro @Linxy
+      after:2026-10-14` → **nul posts**; `#ui-macro @Kaivax after:2026-10-14` → **nul posts**. Zonder
+      datumfilter geeft `#ui-macro @Linxy` wél precies één treffer (*"Macro Changes Now Live: Target
+      Markers and Chat Messages"*, topic `2261956`, **2026-03-01T21:33:32.080Z**). De zoekvorm werkt.
+  - ⏳ **ONGEWIJZIGD EN NIET NIEUW: het API-gat tussen build 69952 en 70448 staat nog open.** GEMETEN
+    via `api.github.com/repos/Gethe/wow-ui-source/tags?per_page=4` mét cache-buster: `12.1.7`
+    **`b87363e0770c2f15b1e2f154de8ad3b0cf3ea90a`** en `12.1.5`
+    **`b9be9379719047977fca4dba1bb1d9988e8840b3`**, beide byte-identiek aan gisteren; daarachter pas
+    `12.1.0` (`a89e9d0c…`) en `12.0.7` (`345da592…`). Geen nieuwe tag, dus nog altijd geen bron die
+    beschrijft wat er tussen 69952 en 70448 aan API veranderd is. Staand gat, geen nieuws.
+    - ⚠️ **Werktuignoot: `gh` en `curl` kunnen dit NIET meer meten in deze sessie.** `gh api
+      repos/Gethe/wow-ui-source/tags` geeft **HTTP 403** — *"GitHub access to this repository is not
+      enabled for this session"*; de sessie is gescoped op `huijting/midnighthelper`. Hetzelfde voor
+      `repos/simulationcraft/simc-addon`. Beide metingen hierboven lopen daarom via Exa op
+      `api.github.com`, die wél werkt. Volgende runs: begin bij Exa, verspil geen `gh`-poging.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de `%d+`-aanname op
+    veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/
+    `:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes`
+    als tiende deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); en de UTF-8 **BOM** vooraan `MidnightHelper.toc` waardoor
+    `grep -E "^## Interface"` nul geeft. 🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, branch `main`, en na `git fetch origin main` waren `HEAD`, `main`,
+    `origin/main` en `FETCH_HEAD` alle vier **`536ff595c9e60eb0b8496eeaeb9c9773786020dd`**
+    (*"Handoff: tonight's room readings, Kindo'jan step names and deaths"*). **Geen** van de vier
+    wachter-bestanden stond gewijzigd-maar-ongecommit. De `pull --rebase` daarna was een
+    **fast-forward naar `bbdd3c2`** met één bestand: `docs/PTR_12.1_WATCH.md` (+3 regels) — de
+    PTR/roadmap-wachter van 05:40, niet mijn bestand, niet aangeraakt.
