@@ -29,6 +29,8 @@ Eerst `/reload`.
 - [ ] "How you play" Resto Druid: Swiftmend-regel noemt de twee talents; Efflorescence "3 hurt friends … each tick".
 - [ ] Holy Paladin stap 4: "Judgment … for Holy Power, then Shield of the Righteous up close … Mana back".
 - [ ] Disc Priest Voidweaver: "rift that follows the enemy … Smite becomes Void Blast … You may move".
+- [ ] Resto Shaman: dispel noemt alleen Magic, met Improved Purify Spirit ook Curse. "How you play": Lava Burst "(if you
+      have that talent)", Stormstream "lasts a minute", Unleash Life ook voor Riptide, Healing Rain "whenever it is ready".
 
 ## 🆕 21 okt — This Week: solo-stand (delves voorop)
 

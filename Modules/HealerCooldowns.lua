@@ -272,7 +272,8 @@ ns.HEALER_DISPELS = {
 	[270] = { id = 115450, types = { "magic", "poison", "disease" } }, -- Mistweaver: Detox
 	[256] = { id = 527, types = { "magic" }, talent = { spell = 390632, types = { "disease" } } }, -- Disc Priest: Purify
 	[257] = { id = 527, types = { "magic" }, talent = { spell = 390632, types = { "disease" } } }, -- Holy Priest: Purify
-	[264] = { id = 77130, types = { "magic", "curse" } }, -- Resto Shaman: Purify Spirit
+	-- Curse only with Improved Purify Spirit 383016, a Resto talent you pick (21 Oct 2026, same two routes).
+	[264] = { id = 77130, types = { "magic" }, talent = { spell = 383016, types = { "curse" } } }, -- Resto Shaman: Purify Spirit
 }
 
 -- Dispels for NON-healing specs (Rob 2026-07-15: "non-healers dispel too", built

@@ -99,6 +99,11 @@ Method/Wowhead + wago 12.1.5.70448). Gedaan:
   bleef staan); Fade/Translucent Image (alleen de site). 🔜 Site-chat: Dispel-tab en de kaarten herbouwen na de release.
   🔜 Clientnaam-regel: de talentnamen "Weal and Woe" en "Master the Darkness" (256_W3) staan in alle packs nog Engels
   → per locale meten in wago (TraitDefinition/SpellName) en vervangen. Vertalingen eigen werk; drift gemarkeerd.
+🌊 Vervolg uit dezelfde heal-chat: Resto Shaman (264), zelfde 2 routes. Gedaan: Purify Spirit alleen Magic, Curse via
+talent 383016 (IsPlayerSpell); PLAYCARD_264_EASY stap 3 + S4 + W4 (Lava Burst = optioneel talent voor Resto), S1/W1
+(2 charges alleen met twee talents; Stormstream alleen met talent 1267016, via Riptide, duurt 60 s, stapelt tot 2 →
+"snel drukken" en "licht op" weg), W3 (Unleash Life healt echt en versterkt ook Riptide, +25%), AOE (Healing Rain op
+cooldown). Niet: Spirit Walk / Gust of Wind (alleen de site). Alle talen + esMX (mh-writer), drift gemarkeerd.
 🗓️ D — weekplan voor solo/delves (Rob: "Doe A en B samen: solo-stand sterker en delves naar voren, en de solo-knop
 bovenaan This Week"). Gemeten vooraf (mh-sweep + zelf): schakelaar mh_homeSolo bestond (2 okt) maar zat alleen in
 Settings en verborg alleen Mythic+ en Raids. GEBOUWD, niet in het spel gezien:
