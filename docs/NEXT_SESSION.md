@@ -6,7 +6,11 @@ volgorde, vinkje nog steeds als atlas `common-icon-checkmark` in de tekst. MH la
 "no gift picked yet". CodexAdvicePanel.lua ReadCodex telt nu de plek van de knop (1e = 13 … 12e = 24). Ook: met alle 12
 vrijgespeeld zijn alle knoppen aanklikbaar, dus de "1 of 2 enabled"-terugval helpt dan niet. Niet in het spel gezien.
 Ook: achtergrond van het advies is nu dicht (b55141c). Rob vraagt wat hij met 30 overgebleven Corrosive Souls kan
-(alles vrijgespeeld) → mh-research loopt.
+(alles vrijgespeeld) → mh-research (22 okt): maar 2 dingen, elk 1 soul: Er'inye (Altar) → Satchel of Corrosive Coins
+(281223, 100 coins + Altar-bonus, vanaf 8 gifts, stapelbaar sinds hotfix 1 sep); Naleidea Rivergleam (Silvermoon) →
+Delver's Corroded Pouch of Undercoin (280458, 150 Undercoin). wago SpellReagents/ItemExtendedCost 12.1.5.70448 + PTR
+12.1.7: geen 13e gift, geen achievement/quest. Warbound, stapel 99, alleen in je tassen voor de Codex. Seizoenseinde
+onbekend. 🔜 Staat nog NIET in MH's Codex (0 treffers "Satchel of Corrosive Coins", controle Er'inye 7×) → aanbieden.
 
 ## 🪢 21 okt (avond) — Labyrinth: touw-uitweg en sleutels (Rob: "Ja, zet dat er maar in.")
 
