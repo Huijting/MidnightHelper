@@ -121,7 +121,8 @@ ns.KeybindRoleClassifier.ROGUE = {
     -- Self-heal
     ["Crimson Vial"]     = { id = 185311, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 primaire combat self-heal (instant HoT). NIET F4.
     -- Kleine defensive
-    ["Feint"]            = { id = 1966, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1 }, -- kleine def (AoE dmg-reductie); kaart: vlak voor een klap
+    -- 21 Oct 2026 (spec audit): without Elusiveness (a choice against Cheat Death) Feint only cuts area damage.
+    ["Feint"]            = { id = 1966, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_AOE" }, -- kleine def (AoE dmg-reductie); kaart: vlak voor een klap
     -- Grote defensieven
     ["Cloak of Shadows"] = { id = 31224, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- magic immunity
     ["Evasion"]          = { id = 5277, category = "defensive", priority = 2, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- dodge (grote def), alleen van voren

@@ -452,13 +452,19 @@ local function TaggedPlan(tbl, specID, trace)
 				if type(note) == "table" then
 					note = note[specID]
 				end
+				-- survivalWhen may be per spec too (21 Oct 2026: Ignore Pain is "keep it up" on Prot, a plain small one
+				-- on Arms; only Prot needs "Rage is empty before the pull").
+				local when = item.entry.survivalWhen
+				if type(when) == "table" then
+					when = when[specID]
+				end
 				steps[#steps + 1] = {
 					text = name,
 					spellID = id,
 					-- survivalWhen: a row whose spell the step text does not describe (8 Oct 2026,
 					-- docs/ROLE_SWITCH_FACTS8: Guardian Spirit cannot stop one giant hit, Cold Snap
 					-- protects against nothing itself). Same step and order, its own sentence.
-					whenKey = item.entry.survivalWhen or step.key,
+					whenKey = when or step.key,
 					noteKey = note,
 					bindKey = item.entry.bindKey,
 				}

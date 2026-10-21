@@ -269,7 +269,7 @@ ns.HEALER_DISPELS = {
 	[65] = { id = 4987, types = { "magic" }, talent = { spell = 393024, types = { "poison", "disease" } } }, -- Holy Paladin: Cleanse
 	[105] = { id = 88423, types = { "magic", "curse", "poison" } }, -- Resto Druid: Nature's Cure
 	[1468] = { id = 360823, types = { "magic", "poison" } }, -- Pres Evoker: Naturalize
-	[270] = { id = 115450, types = { "magic", "poison", "disease" } }, -- Mistweaver: Detox
+	[270] = { id = 115450, types = { "magic" }, talent = { spell = 388874, types = { "poison", "disease" } } }, -- Mistweaver: Detox (Improved Detox 388874; spec audit 21 Oct 2026)
 	[256] = { id = 527, types = { "magic" }, talent = { spell = 390632, types = { "disease" } } }, -- Disc Priest: Purify
 	[257] = { id = 527, types = { "magic" }, talent = { spell = 390632, types = { "disease" } } }, -- Holy Priest: Purify
 	-- Curse only with Improved Purify Spirit 383016, a Resto talent you pick (21 Oct 2026, same two routes).

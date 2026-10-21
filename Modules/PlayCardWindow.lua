@@ -301,17 +301,23 @@ local function Greying(specID)
 	return low, grey, max
 end
 
---- The "written for level 90" line. Returns the new y and the text-pool index it used.
+--- The "written for level 90" line, and on every level the build note. Returns the new y and the text-pool index.
+--- 21 Oct 2026 (spec audit: 131 lines named a talent as if everyone had it; Rob chose "B + one line per card"): the
+--- card follows the talents most players pick, and says so once here instead of in every sentence. A choice node or a
+--- rarely taken talent is still named in the line itself ("if you took …").
 local function LevelBanner(y, t, inner, low, grey, max)
-	if not low then
-		return y, t
-	end
 	t = t + 1
 	local fs = Text(t, "GameFontHighlight")
 	fs:SetWidth(inner)
 	fs:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
-	fs:SetTextColor(0.55, 0.78, 1)
-	fs:SetText((L("PLAYCARD_LEVEL_FMT")):format(max) .. (grey and (" " .. L("PLAYCARD_GREY_HINT")) or ""))
+	if low then
+		fs:SetTextColor(0.55, 0.78, 1)
+		fs:SetText((L("PLAYCARD_LEVEL_FMT")):format(max) .. (grey and (" " .. L("PLAYCARD_GREY_HINT")) or "")
+			.. " " .. L("PLAYCARD_BUILD_NOTE"))
+	else
+		fs:SetTextColor(0.75, 0.78, 0.82)
+		fs:SetText(L("PLAYCARD_BUILD_NOTE"))
+	end
 	return y - fs:GetStringHeight() - 10, t
 end
 

@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 21 okt (avond) — alle 35 overige "How you play"-kaarten nagelopen
+
+Eerst `/reload`. Steekproef op een paar characters:
+- [ ] Elke kaart heeft bovenaan (ook op level 90) de regel "This card follows the talents most players pick. Missing a
+      button? Then it is a talent you did not choose." Onder level 90 staat die achter de grijs-uitleg.
+- [ ] Balance Druid: de Eclipse-knop heet nu "Solar Eclipse" en heeft een toets (was een passieve spell zonder toets).
+- [ ] "Blijf leven" (Stay alive): Brewmaster Purifying Brew "when your Stagger bar turns yellow or red"; Prot Warrior
+      Shield Block/Ignore Pain "press it right after the fight starts …", Shield Block "only against melee hits"; DK
+      Lichborne "against fear, charm or sleep …"; Rogue Feint "only against area damage"; Evoker Zephyr bij de grote.
+- [ ] Mistweaver: dispel alleen Magic, met Improved Detox ook Poison/Disease.
+- [ ] Prot Paladin (jij): S3, W3, TERMS en de Forbearance-regels lezen of ze kloppen met wat jij weet (Light's Revocation).
+
 ## 🆕 21 okt — Healer-speluitleg rechtgezet
 
 Eerst `/reload`.

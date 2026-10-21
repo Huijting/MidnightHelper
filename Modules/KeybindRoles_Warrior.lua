@@ -86,7 +86,8 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Cleave"]             = { id = 845, category = "spender", priority = 7, bindKey = "Shift+4", specs = { 71 } },
 	-- Kleine def (DEFENSE_TIER untagged = tier3; SpellCategories DEFENSIVE 190456)
 	-- Card: "small" for both specs (see header); Arms owns 1277297, a 20 s layered button (W-CD, W-DESC).
-	["Ignore Pain"]        = { id = 190456, role = "defensive_1", priority = 1, specs = { 71, 73 }, survival = { [71] = "small", [73] = "keepup" }, survivalOrder = 1, survivalId = { [71] = 1277297 } },
+	-- 21 Oct 2026 (spec audit): on Prot it costs Rage, and Rage is empty before the pull → its own "when" line.
+	["Ignore Pain"]        = { id = 190456, role = "defensive_1", priority = 1, specs = { 71, 73 }, survival = { [71] = "small", [73] = "keepup" }, survivalOrder = 1, survivalId = { [71] = 1277297 }, survivalWhen = { [73] = "SURVIVAL_WHEN_RAGE" } },
 	-- Grote def (DEFENSE_TIER 118038 = tier2)
 	["Die by the Sword"]   = { id = 118038, role = "defensive_3", priority = 1, specs = { 71 }, survival = "big", survivalOrder = 1 }, -- 2 min (W-CD), Arms' big one
 	-- Grootste CD / cooldown_bar (guide.lua opener {167105}; SpellArchetypes 167105)
@@ -134,7 +135,8 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Movement extra (SpellArchetypes 385954 Shield Charge, gap-closer)
 	["Shield Charge"]      = { id = 385952, role = "utility_primary", priority = 3, bindKey = "Ctrl+Q", specs = { 73 } },
 	-- Kleine def (SpellDB WARRIOR_3 2565 Shield Block; DEFENSE_TIER untagged = tier3)
-	["Shield Block"]       = { id = 2565, role = "defensive_1", priority = 1, specs = { 73 }, survival = "keepup", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- blocks melee only (W-DESC)
+	-- 21 Oct 2026 (spec audit): costs Rage (empty before the pull) and blocks MELEE hits only, not all physical damage.
+	["Shield Block"]       = { id = 2565, role = "defensive_1", priority = 1, specs = { 73 }, survival = "keepup", survivalOrder = 1, survivalWhen = "SURVIVAL_WHEN_RAGE", survivalNote = "SURVIVAL_NOTE_MELEE" }, -- blocks melee only (W-DESC)
 	-- Grote def (DEFENSE_TIER 871 = tier2; Last Stand 12975 nu passief effect van Shield Wall)
 	["Shield Wall"]        = { id = 871, role = "defensive_3", priority = 1, specs = { 73 }, survival = "big", survivalOrder = 1 }, -- -40%, 3 min base (W-CD cat. 1929)
 	-- Extra def (SpellCategories DEFENSIVE 23920 Spell Reflection; DEFENSE_TIER untagged = tier3)

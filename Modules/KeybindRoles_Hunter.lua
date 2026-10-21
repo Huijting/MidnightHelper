@@ -99,7 +99,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Primal Rage"] = { id = 272651, category = "cooldown", priority = 5, specs = { 253, 255 } }, -- pet-Bloodlust/Heroism-equivalent (JustAC SpellCategories 264667); analoog aan Shaman Bloodlust
 	["Camouflage"] = { id = 199483, category = "utility", priority = 5 }, -- baseline stealth/reset-utility (JustAC SpellCooldowns 199483)
 	-- Card: self-castable in Midnight (IV-SVguide); 15% DR, the pet takes half — the smallest button.
-	["Roar of Sacrifice"] = { id = 53480, category = "defensive", priority = 2, survival = "small", survivalOrder = 1, survivalNote = { [253] = "SURVIVAL_NOTE_PET", [255] = "SURVIVAL_NOTE_PET" } }, -- externe pet-def (53480), baseline (talent); card: pet-note niet voor MM (speelt meestal zonder pet; IV 12.1, 3 okt 2026)
+	["Roar of Sacrifice"] = { id = 53480, category = "defensive", priority = 2, survival = "small", survivalOrder = 1, survivalNote = { [253] = "SURVIVAL_NOTE_PET", [254] = "SURVIVAL_NOTE_PET", [255] = "SURVIVAL_NOTE_PET" } }, -- 21 Oct 2026: MM needs it MORE (no pet unless Unbreakable Bond; spec audit) -- externe pet-def (53480), baseline (talent); card: pet-note niet voor MM (speelt meestal zonder pet; IV 12.1, 3 okt 2026)
 	["Feign Death"] = { id = 5384, category = "utility", priority = 4, survival = "escape", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AGGRO" }, -- baseline threat-drop (5384); 30 s
 
 	--==================================================================================

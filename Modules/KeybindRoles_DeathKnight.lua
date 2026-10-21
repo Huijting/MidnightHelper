@@ -71,7 +71,8 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- Spender (rotatie) - Death Strike BLIJFT spender, NIET dupliceren naar heal
 	["Death Strike"] = { id = 49998, category = "spender", priority = 1, survival = "heal", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_DAMAGE_HEALS" }, -- rotatie-spender (heal is bijproduct, geen heal_quick); card: "our primary means of healing" (IV)
 	-- Extra defensive (Shift+Z)
-	["Lichborne"] = { id = 49039, role = "defensive_1", priority = 2, survival = "small", survivalOrder = 9, survivalNote = "SURVIVAL_NOTE_CC_BREAK" }, -- kleine def / CC-immuniteit (baseline); card: CC break, last; small sinds 3 okt 2026 (geen DR, IV 12.1)
+	-- 21 Oct 2026 (spec audit): no damage cut, 2 min cooldown → not "press it often"; its own line about fear/charm/sleep.
+	["Lichborne"] = { id = 49039, role = "defensive_1", priority = 2, survival = "small", survivalOrder = 9, survivalWhen = "SURVIVAL_WHEN_LICHBORNE", survivalNote = "SURVIVAL_NOTE_CC_BREAK" }, -- kleine def / CC-immuniteit (baseline); card: CC break, last; small sinds 3 okt 2026 (geen DR, IV 12.1)
 	-- Utility (R / F)
 	["Anti-Magic Shell"] = { id = 48707, category = "utility", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- R (magische mitigatie, baseline); 60 s (W-CD)
 	["Anti-Magic Zone"] = { id = 51052, category = "defensive", priority = 5 },   -- groeps-magie-DR-koepel, baseline (JustAC SpellCategories DEFENSIVE 51052); NOT on the card (TWIJFEL)

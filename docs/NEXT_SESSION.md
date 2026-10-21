@@ -127,7 +127,22 @@ kosten Bone Shield, 1 per 2,5 s); Unholy S3 (Festering Scythe = buff op jou sind
 derde, Demon Spikes vult); Devourer HERO1/2 (Annihilator = keuze dit seizoen); Brewmaster Purifying Brew keepup→small +
 SURVIVAL_NOTE_STAGGER; Aug/Evoker Zephyr small→big (2 min cd); Priest Halo: Shadow eigen entry 120644; DH Eradicate
 1226033→1225826 (de knop); Hunter-commentaar SotF 6 s / 1 charge. Vertalingen mh-writer.
-🔜 Robs keuze: hoe de 131 talent-punten + 48 misleidende aanpakken (zie chat 21 okt avond). NB: kaarten kleuren een
+✅ Robs keuze (21 okt avond, na "denk als een beginnende user"): B + één vaste regel per kaart. PLAYCARD_BUILD_NOTE
+("This card follows the talents most players pick. Missing a button? …") staat nu op ELK level bovenaan de kaart
+(PlayCardWindow LevelBanner; grijs kleuren gebeurt alleen onder max level). Rob: "misschien … doorverwijzen naar de site
+en daar het uitgebreid" → site-chat krijgt de audit-rapporten.
+✅ Ronde 2 GEDAAN via workflow `playcard-rewrite` (run wf_f8474c8f-aba, 44 agents): per spec voorstel (mh-writer, beleid B)
+→ 110 sleutels herschreven in enUS/nlNL (in volgorde toegepast) → vertaald de/fr/es+esMX/pt/it/ru (in volgorde). Alle
+voorstellen: `playcard_audit\_rewrite.json`. SURVIVAL_NOTE_LAST_RESORT stond 2× in de voorstellen; de 70-versie staat erin
+(klopt ook voor 66). Talentnamen zonder clientnaam bleven Engels (Light's Revocation, Kindling, Sudden Death, … — lijst in
+de vertaalrapporten) → clientnaam-regel: nog meten.
+✅ Code uit de codeNotes: Detox (270) Magic + talent 388874; Feint SURVIVAL_NOTE_AOE; Lichborne SURVIVAL_WHEN_LICHBORNE;
+Prot Warrior Shield Block + Ignore Pain SURVIVAL_WHEN_RAGE, Shield Block SURVIVAL_NOTE_MELEE; MM Roar of Sacrifice ook
+SURVIVAL_NOTE_PET; SurvivalPlan: survivalWhen mag nu per spec ({ [specID] = key }).
+🔜 NIET gedaan (code, vraagt meer werk of een test): quiz-antwoorden die een keuze-talent zijn (251 Frostscythe, 265 Drain
+Soul, 266 Implosion — GetPlayCardQuiz checkt niet of je de spell hebt); Fade survivalRequires 373446 (eerst testen);
+Healing Stream Totem "to heal yourself" (healt ook anderen); Earth Elemental verborgen zonder Primordial Bond; Expel Harm
+voor WW (Combat Wisdom maakt hem passief); Vengeful Retreat-commentaar Devourer; 71 unsure-punten. NB: kaarten kleuren een
 spell die je niet hebt al GRIJS (ns.PlayCardKnowsSpell → IsPlayerSpell), dus "spell is een talent" valt deels al op;
 "effect X alleen met talent Y" niet.
 🌊 Vervolg uit dezelfde heal-chat: Resto Shaman (264), zelfde 2 routes. Gedaan: Purify Spirit alleen Magic, Curse via
