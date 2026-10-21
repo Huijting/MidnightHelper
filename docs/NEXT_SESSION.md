@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🧪 22 okt — Codex-advies zag je gifts niet meer
+GEMETEN (Robs `/mh gifts`-dump, 22 okt 01:19): de 12 Codex-knoppen hebben nu id 49-60 (was 13-24 op 19 okt), zelfde
+volgorde, vinkje nog steeds als atlas `common-icon-checkmark` in de tekst. MH las have[59]/have[60] maar zocht 13-24 →
+"no gift picked yet". CodexAdvicePanel.lua ReadCodex telt nu de plek van de knop (1e = 13 … 12e = 24). Ook: met alle 12
+vrijgespeeld zijn alle knoppen aanklikbaar, dus de "1 of 2 enabled"-terugval helpt dan niet. Niet in het spel gezien.
+Ook: achtergrond van het advies is nu dicht (b55141c). Rob vraagt wat hij met 30 overgebleven Corrosive Souls kan
+(alles vrijgespeeld) → mh-research loopt.
+
 ## 🪢 21 okt (avond) — Labyrinth: touw-uitweg en sleutels (Rob: "Ja, zet dat er maar in.")
 
 GEMETEN door Carola (21 okt, via Rob): bij Kindo'jan met 0 levens bleef ze terugkomen, geen Kinduru, geen schatkamer.

@@ -28,6 +28,11 @@ er is niets weggegooid.
       staat al op rank 9, 2100/2100 (Rob, 22 okt). Blijft "volgens Wowhead".
 
 ## 🆕 22 okt — Codex-advies niet meer doorzichtig
+- [x] ✅ Rob 22 okt (screenshot): het gele venster heeft een dichte, effen achtergrond. (Overlap met Party Targets zelf
+      niet in beeld; zie hieronder.)
+- [ ] Na `/reload`, Codex open: het gele venster zegt "Your gifts: Miasma Geyser + Ula'tek's Gift" (groen) en zet een
+      vinkje achter Ula'tek's Gift in de adviesregels. Was "You have no gift picked yet": Blizzard nummert de knoppen
+      sinds kort 49-60 i.p.v. 13-24 (GEMETEN in Robs `/mh gifts`-dump), MH telt nu de plek van de knop.
 
 - [ ] Open het Corrosive Codex-venster terwijl het doelwit-lijstje (Party Targets) erachter staat: het gele MH-advies is
       nu dicht, de tekst "— no target —" schijnt er niet meer doorheen.

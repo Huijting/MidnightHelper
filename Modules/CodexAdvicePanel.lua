@@ -9,6 +9,7 @@ local _, ns = ...
 	MEASURED that evening on Rob's live client (/run into MidnightHelperDB.codexChoice + /reload):
 	  • The window is Blizzard's PlayerChoiceFrame, choiceID 1076, questionText "Corrosive Codex".
 	  • ONE option (id 6145) carrying TWELVE buttons, ids 13..24, always in the same order.
+	    (22 Oct the same twelve came back as ids 49..60, same order: ReadCodex counts places, not ids.)
 	  • A gift you have is marked by the atlas "common-icon-checkmark" at the start of the button's
 	    text — `selected` and `showCheckmark` were both false on Rob's two picks, so neither is the
 	    flag. The atlas name is language-independent, the button text around it is not.
@@ -99,11 +100,14 @@ local function ReadCodex()
 	-- window showed two ticks, so the atlas in the text is not always there when we read. Three signals now, any
 	-- one is enough: the atlas, `selected`/`showCheckmark`, and the shape Rob's dump had with both slots full
 	-- (exactly the picks enabled, the other ten disabled). `/mh gifts` stores the raw fields to check which held.
+	-- 🔴 GEMETEN 22 Oct 2026 (Rob's /mh gifts dump): the button ids are now 49..60, not the 13..24 of 19 Oct, while
+	-- the order and the checkmark atlas stayed the same. Blizzard renumbers; the order is what holds. So a button is
+	-- known by its PLACE (1st = 13 … 12th = 24, the ids the advice below is written in), never by b.id.
 	local names, have = {}, {}
 	local enabled, total = {}, 0
 	for _, opt in ipairs(info.options or {}) do
 		for _, b in ipairs(opt.buttons or {}) do
-			local id, text = b.id, b.text
+			local id, text = b.id and (13 + total) or nil, b.text
 			if id then
 				total = total + 1
 				if b.disabled == false then
