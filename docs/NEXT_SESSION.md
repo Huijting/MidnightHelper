@@ -20,6 +20,12 @@ al). Ook Naleidea Rivergleam, Delver's HQ en Er'inye (’ of ') per client nog n
 (DialogPopup.lua), fontScale 1,5, venster zonder scroll. ✅ Rob koos "kleiner kunnen, tot 0,5": minimum 0,5 in
 DialogPopup.lua (alle gedeelde vensters), ConsumableReadyBoard, DungeonBossWindow, DelveCoach (was 0,65) en Achievements
 (was 0,6). UI.lua/CombatSafety/MissingBuff/Openables stonden al op 0,5. Scrollen blijft een optie als 0,5 niet genoeg is.
+❌ Rob 22 okt 01:32 (screenshot, Elemental-kaart klein geschaald): "nog niet goed en nu ook te klein voor mij om te lezen".
+GEMETEN op de screenshot: regels lopen OVER ELKAAR (stap 2 "Why" over stap 3, 3 over 4, 4 over 5, de AOE-Why over
+"Biggest mistake"). AFGELEID: de rijhoogtes worden één keer berekend (GetStringHeight) en niet opnieuw na een
+schaalwijziging, terwijl de tekst bij een andere schaal anders afbreekt. 🔜 MORGEN (Rob: "morgen gaan we hiermee
+verder"): (1) na Shift+scroll de kaart opnieuw opbouwen (Redraw); (2) het venster laten SCROLLEN met een maximale
+hoogte, zodat hij op 1,0 leesbaar blijft — let op spell-tooltips/links in een ScrollFrame (PlayCardWindow.lua:93).
 
 ## 🪢 21 okt (avond) — Labyrinth: touw-uitweg en sleutels (Rob: "Ja, zet dat er maar in.")
 

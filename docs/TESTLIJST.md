@@ -24,8 +24,8 @@ er is niets weggegooid.
 ## 🆕 22 okt — alle vensters kleiner (Shift+scroll tot 0,5)
 
 Eerst `/reload`.
-- [ ] "How you play" (Elemental): Shift+scroll omlaag maakt het venster nu kleiner dan eerst (tot 0,5). Past de kaart
-      dan op je scherm? Leesbaar genoeg?
+- [x] ❌ Rob 22 okt: kleiner gaat, maar dan te klein om te lezen, en regels lopen over elkaar. → morgen: opnieuw
+      opbouwen na schalen + scrollen (zie NEXT_SESSION).
 - [ ] Steekproef: Delve Coach, het bazenvenster, het Consumables-bord en het Achievements-venster gaan ook tot 0,5.
 
 ## 🆕 22 okt — Codex: wat je met overgebleven Corrosive Souls doet
