@@ -25,8 +25,8 @@ er is niets weggegooid.
 
 - [ ] Na `/reload`: This Week / Delves → Gilded Stash staat op minstens 1/4 deze week (je T11-Labyrinth-run van 22 okt).
       Tooltip erop lezen.
-- [ ] Bij inleveren van "A Gnawing Void of Curiosity": kijk je Labyrinth Journey vóór en na (Shift-J). Krijg je 2000?
-      ⚠️ Niet op Earthshammy: die staat al op rank 9, 2100/2100 (Rob, 22 okt). Een character dat nog niet maxed is.
+- [-] "A Gnawing Void of Curiosity" = 2000 Journey-punten: NIET TE METEN bij Rob. De Labyrinth Journey is warbound en
+      staat al op rank 9, 2100/2100 (Rob, 22 okt). Blijft "volgens Wowhead".
 
 ## 🆕 22 okt — Codex-advies niet meer doorzichtig
 
