@@ -24,8 +24,9 @@ er is niets weggegooid.
 ## 🆕 21 okt (laat) — laatste kaart-klusjes
 
 Eerst `/reload`. `/mh survival` laat per regel zien waarom hij er wel of niet staat.
-- [ ] Shaman (elke spec): "Blijf leven" toont **Earth Elemental** ook zonder Primordial Bond, met de regel "it taunts and
-      tanks for you for 30 sec…". **Healing Stream Totem** heeft de regel "heals an injured player near you…".
+- [x] Shaman: Earth Elemental staat op de kaart (Rob, Elemental, 21 okt: `/mh survival` → "[big] order 2").
+- [ ] Shaman mét Healing Stream Totem: de regel "heals an injured player near you…" (Rob heeft het talent niet: "not known
+      (5394)", dus terecht weg). En de Earth Elemental-regel "it taunts and tanks for you…" zelf nog op de kaart bekijken.
 - [ ] Windwalker met **Combat Wisdom**: Expel Harm staat NIET meer op de kaart (`/mh survival`: "talent 121817 takes this
       button away"). Zonder dat talent staat hij er wel.
 - [ ] Priest zonder **Translucent Image**: Fade staat niet op de kaart; mét het talent wel.
