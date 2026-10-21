@@ -23,8 +23,7 @@ er is niets weggegooid.
 
 ## 🆕 22 okt — Gilded Stash telt het Labyrinth mee
 
-- [ ] Na `/reload`: This Week / Delves → Gilded Stash staat op minstens 1/4 deze week (je T11-Labyrinth-run van 22 okt).
-      Tooltip erop lezen.
+- [x] ✅ Rob 22 okt (screenshot): "Gilded Stash (this character): 1 / 4" na het verlaten van het Labyrinth.
 - [-] "A Gnawing Void of Curiosity" = 2000 Journey-punten: NIET TE METEN bij Rob. De Labyrinth Journey is warbound en
       staat al op rank 9, 2100/2100 (Rob, 22 okt). Blijft "volgens Wowhead".
 
