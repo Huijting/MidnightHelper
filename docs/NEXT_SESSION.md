@@ -4,7 +4,10 @@
 
 Waarom nu: Carola wil vanavond het Labyrinth-werk proberen, en de spec-audit (workflow playcard-audit) duurt langer.
 TOC 4.11.0, CHANGELOG_4110_0..6 (enUS, 0 = beta-notitie), Changelog.lua, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.0.md`
-(cmp: identiek), CHANGELOG.md (wat Rob zag en wat niet). Tag `v4.11.0-beta1` → CurseForge als Beta. Site-chat geseind.
+(cmp: identiek), CHANGELOG.md (wat Rob zag en wat niet). Tag `v4.11.0-beta1` op 4418cb4 → run 39631659823: CurseForge
+"Success!" (beta, 12.1.7/12.1.5/12.1.0/12.0.7), GitHub Release aangemaakt; **Wago overgeslagen** ("Error fetching game
+version info from https://addons.wago.io/api/data/game", storing bij Wago) → run staat op failed (exit 1). Niet opnieuw
+gedraaid: een rerun uploadt ook opnieuw naar CurseForge. Wago krijgt de volgende tag. Site-chat geseind.
 🔜 De spec-audit-uitkomsten gaan in een volgende beta (of 4.11.0).
 
 ## 🦅 21 okt — ochtendronde + Claws of the Empire (Rob: "ja, zet allebei erin … alle talen")
