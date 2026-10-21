@@ -67,7 +67,9 @@ voor geheugen + voordeur, dus geen cwd — site-chat-correctie 21 okt). Eerst ha
 alleen met Robs ja), dan prompt (bouw = de vorm van de prompt van 21 okt; site = de vaste beginzin van de site-chat),
 dan start_session (fresh, user_asked, use_worktree false, titel "Bouwchat/Site chat dd-mm"), andere chat seinen.
 Niet getest: of een NIEUWE user-skill in een al draaiende chat zichtbaar wordt (AFGELEID: pas na herstart/nieuwe chat).
-Shaman-vuurtest Flooded Chamber: Rob doet hem vanavond.
+Shaman-vuurtest Flooded Chamber: GEMETEN 21 okt, Rob als Elemental Shaman kreeg de ijsmuur weg door hem aan te vallen,
+zonder Hexmask. Niet gezien met welke spell; geen combat log, en MH bewaart geen spell-per-doel. 🔜 Open: smelt elke
+aanval het ijs, of alleen vuur? Test staat op de testlijst (alleen Lightning Bolt, dan alleen Flame Shock).
 GEMETEN 21 okt: de nieuwe user-skill stond meteen in de skill-lijst van deze al lopende chat → hij werkt ook zonder herstart.
 ⌨️ E — Keybind-coach (Rob: "Doe A: één vaste ingang 'Toetsen' met een simpel startvenster en drie grote knoppen, op elk
 level zichtbaar" + "Het Layout-scherm rustiger maken: de filterknoppen en de uitleg over de kleuren achter een knop 'meer'").

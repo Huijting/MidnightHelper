@@ -28,6 +28,8 @@ Eerst `/reload`.
       dichte deur aan het begin, en zegt dat je de delve niet moet verlaten.
 - [ ] `/mh codex` → Delves → The Labyrinth of Kindo'jan: bij Kindo'jan de regel "Stuck near him with 0 lives…", en
       onderaan "every Bountiful Coffer needs a Restored Coffer Key, one per coffer". "Not known yet" noemt geen sleutel meer.
+- [ ] Flooded Chamber, ijsmuur (Elemental Shaman, eerst `/combatlog`): val het ijs eerst ALLEEN met Lightning Bolt aan
+      (geen vuur). Smelt het? Dan werkt elke aanval. Zo niet: daarna alleen Flame Shock. Zeg welke het deed.
 - [ ] Bij gelegenheid, in het Labyrinth bij het touw: `/mh coord touw` (of TomTom) → stuur de coördinaten, dan komt er een pijl-link bij.
 
 ## 🆕 21 okt (avond) — alle 35 overige "How you play"-kaarten nagelopen
