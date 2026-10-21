@@ -10,7 +10,14 @@ Ook: achtergrond van het advies is nu dicht (b55141c). Rob vraagt wat hij met 30
 (281223, 100 coins + Altar-bonus, vanaf 8 gifts, stapelbaar sinds hotfix 1 sep); Naleidea Rivergleam (Silvermoon) →
 Delver's Corroded Pouch of Undercoin (280458, 150 Undercoin). wago SpellReagents/ItemExtendedCost 12.1.5.70448 + PTR
 12.1.7: geen 13e gift, geen achievement/quest. Warbound, stapel 99, alleen in je tassen voor de Codex. Seizoenseinde
-onbekend. 🔜 Staat nog NIET in MH's Codex (0 treffers "Satchel of Corrosive Coins", controle Er'inye 7×) → aanbieden.
+onbekend. ✅ Rob: "zet in de Codex … alle talen" → CODEX_CORRPOWER_BODY kreeg het stuk "All twelve unlocked? What your
+spare souls are for", 8 talen + esMX (itemnamen per client gemeten op Wowhead door mh-writer). Drift gemarkeerd.
+✅ Codex-advies-fix GEMETEN door Rob: "You have: Miasma Geyser + Ula'tek's Gift".
+🔜 Clientnaam-regel, gevonden door mh-writer: "Undercoin" staat in de/fr/es/pt/it nog ENGELS in veel strings, terwijl de
+client Lorenmünzen / sous-pièces / inframonedas / Fundobrões / Sottomonete zegt (uit de gemeten itemnamen; ruRU klopt
+al). Ook Naleidea Rivergleam, Delver's HQ en Er'inye (’ of ') per client nog niet gemeten.
+🔜 Rob 22 okt: "How you play"-venster kan niet kleiner en scrolt niet. GEMETEN: dialogScale 0,7 = MIN_SCALE
+(DialogPopup.lua), fontScale 1,5, venster zonder scroll. Keuze aan Rob: min 0,5 of scrollen.
 
 ## 🪢 21 okt (avond) — Labyrinth: touw-uitweg en sleutels (Rob: "Ja, zet dat er maar in.")
 

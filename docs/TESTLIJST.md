@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 okt — Codex: wat je met overgebleven Corrosive Souls doet
+
+- [ ] `/mh codex` → Corrosive Codex-kaart (gifts): nieuw stuk "All twelve unlocked? What your spare souls are for" met
+      Er'inye (Satchel of Corrosive Coins) en Naleidea Rivergleam (Pouch of Undercoin), elk 1 soul.
+- [ ] Ruil 1 soul bij Er'inye: kost het echt 1 soul, en hoeveel coins zitten erin met jouw Altar-bonus?
+
 ## 🆕 22 okt — Gilded Stash telt het Labyrinth mee
 
 - [x] ✅ Rob 22 okt (screenshot): "Gilded Stash (this character): 1 / 4" na het verlaten van het Labyrinth.
@@ -30,7 +36,8 @@ er is niets weggegooid.
 ## 🆕 22 okt — Codex-advies niet meer doorzichtig
 - [x] ✅ Rob 22 okt (screenshot): het gele venster heeft een dichte, effen achtergrond. (Overlap met Party Targets zelf
       niet in beeld; zie hieronder.)
-- [ ] Na `/reload`, Codex open: het gele venster zegt "Your gifts: Miasma Geyser + Ula'tek's Gift" (groen) en zet een
+- [x] ✅ Rob 22 okt (screenshot): "You have: Miasma Geyser + Ula'tek's Gift", vinkjes bij Ula'tek's Gift.
+      Na `/reload`, Codex open: het gele venster zegt "Your gifts: Miasma Geyser + Ula'tek's Gift" (groen) en zet een
       vinkje achter Ula'tek's Gift in de adviesregels. Was "You have no gift picked yet": Blizzard nummert de knoppen
       sinds kort 49-60 i.p.v. 13-24 (GEMETEN in Robs `/mh gifts`-dump), MH telt nu de plek van de knop.
 
