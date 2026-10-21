@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 21 okt — Healer-speluitleg rechtgezet
+
+Eerst `/reload`.
+- [ ] Holy Paladin of Disc/Holy Priest ZONDER Improved Cleanse/Purify: het dispel-stuk ("Zo speel je" / Dispel) noemt
+      alleen Magic. Met dat talent: Magic + Poison + Disease (Paladin) of Magic + Disease (Priest).
+- [ ] "How you play" Resto Druid: Swiftmend-regel noemt de twee talents; Efflorescence "3 hurt friends … each tick".
+- [ ] Holy Paladin stap 4: "Judgment … for Holy Power, then Shield of the Righteous up close … Mana back".
+- [ ] Disc Priest Voidweaver: "rift that follows the enemy … Smite becomes Void Blast … You may move".
+
 ## 🆕 21 okt — This Week: solo-stand (delves voorop)
 
 Eerst `/reload`, op een level-90.

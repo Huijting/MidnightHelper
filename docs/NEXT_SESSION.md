@@ -84,6 +84,21 @@ keyboard shows"). PRESSES_ROW_TT: "The key it sits on now lights up."
 ns.LiveKeyForSpell and ns.LiveKeyForSpell(id)` — een `and` houdt alleen de EERSTE returnwaarde, hit was altijd nil.
 Gerepareerd (eerst de nil-check, dan de kale aanroep). ✅ Rob 21 okt: "De juiste key licht nu op". 🔜 lint check [12] ("Multi-assignment behind an `and` guard")
 ving dit NIET (0 gemeld) → de regex van [12] nalopen in tools/lint_addon.py. Niet opnieuw getest.
+🩺 Healer-speluitleg (opdracht uit Robs heal-handleiding-chat "Danders Frame bindingen optimaliseren", Rob daar: "stuur de
+gevonden fouten in de MH-speluitleg als plak-klare opdracht naar de bouwchat"; 2 mh-research-routes daar, Icy Veins/
+Method/Wowhead + wago 12.1.5.70448). Gedaan:
+- `HealerCooldowns.lua` HEALER_DISPELS: Cleanse (65) en Purify (256/257) alleen Magic; `talent = {spell, types}` voegt
+  Poison+Disease (Improved Cleanse 393024) / Disease (Improved Purify 390632) toe als IsPlayerSpell. ns.GetHealerDispel
+  lost dat op; DispelHelper gebruikt nu die functie i.p.v. de ruwe tabel. Nature's Cure ongewijzigd.
+- PlayCards (8 talen + esMX): 65_EASY stap 4 + 65_S4 (Judgment = Holy Power, Mana van SotR), 65_HERO2 (Holy Armaments
+  1289728: eerst Sacred Weapon, daarna Holy Bulwark), 105_S2/W2 (Swiftmend-boost alleen met Soul of the Forest 158478 +
+  Power of the Archdruid 392302, ook Regrowth), 105_W1 (Efflorescence: 3 gewonde spelers per tik), 256_S3/W3 (Weal and
+  Woe; Master the Darkness = keuze Penance óf Mind Blast), 256_HERO1 (rift volgt de vijand, Smite→Void Blast, lopen
+  mag), 256_TERMS (+ Plea 200829).
+- NIET aangepast: 65_W4 (klopte al: Mana van SotR); 65_HERO2 "geen Divine Toll" en 256_HERO2 Oracle (routes ONZEKER,
+  bleef staan); Fade/Translucent Image (alleen de site). 🔜 Site-chat: Dispel-tab en de kaarten herbouwen na de release.
+  🔜 Clientnaam-regel: de talentnamen "Weal and Woe" en "Master the Darkness" (256_W3) staan in alle packs nog Engels
+  → per locale meten in wago (TraitDefinition/SpellName) en vervangen. Vertalingen eigen werk; drift gemarkeerd.
 🗓️ D — weekplan voor solo/delves (Rob: "Doe A en B samen: solo-stand sterker en delves naar voren, en de solo-knop
 bovenaan This Week"). Gemeten vooraf (mh-sweep + zelf): schakelaar mh_homeSolo bestond (2 okt) maar zat alleen in
 Settings en verborg alleen Mythic+ en Raids. GEBOUWD, niet in het spel gezien:

@@ -102,7 +102,8 @@ function ns.GetDispellableSchools()
 		local okIdx, idx = pcall(ns.GetSpecialization)
 		if okIdx and idx then
 			local okID, specID = pcall(ns.GetSpecializationInfo, idx)
-			local d = okID and specID and ns.HEALER_DISPELS[specID]
+			-- Through GetHealerDispel: it adds talent-only types (Improved Cleanse/Purify) only when known.
+			local d = okID and specID and ns.GetHealerDispel and ns.GetHealerDispel(specID)
 			if d then
 				-- Only if the character really has the spell. Same honesty bar as
 				-- GetKnownClassDispels: a spec table is not proof of a spellbook.

@@ -261,13 +261,17 @@ end
 -- Wowhead; the type sets are stable class design (never-lie: verified, and the
 -- non-healer variants like Cleanse Toxins / Remove Corruption are deliberately
 -- excluded — this is the HEALING-spec dispel).
+-- 🔴 21 Oct 2026 (two mh-research routes, Icy Veins/Method/Wowhead + wago 12.1.5.70448, via Rob's heal-guide chat):
+-- Cleanse and Purify remove ONLY Magic without a talent. `talent` = { spell, types }: those types count only while
+-- IsPlayerSpell(spell) (ns.GetHealerDispel resolves it). Improved Cleanse 393024 (poison + disease), Improved Purify
+-- 390632 (disease). Nature's Cure stays as it was: Resto gets Improved Nature's Cure (392378) for free.
 ns.HEALER_DISPELS = {
-	[65] = { id = 4987, types = { "magic", "poison", "disease" } }, -- Holy Paladin: Cleanse
+	[65] = { id = 4987, types = { "magic" }, talent = { spell = 393024, types = { "poison", "disease" } } }, -- Holy Paladin: Cleanse
 	[105] = { id = 88423, types = { "magic", "curse", "poison" } }, -- Resto Druid: Nature's Cure
 	[1468] = { id = 360823, types = { "magic", "poison" } }, -- Pres Evoker: Naturalize
 	[270] = { id = 115450, types = { "magic", "poison", "disease" } }, -- Mistweaver: Detox
-	[256] = { id = 527, types = { "magic", "disease" } }, -- Disc Priest: Purify
-	[257] = { id = 527, types = { "magic", "disease" } }, -- Holy Priest: Purify
+	[256] = { id = 527, types = { "magic" }, talent = { spell = 390632, types = { "disease" } } }, -- Disc Priest: Purify
+	[257] = { id = 527, types = { "magic" }, talent = { spell = 390632, types = { "disease" } } }, -- Holy Priest: Purify
 	[264] = { id = 77130, types = { "magic", "curse" } }, -- Resto Shaman: Purify Spirit
 }
 
@@ -346,9 +350,27 @@ local DISPEL_TYPE_COLOR = {
 	bleed = "ffd06060", -- red
 }
 
---- The dispel entry { id, types } for a spec, or nil.
+--- The dispel entry { id, types } for a spec, or nil. A `talent` adds its types only when this character knows it
+--- (IsPlayerSpell); for a spec you are not playing that reads false, so you see the baseline, which is the true part.
 function ns.GetHealerDispel(specID)
-	return specID and ns.HEALER_DISPELS[specID] or nil
+	local d = specID and ns.HEALER_DISPELS[specID]
+	if not d or not d.talent then
+		return d or nil
+	end
+	local types = {}
+	for _, t in ipairs(d.types) do
+		types[#types + 1] = t
+	end
+	local ok, known = false, false
+	if IsPlayerSpell then
+		ok, known = pcall(IsPlayerSpell, d.talent.spell)
+	end
+	if ok and known then
+		for _, t in ipairs(d.talent.types) do
+			types[#types + 1] = t
+		end
+	end
+	return { id = d.id, types = types }
 end
 
 --- A coloured, comma-joined localized list of dispel-type names ("Magic, Poison").
