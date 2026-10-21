@@ -82,7 +82,7 @@ oplichten als die toets getekend wordt; anders chatregel PRESSES_NOT_IN_LAYOUT_F
 keyboard shows"). PRESSES_ROW_TT: "The key it sits on now lights up."
 ❌ Rob daarna (chat-screenshot): ELKE spell "is not on a key this keyboard shows". Oorzaak (GEMETEN in code): `local _, hit =
 ns.LiveKeyForSpell and ns.LiveKeyForSpell(id)` — een `and` houdt alleen de EERSTE returnwaarde, hit was altijd nil.
-Gerepareerd (eerst de nil-check, dan de kale aanroep). 🔜 lint check [12] ("Multi-assignment behind an `and` guard")
+Gerepareerd (eerst de nil-check, dan de kale aanroep). ✅ Rob 21 okt: "De juiste key licht nu op". 🔜 lint check [12] ("Multi-assignment behind an `and` guard")
 ving dit NIET (0 gemeld) → de regex van [12] nalopen in tools/lint_addon.py. Niet opnieuw getest.
 🌀 Loa-Spirit Conduits (Rob stond voor een "Loa-Spirit Wind Conduit": "hebben wij dat al besproken?" → "ja doe maar").
 2 mh-research-rondes eens (wago 12.1.5.70448; rapporten in de side-session-notes, conduits_ronde_A/B.md): object "Loa-Spirit

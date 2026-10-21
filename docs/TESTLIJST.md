@@ -27,14 +27,14 @@ Eerst `/reload`.
 - [ ] Codex → Labyrinth-kaart, onder "Help along the way": de vier conduits (Wind, Earth, Fire, Mist) met wat elk doet,
       en een oranje regel "Since 20 October they no longer work in Kindo'jan's fight".
 - [ ] `/mh coach labyrinth` → Overview: regel "From Journey rank 6: four Loa-Spirit Conduits …".
-- [ ] In de Labyrinth: klik een conduit en klik dan Valeera aan. Heeft zij de buff ook? (niet gemeten; bepaalt of
+- [ ] ⏸️ GEPARKEERD (Rob 21 okt: net 2 conduits gevonden, duurt even). In de Labyrinth: klik een conduit en klik dan Valeera aan. Heeft zij de buff ook? (niet gemeten; bepaalt of
       "voor de hele groep" terug mag)
 - [ ] Klik een conduit vlak vóór Kindo'jan: valt de buff weg zodra het gevecht begint?
 
 ## 🆕 21 okt — "Your keys": één ingang voor alles over toetsen
 
 ✅ Rob 21 okt: venster, knoppen 1-3, More/Less en `/mh mykeys` goed. ❌ → gerepareerd, opnieuw testen (eerst `/reload`):
-- [ ] Klik op een spell in "Which spells do I press?" → de toets die IN DIE REGEL staat licht op (Rob 21 okt: eerst
+- [x] ✅ Rob 21 okt: "De juiste key licht nu op". Klik op een spell in "Which spells do I press?" → de toets die IN DIE REGEL staat licht op (Rob 21 okt: eerst
       lichtte de plan-toets op, "een andere key"). Shift/Ctrl/Alt-toets → de toets zelf licht op. Numpad of geen toets →
       chatregel "<spell> is not on a key this keyboard shows".
 - [x] ✅ Rob 21 okt: zoekbalk "keys" netjes.
