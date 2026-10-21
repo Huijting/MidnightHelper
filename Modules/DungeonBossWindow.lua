@@ -27,7 +27,7 @@ local _, ns = ...
 
 local DEFAULT_W = 400
 local MIN_W, MAX_W = 340, 720
-local MIN_SCALE, MAX_SCALE = 0.7, 1.8
+local MIN_SCALE, MAX_SCALE = 0.5, 1.8 -- min 0.7 → 0.5, 22 Oct 2026 (Rob: every MH window down to 0.5)
 local HEADER_H = 78
 local THUMB_SIZE = 58
 local PANEL_W = 190

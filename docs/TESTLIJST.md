@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 okt — alle vensters kleiner (Shift+scroll tot 0,5)
+
+Eerst `/reload`.
+- [ ] "How you play" (Elemental): Shift+scroll omlaag maakt het venster nu kleiner dan eerst (tot 0,5). Past de kaart
+      dan op je scherm? Leesbaar genoeg?
+- [ ] Steekproef: Delve Coach, het bazenvenster, het Consumables-bord en het Achievements-venster gaan ook tot 0,5.
+
 ## 🆕 22 okt — Codex: wat je met overgebleven Corrosive Souls doet
 
 - [ ] `/mh codex` → Corrosive Codex-kaart (gifts): nieuw stuk "All twelve unlocked? What your spare souls are for" met

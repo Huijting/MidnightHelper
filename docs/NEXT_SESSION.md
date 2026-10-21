@@ -17,7 +17,9 @@ spare souls are for", 8 talen + esMX (itemnamen per client gemeten op Wowhead do
 client Lorenmünzen / sous-pièces / inframonedas / Fundobrões / Sottomonete zegt (uit de gemeten itemnamen; ruRU klopt
 al). Ook Naleidea Rivergleam, Delver's HQ en Er'inye (’ of ') per client nog niet gemeten.
 🔜 Rob 22 okt: "How you play"-venster kan niet kleiner en scrolt niet. GEMETEN: dialogScale 0,7 = MIN_SCALE
-(DialogPopup.lua), fontScale 1,5, venster zonder scroll. Keuze aan Rob: min 0,5 of scrollen.
+(DialogPopup.lua), fontScale 1,5, venster zonder scroll. ✅ Rob koos "kleiner kunnen, tot 0,5": minimum 0,5 in
+DialogPopup.lua (alle gedeelde vensters), ConsumableReadyBoard, DungeonBossWindow, DelveCoach (was 0,65) en Achievements
+(was 0,6). UI.lua/CombatSafety/MissingBuff/Openables stonden al op 0,5. Scrollen blijft een optie als 0,5 niet genoeg is.
 
 ## 🪢 21 okt (avond) — Labyrinth: touw-uitweg en sleutels (Rob: "Ja, zet dat er maar in.")
 

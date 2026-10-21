@@ -21,7 +21,9 @@ function ns.ApplyMidnightDialogBackdrop(frame)
 	frame:SetBackdropColor(0.06, 0.06, 0.1, 0.94)
 end
 
-local MIN_SCALE, MAX_SCALE, SCALE_STEP = 0.7, 1.6, 0.1
+-- MIN 0.7 → 0.5 on 22 Oct 2026 (Rob: "Laat alle MH-vensters met Shift+scroll kleiner kunnen, tot 0,5."): with text
+-- size 1.5 the Elemental play card ran off his screen at 0.7 and the window does not scroll.
+local MIN_SCALE, MAX_SCALE, SCALE_STEP = 0.5, 1.6, 0.1
 
 --- Shift+scroll to resize, on every dialog rather than one of them.
 ---

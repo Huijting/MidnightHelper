@@ -586,7 +586,7 @@ local function EnsureToast()
 		if not IsShiftKeyDown() then
 			return
 		end
-		local s = math.max(0.6, math.min(2.2, (self:GetScale() or 1) + (delta > 0 and 0.1 or -0.1)))
+		local s = math.max(0.5, math.min(2.2, (self:GetScale() or 1) + (delta > 0 and 0.1 or -0.1))) -- min 0.6 → 0.5, 22 Oct 2026
 		self:SetScale(s)
 		if ns.db and ns.db.ui then
 			ns.db.ui.treasureToastScale = s

@@ -33,7 +33,7 @@ local COL_STEP = 28
 local RAIDBUFF_GAP = 16
 local MAX_RAIDBUFFS = 6
 local AUTO_HIDE_SEC = 25
-local MIN_SCALE, MAX_SCALE = 0.7, 1.6
+local MIN_SCALE, MAX_SCALE = 0.5, 1.6 -- min 0.7 → 0.5, 22 Oct 2026 (Rob: every MH window down to 0.5)
 
 -- Vaste consumable-kolomvolgorde. Index → x.
 local CONSUM_ORDER = { "flask", "rune", "weapon", "cpot", "hpot", "food", "hs" }
