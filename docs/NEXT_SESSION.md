@@ -23,8 +23,11 @@ Phalanx Charge, Amani Aegis, Hash'ey's Command, Storm of Torment, Beckoning Deat
 Engels → per locale meten in wago SpellName en vervangen (Claws staat nu als enige in de clienttaal).
 ✅ GEMETEN Rob 21 okt (zijn eigen dood als tank): hij legde de cirkel-op-jou bij de linkerrand neer en de ontploffing
 sloeg hem van het platform → de wegslag hoort bij de cirkel OP JOU, en de oude raad "de rand is een goede plek" was
-gevaarlijk. Tip nu: "That blast knocks you far away … drop it a few steps in from the edge and never right on it", alle
-talen (mh-writer). Of de grote/kleine grondcirkels ook wegslaan: niet gemeten.
+gevaarlijk. ⚠️ GECORRIGEERD door Rob dezelfde ochtend: "nee, dat is wel goed maar niet te dicht bij de baas !!!!!" →
+de rand IS goed, alleen niet dicht bij Kindo'jan. Tip nu: "the edge is a good spot, but not close to Kindo'jan. There
+the blast threw us off the platform (as a tank, 20 Oct)", alle talen (mh-writer). Of de wegslag van de cirkel zelf komt
+of van Kindo'jan's eigen klap ernaast is niet uit elkaar gehaald; de tip noemt alleen wat Rob zag. Grondcirkels: niet
+gemeten.
 🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):
 `DelveBossCard.lua` END_STEPS = de stapnamen "Enemy/Soul of the Labyrinth" in alle 8 clienttalen (GEMETEN, CLIENT_NAMES
 Ronde 5, ScenarioStep 3444/3678), taalonafhankelijk gematcht vóór de kamertaken. Treffer → ShowDelveBossCard(eindbaas)
