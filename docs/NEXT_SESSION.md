@@ -79,7 +79,11 @@ Delves-tab. Nieuw: `/mh coach <deel van de naam>` (Core.lua), anders DELVE_COACH
 PLAN-toets op (auto-map), de presses-regel noemt de ECHTE toets (LiveKeys). Fix: ns.MH_OpenKeyboardForLiveSpell (Keyboard-
 LayoutPrototype) → LiveKeyForSpell(hit.key), alle modifiers eraf, WoW-namen SPACE/TAB/… → toetsenbordnamen, alleen
 oplichten als die toets getekend wordt; anders chatregel PRESSES_NOT_IN_LAYOUT_FMT (tekst aangepast: "not on a key this
-keyboard shows"). PRESSES_ROW_TT: "The key it sits on now lights up." Niet opnieuw getest.
+keyboard shows"). PRESSES_ROW_TT: "The key it sits on now lights up."
+❌ Rob daarna (chat-screenshot): ELKE spell "is not on a key this keyboard shows". Oorzaak (GEMETEN in code): `local _, hit =
+ns.LiveKeyForSpell and ns.LiveKeyForSpell(id)` — een `and` houdt alleen de EERSTE returnwaarde, hit was altijd nil.
+Gerepareerd (eerst de nil-check, dan de kale aanroep). 🔜 lint check [12] ("Multi-assignment behind an `and` guard")
+ving dit NIET (0 gemeld) → de regex van [12] nalopen in tools/lint_addon.py. Niet opnieuw getest.
 🔤 Blokjes op actieknoppen (Rob, resto druid in vorm): NIET MH (GEMETEN: geen HotKey/RANGE_INDICATOR-code in MH, controle
 vond "hotkey" elders). Oorzaak: `_retail_\Fonts` had 4 identieke eigen fonts (md5 0abc1195…, 23 mrt 2026, "eerder ui
 project") → het ●-bereikrondje op knoppen zonder toets werd een blokje. ✅ Rob haalde ze weg + /reload: blokjes weg.

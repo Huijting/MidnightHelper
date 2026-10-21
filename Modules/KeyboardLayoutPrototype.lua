@@ -173,7 +173,12 @@ end
 --- would give it. Rob, 21 Oct 2026: "hij wijst een andere key aan" — the row said one key, the keyboard lit the plan's.
 --- @return boolean lit, string|nil rawKey  (rawKey set but not lit = a key this keyboard does not draw, e.g. numpad)
 function ns.MH_OpenKeyboardForLiveSpell(spellId)
-	local _, hit = ns.LiveKeyForSpell and ns.LiveKeyForSpell(spellId)
+	-- ⚠️ Not `ns.LiveKeyForSpell and ns.LiveKeyForSpell(id)`: an `and` keeps only the FIRST return value, so `hit`
+	-- was always nil and every click said "not on a key" (Rob's chat, 21 Oct 2026: Swiftmend, Wrath, Rejuvenation …).
+	if not ns.LiveKeyForSpell then
+		return false, nil
+	end
+	local _, hit = ns.LiveKeyForSpell(spellId)
 	local raw = hit and hit.key
 	if type(raw) ~= "string" or raw == "" then
 		return false, nil
