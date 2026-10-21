@@ -64,6 +64,17 @@ GEBOUWD, niet in het spel gezien:
   MH's layout opgelicht + gescrold (scroll per panel: `panel._mhProtoScroll`). Niet in MH's layout → toetsenbord zonder
   oplichten. Tooltip PRESSES_ROW_TT. Subtitel: "Click a spell in 'Which spells do I press?' to light up its key here."
   ⚠️ Opgelicht = de toets van MH's PLAN, niet waar de spell nu echt zit (dat staat in de presses-regel zelf).
+📋 Rob TEST 21 okt (in het spel): ✅ "Your keys" (stap 1) helemaal goed; ✅ rustig toetsenbord + More/Less goed; ✅ `/mh mykeys`.
+❌ Klik op spell → toetsenbord opent maar GEEN toets opgelicht. Oorzaak (GEMETEN in code): MH_GuideOpenLayoutForSpell
+zocht alleen in de oude hand-maps; MH_GetHunterKeybindSlugForUi geeft nil voor elke auto-map-spec. Fix: eerst
+AutoMapKeyForSpell (dezelfde ns.MH_AutoMapSpecAndSlots-kaart die het toetsenbord tekent; base-id én talent-override-id
+vergeleken; gewone toets boven Shift/Ctrl-laag), dan pas de oude weg. Nog steeds niets → chatregel
+PRESSES_NOT_IN_LAYOUT_FMT ("%s has no key in … layout"). Niet opnieuw getest.
+❌ Zoekbalk "keys": lange regels liepen door elkaar (bestond al, ook "Set the keys this layout suggests"). Fix
+NavSearch: elke rij één regel (SetWordWrap false + SetMaxLines 1, eindigt op "…"), hele tekst in een tooltip als hij
+afgekapt is.
+❌ `/mh coach` opent altijd de delve waar je bent; kiezen ging alleen via zoekbalk ("labyrinth") of het boekje in de
+Delves-tab. Nieuw: `/mh coach <deel van de naam>` (Core.lua), anders DELVE_COACH_NO_MATCH_FMT.
 🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):
 `DelveBossCard.lua` END_STEPS = de stapnamen "Enemy/Soul of the Labyrinth" in alle 8 clienttalen (GEMETEN, CLIENT_NAMES
 Ronde 5, ScenarioStep 3444/3678), taalonafhankelijk gematcht vóór de kamertaken. Treffer → ShowDelveBossCard(eindbaas)

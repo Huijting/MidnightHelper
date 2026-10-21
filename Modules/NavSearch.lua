@@ -927,7 +927,23 @@ local function EnsureNavDrop()
 		fs:SetPoint("LEFT", r, "LEFT", 6, 0)
 		fs:SetPoint("RIGHT", r, "RIGHT", -6, 0)
 		fs:SetJustifyH("LEFT")
+		-- One line per row, ending in "…" when too long (Rob's screenshot, 21 Oct 2026: long command lines wrapped onto a
+		-- second line and ran through the row below). The full text is in the tooltip.
+		fs:SetWordWrap(false)
+		if fs.SetMaxLines then
+			fs:SetMaxLines(1)
+		end
 		r.fs = fs
+		r:SetScript("OnEnter", function(self)
+			if self.fs.IsTruncated and self.fs:IsTruncated() and self._mhFull then
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetText(self._mhFull, 1, 1, 1, 1, true)
+				GameTooltip:Show()
+			end
+		end)
+		r:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
 		-- Activatie op OnMouseDown i.p.v. OnClick: de zoek-EditBox heeft focus terwijl
 		-- de dropdown open is, en de eerste klik die die focus wegneemt "eet" de OnClick
 		-- op — hover/highlight werkt wél, navigeren niet (Rob 24 jun). OnMouseDown vuurt
@@ -997,7 +1013,8 @@ local function ShowNavResults(query)
 				r:SetHeight(rowH)
 				-- "Bad Zed  Eversong Woods" — without the zone, forty rare names are forty
 				-- riddles. The context is dimmed so the name still reads as the answer.
-				r.fs:SetText(e.context and (e.label .. "  |cff808080" .. e.context .. "|r") or e.label)
+				r._mhFull = e.context and (e.label .. "  |cff808080" .. e.context .. "|r") or e.label
+				r.fs:SetText(r._mhFull)
 				r._mhGo = e.go
 				-- Carried per row so the click handler can hand the word to the target.
 				r._mhQuery = query

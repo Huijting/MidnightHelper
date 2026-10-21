@@ -407,6 +407,8 @@ local function Row(i)
 			if ns.ShowKeysKeyboard then
 				ns.ShowKeysKeyboard(nil)
 			end
+			-- Say why nothing lights up: silence here looks exactly like a broken click (CLAUDE.md, "kan zwijgen").
+			print(("%s %s"):format(Prefix(), ns:L("PRESSES_NOT_IN_LAYOUT_FMT"):format(SpellName(self.spellId))))
 		end
 	end)
 	r:SetScript("OnEnter", function(self)

@@ -135,7 +135,45 @@ function ns.MH_GuideOpenLayoutForKey(uiKey)
 	return true
 end
 
+--- The base key the keyboard itself draws for a spell: the auto-map (what the keyboard shows for almost every spec).
+--- 21 Oct 2026, Rob in the game: a click opened the keyboard with nothing lit. The lookup below only knew the old
+--- hand-maps, and MH_GetHunterKeybindSlugForUi returns nil for every auto-mapped spec, so it never found a key.
+--- A cast can carry a talent override's id while the map holds the base id; both are compared.
+local function AutoMapKeyForSpell(spellId)
+	local sid = tonumber(spellId)
+	if not sid or not ns.MH_AutoMapSpecAndSlots then
+		return nil
+	end
+	local aSpec = ns.MH_AutoMapSpecAndSlots()
+	if not (aSpec and aSpec.spellByUiKey) then
+		return nil
+	end
+	local best
+	for bk, entry in pairs(aSpec.spellByUiKey) do
+		local id = type(entry) == "table" and tonumber(entry.id)
+		if id then
+			local match = id == sid
+			if not match and C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+				local ok, over = pcall(C_SpellBook.FindSpellOverrideByID, id)
+				match = ok and over == sid
+			end
+			-- Prefer the plain key over a Shift/Ctrl layer when a spell sits on both.
+			if match and (not best or not ns.Keybind_GetModifier or not ns.Keybind_GetModifier(bk)) then
+				best = bk
+			end
+		end
+	end
+	if best and ns.Keybind_GetBaseUiKey then
+		return ns.Keybind_GetBaseUiKey(best) or best
+	end
+	return best
+end
+
 function ns.MH_GuideOpenLayoutForSpell(spellId)
+	local autoKey = AutoMapKeyForSpell(spellId)
+	if autoKey then
+		return ns.MH_GuideOpenLayoutForKey(autoKey)
+	end
 	local slug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()
 	if not slug then
 		return false

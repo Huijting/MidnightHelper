@@ -3084,6 +3084,22 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh coach <name> — the coach of ANOTHER delve (Rob, 21 Oct 2026: "kan ik niet kiezen voor het labyrinth"; bare
+	-- /mh coach always opens the delve you are near). Part of the name is enough: "labyrinth", "kindo", "darkway".
+	local coachArg = msg:match("^coach%s+(.+)$")
+	if coachArg and coachArg ~= "" and ns.ShowDelveCoach then
+		local needle = coachArg:lower()
+		for _, entry in ipairs(ns.DELVE_TIP_ENTRIES or {}) do
+			local name = (ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName or ""
+			if name:lower():find(needle, 1, true) or (entry.id or ""):lower():find(needle, 1, true) then
+				ns:ShowDelveCoach(entry.id, { preview = true })
+				return
+			end
+		end
+		DEFAULT_CHAT_FRAME:AddMessage(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"),
+			ns:L("DELVE_COACH_NO_MATCH_FMT"):format(coachArg)))
+		return
+	end
 	if msg == "coach" or msg == "delve" or msg == "delves" then
 		if ns.ToggleDelveCoach then
 			local shown = ns:ToggleDelveCoach()
