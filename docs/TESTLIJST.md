@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 okt — Codex-advies niet meer doorzichtig
+
+- [ ] Open het Corrosive Codex-venster terwijl het doelwit-lijstje (Party Targets) erachter staat: het gele MH-advies is
+      nu dicht, de tekst "— no target —" schijnt er niet meer doorheen.
+
 ## 🆕 21 okt (laat) — laatste kaart-klusjes
 
 Eerst `/reload`. `/mh survival` laat per regel zien waarom hij er wel of niet staat.

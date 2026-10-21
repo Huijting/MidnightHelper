@@ -152,16 +152,18 @@ local function EnsurePanel()
 	f:SetFrameLevel(220)
 	f:SetClampedToScreen(true)
 	f:EnableMouse(true)
+	-- Solid, not the dialog texture: that one is see-through, and on 21 Oct 2026 the Party Targets panel's
+	-- "— no target —" read straight through this card (Rob's screenshot), mixed into the gift lines.
 	if f.SetBackdrop then
 		f:SetBackdrop({
-			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+			bgFile = "Interface\\Buttons\\WHITE8x8",
 			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
 			tile = true,
 			tileSize = 32,
 			edgeSize = 32,
 			insets = { left = 11, right = 12, top = 12, bottom = 11 },
 		})
-		f:SetBackdropColor(0.06, 0.06, 0.1, 0.94)
+		f:SetBackdropColor(0.06, 0.06, 0.1, 1)
 	end
 	tinsert(UISpecialFrames, f:GetName())
 
