@@ -3097,3 +3097,122 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/MidnightAchList.lua`, `Modules/AtalUtekProbe.lua`, `Modules/SeasonTransitionData.lua` —
   allemaal vandaag gelezen. Eén content-vondst (Voidcore-maximum-tekst), verder uitsluitend
   **[RAAKT ONS NIET]**. Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+---
+
+- [2026-10-21] ✅ **Nieuwe hotfix-sectie "October 20, 2026" gelezen — acht items getoetst, geen
+  tegenspraak; één oude mist-cap-claim bevestigd correct en al lang gefixed.** Vandaag is woensdag,
+  dus de wekelijkse kaarten- (🃏) en consumables-check (🧪) worden overgeslagen.
+
+  💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v. gisteren).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261021zz2` (via
+  Exa, JSON volledig gelezen, `pagination.totalCount: 8`): dezelfde drie draadjes als op 17-20 okt
+  (esES/esMX-locale-fix, debug-printregel, coffer-key-shards-popup), alle drie eindigend op een
+  reactie van `twelveinchy`. Geen nieuw bericht sinds gisteren. MEASURED.
+
+  **Hotfixes: nieuwe sectie "October 20, 2026" — zelf gelezen, niet overgenomen van de API-/data-
+  wachter van vandaag (beiden hebben deze sectie als operationeel/feitelijk feit al gelogd;
+  dit is mijn onafhankelijke contradictie-check tegen geshipte MH-tekst).**
+  `news.blizzard.com/en-us/article/24307310/hotfixes-october-16-2026?nocache=20261021content`,
+  volledige artikeltekst zelf gelezen: sectie "October 20, 2026" staat nu bovenaan (Achievements,
+  Labyrinth, Items, Player versus PvP, Quests), vóór "October 16, 2026". Achievements/Labyrinth/
+  PvP-caps vallen buiten mijn lane (resp. al gelogd op [2026-10-20], geen content-claim, geen
+  MH-currency-tracking) — zie hieronder. Delves en Professions als losse categorieën: leeg in de
+  nieuwste sectie, niets te vergelijken.
+
+  📌 **Positieve controle, repo-brede scope, zelfde run:** `grep -ri "RAID_BOSS_KITHIX_STEPS"` geeft
+  treffers in `Modules/RaidCoachData.lua` en alle zeven taalvarianten van `Locales/RaidTips.lua`;
+  `grep -i "weekly cap"` geeft een treffer in `Locales/enUS.lua:4290` (Coffer Key Shards, andere
+  currency). Beide patronen vinden dus iets op deze schaal — de 0-treffers hieronder zijn gemeten
+  afwezigheid.
+
+  **Bevindingen:**
+  - **Items — "Mistcrests are now uncapped."** Al gelogd als feit door de API-/data-wachter
+    (`docs/API_WATCH.md`, `docs/PTR_12.0.7_DATA.md`, beide entry [2026-10-21]). Voor mijn lane: dit
+    is GEEN nieuwe tegenspraak, en het is ook geen oude tegenspraak die nu pas zichtbaar wordt — de
+    claim "crests hebben een weekly cap van ~100 per kleur" stond ooit in de Codex en in de
+    crest-gids, maar is **al op 22 juli 2026 verwijderd** (`CHANGELOG_2111_1`, `Locales/enUS.lua:3870`:
+    *"Fixed: the crest pages claimed a weekly cap of roughly 100 per colour. There is no such cap —
+    the game reports none on any tier — and the claim was already removed from the English and Dutch
+    guide text on 22 July. It was still there in the Codex in all seven languages... Gone everywhere
+    now."*). Vandaag opnieuw gegrept op "weekly cap"/"season cap"/"~100" in `Locales/enUS.lua`: de
+    enige treffer is `SHARDS_CAP_REACHED`/`ALT_TOOLTIP_SHARDS_WEEKLY` — Coffer Key Shards, een andere
+    currency met een écht bestaande wekelijkse cap, geen Mistcrest. MEASURED (0 treffers op een
+    Mistcrest-capclaim in geshipte tekst; de enige overgebleven "cap"-tekst over Mistcrest is een
+    code-comment in `Modules/CurrencyAccount.lua:506-508` en `Modules/DawncrestGuide.lua:815-819` —
+    beide dev-diagnostiek voor `/mh curscan`, niet speler-tekst, en beide lezen de cap live van de
+    client dus breken niet). **[RAAKT ONS NIET]** — bevestigt dat deze hotfix een claim raakt die wij
+    drie maanden geleden al correct hadden ingetrokken.
+  - **Labyrinth — "Fixed an issue that could sometimes prevent the 'Fools and Curses' scenario from
+    completing."** Andere bug dan de al op [2026-09-xx]/regel 2609 gelogde "Cursed Energy kon niet
+    gecleansed worden"-fix (14 okt), zelfde scenario-naam. Onze naamloze roomtaak-tekst ("Cursed
+    energy: kill the relic raiders... take 5 purple curse orbs to the cursed sarcophagus",
+    `Locales/DelveTips.lua`/`Locales/enUS.lua` via `DELVE_TIP_LABYRINTH_ROOMS`) claimt nergens iets
+    over afrondbaarheid. MEASURED (0 treffers op "Fools and Curses" of "completion" in die roomtekst,
+    zelfde conclusie als de eerdere, zwakkere kandidaat-match). **[RAAKT ONS NIET]**
+  - **Labyrinth — "Fixed an issue where Spirit Conduit Loa powers could be used during Kindo'jan's
+    fight."** Een exploit-fix (Loa-boons tijdens de baasfight gebruiken kon niet de bedoeling zijn).
+    `CODEX_LABYRINTH_BODY`/`PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md:55` beschrijven de Loa-Spirit
+    Conduits generiek ("4 per run, elke boon duurt 2 minuten, gebruik hem meteen") zonder claim over
+    wél/niet-bruikbaar tijdens Kindo'jan zelf. MEASURED (`grep -i "spirit conduit"` repo-breed: alleen
+    de generieke beschrijving, geen uitzondering voor de baasfight die nu zou kloppen of niet
+    kloppen). **[RAAKT ONS NIET]**
+  - **Items — Ancient Hash'ey Battle Art-enchants kunnen nu toegepast worden op "Warbound Until
+    Equipped"-items.** Andere bug dan de al op regel 2616 gelogde itemlevel-fix (334→344, 15 okt).
+    `CODEX_LABJOURNEY_BODY` (`Locales/Codex.lua:173`) noemt de vier enchants bij naam en hun scope
+    ("work in every delve, not only here"), maar zegt niets over Warbound-items of op welke
+    itemtypes ze toe te passen zijn. MEASURED (0 treffers op "Warbound" in de buurt van "Hash'ey" in
+    de hele repo). **[RAAKT ONS NIET]**
+  - **Items — "The Void Eruption effect on Kith'ix's armor pieces can no longer hit targets you
+    aren't in combat with."** ⚠️ Naamcollision gecontroleerd: "Void Eruption" is ook de 12.0.0-naam
+    waarvan onze Priest-keybindmodule weet dat hij is hernoemd naar "Voidform"
+    (`Modules/KeybindRoles_Priest.lua:186-196`) — andere context, geen overlap met dit item-effect.
+    `RAID_BOSS_KITHIX_STEPS`/`_TANK`/`_HEALER`/`_DPS` (`Locales/RaidTips.lua:104-111`, zeven
+    taalvarianten) noemen uitsluitend losse `{SPELL:id}`-links voor Kith'ix' eigen aanvallen — geen
+    "Void Eruption" en geen claim over een armor-effect. MEASURED (0 treffers op "Void Eruption" in
+    de Kith'ix-tips zelf; de enige twee treffers in de repo zijn de Priest-naamsverandering en deze
+    hotfix-tekst). **[RAAKT ONS NIET]**
+  - **Quests — "The furbolgs required for the quest 'Not Quite Nalorakk' have returned from their
+    hibernation."** 0 treffers op "Not Quite Nalorakk" repo-breed. Onze enige furbolg-tekst,
+    `DELVE_CHAT_ATAL_AMAN_ROUTE` ("Ritual: rescue furbolgs..."), is een Atal'Aman-**delve**-routestap,
+    geen overworld-quest — andere content, geen naam- of ID-overlap gevonden. MEASURED.
+    **[RAAKT ONS NIET]**
+  - **Quests — "Fixed an issue where spending Nebulous Voidcores on non-raid sources would not
+    grant credit towards completing the 'A Nebulous Endeavour' tutorial quest."** Andere bug dan de
+    op [2026-10-20] gelogde "Current Season Maximum"-sprong (ook Voidcore-gerelateerd, maar een
+    missende questcredit in plaats van een kapotte teller). `Modules/BonusRollCapture.lua`
+    (`ns.GetVoidcoreBonusRollStatus`-achtige lezing) en `Modules/VaultAdvisor.lua:1074-1119` lezen de
+    bonusroll-status live van de client-popup; geen van beide hardcodet een claim over welke
+    bron (raid/non-raid) meetelt voor een tutorial-quest. `grep -i "nebulous endeavour"` repo-breed:
+    0 treffers, dus deze quest staat nog nergens in MH's eigen data. MEASURED. **[RAAKT ONS NIET]**
+  - **Quests — "Resolved an issue where the Skardyn Behemoth could become unattackable, preventing
+    completion of 'Draw Its Ire.'"** Dezelfde questreeks die de PTR/roadmap-wachter vandaag al als
+    bekend open bugmeldingsthema noemde (`docs/PTR_12.1_WATCH.md`) — deze hotfix IS de fix. 0
+    treffers op "Skardyn" of "Draw Its Ire" repo-breed: geen bestaande MH-tracker voor deze
+    questreeks. MEASURED. **[RAAKT ONS NIET]**
+  - **Quests — "Fixed an issue that prevented the completion of the Voidstorm quest 'To Be
+    Changed'."** Vermoedelijk een (nog) niet-herdoopte placeholder-questnaam van Blizzard zelf, niet
+    een naam die wij zouden kunnen dragen. 0 treffers op "To Be Changed" repo-breed; onze Voidstorm-
+    teksten (`Modules/DelverCallData.lua`, `Modules/Rares.lua`, `Modules/EventInfoData.lua`) noemen
+    delves, rares en events bij hun eigen naam, geen enkele quest met deze placeholder-titel.
+    MEASURED. **[RAAKT ONS NIET]**
+  - **Player versus PvP — Conquest/Bloody Tokens ongecapt, nieuwe "Spoils of War"-buff, nieuwe
+    Venomous Equipment Chest bij Irissa Bloodstar.** Al gelogd door de API-wachter als buiten zijn
+    terrein; voor mijn lane: `grep -i "conquest\|bloody token\|irissa\|spoils of war"` in
+    `Modules/CurrencyGuide.lua` en `Modules/CurrencyAccount.lua`: 0 treffers in beide — MH tracked
+    geen PvP-valuta's. De losse naam "Irissa" in `Modules/DelveTipMarkup.lua:164` is een coördinaat-
+    label voor een NPC in een andere context (delve-markup), niet deze quartermaster. MEASURED.
+    **[RAAKT ONS NIET]**
+
+  Bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-october-16-2026?nocache=20261021content
+  (volledig gelezen via Exa, sectie "October 20, 2026") ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261021zz2
+  (JSON, via Exa) · codebase: `Locales/enUS.lua` (grep + gerichte reads rond 3870, 4290, 3100, 3804),
+  `Modules/CurrencyAccount.lua:495-520`, `Modules/DawncrestGuide.lua:780-849`, `Locales/DelveTips.lua`,
+  `Locales/Codex.lua:173`, `Modules/RaidCoachData.lua:115-146`, `Locales/RaidTips.lua:104-111`,
+  `Modules/KeybindRoles_Priest.lua:186-196`, `Modules/BonusRollCapture.lua`,
+  `Modules/VaultAdvisor.lua:1074-1119`, `Modules/DelverCallData.lua`, `Modules/Rares.lua`,
+  `Modules/EventInfoData.lua`, `Modules/CurrencyGuide.lua`, `Modules/DelveTipMarkup.lua:164` —
+  allemaal vandaag gelezen. Acht content-items getoetst, alle acht **[RAAKT ONS NIET]** (één ervan
+  bevestigt een drie maanden oude correctie, geen nieuwe actie). Geen actiepunt dat ík oppak — ik
+  rapporteer, een mens beslist.
