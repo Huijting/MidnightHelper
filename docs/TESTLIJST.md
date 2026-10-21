@@ -25,8 +25,13 @@ er is niets weggegooid.
 
 Eerst `/reload`. Delve-coach → Labyrinth → Boss-deel (of het End boss-venster van Kindo'jan):
 - [ ] Na de Disgraceful Display-regel staat nu "Claws of the Empire is just his normal attack … heal through it."
-- [ ] Bij Eruption of Mojo: "A hit also knocks you far away: near the edge it throws you off the platform".
-- [ ] Bij je volgende Kindo'jan: klopt het dat Claws je niet echt pijn doet, en vlieg je bij een Mojo-treffer echt weg?
+- [ ] Bij Eruption of Mojo: "He also puts a circle on you … That blast knocks you far away … a few steps in from the
+      edge and never right on it". (Rob 21 okt: als tank aan de linkerrand neergelegd → van het platform geslagen.)
+- [ ] Bij je volgende Kindo'jan: klopt het dat Claws je niet echt pijn doet? Slaan ook de gewone grondcirkels je weg?
+- [ ] **Kindo'jan-venster vanzelf:** loop na de laatste kamer naar Kindo'jan. Zodra de tracker "Enemy of the Labyrinth"
+      zegt (Den'zara), opent rechts vanzelf "End boss: Kindo'jan" met het hele Boss-deel. Sluit je hem, dan komt hij bij
+      "Soul of the Labyrinth" (Kindo'jan zelf) nog één keer terug. Boekje op de markeerbalk → ook dit venster.
+      Opent hij niet? `/mh roomcard why` → screenshot.
 - [ ] Op een Duitse/Franse/… client (of Cisca): staat de Claws-regel er ook, in die taal?
 
 ## 🆕 20 okt (laat) — Flooded Chamber: ingang onder water in de kistenroute

@@ -17,6 +17,8 @@ local _, ns = ...
 	The search bar finds them by name too, and every card has an "All bosses" button.
 	⚠️ Targeting a boss does NOT open the card in a delve: the unit's name and GUID read secret (measured 16 Aug
 	2026). The fight starting (ENCOUNTER_START, by encounter id) is the automatic path; the list is the sure one.
+	Kindo'jan's card also opens by itself on the scenario steps "Enemy/Soul of the Labyrinth" (END_STEPS below):
+	Rob's 20 Oct run had no ENCOUNTER_START at all, and the step title is plain tracker text we can read.
 ]]
 
 local ENTRY_LABYRINTH = "labyrinth_kindojan"
@@ -290,9 +292,39 @@ end
 
 local lastRoomShown -- task name already shown; a new room (or a new run) shows again
 
---- @return table|nil task, string[] texts read
+-- The two steps before and during the end boss (Rob, 21 Oct 2026: the Kindo'jan card should open by itself there; no
+-- ENCOUNTER_START fired in his 20 Oct run). Den'zara is step "Enemy", Kindo'jan step "Soul". Names per client measured
+-- in ScenarioStep 3444/3678 (docs/CLIENT_NAMES_2026-10-20.md, Ronde 5): en, de, fr, es, esMX, pt, it, ru. Matched in
+-- every language at once — they are Blizzard's own titles, so no pack can hold the wrong one.
+local END_STEPS = {}
+for _, s in ipairs({
+	"Enemy of the Labyrinth", "Feind des Labyrinths", "Adversaire du labyrinthe", "Enemigo del laberinto",
+	"Ameaça ao Labirinto", "Nemico del Labirinto", "Враг Лабиринта",
+	"Soul of the Labyrinth", "Seele des Labyrinths", "L’âme du labyrinthe", "Alma del laberinto",
+	"Alma do Labirinto", "Anima del Labirinto", "Душа Лабиринта",
+}) do
+	END_STEPS[s:lower()] = s
+end
+
+local function EndBossIndex(entryId)
+	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId] or {}
+	for i, b in ipairs(bosses) do
+		if b.final then
+			return i
+		end
+	end
+	return nil
+end
+
+--- @return task table, or { endStep = <title> } in the end-boss steps, or nil; string[] texts read
 local function CurrentRoomTask(entryId)
 	local texts = ScenarioTexts()
+	for _, s in ipairs(texts) do
+		local step = END_STEPS[s:lower()]
+		if step then
+			return { name = step, endStep = true }, texts
+		end
+	end
 	local tasks = RoomTasks(entryId)
 	for _, s in ipairs(texts) do
 		local t = tasks[s:lower()]
@@ -301,6 +333,15 @@ local function CurrentRoomTask(entryId)
 		end
 	end
 	return nil, texts
+end
+
+--- A room task gets its room card; an end-boss step gets Kindo'jan's whole card.
+local function ShowTaskCard(task)
+	if task.endStep then
+		local idx = EndBossIndex(ENTRY_LABYRINTH)
+		return idx and ns.ShowDelveBossCard(ENTRY_LABYRINTH, idx) or false
+	end
+	return ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), RoomLines(ENTRY_LABYRINTH, task))
 end
 
 local function MaybeShowRoomCard()
@@ -333,7 +374,7 @@ local function MaybeShowRoomCard()
 		return
 	end
 	lastRoomShown = task.name
-	ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), RoomLines(ENTRY_LABYRINTH, task))
+	ShowTaskCard(task)
 end
 
 local roomEv = CreateFrame("Frame")
@@ -356,8 +397,7 @@ function ns.ShowCurrentRoomCard()
 	if not task then
 		return false
 	end
-	ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), RoomLines(ENTRY_LABYRINTH, task))
-	return true
+	return ShowTaskCard(task)
 end
 
 --- /mh roomcard          the card for the room you are in now
@@ -399,7 +439,7 @@ function ns.MH_DelveRoomCardCommand(arg)
 		print("|cff8fd3ffMidnight Helper|r roomcard: no matching room task. /mh roomcard why shows what MH reads.")
 		return
 	end
-	ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), RoomLines(ENTRY_LABYRINTH, task))
+	ShowTaskCard(task)
 end
 
 --- A won fight closes it; a wipe leaves it up for the next try.

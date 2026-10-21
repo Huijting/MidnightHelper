@@ -21,8 +21,15 @@ del imperio, pt Garras do Império, it Artigli dell'Impero, ru Когти имп
 🔜 Clientnaam-regel: de rest van deze tip (Disgraceful Display, Eruption/Erratic Mojo, Whirling Axes, Crushing Blow,
 Phalanx Charge, Amani Aegis, Hash'ey's Command, Storm of Torment, Beckoning Death, Vile Bolts) is in alle packs nog
 Engels → per locale meten in wago SpellName en vervangen (Claws staat nu als enige in de clienttaal).
-⚠️ Welke Mojo-spell de wegslag geeft (de grote/kleine cirkels of de cirkel op jou) is niet uit elkaar gehaald; de tip
-zegt "een treffer" en laat de rand-raad voor het neerleggen staan ("vlak bij de rand … stap eruit richting het midden").
+✅ GEMETEN Rob 21 okt (zijn eigen dood als tank): hij legde de cirkel-op-jou bij de linkerrand neer en de ontploffing
+sloeg hem van het platform → de wegslag hoort bij de cirkel OP JOU, en de oude raad "de rand is een goede plek" was
+gevaarlijk. Tip nu: "That blast knocks you far away … drop it a few steps in from the edge and never right on it", alle
+talen (mh-writer). Of de grote/kleine grondcirkels ook wegslaan: niet gemeten.
+🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):
+`DelveBossCard.lua` END_STEPS = de stapnamen "Enemy/Soul of the Labyrinth" in alle 8 clienttalen (GEMETEN, CLIENT_NAMES
+Ronde 5, ScenarioStep 3444/3678), taalonafhankelijk gematcht vóór de kamertaken. Treffer → ShowDelveBossCard(eindbaas)
+= hele Boss-sectie, 1× per stap (Enemy en daarna Soul elk één keer). Boekje op de markeerbalk en `/mh roomcard` geven
+in die stappen ook het Kindo'jan-venster. Niet in het spel gezien.
 
 ## 🪟 20 okt (avond) — venster per kamerbaas (Rob: "maak er sowieso maar een venster per baas van")
 
