@@ -25,9 +25,16 @@ Engels → per locale meten in wago SpellName en vervangen (Claws staat nu als e
 sloeg hem van het platform → de wegslag hoort bij de cirkel OP JOU, en de oude raad "de rand is een goede plek" was
 gevaarlijk. ⚠️ GECORRIGEERD door Rob dezelfde ochtend: "nee, dat is wel goed maar niet te dicht bij de baas !!!!!" →
 de rand IS goed, alleen niet dicht bij Kindo'jan. Tip nu: "the edge is a good spot, but not close to Kindo'jan. There
-the blast threw us off the platform (as a tank, 20 Oct)", alle talen (mh-writer). Of de wegslag van de cirkel zelf komt
-of van Kindo'jan's eigen klap ernaast is niet uit elkaar gehaald; de tip noemt alleen wat Rob zag. Grondcirkels: niet
-gemeten.
+the blast threw us off the platform (as a tank, 20 Oct)", alle talen (mh-writer). ✅ Rob daarna: "door de klap vloog
+ik weg en niet door de circel ontploffing" → tip: "There a hit from Kindo'jan himself threw us off the platform (as a
+tank, 20 Oct), not the circle." Welke spell die klap is: niet gemeten (kandidaat: Eruption of Mojo 1300491 heeft een
+KNOCK_BACK-effect in DB2). Grondcirkels: niet gemeten.
+✅ `/nieuwe-chat` GEBOUWD (Rob: "maak die nieuw chatregel maar"): user-skill `C:\Users\RobHu\.claude\skills\nieuwe-chat\
+SKILL.md`, argument `bouw|site` (zonder argument: werkmap bepaalt). Eerst handoff bijwerken + committen (site: push
+alleen met Robs ja), dan prompt (bouw = de vorm van de prompt van 21 okt; site = de vaste beginzin van de site-chat),
+dan start_session (fresh, user_asked, use_worktree false, titel "Bouwchat/Site chat dd-mm"), andere chat seinen.
+Niet getest: of een NIEUWE user-skill in een al draaiende chat zichtbaar wordt (AFGELEID: pas na herstart/nieuwe chat).
+Shaman-vuurtest Flooded Chamber: Rob doet hem vanavond.
 🪟 Kindo'jan-venster vanzelf (Rob: "bouw nu het Kindo'jan-venster dat vanzelf opent bij Enemy/Soul of the Labyrinth"):
 `DelveBossCard.lua` END_STEPS = de stapnamen "Enemy/Soul of the Labyrinth" in alle 8 clienttalen (GEMETEN, CLIENT_NAMES
 Ronde 5, ScenarioStep 3444/3678), taalonafhankelijk gematcht vóór de kamertaken. Treffer → ShowDelveBossCard(eindbaas)

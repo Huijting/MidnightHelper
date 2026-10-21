@@ -25,8 +25,8 @@ er is niets weggegooid.
 
 Eerst `/reload`. Delve-coach → Labyrinth → Boss-deel (of het End boss-venster van Kindo'jan):
 - [ ] Na de Disgraceful Display-regel staat nu "Claws of the Empire is just his normal attack … heal through it."
-- [ ] Bij Eruption of Mojo: "the edge is a good spot, but not close to Kindo'jan. There the blast threw us off the
-      platform". (Rob 21 okt: als tank aan de rand vlak bij de baas → van het platform geslagen.)
+- [ ] Bij Eruption of Mojo: "the edge is a good spot, but not close to Kindo'jan. There a hit from Kindo'jan himself
+      threw us off the platform …, not the circle". (Rob 21 okt: als tank aan de rand vlak bij de baas, zijn klap.)
 - [ ] Bij je volgende Kindo'jan: klopt het dat Claws je niet echt pijn doet? Slaan ook de gewone grondcirkels je weg?
 - [ ] **Kindo'jan-venster vanzelf:** loop na de laatste kamer naar Kindo'jan. Zodra de tracker "Enemy of the Labyrinth"
       zegt (Den'zara), opent rechts vanzelf "End boss: Kindo'jan" met het hele Boss-deel. Sluit je hem, dan komt hij bij
