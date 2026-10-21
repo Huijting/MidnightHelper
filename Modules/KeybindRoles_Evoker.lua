@@ -75,7 +75,8 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Obsidian Scales"] = { id = 363916, role = "defensive_1", priority = 1, survival = "big", survivalOrder = 1 }, -- Z (kleine def, baseline); card: big sinds 3 okt 2026 (30% DR 12 s, sterkste eigen def; IV 12.1)
 	-- Grote defensive (C)
 	-- Card: -20% AREA damage for you + 4 allies, 2 min (WH-spell 374227); no help against one big hit.
-	["Zephyr"] = { id = 374227, role = "defensive_3", priority = 1, survival = "small", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline); card: small sinds 3 okt 2026 (alleen tegen AoE)
+	-- 21 Oct 2026 (spec audit, 2 routes, wago 12.1.5.70448): 2-minute cooldown, so NOT "small: press it often" → big.
+	["Zephyr"] = { id = 374227, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline); card: big (2 min cd), alleen tegen AoE
 	-- Dispel / CC (V-cluster)
 	["Sleep Walk"] = { id = 360806, category = "dispel_cc", priority = 1 },           -- V (incapacitate CC, baseline)
 	["Expunge"] = { id = 365585, category = "dispel_cc", priority = 2 },              -- Shift+V (poison-dispel, baseline)

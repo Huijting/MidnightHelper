@@ -164,7 +164,8 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Reap"]              = { id = 1226019, category = "spender", priority = 1, specs = { 1480 } },       -- Fury-spender (SpellCooldowns 1226019=8000; guide.lua "at 84 fury")
 	["Void Ray"]          = { id = 473728,  category = "spender", priority = 2, specs = { 1480 } },       -- 100-Fury-channel (SpellArchetypes 473728; guide.lua {473728})
 	["Devour"]            = { id = 1217610, category = "spender", priority = 3, specs = { 1480 } },       -- Void-Meta-vorm spender (SpellArchetypes 1217610 "ranged"; guide.lua {1217610})
-	["Eradicate"]         = { id = 1226033, category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 1480 } }, -- AoE-spender (guide.lua multitarget)
+	-- 21 Oct 2026 (spec audit): 1226033 is the passive talent; the spell you press is 1225826.
+	["Eradicate"]         = { id = 1225826, category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 1480 } }, -- AoE-spender (guide.lua multitarget)
 	-- Cooldowns
 	["Soul Immolation"]   = { id = 1241937, category = "cooldown", priority = 3, specs = { 1480 }, survival = "heal", survivalOrder = 1 }, -- 60s-CD setup/buff (SpellCooldowns 1241937=60000; SelfAuras 1241937) -- card: heals 24% of max HP (IV-DEV); id not measured in the client
 	-- Grootste CD / cooldown_bar F1 (Void Metamorphosis = burst-vorm; soul-driven, geen timer)

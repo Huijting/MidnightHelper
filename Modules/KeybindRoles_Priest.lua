@@ -143,7 +143,9 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- Raid/AoE/smart-heals - BLIJVEN op toetsen (v6 sectie 6):
 	["Prayer of Healing"] = { id = 596, category = "raid_heal", priority = 1, bindKey = "Shift+1", specs = { 257 } },      -- AoE-groepsheal (toets)
 	["Holy Word: Sanctify"] = { id = 34861, category = "raid_heal", priority = 1, bindKey = "Shift+2", specs = { 257 } },    -- AoE-grondheal (toets)
-	["Halo"] = { id = 120517, category = "cooldown", priority = 3, specs = { 257, 258 } },                   -- AoE dmg/heal-puls (toets)
+	["Halo"] = { id = 120517, category = "cooldown", priority = 3, specs = { 257 } },                   -- AoE dmg/heal-puls (toets)
+	-- 21 Oct 2026 (spec audit): Shadow's Halo (Archon) is its own spell, 120644 (Shadow damage, Insanity); 120517 is Holy's.
+	["Halo (Shadow)"] = { id = 120644, category = "cooldown", priority = 3, specs = { 258 } },
 	-- ST-heals + ST-HoTs (click-cast op raidframes, GEEN toets - v6 sectie 6):
 	-- Heal removed 17 Sep (audit, BRON Icy Veins Holy 12.1).
 	["Holy Word: Serenity"] = { id = 2050, category = "main_rotation", priority = 1, bindKey = "2", specs = { 257 } },           -- ST-burst-heal (click-cast)

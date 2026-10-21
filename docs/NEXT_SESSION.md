@@ -117,7 +117,19 @@ beschrijving van archive_session). Bouwchat 21-10 is losgemaakt (detach self); S
 maakte talent-effecten tot basis; 12.1.5 kwam erna. Rob: "gebruik maar een workflow" → workflow `playcard-audit`
 (run wf_9ea1f38c-e10, 35 specs = alles behalve 65/105/256/257/264): per spec route A (gidsen/tooltips) + route B (wago
 DB2) + reconcile (alleen "agreed" = beide eens of één GEMETEN zonder tegenspraak). Rapporten per spec in de
-side-session-notes map `playcard_audit\<spec>.md`. Nog NIETS aangepast; na de uitkomst: teksten + vertalen per batch.
+side-session-notes map `playcard_audit\<spec>.md`; alles samen in `playcard_audit\_all.json` (scratch audit_sum.py).
+✅ KLAAR (105 agents, 0 fouten): 35 specs, **192 agreed + 71 unsure**. Agreed per soort: talent_only 131 (ruwe
+indeling via trefwoorden, AFGELEID: ~23 keuzenode, ~29 "bijna iedereen neemt hem", ~79 rest), misleading 48, wrong 8,
+wrong_spell_id 4, outdated 1.
+✅ Ronde 1 GEDAAN (de 13 harde): Balance {SPELL:1239669}→1233346 (Solar Eclipse; 1239669 = passief) en Survival
+{SPELL:1259003}→1262293 (Raptor Swipe) in ALLE locales (73 tokens, scratch swap_ids.py); Blood W2 (alleen melee-klappen
+kosten Bone Shield, 1 per 2,5 s); Unholy S3 (Festering Scythe = buff op jou sinds 24 apr); Vengeance S2/W2 (samen ~een
+derde, Demon Spikes vult); Devourer HERO1/2 (Annihilator = keuze dit seizoen); Brewmaster Purifying Brew keepup→small +
+SURVIVAL_NOTE_STAGGER; Aug/Evoker Zephyr small→big (2 min cd); Priest Halo: Shadow eigen entry 120644; DH Eradicate
+1226033→1225826 (de knop); Hunter-commentaar SotF 6 s / 1 charge. Vertalingen mh-writer.
+🔜 Robs keuze: hoe de 131 talent-punten + 48 misleidende aanpakken (zie chat 21 okt avond). NB: kaarten kleuren een
+spell die je niet hebt al GRIJS (ns.PlayCardKnowsSpell → IsPlayerSpell), dus "spell is een talent" valt deels al op;
+"effect X alleen met talent Y" niet.
 🌊 Vervolg uit dezelfde heal-chat: Resto Shaman (264), zelfde 2 routes. Gedaan: Purify Spirit alleen Magic, Curse via
 talent 383016 (IsPlayerSpell); PLAYCARD_264_EASY stap 3 + S4 + W4 (Lava Burst = optioneel talent voor Resto), S1/W1
 (2 charges alleen met twee talents; Stormstream alleen met talent 1267016, via Riptide, duurt 60 s, stapelt tot 2 →

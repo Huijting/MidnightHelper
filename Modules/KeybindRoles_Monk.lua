@@ -97,7 +97,9 @@ ns.KeybindRoleClassifier.MONK = {
     -- Builders / rotatie (SpellArchetypes: Keg Smash/Tiger Palm/Blackout Kick)
     ["Keg Smash"]                    = { id = 121253, category = "main_rotation", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 3, survivalId = { [268] = 121253 }, survivalNote = "SURVIVAL_NOTE_SHUFFLE" }, -- 1: AoE-builder + snare; card 5 Oct 2026: Shuffle + brew cooldowns (IV/Wowhead); id Wowhead, not client-measured
     -- Actieve mitigation (Stagger purge, verbruikt brew-charges)
-    ["Purifying Brew"]               = { id = 119582, category = "defensive", priority = 1, specs = { 268 }, survival = "keepup", survivalOrder = 1 }, -- 4: purge Stagger (actieve mitigation, GEEN dmg-spender); card: on a rhythm (IV BM)
+    -- 21 Oct 2026 (spec audit, 2 routes): Purifying Brew leaves no buff, so it cannot be "kept up"; it clears Stagger
+    -- when you press it. Card: small + a note on WHEN (Stagger yellow/red), not keepup.
+    ["Purifying Brew"]               = { id = 119582, category = "defensive", priority = 1, specs = { 268 }, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_STAGGER" }, -- 4: purge Stagger (actieve mitigation, GEEN dmg-spender); card: on a rhythm (IV BM)
     -- AoE
     ["Breath of Fire"]               = { id = 115181, category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 268 } }, -- AoE/DoT (cleave)
     ["Rushing Jade Wind"]            = { id = 116847, category = "main_rotation", priority = 7, bindKey = "Shift+3", specs = { 268 } }, -- AoE (talent)
