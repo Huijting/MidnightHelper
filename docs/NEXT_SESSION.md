@@ -30,7 +30,8 @@ ik weg en niet door de circel ontploffing" → tip: "There a hit from Kindo'jan 
 tank, 20 Oct), not the circle." Welke spell die klap is: niet gemeten (kandidaat: Eruption of Mojo 1300491 heeft een
 KNOCK_BACK-effect in DB2). Grondcirkels: niet gemeten.
 ✅ `/nieuwe-chat` GEBOUWD (Rob: "maak die nieuw chatregel maar"): user-skill `C:\Users\RobHu\.claude\skills\nieuwe-chat\
-SKILL.md`, argument `bouw|site` (zonder argument: werkmap bepaalt). Eerst handoff bijwerken + committen (site: push
+SKILL.md`, argument `bouw|site` (zonder argument: de titel van de eigen chat; beide chats draaien in de AddOns-map
+voor geheugen + voordeur, dus geen cwd — site-chat-correctie 21 okt). Eerst handoff bijwerken + committen (site: push
 alleen met Robs ja), dan prompt (bouw = de vorm van de prompt van 21 okt; site = de vaste beginzin van de site-chat),
 dan start_session (fresh, user_asked, use_worktree false, titel "Bouwchat/Site chat dd-mm"), andere chat seinen.
 Niet getest: of een NIEUWE user-skill in een al draaiende chat zichtbaar wordt (AFGELEID: pas na herstart/nieuwe chat).
