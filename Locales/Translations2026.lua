@@ -14981,6 +14981,8 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	HOME_SOLO_VALEERA_FMT = "Valeera: Stufe %s (klicken für ihren Fortschritt)",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Diese Woche erledigt: %d (klicken zum Anzeigen)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Diese Woche erledigt: %d (klicken zum Ausblenden)",
+	HOME_ROUTINE_LATER_FOLDED_FMT = "Später, wenn du weiter levelst: %d Wochenaufgaben (klicken zum Anzeigen)",
+	HOME_ROUTINE_LATER_SHOWN_FMT = "Später, wenn du weiter levelst: %d Wochenaufgaben (klicken zum Ausblenden)",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SET_HOMESOLO_TITLE = "Je joue surtout en solo",
@@ -14995,6 +14997,8 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	HOME_SOLO_VALEERA_FMT = "Valeera : niveau %s (clique pour voir sa progression)",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Fait cette semaine : %d (clique pour afficher)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Fait cette semaine : %d (clique pour masquer)",
+	HOME_ROUTINE_LATER_FOLDED_FMT = "Plus tard, en montant en niveau : %d tâches hebdomadaires (clique pour afficher)",
+	HOME_ROUTINE_LATER_SHOWN_FMT = "Plus tard, en montant en niveau : %d tâches hebdomadaires (clique pour masquer)",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SET_HOMESOLO_TITLE = "Juego sobre todo en solitario",
@@ -15009,6 +15013,8 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	HOME_SOLO_VALEERA_FMT = "Valeera: nivel %s (haz clic para ver su progreso)",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Hecho esta semana: %d (haz clic para mostrar)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Hecho esta semana: %d (haz clic para ocultar)",
+	HOME_ROUTINE_LATER_FOLDED_FMT = "Más adelante, según subas de nivel: %d tareas semanales (haz clic para mostrar)",
+	HOME_ROUTINE_LATER_SHOWN_FMT = "Más adelante, según subas de nivel: %d tareas semanales (haz clic para ocultar)",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_HOMESOLO_TITLE = "Jogo mais solo",
@@ -15023,6 +15029,8 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	HOME_SOLO_VALEERA_FMT = "Valira: nível %s (clique para ver o progresso dela)",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Feito nesta semana: %d (clique para mostrar)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Feito nesta semana: %d (clique para ocultar)",
+	HOME_ROUTINE_LATER_FOLDED_FMT = "Mais tarde, conforme você sobe de nível: %d tarefas semanais (clique para mostrar)",
+	HOME_ROUTINE_LATER_SHOWN_FMT = "Mais tarde, conforme você sobe de nível: %d tarefas semanais (clique para ocultar)",
 }) end
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SET_HOMESOLO_TITLE = "Gioco soprattutto da solo",
@@ -15037,6 +15045,8 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	HOME_SOLO_VALEERA_FMT = "Valeera: livello %s (clicca per i suoi progressi)",
 	HOME_ROUTINE_DONE_FOLDED_FMT = "Fatto questa settimana: %d (clicca per mostrare)",
 	HOME_ROUTINE_DONE_SHOWN_FMT = "Fatto questa settimana: %d (clicca per nascondere)",
+	HOME_ROUTINE_LATER_FOLDED_FMT = "Più avanti, salendo di livello: %d attività settimanali (clicca per mostrare)",
+	HOME_ROUTINE_LATER_SHOWN_FMT = "Più avanti, salendo di livello: %d attività settimanali (clicca per nascondere)",
 }) end
 
 -- 5 Oct 2026: key block window (Modules/KeyBlock.lua, EditModeBackup.lua) + its entry in the

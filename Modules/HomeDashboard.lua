@@ -579,12 +579,25 @@ local function BuildLayout()
 					end)
 				end
 				if #later > 0 then
-					line(rows, ns:L("HOME_ROUTINE_LATER_HEADER"), COLOR_DIM)
-					for _, st in ipairs(later) do
-						-- Deliberately unnumbered: a number reads as a queue position, and
-						-- these are not in the queue. The click still works -- someone who
-						-- wants to go look at what is coming should not be told no.
-						line(rows, "- " .. (st.text or ""), COLOR_DIM, st.onClick)
+					-- 21 Oct 2026 (Rob on a level 24: twelve "available from level 90" lines filled half the page →
+					-- option A): folded into one clickable line, like "Done this week". Still not hidden (see the note
+					-- above): the count stays, one click shows them, remembered per account in ns.db.ui.homeShowLater.
+					local showLater = ns.db and ns.db.ui and ns.db.ui.homeShowLater == true
+					line(rows, ns:L(showLater and "HOME_ROUTINE_LATER_SHOWN_FMT" or "HOME_ROUTINE_LATER_FOLDED_FMT"):format(#later),
+						COLOR_DIM, function()
+							ns.db.ui = ns.db.ui or {}
+							ns.db.ui.homeShowLater = (not showLater) or nil
+							if ns.RefreshHomePanel then
+								ns.RefreshHomePanel()
+							end
+						end)
+					if showLater then
+						for _, st in ipairs(later) do
+							-- Deliberately unnumbered: a number reads as a queue position, and
+							-- these are not in the queue. The click still works -- someone who
+							-- wants to go look at what is coming should not be told no.
+							line(rows, "- " .. (st.text or ""), COLOR_DIM, st.onClick)
+						end
 					end
 				end
 			-- ⚠️ Only offer the route when there is somewhere to route to. The button's own

@@ -33,6 +33,8 @@ Eerst `/reload`, op een level-90.
 - [ ] "Next up": heb je een Restored Coffer Key, dan staat er "You have N Restored Coffer Key(s): use one on a Bountiful
       delve …" met knop "Show delves" (→ Delves-tab). Staat je Great Vault klaar, dan blijft die bovenaan.
 - [ ] Instellingen → "I mostly play solo" staat gelijk met de regel bovenaan.
+- [ ] Op een laag character (bv. level 24): in "Your week" staat i.p.v. 12 losse regels één regel "Later, as you level:
+      N weeklies (click to show)". Klik → de lijst verschijnt, regel zegt "(click to hide)". Blijft zo na `/reload`.
 - [ ] Onderaan This Week (solo aan én uit): na Ritual Sites / Void Assaults één dichte kop "+ Also handy (story, rares,
       mounts, tip)". Klik → campagne (Promise of Tomorrow), Rares, Mount wishlist, Collectible mounts en de tip
       verschijnen eronder. Nog eens klikken → weer dicht; blijft zo na `/reload`.

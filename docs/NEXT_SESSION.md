@@ -101,6 +101,10 @@ en Void Assaults wisselen wekelijks; campagne (eenmalig), Rares, Mount wishlist,
 naslag. Nu samen in ÉÉN blok onderaan, HOME_SECTION_EXTRAS "Also handy (story, rares, mounts, tip)", standaard dicht
 (DEFAULT_COLLAPSED.extras; dicht = de blokken worden niet gebouwd, want een kop kan alleen rijen in zijn eigen blok
 verbergen). Raids blijft erboven (niet-solo). Geldt voor iedereen, niet alleen solo. Niet in het spel gezien.
+➕ Rob op een level 24 (screenshot): 12 regels "available from level 90" onder "Later, as you level" → optie A: ingeklapt
+tot één klikregel HOME_ROUTINE_LATER_FOLDED_FMT / _SHOWN_FMT ("… %d weeklies (click to show)"), onthouden in
+ns.db.ui.homeShowLater; zelfde vorm als "Done this week". HOME_ROUTINE_LATER_HEADER is nu ongebruikt. Open (Rob kiest
+nog): de kaart "Get ready for Season 2" onder level 80 verbergen of laten (heeft al "Got it – hide").
 🌀 Loa-Spirit Conduits (Rob stond voor een "Loa-Spirit Wind Conduit": "hebben wij dat al besproken?" → "ja doe maar").
 2 mh-research-rondes eens (wago 12.1.5.70448; rapporten in de side-session-notes, conduits_ronde_A/B.md): object "Loa-Spirit
 <X> Conduit", buff "Spiritual <X> Conduit", 2 min, Journey-rang 6 (RenownRewards 2048 = "Loa-Spiritual Conduits", dus die
