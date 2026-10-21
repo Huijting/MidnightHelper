@@ -15,6 +15,8 @@ gedraaid: een rerun uploadt ook opnieuw naar CurseForge. Wago krijgt de volgende
 ✅ Tag gepusht op 7ce2df1; Actions-run 39654327587 success in 1m1s (alle stappen groen, GEMETEN). Dat Wago deze keer
 óók lukte is AFGELEID: beta1 faalde juist op Wago en liet de run rood, deze is groen. Site-chat geseind (wacht op
 de uitslag-melding). Nog niet gezien: of CF hem goedkeurt (review).
+Site-chat (21 okt): beta-blok op midnighthelper.com staat op 4.11.0-beta2 (site-commit 7fd7e6b5). /play/ en Dispel
+bouwt de site pas bij de gewone 4.11.0 → bij die release het seintje sturen.
 
 ## 🦅 21 okt — ochtendronde + Claws of the Empire (Rob: "ja, zet allebei erin … alle talen")
 
