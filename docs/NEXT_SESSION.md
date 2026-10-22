@@ -44,9 +44,10 @@ nummert per sessie opnieuw: 13-24, 25-36, 49-60, 109-120). ❌ Rob (screenshot):
   Site-chat 22 okt: site live op 4.11.0 (site-commit cc428787, Robs ja): gouden #new, beta-blok weg, /play/ + Dispel +
   Codex + gidsen herbouwd uit v4.11.0; Stay alive toont nu ook de survivalWhen-zinnen.
 - 🔜 **4.11.1** (Rob: "evt andere dingen kunnen in een .1 release"):
-  - Verzonnen Undercoin-namen die niet Engels zijn en dus bleven: de "Untermünzen" (ALT_TOOLTIP_UNDER_MANA_FMT), es
-    "Submonedas" (3 sleutels), pt "Moedas subterrâneas"/"Moedas inferiores" → de gemeten naam.
-  - `Locales/Codex.lua` (48 treffers) en `Locales/DelveTips.lua` (7) zijn NIET nagelopen op de gemeten namen.
+  - ✅ 22 okt (mh-writer): verzonnen Undercoin-namen → gemeten (de Lorenmünzen, es Inframonedas, pt Fundobrões);
+    Codex.lua (CODEX_CUR_UNDERCOIN_TITLE/_BODY, CODEX_CORRPOWER_BODY, CODEX_CUR_COFFER_KEY_BODY: Undercoin + Naleidea) en
+    DelveTips.lua (DELVE_TIP_TORMENTS_RISE_ROUTE) nagelopen; esMX "Kindo'Jan" waar de baas los staat. 5 dode fill-regels
+    CODEX_CUR_UNDERCOIN_TITLE door mij weg; lint 0 HARD. Bewust niet: namen binnen achievementtitels, de dungeonnaam.
   - Nog Engels, niet gemeten: Lay on Hands, Divine Shield, Forbearance, Blessing of Protection, Master of Warfare, Vile
     Bolt (Sha'Kuro), Amani Headhunters, "Hash'ey" in achievementtitels; esMX "Kindo'Jan" (hoofdletter J in de client).
   - Er'inye en "Delver's HQ" (Silvermoon) staan niet in Blizzards data → in Robs client aflezen.
