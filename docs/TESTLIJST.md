@@ -50,7 +50,8 @@ Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met 
       buiten het venster (tekstgrootte 1,5). → quiz wordt bij openen teruggezet op de kaart; tabbladen passen zich aan
       (minder ruimte ertussen, zo nodig kleinere letters).
 - [x] ✅ Rob 22 okt: "/mh play opent op Your buttons en Group past."
-- [ ] Na `/reload`: `/mh play` → "Test yourself": vraag 1 vraagt nu naar Avenging Wrath (Divine Toll blijft staan).
+- [x] ✅ Rob 22 okt (screenshot): vraag 1 heeft één gat, antwoord Avenging Wrath. Holy Paladin verder ✅: Intercession
+      "costs 2% of your base Mana" (tooltip 5,000 Mana); Dispel = Magic zonder, Magic/Poison/Disease mét Improved Cleanse.
       Steekproef op een andere kaart (Feral, Survival Hunter, Affliction, Assassination): nergens twee gaten.
 
 ## 🆕 22 okt — Codex: ons advies licht op

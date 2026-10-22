@@ -11,6 +11,8 @@ Rob daarna: "waar het vooral om ging": `/mh play` opende op de QUIZ (playCardTab
 "Group" viel buiten het venster (screenshot, tekstgrootte 1,5). Fix PlayCardWindow: Toggle/ShowPlayCardWindow zetten
 "quiz" terug op "play"; tabbladen eerst meten, te breed → padding omlaag (min 6) en zo nodig SetTextScale (min 0,7).
 ✅ GEMETEN Rob: "/mh play opent op Your buttons en Group past."
+✅ GEMETEN Rob (Holy Paladin, 4 screenshots): quiz vraag 1 = één gat, antwoord Avenging Wrath; Intercession "costs 2% of your
+base Mana" (tooltip 5,000 Mana); Dispel alleen Magic zonder talent, Magic/Poison/Disease mét Improved Cleanse.
 
 ## 🛡️ 22 okt (avond) — Holy Armaments begint als Holy Bulwark
 
