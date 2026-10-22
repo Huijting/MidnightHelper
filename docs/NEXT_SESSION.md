@@ -58,6 +58,19 @@ met een gelijkspel bovenaan. Ook: "Enchant Weapon - " voor de naam weg (alles na
 (1/0.5/0.1; leek geel). Niet opnieuw in het spel gezien.
 🔜 Klein, gezien op dezelfde screenshot: "1 slots are maxed on Hero" (track-plafond-regel, enkelvoud ontbreekt).
 
+🧪 Codex, Rob 22 okt (screenshot, advies werkt): (1) "is er niet inmiddels nieuwe informatie?" → mh-research: NIETS
+veranderd sinds 19 okt, alle 5 regels blijven (GEMETEN: hotfixes 20+21 okt zonder gift/Codex; wago: 58 gift-spells
+gelijk in 12.1.5.70340/70391/70448 en PTR 70424; 20 gidspagina's, alleen Wowhead Labyrinth 21 okt nieuwer en die
+noemt geen gift). Niet te zien: server-side getallen. Rapport: side-session-notes codex_recheck_2026-10-22.md.
+(2) "een knop dat we automatisch kiezen wat wij adviseren?" → mh-research: technisch JA. GEMETEN: gift-knop roept
+C_PlayerChoice.SendPlayerChoiceResponse(buttonID) aan, geen HasRestrictions, geen combat-check in Blizzards code;
+popup alleen als de knop een `confirmation` heeft. RISICO: een VERGRENDELDE gift kost meteen 8 souls (forum 29 aug:
+iemand verloor er 16 in een raid); MH kan vergrendeld/vrij nog niet onderscheiden (Robs dumps hadden beide plekken
+vol). Wisselen = 2 klikken (actieve uit, nieuwe aan); ID's veranderen (13-24, 25-36, 49-60) → elke keer vers lezen.
+Robs souls-log: 12× −8 → AFGELEID alle 12 vrij. Te meten in de client: werkt een aanroep zonder muisklik; hoe ziet
+een vergrendelde gift eruit (account met een dichte gift nodig, Cisca?). CodexAdvicePanel-kop zegt nu bewust "klikt
+nooit". Rapport: codex_autopick_2026-10-22.md. Rob kiest.
+
 🖼️ "How you play" (Rob, screenshot: "als je scrollt ben je de tabbladen boven kwijt"): spec-iconen en tabbladen staan
 nu op een vaste kop (`win.head`), alleen de kaart eronder scrolt. ✅ Rob 22 okt (Frost-screenshot): "de tabs blijven staan".
 📅 Rob (zelfde screenshot): "onderin de data van wanneer we voor het laatst gecontroleerd hebben … we hebben pas alles
