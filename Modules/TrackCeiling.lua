@@ -126,10 +126,12 @@ function ns.GetTrackCeilingSteps()
 		return {}
 	end
 	local text
+	-- Singular keys (Rob's screenshot, 22 Oct 2026: "1 slots are maxed on Hero"), same fix as CHARPANEL_SOCKET_ONE.
+	local one = maxed == 1
 	if trackName then
-		text = (ns:L("TRACKCEIL_MAXED_FMT")):format(maxed, trackName)
+		text = (ns:L(one and "TRACKCEIL_MAXED_ONE_FMT" or "TRACKCEIL_MAXED_FMT")):format(maxed, trackName)
 	else
-		text = (ns:L("TRACKCEIL_MAXED_PLAIN_FMT")):format(maxed)
+		text = (ns:L(one and "TRACKCEIL_MAXED_PLAIN_ONE_FMT" or "TRACKCEIL_MAXED_PLAIN_FMT")):format(maxed)
 	end
 	return { { text = text, color = "warn" } }
 end

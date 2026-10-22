@@ -99,7 +99,6 @@ ns.KEEP_ENGLISH_FOR = {
 	frFR = {
 		TAB_GUIDE = "kept English on purpose (frFR cleanup 7 Oct 2026)",
 		TAB_MACROS = "kept English on purpose (frFR cleanup 7 Oct 2026)",
-		ALT_COL_UNDERCOINS = "kept English on purpose (frFR cleanup 7 Oct 2026)",
 		DELVE_SHARE_BTN_BOSS = "kept English on purpose (frFR cleanup 7 Oct 2026)",
 		DELVE_SHARE_TEST_MODE = "kept English on purpose (frFR cleanup 7 Oct 2026)",
 	},

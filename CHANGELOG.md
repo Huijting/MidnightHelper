@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.11.0
+
+📌 **2026-10-22, RELEASE (Rob: "Maak maar af en doe een 4.11 release... evt andere dingen kunnen in een .1 release").**
+Tag `v4.11.0`. In-game: CHANGELOG_4110_0 (nu de gewone beta-uitnodiging) + _8.._11. `RELEASE_NOTES.md` =
+`docs/CURSEFORGE_4.11.0.md` (byte-identiek, GEMETEN). Sinds beta 2 erbij, NIET in het spel gezien tenzij genoemd:
+- **Labyrinth:** touw-uitweg bij 0 levens, 1 sleutel per coffer (GEMETEN Rob), Gilded Stash telt het Labyrinth
+  (GEMETEN Rob, 1/4).
+- **Codex:** dichte achtergrond + gifts weer herkend (GEMETEN Rob), situatie aanklikken = gifts lichten op, souls-stuk.
+- **Karaktervenster:** kleur per enchant-slot (GEMETEN Rob op Frost: werkt; gelijkspel-fix daarna), `Modules/EnchantIds.lua`.
+- **How you play:** scrollen + vaste tabs (GEMETEN Rob), opnieuw opbouwen na schalen (GEMETEN Rob), controledatum;
+  workflow `playcard-finish`: healer-kaarten + 71 onzekere punten beslist, 49 sleutels; eigen Stay-alive-zinnen
+  (Demon Spikes, Deep Breath, Survival of the Fittest); Disc Power Infusion, Holy Apotheosis, Holy fight-alone.
+- **Vensters tot 0,5**, enkelvoud "1 slot is maxed", clientnamen (Undercoin enz.).
+
 ## 4.11.0 (beta2)
 
 📌 **2026-10-21 (avond), BETA 2 (Rob: "Ja, maak er 4.11.0-beta2 van, go voor de tag, en seint de site-chat.").** Tag

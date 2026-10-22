@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 🚀 22 okt (middag) — RELEASE 4.11.0 (Rob: "Maak maar af en doe een 4.11 release... evt andere dingen kunnen in een .1 release")
+
+- In-game: CHANGELOG_4110_0 = gewone beta-uitnodiging, + _8 (Labyrinth touw/sleutel/Gilded Stash), _9 (Codex), _10
+  (karaktervenster), _11 (How you play + vensters 0,5). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.0.md` (byte-identiek,
+  GEMETEN met een script). CHANGELOG.md bijgewerkt. TOC stond al op 4.11.0.
+- Laatste werk erin: enkelvoud "1 slot is maxed" (TRACKCEIL_MAXED_ONE_FMT/_PLAIN_ONE_FMT, alle talen); clientnamen
+  gemeten (mh-research, wago 12.1.5.70448, 36 van 38; rapport side-session-notes `client_names_2026-10-22.md`) en
+  vervangen door mh-writer: Undercoin (de Lorenmünze, fr Sous-pièce, es Inframoneda, pt Fundobrão, it Sottomoneta,
+  ru Подземная монета), Naleidea, Kinduru ru, de toy, 18 talentnamen, 11 Kindo'jan-spells, esMX eigen namen.
+  KeepEnglish: frFR ALT_COL_UNDERCOINS eruit. 3 dode fill-regels (ALT_COL_UNDERCOINS de/it, ALT_TOOLTIP_UNDER_MANA_FMT
+  it) door mij weggehaald; lint 0 HARD.
+- 🔜 **4.11.1** (Rob: "evt andere dingen kunnen in een .1 release"):
+  - Verzonnen Undercoin-namen die niet Engels zijn en dus bleven: de "Untermünzen" (ALT_TOOLTIP_UNDER_MANA_FMT), es
+    "Submonedas" (3 sleutels), pt "Moedas subterrâneas"/"Moedas inferiores" → de gemeten naam.
+  - `Locales/Codex.lua` (48 treffers) en `Locales/DelveTips.lua` (7) zijn NIET nagelopen op de gemeten namen.
+  - Nog Engels, niet gemeten: Lay on Hands, Divine Shield, Forbearance, Blessing of Protection, Master of Warfare, Vile
+    Bolt (Sha'Kuro), Amani Headhunters, "Hash'ey" in achievementtitels; esMX "Kindo'Jan" (hoofdletter J in de client).
+  - Er'inye en "Delver's HQ" (Silvermoon) staan niet in Blizzards data → in Robs client aflezen.
+  - Kinduru-hotfix in de 0-levens-tip (Robs keuze), Crimson Tempest (Robs keuze), Earth Elemental/Primordial Bond.
+  - De kleinere kaartpunten uit playcard-finish (Guardian Spirit "giant hit", 257 WAOE, 256 TERMS, Feral W2, Roar).
+
 ## 🧾 22 okt (middag) — kaarten af: healers nagelopen + de 71 onzekere punten beslist
 
 Rob: "bij deze ja … ga door tot je klaar bent en zeker weet". Workflow `playcard-finish` (run wf_2af3ef19-471, 53 agents,
