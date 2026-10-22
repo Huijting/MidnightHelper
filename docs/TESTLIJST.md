@@ -79,11 +79,9 @@ weg → nu vast bovenaan:
 
 ✅ Rob 22 okt: stap 1-3 van de testronde (How you play, karaktervenster, kleiner maken) kloppen allemaal.
 Eerst `/reload`. Op je Elemental Shaman, tekstgrootte zoals je hem nu hebt (1,5).
-- [ ] `/mh play`: het venster is nooit hoger dan je scherm. Is de kaart langer, dan staat rechts een smal goud balkje
-      en scrolt het **muiswiel** de kaart. Zet het venster eerst terug op normale grootte (Shift+scroll omhoog).
-- [ ] Shift+scroll omlaag en weer omhoog: de regels lopen **niet** meer over elkaar (stap 2 "Why" niet over stap 3 enz.).
-- [ ] Ga met de muis over een gele spellnaam in de tekst, ook na een stukje scrollen: komt de spell-tooltip nog?
-      En over een icoontje?
+- [x] ✅ Rob 22 okt: `/mh play` scrolt met het muiswiel, nooit hoger dan het scherm.
+- [x] ✅ Rob 22 okt: na Shift+scroll lopen de regels niet meer over elkaar.
+- [x] ✅ Rob 22 okt: spell-tooltips op de gele namen werken, ook na scrollen.
 - [ ] Klik een andere tab ("Stay alive") en terug: de kaart begint weer bovenaan.
 
 ## 🆕 22 okt — alle vensters kleiner (Shift+scroll tot 0,5)
@@ -91,7 +89,7 @@ Eerst `/reload`. Op je Elemental Shaman, tekstgrootte zoals je hem nu hebt (1,5)
 Eerst `/reload`.
 - [x] ❌ Rob 22 okt: kleiner gaat, maar dan te klein om te lezen, en regels lopen over elkaar. → morgen: opnieuw
       opbouwen na schalen + scrollen (zie NEXT_SESSION).
-- [ ] Steekproef: Delve Coach, het bazenvenster, het Consumables-bord en het Achievements-venster gaan ook tot 0,5.
+- [x] ✅ Rob 22 okt (stap 3 van de testronde): ook de andere vensters gaan tot 0,5.
 
 ## 🆕 22 okt — Codex: wat je met overgebleven Corrosive Souls doet
 
