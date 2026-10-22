@@ -6627,3 +6627,156 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     wachter-bestanden stond gewijzigd-maar-ongecommit. De `pull --rebase` daarna was een
     **fast-forward naar `bbdd3c2`** met één bestand: `docs/PTR_12.1_WATCH.md` (+3 regels) — de
     PTR/roadmap-wachter van 05:40, niet mijn bestand, niet aangeraakt.
+- [2026-10-22] ✅ **Nul [MOET GEFIKST]. En het MEETGAT VAN GISTEREN IS DICHT — warcraft.wiki.gg was
+  vandaag op alle routes leesbaar, en de volledige revisielijst bewijst ACHTERAF dat er op 17 t/m 22
+  okt niets aan de API-pagina's veranderd is. Ik pak de reeks dus niet stilletjes op: ik meet hem
+  terug. Verder: nieuwe hotfix-batch (21 okt) zonder addon-/UI-sectie, vier nieuwe forumposts zonder
+  API-naam waarvan één technisch echt iets zegt (Slider-floats, [AL AFGEDEKT]), geen nieuwe
+  SimC-release, geen nieuwe tag.**
+  - ✅ **HET MEETGAT VAN 20–21 OKT IS RETROACTIEF GESLOTEN, en dat is sterker dan "vandaag weer
+    leesbaar".** GEMETEN langs twee onafhankelijke routes mét cache-buster, die het eens zijn:
+    `rest.php/v1/page/Patch_12.1.7%2FAPI_changes/history` en
+    `api.php?action=query&prop=revisions`. Beide geven als nieuwste revisie **`6919765`**,
+    **2026-10-16T22:38:53Z**, Ketho, commentaar `/* Blue posts */`, `size` 1541, `delta` -87.
+    🔴 **De kneep: die history bevat in totaal maar VIER revisies** (`6919765`, `6919682`,
+    `6919202`, `6919200` — de oudste is Meorawrs *"Initial change summary"* van 16 okt 17:01:21Z).
+    Er is dus geen revisie ná 16 okt, en dat is geen "ik zie vandaag hetzelfde getal" maar een
+    volledige lijst zonder gat. **De dagen 20 en 21 okt, die ik niet kon meten, zijn daarmee
+    alsnog gedekt**: er kan niets geweest zijn dat later is teruggedraaid, want dan stond er een
+    revisie tussen. 📌 Dit is precies wat ik gisteren als voorwaarde opschreef ("pak de reeks niet
+    stilletjes weer op") — hij mocht alleen doorlopen als de reeks zélf te meten was. Dat is nu zo.
+    - 📄 **Inhoud onveranderd en al gelogd:** de pagina noemt nog exact twee dingen, de
+      GUID-obfuscatie (*"The server ID and spawn ID portions of cast, creature, vehicle, pet, and
+      game object GUIDs have been replaced with obfuscated values … stable and unique within the
+      current client session, but cannot be compared between clients or persisted beyond restarts"*,
+      mét *"This change will be available for testing in a future build of 12.1.7"*) en de
+      TOC-regel (*"TOC directives no longer expand variables such as [Game] or [Family]. Instead,
+      these lines are entirely skipped"*, mét de uitzondering *"Directives containing conditional
+      expressions such as [AllowLoadGameType ...] continue to function normally"*). Beide staan
+      hier al (17 okt resp. 16 en 18 okt). `TOC: 120107`. Niets nieuws te toetsen.
+    - ✅ **`Patch 12.1.5/API changes` idem onveranderd:** nieuwste revisie **`6919763`**,
+      **2026-10-16T22:38:41Z**, Ketho, `/* Blue posts */`. Daarachter pas 14 okt.
+    - ⏳ **Nog GEEN `Patch 12.2.0/API changes`-pagina, en dit keer hard gemeten.** De history-route
+      geeft **`CRAWL_NOT_FOUND`**. 🔴 **Positieve controle in dezelfde run en dezelfde route:**
+      exact dezelfde URL-vorm gaf voor 12.1.7 en 12.1.5 wél een volle revisielijst. De NOT_FOUND is
+      dus echt en geen blokkade. ⚠️ Wel nieuw op de 12.1.7-pagina zelf: *"Next patch: Patch
+      12.2.0."* — de pagina wijst 12.2.0 aan als opvolger, maar die pagina bestaat nog niet. Wát
+      12.2.0 gaat brengen is het terrein van de PTR/roadmap-wachter; ik meld alleen dat er nog geen
+      API-pagina is om te lezen.
+  - 🧩 **[AL AFGEDEKT] — de enige technisch inhoudelijke forumpost van de week, en hij raakt echt
+    iets dat wij hebben: Slider-waarden zijn 32-bits floats.** `#ui-macro` topic **`2385490`**
+    post **#4** (Sharpedge / Fateswarning-jaedenar, **2026-10-19T12:19:24.488Z**), volledig gelezen
+    via `raw/2385490/4`: *"the Slider widget stores its value in the C code as a 32 bit float. The
+    number 1.1 simply does not exist in that format … So the moment 1.1 goes into the slider, it
+    becomes … 1.10000002384185791015625"*, met als test `optionsPanel.Slider:SetValue(1.1)` →
+    `print(optionsPanel.Slider:GetValue())` → `1.1000000238419`, en als conclusie *"Any value you
+    read out of a Slider (or anything else the C side stores as a float, like frame scale or alpha)
+    will show this, which is why formatting the label and rounding before saving is the standard
+    pattern."*
+    - ⚠️ **Eerst de eerlijke weging: dit is GEEN API-wijziging.** Het is al jaren zo, het is een
+      spelerspost en geen blue post, en er staat geen 12.1.x-build bij. Hij staat hier omdat hij
+      binnen 7 dagen valt, op mijn forum staat, en MH twee sliders met **stap 0.1** heeft — precies
+      het geval dat de post beschrijft. Getoetst dus, niet overgenomen.
+    - 🔴 **MH leest NOOIT een waarde uit een Slider terug. GEMETEN, mét positieve controle in
+      dezelfde run en dezelfde reikwijdte** (`.git`, `docs`, `tools`, `dist` uitgesloten):
+      `:GetValue()` → **nul** treffers; `:SetValue(` → **7** treffers
+      (`Modules/CombatSafety.lua:353`, `:741`, `Addons/Guide.lua:251`, `:944`, `UI.lua:2322` —
+      allemaal schrijfacties naar een scrollbar of progressbar, nooit een leesactie). Het patroon
+      vindt dus wél wat er is; de nul is echt.
+    - ✅ **En de twee sliders met stap 0.1 ronden al af in hun label-formatter — exact het
+      "standard pattern" uit de post.** `Modules/SettingsDefs.lua:417` `mh_bossScale` (0.7–1.8,
+      stap 0.1) formatteert op `:421-422` met `("%.1f"):format(v)`; `Modules/SettingsDefs.lua:579`
+      `mh_fontScale` (0.8–1.6, stap 0.1) op `:584-585` met
+      `("%d%%"):format(math.floor(v * 100 + 0.5))`. Beide gaan via `Settings.CreateSlider`
+      (`Modules/NativeSettings.lua:122-126`), niet via een kale Slider.
+    - ✅ **De setters rekenen en klemmen, ze vergelijken niet.** `ns.SetBossWindowScale`
+      (`Modules/DungeonBossWindow.lua:1658-1674`) klemt met `<` en `>` tegen `MIN_SCALE`/`MAX_SCALE`;
+      `ns.ApplyContentFontScale` (`Core.lua:454-473`) doet `math.max(6, b.size * s)`. Een afwijking
+      van 0,0000002 verdwijnt daarin.
+    - 🔴 **De doodsteek, want dít zou het wél stuk maken: vergelijking met een gebroken getal
+      bestaat niet in deze addon.** `[=~]= *[0-9]*\.[0-9]+` → **nul** treffers over de hele addon.
+      **Positieve controle, zelfde reikwijdte en zelfde patroonvorm:** `[=~]= *[0-9]+` (hetzelfde,
+      maar op een heel getal) geeft treffers in **159** bestanden. ⚠️ Werktuignoot: mijn eerste
+      poging ketende deze twee greps met `&&`, waardoor de lege uitslag de positieve controle
+      afbrak en er niets gemeten was. Opnieuw gedraaid met `;`. Een lege grep die zijn eigen
+      controle wegslikt is precies de val uit CLAUDE.md.
+    - 📎 **Wat er WEL blijft staan, en het is geen defect:** de ruwe float gaat ongerond de
+      SavedVariables in (`GetWinSettings().scale` in `Modules/DungeonBossWindow.lua:1668`,
+      `ns.db.ui.fontScale` in `Core.lua:456`). Op schijf kan dus `1.10000002384185791` staan waar
+      Rob `1.1` koos. Dat is vandaag onschadelijk omdat niets die waarde vergelijkt — het is alleen
+      het soort ding dat later bijt als iemand ooit `if scale == 1.1 then` schrijft. **Niets
+      aangeraakt; ik meld het, ik repareer het niet.**
+  - ✅ **[RAAKT ONS NIET] — nieuwe hotfix-batch van 21 okt, gelezen via de enige route die werkt.**
+    GEMETEN mét cache-buster op `raw/2382684/1`: bovenaan staat nu **"October 21, 2026"**, waar
+    gisteren "October 20, 2026" de kop was. Secties: *Labyrinth* (Kinduru als uitgang tijdens het
+    Kindo'jan-scenario, L00T RAID-R Minis in groep, de *"A Golden Opportunity"*-hendel vanaf level 80,
+    tot 4 stacks *Carrying a Jan'alai Tear*, Pit Boss die niet meer despawnt in *"Returning the
+    Bounty"*), *Items* (Seriously Sharp Seashell dat stealth brak, Jan'thrazet the Soul Fang voor
+    healers, de Nebulous Voidcache-previewlijst — *"This was only a display issue"*) en *Player
+    versus Player* (Holy Priest: Sanctified Ground dat Divine Hymn onderbrak).
+    🔴 **Geen UI-, addon- of API-sectie, dus op mijn terrein niets te toetsen.** De inhoud is het
+    terrein van de content- en datawachter; ik noem het zodat zichtbaar is dát ik de batch gelezen heb.
+    - 📌 **De les van gisteren hield stand en is het herhalen waard:** `raw/<topic>/1` is de enige
+      betrouwbare weg bij een topic die wordt BIJGEWERKT in plaats van heropend. Topic `2382684` is
+      op 15 okt aangemaakt; een `after:`-filter op aanmaakdatum zou deze batch van 21 okt principieel
+      nooit zien.
+  - 🔇 **[RAAKT ONS NIET] — forum `#ui-macro` sinds 19 okt: vier posts die hier nog niet stonden,
+    nul API-namen.** Via `search.json?q=#ui-macro after:2026-10-19` mét cache-buster, op post-id
+    gecontroleerd tegen dit logboek:
+    - **topic `2315684`, post #19** (vinny / Imrllyaguy-whitemane, **2026-10-22T02:46:09.919Z**),
+      volledig gelezen: *"on era and anni it works as it always has i noticed in the forever beta it
+      is broken"* — interact-on-mouseover in de **Forever-beta**, een andere client dan Retail. Geen
+      API-naam, geen CVar-naam, en niet onze client.
+    - **topic `2367394`, post #13** (Cozzene / Dlilahmorreo-wild-growth, **2026-10-20T08:57:53.460Z**):
+      legt uit wát de chat-focus-addon doet (*"you can click anywhere while you're typing in chat
+      without the 'focus' on the chat being lost"*). Inhoudelijk vervolg op de `GLOBAL_MOUSE`-draad
+      die hier al staat; geen API-naam.
+    - **topic `24534`, posts #14 en #15** (**2026-10-21/22**, laatste post 2026-10-22T01:31:51.349Z):
+      spelers die in *"UI Add-On Development Policy"* **Kaivax' post #1 uit 2018** citeren
+      (*"Developers may not create 'premium' versions of add-ons with additional for-pay features"*)
+      naar aanleiding van de betaalde-addon-klacht van 20 okt. 🔴 **Expliciet, want hier zou ik mezelf
+      kunnen misleiden: dit is GEEN nieuwe of gewijzigde addon-policy.** Het is het bestaande beleid
+      dat wordt aangehaald; er staat geen blue reply onder en de policy-tekst zelf is niet aangeraakt.
+    - 🔴 **GEMETEN dat er geen blue post is, mét positieve controle.** `#ui-macro @Kaivax
+      after:2026-10-15` → **`"posts":[]`**, leeg. Zonder datumfilter geeft `#ui-macro @Linxy` wél
+      precies één treffer (*"Macro Changes Now Live: Target Markers and Chat Messages"*, topic
+      `2261956`, **2026-03-01T21:33:32.080Z**). De zoekvorm werkt; de leegte is echt.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-02`.** GEMETEN langs twee wegen mét
+    cache-buster: `releases?per_page=4` geeft bovenaan nog steeds **`12.1.5-02`**, `published_at`
+    **2026-10-19T20:39:12Z**, `github-actions[bot]`, met dezelfde `body` (*"forever: Add legacy
+    talents, ranged, ammo, and bags / Also cleaned up detection of Retail vs Forever"*); en
+    `commits/master.atom` heeft als nieuwste commit nog
+    **`b0cce8ecfccd0c5ff2fb4942135e9c0589c2c5d7`** (seriallos, **2026-10-19T20:38:11Z**), daarachter
+    `8741352…` (*"12.1.5 release"*, 12 okt). Geen nieuwe commit op master, dus ook geen release in de
+    maak. Niets te toetsen aan `ItemString`/`ns.BuildSimcProfile`.
+    - 📎 **Onveranderd open, en vandaag niet opnieuw gemeten:** het kopcommentaar van
+      `Modules/SimcExport.lua:12-15` zegt nog dat MH de addon volgt *"at release 12.1.0-04 … still in
+      12.1.5-alpha-01"*, terwijl upstream op `12.1.5-02` staat en de code daar al op volgt. Een
+      comment, geen gedrag; niet aangeraakt.
+  - ⏳ **ONGEWIJZIGD EN NIET NIEUW: het API-gat tussen build 69952 en 70448 staat nog open.** GEMETEN
+    via `api.github.com/repos/Gethe/wow-ui-source/tags?per_page=4` mét cache-buster: `12.1.7`
+    **`b87363e0770c2f15b1e2f154de8ad3b0cf3ea90a`** en `12.1.5`
+    **`b9be9379719047977fca4dba1bb1d9988e8840b3`**, beide byte-identiek aan gisteren én aan 20 okt;
+    daarachter pas `12.1.0` (`a89e9d0c…`) en `12.0.7` (`345da592…`). Geen nieuwe tag, dus nog altijd
+    geen bron die beschrijft wat er tussen 69952 en 70448 aan API veranderd is. Staand gat, geen nieuws.
+    - ✅ **Werktuignoot die zich terugbetaalde:** ik ben vandaag meteen bij Exa op `api.github.com`
+      begonnen en heb geen `gh`-poging verspild — de sessie is gescoped op `huijting/midnighthelper`,
+      dus `gh api repos/Gethe/…` geeft 403. De aantekening van gisteren klopte.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de `%d+`-aanname op
+    veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/
+    `:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon tegenover negen
+    wiki-secties; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug); de UTF-8
+    **BOM** vooraan `MidnightHelper.toc` waardoor `grep -E "^## Interface"` nul geeft; en de
+    client-test voor `/mh raidbots` naast de export van de SimulationCraft-addon zelf.
+    🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, en **geen** van de vier wachter-bestanden stond
+    gewijzigd-maar-ongecommit. ⚠️ **Wel een afwijking gezien en gerepareerd binnen mijn grens:** de
+    werkmap stond op een **detached HEAD** op `ab7528e`, terwijl de lokale `main` 47 commits achterliep
+    op `536ff595` (de stand van mijn eigen run van gisteren). GEMETEN met
+    `git merge-base --is-ancestor` dat `536ff595` een voorouder van `ab7528e` is — dus geen divergentie,
+    alleen achterstand. `git checkout main` + `git pull --rebase origin main` was daarmee een schone
+    **fast-forward** (58 bestanden, +4113/-2045, o.a. nieuw `Modules/KeysHub.lua` en
+    `docs/CURSEFORGE_4.11.0.md`) naar `ab7528e` = `origin/main`. Niets geforceerd, niets overschreven.
