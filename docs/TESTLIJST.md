@@ -46,7 +46,7 @@ Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met 
 
 - [x] ✅ GEMETEN Rob 22 okt (terug naar Lightsmith): Rite of Adjuration staat op Shift+R, de "Not in … list"-regel is weg.
 - [x] ❌ Rob: "Cheat sheet (code for the website)" viel buiten zijn knop → knoppen onderaan maken hun tekst passend.
-- [ ] `/reload`, toetsenblok: alle knoppen onderaan hebben hun tekst binnen de knop (ook "Put '…' back").
+- [x] ✅ Rob 22 okt (screenshot): "past nu" — Cheat sheet en "Put 'Twelveinchy Holy' back" binnen hun knop.
 
 ## 🆕 22 okt (avond) — quiz: geen dubbele gaten meer
 
