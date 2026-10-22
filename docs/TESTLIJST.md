@@ -71,7 +71,7 @@ Eerst `/reload`, op een level-90, karaktervenster open (C).
 weg → nu vast bovenaan:
 - [x] ✅ Rob 22 okt (Frost-screenshot): de spec-icoontjes en de tabbladen blijven bovenaan staan.
 - [ ] Onderaan de kaart (Frost, Elemental, …): na "From the guides: …" staat nu "Every line checked against the guides
-      and Blizzard's game data on 21 Oct 2026." Op een healer-kaart (Holy Paladin, Resto Druid …) staat die zin niet.
+      and Blizzard's game data on 21 Oct 2026." Op een healer-kaart (Holy Paladin, Resto Druid …) met "22 Oct 2026".
 
 Eerst `/reload`. Op je Elemental Shaman, tekstgrootte zoals je hem nu hebt (1,5).
 - [ ] `/mh play`: het venster is nooit hoger dan je scherm. Is de kaart langer, dan staat rechts een smal goud balkje
