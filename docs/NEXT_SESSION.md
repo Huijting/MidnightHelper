@@ -50,6 +50,14 @@ met BCP-tekst naast dezelfde knop, plek meten); C de kleur per slot in MH's eige
   rest mh-writer (eigen vertaling; ru in ruRU.lua). 🔜 Clientnaam-regel: het woord voor "rank" (crafting-tier) is in
   geen pack gemeten; mh-writer nam het pack-woord voor kwaliteit (Rang/rang/rango/nível/grado/ранг). Lint 0 HARD.
 
+✅ GEMETEN Rob 22 okt (screenshot karaktervenster, Frost Mage): paneel werkt, regels per slot, rood/groen/geel kloppen
+met BCP ("No Enchant" op helm/borst/laarzen). 🐛 Wapen Arcane Mastery + 2× Zul'jin's Mastery stonden op "not our advice":
+GEMETEN oorzaak: VAULT_ADVISOR_SPEC_WEIGHTS MAGE_64 mastery = crit = 1.00 en TopStat() houdt bij gelijkspel de eerste
+(crit). Fix: TopStatsTied() → beide tellen, ook in het Enchants-advies (ByStatLinks). GEMETEN: Frost Mage is de ENIGE spec
+met een gelijkspel bovenaan. Ook: "Enchant Weapon - " voor de naam weg (alles na de laatste " - "), oranje feller
+(1/0.5/0.1; leek geel). Niet opnieuw in het spel gezien.
+🔜 Klein, gezien op dezelfde screenshot: "1 slots are maxed on Hero" (track-plafond-regel, enkelvoud ontbreekt).
+
 🖼️ "How you play" (Rob, screenshot: "als je scrollt ben je de tabbladen boven kwijt"): spec-iconen en tabbladen staan
 nu op een vaste kop (`win.head`), alleen de kaart eronder scrolt. ✅ Rob 22 okt (Frost-screenshot): "de tabs blijven staan".
 📅 Rob (zelfde screenshot): "onderin de data van wanneer we voor het laatst gecontroleerd hebben … we hebben pas alles

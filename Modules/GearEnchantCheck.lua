@@ -305,6 +305,30 @@ local function TopStat()
 	return bestStat
 end
 
+--- Every stat tied for the top weight, in a fixed order. TopStat() keeps the FIRST of a tie (haste, crit, mastery,
+--- vers), so for Frost Mage (Mastery = Crit, both 1.00) it said crit and the character panel called Rob's mastery
+--- rings and weapon "not our advice" (22 Oct 2026, his screenshot). A tie means both are our advice.
+local function TopStatsTied()
+	local key = SpecWeightKey()
+	local w = key and ns.VAULT_ADVISOR_SPEC_WEIGHTS and ns.VAULT_ADVISOR_SPEC_WEIGHTS[key]
+	if not w then
+		return nil
+	end
+	local best
+	for _, stat in ipairs({ "haste", "crit", "mastery", "vers" }) do
+		if w[stat] and (not best or w[stat] > best) then
+			best = w[stat]
+		end
+	end
+	local out = {}
+	for _, stat in ipairs({ "haste", "crit", "mastery", "vers" }) do
+		if best and w[stat] == best then
+			out[#out + 1] = stat
+		end
+	end
+	return #out > 0 and out or nil
+end
+
 -- Volledige stat-rangschikking (top → laag) voor de gem-aanrader: order[1] = beste
 -- secundaire stat, order[2] = tweede-beste. nil = onbekende spec/geen weights.
 local function RankedStats()
@@ -574,6 +598,18 @@ local function LinkOf(map, e)
 	return e.ah or "?"
 end
 
+--- The by-stat pick as rendered links, one per stat tied at the top (TopStatsTied), joined with " / ". Falls back to
+--- `stat` alone when the weights could not be read. nil = no by-stat pick.
+local function ByStatLinks(byStatMap, stat, map)
+	local parts = {}
+	for _, st in ipairs(TopStatsTied() or { stat }) do
+		if byStatMap[st] then
+			parts[#parts + 1] = LinkOf(map, byStatMap[st])
+		end
+	end
+	return #parts > 0 and table.concat(parts, " / ") or nil
+end
+
 -- Aanbevolen enchant-tekst (gerenderde links) per slot, of nil = geen suggestie.
 local function Recommend(slotId, stat, map)
 	if slotId == 16 then
@@ -583,7 +619,7 @@ local function Recommend(slotId, stat, map)
 		if classToken == "DEATHKNIGHT" then
 			return nil
 		end
-		local byStat = stat and WEAPON_BY_STAT[stat] and LinkOf(map, WEAPON_BY_STAT[stat]) or nil
+		local byStat = ByStatLinks(WEAPON_BY_STAT, stat, map)
 		local hashey = " / " .. LinkOf(map, WEAPON_HASHEY)
 		-- Tanks and healers lead with the primary-stat proc; damage specs lead with their
 		-- secondary. Both are offered either way — one guide's survey is a strong hint and
@@ -612,7 +648,7 @@ local function Recommend(slotId, stat, map)
 		--- guide majority is not a rule and the footer already says to check a class guide
 		--- for true best-in-slot.
 		local first = LinkOf(map, RING_EFFECT)
-		local byStat = stat and RING_BY_STAT[stat] and LinkOf(map, RING_BY_STAT[stat]) or nil
+		local byStat = ByStatLinks(RING_BY_STAT, stat, map)
 		if byStat then
 			return ns:L("ENCHANT_PICK") .. " " .. first .. " / " .. byStat
 		end
@@ -801,26 +837,31 @@ end
 --- The advice entries Recommend() would show for this slot, as a flat list, plus whether the advice could be fully
 --- worked out. `complete = false` when it leans on a stat we could not read: then an enchant outside the list is
 --- "can't tell", not "not our advice".
-local function AdviceFor(slotId, stat)
+local function AdviceFor(slotId, stats)
 	local list, complete = {}, true
 	local function add(e)
 		list[#list + 1] = e
 	end
+	-- The by-stat enchant for every stat tied at the top (TopStatsTied).
+	local function addByStat(map)
+		local any = false
+		for _, st in ipairs(stats or {}) do
+			if map[st] then
+				add(map[st])
+				any = true
+			end
+		end
+		if not any then
+			complete = false
+		end
+	end
 	if slotId == 16 then
 		add(WEAPON_PRIMARY)
 		add(WEAPON_HASHEY)
-		if stat and WEAPON_BY_STAT[stat] then
-			add(WEAPON_BY_STAT[stat])
-		else
-			complete = false
-		end
+		addByStat(WEAPON_BY_STAT)
 	elseif slotId == 11 or slotId == 12 then
 		add(RING_EFFECT)
-		if stat and RING_BY_STAT[stat] then
-			add(RING_BY_STAT[stat])
-		else
-			complete = false
-		end
+		addByStat(RING_BY_STAT)
 	elseif slotId == 5 then
 		add(CHEST_PRIMARY)
 	elseif slotId == 1 then
@@ -876,6 +917,9 @@ local function ClientEnchantName(slotId)
 		return nil
 	end
 	t = t:gsub("|A:[^|]*|a", ""):gsub("%s+$", "")
+	-- "Enchant Weapon - Arcane Mastery" -> "Arcane Mastery" (Rob's screenshot, 22 Oct 2026: the slot name is already in
+	-- front of it). Language-neutral: keep what follows the last " - ", whatever the client calls the prefix.
+	t = t:match(".* %- (.+)$") or t
 	return t ~= "" and t or nil
 end
 
@@ -889,7 +933,7 @@ function ns.GetGearEnchantSlots()
 	if not GetInventoryItemLink then
 		return nil
 	end
-	local stat = TopStat()
+	local stats = TopStatsTied()
 	local _, classToken = UnitClass("player")
 	local rows = {}
 	for _, s in ipairs(SLOTS) do
@@ -913,7 +957,7 @@ function ns.GetGearEnchantSlots()
 					row.state = "unknown"
 				else
 					row.rank = known[3]
-					local list, complete = AdviceFor(s.id, stat)
+					local list, complete = AdviceFor(s.id, stats)
 					if AdvisedNames(list)[known[2]] then
 						row.state = "ours"
 					elseif complete then
