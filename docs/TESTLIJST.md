@@ -68,7 +68,10 @@ Eerst `/reload`, op een level-90, karaktervenster open (C).
       de Neck/Wrist-regels → het rapport staat nu in een scrollvak boven de knop; kop "Crit / Mastery" bij gelijkspel.
 - [ ] Opnieuw: Enchants-venster, onderaan niets meer over elkaar; scroll naar de gem-regels; klik op een link → naam in
       het zoekveld.
-- [ ] NIEUW (Rob: "handiger … in een mooie venster … aanklikken om te kopen"): klik op een regel opent nu het
+- [x] ✅ Rob 22 okt (screenshot karaktervenster): "Buy what's missing: shopping list" staat erin; Mastery-wapen en
+      -ringen nu GROEN (gelijkspel-fix); namen zonder "Enchant Weapon -"; "1 slot is maxed on Hero" (enkelvoud).
+- [ ] Klik op "Buy what's missing": opent het boodschappenvenster met Chest/Head/Feet en de Wrist-socket?
+- [ ] (eerder) NIEUW (Rob: "handiger … in een mooie venster … aanklikken om te kopen"): klik op een regel opent nu het
       Enchants-venster van MH (geen chat meer). Mist er iets, dan staat onderaan "Buy what's missing: shopping list":
       dat opent het /mh ready-venster met je ontbrekende enchants en gems; klik daar = zoeken in het veilinghuis.
 - [ ] Op een alt onder level 90: nog de oude regels ("x slots without an enchant").
