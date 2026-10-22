@@ -10,6 +10,7 @@ antwoord 2× in de stap, dan de laatste spell van die stap die maar 1× genoemd 
 Rob daarna: "waar het vooral om ging": `/mh play` opende op de QUIZ (playCardTab = "quiz" onthouden) i.p.v. Your buttons, en
 "Group" viel buiten het venster (screenshot, tekstgrootte 1,5). Fix PlayCardWindow: Toggle/ShowPlayCardWindow zetten
 "quiz" terug op "play"; tabbladen eerst meten, te breed → padding omlaag (min 6) en zo nodig SetTextScale (min 0,7).
+✅ GEMETEN Rob: "/mh play opent op Your buttons en Group past."
 
 ## 🛡️ 22 okt (avond) — Holy Armaments begint als Holy Bulwark
 

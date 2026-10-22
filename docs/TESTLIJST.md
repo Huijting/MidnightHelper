@@ -49,7 +49,7 @@ Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met 
 - [x] ❌ Rob 22 okt: `/mh play` opende op de quiz (vorige keer open gelaten) i.p.v. "Your buttons"; en "Group" viel
       buiten het venster (tekstgrootte 1,5). → quiz wordt bij openen teruggezet op de kaart; tabbladen passen zich aan
       (minder ruimte ertussen, zo nodig kleinere letters).
-- [ ] Na `/reload`: `/mh play` opent op "Your buttons"; alle tabbladen incl. "Group" binnen het venster.
+- [x] ✅ Rob 22 okt: "/mh play opent op Your buttons en Group past."
 - [ ] Na `/reload`: `/mh play` → "Test yourself": vraag 1 vraagt nu naar Avenging Wrath (Divine Toll blijft staan).
       Steekproef op een andere kaart (Feral, Survival Hunter, Affliction, Assassination): nergens twee gaten.
 
