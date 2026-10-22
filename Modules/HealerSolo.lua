@@ -44,9 +44,12 @@ ns.HEALER_SOLO = {
 	[257] = { -- Holy Priest
 		{ ids = { 88625 }, note = "CD" }, -- Holy Word: Chastise (talent)
 		{ ids = { 14914 }, note = "CD" }, -- Holy Fire (talent)
-		{ ids = { 589 }, note = "DOT" }, -- Shadow Word: Pain
+		-- Holy Fire replaces Shadow Word: Pain on its button: with Holy Fire the list showed one button twice (playcard-finish,
+		-- 22 Oct 2026, both routes agreed). `unless` hides the row when that spell is known.
+		{ ids = { 589 }, note = "DOT", unless = 14914 }, -- Shadow Word: Pain
 		{ ids = { 585 }, note = "FILL" }, -- Smite
-		{ ids = { 132157 }, note = "AOE" }, -- Holy Nova
+		-- Holy Nova: 4+ enemies for Holy (guides; Blizzard's Single-Button Assistant 5+), not the shared "three or more".
+		{ ids = { 132157 }, note = "AOE4" }, -- Holy Nova
 	},
 	[264] = { -- Restoration Shaman
 		{ ids = { 470411 }, note = "DOT" }, -- Flame Shock (Resto's own id; 188389 is not learnable for Resto, KeybindRoles_Shaman.lua)
@@ -71,7 +74,7 @@ ns.HEALER_SOLO = {
 local NOTE_KEY = {
 	DOT = "CARD_SOLO_NOTE_DOT", CD = "CARD_SOLO_NOTE_CD", FILL = "CARD_SOLO_NOTE_FILL", AOE = "CARD_SOLO_NOTE_AOE",
 	EXECUTE = "CARD_SOLO_NOTE_EXECUTE", RANGED = "CARD_SOLO_NOTE_RANGED", X3 = "CARD_SOLO_NOTE_X3",
-	AFTER = "CARD_SOLO_NOTE_AFTER", SPEND = "CARD_SOLO_NOTE_SPEND",
+	AFTER = "CARD_SOLO_NOTE_AFTER", SPEND = "CARD_SOLO_NOTE_SPEND", AOE4 = "CARD_SOLO_NOTE_AOE4",
 }
 
 local function Knows(id)
@@ -108,7 +111,9 @@ function ns.HealerSoloSteps(specID, live)
 	local out = {}
 	for _, step in ipairs(def) do
 		local pick
-		for _, id in ipairs(step.ids) do
+		-- Only on your own spec: for another spec "known" answers for the spec you are in.
+		local hidden = live and step.unless and Knows(step.unless)
+		for _, id in ipairs(hidden and {} or step.ids) do
 			if not live or Knows(id) then
 				pick = id
 				break

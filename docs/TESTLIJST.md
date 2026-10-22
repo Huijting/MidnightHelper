@@ -21,6 +21,25 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 okt — kaarten: wat alleen in het spel te beslissen is
+
+Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met een character dat je toch speelt.
+- [ ] Holy Paladin + Lightsmith: na inloggen, muis op de knop op de plek van Divine Toll (nog niet indrukken). Staat er
+      "Holy Bulwark" of "Sacred Weapon"? Daarna één keer op jezelf: wisselt de naam? (De kaart zegt nu: begint als
+      Sacred Weapon; de bronnen verwachten Holy Bulwark.)
+- [ ] Feral Druid 90 met Frantic Frenzy i.p.v. Focused Frenzy: `/mh play` stap 2: staat er "Feral Frenzy" of "Frantic
+      Frenzy", goud of grijs? Klopt de toets?
+- [ ] Shadow Priest, solo, dummy, niet vol leven, geen DoTs op de dummy: Mind Blast zonder en mét Vampiric Embrace.
+      Gaat je leven mét VE duidelijk meer omhoog?
+- [ ] Rogue: Evasion, 3 melee-mobs, eerst aankijken, dan rug toe. Zie je "Dodge" alleen zolang je ze aankijkt?
+- [ ] Affliction Warlock met Grimoire of Sacrifice + Felhunter opgeofferd: `/run print(C_Spell.GetOverrideSpell(119898))`
+      en `/mh survival`. Stuur beide regels.
+- [ ] Arms, Fury of Prot Warrior met Impending Victory: `/mh survival`. Staat er "+ Victory Rush … order 1" of
+      "- Victory Rush … not known (34428)" + "+ Impending Victory"? En staat "only right after a kill" achter Impending Victory?
+- [ ] Op een healer-kaart staat nu ook "Every line checked … on 22 Oct 2026."
+- [ ] Holy Priest met Holy Fire: in "Fight alone" staat Shadow Word: Pain niet meer; Holy Nova zegt "for four or more enemies".
+- [ ] Disc Priest: Power Infusion in de heal-cooldowns zegt "Give it to a damage dealer …".
+
 ## 🆕 22 okt — Codex: ons advies licht op
 
 Eerst `/reload`, dan de Corrosive Codex openen.

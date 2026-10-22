@@ -1,5 +1,33 @@
 # Midnight Helper — waar we staan
 
+## 🧾 22 okt (middag) — kaarten af: healers nagelopen + de 71 onzekere punten beslist
+
+Rob: "bij deze ja … ga door tot je klaar bent en zeker weet". Workflow `playcard-finish` (run wf_2af3ef19-471, 53 agents,
+0 fouten): (1) de 5 healer-kaarten 65/105/256/257/264 met route A + B + reconcile, zoals de 35 op 21 okt; (2) een
+DERDE, beslissende route per klasse over alle 71 "unsure" van 21 okt + de healer-unsure; (3) mh-writer herschrijft,
+toepassen in enUS/nlNL, vertalen de/fr/es+esMX/pt/it/ru. Rapporten: side-session-notes local_d88e4560
+`playcard_finish\` (healer_<spec>.md, decide_<klasse>.md).
+- Healers (zeker): 65 → 6, 105 → 9, 256 → 5, 257 → 9, 264 → 5.
+- Oordelen derde route (83 punten): fix 6 · fine 54 · neutral_wording 15 · needs_client 8 · gone 0.
+- 49 sleutels herschreven + vertaald (lijst in de run-uitkomst; o.a. GROUP_NOTE_INTERCESSION: 2% Mana i.p.v. 3 Holy Power,
+  PLAYCARD_256_W3 Master the Darkness, 105 Abundance-voorwaarde, 264 Healing Rain max 6). check_drift --mark voor alle 49.
+  ZELF GEMETEN: gedeelde sleutels SURVIVAL_NOTE_PHYSICAL (alleen Rogue Evasion), SURVIVAL_NOTE_STRETCH_TIME (alleen
+  Deep Breath), GROUP_NOTE_INTERCESSION (Holy + Ret, beide 2% Mana) → nieuwe tekst klopt overal waar hij staat.
+- Code door mij (beslist "fix" of beide routes eens): Disc Power Infusion → nieuwe HEALCD_WHEN_PI_ALLY (aan een damage
+  dealer; GROUP_NOTE_POWER_INFUSION_2 "op jezelf" staat alleen bij Shadow, GEMETEN); Holy Apotheosis flow → often;
+  HealerSolo Holy: SW:Pain-rij weg zodra Holy Fire bekend is (`unless`), Holy Nova eigen CARD_SOLO_NOTE_AOE4 (4+);
+  577 bronregel naar Method 16 okt · Icy Veins 12 okt · Wowhead 13 okt. Controleregel nu op ALLE 40 kaarten (healers
+  "22 Oct 2026"). Vertalingen van de 2 nieuwe sleutels: mh-writer.
+- 🔜 NIET gedaan (ontwerpkeuze of nieuwe tekst nodig; staat in de run-uitkomst `codeNotes`): DH Demon Spikes eigen
+  survivalNote (Feed the Demon); Evoker Deep Breath per-spec survivalWhen ("druk hem zodra hij klaar is" voor
+  Scalecommander); Hunter Survival of the Fittest/Roar eigen survivalWhen (gedeelde "press it often" past niet);
+  Rogue Crimson Tempest category spender → main_rotation (AoE-builder, GEMETEN wago) — toets blijft Shift+5, Robs
+  keuze; Rogue Evasion eigen sleutel i.p.v. SURVIVAL_NOTE_PHYSICAL; Rogue 261 HERO-volgorde (Trickster meest gekozen);
+  SURVIVAL_WHEN_CHEAT_DEATH/GROUP_NOTE_GUARDIAN_SPIRIT "not against one giant hit" waarschijnlijk te streng (AFGELEID);
+  257 WAOE "Apotheosis ready right away" mogelijk te sterk; 256 TERMS "all the damage" vs Blizzard "spell damage";
+  Feral 2e regel (W2 Rage) nog eens bekijken.
+- 8 punten alleen in het spel te beslissen → TESTLIJST bovenaan.
+
 ## ☀️ 22 okt (ochtend) — ochtendronde, nieuwe bouwchat
 
 GEMETEN: working tree schoon, pull = fast-forward met de 4 wachters (alle 4 gedraaid). API: 0 [MOET GEFIKST], meetgat

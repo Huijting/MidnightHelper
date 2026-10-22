@@ -45,8 +45,10 @@ local _, ns = ...
 --- The 35 cards the playcard-audit workflow checked sentence by sentence on 21 Oct 2026 (route A guides and tooltips,
 --- route B wago DB2; reports in the side-session notes, playcard_audit\<spec>.md, one per spec below). Rob, 22 Oct
 --- 2026, looking at Frost: the card still only named the August guide dates, "volgens mij hebben we pas alles bekeken".
---- Not in it: the healer cards 65/105/256/257/264, which a separate chat corrected line by line where it found errors.
---- The 71 points the audit left "unsure" were not changed; checked does not mean every line is settled.
+--- 22 Oct 2026 the playcard-finish workflow audited the five healer cards the same way (two routes + reconcile) and
+--- settled the 71 "unsure" points with a third, deciding route (side-session notes, playcard_finish\). Eight points can
+--- only be settled in the client; they are on docs/TESTLIJST.md. So every card now carries the line, healers with 22 Oct.
+local AUDITED_HEALERS = { [65] = true, [105] = true, [256] = true, [257] = true, [264] = true }
 local AUDITED = { date = "21 Oct 2026", specs = {
 	[62] = true, [63] = true, [64] = true, [66] = true, [70] = true, [71] = true, [72] = true, [73] = true,
 	[102] = true, [103] = true, [104] = true, [250] = true, [251] = true, [252] = true, [253] = true, [254] = true,
@@ -314,7 +316,7 @@ local CARDS = {
 	},
 	[577] = { -- Havoc Demon Hunter
 		steps = 5, aoe = true, hero = 2,
-		source = "Method 17 Sep · Icy Veins 30 Aug · Wowhead 17 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Method 16 Oct · Icy Veins 12 Oct · Wowhead 13 Oct 2026", -- HERO1 rewritten on these, 22 Oct 2026 (playcard-finish)
 		-- Why lines 11 Oct 2026, docs/WHY_DEMONHUNTER_2026-10-11.md. S1: The Hunt waits for Eye Beam (Eternal Hunt apex).
 		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
@@ -457,7 +459,8 @@ function ns.GetPlayCard(specID, known)
 	local function Part(p)
 		return ns:L(("PLAYCARD_%d_%s"):format(specID, p))
 	end
-	local out = { steps = {}, hero = {}, source = c.source, checked = AUDITED.specs[specID] and AUDITED.date or nil }
+	local checked = (AUDITED_HEALERS[specID] and "22 Oct 2026") or (AUDITED.specs[specID] and AUDITED.date) or nil
+	local out = { steps = {}, hero = {}, source = c.source, checked = checked }
 	local showWhy = ns.PlayCardWhyState(specID)
 	out.idea = Expand(Part("IDEA"), known)
 	for i = 1, c.steps do

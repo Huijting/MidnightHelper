@@ -47,6 +47,9 @@ local WHEN = {
 	-- 7 Oct 2026 (docs/ROLE_SWITCH_FACTS3_2026-10-07.md §3): Holy Paladin's Avenging Wrath and Divine Toll are
 	-- "on cooldown" spells per the guides; "flow" told the toolkit reader to wait for heavy damage.
 	often = "HEALCD_WHEN_OFTEN",
+	-- 22 Oct 2026 (playcard-finish, decided "fix": wago 10060 "Can only be cast on players" + Twins 373466; Icy Veins and
+	-- Method): Disc gives Power Infusion to a damage dealer, never "lines it up with its own burst".
+	pi_ally = "HEALCD_WHEN_PI_ALLY",
 }
 
 -- Kind label + a scan colour per kind.
@@ -149,14 +152,14 @@ ns.HEALER_COOLDOWNS = {
 		{ id = 62618, cd = 180, kind = "mitig", when = "raid" }, -- Power Word: Barrier (ground DR zone)
 		{ id = 33206, cd = 180, kind = "ext", when = "ext" }, -- Pain Suppression
 		{ id = 472433, cd = 90, kind = "heal", when = "raid" }, -- Evangelism (casts Power Word: Radiance and makes the next two instant: a ramp before raid damage; 90 s MEASURED 9 Oct 2026, wago 12.1.0.69933)
-		{ id = 10060, cd = 120, kind = "util", when = "haste" }, -- Power Infusion
+		{ id = 10060, cd = 120, kind = "util", when = "pi_ally" }, -- Power Infusion (to a damage dealer, 22 Oct 2026)
 	},
 	-- Holy Priest (257)
 	[257] = {
 		-- Holy Word: Salvation (265202) removed 9 Oct 2026: gone since 11.1.0, no talent node in 12.1.0.69933
 		-- (HEALER_CDS_FACTS). It sat first, so GetTopRaidCooldown(257) named a spell nobody can have.
 		{ id = 64843, cd = 180, kind = "heal", when = "raid" }, -- Divine Hymn
-		{ id = 200183, cd = 120, kind = "heal", when = "flow" }, -- Apotheosis (Holy Word boost)
+		{ id = 200183, cd = 120, kind = "heal", when = "often" }, -- Apotheosis (Holy Word boost); "flow" → "often" 22 Oct 2026: the guides of this patch say use it often (playcard-finish, decided "fix")
 		{ id = 47788, cd = 180, kind = "ext", when = "ext" }, -- Guardian Spirit
 		{ id = 10060, cd = 120, kind = "util", when = "haste" }, -- Power Infusion
 	},
