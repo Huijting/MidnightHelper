@@ -7,6 +7,11 @@ van het chat-rapport): "misschien is dat handiger als dat … in een mooie venst
 MH had het al: klik op een slotregel opent nu de Enchants-tab (ns:ShowMainUI + SelectTab("enchants"), chat als terugval),
 en bij iets ontbrekends een regel CHARPANEL_SHOP → ns.ShowRaidShoppingList (/mh ready, blok "Your gear", klik = AH-zoeken,
 "To Auctionator"). Niet in het spel gezien. Gaat mee in 4.11.1.
+❌ Codex-gloed, Rob 22 okt (screenshot, alle 12 gifts vrij, "Groups of enemies" aangeklikt): (1) de aangeklikte regel werd
+een WIT vlak (Blizzards Listbox-highlight met ADD over de tekst) → nu zachte eigen kleur (0,12) + hover (0,06);
+(2) GEEN gouden rand op Blizzards knoppen → AFGELEID: de buttonID-zoektocht vond niets. Nu ook zoeken op de
+knoptekst (giftnamen uit de choice-info, clientaal), diepte 14, en `/mh gifts` print "glow: found N of 12 (visited …,
+… with a buttonID)" plus de gevonden buttonIDs en teksten (ook in SV: ns.db.codexAdvice.glowSeen). Niet opnieuw getest.
 
 ## 🚀 22 okt (middag) — RELEASE 4.11.0 (Rob: "Maak maar af en doe een 4.11 release... evt andere dingen kunnen in een .1 release")
 

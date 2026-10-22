@@ -158,7 +158,7 @@ local lastGlowWhy = "nothing lit"
 --- `buttonID` their OnClick sends (Blizzard_PlayerChoice, read by mh-research 22 Oct 2026) and matching that id to
 --- the place it has in the choice info. Not by frame names or a fixed path: those are Blizzard's to change.
 --- @return table|nil byPlace, string why
-local function FindGiftButtons(info)
+local function FindGiftButtons(info, names)
 	local host = _G.PlayerChoiceFrame
 	if not (host and host:IsShown()) then
 		return nil, "Codex window not shown"
@@ -172,25 +172,67 @@ local function FindGiftButtons(info)
 			end
 		end
 	end
+	-- 🔴 Rob's screenshot, 22 Oct 2026: a situation clicked, no glow at all — the buttonID walk found nothing. Second
+	-- way in, by the text Blizzard writes on the button: the gift names come from the same choice info (ReadCodex),
+	-- so they match in every language. Both ways are counted, and /mh gifts prints what the walk saw.
+	local placeOfName = {}
+	local function clean(t)
+		if type(t) ~= "string" then
+			return nil
+		end
+		return (t:gsub("|A.-|a", ""):gsub("|T.-|t", ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+			:gsub("^%s+", ""):gsub("%s+$", ""))
+	end
+	for id, name in pairs(names or {}) do
+		local c = clean(name)
+		if c and c ~= "" then
+			placeOfName[c] = id
+		end
+	end
 	local byPlace, found = {}, 0
+	local seen = { visited = 0, withButtonID = 0, ids = {}, texts = {} }
+	local function take(place, child)
+		if place and not byPlace[place] then
+			found = found + 1
+			byPlace[place] = child
+		end
+	end
 	local function walk(frame, depth)
-		if depth > 8 or not frame.GetChildren then
+		if depth > 14 or not frame.GetChildren then
 			return
 		end
 		for _, child in ipairs({ frame:GetChildren() }) do
-			local id = rawget(child, "buttonID")
-			if type(id) == "number" and placeOf[id] and child:IsShown() then
-				if not byPlace[placeOf[id]] then
-					found = found + 1
+			seen.visited = seen.visited + 1
+			if child:IsShown() then
+				local id = rawget(child, "buttonID")
+				local place
+				if type(id) == "number" then
+					seen.withButtonID = seen.withButtonID + 1
+					if #seen.ids < 14 then
+						seen.ids[#seen.ids + 1] = id
+					end
+					place = placeOf[id]
+					take(place, child)
 				end
-				byPlace[placeOf[id]] = child
+				if not place and child.GetText then
+					local ok, t = pcall(child.GetText, child)
+					t = ok and clean(t) or nil
+					if t and t ~= "" then
+						if #seen.texts < 14 then
+							seen.texts[#seen.texts + 1] = t
+						end
+						take(placeOfName[t], child)
+					end
+				end
 			end
 			walk(child, depth + 1)
 		end
 	end
 	walk(host, 1)
+	DB().glowSeen = seen -- /mh gifts + /reload: what the walk met, for the SavedVariables file
 	if found ~= 12 then
-		return nil, ("found %d of 12 gift buttons"):format(found)
+		return nil, ("found %d of 12 gift buttons (visited %d frames, %d with a buttonID)"):format(found, seen.visited,
+			seen.withButtonID)
 	end
 	return byPlace, "12 buttons found"
 end
@@ -225,14 +267,14 @@ end
 
 --- Light the lit row's gifts that you do not have yet. A gift you have is already ticked, and clicking it would
 --- switch it OFF — so it never gets a glow that says "click me".
-local function UpdateGlows(info, have)
+local function UpdateGlows(info, have, names)
 	local r = LitRow()
 	if not r then
 		HideGlows()
 		lastGlowWhy = "nothing lit"
 		return
 	end
-	local byPlace, why = FindGiftButtons(info)
+	local byPlace, why = FindGiftButtons(info, names)
 	lastGlowWhy = why
 	if not byPlace then
 		HideGlows()
@@ -412,8 +454,19 @@ function ns.RefreshCodexAdvicePanel()
 			b = CreateFrame("Button", nil, f)
 			b.bg = b:CreateTexture(nil, "BACKGROUND")
 			b.bg:SetAllPoints()
-			b.bg:SetColorTexture(1, 0.82, 0.1, 0.18)
-			b:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight2", "ADD")
+			-- Soft on purpose: the button lies OVER the two lines of text. Rob's screenshot, 22 Oct 2026: Blizzard's list
+			-- highlight (ADD blend) turned the clicked row into a white block that hid "Groups of enemies take too long".
+			b.bg:SetColorTexture(1, 0.82, 0.1, 0.12)
+			b.hover = b:CreateTexture(nil, "BACKGROUND")
+			b.hover:SetAllPoints()
+			b.hover:SetColorTexture(1, 1, 1, 0.06)
+			b.hover:Hide()
+			b:SetScript("OnEnter", function(self)
+				self.hover:Show()
+			end)
+			b:SetScript("OnLeave", function(self)
+				self.hover:Hide()
+			end)
 			f._rowBtns[i] = b
 		end
 		b:ClearAllPoints()
@@ -430,7 +483,7 @@ function ns.RefreshCodexAdvicePanel()
 	if lit then
 		Add(L("CODEXADV_LIT_HINT"), 0.55, 0.78, 1, "GameFontHighlightSmall", 4)
 	end
-	UpdateGlows(info, have)
+	UpdateGlows(info, have, names)
 
 	-- The one thing worth saying about the player's OWN pair: Insidious Venom with a gift it cannot help.
 	if have[SELF_POISON] and #mine >= 2 then
@@ -484,6 +537,11 @@ function ns.PrintCodexAdviceStatus()
 		tostring(ns.IsCodexAdviceEnabled()), tostring(panel and panel:IsShown() or false),
 		tostring(lastWhy), tostring(lastChoiceID)))
 	print(("   lit row=%s  glow: %s"):format(tostring(LitRow()), tostring(lastGlowWhy)))
+	local seen = DB().glowSeen
+	if type(seen) == "table" then
+		print(("   glow saw buttonIDs: %s"):format(table.concat(seen.ids or {}, ", ")))
+		print(("   glow saw texts: %s"):format(table.concat(seen.texts or {}, " | ")))
+	end
 	local names, have, why, info = ReadCodex()
 	if not names then
 		print("   " .. tostring(why))
