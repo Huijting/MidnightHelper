@@ -203,7 +203,8 @@ local function FindGiftButtons(info, names)
 		end
 		for _, child in ipairs({ frame:GetChildren() }) do
 			seen.visited = seen.visited + 1
-			if child:IsShown() then
+			-- IsVisible, not IsShown: a pooled button that is "shown" under a hidden parent is not the one on screen.
+			if child:IsVisible() then
 				local id = rawget(child, "buttonID")
 				local place
 				if type(id) == "number" then
@@ -287,12 +288,23 @@ local function UpdateGlows(info, have, names)
 		if btn and not have[id] then
 			n = n + 1
 			local g = Glow(n)
+			-- 🔴 Rob, 22 Oct 2026: "12 buttons found, 2 lit" and still nothing on screen. The frame hung off UIParent
+			-- with the button's strata copied over. Now it is the BUTTON's child: same strata, scale and visibility,
+			-- drawn on top of it, gone when the button goes. It still takes no mouse, so the click is Blizzard's.
+			if g:GetParent() ~= btn then
+				g:SetParent(btn)
+			end
 			g:ClearAllPoints()
 			g:SetPoint("TOPLEFT", btn, "TOPLEFT", -4, 4)
 			g:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", 4, -4)
-			g:SetFrameStrata(btn:GetFrameStrata())
 			g:SetFrameLevel(btn:GetFrameLevel() + 10)
 			g:Show()
+			-- Where it landed, for /mh gifts: a found-but-invisible button shows here as visible=false or size 0.
+			local okL, left, top = pcall(function() return btn:GetLeft(), btn:GetTop() end)
+			DB().glowLast = DB().glowLast or {}
+			DB().glowLast[n] = ("%s visible=%s size=%dx%d at %s,%s"):format(tostring(names and names[id] or id),
+				tostring(btn:IsVisible()), math.floor(btn:GetWidth() or 0), math.floor(btn:GetHeight() or 0),
+				tostring(okL and left and math.floor(left) or "?"), tostring(okL and top and math.floor(top) or "?"))
 			if not g._pulse:IsPlaying() then
 				g._pulse:Play()
 			end
@@ -541,6 +553,9 @@ function ns.PrintCodexAdviceStatus()
 	if type(seen) == "table" then
 		print(("   glow saw buttonIDs: %s"):format(table.concat(seen.ids or {}, ", ")))
 		print(("   glow saw texts: %s"):format(table.concat(seen.texts or {}, " | ")))
+	end
+	for i, line in ipairs(DB().glowLast or {}) do
+		print(("   glow %d: %s"):format(i, line))
 	end
 	local names, have, why, info = ReadCodex()
 	if not names then

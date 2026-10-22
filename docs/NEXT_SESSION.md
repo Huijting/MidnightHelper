@@ -13,7 +13,9 @@ een WIT vlak (Blizzards Listbox-highlight met ADD over de tekst) → nu zachte e
 knoptekst (giftnamen uit de choice-info, clientaal), diepte 14, en `/mh gifts` print "glow: found N of 12 (visited …,
 … with a buttonID)" plus de gevonden buttonIDs en teksten (ook in SV: ns.db.codexAdvice.glowSeen).
 ✅ GEMETEN Rob 22 okt (`/mh gifts` na /reload): "lit row=2 glow: 12 buttons found, 2 lit", buttonIDs nu 109-120 (Blizzard
-nummert per sessie opnieuw: 13-24, 25-36, 49-60, 109-120). 🔜 Of de gouden rand ZICHTBAAR is: nog niet gezien (screenshot).
+nummert per sessie opnieuw: 13-24, 25-36, 49-60, 109-120). ❌ Rob (screenshot): rand NIET zichtbaar ondanks "2 lit". Fix (AFGELEID): de gloed is nu een kind van Blizzards knop
+(SetParent(btn), geen eigen strata), knoppen alleen als IsVisible (niet IsShown), en `/mh gifts` print per gloed
+"glow n: <gift> visible=… size=… at x,y". Niet opnieuw getest.
 
 ## 🚀 22 okt (middag) — RELEASE 4.11.0 (Rob: "Maak maar af en doe een 4.11 release... evt andere dingen kunnen in een .1 release")
 
