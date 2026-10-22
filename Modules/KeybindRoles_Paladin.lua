@@ -191,7 +191,11 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- cycle as Holy Bulwark." It is ONE button (Method calls it Holy Armaments); a second entry would
 	-- ask the allocator for a second key. AFGELEID that the slot reads 432459 while on Holy Bulwark.
 	["Holy Bulwark"] = { id = 432459, category = "defensive", priority = 3, specs = { 65, 66 }, blockAs = { [65] = { category = "cooldown", priority = 3 } } }, -- [432459] gemeten in Robs client; Lightsmith, staat in Methods prioriteitslijst
-	["Rite of Sanctification"] = { id = 433568, category = "utility", priority = 1, specs = { 66 } }, -- [433568] gemeten in Robs client; Lightsmith-build
+	["Rite of Sanctification"] = { id = 433568, category = "utility", priority = 1, specs = { 65, 66 } }, -- [433568] gemeten in Robs client; Lightsmith-build; 65 erbij 22 Oct 2026 (DB2 choice node 95233 is visible for 65 and 66, id round 5 Oct)
+	-- 22 Oct 2026: Rob's Holy Paladin key block said "Not in Midnight Helper's list yet: Rite of Adjuration". The other side
+	-- of the same Lightsmith choice node 95233 (docs/id_round_2026-10-05/gaps_g1.tsv, "sure"; 433583 already used in
+	-- MissingBuffData.lua). A weapon imbue like its twin: utility, the allocator picks the key. You have one or the other.
+	["Rite of Adjuration"] = { id = 433583, excludes = "Rite of Sanctification", category = "utility", priority = 1, specs = { 65, 66 } },
 
 	--==============================================================================
 	-- RETRIBUTION (spec 70) - melee DPS.

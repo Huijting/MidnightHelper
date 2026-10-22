@@ -42,6 +42,11 @@ Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met 
       Deep Breath "press it on cooldown …"; Hunter Survival of the Fittest "just before each big hit; it comes back after
       1.5 min …"; Rogue Evasion heeft nog zijn "dodges hits from the front …"-noot.
 
+## 🆕 22 okt (avond) — Rite of Adjuration in het toetsenblok
+
+- [ ] Holy Paladin (Lightsmith), `/reload`, toetsenblok openen: onderaan staat NIET meer "Not in Midnight Helper's list
+      yet: Rite of Adjuration"; hij heeft een plek (klik zo nodig "Update (add new spells)").
+
 ## 🆕 22 okt (avond) — quiz: geen dubbele gaten meer
 
 - [x] ❌ Rob 22 okt (Holy Paladin): "______ (not with Lightsmith) and Avenging Wrath … ______ fills your Holy Power" —

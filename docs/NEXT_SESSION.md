@@ -18,8 +18,10 @@ base Mana" (tooltip 5,000 Mana); Dispel alleen Magic zonder talent, Magic/Poison
 
 ✅ GEMETEN Rob (Holy Paladin, Lightsmith): toetsenblok toonde op F1 "Holy Bulwark" vóór drukken; na één druk tooltip
 "Sacred Weapon … Becomes Holy Bulwark after use" (432472). PLAYCARD_65_HERO2 zei het omgekeerde → {SPELL:432459} en
-{SPELL:432472} gewisseld in alle 9 regels (script), check_drift --mark. 🔜 4.11.1: het toetsenblok meldde "Not in Midnight
-Helper's list yet: Rite of Adjuration" (Holy Paladin) → die spell in KeybindRoles_Paladin.lua opnemen (id meten).
+{SPELL:432472} gewisseld in alle 9 regels (script), check_drift --mark. Het toetsenblok meldde "Not in Midnight Helper's
+list yet: Rite of Adjuration" → ✅ (Rob: "Zet Rite of Adjuration in de toetsenlijst") KeybindRoles_Paladin: Rite of
+Adjuration 433583 (id uit id_round_2026-10-05 "sure" + MissingBuffData), utility prio 1, specs {65,66}, excludes Rite of
+Sanctification; Sanctification nu ook {65,66} (zelfde keuzeknoop 95233). Lint 0 HARD. Niet in het spel gezien.
 
 ## 🛒 22 okt (na de release) — enchant-advies in een venster
 
