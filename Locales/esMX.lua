@@ -638,7 +638,7 @@ for k, v in pairs({
 	PLAYCARD_64_W3 = "{SPELL:30455} rompe 4 acumulaciones de Congelamiento a la vez (más con talentos) para hacer mucho daño. Con {SPELL:112965} golpea igual de fuerte, y el Congelamiento se queda.",
 	PLAYCARD_64_W4 = "{SPELL:205021} pone 8 acumulaciones nuevas de Congelamiento. Un enemigo aguanta como mucho 20, así que gasta primero el Congelamiento viejo.",
 	PLAYCARD_64_W5 = "{SPELL:116} añade Congelamiento, y puede hacer que se ilumine {SPELL:190447} o {SPELL:112965}.",
-	PLAYCARD_65_HERO2 = "Fragualuz: sin {SPELL:375576}. {SPELL:1289728} empieza como {SPELL:432472}; después de usarlo, el mismo botón se convierte en {SPELL:432459}. Sigue usando las cargas.",
+	PLAYCARD_65_HERO2 = "Fragualuz: sin {SPELL:375576}. {SPELL:1289728} empieza como {SPELL:432459}; después de usarlo, el mismo botón se convierte en {SPELL:432472}. Sigue usando las cargas.",
 	PLAYCARD_66_HERO2 = "Fragualuz: un solo botón con 2 cargas (puedes pulsarlo dos veces antes de que tenga que recargarse) que alterna Baluarte sagrado y {SPELL:432472}. Púlsalo cuando {SPELL:31884} (o {SPELL:389539}) no esté activo.",
 	PLAYCARD_71_HERO1 = "Destripador (el mejor esta temporada): {SPELL:227847} durante {SPELL:167105}, si lo elegiste en lugar de {SPELL:228920}. Cada vez que usas {SPELL:163201} iluminado, {SPELL:227847} vuelve antes.",
 	PLAYCARD_72_HERO1 = "Destripador: {SPELL:227847} justo después de {SPELL:184367}, durante {SPELL:1719}. Pulsa {SPELL:5308} cada vez que se ilumine.",

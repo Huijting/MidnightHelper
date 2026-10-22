@@ -24,9 +24,8 @@ er is niets weggegooid.
 ## 🆕 22 okt — kaarten: wat alleen in het spel te beslissen is
 
 Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met een character dat je toch speelt.
-- [ ] Holy Paladin + Lightsmith: na inloggen, muis op de knop op de plek van Divine Toll (nog niet indrukken). Staat er
-      "Holy Bulwark" of "Sacred Weapon"? Daarna één keer op jezelf: wisselt de naam? (De kaart zegt nu: begint als
-      Sacred Weapon; de bronnen verwachten Holy Bulwark.)
+- [x] ✅ GEMETEN Rob 22 okt: vóór drukken "Holy Bulwark" (toetsenblok F1), na één keer drukken "Sacred Weapon"
+      (tooltip: "Becomes Holy Bulwark after use"). → PLAYCARD_65_HERO2 omgedraaid in alle talen.
 - [ ] Feral Druid 90 met Frantic Frenzy i.p.v. Focused Frenzy: `/mh play` stap 2: staat er "Feral Frenzy" of "Frantic
       Frenzy", goud of grijs? Klopt de toets?
 - [ ] Shadow Priest, solo, dummy, niet vol leven, geen DoTs op de dummy: Mind Blast zonder en mét Vampiric Embrace.

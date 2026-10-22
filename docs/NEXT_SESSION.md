@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🛡️ 22 okt (avond) — Holy Armaments begint als Holy Bulwark
+
+✅ GEMETEN Rob (Holy Paladin, Lightsmith): toetsenblok toonde op F1 "Holy Bulwark" vóór drukken; na één druk tooltip
+"Sacred Weapon … Becomes Holy Bulwark after use" (432472). PLAYCARD_65_HERO2 zei het omgekeerde → {SPELL:432459} en
+{SPELL:432472} gewisseld in alle 9 regels (script), check_drift --mark. 🔜 4.11.1: het toetsenblok meldde "Not in Midnight
+Helper's list yet: Rite of Adjuration" (Holy Paladin) → die spell in KeybindRoles_Paladin.lua opnemen (id meten).
+
 ## 🛒 22 okt (na de release) — enchant-advies in een venster
 
 ✅ GEMETEN Rob: How you play (scroll/tooltip/datum), karaktervenster-kleuren en vensters tot 0,5 kloppen. Rob (screenshot

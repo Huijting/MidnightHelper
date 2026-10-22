@@ -27938,13 +27938,13 @@
    "ruRU": "13d7c9d3c47511f1"
   },
   "PLAYCARD_65_HERO2": {
-   "deDE": "88842a07a2f0bf1e",
-   "esES": "88842a07a2f0bf1e",
-   "frFR": "88842a07a2f0bf1e",
-   "itIT": "88842a07a2f0bf1e",
-   "nlNL": "88842a07a2f0bf1e",
-   "ptBR": "88842a07a2f0bf1e",
-   "ruRU": "88842a07a2f0bf1e"
+   "deDE": "0b640d9df411e98e",
+   "esES": "0b640d9df411e98e",
+   "frFR": "0b640d9df411e98e",
+   "itIT": "0b640d9df411e98e",
+   "nlNL": "0b640d9df411e98e",
+   "ptBR": "0b640d9df411e98e",
+   "ruRU": "0b640d9df411e98e"
   },
   "PLAYCARD_65_IDEA": {
    "ruRU": "1898843f78118571"
@@ -37681,6 +37681,15 @@
    "ptBR": "33b61ac31b6d2629",
    "ruRU": "33b61ac31b6d2629"
   },
+  "SURVIVAL_NOTE_EVASION": {
+   "deDE": "27693df09ef78748",
+   "esES": "27693df09ef78748",
+   "frFR": "27693df09ef78748",
+   "itIT": "27693df09ef78748",
+   "nlNL": "27693df09ef78748",
+   "ptBR": "27693df09ef78748",
+   "ruRU": "27693df09ef78748"
+  },
   "SURVIVAL_NOTE_FORBEARANCE": {
    "deDE": "5737371f3b21b5de",
    "esES": "5737371f3b21b5de",
@@ -37743,15 +37752,6 @@
   },
   "SURVIVAL_NOTE_PET": {
    "ruRU": "d791f8dbbad964f6"
-  },
-  "SURVIVAL_NOTE_EVASION": {
-   "deDE": "27693df09ef78748",
-   "esES": "27693df09ef78748",
-   "frFR": "27693df09ef78748",
-   "itIT": "27693df09ef78748",
-   "nlNL": "27693df09ef78748",
-   "ptBR": "27693df09ef78748",
-   "ruRU": "27693df09ef78748"
   },
   "SURVIVAL_NOTE_PHYSICAL_FORBEARANCE": {
    "deDE": "56ded64733c736db",
