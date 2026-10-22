@@ -20,6 +20,20 @@ volgens DelveTipMarkup.lua): `win.view` is een gewoon frame met SetClipsChildren
 (ApplyScroll/FitHeight). Gouden balkje rechts als de kaart langer is. Scroll terug naar boven bij tab, spec, quiz.
 Of de spell-tooltips in de afgeknipte body blijven werken: NIET gemeten (testlijst).
 
+🔎 Uitgezocht, NIET gebouwd (Rob: "zoek uit of MH de enchant/gem-controle in het karaktervenster kan laten zien, met een
+gele 'weet ik niet'-stand. Nog niet bouwen."). Aanleiding: CF-addon Inspect for EllesmereUI (MIT, zhufei1000, v2.3.19;
+niet geïnstalleerd, vereist EllesmereUI; alleen de CF-pagina gelezen): sterretje per enchant groen/rood/geel.
+GEMETEN: (1) MH heeft al `CharacterSidePanel.lua` naast het karaktervenster, met TELLINGEN (x enchants missen, y lege
+sockets) uit ns.GetGearEnchantSummary; geen markering per slot. (2) Robs **BetterCharacterPanel** 2.6.0 staat aan op 5
+chars (uit op Ikprikjou; WTF AddOns.txt) en zet per slot al ilvl, enchantnaam, rood "No Enchant" (Midnight-slots =
+dezelfde 8 als MH) en rode lege sockets op de slotknoppen. Kan dus technisch (zelfde API's als MH: item-link + de
+"Enchanted:"-tooltipregel), maar rood/leeg dubbelt BCP. (3) Wat NIEMAND doet: zeggen of je enchant ONS advies is.
+MH vergelijkt nu nooit: SlotState kijkt alleen of enchantID ≠ 0; Recommend zet het advies ernaast. Vergelijken vraagt
+een tabel enchantID (SpellItemEnchantment, in de link) → onze adviezen; die bestaat niet → eerst mh-research (wago).
+Geel = enchantID niet in onze tabel, tooltip onleesbaar, item nog niet geladen, of spec/stat onbekend (TopStat nil).
+Opties voor Rob: A niets (BCP dekt rood/leeg); B kleine stip groen/rood/geel per slot op de knop (schakelaar; botst
+met BCP-tekst naast dezelfde knop, plek meten); C de kleur per slot in MH's eigen zijpaneel (geen botsing). Rob kiest.
+
 ## 🧪 22 okt — Codex-advies zag je gifts niet meer
 GEMETEN (Robs `/mh gifts`-dump, 22 okt 01:19): de 12 Codex-knoppen hebben nu id 49-60 (was 13-24 op 19 okt), zelfde
 volgorde, vinkje nog steeds als atlas `common-icon-checkmark` in de tekst. MH las have[59]/have[60] maar zocht 13-24 →
