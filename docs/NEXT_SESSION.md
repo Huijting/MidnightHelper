@@ -14,6 +14,9 @@ een opgelichte gift aanklikken werkt.
 ✅ GEMETEN Rob (screenshot karaktervenster, Frost): "Buy what's missing" staat er, Mastery-wapen/-ringen groen (gelijkspel),
 korte namen, enkelvoud "1 slot is maxed on Hero". Benen tonen de tooltiptekst "+41 Intellect & +115 Stamina" (Blizzard
 schrijft voor spellthreads geen naam in de tooltip; groen = Sunfire Silk, klopt).
+✅ GEMETEN Rob (2 screenshots): Enchants-tab scrolt zonder overlap, kop "Crit / Mastery"; "Buy what's missing" opent het
+/mh ready-venster met het blok "Your gear". Alles van deze middag (enchant-venster, Codex-gloed) is daarmee in het spel
+bevestigd en wacht op 4.11.1.
 ❌ Codex-gloed, Rob 22 okt (screenshot, alle 12 gifts vrij, "Groups of enemies" aangeklikt): (1) de aangeklikte regel werd
 een WIT vlak (Blizzards Listbox-highlight met ADD over de tekst) → nu zachte eigen kleur (0,12) + hover (0,06);
 (2) GEEN gouden rand op Blizzards knoppen → AFGELEID: de buttonID-zoektocht vond niets. Nu ook zoeken op de

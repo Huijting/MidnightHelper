@@ -66,11 +66,11 @@ Eerst `/reload`, op een level-90, karaktervenster open (C).
 - [x] ✅ Rob 22 okt: kleuren per slot kloppen (stap 1-3 van de testronde). Klik gaf het advies in de chat (screenshot).
 - [x] ✅ Rob 22 okt (screenshot): klik opent het Enchants-venster. ❌ Onderaan liepen de socket-knop en het zoekveld over
       de Neck/Wrist-regels → het rapport staat nu in een scrollvak boven de knop; kop "Crit / Mastery" bij gelijkspel.
-- [ ] Opnieuw: Enchants-venster, onderaan niets meer over elkaar; scroll naar de gem-regels; klik op een link → naam in
-      het zoekveld.
+- [x] ✅ Rob 22 okt (screenshot): Enchants-venster scrolt, onderaan niets meer over elkaar, kop "Crit / Mastery".
 - [x] ✅ Rob 22 okt (screenshot karaktervenster): "Buy what's missing: shopping list" staat erin; Mastery-wapen en
       -ringen nu GROEN (gelijkspel-fix); namen zonder "Enchant Weapon -"; "1 slot is maxed on Hero" (enkelvoud).
-- [ ] Klik op "Buy what's missing": opent het boodschappenvenster met Chest/Head/Feet en de Wrist-socket?
+- [x] ✅ Rob 22 okt (screenshot): "Buy what's missing" opent het boodschappenvenster; "Your gear" toont Chest (Enough),
+      Head + Feet (Buy 1) en Empty sockets (Enough).
 - [ ] (eerder) NIEUW (Rob: "handiger … in een mooie venster … aanklikken om te kopen"): klik op een regel opent nu het
       Enchants-venster van MH (geen chat meer). Mist er iets, dan staat onderaan "Buy what's missing: shopping list":
       dat opent het /mh ready-venster met je ontbrekende enchants en gems; klik daar = zoeken in het veilinghuis.
