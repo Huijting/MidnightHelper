@@ -8,8 +8,9 @@ bijgewerkt bij 4.10.0 (dc7b2e1). Nu bijgewerkt (solo This Week, kaarten nagelope
 Labyrinth-vensters, Codex-gloed, Your keys, `/mh mykeys`). 🔜 Rob plakt hem zelf op CF (packager doet dat niet).
 ✅ Tag `v4.11.1` op a562ba4 → run 39850143193 groen; GEMETEN in het log: CurseForge "Success!" (release), Wago "Success!",
 GitHub Release "Success!". ⚠️ Site-chat NIET geseind: "Site chat 22-10" draaide niet meer (ListAgents). Seintje staat in
-side-session-notes local_d88e4560 `site_signal_4.11.1.md` → morgen doorgeven aan de nieuwe site-chat. Nog niet gezien:
-CF-goedkeuring en weergave van de changelog.
+side-session-notes local_d88e4560 `site_signal_4.11.1.md` → morgen doorgeven aan de nieuwe site-chat.
+✅ Rob 22 okt: changelog en de nieuwe description staan online en goed (description door Rob geplakt). Wacht nog op
+CF-goedkeuring ("een kwestie van tijd").
 🔜 Nog open (Robs keuze): Kinduru-hotfix in de 0-levens-tip, Crimson Tempest (category), Earth Elemental/Primordial Bond.
 Testjes per character: TESTLIJST bovenaan (Warrior, Shadow Priest, Rogue, Warlock, Feral, eigen Stay-alive-zinnen).
 
