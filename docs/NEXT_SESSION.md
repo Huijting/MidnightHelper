@@ -14,6 +14,8 @@
 - ✅ Tag `v4.11.0` op e622c04 → run 39771120402 groen (1m6s). GEMETEN in het log: CurseForge "Success!" (release,
   12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", GitHub Release "Success!". Site-chat geseind (release-seintje voor /play/
   en Dispel). ✅ Rob 22 okt: "Hij is al approved" (CurseForge). ✅ Rob: "change log staat goed" (CF-weergave).
+  Site-chat 22 okt: site live op 4.11.0 (site-commit cc428787, Robs ja): gouden #new, beta-blok weg, /play/ + Dispel +
+  Codex + gidsen herbouwd uit v4.11.0; Stay alive toont nu ook de survivalWhen-zinnen.
 - 🔜 **4.11.1** (Rob: "evt andere dingen kunnen in een .1 release"):
   - Verzonnen Undercoin-namen die niet Engels zijn en dus bleven: de "Untermünzen" (ALT_TOOLTIP_UNDER_MANA_FMT), es
     "Submonedas" (3 sleutels), pt "Moedas subterrâneas"/"Moedas inferiores" → de gemeten naam.
