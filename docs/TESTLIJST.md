@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 okt — "How you play"-venster: scrollen en geen regels meer over elkaar
+
+Eerst `/reload`. Op je Elemental Shaman, tekstgrootte zoals je hem nu hebt (1,5).
+- [ ] `/mh play`: het venster is nooit hoger dan je scherm. Is de kaart langer, dan staat rechts een smal goud balkje
+      en scrolt het **muiswiel** de kaart. Zet het venster eerst terug op normale grootte (Shift+scroll omhoog).
+- [ ] Shift+scroll omlaag en weer omhoog: de regels lopen **niet** meer over elkaar (stap 2 "Why" niet over stap 3 enz.).
+- [ ] Ga met de muis over een gele spellnaam in de tekst, ook na een stukje scrollen: komt de spell-tooltip nog?
+      En over een icoontje?
+- [ ] Klik een andere tab ("Stay alive") en terug: de kaart begint weer bovenaan.
+
 ## 🆕 22 okt — alle vensters kleiner (Shift+scroll tot 0,5)
 
 Eerst `/reload`.

@@ -10,7 +10,9 @@
 
 	Layout, top to bottom: one icon button per spec of the player's class (the active one lit),
 	the idea, the numbered steps with icons, "More enemies", "Biggest mistake", the hero lines,
-	and the dated source. The height follows the content; nothing scrolls.
+	and the dated source. The height follows the content, up to most of the screen; a longer card scrolls
+	(mouse wheel; Shift+wheel still resizes). Rob, 22 Oct 2026: at text size 1.5 the Elemental card ran off his
+	screen, and shrinking the window to fit made it too small to read.
 ]]
 
 local _, ns = ...
@@ -20,6 +22,10 @@ local WIDTH = 500 -- 460 until 26 Sep 2026; four tabs did not fit
 local PAD = 16
 local ICON = 30
 local SPEC_ICON = 26
+-- Frame = content inset (32, DialogPopup.lua) + body offset under the title (32) + bottom inset (16) + a little air (8).
+local CHROME = 32 + 32 + 16 + 8
+local MAX_SCREEN = 0.85 -- the window never grows past this share of the screen height; the rest scrolls
+local SCROLL_STEP = 40
 
 local win
 local chosenSpec -- nil = follow the active spec
@@ -90,7 +96,8 @@ end
 
 --- Spell names on the card are |Hspell:id|h links (PlayCards.lua). A frame with hyperlinks enabled
 --- fires OnHyperlinkEnter for links in its own font strings, so each name gets its own tooltip.
---- (DelveTipMarkup.lua uses an EditBox because links fail inside ScrollFrames; this window has none.)
+--- (DelveTipMarkup.lua uses an EditBox because links fail inside ScrollFrames. So when this window got scrolling,
+--- 22 Oct 2026, it did not take a ScrollFrame: the body slides inside a plain frame that clips it, see ApplyScroll.)
 local function HookLinks(frame)
 	if frame._mhLinks or not frame.SetHyperlinksEnabled then
 		return
@@ -812,6 +819,9 @@ local quiz -- { spec, list, i, picked, score }
 
 local function QuizReset(specID)
 	quiz = { spec = specID, list = ns.GetPlayCardQuiz and ns.GetPlayCardQuiz(specID), i = 1, score = 0 }
+	if win then
+		win._scroll = 0
+	end
 end
 
 --- A plain panel button from the pool. `pool` is a field name on win, `i` the index.
@@ -874,6 +884,7 @@ local function DrawQuiz(specID, y, inner)
 		end)
 		Nav(2, "QUIZ_BACK", function()
 			SetTab("play")
+			win._scroll = 0
 			win._redraw()
 		end)
 		return y - 24 - 8
@@ -930,6 +941,7 @@ local function DrawQuiz(specID, y, inner)
 		Nav(1, quiz.i < #list and "QUIZ_NEXT" or "QUIZ_FINISH", function()
 			quiz.i = quiz.i + 1
 			quiz.picked = nil
+			win._scroll = 0
 			win._redraw()
 		end)
 		y = y - 24 - 8
@@ -993,6 +1005,52 @@ local function SiteLink(specID, y, inner, tab)
 	return y - 6 - b:GetHeight()
 end
 
+--------------------------------------------------------------------------------
+-- Scrolling (22 Oct 2026). `win.view` is a plain frame that clips; `win.body` holds the whole card at its
+-- full height and slides up inside it by `win._scroll` pixels. A thin bar on the right shows where you are.
+--------------------------------------------------------------------------------
+
+local function ApplyScroll()
+	local contentH = win._contentH or 0
+	local viewH = win._viewH or contentH
+	local maxOff = math.max(0, contentH - viewH)
+	local off = math.max(0, math.min(win._scroll or 0, maxOff))
+	win._scroll = off
+	win.body:ClearAllPoints()
+	win.body:SetPoint("TOPLEFT", win.view, "TOPLEFT", 0, off)
+	win.body:SetPoint("TOPRIGHT", win.view, "TOPRIGHT", 0, off)
+	win.body:SetHeight(math.max(1, contentH))
+	local thumb = win._thumb
+	if maxOff <= 0 then
+		thumb:Hide()
+		win._track:Hide()
+		return
+	end
+	local thumbH = math.max(24, viewH * viewH / contentH)
+	thumb:SetHeight(thumbH)
+	thumb:ClearAllPoints()
+	thumb:SetPoint("TOPLEFT", win._track, "TOPLEFT", 0, -(off / maxOff) * (viewH - thumbH))
+	win._track:Show()
+	thumb:Show()
+end
+
+--- The window's height for content that ends at `y`: as tall as the card, but never taller than MAX_SCREEN of the
+--- screen. The window's own scale counts: at 0.5 it may hold twice as many of its own pixels.
+local function FitHeight(y)
+	local contentH = -y + 8
+	local sc = win:GetScale() or 1
+	if sc <= 0 then
+		sc = 1
+	end
+	local screenH = (UIParent and UIParent:GetHeight()) or 768
+	local maxH = math.floor(screenH * MAX_SCREEN / sc)
+	local h = math.min(CHROME - 8 + contentH, maxH)
+	win:SetHeight(h)
+	win._contentH = contentH
+	win._viewH = h - (CHROME - 8)
+	ApplyScroll()
+end
+
 local function Redraw()
 	if not win then
 		return
@@ -1035,6 +1093,7 @@ local function Redraw()
 			b.specName = s.name
 			b:SetScript("OnClick", function()
 				chosenSpec = (s.id ~= ActiveSpecID()) and s.id or nil
+				win._scroll = 0
 				Redraw()
 			end)
 		end
@@ -1076,6 +1135,7 @@ local function Redraw()
 		b.line:SetShown(on)
 		b:SetScript("OnClick", function()
 			SetTab(def.id)
+			win._scroll = 0
 			Redraw()
 		end)
 		tx = tx + b:GetWidth() + 4
@@ -1088,7 +1148,7 @@ local function Redraw()
 
 	if tab == "quiz" then
 		y = DrawQuiz(specID, y, inner)
-		win:SetHeight(32 + 32 - y + 16 + 8)
+		FitHeight(y)
 		return
 	end
 
@@ -1099,7 +1159,7 @@ local function Redraw()
 		-- 5 Oct 2026: the site's /play/ pages have the same tabs, each with an anchor (site chat), so
 		-- every tab links to its own part of the page.
 		y = SiteLink(specID, y, inner, tab)
-		win:SetHeight(32 + 32 - y + 16 + 8)
+		FitHeight(y)
 		return
 	end
 
@@ -1279,9 +1339,7 @@ local function Redraw()
 		y = SiteLink(specID, y, inner, nil)
 	end
 
-	-- Frame = content inset (32, DialogPopup.lua) + body offset under the title (32) + the rows
-	-- + bottom inset (16) + a little air.
-	win:SetHeight(32 + 32 - y + 16 + 8)
+	FitHeight(y)
 end
 
 local function Build()
@@ -1346,10 +1404,44 @@ local function Build()
 	title:SetTextColor(1, 0.9, 0.55)
 	f._title = title
 
-	local body = CreateFrame("Frame", nil, content)
-	body:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -32)
-	body:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, 0)
+	-- The visible part of the card. It clips, and the body slides inside it (ApplyScroll).
+	local view = CreateFrame("Frame", nil, content)
+	view:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -32)
+	view:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, 0)
+	view:SetClipsChildren(true)
+	f.view = view
+	local body = CreateFrame("Frame", nil, view)
+	body:SetPoint("TOPLEFT", view, "TOPLEFT", 0, 0)
+	body:SetPoint("TOPRIGHT", view, "TOPRIGHT", 0, 0)
+	body:SetHeight(1)
 	f.body = body
+	-- Wheel = scroll the card. Shift+wheel stays "resize the window" (DialogPopup.lua): pass it on.
+	view:EnableMouseWheel(true)
+	view:SetScript("OnMouseWheel", function(_, delta)
+		if IsShiftKeyDown and IsShiftKeyDown() then
+			local resize = f:GetScript("OnMouseWheel")
+			if resize then
+				resize(f, delta)
+			end
+			return
+		end
+		f._scroll = (f._scroll or 0) - delta * SCROLL_STEP
+		ApplyScroll()
+	end)
+	-- The scroll bar: a dim track with a gold thumb, in the margin right of the text. Only shown when the card is
+	-- taller than the window.
+	local track = f:CreateTexture(nil, "ARTWORK")
+	track:SetColorTexture(1, 1, 1, 0.08)
+	track:SetWidth(4)
+	track:SetPoint("TOPLEFT", view, "TOPRIGHT", 6, 0)
+	track:SetPoint("BOTTOMLEFT", view, "BOTTOMRIGHT", 6, 0)
+	track:Hide()
+	f._track = track
+	local thumb = f:CreateTexture(nil, "OVERLAY")
+	thumb:SetColorTexture(1, 0.82, 0.2, 0.7)
+	thumb:SetWidth(4)
+	thumb:Hide()
+	f._thumb = thumb
 	-- The idea, "more enemies", mistake and hero lines are font strings on the body: links there too.
 	body:EnableMouse(true)
 	HookLinks(body)
@@ -1412,8 +1504,33 @@ local function Build()
 	end)
 	f:SetScript("OnShow", Redraw)
 
+	-- 🔴 Rob, 22 Oct 2026 (screenshot, Elemental card after Shift+scroll): the lines ran over each other. Every row is
+	-- placed by the height its text measured at the OLD scale, and at another scale the text wraps differently
+	-- (AFGELEID). Shift+scroll only calls SetScale, so lay the card out again a frame later, at the new scale. Also
+	-- needed for the max height, which depends on the scale.
+	local relayoutPending = false
+	hooksecurefunc(f, "SetScale", function(self)
+		if relayoutPending or not (self:IsShown() and C_Timer and C_Timer.After) then
+			return
+		end
+		relayoutPending = true
+		C_Timer.After(0, function()
+			relayoutPending = false
+			if self:IsShown() then
+				Redraw()
+			end
+		end)
+	end)
+
 	win = f
 	return f
+end
+
+--- Lay the card out again when MH's text size changes (Core.lua ApplyContentFontScale): same overlap otherwise.
+function ns.RefreshPlayCardWindow()
+	if win and win:IsShown() then
+		Redraw()
+	end
 end
 
 --- Open (or close) the card window. specID is optional: nil shows your active spec.
@@ -1424,6 +1541,7 @@ function ns.TogglePlayCardWindow(specID)
 		return
 	end
 	chosenSpec = specID
+	f._scroll = 0
 	if f:IsShown() then
 		Redraw()
 	else
@@ -1520,6 +1638,7 @@ end
 function ns.ShowPlayCardWindow(specID)
 	local f = Build()
 	chosenSpec = specID
+	f._scroll = 0
 	if f:IsShown() then
 		Redraw()
 	else

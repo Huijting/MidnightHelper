@@ -11,6 +11,15 @@ bijgewerkt (BugGrabber/BugSack toc, RaiderIO db), niets voor MH; HandyNotes 166,
 vragenlijsten (#23 cijfer 1 zonder uitleg, #24 it 4 + dank) → SURVEY_RESULTS, gemiddelde 4,0. Site-chat heet nu
 "Site chat 22-10".
 
+✅ GEBOUWD (Rob: "Ja, begin met het How you play-venster"), niet in het spel gezien: `PlayCardWindow.lua`.
+(1) Opnieuw opbouwen: hooksecurefunc(f, "SetScale") → één frame later Redraw (Shift+scroll roept alleen SetScale aan);
+ook na de tekstgrootte-schuif (Core.lua ApplyContentFontScale → ns.RefreshPlayCardWindow). Dat de overlap DAARdoor kwam
+is AFGELEID. (2) Scrollen: het venster groeit tot 85% van de schermhoogte (rekening houdend met zijn eigen schaal), de
+rest scrolt met het muiswiel; Shift+wiel blijft vergroten/verkleinen. GEEN ScrollFrame (links/tooltips falen daarin
+volgens DelveTipMarkup.lua): `win.view` is een gewoon frame met SetClipsChildren, `win.body` schuift erin
+(ApplyScroll/FitHeight). Gouden balkje rechts als de kaart langer is. Scroll terug naar boven bij tab, spec, quiz.
+Of de spell-tooltips in de afgeknipte body blijven werken: NIET gemeten (testlijst).
+
 ## 🧪 22 okt — Codex-advies zag je gifts niet meer
 GEMETEN (Robs `/mh gifts`-dump, 22 okt 01:19): de 12 Codex-knoppen hebben nu id 49-60 (was 13-24 op 19 okt), zelfde
 volgorde, vinkje nog steeds als atlas `common-icon-checkmark` in de tekst. MH las have[59]/have[60] maar zocht 13-24 →

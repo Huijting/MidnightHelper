@@ -469,6 +469,10 @@ function ns.ApplyContentFontScale(scale)
 	if ns.RefreshCurioAdvicePanel then
 		pcall(ns.RefreshCurioAdvicePanel)
 	end
+	-- Same for the "How you play" card (22 Oct 2026: rows ran over each other after a size change).
+	if ns.RefreshPlayCardWindow then
+		pcall(ns.RefreshPlayCardWindow)
+	end
 	return s
 end
 
