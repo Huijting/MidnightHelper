@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🚀 22 okt (avond) — RELEASE 4.11.1 (Rob: "Go voor nu")
+
+TOC 4.11.1, CHANGELOG_4111_0..4, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.1.md` (script-vergelijk), CHANGELOG.md.
+Rob vroeg ook "hadden we voor 4.11 eigenlijk een nieuwe description?" → GEMETEN: CURSEFORGE_DESCRIPTION.md was laatst
+bijgewerkt bij 4.10.0 (dc7b2e1). Nu bijgewerkt (solo This Week, kaarten nagelopen + quiz, enchant-kleuren + boodschappen,
+Labyrinth-vensters, Codex-gloed, Your keys, `/mh mykeys`). 🔜 Rob plakt hem zelf op CF (packager doet dat niet).
+
 ## ❓ 22 okt (avond) — quiz met dubbele gaten
 
 Rob (screenshot, Holy Paladin quiz): vraag 1 had twee gaten ("______ (not with Lightsmith) and Avenging Wrath … ______ fills

@@ -8,13 +8,18 @@ For players who just hit 90 or are coming back after a break. Up to date for pat
 
 ### What it does
 
-- **This Week**: the one page you need: what to do now, with a *Take me there* button.
-- **How you play**: all 40 specs on one short card each, with the key every spell is on for you.
+- **This Week**: the one page you need: what to do now, with a *Take me there* button. Mostly solo? One switch puts
+  delves first.
+- **How you play**: all 40 specs on one short card each, with the key every spell is on for you, a quiz, and every
+  line checked against the game data and current guides.
 - **Your gear and Great Vault**: what your upgrade tracks mean, which vault choice is best for you, and *My gear: what
-  now?*: what you can upgrade right now with the crests you hold, and the next step up, in small steps.
-- **Delves, dungeons and raids**: routes, boss tips and coaches that open by themselves, for all 15 delves and the
-  Labyrinth of Kindo'jan.
-- **Your key block**: the same job on the same key on every character, with one Undo.
+  now?*: what you can upgrade right now with the crests you hold, and the next step up, in small steps. Next to your
+  character window, every enchant in colour: ours, another one, or missing, with a shopping list for what you lack.
+- **Delves, dungeons and raids**: routes, boss tips and coaches that open by themselves, for all 15 delves. In the
+  Labyrinth of Kindo'jan a small window opens for every room and every boss.
+- **Corrosive Codex**: which gifts to pick for bosses, packs or staying alive, lit up right in Blizzard's window.
+- **Your keys**: your key block (the same job on the same key on every character, with one Undo), which spells you
+  really press, and your whole keyboard, in one window.
 - **Professions, raid shopping lists and the Role Academy** for learning to tank or heal.
 
 ### It takes you there, from anywhere
@@ -38,7 +43,7 @@ Role Academy, guides for your week, delves and Mythic+, and an Armory gear check
 ### Getting started
 
 Install it, log in and type `/mh`. Nothing in your game changes unless you press a button, and anything it sets up
-can be undone. More commands: `/mh play`, `/mh mountrun`, `/mh block`, `/mh ready`, `/mh academy`, and about 70 more
+can be undone. More commands: `/mh play`, `/mh mykeys`, `/mh mountrun`, `/mh ready`, `/mh academy`, and about 70 more
 under **Tools**.
 
 ### Languages

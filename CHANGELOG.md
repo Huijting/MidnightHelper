@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.11.1
+
+📌 **2026-10-22 (avond), RELEASE (Rob: "Go voor nu").** Patch na een dag testen. Tag `v4.11.1`. In-game:
+CHANGELOG_4111_0..4 (enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.1.md`. CURSEFORGE_DESCRIPTION.md bijgewerkt voor
+4.11 (Rob plakt die zelf). GEMETEN door Rob in het spel: Codex-gloed, enchant-venster + "Buy what's missing", scrollen,
+Mastery groen, `/mh play` op de kaart, tabs passen, quiz één gat, Holy Armaments, Rite of Adjuration, knopteksten.
+NIET gezien: clientnamen, Guardian Spirit/Atonement/Guardian-tekst, de drie eigen Stay-alive-zinnen.
+
 ## 4.11.0
 
 📌 **2026-10-22, RELEASE (Rob: "Maak maar af en doe een 4.11 release... evt andere dingen kunnen in een .1 release").**
