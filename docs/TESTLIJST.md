@@ -62,7 +62,10 @@ Eerst `/reload`, op een level-90, karaktervenster open (C).
 - [ ] De namen zijn de namen die je eigen tooltip toont. Bij een rang-1-enchant staat "(rank 1; rank 2 is stronger)".
 - [ ] Schouders zonder enchant: grijs "(optional)", niet rood.
 - [ ] Een lege socket: een rode regel met het stuk erbij.
-- [ ] Klik op een regel: het enchant-advies komt in de chat.
+- [x] ✅ Rob 22 okt: kleuren per slot kloppen (stap 1-3 van de testronde). Klik gaf het advies in de chat (screenshot).
+- [ ] NIEUW (Rob: "handiger … in een mooie venster … aanklikken om te kopen"): klik op een regel opent nu het
+      Enchants-venster van MH (geen chat meer). Mist er iets, dan staat onderaan "Buy what's missing: shopping list":
+      dat opent het /mh ready-venster met je ontbrekende enchants en gems; klik daar = zoeken in het veilinghuis.
 - [ ] Op een alt onder level 90: nog de oude regels ("x slots without an enchant").
 
 ## 🆕 22 okt — "How you play"-venster: scrollen en geen regels meer over elkaar
@@ -73,6 +76,7 @@ weg → nu vast bovenaan:
 - [ ] Onderaan de kaart (Frost, Elemental, …): na "From the guides: …" staat nu "Every line checked against the guides
       and Blizzard's game data on 21 Oct 2026." Op een healer-kaart (Holy Paladin, Resto Druid …) met "22 Oct 2026".
 
+✅ Rob 22 okt: stap 1-3 van de testronde (How you play, karaktervenster, kleiner maken) kloppen allemaal.
 Eerst `/reload`. Op je Elemental Shaman, tekstgrootte zoals je hem nu hebt (1,5).
 - [ ] `/mh play`: het venster is nooit hoger dan je scherm. Is de kaart langer, dan staat rechts een smal goud balkje
       en scrolt het **muiswiel** de kaart. Zet het venster eerst terug op normale grootte (Shift+scroll omhoog).

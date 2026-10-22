@@ -524,6 +524,7 @@ ns._mhLocales.ruRU = {
 	CHARPANEL_SLOT_UNKNOWN_FMT = "%s: %s (не удается определить)",
 	CHARPANEL_SLOT_SOCKET_FMT = "%s: пустое гнездо",
 	CHARPANEL_SLOT_SOCKETS_FMT = "%s: пустых гнезд — %d",
+	CHARPANEL_SHOP = "Купите недостающее: список покупок",
 	CHARPANEL_SLOT_LEGEND = "Зеленый = наш совет. Оранжевый = другие чары. Желтый = не удается определить. Нажмите на строку, чтобы увидеть совет.",
 	CHARPANEL_RAIDBOTS = "Лучший набор из ваших сумок: Raidbots (тест)",
 	CHARPANEL_SOCKET_FMT = "Пустых гнезд: %d",

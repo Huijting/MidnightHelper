@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🛒 22 okt (na de release) — enchant-advies in een venster
+
+✅ GEMETEN Rob: How you play (scroll/tooltip/datum), karaktervenster-kleuren en vensters tot 0,5 kloppen. Rob (screenshot
+van het chat-rapport): "misschien is dat handiger als dat … in een mooie venster … aanklikken om weer te kunnen gaan kopen".
+MH had het al: klik op een slotregel opent nu de Enchants-tab (ns:ShowMainUI + SelectTab("enchants"), chat als terugval),
+en bij iets ontbrekends een regel CHARPANEL_SHOP → ns.ShowRaidShoppingList (/mh ready, blok "Your gear", klik = AH-zoeken,
+"To Auctionator"). Niet in het spel gezien. Gaat mee in 4.11.1.
+
 ## 🚀 22 okt (middag) — RELEASE 4.11.0 (Rob: "Maak maar af en doe een 4.11 release... evt andere dingen kunnen in een .1 release")
 
 - In-game: CHANGELOG_4110_0 = gewone beta-uitnodiging, + _8 (Labyrinth touw/sleutel/Gilded Stash), _9 (Codex), _10

@@ -63,9 +63,18 @@ local function AddSlotLines(out)
 	if not (ok and rows) then
 		return false
 	end
+	-- Rob, 22 Oct 2026 (screenshot of the chat report): "misschien is dat handiger als dat … in een mooie venster" —
+	-- a click opens MH's own Enchants tab (the same report, links you can click and copy for the auction house)
+	-- instead of printing it in chat. Chat stays the fallback.
 	local function open()
-		pcall(ns.PrintGearEnchantCheck)
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("enchants")
+		else
+			pcall(ns.PrintGearEnchantCheck)
+		end
 	end
+	local missingSomething = false
 	for _, r in ipairs(rows) do
 		local name = r.name or "?"
 		local text
@@ -80,6 +89,9 @@ local function AddSlotLines(out)
 		else
 			text = (ns:SafeL("CHARPANEL_SLOT_OURS_FMT") or "%s: %s"):format(r.label, name)
 		end
+		if r.state == "missing" then
+			missingSomething = true
+		end
 		if r.state == "ours" and r.rank == 1 then
 			text = text .. " " .. (ns:SafeL("CHARPANEL_SLOT_RANK1") or "")
 		end
@@ -90,6 +102,13 @@ local function AddSlotLines(out)
 		local text = s.count > 1 and (ns:SafeL("CHARPANEL_SLOT_SOCKETS_FMT") or "%s %d"):format(s.label, s.count)
 			or (ns:SafeL("CHARPANEL_SLOT_SOCKET_FMT") or "%s"):format(s.label)
 		out[#out + 1] = { text = text, color = "bad", onClick = open }
+		missingSomething = true
+	end
+	-- Something to buy? Then a way straight to the shopping window (/mh ready, RaidShoppingList.lua): its "Your gear"
+	-- block lists the same missing enchants and gems, and a click there searches the auction house.
+	if missingSomething and ns.ShowRaidShoppingList then
+		out[#out + 1] = { text = ns:SafeL("CHARPANEL_SHOP") or "Buy what's missing", color = "prog",
+			onClick = function() pcall(ns.ShowRaidShoppingList) end }
 	end
 	out[#out + 1] = { text = ns:SafeL("CHARPANEL_SLOT_LEGEND") or "", color = "dim" }
 	return true
