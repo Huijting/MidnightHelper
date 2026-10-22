@@ -64,6 +64,10 @@ Eerst `/reload`, op een level-90, karaktervenster open (C).
 - [ ] Schouders zonder enchant: grijs "(optional)", niet rood.
 - [ ] Een lege socket: een rode regel met het stuk erbij.
 - [x] ✅ Rob 22 okt: kleuren per slot kloppen (stap 1-3 van de testronde). Klik gaf het advies in de chat (screenshot).
+- [x] ✅ Rob 22 okt (screenshot): klik opent het Enchants-venster. ❌ Onderaan liepen de socket-knop en het zoekveld over
+      de Neck/Wrist-regels → het rapport staat nu in een scrollvak boven de knop; kop "Crit / Mastery" bij gelijkspel.
+- [ ] Opnieuw: Enchants-venster, onderaan niets meer over elkaar; scroll naar de gem-regels; klik op een link → naam in
+      het zoekveld.
 - [ ] NIEUW (Rob: "handiger … in een mooie venster … aanklikken om te kopen"): klik op een regel opent nu het
       Enchants-venster van MH (geen chat meer). Mist er iets, dan staat onderaan "Buy what's missing: shopping list":
       dat opent het /mh ready-venster met je ontbrekende enchants en gems; klik daar = zoeken in het veilinghuis.
@@ -93,7 +97,7 @@ Eerst `/reload`.
 
 ## 🆕 22 okt — Codex: wat je met overgebleven Corrosive Souls doet
 
-- [ ] `/mh codex` → Corrosive Codex-kaart (gifts): nieuw stuk "All twelve unlocked? What your spare souls are for" met
+- [x] ✅ Rob 22 okt (screenshot). `/mh codex` → Corrosive Codex-kaart (gifts): nieuw stuk "All twelve unlocked? What your spare souls are for" met
       Er'inye (Satchel of Corrosive Coins) en Naleidea Rivergleam (Pouch of Undercoin), elk 1 soul.
 - [ ] Ruil 1 soul bij Er'inye: kost het echt 1 soul, en hoeveel coins zitten erin met jouw Altar-bonus?
 
@@ -129,7 +133,7 @@ Eerst `/reload`. `/mh survival` laat per regel zien waarom hij er wel of niet st
 ## 🆕 21 okt (laat) — Labyrinth: het touw naar de schatkamer
 
 Eerst `/reload`.
-- [ ] `/mh coach labyrinth` → Kindo'jan-tip: de regel "Out of lives before he dies?" noemt nu het opgerolde touw bij de
+- [x] ✅ Rob 22 okt (screenshot). `/mh coach labyrinth` → Kindo'jan-tip: de regel "Out of lives before he dies?" noemt nu het opgerolde touw bij de
       dichte deur aan het begin, en zegt dat je de delve niet moet verlaten.
 - [ ] `/mh codex` → Delves → The Labyrinth of Kindo'jan: bij Kindo'jan de regel "Stuck near him with 0 lives…", en
       onderaan "every Bountiful Coffer needs a Restored Coffer Key, one per coffer". "Not known yet" noemt geen sleutel meer.

@@ -7,6 +7,10 @@ van het chat-rapport): "misschien is dat handiger als dat … in een mooie venst
 MH had het al: klik op een slotregel opent nu de Enchants-tab (ns:ShowMainUI + SelectTab("enchants"), chat als terugval),
 en bij iets ontbrekends een regel CHARPANEL_SHOP → ns.ShowRaidShoppingList (/mh ready, blok "Your gear", klik = AH-zoeken,
 "To Auctionator"). Niet in het spel gezien. Gaat mee in 4.11.1.
+✅ Rob (screenshot): klik opent de Enchants-tab. ❌ Daar liepen socket-knop + kopieerbalk over de Neck/Wrist-regels (lang
+rapport, EditBox zonder grens). Nu: EditBox in een UIPanelScrollFrameTemplate dat stopt op 72 px boven de onderkant;
+kop noemt bij gelijkspel beide stats. Niet opnieuw gezien. Ook ✅ Rob: Codex-souls-stuk, Kindo'jan-tip met het touw,
+een opgelichte gift aanklikken werkt.
 ❌ Codex-gloed, Rob 22 okt (screenshot, alle 12 gifts vrij, "Groups of enemies" aangeklikt): (1) de aangeklikte regel werd
 een WIT vlak (Blizzards Listbox-highlight met ADD over de tekst) → nu zachte eigen kleur (0,12) + hover (0,06);
 (2) GEEN gouden rand op Blizzards knoppen → AFGELEID: de buttonID-zoektocht vond niets. Nu ook zoeken op de

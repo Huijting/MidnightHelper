@@ -714,6 +714,15 @@ local function BuildReportLines(map)
 	local lines = {}
 	local stat = TopStat()
 	local statLabel = stat and ns:L("ENCHANT_STAT_" .. string.upper(stat)) or "?"
+	-- A tie names both (Frost Mage: "Crit / Mastery"), like the advice below it (ByStatLinks).
+	local tied = TopStatsTied()
+	if tied and #tied > 1 then
+		local parts = {}
+		for _, st in ipairs(tied) do
+			parts[#parts + 1] = ns:L("ENCHANT_STAT_" .. string.upper(st))
+		end
+		statLabel = table.concat(parts, " / ")
+	end
 	lines[#lines + 1] = "|cffe8c36a" .. ns:L("ENCHANT_HEADER_FMT"):format(statLabel) .. "|r"
 	for _, s in ipairs(SLOTS) do
 		local hasItem, enchanted = SlotState(s.id)
@@ -1197,7 +1206,13 @@ function ns.BuildGearEnchantPanel(panel)
 	end)
 
 	-- Read-only EditBox → klikbare/hoverbare enchant-links.
-	local body = CreateFrame("EditBox", nil, panel)
+	-- 🔴 Rob's screenshot, 22 Oct 2026: a long report ran past the bottom, under the socket button and over the copy bar
+	-- (Neck/Wrist lines unreadable). The EditBox now sits in a ScrollFrame that ends above the button. An EditBox keeps
+	-- its links inside a ScrollFrame (that is why DelveTipMarkup uses one), so the clicks to the copy bar still work.
+	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -12)
+	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -34, 72)
+	local body = CreateFrame("EditBox", nil, scroll)
 	body:SetMultiLine(true)
 	body:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	body:SetJustifyH("LEFT")
@@ -1207,8 +1222,14 @@ function ns.BuildGearEnchantPanel(panel)
 	if body.SetMaxLetters then
 		body:SetMaxLetters(0)
 	end
-	body:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -12)
-	body:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -16, 42)
+	-- Width follows the scroll area; the height grows with the text (a multi-line EditBox sizes itself to it).
+	body:SetWidth(400)
+	scroll:SetScrollChild(body)
+	scroll:SetScript("OnSizeChanged", function(_, w)
+		if w and w > 0 then
+			body:SetWidth(w)
+		end
+	end)
 	body:SetScript("OnEscapePressed", body.ClearFocus)
 	if ns.AttachDelveTipHyperlinksToEditBox then
 		ns:AttachDelveTipHyperlinksToEditBox(body)
