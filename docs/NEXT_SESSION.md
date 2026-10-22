@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ☀️ 22 okt (ochtend) — ochtendronde, nieuwe bouwchat
+
+GEMETEN: working tree schoon, pull = fast-forward met de 4 wachters (alle 4 gedraaid). API: 0 [MOET GEFIKST], meetgat
+20-21 okt achteraf gesloten. Content-wachter 🔴: hotfix 21 okt *"Players can now speak to Kinduru in De Empire's Rest
+antechamber to leave the labyrinth while on the Kindo'jan scenario"* — AFGELEID dezelfde 0-levens-bug als Carola's
+(onze touw-tip). Niet in het spel getest. 🔜 Rob kiest: tip aanvullen met "praat met Kinduru" (touw blijft als terugval).
+Data-wachter: Carrying a Jan'alai Tear tot 4 stacks (was 1), raakt geen MH-tekst. CF 0 open, GitHub 0; 19 addons
+bijgewerkt (BugGrabber/BugSack toc, RaiderIO db), niets voor MH; HandyNotes 166, geen zone veranderd. Site-mail: 2 nieuwe
+vragenlijsten (#23 cijfer 1 zonder uitleg, #24 it 4 + dank) → SURVEY_RESULTS, gemiddelde 4,0. Site-chat heet nu
+"Site chat 22-10".
+
 ## 🧪 22 okt — Codex-advies zag je gifts niet meer
 GEMETEN (Robs `/mh gifts`-dump, 22 okt 01:19): de 12 Codex-knoppen hebben nu id 49-60 (was 13-24 op 19 okt), zelfde
 volgorde, vinkje nog steeds als atlas `common-icon-checkmark` in de tekst. MH las have[59]/have[60] maar zocht 13-24 →
