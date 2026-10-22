@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 okt — Codex: ons advies licht op
+
+Eerst `/reload`, dan de Corrosive Codex openen.
+- [ ] Op de gele MH-kaart staat bovenaan "Click a situation: its gifts light up in the Codex."
+- [ ] Klik "Groups of enemies take too long": Plague of Corrosion en Ophidian Maw krijgen in Blizzards venster een
+      knipperende gouden rand. De regel op de kaart krijgt een lichte achtergrond. Nog eens klikken = uit.
+- [ ] Een gift die je al hebt (vinkje) krijgt GEEN rand.
+- [ ] Je kunt de opgelichte knop gewoon zelf aanklikken (de rand zit niet in de weg).
+- [ ] Geen rand te zien? Typ `/mh gifts` en stuur de regel "glow: …".
+
 ## 🆕 22 okt — karaktervenster: kleur per enchant
 
 Eerst `/reload`, op een level-90, karaktervenster open (C).

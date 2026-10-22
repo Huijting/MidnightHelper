@@ -70,6 +70,13 @@ vol). Wisselen = 2 klikken (actieve uit, nieuwe aan); ID's veranderen (13-24, 25
 Robs souls-log: 12× −8 → AFGELEID alle 12 vrij. Te meten in de client: werkt een aanroep zonder muisklik; hoe ziet
 een vergrendelde gift eruit (account met een dichte gift nodig, Cisca?). CodexAdvicePanel-kop zegt nu bewust "klikt
 nooit". Rapport: codex_autopick_2026-10-22.md. Rob kiest.
+✅ Rob: "Optie A: MH laat de knoppen van ons advies oplichten, ik klik zelf. Bouw dat maar." GEBOUWD, niet in het spel
+gezien (CodexAdvicePanel.lua): elke situatie op de kaart is een knop (aan/uit, onthouden in ns.db.codexAdvice.litRow);
+de gifts van die regel die je NOG NIET hebt krijgen een pulserende gouden rand op Blizzards knop (frame zonder muis,
+klik gaat ongemoeid door). Knoppen gevonden door PlayerChoiceFrame af te lopen naar frames met `buttonID` (AFGELEID uit
+mh-research's lezing van Blizzard_PlayerChoice) en die aan de plek in de choice-info te koppelen; niet 12 gevonden →
+geen gloed, `/mh gifts` print "glow: found N of 12". Hints CODEXADV_LIGHT_HINT/_LIT_HINT (waarschuwt: dichte gift kost
+souls). en/nl ik, rest mh-writer.
 
 🖼️ "How you play" (Rob, screenshot: "als je scrollt ben je de tabbladen boven kwijt"): spec-iconen en tabbladen staan
 nu op een vaste kop (`win.head`), alleen de kaart eronder scrolt. ✅ Rob 22 okt (Frost-screenshot): "de tabs blijven staan".

@@ -1474,6 +1474,9 @@ ns._mhLocales.enUS = {
 	PLAYCARD_EASY_HEAD = "How to heal, in 3 steps:",
 	PLAYCARD_LATER_HEAD = "Later, once the steps above feel easy:",
 	PLAYCARD_MISTAKE = "Biggest mistake:",
+	-- Codex card, option A (22 Oct 2026): a situation lights its gifts up in Blizzard's window; the player clicks.
+	CODEXADV_LIGHT_HINT = "Click a situation: its gifts light up in the Codex. You click them yourself.",
+	CODEXADV_LIT_HINT = "Lit = not picked yet. Both slots full? First click a ticked gift you no longer want, that switches it off. A gift you have not unlocked yet costs Corrosive Souls.",
 	PLAYCARD_SOURCE_FMT = "From the guides: %s. A patch can change this.",
 	PLAYCARD_CHECKED_FMT = "Every line checked against the guides and Blizzard's game data on %s.",
 	-- Why lines + quiz (PlayCards.lua, WHY AND QUIZ; Rob, 10 Oct 2026). Frost Mage is the pilot.

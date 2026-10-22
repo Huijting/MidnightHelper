@@ -1427,6 +1427,8 @@ ns._mhLocales.nlNL = {
 	QUIZ_DONE_SOME = "Lees de kaart nog een keer en probeer het opnieuw. Elke keer weet je meer.",
 	QUIZ_AGAIN = "Opnieuw",
 	QUIZ_BACK = "Terug naar de kaart",
+	CODEXADV_LIGHT_HINT = "Klik op een situatie: de gifts lichten op in de Codex. Klikken doe je zelf.",
+	CODEXADV_LIT_HINT = "Licht op = nog niet gekozen. Beide plekken vol? Klik eerst een aangevinkte gift die je niet meer wilt, die gaat dan uit. Een gift die je nog niet hebt vrijgespeeld kost Corrosive Souls.",
 	PLAYCARD_SOURCE_FMT = "Uit de gidsen: %s. Een patch kan dit veranderen.",
 	PLAYCARD_CHECKED_FMT = "Elke regel nagelopen tegen de gidsen en Blizzards speldata op %s.",
 	PLAYCARD_SITE_LINK = "Deze kaart op de website: klik voor de link.",
