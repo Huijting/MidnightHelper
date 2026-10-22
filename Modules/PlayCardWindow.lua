@@ -1328,7 +1328,9 @@ local function Redraw()
 		src:SetWidth(inner)
 		src:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y - 4)
 		src:SetTextColor(0.62, 0.6, 0.56)
-		src:SetText((L("PLAYCARD_SOURCE_FMT")):format(card.source))
+		-- The audit date after the guide dates (22 Oct 2026: the card looked unchecked since August).
+		src:SetText((L("PLAYCARD_SOURCE_FMT")):format(card.source)
+			.. (card.checked and (" " .. (L("PLAYCARD_CHECKED_FMT")):format(card.checked)) or ""))
 		y = y - 4 - src:GetStringHeight()
 
 		-- "Test yourself": into the quiz, which is built from this card (DrawQuiz).

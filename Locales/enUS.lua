@@ -1475,6 +1475,7 @@ ns._mhLocales.enUS = {
 	PLAYCARD_LATER_HEAD = "Later, once the steps above feel easy:",
 	PLAYCARD_MISTAKE = "Biggest mistake:",
 	PLAYCARD_SOURCE_FMT = "From the guides: %s. A patch can change this.",
+	PLAYCARD_CHECKED_FMT = "Every line checked against the guides and Blizzard's game data on %s.",
 	-- Why lines + quiz (PlayCards.lua, WHY AND QUIZ; Rob, 10 Oct 2026). Frost Mage is the pilot.
 	PLAYCARD_WHY = "Why:",
 	PLAYCARD_TERMS_HEAD = "Good to know:",

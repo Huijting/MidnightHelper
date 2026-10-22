@@ -1428,6 +1428,7 @@ ns._mhLocales.nlNL = {
 	QUIZ_AGAIN = "Opnieuw",
 	QUIZ_BACK = "Terug naar de kaart",
 	PLAYCARD_SOURCE_FMT = "Uit de gidsen: %s. Een patch kan dit veranderen.",
+	PLAYCARD_CHECKED_FMT = "Elke regel nagelopen tegen de gidsen en Blizzards speldata op %s.",
 	PLAYCARD_SITE_LINK = "Deze kaart op de website: klik voor de link.",
 	PLAYCARD_SITE_TITLE = "Deze kaart op midnighthelper.com",
 	PLAYCARD_SITE_HINT = "Druk op Ctrl+C om de link te kopiëren en plak hem in je browser.",

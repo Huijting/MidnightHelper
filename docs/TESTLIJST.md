@@ -37,7 +37,9 @@ Eerst `/reload`, op een level-90, karaktervenster open (C).
 
 ✅ Rob 22 okt (screenshot, Elemental): geen regels meer over elkaar, scrollbalk zichtbaar. ❌ De tabbladen scrolden mee
 weg → nu vast bovenaan:
-- [ ] Scroll de kaart naar beneden: de spec-icoontjes en de tabbladen blijven bovenaan staan.
+- [x] ✅ Rob 22 okt (Frost-screenshot): de spec-icoontjes en de tabbladen blijven bovenaan staan.
+- [ ] Onderaan de kaart (Frost, Elemental, …): na "From the guides: …" staat nu "Every line checked against the guides
+      and Blizzard's game data on 21 Oct 2026." Op een healer-kaart (Holy Paladin, Resto Druid …) staat die zin niet.
 
 Eerst `/reload`. Op je Elemental Shaman, tekstgrootte zoals je hem nu hebt (1,5).
 - [ ] `/mh play`: het venster is nooit hoger dan je scherm. Is de kaart langer, dan staat rechts een smal goud balkje

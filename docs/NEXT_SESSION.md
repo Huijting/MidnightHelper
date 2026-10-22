@@ -51,7 +51,12 @@ met BCP-tekst naast dezelfde knop, plek meten); C de kleur per slot in MH's eige
   geen pack gemeten; mh-writer nam het pack-woord voor kwaliteit (Rang/rang/rango/nível/grado/ранг). Lint 0 HARD.
 
 🖼️ "How you play" (Rob, screenshot: "als je scrollt ben je de tabbladen boven kwijt"): spec-iconen en tabbladen staan
-nu op een vaste kop (`win.head`), alleen de kaart eronder scrolt. Niet in het spel gezien.
+nu op een vaste kop (`win.head`), alleen de kaart eronder scrolt. ✅ Rob 22 okt (Frost-screenshot): "de tabs blijven staan".
+📅 Rob (zelfde screenshot): "onderin de data van wanneer we voor het laatst gecontroleerd hebben … we hebben pas alles
+bekeken toch?" Klopt: de bronregel noemde alleen de gidsdatums van augustus. GEMETEN: 35 auditrapporten (playcard_audit,
+side-session-notes local_8d0c4609) = de 35 specs in PlayCards.lua AUDITED. Nieuw: PLAYCARD_CHECKED_FMT "Every line checked
+against the guides and Blizzard's game data on 21 Oct 2026." achter de bronregel; niet op de 5 healer-kaarten (die zijn
+in een andere chat alleen waar fouten zaten rechtgezet). "Nagelopen" ≠ alles zeker: 71 unsure-punten staan nog open.
 
 ## 🧪 22 okt — Codex-advies zag je gifts niet meer
 GEMETEN (Robs `/mh gifts`-dump, 22 okt 01:19): de 12 Codex-knoppen hebben nu id 49-60 (was 13-24 op 19 okt), zelfde

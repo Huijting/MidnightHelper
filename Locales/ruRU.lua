@@ -4006,6 +4006,7 @@ ns._mhLocales.ruRU = {
 	ACADEMY_SITE_LINE = "Этот курс есть и на midnighthelper.com: его можно распечатать или сохранить на телефоне. Щелкните, чтобы получить ссылку.",
 	ACADEMY_SITE_TITLE = "Академия ролей на midnighthelper.com",
 	PLAYCARD_SOURCE_FMT = "Из руководств: %s. Патч может это изменить.",
+	PLAYCARD_CHECKED_FMT = "Каждая строка сверена с руководствами и игровыми данными Blizzard %s.",
 	PLAYCARD_STEPS = "Ваши кнопки, самые важные первыми:",
 	PLAYCARD_TAB_DISPEL = "Развеивание",
 	PLAYCARD_TAB_GROUP = "Группа",

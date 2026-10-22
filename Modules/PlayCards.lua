@@ -42,6 +42,19 @@
 
 local _, ns = ...
 
+--- The 35 cards the playcard-audit workflow checked sentence by sentence on 21 Oct 2026 (route A guides and tooltips,
+--- route B wago DB2; reports in the side-session notes, playcard_audit\<spec>.md, one per spec below). Rob, 22 Oct
+--- 2026, looking at Frost: the card still only named the August guide dates, "volgens mij hebben we pas alles bekeken".
+--- Not in it: the healer cards 65/105/256/257/264, which a separate chat corrected line by line where it found errors.
+--- The 71 points the audit left "unsure" were not changed; checked does not mean every line is settled.
+local AUDITED = { date = "21 Oct 2026", specs = {
+	[62] = true, [63] = true, [64] = true, [66] = true, [70] = true, [71] = true, [72] = true, [73] = true,
+	[102] = true, [103] = true, [104] = true, [250] = true, [251] = true, [252] = true, [253] = true, [254] = true,
+	[255] = true, [258] = true, [259] = true, [260] = true, [261] = true, [262] = true, [263] = true, [265] = true,
+	[266] = true, [267] = true, [268] = true, [269] = true, [270] = true, [577] = true, [581] = true, [1467] = true,
+	[1468] = true, [1473] = true, [1480] = true,
+} }
+
 -- source = shown under the card; checked = the day the guides were read.
 local CARDS = {
 	[70] = { -- Retribution Paladin
@@ -444,7 +457,7 @@ function ns.GetPlayCard(specID, known)
 	local function Part(p)
 		return ns:L(("PLAYCARD_%d_%s"):format(specID, p))
 	end
-	local out = { steps = {}, hero = {}, source = c.source }
+	local out = { steps = {}, hero = {}, source = c.source, checked = AUDITED.specs[specID] and AUDITED.date or nil }
 	local showWhy = ns.PlayCardWhyState(specID)
 	out.idea = Expand(Part("IDEA"), known)
 	for i = 1, c.steps do
