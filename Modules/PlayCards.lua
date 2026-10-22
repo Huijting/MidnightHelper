@@ -557,6 +557,26 @@ function ns.GetPlayCardQuiz(specID)
 		if answer and skipUnknown and not ns.PlayCardKnowsSpell(answer) then
 			answer = nil
 		end
+		-- 🔴 Rob, 22 Oct 2026 (Holy Paladin quiz): "______ (not with Lightsmith) and Avenging Wrath … ______ fills your Holy
+		-- Power" — the answer named twice in the step left two gaps (14 such steps, counted that day). Ask another spell
+		-- of the same step that is named only once, the LAST one as usual; only if there is none do both gaps stay.
+		if answer then
+			local count = select(2, text:gsub("{SPELL:" .. answer .. "}", ""))
+			if count > 1 then
+				local ids = {}
+				for id in text:gmatch("{SPELL:(%d+)}") do
+					ids[#ids + 1] = tonumber(id)
+				end
+				for i = #ids, 1, -1 do
+					local id = ids[i]
+					local n = select(2, text:gsub("{SPELL:" .. id .. "}", ""))
+					if n == 1 and not (skipUnknown and not ns.PlayCardKnowsSpell(id)) then
+						answer = id
+						break
+					end
+				end
+			end
+		end
 		-- A step without a spell (plain text) cannot be asked; nor can a card with too few spells.
 		if answer and #pool >= 3 then
 			-- Every mention, not just the first: a step that names the answer twice would give it away.

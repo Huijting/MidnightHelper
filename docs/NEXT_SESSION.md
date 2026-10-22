@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## ❓ 22 okt (avond) — quiz met dubbele gaten
+
+Rob (screenshot, Holy Paladin quiz): vraag 1 had twee gaten ("______ (not with Lightsmith) and Avenging Wrath … ______ fills
+your Holy Power"). GEMETEN (scratch quiz_dupes.py): 14 stappen waar het quizantwoord 2× in de tekst staat (70 S1, 66 S5,
+65 S1, 103 S2/S3, 105 S2, 254 AOE, 255 S2/S3, 258 S3, 259 S2, 265 S2, 269 S1, 1473 S4). Fix in GetPlayCardQuiz: staat het
+antwoord 2× in de stap, dan de laatste spell van die stap die maar 1× genoemd wordt (en die je kent op max level); geen
+→ beide gaten zoals eerst. Niet in het spel gezien.
+
 ## 🛡️ 22 okt (avond) — Holy Armaments begint als Holy Bulwark
 
 ✅ GEMETEN Rob (Holy Paladin, Lightsmith): toetsenblok toonde op F1 "Holy Bulwark" vóór drukken; na één druk tooltip
@@ -59,7 +67,12 @@ nummert per sessie opnieuw: 13-24, 25-36, 49-60, 109-120). ❌ Rob (screenshot):
     Bolt (Sha'Kuro), Amani Headhunters, "Hash'ey" in achievementtitels; esMX "Kindo'Jan" (hoofdletter J in de client).
   - Er'inye en "Delver's HQ" (Silvermoon) staan niet in Blizzards data → in Robs client aflezen.
   - Kinduru-hotfix in de 0-levens-tip (Robs keuze), Crimson Tempest (Robs keuze), Earth Elemental/Primordial Bond.
-  - De kleinere kaartpunten uit playcard-finish (Guardian Spirit "giant hit", 257 WAOE, 256 TERMS, Feral W2, Roar).
+  - ✅ 22 okt kleinere kaartpunten (mh-research, rapport side-session-notes `small_card_points_2026-10-22.md`):
+    Guardian Spirit (SURVIVAL_WHEN_CHEAT_DEATH, GROUP_NOTE_GUARDIAN_SPIRIT): "one giant hit" te streng — alleen een klap
+    ver voorbij een volle healthbalk komt erdoor (Mechanical Priest 12.x; cap 200% wiki; in 12.1.5 AFGELEID); 256 TERMS
+    "priest spells, trinkets/items tellen niet" (Blizzard 81749 "spell damage"); 104 W2 "main Rage buttons" (auto's en
+    klappen geven ook Rage). 257 WAOE Apotheosis "ready right away" = KLOPT (reset zonder Miracle Worker, +1 charge mét).
+    Roar of Sacrifice bewust gelaten (meeste spelers hebben hem niet). Vertaling mh-writer.
 
 ## 🧾 22 okt (middag) — kaarten af: healers nagelopen + de 71 onzekere punten beslist
 

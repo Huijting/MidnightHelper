@@ -15969,7 +15969,13 @@
    "ruRU": "36d02aea7d735acc"
   },
   "GROUP_NOTE_GUARDIAN_SPIRIT": {
-   "ruRU": "2beeaa370e4f768e"
+   "deDE": "3e1f3583b439f682",
+   "esES": "3e1f3583b439f682",
+   "frFR": "3e1f3583b439f682",
+   "itIT": "3e1f3583b439f682",
+   "nlNL": "3e1f3583b439f682",
+   "ptBR": "3e1f3583b439f682",
+   "ruRU": "3e1f3583b439f682"
   },
   "GROUP_NOTE_HEALING_TIDE_TOTEM": {
    "ruRU": "b24ecf165afb3b95"
@@ -24428,13 +24434,13 @@
    "ruRU": "b369b2bfac299f67"
   },
   "PLAYCARD_104_W2": {
-   "deDE": "317bf8fb10ad797c",
-   "esES": "317bf8fb10ad797c",
-   "frFR": "317bf8fb10ad797c",
-   "itIT": "317bf8fb10ad797c",
-   "nlNL": "317bf8fb10ad797c",
-   "ptBR": "317bf8fb10ad797c",
-   "ruRU": "317bf8fb10ad797c"
+   "deDE": "40dab1c550a6556e",
+   "esES": "40dab1c550a6556e",
+   "frFR": "40dab1c550a6556e",
+   "itIT": "40dab1c550a6556e",
+   "nlNL": "40dab1c550a6556e",
+   "ptBR": "40dab1c550a6556e",
+   "ruRU": "40dab1c550a6556e"
   },
   "PLAYCARD_104_W3": {
    "deDE": "66be29bcd5995915",
@@ -25763,13 +25769,13 @@
    "ruRU": "84d6d3fecd42b186"
   },
   "PLAYCARD_256_TERMS": {
-   "deDE": "403151b41b731576",
-   "esES": "403151b41b731576",
-   "frFR": "403151b41b731576",
-   "itIT": "403151b41b731576",
-   "nlNL": "403151b41b731576",
-   "ptBR": "403151b41b731576",
-   "ruRU": "403151b41b731576"
+   "deDE": "a20f72afbb5bbd73",
+   "esES": "a20f72afbb5bbd73",
+   "frFR": "a20f72afbb5bbd73",
+   "itIT": "a20f72afbb5bbd73",
+   "nlNL": "a20f72afbb5bbd73",
+   "ptBR": "a20f72afbb5bbd73",
+   "ruRU": "a20f72afbb5bbd73"
   },
   "PLAYCARD_256_W1": {
    "deDE": "f6bd113b0d7ca37f",
@@ -37862,7 +37868,13 @@
    "ruRU": "46a53f980e836143"
   },
   "SURVIVAL_WHEN_CHEAT_DEATH": {
-   "ruRU": "6276faff5c508ecc"
+   "deDE": "5f97455c7af09954",
+   "esES": "5f97455c7af09954",
+   "frFR": "5f97455c7af09954",
+   "itIT": "5f97455c7af09954",
+   "nlNL": "5f97455c7af09954",
+   "ptBR": "5f97455c7af09954",
+   "ruRU": "5f97455c7af09954"
   },
   "SURVIVAL_WHEN_RESET": {
    "ruRU": "b1645fca65debba2"

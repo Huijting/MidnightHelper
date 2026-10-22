@@ -471,7 +471,8 @@ local function TaggedPlan(tbl, specID, trace)
 					text = name,
 					spellID = id,
 					-- survivalWhen: a row whose spell the step text does not describe (8 Oct 2026,
-					-- docs/ROLE_SWITCH_FACTS8: Guardian Spirit cannot stop one giant hit, Cold Snap
+					-- docs/ROLE_SWITCH_FACTS8: Guardian Spirit lowers no damage and only a hit far past a full health bar gets through —
+					-- "one giant hit" was too strict, measured 22 Oct 2026, Cold Snap
 					-- protects against nothing itself). Same step and order, its own sentence.
 					whenKey = when or step.key,
 					noteKey = note,

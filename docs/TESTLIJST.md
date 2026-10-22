@@ -42,6 +42,13 @@ Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met 
       Deep Breath "press it on cooldown …"; Hunter Survival of the Fittest "just before each big hit; it comes back after
       1.5 min …"; Rogue Evasion heeft nog zijn "dodges hits from the front …"-noot.
 
+## 🆕 22 okt (avond) — quiz: geen dubbele gaten meer
+
+- [x] ❌ Rob 22 okt (Holy Paladin): "______ (not with Lightsmith) and Avenging Wrath … ______ fills your Holy Power" —
+      het antwoord stond 2× in de zin. GEMETEN: 14 stappen op 13 kaarten hadden dat.
+- [ ] Na `/reload`: `/mh play` → "Test yourself": vraag 1 vraagt nu naar Avenging Wrath (Divine Toll blijft staan).
+      Steekproef op een andere kaart (Feral, Survival Hunter, Affliction, Assassination): nergens twee gaten.
+
 ## 🆕 22 okt — Codex: ons advies licht op
 
 Eerst `/reload`, dan de Corrosive Codex openen.
