@@ -232,7 +232,7 @@ end
 local function SpecButton(i)
 	local b = win._specBtns[i]
 	if not b then
-		b = CreateFrame("Button", nil, win.body)
+		b = CreateFrame("Button", nil, win.head)
 		b:SetSize(SPEC_ICON, SPEC_ICON)
 		b.tex = b:CreateTexture(nil, "ARTWORK")
 		b.tex:SetAllPoints()
@@ -279,7 +279,7 @@ local function TabButton(i)
 	win._tabBtns = win._tabBtns or {}
 	local b = win._tabBtns[i]
 	if not b then
-		b = CreateFrame("Button", nil, win.body)
+		b = CreateFrame("Button", nil, win.head)
 		b:SetHeight(26)
 		b.fs = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		b.fs:SetPoint("CENTER", b, "CENTER", 0, 1)
@@ -1044,10 +1044,11 @@ local function FitHeight(y)
 	end
 	local screenH = (UIParent and UIParent:GetHeight()) or 768
 	local maxH = math.floor(screenH * MAX_SCREEN / sc)
-	local h = math.min(CHROME - 8 + contentH, maxH)
+	local fixed = CHROME - 8 + (win._headH or 0) -- chrome plus the spec icons and tabs above the view
+	local h = math.min(fixed + contentH, maxH)
 	win:SetHeight(h)
 	win._contentH = contentH
-	win._viewH = h - (CHROME - 8)
+	win._viewH = h - fixed
 	ApplyScroll()
 end
 
@@ -1086,7 +1087,7 @@ local function Redraw()
 		for i, s in ipairs(specs) do
 			local b = SpecButton(i)
 			b:ClearAllPoints()
-			b:SetPoint("TOPLEFT", win.body, "TOPLEFT", (i - 1) * (SPEC_ICON + 10) + 3, y - 3)
+			b:SetPoint("TOPLEFT", win.head, "TOPLEFT", (i - 1) * (SPEC_ICON + 10) + 3, y - 3)
 			b.tex:SetTexture(s.icon)
 			b.tex:SetDesaturated(s.id ~= specID)
 			b.ring:SetShown(s.id == specID)
@@ -1127,7 +1128,7 @@ local function Redraw()
 	for i, def in ipairs(tabs) do
 		local b = TabButton(i)
 		b:ClearAllPoints()
-		b:SetPoint("TOPLEFT", win.body, "TOPLEFT", tx, y)
+		b:SetPoint("TOPLEFT", win.head, "TOPLEFT", tx, y)
 		b.fs:SetText(L(def.key))
 		b:SetWidth(b.fs:GetStringWidth() + 18)
 		local on = def.id == tab or (tab == "quiz" and def.id == "play")
@@ -1145,6 +1146,14 @@ local function Redraw()
 		win._tabBtns[i]:Hide()
 	end
 	y = y - 26 - 10
+	-- The spec icons and the tabs stay put above the scrolling card (Rob, 22 Oct 2026: "als je scrollt ben je de
+	-- tabbladen boven kwijt"). The card itself starts at the top of the view, below them.
+	win._headH = -y
+	win.head:SetHeight(win._headH)
+	win.view:ClearAllPoints()
+	win.view:SetPoint("TOPLEFT", win.head, "BOTTOMLEFT", 0, 0)
+	win.view:SetPoint("BOTTOMRIGHT", win._content, "BOTTOMRIGHT", 0, 0)
+	y = 0
 
 	if tab == "quiz" then
 		y = DrawQuiz(specID, y, inner)
@@ -1404,9 +1413,16 @@ local function Build()
 	title:SetTextColor(1, 0.9, 0.55)
 	f._title = title
 
-	-- The visible part of the card. It clips, and the body slides inside it (ApplyScroll).
+	-- Spec icons and tabs: fixed, never scrolled. Its height is set by Redraw.
+	local head = CreateFrame("Frame", nil, content)
+	head:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -32)
+	head:SetPoint("TOPRIGHT", content, "TOPRIGHT", 0, -32)
+	head:SetHeight(1)
+	f.head = head
+	f._content = content
+	-- The visible part of the card, below the head. It clips, and the body slides inside it (ApplyScroll).
 	local view = CreateFrame("Frame", nil, content)
-	view:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -32)
+	view:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, 0)
 	view:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, 0)
 	view:SetClipsChildren(true)
 	f.view = view

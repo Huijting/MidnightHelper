@@ -21,7 +21,23 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 22 okt — karaktervenster: kleur per enchant
+
+Eerst `/reload`, op een level-90, karaktervenster open (C).
+- [ ] Het MH-paneel naast je karaktervenster heeft één regel per stuk met een enchant-plek (helm, schouders, borst,
+      broek, laarzen, 2 ringen, wapen). Groen = ons advies, oranje = een andere enchant, rood = geen enchant, geel =
+      weten we niet. Onderaan staat die uitleg.
+- [ ] De namen zijn de namen die je eigen tooltip toont. Bij een rang-1-enchant staat "(rank 1; rank 2 is stronger)".
+- [ ] Schouders zonder enchant: grijs "(optional)", niet rood.
+- [ ] Een lege socket: een rode regel met het stuk erbij.
+- [ ] Klik op een regel: het enchant-advies komt in de chat.
+- [ ] Op een alt onder level 90: nog de oude regels ("x slots without an enchant").
+
 ## 🆕 22 okt — "How you play"-venster: scrollen en geen regels meer over elkaar
+
+✅ Rob 22 okt (screenshot, Elemental): geen regels meer over elkaar, scrollbalk zichtbaar. ❌ De tabbladen scrolden mee
+weg → nu vast bovenaan:
+- [ ] Scroll de kaart naar beneden: de spec-icoontjes en de tabbladen blijven bovenaan staan.
 
 Eerst `/reload`. Op je Elemental Shaman, tekstgrootte zoals je hem nu hebt (1,5).
 - [ ] `/mh play`: het venster is nooit hoger dan je scherm. Is de kaart langer, dan staat rechts een smal goud balkje

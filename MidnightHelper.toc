@@ -125,6 +125,7 @@ Modules\StatCoach.lua
 Modules\MythicGain.lua
 Modules\LootUpgrade.lua
 Modules\BagUpgrade.lua
+Modules\EnchantIds.lua
 Modules\GearEnchantCheck.lua
 Modules\ConsumableReadyCheck.lua
 Modules\ConsumableReadyComms.lua

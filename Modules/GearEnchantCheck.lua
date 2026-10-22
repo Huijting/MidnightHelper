@@ -793,6 +793,158 @@ function ns.GetGearEnchantSummary()
 	return missing, sockets
 end
 
+--------------------------------------------------------------------------------
+-- Per slot: is the enchant on it one we advise? (Rob, 22 Oct 2026, option C: a colour per slot in the character
+-- side panel, with a yellow "can't tell". Idea from the CurseForge addon Inspect for EllesmereUI.)
+--------------------------------------------------------------------------------
+
+--- The advice entries Recommend() would show for this slot, as a flat list, plus whether the advice could be fully
+--- worked out. `complete = false` when it leans on a stat we could not read: then an enchant outside the list is
+--- "can't tell", not "not our advice".
+local function AdviceFor(slotId, stat)
+	local list, complete = {}, true
+	local function add(e)
+		list[#list + 1] = e
+	end
+	if slotId == 16 then
+		add(WEAPON_PRIMARY)
+		add(WEAPON_HASHEY)
+		if stat and WEAPON_BY_STAT[stat] then
+			add(WEAPON_BY_STAT[stat])
+		else
+			complete = false
+		end
+	elseif slotId == 11 or slotId == 12 then
+		add(RING_EFFECT)
+		if stat and RING_BY_STAT[stat] then
+			add(RING_BY_STAT[stat])
+		else
+			complete = false
+		end
+	elseif slotId == 5 then
+		add(CHEST_PRIMARY)
+	elseif slotId == 1 then
+		for _, e in ipairs(HEAD_TERTIARY) do
+			add(e)
+		end
+	elseif slotId == 8 then
+		for _, e in ipairs(FEET_TERTIARY) do
+			add(e)
+		end
+	elseif slotId == 3 then
+		for _, e in ipairs(SHOULDER_TERTIARY) do
+			add(e)
+		end
+	elseif slotId == 7 then
+		local p = PrimaryStat()
+		if p ~= "int" then
+			for _, e in ipairs(LEG_AGISTR) do
+				add(e)
+			end
+		end
+		if p ~= "agi" and p ~= "str" then
+			for _, e in ipairs(LEG_INT) do
+				add(e)
+			end
+		end
+		if not p then
+			complete = false
+		end
+	end
+	return list, complete
+end
+
+--- Names (English, from ns.MH_ENCHANT_IDS) of every rank of the advised enchants. An advice entry names one rank (a
+--- recipe spell covers both ranks; a leg kit or a shoulder scroll item is one rank), so match by the measured row
+--- and take its name: then rank 1 of an advised enchant still counts as advised.
+local function AdvisedNames(list)
+	local names = {}
+	for _, row in pairs(ns.MH_ENCHANT_IDS or {}) do
+		for _, e in ipairs(list) do
+			if (e.sid and row[4] == e.sid) or (e.iid and row[5] == e.iid) then
+				names[row[2]] = true
+			end
+		end
+	end
+	return names
+end
+
+--- The enchant line the player's own client writes, without the rank icon. nil when it could not be read.
+local function ClientEnchantName(slotId)
+	local t = SlotEnchantText(slotId)
+	if not t then
+		return nil
+	end
+	t = t:gsub("|A:[^|]*|a", ""):gsub("%s+$", "")
+	return t ~= "" and t or nil
+end
+
+--- One row per enchantable slot that holds an item, for the character side panel.
+--- state: "ours" (an enchant we advise), "other" (a Midnight enchant we know, not our advice), "missing" (none),
+--- "unknown" (we cannot tell: an enchant id we never measured, or advice that needs a stat we could not read),
+--- "optional" (shoulders without an enchant: optional, as everywhere in MH), "noadvice" (a Death Knight's
+--- runeforge: MH gives a DK no weapon advice, so no verdict).
+--- @return table|nil rows { slotId, label, state, name, rank } — nil when nothing could be read
+function ns.GetGearEnchantSlots()
+	if not GetInventoryItemLink then
+		return nil
+	end
+	local stat = TopStat()
+	local _, classToken = UnitClass("player")
+	local rows = {}
+	for _, s in ipairs(SLOTS) do
+		local link = GetInventoryItemLink("player", s.id)
+		if link then
+			local label = (s.id == 16 and (_G.WEAPON or "Weapon")) or _G[s.label] or s.label
+			local enchantID = tonumber(link:match("item:%d+:(%d*)") or "") or 0
+			local row = { slotId = s.id, label = label }
+			if enchantID == 0 then
+				row.state = (s.id == 3) and "optional" or "missing"
+			else
+				local known = ns.MH_ENCHANT_IDS and ns.MH_ENCHANT_IDS[enchantID]
+				row.name = ClientEnchantName(s.id) or (known and known[2])
+				if s.id == 16 and classToken == "DEATHKNIGHT" then
+					row.state = "noadvice"
+					row.name = row.name or (ns.MH_DK_RUNEFORGES and ns.MH_DK_RUNEFORGES[enchantID])
+				elseif known and known[1] == "RANGED_WEAPON" then
+					-- A scope on a bow or gun: MH has no scope advice, so no verdict either way.
+					row.state = "noadvice"
+				elseif not known then
+					row.state = "unknown"
+				else
+					row.rank = known[3]
+					local list, complete = AdviceFor(s.id, stat)
+					if AdvisedNames(list)[known[2]] then
+						row.state = "ours"
+					elseif complete then
+						row.state = "other"
+					else
+						row.state = "unknown"
+					end
+				end
+			end
+			rows[#rows + 1] = row
+		end
+	end
+	return #rows > 0 and rows or nil
+end
+
+--- Per socketed slot with an empty socket: { label, count }. Same count as the Enchants tab (EmptySocketCount).
+function ns.GetGearEmptySocketSlots()
+	local out = {}
+	if not GetInventoryItemLink then
+		return out
+	end
+	for _, gs in ipairs(GEM_SLOTS) do
+		local n = EmptySocketCount(gs.id)
+		if n and n > 0 then
+			local label = (gs.id == 16 and (_G.WEAPON or "Weapon")) or _G[gs.label] or gs.label
+			out[#out + 1] = { label = label, count = n }
+		end
+	end
+	return out
+end
+
 --- The shopping rows for `/mh ready` (Rob, 6 Oct 2026: "kunnen we zo een lijst ook maken voor onze enchants en
 --- empty sockets?" -> one list for the whole raid night). One row per thing to BUY, with the FIRST pick of the
 --- same advice the Enchants tab gives (Recommend/RecommendGem above), so the two can never disagree about the lead

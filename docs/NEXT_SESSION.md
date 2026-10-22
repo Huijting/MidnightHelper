@@ -33,6 +33,25 @@ een tabel enchantID (SpellItemEnchantment, in de link) → onze adviezen; die be
 Geel = enchantID niet in onze tabel, tooltip onleesbaar, item nog niet geladen, of spec/stat onbekend (TopStat nil).
 Opties voor Rob: A niets (BCP dekt rood/leeg); B kleine stip groen/rood/geel per slot op de knop (schakelaar; botst
 met BCP-tekst naast dezelfde knop, plek meten); C de kleur per slot in MH's eigen zijpaneel (geen botsing). Rob kiest.
+✅ Rob: "Optie C … Laat eerst mh-research de enchant-tabel meten, dan bouwen." GEBOUWD, niet in het spel gezien:
+- mh-research mat 104 SpellItemEnchantment-ID's (wago DB2 12.1.5.70448; PTR 12.1.7.70424 gelijk), rapport met DB2-rij
+  per waarde: side-session-notes `enchant_ids_2026-10-22.md`. Scroll-enchants: recept-spell heeft Effect 301 →
+  CraftingDataEnchantQuality (Rank 13 = Tier 1, 14 = Tier 2); beenkits/spellthreads/scopes: Effect 53, elke rang eigen
+  item. Sunfire Silk T1 = item 240094 (240133 = T2, onze waarde klopt). DK-runeforges zijn ook SIE-ID's.
+- `Modules/EnchantIds.lua` (nieuw, .toc vóór GearEnchantCheck): ns.MH_ENCHANT_IDS (92 rijen, zonder beroepsgereedschap)
+  + ns.MH_DK_RUNEFORGES, door een script uit het rapport gemaakt. Offline GEMETEN: alle 25 adviezen in
+  GearEnchantCheck vinden hun rij, elk met rang 1 en 2.
+- GearEnchantCheck: ns.GetGearEnchantSlots (per slot ours/other/missing/unknown/optional/noadvice; zelfde adviezen
+  als Recommend; geel als de enchant-ID onbekend is of het advies een stat nodig heeft die we niet lezen; DK-wapen en
+  scopes = geen oordeel; schouder leeg = "mag") en ns.GetGearEmptySocketSlots.
+- CharacterSidePanel: op max level één regel per slot (groen/oranje/rood/geel), rode regel per lege socket, dan de
+  kleuruitleg; klik = het enchant-advies in chat. Onder max level blijven de twee tellingen. Naam = wat de client in
+  de tooltip zet (clienttaal). SidePanel kreeg kleuren bad/other/unknown. 9 sleutels CHARPANEL_SLOT_*: en/nl ik,
+  rest mh-writer (eigen vertaling; ru in ruRU.lua). 🔜 Clientnaam-regel: het woord voor "rank" (crafting-tier) is in
+  geen pack gemeten; mh-writer nam het pack-woord voor kwaliteit (Rang/rang/rango/nível/grado/ранг). Lint 0 HARD.
+
+🖼️ "How you play" (Rob, screenshot: "als je scrollt ben je de tabbladen boven kwijt"): spec-iconen en tabbladen staan
+nu op een vaste kop (`win.head`), alleen de kaart eronder scrolt. Niet in het spel gezien.
 
 ## 🧪 22 okt — Codex-advies zag je gifts niet meer
 GEMETEN (Robs `/mh gifts`-dump, 22 okt 01:19): de 12 Codex-knoppen hebben nu id 49-60 (was 13-24 op 19 okt), zelfde

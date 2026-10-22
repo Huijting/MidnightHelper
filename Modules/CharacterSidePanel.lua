@@ -43,10 +43,64 @@ local function GetCharacterAnchor()
 	return CharacterStatsPane or CharacterFrame
 end
 
+--- Per slot, at max level (Rob, 22 Oct 2026, option C): one line per enchantable slot, coloured by whether the enchant
+--- is ours (green), another one (orange), missing (red) or something we cannot judge (yellow), then each empty socket
+--- in red, then the colour key — the explanation in the same room as the colours. Below max level the old two count
+--- lines stay: the enchants are Midnight max-level gear, and nine red lines on a level 30 would be noise.
+--- @return true when it added the lines (the caller then skips the count lines)
+local STATE_COLOR = {
+	ours = "good", other = "other", missing = "bad", unknown = "unknown", optional = "dim", noadvice = "soft",
+}
+local function AddSlotLines(out)
+	if not ns.GetGearEnchantSlots then
+		return false
+	end
+	local max = (ns.PlayCardMaxLevel and ns.PlayCardMaxLevel()) or 90
+	if (UnitLevel and UnitLevel("player") or 0) < max then
+		return false
+	end
+	local ok, rows = pcall(ns.GetGearEnchantSlots)
+	if not (ok and rows) then
+		return false
+	end
+	local function open()
+		pcall(ns.PrintGearEnchantCheck)
+	end
+	for _, r in ipairs(rows) do
+		local name = r.name or "?"
+		local text
+		if r.state == "missing" then
+			text = (ns:SafeL("CHARPANEL_SLOT_MISSING_FMT") or "%s"):format(r.label)
+		elseif r.state == "optional" then
+			text = (ns:SafeL("CHARPANEL_SLOT_OPTIONAL_FMT") or "%s"):format(r.label)
+		elseif r.state == "other" then
+			text = (ns:SafeL("CHARPANEL_SLOT_OTHER_FMT") or "%s: %s"):format(r.label, name)
+		elseif r.state == "unknown" then
+			text = (ns:SafeL("CHARPANEL_SLOT_UNKNOWN_FMT") or "%s: %s"):format(r.label, name)
+		else
+			text = (ns:SafeL("CHARPANEL_SLOT_OURS_FMT") or "%s: %s"):format(r.label, name)
+		end
+		if r.state == "ours" and r.rank == 1 then
+			text = text .. " " .. (ns:SafeL("CHARPANEL_SLOT_RANK1") or "")
+		end
+		out[#out + 1] = { text = text, color = STATE_COLOR[r.state] or "soft", onClick = open }
+	end
+	local okS, sockets = pcall(ns.GetGearEmptySocketSlots)
+	for _, s in ipairs(okS and sockets or {}) do
+		local text = s.count > 1 and (ns:SafeL("CHARPANEL_SLOT_SOCKETS_FMT") or "%s %d"):format(s.label, s.count)
+			or (ns:SafeL("CHARPANEL_SLOT_SOCKET_FMT") or "%s"):format(s.label)
+		out[#out + 1] = { text = text, color = "bad", onClick = open }
+	end
+	out[#out + 1] = { text = ns:SafeL("CHARPANEL_SLOT_LEGEND") or "", color = "dim" }
+	return true
+end
+
 local function BuildLines()
 	local out = {}
 
-	if ns.GetGearEnchantSummary then
+	if AddSlotLines(out) then
+		-- the per-slot lines replace the two counts below
+	elseif ns.GetGearEnchantSummary then
 		local ok, missing, sockets = pcall(ns.GetGearEnchantSummary)
 		if ok and missing ~= nil then
 			if missing > 0 then

@@ -74,6 +74,10 @@ local COLORS = {
 	prog = { 0.60, 0.80, 1.00 },
 	soft = { 0.85, 0.83, 0.78 },
 	dim  = { 0.62, 0.60, 0.56 },
+	-- Character panel, per slot (22 Oct 2026): red = missing, orange = another enchant, yellow = can't tell.
+	bad  = { 1.00, 0.42, 0.42 },
+	other = { 1.00, 0.62, 0.25 },
+	unknown = { 1.00, 0.95, 0.30 },
 }
 
 --------------------------------------------------------------------------------
