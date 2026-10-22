@@ -44,8 +44,9 @@ Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met 
 
 ## 🆕 22 okt (avond) — Rite of Adjuration in het toetsenblok
 
-- [ ] Holy Paladin (Lightsmith), `/reload`, toetsenblok openen: onderaan staat NIET meer "Not in Midnight Helper's list
-      yet: Rite of Adjuration"; hij heeft een plek (klik zo nodig "Update (add new spells)").
+- [x] ✅ GEMETEN Rob 22 okt (terug naar Lightsmith): Rite of Adjuration staat op Shift+R, de "Not in … list"-regel is weg.
+- [x] ❌ Rob: "Cheat sheet (code for the website)" viel buiten zijn knop → knoppen onderaan maken hun tekst passend.
+- [ ] `/reload`, toetsenblok: alle knoppen onderaan hebben hun tekst binnen de knop (ook "Put '…' back").
 
 ## 🆕 22 okt (avond) — quiz: geen dubbele gaten meer
 

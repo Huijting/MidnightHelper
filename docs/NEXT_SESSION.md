@@ -21,7 +21,9 @@ base Mana" (tooltip 5,000 Mana); Dispel alleen Magic zonder talent, Magic/Poison
 {SPELL:432472} gewisseld in alle 9 regels (script), check_drift --mark. Het toetsenblok meldde "Not in Midnight Helper's
 list yet: Rite of Adjuration" → ✅ (Rob: "Zet Rite of Adjuration in de toetsenlijst") KeybindRoles_Paladin: Rite of
 Adjuration 433583 (id uit id_round_2026-10-05 "sure" + MissingBuffData), utility prio 1, specs {65,66}, excludes Rite of
-Sanctification; Sanctification nu ook {65,66} (zelfde keuzeknoop 95233). Lint 0 HARD. Niet in het spel gezien.
+Sanctification; Sanctification nu ook {65,66} (zelfde keuzeknoop 95233). Lint 0 HARD. ✅ GEMETEN Rob (terug op Lightsmith): op Shift+R,
+melding weg. Rob daarna: "Cheat sheet (code for the website)" valt buiten zijn knop → KeyBlock.lua Btn(): FitText via
+hooksecurefunc(b, "SetText") → SetTextScale tot min 0,65 als de tekst breder is dan de knop. Niet opnieuw gezien.
 
 ## 🛒 22 okt (na de release) — enchant-advies in een venster
 

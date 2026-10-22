@@ -1700,10 +1700,26 @@ local function Ensure()
 
 	-- Step 2 (5 Oct 2026): the dry run, the real thing, and the way back — in the window, where the
 	-- player decides, with the outcome said here too (chat is a record, not an answer in place).
+	-- The text fits its button (Rob, 22 Oct 2026: "Cheat sheet (code for the website)" ran past the button's edge). The
+	-- buttons stay 200 wide in their row; a text that is wider gets smaller letters, down to 0.65. Hooked on SetText,
+	-- because some of these change their text later (the layout name in "Put … back").
+	local function FitText(b)
+		local fs = b.GetFontString and b:GetFontString()
+		if not (fs and fs.SetTextScale) then
+			return
+		end
+		fs:SetTextScale(1)
+		local room = (b:GetWidth() or 200) - 14
+		local w = fs:GetStringWidth() or 0
+		if w > room and w > 0 then
+			fs:SetTextScale(math.max(0.65, room / w))
+		end
+	end
 	local function Btn(key, x, onClick)
 		local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 		b:SetSize(200, 22)
 		b:SetPoint("BOTTOMLEFT", x, 18)
+		hooksecurefunc(b, "SetText", FitText)
 		b:SetText(ns:L(key))
 		b:SetScript("OnClick", onClick)
 		return b
