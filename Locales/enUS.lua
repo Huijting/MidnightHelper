@@ -2178,9 +2178,13 @@ ns._mhLocales.enUS = {
 	SURVIVAL_WHEN_CHEAT_DEATH = "when your health keeps dropping: if you would die, it saves you once. It does not lower damage and does not help against one giant hit",
 	SURVIVAL_WHEN_RAGE = "press it right after the fight starts (it costs Rage, and you have none before the pull), then keep it up all fight long",
 	SURVIVAL_WHEN_LICHBORNE = "against fear, charm or sleep: it does not lower damage, but it heals you a little",
+	-- 22 Oct 2026 (playcard-finish, decided "neutral_wording"): one row each, the shared step text did not fit.
+	SURVIVAL_WHEN_DEMON_SPIKES = "keep it rolling as much as you can; with the Feed the Demon talent it can stay up all fight",
+	SURVIVAL_WHEN_DEEP_BREATH = "press it on cooldown; if a big hit comes while it is ready, fly through it",
+	SURVIVAL_WHEN_SOTF = "just before each big hit; it comes back after 1.5 min (with the Padded Armor talent you have 2)",
 	SURVIVAL_WHEN_RESET ="after your big one (Ice Block or Ice Cold): it makes it ready again. Ice Block and Ice Cold only work again 30 sec after the last one",
 	-- Short remarks behind a row on the Stay alive card (17 Sep 2026). A fixed set, shared by all classes.
-	SURVIVAL_NOTE_PHYSICAL = "dodges hits from the front. With the Elusiveness talent: also 20% less of all damage",
+	SURVIVAL_NOTE_EVASION = "dodges hits from the front. With the Elusiveness talent: also 20% less of all damage",
 	SURVIVAL_NOTE_PHYSICAL_TANK = "only against physical damage, and meant for someone in your group. On yourself: only against one boss, just before a hard physical hit, with Hand of Reckoning right after. Never with a pack: the enemies run to your group. Gives Forbearance: no Lay on Hands on yourself for 30 sec, and no Divine Shield either unless you took the Light's Revocation talent",
 	PLAYCARD_TAB_GROUP = "Group",
 	GROUP_INTRO = "Buttons you press for someone else or for the whole group. For one person: click their name first, then press the button. The grey note says when a button works differently.",

@@ -27,6 +27,12 @@ toepassen in enUS/nlNL, vertalen de/fr/es+esMX/pt/it/ru. Rapporten: side-session
   257 WAOE "Apotheosis ready right away" mogelijk te sterk; 256 TERMS "all the damage" vs Blizzard "spell damage";
   Feral 2e regel (W2 Rage) nog eens bekijken.
 - 8 punten alleen in het spel te beslissen → TESTLIJST bovenaan.
+- ✅ Daarna (Rob: "Allebei, maar testen komt later"): eigen survivalWhen-zin per knop, gedeelde zinnen ongemoeid —
+  Demon Spikes (581) SURVIVAL_WHEN_DEMON_SPIKES (Feed the Demon), Deep Breath alleen 1467 SURVIVAL_WHEN_DEEP_BREATH
+  (op cooldown; Stretch Time-noot blijft), Survival of the Fittest SURVIVAL_WHEN_SOTF (1,5 min, 2 met Padded Armor).
+  SURVIVAL_NOTE_PHYSICAL hernoemd naar SURVIVAL_NOTE_EVASION (script, 10 plekken incl. translation_state.json; docs-
+  historie niet). en/nl ik, rest mh-writer. Niet in het spel gezien. Nog open: Crimson Tempest (Robs keuze), Roar of
+  Sacrifice eigen zin (meeste spelers hebben hem niet), de kleinere punten hierboven.
 
 ## ☀️ 22 okt (ochtend) — ochtendronde, nieuwe bouwchat
 

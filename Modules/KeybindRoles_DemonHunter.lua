@@ -126,7 +126,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- AoE (guide.lua {247454} Spirit Bomb; Shift+N-anker)
 	["Spirit Bomb"]       = { id = 247454, category = "spender", priority = 6, bindKey = "Shift+4", specs = { 581 } }, -- soul-spender AoE (SpellArchetypes 247454; guide.lua {247454})
 	-- Kleine def (SpellCategories DEFENSIVE 203720; SpellDB DEMONHUNTER_2 mitigatie-lijst)
-	["Demon Spikes"]      = { id = 203720, role = "defensive_1", priority = 1, specs = { 581 }, survival = "keepup", survivalOrder = 1 }, -- armor + parry mitigatie (SpellCategories 203720) -- card: active mitigation you keep rolling (IV-VEN)
+	["Demon Spikes"]      = { id = 203720, role = "defensive_1", priority = 1, specs = { 581 }, survival = "keepup", survivalOrder = 1, survivalWhen = "SURVIVAL_WHEN_DEMON_SPIKES" }, -- 22 Oct 2026 (playcard-finish): 1 charge / 20 s, buff 12 s (SimC 12.1.5.70448), so "all fight long" needs Feed the Demon 218612 (26/50 top M+, Murlok) -- armor + parry mitigatie (SpellCategories 203720) -- card: active mitigation you keep rolling (IV-VEN)
 	-- Grote def (DEFENSE_TIER 204021 = tier2; SpellCategories DEFENSIVE 187827)
 	["Fiery Brand"]       = { id = 204021, role = "defensive_3", priority = 1, specs = { 581 }, survival = "small", survivalOrder = 2 }, -- 40% DR-brand (DEFENSE_TIER 204021 tier2) -- card: 40% for 12 s, the shorter one next to Meta
 	-- The key is not a spell name (in game 187827 is just "Metamorphosis"), so the card needs the id (audit).

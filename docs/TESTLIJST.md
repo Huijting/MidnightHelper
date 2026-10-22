@@ -39,6 +39,9 @@ Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met 
 - [ ] Op een healer-kaart staat nu ook "Every line checked … on 22 Oct 2026."
 - [ ] Holy Priest met Holy Fire: in "Fight alone" staat Shadow Word: Pain niet meer; Holy Nova zegt "for four or more enemies".
 - [ ] Disc Priest: Power Infusion in de heal-cooldowns zegt "Give it to a damage dealer …".
+- [ ] "Stay alive" eigen zinnen: Vengeance DH Demon Spikes "keep it rolling as much as you can …"; Devastation Evoker
+      Deep Breath "press it on cooldown …"; Hunter Survival of the Fittest "just before each big hit; it comes back after
+      1.5 min …"; Rogue Evasion heeft nog zijn "dodges hits from the front …"-noot.
 
 ## 🆕 22 okt — Codex: ons advies licht op
 

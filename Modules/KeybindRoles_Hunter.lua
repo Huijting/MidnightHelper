@@ -90,7 +90,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	["Exhilaration"] = { id = 109304, role = "heal_quick", priority = 1, survival = "heal", survivalOrder = 1 }, -- F2 heal-anker: self+pet quick heal (109304), baseline; 1 min (IV)
 	-- Card: 30% DR for 6 s, 1 charge (a 2nd with Padded Armor 459450; spec audit 21 Oct 2026) — pressed before a hit, not kept up (IV).
-	["Survival of the Fittest"] = { id = 264735, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 2 }, -- kleine def, 30% DR (264735), baseline (talent)
+	["Survival of the Fittest"] = { id = 264735, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 2, survivalWhen = "SURVIVAL_WHEN_SOTF" }, -- 22 Oct 2026 (playcard-finish): 1 charge / 90 s, 2 with Padded Armor 459450 (wago SpellCategory 1830; 50/50 top M+), so not the shared "press it often" -- kleine def, 30% DR (264735), baseline (talent)
 	["Aspect of the Turtle"] = { id = 186265, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 1 }, -- grote def, immune (186265), baseline
 	-- Survival too (3 Oct 2026, mh-research: Icy Veins SV pets guide 10 Aug - SV takes a Ferocity pet when it must be
 	-- the group's Bloodlust). Not Marksmanship: that spec has Harrier's Cry and no pet by default.

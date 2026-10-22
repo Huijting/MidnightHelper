@@ -125,7 +125,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Feint"]            = { id = 1966, role = "defensive_1", priority = 1, survival = "small", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_AOE" }, -- kleine def (AoE dmg-reductie); kaart: vlak voor een klap
     -- Grote defensieven
     ["Cloak of Shadows"] = { id = 31224, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_MAGIC" }, -- magic immunity
-    ["Evasion"]          = { id = 5277, category = "defensive", priority = 2, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_PHYSICAL" }, -- dodge (grote def), alleen van voren
+    ["Evasion"]          = { id = 5277, category = "defensive", priority = 2, survival = "big", survivalOrder = 1, survivalNote = "SURVIVAL_NOTE_EVASION" }, -- dodge (grote def), alleen van voren
     -- Dispel / CC
     ["Blind"]            = { id = 2094, category = "dispel_cc", priority = 1 }, -- disorient
     ["Kidney Shot"]      = { id = 408, category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- finisher-stun (JustAC 408 mech=12)
