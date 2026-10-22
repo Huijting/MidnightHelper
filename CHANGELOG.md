@@ -5,7 +5,7 @@ All notable changes to this project are documented in this file.
 ## 4.11.0
 
 📌 **2026-10-22, RELEASE (Rob: "Maak maar af en doe een 4.11 release... evt andere dingen kunnen in een .1 release").**
-Tag `v4.11.0`. In-game: CHANGELOG_4110_0 (nu de gewone beta-uitnodiging) + _8.._11. `RELEASE_NOTES.md` =
+Tag `v4.11.0` op e622c04; run 39771120402 = success (CurseForge, Wago, GitHub). In-game: CHANGELOG_4110_0 (nu de gewone beta-uitnodiging) + _8.._11. `RELEASE_NOTES.md` =
 `docs/CURSEFORGE_4.11.0.md` (byte-identiek, GEMETEN). Sinds beta 2 erbij, NIET in het spel gezien tenzij genoemd:
 - **Labyrinth:** touw-uitweg bij 0 levens, 1 sleutel per coffer (GEMETEN Rob), Gilded Stash telt het Labyrinth
   (GEMETEN Rob, 1/4).
