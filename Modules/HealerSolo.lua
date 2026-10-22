@@ -46,6 +46,8 @@ ns.HEALER_SOLO = {
 		{ ids = { 14914 }, note = "CD" }, -- Holy Fire (talent)
 		-- Holy Fire replaces Shadow Word: Pain on its button: with Holy Fire the list showed one button twice (playcard-finish,
 		-- 22 Oct 2026, both routes agreed). `unless` hides the row when that spell is known.
+	-- ⚠️ Keep `unless` AFTER `note`: the site's build_academy regex reads `ids`, then `note`; with `unless` in front the
+	-- row silently drops off midnighthelper.com (site chat, 22 Oct 2026).
 		{ ids = { 589 }, note = "DOT", unless = 14914 }, -- Shadow Word: Pain
 		{ ids = { 585 }, note = "FILL" }, -- Smite
 		-- Holy Nova: 4+ enemies for Holy (guides; Blizzard's Single-Button Assistant 5+), not the shared "three or more".
