@@ -3216,3 +3216,88 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   allemaal vandaag gelezen. Acht content-items getoetst, alle acht **[RAAKT ONS NIET]** (één ervan
   bevestigt een drie maanden oude correctie, geen nieuwe actie). Geen actiepunt dat ík oppak — ik
   rapporteer, een mens beslist.
+
+- [2026-10-22] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-21]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261022b`
+  (en `&nocache=20261022c` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Alle drie de draadjes (esMX-locale `user_uvqy5939hswhgduu`, MrsBoojiePanda's
+  debug-regel, gadrinonturalyon's coffer-key/3D-model-verzoek) hebben als nieuwste bericht nog steeds een
+  reply van `twelveinchy`; geen nieuwe reacties sinds [2026-10-21]. MEASURED. **[RAAKT ONS NIET]** — geen
+  actiepunt vandaag.
+
+- [2026-10-22] 🔴 **Eén echte content-vondst: Blizzards 21-okt-fix "praat met Kinduru in De Empire's
+  Rest om het Labyrinth te verlaten tijdens het Kindo'jan-scenario" lijkt precies de bug te zijn die onze
+  eigen "0 levens"-tip van gisteravond met een omweg (het touw bij de ingang) oplost — en de data-wachter
+  miste de link omdat hij alleen in `Modules/` zocht, niet in `Locales/`.**
+  MEASURED, zelf gelezen (`news.blizzard.com/en-us/article/24307310/hotfixes-october-21-2026?nocache=20261022b`,
+  via Exa — nog steeds de nieuwste sectie, geen sectie van 22 okt gevonden): sectie **Labyrinth**, citaat:
+  *"Players can now speak to Kinduru in De Empire's Rest antechamber to leave the labyrinth while on the
+  Kindo'jan scenario."* "De Empire's Rest" is geen Blizzard-naam die wij verzinnen — het is onze EIGEN,
+  al langer gemeten naam voor het gebied vóór en tijdens de Kindo'jan-fight
+  (`docs/PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md:95`: *"Heart / Enemy / Soul of the Labyrinth (3444, 3678) |
+  De Empire's Rest → Den'Zara → Kindo'jan"*; ook `docs/labyrinth_run_2026-10-19/README.md` rij 10 en
+  `report_D.md`/`report_E.md`, alle drie al vóór vandaag geschreven).
+  Onze eigen tip, geschreven gisteravond (`Locales/enUS.lua:3367`, `DELVE_TIP_LABYRINTH_BOSS`, commit
+  `31c734d`): *"Out of lives before he dies? Normally the run ends and you are sent to the treasure room
+  (Rob, 15 Oct). Sometimes it does not: you keep coming back with 0 lives and Kinduru is gone. Kinduru's
+  toy that ends a run did nothing either (Carola, 21 Oct). What works: walk back to the start of the
+  Labyrinth and click the coiled rope by the closed door."* — hetzelfde symptoom (Kinduru weg, toy doet
+  niets, vastzitten met 0 levens), gemeten door Carola op dezelfde dag als deze hotfix. `docs/NEXT_SESSION.md:32-36`
+  bevestigt: *"Geen hotfix over 0 levens gevonden (mh-research); spelers melden dezelfde fout al sinds
+  18 okt."* — die hotfix was er dus kennelijk al, alleen nog niet gevonden toen dat geschreven werd.
+  **INFERRED, niet GEMETEN in het spel:** dat dit dezelfde bug is die de hotfix fixt — de locatienaam en
+  het symptoom passen exact, maar niemand heeft nog geprobeerd of Kinduru nu weer in De Empire's Rest
+  staat en praten met hem écht werkt. Als dat klopt, is onze "loop terug naar het touw"-omweg sinds 21 okt
+  misschien niet meer de snelste (of enige) uitweg — maar het touw blijft werken voor wie de hotfix nog
+  niet heeft, of liever niet test. **Ik verander niets; een mens besluit of en hoe de tip wordt aangepast,**
+  en of Rob/Carola het bij een volgende 0-levens-situatie wil uitproberen voordat hij terugloopt naar het
+  touw.
+  📌 **Waarom dit de moeite van het hele-boom-doorzoeken waard was:** de data-wachter noemde "Kinduru" vandaag
+  ook (`docs/PTR_12.0.7_DATA.md`), maar zocht alleen in `Modules/` en concludeerde "niets over scenario-exits,
+  geen bestaande claim die dit raakt" — waar, voor zover het zoekterrein ging; `Modules/` heeft zo'n claim
+  niet. De claim staat in `Locales/enUS.lua`, buiten zijn zoekterrein. Zelfde patroon als de gewaarschuwde
+  val: een leeg zoekresultaat op de verkeerde schaal bewijst niets over de juiste schaal.
+  Verder in dezelfde sectie (Labyrinth/Items/PvP), alle **[RAAKT ONS NIET]** — geen bestaande MH-tekst die
+  deze claims tegenspreekt (full-tree grep op `Locales/` + `Modules/` + `docs/`; positieve controle: dezelfde
+  zoekmethode vond moeiteloos de Kinduru-vondst hierboven, mist dus geen content die er wél staat):
+  - *"Fixed an issue where L00T RAID-R Minis could not be used in a group inside the labyrinth."* — andere
+    bug dan de al op [2026-10-16] gelogde "kon maar één keer gebruikt worden"-fix (regel 2825). Onze teksten
+    (`Config.lua:29`, `Modules/DelveItemBrokers.lua`, `Modules/DelveItemsPopup.lua`, alle locale-strings)
+    claimen nergens iets over groepsgebruik. MEASURED (0 treffers op "group" bij RAID-R Mini).
+  - *"The lever to start 'A Golden Opportunity' can now be used by players level 80 and above."* — onze
+    tekst (`Locales/enUS.lua:3366`, `DELVE_TIP_LABYRINTH_ROOMS`: *"A Golden Opportunity: pull the golden
+    lever, then loot the room..."*) noemt geen levelvereiste. MEASURED (0 treffers op "level 80" of "level
+    75" bij Golden Opportunity in de hele repo).
+  - *"Players can now hold up to 4 stacks of the Carrying a Jan'alai Tear buff at a time (was 1)."* —
+    al gemeld door de API-/data-wachter vandaag; onze Containment Breach-stap
+    (`docs/PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md:86`; speler-tekst in `Locales/enUS.lua:3366` noemt
+    "click a Jan'alai Tear" zonder aantal) claimt geen trip-aantal. MEASURED.
+  - *"Fixed an issue ... that could cause the Pit Boss to despawn when it left combat, preventing
+    [Returning the Bounty] from completing."* — andere despawn-bug dan de al op [2026-10-16] gelogde
+    spawn-bug (regel 2796-2798). Onze tekst (`Locales/enUS.lua:3366`, Returning the Bounty-regel) claimt
+    niets over despawnen. MEASURED.
+  - *"Fixed an issue where the Seriously Sharp Seashell effect from Gebbo's Bottomless Bag could break
+    stealth and invisibility effects."* — 0 treffers op "Seashell" of "Bottomless Bag" in de hele repo; de
+    enige "Gebbo" in onze data is Trader Gebbo, een andere entiteit (raid-boss in The Lost Explorers,
+    `Modules/RaidCoachData.lua:248`). MEASURED, geen overlap.
+  - *"Fixed an issue where Jan'thrazet, the Soul Fang could sometimes fail to trigger reliably... for
+    healers."* — 0 treffers op "Jan'thrazet" of "Soul Fang" in de hele repo: deze mob heeft geen MH-tip.
+    MEASURED.
+  - *"Fixed an issue preventing Nebulous Voidcache bonus roll item list previews from updating... This was
+    only a display issue and did not affect which items a character was eligible for."* — 0 treffers op
+    "Voidcache" in `Locales/` of `Modules/`; `Modules/BonusRollCapture.lua` en `Modules/VaultAdvisor.lua`
+    lezen de bonusroll-status live van de client-popup, claimen niets over previewgedrag. MEASURED.
+  - *Priest Holy — "Sanctified Ground applying to allies would interrupt channeled spells such as Divine
+    Hymn."* — een PvP-talentinteractie; onze Divine-Hymn-teksten (`Modules/KeybindRoles_Priest.lua:140`,
+    `Modules/HealerCooldowns.lua:158`, `Modules/GroupPlan.lua:282`) noemen Sanctified Ground nergens en
+    claimen geen PvP-synergie. MEASURED.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-october-21-2026?nocache=20261022b
+  (volledig gelezen via Exa) · codebase: `Locales/enUS.lua` (grep + gerichte read rond 3355-3370),
+  `docs/NEXT_SESSION.md:1-54`, `docs/PATCH_12_1_5_TACTICS_DRAFT_2026-10-08.md:86,91,95`,
+  `docs/labyrinth_run_2026-10-19/README.md`, `docs/PTR_12.0.7_DATA.md` (vergeleken, niet overgenomen),
+  `Config.lua:29`, `Modules/DelveItemBrokers.lua`, `Modules/DelveItemsPopup.lua`, `Modules/RaidCoachData.lua:248`,
+  `Modules/BonusRollCapture.lua`, `Modules/VaultAdvisor.lua`, `Modules/KeybindRoles_Priest.lua:140`,
+  `Modules/HealerCooldowns.lua:158`, `Modules/GroupPlan.lua:282` — allemaal vandaag gelezen. Negen
+  content-items getoetst, één **[RAAKT ONS]** (de Kinduru/De-Empire's-Rest-vondst), acht **[RAAKT ONS NIET]**.
+  Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
