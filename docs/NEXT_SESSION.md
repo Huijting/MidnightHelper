@@ -7,6 +7,9 @@ your Holy Power"). GEMETEN (scratch quiz_dupes.py): 14 stappen waar het quizantw
 65 S1, 103 S2/S3, 105 S2, 254 AOE, 255 S2/S3, 258 S3, 259 S2, 265 S2, 269 S1, 1473 S4). Fix in GetPlayCardQuiz: staat het
 antwoord 2× in de stap, dan de laatste spell van die stap die maar 1× genoemd wordt (en die je kent op max level); geen
 → beide gaten zoals eerst. Niet in het spel gezien.
+Rob daarna: "waar het vooral om ging": `/mh play` opende op de QUIZ (playCardTab = "quiz" onthouden) i.p.v. Your buttons, en
+"Group" viel buiten het venster (screenshot, tekstgrootte 1,5). Fix PlayCardWindow: Toggle/ShowPlayCardWindow zetten
+"quiz" terug op "play"; tabbladen eerst meten, te breed → padding omlaag (min 6) en zo nodig SetTextScale (min 0,7).
 
 ## 🛡️ 22 okt (avond) — Holy Armaments begint als Holy Bulwark
 

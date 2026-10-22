@@ -1124,13 +1124,41 @@ local function Redraw()
 	if tab == "quiz" and not hasQuiz then
 		tab = "play"
 	end
+	-- Fit the tabs in the window (Rob, 22 Oct 2026, Holy Paladin at text size 1.5: "het woordje Group valt buiten het
+	-- venster"). Measure first; too wide → less padding, and if that is not enough, the tab text itself gets smaller.
+	local PAD_TAB, GAP = 18, 4
+	local textW, sumW = {}, 0
+	for i, def in ipairs(tabs) do
+		local b = TabButton(i)
+		if b.fs.SetTextScale then
+			b.fs:SetTextScale(1)
+		end
+		b.fs:SetText(L(def.key))
+		textW[i] = b.fs:GetStringWidth()
+		sumW = sumW + textW[i]
+	end
+	local n = #tabs
+	if sumW + n * PAD_TAB + (n - 1) * GAP > inner then
+		GAP = 2
+		PAD_TAB = math.max(6, math.floor((inner - sumW - (n - 1) * GAP) / n))
+		local need = sumW + n * PAD_TAB + (n - 1) * GAP
+		if need > inner then
+			local scale = math.max(0.7, (inner - n * PAD_TAB - (n - 1) * GAP) / sumW)
+			for i = 1, n do
+				local fs = TabButton(i).fs
+				if fs.SetTextScale then
+					fs:SetTextScale(scale)
+				end
+				textW[i] = textW[i] * scale
+			end
+		end
+	end
 	local tx = 0
 	for i, def in ipairs(tabs) do
 		local b = TabButton(i)
 		b:ClearAllPoints()
 		b:SetPoint("TOPLEFT", win.head, "TOPLEFT", tx, y)
-		b.fs:SetText(L(def.key))
-		b:SetWidth(b.fs:GetStringWidth() + 18)
+		b:SetWidth(textW[i] + PAD_TAB)
 		local on = def.id == tab or (tab == "quiz" and def.id == "play")
 		b.fs:SetTextColor(on and 1 or 0.62, on and 0.82 or 0.6, on and 0.2 or 0.56)
 		b.line:SetShown(on)
@@ -1139,7 +1167,7 @@ local function Redraw()
 			win._scroll = 0
 			Redraw()
 		end)
-		tx = tx + b:GetWidth() + 4
+		tx = tx + b:GetWidth() + GAP
 	end
 	-- The tab count changes per spec now (Group only where there are rows): hide leftovers.
 	for i = #tabs + 1, #(win._tabBtns or {}) do
@@ -1560,6 +1588,11 @@ function ns.TogglePlayCardWindow(specID)
 	end
 	chosenSpec = specID
 	f._scroll = 0
+	-- Opening the window starts on the card, not in a quiz left open last time (Rob, 22 Oct 2026: "ik deed MH Play en
+	-- kreeg dit in plaats van Your buttons"). The other tabs are still remembered.
+	if CurrentTab() == "quiz" then
+		SetTab("play")
+	end
 	if f:IsShown() then
 		Redraw()
 	else
@@ -1657,6 +1690,9 @@ function ns.ShowPlayCardWindow(specID)
 	local f = Build()
 	chosenSpec = specID
 	f._scroll = 0
+	if CurrentTab() == "quiz" then
+		SetTab("play")
+	end
 	if f:IsShown() then
 		Redraw()
 	else
