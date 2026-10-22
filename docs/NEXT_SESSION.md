@@ -15,7 +15,7 @@ knoptekst (giftnamen uit de choice-info, clientaal), diepte 14, en `/mh gifts` p
 ✅ GEMETEN Rob 22 okt (`/mh gifts` na /reload): "lit row=2 glow: 12 buttons found, 2 lit", buttonIDs nu 109-120 (Blizzard
 nummert per sessie opnieuw: 13-24, 25-36, 49-60, 109-120). ❌ Rob (screenshot): rand NIET zichtbaar ondanks "2 lit". Fix (AFGELEID): de gloed is nu een kind van Blizzards knop
 (SetParent(btn), geen eigen strata), knoppen alleen als IsVisible (niet IsShown), en `/mh gifts` print per gloed
-"glow n: <gift> visible=… size=… at x,y". Niet opnieuw getest.
+"glow n: <gift> visible=… size=… at x,y". ✅ GEMETEN Rob 22 okt: "Ja, de gouden rand is nu zichtbaar." Gaat mee in 4.11.1.
 
 ## 🚀 22 okt (middag) — RELEASE 4.11.0 (Rob: "Maak maar af en doe een 4.11 release... evt andere dingen kunnen in een .1 release")
 

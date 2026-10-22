@@ -47,7 +47,8 @@ Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met 
 
 Eerst `/reload`, dan de Corrosive Codex openen.
 - [ ] Op de gele MH-kaart staat bovenaan "Click a situation: its gifts light up in the Codex."
-- [ ] Klik "Groups of enemies take too long": Plague of Corrosion en Ophidian Maw krijgen in Blizzards venster een
+- [x] ✅ Rob 22 okt (na 2 fixes: witte regel → zachte kleur; rand nu aan Blizzards knop): "de gouden rand is nu zichtbaar".
+      Klik "Groups of enemies take too long": Plague of Corrosion en Ophidian Maw krijgen in Blizzards venster een
       knipperende gouden rand. De regel op de kaart krijgt een lichte achtergrond. Nog eens klikken = uit.
 - [ ] Een gift die je al hebt (vinkje) krijgt GEEN rand.
 - [ ] Je kunt de opgelichte knop gewoon zelf aanklikken (de rand zit niet in de weg).
