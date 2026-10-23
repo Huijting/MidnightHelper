@@ -29,7 +29,11 @@ Convoke). Vervolg (08:10-08:14 UTC): Arcane 62 Arcane Pulse 0/50 (alle 50 Sunfur
 enemies" · Shadow 258 Voidtouched 0/50 terwijl TERMS op 150 Insanity rekent · Ret 70 Radiant Glory 0/50 · Frost Mage 64 Comet
 Storm 22/50 (41/50 bij Frostfire) · Fire 63 Flamestrike-keuze 30× 1254851 "op je doelwit" vs 20× 2120 "op een plek" ·
 alleen Murlok-tooltips: Pyroclasm 250% (kaart 230%), Forbearance na Lay on Hands 20 sec (kaarten 30) → mh-research checkt
-die twee getallen. ⚠️ Top-50 M+ ≠ gewone speler; de kaarten zijn voor iedereen. 🔜 Rob kiest of/welke kaartregels om moeten.
+die twee getallen. → ✅ GEMETEN (wago 70529, rapport `pyroclasm_forbearance_2026-10-23.md`): Pyroclasm-buff 269651 =
+230%, +20 met Sunfury Execution (449349), +25 met S2 4-set; MH noemt nergens een getal (PLAYCARD_63_S4/_W4) → niets te
+doen. Forbearance 25771 = 30 sec voor alle vier (LoH, DS, BoP, Spellwarding); −10 sec met class-talent Holy Reprieve
+(469445). 🔜 Rob kiest: "(20 sec met Holy Reprieve)" toevoegen aan 9 sleutels (SURVIVAL_NOTE_*FORBEARANCE*, _PHYSICAL_TANK,
+_LAST_RESORT, GROUP_NOTE_LOH, HEALCD_WHEN_EMERG, TANKKIT_CDDESC_IMMUNITY). ⚠️ Top-50 M+ ≠ gewone speler; de kaarten zijn voor iedereen. 🔜 Rob kiest of/welke kaartregels om moeten.
 Impending Victory-test staat al op de TESTLIJST (`/mh survival`); de site noemt ook
 `/run print(IsPlayerSpell(34428), C_Spell.GetOverrideSpell(34428))`.
 
