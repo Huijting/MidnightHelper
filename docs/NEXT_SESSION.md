@@ -13,8 +13,11 @@ het onterecht als kandidaat staan). Niet in het spel gezien → TESTLIJST.
 Clientnaam van de steen GEMETEN (`run names_1215`, live 70529, ItemSparse 280562): de Aufsteigender Giftstein, fr Venithe
 ascendante, es Piedraveneno ascendente, esMX Piedra de veneno ascendente, pt Pedra de Peçonha Ascendente, it Pietra
 Velenosa Ascendente, ru Вознесенный ядокамень → in de 6 nieuwe/gewijzigde sleutels (esMX nu eigen regels). Lint 0 HARD.
-🔜 Clientnaam-gaten die mh-writer zag, NIET gemeten: CODEX_VENOMSTONE_TITLE/_BODY zeggen in alle talen nog Engels
-"Ascendant Venomstones"; Orin heet esES "Orin Luzperdida" maar esMX "Torin Luzerrante"; pt/it Codex "Catalyst" naast
+✅ Daarna (Rob: "zet de gemeten steen-naam ook in de Venomstones-kaart van de Codex, in alle talen"): CODEX_VENOMSTONE_
+TITLE/_BODY in de/fr/es/esMX/pt/it/ru gebruiken nu die naam (mh-writer; esMX kreeg een eigen TITLE-regel); ru overal met
+hoofdletter (ook TRACKCEIL_*). Drift gemarkeerd, lint 0 HARD. Niet in het spel gezien.
+🔜 Clientnaam-gaten die mh-writer zag, NIET gemeten: de questtitel "Ascending with Venomstones" (en de andere Orin-
+quests) staan in de packs nog Engels of half vertaald; Orin heet esES "Orin Luzperdida" maar esMX "Torin Luzerrante"; pt/it Codex "Catalyst" naast
 "Catalisador"/"Catalizzatore" in een questnaam; ru Myth-track "легендарный герой" (Codex) vs "Эпоха" (DAWNCREST_TIER_MYTH);
 itIT.lua DAWNCREST_TIER_HERO/MYTH = "Hero"/"Myth" vs "Eroe"/"Mito" elders.
 

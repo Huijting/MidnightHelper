@@ -5774,7 +5774,21 @@
    "ruRU": "0d0ea9260d96fad9"
   },
   "CODEX_VENOMSTONE_BODY": {
+   "deDE": "c1c826a67a31c0cb",
+   "esES": "c1c826a67a31c0cb",
+   "frFR": "c1c826a67a31c0cb",
+   "itIT": "c1c826a67a31c0cb",
+   "nlNL": "c1c826a67a31c0cb",
+   "ptBR": "c1c826a67a31c0cb",
    "ruRU": "c1c826a67a31c0cb"
+  },
+  "CODEX_VENOMSTONE_TITLE": {
+   "deDE": "30466c4ae67ff5c0",
+   "esES": "30466c4ae67ff5c0",
+   "frFR": "30466c4ae67ff5c0",
+   "itIT": "30466c4ae67ff5c0",
+   "ptBR": "30466c4ae67ff5c0",
+   "ruRU": "30466c4ae67ff5c0"
   },
   "CODEX_VOIDCORE_BODY": {
    "deDE": "c7b21a19bc43bd0e",
