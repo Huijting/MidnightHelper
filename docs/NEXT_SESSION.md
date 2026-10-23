@@ -42,7 +42,8 @@ side-session-notes local_d88e4560 `site_signal_4.11.1.md`. ✅ Niet meer nodig: 
 4.11.1 (1a1e35ac, met Robs go)", nightly uit v4.11.1, problems 0, strook 4.11.1, Bear's Burden-screenshot in het nieuws.
 ✅ Rob 22 okt: changelog en de nieuwe description staan online en goed (description door Rob geplakt). Wacht nog op
 CF-goedkeuring ("een kwestie van tijd").
-🔜 Nog open (Robs keuze): ~~Kinduru-hotfix in de 0-levens-tip~~ (✅ 23 okt), ~~Crimson Tempest (category)~~ (✅ 23 okt, Shift+3), Earth Elemental/Primordial Bond.
+🔜 Nog open (Robs keuze): ~~Kinduru-hotfix in de 0-levens-tip~~ (✅ 23 okt), ~~Crimson Tempest (category)~~ (✅ 23 okt, Shift+3), ~~Earth Elemental/Primordial Bond~~ (✅ 23 okt Rob: "Laat het bij A zodat de user ook het
+verschil krijgt te zien" — één zin met beide gevallen blijft, geen talent-check).
 Testjes per character: TESTLIJST bovenaan (Warrior, Shadow Priest, Rogue, Warlock, Feral, eigen Stay-alive-zinnen).
 
 ## ❓ 22 okt (avond) — quiz met dubbele gaten
