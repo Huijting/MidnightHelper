@@ -40,7 +40,9 @@ Doom 0/50 (kaart leunt erop) · Destro 267 Improved Conflagrate 1/50 (kaart reke
 6/50, Improved Shadow Bolt 44/50 (filler-regel rond Drain Soul) · Outlaw 260 Fatebound 0/50 (alle 50 Trickster) · Fury 72
 Avatar 13 vs Bladestorm 37 (= Slayers), Thunder Clap 13/50 (= Mountain Thanes) · Mistweaver 270 Rising Mist 7/50 · Preservation
 1468 Dream Simulacrum 30/50 (kaart zegt "not the usual one") · alleen tooltips: Elemental Blast 80 / Earth Shock 55 Maelstrom
-(kaart 90/60) → mh-research checkt. Site vroeg of er een healer-review komt: geantwoord dat die er is (playcard_finish\
+(kaart 90/60) → ✅ GEMETEN (wago 70529, rapport `maelstrom_costs_2026-10-23.md`): 90/60 is de basis, 80/55 met het
+Elemental-talent Eye of the Storm (381708; 1/50 neemt hem). MH noemt nergens een getal (de 90/60 komt uit Blizzards eigen
+spell-tooltip, die per character klopt) → niets te doen. Site vroeg of er een healer-review komt: geantwoord dat die er is (playcard_finish\
 healer_*.md, 22 okt). → ✅ GEMETEN (wago 70529, rapport `pyroclasm_forbearance_2026-10-23.md`): Pyroclasm-buff 269651 =
 230%, +20 met Sunfury Execution (449349), +25 met S2 4-set; MH noemt nergens een getal (PLAYCARD_63_S4/_W4) → niets te
 doen. Forbearance 25771 = 30 sec voor alle vier (LoH, DS, BoP, Spellwarding); −10 sec met class-talent Holy Reprieve
