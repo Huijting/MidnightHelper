@@ -4,7 +4,9 @@
 
 TOC 4.11.2, CHANGELOG_4112_0..4 (_0 = website-blok + beta-uitnodiging), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.2.md`
 (byte-identiek, script), CHANGELOG.md, CURSEFORGE_DESCRIPTION.md (zin over "Your talents"; 🔜 Rob plakt hem zelf op CF).
-Lint 0 HARD. Tag + uitkomst run: zie hieronder.
+Lint 0 HARD. ✅ Tag `v4.11.2` op 0260858 → run 39942914708 groen; GEMETEN in het log: CurseForge "Success!" (release,
+12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", GitHub Release "Success!". Site-chat ("Site chat 23-10") geseind.
+🔜 Rob: CF-goedkeuring afwachten; CURSEFORGE_DESCRIPTION.md plakken op de CF-pagina.
 
 ## 📣 EIS VOOR DE VOLGENDE UPDATE (Rob, 23 okt: "bij de update die we gaan doen, duidelijk gemaakt wordt dat we op de website dus meer info hebben voor DPS, voor tanken, voor healers")
 

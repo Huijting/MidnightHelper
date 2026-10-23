@@ -4,7 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## 4.11.2
 
-📌 **2026-10-23, RELEASE (Rob: "Go voor 4.11.2, met het blok over de website.").** In-game: CHANGELOG_4112_0..4 (enUS;
+📌 **2026-10-23, RELEASE (Rob: "Go voor 4.11.2, met het blok over de website.").** Tag `v4.11.2` op 0260858; run
+39942914708 = success (CurseForge, Wago, GitHub). In-game: CHANGELOG_4112_0..4 (enUS;
 _0 = het website-blok + beta-uitnodiging). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.2.md` (byte-identiek, GEMETEN met
 een script). CURSEFORGE_DESCRIPTION.md: zin over de nieuwe "Your talents"-tab (Rob plakt die zelf). Inhoud:
 - **Website-blok** (eis van Rob): "Your talents"-tab voor DPS/tanks/healers, feiten van de site-chat (alles live).
