@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 23 okt — Labyrinth: Kinduru als uitweg bij 0 levens
+
+- [ ] Alleen als het je overkomt (vast bij Kindo'jan met 0 levens): staat Kinduru in de voorkamer van De Empire's Rest
+      (AFGELEID: de kamer achter de Kindo'jan-deur, met waystone en Altar of Corrosion)? Brengt praten met hem je naar
+      de schatkamer, mét beloningen? Zo niet: werkt het touw nog? Delve-tip en Codex zeggen nu "eerst Kinduru, anders het touw".
+
 ## 🆕 22 okt — kaarten: wat alleen in het spel te beslissen is
 
 Eerst `/reload`. Elk punt beslist of een zin op de kaart klopt; alleen doen met een character dat je toch speelt.

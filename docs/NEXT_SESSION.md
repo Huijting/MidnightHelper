@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🪶 23 okt — Kinduru-hotfix in de 0-levens-tip (Rob: "Doe de Kinduru-hotfix in de 0-levens-tip; het touw blijft als terugval.")
+
+DELVE_TIP_LABYRINTH_BOSS + CODEX_LABYRINTH_BODY: eerst "Blizzards fix (hotfix 21 okt): Kinduru wacht in de voorkamer van
+De Empire's Rest, praat met hem; zelf nog niet geprobeerd", dan "Staat hij er niet?" → het touw (ongewijzigd). en/nl ik,
+de/fr/es/esMX/pt/it/ru mh-writer. Plaatsnaam per taal GEMETEN (mh-research, wago 12.1.5.70529 UiMapGroupMember 1514 +
+Blizzards eigen vertaalde hotfix-artikelen): de Imperienruh, fr Repos de l'Empire (kaartvloer schrijft "empire" klein,
+scenario + artikel groot; artikel gevolgd), es Descanso del Imperio, esMX El Retiro del Imperio, pt Recanto do Império,
+it Riposo dell'Impero, ru Покой империи. Rapport: side-session-notes `empires_rest_2026-10-23.md`. Of de uitweg werkt
+en waar Kinduru precies staat: NIET gemeten (geen spelersmelding gevonden; Reddit niet te lezen) → TESTLIJST.
+
 ## ☀️ 23 okt (ochtend) — ochtendronde, nieuwe bouwchat
 
 GEMETEN: working tree schoon, pull = fast-forward met 3 wachters (API f0d0445, PTR fb6f2cd, data dc90829). ⚠️ Content-wachter
@@ -23,7 +33,7 @@ side-session-notes local_d88e4560 `site_signal_4.11.1.md`. ✅ Niet meer nodig: 
 4.11.1 (1a1e35ac, met Robs go)", nightly uit v4.11.1, problems 0, strook 4.11.1, Bear's Burden-screenshot in het nieuws.
 ✅ Rob 22 okt: changelog en de nieuwe description staan online en goed (description door Rob geplakt). Wacht nog op
 CF-goedkeuring ("een kwestie van tijd").
-🔜 Nog open (Robs keuze): Kinduru-hotfix in de 0-levens-tip, Crimson Tempest (category), Earth Elemental/Primordial Bond.
+🔜 Nog open (Robs keuze): ~~Kinduru-hotfix in de 0-levens-tip~~ (✅ 23 okt), Crimson Tempest (category), Earth Elemental/Primordial Bond.
 Testjes per character: TESTLIJST bovenaan (Warrior, Shadow Priest, Rogue, Warlock, Feral, eigen Stay-alive-zinnen).
 
 ## ❓ 22 okt (avond) — quiz met dubbele gaten
