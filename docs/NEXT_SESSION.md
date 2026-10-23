@@ -6,7 +6,9 @@ TOC 4.11.2, CHANGELOG_4112_0..4 (_0 = website-blok + beta-uitnodiging), `RELEASE
 (byte-identiek, script), CHANGELOG.md, CURSEFORGE_DESCRIPTION.md (zin over "Your talents"; 🔜 Rob plakt hem zelf op CF).
 Lint 0 HARD. ✅ Tag `v4.11.2` op 0260858 → run 39942914708 groen; GEMETEN in het log: CurseForge "Success!" (release,
 12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", GitHub Release "Success!". Site-chat ("Site chat 23-10") geseind.
-✅ Rob 23 okt: "hij is al live en approved" (CurseForge). Site-chat zette de site live op 4.11.2 (Robs go). 🔜 Rob:
+✅ Rob 23 okt: "hij is al live en approved" (CurseForge). Site-chat zette de site live op 4.11.2 (Robs go; site-commits f9c03e0e + c19a91f0): homepage 8/8 talen
+"4.11.2 / released 23 October 2026", pil "New in 4.11.2", /play/ herbouwd uit v4.11.2 (320/320 pagina's OK), talents-tabs
+63/265/62 volgen de nieuwe kaartregels. 🔜 Rob:
 CURSEFORGE_DESCRIPTION.md plakken op de CF-pagina (alinea over "Your talents").
 
 ## 📣 EIS VOOR DE VOLGENDE UPDATE (Rob, 23 okt: "bij de update die we gaan doen, duidelijk gemaakt wordt dat we op de website dus meer info hebben voor DPS, voor tanken, voor healers")
