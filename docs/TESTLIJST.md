@@ -33,6 +33,8 @@ Eerst `/reload`, op een max-level character.
 - [x] ✅ GEMETEN Rob 23 okt (Twelveinchy, screenshot): maxed-zin nieuw ("1 slot is maxed on Veteran - … also with
       Venomstones"); 0 stenen en geen kandidaat → geen Venomstones-regels, zoals bedoeld. `/mh tracks`: Champion = track
       973, Hero = 974 → MH filtert kandidaten nu op track ≥ 974. Myth-nummer nog niet gezien (geen Myth-stuk).
+- [x] ✅ GEMETEN Rob 23 okt (Iceicebaby, Frost Mage, screenshot): "Ascendant Venomstones: 0 of 10" en "Can go higher with
+      them (Hero or Myth only): Main Hand (Hero 6/6)" — kandidaatregel + Hero-filter (974) werken.
 - [ ] Karaktervenster open (zodra je een steen hebt): in MH's zijpaneel staat "Ascendant Venomstones: x of 10" (klopt het getal met je tassen?
       ligt er een steen op je bank: telt die mee?). Met 10 of meer: groene regel "take 10 to the Catalyst …".
 - [ ] Heb je een wapen, trinket of neck helemaal opgewaardeerd: regel "Can go higher with them (Hero or Myth only): …"
