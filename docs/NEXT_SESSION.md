@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ☀️ 23 okt (ochtend) — ochtendronde, nieuwe bouwchat
+
+GEMETEN: working tree schoon, pull = fast-forward met 3 wachters (API f0d0445, PTR fb6f2cd, data dc90829). ⚠️ Content-wachter
+heeft om 07:59 (Rob) NOG NIET gedraaid: geen commit op origin, laatste regel in CONTENT_WATCH.md = 22 okt. API: 0 [MOET
+GEFIKST]; nieuwe live build 12.1.5.70529 = 1 regel in Blizzard_PlayerChoiceOptionBase (widget-layout) + version.txt; raakt
+CodexAdvicePanel AFGELEID niet (eerst `/mh gifts` zien werken op de Codex). PTR 12.1.7 → 70493, niets voor MH. Data:
+geen nieuwe hotfix sinds 21 okt; ongecheckte claim (wowgoldshop) dat de Delve Bonus Event +25% Labyrinth-renown geeft —
+niets mee gedaan. CF 0 open, GitHub 0. 29 addons bijgewerkt (DBM 12.1.17, MDT, Pawn, OPie …), gelezen: niets voor MH
+(lezen ≠ testen). HandyNotes 166, geen zone veranderd. Site-mail: 1 nieuwe vragenlijst #25 (en/BG, cijfer 5, nieuwe
+speler, bedankt) → SURVEY_RESULTS, gemiddelde 4,1.
+
 ## 🚀 22 okt (avond) — RELEASE 4.11.1 (Rob: "Go voor nu")
 
 TOC 4.11.1, CHANGELOG_4111_0..4, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.1.md` (script-vergelijk), CHANGELOG.md.
