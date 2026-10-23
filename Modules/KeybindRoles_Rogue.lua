@@ -69,7 +69,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Rupture"]          = { id = 1943, category = "spender", priority = 2, specs = { 259 } },
     -- AoE
     ["Fan of Knives"]    = { id = 51723, category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 259 } }, -- AoE builder
-    ["Crimson Tempest"]  = { id = 1247227, category = "spender", priority = 7, bindKey = "Shift+5", specs = { 259 } },       -- AoE spender (bleed-spread)
+    ["Crimson Tempest"]  = { id = 1247227, category = "main_rotation", priority = 7, bindKey = "Shift+3", specs = { 259 } }, -- AoE builder (gives combo points in 12.1, wago; was spender on Shift+5 until 23 Oct 2026, Rob: "Shift+3; Poisoned Knife blijft op Shift+2")
     -- Cooldowns
     ["Deathmark"]        = { id = 360194, blockQ = { [259] = true }, role = "cooldown_bar", priority = 1, specs = { 259 } }, -- grootste CD (F1, 2 min)
     ["Kingsbane"]        = { id = 385627, category = "cooldown", priority = 2, specs = { 259 } }, -- extra CD (Shift+F1, 1 min)

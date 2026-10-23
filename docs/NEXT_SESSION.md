@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🗡️ 23 okt — Crimson Tempest = AoE-builder op Shift+3 (Rob: "Doe maar C toch … die mensen zijn meestal advanced" → "Zet Crimson Tempest op Shift+3; Poisoned Knife blijft op Shift+2.")
+
+KeybindRoles_Rogue.lua: Crimson Tempest (259) category spender → main_rotation, bindKey Shift+5 → Shift+3. GEMETEN met
+een kopie van de verdeler (gen_keybinds.py-functies, scratch ct_sim.py): Shift+2 = Poisoned Knife (blijft), Shift+3 was
+leeg, Shift+5 wordt leeg, verder geen enkele toets anders, 0 spells zonder toets. Spelkaart-teksten (PLAYCARD_259_AOE/
+_WAOE) noemen hem geen spender → ongemoeid. Lint 0 HARD. Niet in het spel gezien (TESTLIJST).
+⚠️ `tools/keybind_sheet/keybinds.json` loopt ver achter: opnieuw genereren gaf 3228 regels diff, bijna alles van eerdere
+wijzigingen. Bewust teruggezet, niet in deze commit; zit niet in de zip. Opnieuw genereren = eigen klusje.
+
 ## 🪶 23 okt — Kinduru-hotfix in de 0-levens-tip (Rob: "Doe de Kinduru-hotfix in de 0-levens-tip; het touw blijft als terugval.")
 
 DELVE_TIP_LABYRINTH_BOSS + CODEX_LABYRINTH_BODY: eerst "Blizzards fix (hotfix 21 okt): Kinduru wacht in de voorkamer van
@@ -33,7 +42,7 @@ side-session-notes local_d88e4560 `site_signal_4.11.1.md`. ✅ Niet meer nodig: 
 4.11.1 (1a1e35ac, met Robs go)", nightly uit v4.11.1, problems 0, strook 4.11.1, Bear's Burden-screenshot in het nieuws.
 ✅ Rob 22 okt: changelog en de nieuwe description staan online en goed (description door Rob geplakt). Wacht nog op
 CF-goedkeuring ("een kwestie van tijd").
-🔜 Nog open (Robs keuze): ~~Kinduru-hotfix in de 0-levens-tip~~ (✅ 23 okt), Crimson Tempest (category), Earth Elemental/Primordial Bond.
+🔜 Nog open (Robs keuze): ~~Kinduru-hotfix in de 0-levens-tip~~ (✅ 23 okt), ~~Crimson Tempest (category)~~ (✅ 23 okt, Shift+3), Earth Elemental/Primordial Bond.
 Testjes per character: TESTLIJST bovenaan (Warrior, Shadow Priest, Rogue, Warlock, Feral, eigen Stay-alive-zinnen).
 
 ## ❓ 22 okt (avond) — quiz met dubbele gaten
