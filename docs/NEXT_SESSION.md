@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 📊 23 okt — site-chat: kaarten leunen op talenten die de top bijna niet neemt (alleen info, niets gedaan)
+
+Site chat 23-10 (Murlok.io top 50 Mythic+, 23 okt, gelezen in de browser; details in de site-repo drafts/SITE_HANDOFF.md,
+START HIER punt 2). Picks: Devastation 1467 Azure Sweep 1/50 · Marksmanship 254 Calling the Shots 1/50 (49× Unerring
+Vision), Unbreakable Bond 1/50 (49× Avian Specialization → bijna niemand heeft Call Pet), Roar of Sacrifice 3/50, Guardian's
+Hide 45/50 · Windwalker 269 Shado-Pan 2/50 terwijl HERO "easiest" zegt; Tigereye Brew: Murlok zet Zenith Stomps op rang 1,
+de kaart op de laatste stap (AFGELEID, meten) · Guardian 104 Ursol's Warding 1/50 (W1 leunt erop) · Vengeance 581 Feed the
+Demon 25/50 · Havoc 577 A Fire Inside 11/50 (= Fel-Scarred) · Feral 103 Incarnation 34 vs Convoke 16 (kaart volgt de gidsen:
+Convoke). ⚠️ Top-50 M+ ≠ gewone speler; de kaarten zijn voor iedereen. 🔜 Rob kiest of/welke kaartregels om moeten.
+Impending Victory-test staat al op de TESTLIJST (`/mh survival`); de site noemt ook
+`/run print(IsPlayerSpell(34428), C_Spell.GetOverrideSpell(34428))`.
+
 ## 💚 23 okt — Venomstones in het karaktervenster GEBOUWD (Rob: "Bouw optie A (regel in het karaktervenster) en repareer de maxed-zin.")
 
 TrackCeiling.lua: ns.GetVenomstoneStatus (C_Item.GetItemCount(280562, true) = tassen + bank; maxed slots 2/13/14/16/17)
@@ -16,8 +28,15 @@ Velenosa Ascendente, ru Вознесенный ядокамень → in de 6 ni
 ✅ Daarna (Rob: "zet de gemeten steen-naam ook in de Venomstones-kaart van de Codex, in alle talen"): CODEX_VENOMSTONE_
 TITLE/_BODY in de/fr/es/esMX/pt/it/ru gebruiken nu die naam (mh-writer; esMX kreeg een eigen TITLE-regel); ru overal met
 hoofdletter (ook TRACKCEIL_*). Drift gemarkeerd, lint 0 HARD. Niet in het spel gezien.
-🔜 Clientnaam-gaten die mh-writer zag, NIET gemeten: de questtitel "Ascending with Venomstones" (en de andere Orin-
-quests) staan in de packs nog Engels of half vertaald; Orin heet esES "Orin Luzperdida" maar esMX "Torin Luzerrante"; pt/it Codex "Catalyst" naast
+✅ Daarna (Rob: "laat de Orin-questnamen per taal meten en zet ze goed in de Venomstones-kaart"): mh-research GEMETEN
+(wago 70529 QuestV2CliTask.QuestTitle_lang; GlobalStrings SPELL_FAILED_CUSTOM_ERROR_2672; UiItemInteraction 10; AreaTable
+15969; rapport side-session-notes `orin_names_2026-10-23.md`). Orin: es "Orin Luzperdida" én esMX "Torin Luzerrante" kloppen
+allebei. pt/it zeggen in de client nooit "Catalyst": Catalisador / Catalizzatore. fr Silvermoon = "Lune-d’Argent".
+mh-writer zette de 5 questtitels, Catalyst en Silvermoon in CODEX_VENOMSTONE_BODY (alle talen) + TRACKCEIL_ROUTE_VENOM/
+_VENOM_READY_FMT; ru Orin als de client ("Орина Блуждающий Свет", alleen voornaam verbogen). Drift gemarkeerd, lint 0 HARD.
+🔜 Elders nog oud, NIET aangepast (geteld door mh-writer): pt "Catalyst" 7 regels, it "Catalyst" 14 (deels commentaar),
+fr "Lune-d'argent" 51 regels in 6 bestanden → aparte ronde, Robs keuze.
+(Oude notitie:) Orin heet esES "Orin Luzperdida" maar esMX "Torin Luzerrante"; pt/it Codex "Catalyst" naast
 "Catalisador"/"Catalizzatore" in een questnaam; ru Myth-track "легендарный герой" (Codex) vs "Эпоха" (DAWNCREST_TIER_MYTH);
 itIT.lua DAWNCREST_TIER_HERO/MYTH = "Hero"/"Myth" vs "Eroe"/"Mito" elders.
 
