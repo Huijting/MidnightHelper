@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 💚 23 okt — Venomstones tellen: uitgezocht, NIET gebouwd (Rob: "zoek uit hoe MH de Venomstones kan tellen (x van 10) en waar dat het beste past. Nog niet bouwen.")
+
+mh-research (wago 12.1.5.70529, rapport side-session-notes `venomstones_2026-10-23.md`), GEMETEN: item 280562 (geen
+currency; LET OP 279997 "Insidious Venomstone" is een ander item → tellen op ID), stapelt tot 100, soulbound (alts tellen
+niet mee), geen reagent bag/Warband bank (AFGELEID: tassen + eigen bank). 10 per upgrade op elk slot en elke track
+(spells 1309290 Myth / 1309291 Hero / 1309292 Tidal Crafted). Hero 6/6 321→328; Myth 6/6 334→341 (hotfix 23 okt, DB2 zei
+340); Tidal Crafted onduidelijk. Orin-keten (eenmalig per Warband, AFGELEID uit flags): 97945, 97978, 97981, 98379, 98390.
+MH nu (GEMETEN): alleen de Codex-kaart (statisch); geen teller. TrackCeiling.lua ziet al per slot "maxed" (trackID), en
+TRACKCEIL_MAXED_FMT zegt "only a drop from a higher track goes further" — voor wapen/trinket/ketting op Hero/Myth sinds
+20 okt NIET meer waar (Venomstones). Opties aan Rob voorgelegd; niet in het spel gemeten: GetItemCount(280562, true) mét
+bank, en welke trackID's Hero/Myth zijn.
+
 ## 🗡️ 23 okt — Crimson Tempest = AoE-builder op Shift+3 (Rob: "Doe maar C toch … die mensen zijn meestal advanced" → "Zet Crimson Tempest op Shift+3; Poisoned Knife blijft op Shift+2.")
 
 KeybindRoles_Rogue.lua: Crimson Tempest (259) category spender → main_rotation, bindKey Shift+5 → Shift+3. GEMETEN met
