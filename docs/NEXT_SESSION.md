@@ -57,7 +57,8 @@ nothing; Fiery Hexmask, own fire spell, or the Core Rune Rune of Unleashed Fire"
 taal GEMETEN (SpellName 1279599); Fiery Hexmask nu in de vertalingen met de clientnaam (SpellName 1308804 = "Fiery Hexmask
 Familiar", de Feuriger Hexmaskenfamiliar …). 🔜 enUS/nlNL (en Codex/chat) zeggen nog kort "Fiery Hexmask" — gelijk trekken?
 Kistenroute in de Flooded Chamber werkte al (Rob). Geparkeerd punt "welke spell smelt de ijsmuur" is hiermee AF.
-🔜 Valeera/conduits: Rob testte, buff-namen nog niet gehoverd (screenshots alleen iconen) → nog open.
+✅ Valeera/conduits GEMETEN (Rob, 2 screenshots van Valeera's buffs vóór/na een conduit: geen verschil): de buff gaat
+alleen naar jou. CODEX_LABYRINTH_BODY: "Each one gives you (not Valeera) 2 minutes of:", alle talen. Geparkeerd punt AF.
 
 ## 🛡️ 23 okt — Forbearance 20 sec GEMETEN + Blessing of Dawn raakt Rob (vraag tussendoor)
 

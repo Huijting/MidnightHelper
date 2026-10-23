@@ -250,8 +250,8 @@ Eerst `/reload`.
 - [ ] Codex → Labyrinth-kaart, onder "Help along the way": de vier conduits (Wind, Earth, Fire, Mist) met wat elk doet,
       en een oranje regel "Since 20 October they no longer work in Kindo'jan's fight".
 - [ ] `/mh coach labyrinth` → Overview: regel "From Journey rank 6: four Loa-Spirit Conduits …".
-- [ ] ⏸️ GEPARKEERD (Rob 21 okt: net 2 conduits gevonden, duurt even). In de Labyrinth: klik een conduit en klik dan Valeera aan. Heeft zij de buff ook? (niet gemeten; bepaalt of
-      "voor de hele groep" terug mag)
+- [x] ✅ GEMETEN Rob 23 okt (2 screenshots, Valeera's buffs vóór/na een conduit gelijk): Valeera krijgt de buff NIET.
+      "Voor de hele groep" blijft weg; Codex zegt nu "gives you (not Valeera)".
 - [ ] Klik een conduit vlak vóór Kindo'jan: valt de buff weg zodra het gevecht begint?
 
 ## 🆕 21 okt — "Your keys": één ingang voor alles over toetsen
