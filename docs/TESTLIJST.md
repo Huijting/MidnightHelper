@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 23 okt — Paladin: Forbearance 20 sec met Holy Reprieve
+
+- [ ] Paladin met het talent Holy Reprieve: druk Divine Shield en kijk naar de Forbearance-debuff. Duurt hij 20 sec (en
+      zonder het talent 30)? `/mh survival` of de Stay alive-kaart noemt nu "30 sec (20 with the Holy Reprieve talent)".
+
 ## 🆕 23 okt — Venomstones in het karaktervenster
 
 Eerst `/reload`, op een max-level character.

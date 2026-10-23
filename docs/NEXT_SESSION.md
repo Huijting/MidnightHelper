@@ -32,8 +32,11 @@ alleen Murlok-tooltips: Pyroclasm 250% (kaart 230%), Forbearance na Lay on Hands
 die twee getallen. → ✅ GEMETEN (wago 70529, rapport `pyroclasm_forbearance_2026-10-23.md`): Pyroclasm-buff 269651 =
 230%, +20 met Sunfury Execution (449349), +25 met S2 4-set; MH noemt nergens een getal (PLAYCARD_63_S4/_W4) → niets te
 doen. Forbearance 25771 = 30 sec voor alle vier (LoH, DS, BoP, Spellwarding); −10 sec met class-talent Holy Reprieve
-(469445). 🔜 Rob kiest: "(20 sec met Holy Reprieve)" toevoegen aan 9 sleutels (SURVIVAL_NOTE_*FORBEARANCE*, _PHYSICAL_TANK,
-_LAST_RESORT, GROUP_NOTE_LOH, HEALCD_WHEN_EMERG, TANKKIT_CDDESC_IMMUNITY). ⚠️ Top-50 M+ ≠ gewone speler; de kaarten zijn voor iedereen. 🔜 Rob kiest of/welke kaartregels om moeten.
+(469445). ✅ Rob: "Ik volg jouw advies" → toegevoegd aan 8 sleutels (SURVIVAL_NOTE_PHYSICAL_TANK/_PHYSICAL_FORBEARANCE/
+_MAGIC_FORBEARANCE/_FORBEARANCE/_FORBEARANCE_TANK/_LAST_RESORT, HEALCD_WHEN_EMERG, TANKKIT_CDDESC_IMMUNITY): "30 sec (20 with
+the Holy Reprieve talent)". NIET in GROUP_NOTE_LOH: die gaat over Forbearance die een ándere speler gaf (AFGELEID: het talent
+geldt voor jouw eigen Forbearance). Talentnaam per taal GEMETEN (wago SpellName 469445, 70529): de Heilige Atempause, fr
+Sursis sacré, es/esMX Indulto sagrado, pt Alívio Sagrado, it Tregua Sacra, ru Священная отсрочка. en/nl ik, rest mh-writer. ⚠️ Top-50 M+ ≠ gewone speler; de kaarten zijn voor iedereen. 🔜 Rob kiest of/welke kaartregels om moeten.
 Impending Victory-test staat al op de TESTLIJST (`/mh survival`); de site noemt ook
 `/run print(IsPlayerSpell(34428), C_Spell.GetOverrideSpell(34428))`.
 
