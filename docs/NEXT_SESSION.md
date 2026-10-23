@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## 🧪 23 okt — Venomstones: eerste test (Rob, Twelveinchy, 2 screenshots)
+
+✅ GEMETEN: nieuwe maxed-zin staat er; met 0 stenen en geen maxed wapen/trinket/neck zwijgt de Venomstones-regel (goed).
+`/mh tracks`: Champion = trackStringID 973, Hero = 974. → TrackCeiling.lua VENOMSTONE_MIN_TRACK = 974: alleen slots op
+Hero of hoger zijn kandidaat (Myth > 974 AFGELEID, Rob heeft geen Myth-stuk). Nog niet gezien: telling met stenen, bank.
+
 ## 🏷️ 23 okt — clientnamen-ronde (Rob: "doe al de dingen maar die jij zonder mij kan doen")
 
 GEMETEN (mh-research, wago 12.1.5.70529 + Robs combat logs 15/20 okt; rapporten side-session-notes
@@ -29,7 +35,13 @@ Convoke). Vervolg (08:10-08:14 UTC): Arcane 62 Arcane Pulse 0/50 (alle 50 Sunfur
 enemies" · Shadow 258 Voidtouched 0/50 terwijl TERMS op 150 Insanity rekent · Ret 70 Radiant Glory 0/50 · Frost Mage 64 Comet
 Storm 22/50 (41/50 bij Frostfire) · Fire 63 Flamestrike-keuze 30× 1254851 "op je doelwit" vs 20× 2120 "op een plek" ·
 alleen Murlok-tooltips: Pyroclasm 250% (kaart 230%), Forbearance na Lay on Hands 20 sec (kaarten 30) → mh-research checkt
-die twee getallen. → ✅ GEMETEN (wago 70529, rapport `pyroclasm_forbearance_2026-10-23.md`): Pyroclasm-buff 269651 =
+die twee getallen. Derde bericht (08:48-08:52 UTC; site heeft nu een "Your talents"-tab voor alle 35 specs): Demo 266
+Doom 0/50 (kaart leunt erop) · Destro 267 Improved Conflagrate 1/50 (kaart rekent op 3e charge) · Affliction 265 Drain Soul
+6/50, Improved Shadow Bolt 44/50 (filler-regel rond Drain Soul) · Outlaw 260 Fatebound 0/50 (alle 50 Trickster) · Fury 72
+Avatar 13 vs Bladestorm 37 (= Slayers), Thunder Clap 13/50 (= Mountain Thanes) · Mistweaver 270 Rising Mist 7/50 · Preservation
+1468 Dream Simulacrum 30/50 (kaart zegt "not the usual one") · alleen tooltips: Elemental Blast 80 / Earth Shock 55 Maelstrom
+(kaart 90/60) → mh-research checkt. Site vroeg of er een healer-review komt: geantwoord dat die er is (playcard_finish\
+healer_*.md, 22 okt). → ✅ GEMETEN (wago 70529, rapport `pyroclasm_forbearance_2026-10-23.md`): Pyroclasm-buff 269651 =
 230%, +20 met Sunfury Execution (449349), +25 met S2 4-set; MH noemt nergens een getal (PLAYCARD_63_S4/_W4) → niets te
 doen. Forbearance 25771 = 30 sec voor alle vier (LoH, DS, BoP, Spellwarding); −10 sec met class-talent Holy Reprieve
 (469445). ✅ Rob: "Ik volg jouw advies" → toegevoegd aan 8 sleutels (SURVIVAL_NOTE_PHYSICAL_TANK/_PHYSICAL_FORBEARANCE/

@@ -142,13 +142,14 @@ end
 -- MEASURED (mh-research, wago 12.1.5.70529, side-session-notes venomstones_2026-10-23.md): a soulbound bag ITEM,
 -- not a currency, 10 per upgrade on every slot and track (spells 1309290 Myth / 1309291 Hero / 1309292 Tidal
 -- Crafted). Counted by ID: 279997 "Insidious Venomstone" is a different item. No Warband bank, so bags + own bank.
--- Only a weapon, trinket or neck that is maxed on Hero or Myth qualifies. Which trackStringIDs are Hero and Myth
--- is NOT measured yet, and trackString is localised (header), so we do not filter on the track: the line names the
--- track in the player's own language and says "Hero or Myth only". `/mh tracks` prints the ids to measure them.
--- NOT measured either: whether a piece that is already Ascendant still reads as maxed here.
+-- Only a weapon, trinket or neck that is maxed on Hero or Myth qualifies. MEASURED by Rob, 23 Oct 2026 (`/mh tracks`
+-- on his Holy Paladin): Champion = trackStringID 973, Hero = 974. Myth was not on him; that it is higher than 974 is
+-- INFERRED from every higher track having had the higher id. The line still says "Hero or Myth only", in case not.
+-- NOT measured: whether a piece that is already Ascendant still reads as maxed here.
 local VENOMSTONE_ITEM = 280562
 local VENOMSTONE_COST = 10
 local VENOMSTONE_SLOTS = { [2] = true, [13] = true, [14] = true, [16] = true, [17] = true }
+local VENOMSTONE_MIN_TRACK = 974 -- Hero
 
 local SlotLabel
 
@@ -164,7 +165,7 @@ function ns.GetVenomstoneStatus()
 	end
 	local candidates = {}
 	for _, e in ipairs((ScanEquippedTracks())) do
-		if e.maxed and VENOMSTONE_SLOTS[e.slot] then
+		if e.maxed and VENOMSTONE_SLOTS[e.slot] and (e.trackID or 0) >= VENOMSTONE_MIN_TRACK then
 			candidates[#candidates + 1] = {
 				slot = e.slot, label = SlotLabel(e.slot), trackName = e.trackName, cur = e.cur, max = e.max,
 			}
