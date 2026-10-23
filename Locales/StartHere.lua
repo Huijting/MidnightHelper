@@ -312,11 +312,11 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	START_S4_NAV = "Ouvrir Gouffres",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
-	START_S5_BODY = "Deux autres activités de la ligne Monde, idéales une fois un peu équipé (elles donnent de l'équipement Champion aléatoire). Débloque d'abord les Sites rituels via la chaîne de quêtes \"Ritual Interest\" à Lune-d'argent ; les Void Assaults sont l'événement de zone extérieur en rotation et ta porte d'entrée. Au Curious Obelisk tu choisis un palier + des challenges — le Ritual Coach explique chacun d'eux.",
+	START_S5_BODY = "Deux autres activités de la ligne Monde, idéales une fois un peu équipé (elles donnent de l'équipement Champion aléatoire). Débloque d'abord les Sites rituels via la chaîne de quêtes \"Ritual Interest\" à Lune-d’Argent ; les Void Assaults sont l'événement de zone extérieur en rotation et ta porte d'entrée. Au Curious Obelisk tu choisis un palier + des challenges — le Ritual Coach explique chacun d'eux.",
 	START_S5_NAV = "Ouvrir Void & Rituals",
 
 	START_S6_TITLE = "6. Va plus loin : renommée, métiers & devises",
-	START_S6_BODY = "La renommée débloque des avantages et des cosmétiques ; les métiers fabriquent équipement, consommables et or (MH a un cours complet pour débutants) ; et les marchands du Bazar à Lune-d'argent transforment tes devises en améliorations. Prends tout ça une fois la boucle hebdo devenue routinière.",
+	START_S6_BODY = "La renommée débloque des avantages et des cosmétiques ; les métiers fabriquent équipement, consommables et or (MH a un cours complet pour débutants) ; et les marchands du Bazar à Lune-d’Argent transforment tes devises en améliorations. Prends tout ça une fois la boucle hebdo devenue routinière.",
 	START_S6_NAV = "Ouvrir Métiers 101",
 
 	START_RESET_TITLE = "Jour de reset : on recommence",

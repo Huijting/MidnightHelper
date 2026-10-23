@@ -9,7 +9,7 @@
 
 	WoW proper names (challenge names, sites, NPCs, items, quest/scenario names)
 	stay in English in every locale; city/zone words follow each locale file's
-	existing convention (Silbermond / Lune-d'argent / Lunargenta / Luaprata).
+	existing convention (Silbermond / Lune-d’Argent / Lunargenta / Luaprata).
 
 	Locale audit: 68 RITUAL_* keys per language, ×6 languages.
 ]]
@@ -553,9 +553,9 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 
 	-- Indice hebdo (pourquoi l'hebdo rituelle n'est pas faite)
 	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Verrouillé : %s",
-	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Verrouillé — débloque les Sites rituels via la chaîne de quêtes d'introduction à Lune-d'Argent.",
-	RITUAL_WEEKLY_HINT_PICKUP = "Pas encore prise — cette hebdo vient de Lady Liadrin à Lune-d'argent, et seulement les semaines où elle la propose parmi ses quatre choix.",
-	RITUAL_WEEKLY_HINT_INTRO = "Ce personnage n'a pas encore terminé la chaîne de quêtes d'introduction — commence \"Ranger Captain's Summons\" auprès de Ranger Captain Lilatha à Lune-d'argent (l'étape Void Strike se fait dans la zone d'assaut active).",
+	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Verrouillé — débloque les Sites rituels via la chaîne de quêtes d'introduction à Lune-d’Argent.",
+	RITUAL_WEEKLY_HINT_PICKUP = "Pas encore prise — cette hebdo vient de Lady Liadrin à Lune-d’Argent, et seulement les semaines où elle la propose parmi ses quatre choix.",
+	RITUAL_WEEKLY_HINT_INTRO = "Ce personnage n'a pas encore terminé la chaîne de quêtes d'introduction — commence \"Ranger Captain's Summons\" auprès de Ranger Captain Lilatha à Lune-d’Argent (l'étape Void Strike se fait dans la zone d'assaut active).",
 	RITUAL_INTRO_STEP_FMT = "Chaîne d'introduction sur ce personnage — étape %d/%d : %s",
 	RITUAL_INTRO_STEP_INLOG = "(déjà dans votre journal de quêtes)",
 	RITUAL_INTRO_STEP_SUMMONS = "commencez \"Ranger Captain's Summons\" auprès de Ranger Captain Lilatha, au camp au-dessus du Bazar.",
@@ -608,15 +608,15 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_TIP_TENDRILS_MECHANIC = "• Des tendrils apparaissent avec un cercle vert tourbillonnant — sors-en, sinon tu es immobilisé et tu prends des dégâts.|n• Augmente les Spoils tant qu'actif.",
 	RITUAL_TIP_TENDRILS_UNLOCK = "• Loote une Ritual Chest à la fin d'un site, puis rends la quête \"Ritual Site Challenge Report: Tendrils\".",
 	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Des esprits apparaissent et commencent une longue incantation. Arrête l'incantation et l'esprit disparaît : une interruption marche, et aussi les étourdissements, les peurs et les autres contrôles. Laisse-la finir et tu subis sa magie flétrissante.|n• Augmente les Spoils tant qu'actif.",
-	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Termine un site Tier 3, puis parle à Ranger Captain Lilatha à Lune-d'argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Termine un site Tier 3, puis parle à Ranger Captain Lilatha à Lune-d’Argent (le palier requis baisse chaque semaine).",
 	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Les kills invoquent des renforts ; plus le pull tué est gros et fort, plus les adds sont puissants.|n• Augmente les Spoils tant qu'actif.",
-	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Termine un site Tier 4, puis parle à Lady Darkglen à Lune-d'argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Termine un site Tier 4, puis parle à Lady Darkglen à Lune-d’Argent (le palier requis baisse chaque semaine).",
 	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Des Dark Obelisks renforcent les ennemis proches — détruis les obélisques pour retirer les buffs.|n• Augmente les Spoils tant qu'actif.",
 	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Termine un site Tier 2 pour une quête de Lady Darkglen, puis examine 5 Dark Obelisks dans un site (le palier requis baisse chaque semaine).",
 	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Les ennemis tués laissent une flaque de magie du Vide mortelle — sors-en.|n• Augmente les Spoils tant qu'actif.",
 	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Loote un Tainted Bone Pile dans un site Tier 2+ (voir les notes du site pour l'emplacement), puis rends la quête.",
 	RITUAL_TIP_REINFORCED_MECHANIC = "• Des ennemis supplémentaires sont répartis sur tout le site — attends-toi à des packs plus denses.|n• Augmente les Spoils tant qu'actif (un des plus gros bonus).",
-	RITUAL_TIP_REINFORCED_UNLOCK = "• Termine un site Tier 2, puis parle à Ranger Captain Lilatha à Lune-d'argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Termine un site Tier 2, puis parle à Ranger Captain Lilatha à Lune-d’Argent (le palier requis baisse chaque semaine).",
 	RITUAL_TIP_PATROLS_MECHANIC = "• Des ennemis d'élite patrouillent sur le site — évite leurs trajets quand c'est possible.|n• Augmente les Spoils tant qu'actif.",
 	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" des trésors uniques dans un site Tier 3+ (le palier requis baisse chaque semaine).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Des ennemis aléatoires ET le boss final sont renforcés, marqués d'un orbe flottant au-dessus d'eux.|n• Augmente les Spoils tant qu'actif (un des plus gros bonus).",

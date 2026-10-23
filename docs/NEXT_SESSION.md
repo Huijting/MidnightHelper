@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🏷️ 23 okt — clientnamen-ronde (Rob: "doe al de dingen maar die jij zonder mij kan doen")
+
+GEMETEN (mh-research, wago 12.1.5.70529 + Robs combat logs 15/20 okt; rapporten side-session-notes
+`remaining_names_2026-10-23.md`, `orin_names_2026-10-23.md`), toegepast door mh-writer in de/fr/es/esMX/pt/it/ru:
+- Lay on Hands 633, Divine Shield 642, Forbearance 25771, Blessing of Protection 1022, Master of Warfare 1269314 (Arms-
+  talent), Vile Bolt 1289330 (Sha'Kuro; esMX "Rayo vil" ≠ esES "Descarga vil"), Amani Headhunters (meervoud uit spelltekst
+  1298647; enkelvoud alleen es gemeten, elders herschreven naar meervoud), Catalyst Unbound = 62871 (zonder "Season 2"-
+  voorvoegsel, zoals enUS). Hash'ey-titels (63716, title 1342) stonden al goed.
+- Oude woorden: pt "Catalyst" → Catalisador, it → Catalizzatore, de/fr/es → Katalysator/catalyseur/catalizador; fr
+  "Lune-d'argent"/"Lune-d'Argent" → "Lune-d’Argent" (125 regels); "Matrix"-vormen weg (geen clientstring); Voidcore-quest
+  97981 in de/fr/es/esMX/ru.
+- Samen ±270 regels in 15 locale-bestanden; drift per taal gemarkeerd (esMX telt check_drift niet). Lint 0 HARD, syntax OK.
+  Niet in het spel gezien. ⚠️ ptBR INFO_DRAWER_BODY_TIER per ongeluk mee gemarkeerd (niet gewijzigd).
+- 🔜 Nog Engels: Blessing of Spellwarding (3 sleutels), "Hash'ey Battle Art"-items in de Codex. Enkelvoud "Amani Headhunter"
+  buiten es: alleen in een client aflezen. esMX "Kindo'Jan" vs "Kindo'jan": client is zelf gemengd (DungeonEncounter/
+  63715 hoofdletter J), gelaten zoals het was.
+
 ## 📊 23 okt — site-chat: kaarten leunen op talenten die de top bijna niet neemt (alleen info, niets gedaan)
 
 Site chat 23-10 (Murlok.io top 50 Mythic+, 23 okt, gelezen in de browser; details in de site-repo drafts/SITE_HANDOFF.md,
@@ -8,7 +25,11 @@ Vision), Unbreakable Bond 1/50 (49× Avian Specialization → bijna niemand heef
 Hide 45/50 · Windwalker 269 Shado-Pan 2/50 terwijl HERO "easiest" zegt; Tigereye Brew: Murlok zet Zenith Stomps op rang 1,
 de kaart op de laatste stap (AFGELEID, meten) · Guardian 104 Ursol's Warding 1/50 (W1 leunt erop) · Vengeance 581 Feed the
 Demon 25/50 · Havoc 577 A Fire Inside 11/50 (= Fel-Scarred) · Feral 103 Incarnation 34 vs Convoke 16 (kaart volgt de gidsen:
-Convoke). ⚠️ Top-50 M+ ≠ gewone speler; de kaarten zijn voor iedereen. 🔜 Rob kiest of/welke kaartregels om moeten.
+Convoke). Vervolg (08:10-08:14 UTC): Arcane 62 Arcane Pulse 0/50 (alle 50 Sunfury) maar kaart leunt erop bij "More
+enemies" · Shadow 258 Voidtouched 0/50 terwijl TERMS op 150 Insanity rekent · Ret 70 Radiant Glory 0/50 · Frost Mage 64 Comet
+Storm 22/50 (41/50 bij Frostfire) · Fire 63 Flamestrike-keuze 30× 1254851 "op je doelwit" vs 20× 2120 "op een plek" ·
+alleen Murlok-tooltips: Pyroclasm 250% (kaart 230%), Forbearance na Lay on Hands 20 sec (kaarten 30) → mh-research checkt
+die twee getallen. ⚠️ Top-50 M+ ≠ gewone speler; de kaarten zijn voor iedereen. 🔜 Rob kiest of/welke kaartregels om moeten.
 Impending Victory-test staat al op de TESTLIJST (`/mh survival`); de site noemt ook
 `/run print(IsPlayerSpell(34428), C_Spell.GetOverrideSpell(34428))`.
 
@@ -171,8 +192,8 @@ nummert per sessie opnieuw: 13-24, 25-36, 49-60, 109-120). ❌ Rob (screenshot):
     Codex.lua (CODEX_CUR_UNDERCOIN_TITLE/_BODY, CODEX_CORRPOWER_BODY, CODEX_CUR_COFFER_KEY_BODY: Undercoin + Naleidea) en
     DelveTips.lua (DELVE_TIP_TORMENTS_RISE_ROUTE) nagelopen; esMX "Kindo'Jan" waar de baas los staat. 5 dode fill-regels
     CODEX_CUR_UNDERCOIN_TITLE door mij weg; lint 0 HARD. Bewust niet: namen binnen achievementtitels, de dungeonnaam.
-  - Nog Engels, niet gemeten: Lay on Hands, Divine Shield, Forbearance, Blessing of Protection, Master of Warfare, Vile
-    Bolt (Sha'Kuro), Amani Headhunters, "Hash'ey" in achievementtitels; esMX "Kindo'Jan" (hoofdletter J in de client).
+  - ✅ 23 okt gemeten en gezet (zie 🏷️ bovenaan): Lay on Hands, Divine Shield, Forbearance, Blessing of Protection, Master
+    of Warfare, Vile Bolt, Amani Headhunters, Hash'ey-titels; esMX "Kindo'Jan" = client gemengd, gelaten.
   - Er'inye en "Delver's HQ" (Silvermoon) staan niet in Blizzards data → in Robs client aflezen.
   - Kinduru-hotfix in de 0-levens-tip (Robs keuze), Crimson Tempest (Robs keuze), Earth Elemental/Primordial Bond.
   - ✅ 22 okt kleinere kaartpunten (mh-research, rapport side-session-notes `small_card_points_2026-10-22.md`):

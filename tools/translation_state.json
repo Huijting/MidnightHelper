@@ -1013,9 +1013,17 @@
    "ruRU": "f8e79e7d1e2dec6a"
   },
   "ACCOUNT_WEEKLY_FLUX_CAPPED_FMT": {
+   "deDE": "a9b62aa6f38edebf",
+   "esES": "a9b62aa6f38edebf",
+   "frFR": "a9b62aa6f38edebf",
+   "itIT": "a9b62aa6f38edebf",
    "ruRU": "a9b62aa6f38edebf"
   },
   "ACCOUNT_WEEKLY_FLUX_FMT": {
+   "deDE": "13c8e0975ffa0478",
+   "esES": "13c8e0975ffa0478",
+   "frFR": "13c8e0975ffa0478",
+   "itIT": "13c8e0975ffa0478",
    "ruRU": "13c8e0975ffa0478"
   },
   "ACCOUNT_WEEKLY_FOLIO_FMT": {
@@ -1145,6 +1153,7 @@
    "ruRU": "97d9511a94cdf5e8"
   },
   "ACCOUNT_WEEKLY_SCOPE_NOTE": {
+   "frFR": "21786a9a77378579",
    "ptBR": "21786a9a77378579",
    "ruRU": "21786a9a77378579"
   },
@@ -2664,6 +2673,11 @@
    "ruRU": "40cbf2c6cbd113f2"
   },
   "ALT_NEXT_FLUX_FMT": {
+   "deDE": "5612d29464924f2b",
+   "esES": "5612d29464924f2b",
+   "frFR": "5612d29464924f2b",
+   "itIT": "5612d29464924f2b",
+   "ptBR": "5612d29464924f2b",
    "ruRU": "5612d29464924f2b"
   },
   "ALT_NEXT_HEAD": {
@@ -2949,6 +2963,11 @@
    "ruRU": "f73a9da1fcb5fbdc"
   },
   "ALT_TOOLTIP_MANAFLUX_FMT": {
+   "deDE": "69f7ff9f1084192b",
+   "esES": "69f7ff9f1084192b",
+   "frFR": "69f7ff9f1084192b",
+   "itIT": "69f7ff9f1084192b",
+   "ptBR": "69f7ff9f1084192b",
    "ruRU": "69f7ff9f1084192b"
   },
   "ALT_TOOLTIP_PROFESSIONS": {
@@ -15779,6 +15798,9 @@
    "ptBR": "984dfc662e11b9dc",
    "ruRU": "984dfc662e11b9dc"
   },
+  "GEARLADDER_VAELI_TIP": {
+   "frFR": "b95c78263f3c9cde"
+  },
   "GEARLADDER_WHERE": {
    "deDE": "11bdc6827666310a",
    "esES": "11bdc6827666310a",
@@ -16022,9 +16044,19 @@
    "ruRU": "21d2dd89820c4c27"
   },
   "GROUP_NOTE_LAY_ON_HANDS": {
+   "deDE": "348349598d10387c",
+   "esES": "348349598d10387c",
+   "frFR": "348349598d10387c",
+   "itIT": "348349598d10387c",
+   "ptBR": "348349598d10387c",
    "ruRU": "348349598d10387c"
   },
   "GROUP_NOTE_LAY_ON_HANDS_2": {
+   "deDE": "1b0bc98bc35400bc",
+   "esES": "1b0bc98bc35400bc",
+   "frFR": "1b0bc98bc35400bc",
+   "itIT": "1b0bc98bc35400bc",
+   "ptBR": "1b0bc98bc35400bc",
    "ruRU": "1b0bc98bc35400bc"
   },
   "GROUP_NOTE_LEAP_OF_FAITH": {
@@ -16131,6 +16163,11 @@
    "ruRU": "8dae99c122458671"
   },
   "GROUP_NOTE_SPELLWARD": {
+   "deDE": "26c08bc018387dde",
+   "esES": "26c08bc018387dde",
+   "frFR": "26c08bc018387dde",
+   "itIT": "26c08bc018387dde",
+   "ptBR": "26c08bc018387dde",
    "ruRU": "26c08bc018387dde"
   },
   "GROUP_NOTE_SPIRIT_LINK_TOTEM": {
@@ -17171,6 +17208,7 @@
    "ruRU": "99174999c4f18a75"
   },
   "HOME_ROUTINE_GIVER_PICKUP_ZERELLA_FMT": {
+   "frFR": "bbc02335c7ba134b",
    "ruRU": "bbc02335c7ba134b"
   },
   "HOME_ROUTINE_GIVER_TURNIN_FMT": {
@@ -28711,6 +28749,9 @@
    "nlNL": "8d163184279bd132",
    "ptBR": "8d163184279bd132"
   },
+  "PORTAL_NAME_SILVERMOON": {
+   "frFR": "709ea6eedd4ab9e0"
+  },
   "POTIONKEY_COMBAT": {
    "deDE": "03f63eefda901c05",
    "esES": "03f63eefda901c05",
@@ -38200,6 +38241,7 @@
   },
   "TAB_TAGLINE_ROOM_CODEX": {
    "deDE": "621238befb52bd9b",
+   "frFR": "621238befb52bd9b",
    "ruRU": "621238befb52bd9b"
   },
   "TAB_TAGLINE_ROOM_ME": {
@@ -38216,6 +38258,7 @@
   },
   "TAB_TAGLINE_SMCGUIDE": {
    "deDE": "6512f7f0ef6fedde",
+   "frFR": "6512f7f0ef6fedde",
    "ruRU": "6512f7f0ef6fedde"
   },
   "TAB_TAGLINE_STARTHERE": {
@@ -38551,7 +38594,9 @@
    "deDE": "15d548aeedbaa5fb",
    "esES": "15d548aeedbaa5fb",
    "frFR": "15d548aeedbaa5fb",
-   "ptBR": "15d548aeedbaa5fb"
+   "itIT": "15d548aeedbaa5fb",
+   "ptBR": "15d548aeedbaa5fb",
+   "ruRU": "15d548aeedbaa5fb"
   },
   "TIER_COUNT_FMT": {
    "deDE": "20b00974125b917f",
