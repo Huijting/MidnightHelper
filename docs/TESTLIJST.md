@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 23 okt — spelkaarten: vijf regels nagelopen
+
+- [ ] Fire Mage (Iceicebaby kan wisselen): `/mh play`, stap "4 or more enemies": staat Flamestrike in **kleur** (niet grijs),
+      ongeacht welke van de twee Flamestrikes je koos?
+- [ ] Frost Mage met het talent Comet Storm: `/run print(IsPlayerSpell(153595), IsPlayerSpell(1247777))` — stuur de regel.
+      (Is de eerste "false", dan kleurt de kaart Comet Storm onterecht grijs.)
+- [ ] Affliction Warlock (Warlockie): stap 5 begint nu met Shadow Bolt.
+
 ## 🆕 23 okt — Paladin: Forbearance 20 sec met Holy Reprieve
 
 - [x] ✅ GEMETEN Rob 23 okt (Twelveinchy, Holy, mét Holy Reprieve): `/run … GetPlayerAuraBySpellID(25771) … a.duration`

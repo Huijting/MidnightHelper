@@ -24347,13 +24347,13 @@
    "ruRU": "9846291cc2b5c644"
   },
   "PLAYCARD_103_S1": {
-   "deDE": "a7a8dfe5621891c6",
-   "esES": "a7a8dfe5621891c6",
-   "frFR": "a7a8dfe5621891c6",
-   "itIT": "a7a8dfe5621891c6",
-   "nlNL": "a7a8dfe5621891c6",
-   "ptBR": "a7a8dfe5621891c6",
-   "ruRU": "a7a8dfe5621891c6"
+   "deDE": "6be47cb96db4071f",
+   "esES": "6be47cb96db4071f",
+   "frFR": "6be47cb96db4071f",
+   "itIT": "6be47cb96db4071f",
+   "nlNL": "6be47cb96db4071f",
+   "ptBR": "6be47cb96db4071f",
+   "ruRU": "6be47cb96db4071f"
   },
   "PLAYCARD_103_S2": {
    "ruRU": "6b3b727d95422f9f"
@@ -24705,13 +24705,13 @@
    "ruRU": "6bd893332a2adf64"
   },
   "PLAYCARD_1467_S4": {
-   "deDE": "04030584fa6c54a1",
-   "esES": "04030584fa6c54a1",
-   "frFR": "04030584fa6c54a1",
-   "itIT": "04030584fa6c54a1",
-   "nlNL": "04030584fa6c54a1",
-   "ptBR": "04030584fa6c54a1",
-   "ruRU": "04030584fa6c54a1"
+   "deDE": "f8c051993e3a6213",
+   "esES": "f8c051993e3a6213",
+   "frFR": "f8c051993e3a6213",
+   "itIT": "f8c051993e3a6213",
+   "nlNL": "f8c051993e3a6213",
+   "ptBR": "f8c051993e3a6213",
+   "ruRU": "f8c051993e3a6213"
   },
   "PLAYCARD_1467_TERMS": {
    "deDE": "dfb84895e57ac754",
@@ -26769,7 +26769,13 @@
    "ruRU": "d4329ede4e6a8657"
   },
   "PLAYCARD_265_S5": {
-   "ruRU": "7d69825c7dac4c5a"
+   "deDE": "4fac1626ca8b4ad8",
+   "esES": "4fac1626ca8b4ad8",
+   "frFR": "4fac1626ca8b4ad8",
+   "itIT": "4fac1626ca8b4ad8",
+   "nlNL": "4fac1626ca8b4ad8",
+   "ptBR": "4fac1626ca8b4ad8",
+   "ruRU": "4fac1626ca8b4ad8"
   },
   "PLAYCARD_265_TERMS": {
    "deDE": "06ee252538d736f7",
@@ -26817,13 +26823,13 @@
    "ruRU": "824181da24e2434e"
   },
   "PLAYCARD_265_W5": {
-   "deDE": "51d5b923a0e05d47",
-   "esES": "51d5b923a0e05d47",
-   "frFR": "51d5b923a0e05d47",
-   "itIT": "51d5b923a0e05d47",
-   "nlNL": "51d5b923a0e05d47",
-   "ptBR": "51d5b923a0e05d47",
-   "ruRU": "51d5b923a0e05d47"
+   "deDE": "45051b178a59c3ab",
+   "esES": "45051b178a59c3ab",
+   "frFR": "45051b178a59c3ab",
+   "itIT": "45051b178a59c3ab",
+   "nlNL": "45051b178a59c3ab",
+   "ptBR": "45051b178a59c3ab",
+   "ruRU": "45051b178a59c3ab"
   },
   "PLAYCARD_265_WAOE": {
    "deDE": "31c3931181ef750e",
@@ -27604,13 +27610,13 @@
    "ruRU": "e8dbceee1b216f8b"
   },
   "PLAYCARD_62_AOE": {
-   "deDE": "79fc404591b7072d",
-   "esES": "79fc404591b7072d",
-   "frFR": "79fc404591b7072d",
-   "itIT": "79fc404591b7072d",
-   "nlNL": "79fc404591b7072d",
-   "ptBR": "79fc404591b7072d",
-   "ruRU": "79fc404591b7072d"
+   "deDE": "118f257e8df8ba81",
+   "esES": "118f257e8df8ba81",
+   "frFR": "118f257e8df8ba81",
+   "itIT": "118f257e8df8ba81",
+   "nlNL": "118f257e8df8ba81",
+   "ptBR": "118f257e8df8ba81",
+   "ruRU": "118f257e8df8ba81"
   },
   "PLAYCARD_62_HERO1": {
    "deDE": "237b0e49cabdb738",
@@ -27739,7 +27745,13 @@
    "ruRU": "ad62d20858320b0a"
   },
   "PLAYCARD_63_AOE": {
-   "ruRU": "95d0a4bc1fbab0ab"
+   "deDE": "730cd2eb7aa5eb0c",
+   "esES": "730cd2eb7aa5eb0c",
+   "frFR": "730cd2eb7aa5eb0c",
+   "itIT": "730cd2eb7aa5eb0c",
+   "nlNL": "730cd2eb7aa5eb0c",
+   "ptBR": "730cd2eb7aa5eb0c",
+   "ruRU": "730cd2eb7aa5eb0c"
   },
   "PLAYCARD_63_HERO1": {
    "deDE": "5fdc130259d41f15",

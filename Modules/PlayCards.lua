@@ -98,7 +98,7 @@ local CARDS = {
 		source = "Icy Veins 10 Aug · Method 17 Aug · Wowhead 16 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
 		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
-		quizAnswer = { [1] = 190319, [3] = 11366, AOE = 2120 },
+		quizAnswer = { [1] = 190319, [3] = 11366, AOE = 1254851 }, -- 23 Oct 2026: the target Flamestrike, the guides' pick
 	},
 	[64] = { -- Frost Mage
 		steps = 5, aoe = true, hero = 2,
@@ -275,7 +275,7 @@ local CARDS = {
 		-- Why lines 11 Oct 2026, docs/WHY_WARLOCK_2026-10-11.md. AOE now follows Icy Veins 31 Aug + the APL of 27 Aug.
 		why = { checked = "2026-10-11", interface = 120105 },
 		quiz = true,
-		quizAnswer = { [1] = 205180, [5] = 198590, AOE = 27243 },
+		quizAnswer = { [1] = 205180, [5] = 686, AOE = 27243 }, -- 23 Oct 2026: Shadow Bolt first, Drain Soul is the other pick
 	},
 	[266] = { -- Demonology Warlock
 		steps = 5, aoe = true, hero = 2,
@@ -621,10 +621,12 @@ end
 
 --- Does this character have the spell (talents and replaced buttons included)? Fails open: an
 --- API hiccup shows gold, because grey on a spell you DO have would be the worse lie.
-function ns.PlayCardKnowsSpell(id)
-	if not id then
-		return true
-	end
+-- Two versions of the same button from one choice node, with the same name: knowing one counts as knowing the other,
+-- or the card greys the word the player sees on his own bar. MEASURED 23 Oct 2026 (wago 12.1.5.70529): Flamestrike
+-- 2120 (at a location) and 1254851 (at your target) are the two entries of one Fire choice node.
+local CHOICE_TWINS = { [2120] = 1254851, [1254851] = 2120 }
+
+local function KnowsOne(id)
 	local ok, yes = pcall(function()
 		return (IsPlayerSpell and IsPlayerSpell(id))
 			or (IsSpellKnownOrOverridesKnown and IsSpellKnownOrOverridesKnown(id))
@@ -634,6 +636,17 @@ function ns.PlayCardKnowsSpell(id)
 		return true
 	end
 	return yes and true or false
+end
+
+function ns.PlayCardKnowsSpell(id)
+	if not id then
+		return true
+	end
+	if KnowsOne(id) then
+		return true
+	end
+	local twin = CHOICE_TWINS[id]
+	return twin and KnowsOne(twin) or false
 end
 
 --- `/mh playcards check`: the switch, the spec the Academy would ask for, and what the Academy

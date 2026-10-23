@@ -21,6 +21,21 @@ gevraagd aan Site chat 23-10 (23 okt). Ook bekijken: CURSEFORGE_DESCRIPTION.md.
 blok "New on midnighthelper.com", Venomstones, Labyrinth (Kinduru + ijsmuur), Crimson Tempest, Forbearance, clientnamen,
 en een voorstel voor CHANGELOG_4112_0..4. Op Robs go: TOC, Changelog.lua, enUS-sleutels, RELEASE_NOTES = CURSEFORGE_4.11.2.md.
 
+## 🃏 23 okt — kaarten na de Murlok-punten van de site (Rob: "ga door zonder mij")
+
+mh-research liep alle 31 punten na tegen Icy Veins (12-17 okt), Wowhead 13 okt, Method 14/16 okt en wago 70529 (rapport
+`card_proposals_2026-10-23.md`): 26 keep, 3 herformuleren, 2 echte fouten. Gedaan (en/nl ik, rest mh-writer):
+- 63 Fire AOE: kaart gebruikte Flamestrike 2120 (op een plek); de gidsen kiezen 1254851 (op je doelwit) — die spelers
+  zagen een GRIJZE Flamestrike. Tekst leidt nu met 1254851, 2120 als alternatief; quizAnswer AOE → 1254851;
+  ns.PlayCardKnowsSpell kent nu CHOICE_TWINS (2120 ⇄ 1254851), zodat WAOE/TERMS ook goed kleuren.
+- 265 Affliction S5/W5: Shadow Bolt eerst (gidsen + 44/50), Drain Soul als alternatief; quizAnswer [5] → 686.
+- 1467 S4 (normale filler eerst, Azure Sweep laatst), 103 S1 (Incarnation vervangt Berserk), 62 AOE (Arcane Pulse als
+  {SPELL:1241462}, kleurt grijs + clientnaam).
+Bewust gelaten (feitelijk juist voor gewone spelers): o.a. Windwalker "last step" (Zenith Stomp = 4e punt, GEMETEN),
+Shado-Pan "simplest" (= Icy Veins), Holy Pal "not with Lightsmith" (Lightsmith vervangt Divine Toll, GEMETEN).
+🔜 Niet meetbaar zonder client: Frost `IsPlayerSpell(153595)` mét Comet Storm-talent (anders grijst de kaart hem
+onterecht); MM met Roar of Sacrifice zonder pet. Niet in het spel gezien.
+
 ## 🧊 23 okt — ijsmuur Flooded Chamber: alleen vuur (GEMETEN door Rob, Frost Mage, combat log)
 
 Rob in de Labyrinth: tientallen Frost-treffers (Frost Splinter, Flurry, Frozen Orb) op "Ice Wall" deden schade maar
