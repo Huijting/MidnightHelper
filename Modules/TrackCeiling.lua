@@ -137,9 +137,74 @@ function ns.GetTrackCeilingSteps()
 end
 
 --------------------------------------------------------------------------------
+-- Ascendant Venomstones (12.1.5; Rob, 23 Oct 2026: "Bouw optie A (regel in het karaktervenster)")
+--------------------------------------------------------------------------------
+-- MEASURED (mh-research, wago 12.1.5.70529, side-session-notes venomstones_2026-10-23.md): a soulbound bag ITEM,
+-- not a currency, 10 per upgrade on every slot and track (spells 1309290 Myth / 1309291 Hero / 1309292 Tidal
+-- Crafted). Counted by ID: 279997 "Insidious Venomstone" is a different item. No Warband bank, so bags + own bank.
+-- Only a weapon, trinket or neck that is maxed on Hero or Myth qualifies. Which trackStringIDs are Hero and Myth
+-- is NOT measured yet, and trackString is localised (header), so we do not filter on the track: the line names the
+-- track in the player's own language and says "Hero or Myth only". `/mh tracks` prints the ids to measure them.
+-- NOT measured either: whether a piece that is already Ascendant still reads as maxed here.
+local VENOMSTONE_ITEM = 280562
+local VENOMSTONE_COST = 10
+local VENOMSTONE_SLOTS = { [2] = true, [13] = true, [14] = true, [16] = true, [17] = true }
+
+local SlotLabel
+
+--- @return table|nil { count, cost, candidates = { {slot, label, trackName, cur, max}, ... } }
+--- nil when the item API is missing — not "0 stones".
+function ns.GetVenomstoneStatus()
+	if not (C_Item and C_Item.GetItemCount) then
+		return nil
+	end
+	local ok, count = pcall(C_Item.GetItemCount, VENOMSTONE_ITEM, true)
+	if not ok then
+		return nil
+	end
+	local candidates = {}
+	for _, e in ipairs((ScanEquippedTracks())) do
+		if e.maxed and VENOMSTONE_SLOTS[e.slot] then
+			candidates[#candidates + 1] = {
+				slot = e.slot, label = SlotLabel(e.slot), trackName = e.trackName, cur = e.cur, max = e.max,
+			}
+		end
+	end
+	return { count = tonumber(count) or 0, cost = VENOMSTONE_COST, candidates = candidates }
+end
+
+--- Side-panel lines, { text=, color= }. Max level only (the stones are Season 2 endgame), and silent when there is
+--- neither a stone nor a maxed weapon, trinket or neck: nothing to do, nothing to say.
+function ns.GetVenomstoneSteps()
+	local maxLevel = (ns.PlayCardMaxLevel and ns.PlayCardMaxLevel()) or 90
+	if (UnitLevel and UnitLevel("player") or 0) < maxLevel then
+		return {}
+	end
+	local st = ns.GetVenomstoneStatus()
+	if not st or (st.count == 0 and #st.candidates == 0) then
+		return {}
+	end
+	local out = {}
+	if st.count >= st.cost then
+		out[#out + 1] = { text = ns:L("TRACKCEIL_VENOM_READY_FMT"):format(st.count), color = "good" }
+	else
+		out[#out + 1] = { text = ns:L("TRACKCEIL_VENOM_COUNT_FMT"):format(st.count, st.cost), color = "prog" }
+	end
+	if #st.candidates > 0 then
+		local parts = {}
+		for _, c in ipairs(st.candidates) do
+			parts[#parts + 1] = ("%s (%s %d/%d)"):format(c.label, tostring(c.trackName or "?"), c.cur, c.max)
+		end
+		out[#out + 1] = { text = ns:L("TRACKCEIL_VENOM_CAND_FMT"):format(table.concat(parts, ", ")), color = "soft" }
+	end
+	return out
+end
+
+--------------------------------------------------------------------------------
 -- /mh tracks
 --------------------------------------------------------------------------------
-local function SlotLabel(slot)
+-- Assigns the local declared above the Venomstone block, which uses it too.
+function SlotLabel(slot)
 	local names = {
 		[1] = "HEADSLOT", [2] = "NECKSLOT", [3] = "SHOULDERSLOT", [5] = "CHESTSLOT",
 		[6] = "WAISTSLOT", [7] = "LEGSSLOT", [8] = "FEETSLOT", [9] = "WRISTSLOT",
@@ -168,9 +233,15 @@ function ns.PrintTrackCeiling()
 	for _, e in ipairs(entries) do
 		local mark = e.maxed and ("|cffe6c86b" .. ns:L("TRACKCEIL_AT_MAX") .. "|r")
 			or ("|cff8cd98c" .. ns:L("TRACKCEIL_ROOM") .. "|r")
-		print(("   %s — %s %d/%d  %s"):format(
-			SlotLabel(e.slot), tostring(e.trackName or "?"), e.cur, e.max, mark
+		-- The track id in grey (23 Oct 2026): measures which ids are Hero and Myth, for the Venomstone line.
+		print(("   %s — %s %d/%d  %s |cff9d9d9d(track %d)|r"):format(
+			SlotLabel(e.slot), tostring(e.trackName or "?"), e.cur, e.max, mark, e.trackID or 0
 		))
+	end
+
+	local venom = ns.GetVenomstoneStatus()
+	if venom then
+		print("   " .. ns:L("TRACKCEIL_VENOM_COUNT_FMT"):format(venom.count, venom.cost))
 	end
 
 	local maxed = select(1, ns.GetTrackCeilingSummary())
@@ -179,6 +250,7 @@ function ns.PrintTrackCeiling()
 		print("      " .. ns:L("TRACKCEIL_ROUTE_VAULT"))
 		print("      " .. ns:L("TRACKCEIL_ROUTE_CRAFT"))
 		print("      " .. ns:L("TRACKCEIL_ROUTE_SOLO"))
+		print("      " .. ns:L("TRACKCEIL_ROUTE_VENOM"))
 		-- The crafting route above tells you to craft; this says where the how-to is.
 		-- Without it the advice stops exactly where the questions start.
 		print("      |cff9d9d9d" .. (ns:L("TRACKCEIL_SEE_CODEX")):format(ns:L("CODEX_CRAFTGEAR_TITLE")) .. "|r")

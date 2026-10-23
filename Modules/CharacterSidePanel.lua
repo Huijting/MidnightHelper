@@ -167,6 +167,21 @@ local function BuildLines()
 		end
 	end
 
+	-- Ascendant Venomstones (Rob, 23 Oct 2026, option A): how many you carry and which maxed weapon, trinket or
+	-- neck could take them — right under the ceiling line, because they are the way past that ceiling.
+	if ns.GetVenomstoneSteps then
+		local ok, steps = pcall(ns.GetVenomstoneSteps)
+		if ok and type(steps) == "table" then
+			for _, st in ipairs(steps) do
+				out[#out + 1] = {
+					text = st.text,
+					color = st.color or "prog",
+					onClick = function() pcall(ns.PrintTrackCeiling) end,
+				}
+			end
+		end
+	end
+
 	-- Everything readable and nothing outstanding earns one quiet line. Note the
 	-- difference from "we could not read anything", which produces no lines at all
 	-- and therefore no panel — saying "gear looks complete" when the API went quiet

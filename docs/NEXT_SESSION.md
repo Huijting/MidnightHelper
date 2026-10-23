@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 💚 23 okt — Venomstones in het karaktervenster GEBOUWD (Rob: "Bouw optie A (regel in het karaktervenster) en repareer de maxed-zin.")
+
+TrackCeiling.lua: ns.GetVenomstoneStatus (C_Item.GetItemCount(280562, true) = tassen + bank; maxed slots 2/13/14/16/17)
+en ns.GetVenomstoneSteps (max level; zwijgt bij 0 stenen én geen kandidaat). CharacterSidePanel: regels onder de
+maxed-regel ("x of 10", groen vanaf 10; "Can go higher with them (Hero or Myth only): Neck (Hero 6/6) …"); klik = /mh
+tracks. NIET op Hero/Myth gefilterd: trackID's onbekend, trackString is vertaald → regel noemt de track in clienttaal.
+/mh tracks print nu "(track N)" per slot (om de ID's te meten), de telling, en TRACKCEIL_ROUTE_VENOM.
+TRACKCEIL_MAXED_FMT/_ONE_FMT: "only a drop …" was sinds 20 okt onwaar → "+ wapen/trinket/neck op Hero/Myth ook met
+Venomstones". en/nl ik, rest mh-writer. Niet gemeten: telt de bank mee, en blijft een Ascendant-stuk "maxed" (dan zou
+het onterecht als kandidaat staan). Niet in het spel gezien → TESTLIJST.
+Clientnaam van de steen GEMETEN (`run names_1215`, live 70529, ItemSparse 280562): de Aufsteigender Giftstein, fr Venithe
+ascendante, es Piedraveneno ascendente, esMX Piedra de veneno ascendente, pt Pedra de Peçonha Ascendente, it Pietra
+Velenosa Ascendente, ru Вознесенный ядокамень → in de 6 nieuwe/gewijzigde sleutels (esMX nu eigen regels). Lint 0 HARD.
+🔜 Clientnaam-gaten die mh-writer zag, NIET gemeten: CODEX_VENOMSTONE_TITLE/_BODY zeggen in alle talen nog Engels
+"Ascendant Venomstones"; Orin heet esES "Orin Luzperdida" maar esMX "Torin Luzerrante"; pt/it Codex "Catalyst" naast
+"Catalisador"/"Catalizzatore" in een questnaam; ru Myth-track "легендарный герой" (Codex) vs "Эпоха" (DAWNCREST_TIER_MYTH);
+itIT.lua DAWNCREST_TIER_HERO/MYTH = "Hero"/"Myth" vs "Eroe"/"Mito" elders.
+
 ## 💚 23 okt — Venomstones tellen: uitgezocht, NIET gebouwd (Rob: "zoek uit hoe MH de Venomstones kan tellen (x van 10) en waar dat het beste past. Nog niet bouwen.")
 
 mh-research (wago 12.1.5.70529, rapport side-session-notes `venomstones_2026-10-23.md`), GEMETEN: item 280562 (geen

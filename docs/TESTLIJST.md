@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 23 okt — Venomstones in het karaktervenster
+
+Eerst `/reload`, op een max-level character.
+- [ ] Karaktervenster open: in MH's zijpaneel staat "Ascendant Venomstones: x of 10" (klopt het getal met je tassen?
+      ligt er een steen op je bank: telt die mee?). Met 10 of meer: groene regel "take 10 to the Catalyst …".
+- [ ] Heb je een wapen, trinket of neck helemaal opgewaardeerd: regel "Can go higher with them (Hero or Myth only): …"
+      met slotnaam en track. Staat er een stuk bij dat al Ascendant is? Dan klopt dat niet (niet gemeten).
+- [ ] De maxed-regel zegt nu "… and a weapon, trinket or neck on Hero or Myth also with Venomstones".
+- [ ] `/mh tracks`: elke regel eindigt op "(track N)". Stuur de regels van een Hero- en een Myth-stuk; dan kan MH
+      zelf filteren op Hero/Myth. Onderaan staat de Venomstones-telling en een extra route-regel.
+
 ## 🆕 23 okt — Assassination Rogue: Crimson Tempest op Shift+3
 
 - [ ] Assassination Rogue, `/reload`, toetsenblok: Crimson Tempest staat bij de gewone aanvalsknoppen (niet bij de
