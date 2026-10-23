@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## 🚀 23 okt — RELEASE 4.11.2 (Rob: "Go voor 4.11.2, met het blok over de website.")
+
+TOC 4.11.2, CHANGELOG_4112_0..4 (_0 = website-blok + beta-uitnodiging), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.2.md`
+(byte-identiek, script), CHANGELOG.md, CURSEFORGE_DESCRIPTION.md (zin over "Your talents"; 🔜 Rob plakt hem zelf op CF).
+Lint 0 HARD. Tag + uitkomst run: zie hieronder.
+
 ## 📣 EIS VOOR DE VOLGENDE UPDATE (Rob, 23 okt: "bij de update die we gaan doen, duidelijk gemaakt wordt dat we op de website dus meer info hebben voor DPS, voor tanken, voor healers")
 
 Volgende release (4.11.2 of wat Rob kiest; tag/release alleen op Robs go): RELEASE_NOTES/CURSEFORGE_<ver>.md én de

@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.11.2
+
+📌 **2026-10-23, RELEASE (Rob: "Go voor 4.11.2, met het blok over de website.").** In-game: CHANGELOG_4112_0..4 (enUS;
+_0 = het website-blok + beta-uitnodiging). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.2.md` (byte-identiek, GEMETEN met
+een script). CURSEFORGE_DESCRIPTION.md: zin over de nieuwe "Your talents"-tab (Rob plakt die zelf). Inhoud:
+- **Website-blok** (eis van Rob): "Your talents"-tab voor DPS/tanks/healers, feiten van de site-chat (alles live).
+- **Venomstones-teller** in het karaktervenster + maxed-zin gerepareerd (GEMETEN Rob: teller, Hero-kandidaat, filter 974).
+- **Labyrinth:** Kinduru-uitweg (niet gezien), ijsmuur alleen vuur (GEMETEN Rob).
+- **Kaarten:** Crimson Tempest Shift+3, Fire Flamestrike 1254851 + CHOICE_TWINS, Affliction Shadow Bolt eerst, kleine
+  fixes 1467/103/62; Forbearance 20 sec met Holy Reprieve (GEMETEN Rob).
+- **Clientnamen** in 7 talen (gemeten op wago 70529). Niet in het spel gezien: de vertalingen, Crimson Tempest, Fire/
+  Affliction-kaarten.
+
 ## 4.11.1
 
 📌 **2026-10-22 (avond), RELEASE (Rob: "Go voor nu").** Patch na een dag testen. Tag `v4.11.1` op a562ba4; run

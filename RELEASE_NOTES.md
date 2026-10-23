@@ -1,44 +1,55 @@
-# Midnight Helper 4.11.1: fixes from a day of testing
+# Midnight Helper 4.11.2: Venomstones, the Labyrinth, and more on the website
 
 Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
 here on CurseForge, or the feedback form on midnighthelper.com.
 
-## Corrosive Codex
+## New on midnighthelper.com: "Your talents"
 
-- **The gifts really light up now.** Click a situation on the advice card next to the Codex (*Kindo'jan*, *Groups of
-  enemies take too long*, …) and its gifts get a gold border in Blizzard's window. In 4.11.0 the card could not find
-  Blizzard's buttons, so nothing lit up.
-- The line you clicked stays readable (it turned into a white block).
+Every spec page on the website now has a **Your talents** tab, for all 40 specs and in 8 languages:
+<https://midnighthelper.com/play/> (pick your spec, then *Your talents*).
 
-## Character window
+- **DPS**: which talents your *How you play* card quietly counts on, how many of the 50 best Mythic+ players of your
+  spec take each one, and what changes for you if you don't have it.
+- **Tanks**: the same for your defensive and core talents: which ones nearly every top tank takes, which choices split
+  them, and what you lose without each one.
+- **Healers**: the same for your healing talents and choice nodes, such as which Beacon and which hero tree.
 
-- **Click an enchant line** in the panel next to your character window and the **Enchants window** opens, instead of
-  the advice landing in chat. Click an enchant or gem there to copy its name for the auction house.
-- **Buy what's missing**: when an enchant or a gem is missing, one click opens the shopping list with exactly those
-  items. Click a row to search the auction house, or send the list to Auctionator.
-- The Enchants window **scrolls** instead of running over its own buttons.
-- **Frost Mage**: Mastery and Crit are equally good for you, so Mastery enchants now count as our advice too.
+Every tab names its sources and dates, and spell names appear in your own game language. The other tabs on that page
+(Your buttons, Stay alive, Consumables, Group, Dispel) and the Role Academy for DPS, tanks and healers
+(<https://midnighthelper.com/academy/>) were already there.
 
-## How you play
+## Ascendant Venomstones
 
-- `/mh play` **opens on your card** again, not in a quiz you left open.
-- The **tabs fit** the window, also at a large text size.
-- The **quiz** no longer shows two gaps when a step names the answer twice.
-- **Holy Paladin (Lightsmith)**: Holy Armaments starts as **Holy Bulwark**, then becomes Sacred Weapon. The card had it
-  the other way round.
-- Small fixes: **Guardian Spirit** only fails against a hit far beyond a full health bar; **Atonement** heals from your
-  priest spells (trinkets do not count); **Guardian Druid**'s Mangle and Thrash are your main Rage buttons.
-- **Stay alive**: their own advice for **Demon Spikes** (with Feed the Demon), **Deep Breath** (press it on cooldown)
-  and **Survival of the Fittest** (comes back after 1.5 minutes).
+- The panel next to your character window **counts your Ascendant Venomstones** ("3 of 10") and names the weapon,
+  trinket or neck that can go higher with them: one that is fully upgraded on Hero or Myth.
+- The "slot is maxed" line no longer says only a drop from a higher track helps: Venomstones do too.
+- The Venomstones card in the Codex uses your client's own names for the stone, Orin's quests, the Catalyst and
+  Silvermoon.
+
+## Labyrinth of Kindo'jan
+
+- **Out of lives near Kindo'jan?** Since Blizzard's hotfix of 21 October, talk to Kinduru in the antechamber of De
+  Empire's Rest to leave. The coiled rope by the door at the start stays as the fallback.
+- **The ice wall to the Flooded Chamber melts only with fire.** Frost does nothing. Use the Fiery Hexmask, a fire spell
+  of your own, or the Omnium Folio Core Rune *Rune of Unleashed Fire* (measured with a Frost Mage).
+
+## How you play and Stay alive
+
+- **Assassination Rogue**: Crimson Tempest is an AoE builder and moves to **Shift+3**, next to Fan of Knives and
+  Poisoned Knife.
+- **Paladin**: Forbearance lasts 30 seconds, or **20 with the Holy Reprieve talent** (measured).
+- **Fire Mage**: the card now names the Flamestrike the guides pick (cast at your target), and no longer greys out
+  Flamestrike when you took that version.
+- **Affliction Warlock**: Shadow Bolt is the filler first, Drain Soul the alternative.
+- Smaller: **Devastation** names the normal filler before Azure Sweep, **Feral** says Incarnation replaces Berserk,
+  **Arcane** shows Arcane Pulse as a spell in your language.
 
 ## Also
 
-- **Rite of Adjuration** has a place in the Paladin key block.
-- The key block's buttons keep their text inside the button.
-- "1 slot is maxed" reads right.
-- More game names match your game client in German, French, Spanish, Portuguese, Italian, Russian and Mexican Spanish:
-  Undercoin, Naleidea Rivergleam, and talent and boss spell names.
+- Many more game names now match your game client in German, French, Spanish, Portuguese, Italian, Russian and
+  Mexican Spanish: Lay on Hands, Divine Shield, Forbearance, Blessing of Protection, Blessing of Spellwarding, Master of
+  Warfare, Vile Bolt, the Amani Headhunters, Catalyst Unbound, and the Catalyst and Silvermoon themselves.
 
 The new texts in German, French, Spanish, Portuguese, Italian, Russian and Mexican Spanish are our own translation:
 native speakers, corrections are very welcome.

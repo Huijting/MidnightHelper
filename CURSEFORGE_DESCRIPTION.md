@@ -40,6 +40,10 @@ quest that opens a portal when you do not have it yet. Open it with `/mh mountru
 **[midnighthelper.com](https://midnighthelper.com/)**: every play card, the whole Codex, the patch 12.1.5 page, the
 Role Academy, guides for your week, delves and Mythic+, and an Armory gear check. Free, no account, eight languages.
 
+New: every spec page has a **[Your talents](https://midnighthelper.com/play/)** tab. For **DPS**, **tanks** and
+**healers** it shows which talents your play card counts on, how many of the 50 best Mythic+ players of your spec take
+each one, and what changes for you if you don't have it.
+
 ### Getting started
 
 Install it, log in and type `/mh`. Nothing in your game changes unless you press a button, and anything it sets up
