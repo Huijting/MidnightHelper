@@ -6780,3 +6780,194 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     alleen achterstand. `git checkout main` + `git pull --rebase origin main` was daarmee een schone
     **fast-forward** (58 bestanden, +4113/-2045, o.a. nieuw `Modules/KeysHub.lua` en
     `docs/CURSEFORGE_4.11.0.md`) naar `ab7528e` = `origin/main`. Niets geforceerd, niets overschreven.
+- [2026-10-23] 🔴 **Nul [MOET GEFIKST], maar de drukste dag sinds 20 okt: er zijn GISTERAVOND TWEE NIEUWE
+  CLIENT-BUILDS gepusht (live `12.1.5.70529`, PTR `12.1.7 (70493)`) en een nieuwe SimC-addon-release
+  `12.1.5-03`. Alle drie volledig gelezen op het stuk dat ons raakt; alles valt uit op [RAAKT ONS NIET].
+  Nieuw en belangrijk: het live-interval `70448 → 70529` is voor het EERST compleet gemeten, en er zit
+  GEEN ENKELE API-wijziging in.**
+  - 🟢 **[RAAKT ONS NIET] — LIVE build `12.1.5.70529` (22 okt 19:16:36Z): het hele interval is TWEE
+    bestanden, en geen van beide is API.** GEMETEN via
+    `api.github.com/repos/Gethe/wow-ui-source/compare/b9be937...e7aa820?per_page=1` mét cache-buster:
+    `"status":"ahead"`, `"ahead_by":1`, `"total_commits":1`, en de `files`-array heeft precies twee
+    entries — niets afgekapt, dus dit is een **volledige** meting en geen steekproef:
+    1. `Interface/AddOns/Blizzard_PlayerChoice/Blizzard_PlayerChoiceOptionBase.lua` (+1/−1): in
+       `PlayerChoice_WidgetsLayout` verhuist één regel. Was op functieniveau
+       `local skipHorizontalRowPoolClear = true;`, is nu **binnen** de `if hasBottomWidgets then`-tak
+       `local skipHorizontalRowPoolClear = hasTopWidgets;`, doorgegeven aan
+       `DefaultWidgetLayout(widgetContainer, bottomWidgets, skipContainerLayout, skipHorizontalRowPoolClear)`.
+    2. `version.txt` (+1/−1): `12.1.5.70448` → `12.1.5.70529`.
+    - ⚠️ **Dit is wél een bestand waar MH in woont, dus niet zomaar weggewinkt.** GEMETEN:
+      `Modules/CodexAdvicePanel.lua:93-96` roept `C_PlayerChoice.GetCurrentPlayerChoiceInfo` aan achter
+      `if not (C_PlayerChoice and C_PlayerChoice.GetCurrentPlayerChoiceInfo) then return nil, nil,
+      "no C_PlayerChoice"`, en `:162` en `:321` lopen `_G.PlayerChoiceFrame` af om Blizzards
+      gift-buttons (plaats 13..24) op hun `buttonID` te vinden. GEMETEN uit de hunk dat de verhuisde
+      lokale variabele alléén `DefaultWidgetLayout` voor **widget**-containers voedt. 📌 **AFGELEID,
+      niet gemeten:** dat MH's wandeling over de optie-/gift-buttons daar buiten valt. Een
+      `/reload` + `/mh codex` op de Corrosive Codex zou het afmaken; de kans op schade is klein en de
+      aanroep is bovendien geguard.
+  - 🟢 **[RAAKT ONS NIET] — PTR `12.1.7 (70493)` (22 okt 22:16:09Z): 206 bestanden, en de
+    API-DOCUMENTATIE DAARIN IS COMPLEET GELEZEN — elf bestanden, elk hieronder met zijn grep.** GEMETEN
+    via dezelfde compare-route (`b87363e...2cdbc7f`), `"total_commits":1`, `Files changed: **206**`.
+    🔴 **Waarom "compleet" hier een gemeten claim is en geen hoop:** de bestandslijst is op pad
+    gesorteerd, en ik heb hem doorgelezen tot vóórbij de map — na
+    `Blizzard_APIDocumentationGenerated/UIModelInfoSharedDocumentation.lua` volgt
+    `Blizzard_ActionBar/Blizzard_ActionBar.toc`. Er kan dus geen twaalfde API-docbestand achter liggen.
+    - **`C_BattleNet.GetFriendLevelFromInviteText(inviteText)` → `friendLevel` — NIEUW.** grep
+      `GetFriendLevelFromInviteText` → **0**. MH gebruikt `C_BattleNet` 8× in
+      `Modules/FriendMarks.lua:143-159`, uitsluitend `GetFriendAccountInfo`,
+      `GetFriendNumGameAccounts` en `GetFriendGameAccountInfo`, elk achter
+      `if C_BattleNet and C_BattleNet.<naam> then` plus `pcall`. Een toevoeging verwijdert niets →
+      niets te doen.
+    - **`C_GamepadTargeting.HasReticleHoverTarget()` — VERWIJDERD** (hunk `+0/−9`). grep
+      `HasReticleHoverTarget` → **0**, grep `C_GamepadTargeting` → **0**.
+    - **`C_Input.GetCursorCenterPosition()` → `posX, posY` en `C_Input.IsCursorVisible()` → `visible` —
+      NIEUW.** grep `C_Input\b` → **0**.
+    - **`C_Minimap.ClearMinimapInsetInfo()` krijgt een argument `id` (cstring), en
+      `C_Minimap.SetMinimapInsetInfo` gaat van `(minAngle, maxAngle, scalar)` naar
+      `(id, minAngle, maxAngle, scalar, isCircular)`.** Dat zijn twee echte signature-breuken, en dus
+      het enige punt van vandaag dat had kunnen bijten. GEMETEN dat het dat niet doet: MH noemt
+      `C_Minimap` op precies drie plaatsen — `Modules/Delves.lua:44` (de lokale alias), `:749`
+      (`if not icon or not textureIndex or not C_Minimap or not C_Minimap.GetPOITextureCoords then`) en
+      `:752` (`pcall(C_Minimap.GetPOITextureCoords, textureIndex)`) — en `GetPOITextureCoords` staat
+      **niet** in de diff. 🔴 Positieve controle op dat laatste: ik heb
+      `MinimapDocumentation.lua` op de nieuwe ref `2cdbc7ff` in zijn geheel gelezen, en daar staat
+      `GetPOITextureCoords` nog met `{ Name = "index", Type = "number", Nilable = true }` en vier
+      `textureCoords`-returns. De naam `SetMinimapInsetInfo` komt óók uit die volledige lezing en niet
+      uit de hunk — de hunk-context gaf de functienaam niet, en die had ik dus niet mogen gokken.
+    - **`C_PetInfo.IsPetOrderMoveToPending()` → `bool`, plus het nieuwe event
+      `PET_ORDER_MOVE_TO_PENDING_CHANGED`** (`SynchronousEvent`, payload `isPetOrderMoveToPending`) —
+      NIEUW. grep `C_PetInfo` → **0**, grep `IsPetOrderMoveToPending` → **0**, grep
+      `PET_ORDER_MOVE_TO_PENDING` → **0**.
+    - **Constants-tabel `LevelConstsExposed` HEET NU `LevelConstsExposed_RetailAndClassic`.** grep
+      `LevelConstsExposed` → **0**.
+    - **Nieuw bestand `DeathRecapConstantsDocumentation.lua`** met `DeathRecapConsts.SWING_DAMAGE_SPELL_ID
+      = 88163` (en de `.toc` die het inlaadt). grep `DeathRecapConsts` → **0**. ⚠️ `88163` is Blizzards
+      eigen swing-damage-pseudospell, geen spell die wij ergens horen te noemen.
+    - **PvP-matchstats: nieuw veld `gender` (number, `NeverSecret = true`), en `honorLevel` krijgt
+      `NeverSecret = true`.** grep `PVPMatch|honorLevel|GetScoreInfo` → **0**.
+    - **`UIModelSceneActor`-struct krijgt `addDropShadowAtM2Feet` (bool), en het enum
+      `UIModelSceneActorFlag` gaat van `NumValues 4` / `MaxValue 8` naar `NumValues 5` / `MaxValue 16`
+      met `AddDropShadowAtM2Feet = 16`.** grep `addDropShadowAtM2Feet` → **0**.
+    - 🔴 **Positieve controle voor ál die nullen, in dezelfde run en met dezelfde commandovorm en
+      reikwijdte** (`grep -rnE … --include=*.lua --include=*.xml --exclude-dir=.git --exclude-dir=docs
+      --exclude-dir=tools --exclude-dir=dist .`): `C_SuperTrack` → **19** treffers, `issecretvalue` →
+      **142**, `C_BattleNet` → **8**, `C_Traits` → treffers in o.a. `Modules/DelveCuriosAdvisor.lua`,
+      `Modules/Profession.lua`. Het patroon vindt dus wat er is; de leegte is echt. Dit is de les van
+      `RINGOFGLORY`, elke keer opnieuw toegepast.
+    - ⏳ **EN HIER IS WAT IK VANDAAG NIET GEMETEN HEB, expliciet:** de overige **195** bestanden van
+      build 70493. Dat is Blizzards eigen UI-implementatie (`Blizzard_ActionBar`,
+      `Blizzard_AddFriend`, `Blizzard_BarbershopUI`, `Blizzard_CatalogShop`, `Blizzard_Channels`,
+      `Blizzard_CharacterCreate`, …) en raakt ons alleen via taint of een hook. Twee daarvan zijn het
+      soort bestand waar MH's keybind-werk tegenaan kan lopen —
+      `Blizzard_ActionBar/Shared/ActionButton.lua` (+6/−1) en
+      `Blizzard_ActionBar/WoWHack/ActionButtonOverrides.lua` (+0/−9) — en die heb ik **niet gelezen**:
+      de volledige diff past niet in één Exa-lezing (de JSON kapt af rond 60 000 tekens, de
+      `.diff`-URL gaf `CRAWL_NOT_FOUND`). ⚠️ Weglaten leest als "gecontroleerd en in orde", dus het
+      staat hier. 📌 **Route voor morgen, al uitgeprobeerd en werkend:** de HTML-compare
+      (`github.com/Gethe/wow-ui-source/compare/<base>...<head>`) geeft wél de hele tabel
+      bestand/status/+/− in ~3 000 tekens; haal daarna per interessant pad het bestand op beide refs op
+      via `raw.githubusercontent.com` en diff lokaal. 🔴 Het is PTR, niet de client waar Rob op speelt.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon heeft release `12.1.5-03`, en die is ANDERS dan `-02`: deze is
+    écht alleen Forever.** GEMETEN mét cache-buster: `releases?per_page=4` geeft bovenaan `12.1.5-03`,
+    `published_at` **2026-10-22T21:56:30Z**, `github-actions[bot]`, `body` letterlijk
+    *"- forever: Export hunter pet info"*; `commits/master.atom` heeft als nieuwste commit
+    **`cb3e3af298e3124162c6bf44d1bebac53435eaec`** (Dave Hendler / seriallos,
+    **2026-10-22T21:56:03Z**), ouder `b0cce8e…` (19 okt). De commit-diff is in zijn geheel gelezen —
+    `"stats":{"total":97,"additions":76,"deletions":21}`, vier bestanden:
+    - `Simulationcraft.toc`: `## Version: 12.1.5-02` → `12.1.5-03`, plus `forever\pet.lua` in de laadlijst.
+    - **`core.lua`, en dit is het stuk dat gecontroleerd moest worden**: `'pet', -- forever/pet.lua`
+      komt bij in `local FOREVER_EXPORTS = {…}`, en in `GetSimcProfile` komt een nieuw blok
+      `if EXPORTS.pet then local petOk, petLines = pcall(Simulationcraft.GetPetExport, Simulationcraft)`
+      dat `pet_*`-regels aan het profiel plakt. 🔴 **GEMETEN uit de hunk-context dat dat op Retail
+      nooit draait:** `EXPORTS` wordt gevuld met
+      `for _, name in ipairs(IS_FOREVER and FOREVER_EXPORTS or MODERN_EXPORTS) do`, en `'pet'` staat
+      alléén in `FOREVER_EXPORTS`. Op een Retail-client is `EXPORTS.pet` dus `nil` en verandert de
+      uitvoer van `GetSimcProfile` geen byte. Dit is precies de toets die op 20 okt bij `-02` wél
+      aansloeg (toen zat er een niet-Forever-regel in een "forever:"-release); nu slaat hij niet aan,
+      en dat is een meting, geen aanname.
+    - `forever/pet.lua` (nieuw, 59 regels) gebruikt `C_PetInfo.GetPetHappiness` en
+      `C_PetInfo.GetPetTrainingPoints` — Classic/Forever-API's. MH noemt `C_PetInfo` nergens (zie de
+      grep hierboven, mét positieve controle).
+    - `forever/stats.lua`: dubbel werk eruit (`npc_id`, `level`, `name`, `family`, `happiness`,
+      `damage_percent`, `training_points` verhuizen naar `pet.lua`); Forever-only.
+    - 📎 **Eén Retail-zichtbare regel die GEEN formaatwijziging is:** `core.lua` doet nu
+      `Simulationcraft.Tokenize = Tokenize -- for the forever/ modules`. MH heeft zijn eigen lokale
+      `Tokenize` op `Modules/SimcExport.lua:181` (8 aanroepen, o.a. `:501` `:503` `:512` `:516`, en
+      geëxporteerd via `ns._simcTest` op `:604`). Upstream stelt die van zichzelf bloot aan zijn eigen
+      `forever/`-modules; er verandert niets aan wat er in het profiel terechtkomt.
+    - 📎 **Onveranderd open, en nu een regel SCHERPER dan gisteren:** het kopcommentaar van
+      `Modules/SimcExport.lua:12-15` zegt nog *"read 30 Sep 2026 at release 12.1.0-04 … still in
+      12.1.5-alpha-01"*, terwijl upstream inmiddels op `12.1.5-03` staat. Dat is nu **twee** releases
+      achter in plaats van één. Een comment, geen gedrag; niet aangeraakt.
+  - 🔇 **[RAAKT ONS NIET] — nieuwe hotfix-batch "October 21, 2026", geen UI-/addon-/API-sectie.** GEMETEN
+    met cache-buster, en 🔴 **de topic is opnieuw op TITEL gezocht en niet op het id van gisteren** —
+    dat is de les van 19 okt, hier bewust herhaald: `search.json?q=hotfixes in:title after:2026-10-14`
+    geeft topic **`2382684`**, nu getiteld *"World of Warcraft: Midnight Hotfixes - October 21"* (hij
+    heette gisteren nog "October 20"; dezelfde levende topic, nieuwe batch). Volledig gelezen via
+    `raw/2382684/1`. De secties van 21 okt zijn **Labyrinth** (Kinduru in De Empire's Rest om de
+    labyrinth te verlaten; L00T RAID-R Minis in groep; de "A Golden Opportunity"-lever vanaf level 80;
+    *"Players can now hold up to 4 stacks of the Carrying a Jan'alai Tear buff at a time (was 1)"*; de
+    Pit Boss in "Returning the Bounty"), **Items** (Seriously Sharp Seashell uit Gebbo's Bottomless Bag
+    brak stealth; Jan'thrazet, the Soul Fang triggerde onbetrouwbaar voor healers; Nebulous
+    Voidcache-previews werkten niet bij) en **Player versus Player** (Priest/Holy, Sanctified Ground
+    onderbrak Divine Hymn). 🔴 **Positieve controle op dezelfde reikwijdte:** uit diezelfde ene fetch
+    kwamen óók de kopjes van 20, 16, 15, 14 en 13 okt mee, uitgeschreven in mijn werkblad — het
+    ontbreken van *"User Interface and Accessibility"* is dus een gemeten afwezigheid en geen
+    afgebroken lezing. En `hotfixes in:title after:2026-10-20` geeft **nul** posts, dus er is geen
+    nieuwere topic die ik mis.
+    - 🔇 De inhoudelijke regels zijn van de content- en datawachter; ik noem ze alleen zodat zichtbaar
+      is dát de batch gelezen is, en doe hun werk niet.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's onveranderd op hun 16 okt-revisie.** GEMETEN mét
+    cache-buster via `rest.php/v1/page/<pagina>%2FAPI_changes/history`: `Patch 12.1.7/API changes` staat
+    op **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, `/* Blue posts */`) en `Patch 12.1.5/API changes`
+    op **`6919763`** (**2026-10-16T22:38:41Z**, Ketho). De 12.1.7-history heeft nog steeds in totaal
+    **vier** revisies (`6919765`, `6919682`, `6919202`, `6919200` — de onderste twee van Meorawr,
+    *"Initial change summary"*), dus er is geen revisie ná 16 okt weggevallen of tussengeschoven. 📌 Dit
+    sluit netjes aan op de run van gisteren, die het meetgat van 21 okt achteraf dichtte; ik pak hier
+    dus geen reeks stilletjes weer op.
+    - ⚠️ **Geen nieuwe `12.1.x/API changes`-pagina, maar ZWAK gemeten en dat blijft zo:**
+      `rest.php/v1/search/page?q=API changes&limit=14` geeft alleen `API change summaries`,
+      `API change summaries/Historical` en pagina's uit 1.14–9.1 en 3.x. Die route rangschikt op
+      relevantie en bewijst dus geen afwezigheid.
+    - 🔴 **HET STAANDE GAT IS VANDAAG VOOR HET EERST KLEINER GEWORDEN, en niet door de wiki.** De
+      consolidated-tabel op `Patch 12.1.5/API changes` beschrijft nog altijd `12.1.0 (69587) →
+      12.1.5 (69952)`, terwijl de live client nu op **70529** staat. Maar het stuk **70448 → 70529** is
+      hierboven direct uit de bron gemeten en bevat **geen** API-wijziging. Het onbeschreven
+      restgat is daarmee **69952 → 70448** in plaats van 69952 → 70529. 📌 Voor morgen: datzelfde
+      compare-trucje op `a89e9d0c` (12.1.0) → `b9be937` (70448) zou het restgat óók kunnen dichten, in
+      stukken, zonder op Ketho te wachten.
+  - 🔇 **[RAAKT ONS NIET] — forum `#ui-macro`: GEEN ENKEL nieuw draadje sinds 16 okt, en nul blue posts.**
+    GEMETEN mét cache-buster: `search.json?q=#ui-macro after:2026-10-16` geeft zeven posts, verdeeld over
+    de topics `2315684`, `24534`, `2387466`, `2367394`, `2386807`, `2385490` en `2386382` — en **alle
+    zeven staan al in dit logboek** (`grep -c` geeft respectievelijk **9, 2, 2, 23, 3, 6, 2**; nul
+    nieuwe id's). Er is dus niets om tegen de code te houden.
+    - 🔴 **Blue posts, mét positieve controle in dezelfde run:** `#ui-macro @Linxy after:2026-10-16` →
+      **nul** posts en `#ui-macro @Kaivax after:2026-10-16` → **nul** posts; dezelfde zoekvorm **zonder**
+      het datumfilter (`#ui-macro @Linxy`) geeft wél een treffer — *"Macro Changes Now Live: Target
+      Markers and Chat Messages"*, topic `2261956`, **2026-03-01T21:33:32.080Z**. De vorm werkt, de
+      leegte is echt.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de `%d+`-aanname op
+    veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/
+    `:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon tegenover negen
+    wiki-secties; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug); de UTF-8
+    **BOM** vooraan `MidnightHelper.toc` waardoor `grep -E "^## Interface"` nul geeft; en de
+    client-test voor `/mh raidbots` naast de export van de SimulationCraft-addon zelf.
+    🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt — en de scheve lokale ref was er vandaag in een
+    NIEUWE, hardere vorm.** GEMETEN vóór het schrijven: werkboom **schoon** (`git status --short` leeg) en
+    **geen** van de vier wachter-bestanden gewijzigd-maar-ongecommit. De werkmap stond opnieuw op een
+    **detached HEAD**, nu op `1ff37d5` (*"Handoff: the site is live on 4.11.1"*), met lokale `main` én
+    `origin/main` beide op het verouderde **`536ff595`**. ⚠️ **Het nieuwe eraan:** `git fetch origin main`
+    gaf `+ 536ff59...1ff37d5 main -> origin/main (**forced update**)`, en `git checkout main` meldde
+    *"diverged, and have 50 and 50 different commits each"* — upstream is dus **herschreven** ten opzichte
+    van die stale ref, niet alleen vooruitgelopen. 🔴 **Vóór ik iets weggooide eerst gemeten dat er niets
+    te verliezen was:** `git diff --diff-filter=D --name-only 536ff59 origin/main` geeft een **lege** lijst
+    (nul verdwenen bestanden) en `git diff --shortstat` geeft **71 files changed, 6632 insertions(+), 2739
+    deletions(-)** — een vooruit-diff, geen afgesneden tak. Specifiek voor mijn eigen bestand:
+    `git diff --stat 536ff59 origin/main -- docs/API_WATCH.md` = **282 insertions, 0 deletions**, en de
+    regel `- [2026-10-22]` staat erin. Daarna `git checkout main` + `git reset --hard origin/main`, en
+    gecommit en gepusht op een rechte `main`. 📌 Voor morgen: `reset --hard origin/main` werkte vandaag
+    wél, waar `checkout -B main origin/main` op 19 okt door de permissieclassificatie geweigerd werd; de
+    goedkoopste route blijft nog steeds committen op HEAD en pushen met `HEAD:main` als beide weigeren.
