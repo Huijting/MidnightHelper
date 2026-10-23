@@ -8300,13 +8300,13 @@
    "ruRU": "89821fa4e0ff5de7"
   },
   "DELVE_CHEST_ALL_SKIPPED_FLOODED": {
-   "deDE": "81bb18a387889917",
-   "esES": "81bb18a387889917",
-   "frFR": "81bb18a387889917",
-   "itIT": "81bb18a387889917",
-   "nlNL": "81bb18a387889917",
-   "ptBR": "81bb18a387889917",
-   "ruRU": "81bb18a387889917"
+   "deDE": "bd9c4eb490c3ca0e",
+   "esES": "bd9c4eb490c3ca0e",
+   "frFR": "bd9c4eb490c3ca0e",
+   "itIT": "bd9c4eb490c3ca0e",
+   "nlNL": "bd9c4eb490c3ca0e",
+   "ptBR": "bd9c4eb490c3ca0e",
+   "ruRU": "bd9c4eb490c3ca0e"
   },
   "DELVE_CHEST_BTN": {
    "deDE": "36edbe301531cb43",
@@ -8318,13 +8318,22 @@
    "ruRU": "36edbe301531cb43"
   },
   "DELVE_CHEST_FLOODED_HINT": {
-   "deDE": "f7cb4aa731539b47",
-   "esES": "f7cb4aa731539b47",
-   "frFR": "f7cb4aa731539b47",
-   "itIT": "f7cb4aa731539b47",
-   "nlNL": "f7cb4aa731539b47",
-   "ptBR": "f7cb4aa731539b47",
-   "ruRU": "f7cb4aa731539b47"
+   "deDE": "916e60a2846cedba",
+   "esES": "916e60a2846cedba",
+   "frFR": "916e60a2846cedba",
+   "itIT": "916e60a2846cedba",
+   "nlNL": "916e60a2846cedba",
+   "ptBR": "916e60a2846cedba",
+   "ruRU": "916e60a2846cedba"
+  },
+  "DELVE_CHEST_FLOODED_INSIDE": {
+   "deDE": "904956beb4e3cc80",
+   "esES": "904956beb4e3cc80",
+   "frFR": "904956beb4e3cc80",
+   "itIT": "904956beb4e3cc80",
+   "nlNL": "904956beb4e3cc80",
+   "ptBR": "904956beb4e3cc80",
+   "ruRU": "904956beb4e3cc80"
   },
   "DELVE_CHEST_LABEL": {
    "deDE": "005049be1f61999c",

@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🧊 23 okt — ijsmuur Flooded Chamber: alleen vuur (GEMETEN door Rob, Frost Mage, combat log)
+
+Rob in de Labyrinth: tientallen Frost-treffers (Frost Splinter, Flurry, Frozen Orb) op "Ice Wall" deden schade maar
+braken hem niet; de laatste regel was "Your Rune of Unleashed Fire hit Ice Wall 5,478 Fire" en daarna was de muur weg.
+mh-research (rapport `ice_wall_2026-10-23.md`): Rune of Unleashed Fire = Omnium Folio Core Rune 1279599 (keuze met Rune of
+Void-Touched Orbs; schade 1286970 Fire); de vuur-eis zit server-side (1307495 heeft alleen een Dummy-effect), Method en
+HandyNotes zeggen ook "fire". DELVE_CHEST_FLOODED_HINT/_INSIDE/ALL_SKIPPED_FLOODED: "only fire melts it: frost does
+nothing; Fiery Hexmask, own fire spell, or the Core Rune Rune of Unleashed Fire". en/nl ik, rest mh-writer. Rune-naam per
+taal GEMETEN (SpellName 1279599); Fiery Hexmask nu in de vertalingen met de clientnaam (SpellName 1308804 = "Fiery Hexmask
+Familiar", de Feuriger Hexmaskenfamiliar …). 🔜 enUS/nlNL (en Codex/chat) zeggen nog kort "Fiery Hexmask" — gelijk trekken?
+Kistenroute in de Flooded Chamber werkte al (Rob). Geparkeerd punt "welke spell smelt de ijsmuur" is hiermee AF.
+🔜 Valeera/conduits: Rob testte, buff-namen nog niet gehoverd (screenshots alleen iconen) → nog open.
+
 ## 🛡️ 23 okt — Forbearance 20 sec GEMETEN + Blessing of Dawn raakt Rob (vraag tussendoor)
 
 ✅ Rob (Holy, mét Holy Reprieve): /run GetPlayerAuraBySpellID(25771).duration = 20. Rob zag zijn health idle in Silvermoon
