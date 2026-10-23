@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🛡️ 23 okt — Forbearance 20 sec GEMETEN + Blessing of Dawn raakt Rob (vraag tussendoor)
+
+✅ Rob (Holy, mét Holy Reprieve): /run GetPlayerAuraBySpellID(25771).duration = 20. Rob zag zijn health idle in Silvermoon
+dalen/herstellen; combat log: "Your Blessing of Dawn hit You 14,103/20,972 Holy" elke 5 sec. mh-research (wago 70529,
+rapport `blessing_of_dawn_2026-10-23.md`): class-talent Blessing of Dawn 183416 neemt 5% schade van bondgenoten binnen
+20 yd over (max 5% max HP per 5 sec, alleen boven 85% health); "area ally" telt ook dummies/NPC's → sinds 12.0 gemeld
+als bug, nooit gefixt. Advies aan Rob: weglopen van de dummies, of het talent weghalen (niets eronder). Raakt MH niet.
+🔜 Idee (niet gevraagd): een regel op de Paladin Stay alive-kaart? Robs keuze.
+
 ## 🧪 23 okt — Venomstones: eerste test (Rob, Twelveinchy, 2 screenshots)
 
 ✅ GEMETEN: nieuwe maxed-zin staat er; met 0 stenen en geen maxed wapen/trinket/neck zwijgt de Venomstones-regel (goed).
@@ -42,7 +51,14 @@ Avatar 13 vs Bladestorm 37 (= Slayers), Thunder Clap 13/50 (= Mountain Thanes) �
 1468 Dream Simulacrum 30/50 (kaart zegt "not the usual one") · alleen tooltips: Elemental Blast 80 / Earth Shock 55 Maelstrom
 (kaart 90/60) → ✅ GEMETEN (wago 70529, rapport `maelstrom_costs_2026-10-23.md`): 90/60 is de basis, 80/55 met het
 Elemental-talent Eye of the Storm (381708; 1/50 neemt hem). MH noemt nergens een getal (de 90/60 komt uit Blizzards eigen
-spell-tooltip, die per character klopt) → niets te doen. Site vroeg of er een healer-review komt: geantwoord dat die er is (playcard_finish\
+spell-tooltip, die per character klopt) → niets te doen. Healers (09:13-09:15 UTC): Holy Priest 257 Prayer of Healing 1/50 (kaart leunt erop), Ultimate Serenity 50/50 — vervangt
+die Sanctify echt? (mh-research checkt) · Holy Pal 65 Beacon of Faith 46 vs Virtue 4, Lightsmith 46/Herald 4, Divine Toll 46
+vs Holy Prism 4 · Resto Druid 105 Grove Guardians 40/50 · Disc 256 Oracle 35 vs Voidweaver 15 (kaart-keuze Dark Energy is
+Voidweaver-only); Master the Darkness rang 3 "12%" vs kaart 3%/rang (mh-research checkt) · Resto Shaman 264 Totemic 49/50,
+Stormstream rang 4 50/50. → ✅ GEMETEN (wago 70529, rapport `healer_claims_2026-10-23.md`): Ultimate Serenity (1246517)
+vervangt Sanctify echt (OverridesSpellID 34861); Murlok verwarde hem met Holy Celerity → PLAYCARD_257_TERMS/_AOE kloppen.
+Master the Darkness: geen kaart noemt een %; per rang 3% (AFGELEID 6% op punt 3, "12%" alleen te verklaren als twee
+multipliers stapelen — Rob kan de node in het spel hoveren). Niets veranderd. Site vroeg of er een healer-review komt: geantwoord dat die er is (playcard_finish\
 healer_*.md, 22 okt). → ✅ GEMETEN (wago 70529, rapport `pyroclasm_forbearance_2026-10-23.md`): Pyroclasm-buff 269651 =
 230%, +20 met Sunfury Execution (449349), +25 met S2 4-set; MH noemt nergens een getal (PLAYCARD_63_S4/_W4) → niets te
 doen. Forbearance 25771 = 30 sec voor alle vier (LoH, DS, BoP, Spellwarding); −10 sec met class-talent Holy Reprieve

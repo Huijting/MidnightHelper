@@ -23,8 +23,9 @@ er is niets weggegooid.
 
 ## 🆕 23 okt — Paladin: Forbearance 20 sec met Holy Reprieve
 
-- [ ] Paladin met het talent Holy Reprieve: druk Divine Shield en kijk naar de Forbearance-debuff. Duurt hij 20 sec (en
-      zonder het talent 30)? `/mh survival` of de Stay alive-kaart noemt nu "30 sec (20 with the Holy Reprieve talent)".
+- [x] ✅ GEMETEN Rob 23 okt (Twelveinchy, Holy, mét Holy Reprieve): `/run … GetPlayerAuraBySpellID(25771) … a.duration`
+      gaf **20**. Zonder het talent (30) niet getest.
+- [ ] `/mh survival` of de Stay alive-kaart noemt nu "30 sec (20 with the Holy Reprieve talent)" (tekst nog niet gezien).
 
 ## 🆕 23 okt — Venomstones in het karaktervenster
 
