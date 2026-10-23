@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 📣 EIS VOOR DE VOLGENDE UPDATE (Rob, 23 okt: "bij de update die we gaan doen, duidelijk gemaakt wordt dat we op de website dus meer info hebben voor DPS, voor tanken, voor healers")
+
+Volgende release (4.11.2 of wat Rob kiest; tag/release alleen op Robs go): RELEASE_NOTES/CURSEFORGE_<ver>.md én de
+in-game changelog krijgen een duidelijk blok "Meer op midnighthelper.com" met per rol (DPS / tanks / healers) wat de site
+toont dat de addon niet heeft (o.a. de nieuwe "Your talents"-tab per spec, alle 35 + healers). Exacte URL's + per-rol-zin
+gevraagd aan Site chat 23-10 (23 okt). Ook bekijken: CURSEFORGE_DESCRIPTION.md.
+✅ Antwoord site-chat (23 okt, alles live, deploy ed44fb90, alle URL's 200):
+- NIEUW vandaag: tab "Your talents" op elke specpagina, 40 specs, 8 talen: https://midnighthelper.com/play/ en
+  /play/<spec>/#talents (bv. /play/holy-priest/#talents); talen /nl/play/…, /de/, /fr/, /es/, /pt/, /it/, /ru/. Zelfde 40
+  slugs als de addon al linkt.
+- AL ER (niet nieuw): tabs Your buttons (#play), Stay alive (#alive), Consumables (#cons), Group (#group), Dispel (#dispel,
+  alleen specs die kunnen dispellen); Role Academy /academy/, /academy/dps/, /academy/tank/, /academy/heal/.
+- Per rol (één zin): DPS — welke talenten de kaart stil aanneemt, hoeveel van de top-50 M+ (Murlok.io, 23 okt) ze neemt,
+  en wat er verandert zonder; tanks — idem voor defensieve/kerntalenten en de keuzes die de top splitsen; healers — idem
+  voor healtalenten en keuzeknopen (welke Beacon, welke hero tree). Elke tab noemt bronnen + datums; spellnamen in
+  de taal van de lezer.
+- ⚠️ Site-chat: niet meer claimen dan dit — alleen "Your talents" is nieuw.
+📝 CONCEPT klaar (buiten de repo, geen versiebump): side-session-notes local_c5cec058…\DRAFT_CURSEFORGE_4.11.2.md, met
+blok "New on midnighthelper.com", Venomstones, Labyrinth (Kinduru + ijsmuur), Crimson Tempest, Forbearance, clientnamen,
+en een voorstel voor CHANGELOG_4112_0..4. Op Robs go: TOC, Changelog.lua, enUS-sleutels, RELEASE_NOTES = CURSEFORGE_4.11.2.md.
+
 ## 🧊 23 okt — ijsmuur Flooded Chamber: alleen vuur (GEMETEN door Rob, Frost Mage, combat log)
 
 Rob in de Labyrinth: tientallen Frost-treffers (Frost Splinter, Flurry, Frozen Orb) op "Ice Wall" deden schade maar
@@ -41,7 +62,10 @@ GEMETEN (mh-research, wago 12.1.5.70529 + Robs combat logs 15/20 okt; rapporten 
   97981 in de/fr/es/esMX/ru.
 - Samen ±270 regels in 15 locale-bestanden; drift per taal gemarkeerd (esMX telt check_drift niet). Lint 0 HARD, syntax OK.
   Niet in het spel gezien. ⚠️ ptBR INFO_DRAWER_BODY_TIER per ongeluk mee gemarkeerd (niet gewijzigd).
-- 🔜 Nog Engels: Blessing of Spellwarding (3 sleutels), "Hash'ey Battle Art"-items in de Codex. Enkelvoud "Amani Headhunter"
+- ✅ Daarna (Robs go "ga door zonder mij"): Blessing of Spellwarding 204018 (esMX eigen naam) in GROUP_NOTE_LOH,
+  TANKKIT_CDDESC_IMMUNITY, SURVIVAL_NOTE_FORBEARANCE_TANK; de 4 "Ancient Hash'ey Battle Art"-items (280563, 283996-8) in
+  CODEX_LABJOURNEY_BODY: alleen fr (no-break space vóór de dubbele punt) en esMX moesten om. Rapport
+  `spellwarding_battleart_2026-10-23.md`. Enkelvoud "Amani Headhunter"
   buiten es: alleen in een client aflezen. esMX "Kindo'Jan" vs "Kindo'jan": client is zelf gemengd (DungeonEncounter/
   63715 hoofdletter J), gelaten zoals het was.
 
