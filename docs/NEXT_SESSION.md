@@ -46,6 +46,14 @@ Shado-Pan "simplest" (= Icy Veins), Holy Pal "not with Lightsmith" (Lightsmith v
 🔜 Niet meetbaar zonder client: Frost `IsPlayerSpell(153595)` mét Comet Storm-talent (anders grijst de kaart hem
 onterecht); MM met Roar of Sacrifice zonder pet. Niet in het spel gezien.
 
+## 🪶 23 okt — Wah'du: gemiste weken inhalen werkt (GEMETEN Rob)
+
+Rob (Labyrinth, tier 8+): kreeg vanmiddag een fragment uit een Wah'du-quest en daarna meteen "Halazzi's Lair" (stap 2,
+98963) aangeboden. `/run IsQuestFlaggedCompleted`: 98951 (Akil'zon's Roost) true, 98963 false → open punt 4 uit
+LABYRINTH_WAHDU_2026-10-14.md ("kun je gemiste weken inhalen?") beantwoord: ja. CODEX_LABYRINTH_BODY: zin "Missed a week?
+Steps you missed stay open, so you can do two in one week (seen in the game on 23 Oct)", alle talen (mh-writer). Ook:
+Rob had `/mh bonusroll` (dev-recorder van aug) nog aan → uitleg gegeven hoe uit te zetten.
+
 ## 🧊 23 okt — ijsmuur Flooded Chamber: alleen vuur (GEMETEN door Rob, Frost Mage, combat log)
 
 Rob in de Labyrinth: tientallen Frost-treffers (Frost Splinter, Flurry, Frozen Orb) op "Ice Wall" deden schade maar
