@@ -6971,3 +6971,150 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     gecommit en gepusht op een rechte `main`. 📌 Voor morgen: `reset --hard origin/main` werkte vandaag
     wél, waar `checkout -B main origin/main` op 19 okt door de permissieclassificatie geweigerd werd; de
     goedkoopste route blijft nog steeds committen op HEAD en pushen met `HEAD:main` als beide weigeren.
+- [2026-10-24] 🔴 **Nul [MOET GEFIKST], maar twee dingen die verder reiken dan vandaag: (1) er is een
+  NIEUWE NETWERKROUTE gevonden — `raw.githubusercontent.com` en `git` zélf werken in deze container,
+  waar `api.github.com` 403 geeft en alle vier de nieuws-/wiki-/forumhosts geweigerd worden; (2)
+  daarmee is HET STAANDE MEETGAT DICHT, en bleek de naam ervan FOUT: build `69952` bestaat niet op de
+  live-branch. Het hele live-interval `70340 → 70575` is nu volledig gemeten en bevat NUL
+  API-wijzigingen. Nieuwe live build vandaag: `12.1.5.70575`.**
+  - 🔴 **DE ROUTE, want die verandert het werk van elke volgende run. GEMETEN vandaag, elk met
+    `curl -o /dev/null -w %{http_code}`:** `raw.githubusercontent.com` → **HTTP 200**;
+    `git ls-remote https://github.com/Gethe/wow-ui-source` → **exit 0**, en gaf `15881d52…` voor
+    `refs/heads/live` en `03cd1ac9…` voor `refs/heads/ptr` — precies de SHA's die Exa ook gaf, dus een
+    onafhankelijke kruiscontrole zónder cache-twijfel. ⚠️ **Wat NIET werkt** (zelfde run, zelfde vorm):
+    `api.github.com` → **HTTP 403** vanaf de proxy, en `warcraft.wiki.gg`, `us.forums.blizzard.com`,
+    `news.blizzard.com` en `www.wowhead.com` → alle vier `connect_rejected` ("CONNECT tunnel failed,
+    response 403"). Voor die vier blijft Exa mét cache-buster de enige weg.
+    📌 **Waarom dit ertoe doet:** `git clone --filter=blob:none --no-checkout --single-branch --branch
+    live --depth 40` kostte **556 KB** en gaf de hele live-buildhistorie. Grote Blizzard-bestanden
+    kunnen nu LOKAAL gedift worden, zonder de Exa-afkapping rond 60 000 tekens waar de run van gisteren
+    nog op stukliep. De regel van gisteren ("haal per pad het bestand op beide refs op via
+    `raw.githubusercontent.com`") was goed, maar de helft: `git` kan het zelf.
+  - 🟢 **[RAAKT ONS NIET] — NIEUWE LIVE BUILD `12.1.5.70575` (23 okt 19:31:08Z), en het interval is
+    ÉÉN bestand.** GEMETEN via de compare-API mét cache-buster (`e7aa820...15881d52`, `per_page=1`):
+    `"status":"ahead"`, `"ahead_by":1`, `"total_commits":1`, en de `files`-array heeft precies **één**
+    entry: `version.txt` (+1/−1), patch `-12.1.5.70529` / `+12.1.5.70575`. Niets afgekapt, dus een
+    volledige meting. Geen Lua, geen API, geen `.toc`.
+  - 🟢 **[RAAKT ONS NIET] — de PTR-branch is twee commits verschoven maar de INHOUD IS IDENTIEK.**
+    `refs/heads/ptr` ging van `2cdbc7f` naar `03cd1ac`, met daartussen `c1c2b93`, en alle drie heten
+    `12.1.7 (70493)`. 🔴 **Niet op de HTML-weergave vertrouwd:** die zei "Files changed: 0", en dat is
+    precies het soort claim dat een cache ook geeft. GEMETEN via de tree-SHA's: `03cd1ac` heeft
+    `tree 6d37e233d7ad26ac720959760ec32fa271c10b8e`, **byte-identiek** aan de tree van de basis
+    `2cdbc7f`. Twee lege hercommits van dezelfde build; er is dus geen nieuwe PTR-inhoud.
+  - ✅ **[RAAKT ONS NIET] — HET ITEM DAT IK GISTEREN EXPLICIET NIET GEMETEN HAD, IS NU HELEMAAL
+    GELEZEN:** de twee `Blizzard_ActionBar`-bestanden uit PTR-interval `b87363e → 2cdbc7f`. Beide refs
+    opgehaald via `raw.githubusercontent.com` en lokaal met `diff -u` vergeleken (groottes: 66391 →
+    66523 en 14040 → 13730 bytes, wat klopt met de +6/−1 en +0/−9 van gisteren).
+    - **`Shared/ActionButton.lua` (+6/−1) — puur ADDITIEF.** In
+      `ActionButtonCastingAnimFrameMixin:OnHide` werd `parent.cooldown:SetSwipeColor(0, 0, 0, 1)` nu
+      `local alpha = self:GetCooldownFrameAlpha(); parent.cooldown:SetSwipeColor(0, 0, 0, alpha)`, plus
+      een nieuwe methode `ActionButtonCastingAnimFrameMixin:GetCooldownFrameAlpha()` die `1` teruggeeft.
+      Dat is een uitbreidingspunt voor een andere flavor, geen rename en geen signature-breuk.
+    - **`WoWHack/ActionButtonOverrides.lua` (+0/−9) — en dit bestand LAADT NIET OP MAINLINE.** GEMETEN
+      in `Blizzard_ActionBar.toc` op ref `2cdbc7f`, regel 26: `WoWHack\ActionButtonOverrides.lua
+      [AllowLoadGameType wowhack]`, terwijl regel 24 voor ons `[Family]\ActionButtonOverrides.lua
+      [AllowLoadGameType mainline]` laadt. De verwijdering (de local
+      `ACTION_BUTTON_COOLDOWN_ICON_ALPHA = 0.5` en het icon-alpha-dimmen in de overschreven
+      `ActionButton_UpdateCooldown`) kan Robs client dus niet eens bereiken. 📌 Dit is wél het soort
+      bestand dat ik gisteren terecht niet wilde wegwinkelen — de gating is nu gemeten in plaats van
+      aangenomen.
+    - 🔴 **Positieve controle in dezelfde run, zelfde commandovorm en reikwijdte** (`grep -rnE …
+      --include=*.lua --include=*.xml --exclude-dir=.git --exclude-dir=docs --exclude-dir=tools
+      --exclude-dir=dist .`): `GetCooldownFrameAlpha`, `ActionButtonCastingAnimFrameMixin`,
+      `ACTION_BUTTON_COOLDOWN_ICON_ALPHA`, `ActionButton_UpdateCooldown`, `ClearReticle`,
+      `IsWoWHackUltimateAction`, `SlotArt`, `lossOfControlCooldown` en `SetSwipeColor` → **alle negen
+      nul**, terwijl `C_SuperTrack` → **19**, `issecretvalue` → **142**, `InCombatLockdown` → **158** en
+      `CreateFrame` → **853** treffers geven. Het patroon vindt wat er is.
+    - ⚠️ **Wat MH wél van Blizzards actiebalken gebruikt, zodat de nul betekenis heeft:** de meeste
+      `ActionButtonTemplate`-treffers in de addon zijn in werkelijkheid `SecureActionButtonTemplate` —
+      onze eigen knoppen, die niet uit `Blizzard_ActionBar` komen. De echte afhankelijkheden zijn de
+      globale frame-namen in `Modules/BarInventory.lua:53-56` (`MultiBarBottomLeftButton` e.v.),
+      `Modules/EditModeBackup.lua:1000` (`_G.MultiBarLeftButton1`) en twee commentaren over de CVar
+      `ActionButtonUseKeyDown` (`Modules/FastMark.lua:21`, `Modules/MissingBuff.lua:714`). Geen van die
+      namen staat in de diff.
+  - 🔴 **CORRECTIE OP MIJN EIGEN LOGBOEK — "het restgat 69952 → 70448" HEEFT NOOIT BESTAAN ONDER DIE
+    NAAM.** GEMETEN: `git log --oneline --all | grep -c "69952"` geeft **0** in een clone die tot
+    `12.0.7 (68256)` terugreikt. Build `69952` komt uit de consolidated-tabel op de wiki en is géén
+    live-build. De live-branch gaat `12.1.0 (69933)` → **`12.1.5 (70340)`** → `70391` → `70448` →
+    `70529` → `70575`. Ik heb dat getal dagen achter elkaar als live-interval doorgegeven; het was een
+    citaat uit een bron, niet een meting. (Heette in mijn eerdere regels "69952 → 70448", moet zijn:
+    de live-sprong naar 12.1.5 is `69933 → 70340`.)
+  - ✅ **EN DAARMEE IS HET GAT ECHT DICHT, met nul API-wijzigingen erin.** GEMETEN lokaal in de clone:
+    - `git diff --stat 7b27d68 18c6d67` (**70340 → 70391**) → **alleen `version.txt`**, 1 file changed.
+    - `git diff --stat 18c6d67 b9be937` (**70391 → 70448**) → `version.txt` plus één echt bestand:
+      `Blizzard_UIPanels_Game/Mainline/GroupLootFrame.lua` (+23/−0).
+    - Op `Interface/AddOns/Blizzard_APIDocumentationGenerated` geven **beide** intervallen een **lege**
+      diff. 🔴 **Met positieve controle in dezelfde run en met hetzelfde commando:**
+      `git diff --stat 09b9db7 7b27d68` (de 12.1.5-sprong `69933 → 70340`) geeft op datzelfde pad
+      **624 files changed, 3199 insertions(+), 316 deletions(-)**, en `git ls-tree b9be937` op dat pad
+      geeft **623** entries. De route meet dus echt, en de leegte is echt.
+    - 📌 Samen met `70448 → 70529` (gisteren gemeten: `version.txt` + één regel in
+      `Blizzard_PlayerChoiceOptionBase.lua`) en `70529 → 70575` (vandaag) is het **volledige live-spoor
+      sinds de 12.1.5-launch** nu gemeten. Er zit geen enkele API-wijziging in. De wiki hoeft daar niet
+      meer voor af te wachten.
+  - 🟢 **[RAAKT ONS NIET] — `GroupLootFrame.lua` (+23), het enige echte codebestand in het gat.**
+    Gelezen: een nieuwe local `CancelBonusRollRefresh(frame)` plus, aan het eind van
+    `BonusRollFrame_StartBonusRoll`, een `C_Timer.NewTicker(5, …, floor(duration/5))` die elke 5
+    seconden `GroupLootContainer_Update(GroupLootContainer)` en `frame:Show()` doet zolang
+    `frame.state == "prompt"`; `BonusRollFrame_CloseBonusRoll` annuleert hem. Commentaar van Blizzard:
+    *"Let's refresh the bonus roll prompt periodically to ensure it stays visible while it's still
+    valid"*. grep over de addon: `GroupLootFrame`, `GroupLootContainer`, `LootRoll`, `START_LOOT_ROLL`,
+    `CONFIRM_LOOT_ROLL`, `RollOnLoot` en `LootHistory` → **alle zeven nul**, met positieve controle
+    `C_WeeklyRewards` → **39** en `C_DelvesUI` → **110**. MH zit nergens aan de bonus-roll-prompt.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog steeds op hun 16 okt-revisie.** GEMETEN mét
+    cache-buster via `rest.php/v1/page/<pagina>%2FAPI_changes/history`: `Patch 12.1.7/API changes` staat
+    op **`6919765`** (2026-10-16T22:38:53Z, Ketho) met nog steeds **vier** revisies in totaal, en
+    `Patch 12.1.5/API changes` op **`6919763`** (2026-10-16T22:38:41Z, Ketho). Identiek aan gisteren,
+    dus geen revisie weggevallen of tussengeschoven.
+    - ⚠️ **Geen nieuwe `12.1.x/API changes`-pagina, en dat blijft ZWAK gemeten** — de zoekroute op de
+      wiki rangschikt op relevantie en bewijst geen afwezigheid. Onveranderd ten opzichte van gisteren.
+  - 🔇 **[RAAKT ONS NIET] — forum `#ui-macro`: twee nieuwe draadjes sinds 17 okt, geen van beide API,
+    en NUL blue posts.** GEMETEN mét cache-buster (`search.json?q=#ui-macro after:2026-10-17`): acht
+    posts, waarvan zes in topics die al in dit logboek staan (`2367394`, `2315684`, `24534`, `2387466`,
+    `2386807` — `grep -c` geeft 24, 10, 3, 3 en 4). **Nieuw, nul treffers in het logboek:** topic
+    `124318` (24 okt 01:30Z, een speler die een jaren oud Classic-draadje beantwoordt over de
+    ingebouwde *interact key*-indicator) en topic `2390587` (23 okt 18:36Z, *"I put the tracked buff for
+    number of wild imps in the blizzard cooldown manager and no matter what I do it will not show up"*).
+    Spelersvragen, geen API-wijziging en geen Blizzard-antwoord.
+    - 🔴 **Blue posts, mét positieve controle in dezelfde run:** `#ui-macro @Linxy after:2026-10-17` →
+      **nul** en `#ui-macro @Kaivax after:2026-10-17` → **nul**; dezelfde zoekvorm **zonder** datumfilter
+      (`#ui-macro @Linxy`) geeft wél *"Macro Changes Now Live: Target Markers and Chat Messages"*, topic
+      `2261956`, 2026-03-01T21:33:32.080Z. De vorm werkt, de leegte is echt.
+  - 🔇 **[RAAKT ONS NIET] — hotfixes van 20, 21 en 23 okt gelezen: GEEN van de drie heeft een
+    `User Interface`-, addon-, macro- of API-sectie.** MEASURED (via search, niet zelf gelezen — Exa gaf
+    op `news.blizzard.com` lege content en `curl` wordt geweigerd): de batches van **23 okt** (Classes
+    Shaman/Warlock, Dungeons, Hallow's End, Items, Labyrinth), **21 okt** en **20 okt**. 📌
+    **Anti-cache-controle gehaald:** het nieuwste item dat ik zie is 23 okt, nieuwer dan wat mijn eigen
+    logboek gisteren noemde — dus geen week-oude pagina. De laatste `User Interface`-regel is die van
+    **13 okt** (Premade Group Finder), ouder dan 7 dagen en inhoudelijk.
+    - ⚠️ **Eén regel van 23 okt raakt een systeem waar MH aan hangt, en is daarom nagekeken:**
+      *"Resolved an issue causing Surging Elements to not appear on the Cooldown Manager."* Dat is een
+      spell-datafix, geen API-wijziging. GEMETEN dat MH's enige aanknopingspunt met de Cooldown Manager
+      afgedekt is: `Modules/EditModeBackup.lua:1193` (`if s.system == 20 and s.systemIndex == 1 and
+      _G.EssentialCooldownViewer then`) en `:1196-1197` (`… and _G.UtilityCooldownViewer and
+      _G.EssentialCooldownViewer then` → `Anchor(s, "BOTTOM", "EssentialCooldownViewer", "TOP", 0, 4)`)
+      — vier treffers, alle vier achter een `_G`-guard. `C_CooldownViewer` en `CooldownManager` → nul
+      treffers (positieve controle: `C_Spell` → **292**).
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-03`.** GEMETEN mét cache-buster op
+    `api.github.com/repos/simulationcraft/simc-addon/releases?per_page=5`: de kop is nog steeds
+    `12.1.5-03`, `published_at` **2026-10-22T21:56:30Z**, body *"forever: Export hunter pet info"* — dat
+    is de release die gisteren al is afgehandeld. Niets nieuws om tegen `Modules/SimcExport.lua` te
+    houden.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de `%d+`-aanname op
+    veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/
+    `:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon tegenover negen
+    wiki-secties; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug); de UTF-8
+    **BOM** vooraan `MidnightHelper.toc` waardoor `grep -E "^## Interface"` nul geeft; en de
+    client-test voor `/mh raidbots` naast de export van de SimulationCraft-addon zelf.
+    🔴 Niets van dit alles aangeraakt. ⚠️ **Wel nieuw op die lijst:** de **195 niet-gelezen bestanden
+    van PTR-build 70493** uit de run van gisteren staan er NIET meer op — niet omdat ze gelezen zijn,
+    maar omdat de twee die ertoe deden (`ActionButton.lua`, `ActionButtonOverrides.lua`) hierboven
+    afgehandeld zijn. De overige 193 zijn Blizzards eigen UI op de PTR en blijven ongelezen; met de
+    `git`-route van vandaag is dat vanaf nu wél in één keer te doen.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en vandaag GEEN scheve ref.** GEMETEN vóór
+    het schrijven: `git status --short` **leeg**, `git branch --show-current` geeft **`main`** (geen
+    detached HEAD zoals op 17, 19 en 22 okt), en **geen** van de vier wachter-bestanden
+    gewijzigd-maar-ongecommit. De clone van `Gethe/wow-ui-source` staat in de scratchpad, buiten de
+    repo.
