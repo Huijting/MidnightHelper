@@ -9,7 +9,11 @@ CURSEFORGE_DESCRIPTION.md (zin over Clicks; 🔜 Rob plakt hem zelf op CF). Rob 
 Klikken goed ("is goed zoals die staat"). ✅ Tag `v4.12.0` op 63c31ed → run 40129024397 groen; GEMETEN in het log:
 CurseForge "Success!" (release, 12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", GitHub "Success!". Site-chat ("Site chat
 24-10") geseind, incl. 7 specs en de nieuwe CLICK_DF_ONLY. 🔜 Rob: CURSEFORGE_DESCRIPTION.md op CF plakken; na de upload
-op CF de changelog-opmaak bekijken.
+op CF de changelog-opmaak bekijken. ✅ Rob: alle drie gedaan (incl. Blizzard-Undo op de Priest).
+✅ Site-chat: 4.12.0 LIVE (commit 72aec74b, Robs go): 8/8 homepages, Clicks-tab op 56/56 healerpagina's met CLICK_DF_ONLY
+bovenaan, anker #clicks GEMETEN → "clicks" in SITE_ANCHOR (PlayCardWindow.lua), na de release, dus pas in de volgende
+versie. ⚠️ Het release-seintje ging eerst naar een offline Remote Control-sessie met dezelfde naam (na een stroomstoring);
+opnieuw gestuurd naar de lokale.
 
 ## 🔜 OPEN na 23 okt (overdracht naar de bouwchat van 24 okt)
 
