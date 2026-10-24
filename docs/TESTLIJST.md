@@ -31,8 +31,7 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
       Paladin"; `/mh klikken` daarna: "on, profiel MH - Holy Paladin, indeling Holy", ongedaan maken: ja; knop Undo
       verschijnt. ✅ Groene regel "Done: DandersFrames now uses "MH - Holy Paladin" for your talent loadout "Holy"…"
       staat er (screenshot).
-- [ ] `/reload`: Shift + Left heeft nu een rood vizier-icoontje, Shift + Right een briefje (Rob 24 okt: "wat kunnen we
-      verzinnen voor de shift links en rechts icoontjes").
+- [x] ✅ Rob 24 okt: "de icoontjes zijn goed" (Shift + Left rood vizier, Shift + Right briefje).
 - [ ] Ctrl + links op iemand met een magic-debuff = Cleanse. Links = Holy Shock. Shift + rechts = menu.
 - [ ] `/reload` of opnieuw inloggen: blijft "MH - Holy Paladin" actief (gekoppeld aan je indeling)?
 - [ ] Knop "Ongedaan maken": je oude DF-profiel is weer actief.
