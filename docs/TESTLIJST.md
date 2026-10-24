@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 24 okt — changelog voor de volgende versie
+
+- [ ] `/reload`, dan `/mh changelog` (of het changelog-venster openen): bovenaan staat een blok "4.11.3" met twee
+      Labyrinth-regels (conduit alleen voor jou, niet Valeera; gemiste Wah'du-weken inhalen). Geen foutmelding.
+
 ## 🆕 23 okt — spelkaarten: vijf regels nagelopen
 
 - [ ] Fire Mage (Iceicebaby kan wisselen): `/mh play`, stap "4 or more enemies": staat Flamestrike in **kleur** (niet grijs),

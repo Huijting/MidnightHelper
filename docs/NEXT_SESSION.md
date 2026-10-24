@@ -3,7 +3,10 @@
 ## 🔜 OPEN na 23 okt (overdracht naar de bouwchat van 24 okt)
 
 - Gepusht ná v4.11.2 (komt mee in de volgende update): Codex "conduit-buff alleen voor jou (not Valeera)" en "gemiste
-  Wah'du-weken inhalen" (beide GEMETEN Rob). In-game changelog voor de volgende versie nog niet aangemaakt.
+  Wah'du-weken inhalen" (beide GEMETEN Rob). ✅ 24 okt (Rob: "Maak de in-game changelog … nog zonder versiebump"):
+  Changelog.lua heeft een blok "4.11.3" met CHANGELOG_4113_1 (conduit) en _2 (Wah'du), enUS. TOC blijft 4.11.2; de popup
+  kijkt alleen naar de TOC-versie (GEMETEN, ShowChangelogWindow), dus niemand ziet het blok vanzelf. Het versienummer
+  "4.11.3" is een voorlopige keuze van mij; Rob kiest nummer en go. RELEASE_NOTES/CURSEFORGE nog niet gemaakt. Lint 0 HARD.
 - Testjes (TESTLIJST bovenaan): Fire Mage Flamestrike in kleur; Frost Mage met Comet Storm `/run print(IsPlayerSpell(153595),
   IsPlayerSpell(1247777))`; Affliction stap 5 Shadow Bolt; Venomstones-telling met stenen + bank; Crimson Tempest (Rob heeft
   geen Rogue); Kinduru-uitweg alleen als hij vastzit; de oudere per-character-testjes (Warrior, Shadow Priest, Rogue,

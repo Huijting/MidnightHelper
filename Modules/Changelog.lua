@@ -4,6 +4,14 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "4.11.3",
+		lines = {
+			-- pushed after 4.11.2 (24 Oct 2026, no version bump yet; Rob picks the number and the go)
+			"CHANGELOG_4113_1",
+			"CHANGELOG_4113_2",
+		},
+	},
+	{
 		version = "4.11.2",
 		lines = {
 			"CHANGELOG_4112_0",
