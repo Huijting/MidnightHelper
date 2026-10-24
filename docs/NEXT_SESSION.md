@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🔜 OPEN na 23 okt (overdracht naar de bouwchat van 24 okt)
+
+- Gepusht ná v4.11.2 (komt mee in de volgende update): Codex "conduit-buff alleen voor jou (not Valeera)" en "gemiste
+  Wah'du-weken inhalen" (beide GEMETEN Rob). In-game changelog voor de volgende versie nog niet aangemaakt.
+- Testjes (TESTLIJST bovenaan): Fire Mage Flamestrike in kleur; Frost Mage met Comet Storm `/run print(IsPlayerSpell(153595),
+  IsPlayerSpell(1247777))`; Affliction stap 5 Shadow Bolt; Venomstones-telling met stenen + bank; Crimson Tempest (Rob heeft
+  geen Rogue); Kinduru-uitweg alleen als hij vastzit; de oudere per-character-testjes (Warrior, Shadow Priest, Rogue,
+  Warlock, Feral).
+- Klein, niet gedaan: enUS/nlNL schrijven "Fiery Hexmask", client heet hem "Fiery Hexmask Familiar"; enkelvoud "Amani
+  Headhunter" buiten es alleen in een client aflezen; Er'inye en "Delver's HQ" in Robs client aflezen; optionele
+  {SPELL}-tags (Radiant Glory 458359, Voidtouched 407430, Dark Energy 451018, Dream Simulacrum 1241669) na één clientcheck.
+- Robs keuze (idee, niet gevraagd): Blessing of Dawn-regel op de Paladin-kaart ("raakt jezelf bij trainingspoppen").
+- Rob had `/mh bonusroll` (dev-recorder) nog aan; uitzetten uitgelegd, niet gemeten of hij het deed.
+
 ## 🚀 23 okt — RELEASE 4.11.2 (Rob: "Go voor 4.11.2, met het blok over de website.")
 
 TOC 4.11.2, CHANGELOG_4112_0..4 (_0 = website-blok + beta-uitnodiging), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.2.md`
