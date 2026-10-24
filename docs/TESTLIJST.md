@@ -23,8 +23,8 @@ er is niets weggegooid.
 
 ## 🆕 24 okt — changelog voor de volgende versie
 
-- [ ] `/reload`, dan `/mh changelog` (of het changelog-venster openen): bovenaan staat een blok "4.11.3" met twee
-      Labyrinth-regels (conduit alleen voor jou, niet Valeera; gemiste Wah'du-weken inhalen). Geen foutmelding.
+- [x] ✅ GEMETEN Rob 24 okt (screenshot): `/mh changelog` toont bovenaan "Version 4.11.3" met de twee Labyrinth-regels,
+      daaronder 4.11.2; venstertitel zegt nog "Version 4.11.2" (TOC, zoals bedoeld).
 
 ## 🆕 23 okt — spelkaarten: vijf regels nagelopen
 
