@@ -47,6 +47,10 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   Holy". Het zelf aanzetten via DF's interne functies werkt dus in het spel. Nog open: de klikken zelf, na /reload, Undo,
   zonder DF, Shaman (TESTLIJST).
 - 🔜 Beta-tag op Robs go. Site neemt de tab mee na de release (site-chat geseind).
+- 🔜 Rob 24 okt: de chat "Danders Frame bindingen optimaliseren" maakt nu indelingen voor Mistweaver (270, MONK) en
+  Preservation (1468, EVOKER). Toevoegen = één regel in ns.CLICKCAST_LAYOUTS (ClickCast.lua) + CLICK_<spec>_<slot> en
+  CLICK_NOTE_<spec> in enUS/nlNL + vertalingen (mh-writer, zelfde aanpak als 24 okt) + harness-regel "12 rows, n free".
+  De tab verschijnt dan vanzelf (HasClickLayout). Seint de site-chat.
 
 ## 🚀 23 okt — RELEASE 4.11.2 (Rob: "Go voor 4.11.2, met het blok over de website.")
 
