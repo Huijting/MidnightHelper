@@ -55,6 +55,9 @@ De packager uploadt dit bestand **letterlijk en volledig** (`.pkgmeta` →
   🔴 **Sinds 5 okt 2026 de vaste regel (Rob, bij 4.7.2):** een nieuwe functie of grotere wijziging gaat ALTIJD eerst als
   beta uit; spelers die mee willen testen zetten in de CurseForge-app het release type op Beta. Aanleiding: de
   toetsenblok-gaten werden pas ná 4.7.0 gevonden. Kleine reparaties mogen direct.
+  ⚠️ **Versoepeld 24 okt 2026 (Rob, bij 4.12.0):** *"elke keer als we een beta hebben, niemand test hem … laten we wel
+  erin zitten. Maar nu niet, we gaan nu naar een release."* Beta blijft een optie, geen verplichting: heeft Rob het zelf
+  op meerdere characters getest, dan mag een grote wijziging direct als release. Rob kiest per keer.
 - 🔴 **Bij elke GEWONE release (geen beta): bovenaan de notitie een korte alinea over de betas** (Rob, 6 okt 2026, via de
   site-chat: *"wanneer we weer een echte release doen dan moet er ook boven aan de changelog komen dat er regelmatig
   ook beta releases zijn en hoe mensen die aan kunnen zetten als ze sneller updates willen en evt helpen met testen"*).

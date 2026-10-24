@@ -6,7 +6,10 @@ Geen beta: Rob, "elke keer als we een beta hebben, niemand test hem", en hij tes
 blijven bestaan, maar zijn niet meer verplicht ("laten we wel erin zitten. Maar nu niet"). TOC 4.12.0, CHANGELOG_4120_1..4
 (het blok heette eerst 4.11.3/CHANGELOG_4113_*), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.12.0.md`, CHANGELOG.md,
 CURSEFORGE_DESCRIPTION.md (zin over Clicks; 🔜 Rob plakt hem zelf op CF). Rob keurde de bovenste zin van het tabblad
-Klikken goed ("is goed zoals die staat"). Tag + upload: zie hieronder zodra gedaan.
+Klikken goed ("is goed zoals die staat"). ✅ Tag `v4.12.0` op 63c31ed → run 40129024397 groen; GEMETEN in het log:
+CurseForge "Success!" (release, 12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", GitHub "Success!". Site-chat ("Site chat
+24-10") geseind, incl. 7 specs en de nieuwe CLICK_DF_ONLY. 🔜 Rob: CURSEFORGE_DESCRIPTION.md op CF plakken; na de upload
+op CF de changelog-opmaak bekijken.
 
 ## 🔜 OPEN na 23 okt (overdracht naar de bouwchat van 24 okt)
 
