@@ -22,9 +22,16 @@
 Carola (dezelfde character die Kindo'jan op 23 okt versloeg) kon na 3 kamers door naar de baas; Rob op 23 okt op zijn
 Mage (baas nog nooit verslagen) na 6 kamers (na 3 niet geprobeerd) → lijkt warband-breed (AFGELEID uit 2 runs).
 CODEX_LABYRINTH_BODY (eerste zin) en DELVE_TIP_LABYRINTH_BOSS: "volgens de gidsen" → "gezien in het spel"; de 3
-kamernamen blijven "volgens de gidsen". en/nl ik, rest mh-writer, drift gemarkeerd. 🔜 mh-writer zag: kamernamen,
-Den'zara, Vilebranch staan in de/fr/es/pt/it/ru nog Engels in DELVE_TIP_LABYRINTH_BOSS (clientnaam-regel, meten); ru
-"Kindo'jan" in de tip vs "Киндо'джан" in de Codex; esMX "Kindo'Jan" (client zelf gemengd, eerder gelaten).
+kamernamen blijven "volgens de gidsen". en/nl ik, rest mh-writer, drift gemarkeerd.
+✅ Daarna (Rob: "laat de kamernamen, Den'zara en Vilebranch per taal meten en zet ze goed in de Labyrinth-baastip"):
+mh-research GEMETEN (wago 12.1.5.70575, AreaTable 17025/17029/17031/17033, ScenarioStep 17739; rapport side-session-notes
+`labyrinth_tip_names_2026-10-24.md`). mh-writer zette ze in DELVE_TIP_LABYRINTH_BOSS (de/fr/es/esMX/pt/it/ru); ru
+Kindo'jan overal → Киндо'джан (GEMETEN: alle ru-records cyrillisch), ook CODEX_LABJOURNEY_BODY en
+DELVE_TIP_LABYRINTH_OVERVIEW. Den'zara's geslacht volgt nu Blizzards staptekst. AFGELEID: fr "la salle rituelle" en ru
+kleine letters, ru naamvallen. 🔜 Nog Engels (buiten deze ronde): ru {WAY}-labels in CODEX_LABJOURNEY_BODY, ru
+DELVE_TIP_LABYRINTH_ROOMS ("Vilebranch", "The Cave Towers"), loa-namen en Headhunters/Amani Juggernaut in alle talen.
+Bijvangst: Blizzards Wah'du-opdrachten zeggen "Nalorakk's Den"/"Jan'ali's Refuge", de kaart "Nalorakk's Rest"/
+"Jan'alai's Refuge".
 
 ## 🖱️ 24 okt — tabblad Klikken + knop naar DandersFrames GEBOUWD (Rob: "Bouw het tabblad Klikken. De knop zet het profiel ook zelf aan via DandersFrames' interne functies. Lukt dat niet, dan toont het tabblad de uitleg voor /df. Eerst als beta.")
 
