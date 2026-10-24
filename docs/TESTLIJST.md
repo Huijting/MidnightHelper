@@ -21,6 +21,23 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 24 okt — tabblad Klikken (healers) + knop naar DandersFrames
+
+Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
+- [ ] Bovenaan in oranje: "Deze klikken werken alleen met de addon DandersFrames." Daaronder 12 regels (Links, Rechts,
+      Middelste knop; met Shift, Ctrl, Alt) met icoon, spellnaam en een zinnetje; lege plekken zeggen "vrij". Past
+      het zesde tabblad nog in de balk (ook op tekstgrootte 1.5)?
+- [ ] Twelveinchy (Holy Paladin), buiten gevecht: knop "Zet in DandersFrames" → tooltip noemt ook de DF-regel →
+      bevestigen. Groene regel "Klaar: DandersFrames gebruikt nu "MH - Holy Paladin" voor je talent-indeling …".
+      In `/df` (click-casting): staat "MH - Holy Paladin" met 12 klikken en is hij actief?
+- [ ] Ctrl + links op iemand met een magic-debuff = Cleanse. Links = Holy Shock. Shift + rechts = menu.
+- [ ] `/reload` of opnieuw inloggen: blijft "MH - Holy Paladin" actief (gekoppeld aan je indeling)?
+- [ ] Knop "Ongedaan maken": je oude DF-profiel is weer actief.
+- [ ] `/mh klikken`: alles "ja", en "laatste keer: … on". Stuur de regels als iets "nee" zegt.
+- [ ] Op een andere spec bekijken (spec-icoon bovenaan): geen knop, wel "Wissel naar deze spec …".
+- [ ] Eén keer zonder DandersFrames (addon uit): geen knop, wel de zin over Cell, VuhDo, Clique.
+- [ ] De Shaman (nog nooit getest in het pakket): knop, en werkt Ctrl + middelste knop (Nature's Swiftness)?
+
 ## 🆕 24 okt — changelog voor de volgende versie
 
 - [x] ✅ GEMETEN Rob 24 okt (screenshot): `/mh changelog` toont bovenaan "Version 4.11.3" met de twee Labyrinth-regels,

@@ -9,6 +9,8 @@ local CHANGELOG_ENTRIES = {
 			-- pushed after 4.11.2 (24 Oct 2026, no version bump yet; Rob picks the number and the go)
 			"CHANGELOG_4113_1",
 			"CHANGELOG_4113_2",
+			-- 24 Oct 2026, Rob: "Bouw het tabblad Klikken … Eerst als beta."
+			"CHANGELOG_4113_3",
 		},
 	},
 	{

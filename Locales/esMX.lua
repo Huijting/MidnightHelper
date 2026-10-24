@@ -851,6 +851,18 @@ for k, v in pairs({
 	PLAYCARD_63_S1 = "Tu gran momento, cada minuto con el talento Astillas: {SPELL:190319} con {SPELL:153561}. Todo es crítico: encadena {SPELL:108853} y {SPELL:11366}.",
 	PLAYCARD_65_W2 = "{SPELL:53576} hace tu siguiente {SPELL:19750} instantáneo y mucho más fuerte: una de tus mejores sanaciones. Puedes guardar uno, o dos con el talento Inflorescencia de la Fuente del Sol, así que gástalo antes de volver a pulsar {SPELL:20473}.",
 	PLAYCARD_256_W3 = "Tu daño cura a cada aliado con {SPELL:81749}, así que usar tus golpes en cuanto estén listos mantiene la sanación. {SPELL:47540} golpea fuerte y funciona mientras caminas. Con el talento Bienestar e infortunio, {SPELL:47540} hace más fuerte tu siguiente {SPELL:17}. Con el talento Dominar la oscuridad, {SPELL:47540} a veces puede convertir tu siguiente {SPELL:17} en {SPELL:1253593}; desde el nivel 90, cada {SPELL:8092} también lo hace.",
+	-- 24 Oct 2026: Clicks tab lines whose game word the esMX client says differently (wago SpellName/GlobalStrings esMX:
+	-- Contrición, Mareas Vivas, Poder Sagrado, "selección" for a talent loadout; DandersFrames esMX: ASIGNACIÓN DE SELECCIONES).
+	CLICK_65_L = "Sanación rápida de golpe. Te da Poder Sagrado.",
+	CLICK_65_M = "Cuesta Poder Sagrado. Una gran sanación de golpe.",
+	CLICK_65_SM = "Quien lo tenga recibe también parte de todas tus sanaciones. En un calabozo: en el tanque.",
+	CLICK_256_R = "Sanación rápida (1,5 segundos). Da Contrición.",
+	CLICK_256_CR = "Sanación instantánea en un jugador. Da Contrición.",
+	CLICK_264_SM = "Sanación. Tu siguiente Mareas Vivas, Ola de sanación o Sanación en cadena es más fuerte y más rápida.",
+	CLICK_BTN_TIP_FMT = "Crea el perfil de DandersFrames \"%s\" con estos clics y lo activa para la selección de talentos que usas ahora. Tu propio perfil se queda en DandersFrames; Deshacer lo vuelve a activar.",
+	CLICK_CONFIRM_FMT = "¿Poner estos clics en DandersFrames como el perfil \"%s\" y activarlo para tu selección de talentos?",
+	CLICK_DONE_ON_FMT = "Hecho: DandersFrames usa ahora \"%s\" para tu selección de talentos \"%s\". Haz clic en un nombre en tus marcos de grupo para probarlo.",
+	CLICK_DONE_MANUAL_FMT = "El perfil \"%s\" está en DandersFrames, pero Midnight Helper no pudo activarlo. Abre /df, ve a Lanzamiento por clic, elige el perfil en TUS PERFILES y vincúlalo a tu selección de talentos en ASIGNACIÓN DE SELECCIONES.",
 }) do
 	es[k] = v
 end

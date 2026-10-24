@@ -265,7 +265,7 @@ end
 local function CurrentTab()
 	local ui = ns.db and ns.db.ui
 	local t = ui and ui.playCardTab
-	return (t == "alive" or t == "cons" or t == "dispel" or t == "group" or t == "quiz") and t or "play"
+	return (t == "alive" or t == "cons" or t == "dispel" or t == "group" or t == "quiz" or t == "clicks") and t or "play"
 end
 
 local function SetTab(id)
@@ -950,6 +950,178 @@ local function DrawQuiz(specID, y, inner)
 end
 
 --------------------------------------------------------------------------------
+-- The Clicks tab (Rob, 24 Oct 2026), healers only: which mouse button casts what on a group frame, and a button that
+-- puts it in DandersFrames. Data and the DandersFrames work are in Modules/ClickCast.lua.
+-- 🔴 Rob: "mensen moeten dan wel verteld worden dat dit alleen met DF werkt !!!!" — the first line, always.
+--------------------------------------------------------------------------------
+
+local function HideClickButtons()
+	for _, b in ipairs(win._clickBtns or {}) do
+		b:Hide()
+	end
+end
+
+local CLICK_BTN_KEY = { LeftButton = "CLICK_BTN_LEFT", RightButton = "CLICK_BTN_RIGHT", MiddleButton = "CLICK_BTN_MIDDLE" }
+local CLICK_MOD_KEY = { ["shift-"] = "CLICK_MOD_SHIFT", ["ctrl-"] = "CLICK_MOD_CTRL", ["alt-"] = "CLICK_MOD_ALT" }
+
+local function ClickLabel(r)
+	local btn = L(CLICK_BTN_KEY[r.button])
+	if r.mod == "" then
+		return btn
+	end
+	return L(CLICK_MOD_KEY[r.mod]) .. " + " .. btn
+end
+
+local function ConfirmClickImport(specID, profile)
+	if not (StaticPopupDialogs and StaticPopup_Show) then
+		return
+	end
+	local key = "MIDNIGHTHELPER_CLICKCAST_CONFIRM"
+	if not StaticPopupDialogs[key] then
+		StaticPopupDialogs[key] = {
+			text = "",
+			button1 = ACCEPT,
+			button2 = CANCEL,
+			OnAccept = function(_, data)
+				if data and ns.ClickCastImport then
+					ns.ClickCastImport(data.spec)
+				end
+				if win and win:IsShown() and win._redraw then
+					win._redraw()
+				end
+			end,
+			timeout = 0,
+			whileDead = true,
+			hideOnEscape = true,
+			preferredIndex = 3,
+		}
+	end
+	StaticPopupDialogs[key].text = L("CLICK_CONFIRM_FMT")
+	StaticPopup_Show(key, profile, nil, { spec = specID })
+end
+
+--- @return the new y
+local function DrawClicks(specID, y, inner)
+	local t = 0
+	local function Line(text, base, r, g, b, gap)
+		t = t + 1
+		local fs = Text(t, base or "GameFontHighlight")
+		fs:SetWidth(inner)
+		fs:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		fs:SetTextColor(r or 0.9, g or 0.88, b or 0.82)
+		fs:SetText(text)
+		y = y - fs:GetStringHeight() - (gap or 10)
+	end
+	Line(L("CLICK_DF_ONLY"), "GameFontNormal", 1, 0.5, 0.25, 8)
+	Line(L("CLICK_INTRO"), nil, 0.62, 0.6, 0.56, 12)
+
+	-- Grey a spell only on your own spec: for another spec "known" answers for the spec you are in.
+	local own = specID ~= nil and specID == ActiveSpecID()
+	local grey = own and ns.PlayCardKnowsSpell or nil
+	for i, r in ipairs(ns.ClickLayoutRows(specID) or {}) do
+		local row = StepRow(i)
+		row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		row:SetWidth(inner)
+		row.num:SetText("")
+		local missing = StepIcon(row, r.spellId, grey, false)
+		row.fs:ClearAllPoints()
+		row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
+		row.fs:SetWidth(inner - (20 + ICON + 10))
+		row.fs:SetTextColor(0.9, 0.88, 0.82)
+		local label = "|cffffffff" .. ClickLabel(r) .. ":|r "
+		if r.action == "spell" then
+			local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(r.spellId) or ("#" .. r.spellId)
+			row.fs:SetText(("%s|cff%s%s|r%s|n%s"):format(label, missing and "8a8a8a" or "ffd100", name,
+				missing and (" |cff9d9d9d(" .. L("CLICK_NOT_KNOWN") .. ")|r") or "",
+				L("CLICK_" .. specID .. "_" .. r.code)))
+		elseif r.action == "target" or r.action == "menu" then
+			row.fs:SetText(label .. "|cffffd100" .. L(r.action == "target" and "CLICK_TARGET" or "CLICK_MENU") .. "|r")
+		else
+			row.fs:SetText(label .. "|cff9d9d9d" .. L("CLICK_FREE") .. "|r")
+		end
+		local h = math.max(ICON, row.fs:GetStringHeight() + 4)
+		row:SetHeight(h)
+		y = y - h - 8
+	end
+	y = y - 4
+	Line(L("CLICK_NOTE_RES"), nil, 0.62, 0.6, 0.56, 6)
+	Line(L("CLICK_NOTE_" .. specID), nil, 0.62, 0.6, 0.56, 14)
+
+	-- The button, or in its place what to do without it.
+	local s = ns.ClickCastDFStatus and ns.ClickCastDFStatus() or {}
+	local def = ns.CLICKCAST_LAYOUTS and ns.CLICKCAST_LAYOUTS[specID]
+	if not s.loaded then
+		Line(L("CLICK_NO_DF"), nil, 1, 0.82, 0.4, 10)
+		return y
+	end
+	if not (s.api and s.libs) then
+		Line(L("CLICK_DF_OLD"), nil, 1, 0.82, 0.4, 10)
+		return y
+	end
+	if not own then
+		Line(L("CLICK_OTHER_SPEC"), nil, 1, 0.82, 0.4, 10)
+		return y
+	end
+	local inCombat = InCombatLockdown and InCombatLockdown()
+	local b = PanelButton("_clickBtns", 1)
+	b:SetText(L("CLICK_BTN_SET"))
+	b:SetSize(230, 26)
+	b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+	b:SetEnabled(not inCombat)
+	b:SetScript("OnClick", function()
+		ConfirmClickImport(specID, def.profile)
+	end)
+	b:SetScript("OnEnter", function(self)
+		if not GameTooltip then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(L("CLICK_BTN_SET"), 1, 0.82, 0.2)
+		GameTooltip:AddLine(L("CLICK_DF_ONLY"), 1, 0.5, 0.25, true)
+		GameTooltip:AddLine((L("CLICK_BTN_TIP_FMT")):format(def.profile), 0.9, 0.88, 0.82, true)
+		GameTooltip:Show()
+	end)
+	b:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	if ns.ClickCastCanUndo and ns.ClickCastCanUndo() then
+		local u = PanelButton("_clickBtns", 2)
+		u:SetText(L("CLICK_UNDO"))
+		u:SetSize(140, 26)
+		u:SetPoint("TOPLEFT", win.body, "TOPLEFT", 240, y)
+		u:SetEnabled(not inCombat)
+		u:SetScript("OnEnter", nil)
+		u:SetScript("OnLeave", nil)
+		u:SetScript("OnClick", function()
+			if ns.ClickCastUndo then
+				ns.ClickCastUndo()
+			end
+			win._redraw()
+		end)
+	end
+	y = y - 26 - 10
+	if inCombat then
+		Line(L("CLICK_COMBAT"), nil, 1, 0.4, 0.4, 8)
+	end
+
+	local last = ns.db and ns.db.clickCast and ns.db.clickCast.last
+	if last and last.spec == specID then
+		if last.state == "on" then
+			Line((L("CLICK_DONE_ON_FMT")):format(tostring(last.profile), tostring(last.loadout)), nil, 0.2, 1, 0.4, 8)
+		elseif last.state == "made" then
+			Line((L("CLICK_DONE_MANUAL_FMT")):format(tostring(last.profile)), nil, 1, 0.82, 0.4, 8)
+		elseif last.state == "undone" then
+			Line((L("CLICK_UNDONE_FMT")):format(tostring(last.profile)), nil, 0.9, 0.88, 0.82, 8)
+		else
+			Line((L("CLICK_FAIL_FMT")):format(tostring(last.err)), nil, 1, 0.4, 0.4, 8)
+		end
+	end
+	return y
+end
+
+--------------------------------------------------------------------------------
 -- Drawing
 --------------------------------------------------------------------------------
 
@@ -1069,6 +1241,7 @@ local function Redraw()
 		win._siteBtn:Hide()
 	end
 	HideQuizButtons()
+	HideClickButtons()
 	-- Read the bars afresh for every draw: the keys are whatever they are right now.
 	if ns.LiveKeysInvalidate then
 		ns.LiveKeysInvalidate()
@@ -1117,6 +1290,12 @@ local function Redraw()
 	if hasGroup then
 		tabs[#tabs + 1] = { id = "group", key = "PLAYCARD_TAB_GROUP" }
 	elseif tab == "group" then
+		tab = "play"
+	end
+	-- Sixth tab, Clicks (24 Oct 2026): the five healer specs with a click layout (Modules/ClickCast.lua); same fallback.
+	if ns.HasClickLayout and ns.HasClickLayout(specID) then
+		tabs[#tabs + 1] = { id = "clicks", key = "CLICK_TAB" }
+	elseif tab == "clicks" then
 		tab = "play"
 	end
 	-- The quiz has no tab of its own (see DrawQuiz); a spec without one falls back to the card.
@@ -1189,9 +1368,9 @@ local function Redraw()
 		return
 	end
 
-	if tab == "alive" or tab == "cons" or tab == "dispel" or tab == "group" then
+	if tab == "alive" or tab == "cons" or tab == "dispel" or tab == "group" or tab == "clicks" then
 		local draw = (tab == "alive" and DrawStayAlive) or (tab == "cons" and DrawConsumables)
-			or (tab == "group" and DrawGroup) or DrawDispel
+			or (tab == "group" and DrawGroup) or (tab == "clicks" and DrawClicks) or DrawDispel
 		y = draw(specID, y, inner)
 		-- 5 Oct 2026: the site's /play/ pages have the same tabs, each with an anchor (site chat), so
 		-- every tab links to its own part of the page.

@@ -17,6 +17,34 @@
 - Robs keuze (idee, niet gevraagd): Blessing of Dawn-regel op de Paladin-kaart ("raakt jezelf bij trainingspoppen").
 - Rob had `/mh bonusroll` (dev-recorder) nog aan; uitzetten uitgelegd, niet gemeten of hij het deed.
 
+## 🖱️ 24 okt — tabblad Klikken + knop naar DandersFrames GEBOUWD (Rob: "Bouw het tabblad Klikken. De knop zet het profiel ook zelf aan via DandersFrames' interne functies. Lukt dat niet, dan toont het tabblad de uitleg voor /df. Eerst als beta.")
+
+Opdracht kwam van de chat "Danders Frame bindingen optimaliseren" (healer-klikpakket, AddOns/Healer-Klikpakket; bron
+healer_data.py in die chat-scratchpad). Nieuw: `Modules/ClickCast.lua` (ns.CLICKCAST_LAYOUTS [spec] = { class, profile,
+slots = { L/R/M/SM/CL/CR/CM/AL/AR/AM = spellId } }; SL = target, SR = menu voor iedereen), tab "clicks" in
+PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_UNLISTED_ON_PURPOSE), ~75 CLICK_-sleutels.
+- 🔴 Robs eis: bovenaan altijd CLICK_DF_ONLY ("Deze klikken werken alleen met de addon DandersFrames."), ook in de
+  tooltip van de knop; zonder DF staat op de plek van de knop CLICK_NO_DF (Robs eigen zin).
+- GEMETEN in DandersFrames v5.5.0: DandersFrames_ClickCast_Import maakt het profiel maar zet het nooit aan (roept
+  CC:SwitchProfile aan, die niet bestaat). ⚠️ De opdracht zei "DF is addon-privé": FOUT, `DandersFrames = DF` is globaal
+  (Core/Config.lua:4). MH zet het profiel dus zelf aan: AssignProfileToLoadout(GetCurrentSpec(), GetCurrentLoadoutConfigID())
+  + SetActiveProfile + ApplyBindings (DF's eigen functies, niet publiek; elk gecheckt en in pcall). Mislukt dat → state
+  "made" → het tabblad toont de /df-stappen. "Ongedaan maken" zet de oude koppeling + het oude actieve profiel terug
+  (ns.db.clickCast.undo per class; het MH-profiel zelf blijft staan). Nooit in combat, alleen eigen spec.
+- spellName = clientnaam (C_Spell.GetSpellName); DF checkt op naam. Niet getest op een niet-Engelse client (AFGELEID).
+- Proef (scratch clickcast_harness.lua): MH tegen DF's ECHTE API.lua + libs, met een nep-ClickCast: 26/26 OK (12
+  bindings, clientnaam, koppeling + actief, tweede druk geen dubbel, undo, combat/andere class geweigerd, terugval "made").
+  Niet in het spel gezien. Lint 0 HARD, syntax OK.
+- Ontwerp: een lijst van 12 regels (icoon + "Ctrl + Links: Cleanse" + zin), geen 3×4-tabel: de zinnen passen niet in
+  drie kolommen van ~140 px. Waarschuwing "talent verandert een knop" in de notitie per spec (alleen Eternal Flame bij
+  naam, die override is GEMETEN in KeybindRoles_Paladin.lua; Shadow Mend/Ancestral Swiftness niet genoemd).
+- Vertalingen (mh-writer, eigen vertaling, niet door moedertaalspreker nagekeken): 75 sleutels in de/fr/es/pt/it
+  (Translations2026.lua) en ru, 10 esMX-regels. Spellnamen GEMETEN in wago SpellName, maar op build 12.1.7.70493 (PTR),
+  niet live 12.1.5; DF-labels uit DandersFrames' eigen locales (de: LOADOUT ASSIGNMENTS + Smart Resurrection blijven
+  Engels, DF vertaalt ze niet). fr "Click-Casting (lancement de sorts au clic)" lang, niet in het spel gezien.
+  Rapport + script: scratchpad insert_clicks.py (deze sessie). CHANGELOG_4113_3 toegevoegd.
+- 🔜 Beta-tag op Robs go. Site neemt de tab mee na de release (site-chat geseind).
+
 ## 🚀 23 okt — RELEASE 4.11.2 (Rob: "Go voor 4.11.2, met het blok over de website.")
 
 TOC 4.11.2, CHANGELOG_4112_0..4 (_0 = website-blok + beta-uitnodiging), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.11.2.md`

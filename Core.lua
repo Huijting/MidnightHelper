@@ -2590,6 +2590,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh klikken — the healer Clicks tab and DandersFrames: what MH sees there, and the last button press (24 Oct 2026).
+	if msg == "klikken" then
+		if ns.PrintClickCastStatus then
+			ns.PrintClickCastStatus()
+		end
+		return
+	end
 	-- /mh panelreset — put every side panel back beside its window. Cheap insurance:
 	-- the panels are draggable, and a panel dragged off-screen has no other way back.
 	if msg == "panelreset" then
