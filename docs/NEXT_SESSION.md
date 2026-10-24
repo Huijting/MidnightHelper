@@ -51,7 +51,10 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   C_ClickBindings.SetProfileByInfo bestaat, vlag HasRestrictions (ClickBindingsDocumentation.lua, wow-ui-source live, gelezen
   24 okt). Of een addon hem mag aanroepen: onbekend. Proef `/mh klikken blizz` (ClickCast.lua, ClickBlizzProbe): leest de
   indeling, schrijft DEZELFDE terug, vangt 2 sec ADDON_ACTION_BLOCKED/FORBIDDEN, vergelijkt; uitkomst ook in
-  ns.db.clickBlizzProbe. Niets voor spelers gebouwd (Rob: "Nog niets bouwen voor spelers."). Uitslag: nog niet gedraaid.
+  ns.db.clickBlizzProbe. Niets voor spelers gebouwd (Rob: "Nog niets bouwen voor spelers.").
+  ✅ GEMETEN Rob 24 okt (screenshot): pcall geen fout, geen geblokkeerd-meldingen, indeling daarna gelijk → MAG.
+  ⚠️ Getest met DEZELFDE indeling terugschrijven; dat een ándere indeling ook mag is AFGELEID (zelfde functie, zelfde
+  aanroeper). Geen positieve controle voor de event-vanger (geen veilige manier om een blokkade op te wekken).
 - 🔜 Rob 24 okt: de chat "Danders Frame bindingen optimaliseren" maakt nu indelingen voor Mistweaver (270, MONK) en
   Preservation (1468, EVOKER). Toevoegen = één regel in ns.CLICKCAST_LAYOUTS (ClickCast.lua) + CLICK_<spec>_<slot> en
   CLICK_NOTE_<spec> in enUS/nlNL + vertalingen (mh-writer, zelfde aanpak als 24 okt) + harness-regel "12 rows, n free".
