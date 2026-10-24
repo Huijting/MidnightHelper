@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 24 okt — flask-advies op Carola's character (als het rustig is)
+
+Rob zag bij Carola (remote, geen screenshot) dat de flask in een dungeon niet dezelfde was als in het consumables-
+overzicht. Op Robs eigen Hunter klopte alles. GEMETEN in de code: tabblad Consumables en `/mh ready` nemen allebei
+best[1] uit ConsumablesWowheadByClassSpec; het dungeon-bord toont in de TOOLTIP de flask die je al in je tassen hebt
+(zo bedoeld). Vermoeden (AFGELEID): dat was het, of het tabblad stond op een andere spec, of een andere kwaliteit.
+- [ ] Op Carola's character: noteer de flask in (1) `/mh play` → Consumables (welke spec staat bovenin?),
+      (2) `/mh ready`, (3) de tooltip van het flask-icoon op het dungeon-bord, en welke flask(s) ze in haar tassen heeft.
+
 ## 🆕 24 okt — tabblad Klikken (healers) + knop naar DandersFrames
 
 Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
