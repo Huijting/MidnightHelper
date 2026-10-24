@@ -39,6 +39,8 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
 - [ ] Op een andere spec bekijken (spec-icoon bovenaan): geen knop, wel "Wissel naar deze spec …".
 - [x] ✅ GEMETEN Rob 24 okt (screenshot, DF uit): oranje regel blijft, geen knop, wel de zin over Cell, VuhDo, Clique.
 - [x] ✅ GEMETEN Rob 24 okt: `/mh klikken blizz` → pcall geen fout, geen meldingen, indeling gelijk: MAG.
+- [ ] Mistweaver Monk en Preservation Evoker (Rob heeft ze niet: Carola of Cisca?): tabblad Klikken, 9 klikken + 3 vrij,
+      knop → "MH - Mistweaver Monk" / "MH - Preservation Evoker" actief in DandersFrames.
 - [ ] De Shaman (nog nooit getest in het pakket): knop, en werkt Ctrl + middelste knop (Nature's Swiftness)?
 
 ## 🆕 24 okt — changelog voor de volgende versie

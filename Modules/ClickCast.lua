@@ -1,7 +1,7 @@
 local _, ns = ...
 
 --[[
-	"Clicks" for the five healer specs: which mouse button casts what on a group frame, and a button that puts that
+	"Clicks" for the healer specs (five on 24 Oct 2026, Mistweaver and Preservation the same day): which mouse button casts what on a group frame, and a button that puts that
 	layout into DandersFrames as a click-cast profile (Rob, 24 Oct 2026: "Bouw het tabblad Klikken. De knop zet het
 	profiel ook zelf aan via DandersFrames' interne functies. Lukt dat niet, dan toont het tabblad de uitleg voor /df.").
 
@@ -54,6 +54,12 @@ ns.CLICKCAST_LAYOUTS = {
 		slots = { L = 33076, R = 2061, M = 2050, SM = 10060, CL = 527, CR = 596, CM = 47788, AR = 73325 } },
 	[264] = { class = "SHAMAN", profile = "MH - Resto Shaman",
 		slots = { L = 61295, R = 77472, M = 974, SM = 73685, CL = 77130, CR = 1064, CM = 378081 } },
+	-- Added 24 Oct 2026 (same click-pack chat; two routes: guides 12-20 Oct + wago 12.1.5.70575). Thunder Focus Tea is
+	-- self-only and Dream Breath is an empower spell, so both stay on the action bar, not on a click.
+	[270] = { class = "MONK", profile = "MH - Mistweaver Monk",
+		slots = { L = 115151, R = 116670, M = 124682, SM = 115175, CL = 115450, CM = 116849, AL = 116841 } },
+	[1468] = { class = "EVOKER", profile = "MH - Preservation Evoker",
+		slots = { L = 364343, R = 366155, M = 360995, SM = 369459, CL = 360823, CR = 355913, CM = 357170 } },
 }
 
 function ns.HasClickLayout(specID)

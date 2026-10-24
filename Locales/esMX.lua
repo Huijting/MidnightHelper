@@ -863,6 +863,9 @@ for k, v in pairs({
 	CLICK_CONFIRM_FMT = "¿Poner estos clics en DandersFrames como el perfil \"%s\" y activarlo para tu selección de talentos?",
 	CLICK_DONE_ON_FMT = "Hecho: DandersFrames usa ahora \"%s\" para tu selección de talentos \"%s\". Haz clic en un nombre en tus marcos de grupo para probarlo.",
 	CLICK_DONE_MANUAL_FMT = "El perfil \"%s\" está en DandersFrames, pero Midnight Helper no pudo activarlo. Abre /df, ve a Lanzamiento por clic, elige el perfil en TUS PERFILES y vincúlalo a tu selección de talentos en ASIGNACIÓN DE SELECCIONES.",
+	-- 24 Oct 2026: Mistweaver/Preservation notes; esMX client names (wago SpellName esMX, build 12.1.7.70493): Don de Sheilun, Aliento de ensueño.
+	CLICK_NOTE_270 = "Un monje no puede traer de vuelta a nadie en combate. Té de enfoque del trueno solo funciona en ti: déjalo en tu barra de acción. Vivificar puede ser Don de Sheilun para ti: aún no se ha comprobado en el juego si el clic lanza entonces Don de Sheilun.",
+	CLICK_NOTE_1468 = "Un evocador no puede traer de vuelta a nadie en combate. Aliento de ensueño (mantener pulsado) se queda en tu barra de acción, no en un clic.",
 }) do
 	es[k] = v
 end

@@ -55,10 +55,30 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   ✅ GEMETEN Rob 24 okt (screenshot): pcall geen fout, geen geblokkeerd-meldingen, indeling daarna gelijk → MAG.
   ⚠️ Getest met DEZELFDE indeling terugschrijven; dat een ándere indeling ook mag is AFGELEID (zelfde functie, zelfde
   aanroeper). Geen positieve controle voor de event-vanger (geen veilige manier om een blokkade op te wekken).
-- 🔜 Rob 24 okt: de chat "Danders Frame bindingen optimaliseren" maakt nu indelingen voor Mistweaver (270, MONK) en
-  Preservation (1468, EVOKER). Toevoegen = één regel in ns.CLICKCAST_LAYOUTS (ClickCast.lua) + CLICK_<spec>_<slot> en
-  CLICK_NOTE_<spec> in enUS/nlNL + vertalingen (mh-writer, zelfde aanpak als 24 okt) + harness-regel "12 rows, n free".
-  De tab verschijnt dan vanzelf (HasClickLayout). Seint de site-chat.
+- 📐 PLAN Blizzard-variant (Rob: "zoek uit hoe we dat in onze add-on goed kunnen implementeren, de Blizzard variant. En
+  of dat niet in één keer weer onze add-on super groot gaat maken"). NIET gebouwd. GEMETEN:
+  - ClickBindingInfo = { type, actionID, button, modifiers } (ClickBindingsConstantsDocumentation.lua); type 1 Spell,
+    2 Macro, 3 Interaction, 4 PetAction; Interaction 1 = Target, 2 = OpenContextMenu.
+  - Robs eigen profiel (SV clickBlizzProbe.before): "actionID=1,button=LeftButton,modifiers=0,type=3 | actionID=2,
+    button=RightButton,modifiers=0,type=3" = Blizzards standaard. Knopnamen dus gelijk aan DF's.
+  - Blizzards klikken lopen via SecureUnitButton_OnClick (SecureTemplates.lua): Blizzards eigen vakjes en elk vakje dat
+    die code gebruikt. Blizzard's UI schrijft met SetProfileByInfo(profile) het HELE profiel in één keer.
+  - ONBEKEND: de bits van Shift/Ctrl/Alt in `modifiers` (geen enum in de docs). Meten: `/run for i=1,16 do
+    print(i,GetStringFromModifiers(i)) end`. Ook onbekend: is Blizzards profiel per character of per account.
+  Ontwerp: in ClickCast.lua een BuildBlizzardInfo(spec) uit dezelfde ns.CLICKCAST_LAYOUTS (spell → type 1 + spellId,
+  na CanSpellBeClickBound; SL/SR → type 3 + 1/2), knop "Zet in Blizzards klikken" in hetzelfde tabblad, Ongedaan maken =
+  het oude GetProfileInfo() bewaren en terugschrijven. Geen Smart Resurrection-regel (dat is DF). ~100 regels code,
+  ~6 nieuwe zinnen. ⚠️ DF waarschuwt zelf voor botsing met Blizzards click-casting (CheckForConflictingAddons) →
+  nooit allebei tegelijk aanzetten; met DF geladen de Blizzard-knop wel tonen maar met die waarschuwing. ⚠️ Robs eis-zin
+  CLICK_DF_ONLY klopt dan niet meer ("werkt alleen met DandersFrames") → Robs keuze hoe die dan luidt.
+  Grootte GEMETEN (scratch mh_size.py): MH laadt 310 bestanden, 15,7 MB, waarvan 9,0 MB zinnen; Klikken = 19 KB code +
+  64 KB zinnen (0,5%). Blizzard-variant schat ~10 KB erbij (AFGELEID). Klikken registreert geen events en doet niets
+  tot je het tabblad opent.
+- ✅ 24 okt: Mistweaver (270) en Preservation (1468) toegevoegd, indeling van de klikpakket-chat (2 routes: gidsen 12-20
+  okt + wago 12.1.5.70575). Elk 9 klikken, 3 vrij. Thunder Focus Tea (alleen op jezelf) en Dream Breath (vasthouden) bewust
+  niet op een klik. Vivify kan Sheilun's Gift zijn (TraitDefinition 129742 overschrijft 116670): of de klik die dan cast,
+  NIET gemeten. 16 sleutels, en/nl ik, rest mh-writer (wago 12.1.7.70493). Harness 26/26 met 7 specs. Rob heeft geen
+  Monk/Evoker → testen door Carola/Cisca. Toevoegen van een volgende spec = zelfde recept.
 
 ## 🚀 23 okt — RELEASE 4.11.2 (Rob: "Go voor 4.11.2, met het blok over de website.")
 
