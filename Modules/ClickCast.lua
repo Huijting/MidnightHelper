@@ -332,6 +332,145 @@ function ns.ClickCastCanUndo()
 end
 
 --------------------------------------------------------------------------------
+-- Blizzard's own Click Casting (Rob, 24 Oct 2026: "ja bouw maar", after the probe below said an addon MAY set it).
+-- The same layouts, written with C_ClickBindings.SetProfileByInfo. That replaces the WHOLE profile, so the old one is
+-- kept for Undo. Works on frames that click through SecureUnitButton_OnClick: Blizzard's own party/raid frames.
+-- GEMETEN 24 Oct 2026:
+--   ClickBindingInfo = { type, actionID, button, modifiers }; type 1 Spell, 3 Interaction (actionID 1 Target,
+--   2 OpenContextMenu) — ClickBindingsConstantsDocumentation.lua. Button names "LeftButton"/"RightButton", no
+--   modifier = 0 — Rob's own profile read by the probe.
+--   GetStringFromModifiers in Rob's client: 1, 2, 3 SHIFT; 4, 8, 12 CTRL; 16 ALT. So left/right keys are separate
+--   bits; we write the left-key bit. AFGELEID: that a right Shift press also matches. Check in the game.
+--------------------------------------------------------------------------------
+
+local BLIZZ_MOD = { [""] = 0, ["shift-"] = 1, ["ctrl-"] = 4, ["alt-"] = 16 }
+local BLIZZ_SPELL, BLIZZ_INTERACTION = 1, 3
+local BLIZZ_TARGET, BLIZZ_MENU = 1, 2
+
+local function BlizzAPI()
+	local api = C_ClickBindings
+	if api and type(api.GetProfileInfo) == "function" and type(api.SetProfileByInfo) == "function" then
+		return api
+	end
+	return nil
+end
+
+function ns.ClickBlizzAvailable()
+	return BlizzAPI() ~= nil
+end
+
+local function CharKey()
+	-- Not `UnitFullName and UnitFullName(...)`: an `and` keeps only the first return value, and the realm was lost.
+	local name, realm
+	if UnitFullName then
+		name, realm = UnitFullName("player")
+	end
+	return tostring(name or "?") .. "-" .. tostring(realm or GetRealmName and GetRealmName() or "?")
+end
+
+--- The layout as Blizzard ClickBindingInfo rows. Spells Blizzard says cannot be click-bound are left out and counted.
+--- @return infoVec, skipped
+local function BuildBlizzardInfo(specID)
+	local api = BlizzAPI()
+	local out, skipped = {}, 0
+	for _, r in ipairs(ns.ClickLayoutRows(specID) or {}) do
+		local mods = BLIZZ_MOD[r.mod]
+		if r.action == "target" or r.action == "menu" then
+			out[#out + 1] = { type = BLIZZ_INTERACTION, actionID = r.action == "target" and BLIZZ_TARGET or BLIZZ_MENU,
+				button = r.button, modifiers = mods }
+		elseif r.action == "spell" then
+			local ok, can = true, true
+			if api and type(api.CanSpellBeClickBound) == "function" then
+				ok, can = pcall(api.CanSpellBeClickBound, r.spellId)
+			end
+			if ok and can then
+				out[#out + 1] = { type = BLIZZ_SPELL, actionID = r.spellId, button = r.button, modifiers = mods }
+			else
+				skipped = skipped + 1
+			end
+		end
+	end
+	return out, skipped
+end
+
+--- Copy a profile so the saved Undo never shares tables with the client's answer.
+local function CopyInfo(info)
+	local out = {}
+	for i, b in ipairs(info or {}) do
+		out[i] = { type = b.type, actionID = b.actionID, button = b.button, modifiers = b.modifiers }
+	end
+	return out
+end
+
+--- The Blizzard button. Result in ns.db.clickCast.blizzLast = { spec, state = "on"/"fail"/"undone", count, skipped, err }.
+function ns.ClickBlizzImport(specID)
+	local def = ns.CLICKCAST_LAYOUTS[specID]
+	local st = Store()
+	local function Done(r)
+		r.spec = specID
+		if st then
+			st.blizzLast = r
+		end
+		return r
+	end
+	local api = BlizzAPI()
+	if not (def and api) then
+		return Done({ state = "fail", err = "no layout or no C_ClickBindings" })
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return Done({ state = "fail", err = "in combat" })
+	end
+	if def.class ~= PlayerClass() then
+		return Done({ state = "fail", err = "other class" })
+	end
+	local okGet, before = pcall(api.GetProfileInfo)
+	if not okGet or type(before) ~= "table" then
+		return Done({ state = "fail", err = "could not read: " .. tostring(before) })
+	end
+	local info, skipped = BuildBlizzardInfo(specID)
+	-- Keep the FIRST "before" per character: pressing twice must not make MH's own layout the thing Undo returns to.
+	if st then
+		st.blizzUndo = st.blizzUndo or {}
+		local key = CharKey()
+		if not st.blizzUndo[key] then
+			st.blizzUndo[key] = CopyInfo(before)
+		end
+	end
+	local okSet, err = pcall(api.SetProfileByInfo, info)
+	if not okSet then
+		return Done({ state = "fail", err = tostring(err) })
+	end
+	local okBack, after = pcall(api.GetProfileInfo)
+	local count = okBack and type(after) == "table" and #after or nil
+	if count ~= #info then
+		return Done({ state = "fail", err = ("wrote %d, read back %s"):format(#info, tostring(count)) })
+	end
+	return Done({ state = "on", count = count, skipped = skipped })
+end
+
+function ns.ClickBlizzCanUndo()
+	local st = ns.db and ns.db.clickCast
+	return st and st.blizzUndo and st.blizzUndo[CharKey()] ~= nil or false
+end
+
+function ns.ClickBlizzUndo()
+	local st = Store()
+	local prev = st and st.blizzUndo and st.blizzUndo[CharKey()]
+	local api = BlizzAPI()
+	if not (prev and api) or (InCombatLockdown and InCombatLockdown()) then
+		return false
+	end
+	local ok = pcall(api.SetProfileByInfo, CopyInfo(prev))
+	if ok then
+		st.blizzUndo[CharKey()] = nil
+		if st.blizzLast then
+			st.blizzLast = { spec = st.blizzLast.spec, state = "undone" }
+		end
+	end
+	return ok
+end
+
+--------------------------------------------------------------------------------
 -- /mh klikken blizz — a PROBE, nothing for players (Rob, 24 Oct 2026: "zet een veilige proef klaar die meet of MH
 -- Blizzards eigen klik-indeling mag zetten. Nog niets bouwen voor spelers.").
 -- Blizzard's own Click Casting has C_ClickBindings.SetProfileByInfo(infoVec), flagged HasRestrictions in
@@ -471,4 +610,17 @@ function ns.PrintClickCastStatus()
 		print("   laatste keer: nog nooit op de knop gedrukt")
 	end
 	print("   ongedaan maken mogelijk: " .. yn(ns.ClickCastCanUndo()))
+	-- Blizzard's own Click Casting.
+	local api = BlizzAPI()
+	local okP, prof = api and pcall(api.GetProfileInfo)
+	local rows = {}
+	for _, b in ipairs(okP and type(prof) == "table" and prof or {}) do
+		rows[#rows + 1] = ("%s+%s:%s/%s"):format(tostring(b.modifiers), tostring(b.button), tostring(b.type), tostring(b.actionID))
+	end
+	print("   Blizzard-klikken: functies " .. yn(api ~= nil) .. ", nu " .. #rows .. " regels"
+		.. (#rows > 0 and (" (" .. table.concat(rows, " ") .. ")") or ""))
+	local bl = st and st.blizzLast
+	print("   Blizzard laatste keer: " .. (bl and (("spec %s, %s%s"):format(tostring(bl.spec), tostring(bl.state),
+		bl.err and (", reden: " .. tostring(bl.err)) or (bl.count and (", " .. bl.count .. " regels, " .. tostring(bl.skipped) .. " overgeslagen") or "")))
+		or "nog nooit") .. " · ongedaan maken: " .. yn(ns.ClickBlizzCanUndo()))
 end

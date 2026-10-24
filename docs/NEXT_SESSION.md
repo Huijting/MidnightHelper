@@ -55,6 +55,15 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   ✅ GEMETEN Rob 24 okt (screenshot): pcall geen fout, geen geblokkeerd-meldingen, indeling daarna gelijk → MAG.
   ⚠️ Getest met DEZELFDE indeling terugschrijven; dat een ándere indeling ook mag is AFGELEID (zelfde functie, zelfde
   aanroeper). Geen positieve controle voor de event-vanger (geen veilige manier om een blokkade op te wekken).
+- ✅ GEBOUWD Blizzard-variant (Rob: "ja bouw maar", 24 okt). Modifier-bits GEMETEN in Robs client
+  (GetStringFromModifiers): 1/2/3 SHIFT, 4/8/12 CTRL, 16 ALT → we schrijven 1/4/16 (linkertoets-bit; dat rechter Shift
+  ook matcht is AFGELEID). ClickCast.lua: ns.ClickBlizzImport / ClickBlizzUndo / ClickBlizzCanUndo (Undo per character,
+  eerste "ervoor" blijft bewaard), spells die CanSpellBeClickBound weigert worden overgeslagen en geteld. Tabblad: twee
+  blokken, "DandersFrames" en "Blizzards eigen groeps- en raidvakjes"; met DF geladen een waarschuwing (DF meldt zelf
+  botsing). 🔴 CLICK_DF_ONLY herschreven: "werken alleen met DandersFrames of met Blizzards eigen groeps- en raidvakjes;
+  andere vakjes-addons: met de hand" — Robs eis was een DF-zin, dus Rob moet deze nieuwe zin goedkeuren. CLICK_NO_DF en
+  CLICK_NOTE_RES (Smart Resurrection = alleen DF) mee aangepast. Fout gevonden door de proef: `UnitFullName and
+  UnitFullName()` verloor de realm (lint [12] ving hem niet). Proef 39/39. Niet in het spel gezien.
 - 📐 PLAN Blizzard-variant (Rob: "zoek uit hoe we dat in onze add-on goed kunnen implementeren, de Blizzard variant. En
   of dat niet in één keer weer onze add-on super groot gaat maken"). NIET gebouwd. GEMETEN:
   - ClickBindingInfo = { type, actionID, button, modifiers } (ClickBindingsConstantsDocumentation.lua); type 1 Spell,

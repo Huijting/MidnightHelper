@@ -972,7 +972,8 @@ local function ClickLabel(r)
 	return L(CLICK_MOD_KEY[r.mod]) .. " + " .. btn
 end
 
-local function ConfirmClickImport(specID, profile)
+--- `blizz`: the Blizzard Click Casting button instead of the DandersFrames one.
+local function ConfirmClickImport(specID, profile, blizz)
 	if not (StaticPopupDialogs and StaticPopup_Show) then
 		return
 	end
@@ -983,7 +984,9 @@ local function ConfirmClickImport(specID, profile)
 			button1 = ACCEPT,
 			button2 = CANCEL,
 			OnAccept = function(_, data)
-				if data and ns.ClickCastImport then
+				if data and data.blizz and ns.ClickBlizzImport then
+					ns.ClickBlizzImport(data.spec)
+				elseif data and ns.ClickCastImport then
 					ns.ClickCastImport(data.spec)
 				end
 				if win and win:IsShown() and win._redraw then
@@ -996,8 +999,8 @@ local function ConfirmClickImport(specID, profile)
 			preferredIndex = 3,
 		}
 	end
-	StaticPopupDialogs[key].text = L("CLICK_CONFIRM_FMT")
-	StaticPopup_Show(key, profile, nil, { spec = specID })
+	StaticPopupDialogs[key].text = L(blizz and "CLICK_BLIZZ_CONFIRM" or "CLICK_CONFIRM_FMT")
+	StaticPopup_Show(key, profile, nil, { spec = specID, blizz = blizz })
 end
 
 --- @return the new y
@@ -1054,77 +1057,145 @@ local function DrawClicks(specID, y, inner)
 	Line(L("CLICK_NOTE_RES"), nil, 0.62, 0.6, 0.56, 6)
 	Line(L("CLICK_NOTE_" .. specID), nil, 0.62, 0.6, 0.56, 14)
 
-	-- The button, or in its place what to do without it.
+	-- Two blocks: DandersFrames, then Blizzard's own frames (24 Oct 2026). Each: the button, or in its place what to do.
 	local s = ns.ClickCastDFStatus and ns.ClickCastDFStatus() or {}
 	local def = ns.CLICKCAST_LAYOUTS and ns.CLICKCAST_LAYOUTS[specID]
-	if not s.loaded then
-		Line(L("CLICK_NO_DF"), nil, 1, 0.82, 0.4, 10)
-		return y
-	end
-	if not (s.api and s.libs) then
-		Line(L("CLICK_DF_OLD"), nil, 1, 0.82, 0.4, 10)
-		return y
-	end
+	local inCombat = InCombatLockdown and InCombatLockdown()
 	if not own then
 		Line(L("CLICK_OTHER_SPEC"), nil, 1, 0.82, 0.4, 10)
 		return y
 	end
-	local inCombat = InCombatLockdown and InCombatLockdown()
-	local b = PanelButton("_clickBtns", 1)
-	b:SetText(L("CLICK_BTN_SET"))
-	b:SetSize(230, 26)
-	b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
-	b:SetEnabled(not inCombat)
-	b:SetScript("OnClick", function()
-		ConfirmClickImport(specID, def.profile)
-	end)
-	b:SetScript("OnEnter", function(self)
-		if not GameTooltip then
-			return
-		end
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		GameTooltip:SetText(L("CLICK_BTN_SET"), 1, 0.82, 0.2)
-		GameTooltip:AddLine(L("CLICK_DF_ONLY"), 1, 0.5, 0.25, true)
-		GameTooltip:AddLine((L("CLICK_BTN_TIP_FMT")):format(def.profile), 0.9, 0.88, 0.82, true)
-		GameTooltip:Show()
-	end)
-	b:SetScript("OnLeave", function()
-		if GameTooltip then
-			GameTooltip:Hide()
-		end
-	end)
-	if ns.ClickCastCanUndo and ns.ClickCastCanUndo() then
-		local u = PanelButton("_clickBtns", 2)
-		u:SetText(L("CLICK_UNDO"))
-		u:SetSize(140, 26)
-		u:SetPoint("TOPLEFT", win.body, "TOPLEFT", 240, y)
-		u:SetEnabled(not inCombat)
-		u:SetScript("OnEnter", nil)
-		u:SetScript("OnLeave", nil)
-		u:SetScript("OnClick", function()
-			if ns.ClickCastUndo then
-				ns.ClickCastUndo()
-			end
-			win._redraw()
-		end)
-	end
-	y = y - 26 - 10
 	if inCombat then
 		Line(L("CLICK_COMBAT"), nil, 1, 0.4, 0.4, 8)
 	end
 
-	local last = ns.db and ns.db.clickCast and ns.db.clickCast.last
-	if last and last.spec == specID then
-		if last.state == "on" then
-			Line((L("CLICK_DONE_ON_FMT")):format(tostring(last.profile), tostring(last.loadout)), nil, 0.2, 1, 0.4, 8)
-		elseif last.state == "made" then
-			Line((L("CLICK_DONE_MANUAL_FMT")):format(tostring(last.profile)), nil, 1, 0.82, 0.4, 8)
-		elseif last.state == "undone" then
-			Line((L("CLICK_UNDONE_FMT")):format(tostring(last.profile)), nil, 0.9, 0.88, 0.82, 8)
-		else
-			Line((L("CLICK_FAIL_FMT")):format(tostring(last.err)), nil, 1, 0.4, 0.4, 8)
+	local function UndoButton(i, x, enabled, onClick)
+		local u = PanelButton("_clickBtns", i)
+		u:SetText(L("CLICK_UNDO"))
+		u:SetSize(140, 26)
+		u:SetPoint("TOPLEFT", win.body, "TOPLEFT", x, y)
+		u:SetEnabled(enabled)
+		u:SetScript("OnEnter", nil)
+		u:SetScript("OnLeave", nil)
+		u:SetScript("OnClick", function()
+			onClick()
+			win._redraw()
+		end)
+	end
+
+	local function DFBlock()
+		Line(L("CLICK_HEAD_DF"), "GameFontNormal", 1, 0.82, 0.2, 6)
+		if not s.loaded then
+			Line(L("CLICK_NO_DF"), nil, 0.62, 0.6, 0.56, 12)
+			return
+		end
+		if not (s.api and s.libs) then
+			Line(L("CLICK_DF_OLD"), nil, 1, 0.82, 0.4, 12)
+			return
+		end
+		local b = PanelButton("_clickBtns", 1)
+		b:SetText(L("CLICK_BTN_SET"))
+		b:SetSize(230, 26)
+		b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		b:SetEnabled(not inCombat)
+		b:SetScript("OnClick", function()
+			ConfirmClickImport(specID, def.profile)
+		end)
+		b:SetScript("OnEnter", function(self)
+			if not GameTooltip then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(L("CLICK_BTN_SET"), 1, 0.82, 0.2)
+			GameTooltip:AddLine(L("CLICK_DF_BTN_ONLY"), 1, 0.5, 0.25, true)
+			GameTooltip:AddLine((L("CLICK_BTN_TIP_FMT")):format(def.profile), 0.9, 0.88, 0.82, true)
+			GameTooltip:Show()
+		end)
+		b:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		if ns.ClickCastCanUndo and ns.ClickCastCanUndo() then
+			UndoButton(2, 240, not inCombat, function()
+				if ns.ClickCastUndo then
+					ns.ClickCastUndo()
+				end
+			end)
+		end
+		y = y - 26 - 10
+		local last = ns.db and ns.db.clickCast and ns.db.clickCast.last
+		if last and last.spec == specID then
+			if last.state == "on" then
+				Line((L("CLICK_DONE_ON_FMT")):format(tostring(last.profile), tostring(last.loadout)), nil, 0.2, 1, 0.4, 8)
+			elseif last.state == "made" then
+				Line((L("CLICK_DONE_MANUAL_FMT")):format(tostring(last.profile)), nil, 1, 0.82, 0.4, 8)
+			elseif last.state == "undone" then
+				Line((L("CLICK_UNDONE_FMT")):format(tostring(last.profile)), nil, 0.9, 0.88, 0.82, 8)
+			else
+				Line((L("CLICK_FAIL_FMT")):format(tostring(last.err)), nil, 1, 0.4, 0.4, 8)
+			end
+		end
+		y = y - 6
+	end
+
+	-- Blizzard's own Click Casting: works on Blizzard's party and raid frames, for players without a frame addon.
+	local function BlizzBlock()
+		if not (ns.ClickBlizzAvailable and ns.ClickBlizzAvailable()) then
+			return
+		end
+		Line(L("CLICK_HEAD_BLIZZ"), "GameFontNormal", 1, 0.82, 0.2, 6)
+		-- DandersFrames warns about Blizzard's click casting itself (CheckForConflictingAddons): say so, let them choose.
+		if s.loaded then
+			Line(L("CLICK_BLIZZ_DF_WARN"), nil, 1, 0.6, 0.3, 8)
+		end
+		local b = PanelButton("_clickBtns", 3)
+		b:SetText(L("CLICK_BLIZZ_BTN"))
+		b:SetSize(230, 26)
+		b:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		b:SetEnabled(not inCombat)
+		b:SetScript("OnClick", function()
+			ConfirmClickImport(specID, nil, true)
+		end)
+		b:SetScript("OnEnter", function(self)
+			if not GameTooltip then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(L("CLICK_BLIZZ_BTN"), 1, 0.82, 0.2)
+			GameTooltip:AddLine(L("CLICK_BLIZZ_TIP"), 0.9, 0.88, 0.82, true)
+			GameTooltip:Show()
+		end)
+		b:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		if ns.ClickBlizzCanUndo and ns.ClickBlizzCanUndo() then
+			UndoButton(4, 240, not inCombat, function()
+				if ns.ClickBlizzUndo then
+					ns.ClickBlizzUndo()
+				end
+			end)
+		end
+		y = y - 26 - 10
+		local last = ns.db and ns.db.clickCast and ns.db.clickCast.blizzLast
+		if last and last.spec == specID then
+			if last.state == "on" then
+				Line((L("CLICK_BLIZZ_DONE_FMT")):format(last.count or 0), nil, 0.2, 1, 0.4, 6)
+				if (last.skipped or 0) > 0 then
+					Line((L("CLICK_BLIZZ_SKIPPED_FMT")):format(last.skipped), nil, 1, 0.82, 0.4, 6)
+				end
+			elseif last.state == "undone" then
+				Line(L("CLICK_BLIZZ_UNDONE"), nil, 0.9, 0.88, 0.82, 6)
+			else
+				Line((L("CLICK_FAIL_FMT")):format(tostring(last.err)), nil, 1, 0.4, 0.4, 6)
+			end
 		end
 	end
+
+	DFBlock()
+	BlizzBlock()
 	return y
 end
 
