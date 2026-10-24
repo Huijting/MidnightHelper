@@ -325,6 +325,112 @@ function ns.ClickCastCanUndo()
 	return st and st.undo and st.undo[PlayerClass() or "?"] ~= nil or false
 end
 
+--------------------------------------------------------------------------------
+-- /mh klikken blizz — a PROBE, nothing for players (Rob, 24 Oct 2026: "zet een veilige proef klaar die meet of MH
+-- Blizzards eigen klik-indeling mag zetten. Nog niets bouwen voor spelers.").
+-- Blizzard's own Click Casting has C_ClickBindings.SetProfileByInfo(infoVec), flagged HasRestrictions in
+-- ClickBindingsDocumentation.lua (wow-ui-source live, read 24 Oct 2026). Whether an addon may call it is not in the doc.
+-- The probe reads the current profile and writes THE SAME profile back, so nothing changes either way, then:
+--   - pcall's error, if any;
+--   - ADDON_ACTION_BLOCKED / ADDON_ACTION_FORBIDDEN naming us, caught for 2 seconds after the call;
+--   - the profile read back and compared field by field with the one before.
+-- Result in chat and in ns.db.clickBlizzProbe (SavedVariables). Never in combat.
+--------------------------------------------------------------------------------
+
+local probeWatch -- { events = {} } while a probe is listening
+local probeFrame
+
+local function ProfileText(info)
+	if type(info) ~= "table" then
+		return "nil"
+	end
+	local rows = {}
+	for _, b in ipairs(info) do
+		local keys = {}
+		for k in pairs(b) do
+			keys[#keys + 1] = k
+		end
+		table.sort(keys)
+		local parts = {}
+		for _, k in ipairs(keys) do
+			parts[#parts + 1] = k .. "=" .. tostring(b[k])
+		end
+		rows[#rows + 1] = table.concat(parts, ",")
+	end
+	table.sort(rows)
+	return table.concat(rows, " | ")
+end
+
+function ns.ClickBlizzProbe()
+	local say = function(s)
+		print("|cff66ccff[MH klikken blizz]|r " .. s)
+	end
+	local out = { when = time and time() or nil }
+	if ns.db then
+		ns.db.clickBlizzProbe = out
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		out.verdict = "not run: in combat"
+		say("niet in een gevecht; probeer het straks.")
+		return
+	end
+	local api = C_ClickBindings
+	if not (api and type(api.GetProfileInfo) == "function" and type(api.SetProfileByInfo) == "function") then
+		out.verdict = "no C_ClickBindings.GetProfileInfo/SetProfileByInfo"
+		say("de Blizzard-functies bestaan niet in deze client.")
+		return
+	end
+	local okGet, before = pcall(api.GetProfileInfo)
+	if not okGet or type(before) ~= "table" then
+		out.verdict = "GetProfileInfo failed: " .. tostring(before)
+		say("lezen mislukte: " .. tostring(before))
+		return
+	end
+	out.count = #before
+	out.before = ProfileText(before)
+	say(("je Blizzard-klikindeling heeft %d regels. Ik schrijf precies dezelfde terug..."):format(#before))
+
+	if not probeFrame then
+		probeFrame = CreateFrame("Frame")
+		probeFrame:RegisterEvent("ADDON_ACTION_BLOCKED")
+		probeFrame:RegisterEvent("ADDON_ACTION_FORBIDDEN")
+		probeFrame:SetScript("OnEvent", function(_, event, addon, fn)
+			if probeWatch then
+				probeWatch.events[#probeWatch.events + 1] = event .. " " .. tostring(addon) .. " " .. tostring(fn)
+			end
+		end)
+	end
+	probeWatch = { events = {} }
+	local okSet, err = pcall(api.SetProfileByInfo, before)
+	out.pcallOk = okSet
+	out.pcallErr = not okSet and tostring(err) or nil
+
+	C_Timer.After(2, function()
+		local events = probeWatch and probeWatch.events or {}
+		probeWatch = nil
+		local okBack, after = pcall(api.GetProfileInfo)
+		out.after = okBack and ProfileText(after) or ("read failed: " .. tostring(after))
+		out.same = okBack and out.after == out.before or false
+		out.events = events
+		local ours = false
+		for _, e in ipairs(events) do
+			if e:find("MidnightHelper", 1, true) then
+				ours = true
+			end
+		end
+		if okSet and not ours then
+			out.verdict = "ALLOWED"
+		else
+			out.verdict = "BLOCKED"
+		end
+		say("pcall: " .. (okSet and "|cff33ff66geen fout|r" or ("|cffff5555fout:|r " .. tostring(err))))
+		say("geblokkeerd-meldingen: " .. (#events > 0 and table.concat(events, "; ") or "geen"))
+		say("indeling daarna gelijk aan ervoor: " .. (out.same and "|cff33ff66ja|r" or "|cffff5555nee|r"))
+		say("uitkomst: " .. (out.verdict == "ALLOWED" and "|cff33ff66MAG|r - MH kan Blizzards klik-indeling zetten (buiten gevecht)"
+			or "|cffff5555MAG NIET|r - Blizzard blokkeert het voor addons"))
+	end)
+end
+
 --- /mh klikken: what MH sees, and the last result. Read-only.
 function ns.PrintClickCastStatus()
 	local s = ns.ClickCastDFStatus()

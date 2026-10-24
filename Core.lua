@@ -2597,6 +2597,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh klikken blizz — probe only: may MH set Blizzard's own Click Casting? Writes the same profile back.
+	if msg == "klikken blizz" then
+		if ns.ClickBlizzProbe then
+			ns.ClickBlizzProbe()
+		end
+		return
+	end
 	-- /mh panelreset — put every side panel back beside its window. Cheap insurance:
 	-- the panels are draggable, and a panel dragged off-screen has no other way back.
 	if msg == "panelreset" then

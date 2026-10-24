@@ -38,6 +38,8 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
 - [ ] `/mh klikken`: alles "ja", en "laatste keer: … on". Stuur de regels als iets "nee" zegt.
 - [ ] Op een andere spec bekijken (spec-icoon bovenaan): geen knop, wel "Wissel naar deze spec …".
 - [x] ✅ GEMETEN Rob 24 okt (screenshot, DF uit): oranje regel blijft, geen knop, wel de zin over Cell, VuhDo, Clique.
+- [ ] PROEF Blizzards eigen klikken, buiten gevecht: `/mh klikken blizz`. Stuur de 4 regels. Komt er een venster
+      "MidnightHelper is geblokkeerd…": kies **Negeren**, niet "Uitschakelen" (dan is het antwoord al: mag niet).
 - [ ] De Shaman (nog nooit getest in het pakket): knop, en werkt Ctrl + middelste knop (Nature's Swiftness)?
 
 ## 🆕 24 okt — changelog voor de volgende versie
