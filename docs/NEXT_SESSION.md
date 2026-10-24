@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🚀 24 okt — RELEASE 4.12.0 (Rob: "Toch wil ik naar de echte release gaan … we gaan nu naar een release")
+
+Geen beta: Rob, "elke keer als we een beta hebben, niemand test hem", en hij testte zelf op meerdere characters. Beta's
+blijven bestaan, maar zijn niet meer verplicht ("laten we wel erin zitten. Maar nu niet"). TOC 4.12.0, CHANGELOG_4120_1..4
+(het blok heette eerst 4.11.3/CHANGELOG_4113_*), `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.12.0.md`, CHANGELOG.md,
+CURSEFORGE_DESCRIPTION.md (zin over Clicks; 🔜 Rob plakt hem zelf op CF). Rob keurde de bovenste zin van het tabblad
+Klikken goed ("is goed zoals die staat"). Tag + upload: zie hieronder zodra gedaan.
+
 ## 🔜 OPEN na 23 okt (overdracht naar de bouwchat van 24 okt)
 
 - Gepusht ná v4.11.2 (komt mee in de volgende update): Codex "conduit-buff alleen voor jou (not Valeera)" en "gemiste

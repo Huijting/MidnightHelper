@@ -1,55 +1,36 @@
-# Midnight Helper 4.11.2: Venomstones, the Labyrinth, and more on the website
+# Midnight Helper 4.12.0: click-healing for every healer, and a shorter way to Kindo'jan
 
 Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
 here on CurseForge, or the feedback form on midnighthelper.com.
 
-## New on midnighthelper.com: "Your talents"
+## New: the Clicks tab for healers
 
-Every spec page on the website now has a **Your talents** tab, for all 40 specs and in 8 languages:
-<https://midnighthelper.com/play/> (pick your spec, then *Your talents*).
+Healing is easiest by clicking a name in your group frames. But which mouse button should do what? The *How you play*
+window (`/mh play`) now has a **Clicks** tab for all seven healer specs: Restoration Druid, Holy Paladin, Discipline and
+Holy Priest, Restoration Shaman, Mistweaver Monk and Preservation Evoker.
 
-- **DPS**: which talents your *How you play* card quietly counts on, how many of the 50 best Mythic+ players of your
-  spec take each one, and what changes for you if you don't have it.
-- **Tanks**: the same for your defensive and core talents: which ones nearly every top tank takes, which choices split
-  them, and what you lose without each one.
-- **Healers**: the same for your healing talents and choice nodes, such as which Beacon and which hero tree.
+- **A ready-made layout**: left, right and middle mouse button, alone or with Shift, Ctrl or Alt. Shift+left picks a
+  target, Shift+right opens the menu, Ctrl+left removes a debuff, and for most healers Ctrl+middle saves someone in
+  trouble.
+- **Every click is explained** in one plain sentence: what the spell does and when you use it. Spell names appear in your
+  own game language, and a spell your character does not have yet is shown grey.
+- **One button puts it in the addon DandersFrames** and turns it on for the talent loadout you use now.
+- **Another button puts it in Blizzard's own Click Casting**, for Blizzard's party and raid frames. No addon needed.
+- **Undo** puts your own layout back, for both. Nothing changes unless you press the button, and never in combat.
+- Use Cell, VuhDo, Clique or another frame addon? Copy the table by hand.
 
-Every tab names its sources and dates, and spell names appear in your own game language. The other tabs on that page
-(Your buttons, Stay alive, Consumables, Group, Dispel) and the Role Academy for DPS, tanks and healers
-(<https://midnighthelper.com/academy/>) were already there.
-
-## Ascendant Venomstones
-
-- The panel next to your character window **counts your Ascendant Venomstones** ("3 of 10") and names the weapon,
-  trinket or neck that can go higher with them: one that is fully upgraded on Hero or Myth.
-- The "slot is maxed" line no longer says only a drop from a higher track helps: Venomstones do too.
-- The Venomstones card in the Codex uses your client's own names for the stone, Orin's quests, the Catalyst and
-  Silvermoon.
+`/mh klikken` shows what Midnight Helper sees, if something does not work.
 
 ## Labyrinth of Kindo'jan
 
-- **Out of lives near Kindo'jan?** Since Blizzard's hotfix of 21 October, talk to Kinduru in the antechamber of De
-  Empire's Rest to leave. The coiled rope by the door at the start stays as the fallback.
-- **The ice wall to the Flooded Chamber melts only with fire.** Frost does nothing. Use the Fiery Hexmask, a fire spell
-  of your own, or the Omnium Folio Core Rune *Rune of Unleashed Fire* (measured with a Frost Mage).
-
-## How you play and Stay alive
-
-- **Assassination Rogue**: Crimson Tempest is an AoE builder and moves to **Shift+3**, next to Fan of Knives and
-  Poisoned Knife.
-- **Paladin**: Forbearance lasts 30 seconds, or **20 with the Holy Reprieve talent** (measured).
-- **Fire Mage**: the card now names the Flamestrike the guides pick (cast at your target), and no longer greys out
-  Flamestrike when you took that version.
-- **Affliction Warlock**: Shadow Bolt is the filler first, Drain Soul the alternative.
-- Smaller: **Devastation** names the normal filler before Azure Sweep, **Feral** says Incarnation replaces Berserk,
-  **Arcane** shows Arcane Pulse as a spell in your language.
-
-## Also
-
-- Many more game names now match your game client in German, French, Spanish, Portuguese, Italian, Russian and
-  Mexican Spanish: Lay on Hands, Divine Shield, Forbearance, Blessing of Protection, Blessing of Spellwarding, Master of
-  Warfare, Vile Bolt, the Amani Headhunters, Catalyst Unbound, and the Catalyst and Silvermoon themselves.
+- **A shorter way to Kindo'jan.** The first time you reach him after all nine rooms. After that, 3 rooms are enough to go
+  on to him (seen in the game on tier 11). It also worked on a character that had never beaten him, so it seems to count
+  for your whole warband.
+- The room names in the boss tip (Chamber of Rites, Halazzi's Lair, The Cave Towers, Akil'zon's Roost) and Den'zara now
+  use the names your game client shows, in every language.
+- **Codex**: a Loa-Spirit Conduit's 2-minute buff goes to you only, not to Valeera. And missed a week of Wah'du? The steps
+  you missed stay open, so you can catch up and do two in one week. Both seen in the game.
 
 The new texts in German, French, Spanish, Portuguese, Italian, Russian and Mexican Spanish are our own translation:
 native speakers, corrections are very welcome.

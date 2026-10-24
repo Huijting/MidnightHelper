@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.12.0
+
+📌 **2026-10-24, RELEASE (Rob: "Toch wil ik naar de echte release gaan … we gaan nu naar een release"; geen beta, omdat
+niemand de beta's test en Rob het op meerdere characters zelf testte).** In-game: CHANGELOG_4120_1..4 (enUS).
+`RELEASE_NOTES.md` = `docs/CURSEFORGE_4.12.0.md`. CURSEFORGE_DESCRIPTION.md: zin over het tabblad Clicks (Rob plakt die
+zelf). Inhoud:
+- **Tabblad Klikken** voor alle 7 healers (Modules/ClickCast.lua): knop naar DandersFrames (GEMETEN Rob: aanzetten,
+  klikken, Undo, opnieuw drukken, zonder DF) en naar Blizzards eigen Click Casting (GEMETEN Rob na de 3/12/48-reparatie).
+  NIET gezien: Mistweaver, Preservation, Resto Shaman, rechter Shift-toets.
+- **Labyrinth:** kortere route naar Kindo'jan na de eerste keer (GEMETEN Rob + Carola, tier 11); kamernamen en Den'zara
+  in de baastip met clientnamen (wago 70575); ru Киндо'джан.
+- **Codex Labyrinth:** conduit-buff alleen voor jou; gemiste Wah'du-weken inhalen (beide GEMETEN Rob).
+
 ## 4.11.2
 
 📌 **2026-10-23, RELEASE (Rob: "Go voor 4.11.2, met het blok over de website.").** Tag `v4.11.2` op 0260858; run

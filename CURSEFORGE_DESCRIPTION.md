@@ -11,7 +11,8 @@ For players who just hit 90 or are coming back after a break. Up to date for pat
 - **This Week**: the one page you need: what to do now, with a *Take me there* button. Mostly solo? One switch puts
   delves first.
 - **How you play**: all 40 specs on one short card each, with the key every spell is on for you, a quiz, and every
-  line checked against the game data and current guides.
+  line checked against the game data and current guides. Healers get a **Clicks** tab: a ready-made click-healing
+  layout, explained, that one button puts in DandersFrames or in Blizzard's own Click Casting.
 - **Your gear and Great Vault**: what your upgrade tracks mean, which vault choice is best for you, and *My gear: what
   now?*: what you can upgrade right now with the crests you hold, and the next step up, in small steps. Next to your
   character window, every enchant in colour: ours, another one, or missing, with a shopping list for what you lack.
