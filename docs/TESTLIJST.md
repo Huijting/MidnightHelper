@@ -26,9 +26,12 @@ er is niets weggegooid.
 Rob zag bij Carola (remote, geen screenshot) dat de flask in een dungeon niet dezelfde was als in het consumables-
 overzicht. Op Robs eigen Hunter klopte alles. GEMETEN in de code: tabblad Consumables en `/mh ready` nemen allebei
 best[1] uit ConsumablesWowheadByClassSpec; het dungeon-bord toont in de TOOLTIP de flask die je al in je tassen hebt
-(zo bedoeld). Vermoeden (AFGELEID): dat was het, of het tabblad stond op een andere spec, of een andere kwaliteit.
+(zo bedoeld). ⚠️ Rob daarna: het bord zei juist dat ze hem NIET in haar tassen had. GEMETEN: BagTier telt alleen de
+tassen, wel alle 4 Midnight-flasks (beide rangen + Fleeting; voor Frost staan ze alle 4 in best/alternates). Vermoeden
+(AFGELEID): flask op bank/post, of een flask buiten de lijst (oud/TWW), of een andere spec.
 - [ ] Op Carola's character: noteer de flask in (1) `/mh play` → Consumables (welke spec staat bovenin?),
-      (2) `/mh ready`, (3) de tooltip van het flask-icoon op het dungeon-bord, en welke flask(s) ze in haar tassen heeft.
+      (2) `/mh ready`, (3) de tooltip van het flask-icoon op het dungeon-bord, en welke flask(s) ze heeft: naam, en in
+      de tassen of op de bank/post?
 
 ## 🆕 24 okt — tabblad Klikken (healers) + knop naar DandersFrames
 
