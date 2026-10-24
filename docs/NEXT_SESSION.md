@@ -43,6 +43,9 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   niet live 12.1.5; DF-labels uit DandersFrames' eigen locales (de: LOADOUT ASSIGNMENTS + Smart Resurrection blijven
   Engels, DF vertaalt ze niet). fr "Click-Casting (lancement de sorts au clic)" lang, niet in het spel gezien.
   Rapport + script: scratchpad insert_clicks.py (deze sessie). CHANGELOG_4113_3 toegevoegd.
+- ✅ GEMETEN Rob 24 okt (Twelveinchy): knop → DF "Switched to profile: MH - Holy Paladin", `/mh klikken` "on, indeling
+  Holy". Het zelf aanzetten via DF's interne functies werkt dus in het spel. Nog open: de klikken zelf, na /reload, Undo,
+  zonder DF, Shaman (TESTLIJST).
 - 🔜 Beta-tag op Robs go. Site neemt de tab mee na de release (site-chat geseind).
 
 ## 🚀 23 okt — RELEASE 4.11.2 (Rob: "Go voor 4.11.2, met het blok over de website.")

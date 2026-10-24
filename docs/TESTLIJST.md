@@ -24,12 +24,12 @@ er is niets weggegooid.
 ## 🆕 24 okt — tabblad Klikken (healers) + knop naar DandersFrames
 
 Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
-- [ ] Bovenaan in oranje: "Deze klikken werken alleen met de addon DandersFrames." Daaronder 12 regels (Links, Rechts,
-      Middelste knop; met Shift, Ctrl, Alt) met icoon, spellnaam en een zinnetje; lege plekken zeggen "vrij". Past
-      het zesde tabblad nog in de balk (ook op tekstgrootte 1.5)?
-- [ ] Twelveinchy (Holy Paladin), buiten gevecht: knop "Zet in DandersFrames" → tooltip noemt ook de DF-regel →
-      bevestigen. Groene regel "Klaar: DandersFrames gebruikt nu "MH - Holy Paladin" voor je talent-indeling …".
-      In `/df` (click-casting): staat "MH - Holy Paladin" met 12 klikken en is hij actief?
+- [x] ✅ GEMETEN Rob 24 okt (Twelveinchy, screenshot): oranje DF-regel bovenaan, 12 regels kloppen, "Clicks" past als
+      zesde tabblad. Tekstgrootte 1.5 niet apart getest.
+- [x] ✅ GEMETEN Rob 24 okt (4 screenshots): vooraf `/mh klikken` alles "ja" (actief was "Holy Paladin - Klikken" uit het
+      pakket); bevestigingsvraag met "MH - Holy Paladin"; DandersFrames zei zelf "Switched to profile: MH - Holy
+      Paladin"; `/mh klikken` daarna: "on, profiel MH - Holy Paladin, indeling Holy", ongedaan maken: ja; knop Undo
+      verschijnt. Groene regel in het tabblad niet in beeld geweest.
 - [ ] Ctrl + links op iemand met een magic-debuff = Cleanse. Links = Holy Shock. Shift + rechts = menu.
 - [ ] `/reload` of opnieuw inloggen: blijft "MH - Holy Paladin" actief (gekoppeld aan je indeling)?
 - [ ] Knop "Ongedaan maken": je oude DF-profiel is weer actief.
