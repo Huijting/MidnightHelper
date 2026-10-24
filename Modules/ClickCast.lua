@@ -339,11 +339,13 @@ end
 --   ClickBindingInfo = { type, actionID, button, modifiers }; type 1 Spell, 3 Interaction (actionID 1 Target,
 --   2 OpenContextMenu) — ClickBindingsConstantsDocumentation.lua. Button names "LeftButton"/"RightButton", no
 --   modifier = 0 — Rob's own profile read by the probe.
---   GetStringFromModifiers in Rob's client: 1, 2, 3 SHIFT; 4, 8, 12 CTRL; 16 ALT. So left/right keys are separate
---   bits; we write the left-key bit. AFGELEID: that a right Shift press also matches. Check in the game.
+--   GetStringFromModifiers in Rob's client: 1, 2, 3 SHIFT; 4, 8, 12 CTRL; 16 ALT (left/right keys are separate bits).
+--   🔴 The first build wrote the left-key bit (1/4/16) and only the plain clicks worked (Rob, Holy Priest). MakeModifiers()
+--   while holding the key, measured by Rob: Shift = 3, Ctrl = 12 — a key press sets BOTH bits, and the profile has to
+--   match that number. Alt = 48 is AFGELEID from the same pattern (Alt+Enter cannot be measured: it toggles the window).
 --------------------------------------------------------------------------------
 
-local BLIZZ_MOD = { [""] = 0, ["shift-"] = 1, ["ctrl-"] = 4, ["alt-"] = 16 }
+local BLIZZ_MOD = { [""] = 0, ["shift-"] = 3, ["ctrl-"] = 12, ["alt-"] = 48 }
 local BLIZZ_SPELL, BLIZZ_INTERACTION = 1, 3
 local BLIZZ_TARGET, BLIZZ_MENU = 1, 2
 
@@ -612,7 +614,11 @@ function ns.PrintClickCastStatus()
 	print("   ongedaan maken mogelijk: " .. yn(ns.ClickCastCanUndo()))
 	-- Blizzard's own Click Casting.
 	local api = BlizzAPI()
-	local okP, prof = api and pcall(api.GetProfileInfo)
+	-- Not `api and pcall(...)`: the `and` keeps only pcall's first value, and this line showed "0 rows" for 10 (Rob).
+	local okP, prof
+	if api then
+		okP, prof = pcall(api.GetProfileInfo)
+	end
 	local rows = {}
 	for _, b in ipairs(okP and type(prof) == "table" and prof or {}) do
 		rows[#rows + 1] = ("%s+%s:%s/%s"):format(tostring(b.modifiers), tostring(b.button), tostring(b.type), tostring(b.actionID))

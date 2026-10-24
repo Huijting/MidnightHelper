@@ -42,7 +42,9 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
 - [ ] NIEUW Blizzard-knop. `/reload`, Twelveinchy, tabblad Klikken. Klopt de nieuwe bovenste zin voor jou ("… alleen met
       DandersFrames of met Blizzards eigen groeps- en raidvakjes …")? Onderaan twee blokken; bij Blizzard een waarschuwing
       omdat je DandersFrames hebt.
-- [ ] Zet DandersFrames UIT, `/reload`, en druk "Zet in Blizzards klikken" → bevestigen → groene regel "… %d klikken".
+- [x] ⚠️ GEMETEN Rob 24 okt (Holy Priest): eerste versie → alleen klikken zonder toets werkten. Oorzaak gemeten
+      (MakeModifiers: Shift 3, Ctrl 12) en gerepareerd. Opnieuw testen hieronder.
+- [ ] Zet DandersFrames UIT, `/reload`, en druk (opnieuw) "Zet in Blizzards klikken" → bevestigen → groene regel "… %d klikken".
       Esc → Options → Gameplay → Keybindings → Click Casting: staan ze erin? In Blizzards groepsvakjes: Ctrl + links = Cleanse, Shift + links = doelwit
       (probeer ook de RECHTER Shift). Dan "Ongedaan maken": je oude (2 regels: doelwit/menu) is terug. `/mh klikken` laat
       onderaan de Blizzard-regels zien.

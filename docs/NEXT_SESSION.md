@@ -55,9 +55,12 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   ✅ GEMETEN Rob 24 okt (screenshot): pcall geen fout, geen geblokkeerd-meldingen, indeling daarna gelijk → MAG.
   ⚠️ Getest met DEZELFDE indeling terugschrijven; dat een ándere indeling ook mag is AFGELEID (zelfde functie, zelfde
   aanroeper). Geen positieve controle voor de event-vanger (geen veilige manier om een blokkade op te wekken).
+- 🔴 GEMETEN Rob 24 okt (Holy Priest): met 1/4/16 werkten alleen de klikken zónder toets, terwijl Blizzards venster de
+  labels goed toonde (SHIFT-Middle enz. — het label bewijst dus niets). MakeModifiers() met de toets ingedrukt: Shift = 3,
+  Ctrl = 12 → nu 3/12/48 (Alt 48 AFGELEID, niet meetbaar via Alt+Enter). Tweede fout gevonden: `/mh klikken` zei "nu 0
+  regels" door `api and pcall(...)` (zelfde `and`-val als UnitFullName). Beide gerepareerd, proef 39/39.
 - ✅ GEBOUWD Blizzard-variant (Rob: "ja bouw maar", 24 okt). Modifier-bits GEMETEN in Robs client
-  (GetStringFromModifiers): 1/2/3 SHIFT, 4/8/12 CTRL, 16 ALT → we schrijven 1/4/16 (linkertoets-bit; dat rechter Shift
-  ook matcht is AFGELEID). ClickCast.lua: ns.ClickBlizzImport / ClickBlizzUndo / ClickBlizzCanUndo (Undo per character,
+  (GetStringFromModifiers): 1/2/3 SHIFT, 4/8/12 CTRL, 16 ALT. ClickCast.lua: ns.ClickBlizzImport / ClickBlizzUndo / ClickBlizzCanUndo (Undo per character,
   eerste "ervoor" blijft bewaard), spells die CanSpellBeClickBound weigert worden overgeslagen en geteld. Tabblad: twee
   blokken, "DandersFrames" en "Blizzards eigen groeps- en raidvakjes"; met DF geladen een waarschuwing (DF meldt zelf
   botsing). 🔴 CLICK_DF_ONLY herschreven: "werken alleen met DandersFrames of met Blizzards eigen groeps- en raidvakjes;
