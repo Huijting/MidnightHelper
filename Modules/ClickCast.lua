@@ -605,13 +605,14 @@ function ns.PrintClickCastStatus()
 	local st = ns.db and ns.db.clickCast
 	local last = st and st.last
 	if last then
-		print(("   laatste keer: spec %s, %s, profiel %s%s%s"):format(tostring(last.spec), tostring(last.state),
+		print(("   DandersFrames laatste keer: spec %s, %s, profiel %s%s%s"):format(tostring(last.spec), tostring(last.state),
 			tostring(last.profile), last.loadout and (", indeling " .. tostring(last.loadout)) or "",
 			last.err and (", reden: " .. tostring(last.err)) or ""))
 	else
-		print("   laatste keer: nog nooit op de knop gedrukt")
+		print("   DandersFrames laatste keer: nog nooit op de knop gedrukt")
 	end
-	print("   ongedaan maken mogelijk: " .. yn(ns.ClickCastCanUndo()))
+	-- Rob, 24 Oct 2026, on a Priest: "ongedaan maken: nee" read as Blizzard's Undo; it is DandersFrames', per class.
+	print("   DandersFrames ongedaan maken (deze class): " .. yn(ns.ClickCastCanUndo()))
 	-- Blizzard's own Click Casting.
 	local api = BlizzAPI()
 	-- Not `api and pcall(...)`: the `and` keeps only pcall's first value, and this line showed "0 rows" for 10 (Rob).
@@ -628,5 +629,5 @@ function ns.PrintClickCastStatus()
 	local bl = st and st.blizzLast
 	print("   Blizzard laatste keer: " .. (bl and (("spec %s, %s%s"):format(tostring(bl.spec), tostring(bl.state),
 		bl.err and (", reden: " .. tostring(bl.err)) or (bl.count and (", " .. bl.count .. " regels, " .. tostring(bl.skipped) .. " overgeslagen") or "")))
-		or "nog nooit") .. " · ongedaan maken: " .. yn(ns.ClickBlizzCanUndo()))
+		or "nog nooit") .. " · Blizzard ongedaan maken (dit character): " .. yn(ns.ClickBlizzCanUndo()))
 end

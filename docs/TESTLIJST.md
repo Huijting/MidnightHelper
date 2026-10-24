@@ -44,7 +44,9 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
       omdat je DandersFrames hebt.
 - [x] ⚠️ GEMETEN Rob 24 okt (Holy Priest): eerste versie → alleen klikken zonder toets werkten. Oorzaak gemeten
       (MakeModifiers: Shift 3, Ctrl 12) en gerepareerd. Opnieuw testen hieronder.
-- [ ] Zet DandersFrames UIT, `/reload`, en druk (opnieuw) "Zet in Blizzards klikken" → bevestigen → groene regel "… %d klikken".
+- [x] ✅ GEMETEN Rob 24 okt (Holy Priest, na de reparatie 3/12/48): "alle knoppen werken nu"; `/mh klikken` toont 10
+      regels met 0/3/12/48. Rechter Shift en Undo niet apart gemeld.
+- [ ] (oud, ter info) Zet DandersFrames UIT, `/reload`, en druk (opnieuw) "Zet in Blizzards klikken" → bevestigen → groene regel "… %d klikken".
       Esc → Options → Gameplay → Keybindings → Click Casting: staan ze erin? In Blizzards groepsvakjes: Ctrl + links = Cleanse, Shift + links = doelwit
       (probeer ook de RECHTER Shift). Dan "Ongedaan maken": je oude (2 regels: doelwit/menu) is terug. `/mh klikken` laat
       onderaan de Blizzard-regels zien.

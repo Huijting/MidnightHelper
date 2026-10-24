@@ -59,6 +59,8 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   labels goed toonde (SHIFT-Middle enz. — het label bewijst dus niets). MakeModifiers() met de toets ingedrukt: Shift = 3,
   Ctrl = 12 → nu 3/12/48 (Alt 48 AFGELEID, niet meetbaar via Alt+Enter). Tweede fout gevonden: `/mh klikken` zei "nu 0
   regels" door `api and pcall(...)` (zelfde `and`-val als UnitFullName). Beide gerepareerd, proef 39/39.
+  ✅ GEMETEN Rob daarna: "alle knoppen werken nu" (Holy Priest, Blizzards vakjes). `/mh klikken` zegt nu bij elke regel
+  of hij over DandersFrames of Blizzard gaat (Rob las de DF-"nee" als Blizzard-Undo).
 - ✅ GEBOUWD Blizzard-variant (Rob: "ja bouw maar", 24 okt). Modifier-bits GEMETEN in Robs client
   (GetStringFromModifiers): 1/2/3 SHIFT, 4/8/12 CTRL, 16 ALT. ClickCast.lua: ns.ClickBlizzImport / ClickBlizzUndo / ClickBlizzCanUndo (Undo per character,
   eerste "ervoor" blijft bewaard), spells die CanSpellBeClickBound weigert worden overgeslagen en geteld. Tabblad: twee
