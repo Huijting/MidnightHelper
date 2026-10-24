@@ -17,6 +17,15 @@
 - Robs keuze (idee, niet gevraagd): Blessing of Dawn-regel op de Paladin-kaart ("raakt jezelf bij trainingspoppen").
 - Rob had `/mh bonusroll` (dev-recorder) nog aan; uitzetten uitgelegd, niet gemeten of hij het deed.
 
+## 🌀 24 okt — Labyrinth: kortere route GEMETEN (Rob + Carola, tier 11)
+
+Carola (dezelfde character die Kindo'jan op 23 okt versloeg) kon na 3 kamers door naar de baas; Rob op 23 okt op zijn
+Mage (baas nog nooit verslagen) na 6 kamers (na 3 niet geprobeerd) → lijkt warband-breed (AFGELEID uit 2 runs).
+CODEX_LABYRINTH_BODY (eerste zin) en DELVE_TIP_LABYRINTH_BOSS: "volgens de gidsen" → "gezien in het spel"; de 3
+kamernamen blijven "volgens de gidsen". en/nl ik, rest mh-writer, drift gemarkeerd. 🔜 mh-writer zag: kamernamen,
+Den'zara, Vilebranch staan in de/fr/es/pt/it/ru nog Engels in DELVE_TIP_LABYRINTH_BOSS (clientnaam-regel, meten); ru
+"Kindo'jan" in de tip vs "Киндо'джан" in de Codex; esMX "Kindo'Jan" (client zelf gemengd, eerder gelaten).
+
 ## 🖱️ 24 okt — tabblad Klikken + knop naar DandersFrames GEBOUWD (Rob: "Bouw het tabblad Klikken. De knop zet het profiel ook zelf aan via DandersFrames' interne functies. Lukt dat niet, dan toont het tabblad de uitleg voor /df. Eerst als beta.")
 
 Opdracht kwam van de chat "Danders Frame bindingen optimaliseren" (healer-klikpakket, AddOns/Healer-Klikpakket; bron
