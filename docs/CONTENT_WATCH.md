@@ -3301,3 +3301,91 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/HealerCooldowns.lua:158`, `Modules/GroupPlan.lua:282` — allemaal vandaag gelezen. Negen
   content-items getoetst, één **[RAAKT ONS]** (de Kinduru/De-Empire's-Rest-vondst), acht **[RAAKT ONS NIET]**.
   Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-10-24] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-22]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261024c`
+  (en `&nocache=20261024d` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Alle drie de draadjes (esES/esMX-locale `user_uvqy5939hswhgduu`, nu
+  zelf omgerekend MEASURED: `1791322444427`→2026-10-06 21:34 UTC, reply `twelveinchy`
+  `1791351710373`→2026-10-07 05:41 UTC; MrsBoojiePanda's debug-regel; gadrinonturalyon's
+  coffer-key/3D-model-verzoek) hebben als nieuwste bericht nog steeds een reply van `twelveinchy`; geen
+  nieuwe reacties. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt vandaag, geen concept-antwoord nodig.
+
+- [2026-10-24] 🟡 **Eén nieuwe hotfix-sectie sinds [2026-10-22] ("October 23, 2026"), zes regels in
+  Dungeons/Classes/Hallow's End/Items/Labyrinth getoetst tegen onze tips — vijf duidelijk
+  [RAAKT ONS NIET], één met een onopgeloste vraag die ík niet kan sluiten: welke van TWEE spell-ID's die
+  wij aan Nibbles toeschrijven "Fel Spray" is.**
+  MEASURED, zelf gelezen (`news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261024c`,
+  via Exa — dezelfde pagina als de data-/API-wachter vandaag al citeerden, hier zelf opnieuw gelezen voor
+  mijn eigen lane): secties **Classes**, **Dungeons**, **Hallow's End**, **Items** en **Labyrinth**. De
+  Quests/Professions-secties ontbreken in deze batch — niets te toetsen daar.
+
+  - **Dungeons — Den of Nalorakk:** *"Addressed an issue where Nalorakk's Echoing Maul can sometimes
+    happen in the wrong location."* `Modules/HazardData.lua:105` noemt spell **1242887** ("Echoing
+    Maul") als generieke GTFO-stijl grond-hazard voor encounter 2825 (Den of Nalorakk), zonder claim over
+    wáár hij verschijnt. Onze eigen fight-tekst (`Locales/DungeonTips.lua:151`, `DGN_TIP_DN_NALORAKK_STEPS`)
+    noemt Echoing Maul/1242887 niet eens met naam — de vijf stappen gaan over Marks, Echoes, het schild en
+    Forceful Slam, geen enkele claimt een locatie voor deze specifieke aanval. MEASURED (0 treffers op
+    "Echoing Maul" buiten `HazardData.lua`, positieve controle: dezelfde full-tree grep vindt wél 1242887
+    zelf en de 14 andere Nalorakk-spell-ID's in diezelfde tabel). **[RAAKT ONS NIET]** — een bugfix op
+    een locatie die wij niet claimen.
+  - **Dungeons — Murder Row:** *"Addressed an issue where Nibbles' Fel Spray can hit targets outside of
+    the intended area."* 🔴 **Hier loopt onze eigen data uit elkaar, en dat wil ik melden, niet
+    gladstrijken.** `Modules/HazardData.lua:91` noemt spell **1253813** met het commentaar "Fel Spray
+    (Nibbles)" — GEMETEN via Rob's eigen client (18 aug, tooltip), onderdeel van de generieke
+    hazard-lijst voor heel Murder Row (encounter 2813). Onze Kystia-fighttips
+    (`Locales/DungeonTips.lua:102` `DGN_TIP_MR_KYSTIA_STEPS` stap 4 en `:107` `DGN_TIP_MR_KYSTIA_TANK`)
+    noemen daarentegen spell **1253811** — "Nibbles' {SPELL:1253811} cone" en het vuur dat hij op de
+    grond achterlaat — zonder dat wij ooit de clientnaam van 1253811 hebben vastgesteld. `grep -rn
+    1253811\|1253813` over de hele boom geeft alleen deze twee plekken, in geen enkel bestand samen.
+    **INFERRED, niet GEMETEN:** ik weet niet of 1253811 en 1253813 dezelfde aanval zijn onder twee
+    moeilijkheidsgraad-ID's (vaak zo in WoW), of twee losse Nibbles-aanvallen die wij allebei los hebben
+    opgepikt. Wat ik wél met zekerheid kan zeggen: onze instructie ("blijf uit de kegel en het vuur op de
+    grond") is een gedragsinstructie, geen claim over een specifieke straal of gebied — een hotfix die het
+    trefgebied van Fel Spray nauwkeuriger maakt (zodat het NIET meer buiten het bedoelde gebied raakt)
+    spreekt die instructie dus niet tegen, welke van de twee ID's het ook is. **[RAAKT ONS NIET]** voor de
+    tip zelf, maar de dubbele toeschrijving (1253811 vs 1253813, allebei "Nibbles") is iets voor een mens
+    om ooit in-game te ontwarren — ik verander niets.
+  - **Hallow's End — Neighborhoods:** *"Players can now exit combat with the Shade of Seabreaker
+    Skoloth."* Jaarlijks feestdag-event, geen Midnight-12.1-koppeling. `grep -rni
+    "hallow\|seabreaker\|skoloth"` over de hele boom geeft **nul** treffers in `Locales/` en als enige
+    hit in `Modules/` de naam "Horseman's Hallowed Bulwark" (`Modules/TradingPost.lua:216`) — een Trading
+    Post-cosmeticaset, een andere "Hallowed" dan dit event. MEASURED, positieve controle via de
+    "Hallowed Bulwark"-treffer in dezelfde zoekvorm. **[RAAKT ONS NIET]**.
+  - **Items:** *"Fixed an issue that caused items upgraded with Ascendant Venomstones to have incorrect
+    item levels."* De data-wachter toetste dit vandaag al tegen `Modules/TrackCeiling.lua` en concludeerde
+    "vermoedelijk raakt ons niet" — ik heb dat ONAFHANKELIJK vanuit mijn eigen lane nagelopen (niet alleen
+    overgenomen) door te lezen wát `ns.GetVenomstoneSteps()` (`Modules/TrackCeiling.lua:179-197`) de
+    speler laat zien: track-namen en huidig/max-trackniveau (bv. "Hero 4/8" via
+    `TRACKCEIL_VENOM_CAND_FMT`), nooit een los itemlevel-getal. `ns.GetVenomstoneStatus()`
+    (`Modules/TrackCeiling.lua:158-173`) leest `C_Item.GetItemCount` en trackID's, geen itemlevel-API.
+    MEASURED. **[RAAKT ONS NIET]** — bevestigd vanuit een tweede hoek, geen nieuwe twijfel.
+  - **Labyrinth:** *"Shorter character models will no longer fall through floor when respawning in
+    Jan'alai's Refuge."* Een clientbug over modelgrootte/respawn, geen gameplay-claim. Onze content over
+    Jan'alai's Refuge is uitsluitend coördinaten (`Modules/DelveChestData.lua:115-118,146`, vier
+    kistlocaties) en de Hexmask-locatie (`Modules/LabyrinthHexmask.lua:31`) — geen van beide claimt iets
+    over vloeren of respawnen. MEASURED (0 treffers op "fall through"/"respawn" in combinatie met "Refuge"
+    in de hele boom). **[RAAKT ONS NIET]**.
+  - **Classes — Warlock:** *"Fixed issues that caused some warlock summons and Diabolic Occuli to
+    sometimes incorrectly target enemies outside of combat"* (Shadows of Nath'reza, Dominion of Argus,
+    Diabolist-summons). Dit raakt gedrag buiten combat, geen rotatie-advies. Onze twee Diabolist-kaarten
+    (`Locales/enUS.lua:1990` `PLAYCARD_266_HERO1`, `:2008` `PLAYCARD_267_HERO2`) noemen Ruination en
+    Pit Lord-timing, geen van beide noemt summon-targeting of de genoemde talenten/pets. MEASURED (0
+    treffers op "Nath'reza"/"Dominion of Argus"/"Diabolic Occuli" in `Locales/`; de enige "Diabolist"-
+    treffer buiten de twee kaarten is een spec-ID-naamtabel, `Modules/VaultAdvisorData.lua:1018`, niet
+    gedrag). **[RAAKT ONS NIET]**. De Enhancement/Cooldown-Manager-regel in dezelfde Classes-sectie is al
+    getoetst door de API-wachter (`docs/API_WATCH.md:7091`) op zíjn terrein; ik doe dat niet opnieuw.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261024c
+  (volledig gelezen via Exa) ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261024c
+  (en `&nocache=20261024d`, via Exa) · codebase: `Modules/HazardData.lua:91,105`,
+  `Locales/DungeonTips.lua:102,107,151`, `Modules/MechanicNameProbe.lua:54-55`,
+  `Modules/DungeonRosterData.lua:105,113,122`, `Modules/TradingPost.lua:216`,
+  `Modules/TrackCeiling.lua:140-243`, `Modules/CharacterSidePanel.lua:170-173`,
+  `Modules/MidnightCodexData.lua:505`, `Modules/DelveChestData.lua:115-118,146`,
+  `Modules/LabyrinthHexmask.lua:19,31`, `Locales/enUS.lua:1990,2008`, `Modules/VaultAdvisorData.lua:1018`
+  — allemaal vandaag gelezen. Zes content-items getoetst, alle zes **[RAAKT ONS NIET]**, met één
+  onopgeloste dataknoop (1253811 vs 1253813) die ik meld in plaats van zelf te beslissen. Vandaag is geen
+  maandag: de wekelijkse PlayCard- en Consumables-checks zijn bewust overgeslagen. Geen actiepunt dat ík
+  oppak — ik rapporteer, een mens beslist.
