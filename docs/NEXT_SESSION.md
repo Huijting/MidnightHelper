@@ -74,6 +74,13 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   Grootte GEMETEN (scratch mh_size.py): MH laadt 310 bestanden, 15,7 MB, waarvan 9,0 MB zinnen; Klikken = 19 KB code +
   64 KB zinnen (0,5%). Blizzard-variant schat ~10 KB erbij (AFGELEID). Klikken registreert geen events en doet niets
   tot je het tabblad opent.
+- 🔎 Marktcheck (mh-research 24 okt, Rob: "is dit uniek?"): kant-en-klare klik-indelingen bestaan, maar per CLASS en
+  stil bij de eerste keer laden (VuhDo, HealBot; GEMETEN in hun GitHub-bron). Geen Retail-addon gevonden met een indeling
+  per spec op een knop + uitleg per knop + in DandersFrames/Blizzard zetten + Undo. Schrijven naar Blizzards
+  click-casting doen Myslot (5,2M downloads) en DoClickBind al (je EIGEN indeling opslaan/terugzetten) → de techniek is
+  niet nieuw, het kant-en-klare uitgelegde healerpakket wel. Dichtstbij qua idee: HealKit (alleen WoW Forever).
+  WagoUI (Method) kan een DF-klikindeling meeleveren in een UI-pack. 7 talen is GEEN onderscheid (DF ~10). Risico:
+  indelingen verouderen per patch → elke patch nalopen.
 - ✅ 24 okt: Mistweaver (270) en Preservation (1468) toegevoegd, indeling van de klikpakket-chat (2 routes: gidsen 12-20
   okt + wago 12.1.5.70575). Elk 9 klikken, 3 vrij. Thunder Focus Tea (alleen op jezelf) en Dream Breath (vasthouden) bewust
   niet op een klik. Vivify kan Sheilun's Gift zijn (TraitDefinition 129742 overschrijft 116670): of de klik die dan cast,
