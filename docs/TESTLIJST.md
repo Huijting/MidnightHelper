@@ -32,12 +32,12 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
       verschijnt. ✅ Groene regel "Done: DandersFrames now uses "MH - Holy Paladin" for your talent loadout "Holy"…"
       staat er (screenshot).
 - [x] ✅ Rob 24 okt: "de icoontjes zijn goed" (Shift + Left rood vizier, Shift + Right briefje).
-- [ ] Ctrl + links op iemand met een magic-debuff = Cleanse. Links = Holy Shock. Shift + rechts = menu.
+- [x] ✅ Rob 24 okt: "de knoppen al geprobeerd, dus die zijn goedgekeurd" (Holy Paladin).
 - [ ] `/reload` of opnieuw inloggen: blijft "MH - Holy Paladin" actief (gekoppeld aan je indeling)?
 - [x] ✅ GEMETEN Rob 24 okt: "Undo" zet terug naar het vorige profiel; daarna nog eens "Put in DandersFrames" werkt ook.
 - [ ] `/mh klikken`: alles "ja", en "laatste keer: … on". Stuur de regels als iets "nee" zegt.
 - [ ] Op een andere spec bekijken (spec-icoon bovenaan): geen knop, wel "Wissel naar deze spec …".
-- [ ] Eén keer zonder DandersFrames (addon uit): geen knop, wel de zin over Cell, VuhDo, Clique.
+- [x] ✅ GEMETEN Rob 24 okt (screenshot, DF uit): oranje regel blijft, geen knop, wel de zin over Cell, VuhDo, Clique.
 - [ ] De Shaman (nog nooit getest in het pakket): knop, en werkt Ctrl + middelste knop (Nature's Swiftness)?
 
 ## 🆕 24 okt — changelog voor de volgende versie
