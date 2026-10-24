@@ -1035,6 +1035,13 @@ local function DrawClicks(specID, y, inner)
 				missing and (" |cff9d9d9d(" .. L("CLICK_NOT_KNOWN") .. ")|r") or "",
 				L("CLICK_" .. specID .. "_" .. r.code)))
 		elseif r.action == "target" or r.action == "menu" then
+			-- Not spells, so no spell icon; Rob, 24 Oct 2026: "wat kunnen we verzinnen voor de shift links en rechts
+			-- icoontjes". Both textures are already used elsewhere in MH (NativeArrow.lua, ToolsLaunchpad.lua).
+			row.icon:SetTexture(r.action == "target" and "Interface\\Icons\\Ability_Hunter_MarkedForDeath"
+				or "Interface\\Icons\\INV_Misc_Note_01")
+			row.icon:SetDesaturated(false)
+			row.icon:SetAlpha(1)
+			row.icon:Show()
 			row.fs:SetText(label .. "|cffffd100" .. L(r.action == "target" and "CLICK_TARGET" or "CLICK_MENU") .. "|r")
 		else
 			row.fs:SetText(label .. "|cff9d9d9d" .. L("CLICK_FREE") .. "|r")
