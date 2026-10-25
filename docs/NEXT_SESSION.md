@@ -256,7 +256,7 @@ als bug, nooit gefixt. Advies aan Rob: weglopen van de dummies, of het talent we
 PlayCardWindow.lua ALIVE_TALENT_NOTES → SURVIVAL_TIP_BLESSING_OF_DAWN onder de Stay alive-lijst van 65/66/70, alleen als
 IsPlayerSpell(183416). en/nl ik, de/fr/es/esMX/pt/it/ru mh-writer (spellnaam GEMETEN wago SpellName 183416 op PTR-build
 12.1.7.70493; esMX "Bendición del amanecer" ≠ esES "alba"). it gebruikt "training dummy" zoals het pack; clientnaam
-van de pop niet gemeten. Niet in het spel gezien; of IsPlayerSpell(183416) true geeft is AFGELEID (TESTLIJST).
+van de pop niet gemeten. ✅ GEMETEN Rob 25 okt (screenshot): de regel staat er op Twelveinchy (Holy, met het talent).
 
 ## 🧪 23 okt — Venomstones: eerste test (Rob, Twelveinchy, 2 screenshots)
 

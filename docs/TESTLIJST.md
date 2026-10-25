@@ -23,9 +23,8 @@ er is niets weggegooid.
 
 ## 🆕 25 okt — Paladin: regel over Blessing of Dawn
 
-- [ ] `/reload`, Twelveinchy (met het talent Blessing of Dawn): `/mh play` → tabblad **Stay alive**. Staat onderaan de
-      grijze regel "Your health drops a little near training dummies? That is Blessing of Dawn …"? Zonder het talent hoort
-      hij weg te zijn.
+- [x] ✅ GEMETEN Rob 25 okt (screenshot, Twelveinchy Holy): de grijze regel staat onderaan Stay alive, onder Divine Steed
+      en boven de site-link → IsPlayerSpell(183416) is true met het talent. Zonder het talent niet getest.
 
 ## 🆕 25 okt — Labyrinth: Hexmask-melding (als je er toch bent)
 
