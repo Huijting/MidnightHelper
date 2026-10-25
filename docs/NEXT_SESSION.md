@@ -92,8 +92,12 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
 - ✅ GEMETEN Rob 24 okt (Twelveinchy): knop → DF "Switched to profile: MH - Holy Paladin", `/mh klikken` "on, indeling
   Holy". Het zelf aanzetten via DF's interne functies werkt dus in het spel. ✅ 25 okt GEMETEN Rob: na /reload blijft het
   profiel actief, `/mh klikken` alles ja, met/zonder DF de juiste blokken, Blizzard-knop + Undo op de Paladin (terug naar
-  2 regels). ✅ Rob keurde de nieuwe CLICK_DF_ONLY goed ("goed zoals hij staat"). Nog open (TESTLIJST): andere spec bekijken (op de Priest), rechter
-  Shift-toets, Shaman, Mistweaver/Preservation.
+  2 regels). ✅ Rob keurde de nieuwe CLICK_DF_ONLY goed ("goed zoals hij staat"). ✅ 25 okt Rob: Priest alles goed
+  (andere spec, rechter Shift), Shaman NS-klik werkt (DF). Nog open: Mistweaver (Rob levelt een Monk), Preservation
+  (niemand heeft een Evoker), Farseer met Ancestral Swiftness (overschrijft 378081; DF cast op naam: onbekend).
+  mh-research 25 okt (GEMETEN wago/Wowhead): NS = buff op jezelf, 60 s cooldown die pas start als de buff op is,
+  geen GCD; Riptide verbruikt hem niet. Idee voor CLICK_264_CM ("Your next heal is instant and free. Press it when it
+  is ready."): zeggen dat het een buff op jezelf is — Robs keuze.
 - 🔜 Beta-tag op Robs go. Site neemt de tab mee na de release (site-chat geseind).
 - 🧪 Blizzards eigen Click Casting (Rob: "kunnen we het überhaupt in de Blizzard's eigen UI implementeren?"):
   C_ClickBindings.SetProfileByInfo bestaat, vlag HasRestrictions (ClickBindingsDocumentation.lua, wow-ui-source live, gelezen

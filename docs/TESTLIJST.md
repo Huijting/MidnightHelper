@@ -50,7 +50,8 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
 - [x] ✅ GEMETEN Rob 24 okt: "Undo" zet terug naar het vorige profiel; daarna nog eens "Put in DandersFrames" werkt ook.
 - [x] ✅ GEMETEN Rob 25 okt (screenshot): `/mh klikken` geladen/importfunctie/LibSerialize/zelf aanzetten allemaal "ja",
       "DandersFrames laatste keer: spec 65, on". De enige "nee" is "Blizzard ongedaan maken", terecht (al ongedaan).
-- [ ] Op een andere spec bekijken (spec-icoon bovenaan): geen knop, wel "Wissel naar deze spec …". ⚠️ Kan NIET op de
+- [x] ✅ Rob 25 okt: "Priest werkt alles goed" (andere spec bekijken, rechter Shift-toets). Was: op een andere spec
+      bekijken (spec-icoon bovenaan): geen knop, wel "Wissel naar deze spec …". ⚠️ Kan NIET op de
       Paladin: Prot/Ret hebben geen tabblad Klikken (GEMETEN Rob 25 okt, zo gebouwd). Testen op de Priest: Holy actief,
       Discipline bekijken.
 - [x] ✅ GEMETEN Rob 24 okt (screenshot, DF uit): oranje regel blijft, geen knop, wel de zin over Cell, VuhDo, Clique.
@@ -69,9 +70,14 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
       Esc → Options → Gameplay → Keybindings → Click Casting: staan ze erin? In Blizzards groepsvakjes: Ctrl + links = Cleanse, Shift + links = doelwit
       (probeer ook de RECHTER Shift). Dan "Ongedaan maken": je oude (2 regels: doelwit/menu) is terug. `/mh klikken` laat
       onderaan de Blizzard-regels zien.
-- [ ] Mistweaver Monk en Preservation Evoker (Rob heeft ze niet: Carola of Cisca?): tabblad Klikken, 9 klikken + 3 vrij,
+- [ ] Mistweaver Monk en Preservation Evoker. 25 okt: Carola en Cisca hebben geen van beide; Rob levelt zelf een Monk en
+      test die zodra Mistweaver kan. Evoker: nog niemand. Tabblad Klikken, 9 klikken + 3 vrij,
       knop → "MH - Mistweaver Monk" / "MH - Preservation Evoker" actief in DandersFrames.
-- [ ] De Shaman (nog nooit getest in het pakket): knop, en werkt Ctrl + middelste knop (Nature's Swiftness)?
+- [x] ✅ GEMETEN Rob 25 okt (Earthshammy, DandersFrames): Ctrl + middelste knop geeft Nature's Swiftness ("het werkt
+      zoals we willen, ik had gewoon niet goed opgelet"). `/run` gaf `true false 378081 0.001`: NS gekend, geen
+      Ancestral Swiftness, geen override, klaar. Was: de Shaman, knop, en werkt Ctrl + middelste knop?
+- [ ] Open (niemand kan het nu): een Farseer-Shaman mét Ancestral Swiftness (443454 overschrijft 378081). Cast de
+      DF-klik op de naam "Nature's Swiftness" dan Ancestral Swiftness? NIET GEMETEN (mh-research 25 okt).
 
 ## 🆕 24 okt — changelog voor de volgende versie
 
