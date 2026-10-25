@@ -3389,3 +3389,28 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   onopgeloste dataknoop (1253811 vs 1253813) die ik meld in plaats van zelf te beslissen. Vandaag is geen
   maandag: de wekelijkse PlayCard- en Consumables-checks zijn bewust overgeslagen. Geen actiepunt dat ík
   oppak — ik rapporteer, een mens beslist.
+
+- [2026-10-25] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-24]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261025a`
+  (en `&nocache=20261025b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als op [2026-10-24] (esES/esMX-locale
+  `user_uvqy5939hswhgduu`, reply-id `8510682`; MrsBoojiePanda's debug-regel, reply-id `8483898`;
+  gadrinonturalyon's coffer-key/3D-model-verzoek) hebben als nieuwste bericht nog steeds een reply van
+  `twelveinchy`. Voor het geneste gadrinonturalyon-draadje expliciet uitgerekend: reply `8095337`
+  (`twelveinchy`, `1782157289840` ms) ligt NA gadrinonturalyon's eigen laatste bericht `8092133`
+  (`1782075006067` ms) — dus ook daar is de maintainer het laatste woord, niet alleen qua positie in de
+  boom maar qua tijdstip. MEASURED: alle id's en timestamps zijn byte-identiek aan [2026-10-24]; geen
+  nieuwe reacties. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+- [2026-10-25] ✅ **Geen nieuwe hotfix-sectie: nieuwste blijft "October 23, 2026", zelfde datum als
+  [2026-10-24] al meldde — zelf opnieuw gelezen, niet overgenomen van de API-/PTR-wachter van vandaag
+  (die onafhankelijk tot dezelfde datum kwamen).** MEASURED:
+  `news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261025a` via Exa, volledig
+  gelezen. De pagina toont in volgorde October 23 → October 21 → October 20, geen 24e of 25e sectie.
+  **Anti-cache-controle:** de getoonde October-23-sectie bevat byte-voor-byte dezelfde zes regels
+  (Classes/Shaman/Warlock, Dungeons/Den of Nalorakk/Murder Row, Hallow's End/Neighborhoods,
+  Items/Venomstones, Labyrinth) als al op [2026-10-24] getoetst — niet ouder dan wat gisteren al gelogd
+  stond, dus geen cache-val; de Professions- en Quests-secties ontbreken nog steeds in deze batch, net als
+  gisteren. Geen nieuwe content om tegen onze teksten te toetsen, dus geen nieuwe grep-ronde nodig.
+  Vandaag is geen maandag: de wekelijkse PlayCard- en Consumables-checks zijn bewust overgeslagen.
+  **[RAAKT ONS NIET]** — geen actiepunt, een mens hoeft niets te beslissen.
