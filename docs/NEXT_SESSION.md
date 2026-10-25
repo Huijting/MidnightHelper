@@ -45,7 +45,7 @@ opnieuw gestuurd naar de lokale.
   Headhunter" buiten es alleen in een client aflezen; Er'inye en "Delver's HQ" in Robs client aflezen; optionele
   {SPELL}-tags (Radiant Glory 458359, Voidtouched 407430, Dark Energy 451018, Dream Simulacrum 1241669) na één clientcheck.
 - Robs keuze (idee, niet gevraagd): Blessing of Dawn-regel op de Paladin-kaart ("raakt jezelf bij trainingspoppen").
-- Rob had `/mh bonusroll` (dev-recorder) nog aan; uitzetten uitgelegd, niet gemeten of hij het deed.
+- ✅ `/mh bonusroll` staat UIT: GEMETEN 25 okt in de SavedVariables (`bonusRollCaptureOn = false`).
 
 ## 🌀 24 okt — Labyrinth: kortere route GEMETEN (Rob + Carola, tier 11)
 
