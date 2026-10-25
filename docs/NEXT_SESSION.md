@@ -6,6 +6,10 @@
 Probleem: BriefNotice.lua stond op TOP -180, precies onder Blizzards grote kamernaam. Nu: standaard CENTER -160,
 versleepbaar (ns.db.ui.briefNoticePos), muis erop = blijft staan, nieuwe melding stopt een lopende fade; Hexmask 14 s.
 Raakt alle ShowBriefNotice-meldingen (kistenroute enz.). CHANGELOG_4131_6. Niet in het spel gezien.
+✅ Daarna (Rob: "Kunnen wij die maskers tellen en dan dit soort meldingen uitlaten?"): de maskers zijn buffs op jou,
+GEMETEN Rob met alle drie bij zich: Fiery 1308804, Thundering 1308968, **Frozen 1309122** (wago-SpellName 1308967 is NIET
+de buff). LabyrinthHexmask.lua MasksWithYou via ns.Aura.HasPlayerAura (nil = onleesbaar → gewoon melden); bij 3/3 zwijgt
+de kamerhint; `/mh hexmask` toont "masks with you n/3". CHANGELOG_4131_7. Niet in het spel gezien.
 Ook 25 okt: Robs vraag "werkt dispellen in party targets niet voor healers?" → `/mh glow` op de Resto Druid: 5/5 rijen
 armed met Nature's Cure, gloed 5× getekend, géén Nature's Cure-cast in de log → AFGELEID niet rechtsgeklikt; Rob testje
 gevraagd. Geen code veranderd.

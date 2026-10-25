@@ -98,6 +98,29 @@ local function SpotForRoom(room)
 	return nil
 end
 
+--- The three Hexmask companions, as the buff each one puts on you. MEASURED by Rob, 25 Oct 2026, with all three
+--- following him: Fiery 1308804, Thundering 1308968, Frozen 1309122 (wago's SpellName 1308967 "Frozen Hexmask Familiar"
+--- is NOT the buff: GetPlayerAuraBySpellID(1308967) said nothing while Frozen walked beside him).
+local HEXMASK_BUFFS = { 1308804, 1308968, 1309122 }
+
+--- How many Hexmasks are with you: a number, or nil when the auras cannot be read (then we do not claim three).
+local function MasksWithYou()
+	if not (ns.Aura and ns.Aura.HasPlayerAura) then
+		return nil
+	end
+	local n = 0
+	for _, id in ipairs(HEXMASK_BUFFS) do
+		local has = ns.Aura.HasPlayerAura(id)
+		if has == nil then
+			return nil
+		end
+		if has then
+			n = n + 1
+		end
+	end
+	return n
+end
+
 --- Journey rank, or nil when unreadable. Rank 1 has no Hexmasks at all.
 local function Rank()
 	if ns.GetLabyrinthJourneyStatus then
@@ -125,6 +148,13 @@ local function Check()
 	local spot = SpotForRoom(room)
 	if not spot then
 		lastWhy = "room '" .. tostring(room) .. "' has no Hexmask spot"
+		return
+	end
+	-- Rob, 25 Oct 2026: "Ik heb nu alle drie de maskers al gevonden … en dan zegt hij nog steeds … Kunnen wij die maskers
+	-- tellen en dan dit soort meldingen uitlaten?" Only three masks exist per run, so with all three there is nothing left.
+	local masks = MasksWithYou()
+	if masks and masks >= #HEXMASK_BUFFS then
+		lastWhy = "all three Hexmasks are with you"
 		return
 	end
 	if hinted[spot.room] then
@@ -172,7 +202,8 @@ function ns.RouteLabHexmask()
 		ns:SetMapWaypoint(LAB_MAP, spot.x, spot.y, RoomName(spot))
 	end
 	print(("%s %s"):format(p, (L("LAB_HEXMASK_ROUTED_FMT")):format(RoomName(spot))))
-	print(("   |cff8a8f98rank %s · here '%s' · hint: %s|r"):format(tostring(Rank()), tostring(HereRoom()), lastWhy))
+	print(("   |cff8a8f98rank %s · here '%s' · masks with you %s/3 · hint: %s|r"):format(tostring(Rank()),
+		tostring(HereRoom()), tostring(MasksWithYou()), lastWhy))
 	return true
 end
 

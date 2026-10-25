@@ -68,6 +68,8 @@ Eerst `/reload`.
 De kamer wordt nu ook herkend aan de naam die het spel zelf geeft (voor spelers met een andere taal).
 - [x] ✅ GEMETEN Rob 25 okt (screenshot, nl): in Jan'alai's Refuge kwam de melding ("… is een van de vijf Hexmask-plekken …").
       Probleem gezien: hij viel over de grote kamernaam van het spel en was niet te verslepen → gerepareerd (hieronder).
+- [ ] Met alle drie de maskers bij je: een maskerkamer in lopen → GEEN melding meer. `/mh hexmask` zegt "masks with you
+      3/3 · hint: all three Hexmasks are with you". Met 1 of 2 maskers komt de melding wel.
 - [ ] Na `/reload`: de korte melding (Hexmask, kistenroute) staat nu onder het midden van je scherm, blijft 14 s (Hexmask),
       blijft staan zolang je muis erop staat, en is te verslepen; na een `/reload` staat hij waar je hem liet.
 
