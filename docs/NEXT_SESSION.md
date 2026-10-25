@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🗂️ 25 okt — .git staat nu BUITEN de WoW-map (Rob: "ja, we gaan voor jouw voorstel")
+
+Oorzaak GEMETEN door de Battle.net-chat (logs `C:\ProgramData\Battle.net\Agent\Agent.9824\Logs\`): Battle.net doet een
+rechtencheck op heel `E:\World of Warcraft\`, struikelt over de read-only objecten in `MidnightHelper\.git\objects\` en
+meldt "Build marked non-playable for wow: Permissions check failure" (21× 18-25 okt) → ~60 nep-"updates" in 8 dagen
+die niets downloaden, tegen 2 echte patches. Alle 2135 fix_permissions-fouten zaten in die .git-map. Rapport:
+side-session-notes `local_ef4e25db-…\battlenet-updates-oorzaak.md`.
+✅ Gedaan (WoW + Battle.net dicht, GEMETEN met tasklist): `git init --separate-git-dir="E:/MidnightHelper-git"`. In de
+addonmap staat nu een BESTAND `.git` met `gitdir: E:/MidnightHelper-git`. GEMETEN daarna: status schoon, log gelijk
+(d44a808), fetch OK, `rev-parse --git-dir` = E:/MidnightHelper-git. Eén worktree, geen extra paden.
+`tools/sync_to_wow.ps1` (copy_to_ptr) en `tools/package.ps1` sluiten het `.git`-BESTAND nu ook uit (/XF); ze sloten
+alleen de map uit. De GitHub-release (packager op een eigen clone) raakt dit niet.
+🔜 Rob: Battle.net een paar dagen in de gaten houden. Eén "Update" direct na de verhuizing kan nog; daarna alleen bij
+een echte patch (AFGELEID, niet gemeten).
+
 ## 🚀 24 okt — RELEASE 4.12.0 (Rob: "Toch wil ik naar de echte release gaan … we gaan nu naar een release")
 
 Geen beta: Rob, "elke keer als we een beta hebben, niemand test hem", en hij testte zelf op meerdere characters. Beta's

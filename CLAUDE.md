@@ -308,6 +308,10 @@ de bovenstaande vorm heeft.
 - ⚠️ **The repo IS the live AddOns folder.** There is no sync script and no staging copy — every
   edit lands in Rob's running game immediately. (This file used to claim they were separate; that
   was wrong, and the mistake below is what it cost.)
+- 📌 **Since 25 Oct 2026 the git DATA lives outside the WoW folder, in `E:\MidnightHelper-git`.** `.git` in the repo is
+  a one-line FILE (`gitdir: E:/MidnightHelper-git`). Reason (measured in Battle.net's logs): its permission check on
+  `E:\World of Warcraft\` tripped over git's read-only objects and offered a fake "update" on almost every start.
+  `git -C "<repo>"` works unchanged. Never move it back, and any tool that skips `.git` must skip the file too (/XF).
 - ⚠️ **Write files ATOMICALLY.** A plain `open(path, "w")` truncates first and writes after, so
   there is a window where the file on disk is empty or half-finished. On 2026-07-22 Rob logged in
   during exactly that window while `Locales/enUS.lua` was being rewritten: the locale table broke

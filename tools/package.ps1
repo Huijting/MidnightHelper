@@ -21,8 +21,10 @@ $robolog = Join-Path $stagingRoot "robocopy.log"
 # ⚠️ Keep in step with the `ignore:` list in .pkgmeta -- two packagers, one intent. `site`
 # is the public GitHub Pages page and must never land in a player's AddOns folder.
 $excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", "site", "__pycache__")
+# `.git` is a FILE since 25 Oct 2026 (the repo data lives in E:\MidnightHelper-git, outside the WoW folder,
+# because Battle.net's permission check tripped over git's read-only objects), so it is excluded here as well.
 $xf = @(
-	".cursorrules", ".gitattributes", ".gitignore", ".luarc.json",
+	".git", ".cursorrules", ".gitattributes", ".gitignore", ".luarc.json",
 	"CLAUDE.md", "README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md",
 	"*.bat", "*.cmd", "*.ps1", "*.py", "*.exe"
 )

@@ -40,7 +40,8 @@ Write-Host "Sync repo -> WoW AddOn dir"
 Write-Host "  repo: $repo"
 Write-Host "  wow : $WowAddOnDir"
 
-$args = @($repo, $WowAddOnDir, "/E", "/XD", ".git", "/NFL", "/NDL", "/NJH", "/NJS", "/nc", "/ns", "/np")
+# Since 25 Oct 2026 `.git` is a FILE ("gitdir: E:/MidnightHelper-git"), not a folder - /XF keeps it out too.
+$args = @($repo, $WowAddOnDir, "/E", "/XD", ".git", "/XF", ".git", "/NFL", "/NDL", "/NJH", "/NJS", "/nc", "/ns", "/np")
 & robocopy @args | Out-Null
 $rc = $LASTEXITCODE
 if ($rc -gt 7) {
