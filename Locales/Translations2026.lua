@@ -10562,7 +10562,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CLICK_264_SM = "Heilung. Deine nächste Springflut, Welle der Heilung oder Kettenheilung wird stärker und schneller.",
 	CLICK_264_CL = "Entfernt Magie von jemandem. Fluch nur mit einem Talent.",
 	CLICK_264_CR = "Heilung, die zu den am stärksten verletzten Spielern in der Nähe springt.",
-	CLICK_264_CM = "Deine nächste Heilung ist sofort und kostenlos. Drück sie, wenn sie bereit ist.",
+	CLICK_264_CM = "Ein Buff auf dir selbst: Beim Spieler, den du anklickst, siehst du nichts. Deine nächste Welle der Heilung oder Kettenheilung ist sofort und kostenlos (Springflut verbraucht ihn nicht). Danach lädt er sich 1 Minute lang wieder auf.",
 	-- Clicks tab, Mistweaver + Preservation (24 Oct 2026). Spell/class names: wago SpellName/ChrClasses deDE, build 12.1.7.70493.
 	CLICK_NOTE_270 = "Ein Mönch kann im Kampf niemanden zurückholen. Donnerfokustee wirkt nur auf dich selbst: Er bleibt auf deiner Aktionsleiste. Beleben kann bei dir Sheiluns Gabe sein: Ob der Klick dann Sheiluns Gabe wirkt, ist im Spiel noch nicht geprüft.",
 	CLICK_270_L = "Heilung, die eine Weile weiterheilt und auf einen anderen Verletzten springt, wenn dein Ziel volle Gesundheit hat.",
@@ -11424,7 +11424,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CLICK_264_SM = "Soin. Ton prochain sort Remous, Vague de soins ou Salve de guérison est plus fort et plus rapide.",
 	CLICK_264_CL = "Retire la magie de quelqu'un. Malédiction seulement avec un talent.",
 	CLICK_264_CR = "Soin qui saute vers les joueurs les plus blessés autour.",
-	CLICK_264_CM = "Ton prochain soin est instantané et gratuit. Appuie dessus quand il est prêt.",
+	CLICK_264_CM = "Un effet sur toi-même : rien n'apparaît sur le joueur que tu cliques. Ton prochain sort Vague de soins ou Salve de guérison est instantané et gratuit (Remous ne le consomme pas). Ensuite, il se recharge pendant 1 minute.",
 	-- Clicks tab, Mistweaver + Preservation (24 Oct 2026). Spell/class names: wago SpellName/ChrClasses frFR, build 12.1.7.70493.
 	CLICK_NOTE_270 = "Un moine ne peut ramener personne en combat. Thé de concentration foudroyante ne marche que sur toi : garde-le sur ta barre d'action. Vivifier peut être Don de Sheilun chez toi : on n'a pas encore vérifié en jeu si le clic lance alors Don de Sheilun.",
 	CLICK_270_L = "Soin qui continue un moment et saute vers un autre blessé quand ta cible a toute sa vie.",
@@ -12286,7 +12286,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CLICK_264_SM = "Sanación. Tu siguiente Mareas vivas, Ola de sanación o Sanación en cadena es más fuerte y más rápida.",
 	CLICK_264_CL = "Quita magia de alguien. Maldición solo con un talento.",
 	CLICK_264_CR = "Sanación que salta a los jugadores más heridos cercanos.",
-	CLICK_264_CM = "Tu siguiente sanación es instantánea y gratis. Púlsala cuando esté lista.",
+	CLICK_264_CM = "Un beneficio sobre ti mismo: no se ve nada en el jugador en el que haces clic. Tu siguiente Ola de sanación o Sanación en cadena es instantánea y gratis (Mareas vivas no lo gasta). Después se recarga durante 1 minuto.",
 	-- Clicks tab, Mistweaver + Preservation (24 Oct 2026). Spell/class names: wago SpellName/ChrClasses esES, build 12.1.7.70493.
 	CLICK_NOTE_270 = "Un monje no puede traer de vuelta a nadie en combate. Té de enfoque del trueno solo funciona en ti: déjalo en tu barra de acción. Vivificar puede ser Regalo de Sheilun para ti: aún no se ha comprobado en el juego si el clic lanza entonces Regalo de Sheilun.",
 	CLICK_270_L = "Sanación que sigue curando un rato y salta a otro herido cuando tu objetivo tiene la salud llena.",
@@ -13148,7 +13148,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CLICK_264_SM = "Cura. Seu próximo Contracorrente, Onda Curativa ou Cura Encadeada fica mais forte e mais rápido.",
 	CLICK_264_CL = "Remove magia de alguém. Maldição só com um talento.",
 	CLICK_264_CR = "Cura que pula para os jogadores mais feridos por perto.",
-	CLICK_264_CM = "Sua próxima cura é instantânea e grátis. Aperte quando estiver pronta.",
+	CLICK_264_CM = "Um efeito em você mesmo: nada aparece no jogador em que você clica. Sua próxima Onda Curativa ou Cura Encadeada fica instantânea e grátis (Contracorrente não o consome). Depois disso, recarrega por 1 minuto.",
 	-- Clicks tab, Mistweaver + Preservation (24 Oct 2026). Spell/class names: wago SpellName/ChrClasses ptBR, build 12.1.7.70493.
 	CLICK_NOTE_270 = "Um monge não consegue trazer ninguém de volta durante o combate. Chá do Foco do Trovão só funciona em você: deixe-o na sua barra de ações. Vivificar pode ser Dádiva de Sheilun para você: ainda não foi verificado no jogo se o clique lança então Dádiva de Sheilun.",
 	CLICK_270_L = "Cura que continua por um tempo e pula para outro ferido quando o seu alvo está com a vida cheia.",
@@ -14010,7 +14010,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CLICK_264_SM = "Cura. Il tuo prossimo Marea Benefica, Ondata di Cura o Catena di Guarigione diventa più forte e più veloce.",
 	CLICK_264_CL = "Rimuove la magia da qualcuno. Maledizione solo con un talento.",
 	CLICK_264_CR = "Cura che salta sui giocatori più feriti vicini.",
-	CLICK_264_CM = "La tua prossima cura è istantanea e gratuita. Premila quando è pronta.",
+	CLICK_264_CM = "Un effetto su di te: sul giocatore che clicchi non compare nulla. La tua prossima Ondata di Cura o Catena di Guarigione è istantanea e gratuita (Marea Benefica non lo consuma). Dopo si ricarica per 1 minuto.",
 	-- Clicks tab, Mistweaver + Preservation (24 Oct 2026). Spell/class names: wago SpellName/ChrClasses itIT, build 12.1.7.70493.
 	CLICK_NOTE_270 = "Un monaco non può riportare indietro nessuno durante il combattimento. Tè della Concentrazione del Tuono funziona solo su di te: tienilo sulla barra delle azioni. Vivificazione può essere Dono di Sheilun per te: non è ancora stato verificato nel gioco se il clic lancia allora Dono di Sheilun.",
 	CLICK_270_L = "Cura che continua per un po' e salta su un altro ferito quando il tuo bersaglio ha la salute piena.",

@@ -96,8 +96,10 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   (andere spec, rechter Shift), Shaman NS-klik werkt (DF). Nog open: Mistweaver (Rob levelt een Monk), Preservation
   (niemand heeft een Evoker), Farseer met Ancestral Swiftness (overschrijft 378081; DF cast op naam: onbekend).
   mh-research 25 okt (GEMETEN wago/Wowhead): NS = buff op jezelf, 60 s cooldown die pas start als de buff op is,
-  geen GCD; Riptide verbruikt hem niet. Idee voor CLICK_264_CM ("Your next heal is instant and free. Press it when it
-  is ready."): zeggen dat het een buff op jezelf is — Robs keuze.
+  geen GCD; Riptide verbruikt hem niet. ✅ CLICK_264_CM herschreven (Rob: "maak de uitleg duidelijker,
+  in alle talen"): buff op jezelf, volgende Healing Wave of Chain Heal instant en gratis, Riptide verbruikt hem niet,
+  daarna 1 minuut. Healing Surge bewust NIET genoemd: Resto heeft hem niet meer (GEMETEN, ROLE_SWITCH_FACTS4 r.198;
+  mh-writer ving het). en/nl ik, de/fr/es/pt/it/ru + esMX mh-writer (eigen vertaling), drift gemarkeerd, lint 0 HARD.
 - 🔜 Beta-tag op Robs go. Site neemt de tab mee na de release (site-chat geseind).
 - 🧪 Blizzards eigen Click Casting (Rob: "kunnen we het überhaupt in de Blizzard's eigen UI implementeren?"):
   C_ClickBindings.SetProfileByInfo bestaat, vlag HasRestrictions (ClickBindingsDocumentation.lua, wow-ui-source live, gelezen

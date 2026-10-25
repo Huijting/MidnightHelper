@@ -859,6 +859,7 @@ for k, v in pairs({
 	CLICK_256_R = "Sanación rápida (1,5 segundos). Da Contrición.",
 	CLICK_256_CR = "Sanación instantánea en un jugador. Da Contrición.",
 	CLICK_264_SM = "Sanación. Tu siguiente Mareas Vivas, Ola de sanación o Sanación en cadena es más fuerte y más rápida.",
+	CLICK_264_CM = "Un beneficio sobre ti mismo: no se ve nada en el jugador en el que haces clic. Tu siguiente Ola de sanación o Sanación en cadena es instantánea y gratis (Mareas Vivas no lo gasta). Después se recarga durante 1 minuto.",
 	CLICK_BTN_TIP_FMT = "Crea el perfil de DandersFrames \"%s\" con estos clics y lo activa para la selección de talentos que usas ahora. Tu propio perfil se queda en DandersFrames; Deshacer lo vuelve a activar.",
 	CLICK_CONFIRM_FMT = "¿Poner estos clics en DandersFrames como el perfil \"%s\" y activarlo para tu selección de talentos?",
 	CLICK_DONE_ON_FMT = "Hecho: DandersFrames usa ahora \"%s\" para tu selección de talentos \"%s\". Haz clic en un nombre en tus marcos de grupo para probarlo.",
