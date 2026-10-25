@@ -10,6 +10,11 @@ Raakt alle ShowBriefNotice-meldingen (kistenroute enz.). CHANGELOG_4131_6. Niet 
 GEMETEN Rob met alle drie bij zich: Fiery 1308804, Thundering 1308968, **Frozen 1309122** (wago-SpellName 1308967 is NIET
 de buff). LabyrinthHexmask.lua MasksWithYou via ns.Aura.HasPlayerAura (nil = onleesbaar → gewoon melden); bij 3/3 zwijgt
 de kamerhint; `/mh hexmask` toont "masks with you n/3". CHANGELOG_4131_7. Niet in het spel gezien.
+✅ Daarna: Rob bij Kindo'jan kreeg van `/mh hexmask` "je bent niet in de Labyrinth". mh-research (wago UiMap 12.1.5.70575 +
+Robs SV questDiff.found): bossplatform = uiMap **2648** (floor 1 van groep 491, "De Empire's Rest"); 2671 = tweede
+tekening van 2647, nooit teruggegeven. LabyrinthHexmask.lua: LAB_BOSS_MAP 2648 → nieuwe zin LAB_HEXMASK_BOSS_ROOM
+("op het platform, hier geen Hexmask-plek"), 7 talen door mij (korte zin). Rob versloeg Kindo'jan met Valeera op
+**Healer** + 3 maskers ("ging mega snel"); met Tank en DPS 2× dood. Eén run, als ervaring genoteerd, teksten niet aangepast.
 Ook 25 okt: Robs vraag "werkt dispellen in party targets niet voor healers?" → `/mh glow` op de Resto Druid: 5/5 rijen
 armed met Nature's Cure, gloed 5× getekend, géén Nature's Cure-cast in de log → AFGELEID niet rechtsgeklikt; Rob testje
 gevraagd. Geen code veranderd.

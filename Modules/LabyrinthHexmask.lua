@@ -58,12 +58,26 @@ function ns.SetLabHexmaskHintEnabled(on)
 	DB().off = (not on) and true or nil
 end
 
-local function OnLabyrinthMap()
+--- Kindo'jan's platform ("De Empire's Rest", floor 1 of map group 491) is its own map: Rob at the boss on 25 Oct 2026
+--- got "you are not in the Labyrinth". mh-research that day: wago UiMap 12.1.5.70575 + Rob's own SavedVariables
+--- (questDiff.found, GetBestMapForUnit = 2648 at the boss). 2671 is a second drawing of 2647 and is never returned.
+local LAB_BOSS_MAP = 2648
+
+local function PlayerMap()
 	if not (C_Map and C_Map.GetBestMapForUnit) then
-		return false
+		return nil
 	end
 	local ok, m = pcall(C_Map.GetBestMapForUnit, "player")
-	return ok and m == LAB_MAP
+	return ok and m or nil
+end
+
+--- The rooms (the five spots live here). The boss platform is the Labyrinth too, but has no spot: see OnBossPlatform.
+local function OnLabyrinthMap()
+	return PlayerMap() == LAB_MAP
+end
+
+local function OnBossPlatform()
+	return PlayerMap() == LAB_BOSS_MAP
 end
 
 local function HereRoom()
@@ -174,7 +188,7 @@ end
 function ns.RouteLabHexmask()
 	local p = "|cffffcc00Midnight Helper|r hexmask:"
 	if not OnLabyrinthMap() then
-		print(p .. " " .. L("LAB_HEXMASK_NOT_HERE"))
+		print(p .. " " .. L(OnBossPlatform() and "LAB_HEXMASK_BOSS_ROOM" or "LAB_HEXMASK_NOT_HERE"))
 		for _, s in ipairs(ns.LAB_HEXMASK_SPOTS) do
 			print(("   %s  %.1f/%.1f"):format(RoomName(s), s.x, s.y))
 		end

@@ -1301,6 +1301,7 @@ ns._mhLocales.nlNL = {
 	LAB_HEXMASK_ROOM_FMT = "%s is een van de vijf Hexmask-plekken. Deze run staat daar een Hexmask (klik hem aan: hij vecht de rest van de run met je mee), de afgesloten deur (de sleutel valt van de Keeper of the Key, een elite ergens in de Labyrinth), of niets. /mh hexmask zet het pijltje erop.",
 	LAB_HEXMASK_ROUTED_FMT = "pijltje gezet op de Hexmask-plek in %s.",
 	LAB_HEXMASK_NOT_HERE = "je bent niet in de Labyrinth of Kindo'jan. De vijf plekken (kaart 2647):",
+	LAB_HEXMASK_BOSS_ROOM = "je staat op het platform van Kindo'jan: hier boven ligt geen Hexmask-plek. De vijf plekken in de kamers (kaart 2647):",
 	CMDLIST_HEXMASK = "Labyrinth: zet het pijltje op de Hexmask-plek in deze kamer, of de dichtstbijzijnde van de vijf.",
 	DELVE_CHEST_FLOODED_HINT ="Deze kist staat in de Flooded Chamber. De kaart tekent daar geen kamer: de ingang zit ONDER WATER (het pijltje gaat daar eerst heen, ongeveer 56.9, 44.1). Duik erin; binnen staat een muur van ijs. Alleen vuur smelt hem: ijs doet niets. Gebruik de Fiery Hexmask Familiar, een eigen vuurspell, of de Core Rune Rune of Unleashed Fire uit je Omnium Folio. Geen vuur deze run? Klik nog eens op Chests om hem over te slaan.",
 	DELVE_CHEST_FLOODED_ENTRANCE = "Ingang onder water (Flooded Chamber)",

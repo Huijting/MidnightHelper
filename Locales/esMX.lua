@@ -417,6 +417,7 @@ for k, v in pairs({
 	KEYBLOCK_OWN_NOT_ACTIVE_FMT = "Se creó la disposición \"%s\", pero WoW no cambió a ella. Elígela en el Modo de edición y luego pulsa \"Colocar mis barras en bloque\".",
 	KEYPANEL_TITLE = "Gran bóveda - Calabozos",
 	LAB_HEXMASK_NOT_HERE = "no estás en el Laberinto de Kindo'Jan. Los cinco sitios (mapa 2647):",
+	LAB_HEXMASK_BOSS_ROOM = "estás en la plataforma de Kindo'Jan: aquí arriba no hay sitio de máscara de maleficio. Los cinco sitios en las salas (mapa 2647):",
 	LAB_HEXMASK_ROOM_FMT = "%s es uno de los cinco sitios de máscara de maleficio. En esta partida hay ahí una máscara de maleficio (haz clic en ella: lucha contigo el resto de la partida), la puerta cerrada con llave (su llave la suelta el Keeper of the Key, un élite en algún lugar del Laberinto) o nada. /mh hexmask apunta la flecha hacia él.",
 	LAB_HEXMASK_ROUTED_FMT = "flecha apuntada al sitio de máscara de maleficio en %s.",
 	CMDLIST_HEXMASK = "Laberinto: apunta la flecha al sitio de máscara de maleficio de esta sala, o al más cercano de los cinco.",

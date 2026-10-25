@@ -1334,6 +1334,7 @@ ns._mhLocales.enUS = {
 	LAB_HEXMASK_ROOM_FMT = "%s is one of the five Hexmask spots. This run it holds a Hexmask (click it: it fights with you for the rest of the run), the locked door (its key drops from the Keeper of the Key, an elite somewhere in the Labyrinth), or nothing. /mh hexmask points the arrow at it.",
 	LAB_HEXMASK_ROUTED_FMT = "arrow set to the Hexmask spot in %s.",
 	LAB_HEXMASK_NOT_HERE = "you are not in the Labyrinth of Kindo'jan. The five spots (map 2647):",
+	LAB_HEXMASK_BOSS_ROOM = "you are on Kindo'jan's platform: no Hexmask spot up here. The five spots in the rooms (map 2647):",
 	CMDLIST_HEXMASK = "Labyrinth: point the arrow at the Hexmask spot in this room, or the nearest of the five.",
 	DELVE_CHEST_FLOODED_HINT ="This chest is in the Flooded Chamber. The map draws no room there: the way in is UNDER WATER (the arrow goes there first, about 56.9, 44.1). Dive in; inside is a wall of ice. Only fire melts it: frost hits do nothing. Use the Fiery Hexmask Familiar, a fire spell of your own, or the Omnium Folio Core Rune Rune of Unleashed Fire. No fire this run? Click Chests again to skip it.",
 	DELVE_CHEST_FLOODED_ENTRANCE = "Underwater entrance (Flooded Chamber)",
