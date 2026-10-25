@@ -65,7 +65,7 @@ opnieuw gestuurd naar de lokale.
 - Klein, niet gedaan: ✅ (25 okt) "Fiery Hexmask Familiar" in enUS/nlNL; enkelvoud "Amani
   Headhunter" buiten es alleen in een client aflezen; Er'inye en "Delver's HQ" in Robs client aflezen; optionele
   {SPELL}-tags (Radiant Glory 458359, Voidtouched 407430, Dark Energy 451018, Dream Simulacrum 1241669) na één clientcheck.
-- Robs keuze (idee, niet gevraagd): Blessing of Dawn-regel op de Paladin-kaart ("raakt jezelf bij trainingspoppen").
+- ✅ (25 okt) Blessing of Dawn-regel op de Paladin Stay alive-kaart gebouwd, zie de 23-okt-sectie.
 - ✅ `/mh bonusroll` staat UIT: GEMETEN 25 okt in de SavedVariables (`bonusRollCaptureOn = false`).
 
 ## 🌀 24 okt — Labyrinth: kortere route GEMETEN (Rob + Carola, tier 11)
@@ -251,7 +251,11 @@ dalen/herstellen; combat log: "Your Blessing of Dawn hit You 14,103/20,972 Holy"
 rapport `blessing_of_dawn_2026-10-23.md`): class-talent Blessing of Dawn 183416 neemt 5% schade van bondgenoten binnen
 20 yd over (max 5% max HP per 5 sec, alleen boven 85% health); "area ally" telt ook dummies/NPC's → sinds 12.0 gemeld
 als bug, nooit gefixt. Advies aan Rob: weglopen van de dummies, of het talent weghalen (niets eronder). Raakt MH niet.
-🔜 Idee (niet gevraagd): een regel op de Paladin Stay alive-kaart? Robs keuze.
+✅ 25 okt GEBOUWD (Rob: "zet de Blessing of Dawn-regel op de Stay alive-kaart van de Paladin, in alle talen"):
+PlayCardWindow.lua ALIVE_TALENT_NOTES → SURVIVAL_TIP_BLESSING_OF_DAWN onder de Stay alive-lijst van 65/66/70, alleen als
+IsPlayerSpell(183416). en/nl ik, de/fr/es/esMX/pt/it/ru mh-writer (spellnaam GEMETEN wago SpellName 183416 op PTR-build
+12.1.7.70493; esMX "Bendición del amanecer" ≠ esES "alba"). it gebruikt "training dummy" zoals het pack; clientnaam
+van de pop niet gemeten. Niet in het spel gezien; of IsPlayerSpell(183416) true geeft is AFGELEID (TESTLIJST).
 
 ## 🧪 23 okt — Venomstones: eerste test (Rob, Twelveinchy, 2 screenshots)
 

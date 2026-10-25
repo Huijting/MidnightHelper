@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 25 okt — Paladin: regel over Blessing of Dawn
+
+- [ ] `/reload`, Twelveinchy (met het talent Blessing of Dawn): `/mh play` → tabblad **Stay alive**. Staat onderaan de
+      grijze regel "Your health drops a little near training dummies? That is Blessing of Dawn …"? Zonder het talent hoort
+      hij weg te zijn.
+
 ## 🆕 25 okt — Labyrinth: Hexmask-melding (als je er toch bent)
 
 De kamer wordt nu ook herkend aan de naam die het spel zelf geeft (voor spelers met een andere taal).

@@ -724,6 +724,14 @@ local function DrawConsumables(specID, y, inner)
 	return y
 end
 
+--- One line under the Stay alive list, shown only when you have the talent it is about. Blessing of Dawn 183416
+--- (Paladin class talent) also takes damage from training dummies: Rob saw his health drop idle in Silvermoon,
+--- combat log "Your Blessing of Dawn hit You" every 5 sec (23 Oct 2026; known bug since 12.0, mh-research).
+--- Rob, 25 Oct 2026: "zet de Blessing of Dawn-regel op de Stay alive-kaart van de Paladin, in alle talen".
+local ALIVE_TALENT_NOTES = {
+	{ specs = { [65] = true, [66] = true, [70] = true }, spellID = 183416, key = "SURVIVAL_TIP_BLESSING_OF_DAWN" },
+}
+
 --- The "Stay alive" tab: the same list the Academy shows (Modules/SurvivalPlan.lua), with an icon per
 --- button and your own key. Returns the new y.
 local function DrawStayAlive(specID, y, inner)
@@ -758,6 +766,17 @@ local function DrawStayAlive(specID, y, inner)
 		local h = math.max(ICON, row.fs:GetStringHeight() + 4)
 		row:SetHeight(h)
 		y = y - h - 10
+	end
+	for _, n in ipairs(ALIVE_TALENT_NOTES) do
+		if n.specs[specID] and IsPlayerSpell and IsPlayerSpell(n.spellID) then
+			t = t + 1
+			local note = Text(t, "GameFontHighlightSmall")
+			note:SetWidth(inner)
+			note:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y - 2)
+			note:SetTextColor(0.62, 0.6, 0.56)
+			note:SetText(L(n.key))
+			y = y - note:GetStringHeight() - 8
+		end
 	end
 	return y
 end
