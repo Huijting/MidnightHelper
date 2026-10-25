@@ -1380,8 +1380,15 @@ local function NearestOpenRareRespectingSkips(zone)
 	return nil
 end
 
+--- The zone a running Generate Route hunt was made for, or nil (assigned below, next to the hunt store).
+local HuntZoneKey
+
+--- 🔴 A HUNT STAYS IN THE ZONE YOU CHOSE. Rob, 25 Oct 2026, in Silvermoon: Rares tab, Coiled Isle, Generate Route,
+--- and the arrow sent him round Eversong. The route pinned the Coiled Isle rares, but every "what next?" asked this
+--- function, which put the zone you STAND in first. A hunt now keeps its own zone; the runner takes you there
+--- (portal, flight) like a single rare route does. Without a hunt: the zone you stand in, else the selected one.
 local function CurrentHuntZone()
-	local key = GetCurrentZoneKey() or GetSelectedZoneKey()
+	local key = (HuntZoneKey and HuntZoneKey()) or GetCurrentZoneKey() or GetSelectedZoneKey()
 	return key and ZONE_BY_KEY[key] or nil
 end
 
@@ -1805,6 +1812,22 @@ local function IsRareHuntActive()
 	return false
 end
 
+-- Saved with the hunt (per character, like its ids), so a /reload keeps the zone too. Only while the hunt runs.
+HuntZoneKey = function()
+	local s = GetCharRouteStore(false)
+	if s and s.zone and ZONE_BY_KEY[s.zone] and IsRareHuntActive() then
+		return s.zone
+	end
+	return nil
+end
+
+local function SetHuntZoneKey(key)
+	local s = GetCharRouteStore(true)
+	if s then
+		s.zone = key
+	end
+end
+
 --------------------------------------------------------------------------------
 -- 🚌 Travel phase 4 (16 Oct 2026): the ROUTE RUNNER points (Modules/Travel/TravelRoute.lua); a rare route only
 -- answers "what next?". Gone: the owner claims, `_mhRarePrevOwner`/`_mhRarePrevLead` and ResumePrevRouteOrRelease
@@ -1931,6 +1954,7 @@ local function RouteRare(rare, clearOthers)
 	end
 	if clearOthers then
 		ns.MH_TomTomClearAll()
+		SetHuntZoneKey(nil) -- one rare replaces the hunt: no hunt zone any more
 	end
 	-- A fresh rare route ends what ran; a toast click is a detour (what ran waits and goes on afterwards).
 	local r = ns.Travel.StartManaged({
@@ -2395,6 +2419,7 @@ function ns.GenerateRaresRoute(zoneKey)
 
 	if added > 0 then
 		wipe(skippedRares) -- fresh hunt: forget previous skips
+		SetHuntZoneKey(key) -- the hunt stays in the chosen zone, wherever you stand (Rob, 25 Oct 2026)
 		ns._mhLastRoutedRareQuest = nil -- a full route: done when the whole hunt is done
 		-- The runner points at the nearest open rare (= the first pin, Find Nearest's choice) and moves on; a rare from a
 		-- toast during the hunt is a detour and the hunt goes on after it.

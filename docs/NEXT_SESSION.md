@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🗺️ 25 okt (na 4.13.0) — Generate Route bleef in de zone waar je stond (Rob: in Silvermoon, Coiled Isle gekozen, "Wat hij dan doet, is de route in Everson genereren")
+
+GEMETEN in Rares.lua: GenerateRaresRoute pinde wél de Coiled Isle-rares, maar elke "wat nu?" van de route-runner
+(HuntNextLead, SkipCurrentRare, MHRareTryAutoAdvance) vroeg CurrentHuntZone(), en die zette de zone waar je STAAT
+voorop (GetCurrentZoneKey() or GetSelectedZoneKey()). Nu: de hunt bewaart zijn zone (routedByChar[guid].zone, dus ook na
+/reload), CurrentHuntZone neemt die zolang de hunt loopt; een losse rare-route (RouteRare clearOthers) wist hem. De
+runner zelf regelt de reis (TravelRoute.lua → BuildTravelPlan, portals) — AFGELEID dat hij de Coiled Isle-portal
+kiest, niet in het spel gezien. CHANGELOG_4131_3. "Dat geldt voor alle gebieden" (Rob): ja, het is één regel voor elke
+zone.
+
 ## 🛡️ 25 okt (na 4.13.0) — schouders zonder enchant = "ontbreekt" (Rob: "laat schouders zonder enchant net als helm en voeten als ontbrekend zien, en zet ze op de boodschappenlijst")
 
 Rob zag op zijn Prot Paladin en Carola's Shaman wél een schouder-enchant en vroeg waarom MH "optional" zei. GEMETEN in

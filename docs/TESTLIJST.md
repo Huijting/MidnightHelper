@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 25 okt — rare-route blijft in de gekozen zone
+
+- [ ] `/reload`, in Silvermoon: Rares-tab → Coiled Isle → Generate Route. Wijst de pijl nu eerst naar de portal naar de
+      Coiled Isle (niet naar een rare in Eversong), en daar naar de dichtstbijzijnde open rare? Na `/reload` midden in de
+      hunt: blijft hij op de Coiled Isle?
+
 ## 🆕 25 okt — schouders zonder enchant
 
 - [ ] `/reload`, een character zonder schouder-enchant: in het Gear check-paneel staat "Shoulders: no enchant" nu in ROOD

@@ -9,6 +9,7 @@ local CHANGELOG_ENTRIES = {
 			-- after 4.13.0, no version bump yet (Rob picks the number and the go)
 			"CHANGELOG_4131_1",
 			"CHANGELOG_4131_2",
+			"CHANGELOG_4131_3",
 		},
 	},
 	{
