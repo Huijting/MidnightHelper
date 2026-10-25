@@ -1311,7 +1311,8 @@ end
 
 -- Tab id -> the anchor of the same tab on midnighthelper.com/play/<slug>/ (site chat, 5 Oct 2026).
 -- "clicks": site chat, 24 Oct 2026 (measured live: /play/restoration-druid/#clicks opens the tab).
-local SITE_ANCHOR = { alive = "alive", cons = "cons", dispel = "dispel", group = "group", clicks = "clicks" }
+-- "solo": site chat, 25 Oct 2026 (built with the next release; until then #solo just opens the first tab).
+local SITE_ANCHOR = { alive = "alive", cons = "cons", dispel = "dispel", group = "group", clicks = "clicks", solo = "solo" }
 
 --- The same card on midnighthelper.com (Rob, 4 Oct 2026: "do the link to the site"), under the
 --- current tab. @return y below the link (unchanged when there is no page for this spec)
