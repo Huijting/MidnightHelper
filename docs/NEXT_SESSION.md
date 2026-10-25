@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🚀 25 okt — RELEASE 4.13.0 (Rob: "Go voor de 4.13.0. En samen overleggen met de sidechat … Je mag doorgaan")
+
+Geen beta. TOC 4.13.0, CHANGELOG_4130_1..4, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.13.0.md` (byte-identiek, sha1
+fb6cdc41…), CHANGELOG.md, CURSEFORGE_DESCRIPTION.md (zin over de stap-voor-stap-uitleg; 🔜 Rob plakt hem op CF).
+Inhoud: "How do I buy this?", Labyrinth-clientnamen + Hexmask-hint op elke taal, Blessing of Dawn-regel, Nature's
+Swiftness-uitleg, #clicks-link. Tag en uploadstatus: zie de regel hieronder zodra de run klaar is.
+
 ## 🛒 25 okt — "How do I buy this?": de boodschappenlijst stap voor stap (Rob: "we gaan uiteraard voor C" → "begin jij maar met bouwen")
 
 Aanleiding: Rob deed via Parsec bij Carola alles met de hand (lijst → veilinghuis → enchants/gems) en vroeg om een

@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.13.0
+
+📌 **2026-10-25, RELEASE (Rob: "Go voor de 4.13.0 … Je mag doorgaan").** Geen beta (Rob testte zelf). In-game:
+CHANGELOG_4130_1..4 (enUS). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.13.0.md` (byte-identiek, GEMETEN sha1).
+CURSEFORGE_DESCRIPTION.md: zin over de stap-voor-stap-uitleg (Rob plakt die zelf). Inhoud:
+- **"How do I buy this?"** (Modules/ShoppingGuide.lua): 9 stappen van veilinghuis tot spullen, zilver/goud (mh-research
+  25 okt, wago 70575), enchant, gem, weapon oil; knop boven de boodschappenlijst en regel in het Gear check-paneel.
+  GEZIEN Rob ("ziet er zeker goed uit"). NIET gemeten: het tier-icoontje achter enchants/gems in het AH.
+- **Labyrinth:** clientnamen ronde 2 in alle 7 talen; de Hexmask-kamerhint matcht nu ook op C_Map.GetAreaInfo (niet-
+  Engelse clients). Niet in het spel gezien.
+- **Paladin Stay alive:** Blessing of Dawn-regel (GEMETEN Rob, Holy). **Klikken:** Nature's Swiftness-uitleg (Shaman),
+  site-link opent #clicks. Klikken GEMETEN op Paladin, Priest, Shaman, Mistweaver (level 11); Preservation niet.
+
 ## 4.12.0
 
 📌 **2026-10-24, RELEASE (Rob: "Toch wil ik naar de echte release gaan … we gaan nu naar een release"; geen beta, omdat
