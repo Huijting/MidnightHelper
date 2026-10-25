@@ -873,6 +873,24 @@ for k, v in pairs({
 	-- 24 Oct 2026: Mistweaver/Preservation notes; esMX client names (wago SpellName esMX, build 12.1.7.70493): Don de Sheilun, Aliento de ensueño.
 	CLICK_NOTE_270 = "Un monje no puede traer de vuelta a nadie en combate. Té de enfoque del trueno solo funciona en ti: déjalo en tu barra de acción. Vivificar puede ser Don de Sheilun para ti: aún no se ha comprobado en el juego si el clic lanza entonces Don de Sheilun.",
 	CLICK_NOTE_1468 = "Un evocador no puede traer de vuelta a nadie en combate. Aliento de ensueño (mantener pulsado) se queda en tu barra de acción, no en un clic.",
+	-- 25 Oct 2026: the Solo tab. Only the lines whose esMX client word differs (wago build 12.1.7.70493: Abismo, Contrición,
+	-- Alivio de las sombras, Palabra Sagrada: Condena, Abrasacielos, Aliento de fuego, Golpe azur, Fragualuz, Poder Sagrado).
+	CARD_SOLO_SEE_TAB = "¿solo en un abismo o ahí fuera, en el mundo? La pestaña Solo te lo da paso a paso: antes del combate, atacar, sanar con tus clics y qué hacer cuando sale mal.",
+	SOLO_INTRO = "Solo en un abismo o en el laberinto, con Valeera. Te sanas tú y haces el daño. Haz clic en tu propio nombre o en el de Valeera en tus marcos de grupo.",
+	SOLO_GOLDEN = "La regla de oro: sal primero de lo que haya en el suelo, luego sana o ataca. En un abismo casi siempre mueres por algo del suelo, no por sanar poco.",
+	SOLO_65_PRE_RITE = "En tu arma (talentos de Fragualuz).",
+	SOLO_65_H_L = "Sana y da Poder Sagrado. Sobre un enemigo, hace daño.",
+	SOLO_65_H_M = "Cuesta Poder Sagrado: una gran sanación de golpe, sobre ti.",
+	SOLO_256_PRE_SHIELD = "Sobre ti justo antes del pull, y sobre Valeera. Da Contrición.",
+	SOLO_256_PRE_PLEA = "Instantáneo: te da Contrición a ti o a Valeera. Contrición significa que tu daño sana a esa persona durante 15 segundos, así que atacar ES sanar.",
+	SOLO_256_H_M = "Sobre Valeera cuando baja mucho: la sana a ella y a todos los que tienen Contrición.",
+	SOLO_256_H_R = "Sánate a ti o a Valeera (con un talento se convierte en Alivio de las sombras).",
+	SOLO_256_H_AL = "Cuando los dos están heridos: sana y les da Contrición a los dos.",
+	SOLO_257_MOVE = "Tras Palabra Sagrada: Condena, tus 2 siguientes Fuego Sagrado son instantáneos. Varios enemigos: Nova Sagrada, que también funciona en movimiento. Icy Veins incluso aconseja jugar los abismos como Sombra.",
+	SOLO_264_PRE_WEAPON = "En tu arma. Abrasacielos también, antes de cada combate.",
+	SOLO_264_H_R = "Tu sanación principal sobre ti en un abismo.",
+	SOLO_270_MOVE = "Luchas cuerpo a cuerpo, y tus patadas son instantáneas. Varios enemigos (4+): Patada giratoria de la grulla. Un enemigo con menos salud que tú: Toque de la muerte. Icy Veins dice que Viajero del viento es más fácil para los abismos en solitario.",
+	SOLO_1468_MOVE = "Aliento de fuego: mantén pulsado el botón, se carga; suéltalo para lanzarlo. Nivel más alto = más daño de golpe. No puedes cargar en movimiento: usa entonces Golpe azur. Varios enemigos: Llama viva salta, y Aliento profundo si golpea a dos o más.",
 }) do
 	es[k] = v
 end

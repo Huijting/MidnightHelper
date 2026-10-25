@@ -104,6 +104,7 @@ Modules\LiveKeys.lua
 Modules\KeyPresses.lua
 Modules\AuctionShopButton.lua
 Modules\HealerSolo.lua
+Modules\HealerSoloGuide.lua
 Modules\ClickCast.lua
 Modules\PlayCardWindow.lua
 Modules\SurvivalPlan.lua

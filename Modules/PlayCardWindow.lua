@@ -265,7 +265,8 @@ end
 local function CurrentTab()
 	local ui = ns.db and ns.db.ui
 	local t = ui and ui.playCardTab
-	return (t == "alive" or t == "cons" or t == "dispel" or t == "group" or t == "quiz" or t == "clicks") and t or "play"
+	return (t == "alive" or t == "cons" or t == "dispel" or t == "group" or t == "quiz" or t == "clicks" or t == "solo") and t
+		or "play"
 end
 
 local function SetTab(id)
@@ -1219,6 +1220,92 @@ local function DrawClicks(specID, y, inner)
 end
 
 --------------------------------------------------------------------------------
+-- The "Solo" tab (Rob, 25 Oct 2026, Resto Druid in the Labyrinth: "Klik eerst dit, dan dat, dan zus"): a delve on your
+-- own as a healer, in four blocks. The data is HealerSoloGuide.lua; the attack block is ns.HealerSoloSteps, the same
+-- list the key block and the website use. A row with a click code takes its spell and label from the click layout.
+--------------------------------------------------------------------------------
+
+local function DrawSolo(specID, y, inner)
+	local guide = ns.HEALER_SOLO_GUIDE and ns.HEALER_SOLO_GUIDE[specID]
+	if not guide then
+		return y
+	end
+	local t = 0
+	local function Line(text, base, r, g, b, gap)
+		t = t + 1
+		local fs = Text(t, base or "GameFontHighlight")
+		fs:SetWidth(inner)
+		fs:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		fs:SetTextColor(r or 0.9, g or 0.88, b or 0.82)
+		fs:SetText(text)
+		y = y - fs:GetStringHeight() - (gap or 10)
+	end
+	local own = specID ~= nil and specID == ActiveSpecID()
+	local grey = own and ns.PlayCardKnowsSpell or nil
+	local byCode = {}
+	for _, r in ipairs(ns.ClickLayoutRows and ns.ClickLayoutRows(specID) or {}) do
+		byCode[r.code] = r
+	end
+	local n = 0
+	-- One row: icon, gold spell name (grey when this character does not have it), the click in white, then the line.
+	local function Row(id, label, body, num)
+		n = n + 1
+		local row = StepRow(n)
+		row:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		row:SetWidth(inner)
+		row.num:SetText(num or "")
+		local missing = StepIcon(row, id, grey, own and not label)
+		row.fs:ClearAllPoints()
+		row.fs:SetPoint("TOPLEFT", row, "TOPLEFT", 20 + ICON + 10, -2)
+		row.fs:SetWidth(inner - (20 + ICON + 10))
+		row.fs:SetTextColor(0.9, 0.88, 0.82)
+		local name = id and C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id) or (id and ("#" .. id) or "")
+		row.fs:SetText(("|cff%s%s|r%s|n%s"):format(missing and "8a8a8a" or "ffd100", name,
+			label and (" |cffffffff(" .. label .. ")|r") or "", body or ""))
+		local h = math.max(ICON, row.fs:GetStringHeight() + 4)
+		row:SetHeight(h)
+		y = y - h - 8
+	end
+	local function Rows(list)
+		for _, e in ipairs(list or {}) do
+			if e.code then
+				local r = byCode[e.code]
+				if r and r.spellId then
+					Row(r.spellId, ClickLabel(r), L(e.key))
+				end
+			else
+				Row(e.id, nil, L(e.key))
+			end
+		end
+	end
+	local function Head(key)
+		y = y - 4
+		Line(L(key), "GameFontNormal", 1, 0.82, 0.2, 6)
+	end
+
+	Line(L("SOLO_INTRO"), nil, 0.62, 0.6, 0.56, 10)
+	Head("SOLO_HEAD_PRE")
+	Rows(guide.pre)
+	Head("SOLO_HEAD_ATTACK")
+	for i, s in ipairs(ns.HealerSoloSteps and ns.HealerSoloSteps(specID, own) or {}) do
+		local key = own and ns.LiveKeyForSpell and ReadableKey((ns.LiveKeyForSpell(s.id)))
+		Row(s.id, key, L(s.note), i)
+	end
+	if guide.move then
+		Line(L(guide.move), nil, 0.62, 0.6, 0.56, 8)
+	end
+	Head("SOLO_HEAD_HEAL")
+	Line(L("SOLO_HEAL_INTRO"), nil, 0.62, 0.6, 0.56, 8)
+	Rows(guide.heal)
+	Head("SOLO_HEAD_BAD")
+	Rows(guide.bad)
+	y = y - 4
+	Line(L("SOLO_GOLDEN"), "GameFontNormal", 1, 0.5, 0.25, 8)
+	Line(L("SOLO_VALEERA"), nil, 0.62, 0.6, 0.56, 12)
+	return y
+end
+
+--------------------------------------------------------------------------------
 -- Drawing
 --------------------------------------------------------------------------------
 
@@ -1396,6 +1483,12 @@ local function Redraw()
 	elseif tab == "clicks" then
 		tab = "play"
 	end
+	-- Seventh tab, Solo (25 Oct 2026): the seven healer specs (HealerSoloGuide.lua); same fallback.
+	if ns.HasSoloGuide and ns.HasSoloGuide(specID) then
+		tabs[#tabs + 1] = { id = "solo", key = "SOLO_TAB" }
+	elseif tab == "solo" then
+		tab = "play"
+	end
 	-- The quiz has no tab of its own (see DrawQuiz); a spec without one falls back to the card.
 	local hasQuiz = ns.GetPlayCardQuiz and ns.GetPlayCardQuiz(specID) ~= nil
 	if tab == "quiz" and not hasQuiz then
@@ -1466,9 +1559,10 @@ local function Redraw()
 		return
 	end
 
-	if tab == "alive" or tab == "cons" or tab == "dispel" or tab == "group" or tab == "clicks" then
+	if tab == "alive" or tab == "cons" or tab == "dispel" or tab == "group" or tab == "clicks" or tab == "solo" then
 		local draw = (tab == "alive" and DrawStayAlive) or (tab == "cons" and DrawConsumables)
-			or (tab == "group" and DrawGroup) or (tab == "clicks" and DrawClicks) or DrawDispel
+			or (tab == "group" and DrawGroup) or (tab == "clicks" and DrawClicks) or (tab == "solo" and DrawSolo)
+			or DrawDispel
 		y = draw(specID, y, inner)
 		-- 5 Oct 2026: the site's /play/ pages have the same tabs, each with an anchor (site chat), so
 		-- every tab links to its own part of the page.
@@ -1545,7 +1639,16 @@ local function Redraw()
 		-- And how a healer fights ALONE (Rob, 6 Oct 2026, Resto Druid in the open world: "hoe weet ik welke knop ik moet
 		-- gebruiken?"). Names from the client (the player's language), keys from the bars; HealerSolo.lua has the order.
 		local solo = ns.HealerSoloSteps and ns.HealerSoloSteps(specID, live)
-		if solo and #solo > 0 then
+		if ns.HasSoloGuide and ns.HasSoloGuide(specID) then
+			-- Since 25 Oct 2026 the whole solo story is on its own tab; one pointer here instead of the list twice.
+			t = t + 1
+			local fight = Text(t, "GameFontHighlight")
+			fight:SetWidth(inner)
+			fight:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+			fight:SetTextColor(0.9, 0.88, 0.82)
+			fight:SetText("|cffff7766" .. L("CARD_SOLO_HEAD") .. "|r " .. L("CARD_SOLO_SEE_TAB"))
+			y = y - fight:GetStringHeight() - 10
+		elseif solo and #solo > 0 then
 			t = t + 1
 			local fight = Text(t, "GameFontHighlight")
 			fight:SetWidth(inner)

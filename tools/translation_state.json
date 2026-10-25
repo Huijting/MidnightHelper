@@ -3774,8 +3774,26 @@
   "CARD_SOLO_NOTE_AOE": {
    "ruRU": "03919ced1bf82054"
   },
+  "CARD_SOLO_NOTE_CATFORM": {
+   "deDE": "1bb0222a24ce7231",
+   "esES": "1bb0222a24ce7231",
+   "frFR": "1bb0222a24ce7231",
+   "itIT": "1bb0222a24ce7231",
+   "nlNL": "1bb0222a24ce7231",
+   "ptBR": "1bb0222a24ce7231",
+   "ruRU": "1bb0222a24ce7231"
+  },
   "CARD_SOLO_NOTE_CD": {
    "ruRU": "cfcfd14c7905906e"
+  },
+  "CARD_SOLO_NOTE_CP5": {
+   "deDE": "c97c3c469152db59",
+   "esES": "c97c3c469152db59",
+   "frFR": "c97c3c469152db59",
+   "itIT": "c97c3c469152db59",
+   "nlNL": "c97c3c469152db59",
+   "ptBR": "c97c3c469152db59",
+   "ruRU": "c97c3c469152db59"
   },
   "CARD_SOLO_NOTE_DOT": {
    "ruRU": "7394cfd7a4459eba"
@@ -3794,6 +3812,15 @@
   },
   "CARD_SOLO_NOTE_X3": {
    "ruRU": "95f7f1c9c860dca7"
+  },
+  "CARD_SOLO_SEE_TAB": {
+   "deDE": "b709576b1af99cff",
+   "esES": "b709576b1af99cff",
+   "frFR": "b709576b1af99cff",
+   "itIT": "b709576b1af99cff",
+   "nlNL": "b709576b1af99cff",
+   "ptBR": "b709576b1af99cff",
+   "ruRU": "b709576b1af99cff"
   },
   "CHANGELOG_ASK": {
    "ruRU": "e41026eb847fe47d"
@@ -37291,6 +37318,846 @@
    "nlNL": "673878491340b7b7",
    "ptBR": "673878491340b7b7",
    "ruRU": "673878491340b7b7"
+  },
+  "SOLO_105_BAD_BARKSKIN": {
+   "deDE": "8e421abb0da9bf4d",
+   "esES": "8e421abb0da9bf4d",
+   "frFR": "8e421abb0da9bf4d",
+   "itIT": "8e421abb0da9bf4d",
+   "nlNL": "8e421abb0da9bf4d",
+   "ptBR": "8e421abb0da9bf4d",
+   "ruRU": "8e421abb0da9bf4d"
+  },
+  "SOLO_105_BAD_CC": {
+   "deDE": "bcfe8b1d65eadfbc",
+   "esES": "bcfe8b1d65eadfbc",
+   "frFR": "bcfe8b1d65eadfbc",
+   "itIT": "bcfe8b1d65eadfbc",
+   "nlNL": "bcfe8b1d65eadfbc",
+   "ptBR": "bcfe8b1d65eadfbc",
+   "ruRU": "bcfe8b1d65eadfbc"
+  },
+  "SOLO_105_BAD_CURE": {
+   "deDE": "a2bc1c9c467bca2d",
+   "esES": "a2bc1c9c467bca2d",
+   "frFR": "a2bc1c9c467bca2d",
+   "itIT": "a2bc1c9c467bca2d",
+   "nlNL": "a2bc1c9c467bca2d",
+   "ptBR": "a2bc1c9c467bca2d",
+   "ruRU": "a2bc1c9c467bca2d"
+  },
+  "SOLO_105_BAD_IRONBARK": {
+   "deDE": "a8ff8d8e52be44d1",
+   "esES": "a8ff8d8e52be44d1",
+   "frFR": "a8ff8d8e52be44d1",
+   "itIT": "a8ff8d8e52be44d1",
+   "nlNL": "a8ff8d8e52be44d1",
+   "ptBR": "a8ff8d8e52be44d1",
+   "ruRU": "a8ff8d8e52be44d1"
+  },
+  "SOLO_105_BAD_NS": {
+   "deDE": "a53ddd7c7933058d",
+   "esES": "a53ddd7c7933058d",
+   "frFR": "a53ddd7c7933058d",
+   "itIT": "a53ddd7c7933058d",
+   "nlNL": "a53ddd7c7933058d",
+   "ptBR": "a53ddd7c7933058d",
+   "ruRU": "a53ddd7c7933058d"
+  },
+  "SOLO_105_BAD_REBIRTH": {
+   "deDE": "3fc766b76bc29477",
+   "esES": "3fc766b76bc29477",
+   "frFR": "3fc766b76bc29477",
+   "itIT": "3fc766b76bc29477",
+   "nlNL": "3fc766b76bc29477",
+   "ptBR": "3fc766b76bc29477",
+   "ruRU": "3fc766b76bc29477"
+  },
+  "SOLO_105_H_AL": {
+   "deDE": "dee9cec75f0e75b9",
+   "esES": "dee9cec75f0e75b9",
+   "frFR": "dee9cec75f0e75b9",
+   "itIT": "dee9cec75f0e75b9",
+   "nlNL": "dee9cec75f0e75b9",
+   "ptBR": "dee9cec75f0e75b9",
+   "ruRU": "dee9cec75f0e75b9"
+  },
+  "SOLO_105_H_CR": {
+   "deDE": "93643b6678ef56ea",
+   "esES": "93643b6678ef56ea",
+   "frFR": "93643b6678ef56ea",
+   "itIT": "93643b6678ef56ea",
+   "nlNL": "93643b6678ef56ea",
+   "ptBR": "93643b6678ef56ea",
+   "ruRU": "93643b6678ef56ea"
+  },
+  "SOLO_105_H_L": {
+   "deDE": "cc712b16608a0397",
+   "esES": "cc712b16608a0397",
+   "frFR": "cc712b16608a0397",
+   "itIT": "cc712b16608a0397",
+   "nlNL": "cc712b16608a0397",
+   "ptBR": "cc712b16608a0397",
+   "ruRU": "cc712b16608a0397"
+  },
+  "SOLO_105_H_R": {
+   "deDE": "13bfa03a45ac5dad",
+   "esES": "13bfa03a45ac5dad",
+   "frFR": "13bfa03a45ac5dad",
+   "itIT": "13bfa03a45ac5dad",
+   "nlNL": "13bfa03a45ac5dad",
+   "ptBR": "13bfa03a45ac5dad",
+   "ruRU": "13bfa03a45ac5dad"
+  },
+  "SOLO_105_MOVE": {
+   "deDE": "5ffaf6983bc14261",
+   "esES": "5ffaf6983bc14261",
+   "frFR": "5ffaf6983bc14261",
+   "itIT": "5ffaf6983bc14261",
+   "nlNL": "5ffaf6983bc14261",
+   "ptBR": "5ffaf6983bc14261",
+   "ruRU": "5ffaf6983bc14261"
+  },
+  "SOLO_105_PRE_LIFEBLOOM": {
+   "deDE": "bf7f2f03754c8e8c",
+   "esES": "bf7f2f03754c8e8c",
+   "frFR": "bf7f2f03754c8e8c",
+   "itIT": "bf7f2f03754c8e8c",
+   "nlNL": "bf7f2f03754c8e8c",
+   "ptBR": "bf7f2f03754c8e8c",
+   "ruRU": "bf7f2f03754c8e8c"
+  },
+  "SOLO_105_PRE_MOTW": {
+   "deDE": "f3f90a2f5f4b8c40",
+   "esES": "f3f90a2f5f4b8c40",
+   "frFR": "f3f90a2f5f4b8c40",
+   "itIT": "f3f90a2f5f4b8c40",
+   "nlNL": "f3f90a2f5f4b8c40",
+   "ptBR": "f3f90a2f5f4b8c40",
+   "ruRU": "f3f90a2f5f4b8c40"
+  },
+  "SOLO_105_PRE_SYMBIOTIC": {
+   "deDE": "e596628bdd279737",
+   "esES": "e596628bdd279737",
+   "frFR": "e596628bdd279737",
+   "itIT": "e596628bdd279737",
+   "nlNL": "e596628bdd279737",
+   "ptBR": "e596628bdd279737",
+   "ruRU": "e596628bdd279737"
+  },
+  "SOLO_1468_BAD_CC": {
+   "deDE": "ef73b6ce1a0140b9",
+   "esES": "ef73b6ce1a0140b9",
+   "frFR": "ef73b6ce1a0140b9",
+   "itIT": "ef73b6ce1a0140b9",
+   "nlNL": "ef73b6ce1a0140b9",
+   "ptBR": "ef73b6ce1a0140b9",
+   "ruRU": "ef73b6ce1a0140b9"
+  },
+  "SOLO_1468_BAD_NATURALIZE": {
+   "deDE": "068f5756926f4b3b",
+   "esES": "068f5756926f4b3b",
+   "frFR": "068f5756926f4b3b",
+   "itIT": "068f5756926f4b3b",
+   "nlNL": "068f5756926f4b3b",
+   "ptBR": "068f5756926f4b3b",
+   "ruRU": "068f5756926f4b3b"
+  },
+  "SOLO_1468_BAD_REWIND": {
+   "deDE": "164eab89f70c9000",
+   "esES": "164eab89f70c9000",
+   "frFR": "164eab89f70c9000",
+   "itIT": "164eab89f70c9000",
+   "nlNL": "164eab89f70c9000",
+   "ptBR": "164eab89f70c9000",
+   "ruRU": "164eab89f70c9000"
+  },
+  "SOLO_1468_BAD_SCALES": {
+   "deDE": "904b132b015e2645",
+   "esES": "904b132b015e2645",
+   "frFR": "904b132b015e2645",
+   "itIT": "904b132b015e2645",
+   "nlNL": "904b132b015e2645",
+   "ptBR": "904b132b015e2645",
+   "ruRU": "904b132b015e2645"
+  },
+  "SOLO_1468_BAD_TD": {
+   "deDE": "31a8b0ea12c4fac8",
+   "esES": "31a8b0ea12c4fac8",
+   "frFR": "31a8b0ea12c4fac8",
+   "itIT": "31a8b0ea12c4fac8",
+   "nlNL": "31a8b0ea12c4fac8",
+   "ptBR": "31a8b0ea12c4fac8",
+   "ruRU": "31a8b0ea12c4fac8"
+  },
+  "SOLO_1468_H_CR": {
+   "deDE": "fdf57cfcc95af191",
+   "esES": "fdf57cfcc95af191",
+   "frFR": "fdf57cfcc95af191",
+   "itIT": "fdf57cfcc95af191",
+   "nlNL": "fdf57cfcc95af191",
+   "ptBR": "fdf57cfcc95af191",
+   "ruRU": "fdf57cfcc95af191"
+  },
+  "SOLO_1468_H_M": {
+   "deDE": "0d34fdb2ba7a3ca2",
+   "esES": "0d34fdb2ba7a3ca2",
+   "frFR": "0d34fdb2ba7a3ca2",
+   "itIT": "0d34fdb2ba7a3ca2",
+   "nlNL": "0d34fdb2ba7a3ca2",
+   "ptBR": "0d34fdb2ba7a3ca2",
+   "ruRU": "0d34fdb2ba7a3ca2"
+  },
+  "SOLO_1468_MOVE": {
+   "deDE": "056e0bc30423e188",
+   "esES": "056e0bc30423e188",
+   "frFR": "056e0bc30423e188",
+   "itIT": "056e0bc30423e188",
+   "nlNL": "056e0bc30423e188",
+   "ptBR": "056e0bc30423e188",
+   "ruRU": "056e0bc30423e188"
+  },
+  "SOLO_1468_PRE_BRONZE": {
+   "deDE": "f3f90a2f5f4b8c40",
+   "esES": "f3f90a2f5f4b8c40",
+   "frFR": "f3f90a2f5f4b8c40",
+   "itIT": "f3f90a2f5f4b8c40",
+   "nlNL": "f3f90a2f5f4b8c40",
+   "ptBR": "f3f90a2f5f4b8c40",
+   "ruRU": "f3f90a2f5f4b8c40"
+  },
+  "SOLO_1468_PRE_ECHO": {
+   "deDE": "e1ac7b9f447e67a6",
+   "esES": "e1ac7b9f447e67a6",
+   "frFR": "e1ac7b9f447e67a6",
+   "itIT": "e1ac7b9f447e67a6",
+   "nlNL": "e1ac7b9f447e67a6",
+   "ptBR": "e1ac7b9f447e67a6",
+   "ruRU": "e1ac7b9f447e67a6"
+  },
+  "SOLO_1468_PRE_REVERSION": {
+   "deDE": "f803b7787a8357f2",
+   "esES": "f803b7787a8357f2",
+   "frFR": "f803b7787a8357f2",
+   "itIT": "f803b7787a8357f2",
+   "nlNL": "f803b7787a8357f2",
+   "ptBR": "f803b7787a8357f2",
+   "ruRU": "f803b7787a8357f2"
+  },
+  "SOLO_256_BAD_CC": {
+   "deDE": "9acf296e639f9457",
+   "esES": "9acf296e639f9457",
+   "frFR": "9acf296e639f9457",
+   "itIT": "9acf296e639f9457",
+   "nlNL": "9acf296e639f9457",
+   "ptBR": "9acf296e639f9457",
+   "ruRU": "9acf296e639f9457"
+  },
+  "SOLO_256_BAD_FADE": {
+   "deDE": "6c541b8de7a0ebf2",
+   "esES": "6c541b8de7a0ebf2",
+   "frFR": "6c541b8de7a0ebf2",
+   "itIT": "6c541b8de7a0ebf2",
+   "nlNL": "6c541b8de7a0ebf2",
+   "ptBR": "6c541b8de7a0ebf2",
+   "ruRU": "6c541b8de7a0ebf2"
+  },
+  "SOLO_256_BAD_LEAP": {
+   "deDE": "2af73322ed282477",
+   "esES": "2af73322ed282477",
+   "frFR": "2af73322ed282477",
+   "itIT": "2af73322ed282477",
+   "nlNL": "2af73322ed282477",
+   "ptBR": "2af73322ed282477",
+   "ruRU": "2af73322ed282477"
+  },
+  "SOLO_256_BAD_PRAYER": {
+   "deDE": "32e561f8965ed1f5",
+   "esES": "32e561f8965ed1f5",
+   "frFR": "32e561f8965ed1f5",
+   "itIT": "32e561f8965ed1f5",
+   "nlNL": "32e561f8965ed1f5",
+   "ptBR": "32e561f8965ed1f5",
+   "ruRU": "32e561f8965ed1f5"
+  },
+  "SOLO_256_BAD_PS": {
+   "deDE": "9e546cfd6e8384c5",
+   "esES": "9e546cfd6e8384c5",
+   "frFR": "9e546cfd6e8384c5",
+   "itIT": "9e546cfd6e8384c5",
+   "nlNL": "9e546cfd6e8384c5",
+   "ptBR": "9e546cfd6e8384c5",
+   "ruRU": "9e546cfd6e8384c5"
+  },
+  "SOLO_256_BAD_PURIFY": {
+   "deDE": "39ed37f71ec21ea7",
+   "esES": "39ed37f71ec21ea7",
+   "frFR": "39ed37f71ec21ea7",
+   "itIT": "39ed37f71ec21ea7",
+   "nlNL": "39ed37f71ec21ea7",
+   "ptBR": "39ed37f71ec21ea7",
+   "ruRU": "39ed37f71ec21ea7"
+  },
+  "SOLO_256_H_AL": {
+   "deDE": "37fc3d27324b1ec8",
+   "esES": "37fc3d27324b1ec8",
+   "frFR": "37fc3d27324b1ec8",
+   "itIT": "37fc3d27324b1ec8",
+   "nlNL": "37fc3d27324b1ec8",
+   "ptBR": "37fc3d27324b1ec8",
+   "ruRU": "37fc3d27324b1ec8"
+  },
+  "SOLO_256_H_M": {
+   "deDE": "8d70a1d2d601ed3b",
+   "esES": "8d70a1d2d601ed3b",
+   "frFR": "8d70a1d2d601ed3b",
+   "itIT": "8d70a1d2d601ed3b",
+   "nlNL": "8d70a1d2d601ed3b",
+   "ptBR": "8d70a1d2d601ed3b",
+   "ruRU": "8d70a1d2d601ed3b"
+  },
+  "SOLO_256_H_R": {
+   "deDE": "05dea28ba8fe5007",
+   "esES": "05dea28ba8fe5007",
+   "frFR": "05dea28ba8fe5007",
+   "itIT": "05dea28ba8fe5007",
+   "nlNL": "05dea28ba8fe5007",
+   "ptBR": "05dea28ba8fe5007",
+   "ruRU": "05dea28ba8fe5007"
+  },
+  "SOLO_256_MOVE": {
+   "deDE": "3322ee31ce1395fd",
+   "esES": "3322ee31ce1395fd",
+   "frFR": "3322ee31ce1395fd",
+   "itIT": "3322ee31ce1395fd",
+   "nlNL": "3322ee31ce1395fd",
+   "ptBR": "3322ee31ce1395fd",
+   "ruRU": "3322ee31ce1395fd"
+  },
+  "SOLO_256_PRE_FORT": {
+   "deDE": "f3f90a2f5f4b8c40",
+   "esES": "f3f90a2f5f4b8c40",
+   "frFR": "f3f90a2f5f4b8c40",
+   "itIT": "f3f90a2f5f4b8c40",
+   "nlNL": "f3f90a2f5f4b8c40",
+   "ptBR": "f3f90a2f5f4b8c40",
+   "ruRU": "f3f90a2f5f4b8c40"
+  },
+  "SOLO_256_PRE_PLEA": {
+   "deDE": "b069620451a39cfc",
+   "esES": "b069620451a39cfc",
+   "frFR": "b069620451a39cfc",
+   "itIT": "b069620451a39cfc",
+   "nlNL": "b069620451a39cfc",
+   "ptBR": "b069620451a39cfc",
+   "ruRU": "b069620451a39cfc"
+  },
+  "SOLO_256_PRE_SHIELD": {
+   "deDE": "334e6309ed82b85a",
+   "esES": "334e6309ed82b85a",
+   "frFR": "334e6309ed82b85a",
+   "itIT": "334e6309ed82b85a",
+   "nlNL": "334e6309ed82b85a",
+   "ptBR": "334e6309ed82b85a",
+   "ruRU": "334e6309ed82b85a"
+  },
+  "SOLO_257_BAD_CC": {
+   "deDE": "7d1db7ce67239040",
+   "esES": "7d1db7ce67239040",
+   "frFR": "7d1db7ce67239040",
+   "itIT": "7d1db7ce67239040",
+   "nlNL": "7d1db7ce67239040",
+   "ptBR": "7d1db7ce67239040",
+   "ruRU": "7d1db7ce67239040"
+  },
+  "SOLO_257_BAD_FADE": {
+   "deDE": "d9a70a5be6c87dff",
+   "esES": "d9a70a5be6c87dff",
+   "frFR": "d9a70a5be6c87dff",
+   "itIT": "d9a70a5be6c87dff",
+   "nlNL": "d9a70a5be6c87dff",
+   "ptBR": "d9a70a5be6c87dff",
+   "ruRU": "d9a70a5be6c87dff"
+  },
+  "SOLO_257_BAD_GS": {
+   "deDE": "8c329cc18b5e77e7",
+   "esES": "8c329cc18b5e77e7",
+   "frFR": "8c329cc18b5e77e7",
+   "itIT": "8c329cc18b5e77e7",
+   "nlNL": "8c329cc18b5e77e7",
+   "ptBR": "8c329cc18b5e77e7",
+   "ruRU": "8c329cc18b5e77e7"
+  },
+  "SOLO_257_BAD_LEAP": {
+   "deDE": "2af73322ed282477",
+   "esES": "2af73322ed282477",
+   "frFR": "2af73322ed282477",
+   "itIT": "2af73322ed282477",
+   "nlNL": "2af73322ed282477",
+   "ptBR": "2af73322ed282477",
+   "ruRU": "2af73322ed282477"
+  },
+  "SOLO_257_BAD_PRAYER": {
+   "deDE": "32e561f8965ed1f5",
+   "esES": "32e561f8965ed1f5",
+   "frFR": "32e561f8965ed1f5",
+   "itIT": "32e561f8965ed1f5",
+   "nlNL": "32e561f8965ed1f5",
+   "ptBR": "32e561f8965ed1f5",
+   "ruRU": "32e561f8965ed1f5"
+  },
+  "SOLO_257_BAD_PURIFY": {
+   "deDE": "72a4c103bc14a5ab",
+   "esES": "72a4c103bc14a5ab",
+   "frFR": "72a4c103bc14a5ab",
+   "itIT": "72a4c103bc14a5ab",
+   "nlNL": "72a4c103bc14a5ab",
+   "ptBR": "72a4c103bc14a5ab",
+   "ruRU": "72a4c103bc14a5ab"
+  },
+  "SOLO_257_H_M": {
+   "deDE": "b6a2e808c997a4b8",
+   "esES": "b6a2e808c997a4b8",
+   "frFR": "b6a2e808c997a4b8",
+   "itIT": "b6a2e808c997a4b8",
+   "nlNL": "b6a2e808c997a4b8",
+   "ptBR": "b6a2e808c997a4b8",
+   "ruRU": "b6a2e808c997a4b8"
+  },
+  "SOLO_257_H_R": {
+   "deDE": "b12ed5aa79ad5ffc",
+   "esES": "b12ed5aa79ad5ffc",
+   "frFR": "b12ed5aa79ad5ffc",
+   "itIT": "b12ed5aa79ad5ffc",
+   "nlNL": "b12ed5aa79ad5ffc",
+   "ptBR": "b12ed5aa79ad5ffc",
+   "ruRU": "b12ed5aa79ad5ffc"
+  },
+  "SOLO_257_MOVE": {
+   "deDE": "e21736ef14e887be",
+   "esES": "e21736ef14e887be",
+   "frFR": "e21736ef14e887be",
+   "itIT": "e21736ef14e887be",
+   "nlNL": "e21736ef14e887be",
+   "ptBR": "e21736ef14e887be",
+   "ruRU": "e21736ef14e887be"
+  },
+  "SOLO_257_PRE_FORT": {
+   "deDE": "f3f90a2f5f4b8c40",
+   "esES": "f3f90a2f5f4b8c40",
+   "frFR": "f3f90a2f5f4b8c40",
+   "itIT": "f3f90a2f5f4b8c40",
+   "nlNL": "f3f90a2f5f4b8c40",
+   "ptBR": "f3f90a2f5f4b8c40",
+   "ruRU": "f3f90a2f5f4b8c40"
+  },
+  "SOLO_257_PRE_POM": {
+   "deDE": "5893e8d8a4bfc95c",
+   "esES": "5893e8d8a4bfc95c",
+   "frFR": "5893e8d8a4bfc95c",
+   "itIT": "5893e8d8a4bfc95c",
+   "nlNL": "5893e8d8a4bfc95c",
+   "ptBR": "5893e8d8a4bfc95c",
+   "ruRU": "5893e8d8a4bfc95c"
+  },
+  "SOLO_264_BAD_ASTRAL": {
+   "deDE": "8b9f729244de7843",
+   "esES": "8b9f729244de7843",
+   "frFR": "8b9f729244de7843",
+   "itIT": "8b9f729244de7843",
+   "nlNL": "8b9f729244de7843",
+   "ptBR": "8b9f729244de7843",
+   "ruRU": "8b9f729244de7843"
+  },
+  "SOLO_264_BAD_HST": {
+   "deDE": "dda551d89e0ef21a",
+   "esES": "dda551d89e0ef21a",
+   "frFR": "dda551d89e0ef21a",
+   "itIT": "dda551d89e0ef21a",
+   "nlNL": "dda551d89e0ef21a",
+   "ptBR": "dda551d89e0ef21a",
+   "ruRU": "dda551d89e0ef21a"
+  },
+  "SOLO_264_BAD_KICK": {
+   "deDE": "57d49fa877a25fde",
+   "esES": "57d49fa877a25fde",
+   "frFR": "57d49fa877a25fde",
+   "itIT": "57d49fa877a25fde",
+   "nlNL": "57d49fa877a25fde",
+   "ptBR": "57d49fa877a25fde",
+   "ruRU": "57d49fa877a25fde"
+  },
+  "SOLO_264_BAD_PURIFY": {
+   "deDE": "76e02980d4c5d520",
+   "esES": "76e02980d4c5d520",
+   "frFR": "76e02980d4c5d520",
+   "itIT": "76e02980d4c5d520",
+   "nlNL": "76e02980d4c5d520",
+   "ptBR": "76e02980d4c5d520",
+   "ruRU": "76e02980d4c5d520"
+  },
+  "SOLO_264_BAD_REINC": {
+   "deDE": "b2bb95acc9e20e7d",
+   "esES": "b2bb95acc9e20e7d",
+   "frFR": "b2bb95acc9e20e7d",
+   "itIT": "b2bb95acc9e20e7d",
+   "nlNL": "b2bb95acc9e20e7d",
+   "ptBR": "b2bb95acc9e20e7d",
+   "ruRU": "b2bb95acc9e20e7d"
+  },
+  "SOLO_264_H_CM": {
+   "deDE": "7c22339f15425c32",
+   "esES": "7c22339f15425c32",
+   "frFR": "7c22339f15425c32",
+   "itIT": "7c22339f15425c32",
+   "nlNL": "7c22339f15425c32",
+   "ptBR": "7c22339f15425c32",
+   "ruRU": "7c22339f15425c32"
+  },
+  "SOLO_264_H_CR": {
+   "deDE": "ee7ac2569d1f831c",
+   "esES": "ee7ac2569d1f831c",
+   "frFR": "ee7ac2569d1f831c",
+   "itIT": "ee7ac2569d1f831c",
+   "nlNL": "ee7ac2569d1f831c",
+   "ptBR": "ee7ac2569d1f831c",
+   "ruRU": "ee7ac2569d1f831c"
+  },
+  "SOLO_264_H_L": {
+   "deDE": "e76555f214395b9c",
+   "esES": "e76555f214395b9c",
+   "frFR": "e76555f214395b9c",
+   "itIT": "e76555f214395b9c",
+   "nlNL": "e76555f214395b9c",
+   "ptBR": "e76555f214395b9c",
+   "ruRU": "e76555f214395b9c"
+  },
+  "SOLO_264_H_R": {
+   "deDE": "d06ec48b2a9a98e3",
+   "esES": "d06ec48b2a9a98e3",
+   "frFR": "d06ec48b2a9a98e3",
+   "itIT": "d06ec48b2a9a98e3",
+   "nlNL": "d06ec48b2a9a98e3",
+   "ptBR": "d06ec48b2a9a98e3",
+   "ruRU": "d06ec48b2a9a98e3"
+  },
+  "SOLO_264_MOVE": {
+   "deDE": "7d3688bc4124965f",
+   "esES": "7d3688bc4124965f",
+   "frFR": "7d3688bc4124965f",
+   "itIT": "7d3688bc4124965f",
+   "nlNL": "7d3688bc4124965f",
+   "ptBR": "7d3688bc4124965f",
+   "ruRU": "7d3688bc4124965f"
+  },
+  "SOLO_264_PRE_EARTH": {
+   "deDE": "86a9e6440f1b83ce",
+   "esES": "86a9e6440f1b83ce",
+   "frFR": "86a9e6440f1b83ce",
+   "itIT": "86a9e6440f1b83ce",
+   "nlNL": "86a9e6440f1b83ce",
+   "ptBR": "86a9e6440f1b83ce",
+   "ruRU": "86a9e6440f1b83ce"
+  },
+  "SOLO_264_PRE_WATER": {
+   "deDE": "6979dcfa3859427b",
+   "esES": "6979dcfa3859427b",
+   "frFR": "6979dcfa3859427b",
+   "itIT": "6979dcfa3859427b",
+   "nlNL": "6979dcfa3859427b",
+   "ptBR": "6979dcfa3859427b",
+   "ruRU": "6979dcfa3859427b"
+  },
+  "SOLO_264_PRE_WEAPON": {
+   "deDE": "60c93cca6718ca31",
+   "esES": "60c93cca6718ca31",
+   "frFR": "60c93cca6718ca31",
+   "itIT": "60c93cca6718ca31",
+   "nlNL": "60c93cca6718ca31",
+   "ptBR": "60c93cca6718ca31",
+   "ruRU": "60c93cca6718ca31"
+  },
+  "SOLO_270_BAD_BREW": {
+   "deDE": "84804a3abee5a8da",
+   "esES": "84804a3abee5a8da",
+   "frFR": "84804a3abee5a8da",
+   "itIT": "84804a3abee5a8da",
+   "nlNL": "84804a3abee5a8da",
+   "ptBR": "84804a3abee5a8da",
+   "ruRU": "84804a3abee5a8da"
+  },
+  "SOLO_270_BAD_CC": {
+   "deDE": "e3c4c479c4da6865",
+   "esES": "e3c4c479c4da6865",
+   "frFR": "e3c4c479c4da6865",
+   "itIT": "e3c4c479c4da6865",
+   "nlNL": "e3c4c479c4da6865",
+   "ptBR": "e3c4c479c4da6865",
+   "ruRU": "e3c4c479c4da6865"
+  },
+  "SOLO_270_BAD_COCOON": {
+   "deDE": "7c43d97744ed96cb",
+   "esES": "7c43d97744ed96cb",
+   "frFR": "7c43d97744ed96cb",
+   "itIT": "7c43d97744ed96cb",
+   "nlNL": "7c43d97744ed96cb",
+   "ptBR": "7c43d97744ed96cb",
+   "ruRU": "7c43d97744ed96cb"
+  },
+  "SOLO_270_BAD_DETOX": {
+   "deDE": "3a2924e700f0b6f7",
+   "esES": "3a2924e700f0b6f7",
+   "frFR": "3a2924e700f0b6f7",
+   "itIT": "3a2924e700f0b6f7",
+   "nlNL": "3a2924e700f0b6f7",
+   "ptBR": "3a2924e700f0b6f7",
+   "ruRU": "3a2924e700f0b6f7"
+  },
+  "SOLO_270_BAD_EXPEL": {
+   "deDE": "a052a6a6b66de156",
+   "esES": "a052a6a6b66de156",
+   "frFR": "a052a6a6b66de156",
+   "itIT": "a052a6a6b66de156",
+   "nlNL": "a052a6a6b66de156",
+   "ptBR": "a052a6a6b66de156",
+   "ruRU": "a052a6a6b66de156"
+  },
+  "SOLO_270_H_M": {
+   "deDE": "42d2da67a3158074",
+   "esES": "42d2da67a3158074",
+   "frFR": "42d2da67a3158074",
+   "itIT": "42d2da67a3158074",
+   "nlNL": "42d2da67a3158074",
+   "ptBR": "42d2da67a3158074",
+   "ruRU": "42d2da67a3158074"
+  },
+  "SOLO_270_H_R": {
+   "deDE": "b8b16077e8ca755c",
+   "esES": "b8b16077e8ca755c",
+   "frFR": "b8b16077e8ca755c",
+   "itIT": "b8b16077e8ca755c",
+   "nlNL": "b8b16077e8ca755c",
+   "ptBR": "b8b16077e8ca755c",
+   "ruRU": "b8b16077e8ca755c"
+  },
+  "SOLO_270_MOVE": {
+   "deDE": "d9674425dc8e4ebf",
+   "esES": "d9674425dc8e4ebf",
+   "frFR": "d9674425dc8e4ebf",
+   "itIT": "d9674425dc8e4ebf",
+   "nlNL": "d9674425dc8e4ebf",
+   "ptBR": "d9674425dc8e4ebf",
+   "ruRU": "d9674425dc8e4ebf"
+  },
+  "SOLO_270_PRE_RENEW": {
+   "deDE": "aaf4b81969e5792e",
+   "esES": "aaf4b81969e5792e",
+   "frFR": "aaf4b81969e5792e",
+   "itIT": "aaf4b81969e5792e",
+   "nlNL": "aaf4b81969e5792e",
+   "ptBR": "aaf4b81969e5792e",
+   "ruRU": "aaf4b81969e5792e"
+  },
+  "SOLO_65_BAD_CC": {
+   "deDE": "29850780dff09cbd",
+   "esES": "29850780dff09cbd",
+   "frFR": "29850780dff09cbd",
+   "itIT": "29850780dff09cbd",
+   "nlNL": "29850780dff09cbd",
+   "ptBR": "29850780dff09cbd",
+   "ruRU": "29850780dff09cbd"
+  },
+  "SOLO_65_BAD_CLEANSE": {
+   "deDE": "3a2924e700f0b6f7",
+   "esES": "3a2924e700f0b6f7",
+   "frFR": "3a2924e700f0b6f7",
+   "itIT": "3a2924e700f0b6f7",
+   "nlNL": "3a2924e700f0b6f7",
+   "ptBR": "3a2924e700f0b6f7",
+   "ruRU": "3a2924e700f0b6f7"
+  },
+  "SOLO_65_BAD_DP": {
+   "deDE": "6e59c79e37e4be0b",
+   "esES": "6e59c79e37e4be0b",
+   "frFR": "6e59c79e37e4be0b",
+   "itIT": "6e59c79e37e4be0b",
+   "nlNL": "6e59c79e37e4be0b",
+   "ptBR": "6e59c79e37e4be0b",
+   "ruRU": "6e59c79e37e4be0b"
+  },
+  "SOLO_65_BAD_LOH": {
+   "deDE": "2f861cedebd62a7b",
+   "esES": "2f861cedebd62a7b",
+   "frFR": "2f861cedebd62a7b",
+   "itIT": "2f861cedebd62a7b",
+   "nlNL": "2f861cedebd62a7b",
+   "ptBR": "2f861cedebd62a7b",
+   "ruRU": "2f861cedebd62a7b"
+  },
+  "SOLO_65_BAD_RES": {
+   "deDE": "3fc766b76bc29477",
+   "esES": "3fc766b76bc29477",
+   "frFR": "3fc766b76bc29477",
+   "itIT": "3fc766b76bc29477",
+   "nlNL": "3fc766b76bc29477",
+   "ptBR": "3fc766b76bc29477",
+   "ruRU": "3fc766b76bc29477"
+  },
+  "SOLO_65_BAD_SHIELD": {
+   "deDE": "324ba44d18d22b81",
+   "esES": "324ba44d18d22b81",
+   "frFR": "324ba44d18d22b81",
+   "itIT": "324ba44d18d22b81",
+   "nlNL": "324ba44d18d22b81",
+   "ptBR": "324ba44d18d22b81",
+   "ruRU": "324ba44d18d22b81"
+  },
+  "SOLO_65_H_CR": {
+   "deDE": "be891378733a9c03",
+   "esES": "be891378733a9c03",
+   "frFR": "be891378733a9c03",
+   "itIT": "be891378733a9c03",
+   "nlNL": "be891378733a9c03",
+   "ptBR": "be891378733a9c03",
+   "ruRU": "be891378733a9c03"
+  },
+  "SOLO_65_H_L": {
+   "deDE": "29e1b5b7af41c594",
+   "esES": "29e1b5b7af41c594",
+   "frFR": "29e1b5b7af41c594",
+   "itIT": "29e1b5b7af41c594",
+   "nlNL": "29e1b5b7af41c594",
+   "ptBR": "29e1b5b7af41c594",
+   "ruRU": "29e1b5b7af41c594"
+  },
+  "SOLO_65_H_M": {
+   "deDE": "adb1ed9a56f9380e",
+   "esES": "adb1ed9a56f9380e",
+   "frFR": "adb1ed9a56f9380e",
+   "itIT": "adb1ed9a56f9380e",
+   "nlNL": "adb1ed9a56f9380e",
+   "ptBR": "adb1ed9a56f9380e",
+   "ruRU": "adb1ed9a56f9380e"
+  },
+  "SOLO_65_H_R": {
+   "deDE": "a81d1e1b75ead216",
+   "esES": "a81d1e1b75ead216",
+   "frFR": "a81d1e1b75ead216",
+   "itIT": "a81d1e1b75ead216",
+   "nlNL": "a81d1e1b75ead216",
+   "ptBR": "a81d1e1b75ead216",
+   "ruRU": "a81d1e1b75ead216"
+  },
+  "SOLO_65_MOVE": {
+   "deDE": "cf3c5716fa116e88",
+   "esES": "cf3c5716fa116e88",
+   "frFR": "cf3c5716fa116e88",
+   "itIT": "cf3c5716fa116e88",
+   "nlNL": "cf3c5716fa116e88",
+   "ptBR": "cf3c5716fa116e88",
+   "ruRU": "cf3c5716fa116e88"
+  },
+  "SOLO_65_PRE_AURA": {
+   "deDE": "b29e8206e10b74f5",
+   "esES": "b29e8206e10b74f5",
+   "frFR": "b29e8206e10b74f5",
+   "itIT": "b29e8206e10b74f5",
+   "nlNL": "b29e8206e10b74f5",
+   "ptBR": "b29e8206e10b74f5",
+   "ruRU": "b29e8206e10b74f5"
+  },
+  "SOLO_65_PRE_BEACON": {
+   "deDE": "f01f2dce1158f80e",
+   "esES": "f01f2dce1158f80e",
+   "frFR": "f01f2dce1158f80e",
+   "itIT": "f01f2dce1158f80e",
+   "nlNL": "f01f2dce1158f80e",
+   "ptBR": "f01f2dce1158f80e",
+   "ruRU": "f01f2dce1158f80e"
+  },
+  "SOLO_65_PRE_RITE": {
+   "deDE": "f971f19cb8a73d06",
+   "esES": "f971f19cb8a73d06",
+   "frFR": "f971f19cb8a73d06",
+   "itIT": "f971f19cb8a73d06",
+   "nlNL": "f971f19cb8a73d06",
+   "ptBR": "f971f19cb8a73d06",
+   "ruRU": "f971f19cb8a73d06"
+  },
+  "SOLO_GOLDEN": {
+   "deDE": "c2a9c88b1d3708dc",
+   "esES": "c2a9c88b1d3708dc",
+   "frFR": "c2a9c88b1d3708dc",
+   "itIT": "c2a9c88b1d3708dc",
+   "nlNL": "c2a9c88b1d3708dc",
+   "ptBR": "c2a9c88b1d3708dc",
+   "ruRU": "c2a9c88b1d3708dc"
+  },
+  "SOLO_HEAD_ATTACK": {
+   "deDE": "a4913af4eb387232",
+   "esES": "a4913af4eb387232",
+   "frFR": "a4913af4eb387232",
+   "itIT": "a4913af4eb387232",
+   "nlNL": "a4913af4eb387232",
+   "ptBR": "a4913af4eb387232",
+   "ruRU": "a4913af4eb387232"
+  },
+  "SOLO_HEAD_BAD": {
+   "deDE": "966ff663e604028e",
+   "esES": "966ff663e604028e",
+   "frFR": "966ff663e604028e",
+   "itIT": "966ff663e604028e",
+   "nlNL": "966ff663e604028e",
+   "ptBR": "966ff663e604028e",
+   "ruRU": "966ff663e604028e"
+  },
+  "SOLO_HEAD_HEAL": {
+   "deDE": "51a8bc6300209d61",
+   "esES": "51a8bc6300209d61",
+   "frFR": "51a8bc6300209d61",
+   "itIT": "51a8bc6300209d61",
+   "nlNL": "51a8bc6300209d61",
+   "ptBR": "51a8bc6300209d61",
+   "ruRU": "51a8bc6300209d61"
+  },
+  "SOLO_HEAD_PRE": {
+   "deDE": "257c6c964b7b907c",
+   "esES": "257c6c964b7b907c",
+   "frFR": "257c6c964b7b907c",
+   "itIT": "257c6c964b7b907c",
+   "nlNL": "257c6c964b7b907c",
+   "ptBR": "257c6c964b7b907c",
+   "ruRU": "257c6c964b7b907c"
+  },
+  "SOLO_HEAL_INTRO": {
+   "deDE": "8ef0c03267c8fe6c",
+   "esES": "8ef0c03267c8fe6c",
+   "frFR": "8ef0c03267c8fe6c",
+   "itIT": "8ef0c03267c8fe6c",
+   "nlNL": "8ef0c03267c8fe6c",
+   "ptBR": "8ef0c03267c8fe6c",
+   "ruRU": "8ef0c03267c8fe6c"
+  },
+  "SOLO_INTRO": {
+   "deDE": "a378dbcbf8b62923",
+   "esES": "a378dbcbf8b62923",
+   "frFR": "a378dbcbf8b62923",
+   "itIT": "a378dbcbf8b62923",
+   "nlNL": "a378dbcbf8b62923",
+   "ptBR": "a378dbcbf8b62923",
+   "ruRU": "a378dbcbf8b62923"
+  },
+  "SOLO_TAB": {
+   "ruRU": "a6db480094950db2"
+  },
+  "SOLO_VALEERA": {
+   "deDE": "bf20565b4ab9abe8",
+   "esES": "bf20565b4ab9abe8",
+   "frFR": "bf20565b4ab9abe8",
+   "itIT": "bf20565b4ab9abe8",
+   "nlNL": "bf20565b4ab9abe8",
+   "ptBR": "bf20565b4ab9abe8",
+   "ruRU": "bf20565b4ab9abe8"
   },
   "START_DELVERCALL_FMT": {
    "deDE": "f6ca2886f5df9233",

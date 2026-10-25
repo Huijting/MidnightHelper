@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 🧑‍⚕️ 25 okt (na 4.13.0) — tabblad Solo voor alle 7 healers (Rob: "maak een Solo-stuk voor alle 7 healers: eerst uitzoeken per spec, dan bouwen, in alle talen")
+
+Aanleiding: Rob als Resto Druid in de Labyrinth vond healen + schade solo ingewikkeld; mijn spiekbriefje werkte. ⚠️ Ik zei
+eerst dat MH dit niet had: FOUT, HealerSolo.lua ("How you fight alone", aanvalsvolgorde, sinds 6 okt) stond al onderaan
+Your buttons — ik had alleen PLAYCARD_105_* gegrept. Rob is gecorrigeerd.
+Onderzoek mh-research (wago 12.1.5.70575 + IV/WH/Method delve-builds 12-24 okt): side-session-notes
+`solo_healers_A_2026-10-25.md` (105/65/264/270) en `_B_` (256/257/1468). Belangrijk: Resto Druid delve-builds = Kat, geen
+Sunfire/Starsurge/Starfire/Symbiotic; Symbiotic kan niet op jezelf ("Exclude Caster"), duurt 3600 s (GEMETEN Rob);
+alleen Resto Shaman heeft een interrupt (Wind Shear); Holy Priest: IV raadt Shadow aan voor delves.
+✅ GEBOUWD: `Modules/HealerSoloGuide.lua` (ns.HEALER_SOLO_GUIDE: pre/move/heal/bad per spec; click-rijen nemen spell + label
+uit ClickCast); PlayCardWindow.lua DrawSolo + tab "solo" (SOLO_TAB) voor HasSoloGuide; Your buttons toont nu één
+verwijsregel (CARD_SOLO_SEE_TAB) i.p.v. de lijst. HealerSolo.lua: Druid-rijen met `build = "caster"/"cat"` + BUILD_SWITCH
+(Rob koos D: Starsurge → gewone vorm, Rake zonder Starsurge → kat). ⚠️ Site leest HEALER_SOLO met een regex (ids, note);
+`build` staat ná note, zoals `unless` → site-chat seinen (de kat-ids staan nu ook in de lijst). 97 SOLO-sleutels, 7 talen
++ esMX (mh-writer; namen GEMETEN wago SpellName op PTR-build 70493). CHANGELOG_4131_5. Niet in het spel gezien.
+🔜 Bijvangst mh-writer: esES PLAYCARD_66_HERO2 zegt esMX-woord "Fragualuz"; es/it "Poder Sagrado"/"Potere Sacro" ≠ client
+(kleine letter); it rolwoorden Tank/Healer/DPS ≠ GlobalStrings; CARD_SOLO_NOTE_AFTER "Tiger Palm" nog Engels in alle packs.
+
 ## 🌿 25 okt (na 4.13.0) — Valeera-rol voor healers + curio-teksten (Rob: "werk de MH-teksten over Valeera's rol voor healers en de curios bij, in alle talen")
 
 Onderzoek mh-research (side-session-notes `local_7de97b3b-…\healer_delves_valeera_2026-10-25.md`): Icy Veins/Wowhead

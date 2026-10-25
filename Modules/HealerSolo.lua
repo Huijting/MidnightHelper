@@ -22,12 +22,20 @@ local _, ns = ...
 ]]
 
 ns.HEALER_SOLO = {
+	-- Two builds (Rob, 25 Oct 2026: "Wie Starsurge heeft krijgt de gewone vorm, wie Rake heeft de kat"). The delve builds
+	-- of Icy Veins (12 Oct) and Wowhead (13 Oct) take Cat damage and none of Sunfire/Starsurge/Starfire (mh-research
+	-- 25 Oct, wago 12.1.5.70575). `build` picks the rows, see BUILD_SWITCH; keep it AFTER `note` (site regex, see below).
 	[105] = { -- Restoration Druid
-		{ ids = { 93402 }, note = "DOT" }, -- Sunfire
-		{ ids = { 8921 }, note = "DOT" }, -- Moonfire
-		{ ids = { 197626, 78674 }, note = "CD" }, -- Starsurge (Resto, Balance id as fallback)
-		{ ids = { 5176 }, note = "FILL" }, -- Wrath
-		{ ids = { 197628, 194153 }, note = "AOE" }, -- Starfire (talent)
+		{ ids = { 93402 }, note = "DOT", build = "caster" }, -- Sunfire
+		{ ids = { 8921 }, note = "DOT", build = "caster" }, -- Moonfire
+		{ ids = { 197626, 78674 }, note = "CD", build = "caster" }, -- Starsurge (Resto, Balance id as fallback)
+		{ ids = { 5176 }, note = "FILL", build = "caster" }, -- Wrath
+		{ ids = { 197628, 194153 }, note = "AOE", build = "caster" }, -- Starfire (talent)
+		{ ids = { 768 }, note = "CATFORM", build = "cat" }, -- Cat Form
+		{ ids = { 1822 }, note = "DOT", build = "cat" }, -- Rake
+		{ ids = { 1079 }, note = "CP5", build = "cat" }, -- Rip
+		{ ids = { 5221 }, note = "FILL", build = "cat" }, -- Shred
+		{ ids = { 213764, 106785 }, note = "AOE", build = "cat" }, -- Swipe (Cat)
 	},
 	[65] = { -- Holy Paladin
 		{ ids = { 275773, 20271 }, note = "CD" }, -- Judgment (Holy's id first)
@@ -77,6 +85,13 @@ local NOTE_KEY = {
 	DOT = "CARD_SOLO_NOTE_DOT", CD = "CARD_SOLO_NOTE_CD", FILL = "CARD_SOLO_NOTE_FILL", AOE = "CARD_SOLO_NOTE_AOE",
 	EXECUTE = "CARD_SOLO_NOTE_EXECUTE", RANGED = "CARD_SOLO_NOTE_RANGED", X3 = "CARD_SOLO_NOTE_X3",
 	AFTER = "CARD_SOLO_NOTE_AFTER", SPEND = "CARD_SOLO_NOTE_SPEND", AOE4 = "CARD_SOLO_NOTE_AOE4",
+	CATFORM = "CARD_SOLO_NOTE_CATFORM", CP5 = "CARD_SOLO_NOTE_CP5",
+}
+
+--- Specs with two builds: the "cat" rows show for a character that knows `cat` and none of `caster`; everyone else
+--- (and anyone reading another spec) gets the "caster" rows.
+local BUILD_SWITCH = {
+	[105] = { cat = 1822, caster = { 197626, 78674 } }, -- Rake; Starsurge (Resto, Balance)
 }
 
 local function Knows(id)
@@ -110,9 +125,23 @@ function ns.HealerSoloSteps(specID, live)
 	if not def then
 		return nil
 	end
+	local build = "caster"
+	local sw = BUILD_SWITCH[specID]
+	if sw and live and Knows(sw.cat) then
+		build = "cat"
+		for _, id in ipairs(sw.caster) do
+			if Knows(id) then
+				build = "caster"
+				break
+			end
+		end
+	end
 	local out = {}
 	for _, step in ipairs(def) do
 		local pick
+		if step.build and step.build ~= build then
+			step = { ids = {} }
+		end
 		-- Only on your own spec: for another spec "known" answers for the spec you are in.
 		local hidden = live and step.unless and Knows(step.unless)
 		for _, id in ipairs(hidden and {} or step.ids) do

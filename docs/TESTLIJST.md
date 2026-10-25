@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 25 okt — tabblad Solo voor healers
+
+`/reload`, op een healer: `/mh play` → tabblad **Solo** (naast Klikken).
+- [ ] Vier blokken (Before the fight / Attack / Heal / When it goes wrong), onderaan de gouden regel en Valeera. Iconen,
+      gouden namen, je klik tussen haakjes; spells die je niet hebt grijs. Past de tab-rij nog (7 tabs)?
+- [ ] Resto Druid met Starsurge: aanval = Sunfire/Moonfire/Starsurge/Wrath/Starfire. Zonder Starsurge maar mét Rake:
+      Cat Form/Rake/Rip/Shred/Swipe. (Kat niet gezien: Rob heeft Starsurge.)
+- [ ] Your buttons: in plaats van de lijst "How you fight alone" één regel die naar het tabblad Solo wijst.
+- [x] ✅ GEMETEN Rob 25 okt: Symbiotic Relationship op Valeera duurt 3600 s (aura-duration); op jezelf kan niet.
+
 ## 🆕 25 okt — Valeera voor healers
 
 - [ ] Op een healer (bv. de Resto Druid): `/mh curios`. Staat onder de uitleg over de sterren de regel "You heal: which
