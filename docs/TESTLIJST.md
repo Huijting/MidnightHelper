@@ -24,7 +24,8 @@ er is niets weggegooid.
 ## 🆕 25 okt — "How do I buy this?" (boodschappenlijst stap voor stap)
 
 Eerst `/reload`.
-- [ ] Karaktervenster (C), Gear check-paneel: onder "Buy what's missing" staat "How do I do this? Step by step". Klik:
+- [x] ✅ Rob 25 okt: "ik heb het inmiddels in het spel gezien en het ziet er zeker goed uit". Was: karaktervenster (C),
+      Gear check-paneel: onder "Buy what's missing" staat "How do I do this? Step by step". Klik:
       opent een venster met 9 stappen? Goed te lezen? Bij stap 3 een zilver- én een goud-icoontje?
 - [ ] Klik "Buy what's missing": staat de knop "How do I buy this?" netjes boven het venster (rechts, naast de tabs
       Raid | Profession), en opent hij hetzelfde venster? Shift+scroll maakt het groter/kleiner?
