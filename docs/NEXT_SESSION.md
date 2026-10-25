@@ -114,7 +114,8 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   Holy". Het zelf aanzetten via DF's interne functies werkt dus in het spel. ✅ 25 okt GEMETEN Rob: na /reload blijft het
   profiel actief, `/mh klikken` alles ja, met/zonder DF de juiste blokken, Blizzard-knop + Undo op de Paladin (terug naar
   2 regels). ✅ Rob keurde de nieuwe CLICK_DF_ONLY goed ("goed zoals hij staat"). ✅ 25 okt Rob: Priest alles goed
-  (andere spec, rechter Shift), Shaman NS-klik werkt (DF). Nog open: Mistweaver (Rob levelt een Monk), Preservation
+  (andere spec, rechter Shift), Shaman NS-klik werkt (DF). Mistweaver: Rob 25 okt op level 11, knop + DF "dat werkt" (latere spells
+  nog niet geleerd, dus niet gezien). Nog open: Preservation
   (niemand heeft een Evoker), Farseer met Ancestral Swiftness (overschrijft 378081; DF cast op naam: onbekend).
   mh-research 25 okt (GEMETEN wago/Wowhead): NS = buff op jezelf, 60 s cooldown die pas start als de buff op is,
   geen GCD; Riptide verbruikt hem niet. ✅ CLICK_264_CM herschreven (Rob: "maak de uitleg duidelijker,

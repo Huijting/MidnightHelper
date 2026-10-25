@@ -82,9 +82,10 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
       Esc → Options → Gameplay → Keybindings → Click Casting: staan ze erin? In Blizzards groepsvakjes: Ctrl + links = Cleanse, Shift + links = doelwit
       (probeer ook de RECHTER Shift). Dan "Ongedaan maken": je oude (2 regels: doelwit/menu) is terug. `/mh klikken` laat
       onderaan de Blizzard-regels zien.
-- [ ] Mistweaver Monk en Preservation Evoker. 25 okt: Carola en Cisca hebben geen van beide; Rob levelt zelf een Monk en
-      test die zodra Mistweaver kan. Evoker: nog niemand. Tabblad Klikken, 9 klikken + 3 vrij,
-      knop → "MH - Mistweaver Monk" / "MH - Preservation Evoker" actief in DandersFrames.
+- [x] ✅ Rob 25 okt: Mistweaver Monk (level 11), knop gezet in DandersFrames, "dat werkt". ⚠️ Op level 11 kent hij nog
+      lang niet alle 9 spells; of de latere klikken (bv. Life Cocoon) werken zodra hij ze leert, is niet gezien.
+- [ ] Preservation Evoker: nog niemand (Carola en Cisca hebben er geen). Tabblad Klikken, 9 klikken + 3 vrij,
+      knop → "MH - Preservation Evoker" actief in DandersFrames.
 - [x] ✅ GEMETEN Rob 25 okt (Earthshammy, DandersFrames): Ctrl + middelste knop geeft Nature's Swiftness ("het werkt
       zoals we willen, ik had gewoon niet goed opgelet"). `/run` gaf `true false 378081 0.001`: NS gekend, geen
       Ancestral Swiftness, geen override, klaar. Was: de Shaman, knop, en werkt Ctrl + middelste knop?
