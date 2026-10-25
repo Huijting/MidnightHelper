@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 25 okt — Labyrinth: Hexmask-melding (als je er toch bent)
+
+De kamer wordt nu ook herkend aan de naam die het spel zelf geeft (voor spelers met een andere taal).
+- [ ] In de Labyrinth (Journey rank 2+), een van de vijf maskerkamers in lopen: komt de regel "this room has a Hexmask
+      spot" nog steeds? `/mh hexmask` zet de pijl en noemt de kamer.
+
 ## 🆕 24 okt — flask-advies op Carola's character (als het rustig is)
 
 Rob zag bij Carola (remote, geen screenshot) dat de flask in een dungeon niet dezelfde was als in het consumables-

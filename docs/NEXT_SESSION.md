@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 🌀 25 okt — Labyrinth: clientnamen ronde 2 + Hexmask-hint taalonafhankelijk (Rob: "kan je zonder mij")
+
+mh-research GEMETEN (wago 12.1.5.70575, tweede lezing 70529; rapport side-session-notes
+`local_7de97b3b-…\labyrinth_names_round2_2026-10-25.md`): de {WAY}-kamerlabels in CODEX_LABJOURNEY_BODY en
+"Vilebranch"/"(The Cave Towers)" in DELVE_TIP_LABYRINTH_ROOMS waren in ALLE 7 talen Engels (handoff zei alleen ru).
+mh-writer zette de gemeten namen in de/fr/es/esMX/pt/it/ru: kamers, Hexmask(s), Happy Hexmask Collector (63720),
+Headhunters (1298647), Juggernaut (1299117), Shadow of Halazzi, ru loa-namen + Вах'ду, fr ’ bij Akil’zon/Jan’alai,
+LAB_HEXMASK_*, CMDLIST_HEXMASK, SET_LABHEXMASK_* (+ 4 nieuwe esMX-regels). Ik: "De Rising Storm" (= de echte enUS-
+spellnaam 1300374, geen tikfout) → gemeten naam in de/fr/es/pt/it/ru; esMX laat ik staan (rapportcel "Tormenta en
+cierne'" met een vreemde apostrof). AFGELEID: naamvallen de/ru, it-lidwoorden, samenstellingen "Hexmasken-Stelle".
+Drift gemarkeerd, lint 0 HARD, syntax OK. Niet in een niet-Engelse client gezien.
+🔴 Code: `Modules/LabyrinthHexmask.lua` matchte de kamer alleen op de ENGELSE subzonenaam → op elke andere client zweeg
+de kamerhint, en chat toonde Engelse kamernamen. Nu draagt elke plek zijn AreaTable-ID (17025/17033/17031/17030/17032)
+en matcht hij óók op `C_Map.GetAreaInfo(id)` (al gebruikt in Delves.lua); chat/waypoint tonen de clientnaam.
+Fiery Hexmask → "Fiery Hexmask Familiar" in enUS/nlNL (3 kistenroute-sleutels; vertalingen hadden het al, nagekeken).
+🔜 Niet gemeten, bewust Engels gelaten: de aanklikbare maskers per taal (objecten 672624/672785/672788), namen boven
+Headhunter/Juggernaut buiten es, Ahn'joli, Keeper of the Key, "Jan'alai Tear" (wel gemeten, niet toegepast), fr-’ in
+Kindo'jan/Wah'du, andere sleutels met Vilebranch/Latijnse loa (ru :271-274, :1154-1155, :1348; esMX :293, :307).
+Open vraag: Flames of Jan'alai hoort volgens DB2 bij Containment Breach (ScenarioStep 17372), de tip zet hem bij
+Encroaching Darkness.
+
 ## 🗂️ 25 okt — .git staat nu BUITEN de WoW-map (Rob: "ja, we gaan voor jouw voorstel")
 
 Oorzaak GEMETEN door de Battle.net-chat (logs `C:\ProgramData\Battle.net\Agent\Agent.9824\Logs\`): Battle.net doet een
@@ -41,7 +62,7 @@ opnieuw gestuurd naar de lokale.
   IsPlayerSpell(1247777))`; Affliction stap 5 Shadow Bolt; Venomstones-telling met stenen + bank; Crimson Tempest (Rob heeft
   geen Rogue); Kinduru-uitweg alleen als hij vastzit; de oudere per-character-testjes (Warrior, Shadow Priest, Rogue,
   Warlock, Feral).
-- Klein, niet gedaan: enUS/nlNL schrijven "Fiery Hexmask", client heet hem "Fiery Hexmask Familiar"; enkelvoud "Amani
+- Klein, niet gedaan: ✅ (25 okt) "Fiery Hexmask Familiar" in enUS/nlNL; enkelvoud "Amani
   Headhunter" buiten es alleen in een client aflezen; Er'inye en "Delver's HQ" in Robs client aflezen; optionele
   {SPELL}-tags (Radiant Glory 458359, Voidtouched 407430, Dark Energy 451018, Dream Simulacrum 1241669) na één clientcheck.
 - Robs keuze (idee, niet gevraagd): Blessing of Dawn-regel op de Paladin-kaart ("raakt jezelf bij trainingspoppen").

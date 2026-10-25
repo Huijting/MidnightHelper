@@ -8309,13 +8309,13 @@
    "ruRU": "89821fa4e0ff5de7"
   },
   "DELVE_CHEST_ALL_SKIPPED_FLOODED": {
-   "deDE": "bd9c4eb490c3ca0e",
-   "esES": "bd9c4eb490c3ca0e",
-   "frFR": "bd9c4eb490c3ca0e",
-   "itIT": "bd9c4eb490c3ca0e",
-   "nlNL": "bd9c4eb490c3ca0e",
-   "ptBR": "bd9c4eb490c3ca0e",
-   "ruRU": "bd9c4eb490c3ca0e"
+   "deDE": "5c8d2aef5f1577d4",
+   "esES": "5c8d2aef5f1577d4",
+   "frFR": "5c8d2aef5f1577d4",
+   "itIT": "5c8d2aef5f1577d4",
+   "nlNL": "5c8d2aef5f1577d4",
+   "ptBR": "5c8d2aef5f1577d4",
+   "ruRU": "5c8d2aef5f1577d4"
   },
   "DELVE_CHEST_BTN": {
    "deDE": "36edbe301531cb43",
@@ -8327,22 +8327,22 @@
    "ruRU": "36edbe301531cb43"
   },
   "DELVE_CHEST_FLOODED_HINT": {
-   "deDE": "916e60a2846cedba",
-   "esES": "916e60a2846cedba",
-   "frFR": "916e60a2846cedba",
-   "itIT": "916e60a2846cedba",
-   "nlNL": "916e60a2846cedba",
-   "ptBR": "916e60a2846cedba",
-   "ruRU": "916e60a2846cedba"
+   "deDE": "c5189d39d12e3860",
+   "esES": "c5189d39d12e3860",
+   "frFR": "c5189d39d12e3860",
+   "itIT": "c5189d39d12e3860",
+   "nlNL": "c5189d39d12e3860",
+   "ptBR": "c5189d39d12e3860",
+   "ruRU": "c5189d39d12e3860"
   },
   "DELVE_CHEST_FLOODED_INSIDE": {
-   "deDE": "904956beb4e3cc80",
-   "esES": "904956beb4e3cc80",
-   "frFR": "904956beb4e3cc80",
-   "itIT": "904956beb4e3cc80",
-   "nlNL": "904956beb4e3cc80",
-   "ptBR": "904956beb4e3cc80",
-   "ruRU": "904956beb4e3cc80"
+   "deDE": "06b1d02d032f48f3",
+   "esES": "06b1d02d032f48f3",
+   "frFR": "06b1d02d032f48f3",
+   "itIT": "06b1d02d032f48f3",
+   "nlNL": "06b1d02d032f48f3",
+   "ptBR": "06b1d02d032f48f3",
+   "ruRU": "06b1d02d032f48f3"
   },
   "DELVE_CHEST_LABEL": {
    "deDE": "005049be1f61999c",
@@ -35855,6 +35855,22 @@
    "nlNL": "c94e470023715e6b",
    "ptBR": "c94e470023715e6b",
    "ruRU": "c94e470023715e6b"
+  },
+  "SET_LABHEXMASK_DESC": {
+   "deDE": "1ab513ee13b0bea0",
+   "esES": "1ab513ee13b0bea0",
+   "frFR": "1ab513ee13b0bea0",
+   "itIT": "1ab513ee13b0bea0",
+   "ptBR": "1ab513ee13b0bea0",
+   "ruRU": "1ab513ee13b0bea0"
+  },
+  "SET_LABHEXMASK_TITLE": {
+   "deDE": "daed45a1b24ae81f",
+   "esES": "daed45a1b24ae81f",
+   "frFR": "daed45a1b24ae81f",
+   "itIT": "daed45a1b24ae81f",
+   "ptBR": "daed45a1b24ae81f",
+   "ruRU": "daed45a1b24ae81f"
   },
   "SET_LANG_RELOAD_TT": {
    "deDE": "41142cf1a5be147d",

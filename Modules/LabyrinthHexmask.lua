@@ -18,18 +18,19 @@ local _, ns = ...
 	Hexmask, one the locked door, one stays empty, shuffled per run. Rob's run MEASURED the shuffle in part (door in
 	Akil'zon's Roost, Fiery in Jan'alai's Refuge, a mask in Nalorakk's Rest).
 
-	⚠️ Room names are the minimap's English subzone text, like the chest route: on another client language the room hint
-	stays silent (no match) and /mh hexmask falls back to the nearest spot. Silent, never wrong.
+	Room names: each spot carries its AreaTable ID (wago 12.1.5.70575, measured 25 Oct 2026), and the room is matched
+	against the client's own name from C_Map.GetAreaInfo as well as the English one. Until then the hint only worked on
+	an English client (it stayed silent elsewhere, and chat showed the English room name).
 ]]
 
 local LAB_MAP = 2647
 
 ns.LAB_HEXMASK_SPOTS = {
-	{ room = "Chamber of Rites", x = 50.30, y = 82.60 },
-	{ room = "The Cave Towers", x = 88.50, y = 51.50 },
-	{ room = "Akil'zon's Roost", x = 56.80, y = 17.80 },
-	{ room = "Jan'alai's Refuge", x = 18.80, y = 18.20 },
-	{ room = "Nalorakk's Rest", x = 58.50, y = 21.70 },
+	{ room = "Chamber of Rites", area = 17025, x = 50.30, y = 82.60 },
+	{ room = "The Cave Towers", area = 17033, x = 88.50, y = 51.50 },
+	{ room = "Akil'zon's Roost", area = 17031, x = 56.80, y = 17.80 },
+	{ room = "Jan'alai's Refuge", area = 17030, x = 18.80, y = 18.20 },
+	{ room = "Nalorakk's Rest", area = 17032, x = 58.50, y = 21.70 },
 }
 
 local hinted = {}
@@ -76,10 +77,21 @@ local function HereRoom()
 	return nil
 end
 
+--- The room's name as this client shows it; the English name when the client has none.
+local function RoomName(s)
+	if s.area and C_Map and C_Map.GetAreaInfo then
+		local ok, name = pcall(C_Map.GetAreaInfo, s.area)
+		if ok and type(name) == "string" and name ~= "" then
+			return name
+		end
+	end
+	return s.room
+end
+
 local function SpotForRoom(room)
 	local n = Norm(room)
 	for _, s in ipairs(ns.LAB_HEXMASK_SPOTS) do
-		if n and Norm(s.room) == n then
+		if n and (Norm(s.room) == n or Norm(RoomName(s)) == n) then
 			return s
 		end
 	end
@@ -121,7 +133,7 @@ local function Check()
 	end
 	hinted[spot.room] = true
 	lastWhy = "told for " .. spot.room
-	local msg = (L("LAB_HEXMASK_ROOM_FMT")):format(room or spot.room)
+	local msg = (L("LAB_HEXMASK_ROOM_FMT")):format(room or RoomName(spot))
 	if ns.ShowBriefNotice then
 		ns.ShowBriefNotice(msg, 8)
 	end
@@ -134,7 +146,7 @@ function ns.RouteLabHexmask()
 	if not OnLabyrinthMap() then
 		print(p .. " " .. L("LAB_HEXMASK_NOT_HERE"))
 		for _, s in ipairs(ns.LAB_HEXMASK_SPOTS) do
-			print(("   %s  %.1f/%.1f"):format(s.room, s.x, s.y))
+			print(("   %s  %.1f/%.1f"):format(RoomName(s), s.x, s.y))
 		end
 		return false
 	end
@@ -157,9 +169,9 @@ function ns.RouteLabHexmask()
 	end
 	spot = spot or ns.LAB_HEXMASK_SPOTS[1]
 	if ns.SetMapWaypoint then
-		ns:SetMapWaypoint(LAB_MAP, spot.x, spot.y, spot.room)
+		ns:SetMapWaypoint(LAB_MAP, spot.x, spot.y, RoomName(spot))
 	end
-	print(("%s %s"):format(p, (L("LAB_HEXMASK_ROUTED_FMT")):format(spot.room)))
+	print(("%s %s"):format(p, (L("LAB_HEXMASK_ROUTED_FMT")):format(RoomName(spot))))
 	print(("   |cff8a8f98rank %s · here '%s' · hint: %s|r"):format(tostring(Rank()), tostring(HereRoom()), lastWhy))
 	return true
 end
