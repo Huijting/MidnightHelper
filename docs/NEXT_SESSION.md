@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 📍 25 okt (na 4.13.0) — korte melding versleepbaar (Rob: "heel erg lastig te lezen … deze moet op een andere plek en hij is niet versleepbaar")
+
+✅ GEMETEN Rob (screenshot, nl): de Hexmask-kamerhint komt in Jan'alai's Refuge (positieve test van de AreaID-match).
+Probleem: BriefNotice.lua stond op TOP -180, precies onder Blizzards grote kamernaam. Nu: standaard CENTER -160,
+versleepbaar (ns.db.ui.briefNoticePos), muis erop = blijft staan, nieuwe melding stopt een lopende fade; Hexmask 14 s.
+Raakt alle ShowBriefNotice-meldingen (kistenroute enz.). CHANGELOG_4131_6. Niet in het spel gezien.
+Ook 25 okt: Robs vraag "werkt dispellen in party targets niet voor healers?" → `/mh glow` op de Resto Druid: 5/5 rijen
+armed met Nature's Cure, gloed 5× getekend, géén Nature's Cure-cast in de log → AFGELEID niet rechtsgeklikt; Rob testje
+gevraagd. Geen code veranderd.
+
 ## 🧑‍⚕️ 25 okt (na 4.13.0) — tabblad Solo voor alle 7 healers (Rob: "maak een Solo-stuk voor alle 7 healers: eerst uitzoeken per spec, dan bouwen, in alle talen")
 
 Aanleiding: Rob als Resto Druid in de Labyrinth vond healen + schade solo ingewikkeld; mijn spiekbriefje werkte. ⚠️ Ik zei

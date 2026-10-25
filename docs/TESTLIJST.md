@@ -66,8 +66,10 @@ Eerst `/reload`.
 ## 🆕 25 okt — Labyrinth: Hexmask-melding (als je er toch bent)
 
 De kamer wordt nu ook herkend aan de naam die het spel zelf geeft (voor spelers met een andere taal).
-- [ ] In de Labyrinth (Journey rank 2+), een van de vijf maskerkamers in lopen: komt de regel "this room has a Hexmask
-      spot" nog steeds? `/mh hexmask` zet de pijl en noemt de kamer.
+- [x] ✅ GEMETEN Rob 25 okt (screenshot, nl): in Jan'alai's Refuge kwam de melding ("… is een van de vijf Hexmask-plekken …").
+      Probleem gezien: hij viel over de grote kamernaam van het spel en was niet te verslepen → gerepareerd (hieronder).
+- [ ] Na `/reload`: de korte melding (Hexmask, kistenroute) staat nu onder het midden van je scherm, blijft 14 s (Hexmask),
+      blijft staan zolang je muis erop staat, en is te verslepen; na een `/reload` staat hij waar je hem liet.
 
 ## 🆕 24 okt — flask-advies op Carola's character (als het rustig is)
 

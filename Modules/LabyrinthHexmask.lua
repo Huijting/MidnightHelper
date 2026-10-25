@@ -135,7 +135,7 @@ local function Check()
 	lastWhy = "told for " .. spot.room
 	local msg = (L("LAB_HEXMASK_ROOM_FMT")):format(room or RoomName(spot))
 	if ns.ShowBriefNotice then
-		ns.ShowBriefNotice(msg, 8)
+		ns.ShowBriefNotice(msg, 14) -- 25 Oct 2026 (Rob): the room's big name covers the first seconds; hover to keep it
 	end
 	print(("%s %s"):format(L("PRINT_PREFIX"), msg))
 end
