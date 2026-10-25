@@ -132,6 +132,7 @@ Modules\ConsumableReadyCheck.lua
 Modules\ConsumableReadyComms.lua
 Modules\ConsumableReadyBoard.lua
 Modules\RaidShoppingList.lua
+Modules\ShoppingGuide.lua
 Modules\CraftShopPlaces.lua
 Modules\CraftShopRecipeItems.lua
 Modules\CraftShoppingList.lua

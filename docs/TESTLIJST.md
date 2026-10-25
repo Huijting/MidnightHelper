@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 25 okt — "How do I buy this?" (boodschappenlijst stap voor stap)
+
+Eerst `/reload`.
+- [ ] Karaktervenster (C), Gear check-paneel: onder "Buy what's missing" staat "How do I do this? Step by step". Klik:
+      opent een venster met 9 stappen? Goed te lezen? Bij stap 3 een zilver- én een goud-icoontje?
+- [ ] Klik "Buy what's missing": staat de knop "How do I buy this?" netjes boven het venster (rechts, naast de tabs
+      Raid | Profession), en opent hij hetzelfde venster? Shift+scroll maakt het groter/kleiner?
+- [ ] In het veilinghuis, bij een enchant of gem uit je lijst: staat er achter de naam een zilver/goud-icoontje, net als bij
+      potions? (Niet gemeten; als het er niet staat, klopt stap 3 niet voor die spullen.)
+
 ## 🆕 25 okt — Paladin: regel over Blessing of Dawn
 
 - [x] ✅ GEMETEN Rob 25 okt (screenshot, Twelveinchy Holy): de grijze regel staat onderaan Stay alive, onder Divine Steed

@@ -747,6 +747,7 @@ for k, v in pairs({
 	SET_TOASTS_DESC = "La pequeña nota que entra deslizándose durante unos segundos, por ejemplo por un botín de buscador de tesoros en un abismo o por el Omnium Folio. Desactivado: ninguna.",
 	SET_TOAST_BOUNTY_DESC = "En un abismo, una nota breve cuando tienes un botín de buscador de tesoros en las bolsas y aún no lo has usado.",
 	SET_TOAST_BOUNTY_TITLE = "Toast: llevas un botín de buscador de tesoros sin usar",
+	SHOPGUIDE_STEP_NAME = "Mira el nombre entero, no solo el icono: un Peridoto presto de oro es más débil que un Peridoto presto perfecto de plata.",
 	SHOWDOWNS_BTN_MAELLA = "Inicio: Riftblade Maella — la Tormenta del Vacío (el Risco Aullador)",
 	SHOWDOWNS_BTN_PORTAL = "Portal — la Tormenta del Vacío (el Risco Aullador)",
 	SHOWDOWNS_INFO_VAULT = "La semanal otorga una Riftstalker's Cache y cuenta para la fila World de tu Gran bóveda.",

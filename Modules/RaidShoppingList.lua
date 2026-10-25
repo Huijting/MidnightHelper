@@ -539,6 +539,17 @@ local function Build()
 	f.title:SetPoint("TOPLEFT", f, "TOPLEFT", 16, -14)
 	f.title:SetTextColor(1, 0.82, 0.2)
 
+	-- "How do I buy this?" (Rob, 25 Oct 2026, ShoppingGuide.lua): the steps, gold against silver, gems and enchants.
+	f.howto = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.howto:SetSize(150, 22)
+	-- Above the window like the Raid | Profession tabs (ns.AddShopTabs), so a long title is never covered.
+	f.howto:SetPoint("BOTTOMRIGHT", f, "TOPRIGHT", -12, -2)
+	f.howto:SetScript("OnClick", function()
+		if ns.ShowShoppingGuide then
+			ns.ShowShoppingGuide()
+		end
+	end)
+
 	-- The switch Rob asked for: two buttons, the chosen one lit.
 	f.modeBtns = {}
 	for i, m in ipairs(MODES) do
@@ -679,6 +690,7 @@ Refresh = function()
 	end
 	local mode = Mode()
 	win.title:SetText(L("RAIDSHOP_TITLE"))
+	win.howto:SetText(L("SHOPGUIDE_BTN"))
 	for _, b in ipairs(win.modeBtns) do
 		b:SetText(L(b.mode == "farm" and "RAIDSHOP_MODE_FARM" or "RAIDSHOP_MODE_PROG"))
 		if b.mode == mode then

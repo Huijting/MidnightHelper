@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## 🛒 25 okt — "How do I buy this?": de boodschappenlijst stap voor stap (Rob: "we gaan uiteraard voor C" → "begin jij maar met bouwen")
+
+Aanleiding: Rob deed via Parsec bij Carola alles met de hand (lijst → veilinghuis → enchants/gems) en vroeg om een
+eenvoudige handleiding; zilver is niet altijd goedkoper (lokprijzen), en ze wisten niet welke gem in welke socket. Keuze C:
+korte stappen in het spel + een pagina met plaatjes op de site.
+Feiten mh-research (wago 12.1.5.70575 + wow-ui-source 12.1.5; side-session-notes `local_7de97b3b-…\shopping_guide_facts_2026-10-25.md`):
+zilver = CraftingQualityID 13, goud = 14, elk een eigen item en eigen AH-regel; goud in 25+ paren nooit zwakker; eten en
+Augment Rune één soort; het AH toont de kwaliteit ALLEEN met het tier-icoontje achter de naam (naamkleur/randje niet);
+gems prismatisch, één Eversong Diamond of heliotrope (ItemLimitCategory 698); gem = Shift+rechtsklik (EXPANDITEM).
+✅ GEBOUWD: `Modules/ShoppingGuide.lua` (ns.ShowShoppingGuide, venster MidnightHelperShoppingGuide, in SCALABLE_WINDOWS):
+9 stappen + voet, stap 3 met de echte atlassen Professions-ChatIcon-Quality-12-Tier1/Tier2. Ingang: knop "How do I buy
+this?" boven het Ready for the raid?-venster (RaidShoppingList.lua, naast de Raid | Profession-tabs) en de regel "How do I
+do this? Step by step" onder "Buy what's missing" in het Gear check-paneel (CharacterSidePanel.lua). Sleutels
+CHARPANEL_HOWTO + SHOPGUIDE_* (14); en/nl ik, de/fr/es/pt/it/ru + 1 esMX-regel mh-writer (spel- en UI-namen GEMETEN in
+wago op PTR-build 12.1.7.70493; Apply = GlobalString APPLY, niet SOCKET_GEMS). Lint 0 HARD, syntax OK. Niet in het spel
+gezien (TESTLIJST).
+⚠️ AFGELEID, niet gemeten: of het tier-icoontje ook achter enchants/gems/oils in het AH staat (alchemie zeker). Clientcheck
+in het feitenbestand. 🔜 Site-pagina met plaatjes: bericht aan Site chat 25-10 werd door die sessie TEGENGEHOUDEN (andere
+permissiemodus); Rob plakt het zelf. Daarna: link "met plaatjes op de website" onderaan het venster.
+🔜 Bijvangst (mh-writer, niet aangepast): CONSREADY_RUNE / itIT GUIDE_CONS_TYPE_RUNE zeggen nog "Augment Rune" of een
+eigen vertaling i.p.v. de clientnaam; es/pt/it schrijven het veilinghuis met hoofdletters (client: "Casa de subastas" enz.);
+it gebruikt zowel "socket" als "castoni".
+
 ## 🌀 25 okt — Labyrinth: clientnamen ronde 2 + Hexmask-hint taalonafhankelijk (Rob: "kan je zonder mij")
 
 mh-research GEMETEN (wago 12.1.5.70575, tweede lezing 70529; rapport side-session-notes

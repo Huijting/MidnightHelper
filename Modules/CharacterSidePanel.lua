@@ -109,6 +109,11 @@ local function AddSlotLines(out)
 	if missingSomething and ns.ShowRaidShoppingList then
 		out[#out + 1] = { text = ns:SafeL("CHARPANEL_SHOP") or "Buy what's missing", color = "prog",
 			onClick = function() pcall(ns.ShowRaidShoppingList) end }
+		-- Rob, 25 Oct 2026: the steps from buying to socketing, in the room where the empty slots are (ShoppingGuide.lua).
+		if ns.ShowShoppingGuide then
+			out[#out + 1] = { text = ns:SafeL("CHARPANEL_HOWTO") or "How do I do this?", color = "prog",
+				onClick = function() pcall(ns.ShowShoppingGuide) end }
+		end
 	end
 	out[#out + 1] = { text = ns:SafeL("CHARPANEL_SLOT_LEGEND") or "", color = "dim" }
 	return true

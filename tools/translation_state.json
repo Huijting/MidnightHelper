@@ -3855,6 +3855,15 @@
    "ptBR": "1aa7fd21a81de9ba",
    "ruRU": "1aa7fd21a81de9ba"
   },
+  "CHARPANEL_HOWTO": {
+   "deDE": "71cd6e1d0126dad4",
+   "esES": "71cd6e1d0126dad4",
+   "frFR": "71cd6e1d0126dad4",
+   "itIT": "71cd6e1d0126dad4",
+   "nlNL": "71cd6e1d0126dad4",
+   "ptBR": "71cd6e1d0126dad4",
+   "ruRU": "71cd6e1d0126dad4"
+  },
   "CHARPANEL_RAIDBOTS": {
    "ruRU": "f2c76153f7ea12dc"
   },
@@ -36545,6 +36554,123 @@
    "nlNL": "67a991f42f78ac87",
    "ptBR": "67a991f42f78ac87",
    "ruRU": "67a991f42f78ac87"
+  },
+  "SHOPGUIDE_BTN": {
+   "deDE": "8a7f4c64fcad01d9",
+   "esES": "8a7f4c64fcad01d9",
+   "frFR": "8a7f4c64fcad01d9",
+   "itIT": "8a7f4c64fcad01d9",
+   "nlNL": "8a7f4c64fcad01d9",
+   "ptBR": "8a7f4c64fcad01d9",
+   "ruRU": "8a7f4c64fcad01d9"
+  },
+  "SHOPGUIDE_FOOT": {
+   "deDE": "4b5242b80bf72dab",
+   "esES": "4b5242b80bf72dab",
+   "frFR": "4b5242b80bf72dab",
+   "itIT": "4b5242b80bf72dab",
+   "nlNL": "4b5242b80bf72dab",
+   "ptBR": "4b5242b80bf72dab",
+   "ruRU": "4b5242b80bf72dab"
+  },
+  "SHOPGUIDE_INTRO": {
+   "deDE": "928c8d1fd77d0d48",
+   "esES": "928c8d1fd77d0d48",
+   "frFR": "928c8d1fd77d0d48",
+   "itIT": "928c8d1fd77d0d48",
+   "nlNL": "928c8d1fd77d0d48",
+   "ptBR": "928c8d1fd77d0d48",
+   "ruRU": "928c8d1fd77d0d48"
+  },
+  "SHOPGUIDE_STEP_BUY": {
+   "deDE": "376fabfc87a5ce9a",
+   "esES": "376fabfc87a5ce9a",
+   "frFR": "376fabfc87a5ce9a",
+   "itIT": "376fabfc87a5ce9a",
+   "nlNL": "376fabfc87a5ce9a",
+   "ptBR": "376fabfc87a5ce9a",
+   "ruRU": "376fabfc87a5ce9a"
+  },
+  "SHOPGUIDE_STEP_CLICK": {
+   "deDE": "63bc6f2c218d3e27",
+   "esES": "63bc6f2c218d3e27",
+   "frFR": "63bc6f2c218d3e27",
+   "itIT": "63bc6f2c218d3e27",
+   "nlNL": "63bc6f2c218d3e27",
+   "ptBR": "63bc6f2c218d3e27",
+   "ruRU": "63bc6f2c218d3e27"
+  },
+  "SHOPGUIDE_STEP_ENCHANT": {
+   "deDE": "aeac1114b49900f6",
+   "esES": "aeac1114b49900f6",
+   "frFR": "aeac1114b49900f6",
+   "itIT": "aeac1114b49900f6",
+   "nlNL": "aeac1114b49900f6",
+   "ptBR": "aeac1114b49900f6",
+   "ruRU": "aeac1114b49900f6"
+  },
+  "SHOPGUIDE_STEP_GEM": {
+   "deDE": "bd1975ac59b55b05",
+   "esES": "bd1975ac59b55b05",
+   "frFR": "bd1975ac59b55b05",
+   "itIT": "bd1975ac59b55b05",
+   "nlNL": "bd1975ac59b55b05",
+   "ptBR": "bd1975ac59b55b05",
+   "ruRU": "bd1975ac59b55b05"
+  },
+  "SHOPGUIDE_STEP_NAME": {
+   "deDE": "3b996fd00a8049f6",
+   "esES": "3b996fd00a8049f6",
+   "frFR": "3b996fd00a8049f6",
+   "itIT": "3b996fd00a8049f6",
+   "nlNL": "3b996fd00a8049f6",
+   "ptBR": "3b996fd00a8049f6",
+   "ruRU": "3b996fd00a8049f6"
+  },
+  "SHOPGUIDE_STEP_OIL": {
+   "deDE": "ea53784ccef64255",
+   "esES": "ea53784ccef64255",
+   "frFR": "ea53784ccef64255",
+   "itIT": "ea53784ccef64255",
+   "nlNL": "ea53784ccef64255",
+   "ptBR": "ea53784ccef64255",
+   "ruRU": "ea53784ccef64255"
+  },
+  "SHOPGUIDE_STEP_OPEN": {
+   "deDE": "314f3d55bb940e7e",
+   "esES": "314f3d55bb940e7e",
+   "frFR": "314f3d55bb940e7e",
+   "itIT": "314f3d55bb940e7e",
+   "nlNL": "314f3d55bb940e7e",
+   "ptBR": "314f3d55bb940e7e",
+   "ruRU": "314f3d55bb940e7e"
+  },
+  "SHOPGUIDE_STEP_PRICE": {
+   "deDE": "a5851d6ffbe9dd32",
+   "esES": "a5851d6ffbe9dd32",
+   "frFR": "a5851d6ffbe9dd32",
+   "itIT": "a5851d6ffbe9dd32",
+   "nlNL": "a5851d6ffbe9dd32",
+   "ptBR": "a5851d6ffbe9dd32",
+   "ruRU": "a5851d6ffbe9dd32"
+  },
+  "SHOPGUIDE_STEP_TWO_ROWS_FMT": {
+   "deDE": "d91d47b86eb88d49",
+   "esES": "d91d47b86eb88d49",
+   "frFR": "d91d47b86eb88d49",
+   "itIT": "d91d47b86eb88d49",
+   "nlNL": "d91d47b86eb88d49",
+   "ptBR": "d91d47b86eb88d49",
+   "ruRU": "d91d47b86eb88d49"
+  },
+  "SHOPGUIDE_TITLE": {
+   "deDE": "a3bc22eb1d9d0df5",
+   "esES": "a3bc22eb1d9d0df5",
+   "frFR": "a3bc22eb1d9d0df5",
+   "itIT": "a3bc22eb1d9d0df5",
+   "nlNL": "a3bc22eb1d9d0df5",
+   "ptBR": "a3bc22eb1d9d0df5",
+   "ruRU": "a3bc22eb1d9d0df5"
   },
   "SHOPTAB_CRAFT": {
    "ruRU": "13a150e3fd0a2ae3"
