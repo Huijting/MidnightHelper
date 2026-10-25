@@ -90,6 +90,26 @@ local function Build()
 	f.foot:SetJustifyH("LEFT")
 	f.foot:SetWordWrap(true)
 
+	-- The same steps with pictures on midnighthelper.com/shopping/ (site chat, 25 Oct 2026: live in 8 languages,
+	-- sections #buy, #use, #sockets). An addon cannot open a browser: the link opens the copy box.
+	f.site = CreateFrame("Button", nil, f)
+	f.site.fs = f.site:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	f.site.fs:SetPoint("TOPLEFT")
+	f.site.fs:SetWidth(WIDTH - 32)
+	f.site.fs:SetJustifyH("LEFT")
+	f.site.fs:SetTextColor(0.45, 0.75, 1)
+	f.site:SetScript("OnEnter", function(self)
+		self.fs:SetTextColor(1, 1, 1)
+	end)
+	f.site:SetScript("OnLeave", function(self)
+		self.fs:SetTextColor(0.45, 0.75, 1)
+	end)
+	f.site:SetScript("OnClick", function()
+		if ns.ShowSiteLink and ns.MHSiteURL then
+			ns.ShowSiteLink(ns.MHSiteURL("shopping/"), "SHOPGUIDE_SITE_TITLE")
+		end
+	end)
+
 	f:Hide()
 	return f
 end
@@ -118,7 +138,12 @@ local function Layout()
 	win.foot:SetText(L("SHOPGUIDE_FOOT"))
 	win.foot:ClearAllPoints()
 	win.foot:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
-	y = y - win.foot:GetStringHeight() - 16
+	y = y - win.foot:GetStringHeight() - 8
+	win.site.fs:SetText(L("SHOPGUIDE_SITE_LINK"))
+	win.site:SetSize(WIDTH - 32, win.site.fs:GetStringHeight() + 2)
+	win.site:ClearAllPoints()
+	win.site:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
+	y = y - win.site:GetHeight() - 16
 	win:SetHeight(-y)
 end
 

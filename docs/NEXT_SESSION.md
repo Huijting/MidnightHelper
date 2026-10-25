@@ -8,6 +8,11 @@ waren "optional" (grijs, buiten de boodschappenlijst; GetGearEnchantSummary teld
 "missing", rapport/Enchants-tab rood met advies (Recommend slot 3 = SHOULDER_TERTIARY), GetGearShoppingRows neemt ze mee
 (eerste keuze Akil'zon's Swiftness, met "choice"). ENCHANT_SHOULDER_OPT is nu ongebruikt (lint SOFT [18]).
 In-game changelog: blok "4.13.1" met CHANGELOG_4131_1, TOC blijft 4.13.0 (Rob kiest nummer en go). Niet in het spel gezien.
+✅ Daarna: site-chat zette 4.13.0 + midnighthelper.com/shopping/ live (8 talen, #buy #use #sockets; Robs toestemming
+bij de site-chat). ShoppingGuide.lua heeft nu onderaan de link (ns.ShowSiteLink(ns.MHSiteURL("shopping/")),
+SHOPGUIDE_SITE_LINK/_TITLE, 7 talen) = CHANGELOG_4131_2. Twijfels van de site-vertaler opgelost: nl STEP_OPEN noemt de knop
+nu "Boodschappen (MH)" (= nl AHSHOP_BTN); it STEP_ENCHANT "Incantamento:" (GEMETEN itIT ItemSparse 243963
+"Incantamento Spalle - …", PTR-build 70493). Niet in het spel gezien.
 
 ## 🚀 25 okt — RELEASE 4.13.0 (Rob: "Go voor de 4.13.0. En samen overleggen met de sidechat … Je mag doorgaan")
 
