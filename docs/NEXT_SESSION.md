@@ -5,7 +5,11 @@
 Geen beta. TOC 4.13.0, CHANGELOG_4130_1..4, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.13.0.md` (byte-identiek, sha1
 fb6cdc41…), CHANGELOG.md, CURSEFORGE_DESCRIPTION.md (zin over de stap-voor-stap-uitleg; 🔜 Rob plakt hem op CF).
 Inhoud: "How do I buy this?", Labyrinth-clientnamen + Hexmask-hint op elke taal, Blessing of Dawn-regel, Nature's
-Swiftness-uitleg, #clicks-link. Tag en uploadstatus: zie de regel hieronder zodra de run klaar is.
+Swiftness-uitleg, #clicks-link. ✅ Tag `v4.13.0` op b2ad517 → run 40195255844 groen; GEMETEN in het log: CurseForge
+"Success!" (release, 12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", GitHub zip + release.json "Success!".
+🔜 Rob: CURSEFORGE_DESCRIPTION.md op CF plakken; na de upload de changelog-opmaak op CF bekijken. Site-chat: seintje in
+side-session-notes `local_7de97b3b-…\site_chat_4.13.0_2026-10-25.md` (mijn eerdere bericht werd door die sessie
+tegengehouden).
 
 ## 🛒 25 okt — "How do I buy this?": de boodschappenlijst stap voor stap (Rob: "we gaan uiteraard voor C" → "begin jij maar met bouwen")
 
