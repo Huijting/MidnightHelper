@@ -45,15 +45,22 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
       staat er (screenshot).
 - [x] ✅ Rob 24 okt: "de icoontjes zijn goed" (Shift + Left rood vizier, Shift + Right briefje).
 - [x] ✅ Rob 24 okt: "de knoppen al geprobeerd, dus die zijn goedgekeurd" (Holy Paladin).
-- [ ] `/reload` of opnieuw inloggen: blijft "MH - Holy Paladin" actief (gekoppeld aan je indeling)?
+- [x] ✅ GEMETEN Rob 25 okt (screenshots): na `/reload` blijft "MH - Holy Paladin" actief (DF-venster: Profile MH - Holy
+      Paladin, Active Bindings 12; `/mh klikken`: actief DF-profiel MH - Holy Paladin).
 - [x] ✅ GEMETEN Rob 24 okt: "Undo" zet terug naar het vorige profiel; daarna nog eens "Put in DandersFrames" werkt ook.
-- [ ] `/mh klikken`: alles "ja", en "laatste keer: … on". Stuur de regels als iets "nee" zegt.
-- [ ] Op een andere spec bekijken (spec-icoon bovenaan): geen knop, wel "Wissel naar deze spec …".
+- [x] ✅ GEMETEN Rob 25 okt (screenshot): `/mh klikken` geladen/importfunctie/LibSerialize/zelf aanzetten allemaal "ja",
+      "DandersFrames laatste keer: spec 65, on". De enige "nee" is "Blizzard ongedaan maken", terecht (al ongedaan).
+- [ ] Op een andere spec bekijken (spec-icoon bovenaan): geen knop, wel "Wissel naar deze spec …". ⚠️ Kan NIET op de
+      Paladin: Prot/Ret hebben geen tabblad Klikken (GEMETEN Rob 25 okt, zo gebouwd). Testen op de Priest: Holy actief,
+      Discipline bekijken.
 - [x] ✅ GEMETEN Rob 24 okt (screenshot, DF uit): oranje regel blijft, geen knop, wel de zin over Cell, VuhDo, Clique.
 - [x] ✅ GEMETEN Rob 24 okt: `/mh klikken blizz` → pcall geen fout, geen meldingen, indeling gelijk: MAG.
-- [ ] NIEUW Blizzard-knop. `/reload`, Twelveinchy, tabblad Klikken. Klopt de nieuwe bovenste zin voor jou ("… alleen met
-      DandersFrames of met Blizzards eigen groeps- en raidvakjes …")? Onderaan twee blokken; bij Blizzard een waarschuwing
-      omdat je DandersFrames hebt.
+- [x] ✅ GEMETEN Rob 25 okt (screenshots, Twelveinchy): met DF aan twee blokken, bij Blizzard de waarschuwing "You use
+      DandersFrames, so you do not need this…"; met DF uit alleen het Blizzard-blok + de zin "You do not have
+      DandersFrames…". Blizzard-knop op de Paladin: "Done: … these 12 clicks"; daarna Undo → `/mh klikken` "nu 2 regels
+      (0+LeftButton:3/1 0+RightButton:3/2)" = Blizzards standaard terug, "Your old Blizzard click layout is back."
+- [ ] Rob: is de nieuwe bovenste zin goed ("These clicks only work with the addon DandersFrames or with Blizzard's own
+      party and raid frames. Other frame addons (Cell, VuhDo, Clique): copy the table by hand.")? Gezien, nog niet bevestigd.
 - [x] ⚠️ GEMETEN Rob 24 okt (Holy Priest): eerste versie → alleen klikken zonder toets werkten. Oorzaak gemeten
       (MakeModifiers: Shift 3, Ctrl 12) en gerepareerd. Opnieuw testen hieronder.
 - [x] ✅ GEMETEN Rob 24 okt (Holy Priest, na de reparatie 3/12/48): "alle knoppen werken nu"; `/mh klikken` toont 10

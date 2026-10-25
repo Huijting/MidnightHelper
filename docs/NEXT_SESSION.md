@@ -90,8 +90,10 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
   Engels, DF vertaalt ze niet). fr "Click-Casting (lancement de sorts au clic)" lang, niet in het spel gezien.
   Rapport + script: scratchpad insert_clicks.py (deze sessie). CHANGELOG_4113_3 toegevoegd.
 - ✅ GEMETEN Rob 24 okt (Twelveinchy): knop → DF "Switched to profile: MH - Holy Paladin", `/mh klikken` "on, indeling
-  Holy". Het zelf aanzetten via DF's interne functies werkt dus in het spel. Nog open: de klikken zelf, na /reload, Undo,
-  zonder DF, Shaman (TESTLIJST).
+  Holy". Het zelf aanzetten via DF's interne functies werkt dus in het spel. ✅ 25 okt GEMETEN Rob: na /reload blijft het
+  profiel actief, `/mh klikken` alles ja, met/zonder DF de juiste blokken, Blizzard-knop + Undo op de Paladin (terug naar
+  2 regels). Nog open (TESTLIJST): Robs ja op de nieuwe bovenste zin, andere spec bekijken (op de Priest), rechter
+  Shift-toets, Shaman, Mistweaver/Preservation.
 - 🔜 Beta-tag op Robs go. Site neemt de tab mee na de release (site-chat geseind).
 - 🧪 Blizzards eigen Click Casting (Rob: "kunnen we het überhaupt in de Blizzard's eigen UI implementeren?"):
   C_ClickBindings.SetProfileByInfo bestaat, vlag HasRestrictions (ClickBindingsDocumentation.lua, wow-ui-source live, gelezen
