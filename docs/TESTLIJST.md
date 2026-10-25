@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 25 okt — Valeera voor healers
+
+- [ ] Op een healer (bv. de Resto Druid): `/mh curios`. Staat onder de uitleg over de sterren de regel "You heal: which
+      role for Valeera? …"? Op een DPS- of tank-character hoort die regel er NIET te staan.
+
 ## 🆕 25 okt — rare-route blijft in de gekozen zone
 
 - [ ] `/reload`, in Silvermoon: Rares-tab → Coiled Isle → Generate Route. Wijst de pijl nu eerst naar de portal naar de

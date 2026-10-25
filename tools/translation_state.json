@@ -6935,6 +6935,15 @@
    "ptBR": "efe96ff50540f28c",
    "ruRU": "efe96ff50540f28c"
   },
+  "CURIO_HEALER_ROLE": {
+   "deDE": "046e0cf54370a81c",
+   "esES": "046e0cf54370a81c",
+   "frFR": "046e0cf54370a81c",
+   "itIT": "046e0cf54370a81c",
+   "nlNL": "046e0cf54370a81c",
+   "ptBR": "046e0cf54370a81c",
+   "ruRU": "046e0cf54370a81c"
+  },
   "CURIO_HINT": {
    "deDE": "a97ed53359744a35",
    "esES": "a97ed53359744a35",
@@ -7038,13 +7047,13 @@
    "ruRU": "fce90a6cd1ed1a1c"
   },
   "CURIO_WHEN_BILESPEAR": {
-   "deDE": "5d01b59f32400d49",
-   "esES": "5d01b59f32400d49",
-   "frFR": "5d01b59f32400d49",
-   "itIT": "5d01b59f32400d49",
-   "nlNL": "5d01b59f32400d49",
-   "ptBR": "5d01b59f32400d49",
-   "ruRU": "5d01b59f32400d49"
+   "deDE": "b3bd50644af136d4",
+   "esES": "b3bd50644af136d4",
+   "frFR": "b3bd50644af136d4",
+   "itIT": "b3bd50644af136d4",
+   "nlNL": "b3bd50644af136d4",
+   "ptBR": "b3bd50644af136d4",
+   "ruRU": "b3bd50644af136d4"
   },
   "CURIO_WHEN_DREAMCATCHER": {
    "deDE": "4b6853588e4afc3e",
@@ -7083,13 +7092,13 @@
    "ruRU": "2e128900e5a90ad3"
   },
   "CURIO_WHEN_VIPERWIND": {
-   "deDE": "6e97409c3c4fe566",
-   "esES": "6e97409c3c4fe566",
-   "frFR": "6e97409c3c4fe566",
-   "itIT": "6e97409c3c4fe566",
-   "nlNL": "6e97409c3c4fe566",
-   "ptBR": "6e97409c3c4fe566",
-   "ruRU": "6e97409c3c4fe566"
+   "deDE": "8485d89d87e4fab7",
+   "esES": "8485d89d87e4fab7",
+   "frFR": "8485d89d87e4fab7",
+   "itIT": "8485d89d87e4fab7",
+   "nlNL": "8485d89d87e4fab7",
+   "ptBR": "8485d89d87e4fab7",
+   "ruRU": "8485d89d87e4fab7"
   },
   "CURRENCY_GUIDE_BODY": {
    "deDE": "b3cfbcc1949f2ae2",
@@ -9473,13 +9482,13 @@
    "ruRU": "c8e82398101572ab"
   },
   "DELVE_TIP_GNARLDOR_BOSS": {
-   "deDE": "183950892c185947",
-   "esES": "183950892c185947",
-   "frFR": "183950892c185947",
-   "itIT": "183950892c185947",
-   "nlNL": "183950892c185947",
-   "ptBR": "183950892c185947",
-   "ruRU": "183950892c185947"
+   "deDE": "506db2aea17c10e3",
+   "esES": "506db2aea17c10e3",
+   "frFR": "506db2aea17c10e3",
+   "itIT": "506db2aea17c10e3",
+   "nlNL": "506db2aea17c10e3",
+   "ptBR": "506db2aea17c10e3",
+   "ruRU": "506db2aea17c10e3"
   },
   "DELVE_TIP_GNARLDOR_OVERVIEW": {
    "deDE": "b3f3339e02cef426",
@@ -9581,13 +9590,13 @@
    "ruRU": "4664066df6c0926d"
   },
   "DELVE_TIP_LABYRINTH_BOSS": {
-   "deDE": "637ea5c48a22d89d",
-   "esES": "637ea5c48a22d89d",
-   "frFR": "637ea5c48a22d89d",
-   "itIT": "637ea5c48a22d89d",
-   "nlNL": "637ea5c48a22d89d",
-   "ptBR": "637ea5c48a22d89d",
-   "ruRU": "637ea5c48a22d89d"
+   "deDE": "f53a9410b3b85857",
+   "esES": "f53a9410b3b85857",
+   "frFR": "f53a9410b3b85857",
+   "itIT": "f53a9410b3b85857",
+   "nlNL": "f53a9410b3b85857",
+   "ptBR": "f53a9410b3b85857",
+   "ruRU": "f53a9410b3b85857"
   },
   "DELVE_TIP_LABYRINTH_OVERVIEW": {
    "deDE": "9326c0dba7f32c89",
@@ -9941,13 +9950,13 @@
    "ruRU": "7fa59bec2cef509b"
   },
   "DELVE_TIP_VENOMFALL_DISPEL_YOU": {
-   "deDE": "6b4c65375ec93caf",
-   "esES": "6b4c65375ec93caf",
-   "frFR": "6b4c65375ec93caf",
-   "itIT": "6b4c65375ec93caf",
-   "nlNL": "6b4c65375ec93caf",
-   "ptBR": "6b4c65375ec93caf",
-   "ruRU": "6b4c65375ec93caf"
+   "deDE": "40e78ac7f3ca5658",
+   "esES": "40e78ac7f3ca5658",
+   "frFR": "40e78ac7f3ca5658",
+   "itIT": "40e78ac7f3ca5658",
+   "nlNL": "40e78ac7f3ca5658",
+   "ptBR": "40e78ac7f3ca5658",
+   "ruRU": "40e78ac7f3ca5658"
   },
   "DELVE_TIP_VENOMFALL_OVERVIEW": {
    "deDE": "3ac1d06933cf5c10",

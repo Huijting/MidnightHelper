@@ -139,6 +139,13 @@ function ns.BuildCurioExplainText()
 		lines[#lines + 1] = L("CURIO_GUIDE_INTRO")
 		lines[#lines + 1] = ""
 	end
+	-- Healers only: which role Valeera gets when you heal yourself (Rob, 25 Oct 2026, as a Resto Druid; mh-research
+	-- that day: Icy Veins and Wowhead leave it to you, other guides and players split between Tank and DPS).
+	local role = ns.GetPlayerRoleKey and ns.GetPlayerRoleKey()
+	if role == "heal" then
+		lines[#lines + 1] = L("CURIO_HEALER_ROLE")
+		lines[#lines + 1] = ""
+	end
 	for _, node in ipairs(nodes) do
 		-- ✅ THE SLOTS DO HAVE NAMES, and this used to say they did not. The old
 		-- comment read "the game does not name these slots in a way we can read", and

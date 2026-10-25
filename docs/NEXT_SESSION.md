@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🌿 25 okt (na 4.13.0) — Valeera-rol voor healers + curio-teksten (Rob: "werk de MH-teksten over Valeera's rol voor healers en de curios bij, in alle talen")
+
+Onderzoek mh-research (side-session-notes `local_7de97b3b-…\healer_delves_valeera_2026-10-25.md`): Icy Veins/Wowhead
+laten de rol vrij; andere gidsen/spelers verdeeld Tank (Blood-Stained Blades) vs DPS (interrupt); Azta'rec healer →
+DPS; Kindo'jan Healer of DPS (Method). Toegepast: CURIO_WHEN_BILESPEAR/_VIPERWIND (gidsen nu verdeeld: Icy Veins 21 okt
+Viperwind + Dundun's Favor, Method Bilespear voor Kindo'jan); NIEUW CURIO_HEALER_ROLE, alleen voor healers in
+`/mh curios` (CurioExplain.lua, ns.GetPlayerRoleKey() == "heal"); Gralka "DPS or Tank" interrupt; Venomfall DISPEL_YOU
++ healer → DPS; Labyrinth-baas: hotfix 16 okt + bullet voor healers. 7 talen (mh-writer, eigen vertaling; "supplies at
+the start" en "checkpoint" niet tegen de client gemeten). CHANGELOG_4131_4. Niet in het spel gezien.
+NIET gedaan: de sterren in `/mh curios` (DelveCuriosData heeft alleen seizoen 1) — bewust, gidsen zijn verdeeld.
+
 ## 🗺️ 25 okt (na 4.13.0) — Generate Route bleef in de zone waar je stond (Rob: in Silvermoon, Coiled Isle gekozen, "Wat hij dan doet, is de route in Everson genereren")
 
 GEMETEN in Rares.lua: GenerateRaresRoute pinde wél de Coiled Isle-rares, maar elke "wat nu?" van de route-runner
