@@ -59,7 +59,7 @@ Eerst `/reload`. Op een healer: `/mh play`, tabblad **Klikken** (rechts).
       DandersFrames, so you do not need this…"; met DF uit alleen het Blizzard-blok + de zin "You do not have
       DandersFrames…". Blizzard-knop op de Paladin: "Done: … these 12 clicks"; daarna Undo → `/mh klikken` "nu 2 regels
       (0+LeftButton:3/1 0+RightButton:3/2)" = Blizzards standaard terug, "Your old Blizzard click layout is back."
-- [ ] Rob: is de nieuwe bovenste zin goed ("These clicks only work with the addon DandersFrames or with Blizzard's own
+- [x] ✅ Rob 25 okt: "De nieuwe bovenste zin is goed zoals hij staat." Was: is de nieuwe bovenste zin goed ("These clicks only work with the addon DandersFrames or with Blizzard's own
       party and raid frames. Other frame addons (Cell, VuhDo, Clique): copy the table by hand.")? Gezien, nog niet bevestigd.
 - [x] ⚠️ GEMETEN Rob 24 okt (Holy Priest): eerste versie → alleen klikken zonder toets werkten. Oorzaak gemeten
       (MakeModifiers: Shift 3, Ctrl 12) en gerepareerd. Opnieuw testen hieronder.

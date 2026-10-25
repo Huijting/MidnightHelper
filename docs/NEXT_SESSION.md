@@ -92,7 +92,7 @@ PlayCardWindow.lua (alleen 105/65/256/257/264), `/mh klikken` (diagnose, in MH_U
 - ✅ GEMETEN Rob 24 okt (Twelveinchy): knop → DF "Switched to profile: MH - Holy Paladin", `/mh klikken` "on, indeling
   Holy". Het zelf aanzetten via DF's interne functies werkt dus in het spel. ✅ 25 okt GEMETEN Rob: na /reload blijft het
   profiel actief, `/mh klikken` alles ja, met/zonder DF de juiste blokken, Blizzard-knop + Undo op de Paladin (terug naar
-  2 regels). Nog open (TESTLIJST): Robs ja op de nieuwe bovenste zin, andere spec bekijken (op de Priest), rechter
+  2 regels). ✅ Rob keurde de nieuwe CLICK_DF_ONLY goed ("goed zoals hij staat"). Nog open (TESTLIJST): andere spec bekijken (op de Priest), rechter
   Shift-toets, Shaman, Mistweaver/Preservation.
 - 🔜 Beta-tag op Robs go. Site neemt de tab mee na de release (site-chat geseind).
 - 🧪 Blizzards eigen Click Casting (Rob: "kunnen we het überhaupt in de Blizzard's eigen UI implementeren?"):
