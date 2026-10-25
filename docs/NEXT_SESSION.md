@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🛡️ 25 okt (na 4.13.0) — schouders zonder enchant = "ontbreekt" (Rob: "laat schouders zonder enchant net als helm en voeten als ontbrekend zien, en zet ze op de boodschappenlijst")
+
+Rob zag op zijn Prot Paladin en Carola's Shaman wél een schouder-enchant en vroeg waarom MH "optional" zei. GEMETEN in
+GearEnchantCheck.lua: schouders hebben dezelfde Speed/Leech/Avoidance-keuze als helm en voeten, maar alleen schouders
+waren "optional" (grijs, buiten de boodschappenlijst; GetGearEnchantSummary telde ze al wél). Nu: GetGearEnchantSlots
+"missing", rapport/Enchants-tab rood met advies (Recommend slot 3 = SHOULDER_TERTIARY), GetGearShoppingRows neemt ze mee
+(eerste keuze Akil'zon's Swiftness, met "choice"). ENCHANT_SHOULDER_OPT is nu ongebruikt (lint SOFT [18]).
+In-game changelog: blok "4.13.1" met CHANGELOG_4131_1, TOC blijft 4.13.0 (Rob kiest nummer en go). Niet in het spel gezien.
+
 ## 🚀 25 okt — RELEASE 4.13.0 (Rob: "Go voor de 4.13.0. En samen overleggen met de sidechat … Je mag doorgaan")
 
 Geen beta. TOC 4.13.0, CHANGELOG_4130_1..4, `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.13.0.md` (byte-identiek, sha1

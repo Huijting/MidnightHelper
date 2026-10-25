@@ -4,6 +4,13 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "4.13.1",
+		lines = {
+			-- after 4.13.0, no version bump yet (Rob picks the number and the go)
+			"CHANGELOG_4131_1",
+		},
+	},
+	{
 		version = "4.13.0",
 		lines = {
 			-- release (25 Oct 2026, Rob: "Go voor de 4.13.0")

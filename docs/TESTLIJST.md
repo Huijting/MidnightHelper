@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 25 okt — schouders zonder enchant
+
+- [ ] `/reload`, een character zonder schouder-enchant: in het Gear check-paneel staat "Shoulders: no enchant" nu in ROOD
+      (niet meer "(optional)"), en "Buy what's missing" zet een schouder-enchant op de lijst.
+
 ## 🆕 25 okt — "How do I buy this?" (boodschappenlijst stap voor stap)
 
 Eerst `/reload`.

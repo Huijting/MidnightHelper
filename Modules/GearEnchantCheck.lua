@@ -13,7 +13,7 @@
 	zie SESSION_NOTES). Secundaire-stat-enchants (Haste/Crit/Mastery/Vers) zitten op
 	RINGEN + een proc-WAPEN. HEAD en FEET hebben tertiary-keuze-enchants (Speed/
 	Leech/Avoidance). CHEST geeft primary. LEGS gebruiken Leatherworking-armor-kits
-	(Agi/Str) of Tailoring-spellthreads (Int). SHOULDER heeft optionele utility-
+	(Agi/Str) of Tailoring-spellthreads (Int). SHOULDER heeft dezelfde tertiary-keuze als HEAD/FEET (sinds 25 okt 2026 ook "ontbreekt"; was optionele utility-
 	enchants (effect nog te bevestigen, dus geen stat-claim). Het is een stat-
 	gematchte suggestie, geen pure BiS — voor min-maxen een class-guide raadplegen.
 
@@ -661,6 +661,12 @@ local function Recommend(slotId, stat, map)
 			parts[#parts + 1] = LinkOf(map, e)
 		end
 		return ns:L("ENCHANT_PICK") .. " " .. table.concat(parts, " / ")
+	elseif slotId == 3 then -- shoulders: the same tertiary choice as head and feet (Rob, 25 Oct 2026)
+		local parts = {}
+		for _, e in ipairs(SHOULDER_TERTIARY) do
+			parts[#parts + 1] = LinkOf(map, e)
+		end
+		return ns:L("ENCHANT_PICK") .. " " .. table.concat(parts, " / ")
 	elseif slotId == 8 then -- feet: tertiary keuze
 		local parts = {}
 		for _, e in ipairs(FEET_TERTIARY) do
@@ -728,16 +734,10 @@ local function BuildReportLines(map)
 		local hasItem, enchanted = SlotState(s.id)
 		if hasItem then
 			local label = (s.id == 16 and (_G.WEAPON or "Weapon")) or _G[s.label] or s.label
-			if s.id == 3 then
-				-- Schouder: nog steeds geen rood MISSING-alarm — het is een tertiary-keuze
-				-- zoals helm en voeten, geen verplichte stat-enchant. Wél alle drie tonen.
-				local parts = {}
-				for _, e in ipairs(SHOULDER_TERTIARY) do
-					parts[#parts + 1] = LinkOf(map, e)
-				end
-				lines[#lines + 1] = ("|cffc8b88a%s — %s %s|r"):format(
-					label, ns:L("ENCHANT_SHOULDER_OPT"), table.concat(parts, " / "))
-			elseif enchanted then
+			-- Shoulders used to be "optional" here, in grey. Rob, 25 Oct 2026: "laat schouders zonder enchant net als
+			-- helm en voeten als ontbrekend zien" - it is the same Speed / Leech / Avoidance choice as head and feet,
+			-- which were always "missing", and both his Prot Paladin and Carola's Shaman carry one.
+			if enchanted then
 				local ench = SlotEnchantText(s.id)
 				local tail = ench and (": " .. ench) or ""
 				-- Ook bij een al-geënchant slot de aanbevolen enchant tonen (klikbare
@@ -935,7 +935,7 @@ end
 --- One row per enchantable slot that holds an item, for the character side panel.
 --- state: "ours" (an enchant we advise), "other" (a Midnight enchant we know, not our advice), "missing" (none),
 --- "unknown" (we cannot tell: an enchant id we never measured, or advice that needs a stat we could not read),
---- "optional" (shoulders without an enchant: optional, as everywhere in MH), "noadvice" (a Death Knight's
+--- "optional" (no longer used: shoulders count as "missing" since 25 Oct 2026), "noadvice" (a Death Knight's
 --- runeforge: MH gives a DK no weapon advice, so no verdict).
 --- @return table|nil rows { slotId, label, state, name, rank } — nil when nothing could be read
 function ns.GetGearEnchantSlots()
@@ -952,7 +952,7 @@ function ns.GetGearEnchantSlots()
 			local enchantID = tonumber(link:match("item:%d+:(%d*)") or "") or 0
 			local row = { slotId = s.id, label = label }
 			if enchantID == 0 then
-				row.state = (s.id == 3) and "optional" or "missing"
+				row.state = "missing"
 			else
 				local known = ns.MH_ENCHANT_IDS and ns.MH_ENCHANT_IDS[enchantID]
 				row.name = ClientEnchantName(s.id) or (known and known[2])
@@ -1002,7 +1002,7 @@ end
 --- empty sockets?" -> one list for the whole raid night). One row per thing to BUY, with the FIRST pick of the
 --- same advice the Enchants tab gives (Recommend/RecommendGem above), so the two can never disagree about the lead
 --- choice. Where the tab offers a choice (head, feet, legs, ring, weapon), `choice` says so: the window shows it
---- and the Enchants tab keeps all options. Shoulders stay out: optional there too.
+--- and the Enchants tab keeps all options. Shoulders are in since 25 Oct 2026, like head and feet (Rob).
 --- @return table rows { label, name (AH name), iid|nil, sid|nil, need, choice }
 function ns.GetGearShoppingRows()
 	local rows = {}
@@ -1029,6 +1029,8 @@ function ns.GetGearShoppingRows()
 			return HEAD_TERTIARY[1], true
 		elseif slotId == 8 then
 			return FEET_TERTIARY[1], true
+		elseif slotId == 3 then
+			return SHOULDER_TERTIARY[1], true
 		elseif slotId == 7 then
 			local p = PrimaryStat()
 			if p == "int" then
@@ -1055,13 +1057,11 @@ function ns.GetGearShoppingRows()
 		rows[#rows + 1] = r
 	end
 	for _, s in ipairs(SLOTS) do
-		if s.id ~= 3 then
-			local hasItem, enchanted = SlotState(s.id)
-			if hasItem and not enchanted then
-				local e, choice = pick(s.id)
-				local label = (s.id == 16 and (_G.WEAPON or "Weapon")) or _G[s.label] or s.label
-				add(label, e, 1, choice)
-			end
+		local hasItem, enchanted = SlotState(s.id)
+		if hasItem and not enchanted then
+			local e, choice = pick(s.id)
+			local label = (s.id == 16 and (_G.WEAPON or "Weapon")) or _G[s.label] or s.label
+			add(label, e, 1, choice)
 		end
 	end
 	-- Empty sockets: one gets the unique diamond if none is worn, the rest the dual-stat gem.
