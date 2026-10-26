@@ -187,7 +187,7 @@ local function Probe(line)
 	ns.db.raidShopProbe = ns.db.raidShopProbe or {}
 	local p = ns.db.raidShopProbe
 	p[#p + 1] = (date and date("%H:%M:%S ") or "") .. line
-	while #p > 30 do
+	while #p > 60 do -- 30 until 26 Oct 2026; the search and cancel lines need room around an error
 		table.remove(p, 1)
 	end
 end
@@ -210,6 +210,14 @@ if hooksecurefunc and C_AuctionHouse then
 				end
 			end)
 		end
+	end
+	-- Who cancels a purchase, and when (26 Oct 2026, "Internal auction error." hunt): the first lines of the
+	-- stack say whether it was Blizzard's dialog closing, Auctionator or something else.
+	if type(C_AuctionHouse.CancelCommoditiesPurchase) == "function" then
+		hooksecurefunc(C_AuctionHouse, "CancelCommoditiesPurchase", function()
+			local stack = debugstack and debugstack(3, 2, 0) or ""
+			Probe("CancelCommoditiesPurchase " .. stack:gsub("Interface/AddOns/", ""):gsub("\n", " | "):sub(1, 160))
+		end)
 	end
 end
 
@@ -388,6 +396,18 @@ local function SearchAuctionHouse(name)
 		return false
 	end
 	local f = AuctionHouseFrame
+	-- Rob, 26 Oct 2026: "Internal auction error." now and then, the purchase going through anyway. A search runs
+	-- SetDisplayMode(Buy) (AuctionHouseFrame.lua:825), which hides the buy dialog, and hiding it cancels the
+	-- purchase in flight (BuyDialog.lua:112). Not proven to be the cause (players without addons see the error
+	-- too), but a search in the middle of a purchase is never what the player wants: wait, and say why.
+	if f.BuyDialog and f.BuyDialog:IsShown() then
+		Probe("search: skipped, the buy dialog is open (" .. tostring(name) .. ")")
+		if UIErrorsFrame then
+			UIErrorsFrame:AddMessage(L("RAIDSHOP_WAIT_BUY"), 1, 0.82, 0)
+		end
+		return true -- handled: no copy box
+	end
+	Probe("search: " .. tostring(name))
 	return pcall(function()
 		if not f:SetSearchText(name) then
 			-- On the Sell/Auctions tab or an Auctionator tab SetSearchText refuses: go to Buy first.
@@ -477,12 +497,14 @@ ahQtyWatch:RegisterEvent("ADDON_LOADED")
 ahQtyWatch:RegisterEvent("AUCTION_HOUSE_SHOW")
 ahQtyWatch:RegisterEvent("AUCTION_HOUSE_CLOSED")
 pcall(ahQtyWatch.RegisterEvent, ahQtyWatch, "AUCTION_HOUSE_SHOW_ERROR")
+pcall(ahQtyWatch.RegisterEvent, ahQtyWatch, "AUCTION_HOUSE_BROWSE_FAILURE")
 ahQtyWatch:SetScript("OnEvent", function(_, event, a1)
 	if event == "AUCTION_HOUSE_CLOSED" then
 		pendingBuy = nil
-	elseif event == "AUCTION_HOUSE_SHOW_ERROR" then
-		-- Another addon saw "Internal auction house error" with a preset amount (12.0.7); write it down if it comes.
-		Probe("AUCTION_HOUSE_SHOW_ERROR " .. tostring(a1))
+	elseif event == "AUCTION_HOUSE_SHOW_ERROR" or event == "AUCTION_HOUSE_BROWSE_FAILURE" then
+		-- "Internal auction error." is ERR_AUCTION_DATABASE_ERROR = Enum.AuctionHouseError.DatabaseError (10): after a
+		-- buy it comes as SHOW_ERROR, after a search as BROWSE_FAILURE. Written down with what happened before it.
+		Probe(event .. " " .. tostring(a1))
 	elseif event == "AUCTION_HOUSE_SHOW" or a1 == "Blizzard_AuctionHouseUI" then
 		HookAhQuantity()
 	end

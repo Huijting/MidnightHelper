@@ -583,6 +583,7 @@ ns._mhLocales.nlNL = {
 	RAIDSHOP_AUCTIONATOR_SEARCH = "Auctionator zoekt wat je nog moet kopen.",
 	RAIDSHOP_AUCTIONATOR_LIST_FMT = "Auctionator: boodschappenlijst \"%s\" staat klaar (%d items). Bij het veilinghuis: Auctionator -> Shopping.",
 	RAIDSHOP_AUCTIONATOR_NOTHING = "Niets te kopen: je hebt alles.",
+	RAIDSHOP_WAIT_BUY = "Rond deze aankoop eerst af of annuleer hem, klik dan de volgende regel.",
 	RAIDSHOP_AUCTIONATOR_FAILED = "Auctionator nam de lijst niet aan. Gebruik het kopieervakje.",
 	CMDLIST_GBUFFS = "Welke groepsbuffs er nu ontbreken.",
 	CMDLIST_KICKS = "Je interrupt-scorekaart voor deze run.",

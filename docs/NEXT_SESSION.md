@@ -2,7 +2,7 @@
 
 ## 🔜 OPEN na 25 okt (overdracht naar de bouwchat van 26 okt)
 
-- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..9, TOC
+- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..10, TOC
   nog 4.13.0): schouders zonder enchant = rood + op de boodschappenlijst; link naar midnighthelper.com/shopping/; rare-route
   blijft in de gekozen zone; Valeera-rol voor healers (/mh curios) + curio-teksten; tabblad **Solo** voor 7 healers (met
   Druid kat/gewone vorm per talent); Symbiotic Relationship-uitleg (1 uur, niet op jezelf); korte melding versleepbaar en
@@ -14,12 +14,32 @@
   rechtsgeklikt — testje gevraagd), Preservation Evoker (Rob moet eerst het begingebied uit).
 - **Battle.net**: .git staat sinds 25 okt in E:\MidnightHelper-git; Rob houdt in de gaten of de nep-updates stoppen.
 - **CurseForge**: auto-update + Overwolf bij opstarten aan; of CurseForge na een herstart echt vanzelf start: niet gezien.
-- **Klein (bijvangst)**: ✅ 26 okt grotendeels gedaan (sectie hieronder). Nog open: Labyrinth-namen die niet gemeten zijn
-  (maskers als object, Ahn'joli, Keeper of the Key, Jan'alai Tear), Flames of Jan'alai bij welke taak; esMX krijgt in
+- **Klein (bijvangst)**: ✅ 26 okt grotendeels gedaan (secties hieronder). Labyrinth-rest: zie "🛎️ 26 okt"; esMX krijgt in
   PLAYCARD_65_S1/_W1 "Forjador de luz" (esES) i.p.v. "Fragualuz"; esMX ziet "Poder sagrado" (esES-klein) in 32 keys
   terwijl de esMX-client "Poder Sagrado" schrijft; it "DPS" ≠ client "Assaltatore" (bewust gelaten); de nieuwe
   it-rolwoorden in lopende tekst zijn niet door een moedertaalspreker gelezen.
 - **Robs ervaring (1 run)**: Kindo'jan als Resto Druid met Valeera op Healer + 3 maskers ging snel; met Tank/DPS 2× dood.
+
+## 🛎️ 26 okt (middag) — AH-fout meten + Labyrinth-namen ronde 3 (Rob, onderweg: "A en B")
+
+A) Rob zag "Internal auction error." al op 25 okt (vóór 167cb01), aankoop lukte wel. mh-research (side-session-notes
+`local_ef4e25db-…\ah_internal_error_2026-10-26.md`): GlobalString ERR_AUCTION_DATABASE_ERROR (12831) =
+Enum.AuctionHouseError.DatabaseError (10); na kopen via AUCTION_HOUSE_SHOW_ERROR, na zoeken via
+AUCTION_HOUSE_BROWSE_FAILURE. Ook spelers ZONDER addons zien hem (bugforum, GEMETEN). Hypothese (AFGELEID): MH's zoekklik
+→ SetDisplayMode(Buy) → BuyDialog verborgen → CancelCommoditiesPurchase midden in een aankoop. Gebouwd
+(RaidShoppingList.lua): geen zoekopdracht zolang AuctionHouseFrame.BuyDialog open is (+ RAIDSHOP_WAIT_BUY bovenin, 7
+talen door mij); probe logt nu "search: …", CancelCommoditiesPurchase met de eerste stackregels, BROWSE_FAILURE; probe
+houdt 60 regels. CHANGELOG_4131_10. Niet in het spel gezien. Meetplan voor Rob staat in het rapport (rondes met/zonder
+Auctionator/addons, taintLog).
+B) mh-research ronde 3 (`labyrinth_names_round3_2026-10-26.md`), toegepast door mh-writer: Jan'alai Tear in 7 talen
+(DELVE_TIP_LABYRINTH_ROOMS); fr-apostrof ’ (26×: Translations2026, Codex.lua, DelveTips.lua); ruRU loa/Vilebranch-namen
+(ACH_STEP_URN_*, ATAL_AMAN_ROUTE/_TRASH, TWILIGHT_CRYPTS_ROUTE) + 4 ruRU DELVE_STORY_* letterlijk Blizzard; esMX "Tormenta
+en cierne'", vara aojadora vilrama, encantahuesos vilrama; DelveTips de/fr/es/pt/it Hex Stick + Skeleton Charmers.
+Flames of Jan'alai: hoort bij BEIDE taken (GEMETEN) → tip staat goed.
+🔜 Open: Ahn'joli (Rob kiest uit 3 opties, rapport 9d); Flames of Jan'alai-clientnamen (gemeten, niet toegepast);
+DELVE_STORY_* de/fr/es/pt/it nog Engels (Blizzard-zinnen nog op te halen); losse "Vilebranch"/"Spiritpaw"/"Nalorakk's
+Shrine"/Ritual-Toadly-Totem-labels in DelveTips/ruRU/esMX; esMX "Amani" → "amani"; niet meetbaar: maskers, Keeper of the
+Key, Headhunter/Juggernaut buiten es.
 
 ## 🔢 26 okt — boodschappenlijst: het aantal gaat mee naar het koopscherm (Rob: "zoek eerst uit hoe dat in het koopscherm kan (met en zonder Auctionator) en bouw het dan")
 

@@ -47,6 +47,13 @@ er is niets weggegooid.
 - [x] ✅ GEMETEN Rob 26 okt (3 screenshots): Gear check "Shoulders: geen enchant" rood, Enchants-tab "Shoulders — ONTBREEKT"
       met Akil'zon's Swiftness voorop, en de boodschappenlijst toont "Shoulders (a choice) — Akil'zon's Swiftness — Buy 1".
 
+## 🆕 26 okt — veilinghuis: "Internal auction error." meten
+
+- [ ] Klik op Buy Now (iets goedkoops) en klik méteen een regel in MH's lijst, terwijl het koopvenster nog open is: komt
+      bovenin "Finish or cancel this purchase first, then click the next row."? Er wordt dan niet gezocht.
+- [ ] Zie je de rode "Internal auction error." toch: let op of hij bovenin het scherm staat of in de resultatenlijst, en
+      wat je vlak ervoor klikte. Daarna `/reload`: ik lees ns.db.raidShopProbe (search-, Cancel- en foutregels).
+
 ## 🆕 26 okt — boodschappenlijst: aantal in het koopscherm
 
 Eerst `/reload`, dan naar het veilinghuis.
