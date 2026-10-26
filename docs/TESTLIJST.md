@@ -47,6 +47,11 @@ er is niets weggegooid.
 - [x] ✅ GEMETEN Rob 26 okt (3 screenshots): Gear check "Shoulders: geen enchant" rood, Enchants-tab "Shoulders — ONTBREEKT"
       met Akil'zon's Swiftness voorop, en de boodschappenlijst toont "Shoulders (a choice) — Akil'zon's Swiftness — Buy 1".
 
+## 🆕 26 okt — Instellingen: aantal invullen bij het kopen
+
+- [ ] Instellingen → Midnight Helper → Venster & weergave: staat er "Fill in the amount when buying" (aan)? Zet hem uit:
+      een regel in de boodschappenlijst aanklikken + gouden variant → het aantal blijft 1. Weer aan → het aantal klopt.
+
 ## 🆕 26 okt — veilinghuis: "Internal auction error." meten
 
 - [ ] Klik op Buy Now (iets goedkoops) en klik méteen een regel in MH's lijst, terwijl het koopvenster nog open is: komt

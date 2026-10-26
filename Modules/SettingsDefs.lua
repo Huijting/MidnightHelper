@@ -545,6 +545,13 @@ local function Build()
 	end, function(v)
 		if ns.SetAhShopButtonEnabled then ns.SetAhShopButtonEnabled(v) end
 	end, true)
+	-- 26 Oct 2026 (Rob: "Alles"): a shopping-list row click fills the amount into Blizzard's buy screen
+	-- (RaidShoppingList.lua, PresetQuantity). On by default; nil = on, false = off.
+	Toggle("mh_ahPresetQty", "SET_AHQTY_TITLE", "SET_AHQTY_DESC", function()
+		return not (ns.db and ns.db.ahPresetQuantity == false)
+	end, function(v)
+		if ns.db then ns.db.ahPresetQuantity = (not v) and false or nil end
+	end, true)
 	-- 2 Oct 2026, from the survey: "make the weekly plan … tailored … i like to play solo mostly".
 	-- Hides the Mythic+ and Raids blocks on Home; a grey line says they are hidden and where.
 	Toggle("mh_homeSolo", "SET_HOMESOLO_TITLE", "SET_HOMESOLO_DESC", function()

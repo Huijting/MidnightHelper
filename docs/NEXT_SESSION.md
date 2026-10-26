@@ -20,6 +20,17 @@
   it-rolwoorden in lopende tekst zijn niet door een moedertaalspreker gelezen.
 - **Robs ervaring (1 run)**: Kindo'jan als Resto Druid met Valeera op Healer + 3 maskers ging snel; met Tank/DPS 2× dood.
 
+## 🧩 26 okt (namiddag) — "Alles" (Rob onderweg): Ahn'Joli es, Flames of Jan'alai, esMX-rest, knop aantal-invullen
+
+- Ahn'joli: Rob zei "Alles" zonder optie te noemen → mijn advies **b**: alleen es/esMX "Ahn'Joli" (GEMETEN esES); ruRU
+  spellnaam in «». Andere talen "Ahn'joli".
+- Flames of Jan'alai → clientnaam in 7 talen (DELVE_TIP_LABYRINTH_ROOMS); esMX "Llamas" met hoofdletter (zo schrijft de
+  esMX-client het midden in de zin, GEMETEN).
+- esMX.lua: 35 nieuwe regels (onderaan, blok 26 Oct) = esES-zin met "Fragualuz" en "Poder Sagrado" (esMX-client);
+  ⚠️ check_drift volgt esMX niet: verandert zo'n esES-zin, dan de esMX-regel mee. "amani" klein.
+- Instellingen → Venster & weergave: "Fill in the amount when buying" (mh_ahPresetQty, ns.db.ahPresetQuantity, standaard
+  aan), 7 talen. Niet in het spel gezien.
+
 ## 🛎️ 26 okt (middag) — AH-fout meten + Labyrinth-namen ronde 3 (Rob, onderweg: "A en B")
 
 A) Rob zag "Internal auction error." al op 25 okt (vóór 167cb01), aankoop lukte wel. mh-research (side-session-notes
@@ -52,7 +63,7 @@ prijslijst onthoudt n en zet hem na binnenkomst van de prijzen opnieuw (Commodit
 CraftShoppingList via ns.MHShop); hooksecurefunc(AuctionHouseFrame, "SelectBrowseResult") zet het aantal alleen als
 het item bij de laatste MH-klik hoort, een commodity is en het koopscherm het toont; bij 1 doet hij niets; weg bij
 AUCTION_HOUSE_CLOSED. Elke beslissing → ns.db.raidShopProbe ("qty: …"), plus AUCTION_HOUSE_SHOW_ERROR. Uit per speler:
-ns.db.ahPresetQuantity = false (nog geen knop in Instellingen). CHANGELOG_4131_9. Niet in het spel gezien.
+ns.db.ahPresetQuantity = false (sinds de namiddag ook als knop in Instellingen). CHANGELOG_4131_9. Niet in het spel gezien.
 ⚠️ Open risico (mh-research): QoLify zag op 12.0.7 een rode "Internal auction house error" met een vooraf gezet aantal
 (aankoop lukte wel). Niet gemeten bij ons. Auctionator-route niet veranderd: MH's klik gaat via Blizzards Buy-tab.
 
