@@ -2,25 +2,44 @@
 
 ## 🔜 OPEN na 25 okt (overdracht naar de bouwchat van 26 okt)
 
-- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..7, TOC
+- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..8, TOC
   nog 4.13.0): schouders zonder enchant = rood + op de boodschappenlijst; link naar midnighthelper.com/shopping/; rare-route
   blijft in de gekozen zone; Valeera-rol voor healers (/mh curios) + curio-teksten; tabblad **Solo** voor 7 healers (met
   Druid kat/gewone vorm per talent); Symbiotic Relationship-uitleg (1 uur, niet op jezelf); korte melding versleepbaar en
   onder het midden; Hexmask-melding zwijgt bij 3 maskers; /mh hexmask kent het platform 2648. Site-anker #solo staat
   in SITE_ANCHOR; de site bouwt de Solo-sectie bij de volgende release (site-chat 25-10).
-- **Testen in het spel (TESTLIJST, bovenste 25-okt-blokken)**: tabblad Solo (tab-rij past? Druid-kat niet gezien),
-  schouders rood, rare-route via de portal, korte melding verslepen, Hexmask 3/3 stil, /mh hexmask op het platform,
+- **Testen in het spel (TESTLIJST, bovenste 25/26-okt-blokken)**: tabblad Solo (tab-rij past? Druid-kat niet gezien),
+  knoppen-taal boodschappenlijst, rare-route via de portal, korte melding verslepen, Hexmask 3/3 stil, /mh hexmask op het platform,
   Valeera-regel in /mh curios, dispel-rechtsklik in party targets op de Resto Druid (alles armed, Rob had niet
   rechtsgeklikt — testje gevraagd), Preservation Evoker (Rob moet eerst het begingebied uit).
 - **Battle.net**: .git staat sinds 25 okt in E:\MidnightHelper-git; Rob houdt in de gaten of de nep-updates stoppen.
 - **CurseForge**: auto-update + Overwolf bij opstarten aan; of CurseForge na een herstart echt vanzelf start: niet gezien.
-- **Klein (bijvangst, niet gedaan)**: CONSREADY_RUNE/itIT GUIDE_CONS_TYPE_RUNE ≠ clientnaam Augment Rune; es/pt/it
-  "Casa de Subastas" e.d. met hoofdletters (client klein); esES PLAYCARD_66_HERO2 "Fragualuz" (= esMX-woord); es/it
-  "Poder Sagrado"/"Potere Sacro" (client klein); it rolwoorden; CARD_SOLO_NOTE_AFTER "Tiger Palm" nog Engels;
-  ENCHANT_SHOULDER_OPT ongebruikt; Holy Priest-klik Ctrl+rechts (Prayer of Healing) en Pres Shift+midden (Source of
-  Magic) doen solo niets; Power Infusion-tekst "op een DPS" klopt solo niet; Labyrinth: niet-gemeten namen (maskers als
-  object, Ahn'joli, Keeper of the Key, Jan'alai Tear), Flames of Jan'alai bij welke taak.
+- **Klein (bijvangst)**: ✅ 26 okt grotendeels gedaan (sectie hieronder). Nog open: Labyrinth-namen die niet gemeten zijn
+  (maskers als object, Ahn'joli, Keeper of the Key, Jan'alai Tear), Flames of Jan'alai bij welke taak; esMX krijgt in
+  PLAYCARD_65_S1/_W1 "Forjador de luz" (esES) i.p.v. "Fragualuz"; esMX ziet "Poder sagrado" (esES-klein) in 32 keys
+  terwijl de esMX-client "Poder Sagrado" schrijft; it "DPS" ≠ client "Assaltatore" (bewust gelaten); de nieuwe
+  it-rolwoorden in lopende tekst zijn niet door een moedertaalspreker gelezen.
 - **Robs ervaring (1 run)**: Kindo'jan als Resto Druid met Valeera op Healer + 3 maskers ging snel; met Tank/DPS 2× dood.
+
+## 🧹 26 okt — bijvangst: clientnamen + knoppen-taal boodschappenlijst (Rob: "Pak eerst de kleine bijvangst uit de handoff op" → "Ja, doe maar zo")
+
+Metingen mh-research (wago 12.1.5.70575, tegengelezen op 12.1.7.70493; rapport side-session-notes
+`local_ef4e25db-…\bijvangst_clientnamen_2026-10-26.md`). Toegepast door mh-writer, nagekeken door mij:
+- Augment Rune (CONSREADY_RUNE + GUIDE_CONS_TYPE_RUNE): de Verstärkungsrune, fr Rune d’amélioration, es Runa de aumento,
+  pt Runa de Aprimoramento, it Runa del Potenziamento, ru Руна усиления (item 259085; geen generieke clientterm, woord
+  AFGELEID uit de itemnamen). 4 dode CONSREADY_RUNE-fills weg.
+- es "Casa de Subastas" → "casa de subastas" / aan zinsbegin "Casa de subastas" (27×, ook esMX). pt "Casa de Leilões" en
+  it "Casa d'Aste" GEMETEN = client, niet veranderd. Holy Power: esES "Poder sagrado" (40×), it "Potere sacro" (31 regels).
+- it rolwoorden → Difensore/Guaritore (client TANK/HEALER), ook in lopende tekst (~70 regels); DPS blijft.
+- CARD_SOLO_NOTE_AFTER: Tiger Palm per client (Tigerklaue, Paume du tigre, Palma del tigre, Palma do Tigre, Palmo della
+  Tigre, Лапы тигра). Lightsmith esES/esMX bleek al goed. ENCHANT_SHOULDER_OPT uit alle 8 packs.
+- Al goed, niets gedaan (GEMETEN HealerSoloGuide.lua): Holy Ctrl+rechts en Pres Shift+midden staan niet op Solo; Power
+  Infusion "op een DPS" staat alleen op Klikken (groep).
+- 3 it-tips met "Guaritore:" zonder spatie door mij gerepareerd.
+Ook: Rob zag op de Engelse raid-lijst "Beroep" en "Alles naar Auctionator" (nl). Oorzaak GEMETEN: ns.AddShopTabs zette
+de tekst één keer bij het bouwen; na een taalwissel zonder /reload bleef die staan. Nu HookScript("OnShow") op de tabs en
+de Auctionator-knop. CHANGELOG_4131_8. Niet in het spel gezien. ✅ GEMETEN Rob 26 okt: schouders rood + op de
+boodschappenlijst (3 screenshots). Lint 0 HARD, syntax OK.
 
 ## 📍 25 okt (na 4.13.0) — korte melding versleepbaar (Rob: "heel erg lastig te lezen … deze moet op een andere plek en hij is niet versleepbaar")
 

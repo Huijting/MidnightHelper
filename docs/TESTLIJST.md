@@ -44,8 +44,14 @@ er is niets weggegooid.
 
 ## 🆕 25 okt — schouders zonder enchant
 
-- [ ] `/reload`, een character zonder schouder-enchant: in het Gear check-paneel staat "Shoulders: no enchant" nu in ROOD
-      (niet meer "(optional)"), en "Buy what's missing" zet een schouder-enchant op de lijst.
+- [x] ✅ GEMETEN Rob 26 okt (3 screenshots): Gear check "Shoulders: geen enchant" rood, Enchants-tab "Shoulders — ONTBREEKT"
+      met Akil'zon's Swiftness voorop, en de boodschappenlijst toont "Shoulders (a choice) — Akil'zon's Swiftness — Buy 1".
+
+## 🆕 26 okt — boodschappenlijst: taal van de knoppen
+
+- [ ] Zet de MH-taal om (bv. Nederlands → Engels) zónder `/reload`, sluit de boodschappenlijst en open hem weer: staan de
+      tabs (Raid | Profession) en "Everything to Auctionator" nu in de nieuwe taal? (Was: "Beroep" en "Alles naar
+      Auctionator" bleven Nederlands op de Engelse raid-lijst.)
 
 ## 🆕 25 okt — "How do I buy this?" (boodschappenlijst stap voor stap)
 
