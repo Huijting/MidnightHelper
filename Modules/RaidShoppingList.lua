@@ -404,6 +404,91 @@ local function SearchAuctionHouse(name)
 	end) == true
 end
 
+--- 1b) The amount. Rob, 26 Oct 2026: a row click searched by name only, so Blizzard's buy screen said "1" where the
+--- row said "Buy 16". Now the row's amount waits until the player clicks a matching result (silver or gold: they
+--- still choose), then goes in through the call Blizzard's own quantity box makes (CommoditiesBuyFrame.lua:29-31).
+--- The price list keeps it and re-sends it once the prices arrive, so the total fills in by itself
+--- (CommoditiesList.lua:98). Research: side-session notes ah_quantity_2026-10-26.md, wow-ui-source 12.1.5 70575,
+--- the same on PTR 70493. Never buys: Blizzard's Buy Now and its confirm stay two clicks of the player.
+--- Off for one player: ns.db.ahPresetQuantity = false. Every decision goes to ns.db.raidShopProbe ("qty: …").
+local pendingBuy -- { ids = { [itemID] = true }, name = "<full item name>", need = 16 }
+
+local function SetPendingBuy(ids, name, need)
+	if type(need) ~= "number" or need < 2 then
+		pendingBuy = nil -- 1 is Blizzard's own default: nothing to do
+		return
+	end
+	local set = {}
+	for _, id in ipairs(type(ids) == "table" and ids or {}) do
+		set[id] = true
+	end
+	pendingBuy = { ids = set, name = name, need = need }
+end
+
+local function PresetQuantity(browseResult)
+	local p = pendingBuy
+	local key = browseResult and browseResult.itemKey
+	local id = key and key.itemID
+	if not (p and type(id) == "number") then
+		return
+	end
+	if ns.db and ns.db.ahPresetQuantity == false then
+		Probe("qty: off (ahPresetQuantity = false)")
+		return
+	end
+	if not (p.ids[id] or (p.name and ItemName(id) == p.name)) then
+		Probe(("qty: item %d is not the row clicked last"):format(id))
+		return
+	end
+	local f = AuctionHouseFrame
+	local info = C_AuctionHouse.GetItemKeyInfo(key)
+	if not (info and info.isCommodity) then
+		Probe(("qty: item %d is not a commodity (no amount box)"):format(id))
+		return
+	end
+	if not (f and f:IsShown() and f.GetDisplayMode and AuctionHouseFrameDisplayMode
+		and f:GetDisplayMode() == AuctionHouseFrameDisplayMode.CommoditiesBuy
+		and f.CommoditiesBuyFrame and f.CommoditiesBuyFrame:GetItemID() == id) then
+		Probe(("qty: item %d, the buy screen is not showing it"):format(id))
+		return
+	end
+	f:TriggerEvent(AuctionHouseFrameMixin.Event.CommoditiesQuantitySelectionChanged, p.need)
+	Probe(("qty: item %d set to %d"):format(id, p.need))
+end
+
+local ahQtyHooked = false
+local function HookAhQuantity()
+	if ahQtyHooked or not (AuctionHouseFrame and AuctionHouseFrame.SelectBrowseResult and hooksecurefunc) then
+		return
+	end
+	ahQtyHooked = true
+	-- Post-hook: by now Blizzard has put "1", shown the buy screen and both listeners are registered
+	-- (AuctionHouseFrame.lua:683-695, CommoditiesBuyFrame.lua:46, CommoditiesList.lua:209).
+	hooksecurefunc(AuctionHouseFrame, "SelectBrowseResult", function(_, browseResult)
+		local ok, err = pcall(PresetQuantity, browseResult)
+		if not ok then
+			Probe("qty: error " .. tostring(err))
+		end
+	end)
+end
+
+local ahQtyWatch = CreateFrame("Frame")
+ahQtyWatch:RegisterEvent("ADDON_LOADED")
+ahQtyWatch:RegisterEvent("AUCTION_HOUSE_SHOW")
+ahQtyWatch:RegisterEvent("AUCTION_HOUSE_CLOSED")
+pcall(ahQtyWatch.RegisterEvent, ahQtyWatch, "AUCTION_HOUSE_SHOW_ERROR")
+ahQtyWatch:SetScript("OnEvent", function(_, event, a1)
+	if event == "AUCTION_HOUSE_CLOSED" then
+		pendingBuy = nil
+	elseif event == "AUCTION_HOUSE_SHOW_ERROR" then
+		-- Another addon saw "Internal auction house error" with a preset amount (12.0.7); write it down if it comes.
+		Probe("AUCTION_HOUSE_SHOW_ERROR " .. tostring(a1))
+	elseif event == "AUCTION_HOUSE_SHOW" or a1 == "Blizzard_AuctionHouseUI" then
+		HookAhQuantity()
+	end
+end)
+HookAhQuantity() -- in case the auction house UI was loaded before this file
+
 --- 3) Shift-click: a link in chat. ChatEdit_InsertLink is only a deprecation alias in 12.1; this is the live path.
 local function LinkInChat(id)
 	local link = ItemLink(id)
@@ -434,6 +519,7 @@ local function OnRowClick(row)
 			end
 			return
 		end
+		SetPendingBuy(row.buyIds, row.gearName, row.toBuy)
 		if not SearchAuctionHouse(row.gearName) then
 			ShowCopy(row.gearName)
 		end
@@ -452,6 +538,7 @@ local function OnRowClick(row)
 		Refresh() -- the name was asked for; the event above redraws when it arrives
 		return
 	end
+	SetPendingBuy(row.buyIds or { id }, name, row.toBuy)
 	if not SearchAuctionHouse((SearchName(id))) then
 		ShowCopy(name) -- 2) elsewhere: the name to copy
 	end
@@ -722,6 +809,7 @@ Refresh = function()
 		r.itemID = d.itemID
 		r.info = d.info
 		r.gearName = nil
+		r.toBuy, r.buyIds = toBuy, d.ids
 		r.icon:SetTexture(ItemIcon(d.itemID))
 		r.label:SetText(L(d.labelKey))
 		r.item:SetText(ItemName(d.itemID) or (d.itemID and "…" or L("RAIDSHOP_NO_DATA")))
@@ -794,6 +882,7 @@ Refresh = function()
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
 			r.itemID, r.info, r.gearName = g.iid, nil, g.name
+			r.toBuy, r.buyIds = toBuy, ids
 			local icon = g.iid and ItemIcon(g.iid)
 			if not icon and g.sid and C_Spell and C_Spell.GetSpellTexture then
 				local ok, tex = pcall(C_Spell.GetSpellTexture, g.sid)
@@ -1154,6 +1243,7 @@ ns.MHShop = {
 	MailCount = MailCount,
 	BankCount = BankCount,
 	SearchAuctionHouse = SearchAuctionHouse,
+	SetPendingBuy = SetPendingBuy,
 	LinkInChat = LinkInChat,
 	HasAuctionator = function() return Auctionator1() ~= nil end,
 	SendTermsToAuctionator = SendTermsToAuctionator,

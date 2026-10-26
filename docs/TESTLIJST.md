@@ -47,9 +47,21 @@ er is niets weggegooid.
 - [x] ✅ GEMETEN Rob 26 okt (3 screenshots): Gear check "Shoulders: geen enchant" rood, Enchants-tab "Shoulders — ONTBREEKT"
       met Akil'zon's Swiftness voorop, en de boodschappenlijst toont "Shoulders (a choice) — Akil'zon's Swiftness — Buy 1".
 
+## 🆕 26 okt — boodschappenlijst: aantal in het koopscherm
+
+Eerst `/reload`, dan naar het veilinghuis.
+- [ ] Klik in MH's lijst een regel met "Buy 16" (bv. Combat Pot), dan in de resultaten de zilveren of gouden variant: staat
+      bij het aantal **16** (niet 1)? Binnen een seconde ook prijs en totaal ingevuld?
+- [ ] "Back" en de andere kwaliteit kiezen: weer 16? Een gear-regel met "Buy 2" (ring, Peridot): 2?
+- [ ] Kopen zoals altijd. Let op rode tekst "Internal auction house error" en BugSack. (Na de aankoop zet Blizzard het
+      zelf weer op 1; dat is normaal.)
+- [ ] Zelf iets anders zoeken en aanklikken: blijft 1. Ook in het tabblad Profession werkt het.
+      Na afloop `/reload`: ik lees de "qty: …"-regels in ns.db.raidShopProbe.
+
 ## 🆕 26 okt — boodschappenlijst: taal van de knoppen
 
-- [ ] Zet de MH-taal om (bv. Nederlands → Engels) zónder `/reload`, sluit de boodschappenlijst en open hem weer: staan de
+- [x] ✅ Rob 26 okt na /reload: tabs en "Everything to Auctionator" staan goed. (Taalwissel zónder /reload niet apart getest.)
+      Was: Zet de MH-taal om (bv. Nederlands → Engels) zónder `/reload`, sluit de boodschappenlijst en open hem weer: staan de
       tabs (Raid | Profession) en "Everything to Auctionator" nu in de nieuwe taal? (Was: "Beroep" en "Alles naar
       Auctionator" bleven Nederlands op de Engelse raid-lijst.)
 

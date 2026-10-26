@@ -619,6 +619,10 @@ local function OnRowClick(row)
 		Refresh()
 		return
 	end
+	-- The amount goes along into Blizzard's buy screen (RaidShoppingList.lua, SetPendingBuy; Rob, 26 Oct 2026).
+	if S.SetPendingBuy then
+		S.SetPendingBuy(row.buyIds or { row.itemID }, name, row.toBuy)
+	end
 	if not (S.SearchAuctionHouse and S.SearchAuctionHouse(name)) then
 		ShowCopy(name)
 	end
@@ -1203,6 +1207,7 @@ Refresh = function()
 		end
 		local r = Row(i)
 		r.itemID = id
+		r.toBuy, r.buyIds = toBuy, t.ids
 		r.icon:SetTexture(S.ItemIcon and S.ItemIcon(id) or 134400)
 		r.label:SetText((S.ItemName and S.ItemName(id)) or "…")
 		r.count:SetText(("%d / %d"):format(have, t.need))

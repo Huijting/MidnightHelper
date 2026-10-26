@@ -2,14 +2,14 @@
 
 ## 🔜 OPEN na 25 okt (overdracht naar de bouwchat van 26 okt)
 
-- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..8, TOC
+- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..9, TOC
   nog 4.13.0): schouders zonder enchant = rood + op de boodschappenlijst; link naar midnighthelper.com/shopping/; rare-route
   blijft in de gekozen zone; Valeera-rol voor healers (/mh curios) + curio-teksten; tabblad **Solo** voor 7 healers (met
   Druid kat/gewone vorm per talent); Symbiotic Relationship-uitleg (1 uur, niet op jezelf); korte melding versleepbaar en
   onder het midden; Hexmask-melding zwijgt bij 3 maskers; /mh hexmask kent het platform 2648. Site-anker #solo staat
   in SITE_ANCHOR; de site bouwt de Solo-sectie bij de volgende release (site-chat 25-10).
 - **Testen in het spel (TESTLIJST, bovenste 25/26-okt-blokken)**: tabblad Solo (tab-rij past? Druid-kat niet gezien),
-  knoppen-taal boodschappenlijst, rare-route via de portal, korte melding verslepen, Hexmask 3/3 stil, /mh hexmask op het platform,
+  aantal in het AH-koopscherm, rare-route via de portal, korte melding verslepen, Hexmask 3/3 stil, /mh hexmask op het platform,
   Valeera-regel in /mh curios, dispel-rechtsklik in party targets op de Resto Druid (alles armed, Rob had niet
   rechtsgeklikt — testje gevraagd), Preservation Evoker (Rob moet eerst het begingebied uit).
 - **Battle.net**: .git staat sinds 25 okt in E:\MidnightHelper-git; Rob houdt in de gaten of de nep-updates stoppen.
@@ -20,6 +20,21 @@
   terwijl de esMX-client "Poder Sagrado" schrijft; it "DPS" ≠ client "Assaltatore" (bewust gelaten); de nieuwe
   it-rolwoorden in lopende tekst zijn niet door een moedertaalspreker gelezen.
 - **Robs ervaring (1 run)**: Kindo'jan als Resto Druid met Valeera op Healer + 3 maskers ging snel; met Tank/DPS 2× dood.
+
+## 🔢 26 okt — boodschappenlijst: het aantal gaat mee naar het koopscherm (Rob: "zoek eerst uit hoe dat in het koopscherm kan (met en zonder Auctionator) en bouw het dan")
+
+Rob: via de lijst in Auctionator kloppen de aantallen (GEMETEN in Auctionator-SV: 15/16/2/2 doorgegeven), maar een klik op
+een MH-regel + de gouden variant gaf "1". Oorzaak GEMETEN: OnRowClick zocht alleen op naam. Onderzoek mh-research
+(wow-ui-source 12.1.5 70575 = PTR 70493; side-session-notes `local_ef4e25db-…\ah_quantity_2026-10-26.md`), regels zelf
+nagelezen: Blizzards aantal-veld doet `AuctionHouseFrame:TriggerEvent(…CommoditiesQuantitySelectionChanged, n)`; de
+prijslijst onthoudt n en zet hem na binnenkomst van de prijzen opnieuw (CommoditiesList.lua:98).
+✅ GEBOUWD (RaidShoppingList.lua): SetPendingBuy(ids, naam, toBuy) bij de rij-klik (ook gear-regels en
+CraftShoppingList via ns.MHShop); hooksecurefunc(AuctionHouseFrame, "SelectBrowseResult") zet het aantal alleen als
+het item bij de laatste MH-klik hoort, een commodity is en het koopscherm het toont; bij 1 doet hij niets; weg bij
+AUCTION_HOUSE_CLOSED. Elke beslissing → ns.db.raidShopProbe ("qty: …"), plus AUCTION_HOUSE_SHOW_ERROR. Uit per speler:
+ns.db.ahPresetQuantity = false (nog geen knop in Instellingen). CHANGELOG_4131_9. Niet in het spel gezien.
+⚠️ Open risico (mh-research): QoLify zag op 12.0.7 een rode "Internal auction house error" met een vooraf gezet aantal
+(aankoop lukte wel). Niet gemeten bij ons. Auctionator-route niet veranderd: MH's klik gaat via Blizzards Buy-tab.
 
 ## 🧹 26 okt — bijvangst: clientnamen + knoppen-taal boodschappenlijst (Rob: "Pak eerst de kleine bijvangst uit de handoff op" → "Ja, doe maar zo")
 
