@@ -142,19 +142,18 @@ ns.DELVE_BOSS_SHOWCASE = {
 			storyHints = { "infiltrate and ameliorate", "ula'tek summoner", "cauldron" } },
 	},
 	collegiate_calamity = {
+		-- storyKeys: English only since 26 Oct 2026. The other languages come from Blizzard's measured names
+		-- (StoryMatches → ns.DelveStoryEnglishName); the hand-made ones here were partly wrong ("Fakultät der Angst").
 		{ creatureId = 254773, label = "Voidscorned Vagrant", storyKeys = {
-			"Academy Under Siege", "Akademie unter Belagerung", "Académie assiégée",
-			"Academia bajo asedio", "Academia sob cerco",
+			"Academy Under Siege",
 		}, tipLineMatch = { "Voidscorned", "Vagrant", "Under Siege", "unter Belagerung", "assiégée", "asedio", "sob cerco", "Belagerung" },
 			storyHints = { "arcane ward", "void portal", "devouring host", "student project" } },
 		{ creatureId = 254769, label = "Infiltrator Garand", storyKeys = {
-			"Faculty of Fear", "Fakultät der Angst", "Faculté de la Peur",
-			"Facultad del Miedo", "Faculdade do Medo",
+			"Faculty of Fear",
 		}, tipLineMatch = { "Garand", "Faculty of Fear", "Faculty", "Fakultät", "Faculté", "Facultad", "Faculdade", "Peur", "Miedo", "Angst" },
 			storyHints = { "eye of revelation", "infiltrator", "disguised", "suspicious student" } },
 		{ creatureId = 254772, label = "Hydrangea", storyKeys = {
-			"Invasive Glow", "Invasive Growth", "Invasives Leuchten", "Lueur envahissante",
-			"Resplandor invasivo", "Brilho Invasivo",
+			"Invasive Glow", "Invasive Growth",
 		}, storySpellIds = { 1253664 }, tipLineMatch = { "Hydrangea", "Hortensie", "Hortensia", "Hortênsia", "Invasive Glow", "Invasives Leuchten", "Lueur envahissante", "Resplandor invasivo", "Brilho Invasivo" },
 			storyHints = { "deweeder", "luminbulb", "weedling", "glaring glowcap" } },
 	},
@@ -182,13 +181,18 @@ ns.DELVE_BOSS_SHOWCASE = {
 	atal_aman = {
 		-- 15 Sep 2026: tipLineMatch covers every Atal'Aman line that was Jin'Ma's before the Season 2
 		-- variant Venomous Vapors brought a second boss (Rob met Disciple of Vashnik there, Tier 11).
-		-- With one boss nothing was filtered; with two, only matching lines stay. The variant words
-		-- ("Ritual:", "Toadly:", "Totem:") stay English in all seven languages, the spell tokens are
+		-- With one boss nothing was filtered; with two, only matching lines stay. The spell tokens are
 		-- raw markup, and "NPC" / "PNJ" catch the third trash line in every translation.
+		-- ⚠️ 26 Oct 2026: the variant words were English in all seven languages until today; Rob's rule of
+		-- 20 Oct (the client's own name) now applies. The story names in every language come from storyKeys
+		-- (GetBossTipLineMatchers); the tribe names below are measured (round 4 report, table 2a).
 		{ creatureId = 247114, label = "Spiritflayer Jin'Ma", storyKeys = {
 			"Ritual Interrupted", "Toadly Unbecoming", "Totem Annihilation",
 		}, tipLineMatch = { "Jin'Ma", "Ritual", "Toadly", "Totem", "Vilebranch", "Spiritpaw", "Akil'zon", "NPC", "PNJ",
-			"flaying_knife", "raging_spirits", "claim_spirits" } },
+			"flaying_knife", "raging_spirits", "claim_spirits",
+			"Blutfratzen", "Vilebranche", "Vilrama", "vilrama", "Ramatorpe", "Ramovile", "Порочной Ветви",
+			"Geisterpfoten", "pattes-spirituelles", "Pataespíritu", "zarpánima", "Espiritursos", "Espiriturso", "Zampaspirito",
+			"Призрачной Лапы", "Akil’zon", "Акил'зон" } },
 		-- Season 2 variant Venomous Vapors. Boss name GEMETEN on Rob's screen, 15 Sep 2026 ("0/1 Disciple
 		-- of Vashnik slain", Tier 11). creatureId 267970 is Wowhead's Atal'Aman npc (a research helper,
 		-- 15 Sep); the same boss is 268150 in Shadowguard Point. Not yet confirmed by eye in the coach:
@@ -205,7 +209,7 @@ ns.DELVE_BOSS_SHOWCASE = {
 		-- DB2: CriteriaTree 222301 and 232506 "Replicating Venomborne defeated" (TwilightsBlade02 V04). The
 		-- same boss as in The Darkway and The Grudge Pit; this delve's own npc id is not measured.
 		{ creatureId = 251032, label = "Blademaster Darza", storyKeys = { "Loosed Loa", "Party Crasher", "Trapped!" },
-			tipLineMatch = { "Darza", "Loosed Loa", "Party Crasher", "Trapped", "Mot'amra" } },
+			tipLineMatch = { "Darza", "Loosed Loa", "Party Crasher", "Trapped", "Mot'amra", "Mot’amra", "Мот'амр" } },
 		{ creatureId = 269179, label = "Replicating Venomborne", storyKeys = { "Why'd it have to be snakes?" },
 			tipLineMatch = { "Venomborne", "snakes?" },
 			storyHints = { "why'd it have to be snakes", "harrison jones" } },
@@ -216,16 +220,16 @@ ns.DELVE_BOSS_SHOWCASE = {
 	},
 	grudge_pit = {
 		{ creatureId = 247397, label = "Brightthorn", storyKeys = {
-			"Lightbloom Invasion", "Arena-Stil-Invasion", "Invasion de Lightbloom", "Invasión de Lightbloom", "Invasão Lightbloom",
+			"Lightbloom Invasion",
 		}, tipLineMatch = { "Brightthorn", "Lightbloom Invasion", "Lightbloom" },
 			storyHints = { "lightbloom invasion", "lightbloom attackers", "entangled", "barricade", "thornmaw", "unstoppable thornmaw", "entangled fighter" } },
 		{ creatureId = 247910, label = "Gyrospore", storyKeys = {
-			"Arena Champion", "Enter the arena", "Arena-Champion", "Champion de l'arène", "Campeón de la arena", "Campeão da Arena",
+			"Arena Champion", "Enter the arena",
 		}, tipLineMatch = { "Gyrospore", "Gyrospor", "Girospor", "Arena Champion", "Champion" },
 			storyHints = { "arena champion", "enter the arena", "gyrospore", "moldrus", "bogdamp", "toxic twins", "sporbit" },
 			storyCriteriaIds = { 106002 } },
 		{ creatureId = 247526, label = "Mycomight", storyKeys = {
-			"Dastardly Rotstalk", "Räudiger Rotstalk", "Rotstalk ignoble", "Retoño pútrido", "Rotstalk vil",
+			"Dastardly Rotstalk",
 		}, tipLineMatch = { "Mycomight", "Rotstalk", "Dastardly" },
 			storyHints = { "dastardly rotstalk", "rotstalk", "heel", "taunt", "fan favorite", "villainous" } },
 		-- 12.1 variant Fungal Pharmacon. Boss name from Rob's own kill, 11 Sep 2026 (nameplate),
@@ -391,7 +395,21 @@ local function GetBossTipLineMatchers(boss)
 		return nil
 	end
 	if type(boss.tipLineMatch) == "table" and #boss.tipLineMatch > 0 then
-		return boss.tipLineMatch
+		-- 26 Oct 2026: the tips now say the story names the player's client shows ("Rituel interrompu", "Прерванный
+		-- ритуал"), so the needles get every client name of this boss's stories too. Built once per boss.
+		if not boss._mhMatchers then
+			local m = {}
+			for _, needle in ipairs(boss.tipLineMatch) do
+				m[#m + 1] = needle
+			end
+			for _, story in ipairs(boss.storyKeys or {}) do
+				for _, name in ipairs(ns.DelveStoryLocalNames and ns.DelveStoryLocalNames(story) or {}) do
+					m[#m + 1] = name
+				end
+			end
+			boss._mhMatchers = m
+		end
+		return boss._mhMatchers
 	end
 	if type(boss.label) == "string" and boss.label ~= "" then
 		local matchers = { boss.label }
@@ -586,6 +604,12 @@ local function NormalizeStoryText(s)
 end
 
 local function StoryMatches(storyName, keys)
+	-- 26 Oct 2026: storyKeys are English; a de/fr/es/pt/it/ru client gives the name in its own language. Blizzard's
+	-- measured names (DelveStoryData.lua, DELVE_STORY_NAMES_LOCAL) turn it back into the English one first.
+	local en = CanAccessText(storyName) and ns.DelveStoryEnglishName and ns.DelveStoryEnglishName(storyName)
+	if en then
+		storyName = en
+	end
 	local story = NormalizeStoryText(storyName)
 	if story == "" or type(keys) ~= "table" then
 		return false

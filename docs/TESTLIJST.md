@@ -47,6 +47,12 @@ er is niets weggegooid.
 - [x] ✅ GEMETEN Rob 26 okt (3 screenshots): Gear check "Shoulders: geen enchant" rood, Enchants-tab "Shoulders — ONTBREEKT"
       met Akil'zon's Swiftness voorop, en de boodschappenlijst toont "Shoulders (a choice) — Akil'zon's Swiftness — Buy 1".
 
+## 🆕 26 okt — delve-verhalen in elke taal
+
+De vertalingen zelf kun jij niet zien (taalpakketten werken alleen op die client). Wel, op je Engelse client:
+- [ ] In Atal'Aman of Twilight Crypts: noemt de coach nog het verhaal van vandaag met Blizzards zin eronder, en heeft
+      de baaskaart (Jin'Ma / Vashnik / Darza / Venomborne) nog zijn tips? (De zoekcode is vandaag veranderd.)
+
 ## 🆕 26 okt — Instellingen: aantal invullen bij het kopen
 
 - [ ] Instellingen → Midnight Helper → Venster & weergave: staat er "Fill in the amount when buying" (aan)? Zet hem uit:

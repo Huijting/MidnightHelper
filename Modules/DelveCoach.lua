@@ -298,8 +298,10 @@ local function BuildCoachBody(entry, opts)
 		-- answer out of our own ignorance -- and a player who then skips the boss
 		-- would have been misled by us.
 		elseif storyName then
+			-- Any client language: the list is English, so look it up by the English name too (26 Oct 2026).
 			local noBoss = ns.DELVE_STORY_NO_BOSS
-				and ns.DELVE_STORY_NO_BOSS[storyName:lower()]
+				and (ns.DELVE_STORY_NO_BOSS[storyName:lower()]
+					or ns.DELVE_STORY_NO_BOSS[ns.DelveStoryEnglishName and ns.DelveStoryEnglishName(storyName) or ""])
 			blocks[#blocks + 1] = COLOR_SECTION
 				.. ns:SafeL(noBoss and "DELVE_COACH_ACTIVE_STORY_NO_BOSS_FMT"
 					or "DELVE_COACH_ACTIVE_STORY_UNKNOWN_BOSS_FMT"):format(storyName)

@@ -2,7 +2,7 @@
 
 ## 🔜 OPEN na 25 okt (overdracht naar de bouwchat van 26 okt)
 
-- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..10, TOC
+- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..11, TOC
   nog 4.13.0): schouders zonder enchant = rood + op de boodschappenlijst; link naar midnighthelper.com/shopping/; rare-route
   blijft in de gekozen zone; Valeera-rol voor healers (/mh curios) + curio-teksten; tabblad **Solo** voor 7 healers (met
   Druid kat/gewone vorm per talent); Symbiotic Relationship-uitleg (1 uur, niet op jezelf); korte melding versleepbaar en
@@ -19,6 +19,25 @@
   terwijl de esMX-client "Poder Sagrado" schrijft; it "DPS" ≠ client "Assaltatore" (bewust gelaten); de nieuwe
   it-rolwoorden in lopende tekst zijn niet door een moedertaalspreker gelezen.
 - **Robs ervaring (1 run)**: Kindo'jan als Resto Druid met Valeera op Healer + 3 maskers ging snel; met Tank/DPS 2× dood.
+
+## 📖 26 okt (namiddag) — delve-verhalen in elke taal (Rob: "ga je gang" → "ik volg toch wel jouw advies, dus leef je uit")
+
+mh-research ronde 4 (side-session-notes `local_ef4e25db-…\delve_names_round4_2026-10-26.md`, wago 12.1.5.70575 + HF = PTR
+70493). Probleem GEMETEN in code: DELVE_STORY_TIP en DELVE_STORY_NO_BOSS kenden alleen Engelse verhaalnamen (een de/fr/…-
+client geeft zijn eigen naam → geen verhaalzin); DelveBossShowcase-storyKeys hadden zelfbedachte vertalingen ("Fakultät der
+Angst" ≠ client "Fakultät der Furcht"); tipLineMatch zocht op Engelse woorden die we wilden vertalen.
+✅ Code (ik): DelveStoryData.lua ns.DELVE_STORY_NAMES_LOCAL (48 verhalen × 7 talen, gemeten) → DELVE_STORY_TIP vult zich
+met elke clientnaam; ns.DelveStoryEnglishName / ns.DelveStoryLocalNames. DelveCoach NO_BOSS via de Engelse naam.
+StoryMatches vertaalt eerst terug naar Engels; storyKeys alleen nog Engels. GetBossTipLineMatchers voegt de clientnamen
+van de verhalen toe (gecachet in boss._mhMatchers); Jin'Ma/Darza kregen de gemeten stam-/NPC-namen.
+✅ Data (mh-writer, script): 48 DELVE_STORY-zinnen in de/fr/es/pt/it (fill-blokken onderaan Translations2026.lua) + esMX
+(48) + ruRU 44 vervangen door Blizzard; labels Ritual/Toadly/Totem/Loosed Loa → volle clientnaam (ook in OVERVIEW/TRASH),
+Vilebranch/Spiritpaw/Nalorakk's Shrine/Evasive Elixir/Mot'amra per taal; esMX "Tribu amani" + 6 overlay-regels.
+GEMETEN (Lua-proef die de Locales in .toc-volgorde laadt, per client): elke baas houdt in alle 8 talen evenveel tips als
+in enUS (Jin'Ma 14, Vashnik 8, Darza 14, Venomborne 8); tegenproef zonder verhaalnamen: de 9 i.p.v. 14 voor Darza → de
+proef meet echt. Lint 0 HARD; dekking de/fr/es/pt/it +50 sleutels. CHANGELOG_4131_11. Niet in een niet-Engelse client gezien.
+🔜 Open: DELVE_TIP_*_BOSS-regels noemen nog "Why'd it have to be snakes?" in het Engels; fr "Zul'Aman" (client Zul’Aman);
+of de client de verhaalnaam echt in eigen taal aan de addon geeft (AFGELEID, niet gezien).
 
 ## 🧩 26 okt (namiddag) — "Alles" (Rob onderweg): Ahn'Joli es, Flames of Jan'alai, esMX-rest, knop aantal-invullen
 
