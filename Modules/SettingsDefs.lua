@@ -370,6 +370,12 @@ local function Build()
 	end, function(v)
 		if ns.SetLabHexmaskHintEnabled then ns.SetLabHexmaskHintEnabled(v) end
 	end, true)
+	-- Rob, 26 Oct 2026: "begin maar met nummer 1" (LabyrinthSplits.lua). On by default.
+	Toggle("mh_labSplits", "SET_LABSPLITS_TITLE", "SET_LABSPLITS_DESC", function()
+		return ns.IsLabSplitsEnabled and ns.IsLabSplitsEnabled()
+	end, function(v)
+		if ns.SetLabSplitsEnabled then ns.SetLabSplitsEnabled(v) end
+	end, true)
 	-- Rob, 20 Oct 2026: "maak er sowieso maar een venster per baas van" (DelveBossCard.lua). Off = the old button.
 	Toggle("mh_delveBossCard", "SET_DELVEBOSSCARD_TITLE", "SET_DELVEBOSSCARD_DESC", function()
 		return ns.IsDelveBossCardEnabled and ns.IsDelveBossCardEnabled()

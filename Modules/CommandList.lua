@@ -196,6 +196,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh curioinfo", descKey = "CMDLIST_CURIOINFO" },
 		{ cmd = "/mh gifts", descKey = "CMDLIST_GIFTS" },
 		{ cmd = "/mh hexmask", descKey = "CMDLIST_HEXMASK" },
+		{ cmd = "/mh labsplits", descKey = "CMDLIST_LABSPLITS" },
 		{ cmd = "/mh gear", descKey = "CMDLIST_GEAR" },
 		{ cmd = "/mh news", descKey = "CMDLIST_NEWS" },
 		{ cmd = "/mh bosscard", descKey = "CMDLIST_BOSSCARD" },

@@ -47,6 +47,18 @@ er is niets weggegooid.
 - [x] ✅ GEMETEN Rob 26 okt (3 screenshots): Gear check "Shoulders: geen enchant" rood, Enchants-tab "Shoulders — ONTBREEKT"
       met Akil'zon's Swiftness voorop, en de boodschappenlijst toont "Shoulders (a choice) — Akil'zon's Swiftness — Buy 1".
 
+## 🆕 26 okt — Labyrinth-splits (race tegen je beste tijd per kamer)
+
+Eerst `/reload`, dan BUITEN de Labyrinth de run beginnen (anders telt de eerste kamer niet: MH zag de start niet).
+- [ ] Na elke kamer: onder het midden een regel "Chamber of Rites: 5:00. Your first time on Tier 11 …" (eerste run) of
+      "… 0:38 faster than your best (5:00). New record!" / "… slower …". Ook in de chat.
+- [ ] Bij Kindo'jan (platform) na de kill ook zo'n regel?
+- [ ] Na het verlaten van de Labyrinth: in de chat "Labyrinth, Tier 11: 5 rooms in 23:40, 1 new record(s)" met per kamer
+      de tijd en groen −/rood +.
+- [ ] `/mh labsplits`: je beste tijden per Tier, plus een grijze regel met kaart/kamer/tier en wat hij het laatst besloot.
+      Kloppen de tijden ongeveer met je eigen gevoel/klok?
+- [ ] Instellingen → "Labyrinth splits" uit → geen regels meer.
+
 ## 🆕 26 okt — delve-verhalen in elke taal
 
 De vertalingen zelf kun jij niet zien (taalpakketten werken alleen op die client). Wel, op je Engelse client:

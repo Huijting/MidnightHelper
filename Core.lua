@@ -3222,6 +3222,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh labsplits [on|off|reset] — Labyrinth splits: your time per room against your best (LabyrinthSplits.lua).
+	local labArg = msg:match("^labsplits%s*(%a*)$")
+	if labArg then
+		if ns.LabSplitsCommand then
+			ns.LabSplitsCommand(labArg)
+		end
+		return
+	end
+
 	-- /mh hexmask — the arrow to the Hexmask spot in this Labyrinth room, or the nearest one (LabyrinthHexmask.lua).
 	if msg == "hexmask" or msg == "hexmasks" then
 		if ns.RouteLabHexmask then

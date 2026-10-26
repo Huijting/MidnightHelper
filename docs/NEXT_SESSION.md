@@ -2,7 +2,7 @@
 
 ## 🔜 OPEN na 25 okt (overdracht naar de bouwchat van 26 okt)
 
-- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..11, TOC
+- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..12, TOC
   nog 4.13.0): schouders zonder enchant = rood + op de boodschappenlijst; link naar midnighthelper.com/shopping/; rare-route
   blijft in de gekozen zone; Valeera-rol voor healers (/mh curios) + curio-teksten; tabblad **Solo** voor 7 healers (met
   Druid kat/gewone vorm per talent); Symbiotic Relationship-uitleg (1 uur, niet op jezelf); korte melding versleepbaar en
@@ -19,6 +19,20 @@
   terwijl de esMX-client "Poder Sagrado" schrijft; it "DPS" ≠ client "Assaltatore" (bewust gelaten); de nieuwe
   it-rolwoorden in lopende tekst zijn niet door een moedertaalspreker gelezen.
 - **Robs ervaring (1 run)**: Kindo'jan als Resto Druid met Valeera op Healer + 3 maskers ging snel; met Tank/DPS 2× dood.
+
+## 🏁 26 okt (avond) — NIEUW: Labyrinth-splits (Rob: "iets spannends … wat anderen niet hebben?" → "begin maar met nummer 1")
+
+Vier ideeën voorgelegd (splits, seizoensoverzicht "Wrapped", "ik heb 20 minuten"-knop, Valeera's dagboek); RunScorecard,
+Milestones en death recap bestonden al (GEMETEN). Rob koos 1. De andere drie liggen nog op de plank (niet gebouwd).
+✅ GEBOUWD `Modules/LabyrinthSplits.lua` (.toc na LabyrinthHexmask): SCENARIO_COMPLETED op kaart 2647/2648 = kamer klaar
+(Labyrinth = één scenario per kamer, GEMETEN 17 okt in DelveHistory). Split = tijd sinds vorige kamer (of binnenkomst),
+time()-klok (overleeft /reload), beste per Tier per kamernaam (GetSubZoneText) in ns.db.labSplits.best; kamer zonder naam
+= tijd maar geen record; <5 s = dubbel, >2 u = logout-gat; /reload midden in een run zonder opgeslagen run → die kamer
+telt niet (partial). Melding via ShowBriefNotice (8 s) + chat; bij verlaten een lijst met −/+. `/mh labsplits [on|off|
+reset]` (Core.lua, CommandList) + Instellingen-schakelaar mh_labSplits. 15 sleutels + 2 SET_, 7 talen (en/nl ik, rest
+mh-writer). CHANGELOG_4131_12. GEMETEN in een Lua-simulatie met nagebootste events (eerste/sneller/langzamer/gelijk/
+geen naam/dubbel/reload); NIET in het spel gezien. ⚠️ AFGELEID: dat de subzone bij SCENARIO_COMPLETED de kamer is waar
+je die afrondde, en dat het platform na Kindo'jan ook een SCENARIO_COMPLETED geeft.
 
 ## 📖 26 okt (namiddag) — delve-verhalen in elke taal (Rob: "ga je gang" → "ik volg toch wel jouw advies, dus leef je uit")
 
