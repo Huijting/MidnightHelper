@@ -1,5 +1,27 @@
 # Midnight Helper — waar we staan
 
+## 🔜 OPEN na 25 okt (overdracht naar de bouwchat van 26 okt)
+
+- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..7, TOC
+  nog 4.13.0): schouders zonder enchant = rood + op de boodschappenlijst; link naar midnighthelper.com/shopping/; rare-route
+  blijft in de gekozen zone; Valeera-rol voor healers (/mh curios) + curio-teksten; tabblad **Solo** voor 7 healers (met
+  Druid kat/gewone vorm per talent); Symbiotic Relationship-uitleg (1 uur, niet op jezelf); korte melding versleepbaar en
+  onder het midden; Hexmask-melding zwijgt bij 3 maskers; /mh hexmask kent het platform 2648. Site-anker #solo staat
+  in SITE_ANCHOR; de site bouwt de Solo-sectie bij de volgende release (site-chat 25-10).
+- **Testen in het spel (TESTLIJST, bovenste 25-okt-blokken)**: tabblad Solo (tab-rij past? Druid-kat niet gezien),
+  schouders rood, rare-route via de portal, korte melding verslepen, Hexmask 3/3 stil, /mh hexmask op het platform,
+  Valeera-regel in /mh curios, dispel-rechtsklik in party targets op de Resto Druid (alles armed, Rob had niet
+  rechtsgeklikt — testje gevraagd), Preservation Evoker (Rob moet eerst het begingebied uit).
+- **Battle.net**: .git staat sinds 25 okt in E:\MidnightHelper-git; Rob houdt in de gaten of de nep-updates stoppen.
+- **CurseForge**: auto-update + Overwolf bij opstarten aan; of CurseForge na een herstart echt vanzelf start: niet gezien.
+- **Klein (bijvangst, niet gedaan)**: CONSREADY_RUNE/itIT GUIDE_CONS_TYPE_RUNE ≠ clientnaam Augment Rune; es/pt/it
+  "Casa de Subastas" e.d. met hoofdletters (client klein); esES PLAYCARD_66_HERO2 "Fragualuz" (= esMX-woord); es/it
+  "Poder Sagrado"/"Potere Sacro" (client klein); it rolwoorden; CARD_SOLO_NOTE_AFTER "Tiger Palm" nog Engels;
+  ENCHANT_SHOULDER_OPT ongebruikt; Holy Priest-klik Ctrl+rechts (Prayer of Healing) en Pres Shift+midden (Source of
+  Magic) doen solo niets; Power Infusion-tekst "op een DPS" klopt solo niet; Labyrinth: niet-gemeten namen (maskers als
+  object, Ahn'joli, Keeper of the Key, Jan'alai Tear), Flames of Jan'alai bij welke taak.
+- **Robs ervaring (1 run)**: Kindo'jan als Resto Druid met Valeera op Healer + 3 maskers ging snel; met Tank/DPS 2× dood.
+
 ## 📍 25 okt (na 4.13.0) — korte melding versleepbaar (Rob: "heel erg lastig te lezen … deze moet op een andere plek en hij is niet versleepbaar")
 
 ✅ GEMETEN Rob (screenshot, nl): de Hexmask-kamerhint komt in Jan'alai's Refuge (positieve test van de AreaID-match).
