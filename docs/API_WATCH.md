@@ -7273,3 +7273,151 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     het opstarten van de container. ⚠️ **Dus: trek bij een scheve ref geen conclusie vóór een `fetch`.**
     Hersteld met `git checkout -B main origin/main` (een fast-forward, want `main` was een voorouder);
     daarna `git branch --show-current` → **`main`**, werkboom schoon. Geen enkel ander bestand geraakt.
+
+- [2026-10-26] ✅ **Nul [MOET GEFIKST]. Stille dag op de API-kant: geen nieuwe client-build, geen
+  wiki-revisie (tiende dag), geen hotfix-batch na 23 okt, geen SimC-release, en van de drie nieuwe
+  forumposts raakt er geen één de API. Drie dingen over de METING die verder reiken dan vandaag:
+  (1) de terugkerende "scheve ref" van 17, 19, 22 en 25 okt is OPGELOST en het is geen incident —
+  de container klont SHALLOW (depth 50), en een shallow snapshot van gisteren heeft per definitie
+  geen gemeenschappelijke voorouder met die van vandaag; (2) een CORRECTIE op mijn eigen telling van
+  gisteren: er zijn **33** `Patch 12.`-pagina's, niet 34, en gemeten dat er geen is verwijderd —
+  mijn 34 was een telfout; (3) álle zes WoW-bronnen zijn vandaag geweigerd op Bash-`curl`
+  (CONNECT → 403), dus elke meting hieronder loopt via Exa mét cache-buster.**
+  - 🔇 **[RAAKT ONS NIET] — GEEN NIEUWE CLIENT-BUILD, op beide branches.** GEMETEN met
+    `git ls-remote https://github.com/Gethe/wow-ui-source refs/heads/live refs/heads/ptr`:
+    `live` = **`15881d522c44cd106d3d8660106ec9f9d2f44167`**, `ptr` =
+    **`03cd1ac95b8c96fcb91377a3bfc8e52d4edca9b8`** — bit voor bit dezelfde twee SHA's als op 24 én
+    25 okt. Live staat dus nog op **12.1.5.70575**, PTR op **12.1.7 (70493)**; vierde dag stil, nul
+    nieuwe commits, niets om te diffen. 📌 `ls-remote` vraagt de server elke keer opnieuw en heeft
+    geen cache-laag: hier is een cache-buster niet nodig en cache-twijfel niet van toepassing.
+    ✅ **Onafhankelijk bevestigd door een andere wachter diezelfde ochtend:** de PTR-wachter pushte om
+    04:45 UTC (`cb662b6`) dat `wowt` op **12.1.7.70493** blijft staan, gemeten op `wago.tools` en
+    `needbeforegreed.com` — twee bronnen die ik vandaag niet kon bereiken, met hetzelfde getal.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog steeds op hun 16 okt-revisie, tiende dag.**
+    GEMETEN via `rest.php/v1/page/<pagina>%2FAPI_changes/history?nocache=20261026`:
+    `Patch 12.1.7/API changes` op **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, nog steeds **vier**
+    revisies in totaal); `Patch 12.1.5/API changes` op **`6919763`** (**2026-10-16T22:38:41Z**,
+    Ketho). Identiek aan gisteren en voorgisteren; geen revisie tussengeschoven of weggevallen.
+    `Patch 12.1.5 (undocumented changes)` staat nog op **`6932397`** (2026-10-23T05:46:38Z,
+    *"+ Valdrakken Resupply Coin"*, 1179 bytes) — ook daar niets nieuw, en het blijft content zonder
+    `User Interface`-sectie, dus van de andere drie wachters.
+  - 🔴 **CORRECTIE OP MIJN EIGEN REGEL VAN GISTEREN (regel 7144): 33 pagina's, geen 34.** GEMETEN met
+    `api.php?action=query&list=allpages&apprefix=Patch%2012.&aplimit=200&format=json&maxage=0`:
+    de lijst heeft **33** namen, en het deel dat ertoe doet is onveranderd — precies **zeven**
+    `/API changes`-subpagina's (`12.0.0`, `12.0.1`, `12.0.5`, `12.0.7`, `12.1.0`, `12.1.5`, `12.1.7`),
+    **geen 12.1.9 en geen 12.2.x**; `Patch 12.2`, `12.2.0`, `12.2.5` en `12.2.7` bestaan wél als
+    pagina maar zonder `/API changes`. **En het verschil is geen verwijdering:** `list=logevents`
+    `&letype=delete&lenamespace=0&leprop=title|timestamp&lelimit=30` geeft 30 verwijderingen terug tot
+    **2026-10-07** en daar staat geen enkele `Patch 12.`-pagina bij; de laatste drie van dat soort
+    waren op **2026-10-10** (`Patch 12.1.5/API patch notes`, `/Patch notes`, `/Planned API changes`).
+    Dus: mijn 34 van gisteren was een telfout in mijn eigen regel, geen wijziging op de wiki.
+    - ⚠️ **Cache-buster op `api.php`, zoals gisteren voorgesteld:** `nocache` wordt daar *afgewezen*
+      (`"Unrecognized parameter: nocache"`), dus vandaag `maxage=0` gebruikt — die geeft geen
+      waarschuwing en wordt door MediaWiki genegeerd. Voor `rest.php` blijft `?nocache=JJJJMMDD` goed.
+  - 🔇 **[RAAKT ONS NIET] — forum `#ui-macro`: drie nieuwe posts sinds mijn vorige run, alle drie van
+    25 okt, en geen enkele over API, taint of secure frames.** GEMETEN mét cache-buster
+    (`search.json?q=#ui-macro after:2026-10-24`):
+    - **post `30615435`** (Farbas / Nataeris-gurubashi, **2026-10-25T23:03:33.400Z**), post 1 van het
+      **nieuwe topic `2391886`** *"Looking for a very simple bag sorting addon"*: hij wil de
+      `Cleanup`-knop als *"Compact"* die items samenschuift zonder te herordenen. Een addon-verzoek.
+    - **post `30613248`** (Zerrin / Zerrin-bloodhoof, **2026-10-25T18:52:35.357Z**), post #16 in het
+      al bekende topic `24534`: *"I went ahead and emailed wowui@blizzard.com which was listed in
+      their TOS. According part of the auto-reply of my submission,…"* — de betaalde "Journey"-addon,
+      dus addon-BELEID, geen API.
+    - **post `30609887`** (Elvenbane / Elvenbane-veknilash, **2026-10-25T11:08:31.343Z**), post #15 in
+      het al bekende topic `2367394`.
+    - **Positieve controle in dezelfde run en dezelfde zoekvorm:** `after:2026-10-19` geeft vijf posts,
+      waarvan er vier naar topics wijzen die al in dit logboek staan (`grep -c`: `2367394` → 26,
+      `24534` → 5), inclusief post **`30592315`** (BWR46, 2026-10-23T18:36:01.607Z) — via
+      `posts/30592315.json` GEMETEN dat die bij topic **`2390587`**
+      (*"warlock-wild-imps-not-showing-on-cd-manager"*) hoort, dat op 24 okt al gemeld is. De zoekvorm
+      vindt dus wat er is; de drie hierboven zijn echt de enige nieuwe.
+  - 🔇 **[RAAKT ONS NIET] — geen hotfix-batch na 23 okt, gemeten langs VIJF routes.** (1) De
+    **topic-JSON van de levende hotfix-draad**, `t/2382684.json`: post **`30477527`** (Linxy,
+    aangemaakt **2026-10-15T00:53:57.786Z**) heeft als bovenste gedateerde kop letterlijk
+    *"October 23, 2026"*; (2) `thewowdb.com/hotfixes/` zegt *"Latest: October 23, 2026"*; (3) de
+    wiki-pagina `Hotfixes` heeft als bovenste inhoudsregel *"October 23"* en noemt als bron
+    *"Hotfixes: October 13-23 | 2026-10-23"*; (4) Wowhead-nieuws **383570**
+    (**2026-10-24T00:23:57Z**) vat diezelfde 23 okt-batch samen; (5) `bluetracker.wowclassicui.com`
+    post 1589 (Linxy, 23 okt 23:43). ⚠️ Routes (1) en (2) zijn zelf gelezen; (3), (4) en (5) zijn
+    **MEASURED (via search, niet zelf gelezen)** — de pagina's zelf zijn op Bash geweigerd en komen uit
+    Exa's zoekuitslag met publicatiedatum. De laatste `User Interface`-sectie blijft die van **13 okt**
+    (Premade Group Finder), ouder dan 7 dagen.
+    - 📌 **Anti-cache-controle gehaald met een derde partij die ná mijn vorige run publiceerde:**
+      `mybiggaming.ru` (Russisch, `published 2026-10-24T22:11:18Z`) vat de hotfixes *"с 14 по 23
+      октября"* samen en heeft zelf niets nieuwer. Het nieuwste dat ik zie is dus even oud als wat
+      mijn logboek gisteren noemde, en dat is hier geen cache maar de werkelijkheid.
+    - 🔴 **CORRECTIE OP MIJN EIGEN REDENERING van 24 okt (regel 6916).** Daar staat
+      *"`hotfixes in:title after:2026-10-20` geeft nul posts, dus er is geen batch"*. Die gevolgtrekking
+      is ONGELDIG, en mijn eigen regels van 19 en 22 okt (6576-6579, 6721) zeggen waarom: Discourse'
+      `after:`-filter kijkt naar de **aanmaak**datum, en de hotfix-draad wordt *bijgewerkt*, niet
+      opnieuw geopend. GEMETEN vandaag: `hotfixes in:title after:2026-10-20` **en**
+      `after:2026-10-23` geven béide `"posts":[]`, terwijl `Midnight Hotfixes in:title` **zonder**
+      datumfilter de levende draad `2382684` wél bovenaan geeft, met de 23 okt-batch in post #1. Het
+      lege datumfilter bewijst dus niets — de werkende route is de topic-JSON uit punt (1), en die
+      hoort vanaf nu de eerste te zijn. Zie [[silence-is-not-absence]].
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`.** GEMETEN met
+    `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: de nieuwste 12.x-tag is
+    **`12.1.5-03`** = **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `refs/heads/master` én `HEAD`
+    staan op diezelfde SHA — dus ook **geen ongereleasete commits** op master. De releases-pagina
+    (mét cache-buster) bevestigt het: bovenaan `12.1.5-03`, **22 okt 21:56**, body *"forever: Export
+    hunter pet info"*, en die is op 23 okt al volledig getoetst en toen [RAAKT ONS NIET] bevonden
+    (`'pet'` staat alléén in `FOREVER_EXPORTS`, dus `EXPORTS.pet` is `nil` op een Retail-client).
+    `Modules/SimcExport.lua` volgt in zijn kopcommentaar nog `12.1.0-04` plus de race-takken uit
+    `12.1.0-alpha-06`; er was vandaag niets nieuws om daartegen te leggen.
+  - 🔌 **MEETGAT VAN VANDAAG, en het is nieuw: álle WoW-bronnen zijn geweigerd op Bash-`curl`.**
+    GEMETEN met `curl -o /dev/null -w "%{http_code}"`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `thewowdb.com`, `www.wowhead.com`, `news.blizzard.com` en `wago.tools`
+    geven alle zes **`000`** (CONNECT → 403), en `$HTTPS_PROXY/__agentproxy/status` noemt het bij naam:
+    `"kind":"connect_rejected"`, `"detail":"gateway answered 403 to CONNECT (policy denial or upstream
+    failure)"`, `"host":"warcraft.wiki.gg:443"`, om **2026-10-26T04:39:22.615Z**. Het README van de
+    proxy zegt expliciet: een 403/407 niet omzeilen maar melden. 🔴 **Dus elke wiki- en forummeting
+    hierboven loopt via Exa `web_fetch_exa` mét `?nocache=20261026`, en dat werkte voor élke URL.**
+    Wat wél schoon werkt op Bash: **`git ls-remote` over https naar github.com** (daarmee zijn de
+    build-SHA's en de SimC-tags gemeten). En `api.github.com` is nog steeds dicht — de root geeft 200
+    (dat is de proxy), maar een echte call antwoordt *"GitHub access to this repository is not enabled
+    for this session"*. Dezelfde les als gisteren: toets de route op het eindpunt dat je nodig hebt.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run.** Er was vandaag geen nieuwe
+    API-naam om te toetsen, en dat mag niet lezen als "niet gekeken". Zelfde commando, zelfde
+    reikwijdte (`.git`, `docs`, `tools`, `dist` uitgesloten): `issecretvalue` → **65** bestanden,
+    `InCombatLockdown` → **51**, `C_SuperTrack` → **9**, `EssentialCooldownViewer` → **1**,
+    `GetItemStringFromItemLink` → **1**, `BuildSimcProfile` → **1**, tegenover `C_CooldownViewer` → **0**
+    en `CooldownManager` → **0**. Het patroon vindt wat er is.
+  - ✅ **ÉÉN STAAND MEETGAT DICHT: de UTF-8 BOM vooraan `MidnightHelper.toc`.** GEMETEN met
+    `head -c 6 | od -c`: de eerste bytes zijn **`357 273 277`** (EF BB BF) vóór `##`, en daardoor geeft
+    `grep -cE "^## Interface" MidnightHelper.toc` **0**. ⚠️ Een `\xef\xbb\xbf`-variant in het patroon
+    geeft **óók 0**, want `grep -E` kent die escape niet — dat is de val waar dit al drie keer op
+    stuk liep. Wat wél werkt is **ongeankerd** zoeken: `grep -aoE "## Interface:.*"` →
+    `## Interface: 120007, 120100, 120105, 120107`, en `grep -aoE "## Version:.*"` →
+    `## Version: 4.13.0`. 🔴 Melding, geen reparatie: ik raak de `.toc` niet aan. Waaróm die BOM er staat weet ik niet;
+    het spel leest het bestand in elk geval prima, want Rob speelt er dagelijks mee.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de `%d+`-aanname op
+    veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/
+    `:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon tegenover negen
+    wiki-secties; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug); de
+    client-test voor `/mh raidbots` naast de export van de SimulationCraft-addon zelf; en de 193
+    ongelezen PTR-bestanden van build `70493` (Blizzards eigen UI, waaronder
+    `Blizzard_ActionBar/Shared/ActionButton.lua`; de HTML-compare-route staat in de regel van 23 okt).
+    🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt — en DE OORZAAK VAN DE TERUGKERENDE SCHEVE
+    REF IS GEVONDEN: de container klont SHALLOW.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, maar
+    `git rev-parse --abbrev-ref HEAD` gaf **`HEAD`** — detached, nu voor de **vijfde** keer (17, 19, 22,
+    25 en 26 okt). 🔴 **Het rare eraan leek erger dan gisteren:** de lokale `main` stond op
+    **`31bc9c8`** (*"Codex Labyrinth: missed Wah'du weeks can be caught up"*, 2026-10-23 22:01:56
+    +0200), en dat is **geen voorouder** van de uitgecheckte **`a20532b`** —
+    `git merge-base --is-ancestor` faalt, `git merge-base` geeft **helemaal niets**, beide
+    `rev-list --count`-richtingen geven **50**, en `fetch` meldde letterlijk
+    `+ 31bc9c8...a20532b main -> origin/main (forced update)`. Dat leest als "iemand heeft de historie
+    herschreven", en **dat is het niet.** GEMETEN: `git rev-parse --is-shallow-repository` → **`true`**,
+    en `.git/shallow` noemt **twee** grenscommits: `8821b6d` (2026-10-22 21:45:41, de rand van de
+    snapshot van gisteren) en `ecca9a1` (2026-10-24 10:01:12, de rand van die van vandaag). Een shallow
+    kloon heeft een kunstmatige wortel, dus twee snapshots van verschillende dagen hebben per definitie
+    **geen** gemeenschappelijke voorouder en tellen allebei precies 50 commits. 📌 **Les voor elke
+    volgende run: "forced update", "geen voorouder" en "50 tegen 50" zijn hier normaal en geen alarm —
+    trek pas een conclusie ná `git fetch`, en vergelijk dan HEAD met `origin/main`, nooit met de lokale
+    `main`.** Na de fetch waren HEAD en `origin/main` identiek (beide tellingen **0**). Hersteld met
+    `git checkout -B main origin/main`; daarna `git branch --show-current` → **`main`**, werkboom schoon.
+    Geen enkel ander bestand geraakt.
