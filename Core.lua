@@ -3223,7 +3223,7 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh labsplits [on|off|reset] — Labyrinth splits: your time per room against your best (LabyrinthSplits.lua).
-	local labArg = msg:match("^labsplits%s*(%a*)$")
+	local labArg = msg:match("^labsplits%s*(%a*)$") or msg:match("^labsplits%s+(move%s+%d+%s+%d+)$")
 	if labArg then
 		if ns.LabSplitsCommand then
 			ns.LabSplitsCommand(labArg)

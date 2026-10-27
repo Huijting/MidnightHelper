@@ -20,6 +20,15 @@ verlaten wordt een venster (chatregel mag blijven als record). Eén ontwerp voor
 "Chamber of Rites: 14:14. Your first time on Tier 11 …" op het scherm en in de chat; best[11]["Chamber of Rites"] = 854;
 /reload zonder fouten. GetSubZoneText = de kamer (plek), niet de taak (Taken Antiquities; op 19 okt Graverobbers in dezelfde
 kamer) — dat AFGELEIDE punt uit 26 okt is hiermee voor kamer 1 gemeten. Open: sneller/langzamer, platform, lijst bij verlaten.
+🐞→✅ **Tier-fout gerepareerd (27 okt middag, Rob: "ja, repareer het")**: Robs T11-run zei na kamer 1 (Chamber of Rites
+8:12) "first time on Tier 6". GEMETEN met een /run: widget 6183 shownState 1, tierText "11". Oorzaak (GEMETEN in de code):
+LabyrinthSplits staat in de .toc vóór DelveHistory, dus zijn SCENARIO_COMPLETED las de bij binnenkomst gelatchte tier (een
+gok uit tekst: 6, bron AFGELEID) vóór DelveHistory hem herlas. Kamer 2 zei wél T11 (Rob). Fix: `ns.ReadDelveTierWidget()`;
+splits lezen het bordje zelf; TryCaptureTier laat het bordje een gok overschrijven. Nieuw: `/mh labsplits move 6 11`
+(snelste per kamer wint) om Robs 8:12 te verhuizen. Nog niet in-game getest; zit niet in beta1.
+🎨 **Ontwerp** (Rob: "ja goed uit") voor splitsvenster A/B + nieuwe Delve Log C/D: https://claude.ai/artifact/TKwQPXn1wA5PPaKc4kHFvw
+— niets gebouwd. Nodig bij bouwen: datum bij een record, laatste run bewaren, Delve Log-records PER TIER (nu telt
+`fastestTime` over alle tiers samen, GEMETEN DelveHistory.lua:532), platformnaam meten.
 
 ## 🔜 OPEN na 26 okt (overdracht naar de bouwchat van 27 okt)
 

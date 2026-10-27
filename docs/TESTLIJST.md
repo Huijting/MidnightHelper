@@ -54,6 +54,9 @@ Eerst `/reload`, dan BUITEN de Labyrinth de run beginnen (anders telt de eerste 
       first time on Tier 11: this is now the time to beat." en dezelfde regel in de chat; ns.db.labSplits.best[11]["Chamber
       of Rites"] = 854. /reload daarna: geen fouten. (Kamer = de plek; de taak was Taken Antiquities.)
 - [ ] Een tweede keer dezelfde kamer: "… 0:38 faster than your best … New record!" of "… slower …".
+- [ ] **Tier-reparatie (27 okt middag).** Na `/reload` in de Labyrinth: typ `/mh labsplits move 6 11`. Je ziet "moved 1
+      room(s) from Tier 6 to Tier 11". Dan `/mh labsplits`: onder Tier 11 staat Chamber of Rites 8:12, en Tier 6 is weg.
+      Na de volgende kamer zegt de melding Tier 11 (niet 6).
 - [ ] Bij Kindo'jan (platform) na de kill ook zo'n regel?
 - [ ] Na het verlaten van de Labyrinth: in de chat "Labyrinth, Tier 11: 5 rooms in 23:40, 1 new record(s)" met per kamer
       de tijd en groen −/rood +.

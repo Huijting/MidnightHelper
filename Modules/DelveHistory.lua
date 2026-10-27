@@ -427,7 +427,18 @@ local function GetCurrencyQty(id)
 	return 0
 end
 
+--- The widget beats a guess: a tier mined from text at zone-in used to stick for the whole run (Rob, 27 Oct 2026: his
+--- Tier 11 Labyrinth run was latched as Tier 6 while the widget said tierText "11", MEASURED with a /run that evening).
 local function TryCaptureTier()
+	local w = WidgetDelveTier()
+	if w and w ~= runState.tier then
+		runState.tier = w
+		local store = GetStore()
+		if store and store.activeRun then
+			store.activeRun.tier = w
+		end
+		return
+	end
 	if runState.tier and runState.tier > 0 then
 		return
 	end
@@ -452,6 +463,12 @@ function ns.GetCurrentDelveRun()
 		return nil
 	end
 	return runState.delveName, runState.tier
+end
+
+--- Public: the tier on the scenario header widget right now, or nil when it is not shown. Exported 27 Oct 2026 for the
+--- Labyrinth splits, whose SCENARIO_COMPLETED handler runs before this file's (load order) and so read the stale tier.
+function ns.ReadDelveTierWidget()
+	return WidgetDelveTier()
 end
 
 local function BeginDelveRun(name)

@@ -72,7 +72,14 @@ local function RoomHere()
 	return nil
 end
 
+--- The widget first, read now: this file's SCENARIO_COMPLETED handler runs before DelveHistory's (load order), so the
+--- run's stored tier can still be a wrong guess from zone-in (Rob, 27 Oct 2026: room 1 said Tier 6 in a Tier 11 run,
+--- room 2 said Tier 11 once DelveHistory had re-read it).
 local function Tier()
+	local w = ns.ReadDelveTierWidget and ns.ReadDelveTierWidget()
+	if w and w > 0 then
+		return w
+	end
 	if not ns.GetCurrentDelveRun then
 		return 0
 	end
@@ -204,7 +211,8 @@ local function OnZone(event, isReload)
 	end
 end
 
---- `/mh labsplits [on|off|reset]`: switch, wipe the bests, or say what it is doing and why.
+--- `/mh labsplits [on|off|reset|move <from> <to>]`: switch, wipe the bests, move them to another tier, or say what it is
+--- doing and why.
 function ns.LabSplitsCommand(arg)
 	local p = "|cffffcc00Midnight Helper|r labsplits:"
 	arg = (arg or ""):lower()
@@ -216,6 +224,31 @@ function ns.LabSplitsCommand(arg)
 		local d = DB()
 		d.best, d.active = {}, nil
 		print(p .. " " .. L("LAB_SPLITS_RESET_DONE"))
+		return
+	end
+	-- `move <from> <to>`: repair times filed under a wrong tier (the Tier 6 guess above). The faster time wins per room.
+	local from, to = arg:match("^move%s+(%d+)%s+(%d+)$")
+	from, to = tonumber(from), tonumber(to)
+	if from and to and from ~= to then
+		local d = DB()
+		local src, moved = d.best[from], 0
+		if src then
+			d.best[to] = d.best[to] or {}
+			for room, secs in pairs(src) do
+				local old = d.best[to][room]
+				if not old or secs < old then
+					d.best[to][room] = secs
+				end
+				moved = moved + 1
+			end
+			d.best[from] = nil
+		end
+		for _, r in ipairs(d.active and d.active.rooms or {}) do
+			if r.tier == from then
+				r.tier = to
+			end
+		end
+		print(("%s moved %d room(s) from Tier %d to Tier %d."):format(p, moved, from, to))
 		return
 	end
 	local d = DB()
