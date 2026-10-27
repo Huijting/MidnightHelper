@@ -36,6 +36,7 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 23 | 21 okt 08:57 | DK / en | tank | net geïnstalleerd | **1** | maps | site | — (eerste 1, zonder uitleg) |
 | 24 | 21 okt 19:08 | IT / it | dps | weken | 4 | play, route | maps, boss, prof, gear | irriteert: *"no"* · mist: *"non so valutarlo"* (kan het nog niet zeggen) · 💬 *"grazie mille"*: op 90 wist ze niet wat te doen voor gear en wat belangrijk was om vrij te spelen |
 | 25 | 22 okt 13:59 | BG / en | dps | weken | 5 | play, boss, route, collect, gear | prof, keys | 💬 *"This addon is realy helpful for a new player like myself"*; M+-feedback en beroepencursus nog niet aan toe |
+| 26 | 26 okt 14:49 | US / en | dps | weken | **3** | maps, boss, delves, weekly, prof, keys, route, gear | — | — (cijfer 3 zonder uitleg; alle vrije vakken leeg) |
 
 📌 #17 en #19 komen allebei uit GB, dps, "een paar weken", via het spel, 4½ uur na elkaar. Mogelijk dezelfde speler
 die het twee keer invulde (#19 kent veel meer onderdelen). AFGELEID, niet vast te stellen: beide tellen mee.
@@ -51,6 +52,13 @@ cijfer. #6 gaf geen cijfer en geen rol.
 ⚠️ **#9 heeft `from: "gamehttpsmidnighthelpercomsurveyf"`** — "game" met de survey-URL eraan geplakt, zonder
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
+
+## Bijgeteld 27 okt (ochtendronde): #26, en/US, dps, via het spel
+
+- Een paar weken, cijfer **3**, geen uitleg (irriteert/mist/verder nog alle drie "-"). Gebruikt 8 van de 13 vaak,
+  "nooit" leeg. Ontvangen 26 okt 14:49 UTC; de ochtendronde van 26 okt was toen al geweest.
+- **Cijfer nu:** gemiddeld **4,0** (24 cijfers: 8× 5, 11× 4, 4× 3, 1× 1; 97/24 = 4,04).
+- **Keybind-coach:** voor het eerst **1× "vaak"** (#4 telt alleen voor het cijfer), nog steeds 13× "nooit / onbekend".
 
 ## Bijgeteld 23 okt (ochtendronde): #25, en/BG, dps, via het spel
 
