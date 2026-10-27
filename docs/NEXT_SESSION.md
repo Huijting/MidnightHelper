@@ -14,6 +14,8 @@ zonder bron, RAIDSHOP_GEAR_TIP op elke enchant-rij): nog niet opgepakt, eerst Ro
 🔜 **WENS Rob 27 okt (splits):** *"ik ga het eerst testen, maar er moet wel iets van een overzicht ergens komen :)"* —
 nu is er alleen chat (`/mh labsplits`, lijst bij verlaten) + de korte melding per kamer. Na zijn test: een overzicht
 (venster/tabblad met beste tijden per Tier en de laatste run) ontwerpen en eerst voorleggen. Niets gebouwd.
+Rob, later die ochtend: *"en de lijst in de chat moet ook een venster worden, vind je niet"* → ook het lijstje bij het
+verlaten wordt een venster (chatregel mag blijven als record). Eén ontwerp voor beide, eerst voorleggen.
 ✅ **Splits GEMETEN Rob 27 okt 07:41** (video `Captures\World of Warcraft 2026-10-27 07-39-48.mp4` + SavedVariables): kamer 1
 "Chamber of Rites: 14:14. Your first time on Tier 11 …" op het scherm en in de chat; best[11]["Chamber of Rites"] = 854;
 /reload zonder fouten. GetSubZoneText = de kamer (plek), niet de taak (Taken Antiquities; op 19 okt Graverobbers in dezelfde
