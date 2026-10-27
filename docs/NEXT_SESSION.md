@@ -25,7 +25,14 @@ kamer) — dat AFGELEIDE punt uit 26 okt is hiermee voor kamer 1 gemeten. Open: 
 LabyrinthSplits staat in de .toc vóór DelveHistory, dus zijn SCENARIO_COMPLETED las de bij binnenkomst gelatchte tier (een
 gok uit tekst: 6, bron AFGELEID) vóór DelveHistory hem herlas. Kamer 2 zei wél T11 (Rob). Fix: `ns.ReadDelveTierWidget()`;
 splits lezen het bordje zelf; TryCaptureTier laat het bordje een gok overschrijven. Nieuw: `/mh labsplits move 6 11`
-(snelste per kamer wint) om Robs 8:12 te verhuizen. Nog niet in-game getest; zit niet in beta1.
+(snelste per kamer wint) om Robs 8:12 te verhuizen. ✅ GEMETEN Rob die avond: move werkte, alle kamers T11. Zit niet in beta1.
+✅ **Hele Labyrinth-run GEMETEN 27 okt avond**: 8 kamers, 86:38 (som klopt), platform = map 2648 'De Empire's Rest',
+lijst bij verlaten in de chat. ⚠️ Open: de schermmelding bij Kindo'jan zag Rob niet. Daarna gerepareerd (Robs "ja"):
+"0 new record(s)" → nieuwe keys LAB_SPLITS_REC_ONE/_FMT (alle 8 packs, eigen vertaling, niet moedertaal-nagekeken),
+en RunScorecard's detailregel "vs avg -2173s" → "-36m 13s". Nog niet in-game getest.
+📝 **Correctie Rob (Valeera-rol)**: de regels hieronder ("Valeera op Healer ging snel; Tank/DPS 2× dood") zijn onzeker —
+Rob weet niet meer zeker of ze toen op Healer stond. Op 27 okt met Valeera op DPS: Kindo'jan in 2:42 (DBM), "supersnel".
+Er steunen geen addonteksten op die run (GEMETEN), dus niets aangepast.
 🎨 **Ontwerp** (Rob: "ja goed uit") voor splitsvenster A/B + nieuwe Delve Log C/D: https://claude.ai/artifact/TKwQPXn1wA5PPaKc4kHFvw
 — niets gebouwd. Nodig bij bouwen: datum bij een record, laatste run bewaren, Delve Log-records PER TIER (nu telt
 `fastestTime` over alle tiers samen, GEMETEN DelveHistory.lua:532), platformnaam meten.

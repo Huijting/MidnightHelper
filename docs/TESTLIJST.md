@@ -54,14 +54,16 @@ Eerst `/reload`, dan BUITEN de Labyrinth de run beginnen (anders telt de eerste 
       first time on Tier 11: this is now the time to beat." en dezelfde regel in de chat; ns.db.labSplits.best[11]["Chamber
       of Rites"] = 854. /reload daarna: geen fouten. (Kamer = de plek; de taak was Taken Antiquities.)
 - [ ] Een tweede keer dezelfde kamer: "… 0:38 faster than your best … New record!" of "… slower …".
-- [ ] **Tier-reparatie (27 okt middag).** Na `/reload` in de Labyrinth: typ `/mh labsplits move 6 11`. Je ziet "moved 1
-      room(s) from Tier 6 to Tier 11". Dan `/mh labsplits`: onder Tier 11 staat Chamber of Rites 8:12, en Tier 6 is weg.
-      Na de volgende kamer zegt de melding Tier 11 (niet 6).
-- [ ] Bij Kindo'jan (platform) na de kill ook zo'n regel?
-- [ ] Na het verlaten van de Labyrinth: in de chat "Labyrinth, Tier 11: 5 rooms in 23:40, 1 new record(s)" met per kamer
-      de tijd en groen −/rood +.
-- [ ] `/mh labsplits`: je beste tijden per Tier, plus een grijze regel met kaart/kamer/tier en wat hij het laatst besloot.
-      Kloppen de tijden ongeveer met je eigen gevoel/klok?
+- [x] ✅ **Tier-reparatie** GEMETEN Rob 27 okt avond (screenshot): `/mh labsplits move 6 11` → Tier 11 met Chamber of
+      Rites 8:12, Tier 6 weg; daarna "tier 11" in de status en in elke kamer.
+- [x] ✅ Kindo'jan (platform) GEMETEN 27 okt: map 2648, kamer 'De Empire's Rest', chatregel "De Empire's Rest: 18:36 …"
+      (split = vanaf de vorige kamer; de kill zelf 2:42 volgens DBM). ⚠️ De melding op het scherm zag Rob daar NIET —
+      oorzaak onbekend (buit/DBM/Blizzard-banner tegelijk?); video zou het laten zien.
+- [x] ✅ Na het verlaten GEMETEN 27 okt: "Labyrinth, Tier 11: 8 rooms in 86:38, 0 new record(s)" + 8 kamers; som klopt.
+- [ ] Na de reparatie van 27 okt laat: bij 0 records staat er géén "0 new record(s)" meer ("… 8 rooms in 86:38. Per
+      room:"), bij 1 "1 new record", bij meer "3 new records".
+- [ ] Run-scorekaart met `/mh scorecard detail` aan: de grijze regel zegt "vs avg -36m 13s", geen "-2173s".
+- [x] ✅ `/mh labsplits` GEMETEN 27 okt: beste tijden per Tier + de grijze statusregel.
 - [ ] Instellingen → "Labyrinth splits" uit → geen regels meer.
 
 ## 🆕 26 okt — delve-verhalen in elke taal

@@ -91,9 +91,11 @@ local function handleRun(summary)
 	if detailOn() then
 		local avg = prevAverage(summary)
 		if avg > 0 and (summary.duration or 0) > 0 then
+			-- As a time, not raw seconds (Rob, 27 Oct 2026: "vs avg -2173s" after an 86-minute Labyrinth run).
 			local delta = math.floor((summary.duration - avg) + 0.5)
+			local deltaText = delta == 0 and "0s" or ((delta < 0 and "-" or "+") .. fmtDur(math.abs(delta)))
 			print(("   |cff888888%s|r"):format(
-				(ns:L("SCORE_DETAIL_FMT")):format(string.format("%+ds", delta), fmtDur(summary.fastestTime))
+				(ns:L("SCORE_DETAIL_FMT")):format(deltaText, fmtDur(summary.fastestTime))
 			))
 		end
 	end

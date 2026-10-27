@@ -185,7 +185,10 @@ local function RunOver()
 	for _, r in ipairs(a.rooms) do
 		total = total + (r.secs or 0)
 	end
-	Say((L("LAB_SPLITS_SUMMARY_FMT")):format(a.rooms[1].tier or 0, #a.rooms, Clock(total), a.records or 0), false)
+	-- No "record(s)" (Rob, 27 Oct 2026): nothing when there are none, else the right number word.
+	local rec = a.records or 0
+	local recText = rec == 0 and "" or (rec == 1 and L("LAB_SPLITS_REC_ONE") or (L("LAB_SPLITS_REC_FMT")):format(rec))
+	Say((L("LAB_SPLITS_SUMMARY_FMT")):format(a.rooms[1].tier or 0, #a.rooms, Clock(total), recText), false)
 	for _, r in ipairs(a.rooms) do
 		local delta = ""
 		if r.best then
