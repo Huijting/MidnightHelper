@@ -4,21 +4,22 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
-		version = "4.13.1",
+		version = "4.14.0",
 		lines = {
-			-- after 4.13.0, no version bump yet (Rob picks the number and the go)
-			"CHANGELOG_4131_1",
-			"CHANGELOG_4131_2",
-			"CHANGELOG_4131_3",
-			"CHANGELOG_4131_4",
-			"CHANGELOG_4131_5",
-			"CHANGELOG_4131_6",
-			"CHANGELOG_4131_7",
-			"CHANGELOG_4131_8",
-			"CHANGELOG_4131_9",
-			"CHANGELOG_4131_10",
-			"CHANGELOG_4131_11",
-			"CHANGELOG_4131_12",
+			"CHANGELOG_4140_0",
+			-- beta1 (27 Oct 2026, Rob: "ja en go")
+			"CHANGELOG_4140_1",
+			"CHANGELOG_4140_2",
+			"CHANGELOG_4140_3",
+			"CHANGELOG_4140_4",
+			"CHANGELOG_4140_5",
+			"CHANGELOG_4140_6",
+			"CHANGELOG_4140_7",
+			"CHANGELOG_4140_8",
+			"CHANGELOG_4140_9",
+			"CHANGELOG_4140_10",
+			"CHANGELOG_4140_11",
+			"CHANGELOG_4140_12",
 		},
 	},
 	{

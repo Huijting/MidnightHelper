@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.14.0 (beta1)
+
+📌 **2026-10-27, BETA (Rob: "we kunnen wel een beta nu doen toch ?" → "ja en go").** Tag `v4.14.0-beta1`. In-game:
+CHANGELOG_4140_0..12 (enUS; 0 = beta-notitie; het oude blok "4.13.1" = CHANGELOG_4131_1..12, hernummerd, nieuwste
+bovenaan). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.14.0.md` (byte-identiek, GEMETEN sha1).
+GEMETEN door Rob in het spel: schouders rood + op de boodschappenlijst, knoppen-taal na /reload, Symbiotic Relationship
+3600 s. NIET gezien: Labyrinth-splits, tabblad Solo, aantal in het koopscherm, wachtmelding tijdens kopen, de
+Instellingen-knop, versleepbare melding, Hexmask 3/3 + platform, rare-route via de portal, Valeera-regel in /mh curios,
+delve-verhalen (alleen in een Lua-proef gemeten), alle vertalingen (eigen werk).
+
+- **Labyrinth-splits** (`Modules/LabyrinthSplits.lua`, `/mh labsplits`, schakelaar mh_labSplits).
+- **Tabblad Solo** voor alle 7 healers (`Modules/HealerSoloGuide.lua`); Valeera-rol voor healers in `/mh curios`.
+- **Boodschappenlijst/AH:** aantal in Blizzards koopscherm (SetPendingBuy + SelectBrowseResult-hook, schakelaar
+  mh_ahPresetQty); niet zoeken zolang de BuyDialog open is (RAIDSHOP_WAIT_BUY); schouders zonder enchant = ontbreekt;
+  tabs volgen de taal (OnShow); /shopping/-link.
+- **Klein:** Hexmask 3/3 stil + platform 2648; korte meldingen versleepbaar; rare-route in de gekozen zone; delve-
+  verhalen in elke clienttaal (DelveStoryData); clientnamen-rondes van 25-26 okt.
+
 ## 4.13.0
 
 📌 **2026-10-25, RELEASE (Rob: "Go voor de 4.13.0 … Je mag doorgaan").** Geen beta (Rob testte zelf). In-game:

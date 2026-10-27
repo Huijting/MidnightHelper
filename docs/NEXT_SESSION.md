@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🧪 27 okt (ochtend) — BETA 4.14.0-beta1 (Rob: "we kunnen wel een beta nu doen toch ?" → "ja en go")
+
+Alles na v4.13.0 als beta, vóór Robs test van vanavond (die blijft het echte vangnet). TOC 4.14.0; het blok "4.13.1"
+(CHANGELOG_4131_1..12) is hernummerd tot CHANGELOG_4140_1..12 (nieuwste/grootste bovenaan) + CHANGELOG_4140_0 = beta-
+notitie; regel 3 noemt nu ook de Instellingen-knop. `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.14.0.md` (sha1 identiek,
+GEMETEN; 59 regels). CHANGELOG.md: wat Rob zag en wat niet. Syntax OK (306), lint 0 HARD, package.ps1 bouwt de zip.
+Tag `v4.14.0-beta1` → CurseForge als Beta. Vindt Rob vanavond iets → beta2; alles goed → gewone 4.14.0 (dan bovenaan de
+notes de vaste beta-alinea, RELEASE_CHECKLIST §2).
+Ochtendronde 27 okt: wachters alle 4 gedraaid (hotfix 26 okt, raakt ons niet), CF/GitHub 0 open, HandyNotes 167
+onveranderd, vragenlijst #26 bijgeteld (06882f5). Site-chat 27-10 stuurde 3 MH-punten (SMC-afkorting in 5 talen, AH-pin
+zonder bron, RAIDSHOP_GEAR_TIP op elke enchant-rij): nog niet opgepakt, eerst Robs keuze.
+
 ## 🔜 OPEN na 26 okt (overdracht naar de bouwchat van 27 okt)
 
 Rob test vandaag (27 okt) pas NA zijn werk. Alles hieronder is gepusht (laatste: b790c15 + deze handoff-commit).
