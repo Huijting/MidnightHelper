@@ -7421,3 +7421,115 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `main`.** Na de fetch waren HEAD en `origin/main` identiek (beide tellingen **0**). Hersteld met
     `git checkout -B main origin/main`; daarna `git branch --show-current` → **`main`**, werkboom schoon.
     Geen enkel ander bestand geraakt.
+- [2026-10-27] 🆕 **Nul [MOET GEFIKST] — maar wél iets nieuws, en het is precies het soort ding dat
+  gisteren nog niet bestond: er is een HOTFIX-BATCH van 26 okt, gepost als post **`#135`** in de
+  levende draad `2382684` op **2026-10-27T01:01** (dus ná mijn run van gisteren, die terecht meldde
+  dat 23 okt de laatste was). Hij heeft GEEN `User Interface`-sectie, maar twee van zijn regels noemen
+  spells die MH wél in zijn eigen data heeft — beide getoetst en beide [RAAKT ONS NIET]. Verder: geen
+  nieuwe client-build (vijfde dag), geen wiki-revisie (elfde dag), geen SimC-release, één nieuwe
+  forumpost en die gaat niet over de API. En een verschil met de vorige vijf runs: **de scheve ref is
+  vandaag NIET terug** — de kloon kwam zelf op `main` binnen.**
+  - 🆕 **[RAAKT ONS NIET] — HOTFIXES 26 OKT 2026, en dit is nieuw sinds mijn vorige regel.** GEMETEN
+    langs twee routes: (1) de **topic-JSON** `t/2382684.json?nocache=20261027` — post #1 (Linxy,
+    aangemaakt 2026-10-15T00:53:57.786Z) heeft nu als bovenste gedateerde kop letterlijk
+    *"October 26, 2026"*, boven *"October 23, 2026"*; (2) **MEASURED (via search, niet zelf gelezen)**
+    `bluetracker.gg/wow/topic/us-en/2382684-...-october-26/` noemt dezelfde batch als post
+    **`#135`**, *"Oct. 27, 2026, 1:01 a.m."* — dát is het tijdstempel dat verklaart waarom mijn run van
+    26 okt hem niet zag. Secties: `Classes`, `Hallow's End`, `Labyrinth`, `Player versus Player`.
+    **Geen `User Interface`-sectie**, dus niets op mijn terrein. 📌 De drie `Labyrinth`-regels
+    (*"The Wandering"*-Remnant, dubbeltellende *"Flames Relit"*, meervoudig voltooiende
+    *"Come to Your Senses"*) en de Hallow's End-kistregel (*"Now only one chest will spawn when
+    capturing Shade of Seabreaker Skoloth"*) zijn CONTENT — van `docs/CONTENT_WATCH.md`, niet van mij;
+    ik toets ze niet en ik repareer ze niet. 🧪 `Seabreaker` → **0** bestanden in de addon.
+    - 🔇 **[RAAKT ONS NIET] — *"Fixed an issue where the Cooldown Manager would sometimes not display
+      Summon Darkglare correctly"* (Warlock, Affliction).** De Cooldown Manager is Blizzards eigen UI
+      en MH raakt hem niet aan: GEMETEN `CooldownManager` → **0** bestanden en `C_CooldownViewer` →
+      **0** bestanden (zelfde reikwijdte als hieronder, `.git`/`docs`/`tools`/`dist` uitgesloten).
+      Spell **205180** staat wél bij ons, maar alleen als ID in data: `Modules/DpsToolkit.lua:65`
+      (Affliction-CD, 120 s) en `Modules/KeybindRoles_Warlock.lua:141` (`cooldown_bar`, F1), plus de
+      toelichting op `Modules/KeybindRoles_Warlock.lua:35`. De hotfix verandert geen ID, geen
+      signature en geen event — er is niets te migreren.
+    - 🔇 **[RAAKT ONS NIET] — *"Resolved an issue causing Voltaic Blaze to not hit secondary targets
+      when Ula'tek is the main target"* (Shaman, Enhancement).** Spell **470057** staat bij ons op
+      `Modules/KeybindAutoMap.lua:23`, `Modules/KeybindingData.lua:206` en `:242`,
+      `Modules/KeybindRoles_Shaman.lua:68`, met de uitleg op `Modules/KeybindingData.lua:193` en
+      `Modules/KeybindRoles_Shaman.lua:43`. Een gedragsfix op Blizzards kant tegen één specifieke
+      baas; de plek in de layout en de prioriteit veranderen er niet van. Niets te doen.
+    - ⚠️ **Eén regel die ik NIET als vondst meeneem en waarom:** `fullsendwow.com/changes/hotfixes`
+      (**MEASURED via search**) noemt óók een *"Oct 25 hotfixes"*-batch met PvP-tuning (Divine Favor,
+      Meteor, Collapsing Star). Dat is **class tuning**, dus terrein van de contentwachter, en hij
+      staat niet als gedateerde kop in Blizzards eigen draad — ik heb hem dus niet zelf in de bron
+      kunnen dateren en reken hem niet mee.
+  - 🔇 **[RAAKT ONS NIET] — GEEN NIEUWE CLIENT-BUILD, vijfde dag op rij, op beide branches.** GEMETEN
+    met `git ls-remote https://github.com/Gethe/wow-ui-source refs/heads/live refs/heads/ptr`:
+    `live` = **`15881d522c44cd106d3d8660106ec9f9d2f44167`**, `ptr` =
+    **`03cd1ac95b8c96fcb91377a3bfc8e52d4edca9b8`** — bit voor bit dezelfde twee SHA's als op 24, 25 én
+    26 okt. Live dus nog **12.1.5.70575**, PTR **12.1.7 (70493)**; nul nieuwe commits, niets te diffen.
+    📌 `ls-remote` vraagt de server elke keer opnieuw, dus hier is cache-twijfel niet van toepassing.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog op hun 16 okt-revisie, ELFDE dag.** GEMETEN via
+    `rest.php/v1/page/<pagina>%2FAPI_changes/history?nocache=20261027`: `Patch 12.1.7/API changes` op
+    **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, nog steeds **vier** revisies in totaal);
+    `Patch 12.1.5/API changes` op **`6919763`** (**2026-10-16T22:38:41Z**, Ketho). Identiek aan de
+    vorige drie runs; geen revisie tussengeschoven of weggevallen.
+    - **`Patch 12.1.5 (undocumented changes)`** staat nog op **`6932397`** (**2026-10-23T05:46:38Z**,
+      Karadine, *"+ Valdrakken Resupply Coin"*, 1179 bytes) — vierde dag stil, en nog steeds content
+      zonder `User Interface`-sectie, dus van de andere drie wachters.
+    - **De paginalijst is onveranderd: 33 titels.** GEMETEN met
+      `api.php?action=query&list=allpages&apprefix=Patch%2012.&aplimit=200&format=json&maxage=0` —
+      **33** namen, met precies **zeven** `/API changes`-subpagina's (`12.0.0`, `12.0.1`, `12.0.5`,
+      `12.0.7`, `12.1.0`, `12.1.5`, `12.1.7`), **geen 12.1.9 en geen 12.2.x**; `Patch 12.2`, `12.2.0`,
+      `12.2.5` en `12.2.7` bestaan als pagina maar zonder `/API changes`. Dat bevestigt de correctie
+      van gisteren (33, niet 34) voor de tweede dag.
+  - 🔇 **[RAAKT ONS NIET] — forum `#ui-macro`: één nieuwe post sinds mijn vorige run, en die gaat niet
+    over de API.** GEMETEN mét cache-buster (`search.json?q=#ui-macro after:2026-10-25`):
+    - **post `30628288`** (Vranx / Vranx-mankrik, **2026-10-27T00:36:05.734Z**), post 1 van het
+      **nieuwe topic `2392684`** *"Vranx Addon Site"*. Via `t/2392684.json` zelf gelezen: *"Vranx is
+      still online. Updated for Forever. Lots of new addons on CurseForge. Im counting over 40 addons
+      just for fishing."* Een addon-site-aankondiging voor **Classic/Forever**, geen API, geen taint,
+      geen secure frames.
+    - De drie andere treffers (`30615435` bag-sorting-verzoek, `30613248` de betaalde "Journey"-addon,
+      `30609887` topic `2367394`) staan alle drie al in mijn regel van gisteren.
+    - **Positieve controle in dezelfde run en dezelfde zoekvorm:** `after:2026-10-20` geeft zes posts,
+      waarvan er vijf naar topics wijzen die al in dit logboek staan (`24534`, `2367394` ×2, `124318`,
+      `2390587` via post `30592315`). De zoekvorm vindt dus wat er is; `30628288` is echt de enige nieuwe.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`.** GEMETEN met
+    `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: de nieuwste 12.x-tag blijft
+    **`12.1.5-03`** = **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `refs/heads/master` én `HEAD`
+    staan op diezelfde SHA — dus ook **geen ongereleasete commits** op master. De releases-pagina (mét
+    `?nocache=20261027`) bevestigt het: bovenaan `12.1.5-03`, **22 okt 21:56**, body *"forever: Export
+    hunter pet info"*, al op 23 okt volledig getoetst en toen [RAAKT ONS NIET] bevonden (`'pet'` zit
+    alleen in `FOREVER_EXPORTS`, dus `EXPORTS.pet` is `nil` op een Retail-client). Vijfde dag stil;
+    `Modules/SimcExport.lua` volgt in zijn kopcommentaar nog `12.1.0-04` plus de race-takken uit
+    `12.1.0-alpha-06`, en er was vandaag niets nieuws om daartegen te leggen.
+  - 🔌 **MEETGAT, voor de tweede dag identiek: álle zes WoW-bronnen geweigerd op Bash-`curl`.** GEMETEN
+    met `curl -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `www.wowhead.com`, `news.blizzard.com`, `thewowdb.com` en `wago.tools`
+    geven alle zes **`000`**, en de proxy noemt het bij naam: `connect_rejected`, *"the egress proxy
+    refused the connection… a refusal most often means that the host is not allowed for this session"*.
+    🔴 Niet omzeild (het proxy-README verbiedt dat expliciet): élke wiki- en forummeting hierboven
+    loopt via Exa `web_fetch_exa` mét `?nocache=20261027`, en dat werkte voor elke URL. Wat wél schoon
+    werkt op Bash: **`git ls-remote` over https naar github.com** — daarmee zijn de build-SHA's en de
+    SimC-tags gemeten.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `issecretvalue` → **66**, `C_Spell` → **56**, `Labyrinth` → **41**, `C_UnitAuras` → **13**,
+    tegenover `CooldownManager` → **0**, `C_CooldownViewer` → **0** en `Seabreaker` → **0**. Het
+    patroon vindt wat er is, dus die drie nullen zijn afwezigheid en geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc` (waardoor een geankerde `grep -cE "^## Interface"` 0 geeft; ongeankerd
+    `grep -aoE` werkt wel); de `%d+`-aanname op veld 3 van de npcID-match
+    (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de
+    vijf decoratieve `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als
+    tiende deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); de client-test voor `/mh raidbots` naast de export van de
+    SimulationCraft-addon zelf; en de 193 ongelezen PTR-bestanden van build `70493`. 🔴 Niets van dit
+    alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de scheve ref is vandaag NIET terug.**
+    GEMETEN vóór het schrijven: `git rev-parse --abbrev-ref HEAD` → **`main`** (geen detached HEAD,
+    voor het eerst sinds 16 okt — op 17, 19, 22, 25 en 26 okt was dat `HEAD`), `git status --short`
+    **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en ná `git fetch origin
+    main` tellen `HEAD..origin/main` en `origin/main..HEAD` béide **0**. 📌 De kloon is nog steeds
+    **shallow** (`git rev-parse --is-shallow-repository` → **`true`**), dus de les van gisteren blijft
+    staan: vergelijk HEAD met `origin/main` en nooit met de lokale `main`. Geen enkel ander bestand
+    geraakt.
