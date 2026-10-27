@@ -1,24 +1,33 @@
 # Midnight Helper — waar we staan
 
-## 🔜 OPEN na 25 okt (overdracht naar de bouwchat van 26 okt)
+## 🔜 OPEN na 26 okt (overdracht naar de bouwchat van 27 okt)
 
-- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1", CHANGELOG_4131_1..12, TOC
-  nog 4.13.0): schouders zonder enchant = rood + op de boodschappenlijst; link naar midnighthelper.com/shopping/; rare-route
-  blijft in de gekozen zone; Valeera-rol voor healers (/mh curios) + curio-teksten; tabblad **Solo** voor 7 healers (met
-  Druid kat/gewone vorm per talent); Symbiotic Relationship-uitleg (1 uur, niet op jezelf); korte melding versleepbaar en
-  onder het midden; Hexmask-melding zwijgt bij 3 maskers; /mh hexmask kent het platform 2648. Site-anker #solo staat
-  in SITE_ANCHOR; de site bouwt de Solo-sectie bij de volgende release (site-chat 25-10).
-- **Testen in het spel (TESTLIJST, bovenste 25/26-okt-blokken)**: tabblad Solo (tab-rij past? Druid-kat niet gezien),
-  aantal in het AH-koopscherm, rare-route via de portal, korte melding verslepen, Hexmask 3/3 stil, /mh hexmask op het platform,
-  Valeera-regel in /mh curios, dispel-rechtsklik in party targets op de Resto Druid (alles armed, Rob had niet
-  rechtsgeklikt — testje gevraagd), Preservation Evoker (Rob moet eerst het begingebied uit).
+Rob test vandaag (27 okt) pas NA zijn werk. Alles hieronder is gepusht (laatste: b790c15 + deze handoff-commit).
+- **Testen in het spel (TESTLIJST, bovenste 26/25-okt-blokken), in deze volgorde:** 🏁 Labyrinth-splits (eerst /reload
+  BUITEN de Labyrinth); aantal in het AH-koopscherm (regel klikken → gouden variant → 16?); koopvenster open + MH-regel
+  klikken → wachtmelding, en bij een rode "Internal auction error." daarna /reload → ik lees ns.db.raidShopProbe;
+  Instellingen-knop "Fill in the amount when buying"; delve-verhalen op Engels nog goed (coach + baaskaart Atal'Aman/
+  Twilight Crypts); daarna de 25-okt-punten: tabblad Solo (tab-rij past? Druid-kat), rare-route via de portal, korte
+  melding verslepen, Hexmask 3/3 stil, /mh hexmask op het platform, Valeera-regel in /mh curios, dispel-rechtsklik in
+  party targets (Resto Druid), Preservation Evoker (eerst het begingebied uit).
+  ✅ GEMETEN Rob 26 okt: schouders rood + op de boodschappenlijst; knoppen Raid/Profession + "Everything to Auctionator"
+  in de juiste taal na /reload.
+- **Gepusht ná v4.13.0, wacht op Robs go voor een versie** (in-game changelog-blok "4.13.1" = CHANGELOG_4131_1..12, TOC nog
+  4.13.0; nummer 4.13.1 of 4.14.0 kiest Rob — met Labyrinth-splits erin is 4.14.0 logischer, AFGELEID): schouders rood,
+  /shopping/-link, rare-route in gekozen zone, Valeera voor healers, tabblad Solo, Symbiotic-uitleg, versleepbare melding,
+  Hexmask 3/3, platform 2648, knoppen-taal, aantal in koopscherm, niet zoeken tijdens kopen, delve-verhalen in elke taal,
+  Labyrinth-splits; plus vertalingen (clientnamen) zonder changelog-regel. Site-anker #solo staat klaar.
+- **Ideeën op de plank (Rob koos 26 okt eerst splits):** "Jouw Seizoen 2" (Wrapped-overzicht, ook als site-pagina),
+  "Ik heb 20 minuten"-knop, Valeera's dagboek. Niets van gebouwd.
+- **Nog open, klein:** DELVE_TIP_*_BOSS noemt "Why'd it have to be snakes?" in het Engels; fr "Zul'Aman" (client
+  Zul’Aman); niet meetbaar: Hexmask-maskers, Keeper of the Key, Headhunter/Juggernaut buiten es; it "DPS" ≠ client
+  "Assaltatore" (bewust); it-rolwoorden + it/ru splits-zinnen niet door een moedertaalspreker gelezen; Ahn'joli: Rob zei
+  "alles" → mijn advies b (alleen es "Ahn'Joli") gedaan, a/c kan nog.
 - **Battle.net**: .git staat sinds 25 okt in E:\MidnightHelper-git; Rob houdt in de gaten of de nep-updates stoppen.
 - **CurseForge**: auto-update + Overwolf bij opstarten aan; of CurseForge na een herstart echt vanzelf start: niet gezien.
-- **Klein (bijvangst)**: ✅ 26 okt grotendeels gedaan (secties hieronder). Labyrinth-rest: zie "🛎️ 26 okt"; esMX krijgt in
-  PLAYCARD_65_S1/_W1 "Forjador de luz" (esES) i.p.v. "Fragualuz"; esMX ziet "Poder sagrado" (esES-klein) in 32 keys
-  terwijl de esMX-client "Poder Sagrado" schrijft; it "DPS" ≠ client "Assaltatore" (bewust gelaten); de nieuwe
-  it-rolwoorden in lopende tekst zijn niet door een moedertaalspreker gelezen.
 - **Robs ervaring (1 run)**: Kindo'jan als Resto Druid met Valeera op Healer + 3 maskers ging snel; met Tank/DPS 2× dood.
+- **Robs melding 26 okt:** "Internal auction error." zag hij al op 25 okt (vóór de aantal-code), aankoop lukte wel; ook
+  spelers zonder addons zien hem (GEMETEN, bugforum). Meetplan in side-session-notes `ah_internal_error_2026-10-26.md`.
 
 ## 🏁 26 okt (avond) — NIEUW: Labyrinth-splits (Rob: "iets spannends … wat anderen niet hebben?" → "begin maar met nummer 1")
 
