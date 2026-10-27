@@ -3504,3 +3504,72 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   consumables-check · codebase: `Modules/PlayCards.lua:62-364`, `Locales/enUS.lua:1809-1825,1938-1952`,
   `data/vault_stat_catalog.json`, `data/consumables_wowhead.json` — allemaal vandaag gelezen. Geen
   actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-10-27] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-26]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261027a`
+  (en `&nocache=20261027b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren (esES/esMX-locale-fix
+  `user_uvqy5939hswhgduu`, reply `8510682`; MrsBoojiePanda's debug-printregel, reply `8483898`;
+  gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek, reply-keten tot `8095337`/`8092133`)
+  hebben als nieuwste bericht nog steeds een reactie van `twelveinchy` — ids en timestamps
+  byte-identiek aan [2026-10-26]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen
+  concept-antwoord nodig.
+
+- [2026-10-27] ✅ **Nieuwe hotfix-sectie "October 26, 2026" gelezen, vijf content-items getoetst —
+  geen enkele raakt ons, bevestigd via twee onafhankelijke bronnen.** MEASURED:
+  `news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261027a` via Exa,
+  volledig gelezen; toont nu een sectie "October 26, 2026" boven "October 23, 2026" (de datum die
+  [2026-10-26] nog als nieuwste meldde) — nieuwer dan wat gisteren al gelogd stond, dus geen
+  cache-val. Onafhankelijk bevestigd via `bluetracker.gg/wow/topic/us-en/2382684-...-october-26/`
+  (**MEASURED via search, niet zelf gelezen** voor dit exemplaar): dezelfde vier regels woordelijk
+  terug, met post `#135` op `Oct. 27, 2026, 1:01 a.m.` — dat tijdstip verklaart ook waarom
+  [2026-10-26]'s run hem nog niet zag. De API-wachter van vanochtend zag dezelfde batch
+  onafhankelijk (`docs/API_WATCH.md:7424-7462`) en wees de drie Labyrinth-regels en de Hallow's
+  End-kistregel al expliciet aan deze wachter toe — hieronder zelf getoetst, niet overgenomen.
+
+  1. **Shaman Enhancement — Voltaic Blaze raakt nu ook bijstaanders als Ula'tek het hoofddoel is**
+     (gedragsfix tegen één specifieke baas, geen rotatiewijziging). Spell **470057** staat bij ons in
+     `Modules/KeybindAutoMap.lua:23`, `Modules/KeybindingData.lua:206,242` en
+     `Modules/KeybindRoles_Shaman.lua:68` — alleen als rotatie-ID/prioriteit, geen aparte
+     AoE-bewering die deze bugfix zou tegenspreken. MEASURED. **[RAAKT ONS NIET]**.
+  2. **Warlock Affliction — Cooldown Manager toonde Summon Darkglare soms verkeerd.** Dat is
+     Blizzards eigen UI-element; `CooldownManager` en `C_CooldownViewer` geven **0** treffers in de
+     addon (zelf gegrept, zelfde uitkomst als de API-wachter). Spell 205180 staat bij ons alleen als
+     data-ID (`Modules/DpsToolkit.lua:65`, `Modules/KeybindRoles_Warlock.lua:141`), geen
+     weergave-claim die kan breken. MEASURED. **[RAAKT ONS NIET]**.
+  3. **Hallow's End / Neighborhoods — nu maar één kist bij het vangen van Shade of Seabreaker
+     Skoloth.** Gegrept op `Hallow`/`Neighborhood`/`Skoloth`/`Seabreaker` in heel `Locales/` en
+     `Modules/`: **0** treffers over dit wereldevenement. Twee schijntreffers zonder verband
+     gecontroleerd en verworpen: `Modules/TradingPost.lua:216` (verkochte Horseman's-transmog
+     "Hallowed Bulwark") en `Modules/ResetRoutine.lua:196` (huisvesting-weekly "Neighborhood
+     Postmaster") — allebei iets anders dan het Hallow's End-event. **Positieve controle in
+     dezelfde scope:** dezelfde grep-opzet vindt wél `Voltaic`/`Darkglare` elders (punt 1 en 2
+     hierboven), dus het patroon vindt dingen die er zijn — de 0 voor Seabreaker is geen dode
+     zoekopdracht. We zeggen simpelweg niets over dit event. MEASURED. **[RAAKT ONS NIET]**.
+  4. **Labyrinth — drie bugfixes in taken die wij wél beschrijven, geen van de drie spreekt onze
+     tekst tegen.** "The Wandering" (de Remnant bleef soms even stilstaan bij spelersgewoel rond de
+     geest-tether): onze tekst (`Locales/enUS.lua:3627`, `DELVE_TIP_LABYRINTH_ROOMS`) noemt de
+     entiteit alleen als "the spirit" en doet geen bewering over stilstaan. "Containment Breach"
+     (één Flame-of-Jan'alai-brazier telde dubbel voor de "Flames Relit"-voortgang): onze stap 5 zegt
+     "click the one that shows a hand. 4 times" — de telbug maakte het makkelijker, niet moeilijker,
+     en het aantal (4) in onze tekst klopt na de fix nog steeds. "Come to Your Senses" (voltooide
+     soms meermaals buiten de "Encroaching Darkness"-scenario): wij noemen die bonusopdracht niet
+     bij naam, alleen de hoofdtaak ("follow the voices and light 4 flames"). MEASURED (alle drie
+     regels in `Locales/enUS.lua:3627` vandaag zelf opnieuw gelezen, niet uit een aantekening
+     geciteerd). **[RAAKT ONS NIET]** — zuivere bugfixes, geen van de drie verandert een instructie
+     die wij geven.
+  5. **PvP — Paladin Holy: Spreading the Word zette Cleanse niet langer op cooldown bij Blessing of
+     Protection.** PvP-only, en `Spreading the Word` geeft **0** treffers in `Locales/`/`Modules/`
+     (alleen in `docs/PTR_12.0.7_DATA.md`, niet in onze live teksten) — wij hebben geen Paladin-Holy-
+     advies over deze interactie. MEASURED. **[RAAKT ONS NIET]**.
+
+  Vandaag is geen maandag: de wekelijkse PlayCard- en Consumables-checks zijn bewust overgeslagen.
+
+  Bron: `news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261027a` (Exa,
+  volledig gelezen) · `bluetracker.gg/wow/topic/us-en/2382684-...-october-26/` (via Exa-zoekresultaat,
+  niet zelf gefetcht) · `curseforge.com/api/v1/mods/1528577/comments?...` (`nocache=20261027a`/`b`,
+  via Exa) · codebase: `Modules/KeybindAutoMap.lua:23`, `Modules/KeybindingData.lua:193,206,242`,
+  `Modules/KeybindRoles_Shaman.lua:43,68`, `Modules/DpsToolkit.lua:65`,
+  `Modules/KeybindRoles_Warlock.lua:35,141`, `Modules/TradingPost.lua:216`,
+  `Modules/ResetRoutine.lua:196`, `Locales/enUS.lua:3617-3628` — allemaal vandaag gelezen. Geen
+  actiepunt dat ík oppak — ik rapporteer, een mens beslist.
